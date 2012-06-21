@@ -64,9 +64,6 @@ set(
 	include/sge/opencl/memory_object/rect.hpp
 	include/sge/opencl/memory_object/renderer_buffer_lock_mode.hpp
 	include/sge/opencl/memory_object/scoped_objects.hpp
-	include/sge/opencl/memory_object/vector1.hpp
-	include/sge/opencl/memory_object/vector2.hpp
-	include/sge/opencl/memory_object/vector3.hpp
 	include/sge/opencl/platform/extension_sequence.hpp
 	include/sge/opencl/platform/object.hpp
 	include/sge/opencl/platform/object_fwd.hpp
@@ -95,6 +92,9 @@ set(
 	include/sge/opencl/size_type.hpp
 	include/sge/opencl/system.hpp
 	include/sge/opencl/system_fwd.hpp
+	include/sge/opencl/vector1.hpp
+	include/sge/opencl/vector2.hpp
+	include/sge/opencl/vector3.hpp
 	src/opencl/command_queue/enqueue_kernel.cpp
 	src/opencl/command_queue/map_flags_to_native.cpp
 	src/opencl/command_queue/object.cpp

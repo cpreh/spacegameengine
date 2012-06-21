@@ -20,8 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/log/global_context.hpp>
 #include <sge/opencl/clinclude.hpp>
-#include <sge/opencl/system.hpp>
 #include <sge/opencl/dim1.hpp>
+#include <sge/opencl/system.hpp>
 #include <sge/opencl/command_queue/enqueue_kernel.hpp>
 #include <sge/opencl/command_queue/object.hpp>
 #include <sge/opencl/command_queue/scoped.hpp>
@@ -75,6 +75,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/dynamic_pointer_cast.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
@@ -85,7 +86,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/context.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/log/location.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/math/vector/output.hpp>

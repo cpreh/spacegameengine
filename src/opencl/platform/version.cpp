@@ -32,6 +32,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 // TODO: Initialize this directly
 sge::opencl::platform::version::version(
 	std::string const &_version_string)
+:
+	major_(),
+	minor_(),
+	platform_specific_()
 {
 
 // TODO: Use tab indentation
