@@ -84,7 +84,6 @@ set(
 	include/sge/opencl/program/notification_callback_type.hpp
 	include/sge/opencl/program/object.hpp
 	include/sge/opencl/program/object_fwd.hpp
-	include/sge/opencl/program/optional_build_callback.hpp
 	include/sge/opencl/program/optional_build_parameters.hpp
 	include/sge/opencl/program/source_string.hpp
 	include/sge/opencl/program/source_string_sequence.hpp
