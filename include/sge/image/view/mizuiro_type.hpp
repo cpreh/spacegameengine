@@ -23,8 +23,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/basic_format.hpp>
 #include <sge/image/view/mizuiro_access.hpp>
-#include <mizuiro/image/raw_view.hpp>
+#include <mizuiro/color/access/homogenous_raw.hpp>
+#include <mizuiro/color/types/homogenous_raw.hpp>
 #include <mizuiro/image/view_impl.hpp>
+#include <mizuiro/image/access/homogenous.hpp>
+#include <mizuiro/image/access/homogenous_raw.hpp>
+#include <mizuiro/image/types/raw.hpp>
+
 
 
 namespace sge
