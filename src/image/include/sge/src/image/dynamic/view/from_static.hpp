@@ -39,7 +39,7 @@ template<
 	typename View
 >
 typename sge::image::view::element_base<
-	typename dynamic::color::from_static_format_type<
+	typename sge::image::dynamic::color::from_static_format_type<
 		typename View::format::color_format
 	>::type,
 	View::dim::static_size,
@@ -50,7 +50,7 @@ from_static(
 )
 {
 	typedef typename sge::image::view::element_base<
-		typename dynamic::color::from_static_format_type<
+		typename sge::image::dynamic::color::from_static_format_type<
 			typename View::format::color_format
 		>::type,
 		View::dim::static_size,
@@ -66,7 +66,7 @@ from_static(
 			_view.pitch(),
 			typename dest_type::format_store_type(
 				dest_format(
-					typename dest_format::color_format_store_type(
+					typename dest_format::format_store_type(
 						dynamic::color::from_static_format(
 							typename View::format::color_format()
 						)

@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/size_type.hpp>
 #include <mizuiro/image/dimension_impl.hpp>
-#include <mizuiro/image/format.hpp>
 #include <mizuiro/image/interleaved.hpp>
 
 
@@ -33,18 +32,16 @@ namespace image
 {
 
 template<
-	image::size_type Dim,
+	sge::image::size_type Dim,
 	typename ColorFormat
 >
 struct basic_format
 {
-	typedef mizuiro::image::format<
+	typedef mizuiro::image::interleaved<
 		mizuiro::image::dimension<
 			Dim
 		>,
-		mizuiro::image::interleaved<
-			ColorFormat
-		>
+		ColorFormat
 	> type;
 };
 

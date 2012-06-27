@@ -42,9 +42,9 @@ color_layout(
 )
 {
 	return
-		view::image_format(
+		sge::image::dynamic::view::image_format(
 			_view
-		).color_format_store().get()->order;
+		).format_store().get()->order;
 }
 
 }

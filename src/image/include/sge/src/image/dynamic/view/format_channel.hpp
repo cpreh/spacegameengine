@@ -43,7 +43,7 @@ format_channel(
 )
 {
 	return
-		_format.color_format_store().get()->order[
+		_format.format_store().get()->order[
 			_index
 		];
 }
