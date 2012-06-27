@@ -23,6 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/view/checked_sub.hpp>
 #include <sge/src/image/view/checked_sub_any.hpp>
+// TODO: Make proper includes for this
+#include <mizuiro/color/access/homogenous_normal.hpp>
+#include <mizuiro/color/access/homogenous_static.hpp>
+#include <mizuiro/color/types/homogenous.hpp>
+#include <mizuiro/color/types/homogenous_normal.hpp>
+#include <mizuiro/color/types/homogenous_static.hpp>
 
 
 template<

@@ -27,6 +27,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/image/view/to_const_visitor.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
+// TODO: Make proper includes for this
+#include <mizuiro/color/access/homogenous_normal.hpp>
+#include <mizuiro/color/access/homogenous_static.hpp>
+#include <mizuiro/color/types/homogenous.hpp>
+#include <mizuiro/color/types/homogenous_normal.hpp>
+#include <mizuiro/color/types/homogenous_static.hpp>
 
 
 template<

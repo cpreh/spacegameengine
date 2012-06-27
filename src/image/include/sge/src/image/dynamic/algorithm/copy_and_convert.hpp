@@ -30,6 +30,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/image/dynamic/view/from_static_visitor.hpp>
 #include <mizuiro/const_tag.hpp>
 #include <mizuiro/nonconst_tag.hpp>
+// TODO: check which includes we need where
+#include <mizuiro/color/access/homogenous_dynamic.hpp>
+#include <mizuiro/color/access/homogenous_normal.hpp>
+#include <mizuiro/color/types/homogenous_dynamic.hpp>
+#include <mizuiro/color/types/homogenous_normal.hpp>
 #include <fcppt/math/dim/object_decl.hpp>
 #include <fcppt/variant/apply_binary.hpp>
 #include <fcppt/variant/apply_unary.hpp>

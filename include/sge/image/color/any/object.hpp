@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_COLOR_ANY_OBJECT_HPP_INCLUDED
 
 #include <sge/image/symbol.hpp>
+#include <sge/image/color/object_impl.hpp>
 #include <sge/image/color/any/elements.hpp>
 #include <sge/image/color/any/object_fwd.hpp>
 #include <fcppt/variant/object_decl.hpp>
@@ -40,7 +41,7 @@ class object
 {
 public:
 	typedef fcppt::variant::object<
-		any::elements
+		sge::image::color::any::elements
 	> variant;
 
 	SGE_IMAGE_SYMBOL
@@ -72,8 +73,8 @@ private:
 SGE_IMAGE_SYMBOL
 bool
 operator==(
-	any::object const &,
-	any::object const &
+	sge::image::color::any::object const &,
+	sge::image::color::any::object const &
 );
 
 }

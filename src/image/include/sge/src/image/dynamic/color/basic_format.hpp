@@ -23,6 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/src/image/dynamic/color/available_channels.hpp>
 #include <mizuiro/color/homogenous_dynamic.hpp>
+#include <mizuiro/color/access/homogenous_dynamic.hpp>
+#include <mizuiro/color/types/homogenous.hpp>
+#include <mizuiro/color/types/homogenous_dynamic.hpp>
 
 
 namespace sge

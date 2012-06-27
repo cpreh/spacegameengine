@@ -23,5 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/color/object.hpp>
 #include <mizuiro/color/object_impl.hpp>
+#include <mizuiro/color/access/homogenous_normal.hpp>
+#include <mizuiro/color/access/homogenous_static.hpp>
+#include <mizuiro/color/types/homogenous.hpp>
+#include <mizuiro/color/types/homogenous_normal.hpp>
+#include <mizuiro/color/types/homogenous_static.hpp>
+
 
 #endif
