@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_IMAGE_ALGORITHM_PRINT_VISITOR_HPP_INCLUDED
 #define SGE_SRC_IMAGE_ALGORITHM_PRINT_VISITOR_HPP_INCLUDED
 
+#include <mizuiro/color/output.hpp>
 #include <mizuiro/image/algorithm/print.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/io/ostream.hpp>
@@ -41,11 +42,14 @@ class print_visitor
 public:
 	typedef void result_type;
 
-	explicit print_visitor(
+	explicit
+	print_visitor(
 		fcppt::io::ostream &_ostream
 	)
 	:
-		ostream_(_ostream)
+		ostream_(
+			_ostream
+		)
 	{
 	}
 
