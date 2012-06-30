@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/onscreen_surface.hpp>
 #include <sge/opengl/onscreen_target.hpp>
 #include <sge/opengl/device_state/object.hpp>
+#include <sge/renderer/color_surface_fwd.hpp>
 #include <sge/renderer/pixel_rect.hpp>
+#include <sge/renderer/screen_unit.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <awl/window/object_fwd.hpp>
@@ -31,11 +33,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::opengl::onscreen_target::onscreen_target(
+	sge::opengl::context::device::object &_context,
 	sge::opengl::device_state::object &_device_state,
 	awl::window::object &_window
 )
 :
 	base(
+		_context,
 		sge::renderer::target::viewport(
 			sge::renderer::pixel_rect::null()
 		)
@@ -78,7 +82,8 @@ sge::opengl::onscreen_target::end_rendering()
 sge::renderer::color_surface const &
 sge::opengl::onscreen_target::surface() const
 {
-	return *main_surface_;
+	return
+		*main_surface_;
 }
 
 sge::renderer::screen_unit
@@ -86,7 +91,7 @@ sge::opengl::onscreen_target::height() const
 {
 	return
 		static_cast<
-			renderer::screen_unit
+			sge::renderer::screen_unit
 		>(
 			main_surface_->size().h()
 		);

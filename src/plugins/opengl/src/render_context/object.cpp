@@ -63,6 +63,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/default.hpp>
 #include <sge/renderer/state/list_fwd.hpp>
 #include <sge/renderer/target/base.hpp>
+#include <sge/renderer/target/offscreen.hpp>
+#include <sge/renderer/target/optional_offscreen_ref.hpp>
 #include <sge/renderer/texture/address_mode_s.hpp>
 #include <sge/renderer/texture/address_mode_t.hpp>
 #include <sge/renderer/texture/address_mode_u.hpp>
@@ -73,6 +75,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/stage_op.hpp>
 #include <sge/renderer/texture/stage_op_value.hpp>
 #include <sge/renderer/texture/filter/object_fwd.hpp>
+#include <fcppt/dynamic_optional_cast.hpp>
+#include <fcppt/assert/pre.hpp>
 
 #if defined(SGE_RENDERER_HAVE_CG)
 #include <sge/opengl/cg/program/activate.hpp>
@@ -113,7 +117,8 @@ sge::opengl::render_context::object::object(
 		>(
 			target_
 		)
-	)
+	),
+	offscreen_target_()
 {
 	this->state(
 		sge::renderer::state::default_()
@@ -145,6 +150,45 @@ sge::opengl::render_context::object::clear(
 	sge::opengl::clear::set(
 		_parameters
 	);
+}
+
+void
+sge::opengl::render_context::object::offscreen_target(
+	sge::renderer::target::optional_offscreen_ref const &_new_target
+)
+{
+	if(
+		_new_target
+	)
+	{
+		FCPPT_ASSERT_PRE(
+			!offscreen_target_
+		);
+
+		scoped_target_.target().unbind();
+
+		offscreen_target_ =
+			fcppt::dynamic_optional_cast<
+				sge::opengl::target_base
+			>(
+				_new_target
+			);
+
+		offscreen_target_->bind();
+	}
+	else
+	{
+		FCPPT_ASSERT_PRE(
+			offscreen_target_
+		);
+
+		offscreen_target_->unbind();
+
+		offscreen_target_ =
+			sge::opengl::optional_target_base_ref();
+
+		scoped_target_.target().bind();
+	}
 }
 
 void

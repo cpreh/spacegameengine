@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/class_symbol.hpp>
 #include <sge/renderer/symbol.hpp>
+#include <sge/renderer/clear/parameters_fwd.hpp>
 #include <sge/renderer/target/base_fwd.hpp>
 #include <sge/renderer/target/scissor_area_fwd.hpp>
 #include <sge/renderer/target/viewport_fwd.hpp>
@@ -99,6 +100,12 @@ public:
 	virtual
 	sge::renderer::target::scissor_area const
 	scissor_area() const = 0;
+
+	virtual
+	void
+	clear(
+		sge::renderer::clear::parameters const &
+	) = 0;
 
 	SGE_RENDERER_SYMBOL
 	virtual

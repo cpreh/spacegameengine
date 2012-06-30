@@ -70,6 +70,8 @@ set(
 	include/sge/renderer/context/object_unique_ptr.hpp
 	include/sge/renderer/context/scoped.hpp
 	include/sge/renderer/context/scoped_fwd.hpp
+	include/sge/renderer/context/scoped_offscreen_target.hpp
+	include/sge/renderer/context/scoped_offscreen_target_fwd.hpp
 	include/sge/renderer/create_index_buffer_from_view.hpp
 	include/sge/renderer/create_vertex_buffer_from_view.hpp
 	include/sge/renderer/depth_buffer_bits.hpp
@@ -324,6 +326,8 @@ set(
 	include/sge/renderer/target/offscreen_unique_ptr.hpp
 	include/sge/renderer/target/onscreen.hpp
 	include/sge/renderer/target/onscreen_fwd.hpp
+	include/sge/renderer/target/optional_offscreen_ref.hpp
+	include/sge/renderer/target/optional_offscreen_ref_fwd.hpp
 	include/sge/renderer/target/scissor_area.hpp
 	include/sge/renderer/target/scissor_area_fwd.hpp
 	include/sge/renderer/target/scoped_fwd.hpp
@@ -581,6 +585,7 @@ set(
 	src/renderer/const_scoped_vertex_lock.cpp
 	src/renderer/context/object.cpp
 	src/renderer/context/scoped.cpp
+	src/renderer/context/scoped_offscreen_target.cpp
 	src/renderer/create_index_buffer_from_view.cpp
 	src/renderer/create_vertex_buffer_from_view.cpp
 	src/renderer/depth_buffer_bits.cpp

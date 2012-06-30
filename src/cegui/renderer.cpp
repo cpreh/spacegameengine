@@ -145,6 +145,17 @@ sge::cegui::renderer::render_context(
 		it->render_context(
 			_render_context
 		);
+
+	for(
+		sge::cegui::renderer::texture_target_sequence::iterator it(
+			texture_targets_.begin()
+		);
+		it != texture_targets_.end();
+		++it
+	)
+		it->render_context(
+			_render_context
+		);
 }
 
 CEGUI::RenderingRoot &

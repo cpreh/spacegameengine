@@ -43,6 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/light/object_fwd.hpp>
 #include <sge/renderer/state/list_fwd.hpp>
 #include <sge/renderer/target/base_fwd.hpp>
+#include <sge/renderer/target/optional_offscreen_ref_fwd.hpp>
 #include <sge/renderer/texture/address_mode_s.hpp>
 #include <sge/renderer/texture/address_mode_t.hpp>
 #include <sge/renderer/texture/address_mode_u.hpp>
@@ -81,6 +82,9 @@ public:
 	virtual
 	~object() = 0;
 
+	/**
+	\brief The target that has been used to create this context
+	*/
 	virtual
 	sge::renderer::target::base &
 	target() = 0;
@@ -89,6 +93,15 @@ public:
 	void
 	clear(
 		sge::renderer::clear::parameters const &
+	) = 0;
+
+	/**
+	\brief Allows temporary substitution of the current target
+	*/
+	virtual
+	void
+	offscreen_target(
+		sge::renderer::target::optional_offscreen_ref const &
 	) = 0;
 
 	/**

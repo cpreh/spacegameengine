@@ -22,9 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_BASIC_TARGET_IMPL_HPP_INCLUDED
 
 #include <sge/opengl/basic_target.hpp>
+#include <sge/opengl/optional_target_base_ref.hpp>
 #include <sge/opengl/set_scissor_area.hpp>
 #include <sge/opengl/target_base.hpp>
+#include <sge/opengl/target_context.hpp>
 #include <sge/opengl/viewport.hpp>
+#include <sge/opengl/clear/set.hpp>
+#include <sge/opengl/context/use.hpp>
+#include <sge/opengl/context/device/object_fwd.hpp>
 #include <sge/renderer/target/scissor_area.hpp>
 #include <sge/renderer/target/viewport.hpp>
 
@@ -35,11 +40,19 @@ template<
 sge::opengl::basic_target<
 	Base
 >::basic_target(
+	sge::opengl::context::device::object &_context,
 	sge::renderer::target::viewport const &_viewport
 )
 :
 	Base(),
 	sge::opengl::target_base(),
+	context_(
+		sge::opengl::context::use<
+			sge::opengl::target_context
+		>(
+			_context
+		)
+	),
 	active_(
 		false
 	),
@@ -78,6 +91,12 @@ sge::opengl::basic_target<
 	this->set_viewport();
 
 	this->set_scissor_area();
+
+	context_.last_target(
+		sge::opengl::optional_target_base_ref(
+			*this
+		)
+	);
 }
 
 template<
@@ -91,6 +110,10 @@ sge::opengl::basic_target<
 	active_ = false;
 
 	this->on_unbind();
+
+	context_.last_target(
+		sge::opengl::optional_target_base_ref()
+	);
 }
 
 template<
@@ -149,6 +172,37 @@ sge::opengl::basic_target<
 >::scissor_area() const
 {
 	return scissor_area_;
+}
+
+template<
+	typename Base
+>
+void
+sge::opengl::basic_target<
+	Base
+>::clear(
+	sge::renderer::clear::parameters const &_param
+)
+{
+	sge::opengl::optional_target_base_ref const last_target(
+		context_.last_target()
+	);
+
+	if(
+		last_target
+	)
+		last_target->unbind();
+
+	this->bind();
+
+	sge::opengl::clear::set(
+		_param
+	);
+
+	if(
+		last_target
+	)
+		last_target->bind();
 }
 
 template<

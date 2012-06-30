@@ -18,18 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TARGET_BASE_FWD_HPP_INCLUDED
-#define SGE_OPENGL_TARGET_BASE_FWD_HPP_INCLUDED
+#include <sge/opengl/optional_target_base_ref.hpp>
+#include <sge/opengl/target_context.hpp>
+#include <sge/opengl/context/device/base.hpp>
+#include <sge/opengl/context/device/id.hpp>
+#include <sge/opengl/context/device/make_id.hpp>
 
 
-namespace sge
+sge::opengl::target_context::target_context()
+:
+	last_target_()
 {
-namespace opengl
+}
+
+sge::opengl::target_context::~target_context()
 {
-
-class target_base;
-
-}
 }
 
-#endif
+sge::opengl::optional_target_base_ref const &
+sge::opengl::target_context::last_target()
+{
+	return
+		last_target_;
+}
+
+void
+sge::opengl::target_context::last_target(
+	sge::opengl::optional_target_base_ref const &_target
+)
+{
+	last_target_ =
+		_target;
+}
+
+sge::opengl::context::device::id const
+sge::opengl::target_context::static_id(
+	sge::opengl::context::device::make_id()
+);

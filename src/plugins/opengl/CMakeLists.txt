@@ -172,6 +172,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/onscreen_target.hpp
 	src/plugins/opengl/include/sge/opengl/onscreen_target_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/onscreen_target_ptr.hpp
+	src/plugins/opengl/include/sge/opengl/optional_target_base_ref.hpp
 	src/plugins/opengl/include/sge/opengl/point_sprite_context.hpp
 	src/plugins/opengl/include/sge/opengl/point_sprite_context_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/range_check.hpp
@@ -234,6 +235,8 @@ set(
 	src/plugins/opengl/include/sge/opengl/target_base.hpp
 	src/plugins/opengl/include/sge/opengl/target_base_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/target_base_ptr.hpp
+	src/plugins/opengl/include/sge/opengl/target_context.hpp
+	src/plugins/opengl/include/sge/opengl/target_context_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/activate.hpp
 	src/plugins/opengl/include/sge/opengl/texture/address_mode/context.hpp
 	src/plugins/opengl/include/sge/opengl/texture/address_mode/context_fwd.hpp
@@ -569,6 +572,7 @@ set(
 	src/plugins/opengl/src/state/visitor.cpp
 	src/plugins/opengl/src/system.cpp
 	src/plugins/opengl/src/target_base.cpp
+	src/plugins/opengl/src/target_context.cpp
 	src/plugins/opengl/src/texture/activate.cpp
 	src/plugins/opengl/src/texture/address_mode/context.cpp
 	src/plugins/opengl/src/texture/address_mode/default.cpp

@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TARGET_BASE_FWD_HPP_INCLUDED
-#define SGE_OPENGL_TARGET_BASE_FWD_HPP_INCLUDED
+#ifndef SGE_OPENGL_TARGET_CONTEXT_FWD_HPP_INCLUDED
+#define SGE_OPENGL_TARGET_CONTEXT_FWD_HPP_INCLUDED
 
 
 namespace sge
@@ -27,7 +27,7 @@ namespace sge
 namespace opengl
 {
 
-class target_base;
+class target_context;
 
 }
 }

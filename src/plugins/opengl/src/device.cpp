@@ -124,6 +124,9 @@ sge::opengl::device::device(
 			sge::opengl::onscreen_target
 		>(
 			fcppt::ref(
+				device_context_
+			),
+			fcppt::ref(
 				*device_state_
 			),
 			fcppt::ref(

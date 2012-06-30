@@ -27,15 +27,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/context/object.hpp>
-#include <sge/renderer/context/scoped.hpp>
+#include <sge/renderer/context/scoped_offscreen_target.hpp>
 #include <sge/renderer/projection/far.hpp>
 #include <sge/renderer/projection/near.hpp>
 #include <sge/renderer/projection/orthogonal.hpp>
 #include <sge/renderer/projection/rect.hpp>
-#include <sge/renderer/state/bool.hpp>
-#include <sge/renderer/state/list.hpp>
-#include <sge/renderer/state/scoped.hpp>
-#include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/target/offscreen.hpp>
 #include <sge/renderer/target/surface_index.hpp>
 #include <sge/renderer/target/viewport.hpp>
@@ -44,6 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <sge/src/cegui/declare_local_logger.hpp>
+#include <sge/src/cegui/optional_render_context_ref.hpp>
 #include <sge/src/cegui/texture.hpp>
 #include <sge/src/cegui/texture_target.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -73,8 +70,9 @@ sge::cegui::texture_target::texture_target(
 	target_(
 		texture_parameters_.renderer().create_target()
 	),
-	texture_(),
 	render_context_(),
+	texture_(),
+	scoped_target_(),
 	// This is exactly what cegui does and it avoids certain bugs :/
 	area_(0,0,0,0),
 	default_projection_(
@@ -88,6 +86,15 @@ sge::cegui::texture_target::texture_target(
 
 sge::cegui::texture_target::~texture_target()
 {
+}
+
+void
+sge::cegui::texture_target::render_context(
+	sge::cegui::optional_render_context_ref const &_render_context
+)
+{
+	render_context_ =
+		_render_context;
 }
 
 void
@@ -151,27 +158,38 @@ sge::cegui::texture_target::activate()
 		local_log,
 		fcppt::log::_ << FCPPT_TEXT("texture_target(") << this << FCPPT_TEXT(")::activate()"));
 
+	FCPPT_ASSERT_PRE(
+		render_context_
+	);
+
+	FCPPT_ASSERT_PRE(
+		!scoped_target_
+	);
+
+	scoped_target_.take(
+		fcppt::make_unique_ptr<
+			sge::renderer::context::scoped_offscreen_target
+		>(
+			fcppt::ref(
+				*render_context_
+			),
+			fcppt::ref(
+				*target_
+			)
+		)
+	);
+
 	target_->viewport(
 		sge::renderer::target::viewport(
-			structure_cast<sge::renderer::pixel_rect>(
-				area_)));
-	if(
-		!render_context_
-	)
-		render_context_.take(
-			fcppt::make_unique_ptr<
-				sge::renderer::context::scoped
+			sge::cegui::structure_cast<
+				sge::renderer::pixel_rect
 			>(
-				fcppt::ref(
-					texture_parameters_.renderer()
-				),
-				fcppt::ref(
-					*target_
-				)
+				area_
 			)
-		);
+		)
+	);
 
-	render_context_->get().transform(
+	render_context_->transform(
 		sge::renderer::matrix_mode::projection,
 		sge::renderer::projection::orthogonal(
 			sge::cegui::structure_cast<
@@ -205,12 +223,20 @@ sge::cegui::texture_target::deactivate()
 	)
 		return;
 
-	render_context_->get().transform(
+	FCPPT_ASSERT_PRE(
+		scoped_target_
+	);
+
+	FCPPT_ASSERT_PRE(
+		render_context_
+	);
+
+	render_context_->transform(
 		sge::renderer::matrix_mode::projection,
 		default_projection_
 	);
 
-	render_context_.reset();
+	scoped_target_.reset();
 }
 
 void
@@ -235,37 +261,30 @@ sge::cegui::texture_target::clear()
 	if (texture_->empty())
 		return;
 
-	if(
-		!render_context_
-	)
-		render_context_.take(
-			fcppt::make_unique_ptr<
-				sge::renderer::context::scoped
-			>(
-				fcppt::ref(
-					texture_parameters_.renderer()
-				),
-				fcppt::ref(
-					*target_
-				)
-			)
-		);
+	// Make sure we clear everything
 
-	sge::renderer::state::scoped const scoped_state(
-		render_context_->get(),
-		sge::renderer::state::list
-			(sge::renderer::state::bool_::enable_scissor_test = false)
+	sge::renderer::pixel_rect const rect(
+		sge::renderer::pixel_rect::vector::null(),
+		fcppt::math::dim::structure_cast<
+			sge::renderer::pixel_rect::dim
+		>(
+			texture_->impl().size()
+		)
 	);
 
-	// Make sure we clear everything
 	target_->viewport(
 		sge::renderer::target::viewport(
-			sge::renderer::pixel_rect(
-				sge::renderer::pixel_rect::vector::null(),
-				fcppt::math::dim::structure_cast<sge::renderer::pixel_rect::dim>(
-					texture_->impl().size()))));
+			rect
+		)
+	);
 
-	render_context_->get().clear(
+	target_->scissor_area(
+		sge::renderer::target::scissor_area(
+			rect
+		)
+	);
+
+	target_->clear(
 		sge::renderer::clear::parameters()
 		.back_buffer(
 			sge::image::colors::transparent()

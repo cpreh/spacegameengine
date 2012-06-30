@@ -18,18 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TARGET_BASE_FWD_HPP_INCLUDED
-#define SGE_OPENGL_TARGET_BASE_FWD_HPP_INCLUDED
+#include <sge/renderer/context/object.hpp>
+#include <sge/renderer/context/scoped_offscreen_target.hpp>
+#include <sge/renderer/target/offscreen_fwd.hpp>
+#include <sge/renderer/target/optional_offscreen_ref.hpp>
 
 
-namespace sge
+sge::renderer::context::scoped_offscreen_target::scoped_offscreen_target(
+	sge::renderer::context::object &_context,
+	sge::renderer::target::offscreen &_target
+)
+:
+	context_(
+		_context
+	)
 {
-namespace opengl
+	context_.offscreen_target(
+		sge::renderer::target::optional_offscreen_ref(
+			_target
+		)
+	);
+}
+
+sge::renderer::context::scoped_offscreen_target::~scoped_offscreen_target()
 {
-
-class target_base;
-
+	context_.offscreen_target(
+		sge::renderer::target::optional_offscreen_ref()
+	);
 }
-}
-
-#endif

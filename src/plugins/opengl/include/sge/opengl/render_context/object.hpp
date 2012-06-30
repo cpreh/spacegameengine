@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_RENDER_CONTEXT_OBJECT_HPP_INCLUDED
 #define SGE_OPENGL_RENDER_CONTEXT_OBJECT_HPP_INCLUDED
 
+#include <sge/opengl/optional_target_base_ref.hpp>
 #include <sge/opengl/context/device/object_fwd.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/render_context/scoped_target.hpp>
@@ -47,6 +48,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/stack.hpp>
 #include <sge/renderer/target/base_fwd.hpp>
+#include <sge/renderer/target/optional_offscreen_ref_fwd.hpp>
 #include <sge/renderer/texture/address_mode_s.hpp>
 #include <sge/renderer/texture/address_mode_t.hpp>
 #include <sge/renderer/texture/address_mode_u.hpp>
@@ -98,6 +100,11 @@ private:
 	void
 	clear(
 		sge::renderer::clear::parameters const &
+	);
+
+	void
+	offscreen_target(
+		sge::renderer::target::optional_offscreen_ref const &
 	);
 
 	void
@@ -259,6 +266,8 @@ private:
 	sge::renderer::state::stack state_levels_;
 
 	sge::opengl::render_context::scoped_target const scoped_target_;
+
+	sge::opengl::optional_target_base_ref offscreen_target_;
 };
 
 }

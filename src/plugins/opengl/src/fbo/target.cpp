@@ -70,6 +70,7 @@ sge::opengl::fbo::target::target(
 )
 :
 	base(
+		_device_context,
 		sge::renderer::target::viewport(
 			sge::renderer::pixel_rect::null()
 		)
