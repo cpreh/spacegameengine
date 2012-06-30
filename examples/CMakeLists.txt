@@ -266,6 +266,12 @@ add_sge_example(
 #)
 
 add_sge_example(
+	raw_view
+	""
+	"${Fcppt_core_LIBRARIES}"
+)
+
+add_sge_example(
 	screenshot
 	"sgeconfig;sgeimage;sgeimage2d;sgeinput;sgerenderer;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
