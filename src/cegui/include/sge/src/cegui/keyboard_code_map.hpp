@@ -33,6 +33,7 @@ namespace sge
 {
 namespace cegui
 {
+
 typedef
 fcppt::container::map
 <
@@ -43,6 +44,7 @@ fcppt::container::map
 	>
 >
 keyboard_code_map;
+
 }
 }
 

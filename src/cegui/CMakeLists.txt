@@ -9,20 +9,7 @@ set(
 	include/sge/cegui/default_cursor.hpp
 	include/sge/cegui/default_font.hpp
 	include/sge/cegui/default_keyboard.hpp
-	include/sge/cegui/detail/batch.hpp
-	include/sge/cegui/detail/cegui_logger.hpp
-	include/sge/cegui/detail/default_target.hpp
-	include/sge/cegui/detail/geometry_buffer.hpp
-	include/sge/cegui/detail/image_codec.hpp
-	include/sge/cegui/detail/image_codec_fwd.hpp
-	include/sge/cegui/detail/renderer.hpp
-	include/sge/cegui/detail/renderer_fwd.hpp
-	include/sge/cegui/detail/resource_provider.hpp
-	include/sge/cegui/detail/resource_provider_fwd.hpp
-	include/sge/cegui/detail/scoped_system.hpp
-	include/sge/cegui/detail/texture.hpp
-	include/sge/cegui/detail/texture_fwd.hpp
-	include/sge/cegui/detail/texture_target.hpp
+	include/sge/cegui/detail/system_impl_fwd.hpp
 	include/sge/cegui/duration.hpp
 	include/sge/cegui/exception.hpp
 	include/sge/cegui/from_cegui_string.hpp
@@ -41,40 +28,68 @@ set(
 	include/sge/cegui/toolbox/scoped_gui_sheet.hpp
 	include/sge/cegui/toolbox/scoped_layout.hpp
 	include/sge/cegui/unit.hpp
-	include/sge/cegui/vf/color.hpp
-	include/sge/cegui/vf/format.hpp
-	include/sge/cegui/vf/part.hpp
-	include/sge/cegui/vf/position.hpp
-	include/sge/cegui/vf/texcoord.hpp
-	include/sge/cegui/vf/vertex_view.hpp
+	src/cegui/batch.cpp
+	src/cegui/cegui_logger.cpp
 	src/cegui/cursor_button_translation.cpp
 	src/cegui/default_cursor.cpp
 	src/cegui/default_font.cpp
 	src/cegui/default_keyboard.cpp
-	src/cegui/detail/batch.cpp
-	src/cegui/detail/cegui_logger.cpp
-	src/cegui/detail/default_target.cpp
-	src/cegui/detail/geometry_buffer.cpp
-	src/cegui/detail/image_codec.cpp
-	src/cegui/detail/renderer.cpp
-	src/cegui/detail/resource_provider.cpp
-	src/cegui/detail/scoped_system.cpp
-	src/cegui/detail/texture.cpp
-	src/cegui/detail/texture_target.cpp
+	src/cegui/default_target.cpp
+	src/cegui/detail/system_impl.cpp
 	src/cegui/exception.cpp
 	src/cegui/from_cegui_string.cpp
+	src/cegui/geometry_buffer.cpp
+	src/cegui/image_codec.cpp
+	src/cegui/include/sge/src/cegui/batch.hpp
+	src/cegui/include/sge/src/cegui/cegui_logger.hpp
 	src/cegui/include/sge/src/cegui/cursor_button_map.hpp
 	src/cegui/include/sge/src/cegui/cursor_button_translation.hpp
 	src/cegui/include/sge/src/cegui/declare_local_logger.hpp
+	src/cegui/include/sge/src/cegui/default_target.hpp
+	src/cegui/include/sge/src/cegui/detail/system_impl.hpp
+	src/cegui/include/sge/src/cegui/geometry_buffer.hpp
+	src/cegui/include/sge/src/cegui/geometry_buffer_fwd.hpp
+	src/cegui/include/sge/src/cegui/image_codec.hpp
+	src/cegui/include/sge/src/cegui/image_codec_fwd.hpp
 	src/cegui/include/sge/src/cegui/keyboard_code_map.hpp
 	src/cegui/include/sge/src/cegui/keyboard_code_translation.hpp
 	src/cegui/include/sge/src/cegui/log_location.hpp
+	src/cegui/include/sge/src/cegui/optional_render_context_ref.hpp
+	src/cegui/include/sge/src/cegui/optional_render_context_ref_fwd.hpp
+	src/cegui/include/sge/src/cegui/prefix.hpp
+	src/cegui/include/sge/src/cegui/renderer.hpp
+	src/cegui/include/sge/src/cegui/renderer_fwd.hpp
+	src/cegui/include/sge/src/cegui/resource_provider.hpp
+	src/cegui/include/sge/src/cegui/resource_provider_fwd.hpp
+	src/cegui/include/sge/src/cegui/scoped_render_context.hpp
+	src/cegui/include/sge/src/cegui/scoped_system.hpp
+	src/cegui/include/sge/src/cegui/texture.hpp
+	src/cegui/include/sge/src/cegui/texture_fwd.hpp
+	src/cegui/include/sge/src/cegui/texture_parameters.hpp
+	src/cegui/include/sge/src/cegui/texture_parameters_fwd.hpp
+	src/cegui/include/sge/src/cegui/texture_target.hpp
+	src/cegui/include/sge/src/cegui/texture_target_fwd.hpp
+	src/cegui/include/sge/src/cegui/to_absolute_path.hpp
+	src/cegui/include/sge/src/cegui/vf/color.hpp
+	src/cegui/include/sge/src/cegui/vf/format.hpp
+	src/cegui/include/sge/src/cegui/vf/part.hpp
+	src/cegui/include/sge/src/cegui/vf/position.hpp
+	src/cegui/include/sge/src/cegui/vf/texcoord.hpp
+	src/cegui/include/sge/src/cegui/vf/vertex_view.hpp
 	src/cegui/keyboard_code_translation.cpp
 	src/cegui/load_context.cpp
 	src/cegui/log_location.cpp
 	src/cegui/logger.cpp
+	src/cegui/renderer.cpp
+	src/cegui/resource_provider.cpp
+	src/cegui/scoped_render_context.cpp
+	src/cegui/scoped_system.cpp
 	src/cegui/syringe.cpp
 	src/cegui/system.cpp
+	src/cegui/texture.cpp
+	src/cegui/texture_parameters.cpp
+	src/cegui/texture_target.cpp
+	src/cegui/to_absolute_path.cpp
 	src/cegui/to_cegui_color.cpp
 	src/cegui/to_cegui_string.cpp
 	src/cegui/toolbox/append_row.cpp

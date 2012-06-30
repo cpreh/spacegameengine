@@ -9,6 +9,8 @@ set(
 	include/sge/renderer/basic_lock_box.hpp
 	include/sge/renderer/basic_lock_box_fwd.hpp
 	include/sge/renderer/basic_scoped_buffer_lock.hpp
+	include/sge/renderer/basic_vector.hpp
+	include/sge/renderer/basic_vector_fwd.hpp
 	include/sge/renderer/bit_count.hpp
 	include/sge/renderer/bit_depth.hpp
 	include/sge/renderer/bit_depth_bits.hpp
@@ -349,6 +351,7 @@ set(
 	include/sge/renderer/texture/basic_scoped_lock.hpp
 	include/sge/renderer/texture/capabilities.hpp
 	include/sge/renderer/texture/capabilities_field.hpp
+	include/sge/renderer/texture/capabilities_field_fwd.hpp
 	include/sge/renderer/texture/const_basic_scoped_lock.hpp
 	include/sge/renderer/texture/const_optional_base_ref.hpp
 	include/sge/renderer/texture/const_optional_base_ref_fwd.hpp
@@ -438,8 +441,11 @@ set(
 	include/sge/renderer/texture/volume_unique_ptr.hpp
 	include/sge/renderer/unsupported.hpp
 	include/sge/renderer/vector2.hpp
+	include/sge/renderer/vector2_fwd.hpp
 	include/sge/renderer/vector3.hpp
+	include/sge/renderer/vector3_fwd.hpp
 	include/sge/renderer/vector4.hpp
+	include/sge/renderer/vector4_fwd.hpp
 	include/sge/renderer/vertex_buffer.hpp
 	include/sge/renderer/vertex_buffer_fwd.hpp
 	include/sge/renderer/vertex_buffer_scoped_ptr.hpp

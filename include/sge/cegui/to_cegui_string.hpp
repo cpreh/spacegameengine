@@ -33,10 +33,14 @@ namespace sge
 {
 namespace cegui
 {
-SGE_CEGUI_SYMBOL CEGUI::String const
+
+SGE_CEGUI_SYMBOL
+CEGUI::String const
 to_cegui_string(
 	fcppt::string const &,
-	sge::charconv::system &);
+	sge::charconv::system &
+);
+
 }
 }
 

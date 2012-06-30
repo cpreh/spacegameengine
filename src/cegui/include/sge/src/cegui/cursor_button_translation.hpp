@@ -28,8 +28,10 @@ namespace sge
 {
 namespace cegui
 {
-cursor_button_map const &
+
+sge::cegui::cursor_button_map const &
 cursor_button_translation();
+
 }
 }
 

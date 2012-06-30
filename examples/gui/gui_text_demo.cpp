@@ -41,14 +41,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/display_mode.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
-#include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/refresh_rate_dont_care.hpp>
-#include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/vsync.hpp>
 #include <sge/renderer/windowed.hpp>
 #include <sge/renderer/clear/parameters.hpp>
+#include <sge/renderer/context/object.hpp>
+#include <sge/renderer/context/scoped.hpp>
+#include <sge/renderer/target/onscreen.hpp>
 #include <sge/systems/charconv.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/image2d.hpp>
@@ -160,7 +161,7 @@ try
 		sge::cegui::cursor_visibility::visible);
 
 	sge::cegui::syringe gui_syringe(
-		gui_sys);
+		sys.charconv_system());
 
 	sge::cegui::default_cursor gui_cursor(
 		gui_syringe,
@@ -195,17 +196,21 @@ try
 
 		frame_timer.reset();
 
-		sys.renderer().onscreen_target().clear(
+		sge::renderer::context::scoped const scoped_block(
+			sys.renderer(),
+			sys.renderer().onscreen_target()
+		);
+
+		scoped_block.get().clear(
 			sge::renderer::clear::parameters()
 			.back_buffer(
 				sge::image::colors::red()
 			)
 		);
 
-		sge::renderer::scoped_block const scoped_block(
-			sys.renderer());
-
-		gui_sys.render();
+		gui_sys.render(
+			scoped_block.get()
+		);
 	}
 
 	return

@@ -31,9 +31,14 @@ namespace sge
 {
 namespace cegui
 {
+
 typedef
-boost::chrono::duration<cegui::unit>
+boost::chrono::duration
+<
+	sge::cegui::unit
+>
 duration;
+
 }
 }
 

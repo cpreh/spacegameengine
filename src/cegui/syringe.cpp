@@ -18,12 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/cegui/syringe.hpp>
-#include <sge/cegui/system.hpp>
-#include <sge/cegui/unit.hpp>
 #include <sge/charconv/convert.hpp>
 #include <sge/charconv/encoding.hpp>
 #include <sge/charconv/string_type.hpp>
+#include <sge/charconv/system_fwd.hpp>
+#include <sge/cegui/syringe.hpp>
+#include <sge/cegui/system.hpp>
+#include <sge/cegui/unit.hpp>
 #include <sge/input/cursor/button_event.hpp>
 #include <sge/input/cursor/move_event.hpp>
 #include <sge/input/keyboard/char_event.hpp>
@@ -42,15 +43,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 SGE_CEGUI_DECLARE_LOCAL_LOGGER(
-	FCPPT_TEXT("syringe"))
+	FCPPT_TEXT("syringe")
+)
 
 sge::cegui::syringe::syringe(
-	system &_system)
+	sge::charconv::system &_charconv_system
+)
 :
-	system_(
-		_system),
 	charconv_system_(
-		system_.charconv_system())
+		_charconv_system
+	)
+{
+}
+
+sge::cegui::syringe::~syringe()
 {
 }
 

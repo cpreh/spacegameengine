@@ -33,9 +33,13 @@ namespace cegui
 {
 namespace toolbox
 {
+
 typedef
-std::vector<CEGUI::String>
+std::vector<
+	CEGUI::String
+>
 row;
+
 }
 }
 }

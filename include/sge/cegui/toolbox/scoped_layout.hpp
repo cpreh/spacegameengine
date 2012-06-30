@@ -30,7 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-
 namespace CEGUI
 {
 class Window;
@@ -42,26 +41,32 @@ namespace cegui
 {
 namespace toolbox
 {
+
 class scoped_layout
 {
-FCPPT_NONCOPYABLE(
-	scoped_layout);
+	FCPPT_NONCOPYABLE(
+		scoped_layout
+	);
 public:
-	SGE_CEGUI_SYMBOL explicit
+	SGE_CEGUI_SYMBOL
 	scoped_layout(
-		cegui::system &,
+		sge::cegui::system &,
 		boost::filesystem::path const &,
-		sge::charconv::system &);
+		sge::charconv::system &
+	);
 
-	SGE_CEGUI_SYMBOL ~scoped_layout();
+	SGE_CEGUI_SYMBOL
+	~scoped_layout();
 
 	SGE_CEGUI_SYMBOL
 	CEGUI::Window &
 	window() const;
 private:
-	cegui::system &system_;
+	sge::cegui::system &system_;
+
 	CEGUI::Window *const window_;
 };
+
 }
 }
 }

@@ -21,24 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TEXTURE_CAPABILITIES_FIELD_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_CAPABILITIES_FIELD_HPP_INCLUDED
 
-#include <sge/renderer/texture/capabilities.hpp>
-#include <fcppt/container/bitfield/object_fwd.hpp>
+#include <sge/renderer/texture/capabilities_field_fwd.hpp>
+#include <fcppt/container/bitfield/object_impl.hpp>
 
-
-namespace sge
-{
-namespace renderer
-{
-namespace texture
-{
-
-typedef fcppt::container::bitfield::object<
-	texture::capabilities::type,
-	texture::capabilities::size
-> capabilities_field;
-
-}
-}
-}
 
 #endif

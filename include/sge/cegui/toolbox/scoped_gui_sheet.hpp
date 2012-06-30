@@ -45,7 +45,7 @@ class scoped_gui_sheet
 	);
 public:
 	SGE_CEGUI_SYMBOL
-	explicit scoped_gui_sheet(
+	scoped_gui_sheet(
 		cegui::system &,
 		CEGUI::Window &
 	);

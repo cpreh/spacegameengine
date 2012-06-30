@@ -33,6 +33,7 @@ namespace sge
 {
 namespace cegui
 {
+
 typedef
 fcppt::container::map
 <
@@ -43,6 +44,7 @@ fcppt::container::map
 	>
 >
 cursor_button_map;
+
 }
 }
 

@@ -29,8 +29,11 @@ namespace sge
 {
 namespace cegui
 {
-SGE_CEGUI_SYMBOL fcppt::log::object &
+
+SGE_CEGUI_SYMBOL
+fcppt::log::object &
 logger();
+
 }
 }
 

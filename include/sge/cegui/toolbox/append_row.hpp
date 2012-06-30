@@ -34,10 +34,13 @@ namespace cegui
 {
 namespace toolbox
 {
+
 SGE_CEGUI_SYMBOL void
 append_row(
 	CEGUI::MultiColumnList &,
-	row const &);
+	sge::cegui::toolbox::row const &
+);
+
 }
 }
 }

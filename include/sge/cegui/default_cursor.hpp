@@ -34,32 +34,38 @@ namespace sge
 {
 namespace cegui
 {
+
 class default_cursor
 {
-FCPPT_NONCOPYABLE(
-	default_cursor);
+	FCPPT_NONCOPYABLE(
+		default_cursor
+	);
 public:
-	SGE_CEGUI_SYMBOL explicit
+	SGE_CEGUI_SYMBOL
 	default_cursor(
-		syringe &,
-		sge::input::cursor::object &);
+		sge::cegui::syringe &,
+		sge::input::cursor::object &
+	);
 
 	SGE_CEGUI_SYMBOL
 	~default_cursor();
 private:
 	syringe &syringe_;
-	fcppt::signal::scoped_connection
+	fcppt::signal::scoped_connection const
 		button_connection_,
 		axis_connection_;
 
 	void
 	button_callback(
-		sge::input::cursor::button_event const &);
+		sge::input::cursor::button_event const &
+	);
 
 	void
 	move_callback(
-		sge::input::cursor::move_event const &);
+		sge::input::cursor::move_event const &
+	);
 };
+
 }
 }
 

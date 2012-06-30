@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CEGUI_SYRINGE_HPP_INCLUDED
 
 #include <sge/cegui/symbol.hpp>
-#include <sge/cegui/system_fwd.hpp>
+#include <sge/cegui/syringe_fwd.hpp>
 #include <sge/charconv/system_fwd.hpp>
 #include <sge/input/cursor/button_event_fwd.hpp>
 #include <sge/input/cursor/move_event_fwd.hpp>
@@ -31,49 +31,67 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/key_event_fwd.hpp>
 #include <sge/input/keyboard/key_repeat_event_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
 
 
 namespace sge
 {
 namespace cegui
 {
+
 class syringe
 {
-FCPPT_NONCOPYABLE(
-	syringe);
+	FCPPT_NONCOPYABLE(
+		syringe
+	);
 public:
-	SGE_CEGUI_SYMBOL explicit
+	SGE_CEGUI_SYMBOL
+	explicit
 	syringe(
-		system &);
+		sge::charconv::system &
+	);
 
-	SGE_CEGUI_SYMBOL void
-	inject(
-		sge::input::keyboard::key_event const &);
+	SGE_CEGUI_SYMBOL
+	~syringe();
 
-	SGE_CEGUI_SYMBOL void
+	SGE_CEGUI_SYMBOL
+	void
 	inject(
-		sge::input::keyboard::key_repeat_event const &);
+		sge::input::keyboard::key_event const &
+	);
 
-	SGE_CEGUI_SYMBOL void
+	SGE_CEGUI_SYMBOL
+	void
 	inject(
-		sge::input::keyboard::char_event const &);
+		sge::input::keyboard::key_repeat_event const &
+	);
 
-	SGE_CEGUI_SYMBOL void
+	SGE_CEGUI_SYMBOL
+	void
 	inject(
-		sge::input::cursor::button_event const &);
+		sge::input::keyboard::char_event const &
+	);
 
-	SGE_CEGUI_SYMBOL void
+	SGE_CEGUI_SYMBOL
+	void
 	inject(
-		sge::input::cursor::move_event const &);
+		sge::input::cursor::button_event const &
+	);
 
-	SGE_CEGUI_SYMBOL void
+	SGE_CEGUI_SYMBOL
+	void
 	inject(
-		sge::input::cursor::position const &);
+		sge::input::cursor::move_event const &
+	);
+
+	SGE_CEGUI_SYMBOL
+	void
+	inject(
+		sge::input::cursor::position const &
+	);
 private:
-	system &system_;
 	sge::charconv::system &charconv_system_;
 };
+
 }
 }
 

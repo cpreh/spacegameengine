@@ -387,13 +387,13 @@ add_sge_example(
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 )
 
-#if(
-#	ENABLE_CEGUI
-#)
-#	add_subdirectory(
-#		gui
-#	)
-#endif()
+if(
+	ENABLE_CEGUI
+)
+	add_subdirectory(
+		gui
+	)
+endif()
 
 if(
 	ENABLE_CG

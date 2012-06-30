@@ -18,157 +18,80 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/cegui/from_cegui_string.hpp>
-#include <sge/cegui/load_context.hpp>
-#include <sge/cegui/structure_cast.hpp>
+#include <sge/cegui/cursor_visibility.hpp>
+#include <sge/cegui/duration.hpp>
+#include <sge/cegui/load_context_fwd.hpp>
 #include <sge/cegui/system.hpp>
-#include <sge/cegui/to_cegui_string.hpp>
-#include <sge/renderer/device.hpp>
-#include <sge/renderer/onscreen_target.hpp>
-#include <sge/renderer/viewport.hpp>
-#include <sge/viewport/manager.hpp>
-#include <fcppt/filesystem/path_to_string.hpp>
-#include <fcppt/function/object.hpp>
-#include <fcppt/math/box/object_impl.hpp>
-#include <fcppt/preprocessor/disable_vc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <sge/charconv/system_fwd.hpp>
+#include <sge/image2d/system_fwd.hpp>
+#include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/context/object_fwd.hpp>
+#include <sge/src/cegui/detail/system_impl.hpp>
+#include <sge/viewport/manager_fwd.hpp>
+#include <fcppt/cref.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <falagard/CEGUIFalWidgetLookManager.h>
-#include <elements/CEGUIEditbox.h>
-#include <elements/CEGUIFrameWindow.h>
-#include <boost/filesystem/path.hpp>
-#include <CEGUIAnimationManager.h>
-#include <CEGUIDefaultResourceProvider.h>
-#include <CEGUIFont.h>
-#include <CEGUIFontManager.h>
-#include <CEGUIImageset.h>
-#include <CEGUIScheme.h>
-#include <CEGUIScriptModule.h>
-#include <CEGUISystem.h>
-#include <CEGUIWindow.h>
 #include <CEGUIWindowManager.h>
-#include <CEGUIXMLParser.h>
 #include <fcppt/config/external_end.hpp>
 
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::cegui::system::system(
-	load_context const &_load_context,
+	sge::cegui::load_context const &_load_context,
 	sge::renderer::device &_renderer,
 	sge::image2d::system &_image_system,
 	sge::charconv::system &_charconv_system,
 	sge::viewport::manager &_viewport,
-	cursor_visibility::type const _cursor_visibility)
+	sge::cegui::cursor_visibility::type const _cursor_visibility
+)
 :
-	charconv_system_(
-		_charconv_system),
-	prefix_(
-		_load_context.scheme_file().parent_path()),
-	cegui_logger_(),
-	renderer_(
-		*this,
-		_renderer),
-	image_codec_(
-		_image_system),
-	resource_provider_(
-		_charconv_system),
-	system_(
-		renderer_,
-		image_codec_,
-		resource_provider_),
-	viewport_change_connection_(
-		_viewport.manage_callback(
-			std::tr1::bind(
-				&system::viewport_change,
-				this))),
-	old_viewport_(
-		sge::renderer::pixel_rect::null())
+	impl_(
+		fcppt::make_unique_ptr<
+			sge::cegui::detail::system_impl
+		>(
+			fcppt::cref(
+				_load_context
+			),
+			fcppt::ref(
+				_renderer
+			),
+			fcppt::ref(
+				_image_system
+			),
+			fcppt::ref(
+				_charconv_system
+			),
+			fcppt::ref(
+				_viewport
+			),
+			_cursor_visibility
+		)
+	)
 {
-	CEGUI::WidgetLookManager::setDefaultResourceGroup(
-		to_cegui_string(
-			fcppt::filesystem::path_to_string(
-				_load_context.looknfeel_directory()
-				?
-					*_load_context.looknfeel_directory()
-				:
-					prefix_),
-			_charconv_system));
-
-	CEGUI::Font::setDefaultResourceGroup(
-		to_cegui_string(
-			fcppt::filesystem::path_to_string(
-				_load_context.font_directory()
-				?
-					*_load_context.font_directory()
-				:
-					prefix_),
-			_charconv_system));
-
-	CEGUI::Imageset::setDefaultResourceGroup(
-		to_cegui_string(
-			fcppt::filesystem::path_to_string(
-				_load_context.imageset_directory()
-				?
-					*_load_context.imageset_directory()
-				:
-					prefix_),
-			_charconv_system));
-
-	CEGUI::Scheme::setDefaultResourceGroup(
-		to_cegui_string(
-			fcppt::filesystem::path_to_string(
-				prefix_),
-			_charconv_system));
-
-	CEGUI::SchemeManager::getSingleton().create(
-		to_cegui_string(
-			fcppt::filesystem::path_to_string(
-				_load_context.scheme_file().filename()),
-			_charconv_system));
-
-	switch(_cursor_visibility)
-	{
-		case cursor_visibility::visible:
-			CEGUI::System::getSingleton().setDefaultMouseCursor(
-				CEGUI::ImagesetManager::getSingleton().getIterator().getCurrentValue()->getName(),
-				"MouseArrow");
-		break;
-		case cursor_visibility::invisible:
-			CEGUI::MouseCursor::getSingleton().hide();
-		break;
-	}
-
-	if(_load_context.default_font())
-		CEGUI::System::getSingleton().setDefaultFont(
-			&CEGUI::FontManager::getSingleton().createFreeTypeFont(
-				"",
-				_load_context.default_font()->font_size(),
-				true,
-				cegui::to_cegui_string(
-					fcppt::filesystem::path_to_string(
-						_load_context.default_font()->path()),
-					_charconv_system)));
-
-	viewport_change();
 }
-FCPPT_PP_POP_WARNING
+
+sge::cegui::system::~system()
+{
+}
 
 void
 sge::cegui::system::update(
-	cegui::duration const &d)
+	sge::cegui::duration const &_duration
+)
 {
-	CEGUI::System::getSingleton().injectTimePulse(
-		d.count());
+	impl_->update(
+		_duration
+	);
 }
 
 void
-sge::cegui::system::render()
+sge::cegui::system::render(
+	sge::renderer::context::object &_context
+)
 {
-	CEGUI::System::getSingleton().renderGUI();
+	impl_->render(
+		_context
+	);
 }
 
 CEGUI::WindowManager &
@@ -181,56 +104,5 @@ CEGUI::WindowManager const &
 sge::cegui::system::window_manager() const
 {
 	return CEGUI::WindowManager::getSingleton();
-}
-
-sge::cegui::system::~system()
-{
-}
-
-void
-sge::cegui::system::viewport_change()
-{
-	sge::renderer::pixel_rect new_area_fcppt =
-		renderer_.impl().onscreen_target().viewport().get();
-	// Calling notifyDisplaySizeChanged with a null rect causes a strange problem
-	if(!new_area_fcppt.content() || old_viewport_ == new_area_fcppt)
-		return;
-	CEGUI::Rect const new_area_cegui =
-		structure_cast(
-			new_area_fcppt);
-	CEGUI::System::getSingleton().notifyDisplaySizeChanged(
-		new_area_cegui.getSize());
-	// We have to reset this manually. The cursor does receive its own
-	// "notifyDisplaySizeChanged" but that (deliberately?) doesn't
-	// update the constraint area
-	CEGUI::MouseCursor::getSingleton().setConstraintArea(
-		&new_area_cegui);
-	old_viewport_ = new_area_fcppt;
-}
-
-sge::charconv::system &
-sge::cegui::system::charconv_system() const
-{
-	return charconv_system_;
-}
-
-sge::image2d::system &
-sge::cegui::system::image_system() const
-{
-	return image_codec_.image_system();
-}
-
-sge::renderer::device &
-sge::cegui::system::renderer() const
-{
-	return renderer_.impl();
-}
-
-boost::filesystem::path const
-sge::cegui::system::to_absolute_path(
-	CEGUI::String const &filename,
-	CEGUI::String const &)
-{
-	return prefix_ / from_cegui_string(filename,charconv_system_);
 }
 

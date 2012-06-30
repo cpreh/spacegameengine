@@ -21,26 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VECTOR4_HPP_INCLUDED
 #define SGE_RENDERER_VECTOR4_HPP_INCLUDED
 
-#include <sge/renderer/scalar.hpp>
-#include <fcppt/math/vector/static.hpp>
+#include <sge/renderer/basic_vector.hpp>
+#include <sge/renderer/vector4_fwd.hpp>
 
-
-namespace sge
-{
-namespace renderer
-{
-
-/**
- * \brief A four dimensional vector of renderer::scalars
-*/
-typedef
-fcppt::math::vector::static_<
-	renderer::scalar,
-	4
->::type
-vector4;
-
-}
-}
 
 #endif

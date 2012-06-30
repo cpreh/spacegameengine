@@ -28,8 +28,10 @@ namespace sge
 {
 namespace cegui
 {
-keyboard_code_map const &
+
+sge::cegui::keyboard_code_map const &
 keyboard_code_translation();
+
 }
 }
 

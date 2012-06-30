@@ -31,17 +31,23 @@ namespace sge
 {
 namespace cegui
 {
+
 class SGE_CLASS_SYMBOL exception
 :
 	public sge::exception
 {
 public:
-	SGE_CEGUI_SYMBOL explicit
+	SGE_CEGUI_SYMBOL
+	explicit
 	exception(
-		fcppt::string const &);
+		fcppt::string const &
+	);
 
-	SGE_CEGUI_SYMBOL virtual ~exception() throw();
+	SGE_CEGUI_SYMBOL
+	virtual
+	~exception() throw();
 };
+
 }
 }
 
