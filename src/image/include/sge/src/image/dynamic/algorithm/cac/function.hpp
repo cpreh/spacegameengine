@@ -49,7 +49,7 @@ struct function
 		(
 			*type
 		)(
-			typename cac::source<
+			typename sge::image::dynamic::algorithm::cac::source<
 				SourceFormat
 			>::type const &,
 			typename mizuiro::color::object<

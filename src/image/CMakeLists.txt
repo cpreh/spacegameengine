@@ -47,7 +47,7 @@ set(
 	include/sge/image/color/la8.hpp
 	include/sge/image/color/la8_format.hpp
 	include/sge/image/color/object.hpp
-	include/sge/image/color/object_impl.hpp
+	include/sge/image/color/object_fwd.hpp
 	include/sge/image/color/print.hpp
 	include/sge/image/color/r32f.hpp
 	include/sge/image/color/r32f_format.hpp

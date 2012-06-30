@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_CONVERT_VECTOR3_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/renderer/vector3.hpp>
+#include <sge/renderer/vector3_fwd.hpp>
+
 
 namespace sge
 {
@@ -33,7 +34,7 @@ namespace convert
 
 D3DVECTOR const
 vector3(
-	renderer::vector3 const &
+	sge::renderer::vector3 const &
 );
 
 }

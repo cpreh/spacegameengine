@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/color/channel8.hpp>
 #include <sge/image/color/init.hpp>
-#include <sge/image/color/object_impl.hpp>
+#include <sge/image/color/object.hpp>
 #include <sge/image/store.hpp>
 #include <sge/image2d/bgra8_format.hpp>
 #include <sge/image2d/rgb8_format.hpp>

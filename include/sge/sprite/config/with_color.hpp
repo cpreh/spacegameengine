@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_CONFIG_WITH_COLOR_HPP_INCLUDED
 #define SGE_SPRITE_CONFIG_WITH_COLOR_HPP_INCLUDED
 
-#include <sge/image/color/object_impl.hpp>
+#include <sge/image/color/object.hpp>
 #include <sge/sprite/config/with_color_fwd.hpp>
 #include <sge/sprite/roles/color.hpp>
 #include <majutsu/composite.hpp>
