@@ -265,7 +265,7 @@ add_sge_example(
 #	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 #)
 
-add_sge_example(
+add_sge_console_example(
 	raw_view
 	""
 	"${Fcppt_core_LIBRARIES}"
