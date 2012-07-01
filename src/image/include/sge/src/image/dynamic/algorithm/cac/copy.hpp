@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_IMAGE_DYNAMIC_ALGORITHM_CAC_COPY_HPP_INCLUDED
 
 #include <sge/image/algorithm/may_overlap.hpp>
+#include <sge/image/color/mizuiro_traits.hpp>
 #include <sge/src/image/dynamic/view/color_layout.hpp>
 #include <mizuiro/image/algorithm/copy_different_channel_order.hpp>
 #include <mizuiro/image/algorithm/copy_same_channel_order.hpp>
@@ -47,15 +48,15 @@ void
 copy(
 	Source const &_source,
 	Dest const &_dest,
-	image::algorithm::may_overlap::type const _overlap
+	sge::image::algorithm::may_overlap::type const _overlap
 )
 {
 	if(
-		view::color_layout(
+		sge::image::dynamic::view::color_layout(
 			_source
 		)
 		==
-		view::color_layout(
+		sge::image::dynamic::view::color_layout(
 			_dest
 		)
 	)

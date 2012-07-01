@@ -21,15 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_IMAGE_VIEW_CONST_OBJECT_IMPL_HPP_INCLUDED
 #define SGE_SRC_IMAGE_VIEW_CONST_OBJECT_IMPL_HPP_INCLUDED
 
+#include <sge/image/color/mizuiro_traits.hpp>
 #include <sge/image/view/const_object.hpp>
 #include <sge/image/view/to_const.hpp>
 #include <fcppt/variant/object_impl.hpp>
-// TODO: Make proper includes for this
-#include <mizuiro/color/access/homogenous_normal.hpp>
-#include <mizuiro/color/access/homogenous_static.hpp>
-#include <mizuiro/color/types/homogenous.hpp>
-#include <mizuiro/color/types/homogenous_normal.hpp>
-#include <mizuiro/color/types/homogenous_static.hpp>
 
 
 template<
@@ -43,7 +38,9 @@ sge::image::view::const_object<
 	variant const &_variant
 )
 :
-	variant_(_variant)
+	variant_(
+		_variant
+	)
 {
 }
 
@@ -59,7 +56,7 @@ sge::image::view::const_object<
 )
 :
 	variant_(
-		image::view::to_const<
+		sge::image::view::to_const<
 			typename ElementsWrapper::tag
 		>(
 			_other
@@ -79,7 +76,9 @@ sge::image::view::const_object<
 	const_object const &_other
 )
 :
-	variant_(_other.variant_)
+	variant_(
+		_other.variant_
+	)
 {
 }
 

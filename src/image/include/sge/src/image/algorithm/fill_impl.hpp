@@ -23,12 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/algorithm/fill.hpp>
 #include <sge/src/image/algorithm/fill_visitor.hpp>
-// TODO: Make proper includes for this
-#include <mizuiro/color/access/homogenous_normal.hpp>
-#include <mizuiro/color/access/homogenous_static.hpp>
-#include <mizuiro/color/types/homogenous.hpp>
-#include <mizuiro/color/types/homogenous_normal.hpp>
-#include <mizuiro/color/types/homogenous_static.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
@@ -38,10 +32,10 @@ template<
 >
 void
 sge::image::algorithm::fill(
-	typename image::traits::view<
+	typename sge::image::traits::view<
 		Tag
 	>::type const &_view,
-	image::color::any::object const &_color
+	sge::image::color::any::object const &_color
 )
 {
 	fcppt::variant::apply_unary(

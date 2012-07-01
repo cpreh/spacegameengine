@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_IMAGE_DYNAMIC_ALGORITHM_CAC_CONVERT_VISITOR_HPP_INCLUDED
 #define SGE_SRC_IMAGE_DYNAMIC_ALGORITHM_CAC_CONVERT_VISITOR_HPP_INCLUDED
 
+#include <sge/image/color/mizuiro_traits.hpp>
 #include <fcppt/nonassignable.hpp>
 
 
@@ -44,11 +45,14 @@ class convert_visitor
 		convert_visitor
 	);
 public:
-	explicit convert_visitor(
+	explicit
+	convert_visitor(
 		Function const &_function
 	)
 	:
-		function_(_function)
+		function_(
+			_function
+		)
 	{
 	}
 

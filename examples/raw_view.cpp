@@ -1,4 +1,7 @@
-#include <awl/main/exit_success.hpp>
+#include <fcppt/math/static_size.hpp>
+#include <fcppt/math/vector/output.hpp>
+#include <fcppt/math/vector/static.hpp>
+#include <fcppt/math/vector/object.hpp>
 #include <mizuiro/apply_const.hpp>
 #include <mizuiro/nonconst_tag.hpp>
 #include <mizuiro/raw_pointer.hpp>
@@ -632,9 +635,8 @@ struct dereference
 }
 
 
-awl::main::exit_code const
-example_main(
-	awl::main::function_context const &)
+int
+main()
 {
 	typedef
 	unsigned
@@ -701,7 +703,4 @@ example_main(
 		view);
 
 	std::cout << '\n';
-
-	return
-		awl::main::exit_success();
 }

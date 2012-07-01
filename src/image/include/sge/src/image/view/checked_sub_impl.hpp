@@ -23,12 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/view/checked_sub.hpp>
 #include <sge/src/image/view/checked_sub_any.hpp>
-// TODO: Make proper includes for this
-#include <mizuiro/color/access/homogenous_normal.hpp>
-#include <mizuiro/color/access/homogenous_static.hpp>
-#include <mizuiro/color/types/homogenous.hpp>
-#include <mizuiro/color/types/homogenous_normal.hpp>
-#include <mizuiro/color/types/homogenous_static.hpp>
 
 
 template<
@@ -38,10 +32,10 @@ typename sge::image::traits::view<
 	Tag
 >::type const
 sge::image::view::checked_sub(
-	typename image::traits::view<
+	typename sge::image::traits::view<
 		Tag
 	>::type const &_view,
-	typename image::traits::box<
+	typename sge::image::traits::box<
 		Tag
 	>::type const &_box
 )
@@ -62,10 +56,10 @@ typename sge::image::traits::const_view<
 	Tag
 >::type const
 sge::image::view::checked_sub(
-	typename image::traits::const_view<
+	typename sge::image::traits::const_view<
 		Tag
 	>::type const &_view,
-	typename image::traits::box<
+	typename sge::image::traits::box<
 		Tag
 	>::type const &_box
 )

@@ -50,17 +50,17 @@ convert(
 )
 {
 	mizuiro::image::algorithm::binary_iteration(
-		cac::convert_visitor<
-			typename cac::function<
+		sge::image::dynamic::algorithm::cac::convert_visitor<
+			typename sge::image::dynamic::algorithm::cac::function<
 				typename Source::format,
 				typename Dest::format
 			>::type
 		>(
-			cac::choose(
-				view::image_format(
+			sge::image::dynamic::algorithm::cac::choose(
+				sge::image::dynamic::view::image_format(
 					_source
 				),
-				view::image_format(
+				sge::image::dynamic::view::image_format(
 					_dest
 				)
 			)

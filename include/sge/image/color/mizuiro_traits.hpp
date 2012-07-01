@@ -18,44 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_IMAGE_VIEW_FORMAT_IMPL_HPP_INCLUDED
-#define SGE_SRC_IMAGE_VIEW_FORMAT_IMPL_HPP_INCLUDED
+#ifndef SGE_IMAGE_COLOR_MIZUIRO_TRAITS_HPP_INCLUDED
+#define SGE_IMAGE_COLOR_MIZUIRO_TRAITS_HPP_INCLUDED
 
-#include <sge/image/view/format.hpp>
-#include <sge/src/image/view/format_any.hpp>
+#include <mizuiro/color/access/homogenous_normal.hpp>
+#include <mizuiro/color/access/homogenous_static.hpp>
+#include <mizuiro/color/types/homogenous.hpp>
+#include <mizuiro/color/types/homogenous_normal.hpp>
+#include <mizuiro/color/types/homogenous_static.hpp>
 
-
-template<
-	typename Tag
->
-sge::image::color::format::type
-sge::image::view::format(
-	typename sge::image::traits::view<
-		Tag
-	>::type const &_view
-)
-{
-	return
-		sge::image::view::format_any(
-			_view
-		);
-
-}
-
-template<
-	typename Tag
->
-sge::image::color::format::type
-sge::image::view::format(
-	typename sge::image::traits::const_view<
-		Tag
-	>::type const &_view
-)
-{
-	return
-		sge::image::view::format_any(
-			_view
-		);
-}
 
 #endif
