@@ -1,7 +1,3 @@
-#include <fcppt/math/static_size.hpp>
-#include <fcppt/math/vector/output.hpp>
-#include <fcppt/math/vector/static.hpp>
-#include <fcppt/math/vector/object.hpp>
 #include <awl/main/exit_success.hpp>
 #include <mizuiro/apply_const.hpp>
 #include <mizuiro/nonconst_tag.hpp>
@@ -25,6 +21,10 @@
 #include <mizuiro/image/types/value_type.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/math/difference_type.hpp>
+#include <fcppt/math/static_size.hpp>
+#include <fcppt/math/vector/object.hpp>
+#include <fcppt/math/vector/output.hpp>
+#include <fcppt/math/vector/static.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/type_traits/integral_constant.hpp>
@@ -35,6 +35,7 @@
 #include <ostream>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace mylib
 {

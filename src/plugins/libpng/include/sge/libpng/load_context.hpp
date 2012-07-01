@@ -31,12 +31,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/libpng/read_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/math/dim/object_decl.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <istream>
-#include <fcppt/config/external_end.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <istream>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
