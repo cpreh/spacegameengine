@@ -681,13 +681,19 @@ example_main(
 			view.begin());
 		it != view.end();
 		++it)
-		*it =
+		(*it)[0] =
+			/*
 			native_view::iterator::value_type(
 				static_cast<value_type>(
 					std::distance(
 						view.begin(),
 						it)),
 				0);
+				*/
+			static_cast<value_type>(
+					std::distance(
+						view.begin(),
+						it));
 
 	mizuiro::image::algorithm::print(
 		std::cout,

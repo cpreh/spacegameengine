@@ -80,7 +80,7 @@ private:
 	sge::audio::optional_path filename_;
 	boost::logic::tribool swap_;
 	stream_ptr file_;
-	std::streampos data_segment;
+	std::streampos data_segment_;
 	audio::sample_count
 		samples_,
 		samples_read_;

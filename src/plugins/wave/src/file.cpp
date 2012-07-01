@@ -50,7 +50,13 @@ sge::wave::file::file(
 		boost::logic::indeterminate),
 	file_(
 		fcppt::move(
-			_file))
+			_file)),
+	data_segment_(),
+	samples_(),
+	samples_read_(),
+	channels_(),
+	sample_rate_(),
+	bits_per_sample_()
 {
 	read_riff();
 	read_wave();
@@ -93,7 +99,7 @@ void sge::wave::file::reset()
 		fcppt::log::_ << "wave: resetting file");
 
 	file_->seekg(
-		data_segment);
+		data_segment_);
 	samples_read_ =
 		0;
 }
@@ -222,7 +228,7 @@ void sge::wave::file::read_wave()
 
 	samples_read_ = static_cast<audio::sample_count>(0);
 
-	data_segment = file_->tellg();
+	data_segment_ = file_->tellg();
 }
 
 void sge::wave::file::ignore_chunks_until(std::string const &desc)

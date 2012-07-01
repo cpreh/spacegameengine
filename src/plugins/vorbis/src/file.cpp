@@ -73,7 +73,10 @@ sge::vorbis::file::file(
 		_file_name),
 	stdstream_(
 		fcppt::move(
-			_stdstream))
+			_stdstream)),
+	ogg_file_(),
+	channels_(),
+	sample_rate_()
 {
 	ov_callbacks callbacks;
 

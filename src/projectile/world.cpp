@@ -227,8 +227,8 @@ sge::projectile::world::add_body(
 		++it
 	)
 	{
-		group |= it->get().category_;
-		mask |= it->get().collides_;
+		group = static_cast<group::id>(group | it->get().category_);
+		mask = static_cast<group::id>(mask | it->get().collides_);
 	}
 
 	world_->addRigidBody(
@@ -262,8 +262,8 @@ sge::projectile::world::add_ghost(
 		++it
 	)
 	{
-		group |= it->get().category_;
-		mask |= it->get().collides_;
+		group = static_cast<group::id>(group | it->get().category_);
+		mask = static_cast<group::id>(mask | it->get().collides_);
 	}
 
 	world_->addCollisionObject(
