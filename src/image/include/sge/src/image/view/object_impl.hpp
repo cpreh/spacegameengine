@@ -21,43 +21,50 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_IMAGE_VIEW_OBJECT_IMPL_HPP_INCLUDED
 #define SGE_SRC_IMAGE_VIEW_OBJECT_IMPL_HPP_INCLUDED
 
+#include <sge/image/color/mizuiro_traits.hpp>
 #include <sge/image/view/object.hpp>
 #include <fcppt/variant/object_impl.hpp>
-// TODO: Make proper includes for this
-#include <mizuiro/color/access/homogenous_normal.hpp>
-#include <mizuiro/color/access/homogenous_static.hpp>
-#include <mizuiro/color/types/homogenous.hpp>
-#include <mizuiro/color/types/homogenous_normal.hpp>
-#include <mizuiro/color/types/homogenous_static.hpp>
 
 
 template<
 	typename ElementsWrapper
 >
-sge::image::view::object<ElementsWrapper>::object(
+sge::image::view::object<
+	ElementsWrapper
+>::object(
 	variant const &_variant
 )
 :
-	variant_(_variant)
+	variant_(
+		_variant
+	)
 {
 }
 
 template<
 	typename ElementsWrapper
 >
-sge::image::view::object<ElementsWrapper>::object(
+sge::image::view::object<
+	ElementsWrapper
+>::object(
 	object const &_other
 )
 :
-	variant_(_other.variant_)
+	variant_(
+		_other.variant_
+	)
 {
 }
 
 template<
 	typename ElementsWrapper
 >
-sge::image::view::object<ElementsWrapper> &
-sge::image::view::object<ElementsWrapper>::operator=(
+sge::image::view::object<
+	ElementsWrapper
+> &
+sge::image::view::object<
+	ElementsWrapper
+>::operator=(
 	object const &_other
 )
 {
@@ -72,15 +79,21 @@ sge::image::view::object<ElementsWrapper>::operator=(
 template<
 	typename ElementsWrapper
 >
-sge::image::view::object<ElementsWrapper>::~object()
+sge::image::view::object<
+	ElementsWrapper
+>::~object()
 {
 }
 
 template<
 	typename ElementsWrapper
 >
-typename sge::image::view::object<ElementsWrapper>::variant const &
-sge::image::view::object<ElementsWrapper>::get() const
+typename sge::image::view::object<
+	ElementsWrapper
+>::variant const &
+sge::image::view::object<
+	ElementsWrapper
+>::get() const
 {
 	return variant_;
 }

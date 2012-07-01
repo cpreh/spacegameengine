@@ -27,12 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/image/view/to_const_visitor.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
-// TODO: Make proper includes for this
-#include <mizuiro/color/access/homogenous_normal.hpp>
-#include <mizuiro/color/access/homogenous_static.hpp>
-#include <mizuiro/color/types/homogenous.hpp>
-#include <mizuiro/color/types/homogenous_normal.hpp>
-#include <mizuiro/color/types/homogenous_static.hpp>
 
 
 template<
@@ -42,7 +36,7 @@ typename sge::image::traits::const_view<
 	Tag
 >::type const
 sge::image::view::to_const(
-	typename image::traits::view<
+	typename sge::image::traits::view<
 		Tag
 	>::type const &_src
 )
@@ -50,7 +44,7 @@ sge::image::view::to_const(
 	return
 		fcppt::variant::apply_unary(
 			sge::image::view::to_const_visitor<
-				typename image::traits::const_view<
+				typename sge::image::traits::const_view<
 					Tag
 				>::type
 			>(),

@@ -50,11 +50,14 @@ class visitor
 		visitor
 	);
 public:
-	explicit visitor(
-		image::algorithm::may_overlap::type const _overlap
+	explicit
+	visitor(
+		sge::image::algorithm::may_overlap::type const _overlap
 	)
 	:
-		overlap_(_overlap)
+		overlap_(
+			_overlap
+		)
 	{
 	}
 
@@ -77,22 +80,22 @@ public:
 	) const
 	{
 		if(
-			cac::permutate_compare(
-				view::color_layout(
+			sge::image::dynamic::algorithm::cac::permutate_compare(
+				sge::image::dynamic::view::color_layout(
 					_source
 				),
-				view::color_layout(
+				sge::image::dynamic::view::color_layout(
 					_dest
 				)
 			)
 		)
-			cac::copy(
+			sge::image::dynamic::algorithm::cac::copy(
 				_source,
 				_dest,
 				overlap_
 			);
 		else
-			cac::convert(
+			sge::image::dynamic::algorithm::cac::convert(
 				_source,
 				_dest
 			);
@@ -114,13 +117,13 @@ public:
 		Dest const &_dest
 	) const
 	{
-		cac::convert(
+		sge::image::dynamic::algorithm::cac::convert(
 			_source,
 			_dest
 		);
 	}
 private:
-	image::algorithm::may_overlap::type const overlap_;
+	sge::image::algorithm::may_overlap::type const overlap_;
 };
 
 }

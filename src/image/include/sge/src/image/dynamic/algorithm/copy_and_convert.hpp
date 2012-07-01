@@ -30,11 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/image/dynamic/view/from_static_visitor.hpp>
 #include <mizuiro/const_tag.hpp>
 #include <mizuiro/nonconst_tag.hpp>
-// TODO: check which includes we need where
-#include <mizuiro/color/access/homogenous_dynamic.hpp>
-#include <mizuiro/color/access/homogenous_normal.hpp>
-#include <mizuiro/color/types/homogenous_dynamic.hpp>
-#include <mizuiro/color/types/homogenous_normal.hpp>
 #include <fcppt/math/dim/object_decl.hpp>
 #include <fcppt/variant/apply_binary.hpp>
 #include <fcppt/variant/apply_unary.hpp>
@@ -54,32 +49,32 @@ template<
 >
 void
 copy_and_convert(
-	typename image::traits::const_view<
+	typename sge::image::traits::const_view<
 		Tag
 	>::type const &_source,
-	typename image::traits::view<
+	typename sge::image::traits::view<
 		Tag
 	>::type const &_dest,
-	image::algorithm::may_overlap::type const _overlap
+	sge::image::algorithm::may_overlap::type const _overlap
 )
 {
-	typedef typename image::traits::dim<
+	typedef typename sge::image::traits::dim<
 		Tag
 	>::type::dim_wrapper dim_wrapper;
 
 	fcppt::variant::apply_binary(
-		dynamic::algorithm::cac::visitor(
+		sge::image::dynamic::algorithm::cac::visitor(
 			_overlap
 		),
 		fcppt::variant::apply_unary(
-			dynamic::view::from_static_visitor<
+			sge::image::dynamic::view::from_static_visitor<
 				dim_wrapper::value,
 				mizuiro::const_tag
 			>(),
 			_source.get()
 		),
 		fcppt::variant::apply_unary(
-			dynamic::view::from_static_visitor<
+			sge::image::dynamic::view::from_static_visitor<
 				dim_wrapper::value,
 				mizuiro::nonconst_tag
 			>(),

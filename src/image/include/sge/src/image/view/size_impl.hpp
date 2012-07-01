@@ -24,12 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/view/size.hpp>
 #include <sge/src/image/view/size_any.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
-// TODO: Make proper includes for this
-#include <mizuiro/color/access/homogenous_normal.hpp>
-#include <mizuiro/color/access/homogenous_static.hpp>
-#include <mizuiro/color/types/homogenous.hpp>
-#include <mizuiro/color/types/homogenous_normal.hpp>
-#include <mizuiro/color/types/homogenous_static.hpp>
 
 
 template<
@@ -39,7 +33,7 @@ typename sge::image::traits::dim<
 	Tag
 >::type const
 sge::image::view::size(
-	typename image::traits::view<
+	typename sge::image::traits::view<
 		Tag
 	>::type const &_view
 )
@@ -59,7 +53,7 @@ typename sge::image::traits::dim<
 	Tag
 >::type const
 sge::image::view::size(
-	typename image::traits::const_view<
+	typename sge::image::traits::const_view<
 		Tag
 	>::type const &_view
 )

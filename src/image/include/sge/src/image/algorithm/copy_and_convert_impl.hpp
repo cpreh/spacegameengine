@@ -29,12 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #if defined(SGE_IMAGE_STATIC_COPY_AND_CONVERT)
 #include <sge/src/image/algorithm/copy_and_convert_visitor.hpp>
-// TODO: Make proper includes for this
-#include <mizuiro/color/access/homogenous_normal.hpp>
-#include <mizuiro/color/access/homogenous_static.hpp>
-#include <mizuiro/color/types/homogenous.hpp>
-#include <mizuiro/color/types/homogenous_normal.hpp>
-#include <mizuiro/color/types/homogenous_static.hpp>
 #include <fcppt/variant/apply_binary.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #else
@@ -46,25 +40,25 @@ template<
 >
 void
 sge::image::algorithm::copy_and_convert(
-	typename image::traits::const_view<
+	typename sge::image::traits::const_view<
 		Tag
 	>::type const &_src,
-	typename image::traits::view<
+	typename sge::image::traits::view<
 		Tag
 	>::type const &_dest,
-	image::algorithm::may_overlap::type const _overlap
+	sge::image::algorithm::may_overlap::type const _overlap
 )
 {
 #if defined(SGE_IMAGE_STATIC_COPY_AND_CONVERT)
 	fcppt::variant::apply_binary(
-		algorithm::copy_and_convert_visitor(
+		sge::image::algorithm::copy_and_convert_visitor(
 			_overlap
 		),
 		_src.get(),
 		_dest.get()
 	);
 #else
-	image::dynamic::algorithm::copy_and_convert<
+	sge::image::dynamic::algorithm::copy_and_convert<
 		Tag
 	>(
 		_src,

@@ -23,12 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/algorithm/print.hpp>
 #include <sge/src/image/algorithm/print_visitor.hpp>
-// TODO: Make proper includes for this
-#include <mizuiro/color/access/homogenous_normal.hpp>
-#include <mizuiro/color/access/homogenous_static.hpp>
-#include <mizuiro/color/types/homogenous.hpp>
-#include <mizuiro/color/types/homogenous_normal.hpp>
-#include <mizuiro/color/types/homogenous_static.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
@@ -39,7 +33,7 @@ template<
 void
 sge::image::algorithm::print(
 	fcppt::io::ostream &_ostream,
-	typename image::traits::const_view<
+	typename sge::image::traits::const_view<
 		Tag
 	>::type const &_view
 )

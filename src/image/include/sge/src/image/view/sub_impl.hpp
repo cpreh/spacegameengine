@@ -26,12 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/traits/view.hpp>
 #include <sge/image/view/sub.hpp>
 #include <sge/src/image/view/sub_any.hpp>
-// TODO: Make proper includes for this
-#include <mizuiro/color/access/homogenous_normal.hpp>
-#include <mizuiro/color/access/homogenous_static.hpp>
-#include <mizuiro/color/types/homogenous.hpp>
-#include <mizuiro/color/types/homogenous_normal.hpp>
-#include <mizuiro/color/types/homogenous_static.hpp>
 
 
 template<
@@ -41,16 +35,16 @@ typename sge::image::traits::view<
 	Tag
 >::type const
 sge::image::view::sub(
-	typename image::traits::view<
+	typename sge::image::traits::view<
 		Tag
 	>::type const &_view,
-	typename image::traits::box<
+	typename sge::image::traits::box<
 		Tag
 	>::type const &_box
 )
 {
 	return
-		image::view::sub_any(
+		sge::image::view::sub_any(
 			_view,
 			_box
 		);
@@ -63,16 +57,16 @@ typename sge::image::traits::const_view<
 	Tag
 >::type const
 sge::image::view::sub(
-	typename image::traits::const_view<
+	typename sge::image::traits::const_view<
 		Tag
 	>::type const &_view,
-	typename image::traits::box<
+	typename sge::image::traits::box<
 		Tag
 	>::type const &_box
 )
 {
 	return
-		image::view::sub_any(
+		sge::image::view::sub_any(
 			_view,
 			_box
 		);

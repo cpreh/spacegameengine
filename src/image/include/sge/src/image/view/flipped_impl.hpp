@@ -25,12 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/traits/view.hpp>
 #include <sge/image/view/flipped.hpp>
 #include <sge/src/image/view/flipped_any.hpp>
-// TODO: Make proper includes for this
-#include <mizuiro/color/access/homogenous_normal.hpp>
-#include <mizuiro/color/access/homogenous_static.hpp>
-#include <mizuiro/color/types/homogenous.hpp>
-#include <mizuiro/color/types/homogenous_normal.hpp>
-#include <mizuiro/color/types/homogenous_static.hpp>
 
 
 template<
@@ -40,13 +34,13 @@ typename sge::image::traits::view<
 	Tag
 >::type const
 sge::image::view::flipped(
-	typename image::traits::view<
+	typename sge::image::traits::view<
 		Tag
 	>::type const &_view
 )
 {
 	return
-		image::view::flipped_any(
+		sge::image::view::flipped_any(
 			_view
 		);
 }
@@ -58,13 +52,13 @@ typename sge::image::traits::const_view<
 	Tag
 >::type const
 sge::image::view::flipped(
-	typename image::traits::const_view<
+	typename sge::image::traits::const_view<
 		Tag
 	>::type const &_view
 )
 {
 	return
-		image::view::flipped_any(
+		sge::image::view::flipped_any(
 			_view
 		);
 }

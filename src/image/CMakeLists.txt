@@ -46,6 +46,7 @@ set(
 	include/sge/image/color/l8_format.hpp
 	include/sge/image/color/la8.hpp
 	include/sge/image/color/la8_format.hpp
+	include/sge/image/color/mizuiro_traits.hpp
 	include/sge/image/color/object.hpp
 	include/sge/image/color/object_fwd.hpp
 	include/sge/image/color/print.hpp
