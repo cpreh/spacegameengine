@@ -45,7 +45,7 @@ class loaded_object
 	);
 public:
 	loaded_object(
-		IDirect3DDevice9 *,
+		IDirect3DDevice9 &,
 		sge::cg::program::object &
 	);
 
@@ -57,7 +57,7 @@ public:
 	void
 	deactivate() const;
 private:
-	IDirect3DDevice9 *const device_;
+	IDirect3DDevice9 &device_;
 
 	sge::cg::program::object &program_;
 };

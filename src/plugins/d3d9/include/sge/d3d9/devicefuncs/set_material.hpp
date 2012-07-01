@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/renderer/material_fwd.hpp>
 
+
 namespace sge
 {
 namespace d3d9
@@ -33,7 +34,7 @@ namespace devicefuncs
 
 void
 set_material(
-	IDirect3DDevice9 *,
+	IDirect3DDevice9 &,
 	sge::renderer::material const &
 );
 

@@ -36,7 +36,7 @@ namespace texture
 
 texture::d3d_texture_unique_ptr
 create_planar(
-	IDirect3DDevice9 *,
+	IDirect3DDevice9 &,
 	renderer::texture::planar_parameters const &,
 	D3DFORMAT color_format,
 	D3DPOOL,

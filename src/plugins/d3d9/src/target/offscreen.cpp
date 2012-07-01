@@ -36,14 +36,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::d3d9::target::offscreen::offscreen(
-	IDirect3DDevice9 *const _device
+	IDirect3DDevice9 &_device,
+	sge::renderer::caps::target_surface_indices const _max_surfaces
 )
 :
 	base(
 		_device,
 		sge::renderer::target::viewport(
 			sge::renderer::pixel_rect::null()
-		)
+		),
+		_max_surfaces
 	)
 {
 }
@@ -86,6 +88,12 @@ sge::d3d9::target::offscreen::size() const
 {
 	// FIXME:
 	return sge::renderer::optional_dim2();
+}
+
+bool
+sge::d3d9::target::offscreen::needs_present() const
+{
+	return false;
 }
 
 void
@@ -140,7 +148,7 @@ sge::d3d9::target::offscreen::change_surfaces(
 				),
 				_activate
 				?
-					surface->surface()
+					&surface->surface()
 				:
 					fcppt::null_ptr()
 			);
@@ -153,7 +161,7 @@ sge::d3d9::target::offscreen::change_surfaces(
 			this->device(),
 			_activate
 			?
-				depth_stencil_surface_->surface()
+				&depth_stencil_surface_->surface()
 			:
 				fcppt::null_ptr()
 		);

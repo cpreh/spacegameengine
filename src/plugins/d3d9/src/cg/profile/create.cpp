@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::cg::profile::object const
 sge::d3d9::cg::profile::create(
-	IDirect3DDevice9 *const _device,
+	IDirect3DDevice9 &_device,
 	sge::cg::profile::shader_type::type const _type
 )
 {

@@ -36,7 +36,7 @@ namespace render_context
 
 sge::renderer::context::object_unique_ptr
 create(
-	IDirect3DDevice9 *,
+	IDirect3DDevice9 &,
 	sge::renderer::target::base &,
 	sge::renderer::caps::texture_stages
 );

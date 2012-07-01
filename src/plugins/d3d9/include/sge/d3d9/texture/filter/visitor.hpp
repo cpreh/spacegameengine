@@ -44,7 +44,7 @@ class visitor
 	);
 public:
 	visitor(
-		IDirect3DDevice9 *,
+		IDirect3DDevice9 &,
 		renderer::texture::stage
 	);
 
@@ -60,7 +60,7 @@ public:
 		renderer::texture::filter::normal::object const &
 	) const;
 private:
-	IDirect3DDevice9 *const device_;
+	IDirect3DDevice9 &device_;
 
 	renderer::texture::stage const stage_;
 };

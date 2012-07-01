@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/devicefuncs/set_render_state.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
@@ -25,13 +26,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::d3d9::devicefuncs::set_render_state(
-	IDirect3DDevice9 *const _device,
+	IDirect3DDevice9 &_device,
 	D3DRENDERSTATETYPE const _state,
 	DWORD const _value
 )
 {
 	if(
-		_device->SetRenderState(
+		_device.SetRenderState(
 			_state,
 			_value
 		)

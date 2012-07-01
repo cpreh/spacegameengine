@@ -41,12 +41,12 @@ make_flag(
 
 void
 sge::d3d9::devicefuncs::clear(
-	IDirect3DDevice9 *const _device,
+	IDirect3DDevice9 &_device,
 	sge::renderer::clear::parameters const &_parameters
 )
 {
 	if(
-		_device->Clear(
+		_device.Clear(
 			0u,
 			fcppt::null_ptr(),
 			::make_flag(

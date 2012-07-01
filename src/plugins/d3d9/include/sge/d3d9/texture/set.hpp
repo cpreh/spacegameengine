@@ -35,7 +35,7 @@ namespace texture
 
 void
 set(
-	IDirect3DDevice9 *,
+	IDirect3DDevice9 &,
 	renderer::texture::stage,
 	renderer::texture::const_optional_base_ref const &
 );

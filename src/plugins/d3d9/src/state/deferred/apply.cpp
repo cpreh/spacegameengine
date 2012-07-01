@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::d3d9::state::deferred::apply(
-	IDirect3DDevice9 *const _device,
+	IDirect3DDevice9 &_device,
 	deferred::bundle::type const _bundle,
 	sge::renderer::state::list const &_list
 )

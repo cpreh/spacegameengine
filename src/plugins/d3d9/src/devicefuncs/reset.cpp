@@ -26,12 +26,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 bool
 sge::d3d9::devicefuncs::reset(
-	IDirect3DDevice9 *const _device,
+	IDirect3DDevice9 &_device,
 	D3DPRESENT_PARAMETERS &_present_parameters
 )
 {
 	switch(
-		_device->Reset(
+		_device.Reset(
 			&_present_parameters
 		)
 	)

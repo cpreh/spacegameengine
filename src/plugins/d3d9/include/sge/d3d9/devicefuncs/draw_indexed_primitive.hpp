@@ -38,7 +38,7 @@ namespace devicefuncs
 
 void
 draw_indexed_primitive(
-	IDirect3DDevice9 *,
+	IDirect3DDevice9 &,
 	sge::renderer::first_vertex,
 	sge::renderer::vertex_count,
 	sge::renderer::primitive_type::type,

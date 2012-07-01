@@ -41,24 +41,24 @@ namespace d3d9
 class index_buffer
 :
 	public sge::renderer::index_buffer,
-	public resource
+	public sge::d3d9::resource
 {
 	FCPPT_NONCOPYABLE(
 		index_buffer
 	);
 public:
 	index_buffer(
-		IDirect3DDevice9 *,
-		renderer::index::dynamic::format::type,
+		IDirect3DDevice9 &,
+		sge::renderer::index::dynamic::format::type,
 		count_type,
-		renderer::resource_flags_field const &
+		sge::renderer::resource_flags_field const &
 	);
 
 	~index_buffer();
 
 	view_type const
 	lock(
-		renderer::lock_mode::type,
+		sge::renderer::lock_mode::type,
 		first_type,
 		count_type
 	);
@@ -75,10 +75,10 @@ public:
 	count_type const
 	size() const;
 
-	renderer::resource_flags_field const
+	sge::renderer::resource_flags_field const
 	resource_flags() const;
 
-	renderer::index::dynamic::format::type
+	sge::renderer::index::dynamic::format::type
 	format() const;
 
 	IDirect3DIndexBuffer9 *
@@ -100,10 +100,10 @@ private:
 	do_lock(
 		first_type,
 		count_type,
-		renderer::lock_flags::method::type
+		sge::renderer::lock_flags::method::type
 	) const;
 
-	IDirect3DDevice9 *const device_;
+	IDirect3DDevice9 &device_;
 
 	typedef fcppt::scoped_ptr<
 		IDirect3DIndexBuffer9,
@@ -112,15 +112,15 @@ private:
 
 	d3d_scoped_index_buffer_ptr buffer_;
 
-	renderer::resource_flags_field const resource_flags_;
+	sge::renderer::resource_flags_field const resource_flags_;
 
-	renderer::index::dynamic::format::type const format_;
+	sge::renderer::index::dynamic::format::type const format_;
 
 	count_type const size_;
 
 	size_type const stride_;
 
-	mutable renderer::raw_pointer lock_dest_;
+	mutable sge::renderer::raw_pointer lock_dest_;
 };
 
 }

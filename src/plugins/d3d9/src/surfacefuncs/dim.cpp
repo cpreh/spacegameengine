@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer::dim2 const
 sge::d3d9::surfacefuncs::dim(
-	IDirect3DSurface9 *const _surface
+	IDirect3DSurface9 &_surface
 )
 {
 	D3DSURFACE_DESC const desc(

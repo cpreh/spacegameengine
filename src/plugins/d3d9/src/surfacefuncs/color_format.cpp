@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::image::color::format::type
 sge::d3d9::surfacefuncs::color_format(
-	IDirect3DSurface9 *const _surface
+	IDirect3DSurface9 &_surface
 )
 {
 	return

@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::d3d9::cg::scoped_device::scoped_device(
-	IDirect3DDevice9 *const _device
+	IDirect3DDevice9 &_device
 )
 :
 	old_(
@@ -34,14 +34,14 @@ sge::d3d9::cg::scoped_device::scoped_device(
 	needs_reset_(
 		old_
 		!=
-		_device
+		&_device
 	)
 {
 	if(
 		needs_reset_
 	)
 		sge::d3d9::cg::set_device(
-			_device
+			&_device
 		);
 }
 

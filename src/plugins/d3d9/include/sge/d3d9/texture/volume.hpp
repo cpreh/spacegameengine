@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_TEXTURE_VOLUME_HPP_INCLUDED
 #define SGE_D3D9_TEXTURE_VOLUME_HPP_INCLUDED
 
+#include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/texture/basic.hpp>
 #include <sge/d3d9/texture/volume_basic.hpp>
 #include <sge/renderer/lock_mode.hpp>
@@ -38,26 +39,26 @@ namespace texture
 
 class volume
 :
-	public texture::volume_basic
+public sge::d3d9::texture::volume_basic
 {
 	FCPPT_NONCOPYABLE(
 		volume
 	);
 public:
 	volume(
-		IDirect3DDevice9 *,
-		renderer::texture::volume_parameters const &
+		IDirect3DDevice9 &,
+		sge::renderer::texture::volume_parameters const &
 	);
 
 	~volume();
-
+private:
 	dim const
 	size() const;
 
 	view const
 	lock(
 		lock_area const &,
-		renderer::lock_mode::type
+		sge::renderer::lock_mode::type
 	);
 
 	const_view const
@@ -67,8 +68,8 @@ public:
 
 	void
 	unlock() const;
-private:
-	volume_basic::lock_function const
+
+	sge::d3d9::texture::volume_basic::lock_function const
 	lock_function() const;
 };
 

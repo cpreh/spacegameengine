@@ -41,17 +41,17 @@ class parameters
 	);
 public:
 	parameters(
-		IDirect3DDevice9 *,
+		IDirect3DDevice9 &,
 		sge::d3d9::state::deferred::object &
 	);
 
-	IDirect3DDevice9 *
+	IDirect3DDevice9 &
 	device() const;
 
 	sge::d3d9::state::deferred::object &
 	deferred() const;
 private:
-	IDirect3DDevice9 *const device_;
+	IDirect3DDevice9 &device_;
 
 	sge::d3d9::state::deferred::object &deferred_;
 };

@@ -45,8 +45,9 @@ class object
 		object
 	);
 public:
-	explicit object(
-		IDirect3DDevice9 *
+	explicit
+	object(
+		IDirect3DDevice9 &
 	);
 
 	~object();
@@ -61,7 +62,7 @@ public:
 		sge::renderer::state::list const &
 	);
 private:
-	IDirect3DDevice9 *const device_;
+	IDirect3DDevice9 &device_;
 
 	typedef std::set<
 		deferred::bundle::type

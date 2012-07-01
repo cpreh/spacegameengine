@@ -41,7 +41,7 @@ class scoped_device
 public:
 	explicit
 	scoped_device(
-		IDirect3DDevice9 *
+		IDirect3DDevice9 &
 	);
 
 	~scoped_device();

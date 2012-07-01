@@ -34,7 +34,7 @@ namespace state
 
 void
 apply(
-	IDirect3DDevice9 *,
+	IDirect3DDevice9 &,
 	sge::renderer::state::list &current_states,
 	sge::renderer::state::list const &new_states
 );

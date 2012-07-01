@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/clip_plane.hpp>
 #include <sge/renderer/clip_plane_index.hpp>
 
+
 namespace sge
 {
 namespace d3d9
@@ -34,7 +35,7 @@ namespace devicefuncs
 
 void
 set_clip_plane(
-	IDirect3DDevice9 *,
+	IDirect3DDevice9 &,
 	sge::renderer::clip_plane_index,
 	sge::renderer::clip_plane const &
 );

@@ -35,7 +35,7 @@ namespace devicefuncs
 
 sge::d3d9::texture::d3d_base_texture_unique_ptr
 get_texture(
-	IDirect3DDevice9 *,
+	IDirect3DDevice9 &,
 	sge::renderer::texture::stage
 );
 

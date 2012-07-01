@@ -26,13 +26,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 D3DSURFACE_DESC const
 sge::d3d9::surfacefuncs::get_desc(
-	IDirect3DSurface9 *const _surface
+	IDirect3DSurface9 &_surface
 )
 {
 	D3DSURFACE_DESC ret;
 
 	if(
-		_surface->GetDesc(
+		_surface.GetDesc(
 			&ret
 		)
 		!= D3D_OK

@@ -37,7 +37,7 @@ namespace program
 
 sge::renderer::cg::loaded_program_unique_ptr
 create_loaded(
-	IDirect3DDevice9 *,
+	IDirect3DDevice9 &,
 	sge::cg::program::object &
 );
 

@@ -34,7 +34,7 @@ namespace texture
 
 void
 init_state(
-	IDirect3DDevice9 *,
+	IDirect3DDevice9 &,
 	sge::renderer::caps::texture_stages
 );
 

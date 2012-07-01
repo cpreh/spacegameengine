@@ -34,8 +34,8 @@ template<
 >
 void
 sge::d3d9::texture::address_mode(
-	IDirect3DDevice9 *const _device,
-	renderer::texture::stage const _stage,
+	IDirect3DDevice9 &_device,
+	sge::renderer::texture::stage const _stage,
 	Mode const _mode
 )
 {
@@ -59,7 +59,7 @@ void \
 sge::d3d9::texture::address_mode<\
 	mode_type \
 >( \
-	IDirect3DDevice9 *const, \
+	IDirect3DDevice9 &, \
 	sge::renderer::texture::stage const, \
 	mode_type const \
 )

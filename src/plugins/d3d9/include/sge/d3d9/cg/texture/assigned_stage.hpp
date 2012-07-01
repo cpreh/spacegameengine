@@ -38,7 +38,7 @@ namespace texture
 
 sge::renderer::texture::stage const
 assigned_stage(
-	IDirect3DDevice9 *,
+	IDirect3DDevice9 &,
 	sge::d3d9::texture::base const &,
 	sge::renderer::caps::texture_stages
 );

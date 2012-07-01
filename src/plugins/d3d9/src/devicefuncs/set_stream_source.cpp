@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::d3d9::devicefuncs::set_stream_source(
-	IDirect3DDevice9 *const _device,
+	IDirect3DDevice9 &_device,
 	sge::renderer::vertex_buffer const &_vertex_buffer
 )
 {
@@ -41,7 +41,7 @@ sge::d3d9::devicefuncs::set_stream_source(
 	);
 
 	if(
-		_device->SetStreamSource(
+		_device.SetStreamSource(
 			_vertex_buffer.format_part_index().get(),
 			d3d_buffer.get(),
 			0u, // offset

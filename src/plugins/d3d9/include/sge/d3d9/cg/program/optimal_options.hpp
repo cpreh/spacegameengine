@@ -37,7 +37,7 @@ namespace program
 
 sge::cg::program::compile_options const
 optimal_options(
-	IDirect3DDevice9 *,
+	IDirect3DDevice9 &,
 	sge::cg::profile::object const &
 );
 

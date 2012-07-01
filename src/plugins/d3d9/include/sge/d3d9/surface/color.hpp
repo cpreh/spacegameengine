@@ -43,15 +43,15 @@ namespace surface
 class color
 :
 	public sge::renderer::color_surface,
-	public d3d9::resource
+	public sge::d3d9::resource
 {
 	FCPPT_NONCOPYABLE(
 		color
 	);
 public:
 	color(
-		IDirect3DDevice9 *,
-		d3d9::surface::color_create_unique_ptr
+		IDirect3DDevice9 &,
+		sge::d3d9::surface::color_create_unique_ptr
 	);
 
 	~color();
@@ -67,10 +67,10 @@ public:
 	dim const
 	size() const;
 
-	IDirect3DSurface9 *
+	IDirect3DSurface9 &
 	surface() const;
 private:
-	IDirect3DSurface9 *
+	IDirect3DSurface9 &
 	lock_surface() const;
 
 	void
@@ -82,21 +82,21 @@ private:
 	void
 	on_reset();
 
-	IDirect3DDevice9 *const device_;
+	IDirect3DDevice9 &device_;
 
 	typedef fcppt::scoped_ptr<
-		surface::color_create
+		sge::d3d9::surface::color_create
 	> color_create_scoped_ptr;
 
 	color_create_scoped_ptr const create_;
 
 	typedef fcppt::scoped_ptr<
-		surface::color_holder
+		sge::d3d9::surface::color_holder
 	> color_holder_scoped_ptr;
 
 	color_holder_scoped_ptr color_holder_;
 
-	mutable surface::d3d_scoped_ptr temp_surface_;
+	mutable sge::d3d9::surface::d3d_scoped_ptr temp_surface_;
 };
 
 }

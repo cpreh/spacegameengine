@@ -32,7 +32,7 @@ namespace surfacefuncs
 
 D3DSURFACE_DESC const
 get_desc(
-	IDirect3DSurface9 *
+	IDirect3DSurface9 &
 );
 
 }

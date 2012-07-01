@@ -37,7 +37,7 @@ namespace profile
 
 sge::cg::profile::object const
 create(
-	IDirect3DDevice9 *,
+	IDirect3DDevice9 &,
 	sge::cg::profile::shader_type::type
 );
 

@@ -36,7 +36,7 @@ namespace texture
 
 D3DLOCKED_BOX const
 lock_volume(
-	IDirect3DVolumeTexture9 *,
+	IDirect3DVolumeTexture9 &,
 	sge::renderer::texture::stage,
 	d3d9::texture::optional_lock_box const &,
 	d3d9::lock_flags

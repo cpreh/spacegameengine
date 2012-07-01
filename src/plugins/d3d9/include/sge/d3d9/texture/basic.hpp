@@ -67,7 +67,7 @@ public:
 	typedef typename Types::d3d_type d3d_type;
 
 	basic(
-		IDirect3DDevice9 *,
+		IDirect3DDevice9 &,
 		parameters_type const &
 	);
 
@@ -147,7 +147,7 @@ private:
 
 	typedef typename Types::locked_dest locked_dest;
 
-	IDirect3DDevice9 *const device_;
+	IDirect3DDevice9 &device_;
 
 	parameters_type const parameters_;
 
@@ -155,7 +155,7 @@ private:
 
 	sge::image::color::format::type const color_format_;
 
-	d3d9::usage const usage_;
+	sge::d3d9::usage const usage_;
 
 	typedef fcppt::scoped_ptr<
 		d3d_type,

@@ -42,7 +42,7 @@ make_flag(
 
 void
 sge::d3d9::state::deferred::color_write(
-	IDirect3DDevice9 *const _device,
+	IDirect3DDevice9 &_device,
 	sge::renderer::state::list const &_list
 )
 {

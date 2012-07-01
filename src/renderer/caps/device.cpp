@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps/max_volume_texture_extent.hpp>
 #include <sge/renderer/caps/preferred_texture_format.hpp>
 #include <sge/renderer/caps/render_target_supported.hpp>
+#include <sge/renderer/caps/target_surface_indices.hpp>
 #include <sge/renderer/caps/texture_stages.hpp>
 
 
@@ -42,7 +43,8 @@ sge::renderer::caps::device::device(
 	sge::renderer::caps::preferred_texture_format const _preferred_texture_format,
 	sge::renderer::caps::clip_plane_indices const _clip_plane_indices,
 	sge::renderer::caps::light_indices const _light_indices,
-	sge::renderer::caps::texture_stages const _texture_stages
+	sge::renderer::caps::texture_stages const _texture_stages,
+	sge::renderer::caps::target_surface_indices const _target_surfaces
 )
 :
 	adapter_(
@@ -77,6 +79,9 @@ sge::renderer::caps::device::device(
 	),
 	texture_stages_(
 		_texture_stages
+	),
+	target_surfaces_(
+		_target_surfaces
 	)
 {
 }
@@ -149,4 +154,10 @@ sge::renderer::caps::texture_stages const
 sge::renderer::caps::device::texture_stages() const
 {
 	return texture_stages_;
+}
+
+sge::renderer::caps::target_surface_indices const
+sge::renderer::caps::device::target_surfaces() const
+{
+	return target_surfaces_;
 }

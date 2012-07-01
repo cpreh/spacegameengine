@@ -21,19 +21,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/devicefuncs/set_sampler_state.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <fcppt/text.hpp>
 
 
 void
 sge::d3d9::devicefuncs::set_sampler_state(
-	IDirect3DDevice9 *const _device,
+	IDirect3DDevice9 &_device,
 	sge::renderer::texture::stage const _stage,
 	D3DSAMPLERSTATETYPE const _type,
 	DWORD const _value
 )
 {
 	if(
-		_device->SetSamplerState(
+		_device.SetSamplerState(
 			_stage.get(),
 			_type,
 			_value

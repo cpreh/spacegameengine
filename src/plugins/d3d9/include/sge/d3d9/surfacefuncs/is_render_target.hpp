@@ -32,7 +32,7 @@ namespace surfacefuncs
 
 bool
 is_render_target(
-	IDirect3DSurface9 *
+	IDirect3DSurface9 &
 );
 
 }

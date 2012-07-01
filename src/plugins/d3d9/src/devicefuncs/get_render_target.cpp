@@ -22,29 +22,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/devicefuncs/get_render_target.hpp>
 #include <sge/d3d9/surface/d3d_unique_ptr.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/target/surface_index.hpp>
 #include <fcppt/text.hpp>
 
 
 sge::d3d9::surface::d3d_unique_ptr
 sge::d3d9::devicefuncs::get_render_target(
-	IDirect3DDevice9 *const _device
+	IDirect3DDevice9 &_device,
+	sge::renderer::target::surface_index const _index
 )
 {
 	IDirect3DSurface9 *ret;
 
-	if(
-		_device->GetRenderTarget(
-			0,
+	switch(
+		_device.GetRenderTarget(
+			_index.get(),
 			&ret
 		)
-		!= D3D_OK
 	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("GetRenderTarget() failed!")
-		);
-
-	return
-		d3d9::surface::d3d_unique_ptr(
-			ret
-		);
+	{
+	case D3D_OK:
+		return
+			sge::d3d9::surface::d3d_unique_ptr(
+				ret
+			);
+	case D3DERR_NOTFOUND:
+		return
+			sge::d3d9::surface::d3d_unique_ptr();
+	}
+	
+	throw sge::renderer::exception(
+		FCPPT_TEXT("GetRenderTarget() failed!")
+	);
 }

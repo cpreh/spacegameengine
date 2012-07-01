@@ -53,7 +53,7 @@ class address_mode_visitor
 	);
 public:
 	address_mode_visitor(
-		IDirect3DDevice9 *,
+		IDirect3DDevice9 &,
 		sge::renderer::texture::stage
 	);
 
@@ -65,7 +65,7 @@ public:
 	result_type
 	operator()() const;
 private:
-	IDirect3DDevice9 *const device_;
+	IDirect3DDevice9 &device_;
 
 	sge::renderer::texture::stage const stage_;
 };
@@ -74,7 +74,7 @@ private:
 
 void
 sge::d3d9::texture::init_state(
-	IDirect3DDevice9 *const _device,
+	IDirect3DDevice9 &_device,
 	sge::renderer::caps::texture_stages const _max_stages
 )
 {
@@ -111,7 +111,7 @@ namespace
 {
 
 address_mode_visitor::address_mode_visitor(
-	IDirect3DDevice9 *const _device,
+	IDirect3DDevice9 &_device,
 	sge::renderer::texture::stage const _stage
 )
 :

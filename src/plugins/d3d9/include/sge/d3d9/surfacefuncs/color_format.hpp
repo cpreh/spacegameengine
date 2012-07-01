@@ -33,7 +33,7 @@ namespace surfacefuncs
 
 sge::image::color::format::type
 color_format(
-	IDirect3DSurface9 *
+	IDirect3DSurface9 &
 );
 
 }

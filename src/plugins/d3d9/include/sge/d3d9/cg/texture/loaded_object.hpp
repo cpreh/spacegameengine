@@ -49,7 +49,7 @@ class loaded_object
 	);
 public:
 	loaded_object(
-		IDirect3DDevice9 *,
+		IDirect3DDevice9 &,
 		sge::cg::parameter::object const &,
 		sge::renderer::texture::base &,
 		sge::renderer::caps::texture_stages
@@ -63,7 +63,7 @@ public:
 	void
 	deactivate() const;
 private:
-	IDirect3DDevice9 *const device_;
+	IDirect3DDevice9 &device_;
 
 	sge::cg::parameter::object const parameter_;
 

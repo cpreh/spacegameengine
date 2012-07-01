@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/color_surface_shared_ptr.hpp>
 #include <sge/renderer/depth_stencil_surface_shared_ptr.hpp>
 #include <sge/renderer/optional_dim2.hpp>
+#include <sge/renderer/caps/target_surface_indices.hpp>
 #include <sge/renderer/target/offscreen.hpp>
 #include <sge/renderer/target/surface_index.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -56,9 +57,9 @@ class offscreen
 		sge::renderer::target::offscreen
 	> base;
 public:
-	explicit
 	offscreen(
-		IDirect3DDevice9 *
+		IDirect3DDevice9 &,
+		sge::renderer::caps::target_surface_indices
 	);
 
 	~offscreen();
@@ -76,6 +77,9 @@ private:
 
 	sge::renderer::optional_dim2 const
 	size() const;
+
+	bool
+	needs_present() const;
 
 	void
 	on_activate();

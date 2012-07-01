@@ -36,7 +36,7 @@ namespace texture
 
 void
 set(
-	IDirect3DDevice9 *,
+	IDirect3DDevice9 &,
 	sge::cg::parameter::object const &,
 	IDirect3DBaseTexture9 *
 );

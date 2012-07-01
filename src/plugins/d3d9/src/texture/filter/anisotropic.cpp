@@ -23,41 +23,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/texture/filter/anisotropic.hpp>
 #include <sge/d3d9/texture/filter/anisotropic_level.hpp>
 #include <sge/d3d9/texture/filter/convert/anisotropic_mip.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/texture/filter/anisotropic/object.hpp>
 
 
 void
 sge::d3d9::texture::filter::anisotropic(
-	IDirect3DDevice9 *const _device,
-	renderer::texture::stage const _stage,
-	renderer::texture::filter::anisotropic::object const &_object
+	IDirect3DDevice9 &_device,
+	sge::renderer::texture::stage const _stage,
+	sge::renderer::texture::filter::anisotropic::object const &_object
 )
 {
-	filter::anisotropic_level(
+	sge::d3d9::texture::filter::anisotropic_level(
 		_device,
 		_stage,
 		_object.level()
 	);
 
-	devicefuncs::set_sampler_state(
+	sge::d3d9::devicefuncs::set_sampler_state(
 		_device,
 		_stage,
 		D3DSAMP_MAGFILTER,
 		D3DTEXF_ANISOTROPIC
 	);
 
-	devicefuncs::set_sampler_state(
+	sge::d3d9::devicefuncs::set_sampler_state(
 		_device,
 		_stage,
 		D3DSAMP_MINFILTER,
 		D3DTEXF_ANISOTROPIC
 	);
 
-	devicefuncs::set_sampler_state(
+	sge::d3d9::devicefuncs::set_sampler_state(
 		_device,
 		_stage,
 		D3DSAMP_MIPFILTER,
-		filter::convert::anisotropic_mip(
+		sge::d3d9::texture::filter::convert::anisotropic_mip(
 			_object.mip()
 		)
 	);

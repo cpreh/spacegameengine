@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::d3d9::state::parameters::parameters(
-	IDirect3DDevice9 *const _device,
+	IDirect3DDevice9 &_device,
 	sge::d3d9::state::deferred::object &_deferred
 )
 :
@@ -37,7 +37,7 @@ sge::d3d9::state::parameters::parameters(
 {
 }
 
-IDirect3DDevice9 *
+IDirect3DDevice9 &
 sge::d3d9::state::parameters::device() const
 {
 	return device_;

@@ -35,7 +35,7 @@ namespace devicefuncs
 
 void
 set_texture(
-	IDirect3DDevice9 *,
+	IDirect3DDevice9 &,
 	sge::renderer::texture::stage,
 	sge::renderer::texture::const_optional_base_ref const &
 );

@@ -41,3 +41,10 @@ sge::d3d9::render_context::scoped_target::~scoped_target()
 		false
 	);
 }
+
+sge::d3d9::target::base &
+sge::d3d9::render_context::scoped_target::target() const
+{
+	return
+		target_;
+}

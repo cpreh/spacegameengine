@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TARGET_SURFACE_INDEX_HPP_INCLUDED
 #define SGE_RENDERER_TARGET_SURFACE_INDEX_HPP_INCLUDED
 
+#include <sge/renderer/target/surface_index_value.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
@@ -35,7 +36,7 @@ namespace target
  * \brief A strong typedef describing the index of a surface
 */
 FCPPT_MAKE_STRONG_TYPEDEF(
-	unsigned,
+	sge::renderer::target::surface_index_value,
 	surface_index
 );
 

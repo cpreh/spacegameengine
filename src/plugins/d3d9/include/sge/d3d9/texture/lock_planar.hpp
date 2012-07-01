@@ -35,7 +35,7 @@ namespace texture
 
 D3DLOCKED_RECT const
 lock_planar(
-	IDirect3DTexture9 *,
+	IDirect3DTexture9 &,
 	sge::renderer::texture::stage,
 	d3d9::optional_lock_rect const &,
 	d3d9::lock_flags

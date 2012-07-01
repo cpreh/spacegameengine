@@ -37,7 +37,7 @@ namespace deferred
 
 void
 apply(
-	IDirect3DDevice9 *,
+	IDirect3DDevice9 &,
 	deferred::bundle::type,
 	sge::renderer::state::list const &
 );

@@ -34,7 +34,7 @@ namespace surfacefuncs
 
 D3DLOCKED_RECT const
 lock_rect(
-	IDirect3DSurface9 *,
+	IDirect3DSurface9 &,
 	d3d9::optional_lock_rect const &,
 	d3d9::lock_flags
 );

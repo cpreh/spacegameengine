@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::d3d9::texture::d3d_volume_texture_unique_ptr
 sge::d3d9::texture::create_volume(
-	IDirect3DDevice9 * const _device,
+	IDirect3DDevice9 &_device,
 	renderer::texture::volume_parameters const &_params,
 	D3DFORMAT const _color_format,
 	D3DPOOL const _pool,
@@ -38,7 +38,7 @@ sge::d3d9::texture::create_volume(
 	IDirect3DVolumeTexture9 *ret = 0;
 
 	if(
-		_device->CreateVolumeTexture(
+		_device.CreateVolumeTexture(
 			static_cast<
 				UINT
 			>(

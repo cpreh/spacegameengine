@@ -33,7 +33,7 @@ namespace texture
 
 void
 unlock_planar(
-	IDirect3DTexture9 *,
+	IDirect3DTexture9 &,
 	sge::renderer::texture::stage
 );
 

@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::d3d9::devicefuncs::set_scissor_rect(
-	IDirect3DDevice9 *const _device,
+	IDirect3DDevice9 &_device,
 	sge::renderer::target::scissor_area const &_scissor_area
 )
 {
@@ -39,7 +39,7 @@ sge::d3d9::devicefuncs::set_scissor_rect(
 	);
 
 	if(
-		_device->SetScissorRect(
+		_device.SetScissorRect(
 			&d3d_rect
 		)
 		!= D3D_OK

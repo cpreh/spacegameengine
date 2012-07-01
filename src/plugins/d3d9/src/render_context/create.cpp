@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer::context::object_unique_ptr
 sge::d3d9::render_context::create(
-	IDirect3DDevice9 *const _device,
+	IDirect3DDevice9 &_device,
 	sge::renderer::target::base &_target,
 	sge::renderer::caps::texture_stages const _texture_stages
 )
@@ -41,7 +41,9 @@ sge::d3d9::render_context::create(
 			fcppt::make_unique_ptr<
 				sge::d3d9::render_context::object
 			>(
-				_device,
+				fcppt::ref(
+					_device
+				),
 				fcppt::ref(
 					_target
 				),

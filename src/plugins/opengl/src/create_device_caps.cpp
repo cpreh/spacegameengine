@@ -42,6 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps/max_volume_texture_extent.hpp>
 #include <sge/renderer/caps/preferred_texture_format.hpp>
 #include <sge/renderer/caps/render_target_supported.hpp>
+#include <sge/renderer/caps/target_surface_indices.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/text.hpp>
@@ -88,6 +89,14 @@ sge::opengl::create_device_caps(
 		)
 	);
 
+	sge::renderer::caps::render_target_supported const render_target_supported(
+		sge::opengl::context::use<
+			fbo::context
+		>(
+			_context
+		).is_supported()
+	);
+	
 	return
 		fcppt::make_unique_ptr<
 			sge::renderer::caps::device
@@ -139,13 +148,7 @@ sge::opengl::create_device_caps(
 				:
 					0
 			),
-			sge::renderer::caps::render_target_supported(
-				sge::opengl::context::use<
-					fbo::context
-				>(
-					_context
-				).is_supported()
-			),
+			render_target_supported,
 			sge::renderer::caps::preferred_texture_format(
 				sge::image::color::format::bgra8
 			),
@@ -163,6 +166,17 @@ sge::opengl::create_device_caps(
 					GL_MAX_LIGHTS
 				)
 			),
-			texture_multi_context.max_level()
+			texture_multi_context.max_level(),
+			fcppt::strong_typedef_construct_cast<
+				sge::renderer::caps::target_surface_indices
+			>(
+				render_target_supported.get()
+				?
+					sge::opengl::get_int(
+						GL_MAX_COLOR_ATTACHMENTS
+					)
+				:
+					0
+			)
 		);
 }

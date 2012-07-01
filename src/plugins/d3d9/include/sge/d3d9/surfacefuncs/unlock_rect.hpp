@@ -32,7 +32,7 @@ namespace surfacefuncs
 
 void
 unlock_rect(
-	IDirect3DSurface9 *
+	IDirect3DSurface9 &
 );
 
 }

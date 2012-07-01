@@ -26,11 +26,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::d3d9::devicefuncs::end_scene(
-	IDirect3DDevice9 *const _device
+	IDirect3DDevice9 &_device
 )
 {
 	if(
-		_device->EndScene()
+		_device.EndScene()
 		!= D3D_OK
 	)
 		throw sge::renderer::exception(

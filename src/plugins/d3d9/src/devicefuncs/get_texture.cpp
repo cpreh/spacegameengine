@@ -28,14 +28,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::d3d9::texture::d3d_base_texture_unique_ptr
 sge::d3d9::devicefuncs::get_texture(
-	IDirect3DDevice9 *const _device,
+	IDirect3DDevice9 &_device,
 	sge::renderer::texture::stage const _stage
 )
 {
 	IDirect3DBaseTexture9 *result;
 
 	if(
-		_device->GetTexture(
+		_device.GetTexture(
 			_stage.get(),
 			&result
 		)

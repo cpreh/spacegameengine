@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/stage_arg.hpp>
 #include <sge/renderer/texture/stage_arg_value.hpp>
 
+
 namespace sge
 {
 namespace d3d9
@@ -35,10 +36,10 @@ namespace devicefuncs
 
 void
 texture_stage_arg(
-	IDirect3DDevice9 *,
-	renderer::texture::stage,
-	renderer::texture::stage_arg::type,
-	renderer::texture::stage_arg_value::type
+	IDirect3DDevice9 &,
+	sge::renderer::texture::stage,
+	sge::renderer::texture::stage_arg::type,
+	sge::renderer::texture::stage_arg_value::type
 );
 
 }

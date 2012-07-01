@@ -26,12 +26,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::d3d9::texture::unlock_volume(
-	IDirect3DVolumeTexture9 *const _texture,
+	IDirect3DVolumeTexture9 &_texture,
 	sge::renderer::texture::stage const _stage
 )
 {
 	if(
-		_texture->UnlockBox(
+		_texture.UnlockBox(
 			_stage.get()
 		)
 		!= D3D_OK

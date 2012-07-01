@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::d3d9::cg::texture::set(
-	IDirect3DDevice9 *const _device,
+	IDirect3DDevice9 &_device,
 	sge::cg::parameter::object const &_parameter,
 	IDirect3DBaseTexture9 *const _texture
 )

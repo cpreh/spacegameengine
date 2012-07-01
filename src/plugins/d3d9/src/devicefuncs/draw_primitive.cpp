@@ -31,14 +31,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::d3d9::devicefuncs::draw_primitive(
-	IDirect3DDevice9 *const _device,
+	IDirect3DDevice9 &_device,
 	sge::renderer::first_vertex const _first_vertex,
 	sge::renderer::vertex_count const _num_vertices,
 	sge::renderer::primitive_type::type const _primitive_type
 )
 {
 	if(
-		_device->DrawPrimitive(
+		_device.DrawPrimitive(
 			sge::d3d9::convert::primitive_type(
 				_primitive_type
 			),

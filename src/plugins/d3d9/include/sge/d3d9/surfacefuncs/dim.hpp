@@ -33,7 +33,7 @@ namespace surfacefuncs
 
 sge::renderer::dim2 const
 dim(
-	IDirect3DSurface9 *
+	IDirect3DSurface9 &
 );
 
 }

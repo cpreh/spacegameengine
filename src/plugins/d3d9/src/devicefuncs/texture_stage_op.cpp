@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/convert/texture_stage_op.hpp>
 #include <sge/d3d9/convert/texture_stage_op_value.hpp>
 #include <sge/d3d9/devicefuncs/set_texture_stage_state.hpp>
@@ -29,19 +30,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::d3d9::devicefuncs::texture_stage_op(
-	IDirect3DDevice9 *const _device,
-	renderer::texture::stage const _stage,
-	renderer::texture::stage_op::type const _op,
-	renderer::texture::stage_op_value::type const _value
+	IDirect3DDevice9 &_device,
+	sge::renderer::texture::stage const _stage,
+	sge::renderer::texture::stage_op::type const _op,
+	sge::renderer::texture::stage_op_value::type const _value
 )
 {
-	devicefuncs::set_texture_stage_state(
+	sge::d3d9::devicefuncs::set_texture_stage_state(
 		_device,
 		_stage,
-		d3d9::convert::texture_stage_op(
+		sge::d3d9::convert::texture_stage_op(
 			_op
 		),
-		d3d9::convert::texture_stage_op_value(
+		sge::d3d9::convert::texture_stage_op_value(
 			_value
 		)
 	);

@@ -26,15 +26,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::d3d9::texture::update(
-	IDirect3DDevice9* const _device,
-	IDirect3DBaseTexture9 *const _source,
-	IDirect3DBaseTexture9 *const _dest
+	IDirect3DDevice9 &_device,
+	IDirect3DBaseTexture9 &_source,
+	IDirect3DBaseTexture9 &_dest
 )
 {
 	if(
-		_device->UpdateTexture(
-			_source,
-			_dest
+		_device.UpdateTexture(
+			&_source,
+			&_dest
 		)
 		!= D3D_OK
 	)

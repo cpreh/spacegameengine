@@ -34,6 +34,7 @@ set(
 	include/sge/renderer/caps/system.hpp
 	include/sge/renderer/caps/system_field.hpp
 	include/sge/renderer/caps/system_field_fwd.hpp
+	include/sge/renderer/caps/target_surface_indices.hpp
 	include/sge/renderer/caps/texture_stages.hpp
 	include/sge/renderer/clear/back_buffer_value.hpp
 	include/sge/renderer/clear/back_buffer_value_fwd.hpp
@@ -333,6 +334,7 @@ set(
 	include/sge/renderer/target/scoped_fwd.hpp
 	include/sge/renderer/target/scoped_scissor_area.hpp
 	include/sge/renderer/target/surface_index.hpp
+	include/sge/renderer/target/surface_index_value.hpp
 	include/sge/renderer/target/viewport.hpp
 	include/sge/renderer/target/viewport_fwd.hpp
 	include/sge/renderer/target/viewport_size.hpp

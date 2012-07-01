@@ -63,6 +63,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/default.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/target/base.hpp>
+#include <sge/renderer/target/offscreen.hpp>
+#include <sge/renderer/target/optional_offscreen_ref.hpp>
 #include <sge/renderer/texture/address_mode_s.hpp>
 #include <sge/renderer/texture/address_mode_t.hpp>
 #include <sge/renderer/texture/address_mode_u.hpp>
@@ -73,7 +75,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/stage_op.hpp>
 #include <sge/renderer/texture/stage_op_value.hpp>
 #include <sge/renderer/texture/filter/object_fwd.hpp>
+#include <fcppt/dynamic_optional_cast.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/optional_impl.hpp>
+#include <fcppt/assert/pre.hpp>
 
 #if defined(SGE_RENDERER_HAVE_CG)
 #include <sge/d3d9/cg/program/activate.hpp>
@@ -86,7 +91,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::d3d9::render_context::object::object(
-	IDirect3DDevice9 *const _device,
+	IDirect3DDevice9 &_device,
 	sge::renderer::target::base &_target,
 	sge::renderer::caps::texture_stages const _texture_stages
 )
@@ -106,7 +111,8 @@ sge::d3d9::render_context::object::object(
 		>(
 			target_
 		)
-	)
+	),
+	offscreen_target_()
 #if defined(SGE_RENDERER_HAVE_CG)
 	,
 	scoped_cg_device_(
@@ -128,6 +134,13 @@ sge::d3d9::render_context::object::~object()
 {
 }
 
+bool
+sge::d3d9::render_context::object::needs_present() const
+{
+	return
+		scoped_target_.target().needs_present();
+}
+
 sge::renderer::target::base &
 sge::d3d9::render_context::object::target()
 {
@@ -144,6 +157,53 @@ sge::d3d9::render_context::object::clear(
 		device_,
 		_parameters
 	);
+}
+
+void
+sge::d3d9::render_context::object::offscreen_target(
+	sge::renderer::target::optional_offscreen_ref const &_new_target
+)
+{
+	if(
+		_new_target
+	)
+	{
+		FCPPT_ASSERT_PRE(
+			!offscreen_target_
+		);
+
+		scoped_target_.target().active(
+			false
+		);
+
+		offscreen_target_ =
+			fcppt::dynamic_optional_cast<
+				sge::d3d9::target::base
+			>(
+				_new_target
+			);
+
+		offscreen_target_->active(
+			true
+		);
+	}
+	else
+	{
+		FCPPT_ASSERT_PRE(
+			offscreen_target_
+		);
+
+		offscreen_target_->active(
+			false
+		);
+
+		offscreen_target_ =
+			sge::d3d9::render_context::object::optional_target_base_ref();
+
+		scoped_target_.target().active(
+			true
+		);
+	}
 }
 
 void

@@ -18,26 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/convert/material.hpp>
 #include <sge/d3d9/devicefuncs/set_material.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/material_fwd.hpp>
 #include <fcppt/text.hpp>
 
 
 void
 sge::d3d9::devicefuncs::set_material(
-	IDirect3DDevice9 *const _device,
+	IDirect3DDevice9 &_device,
 	sge::renderer::material const &_material
 )
 {
 	D3DMATERIAL9 const d3d_mat(
-		convert::material(
+		sge::d3d9::convert::material(
 			_material
 		)
 	);
 
 	if(
-		_device->SetMaterial(
+		_device.SetMaterial(
 			&d3d_mat
 		)
 		!= D3D_OK

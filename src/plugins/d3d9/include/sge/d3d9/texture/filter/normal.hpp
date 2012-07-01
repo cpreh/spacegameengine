@@ -37,7 +37,7 @@ namespace filter
 
 void
 normal(
-	IDirect3DDevice9 *,
+	IDirect3DDevice9 &,
 	renderer::texture::stage,
 	renderer::texture::filter::normal::object const &
 );

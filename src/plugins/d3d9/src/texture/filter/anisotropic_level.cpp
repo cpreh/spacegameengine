@@ -21,16 +21,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/devicefuncs/set_sampler_state.hpp>
 #include <sge/d3d9/texture/filter/anisotropic_level.hpp>
+#include <sge/renderer/texture/stage.hpp>
+#include <sge/renderer/texture/filter/anisotropic/level.hpp>
 
 
 void
 sge::d3d9::texture::filter::anisotropic_level(
-	IDirect3DDevice9 *const _device,
-	renderer::texture::stage const _stage,
-	renderer::texture::filter::anisotropic::level const _level
+	IDirect3DDevice9 &_device,
+	sge::renderer::texture::stage const _stage,
+	sge::renderer::texture::filter::anisotropic::level const _level
 )
 {
-	devicefuncs::set_sampler_state(
+	sge::d3d9::devicefuncs::set_sampler_state(
 		_device,
 		_stage,
 		D3DSAMP_MAXANISOTROPY,

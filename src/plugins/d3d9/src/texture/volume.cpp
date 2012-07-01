@@ -30,11 +30,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::d3d9::texture::volume::volume(
-	IDirect3DDevice9 *const _device,
-	renderer::texture::volume_parameters const &_params
+	IDirect3DDevice9 &_device,
+	sge::renderer::texture::volume_parameters const &_params
 )
 :
-	texture::volume_basic(
+	sge::d3d9::texture::volume_basic(
 		_device,
 		_params
 	)

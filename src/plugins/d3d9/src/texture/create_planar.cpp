@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::d3d9::texture::d3d_texture_unique_ptr
 sge::d3d9::texture::create_planar(
-	IDirect3DDevice9 * const _device,
+	IDirect3DDevice9 &_device,
 	renderer::texture::planar_parameters const &_params,
 	D3DFORMAT const _color_format,
 	D3DPOOL const _pool,
@@ -38,7 +38,7 @@ sge::d3d9::texture::create_planar(
 	IDirect3DTexture9 *ret = 0;
 
 	if(
-		_device->CreateTexture(
+		_device.CreateTexture(
 			static_cast<
 				UINT
 			>(

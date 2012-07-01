@@ -26,12 +26,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::d3d9::devicefuncs::set_depth_stencil_surface(
-	IDirect3DDevice9 *const _device,
+	IDirect3DDevice9 &_device,
 	IDirect3DSurface9 *const _surface
 )
 {
 	if(
-		_device->SetDepthStencilSurface(
+		_device.SetDepthStencilSurface(
 			_surface
 		)
 		!= D3D_OK

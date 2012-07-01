@@ -34,7 +34,7 @@ namespace devicefuncs
 
 void
 clear(
-	IDirect3DDevice9 *,
+	IDirect3DDevice9 &,
 	sge::renderer::clear::parameters const &
 );
 

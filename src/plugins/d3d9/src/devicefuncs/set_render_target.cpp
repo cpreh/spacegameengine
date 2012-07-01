@@ -27,13 +27,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::d3d9::devicefuncs::set_render_target(
-	IDirect3DDevice9 *const _device,
+	IDirect3DDevice9 &_device,
 	sge::renderer::target::surface_index const _index,
 	IDirect3DSurface9 *const _surface
 )
 {
 	if(
-		_device->SetRenderTarget(
+		_device.SetRenderTarget(
 			static_cast<
 				DWORD
 			>(

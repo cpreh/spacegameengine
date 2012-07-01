@@ -34,7 +34,7 @@ namespace devicefuncs
 
 void
 set_viewport(
-	IDirect3DDevice9 *,
+	IDirect3DDevice9 &,
 	sge::renderer::target::viewport const &
 );
 

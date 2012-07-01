@@ -39,7 +39,7 @@ namespace texture
 
 sge::renderer::cg::loaded_texture_unique_ptr
 create_loaded(
-	IDirect3DDevice9 *,
+	IDirect3DDevice9 &,
 	sge::cg::parameter::object const &,
 	sge::renderer::texture::base &,
 	sge::renderer::caps::texture_stages

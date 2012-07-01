@@ -18,12 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/convert/matrix.hpp>
 #include <sge/d3d9/convert/matrix_mode.hpp>
 #include <sge/d3d9/devicefuncs/set_transform.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/matrix4.hpp>
+#include <sge/renderer/matrix_mode.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/math/matrix/object_impl.hpp>
 #include <fcppt/math/matrix/transpose.hpp>
 
 
@@ -32,7 +34,7 @@ namespace
 
 void
 do_set(
-	IDirect3DDevice9 *,
+	IDirect3DDevice9 &,
 	D3DTRANSFORMSTATETYPE,
 	D3DMATRIX const &
 );
@@ -41,13 +43,13 @@ do_set(
 
 void
 sge::d3d9::devicefuncs::set_transform(
-	IDirect3DDevice9 *const _device,
+	IDirect3DDevice9 &_device,
 	sge::renderer::matrix_mode::type const _mode,
 	sge::renderer::matrix4 const &_matrix
 )
 {
 	D3DMATRIX d3d_matrix(
-		convert::matrix(
+		sge::d3d9::convert::matrix(
 			fcppt::math::matrix::transpose(
 				_matrix
 			)
@@ -55,7 +57,7 @@ sge::d3d9::devicefuncs::set_transform(
 	);
 
 	D3DTRANSFORMSTATETYPE const d3d_mode(
-		convert::matrix_mode(
+		sge::d3d9::convert::matrix_mode(
 			_mode
 		)
 	);
@@ -97,13 +99,13 @@ namespace
 
 void
 do_set(
-	IDirect3DDevice9 *const _device,
+	IDirect3DDevice9 &_device,
 	D3DTRANSFORMSTATETYPE const _mode,
 	D3DMATRIX const &_matrix
 )
 {
 	if(
-		_device->SetTransform(
+		_device.SetTransform(
 			_mode,
 			&_matrix
 		)

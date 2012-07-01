@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/devicefuncs/begin_scene.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
@@ -25,11 +26,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::d3d9::devicefuncs::begin_scene(
-	IDirect3DDevice9 *const _device
+	IDirect3DDevice9 &_device
 )
 {
 	if(
-		_device->BeginScene()
+		_device.BeginScene()
 		!= D3D_OK
 	)
 		throw sge::renderer::exception(

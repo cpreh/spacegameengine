@@ -36,7 +36,7 @@ namespace texture
 
 texture::d3d_cube_texture_unique_ptr
 create_cube(
-	IDirect3DDevice9 *,
+	IDirect3DDevice9 &,
 	renderer::texture::cube_parameters const &,
 	D3DFORMAT,
 	D3DPOOL,

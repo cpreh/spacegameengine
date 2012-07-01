@@ -44,6 +44,9 @@ public:
 	);
 
 	~scoped_target();
+
+	sge::d3d9::target::base &
+	target() const;
 private:
 	sge::d3d9::target::base &target_;
 };

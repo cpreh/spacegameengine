@@ -49,7 +49,7 @@ class planar
 	);
 public:
 	planar(
-		IDirect3DDevice9 *,
+		IDirect3DDevice9 &,
 		sge::renderer::texture::planar_parameters const &
 	);
 

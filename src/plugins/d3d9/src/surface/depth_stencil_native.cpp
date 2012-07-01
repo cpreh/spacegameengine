@@ -18,24 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/multi_sample_quality.hpp>
 #include <sge/d3d9/devicefuncs/create_depth_stencil_surface.hpp>
+#include <sge/d3d9/surface/d3d_unique_ptr.hpp>
 #include <sge/d3d9/surface/depth_stencil_native.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
+#include <sge/renderer/depth_stencil_format.hpp>
+#include <sge/renderer/dim2.hpp>
 
 
 sge::d3d9::surface::depth_stencil_native::depth_stencil_native(
-	IDirect3DDevice9 *const _device,
+	IDirect3DDevice9 &_device,
 	sge::renderer::dim2 const &_dim,
 	sge::renderer::depth_stencil_format::type const _format,
 	D3DMULTISAMPLE_TYPE const _samples,
-	d3d9::multi_sample_quality const _multi_sample_quality
+	sge::d3d9::multi_sample_quality const _multi_sample_quality
 )
 :
-	device_(_device),
-	dim_(_dim),
-	format_(_format),
-	samples_(_samples),
-	multi_sample_quality_(_multi_sample_quality)
+	device_(
+		_device
+	),
+	dim_(
+		_dim
+	),
+	format_(
+		_format
+	),
+	samples_(
+		_samples
+	),
+	multi_sample_quality_(
+		_multi_sample_quality
+	)
 {
 }
 
@@ -47,7 +61,7 @@ sge::d3d9::surface::d3d_unique_ptr
 sge::d3d9::surface::depth_stencil_native::create() const
 {
 	return
-		d3d9::devicefuncs::create_depth_stencil_surface(
+		sge::d3d9::devicefuncs::create_depth_stencil_surface(
 			device_,
 			dim_,
 			format_,

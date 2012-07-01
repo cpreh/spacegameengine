@@ -48,6 +48,10 @@ public:
 	active(
 		bool
 	) = 0;
+
+	virtual
+	bool
+	needs_present() const = 0;
 };
 
 }

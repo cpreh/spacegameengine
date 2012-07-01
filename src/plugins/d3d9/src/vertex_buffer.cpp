@@ -32,29 +32,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/const_view.hpp>
 #include <sge/renderer/vf/dynamic/stride.hpp>
 #include <sge/renderer/vf/dynamic/view.hpp>
+#include <fcppt/null_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 
 
 sge::d3d9::vertex_buffer::vertex_buffer(
-	IDirect3DDevice9 *const _device,
-	renderer::vf::dynamic::part const &_format_part,
-	renderer::vf::dynamic::part_index const _format_part_index,
+	IDirect3DDevice9 &_device,
+	sge::renderer::vf::dynamic::part const &_format_part,
+	sge::renderer::vf::dynamic::part_index const _format_part_index,
 	count_type const _size,
-	renderer::resource_flags_field const &_resource_flags
+	sge::renderer::resource_flags_field const &_resource_flags
 )
 :
 	sge::renderer::vertex_buffer(),
-	d3d9::resource(
-		convert::resource_flags_to_pool(
+	sge::d3d9::resource(
+		sge::d3d9::convert::resource_flags_to_pool(
 			_resource_flags
 		)
 	),
-	device_(_device),
-	format_part_(_format_part),
-	format_part_index_(_format_part_index),
-	size_(_size),
-	resource_flags_(_resource_flags),
+	device_(
+		_device
+	),
+	format_part_(
+		_format_part
+	),
+	format_part_index_(
+		_format_part_index
+	),
+	size_(
+		_size
+	),
+	resource_flags_(
+		_resource_flags
+	),
 	converter_(
 		format_part_,
 		fcppt::assign::make_container<
@@ -64,7 +75,9 @@ sge::d3d9::vertex_buffer::vertex_buffer(
 		)
 	),
 	buffer_(),
-	lock_dest_(0)
+	lock_dest_(
+		fcppt::null_ptr()
+	)
 {
 	this->init();
 }
@@ -128,7 +141,7 @@ sge::d3d9::vertex_buffer::unlock() const
 			FCPPT_TEXT("Cannot unlock d3d vertex buffer!")
 		);
 
-	lock_dest_ = 0;
+	lock_dest_ = fcppt::null_ptr();
 }
 
 sge::d3d9::vertex_buffer::count_type const
@@ -173,7 +186,7 @@ sge::d3d9::vertex_buffer::init()
 	IDirect3DVertexBuffer9 *ret;
 
 	if(
-		device_->CreateVertexBuffer(
+		device_.CreateVertexBuffer(
 			static_cast<
 				UINT
 			>(
@@ -186,7 +199,7 @@ sge::d3d9::vertex_buffer::init()
 			0, // no FVF
 			this->pool(),
 			&ret,
-			0
+			fcppt::null_ptr()
 		)
 		!= D3D_OK
 	)
@@ -220,7 +233,7 @@ View const
 sge::d3d9::vertex_buffer::do_lock(
 	first_type const _first,
 	count_type const _count,
-	renderer::lock_flags::method::type const _method
+	sge::renderer::lock_flags::method::type const _method
 ) const
 {
 	if(
@@ -230,7 +243,9 @@ sge::d3d9::vertex_buffer::do_lock(
 			FCPPT_TEXT("d3d::vertex_buffer::lock() you have to unlock first!")
 		);
 
-	void *data = 0;
+	void *data(
+		fcppt::null_ptr()
+	);
 
 	count_type const lock_count(
 		_count == npos
@@ -255,7 +270,7 @@ sge::d3d9::vertex_buffer::do_lock(
 				* this->stride().get()
 			),
 			&data,
-			d3d9::convert::lock_flags(
+			sge::d3d9::convert::lock_flags(
 				_method,
 				this->resource_flags()
 			).get()

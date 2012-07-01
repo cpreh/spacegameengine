@@ -33,7 +33,7 @@ namespace devicefuncs
 
 void
 light_enable(
-	IDirect3DDevice9 *,
+	IDirect3DDevice9 &,
 	sge::renderer::light::index,
 	bool
 );

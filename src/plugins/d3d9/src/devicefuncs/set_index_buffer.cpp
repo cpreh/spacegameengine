@@ -28,14 +28,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::d3d9::devicefuncs::set_index_buffer(
-	IDirect3DDevice9 *const _device,
-	renderer::index_buffer const &_index_buffer
+	IDirect3DDevice9 &_device,
+	sge::renderer::index_buffer const &_index_buffer
 )
 {
 	if(
-		_device->SetIndices(
+		_device.SetIndices(
 			dynamic_cast<
-				d3d9::index_buffer const &
+				sge::d3d9::index_buffer const &
 			>(
 				_index_buffer
 			).get()

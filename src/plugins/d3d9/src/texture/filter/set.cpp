@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::d3d9::texture::filter::set(
-	IDirect3DDevice9 *const _device,
+	IDirect3DDevice9 &_device,
 	renderer::texture::stage const _stage,
 	renderer::texture::filter::object const &_filter
 )

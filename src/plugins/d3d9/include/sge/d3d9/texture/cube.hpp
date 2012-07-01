@@ -42,30 +42,30 @@ namespace texture
 
 class cube
 :
-	public texture::cube_basic
+	public sge::d3d9::texture::cube_basic
 {
 	FCPPT_NONCOPYABLE(
 		cube
 	);
 public:
 	cube(
-		IDirect3DDevice9 *,
-		renderer::texture::cube_parameters const &
+		IDirect3DDevice9 &,
+		sge::renderer::texture::cube_parameters const &
 	);
 
 	~cube();
 public:
 	view const
 	lock(
-		renderer::texture::cube_side::type,
-		renderer::lock_rect const &,
-		renderer::lock_mode::type
+		sge::renderer::texture::cube_side::type,
+		sge::renderer::lock_rect const &,
+		sge::renderer::lock_mode::type
 	);
 
 	const_view const
 	lock(
-		renderer::texture::cube_side::type,
-		renderer::lock_rect const &
+		sge::renderer::texture::cube_side::type,
+		sge::renderer::lock_rect const &
 	) const;
 
 	void
@@ -74,13 +74,13 @@ public:
 	size_type
 	border_size() const;
 private:
-	cube_basic::lock_function const
+	sge::d3d9::texture::cube_basic::lock_function const
 	lock_function(
-		renderer::texture::cube_side::type
+		sge::renderer::texture::cube_side::type
 	) const;
 
 	typedef fcppt::optional<
-		renderer::texture::cube_side::type
+		sge::renderer::texture::cube_side::type
 	> optional_cube_side;
 
 	mutable optional_cube_side locked_side_;

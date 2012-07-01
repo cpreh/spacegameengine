@@ -23,6 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/target/base.hpp>
+#include <sge/renderer/caps/target_surface_indices.hpp>
+#include <sge/renderer/clear/parameters_fwd.hpp>
 #include <sge/renderer/target/scissor_area.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -48,8 +50,9 @@ class basic
 	);
 protected:
 	basic(
-		IDirect3DDevice9 *,
-		sge::renderer::target::viewport const &
+		IDirect3DDevice9 &,
+		sge::renderer::target::viewport const &,
+		sge::renderer::caps::target_surface_indices
 	);
 public:
 	virtual
@@ -72,11 +75,16 @@ private:
 	scissor_area() const;
 
 	void
+	clear(
+		sge::renderer::clear::parameters const &
+	);
+
+	void
 	active(
 		bool
 	);
 protected:
-	IDirect3DDevice9 *
+	IDirect3DDevice9 &
 	device() const;
 private:
 	void
@@ -93,7 +101,9 @@ private:
 	void
 	on_deactivate() = 0;
 
-	IDirect3DDevice9 *const device_;
+	IDirect3DDevice9 &device_;
+
+	sge::renderer::caps::target_surface_indices const max_surfaces_;
 
 	bool active_;
 

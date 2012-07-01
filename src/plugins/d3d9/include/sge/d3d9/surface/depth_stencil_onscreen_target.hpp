@@ -36,22 +36,23 @@ namespace surface
 
 class depth_stencil_onscreen_target
 :
-	public surface::depth_stencil_create
+	public sge::d3d9::surface::depth_stencil_create
 {
 	FCPPT_NONCOPYABLE(
 		depth_stencil_onscreen_target
 	);
 public:
-	explicit depth_stencil_onscreen_target(
-		IDirect3DDevice9 *
+	explicit
+	depth_stencil_onscreen_target(
+		IDirect3DDevice9 &
 	);
 
 	~depth_stencil_onscreen_target();
 
-	surface::d3d_unique_ptr
+	sge::d3d9::surface::d3d_unique_ptr
 	create() const;
 private:
-	IDirect3DDevice9 *const device_;
+	IDirect3DDevice9 &device_;
 };
 
 }

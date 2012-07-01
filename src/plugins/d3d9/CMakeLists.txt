@@ -92,6 +92,7 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/parameters/extract_size.hpp
 	src/plugins/d3d9/include/sge/d3d9/parameters/tnl_caps.hpp
 	src/plugins/d3d9/include/sge/d3d9/render_context/create.hpp
+	src/plugins/d3d9/include/sge/d3d9/render_context/needs_present.hpp
 	src/plugins/d3d9/include/sge/d3d9/render_context/object.hpp
 	src/plugins/d3d9/include/sge/d3d9/render_context/scoped_target.hpp
 	src/plugins/d3d9/include/sge/d3d9/resource.hpp
@@ -177,6 +178,7 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/target/offscreen_fwd.hpp
 	src/plugins/d3d9/include/sge/d3d9/target/onscreen.hpp
 	src/plugins/d3d9/include/sge/d3d9/target/onscreen_fwd.hpp
+	src/plugins/d3d9/include/sge/d3d9/target/temporary.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/address_mode.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/base.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/base_fwd.hpp
@@ -333,6 +335,7 @@ SET(
 	src/plugins/d3d9/src/parameters/extract_size.cpp
 	src/plugins/d3d9/src/parameters/tnl_caps.cpp
 	src/plugins/d3d9/src/render_context/create.cpp
+	src/plugins/d3d9/src/render_context/needs_present.cpp
 	src/plugins/d3d9/src/render_context/object.cpp
 	src/plugins/d3d9/src/render_context/scoped_target.cpp
 	src/plugins/d3d9/src/resource.cpp
@@ -396,6 +399,7 @@ SET(
 	src/plugins/d3d9/src/target/base.cpp
 	src/plugins/d3d9/src/target/offscreen.cpp
 	src/plugins/d3d9/src/target/onscreen.cpp
+	src/plugins/d3d9/src/target/temporary.cpp
 	src/plugins/d3d9/src/texture/address_mode.cpp
 	src/plugins/d3d9/src/texture/base.cpp
 	src/plugins/d3d9/src/texture/create_cube.cpp

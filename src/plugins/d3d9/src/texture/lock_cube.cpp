@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 D3DLOCKED_RECT const
 sge::d3d9::texture::lock_cube(
-	IDirect3DCubeTexture9 *const _texture,
+	IDirect3DCubeTexture9 &_texture,
 	sge::renderer::texture::cube_side::type const _side,
 	sge::renderer::texture::stage const _stage,
 	d3d9::optional_lock_rect const &_rect,
@@ -50,7 +50,7 @@ sge::d3d9::texture::lock_cube(
 			);
 
 	if(
-		_texture->LockRect(
+		_texture.LockRect(
 			d3d9::convert::cube_side(
 				_side
 			),

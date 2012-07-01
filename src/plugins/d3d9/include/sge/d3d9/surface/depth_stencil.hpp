@@ -64,7 +64,7 @@ public:
 	renderer::depth_stencil_format::type
 	format() const;
 
-	IDirect3DSurface9 *
+	IDirect3DSurface9 &
 	surface() const;
 private:
 	void

@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/renderer/vertex_buffer_fwd.hpp>
 
+
 namespace sge
 {
 namespace d3d9
@@ -33,8 +34,8 @@ namespace devicefuncs
 
 void
 set_stream_source(
-	IDirect3DDevice9 *,
-	renderer::vertex_buffer const &
+	IDirect3DDevice9 &,
+	sge::renderer::vertex_buffer const &
 );
 
 }

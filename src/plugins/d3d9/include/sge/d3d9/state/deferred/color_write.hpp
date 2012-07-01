@@ -35,7 +35,7 @@ namespace deferred
 
 void
 color_write(
-	IDirect3DDevice9 *,
+	IDirect3DDevice9 &,
 	sge::renderer::state::list const &
 );
 

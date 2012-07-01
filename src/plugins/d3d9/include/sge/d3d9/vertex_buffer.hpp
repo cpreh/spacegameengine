@@ -45,25 +45,25 @@ namespace d3d9
 class vertex_buffer
 :
 	public sge::renderer::vertex_buffer,
-	public d3d9::resource
+	public sge::d3d9::resource
 {
 	FCPPT_NONCOPYABLE(
 		vertex_buffer
 	);
 public:
 	vertex_buffer(
-		IDirect3DDevice9 *,
-		renderer::vf::dynamic::part const &,
-		renderer::vf::dynamic::part_index,
+		IDirect3DDevice9 &,
+		sge::renderer::vf::dynamic::part const &,
+		sge::renderer::vf::dynamic::part_index,
 		count_type,
-		renderer::resource_flags_field const &
+		sge::renderer::resource_flags_field const &
 	);
 
 	~vertex_buffer();
 
 	view_type const
 	lock(
-		renderer::lock_mode::type,
+		sge::renderer::lock_mode::type,
 		first_type,
 		count_type
 	);
@@ -80,13 +80,13 @@ public:
 	count_type const
 	size() const;
 
-	renderer::resource_flags_field const
+	sge::renderer::resource_flags_field const
 	resource_flags() const;
 
-	renderer::vf::dynamic::part const
+	sge::renderer::vf::dynamic::part const
 	format_part() const;
 
-	renderer::vf::dynamic::part_index const
+	sge::renderer::vf::dynamic::part_index const
 	format_part_index() const;
 
 	sge::renderer::vf::dynamic::stride const
@@ -111,20 +111,20 @@ private:
 	do_lock(
 		first_type,
 		count_type,
-		renderer::lock_flags::method::type
+		sge::renderer::lock_flags::method::type
 	) const;
 
-	IDirect3DDevice9 *const device_;
+	IDirect3DDevice9 &device_;
 
-	renderer::vf::dynamic::part const format_part_;
+	sge::renderer::vf::dynamic::part const format_part_;
 
-	renderer::vf::dynamic::part_index const format_part_index_;
+	sge::renderer::vf::dynamic::part_index const format_part_index_;
 
 	count_type const size_;
 
-	renderer::resource_flags_field const resource_flags_;
+	sge::renderer::resource_flags_field const resource_flags_;
 
-	mutable renderer::vf::dynamic::converter converter_;
+	mutable sge::renderer::vf::dynamic::converter converter_;
 
 	typedef fcppt::scoped_ptr<
 		IDirect3DVertexBuffer9,
@@ -133,7 +133,7 @@ private:
 
 	d3d_scoped_vertex_buffer_ptr buffer_;
 
-	mutable renderer::raw_pointer lock_dest_;
+	mutable sge::renderer::raw_pointer lock_dest_;
 };
 
 }

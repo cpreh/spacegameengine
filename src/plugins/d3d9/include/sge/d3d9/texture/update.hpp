@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/d3dinclude.hpp>
 
+
 namespace sge
 {
 namespace d3d9
@@ -32,9 +33,9 @@ namespace texture
 
 void
 update(
-	IDirect3DDevice9 *,
-	IDirect3DBaseTexture9 *source,
-	IDirect3DBaseTexture9 *dest
+	IDirect3DDevice9 &,
+	IDirect3DBaseTexture9 &source,
+	IDirect3DBaseTexture9 &dest
 );
 
 }

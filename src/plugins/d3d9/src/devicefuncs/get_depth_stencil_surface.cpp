@@ -27,24 +27,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::d3d9::surface::d3d_unique_ptr
 sge::d3d9::devicefuncs::get_depth_stencil_surface(
-	IDirect3DDevice9 *const _device
+	IDirect3DDevice9 &_device
 )
 {
 	IDirect3DSurface9 *ret;
 
 	switch(
-		_device->GetDepthStencilSurface(
+		_device.GetDepthStencilSurface(
 			&ret
 		)
 	)
 	{
 	case D3D_OK:
 		return
-			d3d9::surface::d3d_unique_ptr(
+			sge::d3d9::surface::d3d_unique_ptr(
 				ret
 			);
 	case D3DERR_NOTFOUND:
-		return d3d9::surface::d3d_unique_ptr();
+		return sge::d3d9::surface::d3d_unique_ptr();
 	}
 
 	throw sge::renderer::exception(

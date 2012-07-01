@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::d3d9::state::set_render_state_float(
-	IDirect3DDevice9 *const _device,
+	IDirect3DDevice9 &_device,
 	D3DRENDERSTATETYPE const _state,
 	float const _value
 )
@@ -47,7 +47,7 @@ sge::d3d9::state::set_render_state_float(
 		sizeof(DWORD)
 	);
 
-	d3d9::devicefuncs::set_render_state(
+	sge::d3d9::devicefuncs::set_render_state(
 		_device,
 		_state,
 		dest

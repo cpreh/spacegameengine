@@ -47,6 +47,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/stack.hpp>
 #include <sge/renderer/target/base_fwd.hpp>
+#include <sge/renderer/target/offscreen_fwd.hpp>
 #include <sge/renderer/texture/address_mode_s.hpp>
 #include <sge/renderer/texture/address_mode_t.hpp>
 #include <sge/renderer/texture/address_mode_u.hpp>
@@ -58,6 +59,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/stage_op_value.hpp>
 #include <sge/renderer/texture/filter/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/optional_decl.hpp>
 
 #if defined(SGE_RENDERER_HAVE_CG)
 #include <sge/d3d9/cg/scoped_device.hpp>
@@ -82,12 +84,15 @@ class object
 	);
 public:
 	object(
-		IDirect3DDevice9 *,
+		IDirect3DDevice9 &,
 		sge::renderer::target::base &,
 		sge::renderer::caps::texture_stages
 	);
 
 	~object();
+
+	bool
+	needs_present() const;
 private:
 	sge::renderer::target::base &
 	target();
@@ -95,6 +100,11 @@ private:
 	void
 	clear(
 		sge::renderer::clear::parameters const &
+	);
+
+	void
+	offscreen_target(
+		sge::renderer::target::optional_offscreen_ref const &
 	);
 
 	void
@@ -243,7 +253,7 @@ private:
 	);
 #endif
 
-	IDirect3DDevice9 *const device_;
+	IDirect3DDevice9 &device_;
 
 	sge::renderer::target::base &target_;
 
@@ -254,6 +264,12 @@ private:
 	sge::d3d9::state::clip_plane clip_planes_;
 
 	sge::d3d9::render_context::scoped_target const scoped_target_;
+
+	typedef fcppt::optional<
+		sge::d3d9::target::base &
+	> optional_target_base_ref;
+
+	optional_target_base_ref offscreen_target_;
 
 #if defined(SGE_RENDERER_HAVE_CG)
 	sge::d3d9::cg::scoped_device const scoped_cg_device_;

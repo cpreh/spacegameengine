@@ -32,33 +32,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/dynamic/view.hpp>
 #include <sge/renderer/lock_flags/from_mode.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
+#include <fcppt/null_ptr.hpp>
 #include <fcppt/text.hpp>
 
 
 sge::d3d9::index_buffer::index_buffer(
-	IDirect3DDevice9 *const _device,
-	renderer::index::dynamic::format::type const _format,
+	IDirect3DDevice9 &_device,
+	sge::renderer::index::dynamic::format::type const _format,
 	count_type const _size,
-	renderer::resource_flags_field const &_resource_flags
+	sge::renderer::resource_flags_field const &_resource_flags
 )
 :
 	sge::renderer::index_buffer(),
-	d3d9::resource(
-		d3d9::convert::resource_flags_to_pool(
+	sge::d3d9::resource(
+		sge::d3d9::convert::resource_flags_to_pool(
 			_resource_flags
 		)
 	),
-	device_(_device),
+	device_(
+		_device
+	),
 	buffer_(),
-	resource_flags_(_resource_flags),
-	format_(_format),
-	size_(_size),
+	resource_flags_(
+		_resource_flags
+	),
+	format_(
+		_format
+	),
+	size_(
+		_size
+	),
 	stride_(
 		sge::renderer::index::dynamic::format_stride(
 			format_
 		)
 	),
-	lock_dest_(0)
+	lock_dest_(
+		fcppt::null_ptr()
+	)
 {
 	this->init();
 }
@@ -120,7 +131,7 @@ sge::d3d9::index_buffer::unlock() const
 			FCPPT_TEXT("Cannot unlock index buffer!")
 		);
 
-	lock_dest_ = 0;
+	lock_dest_ = fcppt::null_ptr();
 }
 
 sge::d3d9::index_buffer::count_type const
@@ -153,7 +164,7 @@ sge::d3d9::index_buffer::init()
 	IDirect3DIndexBuffer9 *ret;
 
 	if(
-		device_->CreateIndexBuffer(
+		device_.CreateIndexBuffer(
 			static_cast<
 				UINT
 			>(
@@ -169,7 +180,7 @@ sge::d3d9::index_buffer::init()
 			),
 			this->pool(),
 			&ret,
-			0
+			fcppt::null_ptr()
 		)
 		!= D3D_OK
 	)
@@ -201,7 +212,7 @@ View const
 sge::d3d9::index_buffer::do_lock(
 	first_type const _first,
 	count_type const _count,
-	renderer::lock_flags::method::type const _method
+	sge::renderer::lock_flags::method::type const _method
 ) const
 {
 	if(
@@ -211,7 +222,9 @@ sge::d3d9::index_buffer::do_lock(
 			FCPPT_TEXT("d3d::index_buffer::lock() you have to unlock first!")
 		);
 
-	void *dest = 0;
+	void *dest(
+		fcppt::null_ptr()
+	);
 
 	if(
 		buffer_->Lock(
@@ -236,7 +249,7 @@ sge::d3d9::index_buffer::do_lock(
 				stride_
 			),
 			&dest,
-			d3d9::convert::lock_flags(
+			sge::d3d9::convert::lock_flags(
 				_method,
 				this->resource_flags()
 			).get()

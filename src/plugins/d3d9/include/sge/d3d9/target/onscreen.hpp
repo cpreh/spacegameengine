@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/target/basic.hpp>
 #include <sge/d3d9/target/onscreen_fwd.hpp>
 #include <sge/renderer/color_surface_fwd.hpp>
+#include <sge/renderer/caps/target_surface_indices.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/target/viewport_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -57,9 +58,10 @@ class onscreen
 	> base;
 public:
 	onscreen(
-		IDirect3DDevice9 *,
+		IDirect3DDevice9 &,
 		sge::renderer::target::viewport const &,
-		sge::d3d9::resource_manager &
+		sge::d3d9::resource_manager &,
+		sge::renderer::caps::target_surface_indices
 	);
 
 	~onscreen();
@@ -67,6 +69,9 @@ public:
 	sge::renderer::color_surface const &
 	surface() const;
 private:
+	bool
+	needs_present() const;
+
 	void
 	on_activate();
 

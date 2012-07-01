@@ -21,15 +21,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/texture/filter/anisotropic.hpp>
 #include <sge/d3d9/texture/filter/normal.hpp>
 #include <sge/d3d9/texture/filter/visitor.hpp>
+#include <sge/renderer/texture/stage.hpp>
 
 
 sge::d3d9::texture::filter::visitor::visitor(
-	IDirect3DDevice9 *const _device,
+	IDirect3DDevice9 &_device,
 	renderer::texture::stage const _stage
 )
 :
-	device_(_device),
-	stage_(_stage)
+	device_(
+		_device
+	),
+	stage_(
+		_stage
+	)
 {
 }
 

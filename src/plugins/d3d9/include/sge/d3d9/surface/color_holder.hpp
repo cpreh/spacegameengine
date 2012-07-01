@@ -50,7 +50,7 @@ public:
 
 	~color_holder();
 
-	IDirect3DSurface9 *
+	IDirect3DSurface9 &
 	get() const;
 
 	sge::renderer::dim2 const &

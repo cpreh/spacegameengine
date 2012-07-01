@@ -37,7 +37,7 @@ namespace texture
 
 D3DLOCKED_RECT const
 lock_cube(
-	IDirect3DCubeTexture9 *,
+	IDirect3DCubeTexture9 &,
 	sge::renderer::texture::cube_side::type,
 	sge::renderer::texture::stage,
 	d3d9::optional_lock_rect const &,

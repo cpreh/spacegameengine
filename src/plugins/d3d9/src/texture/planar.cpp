@@ -35,11 +35,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::d3d9::texture::planar::planar(
-	IDirect3DDevice9 *const _device,
-	renderer::texture::planar_parameters const &_params
+	IDirect3DDevice9 &_device,
+	sge::renderer::texture::planar_parameters const &_params
 )
 :
-	texture::planar_basic(
+	sge::d3d9::texture::planar_basic(
 		_device,
 		_params
 	)

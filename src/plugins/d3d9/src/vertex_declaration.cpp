@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::d3d9::vertex_declaration::vertex_declaration(
-	IDirect3DDevice9 *const _device,
+	IDirect3DDevice9 &_device,
 	sge::renderer::vf::dynamic::format const &_format
 )
 :
@@ -55,10 +55,12 @@ sge::d3d9::vertex_declaration::vertex_declaration(
 		)
 	);
 
+	// TODO: make a function for this!
+
 	IDirect3DVertexDeclaration9 *decl;
 
 	if(
-		_device->CreateVertexDeclaration(
+		_device.CreateVertexDeclaration(
 			vertex_elements.data(),
 			&decl
 		)

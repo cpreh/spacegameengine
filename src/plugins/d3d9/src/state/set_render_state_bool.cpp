@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/convert/bool.hpp>
 #include <sge/d3d9/devicefuncs/set_render_state.hpp>
 #include <sge/d3d9/state/set_render_state_bool.hpp>
@@ -25,18 +26,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::d3d9::state::set_render_state_bool(
-	IDirect3DDevice9 *const _device,
+	IDirect3DDevice9 &_device,
 	D3DRENDERSTATETYPE const _state,
 	bool const _value
 )
 {
-	d3d9::devicefuncs::set_render_state(
+	sge::d3d9::devicefuncs::set_render_state(
 		_device,
 		_state,
 		static_cast<
 			DWORD
 		>(
-			d3d9::convert::bool_(
+			sge::d3d9::convert::bool_(
 				_value
 			)
 		)

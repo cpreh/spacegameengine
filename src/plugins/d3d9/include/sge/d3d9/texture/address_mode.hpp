@@ -37,8 +37,8 @@ template<
 >
 void
 address_mode(
-	IDirect3DDevice9 *const _device,
-	renderer::texture::stage const _stage,
+	IDirect3DDevice9 &,
+	sge::renderer::texture::stage,
 	Mode
 );
 

@@ -46,7 +46,7 @@ class vertex_declaration
 	);
 public:
 	vertex_declaration(
-		IDirect3DDevice9 *,
+		IDirect3DDevice9 &,
 		sge::renderer::vf::dynamic::format const &
 	);
 

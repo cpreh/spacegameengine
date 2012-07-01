@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/devicefuncs/reset.hpp>
 #include <sge/d3d9/parameters/create.hpp>
 #include <sge/d3d9/render_context/create.hpp>
+#include <sge/d3d9/render_context/needs_present.hpp>
 #include <sge/d3d9/surface/depth_stencil.hpp>
 #include <sge/d3d9/surface/depth_stencil_native.hpp>
 #include <sge/d3d9/target/offscreen.hpp>
@@ -136,7 +137,9 @@ sge::d3d9::device::device(
 		fcppt::make_unique_ptr<
 			sge::d3d9::target::onscreen
 		>(
-			device_.get(),
+			fcppt::ref(
+				*device_
+			),
 			sge::renderer::target::viewport(
 				sge::renderer::pixel_rect(
 					sge::renderer::pixel_rect::vector::null(),
@@ -149,7 +152,8 @@ sge::d3d9::device::device(
 			),
 			fcppt::ref(
 				resources_
-			)
+			),
+			caps_.target_surfaces()
 		)
 	)
 {
@@ -165,12 +169,12 @@ sge::d3d9::device::begin_rendering(
 )
 {
 	sge::d3d9::devicefuncs::begin_scene(
-		device_.get()
+		*device_
 	);
 
 	return
 		sge::d3d9::render_context::create(
-			device_.get(),
+			*device_,
 			_target,
 			caps_.texture_stages()
 		);
@@ -178,19 +182,24 @@ sge::d3d9::device::begin_rendering(
 
 void
 sge::d3d9::device::end_rendering(
-	sge::renderer::context::object &
+	sge::renderer::context::object &_context
 )
 {
 	sge::d3d9::devicefuncs::end_scene(
-		device_.get()
+		*device_
 	);
 
 	if(
-		!sge::d3d9::devicefuncs::present(
-			device_.get()
+		sge::d3d9::render_context::needs_present(
+			_context
 		)
 	)
-		this->reset();
+		if(
+			!sge::d3d9::devicefuncs::present(
+				*device_
+			)
+		)
+			this->reset();
 }
 
 sge::renderer::target::offscreen_unique_ptr
@@ -201,7 +210,10 @@ sge::d3d9::device::create_target()
 			fcppt::make_unique_ptr<
 				sge::d3d9::target::offscreen
 			>(
-				device_.get()
+				fcppt::ref(
+					*device_
+				),
+				caps_.target_surfaces()
 			)
 		);
 }
@@ -219,7 +231,9 @@ sge::d3d9::device::create_planar_texture(
 				fcppt::make_unique_ptr<
 					sge::d3d9::texture::planar
 				>(
-					device_.get(),
+					fcppt::ref(
+						*device_
+					),
 					_param
 				)
 			)
@@ -265,7 +279,9 @@ sge::d3d9::device::create_depth_stencil_surface(
 					fcppt::make_unique_ptr<
 						sge::d3d9::surface::depth_stencil_native
 					>(
-						device_.get(),
+						fcppt::ref(
+							*device_
+						),
 						_dim,
 						_format,
 						present_parameters_.MultiSampleType,
@@ -292,7 +308,9 @@ sge::d3d9::device::create_volume_texture(
 				fcppt::make_unique_ptr<
 					sge::d3d9::texture::volume
 				>(
-					device_.get(),
+					fcppt::ref(
+						*device_
+					),
 					_param
 				)
 			)
@@ -312,7 +330,9 @@ sge::d3d9::device::create_cube_texture(
 				fcppt::make_unique_ptr<
 					sge::d3d9::texture::cube
 				>(
-					device_.get(),
+					fcppt::ref(
+						*device_
+					),
 					_param
 				)
 			)
@@ -329,7 +349,9 @@ sge::d3d9::device::create_vertex_declaration(
 			fcppt::make_unique_ptr<
 				sge::d3d9::vertex_declaration
 			>(
-				device_.get(),
+				fcppt::ref(
+					*device_
+				),
 				_format
 			)
 		);
@@ -351,7 +373,9 @@ sge::d3d9::device::create_vertex_buffer(
 				fcppt::make_unique_ptr<
 					sge::d3d9::vertex_buffer
 				>(
-					device_.get(),
+					fcppt::ref(
+						*device_
+					),
 					dynamic_cast<
 						sge::d3d9::vertex_declaration const &
 					>(
@@ -382,7 +406,9 @@ sge::d3d9::device::create_index_buffer(
 				fcppt::make_unique_ptr<
 					sge::d3d9::index_buffer
 				>(
-					device_.get(),
+					fcppt::ref(
+						*device_
+					),
 					_format,
 					_size,
 					_resource_flags
@@ -399,7 +425,7 @@ sge::d3d9::device::create_cg_profile(
 {
 	return
 		sge::d3d9::cg::profile::create(
-			device_.get(),
+			*device_,
 			_shader_type
 		);
 }
@@ -412,7 +438,7 @@ sge::d3d9::device::cg_compile_options(
 {
 	return
 		sge::d3d9::cg::program::optimal_options(
-			device_.get(),
+			*device_,
 			_profile
 		);
 }
@@ -424,7 +450,7 @@ sge::d3d9::device::load_cg_program(
 {
 	return
 		sge::d3d9::cg::program::create_loaded(
-			device_.get(),
+			*device_,
 			_program
 		);
 }
@@ -437,7 +463,7 @@ sge::d3d9::device::load_cg_texture(
 {
 	return
 		sge::d3d9::cg::texture::create_loaded(
-			device_.get(),
+			*device_,
 			_parameter,
 			_texture,
 			caps_.texture_stages()
@@ -514,7 +540,7 @@ sge::d3d9::device::reset()
 		== D3DERR_DEVICELOST
 		||
 		!sge::d3d9::devicefuncs::reset(
-			device_.get(),
+			*device_,
 			present_parameters_
 		)
 	)

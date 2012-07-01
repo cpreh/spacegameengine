@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer::texture::stage const
 sge::d3d9::cg::texture::assigned_stage(
-	IDirect3DDevice9 *const _device,
+	IDirect3DDevice9 &_device,
 	sge::d3d9::texture::base const &_texture,
 	sge::renderer::caps::texture_stages const _max_stages
 )

@@ -33,7 +33,7 @@ namespace surfacefuncs
 
 sge::renderer::depth_stencil_format::type
 depth_stencil_format(
-	IDirect3DSurface9 *
+	IDirect3DSurface9 &
 );
 
 }

@@ -35,7 +35,7 @@ namespace texture
 
 void
 unlock_cube(
-	IDirect3DCubeTexture9 *,
+	IDirect3DCubeTexture9 &,
 	sge::renderer::texture::cube_side::type,
 	sge::renderer::texture::stage
 );

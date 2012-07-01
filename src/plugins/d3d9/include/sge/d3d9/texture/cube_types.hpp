@@ -56,7 +56,7 @@ struct cube_types
 
 	typedef fcppt::function::object<
 		D3DLOCKED_RECT(
-			d3d_type *,
+			d3d_type &,
 			sge::renderer::texture::stage,
 			lock_dest const &,
 			d3d9::lock_flags
@@ -65,14 +65,14 @@ struct cube_types
 
 	typedef fcppt::function::object<
 		void (
-			d3d_type *,
+			d3d_type &,
 			sge::renderer::texture::stage
 		)
 	> unlock_function;
 
 	typedef fcppt::function::object<
 		unique_ptr(
-			IDirect3DDevice9 *,
+			IDirect3DDevice9 &,
 			parameters const &,
 			D3DFORMAT,
 			D3DPOOL,

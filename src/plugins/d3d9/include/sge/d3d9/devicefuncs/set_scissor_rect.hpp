@@ -34,7 +34,7 @@ namespace devicefuncs
 
 void
 set_scissor_rect(
-	IDirect3DDevice9 *,
+	IDirect3DDevice9 &,
 	sge::renderer::target::scissor_area const &
 );
 

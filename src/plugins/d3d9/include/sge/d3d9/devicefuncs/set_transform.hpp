@@ -35,9 +35,9 @@ namespace devicefuncs
 
 void
 set_transform(
-	IDirect3DDevice9 *,
-	renderer::matrix_mode::type,
-	renderer::matrix4 const &
+	IDirect3DDevice9 &,
+	sge::renderer::matrix_mode::type,
+	sge::renderer::matrix4 const &
 );
 
 }

@@ -37,9 +37,9 @@ namespace filter
 
 void
 anisotropic(
-	IDirect3DDevice9 *,
-	renderer::texture::stage,
-	renderer::texture::filter::anisotropic::object const &
+	IDirect3DDevice9 &,
+	sge::renderer::texture::stage,
+	sge::renderer::texture::filter::anisotropic::object const &
 );
 
 }

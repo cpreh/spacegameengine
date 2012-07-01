@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::cg::program::compile_options const
 sge::d3d9::cg::program::optimal_options(
-	IDirect3DDevice9 *const _device,
+	IDirect3DDevice9 &_device,
 	sge::cg::profile::object const &_profile
 )
 {

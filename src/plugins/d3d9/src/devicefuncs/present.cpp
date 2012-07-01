@@ -26,11 +26,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 bool
 sge::d3d9::devicefuncs::present(
-	IDirect3DDevice9 *const _device
+	IDirect3DDevice9 &_device
 )
 {
 	switch(
-		_device->Present(
+		_device.Present(
 			0,
 			0,
 			0,

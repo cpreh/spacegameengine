@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::d3d9::cg::texture::loaded_object::loaded_object(
-	IDirect3DDevice9 *const _device,
+	IDirect3DDevice9 &_device,
 	sge::cg::parameter::object const &_parameter,
 	sge::renderer::texture::base &_texture,
 	sge::renderer::caps::texture_stages const _texture_stages

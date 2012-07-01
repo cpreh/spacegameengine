@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps/max_volume_texture_extent.hpp>
 #include <sge/renderer/caps/preferred_texture_format.hpp>
 #include <sge/renderer/caps/render_target_supported.hpp>
+#include <sge/renderer/caps/target_surface_indices.hpp>
 #include <sge/renderer/caps/texture_stages.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -75,7 +76,8 @@ public:
 		sge::renderer::caps::preferred_texture_format,
 		sge::renderer::caps::clip_plane_indices,
 		sge::renderer::caps::light_indices,
-		sge::renderer::caps::texture_stages
+		sge::renderer::caps::texture_stages,
+		sge::renderer::caps::target_surface_indices
 	);
 
 	SGE_RENDERER_SYMBOL
@@ -196,6 +198,16 @@ public:
 	SGE_RENDERER_SYMBOL
 	sge::renderer::caps::texture_stages const
 	texture_stages() const;
+
+	/**
+	\brief Returns the number of target surfaces
+
+	Valid target surface indices range from 0 to the returned value - 1.
+	The 0th index is always supported.
+	*/
+	SGE_RENDERER_SYMBOL
+	sge::renderer::caps::target_surface_indices const
+	target_surfaces() const;
 private:
 	sge::renderer::adapter const adapter_;
 
@@ -218,6 +230,8 @@ private:
 	sge::renderer::caps::light_indices const light_indices_;
 
 	sge::renderer::caps::texture_stages const texture_stages_;
+
+	sge::renderer::caps::target_surface_indices const target_surfaces_;
 };
 
 }

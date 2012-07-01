@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/devicefuncs/get_render_target_data.hpp>
 #include <sge/d3d9/surface/color.hpp>
 #include <sge/d3d9/surface/color_create.hpp>
+#include <sge/d3d9/surface/color_create_unique_ptr.hpp>
 #include <sge/d3d9/surface/color_holder.hpp>
 #include <sge/d3d9/surfacefuncs/lock_rect.hpp>
 #include <sge/d3d9/surfacefuncs/unlock_rect.hpp>
@@ -42,12 +43,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::d3d9::surface::color::color(
-	IDirect3DDevice9 *const _device,
-	surface::color_create_unique_ptr _create
+	IDirect3DDevice9 &_device,
+	sge::d3d9::surface::color_create_unique_ptr _create
 )
 :
 	resource(
-		d3d9::needs_reset::yes
+		sge::d3d9::needs_reset::yes
 	),
 	device_(
 		_device
@@ -88,7 +89,7 @@ sge::d3d9::surface::color::lock(
 		devicefuncs::get_render_target_data(
 			device_,
 			this->surface(),
-			temp_surface_.get()
+			*temp_surface_
 		);
 	}
 
@@ -149,19 +150,19 @@ sge::d3d9::surface::color::size() const
 	return color_holder_->size();
 }
 
-IDirect3DSurface9 *
+IDirect3DSurface9 &
 sge::d3d9::surface::color::surface() const
 {
 	return color_holder_->get();
 }
 
-IDirect3DSurface9 *
+IDirect3DSurface9 &
 sge::d3d9::surface::color::lock_surface() const
 {
 	return
 		color_holder_->is_render_target()
 		?
-			temp_surface_.get()
+			*temp_surface_
 		:
 			this->surface()
 		;

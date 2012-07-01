@@ -28,14 +28,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::d3d9::devicefuncs::set_vertex_declaration(
-	IDirect3DDevice9 *const _device,
-	renderer::vertex_declaration const &_vertex_declaration
+	IDirect3DDevice9 &_device,
+	sge::renderer::vertex_declaration const &_vertex_declaration
 )
 {
 	if(
-		_device->SetVertexDeclaration(
+		_device.SetVertexDeclaration(
 			dynamic_cast<
-				d3d9::vertex_declaration const &
+				sge::d3d9::vertex_declaration const &
 			>(
 				_vertex_declaration
 			).get()

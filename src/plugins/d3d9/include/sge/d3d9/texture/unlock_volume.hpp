@@ -33,7 +33,7 @@ namespace texture
 
 void
 unlock_volume(
-	IDirect3DVolumeTexture9 *,
+	IDirect3DVolumeTexture9 &,
 	sge::renderer::texture::stage
 );
 

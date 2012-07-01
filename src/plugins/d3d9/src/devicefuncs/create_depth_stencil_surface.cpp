@@ -19,27 +19,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/multi_sample_quality.hpp>
 #include <sge/d3d9/convert/depth_stencil_format.hpp>
 #include <sge/d3d9/devicefuncs/create_depth_stencil_surface.hpp>
 #include <sge/d3d9/surface/d3d_unique_ptr.hpp>
+#include <sge/renderer/depth_stencil_format.hpp>
+#include <sge/renderer/dim2.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
 
 
 sge::d3d9::surface::d3d_unique_ptr
 sge::d3d9::devicefuncs::create_depth_stencil_surface(
-	IDirect3DDevice9 *const _device,
+	IDirect3DDevice9 &_device,
 	sge::renderer::dim2 const &_size,
 	sge::renderer::depth_stencil_format::type const _format,
 	D3DMULTISAMPLE_TYPE const _samples,
-	d3d9::multi_sample_quality const _multi_sample_quality
+	sge::d3d9::multi_sample_quality const _multi_sample_quality
 )
 {
 	IDirect3DSurface9 *ret;
 
 	if(
-		_device->CreateDepthStencilSurface(
+		_device.CreateDepthStencilSurface(
 			static_cast<
 				UINT
 			>(
@@ -66,7 +68,7 @@ sge::d3d9::devicefuncs::create_depth_stencil_surface(
 		);
 
 	return
-		d3d9::surface::d3d_unique_ptr(
+		sge::d3d9::surface::d3d_unique_ptr(
 			ret
 		);
 }

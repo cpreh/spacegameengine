@@ -36,22 +36,23 @@ namespace surface
 
 class color_onscreen_target
 :
-	public surface::color_create
+	public sge::d3d9::surface::color_create
 {
 	FCPPT_NONCOPYABLE(
 		color_onscreen_target
 	);
 public:
-	explicit color_onscreen_target(
-		IDirect3DDevice9 *
+	explicit
+	color_onscreen_target(
+		IDirect3DDevice9 &
 	);
 
 	~color_onscreen_target();
 
-	surface::d3d_unique_ptr
+	sge::d3d9::surface::d3d_unique_ptr
 	create() const;
 private:
-	IDirect3DDevice9 *const device_;
+	IDirect3DDevice9 &device_;
 };
 
 }

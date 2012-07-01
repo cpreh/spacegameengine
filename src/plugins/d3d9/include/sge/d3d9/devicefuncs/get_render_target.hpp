@@ -23,6 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/surface/d3d_unique_ptr.hpp>
+#include <sge/renderer/target/surface_index.hpp>
+
 
 namespace sge
 {
@@ -31,9 +33,10 @@ namespace d3d9
 namespace devicefuncs
 {
 
-d3d9::surface::d3d_unique_ptr
+sge::d3d9::surface::d3d_unique_ptr
 get_render_target(
-	IDirect3DDevice9 *
+	IDirect3DDevice9 &,
+	sge::renderer::target::surface_index
 );
 
 }

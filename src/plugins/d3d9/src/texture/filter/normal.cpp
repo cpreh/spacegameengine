@@ -25,48 +25,49 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/texture/filter/convert/mag.hpp>
 #include <sge/d3d9/texture/filter/convert/min.hpp>
 #include <sge/d3d9/texture/filter/convert/normal_mip.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/texture/filter/anisotropic/level.hpp>
 #include <sge/renderer/texture/filter/normal/object.hpp>
 
 
 void
 sge::d3d9::texture::filter::normal(
-	IDirect3DDevice9 *const _device,
-	renderer::texture::stage const _stage,
-	renderer::texture::filter::normal::object const &_object
+	IDirect3DDevice9 &_device,
+	sge::renderer::texture::stage const _stage,
+	sge::renderer::texture::filter::normal::object const &_object
 )
 {
-	filter::anisotropic_level(
+	sge::d3d9::texture::filter::anisotropic_level(
 		_device,
 		_stage,
-		renderer::texture::filter::anisotropic::level(
+		sge::renderer::texture::filter::anisotropic::level(
 			1u
 		)
 	);
 
-	devicefuncs::set_sampler_state(
+	sge::d3d9::devicefuncs::set_sampler_state(
 		_device,
 		_stage,
 		D3DSAMP_MAGFILTER,
-		filter::convert::mag(
+		sge::d3d9::texture::filter::convert::mag(
 			_object.mag()
 		)
 	);
 
-	devicefuncs::set_sampler_state(
+	sge::d3d9::devicefuncs::set_sampler_state(
 		_device,
 		_stage,
 		D3DSAMP_MINFILTER,
-		filter::convert::min(
+		sge::d3d9::texture::filter::convert::min(
 			_object.min()
 		)
 	);
 
-	devicefuncs::set_sampler_state(
+	sge::d3d9::devicefuncs::set_sampler_state(
 		_device,
 		_stage,
 		D3DSAMP_MIPFILTER,
-		filter::convert::normal_mip(
+		sge::d3d9::texture::filter::convert::normal_mip(
 			_object.mip()
 		)
 	);

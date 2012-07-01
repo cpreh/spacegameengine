@@ -18,15 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/devicefuncs/get_render_target.hpp>
 #include <sge/d3d9/surface/color_onscreen_target.hpp>
+#include <sge/d3d9/surface/d3d_unique_ptr.hpp>
+#include <sge/renderer/target/surface_index.hpp>
 
 
 sge::d3d9::surface::color_onscreen_target::color_onscreen_target(
-	IDirect3DDevice9 *const _device
+	IDirect3DDevice9 &_device
 )
 :
-	device_(_device)
+	device_(
+		_device
+	)
 {
 }
 
@@ -38,7 +43,10 @@ sge::d3d9::surface::d3d_unique_ptr
 sge::d3d9::surface::color_onscreen_target::create() const
 {
 	return
-		devicefuncs::get_render_target(
-			device_
+		sge::d3d9::devicefuncs::get_render_target(
+			device_,
+			sge::renderer::target::surface_index(
+				0u
+			)
 		);
 }

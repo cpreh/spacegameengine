@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/convert/viewport.hpp>
 #include <sge/d3d9/devicefuncs/set_viewport.hpp>
 #include <sge/renderer/exception.hpp>
@@ -27,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::d3d9::devicefuncs::set_viewport(
-	IDirect3DDevice9 *const _device,
+	IDirect3DDevice9 &_device,
 	sge::renderer::target::viewport const &_viewport
 )
 {
@@ -38,7 +39,7 @@ sge::d3d9::devicefuncs::set_viewport(
 	);
 
 	if(
-		_device->SetViewport(
+		_device.SetViewport(
 			&d3d_viewport
 		)
 		!= D3D_OK

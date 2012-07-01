@@ -25,7 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/multi_sample_quality.hpp>
 #include <sge/d3d9/surface/d3d_unique_ptr.hpp>
 #include <sge/renderer/depth_stencil_format.hpp>
-#include <sge/renderer/dim2.hpp>
+#include <sge/renderer/dim2_fwd.hpp>
+
 
 namespace sge
 {
@@ -36,11 +37,11 @@ namespace devicefuncs
 
 d3d9::surface::d3d_unique_ptr
 create_depth_stencil_surface(
-	IDirect3DDevice9 *,
+	IDirect3DDevice9 &,
 	sge::renderer::dim2 const &,
 	sge::renderer::depth_stencil_format::type,
 	D3DMULTISAMPLE_TYPE,
-	d3d9::multi_sample_quality
+	sge::d3d9::multi_sample_quality
 );
 
 }

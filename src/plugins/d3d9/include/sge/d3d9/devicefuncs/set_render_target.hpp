@@ -34,7 +34,7 @@ namespace devicefuncs
 
 void
 set_render_target(
-	IDirect3DDevice9 *,
+	IDirect3DDevice9 &,
 	sge::renderer::target::surface_index,
 	IDirect3DSurface9 *
 );

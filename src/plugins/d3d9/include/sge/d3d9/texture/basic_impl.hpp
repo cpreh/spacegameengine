@@ -47,28 +47,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<
 	typename Types
 >
-sge::d3d9::texture::basic<Types>::basic(
-	IDirect3DDevice9 *const _device,
+sge::d3d9::texture::basic<
+	Types
+>::basic(
+	IDirect3DDevice9 &_device,
 	parameters_type const &_parameters
 )
 :
 	Types::base(),
-	d3d9::texture::base(),
-	d3d9::resource(
-		texture::pool(
+	sge::d3d9::texture::base(),
+	sge::d3d9::resource(
+		sge::d3d9::texture::pool(
 			_parameters.resource_flags(),
 			_parameters.capabilities()
 		)
 	),
-	device_(_device),
-	parameters_(_parameters),
+	device_(
+		_device
+	),
+	parameters_(
+		_parameters
+	),
 	d3d_color_format_(
 		d3d9::convert::color_format(
 			_parameters.format()
 		)
 	),
 	color_format_(
-		d3d9::convert::to_color_format(
+		sge::d3d9::convert::to_color_format(
 			d3d_color_format_
 		)
 	),
@@ -88,7 +94,9 @@ sge::d3d9::texture::basic<Types>::basic(
 template<
 	typename Types
 >
-sge::d3d9::texture::basic<Types>::~basic()
+sge::d3d9::texture::basic<
+	Types
+>::~basic()
 {
 }
 
@@ -96,7 +104,9 @@ template<
 	typename Types
 >
 sge::renderer::resource_flags_field const
-sge::d3d9::texture::basic<Types>::resource_flags() const
+sge::d3d9::texture::basic<
+	Types
+>::resource_flags() const
 {
 	return this->parameters().resource_flags();
 }
@@ -114,7 +124,9 @@ template<
 	typename Types
 >
 sge::renderer::texture::mipmap::object const
-sge::d3d9::texture::basic<Types>::mipmap() const
+sge::d3d9::texture::basic<
+	Types
+>::mipmap() const
 {
 	return this->parameters().mipmap();
 }
@@ -122,8 +134,12 @@ sge::d3d9::texture::basic<Types>::mipmap() const
 template<
 	typename Types
 >
-typename sge::d3d9::texture::basic<Types>::d3d_type *
-sge::d3d9::texture::basic<Types>::get() const
+typename sge::d3d9::texture::basic<
+	Types
+>::d3d_type *
+sge::d3d9::texture::basic<
+	Types
+>::get() const
 {
 	return main_texture_.get();
 }
@@ -131,8 +147,12 @@ sge::d3d9::texture::basic<Types>::get() const
 template<
 	typename Types
 >
-typename sge::d3d9::texture::basic<Types>::parameters_type const &
-sge::d3d9::texture::basic<Types>::parameters() const
+typename sge::d3d9::texture::basic<
+	Types
+>::parameters_type const &
+sge::d3d9::texture::basic<
+	Types
+>::parameters() const
 {
 	return parameters_;
 }
@@ -140,11 +160,15 @@ sge::d3d9::texture::basic<Types>::parameters() const
 template<
 	typename Types
 >
-typename sge::d3d9::texture::basic<Types>::view const
-sge::d3d9::texture::basic<Types>::lock_impl(
+typename sge::d3d9::texture::basic<
+	Types
+>::view const
+sge::d3d9::texture::basic<
+	Types
+>::lock_impl(
 	lock_function const &_lock,
 	lock_area const &_area,
-	renderer::lock_mode::type const _mode
+	sge::renderer::lock_mode::type const _mode
 )
 {
 	return
@@ -156,7 +180,7 @@ sge::d3d9::texture::basic<Types>::lock_impl(
 			>,
 			_lock,
 			_area,
-			renderer::lock_flags::from_mode(
+			sge::renderer::lock_flags::from_mode(
 				_mode
 			)
 		);
@@ -165,8 +189,12 @@ sge::d3d9::texture::basic<Types>::lock_impl(
 template<
 	typename Types
 >
-typename sge::d3d9::texture::basic<Types>::const_view const
-sge::d3d9::texture::basic<Types>::lock_impl(
+typename sge::d3d9::texture::basic<
+	Types
+>::const_view const
+sge::d3d9::texture::basic<
+	Types
+>::lock_impl(
 	lock_function const &_lock,
 	lock_area const &_area
 ) const
@@ -188,7 +216,9 @@ template<
 	typename Types
 >
 void
-sge::d3d9::texture::basic<Types>::unlock_impl(
+sge::d3d9::texture::basic<
+	Types
+>::unlock_impl(
 	unlock_function const &_unlock
 ) const
 {
@@ -197,21 +227,21 @@ sge::d3d9::texture::basic<Types>::unlock_impl(
 	)
 	{
 		_unlock(
-			temp_texture_.get(),
-			renderer::texture::stage(
+			*temp_texture_,
+			sge::renderer::texture::stage(
 				0u
 			)
 		);
 
-		texture::update(
+		sge::d3d9::texture::update(
 			device_,
-			temp_texture_.get(),
-			main_texture_.get()
+			*temp_texture_,
+			*main_texture_
 		);
 	}
 		_unlock(
-			main_texture_.get(),
-			renderer::texture::stage(
+			*main_texture_,
+			sge::renderer::texture::stage(
 				0u
 			)
 		);
@@ -227,11 +257,13 @@ template<
 	typename MakeView
 >
 View const
-sge::d3d9::texture::basic<Types>::do_lock(
+sge::d3d9::texture::basic<
+	Types
+>::do_lock(
 	MakeView const &_make_view,
 	lock_function const &_lock,
 	lock_area const &_area,
-	renderer::lock_flags::method::type const _method
+	sge::renderer::lock_flags::method::type const _method
 ) const
 {
 	typedef typename Types::lock_dest lock_dest;
@@ -247,8 +279,8 @@ sge::d3d9::texture::basic<Types>::do_lock(
 			)
 	);
 
-	d3d9::lock_flags const lock_method(
-		d3d9::convert::lock_flags(
+	sge::d3d9::lock_flags const lock_method(
+		sge::d3d9::convert::lock_flags(
 			_method,
 			this->resource_flags()
 		)
@@ -261,7 +293,7 @@ sge::d3d9::texture::basic<Types>::do_lock(
 		temp_texture_.take(
 			this->create(
 				D3DPOOL_SYSTEMMEM,
-				d3d9::usage(
+				sge::d3d9::usage(
 					0u
 				)
 			)
@@ -269,8 +301,8 @@ sge::d3d9::texture::basic<Types>::do_lock(
 
 		locked_dest_ =
 			_lock(
-				temp_texture_.get(),
-				renderer::texture::stage(
+				*temp_texture_,
+				sge::renderer::texture::stage(
 					0u
 				),
 				dest_rect,
@@ -280,8 +312,8 @@ sge::d3d9::texture::basic<Types>::do_lock(
 	else
 		locked_dest_ =
 			_lock(
-				main_texture_.get(),
-				renderer::texture::stage(
+				*main_texture_,
+				sge::renderer::texture::stage(
 					0u
 				),
 				dest_rect,
@@ -299,7 +331,7 @@ sge::d3d9::texture::basic<Types>::do_lock(
 				),
 				_area.size(),
 				color_format_,
-				d3d9::make_pitch(
+				sge::d3d9::make_pitch(
 					*locked_dest_,
 					_area.size(),
 					color_format_
@@ -311,10 +343,14 @@ sge::d3d9::texture::basic<Types>::do_lock(
 template<
 	typename Types
 >
-typename sge::d3d9::texture::basic<Types>::d3d_unique_ptr
-sge::d3d9::texture::basic<Types>::create(
+typename sge::d3d9::texture::basic<
+	Types
+>::d3d_unique_ptr
+sge::d3d9::texture::basic<
+	Types
+>::create(
 	D3DPOOL const _pool,
-	d3d9::usage const _usage
+	sge::d3d9::usage const _usage
 ) const
 {
 	return
@@ -331,7 +367,9 @@ template<
 	typename Types
 >
 void
-sge::d3d9::texture::basic<Types>::init()
+sge::d3d9::texture::basic<
+	Types
+>::init()
 {
 	main_texture_.take(
 		this->create(
@@ -345,7 +383,9 @@ template<
 	typename Types
 >
 void
-sge::d3d9::texture::basic<Types>::on_reset()
+sge::d3d9::texture::basic<
+	Types
+>::on_reset()
 {
 	main_texture_.reset();
 }
@@ -354,7 +394,9 @@ template<
 	typename Types
 >
 void
-sge::d3d9::texture::basic<Types>::on_loss()
+sge::d3d9::texture::basic<
+	Types
+>::on_loss()
 {
 	this->init();
 }

@@ -53,7 +53,7 @@ sge::d3d9::surface::depth_stencil::size() const
 {
 	return
 		d3d9::surfacefuncs::dim(
-			surface_.get()
+			*surface_
 		);
 }
 
@@ -62,14 +62,14 @@ sge::d3d9::surface::depth_stencil::format() const
 {
 	return
 		d3d9::surfacefuncs::depth_stencil_format(
-			surface_.get()
+			*surface_
 		);
 }
 
-IDirect3DSurface9 *
+IDirect3DSurface9 &
 sge::d3d9::surface::depth_stencil::surface() const
 {
-	return surface_.get();
+	return *surface_;
 }
 
 void

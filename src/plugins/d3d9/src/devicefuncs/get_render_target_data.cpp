@@ -26,15 +26,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::d3d9::devicefuncs::get_render_target_data(
-	IDirect3DDevice9 *const _device,
-	IDirect3DSurface9 *const _source,
-	IDirect3DSurface9 *const _dest
+	IDirect3DDevice9 &_device,
+	IDirect3DSurface9 &_source,
+	IDirect3DSurface9 &_dest
 )
 {
 	if(
-		_device->GetRenderTargetData(
-			_source,
-			_dest
+		_device.GetRenderTargetData(
+			&_source,
+			&_dest
 		)
 		!= D3D_OK
 	)

@@ -37,17 +37,17 @@ sge::d3d9::surface::color_holder::color_holder(
 	),
 	size_(
 		surfacefuncs::dim(
-			surface_.get()
+			*surface_
 		)
 	),
 	format_(
 		surfacefuncs::color_format(
-			surface_.get()
+			*surface_
 		)
 	),
 	is_render_target_(
 		surfacefuncs::is_render_target(
-			surface_.get()
+			*surface_
 		)
 	)
 {
@@ -57,10 +57,10 @@ sge::d3d9::surface::color_holder::~color_holder()
 {
 }
 
-IDirect3DSurface9 *
+IDirect3DSurface9 &
 sge::d3d9::surface::color_holder::get() const
 {
-	return surface_.get();
+	return *surface_;
 }
 
 sge::renderer::dim2 const &

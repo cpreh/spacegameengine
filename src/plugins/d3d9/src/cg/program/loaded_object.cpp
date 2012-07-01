@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::d3d9::cg::program::loaded_object::loaded_object(
-	IDirect3DDevice9 *const _device,
+	IDirect3DDevice9 &_device,
 	sge::cg::program::object &_program
 )
 :
