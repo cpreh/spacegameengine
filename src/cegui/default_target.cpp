@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/cegui/structure_cast.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/context/object.hpp>
@@ -30,7 +29,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/renderer/target/viewport_size.hpp>
 #include <sge/src/cegui/default_target.hpp>
+#include <sge/src/cegui/from_cegui_rect.hpp>
 #include <sge/src/cegui/optional_render_context_ref.hpp>
+#include <sge/src/cegui/to_cegui_rect.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assert/pre.hpp>
@@ -39,9 +40,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <CEGUIGeometryBuffer.h>
-#include <CEGUIRect.h>
-#include <CEGUIRenderQueue.h>
+#include <CEGUI/GeometryBuffer.h>
+#include <CEGUI/Rect.h>
+#include <CEGUI/RenderQueue.h>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -95,14 +96,14 @@ sge::cegui::default_target::draw(
 
 void
 sge::cegui::default_target::setArea(
-	CEGUI::Rect const &_area
+	CEGUI::Rectf const &_area
 )
 {
 	// This is a check to see if setArea might be called from outside,
 	// too. If this fails, it _should_ indicate that indeed, it _is_
 	// called from outside the renderer
 	FCPPT_ASSERT_ERROR(
-		sge::cegui::structure_cast<
+		sge::cegui::from_cegui_rect<
 			sge::renderer::pixel_rect
 		>(
 			_area
@@ -112,11 +113,13 @@ sge::cegui::default_target::setArea(
 	);
 }
 
-CEGUI::Rect const &
+CEGUI::Rectf const &
 sge::cegui::default_target::getArea() const
 {
 	viewport_ =
-		sge::cegui::structure_cast(
+		sge::cegui::to_cegui_rect<
+			float // TODO: use typedef
+		>(
 			renderer_.onscreen_target().viewport().get()
 		);
 
@@ -151,8 +154,8 @@ sge::cegui::default_target::deactivate()
 void
 sge::cegui::default_target::unprojectPoint(
 	CEGUI::GeometryBuffer const &,
-	CEGUI::Vector2 const &,
-	CEGUI::Vector2 &
+	CEGUI::Vector2f const &,
+	CEGUI::Vector2f &
 ) const
 {
 	FCPPT_ASSERT_UNIMPLEMENTED_MESSAGE(

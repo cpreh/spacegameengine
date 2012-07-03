@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/cegui/symbol.hpp>
 #include <sge/cegui/system_fwd.hpp>
-#include <sge/charconv/system_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
@@ -51,8 +50,7 @@ public:
 	SGE_CEGUI_SYMBOL
 	scoped_layout(
 		sge::cegui::system &,
-		boost::filesystem::path const &,
-		sge::charconv::system &
+		boost::filesystem::path const &
 	);
 
 	SGE_CEGUI_SYMBOL

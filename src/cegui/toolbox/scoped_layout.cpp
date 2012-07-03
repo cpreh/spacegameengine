@@ -25,26 +25,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
-#include <CEGUISystem.h>
-#include <CEGUIWindowManager.h>
+#include <CEGUI/WindowManager.h>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::cegui::toolbox::scoped_layout::scoped_layout(
-	cegui::system &_system,
-	boost::filesystem::path const &_path,
-	sge::charconv::system &_charconv_system)
+	sge::cegui::system &_system,
+	boost::filesystem::path const &_path
+)
 :
 	system_(
-		_system),
+		_system
+	),
 	window_(
-		system_.window_manager().loadWindowLayout(
+		system_.window_manager().loadLayoutFromFile(
 			sge::cegui::to_cegui_string(
 				fcppt::filesystem::path_to_string(
-					_path),
-				_charconv_system
+					_path
+				),
+				system_.charconv_system()
 			),
-			"",
 			"",
 			fcppt::null_ptr(),
 			fcppt::null_ptr()
@@ -56,7 +56,8 @@ sge::cegui::toolbox::scoped_layout::scoped_layout(
 sge::cegui::toolbox::scoped_layout::~scoped_layout()
 {
 	system_.window_manager().destroyWindow(
-		window_);
+		window_
+	);
 }
 
 CEGUI::Window &

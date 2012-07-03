@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/button_code.hpp>
 #include <fcppt/container/map.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <CEGUIInputEvent.h>
+#include <CEGUI/InputEvent.h>
 #include <map>
 #include <fcppt/config/external_end.hpp>
 

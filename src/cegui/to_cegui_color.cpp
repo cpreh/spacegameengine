@@ -28,11 +28,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <mizuiro/color/channel/green.hpp>
 #include <mizuiro/color/channel/red.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <CEGUIcolour.h>
+#include <CEGUI/Colour.h>
 #include <fcppt/config/external_end.hpp>
 
 
-CEGUI::colour const
+CEGUI::Colour const
 sge::cegui::to_cegui_color(
 	sge::image::color::any::object const &_color
 )
@@ -46,7 +46,7 @@ sge::cegui::to_cegui_color(
 	);
 
 	return
-		CEGUI::colour(
+		CEGUI::Colour(
 			dest.get(
 				mizuiro::color::channel::red()
 			),

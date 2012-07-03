@@ -18,9 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/cegui/exception.hpp>
 #include <sge/cegui/from_cegui_string.hpp>
-#include <sge/cegui/structure_cast.hpp>
+#include <sge/cegui/to_cegui_string.hpp>
 #include <sge/cegui/unit.hpp>
 #include <sge/image/const_raw_pointer.hpp>
 #include <sge/image/color/format.hpp>
@@ -40,21 +39,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/src/cegui/declare_local_logger.hpp>
+#include <sge/src/cegui/from_cegui_size.hpp>
+#include <sge/src/cegui/optional_sizef.hpp>
 #include <sge/src/cegui/prefix.hpp>
 #include <sge/src/cegui/texture.hpp>
 #include <sge/src/cegui/to_absolute_path.hpp>
+#include <sge/src/cegui/to_cegui_size.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre.hpp>
+#include <fcppt/assert/unimplemented_message.hpp>
+#include <fcppt/assert/unreachable.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <CEGUIImageCodec.h>
-#include <CEGUIResourceProvider.h>
-#include <CEGUISize.h>
-#include <CEGUIString.h>
-#include <CEGUITexture.h>
-#include <CEGUIVector.h>
+//#include <CEGUIImageCodec.h>
+//#include <CEGUIResourceProvider.h>
+#include <CEGUI/Size.h>
+#include <CEGUI/String.h>
+#include <CEGUI/Texture.h>
+#include <CEGUI/Vector.h>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -64,7 +68,9 @@ SGE_CEGUI_DECLARE_LOCAL_LOGGER(
 
 sge::cegui::texture::texture(
 	sge::cegui::texture_parameters const &_texture_parameters,
-	sge::renderer::texture::capabilities_field const &_caps
+	sge::renderer::texture::capabilities_field const &_caps,
+	sge::cegui::optional_sizef const &_size,
+	CEGUI::String const &_name
 )
 :
 	texture_parameters_(
@@ -75,28 +81,14 @@ sge::cegui::texture::texture(
 	),
 	texture_(),
 	size_(
-		static_cast<
-			sge::cegui::unit
-		>(
-			0
-		),
-		static_cast<
-			sge::cegui::unit
-		>(
-			0
-		)
+		_size
+	),
+	name_(
+		_name
 	),
 	texel_scaling_(
-		static_cast<
-			sge::cegui::unit
-		>(
-			1
-		),
-		static_cast<
-			sge::cegui::unit
-		>(
-			1
-		)
+		1.f,
+		1.f
 	)
 {
 	FCPPT_LOG_DEBUG(
@@ -125,28 +117,32 @@ sge::cegui::texture::create_from_view(
 )
 {
 	size_ =
-		sge::cegui::structure_cast(
-			sge::image2d::view::size(
-				_view
+		sge::cegui::optional_sizef(
+			sge::cegui::to_cegui_size<
+				float // TODO
+			>(
+				sge::image2d::view::size(
+					_view
+				)
 			)
 		);
 
 	texel_scaling_ =
-		CEGUI::Vector2(
+		CEGUI::Vector2f(
 			static_cast<
 				sge::cegui::unit
 			>(
 				1
 			)
 			/
-			size_.d_width,
+			size_->d_width,
 			static_cast<
 				sge::cegui::unit
 			>(
 				1
 			)
 			/
-			size_.d_height
+			size_->d_height
 		);
 
 	texture_.take(
@@ -163,107 +159,39 @@ bool
 sge::cegui::texture::empty() const
 {
 	return
-		static_cast<int>(size_.d_width) == 0
-		||
-		static_cast<int>(size_.d_height) == 0;
+		!size_;
 }
 
-CEGUI::Size const &
-sge::cegui::texture::getSize() const
+CEGUI::String const  &
+sge::cegui::texture::getName() const
 {
 	return
-		size_;
+		name_;
 }
 
-CEGUI::Size const &
+CEGUI::Sizef const &
+sge::cegui::texture::getSize() const
+{
+	FCPPT_ASSERT_PRE(
+		size_
+	);
+
+	return
+		*size_;
+}
+
+CEGUI::Sizef const &
 sge::cegui::texture::getOriginalDataSize() const
 {
 	return
-		size_;
+		this->getSize();
 }
 
-CEGUI::Vector2 const &
+CEGUI::Vector2f const &
 sge::cegui::texture::getTexelScaling() const
 {
 	return
 		texel_scaling_;
-}
-
-void
-sge::cegui::texture::resize(
-	CEGUI::Size const &_size
-)
-{
-	FCPPT_LOG_DEBUG(
-		local_log,
-		fcppt::log::_
-			<< FCPPT_TEXT("texture(")
-			<< this
-			<< FCPPT_TEXT(")::resize(")
-			<< _size.d_width
-			<< FCPPT_TEXT("x")
-			<< _size.d_height
-			<< FCPPT_TEXT(")"));
-
-	size_ =
-		_size;
-
-	// The size here could be (0,0), for example if the viewport hasn't
-	// been initialized yet. So do nothing in this case
-	if(
-		this->empty()
-	)
-	{
-		// If the size is zero...no scaling ;)
-		texel_scaling_ =
-			CEGUI::Vector2(
-				static_cast<
-					sge::cegui::unit
-				>(
-					1
-				),
-				static_cast<
-					sge::cegui::unit
-				>(
-					1
-				)
-			);
-		return;
-	}
-
-	texel_scaling_ =
-		CEGUI::Vector2(
-			static_cast<
-				sge::cegui::unit
-			>(
-				1
-			)
-			/
-			size_.d_width,
-			static_cast<
-				sge::cegui::unit
-			>(
-				1
-			)
-			/
-			size_.d_height
-		);
-
-	texture_.take(
-		texture_parameters_.renderer().create_planar_texture(
-			sge::renderer::texture::planar_parameters(
-				sge::cegui::structure_cast<
-					sge::renderer::dim2
-				>(
-					_size
-				),
-				sge::image::color::format::rgba8,
-				sge::renderer::texture::mipmap::off(),
-				sge::renderer::resource_flags::none,
-				caps_
-			)
-		)
-	);
 }
 
 void
@@ -303,7 +231,7 @@ sge::cegui::texture::loadFromFile(
 void
 sge::cegui::texture::loadFromMemory(
 	void const * const _buffer,
-	CEGUI::Size const &_buffer_size,
+	CEGUI::Sizef const &_buffer_size,
 	CEGUI::Texture::PixelFormat const _pixel_format
 )
 {
@@ -313,7 +241,7 @@ sge::cegui::texture::loadFromMemory(
 			<< FCPPT_TEXT("texture(")
 			<< this
 			<< FCPPT_TEXT(")::loadFromMemory(")
-			<< sge::cegui::structure_cast<
+			<< sge::cegui::from_cegui_size<
 				sge::renderer::dim2
 			>(
 				_buffer_size
@@ -332,18 +260,10 @@ sge::cegui::texture::loadFromMemory(
 			>(
 				_buffer
 			),
-			// TODO: Why no structure_cast here?
-			sge::image2d::dim(
-				static_cast<
-					sge::image2d::dim::value_type
-				>(
-					_buffer_size.d_width
-				),
-				static_cast<
-					sge::image2d::dim::value_type
-				>(
-					_buffer_size.d_height
-				)
+			sge::cegui::from_cegui_size<
+				sge::image2d::dim
+			>(
+				_buffer_size
 			),
 			// TODO: own function!
 			_pixel_format == PF_RGB
@@ -358,12 +278,48 @@ sge::cegui::texture::loadFromMemory(
 }
 
 void
-sge::cegui::texture::saveToMemory(
-	void *
+sge::cegui::texture::blitFromMemory(
+	void *const _source,
+	CEGUI::Rectf const &_area
 )
 {
-	throw
-		sge::cegui::exception(
-			FCPPT_TEXT("texture::saveToMemory() is not implemented yet")
-		);
+	FCPPT_ASSERT_UNIMPLEMENTED_MESSAGE(
+		FCPPT_TEXT("texture::blitFromMemory() is not implemented yet")
+	);
+}
+
+void
+sge::cegui::texture::blitToMemory(
+	void *const _data
+)
+{
+	FCPPT_ASSERT_UNIMPLEMENTED_MESSAGE(
+		FCPPT_TEXT("texture::blitToMemory() is not implemented yet")
+	);
+}
+
+bool
+sge::cegui::texture::isPixelFormatSupported(
+	CEGUI::Texture::PixelFormat const _format
+) const
+{
+	switch(
+		_format
+	)
+	{
+	case CEGUI::Texture::PF_RGB:
+	case CEGUI::Texture::PF_RGBA:
+		return true;
+	case CEGUI::Texture::PF_RGBA_4444:
+	case CEGUI::Texture::PF_RGB_565:
+	case CEGUI::Texture::PF_PVRTC2:
+	case CEGUI::Texture::PF_PVRTC4:
+	case CEGUI::Texture::PF_RGB_DXT1:
+	case CEGUI::Texture::PF_RGBA_DXT1:
+	case CEGUI::Texture::PF_RGBA_DXT3:
+	case CEGUI::Texture::PF_RGBA_DXT5:
+		return false;
+	}
+
+	FCPPT_ASSERT_UNREACHABLE;
 }

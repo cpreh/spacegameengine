@@ -18,55 +18,69 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_CEGUI_CEGUI_LOGGER_HPP_INCLUDED
-#define SGE_SRC_CEGUI_CEGUI_LOGGER_HPP_INCLUDED
+#ifndef SGE_SRC_CEGUI_TO_CEGUI_SIZE_HPP_INCLUDED
+#define SGE_SRC_CEGUI_TO_CEGUI_SIZE_HPP_INCLUDED
 
-#include <sge/charconv/system_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/math/size_type.hpp>
+#include <fcppt/math/dim/has_dim.hpp>
+#include <fcppt/math/dim/object_fwd.hpp>
+#include <fcppt/math/vector/has_dim.hpp>
+#include <fcppt/math/vector/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <CEGUI/Logger.h>
+#include <CEGUI/Size.h>
+#include <boost/mpl/or.hpp>
+#include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
 
-
-namespace CEGUI
-{
-class String;
-}
 
 namespace sge
 {
 namespace cegui
 {
 
-class cegui_logger
-:
-	public CEGUI::Logger
+template<
+	typename ValueType,
+	typename Container
+>
+typename
+boost::enable_if
+<
+	boost::mpl::or_
+	<
+		// TODO: remove vector?
+		fcppt::math::vector::has_dim<
+			Container,
+			2u
+		>,
+		fcppt::math::dim::has_dim<
+			Container,
+			2u
+		>
+	>,
+	CEGUI::Size<
+		ValueType
+	>
+>::type
+to_cegui_size(
+	Container const &_container
+)
 {
-	FCPPT_NONCOPYABLE(
-		cegui_logger
-	);
-public:
-	explicit
-	cegui_logger(
-		sge::charconv::system &
-	);
-
-	~cegui_logger();
-private:
-	void
-	logEvent(
-		CEGUI::String const & message,
-		CEGUI::LoggingLevel level
-	);
-
-	void
-	setLogFilename(
-		CEGUI::String const &filename,
-		bool append
-	);
-
-	sge::charconv::system &charconv_system_;
-};
+	return
+		CEGUI::Size<
+			ValueType
+		>(
+			static_cast<
+				ValueType
+			>(
+				_container[0]
+			),
+			static_cast<
+				ValueType
+			>(
+				_container[1]
+			)
+		);
+}
 
 }
 }

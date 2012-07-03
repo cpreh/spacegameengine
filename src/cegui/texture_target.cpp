@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/cegui/structure_cast.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/renderer/color_surface.hpp>
 #include <sge/renderer/color_surface_shared_ptr.hpp>
@@ -40,7 +39,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <sge/src/cegui/declare_local_logger.hpp>
+#include <sge/src/cegui/from_cegui_size.hpp>
+#include <sge/src/cegui/from_cegui_rect.hpp>
 #include <sge/src/cegui/optional_render_context_ref.hpp>
+#include <sge/src/cegui/optional_sizef.hpp>
 #include <sge/src/cegui/texture.hpp>
 #include <sge/src/cegui/texture_target.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -51,13 +53,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <CEGUIGeometryBuffer.h>
-#include <CEGUIRenderQueue.h>
+#include <CEGUI/GeometryBuffer.h>
+#include <CEGUI/RenderQueue.h>
+#include <CEGUI/String.h>
 #include <fcppt/config/external_end.hpp>
 
 
 SGE_CEGUI_DECLARE_LOCAL_LOGGER(
-	FCPPT_TEXT("texture_target"))
+	FCPPT_TEXT("texture_target")
+)
 
 sge::cegui::texture_target::texture_target(
 	sge::cegui::texture_parameters const &_texture_parameters,
@@ -74,14 +78,23 @@ sge::cegui::texture_target::texture_target(
 	texture_(),
 	scoped_target_(),
 	// This is exactly what cegui does and it avoids certain bugs :/
-	area_(0,0,0,0),
+	area_(
+		0,
+		0,
+		0,
+		0
+	),
 	default_projection_(
 		_projection
 	)
 {
 	FCPPT_LOG_DEBUG(
 		local_log,
-		fcppt::log::_ << FCPPT_TEXT("texture_target(") << this << FCPPT_TEXT(")::texture_target"));
+		fcppt::log::_
+			<< FCPPT_TEXT("texture_target(")
+			<< this
+			<< FCPPT_TEXT(")::texture_target")
+	);
 }
 
 sge::cegui::texture_target::~texture_target()
@@ -99,47 +112,70 @@ sge::cegui::texture_target::render_context(
 
 void
 sge::cegui::texture_target::draw(
-	CEGUI::GeometryBuffer const &buffer)
+	CEGUI::GeometryBuffer const &_buffer
+)
 {
 	// Disabled for debugging reasons
 	//if(texture_->empty())
 	//	return;
 	FCPPT_LOG_DEBUG(
 		local_log,
-		fcppt::log::_ << FCPPT_TEXT("texture_target(") << this << FCPPT_TEXT(")::draw(GeometryBuffer)"));
-	buffer.draw();
+		fcppt::log::_
+			<< FCPPT_TEXT("texture_target(")
+			<< this
+			<< FCPPT_TEXT(")::draw(GeometryBuffer)")
+	);
+
+	_buffer.draw();
 }
 
 void
 sge::cegui::texture_target::draw(
-	CEGUI::RenderQueue const & queue)
+	CEGUI::RenderQueue const &_queue
+)
 {
 	// Disabled for debugging reasons
 	//if(texture_->empty())
 	//	return;
 	FCPPT_LOG_DEBUG(
 		local_log,
-		fcppt::log::_ << FCPPT_TEXT("texture_target(") << this << FCPPT_TEXT(")::draw(RenderQueue)"));
-	queue.draw();
+		fcppt::log::_
+			<< FCPPT_TEXT("texture_target(")
+			<< this
+			<< FCPPT_TEXT(")::draw(RenderQueue)")
+	);
+
+	_queue.draw();
 }
 
 void
 sge::cegui::texture_target::setArea(
-	CEGUI::Rect const &_area)
+	CEGUI::Rectf const &_area
+)
 {
 	FCPPT_LOG_DEBUG(
 		local_log,
 		fcppt::log::_
-			<< FCPPT_TEXT("texture_target(") << this << FCPPT_TEXT(")::setArea("
-			<< structure_cast<sge::renderer::pixel_rect>(_area) << ")"));
+			<< FCPPT_TEXT("texture_target(")
+			<< this
+			<< FCPPT_TEXT(")::setArea(")
+			<< sge::cegui::from_cegui_rect<
+				sge::renderer::pixel_rect
+			>(
+				_area
+			)
+			<< FCPPT_TEXT(')')
+	);
+
 	area_ =
 		_area;
 }
 
-CEGUI::Rect const &
+CEGUI::Rectf const &
 sge::cegui::texture_target::getArea() const
 {
-	return area_;
+	return
+		area_;
 }
 
 bool
@@ -151,12 +187,18 @@ sge::cegui::texture_target::isImageryCache() const
 void
 sge::cegui::texture_target::activate()
 {
-	if(texture_->empty())
+	if(
+		texture_->empty()
+	)
 		return;
 
 	FCPPT_LOG_DEBUG(
 		local_log,
-		fcppt::log::_ << FCPPT_TEXT("texture_target(") << this << FCPPT_TEXT(")::activate()"));
+		fcppt::log::_
+			<< FCPPT_TEXT("texture_target(")
+			<< this
+			<< FCPPT_TEXT(")::activate()")
+	);
 
 	FCPPT_ASSERT_PRE(
 		render_context_
@@ -181,7 +223,7 @@ sge::cegui::texture_target::activate()
 
 	target_->viewport(
 		sge::renderer::target::viewport(
-			sge::cegui::structure_cast<
+			sge::cegui::from_cegui_rect<
 				sge::renderer::pixel_rect
 			>(
 				area_
@@ -192,7 +234,7 @@ sge::cegui::texture_target::activate()
 	render_context_->transform(
 		sge::renderer::matrix_mode::projection,
 		sge::renderer::projection::orthogonal(
-			sge::cegui::structure_cast<
+			sge::cegui::from_cegui_rect<
 				sge::renderer::projection::rect
 			>(
 				area_
@@ -242,8 +284,8 @@ sge::cegui::texture_target::deactivate()
 void
 sge::cegui::texture_target::unprojectPoint(
 	CEGUI::GeometryBuffer const &,
-	CEGUI::Vector2 const &,
-	CEGUI::Vector2 &
+	CEGUI::Vector2f const &,
+	CEGUI::Vector2f &
 ) const
 {
 	FCPPT_ASSERT_UNIMPLEMENTED_MESSAGE(
@@ -256,9 +298,15 @@ sge::cegui::texture_target::clear()
 {
 	FCPPT_LOG_DEBUG(
 		local_log,
-		fcppt::log::_ << FCPPT_TEXT("texture_target(") << this << FCPPT_TEXT(")::clear()"));
+		fcppt::log::_
+			<< FCPPT_TEXT("texture_target(")
+			<< this
+			<< FCPPT_TEXT(")::clear()")
+	);
 
-	if (texture_->empty())
+	if(
+		texture_->empty()
+	)
 		return;
 
 	// Make sure we clear everything
@@ -300,18 +348,29 @@ sge::cegui::texture_target::getTexture() const
 
 void
 sge::cegui::texture_target::declareRenderSize(
-	CEGUI::Size const &_size)
+	CEGUI::Sizef const &_size
+)
 {
 	FCPPT_LOG_DEBUG(
 		local_log,
 		fcppt::log::_
-			<< FCPPT_TEXT("texture_target(") << this << FCPPT_TEXT(")::declareRenderSize(")
-			<< structure_cast<sge::renderer::dim2>(_size) << FCPPT_TEXT(")"));
+			<< FCPPT_TEXT("texture_target(")
+			<< this
+			<< FCPPT_TEXT(")::declareRenderSize(")
+			<< sge::cegui::from_cegui_size<
+				sge::renderer::dim2
+			>(
+				_size
+			)
+			<< FCPPT_TEXT(')')
+	);
 
-	setArea(
-		CEGUI::Rect(
+	this->setArea(
+		CEGUI::Rectf(
 			area_.getPosition(),
-			_size));
+			_size
+		)
+	);
 
 	texture_.take(
 		fcppt::make_unique_ptr<
@@ -321,10 +380,14 @@ sge::cegui::texture_target::declareRenderSize(
 				texture_parameters_
 			),
 			sge::renderer::texture::capabilities_field(
-				sge::renderer::texture::capabilities::render_target)));
-
-	texture_->resize(
-		_size);
+				sge::renderer::texture::capabilities::render_target
+			),
+			sge::cegui::optional_sizef(
+				_size
+			),
+			CEGUI::String()
+		)
+	);
 
 	target_->color_surface(
 	// The size here could be (0,0), for example if the viewport hasn't
@@ -341,7 +404,9 @@ sge::cegui::texture_target::declareRenderSize(
 				)
 			)
 		,
-		sge::renderer::target::surface_index(0u)
+		sge::renderer::target::surface_index(
+			0u
+		)
 	);
 
 	this->clear();

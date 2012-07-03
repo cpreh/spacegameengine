@@ -28,11 +28,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/cegui/texture_fwd.hpp>
 #include <sge/src/cegui/texture_parameters.hpp>
 #include <sge/src/cegui/texture_target_fwd.hpp>
+#include <sge/src/cegui/fwds/sizef_fwd.hpp>
+#include <sge/src/cegui/fwds/vector2f_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <CEGUIRect.h>
-#include <CEGUITextureTarget.h>
+#include <CEGUI/Rect.h>
+#include <CEGUI/TextureTarget.h>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -40,9 +42,7 @@ namespace CEGUI
 {
 class GeometryBuffer;
 class RenderQueue;
-class Size;
 class Texture;
-class Vector2;
 }
 
 namespace sge
@@ -82,10 +82,10 @@ private:
 
 	void
 	setArea(
-		CEGUI::Rect const &
+		CEGUI::Rectf const &
 	);
 
-	CEGUI::Rect const &
+	CEGUI::Rectf const &
 	getArea() const;
 
 	bool
@@ -100,8 +100,8 @@ private:
 	void
 	unprojectPoint(
 		CEGUI::GeometryBuffer const & buff,
-		CEGUI::Vector2 const &p_in,
-		CEGUI::Vector2 & p_out
+		CEGUI::Vector2f const &p_in,
+		CEGUI::Vector2f & p_out
 	) const;
 
 	void
@@ -112,7 +112,7 @@ private:
 
 	void
 	declareRenderSize(
-		CEGUI::Size const &
+		CEGUI::Sizef const &
 	);
 
 	bool
@@ -136,7 +136,7 @@ private:
 
 	offscreen_scoped_ptr scoped_target_;
 
-	CEGUI::Rect area_;
+	CEGUI::Rectf area_;
 
 	sge::renderer::matrix4 const default_projection_;
 };

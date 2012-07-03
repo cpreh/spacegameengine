@@ -46,14 +46,14 @@ class scoped_gui_sheet
 public:
 	SGE_CEGUI_SYMBOL
 	scoped_gui_sheet(
-		cegui::system &,
+		sge::cegui::system &,
 		CEGUI::Window &
 	);
 
 	SGE_CEGUI_SYMBOL
 	~scoped_gui_sheet();
 private:
-	cegui::system &system_;
+	sge::cegui::system &system_;
 };
 
 }

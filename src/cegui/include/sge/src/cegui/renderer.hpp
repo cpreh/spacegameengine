@@ -23,26 +23,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/vertex_declaration_scoped_ptr.hpp>
+#include <sge/renderer/texture/capabilities_field_fwd.hpp>
 #include <sge/src/cegui/default_target.hpp>
 #include <sge/src/cegui/geometry_buffer_fwd.hpp>
+#include <sge/src/cegui/optional_sizef_fwd.hpp>
 #include <sge/src/cegui/optional_render_context_ref.hpp>
 #include <sge/src/cegui/texture_fwd.hpp>
 #include <sge/src/cegui/texture_parameters.hpp>
 #include <sge/src/cegui/texture_target_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/ptr_container/ptr_map.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
-#include <CEGUIBase.h>
-#include <CEGUIRenderer.h>
-#include <CEGUIRenderingRoot.h>
-#include <CEGUIString.h>
-#include <vector>
+#include <CEGUI/Base.h>
+#include <CEGUI/Renderer.h>
+#include <CEGUI/Size.h>
+#include <CEGUI/String.h>
+#include <CEGUI/Vector.h>
 #include <fcppt/config/external_end.hpp>
 
 
 namespace CEGUI
 {
 class GeometryBuffer;
+class RenderTarget;
+class Texture;
+class TextureTarget;
 }
 
 namespace sge
@@ -72,16 +78,17 @@ public:
 
 	sge::renderer::device &
 	impl() const;
-private:
-	CEGUI::RenderingRoot &
-	getDefaultRenderingRoot();
 
+	CEGUI::RenderTarget &
+	getDefaultRenderTarget();
+private:
 	CEGUI::GeometryBuffer &
 	createGeometryBuffer();
 
 	void
 	destroyGeometryBuffer(
-		CEGUI::GeometryBuffer const &);
+		CEGUI::GeometryBuffer const &
+	);
 
 	void
 	destroyAllGeometryBuffers();
@@ -91,29 +98,52 @@ private:
 
 	void
 	destroyTextureTarget(
-		CEGUI::TextureTarget *);
+		CEGUI::TextureTarget *
+	);
 
 	void
 	destroyAllTextureTargets();
 
 	CEGUI::Texture &
-	createTexture();
+	createTexture(
+		CEGUI::String const &name
+	);
 
 	CEGUI::Texture &
 	createTexture(
+		CEGUI::String const &name,
 		CEGUI::String const &filename,
-		CEGUI::String const &resourceGroup);
+		CEGUI::String const &resourceGroup
+	);
 
 	CEGUI::Texture &
 	createTexture(
-		CEGUI::Size const &);
+		CEGUI::String const &name,
+		CEGUI::Sizef const &
+	);
 
 	void
 	destroyTexture(
-		CEGUI::Texture &);
+		CEGUI::Texture &
+	);
+
+	void
+	destroyTexture(
+		CEGUI::String const &name
+	);
 
 	void
 	destroyAllTextures();
+
+	CEGUI::Texture &
+	getTexture(
+		CEGUI::String const &
+	) const;
+
+	bool
+	isTextureDefined(
+		CEGUI::String const &
+	) const;
 
 	void
 	beginRendering();
@@ -123,13 +153,13 @@ private:
 
 	void
 	setDisplaySize(
-		CEGUI::Size const &
+		CEGUI::Sizef const &
 	);
 
-	CEGUI::Size const &
+	CEGUI::Sizef const &
 	getDisplaySize() const;
 
-	CEGUI::Vector2 const &
+	CEGUI::Vector2f const &
 	getDisplayDPI() const;
 
 	CEGUI::uint
@@ -138,7 +168,12 @@ private:
 	CEGUI::String const &
 	getIdentifierString() const;
 
-	friend class sge::cegui::texture_target;
+	CEGUI::Texture &
+	create_texture(
+		CEGUI::String const &name,
+		sge::renderer::texture::capabilities_field const &,
+		sge::cegui::optional_sizef const &
+	);
 
 	typedef
 	boost::ptr_vector<
@@ -151,9 +186,10 @@ private:
 	> texture_target_sequence;
 
 	typedef
-	boost::ptr_vector<
+	boost::ptr_map<
+		CEGUI::String,
 		sge::cegui::texture
-	> texture_sequence;
+	> texture_map;
 
 	sge::cegui::texture_parameters const texture_parameters_;
 
@@ -163,21 +199,19 @@ private:
 
 	sge::renderer::vertex_declaration_scoped_ptr const vertex_declaration_;
 
-	CEGUI::Size display_size_;
+	CEGUI::Sizef display_size_;
 
-	CEGUI::Vector2 display_dpi_;
+	CEGUI::Vector2f display_dpi_;
 
 	CEGUI::String const identifier_;
 
 	sge::cegui::default_target default_target_;
 
-	CEGUI::RenderingRoot default_root_;
-
 	geometry_buffer_sequence geometry_buffers_;
 
 	texture_target_sequence texture_targets_;
 
-	texture_sequence textures_;
+	texture_map textures_;
 };
 
 }

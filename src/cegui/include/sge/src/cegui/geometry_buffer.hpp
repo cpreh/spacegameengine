@@ -27,24 +27,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/target/scissor_area.hpp>
 #include <sge/src/cegui/batch.hpp>
+#include <sge/src/cegui/clip.hpp>
 #include <sge/src/cegui/geometry_buffer_fwd.hpp>
 #include <sge/src/cegui/optional_render_context_ref.hpp>
 #include <sge/src/cegui/texture_fwd.hpp>
+#include <sge/src/cegui/fwds/rectf_fwd.hpp>
+#include <sge/src/cegui/fwds/vector3f_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <CEGUIBase.h>
-#include <CEGUIGeometryBuffer.h>
-#include <CEGUITexture.h>
+#include <CEGUI/Base.h>
+#include <CEGUI/GeometryBuffer.h>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
 
+// BlendMode comes from Renderer.h which is included by GeometryBuffer :(
 namespace CEGUI
 {
+class Quaternion;
 class RenderEffect;
-class Rect;
 struct Vertex;
-class Vector3;
 class Texture;
 }
 
@@ -78,22 +80,22 @@ private:
 
 	void
 	setTranslation(
-		CEGUI::Vector3 const &
+		CEGUI::Vector3f const &
 	);
 
 	void
 	setRotation(
-		CEGUI::Vector3 const &
+		CEGUI::Quaternion const &
 	);
 
 	void
 	setPivot(
-		CEGUI::Vector3 const &
+		CEGUI::Vector3f const &
 	);
 
 	void
 	setClippingRegion(
-		CEGUI::Rect const &
+		CEGUI::Rectf const &
 	);
 
 	void
@@ -115,7 +117,7 @@ private:
 	void
 	reset();
 
-	CEGUI::Texture*
+	CEGUI::Texture *
 	getActiveTexture() const;
 
 	CEGUI::uint
@@ -134,11 +136,19 @@ private:
 
 	void
 	setBlendMode(
-		CEGUI::BlendMode const
-	); // const for VC++
+		CEGUI::BlendMode const  // const for VC++
+	);
 
 	CEGUI::BlendMode
 	getBlendMode() const;
+
+	void
+	setClippingActive(
+		bool
+	);
+
+	bool
+	isClippingActive() const;
 private:
 	typedef
 	std::vector
@@ -170,6 +180,8 @@ private:
 	sge::renderer::target::scissor_area scissor_area_;
 
 	sge::cegui::optional_render_context_ref render_context_;
+
+	sge::cegui::clip clip_;
 };
 
 }

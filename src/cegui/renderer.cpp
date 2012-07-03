@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/cegui/from_cegui_string.hpp>
-#include <sge/cegui/structure_cast.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/dim2.hpp>
 #include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/vertex_declaration.hpp>
 #include <sge/renderer/caps/device.hpp>
@@ -38,10 +38,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/src/cegui/declare_local_logger.hpp>
+#include <sge/src/cegui/from_cegui_size.hpp>
 #include <sge/src/cegui/geometry_buffer.hpp>
+#include <sge/src/cegui/optional_sizef.hpp>
 #include <sge/src/cegui/renderer.hpp>
 #include <sge/src/cegui/texture.hpp>
 #include <sge/src/cegui/texture_target.hpp>
+#include <sge/src/cegui/to_cegui_rect.hpp>
 #include <sge/src/cegui/vf/format.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/foreach_enumerator.hpp>
@@ -50,13 +53,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/ptr_container_erase.hpp>
+#include <fcppt/assert/error.hpp>
 #include <fcppt/assert/error_message.hpp>
 #include <fcppt/assert/pre.hpp>
+#include <fcppt/assert/unreachable_message.hpp>
+#include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <CEGUISystem.h>
+#include <CEGUI/Base.h>
 #include <algorithm>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -87,7 +94,7 @@ sge::cegui::renderer::renderer(
 		640,
 		480
 	),
-	// CEGUI's OpenGL renderer uses 96dpi so I just copied it.
+	// TODO: Implement a scheme for sge to read the DPI
 	display_dpi_(
 		static_cast<unit>(
 			96),
@@ -98,9 +105,6 @@ sge::cegui::renderer::renderer(
 	),
 	default_target_(
 		renderer_
-	),
-	default_root_(
-		default_target_
 	),
 	geometry_buffers_(),
 	texture_targets_(),
@@ -117,17 +121,12 @@ sge::cegui::renderer::~renderer()
 {
 }
 
-sge::renderer::device &
-sge::cegui::renderer::impl() const
-{
-	return renderer_;
-}
-
 void
 sge::cegui::renderer::render_context(
 	optional_render_context_ref const &_render_context
 )
 {
+	// TODO: Use a reference here that updates automatically
 	render_context_ =
 		_render_context;
 
@@ -158,10 +157,16 @@ sge::cegui::renderer::render_context(
 		);
 }
 
-CEGUI::RenderingRoot &
-sge::cegui::renderer::getDefaultRenderingRoot()
+sge::renderer::device &
+sge::cegui::renderer::impl() const
 {
-	return default_root_;
+	return renderer_;
+}
+
+CEGUI::RenderTarget &
+sge::cegui::renderer::getDefaultRenderTarget()
+{
+	return default_target_;
 }
 
 CEGUI::GeometryBuffer &
@@ -187,7 +192,8 @@ sge::cegui::renderer::createGeometryBuffer()
 		)
 	);
 
-	return geometry_buffers_.back();
+	return
+		geometry_buffers_.back();
 }
 
 void
@@ -197,7 +203,8 @@ sge::cegui::renderer::destroyGeometryBuffer(
 {
 	FCPPT_LOG_DEBUG(
 		local_log,
-		fcppt::log::_ << FCPPT_TEXT("destroyGeometryBuffer()")
+		fcppt::log::_
+			<< FCPPT_TEXT("destroyGeometryBuffer()")
 	);
 
 	FCPPT_ASSERT_ERROR_MESSAGE(
@@ -295,7 +302,9 @@ sge::cegui::renderer::destroyAllTextureTargets()
 }
 
 CEGUI::Texture &
-sge::cegui::renderer::createTexture()
+sge::cegui::renderer::createTexture(
+	CEGUI::String const &_name
+)
 {
 	FCPPT_LOG_DEBUG(
 		local_log,
@@ -303,24 +312,17 @@ sge::cegui::renderer::createTexture()
 			<< FCPPT_TEXT("createTexture()")
 	);
 
-	fcppt::container::ptr::push_back_unique_ptr(
-		textures_,
-		fcppt::make_unique_ptr<
-			sge::cegui::texture
-		>(
-			fcppt::cref(
-				texture_parameters_
-			),
-			sge::renderer::texture::capabilities_field::null()
-		)
-	);
-
 	return
-		textures_.back();
+		this->create_texture(
+			_name,
+			sge::renderer::texture::capabilities_field::null(),
+			sge::cegui::optional_sizef()
+		);
 }
 
 CEGUI::Texture &
 sge::cegui::renderer::createTexture(
+	CEGUI::String const &_name,
 	CEGUI::String const &_filename,
 	CEGUI::String const &_resource_group
 )
@@ -341,37 +343,34 @@ sge::cegui::renderer::createTexture(
 			<< FCPPT_TEXT(')')
 	);
 
-	fcppt::container::ptr::push_back_unique_ptr(
-		textures_,
-		fcppt::make_unique_ptr<
-			sge::cegui::texture
-		>(
-			fcppt::cref(
-				texture_parameters_
-			),
-			sge::renderer::texture::capabilities_field::null()
+	CEGUI::Texture &result(
+		this->create_texture(
+			_name,
+			sge::renderer::texture::capabilities_field::null(),
+			sge::cegui::optional_sizef()
 		)
 	);
 
-	textures_.back().loadFromFile(
+	result.loadFromFile(
 		_filename,
 		_resource_group
 	);
 
 	return
-		textures_.back();
+		result;
 }
 
 CEGUI::Texture &
 sge::cegui::renderer::createTexture(
-	CEGUI::Size const &_size
+	CEGUI::String const &_name,
+	CEGUI::Sizef const &_size
 )
 {
 	FCPPT_LOG_DEBUG(
 		local_log,
 		fcppt::log::_
 			<< FCPPT_TEXT("createTexture(")
-			<< sge::cegui::structure_cast<
+			<< sge::cegui::from_cegui_size<
 				sge::renderer::dim2
 			>(
 				_size
@@ -379,24 +378,14 @@ sge::cegui::renderer::createTexture(
 			<< FCPPT_TEXT(')')
 	);
 
-	fcppt::container::ptr::push_back_unique_ptr(
-		textures_,
-		fcppt::make_unique_ptr<
-			sge::cegui::texture
-		>(
-			fcppt::cref(
-				texture_parameters_
-			),
-			sge::renderer::texture::capabilities_field::null()
-		)
-	);
-
-	textures_.back().resize(
-		_size
-	);
-
 	return
-		textures_.back();
+		this->create_texture(
+			_name,
+			sge::renderer::texture::capabilities_field::null(),
+			sge::cegui::optional_sizef(
+				_size
+			)
+		);
 }
 
 void
@@ -404,24 +393,57 @@ sge::cegui::renderer::destroyTexture(
 	CEGUI::Texture &_texture
 )
 {
+	sge::cegui::texture *tex(
+		&dynamic_cast<
+			sge::cegui::texture &
+		>(
+			_texture
+		)
+	);
+
+	for(
+		sge::cegui::renderer::texture_map::iterator it(
+			textures_.begin()
+		);
+		it != textures_.end();
+		++it
+	)
+		if(
+			it->second
+			==
+			tex
+		)
+		{
+			textures_.erase(
+				it
+			);
+
+			return;
+		}
+
+	FCPPT_ASSERT_UNREACHABLE_MESSAGE(
+		FCPPT_TEXT("Tried to destroy a texture by pointer which was not registered")
+	);
+}
+
+void
+sge::cegui::renderer::destroyTexture(
+	CEGUI::String const &_name
+)
+{
 	FCPPT_LOG_DEBUG(
 		local_log,
 		fcppt::log::_
 			<< FCPPT_TEXT("destroyTexture(")
-			<< &_texture
+			<< _name
 			<< FCPPT_TEXT(')')
 	);
 
 	FCPPT_ASSERT_ERROR_MESSAGE(
-		fcppt::algorithm::ptr_container_erase(
-			textures_,
-			dynamic_cast<
-				sge::cegui::texture *
-			>(
-				&_texture
-			)
-		),
-		FCPPT_TEXT("Tried to destroy a texture which was not registered")
+		textures_.erase(
+			_name
+		) == 1u,
+		FCPPT_TEXT("Tried to destroy a texture by name which was not registered")
 	);
 }
 
@@ -435,6 +457,47 @@ sge::cegui::renderer::destroyAllTextures()
 	);
 
 	textures_.clear();
+}
+
+CEGUI::Texture &
+sge::cegui::renderer::getTexture(
+	CEGUI::String const &_name
+) const
+{
+	sge::cegui::renderer::texture_map::const_iterator const it(
+		textures_.find(
+			_name
+		)
+	);
+
+	FCPPT_ASSERT_ERROR_MESSAGE(
+		it == textures_.end(),
+		FCPPT_TEXT("Tried to get a texture by name which was not registered")
+	);
+
+	return
+		*const_cast<
+			CEGUI::Texture *
+		>(
+			static_cast<
+				CEGUI::Texture const *
+			>(
+				it->second
+			)
+		);
+}
+
+bool
+sge::cegui::renderer::isTextureDefined(
+	CEGUI::String const &_name
+) const
+{
+	return
+		textures_.count(
+			_name
+		)
+		== 1u
+		;
 }
 
 void
@@ -501,14 +564,14 @@ sge::cegui::renderer::endRendering()
 
 void
 sge::cegui::renderer::setDisplaySize(
-	CEGUI::Size const &_display_size
+	CEGUI::Sizef const &_display_size
 )
 {
 	FCPPT_LOG_DEBUG(
 		local_log,
 		fcppt::log::_
 			<< FCPPT_TEXT("setDisplaySize(")
-			<< sge::cegui::structure_cast<
+			<< sge::cegui::from_cegui_size<
 				sge::renderer::dim2
 			>(
 				_display_size
@@ -522,20 +585,22 @@ sge::cegui::renderer::setDisplaySize(
 	// This is what OpenGL does, too, but the default target currently
 	// ignores this message
 	default_target_.setArea(
-		sge::cegui::structure_cast(
+		sge::cegui::to_cegui_rect<
+			float // TODO
+		>(
 			renderer_.onscreen_target().viewport().get()
 		)
 	);
 }
 
-CEGUI::Size const &
+CEGUI::Sizef const &
 sge::cegui::renderer::getDisplaySize() const
 {
 	return
 		display_size_;
 }
 
-CEGUI::Vector2 const &
+CEGUI::Vector2f const &
 sge::cegui::renderer::getDisplayDPI() const
 {
 	return
@@ -560,4 +625,47 @@ CEGUI::String const &
 sge::cegui::renderer::getIdentifierString() const
 {
 	return identifier_;
+}
+
+CEGUI::Texture &
+sge::cegui::renderer::create_texture(
+	CEGUI::String const &_name,
+	sge::renderer::texture::capabilities_field const &_caps,
+	sge::cegui::optional_sizef const &_size
+)
+{
+	typedef
+	std::pair<
+		sge::cegui::renderer::texture_map::iterator,
+		bool
+	>
+	result_type;
+
+	result_type const result(
+		fcppt::container::ptr::insert_unique_ptr_map(
+			textures_,
+			_name,
+			fcppt::make_unique_ptr<
+				sge::cegui::texture
+			>(
+				fcppt::cref(
+					texture_parameters_
+				),
+				fcppt::cref(
+					_caps
+				),
+				fcppt::cref(
+					_size
+				),
+				_name
+			)
+		)
+	);
+
+	FCPPT_ASSERT_ERROR(
+		result.second
+	);
+
+	return
+		*result.first->second;
 }

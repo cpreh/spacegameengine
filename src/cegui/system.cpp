@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <CEGUIWindowManager.h>
+#include <CEGUI/WindowManager.h>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -106,3 +106,23 @@ sge::cegui::system::window_manager() const
 	return CEGUI::WindowManager::getSingleton();
 }
 
+CEGUI::GUIContext &
+sge::cegui::system::gui_context()
+{
+	return
+		impl_->gui_context();
+}
+
+CEGUI::GUIContext const &
+sge::cegui::system::gui_context() const
+{
+	return
+		impl_->gui_context();
+}
+
+sge::charconv::system &
+sge::cegui::system::charconv_system() const
+{
+	return
+		impl_->charconv_system();
+}

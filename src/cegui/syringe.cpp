@@ -25,19 +25,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/encoding.hpp>
 #include <sge/charconv/string_type.hpp>
 #include <sge/charconv/system_fwd.hpp>
+#include <sge/input/cursor/button_code_to_string.hpp>
 #include <sge/input/cursor/button_event.hpp>
 #include <sge/input/cursor/move_event.hpp>
+#include <sge/input/cursor/position.hpp>
 #include <sge/input/keyboard/char_event.hpp>
+#include <sge/input/keyboard/key_code_to_string.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/input/keyboard/key_repeat_event.hpp>
 #include <sge/src/cegui/cursor_button_translation.hpp>
 #include <sge/src/cegui/declare_local_logger.hpp>
+#include <sge/src/cegui/keyboard_code_map.hpp>
 #include <sge/src/cegui/keyboard_code_translation.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <CEGUIInputEvent.h>
-#include <CEGUISystem.h>
+#include <CEGUI/GUIContext.h>
+#include <CEGUI/InputEvent.h>
 #include <string>
 #include <fcppt/config/external_end.hpp>
 
@@ -47,11 +51,14 @@ SGE_CEGUI_DECLARE_LOCAL_LOGGER(
 )
 
 sge::cegui::syringe::syringe(
-	sge::charconv::system &_charconv_system
+	sge::cegui::system &_system
 )
 :
 	charconv_system_(
-		_charconv_system
+		_system.charconv_system()
+	),
+	gui_context_(
+		_system.gui_context()
 	)
 {
 }
@@ -62,56 +69,86 @@ sge::cegui::syringe::~syringe()
 
 void
 sge::cegui::syringe::inject(
-	sge::input::keyboard::key_event const &k)
+	sge::input::keyboard::key_event const &_event
+)
 {
-	if (keyboard_code_translation().find(k.key_code()) == keyboard_code_translation().end())
+	sge::cegui::keyboard_code_map::const_iterator const it(
+		keyboard_code_translation().find(
+			_event.key_code()
+		)
+	);
+
+	if(
+		it == keyboard_code_translation().end()
+	)
 	{
 		FCPPT_LOG_WARNING(
 			local_log,
 			fcppt::log::_
-				<< FCPPT_TEXT("Warning: got a key which I couldn't process. Its code is: ")
-				<< static_cast<unsigned>(k.key_code())
+				<< FCPPT_TEXT("Got a key which I couldn't process. Its code is: ")
+				<< sge::input::keyboard::key_code_to_string(
+					_event.key_code()
+				)
 				<< FCPPT_TEXT("; Doing nothing."));
 		return;
 	}
 
-	if (k.pressed())
-	{
-		CEGUI::System::getSingleton().injectKeyDown(
-			keyboard_code_translation()[k.key_code()]);
-	}
+	CEGUI::Key::Scan const code(
+		it->second
+	);
+
+	if(
+		_event.pressed()
+	)
+		gui_context_.injectKeyDown(
+			code
+		);
 	else
-	{
-		CEGUI::System::getSingleton().injectKeyUp(
-			keyboard_code_translation()[k.key_code()]);
-	}
+		gui_context_.injectKeyUp(
+			code
+		);
 }
 
 void
 sge::cegui::syringe::inject(
-	sge::input::keyboard::key_repeat_event const &k)
+	sge::input::keyboard::key_repeat_event const &_event
+)
 {
-	if (keyboard_code_translation().find(k.key_code()) == keyboard_code_translation().end())
+	sge::cegui::keyboard_code_map::const_iterator const it(
+		keyboard_code_translation().find(
+			_event.key_code()
+		)
+	);
+
+	if(
+		it == keyboard_code_translation().end()
+	)
 	{
 		FCPPT_LOG_WARNING(
 			local_log,
 			fcppt::log::_
-				<< FCPPT_TEXT("Warning: got a key which I couldn't process. Its code is: ")
-				<< static_cast<unsigned>(k.key_code())
+				<< FCPPT_TEXT("Got a key which I couldn't process. Its code is: ")
+				<< sge::input::keyboard::key_code_to_string(
+					_event.key_code()
+				)
 				<< FCPPT_TEXT("; Doing nothing."));
 		return;
 	}
 
-	CEGUI::System::getSingleton().injectKeyDown(
-		keyboard_code_translation()[k.key_code()]);
+	gui_context_.injectKeyDown(
+		it->second
+	);
 }
 
 void
 sge::cegui::syringe::inject(
-	sge::input::keyboard::char_event const &k)
+	sge::input::keyboard::char_event const &_event
+)
 {
 	typedef
-	sge::charconv::string_type<sge::charconv::encoding::utf32>::type
+	sge::charconv::string_type<
+		sge::charconv::encoding::utf32
+	>::type
 	utf32_string;
 
 	utf32_string const converted_string(
@@ -121,58 +158,94 @@ sge::cegui::syringe::inject(
 			sge::charconv::encoding::wchar
 		>(
 			charconv_system_,
-			std::basic_string<sge::input::keyboard::char_type>(
+			std::basic_string<
+				sge::input::keyboard::char_type
+			>(
 				1u,
-				k.character())));
+				_event.character()
+			)
+		)
+	);
 
 	FCPPT_ASSERT_ERROR(
-		converted_string.size() == 1);
+		converted_string.size() == 1
+	);
 
-	CEGUI::System::getSingleton().injectChar(
-		converted_string[0]);
+	gui_context_.injectChar(
+		converted_string[0]
+	);
 }
 
 void
 sge::cegui::syringe::inject(
-	sge::input::cursor::button_event const &e)
+	sge::input::cursor::button_event const &_event
+)
 {
-	if (cursor_button_translation().find(e.button_code()) == cursor_button_translation().end())
+	sge::cegui::cursor_button_map::const_iterator const it(
+		cursor_button_translation().find(
+			_event.button_code()
+		)
+	);
+
+	if(
+		it == cursor_button_translation().end()
+	)
 	{
 		FCPPT_LOG_WARNING(
 			local_log,
 			fcppt::log::_
 				<< FCPPT_TEXT("Warning: got a button which I couldn't process. Its code is: ")
-				<< static_cast<unsigned>(e.button_code())
+				<< sge::input::cursor::button_code_to_string(
+					_event.button_code()
+				)
 				<< FCPPT_TEXT("; Doing nothing."));
 		return;
 	}
 
-	if (e.pressed())
-		CEGUI::System::getSingleton().injectMouseButtonDown(
-			cursor_button_translation()[e.button_code()]);
+	CEGUI::MouseButton const code(
+		it->second
+	);
+
+	if(
+		_event.pressed()
+	)
+		gui_context_.injectMouseButtonDown(
+			code
+		);
 	else
-		CEGUI::System::getSingleton().injectMouseButtonUp(
-			cursor_button_translation()[e.button_code()]);
+		gui_context_.injectMouseButtonUp(
+			code
+		);
 }
 
 void
 sge::cegui::syringe::inject(
-	sge::input::cursor::move_event const &e)
+	sge::input::cursor::move_event const &_event
+)
 {
 	if(
-		e.position()
+		_event.position()
 	)
-		inject(
-			*e.position());
+		this->inject(
+			*_event.position()
+		);
 }
 
 void
 sge::cegui::syringe::inject(
-	sge::input::cursor::position const &cursor_position)
+	sge::input::cursor::position const &_cursor_position
+)
 {
-	CEGUI::System::getSingleton().injectMousePosition(
-		static_cast<unit>(
-			cursor_position.x()),
-		static_cast<unit>(
-			cursor_position.y()));
+	gui_context_.injectMousePosition(
+		static_cast<
+			sge::cegui::unit
+		>(
+			_cursor_position.x()
+		),
+		static_cast<
+			sge::cegui::unit
+		>(
+			_cursor_position.y()
+		)
+	);
 }

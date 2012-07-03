@@ -23,10 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/cegui/cursor_button_translation.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <CEGUIInputEvent.h>
+#include <CEGUI/InputEvent.h>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
+// TODO: Turn this into a switch!
 
 namespace
 {

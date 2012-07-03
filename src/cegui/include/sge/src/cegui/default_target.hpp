@@ -24,10 +24,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/matrix4_fwd.hpp>
 #include <sge/src/cegui/optional_render_context_ref.hpp>
+#include <sge/src/cegui/fwds/vector2f_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <CEGUIRect.h>
-#include <CEGUIRenderTarget.h>
+#include <CEGUI/Rect.h>
+#include <CEGUI/RenderTarget.h>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -35,7 +36,6 @@ namespace CEGUI
 {
 class GeometryBuffer;
 class RenderQueue;
-class Vector2;
 }
 
 namespace sge
@@ -75,10 +75,10 @@ private:
 public:
 	void
 	setArea(
-		CEGUI::Rect const &
+		CEGUI::Rectf const &
 	);
 private:
-	CEGUI::Rect const &
+	CEGUI::Rectf const &
 	getArea() const;
 
 	bool
@@ -93,8 +93,8 @@ private:
 	void
 	unprojectPoint(
 		CEGUI::GeometryBuffer const &,
-		CEGUI::Vector2 const & p_in,
-		CEGUI::Vector2& p_out
+		CEGUI::Vector2f const &p_in,
+		CEGUI::Vector2f &p_out
 	) const;
 public:
 	sge::renderer::matrix4 const
@@ -102,7 +102,7 @@ public:
 private:
 	sge::renderer::device &renderer_;
 
-	mutable CEGUI::Rect viewport_;
+	mutable CEGUI::Rectf viewport_;
 
 	sge::cegui::optional_render_context_ref render_context_;
 };

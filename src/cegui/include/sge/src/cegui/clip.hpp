@@ -18,33 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CEGUI_TOOLBOX_APPEND_ROW_HPP_INCLUDED
-#define SGE_CEGUI_TOOLBOX_APPEND_ROW_HPP_INCLUDED
+#ifndef SGE_SRC_CEGUI_CLIP_HPP_INCLUDED
+#define SGE_SRC_CEGUI_CLIP_HPP_INCLUDED
 
-#include <sge/cegui/symbol.hpp>
-#include <sge/cegui/toolbox/row.hpp>
+#include <fcppt/strong_typedef.hpp>
 
-
-namespace CEGUI
-{
-class MultiColumnList;
-}
 
 namespace sge
 {
 namespace cegui
 {
-namespace toolbox
-{
 
-SGE_CEGUI_SYMBOL
-void
-append_row(
-	CEGUI::MultiColumnList &,
-	sge::cegui::toolbox::row const &
+FCPPT_MAKE_STRONG_TYPEDEF(
+	bool,
+	clip
 );
 
-}
 }
 }
 

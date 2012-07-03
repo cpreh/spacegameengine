@@ -19,35 +19,69 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/cegui/toolbox/append_row.hpp>
+#include <sge/cegui/toolbox/row.hpp>
 #include <fcppt/null_ptr.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <elements/CEGUIListboxTextItem.h>
-#include <CEGUIBase.h>
+#include <CEGUI/Base.h>
+#include <CEGUI/widgets/MultiColumnList.h>
+#include <CEGUI/widgets/ListboxTextItem.h>
 #include <fcppt/config/external_end.hpp>
 
 
 void
 sge::cegui::toolbox::append_row(
-	CEGUI::MultiColumnList &list,
-	row const &mapper)
+	CEGUI::MultiColumnList &_list,
+	sge::cegui::toolbox::row const &_mapper
+)
 {
 	FCPPT_ASSERT_PRE(
-		static_cast<row::size_type>(list.getColumnCount()) == mapper.size());
-	CEGUI::uint const index =
-		list.addRow(
+		static_cast<
+			sge::cegui::toolbox::row::size_type
+		>(
+			_list.getColumnCount()
+		)
+		==
+		_mapper.size()
+	);
+
+	FCPPT_ASSERT_PRE(
+		!_mapper.empty()
+	);
+
+	CEGUI::uint const index(
+		_list.addRow(
 			new CEGUI::ListboxTextItem(
-				mapper[0],
+				_mapper[
+					0
+				],
 				0,
-				fcppt::null_ptr()),
-			0);
-	for(row::size_type i = 1; i < mapper.size(); ++i)
-		list.setItem(
+				fcppt::null_ptr()
+			),
+			0
+		)
+	);
+
+	for(
+		sge::cegui::toolbox::row::size_type cur(
+			1u
+		);
+		cur < _mapper.size();
+		++cur
+	)
+		_list.setItem(
 			new CEGUI::ListboxTextItem(
-				mapper[i],
+				_mapper[
+					cur
+				],
 				0,
-				fcppt::null_ptr()),
-			static_cast<CEGUI::uint>(
-				i),
-			index);
+				fcppt::null_ptr()
+			),
+			static_cast<
+				CEGUI::uint
+			>(
+				cur
+			),
+			index
+		);
 }

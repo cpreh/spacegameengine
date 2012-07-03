@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/vertex_buffer_shared_ptr.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
+#include <sge/src/cegui/clip.hpp>
 
 
 namespace sge
@@ -35,7 +36,8 @@ class batch
 public:
 	batch(
 		sge::renderer::texture::planar &,
-		sge::renderer::vertex_buffer_shared_ptr
+		sge::renderer::vertex_buffer_shared_ptr,
+		sge::cegui::clip
 	);
 
 	batch(
@@ -54,10 +56,15 @@ public:
 
 	sge::renderer::vertex_buffer &
 	vertex_buffer() const;
+
+	sge::cegui::clip const
+	clip() const;
 private:
 	sge::renderer::texture::planar *texture_;
 
 	sge::renderer::vertex_buffer_shared_ptr vertex_buffer_;
+
+	sge::cegui::clip clip_;
 };
 
 }

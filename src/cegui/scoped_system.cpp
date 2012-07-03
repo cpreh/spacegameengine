@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/cegui/scoped_system.hpp>
 #include <fcppt/null_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <CEGUISystem.h>
+#include <CEGUI/System.h>
 #include <fcppt/config/external_end.hpp>
 
 

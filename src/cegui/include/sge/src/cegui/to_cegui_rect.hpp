@@ -18,33 +18,70 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CEGUI_TOOLBOX_APPEND_ROW_HPP_INCLUDED
-#define SGE_CEGUI_TOOLBOX_APPEND_ROW_HPP_INCLUDED
+#ifndef SGE_SRC_CEGUI_TO_CEGUI_RECT_HPP_INCLUDED
+#define SGE_SRC_CEGUI_TO_CEGUI_RECT_HPP_INCLUDED
 
-#include <sge/cegui/symbol.hpp>
-#include <sge/cegui/toolbox/row.hpp>
+#include <fcppt/math/box/has_dim.hpp>
+#include <fcppt/math/box/object_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <CEGUI/Rect.h>
+#include <boost/utility/enable_if.hpp>
+#include <fcppt/config/external_end.hpp>
 
-
-namespace CEGUI
-{
-class MultiColumnList;
-}
 
 namespace sge
 {
 namespace cegui
 {
-namespace toolbox
+
+template<
+	typename ValueType,
+	typename Container
+>
+typename
+boost::enable_if
+<
+	fcppt::math::box::has_dim
+	<
+		Container,
+		2u
+	>,
+	CEGUI::Rect
+	<
+		ValueType
+	>
+>::type
+to_cegui_rect(
+	Container const &_container
+)
 {
-
-SGE_CEGUI_SYMBOL
-void
-append_row(
-	CEGUI::MultiColumnList &,
-	sge::cegui::toolbox::row const &
-);
-
+	return
+		CEGUI::Rect<
+			ValueType
+		>(
+			static_cast<
+				ValueType
+			>(
+				_container.left()
+			),
+			static_cast<
+				ValueType
+			>(
+				_container.top()
+			),
+			static_cast<
+				ValueType
+			>(
+				_container.right()
+			),
+			static_cast<
+				ValueType
+			>(
+				_container.bottom()
+			)
+		);
 }
+
 }
 }
 

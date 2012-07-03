@@ -1,14 +1,22 @@
+set(
+	CEGUI_VERSION
+	"9999.0"
+)
+
 find_path(
 	CEGUI_INCLUDE_DIR
-	NAMES CEGUI.h
-	PATHS /usr/include/CEGUI
+	NAMES CEGUI/Element.h
+	PATHS /usr/include/CEGUI-${CEGUI_VERSION}
 	HINTS ${CEGUI_INCLUDEDIR}
+	NO_DEFAULT_PATH
 )
 
 find_library(
 	CEGUI_LIBRARY
 	NAMES CEGUIBase
+	PATHS /usr/lib/CEGUI-${CEGUI_VERSION}
 	HINTS ${CEGUI_LIBRARYDIR}
+	NO_DEFAULT_PATH
 )
 
 mark_as_advanced(
@@ -35,4 +43,10 @@ find_package_handle_standard_args(
 	DEFAULT_MSG
 	CEGUI_INCLUDE_DIR
 	CEGUI_LIBRARY
+)
+
+get_filename_component(
+	CEGUI_LIBRARY_DIRS
+	${CEGUI_LIBRARY}
+	PATH
 )

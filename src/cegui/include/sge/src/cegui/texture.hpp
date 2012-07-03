@@ -25,13 +25,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/renderer/texture/planar_scoped_ptr.hpp>
+#include <sge/src/cegui/optional_sizef.hpp>
 #include <sge/src/cegui/texture_fwd.hpp>
 #include <sge/src/cegui/texture_parameters.hpp>
+#include <sge/src/cegui/fwds/sizef_fwd.hpp>
+#include <sge/src/cegui/fwds/rectf_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <CEGUISize.h>
-#include <CEGUITexture.h>
-#include <CEGUIVector.h>
+#include <CEGUI/Texture.h>
+#include <CEGUI/Vector.h>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -55,7 +57,9 @@ class texture
 public:
 	texture(
 		sge::cegui::texture_parameters const &,
-		sge::renderer::texture::capabilities_field const &
+		sge::renderer::texture::capabilities_field const &,
+		sge::cegui::optional_sizef const &,
+		CEGUI::String const &name
 	);
 
 	~texture();
@@ -77,20 +81,18 @@ public:
 	bool
 	empty() const;
 private:
-	CEGUI::Size const &
+	CEGUI::String const &
+	getName() const;
+
+	CEGUI::Sizef const &
 	getSize() const;
 
-	CEGUI::Size const &
+	CEGUI::Sizef const &
 	getOriginalDataSize() const;
 
-	CEGUI::Vector2 const &
+	CEGUI::Vector2f const &
 	getTexelScaling() const;
 public:
-	void
-	resize(
-		CEGUI::Size const &
-	);
-
 	void
 	loadFromFile(
 		CEGUI::String const &filename,
@@ -99,25 +101,39 @@ public:
 private:
 	void
 	loadFromMemory(
-		void const * buffer,
-		CEGUI::Size const & buffer_size,
-		CEGUI::Texture::PixelFormat pixel_format
+		void const *buffer,
+		CEGUI::Sizef const &buffer_size,
+		CEGUI::Texture::PixelFormat
 	);
 
 	void
-	saveToMemory(
+	blitFromMemory(
+		void *sourceData,
+		CEGUI::Rectf const &
+	);
+
+	void
+	blitToMemory(
 		void *
 	);
+
+	bool
+	isPixelFormatSupported(
+		CEGUI::Texture::PixelFormat
+	) const;
 private:
 	sge::cegui::texture_parameters const texture_parameters_;
 
 	sge::renderer::texture::capabilities_field const caps_;
 
 	sge::renderer::texture::planar_scoped_ptr texture_;
-	// We _have_ to cache this because getSize returns a reference
-	CEGUI::Size size_;
 
-	CEGUI::Vector2 texel_scaling_;
+	// We _have_ to cache this because getSize returns a reference
+	sge::cegui::optional_sizef size_;
+
+	CEGUI::String const name_;
+
+	CEGUI::Vector2f texel_scaling_;
 };
 
 }

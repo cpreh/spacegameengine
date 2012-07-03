@@ -37,6 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace CEGUI
 {
+class GUIContext;
 class WindowManager;
 }
 
@@ -85,6 +86,18 @@ public:
 	SGE_CEGUI_SYMBOL
 	CEGUI::WindowManager const &
 	window_manager() const;
+
+	SGE_CEGUI_SYMBOL
+	CEGUI::GUIContext &
+	gui_context();
+
+	SGE_CEGUI_SYMBOL
+	CEGUI::GUIContext const &
+	gui_context() const;
+
+	SGE_CEGUI_SYMBOL
+	sge::charconv::system &
+	charconv_system() const;
 private:
 	typedef fcppt::scoped_ptr<
 		sge::cegui::detail::system_impl

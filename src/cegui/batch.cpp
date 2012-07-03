@@ -22,11 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_buffer_shared_ptr.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/src/cegui/batch.hpp>
+#include <sge/src/cegui/clip.hpp>
 
 
 sge::cegui::batch::batch(
 	sge::renderer::texture::planar &_texture,
-	sge::renderer::vertex_buffer_shared_ptr const _vertex_buffer
+	sge::renderer::vertex_buffer_shared_ptr const _vertex_buffer,
+	sge::cegui::clip const _clip
 )
 :
 	texture_(
@@ -34,12 +36,15 @@ sge::cegui::batch::batch(
 	),
 	vertex_buffer_(
 		_vertex_buffer
+	),
+	clip_(
+		_clip
 	)
 {
 }
 
 sge::cegui::batch::batch(
-	batch const &_other
+	sge::cegui::batch const &_other
 )
 :
 	texture_(
@@ -47,13 +52,16 @@ sge::cegui::batch::batch(
 	),
 	vertex_buffer_(
 		_other.vertex_buffer_
+	),
+	clip_(
+		_other.clip_
 	)
 {
 }
 
 sge::cegui::batch &
 sge::cegui::batch::operator=(
-	batch const &_other
+	sge::cegui::batch const &_other
 )
 {
 	if(
@@ -64,6 +72,8 @@ sge::cegui::batch::operator=(
 	texture_ = _other.texture_;
 
 	vertex_buffer_ = _other.vertex_buffer_;
+
+	clip_ = _other.clip_;
 
 	return *this;
 }
@@ -82,4 +92,10 @@ sge::renderer::vertex_buffer &
 sge::cegui::batch::vertex_buffer() const
 {
 	return *vertex_buffer_;
+}
+
+sge::cegui::clip const
+sge::cegui::batch::clip() const
+{
+	return clip_;
 }

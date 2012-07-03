@@ -21,18 +21,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/to_cegui_string.hpp>
 #include <sge/charconv/convert.hpp>
 #include <sge/charconv/encoding.hpp>
+#include <sge/charconv/string_type.hpp>
+#include <sge/charconv/system_fwd.hpp>
 #include <fcppt/static_assert_expression.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/to_std_wstring.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <string>
+#include <CEGUI/Base.h>
+#include <CEGUI/String.h>
 #include <fcppt/config/external_end.hpp>
 
 
 CEGUI::String const
 sge::cegui::to_cegui_string(
 	fcppt::string const &_string,
-	sge::charconv::system &_charconv)
+	sge::charconv::system &_charconv
+)
 {
 	// This is here so that the CEGUI::String constructor with a zero
 	// length null terminated utf8 string doesn't get used, because it
@@ -43,7 +48,10 @@ sge::cegui::to_cegui_string(
 		return CEGUI::String();
 
 	typedef
-	sge::charconv::string_type<sge::charconv::encoding::utf8>::type
+	sge::charconv::string_type
+	<
+		sge::charconv::encoding::utf8
+	>::type
 	utf8_string;
 
 	FCPPT_STATIC_ASSERT_EXPRESSION((
@@ -51,7 +59,8 @@ sge::cegui::to_cegui_string(
 		<
 			utf8_string::value_type,
 			CEGUI::utf8
-		>::value));
+		>::value
+	));
 
 	return
 		CEGUI::String(
@@ -62,5 +71,8 @@ sge::cegui::to_cegui_string(
 			>(
 				_charconv,
 				fcppt::to_std_wstring(
-					_string)).c_str());
+					_string
+				)
+			).c_str()
+		);
 }

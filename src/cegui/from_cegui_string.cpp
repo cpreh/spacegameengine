@@ -22,21 +22,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/convert.hpp>
 #include <sge/charconv/encoding.hpp>
 #include <sge/charconv/string_type.hpp>
+#include <sge/charconv/system_fwd.hpp>
 #include <fcppt/from_std_wstring.hpp>
 #include <fcppt/static_assert_expression.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <CEGUIBase.h>
+#include <CEGUI/Base.h>
+#include <CEGUI/String.h>
 #include <fcppt/config/external_end.hpp>
 
 
 fcppt::string const
 sge::cegui::from_cegui_string(
 	CEGUI::String const &_string,
-	sge::charconv::system &_charconv)
+	sge::charconv::system &_charconv
+)
 {
 	typedef
-	sge::charconv::string_type<sge::charconv::encoding::utf32>::type
+	sge::charconv::string_type
+	<
+		sge::charconv::encoding::utf32
+	>::type
 	source_string;
 
 	FCPPT_STATIC_ASSERT_EXPRESSION((
@@ -44,22 +51,32 @@ sge::cegui::from_cegui_string(
 		<
 			source_string::value_type,
 			CEGUI::utf32
-		>::value));
+		>::value
+	));
 
 	typedef
-	sge::charconv::string_type<sge::charconv::encoding::wchar>::type
+	sge::charconv::string_type
+	<
+		sge::charconv::encoding::wchar
+	>::type
 	dest_string;
 
-	dest_string d =
+	dest_string const dest(
 		sge::charconv::convert
-			<
-				sge::charconv::encoding::wchar,
-				sge::charconv::encoding::utf32
-			>(
-				_charconv,
-				source_string(
-					_string.begin(),
-					_string.end()));
+		<
+			sge::charconv::encoding::wchar,
+			sge::charconv::encoding::utf32
+		>(
+			_charconv,
+			source_string(
+				_string.begin(),
+				_string.end()
+			)
+		)
+	);
 
-	return fcppt::from_std_wstring(d);
+	return
+		fcppt::from_std_wstring(
+			dest
+		);
 }

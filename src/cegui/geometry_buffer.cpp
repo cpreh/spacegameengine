@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/cegui/exception.hpp>
-#include <sge/cegui/structure_cast.hpp>
 #include <sge/image/color/init.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/first_vertex.hpp>
@@ -56,6 +55,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <sge/src/cegui/declare_local_logger.hpp>
+#include <sge/src/cegui/from_cegui_rect.hpp>
 #include <sge/src/cegui/geometry_buffer.hpp>
 #include <sge/src/cegui/optional_render_context_ref.hpp>
 #include <sge/src/cegui/texture.hpp>
@@ -78,8 +78,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/range/iterator_range.hpp>
-#include <CEGUIBase.h>
-#include <CEGUIVertex.h>
+#include <CEGUI/Base.h>
+#include <CEGUI/Rect.h>
+#include <CEGUI/Vector.h>
+#include <CEGUI/Vertex.h>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -124,7 +126,10 @@ sge::cegui::geometry_buffer::geometry_buffer(
 	scissor_area_(
 		sge::renderer::pixel_rect()
 	),
-	render_context_()
+	render_context_(),
+	clip_(
+		true
+	)
 {
 	FCPPT_LOG_DEBUG(
 		local_log,
@@ -159,17 +164,20 @@ sge::cegui::geometry_buffer::draw() const
 		*render_context_,
 		sge::renderer::matrix_mode::world,
 		fcppt::math::matrix::translation(
-			translation_ + rotation_pivot_
-		) *
+			translation_
+			+
+			rotation_pivot_
+		)
+		*
 		fcppt::math::matrix::rotation_axis(
 			rotation_axis_[2],
 			sge::renderer::vector3(
-				static_cast<sge::renderer::scalar>(
-					0),
-				static_cast<sge::renderer::scalar>(
-					0),
-				static_cast<sge::renderer::scalar>(
-					1))) *
+				0.f,
+				0.f,
+				1.f
+			)
+		)
+		*
 		fcppt::math::matrix::rotation_axis(
 			rotation_axis_[1],
 			sge::renderer::vector3(
@@ -254,6 +262,14 @@ sge::cegui::geometry_buffer::draw() const
 			)
 		);
 
+		sge::renderer::state::scoped const inner_state(
+			*render_context_,
+			sge::renderer::state::list(
+				sge::renderer::state::bool_::enable_scissor_test =
+					it->clip().get()
+			)
+		);
+
 		render_context_->render_nonindexed(
 			sge::renderer::first_vertex(
 				0u
@@ -268,7 +284,7 @@ sge::cegui::geometry_buffer::draw() const
 
 void
 sge::cegui::geometry_buffer::setTranslation(
-	CEGUI::Vector3 const &_vec
+	CEGUI::Vector3f const &_vec
 )
 {
 	// TODO: structure_cast?
@@ -284,11 +300,30 @@ sge::cegui::geometry_buffer::setTranslation(
 
 void
 sge::cegui::geometry_buffer::setRotation(
-	CEGUI::Vector3 const &_vec
+	CEGUI::Quaternion const &_quat
+)
+{
+	// TODO:
+#if 0
+	// TODO: structure_cast?
+	rotation_axis_ =
+		sge::renderer::vector3(
+			static_cast<sge::renderer::scalar>(
+				_vec.d_x),
+			static_cast<sge::renderer::scalar>(
+				_vec.d_y),
+			static_cast<sge::renderer::scalar>(
+				_vec.d_z));
+#endif
+}
+
+void
+sge::cegui::geometry_buffer::setPivot(
+	CEGUI::Vector3f const &_vec
 )
 {
 	// TODO: structure_cast?
-	rotation_axis_ =
+	rotation_pivot_ =
 		sge::renderer::vector3(
 			static_cast<sge::renderer::scalar>(
 				_vec.d_x),
@@ -299,85 +334,103 @@ sge::cegui::geometry_buffer::setRotation(
 }
 
 void
-sge::cegui::geometry_buffer::setPivot(
-	CEGUI::Vector3 const &v)
-{
-	// TODO: structure_cast?
-	rotation_pivot_ =
-		sge::renderer::vector3(
-			static_cast<sge::renderer::scalar>(
-				v.d_x),
-			static_cast<sge::renderer::scalar>(
-				v.d_y),
-			static_cast<sge::renderer::scalar>(
-				v.d_z));
-}
-
-void
 sge::cegui::geometry_buffer::setClippingRegion(
-	CEGUI::Rect const &r)
+	CEGUI::Rectf const &_rect
+)
 {
+	sge::renderer::pixel_rect const converted(
+		sge::cegui::from_cegui_rect<
+			sge::renderer::pixel_rect
+		>(
+			_rect
+		)
+	);
+
 	FCPPT_LOG_DEBUG(
 		local_log,
 		fcppt::log::_
-			<< FCPPT_TEXT("geometry_buffer(") << this << FCPPT_TEXT(")::setClippingRegion(")
-			<< structure_cast<sge::renderer::pixel_rect>(r) << FCPPT_TEXT(")"));
+			<< FCPPT_TEXT("geometry_buffer(")
+			<< this
+			<< FCPPT_TEXT(")::setClippingRegion(")
+			<< converted
+			<< FCPPT_TEXT(')')
+	);
+
 	scissor_area_ =
-		structure_cast<sge::renderer::pixel_rect>(
-			r);
+		converted;
 }
 
 void
 sge::cegui::geometry_buffer::appendVertex(
-	CEGUI::Vertex const &v)
+	CEGUI::Vertex const &_vertex
+)
 {
-	appendGeometry(
-		&v,
-		1);
+	this->appendGeometry(
+		&_vertex,
+		1u
+	);
 }
 
 void
 sge::cegui::geometry_buffer::appendGeometry(
 	CEGUI::Vertex const * const vertices,
-	CEGUI::uint const vertex_count)
+	CEGUI::uint const vertex_count
+)
 {
 	FCPPT_ASSERT_PRE_MESSAGE(
 		active_texture_,
-		FCPPT_TEXT("I got geometry without an active texture, how should I handle this? :/"));
+		FCPPT_TEXT("I got geometry without an active texture, how should I handle this? :/")
+	);
 
 	total_vertex_count_ =
-		static_cast<CEGUI::uint>(
-			total_vertex_count_ + vertex_count);
+		static_cast<
+			CEGUI::uint
+		>(
+			total_vertex_count_ + vertex_count
+		);
 
 	batches_.push_back(
-		batch(
+		sge::cegui::batch(
 			active_texture_->impl(),
 			sge::renderer::vertex_buffer_shared_ptr(
 				renderer_.create_vertex_buffer(
 					vertex_declaration_,
 					sge::renderer::vf::dynamic::part_index(
-						0u),
+						0u
+					),
 					sge::renderer::vertex_count(
-						static_cast<sge::renderer::vertex_count::value_type>(
-							vertex_count)),
-					sge::renderer::resource_flags::none))));
+						static_cast<
+							sge::renderer::vertex_count::value_type
+						>(
+							vertex_count
+						)
+					),
+					sge::renderer::resource_flags::none
+				)
+			),
+			clip_
+		)
+	);
 
 	sge::renderer::scoped_vertex_lock const vblock(
 		batches_.back().vertex_buffer(),
-		sge::renderer::lock_mode::writeonly);
+		sge::renderer::lock_mode::writeonly
+	);
 
-	vf::vertex_view const vertex_view(
-		vblock.value());
+	sge::cegui::vf::vertex_view const vertex_view(
+		vblock.value()
+	);
 
-	vf::vertex_view::iterator vb_it(
-		vertex_view.begin());
+	sge::cegui::vf::vertex_view::iterator vb_it(
+		vertex_view.begin()
+	);
 
 	typedef
-	vf::position::packed_type
+	sge::cegui::vf::position::packed_type
 	position_vector;
 
 	typedef
-	vf::texcoord::packed_type
+	sge::cegui::vf::texcoord::packed_type
 	texcoord_vector;
 
 	typedef boost::iterator_range<
@@ -387,7 +440,9 @@ sge::cegui::geometry_buffer::appendGeometry(
 	vertex_iterator_range const range(
 		boost::make_iterator_range(
 			vertices,
-			vertices + vertex_count));
+			vertices + vertex_count
+		)
+	);
 
 	for(
 		vertex_iterator_range::const_iterator it(
@@ -397,20 +452,33 @@ sge::cegui::geometry_buffer::appendGeometry(
 		++it
 	)
 	{
-		vb_it->set<vf::position>(
+		vb_it->set<
+			sge::cegui::vf::position
+		>(
 			position_vector(
 				it->position.d_x,
 				it->position.d_y,
-				it->position.d_z));
-		vb_it->set<vf::texcoord>(
+				it->position.d_z
+			)
+		);
+
+		vb_it->set<
+			sge::cegui::vf::texcoord
+		>(
 			texcoord_vector(
 				it->tex_coords.d_x,
-				it->tex_coords.d_y));
-		vb_it->set<vf::color>(
+				it->tex_coords.d_y
+			)
+		);
+
+		vb_it->set<
+			sge::cegui::vf::color
+		>(
 			(sge::image::color::init::red() %= it->colour_val.getRed())
 			(sge::image::color::init::green() %= it->colour_val.getGreen())
 			(sge::image::color::init::blue() %= it->colour_val.getBlue())
-			(sge::image::color::init::alpha() %= it->colour_val.getAlpha()));
+			(sge::image::color::init::alpha() %= it->colour_val.getAlpha())
+		);
 
 		vb_it++;
 	}
@@ -499,4 +567,22 @@ sge::cegui::geometry_buffer::getBlendMode() const
 {
 	return
 		blend_mode_;
+}
+
+void
+sge::cegui::geometry_buffer::setClippingActive(
+	bool const _active
+)
+{
+	clip_ =
+		sge::cegui::clip(
+			_active
+		);
+}
+
+bool
+sge::cegui::geometry_buffer::isClippingActive() const
+{
+	return
+		clip_.get();
 }

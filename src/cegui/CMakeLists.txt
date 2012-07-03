@@ -3,6 +3,10 @@ include_directories(
 	"${CEGUI_INCLUDE_DIRS}"
 )
 
+link_directories(
+	"${CEGUI_LIBRARY_DIRS}"
+)
+
 set(
 	SGE_CEGUI_FILES
 	include/sge/cegui/cursor_visibility.hpp
@@ -16,7 +20,6 @@ set(
 	include/sge/cegui/load_context.hpp
 	include/sge/cegui/load_context_fwd.hpp
 	include/sge/cegui/logger.hpp
-	include/sge/cegui/structure_cast.hpp
 	include/sge/cegui/syringe.hpp
 	include/sge/cegui/syringe_fwd.hpp
 	include/sge/cegui/system.hpp
@@ -42,11 +45,18 @@ set(
 	src/cegui/image_codec.cpp
 	src/cegui/include/sge/src/cegui/batch.hpp
 	src/cegui/include/sge/src/cegui/cegui_logger.hpp
+	src/cegui/include/sge/src/cegui/clip.hpp
 	src/cegui/include/sge/src/cegui/cursor_button_map.hpp
 	src/cegui/include/sge/src/cegui/cursor_button_translation.hpp
 	src/cegui/include/sge/src/cegui/declare_local_logger.hpp
 	src/cegui/include/sge/src/cegui/default_target.hpp
 	src/cegui/include/sge/src/cegui/detail/system_impl.hpp
+	src/cegui/include/sge/src/cegui/from_cegui_rect.hpp
+	src/cegui/include/sge/src/cegui/from_cegui_size.hpp
+	src/cegui/include/sge/src/cegui/fwds/rectf_fwd.hpp
+	src/cegui/include/sge/src/cegui/fwds/sizef_fwd.hpp
+	src/cegui/include/sge/src/cegui/fwds/vector2f_fwd.hpp
+	src/cegui/include/sge/src/cegui/fwds/vector3f_fwd.hpp
 	src/cegui/include/sge/src/cegui/geometry_buffer.hpp
 	src/cegui/include/sge/src/cegui/geometry_buffer_fwd.hpp
 	src/cegui/include/sge/src/cegui/image_codec.hpp
@@ -56,6 +66,8 @@ set(
 	src/cegui/include/sge/src/cegui/log_location.hpp
 	src/cegui/include/sge/src/cegui/optional_render_context_ref.hpp
 	src/cegui/include/sge/src/cegui/optional_render_context_ref_fwd.hpp
+	src/cegui/include/sge/src/cegui/optional_sizef.hpp
+	src/cegui/include/sge/src/cegui/optional_sizef_fwd.hpp
 	src/cegui/include/sge/src/cegui/prefix.hpp
 	src/cegui/include/sge/src/cegui/renderer.hpp
 	src/cegui/include/sge/src/cegui/renderer_fwd.hpp
@@ -70,6 +82,8 @@ set(
 	src/cegui/include/sge/src/cegui/texture_target.hpp
 	src/cegui/include/sge/src/cegui/texture_target_fwd.hpp
 	src/cegui/include/sge/src/cegui/to_absolute_path.hpp
+	src/cegui/include/sge/src/cegui/to_cegui_rect.hpp
+	src/cegui/include/sge/src/cegui/to_cegui_size.hpp
 	src/cegui/include/sge/src/cegui/vf/color.hpp
 	src/cegui/include/sge/src/cegui/vf/format.hpp
 	src/cegui/include/sge/src/cegui/vf/part.hpp

@@ -23,10 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/cegui/symbol.hpp>
 #include <sge/image/color/any/object_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <CEGUIcolour.h>
-#include <fcppt/config/external_end.hpp>
 
+
+namespace CEGUI
+{
+class Colour;
+}
 
 namespace sge
 {
@@ -34,7 +36,7 @@ namespace cegui
 {
 
 SGE_CEGUI_SYMBOL
-CEGUI::colour const
+CEGUI::Colour const
 to_cegui_color(
 	sge::image::color::any::object const &
 );

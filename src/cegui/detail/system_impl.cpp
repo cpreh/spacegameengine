@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/cegui/from_cegui_string.hpp>
 #include <sge/cegui/load_context.hpp>
-#include <sge/cegui/structure_cast.hpp>
 #include <sge/cegui/system.hpp>
 #include <sge/cegui/to_cegui_string.hpp>
 #include <sge/renderer/device.hpp>
@@ -30,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/src/cegui/scoped_render_context.hpp>
 #include <sge/src/cegui/texture_parameters.hpp>
+#include <sge/src/cegui/to_cegui_rect.hpp>
 #include <sge/src/cegui/detail/system_impl.hpp>
 #include <sge/viewport/manager.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
@@ -41,21 +41,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 // TODO: what is needed here?
-#include <falagard/CEGUIFalWidgetLookManager.h>
-#include <elements/CEGUIEditbox.h>
-#include <elements/CEGUIFrameWindow.h>
+//#include <elements/CEGUIEditbox.h>
+//#include <elements/CEGUIFrameWindow.h>
 #include <boost/filesystem/path.hpp>
-#include <CEGUIAnimationManager.h>
-#include <CEGUIDefaultResourceProvider.h>
-#include <CEGUIFont.h>
-#include <CEGUIFontManager.h>
-#include <CEGUIImageset.h>
-#include <CEGUIScheme.h>
-#include <CEGUIScriptModule.h>
-#include <CEGUISystem.h>
-#include <CEGUIWindow.h>
-#include <CEGUIWindowManager.h>
-#include <CEGUIXMLParser.h>
+//#include <CEGUIAnimationManager.h>
+//#include <CEGUIDefaultResourceProvider.h>
+#include <CEGUI/Font.h>
+#include <CEGUI/FontManager.h>
+#include <CEGUI/ImageManager.h>
+#include <CEGUI/MouseCursor.h>
+#include <CEGUI/Rect.h>
+#include <CEGUI/Scheme.h>
+//#include <CEGUIScriptModule.h>
+#include <CEGUI/System.h>
+//#include <CEGUIWindow.h>
+//#include <CEGUIWindowManager.h>
+//#include <CEGUIXMLParser.h>
+#include <CEGUI/falagard/WidgetLookManager.h>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -99,6 +101,9 @@ sge::cegui::detail::system_impl::system_impl(
 		image_codec_,
 		resource_provider_
 	),
+	gui_context_(
+		renderer_.getDefaultRenderTarget()
+	),
 	viewport_change_connection_(
 		_viewport.manage_callback(
 			std::tr1::bind(
@@ -137,7 +142,7 @@ sge::cegui::detail::system_impl::system_impl(
 		)
 	);
 
-	CEGUI::Imageset::setDefaultResourceGroup(
+	CEGUI::ImageManager::setImagesetDefaultResourceGroup(
 		sge::cegui::to_cegui_string(
 			fcppt::filesystem::path_to_string(
 				_load_context.imageset_directory()
@@ -159,7 +164,7 @@ sge::cegui::detail::system_impl::system_impl(
 		)
 	);
 
-	CEGUI::SchemeManager::getSingleton().create(
+	CEGUI::SchemeManager::getSingleton().createFromFile(
 		sge::cegui::to_cegui_string(
 			fcppt::filesystem::path_to_string(
 				_load_context.scheme_file().filename()
@@ -174,16 +179,19 @@ sge::cegui::detail::system_impl::system_impl(
 	)
 	{
 		case cursor_visibility::visible:
+			/*
 			CEGUI::System::getSingleton().setDefaultMouseCursor(
 				CEGUI::ImagesetManager::getSingleton().getIterator().getCurrentValue()->getName(),
 				"MouseArrow"
-			);
+			);*/
 		break;
 		case cursor_visibility::invisible:
-			CEGUI::MouseCursor::getSingleton().hide();
+			gui_context_.getMouseCursor().hide();
 		break;
 	}
 
+	// TODO:
+#if 0
 	if(
 		_load_context.default_font()
 	)
@@ -200,7 +208,7 @@ sge::cegui::detail::system_impl::system_impl(
 				)
 			)
 		);
-
+#endif
 	this->viewport_change();
 }
 FCPPT_PP_POP_WARNING
@@ -224,12 +232,28 @@ sge::cegui::detail::system_impl::render(
 	sge::renderer::context::object &_context
 )
 {
+	// TODO: replace this by a reference to a render context!
 	sge::cegui::scoped_render_context const context(
 		renderer_,
 		_context
 	);
 
-	CEGUI::System::getSingleton().renderGUI();
+	// TODO:
+	//gui_context_.render();
+}
+
+CEGUI::GUIContext &
+sge::cegui::detail::system_impl::gui_context()
+{
+	return
+		gui_context_;
+}
+
+sge::charconv::system &
+sge::cegui::detail::system_impl::charconv_system() const
+{
+	return
+		charconv_system_;
 }
 
 void
@@ -247,8 +271,10 @@ sge::cegui::detail::system_impl::viewport_change()
 	)
 		return;
 
-	CEGUI::Rect const new_area_cegui(
-		sge::cegui::structure_cast(
+	CEGUI::Rectf const new_area_cegui(
+		sge::cegui::to_cegui_rect<
+			float // TODO
+		>(
 			new_area_fcppt
 		)
 	);
@@ -257,10 +283,11 @@ sge::cegui::detail::system_impl::viewport_change()
 		new_area_cegui.getSize()
 	);
 
+	// TODO:
 	// We have to reset this manually. The cursor does receive its own
 	// "notifyDisplaySizeChanged" but that (deliberately?) doesn't
 	// update the constraint area
-	CEGUI::MouseCursor::getSingleton().setConstraintArea(
+	gui_context_.getMouseCursor().setConstraintArea(
 		&new_area_cegui
 	);
 

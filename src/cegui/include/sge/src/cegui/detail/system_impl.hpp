@@ -39,6 +39,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/viewport/manager_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <CEGUI/GUIContext.h>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -74,6 +77,12 @@ public:
 	render(
 		sge::renderer::context::object &
 	);
+
+	CEGUI::GUIContext &
+	gui_context();
+
+	sge::charconv::system &
+	charconv_system() const;
 private:
 	void
 	viewport_change();
@@ -91,6 +100,8 @@ private:
 	sge::cegui::resource_provider resource_provider_;
 
 	sge::cegui::scoped_system const scoped_system_;
+
+	CEGUI::GUIContext gui_context_;
 
 	fcppt::signal::scoped_connection const viewport_change_connection_;
 

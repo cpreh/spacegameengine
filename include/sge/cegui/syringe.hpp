@@ -23,14 +23,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/cegui/symbol.hpp>
 #include <sge/cegui/syringe_fwd.hpp>
+#include <sge/cegui/system_fwd.hpp>
 #include <sge/charconv/system_fwd.hpp>
 #include <sge/input/cursor/button_event_fwd.hpp>
 #include <sge/input/cursor/move_event_fwd.hpp>
-#include <sge/input/cursor/position.hpp>
+#include <sge/input/cursor/position_fwd.hpp>
 #include <sge/input/keyboard/char_event_fwd.hpp>
 #include <sge/input/keyboard/key_event_fwd.hpp>
 #include <sge/input/keyboard/key_repeat_event_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+
+
+namespace CEGUI
+{
+class GUIContext;
+}
 
 
 namespace sge
@@ -47,7 +54,7 @@ public:
 	SGE_CEGUI_SYMBOL
 	explicit
 	syringe(
-		sge::charconv::system &
+		sge::cegui::system &
 	);
 
 	SGE_CEGUI_SYMBOL
@@ -90,6 +97,8 @@ public:
 	);
 private:
 	sge::charconv::system &charconv_system_;
+
+	CEGUI::GUIContext &gui_context_;
 };
 
 }
