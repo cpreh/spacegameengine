@@ -238,8 +238,7 @@ sge::cegui::detail::system_impl::render(
 		_context
 	);
 
-	// TODO:
-	//gui_context_.render();
+	gui_context_.draw();
 }
 
 CEGUI::GUIContext &
@@ -273,7 +272,7 @@ sge::cegui::detail::system_impl::viewport_change()
 
 	CEGUI::Rectf const new_area_cegui(
 		sge::cegui::to_cegui_rect<
-			float // TODO
+			float
 		>(
 			new_area_fcppt
 		)

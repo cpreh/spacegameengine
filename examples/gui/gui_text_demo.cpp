@@ -86,12 +86,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <elements/CEGUIEditbox.h>
-#include <elements/CEGUIFrameWindow.h>
-#include <CEGUIWindowManager.h>
 #include <example_main.hpp>
 #include <exception>
 #include <iostream>
+#include <ostream>
 #include <set>
 #include <fcppt/config/external_end.hpp>
 
@@ -161,7 +159,7 @@ try
 		sge::cegui::cursor_visibility::visible);
 
 	sge::cegui::syringe gui_syringe(
-		sys.charconv_system());
+		gui_sys);
 
 	sge::cegui::default_cursor gui_cursor(
 		gui_syringe,
@@ -179,8 +177,7 @@ try
 
 	sge::cegui::toolbox::scoped_layout scoped_layout(
 		gui_sys,
-		sge::config::media_path()/FCPPT_TEXT("gui")/FCPPT_TEXT("text_demo.layout"),
-		sys.charconv_system());
+		sge::config::media_path()/FCPPT_TEXT("gui")/FCPPT_TEXT("text_demo.layout"));
 
 	sge::cegui::toolbox::scoped_gui_sheet const scoped_gui_sheet(
 		gui_sys,

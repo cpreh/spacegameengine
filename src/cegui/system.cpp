@@ -97,13 +97,15 @@ sge::cegui::system::render(
 CEGUI::WindowManager &
 sge::cegui::system::window_manager()
 {
-	return CEGUI::WindowManager::getSingleton();
+	return
+		CEGUI::WindowManager::getSingleton();
 }
 
 CEGUI::WindowManager const &
 sge::cegui::system::window_manager() const
 {
-	return CEGUI::WindowManager::getSingleton();
+	return
+		CEGUI::WindowManager::getSingleton();
 }
 
 CEGUI::GUIContext &
