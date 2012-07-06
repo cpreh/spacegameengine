@@ -33,10 +33,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/key_code_to_string.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/input/keyboard/key_repeat_event.hpp>
-#include <sge/src/cegui/cursor_button_translation.hpp>
+#include <sge/src/cegui/convert_cursor_button.hpp>
+#include <sge/src/cegui/convert_key.hpp>
 #include <sge/src/cegui/declare_local_logger.hpp>
-#include <sge/src/cegui/keyboard_code_map.hpp>
-#include <sge/src/cegui/keyboard_code_translation.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -72,14 +71,14 @@ sge::cegui::syringe::inject(
 	sge::input::keyboard::key_event const &_event
 )
 {
-	sge::cegui::keyboard_code_map::const_iterator const it(
-		keyboard_code_translation().find(
+	CEGUI::Key::Scan const code(
+		sge::cegui::convert_key(
 			_event.key_code()
 		)
 	);
 
 	if(
-		it == keyboard_code_translation().end()
+		code == CEGUI::Key::Unknown
 	)
 	{
 		FCPPT_LOG_WARNING(
@@ -92,10 +91,6 @@ sge::cegui::syringe::inject(
 				<< FCPPT_TEXT("; Doing nothing."));
 		return;
 	}
-
-	CEGUI::Key::Scan const code(
-		it->second
-	);
 
 	if(
 		_event.pressed()
@@ -114,14 +109,14 @@ sge::cegui::syringe::inject(
 	sge::input::keyboard::key_repeat_event const &_event
 )
 {
-	sge::cegui::keyboard_code_map::const_iterator const it(
-		keyboard_code_translation().find(
+	CEGUI::Key::Scan const code(
+		sge::cegui::convert_key(
 			_event.key_code()
 		)
 	);
 
 	if(
-		it == keyboard_code_translation().end()
+		code == CEGUI::Key::Unknown
 	)
 	{
 		FCPPT_LOG_WARNING(
@@ -136,7 +131,7 @@ sge::cegui::syringe::inject(
 	}
 
 	gui_context_.injectKeyDown(
-		it->second
+		code
 	);
 }
 
@@ -181,14 +176,14 @@ sge::cegui::syringe::inject(
 	sge::input::cursor::button_event const &_event
 )
 {
-	sge::cegui::cursor_button_map::const_iterator const it(
-		cursor_button_translation().find(
+	CEGUI::MouseButton const code(
+		sge::cegui::convert_cursor_button(
 			_event.button_code()
 		)
 	);
 
 	if(
-		it == cursor_button_translation().end()
+		code == CEGUI::NoButton
 	)
 	{
 		FCPPT_LOG_WARNING(
@@ -201,10 +196,6 @@ sge::cegui::syringe::inject(
 				<< FCPPT_TEXT("; Doing nothing."));
 		return;
 	}
-
-	CEGUI::MouseButton const code(
-		it->second
-	);
 
 	if(
 		_event.pressed()

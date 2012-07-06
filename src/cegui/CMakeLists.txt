@@ -33,7 +33,8 @@ set(
 	include/sge/cegui/unit.hpp
 	src/cegui/batch.cpp
 	src/cegui/cegui_logger.cpp
-	src/cegui/cursor_button_translation.cpp
+	src/cegui/convert_cursor_button.cpp
+	src/cegui/convert_key.cpp
 	src/cegui/default_cursor.cpp
 	src/cegui/default_font.cpp
 	src/cegui/default_keyboard.cpp
@@ -46,8 +47,8 @@ set(
 	src/cegui/include/sge/src/cegui/batch.hpp
 	src/cegui/include/sge/src/cegui/cegui_logger.hpp
 	src/cegui/include/sge/src/cegui/clip.hpp
-	src/cegui/include/sge/src/cegui/cursor_button_map.hpp
-	src/cegui/include/sge/src/cegui/cursor_button_translation.hpp
+	src/cegui/include/sge/src/cegui/convert_cursor_button.hpp
+	src/cegui/include/sge/src/cegui/convert_key.hpp
 	src/cegui/include/sge/src/cegui/declare_local_logger.hpp
 	src/cegui/include/sge/src/cegui/default_target.hpp
 	src/cegui/include/sge/src/cegui/detail/system_impl.hpp
@@ -61,8 +62,6 @@ set(
 	src/cegui/include/sge/src/cegui/geometry_buffer_fwd.hpp
 	src/cegui/include/sge/src/cegui/image_codec.hpp
 	src/cegui/include/sge/src/cegui/image_codec_fwd.hpp
-	src/cegui/include/sge/src/cegui/keyboard_code_map.hpp
-	src/cegui/include/sge/src/cegui/keyboard_code_translation.hpp
 	src/cegui/include/sge/src/cegui/log_location.hpp
 	src/cegui/include/sge/src/cegui/optional_render_context_ref.hpp
 	src/cegui/include/sge/src/cegui/optional_render_context_ref_fwd.hpp
@@ -90,7 +89,6 @@ set(
 	src/cegui/include/sge/src/cegui/vf/position.hpp
 	src/cegui/include/sge/src/cegui/vf/texcoord.hpp
 	src/cegui/include/sge/src/cegui/vf/vertex_view.hpp
-	src/cegui/keyboard_code_translation.cpp
 	src/cegui/load_context.cpp
 	src/cegui/log_location.cpp
 	src/cegui/logger.cpp

@@ -18,10 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_CEGUI_KEYBOARD_CODE_TRANSLATION_HPP_INCLUDED
-#define SGE_SRC_CEGUI_KEYBOARD_CODE_TRANSLATION_HPP_INCLUDED
+#ifndef SGE_SRC_CEGUI_CONVERT_KEY_HPP_INCLUDED
+#define SGE_SRC_CEGUI_CONVERT_KEY_HPP_INCLUDED
 
-#include <sge/src/cegui/keyboard_code_map.hpp>
+#include <sge/input/keyboard/key_code.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <CEGUI/InputEvent.h>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -29,8 +32,10 @@ namespace sge
 namespace cegui
 {
 
-sge::cegui::keyboard_code_map const &
-keyboard_code_translation();
+CEGUI::Key::Scan
+convert_key(
+	sge::input::keyboard::key_code::type
+);
 
 }
 }

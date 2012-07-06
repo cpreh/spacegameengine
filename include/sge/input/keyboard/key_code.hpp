@@ -116,7 +116,7 @@ enum type
 	semicolon,
 	slash,
 	underline,
-	print,
+	print, // TODO: rename this to sysrq?
 	scroll,
 	pause,
 	lwin,
