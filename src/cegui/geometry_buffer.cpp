@@ -71,14 +71,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/unimplemented_message.hpp>
 #include <fcppt/math/box/output.hpp>
 #include <fcppt/math/dim/output.hpp>
+#include <fcppt/math/quaternion/to_matrix.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
-#include <fcppt/math/matrix/rotation_axis.hpp>
 #include <fcppt/math/matrix/translation.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <CEGUI/Base.h>
+#include <CEGUI/Quaternion.h>
 #include <CEGUI/Rect.h>
 #include <CEGUI/Vector.h>
 #include <CEGUI/Vertex.h>
@@ -101,13 +102,6 @@ sge::cegui::geometry_buffer::geometry_buffer(
 	vertex_declaration_(
 		_vertex_declaration
 	),
-	total_vertex_count_(
-		static_cast<
-			CEGUI::uint
-		>(
-			0
-		)
-	),
 	active_texture_(
 		fcppt::null_ptr()
 	),
@@ -117,11 +111,14 @@ sge::cegui::geometry_buffer::geometry_buffer(
 	translation_(
 		sge::renderer::vector3::null()
 	),
-	rotation_pivot_(
+	pivot_(
 		sge::renderer::vector3::null()
 	),
-	rotation_axis_(
-		sge::renderer::vector3::null()
+	rotation_(
+		1.0f,
+		0.0f,
+		0.0f,
+		0.0f
 	),
 	scissor_area_(
 		sge::renderer::pixel_rect()
@@ -166,38 +163,17 @@ sge::cegui::geometry_buffer::draw() const
 		fcppt::math::matrix::translation(
 			translation_
 			+
-			rotation_pivot_
+			pivot_
 		)
 		*
-		fcppt::math::matrix::rotation_axis(
-			rotation_axis_[2],
-			sge::renderer::vector3(
-				0.f,
-				0.f,
-				1.f
-			)
+		fcppt::math::quaternion::to_matrix(
+			rotation_
 		)
 		*
-		fcppt::math::matrix::rotation_axis(
-			rotation_axis_[1],
-			sge::renderer::vector3(
-				static_cast<sge::renderer::scalar>(
-					0),
-				static_cast<sge::renderer::scalar>(
-					1),
-				static_cast<sge::renderer::scalar>(
-					0))) *
-		fcppt::math::matrix::rotation_axis(
-			rotation_axis_[0],
-			sge::renderer::vector3(
-				static_cast<sge::renderer::scalar>(
-					1),
-				static_cast<sge::renderer::scalar>(
-					0),
-				static_cast<sge::renderer::scalar>(
-					0))) *
 		fcppt::math::matrix::translation(
-			-rotation_pivot_));
+			-pivot_
+		)
+	);
 
 	// TODO: own function!
 	sge::renderer::state::source_blend_func::type sbf =
@@ -300,21 +276,16 @@ sge::cegui::geometry_buffer::setTranslation(
 
 void
 sge::cegui::geometry_buffer::setRotation(
-	CEGUI::Quaternion const &_quat
+	CEGUI::Quaternion const &_rotation
 )
 {
-	// TODO:
-#if 0
-	// TODO: structure_cast?
-	rotation_axis_ =
-		sge::renderer::vector3(
-			static_cast<sge::renderer::scalar>(
-				_vec.d_x),
-			static_cast<sge::renderer::scalar>(
-				_vec.d_y),
-			static_cast<sge::renderer::scalar>(
-				_vec.d_z));
-#endif
+	rotation_ =
+		sge::cegui::geometry_buffer::quaternion(
+			_rotation.d_w,
+			_rotation.d_x,
+			_rotation.d_y,
+			_rotation.d_z
+		);
 }
 
 void
@@ -323,7 +294,7 @@ sge::cegui::geometry_buffer::setPivot(
 )
 {
 	// TODO: structure_cast?
-	rotation_pivot_ =
+	pivot_ =
 		sge::renderer::vector3(
 			static_cast<sge::renderer::scalar>(
 				_vec.d_x),
@@ -381,13 +352,6 @@ sge::cegui::geometry_buffer::appendGeometry(
 		active_texture_,
 		FCPPT_TEXT("I got geometry without an active texture, how should I handle this? :/")
 	);
-
-	total_vertex_count_ =
-		static_cast<
-			CEGUI::uint
-		>(
-			total_vertex_count_ + vertex_count
-		);
 
 	batches_.push_back(
 		sge::cegui::batch(
@@ -507,33 +471,30 @@ sge::cegui::geometry_buffer::reset()
 	batches_.clear();
 
 	active_texture_ = fcppt::null_ptr();
-
-	total_vertex_count_ = 0;
 }
 
 CEGUI::Texture *
 sge::cegui::geometry_buffer::getActiveTexture() const
 {
-	return
-		active_texture_;
+	FCPPT_ASSERT_UNIMPLEMENTED_MESSAGE(
+		FCPPT_TEXT("The method is never called by anyone, so it's unimplemented here")
+	);
 }
 
 CEGUI::uint
 sge::cegui::geometry_buffer::getVertexCount() const
 {
-	return
-		total_vertex_count_;
+	FCPPT_ASSERT_UNIMPLEMENTED_MESSAGE(
+		FCPPT_TEXT("The method is never called by anyone, so it's unimplemented here")
+	);
 }
 
 CEGUI::uint
 sge::cegui::geometry_buffer::getBatchCount() const
 {
-	return
-		static_cast<
-			CEGUI::uint
-		>(
-			batches_.size()
-		);
+	FCPPT_ASSERT_UNIMPLEMENTED_MESSAGE(
+		FCPPT_TEXT("The method is never called by anyone, so it's unimplemented here")
+	);
 }
 
 void

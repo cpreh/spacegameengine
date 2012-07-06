@@ -22,12 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_CEGUI_FROM_CEGUI_SIZE_HPP_INCLUDED
 
 #include <fcppt/math/dim/has_dim.hpp>
-#include <fcppt/math/dim/object_fwd.hpp>
-#include <fcppt/math/vector/has_dim.hpp>
-#include <fcppt/math/vector/object_fwd.hpp>
+#include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/Size.h>
-#include <boost/mpl/or.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
 
@@ -45,15 +42,9 @@ template<
 typename
 boost::enable_if
 <
-	boost::mpl::or_<
-		fcppt::math::vector::has_dim<
-			Container,
-			2u
-		>,
-		fcppt::math::dim::has_dim<
-			Container,
-			2u
-		>
+	fcppt::math::dim::has_dim<
+		Container,
+		2u
 	>,
 	Container
 >::type

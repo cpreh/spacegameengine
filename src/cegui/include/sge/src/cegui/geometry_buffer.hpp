@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_CEGUI_GEOMETRY_BUFFER_HPP_INCLUDED
 
 #include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/scalar.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
@@ -37,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/Base.h>
 #include <CEGUI/GeometryBuffer.h>
+#include <boost/math/quaternion.hpp>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -157,15 +159,18 @@ private:
 	>
 	batch_sequence;
 
+	typedef
+	boost::math::quaternion
+	<
+		sge::renderer::scalar
+	>
+	quaternion;
+
 	batch_sequence batches_;
 
 	sge::renderer::device &renderer_;
 
 	sge::renderer::vertex_declaration const &vertex_declaration_;
-
-	// This is important only to cegui, so this is CEGUI::uint instead
-	// of renderer::size_type
-	CEGUI::uint total_vertex_count_;
 
 	sge::cegui::texture *active_texture_;
 
@@ -173,9 +178,9 @@ private:
 
 	sge::renderer::vector3 translation_;
 
-	sge::renderer::vector3 rotation_pivot_;
+	sge::renderer::vector3 pivot_;
 
-	sge::renderer::vector3 rotation_axis_;
+	quaternion rotation_;
 
 	sge::renderer::target::scissor_area scissor_area_;
 
