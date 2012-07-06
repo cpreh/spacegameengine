@@ -435,7 +435,10 @@ sge::cegui::renderer::destroyTexture(
 		local_log,
 		fcppt::log::_
 			<< FCPPT_TEXT("destroyTexture(")
-			<< _name
+			<< sge::cegui::from_cegui_string(
+				_name,
+				texture_parameters_.charconv_system()
+			)
 			<< FCPPT_TEXT(')')
 	);
 
