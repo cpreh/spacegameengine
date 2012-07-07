@@ -27,13 +27,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/context/object_fwd.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/target/viewport.hpp>
+#include <sge/src/cegui/declare_local_logger.hpp>
 #include <sge/src/cegui/scoped_render_context.hpp>
 #include <sge/src/cegui/texture_parameters.hpp>
 #include <sge/src/cegui/to_cegui_rect.hpp>
 #include <sge/src/cegui/detail/system_impl.hpp>
 #include <sge/viewport/manager.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/function/object.hpp>
+#include <fcppt/log/debug.hpp>
+#include <fcppt/log/output.hpp>
+#include <fcppt/math/box/output.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -50,6 +55,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <CEGUI/falagard/WidgetLookManager.h>
 #include <fcppt/config/external_end.hpp>
 
+
+SGE_CEGUI_DECLARE_LOCAL_LOGGER(
+	FCPPT_TEXT("system")
+)
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
@@ -237,6 +246,13 @@ sge::cegui::detail::system_impl::viewport_change()
 {
 	sge::renderer::pixel_rect const new_area_fcppt(
 		renderer_.impl().onscreen_target().viewport().get()
+	);
+
+	FCPPT_LOG_DEBUG(
+		local_log,
+		fcppt::log::_
+			<< FCPPT_TEXT("viewport_change() with ")
+			<< new_area_fcppt
 	);
 
 	// Calling notifyDisplaySizeChanged with a null rect causes a strange problem
