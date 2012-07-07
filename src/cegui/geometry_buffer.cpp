@@ -56,6 +56,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <sge/src/cegui/declare_local_logger.hpp>
 #include <sge/src/cegui/from_cegui_rect.hpp>
+#include <sge/src/cegui/from_cegui_vector2.hpp>
+#include <sge/src/cegui/from_cegui_vector3.hpp>
 #include <sge/src/cegui/geometry_buffer.hpp>
 #include <sge/src/cegui/optional_render_context_ref.hpp>
 #include <sge/src/cegui/texture.hpp>
@@ -81,6 +83,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <CEGUI/Base.h>
 #include <CEGUI/Quaternion.h>
 #include <CEGUI/Rect.h>
+#include <CEGUI/RenderEffect.h>
 #include <CEGUI/Vector.h>
 #include <CEGUI/Vertex.h>
 #include <fcppt/config/external_end.hpp>
@@ -126,6 +129,9 @@ sge::cegui::geometry_buffer::geometry_buffer(
 	render_context_(),
 	clip_(
 		true
+	),
+	render_effect_(
+		fcppt::null_ptr()
 	)
 {
 	FCPPT_LOG_DEBUG(
@@ -217,45 +223,74 @@ sge::cegui::geometry_buffer::draw() const
 		vertex_declaration_
 	);
 
+	int const pass_count(
+		render_effect_
+		?
+			render_effect_->getPassCount()
+		:
+			1
+	);
+
 	for(
-		sge::cegui::geometry_buffer::batch_sequence::const_iterator it(
-			batches_.begin()
+		int pass(
+			0
 		);
-		it != batches_.end();
-		++it
+		pass < pass_count;
+		++pass
 	)
 	{
-		sge::renderer::scoped_vertex_buffer const scoped_vb(
-			*render_context_,
-			it->vertex_buffer()
-		);
+		if(
+			render_effect_
+		)
+			render_effect_->performPreRenderFunctions(
+				pass
+			);
 
-		sge::renderer::texture::scoped const scoped_texture(
-			*render_context_,
-			it->texture(),
-			sge::renderer::texture::stage(
-				0u
-			)
-		);
+		for(
+			sge::cegui::geometry_buffer::batch_sequence::const_iterator it(
+				batches_.begin()
+			);
+			it != batches_.end();
+			++it
+		)
+		{
+			sge::renderer::scoped_vertex_buffer const scoped_vb(
+				*render_context_,
+				it->vertex_buffer()
+			);
 
-		sge::renderer::state::scoped const inner_state(
-			*render_context_,
-			sge::renderer::state::list(
-				sge::renderer::state::bool_::enable_scissor_test =
-					it->clip().get()
-			)
-		);
+			sge::renderer::texture::scoped const scoped_texture(
+				*render_context_,
+				it->texture(),
+				sge::renderer::texture::stage(
+					0u
+				)
+			);
 
-		render_context_->render_nonindexed(
-			sge::renderer::first_vertex(
-				0u
-			),
-			sge::renderer::vertex_count(
-				it->vertex_buffer().size()
-			),
-			sge::renderer::primitive_type::triangle_list
-		);
+			sge::renderer::state::scoped const inner_state(
+				*render_context_,
+				sge::renderer::state::list(
+					sge::renderer::state::bool_::enable_scissor_test =
+						it->clip().get()
+				)
+			);
+
+			render_context_->render_nonindexed(
+				sge::renderer::first_vertex(
+					0u
+				),
+				sge::renderer::vertex_count(
+					it->vertex_buffer().size()
+				),
+				sge::renderer::primitive_type::triangle_list
+			);
+		}
 	}
+
+	if(
+		render_effect_
+	)
+		render_effect_->performPostRenderFunctions();
 }
 
 void
@@ -263,15 +298,12 @@ sge::cegui::geometry_buffer::setTranslation(
 	CEGUI::Vector3f const &_vec
 )
 {
-	// TODO: structure_cast?
 	translation_ =
-		sge::renderer::vector3(
-			static_cast<sge::renderer::scalar>(
-				_vec.d_x),
-			static_cast<sge::renderer::scalar>(
-				_vec.d_y),
-			static_cast<sge::renderer::scalar>(
-				_vec.d_z));
+		sge::cegui::from_cegui_vector3<
+			sge::renderer::vector3
+		>(
+			_vec
+		);
 }
 
 void
@@ -293,15 +325,12 @@ sge::cegui::geometry_buffer::setPivot(
 	CEGUI::Vector3f const &_vec
 )
 {
-	// TODO: structure_cast?
 	pivot_ =
-		sge::renderer::vector3(
-			static_cast<sge::renderer::scalar>(
-				_vec.d_x),
-			static_cast<sge::renderer::scalar>(
-				_vec.d_y),
-			static_cast<sge::renderer::scalar>(
-				_vec.d_z));
+		sge::cegui::from_cegui_vector3<
+			sge::renderer::vector3
+		>(
+			_vec
+		);
 }
 
 void
@@ -419,19 +448,20 @@ sge::cegui::geometry_buffer::appendGeometry(
 		vb_it->set<
 			sge::cegui::vf::position
 		>(
-			position_vector(
-				it->position.d_x,
-				it->position.d_y,
-				it->position.d_z
+			sge::cegui::from_cegui_vector3<
+				position_vector
+			>(
+				it->position
 			)
 		);
 
 		vb_it->set<
 			sge::cegui::vf::texcoord
 		>(
-			texcoord_vector(
-				it->tex_coords.d_x,
-				it->tex_coords.d_y
+			sge::cegui::from_cegui_vector2<
+				texcoord_vector
+			>(
+				it->tex_coords
 			)
 		);
 
@@ -450,7 +480,7 @@ sge::cegui::geometry_buffer::appendGeometry(
 
 void
 sge::cegui::geometry_buffer::setActiveTexture(
-	CEGUI::Texture * const _tex
+	CEGUI::Texture *const _tex
 )
 {
 	FCPPT_ASSERT_PRE(
@@ -499,19 +529,18 @@ sge::cegui::geometry_buffer::getBatchCount() const
 
 void
 sge::cegui::geometry_buffer::setRenderEffect(
-	CEGUI::RenderEffect *
+	CEGUI::RenderEffect *const _render_effect
 )
 {
-	FCPPT_ASSERT_UNIMPLEMENTED_MESSAGE(
-		FCPPT_TEXT("Render effects are not implemented yet")
-	);
+	render_effect_ =
+		_render_effect;
 }
 
 CEGUI::RenderEffect *
 sge::cegui::geometry_buffer::getRenderEffect()
 {
 	return
-		fcppt::null_ptr();
+		render_effect_;
 }
 
 void

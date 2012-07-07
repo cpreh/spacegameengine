@@ -187,6 +187,8 @@ private:
 	sge::cegui::optional_render_context_ref render_context_;
 
 	sge::cegui::clip clip_;
+
+	CEGUI::RenderEffect *render_effect_;
 };
 
 }

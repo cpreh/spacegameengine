@@ -54,6 +54,8 @@ set(
 	src/cegui/include/sge/src/cegui/detail/system_impl.hpp
 	src/cegui/include/sge/src/cegui/from_cegui_rect.hpp
 	src/cegui/include/sge/src/cegui/from_cegui_size.hpp
+	src/cegui/include/sge/src/cegui/from_cegui_vector2.hpp
+	src/cegui/include/sge/src/cegui/from_cegui_vector3.hpp
 	src/cegui/include/sge/src/cegui/fwds/rectf_fwd.hpp
 	src/cegui/include/sge/src/cegui/fwds/sizef_fwd.hpp
 	src/cegui/include/sge/src/cegui/fwds/vector2f_fwd.hpp
