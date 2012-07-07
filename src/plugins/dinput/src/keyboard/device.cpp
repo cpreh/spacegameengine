@@ -146,7 +146,7 @@ sge::dinput::keyboard::device::mod_state() const
 			]
 		)
 	)
-		ret |= sge::input::keyboard::modifier::ctrl;
+		ret |= sge::input::keyboard::modifier::control;
 
 	if(
 		sge::dinput::is_down(
