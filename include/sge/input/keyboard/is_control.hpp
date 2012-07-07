@@ -18,15 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/keyboard/is_ctrl.hpp>
+#ifndef SGE_INPUT_KEYBOARD_IS_CONTROL_HPP_INCLUDED
+#define SGE_INPUT_KEYBOARD_IS_CONTROL_HPP_INCLUDED
 
-bool
-sge::input::keyboard::is_ctrl(
-	key_code::type const _key
-)
+#include <sge/input/symbol.hpp>
+#include <sge/input/keyboard/key_code.hpp>
+
+
+namespace sge
 {
-	return
-		(_key == key_code::lctrl) ||
-		(_key == key_code::rctrl) ||
-		(_key == key_code::altgr);
+namespace input
+{
+namespace keyboard
+{
+
+SGE_INPUT_SYMBOL
+bool
+is_control(
+	sge::input::keyboard::key_code::type
+);
+
 }
+}
+}
+
+#endif

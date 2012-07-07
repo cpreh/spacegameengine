@@ -390,7 +390,7 @@ sge::console::gfx::key_action(
 		case input::keyboard::key_code::w:
 			if(
 				keyboard_.mod_state()
-				& input::keyboard::modifier::ctrl
+				& input::keyboard::modifier::control
 			)
 				input_line_.erase_word();
 		break;

@@ -19,13 +19,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/input/keyboard/is_alt.hpp>
+#include <sge/input/keyboard/key_code.hpp>
+
 
 bool
 sge::input::keyboard::is_alt(
-	key_code::type const _key
+	sge::input::keyboard::key_code::type const _key
 )
 {
 	return
-		(_key == key_code::alt)
-		|| (_key == key_code::altgr);
+		(
+			_key == sge::input::keyboard::key_code::left_alt
+		)
+		||
+		(
+			_key == sge::input::keyboard::key_code::right_alt
+		);
 }

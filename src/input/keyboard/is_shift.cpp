@@ -19,13 +19,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/input/keyboard/is_shift.hpp>
+#include <sge/input/keyboard/key_code.hpp>
+
 
 bool
 sge::input::keyboard::is_shift(
-	key_code::type const _key
+	sge::input::keyboard::key_code::type const _key
 )
 {
 	return
-		(_key == key_code::lshift)
-		|| (_key == key_code::rshift);
+		(
+			_key == sge::input::keyboard::key_code::left_shift
+		)
+		||
+		(
+			_key == sge::input::keyboard::key_code::right_shift
+		);
 }

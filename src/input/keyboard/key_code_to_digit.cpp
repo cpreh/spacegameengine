@@ -22,12 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/input/keyboard/key_code_to_digit.hpp>
 #include <sge/input/keyboard/optional_digit.hpp>
-#include <fcppt/optional_impl.hpp>
 
 
 sge::input::keyboard::optional_digit const
 sge::input::keyboard::key_code_to_digit(
-	key_code::type const _key_code
+	sge::input::keyboard::key_code::type const _key_code
 )
 {
 #define CONVERT_KEYCODE_TO_DIGIT(\
@@ -56,6 +55,6 @@ case sge::input::keyboard::key_code::_ ## num: \
 	CONVERT_KEYCODE_TO_DIGIT(8);
 	CONVERT_KEYCODE_TO_DIGIT(9);
 	default:
-		return keyboard::optional_digit();
+		return sge::input::keyboard::optional_digit();
 	}
 }

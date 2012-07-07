@@ -18,11 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_KEYBOARD_OPTIONAL_DIGIT_HPP_INCLUDED
-#define SGE_INPUT_KEYBOARD_OPTIONAL_DIGIT_HPP_INCLUDED
-
-#include <sge/input/keyboard/optional_digit_fwd.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <sge/input/keyboard/is_control.hpp>
+#include <sge/input/keyboard/key_code.hpp>
 
 
-#endif
+bool
+sge::input::keyboard::is_control(
+	sge::input::keyboard::key_code::type const _key
+)
+{
+	return
+		(
+			_key == sge::input::keyboard::key_code::left_control
+		)
+		||
+		(
+			_key == sge::input::keyboard::key_code::right_control
+		)
+		||
+		(
+			_key == sge::input::keyboard::key_code::right_alt
+		);
+}

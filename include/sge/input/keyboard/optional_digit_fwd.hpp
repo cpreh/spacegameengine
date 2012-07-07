@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_KEYBOARD_IS_CTRL_HPP_INCLUDED
-#define SGE_INPUT_KEYBOARD_IS_CTRL_HPP_INCLUDED
+#ifndef SGE_INPUT_KEYBOARD_OPTIONAL_DIGIT_FWD_HPP_INCLUDED
+#define SGE_INPUT_KEYBOARD_OPTIONAL_DIGIT_FWD_HPP_INCLUDED
 
-#include <sge/input/symbol.hpp>
-#include <sge/input/keyboard/key_code.hpp>
+#include <sge/input/keyboard/digit.hpp>
+#include <fcppt/optional_fwd.hpp>
 
 
 namespace sge
@@ -32,11 +32,9 @@ namespace input
 namespace keyboard
 {
 
-SGE_INPUT_SYMBOL
-bool
-is_ctrl(
-	key_code::type
-);
+typedef fcppt::optional<
+	sge::input::keyboard::digit
+> optional_digit;
 
 }
 }

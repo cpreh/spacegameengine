@@ -46,12 +46,12 @@ sge::cegui::convert_key(
 			sge::cegui::optional_key_scan(
 				CEGUI::Key::Return
 			);
-	case sge::input::keyboard::key_code::lshift:
+	case sge::input::keyboard::key_code::left_shift:
 		return
 			sge::cegui::optional_key_scan(
 				CEGUI::Key::LeftShift
 			);
-	case sge::input::keyboard::key_code::rshift:
+	case sge::input::keyboard::key_code::right_shift:
 		return
 			sge::cegui::optional_key_scan(
 				CEGUI::Key::RightShift
@@ -66,22 +66,22 @@ sge::cegui::convert_key(
 			sge::cegui::optional_key_scan(
 				CEGUI::Key::Backspace
 			);
-	case sge::input::keyboard::key_code::lctrl:
+	case sge::input::keyboard::key_code::left_control:
 		return
 			sge::cegui::optional_key_scan(
 				CEGUI::Key::LeftControl
 			);
-	case sge::input::keyboard::key_code::rctrl:
+	case sge::input::keyboard::key_code::right_control:
 		return
 			sge::cegui::optional_key_scan(
 				CEGUI::Key::RightControl
 			);
-	case sge::input::keyboard::key_code::alt:
+	case sge::input::keyboard::key_code::left_alt:
 		return
 			sge::cegui::optional_key_scan(
 				CEGUI::Key::LeftAlt
 			);
-	case sge::input::keyboard::key_code::altgr:
+	case sge::input::keyboard::key_code::right_alt:
 		return
 			sge::cegui::optional_key_scan(
 				CEGUI::Key::RightAlt
@@ -90,6 +90,11 @@ sge::cegui::convert_key(
 		return
 			sge::cegui::optional_key_scan(
 				CEGUI::Key::Space
+			);
+	case sge::input::keyboard::key_code::capital:
+		return
+			sge::cegui::optional_key_scan(
+				CEGUI::Key::Capital
 			);
 	case sge::input::keyboard::key_code::insert:
 		return
@@ -406,7 +411,11 @@ sge::cegui::convert_key(
 			sge::cegui::optional_key_scan(
 				CEGUI::Key::Colon
 			);
-//	DECIMAL:
+	case sge::input::keyboard::key_code::decimal:
+		return
+			sge::cegui::optional_key_scan(
+				CEGUI::Key::Decimal
+			);
 	case sge::input::keyboard::key_code::apostrophe:
 		return
 			sge::cegui::optional_key_scan(
@@ -422,17 +431,17 @@ sge::cegui::convert_key(
 			sge::cegui::optional_key_scan(
 				CEGUI::Key::Grave
 			);
-	case sge::input::keyboard::key_code::substract:
+	case sge::input::keyboard::key_code::subtract:
 		return
 			sge::cegui::optional_key_scan(
 				CEGUI::Key::Subtract
 			);
-	case sge::input::keyboard::key_code::lbracket:
+	case sge::input::keyboard::key_code::left_bracket:
 		return
 			sge::cegui::optional_key_scan(
 				CEGUI::Key::LeftBracket
 			);
-	case sge::input::keyboard::key_code::rbracket:
+	case sge::input::keyboard::key_code::right_bracket:
 		return
 			sge::cegui::optional_key_scan(
 				CEGUI::Key::RightBracket
@@ -452,11 +461,6 @@ sge::cegui::convert_key(
 			sge::cegui::optional_key_scan(
 				CEGUI::Key::Underline
 			);
-	case sge::input::keyboard::key_code::print:
-		return
-			sge::cegui::optional_key_scan(
-				CEGUI::Key::SysRq
-			);
 	case sge::input::keyboard::key_code::scroll:
 		return
 			sge::cegui::optional_key_scan(
@@ -467,77 +471,82 @@ sge::cegui::convert_key(
 			sge::cegui::optional_key_scan(
 				CEGUI::Key::Pause
 			);
-	case sge::input::keyboard::key_code::lwin:
+	case sge::input::keyboard::key_code::left_win:
 		return
 			sge::cegui::optional_key_scan(
 				CEGUI::Key::LeftWindows
 			);
-	case sge::input::keyboard::key_code::rwin:
+	case sge::input::keyboard::key_code::right_win:
 		return
 			sge::cegui::optional_key_scan(
 				CEGUI::Key::RightWindows
 			);
-	case sge::input::keyboard::key_code::num0:
+	case sge::input::keyboard::key_code::num_0:
 		return
 			sge::cegui::optional_key_scan(
 				CEGUI::Key::Numpad0
 			);
-	case sge::input::keyboard::key_code::num1:
+	case sge::input::keyboard::key_code::num_1:
 		return
 			sge::cegui::optional_key_scan(
 				CEGUI::Key::Numpad1
 			);
-	case sge::input::keyboard::key_code::num2:
+	case sge::input::keyboard::key_code::num_2:
 		return
 			sge::cegui::optional_key_scan(
 				CEGUI::Key::Numpad2
 			);
-	case sge::input::keyboard::key_code::num3:
+	case sge::input::keyboard::key_code::num_3:
 		return
 			sge::cegui::optional_key_scan(
 				CEGUI::Key::Numpad3
 			);
-	case sge::input::keyboard::key_code::num4:
+	case sge::input::keyboard::key_code::num_4:
 		return
 			sge::cegui::optional_key_scan(
 				CEGUI::Key::Numpad4
 			);
-	case sge::input::keyboard::key_code::num5:
+	case sge::input::keyboard::key_code::num_5:
 		return
 			sge::cegui::optional_key_scan(
 				CEGUI::Key::Numpad5
 			);
-	case sge::input::keyboard::key_code::num6:
+	case sge::input::keyboard::key_code::num_6:
 		return
 			sge::cegui::optional_key_scan(
 				CEGUI::Key::Numpad6
 			);
-	case sge::input::keyboard::key_code::num7:
+	case sge::input::keyboard::key_code::num_7:
 		return
 			sge::cegui::optional_key_scan(
 				CEGUI::Key::Numpad7
 			);
-	case sge::input::keyboard::key_code::num8:
+	case sge::input::keyboard::key_code::num_8:
 		return
 			sge::cegui::optional_key_scan(
 				CEGUI::Key::Numpad8
 			);
-	case sge::input::keyboard::key_code::num9:
+	case sge::input::keyboard::key_code::num_9:
 		return
 			sge::cegui::optional_key_scan(
 				CEGUI::Key::Numpad9
 			);
-	case sge::input::keyboard::key_code::numcomma:
+	case sge::input::keyboard::key_code::num_comma:
 		return
 			sge::cegui::optional_key_scan(
 				CEGUI::Key::NumpadComma
 			);
-	case sge::input::keyboard::key_code::numenter:
+	case sge::input::keyboard::key_code::num_enter:
 		return
 			sge::cegui::optional_key_scan(
 				CEGUI::Key::NumpadEnter
 			);
-	case sge::input::keyboard::key_code::numlock:
+	case sge::input::keyboard::key_code::num_equals:
+		return
+			sge::cegui::optional_key_scan(
+				CEGUI::Key::NumpadEquals
+			);
+	case sge::input::keyboard::key_code::num_lock:
 		return
 			sge::cegui::optional_key_scan(
 				CEGUI::Key::NumLock
@@ -562,9 +571,26 @@ sge::cegui::convert_key(
 			sge::cegui::optional_key_scan(
 				CEGUI::Key::Divide
 			);
-//	apps:
-//	at:
-//	ax:
+	case sge::input::keyboard::key_code::apps:
+		return
+			sge::cegui::optional_key_scan(
+				CEGUI::Key::AppMenu
+			);
+	case sge::input::keyboard::key_code::circumflex:
+		return
+			sge::cegui::optional_key_scan(
+				CEGUI::Key::PrevTrack
+			);
+	case sge::input::keyboard::key_code::at:
+		return
+			sge::cegui::optional_key_scan(
+				CEGUI::Key::At
+			);
+	case sge::input::keyboard::key_code::ax:
+		return
+			sge::cegui::optional_key_scan(
+				CEGUI::Key::AX
+			);
 	case sge::input::keyboard::key_code::equals:
 		return
 			sge::cegui::optional_key_scan(
@@ -580,24 +606,46 @@ sge::cegui::convert_key(
 			sge::cegui::optional_key_scan(
 				CEGUI::Key::Kanji
 			);
-	case sge::input::keyboard::key_code::next:
-		return
-			sge::cegui::optional_key_scan(); // TODO
-//	noconvert:
-	case sge::input::keyboard::key_code::numequals:
+	case sge::input::keyboard::key_code::convert:
 		return
 			sge::cegui::optional_key_scan(
-				CEGUI::Key::NumpadEquals
+				CEGUI::Key::Convert
+			);
+	case sge::input::keyboard::key_code::noconvert:
+		return
+			sge::cegui::optional_key_scan(
+				CEGUI::Key::NoConvert
 			);
 	case sge::input::keyboard::key_code::period:
 		return
-			sge::cegui::optional_key_scan(); // TODO
-//	power:
-//	prior:
-//	sleep:
-//	stop:
-//	sysrq:
-//	unlabeled:
+			sge::cegui::optional_key_scan(
+				CEGUI::Key::Period
+			);
+	case sge::input::keyboard::key_code::power:
+		return
+			sge::cegui::optional_key_scan(
+				CEGUI::Key::Power
+			);
+	case sge::input::keyboard::key_code::sleep:
+		return
+			sge::cegui::optional_key_scan(
+				CEGUI::Key::Sleep
+			);
+	case sge::input::keyboard::key_code::stop:
+		return
+			sge::cegui::optional_key_scan(
+				CEGUI::Key::Stop
+			);
+	case sge::input::keyboard::key_code::sysrq:
+		return
+			sge::cegui::optional_key_scan(
+				CEGUI::Key::SysRq
+			);
+	case sge::input::keyboard::key_code::unlabeled:
+		return
+			sge::cegui::optional_key_scan(
+				CEGUI::Key::Unlabeled
+			);
 	case sge::input::keyboard::key_code::yen:
 		return
 			sge::cegui::optional_key_scan(

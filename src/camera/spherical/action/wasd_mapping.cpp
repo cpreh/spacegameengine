@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/camera/spherical/action/mapping.hpp>
 #include <sge/camera/spherical/action/wasd_mapping.hpp>
+#include <sge/input/keyboard/key_code.hpp>
 #include <sge/input/keyboard/optional_key_code.hpp>
 
 
@@ -42,7 +43,7 @@ sge::camera::spherical::action::wasd_mapping()
 					input::keyboard::key_code::s)),
 			spherical::action::increase_radius(
 				sge::input::keyboard::optional_key_code(
-					input::keyboard::key_code::lctrl)),
+					input::keyboard::key_code::left_control)),
 			spherical::action::decrease_radius(
 				sge::input::keyboard::optional_key_code(
 					input::keyboard::key_code::space)));

@@ -35,7 +35,7 @@ namespace keyboard
 SGE_INPUT_SYMBOL
 bool
 is_shift(
-	key_code::type
+	sge::input::keyboard::key_code::type
 );
 
 }

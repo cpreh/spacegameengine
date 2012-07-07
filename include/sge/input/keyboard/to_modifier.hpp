@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/symbol.hpp>
 #include <sge/input/keyboard/key_code.hpp>
-#include <sge/input/keyboard/optional_modifier.hpp>
+#include <sge/input/keyboard/optional_modifier_fwd.hpp>
 
 
 namespace sge
@@ -34,9 +34,9 @@ namespace keyboard
 {
 
 SGE_INPUT_SYMBOL
-optional_modifier const
+sge::input::keyboard::optional_modifier const
 to_modifier(
-	key_code::type
+	sge::input::keyboard::key_code::type
 );
 
 }

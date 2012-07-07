@@ -19,48 +19,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/input/keyboard/is_alt.hpp>
-#include <sge/input/keyboard/is_ctrl.hpp>
+#include <sge/input/keyboard/is_control.hpp>
 #include <sge/input/keyboard/is_shift.hpp>
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/input/keyboard/optional_modifier.hpp>
 #include <sge/input/keyboard/to_modifier.hpp>
-#include <fcppt/optional_impl.hpp>
 
 
 sge::input::keyboard::optional_modifier const
 sge::input::keyboard::to_modifier(
-	key_code::type const _code
+	sge::input::keyboard::key_code::type const _code
 )
 {
 	if(
-		keyboard::is_ctrl(
+		sge::input::keyboard::is_control(
 			_code
 		)
 	)
 		return
 			sge::input::keyboard::optional_modifier(
-				modifier::ctrl
+				sge::input::keyboard::modifier::control
 			);
 
 	if(
-		keyboard::is_alt(
+		sge::input::keyboard::is_alt(
 			_code
 		)
 	)
 		return
 			sge::input::keyboard::optional_modifier(
-				modifier::alt
+				sge::input::keyboard::modifier::alt
 			);
 
 	if(
-		keyboard::is_shift(
+		sge::input::keyboard::is_shift(
 			_code
 		)
 	)
 		return
 			sge::input::keyboard::optional_modifier(
-				modifier::shift
+				sge::input::keyboard::modifier::shift
 			);
 
-	return sge::input::keyboard::optional_modifier();
+	return
+		sge::input::keyboard::optional_modifier();
 }

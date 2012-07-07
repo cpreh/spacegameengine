@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/camera/first_person/action/mapping.hpp>
 #include <sge/camera/first_person/action/wasd_mapping.hpp>
+#include <sge/input/keyboard/key_code.hpp>
 #include <sge/input/keyboard/optional_key_code.hpp>
 
 
@@ -39,7 +40,7 @@ sge::camera::first_person::action::wasd_mapping()
 					sge::input::keyboard::key_code::space)),
 			sge::camera::first_person::action::down(
 				sge::input::keyboard::optional_key_code(
-					sge::input::keyboard::key_code::lctrl)),
+					sge::input::keyboard::key_code::left_control)),
 			sge::camera::first_person::action::forward(
 				sge::input::keyboard::optional_key_code(
 					sge::input::keyboard::key_code::w)),
