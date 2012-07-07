@@ -65,7 +65,8 @@ SGE_CEGUI_DECLARE_LOCAL_LOGGER(
 
 sge::cegui::texture_target::texture_target(
 	sge::cegui::texture_parameters const &_texture_parameters,
-	sge::renderer::matrix4 const &_projection
+	sge::renderer::matrix4 const &_projection,
+	sge::cegui::optional_render_context_ref const &_render_context
 )
 :
 	texture_parameters_(
@@ -74,7 +75,9 @@ sge::cegui::texture_target::texture_target(
 	target_(
 		texture_parameters_.renderer().create_target()
 	),
-	render_context_(),
+	render_context_(
+		_render_context
+	),
 	texture_(),
 	scoped_target_(),
 	// This is exactly what cegui does and it avoids certain bugs :/
@@ -99,15 +102,6 @@ sge::cegui::texture_target::texture_target(
 
 sge::cegui::texture_target::~texture_target()
 {
-}
-
-void
-sge::cegui::texture_target::render_context(
-	sge::cegui::optional_render_context_ref const &_render_context
-)
-{
-	render_context_ =
-		_render_context;
 }
 
 void

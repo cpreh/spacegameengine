@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/to_cegui_string.hpp>
 #include <sge/cegui/unit.hpp>
 #include <sge/image/const_raw_pointer.hpp>
-#include <sge/image/color/format.hpp>
+#include <sge/image/color/optional_format.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/system.hpp>
@@ -38,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
+#include <sge/src/cegui/convert_pixel_format.hpp>
 #include <sge/src/cegui/declare_local_logger.hpp>
 #include <sge/src/cegui/from_cegui_size.hpp>
 #include <sge/src/cegui/optional_sizef.hpp>
@@ -46,6 +47,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/cegui/to_absolute_path.hpp>
 #include <sge/src/cegui/to_cegui_size.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/assert/error.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/assert/unimplemented_message.hpp>
 #include <fcppt/assert/unreachable.hpp>
@@ -53,8 +55,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/output.hpp>
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/config/external_begin.hpp>
-//#include <CEGUIImageCodec.h>
-//#include <CEGUIResourceProvider.h>
 #include <CEGUI/Size.h>
 #include <CEGUI/String.h>
 #include <CEGUI/Texture.h>
@@ -253,6 +253,16 @@ sge::cegui::texture::loadFromMemory(
 		this->empty()
 	);
 
+	sge::image::color::optional_format const format(
+		sge::cegui::convert_pixel_format(
+			_pixel_format
+		)
+	);
+
+	FCPPT_ASSERT_ERROR(
+		format
+	);
+
 	this->create_from_view(
 		sge::image2d::view::make_const(
 			static_cast<
@@ -265,13 +275,7 @@ sge::cegui::texture::loadFromMemory(
 			>(
 				_buffer_size
 			),
-			// TODO: own function!
-			_pixel_format == PF_RGB
-			?
-				sge::image::color::format::rgb8
-			:
-				sge::image::color::format::rgba8
-			,
+			*format,
 			sge::image2d::view::optional_pitch()
 		)
 	);
@@ -303,23 +307,10 @@ sge::cegui::texture::isPixelFormatSupported(
 	CEGUI::Texture::PixelFormat const _format
 ) const
 {
-	switch(
-		_format
-	)
-	{
-	case CEGUI::Texture::PF_RGB:
-	case CEGUI::Texture::PF_RGBA:
-		return true;
-	case CEGUI::Texture::PF_RGBA_4444:
-	case CEGUI::Texture::PF_RGB_565:
-	case CEGUI::Texture::PF_PVRTC2:
-	case CEGUI::Texture::PF_PVRTC4:
-	case CEGUI::Texture::PF_RGB_DXT1:
-	case CEGUI::Texture::PF_RGBA_DXT1:
-	case CEGUI::Texture::PF_RGBA_DXT3:
-	case CEGUI::Texture::PF_RGBA_DXT5:
-		return false;
-	}
-
-	FCPPT_ASSERT_UNREACHABLE;
+	return
+		sge::cegui::convert_pixel_format(
+			_format
+		)
+		!=
+		sge::image::color::optional_format();
 }

@@ -60,15 +60,11 @@ class texture_target
 public:
 	texture_target(
 		sge::cegui::texture_parameters const &,
-		sge::renderer::matrix4 const &projection
+		sge::renderer::matrix4 const &projection,
+		sge::cegui::optional_render_context_ref const &
 	);
 
 	~texture_target();
-
-	void
-	render_context(
-		sge::cegui::optional_render_context_ref const &
-	);
 private:
 	void
 	draw(
@@ -130,7 +126,7 @@ private:
 
 	sge::renderer::target::offscreen_scoped_ptr const target_;
 
-	sge::cegui::optional_render_context_ref render_context_;
+	sge::cegui::optional_render_context_ref const &render_context_;
 
 	texture_scoped_ptr texture_;
 

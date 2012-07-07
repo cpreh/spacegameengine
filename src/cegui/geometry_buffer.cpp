@@ -95,7 +95,8 @@ SGE_CEGUI_DECLARE_LOCAL_LOGGER(
 
 sge::cegui::geometry_buffer::geometry_buffer(
 	sge::renderer::device &_renderer,
-	sge::renderer::vertex_declaration const &_vertex_declaration
+	sge::renderer::vertex_declaration const &_vertex_declaration,
+	sge::cegui::optional_render_context_ref const &_render_context
 )
 :
 	batches_(),
@@ -126,7 +127,9 @@ sge::cegui::geometry_buffer::geometry_buffer(
 	scissor_area_(
 		sge::renderer::pixel_rect()
 	),
-	render_context_(),
+	render_context_(
+		_render_context
+	),
 	clip_(
 		true
 	),
@@ -145,15 +148,6 @@ sge::cegui::geometry_buffer::geometry_buffer(
 
 sge::cegui::geometry_buffer::~geometry_buffer()
 {
-}
-
-void
-sge::cegui::geometry_buffer::render_context(
-	sge::cegui::optional_render_context_ref const &_render_context
-)
-{
-	render_context_ =
-		_render_context;
 }
 
 void

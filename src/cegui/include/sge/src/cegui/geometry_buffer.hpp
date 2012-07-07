@@ -67,15 +67,11 @@ class geometry_buffer
 public:
 	geometry_buffer(
 		sge::renderer::device &,
-		sge::renderer::vertex_declaration const &
+		sge::renderer::vertex_declaration const &,
+		sge::cegui::optional_render_context_ref const &
 	);
 
 	~geometry_buffer();
-
-	void
-	render_context(
-		sge::cegui::optional_render_context_ref const &
-	);
 private:
 	void
 	draw() const;
@@ -184,7 +180,7 @@ private:
 
 	sge::renderer::target::scissor_area scissor_area_;
 
-	sge::cegui::optional_render_context_ref render_context_;
+	sge::cegui::optional_render_context_ref const &render_context_;
 
 	sge::cegui::clip clip_;
 

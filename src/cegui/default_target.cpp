@@ -54,28 +54,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 // sge already provides this viewport-adaption technique so I just
 // update the viewport variable when the viewport is requested.
 sge::cegui::default_target::default_target(
-	sge::renderer::device &_renderer
+	sge::renderer::device &_renderer,
+	sge::cegui::optional_render_context_ref const &_render_context
 )
 :
 	renderer_(
 		_renderer
 	),
 	viewport_(),
-	render_context_()
+	render_context_(
+		_render_context
+	)
 {
 }
 
 sge::cegui::default_target::~default_target()
 {
-}
-
-void
-sge::cegui::default_target::render_context(
-	sge::cegui::optional_render_context_ref const &_render_context
-)
-{
-	render_context_ =
-		_render_context;
 }
 
 void

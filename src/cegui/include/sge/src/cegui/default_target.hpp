@@ -51,17 +51,12 @@ class default_target
 		default_target
 	);
 public:
-	explicit
 	default_target(
-		sge::renderer::device &
+		sge::renderer::device &,
+		sge::cegui::optional_render_context_ref const &
 	);
 
 	~default_target();
-
-	void
-	render_context(
-		sge::cegui::optional_render_context_ref const &
-	);
 private:
 	void
 	draw(
@@ -104,7 +99,7 @@ private:
 
 	mutable CEGUI::Rectf viewport_;
 
-	sge::cegui::optional_render_context_ref render_context_;
+	sge::cegui::optional_render_context_ref const &render_context_;
 };
 
 }

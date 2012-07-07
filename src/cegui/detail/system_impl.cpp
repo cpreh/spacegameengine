@@ -40,23 +40,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
-// TODO: what is needed here?
-//#include <elements/CEGUIEditbox.h>
-//#include <elements/CEGUIFrameWindow.h>
-#include <boost/filesystem/path.hpp>
-//#include <CEGUIAnimationManager.h>
-//#include <CEGUIDefaultResourceProvider.h>
 #include <CEGUI/Font.h>
 #include <CEGUI/FontManager.h>
 #include <CEGUI/ImageManager.h>
 #include <CEGUI/MouseCursor.h>
 #include <CEGUI/Rect.h>
 #include <CEGUI/Scheme.h>
-//#include <CEGUIScriptModule.h>
 #include <CEGUI/System.h>
-//#include <CEGUIWindow.h>
-//#include <CEGUIWindowManager.h>
-//#include <CEGUIXMLParser.h>
 #include <CEGUI/falagard/WidgetLookManager.h>
 #include <fcppt/config/external_end.hpp>
 
@@ -190,12 +180,10 @@ sge::cegui::detail::system_impl::system_impl(
 		break;
 	}
 
-	// TODO:
-#if 0
 	if(
 		_load_context.default_font()
 	)
-		CEGUI::System::getSingleton().setDefaultFont(
+		gui_context_.setDefaultFont(
 			&CEGUI::FontManager::getSingleton().createFreeTypeFont(
 				"",
 				_load_context.default_font()->font_size(),
@@ -208,7 +196,7 @@ sge::cegui::detail::system_impl::system_impl(
 				)
 			)
 		);
-#endif
+
 	this->viewport_change();
 }
 FCPPT_PP_POP_WARNING
@@ -232,7 +220,6 @@ sge::cegui::detail::system_impl::render(
 	sge::renderer::context::object &_context
 )
 {
-	// TODO: replace this by a reference to a render context!
 	sge::cegui::scoped_render_context const context(
 		renderer_,
 		_context

@@ -104,7 +104,8 @@ sge::cegui::renderer::renderer(
 		"sge renderer"
 	),
 	default_target_(
-		renderer_
+		renderer_,
+		render_context_
 	),
 	geometry_buffers_(),
 	texture_targets_(),
@@ -126,35 +127,8 @@ sge::cegui::renderer::render_context(
 	optional_render_context_ref const &_render_context
 )
 {
-	// TODO: Use a reference here that updates automatically
 	render_context_ =
 		_render_context;
-
-	default_target_.render_context(
-		_render_context
-	);
-
-	for(
-		sge::cegui::renderer::geometry_buffer_sequence::iterator it(
-			geometry_buffers_.begin()
-		);
-		it != geometry_buffers_.end();
-		++it
-	)
-		it->render_context(
-			_render_context
-		);
-
-	for(
-		sge::cegui::renderer::texture_target_sequence::iterator it(
-			texture_targets_.begin()
-		);
-		it != texture_targets_.end();
-		++it
-	)
-		it->render_context(
-			_render_context
-		);
 }
 
 sge::renderer::device &
@@ -188,6 +162,9 @@ sge::cegui::renderer::createGeometryBuffer()
 			),
 			fcppt::cref(
 				*vertex_declaration_
+			),
+			fcppt::cref(
+				render_context_
 			)
 		)
 	);
@@ -251,6 +228,9 @@ sge::cegui::renderer::createTextureTarget()
 			),
 			fcppt::cref(
 				default_target_.projection()
+			),
+			fcppt::cref(
+				render_context_
 			)
 		)
 	);

@@ -35,6 +35,7 @@ set(
 	src/cegui/cegui_logger.cpp
 	src/cegui/convert_cursor_button.cpp
 	src/cegui/convert_key.cpp
+	src/cegui/convert_pixel_format.cpp
 	src/cegui/default_cursor.cpp
 	src/cegui/default_font.cpp
 	src/cegui/default_keyboard.cpp
@@ -49,6 +50,7 @@ set(
 	src/cegui/include/sge/src/cegui/clip.hpp
 	src/cegui/include/sge/src/cegui/convert_cursor_button.hpp
 	src/cegui/include/sge/src/cegui/convert_key.hpp
+	src/cegui/include/sge/src/cegui/convert_pixel_format.hpp
 	src/cegui/include/sge/src/cegui/declare_local_logger.hpp
 	src/cegui/include/sge/src/cegui/default_target.hpp
 	src/cegui/include/sge/src/cegui/detail/system_impl.hpp

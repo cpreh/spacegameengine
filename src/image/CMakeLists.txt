@@ -49,6 +49,8 @@ set(
 	include/sge/image/color/mizuiro_traits.hpp
 	include/sge/image/color/object.hpp
 	include/sge/image/color/object_fwd.hpp
+	include/sge/image/color/optional_format.hpp
+	include/sge/image/color/optional_format_fwd.hpp
 	include/sge/image/color/print.hpp
 	include/sge/image/color/r32f.hpp
 	include/sge/image/color/r32f_format.hpp
