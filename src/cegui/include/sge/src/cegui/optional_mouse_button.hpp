@@ -18,24 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_CEGUI_CONVERT_CURSOR_BUTTON_HPP_INCLUDED
-#define SGE_SRC_CEGUI_CONVERT_CURSOR_BUTTON_HPP_INCLUDED
+#ifndef SGE_SRC_CEGUI_OPTIONAL_MOUSE_BUTTON_HPP_INCLUDED
+#define SGE_SRC_CEGUI_OPTIONAL_MOUSE_BUTTON_HPP_INCLUDED
 
-#include <sge/input/cursor/button_code.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <sge/src/cegui/optional_mouse_button_fwd.hpp>
 
-
-namespace sge
-{
-namespace cegui
-{
-
-sge::cegui::optional_mouse_button const
-convert_cursor_button(
-	sge::input::cursor::button_code::type
-);
-
-}
-}
 
 #endif

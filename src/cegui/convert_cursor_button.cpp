@@ -20,13 +20,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/cursor/button_code.hpp>
 #include <sge/src/cegui/convert_cursor_button.hpp>
+#include <sge/src/cegui/optional_mouse_button.hpp>
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/InputEvent.h>
 #include <fcppt/config/external_end.hpp>
 
 
-CEGUI::MouseButton
+sge::cegui::optional_mouse_button const
 sge::cegui::convert_cursor_button(
 	sge::input::cursor::button_code::type const _code
 )
@@ -36,13 +37,25 @@ sge::cegui::convert_cursor_button(
 	)
 	{
 	case sge::input::cursor::button_code::left:
-		return CEGUI::LeftButton;
+		return
+			sge::cegui::optional_mouse_button(
+				CEGUI::LeftButton
+			);
 	case sge::input::cursor::button_code::right:
-		return CEGUI::RightButton;
+		return
+			sge::cegui::optional_mouse_button(
+				CEGUI::RightButton
+			);
 	case sge::input::cursor::button_code::middle:
-		return CEGUI::MiddleButton;
+		return
+			sge::cegui::optional_mouse_button(
+				CEGUI::MiddleButton
+			);
 	case sge::input::cursor::button_code::unknown:
-		return CEGUI::NoButton;
+		return
+			sge::cegui::optional_mouse_button(
+				CEGUI::NoButton
+			);
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

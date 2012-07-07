@@ -18,11 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_CEGUI_CONVERT_CURSOR_BUTTON_HPP_INCLUDED
-#define SGE_SRC_CEGUI_CONVERT_CURSOR_BUTTON_HPP_INCLUDED
+#ifndef SGE_SRC_CEGUI_OPTIONAL_KEY_SCAN_FWD_HPP_INCLUDED
+#define SGE_SRC_CEGUI_OPTIONAL_KEY_SCAN_FWD_HPP_INCLUDED
 
-#include <sge/input/cursor/button_code.hpp>
-#include <sge/src/cegui/optional_mouse_button_fwd.hpp>
+#include <fcppt/optional_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <CEGUI/InputEvent.h>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -30,10 +32,9 @@ namespace sge
 namespace cegui
 {
 
-sge::cegui::optional_mouse_button const
-convert_cursor_button(
-	sge::input::cursor::button_code::type
-);
+typedef fcppt::optional<
+	CEGUI::Key::Scan
+> optional_key_scan;
 
 }
 }

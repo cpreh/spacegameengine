@@ -65,6 +65,10 @@ set(
 	src/cegui/include/sge/src/cegui/image_codec.hpp
 	src/cegui/include/sge/src/cegui/image_codec_fwd.hpp
 	src/cegui/include/sge/src/cegui/log_location.hpp
+	src/cegui/include/sge/src/cegui/optional_key_scan.hpp
+	src/cegui/include/sge/src/cegui/optional_key_scan_fwd.hpp
+	src/cegui/include/sge/src/cegui/optional_mouse_button.hpp
+	src/cegui/include/sge/src/cegui/optional_mouse_button_fwd.hpp
 	src/cegui/include/sge/src/cegui/optional_render_context_ref.hpp
 	src/cegui/include/sge/src/cegui/optional_render_context_ref_fwd.hpp
 	src/cegui/include/sge/src/cegui/optional_sizef.hpp

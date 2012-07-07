@@ -22,9 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_CEGUI_CONVERT_KEY_HPP_INCLUDED
 
 #include <sge/input/keyboard/key_code.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <CEGUI/InputEvent.h>
-#include <fcppt/config/external_end.hpp>
+#include <sge/src/cegui/optional_key_scan_fwd.hpp>
 
 
 namespace sge
@@ -32,7 +30,7 @@ namespace sge
 namespace cegui
 {
 
-CEGUI::Key::Scan
+sge::cegui::optional_key_scan const
 convert_key(
 	sge::input::keyboard::key_code::type
 );
