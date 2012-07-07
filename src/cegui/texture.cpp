@@ -159,7 +159,12 @@ bool
 sge::cegui::texture::empty() const
 {
 	return
-		!size_;
+		!size_
+		||
+		size_->d_width < 0.01f
+		||
+		size_->d_height < 0.01f
+		;
 }
 
 CEGUI::String const  &
@@ -247,10 +252,6 @@ sge::cegui::texture::loadFromMemory(
 				_buffer_size
 			)
 			<< FCPPT_TEXT(')')
-	);
-
-	FCPPT_ASSERT_PRE(
-		this->empty()
 	);
 
 	sge::image::color::optional_format const format(
