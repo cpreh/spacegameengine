@@ -15,7 +15,6 @@ set(
 	include/sge/camera/first_person/action/left.hpp
 	include/sge/camera/first_person/action/mapping.hpp
 	include/sge/camera/first_person/action/mapping_fwd.hpp
-	include/sge/camera/first_person/action/optional_key_code.hpp
 	include/sge/camera/first_person/action/right.hpp
 	include/sge/camera/first_person/action/up.hpp
 	include/sge/camera/first_person/action/wasd_mapping.hpp
@@ -40,7 +39,6 @@ set(
 	include/sge/camera/ortho_freelook/action/activate_pan.hpp
 	include/sge/camera/ortho_freelook/action/mapping.hpp
 	include/sge/camera/ortho_freelook/action/mapping_fwd.hpp
-	include/sge/camera/ortho_freelook/action/optional_key_code.hpp
 	include/sge/camera/ortho_freelook/action/wsg_mapping.hpp
 	include/sge/camera/ortho_freelook/action/zoom_in.hpp
 	include/sge/camera/ortho_freelook/action/zoom_out.hpp
@@ -65,7 +63,6 @@ set(
 	include/sge/camera/spherical/action/increase_radius.hpp
 	include/sge/camera/spherical/action/mapping.hpp
 	include/sge/camera/spherical/action/mapping_fwd.hpp
-	include/sge/camera/spherical/action/optional_key_code.hpp
 	include/sge/camera/spherical/action/wasd_mapping.hpp
 	include/sge/camera/spherical/coordinate_system/azimuth.hpp
 	include/sge/camera/spherical/coordinate_system/homogenous.hpp

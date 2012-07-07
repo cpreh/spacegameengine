@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CAMERA_SPHERICAL_ACTION_DECREASE_AZIMUTH_HPP_INCLUDED
 #define SGE_CAMERA_SPHERICAL_ACTION_DECREASE_AZIMUTH_HPP_INCLUDED
 
-#include <sge/camera/spherical/action/optional_key_code.hpp>
+#include <sge/input/keyboard/optional_key_code.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 namespace sge
@@ -33,7 +33,7 @@ namespace spherical
 namespace action
 {
 FCPPT_MAKE_STRONG_TYPEDEF(
-	spherical::action::optional_key_code,
+	sge::input::keyboard::optional_key_code,
 	decrease_azimuth);
 }
 }

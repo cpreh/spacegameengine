@@ -229,7 +229,7 @@ direction_from_booleans(
 
 void
 set_pressed_if_appropriate(
-	sge::camera::spherical::action::optional_key_code const &_optional_key,
+	sge::input::keyboard::optional_key_code const &_optional_key,
 	bool &b,
 	sge::input::keyboard::key_event const &_key_event)
 {

@@ -18,27 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CAMERA_SPHERICAL_ACTION_OPTIONAL_KEY_CODE_HPP_INCLUDED
-#define SGE_CAMERA_SPHERICAL_ACTION_OPTIONAL_KEY_CODE_HPP_INCLUDED
+#ifndef SGE_INPUT_KEYBOARD_OPTIONAL_KEY_CODE_FWD_HPP_INCLUDED
+#define SGE_INPUT_KEYBOARD_OPTIONAL_KEY_CODE_FWD_HPP_INCLUDED
 
 #include <sge/input/keyboard/key_code.hpp>
 #include <fcppt/optional_fwd.hpp>
 
+
 namespace sge
 {
-namespace camera
+namespace input
 {
-namespace spherical
+namespace keyboard
 {
-namespace action
-{
-typedef
-fcppt::optional<input::keyboard::key_code::type>
-optional_key_code;
-}
+
+typedef fcppt::optional<
+	sge::input::keyboard::key_code::type
+> optional_key_code;
+
 }
 }
 }
 
 #endif
-

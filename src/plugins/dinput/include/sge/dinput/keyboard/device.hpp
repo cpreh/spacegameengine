@@ -38,10 +38,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/key_repeat_callback.hpp>
 #include <sge/input/keyboard/key_repeat_function.hpp>
 #include <sge/input/keyboard/mod_state.hpp>
+#include <sge/input/keyboard/optional_key_code.hpp>
 #include <sge/timer/basic_decl.hpp>
 #include <sge/timer/clocks/standard.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional_decl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/container/array_decl.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
@@ -128,11 +128,7 @@ private:
 
 	repeat_timer repeat_time_;
 
-	typedef fcppt::optional<
-		sge::input::keyboard::key_code::type
-	> optional_key_code;
-
-	optional_key_code old_key_code_;
+	sge::input::keyboard::optional_key_code old_key_code_;
 
 	sge::dinput::keyboard::info const info_;
 

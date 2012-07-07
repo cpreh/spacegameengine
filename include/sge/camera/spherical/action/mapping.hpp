@@ -28,7 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/spherical/action/increase_azimuth.hpp>
 #include <sge/camera/spherical/action/increase_inclination.hpp>
 #include <sge/camera/spherical/action/increase_radius.hpp>
-#include <fcppt/optional_impl.hpp>
 
 
 namespace sge

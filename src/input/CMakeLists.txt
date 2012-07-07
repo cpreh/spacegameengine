@@ -154,6 +154,8 @@ set(
 	include/sge/input/keyboard/mod_state_fwd.hpp
 	include/sge/input/keyboard/modifier.hpp
 	include/sge/input/keyboard/optional_digit.hpp
+	include/sge/input/keyboard/optional_key_code.hpp
+	include/sge/input/keyboard/optional_key_code_fwd.hpp
 	include/sge/input/keyboard/optional_modifier.hpp
 	include/sge/input/keyboard/remove_callback.hpp
 	include/sge/input/keyboard/remove_event.hpp

@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/camera/spherical/action/mapping.hpp>
 #include <sge/camera/spherical/action/wasd_mapping.hpp>
+#include <sge/input/keyboard/optional_key_code.hpp>
 
 
 sge::camera::spherical::action::mapping const
@@ -28,21 +29,21 @@ sge::camera::spherical::action::wasd_mapping()
 	return
 		spherical::action::mapping(
 			spherical::action::increase_azimuth(
-				spherical::action::optional_key_code(
+				sge::input::keyboard::optional_key_code(
 					input::keyboard::key_code::d)),
 			spherical::action::decrease_azimuth(
-				spherical::action::optional_key_code(
+				sge::input::keyboard::optional_key_code(
 					input::keyboard::key_code::a)),
 			spherical::action::increase_inclination(
-				spherical::action::optional_key_code(
+				sge::input::keyboard::optional_key_code(
 					input::keyboard::key_code::w)),
 			spherical::action::decrease_inclination(
-				spherical::action::optional_key_code(
+				sge::input::keyboard::optional_key_code(
 					input::keyboard::key_code::s)),
 			spherical::action::increase_radius(
-				spherical::action::optional_key_code(
+				sge::input::keyboard::optional_key_code(
 					input::keyboard::key_code::lctrl)),
 			spherical::action::decrease_radius(
-				spherical::action::optional_key_code(
+				sge::input::keyboard::optional_key_code(
 					input::keyboard::key_code::space)));
 }
