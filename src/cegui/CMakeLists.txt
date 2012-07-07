@@ -46,6 +46,7 @@ set(
 	src/cegui/geometry_buffer.cpp
 	src/cegui/image_codec.cpp
 	src/cegui/include/sge/src/cegui/batch.hpp
+	src/cegui/include/sge/src/cegui/batch_fwd.hpp
 	src/cegui/include/sge/src/cegui/cegui_logger.hpp
 	src/cegui/include/sge/src/cegui/clip.hpp
 	src/cegui/include/sge/src/cegui/convert_cursor_button.hpp

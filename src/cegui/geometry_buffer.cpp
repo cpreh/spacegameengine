@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/primitive_type.hpp>
-#include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/scoped_transform.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
@@ -53,7 +52,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/scoped.hpp>
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/vertex.hpp>
-#include <sge/renderer/vf/dynamic/part_index.hpp>
+#include <sge/src/cegui/batch.hpp>
 #include <sge/src/cegui/declare_local_logger.hpp>
 #include <sge/src/cegui/from_cegui_rect.hpp>
 #include <sge/src/cegui/from_cegui_vector2.hpp>
@@ -66,11 +65,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/cegui/vf/position.hpp>
 #include <sge/src/cegui/vf/texcoord.hpp>
 #include <sge/src/cegui/vf/vertex_view.hpp>
+#include <fcppt/cref.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/null_ptr.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/assert/pre_message.hpp>
 #include <fcppt/assert/unimplemented_message.hpp>
+#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/math/box/output.hpp>
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/math/quaternion/to_matrix.hpp>
@@ -367,8 +370,8 @@ sge::cegui::geometry_buffer::appendVertex(
 
 void
 sge::cegui::geometry_buffer::appendGeometry(
-	CEGUI::Vertex const * const vertices,
-	CEGUI::uint const vertex_count
+	CEGUI::Vertex const *const _vertices,
+	CEGUI::uint const _vertex_count
 )
 {
 	FCPPT_ASSERT_PRE_MESSAGE(
@@ -376,24 +379,22 @@ sge::cegui::geometry_buffer::appendGeometry(
 		FCPPT_TEXT("I got geometry without an active texture, how should I handle this? :/")
 	);
 
-	batches_.push_back(
-		sge::cegui::batch(
-			active_texture_->impl(),
-			sge::renderer::vertex_buffer_shared_ptr(
-				renderer_.create_vertex_buffer(
-					vertex_declaration_,
-					sge::renderer::vf::dynamic::part_index(
-						0u
-					),
-					sge::renderer::vertex_count(
-						static_cast<
-							sge::renderer::vertex_count::value_type
-						>(
-							vertex_count
-						)
-					),
-					sge::renderer::resource_flags::none
-				)
+	fcppt::container::ptr::push_back_unique_ptr(
+		batches_,
+		fcppt::make_unique_ptr<
+			sge::cegui::batch
+		>(
+			fcppt::ref(
+				renderer_
+			),
+			fcppt::cref(
+				vertex_declaration_
+			),
+			fcppt::ref(
+				active_texture_->impl()
+			),
+			sge::renderer::vertex_count(
+				_vertex_count
 			),
 			clip_
 		)
@@ -426,8 +427,8 @@ sge::cegui::geometry_buffer::appendGeometry(
 
 	vertex_iterator_range const range(
 		boost::make_iterator_range(
-			vertices,
-			vertices + vertex_count
+			_vertices,
+			_vertices + _vertex_count
 		)
 	);
 

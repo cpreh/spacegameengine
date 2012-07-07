@@ -21,9 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_CEGUI_BATCH_HPP_INCLUDED
 #define SGE_SRC_CEGUI_BATCH_HPP_INCLUDED
 
-#include <sge/renderer/vertex_buffer_shared_ptr.hpp>
+#include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/vertex_buffer_scoped_ptr.hpp>
+#include <sge/renderer/vertex_count.hpp>
+#include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
+#include <sge/src/cegui/batch_fwd.hpp>
 #include <sge/src/cegui/clip.hpp>
+#include <fcppt/noncopyable.hpp>
 
 
 namespace sge
@@ -33,20 +38,16 @@ namespace cegui
 
 class batch
 {
+	FCPPT_NONCOPYABLE(
+		batch
+	);
 public:
 	batch(
+		sge::renderer::device &,
+		sge::renderer::vertex_declaration const &,
 		sge::renderer::texture::planar &,
-		sge::renderer::vertex_buffer_shared_ptr,
+		sge::renderer::vertex_count,
 		sge::cegui::clip
-	);
-
-	batch(
-		batch const &
-	);
-
-	batch &
-	operator=(
-		batch const &
 	);
 
 	~batch();
@@ -60,9 +61,9 @@ public:
 	sge::cegui::clip const
 	clip() const;
 private:
-	sge::renderer::texture::planar *texture_;
+	sge::renderer::texture::planar &texture_;
 
-	sge::renderer::vertex_buffer_shared_ptr vertex_buffer_;
+	sge::renderer::vertex_buffer_scoped_ptr const vertex_buffer_;
 
 	sge::cegui::clip clip_;
 };

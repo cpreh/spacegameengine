@@ -18,64 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/vertex_buffer_fwd.hpp>
-#include <sge/renderer/vertex_buffer_shared_ptr.hpp>
+#include <sge/renderer/device.hpp>
+#include <sge/renderer/resource_flags_none.hpp>
+#include <sge/renderer/vertex_buffer.hpp>
+#include <sge/renderer/vertex_count.hpp>
+#include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
+#include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <sge/src/cegui/batch.hpp>
 #include <sge/src/cegui/clip.hpp>
 
 
 sge::cegui::batch::batch(
+	sge::renderer::device &_renderer,
+	sge::renderer::vertex_declaration const &_vertex_declaration,
 	sge::renderer::texture::planar &_texture,
-	sge::renderer::vertex_buffer_shared_ptr const _vertex_buffer,
+	sge::renderer::vertex_count const _vertex_count,
 	sge::cegui::clip const _clip
 )
 :
 	texture_(
-		&_texture
+		_texture
 	),
 	vertex_buffer_(
-		_vertex_buffer
+		_renderer.create_vertex_buffer(
+			_vertex_declaration,
+			sge::renderer::vf::dynamic::part_index(
+				0u
+			),
+			_vertex_count,
+			sge::renderer::resource_flags::none
+		)
 	),
 	clip_(
 		_clip
 	)
 {
-}
-
-sge::cegui::batch::batch(
-	sge::cegui::batch const &_other
-)
-:
-	texture_(
-		_other.texture_
-	),
-	vertex_buffer_(
-		_other.vertex_buffer_
-	),
-	clip_(
-		_other.clip_
-	)
-{
-}
-
-sge::cegui::batch &
-sge::cegui::batch::operator=(
-	sge::cegui::batch const &_other
-)
-{
-	if(
-		this == &_other
-	)
-		return *this;
-
-	texture_ = _other.texture_;
-
-	vertex_buffer_ = _other.vertex_buffer_;
-
-	clip_ = _other.clip_;
-
-	return *this;
 }
 
 sge::cegui::batch::~batch()
@@ -85,7 +63,7 @@ sge::cegui::batch::~batch()
 sge::renderer::texture::planar &
 sge::cegui::batch::texture() const
 {
-	return *texture_;
+	return texture_;
 }
 
 sge::renderer::vertex_buffer &

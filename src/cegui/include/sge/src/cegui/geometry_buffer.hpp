@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/target/scissor_area.hpp>
-#include <sge/src/cegui/batch.hpp>
+#include <sge/src/cegui/batch_fwd.hpp>
 #include <sge/src/cegui/clip.hpp>
 #include <sge/src/cegui/geometry_buffer_fwd.hpp>
 #include <sge/src/cegui/optional_render_context_ref.hpp>
@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <CEGUI/Base.h>
 #include <CEGUI/GeometryBuffer.h>
 #include <boost/math/quaternion.hpp>
-#include <vector>
+#include <boost/ptr_container/ptr_vector.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -149,7 +149,7 @@ private:
 	isClippingActive() const;
 private:
 	typedef
-	std::vector
+	boost::ptr_vector
 	<
 		sge::cegui::batch
 	>
