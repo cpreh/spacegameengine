@@ -454,7 +454,7 @@ sge::cegui::renderer::getTexture(
 	);
 
 	FCPPT_ASSERT_ERROR_MESSAGE(
-		it == textures_.end(),
+		it != textures_.end(),
 		FCPPT_TEXT("Tried to get a texture by name which was not registered")
 	);
 
