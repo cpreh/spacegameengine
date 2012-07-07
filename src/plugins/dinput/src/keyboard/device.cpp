@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/dinput/is_down.hpp>
 #include <sge/dinput/keyboard/device.hpp>
-#include <sge/dinput/keyboard/key_converter.hpp>
 #include <sge/dinput/keyboard/key_map.hpp>
 #include <sge/dinput/keyboard/keycode_to_chars.hpp>
 #include <sge/dinput/keyboard/make_info.hpp>
@@ -52,17 +51,13 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::dinput::keyboard::device::device(
-	dinput::device::parameters const &_parameters,
-	dinput::keyboard::key_converter const &_converter
+	dinput::device::parameters const &_parameters
 )
 :
 	sge::input::keyboard::device(),
-	dinput::device::object(
+	sge::dinput::device::object(
 		_parameters,
 		c_dfDIKeyboard
-	),
-	converter_(
-		_converter
 	),
 	kblayout_(
 		::GetKeyboardLayout(
@@ -80,8 +75,7 @@ sge::dinput::keyboard::device::device(
 	old_key_code_(),
 	info_(
 		sge::dinput::keyboard::make_info(
-			this->get(),
-			converter_
+			this->get()
 		)
 	),
 	states_()

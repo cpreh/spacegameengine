@@ -60,8 +60,6 @@ SET(
 	src/plugins/dinput/include/sge/dinput/keyboard/enumerator.hpp
 	src/plugins/dinput/include/sge/dinput/keyboard/info.hpp
 	src/plugins/dinput/include/sge/dinput/keyboard/info_fwd.hpp
-	src/plugins/dinput/include/sge/dinput/keyboard/key_converter.hpp
-	src/plugins/dinput/include/sge/dinput/keyboard/key_converter_fwd.hpp
 	src/plugins/dinput/include/sge/dinput/keyboard/key_map.hpp
 	src/plugins/dinput/include/sge/dinput/keyboard/keycode_to_chars.hpp
 	src/plugins/dinput/include/sge/dinput/keyboard/make_info.hpp
@@ -69,6 +67,7 @@ SET(
 	src/plugins/dinput/include/sge/dinput/keyboard/optional_uint.hpp
 	src/plugins/dinput/include/sge/dinput/keyboard/repeat.hpp
 	src/plugins/dinput/include/sge/dinput/keyboard/repeat_duration.hpp
+	src/plugins/dinput/include/sge/dinput/keyboard/translate_key_code.hpp
 	src/plugins/dinput/include/sge/dinput/mouse/axis_code.hpp
 	src/plugins/dinput/include/sge/dinput/mouse/axis_map.hpp
 	src/plugins/dinput/include/sge/dinput/mouse/button_code.hpp
@@ -126,11 +125,11 @@ SET(
 	src/plugins/dinput/src/keyboard/device.cpp
 	src/plugins/dinput/src/keyboard/enumerator.cpp
 	src/plugins/dinput/src/keyboard/info.cpp
-	src/plugins/dinput/src/keyboard/key_converter.cpp
 	src/plugins/dinput/src/keyboard/keycode_to_chars.cpp
 	src/plugins/dinput/src/keyboard/make_info.cpp
 	src/plugins/dinput/src/keyboard/map_virtual_key.cpp
 	src/plugins/dinput/src/keyboard/repeat.cpp
+	src/plugins/dinput/src/keyboard/translate_key_code.cpp
 	src/plugins/dinput/src/mouse/axis_code.cpp
 	src/plugins/dinput/src/mouse/button_code.cpp
 	src/plugins/dinput/src/mouse/device.cpp

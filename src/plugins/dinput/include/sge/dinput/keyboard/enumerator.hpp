@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/dinput/di.hpp>
 #include <sge/dinput/device/enumerator.hpp>
-#include <sge/dinput/keyboard/key_converter_fwd.hpp>
 #include <sge/dinput/keyboard/key_map.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -43,10 +42,7 @@ class enumerator
 		enumerator
 	);
 public:
-	explicit
-	enumerator(
-		sge::dinput::keyboard::key_converter const &
-	);
+	enumerator();
 
 	~enumerator();
 
@@ -57,8 +53,6 @@ private:
 	dispatch(
 		DIDEVICEOBJECTINSTANCE const &
 	);
-
-	sge::dinput::keyboard::key_converter const &key_converter_;
 
 	sge::dinput::keyboard::key_map key_map_;
 };

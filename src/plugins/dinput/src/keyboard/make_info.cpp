@@ -22,19 +22,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/dinput/device/enumerate_objects.hpp>
 #include <sge/dinput/keyboard/enumerator.hpp>
 #include <sge/dinput/keyboard/info.hpp>
-#include <sge/dinput/keyboard/key_converter_fwd.hpp>
 #include <sge/dinput/keyboard/make_info.hpp>
 
 
 sge::dinput::keyboard::info const
 sge::dinput::keyboard::make_info(
-	IDirectInputDevice8 &_device,
-	sge::dinput::keyboard::key_converter const &_key_converter
+	IDirectInputDevice8 &_device
 )
 {
-	sge::dinput::keyboard::enumerator object(
-		_key_converter
-	);
+	sge::dinput::keyboard::enumerator object;
 
 	sge::dinput::device::enumerate_objects(
 		_device,

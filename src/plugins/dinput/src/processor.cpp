@@ -46,7 +46,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/window/event/focus_in_callback.hpp>
 #include <awl/window/event/focus_out_fwd.hpp>
 #include <awl/window/event/focus_out_callback.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/dynamic_pointer_cast.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
@@ -117,7 +116,6 @@ sge::dinput::processor::processor(
 	event_handle_(
 		system_processor_.create_event_handle()
 	),
-	key_conv_(),
 	acquired_(
 		awl::window::has_focus(
 			_window_system.awl_system(),
@@ -473,10 +471,7 @@ sge::dinput::processor::enum_devices_callback(
 			fcppt::make_unique_ptr<
 				sge::dinput::keyboard::device
 			>(
-				parameters,
-				fcppt::cref(
-					instance.key_conv_
-				)
+				parameters
 			)
 		);
 		break;

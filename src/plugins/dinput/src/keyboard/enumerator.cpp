@@ -21,18 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/dinput/di.hpp>
 #include <sge/dinput/device/enumerator.hpp>
 #include <sge/dinput/keyboard/enumerator.hpp>
-#include <sge/dinput/keyboard/key_converter.hpp>
 #include <sge/dinput/keyboard/key_map.hpp>
+#include <sge/dinput/keyboard/translate_key_code.hpp>
 
 
-sge::dinput::keyboard::enumerator::enumerator(
-	sge::dinput::keyboard::key_converter const &_key_converter
-)
+sge::dinput::keyboard::enumerator::enumerator()
 :
 	sge::dinput::device::enumerator(),
-	key_converter_(
-		_key_converter
-	),
 	key_map_()
 {
 }
@@ -61,7 +56,7 @@ sge::dinput::keyboard::enumerator::dispatch(
 	key_map_[
 		_data.dwOfs
 	] =
-		key_converter_.create_key_code(
+		sge::dinput::keyboard::translate_key_code(
 			_data.dwOfs
 		);
 }

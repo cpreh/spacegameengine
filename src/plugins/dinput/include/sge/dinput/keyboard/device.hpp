@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/dinput/device/parameters_fwd.hpp>
 #include <sge/dinput/keyboard/device_fwd.hpp>
 #include <sge/dinput/keyboard/info.hpp>
-#include <sge/dinput/keyboard/key_converter_fwd.hpp>
 #include <sge/dinput/keyboard/repeat_duration.hpp>
 #include <sge/input/keyboard/char_callback.hpp>
 #include <sge/input/keyboard/char_type.hpp>
@@ -65,9 +64,9 @@ class device
 		device
 	);
 public:
+	explicit
 	device(
-		dinput::device::parameters const &,
-		dinput::keyboard::key_converter const &
+		dinput::device::parameters const &
 	);
 
 	~device();
@@ -99,8 +98,6 @@ private:
 	keycode_to_char(
 		sge::input::keyboard::key_code::type
 	) const;
-
-	sge::dinput::keyboard::key_converter const &converter_;
 
 	HKL kblayout_;
 

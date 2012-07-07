@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/dinput/di.hpp>
 #include <sge/dinput/keyboard/info_fwd.hpp>
-#include <sge/dinput/keyboard/key_converter_fwd.hpp>
 
 
 namespace sge
@@ -35,8 +34,7 @@ namespace keyboard
 
 sge::dinput::keyboard::info const
 make_info(
-	IDirectInputDevice8 &,
-	sge::dinput::keyboard::key_converter const &
+	IDirectInputDevice8 &
 );
 
 }

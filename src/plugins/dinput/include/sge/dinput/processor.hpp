@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/dinput/di.hpp>
 #include <sge/dinput/cursor/object_fwd.hpp>
 #include <sge/dinput/device/object_fwd.hpp>
-#include <sge/dinput/keyboard/key_converter.hpp>
 #include <sge/input/processor.hpp>
 #include <sge/input/cursor/discover_callback.hpp>
 #include <sge/input/cursor/discover_signal.hpp>
@@ -192,8 +191,6 @@ private:
 	> cursor_scoped_ptr;
 
 	cursor_scoped_ptr const cursor_;
-
-	sge::dinput::keyboard::key_converter key_conv_;
 
 	typedef fcppt::scoped_ptr<
 		awl::backends::windows::system::event::handle
