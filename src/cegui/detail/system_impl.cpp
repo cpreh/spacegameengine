@@ -249,7 +249,7 @@ sge::cegui::detail::system_impl::viewport_change()
 
 	CEGUI::Rectf const new_area_cegui(
 		sge::cegui::to_cegui_rect<
-			float // TODO:
+			CEGUI::Rectf::value_type
 		>(
 			new_area_fcppt
 		)

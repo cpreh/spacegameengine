@@ -112,7 +112,7 @@ sge::cegui::default_target::getArea() const
 {
 	viewport_ =
 		sge::cegui::to_cegui_rect<
-			float // TODO: use typedef
+			CEGUI::Rectf::value_type
 		>(
 			renderer_.onscreen_target().viewport().get()
 		);

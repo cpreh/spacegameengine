@@ -119,7 +119,7 @@ sge::cegui::texture::create_from_view(
 	size_ =
 		sge::cegui::optional_sizef(
 			sge::cegui::to_cegui_size<
-				float // TODO
+				CEGUI::Sizef::value_type
 			>(
 				sge::image2d::view::size(
 					_view

@@ -569,7 +569,7 @@ sge::cegui::renderer::setDisplaySize(
 	// ignores this message
 	default_target_.setArea(
 		sge::cegui::to_cegui_rect<
-			float // TODO
+			CEGUI::Rectf::value_type
 		>(
 			renderer_.onscreen_target().viewport().get()
 		)
