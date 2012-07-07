@@ -43,6 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <CEGUI/GeometryBuffer.h>
 #include <CEGUI/Rect.h>
 #include <CEGUI/RenderQueue.h>
+#include <CEGUI/RenderTarget.h>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -104,6 +105,15 @@ sge::cegui::default_target::setArea(
 		)
 		==
 		renderer_.onscreen_target().viewport().get()
+	);
+
+	CEGUI::RenderTargetEventArgs args(
+		this
+	);
+
+	this->fireEvent(
+		CEGUI::RenderTarget::EventAreaChanged,
+		args
 	);
 }
 

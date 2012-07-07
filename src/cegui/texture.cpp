@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/to_cegui_string.hpp>
 #include <sge/cegui/unit.hpp>
 #include <sge/image/const_raw_pointer.hpp>
+#include <sge/image/color/format.hpp>
 #include <sge/image/color/optional_format.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/file.hpp>
@@ -37,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/create_planar_from_view.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
+#include <sge/renderer/texture/planar_unique_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/src/cegui/convert_pixel_format.hpp>
 #include <sge/src/cegui/declare_local_logger.hpp>
@@ -79,9 +81,27 @@ sge::cegui::texture::texture(
 	caps_(
 		_caps
 	),
-	texture_(),
 	size_(
 		_size
+	),
+	texture_(
+		_size
+		?
+			_texture_parameters.renderer().create_planar_texture(
+				sge::renderer::texture::planar_parameters(
+					sge::cegui::from_cegui_size<
+						sge::renderer::texture::planar::dim
+					>(
+						*size_
+					),
+					sge::image::color::format::rgba8,
+					sge::renderer::texture::mipmap::off(),
+					sge::renderer::resource_flags::none,
+					_caps
+				)
+			)
+		:
+			sge::renderer::texture::planar_unique_ptr()
 	),
 	name_(
 		_name
@@ -107,6 +127,10 @@ sge::cegui::texture::~texture()
 sge::renderer::texture::planar &
 sge::cegui::texture::impl()
 {
+	FCPPT_ASSERT_PRE(
+		texture_
+	);
+
 	return
 		*texture_;
 }

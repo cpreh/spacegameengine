@@ -126,10 +126,10 @@ private:
 
 	sge::renderer::texture::capabilities_field const caps_;
 
-	sge::renderer::texture::planar_scoped_ptr texture_;
-
 	// We _have_ to cache this because getSize returns a reference
 	sge::cegui::optional_sizef size_;
+
+	sge::renderer::texture::planar_scoped_ptr texture_;
 
 	CEGUI::String const name_;
 
