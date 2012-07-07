@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_CEGUI_TEXTURE_TARGET_HPP_INCLUDED
 
 #include <sge/renderer/matrix4.hpp>
-#include <sge/renderer/context/scoped_offscreen_target_fwd.hpp>
 #include <sge/renderer/target/offscreen_scoped_ptr.hpp>
 #include <sge/src/cegui/optional_render_context_ref.hpp>
 #include <sge/src/cegui/texture_fwd.hpp>
@@ -120,17 +119,11 @@ private:
 		sge::cegui::texture
 	> texture_scoped_ptr;
 
-	typedef fcppt::scoped_ptr<
-		sge::renderer::context::scoped_offscreen_target
-	> offscreen_scoped_ptr;
-
 	sge::renderer::target::offscreen_scoped_ptr const target_;
 
 	sge::cegui::optional_render_context_ref const &render_context_;
 
 	texture_scoped_ptr texture_;
-
-	offscreen_scoped_ptr scoped_target_;
 
 	CEGUI::Rectf area_;
 

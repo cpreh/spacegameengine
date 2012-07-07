@@ -75,8 +75,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/stage_op.hpp>
 #include <sge/renderer/texture/stage_op_value.hpp>
 #include <sge/renderer/texture/filter/object_fwd.hpp>
-#include <fcppt/dynamic_optional_cast.hpp>
 #include <fcppt/assert/pre.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/ref.hpp>
 
 #if defined(SGE_RENDERER_HAVE_CG)
 #include <sge/opengl/cg/program/activate.hpp>
@@ -118,7 +119,7 @@ sge::opengl::render_context::object::object(
 			target_
 		)
 	),
-	offscreen_target_()
+	scoped_offscreen_target_()
 {
 	this->state(
 		sge::renderer::state::default_()
@@ -162,30 +163,32 @@ sge::opengl::render_context::object::offscreen_target(
 	)
 	{
 		FCPPT_ASSERT_PRE(
-			!offscreen_target_
+			!scoped_offscreen_target_
 		);
 
 		scoped_target_.target().unbind();
 
-		offscreen_target_ =
-			fcppt::dynamic_optional_cast<
-				sge::opengl::target_base
+		scoped_offscreen_target_.take(
+			fcppt::make_unique_ptr<
+				sge::opengl::render_context::scoped_target
 			>(
-				_new_target
-			);
-
-		offscreen_target_->bind();
+				fcppt::ref(
+					dynamic_cast<
+						sge::opengl::target_base &
+					>(
+						*_new_target
+					)
+				)
+			)
+		);
 	}
 	else
 	{
 		FCPPT_ASSERT_PRE(
-			offscreen_target_
+			scoped_offscreen_target_
 		);
 
-		offscreen_target_->unbind();
-
-		offscreen_target_ =
-			sge::opengl::optional_target_base_ref();
+		scoped_offscreen_target_.reset();
 
 		scoped_target_.target().bind();
 	}

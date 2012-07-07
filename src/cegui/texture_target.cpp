@@ -27,12 +27,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/context/object.hpp>
-#include <sge/renderer/context/scoped_offscreen_target.hpp>
 #include <sge/renderer/projection/far.hpp>
 #include <sge/renderer/projection/near.hpp>
 #include <sge/renderer/projection/orthogonal.hpp>
 #include <sge/renderer/projection/rect.hpp>
 #include <sge/renderer/target/offscreen.hpp>
+#include <sge/renderer/target/optional_offscreen_ref.hpp>
 #include <sge/renderer/target/surface_index.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/renderer/texture/capabilities.hpp>
@@ -80,7 +80,6 @@ sge::cegui::texture_target::texture_target(
 		_render_context
 	),
 	texture_(),
-	scoped_target_(),
 	// This is exactly what cegui does and it avoids certain bugs :/
 	area_(
 		0,
@@ -110,9 +109,11 @@ sge::cegui::texture_target::draw(
 	CEGUI::GeometryBuffer const &_buffer
 )
 {
-	// Disabled for debugging reasons
-	//if(texture_->empty())
-	//	return;
+	if(
+		texture_->empty()
+	)
+		return;
+
 	FCPPT_LOG_DEBUG(
 		local_log,
 		fcppt::log::_
@@ -129,9 +130,11 @@ sge::cegui::texture_target::draw(
 	CEGUI::RenderQueue const &_queue
 )
 {
-	// Disabled for debugging reasons
-	//if(texture_->empty())
-	//	return;
+	if(
+		texture_->empty()
+	)
+		return;
+
 	FCPPT_LOG_DEBUG(
 		local_log,
 		fcppt::log::_
@@ -199,20 +202,9 @@ sge::cegui::texture_target::activate()
 		render_context_
 	);
 
-	FCPPT_ASSERT_PRE(
-		!scoped_target_
-	);
-
-	scoped_target_.take(
-		fcppt::make_unique_ptr<
-			sge::renderer::context::scoped_offscreen_target
-		>(
-			fcppt::ref(
-				*render_context_
-			),
-			fcppt::ref(
-				*target_
-			)
+	render_context_->offscreen_target(
+		sge::renderer::target::optional_offscreen_ref(
+			*target_
 		)
 	);
 
@@ -261,10 +253,6 @@ sge::cegui::texture_target::deactivate()
 		return;
 
 	FCPPT_ASSERT_PRE(
-		scoped_target_
-	);
-
-	FCPPT_ASSERT_PRE(
 		render_context_
 	);
 
@@ -273,7 +261,9 @@ sge::cegui::texture_target::deactivate()
 		default_projection_
 	);
 
-	scoped_target_.reset();
+	render_context_->offscreen_target(
+		sge::renderer::target::optional_offscreen_ref()
+	);
 }
 
 void
@@ -338,6 +328,10 @@ sge::cegui::texture_target::clear()
 CEGUI::Texture &
 sge::cegui::texture_target::getTexture() const
 {
+	FCPPT_ASSERT_PRE(
+		texture_
+	);
+
 	return *texture_;
 }
 
@@ -377,7 +371,9 @@ sge::cegui::texture_target::declareRenderSize(
 			sge::cegui::optional_sizef(
 				_size
 			),
-			CEGUI::String()
+			CEGUI::String(
+				"sge texture target"
+			)
 		)
 	);
 
@@ -414,5 +410,5 @@ sge::cegui::texture_target::declareRenderSize(
 bool
 sge::cegui::texture_target::isRenderingInverted() const
 {
-	return true;
+	return true; // TODO!
 }

@@ -46,5 +46,4 @@ sge::cegui::to_source_blend_func(
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;
-
 }

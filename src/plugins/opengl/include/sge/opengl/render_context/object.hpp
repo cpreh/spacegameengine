@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_RENDER_CONTEXT_OBJECT_HPP_INCLUDED
 #define SGE_OPENGL_RENDER_CONTEXT_OBJECT_HPP_INCLUDED
 
-#include <sge/opengl/optional_target_base_ref.hpp>
 #include <sge/opengl/context/device/object_fwd.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/render_context/scoped_target.hpp>
@@ -60,6 +59,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/stage_op_value.hpp>
 #include <sge/renderer/texture/filter/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/scoped_ptr_impl.hpp>
 
 #if defined(SGE_RENDERER_HAVE_CG)
 #include <sge/renderer/cg/loaded_program_fwd.hpp>
@@ -267,7 +267,11 @@ private:
 
 	sge::opengl::render_context::scoped_target const scoped_target_;
 
-	sge::opengl::optional_target_base_ref offscreen_target_;
+	typedef fcppt::scoped_ptr<
+		sge::opengl::render_context::scoped_target
+	> scoped_offscreen_target_ptr;
+
+	scoped_offscreen_target_ptr scoped_offscreen_target_;
 };
 
 }

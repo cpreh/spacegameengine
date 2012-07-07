@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/renderer/target/viewport_size.hpp>
+#include <sge/src/cegui/declare_local_logger.hpp>
 #include <sge/src/cegui/default_target.hpp>
 #include <sge/src/cegui/from_cegui_rect.hpp>
 #include <sge/src/cegui/optional_render_context_ref.hpp>
@@ -36,6 +37,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/assert/unimplemented_message.hpp>
+#include <fcppt/log/debug.hpp>
+#include <fcppt/log/output.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
@@ -46,6 +49,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <CEGUI/RenderTarget.h>
 #include <fcppt/config/external_end.hpp>
 
+
+SGE_CEGUI_DECLARE_LOCAL_LOGGER(
+	FCPPT_TEXT("default_target")
+)
 
 // cegui's internal OpenGL renderer uses a static viewport (I
 // think). The area is initialized to the current viewport in the
@@ -78,6 +85,14 @@ sge::cegui::default_target::draw(
 	CEGUI::GeometryBuffer const &_buffer
 )
 {
+	FCPPT_LOG_DEBUG(
+		local_log,
+		fcppt::log::_
+			<< FCPPT_TEXT("default_target(")
+			<< this
+			<< FCPPT_TEXT(")::draw(GeometryBuffer)")
+	);
+
 	_buffer.draw();
 }
 
@@ -86,6 +101,14 @@ sge::cegui::default_target::draw(
 	CEGUI::RenderQueue const &_queue
 )
 {
+	FCPPT_LOG_DEBUG(
+		local_log,
+		fcppt::log::_
+			<< FCPPT_TEXT("default_target(")
+			<< this
+			<< FCPPT_TEXT(")::draw(RenderQueue)")
+	);
+
 	_queue.draw();
 }
 
@@ -144,6 +167,14 @@ sge::cegui::default_target::activate()
 		render_context_
 	);
 
+	FCPPT_LOG_DEBUG(
+		local_log,
+		fcppt::log::_
+			<< FCPPT_TEXT("default_target(")
+			<< this
+			<< FCPPT_TEXT(")::activate()")
+	);
+
 	render_context_->transform(
 		sge::renderer::matrix_mode::projection,
 		this->projection()
@@ -153,6 +184,13 @@ sge::cegui::default_target::activate()
 void
 sge::cegui::default_target::deactivate()
 {
+	FCPPT_LOG_DEBUG(
+		local_log,
+		fcppt::log::_
+			<< FCPPT_TEXT("default_target(")
+			<< this
+			<< FCPPT_TEXT(")::deactivate()")
+	);
 }
 
 void

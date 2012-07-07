@@ -147,7 +147,7 @@ sge::cegui::geometry_buffer::geometry_buffer(
 			<< FCPPT_TEXT("geometry_buffer(")
 			<< this
 			<< FCPPT_TEXT(")::geometry_buffer")
-		);
+	);
 }
 
 sge::cegui::geometry_buffer::~geometry_buffer()
@@ -159,6 +159,14 @@ sge::cegui::geometry_buffer::draw() const
 {
 	FCPPT_ASSERT_PRE(
 		render_context_
+	);
+
+	FCPPT_LOG_DEBUG(
+		local_log,
+		fcppt::log::_
+			<< FCPPT_TEXT("geometry_buffer(")
+			<< this
+			<< FCPPT_TEXT(")::draw()")
 	);
 
 	sge::renderer::scoped_transform const scoped_world(
@@ -188,16 +196,20 @@ sge::cegui::geometry_buffer::draw() const
 	sge::renderer::state::scoped const scoped_state(
 		*render_context_,
 		sge::renderer::state::list
-			(
-				sge::cegui::to_source_blend_func(
-					blend_mode_
-				)
+		(
+			sge::cegui::to_source_blend_func(
+				blend_mode_
 			)
-			(
-				sge::cegui::to_dest_blend_func(
-					blend_mode_
-				)
+		)
+		(
+			sge::cegui::to_dest_blend_func(
+				blend_mode_
 			)
+		)
+		(
+			sge::renderer::state::bool_::enable_alpha_blending
+				= true
+		)
 	);
 
 	sge::renderer::target::base &current_target(
