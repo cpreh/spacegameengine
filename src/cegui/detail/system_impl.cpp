@@ -163,22 +163,12 @@ sge::cegui::detail::system_impl::system_impl(
 		)
 	);
 
-	// TODO: make a new function for this
-	switch(
+	if(
 		_cursor_visibility
+		==
+		sge::cegui::cursor_visibility::invisible
 	)
-	{
-		case cursor_visibility::visible:
-			/*
-			CEGUI::System::getSingleton().setDefaultMouseCursor(
-				CEGUI::ImagesetManager::getSingleton().getIterator().getCurrentValue()->getName(),
-				"MouseArrow"
-			);*/
-		break;
-		case cursor_visibility::invisible:
-			gui_context_.getMouseCursor().hide();
-		break;
-	}
+		gui_context_.getMouseCursor().hide();
 
 	if(
 		_load_context.default_font()
@@ -259,7 +249,7 @@ sge::cegui::detail::system_impl::viewport_change()
 
 	CEGUI::Rectf const new_area_cegui(
 		sge::cegui::to_cegui_rect<
-			float
+			float // TODO:
 		>(
 			new_area_fcppt
 		)

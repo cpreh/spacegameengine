@@ -39,11 +39,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/cull_mode.hpp>
 #include <sge/renderer/state/depth_func.hpp>
-#include <sge/renderer/state/dest_blend_func.hpp>
 #include <sge/renderer/state/draw_mode.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/scoped.hpp>
-#include <sge/renderer/state/source_blend_func.hpp>
 #include <sge/renderer/state/stencil_func.hpp>
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/target/base.hpp>
@@ -60,6 +58,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/cegui/geometry_buffer.hpp>
 #include <sge/src/cegui/optional_render_context_ref.hpp>
 #include <sge/src/cegui/texture.hpp>
+#include <sge/src/cegui/to_dest_blend_func.hpp>
+#include <sge/src/cegui/to_source_blend_func.hpp>
 #include <sge/src/cegui/vf/color.hpp>
 #include <sge/src/cegui/vf/format.hpp>
 #include <sge/src/cegui/vf/position.hpp>
@@ -70,6 +70,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/null_ptr.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/assert/error.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/assert/pre_message.hpp>
 #include <fcppt/assert/unimplemented_message.hpp>
@@ -178,32 +179,25 @@ sge::cegui::geometry_buffer::draw() const
 		)
 	);
 
-	// TODO: own function!
-	sge::renderer::state::source_blend_func::type sbf =
-		sge::renderer::state::source_blend_func::src_alpha;
-	sge::renderer::state::dest_blend_func::type dbf =
-		sge::renderer::state::dest_blend_func::inv_src_alpha;
-
-	switch(
-		blend_mode_)
-	{
-		case CEGUI::BM_RTT_PREMULTIPLIED:
-			sbf = sge::renderer::state::source_blend_func::one;
-			dbf = sge::renderer::state::dest_blend_func::inv_src_alpha;
-			break;
-		case CEGUI::BM_INVALID:
-			throw cegui::exception(FCPPT_TEXT("We got an invalid blend mode o_O"));
-		case CEGUI::BM_NORMAL:
-			sbf = sge::renderer::state::source_blend_func::src_alpha;
-			dbf = sge::renderer::state::dest_blend_func::inv_src_alpha;
-			break;
-	}
+	FCPPT_ASSERT_ERROR(
+		blend_mode_
+		!=
+		CEGUI::BM_INVALID
+	);
 
 	sge::renderer::state::scoped const scoped_state(
 		*render_context_,
 		sge::renderer::state::list
-			(sbf)
-			(dbf)
+			(
+				sge::cegui::to_source_blend_func(
+					blend_mode_
+				)
+			)
+			(
+				sge::cegui::to_dest_blend_func(
+					blend_mode_
+				)
+			)
 	);
 
 	sge::renderer::target::base &current_target(

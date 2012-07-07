@@ -92,6 +92,8 @@ set(
 	src/cegui/include/sge/src/cegui/to_absolute_path.hpp
 	src/cegui/include/sge/src/cegui/to_cegui_rect.hpp
 	src/cegui/include/sge/src/cegui/to_cegui_size.hpp
+	src/cegui/include/sge/src/cegui/to_dest_blend_func.hpp
+	src/cegui/include/sge/src/cegui/to_source_blend_func.hpp
 	src/cegui/include/sge/src/cegui/vf/color.hpp
 	src/cegui/include/sge/src/cegui/vf/format.hpp
 	src/cegui/include/sge/src/cegui/vf/part.hpp
@@ -113,6 +115,8 @@ set(
 	src/cegui/to_absolute_path.cpp
 	src/cegui/to_cegui_color.cpp
 	src/cegui/to_cegui_string.cpp
+	src/cegui/to_dest_blend_func.cpp
+	src/cegui/to_source_blend_func.cpp
 	src/cegui/toolbox/append_row.cpp
 	src/cegui/toolbox/scoped_gui_sheet.cpp
 	src/cegui/toolbox/scoped_layout.cpp
