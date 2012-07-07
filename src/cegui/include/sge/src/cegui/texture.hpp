@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_CEGUI_TEXTURE_HPP_INCLUDED
 #define SGE_SRC_CEGUI_TEXTURE_HPP_INCLUDED
 
+#include <sge/image/color/format.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
-#include <sge/renderer/texture/capabilities_field.hpp>
+#include <sge/renderer/texture/capabilities_field_fwd.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/renderer/texture/planar_scoped_ptr.hpp>
 #include <sge/src/cegui/optional_sizef.hpp>
@@ -57,7 +58,6 @@ class texture
 public:
 	texture(
 		sge::cegui::texture_parameters const &,
-		sge::renderer::texture::capabilities_field const &,
 		sge::cegui::optional_sizef const &,
 		CEGUI::String const &name
 	);
@@ -68,6 +68,14 @@ public:
 	// correctly.
 	sge::renderer::texture::planar &
 	impl();
+
+	// TextureTarget needs this. Normally, all textures will be created by
+	// CEGUI calling the loadFrom* functions.
+	void
+	init(
+		sge::image::color::format::type,
+		sge::renderer::texture::capabilities_field const &
+	);
 
 	// This is called by the image_codec to circumvent the
 	// loadFromMemory mechanism
@@ -123,8 +131,6 @@ private:
 	) const;
 private:
 	sge::cegui::texture_parameters const texture_parameters_;
-
-	sge::renderer::texture::capabilities_field const caps_;
 
 	// We _have_ to cache this because getSize returns a reference
 	sge::cegui::optional_sizef size_;

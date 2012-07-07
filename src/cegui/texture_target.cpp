@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/colors.hpp>
+#include <sge/image/color/format.hpp>
 #include <sge/renderer/color_surface.hpp>
 #include <sge/renderer/color_surface_shared_ptr.hpp>
 #include <sge/renderer/device.hpp>
@@ -373,13 +374,17 @@ sge::cegui::texture_target::declareRenderSize(
 			fcppt::ref(
 				texture_parameters_
 			),
-			sge::renderer::texture::capabilities_field(
-				sge::renderer::texture::capabilities::render_target
-			),
 			sge::cegui::optional_sizef(
 				_size
 			),
 			CEGUI::String()
+		)
+	);
+
+	texture_->init(
+		sge::image::color::format::rgba8,
+		sge::renderer::texture::capabilities_field(
+			sge::renderer::texture::capabilities::render_target
 		)
 	);
 

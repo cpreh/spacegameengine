@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/vertex_declaration_scoped_ptr.hpp>
-#include <sge/renderer/texture/capabilities_field_fwd.hpp>
 #include <sge/src/cegui/default_target.hpp>
 #include <sge/src/cegui/geometry_buffer_fwd.hpp>
 #include <sge/src/cegui/optional_sizef_fwd.hpp>
@@ -171,7 +170,6 @@ private:
 	CEGUI::Texture &
 	create_texture(
 		CEGUI::String const &name,
-		sge::renderer::texture::capabilities_field const &,
 		sge::cegui::optional_sizef const &
 	);
 

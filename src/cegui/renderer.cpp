@@ -35,7 +35,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/target/viewport.hpp>
-#include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/src/cegui/declare_local_logger.hpp>
 #include <sge/src/cegui/from_cegui_size.hpp>
@@ -295,7 +294,6 @@ sge::cegui::renderer::createTexture(
 	return
 		this->create_texture(
 			_name,
-			sge::renderer::texture::capabilities_field::null(),
 			sge::cegui::optional_sizef()
 		);
 }
@@ -326,7 +324,6 @@ sge::cegui::renderer::createTexture(
 	CEGUI::Texture &result(
 		this->create_texture(
 			_name,
-			sge::renderer::texture::capabilities_field::null(),
 			sge::cegui::optional_sizef()
 		)
 	);
@@ -361,7 +358,6 @@ sge::cegui::renderer::createTexture(
 	return
 		this->create_texture(
 			_name,
-			sge::renderer::texture::capabilities_field::null(),
 			sge::cegui::optional_sizef(
 				_size
 			)
@@ -613,7 +609,6 @@ sge::cegui::renderer::getIdentifierString() const
 CEGUI::Texture &
 sge::cegui::renderer::create_texture(
 	CEGUI::String const &_name,
-	sge::renderer::texture::capabilities_field const &_caps,
 	sge::cegui::optional_sizef const &_size
 )
 {
@@ -633,9 +628,6 @@ sge::cegui::renderer::create_texture(
 			>(
 				fcppt::cref(
 					texture_parameters_
-				),
-				fcppt::cref(
-					_caps
 				),
 				fcppt::cref(
 					_size

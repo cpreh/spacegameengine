@@ -34,11 +34,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
-#include <sge/renderer/texture/capabilities_field.hpp>
+#include <sge/renderer/texture/capabilities_field_fwd.hpp>
 #include <sge/renderer/texture/create_planar_from_view.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
-#include <sge/renderer/texture/planar_unique_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/src/cegui/convert_pixel_format.hpp>
 #include <sge/src/cegui/declare_local_logger.hpp>
@@ -70,7 +69,6 @@ SGE_CEGUI_DECLARE_LOCAL_LOGGER(
 
 sge::cegui::texture::texture(
 	sge::cegui::texture_parameters const &_texture_parameters,
-	sge::renderer::texture::capabilities_field const &_caps,
 	sge::cegui::optional_sizef const &_size,
 	CEGUI::String const &_name
 )
@@ -78,31 +76,10 @@ sge::cegui::texture::texture(
 	texture_parameters_(
 		_texture_parameters
 	),
-	caps_(
-		_caps
-	),
 	size_(
 		_size
 	),
-	texture_(
-		_size
-		?
-			_texture_parameters.renderer().create_planar_texture(
-				sge::renderer::texture::planar_parameters(
-					sge::cegui::from_cegui_size<
-						sge::renderer::texture::planar::dim
-					>(
-						*size_
-					),
-					sge::image::color::format::rgba8,
-					sge::renderer::texture::mipmap::off(),
-					sge::renderer::resource_flags::none,
-					_caps
-				)
-			)
-		:
-			sge::renderer::texture::planar_unique_ptr()
-	),
+	texture_(),
 	name_(
 		_name
 	),
@@ -133,6 +110,34 @@ sge::cegui::texture::impl()
 
 	return
 		*texture_;
+}
+
+void
+sge::cegui::texture::init(
+	sge::image::color::format::type const _format,
+	sge::renderer::texture::capabilities_field const &_caps
+)
+{
+	if(
+		this->empty()
+	)
+		return;
+
+	texture_.take(
+		texture_parameters_.renderer().create_planar_texture(
+			sge::renderer::texture::planar_parameters(
+				sge::cegui::from_cegui_size<
+					sge::renderer::texture::planar::dim
+				>(
+					*size_
+				),
+				_format,
+				sge::renderer::texture::mipmap::off(),
+				sge::renderer::resource_flags::none,
+				_caps
+			)
+		)
+	);
 }
 
 void
@@ -244,7 +249,8 @@ sge::cegui::texture::loadFromFile(
 				_resource_group,
 				texture_parameters_.charconv_system()
 			)
-			<< FCPPT_TEXT(")"));
+			<< FCPPT_TEXT(')')
+	);
 
 	this->create_from_view(
 		texture_parameters_.image_system().load(
@@ -259,7 +265,7 @@ sge::cegui::texture::loadFromFile(
 
 void
 sge::cegui::texture::loadFromMemory(
-	void const * const _buffer,
+	void const *const _buffer,
 	CEGUI::Sizef const &_buffer_size,
 	CEGUI::Texture::PixelFormat const _pixel_format
 )
