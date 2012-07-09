@@ -371,10 +371,11 @@ sge::cegui::texture::loadFromMemory(
 
 void
 sge::cegui::texture::blitFromMemory(
-	void *const _source,
-	CEGUI::Rectf const &_area
+	void *,
+	CEGUI::Rectf const &
 )
 {
+	// Nothing ever calls this
 	FCPPT_ASSERT_UNIMPLEMENTED_MESSAGE(
 		FCPPT_TEXT("texture::blitFromMemory() is not implemented yet")
 	);
@@ -382,9 +383,10 @@ sge::cegui::texture::blitFromMemory(
 
 void
 sge::cegui::texture::blitToMemory(
-	void *const _data
+	void *
 )
 {
+	// Nothing ever calls this
 	FCPPT_ASSERT_UNIMPLEMENTED_MESSAGE(
 		FCPPT_TEXT("texture::blitToMemory() is not implemented yet")
 	);
