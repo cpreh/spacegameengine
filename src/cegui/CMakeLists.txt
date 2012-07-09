@@ -74,8 +74,6 @@ set(
 	src/cegui/include/sge/src/cegui/optional_mouse_button_fwd.hpp
 	src/cegui/include/sge/src/cegui/optional_render_context_ref.hpp
 	src/cegui/include/sge/src/cegui/optional_render_context_ref_fwd.hpp
-	src/cegui/include/sge/src/cegui/optional_sizef.hpp
-	src/cegui/include/sge/src/cegui/optional_sizef_fwd.hpp
 	src/cegui/include/sge/src/cegui/prefix.hpp
 	src/cegui/include/sge/src/cegui/renderer.hpp
 	src/cegui/include/sge/src/cegui/renderer_fwd.hpp
@@ -83,6 +81,7 @@ set(
 	src/cegui/include/sge/src/cegui/resource_provider_fwd.hpp
 	src/cegui/include/sge/src/cegui/scoped_render_context.hpp
 	src/cegui/include/sge/src/cegui/scoped_system.hpp
+	src/cegui/include/sge/src/cegui/texel_scaling.hpp
 	src/cegui/include/sge/src/cegui/texture.hpp
 	src/cegui/include/sge/src/cegui/texture_fwd.hpp
 	src/cegui/include/sge/src/cegui/texture_parameters.hpp
@@ -109,6 +108,7 @@ set(
 	src/cegui/scoped_system.cpp
 	src/cegui/syringe.cpp
 	src/cegui/system.cpp
+	src/cegui/texel_scaling.cpp
 	src/cegui/texture.cpp
 	src/cegui/texture_parameters.cpp
 	src/cegui/texture_target.cpp

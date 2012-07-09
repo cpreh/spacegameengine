@@ -53,7 +53,7 @@ sge::cegui::image_codec::~image_codec()
 CEGUI::Texture *
 sge::cegui::image_codec::load(
 	CEGUI::RawDataContainer const &_data,
-	CEGUI::Texture *_result_texture
+	CEGUI::Texture *const _result_texture
 )
 {
 	FCPPT_ASSERT_PRE(

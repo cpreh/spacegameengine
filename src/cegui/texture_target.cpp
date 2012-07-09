@@ -43,7 +43,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/cegui/from_cegui_size.hpp>
 #include <sge/src/cegui/from_cegui_rect.hpp>
 #include <sge/src/cegui/optional_render_context_ref.hpp>
-#include <sge/src/cegui/optional_sizef.hpp>
 #include <sge/src/cegui/texture.hpp>
 #include <sge/src/cegui/texture_target.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -368,19 +367,13 @@ sge::cegui::texture_target::declareRenderSize(
 			fcppt::ref(
 				texture_parameters_
 			),
-			sge::cegui::optional_sizef(
-				_size
-			),
 			CEGUI::String(
 				"sge texture target"
+			),
+			_size,
+			sge::renderer::texture::capabilities_field(
+				sge::renderer::texture::capabilities::render_target
 			)
-		)
-	);
-
-	texture_->init(
-		sge::image::color::format::rgba8,
-		sge::renderer::texture::capabilities_field(
-			sge::renderer::texture::capabilities::render_target
 		)
 	);
 

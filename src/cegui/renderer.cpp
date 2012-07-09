@@ -35,11 +35,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/target/viewport.hpp>
+#include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/src/cegui/declare_local_logger.hpp>
 #include <sge/src/cegui/from_cegui_size.hpp>
 #include <sge/src/cegui/geometry_buffer.hpp>
-#include <sge/src/cegui/optional_sizef.hpp>
 #include <sge/src/cegui/renderer.hpp>
 #include <sge/src/cegui/texture.hpp>
 #include <sge/src/cegui/texture_target.hpp>
@@ -49,8 +49,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/foreach_enumerator.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/move.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/algorithm/ptr_container_erase.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assert/error_message.hpp>
@@ -292,9 +294,16 @@ sge::cegui::renderer::createTexture(
 	);
 
 	return
-		this->create_texture(
+		this->insert_texture(
 			_name,
-			sge::cegui::optional_sizef()
+			fcppt::make_unique_ptr<
+				sge::cegui::texture
+			>(
+				fcppt::ref(
+					texture_parameters_
+				),
+				_name
+			)
 		);
 }
 
@@ -322,9 +331,16 @@ sge::cegui::renderer::createTexture(
 	);
 
 	CEGUI::Texture &result(
-		this->create_texture(
+		this->insert_texture(
 			_name,
-			sge::cegui::optional_sizef()
+			fcppt::make_unique_ptr<
+				sge::cegui::texture
+			>(
+				fcppt::ref(
+					texture_parameters_
+				),
+				_name
+			)
 		)
 	);
 
@@ -356,10 +372,17 @@ sge::cegui::renderer::createTexture(
 	);
 
 	return
-		this->create_texture(
+		this->insert_texture(
 			_name,
-			sge::cegui::optional_sizef(
-				_size
+			fcppt::make_unique_ptr<
+				sge::cegui::texture
+			>(
+				fcppt::ref(
+					texture_parameters_
+				),
+				_name,
+				_size,
+				sge::renderer::texture::capabilities_field::null()
 			)
 		);
 }
@@ -607,9 +630,9 @@ sge::cegui::renderer::getIdentifierString() const
 }
 
 CEGUI::Texture &
-sge::cegui::renderer::create_texture(
+sge::cegui::renderer::insert_texture(
 	CEGUI::String const &_name,
-	sge::cegui::optional_sizef const &_size
+	sge::cegui::renderer::texture_unique_ptr _ptr
 )
 {
 	typedef
@@ -623,16 +646,8 @@ sge::cegui::renderer::create_texture(
 		fcppt::container::ptr::insert_unique_ptr_map(
 			textures_,
 			_name,
-			fcppt::make_unique_ptr<
-				sge::cegui::texture
-			>(
-				fcppt::cref(
-					texture_parameters_
-				),
-				fcppt::cref(
-					_size
-				),
-				_name
+			fcppt::move(
+				_ptr
 			)
 		)
 	);

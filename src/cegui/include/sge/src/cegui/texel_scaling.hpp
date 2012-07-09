@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_CEGUI_OPTIONAL_SIZEF_FWD_HPP_INCLUDED
-#define SGE_SRC_CEGUI_OPTIONAL_SIZEF_FWD_HPP_INCLUDED
+#ifndef SGE_SRC_CEGUI_TEXEL_SCALING_HPP_INCLUDED
+#define SGE_SRC_CEGUI_TEXEL_SCALING_HPP_INCLUDED
 
 #include <sge/src/cegui/fwds/sizef_fwd.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <sge/src/cegui/fwds/vector2f_fwd.hpp>
 
 
 namespace sge
@@ -30,9 +30,10 @@ namespace sge
 namespace cegui
 {
 
-typedef fcppt::optional<
-	CEGUI::Sizef
-> optional_sizef;
+CEGUI::Vector2f const
+texel_scaling(
+	CEGUI::Sizef const &
+);
 
 }
 }

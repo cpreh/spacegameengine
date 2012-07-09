@@ -21,18 +21,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_CEGUI_TEXTURE_HPP_INCLUDED
 #define SGE_SRC_CEGUI_TEXTURE_HPP_INCLUDED
 
-#include <sge/image/color/format.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/renderer/texture/capabilities_field_fwd.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/renderer/texture/planar_scoped_ptr.hpp>
-#include <sge/src/cegui/optional_sizef.hpp>
 #include <sge/src/cegui/texture_fwd.hpp>
 #include <sge/src/cegui/texture_parameters.hpp>
 #include <sge/src/cegui/fwds/sizef_fwd.hpp>
 #include <sge/src/cegui/fwds/rectf_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/optional_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <CEGUI/Size.h>
 #include <CEGUI/Texture.h>
 #include <CEGUI/Vector.h>
 #include <fcppt/config/external_end.hpp>
@@ -56,10 +56,22 @@ class texture
 		texture
 	);
 public:
+	// Constructs a texture that will be loaded later by calling
+	// loadFromFile or create_from_view. It won't have a valid size or
+	// texture object until then.
 	texture(
 		sge::cegui::texture_parameters const &,
-		sge::cegui::optional_sizef const &,
 		CEGUI::String const &name
+	);
+
+	// Constructs a texture with a given size, but undefined contents.
+	// This texture might be rendered to or it might get data by
+	// loadFromMemory.
+	texture(
+		sge::cegui::texture_parameters const &,
+		CEGUI::String const &name,
+		CEGUI::Sizef const &,
+		sge::renderer::texture::capabilities_field const &
 	);
 
 	~texture();
@@ -68,14 +80,6 @@ public:
 	// correctly.
 	sge::renderer::texture::planar &
 	impl();
-
-	// TextureTarget needs this. Normally, all textures will be created by
-	// CEGUI calling the loadFrom* functions.
-	void
-	init(
-		sge::image::color::format::type,
-		sge::renderer::texture::capabilities_field const &
-	);
 
 	// This is called by the image_codec to circumvent the
 	// loadFromMemory mechanism
@@ -132,14 +136,23 @@ private:
 private:
 	sge::cegui::texture_parameters const texture_parameters_;
 
+	CEGUI::String const name_;
+
+	typedef fcppt::optional<
+		CEGUI::Sizef
+	> optional_sizef;
+
 	// We _have_ to cache this because getSize returns a reference
-	sge::cegui::optional_sizef size_;
+	sge::cegui::texture::optional_sizef size_;
+
+	typedef fcppt::optional<
+		CEGUI::Vector2f
+	> optional_vector2f;
+
+	sge::cegui::texture::optional_vector2f texel_scaling_;
 
 	sge::renderer::texture::planar_scoped_ptr texture_;
 
-	CEGUI::String const name_;
-
-	CEGUI::Vector2f texel_scaling_;
 };
 
 }

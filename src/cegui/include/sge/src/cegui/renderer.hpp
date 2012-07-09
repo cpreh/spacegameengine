@@ -25,12 +25,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_declaration_scoped_ptr.hpp>
 #include <sge/src/cegui/default_target.hpp>
 #include <sge/src/cegui/geometry_buffer_fwd.hpp>
-#include <sge/src/cegui/optional_sizef_fwd.hpp>
 #include <sge/src/cegui/optional_render_context_ref.hpp>
 #include <sge/src/cegui/texture_fwd.hpp>
 #include <sge/src/cegui/texture_parameters.hpp>
 #include <sge/src/cegui/texture_target_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/unique_ptr_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/ptr_container/ptr_map.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
@@ -167,10 +167,14 @@ private:
 	CEGUI::String const &
 	getIdentifierString() const;
 
+	typedef fcppt::unique_ptr<
+		sge::cegui::texture
+	> texture_unique_ptr;
+
 	CEGUI::Texture &
-	create_texture(
+	insert_texture(
 		CEGUI::String const &name,
-		sge::cegui::optional_sizef const &
+		sge::cegui::renderer::texture_unique_ptr
 	);
 
 	typedef

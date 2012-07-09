@@ -22,36 +22,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/to_cegui_string.hpp>
 #include <sge/cegui/unit.hpp>
 #include <sge/image/const_raw_pointer.hpp>
+#include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image/color/optional_format.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/system.hpp>
+#include <sge/image2d/algorithm/copy_and_convert.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/make_const.hpp>
 #include <sge/image2d/view/optional_pitch.hpp>
 #include <sge/image2d/view/size.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/dim2.hpp>
+#include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/texture/capabilities_field_fwd.hpp>
 #include <sge/renderer/texture/create_planar_from_view.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
+#include <sge/renderer/texture/scoped_planar_lock.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/src/cegui/convert_pixel_format.hpp>
 #include <sge/src/cegui/declare_local_logger.hpp>
 #include <sge/src/cegui/from_cegui_size.hpp>
-#include <sge/src/cegui/optional_sizef.hpp>
 #include <sge/src/cegui/prefix.hpp>
+#include <sge/src/cegui/texel_scaling.hpp>
 #include <sge/src/cegui/texture.hpp>
 #include <sge/src/cegui/to_absolute_path.hpp>
 #include <sge/src/cegui/to_cegui_size.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/assert/unimplemented_message.hpp>
-#include <fcppt/assert/unreachable.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/math/dim/output.hpp>
@@ -69,23 +73,68 @@ SGE_CEGUI_DECLARE_LOCAL_LOGGER(
 
 sge::cegui::texture::texture(
 	sge::cegui::texture_parameters const &_texture_parameters,
-	sge::cegui::optional_sizef const &_size,
 	CEGUI::String const &_name
 )
 :
 	texture_parameters_(
 		_texture_parameters
 	),
-	size_(
-		_size
-	),
-	texture_(),
 	name_(
 		_name
 	),
+	size_(),
+	texel_scaling_(),
+	texture_()
+{
+	FCPPT_LOG_DEBUG(
+		local_log,
+		fcppt::log::_
+			<< FCPPT_TEXT("texture(")
+			<< this
+			<< FCPPT_TEXT(")::texture(")
+			<< sge::cegui::from_cegui_string(
+				_name,
+				texture_parameters_.charconv_system()
+			)
+			<< FCPPT_TEXT(')')
+	);
+}
+
+sge::cegui::texture::texture(
+	sge::cegui::texture_parameters const &_texture_parameters,
+	CEGUI::String const &_name,
+	CEGUI::Sizef const &_size,
+	sge::renderer::texture::capabilities_field const &_caps
+)
+:
+	texture_parameters_(
+		_texture_parameters
+	),
+	name_(
+		_name
+	),
+	size_(
+		_size
+	),
 	texel_scaling_(
-		1.f,
-		1.f
+		sge::cegui::texel_scaling(
+			_size
+		)
+	),
+	texture_(
+		texture_parameters_.renderer().create_planar_texture(
+			sge::renderer::texture::planar_parameters(
+				sge::cegui::from_cegui_size<
+					sge::renderer::texture::planar::dim
+				>(
+					*size_
+				),
+				sge::image::color::format::rgba8,
+				sge::renderer::texture::mipmap::off(),
+				sge::renderer::resource_flags::none,
+				_caps
+			)
+		)
 	)
 {
 	FCPPT_LOG_DEBUG(
@@ -93,7 +142,18 @@ sge::cegui::texture::texture(
 		fcppt::log::_
 			<< FCPPT_TEXT("texture(")
 			<< this
-			<< FCPPT_TEXT(")::texture()")
+			<< FCPPT_TEXT(")::texture(")
+			<< sge::cegui::from_cegui_string(
+				_name,
+				texture_parameters_.charconv_system()
+			)
+			<< FCPPT_TEXT(", ")
+			<< sge::cegui::from_cegui_size<
+				sge::renderer::texture::planar::dim
+			>(
+				*size_
+			)
+			<< FCPPT_TEXT(')')
 	);
 }
 
@@ -113,59 +173,20 @@ sge::cegui::texture::impl()
 }
 
 void
-sge::cegui::texture::init(
-	sge::image::color::format::type const _format,
-	sge::renderer::texture::capabilities_field const &_caps
-)
-{
-	if(
-		this->empty()
-	)
-		return;
-
-	// TODO!
-	texel_scaling_ =
-		CEGUI::Vector2f(
-			static_cast<
-				sge::cegui::unit
-			>(
-				1
-			)
-			/
-			size_->d_width,
-			static_cast<
-				sge::cegui::unit
-			>(
-				1
-			)
-			/
-			size_->d_height
-		);
-
-	texture_.take(
-		texture_parameters_.renderer().create_planar_texture(
-			sge::renderer::texture::planar_parameters(
-				sge::cegui::from_cegui_size<
-					sge::renderer::texture::planar::dim
-				>(
-					*size_
-				),
-				_format,
-				sge::renderer::texture::mipmap::off(),
-				sge::renderer::resource_flags::none,
-				_caps
-			)
-		)
-	);
-}
-
-void
 sge::cegui::texture::create_from_view(
 	sge::image2d::view::const_object const &_view
 )
 {
+	FCPPT_ASSERT_PRE(
+		!texture_
+		&&
+		!size_
+		&&
+		!texel_scaling_
+	);
+
 	size_ =
-		sge::cegui::optional_sizef(
+		sge::cegui::texture::optional_sizef(
 			sge::cegui::to_cegui_size<
 				CEGUI::Sizef::value_type
 			>(
@@ -176,21 +197,10 @@ sge::cegui::texture::create_from_view(
 		);
 
 	texel_scaling_ =
-		CEGUI::Vector2f(
-			static_cast<
-				sge::cegui::unit
-			>(
-				1
+		sge::cegui::texture::optional_vector2f(
+			sge::cegui::texel_scaling(
+				*size_
 			)
-			/
-			size_->d_width,
-			static_cast<
-				sge::cegui::unit
-			>(
-				1
-			)
-			/
-			size_->d_height
 		);
 
 	texture_.take(
@@ -206,6 +216,7 @@ sge::cegui::texture::create_from_view(
 bool
 sge::cegui::texture::empty() const
 {
+	// TODO: is this correct?
 	return
 		!size_
 		||
@@ -243,8 +254,12 @@ sge::cegui::texture::getOriginalDataSize() const
 CEGUI::Vector2f const &
 sge::cegui::texture::getTexelScaling() const
 {
+	FCPPT_ASSERT_PRE(
+		texel_scaling_
+	);
+
 	return
-		texel_scaling_;
+		*texel_scaling_;
 }
 
 void
@@ -303,6 +318,28 @@ sge::cegui::texture::loadFromMemory(
 			<< FCPPT_TEXT(')')
 	);
 
+	FCPPT_ASSERT_PRE(
+		texture_
+		&&
+		size_
+		&&
+		texel_scaling_
+	);
+
+	FCPPT_ASSERT_PRE(
+		sge::cegui::from_cegui_size<
+			sge::renderer::texture::planar::dim
+		>(
+			*size_
+		)
+		==
+		sge::cegui::from_cegui_size<
+			sge::renderer::texture::planar::dim
+		>(
+			_buffer_size
+		)
+	);
+
 	sge::image::color::optional_format const format(
 		sge::cegui::convert_pixel_format(
 			_pixel_format
@@ -313,7 +350,12 @@ sge::cegui::texture::loadFromMemory(
 		format
 	);
 
-	this->create_from_view(
+	sge::renderer::texture::scoped_planar_lock const lock(
+		*texture_,
+		sge::renderer::lock_mode::writeonly
+	);
+
+	sge::image2d::algorithm::copy_and_convert(
 		sge::image2d::view::make_const(
 			static_cast<
 				sge::image::const_raw_pointer
@@ -327,7 +369,9 @@ sge::cegui::texture::loadFromMemory(
 			),
 			*format,
 			sge::image2d::view::optional_pitch()
-		)
+		),
+		lock.value(),
+		sge::image::algorithm::may_overlap::no
 	);
 }
 
