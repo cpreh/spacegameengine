@@ -113,9 +113,6 @@ sge::cegui::geometry_buffer::geometry_buffer(
 	active_texture_(
 		fcppt::null_ptr()
 	),
-	blend_mode_(
-		CEGUI::BM_NORMAL
-	),
 	translation_(
 		sge::renderer::vector3::null()
 	),
@@ -129,7 +126,7 @@ sge::cegui::geometry_buffer::geometry_buffer(
 		0.0f
 	),
 	scissor_area_(
-		sge::renderer::pixel_rect()
+		sge::renderer::pixel_rect::null()
 	),
 	render_context_(
 		_render_context
@@ -188,7 +185,7 @@ sge::cegui::geometry_buffer::draw() const
 	);
 
 	FCPPT_ASSERT_ERROR(
-		blend_mode_
+		this->getBlendMode()
 		!=
 		CEGUI::BM_INVALID
 	);
@@ -198,12 +195,12 @@ sge::cegui::geometry_buffer::draw() const
 		sge::renderer::state::list
 		(
 			sge::cegui::to_source_blend_func(
-				blend_mode_
+				this->getBlendMode()
 			)
 		)
 		(
 			sge::cegui::to_dest_blend_func(
-				blend_mode_
+				this->getBlendMode()
 			)
 		)
 		(
@@ -542,22 +539,6 @@ sge::cegui::geometry_buffer::getRenderEffect()
 {
 	return
 		render_effect_;
-}
-
-void
-sge::cegui::geometry_buffer::setBlendMode(
-	CEGUI::BlendMode const _blend_mode
-)
-{
-	blend_mode_ =
-		_blend_mode;
-}
-
-CEGUI::BlendMode
-sge::cegui::geometry_buffer::getBlendMode() const
-{
-	return
-		blend_mode_;
 }
 
 void

@@ -123,6 +123,25 @@ sge::cegui::texture::init(
 	)
 		return;
 
+	// TODO!
+	texel_scaling_ =
+		CEGUI::Vector2f(
+			static_cast<
+				sge::cegui::unit
+			>(
+				1
+			)
+			/
+			size_->d_width,
+			static_cast<
+				sge::cegui::unit
+			>(
+				1
+			)
+			/
+			size_->d_height
+		);
+
 	texture_.take(
 		texture_parameters_.renderer().create_planar_texture(
 			sge::renderer::texture::planar_parameters(

@@ -43,7 +43,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-// BlendMode comes from Renderer.h which is included by GeometryBuffer :(
 namespace CEGUI
 {
 class Quaternion;
@@ -133,14 +132,6 @@ private:
 	getRenderEffect();
 
 	void
-	setBlendMode(
-		CEGUI::BlendMode const  // const for VC++
-	);
-
-	CEGUI::BlendMode
-	getBlendMode() const;
-
-	void
 	setClippingActive(
 		bool
 	);
@@ -169,8 +160,6 @@ private:
 	sge::renderer::vertex_declaration const &vertex_declaration_;
 
 	sge::cegui::texture *active_texture_;
-
-	CEGUI::BlendMode blend_mode_;
 
 	sge::renderer::vector3 translation_;
 
