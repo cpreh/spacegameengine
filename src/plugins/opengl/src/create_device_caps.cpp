@@ -41,6 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps/max_texture_size.hpp>
 #include <sge/renderer/caps/max_volume_texture_extent.hpp>
 #include <sge/renderer/caps/preferred_texture_format.hpp>
+#include <sge/renderer/caps/render_target_inverted.hpp>
 #include <sge/renderer/caps/render_target_supported.hpp>
 #include <sge/renderer/caps/target_surface_indices.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -96,7 +97,7 @@ sge::opengl::create_device_caps(
 			_context
 		).is_supported()
 	);
-	
+
 	return
 		fcppt::make_unique_ptr<
 			sge::renderer::caps::device
@@ -149,6 +150,9 @@ sge::opengl::create_device_caps(
 					0
 			),
 			render_target_supported,
+			sge::renderer::caps::render_target_inverted(
+				true
+			),
 			sge::renderer::caps::preferred_texture_format(
 				sge::image::color::format::bgra8
 			),

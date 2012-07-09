@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/pixel_rect.hpp>
+#include <sge/renderer/caps/device.hpp>
 #include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/context/object.hpp>
 #include <sge/renderer/projection/far.hpp>
@@ -88,6 +89,9 @@ sge::cegui::texture_target::texture_target(
 	),
 	default_projection_(
 		_projection
+	),
+	is_inverted_(
+		_texture_parameters.renderer().caps().render_target_inverted()
 	)
 {
 	FCPPT_LOG_DEBUG(
@@ -423,5 +427,6 @@ sge::cegui::texture_target::declareRenderSize(
 bool
 sge::cegui::texture_target::isRenderingInverted() const
 {
-	return true; // TODO!
+	return
+		is_inverted_.get();
 }

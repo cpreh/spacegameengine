@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps/max_texture_size.hpp>
 #include <sge/renderer/caps/max_volume_texture_extent.hpp>
 #include <sge/renderer/caps/preferred_texture_format.hpp>
+#include <sge/renderer/caps/render_target_inverted.hpp>
 #include <sge/renderer/caps/render_target_supported.hpp>
 #include <sge/renderer/caps/target_surface_indices.hpp>
 #include <sge/renderer/caps/texture_stages.hpp>
@@ -73,6 +74,7 @@ public:
 		sge::renderer::caps::max_volume_texture_extent,
 		sge::renderer::caps::max_anisotropy,
 		sge::renderer::caps::render_target_supported,
+		sge::renderer::caps::render_target_inverted,
 		sge::renderer::caps::preferred_texture_format,
 		sge::renderer::caps::clip_plane_indices,
 		sge::renderer::caps::light_indices,
@@ -146,7 +148,7 @@ public:
 	max_anisotropy() const;
 
 	/**
-	 * \brief Returns if render target are supported
+	 * \brief Returns if render targets are supported
 	 *
 	 * If no render targets are supported, then you cannot use
 	 * renderer::device::create_target.
@@ -154,6 +156,15 @@ public:
 	SGE_RENDERER_SYMBOL
 	sge::renderer::caps::render_target_supported const
 	render_target_supported() const;
+
+	/**
+	 * \brief Returns if render targets are inverted
+	 *
+	 * If render targets are not supported, this value has no meaning.
+	*/
+	SGE_RENDERER_SYMBOL
+	sge::renderer::caps::render_target_inverted const
+	render_target_inverted() const;
 
 	/**
 	 * \brief Returns the preferred texture format
@@ -222,6 +233,8 @@ private:
 	sge::renderer::caps::max_anisotropy const max_anisotropy_;
 
 	sge::renderer::caps::render_target_supported const render_target_supported_;
+
+	sge::renderer::caps::render_target_inverted const render_target_inverted_;
 
 	sge::renderer::caps::preferred_texture_format const preferred_texture_format_;
 

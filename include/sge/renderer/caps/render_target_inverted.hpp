@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_CAPS_RENDER_TARGET_SUPPORTED_HPP_INCLUDED
-#define SGE_RENDERER_CAPS_RENDER_TARGET_SUPPORTED_HPP_INCLUDED
+#ifndef SGE_RENDERER_CAPS_RENDER_TARGET_INVERTED_HPP_INCLUDED
+#define SGE_RENDERER_CAPS_RENDER_TARGET_INVERTED_HPP_INCLUDED
 
 #include <fcppt/strong_typedef.hpp>
 
@@ -32,11 +32,11 @@ namespace caps
 {
 
 /**
-\brief A strong typedef for a bool telling if render targets are supported
+\brief A strong typedef for a bool telling if render targets are inverted
 */
 FCPPT_MAKE_STRONG_TYPEDEF(
 	bool,
-	render_target_supported
+	render_target_inverted
 );
 
 }
