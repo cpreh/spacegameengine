@@ -216,14 +216,8 @@ sge::cegui::texture::create_from_view(
 bool
 sge::cegui::texture::empty() const
 {
-	// TODO: is this correct?
 	return
-		!size_
-		||
-		size_->d_width < 0.01f
-		||
-		size_->d_height < 0.01f
-		;
+		!texture_;
 }
 
 CEGUI::String const  &

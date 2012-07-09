@@ -360,38 +360,58 @@ sge::cegui::texture_target::declareRenderSize(
 		)
 	);
 
-	texture_.take(
-		fcppt::make_unique_ptr<
-			sge::cegui::texture
-		>(
-			fcppt::ref(
-				texture_parameters_
-			),
-			CEGUI::String(
-				"sge texture target"
-			),
-			_size,
-			sge::renderer::texture::capabilities_field(
-				sge::renderer::texture::capabilities::render_target
-			)
-		)
+	CEGUI::String const texture_name(
+		"sge texture target"
 	);
 
-	target_->color_surface(
 	// The size here could be (0,0), for example if the viewport hasn't
-	// been initialized yet. If that's the case, we shouldn't switch
-		texture_->empty()
+	// been initialized yet. If that's the case, create an empty texture.
+
+	texture_.take(
+		sge::cegui::from_cegui_size<
+			sge::renderer::dim2
+		>(
+			_size
+		)
+		==
+		sge::renderer::dim2::null()
 		?
-			sge::renderer::color_surface_shared_ptr()
+			fcppt::make_unique_ptr<
+				sge::cegui::texture
+			>(
+				fcppt::ref(
+					texture_parameters_
+				),
+				texture_name
+			)
 		:
-			sge::renderer::color_surface_shared_ptr(
-				texture_->impl().surface(
-					sge::renderer::texture::mipmap::level(
-						0u
-					)
+			fcppt::make_unique_ptr<
+				sge::cegui::texture
+			>(
+				fcppt::ref(
+					texture_parameters_
+				),
+				texture_name,
+				_size,
+				sge::renderer::texture::capabilities_field(
+					sge::renderer::texture::capabilities::render_target
 				)
 			)
-		,
+	);
+
+	if(
+		texture_->empty()
+	)
+		return;
+
+	target_->color_surface(
+		sge::renderer::color_surface_shared_ptr(
+			texture_->impl().surface(
+				sge::renderer::texture::mipmap::level(
+					0u
+				)
+			)
+		),
 		sge::renderer::target::surface_index(
 			0u
 		)
