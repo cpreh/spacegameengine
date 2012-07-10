@@ -154,6 +154,7 @@ enum type
 	sleep,
 	stop,
 	sysrq,
+	print = sysrq,
 	unlabeled,
 	yen,
 	unknown
