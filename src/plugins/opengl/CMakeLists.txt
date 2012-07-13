@@ -62,7 +62,6 @@ set(
 	src/plugins/opengl/include/sge/opengl/context/system/object_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/context/use.hpp
 	src/plugins/opengl/include/sge/opengl/context/use_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/convert/best_color_format.hpp
 	src/plugins/opengl/include/sge/opengl/convert/clip_plane_index.hpp
 	src/plugins/opengl/include/sge/opengl/convert/color_to_format.hpp
 	src/plugins/opengl/include/sge/opengl/convert/color_to_format_type.hpp
@@ -255,6 +254,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/texture/bind_type.hpp
 	src/plugins/opengl/include/sge/opengl/texture/binding.hpp
 	src/plugins/opengl/include/sge/opengl/texture/binding_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/texture/check_color_format.hpp
 	src/plugins/opengl/include/sge/opengl/texture/check_dim.hpp
 	src/plugins/opengl/include/sge/opengl/texture/context.hpp
 	src/plugins/opengl/include/sge/opengl/texture/convert/address_mode.hpp
@@ -433,7 +433,6 @@ set(
 	src/plugins/opengl/src/context/system/id.cpp
 	src/plugins/opengl/src/context/system/make_id.cpp
 	src/plugins/opengl/src/context/system/object.cpp
-	src/plugins/opengl/src/convert/best_color_format.cpp
 	src/plugins/opengl/src/convert/clip_plane_index.cpp
 	src/plugins/opengl/src/convert/color_to_format.cpp
 	src/plugins/opengl/src/convert/color_to_format_type.cpp
@@ -581,6 +580,7 @@ set(
 	src/plugins/opengl/src/texture/base.cpp
 	src/plugins/opengl/src/texture/bind_level.cpp
 	src/plugins/opengl/src/texture/binding.cpp
+	src/plugins/opengl/src/texture/check_color_format.cpp
 	src/plugins/opengl/src/texture/check_dim.cpp
 	src/plugins/opengl/src/texture/context.cpp
 	src/plugins/opengl/src/texture/convert/address_mode.cpp

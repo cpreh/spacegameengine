@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image3d/box.hpp>
 #include <sge/image3d/dim.hpp>
 #include <sge/image3d/l8.hpp>
-#include <sge/image3d/algorithm/copy_and_convert.hpp>
+#include <sge/image3d/algorithm/copy.hpp>
 #include <sge/image3d/algorithm/fill.hpp>
 #include <sge/image3d/view/const_object.hpp>
 #include <sge/image3d/view/object.hpp>
@@ -580,7 +580,7 @@ create_checkers_texture(
 				x < num_blocks;
 				++x
 			)
-				sge::image3d::algorithm::copy_and_convert(
+				sge::image3d::algorithm::copy(
 					sge::image3d::view::to_const(
 						sge::image3d::view::object(
 							(((x + y + z) % 2u) == 0u)

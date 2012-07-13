@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_BASIC_IMPL_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_BASIC_IMPL_HPP_INCLUDED
 
-#include <sge/image/algorithm/copy_and_convert.hpp>
+#include <sge/image/algorithm/copy.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/color/format_stride.hpp>
 #include <sge/image/view/flipped.hpp>
@@ -30,11 +30,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/view/to_const.hpp>
 #include <sge/opengl/range_check.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/opengl/convert/best_color_format.hpp>
 #include <sge/opengl/convert/color_to_format.hpp>
 #include <sge/opengl/convert/color_to_format_type.hpp>
 #include <sge/opengl/convert/color_to_internal_format.hpp>
 #include <sge/opengl/texture/basic.hpp>
+#include <sge/opengl/texture/check_color_format.hpp>
 #include <sge/opengl/texture/check_dim.hpp>
 #include <sge/opengl/texture/create_lock.hpp>
 #include <sge/opengl/texture/scoped_work_binding.hpp>
@@ -129,7 +129,7 @@ sge::opengl::texture::basic<Types>::unlock() const
 		)
 		{
 			// this will only copy, not convert!
-			sge::image::algorithm::copy_and_convert<
+			sge::image::algorithm::copy<
 				image_tag
 			>(
 				this->lock_view(),
@@ -428,7 +428,7 @@ sge::opengl::texture::basic<Types>::basic(
 		_parameters.size()
 	),
 	color_type_(
-		opengl::convert::best_color_format(
+		sge::opengl::texture::check_color_format(
 			_parameters.format()
 		)
 	),
