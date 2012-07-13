@@ -40,13 +40,13 @@ template<
 SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 void
 copy_and_convert(
-	typename image::traits::const_view<
+	typename sge::image::traits::const_view<
 		Tag
 	>::type const &,
-	typename image::traits::view<
+	typename sge::image::traits::view<
 		Tag
 	>::type const &,
-	image::algorithm::may_overlap::type
+	sge::image::algorithm::may_overlap::type
 );
 
 }

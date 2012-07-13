@@ -46,7 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/l8.hpp>
 #include <sge/image2d/rect.hpp>
-#include <sge/image2d/algorithm/copy_and_convert.hpp>
+#include <sge/image2d/algorithm/copy.hpp>
 #include <sge/image2d/algorithm/fill.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/object.hpp>
@@ -374,7 +374,7 @@ try
 				x < num_blocks;
 				++x
 			)
-				sge::image2d::algorithm::copy_and_convert(
+				sge::image2d::algorithm::copy(
 					sge::image2d::view::to_const(
 						sge::image2d::view::object(
 							(((x + y) % 2u) == 0u)

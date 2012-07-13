@@ -18,19 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_SIZE_TYPE_HPP_INCLUDED
-#define SGE_IMAGE_SIZE_TYPE_HPP_INCLUDED
+#ifndef SGE_IMAGE2D_ALGORITHM_COPY_HPP_INCLUDED
+#define SGE_IMAGE2D_ALGORITHM_COPY_HPP_INCLUDED
 
-#include <mizuiro/size_type.hpp>
+#include <sge/image/algorithm/may_overlap.hpp>
+#include <sge/image2d/symbol.hpp>
+#include <sge/image2d/view/const_object_fwd.hpp>
+#include <sge/image2d/view/object_fwd.hpp>
 
 
 namespace sge
 {
-namespace image
+namespace image2d
+{
+namespace algorithm
 {
 
-typedef mizuiro::size_type size_type;
+SGE_IMAGE2D_SYMBOL
+void
+copy(
+	sge::image2d::view::const_object const &src,
+	sge::image2d::view::object const &dest,
+	sge::image::algorithm::may_overlap::type
+);
 
+}
 }
 }
 

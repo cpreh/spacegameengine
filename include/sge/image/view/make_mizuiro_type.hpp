@@ -18,27 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_IMAGE_DYNAMIC_VIEW_BASIC_ELEMENTS_HPP_INCLUDED
-#define SGE_SRC_IMAGE_DYNAMIC_VIEW_BASIC_ELEMENTS_HPP_INCLUDED
+#ifndef SGE_IMAGE_VIEW_MAKE_MIZUIRO_TYPE_HPP_INCLUDED
+#define SGE_IMAGE_VIEW_MAKE_MIZUIRO_TYPE_HPP_INCLUDED
 
-#include <sge/image/integral_size.hpp>
-#include <sge/image/size_type.hpp>
-#include <sge/image/view/make_mizuiro_type.hpp>
-#include <sge/src/image/dynamic/color/formats.hpp>
+#include <sge/image/basic_format.hpp>
+#include <sge/image/view/mizuiro_type.hpp>
+#include <mizuiro/color/access/homogenous_raw.hpp>
+#include <mizuiro/color/types/homogenous.hpp>
+#include <mizuiro/color/types/homogenous_raw.hpp>
+#include <mizuiro/image/view_impl.hpp>
+#include <mizuiro/image/access/interleaved.hpp>
+#include <mizuiro/image/types/interleaved.hpp>
+#include <mizuiro/image/types/interleaved_raw.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/placeholders.hpp>
-#include <boost/mpl/transform.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
 {
 namespace image
-{
-namespace dynamic
 {
 namespace view
 {
@@ -47,27 +46,24 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
-	sge::image::size_type Dim,
+	typename ColorFormat,
+	typename Dim,
 	typename Constness
 >
-struct basic_elements
+struct make_mizuiro_type
 :
-boost::mpl::transform<
-	dynamic::color::formats,
-	sge::image::view::make_mizuiro_type<
-		boost::mpl::_1,
-		sge::image::integral_size<
-			Dim
-		>,
-		Constness
-	>
+sge::image::view::mizuiro_type<
+	typename sge::image::basic_format<
+		Dim::value,
+		ColorFormat
+	>::type,
+	Constness
 >
 {
 };
 
 FCPPT_PP_POP_WARNING
 
-}
 }
 }
 }

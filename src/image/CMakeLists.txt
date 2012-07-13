@@ -1,6 +1,7 @@
 set(
 	SGE_IMAGE_FILES
 	include/sge/image/a8_format.hpp
+	include/sge/image/algorithm/copy.hpp
 	include/sge/image/algorithm/copy_and_convert.hpp
 	include/sge/image/algorithm/fill.hpp
 	include/sge/image/algorithm/may_overlap.hpp
@@ -71,6 +72,7 @@ set(
 	include/sge/image/exception.hpp
 	include/sge/image/exception_fwd.hpp
 	include/sge/image/file_exception.hpp
+	include/sge/image/integral_size.hpp
 	include/sge/image/l8_format.hpp
 	include/sge/image/la8_format.hpp
 	include/sge/image/optional_path.hpp
@@ -107,6 +109,7 @@ set(
 	include/sge/image/view/format.hpp
 	include/sge/image/view/make.hpp
 	include/sge/image/view/make_const.hpp
+	include/sge/image/view/make_mizuiro_type.hpp
 	include/sge/image/view/mizuiro_access.hpp
 	include/sge/image/view/mizuiro_type.hpp
 	include/sge/image/view/object.hpp
@@ -144,8 +147,11 @@ set(
 	src/image/file_exception.cpp
 	src/image/include/sge/src/image/algorithm/copy_and_convert_impl.hpp
 	src/image/include/sge/src/image/algorithm/copy_and_convert_visitor.hpp
+	src/image/include/sge/src/image/algorithm/copy_impl.hpp
+	src/image/include/sge/src/image/algorithm/copy_visitor.hpp
 	src/image/include/sge/src/image/algorithm/fill_impl.hpp
 	src/image/include/sge/src/image/algorithm/fill_visitor.hpp
+	src/image/include/sge/src/image/algorithm/instantiate_copy.hpp
 	src/image/include/sge/src/image/algorithm/instantiate_copy_and_convert.hpp
 	src/image/include/sge/src/image/algorithm/instantiate_fill.hpp
 	src/image/include/sge/src/image/algorithm/instantiate_print.hpp

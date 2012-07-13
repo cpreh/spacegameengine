@@ -18,20 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_SIZE_TYPE_HPP_INCLUDED
-#define SGE_IMAGE_SIZE_TYPE_HPP_INCLUDED
+#ifndef SGE_SRC_IMAGE_ALGORITHM_INSTANTIATE_COPY_HPP_INCLUDED
+#define SGE_SRC_IMAGE_ALGORITHM_INSTANTIATE_COPY_HPP_INCLUDED
 
-#include <mizuiro/size_type.hpp>
+#include <sge/image/algorithm/may_overlap.hpp>
+#include <sge/image/traits/const_view.hpp>
+#include <sge/image/traits/view.hpp>
+#include <sge/src/export_function_instantiation.hpp>
+#include <sge/src/image/algorithm/copy_impl.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-
-typedef mizuiro::size_type size_type;
-
-}
-}
+#define SGE_SRC_IMAGE_ALGORITHM_INSTANTIATE_COPY(\
+	tag\
+)\
+template \
+SGE_EXPORT_FUNCTION_INSTANTIATION \
+void \
+sge::image::algorithm::copy< \
+	tag \
+>( \
+	sge::image::traits::const_view<\
+		tag\
+	>::type const &, \
+	sge::image::traits::view<\
+		tag\
+	>::type const &, \
+	sge::image::algorithm::may_overlap::type \
+);
 
 #endif

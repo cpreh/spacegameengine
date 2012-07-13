@@ -18,20 +18,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_SIZE_TYPE_HPP_INCLUDED
-#define SGE_IMAGE_SIZE_TYPE_HPP_INCLUDED
+#ifndef SGE_SRC_IMAGE_ALGORITHM_COPY_IMPL_HPP_INCLUDED
+#define SGE_SRC_IMAGE_ALGORITHM_COPY_IMPL_HPP_INCLUDED
 
-#include <mizuiro/size_type.hpp>
+#include <sge/image/algorithm/copy.hpp>
+#include <sge/image/algorithm/may_overlap.hpp>
+#include <sge/image/traits/const_view.hpp>
+#include <sge/image/traits/view.hpp>
+#include <sge/src/image/algorithm/copy_visitor.hpp>
+#include <fcppt/variant/apply_binary.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
 
-namespace sge
+template<
+	typename Tag
+>
+void
+sge::image::algorithm::copy(
+	typename sge::image::traits::const_view<
+		Tag
+	>::type const &_src,
+	typename sge::image::traits::view<
+		Tag
+	>::type const &_dest,
+	sge::image::algorithm::may_overlap::type const _overlap
+)
 {
-namespace image
-{
-
-typedef mizuiro::size_type size_type;
-
-}
+	fcppt::variant::apply_unary(
+		sge::image::algorithm::copy_visitor<
+			Tag
+		>(
+			_dest,
+			_overlap
+		),
+		_src.get()
+	);
 }
 
 #endif

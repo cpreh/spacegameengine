@@ -37,9 +37,9 @@ namespace algorithm
 SGE_IMAGE2D_SYMBOL
 void
 copy_and_convert(
-	view::const_object const &src,
-	view::object const &dest,
-	image::algorithm::may_overlap::type
+	sge::image2d::view::const_object const &src,
+	sge::image2d::view::object const &dest,
+	sge::image::algorithm::may_overlap::type
 );
 
 }

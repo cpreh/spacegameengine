@@ -21,14 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_VIEW_ELEMENT_BASE_HPP_INCLUDED
 #define SGE_IMAGE_VIEW_ELEMENT_BASE_HPP_INCLUDED
 
+#include <sge/image/integral_size.hpp>
 #include <sge/image/size_type.hpp>
-#include <sge/image/view/mizuiro_type.hpp>
+#include <sge/image/view/make_mizuiro_type.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/integral_c.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -48,10 +46,9 @@ template<
 >
 struct element_base
 :
-sge::image::view::mizuiro_type<
+sge::image::view::make_mizuiro_type<
 	ColorFormat,
-	boost::mpl::integral_c<
-		sge::image::size_type,
+	sge::image::integral_size<
 		Dim
 	>,
 	Constness
