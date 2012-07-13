@@ -22,11 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_IMAGE_ALGORITHM_COPY_IMPL_HPP_INCLUDED
 
 #include <sge/image/algorithm/copy.hpp>
+#include <sge/image/algorithm/invalid_copy.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/traits/const_view.hpp>
 #include <sge/image/traits/view.hpp>
+#include <sge/image/view/format.hpp>
 #include <sge/src/image/algorithm/copy_visitor.hpp>
 #include <fcppt/variant/apply_binary.hpp>
+#include <fcppt/variant/invalid_get.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
 
@@ -43,6 +46,7 @@ sge::image::algorithm::copy(
 	>::type const &_dest,
 	sge::image::algorithm::may_overlap::type const _overlap
 )
+try
 {
 	fcppt::variant::apply_unary(
 		sge::image::algorithm::copy_visitor<
@@ -52,6 +56,23 @@ sge::image::algorithm::copy(
 			_overlap
 		),
 		_src.get()
+	);
+}
+catch(
+	fcppt::variant::invalid_get const &
+)
+{
+	throw sge::image::algorithm::invalid_copy(
+		sge::image::view::format<
+			Tag
+		>(
+			_src
+		),
+		sge::image::view::format<
+			Tag
+		>(
+			_dest
+		)
 	);
 }
 

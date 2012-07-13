@@ -4,6 +4,7 @@ set(
 	include/sge/image/algorithm/copy.hpp
 	include/sge/image/algorithm/copy_and_convert.hpp
 	include/sge/image/algorithm/fill.hpp
+	include/sge/image/algorithm/invalid_copy.hpp
 	include/sge/image/algorithm/may_overlap.hpp
 	include/sge/image/algorithm/print.hpp
 	include/sge/image/basic_format.hpp
@@ -120,6 +121,7 @@ set(
 	include/sge/image/view/to_const.hpp
 	include/sge/image/view/wrap.hpp
 	include/sge/image/view/wrapped_type.hpp
+	src/image/algorithm/invalid_copy.cpp
 	src/image/color/any/convert.cpp
 	src/image/color/any/object.cpp
 	src/image/color/any/print.cpp
