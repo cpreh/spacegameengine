@@ -18,11 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TEXTURE_POS_TYPE_HPP_INCLUDED
-#define SGE_TEXTURE_POS_TYPE_HPP_INCLUDED
+#ifndef SGE_TEXTURE_POS_TYPE_FWD_HPP_INCLUDED
+#define SGE_TEXTURE_POS_TYPE_FWD_HPP_INCLUDED
 
-#include <sge/texture/pos_type_fwd.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
+#include <sge/renderer/size_type.hpp>
+#include <fcppt/math/vector/static.hpp>
 
+
+namespace sge
+{
+namespace texture
+{
+
+typedef fcppt::math::vector::static_<
+	sge::renderer::size_type,
+	2u
+>::type pos_type;
+
+}
+}
 
 #endif

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
-#include <sge/texture/pos_type.hpp>
+#include <sge/texture/pos_type_fwd.hpp>
 #include <sge/texture/symbol.hpp>
 
 
@@ -35,9 +35,9 @@ namespace texture
 SGE_TEXTURE_SYMBOL
 void
 sub_data(
-	renderer::texture::planar &,
-	image2d::view::const_object const &,
-	texture::pos_type const &
+	sge::renderer::texture::planar &,
+	sge::image2d::view::const_object const &,
+	sge::texture::pos_type const &
 );
 
 }

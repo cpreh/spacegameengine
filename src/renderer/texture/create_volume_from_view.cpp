@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/algorithm/may_overlap.hpp>
-#include <sge/image3d/algorithm/copy_and_convert.hpp>
+#include <sge/image3d/algorithm/copy.hpp>
 #include <sge/image3d/view/const_object_fwd.hpp>
 #include <sge/image3d/view/format.hpp>
 #include <sge/image3d/view/size.hpp>
@@ -38,13 +38,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer::texture::volume_unique_ptr
 sge::renderer::texture::create_volume_from_view(
-	renderer::device &_renderer,
+	sge::renderer::device &_renderer,
 	sge::image3d::view::const_object const &_view,
-	texture::mipmap::object const &_mipmap,
-	renderer::resource_flags_field const &_resource_flags
+	sge::renderer::texture::mipmap::object const &_mipmap,
+	sge::renderer::resource_flags_field const &_resource_flags
 )
 {
-	texture::volume_unique_ptr tex(
+	sge::renderer::texture::volume_unique_ptr tex(
 		_renderer.create_volume_texture(
 			sge::renderer::texture::volume_parameters(
 				sge::image3d::view::size(
@@ -55,17 +55,17 @@ sge::renderer::texture::create_volume_from_view(
 				),
 				_mipmap,
 				_resource_flags,
-				renderer::texture::capabilities_field::null()
+				sge::renderer::texture::capabilities_field::null()
 			)
 		)
 	);
 
-	renderer::texture::scoped_volume_lock const lock(
+	sge::renderer::texture::scoped_volume_lock const lock(
 		*tex,
-		renderer::lock_mode::writeonly
+		sge::renderer::lock_mode::writeonly
 	);
 
-	image3d::algorithm::copy_and_convert(
+	sge::image3d::algorithm::copy(
 		_view,
 		lock.value(),
 		sge::image::algorithm::may_overlap::no

@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/format.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/pitch.hpp>
-#include <sge/image2d/algorithm/copy_and_convert.hpp>
+#include <sge/image2d/algorithm/copy.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/make_const.hpp>
 #include <sge/image2d/view/object.hpp>
@@ -164,7 +164,7 @@ sge::freetype::char_metric::char_metric(
 		dim
 	);
 
-	sge::image2d::algorithm::copy_and_convert(
+	sge::image2d::algorithm::copy(
 		sge::image2d::view::make_const(
 			static_cast<
 				unsigned char const *

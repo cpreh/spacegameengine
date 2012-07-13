@@ -19,34 +19,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/algorithm/may_overlap.hpp>
-#include <sge/image2d/algorithm/copy_and_convert.hpp>
+#include <sge/image2d/algorithm/copy.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/size.hpp>
+#include <sge/renderer/lock_mode.hpp>
+#include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/scoped_planar_lock.hpp>
+#include <sge/texture/pos_type.hpp>
 #include <sge/texture/sub_data.hpp>
-#include <fcppt/math/box/object_impl.hpp>
 
 
 void
 sge::texture::sub_data(
-	renderer::texture::planar &_texture,
-	image2d::view::const_object const &_view,
-	texture::pos_type const &_pos
+	sge::renderer::texture::planar &_texture,
+	sge::image2d::view::const_object const &_view,
+	sge::texture::pos_type const &_pos
 )
 {
-	renderer::texture::scoped_planar_lock const lock(
+	sge::renderer::texture::scoped_planar_lock const lock(
 		_texture,
-		renderer::lock_rect(
+		sge::renderer::lock_rect(
 			_pos,
-			image2d::view::size(
+			sge::image2d::view::size(
 				_view
 			)
 		),
-		renderer::lock_mode::writeonly
+		sge::renderer::lock_mode::writeonly
 	);
 
-	image2d::algorithm::copy_and_convert(
+	sge::image2d::algorithm::copy(
 		_view,
 		lock.value(),
 		sge::image::algorithm::may_overlap::no
