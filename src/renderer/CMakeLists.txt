@@ -74,6 +74,8 @@ set(
 	include/sge/renderer/context/scoped_fwd.hpp
 	include/sge/renderer/context/scoped_offscreen_target.hpp
 	include/sge/renderer/context/scoped_offscreen_target_fwd.hpp
+	include/sge/renderer/context/scoped_scoped_ptr.hpp
+	include/sge/renderer/context/scoped_unique_ptr.hpp
 	include/sge/renderer/create_index_buffer_from_view.hpp
 	include/sge/renderer/create_vertex_buffer_from_view.hpp
 	include/sge/renderer/depth_buffer_bits.hpp
