@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/device/object.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/renderer/config.hpp>
-#include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/depth_stencil_format.hpp>
 #include <sge/renderer/depth_stencil_surface_unique_ptr.hpp>
 #include <sge/renderer/device.hpp>
@@ -194,8 +193,6 @@ private:
 	sge::opengl::context::system::object &system_context_;
 
 	sge::opengl::context::device::object device_context_;
-
-	sge::renderer::depth_stencil_buffer::type const depth_stencil_buffer_;
 
 	sge::renderer::caps::device const &caps_;
 

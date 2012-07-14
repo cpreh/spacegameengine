@@ -28,7 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/clip_plane_index.hpp>
 #include <sge/renderer/config.hpp>
 #include <sge/renderer/const_optional_vertex_declaration_ref_fwd.hpp>
-#include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/first_index.hpp>
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/index_buffer_fwd.hpp>
@@ -85,8 +84,7 @@ public:
 	object(
 		sge::opengl::context::system::object &,
 		sge::opengl::context::device::object &,
-		sge::renderer::target::base &,
-		sge::renderer::depth_stencil_buffer::type
+		sge::renderer::target::base &
 	);
 
 	~object();
@@ -256,8 +254,6 @@ private:
 	sge::opengl::context::system::object &system_context_;
 
 	sge::opengl::context::device::object &device_context_;
-
-	sge::renderer::depth_stencil_buffer::type const depth_stencil_buffer_;
 
 	sge::renderer::target::base &target_;
 

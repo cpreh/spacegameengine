@@ -23,9 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/disable.hpp>
 #include <sge/opengl/enable.hpp>
 #include <sge/opengl/state/convert/stencil_func.hpp>
-#include <sge/opengl/state/deferred/parameters.hpp>
 #include <sge/opengl/state/deferred/stencil_func.hpp>
-#include <sge/renderer/buffer_has_stencil.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/state/extract.hpp>
 #include <sge/renderer/state/extract_trampoline.hpp>
@@ -38,7 +36,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::state::deferred::stencil_func(
-	deferred::parameters const &_parameters,
 	sge::renderer::state::list const &_list
 )
 {
@@ -60,16 +57,6 @@ sge::opengl::state::deferred::stencil_func(
 
 		return;
 	}
-
-	if(
-		!sge::renderer::buffer_has_stencil(
-			_parameters.depth_stencil_buffer()
-		)
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("You tried to use a stencil_func besides stencil_func::off.")
-			FCPPT_TEXT(" This will only work if you request a stencil buffer in renderer::parameters!")
-		);
 
 	opengl::enable(
 		GL_STENCIL_TEST

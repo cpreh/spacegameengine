@@ -210,8 +210,6 @@ set(
 	src/plugins/opengl/include/sge/opengl/state/deferred/color_write.hpp
 	src/plugins/opengl/include/sge/opengl/state/deferred/object.hpp
 	src/plugins/opengl/include/sge/opengl/state/deferred/object_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/state/deferred/parameters.hpp
-	src/plugins/opengl/include/sge/opengl/state/deferred/parameters_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/state/deferred/stencil_func.hpp
 	src/plugins/opengl/include/sge/opengl/state/deferred/stencil_op.hpp
 	src/plugins/opengl/include/sge/opengl/state/depth_func.hpp
@@ -550,7 +548,6 @@ set(
 	src/plugins/opengl/src/state/deferred/blend_func.cpp
 	src/plugins/opengl/src/state/deferred/color_write.cpp
 	src/plugins/opengl/src/state/deferred/object.cpp
-	src/plugins/opengl/src/state/deferred/parameters.cpp
 	src/plugins/opengl/src/state/deferred/stencil_func.cpp
 	src/plugins/opengl/src/state/deferred/stencil_op.cpp
 	src/plugins/opengl/src/state/depth_func.cpp

@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/depth_func.hpp>
 #include <sge/opengl/state/parameters.hpp>
 #include <sge/opengl/state/convert/depth_func.hpp>
-#include <sge/renderer/buffer_has_depth.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/state/depth_func.hpp>
 #include <fcppt/text.hpp>
@@ -33,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::state::depth_func(
-	state::parameters const &_parameters,
+	state::parameters const &,
 	renderer::state::depth_func::type const _func
 )
 {
@@ -47,18 +46,6 @@ sge::opengl::state::depth_func(
 
 		return;
 	}
-
-	/*
-	if(
-		!sge::renderer::buffer_has_depth(
-			_parameters.depth_stencil_buffer()
-		)
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("You tried to use a depth_func besides depth_func::off.")
-			FCPPT_TEXT(" This will only work if you request a depth buffer in renderer::parameters!")
-		);
-		*/
 
 	opengl::enable(
 		GL_DEPTH_TEST

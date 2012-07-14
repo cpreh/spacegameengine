@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_STATE_DEFERRED_ALPHA_TEST_HPP_INCLUDED
 #define SGE_OPENGL_STATE_DEFERRED_ALPHA_TEST_HPP_INCLUDED
 
-#include <sge/opengl/state/deferred/parameters_fwd.hpp>
 #include <sge/renderer/state/list_fwd.hpp>
 
 namespace sge
@@ -35,7 +34,6 @@ namespace deferred
 
 void
 alpha_test(
-	deferred::parameters const &,
 	sge::renderer::state::list const &
 );
 

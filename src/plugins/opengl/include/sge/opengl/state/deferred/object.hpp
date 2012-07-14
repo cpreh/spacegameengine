@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/state/deferred/bundle.hpp>
 #include <sge/opengl/state/deferred/object_fwd.hpp>
-#include <sge/opengl/state/deferred/parameters.hpp>
 #include <sge/renderer/state/list_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -46,9 +45,7 @@ class object
 		object
 	);
 public:
-	explicit object(
-		deferred::parameters const &
-	);
+	object();
 
 	~object();
 
@@ -62,8 +59,6 @@ public:
 		sge::renderer::state::list const &
 	);
 private:
-	deferred::parameters const parameters_;
-
 	typedef std::set<
 		deferred::bundle::type
 	> bundle_set;

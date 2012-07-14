@@ -106,9 +106,6 @@ sge::opengl::device::device(
 		_system_context
 	),
 	device_context_(),
-	depth_stencil_buffer_(
-		_parameters.depth_stencil_buffer()
-	),
 	caps_(
 		_caps
 	),
@@ -156,8 +153,7 @@ sge::opengl::device::begin_rendering(
 		sge::opengl::render_context::create(
 			system_context_,
 			device_context_,
-			_target,
-			depth_stencil_buffer_
+			_target
 		);
 }
 

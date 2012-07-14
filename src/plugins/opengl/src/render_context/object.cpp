@@ -92,8 +92,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::opengl::render_context::object::object(
 	sge::opengl::context::system::object &_system_context,
 	sge::opengl::context::device::object &_device_context,
-	sge::renderer::target::base &_target,
-	sge::renderer::depth_stencil_buffer::type const _depth_stencil_buffer
+	sge::renderer::target::base &_target
 )
 :
 	system_context_(
@@ -101,9 +100,6 @@ sge::opengl::render_context::object::object(
 	),
 	device_context_(
 		_device_context
-	),
-	depth_stencil_buffer_(
-		_depth_stencil_buffer
 	),
 	target_(
 		_target
@@ -270,8 +266,7 @@ sge::opengl::render_context::object::state(
 	sge::opengl::state::apply(
 		system_context_,
 		current_states_,
-		_states,
-		depth_stencil_buffer_
+		_states
 	);
 }
 

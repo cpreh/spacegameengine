@@ -22,11 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/deferred/object.hpp>
 
 
-sge::opengl::state::deferred::object::object(
-	deferred::parameters const &_parameters
-)
+sge::opengl::state::deferred::object::object()
 :
-	parameters_(_parameters),
 	set_()
 {
 }
@@ -58,7 +55,6 @@ sge::opengl::state::deferred::object::update(
 		++it
 	)
 		deferred::apply(
-			parameters_,
 			*it,
 			_list
 		);

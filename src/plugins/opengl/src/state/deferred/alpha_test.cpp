@@ -35,7 +35,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::state::deferred::alpha_test(
-	deferred::parameters const &,
 	sge::renderer::state::list const &_list
 )
 {

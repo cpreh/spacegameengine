@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_STATE_DEFERRED_APPLY_HPP_INCLUDED
 
 #include <sge/opengl/state/deferred/bundle.hpp>
-#include <sge/opengl/state/deferred/parameters_fwd.hpp>
 #include <sge/renderer/state/list_fwd.hpp>
 
 namespace sge
@@ -36,7 +35,6 @@ namespace deferred
 
 void
 apply(
-	deferred::parameters const &,
 	deferred::bundle::type,
 	sge::renderer::state::list const &
 );

@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_STATE_APPLY_HPP_INCLUDED
 
 #include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/state/list_fwd.hpp>
 
 
@@ -37,8 +36,7 @@ void
 apply(
 	sge::opengl::context::system::object &,
 	sge::renderer::state::list &current_states,
-	sge::renderer::state::list const &new_states,
-	sge::renderer::depth_stencil_buffer::type
+	sge::renderer::state::list const &new_states
 );
 
 }

@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/deferred/blend_func.hpp>
 #include <sge/opengl/state/deferred/bundle.hpp>
 #include <sge/opengl/state/deferred/color_write.hpp>
-#include <sge/opengl/state/deferred/parameters_fwd.hpp>
 #include <sge/opengl/state/deferred/stencil_func.hpp>
 #include <sge/opengl/state/deferred/stencil_op.hpp>
 #include <sge/renderer/state/list_fwd.hpp>
@@ -32,7 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::state::deferred::apply(
-	deferred::parameters const &_parameters,
 	deferred::bundle::type const _bundle,
 	sge::renderer::state::list const &_list
 )
@@ -43,35 +41,30 @@ sge::opengl::state::deferred::apply(
 	{
 	case deferred::bundle::alpha_test:
 		deferred::alpha_test(
-			_parameters,
 			_list
 		);
 
 		return;
 	case deferred::bundle::blend_func:
 		deferred::blend_func(
-			_parameters,
 			_list
 		);
 
 		return;
 	case deferred::bundle::color_write:
 		deferred::color_write(
-			_parameters,
 			_list
 		);
 
 		return;
 	case deferred::bundle::stencil_func:
 		deferred::stencil_func(
-			_parameters,
 			_list
 		);
 
 		return;
 	case deferred::bundle::stencil_op:
 		deferred::stencil_op(
-			_parameters,
 			_list
 		);
 

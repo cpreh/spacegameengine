@@ -15,8 +15,6 @@ set(
 	include/sge/renderer/bit_depth.hpp
 	include/sge/renderer/bit_depth_bits.hpp
 	include/sge/renderer/bit_depth_bytes.hpp
-	include/sge/renderer/buffer_has_depth.hpp
-	include/sge/renderer/buffer_has_stencil.hpp
 	include/sge/renderer/caps/clip_plane_indices.hpp
 	include/sge/renderer/caps/description.hpp
 	include/sge/renderer/caps/device.hpp
@@ -579,8 +577,6 @@ set(
 	src/renderer/aspect.cpp
 	src/renderer/bit_depth_bits.cpp
 	src/renderer/bit_depth_bytes.cpp
-	src/renderer/buffer_has_depth.cpp
-	src/renderer/buffer_has_stencil.cpp
 	src/renderer/caps/device.cpp
 	src/renderer/caps/device_output.cpp
 	src/renderer/clear/parameters.cpp
