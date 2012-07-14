@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/algorithm/copy.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
+#include <sge/image/color/format.hpp>
 #include <sge/image/color/format_stride.hpp>
 #include <sge/image/view/flipped.hpp>
 #include <sge/image/view/make.hpp>
@@ -87,29 +88,29 @@ sge::opengl::texture::basic<
 	dim_(
 		_parameters.size()
 	),
-	color_type_(
+	format_(
 		sge::opengl::texture::best_color_format(
 			_parameters.format()
 		)
 	),
-	format_(
+	color_format_(
 		opengl::convert::color_to_format(
-			color_type_
+			format_
 		)
 	),
-	format_type_(
+	color_format_type_(
 		opengl::convert::color_to_format_type(
-			color_type_
+			format_
 		)
 	),
-	internal_format_(
+	color_internal_format_(
 		opengl::convert::color_to_internal_format(
-			color_type_
+			format_
 		)
 	),
 	stride_(
 		image::color::format_stride(
-			color_type_
+			format_
 		)
 	),
 	lock_(),
@@ -133,9 +134,9 @@ sge::opengl::texture::basic<
 		binding,
 		this->system_context(),
 		this->type(),
-		this->format(),
-		this->format_type(),
-		this->internal_format(),
+		this->color_format(),
+		this->color_format_type(),
+		this->color_internal_format(),
 		sge::renderer::texture::mipmap::level(
 			0u
 		),
@@ -152,9 +153,9 @@ sge::opengl::texture::basic<
 			binding,
 			this->system_context(),
 			this->type(),
-			this->format(),
-			this->format_type(),
-			this->internal_format(),
+			this->color_format(),
+			this->color_format_type(),
+			this->color_internal_format(),
 			this->size(),
 			Types::init_function()
 		),
@@ -265,7 +266,7 @@ sge::opengl::texture::basic<
 				>(
 					lock_->write_view_pointer(),
 					this->lock_dim(),
-					color_type_,
+					this->format(),
 					basic::optional_pitch()
 				),
 				sge::image::algorithm::may_overlap::no
@@ -286,8 +287,8 @@ sge::opengl::texture::basic<
 			binding,
 			this->system_context(),
 			this->type(),
-			format_,
-			format_type_,
+			this->color_format(),
+			this->color_format_type(),
 			sge::renderer::texture::mipmap::level(
 				0u
 			),
@@ -361,8 +362,8 @@ sge::opengl::texture::basic<
 		sge::opengl::texture::funcs::get_image(
 			binding,
 			this->type(),
-			this->format(),
-			this->format_type(),
+			this->color_format(),
+			this->color_format_type(),
 			lock_->read_pointer(),
 			sge::renderer::texture::mipmap::level(
 				0u
@@ -414,7 +415,7 @@ sge::opengl::texture::basic<
 				this->size()
 			:
 				this->lock_dim(),
-			color_type_,
+			this->format(),
 			basic::optional_pitch()
 		)
 	);
@@ -517,7 +518,7 @@ sge::opengl::texture::basic<
 template<
 	typename Types
 >
-sge::opengl::color_format const
+sge::image::color::format::type
 sge::opengl::texture::basic<
 	Types
 >::format() const
@@ -528,12 +529,23 @@ sge::opengl::texture::basic<
 template<
 	typename Types
 >
+sge::opengl::color_format const
+sge::opengl::texture::basic<
+	Types
+>::color_format() const
+{
+	return color_format_;
+}
+
+template<
+	typename Types
+>
 sge::opengl::color_format_type const
 sge::opengl::texture::basic<
 	Types
->::format_type() const
+>::color_format_type() const
 {
-	return format_type_;
+	return color_format_type_;
 }
 
 template<
@@ -542,9 +554,9 @@ template<
 sge::opengl::internal_color_format const
 sge::opengl::texture::basic<
 	Types
->::internal_format() const
+>::color_internal_format() const
 {
-	return internal_format_;
+	return color_internal_format_;
 }
 
 template<

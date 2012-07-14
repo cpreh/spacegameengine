@@ -44,6 +44,8 @@ sge::opengl::texture::best_color_format(
 	case sge::image::color::format::bgr32f:
 	case sge::image::color::format::rgba32f:
 	case sge::image::color::format::bgra32f:
+	case sge::image::color::format::srgb8:
+	case sge::image::color::format::srgb32f:
 		return _format;
 	case sge::image::color::format::rgbx8:
 		return sge::image::color::format::rgb8;

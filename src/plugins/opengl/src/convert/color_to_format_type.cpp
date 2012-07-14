@@ -28,36 +28,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::color_format_type const
 sge::opengl::convert::color_to_format_type(
-	image::color::format::type const _fmt
+	sge::image::color::format::type const _fmt
 )
 {
 	switch(
 		_fmt
 	)
 	{
-	case image::color::format::a8:
-	case image::color::format::l8:
-	case image::color::format::la8:
-	case image::color::format::rgb8:
-	case image::color::format::bgr8:
-	case image::color::format::rgba8:
-	case image::color::format::bgra8:
+	case sge::image::color::format::a8:
+	case sge::image::color::format::l8:
+	case sge::image::color::format::la8:
+	case sge::image::color::format::rgb8:
+	case sge::image::color::format::bgr8:
+	case sge::image::color::format::rgba8:
+	case sge::image::color::format::bgra8:
+	case sge::image::color::format::srgb8:
 		return
 			sge::opengl::convert::make_color_format_type(
 				GL_UNSIGNED_BYTE
 			);
-	case image::color::format::r32f:
-	case image::color::format::rgb32f:
-	case image::color::format::bgr32f:
-	case image::color::format::rgba32f:
-	case image::color::format::bgra32f:
+	case sge::image::color::format::r32f:
+	case sge::image::color::format::rgb32f:
+	case sge::image::color::format::bgr32f:
+	case sge::image::color::format::rgba32f:
+	case sge::image::color::format::bgra32f:
+	case sge::image::color::format::srgb32f:
 		return
 			sge::opengl::convert::make_color_format_type(
 				GL_FLOAT
 			);
-	case image::color::format::size:
-	case image::color::format::rgbx8:
-	case image::color::format::bgrx8:
+	case sge::image::color::format::rgbx8:
+	case sge::image::color::format::bgrx8:
+	case sge::image::color::format::size:
 		break;
 	}
 

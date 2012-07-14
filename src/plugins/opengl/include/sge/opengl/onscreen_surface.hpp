@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_ONSCREEN_SURFACE_HPP_INCLUDED
 #define SGE_OPENGL_ONSCREEN_SURFACE_HPP_INCLUDED
 
+#include <sge/image/color/format.hpp>
 #include <sge/opengl/color_format.hpp>
 #include <sge/opengl/color_format_type.hpp>
 #include <sge/renderer/color_surface.hpp>
@@ -44,7 +45,8 @@ class onscreen_surface
 		onscreen_surface
 	);
 public:
-	explicit onscreen_surface(
+	explicit
+	onscreen_surface(
 		awl::window::object &
 	);
 
@@ -52,7 +54,7 @@ public:
 private:
 	color_surface::const_view const
 	lock(
-		renderer::lock_rect const &
+		sge::renderer::lock_rect const &
 	) const;
 
 	void
@@ -61,21 +63,24 @@ private:
 	dim const
 	size() const;
 
-	opengl::color_format const
+	sge::image::color::format::type
 	format() const;
 
-	opengl::color_format_type const
-	format_type() const;
+	sge::opengl::color_format const
+	color_format() const;
+
+	sge::opengl::color_format_type const
+	color_format_type() const;
 
 	typedef fcppt::container::raw_vector<
-		renderer::raw_value
+		sge::renderer::raw_value
 	> buffer_type;
 
 	awl::window::object &window_;
 
 	mutable buffer_type buffer_;
 
-	renderer::size_type const stride_;
+	sge::renderer::size_type const stride_;
 };
 
 }

@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/image/color/format.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/flipped.hpp>
 #include <sge/image2d/view/make_const.hpp>
@@ -27,9 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/onscreen_surface.hpp>
 #include <sge/opengl/read_pixels.hpp>
-#include <sge/opengl/convert/format_to_color.hpp>
-#include <sge/opengl/convert/make_color_format.hpp>
-#include <sge/opengl/convert/make_color_format_type.hpp>
+#include <sge/opengl/convert/color_to_format.hpp>
+#include <sge/opengl/convert/color_to_format_type.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/pixel_unit.hpp>
 #include <awl/window/object.hpp>
@@ -63,7 +63,7 @@ sge::opengl::onscreen_surface::~onscreen_surface()
 
 sge::opengl::onscreen_surface::const_view const
 sge::opengl::onscreen_surface::lock(
-	renderer::lock_rect const &_dest
+	sge::renderer::lock_rect const &_dest
 ) const
 {
 	if(
@@ -78,7 +78,7 @@ sge::opengl::onscreen_surface::lock(
 		* stride_
 	);
 
-	opengl::read_pixels(
+	sge::opengl::read_pixels(
 		static_cast<
 			renderer::pixel_unit
 		>(
@@ -91,21 +91,18 @@ sge::opengl::onscreen_surface::lock(
 		),
 		_dest.size().w(),
 		_dest.size().h(),
-		this->format(),
-		this->format_type(),
+		this->color_format(),
+		this->color_format_type(),
 		buffer_.data()
 	);
 
 	return
-		image2d::view::flipped(
-			image2d::view::make_const(
+		sge::image2d::view::flipped(
+			sge::image2d::view::make_const(
 				buffer_.data(),
 				_dest.size(),
-				opengl::convert::format_to_color(
-					this->format(),
-					this->format_type()
-				),
-				image2d::view::optional_pitch()
+				this->format(),
+				sge::image2d::view::optional_pitch()
 			)
 		);
 }
@@ -127,23 +124,30 @@ sge::opengl::onscreen_surface::size() const
 		);
 }
 
-// currently 16bit and 32bit framebuffers are supported
-// GL_UNSIGNED_BYTE is enough to read 32bit values so take this
+// Currently, 16bit and 32bit framebuffers are supported. rgba8 is enough to
+// read both.
 
-sge::opengl::color_format const
+sge::image::color::format::type
 sge::opengl::onscreen_surface::format() const
 {
 	return
-		sge::opengl::convert::make_color_format(
-			GL_RGBA
+		sge::image::color::format::rgba8;
+}
+
+sge::opengl::color_format const
+sge::opengl::onscreen_surface::color_format() const
+{
+	return
+		sge::opengl::convert::color_to_format(
+			this->format()
 		);
 }
 
 sge::opengl::color_format_type const
-sge::opengl::onscreen_surface::format_type() const
+sge::opengl::onscreen_surface::color_format_type() const
 {
 	return
-		sge::opengl::convert::make_color_format_type(
-			GL_UNSIGNED_BYTE
+		sge::opengl::convert::color_to_format_type(
+			this->format()
 		);
 }

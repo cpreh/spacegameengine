@@ -97,7 +97,7 @@ public:
 	view const
 	lock(
 		lock_area const &,
-		renderer::lock_mode::type
+		sge::renderer::lock_mode::type
 	);
 
 	const_view const
@@ -112,7 +112,7 @@ private:
 	void
 	lock_me(
 		lock_area const &,
-		renderer::lock_flags::method::type
+		sge::renderer::lock_flags::method::type
 	) const;
 
 	view const
@@ -124,10 +124,10 @@ private:
 	dim const
 	lock_dim() const;
 protected:
-	renderer::texture::mipmap::object const
+	sge::renderer::texture::mipmap::object const
 	mipmap() const;
 
-	renderer::texture::capabilities_field const
+	sge::renderer::texture::capabilities_field const
 	capabilities() const;
 
 	using base_type::content;
@@ -135,19 +135,22 @@ protected:
 	size_type
 	stride() const;
 
-	opengl::color_format const
+	sge::image::color::format::type
 	format() const;
 
-	opengl::color_format_type const
-	format_type() const;
+	sge::opengl::color_format const
+	color_format() const;
 
-	opengl::internal_color_format const
-	internal_format() const;
+	sge::opengl::color_format_type const
+	color_format_type() const;
+
+	sge::opengl::internal_color_format const
+	color_internal_format() const;
 
 	sge::opengl::context::system::object &
 	system_context() const;
 public:
-	renderer::resource_flags_field const
+	sge::renderer::resource_flags_field const
 	resource_flags() const;
 private:
 	void
@@ -158,26 +161,26 @@ private:
 
 	sge::opengl::context::system::object &system_context_;
 
-	renderer::texture::mipmap::object const mipmap_;
+	sge::renderer::texture::mipmap::object const mipmap_;
 
-	renderer::resource_flags_field const resource_flags_;
+	sge::renderer::resource_flags_field const resource_flags_;
 
-	renderer::texture::capabilities_field const capabilities_;
+	sge::renderer::texture::capabilities_field const capabilities_;
 
 	dim const dim_;
 
-	sge::image::color::format::type const color_type_;
+	sge::image::color::format::type const format_;
 
-	opengl::color_format const format_;
+	sge::opengl::color_format const color_format_;
 
-	opengl::color_format_type const format_type_;
+	sge::opengl::color_format_type const color_format_type_;
 
-	opengl::internal_color_format const internal_format_;
+	sge::opengl::internal_color_format const color_internal_format_;
 
 	size_type const stride_;
 
 	typedef fcppt::scoped_ptr<
-		opengl::texture::lock_base
+		sge::opengl::texture::lock_base
 	> scoped_lock_ptr;
 
 	mutable scoped_lock_ptr lock_;

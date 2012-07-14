@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/image/color/format.hpp>
 #include <sge/image/color/format_stride.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/make_const.hpp>
@@ -26,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/color_format.hpp>
 #include <sge/opengl/color_format_type.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/opengl/convert/format_to_color.hpp>
 #include <sge/opengl/texture/basic_surface_impl.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/id.hpp>
@@ -50,6 +50,7 @@ sge::opengl::texture::surface::surface(
 	sge::opengl::texture::id const _id,
 	sge::renderer::texture::mipmap::level const _level,
 	sge::renderer::resource_flags_field const &_resource_flags,
+	sge::image::color::format::type const _format,
 	sge::opengl::color_format const _color_format,
 	sge::opengl::color_format_type const _color_format_type,
 	bool const _is_render_target
@@ -66,6 +67,9 @@ sge::opengl::texture::surface::surface(
 	),
 	resource_flags_(
 		_resource_flags
+	),
+	format_(
+		_format
 	),
 	color_format_(
 		_color_format
@@ -95,13 +99,6 @@ sge::opengl::texture::surface::lock(
 	rect const &_lock_rect
 ) const
 {
-	sge::image::color::format::type const image_color_format(
-		opengl::convert::format_to_color(
-			color_format_,
-			color_format_type_
-		)
-	);
-
 	lock_.take(
 		fcppt::make_unique_ptr<
 			opengl::texture::readonly_lock
@@ -110,21 +107,21 @@ sge::opengl::texture::surface::lock(
 				system_context_
 			),
 			this->size().content(),
-			image::color::format_stride(
-				image_color_format
+			sge::image::color::format_stride(
+				format_
 			),
 			resource_flags_
 		)
 	);
 
 	{
-		opengl::texture::scoped_work_binding const binding(
+		sge::opengl::texture::scoped_work_binding const binding(
 			system_context_,
 			this->type(),
 			this->id()
 		);
 
-		texture::funcs::get_image(
+		sge::opengl::texture::funcs::get_image(
 			binding,
 			this->type(),
 			color_format_,
@@ -141,7 +138,7 @@ sge::opengl::texture::surface::lock(
 			sge::image2d::view::make_const(
 				lock_->read_view_pointer(),
 				this->size(),
-				image_color_format,
+				format_,
 				image2d::view::optional_pitch()
 			),
 			_lock_rect

@@ -27,64 +27,70 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::internal_color_format const
 sge::opengl::convert::color_to_internal_format(
-	image::color::format::type const _fmt
+	sge::image::color::format::type const _fmt
 )
 {
 	switch(
 		_fmt
 	)
 	{
-	case image::color::format::a8:
+	case sge::image::color::format::a8:
 		return
-			opengl::internal_color_format(
+			sge::opengl::internal_color_format(
 				GL_ALPHA8
 			);
-	case image::color::format::l8:
+	case sge::image::color::format::l8:
 		return
-			opengl::internal_color_format(
+			sge::opengl::internal_color_format(
 				GL_LUMINANCE8
 			);
-	case image::color::format::r32f:
+	case sge::image::color::format::r32f:
 		return
-			opengl::internal_color_format(
+			sge::opengl::internal_color_format(
 				1
 			);
-	case image::color::format::la8:
+	case sge::image::color::format::la8:
 		return
-			opengl::internal_color_format(
+			sge::opengl::internal_color_format(
 				GL_LUMINANCE_ALPHA
 			);
-	case image::color::format::rgb8:
+	case sge::image::color::format::rgb8:
 		return
-			opengl::internal_color_format(
+			sge::opengl::internal_color_format(
 				GL_RGB8
 			);
-	case image::color::format::bgr8:
-	case image::color::format::bgr32f:
+	case sge::image::color::format::bgr8:
+	case sge::image::color::format::bgr32f:
 		return
-			opengl::internal_color_format(
+			sge::opengl::internal_color_format(
 				3
 			);
-	case image::color::format::rgba8:
+	case sge::image::color::format::rgba8:
 		return
-			opengl::internal_color_format(
+			sge::opengl::internal_color_format(
 				GL_RGBA8
 			);
-	case image::color::format::bgra8:
-	case image::color::format::rgba32f:
-	case image::color::format::bgra32f:
+	case sge::image::color::format::bgra8:
+	case sge::image::color::format::rgba32f:
+	case sge::image::color::format::bgra32f:
 		return
-			opengl::internal_color_format(
+			sge::opengl::internal_color_format(
 				4
 			);
-	case image::color::format::rgb32f:
+	case sge::image::color::format::rgb32f:
 		return
-			opengl::internal_color_format(
+			sge::opengl::internal_color_format(
 				GL_RGB32F
 			);
-	case image::color::format::rgbx8:
-	case image::color::format::bgrx8:
-	case image::color::format::size:
+	case sge::image::color::format::srgb8:
+	case sge::image::color::format::srgb32f:
+		return
+			sge::opengl::internal_color_format(
+				GL_SRGB
+			);
+	case sge::image::color::format::rgbx8:
+	case sge::image::color::format::bgrx8:
+	case sge::image::color::format::size:
 		break;
 	}
 

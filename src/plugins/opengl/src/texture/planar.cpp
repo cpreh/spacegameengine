@@ -23,12 +23,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/basic_impl.hpp>
+#include <sge/opengl/texture/optional_type.hpp>
 #include <sge/opengl/texture/planar.hpp>
 #include <sge/opengl/texture/planar_types.hpp>
 #include <sge/opengl/texture/scoped_work_binding.hpp>
 #include <sge/opengl/texture/surface.hpp>
 #include <sge/opengl/texture/convert/make_type.hpp>
 #include <sge/opengl/texture/funcs/get_parameter_int.hpp>
+#include <sge/renderer/color_surface_unique_ptr.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
@@ -47,8 +49,8 @@ sge::opengl::texture::basic<
 
 sge::opengl::texture::planar::planar(
 	sge::opengl::context::system::object &_system_context,
-	renderer::texture::planar_parameters const &_param,
-	optional_type const &_type
+	sge::renderer::texture::planar_parameters const &_param,
+	sge::opengl::texture::optional_type const &_type
 )
 :
 	texture::planar_basic(
@@ -97,7 +99,8 @@ sge::opengl::texture::planar::surface(
 				_level,
 				this->resource_flags(),
 				this->format(),
-				this->format_type(),
+				this->color_format(),
+				this->color_format_type(),
 				this->capabilities()
 				& sge::renderer::texture::capabilities::render_target
 			)

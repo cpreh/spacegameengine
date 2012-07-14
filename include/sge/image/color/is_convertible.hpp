@@ -22,6 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_COLOR_IS_CONVERTIBLE_HPP_INCLUDED
 
 #include <mizuiro/color/layout/is_same.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 
 namespace sge
@@ -30,6 +33,9 @@ namespace image
 {
 namespace color
 {
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
 	typename SourceFormat,
@@ -44,6 +50,7 @@ mizuiro::color::layout::is_same<
 {
 };
 
+FCPPT_PP_POP_WARNING
 
 }
 }

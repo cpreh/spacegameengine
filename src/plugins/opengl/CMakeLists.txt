@@ -69,7 +69,6 @@ set(
 	src/plugins/opengl/include/sge/opengl/convert/depth_stencil_to_format.hpp
 	src/plugins/opengl/include/sge/opengl/convert/depth_stencil_to_format_type.hpp
 	src/plugins/opengl/include/sge/opengl/convert/depth_stencil_to_internal_format.hpp
-	src/plugins/opengl/include/sge/opengl/convert/format_to_color.hpp
 	src/plugins/opengl/include/sge/opengl/convert/format_to_string.hpp
 	src/plugins/opengl/include/sge/opengl/convert/format_type_to_string.hpp
 	src/plugins/opengl/include/sge/opengl/convert/index_format.hpp
@@ -440,7 +439,6 @@ set(
 	src/plugins/opengl/src/convert/depth_stencil_to_format.cpp
 	src/plugins/opengl/src/convert/depth_stencil_to_format_type.cpp
 	src/plugins/opengl/src/convert/depth_stencil_to_internal_format.cpp
-	src/plugins/opengl/src/convert/format_to_color.cpp
 	src/plugins/opengl/src/convert/format_to_string.cpp
 	src/plugins/opengl/src/convert/format_type_to_string.cpp
 	src/plugins/opengl/src/convert/indexed_format.cpp

@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_SURFACE_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_SURFACE_HPP_INCLUDED
 
+#include <sge/image/color/format.hpp>
 #include <sge/opengl/color_format.hpp>
 #include <sge/opengl/color_format_type.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
@@ -65,6 +66,7 @@ public:
 		sge::opengl::texture::id,
 		sge::renderer::texture::mipmap::level,
 		sge::renderer::resource_flags_field const &,
+		sge::image::color::format::type,
 		sge::opengl::color_format,
 		sge::opengl::color_format_type,
 		bool is_render_target
@@ -86,6 +88,8 @@ private:
 	sge::opengl::context::system::object &system_context_;
 
 	sge::renderer::resource_flags_field const resource_flags_;
+
+	sge::image::color::format::type const format_;
 
 	sge::opengl::color_format const color_format_;
 
