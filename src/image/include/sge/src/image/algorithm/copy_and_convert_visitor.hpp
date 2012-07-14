@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/color/mizuiro_traits.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
+#include <sge/src/image/color/converter.hpp>
 #include <mizuiro/image/algorithm/copy_and_convert.hpp>
 #include <fcppt/nonassignable.hpp>
 
@@ -64,7 +65,9 @@ public:
 	) const
 	{
 		return
-			mizuiro::image::algorithm::copy_and_convert(
+			mizuiro::image::algorithm::copy_and_convert<
+				sge::image::color::converter
+			>(
 				_src,
 				_dest,
 				overlap_

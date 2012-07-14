@@ -21,14 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_IMAGE_COLOR_ANY_CONVERT_VISITOR_HPP_INCLUDED
 #define SGE_SRC_IMAGE_COLOR_ANY_CONVERT_VISITOR_HPP_INCLUDED
 
-#include <sge/image/invalid_convert.hpp>
-#include <sge/image/color/convert.hpp>
-#include <sge/image/color/is_convertible.hpp>
-#include <sge/image/color/format_static.hpp>
 #include <sge/image/color/object.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <sge/src/image/color/converter.hpp>
 
 
 namespace sge
@@ -53,47 +47,17 @@ public:
 	template<
 		typename Source
 	>
-	typename boost::enable_if<
-		sge::image::color::is_convertible<
-			typename Source::format,
-			Dest
-		>,
-		result_type
-	>::type const
+	result_type const
 	operator()(
 		Source const &_source
 	) const
 	{
 		return
-			sge::image::color::convert<
+			sge::image::color::converter::execute<
 				Dest
 			>(
 				_source
 			);
-	}
-
-	template<
-		typename Source
-	>
-	typename boost::disable_if<
-		sge::image::color::is_convertible<
-			typename Source::format,
-			Dest
-		>,
-		result_type
-	>::type const
-	operator()(
-		Source const &
-	) const
-	{
-		throw sge::image::invalid_convert(
-			sge::image::color::format_static<
-				typename Source::format
-			>::value,
-			sge::image::color::format_static<
-				Dest
-			>::value
-		);
 	}
 };
 

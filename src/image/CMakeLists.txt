@@ -168,6 +168,7 @@ set(
 	src/image/include/sge/src/image/algorithm/print_impl.hpp
 	src/image/include/sge/src/image/algorithm/print_visitor.hpp
 	src/image/include/sge/src/image/color/any/convert_visitor.hpp
+	src/image/include/sge/src/image/color/converter.hpp
 	src/image/include/sge/src/image/convert_dim.hpp
 	src/image/include/sge/src/image/dynamic/algorithm/cac/choose.hpp
 	src/image/include/sge/src/image/dynamic/algorithm/cac/convert.hpp
@@ -215,6 +216,7 @@ set(
 	src/image/include/sge/src/image/dynamic/color/srgb8_format.hpp
 	src/image/include/sge/src/image/dynamic/view/basic_elements.hpp
 	src/image/include/sge/src/image/dynamic/view/basic_variant.hpp
+	src/image/include/sge/src/image/dynamic/view/color_format.hpp
 	src/image/include/sge/src/image/dynamic/view/color_layout.hpp
 	src/image/include/sge/src/image/dynamic/view/format_channel.hpp
 	src/image/include/sge/src/image/dynamic/view/from_static.hpp

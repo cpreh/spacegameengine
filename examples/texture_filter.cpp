@@ -42,6 +42,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/size_type.hpp>
 #include <sge/image/store.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
+#include <sge/image/color/init.hpp>
+#include <sge/image/color/l8.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/l8.hpp>
@@ -350,7 +352,11 @@ try
 			sge::image2d::view::object(
 				white_store.wrapped_view()
 			),
-			sge::image::colors::white()
+			sge::image::color::any::object(
+				sge::image::color::l8(
+					sge::image::color::init::luminance() %= 1.
+				)
+			)
 		);
 
 		store_type black_store(
@@ -361,7 +367,11 @@ try
 			sge::image2d::view::object(
 				black_store.wrapped_view()
 			),
-			sge::image::colors::black()
+			sge::image::color::any::object(
+				sge::image::color::l8(
+					sge::image::color::init::luminance() %= 0.
+				)
+			)
 		);
 
 		for(
