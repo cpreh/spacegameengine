@@ -48,6 +48,7 @@ sge::opengl::state::depth_func(
 		return;
 	}
 
+	/*
 	if(
 		!sge::renderer::buffer_has_depth(
 			_parameters.depth_stencil_buffer()
@@ -57,6 +58,7 @@ sge::opengl::state::depth_func(
 			FCPPT_TEXT("You tried to use a depth_func besides depth_func::off.")
 			FCPPT_TEXT(" This will only work if you request a depth buffer in renderer::parameters!")
 		);
+		*/
 
 	opengl::enable(
 		GL_DEPTH_TEST
