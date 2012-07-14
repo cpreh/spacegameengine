@@ -151,8 +151,8 @@ set(
 	src/image/dynamic/color/rgba32f_format.cpp
 	src/image/dynamic/color/rgba8_format.cpp
 	src/image/dynamic/color/rgbx8_format.cpp
-	src/image/dynamic/color/srgb32f_format.cpp
 	src/image/dynamic/color/srgb8_format.cpp
+	src/image/dynamic/color/srgba8_format.cpp
 	src/image/exception.cpp
 	src/image/file_exception.cpp
 	src/image/include/sge/src/image/algorithm/copy_and_convert_impl.hpp
@@ -212,8 +212,8 @@ set(
 	src/image/include/sge/src/image/dynamic/color/rgba32f_format.hpp
 	src/image/include/sge/src/image/dynamic/color/rgba8_format.hpp
 	src/image/include/sge/src/image/dynamic/color/rgbx8_format.hpp
-	src/image/include/sge/src/image/dynamic/color/srgb32f_format.hpp
 	src/image/include/sge/src/image/dynamic/color/srgb8_format.hpp
+	src/image/include/sge/src/image/dynamic/color/srgba8_format.hpp
 	src/image/include/sge/src/image/dynamic/view/basic_elements.hpp
 	src/image/include/sge/src/image/dynamic/view/basic_variant.hpp
 	src/image/include/sge/src/image/dynamic/view/color_format.hpp

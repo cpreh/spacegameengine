@@ -29,14 +29,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/bgrx8_format.hpp>
 #include <sge/image/color/l8_format.hpp>
 #include <sge/image/color/la8_format.hpp>
-#include <sge/image/color/srgb32f_format.hpp>
-#include <sge/image/color/srgb8_format.hpp>
 #include <sge/image/color/r32f_format.hpp>
 #include <sge/image/color/rgb32f_format.hpp>
 #include <sge/image/color/rgb8_format.hpp>
 #include <sge/image/color/rgba32f_format.hpp>
 #include <sge/image/color/rgba8_format.hpp>
 #include <sge/image/color/rgbx8_format.hpp>
+#include <sge/image/color/srgb8_format.hpp>
+#include <sge/image/color/srgba8_format.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector20.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -65,7 +65,7 @@ typedef boost::mpl::vector16<
 	sge::image::color::rgba32f_format,
 	sge::image::color::bgra32f_format,
 	sge::image::color::srgb8_format,
-	sge::image::color::srgb32f_format
+	sge::image::color::srgba8_format
 > elements;
 
 }

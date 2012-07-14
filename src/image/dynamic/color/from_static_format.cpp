@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/rgba8_format.hpp>
 #include <sge/image/color/rgbx8_format.hpp>
 #include <sge/image/color/srgb8_format.hpp>
-#include <sge/image/color/srgb32f_format.hpp>
+#include <sge/image/color/srgba8_format.hpp>
 #include <sge/src/image/dynamic/color/a8_format.hpp>
 #include <sge/src/image/dynamic/color/bgr32f_format.hpp>
 #include <sge/src/image/dynamic/color/bgr8_format.hpp>
@@ -57,7 +57,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/image/dynamic/color/rgba8_format.hpp>
 #include <sge/src/image/dynamic/color/rgbx8_format.hpp>
 #include <sge/src/image/dynamic/color/srgb8_format.hpp>
-#include <sge/src/image/dynamic/color/srgb32f_format.hpp>
+#include <sge/src/image/dynamic/color/srgba8_format.hpp>
 
 
 #define SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(\
@@ -148,6 +148,6 @@ SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(
 )
 
 SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(
-	c32f_3_format,
-	srgb32f_format
+	c8_4_format,
+	srgba8_format
 )

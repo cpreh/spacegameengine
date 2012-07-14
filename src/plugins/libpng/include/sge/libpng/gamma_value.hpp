@@ -18,27 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_COLOR_SRGB32F_FORMAT_HPP_INCLUDED
-#define SGE_IMAGE_COLOR_SRGB32F_FORMAT_HPP_INCLUDED
+#ifndef SGE_LIBPNG_GAMMA_VALUE_HPP_INCLUDED
+#define SGE_LIBPNG_GAMMA_VALUE_HPP_INCLUDED
 
-#include <sge/image/color/channel32f.hpp>
-#include <sge/image/color/homogenous_format.hpp>
-#include <mizuiro/color/layout/s_rgb.hpp>
-
+#include <fcppt/strong_typedef.hpp>
 
 namespace sge
 {
-namespace image
+namespace libpng
 {
-namespace color
-{
-
-typedef sge::image::color::homogenous_format<
-	sge::image::color::channel32f,
-	mizuiro::color::layout::s_rgb
->::type srgb32f_format;
-
-}
+FCPPT_MAKE_STRONG_TYPEDEF(
+	double,
+	gamma_value);
 }
 }
 

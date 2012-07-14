@@ -23,14 +23,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/libpng/png.hpp>
 #include <sge/libpng/to_sge_format.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/assert/pre.hpp>
+#include <fcppt/math/diff.hpp>
 
 
 sge::image::color::format::type
 sge::libpng::to_sge_format(
 	png_byte const _color_type,
-	png_byte const _bit_depth
+	png_byte const _bit_depth,
+	sge::libpng::gamma_value const &_gamma_value
 )
 {
+	// For now, we assume that all png images have a gamma of 2.2 (or
+	// 0.45455 as a reciprocal), which indicates sRGB. If we have
+	// sRGB, we return the corresponding format. The gamma value,
+	// however, could be off, in which case we have to look further
+	// into it and maybe return a different color format.
+	FCPPT_ASSERT_PRE(
+		fcppt::math::diff(
+			_gamma_value.get(),
+			static_cast<sge::libpng::gamma_value::value_type>(
+				0.45455)) <
+		static_cast<sge::libpng::gamma_value::value_type>(
+			0.01));
+
 	switch(
 		_color_type
 	)
@@ -53,13 +69,13 @@ sge::libpng::to_sge_format(
 		if(
 			_bit_depth == 8
 		)
-			return sge::image::color::format::rgb8;
+			return sge::image::color::format::srgb8;
 		break;
 	case PNG_COLOR_TYPE_RGB_ALPHA:
 		if(
 			_bit_depth == 8
 		)
-			return sge::image::color::format::rgba8;
+			return sge::image::color::format::srgba8;
 		break;
 	}
 

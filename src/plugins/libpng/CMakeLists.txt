@@ -5,6 +5,7 @@ set(
 	src/plugins/libpng/include/sge/libpng/color_type_from_format.hpp
 	src/plugins/libpng/include/sge/libpng/context_base.hpp
 	src/plugins/libpng/include/sge/libpng/file.hpp
+	src/plugins/libpng/include/sge/libpng/gamma_value.hpp
 	src/plugins/libpng/include/sge/libpng/header_bytes.hpp
 	src/plugins/libpng/include/sge/libpng/info.hpp
 	src/plugins/libpng/include/sge/libpng/is_png.hpp

@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_CEGUI_OPTIONAL_MOUSE_BUTTON_HPP_INCLUDED
 #define SGE_SRC_CEGUI_OPTIONAL_MOUSE_BUTTON_HPP_INCLUDED
 
-#include <fcppt/optional_impl.hpp>
 #include <sge/src/cegui/optional_mouse_button_fwd.hpp>
+#include <fcppt/optional_impl.hpp>
 
 
 #endif

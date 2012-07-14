@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/Base.h>
-#include <CEGUI/widgets/MultiColumnList.h>
 #include <CEGUI/widgets/ListboxTextItem.h>
+#include <CEGUI/widgets/MultiColumnList.h>
 #include <fcppt/config/external_end.hpp>
 
 

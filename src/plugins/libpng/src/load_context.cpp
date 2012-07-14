@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/file_exception.hpp>
 #include <sge/image/unsupported_format.hpp>
+#include <sge/libpng/gamma_value.hpp>
 #include <sge/libpng/header_bytes.hpp>
 #include <sge/libpng/load_context.hpp>
 #include <sge/libpng/logger.hpp>
@@ -294,6 +295,24 @@ sge::libpng::load_context::convert_format() const
 		)
 	);
 
+	sge::libpng::gamma_value::value_type gamma_raw;
+	sge::libpng::gamma_value gamma(
+		-1.0);
+	if(
+		png_get_gAMA(read_ptr_.ptr(),info_.get(),&gamma_raw) == 0
+	)
+	{
+		gamma =
+			sge::libpng::gamma_value(
+				static_cast<sge::libpng::gamma_value::value_type>(
+					0.45455));
+	}
+	else
+		gamma =
+			sge::libpng::gamma_value(
+				gamma_raw);
+
+
 	sge::image::color::format::type const ret(
 		libpng::to_sge_format(
 			png_get_color_type(
@@ -303,7 +322,8 @@ sge::libpng::load_context::convert_format() const
 			png_get_bit_depth(
 				read_ptr_.ptr(),
 				info_.get()
-			)
+			),
+			gamma
 		)
 	);
 

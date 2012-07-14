@@ -41,8 +41,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <sge/src/cegui/declare_local_logger.hpp>
-#include <sge/src/cegui/from_cegui_size.hpp>
 #include <sge/src/cegui/from_cegui_rect.hpp>
+#include <sge/src/cegui/from_cegui_size.hpp>
 #include <sge/src/cegui/optional_render_context_ref.hpp>
 #include <sge/src/cegui/texture.hpp>
 #include <sge/src/cegui/texture_target.hpp>

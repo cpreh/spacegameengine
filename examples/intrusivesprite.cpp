@@ -165,7 +165,7 @@ try
 				fcppt::ref(
 					sys.renderer()
 				),
-				sge::image::color::format::rgba8,
+				sge::image::color::format::srgba8,
 				sge::renderer::texture::mipmap::off()
 			)
 		)

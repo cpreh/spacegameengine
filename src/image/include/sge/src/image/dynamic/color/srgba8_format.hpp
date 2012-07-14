@@ -18,29 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/color/format.hpp>
-#include <sge/src/image/dynamic/color/available_channels.hpp>
-#include <sge/src/image/dynamic/color/available_layouts.hpp>
-#include <sge/src/image/dynamic/color/c32f_3_format.hpp>
-#include <sge/src/image/dynamic/color/srgb32f_format.hpp>
-#include <sge/src/image/dynamic/color/format_object_impl.hpp>
-#include <fcppt/assign/make_array.hpp>
+#ifndef SGE_SRC_IMAGE_DYNAMIC_COLOR_SRGBA8_FORMAT_HPP_INCLUDED
+#define SGE_SRC_IMAGE_DYNAMIC_COLOR_SRGBA8_FORMAT_HPP_INCLUDED
+
+#include <sge/src/image/dynamic/color/c8_4_format.hpp>
 
 
-sge::image::dynamic::color::c32f_3_format const
-sge::image::dynamic::color::srgb32f_format(
-	fcppt::assign::make_array<
-		sge::image::dynamic::color::available_channels::type
-	>
-	(
-		sge::image::dynamic::color::available_channels::red
-	)
-	(
-		sge::image::dynamic::color::available_channels::green
-	)
-	(
-		sge::image::dynamic::color::available_channels::blue
-	),
-	sge::image::dynamic::color::available_layouts::srgb,
-	sge::image::color::format::srgb32f
-);
+namespace sge
+{
+namespace image
+{
+namespace dynamic
+{
+namespace color
+{
+
+extern
+sge::image::dynamic::color::c8_4_format const
+srgba8_format;
+
+}
+}
+}
+}
+
+#endif

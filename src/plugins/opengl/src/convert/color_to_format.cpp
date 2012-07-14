@@ -56,7 +56,6 @@ sge::opengl::convert::color_to_format(
 				GL_LUMINANCE_ALPHA
 			);
 	case sge::image::color::format::srgb8:
-	case sge::image::color::format::srgb32f:
 	case sge::image::color::format::rgb8:
 	case sge::image::color::format::rgb32f:
 		return
@@ -70,6 +69,7 @@ sge::opengl::convert::color_to_format(
 				GL_BGR
 			);
 	case sge::image::color::format::rgba8:
+	case sge::image::color::format::srgba8:
 	case sge::image::color::format::rgba32f:
 		return
 			sge::opengl::convert::make_color_format(

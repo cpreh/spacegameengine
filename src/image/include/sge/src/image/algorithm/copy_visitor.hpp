@@ -23,9 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/color/object.hpp>
+#include <sge/image/traits/view.hpp>
 #include <sge/image/view/mizuiro_type.hpp>
 #include <sge/image/view/object.hpp>
-#include <sge/image/traits/view.hpp>
 #include <mizuiro/nonconst_tag.hpp>
 #include <mizuiro/image/algorithm/copy.hpp>
 #include <fcppt/nonassignable.hpp>

@@ -77,19 +77,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/math/box/output.hpp>
 #include <fcppt/math/dim/output.hpp>
-#include <fcppt/math/quaternion/to_matrix.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/matrix/translation.hpp>
+#include <fcppt/math/quaternion/to_matrix.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/range/iterator_range.hpp>
 #include <CEGUI/Base.h>
 #include <CEGUI/Quaternion.h>
 #include <CEGUI/Rect.h>
 #include <CEGUI/RenderEffect.h>
 #include <CEGUI/Vector.h>
 #include <CEGUI/Vertex.h>
+#include <boost/range/iterator_range.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

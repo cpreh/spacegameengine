@@ -70,12 +70,16 @@ sge::opencl::memory_object::image::sge_color_format_to_opencl(
 					CL_RA,
 					CL_UNORM_INT8);
 		case sge::image::color::format::rgb8:
+		// CL doesn't seem to support sRGB directly
+		case sge::image::color::format::srgb8:
 		case sge::image::color::format::bgr8:
 			return
 				make_cl_image_format(
 					CL_RGB,
 					CL_UNORM_INT8);
 		case sge::image::color::format::rgba8:
+		// CL doesn't seem to support sRGB directly
+		case sge::image::color::format::srgba8:
 		case sge::image::color::format::rgbx8: // TODO: map to CL_RGBx?
 			return
 				make_cl_image_format(
