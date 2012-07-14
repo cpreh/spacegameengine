@@ -149,12 +149,6 @@ sge::texture::manager::add(
 		on_alloc_()
 	);
 
-	ntex->manager(
-		sge::texture::optional_manager_ref(
-			*this
-		)
-	);
-
 	sge::texture::part_unique_ptr new_part(
 		::init_texture(
 			*ntex,
@@ -169,6 +163,12 @@ sge::texture::manager::add(
 
 	sge::texture::fragmented &tmp(
 		*ntex
+	);
+
+	tmp.manager(
+		sge::texture::optional_manager_ref(
+			*this
+		)
 	);
 
 	if(
