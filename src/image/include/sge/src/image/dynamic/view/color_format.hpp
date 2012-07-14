@@ -18,26 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/color/format.hpp>
-#include <sge/src/image/dynamic/color/available_channels.hpp>
-#include <sge/src/image/dynamic/color/available_layouts.hpp>
-#include <sge/src/image/dynamic/color/c8_2_format.hpp>
-#include <sge/src/image/dynamic/color/la8_format.hpp>
-#include <sge/src/image/dynamic/color/format_object_impl.hpp>
-#include <fcppt/assign/make_array.hpp>
+#ifndef SGE_SRC_IMAGE_DYNAMIC_VIEW_COLOR_FORMAT_HPP_INCLUDED
+#define SGE_SRC_IMAGE_DYNAMIC_VIEW_COLOR_FORMAT_HPP_INCLUDED
 
 
-sge::image::dynamic::color::c8_2_format const
-sge::image::dynamic::color::la8_format(
-	fcppt::assign::make_array<
-		sge::image::dynamic::color::available_channels::type
-	>
-	(
-		sge::image::dynamic::color::available_channels::luminance
-	)
-	(
-		sge::image::dynamic::color::available_channels::alpha
-	),
-	sge::image::dynamic::color::available_layouts::gray,
-	sge::image::color::format::la8
-);
+namespace sge
+{
+namespace image
+{
+namespace dynamic
+{
+namespace view
+{
+
+template<
+	typename ImageFormat
+>
+typename ImageFormat::color_format const &
+color_format(
+	ImageFormat const &_format
+)
+{
+	return
+		*_format.format_store().get();
+}
+
+}
+}
+}
+}
+
+#endif

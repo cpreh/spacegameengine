@@ -170,17 +170,6 @@ set(
 	src/image/include/sge/src/image/color/any/convert_visitor.hpp
 	src/image/include/sge/src/image/convert_dim.hpp
 	src/image/include/sge/src/image/dynamic/algorithm/cac/choose.hpp
-	src/image/include/sge/src/image/dynamic/algorithm/cac/choose/format_has_size.hpp
-	src/image/include/sge/src/image/dynamic/algorithm/cac/choose/no_match.hpp
-	src/image/include/sge/src/image/dynamic/algorithm/cac/choose/source_1_dest_1.hpp
-	src/image/include/sge/src/image/dynamic/algorithm/cac/choose/source_1_dest_2.hpp
-	src/image/include/sge/src/image/dynamic/algorithm/cac/choose/source_1_dest_3_4.hpp
-	src/image/include/sge/src/image/dynamic/algorithm/cac/choose/source_2_dest_1.hpp
-	src/image/include/sge/src/image/dynamic/algorithm/cac/choose/source_2_dest_2.hpp
-	src/image/include/sge/src/image/dynamic/algorithm/cac/choose/source_2_dest_3_4.hpp
-	src/image/include/sge/src/image/dynamic/algorithm/cac/choose/source_3_4_dest_1.hpp
-	src/image/include/sge/src/image/dynamic/algorithm/cac/choose/source_3_4_dest_2.hpp
-	src/image/include/sge/src/image/dynamic/algorithm/cac/choose/source_3_4_dest_3_4.hpp
 	src/image/include/sge/src/image/dynamic/algorithm/cac/convert.hpp
 	src/image/include/sge/src/image/dynamic/algorithm/cac/convert_visitor.hpp
 	src/image/include/sge/src/image/dynamic/algorithm/cac/copy.hpp
@@ -193,7 +182,6 @@ set(
 	src/image/include/sge/src/image/dynamic/color/access.hpp
 	src/image/include/sge/src/image/dynamic/color/available_channels.hpp
 	src/image/include/sge/src/image/dynamic/color/available_layouts.hpp
-	src/image/include/sge/src/image/dynamic/color/basic_format.hpp
 	src/image/include/sge/src/image/dynamic/color/bgr32f_format.hpp
 	src/image/include/sge/src/image/dynamic/color/bgr8_format.hpp
 	src/image/include/sge/src/image/dynamic/color/bgra32f_format.hpp
@@ -207,6 +195,11 @@ set(
 	src/image/include/sge/src/image/dynamic/color/c8_3_format.hpp
 	src/image/include/sge/src/image/dynamic/color/c8_4_format.hpp
 	src/image/include/sge/src/image/dynamic/color/convert_channel.hpp
+	src/image/include/sge/src/image/dynamic/color/format_object_base.hpp
+	src/image/include/sge/src/image/dynamic/color/format_object_decl.hpp
+	src/image/include/sge/src/image/dynamic/color/format_object_fwd.hpp
+	src/image/include/sge/src/image/dynamic/color/format_object_impl.hpp
+	src/image/include/sge/src/image/dynamic/color/format_object_traits.hpp
 	src/image/include/sge/src/image/dynamic/color/formats.hpp
 	src/image/include/sge/src/image/dynamic/color/from_static_format.hpp
 	src/image/include/sge/src/image/dynamic/color/from_static_format_type.hpp

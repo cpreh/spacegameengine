@@ -21,14 +21,67 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_IMAGE_DYNAMIC_ALGORITHM_CAC_CHOOSE_HPP_INCLUDED
 #define SGE_SRC_IMAGE_DYNAMIC_ALGORITHM_CAC_CHOOSE_HPP_INCLUDED
 
-#include <sge/src/image/dynamic/algorithm/cac/choose/source_1_dest_1.hpp>
-#include <sge/src/image/dynamic/algorithm/cac/choose/source_1_dest_2.hpp>
-#include <sge/src/image/dynamic/algorithm/cac/choose/source_1_dest_3_4.hpp>
-#include <sge/src/image/dynamic/algorithm/cac/choose/source_2_dest_1.hpp>
-#include <sge/src/image/dynamic/algorithm/cac/choose/source_2_dest_2.hpp>
-#include <sge/src/image/dynamic/algorithm/cac/choose/source_2_dest_3_4.hpp>
-#include <sge/src/image/dynamic/algorithm/cac/choose/source_3_4_dest_1.hpp>
-#include <sge/src/image/dynamic/algorithm/cac/choose/source_3_4_dest_2.hpp>
-#include <sge/src/image/dynamic/algorithm/cac/choose/source_3_4_dest_3_4.hpp>
+#include <sge/image/invalid_convert.hpp>
+#include <sge/src/image/dynamic/algorithm/cac/function.hpp>
+#include <sge/src/image/dynamic/view/color_format.hpp>
+#include <mizuiro/color/conversion/same_to_same.hpp>
+
+
+namespace sge
+{
+namespace image
+{
+namespace dynamic
+{
+namespace algorithm
+{
+namespace cac
+{
+
+template<
+	typename SourceFormat,
+	typename DestFormat
+>
+typename sge::image::dynamic::algorithm::cac::function<
+	SourceFormat,
+	DestFormat
+>::type
+choose(
+	SourceFormat const &_source,
+	DestFormat const &_dest
+)
+{
+	if(
+		sge::image::dynamic::view::color_format(
+			_source
+		).layout_type
+		!=
+		sge::image::dynamic::view::color_format(
+			_dest
+		).layout_type
+	)
+		throw sge::image::invalid_convert(
+			sge::image::dynamic::view::color_format(
+				_source
+			).color_format,
+			sge::image::dynamic::view::color_format(
+				_dest
+			).color_format
+		);
+
+	return
+		&mizuiro::color::conversion::same_to_same<
+			typename DestFormat::color_format,
+			typename cac::source<
+				SourceFormat
+			>::type
+		>;
+}
+
+}
+}
+}
+}
+}
 
 #endif

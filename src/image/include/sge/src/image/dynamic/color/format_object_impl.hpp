@@ -18,44 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_IMAGE_DYNAMIC_COLOR_BASIC_FORMAT_HPP_INCLUDED
-#define SGE_SRC_IMAGE_DYNAMIC_COLOR_BASIC_FORMAT_HPP_INCLUDED
+#ifndef SGE_SRC_IMAGE_DYNAMIC_COLOR_FORMAT_OBJECT_IMPL_HPP_INCLUDED
+#define SGE_SRC_IMAGE_DYNAMIC_COLOR_FORMAT_OBJECT_IMPL_HPP_INCLUDED
 
-#include <sge/src/image/dynamic/color/available_channels.hpp>
+#include <sge/image/color/format.hpp>
 #include <sge/src/image/dynamic/color/available_layouts.hpp>
-#include <mizuiro/color/homogenous_dynamic.hpp>
-#include <mizuiro/color/access/homogenous_dynamic.hpp>
-#include <mizuiro/color/types/homogenous.hpp>
-#include <mizuiro/color/types/homogenous_dynamic.hpp>
+#include <sge/src/image/dynamic/color/format_object_decl.hpp>
+#include <mizuiro/color/homogenous_dynamic_impl.hpp>
 
-
-namespace sge
-{
-namespace image
-{
-namespace dynamic
-{
-namespace color
-{
 
 template<
 	typename BaseType,
 	unsigned NumChannels
 >
-struct basic_format
+sge::image::dynamic::color::format_object<
+	BaseType,
+	NumChannels
+>::format_object(
+	channel_array const &_channels,
+	sge::image::dynamic::color::available_layouts::type const _layout_type,
+	sge::image::color::format::type const _color_format
+)
+:
+	base(
+		_channels
+	),
+	layout_type(
+		_layout_type
+	),
+	color_format(
+		_color_format
+	)
 {
-	typedef mizuiro::color::homogenous_dynamic<
-		BaseType,
-		sge::image::dynamic::color::available_channels::type,
-		sge::image::dynamic::color::available_channels::size,
-		sge::image::dynamic::color::available_layouts::type,
-		NumChannels
-	> type;
-};
-
-}
-}
-}
 }
 
 #endif

@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_IMAGE_DYNAMIC_VIEW_COLOR_LAYOUT_HPP_INCLUDED
 #define SGE_SRC_IMAGE_DYNAMIC_VIEW_COLOR_LAYOUT_HPP_INCLUDED
 
+#include <sge/src/image/dynamic/view/color_format.hpp>
 #include <sge/src/image/dynamic/view/image_format.hpp>
 
 
@@ -42,9 +43,11 @@ color_layout(
 )
 {
 	return
-		sge::image::dynamic::view::image_format(
-			_view
-		).format_store().get()->order;
+		sge::image::dynamic::view::color_format(
+			sge::image::dynamic::view::image_format(
+				_view
+			)
+		).order;
 }
 
 }

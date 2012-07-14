@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_IMAGE_DYNAMIC_COLOR_C8_4_FORMAT_HPP_INCLUDED
 
 #include <sge/image/color/channel8.hpp>
-#include <sge/src/image/dynamic/color/basic_format.hpp>
+#include <sge/src/image/dynamic/color/format_object_fwd.hpp>
 
 
 namespace sge
@@ -34,10 +34,10 @@ namespace dynamic
 namespace color
 {
 
-typedef sge::image::dynamic::color::basic_format<
+typedef sge::image::dynamic::color::format_object<
 	sge::image::color::channel8,
 	4
->::type c8_4_format;
+> c8_4_format;
 
 }
 }

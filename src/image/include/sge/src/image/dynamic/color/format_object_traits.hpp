@@ -18,54 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_IMAGE_DYNAMIC_ALGORITHM_CAC_CHOOSE_FORMAT_HAS_SIZE_HPP_INCLUDED
-#define SGE_SRC_IMAGE_DYNAMIC_ALGORITHM_CAC_CHOOSE_FORMAT_HAS_SIZE_HPP_INCLUDED
+#ifndef SGE_SRC_IMAGE_DYNAMIC_COLOR_FORMAT_OBJECT_TRAITS_HPP_INCLUDED
+#define SGE_SRC_IMAGE_DYNAMIC_COLOR_FORMAT_OBJECT_TRAITS_HPP_INCLUDED
 
-#include <sge/image/size_type.hpp>
+#include <mizuiro/color/is_homogenous_dynamic.hpp>
+#include <sge/src/image/dynamic/color/format_object_fwd.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/bool.hpp>
+#include <boost/type_traits/integral_constant.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
+namespace mizuiro
 {
-namespace image
-{
-namespace dynamic
-{
-namespace algorithm
-{
-namespace cac
+namespace color
 {
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
-	typename Format,
-	sge::image::size_type Size
+	typename BaseType,
+	unsigned NumChannels
 >
-struct format_has_size
+struct is_homogenous_dynamic<
+	sge::image::dynamic::color::format_object<
+		BaseType,
+		NumChannels
+	>
+>
 :
-boost::mpl::bool_<
-	static_cast<
-		sge::image::size_type
-	>(
-		Format::color_format::layout::static_size
-	)
-	== Size
->
+boost::true_type
 {
 };
 
 FCPPT_PP_POP_WARNING
 
-}
-}
-}
 }
 }
 

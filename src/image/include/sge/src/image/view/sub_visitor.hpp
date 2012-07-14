@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_IMAGE_VIEW_SUB_VISITOR_HPP_INCLUDED
 
 #include <sge/image/view/wrap.hpp>
+#include <sge/image/color/object.hpp>
 #include <sge/src/image/convert_dim.hpp>
 #include <mizuiro/image/sub_view.hpp>
 #include <fcppt/nonassignable.hpp>
@@ -47,20 +48,23 @@ class sub_visitor
 public:
 	typedef Result result_type;
 
-	explicit sub_visitor(
+	explicit
+	sub_visitor(
 		Box const &_box
 	)
 	:
-		box_(_box)
+		box_(
+			_box
+		)
 	{
 	}
 
 	template<
-		typename T
+		typename View
 	>
 	result_type const
 	operator()(
-		T const &_view
+		View const &_view
 	) const
 	{
 		return
@@ -68,14 +72,14 @@ public:
 				sge::image::view::wrap(
 					mizuiro::image::sub_view(
 						_view,
-						typename T::bound_type(
+						typename View::bound_type(
 							sge::image::convert_dim<
-								typename T::bound_type::dim
+								typename View::bound_type::dim
 							>(
 								box_.pos()
 							),
 							sge::image::convert_dim<
-								typename T::bound_type::dim
+								typename View::bound_type::dim
 							>(
 								box_.size()
 							)

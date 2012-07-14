@@ -18,13 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_IMAGE_DYNAMIC_ALGORITHM_CAC_CHOOSE_NO_MATCH_HPP_INCLUDED
-#define SGE_SRC_IMAGE_DYNAMIC_ALGORITHM_CAC_CHOOSE_NO_MATCH_HPP_INCLUDED
+#ifndef SGE_SRC_IMAGE_DYNAMIC_COLOR_FORMAT_OBJECT_BASE_HPP_INCLUDED
+#define SGE_SRC_IMAGE_DYNAMIC_COLOR_FORMAT_OBJECT_BASE_HPP_INCLUDED
 
-#include <fcppt/assert/unreachable.hpp>
+#include <sge/src/image/dynamic/color/available_channels.hpp>
+#include <mizuiro/color/homogenous_dynamic_fwd.hpp>
+#include <mizuiro/color/access/homogenous_dynamic.hpp>
+#include <mizuiro/color/types/homogenous.hpp>
+#include <mizuiro/color/types/homogenous_dynamic.hpp>
 
 
-#define SGE_SRC_IMAGE_DYNAMIC_ALGORITHM_CAC_CHOOSE_NO_MATCH \
-FCPPT_ASSERT_UNREACHABLE
+namespace sge
+{
+namespace image
+{
+namespace dynamic
+{
+namespace color
+{
+
+template<
+	typename BaseType,
+	unsigned NumChannels
+>
+struct format_object_base
+{
+	typedef mizuiro::color::homogenous_dynamic<
+		BaseType,
+		sge::image::dynamic::color::available_channels::type,
+		sge::image::dynamic::color::available_channels::size,
+		NumChannels
+	> type;
+};
+
+}
+}
+}
+}
 
 #endif
