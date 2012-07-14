@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_COLOR_BGRA8_HPP_INCLUDED
 
 #include <sge/image/color/bgra8_format.hpp>
-#include <mizuiro/color/object_impl.hpp>
+#include <sge/image/color/object.hpp>
+
 
 namespace sge
 {
@@ -31,9 +32,9 @@ namespace image
 namespace color
 {
 
-typedef mizuiro::color::object<
-	bgra8_format
-> bgra8;
+typedef sge::image::color::object<
+	sge::image::color::bgra8_format
+>::type bgra8;
 
 }
 }

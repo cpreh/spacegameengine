@@ -250,11 +250,11 @@ set(
 	src/plugins/opengl/include/sge/opengl/texture/basic_impl.hpp
 	src/plugins/opengl/include/sge/opengl/texture/basic_surface.hpp
 	src/plugins/opengl/include/sge/opengl/texture/basic_surface_impl.hpp
+	src/plugins/opengl/include/sge/opengl/texture/best_color_format.hpp
 	src/plugins/opengl/include/sge/opengl/texture/bind_level.hpp
 	src/plugins/opengl/include/sge/opengl/texture/bind_type.hpp
 	src/plugins/opengl/include/sge/opengl/texture/binding.hpp
 	src/plugins/opengl/include/sge/opengl/texture/binding_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/texture/check_color_format.hpp
 	src/plugins/opengl/include/sge/opengl/texture/check_dim.hpp
 	src/plugins/opengl/include/sge/opengl/texture/context.hpp
 	src/plugins/opengl/include/sge/opengl/texture/convert/address_mode.hpp
@@ -578,9 +578,9 @@ set(
 	src/plugins/opengl/src/texture/address_mode/set.cpp
 	src/plugins/opengl/src/texture/address_mode/update.cpp
 	src/plugins/opengl/src/texture/base.cpp
+	src/plugins/opengl/src/texture/best_color_format.cpp
 	src/plugins/opengl/src/texture/bind_level.cpp
 	src/plugins/opengl/src/texture/binding.cpp
-	src/plugins/opengl/src/texture/check_color_format.cpp
 	src/plugins/opengl/src/texture/check_dim.cpp
 	src/plugins/opengl/src/texture/context.cpp
 	src/plugins/opengl/src/texture/convert/address_mode.cpp

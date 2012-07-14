@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/homogenous_format.hpp>
 #include <mizuiro/color/layout/bgr.hpp>
 
+
 namespace sge
 {
 namespace image
@@ -32,8 +33,8 @@ namespace image
 namespace color
 {
 
-typedef color::homogenous_format<
-	channel8,
+typedef sge::image::color::homogenous_format<
+	sge::image::color::channel8,
 	mizuiro::color::layout::bgr
 >::type bgr8_format;
 

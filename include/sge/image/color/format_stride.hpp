@@ -34,9 +34,9 @@ namespace color
 {
 
 SGE_IMAGE_SYMBOL
-size_type
+sge::image::size_type
 format_stride(
-	format::type
+	sge::image::color::format::type
 );
 
 }

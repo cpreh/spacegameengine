@@ -21,8 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_COLOR_CONVERT_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_CONVERT_HPP_INCLUDED
 
-#include <mizuiro/color/convert.hpp>
-#include <mizuiro/color/object_impl.hpp>
+#include <sge/image/color/is_convertible.hpp>
+#include <sge/image/color/object.hpp>
+#include <mizuiro/color/conversion/same_to_same.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/utility/enable_if.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {
@@ -32,17 +37,25 @@ namespace color
 {
 
 template<
-	typename Dest,
+	typename DestFormat,
 	typename Src
 >
-mizuiro::color::object<Dest> const
+typename boost::enable_if<
+	sge::image::color::is_convertible<
+		typename Src::format,
+		DestFormat
+	>,
+	typename sge::image::color::object<
+		DestFormat
+	>::type
+>::type const
 convert(
 	Src const &_src
 )
 {
 	return
-		mizuiro::color::convert<
-			Dest
+		mizuiro::color::conversion::same_to_same<
+			DestFormat
 		>(
 			_src
 		);

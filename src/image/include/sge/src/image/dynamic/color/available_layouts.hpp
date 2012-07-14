@@ -18,24 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_CHECK_COLOR_FORMAT_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_CHECK_COLOR_FORMAT_HPP_INCLUDED
-
-#include <sge/image/color/format.hpp>
-
+#ifndef SGE_SRC_IMAGE_DYNAMIC_COLOR_AVAILABLE_LAYOUTS_HPP_INCLUDED
+#define SGE_SRC_IMAGE_DYNAMIC_COLOR_AVAILABLE_LAYOUTS_HPP_INCLUDED
 
 namespace sge
 {
-namespace opengl
+namespace image
 {
-namespace texture
+namespace dynamic
+{
+namespace color
 {
 
-sge::image::color::format::type
-check_color_format(
-	sge::image::color::format::type
-);
+namespace available_layouts
+{
+enum type
+{
+	alpha,
+	gray,
+	rgb,
+	srgb
+};
+}
 
+}
 }
 }
 }

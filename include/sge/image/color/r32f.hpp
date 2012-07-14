@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_COLOR_R32F_HPP_INCLUDED
 
 #include <sge/image/color/r32f_format.hpp>
-#include <mizuiro/color/object_impl.hpp>
+#include <sge/image/color/object.hpp>
+
 
 namespace sge
 {
@@ -31,9 +32,9 @@ namespace image
 namespace color
 {
 
-typedef mizuiro::color::object<
-	color::r32f_format
-> r32f;
+typedef sge::image::color::object<
+	sge::image::color::r32f_format
+>::type r32f;
 
 }
 }

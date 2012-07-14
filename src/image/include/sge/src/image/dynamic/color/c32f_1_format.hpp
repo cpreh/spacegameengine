@@ -34,8 +34,8 @@ namespace dynamic
 namespace color
 {
 
-typedef dynamic::color::basic_format<
-	image::color::channel32f,
+typedef sge::image::dynamic::color::basic_format<
+	sge::image::color::channel32f,
 	1
 >::type c32f_1_format;
 

@@ -34,7 +34,7 @@ namespace color
 {
 
 extern
-dynamic::color::c8_2_format const
+sge::image::dynamic::color::c8_2_format const
 la8_format;
 
 }

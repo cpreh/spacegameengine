@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_COLOR_LA8_HPP_INCLUDED
 
 #include <sge/image/color/la8_format.hpp>
-#include <mizuiro/color/object_impl.hpp>
+#include <sge/image/color/object.hpp>
+
 
 namespace sge
 {
@@ -31,9 +32,9 @@ namespace image
 namespace color
 {
 
-typedef mizuiro::color::object<
-	color::la8_format
-> la8;
+typedef sge::image::color::object<
+	sge::image::color::la8_format
+>::type la8;
 
 }
 }

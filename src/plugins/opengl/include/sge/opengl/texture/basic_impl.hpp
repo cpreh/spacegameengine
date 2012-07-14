@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/convert/color_to_format_type.hpp>
 #include <sge/opengl/convert/color_to_internal_format.hpp>
 #include <sge/opengl/texture/basic.hpp>
-#include <sge/opengl/texture/check_color_format.hpp>
+#include <sge/opengl/texture/best_color_format.hpp>
 #include <sge/opengl/texture/check_dim.hpp>
 #include <sge/opengl/texture/create_lock.hpp>
 #include <sge/opengl/texture/scoped_work_binding.hpp>
@@ -61,8 +61,125 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<
 	typename Types
 >
-typename sge::opengl::texture::basic<Types>::dim const
-sge::opengl::texture::basic<Types>::size() const
+sge::opengl::texture::basic<
+	Types
+>::basic(
+	sge::opengl::context::system::object &_system_context,
+	sge::opengl::texture::type const _type,
+	parameters_type const &_parameters
+)
+:
+	sge::opengl::texture::base(
+		_type
+	),
+	system_context_(
+		_system_context
+	),
+	mipmap_(
+		_parameters.mipmap()
+	),
+	resource_flags_(
+		_parameters.resource_flags()
+	),
+	capabilities_(
+		_parameters.capabilities()
+	),
+	dim_(
+		_parameters.size()
+	),
+	color_type_(
+		sge::opengl::texture::best_color_format(
+			_parameters.format()
+		)
+	),
+	format_(
+		opengl::convert::color_to_format(
+			color_type_
+		)
+	),
+	format_type_(
+		opengl::convert::color_to_format_type(
+			color_type_
+		)
+	),
+	internal_format_(
+		opengl::convert::color_to_internal_format(
+			color_type_
+		)
+	),
+	stride_(
+		image::color::format_stride(
+			color_type_
+		)
+	),
+	lock_(),
+	lock_area_()
+{
+	sge::opengl::texture::check_dim<
+		dim::dim_wrapper::value
+	>(
+		this->size(),
+		Types::min_size(),
+		Types::name()
+	);
+
+	sge::opengl::texture::scoped_work_binding const binding(
+		this->system_context(),
+		this->type(),
+		this->id()
+	);
+
+	Types::init_function()(
+		binding,
+		this->system_context(),
+		this->type(),
+		this->format(),
+		this->format_type(),
+		this->internal_format(),
+		sge::renderer::texture::mipmap::level(
+			0u
+		),
+		this->size(),
+		fcppt::null_ptr()
+	);
+
+	sge::opengl::texture::mipmap::create<
+		dim::dim_wrapper::value
+	>(
+		sge::opengl::texture::mipmap::parameters<
+			dim::dim_wrapper::value
+		>(
+			binding,
+			this->system_context(),
+			this->type(),
+			this->format(),
+			this->format_type(),
+			this->internal_format(),
+			this->size(),
+			Types::init_function()
+		),
+		this->mipmap()
+	);
+}
+
+template<
+	typename Types
+>
+sge::opengl::texture::basic<
+	Types
+>::~basic()
+{
+}
+
+template<
+	typename Types
+>
+typename sge::opengl::texture::basic<
+	Types
+>::dim const
+sge::opengl::texture::basic<
+	Types
+>::size() const
 {
 	return dim_;
 }
@@ -70,15 +187,19 @@ sge::opengl::texture::basic<Types>::size() const
 template<
 	typename Types
 >
-typename sge::opengl::texture::basic<Types>::view const
-sge::opengl::texture::basic<Types>::lock(
+typename sge::opengl::texture::basic<
+	Types
+>::view const
+sge::opengl::texture::basic<
+	Types
+>::lock(
 	lock_area const &_area,
-	renderer::lock_mode::type const _mode
+	sge::renderer::lock_mode::type const _mode
 )
 {
 	this->lock_me(
 		_area,
-		renderer::lock_flags::from_mode(
+		sge::renderer::lock_flags::from_mode(
 			_mode
 		)
 	);
@@ -89,14 +210,18 @@ sge::opengl::texture::basic<Types>::lock(
 template<
 	typename Types
 >
-typename sge::opengl::texture::basic<Types>::const_view const
-sge::opengl::texture::basic<Types>::lock(
+typename sge::opengl::texture::basic<
+	Types
+>::const_view const
+sge::opengl::texture::basic<
+	Types
+>::lock(
 	lock_area const &_area
 ) const
 {
 	this->lock_me(
 		_area,
-		renderer::lock_flags::method::read
+		sge::renderer::lock_flags::method::read
 	);
 
 	return this->lock_view();
@@ -106,14 +231,16 @@ template<
 	typename Types
 >
 void
-sge::opengl::texture::basic<Types>::unlock() const
+sge::opengl::texture::basic<
+	Types
+>::unlock() const
 {
 	this->check_locked();
 
 	lock_->pre_unlock();
 
 	if(
-		renderer::lock_flags::write(
+		sge::renderer::lock_flags::write(
 			lock_->method()
 		)
 	)
@@ -123,7 +250,7 @@ sge::opengl::texture::basic<Types>::unlock() const
 		// a slice into the whole texture retrieved,
 		// to the destination buffer.
 		if(
-			renderer::lock_flags::read(
+			sge::renderer::lock_flags::read(
 				lock_->method()
 			)
 		)
@@ -149,7 +276,7 @@ sge::opengl::texture::basic<Types>::unlock() const
 
 		lock_->unlock();
 
-		opengl::texture::scoped_work_binding const binding(
+		sge::opengl::texture::scoped_work_binding const binding(
 			this->system_context(),
 			this->type(),
 			this->id()
@@ -185,18 +312,20 @@ template<
 	typename Types
 >
 void
-sge::opengl::texture::basic<Types>::lock_me(
+sge::opengl::texture::basic<
+	Types
+>::lock_me(
 	lock_area const &_lock_area,
-	renderer::lock_flags::method::type const _method
+	sge::renderer::lock_flags::method::type const _method
 ) const
 {
 	if(
-		!opengl::range_check(
+		!sge::opengl::range_check(
 			this->size(),
 			_lock_area
 		)
 	)
-		throw renderer::exception(
+		throw sge::renderer::exception(
 			(
 				fcppt::format(
 					FCPPT_TEXT("ogl: lock (%1%) out of range! dim is %2%!")
@@ -207,7 +336,7 @@ sge::opengl::texture::basic<Types>::lock_me(
 		);
 
 	lock_.take(
-		opengl::texture::create_lock(
+		sge::opengl::texture::create_lock(
 			this->system_context(),
 			_method,
 			this->size().content(),
@@ -218,18 +347,18 @@ sge::opengl::texture::basic<Types>::lock_me(
 	);
 
 	if(
-		renderer::lock_flags::read(
+		sge::renderer::lock_flags::read(
 			_method
 		)
 	)
 	{
-		opengl::texture::scoped_work_binding const binding(
+		sge::opengl::texture::scoped_work_binding const binding(
 			this->system_context(),
 			this->type(),
 			this->id()
 		);
 
-		opengl::texture::funcs::get_image(
+		sge::opengl::texture::funcs::get_image(
 			binding,
 			this->type(),
 			this->format(),
@@ -254,23 +383,25 @@ sge::opengl::texture::basic<Types>::lock_me(
 template<
 	typename Types
 >
-typename sge::opengl::texture::basic<Types>::view const
-sge::opengl::texture::basic<Types>::lock_view()
+typename sge::opengl::texture::basic<
+	Types
+>::view const
+sge::opengl::texture::basic<
+	Types
+>::lock_view()
 {
-	// If we are currently reading a texture,
-	// we have mapped the whole texture and
-	// have to take a sub view.
-	// Also, opengl reads the image flipped,
-	// so we have to flip it too.
+	// If we are currently reading a texture, we have mapped the whole
+	// texture and have to take a sub view. Also, opengl reads the image
+	// flipped, so we have to flip it too.
 
 	bool const reading(
-		renderer::lock_flags::read(
+		sge::renderer::lock_flags::read(
 			lock_->method()
 		)
 	);
 
 	view const ret(
-		image::view::make<
+		sge::image::view::make<
 			image_tag
 		>(
 			reading
@@ -308,15 +439,21 @@ sge::opengl::texture::basic<Types>::lock_view()
 template<
 	typename Types
 >
-typename sge::opengl::texture::basic<Types>::const_view const
-sge::opengl::texture::basic<Types>::lock_view() const
+typename sge::opengl::texture::basic<
+	Types
+>::const_view const
+sge::opengl::texture::basic<
+	Types
+>::lock_view() const
 {
 	return
-		image::view::to_const<
+		sge::image::view::to_const<
 			image_tag
 		>(
 			const_cast<
-				opengl::texture::basic<Types> *
+				sge::opengl::texture::basic<
+					Types
+				> *
 			>(
 				this
 			)->lock_view()
@@ -326,22 +463,29 @@ sge::opengl::texture::basic<Types>::lock_view() const
 template<
 	typename Types
 >
-typename sge::opengl::texture::basic<Types>::dim const
-sge::opengl::texture::basic<Types>::lock_dim() const
+typename sge::opengl::texture::basic<
+	Types
+>::dim const
+sge::opengl::texture::basic<
+	Types
+>::lock_dim() const
 {
 	return
 		lock_area_
 		?
 			lock_area_->size()
 		:
-			this->size();
+			this->size()
+		;
 }
 
 template<
 	typename Types
 >
 sge::renderer::texture::mipmap::object const
-sge::opengl::texture::basic<Types>::mipmap() const
+sge::opengl::texture::basic<
+	Types
+>::mipmap() const
 {
 	return mipmap_;
 }
@@ -350,7 +494,9 @@ template<
 	typename Types
 >
 sge::renderer::texture::capabilities_field const
-sge::opengl::texture::basic<Types>::capabilities() const
+sge::opengl::texture::basic<
+	Types
+>::capabilities() const
 {
 	return capabilities_;
 }
@@ -358,8 +504,12 @@ sge::opengl::texture::basic<Types>::capabilities() const
 template<
 	typename Types
 >
-typename sge::opengl::texture::basic<Types>::size_type
-sge::opengl::texture::basic<Types>::stride() const
+typename sge::opengl::texture::basic<
+	Types
+>::size_type
+sge::opengl::texture::basic<
+	Types
+>::stride() const
 {
 	return stride_;
 }
@@ -368,7 +518,9 @@ template<
 	typename Types
 >
 sge::opengl::color_format const
-sge::opengl::texture::basic<Types>::format() const
+sge::opengl::texture::basic<
+	Types
+>::format() const
 {
 	return format_;
 }
@@ -377,7 +529,9 @@ template<
 	typename Types
 >
 sge::opengl::color_format_type const
-sge::opengl::texture::basic<Types>::format_type() const
+sge::opengl::texture::basic<
+	Types
+>::format_type() const
 {
 	return format_type_;
 }
@@ -386,7 +540,9 @@ template<
 	typename Types
 >
 sge::opengl::internal_color_format const
-sge::opengl::texture::basic<Types>::internal_format() const
+sge::opengl::texture::basic<
+	Types
+>::internal_format() const
 {
 	return internal_format_;
 }
@@ -395,7 +551,9 @@ template<
 	typename Types
 >
 sge::opengl::context::system::object &
-sge::opengl::texture::basic<Types>::system_context() const
+sge::opengl::texture::basic<
+	Types
+>::system_context() const
 {
 	return system_context_;
 }
@@ -403,117 +561,10 @@ sge::opengl::texture::basic<Types>::system_context() const
 template<
 	typename Types
 >
-sge::opengl::texture::basic<Types>::basic(
-	sge::opengl::context::system::object &_system_context,
-	opengl::texture::type const _type,
-	parameters_type const &_parameters
-)
-:
-	opengl::texture::base(
-		_type
-	),
-	system_context_(
-		_system_context
-	),
-	mipmap_(
-		_parameters.mipmap()
-	),
-	resource_flags_(
-		_parameters.resource_flags()
-	),
-	capabilities_(
-		_parameters.capabilities()
-	),
-	dim_(
-		_parameters.size()
-	),
-	color_type_(
-		sge::opengl::texture::check_color_format(
-			_parameters.format()
-		)
-	),
-	format_(
-		opengl::convert::color_to_format(
-			color_type_
-		)
-	),
-	format_type_(
-		opengl::convert::color_to_format_type(
-			color_type_
-		)
-	),
-	internal_format_(
-		opengl::convert::color_to_internal_format(
-			color_type_
-		)
-	),
-	stride_(
-		image::color::format_stride(
-			color_type_
-		)
-	),
-	lock_(),
-	lock_area_()
-{
-	opengl::texture::check_dim<
-		dim::dim_wrapper::value
-	>(
-		this->size(),
-		Types::min_size(),
-		Types::name()
-	);
-
-	opengl::texture::scoped_work_binding const binding(
-		this->system_context(),
-		this->type(),
-		this->id()
-	);
-
-	Types::init_function()(
-		binding,
-		this->system_context(),
-		this->type(),
-		this->format(),
-		this->format_type(),
-		this->internal_format(),
-		sge::renderer::texture::mipmap::level(
-			0u
-		),
-		this->size(),
-		fcppt::null_ptr()
-	);
-
-	opengl::texture::mipmap::create<
-		dim::dim_wrapper::value
-	>(
-		opengl::texture::mipmap::parameters<
-			dim::dim_wrapper::value
-		>(
-			binding,
-			this->system_context(),
-			this->type(),
-			this->format(),
-			this->format_type(),
-			this->internal_format(),
-			this->size(),
-			Types::init_function()
-		),
-		this->mipmap()
-	);
-}
-
-template<
-	typename Types
->
-sge::opengl::texture::basic<Types>::~basic()
-{
-}
-
-template<
-	typename Types
->
 sge::renderer::resource_flags_field const
-sge::opengl::texture::basic<Types>::resource_flags() const
+sge::opengl::texture::basic<
+	Types
+>::resource_flags() const
 {
 	return resource_flags_;
 }
@@ -522,12 +573,14 @@ template<
 	typename Types
 >
 void
-sge::opengl::texture::basic<Types>::check_locked() const
+sge::opengl::texture::basic<
+	Types
+>::check_locked() const
 {
 	if(
 		!lock_
 	)
-		throw renderer::exception(
+		throw sge::renderer::exception(
 			FCPPT_TEXT("opengl::texture::basic not locked!")
 		);
 }
@@ -536,12 +589,14 @@ template<
 	typename Types
 >
 void
-sge::opengl::texture::basic<Types>::check_not_locked() const
+sge::opengl::texture::basic<
+	Types
+>::check_not_locked() const
 {
 	if(
 		lock_
 	)
-		throw renderer::exception(
+		throw sge::renderer::exception(
 			FCPPT_TEXT("opengl::texture::basic already locked!")
 		);
 }

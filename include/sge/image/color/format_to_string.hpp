@@ -36,7 +36,7 @@ namespace color
 SGE_IMAGE_SYMBOL
 fcppt::string const
 format_to_string(
-	format::type
+	sge::image::color::format::type
 );
 
 }

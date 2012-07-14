@@ -26,32 +26,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::image::size_type
 sge::image::color::element_count(
-	format::type const _format
+	sge::image::color::format::type const _format
 )
 {
 	switch(
 		_format
 	)
 	{
-	case format::a8:
-	case format::l8:
-	case format::r32f:
+	case sge::image::color::format::a8:
+	case sge::image::color::format::l8:
+	case sge::image::color::format::r32f:
 		return 1;
-	case format::la8:
+	case sge::image::color::format::la8:
 		return 2;
-	case format::rgb8:
-	case format::bgr8:
-	case format::rgb32f:
-	case format::bgr32f:
+	case sge::image::color::format::rgb8:
+	case sge::image::color::format::bgr8:
+	case sge::image::color::format::rgb32f:
+	case sge::image::color::format::bgr32f:
+	case sge::image::color::format::srgb8:
+	case sge::image::color::format::srgb32f:
 		return 3;
-	case format::rgba8:
-	case format::rgbx8:
-	case format::bgra8:
-	case format::bgrx8:
-	case format::rgba32f:
-	case format::bgra32f:
+	case sge::image::color::format::rgba8:
+	case sge::image::color::format::rgbx8:
+	case sge::image::color::format::bgra8:
+	case sge::image::color::format::bgrx8:
+	case sge::image::color::format::rgba32f:
+	case sge::image::color::format::bgra32f:
 		return 4;
-	case format::size:
+	case sge::image::color::format::size:
 		break;
 	}
 

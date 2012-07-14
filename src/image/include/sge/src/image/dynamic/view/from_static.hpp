@@ -67,7 +67,7 @@ from_static(
 			typename dest_type::format_store_type(
 				dest_format(
 					typename dest_format::format_store_type(
-						dynamic::color::from_static_format(
+						&sge::image::dynamic::color::from_static_format(
 							typename View::format::color_format()
 						)
 					)

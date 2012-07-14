@@ -43,13 +43,13 @@ namespace color
 {
 
 typedef boost::mpl::vector7<
-	dynamic::color::c8_1_format,
-	dynamic::color::c8_2_format,
-	dynamic::color::c8_3_format,
-	dynamic::color::c8_4_format,
-	dynamic::color::c32f_1_format,
-	dynamic::color::c32f_3_format,
-	dynamic::color::c32f_4_format
+	sge::image::dynamic::color::c8_1_format,
+	sge::image::dynamic::color::c8_2_format,
+	sge::image::dynamic::color::c8_3_format,
+	sge::image::dynamic::color::c8_4_format,
+	sge::image::dynamic::color::c32f_1_format,
+	sge::image::dynamic::color::c32f_3_format,
+	sge::image::dynamic::color::c32f_4_format
 > formats;
 
 }

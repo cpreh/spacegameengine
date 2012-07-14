@@ -29,6 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/bgrx8_format.hpp>
 #include <sge/image/color/l8_format.hpp>
 #include <sge/image/color/la8_format.hpp>
+#include <sge/image/color/srgb32f_format.hpp>
+#include <sge/image/color/srgb8_format.hpp>
 #include <sge/image/color/r32f_format.hpp>
 #include <sge/image/color/rgb32f_format.hpp>
 #include <sge/image/color/rgb8_format.hpp>
@@ -47,21 +49,23 @@ namespace image
 namespace color
 {
 
-typedef boost::mpl::vector14<
-	color::a8_format,
-	color::l8_format,
-	color::r32f_format,
-	color::la8_format,
-	color::rgb8_format,
-	color::bgr8_format,
-	color::rgba8_format,
-	color::rgbx8_format,
-	color::bgra8_format,
-	color::bgrx8_format,
-	color::rgb32f_format,
-	color::bgr32f_format,
-	color::rgba32f_format,
-	color::bgra32f_format
+typedef boost::mpl::vector16<
+	sge::image::color::a8_format,
+	sge::image::color::l8_format,
+	sge::image::color::r32f_format,
+	sge::image::color::la8_format,
+	sge::image::color::rgb8_format,
+	sge::image::color::bgr8_format,
+	sge::image::color::rgba8_format,
+	sge::image::color::rgbx8_format,
+	sge::image::color::bgra8_format,
+	sge::image::color::bgrx8_format,
+	sge::image::color::rgb32f_format,
+	sge::image::color::bgr32f_format,
+	sge::image::color::rgba32f_format,
+	sge::image::color::bgra32f_format,
+	sge::image::color::srgb8_format,
+	sge::image::color::srgb32f_format
 > elements;
 
 }

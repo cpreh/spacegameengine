@@ -56,19 +56,29 @@ template<
 class basic
 :
 	public Types::base,
-	public texture::base
+	public sge::opengl::texture::base
 {
 	FCPPT_NONCOPYABLE(
 		basic
 	);
+protected:
+	typedef typename Types::parameters parameters_type;
+
+	basic(
+		sge::opengl::context::system::object &,
+		sge::opengl::texture::type,
+		parameters_type const &
+	);
+
+	~basic();
 public:
 	typedef typename Types::base base_type;
 
 	typedef typename base_type::image_tag image_tag;
 
-	typedef opengl::texture::lock_base::pointer pointer;
+	typedef sge::opengl::texture::lock_base::pointer pointer;
 
-	typedef opengl::texture::lock_base::const_pointer const_pointer;
+	typedef sge::opengl::texture::lock_base::const_pointer const_pointer;
 
 	typedef typename base_type::size_type size_type;
 
@@ -136,17 +146,7 @@ protected:
 
 	sge::opengl::context::system::object &
 	system_context() const;
-
-	typedef typename Types::parameters parameters_type;
-
-	basic(
-		sge::opengl::context::system::object &,
-		sge::opengl::texture::type,
-		parameters_type const &
-	);
 public:
-	~basic();
-
 	renderer::resource_flags_field const
 	resource_flags() const;
 private:

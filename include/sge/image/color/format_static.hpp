@@ -23,9 +23,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/color/elements.hpp>
 #include <sge/image/color/format.hpp>
-#include <fcppt/static_assert_statement.hpp>
 #include <fcppt/mpl/index_of.hpp>
+#include <fcppt/mpl/integral_cast.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 namespace sge
 {
@@ -38,21 +44,18 @@ template<
 	typename Format
 >
 struct format_static
+:
+fcppt::mpl::integral_cast<
+	sge::image::color::format::type,
+	fcppt::mpl::index_of<
+		sge::image::color::elements,
+		Format
+	>
+>
 {
-	static format::type const value
-		= static_cast<
-			format::type
-		>(
-			fcppt::mpl::index_of<
-				elements,
-				Format
-			>::value
-		);
-
-	FCPPT_STATIC_ASSERT_STATEMENT(
-		value < format::size
-	);
 };
+
+FCPPT_PP_POP_WARNING
 
 }
 }

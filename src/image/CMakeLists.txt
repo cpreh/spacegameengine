@@ -44,6 +44,7 @@ set(
 	include/sge/image/color/format_to_string.hpp
 	include/sge/image/color/homogenous_format.hpp
 	include/sge/image/color/init.hpp
+	include/sge/image/color/is_convertible.hpp
 	include/sge/image/color/l8.hpp
 	include/sge/image/color/l8_format.hpp
 	include/sge/image/color/la8.hpp
@@ -66,6 +67,10 @@ set(
 	include/sge/image/color/rgba8_format.hpp
 	include/sge/image/color/rgbx8.hpp
 	include/sge/image/color/rgbx8_format.hpp
+	include/sge/image/color/srgb32f.hpp
+	include/sge/image/color/srgb32f_format.hpp
+	include/sge/image/color/srgb8.hpp
+	include/sge/image/color/srgb8_format.hpp
 	include/sge/image/colors.hpp
 	include/sge/image/const_raw_pointer.hpp
 	include/sge/image/difference_type.hpp
@@ -74,6 +79,7 @@ set(
 	include/sge/image/exception_fwd.hpp
 	include/sge/image/file_exception.hpp
 	include/sge/image/integral_size.hpp
+	include/sge/image/invalid_convert.hpp
 	include/sge/image/l8_format.hpp
 	include/sge/image/la8_format.hpp
 	include/sge/image/optional_path.hpp
@@ -145,6 +151,8 @@ set(
 	src/image/dynamic/color/rgba32f_format.cpp
 	src/image/dynamic/color/rgba8_format.cpp
 	src/image/dynamic/color/rgbx8_format.cpp
+	src/image/dynamic/color/srgb32f_format.cpp
+	src/image/dynamic/color/srgb8_format.cpp
 	src/image/exception.cpp
 	src/image/file_exception.cpp
 	src/image/include/sge/src/image/algorithm/copy_and_convert_impl.hpp
@@ -159,6 +167,7 @@ set(
 	src/image/include/sge/src/image/algorithm/instantiate_print.hpp
 	src/image/include/sge/src/image/algorithm/print_impl.hpp
 	src/image/include/sge/src/image/algorithm/print_visitor.hpp
+	src/image/include/sge/src/image/color/any/convert_visitor.hpp
 	src/image/include/sge/src/image/convert_dim.hpp
 	src/image/include/sge/src/image/dynamic/algorithm/cac/choose.hpp
 	src/image/include/sge/src/image/dynamic/algorithm/cac/choose/format_has_size.hpp
@@ -183,6 +192,7 @@ set(
 	src/image/include/sge/src/image/dynamic/color/a8_format.hpp
 	src/image/include/sge/src/image/dynamic/color/access.hpp
 	src/image/include/sge/src/image/dynamic/color/available_channels.hpp
+	src/image/include/sge/src/image/dynamic/color/available_layouts.hpp
 	src/image/include/sge/src/image/dynamic/color/basic_format.hpp
 	src/image/include/sge/src/image/dynamic/color/bgr32f_format.hpp
 	src/image/include/sge/src/image/dynamic/color/bgr8_format.hpp
@@ -208,6 +218,8 @@ set(
 	src/image/include/sge/src/image/dynamic/color/rgba32f_format.hpp
 	src/image/include/sge/src/image/dynamic/color/rgba8_format.hpp
 	src/image/include/sge/src/image/dynamic/color/rgbx8_format.hpp
+	src/image/include/sge/src/image/dynamic/color/srgb32f_format.hpp
+	src/image/include/sge/src/image/dynamic/color/srgb8_format.hpp
 	src/image/include/sge/src/image/dynamic/view/basic_elements.hpp
 	src/image/include/sge/src/image/dynamic/view/basic_variant.hpp
 	src/image/include/sge/src/image/dynamic/view/color_layout.hpp
@@ -256,6 +268,7 @@ set(
 	src/image/include/sge/src/image/view/sub_visitor.hpp
 	src/image/include/sge/src/image/view/to_const_impl.hpp
 	src/image/include/sge/src/image/view/to_const_visitor.hpp
+	src/image/invalid_convert.cpp
 	src/image/unsupported_format.cpp
 )
 

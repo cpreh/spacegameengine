@@ -34,7 +34,7 @@ namespace color
 {
 
 extern
-dynamic::color::c32f_4_format const
+sge::image::dynamic::color::c32f_4_format const
 rgba32f_format;
 
 }

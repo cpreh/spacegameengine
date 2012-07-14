@@ -34,9 +34,9 @@ namespace color
 {
 
 SGE_IMAGE_SYMBOL
-image::size_type
+sge::image::size_type
 element_count(
-	format::type
+	sge::image::color::format::type
 );
 
 }

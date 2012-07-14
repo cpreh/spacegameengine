@@ -32,6 +32,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/rgba32f_format.hpp>
 #include <sge/image/color/rgba8_format.hpp>
 #include <sge/image/color/rgbx8_format.hpp>
+#include <sge/image/color/srgb8_format.hpp>
+#include <sge/image/color/srgb32f_format.hpp>
 #include <sge/src/image/dynamic/color/a8_format.hpp>
 #include <sge/src/image/dynamic/color/bgr32f_format.hpp>
 #include <sge/src/image/dynamic/color/bgr8_format.hpp>
@@ -54,86 +56,98 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/image/dynamic/color/rgba32f_format.hpp>
 #include <sge/src/image/dynamic/color/rgba8_format.hpp>
 #include <sge/src/image/dynamic/color/rgbx8_format.hpp>
+#include <sge/src/image/dynamic/color/srgb8_format.hpp>
+#include <sge/src/image/dynamic/color/srgb32f_format.hpp>
 
 
 #define SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(\
 	dformat,\
 	sformat\
 )\
-sge::image::dynamic::color::dformat const * \
+sge::image::dynamic::color::dformat const & \
 sge::image::dynamic::color::from_static_format(\
 	sge::image::color::sformat const &\
 )\
 {\
-	return &sge::image::dynamic::color::sformat;\
+	return sge::image::dynamic::color::sformat;\
 }
 
-SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(\
+SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(
 	c8_1_format,
 	a8_format
 )
 
-SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(\
+SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(
 	c8_1_format,
 	l8_format
 )
 
-SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(\
+SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(
 	c32f_1_format,
 	r32f_format
 )
 
-SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(\
+SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(
 	c8_2_format,
 	la8_format
 )
 
-SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(\
+SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(
 	c8_3_format,
 	rgb8_format
 )
 
-SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(\
+SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(
 	c8_3_format,
 	bgr8_format
 )
 
-SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(\
+SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(
 	c8_4_format,
 	rgba8_format
 )
 
-SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(\
+SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(
 	c8_4_format,
 	rgbx8_format
 )
 
-SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(\
+SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(
 	c8_4_format,
 	bgra8_format
 )
 
-SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(\
+SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(
 	c8_4_format,
 	bgrx8_format
 )
 
-SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(\
+SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(
 	c32f_3_format,
 	rgb32f_format
 )
 
-SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(\
+SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(
 	c32f_3_format,
 	bgr32f_format
 )
 
-SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(\
+SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(
 	c32f_4_format,
 	rgba32f_format
 )
 
-SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(\
+SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(
 	c32f_4_format,
 	bgra32f_format
+)
+
+SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(
+	c8_3_format,
+	srgb8_format
+)
+
+SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(
+	c32f_3_format,
+	srgb32f_format
 )

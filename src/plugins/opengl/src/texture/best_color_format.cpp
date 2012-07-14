@@ -19,14 +19,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/color/format.hpp>
-#include <sge/image/color/format_to_string.hpp>
-#include <sge/opengl/texture/check_color_format.hpp>
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include <sge/opengl/texture/best_color_format.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 
 sge::image::color::format::type
-sge::opengl::texture::check_color_format(
+sge::opengl::texture::best_color_format(
 	sge::image::color::format::type const _format
 )
 {
@@ -55,13 +53,5 @@ sge::opengl::texture::check_color_format(
 		break;
 	}
 
-	throw sge::renderer::exception(
-		FCPPT_TEXT("Color format ")
-		+
-		sge::image::color::format_to_string(
-			_format
-		)
-		+
-		FCPPT_TEXT(" is not supported for textures.")
-	);
+	FCPPT_ASSERT_UNREACHABLE;
 }

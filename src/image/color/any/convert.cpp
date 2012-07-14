@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/bgra32f_format.hpp>
 #include <sge/image/color/bgra8_format.hpp>
 #include <sge/image/color/bgrx8_format.hpp>
-#include <sge/image/color/convert.hpp>
 #include <sge/image/color/l8_format.hpp>
 #include <sge/image/color/la8_format.hpp>
 #include <sge/image/color/object.hpp>
@@ -34,36 +33,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/rgba32f_format.hpp>
 #include <sge/image/color/rgba8_format.hpp>
 #include <sge/image/color/rgbx8_format.hpp>
+#include <sge/image/color/srgb8_format.hpp>
+#include <sge/image/color/srgb32f_format.hpp>
 #include <sge/image/color/any/convert.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/src/export_function_instantiation.hpp>
+#include <sge/src/image/color/any/convert_visitor.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
-
-namespace
-{
-
-template<
-	typename Dest
->
-class visitor
-{
-public:
-	typedef typename sge::image::color::object<
-		Dest
-	>::type result_type;
-
-	template<
-		typename Source
-	>
-	result_type
-	operator()(
-		Source const &
-	) const;
-};
-
-}
 
 template<
 	typename Dest
@@ -72,40 +50,16 @@ typename sge::image::color::object<
 	Dest
 >::type const
 sge::image::color::any::convert(
-	object const &_color
+	sge::image::color::any::object const &_color
 )
 {
 	return
 		fcppt::variant::apply_unary(
-			::visitor<
+			sge::image::color::any::convert_visitor<
 				Dest
 			>(),
 			_color.get()
 		);
-}
-
-namespace
-{
-
-template<
-	typename Dest
->
-template<
-	typename Source
->
-typename visitor<Dest>::result_type
-visitor<Dest>::operator()(
-	Source const &_src
-) const
-{
-	return
-		sge::image::color::convert<
-			Dest
-		>(
-			_src
-		);
-}
-
 }
 
 #define SGE_INSTANTIATE_COLOR_CONVERT(\
@@ -136,5 +90,7 @@ SGE_INSTANTIATE_COLOR_CONVERT(rgb32f_format)
 SGE_INSTANTIATE_COLOR_CONVERT(bgr32f_format)
 SGE_INSTANTIATE_COLOR_CONVERT(rgba32f_format)
 SGE_INSTANTIATE_COLOR_CONVERT(bgra32f_format)
+SGE_INSTANTIATE_COLOR_CONVERT(srgb8_format)
+SGE_INSTANTIATE_COLOR_CONVERT(srgb32f_format)
 
 #undef SGE_INSTANTIATE_COLOR_CONVERT

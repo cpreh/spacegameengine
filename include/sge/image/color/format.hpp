@@ -46,6 +46,8 @@ enum type
 	bgr32f,
 	rgba32f,
 	bgra32f,
+	srgb8,
+	srgb32f,
 	size
 };
 }

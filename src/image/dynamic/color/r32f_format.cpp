@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/src/image/dynamic/color/available_channels.hpp>
+#include <sge/src/image/dynamic/color/available_layouts.hpp>
 #include <sge/src/image/dynamic/color/c32f_1_format.hpp>
 #include <sge/src/image/dynamic/color/r32f_format.hpp>
 #include <fcppt/assign/make_array.hpp>
@@ -31,5 +32,6 @@ sge::image::dynamic::color::r32f_format(
 	>
 	(
 		sge::image::dynamic::color::available_channels::red
-	)
+	),
+	sge::image::dynamic::color::available_layouts::rgb
 );
