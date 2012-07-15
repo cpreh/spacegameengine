@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/global.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/log/debug.hpp>
 #include <fcppt/log/output.hpp>
-#include <fcppt/log/warning.hpp>
 #include <fcppt/math/is_power_of_2.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/dim/output.hpp>
@@ -68,7 +68,7 @@ warn_pow2(
 			)
 		)
 		{
-			FCPPT_LOG_WARNING(
+			FCPPT_LOG_DEBUG(
 				log::global(),
 				fcppt::log::_
 					<< FCPPT_TEXT("OpenGL implementations are not required to support ")
