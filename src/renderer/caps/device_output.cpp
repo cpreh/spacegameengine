@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/color/format_to_string.hpp>
 #include <sge/renderer/caps/device.hpp>
 #include <sge/renderer/caps/device_output.hpp>
 #include <fcppt/text.hpp>
@@ -49,10 +48,6 @@ sge::renderer::caps::operator<<(
 		<< _caps.max_volume_texture_extent()
 		<< FCPPT_TEXT(", max_anisotropy = ")
 		<< _caps.max_anisotropy()
-		<< FCPPT_TEXT(", preferred_texture_format = ")
-		<< sge::image::color::format_to_string(
-			_caps.preferred_texture_format().get()
-		)
 		<< FCPPT_TEXT(", clip_plane_indices = ")
 		<< _caps.clip_plane_indices()
 		<< FCPPT_TEXT(", light_indices = ")

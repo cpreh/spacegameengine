@@ -31,7 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps/max_anisotropy.hpp>
 #include <sge/renderer/caps/max_texture_size.hpp>
 #include <sge/renderer/caps/max_volume_texture_extent.hpp>
-#include <sge/renderer/caps/preferred_texture_format.hpp>
 #include <sge/renderer/caps/render_target_inverted.hpp>
 #include <sge/renderer/caps/render_target_supported.hpp>
 #include <sge/renderer/caps/target_surface_indices.hpp>
@@ -47,12 +46,12 @@ namespace caps
 {
 
 /**
- * \brief Provides a description of a renderer::device
- *
- * This class provides descriptions of a renderer::device such as the driver's
- * name, the preferred texture format and certain limitations. Not violating
- * the limitations is important. Certain functions have undefined behaviour or
- * throw exceptions the limitations are violated.
+\brief Provides information about an sge::renderer::device
+
+This class provides information about an sge::renderer::device such as the
+driver's name, if render targets are supported and certain limitations. It is
+important that all the limitations are honored, otherwise functions may have
+undefined behavior.
 */
 class device
 {
@@ -75,7 +74,6 @@ public:
 		sge::renderer::caps::max_anisotropy,
 		sge::renderer::caps::render_target_supported,
 		sge::renderer::caps::render_target_inverted,
-		sge::renderer::caps::preferred_texture_format,
 		sge::renderer::caps::clip_plane_indices,
 		sge::renderer::caps::light_indices,
 		sge::renderer::caps::texture_stages,
@@ -167,20 +165,6 @@ public:
 	render_target_inverted() const;
 
 	/**
-	 * \brief Returns the preferred texture format
-	 *
-	 * The preferred texture format is the format the driver thinks is the
-	 * fastest. Usually, graphics cards can only handle specific formats
-	 * (like BGR(A) for nvidia) well, and have to convert others.
-	 * Conversions are usually done by the graphics card itself and not in
-	 * the driver, so the performance impact might not be that huge if non
-	 * preferred formats are used.
-	*/
-	SGE_RENDERER_SYMBOL
-	sge::renderer::caps::preferred_texture_format const
-	preferred_texture_format() const;
-
-	/**
 	 * \brief Returns the number of clip planes
 	 *
 	 * Valid clip plane indices range from 0 to the returned value - 1. If
@@ -235,8 +219,6 @@ private:
 	sge::renderer::caps::render_target_supported const render_target_supported_;
 
 	sge::renderer::caps::render_target_inverted const render_target_inverted_;
-
-	sge::renderer::caps::preferred_texture_format const preferred_texture_format_;
 
 	sge::renderer::caps::clip_plane_indices const clip_plane_indices_;
 

@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps/max_anisotropy.hpp>
 #include <sge/renderer/caps/max_texture_size.hpp>
 #include <sge/renderer/caps/max_volume_texture_extent.hpp>
-#include <sge/renderer/caps/preferred_texture_format.hpp>
 #include <sge/renderer/caps/render_target_inverted.hpp>
 #include <sge/renderer/caps/render_target_supported.hpp>
 #include <sge/renderer/caps/target_surface_indices.hpp>
@@ -42,7 +41,6 @@ sge::renderer::caps::device::device(
 	sge::renderer::caps::max_anisotropy const _max_anisotropy,
 	sge::renderer::caps::render_target_supported const _render_target_supported,
 	sge::renderer::caps::render_target_inverted const _render_target_inverted,
-	sge::renderer::caps::preferred_texture_format const _preferred_texture_format,
 	sge::renderer::caps::clip_plane_indices const _clip_plane_indices,
 	sge::renderer::caps::light_indices const _light_indices,
 	sge::renderer::caps::texture_stages const _texture_stages,
@@ -72,9 +70,6 @@ sge::renderer::caps::device::device(
 	),
 	render_target_inverted_(
 		_render_target_inverted
-	),
-	preferred_texture_format_(
-		_preferred_texture_format
 	),
 	clip_plane_indices_(
 		_clip_plane_indices
@@ -141,12 +136,6 @@ sge::renderer::caps::render_target_inverted const
 sge::renderer::caps::device::render_target_inverted() const
 {
 	return render_target_inverted_;
-}
-
-sge::renderer::caps::preferred_texture_format const
-sge::renderer::caps::device::preferred_texture_format() const
-{
-	return preferred_texture_format_;
 }
 
 sge::renderer::caps::clip_plane_indices const
