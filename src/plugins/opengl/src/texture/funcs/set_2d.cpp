@@ -32,21 +32,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/creation_failed.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/dim/output.hpp>
 
 
 void
 sge::opengl::texture::funcs::set_2d(
-	texture::binding const &,
-	opengl::context::system::object &,
-	texture::type const _type,
-	opengl::color_format const _format,
-	opengl::color_format_type const _format_type,
-	opengl::internal_color_format const _internal_format,
-	renderer::texture::mipmap::level const _level,
-	renderer::dim2 const &_dim,
-	renderer::const_raw_pointer const _src
+	sge::opengl::texture::binding const &,
+	sge::opengl::context::system::object &,
+	sge::opengl::texture::type const _type,
+	sge::opengl::color_format const _format,
+	sge::opengl::color_format_type const _format_type,
+	sge::opengl::internal_color_format const _internal_format,
+	sge::renderer::texture::mipmap::level const _level,
+	sge::renderer::dim2 const &_dim,
+	sge::renderer::const_raw_pointer const _src
 )
 {
 	::glTexImage2D(

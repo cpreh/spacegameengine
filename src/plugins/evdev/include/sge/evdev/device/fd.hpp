@@ -51,6 +51,9 @@ public:
 
 	awl::backends::linux::fd::object const
 	get() const;
+
+	bool
+	valid() const;
 private:
 	awl::backends::linux::fd::object const fd_;
 };

@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/color_format.hpp>
 #include <sge/opengl/color_format_type.hpp>
+#include <sge/opengl/common.hpp>
 #include <sge/opengl/range_check.hpp>
 #include <sge/opengl/buffer/base.hpp>
 #include <sge/opengl/buffer/pbo_context.hpp>
@@ -35,28 +36,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <fcppt/format.hpp>
+#include <fcppt/null_ptr.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/box/output.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/dim/output.hpp>
 
 
 void
 sge::opengl::texture::funcs::set_rect(
-	texture::binding const &,
+	sge::opengl::texture::binding const &,
 	sge::opengl::context::system::object &_system_context,
-	texture::type const _type,
-	opengl::color_format const _format,
-	opengl::color_format_type const _format_type,
-	renderer::texture::mipmap::level const _level,
-	renderer::dim2 const &_dim,
-	renderer::lock_rect const &_lock_rect,
-	renderer::const_raw_pointer const _src
+	sge::opengl::texture::type const _type,
+	sge::opengl::color_format const _format,
+	sge::opengl::color_format_type const _format_type,
+	sge::renderer::texture::mipmap::level const _level,
+	sge::renderer::dim2 const &_dim,
+	sge::renderer::lock_rect const &_lock_rect,
+	sge::renderer::const_raw_pointer const _src
 )
 {
-	if(!
-		_src &&
+	if(
+		_src == fcppt::null_ptr()
+		&&
 		!sge::opengl::context::use<
 			sge::opengl::buffer::pbo_context
 		>(
@@ -65,17 +66,17 @@ sge::opengl::texture::funcs::set_rect(
 		.impl()
 		.hardware_supported()
 	)
-		throw renderer::exception(
-			FCPPT_TEXT("ogl::set_texture_rect(): src is 0!")
+		throw sge::renderer::exception(
+			FCPPT_TEXT("OpenGL: Texture source is 0 although no PBO is bound!")
 		);
 
 	if(
-		!opengl::range_check(
+		!sge::opengl::range_check(
 			_dim,
 			_lock_rect
 		)
 	)
-		throw renderer::exception(
+		throw sge::renderer::exception(
 			(
 				fcppt::format(
 					FCPPT_TEXT("rect for setting a texture is out of range (rect=%1%, dim=%2%)!")
@@ -121,9 +122,10 @@ sge::opengl::texture::funcs::set_rect(
 	SGE_OPENGL_CHECK_STATE(
 		(
 			fcppt::format(
-				FCPPT_TEXT("glTexSubImage2D with rect %1% failed")
+				FCPPT_TEXT("glTexSubImage2D with rect (rect=%1%, dim=%2%) failed")
 			)
 			% _lock_rect
+			% _dim
 		).str(),
 		sge::renderer::exception
 	)

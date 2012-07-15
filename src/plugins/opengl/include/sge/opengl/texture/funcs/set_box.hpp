@@ -27,8 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/type.hpp>
 #include <sge/renderer/const_raw_pointer.hpp>
-#include <sge/renderer/dim3.hpp>
-#include <sge/renderer/lock_box.hpp>
+#include <sge/renderer/dim3_fwd.hpp>
+#include <sge/renderer/lock_box_fwd.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
 
 
@@ -43,15 +43,15 @@ namespace funcs
 
 void
 set_box(
-	texture::binding const &,
+	sge::opengl::texture::binding const &,
 	sge::opengl::context::system::object &,
-	texture::type,
-	opengl::color_format,
-	opengl::color_format_type,
-	renderer::texture::mipmap::level,
-	renderer::dim3 const &,
-	renderer::lock_box const &,
-	renderer::const_raw_pointer src
+	sge::opengl::texture::type,
+	sge::opengl::color_format,
+	sge::opengl::color_format_type,
+	sge::renderer::texture::mipmap::level,
+	sge::renderer::dim3 const &,
+	sge::renderer::lock_box const &,
+	sge::renderer::const_raw_pointer src
 );
 
 }

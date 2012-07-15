@@ -24,7 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/exception.hpp>
 #include <sge/log/global.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/move.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/error/strerrno.hpp>
+#include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -36,24 +39,36 @@ sge::evdev::device::fd_unique_ptr
 sge::evdev::device::create_fd(
 	boost::filesystem::path const &_path
 )
-try
 {
-	return
+	sge::evdev::device::fd_unique_ptr ret(
 		fcppt::make_unique_ptr<
 			sge::evdev::device::fd
 		>(
 			_path
-		);
-}
-catch(
-	sge::input::exception const &_error
-)
-{
+		)
+	);
+
+	if(
+		ret->valid()
+	)
+		return
+			fcppt::move(
+				ret
+			);
+
 	FCPPT_LOG_ERROR(
 		sge::log::global(),
 		fcppt::log::_
-			<< FCPPT_TEXT("Failed to add evdev device: ")
-			<< _error.string()
+			<<
+			FCPPT_TEXT("Opening \"")
+			<<
+			fcppt::filesystem::path_to_string(
+				_path
+			)
+			<<
+			FCPPT_TEXT("\" failed: ")
+			<<
+			fcppt::error::strerrno()
 	);
 
 	return

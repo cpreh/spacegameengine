@@ -67,7 +67,7 @@ sge::opengl::texture::funcs::set_box(
 		.hardware_supported()
 	)
 		throw renderer::exception(
-			FCPPT_TEXT("ogl::set_texture_rect(): src is 0!")
+			FCPPT_TEXT("OpenGL: Texture source is 0 although no PBO is bound!")
 		);
 
 	if(
@@ -79,7 +79,7 @@ sge::opengl::texture::funcs::set_box(
 		throw renderer::exception(
 			(
 				fcppt::format(
-					FCPPT_TEXT("rect for setting a texture is out of range (rect=%1%, dim=%2%)!")
+					FCPPT_TEXT("box for setting a texture is out of range (box=%1%, dim=%2%)!")
 				)
 				% _lock_box
 				% _dim
@@ -136,9 +136,10 @@ sge::opengl::texture::funcs::set_box(
 	SGE_OPENGL_CHECK_STATE(
 		(
 			fcppt::format(
-				FCPPT_TEXT("glTexSubImage3D with rect %1% failed")
+				FCPPT_TEXT("glTexSubImage3D with (box=%1%, dim=%2%) failed")
 			)
 			% _lock_box
+			% _dim
 		).str(),
 		sge::renderer::exception
 	)

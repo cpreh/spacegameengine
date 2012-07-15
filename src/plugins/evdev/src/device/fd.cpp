@@ -19,11 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/evdev/device/fd.hpp>
-#include <sge/input/exception.hpp>
 #include <awl/backends/linux/fd/object.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/error/strerrno.hpp>
-#include <fcppt/filesystem/path_to_string.hpp>
+#include <fcppt/assert/pre.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <sys/types.h>
@@ -44,32 +41,32 @@ sge::evdev::device::fd::fd(
 		)
 	)
 {
-	if(
-		fd_.get() == -1
-	)
-		throw sge::input::exception(
-			FCPPT_TEXT("Opening \"")
-			+
-			fcppt::filesystem::path_to_string(
-				_path
-			)
-			+
-			FCPPT_TEXT("\" failed: ")
-			+
-			fcppt::error::strerrno()
-		);
 }
 
 sge::evdev::device::fd::~fd()
 {
-	::close(
-		fd_.get()
-	);
+	if(
+		this->valid()
+	)
+		::close(
+			fd_.get()
+		);
 }
 
 awl::backends::linux::fd::object const
 sge::evdev::device::fd::get() const
 {
+	FCPPT_ASSERT_PRE(
+		this->valid()
+	);
+
 	return
 		fd_;
+}
+
+bool
+sge::evdev::device::fd::valid() const
+{
+	return
+		fd_.get() != -1;
 }

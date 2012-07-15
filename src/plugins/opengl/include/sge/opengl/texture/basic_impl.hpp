@@ -94,22 +94,22 @@ sge::opengl::texture::basic<
 		)
 	),
 	color_format_(
-		opengl::convert::color_to_format(
+		sge::opengl::convert::color_to_format(
 			format_
 		)
 	),
 	color_format_type_(
-		opengl::convert::color_to_format_type(
+		sge::opengl::convert::color_to_format_type(
 			format_
 		)
 	),
 	color_internal_format_(
-		opengl::convert::color_to_internal_format(
+		sge::opengl::convert::color_to_internal_format(
 			format_
 		)
 	),
 	stride_(
-		image::color::format_stride(
+		sge::image::color::format_stride(
 			format_
 		)
 	),

@@ -70,7 +70,7 @@ sge::font::text::drawer_3d::drawer_3d(
 				fcppt::ref(
 					_renderer
 				),
-				_renderer.caps().preferred_texture_format().get(),
+				sge::image::color::format::a8,
 				renderer::texture::mipmap::off(),
 				fcppt::math::dim::fill<
 					2,
