@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/context/use.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/texture/basic_parameters.hpp>
 #include <sge/opengl/texture/create_volume.hpp>
 #include <sge/opengl/texture/volume.hpp>
 #include <sge/opengl/texture/volume_context.hpp>
@@ -29,13 +29,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/volume_unique_ptr.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 
 
 sge::renderer::texture::volume_unique_ptr
 sge::opengl::texture::create_volume(
-	sge::opengl::context::system::object &_system_context,
+	sge::opengl::texture::basic_parameters const &_basic_parameters,
 	sge::renderer::texture::volume_parameters const &_parameters
 )
 {
@@ -43,7 +42,7 @@ sge::opengl::texture::create_volume(
 		!sge::opengl::context::use<
 			sge::opengl::texture::volume_context
 		>(
-			_system_context
+			_basic_parameters.system_context()
 		).have_volume_texture()
 	)
 		throw sge::renderer::unsupported(
@@ -57,8 +56,8 @@ sge::opengl::texture::create_volume(
 			fcppt::make_unique_ptr<
 				sge::opengl::texture::volume
 			>(
-				fcppt::ref(
-					_system_context
+				fcppt::cref(
+					_basic_parameters
 				),
 				fcppt::cref(
 					_parameters

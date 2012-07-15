@@ -26,9 +26,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/color_format.hpp>
 #include <sge/opengl/color_format_type.hpp>
 #include <sge/opengl/internal_color_format.hpp>
+#include <sge/opengl/context/device/object_fwd.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/base.hpp>
 #include <sge/opengl/texture/basic_fwd.hpp>
+#include <sge/opengl/texture/basic_parameters_fwd.hpp>
 #include <sge/opengl/texture/lock_base.hpp>
 #include <sge/opengl/texture/type.hpp>
 #include <sge/renderer/lock_mode.hpp>
@@ -39,7 +41,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_decl.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
-#include <fcppt/container/bitfield/object_decl.hpp>
 #include <fcppt/math/box/object_decl.hpp>
 
 
@@ -65,7 +66,7 @@ protected:
 	typedef typename Types::parameters parameters_type;
 
 	basic(
-		sge::opengl::context::system::object &,
+		sge::opengl::texture::basic_parameters const &,
 		sge::opengl::texture::type,
 		parameters_type const &
 	);
@@ -160,6 +161,8 @@ private:
 	check_not_locked() const;
 
 	sge::opengl::context::system::object &system_context_;
+
+	sge::opengl::context::device::object &device_context_;
 
 	sge::renderer::texture::mipmap::object const mipmap_;
 

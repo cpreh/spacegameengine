@@ -18,29 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_CREATE_CUBE_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_CREATE_CUBE_HPP_INCLUDED
+#include <sge/opengl/check_state.hpp>
+#include <sge/opengl/common.hpp>
+#include <sge/opengl/pixel_store_int.hpp>
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-#include <sge/opengl/texture/basic_parameters_fwd.hpp>
-#include <sge/renderer/texture/cube_parameters_fwd.hpp>
-#include <sge/renderer/texture/cube_unique_ptr.hpp>
 
-
-namespace sge
+void
+sge::opengl::pixel_store_int(
+	GLenum const _what,
+	GLint const _value
+)
 {
-namespace opengl
-{
-namespace texture
-{
+	::glPixelStorei(
+		_what,
+		_value
+	);
 
-sge::renderer::texture::cube_unique_ptr
-create_cube(
-	sge::opengl::texture::basic_parameters const &,
-	sge::renderer::texture::cube_parameters const &
-);
-
+	SGE_OPENGL_CHECK_STATE(
+		FCPPT_TEXT("glPixelStorei failed!"),
+		sge::renderer::exception
+	)
 }
-}
-}
-
-#endif

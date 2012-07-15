@@ -18,29 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_CREATE_CUBE_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_CREATE_CUBE_HPP_INCLUDED
-
-#include <sge/opengl/texture/basic_parameters_fwd.hpp>
-#include <sge/renderer/texture/cube_parameters_fwd.hpp>
-#include <sge/renderer/texture/cube_unique_ptr.hpp>
+#include <sge/opengl/context/device/object_fwd.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/texture/basic_parameters.hpp>
 
 
-namespace sge
+sge::opengl::texture::basic_parameters::basic_parameters(
+	sge::opengl::context::system::object &_system_context,
+	sge::opengl::context::device::object &_device_context
+)
+:
+	system_context_(
+		_system_context
+	),
+	device_context_(
+		_device_context
+	)
 {
-namespace opengl
-{
-namespace texture
-{
-
-sge::renderer::texture::cube_unique_ptr
-create_cube(
-	sge::opengl::texture::basic_parameters const &,
-	sge::renderer::texture::cube_parameters const &
-);
-
-}
-}
 }
 
-#endif
+sge::opengl::context::system::object &
+sge::opengl::texture::basic_parameters::system_context() const
+{
+	return
+		system_context_;
+}
+
+sge::opengl::context::device::object &
+sge::opengl::texture::basic_parameters::device_context() const
+{
+	return
+		device_context_;
+}

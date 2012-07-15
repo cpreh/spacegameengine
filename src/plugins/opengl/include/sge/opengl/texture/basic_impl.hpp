@@ -29,12 +29,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/view/make.hpp>
 #include <sge/image/view/sub.hpp>
 #include <sge/image/view/to_const.hpp>
+#include <sge/opengl/color_format_to_unpack_alignment.hpp>
 #include <sge/opengl/range_check.hpp>
+#include <sge/opengl/set_unpack_alignment.hpp>
+#include <sge/opengl/context/device/object_fwd.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/convert/color_to_format.hpp>
 #include <sge/opengl/convert/color_to_format_type.hpp>
 #include <sge/opengl/convert/color_to_internal_format.hpp>
 #include <sge/opengl/texture/basic.hpp>
+#include <sge/opengl/texture/basic_parameters.hpp>
 #include <sge/opengl/texture/best_color_format.hpp>
 #include <sge/opengl/texture/check_dim.hpp>
 #include <sge/opengl/texture/create_lock.hpp>
@@ -52,7 +56,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/null_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/box/output.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
@@ -65,7 +68,7 @@ template<
 sge::opengl::texture::basic<
 	Types
 >::basic(
-	sge::opengl::context::system::object &_system_context,
+	sge::opengl::texture::basic_parameters const &_basic_parameters,
 	sge::opengl::texture::type const _type,
 	parameters_type const &_parameters
 )
@@ -74,7 +77,10 @@ sge::opengl::texture::basic<
 		_type
 	),
 	system_context_(
-		_system_context
+		_basic_parameters.system_context()
+	),
+	device_context_(
+		_basic_parameters.device_context()
 	),
 	mipmap_(
 		_parameters.mipmap()
@@ -281,6 +287,13 @@ sge::opengl::texture::basic<
 			this->system_context(),
 			this->type(),
 			this->id()
+		);
+
+		sge::opengl::set_unpack_alignment(
+			device_context_,
+			sge::opengl::color_format_to_unpack_alignment(
+				format_
+			)
 		);
 
 		Types::sub_function()(

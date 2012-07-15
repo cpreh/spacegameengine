@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/texture/basic_parameters_fwd.hpp>
 #include <sge/opengl/texture/create_depth_stencil.hpp>
 #include <sge/opengl/texture/depth_stencil.hpp>
 #include <sge/renderer/texture/depth_stencil.hpp>
@@ -26,12 +26,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/depth_stencil_unique_ptr.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 
 
 sge::renderer::texture::depth_stencil_unique_ptr
 sge::opengl::texture::create_depth_stencil(
-	sge::opengl::context::system::object &_system_context,
+	sge::opengl::texture::basic_parameters const &_basic_parameters,
 	sge::renderer::texture::depth_stencil_parameters const &_parameters
 )
 {
@@ -40,8 +39,8 @@ sge::opengl::texture::create_depth_stencil(
 			fcppt::make_unique_ptr<
 				sge::opengl::texture::depth_stencil
 			>(
-				fcppt::ref(
-					_system_context
+				fcppt::cref(
+					_basic_parameters
 				),
 				fcppt::cref(
 					_parameters

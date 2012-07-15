@@ -23,61 +23,69 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/glew/is_supported.hpp>
+#include <sge/opengl/texture/basic_parameters.hpp>
 #include <sge/opengl/texture/cube.hpp>
 #include <sge/opengl/texture/cube_context.hpp>
 #include <sge/opengl/texture/optional_type.hpp>
 #include <sge/opengl/texture/planar.hpp>
 #include <sge/opengl/texture/convert/cube_side.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/lock_mode.hpp>
+#include <sge/renderer/lock_rect_fwd.hpp>
+#include <sge/renderer/resource_flags_field.hpp>
+#include <sge/renderer/texture/base.hpp>
+#include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/cube_parameters.hpp>
+#include <sge/renderer/texture/cube_side.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
+#include <sge/renderer/texture/mipmap/object.hpp>
+#include <fcppt/cref.hpp>
 #include <fcppt/foreach_enumerator.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/null_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 
 
 sge::opengl::texture::cube::cube(
-	sge::opengl::context::system::object &_system_context,
-	sge::renderer::texture::cube_parameters const &_param
+	sge::opengl::texture::basic_parameters const &_basic_parameters,
+	sge::renderer::texture::cube_parameters const &_parameters
 )
 :
-	opengl::texture::base(
-		opengl::context::use<
-			texture::cube_context
+	sge::opengl::texture::base(
+		sge::opengl::context::use<
+			sge::opengl::texture::cube_context
 		>(
-			_system_context
+			_basic_parameters.system_context()
 		).cube_texture_type()
 	),
 	size_(
-		_param.size()
+		_parameters.size()
 	),
 	locked_texture_(
 		fcppt::null_ptr()
 	),
 	textures_()
 {
-	texture::cube_context &context(
-		opengl::context::use<
-			texture::cube_context
+	sge::opengl::texture::cube_context &context(
+		sge::opengl::context::use<
+			sge::opengl::texture::cube_context
 		>(
-			_system_context
+			_basic_parameters.system_context()
 		)
 	);
 
 	sge::renderer::texture::planar_parameters const planar_param(
-		texture::planar::dim(
+		sge::opengl::texture::planar::dim(
 			size_,
 			size_
 		),
-		_param.format(),
-		_param.mipmap(),
-		_param.resource_flags(),
-		_param.capabilities()
+		_parameters.format(),
+		_parameters.mipmap(),
+		_parameters.resource_flags(),
+		_parameters.capabilities()
 
 	);
 
@@ -90,12 +98,12 @@ sge::opengl::texture::cube::cube(
 			fcppt::make_unique_ptr<
 				sge::opengl::texture::planar
 			>(
-				fcppt::ref(
-					_system_context
+				fcppt::cref(
+					_basic_parameters
 				),
 				planar_param,
-				opengl::texture::optional_type(
-					convert::cube_side(
+				sge::opengl::texture::optional_type(
+					sge::opengl::texture::convert::cube_side(
 						context.cube_sides(),
 						index
 					)
@@ -110,9 +118,9 @@ sge::opengl::texture::cube::~cube()
 
 sge::opengl::texture::cube::view const
 sge::opengl::texture::cube::lock(
-	renderer::texture::cube_side::type const _side,
-	renderer::lock_rect const &_src,
-	renderer::lock_mode::type const _flags
+	sge::renderer::texture::cube_side::type const _side,
+	sge::renderer::lock_rect const &_src,
+	sge::renderer::lock_mode::type const _flags
 )
 {
 	this->check_not_locked();
@@ -131,8 +139,8 @@ sge::opengl::texture::cube::lock(
 
 sge::opengl::texture::cube::const_view const
 sge::opengl::texture::cube::lock(
-	renderer::texture::cube_side::type const _side,
-	renderer::lock_rect const &_src
+	sge::renderer::texture::cube_side::type const _side,
+	sge::renderer::lock_rect const &_src
 ) const
 {
 	this->check_not_locked();
@@ -188,7 +196,7 @@ sge::opengl::texture::cube::check_locked() const
 	if(
 		!locked_texture_
 	)
-		throw renderer::exception(
+		throw sge::renderer::exception(
 			FCPPT_TEXT("ogl::texture::cube: not locked!")
 		);
 }
@@ -199,7 +207,7 @@ sge::opengl::texture::cube::check_not_locked() const
 	if(
 		locked_texture_
 	)
-		throw renderer::exception(
+		throw sge::renderer::exception(
 			FCPPT_TEXT("ogl::texture::cube: already locked!")
 		);
 }

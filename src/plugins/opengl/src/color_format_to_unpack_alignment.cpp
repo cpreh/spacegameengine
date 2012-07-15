@@ -18,29 +18,50 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_CREATE_CUBE_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_CREATE_CUBE_HPP_INCLUDED
+#include <sge/image/size_type.hpp>
+#include <sge/image/color/format.hpp>
+#include <sge/image/color/format_stride.hpp>
+#include <sge/opengl/color_format_to_unpack_alignment.hpp>
+#include <sge/opengl/unpack_alignment.hpp>
 
-#include <sge/opengl/texture/basic_parameters_fwd.hpp>
-#include <sge/renderer/texture/cube_parameters_fwd.hpp>
-#include <sge/renderer/texture/cube_unique_ptr.hpp>
 
-
-namespace sge
+sge::opengl::unpack_alignment const
+sge::opengl::color_format_to_unpack_alignment(
+	sge::image::color::format::type const _format
+)
 {
-namespace opengl
-{
-namespace texture
-{
+	sge::image::size_type const stride(
+		sge::image::color::format_stride(
+			_format
+		)
+	);
 
-sge::renderer::texture::cube_unique_ptr
-create_cube(
-	sge::opengl::texture::basic_parameters const &,
-	sge::renderer::texture::cube_parameters const &
-);
+	if(
+		(stride % 8u) == 0u
+	)
+		return
+			sge::opengl::unpack_alignment(
+				8
+			);
 
-}
-}
-}
+	if(
+		(stride % 4u) == 0u
+	)
+		return
+			sge::opengl::unpack_alignment(
+				4
+			);
 
-#endif
+	if(
+		(stride % 2u) == 0u
+	)
+		return
+			sge::opengl::unpack_alignment(
+				2
+			);
+
+	return
+		sge::opengl::unpack_alignment(
+			1
+		);
+}

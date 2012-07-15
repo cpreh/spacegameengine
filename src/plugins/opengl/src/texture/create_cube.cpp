@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/context/use.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/texture/basic_parameters.hpp>
 #include <sge/opengl/texture/create_cube.hpp>
 #include <sge/opengl/texture/cube.hpp>
 #include <sge/opengl/texture/cube_context.hpp>
@@ -29,13 +29,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/cube_unique_ptr.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 
 
 sge::renderer::texture::cube_unique_ptr
 sge::opengl::texture::create_cube(
-	sge::opengl::context::system::object &_system_context,
+	sge::opengl::texture::basic_parameters const &_basic_parameters,
 	sge::renderer::texture::cube_parameters const &_parameters
 )
 {
@@ -43,7 +42,7 @@ sge::opengl::texture::create_cube(
 		!sge::opengl::context::use<
 			sge::opengl::texture::cube_context
 		>(
-			_system_context
+			_basic_parameters.system_context()
 		).have_cube_texture()
 	)
 		throw sge::renderer::unsupported(
@@ -57,8 +56,8 @@ sge::opengl::texture::create_cube(
 			fcppt::make_unique_ptr<
 				sge::opengl::texture::cube
 			>(
-				fcppt::ref(
-					_system_context
+				fcppt::cref(
+					_basic_parameters
 				),
 				fcppt::cref(
 					_parameters

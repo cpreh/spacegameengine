@@ -21,8 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/object.hpp>
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/context/device/object_fwd.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/basic_impl.hpp>
+#include <sge/opengl/texture/basic_parameters_fwd.hpp>
 #include <sge/opengl/texture/optional_type.hpp>
 #include <sge/opengl/texture/planar.hpp>
 #include <sge/opengl/texture/planar_types.hpp>
@@ -31,6 +33,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/convert/make_type.hpp>
 #include <sge/opengl/texture/funcs/get_parameter_int.hpp>
 #include <sge/renderer/color_surface_unique_ptr.hpp>
+#include <sge/renderer/texture/capabilities.hpp>
+#include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
@@ -48,13 +52,13 @@ sge::opengl::texture::basic<
 >;
 
 sge::opengl::texture::planar::planar(
-	sge::opengl::context::system::object &_system_context,
-	sge::renderer::texture::planar_parameters const &_param,
+	sge::opengl::texture::basic_parameters const &_basic_parameters,
+	sge::renderer::texture::planar_parameters const &_parameters,
 	sge::opengl::texture::optional_type const &_type
 )
 :
-	texture::planar_basic(
-		_system_context,
+	sge::opengl::texture::planar_basic(
+		_basic_parameters,
 		_type
 		?
 			*_type
@@ -63,7 +67,7 @@ sge::opengl::texture::planar::planar(
 				GL_TEXTURE_2D
 			)
 		,
-		_param
+		_parameters
 	)
 {
 }
@@ -77,7 +81,7 @@ sge::opengl::texture::planar::surface(
 	sge::renderer::texture::mipmap::level const _level
 )
 {
-	opengl::texture::scoped_work_binding const binding(
+	sge::opengl::texture::scoped_work_binding const binding(
 		this->system_context(),
 		this->type(),
 		this->id()
@@ -86,7 +90,7 @@ sge::opengl::texture::planar::surface(
 	return
 		sge::renderer::color_surface_unique_ptr(
 			fcppt::make_unique_ptr<
-				opengl::texture::surface
+				sge::opengl::texture::surface
 			>(
 				fcppt::cref(
 					binding

@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/fbo/target.hpp>
 #include <sge/opengl/render_context/create.hpp>
 #include <sge/opengl/render_context/end.hpp>
+#include <sge/opengl/texture/basic_parameters.hpp>
 #include <sge/opengl/texture/create_cube.hpp>
 #include <sge/opengl/texture/create_depth_stencil.hpp>
 #include <sge/opengl/texture/create_planar.hpp>
@@ -192,7 +193,7 @@ sge::opengl::device::create_planar_texture(
 {
 	return
 		sge::opengl::texture::create_planar(
-			system_context_,
+			this->texture_parameters(),
 			_parameters
 		);
 }
@@ -204,7 +205,7 @@ sge::opengl::device::create_depth_stencil_texture(
 {
 	return
 		sge::opengl::texture::create_depth_stencil(
-			system_context_,
+			this->texture_parameters(),
 			_parameters
 		);
 }
@@ -232,7 +233,7 @@ sge::opengl::device::create_volume_texture(
 {
 	return
 		sge::opengl::texture::create_volume(
-			system_context_,
+			this->texture_parameters(),
 			_parameters
 		);
 }
@@ -244,7 +245,7 @@ sge::opengl::device::create_cube_texture(
 {
 	return
 		sge::opengl::texture::create_cube(
-			system_context_,
+			this->texture_parameters(),
 			_parameters
 		);
 }
@@ -399,4 +400,14 @@ sge::renderer::caps::device const &
 sge::opengl::device::caps() const
 {
 	return caps_;
+}
+
+sge::opengl::texture::basic_parameters const
+sge::opengl::device::texture_parameters()
+{
+	return
+		sge::opengl::texture::basic_parameters(
+			system_context_,
+			device_context_
+		);
 }

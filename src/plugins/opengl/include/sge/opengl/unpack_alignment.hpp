@@ -18,28 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_CREATE_CUBE_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_CREATE_CUBE_HPP_INCLUDED
+#ifndef SGE_OPENGL_UNPACK_ALIGNMENT_HPP_INCLUDED
+#define SGE_OPENGL_UNPACK_ALIGNMENT_HPP_INCLUDED
 
-#include <sge/opengl/texture/basic_parameters_fwd.hpp>
-#include <sge/renderer/texture/cube_parameters_fwd.hpp>
-#include <sge/renderer/texture/cube_unique_ptr.hpp>
+#include <sge/opengl/common.hpp>
+#include <fcppt/strong_typedef.hpp>
 
 
 namespace sge
 {
 namespace opengl
 {
-namespace texture
-{
 
-sge::renderer::texture::cube_unique_ptr
-create_cube(
-	sge::opengl::texture::basic_parameters const &,
-	sge::renderer::texture::cube_parameters const &
+FCPPT_MAKE_STRONG_TYPEDEF(
+	GLint,
+	unpack_alignment
 );
 
-}
 }
 }
 

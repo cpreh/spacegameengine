@@ -23,9 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/base.hpp>
+#include <sge/opengl/texture/basic_parameters_fwd.hpp>
 #include <sge/opengl/texture/depth_stencil_fwd.hpp>
 #include <sge/renderer/depth_stencil_format.hpp>
 #include <sge/renderer/depth_stencil_surface_unique_ptr.hpp>
+#include <sge/renderer/resource_flags_field_fwd.hpp>
+#include <sge/renderer/texture/capabilities_field_fwd.hpp>
 #include <sge/renderer/texture/depth_stencil.hpp>
 #include <sge/renderer/texture/depth_stencil_parameters_fwd.hpp>
 #include <sge/renderer/texture/mipmap/object_fwd.hpp>
@@ -42,39 +45,39 @@ namespace texture
 class depth_stencil
 :
 	public sge::renderer::texture::depth_stencil,
-	public opengl::texture::base
+	public sge::opengl::texture::base
 {
 	FCPPT_NONCOPYABLE(
 		depth_stencil
 	);
 public:
 	depth_stencil(
-		sge::opengl::context::system::object &,
+		sge::opengl::texture::basic_parameters const &,
 		sge::renderer::texture::depth_stencil_parameters const &
 	);
 
 	~depth_stencil();
 
-	dim const
+	sge::opengl::texture::depth_stencil::dim const
 	size() const;
 
-	renderer::depth_stencil_surface_unique_ptr
+	sge::renderer::depth_stencil_surface_unique_ptr
 	surface() const;
 
-	renderer::resource_flags_field const
+	sge::renderer::resource_flags_field const
 	resource_flags() const;
 
-	renderer::texture::capabilities_field const
+	sge::renderer::texture::capabilities_field const
 	capabilities() const;
 private:
-	renderer::texture::mipmap::object const
+	sge::renderer::texture::mipmap::object const
 	mipmap() const;
 
 	sge::opengl::context::system::object &system_context_;
 
-	dim const size_;
+	sge::opengl::texture::depth_stencil::dim const size_;
 
-	renderer::depth_stencil_format::type const format_;
+	sge::renderer::depth_stencil_format::type const format_;
 };
 
 }

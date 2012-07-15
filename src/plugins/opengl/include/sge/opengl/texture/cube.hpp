@@ -23,12 +23,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/image2d/view/object_fwd.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/base.hpp>
+#include <sge/opengl/texture/basic_parameters_fwd.hpp>
+#include <sge/renderer/lock_mode.hpp>
+#include <sge/renderer/lock_rect_fwd.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
 #include <sge/renderer/texture/capabilities_field_fwd.hpp>
 #include <sge/renderer/texture/cube.hpp>
 #include <sge/renderer/texture/cube_parameters_fwd.hpp>
+#include <sge/renderer/texture/cube_side.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/renderer/texture/mipmap/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -54,38 +57,38 @@ class cube
 	);
 public:
 	cube(
-		sge::opengl::context::system::object &,
+		sge::opengl::texture::basic_parameters const &,
 		sge::renderer::texture::cube_parameters const &
 	);
 
 	~cube();
 
-	image2d::view::object const
+	sge::opengl::texture::cube::view const
 	lock(
-		renderer::texture::cube_side::type side,
-		renderer::lock_rect const &,
-		renderer::lock_mode::type
+		sge::renderer::texture::cube_side::type,
+		sge::renderer::lock_rect const &,
+		sge::renderer::lock_mode::type
 	);
 
-	image2d::view::const_object const
+	sge::opengl::texture::cube::const_view const
 	lock(
-		renderer::texture::cube_side::type side,
-		renderer::lock_rect const &
+		sge::renderer::texture::cube_side::type,
+		sge::renderer::lock_rect const &
 	) const;
 
 	void
 	unlock() const;
 
-	size_type
+	sge::opengl::texture::cube::size_type
 	border_size() const;
 
-	renderer::resource_flags_field const
+	sge::renderer::resource_flags_field const
 	resource_flags() const;
 
-	renderer::texture::capabilities_field const
+	sge::renderer::texture::capabilities_field const
 	capabilities() const;
 private:
-	renderer::texture::mipmap::object const
+	sge::renderer::texture::mipmap::object const
 	mipmap() const;
 
 	void
@@ -94,15 +97,15 @@ private:
 	void
 	check_not_locked() const;
 
-	size_type const size_;
+	sge::opengl::texture::cube::size_type const size_;
 
-	mutable renderer::texture::planar *locked_texture_;
+	mutable sge::renderer::texture::planar *locked_texture_;
 
 	typedef boost::ptr_vector<
-		renderer::texture::planar
+		sge::renderer::texture::planar
 	> texture_vector;
 
-	mutable texture_vector textures_;
+	mutable sge::opengl::texture::cube::texture_vector textures_;
 };
 
 }

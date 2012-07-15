@@ -18,29 +18,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_CREATE_CUBE_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_CREATE_CUBE_HPP_INCLUDED
+#include <sge/opengl/pixel_store_context.hpp>
+#include <sge/opengl/unpack_alignment.hpp>
+#include <sge/opengl/context/device/base.hpp>
+#include <sge/opengl/context/device/id.hpp>
+#include <sge/opengl/context/device/make_id.hpp>
 
-#include <sge/opengl/texture/basic_parameters_fwd.hpp>
-#include <sge/renderer/texture/cube_parameters_fwd.hpp>
-#include <sge/renderer/texture/cube_unique_ptr.hpp>
 
-
-namespace sge
+sge::opengl::pixel_store_context::pixel_store_context()
+:
+	sge::opengl::context::device::base(),
+	unpack_alignment_(
+		4
+	)
 {
-namespace opengl
-{
-namespace texture
-{
+}
 
-sge::renderer::texture::cube_unique_ptr
-create_cube(
-	sge::opengl::texture::basic_parameters const &,
-	sge::renderer::texture::cube_parameters const &
+sge::opengl::pixel_store_context::~pixel_store_context()
+{
+}
+
+void
+sge::opengl::pixel_store_context::unpack_alignment(
+	sge::opengl::unpack_alignment const _unpack_alignment
+)
+{
+	unpack_alignment_ =
+		_unpack_alignment;
+}
+
+sge::opengl::unpack_alignment const
+sge::opengl::pixel_store_context::unpack_alignment() const
+{
+	return
+		unpack_alignment_;
+}
+
+sge::opengl::context::device::id const
+sge::opengl::pixel_store_context::static_id(
+	sge::opengl::context::device::make_id()
 );
-
-}
-}
-}
-
-#endif
