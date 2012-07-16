@@ -46,6 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/config/with_color.hpp>
 #include <sge/sprite/config/with_texture.hpp>
+#include <sge/font/text/set_matrices.hpp>
 #include <sge/texture/manager.hpp>
 #include <sge/texture/part_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -75,7 +76,8 @@ public:
 	SGE_FONT_TEXT_SYMBOL
 	drawer_3d(
 		renderer::device &,
-		image::color::any::object const &
+		image::color::any::object const &,
+		sge::font::text::set_matrices const &
 	);
 
 	SGE_FONT_TEXT_SYMBOL
@@ -100,7 +102,7 @@ public:
 	);
 
 	SGE_FONT_TEXT_SYMBOL
-	void
+	virtual void
 	end_rendering(
 		sge::renderer::context::object &
 	);
@@ -110,29 +112,12 @@ public:
 	color(
 		image::color::any::object const &
 	);
-private:
-	texture::part const &
-	cached_texture(
-		font::text::char_type,
-		font::const_image_view const &
-	);
-
+protected:
 	typedef image::color::bgra8_format color_format;
 
 	typedef sge::image::color::object<
 		color_format
 	>::type color_object;
-
-	color_object col_;
-
-	texture::manager texman_;
-
-	typedef boost::ptr_map<
-		font::text::char_type,
-		texture::part
-	> texture_map;
-
-	texture_map textures_;
 
 	typedef sge::sprite::config::choices<
 		sge::sprite::config::type_choices<
@@ -171,6 +156,32 @@ private:
 			sprite_choices
 		>
 	> sprite_buffers;
+
+	sprite_buffers &
+	buffers();
+
+	sprite_container &
+	sprites();
+private:
+	texture::part const &
+	cached_texture(
+		font::text::char_type,
+		font::const_image_view const &
+	);
+
+	sge::font::text::set_matrices const set_matrices_;
+
+	color_object col_;
+
+	texture::manager texman_;
+
+	typedef boost::ptr_map<
+		font::text::char_type,
+		texture::part
+	> texture_map;
+
+	texture_map textures_;
+
 
 	sprite_buffers sprite_buffers_;
 

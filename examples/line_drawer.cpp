@@ -311,7 +311,9 @@ try
 
 	sge::font::text::drawer_3d font_drawer(
 		sys.renderer(),
-		sge::image::colors::red());
+		sge::image::colors::red(),
+		sge::font::text::set_matrices(
+			true));
 
 	sge::timer::frames_counter frames_counter;
 

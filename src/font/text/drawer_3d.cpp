@@ -27,6 +27,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/context/object_fwd.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
+#include <sge/sprite/process/default_geometry_options.hpp>
+#include <sge/sprite/process/options.hpp>
+#include <sge/sprite/process/with_options.hpp>
+#include <sge/sprite/render/options.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/parameters_impl.hpp>
 #include <sge/sprite/buffers/option.hpp>
@@ -50,9 +54,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::font::text::drawer_3d::drawer_3d(
 	renderer::device &_renderer,
-	sge::image::color::any::object const &_col
+	sge::image::color::any::object const &_col,
+	sge::font::text::set_matrices const &_set_matrices
 )
 :
+	set_matrices_(
+		_set_matrices
+	),
 	col_(
 		sge::image::color::any::convert<
 			color_format
@@ -164,15 +172,49 @@ sge::font::text::drawer_3d::end_rendering(
 	sge::renderer::context::object &_render_context
 )
 {
-	sge::sprite::process::all(
-		_render_context,
-		sge::sprite::geometry::make_random_access_range(
-			sprites_.begin(),
-			sprites_.end()
-		),
-		sprite_buffers_,
-		sge::sprite::compare::default_()
-	);
+	if(set_matrices_.get())
+	{
+		sge::sprite::process::all(
+			_render_context,
+			sge::sprite::geometry::make_random_access_range(
+				sprites_.begin(),
+				sprites_.end()
+			),
+			sprite_buffers_,
+			sge::sprite::compare::default_()
+		);
+	}
+	else
+	{
+		sge::sprite::process::with_options
+		<
+			sge::sprite::process::options
+			<
+				sge::sprite::process::default_geometry_options
+				<
+					sprite_choices,
+					sge::sprite::compare::default_
+				>::value,
+				sge::sprite::render::options
+				<
+					// TODO: I'd like to include the set_matrices
+					// boolean here, but that is, of course, not
+					// possible. I'm not sure what the next-best
+					// alternative is.
+					sge::sprite::render::matrix_options::nothing,
+					sge::sprite::render::state_options::set,
+					sge::sprite::render::vertex_options::declaration_and_buffer
+				>
+			>
+		>(
+			_render_context,
+			sge::sprite::geometry::make_random_access_range(
+				sprites_.begin(),
+				sprites_.end()
+			),
+			sprite_buffers_,
+			sge::sprite::compare::default_());
+	}
 }
 
 void
@@ -186,6 +228,20 @@ sge::font::text::drawer_3d::color(
 		>(
 			_col
 		);
+}
+
+sge::font::text::drawer_3d::sprite_buffers &
+sge::font::text::drawer_3d::buffers()
+{
+	return
+		sprite_buffers_;
+}
+
+sge::font::text::drawer_3d::sprite_container &
+sge::font::text::drawer_3d::sprites()
+{
+	return
+		sprites_;
 }
 
 sge::texture::part const &

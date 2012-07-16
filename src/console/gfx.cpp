@@ -119,7 +119,9 @@ sge::console::gfx::gfx(
 	),
 	font_drawer_(
 		_rend,
-		_font_color
+		_font_color,
+		sge::font::text::set_matrices(
+			true)
 	),
 	keyboard_(
 		_keyboard

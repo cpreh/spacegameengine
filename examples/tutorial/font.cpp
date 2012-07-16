@@ -131,7 +131,9 @@ try
 
 	sge::font::text::drawer_3d drawer(
 		sys.renderer(),
-		sge::image::colors::green());
+		sge::image::colors::green(),
+		sge::font::text::set_matrices(
+			true));
 
 	fcppt::signal::scoped_connection const escape_connection(
 		sge::systems::quit_on_escape(
