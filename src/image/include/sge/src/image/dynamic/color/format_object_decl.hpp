@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/image/dynamic/color/format_object_base.hpp>
 #include <sge/src/image/dynamic/color/format_object_fwd.hpp>
 #include <mizuiro/color/homogenous_dynamic_decl.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -55,6 +56,9 @@ class format_object
 		NumChannels
 	>::type
 {
+	FCPPT_NONCOPYABLE(
+		format_object
+	);
 public:
 	typedef typename sge::image::dynamic::color::format_object_base<
 		BaseType,
@@ -63,15 +67,21 @@ public:
 
 	typedef typename base::channel_array channel_array;
 
+	typedef sge::image::dynamic::color::available_layouts::type layout_enum;
+
+	typedef sge::image::color::format::type color_format_type;
+
 	format_object(
 		channel_array const &,
-		sge::image::dynamic::color::available_layouts::type,
-		sge::image::color::format::type
+		layout_enum,
+		color_format_type
 	);
 
-	sge::image::dynamic::color::available_layouts::type const layout_type;
+	~format_object();
 
-	sge::image::color::format::type const color_format;
+	layout_enum const layout_type;
+
+	color_format_type const color_format;
 };
 
 FCPPT_PP_POP_WARNING

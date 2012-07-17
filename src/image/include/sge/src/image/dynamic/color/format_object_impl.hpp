@@ -21,8 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_IMAGE_DYNAMIC_COLOR_FORMAT_OBJECT_IMPL_HPP_INCLUDED
 #define SGE_SRC_IMAGE_DYNAMIC_COLOR_FORMAT_OBJECT_IMPL_HPP_INCLUDED
 
-#include <sge/image/color/format.hpp>
-#include <sge/src/image/dynamic/color/available_layouts.hpp>
 #include <sge/src/image/dynamic/color/format_object_decl.hpp>
 #include <mizuiro/color/homogenous_dynamic_impl.hpp>
 
@@ -36,8 +34,8 @@ sge::image::dynamic::color::format_object<
 	NumChannels
 >::format_object(
 	channel_array const &_channels,
-	sge::image::dynamic::color::available_layouts::type const _layout_type,
-	sge::image::color::format::type const _color_format
+	layout_enum const _layout_type,
+	color_format_type const _color_format
 )
 :
 	base(
@@ -49,6 +47,17 @@ sge::image::dynamic::color::format_object<
 	color_format(
 		_color_format
 	)
+{
+}
+
+template<
+	typename BaseType,
+	unsigned NumChannels
+>
+sge::image::dynamic::color::format_object<
+	BaseType,
+	NumChannels
+>::~format_object()
 {
 }
 

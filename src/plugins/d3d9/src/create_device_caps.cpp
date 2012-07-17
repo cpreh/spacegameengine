@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps/max_anisotropy.hpp>
 #include <sge/renderer/caps/max_texture_size.hpp>
 #include <sge/renderer/caps/max_volume_texture_extent.hpp>
-#include <sge/renderer/caps/preferred_texture_format.hpp>
+#include <sge/renderer/caps/render_target_inverted.hpp>
 #include <sge/renderer/caps/render_target_supported.hpp>
 #include <sge/renderer/caps/target_surface_indices.hpp>
 #include <sge/renderer/caps/texture_stages.hpp>
@@ -144,8 +144,8 @@ sge::d3d9::create_device_caps(
 			sge::renderer::caps::render_target_supported(
 				true
 			),
-			sge::renderer::caps::preferred_texture_format(
-				sge::image::color::format::bgra8
+			sge::renderer::caps::render_target_inverted(
+				false
 			),
 			sge::renderer::caps::clip_plane_indices(
 				caps.MaxUserClipPlanes
