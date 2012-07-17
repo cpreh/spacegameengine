@@ -1,0 +1,40 @@
+include_directories(
+	${CMAKE_BINARY_DIR}/include
+)
+
+set(
+	SGE_RESOURCE_TREE_FILES
+	include/sge/resource_tree/base_path.hpp
+	include/sge/resource_tree/element.hpp
+	include/sge/resource_tree/element_decl.hpp
+	include/sge/resource_tree/element_fwd.hpp
+	include/sge/resource_tree/element_impl.hpp
+	include/sge/resource_tree/exception.hpp
+	include/sge/resource_tree/object.hpp
+	include/sge/resource_tree/object_decl.hpp
+	include/sge/resource_tree/object_fwd.hpp
+	include/sge/resource_tree/object_impl.hpp
+	include/sge/resource_tree/path.hpp
+	include/sge/resource_tree/path_fwd.hpp
+	include/sge/resource_tree/path_to_resource_function.hpp
+	include/sge/resource_tree/path_to_resource_function_fwd.hpp
+	include/sge/resource_tree/path_with_resource.hpp
+	include/sge/resource_tree/path_with_resource_decl.hpp
+	include/sge/resource_tree/path_with_resource_fwd.hpp
+	include/sge/resource_tree/path_with_resource_impl.hpp
+	include/sge/resource_tree/strip_file_extension.hpp
+	include/sge/resource_tree/strip_path_prefix.hpp
+	include/sge/resource_tree/sub_path.hpp
+	src/resource_tree/exception.cpp
+	src/resource_tree/path.cpp
+	src/resource_tree/strip_file_extension.cpp
+	src/resource_tree/strip_path_prefix.cpp
+)
+
+add_sge_base_library(
+	resource_tree
+	"sgecore"
+	"${Fcppt_filesystem_LIBRARIES}"
+	""
+	""
+)

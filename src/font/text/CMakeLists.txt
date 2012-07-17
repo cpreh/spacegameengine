@@ -19,6 +19,7 @@ set(
 	include/sge/font/text/lit.hpp
 	include/sge/font/text/part.hpp
 	include/sge/font/text/part_fwd.hpp
+	include/sge/font/text/set_matrices.hpp
 	include/sge/font/text/size.hpp
 	include/sge/font/text/string.hpp
 	include/sge/font/text/to_fcppt_string.hpp

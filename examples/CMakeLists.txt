@@ -271,6 +271,12 @@ add_sge_console_example(
 	"${Fcppt_core_LIBRARIES}"
 )
 
+add_sge_console_example(
+	resource_tree
+	"sgeconfig;sgeresource_tree"
+	"${Fcppt_core_LIBRARIES};${Fcppt_filesystem_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+)
+
 add_sge_example(
 	screenshot
 	"sgeconfig;sgeimage;sgeimage2d;sgeinput;sgerenderer;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"

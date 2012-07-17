@@ -18,22 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_CONTEXT_SCOPED_SCOPED_PTR_HPP_INCLUDED
-#define SGE_RENDERER_CONTEXT_SCOPED_SCOPED_PTR_HPP_INCLUDED
+#ifndef SGE_RESOURCE_TREE_STRIP_FILE_EXTENSION_HPP_INCLUDED
+#define SGE_RESOURCE_TREE_STRIP_FILE_EXTENSION_HPP_INCLUDED
 
-#include <sge/renderer/context/scoped_fwd.hpp>
-#include <fcppt/scoped_ptr.hpp>
+#include <sge/resource_tree/path_fwd.hpp>
+#include <sge/resource_tree/symbol.hpp>
 
 namespace sge
 {
-namespace renderer
+namespace resource_tree
 {
-namespace context
-{
-typedef
-fcppt::scoped_ptr<sge::renderer::context::scoped>
-scoped_scoped_ptr;
-}
+/**
+\brief Modify a path, stripping the file extension at the end
+*/
+SGE_RESOURCE_TREE_SYMBOL
+sge::resource_tree::path const
+strip_file_extension(
+	sge::resource_tree::path const &);
 }
 }
 

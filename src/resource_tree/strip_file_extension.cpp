@@ -18,30 +18,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/exception.hpp>
-#include <sge/renderer/exception.hpp>
+#include <sge/resource_tree/path.hpp>
+#include <sge/resource_tree/strip_file_extension.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/information_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/next_prior.hpp>
+#include <boost/spirit/home/phoenix/core.hpp>
+#include <boost/spirit/home/phoenix/operator.hpp>
+#include <functional>
+#include <numeric>
+#include <fcppt/config/external_end.hpp>
 
 
-sge::renderer::exception::exception(
-	fcppt::string const &_what
-)
-:
-	sge::exception(
-		FCPPT_TEXT("renderer: ")
-		+ _what
-	)
+sge::resource_tree::path const
+sge::resource_tree::strip_file_extension(
+	sge::resource_tree::path const &p)
 {
-}
+	fcppt::string const filename =
+		p.back();
 
-sge::renderer::exception::exception(
-	fcppt::assert_::information const &_information
-)
-:
-	sge::exception(
-		_information
-	)
-{
+	fcppt::string::size_type const dot_position =
+		filename.find(
+			FCPPT_TEXT('.'));
+
+	if(dot_position == fcppt::string::npos)
+		return p;
+
+	return
+		std::accumulate(
+			p.begin(),
+			boost::prior(
+				p.end()),
+			resource_tree::path(),
+			boost::phoenix::arg_names::arg1 / boost::phoenix::arg_names::arg2) /
+		filename.substr(0,dot_position);
 }
