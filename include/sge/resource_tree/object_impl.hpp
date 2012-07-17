@@ -23,20 +23,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/resource_tree/exception.hpp>
 #include <sge/resource_tree/object_decl.hpp>
-#include <sge/resource_tree/path_with_resource.hpp>
-#include <sge/resource_tree/strip_file_extension.hpp>
-#include <sge/resource_tree/strip_path_prefix.hpp>
+#include <sge/resource_tree/path.hpp>
+#include <sge/resource_tree/detail/base_path.hpp>
+#include <sge/resource_tree/detail/element_impl.hpp>
+#include <sge/resource_tree/detail/path_with_resource_impl.hpp>
+#include <sge/resource_tree/detail/sub_path.hpp>
+#include <sge/resource_tree/detail/strip_file_extension.hpp>
+#include <sge/resource_tree/detail/strip_path_prefix.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/copy_if.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
-#include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/operations.hpp>
 #include <boost/filesystem/path.hpp>
-#include <iostream>
 #include <iterator>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
@@ -91,9 +93,9 @@ sge::resource_tree::object<
 		path_vector files;
 
 		this->add_directory(
-			resource_tree::base_path(
+			sge::resource_tree::detail::base_path(
 				_path),
-			resource_tree::sub_path(
+			sge::resource_tree::detail::sub_path(
 				*it),
 			_path_to_resource,
 			_random_generator);
@@ -109,8 +111,8 @@ sge::resource_tree::object<
 	T,
 	Rng
 >::add_directory(
-	resource_tree::base_path const &_base_path,
-	resource_tree::sub_path const &_sub_path,
+	sge::resource_tree::detail::base_path const &_base_path,
+	sge::resource_tree::detail::sub_path const &_sub_path,
 	path_to_resource_function const &_path_to_resource,
 	rng_type &_random_generator)
 {
@@ -129,12 +131,12 @@ sge::resource_tree::object<
 			continue;
 
 		resources.push_back(
-			resource_tree::path_with_resource<T>(
-				resource_tree::strip_file_extension(
-					resource_tree::strip_path_prefix(
-						resource_tree::base_path(
+			sge::resource_tree::detail::path_with_resource<T>(
+				sge::resource_tree::detail::strip_file_extension(
+					sge::resource_tree::detail::strip_path_prefix(
+						sge::resource_tree::detail::base_path(
 							_sub_path.get()),
-						resource_tree::sub_path(
+						sge::resource_tree::detail::sub_path(
 							*it))),
 				_path_to_resource(
 					*it)));
@@ -144,9 +146,9 @@ sge::resource_tree::object<
 	fcppt::container::ptr::push_back_unique_ptr(
 		elements_,
 		fcppt::make_unique_ptr<element_type>(
-			resource_tree::strip_path_prefix(
-					_base_path,
-					_sub_path),
+			sge::resource_tree::detail::strip_path_prefix(
+				_base_path,
+				_sub_path),
 			resources,
 			fcppt::ref(
 				_random_generator)));
@@ -165,7 +167,7 @@ sge::resource_tree::object<
 	T,
 	Rng
 >::get(
-	resource_tree::path const &_p)
+	sge::resource_tree::path const &_p)
 {
 	// Two choices: Either the specified path is a _file_ or a _directory_.
 	//

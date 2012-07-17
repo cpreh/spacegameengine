@@ -18,39 +18,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_RESOURCE_TREE_DETAIL_PATH_WITH_RESOURCE_DECL_HPP_INCLUDED
+#define SGE_RESOURCE_TREE_DETAIL_PATH_WITH_RESOURCE_DECL_HPP_INCLUDED
+
 #include <sge/resource_tree/path.hpp>
-#include <sge/resource_tree/strip_file_extension.hpp>
-#include <fcppt/string.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/next_prior.hpp>
-#include <boost/spirit/home/phoenix/core.hpp>
-#include <boost/spirit/home/phoenix/operator.hpp>
-#include <functional>
-#include <numeric>
-#include <fcppt/config/external_end.hpp>
+#include <sge/resource_tree/detail/path_with_resource_fwd.hpp>
 
 
-sge::resource_tree::path const
-sge::resource_tree::strip_file_extension(
-	sge::resource_tree::path const &p)
+namespace sge
 {
-	fcppt::string const filename =
-		p.back();
+namespace resource_tree
+{
+namespace detail
+{
 
-	fcppt::string::size_type const dot_position =
-		filename.find(
-			FCPPT_TEXT('.'));
+/**
+\brief Represents a pair of a path and a resource
+*/
+template<typename T>
+class path_with_resource
+{
+public:
+	path_with_resource(
+		sge::resource_tree::path const &,
+		T);
 
-	if(dot_position == fcppt::string::npos)
-		return p;
+	sge::resource_tree::path const &
+	path() const;
 
-	return
-		std::accumulate(
-			p.begin(),
-			boost::prior(
-				p.end()),
-			resource_tree::path(),
-			boost::phoenix::arg_names::arg1 / boost::phoenix::arg_names::arg2) /
-		filename.substr(0,dot_position);
+	T const
+	resource() const;
+private:
+	sge::resource_tree::path path_;
+	T resource_;
+};
+
 }
+}
+}
+
+#endif

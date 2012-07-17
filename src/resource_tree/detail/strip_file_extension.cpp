@@ -18,23 +18,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RESOURCE_TREE_SUB_PATH_HPP_INCLUDED
-#define SGE_RESOURCE_TREE_SUB_PATH_HPP_INCLUDED
-
-#include <fcppt/strong_typedef.hpp>
+#include <sge/resource_tree/path.hpp>
+#include <sge/resource_tree/detail/strip_file_extension.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <boost/next_prior.hpp>
+#include <boost/spirit/home/phoenix/core.hpp>
+#include <boost/spirit/home/phoenix/operator.hpp>
+#include <functional>
+#include <numeric>
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
+sge::resource_tree::path const
+sge::resource_tree::detail::strip_file_extension(
+	sge::resource_tree::path const &p)
 {
-namespace resource_tree
-{
-FCPPT_MAKE_STRONG_TYPEDEF(
-	boost::filesystem::path,
-	sub_path);
-}
-}
+	fcppt::string const filename =
+		p.back();
 
-#endif
+	fcppt::string::size_type const dot_position =
+		filename.find(
+			FCPPT_TEXT('.'));
+
+	if(dot_position == fcppt::string::npos)
+		return p;
+
+	return
+		std::accumulate(
+			p.begin(),
+			boost::prior(
+				p.end()),
+			resource_tree::path(),
+			boost::phoenix::arg_names::arg1 / boost::phoenix::arg_names::arg2) /
+		filename.substr(0,dot_position);
+}

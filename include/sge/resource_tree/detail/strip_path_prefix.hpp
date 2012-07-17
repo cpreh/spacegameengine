@@ -18,12 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RESOURCE_TREE_PATH_WITH_RESOURCE_HPP_INCLUDED
-#define SGE_RESOURCE_TREE_PATH_WITH_RESOURCE_HPP_INCLUDED
+#ifndef SGE_RESOURCE_TREE_DETAIL_STRIP_PATH_PREFIX_HPP_INCLUDED
+#define SGE_RESOURCE_TREE_DETAIL_STRIP_PATH_PREFIX_HPP_INCLUDED
 
-#include <sge/resource_tree/path_with_resource_decl.hpp>
-#include <sge/resource_tree/path_with_resource_fwd.hpp>
-#include <sge/resource_tree/path_with_resource_impl.hpp>
+#include <sge/resource_tree/path_fwd.hpp>
+#include <sge/resource_tree/symbol.hpp>
+#include <sge/resource_tree/detail/base_path.hpp>
+#include <sge/resource_tree/detail/sub_path.hpp>
 
+
+namespace sge
+{
+namespace resource_tree
+{
+namespace detail
+{
+
+SGE_RESOURCE_TREE_SYMBOL
+sge::resource_tree::path const
+strip_path_prefix(
+	sge::resource_tree::detail::base_path const &,
+	sge::resource_tree::detail::sub_path const &);
+
+}
+}
+}
 
 #endif

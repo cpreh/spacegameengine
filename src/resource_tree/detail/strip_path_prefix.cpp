@@ -18,23 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RESOURCE_TREE_BASE_PATH_HPP_INCLUDED
-#define SGE_RESOURCE_TREE_BASE_PATH_HPP_INCLUDED
-
-#include <fcppt/strong_typedef.hpp>
+#include <sge/resource_tree/path.hpp>
+#include <sge/resource_tree/detail/base_path.hpp>
+#include <sge/resource_tree/detail/strip_path_prefix.hpp>
+#include <sge/resource_tree/detail/sub_path.hpp>
+#include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/next_prior.hpp>
 #include <boost/filesystem/path.hpp>
+#include <iterator>
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
+sge::resource_tree::path const
+sge::resource_tree::detail::strip_path_prefix(
+	sge::resource_tree::detail::base_path const &_base_path,
+	sge::resource_tree::detail::sub_path const &_sub_path)
 {
-namespace resource_tree
-{
-FCPPT_MAKE_STRONG_TYPEDEF(
-	boost::filesystem::path,
-	base_path);
+	sge::resource_tree::path result;
+	for(
+		boost::filesystem::path::const_iterator it =
+			boost::next(
+				_sub_path.get().begin(),
+				std::distance(
+					_base_path.get().begin(),
+					_base_path.get().end()));
+		it != _sub_path.get().end();
+		++it)
+		result /=
+			fcppt::filesystem::path_to_string(
+				it->string());
+	return
+		result;
 }
-}
-
-#endif

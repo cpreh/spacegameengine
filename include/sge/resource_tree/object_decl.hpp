@@ -21,16 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RESOURCE_TREE_OBJECT_DECL_HPP_INCLUDED
 #define SGE_RESOURCE_TREE_OBJECT_DECL_HPP_INCLUDED
 
-#include <sge/resource_tree/base_path.hpp>
-#include <sge/resource_tree/element.hpp>
-#include <sge/resource_tree/path.hpp>
+#include <sge/resource_tree/path_fwd.hpp>
 #include <sge/resource_tree/path_to_resource_function_fwd.hpp>
-#include <sge/resource_tree/sub_path.hpp>
+#include <sge/resource_tree/detail/base_path.hpp>
+#include <sge/resource_tree/detail/element_fwd.hpp>
+#include <sge/resource_tree/detail/sub_path.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
-#include <vector>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -183,12 +182,12 @@ public:
 	*/
 	value_type
 	get(
-		resource_tree::path const &);
+		sge::resource_tree::path const &);
 
 	~object();
 private:
 	typedef
-	sge::resource_tree::element<
+	sge::resource_tree::detail::element<
 		T,
 		Rng
 	>
@@ -204,8 +203,8 @@ private:
 
 	void
 	add_directory(
-		resource_tree::base_path const &,
-		resource_tree::sub_path const &,
+		sge::resource_tree::detail::base_path const &,
+		sge::resource_tree::detail::sub_path const &,
 		path_to_resource_function const &,
 		rng_type &);
 };

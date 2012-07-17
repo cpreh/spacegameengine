@@ -18,23 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RESOURCE_TREE_STRIP_FILE_EXTENSION_HPP_INCLUDED
-#define SGE_RESOURCE_TREE_STRIP_FILE_EXTENSION_HPP_INCLUDED
+#ifndef SGE_RESOURCE_TREE_DETAIL_BASE_PATH_HPP_INCLUDED
+#define SGE_RESOURCE_TREE_DETAIL_BASE_PATH_HPP_INCLUDED
 
-#include <sge/resource_tree/path_fwd.hpp>
-#include <sge/resource_tree/symbol.hpp>
+#include <fcppt/strong_typedef.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {
 namespace resource_tree
 {
-/**
-\brief Modify a path, stripping the file extension at the end
-*/
-SGE_RESOURCE_TREE_SYMBOL
-sge::resource_tree::path const
-strip_file_extension(
-	sge::resource_tree::path const &);
+namespace detail
+{
+
+FCPPT_MAKE_STRONG_TYPEDEF(
+	boost::filesystem::path,
+	base_path);
+
+}
 }
 }
 

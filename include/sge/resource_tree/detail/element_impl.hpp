@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RESOURCE_TREE_ELEMENT_IMPL_HPP_INCLUDED
-#define SGE_RESOURCE_TREE_ELEMENT_IMPL_HPP_INCLUDED
+#ifndef SGE_RESOURCE_TREE_DETAIL_ELEMENT_IMPL_HPP_INCLUDED
+#define SGE_RESOURCE_TREE_DETAIL_ELEMENT_IMPL_HPP_INCLUDED
 
-#include <sge/resource_tree/element_decl.hpp>
 #include <sge/resource_tree/path.hpp>
-#include <sge/resource_tree/path_with_resource.hpp>
+#include <sge/resource_tree/detail/element_decl.hpp>
+#include <sge/resource_tree/detail/path_with_resource_impl.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/random/variate_impl.hpp>
@@ -34,7 +34,7 @@ template<
 	typename T,
 	typename Rng
 >
-sge::resource_tree::element<
+sge::resource_tree::detail::element<
 	T,
 	Rng
 >::element(
@@ -68,7 +68,7 @@ template<
 	typename Rng
 >
 sge::resource_tree::path const &
-sge::resource_tree::element<
+sge::resource_tree::detail::element<
 	T,
 	Rng
 >::base_path() const
@@ -82,7 +82,7 @@ template<
 	typename Rng
 >
 bool
-sge::resource_tree::element<
+sge::resource_tree::detail::element<
 	T,
 	Rng
 >::contains(
@@ -103,7 +103,7 @@ template<
 	typename Rng
 >
 T
-sge::resource_tree::element<
+sge::resource_tree::detail::element<
 	T,
 	Rng
 >::get(
@@ -129,7 +129,7 @@ template<
 	typename Rng
 >
 T
-sge::resource_tree::element<
+sge::resource_tree::detail::element<
 	T,
 	Rng
 >::get_random() const
@@ -146,7 +146,7 @@ template<
 	typename T,
 	typename Rng
 >
-sge::resource_tree::element<
+sge::resource_tree::detail::element<
 	T,
 	Rng
 >::~element()

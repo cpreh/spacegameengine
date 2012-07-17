@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RESOURCE_TREE_ELEMENT_DECL_HPP_INCLUDED
-#define SGE_RESOURCE_TREE_ELEMENT_DECL_HPP_INCLUDED
+#ifndef SGE_RESOURCE_TREE_DETAIL_ELEMENT_DECL_HPP_INCLUDED
+#define SGE_RESOURCE_TREE_DETAIL_ELEMENT_DECL_HPP_INCLUDED
 
-#include <sge/resource_tree/element_fwd.hpp>
 #include <sge/resource_tree/path.hpp>
-#include <sge/resource_tree/path_with_resource.hpp>
+#include <sge/resource_tree/detail/element_fwd.hpp>
+#include <sge/resource_tree/detail/path_with_resource_decl.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/random/variate_decl.hpp>
 #include <fcppt/random/distribution/uniform_int_decl.hpp>
@@ -35,6 +35,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 namespace resource_tree
+{
+namespace detail
 {
 /**
 \brief Represents one directory with the immediately contained resources (no recursion)
@@ -73,7 +75,7 @@ public:
 	typedef
 	std::vector
 	<
-		resource_tree::path_with_resource<T>
+		sge::resource_tree::detail::path_with_resource<T>
 	>
 	resource_container;
 
@@ -109,6 +111,8 @@ private:
 		container_distribution
 	> rng_;
 };
+
+}
 }
 }
 

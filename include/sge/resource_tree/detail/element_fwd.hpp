@@ -18,37 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RESOURCE_TREE_PATH_WITH_RESOURCE_DECL_HPP_INCLUDED
-#define SGE_RESOURCE_TREE_PATH_WITH_RESOURCE_DECL_HPP_INCLUDED
-
-#include <sge/resource_tree/path.hpp>
-#include <sge/resource_tree/path_with_resource_fwd.hpp>
-
+#ifndef SGE_RESOURCE_TREE_DETAIL_ELEMENT_FWD_HPP_INCLUDED
+#define SGE_RESOURCE_TREE_DETAIL_ELEMENT_FWD_HPP_INCLUDED
 
 namespace sge
 {
 namespace resource_tree
 {
-/**
-\brief Represents a pair of a path and a resource
-*/
-template<typename T>
-class path_with_resource
+namespace detail
 {
-public:
-	path_with_resource(
-		sge::resource_tree::path const &,
-		T);
 
-	sge::resource_tree::path const &
-	path() const;
+template<
+	typename T,
+	typename Rng
+>
+class element;
 
-	T const
-	resource() const;
-private:
-	sge::resource_tree::path path_;
-	T resource_;
-};
+}
 }
 }
 
