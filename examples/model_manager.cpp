@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/config/media_path.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/media/all_extensions.hpp>
-#include <sge/model/manager/instance.hpp>
+#include <sge/model/manager/instance/object.hpp>
 #include <sge/model/manager/object.hpp>
 #include <sge/renderer/aspect.hpp>
 #include <sge/renderer/bit_depth.hpp>
@@ -244,11 +244,11 @@ try
 		sge::model::manager::texture_directory(
 			sge::config::media_path() / FCPPT_TEXT("model_textures")));
 
-	sge::model::manager::instance treasure_chest_model(
+	sge::model::manager::instance::object treasure_chest_model(
 		model_manager,
-		sge::model::manager::identifier(
+		sge::model::manager::instance::identifier(
 			FCPPT_TEXT("treasure_chest")),
-		sge::model::manager::position(
+		sge::model::manager::instance::position(
 			sge::renderer::vector3::null()));
 
 	while(

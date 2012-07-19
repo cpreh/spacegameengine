@@ -104,7 +104,7 @@ sge::model::manager::object::object(
 
 		fcppt::container::ptr::insert_unique_ptr_map(
 			identifier_to_vertex_buffer_,
-			sge::model::manager::identifier(
+			sge::model::manager::instance::identifier(
 				stem),
 			sge::model::obj::vb_converter::convert
 			<
@@ -127,7 +127,7 @@ sge::model::manager::object::object(
 
 		fcppt::container::ptr::insert_unique_ptr_map(
 			identifier_to_texture_,
-			sge::model::manager::identifier(
+			sge::model::manager::instance::identifier(
 				stem),
 			sge::renderer::texture::create_planar_from_path(
 				texture_file,
@@ -154,7 +154,7 @@ sge::model::manager::object::render(
 		_context,
 		*vertex_declaration_);
 
-	sge::model::manager::identifier previous_identifier(
+	sge::model::manager::instance::identifier previous_identifier(
 		fcppt::string(
 			FCPPT_TEXT("")));
 
@@ -245,7 +245,7 @@ sge::model::manager::object::~object()
 
 void
 sge::model::manager::object::add_instance(
-	sge::model::manager::instance &_instance)
+	sge::model::manager::instance::object &_instance)
 {
 	children_.push_back(
 		_instance);

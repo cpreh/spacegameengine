@@ -18,18 +18,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_MANAGER_INSTANCE_FWD_HPP_INCLUDED
-#define SGE_MODEL_MANAGER_INSTANCE_FWD_HPP_INCLUDED
+#include <sge/model/manager/instance/object.hpp>
+#include <sge/model/manager/object.hpp>
 
-namespace sge
+sge::model::manager::instance::object::object(
+	sge::model::manager::object &_manager,
+	sge::model::manager::instance::identifier const &_identifier,
+	sge::model::manager::instance::position const &_position)
+:
+	identifier_(
+		_identifier),
+	position_(
+		_position)
 {
-namespace model
-{
-namespace manager
-{
-class instance;
-}
-}
+	_manager.add_instance(
+		*this);
 }
 
-#endif
+sge::model::manager::instance::identifier const &
+sge::model::manager::instance::object::identifier() const
+{
+	return
+		identifier_;
+}
+
+sge::model::manager::instance::position const &
+sge::model::manager::instance::object::position() const
+{
+	return
+		position_;
+}
+
+sge::model::manager::instance::object::~object()
+{
+}

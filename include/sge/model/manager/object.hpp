@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/camera/base_fwd.hpp>
 #include <sge/image2d/system_fwd.hpp>
-#include <sge/model/manager/identifier.hpp>
-#include <sge/model/manager/instance.hpp>
+#include <sge/model/manager/instance/identifier.hpp>
+#include <sge/model/manager/instance/object.hpp>
 #include <sge/model/manager/model_directory.hpp>
 #include <sge/model/manager/symbol.hpp>
 #include <sge/model/manager/texture_directory.hpp>
@@ -68,12 +68,12 @@ public:
 	SGE_MODEL_MANAGER_SYMBOL
 	~object();
 private:
-	friend class sge::model::manager::instance;
+	friend class sge::model::manager::instance::object;
 
 	typedef
 	boost::ptr_map
 	<
-		sge::model::manager::identifier,
+		sge::model::manager::instance::identifier,
 		sge::renderer::vertex_buffer
 	>
 	vertex_buffer_map;
@@ -81,7 +81,7 @@ private:
 	typedef
 	boost::ptr_map
 	<
-		sge::model::manager::identifier,
+		sge::model::manager::instance::identifier,
 		sge::renderer::texture::planar
 	>
 	texture_map;
@@ -89,7 +89,7 @@ private:
 	typedef
 	boost::intrusive::list
 	<
-		sge::model::manager::instance,
+		sge::model::manager::instance::object,
 		boost::intrusive::constant_time_size<false>
 	>
 	child_sequence;
@@ -104,7 +104,7 @@ private:
 
 	void
 	add_instance(
-		sge::model::manager::instance &);
+		sge::model::manager::instance::object &);
 };
 }
 }

@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_MANAGER_IDENTIFIER_HPP_INCLUDED
-#define SGE_MODEL_MANAGER_IDENTIFIER_HPP_INCLUDED
+#ifndef SGE_MODEL_MANAGER_INSTANCE_IDENTIFIER_HPP_INCLUDED
+#define SGE_MODEL_MANAGER_INSTANCE_IDENTIFIER_HPP_INCLUDED
 
 #include <fcppt/string.hpp>
 #include <fcppt/strong_typedef.hpp>
@@ -31,9 +31,12 @@ namespace model
 {
 namespace manager
 {
+namespace instance
+{
 FCPPT_MAKE_STRONG_TYPEDEF(
 	fcppt::string,
 	identifier);
+}
 }
 }
 }
