@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/base_fwd.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/model/manager/instance/identifier.hpp>
-#include <sge/model/manager/instance/object.hpp>
+#include <sge/model/manager/instance/sequence.hpp>
 #include <sge/model/manager/model_directory.hpp>
 #include <sge/model/manager/symbol.hpp>
 #include <sge/model/manager/texture_directory.hpp>
@@ -36,7 +36,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/planar_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/intrusive/list.hpp>
 #include <boost/ptr_container/ptr_map.hpp>
 #include <fcppt/config/external_end.hpp>
 
@@ -63,7 +62,8 @@ public:
 	SGE_MODEL_MANAGER_SYMBOL
 	void
 	render(
-		sge::renderer::context::object &);
+		sge::renderer::context::object &,
+		sge::model::manager::instance::sequence const &);
 
 	SGE_MODEL_MANAGER_SYMBOL
 	~object();
@@ -86,25 +86,12 @@ private:
 	>
 	texture_map;
 
-	typedef
-	boost::intrusive::list
-	<
-		sge::model::manager::instance::object,
-		boost::intrusive::constant_time_size<false>
-	>
-	child_sequence;
-
 	sge::renderer::device &renderer_;
 	sge::camera::base &camera_;
 	sge::renderer::vertex_declaration_scoped_ptr vertex_declaration_;
 	vertex_buffer_map identifier_to_vertex_buffer_;
 	texture_map identifier_to_texture_;
 	sge::model::obj::loader_scoped_ptr model_loader_;
-	child_sequence children_;
-
-	void
-	add_instance(
-		sge::model::manager::instance::object &);
 };
 }
 }

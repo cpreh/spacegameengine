@@ -19,10 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/model/manager/instance/object.hpp>
-#include <sge/model/manager/object.hpp>
 
 sge::model::manager::instance::object::object(
-	sge::model::manager::object &_manager,
 	sge::model::manager::instance::identifier const &_identifier,
 	sge::model::manager::instance::position const &_position)
 :
@@ -31,8 +29,6 @@ sge::model::manager::instance::object::object(
 	position_(
 		_position)
 {
-	_manager.add_instance(
-		*this);
 }
 
 sge::model::manager::instance::identifier const &

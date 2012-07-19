@@ -244,12 +244,13 @@ try
 		sge::model::manager::texture_directory(
 			sge::config::media_path() / FCPPT_TEXT("model_textures")));
 
-	sge::model::manager::instance::object treasure_chest_model(
-		model_manager,
-		sge::model::manager::instance::identifier(
-			FCPPT_TEXT("treasure_chest")),
-		sge::model::manager::instance::position(
-			sge::renderer::vector3::null()));
+	sge::model::manager::instance::sequence model_list;
+	model_list.push_back(
+		sge::model::manager::instance::object(
+			sge::model::manager::instance::identifier(
+				FCPPT_TEXT("treasure_chest")),
+			sge::model::manager::instance::position(
+				sge::renderer::vector3::null())));
 
 	while(
 		sys.window_system().poll()
@@ -286,7 +287,8 @@ try
 		);
 
 		model_manager.render(
-			scoped_block.get());
+			scoped_block.get(),
+			model_list);
 	}
 
 	return

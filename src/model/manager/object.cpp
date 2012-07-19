@@ -79,8 +79,7 @@ sge::model::manager::object::object(
 	identifier_to_vertex_buffer_(),
 	identifier_to_texture_(),
 	model_loader_(
-		sge::model::obj::create()),
-	children_()
+		sge::model::obj::create())
 {
 	for(
 		boost::filesystem::directory_iterator current_file(
@@ -142,7 +141,8 @@ sge::model::manager::object::object(
 
 void
 sge::model::manager::object::render(
-	sge::renderer::context::object &_context)
+	sge::renderer::context::object &_context,
+	sge::model::manager::instance::sequence const &_instances)
 {
 	sge::renderer::state::scoped scoped_state(
 		_context,
@@ -171,9 +171,9 @@ sge::model::manager::object::render(
 	// -- Configurable texture filter and address mode --
 
 	for(
-		child_sequence::iterator child =
-			children_.begin();
-		child != children_.end();
+		sge::model::manager::instance::sequence::const_iterator child =
+			_instances.begin();
+		child != _instances.end();
 		++child)
 	{
 		if(child->identifier() != previous_identifier)
@@ -241,12 +241,4 @@ sge::model::manager::object::render(
 
 sge::model::manager::object::~object()
 {
-}
-
-void
-sge::model::manager::object::add_instance(
-	sge::model::manager::instance::object &_instance)
-{
-	children_.push_back(
-		_instance);
 }

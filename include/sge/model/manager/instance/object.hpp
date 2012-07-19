@@ -22,17 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MODEL_MANAGER_INSTANCE_OBJECT_HPP_INCLUDED
 
 #include <sge/model/manager/instance/identifier.hpp>
-#include <sge/model/manager/object_fwd.hpp>
 #include <sge/model/manager/instance/position.hpp>
 #include <sge/model/manager/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/intrusive/list.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -43,20 +35,11 @@ namespace manager
 {
 namespace instance
 {
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
 class object
-:
-	public boost::intrusive::list_base_hook
-	<
-		boost::intrusive::link_mode<boost::intrusive::auto_unlink>
-	>
 {
 public:
 	SGE_MODEL_MANAGER_SYMBOL
 	object(
-		sge::model::manager::object &,
 		sge::model::manager::instance::identifier const &_identifier,
 		sge::model::manager::instance::position const &_position);
 
@@ -74,8 +57,6 @@ private:
 	sge::model::manager::instance::identifier identifier_;
 	sge::model::manager::instance::position position_;
 };
-
-FCPPT_PP_POP_WARNING
 }
 }
 }
