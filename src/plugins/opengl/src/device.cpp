@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/device_state/object.hpp>
 #include <sge/opengl/fbo/create_depth_stencil_surface.hpp>
 #include <sge/opengl/fbo/target.hpp>
+#include <sge/opengl/occlusion_query/create.hpp>
 #include <sge/opengl/render_context/create.hpp>
 #include <sge/opengl/render_context/end.hpp>
 #include <sge/opengl/texture/basic_parameters.hpp>
@@ -53,6 +54,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/context/object.hpp>
 #include <sge/renderer/context/object_unique_ptr.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
+#include <sge/renderer/occlusion_query/object.hpp>
+#include <sge/renderer/occlusion_query/object_unique_ptr.hpp>
 #include <sge/renderer/target/base_fwd.hpp>
 #include <sge/renderer/target/offscreen_unique_ptr.hpp>
 #include <sge/renderer/target/onscreen_fwd.hpp>
@@ -322,6 +325,15 @@ sge::opengl::device::create_index_buffer(
 				_size,
 				_flags
 			)
+		);
+}
+
+sge::renderer::occlusion_query::object_unique_ptr
+sge::opengl::device::create_occlusion_query()
+{
+	return
+		sge::opengl::occlusion_query::create(
+			system_context_
 		);
 }
 

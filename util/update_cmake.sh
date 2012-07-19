@@ -130,40 +130,31 @@ update_sublibrary projectile
 
 update_sublibrary plugin
 
+function renderer_inc_src() {
+	echo "include/sge/renderer/$1" "src/renderer/$1"
+}
+
 update_cmake_file \
 	src/renderer/CMakeLists.txt \
 	SGE_RENDERER_FILES \
 	-n \
 	include/sge/renderer \
-	-r \
-	include/sge/renderer/caps \
-	include/sge/renderer/clear \
-	include/sge/renderer/context \
-	include/sge/renderer/index \
-	include/sge/renderer/light \
-	include/sge/renderer/lock_flags \
-	include/sge/renderer/plugin \
-	include/sge/renderer/projection \
-	include/sge/renderer/state \
-	include/sge/renderer/target \
-	include/sge/renderer/texture \
-	include/sge/renderer/vf \
-	-n \
 	src/renderer \
 	-r \
-	src/renderer/caps \
-	src/renderer/clear \
-	src/renderer/context \
 	src/renderer/include \
-	src/renderer/index \
-	src/renderer/light \
-	src/renderer/lock_flags \
-	src/renderer/plugin \
-	src/renderer/projection \
-	src/renderer/state \
-	src/renderer/target \
-	src/renderer/texture \
-	src/renderer/vf \
+	$(renderer_inc_src caps) \
+	$(renderer_inc_src clear) \
+	$(renderer_inc_src context) \
+	$(renderer_inc_src index) \
+	$(renderer_inc_src light) \
+	$(renderer_inc_src lock_flags) \
+	$(renderer_inc_src occlusion_query) \
+	$(renderer_inc_src plugin) \
+	$(renderer_inc_src projection) \
+	$(renderer_inc_src state) \
+	$(renderer_inc_src target) \
+	$(renderer_inc_src texture) \
+	$(renderer_inc_src vf)
 
 update_sublibrary renderer/cg
 
@@ -207,6 +198,7 @@ update_cmake_file \
 	$(opengl_inc_src fbo) \
 	$(opengl_inc_src glew) \
 	$(opengl_inc_src light) \
+	$(opengl_inc_src occlusion_query) \
 	$(opengl_inc_src render_context) \
 	$(opengl_inc_src state) \
 	$(opengl_inc_src texture) \

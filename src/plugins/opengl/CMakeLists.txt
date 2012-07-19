@@ -167,6 +167,18 @@ set(
 	src/plugins/opengl/include/sge/opengl/matrix_mode.hpp
 	src/plugins/opengl/include/sge/opengl/multi_sample_context.hpp
 	src/plugins/opengl/include/sge/opengl/multi_sample_context_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/occlusion_query/begin.hpp
+	src/plugins/opengl/include/sge/opengl/occlusion_query/context.hpp
+	src/plugins/opengl/include/sge/opengl/occlusion_query/context_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/occlusion_query/create.hpp
+	src/plugins/opengl/include/sge/opengl/occlusion_query/create_id.hpp
+	src/plugins/opengl/include/sge/opengl/occlusion_query/delete_id.hpp
+	src/plugins/opengl/include/sge/opengl/occlusion_query/end.hpp
+	src/plugins/opengl/include/sge/opengl/occlusion_query/get_object_int.hpp
+	src/plugins/opengl/include/sge/opengl/occlusion_query/get_object_uint.hpp
+	src/plugins/opengl/include/sge/opengl/occlusion_query/holder.hpp
+	src/plugins/opengl/include/sge/opengl/occlusion_query/id.hpp
+	src/plugins/opengl/include/sge/opengl/occlusion_query/object.hpp
 	src/plugins/opengl/include/sge/opengl/onscreen_surface.hpp
 	src/plugins/opengl/include/sge/opengl/onscreen_target.hpp
 	src/plugins/opengl/include/sge/opengl/onscreen_target_fwd.hpp
@@ -520,6 +532,16 @@ set(
 	src/plugins/opengl/src/matrix_context.cpp
 	src/plugins/opengl/src/matrix_mode.cpp
 	src/plugins/opengl/src/multi_sample_context.cpp
+	src/plugins/opengl/src/occlusion_query/begin.cpp
+	src/plugins/opengl/src/occlusion_query/context.cpp
+	src/plugins/opengl/src/occlusion_query/create.cpp
+	src/plugins/opengl/src/occlusion_query/create_id.cpp
+	src/plugins/opengl/src/occlusion_query/delete_id.cpp
+	src/plugins/opengl/src/occlusion_query/end.cpp
+	src/plugins/opengl/src/occlusion_query/get_object_int.cpp
+	src/plugins/opengl/src/occlusion_query/get_object_uint.cpp
+	src/plugins/opengl/src/occlusion_query/holder.cpp
+	src/plugins/opengl/src/occlusion_query/object.cpp
 	src/plugins/opengl/src/onscreen_surface.cpp
 	src/plugins/opengl/src/onscreen_target.cpp
 	src/plugins/opengl/src/pixel_store_context.cpp

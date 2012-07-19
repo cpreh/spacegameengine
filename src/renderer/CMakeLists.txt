@@ -200,6 +200,16 @@ set(
 	include/sge/renderer/multi_samples_value.hpp
 	include/sge/renderer/no_multi_sampling.hpp
 	include/sge/renderer/npos.hpp
+	include/sge/renderer/occlusion_query/object.hpp
+	include/sge/renderer/occlusion_query/object_fwd.hpp
+	include/sge/renderer/occlusion_query/object_scoped_ptr.hpp
+	include/sge/renderer/occlusion_query/object_unique_ptr.hpp
+	include/sge/renderer/occlusion_query/optional_pixel_count.hpp
+	include/sge/renderer/occlusion_query/optional_pixel_count_fwd.hpp
+	include/sge/renderer/occlusion_query/pixel_count.hpp
+	include/sge/renderer/occlusion_query/pixel_count_value.hpp
+	include/sge/renderer/occlusion_query/scoped.hpp
+	include/sge/renderer/occlusion_query/scoped_fwd.hpp
 	include/sge/renderer/optional_bit_count.hpp
 	include/sge/renderer/optional_bit_count_fwd.hpp
 	include/sge/renderer/optional_dim2.hpp
@@ -659,6 +669,8 @@ set(
 	src/renderer/material.cpp
 	src/renderer/no_multi_sampling.cpp
 	src/renderer/npos.cpp
+	src/renderer/occlusion_query/object.cpp
+	src/renderer/occlusion_query/scoped.cpp
 	src/renderer/parameters.cpp
 	src/renderer/plugin/collection.cpp
 	src/renderer/plugin/context.cpp

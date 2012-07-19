@@ -39,6 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/context/object_fwd.hpp>
 #include <sge/renderer/context/object_unique_ptr.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
+#include <sge/renderer/occlusion_query/object_unique_ptr.hpp>
 #include <sge/renderer/target/base_fwd.hpp>
 #include <sge/renderer/target/offscreen_unique_ptr.hpp>
 #include <sge/renderer/target/onscreen_fwd.hpp>
@@ -316,6 +317,10 @@ public:
 		sge::renderer::index_count index_count,
 		sge::renderer::resource_flags_field const &flags
 	) = 0;
+
+	virtual
+	sge::renderer::occlusion_query::object_unique_ptr
+	create_occlusion_query() = 0;
 
 #if defined(SGE_RENDERER_HAVE_CG)
 	virtual
