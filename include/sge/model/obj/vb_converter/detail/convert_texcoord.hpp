@@ -94,7 +94,11 @@ convert_texcoord(
 
 	typename texcoord_type::packed_type texcoord_vector;
 	texcoord_vector[0] = origin.t1_;
-	texcoord_vector[1] = origin.t2_;
+	// We have to flip y here for some reason...
+	texcoord_vector[1] =
+		static_cast<typename texcoord_type::packed_type::value_type>(
+			1.0f) -
+		origin.t2_;
 
 	// Instead of a runtime if, this could be a compile time if, of
 	// course. But I was lazy and didn't think it mattered much (what
