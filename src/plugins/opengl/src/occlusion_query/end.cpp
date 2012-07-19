@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/check_state.hpp>
-#include <sge/opengl/occlusion_query/end.hpp>
 #include <sge/opengl/occlusion_query/context.hpp>
+#include <sge/opengl/occlusion_query/end.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 

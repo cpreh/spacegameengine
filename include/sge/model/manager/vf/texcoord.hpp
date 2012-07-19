@@ -18,25 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/src/opencl/memory_object/to_opencl_mem_flags.hpp>
-#include <fcppt/container/bitfield/object_impl.hpp>
+#ifndef SGE_MODEL_MANAGER_VF_TEXCOORD_HPP_INCLUDED
+#define SGE_MODEL_MANAGER_VF_TEXCOORD_HPP_INCLUDED
 
+#include <sge/renderer/scalar.hpp>
+#include <sge/renderer/vf/index.hpp>
+#include <sge/renderer/vf/texpos.hpp>
 
-cl_mem_flags
-sge::opencl::memory_object::to_opencl_mem_flags(
-	memory_object::flags_field const &f)
+namespace sge
 {
-	cl_mem_flags result = 0;
-
-	if(f & memory_object::flags::read && f & memory_object::flags::write)
-		result = CL_MEM_READ_WRITE;
-	else if(f & memory_object::flags::read)
-		result = CL_MEM_READ_ONLY;
-	else if(f & memory_object::flags::write)
-		result = CL_MEM_WRITE_ONLY;
-
-	if(f & memory_object::flags::alloc_host_ptr)
-		result |= CL_MEM_ALLOC_HOST_PTR;
-
-	return result;
+namespace model
+{
+namespace manager
+{
+namespace vf
+{
+typedef
+sge::renderer::vf::texpos
+<
+	sge::renderer::scalar,
+	2,
+	sge::renderer::vf::index<0u>
+>
+texcoord;
 }
+}
+}
+}
+
+#endif

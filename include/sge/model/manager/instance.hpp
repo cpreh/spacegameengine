@@ -18,40 +18,63 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_CG_TYPE_INTEGRAL_C_HPP_INCLUDED
-#define SGE_SRC_CG_TYPE_INTEGRAL_C_HPP_INCLUDED
+#ifndef SGE_MODEL_MANAGER_INSTANCE_HPP_INCLUDED
+#define SGE_MODEL_MANAGER_INSTANCE_HPP_INCLUDED
 
+#include <sge/model/manager/identifier.hpp>
+#include <sge/model/manager/object_fwd.hpp>
+#include <sge/model/manager/position.hpp>
+#include <sge/model/manager/symbol.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <Cg/cg.h>
-#include <boost/mpl/integral_c.hpp>
+#include <boost/intrusive/list.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
 namespace sge
 {
-namespace cg
+namespace model
 {
-
+namespace manager
+{
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
-template<
-	CGtype Type
->
-struct type_integral_c
+class instance
 :
-boost::mpl::integral_c<
-	CGtype,
-	Type
->
+	public boost::intrusive::list_base_hook
+	<
+		boost::intrusive::link_mode<boost::intrusive::auto_unlink>
+	>
 {
+public:
+	SGE_MODEL_MANAGER_SYMBOL
+	instance(
+		sge::model::manager::object &,
+		sge::model::manager::identifier const &_identifier,
+		sge::model::manager::position const &_position);
+
+	SGE_MODEL_MANAGER_SYMBOL
+	sge::model::manager::identifier const &
+	identifier() const;
+
+	SGE_MODEL_MANAGER_SYMBOL
+	sge::model::manager::position const &
+	position() const;
+
+	SGE_MODEL_MANAGER_SYMBOL
+	~instance();
+private:
+	sge::model::manager::identifier identifier_;
+	sge::model::manager::position position_;
 };
 
 FCPPT_PP_POP_WARNING
-
+}
 }
 }
 

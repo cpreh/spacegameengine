@@ -18,25 +18,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/src/opencl/memory_object/to_opencl_mem_flags.hpp>
-#include <fcppt/container/bitfield/object_impl.hpp>
+#ifndef SGE_MODEL_MANAGER_VF_FORMAT_PART_HPP_INCLUDED
+#define SGE_MODEL_MANAGER_VF_FORMAT_PART_HPP_INCLUDED
 
+#include <sge/model/manager/vf/normal.hpp>
+#include <sge/model/manager/vf/position.hpp>
+#include <sge/model/manager/vf/texcoord.hpp>
+#include <sge/renderer/vf/part.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/vector/vector10.hpp>
+#include <fcppt/config/external_end.hpp>
 
-cl_mem_flags
-sge::opencl::memory_object::to_opencl_mem_flags(
-	memory_object::flags_field const &f)
+namespace sge
 {
-	cl_mem_flags result = 0;
-
-	if(f & memory_object::flags::read && f & memory_object::flags::write)
-		result = CL_MEM_READ_WRITE;
-	else if(f & memory_object::flags::read)
-		result = CL_MEM_READ_ONLY;
-	else if(f & memory_object::flags::write)
-		result = CL_MEM_WRITE_ONLY;
-
-	if(f & memory_object::flags::alloc_host_ptr)
-		result |= CL_MEM_ALLOC_HOST_PTR;
-
-	return result;
+namespace model
+{
+namespace manager
+{
+namespace vf
+{
+typedef
+sge::renderer::vf::part
+<
+	boost::mpl::vector3
+	<
+		sge::model::manager::vf::position,
+		sge::model::manager::vf::normal,
+		sge::model::manager::vf::texcoord
+	>
+>
+format_part;
 }
+}
+}
+}
+
+#endif

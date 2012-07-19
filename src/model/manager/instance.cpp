@@ -18,25 +18,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/src/opencl/memory_object/to_opencl_mem_flags.hpp>
-#include <fcppt/container/bitfield/object_impl.hpp>
+#include <sge/model/manager/instance.hpp>
+#include <sge/model/manager/object.hpp>
 
-
-cl_mem_flags
-sge::opencl::memory_object::to_opencl_mem_flags(
-	memory_object::flags_field const &f)
+sge::model::manager::instance::instance(
+	sge::model::manager::object &_manager,
+	sge::model::manager::identifier const &_identifier,
+	sge::model::manager::position const &_position)
+:
+	identifier_(
+		_identifier),
+	position_(
+		_position)
 {
-	cl_mem_flags result = 0;
+	_manager.add_instance(
+		*this);
+}
 
-	if(f & memory_object::flags::read && f & memory_object::flags::write)
-		result = CL_MEM_READ_WRITE;
-	else if(f & memory_object::flags::read)
-		result = CL_MEM_READ_ONLY;
-	else if(f & memory_object::flags::write)
-		result = CL_MEM_WRITE_ONLY;
+sge::model::manager::identifier const &
+sge::model::manager::instance::identifier() const
+{
+	return
+		identifier_;
+}
 
-	if(f & memory_object::flags::alloc_host_ptr)
-		result |= CL_MEM_ALLOC_HOST_PTR;
+sge::model::manager::position const &
+sge::model::manager::instance::position() const
+{
+	return
+		position_;
+}
 
-	return result;
+sge::model::manager::instance::~instance()
+{
 }

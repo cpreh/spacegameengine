@@ -210,6 +210,12 @@ add_sge_example(
 )
 
 add_sge_example(
+	model_manager
+	"sgecamera;sgeconfig;sgeimage;sgeinput;sgelog;sgemedia;sgemodelobj;sgemodelmanager;sgetimer;sgerenderer;sgesystems;sgetexture;sgeviewport;sgewindow"
+	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+)
+
+add_sge_example(
 	multi_texture
 	"sgeconfig;sgeimage;sgeinput;sgemedia;sgerenderer;sgesystems;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
