@@ -24,7 +24,7 @@ set(
 
 add_sge_base_library(
 	"model/manager"
-	"sgecore;sgemodelobj;sgerenderer;sgeimage;sgeimage2d;sgecamera"
+	"sgecamera;sgecore;sgeimage;sgemodelobj;sgerenderer"
 	"${Fcppt_filesystem_LIBRARIES}"
 	""
 	""
