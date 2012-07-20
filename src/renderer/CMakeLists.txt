@@ -200,6 +200,7 @@ set(
 	include/sge/renderer/multi_samples_value.hpp
 	include/sge/renderer/no_multi_sampling.hpp
 	include/sge/renderer/npos.hpp
+	include/sge/renderer/occlusion_query/blocking_wait.hpp
 	include/sge/renderer/occlusion_query/object.hpp
 	include/sge/renderer/occlusion_query/object_fwd.hpp
 	include/sge/renderer/occlusion_query/object_scoped_ptr.hpp

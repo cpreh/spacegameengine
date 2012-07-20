@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/occlusion_query/get_object_int.hpp>
 #include <sge/opengl/occlusion_query/get_object_uint.hpp>
 #include <sge/opengl/occlusion_query/object.hpp>
+#include <sge/renderer/occlusion_query/blocking_wait.hpp>
 #include <sge/renderer/occlusion_query/object.hpp>
 #include <sge/renderer/occlusion_query/optional_pixel_count.hpp>
 #include <sge/renderer/occlusion_query/pixel_count.hpp>
@@ -66,33 +67,32 @@ sge::opengl::occlusion_query::object::end()
 }
 
 sge::renderer::occlusion_query::optional_pixel_count const
-sge::opengl::occlusion_query::object::async_result() const
+sge::opengl::occlusion_query::object::result(
+	sge::renderer::occlusion_query::blocking_wait const _block
+) const
 {
 	return
-		sge::opengl::occlusion_query::get_object_int(
-			context_,
-			holder_.id(),
-			context_.query_result_available()
-		)
-		== GL_TRUE
-		?
-			sge::renderer::occlusion_query::optional_pixel_count(
-				this->result()
-			)
-		:
-			sge::renderer::occlusion_query::optional_pixel_count()
-		;
-}
-
-sge::renderer::occlusion_query::pixel_count const
-sge::opengl::occlusion_query::object::result() const
-{
-	return
-		sge::renderer::occlusion_query::pixel_count(
-			sge::opengl::occlusion_query::get_object_uint(
+		(
+			sge::opengl::occlusion_query::get_object_int(
 				context_,
 				holder_.id(),
-				context_.query_result()
+				context_.query_result_available()
 			)
-		);
+			== GL_FALSE
+			&&
+			!_block.get()
+		)
+		?
+			sge::renderer::occlusion_query::optional_pixel_count()
+		:
+			sge::renderer::occlusion_query::optional_pixel_count(
+				sge::renderer::occlusion_query::pixel_count(
+					sge::opengl::occlusion_query::get_object_uint(
+						context_,
+						holder_.id(),
+						context_.query_result()
+					)
+				)
+			)
+		;
 }

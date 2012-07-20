@@ -23,9 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/class_symbol.hpp>
 #include <sge/renderer/symbol.hpp>
+#include <sge/renderer/occlusion_query/blocking_wait.hpp>
 #include <sge/renderer/occlusion_query/object_fwd.hpp>
 #include <sge/renderer/occlusion_query/optional_pixel_count_fwd.hpp>
-#include <sge/renderer/occlusion_query/pixel_count.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -49,21 +49,46 @@ public:
 	virtual
 	~object() = 0;
 
+	/**
+	\brief Begins the query
+
+	Every pixel that passes the depth test starting from here on
+	will increase the result value by one.
+	*/
 	virtual
 	void
 	begin() = 0;
 
+	/**
+	\brief Stops the query
+
+	The result can then be obtained using the <code>result()</code>
+	function.
+	*/
 	virtual
 	void
 	end() = 0;
 
+	/**
+	\brief Returns the result of the query, if available
+
+	After a call to <code>end()</code> the result can be obtained using
+	this function. \a block specifies if the implementation should block
+	while waiting for the result. If \a block is false and the result is
+	not available, then the function returns an empty optional. Note, that
+	even with \a block set to true, the return value can still be empty. In
+	such a case, the issued query must be restarted.
+
+	\param block Whether the wait should block
+
+	\return The number of pixels that passed the depth test or an empty
+	optional if the result could not be obtained
+	*/
 	virtual
 	sge::renderer::occlusion_query::optional_pixel_count const
-	async_result() const = 0;
-
-	virtual
-	sge::renderer::occlusion_query::pixel_count const
-	result() const = 0;
+	result(
+		sge::renderer::occlusion_query::blocking_wait
+	) const = 0;
 };
 
 }

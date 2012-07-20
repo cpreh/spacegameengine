@@ -23,9 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/occlusion_query/context_fwd.hpp>
 #include <sge/opengl/occlusion_query/holder.hpp>
+#include <sge/renderer/occlusion_query/blocking_wait.hpp>
 #include <sge/renderer/occlusion_query/object.hpp>
 #include <sge/renderer/occlusion_query/optional_pixel_count_fwd.hpp>
-#include <sge/renderer/occlusion_query/pixel_count.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -58,10 +58,9 @@ private:
 	end();
 
 	sge::renderer::occlusion_query::optional_pixel_count const
-	async_result() const;
-
-	sge::renderer::occlusion_query::pixel_count const
-	result() const;
+	result(
+		sge::renderer::occlusion_query::blocking_wait block
+	) const;
 
 	sge::opengl::occlusion_query::context const &context_;
 
