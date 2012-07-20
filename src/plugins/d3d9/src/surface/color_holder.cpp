@@ -18,16 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/surface/color_holder.hpp>
-#include <sge/d3d9/surfacefuncs/color_format.hpp>
+#include <sge/d3d9/surface/d3d_unique_ptr.hpp>
 #include <sge/d3d9/surfacefuncs/dim.hpp>
 #include <sge/d3d9/surfacefuncs/is_render_target.hpp>
+#include <sge/renderer/dim2.hpp>
 #include <fcppt/move.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
 
 
 sge::d3d9::surface::color_holder::color_holder(
-	surface::d3d_unique_ptr _surface
+	sge::d3d9::surface::d3d_unique_ptr _surface
 )
 :
 	surface_(
@@ -36,17 +37,12 @@ sge::d3d9::surface::color_holder::color_holder(
 		)
 	),
 	size_(
-		surfacefuncs::dim(
-			*surface_
-		)
-	),
-	format_(
-		surfacefuncs::color_format(
+		sge::d3d9::surfacefuncs::dim(
 			*surface_
 		)
 	),
 	is_render_target_(
-		surfacefuncs::is_render_target(
+		sge::d3d9::surfacefuncs::is_render_target(
 			*surface_
 		)
 	)
@@ -67,12 +63,6 @@ sge::renderer::dim2 const &
 sge::d3d9::surface::color_holder::size() const
 {
 	return size_;
-}
-
-sge::image::color::format::type
-sge::d3d9::surface::color_holder::format() const
-{
-	return format_;
 }
 
 bool

@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/surface/color_fwd.hpp>
 #include <sge/d3d9/surface/color_holder_fwd.hpp>
 #include <sge/d3d9/surface/d3d_scoped_ptr.hpp>
+#include <sge/image/color/format.hpp>
 #include <sge/renderer/color_surface.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
@@ -51,6 +52,7 @@ class color
 public:
 	color(
 		IDirect3DDevice9 &,
+		sge::image::color::format::type,
 		sge::d3d9::surface::color_create_unique_ptr
 	);
 
@@ -89,6 +91,8 @@ private:
 	> color_create_scoped_ptr;
 
 	color_create_scoped_ptr const create_;
+
+	sge::image::color::format::type const format_;
 
 	typedef fcppt::scoped_ptr<
 		sge::d3d9::surface::color_holder

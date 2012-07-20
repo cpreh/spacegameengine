@@ -33,7 +33,6 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/convert/texture_stage_op.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/texture_stage_op_value.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/to_color.hpp
-	src/plugins/d3d9/include/sge/d3d9/convert/to_color_format.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/to_color_value.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/to_depth_stencil_format.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/vector3.hpp
@@ -161,7 +160,6 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/surface/depth_stencil_native.hpp
 	src/plugins/d3d9/include/sge/d3d9/surface/depth_stencil_onscreen_target.hpp
 	src/plugins/d3d9/include/sge/d3d9/surface/depth_stencil_shared_ptr.hpp
-	src/plugins/d3d9/include/sge/d3d9/surfacefuncs/color_format.hpp
 	src/plugins/d3d9/include/sge/d3d9/surfacefuncs/depth_stencil_format.hpp
 	src/plugins/d3d9/include/sge/d3d9/surfacefuncs/dim.hpp
 	src/plugins/d3d9/include/sge/d3d9/surfacefuncs/get_desc.hpp
@@ -185,6 +183,7 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/texture/basic.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/basic_fwd.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/basic_impl.hpp
+	src/plugins/d3d9/include/sge/d3d9/texture/best_color_format.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/create_cube.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/create_planar.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/create_volume.hpp
@@ -282,7 +281,6 @@ SET(
 	src/plugins/d3d9/src/convert/texture_stage_op.cpp
 	src/plugins/d3d9/src/convert/texture_stage_op_value.cpp
 	src/plugins/d3d9/src/convert/to_color.cpp
-	src/plugins/d3d9/src/convert/to_color_format.cpp
 	src/plugins/d3d9/src/convert/to_color_value.cpp
 	src/plugins/d3d9/src/convert/to_depth_stencil_format.cpp
 	src/plugins/d3d9/src/convert/vector3.cpp
@@ -387,7 +385,6 @@ SET(
 	src/plugins/d3d9/src/surface/depth_stencil_create.cpp
 	src/plugins/d3d9/src/surface/depth_stencil_native.cpp
 	src/plugins/d3d9/src/surface/depth_stencil_onscreen_target.cpp
-	src/plugins/d3d9/src/surfacefuncs/color_format.cpp
 	src/plugins/d3d9/src/surfacefuncs/depth_stencil_format.cpp
 	src/plugins/d3d9/src/surfacefuncs/dim.cpp
 	src/plugins/d3d9/src/surfacefuncs/get_desc.cpp
@@ -402,6 +399,7 @@ SET(
 	src/plugins/d3d9/src/target/temporary.cpp
 	src/plugins/d3d9/src/texture/address_mode.cpp
 	src/plugins/d3d9/src/texture/base.cpp
+	src/plugins/d3d9/src/texture/best_color_format.cpp
 	src/plugins/d3d9/src/texture/create_cube.cpp
 	src/plugins/d3d9/src/texture/create_planar.cpp
 	src/plugins/d3d9/src/texture/create_volume.cpp

@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/surface/color_holder.hpp>
 #include <sge/d3d9/surfacefuncs/lock_rect.hpp>
 #include <sge/d3d9/surfacefuncs/unlock_rect.hpp>
+#include <sge/image/color/format.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/make_const.hpp>
 #include <sge/image2d/view/optional_pitch.hpp>
@@ -44,6 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::d3d9::surface::color::color(
 	IDirect3DDevice9 &_device,
+	sge::image::color::format::type const _format,
 	sge::d3d9::surface::color_create_unique_ptr _create
 )
 :
@@ -57,6 +59,9 @@ sge::d3d9::surface::color::color(
 		fcppt::move(
 			_create
 		)
+	),
+	format_(
+		_format
 	),
 	color_holder_(),
 	temp_surface_()
@@ -78,15 +83,15 @@ sge::d3d9::surface::color::lock(
 	)
 	{
 		temp_surface_.take(
-			devicefuncs::create_offscreen_plain_surface(
+			sge::d3d9::devicefuncs::create_offscreen_plain_surface(
 				device_,
 				color_holder_->size(),
-				color_holder_->format(),
+				format_,
 				D3DPOOL_SYSTEMMEM
 			)
 		);
 
-		devicefuncs::get_render_target_data(
+		sge::d3d9::devicefuncs::get_render_target_data(
 			device_,
 			this->surface(),
 			*temp_surface_
@@ -121,11 +126,11 @@ sge::d3d9::surface::color::lock(
 					locked_rect.pBits
 				),
 				_rect.size(),
-				color_holder_->format(),
+				format_,
 				sge::d3d9::make_pitch_2d(
 					locked_rect,
 					_rect.size(),
-					color_holder_->format()
+					format_
 				)
 			)
 		);

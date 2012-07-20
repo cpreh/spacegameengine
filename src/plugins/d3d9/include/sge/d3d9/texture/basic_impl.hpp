@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/make_pitch.hpp>
 #include <sge/d3d9/convert/color_format.hpp>
 #include <sge/d3d9/convert/lock_flags.hpp>
-#include <sge/d3d9/convert/to_color_format.hpp>
 #include <sge/d3d9/texture/basic.hpp>
+#include <sge/d3d9/texture/best_color_format.hpp>
 #include <sge/d3d9/texture/pool.hpp>
 #include <sge/d3d9/texture/update.hpp>
 #include <sge/d3d9/texture/usage.hpp>
@@ -68,18 +68,18 @@ sge::d3d9::texture::basic<
 	parameters_(
 		_parameters
 	),
-	d3d_color_format_(
-		d3d9::convert::color_format(
+	color_format_(
+		sge::d3d9::texture::best_color_format(
 			_parameters.format()
 		)
 	),
-	color_format_(
-		sge::d3d9::convert::to_color_format(
-			d3d_color_format_
+	d3d_color_format_(
+		sge::d3d9::convert::color_format(
+			color_format_
 		)
 	),
 	usage_(
-		texture::usage(
+		sge::d3d9::texture::usage(
 			_parameters.resource_flags(),
 			_parameters.capabilities()
 		)

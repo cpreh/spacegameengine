@@ -60,6 +60,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/context/object.hpp>
 #include <sge/renderer/context/object_unique_ptr.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
+#include <sge/renderer/occlusion_query/object.hpp>
+#include <sge/renderer/occlusion_query/object_unique_ptr.hpp>
 #include <sge/renderer/target/base_fwd.hpp>
 #include <sge/renderer/target/offscreen_unique_ptr.hpp>
 #include <sge/renderer/target/onscreen_fwd.hpp>
@@ -140,6 +142,8 @@ sge::d3d9::device::device(
 			fcppt::ref(
 				*device_
 			),
+			// TODO: this must be inferred from the present_parameters!
+			sge::image::color::format::bgrx8,
 			sge::renderer::target::viewport(
 				sge::renderer::pixel_rect(
 					sge::renderer::pixel_rect::vector::null(),
@@ -415,6 +419,14 @@ sge::d3d9::device::create_index_buffer(
 				)
 			)
 		);
+}
+
+sge::renderer::occlusion_query::object_unique_ptr
+sge::d3d9::device::create_occlusion_query()
+{
+	// FIXME!
+	return
+		sge::renderer::occlusion_query::object_unique_ptr();
 }
 
 #if defined(SGE_RENDERER_HAVE_CG)

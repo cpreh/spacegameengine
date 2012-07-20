@@ -80,25 +80,37 @@ sge::opengl::occlusion_query::context::context()
 			fcppt::null_ptr()
 	),
 	samples_target_(
-		has_native_
-		?
-			GL_SAMPLES_PASSED
-		:
-			0
+		static_cast<
+			GLenum
+		>(
+			has_native_
+			?
+				GL_SAMPLES_PASSED
+			:
+				0
+		)
 	),
 	query_result_available_(
-		has_native_
-		?
-			GL_QUERY_RESULT_AVAILABLE
-		:
-			0
+		static_cast<
+			GLenum
+		>(
+			has_native_
+			?
+				GL_QUERY_RESULT_AVAILABLE
+			:
+				0
+		)
 	),
 	query_result_(
-		has_native_
-		?
-			GL_QUERY_RESULT
-		:
-			0
+		static_cast<
+			GLenum
+		>(
+			has_native_
+			?
+				GL_QUERY_RESULT
+			:
+				0
+		)
 	)
 {
 }

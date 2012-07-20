@@ -151,9 +151,9 @@ private:
 
 	parameters_type const parameters_;
 
-	D3DFORMAT const d3d_color_format_;
-
 	sge::image::color::format::type const color_format_;
+
+	D3DFORMAT const d3d_color_format_;
 
 	sge::d3d9::usage const usage_;
 

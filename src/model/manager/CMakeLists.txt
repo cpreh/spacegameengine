@@ -4,6 +4,7 @@ set(
 	include/sge/model/manager/instance/object.hpp
 	include/sge/model/manager/instance/object_fwd.hpp
 	include/sge/model/manager/instance/position.hpp
+	include/sge/model/manager/instance/sequence.hpp
 	include/sge/model/manager/model_directory.hpp
 	include/sge/model/manager/object.hpp
 	include/sge/model/manager/object_fwd.hpp

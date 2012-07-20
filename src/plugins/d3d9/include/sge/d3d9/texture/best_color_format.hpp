@@ -18,22 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_SURFACEFUNCS_COLOR_FORMAT_HPP_INCLUDED
-#define SGE_D3D9_SURFACEFUNCS_COLOR_FORMAT_HPP_INCLUDED
+#ifndef SGE_D3D9_TEXTURE_BEST_COLOR_FORMAT_HPP_INCLUDED
+#define SGE_D3D9_TEXTURE_BEST_COLOR_FORMAT_HPP_INCLUDED
 
-#include <sge/d3d9/d3dinclude.hpp>
 #include <sge/image/color/format.hpp>
+
 
 namespace sge
 {
 namespace d3d9
 {
-namespace surfacefuncs
+namespace texture
 {
 
 sge::image::color::format::type
-color_format(
-	IDirect3DSurface9 &
+best_color_format(
+	sge::image::color::format::type
 );
 
 }

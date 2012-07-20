@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/surface/depth_stencil_fwd.hpp>
 #include <sge/d3d9/target/basic.hpp>
 #include <sge/d3d9/target/onscreen_fwd.hpp>
+#include <sge/image/color/format.hpp>
 #include <sge/renderer/color_surface_fwd.hpp>
 #include <sge/renderer/caps/target_surface_indices.hpp>
 #include <sge/renderer/target/onscreen.hpp>
@@ -59,6 +60,7 @@ class onscreen
 public:
 	onscreen(
 		IDirect3DDevice9 &,
+		sge::image::color::format::type,
 		sge::renderer::target::viewport const &,
 		sge::d3d9::resource_manager &,
 		sge::renderer::caps::target_surface_indices

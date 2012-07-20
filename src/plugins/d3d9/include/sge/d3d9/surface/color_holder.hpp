@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/surface/color_holder_fwd.hpp>
 #include <sge/d3d9/surface/d3d_scoped_ptr.hpp>
 #include <sge/d3d9/surface/d3d_unique_ptr.hpp>
-#include <sge/image/color/format.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/math/dim/object_decl.hpp>
@@ -44,8 +43,9 @@ class color_holder
 		color_holder
 	);
 public:
-	explicit color_holder(
-		surface::d3d_unique_ptr
+	explicit
+	color_holder(
+		sge::d3d9::surface::d3d_unique_ptr
 	);
 
 	~color_holder();
@@ -56,17 +56,12 @@ public:
 	sge::renderer::dim2 const &
 	size() const;
 
-	sge::image::color::format::type
-	format() const;
-
 	bool
 	is_render_target() const;
 private:
-	surface::d3d_scoped_ptr const surface_;
+	sge::d3d9::surface::d3d_scoped_ptr const surface_;
 
 	sge::renderer::dim2 const size_;
-
-	sge::image::color::format::type const format_;
 
 	bool const is_render_target_;
 };

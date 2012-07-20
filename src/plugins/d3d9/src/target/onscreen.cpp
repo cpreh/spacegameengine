@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/surface/depth_stencil_onscreen_target.hpp>
 #include <sge/d3d9/target/basic_impl.hpp>
 #include <sge/d3d9/target/onscreen.hpp>
+#include <sge/image/color/format.hpp>
 #include <sge/renderer/color_surface_fwd.hpp>
 #include <sge/renderer/caps/target_surface_indices.hpp>
 #include <sge/renderer/target/surface_index.hpp>
@@ -40,6 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::d3d9::target::onscreen::onscreen(
 	IDirect3DDevice9 &_device,
+	sge::image::color::format::type const _color_format,
 	sge::renderer::target::viewport const &_viewport,
 	sge::d3d9::resource_manager &_resources,
 	sge::renderer::caps::target_surface_indices const _max_surfaces
@@ -57,6 +59,7 @@ sge::d3d9::target::onscreen::onscreen(
 			fcppt::ref(
 				_device
 			),
+			_color_format,
 			fcppt::make_unique_ptr<
 				sge::d3d9::surface::color_onscreen_target
 			>(
