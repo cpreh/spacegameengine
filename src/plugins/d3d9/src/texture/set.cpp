@@ -50,13 +50,17 @@ sge::d3d9::texture::set(
 			_device,
 			_stage,
 			D3DSAMP_SRGBTEXTURE,
-			sge::d3d9::convert::bool_(
-				sge::image::color::format_is_srgb(
-					dynamic_cast<
-						sge::d3d9::texture::base const &
-					>(
-						*_base
-					).color_format()
+			static_cast<
+				DWORD
+			>(
+				sge::d3d9::convert::bool_(
+					sge::image::color::format_is_srgb(
+						dynamic_cast<
+							sge::d3d9::texture::base const &
+						>(
+							*_base
+						).color_format()
+					)
 				)
 			)
 		);
