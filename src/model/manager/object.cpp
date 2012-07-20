@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/base.hpp>
 #include <sge/camera/coordinate_system/object.hpp>
 #include <sge/camera/matrix_conversion/world.hpp>
+#include <sge/renderer/texture/address_mode2.hpp>
+#include <sge/renderer/texture/set_address_mode2.hpp>
 #include <sge/model/manager/object.hpp>
 #include <sge/model/manager/vf/format.hpp>
 #include <sge/model/manager/vf/format_part.hpp>
@@ -149,6 +151,12 @@ sge::model::manager::object::render(
 		sge::renderer::state::list
 			(sge::renderer::state::depth_func::less)
 			(sge::renderer::state::cull_mode::counter_clockwise));
+
+	sge::renderer::texture::set_address_mode2(
+		_context,
+		sge::renderer::texture::stage(0u),
+		sge::renderer::texture::address_mode2(
+			sge::renderer::texture::address_mode::repeat));
 
 	sge::renderer::scoped_vertex_declaration scoped_vertex_declaration(
 		_context,

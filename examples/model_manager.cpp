@@ -19,7 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/camera/perspective_projection_from_viewport.hpp>
-#include <sge/camera/coordinate_system/identity.hpp>
+#include <sge/camera/coordinate_system/object.hpp>
+#include <sge/camera/matrix_conversion/world.hpp>
 #include <sge/camera/first_person/object.hpp>
 #include <sge/camera/first_person/parameters.hpp>
 #include <sge/camera/matrix_conversion/world.hpp>
@@ -27,8 +28,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/colors.hpp>
 #include <sge/media/all_extensions.hpp>
 #include <sge/model/manager/instance/object.hpp>
+#include <fcppt/math/twopi.hpp>
+#include <fcppt/assign/make_container.hpp>
+#include <fcppt/math/pi.hpp>
 #include <sge/model/manager/object.hpp>
 #include <sge/renderer/aspect.hpp>
+#include <sge/renderer/scoped_transform.hpp>
+#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/state/scoped.hpp>
+#include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/bit_depth.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/device.hpp>
@@ -48,8 +56,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/projection/near.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/target/viewport_size.hpp>
-#include <sge/renderer/texture/address_mode2.hpp>
-#include <sge/renderer/texture/set_address_mode2.hpp>
 #include <sge/systems/cursor_option.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/input.hpp>
@@ -59,10 +65,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/list.hpp>
 #include <sge/systems/quit_on_escape.hpp>
 #include <sge/systems/renderer.hpp>
+#include <sge/renderer/light/object.hpp>
+#include <sge/renderer/light/attenuation.hpp>
+#include <sge/renderer/light/point.hpp>
 #include <sge/systems/window.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <sge/timer/basic.hpp>
 #include <sge/timer/elapsed_and_reset.hpp>
+#include <sge/timer/elapsed_fractional_and_reset.hpp>
 #include <sge/timer/frames_counter.hpp>
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/clocks/standard.hpp>
@@ -90,6 +100,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
+#include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
@@ -99,10 +110,91 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <example_main.hpp>
 #include <exception>
 #include <iostream>
+#include <cmath>
 #include <ostream>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
+namespace
+{
+class rotating_light
+{
+public:
+	rotating_light()
+	:
+		radius_(
+			15.0f),
+		current_angle_(
+			0.0f),
+		timer_(
+			sge::timer::parameters<sge::timer::clocks::standard>(
+				sge::camera::update_duration(
+					1.0f)))
+	{
+	}
+
+	void
+	update()
+	{
+		current_angle_ +=
+			sge::timer::elapsed_fractional_and_reset<sge::renderer::scalar>(
+				timer_);
+
+	}
+
+	sge::renderer::light::object const
+	object() const
+	{
+		return
+			sge::renderer::light::object(
+				sge::renderer::diffuse_color(
+					sge::image::colors::red()),
+				sge::renderer::specular_color(
+					sge::image::colors::white()),
+				sge::renderer::ambient_color(
+					sge::image::colors::white()),
+				sge::renderer::light::variant(
+					sge::renderer::light::point(
+						sge::renderer::light::position(
+							this->position()),
+						sge::renderer::light::attenuation(
+							sge::renderer::light::constant_attenuation(
+								0.0f),
+							sge::renderer::light::linear_attenuation(
+								0.1f),
+							sge::renderer::light::quadratic_attenuation(
+								0.0f)))));
+	}
+
+	sge::model::manager::instance::object const
+	model() const
+	{
+		return
+			sge::model::manager::instance::object(
+				sge::model::manager::instance::identifier(
+					FCPPT_TEXT("bulb")),
+				sge::model::manager::instance::position(
+					this->position()));
+	}
+
+	sge::renderer::vector3 const
+	position() const
+	{
+		return
+			radius_ *
+			sge::renderer::vector3(
+				std::sin(
+					current_angle_),
+				0.5f,
+				std::cos(
+					current_angle_));
+	}
+private:
+	sge::renderer::scalar const radius_;
+	sge::renderer::scalar current_angle_;
+	sge::timer::basic<sge::timer::clocks::standard> timer_;
+};
+}
 
 awl::main::exit_code const
 example_main(
@@ -252,6 +344,8 @@ try
 			sge::model::manager::instance::position(
 				sge::renderer::vector3::null())));
 
+	rotating_light light;
+
 	while(
 		sys.window_system().poll()
 	)
@@ -264,6 +358,8 @@ try
 			)
 		);
 
+		light.update();
+
 		frames_counter.update();
 
 		sge::renderer::context::scoped const scoped_block(
@@ -271,24 +367,52 @@ try
 			sys.renderer().onscreen_target()
 		);
 
-		sge::renderer::texture::set_address_mode2(
-			scoped_block.get(),
-			sge::renderer::texture::stage(0u),
-			sge::renderer::texture::address_mode2(
-				sge::renderer::texture::address_mode::repeat));
 
-		scoped_block.get().clear(
+		sge::renderer::context::object &context(
+			scoped_block.get());
+
+		context.clear(
 			sge::renderer::clear::parameters()
 			.back_buffer(
-				sge::image::colors::lightblue()
+				sge::image::colors::black()
 			)
 			.depth_buffer(
 				1.f)
 		);
 
+		{
+			context.enable_light(
+				sge::renderer::light::index(
+					0u),
+				true);
+
+			{
+				sge::renderer::scoped_transform scoped_transform(
+					context,
+					sge::renderer::matrix_mode::world,
+					sge::camera::matrix_conversion::world(
+						camera.coordinate_system()));
+
+				context.light(
+					sge::renderer::light::index(
+						0u),
+					light.object());
+			}
+
+			sge::renderer::state::scoped scoped_state(
+				context,
+				sge::renderer::state::list
+					(sge::renderer::state::bool_::enable_lighting = true));
+
+			model_manager.render(
+				context,
+				model_list);
+		}
+
 		model_manager.render(
-			scoped_block.get(),
-			model_list);
+			context,
+			fcppt::assign::make_container<sge::model::manager::instance::sequence>
+				(light.model()));
 	}
 
 	return
