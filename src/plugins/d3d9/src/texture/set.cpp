@@ -18,21 +18,46 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/convert/bool.hpp>
+#include <sge/d3d9/devicefuncs/set_sampler_state.hpp>
 #include <sge/d3d9/devicefuncs/set_texture.hpp>
+#include <sge/d3d9/texture/base.hpp>
 #include <sge/d3d9/texture/set.hpp>
-#include <sge/renderer/texture/const_optional_base_ref_fwd.hpp>
+#include <sge/image/color/format_is_srgb.hpp>
+#include <sge/renderer/texture/base.hpp>
+#include <sge/renderer/texture/const_optional_base_ref.hpp>
+#include <sge/renderer/texture/stage.hpp>
 
 
 void
 sge::d3d9::texture::set(
 	IDirect3DDevice9 &_device,
-	renderer::texture::stage const _stage,
-	renderer::texture::const_optional_base_ref const &_base
+	sge::renderer::texture::stage const _stage,
+	sge::renderer::texture::const_optional_base_ref const &_base
 )
 {
-	devicefuncs::set_texture(
+	sge::d3d9::devicefuncs::set_texture(
 		_device,
 		_stage,
 		_base
 	);
+
+	if(
+		_base
+	)
+		sge::d3d9::devicefuncs::set_sampler_state(
+			_device,
+			_stage,
+			D3DSAMP_SRGBTEXTURE,
+			sge::d3d9::convert::bool_(
+				sge::image::color::format_is_srgb(
+					dynamic_cast<
+						sge::d3d9::texture::base const &
+					>(
+						*_base
+					).color_format()
+				)
+			)
+		);
 }

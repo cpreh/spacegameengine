@@ -39,6 +39,7 @@ set(
 	include/sge/image/color/element_count.hpp
 	include/sge/image/color/elements.hpp
 	include/sge/image/color/format.hpp
+	include/sge/image/color/format_is_srgb.hpp
 	include/sge/image/color/format_static.hpp
 	include/sge/image/color/format_stride.hpp
 	include/sge/image/color/format_to_string.hpp
@@ -133,6 +134,7 @@ set(
 	src/image/color/any/print.cpp
 	src/image/color/element_count.cpp
 	src/image/color/format.cpp
+	src/image/color/format_is_srgb.cpp
 	src/image/color/format_stride.cpp
 	src/image/color/format_to_string.cpp
 	src/image/colors.cpp

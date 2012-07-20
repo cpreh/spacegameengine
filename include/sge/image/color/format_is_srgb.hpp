@@ -18,41 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_TEXTURE_BASE_HPP_INCLUDED
-#define SGE_D3D9_TEXTURE_BASE_HPP_INCLUDED
+#ifndef SGE_IMAGE_COLOR_FORMAT_IS_SRGB_HPP_INCLUDED
+#define SGE_IMAGE_COLOR_FORMAT_IS_SRGB_HPP_INCLUDED
 
-#include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/texture/base_fwd.hpp>
+#include <sge/image/symbol.hpp>
 #include <sge/image/color/format.hpp>
-#include <fcppt/noncopyable.hpp>
 
 
 namespace sge
 {
-namespace d3d9
+namespace image
 {
-namespace texture
+namespace color
 {
 
-class base
-{
-	FCPPT_NONCOPYABLE(
-		base
-	);
-protected:
-	base();
-
-	virtual
-	~base();
-public:
-	virtual
-	IDirect3DBaseTexture9 *
-	get() const = 0;
-
-	virtual
+SGE_IMAGE_SYMBOL
+bool
+format_is_srgb(
 	sge::image::color::format::type
-	color_format() const = 0;
-};
+);
 
 }
 }

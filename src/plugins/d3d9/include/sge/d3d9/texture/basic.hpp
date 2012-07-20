@@ -84,6 +84,9 @@ public:
 
 	d3d_type *
 	get() const;
+
+	sge::image::color::format::type
+	color_format() const;
 protected:
 	parameters_type const &
 	parameters() const;

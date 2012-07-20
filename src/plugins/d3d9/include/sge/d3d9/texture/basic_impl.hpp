@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/texture/pool.hpp>
 #include <sge/d3d9/texture/update.hpp>
 #include <sge/d3d9/texture/usage.hpp>
+#include <sge/image/color/format.hpp>
 #include <sge/image/view/make.hpp>
 #include <sge/image/view/make_const.hpp>
 #include <sge/renderer/raw_pointer.hpp>
@@ -142,6 +143,17 @@ sge::d3d9::texture::basic<
 >::get() const
 {
 	return main_texture_.get();
+}
+
+template<
+	typename Types
+>
+sge::image::color::format::type
+sge::d3d9::texture::basic<
+	Types
+>::color_format() const
+{
+	return color_format_;
 }
 
 template<
