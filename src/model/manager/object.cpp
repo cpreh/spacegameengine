@@ -21,8 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/base.hpp>
 #include <sge/camera/coordinate_system/object.hpp>
 #include <sge/camera/matrix_conversion/world.hpp>
-#include <sge/renderer/texture/address_mode2.hpp>
-#include <sge/renderer/texture/set_address_mode2.hpp>
 #include <sge/model/manager/object.hpp>
 #include <sge/model/manager/vf/format.hpp>
 #include <sge/model/manager/vf/format_part.hpp>
@@ -42,9 +40,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/depth_func.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/scoped.hpp>
+#include <sge/renderer/texture/address_mode2.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/scoped.hpp>
+#include <sge/renderer/texture/set_address_mode2.hpp>
 #include <sge/renderer/texture/mipmap/all_levels.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <fcppt/cref.hpp>

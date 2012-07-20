@@ -23,11 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/camera/base_fwd.hpp>
 #include <sge/image2d/system_fwd.hpp>
-#include <sge/model/manager/instance/identifier.hpp>
-#include <sge/model/manager/instance/sequence.hpp>
 #include <sge/model/manager/model_directory.hpp>
 #include <sge/model/manager/symbol.hpp>
 #include <sge/model/manager/texture_directory.hpp>
+#include <sge/model/manager/instance/identifier.hpp>
+#include <sge/model/manager/instance/sequence.hpp>
 #include <sge/model/obj/loader_scoped_ptr.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/vertex_buffer_fwd.hpp>

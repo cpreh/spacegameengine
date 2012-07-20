@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MODEL_MANAGER_INSTANCE_OBJECT_HPP_INCLUDED
 #define SGE_MODEL_MANAGER_INSTANCE_OBJECT_HPP_INCLUDED
 
+#include <sge/model/manager/symbol.hpp>
 #include <sge/model/manager/instance/identifier.hpp>
 #include <sge/model/manager/instance/position.hpp>
-#include <sge/model/manager/symbol.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 
 

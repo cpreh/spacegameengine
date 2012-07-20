@@ -75,6 +75,7 @@ set(
 	include/sge/renderer/context/scoped_unique_ptr.hpp
 	include/sge/renderer/create_index_buffer_from_view.hpp
 	include/sge/renderer/create_vertex_buffer_from_view.hpp
+	include/sge/renderer/default_material.hpp
 	include/sge/renderer/depth_buffer_bits.hpp
 	include/sge/renderer/depth_stencil_buffer.hpp
 	include/sge/renderer/depth_stencil_format.hpp
@@ -599,6 +600,7 @@ set(
 	src/renderer/context/scoped_offscreen_target.cpp
 	src/renderer/create_index_buffer_from_view.cpp
 	src/renderer/create_vertex_buffer_from_view.cpp
+	src/renderer/default_material.cpp
 	src/renderer/depth_buffer_bits.cpp
 	src/renderer/depth_stencil_surface.cpp
 	src/renderer/device.cpp

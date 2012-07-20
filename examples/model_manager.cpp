@@ -20,40 +20,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/camera/perspective_projection_from_viewport.hpp>
 #include <sge/camera/coordinate_system/object.hpp>
-#include <sge/camera/matrix_conversion/world.hpp>
 #include <sge/camera/first_person/object.hpp>
 #include <sge/camera/first_person/parameters.hpp>
 #include <sge/camera/matrix_conversion/world.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/media/all_extensions.hpp>
-#include <sge/model/manager/instance/object.hpp>
 #include <sge/model/manager/object.hpp>
-#include <fcppt/math/twopi.hpp>
-#include <fcppt/assign/make_container.hpp>
-#include <fcppt/math/pi.hpp>
+#include <sge/model/manager/instance/object.hpp>
 #include <sge/renderer/aspect.hpp>
-#include <sge/renderer/scoped_transform.hpp>
-#include <sge/renderer/state/list.hpp>
-#include <sge/renderer/state/scoped.hpp>
-#include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/bit_depth.hpp>
+#include <sge/renderer/default_material.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/material.hpp>
 #include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scalar.hpp>
+#include <sge/renderer/scoped_transform.hpp>
 #include <sge/renderer/vsync.hpp>
 #include <sge/renderer/windowed.hpp>
 #include <sge/renderer/caps/device.hpp>
 #include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/context/object.hpp>
 #include <sge/renderer/context/scoped.hpp>
+#include <sge/renderer/light/attenuation.hpp>
+#include <sge/renderer/light/object.hpp>
+#include <sge/renderer/light/point.hpp>
 #include <sge/renderer/projection/far.hpp>
 #include <sge/renderer/projection/fov.hpp>
 #include <sge/renderer/projection/near.hpp>
+#include <sge/renderer/state/bool.hpp>
+#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/target/viewport_size.hpp>
 #include <sge/systems/cursor_option.hpp>
@@ -65,9 +66,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/list.hpp>
 #include <sge/systems/quit_on_escape.hpp>
 #include <sge/systems/renderer.hpp>
-#include <sge/renderer/light/object.hpp>
-#include <sge/renderer/light/attenuation.hpp>
-#include <sge/renderer/light/point.hpp>
 #include <sge/systems/window.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <sge/timer/basic.hpp>
@@ -91,29 +89,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/array.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
+#include <fcppt/math/pi.hpp>
+#include <fcppt/math/twopi.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
+#include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
+#include <cmath>
 #include <example_main.hpp>
 #include <exception>
 #include <iostream>
-#include <cmath>
 #include <ostream>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace
 {
@@ -372,6 +374,9 @@ try
 
 		sge::renderer::context::object &context(
 			scoped_block.get());
+
+		context.material(
+			sge::renderer::default_material());
 
 		context.clear(
 			sge::renderer::clear::parameters()
