@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/devicefuncs/end_scene.hpp>
 #include <sge/d3d9/devicefuncs/present.hpp>
 #include <sge/d3d9/devicefuncs/reset.hpp>
+#include <sge/d3d9/occlusion_query/create.hpp>
 #include <sge/d3d9/parameters/create.hpp>
 #include <sge/d3d9/render_context/create.hpp>
 #include <sge/d3d9/render_context/needs_present.hpp>
@@ -424,9 +425,10 @@ sge::d3d9::device::create_index_buffer(
 sge::renderer::occlusion_query::object_unique_ptr
 sge::d3d9::device::create_occlusion_query()
 {
-	// FIXME!
 	return
-		sge::renderer::occlusion_query::object_unique_ptr();
+		sge::d3d9::occlusion_query::create(
+			*device_
+		);
 }
 
 #if defined(SGE_RENDERER_HAVE_CG)

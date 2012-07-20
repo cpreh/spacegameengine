@@ -46,6 +46,7 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/clear.hpp
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/create_depth_stencil_surface.hpp
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/create_offscreen_plain_surface.hpp
+	src/plugins/d3d9/include/sge/d3d9/devicefuncs/create_query.hpp
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/draw_indexed_primitive.hpp
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/draw_primitive.hpp
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/end_scene.hpp
@@ -81,6 +82,8 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/make_pitch_3d.hpp
 	src/plugins/d3d9/include/sge/d3d9/multi_sample_quality.hpp
 	src/plugins/d3d9/include/sge/d3d9/needs_reset.hpp
+	src/plugins/d3d9/include/sge/d3d9/occlusion_query/create.hpp
+	src/plugins/d3d9/include/sge/d3d9/occlusion_query/object.hpp
 	src/plugins/d3d9/include/sge/d3d9/optional_lock_rect.hpp
 	src/plugins/d3d9/include/sge/d3d9/parameters/convert/bit_depth.hpp
 	src/plugins/d3d9/include/sge/d3d9/parameters/convert/depth_stencil_buffer.hpp
@@ -90,6 +93,13 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/parameters/extract_back_buffer_format.hpp
 	src/plugins/d3d9/include/sge/d3d9/parameters/extract_size.hpp
 	src/plugins/d3d9/include/sge/d3d9/parameters/tnl_caps.hpp
+	src/plugins/d3d9/include/sge/d3d9/query/d3d_scoped_ptr.hpp
+	src/plugins/d3d9/include/sge/d3d9/query/d3d_unique_ptr.hpp
+	src/plugins/d3d9/include/sge/d3d9/queryfuncs/get_data.hpp
+	src/plugins/d3d9/include/sge/d3d9/queryfuncs/get_dword.hpp
+	src/plugins/d3d9/include/sge/d3d9/queryfuncs/issue.hpp
+	src/plugins/d3d9/include/sge/d3d9/queryfuncs/optional_dword.hpp
+	src/plugins/d3d9/include/sge/d3d9/queryfuncs/optional_dword_fwd.hpp
 	src/plugins/d3d9/include/sge/d3d9/render_context/create.hpp
 	src/plugins/d3d9/include/sge/d3d9/render_context/needs_present.hpp
 	src/plugins/d3d9/include/sge/d3d9/render_context/object.hpp
@@ -292,6 +302,7 @@ SET(
 	src/plugins/d3d9/src/devicefuncs/clear.cpp
 	src/plugins/d3d9/src/devicefuncs/create_depth_stencil_surface.cpp
 	src/plugins/d3d9/src/devicefuncs/create_offscreen_plain_surface.cpp
+	src/plugins/d3d9/src/devicefuncs/create_query.cpp
 	src/plugins/d3d9/src/devicefuncs/draw_indexed_primitive.cpp
 	src/plugins/d3d9/src/devicefuncs/draw_primitive.cpp
 	src/plugins/d3d9/src/devicefuncs/end_scene.cpp
@@ -324,6 +335,8 @@ SET(
 	src/plugins/d3d9/src/make_pitch.cpp
 	src/plugins/d3d9/src/make_pitch_2d.cpp
 	src/plugins/d3d9/src/make_pitch_3d.cpp
+	src/plugins/d3d9/src/occlusion_query/create.cpp
+	src/plugins/d3d9/src/occlusion_query/object.cpp
 	src/plugins/d3d9/src/parameters/convert/bit_depth.cpp
 	src/plugins/d3d9/src/parameters/convert/depth_stencil_buffer.cpp
 	src/plugins/d3d9/src/parameters/convert/multi_sample.cpp
@@ -332,6 +345,9 @@ SET(
 	src/plugins/d3d9/src/parameters/extract_back_buffer_format.cpp
 	src/plugins/d3d9/src/parameters/extract_size.cpp
 	src/plugins/d3d9/src/parameters/tnl_caps.cpp
+	src/plugins/d3d9/src/queryfuncs/get_data.cpp
+	src/plugins/d3d9/src/queryfuncs/get_dword.cpp
+	src/plugins/d3d9/src/queryfuncs/issue.cpp
 	src/plugins/d3d9/src/render_context/create.cpp
 	src/plugins/d3d9/src/render_context/needs_present.cpp
 	src/plugins/d3d9/src/render_context/object.cpp

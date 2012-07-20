@@ -88,6 +88,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/exception.hpp>
 #include <fcppt/insert_to_string.hpp>
 #include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
@@ -119,6 +120,8 @@ namespace
 {
 class rotating_light
 {
+FCPPT_NONCOPYABLE(
+	rotating_light);
 public:
 	rotating_light()
 	:
@@ -188,6 +191,10 @@ public:
 				0.5f,
 				std::cos(
 					current_angle_));
+	}
+
+	~rotating_light()
+	{
 	}
 private:
 	sge::renderer::scalar const radius_;

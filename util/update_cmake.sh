@@ -249,9 +249,12 @@ update_cmake_file \
 	src/plugins/d3d9/src \
 	src/plugins/d3d9/include/sge/d3d9 \
 	-r \
+	src/plugins/d3d9/include/sge/d3d9/query \
 	$(d3d9_inc_src convert) \
 	$(d3d9_inc_src devicefuncs) \
+	$(d3d9_inc_src occlusion_query) \
 	$(d3d9_inc_src parameters) \
+	$(d3d9_inc_src queryfuncs) \
 	$(d3d9_inc_src render_context) \
 	$(d3d9_inc_src state) \
 	$(d3d9_inc_src surface) \
