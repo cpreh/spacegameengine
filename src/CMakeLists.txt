@@ -155,6 +155,7 @@ OPTION (ENABLE_OPENCL "Build the opencl library" ${OPENCL_FOUND})
 OPTION (ENABLE_PARSE "Build the parse library" ON)
 OPTION (ENABLE_PROJECTILE "Build the projectile library" ${BULLET_FOUND})
 OPTION (ENABLE_RESOURCE_TREE "Build the resource tree library" ON)
+OPTION (ENABLE_SHADER "Build the shader wrapper library" ON)
 OPTION (ENABLE_SPRITE "Build the sprite library" ON)
 OPTION (ENABLE_SYSTEMS "Build the systems library" ON)
 OPTION (ENABLE_TEXTURE "Build the texture helpers" ON)
@@ -273,6 +274,10 @@ ENDIF ()
 
 IF (ENABLE_PROJECTILE)
 	ADD_SUBDIRECTORY (projectile)
+ENDIF ()
+
+IF (ENABLE_SHADER)
+	ADD_SUBDIRECTORY(shader)
 ENDIF ()
 
 IF (ENABLE_SPRITE)

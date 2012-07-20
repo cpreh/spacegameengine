@@ -30,7 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/manager/instance/object.hpp>
 #include <sge/renderer/aspect.hpp>
 #include <sge/renderer/bit_depth.hpp>
-#include <sge/renderer/default_material.hpp>
 #include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/material.hpp>
@@ -374,9 +373,6 @@ try
 
 		sge::renderer::context::object &context(
 			scoped_block.get());
-
-		context.material(
-			sge::renderer::default_material());
 
 		context.clear(
 			sge::renderer::clear::parameters()

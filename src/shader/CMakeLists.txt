@@ -1,0 +1,43 @@
+set(
+	SGE_SHADER_FILES
+	include/sge/shader/context.hpp
+	include/sge/shader/context_fwd.hpp
+	include/sge/shader/load_edited_string.hpp
+	include/sge/shader/pair.hpp
+	include/sge/shader/pair_fwd.hpp
+	include/sge/shader/parameter/is_projection_matrix.hpp
+	include/sge/shader/parameter/matrix.hpp
+	include/sge/shader/parameter/matrix_decl.hpp
+	include/sge/shader/parameter/matrix_fwd.hpp
+	include/sge/shader/parameter/matrix_impl.hpp
+	include/sge/shader/parameter/name.hpp
+	include/sge/shader/parameter/planar_texture.hpp
+	include/sge/shader/parameter/planar_texture_fwd.hpp
+	include/sge/shader/parameter/scalar.hpp
+	include/sge/shader/parameter/scalar_decl.hpp
+	include/sge/shader/parameter/scalar_fwd.hpp
+	include/sge/shader/parameter/scalar_impl.hpp
+	include/sge/shader/parameter/vector.hpp
+	include/sge/shader/parameter/vector_decl.hpp
+	include/sge/shader/parameter/vector_fwd.hpp
+	include/sge/shader/parameter/vector_impl.hpp
+	include/sge/shader/pixel_profile.hpp
+	include/sge/shader/pixel_program_path.hpp
+	include/sge/shader/scoped_pair.hpp
+	include/sge/shader/scoped_pair_fwd.hpp
+	include/sge/shader/vertex_profile.hpp
+	include/sge/shader/vertex_program_path.hpp
+	src/shader/context.cpp
+	src/shader/load_edited_string.cpp
+	src/shader/pair.cpp
+	src/shader/parameter/planar_texture.cpp
+	src/shader/scoped_pair.cpp
+)
+
+add_sge_base_library(
+	"shader"
+	"sgecg;sgerenderer;sgerenderercg"
+	"${Fcppt_filesystem_LIBRARIES}"
+	""
+	""
+)

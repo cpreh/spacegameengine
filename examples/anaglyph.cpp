@@ -45,11 +45,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
-#include <sge/renderer/onscreen_target.hpp>
+#include <sge/renderer/target/base.hpp>
+#include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <sge/renderer/scoped_block.hpp>
+#include <sge/renderer/context/object.hpp>
+#include <sge/renderer/context/scoped.hpp>
 #include <sge/renderer/scoped_index_lock.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/scoped_vertex_declaration.hpp>
@@ -60,7 +62,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/vertex_declaration.hpp>
 #include <sge/renderer/vertex_declaration_scoped_ptr.hpp>
-#include <sge/renderer/viewport_size.hpp>
+#include <sge/renderer/target/viewport_size.hpp>
 #include <sge/renderer/vsync.hpp>
 #include <sge/renderer/windowed.hpp>
 #include <sge/renderer/clear/depth_buffer_value.hpp>
@@ -72,10 +74,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/cull_mode.hpp>
 #include <sge/renderer/state/depth_func.hpp>
-#include <sge/renderer/state/draw_mode.hpp>
 #include <sge/renderer/state/float.hpp>
 #include <sge/renderer/state/list.hpp>
-#include <sge/renderer/state/stencil_func.hpp>
 #include <sge/renderer/vf/format.hpp>
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/normal.hpp>
@@ -236,7 +236,8 @@ public:
 	vb() const;
 
 	void
-	render() const;
+	render(
+		sge::renderer::context::object &) const;
 
 	~compiled_model();
 private:
@@ -359,22 +360,25 @@ compiled_model::vb() const
 }
 
 void
-compiled_model::render() const
+compiled_model::render(
+	sge::renderer::context::object &_context) const
 {
 	// This should be pretty self-explanatory. Note that here, we just
 	// call render. The vertex buffer isn't activated here, neither is
 	// the vertex declaration. This is done at a "higher" level so we
 	// don't activate/deactive it too often (which decreases
 	// performance).
-	renderer_.render_indexed(
+	_context.render_indexed(
 		*ib_,
-		sge::renderer::first_vertex(0u),
-		vb_->size(),
-		sge::renderer::indexed_primitive_type::triangle,
-		sge::renderer::primitive_count(
-			ib_->size().get()/3u),
+		sge::renderer::first_vertex(
+			0u),
+		sge::renderer::vertex_count(
+			vb_->size()),
+		sge::renderer::primitive_type::triangle_list,
 		sge::renderer::first_index(
-			0u));
+			0u),
+		sge::renderer::index_count(
+			ib_->size().get()));
 }
 
 compiled_model::~compiled_model()
@@ -394,7 +398,8 @@ public:
 		sge::renderer::matrix4 const &);
 
 	void
-	render();
+	render(
+		sge::renderer::context::object &);
 
 	sge::renderer::matrix4 const &
 	modelview() const;
@@ -417,9 +422,11 @@ model_instance::model_instance(
 }
 
 void
-model_instance::render()
+model_instance::render(
+	sge::renderer::context::object &_context)
 {
-	backend_.render();
+	backend_.render(
+		_context);
 }
 
 sge::renderer::matrix4 const &
@@ -446,6 +453,7 @@ public:
 
 	void
 	render(
+		sge::renderer::context::object &,
 		sge::renderer::matrix4 const &);
 
 	~random_model_collection();
@@ -540,12 +548,13 @@ random_model_collection::random_model_collection(
 
 void
 random_model_collection::render(
+	sge::renderer::context::object &_context,
 	sge::renderer::matrix4 const &mv)
 {
 	// Finally, we activate the vertex buffer so we can render stuff
 	// with it. We only activate it once, however, not for every model.
 	sge::renderer::scoped_vertex_buffer scoped_vb(
-		renderer_,
+		_context,
 		backend_.vb());
 
 	for(
@@ -555,11 +564,12 @@ random_model_collection::render(
 		++current_model)
 	{
 		// Set the world transformation and render
-		renderer_.transform(
+		_context.transform(
 			sge::renderer::matrix_mode::world,
 			mv * current_model->modelview());
 
-		current_model->render();
+		current_model->render(
+			_context);
 	}
 }
 
@@ -650,17 +660,6 @@ move_eye_position(
 	return
 		result;
 
-}
-
-// This adapts the perspective matrix to the now changed camera.
-void
-adapt_perspective(
-	sge::renderer::device &renderer,
-	sge::camera::base const &camera)
-{
-	renderer.transform(
-		sge::renderer::matrix_mode::projection,
-		camera.projection_matrix().get());
 }
 }
 
@@ -803,16 +802,6 @@ try
 			)
 		)
 	);
-	// Adapt the camera to the viewport
-	fcppt::signal::scoped_connection const
-		adapt_perspective_connection(
-			sys.viewport_manager().manage_callback(
-				std::tr1::bind(
-					&adapt_perspective,
-					fcppt::ref(
-						sys.renderer()),
-					fcppt::cref(
-						camera))));
 
 	sge::renderer::vertex_declaration_scoped_ptr const vertex_declaration(
 		sys.renderer().create_vertex_declaration(
@@ -835,30 +824,10 @@ try
 		sys.renderer(),
 		main_model);
 
-	// Set the important render states
-	sys.renderer().state(
-		sge::renderer::state::list
-			(sge::renderer::state::depth_func::less)
-			(sge::renderer::state::bool_::enable_alpha_blending = false)
-			(sge::renderer::state::cull_mode::counter_clockwise)
-			(sge::renderer::state::draw_mode::fill)
-			(sge::renderer::state::bool_::enable_lighting = true)
-			(sge::renderer::state::stencil_func::off));
-
-	sys.renderer().enable_light(
-		sge::renderer::light::index(
-			0u),
-		true);
-
 	sge::timer::basic<sge::timer::clocks::standard> camera_timer(
 		sge::timer::parameters<sge::timer::clocks::standard>(
 			sge::camera::update_duration(
 				1.0f)));
-
-	// The vertex declaration can be set once in this case
-	sge::renderer::scoped_vertex_declaration scoped_vd(
-		sys.renderer(),
-		*vertex_declaration);
 
 	while(
 		sys.window_system().poll()
@@ -866,7 +835,7 @@ try
 	{
 		// If we have no viewport (yet), don't do anything (this is just a
 		// precaution, we _might_ divide by zero somewhere below, otherwise)
-		if(!sge::renderer::viewport_size(sys.renderer()).content())
+		if(!sge::renderer::target::viewport_size(sys.renderer().onscreen_target()).content())
 			continue;
 
 		// This moves the camera around
@@ -874,9 +843,38 @@ try
 			sge::timer::elapsed_and_reset<sge::camera::update_duration>(
 				camera_timer));
 
+		sge::renderer::context::scoped scoped_block(
+			sys.renderer(),
+			sys.renderer().onscreen_target());
+
+		sge::renderer::context::object &context(
+			scoped_block.get());
+
+		context.transform(
+			sge::renderer::matrix_mode::projection,
+			camera.projection_matrix().get());
+
+		// The vertex declaration can be set once in this case
+		sge::renderer::scoped_vertex_declaration scoped_vd(
+			context,
+			*vertex_declaration);
+
+		// Set the important render states
+		context.state(
+			sge::renderer::state::list
+				(sge::renderer::state::depth_func::less)
+				(sge::renderer::state::bool_::enable_alpha_blending = false)
+				(sge::renderer::state::cull_mode::counter_clockwise)
+				(sge::renderer::state::bool_::enable_lighting = true));
+
+		context.enable_light(
+			sge::renderer::light::index(
+				0u),
+			true);
+
 		// Since the "write_*" attributes also apply to the "clear
 		// backbuffer" stuff, we set everything to "true" here.
-		sys.renderer().state(
+		context.state(
 			sge::renderer::state::list
 				(sge::renderer::state::bool_::write_red = true)
 				(sge::renderer::state::bool_::write_blue = true)
@@ -886,7 +884,7 @@ try
 			1.f
 		);
 
-		sys.renderer().onscreen_target().clear(
+		context.clear(
 			sge::renderer::clear::parameters()
 			.back_buffer(
 				sge::image::colors::black()
@@ -896,17 +894,15 @@ try
 			)
 		);
 
-		sge::renderer::scoped_block const block_(
-			sys.renderer());
-
 		// Set the color mask to "red"
-		sys.renderer().state(
+		context.state(
 			sge::renderer::state::list
 				(sge::renderer::state::bool_::write_red = true)
 				(sge::renderer::state::bool_::write_blue = false)
 				(sge::renderer::state::bool_::write_green = false));
 
 		model_collection.render(
+			context,
 			sge::camera::matrix_conversion::world(
 				move_eye_position(
 					camera.coordinate_system(),
@@ -914,7 +910,7 @@ try
 					focal_length)));
 
 		// Clear depth buffer
-		sys.renderer().onscreen_target().clear(
+		context.clear(
 			sge::renderer::clear::parameters()
 			.depth_buffer(
 				depth_clear_value
@@ -922,13 +918,14 @@ try
 		);
 
 		// Set the color mask to cyan
-		sys.renderer().state(
+		context.state(
 			sge::renderer::state::list
 				(sge::renderer::state::bool_::write_red = false)
 				(sge::renderer::state::bool_::write_blue = true)
 				(sge::renderer::state::bool_::write_green = true));
 
 		model_collection.render(
+			context,
 			sge::camera::matrix_conversion::world(
 				move_eye_position(
 					camera.coordinate_system(),
