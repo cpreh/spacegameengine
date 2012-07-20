@@ -18,34 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/vector4f.hpp>
 #include <sge/opengl/light/cutoff_angle.hpp>
-#include <sge/opengl/light/direction.hpp>
 #include <sge/opengl/light/directional.hpp>
 #include <sge/opengl/light/position_impl.hpp>
 #include <sge/renderer/light/directional.hpp>
+#include <fcppt/math/vector/construct.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 
 
 void
 sge::opengl::light::directional(
-	light::index const _index,
-	renderer::light::directional const &_directional
+	sge::opengl::light::index const _index,
+	sge::renderer::light::directional const &_directional
 )
 {
-	light::direction(
-		_index,
-		_directional.direction()
-	);
-
-	light::cutoff_angle(
+	sge::opengl::light::cutoff_angle(
 		_index,
 		_directional.cutoff_angle()
 	);
 
-	// special value to make this a directional light
-	light::position_impl(
+	sge::opengl::light::position_impl(
 		_index,
-		opengl::vector4f::null()
+		fcppt::math::vector::construct(
+			_directional.direction().get(),
+			// special value to make this a directional light
+			0.f
+		)
 	);
 }
