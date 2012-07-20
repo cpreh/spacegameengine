@@ -233,6 +233,12 @@ add_sge_example(
 	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 )
 
+add_sge_example(
+	occlusion_query
+	"sgecamera;sgeconfig;sgeimage;sgeinput;sgelog;sgemedia;sgemodelobj;sgemodelmanager;sgetimer;sgerenderer;sgesystems;sgetexture;sgeviewport;sgewindow;sgefonttext"
+	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+)
+
 add_sge_console_example(
 	opengl
 	"sgerenderer;sgerendereropengl;sgesystems;sgeviewport;sgewindow"
