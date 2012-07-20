@@ -41,8 +41,7 @@ sge::d3d9::convert::color_format(
 		return D3DFMT_R32F;
 	case sge::image::color::format::la8:
 		return D3DFMT_A8L8;
-	case sge::image::color::format::srgb8:
-	case sge::image::color::format::rgb8:
+	case sge::image::color::format::bgr8:
 		return D3DFMT_R8G8B8;
 	case sge::image::color::format::rgba8:
 	case sge::image::color::format::srgba8:
@@ -55,7 +54,8 @@ sge::d3d9::convert::color_format(
 		return D3DFMT_X8R8G8B8;
 	case sge::image::color::format::rgba32f:
 		return D3DFMT_A32B32G32R32F;
-	case sge::image::color::format::bgr8:
+	case sge::image::color::format::rgb8:
+	case sge::image::color::format::srgb8:
 	case sge::image::color::format::rgb32f:
 	case sge::image::color::format::bgr32f:
 	case sge::image::color::format::bgra32f:

@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/algorithm/may_overlap.hpp>
-#include <sge/image3d/algorithm/copy.hpp>
+#include <sge/image3d/algorithm/copy_and_convert.hpp>
 #include <sge/image3d/view/const_object_fwd.hpp>
 #include <sge/image3d/view/format.hpp>
 #include <sge/image3d/view/size.hpp>
@@ -65,7 +65,7 @@ sge::renderer::texture::create_volume_from_view(
 		sge::renderer::lock_mode::writeonly
 	);
 
-	sge::image3d::algorithm::copy(
+	sge::image3d::algorithm::copy_and_convert(
 		_view,
 		lock.value(),
 		sge::image::algorithm::may_overlap::no
