@@ -45,11 +45,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/clip_plane_index.hpp>
 #include <sge/renderer/config.hpp>
 #include <sge/renderer/const_optional_vertex_declaration_ref_fwd.hpp>
+#include <sge/renderer/default_material.hpp>
 #include <sge/renderer/first_index.hpp>
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/index_buffer_fwd.hpp>
 #include <sge/renderer/index_count.hpp>
-#include <sge/renderer/material_fwd.hpp>
+#include <sge/renderer/material.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/primitive_count.hpp>
@@ -119,6 +120,10 @@ sge::opengl::render_context::object::object(
 {
 	this->state(
 		sge::renderer::state::default_()
+	);
+
+	this->material(
+		sge::renderer::default_material()
 	);
 }
 
