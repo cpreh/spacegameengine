@@ -49,7 +49,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/primitive_type.hpp>
-#include <sge/renderer/resource_flags_none.hpp>
+#include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/scoped_vertex_declaration.hpp>
@@ -515,7 +515,7 @@ create_noise_texture(
 				sge::image3d::view::object(
 					s.wrapped_view())),
 			sge::renderer::texture::mipmap::off(),
-			sge::renderer::resource_flags::none);
+			sge::renderer::resource_flags_field::null());
 }
 
 sge::renderer::texture::volume_unique_ptr
@@ -615,7 +615,7 @@ create_checkers_texture(
 				)
 			),
 			sge::renderer::texture::mipmap::off(),
-			sge::renderer::resource_flags::none
+			sge::renderer::resource_flags_field::null()
 		);
 }
 
@@ -695,7 +695,7 @@ try
 			sge::renderer::vertex_count(
 				pos_array::dim_wrapper::value
 			),
-			sge::renderer::resource_flags::none
+			sge::renderer::resource_flags_field::null()
 		)
 	);
 

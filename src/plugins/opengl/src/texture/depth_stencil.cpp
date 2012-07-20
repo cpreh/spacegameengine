@@ -31,7 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/funcs/set_2d.hpp>
 #include <sge/renderer/depth_stencil_surface_unique_ptr.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
-#include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/texture/capabilities.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/depth_stencil.hpp>
@@ -132,7 +131,7 @@ sge::renderer::resource_flags_field const
 sge::opengl::texture::depth_stencil::resource_flags() const
 {
 	return
-		sge::renderer::resource_flags::none;
+		sge::renderer::resource_flags_field::null();
 }
 
 sge::renderer::texture::capabilities_field const

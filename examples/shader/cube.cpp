@@ -80,7 +80,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/nonindexed_primitive_type.hpp>
 #include <sge/renderer/parameters.hpp>
-#include <sge/renderer/resource_flags_none.hpp>
+#include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
@@ -888,14 +888,14 @@ try
 				sys.image_system(),
 				sge::renderer::texture::mipmap::off(),
 				// Here, you could specify "readable", for example
-				sge::renderer::resource_flags::none)),
+				sge::renderer::resource_flags_field::null())),
 		color_texture(
 			sge::renderer::texture::create_planar_from_path(
 				sge::config::media_path()/FCPPT_TEXT("images")/FCPPT_TEXT("color_map.png"),
 				sys.renderer(),
 				sys.image_system(),
 				sge::renderer::texture::mipmap::off(),
-				sge::renderer::resource_flags::none));
+				sge::renderer::resource_flags_field::null()));
 
 	// When escape is pressed, the main loop should end
 	fcppt::signal::scoped_connection const escape_connection(
@@ -1025,7 +1025,7 @@ try
 			sge::renderer::vertex_count(
 				6u * 2u * 3u
 			),
-			sge::renderer::resource_flags::none));
+			sge::renderer::resource_flags_field::null()));
 
 	fill_vb_with_cube(
 		*vb);

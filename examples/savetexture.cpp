@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/onscreen_target.hpp>
 #include <sge/renderer/refresh_rate_dont_care.hpp>
-#include <sge/renderer/resource_flags_none.hpp>
+#include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/scoped_target.hpp>
@@ -176,7 +176,7 @@ create_quad(
 			sge::renderer::vertex_count(
 				6u
 			),
-			sge::renderer::resource_flags::none));
+			sge::renderer::resource_flags_field::null()));
 
 	sge::renderer::scoped_vertex_buffer const scoped_vb_(
 		renderer,

@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/resource_flags_none.hpp>
+#include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
@@ -47,7 +47,7 @@ sge::cegui::batch::batch(
 				0u
 			),
 			_vertex_count,
-			sge::renderer::resource_flags::none
+			sge::renderer::resource_flags_field::null()
 		)
 	),
 	clip_(

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/global.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/dim2.hpp>
-#include <sge/renderer/resource_flags_none.hpp>
+#include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
@@ -94,7 +94,7 @@ sge::texture::no_fragmented::consume_fragment(
 				real_dim,
 				format_,
 				mipmap_,
-				renderer::resource_flags::none,
+				renderer::resource_flags_field::null(),
 				renderer::texture::capabilities_field::null()
 			)
 		)

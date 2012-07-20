@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/resource_flags.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
-#include <sge/renderer/resource_flags_none.hpp>
 #include <sge/sprite/buffers/option.hpp>
 #include <sge/sprite/buffers/option_to_resource_flags.hpp>
 #include <fcppt/assert/unreachable.hpp>
@@ -37,7 +36,7 @@ sge::sprite::buffers::option_to_resource_flags(
 	{
 	case sge::sprite::buffers::option::static_:
 		return
-			sge::renderer::resource_flags::none;
+			sge::renderer::resource_flags_field::null();
 	case sge::sprite::buffers::option::dynamic:
 		return
 			sge::renderer::resource_flags_field(

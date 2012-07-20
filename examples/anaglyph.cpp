@@ -48,7 +48,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/base.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/parameters.hpp>
-#include <sge/renderer/resource_flags_none.hpp>
+#include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/context/object.hpp>
 #include <sge/renderer/context/scoped.hpp>
@@ -264,7 +264,7 @@ compiled_model::compiled_model(
 			sge::renderer::vertex_count(
 				_model.vertices(
 					_model.part_names().front()).size()),
-			sge::renderer::resource_flags::none)),
+			sge::renderer::resource_flags_field::null())),
 	// Create the index buffer. We have to decide which data type to
 	// use. Since our models have < 100 vertices, a 16 bit integer is
 	// enough, so we're using "format::i16" here. You'll see more of
@@ -275,7 +275,7 @@ compiled_model::compiled_model(
 			sge::renderer::index_count(
 				_model.indices(
 					_model.part_names().front()).size()),
-		sge::renderer::resource_flags::none))
+		sge::renderer::resource_flags_field::null()))
 {
 	// Fill the vertex buffer first (arbitrary choice)
 	{

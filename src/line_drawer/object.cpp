@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/primitive_type.hpp>
-#include <sge/renderer/resource_flags_none.hpp>
+#include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
@@ -133,7 +133,7 @@ sge::line_drawer::object::unlock()
 					0u),
 				sge::renderer::vertex_count(
 					lines_.size()*2),
-				sge::renderer::resource_flags::none));
+				sge::renderer::resource_flags_field::null()));
 
 	sge::renderer::scoped_vertex_lock const vblock(
 		*vb_,

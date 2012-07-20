@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/optional_extension_set.hpp>
 #include <sge/renderer/bit_depth.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
-#include <sge/renderer/resource_flags_none.hpp>
+#include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/windowed.hpp>
 #include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/context/object.hpp>
@@ -255,7 +255,7 @@ try
 			sys.renderer(),
 			image->view(),
 			sge::renderer::texture::mipmap::off(),
-			sge::renderer::resource_flags::none
+			sge::renderer::resource_flags_field::null()
 		)
 	);
 

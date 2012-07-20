@@ -244,7 +244,6 @@ set(
 	include/sge/renderer/resource_flags.hpp
 	include/sge/renderer/resource_flags_field.hpp
 	include/sge/renderer/resource_flags_field_fwd.hpp
-	include/sge/renderer/resource_flags_none.hpp
 	include/sge/renderer/scalar.hpp
 	include/sge/renderer/scoped_index_lock.hpp
 	include/sge/renderer/scoped_transform.hpp
@@ -689,7 +688,6 @@ set(
 	src/renderer/projection/perspective_af.cpp
 	src/renderer/projection/perspective_wh.cpp
 	src/renderer/refresh_rate_dont_care.cpp
-	src/renderer/resource_flags_none.cpp
 	src/renderer/scoped_index_lock.cpp
 	src/renderer/scoped_transform.cpp
 	src/renderer/scoped_vertex_buffer.cpp

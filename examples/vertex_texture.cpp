@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/primitive_type.hpp>
-#include <sge/renderer/resource_flags_none.hpp>
+#include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/scoped_index_lock.hpp>
 #include <sge/renderer/scoped_vertex_declaration_and_buffers.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
@@ -211,7 +211,7 @@ try
 			sge::renderer::vertex_count(
 				4u
 			),
-			sge::renderer::resource_flags::none
+			sge::renderer::resource_flags_field::null()
 		)
 	);
 
@@ -304,7 +304,7 @@ try
 			sge::renderer::index_count(
 				6u
 			),
-			sge::renderer::resource_flags::none
+			sge::renderer::resource_flags_field::null()
 		)
 	);
 
@@ -345,7 +345,7 @@ try
 			sys.renderer(),
 			sys.image_system(),
 			sge::renderer::texture::mipmap::off(),
-			sge::renderer::resource_flags::none
+			sge::renderer::resource_flags_field::null()
 		)
 	);
 // ![load_texture]

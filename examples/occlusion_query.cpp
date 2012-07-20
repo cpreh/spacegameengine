@@ -54,7 +54,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/parameters.hpp>
-#include <sge/renderer/resource_flags_none.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/scoped_transform.hpp>
 #include <sge/renderer/vsync.hpp>

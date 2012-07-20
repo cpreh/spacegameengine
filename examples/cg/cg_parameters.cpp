@@ -42,7 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/primitive_type.hpp>
-#include <sge/renderer/resource_flags_none.hpp>
+#include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/scoped_vertex_declaration_and_buffers.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
@@ -265,7 +265,7 @@ try
 			sge::renderer::vertex_count(
 				3u
 			),
-			sge::renderer::resource_flags::none
+			sge::renderer::resource_flags_field::null()
 		)
 	);
 

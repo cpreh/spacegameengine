@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/no_multi_sampling.hpp>
 #include <sge/renderer/parameters.hpp>
-#include <sge/renderer/resource_flags_none.hpp>
+#include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/vertex_buffer_scoped_ptr.hpp>
 #include <sge/renderer/vertex_count.hpp>
@@ -117,7 +117,7 @@ try
 				),
 				sge::image::color::format::rgba8,
 				sge::renderer::texture::mipmap::off(),
-				sge::renderer::resource_flags::none,
+				sge::renderer::resource_flags_field::null(),
 				sge::renderer::texture::capabilities_field::null()
 			)
 		)
@@ -175,7 +175,7 @@ try
 			sge::renderer::vertex_count(
 				3u
 			),
-			sge::renderer::resource_flags::none
+			sge::renderer::resource_flags_field::null()
 		)
 	);
 

@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/obj/loader.hpp>
 #include <sge/model/obj/vb_converter/convert.hpp>
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/resource_flags_none.hpp>
+#include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/scoped_transform.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/scoped_vertex_declaration.hpp>
@@ -114,7 +114,7 @@ sge::model::manager::object::object(
 			>(
 				renderer_,
 				*vertex_declaration_,
-				sge::renderer::resource_flags::none,
+				sge::renderer::resource_flags_field::null(),
 				*(model_loader_->load(
 					*current_file))));
 
@@ -137,7 +137,7 @@ sge::model::manager::object::object(
 				// -- Configurable --
 				sge::renderer::texture::mipmap::all_levels(
 					sge::renderer::texture::mipmap::auto_generate::yes),
-				sge::renderer::resource_flags::none));
+				sge::renderer::resource_flags_field::null()));
 	}
 }
 
