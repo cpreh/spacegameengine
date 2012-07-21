@@ -3,6 +3,9 @@ set(
 	include/sge/class_symbol.hpp
 	include/sge/error/check_state.hpp
 	include/sge/exception.hpp
+	src/include/sge/src/export_class_instantiation.hpp
+	src/include/sge/src/export_function_instantiation.hpp
+	src/include/sge/src/include_windows.hpp
 )
 
 set(

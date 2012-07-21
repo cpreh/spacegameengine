@@ -18,31 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_PLUGIN_LIBRARY_LOADED_SYMBOL_HPP_INCLUDED
-#define SGE_SRC_PLUGIN_LIBRARY_LOADED_SYMBOL_HPP_INCLUDED
+#ifndef SGE_SRC_INCLUDE_WINDOWS_HPP_INCLUDED
+#define SGE_SRC_INCLUDE_WINDOWS_HPP_INCLUDED
 
-#include <fcppt/config/platform.hpp>
-#if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
-#include <sge/src/include_windows.hpp>
+#if !defined(NOMINMAX)
+#define NOMINMAX
 #endif
 
-namespace sge
-{
-namespace plugin
-{
-namespace library
-{
-
-#if defined(FCPPT_CONFIG_POSIX_PLATFORM)
-typedef void *loaded_symbol;
-#elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
-typedef FARPROC loaded_symbol;
-#else
-#error "Don't know what a library's symbol is!"
+#if !defined(WIN32_LEAN_AND_MEAN)
+#define WIN32_LEAN_AND_MEAN
 #endif
 
-}
-}
-}
+#include <fcppt/config/external_begin.hpp>
+#include <Windows.h>
+#include <fcppt/config/external_end.hpp>
 
 #endif

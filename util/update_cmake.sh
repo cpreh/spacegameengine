@@ -25,7 +25,8 @@ update_cmake_file \
 	-n \
 	include/sge \
 	-r \
-	include/sge/error
+	include/sge/error \
+	src/include
 
 update_cmake_file \
 	src/CMakeLists.txt \

@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <GL/glx.h>
 #include <fcppt/config/external_end.hpp>
 #elif defined(SGE_OPENCL_HAVE_WINDOWS)
-#include <fcppt/config/include_windows.hpp>
+#include <sge/src/include_windows.hpp>
 #else
 #error "Don't know what to include for opencl platform code"
 #endif

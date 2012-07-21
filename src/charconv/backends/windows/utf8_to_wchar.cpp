@@ -22,12 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/conversion_status.hpp>
 #include <sge/charconv/input_range.hpp>
 #include <sge/charconv/output_range.hpp>
+#include <sge/src/include_windows.hpp>
 #include <sge/src/charconv/backends/windows/utf8_to_wchar.hpp>
 #include <fcppt/truncation_check_cast.hpp>
 #include <fcppt/algorithm/copy_n.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assert/unreachable.hpp>
-#include <fcppt/config/include_windows.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
