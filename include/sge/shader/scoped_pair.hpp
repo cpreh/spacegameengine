@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/cg/scoped_texture.hpp>
 #include <sge/renderer/context/object_fwd.hpp>
 #include <sge/shader/pair_fwd.hpp>
+#include <sge/shader/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -37,10 +38,12 @@ class scoped_pair
 	FCPPT_NONCOPYABLE(
 		scoped_pair);
 public:
+	SGE_SHADER_SYMBOL
 	scoped_pair(
 		sge::renderer::context::object &,
 		sge::shader::pair &);
 
+	SGE_SHADER_SYMBOL
 	~scoped_pair();
 private:
 	sge::shader::pair &parent_;
