@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/config.hpp>
 #include <sge/opengl/create_visual.hpp>
-#include <sge/renderer/parameters_fwd.hpp>
+#include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <awl/system/object_fwd.hpp>
 #include <awl/visual/object.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
@@ -42,7 +42,7 @@ sge::opengl::create_visual(
 #elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 	awl::system::object &,
 #endif
-	sge::renderer::parameters const &_parameters
+	sge::renderer::pixel_format::object const &_format
 )
 {
 #if defined(SGE_OPENGL_HAVE_X11)
@@ -53,12 +53,12 @@ sge::opengl::create_visual(
 			>(
 				_awl_system
 			),
-			_parameters
+			_format
 		);
 #elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 	return
 		sge::opengl::windows::visual::create(
-			_parameters
+			_format
 		);
 #else
 #error "Implement me!"

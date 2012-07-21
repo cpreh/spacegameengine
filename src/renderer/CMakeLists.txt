@@ -1,7 +1,7 @@
 set(
 	SGE_RENDERER_FILES
 	include/sge/renderer/adapter.hpp
-	include/sge/renderer/adapter_type.hpp
+	include/sge/renderer/adapter_value.hpp
 	include/sge/renderer/ambient_color.hpp
 	include/sge/renderer/aspect.hpp
 	include/sge/renderer/basic_dim.hpp
@@ -11,10 +11,6 @@ set(
 	include/sge/renderer/basic_scoped_buffer_lock.hpp
 	include/sge/renderer/basic_vector.hpp
 	include/sge/renderer/basic_vector_fwd.hpp
-	include/sge/renderer/bit_count.hpp
-	include/sge/renderer/bit_depth.hpp
-	include/sge/renderer/bit_depth_bits.hpp
-	include/sge/renderer/bit_depth_bytes.hpp
 	include/sge/renderer/caps/clip_plane_indices.hpp
 	include/sge/renderer/caps/description.hpp
 	include/sge/renderer/caps/device.hpp
@@ -76,8 +72,6 @@ set(
 	include/sge/renderer/create_index_buffer_from_view.hpp
 	include/sge/renderer/create_vertex_buffer_from_view.hpp
 	include/sge/renderer/default_material.hpp
-	include/sge/renderer/depth_buffer_bits.hpp
-	include/sge/renderer/depth_stencil_buffer.hpp
 	include/sge/renderer/depth_stencil_format.hpp
 	include/sge/renderer/depth_stencil_surface.hpp
 	include/sge/renderer/depth_stencil_surface_fwd.hpp
@@ -93,17 +87,27 @@ set(
 	include/sge/renderer/dim2_fwd.hpp
 	include/sge/renderer/dim3.hpp
 	include/sge/renderer/dim3_fwd.hpp
-	include/sge/renderer/display_mode.hpp
-	include/sge/renderer/display_mode_comparison.hpp
-	include/sge/renderer/display_mode_fwd.hpp
-	include/sge/renderer/display_mode_output.hpp
+	include/sge/renderer/display_mode/comparison.hpp
+	include/sge/renderer/display_mode/dimensions.hpp
+	include/sge/renderer/display_mode/dimensions_fwd.hpp
+	include/sge/renderer/display_mode/object.hpp
+	include/sge/renderer/display_mode/object_fwd.hpp
+	include/sge/renderer/display_mode/optional_dimensions.hpp
+	include/sge/renderer/display_mode/optional_dimensions_fwd.hpp
+	include/sge/renderer/display_mode/optional_object.hpp
+	include/sge/renderer/display_mode/optional_object_fwd.hpp
+	include/sge/renderer/display_mode/optional_refresh_rate.hpp
+	include/sge/renderer/display_mode/optional_refresh_rate_fwd.hpp
+	include/sge/renderer/display_mode/output.hpp
+	include/sge/renderer/display_mode/pixel_size.hpp
+	include/sge/renderer/display_mode/pixel_size_fwd.hpp
+	include/sge/renderer/display_mode/refresh_rate.hpp
+	include/sge/renderer/display_mode/refresh_rate_value.hpp
 	include/sge/renderer/emissive_color.hpp
 	include/sge/renderer/epsilon.hpp
 	include/sge/renderer/exception.hpp
 	include/sge/renderer/first_index.hpp
 	include/sge/renderer/first_vertex.hpp
-	include/sge/renderer/fullscreen.hpp
-	include/sge/renderer/fullscreen_fwd.hpp
 	include/sge/renderer/index/any/basic_view.hpp
 	include/sge/renderer/index/any/basic_view_fwd.hpp
 	include/sge/renderer/index/any/detail/generate_visitor.hpp
@@ -197,9 +201,6 @@ set(
 	include/sge/renderer/matrix4.hpp
 	include/sge/renderer/matrix4_fwd.hpp
 	include/sge/renderer/matrix_mode.hpp
-	include/sge/renderer/multi_samples.hpp
-	include/sge/renderer/multi_samples_value.hpp
-	include/sge/renderer/no_multi_sampling.hpp
 	include/sge/renderer/npos.hpp
 	include/sge/renderer/occlusion_query/blocking_wait.hpp
 	include/sge/renderer/occlusion_query/object.hpp
@@ -212,12 +213,26 @@ set(
 	include/sge/renderer/occlusion_query/pixel_count_value.hpp
 	include/sge/renderer/occlusion_query/scoped.hpp
 	include/sge/renderer/occlusion_query/scoped_fwd.hpp
-	include/sge/renderer/optional_bit_count.hpp
-	include/sge/renderer/optional_bit_count_fwd.hpp
 	include/sge/renderer/optional_dim2.hpp
 	include/sge/renderer/optional_dim2_fwd.hpp
-	include/sge/renderer/parameters.hpp
-	include/sge/renderer/parameters_fwd.hpp
+	include/sge/renderer/parameters/object.hpp
+	include/sge/renderer/parameters/object_fwd.hpp
+	include/sge/renderer/parameters/vsync.hpp
+	include/sge/renderer/pixel_format/bit_count.hpp
+	include/sge/renderer/pixel_format/color.hpp
+	include/sge/renderer/pixel_format/color_bits.hpp
+	include/sge/renderer/pixel_format/depth_bits.hpp
+	include/sge/renderer/pixel_format/depth_stencil.hpp
+	include/sge/renderer/pixel_format/multi_samples.hpp
+	include/sge/renderer/pixel_format/multi_samples_value.hpp
+	include/sge/renderer/pixel_format/object.hpp
+	include/sge/renderer/pixel_format/object_fwd.hpp
+	include/sge/renderer/pixel_format/optional_bit_count.hpp
+	include/sge/renderer/pixel_format/optional_bit_count_fwd.hpp
+	include/sge/renderer/pixel_format/optional_multi_samples.hpp
+	include/sge/renderer/pixel_format/optional_multi_samples_fwd.hpp
+	include/sge/renderer/pixel_format/srgb.hpp
+	include/sge/renderer/pixel_format/stencil_bits.hpp
 	include/sge/renderer/pixel_rect.hpp
 	include/sge/renderer/pixel_rect_fwd.hpp
 	include/sge/renderer/pixel_unit.hpp
@@ -239,8 +254,6 @@ set(
 	include/sge/renderer/projection/rect.hpp
 	include/sge/renderer/raw_pointer.hpp
 	include/sge/renderer/raw_value.hpp
-	include/sge/renderer/refresh_rate.hpp
-	include/sge/renderer/refresh_rate_dont_care.hpp
 	include/sge/renderer/resource_flags.hpp
 	include/sge/renderer/resource_flags_field.hpp
 	include/sge/renderer/resource_flags_field_fwd.hpp
@@ -252,9 +265,6 @@ set(
 	include/sge/renderer/scoped_vertex_declaration.hpp
 	include/sge/renderer/scoped_vertex_declaration_and_buffers.hpp
 	include/sge/renderer/scoped_vertex_lock.hpp
-	include/sge/renderer/screen_mode.hpp
-	include/sge/renderer/screen_mode_bit_depth.hpp
-	include/sge/renderer/screen_mode_fwd.hpp
 	include/sge/renderer/screen_size.hpp
 	include/sge/renderer/screen_size_fwd.hpp
 	include/sge/renderer/screen_unit.hpp
@@ -323,7 +333,6 @@ set(
 	include/sge/renderer/state/uint/type.hpp
 	include/sge/renderer/state/var.hpp
 	include/sge/renderer/state/var_fwd.hpp
-	include/sge/renderer/stencil_buffer_bits.hpp
 	include/sge/renderer/system.hpp
 	include/sge/renderer/system_fwd.hpp
 	include/sge/renderer/system_scoped_ptr.hpp
@@ -581,12 +590,7 @@ set(
 	include/sge/renderer/vf/view_decl.hpp
 	include/sge/renderer/vf/view_fwd.hpp
 	include/sge/renderer/vf/view_impl.hpp
-	include/sge/renderer/vsync.hpp
-	include/sge/renderer/windowed.hpp
-	include/sge/renderer/windowed_fwd.hpp
 	src/renderer/aspect.cpp
-	src/renderer/bit_depth_bits.cpp
-	src/renderer/bit_depth_bytes.cpp
 	src/renderer/caps/device.cpp
 	src/renderer/caps/device_output.cpp
 	src/renderer/clear/parameters.cpp
@@ -600,14 +604,12 @@ set(
 	src/renderer/create_index_buffer_from_view.cpp
 	src/renderer/create_vertex_buffer_from_view.cpp
 	src/renderer/default_material.cpp
-	src/renderer/depth_buffer_bits.cpp
 	src/renderer/depth_stencil_surface.cpp
 	src/renderer/device.cpp
-	src/renderer/display_mode.cpp
-	src/renderer/display_mode_comparison.cpp
-	src/renderer/display_mode_output.cpp
+	src/renderer/display_mode/comparison.cpp
+	src/renderer/display_mode/object.cpp
+	src/renderer/display_mode/output.cpp
 	src/renderer/exception.cpp
-	src/renderer/fullscreen.cpp
 	src/renderer/include/sge/src/renderer/basic_scoped_buffer_lock_impl.hpp
 	src/renderer/include/sge/src/renderer/const_basic_scoped_buffer_lock_impl.hpp
 	src/renderer/include/sge/src/renderer/index/dynamic/basic_view_impl.hpp
@@ -669,11 +671,14 @@ set(
 	src/renderer/lock_flags/write.cpp
 	src/renderer/lock_rect_to_coords.cpp
 	src/renderer/material.cpp
-	src/renderer/no_multi_sampling.cpp
 	src/renderer/npos.cpp
 	src/renderer/occlusion_query/object.cpp
 	src/renderer/occlusion_query/scoped.cpp
-	src/renderer/parameters.cpp
+	src/renderer/parameters/object.cpp
+	src/renderer/pixel_format/color_bits.cpp
+	src/renderer/pixel_format/depth_bits.cpp
+	src/renderer/pixel_format/object.cpp
+	src/renderer/pixel_format/stencil_bits.cpp
 	src/renderer/plugin/collection.cpp
 	src/renderer/plugin/context.cpp
 	src/renderer/plugin/iterator.cpp
@@ -687,14 +692,12 @@ set(
 	src/renderer/projection/orthogonal_xy.cpp
 	src/renderer/projection/perspective_af.cpp
 	src/renderer/projection/perspective_wh.cpp
-	src/renderer/refresh_rate_dont_care.cpp
 	src/renderer/scoped_index_lock.cpp
 	src/renderer/scoped_transform.cpp
 	src/renderer/scoped_vertex_buffer.cpp
 	src/renderer/scoped_vertex_declaration.cpp
 	src/renderer/scoped_vertex_declaration_and_buffers.cpp
 	src/renderer/scoped_vertex_lock.cpp
-	src/renderer/screen_mode_bit_depth.cpp
 	src/renderer/screenshot.cpp
 	src/renderer/state/alpha_func.cpp
 	src/renderer/state/any_sort.cpp
@@ -730,7 +733,6 @@ set(
 	src/renderer/state/uint.cpp
 	src/renderer/state/uint/trampoline.cpp
 	src/renderer/state/uint/var.cpp
-	src/renderer/stencil_buffer_bits.cpp
 	src/renderer/system.cpp
 	src/renderer/target/aspect_from_viewport.cpp
 	src/renderer/target/base.cpp
@@ -805,7 +807,6 @@ set(
 	src/renderer/vf/dynamic/texpos.cpp
 	src/renderer/vf/dynamic/vector.cpp
 	src/renderer/vf/dynamic/view.cpp
-	src/renderer/windowed.cpp
 )
 
 include_directories(

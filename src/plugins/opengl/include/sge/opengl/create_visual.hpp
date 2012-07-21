@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_CREATE_VISUAL_HPP_INCLUDED
 #define SGE_OPENGL_CREATE_VISUAL_HPP_INCLUDED
 
-#include <sge/renderer/parameters_fwd.hpp>
+#include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <awl/system/object_fwd.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
 
@@ -34,7 +34,7 @@ namespace opengl
 awl::visual::object_unique_ptr
 create_visual(
 	awl::system::object &,
-	sge::renderer::parameters const &
+	sge::renderer::pixel_format::object const &
 );
 
 }

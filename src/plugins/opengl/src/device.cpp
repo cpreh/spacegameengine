@@ -44,7 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/index_buffer_unique_ptr.hpp>
 #include <sge/renderer/index_count.hpp>
-#include <sge/renderer/parameters.hpp>
+#include <sge/renderer/parameters/object.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
 #include <sge/renderer/vertex_buffer_unique_ptr.hpp>
 #include <sge/renderer/vertex_count.hpp>
@@ -100,7 +100,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #endif
 
 sge::opengl::device::device(
-	sge::renderer::parameters const &_parameters,
+	sge::renderer::parameters::object const &_parameters,
 	awl::window::object &_window,
 	sge::opengl::context::system::object &_system_context,
 	sge::renderer::caps::device const &_caps
@@ -138,7 +138,7 @@ sge::opengl::device::device(
 {
 	sge::opengl::init_multi_sampling(
 		system_context_,
-		_parameters.samples()
+		_parameters.pixel_format().multi_samples()
 	);
 }
 

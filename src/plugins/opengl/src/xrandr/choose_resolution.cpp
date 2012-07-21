@@ -24,9 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/xrandr/current_resolution.hpp>
 #include <sge/opengl/xrandr/mode.hpp>
 #include <sge/opengl/xrandr/resolution.hpp>
-#include <sge/renderer/display_mode.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/screen_unit.hpp>
+#include <sge/renderer/display_mode/object.hpp>
 #include <awl/backends/x11/window/object.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/move.hpp>
@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::opengl::xrandr::resolution_unique_ptr
 sge::opengl::xrandr::choose_resolution(
 	awl::backends::x11::window::object &_window,
-	sge::renderer::display_mode const &_mode
+	sge::renderer::display_mode::object const &_mode
 )
 {
 	sge::opengl::xrandr::check_extension(
@@ -81,14 +81,14 @@ sge::opengl::xrandr::choose_resolution(
 			>(
 				current.width
 			)
-			== _mode.size().w()
+			== _mode.pixel_size().get().w()
 			&&
 			static_cast<
 				sge::renderer::screen_unit
 			>(
 				current.height
 			)
-			== _mode.size().h()
+			== _mode.pixel_size().get().h()
 		)
 		{
 			sge::opengl::xrandr::configuration &config_ref(

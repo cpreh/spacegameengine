@@ -37,10 +37,10 @@ sge::systems::modules::renderer::device::device(
 :
 	renderer_device_(
 		_system.get().create_renderer(
-			_parameters.parameters(),
 			sge::renderer::adapter(
 				0u
 			),
+			_parameters.parameters(),
 			_window.window().awl_object()
 		)
 	),

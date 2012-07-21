@@ -24,11 +24,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/system.hpp>
 #include <sge/renderer/adapter.hpp>
 #include <sge/renderer/device_unique_ptr.hpp>
-#include <sge/renderer/parameters_fwd.hpp>
 #include <sge/renderer/caps/device.hpp>
 #include <sge/renderer/caps/device_count.hpp>
 #include <sge/renderer/caps/system.hpp>
 #include <sge/renderer/caps/system_field.hpp>
+#include <sge/renderer/parameters/object_fwd.hpp>
+#include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <awl/system/object_fwd.hpp>
 #include <awl/visual/object.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
@@ -56,8 +57,8 @@ sge::opengl::system::~system()
 
 sge::renderer::device_unique_ptr
 sge::opengl::system::create_renderer(
-	sge::renderer::parameters const &_parameters,
 	sge::renderer::adapter const _adapter,
+	sge::renderer::parameters::object const &_parameters,
 	awl::window::object &_window
 )
 {
@@ -91,13 +92,13 @@ sge::opengl::system::create_renderer(
 awl::visual::object_unique_ptr
 sge::opengl::system::create_visual(
 	awl::system::object &_awl_system,
-	sge::renderer::parameters const &_parameters
+	sge::renderer::pixel_format::object const &_pixel_format
 )
 {
 	return
 		sge::opengl::create_visual(
 			_awl_system,
-			_parameters
+			_pixel_format
 		);
 }
 

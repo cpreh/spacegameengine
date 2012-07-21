@@ -20,19 +20,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/colors.hpp>
 #include <sge/log/global.hpp>
-#include <sge/renderer/bit_depth.hpp>
-#include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/display_mode.hpp>
-#include <sge/renderer/fullscreen.hpp>
-#include <sge/renderer/no_multi_sampling.hpp>
-#include <sge/renderer/parameters.hpp>
-#include <sge/renderer/refresh_rate_dont_care.hpp>
 #include <sge/renderer/screen_size.hpp>
-#include <sge/renderer/vsync.hpp>
 #include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/context/object.hpp>
 #include <sge/renderer/context/scoped.hpp>
+#include <sge/renderer/display_mode/object.hpp>
+#include <sge/renderer/display_mode/optional_dimensions.hpp>
+#include <sge/renderer/display_mode/optional_object.hpp>
+#include <sge/renderer/display_mode/optional_refresh_rate.hpp>
+#include <sge/renderer/display_mode/pixel_size.hpp>
+#include <sge/renderer/parameters/object.hpp>
+#include <sge/renderer/parameters/vsync.hpp>
+#include <sge/renderer/pixel_format/color.hpp>
+#include <sge/renderer/pixel_format/depth_stencil.hpp>
+#include <sge/renderer/pixel_format/optional_multi_samples.hpp>
+#include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
@@ -94,21 +97,26 @@ try
 		)
 		(
 			sge::systems::renderer(
-				sge::renderer::parameters(
-					sge::renderer::fullscreen(
-						sge::renderer::display_mode(
-							fcppt::math::dim::structure_cast<
-								sge::renderer::screen_size
-							>(
-								window_dim
-							),
-							sge::renderer::bit_depth::depth32,
-							sge::renderer::refresh_rate_dont_care
-						)
+				sge::renderer::parameters::object(
+					sge::renderer::pixel_format::object(
+						sge::renderer::pixel_format::color::depth32,
+						sge::renderer::pixel_format::depth_stencil::off,
+						sge::renderer::pixel_format::optional_multi_samples(),
+						sge::renderer::pixel_format::srgb::no
 					),
-					sge::renderer::depth_stencil_buffer::off,
-					sge::renderer::vsync::on,
-					sge::renderer::no_multi_sampling
+					sge::renderer::parameters::vsync::on,
+					sge::renderer::display_mode::optional_object(
+						sge::renderer::display_mode::object(
+							sge::renderer::display_mode::pixel_size(
+								sge::renderer::screen_size(
+									800u,
+									600u
+								)
+							),
+							sge::renderer::display_mode::optional_dimensions(),
+							sge::renderer::display_mode::optional_refresh_rate()
+						)
+					)
 				),
 				sge::viewport::dont_manage()
 			)

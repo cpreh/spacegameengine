@@ -24,12 +24,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/class_symbol.hpp>
 #include <sge/renderer/adapter.hpp>
 #include <sge/renderer/device_unique_ptr.hpp>
-#include <sge/renderer/parameters_fwd.hpp>
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/system_fwd.hpp>
 #include <sge/renderer/caps/device_count.hpp>
 #include <sge/renderer/caps/device_fwd.hpp>
 #include <sge/renderer/caps/system_field_fwd.hpp>
+#include <sge/renderer/parameters/object_fwd.hpp>
+#include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <awl/system/object_fwd.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
 #include <awl/window/object_fwd.hpp>
@@ -65,11 +66,11 @@ public:
 	 This function is the starting point if you want to do anything with a
 	 renderer plugin.
 
-	 \param params The renderer configuration like resolution and buffers
-
 	 \param adapter A number that tells which device to load. This must be
 	 between 0 and the device count minus 1. Every system must have at
 	 least one device.
+
+	 \param params The renderer configuration like resolution and buffers
 
 	 \param window The window used for rendering to. This window must
 	 satisfy the requirements imposed by \a params
@@ -81,8 +82,8 @@ public:
 	virtual
 	sge::renderer::device_unique_ptr
 	create_renderer(
-		sge::renderer::parameters const &params,
 		sge::renderer::adapter adapter,
+		sge::renderer::parameters::object const &params,
 		awl::window::object &window
 	) = 0;
 
@@ -94,7 +95,7 @@ public:
 
 	 \param awl_system The awl system that is used to create windows
 
-	 \param params The renderer parameters to satisfy
+	 \param pixel_format The pixel format to use
 
 	 \throw sge::renderer::exception if anything goes wrong
 
@@ -104,7 +105,7 @@ public:
 	awl::visual::object_unique_ptr
 	create_visual(
 		awl::system::object &awl_system,
-		sge::renderer::parameters const &params
+		sge::renderer::pixel_format::object const &pixel_format
 	) = 0;
 
 	/**

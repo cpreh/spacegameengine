@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_CAPS_DEVICE_COUNT_HPP_INCLUDED
 #define SGE_RENDERER_CAPS_DEVICE_COUNT_HPP_INCLUDED
 
-#include <sge/renderer/adapter_type.hpp>
+#include <sge/renderer/adapter_value.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
@@ -36,7 +36,7 @@ namespace caps
 \brief The number of devices an sge::renderer::system has
 */
 FCPPT_MAKE_STRONG_TYPEDEF(
-	sge::renderer::adapter_type,
+	sge::renderer::adapter_value,
 	device_count
 );
 

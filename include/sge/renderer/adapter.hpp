@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_ADAPTER_HPP_INCLUDED
 #define SGE_RENDERER_ADAPTER_HPP_INCLUDED
 
-#include <sge/renderer/adapter_type.hpp>
+#include <sge/renderer/adapter_value.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
@@ -34,7 +34,7 @@ namespace renderer
 \brief Identifies an sge::renderer::device
 */
 FCPPT_MAKE_STRONG_TYPEDEF(
-	sge::renderer::adapter_type,
+	sge::renderer::adapter_value,
 	adapter
 );
 

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/device_state/object_unique_ptr.hpp>
-#include <sge/renderer/parameters_fwd.hpp>
+#include <sge/renderer/parameters/object_fwd.hpp>
 #include <awl/window/object_fwd.hpp>
 
 
@@ -37,7 +37,7 @@ namespace device_state
 sge::opengl::device_state::object_unique_ptr
 create(
 	sge::opengl::context::system::object &,
-	sge::renderer::parameters const &,
+	sge::renderer::parameters::object const &,
 	awl::window::object &
 );
 

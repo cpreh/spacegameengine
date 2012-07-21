@@ -22,13 +22,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/rgba8.hpp>
 #include <sge/image/color/rgba8_format.hpp>
 #include <sge/log/global.hpp>
-#include <sge/renderer/bit_depth.hpp>
-#include <sge/renderer/no_multi_sampling.hpp>
-#include <sge/renderer/parameters.hpp>
-#include <sge/renderer/windowed.hpp>
 #include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/context/object.hpp>
 #include <sge/renderer/context/scoped.hpp>
+#include <sge/renderer/display_mode/optional_object.hpp>
+#include <sge/renderer/parameters/object.hpp>
+#include <sge/renderer/parameters/vsync.hpp>
+#include <sge/renderer/pixel_format/color.hpp>
+#include <sge/renderer/pixel_format/depth_stencil.hpp>
+#include <sge/renderer/pixel_format/optional_multi_samples.hpp>
+#include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/sprite/default_parameters.hpp>
 #include <sge/sprite/object.hpp>
@@ -99,13 +102,15 @@ try
 		)
 		(
 			sge::systems::renderer(
-				sge::renderer::parameters(
-					sge::renderer::windowed(
-						sge::renderer::bit_depth::depth32
+				sge::renderer::parameters::object(
+					sge::renderer::pixel_format::object(
+						sge::renderer::pixel_format::color::depth32,
+						sge::renderer::pixel_format::depth_stencil::off,
+						sge::renderer::pixel_format::optional_multi_samples(),
+						sge::renderer::pixel_format::srgb::no
 					),
-					sge::renderer::depth_stencil_buffer::off,
-					sge::renderer::vsync::on,
-					sge::renderer::no_multi_sampling
+					sge::renderer::parameters::vsync::on,
+					sge::renderer::display_mode::optional_object()
 				),
 				sge::viewport::center_on_resize(
 					window_dim

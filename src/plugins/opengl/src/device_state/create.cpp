@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/device_state/create.hpp>
 #include <sge/opengl/device_state/object_unique_ptr.hpp>
-#include <sge/renderer/parameters_fwd.hpp>
+#include <sge/renderer/parameters/object_fwd.hpp>
 #include <fcppt/config/platform.hpp>
 #if defined(SGE_OPENGL_HAVE_X11)
 #include <sge/opengl/x11/state.hpp>
@@ -45,7 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::opengl::device_state::object_unique_ptr
 sge::opengl::device_state::create(
 	sge::opengl::context::system::object &_context,
-	sge::renderer::parameters const &_parameters,
+	sge::renderer::parameters::object const &_parameters,
 	awl::window::object &_window
 )
 {

@@ -24,12 +24,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/x11/resolution/xrandr_mode.hpp>
 #include <sge/opengl/xrandr/choose_resolution.hpp>
 #include <sge/opengl/xrandr/resolution.hpp>
-#include <sge/renderer/display_mode_fwd.hpp>
+#include <sge/renderer/display_mode/object_fwd.hpp>
 #include <awl/backends/x11/window/object_fwd.hpp>
 
 
 sge::opengl::x11::resolution::xrandr_mode::xrandr_mode(
-	sge::renderer::display_mode const &_mode,
+	sge::renderer::display_mode::object const &_mode,
 	awl::backends::x11::window::object &_window
 )
 :

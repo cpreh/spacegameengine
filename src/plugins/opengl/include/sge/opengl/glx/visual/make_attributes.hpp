@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_GLX_VISUAL_MAKE_ATTRIBUTES_HPP_INCLUDED
 #define SGE_OPENGL_GLX_VISUAL_MAKE_ATTRIBUTES_HPP_INCLUDED
 
-#include <sge/opengl/glx/visual/attribute_container.hpp>
-#include <sge/renderer/parameters_fwd.hpp>
+#include <sge/opengl/glx/visual/attribute_container_fwd.hpp>
+#include <sge/renderer/pixel_format/object_fwd.hpp>
 
 
 namespace sge
@@ -36,7 +36,7 @@ namespace visual
 
 sge::opengl::glx::visual::attribute_container const
 make_attributes(
-	sge::renderer::parameters const &
+	sge::renderer::pixel_format::object const &
 );
 
 }

@@ -19,17 +19,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/glx/visual/attribute_container.hpp>
-#include <sge/opengl/glx/visual/convert_bit_depth.hpp>
+#include <sge/opengl/glx/visual/convert_color.hpp>
 #include <sge/opengl/glx/visual/make_attributes.hpp>
 #include <sge/opengl/glx/visual/rgb_triple.hpp>
-#include <sge/renderer/depth_buffer_bits.hpp>
-#include <sge/renderer/multi_samples.hpp>
-#include <sge/renderer/no_multi_sampling.hpp>
-#include <sge/renderer/optional_bit_count.hpp>
-#include <sge/renderer/parameters.hpp>
-#include <sge/renderer/screen_mode_bit_depth.hpp>
-#include <sge/renderer/stencil_buffer_bits.hpp>
-#include <fcppt/container/raw_vector_impl.hpp>
+#include <sge/renderer/pixel_format/depth_bits.hpp>
+#include <sge/renderer/pixel_format/object.hpp>
+#include <sge/renderer/pixel_format/optional_bit_count.hpp>
+#include <sge/renderer/pixel_format/optional_multi_samples.hpp>
+#include <sge/renderer/pixel_format/srgb.hpp>
+#include <sge/renderer/pixel_format/stencil_bits.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <GL/glx.h>
 #include <fcppt/config/external_end.hpp>
@@ -37,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::glx::visual::attribute_container const
 sge::opengl::glx::visual::make_attributes(
-	sge::renderer::parameters const &_parameters
+	sge::renderer::pixel_format::object const &_format
 )
 {
 	sge::opengl::glx::visual::attribute_container ret;
@@ -52,10 +50,8 @@ sge::opengl::glx::visual::make_attributes(
 
 	{
 		sge::opengl::glx::visual::rgb_triple const rgb(
-			sge::opengl::glx::visual::convert_bit_depth(
-				sge::renderer::screen_mode_bit_depth(
-					_parameters.screen_mode()
-				)
+			sge::opengl::glx::visual::convert_color(
+				_format.color()
 			)
 		);
 
@@ -85,9 +81,9 @@ sge::opengl::glx::visual::make_attributes(
 	}
 
 	{
-		sge::renderer::optional_bit_count const depth_bits(
-			sge::renderer::depth_buffer_bits(
-				_parameters.depth_stencil_buffer()
+		sge::renderer::pixel_format::optional_bit_count const depth_bits(
+			sge::renderer::pixel_format::depth_bits(
+				_format.depth_stencil()
 			)
 		);
 
@@ -110,9 +106,9 @@ sge::opengl::glx::visual::make_attributes(
 	}
 
 	{
-		sge::renderer::optional_bit_count const stencil_bits(
-			sge::renderer::stencil_buffer_bits(
-				_parameters.depth_stencil_buffer()
+		sge::renderer::pixel_format::optional_bit_count const stencil_bits(
+			sge::renderer::pixel_format::stencil_bits(
+				_format.depth_stencil()
 			)
 		);
 
@@ -135,14 +131,12 @@ sge::opengl::glx::visual::make_attributes(
 	}
 
 	{
-		sge::renderer::multi_samples const samples(
-			_parameters.samples()
+		sge::renderer::pixel_format::optional_multi_samples const samples(
+			_format.multi_samples()
 		);
 
 		if(
 			samples
-			!=
-			sge::renderer::no_multi_sampling
 		)
 		{
 			ret.push_back(
@@ -161,11 +155,20 @@ sge::opengl::glx::visual::make_attributes(
 				static_cast<
 					int
 				>(
-					samples.get()
+					samples->get()
 				)
 			);
 		}
 	}
+
+	if(
+		_format.srgb()
+		==
+		sge::renderer::pixel_format::srgb::yes
+	)
+		ret.push_back(
+			GLX_FRAMEBUFFER_SRGB_CAPABLE_EXT
+		);
 
 	ret.push_back(
 		None

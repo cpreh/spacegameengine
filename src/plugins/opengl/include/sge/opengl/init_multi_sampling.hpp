@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_INIT_MULTI_SAMPLING_HPP_INCLUDED
 
 #include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/renderer/multi_samples.hpp>
+#include <sge/renderer/pixel_format/optional_multi_samples_fwd.hpp>
 
 
 namespace sge
@@ -33,7 +33,7 @@ namespace opengl
 void
 init_multi_sampling(
 	sge::opengl::context::system::object &,
-	sge::renderer::multi_samples
+	sge::renderer::pixel_format::optional_multi_samples const &
 );
 
 }

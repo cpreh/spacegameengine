@@ -19,17 +19,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/xrandr/mode.hpp>
+#include <sge/renderer/display_mode/optional_refresh_rate.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <X11/extensions/Xrandr.h>
+#include <fcppt/config/external_end.hpp>
+
 
 sge::opengl::xrandr::mode::mode(
 	int const _index,
 	Rotation const _rotation,
-	renderer::refresh_rate const _rate
+	sge::renderer::display_mode::optional_refresh_rate const _rate
 )
 :
-	index_(_index),
-	rotation_(_rotation),
-	rate_(_rate)
-{}
+	index_(
+		_index
+	),
+	rotation_(
+		_rotation
+	),
+	rate_(
+		_rate
+	)
+{
+}
 
 int
 sge::opengl::xrandr::mode::index() const
@@ -43,7 +55,7 @@ sge::opengl::xrandr::mode::rotation() const
 	return rotation_;
 }
 
-sge::renderer::refresh_rate
+sge::renderer::display_mode::optional_refresh_rate const
 sge::opengl::xrandr::mode::rate() const
 {
 	return rate_;

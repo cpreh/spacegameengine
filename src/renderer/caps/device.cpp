@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/renderer/adapter.hpp>
 #include <sge/renderer/caps/clip_plane_indices.hpp>
 #include <sge/renderer/caps/description.hpp>
 #include <sge/renderer/caps/device.hpp>

@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/xrandr/mode.hpp>
 #include <sge/opengl/xrandr/set_resolution.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/refresh_rate_dont_care.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/window/object.hpp>
 #include <fcppt/text.hpp>
@@ -35,12 +34,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 void
 sge::opengl::xrandr::set_resolution(
 	awl::backends::x11::window::object &_window,
-	xrandr::configuration const &_config,
-	xrandr::mode const &_mode
+	sge::opengl::xrandr::configuration const &_config,
+	sge::opengl::xrandr::mode const &_mode
 )
 {
 	if(
-		_mode.rate() != renderer::refresh_rate_dont_care
+		_mode.rate()
 	)
 	{
 		if(
@@ -53,10 +52,11 @@ sge::opengl::xrandr::set_resolution(
 				static_cast<
 					short
 				>(
-					_mode.rate().get()
+					_mode.rate()->get()
 				),
 				CurrentTime
-			) != Success
+			)
+			!= Success
 		)
 			throw sge::renderer::exception(
 				FCPPT_TEXT("Cannot change screen mode with rate!")
@@ -72,7 +72,8 @@ sge::opengl::xrandr::set_resolution(
 				_mode.index(),
 				_mode.rotation(),
 				CurrentTime
-			) != Success
+			)
+			!= Success
 		)
 			throw sge::renderer::exception(
 				FCPPT_TEXT("Cannot change screen mode!")

@@ -26,15 +26,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_set.hpp>
-#include <sge/renderer/bit_depth.hpp>
-#include <sge/renderer/display_mode.hpp>
-#include <sge/renderer/no_multi_sampling.hpp>
-#include <sge/renderer/parameters.hpp>
 #include <sge/renderer/screen_size.hpp>
-#include <sge/renderer/windowed.hpp>
 #include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/context/object.hpp>
 #include <sge/renderer/context/scoped.hpp>
+#include <sge/renderer/display_mode/optional_object.hpp>
+#include <sge/renderer/parameters/object.hpp>
+#include <sge/renderer/parameters/vsync.hpp>
+#include <sge/renderer/pixel_format/color.hpp>
+#include <sge/renderer/pixel_format/depth_stencil.hpp>
+#include <sge/renderer/pixel_format/optional_multi_samples.hpp>
+#include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/sprite/object_impl.hpp>
@@ -116,13 +118,15 @@ try
 		)
 		(
 			sge::systems::renderer(
-				sge::renderer::parameters(
-					sge::renderer::windowed(
-						sge::renderer::bit_depth::depth32
+				sge::renderer::parameters::object(
+					sge::renderer::pixel_format::object(
+						sge::renderer::pixel_format::color::depth32,
+						sge::renderer::pixel_format::depth_stencil::off,
+						sge::renderer::pixel_format::optional_multi_samples(),
+						sge::renderer::pixel_format::srgb::no
 					),
-					sge::renderer::depth_stencil_buffer::off,
-					sge::renderer::vsync::on,
-					sge::renderer::no_multi_sampling
+					sge::renderer::parameters::vsync::on,
+					sge::renderer::display_mode::optional_object()
 				),
 				sge::viewport::center_on_resize(
 					window_dim

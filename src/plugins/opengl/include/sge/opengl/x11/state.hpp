@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/device_state/scoped_current.hpp>
 #include <sge/opengl/x11/context.hpp>
 #include <sge/opengl/x11/resolution/object_fwd.hpp>
-#include <sge/renderer/parameters_fwd.hpp>
+#include <sge/renderer/parameters/object_fwd.hpp>
 #include <awl/backends/x11/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
@@ -49,7 +49,7 @@ class state
 public:
 	state(
 		sge::opengl::context::system::object &,
-		sge::renderer::parameters const &,
+		sge::renderer::parameters::object const &,
 		awl::backends::x11::window::object &
 	);
 

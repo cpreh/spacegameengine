@@ -40,14 +40,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/noise/sample.hpp>
 #include <sge/noise/sample_parameters.hpp>
 #include <sge/noise/simplex/object.hpp>
-#include <sge/renderer/bit_depth.hpp>
-#include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/matrix_mode.hpp>
-#include <sge/renderer/no_multi_sampling.hpp>
-#include <sge/renderer/parameters.hpp>
 #include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/scalar.hpp>
@@ -59,11 +55,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/vertex_declaration.hpp>
 #include <sge/renderer/vertex_declaration_scoped_ptr.hpp>
-#include <sge/renderer/vsync.hpp>
-#include <sge/renderer/windowed.hpp>
 #include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/context/object.hpp>
 #include <sge/renderer/context/scoped.hpp>
+#include <sge/renderer/display_mode/optional_object.hpp>
+#include <sge/renderer/parameters/object.hpp>
+#include <sge/renderer/parameters/vsync.hpp>
+#include <sge/renderer/pixel_format/color.hpp>
+#include <sge/renderer/pixel_format/depth_stencil.hpp>
+#include <sge/renderer/pixel_format/optional_multi_samples.hpp>
+#include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/projection/far.hpp>
 #include <sge/renderer/projection/fov.hpp>
 #include <sge/renderer/projection/near.hpp>
@@ -644,13 +645,15 @@ try
 		)
 		(
 			sge::systems::renderer(
-				sge::renderer::parameters(
-					sge::renderer::windowed(
-						sge::renderer::bit_depth::depth32
+				sge::renderer::parameters::object(
+					sge::renderer::pixel_format::object(
+						sge::renderer::pixel_format::color::depth32,
+						sge::renderer::pixel_format::depth_stencil::d16,
+						sge::renderer::pixel_format::optional_multi_samples(),
+						sge::renderer::pixel_format::srgb::no
 					),
-					sge::renderer::depth_stencil_buffer::d16,
-					sge::renderer::vsync::on,
-					sge::renderer::no_multi_sampling
+					sge::renderer::parameters::vsync::on,
+					sge::renderer::display_mode::optional_object()
 				),
 				sge::viewport::fill_on_resize()
 			)

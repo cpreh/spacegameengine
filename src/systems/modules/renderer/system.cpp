@@ -57,7 +57,7 @@ sge::systems::modules::renderer::system::create_visual(
 	return
 		this->get().create_visual(
 			_awl_system,
-			renderer_parameters_
+			renderer_parameters_.pixel_format()
 		);
 }
 

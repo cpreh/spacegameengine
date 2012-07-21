@@ -48,16 +48,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/manager/object.hpp>
 #include <sge/model/manager/instance/object.hpp>
 #include <sge/renderer/aspect.hpp>
-#include <sge/renderer/bit_depth.hpp>
-#include <sge/renderer/depth_stencil_buffer.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/matrix_mode.hpp>
-#include <sge/renderer/no_multi_sampling.hpp>
-#include <sge/renderer/parameters.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/scoped_transform.hpp>
-#include <sge/renderer/vsync.hpp>
-#include <sge/renderer/windowed.hpp>
 #include <sge/renderer/caps/device.hpp>
 #include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/context/object.hpp>
@@ -161,13 +155,15 @@ try
 		)
 		(
 			sge::systems::renderer(
-				sge::renderer::parameters(
-					sge::renderer::windowed(
-						sge::renderer::bit_depth::depth32
+				sge::renderer::parameters::object(
+					sge::renderer::pixel_format::object(
+						sge::renderer::pixel_format::color::depth32,
+						sge::renderer::pixel_format::depth_stencil::d24s8,
+						sge::renderer::pixel_format::optional_multi_samples(),
+						sge::renderer::pixel_format::srgb::no
 					),
-					sge::renderer::depth_stencil_buffer::d24s8,
-					sge::renderer::vsync::on,
-					sge::renderer::no_multi_sampling
+					sge::renderer::parameters::vsync::on,
+					sge::renderer::display_mode::optional_object()
 				),
 				sge::viewport::fill_on_resize()
 			)

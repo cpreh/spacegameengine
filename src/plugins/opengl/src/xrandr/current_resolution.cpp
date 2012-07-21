@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/xrandr/configuration.hpp>
 #include <sge/opengl/xrandr/current_resolution.hpp>
 #include <sge/opengl/xrandr/mode.hpp>
+#include <sge/renderer/display_mode/optional_refresh_rate.hpp>
+#include <sge/renderer/display_mode/refresh_rate.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/Xlib.h>
@@ -52,10 +54,12 @@ sge::opengl::xrandr::current_resolution(
 		sge::opengl::xrandr::mode(
 			cur_size,
 			cur_rotation,
-			fcppt::strong_typedef_construct_cast<
-				sge::renderer::refresh_rate
-			>(
-				rate
+			sge::renderer::display_mode::optional_refresh_rate(
+				fcppt::strong_typedef_construct_cast<
+					sge::renderer::display_mode::refresh_rate
+				>(
+					rate
+				)
 			)
 		);
 }

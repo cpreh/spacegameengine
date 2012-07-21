@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SYSTEMS_RENDERER_HPP_INCLUDED
 #define SGE_SYSTEMS_RENDERER_HPP_INCLUDED
 
-#include <sge/renderer/parameters.hpp>
+#include <sge/renderer/parameters/object.hpp>
 #include <sge/renderer/caps/system_field.hpp>
 #include <sge/systems/renderer_fwd.hpp>
 #include <sge/systems/symbol.hpp>
@@ -42,7 +42,7 @@ class renderer
 public:
 	SGE_SYSTEMS_SYMBOL
 	renderer(
-		sge::renderer::parameters const &,
+		sge::renderer::parameters::object const &,
 		sge::viewport::resize_function const &
 	);
 
@@ -52,7 +52,7 @@ public:
 		sge::renderer::caps::system_field const &
 	);
 
-	sge::renderer::parameters const &
+	sge::renderer::parameters::object const &
 	parameters() const;
 
 	sge::viewport::resize_function const &
@@ -61,7 +61,7 @@ public:
 	sge::renderer::caps::system_field const &
 	caps() const;
 private:
-	sge::renderer::parameters const parameters_;
+	sge::renderer::parameters::object const parameters_;
 
 	sge::viewport::resize_function const resize_function_;
 

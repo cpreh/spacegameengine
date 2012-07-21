@@ -25,16 +25,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #if defined(SGE_OPENGL_HAVE_XRANDR)
 #include <sge/opengl/x11/resolution/xrandr_mode.hpp>
 #endif
-#include <sge/renderer/display_mode.hpp>
-#include <sge/renderer/fullscreen.hpp>
-#include <sge/renderer/parameters.hpp>
+#include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/log/global.hpp>
 #include <sge/exception.hpp>
 #include <awl/backends/x11/window/object.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/log/warning.hpp>
-#include <fcppt/variant/holds_type.hpp>
-#include <fcppt/variant/object_impl.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
@@ -43,15 +39,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::opengl::x11::resolution::object_unique_ptr
 sge::opengl::x11::resolution::create(
 	awl::backends::x11::window::object &_window,
-	sge::renderer::parameters const &_param
+	sge::renderer::display_mode::optional_object const &_mode
 )
 {
 	if(
-		!fcppt::variant::holds_type<
-			sge::renderer::fullscreen
-		>(
-			_param.screen_mode()
-		)
+		!_mode
 	)
 		return sge::opengl::x11::resolution::object_unique_ptr();
 
@@ -60,17 +52,12 @@ sge::opengl::x11::resolution::create(
 		sge::log::global(),
 		fcppt::log::_
 			<< FCPPT_TEXT("sge has not been compiled with fullscreen support.")
-			<< FCPPT_TEXT(" Try -D ENABLE_XRANDR=ON or -D ENABLE_XF86VMODE=ON.")
+			<< FCPPT_TEXT(" Use -D ENABLE_XRANDR=ON.")
 	);
 
 	return
 		sge::opengl::x11::resolution::object_unique_ptr();
 #else
-	sge::renderer::display_mode const display_mode(
-		_param.screen_mode().get<
-			sge::renderer::fullscreen
-		>().display_mode()
-	);
 #if defined(SGE_OPENGL_HAVE_XRANDR)
 	try
 	{
@@ -79,7 +66,7 @@ sge::opengl::x11::resolution::create(
 				fcppt::make_unique_ptr<
 					sge::opengl::x11::resolution::xrandr_mode
 				>(
-					display_mode,
+					*_mode,
 					fcppt::ref(
 						_window
 					)

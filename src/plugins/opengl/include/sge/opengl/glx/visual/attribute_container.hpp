@@ -21,25 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_GLX_VISUAL_ATTRIBUTE_CONTAINER_HPP_INCLUDED
 #define SGE_OPENGL_GLX_VISUAL_ATTRIBUTE_CONTAINER_HPP_INCLUDED
 
-#include <fcppt/container/raw_vector_fwd.hpp>
+#include <sge/opengl/glx/visual/attribute_container_fwd.hpp>
+#include <fcppt/container/raw_vector_impl.hpp>
 
-
-namespace sge
-{
-namespace opengl
-{
-namespace glx
-{
-namespace visual
-{
-
-typedef fcppt::container::raw_vector<
-	int
-> attribute_container;
-
-}
-}
-}
-}
 
 #endif

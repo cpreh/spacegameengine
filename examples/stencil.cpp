@@ -43,16 +43,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_set.hpp>
-#include <sge/renderer/bit_depth.hpp>
-#include <sge/renderer/depth_stencil_buffer.hpp>
-#include <sge/renderer/no_multi_sampling.hpp>
-#include <sge/renderer/parameters.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
-#include <sge/renderer/vsync.hpp>
-#include <sge/renderer/windowed.hpp>
 #include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/context/object.hpp>
 #include <sge/renderer/context/scoped.hpp>
+#include <sge/renderer/display_mode/optional_object.hpp>
+#include <sge/renderer/parameters/object.hpp>
+#include <sge/renderer/parameters/vsync.hpp>
+#include <sge/renderer/pixel_format/color.hpp>
+#include <sge/renderer/pixel_format/depth_stencil.hpp>
+#include <sge/renderer/pixel_format/optional_multi_samples.hpp>
+#include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/state/int.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/scoped.hpp>
@@ -147,13 +148,15 @@ try
 			// We don't use the depth buffer, but to be most portable,
 			// d24s8 is the only sensible choice.
 			sge::systems::renderer(
-				sge::renderer::parameters(
-					sge::renderer::windowed(
-						sge::renderer::bit_depth::depth32
+				sge::renderer::parameters::object(
+					sge::renderer::pixel_format::object(
+						sge::renderer::pixel_format::color::depth32,
+						sge::renderer::pixel_format::depth_stencil::d24s8,
+						sge::renderer::pixel_format::optional_multi_samples(),
+						sge::renderer::pixel_format::srgb::no
 					),
-					sge::renderer::depth_stencil_buffer::d24s8,
-					sge::renderer::vsync::on,
-					sge::renderer::no_multi_sampling
+					sge::renderer::parameters::vsync::on,
+					sge::renderer::display_mode::optional_object()
 				),
 				// Put the viewport in the center of the window
 				// when the window is bigger than the desired size.

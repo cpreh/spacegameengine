@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_X11_RESOLUTION_CREATE_HPP_INCLUDED
 
 #include <sge/opengl/x11/resolution/object_unique_ptr.hpp>
-#include <sge/renderer/parameters_fwd.hpp>
+#include <sge/renderer/display_mode/optional_object_fwd.hpp>
 #include <awl/backends/x11/window/object_fwd.hpp>
 
 
@@ -38,7 +38,7 @@ namespace resolution
 sge::opengl::x11::resolution::object_unique_ptr
 create(
 	awl::backends::x11::window::object &,
-	sge::renderer::parameters const &
+	sge::renderer::display_mode::optional_object const &
 );
 
 }

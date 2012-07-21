@@ -24,11 +24,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/object.hpp>
 #include <sge/renderer/adapter.hpp>
 #include <sge/renderer/device_unique_ptr.hpp>
-#include <sge/renderer/parameters_fwd.hpp>
 #include <sge/renderer/system.hpp>
 #include <sge/renderer/caps/device_count.hpp>
 #include <sge/renderer/caps/device_fwd.hpp>
 #include <sge/renderer/caps/system_field_fwd.hpp>
+#include <sge/renderer/parameters/object_fwd.hpp>
+#include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <awl/system/object_fwd.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
 #include <awl/window/object_fwd.hpp>
@@ -55,15 +56,15 @@ public:
 private:
 	sge::renderer::device_unique_ptr
 	create_renderer(
-		sge::renderer::parameters const &,
 		sge::renderer::adapter,
+		sge::renderer::parameters::object const &,
 		awl::window::object &
 	);
 
 	awl::visual::object_unique_ptr
 	create_visual(
 		awl::system::object &,
-		sge::renderer::parameters const &
+		sge::renderer::pixel_format::object const &
 	);
 
 	sge::renderer::caps::system_field const

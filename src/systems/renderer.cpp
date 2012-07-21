@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/plugin/name.hpp>
-#include <sge/renderer/parameters.hpp>
+#include <sge/renderer/parameters/object.hpp>
 #include <sge/renderer/caps/system_field.hpp>
 #include <sge/systems/renderer.hpp>
 #include <sge/viewport/resize_function.hpp>
@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::systems::renderer::renderer(
-	sge::renderer::parameters const &_parameters,
+	sge::renderer::parameters::object const &_parameters,
 	sge::viewport::resize_function const &_resize_function
 )
 :
@@ -53,7 +53,7 @@ sge::systems::renderer::caps(
 	return *this;
 }
 
-sge::renderer::parameters const &
+sge::renderer::parameters::object const &
 sge::systems::renderer::parameters() const
 {
 	return parameters_;
