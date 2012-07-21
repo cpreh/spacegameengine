@@ -166,9 +166,15 @@ sge::opengl::glx::visual::make_attributes(
 		==
 		sge::renderer::pixel_format::srgb::yes
 	)
+	{
 		ret.push_back(
-			GLX_FRAMEBUFFER_SRGB_CAPABLE_EXT
+			GLX_FRAMEBUFFER_SRGB_CAPABLE_ARB
 		);
+
+		ret.push_back(
+			1
+		);
+	}
 
 	ret.push_back(
 		None
