@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/x11/resolution/create.hpp>
 #include <sge/opengl/x11/resolution/object.hpp>
 #include <sge/renderer/parameters/object.hpp>
+#include <sge/renderer/parameters/vsync.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/visual/object.hpp>
 #include <awl/backends/x11/window/object.hpp>
@@ -60,7 +61,9 @@ sge::opengl::x11::state::state(
 	)
 {
 	if(
-		_parameters.vsync().get()
+		_parameters.vsync()
+		==
+		sge::renderer::parameters::vsync::on
 	)
 		sge::opengl::x11::vsync(
 			window_.display(),
