@@ -20,15 +20,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/windows/visual/create.hpp>
 #include <sge/opengl/windows/visual/object.hpp>
-#include <sge/renderer/parameters.hpp>
-#include <sge/renderer/screen_mode_bit_depth.hpp>
+#include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
+#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 
 
 awl::visual::object_unique_ptr
 sge::opengl::windows::visual::create(
-	sge::renderer::parameters const &_parameters
+	sge::renderer::pixel_format::object const &_pixel_format
 )
 {
 	return
@@ -36,10 +36,9 @@ sge::opengl::windows::visual::create(
 			fcppt::make_unique_ptr<
 				sge::opengl::windows::visual::object
 			>(
-				sge::renderer::screen_mode_bit_depth(
-					_parameters.screen_mode()
-				),
-				_parameters.depth_stencil_buffer()
+				fcppt::cref(
+					_pixel_format
+				)
 			)
 		);
 }

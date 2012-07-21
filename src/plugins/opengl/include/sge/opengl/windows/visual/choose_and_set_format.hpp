@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_WINDOWS_VISUAL_CHOOSE_AND_SET_FORMAT_HPP_INCLUDED
 #define SGE_OPENGL_WINDOWS_VISUAL_CHOOSE_AND_SET_FORMAT_HPP_INCLUDED
 
-#include <sge/renderer/bit_depth.hpp>
-#include <sge/renderer/depth_stencil_buffer.hpp>
+#include <sge/renderer/pixel_format/color.hpp>
+#include <sge/renderer/pixel_format/depth_stencil.hpp>
 #include <awl/backends/windows/windows.hpp>
 
 
@@ -38,8 +38,8 @@ namespace visual
 void
 choose_and_set_format(
 	HWND,
-	sge::renderer::bit_depth::type,
-	sge::renderer::depth_stencil_buffer::type
+	sge::renderer::pixel_format::color::type,
+	sge::renderer::pixel_format::depth_stencil::type
 );
 
 }

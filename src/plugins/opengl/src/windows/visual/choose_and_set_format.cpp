@@ -23,17 +23,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/windows/visual/choose_format.hpp>
 #include <sge/opengl/windows/visual/make_format.hpp>
 #include <sge/opengl/windows/visual/set_format.hpp>
-#include <sge/renderer/bit_depth.hpp>
-#include <sge/renderer/depth_stencil_buffer.hpp>
+#include <sge/renderer/pixel_format/color.hpp>
+#include <sge/renderer/pixel_format/depth_stencil.hpp>
 #include <awl/backends/windows/windows.hpp>
 
 
 void
 sge::opengl::windows::visual::choose_and_set_format(
 	HWND const _hwnd,
-	sge::renderer::bit_depth::type const _bit_depth,
-	sge::renderer::depth_stencil_buffer::type const _depth_stencil
-
+	sge::renderer::pixel_format::color::type const _bit_depth,
+	sge::renderer::pixel_format::depth_stencil::type const _depth_stencil
 )
 {
 	sge::opengl::windows::gdi_device const device(

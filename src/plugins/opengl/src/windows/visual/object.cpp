@@ -20,23 +20,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/windows/visual/choose_and_set_format.hpp>
 #include <sge/opengl/windows/visual/object.hpp>
-#include <sge/renderer/bit_depth.hpp>
-#include <sge/renderer/depth_stencil_buffer.hpp>
+#include <sge/renderer/pixel_format/object.hpp>
 #include <awl/backends/windows/windows.hpp>
 #include <awl/backends/windows/visual/object.hpp>
 
 
 sge::opengl::windows::visual::object::object(
-	sge::renderer::bit_depth::type const _bit_depth,
-	sge::renderer::depth_stencil_buffer::type const _depth_stencil
+	sge::renderer::pixel_format::object const &_format
 )
 :
 	awl::backends::windows::visual::object(),
-	bit_depth_(
-		_bit_depth
-	),
-	depth_stencil_(
-		_depth_stencil
+	format_(
+		_format
 	)
 {
 }
@@ -50,9 +45,10 @@ sge::opengl::windows::visual::object::apply(
 	HWND const _hwnd
 ) const
 {
+	// TODO: use a wgl pixel format here if required!
 	sge::opengl::windows::visual::choose_and_set_format(
 		_hwnd,
-		bit_depth_,
-		depth_stencil_
+		format_.color(),
+		format_.depth_stencil()
 	);
 }

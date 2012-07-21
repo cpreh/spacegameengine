@@ -21,8 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_WINDOWS_VISUAL_OBJECT_HPP_INCLUDED
 #define SGE_OPENGL_WINDOWS_VISUAL_OBJECT_HPP_INCLUDED
 
-#include <sge/renderer/bit_depth.hpp>
-#include <sge/renderer/depth_stencil_buffer.hpp>
+#include <sge/renderer/pixel_format/object.hpp>
 #include <awl/backends/windows/windows.hpp>
 #include <awl/backends/windows/visual/object.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -45,9 +44,9 @@ class object
 		object
 	);
 public:
+	explicit
 	object(
-		sge::renderer::bit_depth::type,
-		sge::renderer::depth_stencil_buffer::type
+		sge::renderer::pixel_format::object const &
 	);
 
 	~object();
@@ -57,9 +56,7 @@ private:
 		HWND
 	) const;
 
-	sge::renderer::bit_depth::type const bit_depth_;
-
-	sge::renderer::depth_stencil_buffer::type const depth_stencil_;
+	sge::renderer::pixel_format::object const format_;
 };
 
 }

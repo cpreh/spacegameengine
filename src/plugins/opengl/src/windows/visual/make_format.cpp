@@ -19,12 +19,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/windows/visual/make_format.hpp>
-#include <sge/renderer/bit_depth.hpp>
-#include <sge/renderer/bit_depth_bits.hpp>
-#include <sge/renderer/depth_buffer_bits.hpp>
-#include <sge/renderer/depth_stencil_buffer.hpp>
-#include <sge/renderer/optional_bit_count.hpp>
-#include <sge/renderer/stencil_buffer_bits.hpp>
+#include <sge/renderer/pixel_format/color.hpp>
+#include <sge/renderer/pixel_format/color_bits.hpp>
+#include <sge/renderer/pixel_format/depth_bits.hpp>
+#include <sge/renderer/pixel_format/depth_stencil.hpp>
+#include <sge/renderer/pixel_format/optional_bit_count.hpp>
+#include <sge/renderer/pixel_format/stencil_bits.hpp>
 #include <awl/backends/windows/windows.hpp>
 
 
@@ -33,15 +33,15 @@ namespace
 
 BYTE
 convert_optional_bit_count(
-	sge::renderer::optional_bit_count
+	sge::renderer::pixel_format::optional_bit_count
 );
 
 }
 
 PIXELFORMATDESCRIPTOR const
 sge::opengl::windows::visual::make_format(
-	sge::renderer::bit_depth::type const _bit_depth,
-	sge::renderer::depth_stencil_buffer::type const _depth_stencil
+	sge::renderer::pixel_format::color::type const _color,
+	sge::renderer::pixel_format::depth_stencil::type const _depth_stencil
 )
 {
 	PIXELFORMATDESCRIPTOR const ret = {
@@ -56,8 +56,8 @@ sge::opengl::windows::visual::make_format(
 		static_cast<
 			BYTE
 		>(
-			sge::renderer::bit_depth_bits(
-				_bit_depth
+			sge::renderer::pixel_format::color_bits(
+				_color
 			).get()
 		),
 		0, 0, 0, 0, 0, 0,       // Color Bits Ignored
@@ -66,12 +66,12 @@ sge::opengl::windows::visual::make_format(
 		0,                      // No Accumulation Buffer
 		0, 0, 0, 0,             // Accumulation Bits Ignored
 		::convert_optional_bit_count(
-			sge::renderer::depth_buffer_bits(
+			sge::renderer::pixel_format::depth_bits(
 				_depth_stencil
 			)
 		),
 		::convert_optional_bit_count(
-			sge::renderer::stencil_buffer_bits(
+			sge::renderer::pixel_format::stencil_bits(
 				_depth_stencil
 			)
 		),
@@ -89,7 +89,7 @@ namespace
 
 BYTE
 convert_optional_bit_count(
-	sge::renderer::optional_bit_count const _bit_count
+	sge::renderer::pixel_format::optional_bit_count const _bit_count
 )
 {
 	return

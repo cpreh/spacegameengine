@@ -21,7 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_WINDOWS_CHANGE_DISPLAY_SETTINGS_HPP_INCLUDED
 #define SGE_OPENGL_WINDOWS_CHANGE_DISPLAY_SETTINGS_HPP_INCLUDED
 
-#include <sge/renderer/display_mode_fwd.hpp>
+#include <sge/renderer/display_mode/object_fwd.hpp>
+
 
 namespace sge
 {
@@ -32,7 +33,7 @@ namespace windows
 
 void
 change_display_settings(
-	renderer::display_mode const &
+	sge::renderer::display_mode::object const &
 );
 
 }
