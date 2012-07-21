@@ -18,8 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_MULTI_SAMPLE_CONTEXT_FWD_HPP_INCLUDED
-#define SGE_OPENGL_MULTI_SAMPLE_CONTEXT_FWD_HPP_INCLUDED
+#ifndef SGE_OPENGL_SRGB_CONTEXT_HPP_INCLUDED
+#define SGE_OPENGL_SRGB_CONTEXT_HPP_INCLUDED
+
+#include <sge/opengl/common.hpp>
+#include <sge/opengl/srgb_context_fwd.hpp>
+#include <sge/opengl/context/system/base.hpp>
+#include <sge/opengl/context/system/id.hpp>
+#include <fcppt/noncopyable.hpp>
 
 
 namespace sge
@@ -27,7 +33,34 @@ namespace sge
 namespace opengl
 {
 
-class multi_sample_context;
+class srgb_context
+:
+	public sge::opengl::context::system::base
+{
+	FCPPT_NONCOPYABLE(
+		srgb_context
+	);
+public:
+	srgb_context();
+
+	~srgb_context();
+
+	bool
+	is_supported() const;
+
+	GLenum
+	flag() const;
+
+	typedef void needs_before;
+
+	static sge::opengl::context::system::id const static_id;
+private:
+	bool const
+		is_native_,
+		is_ext_;
+
+	GLenum const flag_;
+};
 
 }
 }

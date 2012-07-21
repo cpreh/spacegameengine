@@ -147,6 +147,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/glew/string.hpp
 	src/plugins/opengl/include/sge/opengl/index_buffer.hpp
 	src/plugins/opengl/include/sge/opengl/init_multi_sampling.hpp
+	src/plugins/opengl/include/sge/opengl/init_srgb.hpp
 	src/plugins/opengl/include/sge/opengl/internal_color_format.hpp
 	src/plugins/opengl/include/sge/opengl/light/attenuation.hpp
 	src/plugins/opengl/include/sge/opengl/light/color.hpp
@@ -204,6 +205,8 @@ set(
 	src/plugins/opengl/include/sge/opengl/set_unpack_alignment.hpp
 	src/plugins/opengl/include/sge/opengl/set_vertex_buffer.hpp
 	src/plugins/opengl/include/sge/opengl/set_vertex_declaration.hpp
+	src/plugins/opengl/include/sge/opengl/srgb_context.hpp
+	src/plugins/opengl/include/sge/opengl/srgb_context_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/state/alpha_func.hpp
 	src/plugins/opengl/include/sge/opengl/state/apply.hpp
 	src/plugins/opengl/include/sge/opengl/state/bool.hpp
@@ -515,6 +518,7 @@ set(
 	src/plugins/opengl/src/glew/is_supported.cpp
 	src/plugins/opengl/src/index_buffer.cpp
 	src/plugins/opengl/src/init_multi_sampling.cpp
+	src/plugins/opengl/src/init_srgb.cpp
 	src/plugins/opengl/src/light/attenuation.cpp
 	src/plugins/opengl/src/light/color.cpp
 	src/plugins/opengl/src/light/cutoff_angle.cpp
@@ -561,6 +565,7 @@ set(
 	src/plugins/opengl/src/set_unpack_alignment.cpp
 	src/plugins/opengl/src/set_vertex_buffer.cpp
 	src/plugins/opengl/src/set_vertex_declaration.cpp
+	src/plugins/opengl/src/srgb_context.cpp
 	src/plugins/opengl/src/state/alpha_func.cpp
 	src/plugins/opengl/src/state/apply.cpp
 	src/plugins/opengl/src/state/bool.cpp

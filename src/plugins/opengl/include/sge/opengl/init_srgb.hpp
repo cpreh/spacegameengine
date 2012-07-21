@@ -18,8 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_MULTI_SAMPLE_CONTEXT_FWD_HPP_INCLUDED
-#define SGE_OPENGL_MULTI_SAMPLE_CONTEXT_FWD_HPP_INCLUDED
+#ifndef SGE_OPENGL_INIT_SRGB_HPP_INCLUDED
+#define SGE_OPENGL_INIT_SRGB_HPP_INCLUDED
+
+#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/renderer/pixel_format/srgb.hpp>
 
 
 namespace sge
@@ -27,7 +30,11 @@ namespace sge
 namespace opengl
 {
 
-class multi_sample_context;
+void
+init_srgb(
+	sge::opengl::context::system::object &,
+	sge::renderer::pixel_format::srgb::type
+);
 
 }
 }

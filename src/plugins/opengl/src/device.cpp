@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/device.hpp>
 #include <sge/opengl/index_buffer.hpp>
 #include <sge/opengl/init_multi_sampling.hpp>
+#include <sge/opengl/init_srgb.hpp>
 #include <sge/opengl/onscreen_target.hpp>
 #include <sge/opengl/vertex_buffer.hpp>
 #include <sge/opengl/vertex_declaration.hpp>
@@ -139,6 +140,11 @@ sge::opengl::device::device(
 	sge::opengl::init_multi_sampling(
 		system_context_,
 		_parameters.pixel_format().multi_samples()
+	);
+
+	sge::opengl::init_srgb(
+		system_context_,
+		_parameters.pixel_format().srgb()
 	);
 }
 
