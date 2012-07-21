@@ -20,57 +20,54 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/parameters/create.hpp>
-#include <sge/d3d9/parameters/extract_back_buffer_format.hpp>
 #include <sge/d3d9/parameters/extract_size.hpp>
+#include <sge/d3d9/parameters/convert/bit_depth.hpp>
 #include <sge/d3d9/parameters/convert/depth_stencil_buffer.hpp>
 #include <sge/d3d9/parameters/convert/multi_sample.hpp>
 #include <sge/d3d9/parameters/convert/multi_sample_quality.hpp>
-#include <sge/renderer/depth_stencil_buffer.hpp>
-#include <sge/renderer/display_mode.hpp>
-#include <sge/renderer/fullscreen.hpp>
-#include <sge/renderer/parameters.hpp>
-#include <sge/renderer/vsync.hpp>
-#include <sge/renderer/windowed.hpp>
+#include <sge/renderer/parameters/object.hpp>
+#include <sge/renderer/parameters/vsync.hpp>
+#include <sge/renderer/pixel_format/depth_stencil.hpp>
 #include <awl/backends/windows/window/object.hpp>
 #include <awl/window/object.hpp>
-#include <fcppt/variant/holds_type.hpp>
-#include <fcppt/variant/object_impl.hpp>
 
 
 D3DPRESENT_PARAMETERS const
 sge::d3d9::parameters::create(
-	sge::renderer::parameters const &_param,
-	awl::window::object  &_window
+	sge::renderer::parameters::object const &_parameters,
+	awl::window::object &_window
 )
 {
 	sge::renderer::screen_size const back_buffer_size(
 		sge::d3d9::parameters::extract_size(
-			_param.screen_mode(),
+			_parameters.display_mode(),
 			_window
 		)
 	);
 
+	bool const has_depth_stencil(
+		_parameters.pixel_format().depth_stencil()
+		!=
+		sge::renderer::pixel_format::depth_stencil::off
+	);
+
 	bool const is_windowed(
-		fcppt::variant::holds_type<
-			sge::renderer::windowed
-		>(
-			_param.screen_mode()
-		)
+		!_parameters.display_mode()
 	);
 
 	D3DPRESENT_PARAMETERS const ret =
 	{
 		back_buffer_size.w(), // BackBufferWidth
 		back_buffer_size.h(), // BackBufferHeight
-		sge::d3d9::parameters::extract_back_buffer_format(
-			_param.screen_mode()
+		sge::d3d9::parameters::convert::bit_depth(
+			_parameters.pixel_format().color()
 		), // BackBufferFormat
 		1u, // BackBufferCount,
 		sge::d3d9::parameters::convert::multi_sample(
-			_param.samples()
+			_parameters.pixel_format().multi_samples()
 		),
 		sge::d3d9::parameters::convert::multi_sample_quality(
-			_param.samples()
+			_parameters.pixel_format().multi_samples()
 		),
 		D3DSWAPEFFECT_DISCARD, // SwapEffect
 		dynamic_cast<
@@ -79,23 +76,25 @@ sge::d3d9::parameters::create(
 			_window
 		).hwnd(), // hDeviceWindow
 		is_windowed, // Windowed
-		_param.depth_stencil_buffer() != sge::renderer::depth_stencil_buffer::off, // EnableAutoDepthStencil
+		has_depth_stencil, // EnableAutoDepthStencil
 		sge::d3d9::parameters::convert::depth_stencil_buffer(
-			_param.depth_stencil_buffer()
+			_parameters.pixel_format().depth_stencil()
 		), // AutoDepthStencilFormat
-		_param.depth_stencil_buffer() != sge::renderer::depth_stencil_buffer::off
+		has_depth_stencil
 		?
 			D3DPRESENTFLAG_DISCARD_DEPTHSTENCIL
 		:
 			0u, // Flags
-		is_windowed
+		// FullScreen_RefreshRateInHz
+		(
+			!is_windowed && _parameters.display_mode()->refresh_rate()
+		)
 		?
-			0u
+			_parameters.display_mode()->refresh_rate()->get()
 		:
-			_param.screen_mode().get<
-				sge::renderer::fullscreen
-			>().display_mode().refresh_rate().get(), // FullScreen_RefreshRateInHz
-		_param.vsync() == sge::renderer::vsync::on
+			0u
+		,
+		_parameters.vsync() == sge::renderer::parameters::vsync::on
 		?
 			D3DPRESENT_INTERVAL_ONE
 		:

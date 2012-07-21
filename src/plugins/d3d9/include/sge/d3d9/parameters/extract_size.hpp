@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_PARAMETERS_EXTRACT_SIZE_HPP_INCLUDED
 #define SGE_D3D9_PARAMETERS_EXTRACT_SIZE_HPP_INCLUDED
 
-#include <sge/renderer/screen_mode_fwd.hpp>
-#include <sge/renderer/screen_size.hpp>
+#include <sge/renderer/screen_size_fwd.hpp>
+#include <sge/renderer/display_mode/optional_object_fwd.hpp>
 #include <awl/window/object_fwd.hpp>
+
 
 namespace sge
 {
@@ -34,7 +35,7 @@ namespace parameters
 
 sge::renderer::screen_size const
 extract_size(
-	renderer::screen_mode const &,
+	sge::renderer::display_mode::optional_object const &,
 	awl::window::object &
 );
 

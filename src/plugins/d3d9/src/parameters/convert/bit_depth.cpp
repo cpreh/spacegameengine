@@ -20,23 +20,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/parameters/convert/bit_depth.hpp>
-#include <sge/renderer/bit_depth.hpp>
+#include <sge/renderer/pixel_format/color.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 
 D3DFORMAT
 sge::d3d9::parameters::convert::bit_depth(
-	sge::renderer::bit_depth::type const _type
+	sge::renderer::pixel_format::color::type const _type
 )
 {
 	switch(
 		_type
 	)
 	{
-		// FIXME!
-	case sge::renderer::bit_depth::depth16:
-		break; //return D3DFMT_R5G6B5;
-	case sge::renderer::bit_depth::depth32:
+		// FIXME! This currently doesn't work because the corresponding mizuiro image format is missing!
+	//case sge::renderer::pixel_format::color::depth16:
+//		break; //return D3DFMT_R5G6B5;
+	case sge::renderer::pixel_format::color::depth32:
 		return D3DFMT_X8R8G8B8;
 	}
 

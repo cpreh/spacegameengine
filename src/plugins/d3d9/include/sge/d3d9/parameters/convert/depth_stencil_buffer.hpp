@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_PARAMETERS_CONVERT_DEPTH_STENCIL_BUFFER_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/renderer/depth_stencil_buffer.hpp>
+#include <sge/renderer/pixel_format/depth_stencil.hpp>
+
 
 namespace sge
 {
@@ -35,7 +36,7 @@ namespace convert
 
 D3DFORMAT
 depth_stencil_buffer(
-	sge::renderer::depth_stencil_buffer::type
+	sge::renderer::pixel_format::depth_stencil::type
 );
 
 }

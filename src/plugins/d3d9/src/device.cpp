@@ -50,7 +50,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/index_buffer_unique_ptr.hpp>
 #include <sge/renderer/index_count.hpp>
-#include <sge/renderer/parameters_fwd.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
 #include <sge/renderer/vertex_buffer_unique_ptr.hpp>
@@ -63,6 +62,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/occlusion_query/object.hpp>
 #include <sge/renderer/occlusion_query/object_unique_ptr.hpp>
+#include <sge/renderer/parameters/object_fwd.hpp>
 #include <sge/renderer/target/base_fwd.hpp>
 #include <sge/renderer/target/offscreen_unique_ptr.hpp>
 #include <sge/renderer/target/onscreen_fwd.hpp>
@@ -113,7 +113,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::d3d9::device::device(
 	IDirect3D9 *const _system,
 	sge::renderer::adapter const _adapter,
-	sge::renderer::parameters const &_parameters,
+	sge::renderer::parameters::object const &_parameters,
 	awl::window::object &_window,
 	sge::renderer::caps::device const &_caps
 )

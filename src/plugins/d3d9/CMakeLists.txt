@@ -90,7 +90,6 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/parameters/convert/multi_sample.hpp
 	src/plugins/d3d9/include/sge/d3d9/parameters/convert/multi_sample_quality.hpp
 	src/plugins/d3d9/include/sge/d3d9/parameters/create.hpp
-	src/plugins/d3d9/include/sge/d3d9/parameters/extract_back_buffer_format.hpp
 	src/plugins/d3d9/include/sge/d3d9/parameters/extract_size.hpp
 	src/plugins/d3d9/include/sge/d3d9/parameters/tnl_caps.hpp
 	src/plugins/d3d9/include/sge/d3d9/query/d3d_scoped_ptr.hpp
@@ -342,7 +341,6 @@ SET(
 	src/plugins/d3d9/src/parameters/convert/multi_sample.cpp
 	src/plugins/d3d9/src/parameters/convert/multi_sample_quality.cpp
 	src/plugins/d3d9/src/parameters/create.cpp
-	src/plugins/d3d9/src/parameters/extract_back_buffer_format.cpp
 	src/plugins/d3d9/src/parameters/extract_size.cpp
 	src/plugins/d3d9/src/parameters/tnl_caps.cpp
 	src/plugins/d3d9/src/queryfuncs/get_data.cpp

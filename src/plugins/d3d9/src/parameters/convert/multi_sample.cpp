@@ -21,17 +21,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/parameters/convert/multi_sample.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/multi_samples.hpp>
+#include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <fcppt/text.hpp>
 
 
 D3DMULTISAMPLE_TYPE
 sge::d3d9::parameters::convert::multi_sample(
-	sge::renderer::multi_samples const _value
+	sge::renderer::pixel_format::optional_multi_samples const &_samples
 )
 {
+	if(
+		!_samples
+	)
+		return D3DMULTISAMPLE_NONE;
+
 	switch(
-		_value.get()
+		_samples->get()
 	)
 	{
 	case 0:

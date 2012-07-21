@@ -20,27 +20,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/parameters/convert/depth_stencil_buffer.hpp>
+#include <sge/renderer/pixel_format/depth_stencil.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 
 D3DFORMAT
 sge::d3d9::parameters::convert::depth_stencil_buffer(
-	sge::renderer::depth_stencil_buffer::type const _type
+	sge::renderer::pixel_format::depth_stencil::type const _type
 )
 {
 	switch(
 		_type
 	)
 	{
-	case sge::renderer::depth_stencil_buffer::off:
+	case sge::renderer::pixel_format::depth_stencil::off:
 		return D3DFMT_UNKNOWN;
-	case sge::renderer::depth_stencil_buffer::d16:
+	case sge::renderer::pixel_format::depth_stencil::d16:
 		return D3DFMT_D16;
-	case sge::renderer::depth_stencil_buffer::d24:
+	case sge::renderer::pixel_format::depth_stencil::d24:
 		return D3DFMT_D24X8;
-	case sge::renderer::depth_stencil_buffer::d32:
+	case sge::renderer::pixel_format::depth_stencil::d32:
 		return D3DFMT_D32;
-	case sge::renderer::depth_stencil_buffer::d24s8:
+	case sge::renderer::pixel_format::depth_stencil::d24s8:
 		return D3DFMT_D24S8;
 	}
 

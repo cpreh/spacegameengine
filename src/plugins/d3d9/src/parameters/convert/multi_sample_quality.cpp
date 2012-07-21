@@ -20,11 +20,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/parameters/convert/multi_sample_quality.hpp>
-#include <sge/renderer/multi_samples.hpp>
+#include <sge/renderer/pixel_format/optional_multi_samples_fwd.hpp>
+
 
 DWORD
 sge::d3d9::parameters::convert::multi_sample_quality(
-	sge::renderer::multi_samples const _samples
+	sge::renderer::pixel_format::optional_multi_samples const &_samples
 )
 {
 	return 0u; // FIXME!
