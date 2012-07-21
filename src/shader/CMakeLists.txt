@@ -34,6 +34,11 @@ set(
 	src/shader/scoped_pair.cpp
 )
 
+include_directories(
+	${FCPPT_UTILS_INCLUDE_SYSTEM}
+	${Cg_INCLUDE_DIRS}
+)
+
 add_sge_base_library(
 	"shader"
 	"sgecg;sgerenderer;sgerenderercg"
