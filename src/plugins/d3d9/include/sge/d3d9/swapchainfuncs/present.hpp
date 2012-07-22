@@ -18,22 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_DEVICEFUNCS_PRESENT_HPP_INCLUDED
-#define SGE_D3D9_DEVICEFUNCS_PRESENT_HPP_INCLUDED
+#ifndef SGE_D3D9_SWAPCHAINFUNCS_PRESENT_HPP_INCLUDED
+#define SGE_D3D9_SWAPCHAINFUNCS_PRESENT_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
+#include <sge/renderer/pixel_format/srgb.hpp>
 
 
 namespace sge
 {
 namespace d3d9
 {
-namespace devicefuncs
+namespace swapchainfuncs
 {
 
 bool
 present(
-	IDirect3DDevice9 &
+	IDirect3DSwapChain9 &,
+	sge::renderer::pixel_format::srgb::type
 );
 
 }

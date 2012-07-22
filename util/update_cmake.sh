@@ -256,6 +256,7 @@ update_cmake_file \
 	src/plugins/d3d9/include/sge/d3d9 \
 	-r \
 	src/plugins/d3d9/include/sge/d3d9/query \
+	src/plugins/d3d9/include/sge/d3d9/swapchain \
 	$(d3d9_inc_src convert) \
 	$(d3d9_inc_src devicefuncs) \
 	$(d3d9_inc_src occlusion_query) \
@@ -265,6 +266,7 @@ update_cmake_file \
 	$(d3d9_inc_src state) \
 	$(d3d9_inc_src surface) \
 	$(d3d9_inc_src surfacefuncs) \
+	$(d3d9_inc_src swapchainfuncs) \
 	$(d3d9_inc_src systemfuncs) \
 	$(d3d9_inc_src target) \
 	$(d3d9_inc_src texture) \

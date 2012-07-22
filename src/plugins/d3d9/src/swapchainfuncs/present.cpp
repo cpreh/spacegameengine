@@ -19,22 +19,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/devicefuncs/present.hpp>
+#include <sge/d3d9/swapchainfuncs/present.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/pixel_format/srgb.hpp>
+#include <fcppt/null_ptr.hpp>
 #include <fcppt/text.hpp>
 
 
 bool
-sge::d3d9::devicefuncs::present(
-	IDirect3DDevice9 &_device
+sge::d3d9::swapchainfuncs::present(
+	IDirect3DSwapChain9 &_swap_chain,
+	sge::renderer::pixel_format::srgb::type const _srgb
 )
 {
 	switch(
-		_device.Present(
-			0,
-			0,
-			0,
-			0
+		_swap_chain.Present(
+			fcppt::null_ptr(),
+			fcppt::null_ptr(),
+			fcppt::null_ptr(),
+			fcppt::null_ptr(),
+			static_cast<
+				DWORD
+			>(
+				_srgb
+				==
+				sge::renderer::pixel_format::srgb::yes
+				?
+					D3DPRESENT_LINEAR_CONTENT
+				:
+					0L
+			)
 		)
 	)
 	{

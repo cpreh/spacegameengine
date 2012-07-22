@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/resource_manager.hpp>
+#include <sge/d3d9/swapchain/d3d_scoped_ptr.hpp>
 #include <sge/d3d9/target/onscreen_fwd.hpp>
 #include <sge/renderer/adapter.hpp>
 #include <sge/renderer/config.hpp>
@@ -43,6 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/occlusion_query/object_unique_ptr.hpp>
 #include <sge/renderer/parameters/object_fwd.hpp>
+#include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/target/base_fwd.hpp>
 #include <sge/renderer/target/offscreen_unique_ptr.hpp>
 #include <sge/renderer/target/onscreen_fwd.hpp>
@@ -218,6 +220,10 @@ private:
 	void
 	release();
 
+	sge::renderer::pixel_format::srgb::type const srgb_;
+	
+	sge::renderer::caps::device const &caps_;
+
 	D3DPRESENT_PARAMETERS present_parameters_;
 
 	typedef fcppt::scoped_ptr<
@@ -227,9 +233,9 @@ private:
 
 	d3d_device_scoped_ptr const device_;
 
-	sge::renderer::caps::device const &caps_;
-
 	sge::d3d9::resource_manager resources_;
+
+	sge::d3d9::swapchain::d3d_scoped_ptr const swap_chain_;
 
 	typedef fcppt::scoped_ptr<
 		sge::d3d9::target::onscreen

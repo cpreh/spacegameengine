@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/vertex_declaration.hpp>
 #include <sge/d3d9/devicefuncs/begin_scene.hpp>
 #include <sge/d3d9/devicefuncs/end_scene.hpp>
-#include <sge/d3d9/devicefuncs/present.hpp>
+#include <sge/d3d9/devicefuncs/get_swap_chain.hpp>
 #include <sge/d3d9/devicefuncs/reset.hpp>
 #include <sge/d3d9/occlusion_query/create.hpp>
 #include <sge/d3d9/parameters/create.hpp>
@@ -37,6 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/render_context/needs_present.hpp>
 #include <sge/d3d9/surface/depth_stencil.hpp>
 #include <sge/d3d9/surface/depth_stencil_native.hpp>
+#include <sge/d3d9/swapchainfuncs/present.hpp>
 #include <sge/d3d9/target/offscreen.hpp>
 #include <sge/d3d9/target/onscreen.hpp>
 #include <sge/d3d9/texture/cube.hpp>
@@ -62,7 +63,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/occlusion_query/object.hpp>
 #include <sge/renderer/occlusion_query/object_unique_ptr.hpp>
-#include <sge/renderer/parameters/object_fwd.hpp>
+#include <sge/renderer/parameters/object.hpp>
 #include <sge/renderer/target/base_fwd.hpp>
 #include <sge/renderer/target/offscreen_unique_ptr.hpp>
 #include <sge/renderer/target/onscreen_fwd.hpp>
@@ -119,6 +120,12 @@ sge::d3d9::device::device(
 )
 :
 	sge::renderer::device(),
+	srgb_(
+		_parameters.pixel_format().srgb()
+	),
+	caps_(
+		_caps
+	),
 	present_parameters_(
 		sge::d3d9::parameters::create(
 			_parameters,
@@ -132,10 +139,13 @@ sge::d3d9::device::device(
 			present_parameters_
 		)
 	),
-	caps_(
-		_caps
-	),
 	resources_(),
+	swap_chain_(
+		sge::d3d9::devicefuncs::get_swap_chain(
+			*device_,
+			0u
+		)
+	),
 	onscreen_target_(
 		fcppt::make_unique_ptr<
 			sge::d3d9::target::onscreen
@@ -200,8 +210,9 @@ sge::d3d9::device::end_rendering(
 		)
 	)
 		if(
-			!sge::d3d9::devicefuncs::present(
-				*device_
+			!sge::d3d9::swapchainfuncs::present(
+				*swap_chain_,
+				srgb_
 			)
 		)
 			this->reset();

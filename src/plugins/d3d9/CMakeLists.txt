@@ -53,9 +53,9 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/get_depth_stencil_surface.hpp
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/get_render_target.hpp
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/get_render_target_data.hpp
+	src/plugins/d3d9/include/sge/d3d9/devicefuncs/get_swap_chain.hpp
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/get_texture.hpp
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/light_enable.hpp
-	src/plugins/d3d9/include/sge/d3d9/devicefuncs/present.hpp
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/reset.hpp
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/set_clip_plane.hpp
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/set_depth_stencil_surface.hpp
@@ -175,6 +175,9 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/surfacefuncs/is_render_target.hpp
 	src/plugins/d3d9/include/sge/d3d9/surfacefuncs/lock_rect.hpp
 	src/plugins/d3d9/include/sge/d3d9/surfacefuncs/unlock_rect.hpp
+	src/plugins/d3d9/include/sge/d3d9/swapchain/d3d_scoped_ptr.hpp
+	src/plugins/d3d9/include/sge/d3d9/swapchain/d3d_unique_ptr.hpp
+	src/plugins/d3d9/include/sge/d3d9/swapchainfuncs/present.hpp
 	src/plugins/d3d9/include/sge/d3d9/system.hpp
 	src/plugins/d3d9/include/sge/d3d9/systemfuncs/get_caps.hpp
 	src/plugins/d3d9/include/sge/d3d9/target/base.hpp
@@ -308,9 +311,9 @@ SET(
 	src/plugins/d3d9/src/devicefuncs/get_depth_stencil_surface.cpp
 	src/plugins/d3d9/src/devicefuncs/get_render_target.cpp
 	src/plugins/d3d9/src/devicefuncs/get_render_target_data.cpp
+	src/plugins/d3d9/src/devicefuncs/get_swap_chain.cpp
 	src/plugins/d3d9/src/devicefuncs/get_texture.cpp
 	src/plugins/d3d9/src/devicefuncs/light_enable.cpp
-	src/plugins/d3d9/src/devicefuncs/present.cpp
 	src/plugins/d3d9/src/devicefuncs/reset.cpp
 	src/plugins/d3d9/src/devicefuncs/set_clip_plane.cpp
 	src/plugins/d3d9/src/devicefuncs/set_depth_stencil_surface.cpp
@@ -405,6 +408,7 @@ SET(
 	src/plugins/d3d9/src/surfacefuncs/is_render_target.cpp
 	src/plugins/d3d9/src/surfacefuncs/lock_rect.cpp
 	src/plugins/d3d9/src/surfacefuncs/unlock_rect.cpp
+	src/plugins/d3d9/src/swapchainfuncs/present.cpp
 	src/plugins/d3d9/src/system.cpp
 	src/plugins/d3d9/src/systemfuncs/get_caps.cpp
 	src/plugins/d3d9/src/target/base.cpp
