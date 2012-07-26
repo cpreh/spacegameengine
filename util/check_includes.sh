@@ -15,6 +15,8 @@ check_src() {
 }
 
 check_src cegui
+check_src cg
+check_src charconv
 check_src config
 check_src console
 check_src font/bitmap
@@ -31,6 +33,7 @@ check_src plugin
 check_src projectile
 check_src renderer
 check_src systems
+check_src texture
 check_src viewport
 
 for i in src/plugins/* ; do

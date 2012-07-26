@@ -18,11 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CHACONV_FCPPT_IS_UTF8_HPP_INCLUDED
-#define SGE_CHACONV_FCPPT_IS_UTF8_HPP_INCLUDED
+#ifndef SGE_SRC_CHARCONV_FCPPT_IS_UTF8_HPP_INCLUDED
+#define SGE_SRC_CHARCONV_FCPPT_IS_UTF8_HPP_INCLUDED
 
 #include <fcppt/config.hpp>
 #include <fcppt/config/platform.hpp>
+
 
 #if defined(FCPPT_CONFIG_POSIX_PLATFORM) && defined(FCPPT_NARROW_STRING)
 #define SGE_CHARCONV_FCPPT_IS_UTF8

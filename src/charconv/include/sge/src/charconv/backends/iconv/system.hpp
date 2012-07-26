@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CHARCONV_BACKENDS_ICONV_SYSTEM_HPP_INCLUDED
-#define SGE_CHARCONV_BACKENDS_ICONV_SYSTEM_HPP_INCLUDED
+#ifndef SGE_SRC_CHARCONV_BACKENDS_ICONV_SYSTEM_HPP_INCLUDED
+#define SGE_SRC_CHARCONV_BACKENDS_ICONV_SYSTEM_HPP_INCLUDED
 
 #include <sge/charconv/converter_unique_ptr.hpp>
 #include <sge/charconv/dest_encoding.hpp>
