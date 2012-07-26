@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/class_symbol.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
-#include <sge/renderer/dim2.hpp>
-#include <sge/renderer/lock_rect.hpp>
+#include <sge/renderer/dim2_fwd.hpp>
+#include <sge/renderer/lock_rect_fwd.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/texture/part_fwd.hpp>
 #include <sge/texture/symbol.hpp>
@@ -46,26 +46,33 @@ protected:
 	part();
 public:
 	SGE_TEXTURE_SYMBOL
-	virtual ~part() = 0;
+	virtual
+	~part() = 0;
 
-	virtual void
+	virtual
+	void
 	data(
-		image2d::view::const_object const &
+		sge::image2d::view::const_object const &
 	) = 0;
 
-	virtual renderer::lock_rect const &
+	virtual
+	sge::renderer::lock_rect const
 	area() const = 0;
 
-	SGE_TEXTURE_SYMBOL renderer::dim2 const
+	SGE_TEXTURE_SYMBOL
+	sge::renderer::dim2 const
 	size() const;
 
-	virtual renderer::texture::planar &
+	virtual
+	sge::renderer::texture::planar &
 	texture() = 0;
 
-	virtual renderer::texture::planar const &
+	virtual
+	sge::renderer::texture::planar const &
 	texture() const = 0;
 
-	virtual bool
+	virtual
+	bool
 	repeatable() const = 0;
 };
 

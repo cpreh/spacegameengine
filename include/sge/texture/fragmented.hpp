@@ -22,17 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TEXTURE_FRAGMENTED_HPP_INCLUDED
 
 #include <sge/class_symbol.hpp>
-#include <sge/renderer/dim2.hpp>
+#include <sge/renderer/dim2_fwd.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/texture/fragmented_fwd.hpp>
-#include <sge/texture/free_type.hpp>
-#include <sge/texture/optional_manager_ref.hpp>
+#include <sge/texture/part_fwd.hpp>
 #include <sge/texture/part_unique_ptr.hpp>
 #include <sge/texture/symbol.hpp>
-#include <sge/texture/detail/optional_container_position.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional_impl.hpp>
-#include <fcppt/variant/object_impl.hpp>
 
 
 namespace sge
@@ -56,21 +52,21 @@ public:
 	virtual
 	sge::texture::part_unique_ptr
 	consume_fragment(
-		renderer::dim2 const &
+		sge::renderer::dim2 const &
 	) = 0;
 
-	SGE_TEXTURE_SYMBOL
+	virtual
 	void
 	return_fragment(
 		sge::texture::part const &
-	);
+	) = 0;
 
 	virtual
-	renderer::texture::planar &
+	sge::renderer::texture::planar &
 	texture() = 0;
 
 	virtual
-	renderer::texture::planar const &
+	sge::renderer::texture::planar const &
 	texture() const = 0;
 
 	virtual
@@ -78,42 +74,8 @@ public:
 	repeatable() const = 0;
 
 	virtual
-	free_type
-	free_value() const = 0;
-
-	virtual
 	bool
 	empty() const = 0;
-
-	SGE_TEXTURE_SYMBOL
-	bool
-	full() const;
-
-	SGE_TEXTURE_SYMBOL
-	void
-	manager(
-		texture::optional_manager_ref const &
-	);
-
-	SGE_TEXTURE_SYMBOL
-	sge::texture::optional_manager_ref const
-	manager() const;
-
-	virtual
-	void
-	on_return_fragment(
-		sge::texture::part const &
-	) = 0;
-
-	SGE_TEXTURE_SYMBOL
-	void
-	container_position(
-		detail::container_position const &
-	);
-private:
-	sge::texture::optional_manager_ref manager_;
-
-	detail::optional_container_position iterator_;
 };
 
 }

@@ -18,15 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TEXTURE_FREE_TYPE_HPP_INCLUDED
-#define SGE_TEXTURE_FREE_TYPE_HPP_INCLUDED
+#ifndef SGE_TEXTURE_PART_RAW_REF_FWD_HPP_INCLUDED
+#define SGE_TEXTURE_PART_RAW_REF_FWD_HPP_INCLUDED
+
+#include <sge/texture/basic_part_raw_fwd.hpp>
+#include <sge/renderer/texture/planar_fwd.hpp>
+
 
 namespace sge
 {
 namespace texture
 {
 
-typedef unsigned free_type;
+typedef sge::texture::basic_part_raw<
+	sge::renderer::texture::planar &
+> part_raw_ref;
 
 }
 }

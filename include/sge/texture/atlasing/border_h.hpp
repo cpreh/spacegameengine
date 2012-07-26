@@ -35,10 +35,10 @@ namespace atlasing
 
 void
 border_h(
-	renderer::texture::planar &,
-	image2d::view::const_object const &src,
-	renderer::lock_rect const &outer_area,
-	renderer::lock_rect const &inner_area
+	sge::renderer::texture::planar &,
+	sge::image2d::view::const_object const &src,
+	sge::renderer::lock_rect const &outer_area,
+	sge::renderer::lock_rect const &inner_area
 );
 
 }

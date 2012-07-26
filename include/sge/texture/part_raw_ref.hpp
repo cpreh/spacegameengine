@@ -18,29 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TEXTURE_DETAIL_FRAGMENTED_QUEUE_HPP_INCLUDED
-#define SGE_TEXTURE_DETAIL_FRAGMENTED_QUEUE_HPP_INCLUDED
+#ifndef SGE_TEXTURE_PART_RAW_REF_HPP_INCLUDED
+#define SGE_TEXTURE_PART_RAW_REF_HPP_INCLUDED
 
-#include <sge/texture/fragmented_fwd.hpp>
-#include <sge/texture/detail/fragmented_sort.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/ptr_container/ptr_set.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <sge/texture/basic_part_raw.hpp>
+#include <sge/texture/part_raw_ref_fwd.hpp>
 
-namespace sge
-{
-namespace texture
-{
-namespace detail
-{
-
-typedef boost::ptr_multiset<
-	fragmented,
-	fragmented_sort
-> fragmented_queue;
-
-}
-}
-}
 
 #endif

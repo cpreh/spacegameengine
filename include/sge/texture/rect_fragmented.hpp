@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/planar_scoped_ptr.hpp>
 #include <sge/renderer/texture/mipmap/object_fwd.hpp>
 #include <sge/texture/fragmented.hpp>
-#include <sge/texture/free_type.hpp>
 #include <sge/texture/part_fwd.hpp>
 #include <sge/texture/part_unique_ptr.hpp>
 #include <sge/texture/symbol.hpp>
@@ -43,55 +42,53 @@ namespace texture
 
 class SGE_CLASS_SYMBOL rect_fragmented
 :
-	public texture::fragmented
+	public sge::texture::fragmented
 {
 	FCPPT_NONCOPYABLE(
 		rect_fragmented
 	);
 public:
-	SGE_TEXTURE_SYMBOL rect_fragmented(
-		renderer::device &,
-		image::color::format::type,
-		renderer::texture::mipmap::object const &,
-		renderer::dim2 const &initial_size
+	SGE_TEXTURE_SYMBOL
+	rect_fragmented(
+		sge::renderer::device &,
+		sge::image::color::format::type,
+		sge::renderer::texture::mipmap::object const &,
+		sge::renderer::dim2 const &initial_size
 	);
 
 	SGE_TEXTURE_SYMBOL
 	~rect_fragmented();
 private:
-	texture::part_unique_ptr
+	sge::texture::part_unique_ptr
 	consume_fragment(
-		renderer::dim2 const &
+		sge::renderer::dim2 const &
 	);
 
 	void
-	on_return_fragment(
-		texture::part const &
+	return_fragment(
+		sge::texture::part const &
 	);
 
-	renderer::texture::planar &
+	sge::renderer::texture::planar &
 	texture();
 
-	renderer::texture::planar const &
+	sge::renderer::texture::planar const &
 	texture() const;
 
 	bool
 	repeatable() const;
 
-	texture::free_type
-	free_value() const;
-
 	bool
 	empty() const;
 
-	renderer::size_type
+	sge::renderer::size_type
 		cur_x_,
 		cur_y_,
 		cur_height_;
 
-	renderer::texture::planar_scoped_ptr const tex_;
+	sge::renderer::texture::planar_scoped_ptr const tex_;
 
-	renderer::size_type texture_count_;
+	sge::renderer::size_type texture_count_;
 };
 
 }

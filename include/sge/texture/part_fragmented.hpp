@@ -46,8 +46,8 @@ class part_fragmented
 public:
 	SGE_TEXTURE_SYMBOL
 	part_fragmented(
-		renderer::lock_rect const &outer_rect,
-		texture::fragmented &,
+		sge::renderer::lock_rect const &outer_rect,
+		sge::texture::fragmented &,
 		bool need_atlasing_w,
 		bool need_atlasing_h
 	);
@@ -55,19 +55,19 @@ public:
 	SGE_TEXTURE_SYMBOL
 	void
 	data(
-		image2d::view::const_object const &
+		sge::image2d::view::const_object const &
 	);
 
 	SGE_TEXTURE_SYMBOL
-	renderer::lock_rect const &
+	sge::renderer::lock_rect const
 	area() const;
 
 	SGE_TEXTURE_SYMBOL
-	renderer::texture::planar &
+	sge::renderer::texture::planar &
 	texture();
 
 	SGE_TEXTURE_SYMBOL
-	renderer::texture::planar const &
+	sge::renderer::texture::planar const &
 	texture() const;
 
 	SGE_TEXTURE_SYMBOL
@@ -77,15 +77,15 @@ public:
 	SGE_TEXTURE_SYMBOL
 	~part_fragmented();
 private:
-	renderer::lock_rect const outer_area_;
+	sge::renderer::lock_rect const outer_area_;
 
-	texture::fragmented &fragment_;
+	sge::texture::fragmented &fragment_;
 
 	bool const
 		need_atlasing_w_,
 		need_atlasing_h_;
 
-	renderer::lock_rect const inner_area_;
+	sge::renderer::lock_rect const inner_area_;
 };
 
 }

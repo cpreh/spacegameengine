@@ -19,73 +19,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/texture/fragmented.hpp>
-#include <sge/texture/manager.hpp>
-#include <sge/texture/optional_manager_ref.hpp>
-#include <sge/texture/part_fwd.hpp>
-#include <sge/texture/detail/container_position.hpp>
-#include <fcppt/assert/error.hpp>
 
 
 sge::texture::fragmented::fragmented()
-:
-	manager_(),
-	iterator_()
 {
 }
 
 sge::texture::fragmented::~fragmented()
 {
-}
-
-void
-sge::texture::fragmented::return_fragment(
-	sge::texture::part const &_part
-)
-{
-	this->on_return_fragment(
-		_part
-	);
-
-	if(
-		this->manager()
-	)
-	{
-		FCPPT_ASSERT_ERROR(
-			iterator_
-		);
-
-		this->manager()->part_freed(
-			*iterator_,
-			*this
-		);
-	}
-}
-
-bool
-sge::texture::fragmented::full() const
-{
-	return
-		this->free_value() == 0;
-}
-
-void
-sge::texture::fragmented::manager(
-	sge::texture::optional_manager_ref const &_manager
-)
-{
-	manager_ = _manager;
-}
-
-sge::texture::optional_manager_ref const
-sge::texture::fragmented::manager() const
-{
-	return manager_;
-}
-
-void
-sge::texture::fragmented::container_position(
-	sge::texture::detail::container_position const &_iterator
-)
-{
-	iterator_ = _iterator;
 }

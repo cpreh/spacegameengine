@@ -56,7 +56,7 @@ typename boost::enable_if<
 	>::type
 >::type const
 sge::texture::area_texc(
-	texture::part const &_part,
+	sge::texture::part const &_part,
 	typename fcppt::math::vector::static_<
 		T,
 		2
@@ -82,7 +82,7 @@ sge::texture::area_texc(
 		&& !_part.repeatable()
 	)
 		FCPPT_LOG_WARNING(
-			log::global(),
+			sge::log::global(),
 			fcppt::log::_
 				<< FCPPT_TEXT("texture not repeatable but repetition is ")
 				<< _repeat
@@ -94,7 +94,7 @@ sge::texture::area_texc(
 	>::type ret_type;
 
 	ret_type ret(
-		renderer::lock_rect_to_coords<
+		sge::renderer::lock_rect_to_coords<
 			T
 		>(
 			_part.area(),

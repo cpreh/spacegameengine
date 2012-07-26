@@ -18,27 +18,50 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TEXTURE_ADD_IMAGE_HPP_INCLUDED
-#define SGE_TEXTURE_ADD_IMAGE_HPP_INCLUDED
+#ifndef SGE_TEXTURE_DETAIL_REF_STORE_TYPE_HPP_INCLUDED
+#define SGE_TEXTURE_DETAIL_REF_STORE_TYPE_HPP_INCLUDED
 
-#include <sge/image2d/file_fwd.hpp>
-#include <sge/texture/manager_fwd.hpp>
-#include <sge/texture/part_unique_ptr.hpp>
-#include <sge/texture/symbol.hpp>
+#include <fcppt/scoped_ptr_fwd.hpp>
+#include <fcppt/unique_ptr_fwd.hpp>
 
 
 namespace sge
 {
 namespace texture
 {
+namespace detail
+{
 
-SGE_TEXTURE_SYMBOL
-texture::part_unique_ptr
-add_image(
-	texture::manager &,
-	image2d::file &
-);
+template<
+	typename T
+>
+struct ref_store_type;
 
+template<
+	typename T
+>
+struct ref_store_type<
+	T &
+>
+{
+	typedef T &type;
+};
+
+template<
+	typename T
+>
+struct ref_store_type<
+	fcppt::unique_ptr<
+		T
+	>
+>
+{
+	typedef fcppt::scoped_ptr<
+		T
+	> type;
+};
+
+}
 }
 }
 

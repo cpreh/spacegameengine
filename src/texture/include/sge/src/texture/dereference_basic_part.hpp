@@ -18,19 +18,56 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TEXTURE_GUARANTEED_FREE_HPP_INCLUDED
-#define SGE_TEXTURE_GUARANTEED_FREE_HPP_INCLUDED
+#ifndef SGE_SRC_TEXTURE_DEREFERENCE_BASIC_PART_HPP_INCLUDED
+#define SGE_SRC_TEXTURE_DEREFERENCE_BASIC_PART_HPP_INCLUDED
 
-#include <sge/texture/free_type.hpp>
-#include <sge/texture/symbol.hpp>
+#include <fcppt/scoped_ptr_fwd.hpp>
+
 
 namespace sge
 {
 namespace texture
 {
 
-SGE_TEXTURE_SYMBOL free_type
-guaranteed_free();
+template<
+	typename T
+>
+T &
+dereference_basic_part(
+	T &_ref
+)
+{
+	return
+		_ref;
+}
+
+template<
+	typename T
+>
+T &
+dereference_basic_part(
+	fcppt::scoped_ptr<
+		T
+	> &_ptr
+)
+{
+	return
+		*_ptr;
+}
+
+template<
+	typename T
+>
+T const &
+dereference_basic_part(
+	fcppt::scoped_ptr<
+		T
+	> const &_ptr
+)
+{
+	return
+		*_ptr;
+}
 
 }
 }

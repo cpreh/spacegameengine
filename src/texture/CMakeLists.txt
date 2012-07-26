@@ -1,6 +1,5 @@
 set(
 	SGE_TEXTURE_FILES
-	include/sge/texture/add_image.hpp
 	include/sge/texture/area_texc.hpp
 	include/sge/texture/atlasing/border_h.hpp
 	include/sge/texture/atlasing/border_w.hpp
@@ -11,32 +10,28 @@ set(
 	include/sge/texture/atlasing/inner_rect.hpp
 	include/sge/texture/atlasing/need.hpp
 	include/sge/texture/atlasing/size.hpp
+	include/sge/texture/basic_part_raw.hpp
+	include/sge/texture/basic_part_raw_fwd.hpp
 	include/sge/texture/const_optional_part_ref.hpp
 	include/sge/texture/const_optional_part_ref_fwd.hpp
 	include/sge/texture/const_part_scoped_ptr.hpp
 	include/sge/texture/const_part_shared_ptr.hpp
 	include/sge/texture/consume_and_set_fragment.hpp
-	include/sge/texture/detail/container_position.hpp
-	include/sge/texture/detail/fragmented_list.hpp
-	include/sge/texture/detail/fragmented_queue.hpp
-	include/sge/texture/detail/fragmented_sort.hpp
-	include/sge/texture/detail/optional_container_position.hpp
+	include/sge/texture/detail/ref_store_type.hpp
 	include/sge/texture/fragmented.hpp
 	include/sge/texture/fragmented_fwd.hpp
 	include/sge/texture/fragmented_unique_ptr.hpp
-	include/sge/texture/free_type.hpp
-	include/sge/texture/guaranteed_free.hpp
 	include/sge/texture/image_too_big.hpp
 	include/sge/texture/manager.hpp
 	include/sge/texture/manager_fwd.hpp
-	include/sge/texture/no_fragmented.hpp
 	include/sge/texture/on_alloc_function.hpp
-	include/sge/texture/optional_manager_ref.hpp
-	include/sge/texture/optional_manager_ref_fwd.hpp
 	include/sge/texture/part.hpp
 	include/sge/texture/part_fragmented.hpp
 	include/sge/texture/part_fwd.hpp
-	include/sge/texture/part_raw.hpp
+	include/sge/texture/part_raw_ptr.hpp
+	include/sge/texture/part_raw_ptr_fwd.hpp
+	include/sge/texture/part_raw_ref.hpp
+	include/sge/texture/part_raw_ref_fwd.hpp
 	include/sge/texture/part_scoped_ptr.hpp
 	include/sge/texture/part_shared_ptr.hpp
 	include/sge/texture/part_unique_ptr.hpp
@@ -44,7 +39,6 @@ set(
 	include/sge/texture/pos_type_fwd.hpp
 	include/sge/texture/rect_fragmented.hpp
 	include/sge/texture/sub_data.hpp
-	src/texture/add_image.cpp
 	src/texture/area_texc.cpp
 	src/texture/atlasing/border_h.cpp
 	src/texture/atlasing/border_w.cpp
@@ -56,21 +50,28 @@ set(
 	src/texture/atlasing/need.cpp
 	src/texture/atlasing/size.cpp
 	src/texture/consume_and_set_fragment.cpp
-	src/texture/detail/fragmented_sort.cpp
 	src/texture/fragmented.cpp
-	src/texture/guaranteed_free.cpp
 	src/texture/image_too_big.cpp
+	src/texture/include/sge/src/texture/basic_part_raw_impl.hpp
+	src/texture/include/sge/src/texture/dereference_basic_part.hpp
+	src/texture/include/sge/src/texture/init_basic_part.hpp
+	src/texture/include/sge/src/texture/instantiate_basic_part_raw.hpp
 	src/texture/manager.cpp
-	src/texture/no_fragmented.cpp
 	src/texture/part.cpp
 	src/texture/part_fragmented.cpp
-	src/texture/part_raw.cpp
+	src/texture/part_raw_ptr.cpp
+	src/texture/part_raw_ref.cpp
 	src/texture/rect_fragmented.cpp
 	src/texture/sub_data.cpp
 )
 
+# TODO!
 include_directories(
 	${CMAKE_SOURCE_DIR}/src/renderer/include
+)
+
+include_directories(
+	${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
 add_sge_base_library(

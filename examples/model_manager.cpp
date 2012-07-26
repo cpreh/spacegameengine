@@ -65,7 +65,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/quit_on_escape.hpp>
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/window.hpp>
-#include <sge/texture/part_raw.hpp>
 #include <sge/timer/basic.hpp>
 #include <sge/timer/elapsed_and_reset.hpp>
 #include <sge/timer/elapsed_fractional_and_reset.hpp>

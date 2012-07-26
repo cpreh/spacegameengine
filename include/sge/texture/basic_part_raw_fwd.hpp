@@ -18,15 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/texture/fragmented.hpp>
-#include <sge/texture/detail/fragmented_sort.hpp>
+#ifndef SGE_TEXTURE_BASIC_PART_RAW_FWD_HPP_INCLUDED
+#define SGE_TEXTURE_BASIC_PART_RAW_FWD_HPP_INCLUDED
 
 
-bool
-sge::texture::detail::fragmented_sort::operator()(
-	fragmented const &a,
-	fragmented const &b
-) const
+namespace sge
 {
-	return a.free_value() < b.free_value();
+namespace texture
+{
+
+template<
+	typename Ref
+>
+class basic_part_raw;
+
 }
+}
+
+#endif

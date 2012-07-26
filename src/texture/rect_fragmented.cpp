@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/mipmap/object_fwd.hpp>
-#include <sge/texture/free_type.hpp>
 #include <sge/texture/part_fragmented.hpp>
 #include <sge/texture/part_unique_ptr.hpp>
 #include <sge/texture/rect_fragmented.hpp>
@@ -129,7 +128,7 @@ sge::texture::rect_fragmented::consume_fragment(
 }
 
 void
-sge::texture::rect_fragmented::on_return_fragment(
+sge::texture::rect_fragmented::return_fragment(
 	part const &
 )
 {
@@ -154,20 +153,8 @@ sge::texture::rect_fragmented::repeatable() const
 	return false;
 }
 
-sge::texture::free_type
-sge::texture::rect_fragmented::free_value() const
-{
-	return
-		static_cast<
-			free_type
-		>(
-			(this->texture().size().h() - cur_height_)
-			* this->texture().size().w()
-		);
-}
-
 bool
 sge::texture::rect_fragmented::empty() const
 {
-	return !texture_count_;
+	return texture_count_ == 0u;
 }

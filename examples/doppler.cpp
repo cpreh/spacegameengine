@@ -43,6 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/optional_extension.hpp>
 #include <sge/media/optional_extension_set.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/context/object.hpp>
 #include <sge/renderer/context/scoped.hpp>
@@ -54,6 +55,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/target/onscreen.hpp>
+#include <sge/renderer/texture/create_planar_from_path.hpp>
+#include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/parameters.hpp>
@@ -75,11 +78,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/list.hpp>
 #include <sge/systems/quit_on_escape.hpp>
 #include <sge/systems/window.hpp>
-#include <sge/texture/add_image.hpp>
 #include <sge/texture/const_part_scoped_ptr.hpp>
-#include <sge/texture/manager.hpp>
-#include <sge/texture/no_fragmented.hpp>
-#include <sge/texture/part.hpp>
+#include <sge/texture/part_raw_ptr.hpp>
 #include <sge/viewport/center_on_resize.hpp>
 #include <sge/window/parameters.hpp>
 #include <sge/window/system.hpp>
@@ -88,6 +88,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/assign/make_container.hpp>
@@ -103,8 +104,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/filesystem/fstream.hpp>
 #include <boost/filesystem/path.hpp>
 #include <boost/mpl/vector/vector10.hpp>
-#include <boost/spirit/home/phoenix/object/construct.hpp>
-#include <boost/spirit/home/phoenix/object/new.hpp>
 #include <example_main.hpp>
 #include <exception>
 #include <ios>
@@ -332,40 +331,34 @@ try
 		sys.cursor_demuxer()
 	);
 
-	sge::texture::manager tex_man(
-		boost::phoenix::construct<
-			sge::texture::fragmented_unique_ptr
-		>(
-			boost::phoenix::new_<
-				sge::texture::no_fragmented
-			>(
-				fcppt::ref(
-					sys.renderer()
-				),
-				sge::image::color::format::srgba8,
-				sge::renderer::texture::mipmap::off()
-			)
-		)
-	);
-
 	sge::texture::const_part_scoped_ptr const
 		tex_bg(
-			sge::texture::add_image(
-				tex_man,
-				*sys.image_system().load(
+			fcppt::make_unique_ptr<
+				sge::texture::part_raw_ptr
+			>(
+				sge::renderer::texture::create_planar_from_path(
 					sge::config::media_path()
 					/ FCPPT_TEXT("images")
-					/ FCPPT_TEXT("grass.png")
+					/ FCPPT_TEXT("grass.png"),
+					sys.renderer(),
+					sys.image_system(),
+					sge::renderer::texture::mipmap::off(),
+					sge::renderer::resource_flags_field::null()
 				)
 			)
 		),
 		tex_tux(
-			sge::texture::add_image(
-				tex_man,
-				*sys.image_system().load(
+			fcppt::make_unique_ptr<
+				sge::texture::part_raw_ptr
+			>(
+				sge::renderer::texture::create_planar_from_path(
 					sge::config::media_path()
 					/ FCPPT_TEXT("images")
-					/ FCPPT_TEXT("tux.png")
+					/ FCPPT_TEXT("tux.png"),
+					sys.renderer(),
+					sys.image_system(),
+					sge::renderer::texture::mipmap::off(),
+					sge::renderer::resource_flags_field::null()
 				)
 			)
 		);

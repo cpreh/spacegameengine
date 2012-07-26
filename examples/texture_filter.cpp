@@ -81,7 +81,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/viewport_size.hpp>
 #include <sge/renderer/texture/create_planar_from_view.hpp>
 #include <sge/renderer/texture/planar.hpp>
-#include <sge/renderer/texture/planar_scoped_ptr.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/texture/filter/linear.hpp>
 #include <sge/renderer/texture/filter/mipmap.hpp>
@@ -126,7 +125,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/quit_on_escape.hpp>
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/window.hpp>
-#include <sge/texture/part_raw.hpp>
+#include <sge/texture/const_part_shared_ptr.hpp>
+#include <sge/texture/part_raw_ptr.hpp>
 #include <sge/timer/basic.hpp>
 #include <sge/timer/elapsed_and_reset.hpp>
 #include <sge/timer/frames_counter.hpp>
@@ -143,7 +143,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/insert_to_string.hpp>
-#include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
@@ -532,21 +532,6 @@ try
 		)
 	);
 
-	sge::renderer::texture::planar_scoped_ptr const sprite_texture(
-		sge::renderer::texture::create_planar_from_view(
-			sys.renderer(),
-			sge::image2d::view::to_const(
-				sge::image2d::view::object(
-					whole_store.wrapped_view()
-				)
-			),
-			sge::renderer::texture::mipmap::all_levels(
-				sge::renderer::texture::mipmap::auto_generate::yes
-			),
-			sge::renderer::resource_flags_field::null()
-		)
-	);
-
 	sprite_object const sprite(
 		sprite_parameters()
 		.pos(
@@ -568,11 +553,22 @@ try
 			)
 		)
 		.texture(
-			fcppt::make_shared_ptr<
-				sge::texture::part_raw
-			>(
-				fcppt::ref(
-					*sprite_texture
+			sge::texture::const_part_shared_ptr(
+				fcppt::make_unique_ptr<
+					sge::texture::part_raw_ptr
+				>(
+					sge::renderer::texture::create_planar_from_view(
+						sys.renderer(),
+						sge::image2d::view::to_const(
+							sge::image2d::view::object(
+								whole_store.wrapped_view()
+							)
+						),
+						sge::renderer::texture::mipmap::all_levels(
+							sge::renderer::texture::mipmap::auto_generate::yes
+						),
+						sge::renderer::resource_flags_field::null()
+					)
 				)
 			)
 		)

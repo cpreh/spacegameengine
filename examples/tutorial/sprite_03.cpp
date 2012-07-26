@@ -66,7 +66,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/window.hpp>
 #include <sge/texture/const_part_scoped_ptr.hpp>
-#include <sge/texture/part_raw.hpp>
+#include <sge/texture/part_raw_ref.hpp>
 #include <sge/viewport/center_on_resize.hpp>
 #include <sge/window/dim.hpp>
 #include <sge/window/parameters.hpp>
@@ -213,7 +213,7 @@ try
 
 	sge::texture::const_part_scoped_ptr const image_texture_part(
 		fcppt::make_unique_ptr<
-			sge::texture::part_raw
+			sge::texture::part_raw_ref
 		>(
 			fcppt::ref(
 				*image_texture

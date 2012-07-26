@@ -18,25 +18,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TEXTURE_DETAIL_OPTIONAL_CONTAINER_POSITION_HPP_INCLUDED
-#define SGE_TEXTURE_DETAIL_OPTIONAL_CONTAINER_POSITION_HPP_INCLUDED
+#ifndef SGE_SRC_TEXTURE_INIT_BASIC_PART_HPP_INCLUDED
+#define SGE_SRC_TEXTURE_INIT_BASIC_PART_HPP_INCLUDED
 
-#include <sge/texture/detail/container_position.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <fcppt/move.hpp>
+#include <fcppt/unique_ptr_fwd.hpp>
 
 
 namespace sge
 {
 namespace texture
 {
-namespace detail
+
+template<
+	typename T
+>
+T &
+init_basic_part(
+	T &_ref
+)
 {
-
-typedef fcppt::optional<
-	container_position
-> optional_container_position;
-
+	return
+		_ref;
 }
+
+template<
+	typename T
+>
+fcppt::unique_ptr<
+	T
+>
+init_basic_part(
+	fcppt::unique_ptr<
+		T
+	> &_ptr
+)
+{
+	return
+		fcppt::move(
+			_ptr
+		);
+}
+
 }
 }
 

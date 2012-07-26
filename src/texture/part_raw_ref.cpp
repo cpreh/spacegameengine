@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TEXTURE_OPTIONAL_MANAGER_REF_HPP_INCLUDED
-#define SGE_TEXTURE_OPTIONAL_MANAGER_REF_HPP_INCLUDED
-
-#include <sge/texture/optional_manager_ref_fwd.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <sge/renderer/texture/planar_fwd.hpp>
+#include <sge/src/texture/instantiate_basic_part_raw.hpp>
+#include <sge/texture/part_raw_ref.hpp>
 
 
-#endif
+SGE_TEXTURE_INSTANTIATE_BASIC_PART_RAW(
+	sge::renderer::texture::planar &
+);

@@ -90,7 +90,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/quit_on_escape.hpp>
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/window.hpp>
-#include <sge/texture/part_raw.hpp>
+#include <sge/texture/part_raw_ref.hpp>
 #include <sge/viewport/center_on_resize.hpp>
 #include <sge/window/dim.hpp>
 #include <sge/window/parameters.hpp>
@@ -287,7 +287,7 @@ try
 			// We don't want that here, so we use part_raw which
 			// coveres the whole texture.
 			fcppt::make_shared_ptr<
-				sge::texture::part_raw
+				sge::texture::part_raw_ref
 			>(
 				fcppt::ref(
 					*texture_grass
@@ -309,7 +309,7 @@ try
 		)
 		.texture(
 			fcppt::make_shared_ptr<
-				sge::texture::part_raw
+				sge::texture::part_raw_ref
 			>(
 				fcppt::ref(
 					*texture_cloudsquare

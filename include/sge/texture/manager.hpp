@@ -21,14 +21,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXTURE_MANAGER_HPP_INCLUDED
 #define SGE_TEXTURE_MANAGER_HPP_INCLUDED
 
+#include <sge/image/color/format.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/texture/fragmented_fwd.hpp>
 #include <sge/texture/manager_fwd.hpp>
 #include <sge/texture/on_alloc_function.hpp>
 #include <sge/texture/part_unique_ptr.hpp>
 #include <sge/texture/symbol.hpp>
-#include <sge/texture/detail/container_position.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/ptr_container/ptr_map.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -43,42 +46,38 @@ class manager
 	);
 public:
 	SGE_TEXTURE_SYMBOL
-	explicit manager(
-		texture::on_alloc_function const &
+	explicit
+	manager(
+		sge::texture::on_alloc_function const &
 	);
 
 	SGE_TEXTURE_SYMBOL
 	~manager();
 
 	SGE_TEXTURE_SYMBOL
-	texture::part_unique_ptr
+	sge::texture::part_unique_ptr
 	add(
-		image2d::view::const_object const &
+		sge::image2d::view::const_object const &
 	);
 
 	SGE_TEXTURE_SYMBOL
 	void
 	on_alloc(
-		texture::on_alloc_function const &
+		sge::texture::on_alloc_function const &
 	);
 
 	SGE_TEXTURE_SYMBOL
 	void
 	free_empty_textures();
 private:
-	friend class fragmented;
+	sge::texture::on_alloc_function on_alloc_;
 
-	void
-	part_freed(
-		detail::container_position const &,
-		fragmented const &
-	);
+	typedef boost::ptr_multimap<
+		sge::image::color::format::type,
+		sge::texture::fragmented
+	> fragmented_map;
 
-	on_alloc_function on_alloc_;
-
-	detail::fragmented_queue free_textures_;
-
-	detail::fragmented_list full_textures_;
+	sge::texture::manager::fragmented_map textures_;
 };
 
 }

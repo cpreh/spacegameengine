@@ -18,22 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image2d/file.hpp>
-#include <sge/image2d/view/const_object.hpp>
-#include <sge/texture/add_image.hpp>
-#include <sge/texture/manager.hpp>
-#include <sge/texture/part.hpp>
-#include <sge/texture/part_unique_ptr.hpp>
+#include <sge/renderer/texture/planar_unique_ptr.hpp>
+#include <sge/src/texture/instantiate_basic_part_raw.hpp>
+#include <sge/texture/part_raw_ptr.hpp>
 
 
-sge::texture::part_unique_ptr
-sge::texture::add_image(
-	texture::manager &_manager,
-	image2d::file &_file
-)
-{
-	return
-		_manager.add(
-			_file.view()
-		);
-}
+SGE_TEXTURE_INSTANTIATE_BASIC_PART_RAW(
+	sge::renderer::texture::planar_unique_ptr
+);

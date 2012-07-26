@@ -46,6 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/fill.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/spirit/home/phoenix/core/argument.hpp>
 #include <boost/spirit/home/phoenix/object/construct.hpp>
 #include <boost/spirit/home/phoenix/object/new.hpp>
 #include <utility>
@@ -78,7 +79,7 @@ sge::font::text::drawer_3d::drawer_3d(
 				fcppt::ref(
 					_renderer
 				),
-				sge::image::color::format::a8,
+				boost::phoenix::arg_names::arg1,
 				renderer::texture::mipmap::off(),
 				fcppt::math::dim::fill<
 					2,

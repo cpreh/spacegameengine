@@ -18,15 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TEXTURE_PART_RAW_HPP_INCLUDED
-#define SGE_TEXTURE_PART_RAW_HPP_INCLUDED
+#ifndef SGE_TEXTURE_BASIC_PART_RAW_HPP_INCLUDED
+#define SGE_TEXTURE_BASIC_PART_RAW_HPP_INCLUDED
 
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
+#include <sge/texture/basic_part_raw_fwd.hpp>
 #include <sge/texture/part.hpp>
 #include <sge/texture/symbol.hpp>
-#include <fcppt/math/box/object_impl.hpp>
+#include <sge/texture/detail/ref_store_type.hpp>
+#include <fcppt/scoped_ptr_impl.hpp>
 
 
 namespace sge
@@ -34,53 +36,52 @@ namespace sge
 namespace texture
 {
 
-class part_raw
+template<
+	typename Ref
+>
+class basic_part_raw
 :
-	public texture::part
+	public sge::texture::part
 {
-	FCPPT_NONCOPYABLE(
-		part_raw
-	);
 public:
+	typedef Ref ref_type;
+
 	SGE_TEXTURE_SYMBOL
-	explicit part_raw(
-		renderer::texture::planar &
+	explicit
+	basic_part_raw(
+		Ref
 	);
 
 	SGE_TEXTURE_SYMBOL
-	part_raw(
-		renderer::texture::planar &,
-		renderer::lock_rect const &
-	);
-
-	SGE_TEXTURE_SYMBOL
-	~part_raw();
+	~basic_part_raw();
 
 	SGE_TEXTURE_SYMBOL
 	void
 	data(
-		image2d::view::const_object const &
+		sge::image2d::view::const_object const &
 	);
 
 	SGE_TEXTURE_SYMBOL
-	renderer::lock_rect const &
+	sge::renderer::lock_rect const
 	area() const;
 
 	SGE_TEXTURE_SYMBOL
-	renderer::texture::planar &
+	sge::renderer::texture::planar &
 	texture();
 
 	SGE_TEXTURE_SYMBOL
-	renderer::texture::planar const &
+	sge::renderer::texture::planar const &
 	texture() const;
 
 	SGE_TEXTURE_SYMBOL
 	bool
 	repeatable() const;
 private:
-	renderer::lock_rect const area_;
+	typedef typename sge::texture::detail::ref_store_type<
+		Ref
+	>::type store_type;
 
-	renderer::texture::planar &tex_;
+	store_type texture_;
 };
 
 }

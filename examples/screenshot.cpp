@@ -34,6 +34,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/context/object.hpp>
 #include <sge/renderer/context/scoped.hpp>
 #include <sge/renderer/target/onscreen.hpp>
+#include <sge/renderer/texture/create_planar_from_path.hpp>
+#include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/parameters.hpp>
@@ -53,12 +55,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/quit_on_escape.hpp>
-#include <sge/texture/add_image.hpp>
 #include <sge/texture/const_part_scoped_ptr.hpp>
-#include <sge/texture/fragmented_unique_ptr.hpp>
-#include <sge/texture/manager.hpp>
-#include <sge/texture/no_fragmented.hpp>
-#include <sge/texture/part.hpp>
+#include <sge/texture/part_raw_ptr.hpp>
 #include <sge/viewport/center_on_resize.hpp>
 #include <sge/window/dim.hpp>
 #include <sge/window/parameters.hpp>
@@ -67,6 +65,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
@@ -79,8 +78,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <boost/mpl/vector/vector10.hpp>
-#include <boost/spirit/home/phoenix/object/construct.hpp>
-#include <boost/spirit/home/phoenix/object/new.hpp>
 #include <example_main.hpp>
 #include <exception>
 #include <iostream>
@@ -155,31 +152,18 @@ try
 		)
 	);
 
-	sge::renderer::device &device(
-		sys.renderer()
-	);
-
-	sge::texture::manager tex_man(
-		boost::phoenix::construct<
-			sge::texture::fragmented_unique_ptr
-		>(
-			boost::phoenix::new_<
-				sge::texture::no_fragmented
-			>(
-				fcppt::ref(
-					device
-				),
-				sge::image::color::format::rgba8,
-				sge::renderer::texture::mipmap::off()
-			)
-		)
-	);
-
 	sge::texture::const_part_scoped_ptr const tex(
-		sge::texture::add_image(
-			tex_man,
-			*sys.image_system().load(
-				sge::config::media_path() / FCPPT_TEXT("images") / FCPPT_TEXT("tux.png")
+		fcppt::make_unique_ptr<
+			sge::texture::part_raw_ptr
+		>(
+			sge::renderer::texture::create_planar_from_path(
+				sge::config::media_path()
+				/ FCPPT_TEXT("images")
+				/ FCPPT_TEXT("tux.png"),
+				sys.renderer(),
+				sys.image_system(),
+				sge::renderer::texture::mipmap::off(),
+				sge::renderer::resource_flags_field::null()
 			)
 		)
 	);
@@ -220,7 +204,7 @@ try
 	> sprite_parameters;
 
 	sprite_buffers_type sprite_buffers(
-		device,
+		sys.renderer(),
 		sge::sprite::buffers::option::dynamic
 	);
 
@@ -250,7 +234,7 @@ try
 				std::tr1::bind(
 					sge::renderer::screenshot,
 					fcppt::ref(
-						device
+						sys.renderer()
 					),
 					fcppt::ref(
 						sys.image_system()
