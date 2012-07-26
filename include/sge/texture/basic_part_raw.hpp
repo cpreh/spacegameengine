@@ -53,6 +53,12 @@ public:
 	);
 
 	SGE_TEXTURE_SYMBOL
+	basic_part_raw(
+		Ref,
+		sge::renderer::lock_rect const &
+	);
+
+	SGE_TEXTURE_SYMBOL
 	~basic_part_raw();
 
 	SGE_TEXTURE_SYMBOL
@@ -82,6 +88,8 @@ private:
 	>::type store_type;
 
 	store_type texture_;
+
+	sge::renderer::lock_rect const area_;
 };
 
 }

@@ -28,7 +28,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/texture/dereference_basic_part.hpp>
 #include <sge/texture/basic_part_raw.hpp>
 #include <sge/texture/sub_data.hpp>
+#include <fcppt/math/dim/comparison.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 template<
 	typename Ref
@@ -43,6 +50,32 @@ sge::texture::basic_part_raw<
 		sge::texture::init_basic_part(
 			_texture
 		)
+	),
+	area_(
+		this->texture().area()
+	)
+{
+}
+
+FCPPT_PP_POP_WARNING
+
+template<
+	typename Ref
+>
+sge::texture::basic_part_raw<
+	Ref
+>::basic_part_raw(
+	ref_type _texture,
+	sge::renderer::lock_rect const &_lock_rect
+)
+:
+	texture_(
+		sge::texture::init_basic_part(
+			_texture
+		)
+	),
+	area_(
+		_lock_rect
 	)
 {
 }
@@ -82,7 +115,7 @@ sge::texture::basic_part_raw<
 >::area() const
 {
 	return
-		this->texture().area();
+		area_;
 }
 
 template<
@@ -122,7 +155,9 @@ sge::texture::basic_part_raw<
 >::repeatable() const
 {
 	return
-		true;
+		this->texture().area()
+		==
+		this->area();
 }
 
 #endif
