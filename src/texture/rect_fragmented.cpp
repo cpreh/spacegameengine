@@ -19,43 +19,57 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/color/format.hpp>
-#include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/device.hpp>
 #include <sge/renderer/dim2.hpp>
+#include <sge/renderer/resource_flags_field.hpp>
+#include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/texture/mipmap/object_fwd.hpp>
 #include <sge/texture/part_fragmented.hpp>
+#include <sge/texture/part_fwd.hpp>
 #include <sge/texture/part_unique_ptr.hpp>
 #include <sge/texture/rect_fragmented.hpp>
-#include <sge/texture/atlasing/create.hpp>
+#include <sge/texture/atlasing/outer_rect.hpp>
 #include <sge/texture/atlasing/size.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/move.hpp>
 #include <fcppt/ref.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::texture::rect_fragmented::rect_fragmented(
-	renderer::device &_rend,
-	image::color::format::type const _format,
-	renderer::texture::mipmap::object const &_mipmap,
-	renderer::dim2 const &_initial_size
+	sge::renderer::device &_renderer,
+	sge::image::color::format::type const _format,
+	sge::renderer::texture::mipmap::object const &_mipmap,
+	sge::renderer::dim2 const &_initial_size
 )
 :
-	cur_x_(0),
-	cur_y_(0),
-	cur_height_(0),
-	tex_(
-		atlasing::create(
-			_rend,
-			_format,
-			_mipmap,
-			_initial_size
+	cur_x_(
+		0u
+	),
+	cur_y_(
+		0u
+	),
+	cur_height_(
+		0u
+	),
+	texture_(
+		_renderer.create_planar_texture(
+			sge::renderer::texture::planar_parameters(
+				_initial_size,
+				_format,
+				_mipmap,
+				sge::renderer::resource_flags_field::null(),
+				sge::renderer::texture::capabilities_field::null()
+			)
 		)
 	),
-	texture_count_(0)
+	texture_count_(
+		0u
+	)
 {
 }
 
@@ -65,25 +79,24 @@ sge::texture::rect_fragmented::~rect_fragmented()
 
 sge::texture::part_unique_ptr
 sge::texture::rect_fragmented::consume_fragment(
-	renderer::dim2 const &_size
+	sge::renderer::dim2 const &_size
 )
 {
-	renderer::texture::planar::dim const atlased_dim(
-		atlasing::size(
-			_size,
-			true
+	sge::renderer::dim2 const atlased_dim(
+		sge::texture::atlasing::size(
+			_size
 		)
 	);
 
 	// if there is no space left for the requested height
 	if(
-		cur_y_ + _size.h() >= tex_->size().h()
+		cur_y_ + _size.h() >= texture_->size().h()
 	)
-		return texture::part_unique_ptr();
+		return sge::texture::part_unique_ptr();
 
 	// if the current line is full advance to the next
 	if(
-		cur_x_ + _size.w() >= tex_->size().w()
+		cur_x_ + _size.w() >= texture_->size().w()
 	)
 	{
 		cur_x_ = 0;
@@ -92,26 +105,26 @@ sge::texture::rect_fragmented::consume_fragment(
 	}
 
 	if(
-		cur_y_ + _size.h() >= tex_->size().h()
+		cur_y_ + _size.h() >= texture_->size().h()
 	)
-		return texture::part_unique_ptr();
+		return sge::texture::part_unique_ptr();
 
-	texture::part_unique_ptr ret(
+	sge::texture::part_unique_ptr ret(
 		fcppt::make_unique_ptr<
-			texture::part_fragmented
+			sge::texture::part_fragmented
 		>(
-			renderer::lock_rect(
-				renderer::lock_rect::vector(
-					cur_x_,
-					cur_y_
-				),
-				atlased_dim
-			),
 			fcppt::ref(
 				*this
 			),
-			true,
-			true
+			sge::texture::atlasing::outer_rect(
+				sge::renderer::lock_rect(
+					sge::renderer::lock_rect::vector(
+						cur_x_,
+						cur_y_
+					),
+					atlased_dim
+				)
+			)
 		)
 	);
 
@@ -129,7 +142,7 @@ sge::texture::rect_fragmented::consume_fragment(
 
 void
 sge::texture::rect_fragmented::return_fragment(
-	part const &
+	sge::texture::part const &
 )
 {
 	--texture_count_;
@@ -138,23 +151,27 @@ sge::texture::rect_fragmented::return_fragment(
 sge::renderer::texture::planar &
 sge::texture::rect_fragmented::texture()
 {
-	return *tex_;
+	return
+		*texture_;
 }
 
 sge::renderer::texture::planar const &
 sge::texture::rect_fragmented::texture() const
 {
-	return *tex_;
+	return
+		*texture_;
 }
 
 bool
 sge::texture::rect_fragmented::repeatable() const
 {
-	return false;
+	return
+		false;
 }
 
 bool
 sge::texture::rect_fragmented::empty() const
 {
-	return texture_count_ == 0u;
+	return
+		texture_count_ == 0u;
 }

@@ -27,6 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/fragmented_fwd.hpp>
 #include <sge/texture/part.hpp>
 #include <sge/texture/symbol.hpp>
+#include <sge/texture/atlasing/inner_rect.hpp>
+#include <sge/texture/atlasing/outer_rect.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 
@@ -46,10 +48,8 @@ class part_fragmented
 public:
 	SGE_TEXTURE_SYMBOL
 	part_fragmented(
-		sge::renderer::lock_rect const &outer_rect,
 		sge::texture::fragmented &,
-		bool need_atlasing_w,
-		bool need_atlasing_h
+		sge::texture::atlasing::outer_rect const &
 	);
 
 	SGE_TEXTURE_SYMBOL
@@ -77,15 +77,9 @@ public:
 	SGE_TEXTURE_SYMBOL
 	~part_fragmented();
 private:
-	sge::renderer::lock_rect const outer_area_;
-
 	sge::texture::fragmented &fragment_;
 
-	bool const
-		need_atlasing_w_,
-		need_atlasing_h_;
-
-	sge::renderer::lock_rect const inner_area_;
+	sge::texture::atlasing::inner_rect const inner_area_;
 };
 
 }

@@ -26,34 +26,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/sub_data.hpp>
 #include <sge/texture/atlasing/border_h.hpp>
 #include <sge/texture/atlasing/border_w.hpp>
-#include <sge/texture/atlasing/inner_rect.hpp>
-#include <fcppt/math/box/object_impl.hpp>
+#include <sge/texture/atlasing/make_inner_rect.hpp>
+#include <sge/texture/atlasing/outer_rect.hpp>
 
 
 sge::texture::part_fragmented::part_fragmented(
-	renderer::lock_rect const &_outer_area,
-	texture::fragmented &_fragment,
-	bool const _need_atlasing_w,
-	bool const _need_atlasing_h
+	sge::texture::fragmented &_fragment,
+	sge::texture::atlasing::outer_rect const &_outer_area
 )
 :
-	outer_area_(
-		_outer_area
-	),
 	fragment_(
 		_fragment
 	),
-	need_atlasing_w_(
-		_need_atlasing_w
-	),
-	need_atlasing_h_(
-		_need_atlasing_h
-	),
 	inner_area_(
-		atlasing::inner_rect(
-			outer_area_,
-			need_atlasing_w_,
-			need_atlasing_h_
+		sge::texture::atlasing::make_inner_rect(
+			_outer_area
 		)
 	)
 {
@@ -68,40 +55,33 @@ sge::texture::part_fragmented::~part_fragmented()
 
 void
 sge::texture::part_fragmented::data(
-	image2d::view::const_object const &_src
+	sge::image2d::view::const_object const &_src
 )
 {
-	texture::sub_data(
+	sge::texture::sub_data(
 		this->texture(),
 		_src,
-		inner_area_.pos()
+		inner_area_.get().pos()
 	);
 
-	if(
-		need_atlasing_h_
-	)
-		atlasing::border_h(
-			this->texture(),
-			_src,
-			outer_area_,
-			inner_area_
-		);
+	sge::texture::atlasing::border_h(
+		this->texture(),
+		_src,
+		inner_area_
+	);
 
-	if(
-		need_atlasing_w_
-	)
-		atlasing::border_w(
-			this->texture(),
-			_src,
-			outer_area_,
-			inner_area_
-		);
+	sge::texture::atlasing::border_w(
+		this->texture(),
+		_src,
+		inner_area_
+	);
 }
 
 sge::renderer::lock_rect const
 sge::texture::part_fragmented::area() const
 {
-	return inner_area_;
+	return
+		inner_area_.get();
 }
 
 sge::renderer::texture::planar &
@@ -119,5 +99,5 @@ sge::texture::part_fragmented::texture() const
 bool
 sge::texture::part_fragmented::repeatable() const
 {
-	return !need_atlasing_w_ && !need_atlasing_h_;
+	return false;
 }

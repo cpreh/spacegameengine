@@ -18,29 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/texture/atlasing/need.hpp>
-#include <fcppt/math/is_power_of_2.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
+#include <sge/renderer/size_type.hpp>
+#include <sge/texture/atlasing/border_size.hpp>
+#include <sge/texture/atlasing/gap.hpp>
 
 
-bool
-sge::texture::atlasing::need(
-	renderer::size_type const s
-)
-{
-	return !fcppt::math::is_power_of_2(s);
-}
-
-bool
-sge::texture::atlasing::need(
-	renderer::dim2 const &dim
+sge::renderer::size_type
+sge::texture::atlasing::border_size(
+	sge::renderer::size_type const _size
 )
 {
 	return
-		need(
-			dim.w()
-		)
-		|| need(
-			dim.h()
-		);
+		_size + 2u * sge::texture::atlasing::gap();
 }

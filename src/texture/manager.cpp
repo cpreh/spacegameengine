@@ -125,7 +125,11 @@ sge::texture::manager::add(
 	if(
 		!new_part
 	)
-		throw sge::texture::image_too_big();
+		throw sge::texture::image_too_big(
+			sge::image2d::view::size(
+				_src
+			)
+		);
 
 	return
 		fcppt::move(

@@ -18,19 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/texture/atlasing/bound.hpp>
-#include <sge/texture/atlasing/bounds.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
+#include <sge/renderer/lock_rect.hpp>
+#include <sge/texture/atlasing/inner_rect.hpp>
+#include <sge/texture/atlasing/make_inner_rect.hpp>
+#include <sge/texture/atlasing/outer_rect.hpp>
 
 
-sge::renderer::dim2 const
-sge::texture::atlasing::bounds(
-	renderer::dim2 const &dim
+sge::texture::atlasing::inner_rect const
+sge::texture::atlasing::make_inner_rect(
+	sge::texture::atlasing::outer_rect const &_outer
 )
 {
+	// We can't use box::stretch here because the values are unsigned
 	return
-		renderer::dim2(
-			bound(dim.w()),
-			bound(dim.h())
+		sge::texture::atlasing::inner_rect(
+			sge::renderer::lock_rect(
+				sge::renderer::lock_rect::vector(
+					_outer.get().pos().x() + 1u,
+					_outer.get().pos().y() + 1u
+				),
+				sge::renderer::lock_rect::dim(
+					_outer.get().size().w() - 2u,
+					_outer.get().size().h() - 2u
+				)
+			)
 		);
 }

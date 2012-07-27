@@ -18,41 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/texture/atlasing/gap.hpp>
-#include <sge/texture/atlasing/need.hpp>
+#include <sge/renderer/dim2.hpp>
+#include <sge/texture/atlasing/border_size.hpp>
 #include <sge/texture/atlasing/size.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
 
-
-sge::renderer::size_type
-sge::texture::atlasing::size(
-	renderer::size_type const s,
-	bool const force_atlasing
-)
-{
-	return
-		need(s) || force_atlasing
-		?
-			s + 2 * gap()
-		:
-			s;
-}
 
 sge::renderer::dim2 const
 sge::texture::atlasing::size(
-	renderer::dim2 const &dim,
-	bool const force_atlasing
+	sge::renderer::dim2 const &_dim
 )
 {
 	return
-		renderer::dim2(
-			size(
-				dim.w(),
-				force_atlasing
+		sge::renderer::dim2(
+			sge::texture::atlasing::border_size(
+				_dim.w()
 			),
-			size(
-				dim.h(),
-				force_atlasing
+			sge::texture::atlasing::border_size(
+				_dim.h()
 			)
 		);
 }

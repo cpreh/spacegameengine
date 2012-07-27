@@ -2,13 +2,12 @@ set(
 	SGE_TEXTURE_FILES
 	include/sge/texture/area_texc.hpp
 	include/sge/texture/atlasing/border_h.hpp
+	include/sge/texture/atlasing/border_size.hpp
 	include/sge/texture/atlasing/border_w.hpp
-	include/sge/texture/atlasing/bound.hpp
-	include/sge/texture/atlasing/bounds.hpp
-	include/sge/texture/atlasing/create.hpp
 	include/sge/texture/atlasing/gap.hpp
 	include/sge/texture/atlasing/inner_rect.hpp
-	include/sge/texture/atlasing/need.hpp
+	include/sge/texture/atlasing/make_inner_rect.hpp
+	include/sge/texture/atlasing/outer_rect.hpp
 	include/sge/texture/atlasing/size.hpp
 	include/sge/texture/basic_part_raw.hpp
 	include/sge/texture/basic_part_raw_fwd.hpp
@@ -18,6 +17,7 @@ set(
 	include/sge/texture/const_part_shared_ptr.hpp
 	include/sge/texture/consume_and_set_fragment.hpp
 	include/sge/texture/detail/ref_store_type.hpp
+	include/sge/texture/exception.hpp
 	include/sge/texture/fragmented.hpp
 	include/sge/texture/fragmented_fwd.hpp
 	include/sge/texture/fragmented_unique_ptr.hpp
@@ -41,15 +41,13 @@ set(
 	include/sge/texture/sub_data.hpp
 	src/texture/area_texc.cpp
 	src/texture/atlasing/border_h.cpp
+	src/texture/atlasing/border_size.cpp
 	src/texture/atlasing/border_w.cpp
-	src/texture/atlasing/bound.cpp
-	src/texture/atlasing/bounds.cpp
-	src/texture/atlasing/create.cpp
 	src/texture/atlasing/gap.cpp
-	src/texture/atlasing/inner_rect.cpp
-	src/texture/atlasing/need.cpp
+	src/texture/atlasing/make_inner_rect.cpp
 	src/texture/atlasing/size.cpp
 	src/texture/consume_and_set_fragment.cpp
+	src/texture/exception.cpp
 	src/texture/fragmented.cpp
 	src/texture/image_too_big.cpp
 	src/texture/include/sge/src/texture/basic_part_raw_impl.hpp

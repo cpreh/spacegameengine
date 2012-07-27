@@ -86,7 +86,7 @@ private:
 		cur_y_,
 		cur_height_;
 
-	sge::renderer::texture::planar_scoped_ptr const tex_;
+	sge::renderer::texture::planar_scoped_ptr const texture_;
 
 	sge::renderer::size_type texture_count_;
 };

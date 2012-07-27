@@ -18,10 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TEXTURE_ATLASING_BOUNDS_HPP_INCLUDED
-#define SGE_TEXTURE_ATLASING_BOUNDS_HPP_INCLUDED
+#ifndef SGE_TEXTURE_ATLASING_OUTER_RECT_HPP_INCLUDED
+#define SGE_TEXTURE_ATLASING_OUTER_RECT_HPP_INCLUDED
 
-#include <sge/renderer/dim2.hpp>
+#include <sge/renderer/lock_rect_fwd.hpp>
+#include <fcppt/strong_typedef.hpp>
+
 
 namespace sge
 {
@@ -30,9 +32,9 @@ namespace texture
 namespace atlasing
 {
 
-renderer::dim2 const
-bounds(
-	renderer::dim2 const &
+FCPPT_MAKE_STRONG_TYPEDEF(
+	sge::renderer::lock_rect,
+	outer_rect
 );
 
 }

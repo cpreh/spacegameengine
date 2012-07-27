@@ -22,8 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TEXTURE_ATLASING_BORDER_W_HPP_INCLUDED
 
 #include <sge/image2d/view/const_object_fwd.hpp>
-#include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
+#include <sge/texture/symbol.hpp>
+#include <sge/texture/atlasing/inner_rect.hpp>
 
 
 namespace sge
@@ -33,12 +34,12 @@ namespace texture
 namespace atlasing
 {
 
+SGE_TEXTURE_SYMBOL
 void
 border_w(
-	renderer::texture::planar &,
-	image2d::view::const_object const &src,
-	renderer::lock_rect const &outer_area,
-	renderer::lock_rect const &inner_area
+	sge::renderer::texture::planar &,
+	sge::image2d::view::const_object const &,
+	sge::texture::atlasing::inner_rect const &
 );
 
 }

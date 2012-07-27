@@ -18,20 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/texture/atlasing/bound.hpp>
-#include <fcppt/math/is_power_of_2.hpp>
-#include <fcppt/math/next_power_of_2.hpp>
+#ifndef SGE_TEXTURE_EXCEPTION_HPP_INCLUDED
+#define SGE_TEXTURE_EXCEPTION_HPP_INCLUDED
+
+#include <sge/class_symbol.hpp>
+#include <sge/exception.hpp>
+#include <sge/texture/symbol.hpp>
+#include <fcppt/string.hpp>
 
 
-sge::renderer::size_type
-sge::texture::atlasing::bound(
-	renderer::size_type const s
-)
+namespace sge
 {
-	return
-		fcppt::math::is_power_of_2(s)
-		?
-			s
-		:
-			fcppt::math::next_power_of_2(s);
+namespace texture
+{
+
+class SGE_CLASS_SYMBOL exception
+:
+	public sge::exception
+{
+public:
+	SGE_TEXTURE_SYMBOL
+	explicit
+	exception(
+		fcppt::string const &
+	);
+};
+
 }
+}
+
+#endif

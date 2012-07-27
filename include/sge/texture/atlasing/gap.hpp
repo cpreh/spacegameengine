@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TEXTURE_ATLASING_GAP_HPP_INCLUDED
 
 #include <sge/renderer/size_type.hpp>
+#include <sge/texture/symbol.hpp>
+
 
 namespace sge
 {
@@ -30,7 +32,8 @@ namespace texture
 namespace atlasing
 {
 
-renderer::size_type
+SGE_TEXTURE_SYMBOL
+sge::renderer::size_type
 gap();
 
 }

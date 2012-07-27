@@ -18,10 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TEXTURE_ATLASING_BOUND_HPP_INCLUDED
-#define SGE_TEXTURE_ATLASING_BOUND_HPP_INCLUDED
+#ifndef SGE_TEXTURE_ATLASING_MAKE_INNER_RECT_HPP_INCLUDED
+#define SGE_TEXTURE_ATLASING_MAKE_INNER_RECT_HPP_INCLUDED
 
-#include <sge/renderer/size_type.hpp>
+#include <sge/texture/symbol.hpp>
+#include <sge/texture/atlasing/inner_rect.hpp>
+#include <sge/texture/atlasing/outer_rect.hpp>
+
 
 namespace sge
 {
@@ -30,9 +33,10 @@ namespace texture
 namespace atlasing
 {
 
-renderer::size_type
-bound(
-	renderer::size_type
+SGE_TEXTURE_SYMBOL
+sge::texture::atlasing::inner_rect const
+make_inner_rect(
+	sge::texture::atlasing::outer_rect const &
 );
 
 }

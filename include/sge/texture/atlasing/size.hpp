@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXTURE_ATLASING_SIZE_HPP_INCLUDED
 #define SGE_TEXTURE_ATLASING_SIZE_HPP_INCLUDED
 
-#include <sge/renderer/dim2.hpp>
-#include <sge/renderer/size_type.hpp>
+#include <sge/renderer/dim2_fwd.hpp>
+#include <sge/texture/symbol.hpp>
 
 
 namespace sge
@@ -32,16 +32,10 @@ namespace texture
 namespace atlasing
 {
 
-renderer::size_type
+SGE_TEXTURE_SYMBOL
+sge::renderer::dim2 const
 size(
-	renderer::size_type,
-	bool force_atlasing = false
-);
-
-renderer::dim2 const
-size(
-	renderer::dim2 const &,
-	bool force_atlasing = false
+	sge::renderer::dim2 const &
 );
 
 }

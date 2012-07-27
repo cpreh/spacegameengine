@@ -18,14 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TEXTURE_ATLASING_CREATE_HPP_INCLUDED
-#define SGE_TEXTURE_ATLASING_CREATE_HPP_INCLUDED
+#ifndef SGE_TEXTURE_ATLASING_BORDER_SIZE_HPP_INCLUDED
+#define SGE_TEXTURE_ATLASING_BORDER_SIZE_HPP_INCLUDED
 
-#include <sge/image/color/format.hpp>
-#include <sge/renderer/device_fwd.hpp>
-#include <sge/renderer/dim2_fwd.hpp>
-#include <sge/renderer/texture/planar_unique_ptr.hpp>
-#include <sge/renderer/texture/mipmap/object_fwd.hpp>
+#include <sge/renderer/size_type.hpp>
+#include <sge/texture/symbol.hpp>
 
 
 namespace sge
@@ -35,12 +32,10 @@ namespace texture
 namespace atlasing
 {
 
-renderer::texture::planar_unique_ptr
-create(
-	renderer::device &,
-	image::color::format::type,
-	renderer::texture::mipmap::object const &,
-	renderer::dim2 const &
+SGE_TEXTURE_SYMBOL
+sge::renderer::size_type
+border_size(
+	sge::renderer::size_type
 );
 
 }

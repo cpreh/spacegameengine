@@ -34,7 +34,7 @@ sge::texture::consume_and_set_fragment(
 	sge::image2d::view::const_object const &_view
 )
 {
-	texture::part_unique_ptr ret(
+	sge::texture::part_unique_ptr ret(
 		_fragment.consume_fragment(
 			image2d::view::size(
 				_view

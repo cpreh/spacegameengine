@@ -18,13 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/renderer/dim2.hpp>
+#include <sge/texture/exception.hpp>
 #include <sge/texture/image_too_big.hpp>
+#include <fcppt/format.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/math/dim/output.hpp>
 
 
-sge::texture::image_too_big::image_too_big()
+sge::texture::image_too_big::image_too_big(
+	sge::renderer::dim2 const &_size
+)
 :
-	exception(
-		FCPPT_TEXT("texture::manager::add_texture() image too big!")
+	sge::texture::exception(
+		(
+			fcppt::format(
+				FCPPT_TEXT("texture::manager::add() image of size %1% too big!")
+			)
+			%
+			_size
+		).str()
 	)
-{}
+{
+}

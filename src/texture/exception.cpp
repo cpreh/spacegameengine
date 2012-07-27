@@ -18,32 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TEXTURE_ATLASING_NEED_HPP_INCLUDED
-#define SGE_TEXTURE_ATLASING_NEED_HPP_INCLUDED
+#include <sge/exception.hpp>
+#include <sge/texture/exception.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/text.hpp>
 
-#include <sge/renderer/dim2.hpp>
-#include <sge/renderer/size_type.hpp>
 
-
-namespace sge
+sge::texture::exception::exception(
+	fcppt::string const &_what
+)
+:
+	sge::exception(
+		FCPPT_TEXT("texture: ")
+		+
+		_what
+	)
 {
-namespace texture
-{
-namespace atlasing
-{
-
-bool
-need(
-	renderer::size_type
-);
-
-bool
-need(
-	renderer::dim2 const &
-);
-
 }
-}
-}
-
-#endif

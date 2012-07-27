@@ -22,70 +22,63 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/size.hpp>
 #include <sge/image2d/view/sub.hpp>
 #include <sge/renderer/dim2.hpp>
+#include <sge/renderer/lock_rect.hpp>
+#include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/texture/pos_type.hpp>
 #include <sge/texture/sub_data.hpp>
 #include <sge/texture/atlasing/border_h.hpp>
-#include <fcppt/math/box/object_impl.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
+#include <sge/texture/atlasing/inner_rect.hpp>
 
 
 void
 sge::texture::atlasing::border_h(
-	renderer::texture::planar &_texture,
-	image2d::view::const_object const &_source,
-	renderer::lock_rect const &_outer_area,
-	renderer::lock_rect const &_inner_area
+	sge::renderer::texture::planar &_texture,
+	sge::image2d::view::const_object const &_source,
+	sge::texture::atlasing::inner_rect const &_inner_area
 )
 {
-	renderer::dim2 const dim(
-		image2d::view::size(
+	sge::renderer::dim2 const dim(
+		sge::image2d::view::size(
 			_source
 		)
 	);
 
-	texture::sub_data(
+	sge::texture::sub_data(
 		_texture,
-		image2d::view::sub(
+		sge::image2d::view::sub(
 			_source,
-			renderer::lock_rect(
-				renderer::lock_rect::vector::null(),
-				renderer::lock_rect::dim(
+			sge::renderer::lock_rect(
+				sge::renderer::lock_rect::vector::null(),
+				sge::renderer::lock_rect::dim(
 					dim.w(),
 					1u
 				)
 			)
 		),
-		texture::pos_type(
-			_inner_area.left(),
-			_outer_area.top()
+		sge::texture::pos_type(
+			_inner_area.get().left(),
+			_inner_area.get().top() - 1u
 		)
 	);
 
-	if(
-		_inner_area.bottom() + 1u
-		== _outer_area.bottom()
-	)
-		return;
-
-	texture::sub_data(
+	sge::texture::sub_data(
 		_texture,
-		image2d::view::sub(
+		sge::image2d::view::sub(
 			_source,
-			renderer::lock_rect(
-				renderer::lock_rect::vector(
-					0,
+			sge::renderer::lock_rect(
+				sge::renderer::lock_rect::vector(
+					0u,
 					dim.h() - 1u
 				),
-				renderer::lock_rect::dim(
+				sge::renderer::lock_rect::dim(
 					dim.w(),
 					1u
 				)
 			)
 		),
-		texture::pos_type(
-			_inner_area.left(),
-			_outer_area.bottom() - 1u
+		sge::texture::pos_type(
+			_inner_area.get().left(),
+			_inner_area.get().bottom() + 1u
 		)
 	);
 }
