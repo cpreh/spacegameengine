@@ -18,24 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_LIGHT_POSITION_HPP_INCLUDED
-#define SGE_OPENGL_LIGHT_POSITION_HPP_INCLUDED
+#ifndef SGE_RENDERER_LIGHT_POSITION_FWD_HPP_INCLUDED
+#define SGE_RENDERER_LIGHT_POSITION_FWD_HPP_INCLUDED
 
-#include <sge/opengl/light/index.hpp>
-#include <sge/renderer/light/position_fwd.hpp>
+#include <sge/renderer/vector3_fwd.hpp>
+#include <fcppt/make_strong_typedef.hpp>
 
 
 namespace sge
 {
-namespace opengl
+namespace renderer
 {
 namespace light
 {
 
-void
-position(
-	sge::opengl::light::index,
-	sge::renderer::light::position const &
+FCPPT_MAKE_STRONG_TYPEDEF(
+	sge::renderer::vector3,
+	position
 );
 
 }

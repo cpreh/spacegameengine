@@ -6,8 +6,10 @@ set(
 	include/sge/texture/atlasing/border_w.hpp
 	include/sge/texture/atlasing/gap.hpp
 	include/sge/texture/atlasing/inner_rect.hpp
+	include/sge/texture/atlasing/inner_rect_fwd.hpp
 	include/sge/texture/atlasing/make_inner_rect.hpp
 	include/sge/texture/atlasing/outer_rect.hpp
+	include/sge/texture/atlasing/outer_rect_fwd.hpp
 	include/sge/texture/atlasing/size.hpp
 	include/sge/texture/basic_part_raw.hpp
 	include/sge/texture/basic_part_raw_fwd.hpp

@@ -18,19 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/light/index.hpp>
 #include <sge/opengl/light/position.hpp>
 #include <sge/opengl/light/position_impl.hpp>
+#include <sge/renderer/light/position.hpp>
 #include <fcppt/math/vector/construct.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
 
 
 void
 sge::opengl::light::position(
-	light::index const _index,
-	renderer::light::position const &_position
+	sge::opengl::light::index const _index,
+	sge::renderer::light::position const &_position
 )
 {
-	light::position_impl(
+	sge::opengl::light::position_impl(
 		_index,
 		fcppt::math::vector::construct(
 			_position.get(),

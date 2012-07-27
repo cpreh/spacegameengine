@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_LIGHT_DIRECTION_HPP_INCLUDED
 
 #include <sge/opengl/light/index.hpp>
-#include <sge/renderer/light/direction.hpp>
+#include <sge/renderer/light/direction_fwd.hpp>
+
 
 namespace sge
 {
@@ -33,8 +34,8 @@ namespace light
 
 void
 direction(
-	light::index,
-	renderer::light::direction const &
+	sge::opengl::light::index,
+	sge::renderer::light::direction const &
 );
 
 }

@@ -22,23 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_LIGHT_DIRECTION_HPP_INCLUDED
 
 #include <sge/renderer/vector3.hpp>
+#include <sge/renderer/light/direction_fwd.hpp>
 #include <fcppt/strong_typedef.hpp>
 
-
-namespace sge
-{
-namespace renderer
-{
-namespace light
-{
-
-FCPPT_MAKE_STRONG_TYPEDEF(
-	renderer::vector3,
-	direction
-);
-
-}
-}
-}
 
 #endif

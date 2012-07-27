@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TEXTURE_ATLASING_MAKE_INNER_RECT_HPP_INCLUDED
 
 #include <sge/texture/symbol.hpp>
-#include <sge/texture/atlasing/inner_rect.hpp>
-#include <sge/texture/atlasing/outer_rect.hpp>
+#include <sge/texture/atlasing/inner_rect_fwd.hpp>
+#include <sge/texture/atlasing/outer_rect_fwd.hpp>
 
 
 namespace sge

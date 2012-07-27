@@ -21,24 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXTURE_ATLASING_INNER_RECT_HPP_INCLUDED
 #define SGE_TEXTURE_ATLASING_INNER_RECT_HPP_INCLUDED
 
-#include <sge/renderer/lock_rect_fwd.hpp>
+#include <sge/renderer/lock_rect.hpp>
+#include <sge/texture/atlasing/inner_rect_fwd.hpp>
 #include <fcppt/strong_typedef.hpp>
 
-
-namespace sge
-{
-namespace texture
-{
-namespace atlasing
-{
-
-FCPPT_MAKE_STRONG_TYPEDEF(
-	sge::renderer::lock_rect,
-	inner_rect
-);
-
-}
-}
-}
 
 #endif

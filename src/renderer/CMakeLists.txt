@@ -172,6 +172,7 @@ set(
 	include/sge/renderer/light/constant_attenuation.hpp
 	include/sge/renderer/light/cutoff_angle.hpp
 	include/sge/renderer/light/direction.hpp
+	include/sge/renderer/light/direction_fwd.hpp
 	include/sge/renderer/light/directional.hpp
 	include/sge/renderer/light/directional_fwd.hpp
 	include/sge/renderer/light/index.hpp
@@ -182,6 +183,7 @@ set(
 	include/sge/renderer/light/point.hpp
 	include/sge/renderer/light/point_fwd.hpp
 	include/sge/renderer/light/position.hpp
+	include/sge/renderer/light/position_fwd.hpp
 	include/sge/renderer/light/quadratic_attenuation.hpp
 	include/sge/renderer/light/spot.hpp
 	include/sge/renderer/light/spot_fwd.hpp

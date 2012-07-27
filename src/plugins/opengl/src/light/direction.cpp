@@ -21,16 +21,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/light/direction.hpp>
 #include <sge/opengl/light/float_ptr.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
+#include <sge/opengl/light/index.hpp>
+#include <sge/renderer/light/direction.hpp>
 
 
 void
 sge::opengl::light::direction(
-	light::index const _index,
-	renderer::light::direction const &_direction
+	sge::opengl::light::index const _index,
+	sge::renderer::light::direction const &_direction
 )
 {
-	light::float_ptr(
+	sge::opengl::light::float_ptr(
 		_index,
 		GL_SPOT_DIRECTION,
 		_direction.get().data()
