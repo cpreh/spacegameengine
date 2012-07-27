@@ -32,6 +32,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/system.hpp>
 #include <sge/font/text/align_h.hpp>
 #include <sge/font/text/align_v.hpp>
+#include <sge/renderer/material.hpp>
+#include <sge/image/color/rgba8.hpp>
+#include <sge/image/color/init.hpp>
 #include <sge/font/text/draw.hpp>
 #include <sge/font/text/drawer_3d.hpp>
 #include <sge/font/text/flags_none.hpp>
@@ -191,7 +194,34 @@ try
 			sge::camera::first_person::movement_speed(
 				15.0f
 			),
-			sge::camera::coordinate_system::identity()
+			sge::camera::coordinate_system::object(
+				sge::camera::coordinate_system::right(
+					sge::renderer::vector3(
+						-0.664409f,
+						4.47035e-08f,
+						0.747369f
+					)
+				),
+				sge::camera::coordinate_system::up(
+					sge::renderer::vector3(
+						-0.348429f,
+						0.884676f,
+						-0.309752f)),
+				sge::camera::coordinate_system::forward(
+					sge::renderer::vector3(
+						-0.661179f,
+						-0.466207f,
+						-0.587787f
+					)
+				),
+				sge::camera::coordinate_system::position(
+					sge::renderer::vector3(
+						-17.9035f,
+						-14.1667f,
+						-14.7512f
+					)
+				)
+			)
 		)
 	);
 
@@ -278,6 +308,8 @@ try
 
 	sge::renderer::occlusion_query::object_scoped_ptr current_occlusion_query;
 	sge::renderer::occlusion_query::optional_pixel_count last_query_result;
+	fcppt::optional<unsigned> last_frame_delay;
+	unsigned current_delay = 0;
 
 	while(
 		sys.window_system().poll()
@@ -306,6 +338,44 @@ try
 				sge::renderer::state::list
 					(sge::renderer::state::bool_::enable_lighting = true));
 
+			// The brick wall material needs more ambient light.
+			context.material(
+				sge::renderer::material(
+					sge::renderer::diffuse_color(
+						sge::image::color::any::object(
+							sge::image::color::rgba8
+							(
+								(sge::image::color::init::red() %= .8)
+								(sge::image::color::init::green() %= .8)
+								(sge::image::color::init::blue() %= .8)
+								(sge::image::color::init::alpha() %= 1.)))),
+					sge::renderer::ambient_color(
+						sge::image::color::any::object(
+							sge::image::color::rgba8
+							(
+								(sge::image::color::init::red() %= .2)
+								(sge::image::color::init::green() %= .2)
+								(sge::image::color::init::blue() %= .2)
+								(sge::image::color::init::alpha() %= 1.)))),
+					sge::renderer::specular_color(
+						sge::image::color::any::object(
+							sge::image::color::rgba8
+							(
+								(sge::image::color::init::red() %= .0)
+								(sge::image::color::init::green() %= .0)
+								(sge::image::color::init::blue() %= .0)
+								(sge::image::color::init::alpha() %= 1.)))),
+					sge::renderer::emissive_color(
+						sge::image::color::any::object(
+							sge::image::color::rgba8
+							(
+								(sge::image::color::init::red() %= .0)
+								(sge::image::color::init::green() %= .0)
+								(sge::image::color::init::blue() %= .0)
+								(sge::image::color::init::alpha() %= 1.)))),
+					sge::renderer::shininess(
+						0.0f)));
+
 			context.enable_light(
 				sge::renderer::light::index(
 					0u),
@@ -325,15 +395,15 @@ try
 						sge::renderer::diffuse_color(
 							sge::image::colors::white()),
 						sge::renderer::specular_color(
-							sge::image::colors::white()),
+							sge::image::colors::black()),
 						sge::renderer::ambient_color(
-							sge::image::colors::white()),
+							sge::image::colors::black()),
 						sge::renderer::light::variant(
 							sge::renderer::light::directional(
 								sge::renderer::light::direction(
 									sge::renderer::vector3(
-										-0.780869f,
-										-0.624659f,
+										0.780869f,
+										0.624659f,
 										0.0f))))));
 			}
 
@@ -351,6 +421,44 @@ try
 				fcppt::assign::make_container<sge::model::manager::instance::sequence>
 					(brick_wall));
 
+			// The treasure chest needs less ambient light
+			context.material(
+				sge::renderer::material(
+					sge::renderer::diffuse_color(
+						sge::image::color::any::object(
+							sge::image::color::rgba8
+							(
+								(sge::image::color::init::red() %= .8)
+								(sge::image::color::init::green() %= .8)
+								(sge::image::color::init::blue() %= .8)
+								(sge::image::color::init::alpha() %= 1.)))),
+					sge::renderer::ambient_color(
+						sge::image::color::any::object(
+							sge::image::color::rgba8
+							(
+								(sge::image::color::init::red() %= .0)
+								(sge::image::color::init::green() %= .0)
+								(sge::image::color::init::blue() %= .0)
+								(sge::image::color::init::alpha() %= 1.)))),
+					sge::renderer::specular_color(
+						sge::image::color::any::object(
+							sge::image::color::rgba8
+							(
+								(sge::image::color::init::red() %= .0)
+								(sge::image::color::init::green() %= .0)
+								(sge::image::color::init::blue() %= .0)
+								(sge::image::color::init::alpha() %= 1.)))),
+					sge::renderer::emissive_color(
+						sge::image::color::any::object(
+							sge::image::color::rgba8
+							(
+								(sge::image::color::init::red() %= .0)
+								(sge::image::color::init::green() %= .0)
+								(sge::image::color::init::blue() %= .0)
+								(sge::image::color::init::alpha() %= 1.)))),
+					sge::renderer::shininess(
+						0.0f)));
+
 			sge::renderer::occlusion_query::optional_pixel_count const current_result(
 				current_occlusion_query
 				?
@@ -361,13 +469,35 @@ try
 					sge::renderer::occlusion_query::optional_pixel_count());
 
 			if(current_result)
+			{
+				last_frame_delay =
+					current_delay;
+
+				current_delay =
+					0;
+
 				last_query_result =
 					current_result;
+			}
+			else
+			{
+				current_delay++;
+			}
 
 			if(!current_occlusion_query || current_result)
 			{
 				current_occlusion_query.take(
 					sys.renderer().create_occlusion_query());
+
+				sge::renderer::state::scoped occlusion_state(
+					context,
+					sge::renderer::state::list
+						(sge::renderer::state::bool_::write_red = false)
+						(sge::renderer::state::bool_::write_blue = false)
+						(sge::renderer::state::bool_::write_green = false)
+						(sge::renderer::state::bool_::write_to_depth_buffer = false)
+						(sge::renderer::state::bool_::enable_lighting = false)
+						(sge::renderer::state::bool_::write_alpha = false));
 
 				sge::renderer::occlusion_query::scoped scoped_query(
 					*current_occlusion_query);
@@ -377,13 +507,11 @@ try
 					fcppt::assign::make_container<sge::model::manager::instance::sequence>
 						(treasure_chest));
 			}
-			else
-			{
-				model_manager.render(
-					context,
-					fcppt::assign::make_container<sge::model::manager::instance::sequence>
-						(treasure_chest));
-			}
+
+			model_manager.render(
+				context,
+				fcppt::assign::make_container<sge::model::manager::instance::sequence>
+					(treasure_chest));
 		}
 
 		sge::font::rect const font_rect(
@@ -407,7 +535,16 @@ try
 				fcppt::insert_to_std_wstring(
 					last_query_result->get())
 			 :
-				sge::font::text::string()),
+				sge::font::text::string())+
+			SGE_FONT_TEXT_LIT("\ndelay: ")+
+			(
+			 last_frame_delay
+			 ?
+				fcppt::insert_to_std_wstring(
+					*last_frame_delay)
+			 :
+				sge::font::text::string(
+					SGE_FONT_TEXT_LIT("n/a"))),
 			font_rect,
 			sge::font::text::align_h::left,
 			sge::font::text::align_v::top,

@@ -822,7 +822,7 @@ try
 		*vertex_declaration,
 		*md3_loader->load(
 			sge::config::media_path()
-				/ FCPPT_TEXT("models")
+				/ FCPPT_TEXT("md3s")
 				/ FCPPT_TEXT("arrow.md3")));
 
 	random_model_collection model_collection(
