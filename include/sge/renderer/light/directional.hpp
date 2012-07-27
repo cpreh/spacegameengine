@@ -22,10 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_LIGHT_DIRECTIONAL_HPP_INCLUDED
 
 #include <sge/renderer/symbol.hpp>
-#include <sge/renderer/light/cutoff_angle.hpp>
 #include <sge/renderer/light/direction.hpp>
 #include <sge/renderer/light/directional_fwd.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
 
 
 namespace sge
@@ -39,22 +37,16 @@ class directional
 {
 public:
 	SGE_RENDERER_SYMBOL
+	explicit
 	directional(
-		light::direction const &,
-		light::cutoff_angle
+		sge::renderer::light::direction const &
 	);
 
 	SGE_RENDERER_SYMBOL
-	light::direction const &
+	sge::renderer::light::direction const &
 	direction() const;
-
-	SGE_RENDERER_SYMBOL
-	light::cutoff_angle const
-	cutoff_angle() const;
 private:
-	light::direction direction_;
-
-	light::cutoff_angle cutoff_angle_;
+	sge::renderer::light::direction direction_;
 };
 
 }

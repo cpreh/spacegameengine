@@ -50,7 +50,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/aspect.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/matrix_mode.hpp>
-#include <sge/renderer/scalar.hpp>
 #include <sge/renderer/scoped_transform.hpp>
 #include <sge/renderer/caps/device.hpp>
 #include <sge/renderer/clear/parameters.hpp>
@@ -105,7 +104,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
-#include <fcppt/math/pi.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
@@ -336,9 +334,7 @@ try
 									sge::renderer::vector3(
 										-0.780869f,
 										-0.624659f,
-										0.0f)),
-								sge::renderer::light::cutoff_angle(
-									fcppt::math::pi<sge::renderer::scalar>())))));
+										0.0f))))));
 			}
 
 			context.clear(

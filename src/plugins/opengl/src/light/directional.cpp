@@ -18,12 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/light/cutoff_angle.hpp>
 #include <sge/opengl/light/directional.hpp>
 #include <sge/opengl/light/position_impl.hpp>
 #include <sge/renderer/light/directional.hpp>
 #include <fcppt/math/vector/construct.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
 
 
 void
@@ -32,11 +30,6 @@ sge::opengl::light::directional(
 	sge::renderer::light::directional const &_directional
 )
 {
-	sge::opengl::light::cutoff_angle(
-		_index,
-		_directional.cutoff_angle()
-	);
-
 	sge::opengl::light::position_impl(
 		_index,
 		fcppt::math::vector::construct(

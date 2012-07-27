@@ -18,26 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/renderer/light/direction.hpp>
 #include <sge/renderer/light/directional.hpp>
 
+
 sge::renderer::light::directional::directional(
-	light::direction const &_direction,
-	light::cutoff_angle const _cutoff_angle
+	sge::renderer::light::direction const &_direction
 )
 :
-	direction_(_direction),
-	cutoff_angle_(_cutoff_angle)
+	direction_(
+		_direction
+	)
 {
 }
 
 sge::renderer::light::direction const &
 sge::renderer::light::directional::direction() const
 {
-	return direction_;
-}
-
-sge::renderer::light::cutoff_angle const
-sge::renderer::light::directional::cutoff_angle() const
-{
-	return cutoff_angle_;
+	return
+		direction_;
 }
