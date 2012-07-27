@@ -230,9 +230,6 @@ public:
 		sge::renderer::vertex_declaration const &,
 		sge::model::md3::object const &);
 
-	sge::renderer::vertex_buffer &
-	vb();
-
 	sge::renderer::vertex_buffer const &
 	vb() const;
 
@@ -346,12 +343,6 @@ compiled_model::compiled_model(
 		(*current_index++).set(
 			static_cast<sge::renderer::index::i16>(
 				*current_model_index));
-}
-
-sge::renderer::vertex_buffer &
-compiled_model::vb()
-{
-	return *vb_;
 }
 
 sge::renderer::vertex_buffer const &
