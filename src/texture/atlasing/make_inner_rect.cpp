@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/atlasing/inner_rect.hpp>
 #include <sge/texture/atlasing/make_inner_rect.hpp>
 #include <sge/texture/atlasing/outer_rect.hpp>
+#include <fcppt/math/box/shrink.hpp>
 
 
 sge::texture::atlasing::inner_rect const
@@ -32,14 +33,11 @@ sge::texture::atlasing::make_inner_rect(
 	// We can't use box::stretch here because the values are unsigned
 	return
 		sge::texture::atlasing::inner_rect(
-			sge::renderer::lock_rect(
+			fcppt::math::box::shrink(
+				_outer.get(),
 				sge::renderer::lock_rect::vector(
-					_outer.get().pos().x() + 1u,
-					_outer.get().pos().y() + 1u
-				),
-				sge::renderer::lock_rect::dim(
-					_outer.get().size().w() - 2u,
-					_outer.get().size().h() - 2u
+					1u,
+					1u
 				)
 			)
 		);
