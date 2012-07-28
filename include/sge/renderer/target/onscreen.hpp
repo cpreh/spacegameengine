@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_TARGET_ONSCREEN_HPP_INCLUDED
 
 #include <sge/class_symbol.hpp>
-#include <sge/renderer/color_surface_fwd.hpp>
+#include <sge/renderer/color_buffer/surface_fwd.hpp>
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/target/base.hpp>
 #include <sge/renderer/target/onscreen_fwd.hpp>
@@ -61,7 +61,7 @@ public:
 	 * \brief Returns the associated color surface
 	*/
 	virtual
-	sge::renderer::color_surface const &
+	sge::renderer::color_buffer::surface const &
 	surface() const = 0;
 
 	SGE_RENDERER_SYMBOL

@@ -21,14 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TEXTURE_PLANAR_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_PLANAR_HPP_INCLUDED
 
-#include <sge/image2d/tag.hpp>
-#include <sge/image2d/view/const_object_fwd.hpp>
-#include <sge/image2d/view/object_fwd.hpp>
-#include <sge/renderer/color_surface_unique_ptr.hpp>
+#include <sge/class_symbol.hpp>
 #include <sge/renderer/dim2_fwd.hpp>
-#include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/lock_rect_fwd.hpp>
 #include <sge/renderer/symbol.hpp>
+#include <sge/renderer/color_buffer/surface_fwd.hpp>
 #include <sge/renderer/texture/base.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
@@ -62,50 +59,23 @@ public:
 
 	typedef sge::renderer::lock_rect rect;
 
-	typedef rect lock_area;
+	typedef sge::renderer::color_buffer::surface color_buffer;
 
-	typedef sge::image2d::tag image_tag;
-
-	typedef sge::image2d::view::object view;
-
-	typedef sge::image2d::view::const_object const_view;
-
-	virtual
+	SGE_RENDERER_SYMBOL
 	dim const
-	size() const = 0;
-
-	SGE_RENDERER_SYMBOL
-	view const
-	lock(
-		sge::renderer::lock_mode::type
-	);
-
-	SGE_RENDERER_SYMBOL
-	const_view const
-	lock() const;
+	size() const;
 
 	virtual
-	view const
-	lock(
-		lock_area const &,
-		sge::renderer::lock_mode::type
-	) = 0;
-
-	virtual
-	const_view const
-	lock(
-		lock_area const &
-	) const = 0;
-
-	virtual
-	void
-	unlock() const = 0;
-
-	virtual
-	sge::renderer::color_surface_unique_ptr
-	surface(
+	color_buffer &
+	level(
 		sge::renderer::texture::mipmap::level
 	) = 0;
+
+	virtual
+	color_buffer const &
+	level(
+		sge::renderer::texture::mipmap::level
+	) const = 0;
 
 	virtual
 	sge::renderer::texture::mipmap::level_count const
@@ -116,7 +86,7 @@ public:
 	area() const;
 
 	SGE_RENDERER_SYMBOL
-	texture::base::size_type
+	sge::renderer::texture::base::size_type
 	content() const;
 };
 

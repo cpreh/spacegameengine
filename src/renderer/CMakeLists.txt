@@ -45,16 +45,24 @@ set(
 	include/sge/renderer/clip_plane.hpp
 	include/sge/renderer/clip_plane_index.hpp
 	include/sge/renderer/clip_plane_index_value.hpp
-	include/sge/renderer/color_surface.hpp
-	include/sge/renderer/color_surface_fwd.hpp
-	include/sge/renderer/color_surface_scoped_ptr.hpp
-	include/sge/renderer/color_surface_shared_ptr.hpp
-	include/sge/renderer/color_surface_unique_ptr.hpp
+	include/sge/renderer/color_buffer/basic.hpp
+	include/sge/renderer/color_buffer/basic_fwd.hpp
+	include/sge/renderer/color_buffer/basic_scoped_lock.hpp
+	include/sge/renderer/color_buffer/const_basic_scoped_lock.hpp
+	include/sge/renderer/color_buffer/const_scoped_surface_lock.hpp
+	include/sge/renderer/color_buffer/const_scoped_volume_lock.hpp
+	include/sge/renderer/color_buffer/optional_surface_ref.hpp
+	include/sge/renderer/color_buffer/optional_surface_ref_fwd.hpp
+	include/sge/renderer/color_buffer/scoped_surface_lock.hpp
+	include/sge/renderer/color_buffer/scoped_volume_lock.hpp
+	include/sge/renderer/color_buffer/surface.hpp
+	include/sge/renderer/color_buffer/surface_fwd.hpp
+	include/sge/renderer/color_buffer/volume.hpp
+	include/sge/renderer/color_buffer/volume_fwd.hpp
 	include/sge/renderer/const_basic_scoped_buffer_lock.hpp
 	include/sge/renderer/const_optional_vertex_declaration_ref.hpp
 	include/sge/renderer/const_optional_vertex_declaration_ref_fwd.hpp
 	include/sge/renderer/const_raw_pointer.hpp
-	include/sge/renderer/const_scoped_color_surface_lock.hpp
 	include/sge/renderer/const_scoped_index_lock.hpp
 	include/sge/renderer/const_scoped_vertex_lock.hpp
 	include/sge/renderer/const_vertex_buffer_ref.hpp
@@ -76,7 +84,6 @@ set(
 	include/sge/renderer/depth_stencil_surface.hpp
 	include/sge/renderer/depth_stencil_surface_fwd.hpp
 	include/sge/renderer/depth_stencil_surface_scoped_ptr.hpp
-	include/sge/renderer/depth_stencil_surface_shared_ptr.hpp
 	include/sge/renderer/depth_stencil_surface_unique_ptr.hpp
 	include/sge/renderer/device.hpp
 	include/sge/renderer/device_fwd.hpp
@@ -215,6 +222,8 @@ set(
 	include/sge/renderer/occlusion_query/pixel_count_value.hpp
 	include/sge/renderer/occlusion_query/scoped.hpp
 	include/sge/renderer/occlusion_query/scoped_fwd.hpp
+	include/sge/renderer/optional_depth_stencil_surface_ref.hpp
+	include/sge/renderer/optional_depth_stencil_surface_ref_fwd.hpp
 	include/sge/renderer/optional_dim2.hpp
 	include/sge/renderer/optional_dim2_fwd.hpp
 	include/sge/renderer/parameters/object.hpp
@@ -596,8 +605,12 @@ set(
 	src/renderer/caps/device.cpp
 	src/renderer/caps/device_output.cpp
 	src/renderer/clear/parameters.cpp
-	src/renderer/color_surface.cpp
-	src/renderer/const_scoped_color_surface_lock.cpp
+	src/renderer/color_buffer/const_scoped_surface_lock.cpp
+	src/renderer/color_buffer/const_scoped_volume_lock.cpp
+	src/renderer/color_buffer/scoped_surface_lock.cpp
+	src/renderer/color_buffer/scoped_volume_lock.cpp
+	src/renderer/color_buffer/surface.cpp
+	src/renderer/color_buffer/volume.cpp
 	src/renderer/const_scoped_index_lock.cpp
 	src/renderer/const_scoped_vertex_lock.cpp
 	src/renderer/context/object.cpp
@@ -613,6 +626,12 @@ set(
 	src/renderer/display_mode/output.cpp
 	src/renderer/exception.cpp
 	src/renderer/include/sge/src/renderer/basic_scoped_buffer_lock_impl.hpp
+	src/renderer/include/sge/src/renderer/color_buffer/basic_impl.hpp
+	src/renderer/include/sge/src/renderer/color_buffer/basic_scoped_lock_impl.hpp
+	src/renderer/include/sge/src/renderer/color_buffer/const_basic_scoped_lock_impl.hpp
+	src/renderer/include/sge/src/renderer/color_buffer/instantiate_basic.hpp
+	src/renderer/include/sge/src/renderer/color_buffer/instantiate_basic_scoped_lock.hpp
+	src/renderer/include/sge/src/renderer/color_buffer/instantiate_const_basic_scoped_lock.hpp
 	src/renderer/include/sge/src/renderer/const_basic_scoped_buffer_lock_impl.hpp
 	src/renderer/include/sge/src/renderer/index/dynamic/basic_view_impl.hpp
 	src/renderer/include/sge/src/renderer/index/dynamic/format_enum_static.hpp

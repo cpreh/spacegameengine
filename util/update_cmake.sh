@@ -147,6 +147,7 @@ update_cmake_file \
 	src/renderer/include \
 	$(renderer_inc_src caps) \
 	$(renderer_inc_src clear) \
+	$(renderer_inc_src color_buffer) \
 	$(renderer_inc_src context) \
 	$(renderer_inc_src display_mode) \
 	$(renderer_inc_src index) \

@@ -22,8 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_TEXTURE_PLANAR_TYPES_HPP_INCLUDED
 
 #include <sge/opengl/texture/init_function.hpp>
+#include <sge/opengl/texture/planar_types_fwd.hpp>
 #include <sge/opengl/texture/sub_function.hpp>
 #include <sge/renderer/size_type.hpp>
+#include <sge/renderer/color_buffer/surface_fwd.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/renderer/texture/planar_parameters_fwd.hpp>
 #include <fcppt/string.hpp>
@@ -39,6 +41,8 @@ namespace texture
 struct planar_types
 {
 	typedef sge::renderer::texture::planar base;
+
+	typedef sge::renderer::color_buffer::surface buffer_base;
 
 	typedef sge::renderer::texture::planar_parameters parameters;
 

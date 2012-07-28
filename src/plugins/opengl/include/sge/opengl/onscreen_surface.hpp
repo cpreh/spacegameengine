@@ -24,9 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/format.hpp>
 #include <sge/opengl/color_format.hpp>
 #include <sge/opengl/color_format_type.hpp>
-#include <sge/renderer/color_surface.hpp>
+#include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/raw_value.hpp>
 #include <sge/renderer/size_type.hpp>
+#include <sge/renderer/color_buffer/surface.hpp>
 #include <awl/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/container/raw_vector_decl.hpp>
@@ -39,7 +40,7 @@ namespace opengl
 
 class onscreen_surface
 :
-	public sge::renderer::color_surface
+	public sge::renderer::color_buffer::surface
 {
 	FCPPT_NONCOPYABLE(
 		onscreen_surface
@@ -52,10 +53,16 @@ public:
 
 	~onscreen_surface();
 private:
-	color_surface::const_view const
+	sge::renderer::color_buffer::surface::const_view const
 	lock(
-		sge::renderer::lock_rect const &
+		sge::renderer::color_buffer::surface::lock_area const &
 	) const;
+
+	sge::renderer::color_buffer::surface::view const
+	lock(
+		sge::renderer::color_buffer::surface::lock_area const &,
+		sge::renderer::lock_mode::type
+	);
 
 	void
 	unlock() const;

@@ -21,79 +21,74 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_RENDERER_TEXTURE_CONST_BASIC_SCOPED_LOCK_IMPL_HPP_INCLUDED
 #define SGE_SRC_RENDERER_TEXTURE_CONST_BASIC_SCOPED_LOCK_IMPL_HPP_INCLUDED
 
+#include <sge/image/view/const_object.hpp>
+#include <sge/renderer/basic_dim.hpp>
+#include <sge/renderer/basic_lock_box.hpp>
 #include <sge/renderer/texture/const_basic_scoped_lock.hpp>
+#include <sge/renderer/texture/mipmap/level.hpp>
 
 
 template<
-	typename Texture,
-	typename LockArea,
-	typename View
+	typename Texture
 >
 sge::renderer::texture::const_basic_scoped_lock<
-	Texture,
-	LockArea,
-	View
+	Texture
 >::const_basic_scoped_lock(
 	Texture const &_texture
 )
 :
-	texture_(_texture),
-	view_(
-		texture_.lock()
-	)
-{
-}
-
-template<
-	typename Texture,
-	typename LockArea,
-	typename View
->
-sge::renderer::texture::const_basic_scoped_lock<
-	Texture,
-	LockArea,
-	View
->::const_basic_scoped_lock(
-	Texture const &_texture,
-	LockArea const &_area
-)
-:
-	texture_(_texture),
-	view_(
-		texture_.lock(
-			_area
+	lock_(
+		_texture.level(
+			sge::renderer::texture::mipmap::level(
+				0u
+			)
 		)
 	)
 {
 }
 
 template<
-	typename Texture,
-	typename LockArea,
-	typename View
+	typename Texture
 >
-View const
 sge::renderer::texture::const_basic_scoped_lock<
-	Texture,
-	LockArea,
-	View
->::value() const
+	Texture
+>::const_basic_scoped_lock(
+	Texture const &_texture,
+	lock_area const &_area
+)
+:
+	lock_(
+		_texture.level(
+			sge::renderer::texture::mipmap::level(
+				0u
+			)
+		),
+		_area
+	)
 {
-	return view_;
 }
 
 template<
-	typename Texture,
-	typename LockArea,
-	typename View
+	typename Texture
+>
+typename sge::renderer::texture::const_basic_scoped_lock<
+	Texture
+>::const_view const
+sge::renderer::texture::const_basic_scoped_lock<
+	Texture
+>::value() const
+{
+	return
+		lock_.value();
+}
+
+template<
+	typename Texture
 >
 sge::renderer::texture::const_basic_scoped_lock<
-	Texture,
-	LockArea,
-	View
+	Texture
 >::~const_basic_scoped_lock()
 {
-	texture_.unlock();
 }
 
 #endif

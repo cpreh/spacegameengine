@@ -40,18 +40,18 @@ struct tag_from_view;
 
 template<>
 struct tag_from_view<
-	image2d::view::object
+	sge::image2d::view::object
 >
 {
-	typedef image2d::tag type;
+	typedef sge::image2d::tag type;
 };
 
 template<>
 struct tag_from_view<
-	image3d::view::object
+	sge::image3d::view::object
 >
 {
-	typedef image3d::tag type;
+	typedef sge::image3d::tag type;
 };
 
 }

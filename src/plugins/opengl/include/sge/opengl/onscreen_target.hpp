@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/onscreen_target_fwd.hpp>
 #include <sge/opengl/context/device/object_fwd.hpp>
 #include <sge/opengl/device_state/object_fwd.hpp>
-#include <sge/renderer/color_surface_fwd.hpp>
 #include <sge/renderer/screen_unit.hpp>
+#include <sge/renderer/color_buffer/surface_fwd.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <awl/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -69,14 +69,14 @@ private:
 	void
 	end_rendering();
 
-	sge::renderer::color_surface const &
+	sge::renderer::color_buffer::surface const &
 	surface() const;
 
 	sge::renderer::screen_unit
 	height() const;
 
 	typedef fcppt::scoped_ptr<
-		sge::renderer::color_surface
+		sge::renderer::color_buffer::surface
 	> color_surface_scoped_ptr;
 
 	sge::opengl::device_state::object &device_state_;

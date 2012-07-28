@@ -23,7 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/texture/init_function.hpp>
 #include <sge/opengl/texture/sub_function.hpp>
+#include <sge/opengl/texture/volume_types_fwd.hpp>
 #include <sge/renderer/size_type.hpp>
+#include <sge/renderer/color_buffer/volume_fwd.hpp>
 #include <sge/renderer/texture/volume_fwd.hpp>
 #include <sge/renderer/texture/volume_parameters_fwd.hpp>
 #include <fcppt/string.hpp>
@@ -39,6 +41,8 @@ namespace texture
 struct volume_types
 {
 	typedef sge::renderer::texture::volume base;
+
+	typedef sge::renderer::color_buffer::volume buffer_base;
 
 	typedef sge::renderer::texture::volume_parameters parameters;
 

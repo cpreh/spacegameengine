@@ -32,9 +32,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/fbo/object.hpp>
 #include <sge/opengl/fbo/render_buffer_fwd.hpp>
 #include <sge/opengl/fbo/target_fwd.hpp>
-#include <sge/opengl/texture/surface_base_ptr.hpp>
-#include <sge/renderer/color_surface_shared_ptr.hpp>
-#include <sge/renderer/depth_stencil_surface_shared_ptr.hpp>
+#include <sge/opengl/texture/buffer_base_fwd.hpp>
+#include <sge/renderer/color_buffer/optional_surface_ref_fwd.hpp>
+#include <sge/renderer/optional_depth_stencil_surface_ref_fwd.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/screen_unit.hpp>
 #include <sge/renderer/target/offscreen.hpp>
@@ -87,13 +87,13 @@ private:
 
 	void
 	color_surface(
-		sge::renderer::color_surface_shared_ptr,
+		sge::renderer::color_buffer::optional_surface_ref const &,
 		sge::renderer::target::surface_index
 	);
 
 	void
 	depth_stencil_surface(
-		sge::renderer::depth_stencil_surface_shared_ptr
+		sge::renderer::optional_depth_stencil_surface_ref const &
 	);
 
 	sge::renderer::optional_dim2 const
@@ -104,7 +104,7 @@ private:
 
 	sge::opengl::fbo::attachment_unique_ptr
 	create_texture_binding(
-		sge::opengl::texture::surface_base_ptr,
+		sge::opengl::texture::buffer_base &,
 		sge::opengl::fbo::attachment_type
 	);
 

@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/texture/basic_surface.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
+#include <sge/opengl/texture/buffer_base.hpp>
 #include <sge/opengl/texture/id.hpp>
-#include <sge/opengl/texture/surface_base.hpp>
 #include <sge/opengl/texture/type.hpp>
 #include <sge/opengl/texture/funcs/level_parameter.hpp>
 #include <sge/renderer/size_type.hpp>
@@ -44,7 +44,7 @@ sge::opengl::texture::basic_surface<Base>::basic_surface(
 )
 :
 	Base(),
-	sge::opengl::texture::surface_base(
+	sge::opengl::texture::buffer_base(
 		_type,
 		_id,
 		_level

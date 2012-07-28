@@ -21,45 +21,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_BASIC_IMPL_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_BASIC_IMPL_HPP_INCLUDED
 
-#include <sge/image/algorithm/copy.hpp>
-#include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/color/format.hpp>
-#include <sge/image/color/format_stride.hpp>
-#include <sge/image/view/flipped.hpp>
-#include <sge/image/view/make.hpp>
-#include <sge/image/view/sub.hpp>
-#include <sge/image/view/to_const.hpp>
-#include <sge/opengl/color_format_to_unpack_alignment.hpp>
-#include <sge/opengl/range_check.hpp>
-#include <sge/opengl/set_unpack_alignment.hpp>
-#include <sge/opengl/context/device/object_fwd.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/common.hpp>
 #include <sge/opengl/convert/color_to_format.hpp>
 #include <sge/opengl/convert/color_to_format_type.hpp>
 #include <sge/opengl/convert/color_to_internal_format.hpp>
 #include <sge/opengl/texture/basic.hpp>
+#include <sge/opengl/texture/basic_buffer.hpp>
 #include <sge/opengl/texture/basic_parameters.hpp>
 #include <sge/opengl/texture/best_color_format.hpp>
 #include <sge/opengl/texture/check_dim.hpp>
-#include <sge/opengl/texture/create_lock.hpp>
 #include <sge/opengl/texture/scoped_work_binding.hpp>
-#include <sge/opengl/texture/funcs/get_image.hpp>
+#include <sge/opengl/texture/funcs/get_parameter_int.hpp>
 #include <sge/opengl/texture/mipmap/create.hpp>
 #include <sge/opengl/texture/mipmap/parameters.hpp>
-#include <sge/renderer/exception.hpp>
-#include <sge/renderer/lock_flags/from_mode.hpp>
-#include <sge/renderer/lock_flags/method.hpp>
-#include <sge/renderer/lock_flags/read.hpp>
-#include <sge/renderer/lock_flags/write.hpp>
+#include <sge/renderer/resource_flags_field.hpp>
+#include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
-#include <fcppt/format.hpp>
+#include <sge/renderer/texture/mipmap/level_count.hpp>
+#include <sge/renderer/texture/mipmap/object.hpp>
+#include <fcppt/cref.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/null_ptr.hpp>
-#include <fcppt/optional_impl.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/math/box/object_impl.hpp>
-#include <fcppt/math/box/output.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
-#include <fcppt/math/dim/output.hpp>
+#include <fcppt/ref.hpp>
+#include <fcppt/strong_typedef_construct_cast.hpp>
+#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 
 
 template<
@@ -76,97 +62,139 @@ sge::opengl::texture::basic<
 	sge::opengl::texture::base(
 		_type
 	),
-	system_context_(
-		_basic_parameters.system_context()
-	),
-	device_context_(
-		_basic_parameters.device_context()
-	),
-	mipmap_(
-		_parameters.mipmap()
-	),
 	resource_flags_(
 		_parameters.resource_flags()
 	),
 	capabilities_(
 		_parameters.capabilities()
 	),
-	dim_(
-		_parameters.size()
+	mipmap_(
+		_parameters.mipmap()
 	),
-	format_(
-		sge::opengl::texture::best_color_format(
-			_parameters.format()
-		)
-	),
-	color_format_(
-		sge::opengl::convert::color_to_format(
-			format_
-		)
-	),
-	color_format_type_(
-		sge::opengl::convert::color_to_format_type(
-			format_
-		)
-	),
-	color_internal_format_(
-		sge::opengl::convert::color_to_internal_format(
-			format_
-		)
-	),
-	stride_(
-		sge::image::color::format_stride(
-			format_
-		)
-	),
-	lock_(),
-	lock_area_()
+	levels_()
 {
 	sge::opengl::texture::check_dim<
-		dim::dim_wrapper::value
+		base_type::dim::dim_wrapper::value
 	>(
-		this->size(),
+		_parameters.size(),
 		Types::min_size(),
 		Types::name()
 	);
 
 	sge::opengl::texture::scoped_work_binding const binding(
-		this->system_context(),
+		_basic_parameters.system_context(),
 		this->type(),
 		this->id()
 	);
 
+	sge::image::color::format::type const format(
+		sge::opengl::texture::best_color_format(
+			_parameters.format()
+		)
+	);
+
+	sge::opengl::color_format const color_format(
+		sge::opengl::convert::color_to_format(
+			format
+		)
+	);
+
+	sge::opengl::color_format_type const color_format_type(
+		sge::opengl::convert::color_to_format_type(
+			format
+		)
+	);
+
+	sge::opengl::internal_color_format const internal_color_format(
+		sge::opengl::convert::color_to_internal_format(
+			format
+		)
+	);
+
+
 	Types::init_function()(
 		binding,
-		this->system_context(),
+		_basic_parameters.system_context(),
 		this->type(),
-		this->color_format(),
-		this->color_format_type(),
-		this->color_internal_format(),
+		color_format,
+		color_format_type,
+		internal_color_format,
 		sge::renderer::texture::mipmap::level(
 			0u
 		),
-		this->size(),
+		_parameters.size(),
 		fcppt::null_ptr()
 	);
 
 	sge::opengl::texture::mipmap::create<
-		dim::dim_wrapper::value
+		base_type::dim::dim_wrapper::value
 	>(
 		sge::opengl::texture::mipmap::parameters<
-			dim::dim_wrapper::value
+			base_type::dim::dim_wrapper::value
 		>(
 			binding,
-			this->system_context(),
+			_basic_parameters.system_context(),
 			this->type(),
-			this->color_format(),
-			this->color_format_type(),
-			this->color_internal_format(),
-			this->size(),
+			color_format,
+			color_format_type,
+			internal_color_format,
+			_parameters.size(),
 			Types::init_function()
 		),
-		this->mipmap()
+		mipmap_
 	);
+
+	// FIXME
+/*
+	GLint const mip_levels(
+		sge::opengl::texture::funcs::get_parameter_int(
+			binding,
+			this->type(),
+			GL_TEXTURE_MAX_LEVEL
+		)
+	);*/
+
+	typedef sge::opengl::texture::basic_buffer<
+		Types
+	> gl_buffer;
+
+	for(
+		GLint index(
+			0
+		);
+		index < 1;
+		++index
+	)
+		fcppt::container::ptr::push_back_unique_ptr(
+			levels_,
+			fcppt::make_unique_ptr<
+				gl_buffer
+			>(
+				fcppt::cref(
+					binding
+				),
+				fcppt::ref(
+					_basic_parameters.system_context()
+				),
+				fcppt::ref(
+					_basic_parameters.device_context()
+				),
+				fcppt::strong_typedef_construct_cast<
+					sge::renderer::texture::mipmap::level
+				>(
+					index
+				),
+				this->type(),
+				this->id(),
+				fcppt::cref(
+					_parameters.resource_flags()
+				),
+				format,
+				color_format,
+				color_format_type,
+				internal_color_format
+			)
+		);
 }
 
 template<
@@ -183,35 +211,17 @@ template<
 >
 typename sge::opengl::texture::basic<
 	Types
->::dim const
+>::color_buffer &
 sge::opengl::texture::basic<
 	Types
->::size() const
-{
-	return dim_;
-}
-
-template<
-	typename Types
->
-typename sge::opengl::texture::basic<
-	Types
->::view const
-sge::opengl::texture::basic<
-	Types
->::lock(
-	lock_area const &_area,
-	sge::renderer::lock_mode::type const _mode
+>::level(
+	sge::renderer::texture::mipmap::level const _level
 )
 {
-	this->lock_me(
-		_area,
-		sge::renderer::lock_flags::from_mode(
-			_mode
-		)
-	);
-
-	return this->lock_view();
+	return
+		levels_[
+			_level.get()
+		];
 }
 
 template<
@@ -219,368 +229,33 @@ template<
 >
 typename sge::opengl::texture::basic<
 	Types
->::const_view const
+>::color_buffer const &
 sge::opengl::texture::basic<
 	Types
->::lock(
-	lock_area const &_area
+>::level(
+	sge::renderer::texture::mipmap::level const _level
 ) const
 {
-	this->lock_me(
-		_area,
-		sge::renderer::lock_flags::method::read
-	);
-
-	return this->lock_view();
+	return
+		levels_[
+			_level.get()
+		];
 }
 
 template<
 	typename Types
 >
-void
+sge::renderer::texture::mipmap::level_count const
 sge::opengl::texture::basic<
 	Types
->::unlock() const
+>::levels() const
 {
-	this->check_locked();
-
-	lock_->pre_unlock();
-
-	if(
-		sge::renderer::lock_flags::write(
-			lock_->method()
-		)
-	)
-	{
-		// If this is also a read lock
-		// we must copy the current view, which is
-		// a slice into the whole texture retrieved,
-		// to the destination buffer.
-		if(
-			sge::renderer::lock_flags::read(
-				lock_->method()
-			)
-		)
-		{
-			// this will only copy, not convert!
-			sge::image::algorithm::copy<
-				image_tag
-			>(
-				this->lock_view(),
-				sge::image::view::make<
-					image_tag
-				>(
-					lock_->write_view_pointer(),
-					this->lock_dim(),
-					this->format(),
-					basic::optional_pitch()
-				),
-				sge::image::algorithm::may_overlap::no
-			);
-
-			lock_->post_copy();
-		}
-
-		lock_->unlock();
-
-		sge::opengl::texture::scoped_work_binding const binding(
-			this->system_context(),
-			this->type(),
-			this->id()
-		);
-
-		sge::opengl::set_unpack_alignment(
-			device_context_,
-			sge::opengl::color_format_to_unpack_alignment(
-				format_
-			)
-		);
-
-		Types::sub_function()(
-			binding,
-			this->system_context(),
-			this->type(),
-			this->color_format(),
-			this->color_format_type(),
-			sge::renderer::texture::mipmap::level(
-				0u
-			),
-			this->size(),
-			lock_area_
-			?
-				*lock_area_
-			:
-				lock_area(
-					lock_area::vector::null(),
-					this->size()
-				)
-			,
-			lock_->write_pointer()
-		);
-	}
-
-	lock_.reset();
-}
-
-template<
-	typename Types
->
-void
-sge::opengl::texture::basic<
-	Types
->::lock_me(
-	lock_area const &_lock_area,
-	sge::renderer::lock_flags::method::type const _method
-) const
-{
-	if(
-		!sge::opengl::range_check(
-			this->size(),
-			_lock_area
-		)
-	)
-		throw sge::renderer::exception(
-			(
-				fcppt::format(
-					FCPPT_TEXT("ogl: lock (%1%) out of range! dim is %2%!")
-				)
-				% _lock_area
-				% this->size()
-			).str()
-		);
-
-	lock_.take(
-		sge::opengl::texture::create_lock(
-			this->system_context(),
-			_method,
-			this->size().content(),
-			_lock_area.content(),
-			this->stride(),
-			this->resource_flags()
-		)
-	);
-
-	if(
-		sge::renderer::lock_flags::read(
-			_method
-		)
-	)
-	{
-		sge::opengl::texture::scoped_work_binding const binding(
-			this->system_context(),
-			this->type(),
-			this->id()
-		);
-
-		sge::opengl::texture::funcs::get_image(
-			binding,
-			this->type(),
-			this->color_format(),
-			this->color_format_type(),
-			lock_->read_pointer(),
-			sge::renderer::texture::mipmap::level(
-				0u
-			)
-		);
-	}
-
-	lock_->lock();
-
-	if(
-		_lock_area == this->area()
-	)
-		lock_area_.reset();
-	else
-		lock_area_ = _lock_area;
-}
-
-template<
-	typename Types
->
-typename sge::opengl::texture::basic<
-	Types
->::view const
-sge::opengl::texture::basic<
-	Types
->::lock_view()
-{
-	// If we are currently reading a texture, we have mapped the whole
-	// texture and have to take a sub view. Also, opengl reads the image
-	// flipped, so we have to flip it too.
-
-	bool const reading(
-		sge::renderer::lock_flags::read(
-			lock_->method()
-		)
-	);
-
-	view const ret(
-		sge::image::view::make<
-			image_tag
+	return
+		fcppt::strong_typedef_construct_cast<
+			sge::renderer::texture::mipmap::level_count
 		>(
-			reading
-			?
-				lock_->read_view_pointer()
-			:
-				lock_->write_view_pointer(),
-			reading
-			?
-				this->size()
-			:
-				this->lock_dim(),
-			this->format(),
-			basic::optional_pitch()
-		)
-	);
-
-	return
-		reading && lock_area_
-		?
-			sge::image::view::flipped<
-				image_tag
-			>(
-				sge::image::view::sub<
-					image_tag
-				>(
-					ret,
-					*lock_area_
-				)
-			)
-		:
-			ret;
-}
-
-template<
-	typename Types
->
-typename sge::opengl::texture::basic<
-	Types
->::const_view const
-sge::opengl::texture::basic<
-	Types
->::lock_view() const
-{
-	return
-		sge::image::view::to_const<
-			image_tag
-		>(
-			const_cast<
-				sge::opengl::texture::basic<
-					Types
-				> *
-			>(
-				this
-			)->lock_view()
+			levels_.size()
 		);
-}
-
-template<
-	typename Types
->
-typename sge::opengl::texture::basic<
-	Types
->::dim const
-sge::opengl::texture::basic<
-	Types
->::lock_dim() const
-{
-	return
-		lock_area_
-		?
-			lock_area_->size()
-		:
-			this->size()
-		;
-}
-
-template<
-	typename Types
->
-sge::renderer::texture::mipmap::object const
-sge::opengl::texture::basic<
-	Types
->::mipmap() const
-{
-	return mipmap_;
-}
-
-template<
-	typename Types
->
-sge::renderer::texture::capabilities_field const
-sge::opengl::texture::basic<
-	Types
->::capabilities() const
-{
-	return capabilities_;
-}
-
-template<
-	typename Types
->
-typename sge::opengl::texture::basic<
-	Types
->::size_type
-sge::opengl::texture::basic<
-	Types
->::stride() const
-{
-	return stride_;
-}
-
-template<
-	typename Types
->
-sge::image::color::format::type
-sge::opengl::texture::basic<
-	Types
->::format() const
-{
-	return format_;
-}
-
-template<
-	typename Types
->
-sge::opengl::color_format const
-sge::opengl::texture::basic<
-	Types
->::color_format() const
-{
-	return color_format_;
-}
-
-template<
-	typename Types
->
-sge::opengl::color_format_type const
-sge::opengl::texture::basic<
-	Types
->::color_format_type() const
-{
-	return color_format_type_;
-}
-
-template<
-	typename Types
->
-sge::opengl::internal_color_format const
-sge::opengl::texture::basic<
-	Types
->::color_internal_format() const
-{
-	return color_internal_format_;
-}
-
-template<
-	typename Types
->
-sge::opengl::context::system::object &
-sge::opengl::texture::basic<
-	Types
->::system_context() const
-{
-	return system_context_;
 }
 
 template<
@@ -597,33 +272,23 @@ sge::opengl::texture::basic<
 template<
 	typename Types
 >
-void
+sge::renderer::texture::capabilities_field const
 sge::opengl::texture::basic<
 	Types
->::check_locked() const
+>::capabilities() const
 {
-	if(
-		!lock_
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("opengl::texture::basic not locked!")
-		);
+	return capabilities_;
 }
 
 template<
 	typename Types
 >
-void
+sge::renderer::texture::mipmap::object const
 sge::opengl::texture::basic<
 	Types
->::check_not_locked() const
+>::mipmap() const
 {
-	if(
-		lock_
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("opengl::texture::basic already locked!")
-		);
+	return mipmap_;
 }
 
 #endif

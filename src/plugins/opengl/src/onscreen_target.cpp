@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/onscreen_surface.hpp>
 #include <sge/opengl/onscreen_target.hpp>
 #include <sge/opengl/device_state/object.hpp>
-#include <sge/renderer/color_surface_fwd.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/screen_unit.hpp>
+#include <sge/renderer/color_buffer/surface_fwd.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <awl/window/object_fwd.hpp>
@@ -79,7 +79,7 @@ sge::opengl::onscreen_target::end_rendering()
 	device_state_.swap_buffers();
 }
 
-sge::renderer::color_surface const &
+sge::renderer::color_buffer::surface const &
 sge::opengl::onscreen_target::surface() const
 {
 	return

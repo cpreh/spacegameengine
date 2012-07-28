@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/fbo/attachment_type.hpp>
 #include <sge/opengl/fbo/context_fwd.hpp>
 #include <sge/opengl/fbo/texture_binding_fwd.hpp>
-#include <sge/opengl/texture/surface_base_ptr.hpp>
+#include <sge/opengl/texture/buffer_base_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -46,7 +46,7 @@ class texture_binding
 public:
 	texture_binding(
 		sge::opengl::fbo::context const &,
-		sge::opengl::texture::surface_base_ptr,
+		sge::opengl::texture::buffer_base &,
 		sge::opengl::fbo::attachment_type
 	);
 
@@ -54,7 +54,7 @@ public:
 private:
 	sge::opengl::fbo::context const &context_;
 
-	sge::opengl::texture::surface_base_ptr const surface_;
+	sge::opengl::texture::buffer_base &buffer_;
 
 	sge::opengl::fbo::attachment_type const attachment_;
 };

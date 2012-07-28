@@ -22,21 +22,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/fbo/attachment_type.hpp>
 #include <sge/opengl/fbo/context_fwd.hpp>
 #include <sge/opengl/fbo/texture_binding.hpp>
-#include <sge/opengl/texture/surface_base.hpp>
-#include <sge/opengl/texture/surface_base_ptr.hpp>
+#include <sge/opengl/texture/buffer_base.hpp>
 
 
 sge::opengl::fbo::texture_binding::texture_binding(
 	sge::opengl::fbo::context const &_context,
-	sge::opengl::texture::surface_base_ptr const _surface,
+	sge::opengl::texture::buffer_base &_buffer,
 	sge::opengl::fbo::attachment_type const _attachment
 )
 :
 	context_(
 		_context
 	),
-	surface_(
-		_surface
+	buffer_(
+		_buffer
 	),
 	attachment_(
 		_attachment
@@ -45,9 +44,9 @@ sge::opengl::fbo::texture_binding::texture_binding(
 	sge::opengl::fbo::attach_texture_2d(
 		_context,
 		_attachment,
-		_surface->type(),
-		_surface->id(),
-		_surface->level()
+		_buffer.type(),
+		_buffer.id(),
+		_buffer.level()
 	);
 }
 
@@ -56,10 +55,10 @@ sge::opengl::fbo::texture_binding::~texture_binding()
 	sge::opengl::fbo::attach_texture_2d(
 		context_,
 		attachment_,
-		surface_->type(),
+		buffer_.type(),
 		sge::opengl::texture::id(
 			0u
 		),
-		surface_->level()
+		buffer_.level()
 	);
 }

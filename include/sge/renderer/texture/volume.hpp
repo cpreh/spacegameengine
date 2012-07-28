@@ -22,15 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_TEXTURE_VOLUME_HPP_INCLUDED
 
 #include <sge/class_symbol.hpp>
-#include <sge/image3d/tag.hpp>
-#include <sge/image3d/view/const_object_fwd.hpp>
-#include <sge/image3d/view/object_fwd.hpp>
 #include <sge/renderer/dim3_fwd.hpp>
 #include <sge/renderer/lock_box_fwd.hpp>
-#include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/symbol.hpp>
+#include <sge/renderer/color_buffer/volume_fwd.hpp>
 #include <sge/renderer/texture/base.hpp>
 #include <sge/renderer/texture/volume_fwd.hpp>
+#include <sge/renderer/texture/mipmap/level.hpp>
+#include <sge/renderer/texture/mipmap/level_count.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -43,7 +42,7 @@ namespace texture
 
 class SGE_CLASS_SYMBOL volume
 :
-	public renderer::texture::base
+	public sge::renderer::texture::base
 {
 	FCPPT_NONCOPYABLE(
 		volume
@@ -53,53 +52,41 @@ protected:
 	volume();
 public:
 	SGE_RENDERER_SYMBOL
-	virtual ~volume() = 0;
+	virtual
+	~volume() = 0;
 
-	typedef renderer::dim3 dim;
+	typedef sge::renderer::dim3 dim;
 
-	typedef renderer::lock_box box;
+	typedef sge::renderer::lock_box rect;
 
-	typedef sge::image3d::tag image_tag;
-
-	typedef box lock_area;
-
-	typedef image3d::view::object view;
-
-	typedef image3d::view::const_object const_view;
-
-	virtual dim const
-	size() const = 0;
+	typedef sge::renderer::color_buffer::volume color_buffer;
 
 	SGE_RENDERER_SYMBOL
-	view const
-	lock(
-		lock_mode::type
-	);
+	dim const
+	size() const;
 
-	SGE_RENDERER_SYMBOL
-	const_view const
-	lock() const;
-
-	virtual view const
-	lock(
-		lock_area const &,
-		lock_mode::type
+	virtual
+	color_buffer &
+	level(
+		sge::renderer::texture::mipmap::level
 	) = 0;
 
-	virtual const_view const
-	lock(
-		lock_area const &
+	virtual
+	color_buffer const &
+	level(
+		sge::renderer::texture::mipmap::level
 	) const = 0;
 
-	virtual void
-	unlock() const = 0;
+	virtual
+	sge::renderer::texture::mipmap::level_count const
+	levels() const = 0;
 
 	SGE_RENDERER_SYMBOL
-	box const
+	rect const
 	area() const;
 
 	SGE_RENDERER_SYMBOL
-	texture::base::size_type
+	sge::renderer::texture::base::size_type
 	content() const;
 };
 

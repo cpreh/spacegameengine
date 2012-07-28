@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image2d/view/const_object.hpp>
-#include <sge/image2d/view/object.hpp>
-#include <sge/renderer/lock_mode.hpp>
+#include <sge/renderer/dim2.hpp>
+#include <sge/renderer/lock_rect.hpp>
+#include <sge/renderer/color_buffer/surface.hpp>
 #include <sge/renderer/texture/planar.hpp>
-#include <fcppt/math/box/object_impl.hpp>
+#include <sge/renderer/texture/mipmap/level.hpp>
 
 
 sge::renderer::texture::planar::planar()
@@ -33,33 +33,23 @@ sge::renderer::texture::planar::~planar()
 {
 }
 
-sge::renderer::texture::planar::view const
-sge::renderer::texture::planar::lock(
-	renderer::lock_mode::type const _flags
-)
+sge::renderer::texture::planar::dim const
+sge::renderer::texture::planar::size() const
 {
 	return
-		this->lock(
-			this->area(),
-			_flags
-		);
-}
-
-sge::renderer::texture::planar::const_view const
-sge::renderer::texture::planar::lock() const
-{
-	return
-		this->lock(
-			this->area()
-		);
+		this->level(
+			sge::renderer::texture::mipmap::level(
+				0u
+			)
+		).size();
 }
 
 sge::renderer::texture::planar::rect const
 sge::renderer::texture::planar::area() const
 {
 	return
-		planar::rect(
-			planar::rect::vector::null(),
+		sge::renderer::texture::planar::rect(
+			sge::renderer::texture::planar::rect::vector::null(),
 			this->size()
 		);
 }

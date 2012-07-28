@@ -23,6 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/symbol.hpp>
+#include <sge/renderer/color_buffer/basic.hpp>
+#include <sge/renderer/color_buffer/basic_scoped_lock.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -34,9 +36,7 @@ namespace texture
 {
 
 template<
-	typename Texture,
-	typename LockArea,
-	typename View
+	typename Texture
 >
 class basic_scoped_lock
 {
@@ -44,29 +44,37 @@ class basic_scoped_lock
 		basic_scoped_lock
 	);
 public:
+	typedef typename Texture::rect lock_area;
+
+	typedef typename Texture::color_buffer buffer;
+
+	typedef typename buffer::view view;
+
 	SGE_RENDERER_SYMBOL
 	basic_scoped_lock(
 		Texture &,
-		renderer::lock_mode::type
+		sge::renderer::lock_mode::type
 	);
 
 	SGE_RENDERER_SYMBOL
 	basic_scoped_lock(
 		Texture &,
-		LockArea const &,
-		renderer::lock_mode::type
+		lock_area const &,
+		sge::renderer::lock_mode::type
 	);
 
 	SGE_RENDERER_SYMBOL
-	View const
+	view const
 	value() const;
 
 	SGE_RENDERER_SYMBOL
 	~basic_scoped_lock();
 private:
-	Texture &texture_;
+	typedef sge::renderer::color_buffer::basic_scoped_lock<
+		buffer
+	> buffer_lock;
 
-	View const view_;
+	buffer_lock const lock_;
 };
 
 }

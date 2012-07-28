@@ -21,27 +21,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_BASIC_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_BASIC_HPP_INCLUDED
 
-#include <sge/image/color/format.hpp>
-#include <sge/image/traits/optional_pitch.hpp>
-#include <sge/opengl/color_format.hpp>
-#include <sge/opengl/color_format_type.hpp>
-#include <sge/opengl/internal_color_format.hpp>
-#include <sge/opengl/context/device/object_fwd.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/base.hpp>
 #include <sge/opengl/texture/basic_fwd.hpp>
 #include <sge/opengl/texture/basic_parameters_fwd.hpp>
-#include <sge/opengl/texture/lock_base.hpp>
 #include <sge/opengl/texture/type.hpp>
-#include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
-#include <sge/renderer/lock_flags/method.hpp>
+#include <sge/renderer/color_buffer/basic.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
+#include <sge/renderer/texture/mipmap/level.hpp>
+#include <sge/renderer/texture/mipmap/level_count.hpp>
 #include <sge/renderer/texture/mipmap/object.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional_decl.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
-#include <fcppt/math/box/object_decl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/ptr_container/ptr_vector.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -72,131 +65,45 @@ protected:
 	);
 
 	~basic();
-public:
+
 	typedef typename Types::base base_type;
 
-	typedef typename base_type::image_tag image_tag;
-
-	typedef sge::opengl::texture::lock_base::pointer pointer;
-
-	typedef sge::opengl::texture::lock_base::const_pointer const_pointer;
-
-	typedef typename base_type::size_type size_type;
-
-	typedef typename base_type::dim dim;
-
-	typedef typename base_type::lock_area lock_area;
-
-	typedef typename base_type::view view;
-
-	typedef typename base_type::const_view const_view;
-
+	typedef typename base_type::color_buffer color_buffer;
+private:
 	// implementation for base class
-	dim const
-	size() const;
-
-	view const
-	lock(
-		lock_area const &,
-		sge::renderer::lock_mode::type
+	color_buffer &
+	level(
+		sge::renderer::texture::mipmap::level
 	);
 
-	const_view const
-	lock(
-		lock_area const &
+	color_buffer const &
+	level(
+		sge::renderer::texture::mipmap::level
 	) const;
 
-	void
-	unlock() const;
-private:
-	// helper functions
-	void
-	lock_me(
-		lock_area const &,
-		sge::renderer::lock_flags::method::type
-	) const;
+	sge::renderer::texture::mipmap::level_count const
+	levels() const;
 
-	view const
-	lock_view();
-
-	const_view const
-	lock_view() const;
-
-	dim const
-	lock_dim() const;
-protected:
-	sge::renderer::texture::mipmap::object const
-	mipmap() const;
+	sge::renderer::resource_flags_field const
+	resource_flags() const;
 
 	sge::renderer::texture::capabilities_field const
 	capabilities() const;
 
-	using base_type::content;
-
-	size_type
-	stride() const;
-
-	sge::image::color::format::type
-	format() const;
-
-	sge::opengl::color_format const
-	color_format() const;
-
-	sge::opengl::color_format_type const
-	color_format_type() const;
-
-	sge::opengl::internal_color_format const
-	color_internal_format() const;
-
-	sge::opengl::context::system::object &
-	system_context() const;
-public:
-	sge::renderer::resource_flags_field const
-	resource_flags() const;
+	sge::renderer::texture::mipmap::object const
+	mipmap() const;
 private:
-	void
-	check_locked() const;
-
-	void
-	check_not_locked() const;
-
-	sge::opengl::context::system::object &system_context_;
-
-	sge::opengl::context::device::object &device_context_;
-
-	sge::renderer::texture::mipmap::object const mipmap_;
-
 	sge::renderer::resource_flags_field const resource_flags_;
 
 	sge::renderer::texture::capabilities_field const capabilities_;
 
-	dim const dim_;
+	sge::renderer::texture::mipmap::object const mipmap_;
 
-	sge::image::color::format::type const format_;
+	typedef boost::ptr_vector<
+		color_buffer
+	> buffer_vector;
 
-	sge::opengl::color_format const color_format_;
-
-	sge::opengl::color_format_type const color_format_type_;
-
-	sge::opengl::internal_color_format const color_internal_format_;
-
-	size_type const stride_;
-
-	typedef fcppt::scoped_ptr<
-		sge::opengl::texture::lock_base
-	> scoped_lock_ptr;
-
-	mutable scoped_lock_ptr lock_;
-
-	typedef fcppt::optional<
-		lock_area
-	> optional_lock_area;
-
-	mutable optional_lock_area lock_area_;
-
-	typedef typename sge::image::traits::optional_pitch<
-		image_tag
-	>::type optional_pitch;
+	buffer_vector levels_;
 };
 
 }

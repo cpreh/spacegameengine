@@ -33,11 +33,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/lock_rect_fwd.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
+#include <sge/renderer/color_buffer/surface.hpp>
 #include <sge/renderer/texture/base.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/cube_parameters.hpp>
 #include <sge/renderer/texture/cube_side.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
+#include <sge/renderer/texture/mipmap/level.hpp>
 #include <sge/renderer/texture/mipmap/object.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/foreach_enumerator.hpp>
@@ -131,7 +133,11 @@ sge::opengl::texture::cube::lock(
 		];
 
 	return
-		locked_texture_->lock(
+		locked_texture_->level(
+			sge::renderer::texture::mipmap::level(
+				0u
+			)
+		).lock(
 			_src,
 			_flags
 		);
@@ -151,7 +157,11 @@ sge::opengl::texture::cube::lock(
 		];
 
 	return
-		locked_texture_->lock(
+		locked_texture_->level(
+			sge::renderer::texture::mipmap::level(
+				0u
+			)
+		).lock(
 			_src
 		);
 }
@@ -161,7 +171,11 @@ sge::opengl::texture::cube::unlock() const
 {
 	this->check_locked();
 
-	locked_texture_->unlock();
+	locked_texture_->level(
+		sge::renderer::texture::mipmap::level(
+			0u
+		)
+	).unlock();
 
 	locked_texture_ = fcppt::null_ptr();
 }

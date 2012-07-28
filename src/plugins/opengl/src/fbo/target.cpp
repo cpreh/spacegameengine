@@ -30,7 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/fbo/context.hpp>
 #include <sge/opengl/fbo/depth_stencil_format_to_attachment.hpp>
 #include <sge/opengl/fbo/depth_stencil_surface.hpp>
-#include <sge/opengl/fbo/depth_stencil_surface_ptr.hpp>
 #include <sge/opengl/fbo/last_context.hpp>
 #include <sge/opengl/fbo/no_buffer.hpp>
 #include <sge/opengl/fbo/optional_attachment_type.hpp>
@@ -39,20 +38,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/fbo/temporary_bind.hpp>
 #include <sge/opengl/fbo/texture_binding.hpp>
 #include <sge/opengl/fbo/unbind.hpp>
-#include <sge/opengl/texture/surface.hpp>
-#include <sge/opengl/texture/surface_ptr.hpp>
-#include <sge/renderer/color_surface_shared_ptr.hpp>
-#include <sge/renderer/depth_stencil_surface_shared_ptr.hpp>
+#include <sge/opengl/texture/buffer_base.hpp>
+#include <sge/opengl/texture/color_surface.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/optional_depth_stencil_surface_ref.hpp>
 #include <sge/renderer/optional_dim2.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/screen_unit.hpp>
 #include <sge/renderer/unsupported.hpp>
+#include <sge/renderer/color_buffer/optional_surface_ref.hpp>
 #include <sge/renderer/target/offscreen.hpp>
 #include <sge/renderer/target/surface_index.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <fcppt/cref.hpp>
-#include <fcppt/dynamic_pointer_cast.hpp>
 #include <fcppt/format.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/move.hpp>
@@ -140,7 +138,7 @@ sge::opengl::fbo::target::end_rendering()
 
 void
 sge::opengl::fbo::target::color_surface(
-	sge::renderer::color_surface_shared_ptr const _surface,
+	sge::renderer::color_buffer::optional_surface_ref const &_surface,
 	sge::renderer::target::surface_index const _index
 )
 {
@@ -160,22 +158,24 @@ sge::opengl::fbo::target::color_surface(
 		_surface
 	)
 	{
-		sge::opengl::texture::surface_ptr const texture_surface(
-			fcppt::dynamic_pointer_cast<
-				opengl::texture::surface
+		sge::opengl::texture::color_surface &texture_surface(
+			dynamic_cast<
+				sge::opengl::texture::color_surface &
 			>(
-				_surface
+				*_surface
 			)
 		);
 
+		// TODO!
+#if 0
 		if(
-			!texture_surface->is_render_target()
+			!texture_surface.is_render_target()
 		)
 			throw sge::renderer::exception(
 				FCPPT_TEXT("You tried to use a texture as a render target ")
 				FCPPT_TEXT("which hasn't been created as such!")
 			);
-
+#endif
 		this->add_dim(
 			_surface->size()
 		);
@@ -196,9 +196,24 @@ sge::opengl::fbo::target::color_surface(
 
 void
 sge::opengl::fbo::target::depth_stencil_surface(
-	sge::renderer::depth_stencil_surface_shared_ptr const _surface
+	sge::renderer::optional_depth_stencil_surface_ref const &_surface
 )
 {
+	sge::opengl::fbo::temporary_bind const scoped_exit(
+		context_,
+		last_context_,
+		fbo_
+	);
+
+	depth_stencil_attachment_.reset();
+
+	this->remove_dim();
+
+	if(
+		!_surface
+	)
+		return;
+
 	sge::opengl::fbo::optional_attachment_type const attachment(
 		sge::opengl::fbo::depth_stencil_format_to_attachment(
 			context_,
@@ -215,31 +230,16 @@ sge::opengl::fbo::target::depth_stencil_surface(
 			FCPPT_TEXT("")
 		);
 
-	opengl::fbo::temporary_bind const scoped_exit(
-		context_,
-		last_context_,
-		fbo_
-	);
-
-	depth_stencil_attachment_.reset();
-
-	this->remove_dim();
-
-	if(
-		!_surface
-	)
-		return;
-
 	this->add_dim(
 		_surface->size()
 	);
 
 	if(
-		opengl::fbo::depth_stencil_surface_ptr const ptr =
-			fcppt::dynamic_pointer_cast<
-				opengl::fbo::depth_stencil_surface
+		sge::opengl::fbo::depth_stencil_surface *ptr =
+			dynamic_cast<
+				sge::opengl::fbo::depth_stencil_surface *
 			>(
-				_surface
+				&*_surface
 			)
 	)
 	{
@@ -254,17 +254,17 @@ sge::opengl::fbo::target::depth_stencil_surface(
 	}
 
 	if(
-		opengl::texture::surface_base_ptr const ptr =
-			fcppt::dynamic_pointer_cast<
-				opengl::texture::surface_base
+		sge::opengl::texture::buffer_base *ptr =
+			dynamic_cast<
+				sge::opengl::texture::buffer_base *
 			>(
-				_surface
+				&*_surface
 			)
 	)
 	{
 		depth_stencil_attachment_.take(
 			this->create_texture_binding(
-				ptr,
+				*ptr,
 				*attachment
 			)
 		);
@@ -300,7 +300,7 @@ sge::opengl::fbo::target::height() const
 
 sge::opengl::fbo::attachment_unique_ptr
 sge::opengl::fbo::target::create_texture_binding(
-	sge::opengl::texture::surface_base_ptr const _surface,
+	sge::opengl::texture::buffer_base &_surface,
 	sge::opengl::fbo::attachment_type const _attachment
 )
 {
@@ -311,7 +311,9 @@ sge::opengl::fbo::target::create_texture_binding(
 			fcppt::ref(
 				context_
 			),
-			_surface,
+			fcppt::ref(
+				_surface
+			),
 			_attachment
 		)
 	);

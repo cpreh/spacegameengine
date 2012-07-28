@@ -18,12 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image3d/view/const_object.hpp>
-#include <sge/image3d/view/object.hpp>
-#include <sge/renderer/lock_mode.hpp>
+#include <sge/renderer/dim3.hpp>
+#include <sge/renderer/lock_box.hpp>
 #include <sge/renderer/texture/volume.hpp>
-#include <fcppt/math/box/object_impl.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
+#include <sge/renderer/color_buffer/volume.hpp>
+#include <sge/renderer/texture/mipmap/level.hpp>
 
 
 sge::renderer::texture::volume::volume()
@@ -34,33 +33,23 @@ sge::renderer::texture::volume::~volume()
 {
 }
 
-sge::renderer::texture::volume::view const
-sge::renderer::texture::volume::lock(
-	renderer::lock_mode::type const _flags
-)
+sge::renderer::texture::volume::dim const
+sge::renderer::texture::volume::size() const
 {
 	return
-		this->lock(
-			this->area(),
-			_flags
-		);
+		this->level(
+			sge::renderer::texture::mipmap::level(
+				0u
+			)
+		).size();
 }
 
-sge::renderer::texture::volume::const_view const
-sge::renderer::texture::volume::lock() const
-{
-	return
-		this->lock(
-			this->area()
-		);
-}
-
-sge::renderer::texture::volume::box const
+sge::renderer::texture::volume::rect const
 sge::renderer::texture::volume::area() const
 {
 	return
-		volume::box(
-			volume::box::vector::null(),
+		sge::renderer::texture::volume::rect(
+			sge::renderer::texture::volume::rect::vector::null(),
 			this->size()
 		);
 }

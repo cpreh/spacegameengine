@@ -103,6 +103,7 @@ set(
 	include/sge/image/traits/optional_pitch.hpp
 	include/sge/image/traits/pitch.hpp
 	include/sge/image/traits/sub_out_of_range.hpp
+	include/sge/image/traits/tag_from_dimension.hpp
 	include/sge/image/traits/tag_from_view.hpp
 	include/sge/image/traits/view.hpp
 	include/sge/image/traits/view_elements.hpp

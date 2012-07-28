@@ -20,13 +20,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/colors.hpp>
 #include <sge/image/color/format.hpp>
-#include <sge/renderer/color_surface.hpp>
-#include <sge/renderer/color_surface_shared_ptr.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/caps/device.hpp>
 #include <sge/renderer/clear/parameters.hpp>
+#include <sge/renderer/color_buffer/optional_surface_ref.hpp>
 #include <sge/renderer/context/object.hpp>
 #include <sge/renderer/projection/far.hpp>
 #include <sge/renderer/projection/near.hpp>
@@ -409,8 +408,8 @@ sge::cegui::texture_target::declareRenderSize(
 		return;
 
 	target_->color_surface(
-		sge::renderer::color_surface_shared_ptr(
-			texture_->impl().surface(
+		sge::renderer::color_buffer::optional_surface_ref(
+			texture_->impl().level(
 				sge::renderer::texture::mipmap::level(
 					0u
 				)
