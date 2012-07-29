@@ -18,42 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image2d/view/const_object.hpp>
-#include <sge/image2d/view/object.hpp>
-#include <sge/renderer/lock_mode.hpp>
+#include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/texture/cube.hpp>
 #include <sge/renderer/texture/cube_side.hpp>
-#include <fcppt/math/box/object_impl.hpp>
 
 
 sge::renderer::texture::cube::cube()
 {
 }
 
-sge::renderer::texture::cube::view const
-sge::renderer::texture::cube::lock(
-	texture::cube_side::type const _side,
-	renderer::lock_mode::type const _flags
-)
+sge::renderer::texture::cube::~cube()
 {
-	return
-		this->lock(
-			_side,
-			this->area(),
-			_flags
-		);
-}
-
-sge::renderer::texture::cube::const_view const
-sge::renderer::texture::cube::lock(
-	texture::cube_side::type const _side
-) const
-{
-	return
-		this->lock(
-			_side,
-			this->area()
-		);
 }
 
 sge::renderer::texture::cube::size_type
@@ -67,15 +42,11 @@ sge::renderer::texture::cube::rect const
 sge::renderer::texture::cube::area() const
 {
 	return
-		cube::rect(
-			cube::rect::vector::null(),
-			cube::rect::dim(
+		sge::renderer::texture::cube::rect(
+			sge::renderer::texture::cube::rect::vector::null(),
+			sge::renderer::texture::cube::rect::dim(
 				this->border_size(),
 				this->border_size()
 			)
 		);
-}
-
-sge::renderer::texture::cube::~cube()
-{
 }

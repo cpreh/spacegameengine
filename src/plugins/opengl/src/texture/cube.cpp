@@ -18,20 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image2d/view/const_object.hpp>
-#include <sge/image2d/view/object.hpp>
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/context/use.hpp>
-#include <sge/opengl/glew/is_supported.hpp>
 #include <sge/opengl/texture/basic_parameters.hpp>
 #include <sge/opengl/texture/cube.hpp>
 #include <sge/opengl/texture/cube_context.hpp>
 #include <sge/opengl/texture/optional_type.hpp>
 #include <sge/opengl/texture/planar.hpp>
 #include <sge/opengl/texture/convert/cube_side.hpp>
-#include <sge/renderer/exception.hpp>
-#include <sge/renderer/lock_mode.hpp>
-#include <sge/renderer/lock_rect_fwd.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/color_buffer/surface.hpp>
 #include <sge/renderer/texture/base.hpp>
@@ -40,13 +33,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/cube_side.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
+#include <sge/renderer/texture/mipmap/level_count.hpp>
 #include <sge/renderer/texture/mipmap/object.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/foreach_enumerator.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/null_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 
@@ -118,110 +111,72 @@ sge::opengl::texture::cube::~cube()
 {
 }
 
-sge::opengl::texture::cube::view const
-sge::opengl::texture::cube::lock(
-	sge::renderer::texture::cube_side::type const _side,
-	sge::renderer::lock_rect const &_src,
-	sge::renderer::lock_mode::type const _flags
-)
-{
-	this->check_not_locked();
-
-	locked_texture_ =
-		&textures_[
-			_side
-		];
-
-	return
-		locked_texture_->level(
-			sge::renderer::texture::mipmap::level(
-				0u
-			)
-		).lock(
-			_src,
-			_flags
-		);
-}
-
-sge::opengl::texture::cube::const_view const
-sge::opengl::texture::cube::lock(
-	sge::renderer::texture::cube_side::type const _side,
-	sge::renderer::lock_rect const &_src
-) const
-{
-	this->check_not_locked();
-
-	locked_texture_ =
-		&textures_[
-			_side
-		];
-
-	return
-		locked_texture_->level(
-			sge::renderer::texture::mipmap::level(
-				0u
-			)
-		).lock(
-			_src
-		);
-}
-
-void
-sge::opengl::texture::cube::unlock() const
-{
-	this->check_locked();
-
-	locked_texture_->level(
-		sge::renderer::texture::mipmap::level(
-			0u
-		)
-	).unlock();
-
-	locked_texture_ = fcppt::null_ptr();
-}
-
 sge::opengl::texture::cube::size_type
 sge::opengl::texture::cube::border_size() const
 {
 	return size_;
 }
 
+sge::renderer::texture::cube::color_buffer &
+sge::opengl::texture::cube::level(
+	sge::renderer::texture::cube_side::type const _side,
+	sge::renderer::texture::mipmap::level const _level
+)
+{
+	return
+		textures_[
+			_side
+		].level(
+			_level
+		);
+
+}
+
+sge::renderer::texture::cube::color_buffer const &
+sge::opengl::texture::cube::level(
+	sge::renderer::texture::cube_side::type const _side,
+	sge::renderer::texture::mipmap::level const _level
+) const
+{
+	return
+		textures_[
+			_side
+		].level(
+			_level
+		);
+}
+
+sge::renderer::texture::mipmap::level_count const
+sge::opengl::texture::cube::levels() const
+{
+	return
+		this->ref_texture().levels();
+}
+
 sge::renderer::resource_flags_field const
 sge::opengl::texture::cube::resource_flags() const
 {
-	return textures_[0].resource_flags();
+	return
+		this->ref_texture().resource_flags();
 }
 
 sge::renderer::texture::capabilities_field const
 sge::opengl::texture::cube::capabilities() const
 {
-	return textures_[0].capabilities();
+	return
+		this->ref_texture().capabilities();
 }
 
 sge::renderer::texture::mipmap::object const
 sge::opengl::texture::cube::mipmap() const
 {
-	return textures_[0].mipmap();
+	return
+		this->ref_texture().mipmap();
 }
 
-void
-sge::opengl::texture::cube::check_locked() const
+sge::renderer::texture::planar const &
+sge::opengl::texture::cube::ref_texture() const
 {
-	if(
-		!locked_texture_
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("ogl::texture::cube: not locked!")
-		);
-}
-
-void
-sge::opengl::texture::cube::check_not_locked() const
-{
-	if(
-		locked_texture_
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("ogl::texture::cube: already locked!")
-		);
+	return
+		textures_[0];
 }

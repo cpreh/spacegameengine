@@ -21,18 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_CUBE_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_CUBE_HPP_INCLUDED
 
-#include <sge/image2d/view/const_object_fwd.hpp>
-#include <sge/image2d/view/object_fwd.hpp>
 #include <sge/opengl/texture/base.hpp>
 #include <sge/opengl/texture/basic_parameters_fwd.hpp>
-#include <sge/renderer/lock_mode.hpp>
-#include <sge/renderer/lock_rect_fwd.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
 #include <sge/renderer/texture/capabilities_field_fwd.hpp>
 #include <sge/renderer/texture/cube.hpp>
 #include <sge/renderer/texture/cube_parameters_fwd.hpp>
 #include <sge/renderer/texture/cube_side.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
+#include <sge/renderer/texture/mipmap/level.hpp>
+#include <sge/renderer/texture/mipmap/level_count.hpp>
 #include <sge/renderer/texture/mipmap/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -63,24 +61,23 @@ public:
 
 	~cube();
 
-	sge::opengl::texture::cube::view const
-	lock(
-		sge::renderer::texture::cube_side::type,
-		sge::renderer::lock_rect const &,
-		sge::renderer::lock_mode::type
-	);
-
-	sge::opengl::texture::cube::const_view const
-	lock(
-		sge::renderer::texture::cube_side::type,
-		sge::renderer::lock_rect const &
-	) const;
-
-	void
-	unlock() const;
-
 	sge::opengl::texture::cube::size_type
 	border_size() const;
+
+	sge::renderer::texture::cube::color_buffer &
+	level(
+		sge::renderer::texture::cube_side::type,
+		sge::renderer::texture::mipmap::level
+	);
+
+	sge::renderer::texture::cube::color_buffer const &
+	level(
+		sge::renderer::texture::cube_side::type,
+		sge::renderer::texture::mipmap::level
+	) const;
+
+	sge::renderer::texture::mipmap::level_count const
+	levels() const;
 
 	sge::renderer::resource_flags_field const
 	resource_flags() const;
@@ -91,11 +88,8 @@ private:
 	sge::renderer::texture::mipmap::object const
 	mipmap() const;
 
-	void
-	check_locked() const;
-
-	void
-	check_not_locked() const;
+	sge::renderer::texture::planar const &
+	ref_texture() const;
 
 	sge::opengl::texture::cube::size_type const size_;
 
