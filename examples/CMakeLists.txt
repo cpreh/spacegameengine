@@ -137,12 +137,6 @@ add_sge_example(
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 )
 
-add_sge_example(
-	bvh
-	"sgeconfig;sgeimage;sgeinput;sgerenderer;sgesprite;sgesystems;sgeviewport;sgewindow"
-	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES}"
-)
-
 add_sge_console_example(
 	caps
 	"sgeconfig;sgeplugin;sgerenderer;sgewindow"
@@ -415,6 +409,10 @@ add_sge_example(
 	window_without_input
 	"sgeimage;sgerenderer;sgesystems;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+)
+
+add_subdirectory(
+	bvh
 )
 
 if(

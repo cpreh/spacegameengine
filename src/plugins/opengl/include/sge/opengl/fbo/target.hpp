@@ -33,10 +33,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/fbo/render_buffer_fwd.hpp>
 #include <sge/opengl/fbo/target_fwd.hpp>
 #include <sge/opengl/texture/buffer_base_fwd.hpp>
-#include <sge/renderer/color_buffer/optional_surface_ref_fwd.hpp>
-#include <sge/renderer/optional_depth_stencil_surface_ref_fwd.hpp>
 #include <sge/renderer/dim2.hpp>
+#include <sge/renderer/optional_depth_stencil_surface_ref_fwd.hpp>
 #include <sge/renderer/screen_unit.hpp>
+#include <sge/renderer/color_buffer/optional_surface_ref_fwd.hpp>
 #include <sge/renderer/target/offscreen.hpp>
 #include <sge/renderer/target/surface_index.hpp>
 #include <fcppt/noncopyable.hpp>

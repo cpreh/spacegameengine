@@ -18,23 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/bvh/dummy_node.hpp>
 #include <sge/bvh/object_impl.hpp>
-#include <fcppt/container/tree/depth.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/image/capabilities_field.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image/color/rgba8.hpp>
+#include <sge/input/keyboard/device.hpp>
+#include <sge/input/keyboard/key_event.hpp>
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_set.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/clear/parameters.hpp>
-#include <sge/bvh/dummy_node.hpp>
 #include <sge/renderer/context/object.hpp>
-#include <sge/input/keyboard/key_event.hpp>
-#include <sge/input/keyboard/device.hpp>
 #include <sge/renderer/context/scoped.hpp>
-#include <fcppt/math/box/output.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/parameters/object.hpp>
 #include <sge/renderer/parameters/vsync.hpp>
@@ -60,11 +58,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/normal_size.hpp>
 #include <sge/sprite/config/type_choices.hpp>
 #include <sge/sprite/config/unit_type.hpp>
-#include <fcppt/extract_from_string_exn.hpp>
 #include <sge/sprite/config/with_color.hpp>
 #include <sge/sprite/geometry/make_random_access_range.hpp>
-#include <fcppt/variant/holds_type.hpp>
-#include <awl/main/function_context.hpp>
 #include <sge/sprite/process/all.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/input.hpp>
@@ -83,30 +78,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/title.hpp>
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
+#include <awl/main/function_context.hpp>
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
+#include <fcppt/extract_from_string_exn.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
+#include <fcppt/container/tree/depth.hpp>
 #include <fcppt/io/cerr.hpp>
+#include <fcppt/math/box/output.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/random/variate.hpp>
-#include <fcppt/random/distribution/uniform_real.hpp>
 #include <fcppt/random/distribution/uniform_int.hpp>
+#include <fcppt/random/distribution/uniform_real.hpp>
 #include <fcppt/random/generator/minstd_rand.hpp>
 #include <fcppt/random/generator/seed_from_chrono.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/variant/holds_type.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/chrono.hpp>
 #include <example_main.hpp>
 #include <exception>
 #include <iostream>
 #include <ostream>
-#include <boost/chrono.hpp>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace
 {
