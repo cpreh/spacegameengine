@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/bvh/object_impl.hpp>
 #include <sge/bvh/tree_traits.hpp>
 #include <fcppt/extract_from_string_exn.hpp>
+#include <fcppt/container/tree/depth.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/math/box/object_impl.hpp>
@@ -146,6 +147,11 @@ try
 		<<
 			boost::chrono::duration_cast<boost::chrono::milliseconds>(
 				clock_type::now() - before).count()
+		<< "\n";
+
+	std::cout
+		<< "Tree depth: "
+		<< fcppt::container::tree::depth(bounding_hierarchy.representation())
 		<< "\n";
 }
 catch(
