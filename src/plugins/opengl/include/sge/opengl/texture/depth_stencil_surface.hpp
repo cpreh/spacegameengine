@@ -21,12 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_DEPTH_STENCIL_SURFACE_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_DEPTH_STENCIL_SURFACE_HPP_INCLUDED
 
-#include <sge/opengl/texture/basic_surface.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
+#include <sge/opengl/texture/buffer_base.hpp>
 #include <sge/opengl/texture/id.hpp>
 #include <sge/opengl/texture/type.hpp>
 #include <sge/renderer/depth_stencil_format.hpp>
 #include <sge/renderer/depth_stencil_surface.hpp>
+#include <sge/renderer/dim2.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -39,31 +40,31 @@ namespace texture
 
 class depth_stencil_surface
 :
-	public opengl::texture::basic_surface<
-		sge::renderer::depth_stencil_surface
-	>
+	public sge::renderer::depth_stencil_surface,
+	public sge::opengl::texture::buffer_base
 {
 	FCPPT_NONCOPYABLE(
 		depth_stencil_surface
 	);
 public:
-	typedef opengl::texture::basic_surface<
-		sge::renderer::depth_stencil_surface
-	> base;
-
 	depth_stencil_surface(
-		texture::binding const &,
-		texture::type,
-		texture::id,
-		renderer::depth_stencil_format::type
+		sge::opengl::texture::binding const &,
+		sge::opengl::texture::type,
+		sge::opengl::texture::id,
+		sge::renderer::depth_stencil_format::type
 	);
 
 	~depth_stencil_surface();
 private:
-	renderer::depth_stencil_format::type
+	dim const
+	size() const;
+
+	sge::renderer::depth_stencil_format::type
 	format() const;
 
-	renderer::depth_stencil_format::type const format_;
+	dim const size_;
+
+	sge::renderer::depth_stencil_format::type const format_;
 };
 
 }

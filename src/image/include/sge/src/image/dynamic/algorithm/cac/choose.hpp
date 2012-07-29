@@ -72,7 +72,7 @@ choose(
 	return
 		&mizuiro::color::conversion::same_to_same<
 			typename DestFormat::color_format,
-			typename cac::source<
+			typename sge::image::dynamic::algorithm::cac::source<
 				SourceFormat
 			>::type
 		>;

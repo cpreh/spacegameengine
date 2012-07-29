@@ -265,8 +265,6 @@ set(
 	src/plugins/opengl/include/sge/opengl/texture/basic_impl.hpp
 	src/plugins/opengl/include/sge/opengl/texture/basic_parameters.hpp
 	src/plugins/opengl/include/sge/opengl/texture/basic_parameters_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/texture/basic_surface.hpp
-	src/plugins/opengl/include/sge/opengl/texture/basic_surface_impl.hpp
 	src/plugins/opengl/include/sge/opengl/texture/best_color_format.hpp
 	src/plugins/opengl/include/sge/opengl/texture/bind_level.hpp
 	src/plugins/opengl/include/sge/opengl/texture/bind_type.hpp

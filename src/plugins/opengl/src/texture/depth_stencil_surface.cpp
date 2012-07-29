@@ -18,9 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/texture/basic_surface_impl.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
+#include <sge/opengl/texture/buffer_base.hpp>
 #include <sge/opengl/texture/depth_stencil_surface.hpp>
+#include <sge/opengl/texture/get_level_size.hpp>
 #include <sge/opengl/texture/id.hpp>
 #include <sge/opengl/texture/type.hpp>
 #include <sge/renderer/depth_stencil_format.hpp>
@@ -29,21 +30,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::opengl::texture::depth_stencil_surface::depth_stencil_surface(
-	texture::binding const &_binding,
-	texture::type const _type,
-	texture::id const _id,
-	renderer::depth_stencil_format::type const _format
+	sge::opengl::texture::binding const &_binding,
+	sge::opengl::texture::type const _type,
+	sge::opengl::texture::id const _id,
+	sge::renderer::depth_stencil_format::type const _format
 )
 :
-	base(
-		_binding,
+	sge::renderer::depth_stencil_surface(),
+	sge::opengl::texture::buffer_base(
 		_type,
 		_id,
 		sge::renderer::texture::mipmap::level(
 			0u
 		)
 	),
-	format_(_format)
+	size_(
+		sge::opengl::texture::get_level_size<
+			2u
+		>(
+			_binding,
+			_type,
+			sge::renderer::texture::mipmap::level(
+				0u
+			)
+		)
+	),
+	format_(
+		_format
+	)
 {
 }
 
@@ -51,13 +65,14 @@ sge::opengl::texture::depth_stencil_surface::~depth_stencil_surface()
 {
 }
 
+sge::opengl::texture::depth_stencil_surface::dim const
+sge::opengl::texture::depth_stencil_surface::size() const
+{
+	return size_;
+}
+
 sge::renderer::depth_stencil_format::type
 sge::opengl::texture::depth_stencil_surface::format() const
 {
 	return format_;
 }
-
-template class
-sge::opengl::texture::basic_surface<
-	sge::renderer::depth_stencil_surface
->;
