@@ -32,9 +32,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/system.hpp>
 #include <sge/font/text/align_h.hpp>
 #include <sge/font/text/align_v.hpp>
-#include <sge/renderer/material.hpp>
-#include <sge/image/color/rgba8.hpp>
-#include <sge/image/color/init.hpp>
 #include <sge/font/text/draw.hpp>
 #include <sge/font/text/drawer_3d.hpp>
 #include <sge/font/text/flags_none.hpp>
@@ -43,6 +40,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text/part.hpp>
 #include <sge/font/text/string.hpp>
 #include <sge/image/colors.hpp>
+#include <sge/image/color/init.hpp>
+#include <sge/image/color/rgba8.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_code_to_digit.hpp>
 #include <sge/input/keyboard/key_event.hpp>
@@ -52,6 +51,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/manager/instance/object.hpp>
 #include <sge/renderer/aspect.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/material.hpp>
 #include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/scoped_transform.hpp>
 #include <sge/renderer/caps/device.hpp>

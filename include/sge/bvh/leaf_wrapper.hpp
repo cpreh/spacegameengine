@@ -18,20 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_PLANAR_TYPES_FWD_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_PLANAR_TYPES_FWD_HPP_INCLUDED
-
+#ifndef SGE_BVH_LEAF_WRAPPER_HPP_INCLUDED
+#define SGE_BVH_LEAF_WRAPPER_HPP_INCLUDED
 
 namespace sge
 {
-namespace opengl
+namespace bvh
 {
-namespace texture
+template<typename Leaf>
+class leaf_wrapper
 {
+public:
+	typedef
+	Leaf
+	leaf;
 
-struct planar_types;
+	leaf_wrapper(
+		leaf &_value)
+	:
+		value_(
+			&_value)
+	{
+	}
 
-}
+	leaf &
+	value() const
+	{
+		return
+			*value_;
+	}
+private:
+	leaf *value_;
+};
 }
 }
 

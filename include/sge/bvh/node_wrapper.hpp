@@ -18,20 +18,60 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_PLANAR_TYPES_FWD_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_PLANAR_TYPES_FWD_HPP_INCLUDED
-
+#ifndef SGE_BVH_NODE_WRAPPER_HPP_INCLUDED
+#define SGE_BVH_NODE_WRAPPER_HPP_INCLUDED
 
 namespace sge
 {
-namespace opengl
+namespace bvh
 {
-namespace texture
+template<typename Node,typename Box>
+class node_wrapper
 {
+public:
+	typedef
+	Node
+	node;
 
-struct planar_types;
+	typedef
+	Box
+	box;
 
-}
+	node_wrapper(
+		node const &_value,
+		box const &_bounding_box)
+	:
+		value_(
+			_value),
+		bounding_box_(
+			_bounding_box)
+	{
+	}
+
+	node &
+	value()
+	{
+		return
+			value_;
+	}
+
+	node const &
+	value() const
+	{
+		return
+			value_;
+	}
+
+	box const &
+	bounding_box() const
+	{
+		return
+			bounding_box_;
+	}
+private:
+	node value_;
+	box bounding_box_;
+};
 }
 }
 

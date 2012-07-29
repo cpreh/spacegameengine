@@ -18,20 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_PLANAR_TYPES_FWD_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_PLANAR_TYPES_FWD_HPP_INCLUDED
-
+#ifndef SGE_BVH_EMPTY_NODE_HPP_INCLUDED
+#define SGE_BVH_EMPTY_NODE_HPP_INCLUDED
 
 namespace sge
 {
-namespace opengl
+namespace bvh
 {
-namespace texture
-{
-
-struct planar_types;
-
-}
+struct empty_node {};
 }
 }
 

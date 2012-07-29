@@ -86,12 +86,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/context/object.hpp>
 #include <sge/renderer/context/scoped.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
-#include <sge/renderer/parameters/object.hpp>
-#include <sge/renderer/parameters/vsync.hpp>
-#include <sge/renderer/pixel_format/color.hpp>
-#include <sge/renderer/pixel_format/depth_stencil.hpp>
-#include <sge/renderer/pixel_format/optional_multi_samples.hpp>
-#include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/light/attenuation.hpp>
 #include <sge/renderer/light/constant_attenuation.hpp>
 #include <sge/renderer/light/index.hpp>
@@ -100,6 +94,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/light/point.hpp>
 #include <sge/renderer/light/position.hpp>
 #include <sge/renderer/light/quadratic_attenuation.hpp>
+#include <sge/renderer/parameters/object.hpp>
+#include <sge/renderer/parameters/vsync.hpp>
+#include <sge/renderer/pixel_format/color.hpp>
+#include <sge/renderer/pixel_format/depth_stencil.hpp>
+#include <sge/renderer/pixel_format/optional_multi_samples.hpp>
+#include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/projection/far.hpp>
 #include <sge/renderer/projection/fov.hpp>
 #include <sge/renderer/projection/near.hpp>

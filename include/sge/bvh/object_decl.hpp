@@ -18,20 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_PLANAR_TYPES_FWD_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_PLANAR_TYPES_FWD_HPP_INCLUDED
+#ifndef SGE_BVH_OBJECT_DECL_HPP_INCLUDED
+#define SGE_BVH_OBJECT_DECL_HPP_INCLUDED
+
+#include <sge/bvh/tree_traits.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <vector>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
 {
-namespace opengl
+namespace bvh
 {
-namespace texture
+template<typename Traits>
+class object
 {
+FCPPT_NONCOPYABLE(
+	object);
+public:
+	typedef
+	Traits
+	traits;
 
-struct planar_types;
+	object();
 
-}
+	void
+	insert(
+		typename traits::leaf_sequence const &);
+
+	typename traits::tree_representation const &
+	representation() const;
+
+	~object();
+private:
+	typename traits::leaf_sequence leaves_;
+	typename traits::tree_representation representation_;
+};
 }
 }
 

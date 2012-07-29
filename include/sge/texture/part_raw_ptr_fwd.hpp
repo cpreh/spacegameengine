@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXTURE_PART_RAW_PTR_FWD_HPP_INCLUDED
 #define SGE_TEXTURE_PART_RAW_PTR_FWD_HPP_INCLUDED
 
-#include <sge/texture/basic_part_raw_fwd.hpp>
 #include <sge/renderer/texture/planar_unique_ptr.hpp>
+#include <sge/texture/basic_part_raw_fwd.hpp>
 
 
 namespace sge
