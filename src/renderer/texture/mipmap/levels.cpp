@@ -18,19 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/renderer/texture/mipmap/auto_generate.hpp>
+#include <sge/renderer/texture/mipmap/level_count.hpp>
 #include <sge/renderer/texture/mipmap/levels.hpp>
 #include <sge/renderer/texture/mipmap/levels_rep.hpp>
 #include <sge/renderer/texture/mipmap/object.hpp>
 
+
 sge::renderer::texture::mipmap::object const
 sge::renderer::texture::mipmap::levels(
-	mipmap::level_count const _levels,
-	mipmap::auto_generate::type const _auto_generate
+	sge::renderer::texture::mipmap::level_count const _levels,
+	sge::renderer::texture::mipmap::auto_generate::type const _auto_generate
 )
 {
 	return
-		mipmap::object(
-			mipmap::levels_rep(
+		sge::renderer::texture::mipmap::object(
+			sge::renderer::texture::mipmap::levels_rep(
 				_levels,
 				_auto_generate
 			)

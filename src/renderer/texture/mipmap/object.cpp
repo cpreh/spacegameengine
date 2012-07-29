@@ -19,12 +19,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/texture/mipmap/object.hpp>
+#include <sge/renderer/texture/mipmap/variant.hpp>
+
 
 sge::renderer::texture::mipmap::object::object(
-	mipmap::variant const &_variant
+	sge::renderer::texture::mipmap::variant const &_variant
 )
 :
-	variant_(_variant)
+	variant_(
+		_variant
+	)
 {
 }
 

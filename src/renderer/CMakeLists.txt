@@ -451,6 +451,7 @@ set(
 	include/sge/renderer/texture/mipmap/off_rep.hpp
 	include/sge/renderer/texture/mipmap/off_rep_fwd.hpp
 	include/sge/renderer/texture/mipmap/variant.hpp
+	include/sge/renderer/texture/mipmap/variant_fwd.hpp
 	include/sge/renderer/texture/planar.hpp
 	include/sge/renderer/texture/planar_fwd.hpp
 	include/sge/renderer/texture/planar_parameters.hpp

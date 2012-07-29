@@ -38,15 +38,16 @@ namespace mipmap
 class all_levels_rep
 {
 public:
-	explicit all_levels_rep(
-		mipmap::auto_generate::type
+	explicit
+	all_levels_rep(
+		sge::renderer::texture::mipmap::auto_generate::type
 	);
 
 	SGE_RENDERER_SYMBOL
-	mipmap::auto_generate::type
+	sge::renderer::texture::mipmap::auto_generate::type
 	auto_generate() const;
 private:
-	mipmap::auto_generate::type auto_generate_;
+	sge::renderer::texture::mipmap::auto_generate::type auto_generate_;
 };
 
 }

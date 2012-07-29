@@ -23,12 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/mipmap/off_rep.hpp>
 
 
-SGE_RENDERER_SYMBOL
 sge::renderer::texture::mipmap::object const
 sge::renderer::texture::mipmap::off()
 {
 	return
-		mipmap::object(
-			mipmap::off_rep()
+		sge::renderer::texture::mipmap::object(
+			sge::renderer::texture::mipmap::off_rep()
 		);
 }

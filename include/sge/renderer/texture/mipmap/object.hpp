@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/texture/mipmap/object_fwd.hpp>
 #include <sge/renderer/texture/mipmap/variant.hpp>
-#include <fcppt/variant/object_impl.hpp>
 
 
 namespace sge
@@ -40,15 +39,16 @@ class object
 {
 public:
 	SGE_RENDERER_SYMBOL
-	explicit object(
-		mipmap::variant const &
+	explicit
+	object(
+		sge::renderer::texture::mipmap::variant const &
 	);
 
 	SGE_RENDERER_SYMBOL
-	mipmap::variant const &
+	sge::renderer::texture::mipmap::variant const &
 	variant() const;
 private:
-	mipmap::variant variant_;
+	sge::renderer::texture::mipmap::variant variant_;
 };
 
 }

@@ -21,35 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TEXTURE_MIPMAP_VARIANT_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_MIPMAP_VARIANT_HPP_INCLUDED
 
-#include <sge/renderer/texture/mipmap/all_levels_rep.hpp>
-#include <sge/renderer/texture/mipmap/levels_rep.hpp>
-#include <sge/renderer/texture/mipmap/off_rep.hpp>
-#include <fcppt/variant/object_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/vector/vector10.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <sge/renderer/texture/mipmap/variant_fwd.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
-
-namespace sge
-{
-namespace renderer
-{
-namespace texture
-{
-namespace mipmap
-{
-
-typedef fcppt::variant::object<
-	boost::mpl::vector3<
-		mipmap::off_rep,
-		mipmap::all_levels_rep,
-		mipmap::levels_rep
-	>
-> variant;
-
-}
-}
-}
-}
 
 #endif

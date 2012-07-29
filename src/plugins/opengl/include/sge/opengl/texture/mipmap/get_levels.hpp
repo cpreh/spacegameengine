@@ -18,20 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_TEXTURE_MIPMAP_LEVELS_REP_FWD_HPP_INCLUDED
-#define SGE_RENDERER_TEXTURE_MIPMAP_LEVELS_REP_FWD_HPP_INCLUDED
+#ifndef SGE_OPENGL_TEXTURE_MIPMAP_GET_LEVELS_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_MIPMAP_GET_LEVELS_HPP_INCLUDED
+
+#include <sge/renderer/basic_dim_fwd.hpp>
+#include <sge/renderer/texture/mipmap/level_count.hpp>
+#include <sge/renderer/texture/mipmap/object_fwd.hpp>
+#include <fcppt/math/size_type.hpp>
 
 
 namespace sge
 {
-namespace renderer
+namespace opengl
 {
 namespace texture
 {
 namespace mipmap
 {
 
-class levels_rep;
+template<
+	fcppt::math::size_type Size
+>
+sge::renderer::texture::mipmap::level_count const
+get_levels(
+	sge::renderer::texture::mipmap::object const &,
+	typename sge::renderer::basic_dim<
+		Size
+	>::type const &
+);
 
 }
 }

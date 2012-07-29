@@ -342,6 +342,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/texture/mipmap/auto_generate.hpp
 	src/plugins/opengl/include/sge/opengl/texture/mipmap/create.hpp
 	src/plugins/opengl/include/sge/opengl/texture/mipmap/generate_levels.hpp
+	src/plugins/opengl/include/sge/opengl/texture/mipmap/get_levels.hpp
 	src/plugins/opengl/include/sge/opengl/texture/mipmap/levels.hpp
 	src/plugins/opengl/include/sge/opengl/texture/mipmap/parameters.hpp
 	src/plugins/opengl/include/sge/opengl/texture/mipmap/parameters_fwd.hpp
@@ -670,6 +671,7 @@ set(
 	src/plugins/opengl/src/texture/mipmap/auto_generate.cpp
 	src/plugins/opengl/src/texture/mipmap/create.cpp
 	src/plugins/opengl/src/texture/mipmap/generate_levels.cpp
+	src/plugins/opengl/src/texture/mipmap/get_levels.cpp
 	src/plugins/opengl/src/texture/mipmap/levels.cpp
 	src/plugins/opengl/src/texture/mipmap/parameters.cpp
 	src/plugins/opengl/src/texture/mipmap/visitor.cpp

@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_TEXTURE_BASIC_IMPL_HPP_INCLUDED
 
 #include <sge/image/color/format.hpp>
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/convert/color_to_format.hpp>
 #include <sge/opengl/convert/color_to_format_type.hpp>
 #include <sge/opengl/convert/color_to_internal_format.hpp>
@@ -34,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/scoped_work_binding.hpp>
 #include <sge/opengl/texture/funcs/get_parameter_int.hpp>
 #include <sge/opengl/texture/mipmap/create.hpp>
+#include <sge/opengl/texture/mipmap/get_levels.hpp>
 #include <sge/opengl/texture/mipmap/parameters.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
@@ -144,25 +144,24 @@ sge::opengl::texture::basic<
 		mipmap_
 	);
 
-	// FIXME
-/*
-	GLint const mip_levels(
-		sge::opengl::texture::funcs::get_parameter_int(
-			binding,
-			this->type(),
-			GL_TEXTURE_MAX_LEVEL
+	sge::renderer::texture::mipmap::level_count const mip_levels(
+		sge::opengl::texture::mipmap::get_levels<
+			base_type::dim::dim_wrapper::value
+		>(
+			mipmap_,
+			_parameters.size()
 		)
-	);*/
+	);
 
 	typedef sge::opengl::texture::basic_buffer<
 		Types
 	> gl_buffer;
 
 	for(
-		GLint index(
-			0
+		sge::renderer::texture::mipmap::level index(
+			0u
 		);
-		index < 1;
+		index.get() < mip_levels.get();
 		++index
 	)
 		fcppt::container::ptr::push_back_unique_ptr(
@@ -179,11 +178,7 @@ sge::opengl::texture::basic<
 				fcppt::ref(
 					_basic_parameters.device_context()
 				),
-				fcppt::strong_typedef_construct_cast<
-					sge::renderer::texture::mipmap::level
-				>(
-					index
-				),
+				index,
 				this->type(),
 				this->id(),
 				fcppt::cref(

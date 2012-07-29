@@ -19,12 +19,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/texture/mipmap/all_levels_rep.hpp>
+#include <sge/renderer/texture/mipmap/auto_generate.hpp>
+
 
 sge::renderer::texture::mipmap::all_levels_rep::all_levels_rep(
-	mipmap::auto_generate::type const _auto_generate
+	sge::renderer::texture::mipmap::auto_generate::type const _auto_generate
 )
 :
-	auto_generate_(_auto_generate)
+	auto_generate_(
+		_auto_generate
+	)
 {
 }
 

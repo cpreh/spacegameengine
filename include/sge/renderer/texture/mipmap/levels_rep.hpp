@@ -40,21 +40,21 @@ class levels_rep
 {
 public:
 	levels_rep(
-		mipmap::level_count,
-		mipmap::auto_generate::type
+		sge::renderer::texture::mipmap::level_count,
+		sge::renderer::texture::mipmap::auto_generate::type
 	);
 
 	SGE_RENDERER_SYMBOL
-	mipmap::level_count
+	sge::renderer::texture::mipmap::level_count
 	value() const;
 
 	SGE_RENDERER_SYMBOL
-	mipmap::auto_generate::type
+	sge::renderer::texture::mipmap::auto_generate::type
 	auto_generate() const;
 private:
-	mipmap::level_count value_;
+	sge::renderer::texture::mipmap::level_count value_;
 
-	mipmap::auto_generate::type auto_generate_;
+	sge::renderer::texture::mipmap::auto_generate::type auto_generate_;
 };
 
 }
