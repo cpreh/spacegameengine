@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/device_state/create.hpp>
 #include <sge/opengl/device_state/object.hpp>
 #include <sge/opengl/fbo/create_depth_stencil_surface.hpp>
-#include <sge/opengl/fbo/target.hpp>
+#include <sge/opengl/fbo/create_target.hpp>
 #include <sge/opengl/occlusion_query/create.hpp>
 #include <sge/opengl/render_context/create.hpp>
 #include <sge/opengl/render_context/end.hpp>
@@ -58,6 +58,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/occlusion_query/object.hpp>
 #include <sge/renderer/occlusion_query/object_unique_ptr.hpp>
 #include <sge/renderer/target/base_fwd.hpp>
+#include <sge/renderer/target/offscreen.hpp>
 #include <sge/renderer/target/offscreen_unique_ptr.hpp>
 #include <sge/renderer/target/onscreen_fwd.hpp>
 #include <sge/renderer/texture/cube.hpp>
@@ -181,17 +182,9 @@ sge::renderer::target::offscreen_unique_ptr
 sge::opengl::device::create_target()
 {
 	return
-		sge::renderer::target::offscreen_unique_ptr(
-			fcppt::make_unique_ptr<
-				sge::opengl::fbo::target
-			>(
-				fcppt::ref(
-					system_context_
-				),
-				fcppt::ref(
-					device_context_
-				)
-			)
+		sge::opengl::fbo::create_target(
+			system_context_,
+			device_context_
 		);
 }
 

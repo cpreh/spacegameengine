@@ -115,6 +115,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/fbo/context_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/create_depth_stencil_surface.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/create_id.hpp
+	src/plugins/opengl/include/sge/opengl/fbo/create_target.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/delete_id.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/depth_stencil_format_to_attachment.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/depth_stencil_surface.hpp
@@ -261,6 +262,8 @@ set(
 	src/plugins/opengl/include/sge/opengl/texture/basic_buffer.hpp
 	src/plugins/opengl/include/sge/opengl/texture/basic_buffer_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/basic_buffer_impl.hpp
+	src/plugins/opengl/include/sge/opengl/texture/basic_buffer_parameters.hpp
+	src/plugins/opengl/include/sge/opengl/texture/basic_buffer_parameters_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/basic_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/basic_impl.hpp
 	src/plugins/opengl/include/sge/opengl/texture/basic_parameters.hpp
@@ -335,6 +338,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/texture/id.hpp
 	src/plugins/opengl/include/sge/opengl/texture/init_function.hpp
 	src/plugins/opengl/include/sge/opengl/texture/instantiate_dim.hpp
+	src/plugins/opengl/include/sge/opengl/texture/is_render_target.hpp
 	src/plugins/opengl/include/sge/opengl/texture/lock_base.hpp
 	src/plugins/opengl/include/sge/opengl/texture/lock_base_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/lock_base_unique_ptr.hpp
@@ -496,6 +500,7 @@ set(
 	src/plugins/opengl/src/fbo/context.cpp
 	src/plugins/opengl/src/fbo/create_depth_stencil_surface.cpp
 	src/plugins/opengl/src/fbo/create_id.cpp
+	src/plugins/opengl/src/fbo/create_target.cpp
 	src/plugins/opengl/src/fbo/delete_id.cpp
 	src/plugins/opengl/src/fbo/depth_stencil_format_to_attachment.cpp
 	src/plugins/opengl/src/fbo/depth_stencil_surface.cpp
@@ -610,6 +615,7 @@ set(
 	src/plugins/opengl/src/texture/address_mode/set.cpp
 	src/plugins/opengl/src/texture/address_mode/update.cpp
 	src/plugins/opengl/src/texture/base.cpp
+	src/plugins/opengl/src/texture/basic_buffer_parameters.cpp
 	src/plugins/opengl/src/texture/basic_parameters.cpp
 	src/plugins/opengl/src/texture/best_color_format.cpp
 	src/plugins/opengl/src/texture/bind_level.cpp

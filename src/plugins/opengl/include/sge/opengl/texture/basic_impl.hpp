@@ -27,23 +27,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/convert/color_to_internal_format.hpp>
 #include <sge/opengl/texture/basic.hpp>
 #include <sge/opengl/texture/basic_buffer.hpp>
+#include <sge/opengl/texture/basic_buffer_parameters.hpp>
 #include <sge/opengl/texture/basic_parameters.hpp>
 #include <sge/opengl/texture/best_color_format.hpp>
 #include <sge/opengl/texture/check_dim.hpp>
+#include <sge/opengl/texture/is_render_target.hpp>
 #include <sge/opengl/texture/scoped_work_binding.hpp>
 #include <sge/opengl/texture/funcs/get_parameter_int.hpp>
 #include <sge/opengl/texture/mipmap/create.hpp>
 #include <sge/opengl/texture/mipmap/get_levels.hpp>
 #include <sge/opengl/texture/mipmap/parameters.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
+#include <sge/renderer/texture/capabilities.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <sge/renderer/texture/mipmap/level_count.hpp>
 #include <sge/renderer/texture/mipmap/object.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/null_ptr.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 
@@ -153,6 +154,12 @@ sge::opengl::texture::basic<
 		)
 	);
 
+	sge::opengl::texture::is_render_target const is_render_target(
+		this->capabilities()
+		&
+		sge::renderer::texture::capabilities::render_target
+	);
+
 	typedef sge::opengl::texture::basic_buffer<
 		Types
 	> gl_buffer;
@@ -169,25 +176,20 @@ sge::opengl::texture::basic<
 			fcppt::make_unique_ptr<
 				gl_buffer
 			>(
-				fcppt::cref(
-					binding
-				),
-				fcppt::ref(
-					_basic_parameters.system_context()
-				),
-				fcppt::ref(
-					_basic_parameters.device_context()
-				),
-				index,
-				this->type(),
-				this->id(),
-				fcppt::cref(
-					_parameters.resource_flags()
-				),
-				format,
-				color_format,
-				color_format_type,
-				internal_color_format
+				sge::opengl::texture::basic_buffer_parameters(
+					binding,
+					_basic_parameters.system_context(),
+					_basic_parameters.device_context(),
+					index,
+					this->type(),
+					this->id(),
+					_parameters.resource_flags(),
+					format,
+					color_format,
+					color_format_type,
+					internal_color_format,
+					is_render_target
+				)
 			)
 		);
 }

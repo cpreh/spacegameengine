@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/algorithm/copy.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
-#include <sge/image/color/format.hpp>
 #include <sge/image/color/format_stride.hpp>
 #include <sge/image/view/flipped.hpp>
 #include <sge/image/view/make.hpp>
@@ -32,12 +31,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/color_format_to_unpack_alignment.hpp>
 #include <sge/opengl/range_check.hpp>
 #include <sge/opengl/set_unpack_alignment.hpp>
-#include <sge/opengl/context/device/object_fwd.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/basic_buffer.hpp>
+#include <sge/opengl/texture/basic_buffer_parameters.hpp>
 #include <sge/opengl/texture/buffer_base.hpp>
 #include <sge/opengl/texture/create_lock.hpp>
 #include <sge/opengl/texture/get_level_size.hpp>
+#include <sge/opengl/texture/is_render_target.hpp>
 #include <sge/opengl/texture/scoped_work_binding.hpp>
 #include <sge/opengl/texture/funcs/get_image.hpp>
 #include <sge/opengl/texture/mipmap/create.hpp>
@@ -47,7 +46,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/lock_flags/method.hpp>
 #include <sge/renderer/lock_flags/read.hpp>
 #include <sge/renderer/lock_flags/write.hpp>
-#include <sge/renderer/texture/mipmap/level.hpp>
 #include <fcppt/format.hpp>
 #include <fcppt/null_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
@@ -64,54 +62,47 @@ template<
 sge::opengl::texture::basic_buffer<
 	Types
 >::basic_buffer(
-	sge::opengl::texture::binding const &_binding,
-	sge::opengl::context::system::object &_system_context,
-	sge::opengl::context::device::object &_device_context,
-	sge::renderer::texture::mipmap::level const _level,
-	sge::opengl::texture::type const _type,
-	sge::opengl::texture::id const _id,
-	sge::renderer::resource_flags_field const &_resource_flags,
-	sge::image::color::format::type const _format,
-	sge::opengl::color_format const _color_format,
-	sge::opengl::color_format_type const _color_format_type,
-	sge::opengl::internal_color_format const _internal_color_format
+	sge::opengl::texture::basic_buffer_parameters const &_parameters
 )
 :
 	base_type(),
 	sge::opengl::texture::buffer_base(
-		_type,
-		_id,
-		_level
+		_parameters.type(),
+		_parameters.id(),
+		_parameters.level()
 	),
 	system_context_(
-		_system_context
+		_parameters.system_context()
 	),
 	device_context_(
-		_device_context
+		_parameters.device_context()
 	),
 	resource_flags_(
-		_resource_flags
+		_parameters.resource_flags()
 	),
 	size_(
 		sge::opengl::texture::get_level_size<
 			dim::dim_wrapper::value
 		>(
-			_binding,
-			_type,
-			_level
+			_parameters.binding(),
+			_parameters.type(),
+			_parameters.level()
 		)
 	),
 	format_(
-		_format
+		_parameters.format()
 	),
 	color_format_(
-		_color_format
+		_parameters.color_format()
 	),
 	color_format_type_(
-		_color_format_type
+		_parameters.color_format_type()
 	),
 	internal_color_format_(
-		_internal_color_format
+		_parameters.internal_color_format()
+	),
+	is_render_target_(
+		_parameters.is_render_target()
 	),
 	stride_(
 		sge::image::color::format_stride(
@@ -130,6 +121,17 @@ sge::opengl::texture::basic_buffer<
 	Types
 >::~basic_buffer()
 {
+}
+
+template<
+	typename Types
+>
+sge::opengl::texture::is_render_target const
+sge::opengl::texture::basic_buffer<
+	Types
+>::is_render_target() const
+{
+	return is_render_target_;
 }
 
 template<

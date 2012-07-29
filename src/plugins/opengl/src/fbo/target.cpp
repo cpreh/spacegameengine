@@ -166,16 +166,14 @@ sge::opengl::fbo::target::color_surface(
 			)
 		);
 
-		// TODO!
-#if 0
 		if(
-			!texture_surface.is_render_target()
+			!texture_surface.is_render_target().get()
 		)
 			throw sge::renderer::exception(
 				FCPPT_TEXT("You tried to use a texture as a render target ")
 				FCPPT_TEXT("which hasn't been created as such!")
 			);
-#endif
+
 		this->add_dim(
 			_surface->size()
 		);

@@ -28,18 +28,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/internal_color_format.hpp>
 #include <sge/opengl/context/device/object_fwd.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/opengl/texture/base.hpp>
 #include <sge/opengl/texture/basic_fwd.hpp>
-#include <sge/opengl/texture/basic_parameters_fwd.hpp>
-#include <sge/opengl/texture/binding_fwd.hpp>
+#include <sge/opengl/texture/basic_buffer_parameters_fwd.hpp>
 #include <sge/opengl/texture/buffer_base.hpp>
-#include <sge/opengl/texture/id.hpp>
+#include <sge/opengl/texture/is_render_target.hpp>
 #include <sge/opengl/texture/lock_base.hpp>
-#include <sge/opengl/texture/type.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
-#include <sge/renderer/texture/mipmap/level.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_decl.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
@@ -65,18 +61,9 @@ class basic_buffer
 		basic_buffer
 	);
 public:
+	explicit
 	basic_buffer(
-		sge::opengl::texture::binding const &,
-		sge::opengl::context::system::object &,
-		sge::opengl::context::device::object &,
-		sge::renderer::texture::mipmap::level,
-		sge::opengl::texture::type,
-		sge::opengl::texture::id,
-		sge::renderer::resource_flags_field const &,
-		sge::image::color::format::type,
-		sge::opengl::color_format,
-		sge::opengl::color_format_type,
-		sge::opengl::internal_color_format
+		sge::opengl::texture::basic_buffer_parameters const &
 	);
 
 	~basic_buffer();
@@ -98,6 +85,9 @@ public:
 	typedef typename base_type::view view;
 
 	typedef typename base_type::const_view const_view;
+
+	sge::opengl::texture::is_render_target const
+	is_render_target() const;
 private:
 	// implementation for base class
 	dim const
@@ -154,6 +144,8 @@ private:
 	sge::opengl::color_format_type const color_format_type_;
 
 	sge::opengl::internal_color_format const internal_color_format_;
+
+	sge::opengl::texture::is_render_target const is_render_target_;
 
 	size_type const stride_;
 
