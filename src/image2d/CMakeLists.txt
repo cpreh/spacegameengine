@@ -17,6 +17,7 @@ set(
 	include/sge/image2d/bgrx8.hpp
 	include/sge/image2d/bgrx8_format.hpp
 	include/sge/image2d/dim.hpp
+	include/sge/image2d/dim_fwd.hpp
 	include/sge/image2d/file.hpp
 	include/sge/image2d/file_fwd.hpp
 	include/sge/image2d/file_scoped_ptr.hpp
@@ -31,6 +32,7 @@ set(
 	include/sge/image2d/multi_system_parameters.hpp
 	include/sge/image2d/multi_system_parameters_fwd.hpp
 	include/sge/image2d/pitch.hpp
+	include/sge/image2d/pitch_fwd.hpp
 	include/sge/image2d/plugin/collection_fwd.hpp
 	include/sge/image2d/plugin/traits.hpp
 	include/sge/image2d/r32f.hpp
@@ -72,6 +74,7 @@ set(
 	include/sge/image2d/view/object.hpp
 	include/sge/image2d/view/object_fwd.hpp
 	include/sge/image2d/view/optional_pitch.hpp
+	include/sge/image2d/view/optional_pitch_fwd.hpp
 	include/sge/image2d/view/size.hpp
 	include/sge/image2d/view/sub.hpp
 	include/sge/image2d/view/sub_out_of_range.hpp

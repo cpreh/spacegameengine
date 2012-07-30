@@ -18,11 +18,13 @@ set(
 	include/sge/image3d/bgrx8_format.hpp
 	include/sge/image3d/box.hpp
 	include/sge/image3d/dim.hpp
+	include/sge/image3d/dim_fwd.hpp
 	include/sge/image3d/l8.hpp
 	include/sge/image3d/l8_format.hpp
 	include/sge/image3d/la8.hpp
 	include/sge/image3d/la8_format.hpp
 	include/sge/image3d/pitch.hpp
+	include/sge/image3d/pitch_fwd.hpp
 	include/sge/image3d/r32f.hpp
 	include/sge/image3d/r32f_format.hpp
 	include/sge/image3d/rgb32f.hpp

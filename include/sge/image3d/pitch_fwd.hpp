@@ -18,11 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE2D_PITCH_HPP_INCLUDED
-#define SGE_IMAGE2D_PITCH_HPP_INCLUDED
+#ifndef SGE_IMAGE3D_PITCH_FWD_HPP_INCLUDED
+#define SGE_IMAGE3D_PITCH_FWD_HPP_INCLUDED
 
-#include <sge/image/pitch.hpp>
-#include <sge/image2d/pitch_fwd.hpp>
+#include <sge/image/pitch_fwd.hpp>
 
+
+namespace sge
+{
+namespace image3d
+{
+
+typedef sge::image::pitch<
+	3
+>::type pitch;
+
+}
+}
 
 #endif
