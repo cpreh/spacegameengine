@@ -43,7 +43,7 @@ class ExportSge(bpy.types.Operator, ExportHelper):
 	format_output = BoolProperty(
 		name = "Formatted Output",
 		description = "format JSON output for readability (using Python's JSON module)",
-		default = False,
+		default = True,
 		)
 	indentation_level = IntProperty(
 		name = "Indentation Level",
@@ -57,6 +57,8 @@ class ExportSge(bpy.types.Operator, ExportHelper):
 		for ob in objects:
 			entity = {"position": tuple(ob.location)}
 			entity["rotation"] = tuple(ob.rotation_euler)
+			entity["type"] = ob.type.lower()
+			entity["name"] = ob.data.name
 
 			# specific stuff, depending on object type...
 			if ob.type == 'MESH':
@@ -72,7 +74,7 @@ class ExportSge(bpy.types.Operator, ExportHelper):
 			result_objects.append(entity)
 
 		actual_indentation = self.indentation_level if self.format_output else None
-		#self.report({'INFO'}, json.dumps(result_objects))
+		self.report({'INFO'}, "Dumped scene information: " + json.dumps(result_objects))
 		with open(self.filepath, 'w') as output:
 			json.dump(
 				result_objects,
