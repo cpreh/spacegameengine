@@ -18,11 +18,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE2D_PITCH_HPP_INCLUDED
-#define SGE_IMAGE2D_PITCH_HPP_INCLUDED
+#ifndef SGE_IMAGE_DIM_FWD_HPP_INCLUDED
+#define SGE_IMAGE_DIM_FWD_HPP_INCLUDED
 
-#include <sge/image/pitch.hpp>
-#include <sge/image2d/pitch_fwd.hpp>
+#include <sge/image/size_type.hpp>
+#include <fcppt/math/dim/static.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
+
+namespace sge
+{
+namespace image
+{
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
+
+template<
+	sge::image::size_type Dim
+>
+struct dim
+:
+fcppt::math::dim::static_<
+	sge::image::size_type,
+	Dim
+>
+{
+};
+
+FCPPT_PP_POP_WARNING
+
+}
+}
 
 #endif

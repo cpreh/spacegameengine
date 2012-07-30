@@ -76,6 +76,7 @@ set(
 	include/sge/image/const_raw_pointer.hpp
 	include/sge/image/difference_type.hpp
 	include/sge/image/dim.hpp
+	include/sge/image/dim_fwd.hpp
 	include/sge/image/exception.hpp
 	include/sge/image/exception_fwd.hpp
 	include/sge/image/file_exception.hpp
@@ -85,6 +86,7 @@ set(
 	include/sge/image/la8_format.hpp
 	include/sge/image/optional_path.hpp
 	include/sge/image/pitch.hpp
+	include/sge/image/pitch_fwd.hpp
 	include/sge/image/r32f_format.hpp
 	include/sge/image/raw_pointer.hpp
 	include/sge/image/raw_value.hpp
@@ -108,6 +110,8 @@ set(
 	include/sge/image/traits/view.hpp
 	include/sge/image/traits/view_elements.hpp
 	include/sge/image/unsupported_format.hpp
+	include/sge/image/vector.hpp
+	include/sge/image/vector_fwd.hpp
 	include/sge/image/view/checked_sub.hpp
 	include/sge/image/view/const_object.hpp
 	include/sge/image/view/const_object_fwd.hpp

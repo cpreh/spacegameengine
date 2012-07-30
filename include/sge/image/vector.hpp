@@ -9,7 +9,7 @@ of the License, or (at your option) any later version.
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURVECTORE.  See the
 GNU Lesser General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE2D_PITCH_HPP_INCLUDED
-#define SGE_IMAGE2D_PITCH_HPP_INCLUDED
+#ifndef SGE_IMAGE_VECTOR_HPP_INCLUDED
+#define SGE_IMAGE_VECTOR_HPP_INCLUDED
 
-#include <sge/image/pitch.hpp>
-#include <sge/image2d/pitch_fwd.hpp>
+#include <sge/image/vector_fwd.hpp>
+#include <fcppt/math/vector/object_impl.hpp>
 
 
 #endif

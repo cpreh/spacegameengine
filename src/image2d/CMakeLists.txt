@@ -2,6 +2,7 @@ set(
 	SGE_IMAGE2D_FILES
 	include/sge/image2d/a8.hpp
 	include/sge/image2d/a8_format.hpp
+	include/sge/image2d/algorithm/bresenham.hpp
 	include/sge/image2d/algorithm/copy.hpp
 	include/sge/image2d/algorithm/copy_and_convert.hpp
 	include/sge/image2d/algorithm/fill.hpp
@@ -17,6 +18,7 @@ set(
 	include/sge/image2d/bgrx8.hpp
 	include/sge/image2d/bgrx8_format.hpp
 	include/sge/image2d/dim.hpp
+	include/sge/image2d/dim_fwd.hpp
 	include/sge/image2d/file.hpp
 	include/sge/image2d/file_fwd.hpp
 	include/sge/image2d/file_scoped_ptr.hpp
@@ -31,6 +33,7 @@ set(
 	include/sge/image2d/multi_system_parameters.hpp
 	include/sge/image2d/multi_system_parameters_fwd.hpp
 	include/sge/image2d/pitch.hpp
+	include/sge/image2d/pitch_fwd.hpp
 	include/sge/image2d/plugin/collection_fwd.hpp
 	include/sge/image2d/plugin/traits.hpp
 	include/sge/image2d/r32f.hpp
@@ -52,6 +55,8 @@ set(
 	include/sge/image2d/system_scoped_ptr.hpp
 	include/sge/image2d/system_unique_ptr.hpp
 	include/sge/image2d/tag.hpp
+	include/sge/image2d/vector.hpp
+	include/sge/image2d/vector_fwd.hpp
 	include/sge/image2d/view/checked_sub.hpp
 	include/sge/image2d/view/const_element.hpp
 	include/sge/image2d/view/const_elements.hpp
@@ -72,11 +77,13 @@ set(
 	include/sge/image2d/view/object.hpp
 	include/sge/image2d/view/object_fwd.hpp
 	include/sge/image2d/view/optional_pitch.hpp
+	include/sge/image2d/view/optional_pitch_fwd.hpp
 	include/sge/image2d/view/size.hpp
 	include/sge/image2d/view/sub.hpp
 	include/sge/image2d/view/sub_out_of_range.hpp
 	include/sge/image2d/view/to_const.hpp
 	src/image2d/a8.cpp
+	src/image2d/algorithm/bresenham.cpp
 	src/image2d/algorithm/copy.cpp
 	src/image2d/algorithm/copy_and_convert.cpp
 	src/image2d/algorithm/fill.cpp
@@ -87,6 +94,7 @@ set(
 	src/image2d/bgra8.cpp
 	src/image2d/bgrx8.cpp
 	src/image2d/file.cpp
+	src/image2d/include/sge/src/image2d/algorithm/bresenham_visitor.hpp
 	src/image2d/l8.cpp
 	src/image2d/la8.cpp
 	src/image2d/multi_system.cpp
@@ -133,6 +141,10 @@ sge_implement_from_lib(
 
 include_directories(
 	${CMAKE_BINARY_DIR}/src/image/include
+)
+
+include_directories(
+	${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
 add_sge_base_library(

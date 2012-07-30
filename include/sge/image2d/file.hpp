@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE2D_FILE_HPP_INCLUDED
 
 #include <sge/class_symbol.hpp>
-#include <sge/image2d/dim.hpp>
+#include <sge/image2d/dim_fwd.hpp>
 #include <sge/image2d/file_fwd.hpp>
 #include <sge/image2d/symbol.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
@@ -43,14 +43,17 @@ protected:
 	SGE_IMAGE2D_SYMBOL
 	file();
 public:
-	virtual image2d::view::const_object const
+	virtual
+	sge::image2d::view::const_object const
 	view() const = 0;
 
-	virtual image2d::dim const
+	virtual
+	sge::image2d::dim const
 	size() const = 0;
 
 	SGE_IMAGE2D_SYMBOL
-	virtual ~file() = 0;
+	virtual
+	~file() = 0;
 };
 
 }

@@ -22,17 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE2D_DIM_HPP_INCLUDED
 
 #include <sge/image/dim.hpp>
+#include <sge/image2d/dim_fwd.hpp>
 
-namespace sge
-{
-namespace image2d
-{
-
-typedef sge::image::dim<
-	2
->::type dim;
-
-}
-}
 
 #endif

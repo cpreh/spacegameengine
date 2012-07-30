@@ -18,11 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE2D_PITCH_HPP_INCLUDED
-#define SGE_IMAGE2D_PITCH_HPP_INCLUDED
+#include <sge/image/color/any/object_fwd.hpp>
+#include <sge/image2d/vector_fwd.hpp>
+#include <sge/image2d/algorithm/bresenham.hpp>
+#include <sge/image2d/view/object.hpp>
+#include <sge/src/image2d/algorithm/bresenham_visitor.hpp>
+#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
-#include <sge/image/pitch.hpp>
-#include <sge/image2d/pitch_fwd.hpp>
 
-
-#endif
+void
+sge::image2d::algorithm::bresenham(
+	sge::image2d::view::object const &_dest,
+	sge::image2d::vector const &_pos1,
+	sge::image2d::vector const &_pos2,
+	sge::image::color::any::object const &_color
+)
+{
+	fcppt::variant::apply_unary(
+		sge::image2d::algorithm::bresenham_visitor(
+			_pos1,
+			_pos2,
+			_color
+		),
+		_dest.get()
+	);
+}
