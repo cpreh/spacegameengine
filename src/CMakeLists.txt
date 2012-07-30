@@ -115,6 +115,7 @@ endif()
 OPTION (ENABLE_AUDIO "Build the audio library" ON)
 OPTION (ENABLE_CHARCONV "Build the charconv library" ON)
 OPTION (ENABLE_FONT "Build the font library" ON)
+OPTION (ENABLE_GRAPH "Build the graph library" ON)
 OPTION (ENABLE_IMAGE "Build the image library" ON)
 OPTION (ENABLE_IMAGE2D "Build the image2d library" ON)
 OPTION (ENABLE_IMAGE3D "Build the image3d library" ON)
@@ -175,6 +176,10 @@ ENDIF ()
 
 IF (ENABLE_FONT)
 	ADD_SUBDIRECTORY(font)
+ENDIF ()
+
+IF (ENABLE_GRAPH)
+	ADD_SUBDIRECTORY(graph)
 ENDIF ()
 
 IF (ENABLE_IMAGE)
