@@ -21,10 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_TRAITS_DIM_HPP_INCLUDED
 #define SGE_IMAGE_TRAITS_DIM_HPP_INCLUDED
 
-#include <sge/image2d/dim.hpp>
+#include <sge/image2d/dim_fwd.hpp>
 #include <sge/image2d/tag.hpp>
-#include <sge/image3d/dim.hpp>
+#include <sge/image3d/dim_fwd.hpp>
 #include <sge/image3d/tag.hpp>
+
 
 namespace sge
 {
@@ -40,18 +41,18 @@ struct dim;
 
 template<>
 struct dim<
-	image2d::tag
+	sge::image2d::tag
 >
 {
-	typedef image2d::dim type;
+	typedef sge::image2d::dim type;
 };
 
 template<>
 struct dim<
-	image3d::tag
+	sge::image3d::tag
 >
 {
-	typedef image3d::dim type;
+	typedef sge::image3d::dim type;
 };
 
 }

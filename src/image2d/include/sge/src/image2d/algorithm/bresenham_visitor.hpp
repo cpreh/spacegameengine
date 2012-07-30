@@ -18,38 +18,46 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_IMAGE_ALGORITHM_FILL_VISITOR_HPP_INCLUDED
-#define SGE_SRC_IMAGE_ALGORITHM_FILL_VISITOR_HPP_INCLUDED
+#ifndef SGE_SRC_IMAGE2D_ALGORITHM_BRESENHAM_VISITOR_HPP_INCLUDED
+#define SGE_SRC_IMAGE2D_ALGORITHM_BRESENHAM_VISITOR_HPP_INCLUDED
 
 #include <sge/image/color/object.hpp>
 #include <sge/image/color/any/convert.hpp>
 #include <sge/image/color/any/object_fwd.hpp>
-#include <mizuiro/color/object_impl.hpp>
+#include <sge/image2d/vector.hpp>
+#include <sge/src/image/convert_dim.hpp>
 #include <mizuiro/image/view_impl.hpp>
-#include <mizuiro/image/algorithm/fill_c.hpp>
+#include <mizuiro/image/algorithm/bresenham.hpp>
 #include <fcppt/nonassignable.hpp>
 
 
 namespace sge
 {
-namespace image
+namespace image2d
 {
 namespace algorithm
 {
 
-class fill_visitor
+class bresenham_visitor
 {
 	FCPPT_NONASSIGNABLE(
-		fill_visitor
+		bresenham_visitor
 	);
 public:
 	typedef void result_type;
 
-	explicit
-	fill_visitor(
+	bresenham_visitor(
+		sge::image2d::vector const &_pos1,
+		sge::image2d::vector const &_pos2,
 		sge::image::color::any::object const &_color
 	)
 	:
+		pos1_(
+			_pos1
+		),
+		pos2_(
+			_pos2
+		),
 		color_(
 			_color
 		)
@@ -64,8 +72,18 @@ public:
 		View const &_view
 	) const
 	{
-		mizuiro::image::algorithm::fill_c(
+		mizuiro::image::algorithm::bresenham(
 			_view,
+			sge::image::convert_dim<
+				typename View::dim
+			>(
+				pos1_
+			),
+			sge::image::convert_dim<
+				typename View::dim
+			>(
+				pos2_
+			),
 			sge::image::color::any::convert<
 				typename View::format::color_format
 			>(
@@ -74,6 +92,10 @@ public:
 		);
 	}
 private:
+	sge::image2d::vector const pos1_;
+
+	sge::image2d::vector const pos2_;
+
 	sge::image::color::any::object const &color_;
 };
 

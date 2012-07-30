@@ -27,8 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::image2d::algorithm::fill(
-	view::object const &_dest,
-	image::color::any::object const &_col
+	sge::image2d::view::object const &_dest,
+	sge::image::color::any::object const &_col
 )
 {
 	sge::image::algorithm::fill<

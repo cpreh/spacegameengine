@@ -36,8 +36,8 @@ namespace algorithm
 SGE_IMAGE2D_SYMBOL
 void
 fill(
-	view::object const &,
-	image::color::any::object const &
+	sge::image2d::view::object const &,
+	sge::image::color::any::object const &
 );
 
 }

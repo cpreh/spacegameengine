@@ -18,42 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_TRAITS_PITCH_HPP_INCLUDED
-#define SGE_IMAGE_TRAITS_PITCH_HPP_INCLUDED
+#ifndef SGE_IMAGE2D_ALGORITHM_BRESENHAM_HPP_INCLUDED
+#define SGE_IMAGE2D_ALGORITHM_BRESENHAM_HPP_INCLUDED
 
-#include <sge/image2d/pitch_fwd.hpp>
-#include <sge/image2d/tag.hpp>
-#include <sge/image3d/pitch_fwd.hpp>
-#include <sge/image3d/tag.hpp>
+#include <sge/image/color/any/object_fwd.hpp>
+#include <sge/image2d/symbol.hpp>
+#include <sge/image2d/vector_fwd.hpp>
+#include <sge/image2d/view/object_fwd.hpp>
 
 
 namespace sge
 {
-namespace image
+namespace image2d
 {
-namespace traits
+namespace algorithm
 {
 
-template<
-	typename Tag
->
-struct pitch;
-
-template<>
-struct pitch<
-	sge::image2d::tag
->
-{
-	typedef sge::image2d::pitch type;
-};
-
-template<>
-struct pitch<
-	sge::image3d::tag
->
-{
-	typedef sge::image3d::pitch type;
-};
+SGE_IMAGE2D_SYMBOL
+void
+bresenham(
+	sge::image2d::view::object const &,
+	sge::image2d::vector const &pos1,
+	sge::image2d::vector const &pos2,
+	sge::image::color::any::object const &
+);
 
 }
 }

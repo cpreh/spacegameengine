@@ -18,44 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_TRAITS_PITCH_HPP_INCLUDED
-#define SGE_IMAGE_TRAITS_PITCH_HPP_INCLUDED
+#ifndef SGE_IMAGE2D_VECTOR_FWD_HPP_INCLUDED
+#define SGE_IMAGE2D_VECTOR_FWD_HPP_INCLUDED
 
-#include <sge/image2d/pitch_fwd.hpp>
-#include <sge/image2d/tag.hpp>
-#include <sge/image3d/pitch_fwd.hpp>
-#include <sge/image3d/tag.hpp>
+#include <sge/image/vector_fwd.hpp>
 
 
 namespace sge
 {
-namespace image
-{
-namespace traits
+namespace image2d
 {
 
-template<
-	typename Tag
->
-struct pitch;
+typedef sge::image::vector<
+	2
+>::type vector;
 
-template<>
-struct pitch<
-	sge::image2d::tag
->
-{
-	typedef sge::image2d::pitch type;
-};
-
-template<>
-struct pitch<
-	sge::image3d::tag
->
-{
-	typedef sge::image3d::pitch type;
-};
-
-}
 }
 }
 
