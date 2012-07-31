@@ -21,6 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MODEL_OBJ_INSTANCE_HPP_INCLUDED
 #define SGE_MODEL_OBJ_INSTANCE_HPP_INCLUDED
 
+#include <sge/model/obj/prototype.hpp>
+#include <sge/model/obj/box.hpp>
+#include <sge/model/obj/material_to_index_buffer_range.hpp>
+#include <sge/renderer/vertex_buffer_scoped_ptr.hpp>
+#include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/vertex_declaration_fwd.hpp>
+#include <sge/renderer/index_buffer_scoped_ptr.hpp>
+#include <fcppt/math/box/object_impl.hpp>
+
 namespace sge
 {
 namespace model
@@ -34,6 +43,8 @@ FCPPT_NONCOPYABLE(
 public:
 	explicit
 	instance(
+		sge::renderer::device &,
+		sge::renderer::vertex_declaration &,
 		sge::model::obj::prototype const &);
 
 	sge::renderer::vertex_buffer &
@@ -42,10 +53,26 @@ public:
 	sge::renderer::index_buffer &
 	index_buffer();
 
-	sge::model::obj::proto_material_to_index_buffer_range const &
+	sge::model::obj::material_to_index_buffer_range const &
 	parts();
 
+	sge::model::obj::box const &
+	bounding_box() const;
+
 	~instance();
+private:
+	sge::renderer::vertex_buffer_scoped_ptr vertex_buffer_;
+	sge::renderer::index_buffer_scoped_ptr index_buffer_;
+	sge::model::obj::material_to_index_buffer_range parts_;
+	sge::model::obj::box bounding_box_;
+
+	void
+	fill_vertex_buffer(
+		sge::model::obj::prototype const &);
+
+	void
+	fill_index_buffer(
+		sge::model::obj::prototype const &);
 };
 }
 }

@@ -362,6 +362,23 @@ sge::model::obj::prototype::parts() const
 		parts_;
 }
 
+std::size_t
+sge::model::obj::prototype::face_count() const
+{
+	std::size_t result =
+		0u;
+
+	for(
+		sge::model::obj::material_to_face_sequence::const_iterator it =
+			this->parts().begin();
+		it != this->parts().end();
+		++it)
+		result += it->second.size();
+
+	return
+		result;
+}
+
 sge::model::obj::material_file_sequence const &
 sge::model::obj::prototype::material_files() const
 {
