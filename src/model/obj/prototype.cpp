@@ -28,11 +28,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/next_prior.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <algorithm>
-#include <iterator>
 #include <string>
 #include <fcppt/config/external_end.hpp>
 
+#include <fcppt/config/external_begin.hpp>
 #include <iostream>
+#include <map>
+#include <boost/unordered_map.hpp>
+#include <fcppt/config/external_end.hpp>
 
 namespace
 {
@@ -124,6 +127,13 @@ sge::model::obj::prototype::prototype(
 				fcppt::filesystem::path_to_string(
 					_filename)+
 				FCPPT_TEXT("\""));
+
+	typedef
+		std::map<sge::model::obj::face_vertex,std::size_t>
+		//boost::unordered_map<sge::model::obj::face_vertex,std::size_t>
+	face_vertex_to_index_map;
+
+	face_vertex_to_index_map face_vertex_to_index;
 
 	line_count line_counter = 0;
 	std::string current_material = "";
@@ -273,27 +283,39 @@ sge::model::obj::prototype::prototype(
 
 			for(std::size_t i = 0; i < temporary_face_vertices.size(); ++i)
 			{
+				face_vertex_to_index_map::iterator it =
+					face_vertex_to_index.find(
+						temporary_face_vertices[i]);
+
+				/*
 				sge::model::obj::face_vertex_sequence::iterator it =
 					std::find(
 						face_vertices_.begin(),
 						face_vertices_.end(),
 						temporary_face_vertices[i]);
+						*/
 
-				if(it == face_vertices_.end())
+				if(it == face_vertex_to_index.end())
 				{
 					face_vertices_.push_back(
 						temporary_face_vertices[i]);
 
 					it =
-						boost::prior(
-							face_vertices_.end());
+						face_vertex_to_index.insert(
+							std::make_pair(
+								temporary_face_vertices[i],
+								static_cast<std::size_t>(
+									face_vertices_.size()-1u))).first;
 				}
 
 				face[i] =
+					it->second;
+				/*
 					static_cast<std::size_t>(
 						std::distance(
 							face_vertices_.begin(),
 							it));
+							*/
 			}
 
 			parts_[current_material].push_back(
