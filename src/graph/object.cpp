@@ -43,24 +43,28 @@ sge::image2d::algorithm::bresenham(
 	_view,
 	_corner1,
 	sge::image2d::vector(_corner1.x(), _corner2.y()),
+	_color,
 	_color
 );
 sge::image2d::algorithm::bresenham(
 	_view,
 	_corner1,
 	sge::image2d::vector(_corner2.x(), _corner1.y()),
+	_color,
 	_color
 );
 sge::image2d::algorithm::bresenham(
 	_view,
 	sge::image2d::vector(_corner1.x(), _corner2.y()),
 	_corner2,
+	_color,
 	_color
 );
 sge::image2d::algorithm::bresenham(
 	_view,
 	sge::image2d::vector(_corner2.x(), _corner1.y()),
 	_corner2,
+	_color,
 	_color
 );
 }
@@ -190,7 +194,6 @@ sge::graph::object::draw_data(
 		_view);
 
 	unsigned baseline =
-		dim_.h() - 1 -
 		static_cast<
 			unsigned
 		>
@@ -202,9 +205,13 @@ sge::graph::object::draw_data(
 				dim_.h() - 1
 			)
 			*
+			(
+			1.0
+			-
 			baseline_
 			/
 			current_max_
+			)
 		);
 
 	for (unsigned i = 0; i < data_buffer_.size(); ++i)
@@ -236,7 +243,8 @@ sge::graph::object::draw_data(
 				i,
 				dim_.h() - 1 - value
 			),
-			foreground_color_
+			foreground_color_,
+			background_color_
 		);
 	}
 		sge::image2d::algorithm::bresenham(
@@ -249,7 +257,8 @@ sge::graph::object::draw_data(
 				dim_.w() - 1,
 				baseline
 			),
-			sge::image::colors::yellow()
+			sge::image::colors::blue(),
+			sge::image::colors::green()
 		);
 }
 
