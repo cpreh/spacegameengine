@@ -26,6 +26,7 @@
 #include <fcppt/config/external_begin.hpp>
 #include <boost/circular_buffer.hpp>
 #include <fcppt/config/external_end.hpp>
+#include <sge/image2d/view/object.hpp>
 
 
 namespace sge
@@ -42,7 +43,8 @@ public:
 		sge::image2d::dim const &,
 		sge::renderer::device &,
 		sge::image::color::any::object const &,
-		sge::image::color::any::object const &);
+		sge::image::color::any::object const &,
+		sge::graph::scalar);
 
 	SGE_GRAPH_SYMBOL
 	void
@@ -117,11 +119,14 @@ private:
 	sge::graph::scalar
 	current_max_;
 
-	void
-	clear();
+	sge::graph::scalar
+	baseline_;
 
 	void
-	draw_data();
+	clear(sge::image2d::view::object const _view);
+
+	void
+	draw_data(sge::image2d::view::object const _view);
 };
 }
 }

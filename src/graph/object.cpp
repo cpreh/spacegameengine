@@ -2,6 +2,7 @@
 #include <sge/graph/scalar.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image/color/any/object.hpp>
+#include <sge/image/colors.hpp>
 #include <sge/image2d/vector.hpp>
 #include <sge/image2d/algorithm/bresenham.hpp>
 #include <sge/image2d/algorithm/fill.hpp>
@@ -25,7 +26,6 @@
 #include <fcppt/ref.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/circular_buffer.hpp>
-#include <iostream>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -71,7 +71,8 @@ sge::graph::object::object(
 	sge::renderer::dim2 const &_dim,
 	sge::renderer::device &_renderer,
 	sge::image::color::any::object const &_foreground_color,
-	sge::image::color::any::object const &_background_color
+	sge::image::color::any::object const &_background_color,
+	sge::graph::scalar _baseline
 )
 :
 dim_(
@@ -84,7 +85,7 @@ texture_(
 			sge::renderer::texture::mipmap::off(),
 			sge::renderer::resource_flags_field::null(),
 			sge::renderer::texture::capabilities_field(
-				sge::renderer::texture::capabilities::render_target
+				sge::renderer::texture::capabilities_field::null()
 			)
 		)
 	)
@@ -116,9 +117,16 @@ background_color_(
 data_buffer_(
 	dim_.w()),
 current_max_(
-	0.)
+	0.),
+baseline_(
+	_baseline)
 {
-	clear();
+	sge::renderer::texture::scoped_planar_lock lock(
+		*texture_,
+		sge::renderer::lock_mode::writeonly);
+
+	clear(
+		lock.value());
 }
 
 void
@@ -127,6 +135,7 @@ sge::graph::object::push(
 {
 	data_buffer_.push_back(
 		_datum);
+
 	if (_datum > current_max_)
 		current_max_ = _datum;
 }
@@ -135,7 +144,12 @@ void
 sge::graph::object::render(
 	sge::renderer::context::object &_context)
 {
-	draw_data();
+	sge::renderer::texture::scoped_planar_lock lock(
+		*texture_,
+		sge::renderer::lock_mode::writeonly);
+
+	draw_data(lock.value());
+
 	sge::sprite::process::one(
 		_context,
 		sprite_object_,
@@ -144,18 +158,17 @@ sge::graph::object::render(
 }
 
 void
-sge::graph::object::clear()
+sge::graph::object::clear(
+	sge::image2d::view::object const _view
+)
 {
-	sge::renderer::texture::scoped_planar_lock lock(
-		*texture_,
-		sge::renderer::lock_mode::writeonly);
-
 	sge::image2d::algorithm::fill(
-		lock.value(),
+		_view,
 		background_color_
 	);
+
 	draw_rectangle(
-		lock.value(),
+		_view,
 		sge::image2d::vector(
 			0,
 			0
@@ -169,31 +182,75 @@ sge::graph::object::clear()
 }
 
 void
-sge::graph::object::draw_data()
+sge::graph::object::draw_data(
+	sge::image2d::view::object const _view
+)
 {
-	clear();
+	clear(
+		_view);
 
-	sge::renderer::texture::scoped_planar_lock lock(
-		*texture_,
-		sge::renderer::lock_mode::writeonly);
+	unsigned baseline =
+		dim_.h() - 1 -
+		static_cast<
+			unsigned
+		>
+		(
+			static_cast<
+				sge::graph::scalar
+			>
+			(
+				dim_.h() - 1
+			)
+			*
+			baseline_
+			/
+			current_max_
+		);
 
 	for (unsigned i = 0; i < data_buffer_.size(); ++i)
 	{
-		unsigned foo = static_cast<unsigned>(static_cast<sge::graph::scalar>(dim_.h()) * data_buffer_[i]/current_max_);
-		// std::cout << foo << '\t';
+		unsigned value =
+			static_cast<
+				unsigned
+			>
+			(
+				static_cast<
+					sge::graph::scalar
+				>
+				(
+					dim_.h() - 1
+				)
+				*
+				data_buffer_[i]
+				/
+				current_max_
+			);
+
 		sge::image2d::algorithm::bresenham(
-			lock.value(),
+			_view,
 			sge::image2d::vector(
 				i,
-				0u
+				dim_.h() - 1
 			),
 			sge::image2d::vector(
 				i,
-				foo
+				dim_.h() - 1 - value
 			),
 			foreground_color_
 		);
 	}
+		sge::image2d::algorithm::bresenham(
+			_view,
+			sge::image2d::vector(
+				0,
+				baseline
+			),
+			sge::image2d::vector(
+				dim_.w() - 1,
+				baseline
+			),
+			sge::image::colors::yellow()
+		);
 }
 
 sge::graph::object::~object()

@@ -75,8 +75,8 @@ try
 	);
 
 	sge::window::dim const window_dim(
-		1024,
-		768
+		512,
+		128
 	);
 
 	sge::systems::instance const sys(
@@ -103,12 +103,13 @@ try
 
 	sge::graph::object graph(
 		sge::image2d::dim(
-			100u,
-			100u
+			512u,
+			128u
 		),
 		sys.renderer(),
-		sge::image::colors::blue(),
-		sge::image::colors::green()
+		sge::image::colors::green(),
+		sge::image::colors::darkslategray(),
+		25.0
 	);
 
 	typedef fcppt::random::generator::minstd_rand generator_type;
@@ -135,7 +136,7 @@ try
 				0.
 			),
 			uniform_real::sup(
-				1000.
+				100.
 			)
 		)
 	);
