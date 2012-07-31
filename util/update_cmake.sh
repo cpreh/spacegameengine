@@ -121,8 +121,6 @@ update_sublibrary log
 
 update_sublibrary media
 
-update_sublibrary model/manager
-
 update_sublibrary model/md3
 
 update_sublibrary model/obj

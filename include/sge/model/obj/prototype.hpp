@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
+#include <cstddef>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -71,6 +72,10 @@ public:
 	SGE_MODEL_OBJ_SYMBOL
 	sge::model::obj::material_to_face_sequence const &
 	parts() const;
+
+	SGE_MODEL_OBJ_SYMBOL
+	std::size_t
+	face_count() const;
 
 	SGE_MODEL_OBJ_SYMBOL
 	sge::model::obj::material_file_sequence const &
