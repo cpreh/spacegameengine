@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <string>
 #include <fcppt/config/external_end.hpp>
 
+#include <iostream>
 
 namespace
 {
@@ -132,6 +133,8 @@ sge::model::obj::prototype::prototype(
 			stream,
 			line))
 	{
+		if(line_counter % 100u == 0)
+			std::cout << "\r" << line_counter;
 		++line_counter;
 
 		if(line.empty() || line[0] == '#')
@@ -299,6 +302,8 @@ sge::model::obj::prototype::prototype(
 			continue;
 		}
 	}
+
+	std::cout << "\n";
 }
 
 sge::model::obj::vertex_coordinate_sequence const &
