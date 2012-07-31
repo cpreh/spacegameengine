@@ -38,8 +38,9 @@ SGE_IMAGE2D_SYMBOL
 void
 bresenham(
 	sge::image2d::view::object const &,
-	sge::image2d::vector const &pos1,
-	sge::image2d::vector const &pos2,
+	sge::image2d::vector const &,
+	sge::image2d::vector const &,
+	sge::image::color::any::object const &,
 	sge::image::color::any::object const &
 );
 

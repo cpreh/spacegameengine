@@ -32,14 +32,16 @@ sge::image2d::algorithm::bresenham(
 	sge::image2d::view::object const &_dest,
 	sge::image2d::vector const &_pos1,
 	sge::image2d::vector const &_pos2,
-	sge::image::color::any::object const &_color
+	sge::image::color::any::object const &_color1,
+	sge::image::color::any::object const &_color2
 )
 {
 	fcppt::variant::apply_unary(
 		sge::image2d::algorithm::bresenham_visitor(
 			_pos1,
 			_pos2,
-			_color
+			_color1,
+			_color2
 		),
 		_dest.get()
 	);
