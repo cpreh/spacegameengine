@@ -204,18 +204,6 @@ add_sge_console_example(
 )
 
 add_sge_example(
-	model_loader
-	"sgecamera;sgeconfig;sgeimage;sgeinput;sgeline_drawer;sgelog;sgemedia;sgemodelobj;sgeparse;sgerenderer;sgesystems;sgetexture;sgeviewport;sgewindow"
-	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
-)
-
-add_sge_example(
-	model_manager
-	"sgecamera;sgeconfig;sgeimage;sgeinput;sgelog;sgemedia;sgemodelobj;sgemodelmanager;sgetimer;sgerenderer;sgesystems;sgetexture;sgeviewport;sgewindow"
-	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
-)
-
-add_sge_example(
 	multi_texture
 	"sgeconfig;sgeimage;sgeinput;sgemedia;sgerenderer;sgesystems;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
@@ -233,10 +221,16 @@ add_sge_example(
 	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 )
 
-add_sge_example(
-	occlusion_query
-	"sgecamera;sgeconfig;sgeimage;sgeinput;sgelog;sgemedia;sgemodelobj;sgemodelmanager;sgetimer;sgerenderer;sgesystems;sgetexture;sgeviewport;sgewindow;sgefonttext"
-	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+#add_sge_example(
+#	occlusion_query
+#	"sgecamera;sgeconfig;sgeimage;sgeinput;sgelog;sgemedia;sgemodelobj;sgemodelmanager;sgetimer;sgerenderer;sgesystems;sgetexture;sgeviewport;sgewindow;sgefonttext"
+#	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+#)
+
+add_sge_console_example(
+	obj_loader
+	"sgemodelobj;sgeconfig"
+	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 )
 
 add_sge_console_example(

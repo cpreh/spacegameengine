@@ -27,9 +27,7 @@ namespace model
 {
 namespace obj
 {
-
 class instance;
-
 }
 }
 }
