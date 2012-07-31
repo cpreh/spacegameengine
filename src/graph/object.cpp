@@ -56,7 +56,6 @@ sprite_buffers_(
 	sge::sprite::buffers::option::dynamic
 )
 {
-
 }
 
 void

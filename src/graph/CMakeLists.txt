@@ -13,7 +13,7 @@ include_directories(
 
 add_sge_base_library(
 	"graph"
-	"sgerenderer;sgeimage;sgeimage2d;sgesprite"
+	"sgerenderer;sgeimage;sgeimage2d;sgesprite;sgetexture"
 	"${Fcppt_filesystem_LIBRARIES}"
 	""
 	""
