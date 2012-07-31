@@ -17,12 +17,13 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+
 #include <sge/bvh/dummy_node.hpp>
 #include <sge/bvh/object_impl.hpp>
 #include <sge/bvh/tree_traits.hpp>
 #include <fcppt/extract_from_string_exn.hpp>
-#include <fcppt/container/tree/depth.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/container/tree/depth.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>

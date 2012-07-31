@@ -124,7 +124,6 @@ OPTION (ENABLE_LOG "Build the log base library" ON)
 OPTION (ENABLE_MEDIA "Build the media base library" ON)
 OPTION (ENABLE_MODELMD3 "Build the md3 model library" ON)
 OPTION (ENABLE_MODELOBJ "Build the md3 model library" ON)
-OPTION (ENABLE_MODELMANAGER "Build the model manager library" ON)
 OPTION (ENABLE_PLUGIN "Build the plugin library" ON)
 OPTION (ENABLE_RENDERER "Build the renderer library" ON)
 OPTION (ENABLE_TIMER "Build the timer library" ON)
@@ -212,10 +211,6 @@ ENDIF ()
 
 IF (ENABLE_MODELOBJ)
 	ADD_SUBDIRECTORY(model/obj)
-ENDIF ()
-
-IF (ENABLE_MODELMANAGER)
-	ADD_SUBDIRECTORY(model/manager)
 ENDIF ()
 
 IF (ENABLE_PLUGIN)

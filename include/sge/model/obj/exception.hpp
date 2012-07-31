@@ -33,18 +33,16 @@ namespace model
 {
 namespace obj
 {
-
-class SGE_CLASS_SYMBOL exception
+class exception
 :
 	public sge::exception
 {
 public:
 	SGE_MODEL_OBJ_SYMBOL
-	explicit exception(
-		fcppt::string const &
-	);
+	explicit
+	exception(
+		fcppt::string const &);
 };
-
 }
 }
 }
