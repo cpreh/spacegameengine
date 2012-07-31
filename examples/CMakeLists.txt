@@ -167,6 +167,12 @@ add_sge_example(
 	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 )
 
+add_sge_example(
+	graph
+	"sgegraph;sgeimage;sgeimage2d;sgelog;sgerenderer;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
+	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+)
+
 add_sge_console_example(
 	ini
 	"sgeparse"

@@ -3,7 +3,15 @@
 
 #include <sge/graph/scalar.hpp>
 #include <sge/graph/symbol.hpp>
+#include <sge/image/color/any/object.hpp>
 #include <sge/image2d/dim.hpp>
+#include <sge/image2d/rgba8.hpp>
+#include <sge/renderer/device.hpp>
+#include <sge/renderer/dim2.hpp>
+#include <sge/renderer/context/object.hpp>
+#include <sge/renderer/texture/planar_scoped_ptr.hpp>
+#include <sge/sprite/object.hpp>
+#include <sge/sprite/parameters.hpp>
 #include <sge/sprite/buffers/single.hpp>
 #include <sge/sprite/buffers/with_declaration.hpp>
 #include <sge/sprite/config/choices.hpp>
@@ -15,11 +23,10 @@
 #include <sge/sprite/config/type_choices.hpp>
 #include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/config/with_texture.hpp>
-#include <sge/sprite/object.hpp>
-#include <sge/sprite/parameters.hpp>
-#include <sge/renderer/texture/planar_scoped_ptr.hpp>
-#include <sge/renderer/context/object.hpp>
-#include <sge/renderer/device.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/circular_buffer.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {
@@ -32,8 +39,10 @@ FCPPT_NONCOPYABLE(
 public:
 	SGE_GRAPH_SYMBOL
 	object(
-		sge::image2d::dim &,
-		sge::renderer::device &);
+		sge::image2d::dim const &,
+		sge::renderer::device &,
+		sge::image::color::any::object const &,
+		sge::image::color::any::object const &);
 
 	SGE_GRAPH_SYMBOL
 	void
@@ -84,6 +93,9 @@ private:
 		>
 	> sprite_buffers_type;
 
+	sge::renderer::dim2
+	dim_;
+
 	sge::renderer::texture::planar_scoped_ptr const
 	texture_;
 
@@ -93,6 +105,23 @@ private:
 	sprite_buffers_type
 	sprite_buffers_;
 
+	sge::image::color::any::object const &
+	foreground_color_;
+
+	sge::image::color::any::object const &
+	background_color_;
+
+	boost::circular_buffer<sge::graph::scalar>
+	data_buffer_;
+
+	sge::graph::scalar
+	current_max_;
+
+	void
+	clear();
+
+	void
+	draw_data();
 };
 }
 }
