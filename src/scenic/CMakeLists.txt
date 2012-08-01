@@ -1,0 +1,26 @@
+set(
+	SGE_SCENIC_FILES
+	include/sge/scenic/material_base_path.hpp
+	include/sge/scenic/mesh.hpp
+	include/sge/scenic/mesh_fwd.hpp
+	include/sge/scenic/model_base_path.hpp
+	include/sge/scenic/position.hpp
+	include/sge/scenic/rotation.hpp
+	include/sge/scenic/scale.hpp
+	include/sge/scenic/scene.hpp
+	include/sge/scenic/scene_description_file.hpp
+	include/sge/scenic/texture_base_path.hpp
+	include/sge/scenic/texture_manager.hpp
+	include/sge/scenic/texture_manager_fwd.hpp
+	src/scenic/mesh.cpp
+	src/scenic/scene.cpp
+	src/scenic/texture_manager.cpp
+)
+
+add_sge_base_library(
+	"scenic"
+	"sgeparse;sgeimage;sgemodelobj;sgerenderer;sgecamera;sgeviewport;sgetimer"
+	"${Fcppt_filesystem_LIBRARIES};${Boost_CHRONO_LIBRARIES}"
+	""
+	""
+)
