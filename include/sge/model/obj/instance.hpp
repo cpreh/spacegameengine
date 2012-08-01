@@ -21,14 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MODEL_OBJ_INSTANCE_HPP_INCLUDED
 #define SGE_MODEL_OBJ_INSTANCE_HPP_INCLUDED
 
-#include <sge/model/obj/prototype.hpp>
 #include <sge/model/obj/box.hpp>
 #include <sge/model/obj/material_to_index_buffer_range.hpp>
-#include <sge/renderer/vertex_buffer_scoped_ptr.hpp>
+#include <sge/model/obj/prototype.hpp>
 #include <sge/renderer/device_fwd.hpp>
-#include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/index_buffer_scoped_ptr.hpp>
+#include <sge/renderer/vertex_buffer_scoped_ptr.hpp>
+#include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <fcppt/math/box/object_impl.hpp>
+
 
 namespace sge
 {

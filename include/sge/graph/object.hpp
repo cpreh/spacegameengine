@@ -6,6 +6,7 @@
 #include <sge/image/color/any/object.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/rgba8.hpp>
+#include <sge/image2d/view/object.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/context/object.hpp>
@@ -26,7 +27,6 @@
 #include <fcppt/config/external_begin.hpp>
 #include <boost/circular_buffer.hpp>
 #include <fcppt/config/external_end.hpp>
-#include <sge/image2d/view/object.hpp>
 
 
 namespace sge

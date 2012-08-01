@@ -235,7 +235,7 @@ add_sge_example(
 
 add_sge_console_example(
 	obj_loader
-	"sgemodelobj;sgeconfig"
+	"sgemodelobj;sgeconfig;sgeimage"
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 )
 
