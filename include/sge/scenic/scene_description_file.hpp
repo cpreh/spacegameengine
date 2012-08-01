@@ -18,30 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_OBJ_VF_NORMAL_HPP_INCLUDED
-#define SGE_MODEL_OBJ_VF_NORMAL_HPP_INCLUDED
+#ifndef SGE_SCENIC_SCENE_DESCRIPTION_FILE_HPP_INCLUDED
+#define SGE_SCENIC_SCENE_DESCRIPTION_FILE_HPP_INCLUDED
 
-#include <sge/renderer/scalar.hpp>
-#include <sge/renderer/vf/normal.hpp>
+#include <fcppt/strong_typedef.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {
-namespace model
+namespace scenic
 {
-namespace obj
-{
-namespace vf
-{
-typedef
-sge::renderer::vf::normal
-<
-	sge::renderer::scalar
->
-normal;
-}
-}
+FCPPT_MAKE_STRONG_TYPEDEF(
+	boost::filesystem::path,
+	scene_description_file);
 }
 }
 
 #endif
-

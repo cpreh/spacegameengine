@@ -95,11 +95,11 @@ parse_face_vertex(
 	return
 		sge::model::obj::face_vertex(
 			sge::model::obj::vertex_coordinate_index(
-				vertex_coordinate_index),
+				vertex_coordinate_index-1u),
 			sge::model::obj::texture_coordinate_index(
-				texture_coordinate_index),
+				texture_coordinate_index-1u),
 			sge::model::obj::normal_index(
-				normal_index));
+				normal_index-1u));
 }
 }
 

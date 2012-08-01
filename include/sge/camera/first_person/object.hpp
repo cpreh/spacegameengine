@@ -69,6 +69,11 @@ public:
 	camera::coordinate_system::object const
 	coordinate_system() const;
 
+	SGE_CAMERA_SYMBOL
+	void
+	coordinate_system(
+		sge::camera::coordinate_system::object const &);
+
 	/* override */
 	SGE_CAMERA_SYMBOL
 	camera::projection_matrix const

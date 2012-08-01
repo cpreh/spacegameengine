@@ -1,3 +1,23 @@
+/*
+spacegameengine is a portable easy to use game engine written in C++.
+Copyright (C) 2006-2012 Carl Philipp Reh (sefi@s-e-f-i.de)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
+
 #include <sge/model/obj/instance.hpp>
 #include <sge/model/obj/prototype.hpp>
 #include <sge/model/obj/vf/format.hpp>
@@ -17,6 +37,8 @@
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/dynamic/make_part_index.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
+
+#include <fcppt/math/vector/output.hpp>
 
 
 sge::model::obj::instance::instance(
@@ -118,6 +140,14 @@ sge::model::obj::instance::fill_vertex_buffer(
 		current_face_vertex != _prototype.face_vertices().end();
 		++current_face_vertex)
 	{
+		std::cout
+			<< "Adding vertex: "
+			<< vertex_coordinates[current_face_vertex->vertex_coordinate_index().get()]
+			<< ", "
+			<< texture_coordinates[current_face_vertex->texture_coordinate_index().get()]
+			<< ", "
+			<< normals[current_face_vertex->normal_index().get()] << "\n";
+
 		(*current_vertex).set<sge::model::obj::vf::position>(
 			vertex_coordinates[
 				current_face_vertex->vertex_coordinate_index().get()]);
@@ -153,17 +183,23 @@ sge::model::obj::instance::fill_index_buffer(
 	sge::renderer::size_type current_index_begin =
 		0u;
 
+	sge::model::obj::material_to_face_sequence const &current_parts(
+		_prototype.parts());
+
 	for(
-		sge::model::obj::material_to_face_sequence::const_iterator it =
-			_prototype.parts().begin();
-		it != _prototype.parts().end();
-		++it)
+		sge::model::obj::material_to_face_sequence::const_iterator current_part =
+			current_parts.begin();
+		current_part != current_parts.end();
+		++current_part)
 	{
+		sge::model::obj::face_sequence const &current_face_sequence(
+			current_part->second);
+
 		for(
 			sge::model::obj::face_sequence::const_iterator current_face =
-				it->second.begin();
-			current_face != it->second.end();
-			++it)
+				current_face_sequence.begin();
+			current_face != current_face_sequence.end();
+			++current_face)
 		{
 			for(
 				sge::model::obj::face::const_iterator current_face_index =
@@ -171,22 +207,24 @@ sge::model::obj::instance::fill_index_buffer(
 				current_face_index != current_face->end();
 				++current_face_index)
 			{
+				std::cout << "Adding index: " << *current_face_index << "\n";
 				(*current_index++).set(
 					static_cast<sge::renderer::index::i32>(
 						*current_face_index));
 			}
 		}
 
+		std::cout << "Adding index range: " << current_index_begin << ", " << current_face_sequence.size() << "\n";
 		parts_.insert(
 			std::make_pair(
-				it->first,
+				current_part->first,
 				sge::model::obj::index_buffer_range(
 					sge::renderer::first_index(
 						current_index_begin),
 					sge::renderer::index_count(
-						it->second.size()))));
+						current_face_sequence.size()*3u))));
 
 		current_index_begin +=
-			it->second.size();
+			current_face_sequence.size();
 	}
 }
