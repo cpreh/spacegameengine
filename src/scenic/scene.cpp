@@ -31,7 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/first_person/parameters.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
-#include <fcppt/math/deg_to_rad.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/model/obj/parse_mtllib.hpp>
@@ -316,27 +315,20 @@ sge::scenic::scene::load_camera(
 			fcppt::ref(
 				_viewport_manager),
 			sge::renderer::projection::near(
-				0.1f
-				/*
 				sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
 					_json_camera,
 					sge::parse::json::path(
-					FCPPT_TEXT("near")))*/),
+					FCPPT_TEXT("near")))),
 			sge::renderer::projection::far(
-				100.0f
-				/*
 				sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
 					_json_camera,
 					sge::parse::json::path(
-					FCPPT_TEXT("far")))*/),
+					FCPPT_TEXT("far")))),
 			sge::renderer::projection::fov(
-				fcppt::math::deg_to_rad(
-					90.0f
-					/*
-					sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
-						_json_camera,
-						sge::parse::json::path(
-						FCPPT_TEXT("fov")))*/))));
+				sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
+					_json_camera,
+					sge::parse::json::path(
+					FCPPT_TEXT("fov"))))));
 
 	sge::renderer::matrix4 const camera_rotation(
 		rotation_from_angles(

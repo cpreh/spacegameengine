@@ -38,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/make_part_index.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
 
+#include <iostream>
 #include <fcppt/math/vector/output.hpp>
 
 
