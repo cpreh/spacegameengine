@@ -94,6 +94,12 @@ private:
 			sprite_choices
 		>
 	> sprite_buffers_type;
+	
+	typedef
+	boost::circular_buffer<
+		sge::graph::scalar
+	>
+	buffer_type;
 
 	sge::renderer::dim2
 	dim_;
@@ -113,14 +119,17 @@ private:
 	sge::image::color::any::object const &
 	background_color_;
 
-	boost::circular_buffer<sge::graph::scalar>
+	buffer_type
 	data_buffer_;
 
 	sge::graph::scalar
-	current_max_;
+	baseline_;
 
 	sge::graph::scalar
-	baseline_;
+	current_min_;
+
+	sge::graph::scalar
+	current_max_;
 
 	void
 	clear(sge::image2d::view::object const _view);

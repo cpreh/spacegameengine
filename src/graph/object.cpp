@@ -25,12 +25,29 @@
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <iostream>
+#include <ostream>
+#include <cmath>
 #include <boost/circular_buffer.hpp>
+#include <boost/algorithm/minmax_element.hpp>
 #include <fcppt/config/external_end.hpp>
+#include <fcppt/math/clamp.hpp>
 
 
 namespace
 {
+sge::graph::scalar
+normalize(
+	sge::graph::scalar const &t,
+	sge::graph::scalar const &min,
+	sge::graph::scalar const &max
+)
+{
+	return
+		(t - min) /
+		(max - min);
+}
+
 void
 draw_rectangle(
 	sge::image2d::view::object const &_view,
@@ -120,10 +137,19 @@ background_color_(
 	_background_color),
 data_buffer_(
 	dim_.w()),
-current_max_(
-	0.),
 baseline_(
-	_baseline)
+	_baseline),
+current_min_(
+	std::min(
+		0.,
+		baseline_)
+	),
+current_max_(
+	1. +
+	std::max(
+		current_min_,
+		baseline_)
+	)
 {
 	sge::renderer::texture::scoped_planar_lock lock(
 		*texture_,
@@ -140,8 +166,19 @@ sge::graph::object::push(
 	data_buffer_.push_back(
 		_datum);
 
-	if (_datum > current_max_)
-		current_max_ = _datum;
+	typedef
+	buffer_type::iterator
+	iterator_type;
+
+	std::pair<iterator_type, iterator_type>
+	minmax(
+		boost::minmax_element(
+			data_buffer_.begin(),
+			data_buffer_.end()
+	));
+
+	current_min_ = *(minmax.first);
+	current_max_ = *(minmax.second);
 }
 
 void
@@ -193,30 +230,62 @@ sge::graph::object::draw_data(
 	clear(
 		_view);
 
-	unsigned baseline =
+	unsigned const baseline =
+		static_cast<
+			unsigned
+		>(
+			fcppt::math::clamp(
+				(
+				 static_cast<int>(
+					static_cast<
+						sge::graph::scalar
+					>
+					(
+						dim_.h() - 1
+					)
+					*
+					(
+					1.0
+					-
+					normalize(
+						baseline_,
+						current_min_,
+						current_max_)
+					)
+				)),
+				0,
+				static_cast<int>(dim_.h() - 1))
+		);
+
+	unsigned const zero =
 		static_cast<
 			unsigned
 		>
 		(
-			static_cast<
-				sge::graph::scalar
-			>
-			(
-				dim_.h() - 1
-			)
-			*
-			(
-			1.0
-			-
-			baseline_
-			/
-			current_max_
-			)
+		 	fcppt::math::clamp(
+				static_cast<int>(
+				static_cast<
+					sge::graph::scalar
+				>
+				(
+					dim_.h() - 1
+				)
+				*
+				(
+				1.0
+				-
+				normalize(
+					0.,
+					current_min_,
+					current_max_)
+				)),
+				0,
+				static_cast<int>(dim_.h() - 1))
 		);
 
 	for (unsigned i = 0; i < data_buffer_.size(); ++i)
 	{
-		unsigned value =
+		unsigned const value =
 			static_cast<
 				unsigned
 			>
@@ -228,38 +297,61 @@ sge::graph::object::draw_data(
 					dim_.h() - 1
 				)
 				*
-				data_buffer_[i]
-				/
-				current_max_
+				// normalize data point
+				normalize(
+					data_buffer_[i],
+					current_min_,
+					current_max_)
 			);
+
+		bool const above = data_buffer_[i] > 0.;
 
 		sge::image2d::algorithm::bresenham(
 			_view,
 			sge::image2d::vector(
 				i,
-				dim_.h() - 1
+				zero
 			),
 			sge::image2d::vector(
 				i,
 				dim_.h() - 1 - value
 			),
-			foreground_color_,
-			background_color_
+			above ? background_color_ : foreground_color_,
+			above ? foreground_color_ : background_color_
 		);
 	}
+
+	// zero line
+	if (zero >= 0 && zero < dim_.h())
 		sge::image2d::algorithm::bresenham(
 			_view,
 			sge::image2d::vector(
 				0,
-				baseline
+				zero
 			),
 			sge::image2d::vector(
 				dim_.w() - 1,
-				baseline
+				zero
 			),
-			sge::image::colors::blue(),
-			sge::image::colors::green()
+			foreground_color_,
+			foreground_color_
 		);
+
+	// baseline
+	sge::image2d::algorithm::bresenham(
+		_view,
+		sge::image2d::vector(
+			0,
+			baseline
+		),
+		sge::image2d::vector(
+			dim_.w() - 1,
+			baseline
+		),
+		sge::image::colors::yellow(),
+		sge::image::colors::yellow()
+	);
+
 }
 
 sge::graph::object::~object()

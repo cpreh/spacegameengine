@@ -107,9 +107,9 @@ try
 			128u
 		),
 		sys.renderer(),
-		sge::image::colors::green(),
+		sge::image::colors::white(),
 		sge::image::colors::darkslategray(),
-		25.0
+		20.0
 	);
 
 	typedef fcppt::random::generator::minstd_rand generator_type;
@@ -133,7 +133,7 @@ try
 		generator,
 		uniform_real(
 			uniform_real::min(
-				0.
+				-100.
 			),
 			uniform_real::sup(
 				100.
