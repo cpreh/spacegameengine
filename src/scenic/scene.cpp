@@ -51,6 +51,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/matrix/scaling.hpp>
 #include <fcppt/math/matrix/translation.hpp>
+#include <fcppt/math/vector/output.hpp>
 #include <fcppt/math/matrix/rotation_x.hpp>
 #include <fcppt/math/matrix/rotation_y.hpp>
 #include <fcppt/math/matrix/rotation_z.hpp>
@@ -65,6 +66,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace
 {
+sge::renderer::vector3 const
+from_blender_vector(
+	sge::renderer::vector3 const &_v)
+{
+	return
+		sge::renderer::vector3(
+			_v.x(),
+			_v.z(),
+			_v.y());
+}
+
 sge::renderer::matrix4 const
 rotation_from_angles(
 	sge::renderer::vector3 const &_angles)
@@ -73,10 +85,11 @@ rotation_from_angles(
 		fcppt::math::matrix::rotation_x(
 			_angles.x()) *
 		fcppt::math::matrix::rotation_y(
-			_angles.y()) *
+			-_angles.y()) *
 		fcppt::math::matrix::rotation_z(
 			_angles.z());
 }
+
 
 sge::renderer::vector3 const
 multiply_matrix4_vector3(
@@ -84,12 +97,8 @@ multiply_matrix4_vector3(
 	sge::renderer::vector3 const &_vector)
 {
 	return
-		_vector;
-	/*
-	return
 		fcppt::math::vector::narrow_cast<sge::renderer::vector3>(
 			_matrix * sge::renderer::vector4(_vector.x(),_vector.y(),_vector.z(),1.0f));
-	*/
 }
 }
 
@@ -165,6 +174,10 @@ sge::scenic::scene::render(
 	camera_.update(
 		sge::timer::elapsed_and_reset<sge::camera::update_duration>(
 			camera_timer_));
+
+	std::cout << camera_.coordinate_system().right().get() << "\n";
+	std::cout << camera_.coordinate_system().up().get() << "\n";
+	std::cout << camera_.coordinate_system().forward().get() << "\n";
 
 	sge::renderer::scoped_vertex_declaration scoped_vertex_declaration(
 		_context,
@@ -244,7 +257,8 @@ sge::scenic::scene::render_mesh(
 		fcppt::math::matrix::translation(
 			_mesh.position().get()) *
 		rotation_from_angles(
-			_mesh.rotation().get()) *
+			from_blender_vector(
+				_mesh.rotation().get())) *
 		fcppt::math::matrix::scaling(
 			_mesh.scale().get()));
 
@@ -332,10 +346,11 @@ sge::scenic::scene::load_camera(
 
 	sge::renderer::matrix4 const camera_rotation(
 		rotation_from_angles(
-			sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
-				_json_camera,
-				sge::parse::json::path(
-					FCPPT_TEXT("rotation")))));
+			from_blender_vector(
+				sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
+					_json_camera,
+					sge::parse::json::path(
+						FCPPT_TEXT("rotation"))))));
 
 	camera_.coordinate_system(
 		sge::camera::coordinate_system::object(
@@ -352,10 +367,18 @@ sge::scenic::scene::load_camera(
 					camera_rotation,
 					sge::renderer::vector3(0.0f,0.0f,1.0f))),
 			sge::camera::coordinate_system::position(
-				-sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
-					_json_camera,
-					sge::parse::json::path(
-						FCPPT_TEXT("position"))))));
+
+				/*
+				sge::renderer::vector3::null()
+				*/
+
+				-from_blender_vector(
+					sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
+						_json_camera,
+						sge::parse::json::path(
+						FCPPT_TEXT("position"))))
+
+													 )));
 }
 
 void
@@ -396,20 +419,23 @@ sge::scenic::scene::load_mesh(
 			fcppt::ref(
 				model_instance),
 			sge::scenic::position(
-				sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
-					_json_mesh,
-					sge::parse::json::path(
-						FCPPT_TEXT("position")))),
+				from_blender_vector(
+					sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
+						_json_mesh,
+						sge::parse::json::path(
+							FCPPT_TEXT("position"))))),
 			sge::scenic::rotation(
-				sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
-					_json_mesh,
-					sge::parse::json::path(
-						FCPPT_TEXT("rotation")))),
+				from_blender_vector(
+					sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
+						_json_mesh,
+						sge::parse::json::path(
+							FCPPT_TEXT("rotation"))))),
 			sge::scenic::scale(
-				sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
-					_json_mesh,
-					sge::parse::json::path(
-						FCPPT_TEXT("scale"))))));
+				from_blender_vector(
+					sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
+						_json_mesh,
+						sge::parse::json::path(
+							FCPPT_TEXT("scale")))))));
 }
 
 sge::model::obj::instance &
