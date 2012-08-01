@@ -12,7 +12,6 @@
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/context/object.hpp>
-#include <sge/renderer/texture/capabilities.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
@@ -25,9 +24,8 @@
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <iostream>
-#include <ostream>
-#include <cmath>
+#include <algorithm>
+#include <utility>
 #include <boost/circular_buffer.hpp>
 #include <boost/algorithm/minmax_element.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -322,20 +320,19 @@ sge::graph::object::draw_data(
 	}
 
 	// zero line
-	if (zero >= 0 && zero < dim_.h())
-		sge::image2d::algorithm::bresenham(
-			_view,
-			sge::image2d::vector(
-				0,
-				zero
-			),
-			sge::image2d::vector(
-				dim_.w() - 1,
-				zero
-			),
-			foreground_color_,
-			foreground_color_
-		);
+	sge::image2d::algorithm::bresenham(
+		_view,
+		sge::image2d::vector(
+			0,
+			zero
+		),
+		sge::image2d::vector(
+			dim_.w() - 1,
+			zero
+		),
+		foreground_color_,
+		foreground_color_
+	);
 
 	// baseline
 	sge::image2d::algorithm::bresenham(

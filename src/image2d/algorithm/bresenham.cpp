@@ -19,13 +19,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/color/any/object_fwd.hpp>
+#include <sge/image2d/dim.hpp>
+#include <sge/image2d/view/size.hpp>
 #include <sge/image2d/vector_fwd.hpp>
 #include <sge/image2d/algorithm/bresenham.hpp>
 #include <sge/image2d/view/object.hpp>
 #include <sge/src/image2d/algorithm/bresenham_visitor.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
-
+#include <fcppt/assert/exception.hpp>
+#include <fcppt/assert/pre_message.hpp>
+#include <fcppt/text.hpp>
 
 void
 sge::image2d::algorithm::bresenham(
@@ -36,6 +40,16 @@ sge::image2d::algorithm::bresenham(
 	sge::image::color::any::object const &_color2
 )
 {
+	sge::image2d::dim const dim(sge::image2d::view::size(_dest));
+
+	FCPPT_ASSERT_PRE_MESSAGE(
+		_pos1[0] < dim.w() &&
+		_pos2[0] < dim.w(),
+		FCPPT_TEXT("max width exceeded"));
+	FCPPT_ASSERT_PRE_MESSAGE(
+		_pos1[1] < dim.h() &&
+		_pos2[1] < dim.h(),
+		FCPPT_TEXT("max height exceeded"));
 	fcppt::variant::apply_unary(
 		sge::image2d::algorithm::bresenham_visitor(
 			_pos1,
