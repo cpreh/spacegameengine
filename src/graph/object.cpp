@@ -1,8 +1,8 @@
 #include <sge/graph/object.hpp>
 #include <sge/graph/scalar.hpp>
+#include <sge/image/colors.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image/color/any/object.hpp>
-#include <sge/image/colors.hpp>
 #include <sge/image2d/vector.hpp>
 #include <sge/image2d/algorithm/bresenham.hpp>
 #include <sge/image2d/algorithm/fill.hpp>

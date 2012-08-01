@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MODEL_OBJ_MATERIAL_TO_FACE_SEQUENCE_HPP_INCLUDED
 
 #include <sge/model/obj/face_sequence.hpp>
+#include <sge/model/obj/identifier.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <map>
-#include <string>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -37,7 +37,7 @@ namespace obj
 typedef
 std::map
 <
-	std::string,
+	sge::model::obj::identifier,
 	sge::model::obj::face_sequence
 >
 material_to_face_sequence;

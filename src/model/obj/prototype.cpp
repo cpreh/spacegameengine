@@ -26,16 +26,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/box/extend_bounding_box.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/next_prior.hpp>
+#include <boost/unordered_map.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <algorithm>
+#include <iostream>
+#include <map>
 #include <string>
 #include <fcppt/config/external_end.hpp>
 
-#include <fcppt/config/external_begin.hpp>
-#include <iostream>
-#include <map>
-#include <boost/unordered_map.hpp>
-#include <fcppt/config/external_end.hpp>
 
 namespace
 {
@@ -135,8 +133,9 @@ sge::model::obj::prototype::prototype(
 
 	face_vertex_to_index_map face_vertex_to_index;
 
-	line_count line_counter = 0;
-	std::string current_material = "";
+	line_count line_counter = 0u;
+	sge::model::obj::identifier current_material(
+		std::string(""));
 	std::string line;
 	while(
 		std::getline(
@@ -177,16 +176,14 @@ sge::model::obj::prototype::prototype(
 		{
 			material_files_.push_back(
 				rest_of_line);
-			continue;
 		}
-
-		if(prefix == "usemtl")
+		else if(prefix == "usemtl")
 		{
 			current_material =
-				rest_of_line;
+				sge::model::obj::identifier(
+					rest_of_line);
 		}
-
-		if(prefix == "v")
+		else if(prefix == "v")
 		{
 			std::istringstream line_rest(
 				rest_of_line);
@@ -211,11 +208,8 @@ sge::model::obj::prototype::prototype(
 
 			vertex_coordinates_.push_back(
 				coordinate);
-
-			continue;
 		}
-
-		if(prefix == "vn")
+		else if(prefix == "vn")
 		{
 			std::istringstream line_rest(
 				rest_of_line);
@@ -231,11 +225,8 @@ sge::model::obj::prototype::prototype(
 
 			normals_.push_back(
 				normal);
-
-			continue;
 		}
-
-		if(prefix == "vt")
+		else if(prefix == "vt")
 		{
 			std::istringstream line_rest(
 				rest_of_line);
@@ -251,11 +242,8 @@ sge::model::obj::prototype::prototype(
 
 			texture_coordinates_.push_back(
 				tex_coord);
-
-			continue;
 		}
-
-		if(prefix == "f")
+		else if(prefix == "f")
 		{
 			std::istringstream line_rest(
 				rest_of_line);
@@ -320,8 +308,10 @@ sge::model::obj::prototype::prototype(
 
 			parts_[current_material].push_back(
 				face);
-
-			continue;
+		}
+		else
+		{
+			std::clog << "Invalid prefix: " << prefix << "\n";
 		}
 	}
 

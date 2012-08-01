@@ -7,6 +7,7 @@ set(
 	include/sge/model/obj/face_sequence.hpp
 	include/sge/model/obj/face_vertex.hpp
 	include/sge/model/obj/face_vertex_sequence.hpp
+	include/sge/model/obj/identifier.hpp
 	include/sge/model/obj/index_buffer_range.hpp
 	include/sge/model/obj/instance.hpp
 	include/sge/model/obj/instance_fwd.hpp
@@ -14,17 +15,22 @@ set(
 	include/sge/model/obj/loader_fwd.hpp
 	include/sge/model/obj/loader_scoped_ptr.hpp
 	include/sge/model/obj/loader_unique_ptr.hpp
+	include/sge/model/obj/material.hpp
 	include/sge/model/obj/material_file_sequence.hpp
+	include/sge/model/obj/material_fwd.hpp
+	include/sge/model/obj/material_map.hpp
 	include/sge/model/obj/material_to_face_sequence.hpp
 	include/sge/model/obj/material_to_index_buffer_range.hpp
 	include/sge/model/obj/normal.hpp
 	include/sge/model/obj/normal_index.hpp
 	include/sge/model/obj/normal_sequence.hpp
+	include/sge/model/obj/parse_mtllib.hpp
 	include/sge/model/obj/prototype.hpp
 	include/sge/model/obj/prototype_fwd.hpp
 	include/sge/model/obj/texture_coordinate.hpp
 	include/sge/model/obj/texture_coordinate_index.hpp
 	include/sge/model/obj/texture_coordinate_sequence.hpp
+	include/sge/model/obj/texture_path.hpp
 	include/sge/model/obj/vertex_coordinate.hpp
 	include/sge/model/obj/vertex_coordinate_index.hpp
 	include/sge/model/obj/vertex_coordinate_sequence.hpp
@@ -37,13 +43,15 @@ set(
 	src/model/obj/face_vertex.cpp
 	src/model/obj/index_buffer_range.cpp
 	src/model/obj/instance.cpp
+	src/model/obj/material.cpp
+	src/model/obj/parse_mtllib.cpp
 	src/model/obj/prototype.cpp
 )
 
 
 add_sge_base_library(
 	"model/obj"
-	"sgecore;sgerenderer"
+	"sgecore;sgerenderer;sgeimage"
 	"${Fcppt_filesystem_LIBRARIES}"
 	""
 	""

@@ -22,11 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MODEL_OBJ_PROTOTYPE_HPP_INCLUDED
 
 #include <sge/model/obj/box.hpp>
-#include <sge/model/obj/symbol.hpp>
 #include <sge/model/obj/face_vertex_sequence.hpp>
 #include <sge/model/obj/material_file_sequence.hpp>
 #include <sge/model/obj/material_to_face_sequence.hpp>
 #include <sge/model/obj/normal_sequence.hpp>
+#include <sge/model/obj/symbol.hpp>
 #include <sge/model/obj/texture_coordinate_sequence.hpp>
 #include <sge/model/obj/vertex_coordinate_sequence.hpp>
 #include <fcppt/noncopyable.hpp>

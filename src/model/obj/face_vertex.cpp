@@ -1,5 +1,6 @@
-#include <sge/model/obj/symbol.hpp>
 #include <sge/model/obj/face_vertex.hpp>
+#include <sge/model/obj/symbol.hpp>
+
 
 sge::model::obj::face_vertex::face_vertex(
 	sge::model::obj::vertex_coordinate_index const &_vertex_coordinate_index,

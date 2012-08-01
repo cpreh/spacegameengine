@@ -1,22 +1,23 @@
 #include <sge/model/obj/instance.hpp>
-#include <sge/renderer/scoped_index_lock.hpp>
-#include <sge/renderer/index/dynamic/view.hpp>
-#include <sge/renderer/index/iterator.hpp>
-#include <sge/renderer/vf/dynamic/make_part_index.hpp>
 #include <sge/model/obj/prototype.hpp>
-#include <sge/renderer/scoped_vertex_lock.hpp>
-#include <sge/renderer/vf/view.hpp>
-#include <sge/model/obj/vf/format_part.hpp>
-#include <sge/model/obj/vf/position.hpp>
 #include <sge/model/obj/vf/format.hpp>
+#include <sge/model/obj/vf/format_part.hpp>
 #include <sge/model/obj/vf/normal.hpp>
+#include <sge/model/obj/vf/position.hpp>
 #include <sge/model/obj/vf/texcoord.hpp>
+#include <sge/renderer/device.hpp>
+#include <sge/renderer/index_buffer.hpp>
+#include <sge/renderer/scoped_index_lock.hpp>
+#include <sge/renderer/scoped_vertex_lock.hpp>
+#include <sge/renderer/vertex_buffer.hpp>
+#include <sge/renderer/index/iterator.hpp>
+#include <sge/renderer/index/dynamic/view.hpp>
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/vertex.hpp>
-#include <sge/renderer/vertex_buffer.hpp>
-#include <sge/renderer/index_buffer.hpp>
-#include <sge/renderer/device.hpp>
+#include <sge/renderer/vf/view.hpp>
+#include <sge/renderer/vf/dynamic/make_part_index.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
+
 
 sge::model::obj::instance::instance(
 	sge::renderer::device &_renderer,

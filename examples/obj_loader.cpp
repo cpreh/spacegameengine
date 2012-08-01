@@ -1,18 +1,23 @@
 #include <sge/config/media_path.hpp>
 #include <sge/model/obj/prototype.hpp>
-#include <fcppt/math/box/output.hpp>
+#include <sge/model/obj/parse_mtllib.hpp>
 #include <fcppt/exception.hpp>
-#include <fcppt/math/vector/output.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/io/cerr.hpp>
-#include <iostream>
+#include <fcppt/math/box/output.hpp>
+#include <fcppt/math/vector/output.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <cstddef>
+#include <iostream>
+#include <fcppt/config/external_end.hpp>
+
 
 int main()
 try
 {
 	sge::model::obj::prototype const loaded_model(
-		sge::config::media_path() / FCPPT_TEXT("objs") / FCPPT_TEXT("dragon.obj"));
+		"/tmp/untitled.obj");
+		//		sge::config::media_path() / FCPPT_TEXT("objs") / FCPPT_TEXT("dragon.obj"));
 
 	std::cout << "Loaded successfully!\n";
 
@@ -29,7 +34,12 @@ try
 				loaded_model.material_files().begin();
 			it != loaded_model.material_files().end();
 			++it)
+		{
 			std::cout << *it << "\n";
+			std::cout << "Loading...\n";
+			sge::model::obj::parse_mtllib(
+				"/tmp/"/(*it));
+		}
 	}
 
 	std::cout
@@ -57,7 +67,7 @@ try
 		it != loaded_model.parts().end();
 		++it)
 	{
-		if(it->first.empty())
+		if(it->first.get().empty())
 			std::cout << "\tDefault material\n";
 		else
 			std::cout << "\tMaterial: " << it->first << "\n";
