@@ -105,6 +105,8 @@ update_sublibrary font/bitmap
 
 update_sublibrary font/text
 
+update_sublibrary graph
+
 update_sublibrary image
 
 update_sublibrary image2d

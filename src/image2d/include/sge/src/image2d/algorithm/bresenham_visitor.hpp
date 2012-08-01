@@ -49,7 +49,8 @@ public:
 	bresenham_visitor(
 		sge::image2d::vector const &_pos1,
 		sge::image2d::vector const &_pos2,
-		sge::image::color::any::object const &_color
+		sge::image::color::any::object const &_color1,
+		sge::image::color::any::object const &_color2
 	)
 	:
 		pos1_(
@@ -58,8 +59,11 @@ public:
 		pos2_(
 			_pos2
 		),
-		color_(
-			_color
+		color1_(
+			_color1
+		),
+		color2_(
+			_color2
 		)
 	{
 	}
@@ -87,7 +91,12 @@ public:
 			sge::image::color::any::convert<
 				typename View::format::color_format
 			>(
-				color_
+				color1_
+			),
+			sge::image::color::any::convert<
+				typename View::format::color_format
+			>(
+				color2_
 			)
 		);
 	}
@@ -96,7 +105,9 @@ private:
 
 	sge::image2d::vector const pos2_;
 
-	sge::image::color::any::object const &color_;
+	sge::image::color::any::object const &color1_;
+
+	sge::image::color::any::object const &color2_;
 };
 
 }
