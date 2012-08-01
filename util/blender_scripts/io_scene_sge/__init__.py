@@ -51,33 +51,86 @@ class ExportSge(bpy.types.Operator, ExportHelper):
 		default = 4,
 		)
 
+	def _process_mesh(self, ob, entity):
+		entity["scale"] = tuple(ob.scale)
+		return entity
+
+	def _process_camera(self, ob, entity):
+		entity["fov"] = ob.data.angle
+		entity["near"] = ob.data.clip_start
+		entity["far"] = ob.data.clip_end
+		return entity
+
+	def _process_lamp(self, ob, entity):
+		if ob.data.type == 'HEMI' or ob.data.type == 'SUN':
+			light_type = 'directional'
+		elif ob.data.type == 'POINT':
+			light_type = 'point'
+		elif ob.data.type == 'SPOT':
+			light_type = 'spot'
+			entity["spot_cutoff"] = ob.data.spot_size
+			# FIXME: does this make sense for OpenGL?
+			entity["spot_exponent"] = ob.data.spot_blend * 128.0
+		else:
+			self.report({'WARNING'}, "Unsupported lamp type: {}".format(ob.data.type))
+			return None
+		entity["light_type"] = light_type
+		entity["energy"] = ob.data.energy
+		entity["color"] = tuple(ob.data.color)
+		return entity
+
+	def _process(self, ob, result):
+		entity = dict()
+		entity["position"] = tuple(ob.location)
+		entity["rotation"] = tuple(ob.rotation_euler)
+		entity["name"] = ob.data.name
+
+		if ob.type == 'MESH':
+			entity = self._process_mesh(ob, entity)
+			if entity:
+				result["meshes"].append(entity)
+		elif ob.type == 'LAMP':
+			entity = self._process_lamp(ob, entity)
+			if entity:
+				result["lights"].append(entity)
+		elif ob.type == 'CAMERA':
+			if result["camera"] != None:
+				raise Exception("Cannot export more than one camera object!")
+			result["camera"] = self._process_camera(ob, entity)
+
 	def execute(self, context):
 		objects = context.selected_objects if self.selected_only else context.scene.objects
-		result_objects = []
+
+		result = dict()
+		result["meshes"] = []
+		result["lights"] = []
+		result["camera"] = None
+		result["world"] = dict()
+
+		world = context.scene.world
+
+		# fog
+		fog_start = world.mist_settings.start
+		# FIXME: how to map blender mist modes to GL fog modes?
+		result["world"]["fog-mode"] = "linear"
+		result["world"]["fog-start"] = fog_start
+		result["world"]["fog-end"] = fog_start + world.mist_settings.depth
+		result["world"]["fog-color"] = tuple(world.horizon_color)
+		# FIXME: what to do about fog density?
+
 		for ob in objects:
-			entity = {"position": tuple(ob.location)}
-			entity["rotation"] = tuple(ob.rotation_euler)
-			entity["type"] = ob.type.lower()
-			entity["name"] = ob.data.name
-
-			# specific stuff, depending on object type...
-			if ob.type == 'MESH':
-				entity["scale"] = tuple(ob.scale)
-			elif ob.type == 'LAMP':
-				entity["energy"] = ob.data.energy
-				entity["color"] = tuple(ob.data.color)
-			elif ob.type == 'CAMERA':
-				entity["fov"] = ob.data.angle
-				entity["near"] = ob.data.clip_start
-				entity["far"] = ob.data.clip_end
-
-			result_objects.append(entity)
+			try:
+				self._process(ob, result)
+			except Exception as e:
+				self.report({'ERROR_INVALID_INPUT'}, str(e))
+				return {'CANCELLED'}
 
 		actual_indentation = self.indentation_level if self.format_output else None
-		self.report({'INFO'}, "Dumped scene information: " + json.dumps(result_objects))
+
+		self.report({'INFO'}, "Dumped scene information: " + json.dumps(result))
 		with open(self.filepath, 'w') as output:
 			json.dump(
-				result_objects,
+				result,
 				output,
 				indent=actual_indentation)
 
