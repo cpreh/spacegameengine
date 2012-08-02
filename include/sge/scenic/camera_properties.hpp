@@ -18,57 +18,53 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SCENIC_MESH_HPP_INCLUDED
-#define SGE_SCENIC_MESH_HPP_INCLUDED
+#ifndef SGE_SCENIC_CAMERA_PROPERTIES_HPP_INCLUDED
+#define SGE_SCENIC_CAMERA_PROPERTIES_HPP_INCLUDED
 
-#include <sge/scenic/identifier.hpp>
-#include <sge/scenic/position.hpp>
-#include <sge/scenic/rotation.hpp>
-#include <sge/scenic/scale.hpp>
+#include <sge/camera/coordinate_system/object.hpp>
+#include <sge/renderer/projection/far.hpp>
+#include <sge/renderer/projection/fov.hpp>
+#include <sge/renderer/projection/near.hpp>
 #include <sge/scenic/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
 
 
 namespace sge
 {
 namespace scenic
 {
-class mesh
+class camera_properties
 {
-FCPPT_NONCOPYABLE(
-	mesh);
 public:
 	SGE_SCENIC_SYMBOL
-	mesh(
-		sge::scenic::identifier const &,
-		sge::scenic::position const &,
-		sge::scenic::rotation const &,
-		sge::scenic::scale const &);
+	camera_properties(
+		sge::camera::coordinate_system::object const &,
+		sge::renderer::projection::fov const &,
+		sge::renderer::projection::near const &,
+		sge::renderer::projection::far const &);
 
 	SGE_SCENIC_SYMBOL
-	sge::scenic::identifier const &
-	model() const;
+	sge::camera::coordinate_system::object const &
+	coordinate_system() const;
 
 	SGE_SCENIC_SYMBOL
-	sge::scenic::position const &
-	position() const;
+	sge::renderer::projection::fov const &
+	fov() const;
 
 	SGE_SCENIC_SYMBOL
-	sge::scenic::rotation const &
-	rotation() const;
+	sge::renderer::projection::near const &
+	near() const;
 
 	SGE_SCENIC_SYMBOL
-	sge::scenic::scale const &
-	scale() const;
+	sge::renderer::projection::far const &
+	far() const;
 
 	SGE_SCENIC_SYMBOL
-	~mesh();
+	~camera_properties();
 private:
-	sge::scenic::identifier model_;
-	sge::scenic::position const position_;
-	sge::scenic::rotation const rotation_;
-	sge::scenic::scale const scale_;
+	sge::camera::coordinate_system::object coordinate_system_;
+	sge::renderer::projection::fov fov_;
+	sge::renderer::projection::near near_;
+	sge::renderer::projection::far far_;
 };
 }
 }

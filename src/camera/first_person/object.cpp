@@ -98,7 +98,7 @@ sge::camera::first_person::object::coordinate_system() const
 }
 
 void
-sge::camera::first_person::object::coordinate_system(
+sge::camera::first_person::object::update_coordinate_system(
 	sge::camera::coordinate_system::object const &_coordinate_system)
 {
 	coordinate_system_ =

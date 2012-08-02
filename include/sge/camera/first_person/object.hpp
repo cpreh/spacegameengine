@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/class_symbol.hpp>
 #include <sge/camera/base.hpp>
 #include <sge/camera/has_activation.hpp>
+#include <sge/camera/has_mutable_coordinate_system.hpp>
 #include <sge/camera/has_mutable_projection.hpp>
 #include <sge/camera/is_dynamic.hpp>
 #include <sge/camera/optional_projection_matrix.hpp>
@@ -54,7 +55,8 @@ class SGE_CLASS_SYMBOL object
 	public virtual sge::camera::base,
 	public sge::camera::has_activation,
 	public sge::camera::is_dynamic,
-	public sge::camera::has_mutable_projection
+	public sge::camera::has_mutable_projection,
+	public sge::camera::has_mutable_coordinate_system
 {
 FCPPT_NONCOPYABLE(
 	object);
@@ -71,7 +73,7 @@ public:
 
 	SGE_CAMERA_SYMBOL
 	void
-	coordinate_system(
+	update_coordinate_system(
 		sge::camera::coordinate_system::object const &);
 
 	/* override */

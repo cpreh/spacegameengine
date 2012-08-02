@@ -1,26 +1,46 @@
 set(
 	SGE_SCENIC_FILES
+	include/sge/scenic/camera_properties.hpp
+	include/sge/scenic/camera_properties_fwd.hpp
+	include/sge/scenic/fog/color.hpp
+	include/sge/scenic/fog/end.hpp
+	include/sge/scenic/fog/properties.hpp
+	include/sge/scenic/fog/properties_fwd.hpp
+	include/sge/scenic/fog/start.hpp
+	include/sge/scenic/identifier.hpp
+	include/sge/scenic/light_sequence.hpp
 	include/sge/scenic/material_base_path.hpp
 	include/sge/scenic/mesh.hpp
 	include/sge/scenic/mesh_fwd.hpp
+	include/sge/scenic/mesh_sequence.hpp
 	include/sge/scenic/model_base_path.hpp
 	include/sge/scenic/position.hpp
 	include/sge/scenic/rotation.hpp
 	include/sge/scenic/scale.hpp
-	include/sge/scenic/scene.hpp
-	include/sge/scenic/scene_description_file.hpp
+	include/sge/scenic/scene/from_blender_file.hpp
+	include/sge/scenic/scene/manager.hpp
+	include/sge/scenic/scene/manager_fwd.hpp
+	include/sge/scenic/scene/prototype.hpp
+	include/sge/scenic/scene/prototype_fwd.hpp
+	include/sge/scenic/scene/prototype_scoped_ptr.hpp
+	include/sge/scenic/scene/prototype_unique_ptr.hpp
 	include/sge/scenic/texture_base_path.hpp
 	include/sge/scenic/texture_manager.hpp
 	include/sge/scenic/texture_manager_fwd.hpp
+	src/scenic/fog/properties.cpp
 	src/scenic/mesh.cpp
-	src/scenic/scene.cpp
+	src/scenic/scene/camera_properties.cpp
+	src/scenic/scene/from_blender_file.cpp
+	src/scenic/scene/manager.cpp
+	src/scenic/scene/manager_fwd.hpp
+	src/scenic/scene/prototype.cpp
 	src/scenic/texture_manager.cpp
 )
 
 add_sge_base_library(
 	"scenic"
-	"sgeparse;sgeimage;sgemodelobj;sgerenderer;sgecamera;sgeviewport;sgetimer"
-	"${Fcppt_filesystem_LIBRARIES};${Boost_CHRONO_LIBRARIES}"
+	"sgeparse;sgeimage;sgemodelobj;sgerenderer;sgecamera;sgeviewport"
+	"${Fcppt_filesystem_LIBRARIES}"
 	""
 	""
 )

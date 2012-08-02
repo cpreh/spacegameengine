@@ -8,7 +8,7 @@
                 1.0
             ], 
             "energy": 1.0, 
-            "light_type": "point", 
+            "light-type": "point", 
             "position": [
                 4.076245307922363, 
                 1.0054539442062378, 
@@ -60,6 +60,7 @@
     "world": {
         "fog-mode": "linear", 
         "fog-end": 30.0, 
+	"ambient-color" : [0.2,0.2,0.2],
         "fog-color": [
             0.05087608844041824, 
             0.05087608844041824, 

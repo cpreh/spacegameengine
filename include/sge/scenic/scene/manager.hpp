@@ -18,35 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SCENIC_SCENE_HPP_INCLUDED
-#define SGE_SCENIC_SCENE_HPP_INCLUDED
+#ifndef SGE_SCENIC_SCENE_MANAGER_HPP_INCLUDED
+#define SGE_SCENIC_SCENE_MANAGER_HPP_INCLUDED
 
 #include <sge/camera/perspective_projection_from_viewport.hpp>
 #include <sge/camera/first_person/object.hpp>
-#include <sge/input/keyboard/device.hpp>
-#include <sge/input/mouse/device.hpp>
-#include <sge/model/obj/instance.hpp>
+#include <sge/image2d/system_fwd.hpp>
+#include <sge/model/obj/instance_fwd.hpp>
 #include <sge/model/obj/material_map.hpp>
-#include <sge/parse/json/array_fwd.hpp>
-#include <sge/parse/json/object_fwd.hpp>
+#include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/vertex_declaration_scoped_ptr.hpp>
 #include <sge/renderer/context/object_fwd.hpp>
-#include <sge/renderer/light/object.hpp>
 #include <sge/scenic/material_base_path.hpp>
-#include <sge/scenic/mesh.hpp>
+#include <sge/scenic/mesh_sequence.hpp>
 #include <sge/scenic/model_base_path.hpp>
-#include <sge/scenic/scene_description_file.hpp>
+#include <sge/scenic/symbol.hpp>
 #include <sge/scenic/texture_base_path.hpp>
 #include <sge/scenic/texture_manager.hpp>
-#include <sge/timer/basic.hpp>
-#include <sge/timer/clocks/standard.hpp>
+#include <sge/scenic/scene/prototype_scoped_ptr.hpp>
 #include <sge/viewport/manager_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
 #include <boost/ptr_container/ptr_map.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
-#include <vector>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -54,19 +48,20 @@ namespace sge
 {
 namespace scenic
 {
-class scene
+namespace scene
+{
+class manager
 {
 FCPPT_NONCOPYABLE(
-	scene);
+	manager);
 public:
 	SGE_SCENIC_SYMBOL
-	scene(
+	manager(
 		sge::renderer::device &,
 		sge::image2d::system &,
 		sge::viewport::manager &,
-		sge::input::keyboard::device &,
-		sge::input::mouse::device &,
-		sge::scenic::scene_description_file const &,
+		sge::camera::first_person::object &,
+		boost::filesystem::path const &,
 		sge::scenic::model_base_path const &,
 		sge::scenic::material_base_path const &,
 		sge::scenic::texture_base_path const &);
@@ -77,7 +72,7 @@ public:
 		sge::renderer::context::object &);
 
 	SGE_SCENIC_SYMBOL
-	~scene();
+	~manager();
 private:
 	typedef
 	boost::ptr_map
@@ -87,57 +82,27 @@ private:
 	>
 	model_name_to_instance_map;
 
-	typedef
-	boost::ptr_vector<sge::scenic::mesh>
-	mesh_sequence;
-
-	typedef
-	std::vector<sge::renderer::light::object>
-	light_sequence;
-
-	sge::scenic::texture_base_path const texture_base_path_;
+	sge::camera::first_person::object &camera_;
 	sge::scenic::model_base_path const model_base_path_;
 	sge::scenic::material_base_path const material_base_path_;
+	sge::scenic::texture_base_path const texture_base_path_;
+	sge::scenic::scene::prototype_scoped_ptr const prototype_;
+	sge::camera::perspective_projection_from_viewport camera_viewport_connection_;
 	sge::renderer::vertex_declaration_scoped_ptr const model_vertex_declaration_;
+	model_name_to_instance_map model_name_to_instance_;
 	sge::scenic::texture_manager texture_manager_;
 	sge::model::obj::material_map materials_;
-	sge::camera::first_person::object camera_;
-	fcppt::scoped_ptr<sge::camera::perspective_projection_from_viewport> camera_viewport_connection_;
-	model_name_to_instance_map model_name_to_instance_;
-	mesh_sequence meshes_;
-	light_sequence lights_;
-	sge::timer::basic<sge::timer::clocks::standard> camera_timer_;
 
 	void
-	enable_lights(
-		sge::renderer::context::object &);
+	load_meshes(
+		sge::renderer::device &);
 
 	void
 	render_mesh(
 		sge::scenic::mesh const &,
 		sge::renderer::context::object &);
-
-	void
-	load_camera(
-		sge::parse::json::object const &,
-		sge::renderer::device &,
-		sge::viewport::manager &);
-
-	void
-	load_meshes(
-		sge::renderer::device &,
-		sge::parse::json::array const &);
-
-	void
-	load_mesh(
-		sge::renderer::device &,
-		sge::parse::json::object const &);
-
-	sge::model::obj::instance &
-	insert_model_if_necessary(
-		sge::renderer::device &,
-		fcppt::string const &);
 };
+}
 }
 }
 

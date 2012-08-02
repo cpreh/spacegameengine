@@ -18,6 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/camera/coordinate_system/identity.hpp>
+#include <sge/camera/first_person/object.hpp>
+#include <sge/camera/first_person/parameters.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/image/capabilities_field.hpp>
 #include <sge/image/colors.hpp>
@@ -37,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/target/onscreen.hpp>
-#include <sge/scenic/scene.hpp>
+#include <sge/scenic/scene/manager.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/image2d.hpp>
 #include <sge/systems/input.hpp>
@@ -48,6 +51,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/quit_on_escape.hpp>
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/window.hpp>
+#include <sge/timer/basic.hpp>
+#include <sge/timer/elapsed_and_reset.hpp>
+#include <sge/timer/parameters.hpp>
+#include <sge/timer/clocks/standard.hpp>
 #include <sge/viewport/center_on_resize.hpp>
 #include <sge/window/dim.hpp>
 #include <sge/window/parameters.hpp>
@@ -119,16 +126,24 @@ try
 			sys));
 
 	fcppt::string const scene_name(
-		FCPPT_TEXT("multimaterial"));
+		FCPPT_TEXT("test_scene"));
 
-	sge::scenic::scene test_scene(
+	sge::camera::first_person::object camera(
+		sge::camera::first_person::parameters(
+			sys.keyboard_collector(),
+			sys.mouse_collector(),
+			sge::camera::first_person::is_active(
+				true),
+			sge::camera::first_person::movement_speed(
+				4.0f),
+			sge::camera::coordinate_system::identity()));
+
+	sge::scenic::scene::manager test_scene(
 		sys.renderer(),
 		sys.image_system(),
 		sys.viewport_manager(),
-		sys.keyboard_collector(),
-		sys.mouse_collector(),
-		sge::scenic::scene_description_file(
-			sge::config::media_path() / FCPPT_TEXT("scenes") / scene_name / FCPPT_TEXT("description.json")),
+		camera,
+		sge::config::media_path() / FCPPT_TEXT("scenes") / scene_name / FCPPT_TEXT("description.json"),
 		sge::scenic::model_base_path(
 			sge::config::media_path() / FCPPT_TEXT("scenes") / scene_name),
 		sge::scenic::material_base_path(
@@ -136,9 +151,18 @@ try
 		sge::scenic::texture_base_path(
 			sge::config::media_path() / FCPPT_TEXT("scenes") / scene_name));
 
+	sge::timer::basic<sge::timer::clocks::standard> camera_timer(
+		sge::timer::parameters<sge::timer::clocks::standard>(
+			sge::camera::update_duration(
+				1.0f)));
+
 	while(
 		sys.window_system().poll())
 	{
+		camera.update(
+			sge::timer::elapsed_and_reset<sge::camera::update_duration>(
+				camera_timer));
+
 		sge::renderer::context::scoped const scoped_block(
 			sys.renderer(),
 			sys.renderer().onscreen_target());

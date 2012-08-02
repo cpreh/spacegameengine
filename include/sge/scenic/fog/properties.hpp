@@ -18,53 +18,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/scenic/mesh.hpp>
+#ifndef SGE_SCENIC_FOG_PROPERTIES_HPP_INCLUDED
+#define SGE_SCENIC_FOG_PROPERTIES_HPP_INCLUDED
 
-sge::scenic::mesh::mesh(
-	sge::scenic::identifier const &_model,
-	sge::scenic::position const &_position,
-	sge::scenic::rotation const &_rotation,
-	sge::scenic::scale const &_scale)
-:
-	model_(
-		_model),
-	position_(
-		_position),
-	rotation_(
-		_rotation),
-	scale_(
-		_scale)
+#include <sge/scenic/symbol.hpp>
+#include <sge/scenic/fog/color.hpp>
+#include <sge/scenic/fog/end.hpp>
+#include <sge/scenic/fog/start.hpp>
+
+
+namespace sge
 {
+namespace scenic
+{
+namespace fog
+{
+class properties
+{
+public:
+	SGE_SCENIC_SYMBOL
+	properties(
+		sge::scenic::fog::start const &,
+		sge::scenic::fog::end const &,
+		sge::scenic::fog::color const &);
+
+	SGE_SCENIC_SYMBOL
+	sge::scenic::fog::start const &
+	start() const;
+
+	SGE_SCENIC_SYMBOL
+	sge::scenic::fog::end const &
+	end() const;
+
+	SGE_SCENIC_SYMBOL
+	sge::scenic::fog::color const &
+	color() const;
+private:
+	sge::scenic::fog::start start_;
+	sge::scenic::fog::end end_;
+	sge::scenic::fog::color color_;
+};
+}
+}
 }
 
-sge::scenic::identifier const &
-sge::scenic::mesh::model() const
-{
-	return
-		model_;
-}
-
-sge::scenic::position const &
-sge::scenic::mesh::position() const
-{
-	return
-		position_;
-}
-
-sge::scenic::rotation const &
-sge::scenic::mesh::rotation() const
-{
-	return
-		rotation_;
-}
-
-sge::scenic::scale const &
-sge::scenic::mesh::scale() const
-{
-	return
-		scale_;
-}
-
-sge::scenic::mesh::~mesh()
-{
-}
+#endif

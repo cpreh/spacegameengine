@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SCENIC_ROTATION_HPP_INCLUDED
 #define SGE_SCENIC_ROTATION_HPP_INCLUDED
 
-#include <sge/renderer/vector3.hpp>
+#include <sge/renderer/matrix4.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 namespace sge
@@ -29,7 +29,7 @@ namespace sge
 namespace scenic
 {
 FCPPT_MAKE_STRONG_TYPEDEF(
-	sge::renderer::vector3,
+	sge::renderer::matrix4,
 	rotation);
 }
 }

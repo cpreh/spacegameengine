@@ -18,53 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_SCENIC_MESH_SEQUENCE_HPP_INCLUDED
+#define SGE_SCENIC_MESH_SEQUENCE_HPP_INCLUDED
+
 #include <sge/scenic/mesh.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/ptr_container/ptr_vector.hpp>
+#include <fcppt/config/external_end.hpp>
 
-sge::scenic::mesh::mesh(
-	sge::scenic::identifier const &_model,
-	sge::scenic::position const &_position,
-	sge::scenic::rotation const &_rotation,
-	sge::scenic::scale const &_scale)
-:
-	model_(
-		_model),
-	position_(
-		_position),
-	rotation_(
-		_rotation),
-	scale_(
-		_scale)
+
+namespace sge
 {
+namespace scenic
+{
+typedef
+boost::ptr_vector<sge::scenic::mesh>
+mesh_sequence;
+}
 }
 
-sge::scenic::identifier const &
-sge::scenic::mesh::model() const
-{
-	return
-		model_;
-}
-
-sge::scenic::position const &
-sge::scenic::mesh::position() const
-{
-	return
-		position_;
-}
-
-sge::scenic::rotation const &
-sge::scenic::mesh::rotation() const
-{
-	return
-		rotation_;
-}
-
-sge::scenic::scale const &
-sge::scenic::mesh::scale() const
-{
-	return
-		scale_;
-}
-
-sge::scenic::mesh::~mesh()
-{
-}
+#endif

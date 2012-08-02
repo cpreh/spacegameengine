@@ -27,6 +27,8 @@ set(
 	include/sge/camera/first_person/parameters_fwd.hpp
 	include/sge/camera/has_activation.hpp
 	include/sge/camera/has_activation_fwd.hpp
+	include/sge/camera/has_mutable_coordinate_system.hpp
+	include/sge/camera/has_mutable_coordinate_system_fwd.hpp
 	include/sge/camera/has_mutable_projection.hpp
 	include/sge/camera/has_mutable_projection_fwd.hpp
 	include/sge/camera/is_dynamic.hpp
@@ -92,6 +94,7 @@ set(
 	src/camera/first_person/object.cpp
 	src/camera/first_person/parameters.cpp
 	src/camera/has_activation.cpp
+	src/camera/has_mutable_coordinate_system.cpp
 	src/camera/has_mutable_projection.cpp
 	src/camera/is_dynamic.cpp
 	src/camera/matrix_conversion/rotation.cpp
