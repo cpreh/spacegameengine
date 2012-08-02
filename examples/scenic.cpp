@@ -24,13 +24,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_set.hpp>
+#include <sge/renderer/device.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/context/object.hpp>
 #include <sge/renderer/context/scoped.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
-#include <sge/renderer/device.hpp>
-#include <sge/scenic/scene.hpp>
 #include <sge/renderer/parameters/object.hpp>
 #include <sge/renderer/parameters/vsync.hpp>
 #include <sge/renderer/pixel_format/color.hpp>
@@ -38,6 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/target/onscreen.hpp>
+#include <sge/scenic/scene.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/image2d.hpp>
 #include <sge/systems/input.hpp>
@@ -125,13 +125,13 @@ try
 		sys.keyboard_collector(),
 		sys.mouse_collector(),
 		sge::scenic::scene_description_file(
-			sge::config::media_path() / FCPPT_TEXT("scenes") / FCPPT_TEXT("test_scene.json")),
+			sge::config::media_path() / FCPPT_TEXT("scenes") / FCPPT_TEXT("test_scene") / FCPPT_TEXT("description.json")),
 		sge::scenic::model_base_path(
-			sge::config::media_path() / FCPPT_TEXT("objs")),
+			sge::config::media_path() / FCPPT_TEXT("scenes") / FCPPT_TEXT("test_scene")),
 		sge::scenic::material_base_path(
-			sge::config::media_path() / FCPPT_TEXT("mtls")),
+			sge::config::media_path() / FCPPT_TEXT("scenes") / FCPPT_TEXT("test_scene")),
 		sge::scenic::texture_base_path(
-			sge::config::media_path() / FCPPT_TEXT("model_textures")));
+			sge::config::media_path() / FCPPT_TEXT("scenes") / FCPPT_TEXT("test_scene")));
 
 	while(
 		sys.window_system().poll())

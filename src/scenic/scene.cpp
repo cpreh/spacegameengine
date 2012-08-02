@@ -17,52 +17,53 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-#include <fcppt/assert/pre.hpp>
-#include <sge/renderer/texture/scoped.hpp>
-#include <sge/renderer/vertex_buffer.hpp>
-#include <sge/renderer/target/base.hpp>
-#include <sge/renderer/target/viewport_size.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
-#include <sge/parse/json/find_member_exn.hpp>
-#include <sge/parse/json/find_and_convert_member.hpp>
-#include <sge/renderer/context/object.hpp>
-#include <sge/renderer/vertex_declaration.hpp>
-#include <sge/renderer/scoped_vertex_declaration.hpp>
+#include <sge/camera/coordinate_system/identity.hpp>
+#include <sge/camera/coordinate_system/object.hpp>
 #include <sge/camera/first_person/parameters.hpp>
-#include <sge/parse/json/object.hpp>
-#include <sge/renderer/scoped_vertex_buffer.hpp>
-#include <fcppt/math/vector/arithmetic.hpp>
-#include <sge/parse/json/array.hpp>
+#include <sge/camera/matrix_conversion/world.hpp>
 #include <sge/model/obj/parse_mtllib.hpp>
+#include <sge/model/obj/vf/format.hpp>
+#include <sge/parse/json/array.hpp>
+#include <sge/parse/json/find_and_convert_member.hpp>
+#include <sge/parse/json/find_member_exn.hpp>
+#include <sge/parse/json/get.hpp>
+#include <sge/parse/json/object.hpp>
 #include <sge/parse/json/parse_file_exn.hpp>
-#include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
-#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
-#include <sge/scenic/scene.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/scoped_transform.hpp>
-#include <sge/renderer/vf/dynamic/make_format.hpp>
-#include <sge/timer/parameters.hpp>
-#include <sge/timer/elapsed_and_reset.hpp>
-#include <sge/camera/matrix_conversion/world.hpp>
-#include <sge/camera/coordinate_system/object.hpp>
-#include <sge/renderer/state/scoped.hpp>
-#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/scoped_vertex_buffer.hpp>
+#include <sge/renderer/scoped_vertex_declaration.hpp>
+#include <sge/renderer/vertex_buffer.hpp>
+#include <sge/renderer/vertex_declaration.hpp>
+#include <sge/renderer/context/object.hpp>
 #include <sge/renderer/state/bool.hpp>
+#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/state/scoped.hpp>
+#include <sge/renderer/target/base.hpp>
+#include <sge/renderer/target/viewport_size.hpp>
+#include <sge/renderer/texture/scoped.hpp>
+#include <sge/renderer/vf/dynamic/make_format.hpp>
+#include <sge/scenic/scene.hpp>
+#include <sge/timer/elapsed_and_reset.hpp>
+#include <sge/timer/parameters.hpp>
+#include <fcppt/cref.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/ref.hpp>
+#include <fcppt/assert/pre.hpp>
+#include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
+#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
+#include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
-#include <fcppt/math/matrix/scaling.hpp>
-#include <fcppt/math/matrix/translation.hpp>
-#include <fcppt/math/vector/output.hpp>
 #include <fcppt/math/matrix/rotation_x.hpp>
 #include <fcppt/math/matrix/rotation_y.hpp>
 #include <fcppt/math/matrix/rotation_z.hpp>
-#include <sge/camera/coordinate_system/identity.hpp>
+#include <fcppt/math/matrix/scaling.hpp>
+#include <fcppt/math/matrix/translation.hpp>
 #include <fcppt/math/matrix/vector.hpp>
+#include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/narrow_cast.hpp>
-#include <sge/model/obj/vf/format.hpp>
-#include <sge/parse/json/get.hpp>
-#include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/cref.hpp>
-#include <fcppt/ref.hpp>
+#include <fcppt/math/vector/output.hpp>
+
 
 namespace
 {
@@ -85,7 +86,7 @@ rotation_from_angles(
 		fcppt::math::matrix::rotation_x(
 			_angles.x()) *
 		fcppt::math::matrix::rotation_y(
-			-_angles.y()) *
+			_angles.y()) *
 		fcppt::math::matrix::rotation_z(
 			_angles.z());
 }
@@ -175,9 +176,11 @@ sge::scenic::scene::render(
 		sge::timer::elapsed_and_reset<sge::camera::update_duration>(
 			camera_timer_));
 
+	/*
 	std::cout << camera_.coordinate_system().right().get() << "\n";
 	std::cout << camera_.coordinate_system().up().get() << "\n";
 	std::cout << camera_.coordinate_system().forward().get() << "\n";
+	*/
 
 	sge::renderer::scoped_vertex_declaration scoped_vertex_declaration(
 		_context,
@@ -344,6 +347,7 @@ sge::scenic::scene::load_camera(
 					sge::parse::json::path(
 					FCPPT_TEXT("fov"))))));
 
+	#if 0
 	sge::renderer::matrix4 const camera_rotation(
 		rotation_from_angles(
 			from_blender_vector(
@@ -379,6 +383,7 @@ sge::scenic::scene::load_camera(
 						FCPPT_TEXT("position"))))
 
 													 )));
+	#endif
 }
 
 void

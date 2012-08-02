@@ -240,8 +240,11 @@ sge::model::obj::prototype::prototype(
 							line_counter)+
 						FCPPT_TEXT(": Invalid tex coord(s)"));
 
+			// Flip y here, obj's texture origin is bottom left
 			texture_coordinates_.push_back(
-				tex_coord);
+				sge::renderer::vector2(
+					tex_coord.x(),
+					1.0f - tex_coord.y()));
 		}
 		else if(prefix == "f")
 		{

@@ -37,9 +37,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/dynamic/make_part_index.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
-
-#include <iostream>
 #include <fcppt/math/vector/output.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <iostream>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::model::obj::instance::instance(

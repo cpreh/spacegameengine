@@ -43,13 +43,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/part_raw_ref.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/ref.hpp>
+#include <fcppt/math/clamp.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <algorithm>
-#include <utility>
 #include <boost/circular_buffer.hpp>
 #include <boost/algorithm/minmax_element.hpp>
+#include <algorithm>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
-#include <fcppt/math/clamp.hpp>
 
 
 namespace
