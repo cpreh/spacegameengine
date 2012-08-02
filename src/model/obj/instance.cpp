@@ -211,14 +211,12 @@ sge::model::obj::instance::fill_index_buffer(
 				current_face_index != current_face->end();
 				++current_face_index)
 			{
-				//std::cout << "Adding index: " << *current_face_index << "\n";
 				(*current_index++).set(
 					static_cast<sge::renderer::index::i32>(
 						*current_face_index));
 			}
 		}
 
-		//std::cout << "Adding index range: " << current_index_begin << ", " << current_face_sequence.size() << "\n";
 		parts_.insert(
 			std::make_pair(
 				current_part->first,
@@ -229,6 +227,6 @@ sge::model::obj::instance::fill_index_buffer(
 						current_face_sequence.size()*3u))));
 
 		current_index_begin +=
-			current_face_sequence.size();
+			current_face_sequence.size() * 3u;
 	}
 }
