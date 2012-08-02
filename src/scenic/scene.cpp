@@ -269,13 +269,12 @@ sge::scenic::scene::render_mesh(
 		sge::renderer::matrix_mode::world,
 		sge::camera::matrix_conversion::world(
 			camera_.coordinate_system()) *
-		/*
 		fcppt::math::matrix::translation(
-		_mesh.position().get()) **/
+			_mesh.position().get()) *
 		rotation_from_angles_mesh(
-			_mesh.rotation().get())/* *
+			_mesh.rotation().get()) *
 		fcppt::math::matrix::scaling(
-			_mesh.scale().get())*/);
+			_mesh.scale().get()));
 
 	sge::model::obj::instance &model(
 		_mesh.model());
@@ -354,10 +353,12 @@ sge::scenic::scene::load_camera(
 					sge::parse::json::path(
 					FCPPT_TEXT("far")))),
 			sge::renderer::projection::fov(
+				0.6f
+				/*
 				sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
 					_json_camera,
 					sge::parse::json::path(
-					FCPPT_TEXT("fov"))))));
+					FCPPT_TEXT("fov")))*/)));
 
 	sge::renderer::vector3 const camera_rotation_vector(
 		from_blender_vector(
