@@ -250,6 +250,7 @@ sge::model::obj::prototype::prototype(
 			texture_coordinates_.push_back(
 				sge::renderer::vector2(
 					tex_coord.x(),
+					//1.0f - tex_coord.y()));
 					1.0f - tex_coord.y()));
 		}
 		else if(prefix == "f")
@@ -307,6 +308,7 @@ sge::model::obj::prototype::prototype(
 
 				// Flip triangle order
 				face[2u - i] =
+				//face[i] =
 					it->second;
 				/*
 					static_cast<std::size_t>(

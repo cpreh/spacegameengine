@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/parse_file_exn.hpp>
 #include <sge/renderer/device.hpp>
+#include <fcppt/math/rad_to_deg.hpp>
 #include <sge/renderer/scoped_transform.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/scoped_vertex_declaration.hpp>
@@ -79,18 +80,30 @@ from_blender_vector(
 }
 
 sge::renderer::matrix4 const
-rotation_from_angles(
+rotation_from_angles_camera(
 	sge::renderer::vector3 const &_angles)
 {
 	return
-		fcppt::math::matrix::rotation_x(
-			_angles.x()) *
-		fcppt::math::matrix::rotation_y(
-			_angles.y()) *
 		fcppt::math::matrix::rotation_z(
-			_angles.z());
+			_angles.z()) *
+		fcppt::math::matrix::rotation_y(
+			-_angles.y()) *
+		fcppt::math::matrix::rotation_x(
+			-_angles.x());
 }
 
+sge::renderer::matrix4 const
+rotation_from_angles_mesh(
+	sge::renderer::vector3 const &_angles)
+{
+	return
+		fcppt::math::matrix::rotation_y(
+			-_angles.y()) *
+		fcppt::math::matrix::rotation_z(
+			-_angles.z()) *
+		fcppt::math::matrix::rotation_x(
+			-_angles.x());
+}
 
 sge::renderer::vector3 const
 multiply_matrix4_vector3(
@@ -99,7 +112,12 @@ multiply_matrix4_vector3(
 {
 	return
 		fcppt::math::vector::narrow_cast<sge::renderer::vector3>(
-			_matrix * sge::renderer::vector4(_vector.x(),_vector.y(),_vector.z(),1.0f));
+			_matrix *
+			sge::renderer::vector4(
+				_vector.x(),
+				_vector.y(),
+				_vector.z(),
+				1.0f));
 }
 }
 
@@ -176,12 +194,6 @@ sge::scenic::scene::render(
 		sge::timer::elapsed_and_reset<sge::camera::update_duration>(
 			camera_timer_));
 
-	/*
-	std::cout << camera_.coordinate_system().right().get() << "\n";
-	std::cout << camera_.coordinate_system().up().get() << "\n";
-	std::cout << camera_.coordinate_system().forward().get() << "\n";
-	*/
-
 	sge::renderer::scoped_vertex_declaration scoped_vertex_declaration(
 		_context,
 		*model_vertex_declaration_);
@@ -197,7 +209,7 @@ sge::scenic::scene::render(
 		//			(sge::renderer::state::bool_::enable_lighting = true)
 			(sge::renderer::state::bool_::enable_lighting = false)
 			(sge::renderer::state::depth_func::less)
-			(sge::renderer::state::cull_mode::counter_clockwise));
+			(sge::renderer::state::cull_mode::off));
 
 	this->enable_lights(
 		_context);
@@ -256,15 +268,14 @@ sge::scenic::scene::render_mesh(
 		_context,
 		sge::renderer::matrix_mode::world,
 		sge::camera::matrix_conversion::world(
-			camera_.coordinate_system())
-		/* *
+			camera_.coordinate_system()) *
+		/*
 		fcppt::math::matrix::translation(
-			_mesh.position().get()) *
-		rotation_from_angles(
-			from_blender_vector(
-				_mesh.rotation().get())) *
+		_mesh.position().get()) **/
+		rotation_from_angles_mesh(
+			_mesh.rotation().get())/* *
 		fcppt::math::matrix::scaling(
-		_mesh.scale().get())*/);
+			_mesh.scale().get())*/);
 
 	sge::model::obj::instance &model(
 		_mesh.model());
@@ -348,43 +359,45 @@ sge::scenic::scene::load_camera(
 					sge::parse::json::path(
 					FCPPT_TEXT("fov"))))));
 
-	#if 0
+	sge::renderer::vector3 const camera_rotation_vector(
+		from_blender_vector(
+			sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
+				_json_camera,
+				sge::parse::json::path(
+					FCPPT_TEXT("rotation")))));
+
 	sge::renderer::matrix4 const camera_rotation(
-		rotation_from_angles(
-			from_blender_vector(
-				sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
-					_json_camera,
-					sge::parse::json::path(
-						FCPPT_TEXT("rotation"))))));
+		rotation_from_angles_camera(
+			camera_rotation_vector));
+
+	sge::renderer::vector3 const
+		right(
+			multiply_matrix4_vector3(
+				camera_rotation,
+				sge::renderer::vector3(1.0f,0.0f,0.0f))),
+		up(
+			multiply_matrix4_vector3(
+				camera_rotation,
+				sge::renderer::vector3(0.0f,0.0f,1.0f))),
+		forward(
+			multiply_matrix4_vector3(
+				camera_rotation,
+				sge::renderer::vector3(0.0f,-1.0f,0.0f)));
 
 	camera_.coordinate_system(
 		sge::camera::coordinate_system::object(
 			sge::camera::coordinate_system::right(
-				multiply_matrix4_vector3(
-					camera_rotation,
-					sge::renderer::vector3(1.0f,0.0f,0.0f))),
+				right),
 			sge::camera::coordinate_system::up(
-				multiply_matrix4_vector3(
-					camera_rotation,
-					sge::renderer::vector3(0.0f,1.0f,0.0f))),
+				up),
 			sge::camera::coordinate_system::forward(
-				multiply_matrix4_vector3(
-					camera_rotation,
-					sge::renderer::vector3(0.0f,0.0f,1.0f))),
+				forward),
 			sge::camera::coordinate_system::position(
-
-				/*
-				sge::renderer::vector3::null()
-				*/
-
 				-from_blender_vector(
 					sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
 						_json_camera,
 						sge::parse::json::path(
-						FCPPT_TEXT("position"))))
-
-													 )));
-	#endif
+						FCPPT_TEXT("position")))))));
 }
 
 void
