@@ -256,14 +256,15 @@ sge::scenic::scene::render_mesh(
 		_context,
 		sge::renderer::matrix_mode::world,
 		sge::camera::matrix_conversion::world(
-			camera_.coordinate_system()) *
+			camera_.coordinate_system())
+		/* *
 		fcppt::math::matrix::translation(
 			_mesh.position().get()) *
 		rotation_from_angles(
 			from_blender_vector(
 				_mesh.rotation().get())) *
 		fcppt::math::matrix::scaling(
-			_mesh.scale().get()));
+		_mesh.scale().get())*/);
 
 	sge::model::obj::instance &model(
 		_mesh.model());

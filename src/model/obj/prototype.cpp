@@ -197,6 +197,9 @@ sge::model::obj::prototype::prototype(
 							line_counter)+
 						FCPPT_TEXT(": Invalid coordinate(s)"));
 
+			// Flip z
+			coordinate[2] = -coordinate[2];
+
 			if(vertex_coordinates_.empty())
 				bounding_box_.pos(
 					coordinate);
@@ -223,6 +226,9 @@ sge::model::obj::prototype::prototype(
 							line_counter)+
 						FCPPT_TEXT(": Invalid normal(s)"));
 
+			// Flip z
+			normal[2] = -normal[2];
+
 			normals_.push_back(
 				normal);
 		}
@@ -240,7 +246,7 @@ sge::model::obj::prototype::prototype(
 							line_counter)+
 						FCPPT_TEXT(": Invalid tex coord(s)"));
 
-			// Flip y here, obj's texture origin is bottom left
+			// Flip y
 			texture_coordinates_.push_back(
 				sge::renderer::vector2(
 					tex_coord.x(),
@@ -299,7 +305,8 @@ sge::model::obj::prototype::prototype(
 									face_vertices_.size()-1u))).first;
 				}
 
-				face[i] =
+				// Flip triangle order
+				face[2u - i] =
 					it->second;
 				/*
 					static_cast<std::size_t>(
