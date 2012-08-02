@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/obj/box.hpp>
 #include <sge/model/obj/material_to_index_buffer_range.hpp>
 #include <sge/model/obj/prototype.hpp>
+#include <sge/model/obj/symbol.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/index_buffer_scoped_ptr.hpp>
 #include <sge/renderer/vertex_buffer_scoped_ptr.hpp>
@@ -42,24 +43,30 @@ class instance
 FCPPT_NONCOPYABLE(
 	instance);
 public:
+	SGE_MODEL_OBJ_SYMBOL
 	explicit
 	instance(
 		sge::renderer::device &,
 		sge::renderer::vertex_declaration &,
 		sge::model::obj::prototype const &);
 
+	SGE_MODEL_OBJ_SYMBOL
 	sge::renderer::vertex_buffer &
 	vertex_buffer();
 
+	SGE_MODEL_OBJ_SYMBOL
 	sge::renderer::index_buffer &
 	index_buffer();
 
+	SGE_MODEL_OBJ_SYMBOL
 	sge::model::obj::material_to_index_buffer_range const &
 	parts();
 
+	SGE_MODEL_OBJ_SYMBOL
 	sge::model::obj::box const &
 	bounding_box() const;
 
+	SGE_MODEL_OBJ_SYMBOL
 	~instance();
 private:
 	sge::renderer::vertex_buffer_scoped_ptr vertex_buffer_;

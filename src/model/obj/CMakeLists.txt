@@ -1,7 +1,6 @@
 set(
 	SGE_MODELOBJ_FILES
 	include/sge/model/obj/box.hpp
-	include/sge/model/obj/create.hpp
 	include/sge/model/obj/exception.hpp
 	include/sge/model/obj/face.hpp
 	include/sge/model/obj/face_sequence.hpp
@@ -11,10 +10,6 @@ set(
 	include/sge/model/obj/index_buffer_range.hpp
 	include/sge/model/obj/instance.hpp
 	include/sge/model/obj/instance_fwd.hpp
-	include/sge/model/obj/loader.hpp
-	include/sge/model/obj/loader_fwd.hpp
-	include/sge/model/obj/loader_scoped_ptr.hpp
-	include/sge/model/obj/loader_unique_ptr.hpp
 	include/sge/model/obj/material.hpp
 	include/sge/model/obj/material_file_sequence.hpp
 	include/sge/model/obj/material_fwd.hpp

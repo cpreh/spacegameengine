@@ -63,7 +63,7 @@ public:
 	scene(
 		sge::renderer::device &,
 		sge::image2d::system &,
-	    sge::viewport::manager &,
+		sge::viewport::manager &,
 		sge::input::keyboard::device &,
 		sge::input::mouse::device &,
 		sge::scenic::scene_description_file const &,
@@ -71,6 +71,7 @@ public:
 		sge::scenic::material_base_path const &,
 		sge::scenic::texture_base_path const &);
 
+	SGE_SCENIC_SYMBOL
 	void
 	render(
 		sge::renderer::context::object &);
