@@ -21,18 +21,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_IMAGE_STORE_IMPL_HPP_INCLUDED
 #define SGE_SRC_IMAGE_STORE_IMPL_HPP_INCLUDED
 
+#include <sge/image/dim.hpp>
 #include <sge/image/store.hpp>
 #include <sge/image/view/wrap.hpp>
 #include <sge/src/image/convert_dim.hpp>
 #include <mizuiro/image/dimension_impl.hpp>
 #include <mizuiro/image/store_impl.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
 
 
 template<
 	typename Format
 >
-sge::image::store<Format>::store()
+sge::image::store<
+	Format
+>::store()
 :
 	internal_()
 {}
@@ -40,7 +42,9 @@ sge::image::store<Format>::store()
 template<
 	typename Format
 >
-sge::image::store<Format>::store(
+sge::image::store<
+	Format
+>::store(
 	dim const &_size
 )
 :
@@ -51,43 +55,59 @@ sge::image::store<Format>::store(
 			_size
 		)
 	)
-{}
+{
+}
 
 template<
 	typename Format
 >
-sge::image::store<Format>::store(
+sge::image::store<
+	Format
+>::store(
 	store const &_other
 )
 :
 	internal_(
 		_other.internal_
 	)
-{}
+{
+}
 
 template<
 	typename Format
 >
-sge::image::store<Format> &
-sge::image::store<Format>::operator=(
+sge::image::store<
+	Format
+> &
+sge::image::store<
+	Format
+>::operator=(
 	store const &_other
 )
 {
 	internal_ = _other.internal_;
+
 	return *this;
 }
 
 template<
 	typename Format
 >
-sge::image::store<Format>::~store()
-{}
+sge::image::store<
+	Format
+>::~store()
+{
+}
 
 template<
 	typename Format
 >
-typename sge::image::store<Format>::pointer
-sge::image::store<Format>::data()
+typename sge::image::store<
+	Format
+>::pointer
+sge::image::store<
+	Format
+>::data()
 {
 	return internal_.data();
 }
@@ -95,8 +115,12 @@ sge::image::store<Format>::data()
 template<
 	typename Format
 >
-typename sge::image::store<Format>::const_pointer
-sge::image::store<Format>::data() const
+typename sge::image::store<
+	Format
+>::const_pointer
+sge::image::store<
+	Format
+>::data() const
 {
 	return internal_.data();
 }
@@ -104,8 +128,12 @@ sge::image::store<Format>::data() const
 template<
 	typename Format
 >
-typename sge::image::store<Format>::view_type const
-sge::image::store<Format>::view()
+typename sge::image::store<
+	Format
+>::view_type const
+sge::image::store<
+	Format
+>::view()
 {
 	return internal_.view();
 }
@@ -113,8 +141,12 @@ sge::image::store<Format>::view()
 template<
 	typename Format
 >
-typename sge::image::store<Format>::const_view_type const
-sge::image::store<Format>::view() const
+typename sge::image::store<
+	Format
+>::const_view_type const
+sge::image::store<
+	Format
+>::view() const
 {
 	return internal_.view();
 }
@@ -122,8 +154,12 @@ sge::image::store<Format>::view() const
 template<
 	typename Format
 >
-typename sge::image::store<Format>::wrapped_view_type const
-sge::image::store<Format>::wrapped_view()
+typename sge::image::store<
+	Format
+>::wrapped_view_type const
+sge::image::store<
+	Format
+>::wrapped_view()
 {
 	return
 		sge::image::view::wrap(
@@ -134,8 +170,12 @@ sge::image::store<Format>::wrapped_view()
 template<
 	typename Format
 >
-typename sge::image::store<Format>::const_wrapped_view_type const
-sge::image::store<Format>::wrapped_view() const
+typename sge::image::store<
+	Format
+>::const_wrapped_view_type const
+sge::image::store<
+	Format
+>::wrapped_view() const
 {
 	return
 		sge::image::view::wrap(
@@ -146,11 +186,29 @@ sge::image::store<Format>::wrapped_view() const
 template<
 	typename Format
 >
-typename sge::image::store<Format>::dim const
-sge::image::store<Format>::size() const
+typename sge::image::store<
+	Format
+>::const_wrapped_view_type const
+sge::image::store<
+	Format
+>::const_wrapped_view() const
 {
 	return
-		image::convert_dim<
+		this->wrapped_view();
+}
+
+template<
+	typename Format
+>
+typename sge::image::store<
+	Format
+>::dim const
+sge::image::store<
+	Format
+>::size() const
+{
+	return
+		sge::image::convert_dim<
 			dim
 		>(
 			internal_.size()

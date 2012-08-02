@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FONT_BITMAP_CREATE_HPP_INCLUDED
 #define SGE_FONT_BITMAP_CREATE_HPP_INCLUDED
 
-#include <sge/font/metrics_unique_ptr.hpp>
+#include <sge/font/object_unique_ptr.hpp>
 #include <sge/font/bitmap/symbol.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -37,7 +37,7 @@ namespace bitmap
 {
 
 SGE_FONT_BITMAP_SYMBOL
-sge::font::metrics_unique_ptr
+sge::font::object_unique_ptr
 create(
 	boost::filesystem::path const &,
 	sge::image2d::system &

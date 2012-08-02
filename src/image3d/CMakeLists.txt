@@ -59,6 +59,7 @@ set(
 	include/sge/image3d/view/object_fwd.hpp
 	include/sge/image3d/view/optional_pitch.hpp
 	include/sge/image3d/view/optional_pitch_fwd.hpp
+	include/sge/image3d/view/pitch.hpp
 	include/sge/image3d/view/size.hpp
 	include/sge/image3d/view/sub.hpp
 	include/sge/image3d/view/sub_out_of_range.hpp
@@ -89,6 +90,7 @@ set(
 	src/image3d/view/make.cpp
 	src/image3d/view/make_const.cpp
 	src/image3d/view/object.cpp
+	src/image3d/view/pitch.cpp
 	src/image3d/view/size.cpp
 	src/image3d/view/sub.cpp
 	src/image3d/view/sub_out_of_range.cpp

@@ -1,33 +1,49 @@
 set(
 	SGE_FONT_FILES
-	include/sge/font/char_metric.hpp
-	include/sge/font/char_metric_fwd.hpp
-	include/sge/font/char_metric_scoped_ptr.hpp
-	include/sge/font/char_metric_shared_ptr.hpp
-	include/sge/font/char_metric_unique_ptr.hpp
-	include/sge/font/char_not_available.hpp
+	include/sge/font/align_h.hpp
 	include/sge/font/char_type.hpp
-	include/sge/font/const_image_view.hpp
 	include/sge/font/dim.hpp
+	include/sge/font/dim_fwd.hpp
 	include/sge/font/exception.hpp
-	include/sge/font/image_view.hpp
-	include/sge/font/metrics.hpp
-	include/sge/font/metrics_fwd.hpp
-	include/sge/font/metrics_scoped_ptr.hpp
-	include/sge/font/metrics_shared_ptr.hpp
-	include/sge/font/metrics_unique_ptr.hpp
-	include/sge/font/pos.hpp
-	include/sge/font/rect.hpp
-	include/sge/font/size_type.hpp
+	include/sge/font/flags.hpp
+	include/sge/font/flags_field.hpp
+	include/sge/font/flags_field_fwd.hpp
+	include/sge/font/from_fcppt_string.hpp
+	include/sge/font/lit.hpp
+	include/sge/font/object.hpp
+	include/sge/font/object_fwd.hpp
+	include/sge/font/object_scoped_ptr.hpp
+	include/sge/font/object_unique_ptr.hpp
+	include/sge/font/optional_family.hpp
+	include/sge/font/optional_family_fwd.hpp
+	include/sge/font/optional_ttf_size.hpp
+	include/sge/font/optional_ttf_size_fwd.hpp
+	include/sge/font/optional_weight.hpp
+	include/sge/font/optional_weight_fwd.hpp
+	include/sge/font/parameters.hpp
+	include/sge/font/parameters_fwd.hpp
+	include/sge/font/parameters_to_string.hpp
+	include/sge/font/string.hpp
 	include/sge/font/system.hpp
 	include/sge/font/system_fwd.hpp
 	include/sge/font/system_scoped_ptr.hpp
 	include/sge/font/system_unique_ptr.hpp
+	include/sge/font/text.hpp
+	include/sge/font/text_fwd.hpp
+	include/sge/font/text_parameters.hpp
+	include/sge/font/text_parameters_fwd.hpp
+	include/sge/font/text_scoped_ptr.hpp
+	include/sge/font/text_unique_ptr.hpp
+	include/sge/font/to_fcppt_string.hpp
+	include/sge/font/ttf_size.hpp
 	include/sge/font/unit.hpp
-	src/font/char_metric.cpp
-	src/font/char_not_available.cpp
+	include/sge/font/view_fwd.hpp
+	include/sge/font/weight.hpp
 	src/font/exception.cpp
-	src/font/metrics.cpp
+	src/font/from_fcppt_string.cpp
+	src/font/object.cpp
+	src/font/parameters.cpp
+	src/font/parameters_to_string.cpp
 	src/font/plugin/collection.cpp
 	src/font/plugin/context.cpp
 	src/font/plugin/iterator.cpp
@@ -35,6 +51,9 @@ set(
 	src/font/plugin/object.cpp
 	src/font/plugin/traits.cpp
 	src/font/system.cpp
+	src/font/text.cpp
+	src/font/text_parameters.cpp
+	src/font/to_fcppt_string.cpp
 )
 
 sge_implement_from_lib(

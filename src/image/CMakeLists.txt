@@ -15,6 +15,7 @@ set(
 	include/sge/image/bgrx8_format.hpp
 	include/sge/image/capabilities.hpp
 	include/sge/image/capabilities_field.hpp
+	include/sge/image/capabilities_field_fwd.hpp
 	include/sge/image/color/a8.hpp
 	include/sge/image/color/a8_format.hpp
 	include/sge/image/color/any/convert.hpp
@@ -127,6 +128,7 @@ set(
 	include/sge/image/view/mizuiro_type.hpp
 	include/sge/image/view/object.hpp
 	include/sge/image/view/object_fwd.hpp
+	include/sge/image/view/pitch.hpp
 	include/sge/image/view/size.hpp
 	include/sge/image/view/sub.hpp
 	include/sge/image/view/sub_out_of_range.hpp
@@ -253,6 +255,7 @@ set(
 	src/image/include/sge/src/image/view/instantiate_make.hpp
 	src/image/include/sge/src/image/view/instantiate_make_const.hpp
 	src/image/include/sge/src/image/view/instantiate_object.hpp
+	src/image/include/sge/src/image/view/instantiate_pitch.hpp
 	src/image/include/sge/src/image/view/instantiate_size.hpp
 	src/image/include/sge/src/image/view/instantiate_sub.hpp
 	src/image/include/sge/src/image/view/instantiate_sub_out_of_range.hpp
@@ -261,6 +264,9 @@ set(
 	src/image/include/sge/src/image/view/make_impl.hpp
 	src/image/include/sge/src/image/view/make_visitor.hpp
 	src/image/include/sge/src/image/view/object_impl.hpp
+	src/image/include/sge/src/image/view/pitch_any.hpp
+	src/image/include/sge/src/image/view/pitch_impl.hpp
+	src/image/include/sge/src/image/view/pitch_visitor.hpp
 	src/image/include/sge/src/image/view/size_any.hpp
 	src/image/include/sge/src/image/view/size_impl.hpp
 	src/image/include/sge/src/image/view/size_visitor.hpp

@@ -78,6 +78,7 @@ set(
 	include/sge/image2d/view/object_fwd.hpp
 	include/sge/image2d/view/optional_pitch.hpp
 	include/sge/image2d/view/optional_pitch_fwd.hpp
+	include/sge/image2d/view/pitch.hpp
 	include/sge/image2d/view/size.hpp
 	include/sge/image2d/view/sub.hpp
 	include/sge/image2d/view/sub_out_of_range.hpp
@@ -121,6 +122,7 @@ set(
 	src/image2d/view/make.cpp
 	src/image2d/view/make_const.cpp
 	src/image2d/view/object.cpp
+	src/image2d/view/pitch.cpp
 	src/image2d/view/size.cpp
 	src/image2d/view/sub.cpp
 	src/image2d/view/sub_out_of_range.cpp

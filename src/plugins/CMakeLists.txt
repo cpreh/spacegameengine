@@ -1,22 +1,26 @@
-SET (LIBRARY_OUTPUT_PATH ${SGE_PLUGIN_BUILD_PATH})
+set(
+	LIBRARY_OUTPUT_PATH
+	${SGE_PLUGIN_BUILD_PATH}
+)
 
-FIND_PACKAGE(DevIL)
-FIND_PACKAGE(D3D9)
-FIND_PACKAGE(DInput)
-FIND_PACKAGE(EVDEV)
-FIND_PACKAGE(Freetype)
-FIND_PACKAGE(GLEW)
-FIND_PACKAGE(OpenGL)
-FIND_PACKAGE(OpenAL)
-FIND_PACKAGE(PNG 1.4.1)
-FIND_PACKAGE(Vorbis)
+find_package(DevIL)
+find_package(D3D9)
+find_package(DInput)
+find_package(EVDEV)
+find_package(Freetype)
+find_package(GLEW)
+find_package(OpenGL)
+find_package(OpenAL)
+find_package(Pango)
+find_package(PNG 1.4.1)
+find_package(Vorbis)
 
 # These plugins have no dependencies
 OPTION (ENABLE_AUDIO_NULL "Build the null audio player plugin" OFF)
 
 OPTION (ENABLE_WAVE "Build the wave loader plugin" ON)
 
-
+# These plugins have dependencies
 OPTION (ENABLE_D3D9 "Build the d3d9 render plugin" ${D3D9_FOUND})
 
 OPTION (ENABLE_DEVIL "Build the devil image loader plugin" ${IL_FOUND})
@@ -29,21 +33,23 @@ OPTION (ENABLE_FREETYPE "Build the freetype font plugin" ${FREETYPE_FOUND})
 
 OPTION (ENABLE_OPENAL "Build the openal audio plugin" ${OPENAL_FOUND})
 
-IF(
+if(
 	OPENGL_FOUND AND GLEW_FOUND
 )
-	SET(
+	set(
 		OPENGL_AVAILABLE
 		TRUE
 	)
-ELSE()
-	SET(
+else()
+	set(
 		OPENGL_AVAILABLE
 		FALSE
 	)
-ENDIF()
+endif()
 
 OPTION (ENABLE_OPENGL "Build the opengl render plugin" ${OPENGL_AVAILABLE})
+
+OPTION (ENABLE_PANGO "Build the pango font plugin" ${PANGO_FOUND})
 
 OPTION (ENABLE_PNG "Build the libpng plugin" ${PNG_FOUND})
 
@@ -141,6 +147,10 @@ ENDIF ()
 
 IF (ENABLE_OPENGL)
 	ADD_SUBDIRECTORY (opengl)
+ENDIF ()
+
+IF (ENABLE_PANGO)
+	ADD_SUBDIRECTORY (pango)
 ENDIF ()
 
 IF (ENABLE_PNG)

@@ -38,11 +38,11 @@ template<
 	typename Tag
 >
 SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
-typename image::traits::dim<
+typename sge::image::traits::dim<
 	Tag
 >::type const
 size(
-	typename image::traits::view<
+	typename sge::image::traits::view<
 		Tag
 	>::type const &
 );
@@ -51,11 +51,11 @@ template<
 	typename Tag
 >
 SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
-typename image::traits::dim<
+typename sge::image::traits::dim<
 	Tag
 >::type const
 size(
-	typename image::traits::const_view<
+	typename sge::image::traits::const_view<
 		Tag
 	>::type const &
 );

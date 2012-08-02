@@ -21,21 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_CAPABILITIES_FIELD_HPP_INCLUDED
 #define SGE_IMAGE_CAPABILITIES_FIELD_HPP_INCLUDED
 
-#include <sge/image/capabilities.hpp>
-#include <fcppt/container/bitfield/object_fwd.hpp>
+#include <sge/image/capabilities_field_fwd.hpp>
+#include <fcppt/container/bitfield/object_impl.hpp>
 
-
-namespace sge
-{
-namespace image
-{
-
-typedef fcppt::container::bitfield::object<
-	sge::image::capabilities::type,
-	sge::image::capabilities::size
-> capabilities_field;
-
-}
-}
 
 #endif

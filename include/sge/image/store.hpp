@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_STORE_HPP_INCLUDED
 #define SGE_IMAGE_STORE_HPP_INCLUDED
 
-#include <sge/image/dim.hpp>
+#include <sge/image/dim_fwd.hpp>
 #include <sge/image/store_fwd.hpp>
 #include <sge/image/detail/instantiate/symbol.hpp>
 #include <sge/image/view/mizuiro_access.hpp>
@@ -48,7 +48,7 @@ public:
 
 	typedef typename internal_type::const_pointer const_pointer;
 
-	typedef typename image::dim<
+	typedef typename sge::image::dim<
 		Format::dim::static_size
 	>::type dim;
 
@@ -56,11 +56,11 @@ public:
 
 	typedef typename internal_type::const_view_type const_view_type;
 
-	typedef typename image::view::wrapped_type<
+	typedef typename sge::image::view::wrapped_type<
 		view_type
 	>::type wrapped_view_type;
 
-	typedef typename image::view::wrapped_type<
+	typedef typename sge::image::view::wrapped_type<
 		const_view_type
 	>::type const_wrapped_view_type;
 
@@ -109,6 +109,10 @@ public:
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	const_wrapped_view_type const
 	wrapped_view() const;
+
+	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
+	const_wrapped_view_type const
+	const_wrapped_view() const;
 
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	dim const

@@ -20,7 +20,6 @@ check_src charconv
 check_src config
 check_src console
 check_src font/bitmap
-check_src font/text
 check_src image
 check_src image2d
 check_src input

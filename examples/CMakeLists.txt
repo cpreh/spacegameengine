@@ -162,6 +162,12 @@ add_sge_example(
 )
 
 add_sge_example(
+	font
+	"sgefont;sgeimage;sgeimage2d;sgesystems"
+	""
+)
+
+add_sge_example(
 	fullscreen
 	"sgeimage;sgelog;sgerenderer;sgesystems;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"

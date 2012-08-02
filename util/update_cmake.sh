@@ -103,8 +103,6 @@ update_sublibrary font \
 
 update_sublibrary font/bitmap
 
-update_sublibrary font/text
-
 update_sublibrary graph
 
 update_sublibrary image
@@ -289,6 +287,8 @@ update_plugin freetype
 update_plugin libpng
 
 update_plugin openal
+
+update_plugin pango
 
 update_plugin vorbis
 
