@@ -56,7 +56,9 @@ class ExportSge(bpy.types.Operator, ExportHelper):
 		return entity
 
 	def _process_camera(self, ob, entity):
-		entity["fov"] = ob.data.angle
+		render = context.scene.render
+		aspect = render.resolution_x / render.resolution_y
+		entity["fov"] = ob.data.angle / aspect
 		entity["near"] = ob.data.clip_start
 		entity["far"] = ob.data.clip_end
 		return entity
@@ -99,6 +101,7 @@ class ExportSge(bpy.types.Operator, ExportHelper):
 			result["camera"] = self._process_camera(ob, entity)
 
 	def execute(self, context):
+		self.context = context
 		objects = context.selected_objects if self.selected_only else context.scene.objects
 
 		result = dict()
