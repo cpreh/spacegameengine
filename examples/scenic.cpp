@@ -118,6 +118,9 @@ try
 		sge::systems::quit_on_escape(
 			sys));
 
+	fcppt::string const scene_name(
+		FCPPT_TEXT("multimaterial"));
+
 	sge::scenic::scene test_scene(
 		sys.renderer(),
 		sys.image_system(),
@@ -125,13 +128,13 @@ try
 		sys.keyboard_collector(),
 		sys.mouse_collector(),
 		sge::scenic::scene_description_file(
-			sge::config::media_path() / FCPPT_TEXT("scenes") / FCPPT_TEXT("test_scene") / FCPPT_TEXT("description.json")),
+			sge::config::media_path() / FCPPT_TEXT("scenes") / scene_name / FCPPT_TEXT("description.json")),
 		sge::scenic::model_base_path(
-			sge::config::media_path() / FCPPT_TEXT("scenes") / FCPPT_TEXT("test_scene")),
+			sge::config::media_path() / FCPPT_TEXT("scenes") / scene_name),
 		sge::scenic::material_base_path(
-			sge::config::media_path() / FCPPT_TEXT("scenes") / FCPPT_TEXT("test_scene")),
+			sge::config::media_path() / FCPPT_TEXT("scenes") / scene_name),
 		sge::scenic::texture_base_path(
-			sge::config::media_path() / FCPPT_TEXT("scenes") / FCPPT_TEXT("test_scene")));
+			sge::config::media_path() / FCPPT_TEXT("scenes") / scene_name));
 
 	while(
 		sys.window_system().poll())

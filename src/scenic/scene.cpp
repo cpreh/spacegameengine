@@ -206,8 +206,8 @@ sge::scenic::scene::render(
 	sge::renderer::state::scoped scoped_global_state(
 		_context,
 		sge::renderer::state::list
-		//			(sge::renderer::state::bool_::enable_lighting = true)
-			(sge::renderer::state::bool_::enable_lighting = false)
+					(sge::renderer::state::bool_::enable_lighting = true)
+		//	(sge::renderer::state::bool_::enable_lighting = false)
 			(sge::renderer::state::depth_func::less)
 			(sge::renderer::state::cull_mode::off));
 
@@ -353,12 +353,10 @@ sge::scenic::scene::load_camera(
 					sge::parse::json::path(
 					FCPPT_TEXT("far")))),
 			sge::renderer::projection::fov(
-				0.6f
-				/*
 				sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
 					_json_camera,
 					sge::parse::json::path(
-					FCPPT_TEXT("fov")))*/)));
+					FCPPT_TEXT("fov"))))));
 
 	sge::renderer::vector3 const camera_rotation_vector(
 		from_blender_vector(
