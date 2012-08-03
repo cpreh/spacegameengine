@@ -61,7 +61,7 @@ sge::opengl::state::color(
 		);
 
 		SGE_OPENGL_CHECK_STATE(
-			FCPPT_TEXT("glLightMOdelfv failed"),
+			FCPPT_TEXT("glLightModelfv failed"),
 			sge::renderer::exception
 		)
 

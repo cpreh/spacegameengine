@@ -37,6 +37,7 @@ enum type
 	enable_lighting,
 	enable_point_sprites,
 	enable_scissor_test,
+	local_viewer,
 	write_to_depth_buffer,
 	write_alpha,
 	write_blue,
