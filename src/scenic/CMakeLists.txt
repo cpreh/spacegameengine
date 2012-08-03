@@ -8,6 +8,13 @@ set(
 	include/sge/scenic/fog/properties.hpp
 	include/sge/scenic/fog/properties_fwd.hpp
 	include/sge/scenic/fog/start.hpp
+	include/sge/scenic/grid/depth_test.hpp
+	include/sge/scenic/grid/dim.hpp
+	include/sge/scenic/grid/object.hpp
+	include/sge/scenic/grid/object_fwd.hpp
+	include/sge/scenic/grid/orientation.hpp
+	include/sge/scenic/grid/rect.hpp
+	include/sge/scenic/grid/spacing.hpp
 	include/sge/scenic/identifier.hpp
 	include/sge/scenic/light_sequence.hpp
 	include/sge/scenic/material_base_path.hpp
@@ -30,6 +37,7 @@ set(
 	include/sge/scenic/texture_manager_fwd.hpp
 	src/scenic/exception.cpp
 	src/scenic/fog/properties.cpp
+	src/scenic/grid/object.cpp
 	src/scenic/mesh.cpp
 	src/scenic/scene/camera_properties.cpp
 	src/scenic/scene/from_blender_file.cpp
@@ -41,7 +49,7 @@ set(
 
 add_sge_base_library(
 	"scenic"
-	"sgeparse;sgeimage;sgemodelobj;sgerenderer;sgecamera;sgeviewport"
+	"sgeparse;sgeimage;sgemodelobj;sgerenderer;sgecamera;sgeviewport;sgeline_drawer"
 	"${Fcppt_filesystem_LIBRARIES}"
 	""
 	""

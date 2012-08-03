@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/coordinate_system/identity.hpp>
 #include <sge/camera/first_person/object.hpp>
 #include <sge/camera/first_person/parameters.hpp>
+#include <sge/scenic/grid/object.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/image/capabilities_field.hpp>
 #include <sge/image/colors.hpp>
@@ -156,6 +157,23 @@ try
 			sge::camera::update_duration(
 				1.0f)));
 
+	sge::scenic::grid::object simple_grid(
+		sys.renderer(),
+		camera,
+		sge::scenic::grid::orientation::xz,
+		sge::scenic::grid::rect(
+			sge::scenic::grid::rect::vector(
+				-10.0f,
+				-10.0f),
+			sge::scenic::grid::rect::dim(
+				20.0f,
+				20.0f)),
+			sge::scenic::grid::spacing(
+				sge::scenic::grid::dim(
+					1.0f,
+					1.0f)),
+		sge::image::colors::white());
+
 	while(
 		sys.window_system().poll())
 	{
@@ -176,6 +194,11 @@ try
 
 		test_scene.render(
 			scoped_block.get());
+
+		simple_grid.render(
+			scoped_block.get(),
+			sge::scenic::grid::depth_test(
+				false));
 	}
 
 	return

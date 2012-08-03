@@ -262,6 +262,61 @@ load_meshes(
 				*current_mesh));
 }
 
+sge::renderer::light::attenuation const
+parse_light_attenuation(
+	sge::parse::json::object const &_json_attenuation)
+{
+	return
+		sge::renderer::light::attenuation(
+			sge::renderer::light::constant_attenuation(
+				sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
+					_json_attenuation,
+					sge::parse::json::path(
+						FCPPT_TEXT("constant-falloff")))),
+			sge::renderer::light::linear_attenuation(
+				sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
+					_json_attenuation,
+					sge::parse::json::path(
+						FCPPT_TEXT("linear-falloff")))),
+			sge::renderer::light::quadratic_attenuation(
+				sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
+					_json_attenuation,
+					sge::parse::json::path(
+						FCPPT_TEXT("quadratic-falloff")))));
+}
+
+sge::renderer::light::direction const
+parse_light_direction(
+	sge::parse::json::object const &_json_parent)
+{
+	return
+		sge::renderer::light::direction(
+			multiply_matrix4_vector3(
+				rotation_from_angles_mesh(
+					from_blender_vector(
+						sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
+							_json_parent,
+							sge::parse::json::path(
+								FCPPT_TEXT("rotation"))))),
+				sge::renderer::vector3(
+					0.0f,
+					1.0f,
+					0.0f)));
+}
+
+sge::renderer::light::position
+parse_light_position(
+	sge::parse::json::object const &_json_parent)
+{
+	return
+		sge::renderer::light::position(
+			from_blender_vector(
+				sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
+					_json_parent,
+					sge::parse::json::path(
+						FCPPT_TEXT("position")))));
+}
+
 void
 load_light(
 	sge::scenic::scene::prototype &_scene,
@@ -302,18 +357,8 @@ load_light(
 				specular_color,
 				ambient_color,
 				sge::renderer::light::directional(
-					sge::renderer::light::direction(
-					    multiply_matrix4_vector3(
-							rotation_from_angles_mesh(
-								from_blender_vector(
-									sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
-										_json_light,
-										sge::parse::json::path(
-											FCPPT_TEXT("rotation"))))),
-							sge::renderer::vector3(
-								0.0f,
-								1.0f,
-								0.0f))))));
+					parse_light_direction(
+						_json_light))));
 	}
 	else if(light_type == "point")
 	{
@@ -323,28 +368,30 @@ load_light(
 				specular_color,
 				ambient_color,
 				sge::renderer::light::point(
-					sge::renderer::light::position(
-						from_blender_vector(
-							sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
-								_json_light,
-								sge::parse::json::path(
-									FCPPT_TEXT("position"))))),
-					sge::renderer::light::attenuation(
-						sge::renderer::light::constant_attenuation(
-							sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
-								_json_light,
-								sge::parse::json::path(
-									FCPPT_TEXT("constant-falloff")))),
-						sge::renderer::light::linear_attenuation(
-							sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
-								_json_light,
-								sge::parse::json::path(
-									FCPPT_TEXT("linear-falloff")))),
-						sge::renderer::light::quadratic_attenuation(
-							sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
-								_json_light,
-								sge::parse::json::path(
-									FCPPT_TEXT("quadratic-falloff"))))))));
+					parse_light_position(
+						_json_light),
+					parse_light_attenuation(
+						_json_light))));
+	}
+	else if(light_type == "spot")
+	{
+		_scene.lights().push_back(
+			sge::renderer::light::object(
+				diffuse_color,
+				specular_color,
+				ambient_color,
+				sge::renderer::light::spot(
+					parse_light_position(
+						_json_light),
+					parse_light_direction(
+						_json_light),
+					sge::renderer::light::cutoff_angle(
+						sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
+							_json_light,
+							sge::parse::json::path(
+								FCPPT_TEXT("spot_cutoff")))),
+					parse_light_attenuation(
+						_json_light))));
 	}
 	else
 	{

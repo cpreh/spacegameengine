@@ -332,8 +332,6 @@ sge::model::obj::parse_mtllib(
 					line_counter)+
 				FCPPT_TEXT(": Material without ambient/specular/emissive/diffuse/shininess."));
 
-	std::cout << "Final shininess: " << (*shininess) << "\n";
-
 	result.insert(
 		std::make_pair(
 			current_material,

@@ -85,9 +85,7 @@ sge::line_drawer::object::render(
 			(sge::renderer::state::source_blend_func::src_alpha)
 			(sge::renderer::state::dest_blend_func::inv_src_alpha)
 			(sge::renderer::state::cull_mode::off)
-			(sge::renderer::state::depth_func::off)
-			(sge::renderer::state::stencil_func::off)
-			(sge::renderer::state::draw_mode::fill));
+			(sge::renderer::state::stencil_func::off));
 
 	sge::renderer::scoped_vertex_declaration const scoped_decl(
 		_render_context,
@@ -96,11 +94,6 @@ sge::line_drawer::object::render(
 	sge::renderer::scoped_vertex_buffer const scoped_vb(
 		_render_context,
 		*vb_);
-
-	_render_context.texture(
-		sge::renderer::texture::const_optional_base_ref(),
-		sge::renderer::texture::stage(
-			0u));
 
 	_render_context.render_nonindexed(
 		sge::renderer::first_vertex(
