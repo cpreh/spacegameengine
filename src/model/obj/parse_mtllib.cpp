@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/color/init.hpp>
-#include <sge/image/color/rgba32f.hpp>
+#include <sge/image/color/rgb32f.hpp>
 #include <sge/model/obj/exception.hpp>
 #include <sge/model/obj/parse_mtllib.hpp>
 #include <sge/renderer/vector3.hpp>
@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
+#include <fcppt/math/vector/output.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <cmath>
@@ -281,32 +282,28 @@ sge::model::obj::parse_mtllib(
 							sge::renderer::material(
 								sge::renderer::diffuse_color(
 									sge::image::color::any::object(
-										sge::image::color::rgba32f(
+										sge::image::color::rgb32f(
 											(sge::image::color::init::red() %= (*diffuse)[0])
 											(sge::image::color::init::green() %= (*diffuse)[1])
-											(sge::image::color::init::blue() %= (*diffuse)[2])
-											(sge::image::color::init::alpha() %= 1.0f)))),
+											(sge::image::color::init::blue() %= (*diffuse)[2])))),
 								sge::renderer::ambient_color(
 									sge::image::color::any::object(
-										sge::image::color::rgba32f(
+										sge::image::color::rgb32f(
 											(sge::image::color::init::red() %= (*ambient)[0])
 											(sge::image::color::init::green() %= (*ambient)[1])
-											(sge::image::color::init::blue() %= (*ambient)[2])
-											(sge::image::color::init::alpha() %= 1.0f)))),
+											(sge::image::color::init::blue() %= (*ambient)[2])))),
 								sge::renderer::specular_color(
 									sge::image::color::any::object(
-										sge::image::color::rgba32f(
+										sge::image::color::rgb32f(
 											(sge::image::color::init::red() %= (*specular)[0])
 											(sge::image::color::init::green() %= (*specular)[1])
-											(sge::image::color::init::blue() %= (*specular)[2])
-											(sge::image::color::init::alpha() %= 1.0f)))),
+											(sge::image::color::init::blue() %= (*specular)[2])))),
 								sge::renderer::emissive_color(
 									sge::image::color::any::object(
-										sge::image::color::rgba32f(
+										sge::image::color::rgb32f(
 											(sge::image::color::init::red() %= (*emissive)[0])
 											(sge::image::color::init::green() %= (*emissive)[1])
-											(sge::image::color::init::blue() %= (*emissive)[2])
-											(sge::image::color::init::alpha() %= 1.0f)))),
+											(sge::image::color::init::blue() %= (*emissive)[2])))),
 								sge::renderer::shininess(
 									*shininess)),
 							sge::model::obj::texture_path(
@@ -335,6 +332,8 @@ sge::model::obj::parse_mtllib(
 					line_counter)+
 				FCPPT_TEXT(": Material without ambient/specular/emissive/diffuse/shininess."));
 
+	std::cout << "Final shininess: " << (*shininess) << "\n";
+
 	result.insert(
 		std::make_pair(
 			current_material,
@@ -343,32 +342,28 @@ sge::model::obj::parse_mtllib(
 				sge::renderer::material(
 					sge::renderer::diffuse_color(
 						sge::image::color::any::object(
-							sge::image::color::rgba32f(
+							sge::image::color::rgb32f(
 								(sge::image::color::init::red() %= (*diffuse)[0])
 								(sge::image::color::init::green() %= (*diffuse)[1])
-								(sge::image::color::init::blue() %= (*diffuse)[2])
-								(sge::image::color::init::alpha() %= 1.0f)))),
+								(sge::image::color::init::blue() %= (*diffuse)[2])))),
 					sge::renderer::ambient_color(
 						sge::image::color::any::object(
-							sge::image::color::rgba32f(
+							sge::image::color::rgb32f(
 								(sge::image::color::init::red() %= (*ambient)[0])
 								(sge::image::color::init::green() %= (*ambient)[1])
-								(sge::image::color::init::blue() %= (*ambient)[2])
-								(sge::image::color::init::alpha() %= 1.0f)))),
+								(sge::image::color::init::blue() %= (*ambient)[2])))),
 					sge::renderer::specular_color(
 						sge::image::color::any::object(
-							sge::image::color::rgba32f(
+							sge::image::color::rgb32f(
 								(sge::image::color::init::red() %= (*specular)[0])
 								(sge::image::color::init::green() %= (*specular)[1])
-								(sge::image::color::init::blue() %= (*specular)[2])
-								(sge::image::color::init::alpha() %= 1.0f)))),
+								(sge::image::color::init::blue() %= (*specular)[2])))),
 					sge::renderer::emissive_color(
 						sge::image::color::any::object(
-							sge::image::color::rgba32f(
+							sge::image::color::rgb32f(
 								(sge::image::color::init::red() %= (*emissive)[0])
 								(sge::image::color::init::green() %= (*emissive)[1])
-								(sge::image::color::init::blue() %= (*emissive)[2])
-								(sge::image::color::init::alpha() %= 1.0f)))),
+								(sge::image::color::init::blue() %= (*emissive)[2])))),
 					sge::renderer::shininess(
 						*shininess)),
 				sge::model::obj::texture_path(

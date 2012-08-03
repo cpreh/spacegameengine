@@ -66,6 +66,7 @@ sge::opengl::state::bool_(
 			_parameters.system_context(),
 			_state.value()
 		);
+		glLightModelf(GL_LIGHT_MODEL_LOCAL_VIEWER, 1.0f);
 		return;
 	case rs::write_to_depth_buffer:
 		::glDepthMask(

@@ -2,6 +2,7 @@ set(
 	SGE_SCENIC_FILES
 	include/sge/scenic/camera_properties.hpp
 	include/sge/scenic/camera_properties_fwd.hpp
+	include/sge/scenic/exception.hpp
 	include/sge/scenic/fog/color.hpp
 	include/sge/scenic/fog/end.hpp
 	include/sge/scenic/fog/properties.hpp
@@ -27,6 +28,7 @@ set(
 	include/sge/scenic/texture_base_path.hpp
 	include/sge/scenic/texture_manager.hpp
 	include/sge/scenic/texture_manager_fwd.hpp
+	src/scenic/exception.cpp
 	src/scenic/fog/properties.cpp
 	src/scenic/mesh.cpp
 	src/scenic/scene/camera_properties.cpp

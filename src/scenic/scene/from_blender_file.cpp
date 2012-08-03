@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/camera/coordinate_system/object.hpp>
 #include <sge/image/color/init.hpp>
+#include <sge/scenic/exception.hpp>
 #include <sge/image/color/rgb32f.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image/color/any/object.hpp>
@@ -29,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/vector4.hpp>
+#include <fcppt/math/vector/output.hpp>
 #include <sge/scenic/mesh.hpp>
 #include <sge/scenic/scene/from_blender_file.hpp>
 #include <sge/scenic/scene/prototype.hpp>
@@ -271,28 +273,34 @@ load_light(
 			sge::parse::json::path(
 				FCPPT_TEXT("light-type"))));
 
+	sge::renderer::vector3 const color(
+		sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
+			_json_light,
+			sge::parse::json::path(
+				FCPPT_TEXT("color"))));
+
+	sge::image::color::any::object const converted_color(
+		sge::image::color::rgb32f(
+			(sge::image::color::init::red() %= color[0])
+			(sge::image::color::init::green() %= color[1])
+			(sge::image::color::init::blue() %= color[2])));
+
+	sge::renderer::diffuse_color const diffuse_color(
+		converted_color);
+
+	sge::renderer::specular_color const specular_color(
+		converted_color);
+
+	sge::renderer::ambient_color ambient_color(
+		sge::image::colors::black());
+
 	if(light_type == FCPPT_TEXT("directional"))
 	{
-		sge::renderer::vector3 const color(
-			sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
-				_json_light,
-				sge::parse::json::path(
-					FCPPT_TEXT("color"))));
-
-		sge::image::color::any::object const converted_color(
-			sge::image::color::rgb32f(
-				(sge::image::color::init::red() %= color[0])
-				(sge::image::color::init::green() %= color[1])
-				(sge::image::color::init::blue() %= color[2])));
-
 		_scene.lights().push_back(
 			sge::renderer::light::object(
-				sge::renderer::diffuse_color(
-					converted_color),
-				sge::renderer::specular_color(
-					converted_color),
-				sge::renderer::ambient_color(
-					sge::image::colors::black()),
+				diffuse_color,
+				specular_color,
+				ambient_color,
 				sge::renderer::light::directional(
 					sge::renderer::light::direction(
 					    multiply_matrix4_vector3(
@@ -307,36 +315,45 @@ load_light(
 								1.0f,
 								0.0f))))));
 	}
-
-	/*
-	fcppt::container::ptr::push_back_unique_ptr(
-		_scene.lights(),
-		fcppt::make_unique_ptr<sge::scenic::light>(
-			sge::scenic::identifier(
-				sge::parse::json::find_and_convert_member<fcppt::string>(
-					_json_light,
-					sge::parse::json::path(
-						FCPPT_TEXT("name")))),
-			sge::scenic::position(
-				from_blender_vector(
-					sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
-						_json_light,
-						sge::parse::json::path(
-							FCPPT_TEXT("position"))))),
-			sge::scenic::rotation(
-				rotation_from_angles_light(
-					from_blender_vector(
-						sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
-							_json_light,
-							sge::parse::json::path(
-								FCPPT_TEXT("rotation")))))),
-			sge::scenic::scale(
-				from_blender_vector(
-					sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
-						_json_light,
-						sge::parse::json::path(
-							FCPPT_TEXT("scale")))))));
-	*/
+	else if(light_type == "point")
+	{
+		_scene.lights().push_back(
+			sge::renderer::light::object(
+				diffuse_color,
+				specular_color,
+				ambient_color,
+				sge::renderer::light::point(
+					sge::renderer::light::position(
+						from_blender_vector(
+							sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
+								_json_light,
+								sge::parse::json::path(
+									FCPPT_TEXT("position"))))),
+					sge::renderer::light::attenuation(
+						sge::renderer::light::constant_attenuation(
+							sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
+								_json_light,
+								sge::parse::json::path(
+									FCPPT_TEXT("constant-falloff")))),
+						sge::renderer::light::linear_attenuation(
+							sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
+								_json_light,
+								sge::parse::json::path(
+									FCPPT_TEXT("linear-falloff")))),
+						sge::renderer::light::quadratic_attenuation(
+							sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
+								_json_light,
+								sge::parse::json::path(
+									FCPPT_TEXT("quadratic-falloff"))))))));
+	}
+	else
+	{
+		throw
+			sge::scenic::exception(
+				FCPPT_TEXT("Invalid light type \"")+
+				light_type+
+				FCPPT_TEXT("\""));
+	}
 }
 
 void
