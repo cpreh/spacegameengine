@@ -42,6 +42,7 @@ sge::opengl::state::convert::bool_(
 	case rs::enable_scissor_test:
 		return GL_SCISSOR_TEST;
 	case rs::enable_point_sprites:
+	case rs::local_viewer:
 	case rs::write_to_depth_buffer:
 	case rs::write_alpha:
 	case rs::write_blue:

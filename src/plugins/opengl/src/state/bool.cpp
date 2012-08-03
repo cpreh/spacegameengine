@@ -67,6 +67,27 @@ sge::opengl::state::bool_(
 			_state.value()
 		);
 		return;
+	case rs::local_viewer:
+		{
+			GLint const value(
+				_state.value()
+				?
+					1
+				:
+					0
+			);
+
+			::glLightModeliv(
+				GL_LIGHT_MODEL_LOCAL_VIEWER,
+				&value
+			);
+
+			SGE_OPENGL_CHECK_STATE(
+				FCPPT_TEXT("glLightModeliv failed"),
+				sge::renderer::exception
+			)
+		}
+		return;
 	case rs::write_to_depth_buffer:
 		::glDepthMask(
 			sge::opengl::convert::to_gl_bool(
