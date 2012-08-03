@@ -89,6 +89,7 @@ class ExportSge(bpy.types.Operator, ExportHelper):
 		if ob.data.type == 'HEMI' or ob.data.type == 'SUN':
 			light_type = 'directional'
 		elif ob.data.type == 'POINT':
+			del entity["rotation"]
 			light_type = 'point'
 			entity = self._process_attenuation(ob, entity)
 		elif ob.data.type == 'SPOT':
