@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/coordinate_system/object.hpp>
 #include <sge/image/color/init.hpp>
 #include <sge/image/color/rgb32f.hpp>
+#include <sge/image/colors.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/object.hpp>
@@ -270,9 +271,41 @@ load_light(
 			sge::parse::json::path(
 				FCPPT_TEXT("light-type"))));
 
-	if(light_type == FCPPT_TEXT("point"))
+	if(light_type == FCPPT_TEXT("directional"))
 	{
+		sge::renderer::vector3 const color(
+			sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
+				_json_light,
+				sge::parse::json::path(
+					FCPPT_TEXT("color"))));
 
+		sge::image::color::any::object const converted_color(
+			sge::image::color::rgb32f(
+				(sge::image::color::init::red() %= color[0])
+				(sge::image::color::init::green() %= color[1])
+				(sge::image::color::init::blue() %= color[2])));
+
+		_scene.lights().push_back(
+			sge::renderer::light::object(
+				sge::renderer::diffuse_color(
+					converted_color),
+				sge::renderer::specular_color(
+					converted_color),
+				sge::renderer::ambient_color(
+					sge::image::colors::black()),
+				sge::renderer::light::directional(
+					sge::renderer::light::direction(
+					    multiply_matrix4_vector3(
+							rotation_from_angles_mesh(
+								from_blender_vector(
+									sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
+										_json_light,
+										sge::parse::json::path(
+											FCPPT_TEXT("rotation"))))),
+							sge::renderer::vector3(
+								0.0f,
+								1.0f,
+								0.0f))))));
 	}
 
 	/*

@@ -98,6 +98,10 @@ private:
 		sge::renderer::device &);
 
 	void
+	activate_lights(
+		sge::renderer::context::object &);
+
+	void
 	render_mesh(
 		sge::scenic::mesh const &,
 		sge::renderer::context::object &);

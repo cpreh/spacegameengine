@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/scoped_transform.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
+#include <sge/image/colors.hpp>
 #include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/vertex_declaration.hpp>
@@ -127,7 +128,6 @@ sge::scenic::scene::manager::render(
 		_context,
 		sge::renderer::state::list
 			(sge::renderer::state::bool_::enable_lighting = true)
-		//	(sge::renderer::state::bool_::enable_lighting = false)
 			(sge::renderer::state::depth_func::less)
 			(sge::renderer::state::color::ambient_light_color = prototype_->ambient_color().get())
 			(sge::renderer::state::float_::fog_start = prototype_->fog().start().get())
@@ -135,6 +135,9 @@ sge::scenic::scene::manager::render(
 			(sge::renderer::state::fog_mode::linear)
 			(sge::renderer::state::color::fog_color = prototype_->fog().color().get())
 			(sge::renderer::state::cull_mode::counter_clockwise));
+
+	this->activate_lights(
+		_context);
 
 	for(
 		sge::scenic::mesh_sequence::const_iterator it =
@@ -198,6 +201,37 @@ sge::scenic::scene::manager::load_meshes(
 					*model_vertex_declaration_),
 				fcppt::cref(
 					new_prototype)));
+	}
+}
+
+void
+sge::scenic::scene::manager::activate_lights(
+	sge::renderer::context::object &_context)
+{
+	sge::renderer::scoped_transform scoped_world(
+		_context,
+		sge::renderer::matrix_mode::world,
+		sge::camera::matrix_conversion::world(
+			camera_.coordinate_system()));
+
+	sge::renderer::light::index current_light_index(
+		0u);
+
+	for(
+		sge::scenic::light_sequence::const_iterator current_light =
+			prototype_->lights().begin();
+		current_light != prototype_->lights().end();
+		current_light++)
+	{
+		_context.enable_light(
+			current_light_index,
+			true);
+
+		_context.light(
+			current_light_index,
+			*current_light);
+
+		++current_light_index;
 	}
 }
 
