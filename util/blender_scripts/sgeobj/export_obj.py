@@ -72,7 +72,7 @@ def write_mtl(scene, filepath, path_mode, copy_set, mtl_dict):
             fw('Ns %.6f\n' % tspec)
             del tspec
 
-            fw('Ka %.6f %.6f %.6f\n' % (mat.ambient * world_amb)[:])  # Ambient, uses mirror colour,
+            fw('Ka %.6f %.6f %.6f\n' % tuple([mat.ambient] * 3))  # non-premultiplied ambient material color
             fw('Kd %.6f %.6f %.6f\n' % (mat.diffuse_intensity * mat.diffuse_color)[:])  # Diffuse
             fw('Ks %.6f %.6f %.6f\n' % (mat.specular_intensity * mat.specular_color)[:])  # Specular
             if hasattr(mat, "ior"):
