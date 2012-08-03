@@ -103,8 +103,8 @@ class ExportSge(bpy.types.Operator, ExportHelper):
 			return None
 
 		entity["light-type"] = light_type
-		entity["energy"] = ob.data.energy
-		entity["color"] = tuple(ob.data.color)
+		#entity["energy"] = ob.data.energy
+		entity["color"] = tuple(map(lambda x: ob.data.energy * x, ob.data.color))
 		return entity
 
 	def _process(self, ob, result):
