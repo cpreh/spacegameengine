@@ -88,15 +88,16 @@ class ExportSge(bpy.types.Operator, ExportHelper):
 	def _process_lamp(self, ob, entity):
 		if ob.data.type == 'HEMI' or ob.data.type == 'SUN':
 			light_type = 'directional'
+			del entity["position"]
 		elif ob.data.type == 'POINT':
 			del entity["rotation"]
 			light_type = 'point'
 			entity = self._process_attenuation(ob, entity)
 		elif ob.data.type == 'SPOT':
 			light_type = 'spot'
-			entity["spot_cutoff"] = ob.data.spot_size
+			entity["spot-cutoff"] = ob.data.spot_size
 			# FIXME: does this make sense for OpenGL?
-			entity["spot_exponent"] = ob.data.spot_blend * 128.0
+			entity["spot-exponent"] = ob.data.spot_blend * 128.0
 			entity = self._process_attenuation(ob, entity)
 		else:
 			self.report({'WARNING'}, "Unsupported lamp type: {}".format(ob.data.type))
