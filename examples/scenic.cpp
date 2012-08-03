@@ -157,7 +157,7 @@ try
 			sge::camera::update_duration(
 				1.0f)));
 
-	sge::scenic::grid::object simple_grid(
+	sge::scenic::grid::object simple_grid_xz(
 		sys.renderer(),
 		camera,
 		sge::scenic::grid::orientation::xz,
@@ -172,6 +172,8 @@ try
 				sge::scenic::grid::dim(
 					1.0f,
 					1.0f)),
+		sge::scenic::grid::distance_to_origin(
+			0.0f),
 		sge::image::colors::white());
 
 	while(
@@ -195,10 +197,10 @@ try
 		test_scene.render(
 			scoped_block.get());
 
-		simple_grid.render(
+		simple_grid_xz.render(
 			scoped_block.get(),
 			sge::scenic::grid::depth_test(
-				false));
+				true));
 	}
 
 	return

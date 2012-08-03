@@ -11,7 +11,9 @@ namespace orientation
 {
 enum type
 {
-	xz
+	xz,
+	xy,
+	yz
 };
 }
 }

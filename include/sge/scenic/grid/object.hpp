@@ -11,6 +11,7 @@
 #include <sge/image/color/any/object.hpp>
 #include <sge/scenic/grid/depth_test.hpp>
 #include <sge/scenic/grid/spacing.hpp>
+#include <sge/scenic/grid/distance_to_origin.hpp>
 #include <sge/line_drawer/object.hpp>
 
 
@@ -30,6 +31,7 @@ public:
 		sge::scenic::grid::orientation::type,
 		sge::scenic::grid::rect const &,
 		sge::scenic::grid::spacing const &,
+		sge::scenic::grid::distance_to_origin const &,
 		sge::image::color::any::object const &);
 
 	SGE_SCENIC_SYMBOL
