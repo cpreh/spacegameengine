@@ -62,17 +62,26 @@ parse_face_vertex(
 				FCPPT_TEXT("Error on line ")+
 				fcppt::insert_to_fcppt_string(
 					_current_line)+
-				FCPPT_TEXT(": Invalid face delimiter"));
+				FCPPT_TEXT(": Invalid face delimiter (vertex)"));
 
 	_stream.ignore();
 
-	if(!(_stream >> texture_coordinate_index))
-		throw
-			sge::model::obj::exception(
-				FCPPT_TEXT("Error on line ")+
-				fcppt::insert_to_fcppt_string(
-					_current_line)+
-				FCPPT_TEXT(": Invalid face index"));
+	// No texture coordinate
+	if(_stream.peek() == '/')
+	{
+		texture_coordinate_index =
+			1u;
+	}
+	else
+	{
+		if(!(_stream >> texture_coordinate_index))
+			throw
+				sge::model::obj::exception(
+					FCPPT_TEXT("Error on line ")+
+					fcppt::insert_to_fcppt_string(
+						_current_line)+
+					FCPPT_TEXT(": Invalid face index (texture coordinate)"));
+	}
 
 	if(_stream.peek() != '/')
 		throw
@@ -80,7 +89,7 @@ parse_face_vertex(
 				FCPPT_TEXT("Error on line ")+
 				fcppt::insert_to_fcppt_string(
 					_current_line)+
-				FCPPT_TEXT(": Invalid face delimiter"));
+				FCPPT_TEXT(": Invalid face delimiter (normal)"));
 
 	_stream.ignore();
 
@@ -327,6 +336,12 @@ sge::model::obj::prototype::prototype(
 		{
 			std::clog << "Invalid prefix: " << prefix << "\n";
 		}
+	}
+
+	if(texture_coordinates_.empty())
+	{
+		texture_coordinates_.push_back(
+			sge::renderer::vector2::null());
 	}
 
 	//std::cout << "\n";
