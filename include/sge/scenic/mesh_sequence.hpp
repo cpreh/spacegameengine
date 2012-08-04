@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/scenic/mesh.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
+#include <vector>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -32,7 +32,7 @@ namespace sge
 namespace scenic
 {
 typedef
-boost::ptr_vector<sge::scenic::mesh>
+std::vector<sge::scenic::mesh>
 mesh_sequence;
 }
 }

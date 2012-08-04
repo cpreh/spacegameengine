@@ -36,8 +36,10 @@ namespace scenic
 {
 class mesh
 {
+		/*
 FCPPT_NONCOPYABLE(
 	mesh);
+		*/
 public:
 	SGE_SCENIC_SYMBOL
 	mesh(
@@ -66,9 +68,9 @@ public:
 	~mesh();
 private:
 	sge::scenic::identifier model_;
-	sge::scenic::position const position_;
-	sge::scenic::rotation const rotation_;
-	sge::scenic::scale const scale_;
+	sge::scenic::position position_;
+	sge::scenic::rotation rotation_;
+	sge::scenic::scale scale_;
 };
 }
 }

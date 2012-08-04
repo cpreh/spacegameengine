@@ -52,6 +52,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cref.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/scoped_ptr.hpp>
+#include <sge/scenic/exception.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
@@ -213,6 +214,11 @@ sge::scenic::scene::manager::activate_lights(
 		sge::renderer::matrix_mode::world,
 		sge::camera::matrix_conversion::world(
 			camera_.coordinate_system()));
+
+	if(prototype_->lights().size() > 8u)
+		throw
+			sge::scenic::exception(
+				FCPPT_TEXT("Found more than 8 lights in the scene.\nThat's currently not supported."));
 
 	sge::renderer::light::index current_light_index(
 		0u);

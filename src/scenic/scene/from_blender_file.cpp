@@ -39,7 +39,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/move.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
 #include <fcppt/math/matrix/rotation_x.hpp>
@@ -53,6 +52,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace
 {
+// We need this a lot
+sge::image::color::rgb32f const
+vector3_to_rgb32f(
+	sge::renderer::vector3 const &v)
+{
+	return
+		sge::image::color::rgb32f(
+			(sge::image::color::init::red() %= v[0])
+			(sge::image::color::init::green() %= v[1])
+			(sge::image::color::init::blue() %= v[2]));
+}
+
+// This just switches y and z
 sge::renderer::vector3 const
 from_blender_vector(
 	sge::renderer::vector3 const &_v)
@@ -64,6 +76,9 @@ from_blender_vector(
 			_v.y());
 }
 
+// Converts a blender euler angle vector to a rotation matrix.
+// This _seems_ to be different for the camera. For everything else,
+// see "rotation_from_angles_mesh" below
 sge::renderer::matrix4 const
 rotation_from_angles_camera(
 	sge::renderer::vector3 const &_angles)
@@ -77,6 +92,8 @@ rotation_from_angles_camera(
 			-_angles.x());
 }
 
+// Converts a blender euler angle vector to a rotation matrix. This
+// was created using Trial & Error (tm)
 sge::renderer::matrix4 const
 rotation_from_angles_mesh(
 	sge::renderer::vector3 const &_angles)
@@ -90,6 +107,7 @@ rotation_from_angles_mesh(
 			-_angles.x());
 }
 
+// Helper function to multiply a mat4 with a vec3
 sge::renderer::vector3 const
 multiply_matrix4_vector3(
 	sge::renderer::matrix4 const &_matrix,
@@ -109,6 +127,8 @@ sge::scenic::camera_properties const
 parse_camera_properties(
 	sge::parse::json::object const &_json_camera)
 {
+	// Here, we use rotation_from_angles_camera to determine the
+	// rotation matrix. See above.
 	sge::renderer::matrix4 const camera_rotation(
 		rotation_from_angles_camera(
 			from_blender_vector(
@@ -117,6 +137,10 @@ parse_camera_properties(
 					sge::parse::json::path(
 						FCPPT_TEXT("rotation"))))));
 
+	// We start with blender's default camera coordinate system, which
+	// has some funky values for the different axes.
+	// We multiply each vector with the camera rotation matrix,
+	// resulting in a new orthogonal coordinate system.
 	sge::renderer::vector3 const
 		right(
 			multiply_matrix4_vector3(
@@ -131,6 +155,8 @@ parse_camera_properties(
 				camera_rotation,
 				sge::renderer::vector3(0.0f,-1.0f,0.0f)));
 
+	// The rest of the properties are simple to extract from the json,
+	// so it's done inline here.
 	return
 		sge::scenic::camera_properties(
 			sge::camera::coordinate_system::object(
@@ -167,12 +193,6 @@ sge::scenic::fog::properties const
 parse_fog_properties(
 	sge::parse::json::object const &_json_fog)
 {
-	sge::renderer::vector3 const fog_color(
-		sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
-			_json_fog,
-			sge::parse::json::path(
-				FCPPT_TEXT("fog-color"))));
-
 	return
 		sge::scenic::fog::properties(
 			sge::scenic::fog::start(
@@ -187,39 +207,35 @@ parse_fog_properties(
 						FCPPT_TEXT("fog-end")))),
 			sge::scenic::fog::color(
 				sge::image::color::any::object(
-					sge::image::color::rgb32f(
-						(sge::image::color::init::red() %= fog_color[0])
-						(sge::image::color::init::green() %= fog_color[1])
-						(sge::image::color::init::blue() %= fog_color[2])))));
+					vector3_to_rgb32f(
+						sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
+							_json_fog,
+							sge::parse::json::path(
+								FCPPT_TEXT("fog-color")))))));
 }
 
 sge::renderer::ambient_color const
 parse_ambient_color(
 	sge::parse::json::object const &_json_world)
 {
-	sge::renderer::vector3 const ambient_color(
-		sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
-			_json_world,
-			sge::parse::json::path(
-				FCPPT_TEXT("ambient-color"))));
-
 	return
 		sge::renderer::ambient_color(
 			sge::image::color::any::object(
-				sge::image::color::rgb32f(
-					(sge::image::color::init::red() %= ambient_color[0])
-					(sge::image::color::init::green() %= ambient_color[1])
-					(sge::image::color::init::blue() %= ambient_color[2]))));
+				vector3_to_rgb32f(
+					sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
+						_json_world,
+						sge::parse::json::path(
+							FCPPT_TEXT("ambient-color"))))));
 }
 
+// Loads a single mesh. Is called for every mesh.
 void
 load_mesh(
 	sge::scenic::scene::prototype &_scene,
 	sge::parse::json::object const &_json_mesh)
 {
-	fcppt::container::ptr::push_back_unique_ptr(
-		_scene.meshes(),
-		fcppt::make_unique_ptr<sge::scenic::mesh>(
+	_scene.meshes().push_back(
+		sge::scenic::mesh(
 			sge::scenic::identifier(
 				sge::parse::json::find_and_convert_member<fcppt::string>(
 					_json_mesh,
@@ -246,6 +262,7 @@ load_mesh(
 							FCPPT_TEXT("scale")))))));
 }
 
+// This is just a wrapper calling load_mesh on every mesh.
 void
 load_meshes(
 	sge::scenic::scene::prototype &_scene,
@@ -304,7 +321,7 @@ parse_light_direction(
 					0.0f)));
 }
 
-sge::renderer::light::position
+sge::renderer::light::position const
 parse_light_position(
 	sge::parse::json::object const &_json_parent)
 {
@@ -328,17 +345,12 @@ load_light(
 			sge::parse::json::path(
 				FCPPT_TEXT("light-type"))));
 
-	sge::renderer::vector3 const color(
-		sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
-			_json_light,
-			sge::parse::json::path(
-				FCPPT_TEXT("color"))));
-
 	sge::image::color::any::object const converted_color(
-		sge::image::color::rgb32f(
-			(sge::image::color::init::red() %= color[0])
-			(sge::image::color::init::green() %= color[1])
-			(sge::image::color::init::blue() %= color[2])));
+		vector3_to_rgb32f(
+			sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
+				_json_light,
+				sge::parse::json::path(
+					FCPPT_TEXT("color")))));
 
 	sge::renderer::diffuse_color const diffuse_color(
 		converted_color);
@@ -428,6 +440,8 @@ sge::scenic::scene::from_blender_file(
 		sge::parse::json::parse_file_exn(
 			_path));
 
+	// The prototype is created with the world properties in the
+	// ctor. Meshes and lights are added below.
 	sge::scenic::scene::prototype_unique_ptr result(
 		fcppt::make_unique_ptr<sge::scenic::scene::prototype>(
 			fcppt::cref(
