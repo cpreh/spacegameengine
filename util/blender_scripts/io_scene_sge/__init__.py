@@ -139,12 +139,14 @@ class ExportSge(bpy.types.Operator, ExportHelper):
 
 		world = context.scene.world
 
-		fog_start = world.mist_settings.start
+		fog_settings = dict()
+		fog_settings["enabled"] = world.mist_settings.use_mist
 		# FIXME: how exactly do we map blender mist modes to GL fog modes?
-		result["world"]["fog-mode"] = "linear"
-		result["world"]["fog-start"] = fog_start
-		result["world"]["fog-end"] = fog_start + world.mist_settings.depth
-		result["world"]["fog-color"] = tuple(world.horizon_color)
+		fog_settings["mode"] = "linear"
+		fog_settings["start"] = world.mist_settings.start
+		fog_settings["end"] = fog_start + world.mist_settings.depth
+		fog_settings["color"] = tuple(world.horizon_color)
+		result["world"]["fog"] = fog_settings
 		result["world"]["ambient-color"] = tuple(world.ambient_color)
 		# FIXME: what to do about fog density?
 
