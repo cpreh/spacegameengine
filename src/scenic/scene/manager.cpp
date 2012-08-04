@@ -131,11 +131,23 @@ sge::scenic::scene::manager::render(
 			(sge::renderer::state::bool_::enable_lighting = true)
 			(sge::renderer::state::depth_func::less)
 			(sge::renderer::state::color::ambient_light_color = prototype_->ambient_color().get())
-			(sge::renderer::state::float_::fog_start = prototype_->fog().start().get())
-			(sge::renderer::state::float_::fog_end = prototype_->fog().end().get())
-			(sge::renderer::state::fog_mode::linear)
-			(sge::renderer::state::color::fog_color = prototype_->fog().color().get())
+			(prototype_->fog() ? sge::renderer::state::fog_mode::linear : sge::renderer::state::fog_mode::off)
 			(sge::renderer::state::cull_mode::counter_clockwise));
+
+	fcppt::scoped_ptr<sge::renderer::state::scoped> scoped_fog_state;
+
+	if(prototype_->fog())
+	{
+		scoped_fog_state.take(
+			fcppt::make_unique_ptr<sge::renderer::state::scoped>(
+				fcppt::ref(
+					_context),
+				fcppt::cref(
+					sge::renderer::state::list
+						(sge::renderer::state::float_::fog_start = prototype_->fog()->start().get())
+						(sge::renderer::state::float_::fog_end = prototype_->fog()->end().get())
+						(sge::renderer::state::color::fog_color = prototype_->fog()->color().get()))));
+	}
 
 	this->activate_lights(
 		_context);

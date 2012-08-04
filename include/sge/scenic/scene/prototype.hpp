@@ -26,8 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/light_sequence.hpp>
 #include <sge/scenic/mesh_sequence.hpp>
 #include <sge/scenic/symbol.hpp>
+#include <sge/scenic/fog/optional_properties.hpp>
 #include <sge/scenic/fog/properties.hpp>
-
+#include <fcppt/optional.hpp>
 
 namespace sge
 {
@@ -43,7 +44,7 @@ public:
 	SGE_SCENIC_SYMBOL
 	prototype(
 		sge::scenic::camera_properties const &,
-		sge::scenic::fog::properties const &,
+		sge::scenic::fog::optional_properties const &,
 		sge::renderer::ambient_color const &);
 
 	SGE_SCENIC_SYMBOL
@@ -67,7 +68,7 @@ public:
 	camera() const;
 
 	SGE_SCENIC_SYMBOL
-	sge::scenic::fog::properties const &
+	sge::scenic::fog::optional_properties const &
 	fog() const;
 
 	SGE_SCENIC_SYMBOL
@@ -78,7 +79,7 @@ public:
 	~prototype();
 private:
 	sge::scenic::camera_properties camera_;
-	sge::scenic::fog::properties fog_;
+	sge::scenic::fog::optional_properties fog_;
 	sge::renderer::ambient_color ambient_color_;
 	sge::scenic::mesh_sequence meshes_;
 	sge::scenic::light_sequence lights_;

@@ -37,20 +37,20 @@ sge::scenic::fog::properties::properties(
 sge::scenic::fog::start const &
 sge::scenic::fog::properties::start() const
 {
-		return
-			start_;
+	return
+		start_;
 }
 
 sge::scenic::fog::end const &
 sge::scenic::fog::properties::end() const
 {
-		return
-			end_;
+	return
+		end_;
 }
 
 sge::scenic::fog::color const &
 sge::scenic::fog::properties::color() const
 {
-		return
-			color_;
+	return
+		color_;
 }

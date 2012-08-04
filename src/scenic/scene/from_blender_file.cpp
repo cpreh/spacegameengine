@@ -189,29 +189,37 @@ parse_camera_properties(
 							FCPPT_TEXT("far")))));
 }
 
-sge::scenic::fog::properties const
+sge::scenic::fog::optional_properties const
 parse_fog_properties(
 	sge::parse::json::object const &_json_fog)
 {
 	return
-		sge::scenic::fog::properties(
-			sge::scenic::fog::start(
-				sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
-					_json_fog,
-					sge::parse::json::path(
-						FCPPT_TEXT("fog-start")))),
-			sge::scenic::fog::end(
-				sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
-					_json_fog,
-					sge::parse::json::path(
-						FCPPT_TEXT("fog-end")))),
-			sge::scenic::fog::color(
-				sge::image::color::any::object(
-					vector3_to_rgb32f(
-						sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
+		sge::parse::json::find_and_convert_member<bool>(
+			_json_fog,
+			sge::parse::json::path(
+				FCPPT_TEXT("enabled")))
+		?
+			sge::scenic::fog::optional_properties(
+				sge::scenic::fog::properties(
+					sge::scenic::fog::start(
+						sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
 							_json_fog,
 							sge::parse::json::path(
-								FCPPT_TEXT("fog-color")))))));
+								FCPPT_TEXT("start")))),
+					sge::scenic::fog::end(
+						sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
+							_json_fog,
+							sge::parse::json::path(
+								FCPPT_TEXT("end")))),
+					sge::scenic::fog::color(
+						sge::image::color::any::object(
+							vector3_to_rgb32f(
+								sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
+									_json_fog,
+									sge::parse::json::path(
+										FCPPT_TEXT("color"))))))))
+		:
+			sge::scenic::fog::optional_properties();
 }
 
 sge::renderer::ambient_color const
@@ -455,7 +463,7 @@ sge::scenic::scene::from_blender_file(
 					sge::parse::json::find_and_convert_member<sge::parse::json::object>(
 						json_file,
 						sge::parse::json::path(
-							FCPPT_TEXT("world"))))),
+							FCPPT_TEXT("world")) / FCPPT_TEXT("fog")))),
 			fcppt::cref(
 				parse_ambient_color(
 					sge::parse::json::find_and_convert_member<sge::parse::json::object>(
