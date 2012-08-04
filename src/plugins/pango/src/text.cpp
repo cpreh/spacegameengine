@@ -23,15 +23,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/system_fwd.hpp>
 #include <sge/charconv/utf8_string.hpp>
 #include <sge/font/dim.hpp>
+#include <sge/font/optional_dim.hpp>
+#include <sge/font/string.hpp>
 #include <sge/font/text.hpp>
-#include <sge/font/text_parameters.hpp>
+#include <sge/font/text_parameters_fwd.hpp>
 #include <sge/font/view_fwd.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/view/size.hpp>
 #include <sge/pango/glib_deleter.hpp>
 #include <sge/pango/text.hpp>
 #include <sge/pango/freetype/make_bitmap.hpp>
-#include <fcppt/optional_impl.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <pango/pangoft2.h>
@@ -42,6 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::pango::text::text(
 	sge::charconv::system &_charconv_system,
 	PangoLayout &_layout,
+	sge::font::string const &_string,
 	sge::font::text_parameters const &_text_parameters
 )
 :
@@ -59,7 +61,7 @@ sge::pango::text::text(
 				sge::charconv::encoding::wchar
 			>(
 				_charconv_system,
-				_text_parameters.string()
+				_string
 			)
 		);
 
@@ -143,7 +145,7 @@ sge::pango::text::size()
 	);
 
 	size_ =
-		sge::pango::text::optional_dim(
+		sge::font::optional_dim(
 			sge::font::dim(
 				static_cast<
 					sge::font::dim::value_type

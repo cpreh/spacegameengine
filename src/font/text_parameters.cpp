@@ -18,22 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/font/string.hpp>
 #include <sge/font/text_parameters.hpp>
 
 
-sge::font::text_parameters::text_parameters(
-	sge::font::string const &_string
-)
-:
-	string_(
-		_string
-	)
+sge::font::text_parameters::text_parameters()
 {
-}
-
-sge::font::string const &
-sge::font::text_parameters::string() const
-{
-	return string_;
 }

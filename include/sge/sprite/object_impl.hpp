@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/destroy.hpp>
 #include <sge/sprite/detail/rotation_center.hpp>
 #include <sge/sprite/detail/unlink.hpp>
+#include <sge/sprite/detail/config/is_intrusive.hpp>
 #include <sge/sprite/detail/parameters/transform.hpp>
 #include <sge/sprite/roles/color.hpp>
 #include <sge/sprite/roles/connection.hpp>
@@ -44,9 +45,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/roles/texture_point_size.hpp>
 #include <sge/sprite/roles/use_rotation.hpp>
 #include <majutsu/subelements.hpp>
+#include <fcppt/static_assert_expression.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 
+
+template<
+	typename Choices
+>
+sge::sprite::object<Choices>::object()
+:
+	elements_()
+{
+	FCPPT_STATIC_ASSERT_EXPRESSION(
+		!sge::sprite::detail::config::is_intrusive<
+			Choices
+		>::value
+	);
+}
 
 template<
 	typename Choices

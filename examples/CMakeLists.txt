@@ -163,7 +163,7 @@ add_sge_example(
 
 add_sge_example(
 	font
-	"sgefont;sgeimage;sgeimage2d;sgesystems"
+	"sgefont;sgefontdraw;sgeimage;sgerenderer;sgesystems;sgeviewport;sgewindow"
 	""
 )
 

@@ -22,13 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PANGO_TEXT_HPP_INCLUDED
 
 #include <sge/charconv/system_fwd.hpp>
-#include <sge/font/dim.hpp>
+#include <sge/font/dim_fwd.hpp>
+#include <sge/font/optional_dim.hpp>
+#include <sge/font/string.hpp>
 #include <sge/font/text.hpp>
 #include <sge/font/text_parameters_fwd.hpp>
 #include <sge/font/view_fwd.hpp>
 #include <sge/pango/pango_layout_scoped_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional_decl.hpp>
 #include <fcppt/scoped_ptr_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <pango/pango-layout.h>
@@ -51,6 +52,7 @@ public:
 	text(
 		sge::charconv::system &,
 		PangoLayout &,
+		sge::font::string const &,
 		sge::font::text_parameters const &
 	);
 
@@ -66,11 +68,7 @@ private:
 
 	sge::pango::pango_layout_scoped_ptr const layout_;
 
-	typedef fcppt::optional<
-		sge::font::dim
-	> optional_dim;
-
-	optional_dim size_;
+	sge::font::optional_dim size_;
 };
 
 }

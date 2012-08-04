@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/system_fwd.hpp>
 #include <sge/font/object.hpp>
 #include <sge/font/parameters_fwd.hpp>
+#include <sge/font/string.hpp>
 #include <sge/font/text_parameters_fwd.hpp>
 #include <sge/font/text_unique_ptr.hpp>
 #include <sge/pango/pango_layout_scoped_ptr.hpp>
@@ -58,6 +59,7 @@ public:
 private:
 	sge::font::text_unique_ptr
 	create_text(
+		sge::font::string const &,
 		sge::font::text_parameters const &
 	);
 

@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FONT_TEXT_PARAMETERS_HPP_INCLUDED
 #define SGE_FONT_TEXT_PARAMETERS_HPP_INCLUDED
 
-#include <sge/font/string.hpp>
 #include <sge/font/symbol.hpp>
 #include <sge/font/text_parameters_fwd.hpp>
 
@@ -34,17 +33,12 @@ namespace font
 class text_parameters
 {
 public:
+	// TODO:
+	// - Add maximum width
+	// - Add word wrap, no multi line
+	// - Add gravity (for japanese layout)
 	SGE_FONT_SYMBOL
-	explicit
-	text_parameters(
-		sge::font::string const &
-	);
-
-	SGE_FONT_SYMBOL
-	sge::font::string const &
-	string() const;
-private:
-	sge::font::string string_;
+	text_parameters();
 };
 
 }
