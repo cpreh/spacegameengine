@@ -37,6 +37,7 @@ set(
 	include/sge/font/to_fcppt_string.hpp
 	include/sge/font/ttf_size.hpp
 	include/sge/font/unit.hpp
+	include/sge/font/view.hpp
 	include/sge/font/view_fwd.hpp
 	include/sge/font/weight.hpp
 	src/font/exception.cpp

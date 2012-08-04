@@ -30,6 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/size.hpp>
 #include <sge/pango/glib_deleter.hpp>
 #include <sge/pango/text.hpp>
+#include <sge/pango/freetype/make_bitmap.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <pango/pangoft2.h>
@@ -47,7 +49,8 @@ sge::pango::text::text(
 		::pango_layout_copy(
 			&_layout
 		)
-	)
+	),
+	size_()
 {
 	{
 		sge::charconv::utf8_string const converted_string(
@@ -80,8 +83,6 @@ sge::pango::text::~text()
 {
 }
 
-#include <sge/image2d/view/data.hpp>
-
 void
 sge::pango::text::render(
 	sge::font::view const &_view
@@ -111,23 +112,11 @@ sge::pango::text::render(
 		)
 	);
 
-	// FIXME!
-	FT_Bitmap bitmap;
-
-	bitmap.rows = static_cast<int>(view_size.w());
-	bitmap.width = static_cast<int>(view_size.w());
-	bitmap.pitch = static_cast<int>(view_size.w());
-	bitmap.buffer = sge::image2d::view::data(_view);
-	bitmap.num_grays = 256;
-	bitmap.pixel_mode = FT_PIXEL_MODE_GRAY;
-
-	/*
 	FT_Bitmap bitmap(
 		sge::pango::freetype::make_bitmap(
 			_view
 		)
 	);
-	*/
 
 	::pango_ft2_render_layout(
 		&bitmap,
@@ -140,14 +129,34 @@ sge::pango::text::render(
 sge::font::dim const
 sge::pango::text::size()
 {
-	/*
 	if(
-		!size
+		size_
 	)
-	{
-		sge::pango::glyph_string_size(
-			context_,
-			font_,
+		return *size_;
 
-		//pango_glyph_string_extents*/
+	PangoRectangle result;
+
+	::pango_layout_get_extents(
+		layout_.get(),
+		&result,
+		fcppt::null_ptr()
+	);
+
+	size_ =
+		sge::pango::text::optional_dim(
+			sge::font::dim(
+				static_cast<
+					sge::font::dim::value_type
+				>(
+					result.width
+				),
+				static_cast<
+					sge::font::dim::value_type
+				>(
+					result.height
+				)
+			)
+		);
+
+	return *size_;
 }

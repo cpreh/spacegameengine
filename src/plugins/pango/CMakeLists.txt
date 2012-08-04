@@ -2,6 +2,7 @@ set(
 	SGE_PANGO_FILES
 	src/plugins/pango/include/sge/pango/create_layout.hpp
 	src/plugins/pango/include/sge/pango/font_description.hpp
+	src/plugins/pango/include/sge/pango/freetype/make_bitmap.hpp
 	src/plugins/pango/include/sge/pango/glib_deleter.hpp
 	src/plugins/pango/include/sge/pango/glib_deleter_fwd.hpp
 	src/plugins/pango/include/sge/pango/object.hpp
@@ -12,6 +13,7 @@ set(
 	src/plugins/pango/src/create_layout.cpp
 	src/plugins/pango/src/exports.cpp
 	src/plugins/pango/src/font_description.cpp
+	src/plugins/pango/src/freetype/make_bitmap.cpp
 	src/plugins/pango/src/glib_deleter.cpp
 	src/plugins/pango/src/object.cpp
 	src/plugins/pango/src/system.cpp

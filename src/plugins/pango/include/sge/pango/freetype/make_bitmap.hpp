@@ -18,39 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE2D_VIEW_ELEMENT_BASE_HPP_INCLUDED
-#define SGE_IMAGE2D_VIEW_ELEMENT_BASE_HPP_INCLUDED
+#ifndef SGE_PANGO_FREETYPE_MAKE_BITMAP_HPP_INCLUDED
+#define SGE_PANGO_FREETYPE_MAKE_BITMAP_HPP_INCLUDED
 
-#include <sge/image/view/element_base.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
+#include <sge/font/view_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <ft2build.h>
+#include FT_IMAGE_H
+#include <fcppt/config/external_end.hpp>
+
+
 
 namespace sge
 {
-namespace image2d
+namespace pango
 {
-namespace view
+namespace freetype
 {
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-template<
-	typename ColorFormat,
-	typename Constness
->
-struct element_base
-:
-sge::image::view::element_base<
-	ColorFormat,
-	2,
-	Constness
->
-{
-};
-
-FCPPT_PP_POP_WARNING
+FT_Bitmap const
+make_bitmap(
+	sge::font::view const &
+);
 
 }
 }
