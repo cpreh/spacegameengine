@@ -7,7 +7,6 @@ find_package(DevIL)
 find_package(D3D9)
 find_package(DInput)
 find_package(EVDEV)
-find_package(Freetype)
 find_package(GLEW)
 find_package(OpenGL)
 find_package(OpenAL)
@@ -28,8 +27,6 @@ OPTION (ENABLE_DEVIL "Build the devil image loader plugin" ${IL_FOUND})
 OPTION (ENABLE_DINPUT "Build the direct input 8 plugin" ${DINPUT_FOUND})
 
 OPTION (ENABLE_EVDEV "Build the evdev input plugin" ${EVDEV_FOUND})
-
-OPTION (ENABLE_FREETYPE "Build the freetype font plugin" ${FREETYPE_FOUND})
 
 OPTION (ENABLE_OPENAL "Build the openal audio plugin" ${OPENAL_FOUND})
 
@@ -135,10 +132,6 @@ ENDIF ()
 
 IF (ENABLE_EVDEV)
 	ADD_SUBDIRECTORY (evdev)
-ENDIF ()
-
-IF (ENABLE_FREETYPE)
-	ADD_SUBDIRECTORY (freetype)
 ENDIF ()
 
 IF (ENABLE_OPENAL)
