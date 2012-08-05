@@ -25,10 +25,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/colors.hpp>
 #include <sge/model/obj/instance.hpp>
 #include <sge/model/obj/parse_mtllib.hpp>
+#include <sge/scenic/render_context/object.hpp>
 #include <sge/model/obj/prototype.hpp>
 #include <sge/model/obj/vf/format.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/scoped_transform.hpp>
+#include <sge/renderer/texture/filter/scoped.hpp>
+#include <sge/renderer/texture/filter/mipmap.hpp>
+#include <sge/renderer/texture/filter/object.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
@@ -98,7 +102,8 @@ sge::scenic::scene::manager::manager(
 	texture_manager_(
 		_renderer,
 		_image_loader),
-	materials_()
+	materials_(),
+	state_changes_()
 {
 	this->load_meshes(
 		_renderer);
@@ -115,6 +120,9 @@ sge::scenic::scene::manager::render(
 		!sge::renderer::target::viewport_size(
 			_context.target()).content())
 		return;
+
+	state_changes_ =
+		0u;
 
 	sge::renderer::scoped_vertex_declaration scoped_vertex_declaration(
 		_context,
@@ -134,6 +142,12 @@ sge::scenic::scene::manager::render(
 			(prototype_->fog() ? sge::renderer::state::fog_mode::linear : sge::renderer::state::fog_mode::off)
 			(sge::renderer::state::cull_mode::counter_clockwise));
 
+	sge::renderer::texture::filter::scoped scoped_filter(
+		_context,
+		sge::renderer::texture::stage(
+			0u),
+		sge::renderer::texture::filter::mipmap());
+
 	fcppt::scoped_ptr<sge::renderer::state::scoped> scoped_fog_state;
 
 	if(prototype_->fog())
@@ -152,14 +166,22 @@ sge::scenic::scene::manager::render(
 	this->activate_lights(
 		_context);
 
+	sge::scenic::render_context::object current_render_context;
 	for(
 		sge::scenic::mesh_sequence::const_iterator it =
 			prototype_->meshes().begin();
 		it != prototype_->meshes().end();
 		++it)
+		/*
 		this->render_mesh(
 			*it,
 			_context);
+		*/
+		this->render_mesh_better(
+			*it,
+			current_render_context);
+
+	std::cout << prototype_->meshes().size() << " meshes, " << current_render_context.render(_context).get() << " state changes\n";
 }
 
 sge::scenic::scene::manager::~manager()
@@ -269,6 +291,8 @@ sge::scenic::scene::manager::render_mesh(
 		fcppt::math::matrix::scaling(
 			_mesh.scale().get()));
 
+	state_changes_++;
+
 	sge::model::obj::instance &model(
 		*(model_name_to_instance_.find(
 			_mesh.model().get())->second));
@@ -276,6 +300,8 @@ sge::scenic::scene::manager::render_mesh(
 	sge::renderer::scoped_vertex_buffer scoped_vertex_buffer(
 		_context,
 		model.vertex_buffer());
+
+	state_changes_++;
 
 	for(
 		sge::model::obj::material_to_index_buffer_range::const_iterator material_name_and_index_buffer_range =
@@ -296,6 +322,8 @@ sge::scenic::scene::manager::render_mesh(
 		_context.material(
 			material.renderer_material());
 
+		state_changes_++;
+
 		fcppt::scoped_ptr<sge::renderer::texture::scoped> scoped_texture;
 		if(!material.texture().get().empty())
 		{
@@ -308,6 +336,8 @@ sge::scenic::scene::manager::render_mesh(
 							texture_base_path_.get() / material.texture().get())),
 					sge::renderer::texture::stage(
 						0u)));
+
+			state_changes_++;
 		}
 
 		_context.render_indexed(
@@ -319,5 +349,62 @@ sge::scenic::scene::manager::render_mesh(
 			sge::renderer::primitive_type::triangle_list,
 			material_name_and_index_buffer_range->second.first_index(),
 			material_name_and_index_buffer_range->second.index_count());
+	}
+}
+
+void
+sge::scenic::scene::manager::render_mesh_better(
+	sge::scenic::mesh const &_mesh,
+	sge::scenic::render_context::object &_context)
+{
+	sge::model::obj::instance &model(
+		*(model_name_to_instance_.find(
+			_mesh.model().get())->second));
+
+	_context.current_vertex_buffer(
+		model.vertex_buffer());
+
+	for(
+		sge::model::obj::material_to_index_buffer_range::const_iterator material_name_and_index_buffer_range =
+			model.parts().begin();
+		material_name_and_index_buffer_range != model.parts().end();
+		++material_name_and_index_buffer_range)
+	{
+		sge::model::obj::material_map::const_iterator const material_name_and_material =
+			materials_.find(
+				material_name_and_index_buffer_range->first);
+
+		FCPPT_ASSERT_PRE(
+			material_name_and_material != materials_.end());
+
+		sge::model::obj::material const &material(
+			material_name_and_material->second);
+
+		_context.current_material(
+			material.renderer_material());
+
+		if(material.texture().get().empty())
+		{
+			_context.current_texture(
+				fcppt::optional<sge::renderer::texture::planar &>());
+		}
+		else
+		{
+			_context.current_texture(
+				fcppt::optional<sge::renderer::texture::planar &>(
+					texture_manager_.texture_for_path(
+						texture_base_path_.get() / material.texture().get())));
+		}
+
+		_context.add_mesh(
+			sge::camera::matrix_conversion::world(
+				camera_.coordinate_system()) *
+			fcppt::math::matrix::translation(
+				_mesh.position().get()) *
+			_mesh.rotation().get() *
+			fcppt::math::matrix::scaling(
+				_mesh.scale().get()),
+			model.index_buffer(),
+			material_name_and_index_buffer_range->second);
 	}
 }

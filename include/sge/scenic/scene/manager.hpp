@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/first_person/object.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/model/obj/instance_fwd.hpp>
+#include <sge/scenic/render_context/object_fwd.hpp>
 #include <sge/model/obj/material_map.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/vertex_declaration_scoped_ptr.hpp>
@@ -92,6 +93,7 @@ private:
 	model_name_to_instance_map model_name_to_instance_;
 	sge::scenic::texture_manager texture_manager_;
 	sge::model::obj::material_map materials_;
+	unsigned state_changes_;
 
 	void
 	load_meshes(
@@ -105,6 +107,11 @@ private:
 	render_mesh(
 		sge::scenic::mesh const &,
 		sge::renderer::context::object &);
+
+	void
+	render_mesh_better(
+		sge::scenic::mesh const &,
+		sge::scenic::render_context::object &);
 };
 }
 }
