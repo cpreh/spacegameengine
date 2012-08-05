@@ -22,26 +22,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/encoding.hpp>
 #include <sge/charconv/system_fwd.hpp>
 #include <sge/charconv/utf8_string.hpp>
+#include <sge/font/flags.hpp>
+#include <sge/font/flags_field.hpp>
 #include <sge/font/optional_rect.hpp>
 #include <sge/font/rect.hpp>
 #include <sge/font/string.hpp>
 #include <sge/font/text.hpp>
 #include <sge/font/text_parameters.hpp>
-#include <sge/font/unit.hpp>
 #include <sge/font/view_fwd.hpp>
-#include <sge/image2d/dim.hpp>
-#include <sge/image2d/view/size.hpp>
 #include <sge/pango/glib_deleter.hpp>
 #include <sge/pango/text.hpp>
 #include <sge/pango/convert/alignment.hpp>
 #include <sge/pango/convert/from_rect.hpp>
 #include <sge/pango/convert/to_unit.hpp>
 #include <sge/pango/freetype/make_bitmap.hpp>
+#include <fcppt/null_ptr.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <pango/pangoft2.h>
 #include <pango/pango-layout.h>
-#include <algorithm>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -59,6 +58,11 @@ sge::pango::text::text(
 	),
 	max_width_(
 		_text_parameters.max_width()
+	),
+	no_multi_line_(
+		_text_parameters.flags()
+		&
+		sge::font::flags::no_multi_line
 	),
 	rect_()
 {
@@ -104,6 +108,33 @@ sge::pango::text::text(
 				*max_width_
 			)
 		);
+
+	sge::font::flags_field const &flags(
+		_text_parameters.flags()
+	);
+
+	::pango_layout_set_wrap(
+		layout_.get(),
+		(
+			flags
+			&
+			sge::font::flags::no_word_wrap
+		)
+		?
+			PANGO_WRAP_CHAR
+		:
+			PANGO_WRAP_WORD
+	);
+
+	::pango_layout_set_ellipsize(
+		layout_.get(),
+		PANGO_ELLIPSIZE_NONE
+	);
+
+	::pango_layout_set_indent(
+		layout_.get(),
+		0
+	);
 }
 
 sge::pango::text::~text()
@@ -115,59 +146,50 @@ sge::pango::text::render(
 	sge::font::view const &_view
 )
 {
-	sge::image2d::dim const view_size(
-		sge::image2d::view::size(
-			_view
-		)
-	);
-
-	{
-		sge::font::unit const width(
-			static_cast<
-				sge::font::unit
-			>(
-				view_size.w()
-			)
-		);
-
-		::pango_layout_set_width(
-			layout_.get(),
-			sge::pango::convert::to_unit(
-				max_width_
-				?
-					std::min(
-						*max_width_,
-						width
-					)
-				:
-					width
-			)
-		);
-	}
-
-	::pango_layout_set_height(
-		layout_.get(),
-		sge::pango::convert::to_unit(
-			static_cast<
-				sge::font::unit
-			>(
-				view_size.h()
-			)
-		)
-	);
-
 	FT_Bitmap bitmap(
 		sge::pango::freetype::make_bitmap(
 			_view
 		)
 	);
 
-	::pango_ft2_render_layout(
-		&bitmap,
-		layout_.get(),
-		0,
+	int const pos_x(
 		0
 	);
+
+	int const pos_y(
+		0
+	);
+
+	if(
+		no_multi_line_
+	)
+	{
+		PangoLayoutLine *const line(
+			::pango_layout_get_line(
+				layout_.get(),
+				0
+			)
+		);
+
+		if(
+			line == fcppt::null_ptr()
+		)
+			return;
+
+		::pango_ft2_render_layout_line(
+			&bitmap,
+			line,
+			pos_x,
+			pos_y
+		);
+	}
+	else
+		::pango_ft2_render_layout(
+			&bitmap,
+			layout_.get(),
+			pos_x,
+			pos_y
+		);
 }
 
 sge::font::rect const

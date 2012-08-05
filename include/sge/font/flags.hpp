@@ -32,7 +32,7 @@ namespace flags
 enum type
 {
 	no_multi_line,
-	no_line_wrap,
+	no_word_wrap,
 	size
 };
 }

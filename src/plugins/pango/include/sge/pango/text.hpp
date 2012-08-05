@@ -71,6 +71,8 @@ private:
 
 	sge::font::optional_unit const max_width_;
 
+	bool const no_multi_line_;
+
 	sge::font::optional_rect rect_;
 };
 

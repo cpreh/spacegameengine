@@ -58,12 +58,12 @@ sge::font::draw::static_text::static_text(
 		)
 	)
 {
-	impl_->pos(
-		_pos
-	);
-
 	impl_->string(
 		_string
+	);
+
+	impl_->pos(
+		_pos
 	);
 
 	impl_->color(
