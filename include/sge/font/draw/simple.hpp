@@ -18,46 +18,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_TEXT_HPP_INCLUDED
-#define SGE_FONT_TEXT_HPP_INCLUDED
+#ifndef SGE_FONT_DRAW_SIMPLE_HPP_INCLUDED
+#define SGE_FONT_DRAW_SIMPLE_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
-#include <sge/font/rect_fwd.hpp>
-#include <sge/font/symbol.hpp>
-#include <sge/font/text_fwd.hpp>
-#include <sge/font/view_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/font/object_fwd.hpp>
+#include <sge/font/string.hpp>
+#include <sge/font/text_parameters_fwd.hpp>
+#include <sge/font/vector_fwd.hpp>
+#include <sge/font/draw/symbol.hpp>
+#include <sge/image/color/any/object_fwd.hpp>
+#include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/context/object_fwd.hpp>
 
 
 namespace sge
 {
 namespace font
 {
-
-class SGE_CLASS_SYMBOL text
+namespace draw
 {
-	FCPPT_NONCOPYABLE(
-		text
-	);
-protected:
-	SGE_FONT_SYMBOL
-	text();
-public:
-	SGE_FONT_SYMBOL
-	virtual
-	~text() = 0;
 
-	virtual
-	void
-	render(
-		sge::font::view const &
-	) = 0;
+SGE_FONT_DRAW_SYMBOL
+void
+simple(
+	sge::renderer::device &,
+	sge::renderer::context::object &,
+	sge::font::object &,
+	sge::font::string const &,
+	sge::font::text_parameters const &,
+	sge::font::vector const &,
+	sge::image::color::any::object const &
+);
 
-	virtual
-	sge::font::rect const
-	rect() = 0;
-};
-
+}
 }
 }
 

@@ -22,11 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_FONT_DRAW_DETAIL_STATIC_TEXT_IMPL_HPP_INCLUDED
 
 #include <sge/font/object_fwd.hpp>
-#include <sge/font/rect.hpp>
 #include <sge/font/string.hpp>
 #include <sge/font/text_parameters.hpp>
 #include <sge/font/text_scoped_ptr.hpp>
 #include <sge/font/unit.hpp>
+#include <sge/font/vector.hpp>
 #include <sge/font/draw/detail/static_text_impl_fwd.hpp>
 #include <sge/image/color/rgba8_format.hpp>
 #include <sge/image/color/any/object_fwd.hpp>
@@ -88,8 +88,8 @@ public:
 	);
 
 	void
-	rect(
-		sge::font::rect const &
+	pos(
+		sge::font::vector const &
 	);
 
 	void
@@ -114,7 +114,7 @@ private:
 
 	sge::font::text_scoped_ptr text_;
 
-	sge::font::rect rect_;
+	sge::font::vector pos_;
 
 	typedef sge::image::color::rgba8_format color_format;
 

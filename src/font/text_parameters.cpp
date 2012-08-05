@@ -18,9 +18,61 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/font/align_h.hpp>
+#include <sge/font/flags_field.hpp>
+#include <sge/font/optional_unit.hpp>
 #include <sge/font/text_parameters.hpp>
+#include <sge/font/unit.hpp>
 
 
-sge::font::text_parameters::text_parameters()
+sge::font::text_parameters::text_parameters(
+	sge::font::align_h::type const _align_h
+)
+:
+	align_h_(
+		_align_h
+	),
+	flags_(
+		sge::font::flags_field::null()
+	),
+	max_width_()
 {
+}
+
+sge::font::text_parameters &
+sge::font::text_parameters::flags(
+	sge::font::flags_field const &_flags
+)
+{
+	flags_ = _flags;
+
+	return *this;
+}
+
+sge::font::text_parameters &
+sge::font::text_parameters::max_width(
+	sge::font::unit const _max_width
+)
+{
+	max_width_ = _max_width;
+
+	return *this;
+}
+
+sge::font::align_h::type
+sge::font::text_parameters::align_h() const
+{
+	return align_h_;
+}
+
+sge::font::flags_field const &
+sge::font::text_parameters::flags() const
+{
+	return flags_;
+}
+
+sge::font::optional_unit const &
+sge::font::text_parameters::max_width() const
+{
+	return max_width_;
 }

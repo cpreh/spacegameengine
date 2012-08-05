@@ -18,47 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_TEXT_HPP_INCLUDED
-#define SGE_FONT_TEXT_HPP_INCLUDED
-
-#include <sge/class_symbol.hpp>
-#include <sge/font/rect_fwd.hpp>
-#include <sge/font/symbol.hpp>
-#include <sge/font/text_fwd.hpp>
-#include <sge/font/view_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/font/unit.hpp>
+#include <sge/pango/convert/to_unit.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <pango/pango-types.h>
+#include <fcppt/config/external_end.hpp>
 
 
-namespace sge
+int
+sge::pango::convert::to_unit(
+	sge::font::unit const _unit
+)
 {
-namespace font
-{
-
-class SGE_CLASS_SYMBOL text
-{
-	FCPPT_NONCOPYABLE(
-		text
-	);
-protected:
-	SGE_FONT_SYMBOL
-	text();
-public:
-	SGE_FONT_SYMBOL
-	virtual
-	~text() = 0;
-
-	virtual
-	void
-	render(
-		sge::font::view const &
-	) = 0;
-
-	virtual
-	sge::font::rect const
-	rect() = 0;
-};
-
+	return
+		_unit
+		*
+		PANGO_SCALE;
 }
-}
-
-#endif

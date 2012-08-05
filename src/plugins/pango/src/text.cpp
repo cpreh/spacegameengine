@@ -22,21 +22,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/encoding.hpp>
 #include <sge/charconv/system_fwd.hpp>
 #include <sge/charconv/utf8_string.hpp>
-#include <sge/font/dim.hpp>
-#include <sge/font/optional_dim.hpp>
+#include <sge/font/optional_rect.hpp>
+#include <sge/font/rect.hpp>
 #include <sge/font/string.hpp>
 #include <sge/font/text.hpp>
-#include <sge/font/text_parameters_fwd.hpp>
+#include <sge/font/text_parameters.hpp>
+#include <sge/font/unit.hpp>
 #include <sge/font/view_fwd.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/view/size.hpp>
 #include <sge/pango/glib_deleter.hpp>
 #include <sge/pango/text.hpp>
+#include <sge/pango/convert/alignment.hpp>
+#include <sge/pango/convert/from_rect.hpp>
+#include <sge/pango/convert/to_unit.hpp>
 #include <sge/pango/freetype/make_bitmap.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <pango/pangoft2.h>
 #include <pango/pango-layout.h>
+#include <algorithm>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -52,7 +57,10 @@ sge::pango::text::text(
 			&_layout
 		)
 	),
-	size_()
+	max_width_(
+		_text_parameters.max_width()
+	),
+	rect_()
 {
 	{
 		sge::charconv::utf8_string const converted_string(
@@ -79,6 +87,23 @@ sge::pango::text::text(
 			)
 		);
 	}
+
+	::pango_layout_set_alignment(
+		layout_.get(),
+		sge::pango::convert::alignment(
+			_text_parameters.align_h()
+		)
+	);
+
+	if(
+		max_width_
+	)
+		::pango_layout_set_width(
+			layout_.get(),
+			sge::pango::convert::to_unit(
+				*max_width_
+			)
+		);
 }
 
 sge::pango::text::~text()
@@ -96,21 +121,38 @@ sge::pango::text::render(
 		)
 	);
 
-	::pango_layout_set_width(
-		layout_.get(),
-		static_cast<
-			int
-		>(
-			view_size.w()
-		)
-	);
+	{
+		sge::font::unit const width(
+			static_cast<
+				sge::font::unit
+			>(
+				view_size.w()
+			)
+		);
+
+		::pango_layout_set_width(
+			layout_.get(),
+			sge::pango::convert::to_unit(
+				max_width_
+				?
+					std::min(
+						*max_width_,
+						width
+					)
+				:
+					width
+			)
+		);
+	}
 
 	::pango_layout_set_height(
 		layout_.get(),
-		static_cast<
-			int
-		>(
-			view_size.h()
+		sge::pango::convert::to_unit(
+			static_cast<
+				sge::font::unit
+			>(
+				view_size.h()
+			)
 		)
 	);
 
@@ -128,37 +170,28 @@ sge::pango::text::render(
 	);
 }
 
-sge::font::dim const
-sge::pango::text::size()
+sge::font::rect const
+sge::pango::text::rect()
 {
 	if(
-		size_
+		rect_
 	)
-		return *size_;
+		return *rect_;
 
 	PangoRectangle result;
 
-	::pango_layout_get_extents(
+	::pango_layout_get_pixel_extents(
 		layout_.get(),
 		&result,
 		fcppt::null_ptr()
 	);
 
-	size_ =
-		sge::font::optional_dim(
-			sge::font::dim(
-				static_cast<
-					sge::font::dim::value_type
-				>(
-					result.width
-				),
-				static_cast<
-					sge::font::dim::value_type
-				>(
-					result.height
-				)
+	rect_ =
+		sge::font::optional_rect(
+			sge::pango::convert::from_rect(
+				result
 			)
 		);
 
-	return *size_;
+	return *rect_;
 }

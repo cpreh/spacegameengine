@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FONT_DIM_HPP_INCLUDED
 #define SGE_FONT_DIM_HPP_INCLUDED
 
-#include <sge/font/dim.hpp>
+#include <sge/font/dim_fwd.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 
 

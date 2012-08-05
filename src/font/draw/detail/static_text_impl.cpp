@@ -22,10 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/string.hpp>
 #include <sge/font/text.hpp>
 #include <sge/font/text_parameters.hpp>
-#include <sge/font/rect.hpp>
+#include <sge/font/vector.hpp>
+#include <sge/image/color/a8.hpp>
 #include <sge/image/color/format.hpp>
+#include <sge/image/color/init.hpp>
 #include <sge/image/color/any/convert.hpp>
-#include <sge/image/color/any/object_fwd.hpp>
+#include <sge/image/color/any/object.hpp>
+#include <sge/image2d/algorithm/fill.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/buffers/option.hpp>
 #include <sge/sprite/buffers/single_impl.hpp>
@@ -75,8 +78,8 @@ sge::font::draw::detail::static_text_impl::static_text_impl(
 	texture_(),
 	texture_part_(),
 	text_(),
-	rect_(
-		sge::font::rect::null()
+	pos_(
+		sge::font::vector::null()
 	),
 	sprite_buffers_(
 		_renderer,
@@ -121,19 +124,11 @@ sge::font::draw::detail::static_text_impl::string(
 }
 
 void
-sge::font::draw::detail::static_text_impl::rect(
-	sge::font::rect const &_rect
+sge::font::draw::detail::static_text_impl::pos(
+	sge::font::vector const &_pos
 )
 {
-	rect_ = _rect;
-
-	sprite_.pos(
-		_rect.pos()
-	);
-
-	sprite_.size(
-		_rect.size()
-	);
+	pos_ = _pos;
 }
 
 void
@@ -153,32 +148,6 @@ sge::font::draw::detail::static_text_impl::color(
 void
 sge::font::draw::detail::static_text_impl::rebuild_texture()
 {
-	texture_.take(
-		renderer_.create_planar_texture(
-			sge::renderer::texture::planar_parameters(
-				fcppt::math::dim::structure_cast<
-					sge::renderer::dim2
-				>(
-					rect_.size()
-				),
-				sge::image::color::format::a8,
-				sge::renderer::texture::mipmap::off(),
-				sge::renderer::resource_flags_field::null(),
-				sge::renderer::texture::capabilities_field::null()
-			)
-		)
-	);
-
-	texture_part_.take(
-		fcppt::make_unique_ptr<
-			sge::texture::part_raw_ref
-		>(
-			fcppt::ref(
-				*texture_
-			)
-		)
-	);
-
 	text_.take(
 		font_.create_text(
 			string_,
@@ -186,10 +155,58 @@ sge::font::draw::detail::static_text_impl::rebuild_texture()
 		)
 	);
 
+	sge::renderer::dim2 const new_size(
+		fcppt::math::dim::structure_cast<
+			sge::renderer::dim2
+		>(
+			text_->rect().size()
+		)
+	);
+
+	if(
+		!texture_
+		||
+		texture_->size()
+		!=
+		new_size
+	)
+	{
+		texture_.take(
+			renderer_.create_planar_texture(
+				sge::renderer::texture::planar_parameters(
+					new_size,
+					sge::image::color::format::a8,
+					sge::renderer::texture::mipmap::off(),
+					sge::renderer::resource_flags_field::null(),
+					sge::renderer::texture::capabilities_field::null()
+				)
+			)
+		);
+
+		texture_part_.take(
+			fcppt::make_unique_ptr<
+				sge::texture::part_raw_ref
+			>(
+				fcppt::ref(
+					*texture_
+				)
+			)
+		);
+	}
+
 	{
 		sge::renderer::texture::scoped_planar_lock const lock(
 			*texture_,
 			sge::renderer::lock_mode::writeonly
+		);
+
+		sge::image2d::algorithm::fill(
+			lock.value(),
+			sge::image::color::any::object(
+				sge::image::color::a8(
+					sge::image::color::init::alpha() %= 0.
+				)
+			)
 		);
 
 		text_->render(
@@ -201,6 +218,16 @@ sge::font::draw::detail::static_text_impl::rebuild_texture()
 		sge::texture::const_optional_part_ref(
 			*texture_part_
 		)
+	);
+
+	sprite_.pos(
+		pos_
+		+
+		text_->rect().pos()
+	);
+
+	sprite_.size(
+		text_->rect().size()
 	);
 
 	sprite_range_ =

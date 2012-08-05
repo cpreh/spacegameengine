@@ -18,13 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/font/align_h.hpp>
 #include <sge/font/lit.hpp>
 #include <sge/font/object.hpp>
 #include <sge/font/object_scoped_ptr.hpp>
 #include <sge/font/parameters.hpp>
-#include <sge/font/rect.hpp>
 #include <sge/font/system.hpp>
 #include <sge/font/text_parameters.hpp>
+#include <sge/font/vector.hpp>
 #include <sge/font/draw/static_text.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/renderer/device.hpp>
@@ -132,16 +133,12 @@ try
 		SGE_FONT_LIT(
 			"日本語は書ける"
 		),
-		sge::font::text_parameters(),
-		sge::font::rect(
-			sge::font::rect::vector(
-				100,
-				100
-			),
-			sge::font::rect::dim(
-				200,
-				200
-			)
+		sge::font::text_parameters(
+			sge::font::align_h::left
+		),
+		sge::font::vector(
+			100,
+			100
 		),
 		sge::image::colors::white()
 	);

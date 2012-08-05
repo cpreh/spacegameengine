@@ -347,14 +347,8 @@ add_sge_example(
 
 add_sge_example(
 	texture_filter
-	"sgecamera;sgeconfig;sgefonttext;sgeimage;sgeimage2d;sgeinput;sgerenderer;sgesprite;sgesystems;sgetexture;sgetimer;sgeviewport;sgewindow"
+	"sgecamera;sgefont;sgefontdraw;sgeimage;sgeimage2d;sgeinput;sgerenderer;sgesprite;sgesystems;sgetexture;sgetimer;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
-)
-
-add_sge_example(
-	tutorial/font
-	"sgeconfig;sgefonttext;sgeimage;sgeinput;sgerenderer;sgesystems;sgeviewport;sgewindow"
-	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 )
 
 add_sge_console_example(

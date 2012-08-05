@@ -21,8 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FONT_TEXT_PARAMETERS_HPP_INCLUDED
 #define SGE_FONT_TEXT_PARAMETERS_HPP_INCLUDED
 
+#include <sge/font/align_h.hpp>
+#include <sge/font/flags_field.hpp>
+#include <sge/font/optional_unit.hpp>
 #include <sge/font/symbol.hpp>
 #include <sge/font/text_parameters_fwd.hpp>
+#include <sge/font/unit.hpp>
 
 
 namespace sge
@@ -34,11 +38,42 @@ class text_parameters
 {
 public:
 	// TODO:
-	// - Add maximum width
-	// - Add word wrap, no multi line
-	// - Add gravity (for japanese layout)
+	// - Add gravity for Japanese text
 	SGE_FONT_SYMBOL
-	text_parameters();
+	explicit
+	text_parameters(
+		sge::font::align_h::type
+	);
+
+	SGE_FONT_SYMBOL
+	sge::font::text_parameters &
+	flags(
+		sge::font::flags_field const &
+	);
+
+	SGE_FONT_SYMBOL
+	sge::font::text_parameters &
+	max_width(
+		sge::font::unit
+	);
+
+	SGE_FONT_SYMBOL
+	sge::font::align_h::type
+	align_h() const;
+
+	SGE_FONT_SYMBOL
+	sge::font::flags_field const &
+	flags() const;
+
+	SGE_FONT_SYMBOL
+	sge::font::optional_unit const &
+	max_width() const;
+private:
+	sge::font::align_h::type align_h_;
+
+	sge::font::flags_field flags_;
+
+	sge::font::optional_unit max_width_;
 };
 
 }

@@ -1,5 +1,8 @@
 set(
 	SGE_PANGO_FILES
+	src/plugins/pango/include/sge/pango/convert/alignment.hpp
+	src/plugins/pango/include/sge/pango/convert/from_rect.hpp
+	src/plugins/pango/include/sge/pango/convert/to_unit.hpp
 	src/plugins/pango/include/sge/pango/create_layout.hpp
 	src/plugins/pango/include/sge/pango/font_description.hpp
 	src/plugins/pango/include/sge/pango/freetype/make_bitmap.hpp
@@ -10,6 +13,9 @@ set(
 	src/plugins/pango/include/sge/pango/pango_layout_unique_ptr.hpp
 	src/plugins/pango/include/sge/pango/system.hpp
 	src/plugins/pango/include/sge/pango/text.hpp
+	src/plugins/pango/src/convert/alignment.cpp
+	src/plugins/pango/src/convert/from_rect.cpp
+	src/plugins/pango/src/convert/to_unit.cpp
 	src/plugins/pango/src/create_layout.cpp
 	src/plugins/pango/src/exports.cpp
 	src/plugins/pango/src/font_description.cpp

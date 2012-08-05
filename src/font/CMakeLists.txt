@@ -14,12 +14,14 @@ set(
 	include/sge/font/object_fwd.hpp
 	include/sge/font/object_scoped_ptr.hpp
 	include/sge/font/object_unique_ptr.hpp
-	include/sge/font/optional_dim.hpp
-	include/sge/font/optional_dim_fwd.hpp
 	include/sge/font/optional_family.hpp
 	include/sge/font/optional_family_fwd.hpp
+	include/sge/font/optional_rect.hpp
+	include/sge/font/optional_rect_fwd.hpp
 	include/sge/font/optional_ttf_size.hpp
 	include/sge/font/optional_ttf_size_fwd.hpp
+	include/sge/font/optional_unit.hpp
+	include/sge/font/optional_unit_fwd.hpp
 	include/sge/font/optional_weight.hpp
 	include/sge/font/optional_weight_fwd.hpp
 	include/sge/font/parameters.hpp
@@ -41,6 +43,8 @@ set(
 	include/sge/font/to_fcppt_string.hpp
 	include/sge/font/ttf_size.hpp
 	include/sge/font/unit.hpp
+	include/sge/font/vector.hpp
+	include/sge/font/vector_fwd.hpp
 	include/sge/font/view.hpp
 	include/sge/font/view_fwd.hpp
 	include/sge/font/weight.hpp

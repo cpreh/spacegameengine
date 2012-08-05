@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_OPTIONAL_DIM_FWD_HPP_INCLUDED
-#define SGE_FONT_OPTIONAL_DIM_FWD_HPP_INCLUDED
+#ifndef SGE_FONT_OPTIONAL_RECT_FWD_HPP_INCLUDED
+#define SGE_FONT_OPTIONAL_RECT_FWD_HPP_INCLUDED
 
-#include <sge/font/dim_fwd.hpp>
+#include <sge/font/rect_fwd.hpp>
 #include <fcppt/optional_fwd.hpp>
 
 
@@ -31,8 +31,8 @@ namespace font
 {
 
 typedef fcppt::optional<
-	sge::font::dim
-> optional_dim;
+	sge::font::rect
+> optional_rect;
 
 }
 }

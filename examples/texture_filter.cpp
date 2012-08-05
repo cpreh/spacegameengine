@@ -23,21 +23,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/first_person/object.hpp>
 #include <sge/camera/first_person/parameters.hpp>
 #include <sge/camera/matrix_conversion/world.hpp>
-#include <sge/config/media_path.hpp>
-#include <sge/font/metrics.hpp>
-#include <sge/font/metrics_scoped_ptr.hpp>
-#include <sge/font/rect.hpp>
-#include <sge/font/size_type.hpp>
+#include <sge/font/align_h.hpp>
+#include <sge/font/from_fcppt_string.hpp>
+#include <sge/font/lit.hpp>
+#include <sge/font/object.hpp>
+#include <sge/font/object_scoped_ptr.hpp>
+#include <sge/font/parameters.hpp>
+#include <sge/font/string.hpp>
 #include <sge/font/system.hpp>
-#include <sge/font/text/align_h.hpp>
-#include <sge/font/text/align_v.hpp>
-#include <sge/font/text/draw.hpp>
-#include <sge/font/text/drawer_3d.hpp>
-#include <sge/font/text/flags_none.hpp>
-#include <sge/font/text/from_fcppt_string.hpp>
-#include <sge/font/text/lit.hpp>
-#include <sge/font/text/part.hpp>
-#include <sge/font/text/string.hpp>
+#include <sge/font/text_parameters.hpp>
+#include <sge/font/unit.hpp>
+#include <sge/font/vector.hpp>
+#include <sge/font/draw/simple.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image/size_type.hpp>
 #include <sge/image/store.hpp>
@@ -63,6 +60,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/scalar.hpp>
+#include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/caps/device.hpp>
 #include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/context/object.hpp>
@@ -174,7 +172,7 @@ namespace
 {
 
 typedef std::pair<
-	sge::font::text::string,
+	sge::font::string,
 	sge::renderer::texture::filter::object
 > string_filter_pair;
 
@@ -417,38 +415,38 @@ try
 		sys.renderer().caps().max_anisotropy().get()
 	);
 
-	sge::font::text::string const anisotropy_string(
-		SGE_FONT_TEXT_LIT(' ')
+	sge::font::string const anisotropy_string(
+		SGE_FONT_LIT(' ')
 		+
 		fcppt::insert_to_string<
-			sge::font::text::string
+			sge::font::string
 		>(
 			anisotropy
 		)
 		+
-		SGE_FONT_TEXT_LIT('x')
+		SGE_FONT_LIT('x')
 	);
 
 	filter_array const filters =
 	{{
 		std::make_pair(
-			SGE_FONT_TEXT_LIT("point"),
+			SGE_FONT_LIT("point"),
 			sge::renderer::texture::filter::point()
 		),
 		std::make_pair(
-			SGE_FONT_TEXT_LIT("linear"),
+			SGE_FONT_LIT("linear"),
 			sge::renderer::texture::filter::linear()
 		),
 		std::make_pair(
-			SGE_FONT_TEXT_LIT("mipmap"),
+			SGE_FONT_LIT("mipmap"),
 			sge::renderer::texture::filter::mipmap()
 		),
 		std::make_pair(
-			SGE_FONT_TEXT_LIT("trilinear"),
+			SGE_FONT_LIT("trilinear"),
 			sge::renderer::texture::filter::trilinear()
 		),
 		std::make_pair(
-			SGE_FONT_TEXT_LIT("anisotropic")
+			SGE_FONT_LIT("anisotropic")
 			+
 			anisotropy_string,
 			sge::renderer::texture::filter::anisotropic::make(
@@ -457,22 +455,22 @@ try
 			)
 		),
 		std::make_pair(
-			SGE_FONT_TEXT_LIT("anisotropic")
+			SGE_FONT_LIT("anisotropic")
 			+
 			anisotropy_string
 			+
-			SGE_FONT_TEXT_LIT(" + mipmap"),
+			SGE_FONT_LIT(" + mipmap"),
 			sge::renderer::texture::filter::anisotropic::make(
 				sge::renderer::texture::filter::anisotropic::mip::point,
 				anisotropy
 			)
 		),
 		std::make_pair(
-			SGE_FONT_TEXT_LIT("anisotropic")
+			SGE_FONT_LIT("anisotropic")
 			+
 			anisotropy_string
 			+
-			SGE_FONT_TEXT_LIT(" + trilinear"),
+			SGE_FONT_LIT(" + trilinear"),
 			sge::renderer::texture::filter::anisotropic::make(
 				sge::renderer::texture::filter::anisotropic::mip::linear,
 				anisotropy
@@ -621,26 +619,6 @@ try
 		)
 	);
 
-	sge::font::metrics_scoped_ptr const font_metrics(
-		sys.font_system().create_font(
-			sge::config::media_path()
-			/ FCPPT_TEXT("fonts")
-			/ FCPPT_TEXT("default.ttf"),
-			static_cast<
-				sge::font::size_type
-			>(
-				30
-			)
-		)
-	);
-
-	sge::font::text::drawer_3d font_drawer(
-		sys.renderer(),
-		sge::image::colors::red(),
-		sge::font::text::set_matrices(
-			true)
-	);
-
 	sge::timer::basic<
 		sge::timer::clocks::standard
 	> frame_timer(
@@ -655,15 +633,21 @@ try
 
 	sge::timer::frames_counter frames_counter;
 
-	sge::font::text::string const text_appendix(
-		SGE_FONT_TEXT_LIT(" (Press 1 through ")
+	sge::font::string const text_appendix(
+		SGE_FONT_LIT(" (Press 1 through ")
 		+
 		fcppt::insert_to_string<
-			sge::font::text::string
+			sge::font::string
 		>(
 			filters.size()
 		)
-		+ SGE_FONT_TEXT_LIT(" to select a filter!)")
+		+ SGE_FONT_LIT(" to select a filter!)")
+	);
+
+	sge::font::object_scoped_ptr const font(
+		sys.font_system().create_font(
+			sge::font::parameters()
+		)
 	);
 
 	while(
@@ -728,42 +712,53 @@ try
 			);
 		}
 
-		sge::font::rect const font_rect(
-			sge::font::rect::vector::null(),
-			fcppt::math::dim::structure_cast<
-				sge::font::rect::dim
+		sge::font::vector const font_pos(
+			sge::font::vector::null()
+		);
+
+		sge::font::unit const font_width(
+			static_cast<
+				sge::font::unit
 			>(
 				sge::renderer::target::viewport_size(
-					scoped_block.get().target()
-				)
+					sys.renderer().onscreen_target()
+				).w()
 			)
 		);
 
-		sge::font::text::draw(
+		sge::font::draw::simple(
+			sys.renderer(),
 			scoped_block.get(),
-			*font_metrics,
-			font_drawer,
+			*font,
 			current_filter->first
 			+
 			text_appendix,
-			font_rect,
-			sge::font::text::align_h::left,
-			sge::font::text::align_v::top,
-			sge::font::text::flags::none
+			sge::font::text_parameters(
+				sge::font::align_h::left
+			)
+			.max_width(
+				font_width
+			),
+			font_pos,
+			sge::image::colors::red()
 		);
 
-		sge::font::text::draw(
+		sge::font::draw::simple(
+			sys.renderer(),
 			scoped_block.get(),
-			*font_metrics,
-			font_drawer,
-			sge::font::text::from_fcppt_string(
+			*font,
+			sge::font::from_fcppt_string(
 				frames_counter.frames_str()
 			)
-			+ SGE_FONT_TEXT_LIT(" fps"),
-			font_rect,
-			sge::font::text::align_h::right,
-			sge::font::text::align_v::top,
-			sge::font::text::flags::none
+			+ SGE_FONT_LIT(" fps"),
+			sge::font::text_parameters(
+				sge::font::align_h::right
+			)
+			.max_width(
+				font_width
+			),
+			font_pos,
+			sge::image::colors::red()
 		);
 	}
 

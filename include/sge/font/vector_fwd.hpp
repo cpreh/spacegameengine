@@ -9,7 +9,7 @@ of the License, or (at your option) any later version.
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURVECTORE.  See the
 GNU Lesser General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
@@ -18,12 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_OPTIONAL_DIM_HPP_INCLUDED
-#define SGE_FONT_OPTIONAL_DIM_HPP_INCLUDED
+#ifndef SGE_FONT_VECTOR_FWD_HPP_INCLUDED
+#define SGE_FONT_VECTOR_FWD_HPP_INCLUDED
 
-#include <sge/font/dim.hpp>
-#include <sge/font/optional_dim_fwd.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <sge/font/unit.hpp>
+#include <fcppt/math/vector/static.hpp>
 
+
+namespace sge
+{
+namespace font
+{
+
+typedef fcppt::math::vector::static_<
+	sge::font::unit,
+	2
+>::type vector;
+
+}
+}
 
 #endif
