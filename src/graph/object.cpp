@@ -18,7 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/graph/background_color.hpp>
+#include <sge/graph/baseline.hpp>
+#include <sge/graph/foreground_color.hpp>
 #include <sge/graph/object.hpp>
+#include <sge/graph/position.hpp>
 #include <sge/graph/scalar.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image/color/format.hpp>
@@ -29,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/object.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/dim2.hpp>
+#include <sge/renderer/vector2.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/context/object.hpp>
@@ -45,6 +50,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/ref.hpp>
 #include <fcppt/math/clamp.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <fcppt/math/vector/structure_cast.hpp>
 #include <boost/circular_buffer.hpp>
 #include <boost/algorithm/minmax_element.hpp>
 #include <algorithm>
@@ -107,11 +113,12 @@ sge::image2d::algorithm::bresenham(
 }
 
 sge::graph::object::object(
+	sge::graph::position const &_position,
 	sge::renderer::dim2 const &_dim,
 	sge::renderer::device &_renderer,
-	sge::image::color::any::object const &_foreground_color,
-	sge::image::color::any::object const &_background_color,
-	sge::graph::scalar _baseline
+	sge::graph::foreground_color const &_foreground_color,
+	sge::graph::background_color const &_background_color,
+	sge::graph::baseline _baseline
 )
 :
 dim_(
@@ -132,8 +139,9 @@ texture_(
 sprite_object_(
 	sprite_parameters()
 	.pos(
-		sprite_object::vector::null()
-	)
+		fcppt::math::vector::structure_cast<
+			sprite_object::vector>(
+				_position.get()))
 	.texture(
 		fcppt::make_shared_ptr<
 			sge::texture::part_raw_ref
@@ -150,13 +158,13 @@ sprite_buffers_(
 	sge::sprite::buffers::option::dynamic
 ),
 foreground_color_(
-	_foreground_color),
+	_foreground_color.get()),
 background_color_(
-	_background_color),
+	_background_color.get()),
 data_buffer_(
 	dim_.w()),
 baseline_(
-	_baseline),
+	_baseline.get()),
 current_min_(
 	std::min(
 		0.,

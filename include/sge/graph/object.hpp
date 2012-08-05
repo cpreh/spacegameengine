@@ -21,6 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GRAPH_OBJECT_HPP_INCLUDED
 #define SGE_GRAPH_OBJECT_HPP_INCLUDED
 
+#include <sge/graph/background_color.hpp>
+#include <sge/graph/baseline.hpp>
+#include <sge/graph/foreground_color.hpp>
+#include <sge/graph/position.hpp>
 #include <sge/graph/scalar.hpp>
 #include <sge/graph/symbol.hpp>
 #include <sge/image/color/any/object.hpp>
@@ -29,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/object.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/dim2.hpp>
+#include <sge/renderer/vector2.hpp>
 #include <sge/renderer/context/object.hpp>
 #include <sge/renderer/texture/planar_scoped_ptr.hpp>
 #include <sge/sprite/object.hpp>
@@ -60,11 +65,12 @@ FCPPT_NONCOPYABLE(
 public:
 	SGE_GRAPH_SYMBOL
 	object(
+		sge::graph::position const &,
 		sge::image2d::dim const &,
 		sge::renderer::device &,
-		sge::image::color::any::object const &,
-		sge::image::color::any::object const &,
-		sge::graph::scalar);
+		sge::graph::foreground_color const &,
+		sge::graph::background_color const &,
+		sge::graph::baseline);
 
 	SGE_GRAPH_SYMBOL
 	void
@@ -114,7 +120,7 @@ private:
 			sprite_choices
 		>
 	> sprite_buffers_type;
-	
+
 	typedef
 	boost::circular_buffer<
 		sge::graph::scalar
