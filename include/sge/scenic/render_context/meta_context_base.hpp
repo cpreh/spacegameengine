@@ -1,12 +1,13 @@
 #ifndef SGE_SCENIC_RENDER_CONTEXT_META_CONTEXT_BASE_HPP_INCLUDED
 #define SGE_SCENIC_RENDER_CONTEXT_META_CONTEXT_BASE_HPP_INCLUDED
 
-#include <sge/renderer/device_fwd.hpp>
-#include <sge/scenic/symbol.hpp>
-#include <sge/renderer/context/object_fwd.hpp>
 #include <sge/class_symbol.hpp>
+#include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/context/object_fwd.hpp>
+#include <sge/scenic/symbol.hpp>
 #include <sge/scenic/render_context/base_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
+
 
 namespace sge
 {

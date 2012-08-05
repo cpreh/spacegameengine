@@ -1,8 +1,9 @@
 #ifndef SGE_GRAPH_FOREGROUND_COLOR_HPP_INCLUDED
 #define SGE_GRAPH_FOREGROUND_COLOR_HPP_INCLUDED
 
-#include <fcppt/strong_typedef.hpp>
 #include <sge/image/color/any/object.hpp>
+#include <fcppt/strong_typedef.hpp>
+
 
 namespace sge
 {

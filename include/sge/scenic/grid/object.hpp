@@ -1,18 +1,17 @@
 #ifndef SGE_SCENIC_GRID_OBJECT_HPP_INCLUDED
 #define SGE_SCENIC_GRID_OBJECT_HPP_INCLUDED
 
-#include <sge/renderer/device_fwd.hpp>
-#include <sge/scenic/grid/rect.hpp>
 #include <sge/camera/base_fwd.hpp>
-#include <sge/scenic/symbol.hpp>
-#include <sge/renderer/context/object_fwd.hpp>
-#include <sge/scenic/grid/orientation.hpp>
 #include <sge/image/color/any/object.hpp>
-#include <sge/image/color/any/object.hpp>
-#include <sge/scenic/grid/depth_test.hpp>
-#include <sge/scenic/grid/spacing.hpp>
-#include <sge/scenic/grid/distance_to_origin.hpp>
 #include <sge/line_drawer/object.hpp>
+#include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/context/object_fwd.hpp>
+#include <sge/scenic/symbol.hpp>
+#include <sge/scenic/grid/depth_test.hpp>
+#include <sge/scenic/grid/distance_to_origin.hpp>
+#include <sge/scenic/grid/orientation.hpp>
+#include <sge/scenic/grid/rect.hpp>
+#include <sge/scenic/grid/spacing.hpp>
 
 
 namespace sge

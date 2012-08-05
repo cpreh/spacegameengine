@@ -1,15 +1,21 @@
-#include <sge/scenic/grid/object.hpp>
-#include <sge/line_drawer/scoped_lock.hpp>
-#include <sge/renderer/state/depth_func.hpp>
 #include <sge/camera/base.hpp>
-#include <sge/renderer/state/scoped.hpp>
-#include <sge/renderer/state/list.hpp>
-#include <sge/renderer/scoped_transform.hpp>
-#include <sge/camera/matrix_conversion/world.hpp>
 #include <sge/camera/coordinate_system/object.hpp>
-#include <cstddef>
+#include <sge/camera/matrix_conversion/world.hpp>
+#include <sge/line_drawer/scoped_lock.hpp>
+#include <sge/renderer/scoped_transform.hpp>
+#include <sge/renderer/context/object.hpp>
+#include <sge/renderer/state/depth_func.hpp>
+#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/state/scoped.hpp>
+#include <sge/renderer/target/base.hpp>
+#include <sge/renderer/target/viewport_size.hpp>
+#include <sge/scenic/grid/object.hpp>
 #include <fcppt/math/size_type.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <cstddef>
 #include <iostream>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace
 {
@@ -114,6 +120,11 @@ sge::scenic::grid::object::render(
 	sge::renderer::context::object &_context,
 	sge::scenic::grid::depth_test const &_depth_test)
 {
+	if(
+		!sge::renderer::target::viewport_size(
+			_context.target()).content())
+		return;
+
 	sge::renderer::state::scoped scoped_state(
 		_context,
 		sge::renderer::state::list

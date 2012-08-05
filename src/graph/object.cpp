@@ -33,9 +33,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/object.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/dim2.hpp>
-#include <sge/renderer/vector2.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
+#include <sge/renderer/vector2.hpp>
 #include <sge/renderer/context/object.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/planar.hpp>
@@ -49,8 +49,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/math/clamp.hpp>
-#include <fcppt/config/external_begin.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/circular_buffer.hpp>
 #include <boost/algorithm/minmax_element.hpp>
 #include <algorithm>

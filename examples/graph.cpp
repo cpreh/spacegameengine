@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/graph/object.hpp>
-#include <sge/graph/foreground_color.hpp>
 #include <sge/graph/background_color.hpp>
 #include <sge/graph/baseline.hpp>
+#include <sge/graph/foreground_color.hpp>
+#include <sge/graph/object.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/log/global.hpp>

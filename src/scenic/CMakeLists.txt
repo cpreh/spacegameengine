@@ -5,11 +5,13 @@ set(
 	include/sge/scenic/exception.hpp
 	include/sge/scenic/fog/color.hpp
 	include/sge/scenic/fog/end.hpp
+	include/sge/scenic/fog/optional_properties.hpp
 	include/sge/scenic/fog/properties.hpp
 	include/sge/scenic/fog/properties_fwd.hpp
 	include/sge/scenic/fog/start.hpp
 	include/sge/scenic/grid/depth_test.hpp
 	include/sge/scenic/grid/dim.hpp
+	include/sge/scenic/grid/distance_to_origin.hpp
 	include/sge/scenic/grid/object.hpp
 	include/sge/scenic/grid/object_fwd.hpp
 	include/sge/scenic/grid/orientation.hpp
@@ -23,6 +25,17 @@ set(
 	include/sge/scenic/mesh_sequence.hpp
 	include/sge/scenic/model_base_path.hpp
 	include/sge/scenic/position.hpp
+	include/sge/scenic/render_context/base.hpp
+	include/sge/scenic/render_context/base_fwd.hpp
+	include/sge/scenic/render_context/base_scoped_ptr.hpp
+	include/sge/scenic/render_context/base_unique_ptr.hpp
+	include/sge/scenic/render_context/create_meta_context.hpp
+	include/sge/scenic/render_context/ffp/context.hpp
+	include/sge/scenic/render_context/ffp/meta_context.hpp
+	include/sge/scenic/render_context/meta_context_base.hpp
+	include/sge/scenic/render_context/meta_context_base_fwd.hpp
+	include/sge/scenic/render_context/meta_context_base_scoped_ptr.hpp
+	include/sge/scenic/render_context/meta_context_base_unique_ptr.hpp
 	include/sge/scenic/rotation.hpp
 	include/sge/scenic/scale.hpp
 	include/sge/scenic/scene/from_blender_file.hpp
@@ -39,6 +52,10 @@ set(
 	src/scenic/fog/properties.cpp
 	src/scenic/grid/object.cpp
 	src/scenic/mesh.cpp
+	src/scenic/render_context/base.cpp
+	src/scenic/render_context/ffp/context.cpp
+	src/scenic/render_context/ffp/meta_context.cpp
+	src/scenic/render_context/meta_context_base.cpp
 	src/scenic/scene/camera_properties.cpp
 	src/scenic/scene/from_blender_file.cpp
 	src/scenic/scene/manager.cpp

@@ -17,12 +17,11 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-
 #include <sge/camera/coordinate_system/identity.hpp>
 #include <sge/camera/first_person/object.hpp>
 #include <sge/camera/first_person/parameters.hpp>
-#include <sge/scenic/grid/object.hpp>
 #include <sge/config/media_path.hpp>
+#include <sge/graph/object.hpp>
 #include <sge/image/capabilities_field.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/media/extension.hpp>
@@ -41,6 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/target/onscreen.hpp>
+#include <sge/scenic/grid/object.hpp>
 #include <sge/scenic/scene/manager.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/image2d.hpp>
@@ -176,12 +176,34 @@ try
 			0.0f),
 		sge::image::colors::white());
 
+	sge::graph::object graph(
+		sge::graph::position(
+			sge::renderer::vector2(
+				0.0f,
+				0.0f)),
+		sge::image2d::dim(
+			256u,
+			64u),
+		sys.renderer(),
+		sge::graph::foreground_color(
+			sge::image::colors::white()),
+		sge::graph::background_color(
+			sge::image::colors::darkslategray()),
+		sge::graph::baseline(
+			1.0f/60.0f));
+
 	while(
 		sys.window_system().poll())
 	{
-		camera.update(
+		sge::camera::update_duration const difference_since_last_frame(
 			sge::timer::elapsed_and_reset<sge::camera::update_duration>(
 				camera_timer));
+
+		camera.update(
+			difference_since_last_frame);
+
+		graph.push(
+			difference_since_last_frame.count());
 
 		sge::renderer::context::scoped const scoped_block(
 			sys.renderer(),
@@ -201,6 +223,9 @@ try
 			scoped_block.get(),
 			sge::scenic::grid::depth_test(
 				true));
+
+		graph.render(
+			scoped_block.get());
 	}
 
 	return

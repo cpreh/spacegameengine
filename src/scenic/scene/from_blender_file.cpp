@@ -19,10 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/camera/coordinate_system/object.hpp>
-#include <sge/image/color/init.hpp>
-#include <sge/scenic/exception.hpp>
-#include <sge/image/color/rgb32f.hpp>
 #include <sge/image/colors.hpp>
+#include <sge/image/color/init.hpp>
+#include <sge/image/color/rgb32f.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/object.hpp>
@@ -30,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/vector4.hpp>
-#include <fcppt/math/vector/output.hpp>
+#include <sge/scenic/exception.hpp>
 #include <sge/scenic/mesh.hpp>
 #include <sge/scenic/scene/from_blender_file.hpp>
 #include <sge/scenic/scene/prototype.hpp>
@@ -48,6 +47,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/narrow_cast.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
+#include <fcppt/math/vector/output.hpp>
 
 
 namespace

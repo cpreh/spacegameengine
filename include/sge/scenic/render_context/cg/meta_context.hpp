@@ -1,5 +1,5 @@
-#ifndef SGE_SCENIC_RENDER_CONTEXT_FFP_META_CONTEXT_HPP_INCLUDED
-#define SGE_SCENIC_RENDER_CONTEXT_FFP_META_CONTEXT_HPP_INCLUDED
+#ifndef SGE_SCENIC_RENDER_CONTEXT_CG_META_CONTEXT_HPP_INCLUDED
+#define SGE_SCENIC_RENDER_CONTEXT_CG_META_CONTEXT_HPP_INCLUDED
 
 #include <sge/scenic/symbol.hpp>
 #include <sge/scenic/render_context/meta_context_base.hpp>
@@ -12,7 +12,7 @@ namespace scenic
 {
 namespace render_context
 {
-namespace ffp
+namespace cg
 {
 class meta_context
 :
@@ -32,6 +32,7 @@ public:
 
 	SGE_SCENIC_SYMBOL
 	~meta_context();
+private:
 };
 }
 }

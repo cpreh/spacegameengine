@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/coordinate_system/object.hpp>
 #include <sge/camera/first_person/object.hpp>
 #include <sge/camera/matrix_conversion/world.hpp>
+#include <sge/image/colors.hpp>
 #include <sge/model/obj/instance.hpp>
 #include <sge/model/obj/parse_mtllib.hpp>
 #include <sge/model/obj/prototype.hpp>
@@ -29,7 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/scoped_transform.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
-#include <sge/image/colors.hpp>
 #include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/vertex_declaration.hpp>
@@ -46,13 +46,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/viewport_size.hpp>
 #include <sge/renderer/texture/scoped.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
+#include <sge/scenic/exception.hpp>
 #include <sge/scenic/scene/from_blender_file.hpp>
 #include <sge/scenic/scene/manager.hpp>
 #include <sge/scenic/scene/prototype.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/scoped_ptr.hpp>
-#include <sge/scenic/exception.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
@@ -103,7 +103,7 @@ sge::scenic::scene::manager::manager(
 	this->load_meshes(
 		_renderer);
 
-	_camera.update_coordinate_system(
+	camera_.update_coordinate_system(
 		prototype_->camera().coordinate_system());
 }
 

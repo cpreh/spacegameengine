@@ -1,8 +1,9 @@
 #ifndef SGE_GRAPH_POSITION_HPP_INCLUDED
 #define SGE_GRAPH_POSITION_HPP_INCLUDED
 
-#include <fcppt/strong_typedef.hpp>
 #include <sge/renderer/vector2.hpp>
+#include <fcppt/strong_typedef.hpp>
+
 
 namespace sge
 {
