@@ -193,11 +193,11 @@ set(
 	include/sge/sprite/detail/process/is_same_geometry_options.hpp
 	include/sge/sprite/detail/render/inner.hpp
 	include/sge/sprite/detail/render/is_same_matrix_options.hpp
-	include/sge/sprite/detail/render/matrices.hpp
 	include/sge/sprite/detail/render/normal_states.hpp
 	include/sge/sprite/detail/render/range.hpp
 	include/sge/sprite/detail/render/range_object.hpp
 	include/sge/sprite/detail/render/range_part_object.hpp
+	include/sge/sprite/detail/render/scoped_matrices.hpp
 	include/sge/sprite/detail/render/scoped_states.hpp
 	include/sge/sprite/detail/render/scoped_vertex.hpp
 	include/sge/sprite/detail/render/scoped_vertex_declaration.hpp
@@ -296,10 +296,11 @@ set(
 	include/sge/sprite/projection_matrix.hpp
 	include/sge/sprite/rect.hpp
 	include/sge/sprite/render/default_options.hpp
-	include/sge/sprite/render/is_options.hpp
 	include/sge/sprite/render/matrix_options.hpp
 	include/sge/sprite/render/options.hpp
+	include/sge/sprite/render/options_decl.hpp
 	include/sge/sprite/render/options_fwd.hpp
+	include/sge/sprite/render/options_impl.hpp
 	include/sge/sprite/render/parameters.hpp
 	include/sge/sprite/render/parameters_fwd.hpp
 	include/sge/sprite/render/range_decl.hpp
@@ -345,16 +346,16 @@ set(
 	include/sge/sprite/types/texture_point_pos.hpp
 	include/sge/sprite/types/texture_point_size.hpp
 	include/sge/sprite/types/vector.hpp
+	include/sge/sprite/unset_matrices.hpp
 	include/sge/sprite/vector.hpp
 	include/sge/sprite/vertex_format.hpp
 	src/sprite/buffers/option_to_resource_flags.cpp
 	src/sprite/buffers/parameters.cpp
 	src/sprite/detail/render/normal_states.cpp
-	src/sprite/detail/render/scoped_vertex.cpp
-	src/sprite/detail/render/scoped_vertex_declaration.cpp
 	src/sprite/projection_matrix.cpp
 	src/sprite/render/parameters.cpp
 	src/sprite/set_matrices.cpp
+	src/sprite/unset_matrices.cpp
 )
 
 add_sge_base_library(

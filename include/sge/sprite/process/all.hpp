@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/context/object_fwd.hpp>
 #include <sge/sprite/process/default_options.hpp>
 #include <sge/sprite/process/with_options.hpp>
+#include <sge/sprite/render/default_options.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iterator>
 #include <fcppt/config/external_end.hpp>
@@ -60,7 +61,8 @@ all(
 		_render_context,
 		_range,
 		_buffers,
-		_compare
+		_compare,
+		sge::sprite::render::default_options()
 	);
 }
 

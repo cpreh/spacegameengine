@@ -23,6 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text.hpp>
 #include <sge/font/text_parameters.hpp>
 #include <sge/font/vector.hpp>
+#include <sge/font/draw/set_matrices_fwd.hpp>
+#include <sge/font/draw/set_states_fwd.hpp>
 #include <sge/image/color/a8.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image/color/init.hpp>
@@ -97,22 +99,32 @@ sge::font::draw::detail::static_text_impl::~static_text_impl()
 
 void
 sge::font::draw::detail::static_text_impl::draw(
-	sge::renderer::context::object &_context
+	sge::renderer::context::object &_context,
+	sge::font::draw::set_matrices const &_set_matrices,
+	sge::font::draw::set_states const &_set_states
 )
 {
-	// TODO: make it possible to render this differently
-	sge::sprite::render::range_with_options<
-		sge::sprite::render::options<
-			sge::sprite::render::matrix_options::set,
-			sge::sprite::render::state_options::set,
-			sge::sprite::render::vertex_options::declaration_and_buffer
-		>
-	>(
+	sge::sprite::render::range_with_options(
 		sge::sprite::render::parameters(
 			_context,
 			sprite_buffers_.parameters().vertex_declaration()
 		),
-		sprite_range_
+		sprite_range_,
+		sge::sprite::render::options(
+			_set_matrices.get()
+			?
+				sge::sprite::render::matrix_options::set
+			:
+				sge::sprite::render::matrix_options::nothing
+			,
+			_set_states.get()
+			?
+				sge::sprite::render::state_options::set
+			:
+				sge::sprite::render::state_options::nothing
+			,
+			sge::sprite::render::vertex_options::declaration_and_buffer
+		)
 	);
 }
 

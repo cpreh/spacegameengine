@@ -61,17 +61,17 @@ ordered(
 			sge::sprite::process::default_geometry_options<
 				Choices,
 				Compare
-			>::value,
-			sge::sprite::render::options<
-				sge::sprite::render::matrix_options::set,
-				sge::sprite::render::state_options::set,
-				sge::sprite::render::vertex_options::declaration
-			>
+			>::value
 		>
 	>(
 		_collection,
 		_buffers,
-		_compare
+		_compare,
+		sge::sprite::render::options(
+			sge::sprite::render::matrix_options::set,
+			sge::sprite::render::state_options::set,
+			sge::sprite::render::vertex_options::declaration
+		)
 	);
 }
 

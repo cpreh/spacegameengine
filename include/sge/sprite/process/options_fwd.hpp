@@ -32,8 +32,7 @@ namespace process
 {
 
 template<
-	sge::sprite::process::geometry_options::type,
-	typename RenderOptions
+	sge::sprite::process::geometry_options::type
 >
 struct options;
 

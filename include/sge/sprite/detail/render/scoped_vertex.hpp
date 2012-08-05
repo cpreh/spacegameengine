@@ -21,12 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_RENDER_SCOPED_VERTEX_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_RENDER_SCOPED_VERTEX_HPP_INCLUDED
 
-#include <sge/renderer/scoped_vertex_buffer.hpp>
-#include <sge/renderer/scoped_vertex_declaration.hpp>
-#include <sge/renderer/scoped_vertex_declaration_and_buffers.hpp>
 #include <sge/renderer/vertex_buffer_fwd.hpp>
-#include <sge/sprite/symbol.hpp>
-#include <sge/sprite/render/parameters_fwd.hpp>
+#include <sge/renderer/context/object.hpp>
+#include <sge/sprite/detail/render/scoped_vertex_declaration.hpp>
+#include <sge/sprite/render/parameters.hpp>
 #include <sge/sprite/render/vertex_options.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -40,91 +38,63 @@ namespace detail
 namespace render
 {
 
-template<
-	sge::sprite::render::vertex_options::type Options
->
-class scoped_vertex;
-
-template<>
-class scoped_vertex<
-	sge::sprite::render::vertex_options::nothing
->
+class scoped_vertex
 {
 	FCPPT_NONCOPYABLE(
 		scoped_vertex
 	);
 public:
-	SGE_SPRITE_SYMBOL
 	scoped_vertex(
-		sge::sprite::render::parameters const &,
-		sge::renderer::vertex_buffer const &
-	);
+		sge::sprite::render::parameters const &_parameters,
+		sge::renderer::vertex_buffer const &_vertex_buffer,
+		sge::sprite::render::vertex_options::type const &_options
+	)
+	:
+		scoped_vertex_declaration_(
+			_parameters,
+			_options
+		),
+		render_context_(
+			_parameters.render_context()
+		),
+		vertex_buffer_(
+			_vertex_buffer
+		),
+		set_buffer_(
+			_options
+			==
+			sge::sprite::render::vertex_options::buffer
+			||
+			_options
+			==
+			sge::sprite::render::vertex_options::declaration_and_buffer
+		)
+	{
+		if(
+			set_buffer_
+		)
+			render_context_.activate_vertex_buffer(
+				vertex_buffer_
+			);
+	}
 
-	SGE_SPRITE_SYMBOL
-	~scoped_vertex();
-};
-
-template<>
-class scoped_vertex<
-	sge::sprite::render::vertex_options::declaration
->
-{
-	FCPPT_NONCOPYABLE(
-		scoped_vertex
-	);
-public:
-	SGE_SPRITE_SYMBOL
-	scoped_vertex(
-		sge::sprite::render::parameters const &,
-		sge::renderer::vertex_buffer const &
-	);
-
-	SGE_SPRITE_SYMBOL
-	~scoped_vertex();
+	~scoped_vertex()
+	{
+		if(
+			set_buffer_
+		)
+			render_context_.deactivate_vertex_buffer(
+				vertex_buffer_
+			);
+	}
 private:
-	sge::renderer::scoped_vertex_declaration const vertex_declaration_;
-};
+	sge::sprite::detail::render::scoped_vertex_declaration const scoped_vertex_declaration_;
 
-template<>
-class scoped_vertex<
-	sge::sprite::render::vertex_options::buffer
->
-{
-	FCPPT_NONCOPYABLE(
-		scoped_vertex
-	);
-public:
-	SGE_SPRITE_SYMBOL
-	scoped_vertex(
-		sge::sprite::render::parameters const &,
-		sge::renderer::vertex_buffer const &
-	);
+	sge::renderer::context::object &render_context_;
 
-	SGE_SPRITE_SYMBOL
-	~scoped_vertex();
-private:
-	sge::renderer::scoped_vertex_buffer const vertex_buffer_;
-};
+	sge::renderer::vertex_buffer const &vertex_buffer_;
 
-template<>
-class scoped_vertex<
-	sge::sprite::render::vertex_options::declaration_and_buffer
->
-{
-	FCPPT_NONCOPYABLE(
-		scoped_vertex
-	);
-public:
-	SGE_SPRITE_SYMBOL
-	scoped_vertex(
-		sge::sprite::render::parameters const &,
-		sge::renderer::vertex_buffer const &
-	);
-
-	SGE_SPRITE_SYMBOL
-	~scoped_vertex();
-private:
-	sge::renderer::scoped_vertex_declaration_and_buffers const vertex_declaration_and_buffers_;
+	bool const set_buffer_;
 };
 
 }

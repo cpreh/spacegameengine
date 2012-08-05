@@ -284,8 +284,6 @@ update_plugin dinput
 
 update_plugin evdev
 
-update_plugin freetype
-
 update_plugin libpng
 
 update_plugin openal

@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_RENDER_SCOPED_VERTEX_DECLARATION_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_RENDER_SCOPED_VERTEX_DECLARATION_HPP_INCLUDED
 
-#include <sge/renderer/scoped_vertex_declaration.hpp>
-#include <sge/sprite/symbol.hpp>
-#include <sge/sprite/render/parameters_fwd.hpp>
+#include <sge/renderer/const_optional_vertex_declaration_ref.hpp>
+#include <sge/renderer/context/object.hpp>
+#include <sge/sprite/render/parameters.hpp>
 #include <sge/sprite/render/vertex_options.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -37,49 +37,53 @@ namespace detail
 namespace render
 {
 
-template<
-	sge::sprite::render::vertex_options::type Options
->
-class scoped_vertex_declaration;
-
-template<>
-class scoped_vertex_declaration<
-	sge::sprite::render::vertex_options::nothing
->
+class scoped_vertex_declaration
 {
 	FCPPT_NONCOPYABLE(
 		scoped_vertex_declaration
 	);
 public:
-	SGE_SPRITE_SYMBOL
-	explicit
 	scoped_vertex_declaration(
-		sge::sprite::render::parameters const &
-	);
+		sge::sprite::render::parameters const &_parameters,
+		sge::sprite::render::vertex_options::type const &_options
+	)
+	:
+		render_context_(
+			_parameters.render_context()
+		),
+		set_declaration_(
+			_options
+			==
+			sge::sprite::render::vertex_options::declaration
+			||
+			_options
+			==
+			sge::sprite::render::vertex_options::declaration_and_buffer
+		)
+	{
+		if(
+			set_declaration_
+		)
+			render_context_.vertex_declaration(
+				sge::renderer::const_optional_vertex_declaration_ref(
+					_parameters.vertex_declaration()
+				)
+			);
+	}
 
-	SGE_SPRITE_SYMBOL
-	~scoped_vertex_declaration();
-};
-
-template<>
-class scoped_vertex_declaration<
-	sge::sprite::render::vertex_options::declaration
->
-{
-	FCPPT_NONCOPYABLE(
-		scoped_vertex_declaration
-	);
-public:
-	SGE_SPRITE_SYMBOL
-	explicit
-	scoped_vertex_declaration(
-		sge::sprite::render::parameters const &
-	);
-
-	SGE_SPRITE_SYMBOL
-	~scoped_vertex_declaration();
+	~scoped_vertex_declaration()
+	{
+		if(
+			set_declaration_
+		)
+			render_context_.vertex_declaration(
+				sge::renderer::const_optional_vertex_declaration_ref()
+			);
+	}
 private:
-	sge::renderer::scoped_vertex_declaration const vertex_declaration_;
+	sge::renderer::context::object &render_context_;
+
+	bool const set_declaration_;
 };
 
 }

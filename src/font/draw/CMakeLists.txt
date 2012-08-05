@@ -1,6 +1,10 @@
 set(
 	SGE_FONTDRAW_FILES
 	include/sge/font/draw/detail/static_text_impl_fwd.hpp
+	include/sge/font/draw/set_matrices.hpp
+	include/sge/font/draw/set_matrices_fwd.hpp
+	include/sge/font/draw/set_states.hpp
+	include/sge/font/draw/set_states_fwd.hpp
 	include/sge/font/draw/simple.hpp
 	include/sge/font/draw/static_text.hpp
 	include/sge/font/draw/static_text_fwd.hpp

@@ -23,17 +23,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/context/object_fwd.hpp>
 #include <sge/sprite/buffers/parameters.hpp>
-#include <sge/sprite/detail/render/matrices.hpp>
+#include <sge/sprite/detail/render/scoped_matrices.hpp>
 #include <sge/sprite/detail/render/scoped_states.hpp>
 #include <sge/sprite/detail/render/scoped_vertex_declaration.hpp>
 #include <sge/sprite/intrusive/detail/render_one.hpp>
 #include <sge/sprite/intrusive/ordered/collection_impl.hpp>
 #include <sge/sprite/process/is_options.hpp>
 #include <sge/sprite/render/parameters.hpp>
-#include <sge/sprite/render/vertex_options.hpp>
+#include <sge/sprite/render/options.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/ref.hpp>
-#include <fcppt/static_assert_expression.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
@@ -69,44 +68,33 @@ ordered_with_options(
 		Order
 	> &_collection,
 	Buffers &_buffers,
-	Compare const &_compare
+	Compare const &_compare,
+	sge::sprite::render::options const &_render_options
 )
 {
-	FCPPT_STATIC_ASSERT_EXPRESSION(
-		Options::render_options::vertex_options
-		== sge::sprite::render::vertex_options::declaration
-		||
-		Options::render_options::vertex_options
-		== sge::sprite::render::vertex_options::nothing
-	);
-
 	typedef typename sge::sprite::intrusive::ordered::collection<
 		Choices,
 		Order
 	>::collection_base collection;
 
-	typedef typename Options::render_options render_options;
-
-	sge::sprite::detail::render::matrices<
-		render_options::matrix_options
-	>(
-		_render_context
+	sge::sprite::detail::render::scoped_matrices const scoped_matrices(
+		_render_context,
+		_render_options.matrix_options()
 	);
 
 	sge::sprite::detail::render::scoped_states<
-		Choices,
-		render_options::state_options
-	> const states(
-		_render_context
+		Choices
+	> const scoped_states(
+		_render_context,
+		_render_options.state_options()
 	);
 
-	sge::sprite::detail::render::scoped_vertex_declaration<
-		render_options::vertex_options
-	> const vertex(
+	sge::sprite::detail::render::scoped_vertex_declaration const scoped_vertex_declaration(
 		sge::sprite::render::parameters(
 			_render_context,
 			_buffers.parameters().vertex_declaration()
-		)
+		),
+		_render_options.vertex_options()
 	);
 
 	_collection.for_each(

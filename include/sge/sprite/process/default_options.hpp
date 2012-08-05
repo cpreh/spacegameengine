@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/process/default_geometry_options.hpp>
 #include <sge/sprite/process/options.hpp>
-#include <sge/sprite/render/default_options.hpp>
 
 
 namespace sge
@@ -43,8 +42,7 @@ struct default_options
 		sge::sprite::process::default_geometry_options<
 			Choices,
 			Compare
-		>::value,
-		sge::sprite::render::default_options
+		>::value
 	> type;
 };
 

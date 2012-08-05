@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/process/geometry_options.hpp>
 #include <sge/sprite/process/one_with_options.hpp>
 #include <sge/sprite/process/options.hpp>
-#include <sge/sprite/process/with_options.hpp>
 #include <sge/sprite/render/default_options.hpp>
 
 
@@ -52,13 +51,13 @@ one(
 {
 	sge::sprite::process::one_with_options<
 		sge::sprite::process::options<
-			sge::sprite::process::geometry_options::update,
-			sge::sprite::render::default_options
+			sge::sprite::process::geometry_options::update
 		>
 	>(
 		_render_context,
 		_sprite,
-		_buffers
+		_buffers,
+		sge::sprite::render::default_options()
 	);
 }
 

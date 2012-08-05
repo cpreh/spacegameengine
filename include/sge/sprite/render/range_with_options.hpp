@@ -21,16 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_RENDER_RANGE_WITH_OPTIONS_HPP_INCLUDED
 #define SGE_SPRITE_RENDER_RANGE_WITH_OPTIONS_HPP_INCLUDED
 
-#include <sge/sprite/detail/render/matrices.hpp>
 #include <sge/sprite/detail/render/range.hpp>
+#include <sge/sprite/detail/render/scoped_matrices.hpp>
 #include <sge/sprite/detail/render/scoped_states.hpp>
 #include <sge/sprite/detail/render/scoped_vertex.hpp>
-#include <sge/sprite/render/is_options.hpp>
+#include <sge/sprite/render/options_impl.hpp>
 #include <sge/sprite/render/parameters.hpp>
 #include <sge/sprite/render/range_impl.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -41,20 +38,15 @@ namespace render
 {
 
 template<
-	typename Options,
 	typename Choices
 >
-typename boost::enable_if<
-	sge::sprite::render::is_options<
-		Options
-	>,
-	void
->::type
+void
 range_with_options(
 	sge::sprite::render::parameters const &_parameters,
 	sge::sprite::render::range<
 		Choices
-	> const &_range
+	> const &_range,
+	sge::sprite::render::options const &_options
 )
 {
 	if(
@@ -62,24 +54,22 @@ range_with_options(
 	)
 		return;
 
-	sge::sprite::detail::render::matrices<
-		Options::matrix_options
-	>(
-		_parameters.render_context()
+	sge::sprite::detail::render::scoped_matrices const matrices(
+		_parameters.render_context(),
+		_options.matrix_options()
 	);
 
 	sge::sprite::detail::render::scoped_states<
-		Choices,
-		Options::state_options
-	> const states(
-		_parameters.render_context()
+		Choices
+	> const scoped_states(
+		_parameters.render_context(),
+		_options.state_options()
 	);
 
-	sge::sprite::detail::render::scoped_vertex<
-		Options::vertex_options
-	> const vertex(
+	sge::sprite::detail::render::scoped_vertex const scoped_vertex(
 		_parameters,
-		_range.vertex_buffer()
+		_range.vertex_buffer(),
+		_options.vertex_options()
 	);
 
 	sge::sprite::detail::render::range(

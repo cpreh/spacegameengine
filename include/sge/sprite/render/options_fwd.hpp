@@ -21,10 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_RENDER_OPTIONS_FWD_HPP_INCLUDED
 #define SGE_SPRITE_RENDER_OPTIONS_FWD_HPP_INCLUDED
 
-#include <sge/sprite/render/matrix_options.hpp>
-#include <sge/sprite/render/state_options.hpp>
-#include <sge/sprite/render/vertex_options.hpp>
-
 
 namespace sge
 {
@@ -33,12 +29,7 @@ namespace sprite
 namespace render
 {
 
-template<
-	sge::sprite::render::matrix_options::type,
-	sge::sprite::render::state_options::type,
-	sge::sprite::render::vertex_options::type
->
-struct options;
+class options;
 
 }
 }

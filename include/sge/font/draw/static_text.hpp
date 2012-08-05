@@ -25,6 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/string.hpp>
 #include <sge/font/text_parameters_fwd.hpp>
 #include <sge/font/vector_fwd.hpp>
+#include <sge/font/draw/set_matrices_fwd.hpp>
+#include <sge/font/draw/set_states_fwd.hpp>
 #include <sge/font/draw/static_text_fwd.hpp>
 #include <sge/font/draw/symbol.hpp>
 #include <sge/font/draw/detail/static_text_impl_fwd.hpp>
@@ -65,6 +67,14 @@ public:
 	void
 	draw(
 		sge::renderer::context::object &
+	);
+
+	SGE_FONT_DRAW_SYMBOL
+	void
+	draw_advanced(
+		sge::renderer::context::object &,
+		sge::font::draw::set_matrices const &,
+		sge::font::draw::set_states const &
 	);
 
 	SGE_FONT_DRAW_SYMBOL

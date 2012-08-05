@@ -18,16 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DETAIL_RENDER_MATRICES_HPP_INCLUDED
-#define SGE_SPRITE_DETAIL_RENDER_MATRICES_HPP_INCLUDED
+#ifndef SGE_SPRITE_DETAIL_RENDER_SCOPED_MATRICES_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_RENDER_SCOPED_MATRICES_HPP_INCLUDED
 
 #include <sge/renderer/context/object_fwd.hpp>
 #include <sge/sprite/set_matrices.hpp>
-#include <sge/sprite/detail/render/is_same_matrix_options.hpp>
+#include <sge/sprite/unset_matrices.hpp>
 #include <sge/sprite/render/matrix_options.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/noncopyable.hpp>
 
 
 namespace sge
@@ -39,40 +37,48 @@ namespace detail
 namespace render
 {
 
-template<
-	sge::sprite::render::matrix_options::type Options
->
-typename boost::enable_if<
-	sge::sprite::detail::render::is_same_matrix_options<
-		Options,
-		sge::sprite::render::matrix_options::set
-	>,
-	void
->::type
-matrices(
-	sge::renderer::context::object &_render_context
-)
+class scoped_matrices
 {
-	sge::sprite::set_matrices(
-		_render_context
+	FCPPT_NONCOPYABLE(
+		scoped_matrices
 	);
-}
+public:
+	scoped_matrices(
+		sge::renderer::context::object &_render_context,
+		sge::sprite::render::matrix_options::type const _options
+	)
+	:
+		render_context_(
+			_render_context
+		),
+		set_matrices_(
+			_options
+			==
+			sge::sprite::render::matrix_options::set
+		)
+	{
+		if(
+			set_matrices_
+		)
+			sge::sprite::set_matrices(
+				render_context_
+			);
+	}
 
-template<
-	sge::sprite::render::matrix_options::type Options
->
-typename boost::enable_if<
-	sge::sprite::detail::render::is_same_matrix_options<
-		Options,
-		sge::sprite::render::matrix_options::nothing
-	>,
-	void
->::type
-matrices(
-	sge::renderer::context::object &
-)
-{
-}
+	~scoped_matrices()
+	{
+		if(
+			set_matrices_
+		)
+			sge::sprite::unset_matrices(
+				render_context_
+			);
+	}
+private:
+	sge::renderer::context::object &render_context_;
+
+	bool const set_matrices_;
+};
 
 }
 }

@@ -697,18 +697,17 @@ try
 				current_filter->second
 			);
 
-			sge::sprite::render::range_with_options<
-				sge::sprite::render::options<
-					sge::sprite::render::matrix_options::nothing,
-					sge::sprite::render::state_options::nothing,
-					sge::sprite::render::vertex_options::declaration_and_buffer
-				>
-			>(
+			sge::sprite::render::range_with_options(
 				sge::sprite::render::parameters(
 					scoped_block.get(),
 					sprite_buffers.parameters().vertex_declaration()
 				),
-				sprite_range
+				sprite_range,
+				sge::sprite::render::options(
+					sge::sprite::render::matrix_options::nothing,
+					sge::sprite::render::state_options::nothing,
+					sge::sprite::render::vertex_options::declaration_and_buffer
+				)
 			);
 		}
 

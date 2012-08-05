@@ -21,9 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_RENDER_SCOPED_STATES_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_RENDER_SCOPED_STATES_HPP_INCLUDED
 
-#include <sge/renderer/context/object_fwd.hpp>
-#include <sge/renderer/state/list.hpp>
-#include <sge/renderer/state/scoped.hpp>
+#include <sge/renderer/context/object.hpp>
 #include <sge/sprite/detail/render/states.hpp>
 #include <sge/sprite/render/state_options.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -39,67 +37,49 @@ namespace render
 {
 
 template<
-	typename Choices,
-	sge::sprite::render::state_options::type Options
->
-class scoped_states;
-
-template<
 	typename Choices
 >
-class scoped_states<
-	Choices,
-	sge::sprite::render::state_options::set
->
+class scoped_states
 {
 	FCPPT_NONCOPYABLE(
 		scoped_states
 	);
 public:
-	explicit
 	scoped_states(
-		sge::renderer::context::object &_render_context
+		sge::renderer::context::object &_render_context,
+		sge::sprite::render::state_options::type const _options
 	)
 	:
-		states_(
-			_render_context,
-			sge::sprite::detail::render::states<
-				Choices
-			>::value
+		render_context_(
+			_render_context
+		),
+		set_states_(
+			_options
+			==
+			sge::sprite::render::state_options::set
 		)
 	{
+		if(
+			set_states_
+		)
+			render_context_.push_state(
+				sge::sprite::detail::render::states<
+					Choices
+				>::value
+			);
 	}
 
 	~scoped_states()
 	{
+		if(
+			set_states_
+		)
+			render_context_.pop_state();
 	}
 private:
-	sge::renderer::state::scoped const states_;
-};
+	sge::renderer::context::object &render_context_;
 
-
-template<
-	typename Choices
->
-class scoped_states<
-	Choices,
-	sge::sprite::render::state_options::nothing
->
-{
-	FCPPT_NONCOPYABLE(
-		scoped_states
-	);
-public:
-	explicit
-	scoped_states(
-		sge::renderer::context::object &
-	)
-	{
-	}
-
-	~scoped_states()
-	{
-	}
+	bool const set_states_;
 };
 
 }

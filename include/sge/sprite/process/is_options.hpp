@@ -51,13 +51,11 @@ boost::mpl::false_
 };
 
 template<
-	sge::sprite::process::geometry_options::type GeometryOptions,
-	typename RenderOptions
+	sge::sprite::process::geometry_options::type GeometryOptions
 >
 struct is_options<
 	sge::sprite::process::options<
-		GeometryOptions,
-		RenderOptions
+		GeometryOptions
 	>
 >
 :

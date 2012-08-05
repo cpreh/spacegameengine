@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/context/object_fwd.hpp>
 #include <sge/sprite/detail/process/geometry.hpp>
 #include <sge/sprite/process/is_options.hpp>
+#include <sge/sprite/render/options_fwd.hpp>
 #include <sge/sprite/render/parameters.hpp>
 #include <sge/sprite/render/range_with_options.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -54,12 +55,11 @@ with_options(
 	sge::renderer::context::object &_render_context,
 	Range const &_range,
 	Buffers &_buffers,
-	Compare const &_compare
+	Compare const &_compare,
+	sge::sprite::render::options const &_render_options
 )
 {
-	sge::sprite::render::range_with_options<
-		typename Options::render_options
-	>(
+	sge::sprite::render::range_with_options(
 		sge::sprite::render::parameters(
 			_render_context,
 			_buffers.parameters().vertex_declaration()
@@ -71,7 +71,8 @@ with_options(
 			_range,
 			_buffers,
 			_compare
-		)
+		),
+		_render_options
 	);
 }
 

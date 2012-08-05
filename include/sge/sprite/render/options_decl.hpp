@@ -18,19 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_RENDER_IS_OPTIONS_HPP_INCLUDED
-#define SGE_SPRITE_RENDER_IS_OPTIONS_HPP_INCLUDED
+#ifndef SGE_SPRITE_RENDER_OPTIONS_DECL_HPP_INCLUDED
+#define SGE_SPRITE_RENDER_OPTIONS_DECL_HPP_INCLUDED
 
 #include <sge/sprite/render/matrix_options.hpp>
 #include <sge/sprite/render/options_fwd.hpp>
 #include <sge/sprite/render/state_options.hpp>
 #include <sge/sprite/render/vertex_options.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/bool.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/nonassignable.hpp>
 
 
 namespace sge
@@ -40,36 +35,33 @@ namespace sprite
 namespace render
 {
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-template<
-	typename T
->
-struct is_options
-:
-boost::mpl::false_
+class options
 {
-};
+	FCPPT_NONASSIGNABLE(
+		options
+	);
+public:
+	options(
+		sge::sprite::render::matrix_options::type,
+		sge::sprite::render::state_options::type,
+		sge::sprite::render::vertex_options::type
+	);
 
-template<
-	sge::sprite::render::matrix_options::type MatrixOptions,
-	sge::sprite::render::state_options::type StateOptions,
-	sge::sprite::render::vertex_options::type VertexOptions
->
-struct is_options<
-	sge::sprite::render::options<
-		MatrixOptions,
-		StateOptions,
-		VertexOptions
-	>
->
-:
-boost::mpl::true_
-{
-};
+	sge::sprite::render::matrix_options::type
+	matrix_options() const;
 
-FCPPT_PP_POP_WARNING
+	sge::sprite::render::state_options::type
+	state_options() const;
+
+	sge::sprite::render::vertex_options::type
+	vertex_options() const;
+private:
+	sge::sprite::render::matrix_options::type const matrix_options_;
+
+	sge::sprite::render::state_options::type const state_options_;
+
+	sge::sprite::render::vertex_options::type const vertex_options_;
+};
 
 }
 }

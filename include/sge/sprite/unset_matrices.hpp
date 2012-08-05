@@ -18,12 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_RENDER_OPTIONS_HPP_INCLUDED
-#define SGE_SPRITE_RENDER_OPTIONS_HPP_INCLUDED
+#ifndef SGE_SPRITE_UNSET_MATRICES_HPP_INCLUDED
+#define SGE_SPRITE_UNSET_MATRICES_HPP_INCLUDED
 
-#include <sge/sprite/render/options_decl.hpp>
-#include <sge/sprite/render/options_fwd.hpp>
-#include <sge/sprite/render/options_impl.hpp>
+#include <sge/renderer/context/object_fwd.hpp>
+#include <sge/sprite/symbol.hpp>
 
+
+namespace sge
+{
+namespace sprite
+{
+
+SGE_SPRITE_SYMBOL
+void
+unset_matrices(
+	sge::renderer::context::object &
+);
+
+}
+}
 
 #endif

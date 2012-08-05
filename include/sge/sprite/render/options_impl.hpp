@@ -18,36 +18,53 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_RENDER_DEFAULT_OPTIONS_HPP_INCLUDED
-#define SGE_SPRITE_RENDER_DEFAULT_OPTIONS_HPP_INCLUDED
+#ifndef SGE_SPRITE_RENDER_OPTIONS_IMPL_HPP_INCLUDED
+#define SGE_SPRITE_RENDER_OPTIONS_IMPL_HPP_INCLUDED
 
 #include <sge/sprite/render/matrix_options.hpp>
-#include <sge/sprite/render/options.hpp>
+#include <sge/sprite/render/options_decl.hpp>
 #include <sge/sprite/render/state_options.hpp>
 #include <sge/sprite/render/vertex_options.hpp>
 
 
-namespace sge
+inline
+sge::sprite::render::options::options(
+	sge::sprite::render::matrix_options::type const _matrix_options,
+	sge::sprite::render::state_options::type const _state_options,
+	sge::sprite::render::vertex_options::type const _vertex_options
+)
+:
+	matrix_options_(
+		_matrix_options
+	),
+	state_options_(
+		_state_options
+	),
+	vertex_options_(
+		_vertex_options
+	)
 {
-namespace sprite
-{
-namespace render
-{
+}
 
 inline
-sge::sprite::render::options const
-default_options()
+sge::sprite::render::matrix_options::type
+sge::sprite::render::options::matrix_options() const
 {
-	return
-		sge::sprite::render::options(
-			sge::sprite::render::matrix_options::set,
-			sge::sprite::render::state_options::set,
-			sge::sprite::render::vertex_options::declaration_and_buffer
-		);
+	return matrix_options_;
 }
 
+inline
+sge::sprite::render::state_options::type
+sge::sprite::render::options::state_options() const
+{
+	return state_options_;
 }
-}
+
+inline
+sge::sprite::render::vertex_options::type
+sge::sprite::render::options::vertex_options() const
+{
+	return vertex_options_;
 }
 
 #endif

@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/sprite/projection_matrix.hpp>
 #include <sge/sprite/set_matrices.hpp>
-#include <fcppt/math/matrix/object_impl.hpp>
 
 
 void

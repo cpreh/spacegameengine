@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/string.hpp>
 #include <sge/font/text_parameters_fwd.hpp>
 #include <sge/font/vector_fwd.hpp>
+#include <sge/font/draw/set_matrices.hpp>
+#include <sge/font/draw/set_states.hpp>
 #include <sge/font/draw/static_text.hpp>
 #include <sge/image/color/any/object_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
@@ -82,8 +84,28 @@ sge::font::draw::static_text::draw(
 	sge::renderer::context::object &_context
 )
 {
+	this->draw_advanced(
+		_context,
+		sge::font::draw::set_matrices(
+			true
+		),
+		sge::font::draw::set_states(
+			true
+		)
+	);
+}
+
+void
+sge::font::draw::static_text::draw_advanced(
+	sge::renderer::context::object &_context,
+	sge::font::draw::set_matrices const &_set_matrices,
+	sge::font::draw::set_states const &_set_states
+)
+{
 	impl_->draw(
-		_context
+		_context,
+		_set_matrices,
+		_set_states
 	);
 }
 

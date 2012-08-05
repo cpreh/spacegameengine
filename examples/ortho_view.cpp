@@ -337,13 +337,14 @@ try
 			>()
 		);
 
+		sge::sprite::render::options const render_options(
+			sge::sprite::render::matrix_options::nothing,
+			sge::sprite::render::state_options::nothing,
+			sge::sprite::render::vertex_options::declaration_and_buffer
+		);
+
 		typedef sge::sprite::process::options<
-			sge::sprite::process::geometry_options::update,
-			sge::sprite::render::options<
-				sge::sprite::render::matrix_options::nothing,
-				sge::sprite::render::state_options::nothing,
-				sge::sprite::render::vertex_options::declaration_and_buffer
-			>
+			sge::sprite::process::geometry_options::update
 		> sprite_options;
 
 		sge::sprite::process::one_with_options<
@@ -351,7 +352,8 @@ try
 		>(
 			scoped_block.get(),
 			background,
-			sprite_buffers
+			sprite_buffers,
+			render_options
 		);
 
 		sge::sprite::process::one_with_options<
@@ -359,7 +361,8 @@ try
 		>(
 			scoped_block.get(),
 			tux,
-			sprite_buffers
+			sprite_buffers,
+			render_options
 		);
 	}
 

@@ -23,10 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/process/geometry_options.hpp>
 #include <sge/sprite/process/options_fwd.hpp>
-#include <sge/sprite/render/matrix_options.hpp>
-#include <sge/sprite/render/options_fwd.hpp>
-#include <sge/sprite/render/state_options.hpp>
-#include <sge/sprite/render/vertex_options.hpp>
 
 
 namespace sge
@@ -37,28 +33,12 @@ namespace process
 {
 
 template<
-	sge::sprite::process::geometry_options::type GeometryOptions,
-	sge::sprite::render::matrix_options::type MatrixOptions,
-	sge::sprite::render::state_options::type StateOptions,
-	sge::sprite::render::vertex_options::type VertexOptions
+	sge::sprite::process::geometry_options::type GeometryOptions
 >
-struct options<
-	GeometryOptions,
-	sge::sprite::render::options<
-		MatrixOptions,
-		StateOptions,
-		VertexOptions
-	>
->
+struct options
 {
 	static sge::sprite::process::geometry_options::type const
 	geometry_options = GeometryOptions;
-
-	typedef sge::sprite::render::options<
-		MatrixOptions,
-		StateOptions,
-		VertexOptions
-	> render_options;
 };
 
 }
