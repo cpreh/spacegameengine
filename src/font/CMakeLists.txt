@@ -16,8 +16,6 @@ set(
 	include/sge/font/object_unique_ptr.hpp
 	include/sge/font/optional_family.hpp
 	include/sge/font/optional_family_fwd.hpp
-	include/sge/font/optional_rect.hpp
-	include/sge/font/optional_rect_fwd.hpp
 	include/sge/font/optional_ttf_size.hpp
 	include/sge/font/optional_ttf_size_fwd.hpp
 	include/sge/font/optional_unit.hpp

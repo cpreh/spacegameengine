@@ -22,9 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PANGO_TEXT_HPP_INCLUDED
 
 #include <sge/charconv/system_fwd.hpp>
-#include <sge/font/optional_rect.hpp>
-#include <sge/font/optional_unit.hpp>
-#include <sge/font/rect_fwd.hpp>
+#include <sge/font/rect.hpp>
 #include <sge/font/string.hpp>
 #include <sge/font/text.hpp>
 #include <sge/font/text_parameters_fwd.hpp>
@@ -69,11 +67,9 @@ private:
 
 	sge::pango::pango_layout_scoped_ptr const layout_;
 
-	sge::font::optional_unit const max_width_;
-
 	bool const no_multi_line_;
 
-	sge::font::optional_rect rect_;
+	sge::font::rect const ink_rect_;
 };
 
 }

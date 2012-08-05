@@ -18,23 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/charconv/convert.hpp>
-#include <sge/charconv/encoding.hpp>
 #include <sge/charconv/system_fwd.hpp>
-#include <sge/charconv/utf8_string.hpp>
 #include <sge/font/flags.hpp>
-#include <sge/font/flags_field.hpp>
-#include <sge/font/optional_rect.hpp>
 #include <sge/font/rect.hpp>
 #include <sge/font/string.hpp>
 #include <sge/font/text.hpp>
 #include <sge/font/text_parameters.hpp>
 #include <sge/font/view_fwd.hpp>
+#include <sge/pango/create_text_layout.hpp>
 #include <sge/pango/glib_deleter.hpp>
+#include <sge/pango/ink_rect.hpp>
 #include <sge/pango/text.hpp>
-#include <sge/pango/convert/alignment.hpp>
-#include <sge/pango/convert/from_rect.hpp>
-#include <sge/pango/convert/to_unit.hpp>
 #include <sge/pango/freetype/make_bitmap.hpp>
 #include <fcppt/null_ptr.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
@@ -52,89 +46,24 @@ sge::pango::text::text(
 )
 :
 	layout_(
-		::pango_layout_copy(
-			&_layout
+		sge::pango::create_text_layout(
+			_charconv_system,
+			_layout,
+			_string,
+			_text_parameters
 		)
-	),
-	max_width_(
-		_text_parameters.max_width()
 	),
 	no_multi_line_(
 		_text_parameters.flags()
 		&
 		sge::font::flags::no_multi_line
 	),
-	rect_()
-{
-	{
-		sge::charconv::utf8_string const converted_string(
-			sge::charconv::convert<
-				sge::charconv::encoding::utf8,
-				sge::charconv::encoding::wchar
-			>(
-				_charconv_system,
-				_string
-			)
-		);
-
-		::pango_layout_set_text(
-			layout_.get(),
-			reinterpret_cast<
-				char const *
-			>(
-				converted_string.data()
-			),
-			static_cast<
-				int
-			>(
-				converted_string.size()
-			)
-		);
-	}
-
-	::pango_layout_set_alignment(
-		layout_.get(),
-		sge::pango::convert::alignment(
-			_text_parameters.align_h()
+	ink_rect_(
+		sge::pango::ink_rect(
+			*layout_
 		)
-	);
-
-	if(
-		max_width_
 	)
-		::pango_layout_set_width(
-			layout_.get(),
-			sge::pango::convert::to_unit(
-				*max_width_
-			)
-		);
-
-	sge::font::flags_field const &flags(
-		_text_parameters.flags()
-	);
-
-	::pango_layout_set_wrap(
-		layout_.get(),
-		(
-			flags
-			&
-			sge::font::flags::no_word_wrap
-		)
-		?
-			PANGO_WRAP_CHAR
-		:
-			PANGO_WRAP_WORD
-	);
-
-	::pango_layout_set_ellipsize(
-		layout_.get(),
-		PANGO_ELLIPSIZE_NONE
-	);
-
-	::pango_layout_set_indent(
-		layout_.get(),
-		0
-	);
+{
 }
 
 sge::pango::text::~text()
@@ -153,11 +82,11 @@ sge::pango::text::render(
 	);
 
 	int const pos_x(
-		0
+		- ink_rect_.left()
 	);
 
 	int const pos_y(
-		0
+		- ink_rect_.top()
 	);
 
 	if(
@@ -195,25 +124,5 @@ sge::pango::text::render(
 sge::font::rect const
 sge::pango::text::rect()
 {
-	if(
-		rect_
-	)
-		return *rect_;
-
-	PangoRectangle result;
-
-	::pango_layout_get_pixel_extents(
-		layout_.get(),
-		&result,
-		fcppt::null_ptr()
-	);
-
-	rect_ =
-		sge::font::optional_rect(
-			sge::pango::convert::from_rect(
-				result
-			)
-		);
-
-	return *rect_;
+	return ink_rect_;
 }

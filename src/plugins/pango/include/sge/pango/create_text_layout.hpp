@@ -18,21 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_OPTIONAL_RECT_FWD_HPP_INCLUDED
-#define SGE_FONT_OPTIONAL_RECT_FWD_HPP_INCLUDED
+#ifndef SGE_PANGO_CREATE_TEXT_LAYOUT_HPP_INCLUDED
+#define SGE_PANGO_CREATE_TEXT_LAYOUT_HPP_INCLUDED
 
-#include <sge/font/rect_fwd.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <sge/charconv/system_fwd.hpp>
+#include <sge/font/string.hpp>
+#include <sge/font/text_parameters_fwd.hpp>
+#include <sge/pango/pango_layout_unique_ptr.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <pango/pango-layout.h>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
 {
-namespace font
+namespace pango
 {
 
-typedef fcppt::optional<
-	sge::font::rect
-> optional_rect;
+sge::pango::pango_layout_unique_ptr
+create_text_layout(
+	sge::charconv::system &,
+	PangoLayout &,
+	sge::font::string const &,
+	sge::font::text_parameters const &
+);
 
 }
 }
