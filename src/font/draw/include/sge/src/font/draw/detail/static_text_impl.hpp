@@ -99,6 +99,9 @@ public:
 
 	void
 	rebuild_texture();
+
+	void
+	rebuild_sprite();
 private:
 	sge::renderer::device &renderer_;
 

@@ -215,6 +215,12 @@ sge::font::draw::detail::static_text_impl::rebuild_texture()
 		);
 	}
 
+	this->rebuild_sprite();
+}
+
+void
+sge::font::draw::detail::static_text_impl::rebuild_sprite()
+{
 	sprite_.texture(
 		sge::texture::const_optional_part_ref(
 			*texture_part_
@@ -236,4 +242,5 @@ sge::font::draw::detail::static_text_impl::rebuild_texture()
 			sprite_,
 			sprite_buffers_
 		);
+
 }

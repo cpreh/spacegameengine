@@ -93,7 +93,6 @@ ordered_with_options(
 		_render_context
 	);
 
-
 	sge::sprite::detail::render::scoped_states<
 		Choices,
 		render_options::state_options

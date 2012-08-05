@@ -108,7 +108,7 @@ sge::font::draw::static_text::pos(
 		_pos
 	);
 
-	impl_->rebuild_texture();
+	impl_->rebuild_sprite();
 }
 
 void
@@ -119,4 +119,6 @@ sge::font::draw::static_text::color(
 	impl_->color(
 		_color
 	);
+
+	impl_->rebuild_sprite();
 }
