@@ -119,8 +119,8 @@ try
 		sge::graph::background_color(
 			sge::image::colors::darkslategray()),
 		sge::graph::baseline(
-			20.0)
-	);
+			20.0),
+		sge::graph::optional_axis_constraint());
 
 	typedef fcppt::random::generator::minstd_rand generator_type;
 

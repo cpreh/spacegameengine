@@ -29,6 +29,10 @@ set(
 	include/sge/scenic/render_context/base_fwd.hpp
 	include/sge/scenic/render_context/base_scoped_ptr.hpp
 	include/sge/scenic/render_context/base_unique_ptr.hpp
+	include/sge/scenic/render_context/cg/context.hpp
+	include/sge/scenic/render_context/cg/context_fwd.hpp
+	include/sge/scenic/render_context/cg/meta_context.hpp
+	include/sge/scenic/render_context/cg/meta_context_fwd.hpp
 	include/sge/scenic/render_context/create_meta_context.hpp
 	include/sge/scenic/render_context/ffp/context.hpp
 	include/sge/scenic/render_context/ffp/meta_context.hpp
@@ -53,6 +57,8 @@ set(
 	src/scenic/grid/object.cpp
 	src/scenic/mesh.cpp
 	src/scenic/render_context/base.cpp
+	src/scenic/render_context/cg/context.cpp
+	src/scenic/render_context/cg/meta_context.cpp
 	src/scenic/render_context/ffp/context.cpp
 	src/scenic/render_context/ffp/meta_context.cpp
 	src/scenic/render_context/meta_context_base.cpp

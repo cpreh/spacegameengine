@@ -127,7 +127,7 @@ try
 			sys));
 
 	fcppt::string const scene_name(
-		FCPPT_TEXT("test_scene"));
+		FCPPT_TEXT("village_testscene"));
 
 	sge::camera::first_person::object camera(
 		sge::camera::first_person::parameters(
@@ -190,7 +190,11 @@ try
 		sge::graph::background_color(
 			sge::image::colors::darkslategray()),
 		sge::graph::baseline(
-			1.0f/60.0f));
+			1.0f/30.0f),
+		sge::graph::optional_axis_constraint(
+			sge::graph::axis_constraint(
+				0.0f,
+				0.1f)));
 
 	while(
 		sys.window_system().poll())

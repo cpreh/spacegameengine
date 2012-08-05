@@ -118,7 +118,8 @@ sge::graph::object::object(
 	sge::renderer::device &_renderer,
 	sge::graph::foreground_color const &_foreground_color,
 	sge::graph::background_color const &_background_color,
-	sge::graph::baseline _baseline
+	sge::graph::baseline _baseline,
+	sge::graph::optional_axis_constraint const &_axis_constraint
 )
 :
 dim_(
@@ -165,6 +166,8 @@ data_buffer_(
 	dim_.w()),
 baseline_(
 	_baseline.get()),
+axis_constraint_(
+	_axis_constraint),
 current_min_(
 	std::min(
 		0.,
@@ -256,6 +259,18 @@ sge::graph::object::draw_data(
 	clear(
 		_view);
 
+	sge::graph::axis_constraint const current_axis_constraint(
+		axis_constraint_
+		?
+			axis_constraint_->min()
+		:
+			current_min_,
+		axis_constraint_
+		?
+			axis_constraint_->max()
+		:
+			current_max_);
+
 	unsigned const baseline =
 		static_cast<
 			unsigned
@@ -275,8 +290,8 @@ sge::graph::object::draw_data(
 					-
 					normalize(
 						baseline_,
-						current_min_,
-						current_max_)
+						current_axis_constraint.min(),
+						current_axis_constraint.max())
 					)
 				)),
 				0,
@@ -302,8 +317,8 @@ sge::graph::object::draw_data(
 				-
 				normalize(
 					0.,
-					current_min_,
-					current_max_)
+					current_axis_constraint.min(),
+					current_axis_constraint.max())
 				)),
 				0,
 				static_cast<int>(dim_.h() - 1))
@@ -325,9 +340,12 @@ sge::graph::object::draw_data(
 				*
 				// normalize data point
 				normalize(
-					data_buffer_[i],
-					current_min_,
-					current_max_)
+					fcppt::math::clamp(
+						data_buffer_[i],
+						current_axis_constraint.min(),
+						current_axis_constraint.max()),
+					current_axis_constraint.min(),
+					current_axis_constraint.max())
 			);
 
 		bool const above = data_buffer_[i] > 0.;
@@ -342,8 +360,10 @@ sge::graph::object::draw_data(
 				i,
 				dim_.h() - 1 - value
 			),
-			above ? background_color_ : foreground_color_,
-			above ? foreground_color_ : background_color_
+			foreground_color_,
+			foreground_color_
+			//above ? background_color_ : foreground_color_,
+			//above ? foreground_color_ : background_color_
 		);
 	}
 

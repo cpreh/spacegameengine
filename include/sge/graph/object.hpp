@@ -23,6 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/graph/background_color.hpp>
 #include <sge/graph/baseline.hpp>
+#include <sge/graph/optional_axis_constraint.hpp>
+#include <sge/graph/axis_constraint.hpp>
 #include <sge/graph/foreground_color.hpp>
 #include <sge/graph/position.hpp>
 #include <sge/graph/scalar.hpp>
@@ -52,6 +54,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <boost/circular_buffer.hpp>
 #include <fcppt/config/external_end.hpp>
+#include <fcppt/optional_impl.hpp>
 
 
 namespace sge
@@ -70,7 +73,8 @@ public:
 		sge::renderer::device &,
 		sge::graph::foreground_color const &,
 		sge::graph::background_color const &,
-		sge::graph::baseline);
+		sge::graph::baseline,
+		sge::graph::optional_axis_constraint const &);
 
 	SGE_GRAPH_SYMBOL
 	void
@@ -150,6 +154,9 @@ private:
 
 	sge::graph::scalar
 	baseline_;
+
+	sge::graph::optional_axis_constraint
+	axis_constraint_;
 
 	sge::graph::scalar
 	current_min_;
