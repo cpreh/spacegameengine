@@ -247,7 +247,7 @@ add_sge_example(
 
 add_sge_example(
 	occlusion_query
-	"sgecamera;sgeconfig;sgeimage;sgeinput;sgelog;sgemedia;sgemodelobj;sgemodelmanager;sgetimer;sgerenderer;sgesystems;sgetexture;sgeviewport;sgewindow;sgefonttext"
+	"sgecamera;sgeconfig;sgefont;sgefontdraw;sgeimage;sgeinput;sgelog;sgemedia;sgemodelmanager;sgerenderer;sgesystems;sgetimer;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 )
 

@@ -25,20 +25,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/first_person/parameters.hpp>
 #include <sge/camera/matrix_conversion/world.hpp>
 #include <sge/config/media_path.hpp>
-#include <sge/font/metrics.hpp>
-#include <sge/font/metrics_scoped_ptr.hpp>
-#include <sge/font/rect.hpp>
-#include <sge/font/size_type.hpp>
+#include <sge/font/align_h.hpp>
+#include <sge/font/lit.hpp>
+#include <sge/font/object.hpp>
+#include <sge/font/object_scoped_ptr.hpp>
+#include <sge/font/parameters.hpp>
+#include <sge/font/string.hpp>
 #include <sge/font/system.hpp>
-#include <sge/font/text/align_h.hpp>
-#include <sge/font/text/align_v.hpp>
-#include <sge/font/text/draw.hpp>
-#include <sge/font/text/drawer_3d.hpp>
-#include <sge/font/text/flags_none.hpp>
-#include <sge/font/text/from_fcppt_string.hpp>
-#include <sge/font/text/lit.hpp>
-#include <sge/font/text/part.hpp>
-#include <sge/font/text/string.hpp>
+#include <sge/font/text_parameters.hpp>
+#include <sge/font/unit.hpp>
+#include <sge/font/vector.hpp>
+#include <sge/font/draw/simple.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image/color/init.hpp>
 #include <sge/image/color/rgba8.hpp>
@@ -97,7 +94,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
-#include <fcppt/insert_to_std_wstring.hpp>
+#include <fcppt/insert_to_string.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/ref.hpp>
@@ -110,7 +107,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
-#include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
@@ -248,24 +244,10 @@ try
 		)
 	);
 
-	sge::font::metrics_scoped_ptr const font_metrics(
+	sge::font::object_scoped_ptr const font(
 		sys.font_system().create_font(
-			sge::config::media_path()
-			/ FCPPT_TEXT("fonts")
-			/ FCPPT_TEXT("default.ttf"),
-			static_cast<
-				sge::font::size_type
-			>(
-				30
-			)
+			sge::font::parameters()
 		)
-	);
-
-	sge::font::text::drawer_3d font_drawer(
-		sys.renderer(),
-		sge::image::colors::red(),
-		sge::font::text::set_matrices(
-			true)
 	);
 
 	sge::timer::basic<
@@ -514,43 +496,43 @@ try
 					(treasure_chest));
 		}
 
-		sge::font::rect const font_rect(
-			sge::font::rect::vector::null(),
-			fcppt::math::dim::structure_cast<
-				sge::font::rect::dim
-			>(
-				sge::renderer::target::viewport_size(
-					context.target()
-				)
-			)
-		);
-
-		sge::font::text::draw(
+		sge::font::draw::simple(
+			sys.renderer(),
 			scoped_block.get(),
-			*font_metrics,
-			font_drawer,
-			SGE_FONT_TEXT_LIT("last query result: ")+
+			*font,
+			SGE_FONT_LIT("last query result: ")+
 			(last_query_result
 			 ?
-				fcppt::insert_to_std_wstring(
+				fcppt::insert_to_string<
+					sge::font::string>(
 					last_query_result->get())
 			 :
-				sge::font::text::string())+
-			SGE_FONT_TEXT_LIT("\ndelay: ")+
+				sge::font::string())+
+			SGE_FONT_LIT("\ndelay: ")+
 			(
 			 last_frame_delay
 			 ?
-				fcppt::insert_to_std_wstring(
+				fcppt::insert_to_string<
+					sge::font::string>(
 					*last_frame_delay)
 			 :
-				sge::font::text::string(
-					SGE_FONT_TEXT_LIT("n/a"))),
-			font_rect,
-			sge::font::text::align_h::left,
-			sge::font::text::align_v::top,
-			sge::font::text::flags::none
+				sge::font::string(
+					SGE_FONT_LIT("n/a"))),
+			sge::font::text_parameters(
+				sge::font::align_h::left
+			)
+			.max_width(
+				static_cast<
+					sge::font::unit
+				>(
+					sge::renderer::target::viewport_size(
+						sys.renderer().onscreen_target()
+					).w()
+				)
+			),
+			sge::font::vector::null(),
+			sge::image::colors::red()
 		);
-
 	}
 
 	return
