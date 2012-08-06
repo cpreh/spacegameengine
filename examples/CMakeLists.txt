@@ -205,7 +205,7 @@ add_sge_console_example(
 
 add_sge_example(
 	line_drawer
-	"sgeconfig;sgefonttext;sgeimage;sgeinput;sgeline_drawer;sgerenderer;sgesystems;sgetimer;sgeviewport;sgewindow"
+	"sgefont;sgefontdraw;sgeimage;sgeinput;sgeline_drawer;sgerenderer;sgesystems;sgetimer;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 )
 

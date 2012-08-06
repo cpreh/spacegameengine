@@ -43,21 +43,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	- Usage of sge::input::cursor
  */
 
-#include <sge/config/media_path.hpp>
-#include <sge/font/metrics.hpp>
-#include <sge/font/metrics_scoped_ptr.hpp>
-#include <sge/font/rect.hpp>
-#include <sge/font/size_type.hpp>
+#include <sge/font/align_h.hpp>
+#include <sge/font/from_fcppt_string.hpp>
+#include <sge/font/lit.hpp>
+#include <sge/font/object.hpp>
+#include <sge/font/object_scoped_ptr.hpp>
+#include <sge/font/parameters.hpp>
+#include <sge/font/string.hpp>
 #include <sge/font/system.hpp>
-#include <sge/font/text/align_h.hpp>
-#include <sge/font/text/align_v.hpp>
-#include <sge/font/text/draw.hpp>
-#include <sge/font/text/drawer_3d.hpp>
-#include <sge/font/text/flags_none.hpp>
-#include <sge/font/text/from_fcppt_string.hpp>
-#include <sge/font/text/lit.hpp>
-#include <sge/font/text/part.hpp>
-#include <sge/font/text/string.hpp>
+#include <sge/font/text_parameters.hpp>
+#include <sge/font/unit.hpp>
+#include <sge/font/vector.hpp>
+#include <sge/font/draw/simple.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/input/cursor/button_event.hpp>
@@ -306,19 +303,11 @@ try
 		sge::systems::quit_on_escape(
 			sys));
 
-	sge::font::metrics_scoped_ptr const font_metrics(
+	sge::font::object_scoped_ptr const font(
 		sys.font_system().create_font(
-			sge::config::media_path()
-			/ FCPPT_TEXT("fonts")
-			/ FCPPT_TEXT("default.ttf"),
-			static_cast<sge::font::size_type>(
-				30)));
-
-	sge::font::text::drawer_3d font_drawer(
-		sys.renderer(),
-		sge::image::colors::red(),
-		sge::font::text::set_matrices(
-			true));
+			sge::font::parameters()
+		)
+	);
 
 	sge::timer::frames_counter frames_counter;
 
@@ -350,33 +339,46 @@ try
 			scoped_block.get(),
 			line_drawer);
 
-		sge::font::rect const rect(
-			sge::font::rect::vector::null(),
-			fcppt::math::dim::structure_cast<sge::font::rect::dim>(
+		sge::font::vector const font_pos(
+			sge::font::vector::null());
+
+		sge::font::unit const font_width(
+			static_cast<
+				sge::font::unit
+			>(
 				sge::renderer::target::viewport_size(
-					scoped_block.get().target())));
+					sys.renderer().onscreen_target()
+				).w()));
 
-		sge::font::text::draw(
+		sge::font::draw::simple(
+			sys.renderer(),
 			scoped_block.get(),
-			*font_metrics,
-			font_drawer,
-			SGE_FONT_TEXT_LIT("Press the left mouse button to set a point"),
-			rect,
-			sge::font::text::align_h::left,
-			sge::font::text::align_v::top,
-			sge::font::text::flags::none);
+			*font,
+			SGE_FONT_LIT("Press the left mouse button to set a point"),
+			sge::font::text_parameters(
+				sge::font::align_h::left
+			)
+			.max_width(
+				font_width
+			),
+			font_pos,
+			sge::image::colors::red());
 
-		sge::font::text::draw(
+		sge::font::draw::simple(
+			sys.renderer(),
 			scoped_block.get(),
-			*font_metrics,
-			font_drawer,
-			sge::font::text::from_fcppt_string(
+			*font,
+			sge::font::from_fcppt_string(
 				frames_counter.frames_str())
-			+ SGE_FONT_TEXT_LIT(" fps"),
-			rect,
-			sge::font::text::align_h::right,
-			sge::font::text::align_v::top,
-			sge::font::text::flags::none);
+			+ SGE_FONT_LIT(" fps"),
+			sge::font::text_parameters(
+				sge::font::align_h::right
+			)
+			.max_width(
+				font_width
+			),
+			font_pos,
+			sge::image::colors::red());
 	}
 
 	return
