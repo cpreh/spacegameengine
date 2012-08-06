@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/class_symbol.hpp>
 #include <sge/renderer/optional_depth_stencil_surface_ref_fwd.hpp>
-#include <sge/renderer/optional_dim2_fwd.hpp>
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/color_buffer/optional_surface_ref_fwd.hpp>
 #include <sge/renderer/target/base.hpp>
@@ -46,16 +45,14 @@ This class represents a target that can render off screen. At least, it has to
 be supplied with a color surface for index zero before it can be used for
 rendering. Such a color surface is usually obtained from a texture level. A
 texture whose texture level should be used as a color surface in an offscreen
-target must be created with renderer::texture::capabilities::render_target. A
-color surface at level one or higher cannot be used with the fixed function
-pipeline. A depth stencil surface can also be supplied so that offscreen
-rendering can use a depth or a stencil buffer, respectively. Such a depth
-stencil surface can either be created by
-renderer::device::create_depth_stencil_surface or obtained from a depth stencil
-texture. Initially, the target has no color surfaces and no depth stencil
-surface and no dimension. The first surface that is set will dictate the
-dimension of the target, which every other surface must match. If all surfaces
-are unset, the dimension will also be unset.
+target must be created with
+sge::renderer::texture::capabilities::render_target. A color surface at level
+one or higher cannot be used with the fixed function pipeline. A depth stencil
+surface can also be supplied so that offscreen rendering can use a depth or a
+stencil buffer, respectively. Such a depth stencil surface can either be
+created by sge::renderer::device::create_depth_stencil_surface or obtained from
+a depth stencil texture. Initially, the target has no color surfaces and no
+depth stencil surface.
 
 \see sge::renderer::device::create_target
 \see sge::renderer::device::create_depth_stencil_surface
@@ -77,20 +74,13 @@ public:
 	\brief Sets or unsets a color surface for a surface level
 
 	Sets \a surface to \a level or unsets the surface for \a level if \a
-	surface is empty. Initially, no color surface is set. If a surface is
-	set, it also sets the dimension of the target to the dimension of \a
-	surface if no surface has been previously set. The target will assume
-	shared ownership of the surface. The dimension will be unset when the
-	last surface is unset.
+	surface is empty. Initially, no color surface is set.
 
 	\param surface The color surface to set or and empty optional to unset
 	the surface
 
 	\param level The level to set the surface for. Level 0 is the one that
 	will be used by the fixed function pipeline.
-
-	\throw renderer::exception if the dimension of \a surface doesn't match
-	the current dimension.
 	*/
 	virtual
 	void
@@ -104,35 +94,16 @@ public:
 
 	Sets \a surface to be used as the depth stencil surface or unsets the
 	depth stencil surface if \a surface is empty. Initially, no depth
-	stencil surface is set. If the surface is set, it also sets the
-	dimension of the target to the dimension of \a surface if no surface
-	has been previously set. The target will assume shared ownership of the
-	surface. The dimension will be unset when the last surface is unset.
+	stencil surface is set.
 
 	\param surface The depth stencil surface to set or an empty optional to
 	unset the surface
-
-	\throw renderer::exception if the dimension of \a surface doesn't match
-	the current dimension.
 	*/
 	virtual
 	void
 	depth_stencil_surface(
 		sge::renderer::optional_depth_stencil_surface_ref const &surface
 	) = 0;
-
-	/**
-	\brief Returns the current dimension or an empty optional
-
-	The current dimension is the dimension of the first surface that is
-	set. If all surfaces are unset, the dimension will also be unset.
-
-	\return The current dimension or an empty optional if no surface has
-	been set yet.
-	*/
-	virtual
-	sge::renderer::optional_dim2 const
-	size() const = 0;
 
 	SGE_RENDERER_SYMBOL
 	virtual

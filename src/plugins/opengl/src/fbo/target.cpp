@@ -42,7 +42,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/color_surface.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/optional_depth_stencil_surface_ref.hpp>
-#include <sge/renderer/optional_dim2.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/screen_unit.hpp>
 #include <sge/renderer/unsupported.hpp>
@@ -59,7 +58,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
-#include <fcppt/math/dim/output.hpp>
 
 
 sge::opengl::fbo::target::target(
@@ -90,9 +88,9 @@ sge::opengl::fbo::target::target(
 	fbo_(
 		context_
 	),
+	height_(),
 	color_attachments_(),
-	depth_stencil_attachment_(),
-	dim_()
+	depth_stencil_attachment_()
 {
 }
 
@@ -152,7 +150,22 @@ sge::opengl::fbo::target::color_surface(
 		_index
 	);
 
-	this->remove_dim();
+	if(
+		_index.get() == 0u
+	)
+		height_ =
+			_surface
+			?
+				optional_screen_unit(
+					static_cast<
+						sge::renderer::screen_unit
+					>(
+						_surface->size().h()
+					)
+				)
+			:
+				optional_screen_unit()
+			;
 
 	if(
 		_surface
@@ -173,10 +186,6 @@ sge::opengl::fbo::target::color_surface(
 				FCPPT_TEXT("You tried to use a texture as a render target ")
 				FCPPT_TEXT("which hasn't been created as such!")
 			);
-
-		this->add_dim(
-			_surface->size()
-		);
 
 		fcppt::container::ptr::insert_unique_ptr_map(
 			color_attachments_,
@@ -205,8 +214,6 @@ sge::opengl::fbo::target::depth_stencil_surface(
 
 	depth_stencil_attachment_.reset();
 
-	this->remove_dim();
-
 	if(
 		!_surface
 	)
@@ -227,10 +234,6 @@ sge::opengl::fbo::target::depth_stencil_surface(
 			FCPPT_TEXT("3.0"),
 			FCPPT_TEXT("")
 		);
-
-	this->add_dim(
-		_surface->size()
-	);
 
 	if(
 		sge::opengl::fbo::depth_stencil_surface *ptr =
@@ -275,23 +278,13 @@ sge::opengl::fbo::target::depth_stencil_surface(
 	);
 }
 
-sge::renderer::optional_dim2 const
-sge::opengl::fbo::target::size() const
-{
-	return dim_;
-}
-
 sge::renderer::screen_unit
 sge::opengl::fbo::target::height() const
 {
 	return
-		dim_
+		height_
 		?
-			static_cast<
-				renderer::screen_unit
-			>(
-				dim_->h()
-			)
+			*height_
 		:
 			0u;
 }
@@ -350,42 +343,6 @@ sge::opengl::fbo::target::create_buffer_binding(
 		fcppt::move(
 			ret
 		);
-}
-
-void
-sge::opengl::fbo::target::add_dim(
-	sge::renderer::dim2 const &_dim
-)
-{
-	if(
-		!dim_
-	)
-		dim_ = _dim;
-	else if(
-		*dim_ != _dim
-	)
-		throw sge::renderer::exception(
-			(
-				fcppt::format(
-					FCPPT_TEXT("Current target dimension %1% is different ")
-					FCPPT_TEXT("from the new surface dimension %2%!")
-				)
-				%
-				*dim_
-				%
-				_dim
-			).str()
-		);
-}
-
-void
-sge::opengl::fbo::target::remove_dim()
-{
-	if(
-		color_attachments_.empty()
-		&& !depth_stencil_attachment_
-	)
-		dim_.reset();
 }
 
 void

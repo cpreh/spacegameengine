@@ -224,8 +224,6 @@ set(
 	include/sge/renderer/occlusion_query/scoped_fwd.hpp
 	include/sge/renderer/optional_depth_stencil_surface_ref.hpp
 	include/sge/renderer/optional_depth_stencil_surface_ref_fwd.hpp
-	include/sge/renderer/optional_dim2.hpp
-	include/sge/renderer/optional_dim2_fwd.hpp
 	include/sge/renderer/parameters/object.hpp
 	include/sge/renderer/parameters/object_fwd.hpp
 	include/sge/renderer/parameters/vsync.hpp

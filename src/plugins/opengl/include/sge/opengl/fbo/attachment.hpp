@@ -39,7 +39,8 @@ class attachment
 protected:
 	attachment();
 public:
-	virtual ~attachment();
+	virtual
+	~attachment() = 0;
 };
 
 }
