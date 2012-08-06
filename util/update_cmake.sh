@@ -169,6 +169,8 @@ update_sublibrary renderer/opengl
 
 update_sublibrary resource_tree
 
+update_sublibrary rucksack
+
 update_sublibrary scenic
 
 update_sublibrary shader

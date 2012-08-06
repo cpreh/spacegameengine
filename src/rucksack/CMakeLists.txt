@@ -1,0 +1,51 @@
+set(
+	SGE_RUCKSACK_FILES
+	include/sge/rucksack/alignment.hpp
+	include/sge/rucksack/alignment2.hpp
+	include/sge/rucksack/aspect.hpp
+	include/sge/rucksack/axis.hpp
+	include/sge/rucksack/axis_policy.hpp
+	include/sge/rucksack/axis_policy2.hpp
+	include/sge/rucksack/dim.hpp
+	include/sge/rucksack/is_expanding.hpp
+	include/sge/rucksack/minimum_size.hpp
+	include/sge/rucksack/optional_scalar.hpp
+	include/sge/rucksack/padding.hpp
+	include/sge/rucksack/preferred_size.hpp
+	include/sge/rucksack/rect.hpp
+	include/sge/rucksack/scalar.hpp
+	include/sge/rucksack/vector.hpp
+	include/sge/rucksack/widget/base.hpp
+	include/sge/rucksack/widget/base_fwd.hpp
+	include/sge/rucksack/widget/box/base.hpp
+	include/sge/rucksack/widget/box/base_fwd.hpp
+	include/sge/rucksack/widget/box/child_information.hpp
+	include/sge/rucksack/widget/dummy.hpp
+	include/sge/rucksack/widget/dummy_fwd.hpp
+	include/sge/rucksack/widget/enumeration.hpp
+	include/sge/rucksack/widget/enumeration_fwd.hpp
+	include/sge/rucksack/widget/master_and_slaves.hpp
+	include/sge/rucksack/widget/master_and_slaves_fwd.hpp
+	include/sge/rucksack/widget/optional_parent.hpp
+	include/sge/rucksack/widget/viewport_adaptor.hpp
+	include/sge/rucksack/widget/viewport_adaptor_fwd.hpp
+	src/rucksack/alignment2.cpp
+	src/rucksack/aspect.cpp
+	src/rucksack/axis_policy.cpp
+	src/rucksack/axis_policy2.cpp
+	src/rucksack/widget/base.cpp
+	src/rucksack/widget/box/base.cpp
+	src/rucksack/widget/box/child_information.cpp
+	src/rucksack/widget/dummy.cpp
+	src/rucksack/widget/enumeration.cpp
+	src/rucksack/widget/master_and_slaves.cpp
+	src/rucksack/widget/viewport_adaptor.cpp
+)
+
+add_sge_base_library(
+	"rucksack"
+	"sgeviewport"
+	"${Fcppt_core_LIBRARIES}"
+	""
+	""
+)
