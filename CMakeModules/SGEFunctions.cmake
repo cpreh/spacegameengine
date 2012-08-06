@@ -142,9 +142,23 @@ function(
 		)
 	endif()
 
+	if(
+		${VARIANT} STREQUAL "DUMMY"
+	)
+		set(
+			LIBRARY_VARIANT
+			SHARED
+		)
+	else()
+		set(
+			LIBRARY_VARIANT
+			${VARIANT}
+		)
+	endif()
+
 	add_library(
 		${SGE_LIB_NAME}
-		${VARIANT}
+		${LIBRARY_VARIANT}
 		${SGE_LIB_FILES}
 	)
 
@@ -192,6 +206,164 @@ function(
 	endif()
 endfunction()
 
+function(
+	add_sge_base_library_base
+	RELATIVE_PATH
+	SGE_DEPS
+	ADDITIONAL_DEPS
+	TRANSITIVE_SGE_DEPS
+	TRANSITIVE_ADDITIONAL_DEPS
+	IS_DUMMY
+)
+	string(
+		REPLACE
+		"/"
+		""
+		LIB_NAME
+		"${RELATIVE_PATH}"
+	)
+
+	string(
+		TOUPPER
+		${LIB_NAME}
+		UPPER_LIB_NAME
+	)
+
+	set(
+		SGE_LIB_NAME
+		sge${LIB_NAME}
+	)
+
+	fcppt_utils_append_source_dir_and_make_groups(
+		"${SGE_${UPPER_LIB_NAME}_FILES}"
+		SGE_${UPPER_LIB_NAME}_FILES_ABS
+	)
+
+	set(
+		SGE_LIB_FILES
+		${SGE_${UPPER_LIB_NAME}_FILES_ABS}
+	)
+
+	if(
+		"${IS_DUMMY}" STREQUAL "DUMMY"
+	)
+		set(
+			SGE_DUMMY_SOURCE_FILE
+			"${CMAKE_CURRENT_BINARY_DIR}/dummy.cpp"
+		)
+
+		if(
+			NOT SGE_${UPPER_LIB_NAME}_DUMMY_GENERATED
+		)
+			file(
+				WRITE
+				"${SGE_DUMMY_SOURCE_FILE}"
+				""
+			)
+		endif()
+
+		set(
+			SGE_${UPPER_LIB_NAME}_DUMMY_GENERATED
+			TRUE
+			CACHE
+			INTERNAL
+			""
+		)
+
+		list(
+			APPEND
+			SGE_LIB_FILES
+			"${SGE_DUMMY_SOURCE_FILE}"
+		)
+	else()
+		string(
+			REPLACE
+			"/"
+			"_"
+			SGE_LIB_SYMBOL
+			"${RELATIVE_PATH}"
+		)
+
+		string(
+			TOUPPER
+			"${SGE_LIB_SYMBOL}"
+			SGE_LIB_SYMBOL
+		)
+
+		sge_generate_symbol_header(
+			"${SGE_LIB_NAME}"
+			"SGE_${SGE_LIB_SYMBOL}"
+			"sge/${RELATIVE_PATH}"
+		)
+	endif()
+
+	if(
+		"${IS_DUMMY}" STREQUAL "DUMMY"
+	)
+		add_sge_base_library_variant(
+			${SGE_LIB_NAME}
+			"${SGE_LIB_FILES}"
+			"${SGE_DEPS}"
+			"${ADDITIONAL_DEPS}"
+			"${TRANSITIVE_SGE_DEPS}"
+			"${TRANSITIVE_ADDITIONAL_DEPS}"
+			DUMMY
+		)
+	else()
+		if(
+			ENABLE_SHARED
+		)
+			add_sge_base_library_variant(
+				${SGE_LIB_NAME}
+				"${SGE_LIB_FILES}"
+				"${SGE_DEPS}"
+				"${ADDITIONAL_DEPS}"
+				"${TRANSITIVE_SGE_DEPS}"
+				"${TRANSITIVE_ADDITIONAL_DEPS}"
+				SHARED
+			)
+		endif()
+
+		if(
+			ENABLE_STATIC
+		)
+			add_sge_base_library_variant(
+				${SGE_LIB_NAME}
+				"${SGE_LIB_FILES}"
+				"${SGE_DEPS}"
+				"${ADDITIONAL_DEPS}"
+				"${TRANSITIVE_SGE_DEPS}"
+				"${TRANSITIVE_ADDITIONAL_DEPS}"
+				STATIC
+			)
+		endif()
+	endif()
+
+	check_library_deps(
+		"${LIB_NAME}"
+		"${SGE_DEPS}"
+	)
+
+	check_library_deps(
+		"${LIB_NAME}"
+		"${TRANSITIVE_SGE_DEPS}"
+	)
+
+	get_filename_component(
+		DEST_INCLUDE_PATH
+		${RELATIVE_PATH}
+		PATH
+	)
+
+	install(
+		DIRECTORY
+		${CMAKE_SOURCE_DIR}/include/sge/${RELATIVE_PATH}
+		${CMAKE_BINARY_DIR}/include/sge/${RELATIVE_PATH}
+		DESTINATION
+		${INSTALL_INCLUDE_DIR}/sge/${DEST_INCLUDE_PATH}
+	)
+endfunction()
+
 # add_sge_base_library
 #
 # Adds an sge library (not a plugin)
@@ -222,105 +394,13 @@ function(
 	TRANSITIVE_SGE_DEPS
 	TRANSITIVE_ADDITIONAL_DEPS
 )
-	string(
-		REPLACE
-		"/"
-		""
-		LIB_NAME
+	add_sge_base_library_base(
 		"${RELATIVE_PATH}"
-	)
-
-	set(
-		SGE_LIB_NAME
-		sge${LIB_NAME}
-	)
-
-	string(
-		REPLACE
-		"/"
-		"_"
-		SGE_LIB_SYMBOL
-		"${RELATIVE_PATH}"
-	)
-
-	string(
-		TOUPPER
-		"${SGE_LIB_SYMBOL}"
-		SGE_LIB_SYMBOL
-	)
-
-	sge_generate_symbol_header(
-		"${SGE_LIB_NAME}"
-		"SGE_${SGE_LIB_SYMBOL}"
-		"sge/${RELATIVE_PATH}"
-	)
-
-	string(
-		TOUPPER
-		${LIB_NAME}
-		UPPER_LIB_NAME
-	)
-
-	fcppt_utils_append_source_dir_and_make_groups(
-		"${SGE_${UPPER_LIB_NAME}_FILES}"
-		SGE_${UPPER_LIB_NAME}_FILES_ABS
-	)
-
-	set(
-		SGE_LIB_FILES
-		${SGE_${UPPER_LIB_NAME}_FILES_ABS}
-	)
-
-	if(
-		ENABLE_SHARED
-	)
-		add_sge_base_library_variant(
-			${SGE_LIB_NAME}
-			"${SGE_LIB_FILES}"
-			"${SGE_DEPS}"
-			"${ADDITIONAL_DEPS}"
-			"${TRANSITIVE_SGE_DEPS}"
-			"${TRANSITIVE_ADDITIONAL_DEPS}"
-			SHARED
-		)
-	endif()
-
-	if(
-		ENABLE_STATIC
-	)
-		add_sge_base_library_variant(
-			${SGE_LIB_NAME}
-			"${SGE_LIB_FILES}"
-			"${SGE_DEPS}"
-			"${ADDITIONAL_DEPS}"
-			"${TRANSITIVE_SGE_DEPS}"
-			"${TRANSITIVE_ADDITIONAL_DEPS}"
-			STATIC
-		)
-	endif()
-
-	check_library_deps(
-		"${LIB_NAME}"
 		"${SGE_DEPS}"
-	)
-
-	check_library_deps(
-		"${LIB_NAME}"
+		"${ADDITIONAL_DEPS}"
 		"${TRANSITIVE_SGE_DEPS}"
-	)
-
-	get_filename_component(
-		DEST_INCLUDE_PATH
-		${RELATIVE_PATH}
-		PATH
-	)
-
-	install(
-		DIRECTORY
-		${CMAKE_SOURCE_DIR}/include/sge/${RELATIVE_PATH}
-		${CMAKE_BINARY_DIR}/include/sge/${RELATIVE_PATH}
-		DESTINATION
-		${INSTALL_INCLUDE_DIR}/sge/${DEST_INCLUDE_PATH}
+		"${TRANSITIVE_ADDITIONAL_DEPS}"
+		""
 	)
 endfunction()
 
@@ -332,96 +412,13 @@ function(
 	TRANSITIVE_SGE_DEPS
 	TRANSITIVE_ADDITIONAL_DEPS
 )
-	string(
-		REPLACE
-		"/"
-		""
-		LIB_NAME
+	add_sge_base_library_base(
 		"${RELATIVE_PATH}"
-	)
-
-	set(
-		SGE_LIB_NAME
-		sge${LIB_NAME}
-	)
-
-	string(
-		TOUPPER
-		${LIB_NAME}
-		UPPER_LIB_NAME
-	)
-
-	fcppt_utils_append_source_dir_and_make_groups(
-		"${SGE_${UPPER_LIB_NAME}_FILES}"
-		SGE_${UPPER_LIB_NAME}_FILES_ABS
-	)
-
-	set(
-		SGE_LIB_FILES
-		${SGE_${UPPER_LIB_NAME}_FILES_ABS}
-	)
-
-	set(
-		SGE_DUMMY_SOURCE_FILE
-		"${CMAKE_BINARY_DIR}/dummy.cpp"
-	)
-
-	if(
-		NOT SGE_${UPPER_LIB_NAME}_DUMMY_GENERATED
-	)
-		file(
-			WRITE
-			"${SGE_DUMMY_SOURCE_FILE}"
-			""
-		)
-	endif()
-
-	set(
-		SGE_${UPPER_LIB_NAME}_DUMMY_GENERATED
-		TRUE
-		CACHE
-		INTERNAL
-		""
-	)
-
-	list(
-		APPEND
-		SGE_LIB_FILES
-		"${SGE_DUMMY_SOURCE_FILE}"
-	)
-
-	add_sge_base_library_variant(
-		${SGE_LIB_NAME}
-		"${SGE_LIB_FILES}"
 		"${SGE_DEPS}"
 		"${ADDITIONAL_DEPS}"
 		"${TRANSITIVE_SGE_DEPS}"
 		"${TRANSITIVE_ADDITIONAL_DEPS}"
-		SHARED
-	)
-
-	check_library_deps(
-		"${LIB_NAME}"
-		"${SGE_DEPS}"
-	)
-
-	check_library_deps(
-		"${LIB_NAME}"
-		"${TRANSITIVE_SGE_DEPS}"
-	)
-
-	get_filename_component(
-		DEST_INCLUDE_PATH
-		${RELATIVE_PATH}
-		PATH
-	)
-
-	install(
-		DIRECTORY
-		${CMAKE_SOURCE_DIR}/include/sge/${RELATIVE_PATH}
-		${CMAKE_BINARY_DIR}/include/sge/${RELATIVE_PATH}
-		DESTINATION
-		${INSTALL_INCLUDE_DIR}/sge/${DEST_INCLUDE_PATH}
+		"DUMMY"
 	)
 endfunction()
 
