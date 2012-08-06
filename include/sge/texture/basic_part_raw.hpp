@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/part.hpp>
 #include <sge/texture/symbol.hpp>
 #include <sge/texture/detail/ref_store_type.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
 
 
@@ -43,6 +44,9 @@ class basic_part_raw
 :
 	public sge::texture::part
 {
+	FCPPT_NONCOPYABLE(
+		basic_part_raw
+	);
 public:
 	typedef Ref ref_type;
 

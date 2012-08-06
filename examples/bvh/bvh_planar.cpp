@@ -91,6 +91,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/box/output.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/random/variate.hpp>
 #include <fcppt/random/distribution/uniform_int.hpp>
 #include <fcppt/random/distribution/uniform_real.hpp>
@@ -184,6 +187,9 @@ class bvh_traverser
 FCPPT_NONCOPYABLE(
 	bvh_traverser);
 public:
+	FCPPT_PP_PUSH_WARNING
+	FCPPT_PP_DISABLE_VC_WARNING(4355)
+
 	bvh_traverser(
 		bvh_tree_traits::tree_representation const &_tree,
 		sge::input::keyboard::device &_keyboard)
@@ -200,6 +206,8 @@ public:
 					std::tr1::placeholders::_1)))
 	{
 	}
+
+	FCPPT_PP_POP_WARNING
 
 	sprite_sequence const
 	sprites() const

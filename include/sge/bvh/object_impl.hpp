@@ -36,7 +36,7 @@ sge::bvh::object<Traits>::object()
 template<typename Traits>
 void
 sge::bvh::object<Traits>::insert(
-	typename traits::leaf_sequence const &_leaves)
+	leaf_sequence const &_leaves)
 {
 	leaves_.insert(
 		leaves_.end(),
@@ -45,7 +45,7 @@ sge::bvh::object<Traits>::insert(
 
 	typename traits::leaf_wrapper_sequence leaf_wrappers;
 	for(
-		typename traits::leaf_sequence::iterator it =
+		typename leaf_sequence::iterator it =
 			leaves_.begin();
 		it != leaves_.end();
 		++it)
@@ -61,7 +61,7 @@ sge::bvh::object<Traits>::insert(
 }
 
 template<typename Traits>
-typename Traits::tree_representation const &
+typename sge::bvh::object<Traits>::tree_representation const &
 sge::bvh::object<Traits>::representation() const
 {
 	return

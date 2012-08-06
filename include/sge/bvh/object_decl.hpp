@@ -42,19 +42,29 @@ public:
 	Traits
 	traits;
 
+	typedef
+	typename
+	traits::leaf_sequence
+	leaf_sequence;
+
+	typedef
+	typename
+	traits::tree_representation
+	tree_representation;
+
 	object();
 
 	void
 	insert(
-		typename traits::leaf_sequence const &);
+		leaf_sequence const &);
 
-	typename traits::tree_representation const &
+	tree_representation const &
 	representation() const;
 
 	~object();
 private:
-	typename traits::leaf_sequence leaves_;
-	typename traits::tree_representation representation_;
+	leaf_sequence leaves_;
+	tree_representation representation_;
 };
 }
 }

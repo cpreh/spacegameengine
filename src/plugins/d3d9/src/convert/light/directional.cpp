@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/convert/light/cutoff_angle.hpp>
 #include <sge/d3d9/convert/light/direction.hpp>
 #include <sge/d3d9/convert/light/directional.hpp>
 #include <sge/renderer/light/directional.hpp>
@@ -36,10 +35,5 @@ sge::d3d9::convert::light::directional(
 	light::direction(
 		_light,
 		_directional.direction()
-	);
-
-	light::cutoff_angle(
-		_light,
-		_directional.cutoff_angle()
 	);
 }

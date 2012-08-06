@@ -95,7 +95,7 @@ struct get_level_size_impl<
 	{
 		return
 			fcppt::math::dim::construct(
-				::get_level_size_impl<
+				get_level_size_impl<
 					2u
 				>::execute(
 					_binding,
