@@ -1,0 +1,21 @@
+set(
+	SGE_BVH_FILES
+	include/sge/bvh/bounding_box.hpp
+	include/sge/bvh/construct_median_cut.hpp
+	include/sge/bvh/dummy_node.hpp
+	include/sge/bvh/empty_node.hpp
+	include/sge/bvh/leaf_wrapper.hpp
+	include/sge/bvh/node_wrapper.hpp
+	include/sge/bvh/object_decl.hpp
+	include/sge/bvh/object_impl.hpp
+	include/sge/bvh/traits/box.hpp
+	include/sge/bvh/tree_traits.hpp
+)
+
+add_sge_dummy_library(
+	bvh
+	""
+	""
+	""
+	""
+)

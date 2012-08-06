@@ -165,6 +165,7 @@ OPTION (ENABLE_SYSTEMS "Build the systems library" ON)
 OPTION (ENABLE_TEXTURE "Build the texture helpers" ON)
 OPTION (ENABLE_VIEWPORT "Build the viewport library" ON)
 
+ADD_SUBDIRECTORY(bvh)
 
 IF (ENABLE_AUDIO)
 	ADD_SUBDIRECTORY(audio)

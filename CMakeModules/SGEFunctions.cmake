@@ -180,12 +180,16 @@ function(
 		${TRANSITIVE_ADDITIONAL_DEPS}
 	)
 
-	install(
-		TARGETS
-		${SGE_LIB_NAME}
-		DESTINATION
-		${INSTALL_LIBRARY_DIR}
+	if(
+		NOT ${VARIANT} STREQUAL "DUMMY"
 	)
+		install(
+			TARGETS
+			${SGE_LIB_NAME}
+			DESTINATION
+			${INSTALL_LIBRARY_DIR}
+		)
+	endif()
 endfunction()
 
 # add_sge_base_library
@@ -198,6 +202,18 @@ endfunction()
 #
 # SGE_DEPS:
 #	A list of sge libraries that this library depends on.
+#
+# ADDITIONAL_DEPS:
+#	A list of additional (not sge) libraries that this library depends on.
+#
+# TRANSITIVE_SGE_DEPS:
+#	A list of sge libraries that other libraries that will use this library
+#	depend on, for example, if this library uses another library in
+#	template or inline code.
+#
+# TRANSITIVE_ADDITIONAL_DEPS:
+#	A list of additional (not sge) libraries that other libraries that use
+#	this library depend on.
 function(
 	add_sge_base_library
 	RELATIVE_PATH
@@ -282,6 +298,107 @@ function(
 			STATIC
 		)
 	endif()
+
+	check_library_deps(
+		"${LIB_NAME}"
+		"${SGE_DEPS}"
+	)
+
+	check_library_deps(
+		"${LIB_NAME}"
+		"${TRANSITIVE_SGE_DEPS}"
+	)
+
+	get_filename_component(
+		DEST_INCLUDE_PATH
+		${RELATIVE_PATH}
+		PATH
+	)
+
+	install(
+		DIRECTORY
+		${CMAKE_SOURCE_DIR}/include/sge/${RELATIVE_PATH}
+		${CMAKE_BINARY_DIR}/include/sge/${RELATIVE_PATH}
+		DESTINATION
+		${INSTALL_INCLUDE_DIR}/sge/${DEST_INCLUDE_PATH}
+	)
+endfunction()
+
+function(
+	add_sge_dummy_library
+	RELATIVE_PATH
+	SGE_DEPS
+	ADDITIONAL_DEPS
+	TRANSITIVE_SGE_DEPS
+	TRANSITIVE_ADDITIONAL_DEPS
+)
+	string(
+		REPLACE
+		"/"
+		""
+		LIB_NAME
+		"${RELATIVE_PATH}"
+	)
+
+	set(
+		SGE_LIB_NAME
+		sge${LIB_NAME}
+	)
+
+	string(
+		TOUPPER
+		${LIB_NAME}
+		UPPER_LIB_NAME
+	)
+
+	fcppt_utils_append_source_dir_and_make_groups(
+		"${SGE_${UPPER_LIB_NAME}_FILES}"
+		SGE_${UPPER_LIB_NAME}_FILES_ABS
+	)
+
+	set(
+		SGE_LIB_FILES
+		${SGE_${UPPER_LIB_NAME}_FILES_ABS}
+	)
+
+	set(
+		SGE_DUMMY_SOURCE_FILE
+		"${CMAKE_BINARY_DIR}/dummy.cpp"
+	)
+
+	if(
+		NOT SGE_${UPPER_LIB_NAME}_DUMMY_GENERATED
+	)
+		file(
+			WRITE
+			"${SGE_DUMMY_SOURCE_FILE}"
+			""
+		)
+	endif()
+
+	set(
+		SGE_${UPPER_LIB_NAME}_DUMMY_GENERATED
+		TRUE
+		CACHE
+		INTERNAL
+		""
+	)
+
+	list(
+		APPEND
+		SGE_LIB_FILES
+		"${SGE_DUMMY_SOURCE_FILE}"
+	)
+
+	add_sge_base_library_variant(
+		${SGE_LIB_NAME}
+		"${SGE_LIB_FILES}"
+		"${SGE_DEPS}"
+		"${ADDITIONAL_DEPS}"
+		"${TRANSITIVE_SGE_DEPS}"
+		"${TRANSITIVE_ADDITIONAL_DEPS}"
+		SHARED
+	)
 
 	check_library_deps(
 		"${LIB_NAME}"
