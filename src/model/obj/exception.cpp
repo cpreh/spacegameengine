@@ -23,14 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 
-
 sge::model::obj::exception::exception(
-	fcppt::string const &_what
-)
+	fcppt::string const &_what)
 :
 	sge::exception(
 		FCPPT_TEXT("obj: ")
-		+ _what
-	)
+		+_what)
 {
 }

@@ -50,13 +50,37 @@ class ExportSge(bpy.types.Operator, ExportHelper):
 		description = "when outputting formatted JSON, use this amount of indentation",
 		default = 4,
 		)
+	def _process_attenuation(self, lamp, entity):
+		lamp = lamp.data
+		constant = 1.0
+		linear = 0.0
+		square = 0.0
+		if lamp.falloff_type == 'CONSTANT':
+			constant = lamp.falloff
+		elif lamp.falloff_type == 'INVERSE_LINEAR':
+			linear = 2.0 / lamp.distance
+		elif lamp.falloff_type == 'INVERSE_SQUARE':
+			linear = 2.0 / (lamp.distance ** 2.0)
+		# TODO: elif lamp.falloff_type == 'LINEAR_QUADRATIC_WEIGHTED':
+		# see http://wiki.blender.org/index.php/Doc:2.6/Manual/Lighting/Lights/Light_Attenuation
+		else:
+			self.report(
+				{'WARNING'},
+				"Unsupported light attenuation type: {}".format(
+					lamp.falloff_type))
+		entity["constant-falloff"] = constant
+		entity["linear-falloff"] = linear
+		entity["quadratic-falloff"] = square
+		return entity
 
 	def _process_mesh(self, ob, entity):
 		entity["scale"] = tuple(ob.scale)
 		return entity
 
 	def _process_camera(self, ob, entity):
-		entity["fov"] = ob.data.angle
+		render = self.context.scene.render
+		aspect = render.resolution_x / render.resolution_y
+		entity["fov"] = ob.data.angle / aspect
 		entity["near"] = ob.data.clip_start
 		entity["far"] = ob.data.clip_end
 		return entity
@@ -64,19 +88,24 @@ class ExportSge(bpy.types.Operator, ExportHelper):
 	def _process_lamp(self, ob, entity):
 		if ob.data.type == 'HEMI' or ob.data.type == 'SUN':
 			light_type = 'directional'
+			del entity["position"]
 		elif ob.data.type == 'POINT':
+			del entity["rotation"]
 			light_type = 'point'
+			entity = self._process_attenuation(ob, entity)
 		elif ob.data.type == 'SPOT':
 			light_type = 'spot'
-			entity["spot_cutoff"] = ob.data.spot_size
+			entity["spot-cutoff"] = ob.data.spot_size
 			# FIXME: does this make sense for OpenGL?
-			entity["spot_exponent"] = ob.data.spot_blend * 128.0
+			entity["spot-exponent"] = ob.data.spot_blend * 128.0
+			entity = self._process_attenuation(ob, entity)
 		else:
 			self.report({'WARNING'}, "Unsupported lamp type: {}".format(ob.data.type))
 			return None
-		entity["light_type"] = light_type
-		entity["energy"] = ob.data.energy
-		entity["color"] = tuple(ob.data.color)
+
+		entity["light-type"] = light_type
+		#entity["energy"] = ob.data.energy
+		entity["color"] = tuple(map(lambda x: ob.data.energy * x, ob.data.color))
 		return entity
 
 	def _process(self, ob, result):
@@ -99,6 +128,7 @@ class ExportSge(bpy.types.Operator, ExportHelper):
 			result["camera"] = self._process_camera(ob, entity)
 
 	def execute(self, context):
+		self.context = context
 		objects = context.selected_objects if self.selected_only else context.scene.objects
 
 		result = dict()
@@ -109,14 +139,19 @@ class ExportSge(bpy.types.Operator, ExportHelper):
 
 		world = context.scene.world
 
-		# fog
-		fog_start = world.mist_settings.start
-		# FIXME: how to map blender mist modes to GL fog modes?
-		result["world"]["fog-mode"] = "linear"
-		result["world"]["fog-start"] = fog_start
-		result["world"]["fog-end"] = fog_start + world.mist_settings.depth
-		result["world"]["fog-color"] = tuple(world.horizon_color)
+		fog_settings = dict()
+		fog_settings["enabled"] = world.mist_settings.use_mist
+		# FIXME: how exactly do we map blender mist modes to GL fog modes?
+		fog_settings["mode"] = "linear"
+		fog_settings["start"] = world.mist_settings.start
+		fog_settings["end"] = world.mist_settings.start + world.mist_settings.depth
+		fog_settings["color"] = tuple(world.horizon_color)
+		result["world"]["fog"] = fog_settings
+		result["world"]["ambient-color"] = tuple(world.ambient_color)
 		# FIXME: what to do about fog density?
+
+		result["world"]["horizon-color"] = tuple(world.horizon_color)
+		result["world"]["zenith-color"] = tuple(world.zenith_color)
 
 		for ob in objects:
 			try:

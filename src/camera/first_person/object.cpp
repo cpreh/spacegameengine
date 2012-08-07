@@ -97,6 +97,14 @@ sge::camera::first_person::object::coordinate_system() const
 		coordinate_system_;
 }
 
+void
+sge::camera::first_person::object::update_coordinate_system(
+	sge::camera::coordinate_system::object const &_coordinate_system)
+{
+	coordinate_system_ =
+		_coordinate_system;
+}
+
 sge::camera::projection_matrix const
 sge::camera::first_person::object::projection_matrix() const
 {

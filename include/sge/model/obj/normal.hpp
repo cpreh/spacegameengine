@@ -21,10 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MODEL_OBJ_NORMAL_HPP_INCLUDED
 #define SGE_MODEL_OBJ_NORMAL_HPP_INCLUDED
 
-#include <sge/model/obj/normal_fwd.hpp>
-#include <sge/model/obj/scalar.hpp>
-#include <sge/model/obj/symbol.hpp>
-
+#include <sge/renderer/vector3.hpp>
 
 namespace sge
 {
@@ -32,19 +29,9 @@ namespace model
 {
 namespace obj
 {
-
-struct normal
-{
-	SGE_MODEL_OBJ_SYMBOL
-	normal();
-
-	obj::scalar n1_;
-
-	obj::scalar n2_;
-
-	obj::scalar n3_;
-};
-
+typedef
+sge::renderer::vector3
+normal;
 }
 }
 }

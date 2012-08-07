@@ -1,13 +1,41 @@
+/*
+spacegameengine is a portable easy to use game engine written in C++.
+Copyright (C) 2006-2012 Carl Philipp Reh (sefi@s-e-f-i.de)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
+
 #ifndef SGE_GRAPH_OBJECT_HPP_INCLUDED
 #define SGE_GRAPH_OBJECT_HPP_INCLUDED
 
+#include <sge/graph/background_color.hpp>
+#include <sge/graph/baseline.hpp>
+#include <sge/graph/optional_axis_constraint.hpp>
+#include <sge/graph/axis_constraint.hpp>
+#include <sge/graph/foreground_color.hpp>
+#include <sge/graph/position.hpp>
 #include <sge/graph/scalar.hpp>
 #include <sge/graph/symbol.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/rgba8.hpp>
+#include <sge/image2d/view/object.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/dim2.hpp>
+#include <sge/renderer/vector2.hpp>
 #include <sge/renderer/context/object.hpp>
 #include <sge/renderer/texture/planar_scoped_ptr.hpp>
 #include <sge/sprite/object.hpp>
@@ -26,7 +54,7 @@
 #include <fcppt/config/external_begin.hpp>
 #include <boost/circular_buffer.hpp>
 #include <fcppt/config/external_end.hpp>
-#include <sge/image2d/view/object.hpp>
+#include <fcppt/optional_impl.hpp>
 
 
 namespace sge
@@ -40,11 +68,13 @@ FCPPT_NONCOPYABLE(
 public:
 	SGE_GRAPH_SYMBOL
 	object(
+		sge::graph::position const &,
 		sge::image2d::dim const &,
 		sge::renderer::device &,
-		sge::image::color::any::object const &,
-		sge::image::color::any::object const &,
-		sge::graph::scalar);
+		sge::graph::foreground_color const &,
+		sge::graph::background_color const &,
+		sge::graph::baseline,
+		sge::graph::optional_axis_constraint const &);
 
 	SGE_GRAPH_SYMBOL
 	void
@@ -94,7 +124,7 @@ private:
 			sprite_choices
 		>
 	> sprite_buffers_type;
-	
+
 	typedef
 	boost::circular_buffer<
 		sge::graph::scalar
@@ -124,6 +154,9 @@ private:
 
 	sge::graph::scalar
 	baseline_;
+
+	sge::graph::optional_axis_constraint
+	axis_constraint_;
 
 	sge::graph::scalar
 	current_min_;

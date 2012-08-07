@@ -123,8 +123,6 @@ update_sublibrary log
 
 update_sublibrary media
 
-update_sublibrary model/manager
-
 update_sublibrary model/md3
 
 update_sublibrary model/obj
@@ -172,6 +170,10 @@ update_sublibrary renderer/cg
 update_sublibrary renderer/opengl
 
 update_sublibrary resource_tree
+
+update_sublibrary rucksack
+
+update_sublibrary scenic
 
 update_sublibrary shader
 

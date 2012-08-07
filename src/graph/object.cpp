@@ -1,8 +1,32 @@
+/*
+spacegameengine is a portable easy to use game engine written in C++.
+Copyright (C) 2006-2012 Carl Philipp Reh (sefi@s-e-f-i.de)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
+
+#include <sge/graph/background_color.hpp>
+#include <sge/graph/baseline.hpp>
+#include <sge/graph/foreground_color.hpp>
 #include <sge/graph/object.hpp>
+#include <sge/graph/position.hpp>
 #include <sge/graph/scalar.hpp>
+#include <sge/image/colors.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image/color/any/object.hpp>
-#include <sge/image/colors.hpp>
 #include <sge/image2d/vector.hpp>
 #include <sge/image2d/algorithm/bresenham.hpp>
 #include <sge/image2d/algorithm/fill.hpp>
@@ -11,6 +35,7 @@
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
+#include <sge/renderer/vector2.hpp>
 #include <sge/renderer/context/object.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/planar.hpp>
@@ -23,13 +48,14 @@
 #include <sge/texture/part_raw_ref.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/ref.hpp>
+#include <fcppt/math/clamp.hpp>
+#include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <algorithm>
-#include <utility>
 #include <boost/circular_buffer.hpp>
 #include <boost/algorithm/minmax_element.hpp>
+#include <algorithm>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
-#include <fcppt/math/clamp.hpp>
 
 
 namespace
@@ -87,11 +113,13 @@ sge::image2d::algorithm::bresenham(
 }
 
 sge::graph::object::object(
+	sge::graph::position const &_position,
 	sge::renderer::dim2 const &_dim,
 	sge::renderer::device &_renderer,
-	sge::image::color::any::object const &_foreground_color,
-	sge::image::color::any::object const &_background_color,
-	sge::graph::scalar _baseline
+	sge::graph::foreground_color const &_foreground_color,
+	sge::graph::background_color const &_background_color,
+	sge::graph::baseline _baseline,
+	sge::graph::optional_axis_constraint const &_axis_constraint
 )
 :
 dim_(
@@ -112,8 +140,9 @@ texture_(
 sprite_object_(
 	sprite_parameters()
 	.pos(
-		sprite_object::vector::null()
-	)
+		fcppt::math::vector::structure_cast<
+			sprite_object::vector>(
+				_position.get()))
 	.texture(
 		fcppt::make_shared_ptr<
 			sge::texture::part_raw_ref
@@ -130,13 +159,15 @@ sprite_buffers_(
 	sge::sprite::buffers::option::dynamic
 ),
 foreground_color_(
-	_foreground_color),
+	_foreground_color.get()),
 background_color_(
-	_background_color),
+	_background_color.get()),
 data_buffer_(
 	dim_.w()),
 baseline_(
-	_baseline),
+	_baseline.get()),
+axis_constraint_(
+	_axis_constraint),
 current_min_(
 	std::min(
 		0.,
@@ -228,6 +259,18 @@ sge::graph::object::draw_data(
 	clear(
 		_view);
 
+	sge::graph::axis_constraint const current_axis_constraint(
+		axis_constraint_
+		?
+			axis_constraint_->min()
+		:
+			current_min_,
+		axis_constraint_
+		?
+			axis_constraint_->max()
+		:
+			current_max_);
+
 	unsigned const baseline =
 		static_cast<
 			unsigned
@@ -247,8 +290,8 @@ sge::graph::object::draw_data(
 					-
 					normalize(
 						baseline_,
-						current_min_,
-						current_max_)
+						current_axis_constraint.min(),
+						current_axis_constraint.max())
 					)
 				)),
 				0,
@@ -274,8 +317,8 @@ sge::graph::object::draw_data(
 				-
 				normalize(
 					0.,
-					current_min_,
-					current_max_)
+					current_axis_constraint.min(),
+					current_axis_constraint.max())
 				)),
 				0,
 				static_cast<int>(dim_.h() - 1))
@@ -297,9 +340,12 @@ sge::graph::object::draw_data(
 				*
 				// normalize data point
 				normalize(
-					data_buffer_[i],
-					current_min_,
-					current_max_)
+					fcppt::math::clamp(
+						data_buffer_[i],
+						current_axis_constraint.min(),
+						current_axis_constraint.max()),
+					current_axis_constraint.min(),
+					current_axis_constraint.max())
 			);
 
 		bool const above = data_buffer_[i] > 0.;
@@ -314,8 +360,10 @@ sge::graph::object::draw_data(
 				i,
 				dim_.h() - 1 - value
 			),
-			above ? background_color_ : foreground_color_,
-			above ? foreground_color_ : background_color_
+			foreground_color_,
+			foreground_color_
+			//above ? background_color_ : foreground_color_,
+			//above ? foreground_color_ : background_color_
 		);
 	}
 

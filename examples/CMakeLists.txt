@@ -175,7 +175,7 @@ add_sge_example(
 
 add_sge_example(
 	graph
-	"sgegraph;sgeimage;sgeimage2d;sgelog;sgerenderer;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
+	"sgegraph;sgeimage;sgelog;sgerenderer;sgesystems;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 )
 
@@ -209,22 +209,18 @@ add_sge_example(
 	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 )
 
+if(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
+	add_sge_example(
+		linux_stats
+		"sgegraph;sgelog;sgerenderer;sgesystems;sgeviewport;sgewindow;sgeimage;sgetimer"
+		"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	)
+endif()
+
 add_sge_console_example(
 	mergeimage
 	"sgecore;sgeimage;sgeimage2d;sgesystems"
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
-)
-
-add_sge_example(
-	model_loader
-	"sgecamera;sgeconfig;sgeimage;sgeinput;sgeline_drawer;sgelog;sgemedia;sgemodelobj;sgeparse;sgerenderer;sgesystems;sgetexture;sgeviewport;sgewindow"
-	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
-)
-
-add_sge_example(
-	model_manager
-	"sgecamera;sgeconfig;sgeimage;sgeinput;sgelog;sgemedia;sgemodelobj;sgemodelmanager;sgetimer;sgerenderer;sgesystems;sgetexture;sgeviewport;sgewindow"
-	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 )
 
 add_sge_example(
@@ -245,11 +241,11 @@ add_sge_example(
 	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 )
 
-add_sge_example(
-	occlusion_query
-	"sgecamera;sgeconfig;sgefont;sgefontdraw;sgeimage;sgeinput;sgelog;sgemedia;sgemodelmanager;sgerenderer;sgesystems;sgetimer;sgeviewport;sgewindow"
-	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
-)
+#add_sge_example(
+#	occlusion_query
+#	"sgecamera;sgeconfig;sgefont;sgefontdraw;sgeimage;sgeinput;sgelog;sgemedia;sgemodelmanager;sgerenderer;sgesystems;sgetimer;sgeviewport;sgewindow"
+#	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+#)
 
 add_sge_console_example(
 	opengl
@@ -299,6 +295,12 @@ add_sge_console_example(
 	resource_tree
 	"sgeconfig;sgeresource_tree"
 	"${Fcppt_core_LIBRARIES};${Fcppt_filesystem_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+)
+
+add_sge_example(
+	scenic
+	"sgeconfig;sgeimage;sgeinput;sgerenderer;sgesystems;sgeviewport;sgewindow;sgescenic;sgecamera;sgegraph"
+	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES};${Boost_CHRONO_LIBRARIES}"
 )
 
 add_sge_example(

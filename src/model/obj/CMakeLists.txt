@@ -1,115 +1,52 @@
 set(
 	SGE_MODELOBJ_FILES
-	include/sge/model/obj/create.hpp
+	include/sge/model/obj/box.hpp
 	include/sge/model/obj/exception.hpp
 	include/sge/model/obj/face.hpp
-	include/sge/model/obj/face_fwd.hpp
-	include/sge/model/obj/face_point.hpp
-	include/sge/model/obj/face_point_fwd.hpp
-	include/sge/model/obj/face_point_sequence.hpp
 	include/sge/model/obj/face_sequence.hpp
-	include/sge/model/obj/index.hpp
+	include/sge/model/obj/face_vertex.hpp
+	include/sge/model/obj/face_vertex_sequence.hpp
+	include/sge/model/obj/identifier.hpp
+	include/sge/model/obj/index_buffer_range.hpp
 	include/sge/model/obj/instance.hpp
 	include/sge/model/obj/instance_fwd.hpp
-	include/sge/model/obj/instance_scoped_ptr.hpp
-	include/sge/model/obj/instance_unique_ptr.hpp
-	include/sge/model/obj/loader.hpp
-	include/sge/model/obj/loader_fwd.hpp
-	include/sge/model/obj/loader_scoped_ptr.hpp
-	include/sge/model/obj/loader_unique_ptr.hpp
-	include/sge/model/obj/mesh.hpp
-	include/sge/model/obj/mesh_fwd.hpp
-	include/sge/model/obj/mesh_name.hpp
-	include/sge/model/obj/mesh_sequence.hpp
+	include/sge/model/obj/material.hpp
+	include/sge/model/obj/material_file_sequence.hpp
+	include/sge/model/obj/material_fwd.hpp
+	include/sge/model/obj/material_map.hpp
+	include/sge/model/obj/material_to_face_sequence.hpp
+	include/sge/model/obj/material_to_index_buffer_range.hpp
 	include/sge/model/obj/normal.hpp
-	include/sge/model/obj/normal_fwd.hpp
+	include/sge/model/obj/normal_index.hpp
 	include/sge/model/obj/normal_sequence.hpp
-	include/sge/model/obj/optional_index.hpp
-	include/sge/model/obj/optional_index_fwd.hpp
-	include/sge/model/obj/optional_scalar.hpp
-	include/sge/model/obj/optional_scalar_fwd.hpp
-	include/sge/model/obj/scalar.hpp
-	include/sge/model/obj/texcoord.hpp
-	include/sge/model/obj/texcoord_fwd.hpp
-	include/sge/model/obj/texcoord_sequence.hpp
-	include/sge/model/obj/vb_converter/convert.hpp
-	include/sge/model/obj/vb_converter/detail/convert_face.hpp
-	include/sge/model/obj/vb_converter/detail/convert_face_point.hpp
-	include/sge/model/obj/vb_converter/detail/convert_mesh.hpp
-	include/sge/model/obj/vb_converter/detail/convert_normal.hpp
-	include/sge/model/obj/vb_converter/detail/convert_texcoord.hpp
-	include/sge/model/obj/vb_converter/detail/convert_vertex.hpp
-	include/sge/model/obj/vb_converter/detail/count_vertices.hpp
-	include/sge/model/obj/vb_converter/roles/detail/type.hpp
-	include/sge/model/obj/vb_converter/roles/normal.hpp
-	include/sge/model/obj/vb_converter/roles/position.hpp
-	include/sge/model/obj/vb_converter/roles/texcoord.hpp
-	include/sge/model/obj/vertex.hpp
-	include/sge/model/obj/vertex_fwd.hpp
-	include/sge/model/obj/vertex_sequence.hpp
-	src/model/obj/create.cpp
+	include/sge/model/obj/parse_mtllib.hpp
+	include/sge/model/obj/prototype.hpp
+	include/sge/model/obj/prototype_fwd.hpp
+	include/sge/model/obj/texture_coordinate.hpp
+	include/sge/model/obj/texture_coordinate_index.hpp
+	include/sge/model/obj/texture_coordinate_sequence.hpp
+	include/sge/model/obj/texture_path.hpp
+	include/sge/model/obj/vertex_coordinate.hpp
+	include/sge/model/obj/vertex_coordinate_index.hpp
+	include/sge/model/obj/vertex_coordinate_sequence.hpp
+	include/sge/model/obj/vf/format.hpp
+	include/sge/model/obj/vf/format_part.hpp
+	include/sge/model/obj/vf/normal.hpp
+	include/sge/model/obj/vf/position.hpp
+	include/sge/model/obj/vf/texcoord.hpp
 	src/model/obj/exception.cpp
-	src/model/obj/face.cpp
-	src/model/obj/face_point.cpp
-	src/model/obj/grammar.cpp
-	src/model/obj/include/sge/src/model/obj/adapt_face.hpp
-	src/model/obj/include/sge/src/model/obj/adapt_face_point.hpp
-	src/model/obj/include/sge/src/model/obj/adapt_mesh.hpp
-	src/model/obj/include/sge/src/model/obj/adapt_normal.hpp
-	src/model/obj/include/sge/src/model/obj/adapt_texcoord.hpp
-	src/model/obj/include/sge/src/model/obj/adapt_vertex.hpp
-	src/model/obj/include/sge/src/model/obj/base_iterator.hpp
-	src/model/obj/include/sge/src/model/obj/basic_grammar_decl.hpp
-	src/model/obj/include/sge/src/model/obj/basic_grammar_fwd.hpp
-	src/model/obj/include/sge/src/model/obj/basic_grammar_impl.hpp
-	src/model/obj/include/sge/src/model/obj/basic_tokens_decl.hpp
-	src/model/obj/include/sge/src/model/obj/basic_tokens_fwd.hpp
-	src/model/obj/include/sge/src/model/obj/basic_tokens_impl.hpp
-	src/model/obj/include/sge/src/model/obj/grammar.hpp
-	src/model/obj/include/sge/src/model/obj/instance_impl.hpp
-	src/model/obj/include/sge/src/model/obj/iterator.hpp
-	src/model/obj/include/sge/src/model/obj/lexer.hpp
-	src/model/obj/include/sge/src/model/obj/loader_impl.hpp
-	src/model/obj/include/sge/src/model/obj/parse.hpp
-	src/model/obj/include/sge/src/model/obj/parse_state.hpp
-	src/model/obj/include/sge/src/model/obj/parse_state_fwd.hpp
-	src/model/obj/include/sge/src/model/obj/token.hpp
-	src/model/obj/include/sge/src/model/obj/tokens.hpp
-	src/model/obj/include/sge/src/model/obj/tokens_fwd.hpp
+	src/model/obj/face_vertex.cpp
+	src/model/obj/index_buffer_range.cpp
 	src/model/obj/instance.cpp
-	src/model/obj/instance_impl.cpp
-	src/model/obj/loader.cpp
-	src/model/obj/loader_impl.cpp
-	src/model/obj/mesh.cpp
-	src/model/obj/normal.cpp
-	src/model/obj/parse.cpp
-	src/model/obj/parse_state.cpp
-	src/model/obj/texcoord.cpp
-	src/model/obj/tokens.cpp
-	src/model/obj/vertex.cpp
+	src/model/obj/material.cpp
+	src/model/obj/parse_mtllib.cpp
+	src/model/obj/prototype.cpp
 )
 
-include_directories(
-	${CMAKE_CURRENT_SOURCE_DIR}/include
-)
-
-option(
-	ENABLE_MODELOBJ_DEBUG
-	"Enable parse debugging for model obj"
-	FALSE
-)
-
-if(
-	ENABLE_MODELOBJ_DEBUG
-)
-	add_definitions(
-		"-D BOOST_SPIRIT_LEXERTL_DEBUG -D BOOST_SPIRIT_DEBUG"
-	)
-endif()
 
 add_sge_base_library(
 	"model/obj"
-	"sgecore"
+	"sgecore;sgerenderer;sgeimage"
 	"${Fcppt_filesystem_LIBRARIES}"
 	""
 	""

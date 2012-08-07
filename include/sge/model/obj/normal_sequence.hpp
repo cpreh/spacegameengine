@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
+
 namespace sge
 {
 namespace model
@@ -33,7 +34,7 @@ namespace model
 namespace obj
 {
 typedef
-std::vector<obj::normal>
+std::vector<sge::model::obj::normal>
 normal_sequence;
 }
 }

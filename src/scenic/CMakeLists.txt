@@ -1,0 +1,67 @@
+set(
+	SGE_SCENIC_FILES
+	include/sge/scenic/camera_properties.hpp
+	include/sge/scenic/camera_properties_fwd.hpp
+	include/sge/scenic/exception.hpp
+	include/sge/scenic/fog/color.hpp
+	include/sge/scenic/fog/end.hpp
+	include/sge/scenic/fog/optional_properties.hpp
+	include/sge/scenic/fog/properties.hpp
+	include/sge/scenic/fog/properties_fwd.hpp
+	include/sge/scenic/fog/start.hpp
+	include/sge/scenic/grid/depth_test.hpp
+	include/sge/scenic/grid/dim.hpp
+	include/sge/scenic/grid/distance_to_origin.hpp
+	include/sge/scenic/grid/object.hpp
+	include/sge/scenic/grid/object_fwd.hpp
+	include/sge/scenic/grid/orientation.hpp
+	include/sge/scenic/grid/rect.hpp
+	include/sge/scenic/grid/spacing.hpp
+	include/sge/scenic/identifier.hpp
+	include/sge/scenic/light_sequence.hpp
+	include/sge/scenic/material_base_path.hpp
+	include/sge/scenic/mesh.hpp
+	include/sge/scenic/mesh_fwd.hpp
+	include/sge/scenic/mesh_sequence.hpp
+	include/sge/scenic/model_base_path.hpp
+	include/sge/scenic/position.hpp
+	include/sge/scenic/render_context/index_type.hpp
+	include/sge/scenic/render_context/mesh.hpp
+	include/sge/scenic/render_context/mesh_fwd.hpp
+	include/sge/scenic/render_context/object.hpp
+	include/sge/scenic/render_context/object_fwd.hpp
+	include/sge/scenic/render_context/sort_index.hpp
+	include/sge/scenic/render_context/state_change_count.hpp
+	include/sge/scenic/rotation.hpp
+	include/sge/scenic/scale.hpp
+	include/sge/scenic/scene/from_blender_file.hpp
+	include/sge/scenic/scene/manager.hpp
+	include/sge/scenic/scene/manager_fwd.hpp
+	include/sge/scenic/scene/prototype.hpp
+	include/sge/scenic/scene/prototype_fwd.hpp
+	include/sge/scenic/scene/prototype_scoped_ptr.hpp
+	include/sge/scenic/scene/prototype_unique_ptr.hpp
+	include/sge/scenic/texture_base_path.hpp
+	include/sge/scenic/texture_manager.hpp
+	include/sge/scenic/texture_manager_fwd.hpp
+	src/scenic/exception.cpp
+	src/scenic/fog/properties.cpp
+	src/scenic/grid/object.cpp
+	src/scenic/mesh.cpp
+	src/scenic/render_context/mesh.cpp
+	src/scenic/render_context/object.cpp
+	src/scenic/scene/camera_properties.cpp
+	src/scenic/scene/from_blender_file.cpp
+	src/scenic/scene/manager.cpp
+	src/scenic/scene/manager_fwd.hpp
+	src/scenic/scene/prototype.cpp
+	src/scenic/texture_manager.cpp
+)
+
+add_sge_base_library(
+	"scenic"
+	"sgeparse;sgeimage;sgemodelobj;sgerenderer;sgecamera;sgeviewport;sgeline_drawer"
+	"${Fcppt_filesystem_LIBRARIES}"
+	""
+	""
+)

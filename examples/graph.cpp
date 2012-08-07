@@ -18,6 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/graph/background_color.hpp>
+#include <sge/graph/baseline.hpp>
+#include <sge/graph/foreground_color.hpp>
 #include <sge/graph/object.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image2d/dim.hpp>
@@ -50,19 +53,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/level.hpp>
 #include <fcppt/random/variate.hpp>
 #include <fcppt/random/distribution/uniform_real.hpp>
+#include <fcppt/random/distribution/uniform_real.hpp>
 #include <fcppt/random/generator/minstd_rand.hpp>
 #include <fcppt/random/generator/seed_from_chrono.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <example_main.hpp>
 #include <exception>
 #include <iostream>
+#include <fstream>
 #include <fcppt/config/external_end.hpp>
 
-
-namespace
-{
-
-}
 
 awl::main::exit_code const
 example_main(
@@ -75,8 +75,8 @@ try
 	);
 
 	sge::window::dim const window_dim(
-		512,
-		128
+		1024,
+		768
 	);
 
 	sge::systems::instance const sys(
@@ -102,15 +102,22 @@ try
 	);
 
 	sge::graph::object graph(
+		sge::graph::position(
+			sge::renderer::vector2(
+				100,
+				100)),
 		sge::image2d::dim(
 			512u,
 			128u
 		),
 		sys.renderer(),
-		sge::image::colors::white(),
-		sge::image::colors::darkslategray(),
-		20.0
-	);
+		sge::graph::foreground_color(
+			sge::image::colors::white()),
+		sge::graph::background_color(
+			sge::image::colors::darkslategray()),
+		sge::graph::baseline(
+			20.0),
+		sge::graph::optional_axis_constraint());
 
 	typedef fcppt::random::generator::minstd_rand generator_type;
 
