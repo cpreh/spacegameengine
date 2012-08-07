@@ -28,12 +28,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::gdifont::device_context::device_context()
 :
-	hwnd_(
-		fcppt::null_ptr()
-	),
 	hdc_(
-		::GetDC(
-			hwnd_
+		::CreateCompatibleDC(
+			fcppt::null_ptr()
 		)
 	)
 {
@@ -41,18 +38,17 @@ sge::gdifont::device_context::device_context()
 		hdc_ == fcppt::null_ptr()
 	)
 		throw sge::font::exception(
-			FCPPT_TEXT("GetDC failed!")
+			FCPPT_TEXT("CreateCompatibleDC failed!")
 		);
 }
 
 sge::gdifont::device_context::~device_context()
 {
 	FCPPT_ASSERT_ERROR(
-		::ReleaseDC(
-			hwnd_,
+		::DeleteDC(
 			hdc_
 		)
-		== 1
+		!= 0
 	);
 }
 

@@ -44,8 +44,6 @@ public:
 	HDC
 	get() const;
 private:
-	HWND const hwnd_;
-
 	HDC const hdc_;
 };
 

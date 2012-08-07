@@ -75,6 +75,7 @@ sge::gdifont::text::text(
 		sge::gdifont::calc_rect(
 			device_context_,
 			string_,
+			max_width_,
 			render_flags_
 		)
 	)		
@@ -117,14 +118,14 @@ sge::gdifont::text::render(
 		view_size
 	);
 
-	sge::gdifont::scoped_select const select_dib(
-		device_context_,
-		dib_section.handle()
-	);
-
 	sge::gdifont::scoped_select const select_font(
 		device_context_,
 		hfont_
+	);
+
+	sge::gdifont::scoped_select const select_dib(
+		device_context_,
+		dib_section.handle()
 	);
 
 	sge::gdifont::render(

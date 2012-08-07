@@ -18,8 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/font/optional_unit.hpp>
 #include <sge/font/rect.hpp>
 #include <sge/font/string.hpp>
+#include <sge/font/unit.hpp>
 #include <sge/gdifont/calc_rect.hpp>
 #include <sge/gdifont/device_context_fwd.hpp>
 #include <sge/gdifont/draw_text.hpp>
@@ -30,6 +32,7 @@ sge::font::rect const
 sge::gdifont::calc_rect(
 	sge::gdifont::device_context const &_device_context,
 	sge::font::string const &_string,
+	sge::font::optional_unit const &_max_width,
 	UINT const _format
 )
 {
@@ -44,31 +47,37 @@ sge::gdifont::calc_rect(
 		DT_CALCRECT
 	);
 
+	sge::font::unit const width(
+		static_cast<
+			sge::font::unit
+		>(
+			result.right - result.left
+		)
+	);
+
+	sge::font::unit const height(
+		static_cast<
+			sge::font::unit
+		>(
+			result.bottom - result.top
+		)
+	);
+
 	return
 		sge::font::rect(
 			sge::font::rect::vector(
-				static_cast<
-					sge::font::rect::value_type
-				>(
-					result.left
-				),
-				static_cast<
-					sge::font::rect::value_type
-				>(
-					result.top
-				)
+				_format & DT_RIGHT
+				?
+					*_max_width
+					- width
+				:
+					0
+				,
+				0
 			),
 			sge::font::rect::dim(
-				static_cast<
-					sge::font::rect::value_type
-				>(
-					result.right - result.left
-				),
-				static_cast<
-					sge::font::rect::value_type
-				>(
-					result.bottom - result.top
-				)
+				width,
+				height
 			)
 		);
 }
