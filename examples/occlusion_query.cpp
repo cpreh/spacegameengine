@@ -247,6 +247,9 @@ try
 	sge::font::object_scoped_ptr const font(
 		sys.font_system().create_font(
 			sge::font::parameters()
+				.family(
+					FCPPT_TEXT("sans")
+				)
 		)
 	);
 
