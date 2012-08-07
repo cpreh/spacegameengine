@@ -41,6 +41,8 @@ sge::opengl::state::convert::bool_(
 		return GL_LIGHTING;
 	case rs::enable_scissor_test:
 		return GL_SCISSOR_TEST;
+	case rs::normalize_normals:
+		return GL_NORMALIZE;
 	case rs::enable_point_sprites:
 	case rs::local_viewer:
 	case rs::write_to_depth_buffer:

@@ -54,6 +54,7 @@ sge::opengl::state::bool_(
 	case rs::enable_alpha_blending:
 	case rs::enable_lighting:
 	case rs::enable_scissor_test:
+	case rs::normalize_normals:
 		sge::opengl::enable_bool(
 			sge::opengl::state::convert::bool_(
 				_state.state()

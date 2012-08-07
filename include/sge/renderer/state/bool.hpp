@@ -43,6 +43,7 @@ extern bool_::trampoline const
 	enable_point_sprites,
 	enable_scissor_test,
 	local_viewer,
+	normalize_normals,
 	write_to_depth_buffer,
 	write_alpha,
 	write_blue,
