@@ -18,24 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_SURFACE_COLOR_SHARED_PTR_HPP_INCLUDED
-#define SGE_D3D9_SURFACE_COLOR_SHARED_PTR_HPP_INCLUDED
+#ifndef SGE_GDIFONT_CALC_RECT_HPP_INCLUDED
+#define SGE_GDIFONT_CALC_RECT_HPP_INCLUDED
 
-#include <sge/d3d9/surface/color_fwd.hpp>
-#include <fcppt/shared_ptr_impl.hpp>
+#include <sge/font/rect_fwd.hpp>
+#include <sge/font/string.hpp>
+#include <sge/gdifont/device_context_fwd.hpp>
+#include <sge/gdifont/include_windows.hpp>
+
 
 namespace sge
 {
-namespace d3d9
-{
-namespace surface
+namespace gdifont
 {
 
-typedef fcppt::shared_ptr<
-	d3d9::surface::color
-> color_shared_ptr;
+sge::font::rect const
+calc_rect(
+	sge::gdifont::device_context const &,
+	sge::font::string const &,
+	UINT format
+);
 
-}
 }
 }
 

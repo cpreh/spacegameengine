@@ -18,21 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/devicefuncs/set_depth_stencil_surface.hpp>
 #include <sge/d3d9/devicefuncs/set_render_target.hpp>
 #include <sge/d3d9/surface/color.hpp>
-#include <sge/d3d9/surface/color_shared_ptr.hpp>
 #include <sge/d3d9/surface/depth_stencil.hpp>
 #include <sge/d3d9/target/basic_impl.hpp>
 #include <sge/d3d9/target/offscreen.hpp>
+#include <sge/renderer/optional_depth_stencil_surface_ref.hpp>
+#include <sge/renderer/pixel_rect.hpp>
+#include <sge/renderer/caps/target_surface_indices.hpp>
+#include <sge/renderer/color_buffer/optional_surface_ref.hpp>
 #include <sge/renderer/target/surface_index.hpp>
 #include <sge/renderer/target/viewport.hpp>
-#include <fcppt/dynamic_pointer_cast.hpp>
+#include <fcppt/dynamic_optional_cast.hpp>
 #include <fcppt/null_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/container/index_map_impl.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
 
 
 sge::d3d9::target::offscreen::offscreen(
@@ -56,15 +59,15 @@ sge::d3d9::target::offscreen::~offscreen()
 
 void
 sge::d3d9::target::offscreen::color_surface(
-	sge::renderer::color_surface_shared_ptr const _surface,
+	sge::renderer::color_buffer::optional_surface_ref const &_surface,
 	sge::renderer::target::surface_index const _index
 )
 {
 	color_surfaces_[
 		_index.get()
 	] =
-		fcppt::dynamic_pointer_cast<
-			sge::d3d9::surface::color
+		fcppt::dynamic_optional_cast<
+			sge::d3d9::surface::color &
 		>(
 			_surface
 		);
@@ -72,22 +75,15 @@ sge::d3d9::target::offscreen::color_surface(
 
 void
 sge::d3d9::target::offscreen::depth_stencil_surface(
-	sge::renderer::depth_stencil_surface_shared_ptr const _surface
+	sge::renderer::optional_depth_stencil_surface_ref const &_surface
 )
 {
 	depth_stencil_surface_ =
-		fcppt::dynamic_pointer_cast<
-			sge::d3d9::surface::depth_stencil
+		fcppt::dynamic_optional_cast<
+			sge::d3d9::surface::depth_stencil &
 		>(
 			_surface
 		);
-}
-
-sge::renderer::optional_dim2 const
-sge::d3d9::target::offscreen::size() const
-{
-	// FIXME:
-	return sge::renderer::optional_dim2();
 }
 
 bool
@@ -130,7 +126,7 @@ sge::d3d9::target::offscreen::change_surfaces(
 		++index
 	)
 	{
-		sge::d3d9::surface::color_shared_ptr const surface(
+		sge::d3d9::target::offscreen::optional_color_surface_ref const surface(
 			color_surfaces_[
 				index
 			]

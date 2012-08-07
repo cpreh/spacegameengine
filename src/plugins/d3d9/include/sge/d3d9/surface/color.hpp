@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/surface/color_holder_fwd.hpp>
 #include <sge/d3d9/surface/d3d_scoped_ptr.hpp>
 #include <sge/image/color/format.hpp>
-#include <sge/renderer/color_surface.hpp>
+#include <sge/renderer/color_buffer/surface.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
 
@@ -43,7 +43,7 @@ namespace surface
 
 class color
 :
-	public sge::renderer::color_surface,
+	public sge::renderer::color_buffer::surface,
 	public sge::d3d9::resource
 {
 	FCPPT_NONCOPYABLE(

@@ -1,0 +1,51 @@
+set(
+	SGE_GDIFONT_FILES
+	src/plugins/gdifont/include/sge/gdifont/calc_rect.hpp
+	src/plugins/gdifont/include/sge/gdifont/convert/align_h.hpp
+	src/plugins/gdifont/include/sge/gdifont/convert/flags.hpp
+	src/plugins/gdifont/include/sge/gdifont/create_dib_section.hpp
+	src/plugins/gdifont/include/sge/gdifont/create_font.hpp
+	src/plugins/gdifont/include/sge/gdifont/delete_object_deleter.hpp
+	src/plugins/gdifont/include/sge/gdifont/delete_object_deleter_fwd.hpp
+	src/plugins/gdifont/include/sge/gdifont/device_context.hpp
+	src/plugins/gdifont/include/sge/gdifont/device_context_fwd.hpp
+	src/plugins/gdifont/include/sge/gdifont/dib_section.hpp
+	src/plugins/gdifont/include/sge/gdifont/draw_text.hpp
+	src/plugins/gdifont/include/sge/gdifont/hbitmap_unique_ptr.hpp
+	src/plugins/gdifont/include/sge/gdifont/hfont_unique_ptr.hpp
+	src/plugins/gdifont/include/sge/gdifont/include_windows.hpp
+	src/plugins/gdifont/include/sge/gdifont/make_flags.hpp
+	src/plugins/gdifont/include/sge/gdifont/object.hpp
+	src/plugins/gdifont/include/sge/gdifont/render.hpp
+	src/plugins/gdifont/include/sge/gdifont/scoped_select.hpp
+	src/plugins/gdifont/include/sge/gdifont/select_object.hpp
+	src/plugins/gdifont/include/sge/gdifont/system.hpp
+	src/plugins/gdifont/include/sge/gdifont/text.hpp
+	src/plugins/gdifont/src/calc_rect.cpp
+	src/plugins/gdifont/src/convert/align_h.cpp
+	src/plugins/gdifont/src/convert/flags.cpp
+	src/plugins/gdifont/src/create_dib_section.cpp
+	src/plugins/gdifont/src/create_font.cpp
+	src/plugins/gdifont/src/delete_object_deleter.cpp
+	src/plugins/gdifont/src/device_context.cpp
+	src/plugins/gdifont/src/dib_section.cpp
+	src/plugins/gdifont/src/draw_text.cpp
+	src/plugins/gdifont/src/exports.cpp
+	src/plugins/gdifont/src/make_flags.cpp
+	src/plugins/gdifont/src/object.cpp
+	src/plugins/gdifont/src/render.cpp
+	src/plugins/gdifont/src/scoped_select.cpp
+	src/plugins/gdifont/src/select_object.cpp
+	src/plugins/gdifont/src/system.cpp
+	src/plugins/gdifont/src/text.cpp
+)
+
+include_directories(
+	"${CMAKE_CURRENT_SOURCE_DIR}/include"
+)
+
+add_sge_plugin(
+	gdifont
+	"sgefont;sgeimage2d;sgeplugin"
+	""
+)

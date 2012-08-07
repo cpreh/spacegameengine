@@ -22,17 +22,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_TARGET_OFFSCREEN_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/surface/color_shared_ptr.hpp>
-#include <sge/d3d9/surface/depth_stencil_shared_ptr.hpp>
+#include <sge/d3d9/surface/color_fwd.hpp>
+#include <sge/d3d9/surface/depth_stencil_fwd.hpp>
 #include <sge/d3d9/target/basic.hpp>
 #include <sge/d3d9/target/offscreen_fwd.hpp>
-#include <sge/renderer/color_surface_shared_ptr.hpp>
-#include <sge/renderer/depth_stencil_surface_shared_ptr.hpp>
-#include <sge/renderer/optional_dim2.hpp>
+#include <sge/renderer/optional_depth_stencil_surface_ref_fwd.hpp>
 #include <sge/renderer/caps/target_surface_indices.hpp>
+#include <sge/renderer/color_buffer/optional_surface_ref_fwd.hpp>
 #include <sge/renderer/target/offscreen.hpp>
 #include <sge/renderer/target/surface_index.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/optional_decl.hpp>
 #include <fcppt/container/index_map_decl.hpp>
 
 
@@ -66,17 +66,14 @@ public:
 private:
 	void
 	color_surface(
-		sge::renderer::color_surface_shared_ptr,
+		sge::renderer::color_buffer::optional_surface_ref const &,
 		sge::renderer::target::surface_index
 	);
 
 	void
 	depth_stencil_surface(
-		sge::renderer::depth_stencil_surface_shared_ptr
+		sge::renderer::optional_depth_stencil_surface_ref const &
 	);
-
-	sge::renderer::optional_dim2 const
-	size() const;
 
 	bool
 	needs_present() const;
@@ -92,13 +89,21 @@ private:
 		bool
 	);
 
+	typedef fcppt::optional<
+		sge::d3d9::surface::color &
+	> optional_color_surface_ref;
+
+	typedef fcppt::optional<
+		sge::d3d9::surface::depth_stencil &
+	> optional_depth_stencil_surface_ref;
+
 	typedef fcppt::container::index_map<
-		sge::d3d9::surface::color_shared_ptr
+		sge::d3d9::target::offscreen::optional_color_surface_ref
 	> color_surface_map;
 
 	color_surface_map color_surfaces_;
 
-	sge::d3d9::surface::depth_stencil_shared_ptr depth_stencil_surface_;
+	sge::d3d9::target::offscreen::optional_depth_stencil_surface_ref depth_stencil_surface_;
 };
 
 }

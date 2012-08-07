@@ -18,24 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_SURFACE_DEPTH_STENCIL_SHARED_PTR_HPP_INCLUDED
-#define SGE_D3D9_SURFACE_DEPTH_STENCIL_SHARED_PTR_HPP_INCLUDED
+#ifndef SGE_GDIFONT_HFONT_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_GDIFONT_HFONT_UNIQUE_PTR_HPP_INCLUDED
 
-#include <sge/d3d9/surface/depth_stencil_fwd.hpp>
-#include <fcppt/shared_ptr_impl.hpp>
+#include <sge/gdifont/delete_object_deleter_fwd.hpp>
+#include <sge/gdifont/include_windows.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/type_traits/remove_pointer.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {
-namespace d3d9
-{
-namespace surface
+namespace gdifont
 {
 
-typedef fcppt::shared_ptr<
-	d3d9::surface::depth_stencil
-> depth_stencil_shared_ptr;
+typedef fcppt::unique_ptr<
+	boost::remove_pointer<
+		HFONT
+	>::type,
+	sge::gdifont::delete_object_deleter
+> hfont_unique_ptr;
 
-}
 }
 }
 

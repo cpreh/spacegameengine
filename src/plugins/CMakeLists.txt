@@ -28,6 +28,8 @@ OPTION (ENABLE_DINPUT "Build the direct input 8 plugin" ${DINPUT_FOUND})
 
 OPTION (ENABLE_EVDEV "Build the evdev input plugin" ${EVDEV_FOUND})
 
+OPTION (ENABLE_GDIFONT "Build the gdi font plugin" ${WIN32})
+
 OPTION (ENABLE_OPENAL "Build the openal audio plugin" ${OPENAL_FOUND})
 
 if(
@@ -132,6 +134,10 @@ ENDIF ()
 
 IF (ENABLE_EVDEV)
 	ADD_SUBDIRECTORY (evdev)
+ENDIF ()
+
+IF (ENABLE_GDIFONT)
+	ADD_SUBDIRECTORY (gdifont)
 ENDIF ()
 
 IF (ENABLE_OPENAL)
