@@ -49,6 +49,6 @@ add_definitions(
 
 add_sge_plugin(
 	pango
-	"sgecharconv;sgefont;sgeimage2d;sgelog;sgeplugin"
-	"${Fcppt_filesystem_LIBRARIES};${PANGO_LIBRARIES}"
+	"sgecharconv;sgefont;sgeimage2d;sgeplugin"
+	"${PANGO_LIBRARIES}"
 )
