@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_FONT_DRAW_STATIC_TEXT_HPP_INCLUDED
 
 #include <sge/font/object_fwd.hpp>
+#include <sge/font/rect_fwd.hpp>
 #include <sge/font/string.hpp>
 #include <sge/font/text_parameters_fwd.hpp>
 #include <sge/font/vector_fwd.hpp>
@@ -94,6 +95,10 @@ public:
 	color(
 		sge::image::color::any::object const &
 	);
+
+	SGE_FONT_DRAW_SYMBOL
+	sge::font::rect const
+	rect() const;
 private:
 	typedef
 	fcppt::scoped_ptr<

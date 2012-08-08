@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_FONT_DRAW_DETAIL_STATIC_TEXT_IMPL_HPP_INCLUDED
 
 #include <sge/font/object_fwd.hpp>
+#include <sge/font/rect_fwd.hpp>
 #include <sge/font/string.hpp>
 #include <sge/font/text_parameters.hpp>
 #include <sge/font/text_scoped_ptr.hpp>
@@ -100,6 +101,9 @@ public:
 	color(
 		sge::image::color::any::object const &
 	);
+
+	sge::font::rect const
+	rect() const;
 
 	void
 	rebuild_texture();

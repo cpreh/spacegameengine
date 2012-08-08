@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/font/object.hpp>
+#include <sge/font/rect.hpp>
 #include <sge/font/string.hpp>
 #include <sge/font/text.hpp>
 #include <sge/font/text_parameters.hpp>
@@ -156,6 +157,12 @@ sge::font::draw::detail::static_text_impl::color(
 			_color
 		)
 	);
+}
+
+sge::font::rect const
+sge::font::draw::detail::static_text_impl::rect() const
+{
+	return text_->rect();
 }
 
 void
