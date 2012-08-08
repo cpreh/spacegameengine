@@ -380,7 +380,7 @@ load_light(
 					parse_light_direction(
 						_json_light))));
 	}
-	else if(light_type == "point")
+	else if(light_type == FCPPT_TEXT("point"))
 	{
 		_scene.lights().push_back(
 			sge::renderer::light::object(
@@ -393,7 +393,7 @@ load_light(
 					parse_light_attenuation(
 						_json_light))));
 	}
-	else if(light_type == "spot")
+	else if(light_type == FCPPT_TEXT("spot"))
 	{
 		_scene.lights().push_back(
 			sge::renderer::light::object(
