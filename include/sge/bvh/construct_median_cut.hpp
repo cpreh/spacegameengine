@@ -29,9 +29,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <boost/next_prior.hpp>
 #include <boost/range/algorithm/max_element.hpp>
-#include <boost/range/algorithm/sort.hpp>
+//#include <boost/range/algorithm/sort.hpp>
 #include <iterator>
+#include <algorithm>
 #include <fcppt/config/external_end.hpp>
+
+#include <iostream>
 
 
 namespace sge
@@ -71,8 +74,43 @@ public:
 				sge::bvh::traits::box<leaf>::extract_box(
 					_right.value()))[axis_];
 	}
+
+	fcppt::math::size_type
+	axis() const
+	{
+		return
+			axis_;
+	}
 private:
 	fcppt::math::size_type axis_;
+};
+
+template<typename T>
+struct less_than
+{
+	T comparable_;
+	sge::bvh::detail::construct_median_cut_comparator const &comparator_;
+
+	less_than(
+		T const &_comparable,
+		sge::bvh::detail::construct_median_cut_comparator const &_comparator)
+	:
+		comparable_(
+			_comparable),
+		comparator_(
+			_comparator)
+	{
+	}
+
+	bool
+	operator()(
+		T const &t) const
+	{
+		return
+			comparator_(
+				t,
+				comparable_);
+	}
 };
 }
 
@@ -107,7 +145,54 @@ construct_median_cut(
 					bounding_box),
 				bounding_box)));
 
+	sge::bvh::detail::construct_median_cut_comparator comparator(
+		static_cast<fcppt::math::size_type>(
+			std::distance(
+				bounding_box_size.begin(),
+				boost::range::max_element(
+					bounding_box_size))));
 
+	std::nth_element(
+		_leaves.begin(),
+		boost::next(
+			_leaves.begin(),
+			static_cast<typename Traits::leaf_wrapper_sequence::difference_type>(
+				_leaves.size()/2u)),
+		_leaves.end(),
+		comparator);
+
+	typename Traits::leaf_wrapper const &median(
+		*boost::next(
+			_leaves.begin(),
+			static_cast<typename Traits::leaf_wrapper_sequence::difference_type>(
+				_leaves.size()/2u)));
+
+	std::partition(
+		_leaves.begin(),
+		_leaves.end(),
+		sge::bvh::detail::less_than<typename Traits::leaf_wrapper>(
+			median,
+			comparator));
+
+	/*
+	typename Traits::leaf_wrapper_sequence left_side,right_side;
+	left_side.reserve(
+		_leaves.size()/2u);
+	right_side.reserve(
+		_leaves.size()/2u);
+	for(
+		typename Traits::leaf_wrapper_sequence::iterator it =
+			_leaves.begin();
+		it != _leaves.end();
+		++it)
+		if(comparator((*it),median))
+			left_side.push_back(
+				*it);
+		else
+			right_side.push_back(
+				*it);
+				*/
+	/*
 	boost::range::sort(
 		_leaves,
 		sge::bvh::detail::construct_median_cut_comparator(
@@ -116,6 +201,37 @@ construct_median_cut(
 					bounding_box_size.begin(),
 					boost::range::max_element(
 						bounding_box_size)))));
+	*/
+
+	/*
+	if(_leaves.size() == 2)
+	{
+		std::cout
+			<<
+				fcppt::math::box::center(
+					sge::bvh::traits::box<typename Traits::leaf_wrapper::leaf>::extract_box(
+						_leaves[0].value()))[comparator.axis()]
+			<<
+			", "
+			<<
+				fcppt::math::box::center(
+					sge::bvh::traits::box<typename Traits::leaf_wrapper::leaf>::extract_box(
+						_leaves[1].value()))[comparator.axis()]
+			<<
+			", median: "
+			<<
+				fcppt::math::box::center(
+					sge::bvh::traits::box<typename Traits::leaf_wrapper::leaf>::extract_box(
+						median.value()))[comparator.axis()]
+			<<
+			"\n";
+	}
+	*/
+	/*
+	std::cout << "input length: " << _leaves.size() << "\n";
+	std::cout << "left side: " << left_side.size() << "\n";
+	std::cout << "right side: " << right_side.size() << "\n";
+	*/
 
 	_tree.push_back(
 		typename Traits::node_or_leaf_variant(
