@@ -69,9 +69,9 @@ set(
 	include/sge/image/color/rgba8_format.hpp
 	include/sge/image/color/rgbx8.hpp
 	include/sge/image/color/rgbx8_format.hpp
-	include/sge/image/color/srgb32f.hpp
 	include/sge/image/color/srgb8.hpp
 	include/sge/image/color/srgb8_format.hpp
+	include/sge/image/color/srgba8.hpp
 	include/sge/image/color/srgba8_format.hpp
 	include/sge/image/colors.hpp
 	include/sge/image/const_raw_pointer.hpp

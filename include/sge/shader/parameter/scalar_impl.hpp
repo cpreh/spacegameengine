@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/cg/parameter/scalar/set.hpp>
 #include <sge/cg/program/object.hpp>
+#include <sge/shader/parameter/name.hpp>
 #include <sge/shader/parameter/scalar_decl.hpp>
 
 

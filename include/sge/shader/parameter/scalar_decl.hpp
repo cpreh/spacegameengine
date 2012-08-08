@@ -21,7 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SHADER_PARAMETER_SCALAR_DECL_HPP_INCLUDED
 #define SGE_SHADER_PARAMETER_SCALAR_DECL_HPP_INCLUDED
 
+#include <sge/cg/parameter/named.hpp>
 #include <sge/cg/program/object_fwd.hpp>
+#include <sge/shader/parameter/name.hpp>
 #include <sge/shader/parameter/scalar_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 

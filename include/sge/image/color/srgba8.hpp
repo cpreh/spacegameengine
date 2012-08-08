@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_COLOR_SRGB32F_HPP_INCLUDED
-#define SGE_IMAGE_COLOR_SRGB32F_HPP_INCLUDED
+#ifndef SGE_IMAGE_COLOR_SRGBA8_HPP_INCLUDED
+#define SGE_IMAGE_COLOR_SRGBA8_HPP_INCLUDED
 
 #include <sge/image/color/object.hpp>
-#include <sge/image/color/srgb32f_format.hpp>
+#include <sge/image/color/srgba8_format.hpp>
 
 
 namespace sge
@@ -33,8 +33,8 @@ namespace color
 {
 
 typedef sge::image::color::object<
-	sge::image::color::srgb32f_format
->::type srgb32f;
+	sge::image::color::srgba8_format
+>::type srgba8;
 
 }
 }

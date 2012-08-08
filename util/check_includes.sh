@@ -27,7 +27,6 @@ check_src input
 check_src line_drawer
 check_src media
 check_src model/md3
-check_src model/obj
 check_src opencl
 check_src parse
 check_src plugin

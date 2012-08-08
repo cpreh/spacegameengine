@@ -23,7 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/cg/parameter/vector/set.hpp>
 #include <sge/cg/program/object.hpp>
+#include <sge/shader/parameter/name.hpp>
 #include <sge/shader/parameter/vector_decl.hpp>
+#include <fcppt/math/size_type.hpp>
 
 
 template
