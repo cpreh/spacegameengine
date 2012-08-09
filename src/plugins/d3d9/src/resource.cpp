@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/needs_reset.hpp>
 #include <sge/d3d9/resource.hpp>
 
 
@@ -26,12 +27,14 @@ sge::d3d9::resource::resource(
 	D3DPOOL const _pool
 )
 :
-	pool_(_pool)
+	pool_(
+		_pool
+	)
 {
 }
 
 sge::d3d9::resource::resource(
-	d3d9::needs_reset::type const _needs_reset
+	sge::d3d9::needs_reset::type const _needs_reset
 )
 :
 	pool_(

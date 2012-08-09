@@ -18,56 +18,61 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/d3d9/texture/lock_cube.hpp>
-#include <sge/d3d9/convert/cube_side.hpp>
-#include <sge/d3d9/convert/lock_rect.hpp>
 #include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/usage.hpp>
+#include <sge/d3d9/devicefuncs/create_texture.hpp>
+#include <sge/d3d9/texture/d3d_texture_unique_ptr.hpp>
+#include <sge/d3d9/texture/mipmap/level_count.hpp>
+#include <sge/d3d9/texture/mipmap/usage.hpp>
 #include <sge/renderer/exception.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <sge/renderer/texture/planar_parameters.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/math/box/object_impl.hpp>
 
 
-D3DLOCKED_RECT const
-sge::d3d9::texture::lock_cube(
-	IDirect3DCubeTexture9 &_texture,
-	sge::renderer::texture::cube_side::type const _side,
-	sge::renderer::texture::stage const _stage,
-	d3d9::optional_lock_rect const &_rect,
-	d3d9::lock_flags const _flags
+sge::d3d9::texture::d3d_texture_unique_ptr
+sge::d3d9::devicefuncs::create_texture(
+	IDirect3DDevice9 &_device,
+	sge::renderer::texture::planar_parameters const &_params,
+	D3DFORMAT const _color_format,
+	D3DPOOL const _pool,
+	sge::d3d9::usage const _usage
 )
 {
-	D3DLOCKED_RECT ret = {};
-
-	RECT in_rect = {};
+	IDirect3DTexture9 *ret = 0;
 
 	if(
-		_rect
-	)
-		in_rect =
-			d3d9::convert::lock_rect(
-				*_rect
-			);
-
-	if(
-		_texture.LockRect(
-			d3d9::convert::cube_side(
-				_side
+		_device.CreateTexture(
+			static_cast<
+				UINT
+			>(
+				_params.size().w()
 			),
-			_stage.get(),
+			static_cast<
+				UINT
+			>(
+				_params.size().h()
+			),
+			sge::d3d9::texture::mipmap::level_count(
+				_params.mipmap()
+			),
+			_usage.get()
+			|
+			sge::d3d9::texture::mipmap::usage(
+				_params.mipmap()
+			).get(),
+			_color_format,
+			_pool,
 			&ret,
-			_rect
-			?
-				&in_rect
-			:
-				NULL,
-			_flags.get()
+			0
 		)
 		!= D3D_OK
 	)
 		throw sge::renderer::exception(
-			FCPPT_TEXT("LockRect() failed!")
+			FCPPT_TEXT("CreateTexture() failed!")
 		);
 
-	return ret;
+	return
+		sge::d3d9::texture::d3d_texture_unique_ptr(
+			ret
+		);
 }

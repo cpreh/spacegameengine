@@ -18,25 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/texture/unlock_planar.hpp>
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_D3D9_TEXTURE_PLANAR_BUFFER_HPP_INCLUDED
+#define SGE_D3D9_TEXTURE_PLANAR_BUFFER_HPP_INCLUDED
+
+#include <sge/d3d9/texture/basic_buffer_fwd.hpp>
+#include <sge/d3d9/texture/planar_types_fwd.hpp>
 
 
-void
-sge::d3d9::texture::unlock_planar(
-	IDirect3DTexture9 &_texture,
-	sge::renderer::texture::stage const _stage
-)
+namespace sge
 {
-	if(
-		_texture.UnlockRect(
-			_stage.get()
-		)
-		!= D3D_OK
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("UnlockRect() failed!")
-		);
+namespace d3d9
+{
+namespace texture
+{
+
+typedef sge::d3d9::texture::basic_buffer<
+	sge::d3d9::texture::planar_types
+> planar_buffer;
+
 }
+}
+}
+
+#endif

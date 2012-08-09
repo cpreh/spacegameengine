@@ -268,6 +268,7 @@ update_cmake_file \
 	-r \
 	src/plugins/d3d9/include/sge/d3d9/query \
 	src/plugins/d3d9/include/sge/d3d9/swapchain \
+	src/plugins/d3d9/include/sge/d3d9/volume \
 	$(d3d9_inc_src convert) \
 	$(d3d9_inc_src devicefuncs) \
 	$(d3d9_inc_src occlusion_query) \
@@ -281,7 +282,9 @@ update_cmake_file \
 	$(d3d9_inc_src systemfuncs) \
 	$(d3d9_inc_src target) \
 	$(d3d9_inc_src texture) \
-	$(d3d9_inc_src vf)
+	$(d3d9_inc_src texturefuncs) \
+	$(d3d9_inc_src vf) \
+	$(d3d9_inc_src volumefuncs)
 
 update_cmake_file \
 	src/plugins/d3d9/CMakeLists.txt \

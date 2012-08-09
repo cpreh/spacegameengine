@@ -46,7 +46,7 @@ protected:
 	~base();
 public:
 	virtual
-	IDirect3DBaseTexture9 *
+	IDirect3DBaseTexture9 &
 	get() const = 0;
 
 	virtual

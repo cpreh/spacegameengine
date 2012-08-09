@@ -12,6 +12,7 @@
 #include <sge/scenic/grid/orientation.hpp>
 #include <sge/scenic/grid/rect.hpp>
 #include <sge/scenic/grid/spacing.hpp>
+#include <fcppt/noncopyable.hpp>
 
 
 namespace sge
@@ -22,6 +23,8 @@ namespace grid
 {
 class object
 {
+FCPPT_NONCOPYABLE(
+	object);
 public:
 	SGE_SCENIC_SYMBOL
 	object(

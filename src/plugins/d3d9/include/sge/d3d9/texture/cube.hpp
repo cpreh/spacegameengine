@@ -22,15 +22,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_TEXTURE_CUBE_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/surface/d3d_unique_ptr.hpp>
 #include <sge/d3d9/texture/basic.hpp>
 #include <sge/d3d9/texture/cube_basic.hpp>
-#include <sge/renderer/lock_mode.hpp>
-#include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/texture/cube.hpp>
 #include <sge/renderer/texture/cube_parameters.hpp>
 #include <sge/renderer/texture/cube_side.hpp>
+#include <sge/renderer/texture/mipmap/level.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional_decl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/ptr_container/ptr_vector.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -54,36 +56,37 @@ public:
 	);
 
 	~cube();
-public:
-	view const
-	lock(
+private:
+	sge::renderer::texture::cube::size_type
+	border_size() const;
+
+	sge::renderer::texture::cube::color_buffer &
+	level(
 		sge::renderer::texture::cube_side::type,
-		sge::renderer::lock_rect const &,
-		sge::renderer::lock_mode::type
+		sge::renderer::texture::mipmap::level
 	);
 
-	const_view const
-	lock(
+	sge::renderer::texture::cube::color_buffer const &
+	level(
 		sge::renderer::texture::cube_side::type,
-		sge::renderer::lock_rect const &
+		sge::renderer::texture::mipmap::level
 	) const;
 
-	void
-	unlock() const;
+	sge::d3d9::surface::d3d_unique_ptr
+	get_level(
+		sge::renderer::texture::cube_side::type,
+		sge::renderer::texture::mipmap::level
+	);
+	
+	typedef boost::ptr_vector<
+		sge::renderer::texture::cube::color_buffer
+	> level_map;
 
-	size_type
-	border_size() const;
-private:
-	sge::d3d9::texture::cube_basic::lock_function const
-	lock_function(
-		sge::renderer::texture::cube_side::type
-	) const;
+	typedef boost::ptr_vector<
+		level_map
+	> side_map;
 
-	typedef fcppt::optional<
-		sge::renderer::texture::cube_side::type
-	> optional_cube_side;
-
-	mutable optional_cube_side locked_side_;
+	side_map sides_;
 };
 
 }

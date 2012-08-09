@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_CONVERT_LOCK_RECT_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/renderer/lock_rect.hpp>
+#include <sge/renderer/lock_rect_fwd.hpp>
+
 
 namespace sge
 {
@@ -33,7 +34,7 @@ namespace convert
 
 RECT const
 lock_rect(
-	renderer::lock_rect const &
+	sge::renderer::lock_rect const &
 );
 
 }

@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/bvh/bounding_box.hpp>
 #include <sge/bvh/empty_node.hpp>
 #include <sge/bvh/traits/box.hpp>
+#include <fcppt/nonassignable.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/box/center.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -33,8 +34,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <iterator>
 #include <algorithm>
 #include <fcppt/config/external_end.hpp>
-
-#include <iostream>
 
 
 namespace sge
@@ -86,11 +85,11 @@ private:
 };
 
 template<typename T>
-struct less_than
+class less_than
 {
-	T comparable_;
-	sge::bvh::detail::construct_median_cut_comparator const &comparator_;
-
+FCPPT_NONASSIGNABLE(
+	less_than);
+public:
 	less_than(
 		T const &_comparable,
 		sge::bvh::detail::construct_median_cut_comparator const &_comparator)
@@ -111,6 +110,9 @@ struct less_than
 				t,
 				comparable_);
 	}
+private:
+	T comparable_;
+	sge::bvh::detail::construct_median_cut_comparator const &comparator_;
 };
 }
 

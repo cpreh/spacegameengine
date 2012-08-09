@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_CONVERT_LOCK_BOX_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/renderer/lock_box.hpp>
+#include <sge/renderer/lock_box_fwd.hpp>
+
 
 namespace sge
 {
@@ -33,7 +34,7 @@ namespace convert
 
 D3DBOX const
 lock_box(
-	renderer::lock_box const &
+	sge::renderer::lock_box const &
 );
 
 }

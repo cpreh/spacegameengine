@@ -66,7 +66,7 @@ sge::d3d9::cg::texture::loaded_object::activate() const
 	sge::d3d9::cg::texture::set(
 		device_,
 		parameter_,
-		texture_.get()
+		&texture_.get()
 	);
 
 	return

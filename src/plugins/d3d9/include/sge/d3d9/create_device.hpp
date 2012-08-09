@@ -25,15 +25,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/renderer/adapter.hpp>
 
+
 namespace sge
 {
 namespace d3d9
 {
 
-d3d9::d3d_device_unique_ptr
+sge::d3d9::d3d_device_unique_ptr
 create_device(
 	IDirect3D9 *,
-	renderer::adapter,
+	sge::renderer::adapter,
 	D3DPRESENT_PARAMETERS &
 );
 

@@ -33,12 +33,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/format.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/make_const.hpp>
+#include <sge/image2d/view/object.hpp>
 #include <sge/image2d/view/optional_pitch.hpp>
 #include <sge/renderer/const_raw_pointer.hpp>
+#include <sge/renderer/lock_mode.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/move.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/assert/unimplemented_message.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 
@@ -73,9 +77,21 @@ sge::d3d9::surface::color::~color()
 {
 }
 
+
+sge::d3d9::surface::color::view const
+sge::d3d9::surface::color::lock(
+	lock_area const &,
+	sge::renderer::lock_mode::type
+)
+{
+	FCPPT_ASSERT_UNIMPLEMENTED_MESSAGE(
+		FCPPT_TEXT("Locking color surfaces that are not texture surfaces is not supported!")
+	);
+}
+
 sge::d3d9::surface::color::const_view const
 sge::d3d9::surface::color::lock(
-	rect const &_rect
+	lock_area const &_rect
 ) const
 {
 	if(

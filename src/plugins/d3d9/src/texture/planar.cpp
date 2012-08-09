@@ -18,19 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/d3d9/texture/planar.hpp>
+#include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/surface/d3d_unique_ptr.hpp>
+#include <sge/d3d9/texture/basic_buffer.hpp>
 #include <sge/d3d9/texture/basic_impl.hpp>
-#include <sge/d3d9/texture/lock_planar.hpp>
+#include <sge/d3d9/texture/planar.hpp>
+#include <sge/d3d9/texture/planar_basic.hpp>
+#include <sge/d3d9/texture/planar_buffer.hpp>
 #include <sge/d3d9/texture/planar_types.hpp>
-#include <sge/d3d9/texture/unlock_planar.hpp>
-#include <sge/image2d/view/const_object.hpp>
-#include <sge/image2d/view/object.hpp>
-#include <sge/renderer/color_surface.hpp>
-#include <sge/renderer/color_surface_unique_ptr.hpp>
+#include <sge/d3d9/texturefuncs/get_surface_level.hpp>
+#include <sge/renderer/dim2.hpp>
+#include <sge/renderer/color_buffer/surface.hpp>
 #include <sge/renderer/texture/planar_parameters_fwd.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
-#include <sge/renderer/texture/mipmap/level_count.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/tr1/functional.hpp>
 
 
@@ -42,82 +44,76 @@ sge::d3d9::texture::planar::planar(
 	sge::d3d9::texture::planar_basic(
 		_device,
 		_params
-	)
+	),
+	levels_()
 {
+	for(
+		sge::renderer::texture::mipmap::level index(
+			0u
+		);
+		index.get() < this->levels().get();
+		++index
+	)
+		fcppt::container::ptr::push_back_unique_ptr(
+			levels_,
+			fcppt::make_unique_ptr<
+				sge::d3d9::texture::planar_buffer
+			>(
+				sge::d3d9::texture::planar_buffer::d3d_buffer_create_function(
+					std::tr1::bind(
+						&sge::d3d9::texture::planar::get_level,
+						this,
+						index
+					)
+				),
+				this->color_format(),
+				this->resource_flags()
+			)
+		);
 }
 
 sge::d3d9::texture::planar::~planar()
 {
 }
 
-sge::d3d9::texture::planar::dim const
+sge::renderer::texture::planar::dim const
 sge::d3d9::texture::planar::size() const
 {
-	return this->parameters().size();
-}
-
-sge::d3d9::texture::planar::view const
-sge::d3d9::texture::planar::lock(
-	renderer::lock_rect const &_rect,
-	renderer::lock_mode::type const _mode
-)
-{
 	return
-		this->lock_impl(
-			this->lock_function(),
-			_rect,
-			_mode
-		);
+		this->parameters().size();
 }
 
-sge::d3d9::texture::planar::const_view const
-sge::d3d9::texture::planar::lock(
-	renderer::lock_rect const &_rect
-) const
-{
-	return
-		this->lock_impl(
-			this->lock_function(),
-			_rect
-		);
-}
-
-void
-sge::d3d9::texture::planar::unlock() const
-{
-	this->unlock_impl(
-		std::tr1::bind(
-			texture::unlock_planar,
-			std::tr1::placeholders::_1,
-			std::tr1::placeholders::_2
-		)
-	);
-}
-
-sge::renderer::color_surface_unique_ptr
-sge::d3d9::texture::planar::surface(
+sge::renderer::texture::planar::color_buffer &
+sge::d3d9::texture::planar::level(
 	sge::renderer::texture::mipmap::level const _level
 )
 {
-	return renderer::color_surface_unique_ptr();
+	return
+		levels_[
+			_level.get()
+		];
 }
 
-sge::renderer::texture::mipmap::level_count const
-sge::d3d9::texture::planar::levels() const
-{
-	return sge::renderer::texture::mipmap::level_count(0u);
-}
-
-sge::d3d9::texture::planar_basic::lock_function const
-sge::d3d9::texture::planar::lock_function() const
+sge::renderer::texture::planar::color_buffer const &
+sge::d3d9::texture::planar::level(
+	sge::renderer::texture::mipmap::level const _level
+) const
 {
 	return
-		std::tr1::bind(
-			texture::lock_planar,
-			std::tr1::placeholders::_1,
-			std::tr1::placeholders::_2,
-			std::tr1::placeholders::_3,
-			std::tr1::placeholders::_4
+		levels_[
+			_level.get()
+		];
+}
+
+sge::d3d9::surface::d3d_unique_ptr
+sge::d3d9::texture::planar::get_level(
+	sge::renderer::texture::mipmap::level const _level
+)
+{
+	return
+		sge::d3d9::texturefuncs::get_surface_level(
+			this->get(),
+			_level
 		);
 }
 

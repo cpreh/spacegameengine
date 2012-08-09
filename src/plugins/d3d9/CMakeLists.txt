@@ -44,9 +44,12 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/device.hpp
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/begin_scene.hpp
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/clear.hpp
+	src/plugins/d3d9/include/sge/d3d9/devicefuncs/create_cube_texture.hpp
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/create_depth_stencil_surface.hpp
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/create_offscreen_plain_surface.hpp
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/create_query.hpp
+	src/plugins/d3d9/include/sge/d3d9/devicefuncs/create_texture.hpp
+	src/plugins/d3d9/include/sge/d3d9/devicefuncs/create_volume_texture.hpp
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/draw_indexed_primitive.hpp
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/draw_primitive.hpp
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/end_scene.hpp
@@ -84,7 +87,10 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/needs_reset.hpp
 	src/plugins/d3d9/include/sge/d3d9/occlusion_query/create.hpp
 	src/plugins/d3d9/include/sge/d3d9/occlusion_query/object.hpp
+	src/plugins/d3d9/include/sge/d3d9/optional_lock_box.hpp
+	src/plugins/d3d9/include/sge/d3d9/optional_lock_box_fwd.hpp
 	src/plugins/d3d9/include/sge/d3d9/optional_lock_rect.hpp
+	src/plugins/d3d9/include/sge/d3d9/optional_lock_rect_fwd.hpp
 	src/plugins/d3d9/include/sge/d3d9/parameters/convert/bit_depth.hpp
 	src/plugins/d3d9/include/sge/d3d9/parameters/convert/depth_stencil_buffer.hpp
 	src/plugins/d3d9/include/sge/d3d9/parameters/convert/multi_sample.hpp
@@ -191,15 +197,18 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/texture/base.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/base_fwd.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/basic.hpp
+	src/plugins/d3d9/include/sge/d3d9/texture/basic_buffer.hpp
+	src/plugins/d3d9/include/sge/d3d9/texture/basic_buffer_fwd.hpp
+	src/plugins/d3d9/include/sge/d3d9/texture/basic_buffer_impl.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/basic_fwd.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/basic_impl.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/best_color_format.hpp
-	src/plugins/d3d9/include/sge/d3d9/texture/create_cube.hpp
-	src/plugins/d3d9/include/sge/d3d9/texture/create_planar.hpp
-	src/plugins/d3d9/include/sge/d3d9/texture/create_volume.hpp
+	src/plugins/d3d9/include/sge/d3d9/texture/buffer_size.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/cube.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/cube_basic.hpp
+	src/plugins/d3d9/include/sge/d3d9/texture/cube_buffer.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/cube_types.hpp
+	src/plugins/d3d9/include/sge/d3d9/texture/cube_types_fwd.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/d3d_base_texture_unique_ptr.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/d3d_cube_texture_unique_ptr.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/d3d_texture_unique_ptr.hpp
@@ -217,30 +226,33 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/texture/filter/set.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/filter/visitor.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/init_state.hpp
-	src/plugins/d3d9/include/sge/d3d9/texture/lock_cube.hpp
-	src/plugins/d3d9/include/sge/d3d9/texture/lock_planar.hpp
-	src/plugins/d3d9/include/sge/d3d9/texture/lock_volume.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/mipmap/auto_generate_usage.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/mipmap/level_count.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/mipmap/level_count_visitor.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/mipmap/usage.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/mipmap/usage_visitor.hpp
-	src/plugins/d3d9/include/sge/d3d9/texture/optional_lock_box.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/optional_locked_box.hpp
+	src/plugins/d3d9/include/sge/d3d9/texture/optional_locked_box_fwd.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/optional_locked_rect.hpp
+	src/plugins/d3d9/include/sge/d3d9/texture/optional_locked_rect_fwd.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/planar.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/planar_basic.hpp
+	src/plugins/d3d9/include/sge/d3d9/texture/planar_buffer.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/planar_types.hpp
+	src/plugins/d3d9/include/sge/d3d9/texture/planar_types_fwd.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/pool.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/set.hpp
-	src/plugins/d3d9/include/sge/d3d9/texture/unlock_cube.hpp
-	src/plugins/d3d9/include/sge/d3d9/texture/unlock_planar.hpp
-	src/plugins/d3d9/include/sge/d3d9/texture/unlock_volume.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/update.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/usage.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/volume.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/volume_basic.hpp
+	src/plugins/d3d9/include/sge/d3d9/texture/volume_buffer.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/volume_types.hpp
+	src/plugins/d3d9/include/sge/d3d9/texture/volume_types_fwd.hpp
+	src/plugins/d3d9/include/sge/d3d9/texturefuncs/get_cube_map_surface.hpp
+	src/plugins/d3d9/include/sge/d3d9/texturefuncs/get_level_count.hpp
+	src/plugins/d3d9/include/sge/d3d9/texturefuncs/get_surface_level.hpp
+	src/plugins/d3d9/include/sge/d3d9/texturefuncs/get_volume_level.hpp
 	src/plugins/d3d9/include/sge/d3d9/usage.hpp
 	src/plugins/d3d9/include/sge/d3d9/vertex_buffer.hpp
 	src/plugins/d3d9/include/sge/d3d9/vertex_declaration.hpp
@@ -259,6 +271,11 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/vf/element_vector.hpp
 	src/plugins/d3d9/include/sge/d3d9/vf/texture_coordinate_count.hpp
 	src/plugins/d3d9/include/sge/d3d9/vf/texture_coordinates.hpp
+	src/plugins/d3d9/include/sge/d3d9/volume/d3d_unique_ptr.hpp
+	src/plugins/d3d9/include/sge/d3d9/volumefuncs/dim.hpp
+	src/plugins/d3d9/include/sge/d3d9/volumefuncs/get_desc.hpp
+	src/plugins/d3d9/include/sge/d3d9/volumefuncs/lock_box.hpp
+	src/plugins/d3d9/include/sge/d3d9/volumefuncs/unlock_box.hpp
 	src/plugins/d3d9/src/convert/address_mode.cpp
 	src/plugins/d3d9/src/convert/address_mode_type.cpp
 	src/plugins/d3d9/src/convert/bool.cpp
@@ -300,9 +317,12 @@ SET(
 	src/plugins/d3d9/src/device.cpp
 	src/plugins/d3d9/src/devicefuncs/begin_rendering.cpp
 	src/plugins/d3d9/src/devicefuncs/clear.cpp
+	src/plugins/d3d9/src/devicefuncs/create_cube_texture.cpp
 	src/plugins/d3d9/src/devicefuncs/create_depth_stencil_surface.cpp
 	src/plugins/d3d9/src/devicefuncs/create_offscreen_plain_surface.cpp
 	src/plugins/d3d9/src/devicefuncs/create_query.cpp
+	src/plugins/d3d9/src/devicefuncs/create_texture.cpp
+	src/plugins/d3d9/src/devicefuncs/create_volume_texture.cpp
 	src/plugins/d3d9/src/devicefuncs/draw_indexed_primitive.cpp
 	src/plugins/d3d9/src/devicefuncs/draw_primitive.cpp
 	src/plugins/d3d9/src/devicefuncs/end_scene.cpp
@@ -416,10 +436,9 @@ SET(
 	src/plugins/d3d9/src/texture/address_mode.cpp
 	src/plugins/d3d9/src/texture/base.cpp
 	src/plugins/d3d9/src/texture/best_color_format.cpp
-	src/plugins/d3d9/src/texture/create_cube.cpp
-	src/plugins/d3d9/src/texture/create_planar.cpp
-	src/plugins/d3d9/src/texture/create_volume.cpp
+	src/plugins/d3d9/src/texture/buffer_size.cpp
 	src/plugins/d3d9/src/texture/cube.cpp
+	src/plugins/d3d9/src/texture/cube_buffer.cpp
 	src/plugins/d3d9/src/texture/cube_types.cpp
 	src/plugins/d3d9/src/texture/depth_stencil.cpp
 	src/plugins/d3d9/src/texture/depth_stencil_types.cpp
@@ -433,25 +452,25 @@ SET(
 	src/plugins/d3d9/src/texture/filter/set.cpp
 	src/plugins/d3d9/src/texture/filter/visitor.cpp
 	src/plugins/d3d9/src/texture/init_state.cpp
-	src/plugins/d3d9/src/texture/lock_cube.cpp
-	src/plugins/d3d9/src/texture/lock_planar.cpp
-	src/plugins/d3d9/src/texture/lock_volume.cpp
 	src/plugins/d3d9/src/texture/mipmap/auto_generate_usage.cpp
 	src/plugins/d3d9/src/texture/mipmap/level_count.cpp
 	src/plugins/d3d9/src/texture/mipmap/level_count_visitor.cpp
 	src/plugins/d3d9/src/texture/mipmap/usage.cpp
 	src/plugins/d3d9/src/texture/mipmap/usage_visitor.cpp
 	src/plugins/d3d9/src/texture/planar.cpp
+	src/plugins/d3d9/src/texture/planar_buffer.cpp
 	src/plugins/d3d9/src/texture/planar_types.cpp
 	src/plugins/d3d9/src/texture/pool.cpp
 	src/plugins/d3d9/src/texture/set.cpp
-	src/plugins/d3d9/src/texture/unlock_cube.cpp
-	src/plugins/d3d9/src/texture/unlock_planar.cpp
-	src/plugins/d3d9/src/texture/unlock_volume.cpp
 	src/plugins/d3d9/src/texture/update.cpp
 	src/plugins/d3d9/src/texture/usage.cpp
 	src/plugins/d3d9/src/texture/volume.cpp
+	src/plugins/d3d9/src/texture/volume_buffer.cpp
 	src/plugins/d3d9/src/texture/volume_types.cpp
+	src/plugins/d3d9/src/texturefuncs/get_cube_map_surface.cpp
+	src/plugins/d3d9/src/texturefuncs/get_level_count.cpp
+	src/plugins/d3d9/src/texturefuncs/get_surface_level.cpp
+	src/plugins/d3d9/src/texturefuncs/get_volume_level.cpp
 	src/plugins/d3d9/src/vertex_buffer.cpp
 	src/plugins/d3d9/src/vertex_declaration.cpp
 	src/plugins/d3d9/src/vf/convert/color_type.cpp
@@ -467,6 +486,10 @@ SET(
 	src/plugins/d3d9/src/vf/convert/vector_type.cpp
 	src/plugins/d3d9/src/vf/create.cpp
 	src/plugins/d3d9/src/vf/texture_coordinates.cpp
+	src/plugins/d3d9/src/volumefuncs/dim.cpp
+	src/plugins/d3d9/src/volumefuncs/get_desc.cpp
+	src/plugins/d3d9/src/volumefuncs/lock_box.cpp
+	src/plugins/d3d9/src/volumefuncs/unlock_box.cpp
 )
 
 set(

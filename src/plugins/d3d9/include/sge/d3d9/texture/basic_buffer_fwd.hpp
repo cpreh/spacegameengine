@@ -18,51 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/d3d9/texture/lock_volume.hpp>
-#include <sge/d3d9/convert/lock_box.hpp>
-#include <sge/d3d9/d3dinclude.hpp>
-#include <sge/renderer/exception.hpp>
-#include <fcppt/optional_impl.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/math/box/object_impl.hpp>
+#ifndef SGE_D3D9_TEXTURE_BASIC_BUFFER_FWD_HPP_INCLUDED
+#define SGE_D3D9_TEXTURE_BASIC_BUFFER_FWD_HPP_INCLUDED
 
 
-D3DLOCKED_BOX const
-sge::d3d9::texture::lock_volume(
-	IDirect3DVolumeTexture9 &_texture,
-	sge::renderer::texture::stage const _stage,
-	d3d9::texture::optional_lock_box const &_box,
-	d3d9::lock_flags const _flags
-)
+namespace sge
 {
-	D3DLOCKED_BOX ret = {};
+namespace d3d9
+{
+namespace texture
+{
 
-	D3DBOX in_box = {};
+template<
+	typename Types
+>
+class basic_buffer;
 
-	if(
-		_box
-	)
-		in_box =
-			d3d9::convert::lock_box(
-				*_box
-			);
-
-	if(
-		_texture.LockBox(
-			_stage.get(),
-			&ret,
-			_box
-			?
-				&in_box
-			:
-				NULL,
-			_flags.get()
-		)
-		!= D3D_OK
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("LockBox() failed!")
-		);
-
-	return ret;
 }
+}
+}
+
+#endif

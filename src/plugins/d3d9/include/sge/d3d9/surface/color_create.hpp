@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/surface/d3d_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 
+
 namespace sge
 {
 namespace d3d9
@@ -40,9 +41,11 @@ class color_create
 protected:
 	color_create();
 public:
-	virtual ~color_create();
+	virtual
+	~color_create() = 0;
 
-	virtual surface::d3d_unique_ptr
+	virtual
+	sge::d3d9::surface::d3d_unique_ptr
 	create() const = 0;
 };
 

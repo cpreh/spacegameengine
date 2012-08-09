@@ -18,34 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_TEXTURE_LOCK_CUBE_HPP_INCLUDED
-#define SGE_D3D9_TEXTURE_LOCK_CUBE_HPP_INCLUDED
-
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/lock_flags.hpp>
-#include <sge/d3d9/optional_lock_rect.hpp>
+#include <sge/d3d9/convert/cube_side.hpp>
+#include <sge/d3d9/surface/d3d_unique_ptr.hpp>
+#include <sge/d3d9/texturefuncs/get_cube_map_surface.hpp>
+#include <sge/renderer/exception.hpp>
 #include <sge/renderer/texture/cube_side.hpp>
-#include <sge/renderer/texture/stage.hpp>
+#include <sge/renderer/texture/mipmap/level.hpp>
+#include <fcppt/text.hpp>
 
 
-namespace sge
+sge::d3d9::surface::d3d_unique_ptr
+sge::d3d9::texturefuncs::get_cube_map_surface(
+	IDirect3DCubeTexture9 &_texture,
+	sge::renderer::texture::cube_side::type const _side,
+	sge::renderer::texture::mipmap::level const _level
+)
 {
-namespace d3d9
-{
-namespace texture
-{
+	IDirect3DSurface9 *result;
 
-D3DLOCKED_RECT const
-lock_cube(
-	IDirect3DCubeTexture9 &,
-	sge::renderer::texture::cube_side::type,
-	sge::renderer::texture::stage,
-	d3d9::optional_lock_rect const &,
-	d3d9::lock_flags
-);
+	if(
+		_texture.GetCubeMapSurface(
+			sge::d3d9::convert::cube_side(
+				_side
+			),
+			_level.get(),
+			&result
+		)
+		!=
+		D3D_OK
+	)
+		throw sge::renderer::exception(
+			FCPPT_TEXT("GetCubeMapSurface failed!")
+		);
 
+	return
+		sge::d3d9::surface::d3d_unique_ptr(
+			result
+		);
 }
-}
-}
-
-#endif

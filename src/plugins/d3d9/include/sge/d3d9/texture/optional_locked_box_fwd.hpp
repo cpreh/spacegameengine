@@ -18,12 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_TEXTURE_UNLOCK_CUBE_HPP_INCLUDED
-#define SGE_D3D9_TEXTURE_UNLOCK_CUBE_HPP_INCLUDED
+#ifndef SGE_D3D9_TEXTURE_OPTIONAL_LOCKED_BOX_FWD_HPP_INCLUDED
+#define SGE_D3D9_TEXTURE_OPTIONAL_LOCKED_BOX_FWD_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/renderer/texture/cube_side.hpp>
-#include <sge/renderer/texture/stage.hpp>
+#include <fcppt/optional_fwd.hpp>
 
 
 namespace sge
@@ -33,12 +32,9 @@ namespace d3d9
 namespace texture
 {
 
-void
-unlock_cube(
-	IDirect3DCubeTexture9 &,
-	sge::renderer::texture::cube_side::type,
-	sge::renderer::texture::stage
-);
+typedef fcppt::optional<
+	D3DLOCKED_BOX
+> optional_locked_box;
 
 }
 }

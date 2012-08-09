@@ -18,43 +18,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/d3d9/texture/create_planar.hpp>
+#include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/usage.hpp>
+#include <sge/d3d9/devicefuncs/create_cube_texture.hpp>
+#include <sge/d3d9/texture/d3d_cube_texture_unique_ptr.hpp>
 #include <sge/d3d9/texture/mipmap/level_count.hpp>
 #include <sge/d3d9/texture/mipmap/usage.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/texture/planar_parameters.hpp>
+#include <sge/renderer/texture/cube_parameters.hpp>
 #include <fcppt/text.hpp>
 
 
-sge::d3d9::texture::d3d_texture_unique_ptr
-sge::d3d9::texture::create_planar(
+sge::d3d9::texture::d3d_cube_texture_unique_ptr
+sge::d3d9::devicefuncs::create_cube_texture(
 	IDirect3DDevice9 &_device,
-	renderer::texture::planar_parameters const &_params,
+	sge::renderer::texture::cube_parameters const &_params,
 	D3DFORMAT const _color_format,
 	D3DPOOL const _pool,
-	d3d9::usage const _usage
+	sge::d3d9::usage const _usage
 )
 {
-	IDirect3DTexture9 *ret = 0;
+	IDirect3DCubeTexture9 *ret = 0;
 
 	if(
-		_device.CreateTexture(
+		_device.CreateCubeTexture(
 			static_cast<
 				UINT
 			>(
-				_params.size().w()
+				_params.size()
 			),
-			static_cast<
-				UINT
-			>(
-				_params.size().h()
-			),
-			texture::mipmap::level_count(
+			sge::d3d9::texture::mipmap::level_count(
 				_params.mipmap()
 			),
 			_usage.get()
 			|
-			texture::mipmap::usage(
+			sge::d3d9::texture::mipmap::usage(
 				_params.mipmap()
 			).get(),
 			_color_format,
@@ -69,7 +67,7 @@ sge::d3d9::texture::create_planar(
 		);
 
 	return
-		texture::d3d_texture_unique_ptr(
+		sge::d3d9::texture::d3d_cube_texture_unique_ptr(
 			ret
 		);
 }

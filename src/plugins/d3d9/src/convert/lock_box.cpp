@@ -20,12 +20,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/convert/lock_box.hpp>
-#include <fcppt/math/box/object_impl.hpp>
+#include <sge/renderer/lock_box.hpp>
 
 
 D3DBOX const
 sge::d3d9::convert::lock_box(
-	renderer::lock_box const &_box
+	sge::renderer::lock_box const &_box
 )
 {
 	D3DBOX const ret =

@@ -18,29 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_TEXTURE_CREATE_VOLUME_HPP_INCLUDED
-#define SGE_D3D9_TEXTURE_CREATE_VOLUME_HPP_INCLUDED
+#ifndef SGE_D3D9_VOLUMEFUNCS_UNLOCK_BOX_HPP_INCLUDED
+#define SGE_D3D9_VOLUMEFUNCS_UNLOCK_BOX_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/usage.hpp>
-#include <sge/d3d9/texture/d3d_volume_texture_unique_ptr.hpp>
-#include <sge/renderer/texture/volume_parameters_fwd.hpp>
 
 
 namespace sge
 {
 namespace d3d9
 {
-namespace texture
+namespace volumefuncs
 {
 
-texture::d3d_volume_texture_unique_ptr
-create_volume(
-	IDirect3DDevice9 &,
-	renderer::texture::volume_parameters const &,
-	D3DFORMAT,
-	D3DPOOL,
-	d3d9::usage
+void
+unlock_box(
+	IDirect3DVolume9 &
 );
 
 }

@@ -18,15 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/texture/volume.hpp>
+#include <sge/d3d9/texture/basic_buffer.hpp>
 #include <sge/d3d9/texture/basic_impl.hpp>
-#include <sge/d3d9/texture/lock_volume.hpp>
-#include <sge/d3d9/texture/unlock_volume.hpp>
+#include <sge/d3d9/texture/volume_basic.hpp>
+#include <sge/d3d9/texture/volume_buffer.hpp>
 #include <sge/d3d9/texture/volume_types.hpp>
-#include <sge/image3d/view/const_object.hpp>
-#include <sge/image3d/view/object.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <sge/d3d9/texturefuncs/get_volume_level.hpp>
+#include <sge/d3d9/volume/d3d_unique_ptr.hpp>
+#include <sge/renderer/color_buffer/volume.hpp>
+#include <sge/renderer/texture/volume_parameters_fwd.hpp>
+#include <sge/renderer/texture/mipmap/level.hpp>
+#include <sge/renderer/dim3.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 
 
 sge::d3d9::texture::volume::volume(
@@ -37,8 +43,32 @@ sge::d3d9::texture::volume::volume(
 	sge::d3d9::texture::volume_basic(
 		_device,
 		_params
-	)
+	),
+	levels_()
 {
+	for(
+		sge::renderer::texture::mipmap::level index(
+			0u
+		);
+		index.get() < this->levels().get();
+		++index
+	)
+		fcppt::container::ptr::push_back_unique_ptr(
+			levels_,
+			fcppt::make_unique_ptr<
+				sge::d3d9::texture::volume_buffer
+			>(
+				sge::d3d9::texture::volume_buffer::d3d_buffer_create_function(
+					std::tr1::bind(
+						&sge::d3d9::texture::volume::get_level,
+						this,
+						index
+					)
+				),
+				this->color_format(),
+				this->resource_flags()
+			)
+		);
 }
 
 sge::d3d9::texture::volume::~volume()
@@ -51,56 +81,40 @@ sge::d3d9::texture::volume::size() const
 	return this->parameters().size();
 }
 
-sge::d3d9::texture::volume::view const
-sge::d3d9::texture::volume::lock(
-	lock_area const &_box,
-	renderer::lock_mode::type const _mode
+sge::renderer::texture::volume::color_buffer &
+sge::d3d9::texture::volume::level(
+	sge::renderer::texture::mipmap::level const _level
 )
 {
 	return
-		this->lock_impl(
-			this->lock_function(),
-			_box,
-			_mode
-		);
+		levels_[
+			_level.get()
+		];
 }
 
-sge::d3d9::texture::volume::const_view const
-sge::d3d9::texture::volume::lock(
-	lock_area const &_box
+sge::renderer::texture::volume::color_buffer const &
+sge::d3d9::texture::volume::level(
+	sge::renderer::texture::mipmap::level const _level
 ) const
 {
 	return
-		this->lock_impl(
-			this->lock_function(),
-			_box
-		);
+		levels_[
+			_level.get()
+		];
 }
 
-void
-sge::d3d9::texture::volume::unlock() const
-{
-	this->unlock_impl(
-		std::tr1::bind(
-			texture::unlock_volume,
-			std::tr1::placeholders::_1,
-			std::tr1::placeholders::_2
-		)
-	);
-}
-
-sge::d3d9::texture::volume_basic::lock_function const
-sge::d3d9::texture::volume::lock_function() const
+sge::d3d9::volume::d3d_unique_ptr
+sge::d3d9::texture::volume::get_level(
+	sge::renderer::texture::mipmap::level const _level
+)
 {
 	return
-		std::tr1::bind(
-			texture::lock_volume,
-			std::tr1::placeholders::_1,
-			std::tr1::placeholders::_2,
-			std::tr1::placeholders::_3,
-			std::tr1::placeholders::_4
+		sge::d3d9::texturefuncs::get_volume_level(
+			this->get(),
+			_level
 		);
 }
+
 
 template class
 sge::d3d9::texture::basic<

@@ -18,27 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_TEXTURE_UNLOCK_PLANAR_HPP_INCLUDED
-#define SGE_D3D9_TEXTURE_UNLOCK_PLANAR_HPP_INCLUDED
-
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/renderer/texture/stage.hpp>
+#include <sge/d3d9/surfacefuncs/dim.hpp>
+#include <sge/d3d9/texture/buffer_size.hpp>
+#include <sge/d3d9/volumefuncs/dim.hpp>
+#include <sge/renderer/dim2.hpp>
+#include <sge/renderer/dim3.hpp>
 
-namespace sge
+
+sge::renderer::dim2 const
+sge::d3d9::texture::buffer_size(
+	IDirect3DSurface9 &_surface
+)
 {
-namespace d3d9
+	return
+		sge::d3d9::surfacefuncs::dim(
+			_surface
+		);
+}
+
+sge::renderer::dim3 const
+sge::d3d9::texture::buffer_size(
+	IDirect3DVolume9 &_volume
+)
 {
-namespace texture
-{
-
-void
-unlock_planar(
-	IDirect3DTexture9 &,
-	sge::renderer::texture::stage
-);
-
+	return
+		sge::d3d9::volumefuncs::dim(
+			_volume
+		);
 }
-}
-}
-
-#endif

@@ -47,7 +47,7 @@ sge::d3d9::cg::texture::assigned_stage(
 				stage
 			).get()
 			==
-			_texture.get()
+			&_texture.get()
 		)
 			return
 				stage;

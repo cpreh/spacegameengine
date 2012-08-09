@@ -21,16 +21,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_TEXTURE_PLANAR_HPP_INCLUDED
 #define SGE_D3D9_TEXTURE_PLANAR_HPP_INCLUDED
 
+#include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/surface/d3d_unique_ptr.hpp>
 #include <sge/d3d9/texture/basic.hpp>
 #include <sge/d3d9/texture/planar_basic.hpp>
-#include <sge/renderer/color_surface_unique_ptr.hpp>
-#include <sge/renderer/lock_mode.hpp>
-#include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
-#include <sge/renderer/texture/mipmap/level_count.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/ptr_container/ptr_vector.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -54,34 +55,30 @@ public:
 	);
 
 	~planar();
-
-	dim const
+private:
+	sge::renderer::texture::planar::dim const
 	size() const;
 
-	view const
-	lock(
-		sge::renderer::lock_rect const &,
-		sge::renderer::lock_mode::type
-	);
-
-	const_view const
-	lock(
-		sge::renderer::lock_rect const &
-	) const;
-
-	void
-	unlock() const;
-
-	sge::renderer::color_surface_unique_ptr
-	surface(
+	sge::renderer::texture::planar::color_buffer &
+	level(
 		sge::renderer::texture::mipmap::level
 	);
 
-	sge::renderer::texture::mipmap::level_count const
-	levels() const;
-private:
-	sge::d3d9::texture::planar_basic::lock_function const
-	lock_function() const;
+	sge::renderer::texture::planar::color_buffer const &
+	level(
+		sge::renderer::texture::mipmap::level
+	) const;
+
+	sge::d3d9::surface::d3d_unique_ptr
+	get_level(
+		sge::renderer::texture::mipmap::level
+	);
+
+	typedef boost::ptr_vector<
+		sge::renderer::texture::planar::color_buffer
+	> level_map;
+
+	level_map levels_;
 };
 
 }

@@ -50,6 +50,8 @@ sge::d3d9::state::bool_(
 	case sge::renderer::state::bool_::available_states::enable_lighting:
 	case sge::renderer::state::bool_::available_states::enable_point_sprites:
 	case sge::renderer::state::bool_::available_states::enable_scissor_test:
+	case sge::renderer::state::bool_::available_states::local_viewer:
+	case sge::renderer::state::bool_::available_states::normalize_normals:
 	case sge::renderer::state::bool_::available_states::write_to_depth_buffer:
 		break;
 	}

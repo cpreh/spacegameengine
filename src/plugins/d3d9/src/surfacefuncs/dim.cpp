@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/surfacefuncs/dim.hpp>
 #include <sge/d3d9/surfacefuncs/get_desc.hpp>
 #include <sge/renderer/dim2.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
 
 
 sge::renderer::dim2 const
@@ -31,7 +30,7 @@ sge::d3d9::surfacefuncs::dim(
 )
 {
 	D3DSURFACE_DESC const desc(
-		surfacefuncs::get_desc(
+		sge::d3d9::surfacefuncs::get_desc(
 			_surface
 		)
 	);

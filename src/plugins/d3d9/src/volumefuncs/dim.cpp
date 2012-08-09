@@ -18,31 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_TEXTURE_LOCK_PLANAR_HPP_INCLUDED
-#define SGE_D3D9_TEXTURE_LOCK_PLANAR_HPP_INCLUDED
-
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/lock_flags.hpp>
-#include <sge/d3d9/optional_lock_rect.hpp>
-#include <sge/renderer/texture/stage.hpp>
+#include <sge/d3d9/volumefuncs/dim.hpp>
+#include <sge/d3d9/volumefuncs/get_desc.hpp>
+#include <sge/renderer/dim3.hpp>
 
-namespace sge
+
+sge::renderer::dim3 const
+sge::d3d9::volumefuncs::dim(
+	IDirect3DVolume9 &_surface
+)
 {
-namespace d3d9
-{
-namespace texture
-{
+	D3DVOLUME_DESC const desc(
+		sge::d3d9::volumefuncs::get_desc(
+			_surface
+		)
+	);
 
-D3DLOCKED_RECT const
-lock_planar(
-	IDirect3DTexture9 &,
-	sge::renderer::texture::stage,
-	d3d9::optional_lock_rect const &,
-	d3d9::lock_flags
-);
-
+	return
+		sge::renderer::dim3(
+			desc.Width,
+			desc.Height,
+			desc.Depth
+		);
 }
-}
-}
-
-#endif

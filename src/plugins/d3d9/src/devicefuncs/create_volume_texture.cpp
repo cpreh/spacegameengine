@@ -18,7 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/d3d9/texture/create_volume.hpp>
+#include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/usage.hpp>
+#include <sge/d3d9/devicefuncs/create_volume_texture.hpp>
 #include <sge/d3d9/texture/mipmap/level_count.hpp>
 #include <sge/d3d9/texture/mipmap/usage.hpp>
 #include <sge/renderer/exception.hpp>
@@ -27,12 +29,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::d3d9::texture::d3d_volume_texture_unique_ptr
-sge::d3d9::texture::create_volume(
+sge::d3d9::devicefuncs::create_volume_texture(
 	IDirect3DDevice9 &_device,
-	renderer::texture::volume_parameters const &_params,
+	sge::renderer::texture::volume_parameters const &_params,
 	D3DFORMAT const _color_format,
 	D3DPOOL const _pool,
-	d3d9::usage const _usage
+	sge::d3d9::usage const _usage
 )
 {
 	IDirect3DVolumeTexture9 *ret = 0;
@@ -54,12 +56,12 @@ sge::d3d9::texture::create_volume(
 			>(
 				_params.size().d()
 			),
-			texture::mipmap::level_count(
+			sge::d3d9::texture::mipmap::level_count(
 				_params.mipmap()
 			),
 			_usage.get()
 			|
-			texture::mipmap::usage(
+			sge::d3d9::texture::mipmap::usage(
 				_params.mipmap()
 			).get(),
 			_color_format,
@@ -74,7 +76,7 @@ sge::d3d9::texture::create_volume(
 		);
 
 	return
-		texture::d3d_volume_texture_unique_ptr(
+		sge::d3d9::texture::d3d_volume_texture_unique_ptr(
 			ret
 		);
 }

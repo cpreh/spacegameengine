@@ -18,22 +18,55 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/d3d9/texture/create_planar.hpp>
+#include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/lock_flags.hpp>
+#include <sge/d3d9/usage.hpp>
+#include <sge/d3d9/devicefuncs/create_texture.hpp>
+#include <sge/d3d9/surfacefuncs/lock_rect.hpp>
+#include <sge/d3d9/surfacefuncs/unlock_rect.hpp>
 #include <sge/d3d9/texture/planar_types.hpp>
-#include <fcppt/function/object.hpp>
-#include <fcppt/tr1/functional.hpp>
 
 
-sge::d3d9::texture::planar_types::create_function const
-sge::d3d9::texture::planar_types::create()
+sge::d3d9::texture::planar_types::unique_ptr
+sge::d3d9::texture::planar_types::create(
+	IDirect3DDevice9 &_device,
+	parameters const &_parameters,
+	D3DFORMAT const _format,
+	D3DPOOL const _pool,
+	sge::d3d9::usage const _usage
+)
 {
 	return
-		std::tr1::bind(
-			texture::create_planar,
-			std::tr1::placeholders::_1,
-			std::tr1::placeholders::_2,
-			std::tr1::placeholders::_3,
-			std::tr1::placeholders::_4,
-			std::tr1::placeholders::_5
+		sge::d3d9::devicefuncs::create_texture(
+			_device,
+			_parameters,
+			_format,
+			_pool,
+			_usage
 		);
+}
+
+D3DLOCKED_RECT const
+sge::d3d9::texture::planar_types::lock(
+	d3d_buffer &_buffer,
+	lock_dest const &_lock_dest,
+	sge::d3d9::lock_flags const _flags
+)
+{
+	return
+		sge::d3d9::surfacefuncs::lock_rect(
+			_buffer,
+			_lock_dest,
+			_flags
+		);
+}
+
+void
+sge::d3d9::texture::planar_types::unlock(
+	d3d_buffer &_buffer
+)
+{
+	sge::d3d9::surfacefuncs::unlock_rect(
+		_buffer
+	);
 }

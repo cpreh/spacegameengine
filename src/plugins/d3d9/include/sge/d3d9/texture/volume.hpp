@@ -24,10 +24,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/texture/basic.hpp>
 #include <sge/d3d9/texture/volume_basic.hpp>
-#include <sge/renderer/lock_mode.hpp>
+#include <sge/d3d9/volume/d3d_unique_ptr.hpp>
 #include <sge/renderer/texture/volume.hpp>
 #include <sge/renderer/texture/volume_parameters.hpp>
+#include <sge/renderer/texture/mipmap/level.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/ptr_container/ptr_vector.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -39,7 +43,7 @@ namespace texture
 
 class volume
 :
-public sge::d3d9::texture::volume_basic
+	public sge::d3d9::texture::volume_basic
 {
 	FCPPT_NONCOPYABLE(
 		volume
@@ -52,25 +56,29 @@ public:
 
 	~volume();
 private:
-	dim const
+	sge::renderer::texture::volume::dim const
 	size() const;
 
-	view const
-	lock(
-		lock_area const &,
-		sge::renderer::lock_mode::type
+	sge::renderer::texture::volume::color_buffer &
+	level(
+		sge::renderer::texture::mipmap::level
 	);
 
-	const_view const
-	lock(
-		lock_area const &
+	sge::renderer::texture::volume::color_buffer const &
+	level(
+		sge::renderer::texture::mipmap::level
 	) const;
 
-	void
-	unlock() const;
+	sge::d3d9::volume::d3d_unique_ptr
+	get_level(
+		sge::renderer::texture::mipmap::level
+	);
 
-	sge::d3d9::texture::volume_basic::lock_function const
-	lock_function() const;
+	typedef boost::ptr_vector<
+		sge::renderer::texture::volume::color_buffer
+	> level_map;
+
+	level_map levels_;
 };
 
 }

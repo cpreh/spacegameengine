@@ -19,22 +19,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/lock_flags.hpp>
+#include <sge/d3d9/optional_lock_rect.hpp>
 #include <sge/d3d9/convert/lock_rect.hpp>
 #include <sge/d3d9/surfacefuncs/lock_rect.hpp>
 #include <sge/renderer/exception.hpp>
-#include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/math/box/object_impl.hpp>
 
 
 D3DLOCKED_RECT const
 sge::d3d9::surfacefuncs::lock_rect(
 	IDirect3DSurface9 &_surface,
-	d3d9::optional_lock_rect const &_rect,
-	d3d9::lock_flags const _flags
+	sge::d3d9::optional_lock_rect const &_rect,
+	sge::d3d9::lock_flags const _flags
 )
 {
-	// TODO: this function is almost the same as lock_planar!
 	D3DLOCKED_RECT ret = {};
 
 	RECT in_rect = {};
@@ -43,7 +42,7 @@ sge::d3d9::surfacefuncs::lock_rect(
 		_rect
 	)
 		in_rect =
-			d3d9::convert::lock_rect(
+			sge::d3d9::convert::lock_rect(
 				*_rect
 			);
 

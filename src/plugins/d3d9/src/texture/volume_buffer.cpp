@@ -18,51 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/convert/lock_rect.hpp>
-#include <sge/d3d9/texture/lock_planar.hpp>
-#include <sge/renderer/exception.hpp>
-#include <fcppt/optional_impl.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/math/box/object_impl.hpp>
+#include <sge/d3d9/texture/basic_buffer_impl.hpp>
+#include <sge/d3d9/texture/volume_buffer.hpp>
+#include <sge/d3d9/texture/volume_types.hpp>
+#include <sge/image3d/view/const_object.hpp>
+#include <sge/image3d/view/object.hpp>
+#include <sge/renderer/color_buffer/volume.hpp>
 
 
-D3DLOCKED_RECT const
-sge::d3d9::texture::lock_planar(
-	IDirect3DTexture9 &_texture,
-	sge::renderer::texture::stage const _stage,
-	d3d9::optional_lock_rect const &_rect,
-	d3d9::lock_flags const _flags
-)
-{
-	D3DLOCKED_RECT ret = {};
-
-	RECT in_rect = {};
-
-	if(
-		_rect
-	)
-		in_rect =
-			d3d9::convert::lock_rect(
-				*_rect
-			);
-
-	if(
-		_texture.LockRect(
-			_stage.get(),
-			&ret,
-			_rect
-			?
-				&in_rect
-			:
-				NULL,
-			_flags.get()
-		)
-		!= D3D_OK
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("LockRect() failed!")
-		);
-
-	return ret;
-}
+template class
+sge::d3d9::texture::basic_buffer<
+	sge::d3d9::texture::volume_types
+>;

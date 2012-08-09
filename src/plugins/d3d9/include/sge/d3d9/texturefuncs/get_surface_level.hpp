@@ -18,23 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_TEXTURE_UNLOCK_VOLUME_HPP_INCLUDED
-#define SGE_D3D9_TEXTURE_UNLOCK_VOLUME_HPP_INCLUDED
+#ifndef SGE_D3D9_TEXTUREFUNCS_GET_SURFACE_LEVEL_HPP_INCLUDED
+#define SGE_D3D9_TEXTUREFUNCS_GET_SURFACE_LEVEL_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/renderer/texture/stage.hpp>
+#include <sge/d3d9/surface/d3d_unique_ptr.hpp>
+#include <sge/renderer/texture/mipmap/level.hpp>
+
 
 namespace sge
 {
 namespace d3d9
 {
-namespace texture
+namespace texturefuncs
 {
 
-void
-unlock_volume(
-	IDirect3DVolumeTexture9 &,
-	sge::renderer::texture::stage
+sge::d3d9::surface::d3d_unique_ptr
+get_surface_level(
+	IDirect3DTexture9 &,
+	sge::renderer::texture::mipmap::level
 );
 
 }

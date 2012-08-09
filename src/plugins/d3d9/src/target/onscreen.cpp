@@ -30,8 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/target/basic_impl.hpp>
 #include <sge/d3d9/target/onscreen.hpp>
 #include <sge/image/color/format.hpp>
-#include <sge/renderer/color_surface_fwd.hpp>
 #include <sge/renderer/caps/target_surface_indices.hpp>
+#include <sge/renderer/color_buffer/surface_fwd.hpp>
 #include <sge/renderer/target/surface_index.hpp>
 #include <sge/renderer/target/viewport_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -97,7 +97,7 @@ sge::d3d9::target::onscreen::~onscreen()
 {
 }
 
-sge::renderer::color_surface const &
+sge::renderer::color_buffer::surface const &
 sge::d3d9::target::onscreen::surface() const
 {
 	return *color_surface_;

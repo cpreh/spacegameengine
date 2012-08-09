@@ -18,11 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_TEXTURE_OPTIONAL_LOCK_BOX_HPP_INCLUDED
-#define SGE_D3D9_TEXTURE_OPTIONAL_LOCK_BOX_HPP_INCLUDED
-
-#include <sge/renderer/lock_box.hpp>
-#include <fcppt/optional_fwd.hpp>
+#ifndef SGE_D3D9_TEXTURE_PLANAR_TYPES_FWD_HPP_INCLUDED
+#define SGE_D3D9_TEXTURE_PLANAR_TYPES_FWD_HPP_INCLUDED
 
 
 namespace sge
@@ -32,9 +29,7 @@ namespace d3d9
 namespace texture
 {
 
-typedef fcppt::optional<
-	renderer::lock_box
-> optional_lock_box;
+struct planar_types;
 
 }
 }

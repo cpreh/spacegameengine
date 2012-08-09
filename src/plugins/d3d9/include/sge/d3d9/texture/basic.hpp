@@ -25,17 +25,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/resource.hpp>
 #include <sge/d3d9/usage.hpp>
 #include <sge/d3d9/texture/base.hpp>
+#include <sge/d3d9/texture/basic_buffer_fwd.hpp>
 #include <sge/d3d9/texture/basic_fwd.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
+#include <sge/renderer/texture/mipmap/level_count.hpp>
 #include <sge/renderer/texture/mipmap/object_fwd.hpp>
 #include <fcppt/com_deleter.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional_decl.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
+#include <fcppt/scoped_ptr_decl.hpp>
 
 
 namespace sge
@@ -51,8 +52,8 @@ template<
 class basic
 :
 	public Types::base,
-	public d3d9::texture::base,
-	public d3d9::resource
+	public sge::d3d9::texture::base,
+	public sge::d3d9::resource
 {
 	FCPPT_NONCOPYABLE(
 		basic
@@ -60,11 +61,13 @@ class basic
 public:
 	typedef typename Types::base base;
 
-	typedef typename base::image_tag image_tag;
-
 	typedef typename Types::parameters parameters_type;
 
 	typedef typename Types::d3d_type d3d_type;
+
+	typedef sge::d3d9::texture::basic_buffer<
+		Types
+	> buffer_type;
 
 	basic(
 		IDirect3DDevice9 &,
@@ -72,17 +75,20 @@ public:
 	);
 
 	~basic();
-
+protected:
 	sge::renderer::resource_flags_field const
 	resource_flags() const;
-
+private:
 	sge::renderer::texture::capabilities_field const
 	capabilities() const;
 
 	sge::renderer::texture::mipmap::object const
 	mipmap() const;
-
-	d3d_type *
+protected:
+	sge::renderer::texture::mipmap::level_count const
+	levels() const;
+public:
+	d3d_type &
 	get() const;
 
 	sge::image::color::format::type
@@ -90,53 +96,13 @@ public:
 protected:
 	parameters_type const &
 	parameters() const;
-
-	typedef typename base::view view;
-
-	typedef typename base::const_view const_view;
-
-	typedef typename base::lock_area lock_area;
-
-	typedef typename Types::lock_function lock_function;
-
-	typedef typename Types::unlock_function unlock_function;
-
-	view const
-	lock_impl(
-		lock_function const &,
-		lock_area const &,
-		renderer::lock_mode::type
-	);
-
-	const_view const
-	lock_impl(
-		lock_function const &,
-		lock_area const &
-	) const;
-
-	void
-	unlock_impl(
-		unlock_function const &
-	) const;
 private:
-	template<
-		typename View,
-		typename MakeView
-	>
-	View const
-	do_lock(
-		MakeView const &,
-		lock_function const &,
-		lock_area const &,
-		renderer::lock_flags::method::type
-	) const;
-
 	typedef typename Types::unique_ptr d3d_unique_ptr;
 
 	d3d_unique_ptr
 	create(
 		D3DPOOL,
-		d3d9::usage
+		sge::d3d9::usage
 	) const;
 
 	void
@@ -147,8 +113,6 @@ private:
 
 	void
 	on_loss();
-
-	typedef typename Types::locked_dest locked_dest;
 
 	IDirect3DDevice9 &device_;
 
@@ -165,11 +129,7 @@ private:
 		fcppt::com_deleter
 	> d3d_scoped_ptr;
 
-	d3d_scoped_ptr main_texture_;
-
-	mutable d3d_scoped_ptr temp_texture_;
-
-	mutable locked_dest locked_dest_;
+	d3d_scoped_ptr texture_;
 };
 
 }

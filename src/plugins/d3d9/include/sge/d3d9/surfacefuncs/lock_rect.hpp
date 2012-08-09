@@ -23,7 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/lock_flags.hpp>
-#include <sge/d3d9/optional_lock_rect.hpp>
+#include <sge/d3d9/optional_lock_rect_fwd.hpp>
+
 
 namespace sge
 {
@@ -35,8 +36,8 @@ namespace surfacefuncs
 D3DLOCKED_RECT const
 lock_rect(
 	IDirect3DSurface9 &,
-	d3d9::optional_lock_rect const &,
-	d3d9::lock_flags
+	sge::d3d9::optional_lock_rect const &,
+	sge::d3d9::lock_flags
 );
 
 }

@@ -18,83 +18,77 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/surface/d3d_unique_ptr.hpp>
 #include <sge/d3d9/texture/basic_impl.hpp>
+#include <sge/d3d9/texture/basic_buffer.hpp>
 #include <sge/d3d9/texture/cube.hpp>
+#include <sge/d3d9/texture/cube_buffer.hpp>
 #include <sge/d3d9/texture/cube_types.hpp>
-#include <sge/d3d9/texture/lock_cube.hpp>
-#include <sge/d3d9/texture/unlock_cube.hpp>
-#include <sge/image2d/view/const_object.hpp>
-#include <sge/image2d/view/object.hpp>
-#include <fcppt/optional_impl.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <sge/d3d9/texturefuncs/get_cube_map_surface.hpp>
+#include <sge/renderer/color_buffer/surface.hpp>
+#include <sge/renderer/texture/cube_parameters_fwd.hpp>
+#include <sge/renderer/texture/cube_side.hpp>
+#include <sge/renderer/texture/mipmap/level.hpp>
+#include <fcppt/foreach_enumerator.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 
 
 sge::d3d9::texture::cube::cube(
 	IDirect3DDevice9 &_device,
-	renderer::texture::cube_parameters const &_params
+	sge::renderer::texture::cube_parameters const &_params
 )
 :
 	sge::d3d9::texture::cube_basic(
 		_device,
 		_params
 	),
-	locked_side_()
+	sides_()
 {
+	FCPPT_FOREACH_ENUMERATOR(
+		side,
+		sge::renderer::texture::cube_side
+	)
+	{
+		fcppt::container::ptr::push_back_unique_ptr(
+			sides_,
+			fcppt::make_unique_ptr<
+				level_map
+			>()
+		);
+
+		for(
+			sge::renderer::texture::mipmap::level index(
+				0u
+			);
+			index.get() < this->levels().get();
+			++index
+		)
+			fcppt::container::ptr::push_back_unique_ptr(
+				sides_[
+					side
+				],
+				fcppt::make_unique_ptr<
+					sge::d3d9::texture::cube_buffer
+				>(
+					sge::d3d9::texture::cube_buffer::d3d_buffer_create_function(
+						std::tr1::bind(
+							&sge::d3d9::texture::cube::get_level,
+							this,
+							side,
+							index
+						)
+					),
+					this->color_format(),
+					this->resource_flags()
+				)
+			);
+	}
 }
 
 sge::d3d9::texture::cube::~cube()
 {
-}
-
-sge::image2d::view::object const
-sge::d3d9::texture::cube::lock(
-	renderer::texture::cube_side::type const _side,
-	renderer::lock_rect const &_rect,
-	renderer::lock_mode::type const _mode
-)
-{
-	locked_side_ = _side;
-
-	return
-		this->lock_impl(
-			this->lock_function(
-				_side
-			),
-			_rect,
-			_mode
-		);
-}
-
-sge::image2d::view::const_object const
-sge::d3d9::texture::cube::lock(
-	renderer::texture::cube_side::type const _side,
-	renderer::lock_rect const &_rect
-) const
-{
-	locked_side_ = _side;
-
-	return
-		this->lock_impl(
-			this->lock_function(
-				_side
-			),
-			_rect
-		);
-}
-
-void
-sge::d3d9::texture::cube::unlock() const
-{
-	this->unlock_impl(
-		std::tr1::bind(
-			texture::unlock_cube,
-			std::tr1::placeholders::_1,
-			*locked_side_,
-			std::tr1::placeholders::_2
-		)
-	);
-
-	locked_side_.reset();
 }
 
 sge::d3d9::texture::cube::size_type
@@ -103,19 +97,46 @@ sge::d3d9::texture::cube::border_size() const
 	return this->parameters().size();
 }
 
-sge::d3d9::texture::cube_basic::lock_function const
-sge::d3d9::texture::cube::lock_function(
-	renderer::texture::cube_side::type const _side
+sge::renderer::texture::cube::color_buffer &
+sge::d3d9::texture::cube::level(
+	sge::renderer::texture::cube_side::type const _side,
+	sge::renderer::texture::mipmap::level const _level
+)
+{
+	return
+		sides_[
+			_side
+		][
+			_level.get()
+		];
+
+}
+
+sge::renderer::texture::cube::color_buffer const &
+sge::d3d9::texture::cube::level(
+	sge::renderer::texture::cube_side::type const _side,
+	sge::renderer::texture::mipmap::level const _level
 ) const
 {
 	return
-		std::tr1::bind(
-			texture::lock_cube,
-			std::tr1::placeholders::_1,
+		sides_[
+			_side
+		][
+			_level.get()
+		];
+}
+
+sge::d3d9::surface::d3d_unique_ptr
+sge::d3d9::texture::cube::get_level(
+	sge::renderer::texture::cube_side::type const _side,
+	sge::renderer::texture::mipmap::level const _level
+)
+{
+	return
+		sge::d3d9::texturefuncs::get_cube_map_surface(
+			this->get(),
 			_side,
-			std::tr1::placeholders::_2,
-			std::tr1::placeholders::_3,
-			std::tr1::placeholders::_4
+			_level
 		);
 }
 

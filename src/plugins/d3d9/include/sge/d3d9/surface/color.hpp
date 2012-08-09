@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/surface/color_holder_fwd.hpp>
 #include <sge/d3d9/surface/d3d_scoped_ptr.hpp>
 #include <sge/image/color/format.hpp>
+#include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/color_buffer/surface.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
@@ -58,9 +59,15 @@ public:
 
 	~color();
 
-	const_view const
+	sge::renderer::color_buffer::surface::view const
 	lock(
-		rect const &
+		sge::renderer::color_buffer::surface::lock_area const &,
+		sge::renderer::lock_mode::type
+	);
+
+	sge::renderer::color_buffer::surface::const_view const
+	lock(
+		sge::renderer::color_buffer::surface::lock_area const &
 	) const;
 
 	void
