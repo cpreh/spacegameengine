@@ -18,18 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_WEIGHT_HPP_INCLUDED
-#define SGE_FONT_WEIGHT_HPP_INCLUDED
+#include <sge/font/weight/light.hpp>
+#include <sge/font/weight/unit.hpp>
 
 
-namespace sge
+sge::font::weight::unit
+sge::font::weight::light()
 {
-namespace font
-{
-
-typedef unsigned weight;
-
+	return 300u;
 }
-}
-
-#endif

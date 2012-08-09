@@ -18,11 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_OPTIONAL_WEIGHT_HPP_INCLUDED
-#define SGE_FONT_OPTIONAL_WEIGHT_HPP_INCLUDED
+#ifndef SGE_FONT_WEIGHT_ULTRA_LIGHT_HPP_INCLUDED
+#define SGE_FONT_WEIGHT_ULTRA_LIGHT_HPP_INCLUDED
 
-#include <sge/font/optional_weight_fwd.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <sge/font/symbol.hpp>
+#include <sge/font/weight/unit.hpp>
 
+
+namespace sge
+{
+namespace font
+{
+namespace weight
+{
+
+SGE_FONT_SYMBOL
+sge::font::weight::unit
+ultra_light();
+
+}
+}
+}
 
 #endif

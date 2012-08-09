@@ -20,10 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/font/optional_family.hpp>
 #include <sge/font/optional_ttf_size.hpp>
-#include <sge/font/optional_weight.hpp>
 #include <sge/font/parameters.hpp>
 #include <sge/font/ttf_size.hpp>
-#include <sge/font/weight.hpp>
+#include <sge/font/weight/optional_unit.hpp>
+#include <sge/font/weight/unit.hpp>
 #include <fcppt/string.hpp>
 
 
@@ -60,7 +60,7 @@ sge::font::parameters::family(
 
 sge::font::parameters &
 sge::font::parameters::weight(
-	sge::font::weight const _weight
+	sge::font::weight::unit const _weight
 )
 {
 	weight_ = _weight;
@@ -88,7 +88,7 @@ sge::font::parameters::family() const
 	return family_;
 }
 
-sge::font::optional_weight const &
+sge::font::weight::optional_unit const &
 sge::font::parameters::weight() const
 {
 	return weight_;

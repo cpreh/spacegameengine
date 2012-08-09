@@ -20,11 +20,12 @@ set(
 	include/sge/font/optional_ttf_size_fwd.hpp
 	include/sge/font/optional_unit.hpp
 	include/sge/font/optional_unit_fwd.hpp
-	include/sge/font/optional_weight.hpp
-	include/sge/font/optional_weight_fwd.hpp
 	include/sge/font/parameters.hpp
 	include/sge/font/parameters_fwd.hpp
 	include/sge/font/parameters_to_string.hpp
+	include/sge/font/plugin/collection_fwd.hpp
+	include/sge/font/plugin/object_scoped_ptr.hpp
+	include/sge/font/plugin/traits.hpp
 	include/sge/font/rect.hpp
 	include/sge/font/rect_fwd.hpp
 	include/sge/font/string.hpp
@@ -45,7 +46,19 @@ set(
 	include/sge/font/vector_fwd.hpp
 	include/sge/font/view.hpp
 	include/sge/font/view_fwd.hpp
-	include/sge/font/weight.hpp
+	include/sge/font/weight/bold.hpp
+	include/sge/font/weight/heavy.hpp
+	include/sge/font/weight/light.hpp
+	include/sge/font/weight/medium.hpp
+	include/sge/font/weight/normal.hpp
+	include/sge/font/weight/optional_unit.hpp
+	include/sge/font/weight/optional_unit_fwd.hpp
+	include/sge/font/weight/semi_bold.hpp
+	include/sge/font/weight/thin.hpp
+	include/sge/font/weight/ultra_bold.hpp
+	include/sge/font/weight/ultra_heavy.hpp
+	include/sge/font/weight/ultra_light.hpp
+	include/sge/font/weight/unit.hpp
 	src/font/exception.cpp
 	src/font/from_fcppt_string.cpp
 	src/font/object.cpp
@@ -61,6 +74,16 @@ set(
 	src/font/text.cpp
 	src/font/text_parameters.cpp
 	src/font/to_fcppt_string.cpp
+	src/font/weight/bold.cpp
+	src/font/weight/heavy.cpp
+	src/font/weight/light.cpp
+	src/font/weight/medium.cpp
+	src/font/weight/normal.cpp
+	src/font/weight/semi_bold.cpp
+	src/font/weight/thin.cpp
+	src/font/weight/ultra_bold.cpp
+	src/font/weight/ultra_heavy.cpp
+	src/font/weight/ultra_light.cpp
 )
 
 sge_implement_from_lib(

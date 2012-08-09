@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/font/ttf_size.hpp>
-#include <sge/font/weight.hpp>
+#include <sge/font/weight/unit.hpp>
 #include <sge/pango/font_description.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/to_std_string.hpp>
@@ -75,7 +75,7 @@ sge::pango::font_description::family(
 
 void
 sge::pango::font_description::weight(
-	sge::font::weight const _weight
+	sge::font::weight::unit const _weight
 )
 {
 	::pango_font_description_set_weight(

@@ -23,11 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/font/optional_family.hpp>
 #include <sge/font/optional_ttf_size.hpp>
-#include <sge/font/optional_weight.hpp>
 #include <sge/font/parameters_fwd.hpp>
 #include <sge/font/symbol.hpp>
 #include <sge/font/ttf_size.hpp>
-#include <sge/font/weight.hpp>
+#include <sge/font/weight/optional_unit.hpp>
+#include <sge/font/weight/unit.hpp>
 #include <fcppt/string.hpp>
 
 
@@ -57,7 +57,7 @@ public:
 	SGE_FONT_SYMBOL
 	sge::font::parameters &
 	weight(
-		sge::font::weight
+		sge::font::weight::unit
 	);
 
 	SGE_FONT_SYMBOL
@@ -73,7 +73,7 @@ public:
 	family() const;
 
 	SGE_FONT_SYMBOL
-	sge::font::optional_weight const &
+	sge::font::weight::optional_unit const &
 	weight() const;
 
 	SGE_FONT_SYMBOL
@@ -84,7 +84,7 @@ private:
 
 	sge::font::optional_family family_;
 
-	sge::font::optional_weight weight_;
+	sge::font::weight::optional_unit weight_;
 
 	bool italic_;
 };

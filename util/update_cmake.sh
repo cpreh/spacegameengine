@@ -48,7 +48,7 @@ function update_sublibrary()
 	update_cmake_file \
 		src/"${sublibrary}"/CMakeLists.txt \
 		SGE_"${upperpath////}"_FILES \
-		$2 \
+		"${@:2}" \
 		include/sge/"${sublibrary}" \
 		src/"${sublibrary}"
 }
@@ -101,7 +101,11 @@ update_sublibrary config
 update_sublibrary console
 
 update_sublibrary font \
-	"src/font/plugin -n"
+	"include/sge/font/plugin" \
+	"src/font/plugin" \
+	"include/sge/font/weight" \
+	"src/font/weight" \
+	"-n"
 
 update_sublibrary font/bitmap
 
