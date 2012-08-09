@@ -242,7 +242,6 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/texture/planar_types_fwd.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/pool.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/set.hpp
-	src/plugins/d3d9/include/sge/d3d9/texture/update.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/usage.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/volume.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/volume_basic.hpp
@@ -462,7 +461,6 @@ SET(
 	src/plugins/d3d9/src/texture/planar_types.cpp
 	src/plugins/d3d9/src/texture/pool.cpp
 	src/plugins/d3d9/src/texture/set.cpp
-	src/plugins/d3d9/src/texture/update.cpp
 	src/plugins/d3d9/src/texture/usage.cpp
 	src/plugins/d3d9/src/texture/volume.cpp
 	src/plugins/d3d9/src/texture/volume_buffer.cpp
