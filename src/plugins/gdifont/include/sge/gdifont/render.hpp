@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GDIFONT_RENDER_HPP_INCLUDED
 #define SGE_GDIFONT_RENDER_HPP_INCLUDED
 
-#include <sge/font/optional_unit_fwd.hpp>
+#include <sge/font/dim_fwd.hpp>
 #include <sge/font/string.hpp>
 #include <sge/gdifont/device_context_fwd.hpp>
 #include <sge/gdifont/include_windows.hpp>
@@ -36,7 +36,7 @@ void
 render(
 	sge::gdifont::device_context const &,
 	sge::font::string const &,
-	sge::font::optional_unit const &optional_width,
+	sge::font::dim const &,
 	UINT flags
 );
 

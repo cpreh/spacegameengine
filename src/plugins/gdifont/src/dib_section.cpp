@@ -25,7 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gdifont/include_windows.hpp>
 #include <sge/image/const_raw_pointer.hpp>
 #include <sge/image/color/format.hpp>
-#include <sge/image2d/dim_fwd.hpp>
+#include <sge/image2d/dim.hpp>
+#include <sge/image2d/pitch.hpp>
+#include <sge/image2d/view/optional_pitch.hpp>
 #include <fcppt/null_ptr.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
 
@@ -35,6 +37,9 @@ sge::gdifont::dib_section::dib_section(
 	sge::image2d::dim const &_size
 )
 :
+	size_(
+		_size
+	),
 	data_(
 		fcppt::null_ptr()
 	),
@@ -68,6 +73,26 @@ sge::gdifont::dib_section::format() const
 {
 	// TODO: Extend this!
 	return sge::image::color::format::a8;
+}
+
+sge::image2d::view::optional_pitch const
+sge::gdifont::dib_section::pitch() const
+{
+	
+	BITMAP bmp;
+
+	GetObject(
+		hbitmap_.get(),
+		sizeof(bmp),
+		&bmp
+	);
+
+	return
+		sge::image2d::view::optional_pitch(
+			sge::image2d::pitch(
+				bmp.bmWidthBytes - bmp.bmWidth
+			)
+		);
 }
 
 HBITMAP

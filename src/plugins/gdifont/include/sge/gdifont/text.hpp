@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GDIFONT_TEXT_HPP_INCLUDED
 #define SGE_GDIFONT_TEXT_HPP_INCLUDED
 
-#include <sge/font/optional_unit.hpp>
 #include <sge/font/rect.hpp>
 #include <sge/font/string.hpp>
 #include <sge/font/text.hpp>
@@ -67,8 +66,6 @@ private:
 	HFONT const hfont_;
 
 	sge::font::string const string_;
-
-	sge::font::optional_unit const max_width_;
 
 	UINT const render_flags_;
 

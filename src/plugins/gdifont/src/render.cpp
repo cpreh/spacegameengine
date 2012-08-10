@@ -18,51 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/font/optional_unit.hpp>
+#include <sge/font/dim.hpp>
 #include <sge/font/string.hpp>
 #include <sge/gdifont/device_context_fwd.hpp>
 #include <sge/gdifont/draw_text.hpp>
 #include <sge/gdifont/include_windows.hpp>
 #include <sge/gdifont/render.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <limits>
-#include <fcppt/config/external_end.hpp>
+
 
 
 void
 sge::gdifont::render(
 	sge::gdifont::device_context const &_device_context,
 	sge::font::string const &_string,
-	sge::font::optional_unit const &_optional_width,
+	sge::font::dim const &_size,
 	UINT const _format
 )
 {
-	sge::font::unit const max_unit(
-		std::numeric_limits<
-			sge::font::unit
-		>::max()
-	);
-
-	RECT source;
-
-	source.left = 0;
-	
-	source.top = 0;
-
-	source.right = 
-		_optional_width
-		?
-			*_optional_width
-		:
-			max_unit
-		;
-
-	source.bottom = max_unit;
+	RECT rect =
+	{
+		0,
+		0,
+		_size.w(),
+		_size.h()
+	};
 
 	sge::gdifont::draw_text(
 		_device_context,
 		_string,
-		source,
+		rect,
 		_format
 	);
 }

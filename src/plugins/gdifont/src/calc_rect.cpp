@@ -21,11 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/optional_unit.hpp>
 #include <sge/font/rect.hpp>
 #include <sge/font/string.hpp>
-#include <sge/font/unit.hpp>
 #include <sge/gdifont/calc_rect.hpp>
 #include <sge/gdifont/device_context_fwd.hpp>
 #include <sge/gdifont/draw_text.hpp>
 #include <sge/gdifont/include_windows.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <limits>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::font::rect const
@@ -36,7 +38,28 @@ sge::gdifont::calc_rect(
 	UINT const _format
 )
 {
-	RECT result;
+	LONG const max_unit(
+		std::numeric_limits<
+			LONG
+		>::max()
+	);
+
+	RECT result =
+	{
+		0,
+		0,
+		_max_width
+		?
+			static_cast<
+				LONG
+			>(
+				*_max_width
+			)
+		:
+			max_unit
+		,
+		max_unit
+	};
 
 	sge::gdifont::draw_text(
 		_device_context,
@@ -47,37 +70,40 @@ sge::gdifont::calc_rect(
 		DT_CALCRECT
 	);
 
-	sge::font::unit const width(
-		static_cast<
-			sge::font::unit
-		>(
-			result.right - result.left
-		)
-	);
+	if(
+		_format & DT_RIGHT
+	)
+	{
+		result.left = *_max_width - result.right;
 
-	sge::font::unit const height(
-		static_cast<
-			sge::font::unit
-		>(
-			result.bottom - result.top
-		)
-	);
+		result.right = *_max_width;
+	}
 
 	return
 		sge::font::rect(
 			sge::font::rect::vector(
-				_format & DT_RIGHT
-				?
-					*_max_width
-					- width
-				:
-					0
-				,
-				0
+				static_cast<
+					sge::font::rect::value_type
+				>(
+					result.left
+				),
+				static_cast<
+					sge::font::rect::value_type
+				>(
+					result.top
+				)
 			),
 			sge::font::rect::dim(
-				width,
-				height
+				static_cast<
+					sge::font::rect::value_type
+				>(
+					result.right
+				),
+				static_cast<
+					sge::font::rect::value_type
+				>(
+					result.bottom
+				)
 			)
 		);
 }

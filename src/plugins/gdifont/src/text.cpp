@@ -63,9 +63,6 @@ sge::gdifont::text::text(
 	string_(
 		_string
 	),
-	max_width_(
-		_text_parameters.max_width()
-	),
 	render_flags_(
 		sge::gdifont::make_flags(
 			_text_parameters
@@ -75,7 +72,7 @@ sge::gdifont::text::text(
 		sge::gdifont::calc_rect(
 			device_context_,
 			string_,
-			max_width_,
+			_text_parameters.max_width(),
 			render_flags_
 		)
 	)		
@@ -127,20 +124,40 @@ sge::gdifont::text::render(
 		device_context_,
 		dib_section.handle()
 	);
+	/*
+	::SetBkColor(
+		device_context_.get(),
+		RGB(50, 50, 50)
+	);
 
+	::SetTextColor(
+		device_context_.get(),
+		RGB(255, 255, 255)
+	);
+
+	RECT reft = { 0, 0, view_size[0], view_size[1] };
+
+	::FillRect(
+		device_context_.get(),
+		&reft,
+		GetSysColorBrush(COLOR_WINDOW)
+	);
+	*/
 	sge::gdifont::render(
 		device_context_,
 		string_,
-		max_width_,
+		rect_.size(),
 		render_flags_
 	);
+
+	::GdiFlush();
 
 	sge::image2d::algorithm::copy(
 		sge::image2d::view::make_const(
 			dib_section.data(),
 			view_size,
 			dib_section.format(),
-			sge::image2d::view::optional_pitch()
+			dib_section.pitch()
 		),
 		_view,
 		sge::image::algorithm::may_overlap::no
