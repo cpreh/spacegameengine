@@ -14,27 +14,7 @@ check_src() {
 	"${INCLUDE_BINARY}" src/"$1"/include || exit
 }
 
-check_src cegui
-check_src cg
-check_src charconv
-check_src config
-check_src console
-check_src font/bitmap
-check_src font/draw
-check_src image
-check_src image2d
-check_src input
-check_src line_drawer
-check_src media
-check_src model/md3
-check_src opencl
-check_src parse
-check_src plugin
-check_src projectile
-check_src renderer
-check_src systems
-check_src texture
-check_src viewport
+find src -name plugins -prune -o -name include -exec "${INCLUDE_BINARY}" '{}' \; || exit
 
 check_example() {
 	"${INCLUDE_BINARY}" examples/"$1"/include || exit
