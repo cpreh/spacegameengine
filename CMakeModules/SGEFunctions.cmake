@@ -355,12 +355,30 @@ function(
 		PATH
 	)
 
+	set(
+		SGE_INSTALL_INCLUDE_DIRS
+		"${CMAKE_SOURCE_DIR}/include/sge/${RELATIVE_PATH}"
+	)
+
+	if(
+		NOT "${IS_DUMMY}" STREQUAL "DUMMY"
+	)
+		list(
+			APPEND
+			SGE_INSTALL_INCLUDE_DIRS
+			"${CMAKE_BINARY_DIR}/include/sge/${RELATIVE_PATH}"
+		)
+	endif()
+
 	install(
 		DIRECTORY
-		${CMAKE_SOURCE_DIR}/include/sge/${RELATIVE_PATH}
-		${CMAKE_BINARY_DIR}/include/sge/${RELATIVE_PATH}
+		${SGE_INSTALL_INCLUDE_DIRS}
 		DESTINATION
-		${INSTALL_INCLUDE_DIR}/sge/${DEST_INCLUDE_PATH}
+		"${INSTALL_INCLUDE_DIR}/sge/${DEST_INCLUDE_PATH}"
+	)
+
+	unset(
+		SGE_INSTALL_INCLUDE_DIRS
 	)
 endfunction()
 
