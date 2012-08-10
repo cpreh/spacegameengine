@@ -1,8 +1,8 @@
-#include "main.hpp"
-#include "testbed.hpp"
-#include <rucksack/widget/master_and_slaves.hpp>
-#include <rucksack/widget/viewport_adaptor.hpp>
-#include <rucksack/widget/dummy.hpp>
+#include <example_main.hpp>
+#include <sge/rucksack/testbed/object.hpp>
+#include <sge/rucksack/widget/enumeration.hpp>
+#include <sge/rucksack/widget/viewport_adaptor.hpp>
+#include <sge/rucksack/widget/dummy.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image/color/any/object.hpp>
@@ -22,25 +22,29 @@
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <fcppt/config/external_end.hpp>
 
+
 awl::main::exit_code const
-rucksack::examples::main(
+example_main(
 	awl::main::function_context const &)
 try
 {
-	rucksack::examples::testbed testbed_(
+	sge::rucksack::testbed::object testbed(
 		sge::window::title(
-			FCPPT_TEXT("rucksack master and slaves test")));
+			FCPPT_TEXT("rucksack enumeration test")));
 
-	rucksack::widget::viewport_adaptor viewport_box(
-		testbed_.systems().viewport_manager(),
-		testbed_.systems().renderer());
+	sge::rucksack::widget::viewport_adaptor viewport_box(
+		testbed.systems().viewport_manager(),
+		testbed.systems().renderer());
 
-	rucksack::widget::master_and_slaves mas_box(
-		rucksack::padding(
-			5));
+	sge::rucksack::widget::enumeration enumeration_box(
+		sge::rucksack::padding(
+			5),
+		sge::rucksack::aspect(
+			1,
+			1));
 
 	viewport_box.child(
-		mas_box);
+		enumeration_box);
 
 	typedef fcppt::random::generator::minstd_rand default_generator;
 
@@ -50,7 +54,7 @@ try
 		>());
 
 	typedef fcppt::random::distribution::uniform_int<
-		rucksack::scalar
+		sge::rucksack::scalar
 	> scalar_distribution;
 
 	fcppt::random::variate<default_generator, scalar_distribution>
@@ -70,75 +74,48 @@ try
 					300)));
 
 	typedef
-	boost::ptr_vector<rucksack::widget::dummy>
+	boost::ptr_vector<sge::rucksack::widget::dummy>
 	dummy_sprite_sequence;
 
 	dummy_sprite_sequence sprites;
 
-	testbed_.add_widget(
+	testbed.add_widget(
 		viewport_box,
 		sge::image::colors::blue());
 
-	rucksack::widget::dummy master_dummy(
-		rucksack::axis_policy2(
-			rucksack::axis_policy(
-				rucksack::minimum_size(
-					size_rng_w()),
-				rucksack::preferred_size(
-					rucksack::optional_scalar()),
-				rucksack::is_expanding(
-					false)),
-			rucksack::axis_policy(
-				rucksack::minimum_size(
-					size_rng_h()),
-				rucksack::preferred_size(
-					rucksack::optional_scalar()),
-				rucksack::is_expanding(
-					false)),
-			rucksack::aspect(
-				1,
-				1)));
-
-	mas_box.master_pane(
-		master_dummy);
-
-	testbed_.add_widget(
-		master_dummy,
-		sge::image::colors::cyan());
-
-	for(unsigned i = 0; i < 5; ++i)
+	for(unsigned i = 0; i < 20; ++i)
 	{
 		fcppt::container::ptr::push_back_unique_ptr(
 			sprites,
-			fcppt::make_unique_ptr<rucksack::widget::dummy>(
-				rucksack::axis_policy2(
-					rucksack::axis_policy(
-						rucksack::minimum_size(
+			fcppt::make_unique_ptr<sge::rucksack::widget::dummy>(
+				sge::rucksack::axis_policy2(
+					sge::rucksack::axis_policy(
+						sge::rucksack::minimum_size(
 							size_rng_w()),
-						rucksack::preferred_size(
-							rucksack::optional_scalar()),
-						rucksack::is_expanding(
+						sge::rucksack::preferred_size(
+							sge::rucksack::optional_scalar()),
+						sge::rucksack::is_expanding(
 							false)),
-					rucksack::axis_policy(
-						rucksack::minimum_size(
+					sge::rucksack::axis_policy(
+						sge::rucksack::minimum_size(
 							size_rng_h()),
-						rucksack::preferred_size(
-							rucksack::optional_scalar()),
-						rucksack::is_expanding(
+						sge::rucksack::preferred_size(
+							sge::rucksack::optional_scalar()),
+						sge::rucksack::is_expanding(
 							false)),
-					rucksack::aspect(
+					sge::rucksack::aspect(
 						1,
 						1))));
 
-		mas_box.push_back_child(
+		enumeration_box.push_back_child(
 			sprites.back());
 
-		testbed_.add_widget(
+		testbed.add_widget(
 			sprites.back(),
 			sge::image::colors::red());
 	}
 
-	return testbed_.run();
+	return testbed.run();
 }
 catch(
 	fcppt::exception const &error)

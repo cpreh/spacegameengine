@@ -36,6 +36,13 @@ check_src systems
 check_src texture
 check_src viewport
 
+check_example() {
+	"${INCLUDE_BINARY}" examples/"$1"/include || exit
+	"${INCLUDE_BINARY}" examples/"$1"/src/include || exit
+}
+
+check_example rucksack/testbed
+
 for i in src/plugins/* ; do
 	if [[ -d "${i}" ]] ; then
 		"${INCLUDE_BINARY}" "$i"/include || exit

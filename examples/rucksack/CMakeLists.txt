@@ -1,11 +1,48 @@
-# TODO
-add_library(
-	rucksack_testbed
-	STATIC
-	testbed.cpp
-	testbed_impl.cpp)
+option(
+	ENABLE_RUCKSACKTESTBED "Build rucksack testbed library" ON
+)
 
+add_subdirectory(
+	testbed
+)
 
-ADD_RUCKSACK_EXAMPLE(box "")
-ADD_RUCKSACK_EXAMPLE(enumeration "${Boost_CHRONO_LIBRARIES}")
-ADD_RUCKSACK_EXAMPLE(master_and_slaves "${Boost_CHRONO_LIBRARIES}")
+macro(
+	add_sge_rucksack_example
+	EXAMPLE_NAME
+	SGE_DEPS
+	ADDITIONAL_DEPS
+)
+	list(
+		APPEND
+		SGE_DEPS
+		"rucksack_testbed"
+	)
+
+	add_sge_example(
+		"rucksack_${EXAMPLE_NAME}"
+		"sgerucksacktestbed;${SGE_DEPS}"
+		"${ADDITIONAL_DEPS}"
+	)
+endmacro()
+
+include_directories(
+	"${CMAKE_CURRENT_SOURCE_DIR}/testbed/include"
+)
+
+add_sge_rucksack_example(
+	box
+	"sgeimage;sgerucksack;sgesystems"
+	""
+)
+
+add_sge_rucksack_example(
+	enumeration
+	"sgeimage;sgerucksack;sgesystems"
+	"${Boost_CHRONO_LIBRARIES}"
+)
+
+add_sge_rucksack_example(
+	master_and_slaves
+	"sgeimage;sgerucksack;sgesystems"
+	"${Boost_CHRONO_LIBRARIES}"
+)

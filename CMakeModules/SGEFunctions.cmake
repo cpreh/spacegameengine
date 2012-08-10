@@ -132,6 +132,7 @@ function(
 	TRANSITIVE_SGE_DEPS
 	TRANSITIVE_ADDITIONAL_DEPS
 	VARIANT
+	BASE_VARIANT
 )
 	if(
 		${VARIANT} STREQUAL "STATIC"
@@ -142,23 +143,9 @@ function(
 		)
 	endif()
 
-	if(
-		${VARIANT} STREQUAL "DUMMY"
-	)
-		set(
-			LIBRARY_VARIANT
-			SHARED
-		)
-	else()
-		set(
-			LIBRARY_VARIANT
-			${VARIANT}
-		)
-	endif()
-
 	add_library(
 		${SGE_LIB_NAME}
-		${LIBRARY_VARIANT}
+		${VARIANT}
 		${SGE_LIB_FILES}
 	)
 
@@ -194,8 +181,10 @@ function(
 		${TRANSITIVE_ADDITIONAL_DEPS}
 	)
 
+	# Don't install dummy libraries or static example libraries
 	if(
-		NOT ${VARIANT} STREQUAL "DUMMY"
+		NOT ${BASE_VARIANT} STREQUAL "DUMMY"
+		AND (NOT ${BASE_VARIANT} STREQUAL "EXAMPLE" AND ${VARIANT} STREQUAL "STATIC")
 	)
 		install(
 			TARGETS
@@ -213,7 +202,7 @@ function(
 	ADDITIONAL_DEPS
 	TRANSITIVE_SGE_DEPS
 	TRANSITIVE_ADDITIONAL_DEPS
-	IS_DUMMY
+	BASE_VARIANT
 )
 	string(
 		REPLACE
@@ -245,7 +234,7 @@ function(
 	)
 
 	if(
-		"${IS_DUMMY}" STREQUAL "DUMMY"
+		"${BASE_VARIANT}" STREQUAL "DUMMY"
 	)
 		set(
 			SGE_DUMMY_SOURCE_FILE
@@ -298,7 +287,7 @@ function(
 	endif()
 
 	if(
-		"${IS_DUMMY}" STREQUAL "DUMMY"
+		ENABLE_SHARED
 	)
 		add_sge_base_library_variant(
 			${SGE_LIB_NAME}
@@ -307,36 +296,26 @@ function(
 			"${ADDITIONAL_DEPS}"
 			"${TRANSITIVE_SGE_DEPS}"
 			"${TRANSITIVE_ADDITIONAL_DEPS}"
-			DUMMY
+			SHARED
+			"${BASE_VARIANT}"
 		)
-	else()
-		if(
-			ENABLE_SHARED
-		)
-			add_sge_base_library_variant(
-				${SGE_LIB_NAME}
-				"${SGE_LIB_FILES}"
-				"${SGE_DEPS}"
-				"${ADDITIONAL_DEPS}"
-				"${TRANSITIVE_SGE_DEPS}"
-				"${TRANSITIVE_ADDITIONAL_DEPS}"
-				SHARED
-			)
-		endif()
+	endif()
 
-		if(
-			ENABLE_STATIC
+	if(
+		ENABLE_STATIC
+		AND NOT
+		"${BASE_VARIANT}" STREQUAL "DUMMY"
+	)
+		add_sge_base_library_variant(
+			${SGE_LIB_NAME}
+			"${SGE_LIB_FILES}"
+			"${SGE_DEPS}"
+			"${ADDITIONAL_DEPS}"
+			"${TRANSITIVE_SGE_DEPS}"
+			"${TRANSITIVE_ADDITIONAL_DEPS}"
+			STATIC
+			"${BASE_VARIANT}"
 		)
-			add_sge_base_library_variant(
-				${SGE_LIB_NAME}
-				"${SGE_LIB_FILES}"
-				"${SGE_DEPS}"
-				"${ADDITIONAL_DEPS}"
-				"${TRANSITIVE_SGE_DEPS}"
-				"${TRANSITIVE_ADDITIONAL_DEPS}"
-				STATIC
-			)
-		endif()
 	endif()
 
 	check_library_deps(
@@ -349,37 +328,41 @@ function(
 		"${TRANSITIVE_SGE_DEPS}"
 	)
 
-	get_filename_component(
-		DEST_INCLUDE_PATH
-		${RELATIVE_PATH}
-		PATH
-	)
-
-	set(
-		SGE_INSTALL_INCLUDE_DIRS
-		"${CMAKE_SOURCE_DIR}/include/sge/${RELATIVE_PATH}"
-	)
-
 	if(
-		NOT "${IS_DUMMY}" STREQUAL "DUMMY"
+		NOT "${BASE_VARIANT}" STREQUAL "EXAMPLE"
 	)
-		list(
-			APPEND
+		get_filename_component(
+			DEST_INCLUDE_PATH
+			${RELATIVE_PATH}
+			PATH
+		)
+
+		set(
 			SGE_INSTALL_INCLUDE_DIRS
-			"${CMAKE_BINARY_DIR}/include/sge/${RELATIVE_PATH}"
+			"${CMAKE_SOURCE_DIR}/include/sge/${RELATIVE_PATH}"
+		)
+
+		if(
+			NOT "${BASE_VARIANT}" STREQUAL "DUMMY"
+		)
+			list(
+				APPEND
+				SGE_INSTALL_INCLUDE_DIRS
+				"${CMAKE_BINARY_DIR}/include/sge/${RELATIVE_PATH}"
+			)
+		endif()
+
+		install(
+			DIRECTORY
+			${SGE_INSTALL_INCLUDE_DIRS}
+			DESTINATION
+			"${INSTALL_INCLUDE_DIR}/sge/${DEST_INCLUDE_PATH}"
+		)
+
+		unset(
+			SGE_INSTALL_INCLUDE_DIRS
 		)
 	endif()
-
-	install(
-		DIRECTORY
-		${SGE_INSTALL_INCLUDE_DIRS}
-		DESTINATION
-		"${INSTALL_INCLUDE_DIR}/sge/${DEST_INCLUDE_PATH}"
-	)
-
-	unset(
-		SGE_INSTALL_INCLUDE_DIRS
-	)
 endfunction()
 
 # add_sge_base_library
@@ -440,6 +423,24 @@ function(
 	)
 endfunction()
 
+function(
+	add_sge_example_library
+	RELATIVE_PATH
+	SGE_DEPS
+	ADDITIONAL_DEPS
+	TRANSITIVE_SGE_DEPS
+	TRANSITIVE_ADDITIONAL_DEPS
+)
+	add_sge_base_library_base(
+		"${RELATIVE_PATH}"
+		"${SGE_DEPS}"
+		"${ADDITIONAL_DEPS}"
+		"${TRANSITIVE_SGE_DEPS}"
+		"${TRANSITIVE_ADDITIONAL_DEPS}"
+		"EXAMPLE"
+	)
+endfunction()
+
 macro(
 	sge_implement_from_lib
 	LIB_NAME
@@ -475,7 +476,8 @@ function(
 		"${Fcppt_core_LIBRARIES}"
 		""
 		""
-		${VARIANT}
+		"${VARIANT}"
+		""
 	)
 endfunction()
 

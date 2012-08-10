@@ -39,11 +39,16 @@ update_cmake_file \
 	ALDA_FILES \
 	alda/src
 
+function toupper()
+{
+	echo $(tr 'a-z' 'A-Z' <<< "$1")
+}
+
 function update_sublibrary()
 {
 	local sublibrary="$1"
 
-	local upperpath=$(tr 'a-z' 'A-Z' <<< "${sublibrary}")
+	local upperpath=$(toupper "${sublibrary}")
 
 	update_cmake_file \
 		src/"${sublibrary}"/CMakeLists.txt \
@@ -56,12 +61,28 @@ function update_sublibrary()
 function update_plugin()
 {
 	local plugin="$1"
-	local upperplugin=$(tr 'a-z' 'A-Z' <<< "${plugin}")
+	local upperplugin=$(toupper "${plugin}")
 
 	update_cmake_file \
 		src/plugins/"${plugin}"/CMakeLists.txt \
 		SGE_"${upperplugin}"_FILES \
 		src/plugins/"${plugin}"
+}
+
+function update_example_library()
+{
+	local examplelibrary="$1"
+
+	local upperpath=$(toupper "${examplelibrary}")
+
+	local prefix=examples/"${examplelibrary}"
+
+	update_cmake_file \
+		"${prefix}"/CMakeLists.txt \
+		SGE_"${upperpath////}"_FILES \
+		"${@:2}" \
+		"${prefix}"/include/sge/"${examplelibrary}" \
+		"${prefix}"/src
 }
 
 # base libs
@@ -308,3 +329,5 @@ update_plugin vorbis
 update_plugin wave
 
 update_plugin x11input
+
+update_example_library rucksack/testbed

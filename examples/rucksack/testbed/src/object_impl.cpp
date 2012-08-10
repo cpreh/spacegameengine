@@ -1,19 +1,18 @@
-#include <sge/renderer/target/onscreen.hpp>
-#include <sge/renderer/parameters/object.hpp>
-#include <sge/renderer/context/scoped.hpp>
-#include <sge/renderer/device.hpp>
-#include <sge/sprite/geometry/make_random_access_range.hpp>
-#include <sge/sprite/process/all.hpp>
-#include "testbed_impl.hpp"
-#include <rucksack/widget/base.hpp>
 #include <sge/image/colors.hpp>
+#include <sge/log/global.hpp>
+#include <sge/renderer/device.hpp>
+#include <sge/renderer/context/scoped.hpp>
+#include <sge/renderer/parameters/object.hpp>
 #include <sge/renderer/parameters/object.hpp>
 #include <sge/renderer/pixel_format/object.hpp>
-#include <sge/window/system.hpp>
+#include <sge/renderer/target/onscreen.hpp>
+#include <sge/rucksack/widget/base.hpp>
+#include <sge/sprite/compare/default.hpp>
 #include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/config/float_type.hpp>
-#include <sge/log/global.hpp>
-#include <sge/sprite/compare/default.hpp>
+#include <sge/sprite/geometry/make_random_access_range.hpp>
+#include <sge/sprite/process/all.hpp>
+#include <sge/src/rucksack/testbed/object_impl.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/input_helper.hpp>
@@ -24,6 +23,7 @@
 #include <sge/systems/window.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
 #include <sge/window/parameters.hpp>
+#include <sge/window/system.hpp>
 #include <awl/main/exit_code.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/log/activate_levels.hpp>
@@ -32,7 +32,7 @@
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/text.hpp>
 
-rucksack::examples::testbed_impl::testbed_impl(
+sge::rucksack::testbed::object_impl::object_impl(
 	sge::window::title const &_window_title)
 :
 	systems_(
@@ -71,8 +71,8 @@ rucksack::examples::testbed_impl::testbed_impl(
 }
 
 void
-rucksack::examples::testbed_impl::add_widget(
-	widget::base &_widget,
+sge::rucksack::testbed::object_impl::add_widget(
+	sge::rucksack::widget::base &_widget,
 	sge::image::color::any::object const &_color)
 {
 	sprites_.push_back(
@@ -85,7 +85,7 @@ rucksack::examples::testbed_impl::add_widget(
 }
 
 awl::main::exit_code const
-rucksack::examples::testbed_impl::run()
+sge::rucksack::testbed::object_impl::run()
 {
 	while(
 		systems_.window_system().poll())
@@ -105,7 +105,7 @@ rucksack::examples::testbed_impl::run()
 }
 
 void
-rucksack::examples::testbed_impl::update()
+sge::rucksack::testbed::object_impl::update()
 {
 	for(
 		sprite_list::iterator it =
@@ -121,7 +121,7 @@ rucksack::examples::testbed_impl::update()
 }
 
 void
-rucksack::examples::testbed_impl::render(
+sge::rucksack::testbed::object_impl::render(
 	sge::renderer::context::object &_render_context)
 {
 	/*
@@ -156,11 +156,11 @@ rucksack::examples::testbed_impl::render(
 }
 
 sge::systems::instance const &
-rucksack::examples::testbed_impl::systems() const
+sge::rucksack::testbed::object_impl::systems() const
 {
 	return systems_;
 }
 
-rucksack::examples::testbed_impl::~testbed_impl()
+sge::rucksack::testbed::object_impl::~object_impl()
 {
 }

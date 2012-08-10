@@ -446,3 +446,11 @@ if(
 		opencl
 	)
 endif()
+
+if(
+	ENABLE_RUCKSACK
+)
+	add_subdirectory(
+		rucksack
+	)
+endif()

@@ -1,20 +1,11 @@
-#ifndef RUCKSACK_EXAMPLES_TESTBED_IMPL_HPP_INCLUDED
-#define RUCKSACK_EXAMPLES_TESTBED_IMPL_HPP_INCLUDED
+#ifndef SGE_SRC_RUCKSACK_TESTBED_OBJECT_IMPL_HPP_INCLUDED
+#define SGE_SRC_RUCKSACK_TESTBED_OBJECT_IMPL_HPP_INCLUDED
 
-#include <rucksack/widget/base_fwd.hpp>
-#include <rucksack/scalar.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
-#include <fcppt/string.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <awl/main/exit_code.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <vector>
-#include <utility>
-#include <boost/mpl/vector/vector10.hpp>
-#include <fcppt/config/external_end.hpp>
-#include <sge/image/color/any/object_fwd.hpp>
 #include <sge/image/color/rgba8_format.hpp>
+#include <sge/image/color/any/object_fwd.hpp>
 #include <sge/renderer/context/object_fwd.hpp>
+#include <sge/rucksack/widget/base_fwd.hpp>
+#include <sge/rucksack/scalar.hpp>
 #include <sge/sprite/config/choices.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/parameters.hpp>
@@ -25,23 +16,35 @@
 #include <sge/sprite/config/normal_size.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/window/title.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <awl/main/exit_code.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <vector>
+#include <utility>
+#include <boost/mpl/vector/vector10.hpp>
+#include <fcppt/config/external_end.hpp>
 
+
+namespace sge
+{
 namespace rucksack
 {
-namespace examples
+namespace testbed
 {
-class testbed_impl
+class object_impl
 {
 FCPPT_NONCOPYABLE(
-	testbed_impl);
+	object_impl);
 public:
 	explicit
-	testbed_impl(
+	object_impl(
 		sge::window::title const &);
 
 	void
 	add_widget(
-		widget::base &,
+		sge::rucksack::widget::base &,
 		sge::image::color::any::object const &);
 
 	awl::main::exit_code const
@@ -57,7 +60,7 @@ public:
 	sge::systems::instance const &
 	systems() const;
 
-	~testbed_impl();
+	~object_impl();
 private:
 	typedef
 	sge::sprite::config::choices
@@ -93,7 +96,11 @@ private:
 	typedef
 	std::vector
 	<
-		std::pair<widget::base*,sprite_object>
+		std::pair
+		<
+			sge::rucksack::widget::base*,
+			sprite_object
+		>
 	>
 	sprite_list;
 
@@ -102,6 +109,7 @@ private:
 	sprite_list sprites_;
 	fcppt::signal::scoped_connection const quit_connection_;
 };
+}
 }
 }
 
