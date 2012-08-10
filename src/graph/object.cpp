@@ -214,11 +214,13 @@ void
 sge::graph::object::render(
 	sge::renderer::context::object &_context)
 {
-	sge::renderer::texture::scoped_planar_lock lock(
-		*texture_,
-		sge::renderer::lock_mode::writeonly);
+	{
+		sge::renderer::texture::scoped_planar_lock const lock(
+			*texture_,
+			sge::renderer::lock_mode::writeonly);
 
-	draw_data(lock.value());
+		this->draw_data(lock.value());
+	}
 
 	sge::sprite::process::one(
 		_context,
