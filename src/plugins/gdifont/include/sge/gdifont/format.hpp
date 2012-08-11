@@ -18,15 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_GDIFONT_CALC_RECT_HPP_INCLUDED
-#define SGE_GDIFONT_CALC_RECT_HPP_INCLUDED
+#ifndef SGE_GDIFONT_FORMAT_HPP_INCLUDED
+#define SGE_GDIFONT_FORMAT_HPP_INCLUDED
 
-#include <sge/font/align_h.hpp>
-#include <sge/font/optional_unit_fwd.hpp>
-#include <sge/font/rect_fwd.hpp>
-#include <sge/font/string.hpp>
-#include <sge/gdifont/device_context_fwd.hpp>
-#include <sge/gdifont/format.hpp>
+#include <sge/gdifont/include_windows.hpp>
+#include <fcppt/strong_typedef.hpp>
 
 
 namespace sge
@@ -34,13 +30,9 @@ namespace sge
 namespace gdifont
 {
 
-sge::font::rect const
-calc_rect(
-	sge::gdifont::device_context const &,
-	sge::font::string const &,
-	sge::font::align_h::type,
-	sge::font::optional_unit const &max_width,
-	sge::gdifont::format
+FCPPT_MAKE_STRONG_TYPEDEF(
+	UINT,
+	format
 );
 
 }

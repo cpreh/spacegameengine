@@ -19,22 +19,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/font/text_parameters.hpp>
+#include <sge/gdifont/format.hpp>
 #include <sge/gdifont/include_windows.hpp>
 #include <sge/gdifont/make_flags.hpp>
 #include <sge/gdifont/convert/align_h.hpp>
 #include <sge/gdifont/convert/flags.hpp>
 
 
-UINT
+sge::gdifont::format const
 sge::gdifont::make_flags(
 	sge::font::text_parameters const &_parameters
 )
 {
 	return
-		sge::gdifont::convert::flags(
-			_parameters.flags()
-		),
-		sge::gdifont::convert::align_h(
-			_parameters.align_h()
+		sge::gdifont::format(
+			sge::gdifont::convert::flags(
+				_parameters.flags()
+			)
+			|
+			sge::gdifont::convert::align_h(
+				_parameters.align_h()
+			)
 		);
 }

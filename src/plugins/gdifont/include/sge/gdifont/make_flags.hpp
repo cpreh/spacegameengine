@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_GDIFONT_MAKE_FLAGS_HPP_INCLUDED
 
 #include <sge/font/text_parameters_fwd.hpp>
-#include <sge/gdifont/include_windows.hpp>
+#include <sge/gdifont/format.hpp>
 
 
 namespace sge
@@ -30,7 +30,7 @@ namespace sge
 namespace gdifont
 {
 
-UINT
+sge::gdifont::format const
 make_flags(
 	sge::font::text_parameters const &
 );
