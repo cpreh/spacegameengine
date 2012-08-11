@@ -15,6 +15,10 @@ SGE_GRAPH_SYMBOL
 sge::graph::color_scheme const
 default_();
 
+SGE_GRAPH_SYMBOL
+sge::graph::color_scheme const
+foo();
+
 }
 }
 }
