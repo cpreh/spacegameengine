@@ -30,14 +30,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/algorithm/copy.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/element_base.hpp>
-#include <sge/image2d/view/make_const.hpp>
-#include <sge/image2d/view/optional_pitch.hpp>
 #include <sge/image2d/view/size.hpp>
 #include <sge/gdifont/calc_rect.hpp>
 #include <sge/gdifont/device_context_fwd.hpp>
 #include <sge/gdifont/dib_section.hpp>
 #include <sge/gdifont/make_flags.hpp>
 #include <sge/gdifont/render.hpp>
+#include <sge/gdifont/set_bk_color.hpp>
+#include <sge/gdifont/set_text_color.hpp>
 #include <sge/gdifont/scoped_select.hpp>
 #include <sge/gdifont/text.hpp>
 #include <fcppt/text.hpp>
@@ -124,25 +124,17 @@ sge::gdifont::text::render(
 		device_context_,
 		dib_section.handle()
 	);
-	/*
-	::SetBkColor(
-		device_context_.get(),
-		RGB(50, 50, 50)
+
+	sge::gdifont::set_bk_color(
+		device_context_,
+		RGB(0, 0, 0)
 	);
 
-	::SetTextColor(
-		device_context_.get(),
+	sge::gdifont::set_text_color(
+		device_context_,
 		RGB(255, 255, 255)
 	);
-
-	RECT reft = { 0, 0, view_size[0], view_size[1] };
-
-	::FillRect(
-		device_context_.get(),
-		&reft,
-		GetSysColorBrush(COLOR_WINDOW)
-	);
-	*/
+	
 	sge::gdifont::render(
 		device_context_,
 		string_,
@@ -150,15 +142,8 @@ sge::gdifont::text::render(
 		render_flags_
 	);
 
-	::GdiFlush();
-
 	sge::image2d::algorithm::copy(
-		sge::image2d::view::make_const(
-			dib_section.data(),
-			view_size,
-			dib_section.format(),
-			dib_section.pitch()
-		),
+		dib_section.view(),
 		_view,
 		sge::image::algorithm::may_overlap::no
 	);

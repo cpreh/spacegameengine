@@ -22,11 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gdifont/delete_object_deleter.hpp>
 #include <sge/gdifont/device_context_fwd.hpp>
 #include <sge/gdifont/dib_section.hpp>
+#include <sge/gdifont/get_bitmap.hpp>
 #include <sge/gdifont/include_windows.hpp>
 #include <sge/image/const_raw_pointer.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/pitch.hpp>
+#include <sge/image2d/view/const_object.hpp>
+#include <sge/image2d/view/make_const.hpp>
 #include <sge/image2d/view/optional_pitch.hpp>
 #include <fcppt/null_ptr.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
@@ -37,9 +40,6 @@ sge::gdifont::dib_section::dib_section(
 	sge::image2d::dim const &_size
 )
 :
-	size_(
-		_size
-	),
 	data_(
 		fcppt::null_ptr()
 	),
@@ -49,6 +49,11 @@ sge::gdifont::dib_section::dib_section(
 			_size,
 			data_
 		)
+	),
+	bitmap_(
+		sge::gdifont::get_bitmap(
+			hbitmap_.get()
+		)
 	)
 {
 }
@@ -57,40 +62,33 @@ sge::gdifont::dib_section::~dib_section()
 {
 }
 
-sge::image::const_raw_pointer
-sge::gdifont::dib_section::data() const
+sge::image2d::view::const_object const
+sge::gdifont::dib_section::view() const
 {
 	return
-		static_cast<
-			sge::image::const_raw_pointer
-		>(
-			data_
-		);
-}
-
-sge::image::color::format::type
-sge::gdifont::dib_section::format() const
-{
-	// TODO: Extend this!
-	return sge::image::color::format::a8;
-}
-
-sge::image2d::view::optional_pitch const
-sge::gdifont::dib_section::pitch() const
-{
-	
-	BITMAP bmp;
-
-	GetObject(
-		hbitmap_.get(),
-		sizeof(bmp),
-		&bmp
-	);
-
-	return
-		sge::image2d::view::optional_pitch(
-			sge::image2d::pitch(
-				bmp.bmWidthBytes - bmp.bmWidth
+		sge::image2d::view::make_const(
+			static_cast<
+				sge::image::const_raw_pointer
+			>(
+				data_
+			),
+			sge::image2d::dim(
+				static_cast<
+					sge::image2d::dim::value_type
+				>(
+					bitmap_.bmWidth
+				),
+				static_cast<
+					sge::image2d::dim::value_type
+				>(
+					bitmap_.bmHeight
+				)
+			),
+			sge::image::color::format::a8,
+			sge::image2d::view::optional_pitch(
+				sge::image2d::pitch(
+					bitmap_.bmWidthBytes - bitmap_.bmWidth
+				)
 			)
 		);
 }

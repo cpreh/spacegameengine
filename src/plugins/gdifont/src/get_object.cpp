@@ -18,60 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_GDIFONT_DIB_SECTION_HPP_INCLUDED
-#define SGE_GDIFONT_DIB_SECTION_HPP_INCLUDED
-
-#include <sge/gdifont/delete_object_deleter_fwd.hpp>
-#include <sge/gdifont/device_context_fwd.hpp>
+#include <sge/font/exception.hpp>
+#include <sge/gdifont/get_object.hpp>
 #include <sge/gdifont/include_windows.hpp>
-#include <sge/image2d/dim_fwd.hpp>
-#include <sge/image2d/view/const_object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr_decl.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/type_traits/remove_pointer.hpp>
+#include <cstddef>
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
+void
+sge::gdifont::get_object(
+	HGDIOBJ const _object,
+	std::size_t const _size,
+	void *const _result
+)
 {
-namespace gdifont
-{
-
-class dib_section
-{
-	FCPPT_NONCOPYABLE(
-		dib_section
-	);
-public:
-	dib_section(
-		sge::gdifont::device_context const &,
-		sge::image2d::dim const &
-	);
-
-	~dib_section();
-
-	sge::image2d::view::const_object const
-	view() const;
-
-	HBITMAP
-	handle();
-private:
-	VOID *data_;
-
-	typedef fcppt::scoped_ptr<
-		boost::remove_pointer<
-			HBITMAP
-		>::type,
-		sge::gdifont::delete_object_deleter
-	> hbitmap_scoped_ptr;
-
-	hbitmap_scoped_ptr const hbitmap_;
-
-	BITMAP const bitmap_;
-};
-
+	if(
+		GetObject(
+			_object,
+			static_cast<
+				int
+			>(
+				_size
+			),
+			_result
+		)
+		==
+		0
+	)
+		throw sge::font::exception(
+			FCPPT_TEXT("GetObject failed")
+		);
 }
-}
-
-#endif

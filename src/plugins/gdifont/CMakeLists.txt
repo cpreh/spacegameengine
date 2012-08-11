@@ -11,6 +11,8 @@ set(
 	src/plugins/gdifont/include/sge/gdifont/device_context_fwd.hpp
 	src/plugins/gdifont/include/sge/gdifont/dib_section.hpp
 	src/plugins/gdifont/include/sge/gdifont/draw_text.hpp
+	src/plugins/gdifont/include/sge/gdifont/get_bitmap.hpp
+	src/plugins/gdifont/include/sge/gdifont/get_object.hpp
 	src/plugins/gdifont/include/sge/gdifont/hbitmap_unique_ptr.hpp
 	src/plugins/gdifont/include/sge/gdifont/hfont_unique_ptr.hpp
 	src/plugins/gdifont/include/sge/gdifont/include_windows.hpp
@@ -19,6 +21,8 @@ set(
 	src/plugins/gdifont/include/sge/gdifont/render.hpp
 	src/plugins/gdifont/include/sge/gdifont/scoped_select.hpp
 	src/plugins/gdifont/include/sge/gdifont/select_object.hpp
+	src/plugins/gdifont/include/sge/gdifont/set_bk_color.hpp
+	src/plugins/gdifont/include/sge/gdifont/set_text_color.hpp
 	src/plugins/gdifont/include/sge/gdifont/system.hpp
 	src/plugins/gdifont/include/sge/gdifont/text.hpp
 	src/plugins/gdifont/src/calc_rect.cpp
@@ -31,11 +35,15 @@ set(
 	src/plugins/gdifont/src/dib_section.cpp
 	src/plugins/gdifont/src/draw_text.cpp
 	src/plugins/gdifont/src/exports.cpp
+	src/plugins/gdifont/src/get_bitmap.cpp
+	src/plugins/gdifont/src/get_object.cpp
 	src/plugins/gdifont/src/make_flags.cpp
 	src/plugins/gdifont/src/object.cpp
 	src/plugins/gdifont/src/render.cpp
 	src/plugins/gdifont/src/scoped_select.cpp
 	src/plugins/gdifont/src/select_object.cpp
+	src/plugins/gdifont/src/set_bk_color.cpp
+	src/plugins/gdifont/src/set_text_color.cpp
 	src/plugins/gdifont/src/system.cpp
 	src/plugins/gdifont/src/text.cpp
 )
