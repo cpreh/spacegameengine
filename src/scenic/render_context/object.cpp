@@ -61,9 +61,12 @@ change_context_state(
 		_states.begin());
 
 	_current_state =
-		std::distance(
-			begin,
-			it);
+		static_cast<
+			sge::scenic::render_context::index_type
+		>(
+			std::distance(
+				begin,
+				it));
 }
 }
 
