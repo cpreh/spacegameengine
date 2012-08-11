@@ -17,6 +17,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+
 #include <sge/camera/coordinate_system/identity.hpp>
 #include <sge/camera/first_person/object.hpp>
 #include <sge/camera/first_person/parameters.hpp>
@@ -65,11 +66,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context.hpp>
 #include <fcppt/exception.hpp>
+#include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/io/cerr.hpp>
-#include <fcppt/from_std_string.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/signal/auto_connection.hpp>

@@ -1,11 +1,30 @@
-#include <example_main.hpp>
-#include <sge/rucksack/testbed/object.hpp>
-#include <sge/rucksack/widget/box/base.hpp>
-#include <sge/rucksack/widget/viewport_adaptor.hpp>
-#include <sge/rucksack/widget/dummy.hpp>
-#include <sge/systems/instance.hpp>
+/*
+spacegameengine is a portable easy to use game engine written in C++.
+Copyright (C) 2006-2012 Carl Philipp Reh (sefi@s-e-f-i.de)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
+
 #include <sge/image/colors.hpp>
 #include <sge/image/color/any/object.hpp>
+#include <sge/rucksack/testbed/object.hpp>
+#include <sge/rucksack/widget/dummy.hpp>
+#include <sge/rucksack/widget/viewport_adaptor.hpp>
+#include <sge/rucksack/widget/box/base.hpp>
+#include <sge/systems/instance.hpp>
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>
@@ -13,6 +32,7 @@
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstdlib>
+#include <example_main.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

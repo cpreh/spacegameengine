@@ -63,10 +63,12 @@ set(
 	include/sge/image/color/rgb32f_format.hpp
 	include/sge/image/color/rgb8.hpp
 	include/sge/image/color/rgb8_format.hpp
+	include/sge/image/color/rgb8_from_hex_string.hpp
 	include/sge/image/color/rgba32f.hpp
 	include/sge/image/color/rgba32f_format.hpp
 	include/sge/image/color/rgba8.hpp
 	include/sge/image/color/rgba8_format.hpp
+	include/sge/image/color/rgba8_from_hex_string.hpp
 	include/sge/image/color/rgbx8.hpp
 	include/sge/image/color/rgbx8_format.hpp
 	include/sge/image/color/srgb8.hpp

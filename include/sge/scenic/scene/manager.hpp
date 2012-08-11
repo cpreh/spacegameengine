@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/first_person/object.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/model/obj/instance_fwd.hpp>
-#include <sge/scenic/render_context/object_fwd.hpp>
 #include <sge/model/obj/material_map.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/vertex_declaration_scoped_ptr.hpp>
@@ -36,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/symbol.hpp>
 #include <sge/scenic/texture_base_path.hpp>
 #include <sge/scenic/texture_manager.hpp>
+#include <sge/scenic/render_context/object_fwd.hpp>
 #include <sge/scenic/scene/prototype_scoped_ptr.hpp>
 #include <sge/viewport/manager_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
