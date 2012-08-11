@@ -68,6 +68,8 @@ normalize(
 	sge::graph::scalar const &max
 )
 {
+	if (min >= max)
+		return 0.;
 	return
 		(t - min) /
 		(max - min);
@@ -109,6 +111,49 @@ sge::image2d::algorithm::bresenham(
 	_color,
 	_color
 );
+}
+
+sge::image2d::vector::value_type const
+fit_into_scale(
+	sge::graph::scalar const &_value,
+	sge::graph::scalar const &_min,
+	sge::graph::scalar const &_max,
+	sge::renderer::dim2::value_type _height
+)
+{
+	typedef
+	sge::image2d::vector::value_type
+	value_type;
+
+	return
+	static_cast<
+		value_type
+	>(
+		fcppt::math::clamp(
+			static_cast<
+				sge::graph::scalar
+			>
+			(
+				_height - 1
+			) *
+			(
+				1.0 -
+				normalize(
+					_value,
+					_min,
+					_max
+				)
+			),
+			0.0,
+			static_cast<
+				sge::graph::scalar
+			>
+			(
+				_height - 1
+			)
+		)
+	);
+
 }
 
 }
@@ -290,92 +335,32 @@ sge::graph::object::draw_data(
 	sge::image2d::vector::value_type
 	value_type;
 
-	sge::image2d::vector::value_type const
-	baseline =
-		static_cast<
-			value_type
-		>(
-			fcppt::math::clamp(
-				static_cast<
-					sge::graph::scalar
-				>
-				(
-					dim_.h() - 1
-				) *
-				(
-				1.0 - normalize(
-					baseline_,
-					current_axis_constraint.min(),
-					current_axis_constraint.max())
-				)
-				,
-				0.0,
-				static_cast<
-					sge::graph::scalar
-				>
-				(
-				dim_.h() - 1
-				)
-			)
-		);
+	value_type const
+	baseline = fit_into_scale(
+		baseline_,
+		current_axis_constraint.min(),
+		current_axis_constraint.max(),
+		dim_.h());
 
 	value_type const
-	zero =
-		static_cast<
-			value_type
-		>
-		(
-		 	fcppt::math::clamp(
-				static_cast<
-					sge::graph::scalar
-				>
-				(
-					dim_.h() - 1
-				)
-				*
-				(
-				1.0
-				-
-				normalize(
-					0.,
-					current_axis_constraint.min(),
-					current_axis_constraint.max()
-				)
-				),
-				0.0,
-				static_cast<
-					sge::graph::scalar
-				>
-				(
-				 dim_.h() - 1
-				)
-			)
-		);
+	zero = fit_into_scale(
+		0.0,
+		current_axis_constraint.min(),
+		current_axis_constraint.max(),
+		dim_.h());
 
 	for (value_type i = 0; i < data_buffer_.size(); ++i)
 	{
 		value_type const
-		value =
-			static_cast<
-				value_type
-			>
-			(
-				static_cast<
-					sge::graph::scalar
-				>
-				(
-					dim_.h() - 1
-				)
-				*
-				// normalize data point
-				normalize(
-					fcppt::math::clamp(
-						data_buffer_[i],
-						current_axis_constraint.min(),
-						current_axis_constraint.max()),
-					current_axis_constraint.min(),
-					current_axis_constraint.max())
-			);
+		value = fit_into_scale(
+			fcppt::math::clamp(
+				data_buffer_[i],
+				current_axis_constraint.min(),
+				current_axis_constraint.max()),
+			current_axis_constraint.min(),
+			current_axis_constraint.max(),
+			dim_.h());
+
 
 		bool const above =
 			data_buffer_[i] > 0.0;

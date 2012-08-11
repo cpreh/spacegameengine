@@ -68,7 +68,7 @@ public:
 	SGE_GRAPH_SYMBOL
 	object(
 		sge::graph::position const &,
-		sge::image2d::dim const &,
+		sge::renderer::dim2 const &,
 		sge::renderer::device &,
 		sge::graph::baseline,
 		sge::graph::optional_axis_constraint const &,
