@@ -33,8 +33,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/null_ptr.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <pango/pangoft2.h>
 #include <pango/pango-layout.h>
+#include <pango/pangoft2.h>
 #include <fcppt/config/external_end.hpp>
 
 

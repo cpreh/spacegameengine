@@ -30,9 +30,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <boost/next_prior.hpp>
 #include <boost/range/algorithm/max_element.hpp>
-//#include <boost/range/algorithm/sort.hpp>
-#include <iterator>
+#include <boost/range/algorithm/sort.hpp>
 #include <algorithm>
+#include <iterator>
 #include <fcppt/config/external_end.hpp>
 
 

@@ -24,13 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text.hpp>
 #include <sge/font/text_parameters.hpp>
 #include <sge/font/view.hpp>
-#include <sge/image/algorithm/may_overlap.hpp>
-#include <sge/image/color/a8_format.hpp>
-#include <sge/image2d/dim.hpp>
-#include <sge/image2d/algorithm/copy.hpp>
-#include <sge/image2d/view/const_object.hpp>
-#include <sge/image2d/view/element_base.hpp>
-#include <sge/image2d/view/size.hpp>
 #include <sge/gdifont/calc_rect.hpp>
 #include <sge/gdifont/device_context_fwd.hpp>
 #include <sge/gdifont/dib_section.hpp>
@@ -40,10 +33,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gdifont/set_text_color.hpp>
 #include <sge/gdifont/scoped_select.hpp>
 #include <sge/gdifont/text.hpp>
+#include <sge/image/algorithm/may_overlap.hpp>
+#include <sge/image/color/a8_format.hpp>
+#include <sge/image2d/dim.hpp>
+#include <sge/image2d/algorithm/copy.hpp>
+#include <sge/image2d/view/const_object.hpp>
+#include <sge/image2d/view/element_base.hpp>
+#include <sge/image2d/view/size.hpp>
+#include <mizuiro/nonconst_tag.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/variant/holds_type.hpp>
 #include <fcppt/variant/object_impl.hpp>
-#include <mizuiro/nonconst_tag.hpp>
 
 
 sge::gdifont::text::text(
@@ -75,7 +75,7 @@ sge::gdifont::text::text(
 			_text_parameters.max_width(),
 			render_flags_
 		)
-	)		
+	)
 {
 }
 

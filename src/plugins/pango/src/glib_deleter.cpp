@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/pango/glib_deleter.hpp>
 #include <fcppt/null_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <glib.h>
 #include <glib-object.h>
+#include <glib.h>
 #include <fcppt/config/external_end.hpp>
 
 

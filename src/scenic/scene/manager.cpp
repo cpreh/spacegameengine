@@ -25,14 +25,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/colors.hpp>
 #include <sge/model/obj/instance.hpp>
 #include <sge/model/obj/parse_mtllib.hpp>
-#include <sge/scenic/render_context/object.hpp>
 #include <sge/model/obj/prototype.hpp>
 #include <sge/model/obj/vf/format.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/scoped_transform.hpp>
-#include <sge/renderer/texture/filter/scoped.hpp>
-#include <sge/renderer/texture/filter/mipmap.hpp>
-#include <sge/renderer/texture/filter/object.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
@@ -49,8 +45,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/base.hpp>
 #include <sge/renderer/target/viewport_size.hpp>
 #include <sge/renderer/texture/scoped.hpp>
+#include <sge/renderer/texture/filter/mipmap.hpp>
+#include <sge/renderer/texture/filter/object.hpp>
+#include <sge/renderer/texture/filter/scoped.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/scenic/exception.hpp>
+#include <sge/scenic/render_context/object.hpp>
 #include <sge/scenic/scene/from_blender_file.hpp>
 #include <sge/scenic/scene/manager.hpp>
 #include <sge/scenic/scene/prototype.hpp>

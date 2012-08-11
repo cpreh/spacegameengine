@@ -22,12 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_FONT_SYSTEM_HPP_INCLUDED
 
 #include <sge/class_symbol.hpp>
-#include <sge/font/parameters_fwd.hpp>
 #include <sge/font/object_unique_ptr.hpp>
+#include <sge/font/parameters_fwd.hpp>
 #include <sge/font/symbol.hpp>
 #include <sge/font/system_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-
 
 
 namespace sge

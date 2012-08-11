@@ -53,14 +53,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/level.hpp>
 #include <fcppt/random/variate.hpp>
 #include <fcppt/random/distribution/uniform_real.hpp>
-#include <fcppt/random/distribution/uniform_real.hpp>
 #include <fcppt/random/generator/minstd_rand.hpp>
 #include <fcppt/random/generator/seed_from_chrono.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <example_main.hpp>
 #include <exception>
-#include <iostream>
 #include <fstream>
+#include <iostream>
 #include <fcppt/config/external_end.hpp>
 
 
