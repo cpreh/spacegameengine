@@ -206,6 +206,9 @@ sge::graph::object::push(
 
 	current_min_ = *(minmax.first);
 	current_max_ = *(minmax.second);
+
+	if (current_max_ <= current_min_)
+		current_max_ += 1.0;
 }
 
 void
@@ -316,7 +319,8 @@ sge::graph::object::draw_data(
 			)
 		);
 
-	value_type const zero =
+	value_type const
+	zero =
 		static_cast<
 			value_type
 		>
