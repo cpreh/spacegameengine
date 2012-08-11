@@ -76,8 +76,6 @@ set(
 	include/sge/image2d/view/make_const.hpp
 	include/sge/image2d/view/object.hpp
 	include/sge/image2d/view/object_fwd.hpp
-	include/sge/image2d/view/optional_pitch.hpp
-	include/sge/image2d/view/optional_pitch_fwd.hpp
 	include/sge/image2d/view/pitch.hpp
 	include/sge/image2d/view/size.hpp
 	include/sge/image2d/view/sub.hpp

@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/format_stride.hpp>
 #include <sge/image2d/pitch.hpp>
 #include <sge/image2d/view/make.hpp>
-#include <sge/image2d/view/optional_pitch.hpp>
 #include <sge/opencl/command_queue/map_flags_to_native.hpp>
 #include <sge/opencl/command_queue/object.hpp>
 #include <sge/opencl/command_queue/scoped_planar_mapping.hpp>
@@ -30,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/memory_object/image/planar.hpp>
 #include <sge/src/opencl/handle_error.hpp>
 #include <sge/src/opencl/event/flatten_sequence.hpp>
-#include <fcppt/optional.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
@@ -114,13 +112,12 @@ sge::opencl::command_queue::scoped_planar_mapping::view()
 			fcppt::math::dim::structure_cast<sge::image2d::dim>(
 				rect_.size()),
 			sge_image_format_,
-			image2d::view::optional_pitch(
-				image2d::pitch(
-					static_cast<image2d::pitch::value_type>(
-						pitch_ -
-						rect_.w() *
-						sge::image::color::format_stride(
-							sge_image_format_)))));
+			image2d::pitch(
+				static_cast<image2d::pitch::value_type>(
+					pitch_ -
+					rect_.w() *
+					sge::image::color::format_stride(
+						sge_image_format_))));
 }
 
 sge::opencl::command_queue::scoped_planar_mapping::~scoped_planar_mapping()

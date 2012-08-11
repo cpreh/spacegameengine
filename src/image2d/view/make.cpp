@@ -18,6 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/image/raw_pointer.hpp>
+#include <sge/image/color/format.hpp>
+#include <sge/image2d/dim_fwd.hpp>
+#include <sge/image2d/pitch_fwd.hpp>
 #include <sge/image2d/tag.hpp>
 #include <sge/image2d/view/make.hpp>
 #include <sge/image2d/view/object.hpp>
@@ -27,10 +31,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::image2d::view::object const
 sge::image2d::view::make(
-	image::raw_pointer const _data,
-	image2d::dim const &_dim,
-	image::color::format::type const _format,
-	image2d::view::optional_pitch const &_pitch
+	sge::image::raw_pointer const _data,
+	sge::image2d::dim const &_dim,
+	sge::image::color::format::type const _format,
+	sge::image2d::pitch const &_pitch
 )
 {
 	return

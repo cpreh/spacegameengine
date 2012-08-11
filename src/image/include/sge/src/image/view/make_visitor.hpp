@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_IMAGE_VIEW_MAKE_VISITOR_HPP_INCLUDED
 #define SGE_SRC_IMAGE_VIEW_MAKE_VISITOR_HPP_INCLUDED
 
+#include <sge/image/dim.hpp>
+#include <sge/image/pitch.hpp>
 #include <sge/image/raw_pointer.hpp>
 #include <sge/src/image/convert_dim.hpp>
 #include <fcppt/nonassignable.hpp>
-#include <fcppt/optional_impl.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
 
 
 namespace sge
@@ -105,10 +105,6 @@ public:
 						typename View::pitch_type
 					>(
 						pitch_
-						?
-							*pitch_
-						:
-							OptionalPitch::value_type::null()
 					)
 				)
 			);

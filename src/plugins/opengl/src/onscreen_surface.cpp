@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/flipped.hpp>
 #include <sge/image2d/view/make_const.hpp>
 #include <sge/image2d/view/object.hpp>
-#include <sge/image2d/view/optional_pitch.hpp>
+#include <sge/image2d/view/pitch.hpp>
 #include <sge/opengl/color_format.hpp>
 #include <sge/opengl/color_format_type.hpp>
 #include <sge/opengl/common.hpp>
@@ -105,7 +105,7 @@ sge::opengl::onscreen_surface::lock(
 				buffer_.data(),
 				_dest.size(),
 				this->format(),
-				sge::image2d::view::optional_pitch()
+				sge::image2d::pitch::null()
 			)
 		);
 }

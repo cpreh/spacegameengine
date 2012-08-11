@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/raw_pointer.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image/traits/dim.hpp>
-#include <sge/image/traits/optional_pitch.hpp>
+#include <sge/image/traits/pitch.hpp>
 #include <sge/image/traits/view.hpp>
 #include <sge/src/export_function_instantiation.hpp>
 #include <sge/src/image/view/make_impl.hpp>
@@ -46,7 +46,7 @@ sge::image::view::make< \
 		tag\
 	>::type const &,\
 	sge::image::color::format::type, \
-	sge::image::traits::optional_pitch<\
+	sge::image::traits::pitch<\
 		tag\
 	>::type const &\
 );

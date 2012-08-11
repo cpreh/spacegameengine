@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/unsupported_format.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/color/format_stride.hpp>
+#include <sge/image2d/pitch.hpp>
 #include <sge/image2d/algorithm/copy_and_convert.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/format.hpp>
@@ -34,7 +35,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/libpng/load_context.hpp>
 #include <sge/libpng/png.hpp>
 #include <sge/libpng/write_context.hpp>
-#include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -103,7 +103,7 @@ sge::libpng::file::file(
 			bytes_.data(),
 			dim_,
 			format_,
-			image2d::view::optional_pitch()
+			sge::image2d::pitch::null()
 		),
 		sge::image::algorithm::may_overlap::no
 	);
@@ -125,7 +125,7 @@ sge::libpng::file::view() const
 			),
 			this->size(),
 			format_,
-			image2d::view::optional_pitch()
+			sge::image2d::pitch::null()
 		);
 }
 
