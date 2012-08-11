@@ -135,7 +135,7 @@ sge::gdifont::text::render(
 		device_context_,
 		RGB(255, 255, 255)
 	);
-	
+
 	sge::gdifont::render(
 		device_context_,
 		string_,

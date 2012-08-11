@@ -189,7 +189,7 @@ sge::dinput::cursor::object::make_grab()
 		exclusive_mode_
 	)
 		return;
-	
+
 	exclusive_mode_.take(
 		fcppt::make_unique_ptr<
 			sge::dinput::cursor::exclusive_mode

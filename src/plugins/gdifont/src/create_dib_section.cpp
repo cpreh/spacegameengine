@@ -43,7 +43,7 @@ sge::gdifont::create_dib_section(
 			BITMAPINFO
 		)
 	);
-	
+
 	BITMAPINFOHEADER &header(
 		info.bmiHeader
 	);
@@ -59,7 +59,7 @@ sge::gdifont::create_dib_section(
 
 	// negative values indicate topdown bitmaps
 	header.biHeight
-		= 
+		=
 		-static_cast<
 			LONG
 		>(

@@ -221,7 +221,7 @@ private:
 	release();
 
 	sge::renderer::pixel_format::srgb::type const srgb_;
-	
+
 	sge::renderer::caps::device const &caps_;
 
 	D3DPRESENT_PARAMETERS present_parameters_;

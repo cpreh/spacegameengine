@@ -97,7 +97,7 @@ sge::gdifont::calc_rect(
 
 		result.right = (*_max_width + result.right) / 2;
 
-		break;	
+		break;
 	}
 
 	return

@@ -52,7 +52,7 @@ class basic_buffer
 	FCPPT_NONCOPYABLE(
 		basic_buffer
 	);
-	
+
 	typedef typename Types::buffer_base base;
 public:
 	typedef typename Types::d3d_buffer d3d_buffer;
@@ -94,10 +94,10 @@ private:
 		lock_area const &,
 		sge::renderer::lock_mode::type
 	);
-	
+
 	void
 	unlock() const;
-	
+
 	dim const
 	size() const;
 

@@ -50,7 +50,7 @@ sge::d3d9::devicefuncs::get_render_target(
 		return
 			sge::d3d9::surface::d3d_unique_ptr();
 	}
-	
+
 	throw sge::renderer::exception(
 		FCPPT_TEXT("GetRenderTarget() failed!")
 	);

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
-	
+
 
 sge::gdifont::object::object(
 	sge::gdifont::device_context const &_device_context,

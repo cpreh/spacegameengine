@@ -48,7 +48,7 @@ sge::d3d9::devicefuncs::draw_indexed_primitive(
 	)
 		throw sge::renderer::exception(
 			FCPPT_TEXT("Rendering indexed point lists is not supported in D3D9!")
-		);			
+		);
 
 	if(
 		_device.DrawIndexedPrimitive(
