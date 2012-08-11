@@ -12,7 +12,7 @@ namespace color_schemes
 {
 
 SGE_GRAPH_SYMBOL
-sge::graph::color_scheme const &
+sge::graph::color_scheme const
 default_();
 
 }

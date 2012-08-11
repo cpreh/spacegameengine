@@ -25,9 +25,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/colors.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image/color/any/object.hpp>
+#include <sge/image/size_type.hpp>
+#include <sge/graph/axis_constraint.hpp>
+#include <sge/graph/color_scheme.hpp>
+#include <sge/graph/optional_axis_constraint.hpp>
 #include <sge/image2d/vector.hpp>
 #include <sge/image2d/algorithm/bresenham.hpp>
-#include <sge/image2d/algorithm/fill.hpp>
 #include <sge/image2d/view/object.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/dim2.hpp>
@@ -229,10 +232,22 @@ sge::graph::object::clear(
 	sge::image2d::view::object const _view
 )
 {
-	sge::image2d::algorithm::fill(
-		_view,
-		color_scheme_.background_color()
-	);
+	for (sge::image::size_type x = 0; x < dim_.w(); ++x)
+	{
+		sge::image2d::algorithm::bresenham(
+			_view,
+			sge::image2d::vector(
+				x,
+				0
+			),
+			sge::image2d::vector(
+				x,
+				dim_.h() - 1
+			),
+			color_scheme_.background_color(),
+			color_scheme_.background_alt_color()
+		);
+	}
 
 	draw_rectangle(
 		_view,
@@ -244,7 +259,7 @@ sge::graph::object::clear(
 			dim_.w() - 1,
 			dim_.h() - 1
 		),
-		color_scheme_.foreground_color()
+		color_scheme_.foreground_alt_color()
 	);
 }
 
@@ -268,40 +283,45 @@ sge::graph::object::draw_data(
 		:
 			current_max_);
 
-	unsigned const baseline =
+	typedef
+	sge::image2d::vector::value_type
+	value_type;
+
+	sge::image2d::vector::value_type const
+	baseline =
 		static_cast<
-			unsigned
+			value_type
 		>(
 			fcppt::math::clamp(
+				static_cast<
+					sge::graph::scalar
+				>
 				(
-				 static_cast<int>(
-					static_cast<
-						sge::graph::scalar
-					>
-					(
-						dim_.h() - 1
-					)
-					*
-					(
-					1.0
-					-
-					normalize(
-						baseline_,
-						current_axis_constraint.min(),
-						current_axis_constraint.max())
-					)
-				)),
-				0,
-				static_cast<int>(dim_.h() - 1))
+					dim_.h() - 1
+				) *
+				(
+				1.0 - normalize(
+					baseline_,
+					current_axis_constraint.min(),
+					current_axis_constraint.max())
+				)
+				,
+				0.0,
+				static_cast<
+					sge::graph::scalar
+				>
+				(
+				dim_.h() - 1
+				)
+			)
 		);
 
-	unsigned const zero =
+	value_type const zero =
 		static_cast<
-			unsigned
+			value_type
 		>
 		(
 		 	fcppt::math::clamp(
-				static_cast<int>(
 				static_cast<
 					sge::graph::scalar
 				>
@@ -315,17 +335,25 @@ sge::graph::object::draw_data(
 				normalize(
 					0.,
 					current_axis_constraint.min(),
-					current_axis_constraint.max())
-				)),
-				0,
-				static_cast<int>(dim_.h() - 1))
+					current_axis_constraint.max()
+				)
+				),
+				0.0,
+				static_cast<
+					sge::graph::scalar
+				>
+				(
+				 dim_.h() - 1
+				)
+			)
 		);
 
-	for (unsigned i = 0; i < data_buffer_.size(); ++i)
+	for (value_type i = 0; i < data_buffer_.size(); ++i)
 	{
-		unsigned const value =
+		value_type const
+		value =
 			static_cast<
-				unsigned
+				value_type
 			>
 			(
 				static_cast<
