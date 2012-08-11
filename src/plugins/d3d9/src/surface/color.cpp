@@ -31,10 +31,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/surfacefuncs/lock_rect.hpp>
 #include <sge/d3d9/surfacefuncs/unlock_rect.hpp>
 #include <sge/image/color/format.hpp>
+#include <sge/image2d/pitch.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/make_const.hpp>
 #include <sge/image2d/view/object.hpp>
-#include <sge/image2d/view/optional_pitch.hpp>
 #include <sge/renderer/const_raw_pointer.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <fcppt/make_unique_ptr.hpp>

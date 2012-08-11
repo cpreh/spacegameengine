@@ -22,14 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/from_d3d_pitch.hpp>
 #include <sge/d3d9/make_pitch_2d.hpp>
 #include <sge/image/color/format.hpp>
-#include <sge/image2d/dim.hpp>
+#include <sge/image2d/dim_fwd.hpp>
 #include <sge/image2d/pitch.hpp>
-#include <sge/image2d/view/optional_pitch.hpp>
-#include <fcppt/optional_impl.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
 
 
-sge::image2d::view::optional_pitch const
+sge::image2d::pitch const
 sge::d3d9::make_pitch_2d(
 	D3DLOCKED_RECT const &_rect,
 	sge::image2d::dim const &_dim,

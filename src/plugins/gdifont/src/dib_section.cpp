@@ -30,7 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/pitch.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/make_const.hpp>
-#include <sge/image2d/view/optional_pitch.hpp>
 #include <fcppt/null_ptr.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
 
@@ -85,10 +84,8 @@ sge::gdifont::dib_section::view() const
 				)
 			),
 			sge::image::color::format::a8,
-			sge::image2d::view::optional_pitch(
-				sge::image2d::pitch(
-					bitmap_.bmWidthBytes - bitmap_.bmWidth
-				)
+			sge::image2d::pitch(
+				bitmap_.bmWidthBytes - bitmap_.bmWidth
 			)
 		);
 }

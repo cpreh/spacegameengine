@@ -23,24 +23,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/image/color/format.hpp>
-#include <sge/image2d/dim.hpp>
-#include <sge/image2d/view/optional_pitch.hpp>
-#include <sge/image3d/dim.hpp>
-#include <sge/image3d/view/optional_pitch.hpp>
+#include <sge/image2d/dim_fwd.hpp>
+#include <sge/image2d/pitch_fwd.hpp>
+#include <sge/image3d/dim_fwd.hpp>
+#include <sge/image3d/pitch_fwd.hpp>
 
 namespace sge
 {
 namespace d3d9
 {
 
-sge::image2d::view::optional_pitch const
+sge::image2d::pitch const
 make_pitch(
 	D3DLOCKED_RECT const &,
 	sge::image2d::dim const &,
 	sge::image::color::format::type
 );
 
-sge::image3d::view::optional_pitch const
+sge::image3d::pitch const
 make_pitch(
 	D3DLOCKED_BOX const &,
 	sge::image3d::dim const &,
