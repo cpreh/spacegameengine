@@ -32,8 +32,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/parameters/vsync.hpp>
 #include <sge/renderer/pixel_format/color.hpp>
 #include <sge/renderer/pixel_format/depth_stencil.hpp>
-#include <awl/main/function_context.hpp>
-#include <sge/timer/scoped_frame_limiter.hpp>
 #include <sge/renderer/pixel_format/object.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
@@ -42,6 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/list.hpp>
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/window.hpp>
+#include <sge/timer/scoped_frame_limiter.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
 #include <sge/window/dim.hpp>
 #include <sge/window/parameters.hpp>
@@ -49,24 +48,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/title.hpp>
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
+#include <awl/main/function_context.hpp>
 #include <fcppt/exception.hpp>
-#include <fcppt/io/cerr.hpp>
 #include <fcppt/extract_from_string_exn.hpp>
-#include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/assert/error.hpp>
+#include <fcppt/assert/pre.hpp>
+#include <fcppt/container/array.hpp>
+#include <fcppt/io/cerr.hpp>
 #include <fcppt/log/activate_levels.hpp>
 #include <fcppt/log/level.hpp>
-#include <fcppt/container/array.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/type_traits/is_floating_point.hpp>
+#include <boost/utility/enable_if.hpp>
 #include <example_main.hpp>
 #include <exception>
-#include <iostream>
-#include <boost/utility/enable_if.hpp>
-#include <boost/type_traits/is_floating_point.hpp>
 #include <fstream>
+#include <iostream>
 #include <numeric>
 #include <fcppt/config/external_end.hpp>
-#include <fcppt/assert/pre.hpp>
 
 
 namespace

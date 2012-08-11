@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/config/media_path.hpp>
 #include <sge/image/capabilities_field.hpp>
 #include <sge/image/colors.hpp>
-#include <sge/image/color/rgba8.hpp>
+#include <sge/image/color/rgba8_from_hex_string.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/media/extension.hpp>
@@ -221,51 +221,46 @@ public:
 		result.push_back(
 			create_sprite(
 				current_tree_->value().get<bvh_tree_traits::node_wrapper>().bounding_box(),
-				sge::image::color::rgba8(
-					(sge::image::color::init::red() = static_cast<unsigned char>(46))
-					(sge::image::color::init::green() = static_cast<unsigned char>(38))
-					(sge::image::color::init::blue() = static_cast<unsigned char>(33))
-					(sge::image::color::init::alpha() %= 1.0))));
+				sge::image::color::rgba8_from_hex_string(
+					std::string(
+						"2e2621"),
+					255)));
 
 		if(fcppt::variant::holds_type<bvh_tree_traits::node_wrapper>(current_tree_->front().value()))
 			result.push_back(
 				create_sprite(
 					current_tree_->front().value().get<bvh_tree_traits::node_wrapper>().bounding_box(),
-					sge::image::color::rgba8(
-						(sge::image::color::init::red() = static_cast<unsigned char>(190))
-						(sge::image::color::init::green() = static_cast<unsigned char>(232))
-						(sge::image::color::init::blue() = static_cast<unsigned char>(224))
-						(sge::image::color::init::alpha() %= 1.0))));
+					sge::image::color::rgba8_from_hex_string(
+						std::string(
+							"bee8e0"),
+						255)));
 
 		if(fcppt::variant::holds_type<bvh_tree_traits::node_wrapper>(current_tree_->back().value()))
 			result.push_back(
 				create_sprite(
 					current_tree_->back().value().get<bvh_tree_traits::node_wrapper>().bounding_box(),
-					sge::image::color::rgba8(
-						(sge::image::color::init::red() = static_cast<unsigned char>(255))
-						(sge::image::color::init::green() = static_cast<unsigned char>(94))
-						(sge::image::color::init::blue() = static_cast<unsigned char>(0))
-						(sge::image::color::init::alpha() %= 1.0))));
+					sge::image::color::rgba8_from_hex_string(
+						std::string(
+							"ff5e00"),
+						255)));
 
 		// Then add the children
 		this->add_children(
 			result,
 			current_tree_->front(),
-			sge::image::color::rgba8(
-				(sge::image::color::init::red() = static_cast<unsigned char>(55))
-				(sge::image::color::init::green() = static_cast<unsigned char>(60))
-				(sge::image::color::init::blue() = static_cast<unsigned char>(64))
-				(sge::image::color::init::alpha() %= 0.8)));
+			sge::image::color::rgba8_from_hex_string(
+				std::string(
+					"373c40"),
+				204));
 
 		// Then add the children
 		this->add_children(
 			result,
 			current_tree_->back(),
-			sge::image::color::rgba8(
-				(sge::image::color::init::red() = static_cast<unsigned char>(115))
-				(sge::image::color::init::green() = static_cast<unsigned char>(50))
-				(sge::image::color::init::blue() = static_cast<unsigned char>(11))
-				(sge::image::color::init::alpha() %= 0.8)));
+			sge::image::color::rgba8_from_hex_string(
+				std::string(
+					"73320b"),
+				204));
 
 		return
 			result;

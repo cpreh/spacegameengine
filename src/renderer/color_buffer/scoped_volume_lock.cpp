@@ -20,8 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/color_buffer/scoped_volume_lock.hpp>
 #include <sge/renderer/color_buffer/volume.hpp>
-#include <sge/src/renderer/color_buffer/instantiate_basic_scoped_lock.hpp>
 #include <sge/src/renderer/color_buffer/basic_impl.hpp>
+#include <sge/src/renderer/color_buffer/instantiate_basic_scoped_lock.hpp>
 
 
 SGE_RENDERER_COLOR_BUFFER_INSTANTIATE_BASIC_SCOPED_LOCK(

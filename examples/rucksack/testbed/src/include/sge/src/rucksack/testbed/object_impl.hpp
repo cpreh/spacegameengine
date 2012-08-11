@@ -1,29 +1,49 @@
+/*
+spacegameengine is a portable easy to use game engine written in C++.
+Copyright (C) 2006-2012 Carl Philipp Reh (sefi@s-e-f-i.de)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
+
 #ifndef SGE_SRC_RUCKSACK_TESTBED_OBJECT_IMPL_HPP_INCLUDED
 #define SGE_SRC_RUCKSACK_TESTBED_OBJECT_IMPL_HPP_INCLUDED
 
 #include <sge/image/color/rgba8_format.hpp>
 #include <sge/image/color/any/object_fwd.hpp>
 #include <sge/renderer/context/object_fwd.hpp>
-#include <sge/rucksack/widget/base_fwd.hpp>
 #include <sge/rucksack/scalar.hpp>
-#include <sge/sprite/config/choices.hpp>
+#include <sge/rucksack/widget/base_fwd.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/parameters.hpp>
-#include <sge/sprite/buffers/with_declaration.hpp>
 #include <sge/sprite/buffers/single.hpp>
+#include <sge/sprite/buffers/with_declaration.hpp>
+#include <sge/sprite/config/choices.hpp>
+#include <sge/sprite/config/normal_size.hpp>
 #include <sge/sprite/config/type_choices.hpp>
 #include <sge/sprite/config/with_color.hpp>
-#include <sge/sprite/config/normal_size.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/window/title.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
-#include <fcppt/string.hpp>
-#include <fcppt/noncopyable.hpp>
 #include <awl/main/exit_code.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <vector>
-#include <utility>
 #include <boost/mpl/vector/vector10.hpp>
+#include <utility>
+#include <vector>
 #include <fcppt/config/external_end.hpp>
 
 

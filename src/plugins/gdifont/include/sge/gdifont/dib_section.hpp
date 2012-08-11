@@ -24,10 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gdifont/delete_object_deleter_fwd.hpp>
 #include <sge/gdifont/device_context_fwd.hpp>
 #include <sge/gdifont/include_windows.hpp>
-#include <sge/image/const_raw_pointer.hpp>
-#include <sge/image/color/format.hpp>
-#include <sge/image2d/dim.hpp>
-#include <sge/image2d/view/optional_pitch_fwd.hpp>
+#include <sge/image2d/dim_fwd.hpp>
+#include <sge/image2d/view/const_object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -53,20 +51,12 @@ public:
 
 	~dib_section();
 
-	sge::image::const_raw_pointer
-	data() const;
-
-	sge::image::color::format::type
-	format() const;
-
-	sge::image2d::view::optional_pitch const
-	pitch() const;
+	sge::image2d::view::const_object const
+	view() const;
 
 	HBITMAP
 	handle();
 private:
-	sge::image2d::dim const size_;
-
 	VOID *data_;
 
 	typedef fcppt::scoped_ptr<
@@ -77,6 +67,8 @@ private:
 	> hbitmap_scoped_ptr;
 
 	hbitmap_scoped_ptr const hbitmap_;
+
+	BITMAP const bitmap_;
 };
 
 }

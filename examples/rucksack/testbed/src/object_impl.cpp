@@ -1,15 +1,34 @@
+/*
+spacegameengine is a portable easy to use game engine written in C++.
+Copyright (C) 2006-2012 Carl Philipp Reh (sefi@s-e-f-i.de)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
+
 #include <sge/image/colors.hpp>
 #include <sge/log/global.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/context/scoped.hpp>
 #include <sge/renderer/parameters/object.hpp>
-#include <sge/renderer/parameters/object.hpp>
 #include <sge/renderer/pixel_format/object.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/rucksack/widget/base.hpp>
 #include <sge/sprite/compare/default.hpp>
-#include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/config/float_type.hpp>
+#include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/geometry/make_random_access_range.hpp>
 #include <sge/sprite/process/all.hpp>
 #include <sge/src/rucksack/testbed/object_impl.hpp>
@@ -25,12 +44,13 @@
 #include <sge/window/parameters.hpp>
 #include <sge/window/system.hpp>
 #include <awl/main/exit_code.hpp>
+#include <fcppt/optional_impl.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/log/activate_levels.hpp>
 #include <fcppt/log/level.hpp>
-#include <fcppt/optional_impl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/text.hpp>
+
 
 sge::rucksack::testbed::object_impl::object_impl(
 	sge::window::title const &_window_title)

@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GDIFONT_SYSTEM_HPP_INCLUDED
 #define SGE_GDIFONT_SYSTEM_HPP_INCLUDED
 
-#include <sge/font/parameters_fwd.hpp>
 #include <sge/font/object_unique_ptr.hpp>
+#include <sge/font/parameters_fwd.hpp>
 #include <sge/font/system.hpp>
 #include <sge/gdifont/device_context.hpp>
 #include <fcppt/noncopyable.hpp>

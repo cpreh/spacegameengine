@@ -91,11 +91,12 @@ from_d3d_pitch(
 	return
 		dest.content()
 		?
-			result_type()
-		:
 			result_type(
 				dest
-			);
+			)
+		:
+			result_type()
+		;
 }
 
 }
