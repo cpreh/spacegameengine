@@ -18,9 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/graph/background_color.hpp>
 #include <sge/graph/baseline.hpp>
-#include <sge/graph/foreground_color.hpp>
 #include <sge/graph/object.hpp>
 #include <sge/graph/position.hpp>
 #include <sge/graph/scalar.hpp>
@@ -116,10 +114,9 @@ sge::graph::object::object(
 	sge::graph::position const &_position,
 	sge::renderer::dim2 const &_dim,
 	sge::renderer::device &_renderer,
-	sge::graph::foreground_color const &_foreground_color,
-	sge::graph::background_color const &_background_color,
 	sge::graph::baseline _baseline,
-	sge::graph::optional_axis_constraint const &_axis_constraint
+	sge::graph::optional_axis_constraint const &_axis_constraint,
+	sge::graph::color_scheme const &_color_scheme
 )
 :
 dim_(
@@ -158,14 +155,12 @@ sprite_buffers_(
 	_renderer,
 	sge::sprite::buffers::option::dynamic
 ),
-foreground_color_(
-	_foreground_color.get()),
-background_color_(
-	_background_color.get()),
 data_buffer_(
 	dim_.w()),
 baseline_(
 	_baseline.get()),
+color_scheme_(
+	_color_scheme),
 axis_constraint_(
 	_axis_constraint),
 current_min_(
@@ -236,7 +231,7 @@ sge::graph::object::clear(
 {
 	sge::image2d::algorithm::fill(
 		_view,
-		background_color_
+		color_scheme_.background_color()
 	);
 
 	draw_rectangle(
@@ -249,7 +244,7 @@ sge::graph::object::clear(
 			dim_.w() - 1,
 			dim_.h() - 1
 		),
-		foreground_color_
+		color_scheme_.foreground_color()
 	);
 }
 
@@ -350,7 +345,20 @@ sge::graph::object::draw_data(
 					current_axis_constraint.max())
 			);
 
-		bool const above = data_buffer_[i] > 0.;
+		bool const above =
+			data_buffer_[i] > 0.0;
+
+		sge::image::color::any::object const &col1(
+				above ?
+				color_scheme_.foreground_color()
+				:
+				color_scheme_.foreground_alt_color());
+
+		sge::image::color::any::object const &col2(
+				above ?
+				color_scheme_.foreground_alt_color()
+				:
+				color_scheme_.foreground_color());
 
 		sge::image2d::algorithm::bresenham(
 			_view,
@@ -362,10 +370,8 @@ sge::graph::object::draw_data(
 				i,
 				dim_.h() - 1 - value
 			),
-			foreground_color_,
-			foreground_color_
-			//above ? background_color_ : foreground_color_,
-			//above ? foreground_color_ : background_color_
+			col1,
+			col2
 		);
 	}
 
@@ -380,8 +386,8 @@ sge::graph::object::draw_data(
 			dim_.w() - 1,
 			zero
 		),
-		foreground_color_,
-		foreground_color_
+		color_scheme_.foreground_color(),
+		color_scheme_.foreground_color()
 	);
 
 	// baseline
@@ -395,8 +401,8 @@ sge::graph::object::draw_data(
 			dim_.w() - 1,
 			baseline
 		),
-		sge::image::colors::yellow(),
-		sge::image::colors::yellow()
+		color_scheme_.baseline_color(),
+		color_scheme_.baseline_color()
 	);
 
 }

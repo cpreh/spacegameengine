@@ -62,6 +62,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <iostream>
 #include <fstream>
 #include <fcppt/config/external_end.hpp>
+#include <sge/graph/optional_axis_constraint.hpp>
+#include <sge/graph/position.hpp>
+#include <sge/renderer/vector2.hpp>
+#include <sge/graph/color_schemes.hpp>
 
 
 awl::main::exit_code const
@@ -111,13 +115,11 @@ try
 			128u
 		),
 		sys.renderer(),
-		sge::graph::foreground_color(
-			sge::image::colors::white()),
-		sge::graph::background_color(
-			sge::image::colors::darkslategray()),
 		sge::graph::baseline(
 			20.0),
-		sge::graph::optional_axis_constraint());
+		sge::graph::optional_axis_constraint(),
+		sge::graph::color_schemes::default_()
+	);
 
 	typedef fcppt::random::generator::minstd_rand generator_type;
 

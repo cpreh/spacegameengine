@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/first_person/parameters.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/graph/object.hpp>
+#include <sge/graph/color_schemes.hpp>
 #include <sge/image/capabilities_field.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/media/extension.hpp>
@@ -201,16 +202,14 @@ try
 			256u,
 			64u),
 		sys.renderer(),
-		sge::graph::foreground_color(
-			sge::image::colors::white()),
-		sge::graph::background_color(
-			sge::image::colors::darkslategray()),
 		sge::graph::baseline(
 			1.0f/30.0f),
 		sge::graph::optional_axis_constraint(
 			sge::graph::axis_constraint(
 				0.0f,
-				0.1f)));
+				0.1f)),
+		sge::graph::color_schemes::default_()
+	);
 
 	while(
 		sys.window_system().poll())

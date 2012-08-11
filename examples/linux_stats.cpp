@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/graph/background_color.hpp>
 #include <sge/graph/baseline.hpp>
+#include <sge/graph/color_schemes.hpp>
 #include <sge/graph/foreground_color.hpp>
 #include <sge/graph/object.hpp>
 #include <sge/image/colors.hpp>
@@ -258,16 +259,14 @@ try
 		fcppt::math::dim::structure_cast<sge::image2d::dim>(
 			window_dim),
 		sys.renderer(),
-		sge::graph::foreground_color(
-			sge::image::colors::white()),
-		sge::graph::background_color(
-			sge::image::colors::darkslategray()),
 		sge::graph::baseline(
 			50.0),
 		sge::graph::optional_axis_constraint(
 			sge::graph::axis_constraint(
 				0.0,
-				100.0)));
+				100.0)),
+		sge::graph::color_schemes::default_()
+	);
 
 	jiffies last_jiffies =
 		count_jiffies();

@@ -21,17 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GRAPH_OBJECT_HPP_INCLUDED
 #define SGE_GRAPH_OBJECT_HPP_INCLUDED
 
-#include <sge/graph/background_color.hpp>
 #include <sge/graph/baseline.hpp>
+#include <sge/graph/color_scheme.hpp>
 #include <sge/graph/optional_axis_constraint.hpp>
 #include <sge/graph/axis_constraint.hpp>
-#include <sge/graph/foreground_color.hpp>
 #include <sge/graph/position.hpp>
 #include <sge/graph/scalar.hpp>
 #include <sge/graph/symbol.hpp>
-#include <sge/image/color/any/object.hpp>
 #include <sge/image2d/dim.hpp>
-#include <sge/image2d/rgba8.hpp>
 #include <sge/image2d/view/object.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/dim2.hpp>
@@ -51,6 +48,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/type_choices.hpp>
 #include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/config/with_texture.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/circular_buffer.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -71,10 +69,9 @@ public:
 		sge::graph::position const &,
 		sge::image2d::dim const &,
 		sge::renderer::device &,
-		sge::graph::foreground_color const &,
-		sge::graph::background_color const &,
 		sge::graph::baseline,
-		sge::graph::optional_axis_constraint const &);
+		sge::graph::optional_axis_constraint const &,
+		sge::graph::color_scheme const &);
 
 	SGE_GRAPH_SYMBOL
 	void
@@ -143,17 +140,14 @@ private:
 	sprite_buffers_type
 	sprite_buffers_;
 
-	sge::image::color::any::object const &
-	foreground_color_;
-
-	sge::image::color::any::object const &
-	background_color_;
-
 	buffer_type
 	data_buffer_;
 
 	sge::graph::scalar
 	baseline_;
+
+	sge::graph::color_scheme
+	color_scheme_;
 
 	sge::graph::optional_axis_constraint
 	axis_constraint_;
@@ -165,10 +159,12 @@ private:
 	current_max_;
 
 	void
-	clear(sge::image2d::view::object const _view);
+	clear(
+		sge::image2d::view::object const _view);
 
 	void
-	draw_data(sge::image2d::view::object const _view);
+	draw_data(
+		sge::image2d::view::object const _view);
 };
 }
 }
