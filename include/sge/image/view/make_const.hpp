@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/detail/instantiate/symbol.hpp>
 #include <sge/image/traits/const_view.hpp>
 #include <sge/image/traits/dim.hpp>
-#include <sge/image/traits/optional_pitch.hpp>
+#include <sge/image/traits/pitch.hpp>
 
 
 namespace sge
@@ -40,16 +40,16 @@ template<
 	typename Tag
 >
 SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
-typename image::traits::const_view<
+typename sge::image::traits::const_view<
 	Tag
 >::type const
 make_const(
-	image::const_raw_pointer const, // Workaround for VC++ bug
-	typename image::traits::dim<
+	sge::image::const_raw_pointer const, // Workaround for VC++ bug
+	typename sge::image::traits::dim<
 		Tag
 	>::type const &,
-	image::color::format::type,
-	typename image::traits::optional_pitch<
+	sge::image::color::format::type,
+	typename sge::image::traits::pitch<
 		Tag
 	>::type const &
 );

@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/algorithm/copy_and_convert.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/make_const.hpp>
-#include <sge/image2d/view/optional_pitch.hpp>
+#include <sge/image2d/view/pitch.hpp>
 #include <sge/image2d/view/size.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/dim2.hpp>
@@ -363,7 +363,7 @@ sge::cegui::texture::loadFromMemory(
 				_buffer_size
 			),
 			*format,
-			sge::image2d::view::optional_pitch()
+			sge::image2d::pitch::null()
 		),
 		lock.value(),
 		sge::image::algorithm::may_overlap::no

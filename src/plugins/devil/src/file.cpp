@@ -37,6 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/element_count.hpp>
 #include <sge/image/color/format_stride.hpp>
 #include <sge/image2d/dim.hpp>
+#include <sge/image2d/pitch.hpp>
 #include <sge/image2d/algorithm/copy_and_convert.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/format.hpp>
@@ -111,7 +112,7 @@ sge::devil::file::file(
 			temp.data(),
 			src_dim,
 			best_il_format,
-			image2d::view::optional_pitch()
+			sge::image2d::pitch::null()
 		),
 		sge::image::algorithm::may_overlap::no
 	);
@@ -204,7 +205,7 @@ sge::devil::file::view() const
 				),
 				this->format()
 			),
-			image2d::view::optional_pitch()
+			sge::image2d::pitch::null()
 		);
 }
 

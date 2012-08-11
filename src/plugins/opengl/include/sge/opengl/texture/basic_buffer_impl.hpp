@@ -230,7 +230,7 @@ sge::opengl::texture::basic_buffer<
 					lock_->write_view_pointer(),
 					this->lock_dim(),
 					format_,
-					basic_buffer::optional_pitch()
+					basic_buffer::pitch::null()
 				),
 				sge::image::algorithm::may_overlap::no
 			);
@@ -382,7 +382,7 @@ sge::opengl::texture::basic_buffer<
 			:
 				this->lock_dim(),
 			format_,
-			basic_buffer::optional_pitch()
+			basic_buffer::pitch::null()
 		)
 	);
 

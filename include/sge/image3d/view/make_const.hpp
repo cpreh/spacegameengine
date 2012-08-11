@@ -24,9 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/const_raw_pointer.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image3d/dim_fwd.hpp>
+#include <sge/image3d/pitch_fwd.hpp>
 #include <sge/image3d/symbol.hpp>
 #include <sge/image3d/view/const_object_fwd.hpp>
-#include <sge/image3d/view/optional_pitch_fwd.hpp>
 
 
 namespace sge
@@ -42,7 +42,7 @@ make_const(
 	sge::image::const_raw_pointer,
 	sge::image3d::dim const &,
 	sge::image::color::format::type,
-	sge::image3d::view::optional_pitch const &
+	sge::image3d::pitch const &
 );
 
 }

@@ -57,8 +57,6 @@ set(
 	include/sge/image3d/view/make_const.hpp
 	include/sge/image3d/view/object.hpp
 	include/sge/image3d/view/object_fwd.hpp
-	include/sge/image3d/view/optional_pitch.hpp
-	include/sge/image3d/view/optional_pitch_fwd.hpp
 	include/sge/image3d/view/pitch.hpp
 	include/sge/image3d/view/size.hpp
 	include/sge/image3d/view/sub.hpp
