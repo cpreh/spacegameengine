@@ -18,17 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/graph/axis_constraint.hpp>
 #include <sge/graph/baseline.hpp>
+#include <sge/graph/color_scheme.hpp>
 #include <sge/graph/object.hpp>
+#include <sge/graph/optional_axis_constraint.hpp>
 #include <sge/graph/position.hpp>
 #include <sge/graph/scalar.hpp>
 #include <sge/image/colors.hpp>
+#include <sge/image/size_type.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image/color/any/object.hpp>
-#include <sge/image/size_type.hpp>
-#include <sge/graph/axis_constraint.hpp>
-#include <sge/graph/color_scheme.hpp>
-#include <sge/graph/optional_axis_constraint.hpp>
 #include <sge/image2d/vector.hpp>
 #include <sge/image2d/algorithm/bresenham.hpp>
 #include <sge/image2d/view/object.hpp>

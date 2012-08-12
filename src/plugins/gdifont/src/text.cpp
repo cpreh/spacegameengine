@@ -29,9 +29,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gdifont/dib_section.hpp>
 #include <sge/gdifont/make_flags.hpp>
 #include <sge/gdifont/render.hpp>
+#include <sge/gdifont/scoped_select.hpp>
 #include <sge/gdifont/set_bk_color.hpp>
 #include <sge/gdifont/set_text_color.hpp>
-#include <sge/gdifont/scoped_select.hpp>
 #include <sge/gdifont/text.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/color/a8_format.hpp>

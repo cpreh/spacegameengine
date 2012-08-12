@@ -1,10 +1,13 @@
-#include <sge/image/color/any/print.hpp>
-#include <sge/image/color/any/from_string.hpp>
 #include <sge/image/exception.hpp>
-#include <fcppt/io/cout.hpp>
-#include <ostream>
+#include <sge/image/color/any/from_string.hpp>
+#include <sge/image/color/any/print.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/io/cout.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <cstddef>
+#include <ostream>
+#include <fcppt/config/external_end.hpp>
+
 
 int
 main(

@@ -20,11 +20,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/graph/background_color.hpp>
 #include <sge/graph/baseline.hpp>
+#include <sge/graph/color_schemes.hpp>
 #include <sge/graph/foreground_color.hpp>
 #include <sge/graph/object.hpp>
+#include <sge/graph/optional_axis_constraint.hpp>
+#include <sge/graph/position.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/log/global.hpp>
+#include <sge/renderer/vector2.hpp>
 #include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/context/object.hpp>
 #include <sge/renderer/context/scoped.hpp>
@@ -63,10 +67,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fstream>
 #include <iostream>
 #include <fcppt/config/external_end.hpp>
-#include <sge/graph/optional_axis_constraint.hpp>
-#include <sge/graph/position.hpp>
-#include <sge/renderer/vector2.hpp>
-#include <sge/graph/color_schemes.hpp>
 
 
 awl::main::exit_code const

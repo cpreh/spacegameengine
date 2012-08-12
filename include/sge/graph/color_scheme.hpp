@@ -1,14 +1,15 @@
 #ifndef SGE_GRAPH_COLOR_SCHEME_HPP_INCLUDED
 #define SGE_GRAPH_COLOR_SCHEME_HPP_INCLUDED
 
-#include <fcppt/noncopyable.hpp>
-#include <sge/image/color/any/object.hpp>
 #include <sge/graph/background_alt_color.hpp>
 #include <sge/graph/background_color.hpp>
 #include <sge/graph/baseline_color.hpp>
 #include <sge/graph/foreground_alt_color.hpp>
 #include <sge/graph/foreground_color.hpp>
 #include <sge/graph/symbol.hpp>
+#include <sge/image/color/any/object.hpp>
+#include <fcppt/noncopyable.hpp>
+
 
 namespace sge
 {

@@ -1,14 +1,15 @@
 #include <sge/graph/background_alt_color.hpp>
 #include <sge/graph/background_color.hpp>
+#include <sge/graph/baseline_color.hpp>
 #include <sge/graph/color_scheme.hpp>
 #include <sge/graph/color_schemes.hpp>
-#include <sge/image/color/rgba8.hpp>
 #include <sge/graph/foreground_alt_color.hpp>
 #include <sge/graph/foreground_color.hpp>
 #include <sge/image/colors.hpp>
-#include <sge/graph/baseline_color.hpp>
+#include <sge/image/color/rgba8.hpp>
 #include <sge/image/color/rgba8_from_hex_string.hpp>
 #include <sge/image/color/any/object.hpp>
+
 
 sge::graph::color_scheme const
 sge::graph::color_schemes::default_()

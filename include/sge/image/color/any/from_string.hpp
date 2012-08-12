@@ -3,7 +3,10 @@
 
 #include <sge/image/symbol.hpp>
 #include <sge/image/color/any/object.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <string>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

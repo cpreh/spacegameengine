@@ -1,10 +1,11 @@
-#include <sge/graph/color_scheme.hpp>
-#include <sge/image/color/any/object.hpp>
 #include <sge/graph/background_alt_color.hpp>
 #include <sge/graph/background_color.hpp>
 #include <sge/graph/baseline_color.hpp>
+#include <sge/graph/color_scheme.hpp>
 #include <sge/graph/foreground_alt_color.hpp>
 #include <sge/graph/foreground_color.hpp>
+#include <sge/image/color/any/object.hpp>
+
 
 sge::graph::color_scheme::color_scheme(
 	sge::graph::foreground_color const &_foreground_color,
