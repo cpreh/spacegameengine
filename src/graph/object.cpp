@@ -56,6 +56,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/algorithm/minmax_element.hpp>
 #include <algorithm>
 #include <utility>
+#include <iostream>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -384,7 +385,7 @@ sge::graph::object::draw_data(
 			),
 			sge::image2d::vector(
 				i,
-				dim_.h() - 1 - value
+				value
 			),
 			col1,
 			col2
@@ -402,8 +403,8 @@ sge::graph::object::draw_data(
 			dim_.w() - 1,
 			zero
 		),
-		color_scheme_.foreground_color(),
-		color_scheme_.foreground_color()
+		color_scheme_.foreground_alt_color(),
+		color_scheme_.foreground_alt_color()
 	);
 
 	// baseline
@@ -420,7 +421,6 @@ sge::graph::object::draw_data(
 		color_scheme_.baseline_color(),
 		color_scheme_.baseline_color()
 	);
-
 }
 
 sge::graph::object::~object()
