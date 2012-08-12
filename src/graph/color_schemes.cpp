@@ -29,7 +29,7 @@ sge::graph::color_schemes::default_()
 }
 
 sge::graph::color_scheme const
-sge::graph::color_schemes::foo()
+sge::graph::color_schemes::bright()
 {
 	return
 	sge::graph::color_scheme(
@@ -62,6 +62,82 @@ sge::graph::color_schemes::foo()
 				sge::image::color::rgba8_from_hex_string(
 					std::string(
 						"EA2E49"),
+					255)))
+	);
+}
+
+sge::graph::color_scheme const
+sge::graph::color_schemes::night()
+{
+	return
+	sge::graph::color_scheme(
+		sge::graph::foreground_color(
+			sge::image::color::any::object(
+				sge::image::color::rgba8_from_hex_string(
+					std::string(
+						"008000"),
+					255))),
+		sge::graph::foreground_alt_color(
+			sge::image::color::any::object(
+				sge::image::color::rgba8_from_hex_string(
+					std::string(
+						"77C4D3"),
+					255))),
+		sge::graph::background_color(
+			sge::image::color::any::object(
+				sge::image::color::rgba8_from_hex_string(
+					std::string(
+						"2E2E2E"),
+					255))),
+		sge::graph::background_alt_color(
+			sge::image::color::any::object(
+				sge::image::color::rgba8_from_hex_string(
+					std::string(
+						"2E2E2E"),
+					255))),
+		sge::graph::baseline_color(
+			sge::image::color::any::object(
+				sge::image::color::rgba8_from_hex_string(
+					std::string(
+						"808080"),
+					255)))
+	);
+}
+
+sge::graph::color_scheme const
+sge::graph::color_schemes::minimal()
+{
+	return
+	sge::graph::color_scheme(
+		sge::graph::foreground_color(
+			sge::image::color::any::object(
+				sge::image::color::rgba8_from_hex_string(
+					std::string(
+						"808080"),
+					255))),
+		sge::graph::foreground_alt_color(
+			sge::image::color::any::object(
+				sge::image::color::rgba8_from_hex_string(
+					std::string(
+						"808080"),
+					255))),
+		sge::graph::background_color(
+			sge::image::color::any::object(
+				sge::image::color::rgba8_from_hex_string(
+					std::string(
+						"000000"),
+					0))),
+		sge::graph::background_alt_color(
+			sge::image::color::any::object(
+				sge::image::color::rgba8_from_hex_string(
+					std::string(
+						"000000"),
+					0))),
+		sge::graph::baseline_color(
+			sge::image::color::any::object(
+				sge::image::color::rgba8_from_hex_string(
+					std::string(
+						"FFFFFF"),
 					255)))
 	);
 }

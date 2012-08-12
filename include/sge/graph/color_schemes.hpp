@@ -17,7 +17,15 @@ default_();
 
 SGE_GRAPH_SYMBOL
 sge::graph::color_scheme const
-foo();
+bright();
+
+SGE_GRAPH_SYMBOL
+sge::graph::color_scheme const
+night();
+
+SGE_GRAPH_SYMBOL
+sge::graph::color_scheme const
+minimal();
 
 }
 }
