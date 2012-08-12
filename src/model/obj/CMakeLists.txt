@@ -46,7 +46,7 @@ set(
 
 add_sge_base_library(
 	"model/obj"
-	"sgecore;sgerenderer;sgeimage"
+	"sgecore;sgerenderer;sgeimage;sgelog"
 	"${Fcppt_filesystem_LIBRARIES}"
 	""
 	""

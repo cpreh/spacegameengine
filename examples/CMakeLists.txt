@@ -162,6 +162,12 @@ add_sge_example(
 )
 
 add_sge_example(
+	cube_map
+	"sgecamera;sgeimage;sgeinput;sgerenderer;sgesystems;sgeviewport;sgewindow;sgeimage2d;sgeconfig"
+	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+)
+
+add_sge_example(
 	doppler
 	"sgeaudio;sgeconfig;sgeinput;sgelog;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
