@@ -29,6 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/math/vector/output.hpp>
+#include <sge/log/global.hpp>
+#include <fcppt/log/headers.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <cmath>
@@ -251,7 +253,9 @@ sge::model::obj::parse_mtllib(
 			case 2u:
 				break;
 			default:
-				std::clog << "Invalid light model: " << light_model << "\n";
+				FCPPT_LOG_WARNING(
+					sge::log::global(),
+					fcppt::log::_ << FCPPT_TEXT("obj (mtl): invalid light model: ") << light_model);
 				break;
 			}
 		}
@@ -320,7 +324,9 @@ sge::model::obj::parse_mtllib(
 		}
 		else
 		{
-			std::clog << "Invalid prefix: " << prefix << "\n";
+			FCPPT_LOG_WARNING(
+				sge::log::global(),
+				fcppt::log::_ << FCPPT_TEXT("obj (mtl): invalid prefix"));
 		}
 	}
 
