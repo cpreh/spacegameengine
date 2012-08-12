@@ -144,6 +144,12 @@ add_sge_console_example(
 )
 
 add_sge_console_example(
+	color_string_convert
+	"sgeimage"
+	"${Fcppt_core_LIBRARIES}"
+)
+
+add_sge_console_example(
 	config_path
 	"sgeconfig"
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"

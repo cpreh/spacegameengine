@@ -53,7 +53,6 @@ set(
 	src/scenic/scene/camera_properties.cpp
 	src/scenic/scene/from_blender_file.cpp
 	src/scenic/scene/manager.cpp
-	src/scenic/scene/manager_fwd.hpp
 	src/scenic/scene/prototype.cpp
 	src/scenic/texture_manager.cpp
 )

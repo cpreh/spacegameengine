@@ -23,6 +23,7 @@ set(
 	include/sge/image/color/any/convert.hpp
 	include/sge/image/color/any/detail/make_object.hpp
 	include/sge/image/color/any/elements.hpp
+	include/sge/image/color/any/from_string.hpp
 	include/sge/image/color/any/object.hpp
 	include/sge/image/color/any/object_fwd.hpp
 	include/sge/image/color/any/print.hpp
@@ -140,6 +141,7 @@ set(
 	include/sge/image/view/wrapped_type.hpp
 	src/image/algorithm/invalid_copy.cpp
 	src/image/color/any/convert.cpp
+	src/image/color/any/from_string.cpp
 	src/image/color/any/object.cpp
 	src/image/color/any/print.cpp
 	src/image/color/element_count.cpp
