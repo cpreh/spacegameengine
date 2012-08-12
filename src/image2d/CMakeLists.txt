@@ -39,6 +39,7 @@ set(
 	include/sge/image2d/r32f.hpp
 	include/sge/image2d/r32f_format.hpp
 	include/sge/image2d/rect.hpp
+	include/sge/image2d/rect_fwd.hpp
 	include/sge/image2d/rgb32f.hpp
 	include/sge/image2d/rgb32f_format.hpp
 	include/sge/image2d/rgb8.hpp

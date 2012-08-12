@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/image3d/box_fwd.hpp>
 #include <sge/image3d/tag.hpp>
 #include <sge/image3d/view/const_object.hpp>
 #include <sge/image3d/view/object.hpp>
@@ -28,8 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::image3d::view::object const
 sge::image3d::view::sub(
-	view::object const &_src,
-	image3d::box const &_box
+	sge::image3d::view::object const &_src,
+	sge::image3d::box const &_box
 )
 {
 	return
@@ -43,8 +44,8 @@ sge::image3d::view::sub(
 
 sge::image3d::view::const_object const
 sge::image3d::view::sub(
-	view::const_object const &_src,
-	image3d::box const &_box
+	sge::image3d::view::const_object const &_src,
+	sge::image3d::box const &_box
 )
 {
 	return

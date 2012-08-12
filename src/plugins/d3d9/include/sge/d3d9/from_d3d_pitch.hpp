@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/size_type.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image/color/format_stride.hpp>
-#include <fcppt/optional_impl.hpp>
 #include <fcppt/math/dim/narrow_cast.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 
@@ -39,11 +38,9 @@ namespace d3d9
 template<
 	sge::image::size_type Dim
 >
-fcppt::optional<
-	typename sge::image::pitch<
-		Dim
-	>::type
-> const
+typename sge::image::pitch<
+	Dim
+>::type const
 from_d3d_pitch(
 	typename sge::image::pitch<
 		Dim
@@ -57,10 +54,6 @@ from_d3d_pitch(
 	typedef typename sge::image::pitch<
 		Dim
 	>::type dest_type;
-
-	typedef fcppt::optional<
-		dest_type
-	> result_type;
 
 	dest_type dest;
 
@@ -89,14 +82,7 @@ from_d3d_pitch(
 			);
 
 	return
-		dest.content()
-		?
-			result_type(
-				dest
-			)
-		:
-			result_type()
-		;
+		dest;
 }
 
 }

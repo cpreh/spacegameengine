@@ -5,14 +5,18 @@ set(
 	src/font/bitmap/create.cpp
 	src/font/bitmap/include/sge/src/font/bitmap/char_map.hpp
 	src/font/bitmap/include/sge/src/font/bitmap/char_metric.hpp
+	src/font/bitmap/include/sge/src/font/bitmap/char_metric_fwd.hpp
+	src/font/bitmap/include/sge/src/font/bitmap/const_view.hpp
 	src/font/bitmap/include/sge/src/font/bitmap/load_offset.hpp
 	src/font/bitmap/include/sge/src/font/bitmap/load_one_file.hpp
 	src/font/bitmap/include/sge/src/font/bitmap/load_rect.hpp
-	src/font/bitmap/include/sge/src/font/bitmap/metrics.hpp
+	src/font/bitmap/include/sge/src/font/bitmap/object.hpp
+	src/font/bitmap/include/sge/src/font/bitmap/text.hpp
 	src/font/bitmap/load_offset.cpp
 	src/font/bitmap/load_one_file.cpp
 	src/font/bitmap/load_rect.cpp
-	src/font/bitmap/metrics.cpp
+	src/font/bitmap/object.cpp
+	src/font/bitmap/text.cpp
 )
 
 include_directories(

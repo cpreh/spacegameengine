@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text_parameters_fwd.hpp>
 #include <sge/font/view_fwd.hpp>
 #include <sge/gdifont/device_context_fwd.hpp>
+#include <sge/gdifont/format.hpp>
 #include <sge/gdifont/include_windows.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -67,7 +68,7 @@ private:
 
 	sge::font::string const string_;
 
-	UINT const render_flags_;
+	sge::gdifont::format const render_flags_;
 
 	sge::font::rect const rect_;
 

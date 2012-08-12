@@ -11,6 +11,7 @@ set(
 	src/plugins/gdifont/include/sge/gdifont/device_context_fwd.hpp
 	src/plugins/gdifont/include/sge/gdifont/dib_section.hpp
 	src/plugins/gdifont/include/sge/gdifont/draw_text.hpp
+	src/plugins/gdifont/include/sge/gdifont/format.hpp
 	src/plugins/gdifont/include/sge/gdifont/get_bitmap.hpp
 	src/plugins/gdifont/include/sge/gdifont/get_object.hpp
 	src/plugins/gdifont/include/sge/gdifont/hbitmap_unique_ptr.hpp

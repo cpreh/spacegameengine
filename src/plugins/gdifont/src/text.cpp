@@ -72,6 +72,7 @@ sge::gdifont::text::text(
 		sge::gdifont::calc_rect(
 			device_context_,
 			string_,
+			_text_parameters.align_h(),
 			_text_parameters.max_width(),
 			render_flags_
 		)
@@ -134,7 +135,7 @@ sge::gdifont::text::render(
 		device_context_,
 		RGB(255, 255, 255)
 	);
-	
+
 	sge::gdifont::render(
 		device_context_,
 		string_,

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_FONT_BITMAP_LOAD_OFFSET_HPP_INCLUDED
 #define SGE_SRC_FONT_BITMAP_LOAD_OFFSET_HPP_INCLUDED
 
-#include <sge/font/pos.hpp>
+#include <sge/font/vector_fwd.hpp>
 #include <sge/parse/json/member_map.hpp>
 
 
@@ -32,7 +32,7 @@ namespace font
 namespace bitmap
 {
 
-sge::font::pos const
+sge::font::vector const
 load_offset(
 	sge::parse::json::member_map const &
 );

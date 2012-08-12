@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_VIEW_SUB_OUT_OF_RANGE_HPP_INCLUDED
 
 #include <sge/class_symbol.hpp>
+#include <sge/image/box.hpp>
 #include <sge/image/exception.hpp>
 #include <sge/image/detail/instantiate/symbol.hpp>
-#include <fcppt/math/box/object_impl.hpp>
 
 
 namespace sge
@@ -57,7 +57,8 @@ public:
 	inner() const;
 
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
-	virtual ~sub_out_of_range() throw();
+	virtual
+	~sub_out_of_range() throw();
 private:
 	Box
 		outer_,

@@ -32,7 +32,7 @@ sge::gdifont::render(
 	sge::gdifont::device_context const &_device_context,
 	sge::font::string const &_string,
 	sge::font::dim const &_size,
-	UINT const _format
+	sge::gdifont::format const _format
 )
 {
 	RECT rect =
@@ -47,6 +47,6 @@ sge::gdifont::render(
 		_device_context,
 		_string,
 		rect,
-		_format
+		_format.get()
 	);
 }

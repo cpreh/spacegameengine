@@ -18,13 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_FONT_BITMAP_CHAR_MAP_HPP_INCLUDED
-#define SGE_SRC_FONT_BITMAP_CHAR_MAP_HPP_INCLUDED
+#ifndef SGE_SRC_FONT_BITMAP_OBJECT_HPP_INCLUDED
+#define SGE_SRC_FONT_BITMAP_OBJECT_HPP_INCLUDED
 
-#include <sge/font/char_type.hpp>
-#include <sge/src/font/bitmap/char_metric_fwd.hpp>
+#include <sge/font/object.hpp>
+#include <sge/font/string.hpp>
+#include <sge/font/text_parameters_fwd.hpp>
+#include <sge/font/text_unique_ptr.hpp>
+#include <sge/font/unit.hpp>
+#include <sge/image2d/file_fwd.hpp>
+#include <sge/image2d/system_fwd.hpp>
+#include <sge/src/font/bitmap/char_map.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/ptr_container/ptr_map.hpp>
+#include <boost/filesystem/path.hpp>
+#include <boost/ptr_container/ptr_vector.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -35,10 +43,37 @@ namespace font
 namespace bitmap
 {
 
-typedef boost::ptr_map<
-	sge::font::char_type,
-	sge::font::bitmap::char_metric
-> char_map;
+class object
+:
+	public sge::font::object
+{
+	FCPPT_NONCOPYABLE(
+		object
+	);
+public:
+	object(
+		boost::filesystem::path const &,
+		sge::image2d::system &
+	);
+
+	~object();
+private:
+	sge::font::text_unique_ptr
+	create_text(
+		sge::font::string const &,
+		sge::font::text_parameters const &
+	);
+
+	typedef boost::ptr_vector<
+		sge::image2d::file
+	> image_vector;
+
+	image_vector images_;
+
+	sge::font::unit line_height_;
+
+	sge::font::bitmap::char_map char_map_;
+};
 
 }
 }

@@ -18,44 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/make_pitch.hpp>
-#include <sge/d3d9/make_pitch_2d.hpp>
-#include <sge/d3d9/make_pitch_3d.hpp>
-#include <sge/image/color/format.hpp>
-#include <sge/image2d/dim_fwd.hpp>
-#include <sge/image2d/pitch.hpp>
-#include <sge/image3d/dim.hpp>
-#include <sge/image3d/pitch.hpp>
+#ifndef SGE_SRC_FONT_BITMAP_CONST_VIEW_HPP_INCLUDED
+#define SGE_SRC_FONT_BITMAP_CONST_VIEW_HPP_INCLUDED
+
+#include <sge/image2d/view/const_object.hpp>
 
 
-
-sge::image2d::pitch const
-sge::d3d9::make_pitch(
-	D3DLOCKED_RECT const &_rect,
-	sge::image2d::dim const &_dim,
-	sge::image::color::format::type const _format
-)
+namespace sge
 {
-	return
-		sge::d3d9::make_pitch_2d(
-			_rect,
-			_dim,
-			_format
-		);
+namespace font
+{
+namespace bitmap
+{
+
+typedef sge::image2d::view::const_object const_view;
+
+}
+}
 }
 
-sge::image3d::pitch const
-sge::d3d9::make_pitch(
-	D3DLOCKED_BOX const &_box,
-	sge::image3d::dim const &_dim,
-	sge::image::color::format::type const _format
-)
-{
-	return
-		sge::d3d9::make_pitch_3d(
-			_box,
-			_dim,
-			_format
-		);
-}
+#endif

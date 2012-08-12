@@ -77,7 +77,7 @@ private:
 		sge::renderer::texture::cube_side::type,
 		sge::renderer::texture::mipmap::level
 	);
-	
+
 	typedef boost::ptr_vector<
 		sge::renderer::texture::cube::color_buffer
 	> level_map;

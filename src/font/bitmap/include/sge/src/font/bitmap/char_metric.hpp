@@ -21,14 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_FONT_BITMAP_CHAR_METRIC_HPP_INCLUDED
 #define SGE_SRC_FONT_BITMAP_CHAR_METRIC_HPP_INCLUDED
 
-#include <sge/font/char_metric.hpp>
-#include <sge/font/const_image_view.hpp>
-#include <sge/font/pos.hpp>
 #include <sge/font/unit.hpp>
-#include <sge/image2d/view/const_object.hpp>
+#include <sge/font/vector.hpp>
+#include <sge/src/font/bitmap/const_view.hpp>
+#include <sge/src/font/bitmap/char_metric_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/math/vector/object_decl.hpp>
-#include <fcppt/variant/object_decl.hpp>
 
 
 namespace sge
@@ -39,35 +36,33 @@ namespace bitmap
 {
 
 class char_metric
-:
-	public sge::font::char_metric
 {
 	FCPPT_NONCOPYABLE(
 		char_metric
 	);
 public:
 	char_metric(
-		font::const_image_view const &,
-		font::pos const &offset,
-		font::unit x_advance
+		sge::font::bitmap::const_view const &,
+		sge::font::vector const &offset,
+		sge::font::unit x_advance
 	);
 
 	~char_metric();
 
-	font::const_image_view const
+	sge::font::bitmap::const_view const
 	pixmap() const;
 
-	font::pos const
+	sge::font::vector const
 	offset() const;
 
-	font::unit
+	sge::font::unit
 	x_advance() const;
 private:
-	font::const_image_view const pixmap_;
+	sge::font::bitmap::const_view const pixmap_;
 
-	font::pos const offset_;
+	sge::font::vector const offset_;
 
-	font::unit const x_advance_;
+	sge::font::unit const x_advance_;
 };
 
 }

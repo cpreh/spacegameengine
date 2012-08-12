@@ -19,26 +19,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/font/exception.hpp>
-#include <sge/font/pos.hpp>
+#include <sge/font/vector.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/element_vector.hpp>
 #include <sge/parse/json/find_member_exn.hpp>
 #include <sge/parse/json/get.hpp>
+#include <sge/parse/json/int_type.hpp>
 #include <sge/parse/json/member_map.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/src/font/bitmap/load_offset.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
 
 
-sge::font::pos const
+sge::font::vector const
 sge::font::bitmap::load_offset(
 	sge::parse::json::member_map const &_members
 )
 {
-	parse::json::element_vector const &elements(
-		parse::json::find_member_exn<
-			parse::json::array
+	sge::parse::json::element_vector const &elements(
+		sge::parse::json::find_member_exn<
+			sge::parse::json::array
 		>(
 			_members,
 			FCPPT_TEXT("offset")
@@ -53,14 +53,14 @@ sge::font::bitmap::load_offset(
 		);
 
 	return
-		font::pos(
-			parse::json::get<
-				int
+		sge::font::vector(
+			sge::parse::json::get<
+				sge::parse::json::int_type
 			>(
 				elements[0]
 			),
-			parse::json::get<
-				int
+			sge::parse::json::get<
+				sge::parse::json::int_type
 			>(
 				elements[1]
 			)

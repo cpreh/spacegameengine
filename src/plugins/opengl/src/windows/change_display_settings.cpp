@@ -45,7 +45,7 @@ sge::opengl::windows::change_display_settings(
 	)
 	{
 		settings.dmDisplayFrequency = _mode.refresh_rate()->get();
-		
+
 		settings.dmFields |= DM_DISPLAYFREQUENCY;
 	}
 
