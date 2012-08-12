@@ -361,7 +361,6 @@ sge::graph::object::draw_data(
 			current_axis_constraint.max(),
 			dim_.h());
 
-
 		bool const above =
 			data_buffer_[i] > 0.0;
 
