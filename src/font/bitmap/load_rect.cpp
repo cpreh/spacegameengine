@@ -29,9 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/object.hpp>
 #include <sge/src/font/bitmap/load_rect.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/math/box/object_impl.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
 
 
 sge::image2d::rect const
@@ -39,9 +36,9 @@ sge::font::bitmap::load_rect(
 	sge::parse::json::member_map const &_members
 )
 {
-	parse::json::element_vector const &elements(
-		parse::json::find_member_exn<
-			parse::json::array
+	sge::parse::json::element_vector const &elements(
+		sge::parse::json::find_member_exn<
+			sge::parse::json::array
 		>(
 			_members,
 			FCPPT_TEXT("rect")
@@ -55,17 +52,17 @@ sge::font::bitmap::load_rect(
 			FCPPT_TEXT("Bogus rect detected")
 		);
 
-	parse::json::element_vector const
+	sge::parse::json::element_vector const
 		&first_elements(
-			parse::json::get<
-				parse::json::array
+			sge::parse::json::get<
+				sge::parse::json::array
 			>(
 				elements[0]
 			).elements
 		),
 		&second_elements(
-			parse::json::get<
-				parse::json::array
+			sge::parse::json::get<
+				sge::parse::json::array
 			>(
 				elements[1]
 			).elements
@@ -79,38 +76,47 @@ sge::font::bitmap::load_rect(
 			FCPPT_TEXT("Bogus rect subelements detected")
 		);
 
-	return image2d::rect(
-		image2d::rect::vector(
-			static_cast<image2d::rect::value_type>(
-				parse::json::get<
-					parse::json::int_type
+	return
+		sge::image2d::rect(
+			sge::image2d::rect::vector(
+				static_cast<
+					sge::image2d::rect::value_type
 				>(
-					first_elements[0]
+					sge::parse::json::get<
+						sge::parse::json::int_type
+					>(
+						first_elements[0]
+					)
+				),
+				static_cast<
+					sge::image2d::rect::value_type
+				>(
+					sge::parse::json::get<
+						sge::parse::json::int_type
+					>(
+						first_elements[1]
+					)
 				)
 			),
-			static_cast<image2d::rect::value_type>(
-				parse::json::get<
-					parse::json::int_type
+			sge::image2d::rect::dim(
+				static_cast<
+					sge::image2d::rect::value_type
 				>(
-					first_elements[1]
+					sge::parse::json::get<
+						sge::parse::json::int_type
+					>(
+						second_elements[0]
+					)
+				),
+				static_cast<
+					sge::image2d::rect::value_type
+				>(
+					sge::parse::json::get<
+						sge::parse::json::int_type
+					>(
+						second_elements[1]
+					)
 				)
 			)
-		),
-		image2d::rect::dim(
-			static_cast<image2d::rect::value_type>(
-				parse::json::get<
-					parse::json::int_type
-				>(
-					second_elements[0]
-				)
-			),
-			static_cast<image2d::rect::value_type>(
-				parse::json::get<
-					parse::json::int_type
-				>(
-					second_elements[1]
-				)
-			)
-		)
-	);
+		);
 }

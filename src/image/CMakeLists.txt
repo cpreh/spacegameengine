@@ -13,6 +13,8 @@ set(
 	include/sge/image/bgra32f_format.hpp
 	include/sge/image/bgra8_format.hpp
 	include/sge/image/bgrx8_format.hpp
+	include/sge/image/box.hpp
+	include/sge/image/box_fwd.hpp
 	include/sge/image/capabilities.hpp
 	include/sge/image/capabilities_field.hpp
 	include/sge/image/capabilities_field_fwd.hpp

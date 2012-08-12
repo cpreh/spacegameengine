@@ -17,6 +17,7 @@ set(
 	include/sge/image3d/bgrx8.hpp
 	include/sge/image3d/bgrx8_format.hpp
 	include/sge/image3d/box.hpp
+	include/sge/image3d/box_fwd.hpp
 	include/sge/image3d/dim.hpp
 	include/sge/image3d/dim_fwd.hpp
 	include/sge/image3d/l8.hpp

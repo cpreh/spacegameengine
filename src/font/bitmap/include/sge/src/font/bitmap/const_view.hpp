@@ -18,48 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_IMAGE_VIEW_CHECKED_SUB_ANY_HPP_INCLUDED
-#define SGE_SRC_IMAGE_VIEW_CHECKED_SUB_ANY_HPP_INCLUDED
+#ifndef SGE_SRC_FONT_BITMAP_CONST_VIEW_HPP_INCLUDED
+#define SGE_SRC_FONT_BITMAP_CONST_VIEW_HPP_INCLUDED
 
-#include <sge/image/traits/box.hpp>
-#include <sge/image/view/sub.hpp>
-#include <sge/src/image/view/checked_sub_condition.hpp>
+#include <sge/image2d/view/const_object.hpp>
 
 
 namespace sge
 {
-namespace image
+namespace font
 {
-namespace view
+namespace bitmap
 {
 
-template<
-	typename Tag,
-	typename View
->
-View const
-checked_sub_any(
-	View const &_view,
-	typename sge::image::traits::box<
-		Tag
-	>::type const &_box
-)
-{
-	sge::image::view::checked_sub_condition<
-		Tag
-	>(
-		_view,
-		_box
-	);
-
-	return
-		sge::image::view::sub<
-			Tag
-		>(
-			_view,
-			_box
-		);
-}
+typedef sge::image2d::view::const_object const_view;
 
 }
 }

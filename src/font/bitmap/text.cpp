@@ -18,51 +18,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_IMAGE_VIEW_CHECKED_SUB_ANY_HPP_INCLUDED
-#define SGE_SRC_IMAGE_VIEW_CHECKED_SUB_ANY_HPP_INCLUDED
+#include <sge/font/rect.hpp>
+#include <sge/font/string.hpp>
+#include <sge/font/text.hpp>
+#include <sge/font/text_parameters.hpp>
+#include <sge/font/view_fwd.hpp>
+#include <sge/src/font/bitmap/char_map.hpp>
+#include <sge/src/font/bitmap/text.hpp>
 
-#include <sge/image/traits/box.hpp>
-#include <sge/image/view/sub.hpp>
-#include <sge/src/image/view/checked_sub_condition.hpp>
 
-
-namespace sge
+sge::font::bitmap::text::text(
+	sge::font::bitmap::char_map &_char_map,
+	sge::font::string const &_string,
+	sge::font::text_parameters const &_text_parameters
+)
+:
+	char_map_(
+		_char_map
+	),
+	string_(
+		_string
+	),
+	text_parameters_(
+		_text_parameters
+	)
 {
-namespace image
-{
-namespace view
-{
+}
 
-template<
-	typename Tag,
-	typename View
->
-View const
-checked_sub_any(
-	View const &_view,
-	typename sge::image::traits::box<
-		Tag
-	>::type const &_box
+sge::font::bitmap::text::~text()
+{
+}
+
+void
+sge::font::bitmap::text::render(
+	sge::font::view const &_view
 )
 {
-	sge::image::view::checked_sub_condition<
-		Tag
-	>(
-		_view,
-		_box
-	);
-
-	return
-		sge::image::view::sub<
-			Tag
-		>(
-			_view,
-			_box
-		);
 }
 
+sge::font::rect const
+sge::font::bitmap::text::rect()
+{
 }
-}
-}
-
-#endif

@@ -18,50 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_IMAGE_VIEW_CHECKED_SUB_ANY_HPP_INCLUDED
-#define SGE_SRC_IMAGE_VIEW_CHECKED_SUB_ANY_HPP_INCLUDED
+#ifndef SGE_IMAGE_BOX_FWD_HPP_INCLUDED
+#define SGE_IMAGE_BOX_FWD_HPP_INCLUDED
 
-#include <sge/image/traits/box.hpp>
-#include <sge/image/view/sub.hpp>
-#include <sge/src/image/view/checked_sub_condition.hpp>
+#include <sge/image/size_type.hpp>
+#include <fcppt/math/box/object_fwd.hpp>
 
 
 namespace sge
 {
 namespace image
 {
-namespace view
-{
 
 template<
-	typename Tag,
-	typename View
+	sge::image::size_type Dim
 >
-View const
-checked_sub_any(
-	View const &_view,
-	typename sge::image::traits::box<
-		Tag
-	>::type const &_box
-)
+struct box
 {
-	sge::image::view::checked_sub_condition<
-		Tag
-	>(
-		_view,
-		_box
-	);
+	typedef fcppt::math::box::object<
+		sge::image::size_type,
+		Dim
+	> type;
+};
 
-	return
-		sge::image::view::sub<
-			Tag
-		>(
-			_view,
-			_box
-		);
-}
-
-}
 }
 }
 

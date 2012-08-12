@@ -42,7 +42,7 @@ load_one_file(
 	boost::filesystem::path const &stem,
 	sge::parse::json::object const &,
 	sge::image2d::system &,
-	bitmap::char_map &
+	sge::font::bitmap::char_map &
 );
 
 }

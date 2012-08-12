@@ -18,22 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/font/const_image_view.hpp>
-#include <sge/font/pos.hpp>
 #include <sge/font/unit.hpp>
+#include <sge/font/vector.hpp>
 #include <sge/src/font/bitmap/char_metric.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
+#include <sge/src/font/bitmap/const_view.hpp>
 
 
 sge::font::bitmap::char_metric::char_metric(
-	font::const_image_view const &_pixmap,
-	font::pos const &_offset,
-	font::unit const _x_advance
+	sge::font::bitmap::const_view const &_pixmap,
+	sge::font::vector const &_offset,
+	sge::font::unit const _x_advance
 )
 :
-	pixmap_(_pixmap),
-	offset_(_offset),
-	x_advance_(_x_advance)
+	pixmap_(
+		_pixmap
+	),
+	offset_(
+		_offset
+	),
+	x_advance_(
+		_x_advance
+	)
 {
 }
 
@@ -41,13 +46,13 @@ sge::font::bitmap::char_metric::~char_metric()
 {
 }
 
-sge::font::const_image_view const
+sge::font::bitmap::const_view const
 sge::font::bitmap::char_metric::pixmap() const
 {
 	return pixmap_;
 }
 
-sge::font::pos const
+sge::font::vector const
 sge::font::bitmap::char_metric::offset() const
 {
 	return offset_;

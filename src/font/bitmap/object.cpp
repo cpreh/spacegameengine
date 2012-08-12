@@ -18,11 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/font/char_metric_shared_ptr.hpp>
-#include <sge/font/char_not_available.hpp>
-#include <sge/font/char_type.hpp>
 #include <sge/font/exception.hpp>
-#include <sge/font/unit.hpp>
+#include <sge/font/string.hpp>
+#include <sge/font/text_parameters_fwd.hpp>
+#include <sge/font/text_unique_ptr.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/parse/json/array.hpp>
@@ -32,8 +31,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/member_map.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/parse_file.hpp>
+#include <sge/src/font/bitmap/char_metric.hpp>
 #include <sge/src/font/bitmap/load_one_file.hpp>
-#include <sge/src/font/bitmap/metrics.hpp>
+#include <sge/src/font/bitmap/object.hpp>
+#include <sge/src/font/bitmap/text.hpp>
+#include <fcppt/cref.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
@@ -42,7 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::font::bitmap::metrics::metrics(
+sge::font::bitmap::object::object(
 	boost::filesystem::path const &_path,
 	sge::image2d::system &_image_system
 )
@@ -54,12 +58,12 @@ sge::font::bitmap::metrics::metrics(
 	sge::parse::json::object result;
 
 	if(
-		!parse::json::parse_file(
+		!sge::parse::json::parse_file(
 			_path,
 			result
 		)
 	)
-		throw font::exception(
+		throw sge::font::exception(
 			fcppt::filesystem::path_to_string(
 				_path
 			)
@@ -72,7 +76,7 @@ sge::font::bitmap::metrics::metrics(
 	);
 
 	line_height_
-		= parse::json::find_member_exn<
+		= sge::parse::json::find_member_exn<
 			int
 		>(
 			top_members,
@@ -84,8 +88,8 @@ sge::font::bitmap::metrics::metrics(
 	);
 
 	sge::parse::json::array const &textures_array(
-		parse::json::find_member_exn<
-			parse::json::array
+		sge::parse::json::find_member_exn<
+			sge::parse::json::array
 		>(
 			top_members,
 			FCPPT_TEXT("textures")
@@ -101,9 +105,9 @@ sge::font::bitmap::metrics::metrics(
 	)
 		fcppt::container::ptr::push_back_unique_ptr(
 			images_,
-			font::bitmap::load_one_file(
+			sge::font::bitmap::load_one_file(
 				parent_path,
-				parse::json::get<
+				sge::parse::json::get<
 					parse::json::object
 				>(
 					*elem_it
@@ -114,33 +118,28 @@ sge::font::bitmap::metrics::metrics(
 		);
 }
 
-sge::font::bitmap::metrics::~metrics()
+sge::font::bitmap::object::~object()
 {
 }
 
-sge::font::char_metric_shared_ptr const
-sge::font::bitmap::metrics::load_char(
-	font::char_type const _ch
+sge::font::text_unique_ptr
+sge::font::bitmap::object::create_text(
+	sge::font::string const &_string,
+	sge::font::text_parameters const &_text_parameters
 )
 {
-	char_map::const_iterator const it(
-		char_map_.find(
-			_ch
-		)
-	);
-
-	if(
-		it == char_map_.end()
-	)
-		throw font::char_not_available(
-			_ch
+	return
+		sge::font::text_unique_ptr(
+			fcppt::make_unique_ptr<
+				sge::font::bitmap::text
+			>(
+				fcppt::ref(
+					char_map_
+				),
+				_string,
+				fcppt::cref(
+					_text_parameters
+				)
+			)
 		);
-
-	return it->second;
-}
-
-sge::font::unit
-sge::font::bitmap::metrics::line_height() const
-{
-	return line_height_;
 }
