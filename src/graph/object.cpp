@@ -115,10 +115,10 @@ sge::image2d::algorithm::bresenham(
 
 sge::image2d::vector::value_type
 fit_into_scale(
-	sge::graph::scalar _value,
-	sge::graph::scalar _min,
-	sge::graph::scalar _max,
-	sge::renderer::dim2::value_type _height
+	sge::graph::scalar const _value,
+	sge::graph::scalar const _min,
+	sge::graph::scalar const _max,
+	sge::renderer::dim2::value_type const _height
 )
 {
 	typedef
