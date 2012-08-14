@@ -46,6 +46,7 @@ sge::pango::create_layout(
 	)
 		font_description.ttf_size(
 			*_parameters.ttf_size()
+			* PANGO_SCALE
 		);
 
 	if(
