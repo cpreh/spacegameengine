@@ -18,11 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 #include <sge/font/align_h.hpp>
+#include <sge/font/from_fcppt_string.hpp>
 #include <sge/font/lit.hpp>
 #include <sge/font/object.hpp>
 #include <sge/font/object_scoped_ptr.hpp>
 #include <sge/font/parameters.hpp>
 #include <sge/font/system.hpp>
+#include <sge/font/string.hpp>
 #include <sge/font/text_parameters.hpp>
 #include <sge/font/vector.hpp>
 #include <sge/font/draw/static_text.hpp>
@@ -75,6 +77,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/level.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/move.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/ptr_container/ptr_map.hpp>
@@ -212,6 +215,36 @@ count_jiffies()
 					current_jiffies.begin() + 3,
 					0u)));
 }
+
+struct
+graph_with_label
+{
+
+	graph_with_label(
+		fcppt::unique_ptr<sge::graph::object> _graph,
+		fcppt::unique_ptr<sge::font::draw::static_text> _label)
+	:
+	graph_(
+		fcppt::move(_graph)),
+	label_(
+		fcppt::move(_label))
+	{}
+
+	sge::graph::object &
+	get_graph()
+	{
+		return *graph_;
+	}
+
+	sge::font::draw::static_text &
+	get_label()
+	{
+		return *label_;
+	}
+
+	fcppt::unique_ptr<sge::graph::object> graph_;
+	fcppt::unique_ptr<sge::font::draw::static_text> label_;
+};
 
 double
 count_memory()
@@ -479,7 +512,7 @@ try
 	typedef
 	boost::ptr_map<
 		std::string,
-		sge::graph::object
+		graph_with_label
 	>
 	device_to_graph;
 
@@ -494,27 +527,47 @@ try
 		++it
 	)
 	{
+		int y = (2 + (it - devices.begin())) * graph_dim.h();
 		fcppt::container::ptr::insert_unique_ptr_map(
 			device_map,
 			*it,
 			fcppt::make_unique_ptr<
-				sge::graph::object
+				graph_with_label
 			>(
-				sge::graph::position(
-					sge::renderer::vector2(
-						0.0f,
-						static_cast<float>(
-							(2 + (it - devices.begin())) * graph_dim.h())
-						)),
-				fcppt::math::dim::structure_cast<sge::image2d::dim>(
-					graph_dim),
-				fcppt::ref(sys.renderer()),
-				sge::graph::baseline(
-					0.0),
-				sge::graph::optional_axis_constraint(),
-				sge::graph::color_schemes::default_()
-			)
-		);
+				fcppt::make_unique_ptr<
+					sge::graph::object
+				>(
+					sge::graph::position(
+						sge::renderer::vector2(
+							0.0f,
+							static_cast<float>(y)
+							)),
+					fcppt::math::dim::structure_cast<sge::image2d::dim>(
+						graph_dim),
+					fcppt::ref(sys.renderer()),
+					sge::graph::baseline(
+						0.0),
+					sge::graph::optional_axis_constraint(),
+					sge::graph::color_schemes::bright()
+				),
+				fcppt::make_unique_ptr<
+					sge::font::draw::static_text
+				>(
+					fcppt::ref(sys.renderer()),
+					fcppt::ref(*font),
+					sge::font::from_fcppt_string(
+						fcppt::from_std_string(
+							*it
+						)
+					),
+					sge::font::text_parameters(
+						sge::font::align_h::left
+					),
+					sge::font::vector(
+						0,
+						y
+					),
+					sge::image::colors::white())));
 
 		device_totals[*it] = 0u;
 	}
@@ -537,22 +590,18 @@ try
 			(current_jiffies - last_jiffies).work_percentage<sge::graph::scalar>());
 		last_jiffies =
 			current_jiffies;
-
 		cpugraph.render(
 			scoped_block.get()
 		);
-
 		cpu_label.draw(
 			scoped_block.get()
 		);
 
 		memgraph.push(
 			count_memory());
-
 		memgraph.render(
 			scoped_block.get()
 		);
-
 		mem_label.draw(
 			scoped_block.get()
 		);
@@ -565,7 +614,8 @@ try
 		)
 		{
 			unsigned long traffic = ::count_traffic(it->first);
-			(it->second)->push(
+
+			(it->second)->get_graph().push(
 				static_cast<double>(
 					traffic -
 					device_totals[it->first]
@@ -574,7 +624,10 @@ try
 
 			device_totals[it->first] = traffic;
 
-			(it->second)->render(
+			(it->second)->get_graph().render(
+				scoped_block.get());
+
+			(it->second)->get_label().draw(
 				scoped_block.get());
 		}
 
