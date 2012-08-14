@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/texture/id.hpp>
 #include <sge/opengl/texture/holder.hpp>
 #include <sge/opengl/texture/funcs/delete.hpp>
 #include <sge/opengl/texture/funcs/gen.hpp>
@@ -26,14 +27,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::opengl::texture::holder::holder()
 :
 	id_(
-		texture::funcs::gen()
+		sge::opengl::texture::funcs::gen()
 	)
 {
 }
 
 sge::opengl::texture::holder::~holder()
 {
-	texture::funcs::delete_(
+	sge::opengl::texture::funcs::delete_(
 		id_
 	);
 }

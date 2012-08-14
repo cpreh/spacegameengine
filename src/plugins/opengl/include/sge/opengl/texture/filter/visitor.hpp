@@ -45,8 +45,8 @@ class visitor
 	);
 public:
 	visitor(
-		sge::opengl::context::system::object &,
 		sge::opengl::texture::binding const &,
+		sge::opengl::context::system::object &,
 		sge::opengl::texture::type
 	);
 
@@ -62,9 +62,9 @@ public:
 		sge::renderer::texture::filter::normal::object const &
 	) const;
 private:
-	sge::opengl::context::system::object &system_context_;
-
 	sge::opengl::texture::binding const &binding_;
+
+	sge::opengl::context::system::object &system_context_;
 
 	sge::opengl::texture::type const type_;
 };

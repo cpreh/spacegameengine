@@ -18,13 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_FILTER_SET_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_FILTER_SET_HPP_INCLUDED
+#ifndef SGE_OPENGL_TEXTURE_GET_STAGE_ID_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_GET_STAGE_ID_HPP_INCLUDED
 
 #include <sge/opengl/context/device/object_fwd.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/opengl/texture/binding_fwd.hpp>
-#include <sge/opengl/texture/type.hpp>
+#include <sge/opengl/texture/optional_id_fwd.hpp>
+#include <sge/renderer/texture/stage.hpp>
 
 
 namespace sge
@@ -33,18 +32,13 @@ namespace opengl
 {
 namespace texture
 {
-namespace filter
-{
 
-void
-set(
-	sge::opengl::texture::binding const &,
-	sge::opengl::context::system::object &,
+sge::opengl::texture::optional_id const
+get_stage_id(
 	sge::opengl::context::device::object &,
-	sge::opengl::texture::type
+	sge::renderer::texture::stage
 );
 
-}
 }
 }
 }

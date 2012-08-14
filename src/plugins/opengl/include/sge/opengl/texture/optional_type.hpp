@@ -21,23 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_OPTIONAL_TYPE_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_OPTIONAL_TYPE_HPP_INCLUDED
 
-#include <sge/opengl/texture/type.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <sge/opengl/texture/optional_type_fwd.hpp>
+#include <fcppt/optional_impl.hpp>
 
-
-namespace sge
-{
-namespace opengl
-{
-namespace texture
-{
-
-typedef fcppt::optional<
-	sge::opengl::texture::type
-> optional_type;
-
-}
-}
-}
 
 #endif

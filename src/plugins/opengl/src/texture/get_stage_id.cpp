@@ -20,40 +20,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/device/object_fwd.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/opengl/texture/binding.hpp>
-#include <sge/opengl/texture/filter/context.hpp>
-#include <sge/opengl/texture/filter/set.hpp>
-#include <sge/opengl/texture/filter/visitor.hpp>
-#include <sge/renderer/texture/filter/object.hpp>
-#include <fcppt/variant/apply_unary.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#include <sge/opengl/texture/base.hpp>
+#include <sge/opengl/texture/bind_context.hpp>
+#include <sge/opengl/texture/const_optional_base_ref.hpp>
+#include <sge/opengl/texture/get_stage_id.hpp>
+#include <sge/opengl/texture/optional_id.hpp>
+#include <sge/renderer/texture/stage.hpp>
 
 
-void
-sge::opengl::texture::filter::set(
-	sge::opengl::texture::binding const &_binding,
-	sge::opengl::context::system::object &_system_context,
+sge::opengl::texture::optional_id const
+sge::opengl::texture::get_stage_id(
 	sge::opengl::context::device::object &_device_context,
-	sge::opengl::texture::type const _type
+	sge::renderer::texture::stage const _stage
 )
 {
-	sge::renderer::texture::filter::object const filter(
+	sge::opengl::texture::bind_context const &bind_context(
 		sge::opengl::context::use<
-			sge::opengl::texture::filter::context
+			sge::opengl::texture::bind_context
 		>(
 			_device_context
-		).get(
-			_binding.stage()
 		)
 	);
 
-	fcppt::variant::apply_unary(
-		sge::opengl::texture::filter::visitor(
-			_binding,
-			_system_context,
-			_type
-		),
-		filter.variant()
+	sge::opengl::texture::const_optional_base_ref const texture(
+		bind_context.stage(
+			_stage
+		)
 	);
+
+	return
+		texture
+		?
+			sge::opengl::texture::optional_id(
+				texture->id()
+			)
+		:
+			sge::opengl::texture::optional_id()
+		;
 }

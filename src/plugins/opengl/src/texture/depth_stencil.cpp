@@ -59,6 +59,9 @@ sge::opengl::texture::depth_stencil::depth_stencil(
 	system_context_(
 		_basic_parameters.system_context()
 	),
+	device_context_(
+		_basic_parameters.device_context()
+	),
 	size_(
 		_parameters.size()
 	),
@@ -68,6 +71,7 @@ sge::opengl::texture::depth_stencil::depth_stencil(
 {
 	sge::opengl::texture::scoped_work_binding const binding(
 		system_context_,
+		device_context_,
 		this->type(),
 		this->id()
 	);
@@ -108,6 +112,7 @@ sge::opengl::texture::depth_stencil::surface() const
 {
 	sge::opengl::texture::scoped_work_binding const binding(
 		system_context_,
+		device_context_,
 		this->type(),
 		this->id()
 	);

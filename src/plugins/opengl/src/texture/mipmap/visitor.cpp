@@ -27,20 +27,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<
 	fcppt::math::size_type Dim
 >
-sge::opengl::texture::mipmap::visitor<Dim>::visitor(
+sge::opengl::texture::mipmap::visitor<
+	Dim
+>::visitor(
 	parameters const &_parameters
 )
 :
-	parameters_(_parameters)
+	parameters_(
+		_parameters
+	)
 {
 }
 
 template<
 	fcppt::math::size_type Dim
 >
-typename sge::opengl::texture::mipmap::visitor<Dim>::result_type
-sge::opengl::texture::mipmap::visitor<Dim>::operator()(
-	renderer::texture::mipmap::off_rep const &
+typename sge::opengl::texture::mipmap::visitor<
+	Dim
+>::result_type
+sge::opengl::texture::mipmap::visitor<
+	Dim
+>::operator()(
+	sge::renderer::texture::mipmap::off_rep const &
 ) const
 {
 }
@@ -48,12 +56,16 @@ sge::opengl::texture::mipmap::visitor<Dim>::operator()(
 template<
 	fcppt::math::size_type Dim
 >
-typename sge::opengl::texture::mipmap::visitor<Dim>::result_type
-sge::opengl::texture::mipmap::visitor<Dim>::operator()(
-	renderer::texture::mipmap::all_levels_rep const &_all_levels
+typename sge::opengl::texture::mipmap::visitor<
+	Dim
+>::result_type
+sge::opengl::texture::mipmap::visitor<
+	Dim
+>::operator()(
+	sge::renderer::texture::mipmap::all_levels_rep const &_all_levels
 ) const
 {
-	mipmap::all_levels(
+	sge::opengl::texture::mipmap::all_levels(
 		parameters_,
 		_all_levels
 	);
@@ -62,12 +74,16 @@ sge::opengl::texture::mipmap::visitor<Dim>::operator()(
 template<
 	fcppt::math::size_type Dim
 >
-typename sge::opengl::texture::mipmap::visitor<Dim>::result_type
-sge::opengl::texture::mipmap::visitor<Dim>::operator()(
-	renderer::texture::mipmap::levels_rep const &_levels
+typename sge::opengl::texture::mipmap::visitor<
+	Dim
+>::result_type
+sge::opengl::texture::mipmap::visitor<
+	Dim
+>::operator()(
+	sge::renderer::texture::mipmap::levels_rep const &_levels
 ) const
 {
-	mipmap::levels(
+	sge::opengl::texture::mipmap::levels(
 		parameters_,
 		_levels
 	);

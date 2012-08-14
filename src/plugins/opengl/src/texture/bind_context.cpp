@@ -18,43 +18,51 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/use.hpp>
-#include <sge/opengl/context/device/object_fwd.hpp>
-#include <sge/opengl/texture/base.hpp>
+#include <sge/opengl/context/device/base.hpp>
+#include <sge/opengl/context/device/id.hpp>
+#include <sge/opengl/context/device/make_id.hpp>
+#include <sge/opengl/texture/base_fwd.hpp>
 #include <sge/opengl/texture/bind_context.hpp>
 #include <sge/opengl/texture/const_optional_base_ref.hpp>
-#include <sge/opengl/texture/get_stage_type.hpp>
-#include <sge/opengl/texture/optional_type.hpp>
 #include <sge/renderer/texture/stage.hpp>
+#include <fcppt/container/index_map_impl.hpp>
 
 
-sge::opengl::texture::optional_type const
-sge::opengl::texture::get_stage_type(
-	sge::opengl::context::device::object &_device_context,
+sge::opengl::texture::bind_context::bind_context()
+:
+	sge::opengl::context::device::base(),
+	map_()
+{
+}
+
+sge::opengl::texture::bind_context::~bind_context()
+{
+}
+
+sge::opengl::texture::const_optional_base_ref const
+sge::opengl::texture::bind_context::stage(
 	sge::renderer::texture::stage const _stage
+) const
+{
+	return
+		map_[
+			_stage.get()
+		];
+}
+
+void
+sge::opengl::texture::bind_context::stage(
+	sge::renderer::texture::stage const _stage,
+	sge::opengl::texture::const_optional_base_ref const &_texture
 )
 {
-	sge::opengl::texture::bind_context const &bind_context(
-		sge::opengl::context::use<
-			sge::opengl::texture::bind_context
-		>(
-			_device_context
-		)
-	);
-
-	sge::opengl::texture::const_optional_base_ref const texture(
-		bind_context.stage(
-			_stage
-		)
-	);
-
-	return
-		texture
-		?
-			sge::opengl::texture::optional_type(
-				texture->type()
-			)
-		:
-			sge::opengl::texture::optional_type()
-		;
+	map_[
+		_stage.get()
+	] =
+		_texture;
 }
+
+sge::opengl::context::device::id const
+sge::opengl::texture::bind_context::static_id(
+	sge::opengl::context::device::make_id()
+);

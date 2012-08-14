@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/device/object_fwd.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/texture/active_level.hpp>
 #include <sge/opengl/texture/get_stage_type.hpp>
 #include <sge/opengl/texture/optional_type.hpp>
 #include <sge/opengl/texture/render_binding.hpp>
@@ -31,7 +32,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/address_mode_t.hpp>
 #include <sge/renderer/texture/address_mode_u.hpp>
 #include <sge/renderer/texture/stage.hpp>
-#include <fcppt/optional_impl.hpp>
 
 
 template<
@@ -59,7 +59,7 @@ sge::opengl::texture::address_mode::update(
 
 	sge::opengl::texture::optional_type const bound_type(
 		sge::opengl::texture::get_stage_type(
-			_system_context,
+			_device_context,
 			_stage
 		)
 	);
@@ -69,13 +69,19 @@ sge::opengl::texture::address_mode::update(
 	)
 		return;
 
-	sge::opengl::texture::render_binding const already_bound;
+	sge::opengl::texture::active_level const active_level(
+		_system_context,
+		_stage
+	);
+
+	sge::opengl::texture::render_binding const binding(
+		active_level
+	);
 
 	sge::opengl::texture::address_mode::set(
+		binding,
 		_device_context,
-		already_bound,
-		*bound_type,
-		_stage
+		*bound_type
 	);
 }
 

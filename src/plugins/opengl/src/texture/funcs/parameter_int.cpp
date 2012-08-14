@@ -29,8 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::texture::funcs::parameter_int(
-	texture::binding const &,
-	texture::type const _type,
+	sge::opengl::texture::binding const &,
+	sge::opengl::texture::type const _type,
 	GLenum const _name,
 	GLint const _value
 )

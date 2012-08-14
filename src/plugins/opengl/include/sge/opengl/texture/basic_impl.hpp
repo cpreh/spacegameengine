@@ -82,12 +82,6 @@ sge::opengl::texture::basic<
 		Types::name()
 	);
 
-	sge::opengl::texture::scoped_work_binding const binding(
-		_basic_parameters.system_context(),
-		this->type(),
-		this->id()
-	);
-
 	sge::image::color::format::type const format(
 		sge::opengl::texture::best_color_format(
 			_parameters.format()
@@ -112,6 +106,12 @@ sge::opengl::texture::basic<
 		)
 	);
 
+	sge::opengl::texture::scoped_work_binding const binding(
+		_basic_parameters.system_context(),
+		_basic_parameters.device_context(),
+		this->type(),
+		this->id()
+	);
 
 	Types::init_function()(
 		binding,

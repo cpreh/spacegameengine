@@ -18,21 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_RENDER_BINDING_FWD_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_RENDER_BINDING_FWD_HPP_INCLUDED
+#include <sge/cg/check_state.hpp>
+#include <sge/cg/parameter/object.hpp>
+#include <sge/opengl/cg/texture/enable_parameter.hpp>
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <Cg/cgGL.h>
+#include <fcppt/config/external_end.hpp>
 
 
-namespace sge
+void
+sge::opengl::cg::texture::enable_parameter(
+	sge::cg::parameter::object const &_parameter
+)
 {
-namespace opengl
-{
-namespace texture
-{
+	::cgGLEnableTextureParameter(
+		_parameter.get()
+	);
 
-class render_binding;
-
+	SGE_CG_CHECK_STATE(
+		FCPPT_TEXT("cgEnableTextureParameter failed"),
+		sge::renderer::exception
+	)
 }
-}
-}
-
-#endif

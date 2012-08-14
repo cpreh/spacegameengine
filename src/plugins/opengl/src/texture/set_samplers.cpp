@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/type.hpp>
 #include <sge/opengl/texture/address_mode/set.hpp>
 #include <sge/opengl/texture/filter/set.hpp>
-#include <sge/renderer/texture/stage.hpp>
 
 
 void
@@ -33,22 +32,19 @@ sge::opengl::texture::set_samplers(
 	sge::opengl::texture::binding const &_binding,
 	sge::opengl::context::system::object &_system_context,
 	sge::opengl::context::device::object &_device_context,
-	sge::opengl::texture::type const _type,
-	sge::renderer::texture::stage const _stage
+	sge::opengl::texture::type const _type
 )
 {
 	sge::opengl::texture::filter::set(
+		_binding,
 		_system_context,
 		_device_context,
-		_binding,
-		_type,
-		_stage
+		_type
 	);
 
 	sge::opengl::texture::address_mode::set(
-		_device_context,
 		_binding,
-		_type,
-		_stage
+		_device_context,
+		_type
 	);
 }

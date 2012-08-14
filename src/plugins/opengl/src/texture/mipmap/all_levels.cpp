@@ -37,27 +37,28 @@ template<
 >
 void
 sge::opengl::texture::mipmap::all_levels(
-	mipmap::parameters<
+	sge::opengl::texture::mipmap::parameters<
 		Size
 	> const &_parameters,
-	renderer::texture::mipmap::all_levels_rep const &_rep
+	sge::renderer::texture::mipmap::all_levels_rep const &_rep
 )
 {
 	if(
 		_rep.auto_generate()
-		== renderer::texture::mipmap::auto_generate::yes
+		==
+		sge::renderer::texture::mipmap::auto_generate::yes
 	)
-		mipmap::auto_generate(
+		sge::opengl::texture::mipmap::auto_generate(
 			_parameters.binding(),
 			_parameters.system_context(),
 			_parameters.type()
 		);
 	else
-		mipmap::generate_levels(
+		sge::opengl::texture::mipmap::generate_levels(
 			_parameters,
-			renderer::texture::mipmap::level_count(
+			sge::renderer::texture::mipmap::level_count(
 				std::numeric_limits<
-					renderer::texture::mipmap::level_count::value_type
+					sge::renderer::texture::mipmap::level_count::value_type
 				>::max()
 			)
 		);
@@ -71,10 +72,10 @@ void \
 sge::opengl::texture::mipmap::all_levels<\
 	dimension\
 >(\
-	mipmap::parameters<\
+	sge::opengl::texture::mipmap::parameters<\
 		dimension\
 	> const &,\
-	renderer::texture::mipmap::all_levels_rep const &\
+	sge::renderer::texture::mipmap::all_levels_rep const &\
 );
 
 SGE_OPENGL_TEXTURE_INSTANTIATE_DIM(

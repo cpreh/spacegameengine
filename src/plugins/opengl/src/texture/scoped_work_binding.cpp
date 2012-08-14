@@ -18,71 +18,93 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/context/device/object_fwd.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/bind_level.hpp>
 #include <sge/opengl/texture/binding.hpp>
-#include <sge/opengl/texture/get_type_binding.hpp>
+#include <sge/opengl/texture/get_stage_id.hpp>
+#include <sge/opengl/texture/get_stage_type.hpp>
 #include <sge/opengl/texture/id.hpp>
 #include <sge/opengl/texture/optional_id.hpp>
 #include <sge/opengl/texture/scoped_work_binding.hpp>
 #include <sge/opengl/texture/type.hpp>
 #include <sge/renderer/texture/stage.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 
-namespace
-{
-
-sge::renderer::texture::stage const temp_stage(
-	0u
-);
-
-}
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::opengl::texture::scoped_work_binding::scoped_work_binding(
 	sge::opengl::context::system::object &_system_context,
+	sge::opengl::context::device::object &_device_context,
 	sge::opengl::texture::type const _type,
 	sge::opengl::texture::id const _id
 )
 :
 	sge::opengl::texture::binding(),
-	system_context_(
-		_system_context
+	active_level_(
+		_system_context,
+		this->stage()
 	),
 	previous_id_(
-		sge::opengl::texture::get_type_binding(
-			system_context_,
-			_type,
-			temp_stage
+		sge::opengl::texture::get_stage_id(
+			_device_context,
+			this->stage()
 		)
 	),
 	type_(
 		_type
+	),
+	previous_type_(
+		sge::opengl::texture::get_stage_type(
+			_device_context,
+			this->stage()
+		)
 	)
 {
-	this->bind_id(
+	this->bind(
 		sge::opengl::texture::optional_id(
 			_id
-		)
+		),
+		type_
 	);
 }
+
+FCPPT_PP_POP_WARNING
 
 sge::opengl::texture::scoped_work_binding::~scoped_work_binding()
 {
-	this->bind_id(
-		previous_id_
+	this->bind(
+		previous_id_,
+		previous_type_
+		?
+			*previous_type_
+		:
+			type_
 	);
 }
 
+sge::renderer::texture::stage const
+sge::opengl::texture::scoped_work_binding::stage() const
+{
+	return
+		sge::renderer::texture::stage(
+			0u
+		);
+}
+
 void
-sge::opengl::texture::scoped_work_binding::bind_id(
-	sge::opengl::texture::optional_id const _id
+sge::opengl::texture::scoped_work_binding::bind(
+	sge::opengl::texture::optional_id const _id,
+	sge::opengl::texture::type const _type
 )
 {
 	sge::opengl::texture::bind_level(
-		system_context_,
-		temp_stage,
-		type_,
+		active_level_,
+		_type,
 		_id
 	);
 }

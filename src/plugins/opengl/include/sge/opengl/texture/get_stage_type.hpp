@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_GET_STAGE_TYPE_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_GET_STAGE_TYPE_HPP_INCLUDED
 
-#include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/opengl/texture/optional_type.hpp>
+#include <sge/opengl/context/device/object_fwd.hpp>
+#include <sge/opengl/texture/optional_type_fwd.hpp>
 #include <sge/renderer/texture/stage.hpp>
 
 
@@ -35,7 +35,7 @@ namespace texture
 
 sge::opengl::texture::optional_type const
 get_stage_type(
-	sge::opengl::context::system::object &,
+	sge::opengl::context::device::object &,
 	sge::renderer::texture::stage
 );
 

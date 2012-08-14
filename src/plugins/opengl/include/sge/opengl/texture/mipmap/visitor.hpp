@@ -47,7 +47,7 @@ class visitor
 		visitor
 	);
 public:
-	typedef mipmap::parameters<
+	typedef sge::opengl::texture::mipmap::parameters<
 		Dim
 	> parameters;
 
@@ -59,17 +59,17 @@ public:
 
 	result_type
 	operator()(
-		renderer::texture::mipmap::off_rep const &
+		sge::renderer::texture::mipmap::off_rep const &
 	) const;
 
 	result_type
 	operator()(
-		renderer::texture::mipmap::all_levels_rep const &
+		sge::renderer::texture::mipmap::all_levels_rep const &
 	) const;
 
 	result_type
 	operator()(
-		renderer::texture::mipmap::levels_rep const &
+		sge::renderer::texture::mipmap::levels_rep const &
 	) const;
 private:
 	parameters const &parameters_;

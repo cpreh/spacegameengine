@@ -51,28 +51,28 @@ public:
 
 	~context();
 
-	renderer::texture::filter::object const &
+	sge::renderer::texture::filter::object const &
 	get(
-		renderer::texture::stage
+		sge::renderer::texture::stage
 	);
 
 	bool
 	set(
-		renderer::texture::stage,
-		renderer::texture::filter::object const &
+		sge::renderer::texture::stage,
+		sge::renderer::texture::filter::object const &
 	);
 
 	typedef void needs_before;
 
 	static sge::opengl::context::device::id const static_id;
 private:
-	renderer::texture::filter::object &
+	sge::renderer::texture::filter::object &
 	get_mutable(
-		renderer::texture::stage
+		sge::renderer::texture::stage
 	);
 
 	typedef fcppt::container::index_map<
-		renderer::texture::filter::object
+		sge::renderer::texture::filter::object
 	> filter_map;
 
 	filter_map filters_;

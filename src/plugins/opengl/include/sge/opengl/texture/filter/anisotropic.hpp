@@ -38,8 +38,8 @@ namespace filter
 
 void
 anisotropic(
-	sge::opengl::context::system::object &,
 	sge::opengl::texture::binding const &,
+	sge::opengl::context::system::object &,
 	sge::opengl::texture::type,
 	sge::renderer::texture::filter::anisotropic::object const &
 );

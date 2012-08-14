@@ -18,34 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/opengl/texture/get_binding.hpp>
-#include <sge/opengl/texture/get_type_binding.hpp>
-#include <sge/opengl/texture/optional_id.hpp>
-#include <sge/opengl/texture/type.hpp>
-#include <sge/opengl/texture/type_to_binding.hpp>
-#include <sge/opengl/texture/funcs/set_active_level.hpp>
-#include <sge/renderer/texture/stage.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <sge/cg/check_state.hpp>
+#include <sge/cg/parameter/object.hpp>
+#include <sge/opengl/cg/texture/disable_parameter.hpp>
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <Cg/cgGL.h>
+#include <fcppt/config/external_end.hpp>
 
 
-sge::opengl::texture::optional_id const
-sge::opengl::texture::get_type_binding(
-	sge::opengl::context::system::object &_system_context,
-	sge::opengl::texture::type const _type,
-	sge::renderer::texture::stage const _stage
+void
+sge::opengl::cg::texture::disable_parameter(
+	sge::cg::parameter::object const &_parameter
 )
 {
-	sge::opengl::texture::funcs::set_active_level(
-		_system_context,
-		_stage
+	::cgGLDisableTextureParameter(
+		_parameter.get()
 	);
 
-	return
-		sge::opengl::texture::get_binding(
-			sge::opengl::texture::type_to_binding(
-				_system_context,
-				_type
-			)
-		);
+	SGE_CG_CHECK_STATE(
+		FCPPT_TEXT("cgEnableTextureParameter failed"),
+		sge::renderer::exception
+	)
 }

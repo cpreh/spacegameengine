@@ -18,29 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_TYPE_TO_BINDING_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_TYPE_TO_BINDING_HPP_INCLUDED
-
-#include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/opengl/texture/bind_type.hpp>
+#include <sge/opengl/enable.hpp>
+#include <sge/opengl/texture/active_level_fwd.hpp>
+#include <sge/opengl/texture/enable.hpp>
 #include <sge/opengl/texture/type.hpp>
 
 
-namespace sge
+void
+sge::opengl::texture::enable(
+	sge::opengl::texture::active_level const &,
+	sge::opengl::texture::type const _type
+)
 {
-namespace opengl
-{
-namespace texture
-{
-
-sge::opengl::texture::bind_type const
-type_to_binding(
-	sge::opengl::context::system::object &,
-	sge::opengl::texture::type
-);
-
+	sge::opengl::enable(
+		_type.get()
+	);
 }
-}
-}
-
-#endif

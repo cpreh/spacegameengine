@@ -54,11 +54,11 @@ struct planar_types
 	fcppt::string
 	name();
 
-	typedef texture::init_function<
+	typedef sge::opengl::texture::init_function<
 		2
 	>::type init_function_type;
 
-	typedef texture::sub_function<
+	typedef sge::opengl::texture::sub_function<
 		2
 	>::type sub_function_type;
 

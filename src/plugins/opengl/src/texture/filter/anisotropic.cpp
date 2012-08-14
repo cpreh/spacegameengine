@@ -37,35 +37,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::texture::filter::anisotropic(
-	opengl::context::system::object &_system_context,
-	texture::binding const &_binding,
-	texture::type const _type,
-	renderer::texture::filter::anisotropic::object const &_filter
+	sge::opengl::texture::binding const &_binding,
+	sge::opengl::context::system::object &_system_context,
+	sge::opengl::texture::type const _type,
+	sge::renderer::texture::filter::anisotropic::object const &_filter
 )
 {
-	funcs::parameter_int(
+	sge::opengl::texture::funcs::parameter_int(
 		_binding,
 		_type,
 		GL_TEXTURE_MAG_FILTER,
 		GL_NEAREST
 	);
 
-	funcs::parameter_int(
+	sge::opengl::texture::funcs::parameter_int(
 		_binding,
 		_type,
 		GL_TEXTURE_MIN_FILTER,
 		static_cast<
 			GLint
 		>(
-			texture::convert::anisotropic_mip_filter(
+			sge::opengl::texture::convert::anisotropic_mip_filter(
 				_filter.mip()
 			)
 		)
 	);
 
-	texture::context const &texture_context(
-		opengl::context::use<
-			texture::context
+	sge::opengl::texture::context const &texture_context(
+		sge::opengl::context::use<
+			sge::opengl::texture::context
 		>(
 			_system_context
 		)
@@ -76,7 +76,7 @@ sge::opengl::texture::filter::anisotropic(
 	)
 	{
 		FCPPT_LOG_ERROR(
-			log::global(),
+			sge::log::global(),
 			fcppt::log::_
 				<< FCPPT_TEXT("anisotropic filtering is not supported!")
 		);
@@ -86,7 +86,7 @@ sge::opengl::texture::filter::anisotropic(
 
 	try
 	{
-		funcs::parameter_int(
+		sge::opengl::texture::funcs::parameter_int(
 			_binding,
 			_type,
 			texture_context.anisotropy_flag(),
@@ -102,7 +102,7 @@ sge::opengl::texture::filter::anisotropic(
 	)
 	{
 		FCPPT_LOG_ERROR(
-			log::global(),
+			sge::log::global(),
 			fcppt::log::_
 				<< FCPPT_TEXT("anisotropy level ")
 				<< _filter.level()

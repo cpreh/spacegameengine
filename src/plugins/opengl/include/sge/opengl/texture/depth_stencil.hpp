@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_DEPTH_STENCIL_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_DEPTH_STENCIL_HPP_INCLUDED
 
+#include <sge/opengl/context/device/object_fwd.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/base.hpp>
 #include <sge/opengl/texture/basic_parameters_fwd.hpp>
@@ -74,6 +75,8 @@ private:
 	mipmap() const;
 
 	sge::opengl::context::system::object &system_context_;
+
+	sge::opengl::context::device::object &device_context_;
 
 	sge::opengl::texture::depth_stencil::dim const size_;
 

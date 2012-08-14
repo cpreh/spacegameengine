@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::texture::mipmap::auto_generate(
-	sge::opengl::texture::binding const &_scoped_work,
+	sge::opengl::texture::binding const &_binding,
 	sge::opengl::context::system::object &_system_context,
 	sge::opengl::texture::type const _type
 )
@@ -58,7 +58,7 @@ sge::opengl::texture::mipmap::auto_generate(
 	}
 
 	sge::opengl::texture::funcs::parameter_int(
-		_scoped_work,
+		_binding,
 		_type,
 		GL_GENERATE_MIPMAP,
 		GL_TRUE

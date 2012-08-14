@@ -18,41 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/opengl/texture/bind_type.hpp>
-#include <sge/opengl/texture/cube_context.hpp>
-#include <sge/opengl/texture/type.hpp>
-#include <sge/opengl/texture/type_context.hpp>
-#include <sge/opengl/texture/type_to_binding.hpp>
-#include <sge/opengl/texture/volume_context.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <sge/opengl/texture/active_level.hpp>
+#include <sge/opengl/texture/funcs/set_active_level.hpp>
+#include <sge/renderer/texture/stage.hpp>
 
 
-sge::opengl::texture::bind_type const
-sge::opengl::texture::type_to_binding(
+sge::opengl::texture::active_level::active_level(
 	sge::opengl::context::system::object &_system_context,
-	sge::opengl::texture::type const _type
+	sge::renderer::texture::stage const _stage
 )
-{
-	sge::opengl::texture::type_context::type_map const &map(
-		sge::opengl::context::use<
-			sge::opengl::texture::type_context
-		>(
-			_system_context
-		).types()
-	);
-
-	sge::opengl::texture::type_context::type_map::left_const_iterator const it(
-		map.left.find(
-			_type
-		)
-	);
-
-	if(
-		it != map.left.end()
+:
+	stage_(
+		_stage
 	)
-		return it->second;
+{
+	sge::opengl::texture::funcs::set_active_level(
+		_system_context,
+		_stage
+	);
+}
 
-	FCPPT_ASSERT_UNREACHABLE;
+sge::opengl::texture::active_level::~active_level()
+{
+}
+
+sge::renderer::texture::stage const
+sge::opengl::texture::active_level::stage() const
+{
+	return stage_;
 }

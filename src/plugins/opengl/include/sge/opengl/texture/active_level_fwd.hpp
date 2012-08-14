@@ -18,40 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/common.hpp>
-#include <sge/opengl/get_int.hpp>
-#include <sge/opengl/texture/bind_type.hpp>
-#include <sge/opengl/texture/get_binding.hpp>
-#include <sge/opengl/texture/id.hpp>
-#include <sge/opengl/texture/optional_id.hpp>
-#include <fcppt/optional_impl.hpp>
-#include <fcppt/strong_typedef_construct_cast.hpp>
+#ifndef SGE_OPENGL_TEXTURE_ACTIVE_LEVEL_FWD_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_ACTIVE_LEVEL_FWD_HPP_INCLUDED
 
 
-sge::opengl::texture::optional_id const
-sge::opengl::texture::get_binding(
-	sge::opengl::texture::bind_type const _binding
-)
+namespace sge
 {
-	GLint const ret(
-		sge::opengl::get_int(
-			_binding.get()
-		)
-	);
+namespace opengl
+{
+namespace texture
+{
 
-	return
-		ret
-		==
-		0
-		?
-			sge::opengl::texture::optional_id()
-		:
-			sge::opengl::texture::optional_id(
-				fcppt::strong_typedef_construct_cast<
-					sge::opengl::texture::id
-				>(
-					ret
-				)
-			)
-		;
+class active_level;
+
 }
+}
+}
+
+#endif

@@ -26,7 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/type.hpp>
-#include <sge/renderer/basic_lock_box.hpp>
+#include <sge/renderer/basic_dim_fwd.hpp>
+#include <sge/renderer/basic_lock_box_fwd.hpp>
 #include <sge/renderer/const_raw_pointer.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <fcppt/math/size_type.hpp>
@@ -48,19 +49,19 @@ struct sub_function
 	void
 	(*type)
 	(
-		texture::binding const &,
-		opengl::context::system::object &,
-		texture::type,
-		opengl::color_format,
-		opengl::color_format_type,
-		renderer::texture::mipmap::level,
-		typename renderer::basic_dim<
+		sge::opengl::texture::binding const &,
+		sge::opengl::context::system::object &,
+		sge::opengl::texture::type,
+		sge::opengl::color_format,
+		sge::opengl::color_format_type,
+		sge::renderer::texture::mipmap::level,
+		typename sge::renderer::basic_dim<
 			Size
 		>::type const &,
-		typename renderer::basic_lock_box<
+		typename sge::renderer::basic_lock_box<
 			Size
 		>::type const &,
-		renderer::const_raw_pointer
+		sge::renderer::const_raw_pointer
 	);
 };
 

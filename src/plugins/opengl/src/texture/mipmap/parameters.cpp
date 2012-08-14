@@ -35,12 +35,12 @@ template<
 sge::opengl::texture::mipmap::parameters<
 	Dim
 >::parameters(
-	texture::binding const &_binding,
-	opengl::context::system::object &_system_context,
-	texture::type const _type,
-	opengl::color_format const _format,
-	opengl::color_format_type const _format_type,
-	opengl::internal_color_format const _internal_format,
+	sge::opengl::texture::binding const &_binding,
+	sge::opengl::context::system::object &_system_context,
+	sge::opengl::texture::type const _type,
+	sge::opengl::color_format const _format,
+	sge::opengl::color_format_type const _format_type,
+	sge::opengl::internal_color_format const _internal_format,
 	dim const &_size,
 	init_function_type const &_init_function
 )

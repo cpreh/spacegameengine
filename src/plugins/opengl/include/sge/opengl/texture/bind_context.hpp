@@ -18,11 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_BINDING_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_BINDING_HPP_INCLUDED
+#ifndef SGE_OPENGL_TEXTURE_BIND_CONTEXT_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_BIND_CONTEXT_HPP_INCLUDED
 
-#include <sge/opengl/texture/binding_fwd.hpp>
+#include <sge/opengl/context/device/base.hpp>
+#include <sge/opengl/context/device/id.hpp>
+#include <sge/opengl/texture/base_fwd.hpp>
+#include <sge/opengl/texture/bind_context_fwd.hpp>
+#include <sge/opengl/texture/const_optional_base_ref.hpp>
 #include <sge/renderer/texture/stage.hpp>
+#include <fcppt/container/index_map_decl.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -33,20 +38,40 @@ namespace opengl
 namespace texture
 {
 
-class binding
+class bind_context
+:
+	public sge::opengl::context::device::base
 {
 	FCPPT_NONCOPYABLE(
-		binding
+		bind_context
 	);
-protected:
-	binding();
-
-	virtual
-	~binding() = 0;
 public:
-	virtual
-	sge::renderer::texture::stage const
-	stage() const = 0;
+	bind_context();
+
+	~bind_context();
+
+	sge::opengl::texture::const_optional_base_ref const
+	stage(
+		sge::renderer::texture::stage
+	) const;
+
+	void
+	stage(
+		sge::renderer::texture::stage,
+		sge::opengl::texture::const_optional_base_ref const &
+	);
+
+	typedef void needs_before;
+
+	static
+	sge::opengl::context::device::id const
+	static_id;
+private:
+	typedef fcppt::container::index_map<
+		sge::opengl::texture::const_optional_base_ref
+	> texture_map;
+
+	mutable texture_map map_;
 };
 
 }

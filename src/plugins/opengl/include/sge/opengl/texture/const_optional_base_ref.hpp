@@ -18,27 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_GET_BINDING_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_GET_BINDING_HPP_INCLUDED
+#ifndef SGE_OPENGL_TEXTURE_CONST_OPTIONAL_BASE_REF_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_CONST_OPTIONAL_BASE_REF_HPP_INCLUDED
 
-#include <sge/opengl/texture/bind_type.hpp>
-#include <sge/opengl/texture/optional_id.hpp>
+#include <sge/opengl/texture/const_optional_base_ref_fwd.hpp>
+#include <fcppt/optional_impl.hpp>
 
-
-namespace sge
-{
-namespace opengl
-{
-namespace texture
-{
-
-sge::opengl::texture::optional_id const
-get_binding(
-	sge::opengl::texture::bind_type
-);
-
-}
-}
-}
 
 #endif

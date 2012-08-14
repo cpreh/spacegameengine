@@ -38,8 +38,8 @@ namespace filter
 
 void
 normal(
-	sge::opengl::context::system::object &,
 	sge::opengl::texture::binding const &,
+	sge::opengl::context::system::object &,
 	sge::opengl::texture::type,
 	sge::renderer::texture::filter::normal::object const &
 );

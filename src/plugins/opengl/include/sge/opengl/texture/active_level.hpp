@@ -18,13 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_FILTER_SET_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_FILTER_SET_HPP_INCLUDED
+#ifndef SGE_OPENGL_TEXTURE_ACTIVE_LEVEL_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_ACTIVE_LEVEL_HPP_INCLUDED
 
-#include <sge/opengl/context/device/object_fwd.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/opengl/texture/binding_fwd.hpp>
-#include <sge/opengl/texture/type.hpp>
+#include <sge/opengl/texture/active_level_fwd.hpp>
+#include <sge/renderer/texture/stage.hpp>
+#include <fcppt/noncopyable.hpp>
 
 
 namespace sge
@@ -33,18 +33,26 @@ namespace opengl
 {
 namespace texture
 {
-namespace filter
+
+class active_level
 {
+	FCPPT_NONCOPYABLE(
+		active_level
+	);
+public:
+	active_level(
+		sge::opengl::context::system::object &,
+		sge::renderer::texture::stage
+	);
 
-void
-set(
-	sge::opengl::texture::binding const &,
-	sge::opengl::context::system::object &,
-	sge::opengl::context::device::object &,
-	sge::opengl::texture::type
-);
+	~active_level();
 
-}
+	sge::renderer::texture::stage const
+	stage() const;
+private:
+	sge::renderer::texture::stage const stage_;
+};
+
 }
 }
 }

@@ -40,10 +40,10 @@ template<
 >
 void
 generate_levels(
-	mipmap::parameters<
+	sge::opengl::texture::mipmap::parameters<
 		Size
 	> const &,
-	renderer::texture::mipmap::level_count
+	sge::renderer::texture::mipmap::level_count
 );
 
 }

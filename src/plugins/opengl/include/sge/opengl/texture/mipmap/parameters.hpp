@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/basic_dim.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/math/size_type.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
 
 
 namespace sge
@@ -50,41 +49,41 @@ class parameters
 		parameters
 	);
 public:
-	typedef typename renderer::basic_dim<
+	typedef typename sge::renderer::basic_dim<
 		Dim
 	>::type dim;
 
-	typedef typename texture::init_function<
+	typedef typename sge::opengl::texture::init_function<
 		Dim
 	>::type init_function_type;
 
 	parameters(
-		texture::binding const &,
-		opengl::context::system::object &,
-		texture::type,
-		opengl::color_format,
-		opengl::color_format_type,
-		opengl::internal_color_format,
+		sge::opengl::texture::binding const &,
+		sge::opengl::context::system::object &,
+		sge::opengl::texture::type,
+		sge::opengl::color_format,
+		sge::opengl::color_format_type,
+		sge::opengl::internal_color_format,
 		dim const &,
 		init_function_type const &
 	);
 
-	texture::binding const &
+	sge::opengl::texture::binding const &
 	binding() const;
 
-	opengl::context::system::object &
+	sge::opengl::context::system::object &
 	system_context() const;
 
-	texture::type const
+	sge::opengl::texture::type const
 	type() const;
 
-	opengl::color_format const
+	sge::opengl::color_format const
 	format() const;
 
-	opengl::color_format_type const
+	sge::opengl::color_format_type const
 	format_type() const;
 
-	opengl::internal_color_format const
+	sge::opengl::internal_color_format const
 	internal_format() const;
 
 	dim const &
@@ -93,17 +92,17 @@ public:
 	init_function_type const &
 	init_function() const;
 private:
-	texture::binding const &binding_;
+	sge::opengl::texture::binding const &binding_;
 
-	opengl::context::system::object &system_context_;
+	sge::opengl::context::system::object &system_context_;
 
-	texture::type const type_;
+	sge::opengl::texture::type const type_;
 
-	opengl::color_format format_;
+	sge::opengl::color_format format_;
 
-	opengl::color_format_type format_type_;
+	sge::opengl::color_format_type format_type_;
 
-	opengl::internal_color_format internal_format_;
+	sge::opengl::internal_color_format internal_format_;
 
 	dim const size_;
 

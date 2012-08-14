@@ -21,10 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_BIND_LEVEL_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_BIND_LEVEL_HPP_INCLUDED
 
-#include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/opengl/texture/optional_id.hpp>
+#include <sge/opengl/texture/active_level_fwd.hpp>
+#include <sge/opengl/texture/optional_id_fwd.hpp>
 #include <sge/opengl/texture/type.hpp>
-#include <sge/renderer/texture/stage.hpp>
 
 
 namespace sge
@@ -36,8 +35,7 @@ namespace texture
 
 void
 bind_level(
-	sge::opengl::context::system::object &,
-	sge::renderer::texture::stage,
+	sge::opengl::texture::active_level const &,
 	sge::opengl::texture::type,
 	sge::opengl::texture::optional_id const &
 );

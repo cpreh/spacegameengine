@@ -242,6 +242,7 @@ sge::opengl::texture::basic_buffer<
 
 		sge::opengl::texture::scoped_work_binding const binding(
 			system_context_,
+			device_context_,
 			this->type(),
 			this->id()
 		);
@@ -323,6 +324,7 @@ sge::opengl::texture::basic_buffer<
 	{
 		sge::opengl::texture::scoped_work_binding const binding(
 			system_context_,
+			device_context_,
 			this->type(),
 			this->id()
 		);

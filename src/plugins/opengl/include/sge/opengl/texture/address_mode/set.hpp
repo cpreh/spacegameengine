@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/device/object_fwd.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/type.hpp>
-#include <sge/renderer/texture/stage.hpp>
 
 
 namespace sge
@@ -38,10 +37,9 @@ namespace address_mode
 
 void
 set(
-	sge::opengl::context::device::object &,
 	sge::opengl::texture::binding const &,
-	sge::opengl::texture::type,
-	sge::renderer::texture::stage
+	sge::opengl::context::device::object &,
+	sge::opengl::texture::type
 );
 
 }

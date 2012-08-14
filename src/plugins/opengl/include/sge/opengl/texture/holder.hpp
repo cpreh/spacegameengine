@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/id.hpp>
 #include <fcppt/noncopyable.hpp>
 
+
 namespace sge
 {
 namespace opengl
@@ -41,10 +42,10 @@ public:
 
 	~holder();
 
-	texture::id const
+	sge::opengl::texture::id const
 	id() const;
 private:
-	texture::id const id_;
+	sge::opengl::texture::id const id_;
 };
 
 }

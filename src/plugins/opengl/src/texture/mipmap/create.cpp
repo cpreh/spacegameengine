@@ -31,14 +31,14 @@ template<
 >
 void
 sge::opengl::texture::mipmap::create(
-	mipmap::parameters<
+	sge::opengl::texture::mipmap::parameters<
 		Dim
 	> const &_parameters,
-	renderer::texture::mipmap::object const &_mipmap
+	sge::renderer::texture::mipmap::object const &_mipmap
 )
 {
 	fcppt::variant::apply_unary(
-		mipmap::visitor<
+		sge::opengl::texture::mipmap::visitor<
 			Dim
 		>(
 			_parameters

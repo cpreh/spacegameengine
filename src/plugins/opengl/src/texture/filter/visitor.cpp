@@ -29,16 +29,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::opengl::texture::filter::visitor::visitor(
-	sge::opengl::context::system::object &_system_context,
 	sge::opengl::texture::binding const &_binding,
+	sge::opengl::context::system::object &_system_context,
 	sge::opengl::texture::type const _type
 )
 :
-	system_context_(
-		_system_context
-	),
 	binding_(
 		_binding
+	),
+	system_context_(
+		_system_context
 	),
 	type_(
 		_type
@@ -52,8 +52,8 @@ sge::opengl::texture::filter::visitor::operator()(
 ) const
 {
 	sge::opengl::texture::filter::anisotropic(
-		system_context_,
 		binding_,
+		system_context_,
 		type_,
 		_filter
 	);
@@ -65,8 +65,8 @@ sge::opengl::texture::filter::visitor::operator()(
 ) const
 {
 	sge::opengl::texture::filter::normal(
-		system_context_,
 		binding_,
+		system_context_,
 		type_,
 		_filter
 	);

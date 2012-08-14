@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/device/object_fwd.hpp>
-#include <sge/opengl/texture/binding_fwd.hpp>
+#include <sge/opengl/texture/binding.hpp>
 #include <sge/opengl/texture/type.hpp>
 #include <sge/opengl/texture/address_mode/context.hpp>
 #include <sge/opengl/texture/address_mode/set.hpp>
@@ -31,7 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/address_mode_s.hpp>
 #include <sge/renderer/texture/address_mode_t.hpp>
 #include <sge/renderer/texture/address_mode_u.hpp>
-#include <sge/renderer/texture/stage.hpp>
 
 
 namespace
@@ -43,10 +42,9 @@ template<
 >
 void
 update_one(
-	sge::opengl::texture::address_mode::context &,
 	sge::opengl::texture::binding const &,
+	sge::opengl::texture::address_mode::context &,
 	sge::opengl::texture::type,
-	sge::renderer::texture::stage,
 	ContextFun const &
 );
 
@@ -54,10 +52,9 @@ update_one(
 
 void
 sge::opengl::texture::address_mode::set(
-	sge::opengl::context::device::object &_device_context,
 	sge::opengl::texture::binding const &_binding,
-	sge::opengl::texture::type const _type,
-	sge::renderer::texture::stage const _stage
+	sge::opengl::context::device::object &_device_context,
+	sge::opengl::texture::type const _type
 )
 {
 	sge::opengl::texture::address_mode::context &context(
@@ -71,30 +68,27 @@ sge::opengl::texture::address_mode::set(
 	update_one<
 		sge::renderer::texture::address_mode_s
 	>(
-		context,
 		_binding,
+		context,
 		_type,
-		_stage,
 		&sge::opengl::texture::address_mode::context::get_s
 	);
 
 	update_one<
 		sge::renderer::texture::address_mode_t
 	>(
-		context,
 		_binding,
+		context,
 		_type,
-		_stage,
 		&sge::opengl::texture::address_mode::context::get_t
 	);
 
 	update_one<
 		sge::renderer::texture::address_mode_u
 	>(
-		context,
 		_binding,
+		context,
 		_type,
-		_stage,
 		&sge::opengl::texture::address_mode::context::get_u
 	);
 }
@@ -108,10 +102,9 @@ template<
 >
 void
 update_one(
-	sge::opengl::texture::address_mode::context &_context,
 	sge::opengl::texture::binding const &_binding,
+	sge::opengl::texture::address_mode::context &_context,
 	sge::opengl::texture::type const _type,
-	sge::renderer::texture::stage const _stage,
 	ContextFun const &_context_fun
 )
 {
@@ -128,7 +121,7 @@ update_one(
 				(
 					_context.*_context_fun
 				)(
-					_stage
+					_binding.stage()
 				).get()
 			)
 		)

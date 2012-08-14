@@ -18,23 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/disable.hpp>
-#include <sge/opengl/enable.hpp>
+#include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/device/object_fwd.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/activate.hpp>
+#include <sge/opengl/texture/active_level.hpp>
 #include <sge/opengl/texture/base.hpp>
+#include <sge/opengl/texture/bind_context.hpp>
 #include <sge/opengl/texture/bind_level.hpp>
+#include <sge/opengl/texture/disable.hpp>
+#include <sge/opengl/texture/enable.hpp>
 #include <sge/opengl/texture/get_stage_type.hpp>
 #include <sge/opengl/texture/optional_id.hpp>
 #include <sge/opengl/texture/optional_type.hpp>
 #include <sge/opengl/texture/render_binding.hpp>
 #include <sge/opengl/texture/set_samplers.hpp>
-#include <sge/opengl/texture/funcs/set_active_level.hpp>
 #include <sge/renderer/texture/base.hpp>
 #include <sge/renderer/texture/const_optional_base_ref.hpp>
 #include <sge/renderer/texture/stage.hpp>
-#include <fcppt/optional_impl.hpp>
 
 
 void
@@ -45,18 +46,23 @@ sge::opengl::texture::activate(
 	sge::renderer::texture::stage const _stage
 )
 {
-	sge::opengl::texture::funcs::set_active_level(
+	sge::opengl::texture::active_level const active_level(
 		_system_context,
 		_stage
 	);
 
-	if(
-		!_texture
-	)
+	sge::opengl::texture::bind_context &bind_context(
+		sge::opengl::context::use<
+			sge::opengl::texture::bind_context
+		>(
+			_device_context
+		)
+	);
+
 	{
 		sge::opengl::texture::optional_type const old_type(
 			sge::opengl::texture::get_stage_type(
-				_system_context,
+				_device_context,
 				_stage
 			)
 		);
@@ -65,21 +71,33 @@ sge::opengl::texture::activate(
 			old_type
 		)
 		{
-			sge::opengl::disable(
-				old_type->get()
+			sge::opengl::texture::disable(
+				active_level,
+				*old_type
 			);
 
-			sge::opengl::texture::bind_level(
-				_system_context,
-				_stage,
-				*old_type,
-				sge::opengl::texture::optional_id()
-			);
+			if(
+				!_texture
+			)
+			{
+				sge::opengl::texture::bind_level(
+					active_level,
+					*old_type,
+					sge::opengl::texture::optional_id()
+				);
 
+				bind_context.stage(
+					_stage,
+					sge::opengl::texture::const_optional_base_ref()
+				);
+			}
 		}
-
-		return;
 	}
+
+	if(
+		!_texture
+	)
+		return;
 
 	sge::opengl::texture::base const &base(
 		dynamic_cast<
@@ -89,26 +107,34 @@ sge::opengl::texture::activate(
 		)
 	);
 
-	sge::opengl::enable(
-		base.type().get()
+	sge::opengl::texture::enable(
+		active_level,
+		base.type()
+	);
+
+	bind_context.stage(
+		_stage,
+		sge::opengl::texture::const_optional_base_ref(
+			base
+		)
 	);
 
 	sge::opengl::texture::bind_level(
-		_system_context,
-		_stage,
+		active_level,
 		base.type(),
 		sge::opengl::texture::optional_id(
 			base.id()
 		)
 	);
 
-	sge::opengl::texture::render_binding const binding;
+	sge::opengl::texture::render_binding const binding(
+		active_level
+	);
 
 	sge::opengl::texture::set_samplers(
 		binding,
 		_system_context,
 		_device_context,
-		base.type(),
-		_stage
+		base.type()
 	);
 }

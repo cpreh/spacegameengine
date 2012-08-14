@@ -22,13 +22,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_TEXTURE_SCOPED_WORK_BINDING_HPP_INCLUDED
 
 #include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/texture/active_level.hpp>
 #include <sge/opengl/texture/binding.hpp>
 #include <sge/opengl/texture/id.hpp>
 #include <sge/opengl/texture/optional_id.hpp>
+#include <sge/opengl/texture/optional_type.hpp>
 #include <sge/opengl/texture/scoped_work_binding_fwd.hpp>
 #include <sge/opengl/texture/type.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional_decl.hpp>
 
 
 namespace sge
@@ -48,22 +50,29 @@ class scoped_work_binding
 public:
 	scoped_work_binding(
 		sge::opengl::context::system::object &,
+		sge::opengl::context::device::object &,
 		sge::opengl::texture::type,
 		sge::opengl::texture::id
 	);
 
 	~scoped_work_binding();
 private:
+	sge::renderer::texture::stage const
+	stage() const;
+
 	void
-	bind_id(
-		sge::opengl::texture::optional_id
+	bind(
+		sge::opengl::texture::optional_id,
+		sge::opengl::texture::type
 	);
 
-	sge::opengl::context::system::object &system_context_;
+	sge::opengl::texture::active_level const active_level_;
 
 	sge::opengl::texture::optional_id const previous_id_;
 
 	sge::opengl::texture::type const type_;
+
+	sge::opengl::texture::optional_type const previous_type_;
 };
 
 }

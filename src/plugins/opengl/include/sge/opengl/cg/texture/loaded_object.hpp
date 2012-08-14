@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/device/object_fwd.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/base_fwd.hpp>
+#include <sge/opengl/texture/bind_context_fwd.hpp>
 #include <sge/renderer/caps/texture_stages.hpp>
 #include <sge/renderer/cg/loaded_texture.hpp>
 #include <sge/renderer/texture/base_fwd.hpp>
@@ -67,6 +68,8 @@ private:
 	sge::opengl::context::system::object &system_context_;
 
 	sge::opengl::context::device::object &device_context_;
+
+	sge::opengl::texture::bind_context &bind_context_;
 
 	sge::cg::parameter::object const parameter_;
 

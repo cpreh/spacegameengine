@@ -18,25 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/cg/check_state.hpp>
-#include <sge/cg/parameter/object.hpp>
+#include <sge/cg/parameter/object_fwd.hpp>
 #include <sge/opengl/cg/texture/assigned_stage.hpp>
+#include <sge/opengl/cg/texture/disable_parameter.hpp>
+#include <sge/opengl/cg/texture/enable_parameter.hpp>
 #include <sge/opengl/cg/texture/loaded_object.hpp>
 #include <sge/opengl/cg/texture/set_parameter.hpp>
+#include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/device/object_fwd.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/texture/active_level.hpp>
 #include <sge/opengl/texture/base.hpp>
+#include <sge/opengl/texture/bind_context.hpp>
+#include <sge/opengl/texture/const_optional_base_ref.hpp>
 #include <sge/opengl/texture/optional_id.hpp>
 #include <sge/opengl/texture/render_binding.hpp>
 #include <sge/opengl/texture/set_samplers.hpp>
-#include <sge/renderer/exception.hpp>
 #include <sge/renderer/texture/base.hpp>
 #include <sge/renderer/texture/stage.hpp>
-#include <fcppt/optional_impl.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <Cg/cgGL.h>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::opengl::cg::texture::loaded_object::loaded_object(
@@ -51,6 +50,13 @@ sge::opengl::cg::texture::loaded_object::loaded_object(
 	),
 	device_context_(
 		_device_context
+	),
+	bind_context_(
+		sge::opengl::context::use<
+			sge::opengl::texture::bind_context
+		>(
+			_device_context
+		)
 	),
 	parameter_(
 		_parameter
@@ -87,23 +93,31 @@ sge::opengl::cg::texture::loaded_object::~loaded_object()
 sge::renderer::texture::stage const
 sge::opengl::cg::texture::loaded_object::enable() const
 {
-	::cgGLEnableTextureParameter(
-		parameter_.get()
+	sge::opengl::cg::texture::enable_parameter(
+		parameter_
 	);
 
-	SGE_CG_CHECK_STATE(
-		FCPPT_TEXT("cgEnableTextureParameter failed"),
-		sge::renderer::exception
-	)
+	bind_context_.stage(
+		stage_,
+		sge::opengl::texture::const_optional_base_ref(
+			texture_
+		)
+	);
 
-	sge::opengl::texture::render_binding const binding;
+	sge::opengl::texture::active_level const active_level(
+		system_context_,
+		stage_
+	);
+
+	sge::opengl::texture::render_binding const binding(
+		active_level
+	);
 
 	sge::opengl::texture::set_samplers(
 		binding,
 		system_context_,
 		device_context_,
-		texture_.type(),
-		stage_
+		texture_.type()
 	);
 
 	return
@@ -113,12 +127,12 @@ sge::opengl::cg::texture::loaded_object::enable() const
 void
 sge::opengl::cg::texture::loaded_object::disable() const
 {
-	::cgGLDisableTextureParameter(
-		parameter_.get()
+	sge::opengl::cg::texture::disable_parameter(
+		parameter_
 	);
 
-	SGE_CG_CHECK_STATE(
-		FCPPT_TEXT("cgDisableTextureParameter failed"),
-		sge::renderer::exception
-	)
+	bind_context_.stage(
+		stage_,
+		sge::opengl::texture::const_optional_base_ref()
+	);
 }

@@ -33,8 +33,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::texture::filter::normal(
-	sge::opengl::context::system::object &_system_context,
 	sge::opengl::texture::binding const &_binding,
+	sge::opengl::context::system::object &_system_context,
 	sge::opengl::texture::type const _type,
 	sge::renderer::texture::filter::normal::object const &_filter
 )
