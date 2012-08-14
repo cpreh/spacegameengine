@@ -21,7 +21,7 @@ sge::graph::color_schemes::default_()
 		sge::graph::foreground_alt_color(
 			sge::image::colors::gray()),
 		sge::graph::background_color(
-			sge::image::colors::transparent()),
+			sge::image::colors::black()),
 		sge::graph::background_alt_color(
 			sge::image::colors::black()),
 		sge::graph::baseline_color(

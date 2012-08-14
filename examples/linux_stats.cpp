@@ -18,14 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/font/align_h.hpp>
+#include <sge/font/lit.hpp>
+#include <sge/font/object.hpp>
+#include <sge/font/object_scoped_ptr.hpp>
+#include <sge/font/parameters.hpp>
+#include <sge/font/system.hpp>
+#include <sge/font/text_parameters.hpp>
+#include <sge/font/vector.hpp>
+#include <sge/font/draw/static_text.hpp>
+#include <sge/graph/axis_constraint.hpp>
 #include <sge/graph/background_color.hpp>
 #include <sge/graph/baseline.hpp>
 #include <sge/graph/color_schemes.hpp>
 #include <sge/graph/foreground_color.hpp>
 #include <sge/graph/object.hpp>
+#include <sge/graph/optional_axis_constraint.hpp>
+#include <sge/graph/position.hpp>
+#include <sge/graph/scalar.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/log/global.hpp>
+#include <sge/renderer/vector2.hpp>
 #include <sge/renderer/context/scoped.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/parameters/object.hpp>
@@ -36,6 +50,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/target/onscreen.hpp>
+#include <sge/systems/font.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/renderer.hpp>
@@ -64,6 +79,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <example_main.hpp>
 #include <exception>
 #include <fstream>
+#include <ios>
 #include <iostream>
 #include <numeric>
 #include <fcppt/config/external_end.hpp>
@@ -191,6 +207,49 @@ count_jiffies()
 					current_jiffies.begin() + 3,
 					0u)));
 }
+
+double
+count_memory()
+{
+	std::ifstream meminfo(
+		"/proc/meminfo");
+
+	FCPPT_ASSERT_ERROR(
+		meminfo.is_open());
+
+	unsigned
+		total = 0,
+		free = 0,
+		buffers = 0,
+		cached = 0,
+		slab = 0;
+
+	std::string first_word, last_word;
+	unsigned value;
+
+	while(
+		meminfo >> first_word >> value >> last_word)
+	{
+		FCPPT_ASSERT_ERROR(last_word == "kB");
+
+		if (first_word == "MemTotal:")
+			total = value;
+		else if (first_word == "MemFree:")
+			free = value;
+		else if (first_word == "Buffers:")
+			buffers = value;
+		else if (first_word == "Cached:")
+			cached = value;
+		else if (first_word == "Slab:")
+			slab = value;
+	}
+
+	unsigned used = total - free - buffers - cached - slab;
+	return
+		100.0 *
+		static_cast<double>(used) /
+		static_cast<double>(total);
+}
 }
 
 awl::main::exit_code const
@@ -198,6 +257,7 @@ example_main(
 	awl::main::function_context const &_context)
 try
 {
+	count_memory();
 	if(_context.argc() <= 3)
 	{
 		std::cerr
@@ -216,7 +276,7 @@ try
 			std::string(
 				_context.argv()[1])));
 
-	sge::window::dim const window_dim(
+	sge::window::dim const graph_dim(
 		fcppt::extract_from_string_exn<sge::window::dim::value_type>(
 			std::string(
 				_context.argv()[2])),
@@ -234,9 +294,9 @@ try
 		(sge::systems::window(
 				sge::window::parameters(
 					sge::window::title(
-						FCPPT_TEXT("graph example")
+						FCPPT_TEXT("linux stats example")
 					),
-					window_dim)))
+					sge::window::dim(graph_dim.w(), 2 * graph_dim.h()))))
 		(sge::systems::renderer(
 				sge::renderer::parameters::object(
 					sge::renderer::pixel_format::object(
@@ -249,15 +309,75 @@ try
 					sge::renderer::display_mode::optional_object()
 				),
 				sge::viewport::fill_on_resize()))
+		(
+			sge::systems::font()
+		)
 	);
 
-	sge::graph::object graph(
+	sge::font::object_scoped_ptr const font(
+		sys.font_system().create_font(
+			sge::font::parameters()
+			.family(
+				"monospace")
+		)
+	);
+
+	sge::font::draw::static_text cpu_label(
+		sys.renderer(),
+		*font,
+		SGE_FONT_LIT(
+			"cpu"
+		),
+		sge::font::text_parameters(
+			sge::font::align_h::left
+		),
+		sge::font::vector(
+			0,
+			0
+		),
+		sge::image::colors::white()
+	);
+
+	sge::font::draw::static_text mem_label(
+		sys.renderer(),
+		*font,
+		SGE_FONT_LIT(
+			"mem"
+		),
+		sge::font::text_parameters(
+			sge::font::align_h::left
+		),
+		sge::font::vector(
+			0,
+			static_cast<int>(graph_dim.h())
+		),
+		sge::image::colors::white()
+	);
+
+	sge::graph::object cpugraph(
 		sge::graph::position(
 			sge::renderer::vector2(
 				0.0f,
 				0.0f)),
 		fcppt::math::dim::structure_cast<sge::image2d::dim>(
-			window_dim),
+			graph_dim),
+		sys.renderer(),
+		sge::graph::baseline(
+			50.0),
+		sge::graph::optional_axis_constraint(
+			sge::graph::axis_constraint(
+				0.0,
+				100.0)),
+		sge::graph::color_schemes::default_()
+	);
+
+	sge::graph::object memgraph(
+		sge::graph::position(
+			sge::renderer::vector2(
+				0.0f,
+				graph_dim.h())),
+		fcppt::math::dim::structure_cast<sge::image2d::dim>(
+			graph_dim),
 		sys.renderer(),
 		sge::graph::baseline(
 			50.0),
@@ -270,7 +390,6 @@ try
 
 	jiffies last_jiffies =
 		count_jiffies();
-
 
 	while(
 		sys.window_system().poll()
@@ -286,14 +405,30 @@ try
 
 		jiffies const current_jiffies =
 			count_jiffies();
-		graph.push(
+		cpugraph.push(
 			(current_jiffies - last_jiffies).work_percentage<sge::graph::scalar>());
 		last_jiffies =
 			current_jiffies;
 
-		graph.render(
+		cpugraph.render(
 			scoped_block.get()
 		);
+
+		cpu_label.draw(
+			scoped_block.get()
+		);
+
+		memgraph.push(
+			count_memory());
+
+		memgraph.render(
+			scoped_block.get()
+		);
+
+		mem_label.draw(
+			scoped_block.get()
+		);
+
 
 	}
 

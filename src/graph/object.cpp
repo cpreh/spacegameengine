@@ -55,8 +55,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/circular_buffer.hpp>
 #include <boost/algorithm/minmax_element.hpp>
 #include <algorithm>
-#include <utility>
 #include <iostream>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 

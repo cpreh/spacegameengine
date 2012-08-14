@@ -224,7 +224,7 @@ add_sge_example(
 if(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
 	add_sge_example(
 		linux_stats
-		"sgegraph;sgelog;sgerenderer;sgesystems;sgeviewport;sgewindow;sgeimage;sgetimer"
+		"sgefont;sgefontdraw;sgegraph;sgelog;sgerenderer;sgesystems;sgeviewport;sgewindow;sgeimage;sgetimer"
 		"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 	)
 endif()
