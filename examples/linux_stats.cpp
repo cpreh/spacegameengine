@@ -17,7 +17,6 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-
 #include <sge/font/align_h.hpp>
 #include <sge/font/lit.hpp>
 #include <sge/font/object.hpp>
@@ -64,16 +63,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context.hpp>
-#include <fcppt/exception.hpp>
-#include <fcppt/extract_from_string_exn.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assert/pre.hpp>
+#include <fcppt/assert/unreachable.hpp>
 #include <fcppt/container/array.hpp>
+#include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
+#include <fcppt/exception.hpp>
+#include <fcppt/extract_from_string_exn.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/log/activate_levels.hpp>
 #include <fcppt/log/level.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/ptr_container/ptr_map.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <example_main.hpp>
@@ -82,6 +86,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <ios>
 #include <iostream>
 #include <numeric>
+#include <string>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -250,6 +255,79 @@ count_memory()
 		static_cast<double>(used) /
 		static_cast<double>(total);
 }
+
+std::vector<
+	std::string
+>
+network_devices()
+{
+	std::ifstream netinfo(
+		"/proc/net/dev");
+
+	FCPPT_ASSERT_ERROR(
+		netinfo.is_open());
+
+	std::vector<
+		std::string
+	> result;
+
+	// skip the first two lines
+	netinfo.ignore(
+		std::numeric_limits<std::streamsize>::max(),
+		'\n');
+	netinfo.ignore(
+		std::numeric_limits<std::streamsize>::max(),
+		'\n');
+
+	std::string device;
+	while(
+		(netinfo >> device).ignore(
+			std::numeric_limits<std::streamsize>::max(),
+			'\n'))
+	{
+		if (device != "lo:")
+			result.push_back(
+				std::string(device.begin(), device.end() - 1u));
+	}
+
+	return result;
+}
+
+unsigned long
+count_traffic(
+	std::string const &_device)
+{
+	std::ifstream netinfo(
+		"/proc/net/dev");
+
+	FCPPT_ASSERT_ERROR(
+		netinfo.is_open());
+
+	std::vector<
+		std::string
+	> result;
+
+	// skip the first two lines
+	netinfo.ignore(
+		std::numeric_limits<std::streamsize>::max(),
+		'\n');
+	netinfo.ignore(
+		std::numeric_limits<std::streamsize>::max(),
+		'\n');
+
+	std::string device;
+	unsigned long value;
+	while(
+		(netinfo >> device >> value).ignore(
+			std::numeric_limits<std::streamsize>::max(),
+			'\n'))
+	{
+		if (device == _device + ':')
+			return value;
+	}
+
+	FCPPT_ASSERT_UNREACHABLE;
+}
 }
 
 awl::main::exit_code const
@@ -289,6 +367,11 @@ try
 		fcppt::log::level::debug
 	);
 
+	std::vector<std::string> devices = ::network_devices();
+	std::size_t network_device_count = devices.size();
+
+	std::map<std::string, unsigned long> device_totals;
+
 	sge::systems::instance const sys(
 		sge::systems::list()
 		(sge::systems::window(
@@ -296,7 +379,9 @@ try
 					sge::window::title(
 						FCPPT_TEXT("linux stats example")
 					),
-					sge::window::dim(graph_dim.w(), 2 * graph_dim.h()))))
+					sge::window::dim(
+						graph_dim.w(),
+						static_cast<sge::window::dim::value_type>(2u + network_device_count) * graph_dim.h()))))
 		(sge::systems::renderer(
 				sge::renderer::parameters::object(
 					sge::renderer::pixel_format::object(
@@ -375,7 +460,7 @@ try
 		sge::graph::position(
 			sge::renderer::vector2(
 				0.0f,
-				graph_dim.h())),
+				static_cast<sge::renderer::vector2::value_type>(graph_dim.h()))),
 		fcppt::math::dim::structure_cast<sge::image2d::dim>(
 			graph_dim),
 		sys.renderer(),
@@ -390,6 +475,49 @@ try
 
 	jiffies last_jiffies =
 		count_jiffies();
+
+	typedef
+	boost::ptr_map<
+		std::string,
+		sge::graph::object
+	>
+	device_to_graph;
+
+	device_to_graph device_map;
+
+	for(
+		std::vector<
+			std::string
+		>::iterator
+		it = devices.begin();
+		it != devices.end();
+		++it
+	)
+	{
+		fcppt::container::ptr::insert_unique_ptr_map(
+			device_map,
+			*it,
+			fcppt::make_unique_ptr<
+				sge::graph::object
+			>(
+				sge::graph::position(
+					sge::renderer::vector2(
+						0.0f,
+						static_cast<float>(
+							(2 + (it - devices.begin())) * graph_dim.h())
+						)),
+				fcppt::math::dim::structure_cast<sge::image2d::dim>(
+					graph_dim),
+				fcppt::ref(sys.renderer()),
+				sge::graph::baseline(
+					0.0),
+				sge::graph::optional_axis_constraint(),
+				sge::graph::color_schemes::default_()
+			)
+		);
+
+		device_totals[*it] = 0u;
+	}
 
 	while(
 		sys.window_system().poll()
@@ -429,6 +557,26 @@ try
 			scoped_block.get()
 		);
 
+		// network
+		for (
+			device_to_graph::iterator it = device_map.begin();
+			it != device_map.end();
+			++it
+		)
+		{
+			unsigned long traffic = ::count_traffic(it->first);
+			(it->second)->push(
+				static_cast<double>(
+					traffic -
+					device_totals[it->first]
+				)
+			);
+
+			device_totals[it->first] = traffic;
+
+			(it->second)->render(
+				scoped_block.get());
+		}
 
 	}
 
