@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/lit.hpp>
 #include <sge/font/object.hpp>
 #include <sge/font/object_scoped_ptr.hpp>
+#include <sge/scenic/scene/manager.hpp>
 #include <sge/font/parameters.hpp>
 #include <sge/font/string.hpp>
 #include <sge/font/system.hpp>
@@ -44,8 +45,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/input/keyboard/optional_digit.hpp>
 #include <sge/media/all_extensions.hpp>
-#include <sge/model/manager/object.hpp>
-#include <sge/model/manager/instance/object.hpp>
 #include <sge/renderer/aspect.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/material.hpp>
@@ -265,31 +264,39 @@ try
 		)
 	);
 
-	sge::model::manager::object model_manager(
-		sys.renderer(),
-		sys.image_system(),
-		camera,
-		sge::model::manager::model_directory(
-			sge::config::media_path() / FCPPT_TEXT("objs")),
-		sge::model::manager::texture_directory(
-			sge::config::media_path() / FCPPT_TEXT("model_textures")));
+	fcppt::string const
+		scene_directory(
+			FCPPT_TEXT("occlusion_query_example")),
+		first_scene_description(
+			FCPPT_TEXT("brick_wall.json")),
+		second_scene_description(
+			FCPPT_TEXT("sphere.json"));
 
-	sge::model::manager::instance::object const
-		brick_wall(
-			sge::model::manager::instance::object(
-				sge::model::manager::instance::identifier(
-					FCPPT_TEXT("brick_wall")),
-				sge::model::manager::instance::position(
-					sge::renderer::vector3::null()))),
-		treasure_chest(
-			sge::model::manager::instance::object(
-				sge::model::manager::instance::identifier(
-					FCPPT_TEXT("treasure_chest")),
-				sge::model::manager::instance::position(
-					sge::renderer::vector3(
-						-12.0f,
-						0.0f,
-						0.0f))));
+	sge::scenic::scene::manager
+		first_scene(
+			sys.renderer(),
+			sys.image_system(),
+			sys.viewport_manager(),
+			camera,
+			sge::config::media_path() / FCPPT_TEXT("scenes") / scene_directory / first_scene_description,
+			sge::scenic::model_base_path(
+				sge::config::media_path() / FCPPT_TEXT("scenes") / scene_directory),
+			sge::scenic::material_base_path(
+				sge::config::media_path() / FCPPT_TEXT("scenes") / scene_directory),
+			sge::scenic::texture_base_path(
+				sge::config::media_path() / FCPPT_TEXT("scenes") / scene_directory)),
+		second_scene(
+			sys.renderer(),
+			sys.image_system(),
+			sys.viewport_manager(),
+			camera,
+			sge::config::media_path() / FCPPT_TEXT("scenes") / scene_directory / second_scene_description,
+			sge::scenic::model_base_path(
+				sge::config::media_path() / FCPPT_TEXT("scenes") / scene_directory),
+			sge::scenic::material_base_path(
+				sge::config::media_path() / FCPPT_TEXT("scenes") / scene_directory),
+			sge::scenic::texture_base_path(
+				sge::config::media_path() / FCPPT_TEXT("scenes") / scene_directory));
 
 	sge::renderer::occlusion_query::object_scoped_ptr current_occlusion_query;
 	sge::renderer::occlusion_query::optional_pixel_count last_query_result;
@@ -318,80 +325,6 @@ try
 			scoped_block.get());
 
 		{
-			sge::renderer::state::scoped scoped_state(
-				context,
-				sge::renderer::state::list
-					(sge::renderer::state::bool_::enable_lighting = true));
-
-			// The brick wall material needs more ambient light.
-			context.material(
-				sge::renderer::material(
-					sge::renderer::diffuse_color(
-						sge::image::color::any::object(
-							sge::image::color::rgba8
-							(
-								(sge::image::color::init::red() %= .8)
-								(sge::image::color::init::green() %= .8)
-								(sge::image::color::init::blue() %= .8)
-								(sge::image::color::init::alpha() %= 1.)))),
-					sge::renderer::ambient_color(
-						sge::image::color::any::object(
-							sge::image::color::rgba8
-							(
-								(sge::image::color::init::red() %= .2)
-								(sge::image::color::init::green() %= .2)
-								(sge::image::color::init::blue() %= .2)
-								(sge::image::color::init::alpha() %= 1.)))),
-					sge::renderer::specular_color(
-						sge::image::color::any::object(
-							sge::image::color::rgba8
-							(
-								(sge::image::color::init::red() %= .0)
-								(sge::image::color::init::green() %= .0)
-								(sge::image::color::init::blue() %= .0)
-								(sge::image::color::init::alpha() %= 1.)))),
-					sge::renderer::emissive_color(
-						sge::image::color::any::object(
-							sge::image::color::rgba8
-							(
-								(sge::image::color::init::red() %= .0)
-								(sge::image::color::init::green() %= .0)
-								(sge::image::color::init::blue() %= .0)
-								(sge::image::color::init::alpha() %= 1.)))),
-					sge::renderer::shininess(
-						0.0f)));
-
-			context.enable_light(
-				sge::renderer::light::index(
-					0u),
-				true);
-
-			{
-				sge::renderer::scoped_transform scoped_transform(
-					context,
-					sge::renderer::matrix_mode::world,
-					sge::camera::matrix_conversion::world(
-						camera.coordinate_system()));
-
-				context.light(
-					sge::renderer::light::index(
-						0u),
-					sge::renderer::light::object(
-						sge::renderer::diffuse_color(
-							sge::image::colors::white()),
-						sge::renderer::specular_color(
-							sge::image::colors::black()),
-						sge::renderer::ambient_color(
-							sge::image::colors::black()),
-						sge::renderer::light::variant(
-							sge::renderer::light::directional(
-								sge::renderer::light::direction(
-									sge::renderer::vector3(
-										0.780869f,
-										0.624659f,
-										0.0f))))));
-			}
-
 			context.clear(
 				sge::renderer::clear::parameters()
 				.back_buffer(
@@ -401,48 +334,8 @@ try
 					1.f)
 			);
 
-			model_manager.render(
-				context,
-				fcppt::assign::make_container<sge::model::manager::instance::sequence>
-					(brick_wall));
-
-			// The treasure chest needs less ambient light
-			context.material(
-				sge::renderer::material(
-					sge::renderer::diffuse_color(
-						sge::image::color::any::object(
-							sge::image::color::rgba8
-							(
-								(sge::image::color::init::red() %= .8)
-								(sge::image::color::init::green() %= .8)
-								(sge::image::color::init::blue() %= .8)
-								(sge::image::color::init::alpha() %= 1.)))),
-					sge::renderer::ambient_color(
-						sge::image::color::any::object(
-							sge::image::color::rgba8
-							(
-								(sge::image::color::init::red() %= .0)
-								(sge::image::color::init::green() %= .0)
-								(sge::image::color::init::blue() %= .0)
-								(sge::image::color::init::alpha() %= 1.)))),
-					sge::renderer::specular_color(
-						sge::image::color::any::object(
-							sge::image::color::rgba8
-							(
-								(sge::image::color::init::red() %= .0)
-								(sge::image::color::init::green() %= .0)
-								(sge::image::color::init::blue() %= .0)
-								(sge::image::color::init::alpha() %= 1.)))),
-					sge::renderer::emissive_color(
-						sge::image::color::any::object(
-							sge::image::color::rgba8
-							(
-								(sge::image::color::init::red() %= .0)
-								(sge::image::color::init::green() %= .0)
-								(sge::image::color::init::blue() %= .0)
-								(sge::image::color::init::alpha() %= 1.)))),
-					sge::renderer::shininess(
-						0.0f)));
+			first_scene.render(
+				context);
 
 			sge::renderer::occlusion_query::optional_pixel_count const current_result(
 				current_occlusion_query
@@ -487,16 +380,12 @@ try
 				sge::renderer::occlusion_query::scoped scoped_query(
 					*current_occlusion_query);
 
-				model_manager.render(
-					context,
-					fcppt::assign::make_container<sge::model::manager::instance::sequence>
-						(treasure_chest));
+				second_scene.render(
+					context);
 			}
 
-			model_manager.render(
-				context,
-				fcppt::assign::make_container<sge::model::manager::instance::sequence>
-					(treasure_chest));
+			second_scene.render(
+				context);
 		}
 
 		sge::font::draw::simple(
