@@ -79,6 +79,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/move.hpp>
 #include <fcppt/ref.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/ptr_container/ptr_map.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
@@ -436,7 +437,8 @@ try
 		sys.font_system().create_font(
 			sge::font::parameters()
 			.family(
-				"monospace")
+				FCPPT_TEXT(
+					"monospace"))
 		)
 	);
 
