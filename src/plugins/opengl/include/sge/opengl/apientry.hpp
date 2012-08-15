@@ -24,6 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/common.hpp>
 
 
+#if !defined(GLEWAPIENTRY)
+#error "GLEWAPIENTRY is not defined. You need at least glew-1.8"
+#endif
+
 #define SGE_OPENGL_APIENTRY GLEWAPIENTRY
 
 #endif
