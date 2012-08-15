@@ -44,6 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/parameters/object.hpp>
 #include <sge/renderer/pixel_format/object.hpp>
 #include <sge/renderer/state/depth_func.hpp>
+#include <sge/renderer/state/cull_mode.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/target/onscreen.hpp>
@@ -84,7 +85,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/foreach_enumerator.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/algorithm/array_map.hpp>
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/assign/make_array.hpp>
 #include <fcppt/assign/make_container.hpp>
@@ -164,15 +164,6 @@ fcppt::container::array
 	2u * 3u * 6u
 >
 pos_array;
-
-sge::renderer::scalar
-coord_to_texcoord(
-	sge::renderer::scalar const _value)
-{
-	return
-		static_cast<sge::renderer::scalar>(
-			(_value + 1.f) / 2.f);
-}
 
 void
 fill_geometry(
@@ -386,9 +377,10 @@ fill_geometry(
 			*pos_it);
 
 		pos_vector const texpos(
-			fcppt::algorithm::array_map<pos_vector>(
-				*pos_it,
-				coord_to_texcoord));
+			sge::renderer::vector3(
+				pos_it->x(),
+				pos_it->y(),
+				-pos_it->z()));
 
 		(*vb_it).set<vf::normal>(
 			*normal_it);
@@ -466,7 +458,7 @@ try
 		sys.renderer().create_cube_texture(
 			sge::renderer::texture::cube_parameters(
 				128u,
-				sge::image::color::format::rgba8,
+				sge::image::color::format::srgba8,
 				sge::renderer::texture::mipmap::all_levels(
 					sge::renderer::texture::mipmap::auto_generate::yes),
 				sge::renderer::resource_flags_field::null(),
@@ -578,7 +570,8 @@ try
 		sge::renderer::state::scoped const scoped_state(
 			scoped_block.get(),
 			sge::renderer::state::list
-				(sge::renderer::state::depth_func::less));
+				(sge::renderer::state::depth_func::less)
+				(sge::renderer::state::cull_mode::clockwise));
 
 		scoped_block.get().clear(
 			sge::renderer::clear::parameters()
