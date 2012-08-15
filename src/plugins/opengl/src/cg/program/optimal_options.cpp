@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/error.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <Cg/cgGL.h>
+#include <Cg/cg.h>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -39,9 +40,14 @@ sge::opengl::cg::program::optimal_options(
 )
 {
 	sge::cg::program::compile_options::value_type const ret(
+#if CG_VERSION_NUM < 3100
+		::cgGLGetOptimalOptions(
+			_profile.get()
+#else
 		::cgGLGetContextOptimalOptions(
 			_context.get(),
 			_profile.get()
+#endif
 		)
 	);
 
