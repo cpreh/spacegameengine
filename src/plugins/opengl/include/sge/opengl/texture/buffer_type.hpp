@@ -18,41 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/check_state.hpp>
+#ifndef SGE_OPENGL_TEXTURE_BUFFER_TYPE_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_BUFFER_TYPE_HPP_INCLUDED
+
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/texture/binding_fwd.hpp>
-#include <sge/opengl/texture/buffer_type.hpp>
-#include <sge/opengl/texture/funcs/level_parameter.hpp>
-#include <sge/renderer/exception.hpp>
-#include <sge/renderer/texture/mipmap/level.hpp>
-#include <fcppt/text.hpp>
+#include <fcppt/strong_typedef.hpp>
 
 
-GLint
-sge::opengl::texture::funcs::level_parameter(
-	sge::opengl::texture::binding const &,
-	sge::opengl::texture::buffer_type const _type,
-	sge::renderer::texture::mipmap::level const _level,
-	GLenum const _what
-)
+namespace sge
 {
-	GLint ret;
+namespace opengl
+{
+namespace texture
+{
 
-	::glGetTexLevelParameteriv(
-		_type.get(),
-		static_cast<
-			GLint
-		>(
-			_level.get()
-		),
-		_what,
-		&ret
-	);
+FCPPT_MAKE_STRONG_TYPEDEF(
+	GLenum,
+	buffer_type
+);
 
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("glGetTexLevelParameteriv() failed!"),
-		sge::renderer::exception
-	);
-
-	return ret;
 }
+}
+}
+
+#endif

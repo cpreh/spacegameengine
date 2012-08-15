@@ -23,14 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/id.hpp>
 #include <sge/opengl/context/system/make_id.hpp>
 #include <sge/opengl/glew/is_supported.hpp>
-#include <sge/opengl/texture/bind_type.hpp>
-#include <sge/opengl/texture/optional_bind_type.hpp>
 #include <sge/opengl/texture/optional_type.hpp>
 #include <sge/opengl/texture/type.hpp>
 #include <sge/opengl/texture/volume_context.hpp>
-#include <sge/opengl/texture/convert/make_bind_type.hpp>
 #include <sge/opengl/texture/convert/make_type.hpp>
-#include <fcppt/optional_impl.hpp>
 
 
 sge::opengl::texture::volume_context::volume_context()
@@ -51,17 +47,6 @@ sge::opengl::texture::volume_context::volume_context()
 			)
 		:
 			sge::opengl::texture::optional_type()
-	),
-	volume_texture_bind_type_(
-		volume_texture_normal_
-		?
-			sge::opengl::texture::optional_bind_type(
-				sge::opengl::texture::convert::make_bind_type(
-					GL_TEXTURE_BINDING_3D
-				)
-			)
-		:
-			sge::opengl::texture::optional_bind_type()
 	),
 	tex_image_3d_(
 		glTexImage3D
@@ -89,12 +74,6 @@ sge::opengl::texture::type const
 sge::opengl::texture::volume_context::volume_texture_type() const
 {
 	return *volume_texture_type_;
-}
-
-sge::opengl::texture::bind_type const
-sge::opengl::texture::volume_context::volume_texture_bind_type() const
-{
-	return *volume_texture_bind_type_;
 }
 
 sge::opengl::texture::volume_context::gl_tex_image_3d

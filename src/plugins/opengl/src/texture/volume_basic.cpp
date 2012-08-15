@@ -18,29 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_CONVERT_MAKE_BIND_TYPE_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_CONVERT_MAKE_BIND_TYPE_HPP_INCLUDED
+#include <sge/image3d/view/const_object.hpp>
+#include <sge/image3d/view/object.hpp>
+#include <sge/renderer/color_buffer/surface.hpp>
+#include <sge/renderer/texture/volume.hpp>
+#include <sge/renderer/texture/volume_parameters.hpp>
+#include <sge/opengl/texture/basic_box_impl.hpp>
+#include <sge/opengl/texture/basic_impl.hpp>
+#include <sge/opengl/texture/volume_basic.hpp>
+#include <sge/opengl/texture/volume_types.hpp>
 
-#include <sge/opengl/texture/bind_type.hpp>
 
+template class
+sge::opengl::texture::basic<
+	sge::opengl::texture::volume_types
+>;
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
-{
-namespace convert
-{
-
-sge::opengl::texture::bind_type const
-make_bind_type(
-	int type
-);
-
-}
-}
-}
-}
-
-#endif
+template class
+sge::opengl::texture::basic_box<
+	sge::opengl::texture::volume_types
+>;

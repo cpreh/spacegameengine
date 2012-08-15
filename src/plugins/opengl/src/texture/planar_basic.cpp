@@ -18,27 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_BIND_TYPE_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_BIND_TYPE_HPP_INCLUDED
+#include <sge/image2d/view/const_object.hpp>
+#include <sge/image2d/view/object.hpp>
+#include <sge/renderer/color_buffer/surface.hpp>
+#include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/texture/planar_parameters.hpp>
+#include <sge/opengl/texture/basic_box_impl.hpp>
+#include <sge/opengl/texture/basic_impl.hpp>
+#include <sge/opengl/texture/planar_basic.hpp>
+#include <sge/opengl/texture/planar_types.hpp>
 
-#include <sge/opengl/common.hpp>
-#include <fcppt/make_strong_typedef.hpp>
 
+template class
+sge::opengl::texture::basic<
+	sge::opengl::texture::planar_types
+>;
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
-{
-
-FCPPT_MAKE_STRONG_TYPEDEF(
-	GLenum,
-	bind_type
-);
-
-}
-}
-}
-
-#endif
+template class
+sge::opengl::texture::basic_box<
+	sge::opengl::texture::planar_types
+>;

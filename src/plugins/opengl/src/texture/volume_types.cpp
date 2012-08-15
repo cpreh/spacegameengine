@@ -21,7 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/volume_types.hpp>
 #include <sge/opengl/texture/funcs/set_3d.hpp>
 #include <sge/opengl/texture/funcs/set_box.hpp>
+#include <sge/renderer/size_type.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
+
 
 sge::renderer::size_type
 sge::opengl::texture::volume_types::min_size()
@@ -38,11 +41,11 @@ sge::opengl::texture::volume_types::name()
 sge::opengl::texture::volume_types::init_function_type
 sge::opengl::texture::volume_types::init_function()
 {
-	return &texture::funcs::set_3d;
+	return &sge::opengl::texture::funcs::set_3d;
 }
 
 sge::opengl::texture::volume_types::sub_function_type
 sge::opengl::texture::volume_types::sub_function()
 {
-	return &texture::funcs::set_box;
+	return &sge::opengl::texture::funcs::set_box;
 }

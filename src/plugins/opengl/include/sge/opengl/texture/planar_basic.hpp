@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_PLANAR_BASIC_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_PLANAR_BASIC_HPP_INCLUDED
 
-#include <sge/opengl/texture/basic_fwd.hpp>
-#include <sge/opengl/texture/planar_types.hpp>
+#include <sge/opengl/texture/basic_box_fwd.hpp>
+#include <sge/opengl/texture/planar_types_fwd.hpp>
+
 
 namespace sge
 {
@@ -31,8 +32,8 @@ namespace opengl
 namespace texture
 {
 
-typedef texture::basic<
-	texture::planar_types
+typedef sge::opengl::texture::basic_box<
+	sge::opengl::texture::planar_types
 > planar_basic;
 
 }

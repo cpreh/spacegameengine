@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_TEXTURE_GET_LEVEL_SIZE_HPP_INCLUDED
 
 #include <sge/opengl/texture/binding_fwd.hpp>
-#include <sge/opengl/texture/type.hpp>
+#include <sge/opengl/texture/buffer_type.hpp>
 #include <sge/renderer/basic_dim_fwd.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <fcppt/math/size_type.hpp>
@@ -43,7 +43,7 @@ typename sge::renderer::basic_dim<
 >::type const
 get_level_size(
 	sge::opengl::texture::binding const &,
-	sge::opengl::texture::type,
+	sge::opengl::texture::buffer_type,
 	sge::renderer::texture::mipmap::level
 );
 

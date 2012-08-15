@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/basic_buffer_parameters.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
+#include <sge/opengl/texture/buffer_type.hpp>
 #include <sge/opengl/texture/id.hpp>
 #include <sge/opengl/texture/is_render_target.hpp>
 #include <sge/opengl/texture/type.hpp>
@@ -39,6 +40,7 @@ sge::opengl::texture::basic_buffer_parameters::basic_buffer_parameters(
 	sge::opengl::context::device::object &_device_context,
 	sge::renderer::texture::mipmap::level const _level,
 	sge::opengl::texture::type const _type,
+	sge::opengl::texture::buffer_type const _buffer_type,
 	sge::opengl::texture::id const _id,
 	sge::renderer::resource_flags_field const &_resource_flags,
 	sge::image::color::format::type const _format,
@@ -62,6 +64,9 @@ sge::opengl::texture::basic_buffer_parameters::basic_buffer_parameters(
 	),
 	type_(
 		_type
+	),
+	buffer_type_(
+		_buffer_type
 	),
 	id_(
 		_id
@@ -115,6 +120,12 @@ sge::opengl::texture::type const
 sge::opengl::texture::basic_buffer_parameters::type() const
 {
 	return type_;
+}
+
+sge::opengl::texture::buffer_type const
+sge::opengl::texture::basic_buffer_parameters::buffer_type() const
+{
+	return buffer_type_;
 }
 
 sge::opengl::texture::id const

@@ -24,8 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/context/system/base.hpp>
 #include <sge/opengl/context/system/id.hpp>
-#include <sge/opengl/texture/bind_type.hpp>
-#include <sge/opengl/texture/optional_bind_type.hpp>
 #include <sge/opengl/texture/optional_type.hpp>
 #include <sge/opengl/texture/type.hpp>
 #include <sge/opengl/texture/volume_context_fwd.hpp>
@@ -62,9 +60,6 @@ public:
 	sge::opengl::texture::type const
 	volume_texture_type() const;
 
-	sge::opengl::texture::bind_type const
-	volume_texture_bind_type() const;
-
 	gl_tex_image_3d
 	tex_image_3d() const;
 
@@ -81,8 +76,6 @@ private:
 	bool const volume_texture_normal_;
 
 	sge::opengl::texture::optional_type const volume_texture_type_;
-
-	sge::opengl::texture::optional_bind_type const volume_texture_bind_type_;
 
 	gl_tex_image_3d const tex_image_3d_;
 

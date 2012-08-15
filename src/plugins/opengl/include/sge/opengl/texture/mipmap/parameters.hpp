@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
+#include <sge/opengl/texture/buffer_type.hpp>
 #include <sge/opengl/texture/init_function.hpp>
 #include <sge/opengl/texture/type.hpp>
 #include <sge/opengl/texture/mipmap/parameters_fwd.hpp>
@@ -61,6 +62,7 @@ public:
 		sge::opengl::texture::binding const &,
 		sge::opengl::context::system::object &,
 		sge::opengl::texture::type,
+		sge::opengl::texture::buffer_type,
 		sge::opengl::color_format,
 		sge::opengl::color_format_type,
 		sge::opengl::internal_color_format,
@@ -76,6 +78,9 @@ public:
 
 	sge::opengl::texture::type const
 	type() const;
+
+	sge::opengl::texture::buffer_type const
+	buffer_type() const;
 
 	sge::opengl::color_format const
 	format() const;
@@ -97,6 +102,8 @@ private:
 	sge::opengl::context::system::object &system_context_;
 
 	sge::opengl::texture::type const type_;
+
+	sge::opengl::texture::buffer_type const buffer_type_;
 
 	sge::opengl::color_format format_;
 

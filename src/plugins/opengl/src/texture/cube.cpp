@@ -21,27 +21,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/texture/basic_parameters.hpp>
 #include <sge/opengl/texture/cube.hpp>
+#include <sge/opengl/texture/cube_basic.hpp>
 #include <sge/opengl/texture/cube_context.hpp>
-#include <sge/opengl/texture/optional_type.hpp>
-#include <sge/opengl/texture/planar.hpp>
+#include <sge/opengl/texture/cube_types.hpp>
+#include <sge/opengl/texture/init.hpp>
+#include <sge/opengl/texture/scoped_work_binding.hpp>
 #include <sge/opengl/texture/convert/cube_side.hpp>
-#include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/color_buffer/surface.hpp>
 #include <sge/renderer/texture/base.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
+#include <sge/renderer/texture/cube.hpp>
 #include <sge/renderer/texture/cube_parameters.hpp>
 #include <sge/renderer/texture/cube_side.hpp>
-#include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <sge/renderer/texture/mipmap/level_count.hpp>
-#include <sge/renderer/texture/mipmap/object.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/foreach_enumerator.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/null_ptr.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
 
 
 sge::opengl::texture::cube::cube(
@@ -49,20 +46,18 @@ sge::opengl::texture::cube::cube(
 	sge::renderer::texture::cube_parameters const &_parameters
 )
 :
-	sge::opengl::texture::base(
+	sge::opengl::texture::cube_basic(
 		sge::opengl::context::use<
 			sge::opengl::texture::cube_context
 		>(
 			_basic_parameters.system_context()
-		).cube_texture_type()
+		).cube_texture_type(),
+		_parameters
 	),
 	size_(
 		_parameters.size()
 	),
-	locked_texture_(
-		fcppt::null_ptr()
-	),
-	textures_()
+	sides_()
 {
 	sge::opengl::texture::cube_context &context(
 		sge::opengl::context::use<
@@ -72,39 +67,40 @@ sge::opengl::texture::cube::cube(
 		)
 	);
 
-	sge::renderer::texture::planar_parameters const planar_param(
-		sge::opengl::texture::planar::dim(
-			size_,
-			size_
-		),
-		_parameters.format(),
-		_parameters.mipmap(),
-		_parameters.resource_flags(),
-		_parameters.capabilities()
-
+	sge::opengl::texture::scoped_work_binding const binding(
+		_basic_parameters.system_context(),
+		_basic_parameters.device_context(),
+		this->type(),
+		this->id()
 	);
 
 	FCPPT_FOREACH_ENUMERATOR(
 		index,
 		sge::renderer::texture::cube_side
 	)
+	{
 		fcppt::container::ptr::push_back_unique_ptr(
-			textures_,
+			sides_,
 			fcppt::make_unique_ptr<
-				sge::opengl::texture::planar
-			>(
-				fcppt::cref(
-					_basic_parameters
-				),
-				planar_param,
-				sge::opengl::texture::optional_type(
-					sge::opengl::texture::convert::cube_side(
-						context.cube_sides(),
-						index
-					)
-				)
-			)
+				buffer_vector
+			>()
 		);
+
+		sge::opengl::texture::init<
+			sge::opengl::texture::cube_types
+		>(
+			binding,
+			sides_.back(),
+			_basic_parameters,
+			_parameters,
+			context.cube_texture_type(),
+			sge::opengl::texture::convert::cube_side(
+				context.cube_sides(),
+				index
+			),
+			this->id()
+		);
+	}
 }
 
 sge::opengl::texture::cube::~cube()
@@ -124,12 +120,11 @@ sge::opengl::texture::cube::level(
 )
 {
 	return
-		textures_[
+		sides_[
 			_side
-		].level(
-			_level
-		);
-
+		][
+			_level.get()
+		];
 }
 
 sge::renderer::texture::cube::color_buffer const &
@@ -139,44 +134,22 @@ sge::opengl::texture::cube::level(
 ) const
 {
 	return
-		textures_[
+		sides_[
 			_side
-		].level(
-			_level
-		);
+		][
+			_level.get()
+		];
 }
 
 sge::renderer::texture::mipmap::level_count const
 sge::opengl::texture::cube::levels() const
 {
 	return
-		this->ref_texture().levels();
-}
-
-sge::renderer::resource_flags_field const
-sge::opengl::texture::cube::resource_flags() const
-{
-	return
-		this->ref_texture().resource_flags();
-}
-
-sge::renderer::texture::capabilities_field const
-sge::opengl::texture::cube::capabilities() const
-{
-	return
-		this->ref_texture().capabilities();
-}
-
-sge::renderer::texture::mipmap::object const
-sge::opengl::texture::cube::mipmap() const
-{
-	return
-		this->ref_texture().mipmap();
-}
-
-sge::renderer::texture::planar const &
-sge::opengl::texture::cube::ref_texture() const
-{
-	return
-		textures_[0];
+		fcppt::strong_typedef_construct_cast<
+			sge::renderer::texture::mipmap::level_count
+		>(
+			sides_[
+				sge::renderer::texture::cube_side::front
+			].size()
+		);
 }

@@ -261,6 +261,9 @@ set(
 	src/plugins/opengl/include/sge/opengl/texture/base.hpp
 	src/plugins/opengl/include/sge/opengl/texture/base_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/basic.hpp
+	src/plugins/opengl/include/sge/opengl/texture/basic_box.hpp
+	src/plugins/opengl/include/sge/opengl/texture/basic_box_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/texture/basic_box_impl.hpp
 	src/plugins/opengl/include/sge/opengl/texture/basic_buffer.hpp
 	src/plugins/opengl/include/sge/opengl/texture/basic_buffer_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/basic_buffer_impl.hpp
@@ -274,11 +277,11 @@ set(
 	src/plugins/opengl/include/sge/opengl/texture/bind_context.hpp
 	src/plugins/opengl/include/sge/opengl/texture/bind_context_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/bind_level.hpp
-	src/plugins/opengl/include/sge/opengl/texture/bind_type.hpp
 	src/plugins/opengl/include/sge/opengl/texture/binding.hpp
 	src/plugins/opengl/include/sge/opengl/texture/binding_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/buffer_base.hpp
 	src/plugins/opengl/include/sge/opengl/texture/buffer_base_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/texture/buffer_type.hpp
 	src/plugins/opengl/include/sge/opengl/texture/check_dim.hpp
 	src/plugins/opengl/include/sge/opengl/texture/color_surface.hpp
 	src/plugins/opengl/include/sge/opengl/texture/color_surface_fwd.hpp
@@ -293,7 +296,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/texture/convert/cube_side.hpp
 	src/plugins/opengl/include/sge/opengl/texture/convert/level.hpp
 	src/plugins/opengl/include/sge/opengl/texture/convert/mag_filter.hpp
-	src/plugins/opengl/include/sge/opengl/texture/convert/make_bind_type.hpp
+	src/plugins/opengl/include/sge/opengl/texture/convert/make_buffer_type.hpp
 	src/plugins/opengl/include/sge/opengl/texture/convert/make_type.hpp
 	src/plugins/opengl/include/sge/opengl/texture/convert/min_filter.hpp
 	src/plugins/opengl/include/sge/opengl/texture/convert/stage_arg.hpp
@@ -306,14 +309,18 @@ set(
 	src/plugins/opengl/include/sge/opengl/texture/create_planar.hpp
 	src/plugins/opengl/include/sge/opengl/texture/create_volume.hpp
 	src/plugins/opengl/include/sge/opengl/texture/cube.hpp
+	src/plugins/opengl/include/sge/opengl/texture/cube_basic.hpp
 	src/plugins/opengl/include/sge/opengl/texture/cube_context.hpp
 	src/plugins/opengl/include/sge/opengl/texture/cube_context_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/cube_side_array.hpp
+	src/plugins/opengl/include/sge/opengl/texture/cube_types.hpp
+	src/plugins/opengl/include/sge/opengl/texture/cube_types_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/depth_stencil.hpp
 	src/plugins/opengl/include/sge/opengl/texture/depth_stencil_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/depth_stencil_surface.hpp
 	src/plugins/opengl/include/sge/opengl/texture/disable.hpp
 	src/plugins/opengl/include/sge/opengl/texture/enable.hpp
+	src/plugins/opengl/include/sge/opengl/texture/extend_size.hpp
 	src/plugins/opengl/include/sge/opengl/texture/filter/anisotropic.hpp
 	src/plugins/opengl/include/sge/opengl/texture/filter/context.hpp
 	src/plugins/opengl/include/sge/opengl/texture/filter/context_fwd.hpp
@@ -329,7 +336,6 @@ set(
 	src/plugins/opengl/include/sge/opengl/texture/funcs/env_target.hpp
 	src/plugins/opengl/include/sge/opengl/texture/funcs/gen.hpp
 	src/plugins/opengl/include/sge/opengl/texture/funcs/get_image.hpp
-	src/plugins/opengl/include/sge/opengl/texture/funcs/get_parameter_int.hpp
 	src/plugins/opengl/include/sge/opengl/texture/funcs/level_parameter.hpp
 	src/plugins/opengl/include/sge/opengl/texture/funcs/parameter_int.hpp
 	src/plugins/opengl/include/sge/opengl/texture/funcs/set_2d.hpp
@@ -343,6 +349,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/texture/get_stage_type.hpp
 	src/plugins/opengl/include/sge/opengl/texture/holder.hpp
 	src/plugins/opengl/include/sge/opengl/texture/id.hpp
+	src/plugins/opengl/include/sge/opengl/texture/init.hpp
 	src/plugins/opengl/include/sge/opengl/texture/init_function.hpp
 	src/plugins/opengl/include/sge/opengl/texture/instantiate_dim.hpp
 	src/plugins/opengl/include/sge/opengl/texture/is_render_target.hpp
@@ -639,7 +646,7 @@ set(
 	src/plugins/opengl/src/texture/convert/cube_side.cpp
 	src/plugins/opengl/src/texture/convert/level.cpp
 	src/plugins/opengl/src/texture/convert/mag_filter.cpp
-	src/plugins/opengl/src/texture/convert/make_bind_type.cpp
+	src/plugins/opengl/src/texture/convert/make_buffer_type.cpp
 	src/plugins/opengl/src/texture/convert/make_type.cpp
 	src/plugins/opengl/src/texture/convert/min_filter.cpp
 	src/plugins/opengl/src/texture/convert/stage_arg.cpp
@@ -652,11 +659,14 @@ set(
 	src/plugins/opengl/src/texture/create_planar.cpp
 	src/plugins/opengl/src/texture/create_volume.cpp
 	src/plugins/opengl/src/texture/cube.cpp
+	src/plugins/opengl/src/texture/cube_basic.cpp
 	src/plugins/opengl/src/texture/cube_context.cpp
+	src/plugins/opengl/src/texture/cube_types.cpp
 	src/plugins/opengl/src/texture/depth_stencil.cpp
 	src/plugins/opengl/src/texture/depth_stencil_surface.cpp
 	src/plugins/opengl/src/texture/disable.cpp
 	src/plugins/opengl/src/texture/enable.cpp
+	src/plugins/opengl/src/texture/extend_size.cpp
 	src/plugins/opengl/src/texture/filter/anisotropic.cpp
 	src/plugins/opengl/src/texture/filter/context.cpp
 	src/plugins/opengl/src/texture/filter/normal.cpp
@@ -668,7 +678,6 @@ set(
 	src/plugins/opengl/src/texture/funcs/env_int.cpp
 	src/plugins/opengl/src/texture/funcs/gen.cpp
 	src/plugins/opengl/src/texture/funcs/get_image.cpp
-	src/plugins/opengl/src/texture/funcs/get_parameter_int.cpp
 	src/plugins/opengl/src/texture/funcs/level_parameter.cpp
 	src/plugins/opengl/src/texture/funcs/parameter_int.cpp
 	src/plugins/opengl/src/texture/funcs/set_2d.cpp
@@ -693,6 +702,7 @@ set(
 	src/plugins/opengl/src/texture/multi_context.cpp
 	src/plugins/opengl/src/texture/no_id.cpp
 	src/plugins/opengl/src/texture/planar.cpp
+	src/plugins/opengl/src/texture/planar_basic.cpp
 	src/plugins/opengl/src/texture/planar_types.cpp
 	src/plugins/opengl/src/texture/readonly_lock.cpp
 	src/plugins/opengl/src/texture/readwrite_lock.cpp
@@ -701,6 +711,7 @@ set(
 	src/plugins/opengl/src/texture/set_samplers.cpp
 	src/plugins/opengl/src/texture/set_stage_funcs.cpp
 	src/plugins/opengl/src/texture/volume.cpp
+	src/plugins/opengl/src/texture/volume_basic.cpp
 	src/plugins/opengl/src/texture/volume_context.cpp
 	src/plugins/opengl/src/texture/volume_types.cpp
 	src/plugins/opengl/src/texture/writeonly_lock.cpp

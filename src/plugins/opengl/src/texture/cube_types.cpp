@@ -18,41 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/check_state.hpp>
-#include <sge/opengl/common.hpp>
-#include <sge/opengl/texture/binding_fwd.hpp>
-#include <sge/opengl/texture/buffer_type.hpp>
-#include <sge/opengl/texture/funcs/level_parameter.hpp>
-#include <sge/renderer/exception.hpp>
-#include <sge/renderer/texture/mipmap/level.hpp>
+#include <sge/opengl/texture/cube_types.hpp>
+#include <sge/opengl/texture/funcs/set_2d.hpp>
+#include <sge/opengl/texture/funcs/set_rect.hpp>
+#include <sge/renderer/size_type.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 
 
-GLint
-sge::opengl::texture::funcs::level_parameter(
-	sge::opengl::texture::binding const &,
-	sge::opengl::texture::buffer_type const _type,
-	sge::renderer::texture::mipmap::level const _level,
-	GLenum const _what
-)
+// TODO: unify this with planar_types as much as possible!
+
+sge::renderer::size_type
+sge::opengl::texture::cube_types::min_size()
 {
-	GLint ret;
+	return 64u;
+}
 
-	::glGetTexLevelParameteriv(
-		_type.get(),
-		static_cast<
-			GLint
-		>(
-			_level.get()
-		),
-		_what,
-		&ret
-	);
+fcppt::string
+sge::opengl::texture::cube_types::name()
+{
+	return FCPPT_TEXT("cube texture");
+}
 
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("glGetTexLevelParameteriv() failed!"),
-		sge::renderer::exception
-	);
+sge::opengl::texture::cube_types::init_function_type
+sge::opengl::texture::cube_types::init_function()
+{
+	return &sge::opengl::texture::funcs::set_2d;
+}
 
-	return ret;
+sge::opengl::texture::cube_types::sub_function_type
+sge::opengl::texture::cube_types::sub_function()
+{
+	return &sge::opengl::texture::funcs::set_rect;
 }

@@ -18,41 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/check_state.hpp>
-#include <sge/opengl/common.hpp>
-#include <sge/opengl/texture/binding_fwd.hpp>
-#include <sge/opengl/texture/buffer_type.hpp>
-#include <sge/opengl/texture/funcs/level_parameter.hpp>
-#include <sge/renderer/exception.hpp>
-#include <sge/renderer/texture/mipmap/level.hpp>
-#include <fcppt/text.hpp>
+#include <sge/image2d/view/const_object.hpp>
+#include <sge/image2d/view/object.hpp>
+#include <sge/renderer/color_buffer/surface.hpp>
+#include <sge/renderer/texture/cube.hpp>
+#include <sge/renderer/texture/cube_parameters.hpp>
+#include <sge/opengl/texture/basic_impl.hpp>
+#include <sge/opengl/texture/cube_basic.hpp>
+#include <sge/opengl/texture/cube_types.hpp>
 
 
-GLint
-sge::opengl::texture::funcs::level_parameter(
-	sge::opengl::texture::binding const &,
-	sge::opengl::texture::buffer_type const _type,
-	sge::renderer::texture::mipmap::level const _level,
-	GLenum const _what
-)
-{
-	GLint ret;
-
-	::glGetTexLevelParameteriv(
-		_type.get(),
-		static_cast<
-			GLint
-		>(
-			_level.get()
-		),
-		_what,
-		&ret
-	);
-
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("glGetTexLevelParameteriv() failed!"),
-		sge::renderer::exception
-	);
-
-	return ret;
-}
+template class
+sge::opengl::texture::basic<
+	sge::opengl::texture::cube_types
+>;

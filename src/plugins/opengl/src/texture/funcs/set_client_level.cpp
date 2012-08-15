@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 void
 sge::opengl::texture::funcs::set_client_level(
 	sge::opengl::context::system::object &_system_context,
-	renderer::texture::stage const _stage
+	sge::renderer::texture::stage const _stage
 )
 {
 	sge::opengl::texture::multi_context &multi_context(
@@ -58,7 +58,7 @@ sge::opengl::texture::funcs::set_client_level(
 			return;
 
 		FCPPT_LOG_ERROR(
-			log::global(),
+			sge::log::global(),
 			fcppt::log::_
 				<< FCPPT_TEXT("Tried to set texture coordinates for stage ")
 				<< _stage

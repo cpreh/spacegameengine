@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/fbo/attachment_type.hpp>
 #include <sge/opengl/fbo/context.hpp>
 #include <sge/opengl/texture/id.hpp>
-#include <sge/opengl/texture/type.hpp>
+#include <sge/opengl/texture/buffer_type.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <fcppt/text.hpp>
@@ -33,7 +33,7 @@ void
 sge::opengl::fbo::attach_texture_2d(
 	sge::opengl::fbo::context const &_context,
 	sge::opengl::fbo::attachment_type const _attachment,
-	sge::opengl::texture::type const _texture_type,
+	sge::opengl::texture::buffer_type const _texture_type,
 	sge::opengl::texture::id const _texture_id,
 	sge::renderer::texture::mipmap::level const _level
 )

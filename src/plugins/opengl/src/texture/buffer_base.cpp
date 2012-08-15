@@ -19,19 +19,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/texture/buffer_base.hpp>
+#include <sge/opengl/texture/buffer_type.hpp>
 #include <sge/opengl/texture/id.hpp>
-#include <sge/opengl/texture/type.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
 
 
 sge::opengl::texture::buffer_base::buffer_base(
-	sge::opengl::texture::type const _type,
+	sge::opengl::texture::buffer_type const _buffer_type,
 	sge::opengl::texture::id const _id,
 	sge::renderer::texture::mipmap::level const _level
 )
 :
-	type_(
-		_type
+	buffer_type_(
+		_buffer_type
 	),
 	id_(
 		_id
@@ -46,10 +46,10 @@ sge::opengl::texture::buffer_base::~buffer_base()
 {
 }
 
-sge::opengl::texture::type const
-sge::opengl::texture::buffer_base::type() const
+sge::opengl::texture::buffer_type const
+sge::opengl::texture::buffer_base::buffer_type() const
 {
-	return type_;
+	return buffer_type_;
 }
 
 sge::opengl::texture::id const

@@ -18,23 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image3d/view/const_object.hpp>
-#include <sge/image3d/view/object.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/opengl/texture/basic_impl.hpp>
 #include <sge/opengl/texture/basic_parameters.hpp>
 #include <sge/opengl/texture/volume.hpp>
 #include <sge/opengl/texture/volume_context.hpp>
 #include <sge/opengl/texture/volume_types.hpp>
 #include <sge/renderer/texture/volume.hpp>
-#include <sge/renderer/texture/volume_parameters.hpp>
+#include <sge/renderer/texture/volume_parameters_fwd.hpp>
 
-
-template class
-sge::opengl::texture::basic<
-	sge::opengl::texture::volume_types
->;
 
 sge::opengl::texture::volume::volume(
 	sge::opengl::texture::basic_parameters const &_basic_parameters,

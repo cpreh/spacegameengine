@@ -18,34 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/check_state.hpp>
-#include <sge/opengl/common.hpp>
-#include <sge/opengl/texture/binding_fwd.hpp>
-#include <sge/opengl/texture/type.hpp>
-#include <sge/opengl/texture/funcs/get_parameter_int.hpp>
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_OPENGL_TEXTURE_CUBE_TYPES_FWD_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_CUBE_TYPES_FWD_HPP_INCLUDED
 
 
-GLint
-sge::opengl::texture::funcs::get_parameter_int(
-	texture::binding const &,
-	texture::type const _type,
-	GLenum const _name
-)
+namespace sge
 {
-	GLint ret;
+namespace opengl
+{
+namespace texture
+{
 
-	::glGetTexParameteriv(
-		_type.get(),
-		_name,
-		&ret
-	);
+struct cube_types;
 
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("glTexParameteri failed"),
-		sge::renderer::exception
-	)
-
-	return ret;
 }
+}
+}
+
+#endif

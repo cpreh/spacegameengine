@@ -18,41 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image2d/view/const_object.hpp>
-#include <sge/image2d/view/object.hpp>
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/texture/basic_impl.hpp>
 #include <sge/opengl/texture/basic_parameters_fwd.hpp>
-#include <sge/opengl/texture/optional_type.hpp>
 #include <sge/opengl/texture/planar.hpp>
+#include <sge/opengl/texture/planar_basic.hpp>
 #include <sge/opengl/texture/planar_types.hpp>
 #include <sge/opengl/texture/convert/make_type.hpp>
 #include <sge/renderer/texture/planar.hpp>
-#include <sge/renderer/texture/planar_parameters.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <sge/renderer/texture/planar_parameters_fwd.hpp>
 
-
-template class
-sge::opengl::texture::basic<
-	sge::opengl::texture::planar_types
->;
 
 sge::opengl::texture::planar::planar(
 	sge::opengl::texture::basic_parameters const &_basic_parameters,
-	sge::renderer::texture::planar_parameters const &_parameters,
-	sge::opengl::texture::optional_type const &_type
+	sge::renderer::texture::planar_parameters const &_parameters
 )
 :
 	sge::opengl::texture::planar_basic(
 		_basic_parameters,
-		_type
-		?
-			*_type
-		:
-			sge::opengl::texture::convert::make_type(
-				GL_TEXTURE_2D
-			)
-		,
+		sge::opengl::texture::convert::make_type(
+			GL_TEXTURE_2D
+		),
 		_parameters
 	)
 {

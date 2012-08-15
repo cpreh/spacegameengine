@@ -44,7 +44,7 @@ sge::opengl::fbo::texture_binding::texture_binding(
 	sge::opengl::fbo::attach_texture_2d(
 		_context,
 		_attachment,
-		_buffer.type(),
+		_buffer.buffer_type(),
 		_buffer.id(),
 		_buffer.level()
 	);
@@ -55,7 +55,7 @@ sge::opengl::fbo::texture_binding::~texture_binding()
 	sge::opengl::fbo::attach_texture_2d(
 		context_,
 		attachment_,
-		buffer_.type(),
+		buffer_.buffer_type(),
 		sge::opengl::texture::id(
 			0u
 		),

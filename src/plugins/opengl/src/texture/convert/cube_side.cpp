@@ -18,21 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/texture/buffer_type.hpp>
 #include <sge/opengl/texture/cube_side_array.hpp>
 #include <sge/opengl/texture/convert/cube_side.hpp>
 #include <sge/renderer/texture/cube_side.hpp>
 #include <fcppt/assert/pre.hpp>
 
 
-sge::opengl::texture::type const
+sge::opengl::texture::buffer_type const
 sge::opengl::texture::convert::cube_side(
-	texture::cube_side_array const &_cube_sides,
-	renderer::texture::cube_side::type const _side
+	sge::opengl::texture::cube_side_array const &_cube_sides,
+	sge::renderer::texture::cube_side::type const _side
 )
 {
-	cube_side_array::size_type const pos(
+	sge::opengl::texture::cube_side_array::size_type const pos(
 		static_cast<
-			cube_side_array::size_type
+			sge::opengl::texture::cube_side_array::size_type
 		>(
 			_side
 		)

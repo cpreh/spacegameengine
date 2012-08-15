@@ -18,17 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_PLANAR_TYPES_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_PLANAR_TYPES_HPP_INCLUDED
+#ifndef SGE_OPENGL_TEXTURE_CUBE_TYPES_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_CUBE_TYPES_HPP_INCLUDED
 
 #include <sge/opengl/texture/init_function.hpp>
-#include <sge/opengl/texture/planar_types_fwd.hpp>
+#include <sge/opengl/texture/cube_types_fwd.hpp>
 #include <sge/opengl/texture/sub_function.hpp>
-#include <sge/renderer/basic_dim.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/color_buffer/surface_fwd.hpp>
-#include <sge/renderer/texture/planar_fwd.hpp>
-#include <sge/renderer/texture/planar_parameters_fwd.hpp>
+#include <sge/renderer/texture/cube_fwd.hpp>
+#include <sge/renderer/texture/cube_parameters_fwd.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/math/size_type.hpp>
 
@@ -40,13 +39,13 @@ namespace opengl
 namespace texture
 {
 
-struct planar_types
+struct cube_types
 {
-	typedef sge::renderer::texture::planar base;
+	typedef sge::renderer::texture::cube base;
 
 	typedef sge::renderer::color_buffer::surface buffer_base;
 
-	typedef sge::renderer::texture::planar_parameters parameters;
+	typedef sge::renderer::texture::cube_parameters parameters;
 
 	static
 	sge::renderer::size_type

@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_TEXTURE_BUFFER_BASE_HPP_INCLUDED
 
 #include <sge/opengl/texture/buffer_base_fwd.hpp>
+#include <sge/opengl/texture/buffer_type.hpp>
 #include <sge/opengl/texture/id.hpp>
-#include <sge/opengl/texture/type.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -42,7 +42,7 @@ class buffer_base
 	);
 protected:
 	buffer_base(
-		sge::opengl::texture::type,
+		sge::opengl::texture::buffer_type,
 		sge::opengl::texture::id,
 		sge::renderer::texture::mipmap::level
 	);
@@ -50,8 +50,8 @@ public:
 	virtual
 	~buffer_base();
 
-	sge::opengl::texture::type const
-	type() const;
+	sge::opengl::texture::buffer_type const
+	buffer_type() const;
 
 	sge::opengl::texture::id const
 	id() const;
@@ -59,7 +59,7 @@ public:
 	sge::renderer::texture::mipmap::level const
 	level() const;
 private:
-	sge::opengl::texture::type const type_;
+	sge::opengl::texture::buffer_type const buffer_type_;
 
 	sge::opengl::texture::id const id_;
 

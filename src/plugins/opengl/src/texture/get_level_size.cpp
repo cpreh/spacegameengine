@@ -20,9 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
+#include <sge/opengl/texture/buffer_type.hpp>
 #include <sge/opengl/texture/get_level_size.hpp>
 #include <sge/opengl/texture/instantiate_dim.hpp>
-#include <sge/opengl/texture/type.hpp>
 #include <sge/opengl/texture/funcs/level_parameter.hpp>
 #include <sge/renderer/basic_dim.hpp>
 #include <sge/renderer/dim2.hpp>
@@ -50,7 +50,7 @@ struct get_level_size_impl<
 	sge::renderer::dim2 const
 	execute(
 		sge::opengl::texture::binding const &_binding,
-		sge::opengl::texture::type const _type,
+		sge::opengl::texture::buffer_type const _buffer_type,
 		sge::renderer::texture::mipmap::level const _level
 	)
 	{
@@ -61,7 +61,7 @@ struct get_level_size_impl<
 				>(
 					sge::opengl::texture::funcs::level_parameter(
 						_binding,
-						_type,
+						_buffer_type,
 						_level,
 						GL_TEXTURE_WIDTH
 					)
@@ -71,7 +71,7 @@ struct get_level_size_impl<
 				>(
 					sge::opengl::texture::funcs::level_parameter(
 						_binding,
-						_type,
+						_buffer_type,
 						_level,
 						GL_TEXTURE_HEIGHT
 					)
@@ -89,7 +89,7 @@ struct get_level_size_impl<
 	sge::renderer::dim3 const
 	execute(
 		sge::opengl::texture::binding const &_binding,
-		sge::opengl::texture::type const _type,
+		sge::opengl::texture::buffer_type const _buffer_type,
 		sge::renderer::texture::mipmap::level const _level
 	)
 	{
@@ -99,7 +99,7 @@ struct get_level_size_impl<
 					2u
 				>::execute(
 					_binding,
-					_type,
+					_buffer_type,
 					_level
 				),
 				static_cast<
@@ -107,7 +107,7 @@ struct get_level_size_impl<
 				>(
 					sge::opengl::texture::funcs::level_parameter(
 						_binding,
-						_type,
+						_buffer_type,
 						_level,
 						GL_TEXTURE_DEPTH
 					)
@@ -126,7 +126,7 @@ typename sge::renderer::basic_dim<
 >::type const
 sge::opengl::texture::get_level_size(
 	sge::opengl::texture::binding const &_binding,
-	sge::opengl::texture::type const _type,
+	sge::opengl::texture::buffer_type const _buffer_type,
 	sge::renderer::texture::mipmap::level const _level
 )
 {
@@ -135,7 +135,7 @@ sge::opengl::texture::get_level_size(
 			Size
 		>::execute(
 			_binding,
-			_type,
+			_buffer_type,
 			_level
 		);
 }
@@ -151,7 +151,7 @@ sge::opengl::texture::get_level_size<\
 	dimension\
 >(\
 	sge::opengl::texture::binding const &,\
-	sge::opengl::texture::type,\
+	sge::opengl::texture::buffer_type,\
 	sge::renderer::texture::mipmap::level\
 );
 

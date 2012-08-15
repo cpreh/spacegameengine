@@ -18,16 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_CUBE_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_CUBE_HPP_INCLUDED
+#ifndef SGE_OPENGL_TEXTURE_BASIC_BOX_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_BASIC_BOX_HPP_INCLUDED
 
 #include <sge/opengl/texture/basic.hpp>
+#include <sge/opengl/texture/basic_box_fwd.hpp>
 #include <sge/opengl/texture/basic_parameters_fwd.hpp>
-#include <sge/opengl/texture/cube_basic.hpp>
-#include <sge/opengl/texture/cube_types.hpp>
-#include <sge/renderer/texture/cube.hpp>
-#include <sge/renderer/texture/cube_parameters_fwd.hpp>
-#include <sge/renderer/texture/cube_side.hpp>
+#include <sge/opengl/texture/type.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <sge/renderer/texture/mipmap/level_count.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -43,50 +40,61 @@ namespace opengl
 namespace texture
 {
 
-class cube
+template<
+	typename Types
+>
+class basic_box
 :
-	public sge::opengl::texture::cube_basic
+	public sge::opengl::texture::basic<
+		Types
+	>
 {
+	typedef sge::opengl::texture::basic<
+		Types
+	> base_type;
+
 	FCPPT_NONCOPYABLE(
-		cube
+		basic_box
 	);
 public:
-	cube(
+	typedef typename Types::parameters parameters_type;
+
+	basic_box(
 		sge::opengl::texture::basic_parameters const &,
-		sge::renderer::texture::cube_parameters const &
+		sge::opengl::texture::type,
+		parameters_type const &
 	);
 
-	~cube();
+	~basic_box();
 private:
-	sge::opengl::texture::cube::size_type
-	border_size() const;
+	typedef typename base_type::color_buffer color_buffer;
 
-	sge::renderer::texture::cube::color_buffer &
+	typedef typename base_type::dim dim;
+
+	// implementation for base class
+	dim const
+	size() const;
+
+	color_buffer &
 	level(
-		sge::renderer::texture::cube_side::type,
 		sge::renderer::texture::mipmap::level
 	);
 
-	sge::renderer::texture::cube::color_buffer const &
+	color_buffer const &
 	level(
-		sge::renderer::texture::cube_side::type,
 		sge::renderer::texture::mipmap::level
 	) const;
 
 	sge::renderer::texture::mipmap::level_count const
 	levels() const;
 
-	sge::renderer::texture::cube::size_type const size_;
+	dim const size_;
 
 	typedef boost::ptr_vector<
-		sge::renderer::texture::cube::color_buffer
+		color_buffer
 	> buffer_vector;
 
-	typedef boost::ptr_vector<
-		buffer_vector
-	> side_vector;
-
-	side_vector sides_;
+	buffer_vector levels_;
 };
 
 }

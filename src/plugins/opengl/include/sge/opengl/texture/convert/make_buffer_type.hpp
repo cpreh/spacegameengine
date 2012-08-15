@@ -18,12 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_FUNCS_GET_PARAMETER_INT_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_FUNCS_GET_PARAMETER_INT_HPP_INCLUDED
+#ifndef SGE_OPENGL_TEXTURE_CONVERT_MAKE_BUFFER_TYPE_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_CONVERT_MAKE_BUFFER_TYPE_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
-#include <sge/opengl/texture/binding_fwd.hpp>
-#include <sge/opengl/texture/type.hpp>
+#include <sge/opengl/texture/buffer_type.hpp>
 
 
 namespace sge
@@ -32,14 +30,12 @@ namespace opengl
 {
 namespace texture
 {
-namespace funcs
+namespace convert
 {
 
-GLint
-get_parameter_int(
-	texture::binding const &,
-	texture::type,
-	GLenum name
+sge::opengl::texture::buffer_type const
+make_buffer_type(
+	int type
 );
 
 }

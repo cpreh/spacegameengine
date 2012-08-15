@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/type.hpp>
 #include <sge/renderer/texture/cube_side.hpp>
 
+
 namespace sge
 {
 namespace opengl
@@ -34,10 +35,10 @@ namespace texture
 namespace convert
 {
 
-texture::type const
+sge::opengl::texture::buffer_type const
 cube_side(
-	texture::cube_side_array const &,
-	renderer::texture::cube_side::type
+	sge::opengl::texture::cube_side_array const &,
+	sge::renderer::texture::cube_side::type
 );
 
 }

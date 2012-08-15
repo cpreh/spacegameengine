@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
-#include <sge/opengl/texture/type.hpp>
+#include <sge/opengl/texture/buffer_type.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
 
 
@@ -39,7 +39,7 @@ namespace funcs
 GLint
 level_parameter(
 	sge::opengl::texture::binding const &,
-	sge::opengl::texture::type,
+	sge::opengl::texture::buffer_type,
 	sge::renderer::texture::mipmap::level,
 	GLenum what
 );

@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
-#include <sge/opengl/texture/type.hpp>
+#include <sge/opengl/texture/buffer_type.hpp>
 #include <sge/opengl/texture/volume_context.hpp>
 #include <sge/opengl/texture/funcs/set_3d.hpp>
 #include <sge/renderer/const_raw_pointer.hpp>
@@ -40,15 +40,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::texture::funcs::set_3d(
-	texture::binding const &,
-	opengl::context::system::object &_system_context,
-	texture::type const _type,
-	opengl::color_format const _format,
-	opengl::color_format_type const _format_type,
-	opengl::internal_color_format const _internal_format,
-	renderer::texture::mipmap::level const _level,
-	renderer::dim3 const &_dim,
-	renderer::const_raw_pointer const _src
+	sge::opengl::texture::binding const &,
+	sge::opengl::context::system::object &_system_context,
+	sge::opengl::texture::buffer_type const _buffer_type,
+	sge::opengl::color_format const _format,
+	sge::opengl::color_format_type const _format_type,
+	sge::opengl::internal_color_format const _internal_format,
+	sge::renderer::texture::mipmap::level const _level,
+	sge::renderer::dim3 const &_dim,
+	sge::renderer::const_raw_pointer const _src
 )
 {
 	sge::opengl::context::use<
@@ -56,7 +56,7 @@ sge::opengl::texture::funcs::set_3d(
 	>(
 		_system_context
 	).tex_image_3d()(
-		_type.get(),
+		_buffer_type.get(),
 		static_cast<
 			GLint
 		>(

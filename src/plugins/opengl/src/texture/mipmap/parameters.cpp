@@ -38,6 +38,7 @@ sge::opengl::texture::mipmap::parameters<
 	sge::opengl::texture::binding const &_binding,
 	sge::opengl::context::system::object &_system_context,
 	sge::opengl::texture::type const _type,
+	sge::opengl::texture::buffer_type const _buffer_type,
 	sge::opengl::color_format const _format,
 	sge::opengl::color_format_type const _format_type,
 	sge::opengl::internal_color_format const _internal_format,
@@ -53,6 +54,9 @@ sge::opengl::texture::mipmap::parameters<
 	),
 	type_(
 		_type
+	),
+	buffer_type_(
+		_buffer_type
 	),
 	format_(
 		_format
@@ -103,6 +107,17 @@ sge::opengl::texture::mipmap::parameters<
 >::type() const
 {
 	return type_;
+}
+
+template<
+	fcppt::math::size_type Dim
+>
+sge::opengl::texture::buffer_type const
+sge::opengl::texture::mipmap::parameters<
+	Dim
+>::buffer_type() const
+{
+	return buffer_type_;
 }
 
 template<

@@ -91,7 +91,7 @@ sge::opengl::texture::mipmap::generate_levels(
 		_parameters.init_function()(
 			_parameters.binding(),
 			_parameters.system_context(),
-			_parameters.type(),
+			_parameters.buffer_type(),
 			_parameters.format(),
 			_parameters.format_type(),
 			_parameters.internal_format(),

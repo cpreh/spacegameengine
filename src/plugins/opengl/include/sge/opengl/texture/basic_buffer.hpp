@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/buffer_base.hpp>
 #include <sge/opengl/texture/is_render_target.hpp>
 #include <sge/opengl/texture/lock_base.hpp>
+#include <sge/opengl/texture/type.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
@@ -132,6 +133,8 @@ private:
 	sge::opengl::context::system::object &system_context_;
 
 	sge::opengl::context::device::object &device_context_;
+
+	sge::opengl::texture::type const type_;
 
 	sge::renderer::resource_flags_field const resource_flags_;
 

@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
-#include <sge/opengl/texture/type.hpp>
+#include <sge/opengl/texture/buffer_type.hpp>
 #include <sge/opengl/texture/volume_context.hpp>
 #include <sge/opengl/texture/funcs/set_box.hpp>
 #include <sge/renderer/const_raw_pointer.hpp>
@@ -45,15 +45,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::texture::funcs::set_box(
-	texture::binding const &,
+	sge::opengl::texture::binding const &,
 	sge::opengl::context::system::object &_system_context,
-	texture::type const _type,
-	opengl::color_format const _format,
-	opengl::color_format_type const _format_type,
-	renderer::texture::mipmap::level const _level,
-	renderer::dim3 const &_dim,
-	renderer::lock_box const &_lock_box,
-	renderer::const_raw_pointer const _src
+	sge::opengl::texture::buffer_type const _buffer_type,
+	sge::opengl::color_format const _format,
+	sge::opengl::color_format_type const _format_type,
+	sge::renderer::texture::mipmap::level const _level,
+	sge::renderer::dim3 const &_dim,
+	sge::renderer::lock_box const &_lock_box,
+	sge::renderer::const_raw_pointer const _src
 )
 {
 	if(!
@@ -66,17 +66,17 @@ sge::opengl::texture::funcs::set_box(
 		.impl()
 		.hardware_supported()
 	)
-		throw renderer::exception(
+		throw sge::renderer::exception(
 			FCPPT_TEXT("OpenGL: Texture source is 0 although no PBO is bound!")
 		);
 
 	if(
-		!opengl::range_check(
+		!sge::opengl::range_check(
 			_dim,
 			_lock_box
 		)
 	)
-		throw renderer::exception(
+		throw sge::renderer::exception(
 			(
 				fcppt::format(
 					FCPPT_TEXT("box for setting a texture is out of range (box=%1%, dim=%2%)!")
@@ -92,7 +92,7 @@ sge::opengl::texture::funcs::set_box(
 	>(
 		_system_context
 	).tex_sub_image_3d()(
-		_type.get(),
+		_buffer_type.get(),
 		static_cast<
 			GLint
 		>(

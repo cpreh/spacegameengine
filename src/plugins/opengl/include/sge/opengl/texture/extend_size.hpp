@@ -18,20 +18,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/texture/bind_type.hpp>
-#include <sge/opengl/texture/convert/make_bind_type.hpp>
-#include <fcppt/strong_typedef_construct_cast.hpp>
+#ifndef SGE_OPENGL_TEXTURE_EXTEND_SIZE_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_EXTEND_SIZE_HPP_INCLUDED
+
+#include <sge/renderer/dim2_fwd.hpp>
+#include <sge/renderer/size_type.hpp>
 
 
-sge::opengl::texture::bind_type const
-sge::opengl::texture::convert::make_bind_type(
-	int const _type
+namespace sge
+{
+namespace opengl
+{
+namespace texture
+{
+
+template<
+	typename Size
+>
+Size const
+extend_size(
+	Size const &_size
 )
 {
 	return
-		fcppt::strong_typedef_construct_cast<
-			sge::opengl::texture::bind_type
-		>(
-			_type
-		);
+		_size;
 }
+
+sge::renderer::dim2 const
+extend_size(
+	sge::renderer::size_type
+);
+
+}
+}
+}
+
+#endif

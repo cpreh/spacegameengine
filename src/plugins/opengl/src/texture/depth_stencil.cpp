@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/convert/depth_stencil_to_internal_format.hpp>
 #include <sge/opengl/texture/base.hpp>
 #include <sge/opengl/texture/basic_parameters.hpp>
+#include <sge/opengl/texture/buffer_type.hpp>
 #include <sge/opengl/texture/depth_stencil.hpp>
 #include <sge/opengl/texture/depth_stencil_surface.hpp>
 #include <sge/opengl/texture/scoped_work_binding.hpp>
@@ -79,7 +80,9 @@ sge::opengl::texture::depth_stencil::depth_stencil(
 	sge::opengl::texture::funcs::set_2d(
 		binding,
 		system_context_,
-		this->type(),
+		sge::opengl::texture::buffer_type(
+			this->type().get()
+		),
 		sge::opengl::convert::depth_stencil_to_format(
 			format_
 		),
@@ -125,7 +128,9 @@ sge::opengl::texture::depth_stencil::surface() const
 				fcppt::cref(
 					binding
 				),
-				this->type(),
+				sge::opengl::texture::buffer_type(
+					this->type().get()
+				),
 				this->id(),
 				format_
 			)

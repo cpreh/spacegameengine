@@ -49,7 +49,7 @@ class depth_stencil_surface
 public:
 	depth_stencil_surface(
 		sge::opengl::texture::binding const &,
-		sge::opengl::texture::type,
+		sge::opengl::texture::buffer_type,
 		sge::opengl::texture::id,
 		sge::renderer::depth_stencil_format::type
 	);

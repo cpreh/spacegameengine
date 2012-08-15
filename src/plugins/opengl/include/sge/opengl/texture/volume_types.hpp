@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/volume_fwd.hpp>
 #include <sge/renderer/texture/volume_parameters_fwd.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/math/size_type.hpp>
 
 
 namespace sge
@@ -54,12 +55,14 @@ struct volume_types
 	fcppt::string
 	name();
 
+	static fcppt::math::size_type const num_dims = 3;
+
 	typedef sge::opengl::texture::init_function<
-		3
+		num_dims
 	>::type init_function_type;
 
 	typedef sge::opengl::texture::sub_function<
-		3
+		num_dims
 	>::type sub_function_type;
 
 	static

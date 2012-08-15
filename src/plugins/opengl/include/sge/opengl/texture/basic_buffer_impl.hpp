@@ -67,7 +67,7 @@ sge::opengl::texture::basic_buffer<
 :
 	base_type(),
 	sge::opengl::texture::buffer_base(
-		_parameters.type(),
+		_parameters.buffer_type(),
 		_parameters.id(),
 		_parameters.level()
 	),
@@ -77,6 +77,9 @@ sge::opengl::texture::basic_buffer<
 	device_context_(
 		_parameters.device_context()
 	),
+	type_(
+		_parameters.type()
+	),
 	resource_flags_(
 		_parameters.resource_flags()
 	),
@@ -85,7 +88,7 @@ sge::opengl::texture::basic_buffer<
 			dim::dim_wrapper::value
 		>(
 			_parameters.binding(),
-			_parameters.type(),
+			_parameters.buffer_type(),
 			_parameters.level()
 		)
 	),
@@ -243,7 +246,7 @@ sge::opengl::texture::basic_buffer<
 		sge::opengl::texture::scoped_work_binding const binding(
 			system_context_,
 			device_context_,
-			this->type(),
+			type_,
 			this->id()
 		);
 
@@ -257,7 +260,7 @@ sge::opengl::texture::basic_buffer<
 		Types::sub_function()(
 			binding,
 			system_context_,
-			this->type(),
+			this->buffer_type(),
 			color_format_,
 			color_format_type_,
 			this->level(),
@@ -325,13 +328,13 @@ sge::opengl::texture::basic_buffer<
 		sge::opengl::texture::scoped_work_binding const binding(
 			system_context_,
 			device_context_,
-			this->type(),
+			type_,
 			this->id()
 		);
 
 		sge::opengl::texture::funcs::get_image(
 			binding,
-			this->type(),
+			this->buffer_type(),
 			color_format_,
 			color_format_type_,
 			lock_->read_pointer(),

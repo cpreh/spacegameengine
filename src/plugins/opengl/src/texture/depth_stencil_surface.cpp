@@ -20,10 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/buffer_base.hpp>
+#include <sge/opengl/texture/buffer_type.hpp>
 #include <sge/opengl/texture/depth_stencil_surface.hpp>
 #include <sge/opengl/texture/get_level_size.hpp>
 #include <sge/opengl/texture/id.hpp>
-#include <sge/opengl/texture/type.hpp>
 #include <sge/renderer/depth_stencil_format.hpp>
 #include <sge/renderer/depth_stencil_surface.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
@@ -31,14 +31,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::texture::depth_stencil_surface::depth_stencil_surface(
 	sge::opengl::texture::binding const &_binding,
-	sge::opengl::texture::type const _type,
+	sge::opengl::texture::buffer_type const _buffer_type,
 	sge::opengl::texture::id const _id,
 	sge::renderer::depth_stencil_format::type const _format
 )
 :
 	sge::renderer::depth_stencil_surface(),
 	sge::opengl::texture::buffer_base(
-		_type,
+		_buffer_type,
 		_id,
 		sge::renderer::texture::mipmap::level(
 			0u
@@ -49,7 +49,7 @@ sge::opengl::texture::depth_stencil_surface::depth_stencil_surface(
 			2u
 		>(
 			_binding,
-			_type,
+			_buffer_type,
 			sge::renderer::texture::mipmap::level(
 				0u
 			)

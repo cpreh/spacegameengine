@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
-#include <sge/opengl/texture/type.hpp>
+#include <sge/opengl/texture/buffer_type.hpp>
 #include <sge/opengl/texture/funcs/set_rect.hpp>
 #include <sge/renderer/const_raw_pointer.hpp>
 #include <sge/renderer/dim2.hpp>
@@ -46,7 +46,7 @@ void
 sge::opengl::texture::funcs::set_rect(
 	sge::opengl::texture::binding const &,
 	sge::opengl::context::system::object &_system_context,
-	sge::opengl::texture::type const _type,
+	sge::opengl::texture::buffer_type const _buffer_type,
 	sge::opengl::color_format const _format,
 	sge::opengl::color_format_type const _format_type,
 	sge::renderer::texture::mipmap::level const _level,
@@ -88,7 +88,7 @@ sge::opengl::texture::funcs::set_rect(
 		);
 
 	::glTexSubImage2D(
-		_type.get(),
+		_buffer_type.get(),
 		static_cast<
 			GLint
 		>(
