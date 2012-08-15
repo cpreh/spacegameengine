@@ -30,6 +30,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/algorithm/copy_and_convert.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/scalar.hpp>
+#include <sge/renderer/texture/filter/scoped.hpp>
+#include <sge/renderer/texture/filter/mipmap.hpp>
+#include <sge/scenic/scene/manager.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
@@ -58,10 +61,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/normal.hpp>
 #include <sge/renderer/vf/part.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/box/object_impl.hpp>
 #include <sge/renderer/vf/pos.hpp>
 #include <sge/renderer/vf/texpos.hpp>
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/vf/view.hpp>
+#include <sge/camera/coordinate_system/object.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/renderer/vf/dynamic/make_part_index.hpp>
 #include <sge/systems/image2d.hpp>
@@ -96,10 +102,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/matrix/object_impl.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/signal/connection.hpp>
+#include <sge/renderer/target/base.hpp>
+#include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
+#include <sge/renderer/target/offscreen.hpp>
+#include <fcppt/move.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/chrono.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <example_main.hpp>
+#include <boost/ptr_container/ptr_map.hpp>
 #include <exception>
 #include <ostream>
 #include <fcppt/config/external_end.hpp>
@@ -107,6 +118,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace
 {
+fcppt::string const
+cube_side_to_string(
+	sge::renderer::texture::cube_side::type const _enum)
+{
+	switch(_enum)
+	{
+	case sge::renderer::texture::cube_side::front:
+		return FCPPT_TEXT("front");
+	case sge::renderer::texture::cube_side::back:
+		return FCPPT_TEXT("back");
+	case sge::renderer::texture::cube_side::left:
+		return FCPPT_TEXT("left");
+	case sge::renderer::texture::cube_side::right:
+		return FCPPT_TEXT("right");
+	case sge::renderer::texture::cube_side::top:
+		return FCPPT_TEXT("top");
+	case sge::renderer::texture::cube_side::bottom:
+		return FCPPT_TEXT("bottom");
+	case sge::renderer::texture::cube_side::size:
+		break;
+	}
+
+	FCPPT_ASSERT_UNREACHABLE;
+}
+
 namespace vf
 {
 typedef
@@ -153,21 +189,223 @@ sge::renderer::vf::format
 format;
 }
 
-typedef
-vf::pos::packed_type
-pos_vector;
+class cube_map
+{
+FCPPT_NONCOPYABLE(
+	cube_map);
+public:
+	typedef
+	vf::pos::packed_type
+	pos_vector;
 
-typedef
-fcppt::container::array
-<
-	pos_vector,
-	2u * 3u * 6u
->
-pos_array;
+	typedef
+	fcppt::container::array
+	<
+		pos_vector,
+		2u * 3u * 6u
+	>
+	pos_array;
+
+	cube_map(
+		sge::renderer::device &,
+		sge::image2d::system &);
+
+	void
+	render(
+		sge::renderer::context::object &,
+		sge::camera::base &);
+
+	sge::renderer::target::base &
+	target_for_side(
+		sge::renderer::texture::cube_side::type);
+private:
+	typedef
+	boost::ptr_map
+	<
+		sge::renderer::texture::cube_side::type,
+		sge::renderer::target::base
+	>
+	target_map;
+
+	sge::renderer::vertex_declaration_scoped_ptr vertex_declaration_;
+	sge::renderer::vertex_buffer_scoped_ptr vertex_buffer_;
+	sge::renderer::texture::cube_scoped_ptr texture_;
+	target_map targets_;
+
+	void
+	fill_geometry();
+
+	void
+	fill_textures(
+		sge::image2d::system &);
+
+	void
+	create_targets(
+		sge::renderer::device &);
+};
+
+cube_map::cube_map(
+	sge::renderer::device &_renderer,
+	sge::image2d::system &_image_loader)
+:
+	vertex_declaration_(
+		_renderer.create_vertex_declaration(
+			sge::renderer::vf::dynamic::make_format<vf::format>())),
+	vertex_buffer_(
+		_renderer.create_vertex_buffer(
+			*vertex_declaration_,
+			sge::renderer::vf::dynamic::make_part_index
+			<
+				vf::format,
+				vf::part
+			>(),
+			sge::renderer::vertex_count(
+				pos_array::dim_wrapper::value),
+			sge::renderer::resource_flags_field::null())),
+	texture_(
+		_renderer.create_cube_texture(
+			sge::renderer::texture::cube_parameters(
+				// Warning: hard-coded value
+				128u,
+				sge::image::color::format::srgba8,
+				sge::renderer::texture::mipmap::all_levels(
+					sge::renderer::texture::mipmap::auto_generate::yes),
+				sge::renderer::resource_flags_field::null(),
+				sge::renderer::texture::capabilities_field(
+					sge::renderer::texture::capabilities::render_target)))),
+	targets_()
+{
+	this->fill_geometry();
+	this->fill_textures(
+		_image_loader);
+	this->create_targets(
+		_renderer);
+}
 
 void
-fill_geometry(
-	sge::renderer::vertex_buffer &_vertex_buffer)
+cube_map::create_targets(
+	sge::renderer::device &_renderer)
+{
+	FCPPT_FOREACH_ENUMERATOR(
+		current_side,
+		sge::renderer::texture::cube_side)
+	{
+		sge::renderer::target::offscreen_unique_ptr new_target(
+			_renderer.create_target());
+
+		sge::renderer::texture::cube::color_buffer &cbuffer(
+			texture_->level(
+				current_side,
+				sge::renderer::texture::mipmap::level(
+					0u)));
+
+		new_target->color_surface(
+			sge::renderer::color_buffer::optional_surface_ref(
+				cbuffer),
+			sge::renderer::target::surface_index(
+				0u));
+
+		new_target->viewport(
+			sge::renderer::target::viewport(
+				sge::renderer::pixel_rect(
+					sge::renderer::pixel_rect::vector::null(),
+					fcppt::math::dim::structure_cast<sge::renderer::pixel_rect::dim>(
+						cbuffer.size()))));
+
+		fcppt::container::ptr::insert_unique_ptr_map(
+			targets_,
+			current_side,
+			fcppt::move(
+				new_target));
+	}
+}
+
+void
+cube_map::fill_textures(
+	sge::image2d::system &_image_loader)
+{
+	FCPPT_FOREACH_ENUMERATOR(
+		current_side,
+		sge::renderer::texture::cube_side)
+	{
+		sge::renderer::color_buffer::scoped_surface_lock const lock(
+			texture_->level(
+				current_side,
+				sge::renderer::texture::mipmap::level(
+					0u)),
+			sge::renderer::lock_mode::writeonly);
+
+		sge::image2d::algorithm::copy_and_convert(
+			_image_loader.load(
+				sge::config::media_path() /
+					FCPPT_TEXT("images") /
+					FCPPT_TEXT("cube_faces") /
+					(cube_side_to_string(
+						current_side)+FCPPT_TEXT(".png")))->view(),
+			lock.value(),
+			sge::image::algorithm::may_overlap::no);
+	}
+}
+
+void
+cube_map::render(
+	sge::renderer::context::object &_context,
+	sge::camera::base &_camera)
+{
+	sge::renderer::scoped_vertex_declaration const scoped_vd(
+		_context,
+		*vertex_declaration_);
+
+	sge::renderer::scoped_vertex_buffer const scoped_vb(
+		_context,
+		*vertex_buffer_);
+
+	sge::renderer::texture::scoped const scoped_texture(
+		_context,
+		*texture_,
+		sge::renderer::texture::stage(
+			0u));
+
+	sge::renderer::texture::filter::scoped const scoped_filter(
+		_context,
+		sge::renderer::texture::stage(
+			0u),
+		sge::renderer::texture::filter::mipmap());
+
+	sge::renderer::state::scoped const scoped_state(
+		_context,
+		sge::renderer::state::list
+			(sge::renderer::state::depth_func::less)
+			(sge::renderer::state::cull_mode::clockwise));
+
+	_context.transform(
+		sge::renderer::matrix_mode::world,
+		sge::camera::matrix_conversion::world(
+			_camera.coordinate_system()));
+
+	_context.transform(
+		sge::renderer::matrix_mode::projection,
+		_camera.projection_matrix().get());
+
+	_context.render_nonindexed(
+		sge::renderer::first_vertex(
+			0u),
+		sge::renderer::vertex_count(
+			vertex_buffer_->size()),
+		sge::renderer::primitive_type::triangle_list);
+}
+
+sge::renderer::target::base &
+cube_map::target_for_side(
+	sge::renderer::texture::cube_side::type const _side)
+{
+	return
+		*(targets_.find(
+			_side)->second);
+}
+
+void
+cube_map::fill_geometry()
 {
 	pos_array const positions(
 		fcppt::assign::make_array<pos_vector>
@@ -344,7 +582,7 @@ fill_geometry(
 				0,0,1)));
 
 	sge::renderer::scoped_vertex_lock const vb_lock(
-		_vertex_buffer,
+		*vertex_buffer_,
 		sge::renderer::lock_mode::writeonly);
 
 	typedef
@@ -390,31 +628,6 @@ fill_geometry(
 	}
 }
 
-fcppt::string const
-cube_side_to_string(
-	sge::renderer::texture::cube_side::type const _enum)
-{
-	switch(_enum)
-	{
-	case sge::renderer::texture::cube_side::front:
-		return FCPPT_TEXT("front");
-	case sge::renderer::texture::cube_side::back:
-		return FCPPT_TEXT("back");
-	case sge::renderer::texture::cube_side::left:
-		return FCPPT_TEXT("left");
-	case sge::renderer::texture::cube_side::right:
-		return FCPPT_TEXT("right");
-	case sge::renderer::texture::cube_side::top:
-		return FCPPT_TEXT("top");
-	case sge::renderer::texture::cube_side::bottom:
-		return FCPPT_TEXT("bottom");
-	case sge::renderer::texture::cube_side::size:
-		break;
-	}
-
-	FCPPT_ASSERT_UNREACHABLE;
-}
-
 }
 
 awl::main::exit_code const
@@ -454,57 +667,9 @@ try
 			sge::systems::cursor_option_field(
 				sge::systems::cursor_option::exclusive))));
 
-	sge::renderer::texture::cube_scoped_ptr cube_map(
-		sys.renderer().create_cube_texture(
-			sge::renderer::texture::cube_parameters(
-				128u,
-				sge::image::color::format::srgba8,
-				sge::renderer::texture::mipmap::all_levels(
-					sge::renderer::texture::mipmap::auto_generate::yes),
-				sge::renderer::resource_flags_field::null(),
-				sge::renderer::texture::capabilities_field(
-					sge::renderer::texture::capabilities::render_target))));
-
-	FCPPT_FOREACH_ENUMERATOR(
-		current_side,
-		sge::renderer::texture::cube_side)
-	{
-		sge::renderer::color_buffer::scoped_surface_lock const lock(
-			cube_map->level(
-				current_side,
-				sge::renderer::texture::mipmap::level(
-					0u)),
-			sge::renderer::lock_mode::writeonly);
-
-		sge::image2d::algorithm::copy_and_convert(
-			sys.image_system().load(
-				sge::config::media_path() /
-					FCPPT_TEXT("images") /
-					FCPPT_TEXT("cube_faces") /
-					(cube_side_to_string(
-						current_side)+FCPPT_TEXT(".png")))->view(),
-			lock.value(),
-			sge::image::algorithm::may_overlap::no);
-	}
-
-	sge::renderer::vertex_declaration_scoped_ptr const vertex_declaration(
-		sys.renderer().create_vertex_declaration(
-			sge::renderer::vf::dynamic::make_format<vf::format>()));
-
-	sge::renderer::vertex_buffer_scoped_ptr const vertex_buffer(
-		sys.renderer().create_vertex_buffer(
-			*vertex_declaration,
-			sge::renderer::vf::dynamic::make_part_index
-			<
-				vf::format,
-				vf::part
-			>(),
-			sge::renderer::vertex_count(
-				pos_array::dim_wrapper::value),
-			sge::renderer::resource_flags_field::null()));
-
-	fill_geometry(
-		*vertex_buffer);
+	cube_map cube(
+		sys.renderer(),
+		sys.image_system());
 
 	fcppt::signal::scoped_connection const input_connection(
 		sge::systems::quit_on_escape(
@@ -532,6 +697,22 @@ try
 			fcppt::math::deg_to_rad(
 				60.f)));
 
+	fcppt::string const scene_name(
+		FCPPT_TEXT("cube_map_example"));
+
+	sge::scenic::scene::manager test_scene(
+		sys.renderer(),
+		sys.image_system(),
+		sys.viewport_manager(),
+		camera,
+		sge::config::media_path() / FCPPT_TEXT("scenes") / scene_name / FCPPT_TEXT("description.json"),
+		sge::scenic::model_base_path(
+			sge::config::media_path() / FCPPT_TEXT("scenes") / scene_name),
+		sge::scenic::material_base_path(
+			sge::config::media_path() / FCPPT_TEXT("scenes") / scene_name),
+		sge::scenic::texture_base_path(
+			sge::config::media_path() / FCPPT_TEXT("scenes") / scene_name));
+
 	typedef
 	sge::timer::basic<sge::timer::clocks::standard>
 	timer;
@@ -548,30 +729,38 @@ try
 			sge::timer::elapsed_and_reset<sge::camera::update_duration>(
 				frame_timer));
 
+		{
+			camera.update_coordinate_system(
+				sge::camera::coordinate_system::object(
+					sge::camera::coordinate_system::right(
+						sge::renderer::vector3(1.0f,0.0f,0.0f)),
+					sge::camera::coordinate_system::up(
+						sge::renderer::vector3(0.0f,1.0f,0.0f)),
+					sge::camera::coordinate_system::forward(
+						sge::renderer::vector3(0.0f,0.0f,1.0f)),
+					sge::camera::coordinate_system::position(
+						sge::renderer::vector3::null())));
+
+			sge::renderer::context::scoped const scoped_block(
+				sys.renderer(),
+				cube.target_for_side(
+					sge::renderer::texture::cube_side::left));
+
+			scoped_block.get().clear(
+				sge::renderer::clear::parameters()
+					.back_buffer(
+						sge::image::colors::black())
+					.depth_buffer(
+						1.f));
+
+			test_scene.render(
+				scoped_block.get());
+		}
+
+
 		sge::renderer::context::scoped const scoped_block(
 			sys.renderer(),
 			sys.renderer().onscreen_target());
-
-		sge::renderer::scoped_vertex_declaration const scoped_vd(
-			scoped_block.get(),
-			*vertex_declaration);
-
-		sge::renderer::scoped_vertex_buffer const scoped_vb(
-			scoped_block.get(),
-			*vertex_buffer);
-
-		sge::renderer::texture::scoped const scoped_texture(
-			scoped_block.get(),
-			*cube_map,
-			sge::renderer::texture::stage(
-				0u));
-
-
-		sge::renderer::state::scoped const scoped_state(
-			scoped_block.get(),
-			sge::renderer::state::list
-				(sge::renderer::state::depth_func::less)
-				(sge::renderer::state::cull_mode::clockwise));
 
 		scoped_block.get().clear(
 			sge::renderer::clear::parameters()
@@ -580,21 +769,13 @@ try
 				.depth_buffer(
 					1.f));
 
-		scoped_block.get().transform(
-			sge::renderer::matrix_mode::world,
-			sge::camera::matrix_conversion::world(
-				camera.coordinate_system()));
+		test_scene.render(
+			scoped_block.get());
 
-		scoped_block.get().transform(
-			sge::renderer::matrix_mode::projection,
-			camera.projection_matrix().get());
 
-		scoped_block.get().render_nonindexed(
-			sge::renderer::first_vertex(
-				0u),
-			sge::renderer::vertex_count(
-				vertex_buffer->size()),
-			sge::renderer::primitive_type::triangle_list);
+		cube.render(
+			scoped_block.get(),
+			camera);
 	}
 
 	return
