@@ -183,14 +183,14 @@ function(
 
 	# Don't install dummy libraries or static example libraries
 	if(
-		NOT ${BASE_VARIANT} STREQUAL "DUMMY"
-		AND (NOT ${BASE_VARIANT} STREQUAL "EXAMPLE" AND ${VARIANT} STREQUAL "STATIC")
+		NOT "${BASE_VARIANT}" STREQUAL "DUMMY"
+		AND NOT (("${BASE_VARIANT}" STREQUAL "EXAMPLE") AND ("${VARIANT}" STREQUAL "STATIC"))
 	)
 		install(
 			TARGETS
-			${SGE_LIB_NAME}
+			"${SGE_LIB_NAME}"
 			DESTINATION
-			${INSTALL_LIBRARY_DIR}
+			"${INSTALL_LIBRARY_DIR}"
 		)
 	endif()
 endfunction()
