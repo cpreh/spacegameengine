@@ -8,6 +8,7 @@ set(
 	include/sge/graph/baseline_color.hpp
 	include/sge/graph/color_scheme.hpp
 	include/sge/graph/color_schemes.hpp
+	include/sge/graph/detail/draw_visitor_fwd.hpp
 	include/sge/graph/foreground_alt_color.hpp
 	include/sge/graph/foreground_color.hpp
 	include/sge/graph/object.hpp
@@ -18,6 +19,7 @@ set(
 	src/graph/axis_constraint.cpp
 	src/graph/color_scheme.cpp
 	src/graph/color_schemes.cpp
+	src/graph/include/sge/src/graph/detail/draw_visitor.hpp
 	src/graph/object.cpp
 )
 

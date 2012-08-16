@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/context/object.hpp>
 #include <sge/renderer/texture/planar.hpp>
-#include <sge/scenic/render_context/object.hpp>
+#include <sge/scenic/render_queue/object.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/next_prior.hpp>
@@ -39,7 +39,7 @@ void
 change_context_state(
 	StateSequence &_states,
 	typename StateSequence::value_type _state_ptr,
-	sge::scenic::render_context::index_type &_current_state)
+	sge::scenic::render_queue::index_type &_current_state)
 {
 	typename StateSequence::const_iterator it =
 		std::find(
@@ -62,7 +62,7 @@ change_context_state(
 
 	_current_state =
 		static_cast<
-			sge::scenic::render_context::index_type
+			sge::scenic::render_queue::index_type
 		>(
 			std::distance(
 				begin,
@@ -70,26 +70,26 @@ change_context_state(
 }
 }
 
-sge::scenic::render_context::object::object()
+sge::scenic::render_queue::object::object()
 :
 	materials_(),
 	vertex_buffers_(),
 	textures_(),
 	meshes_(),
 	current_material_(
-		static_cast<sge::scenic::render_context::index_type>(
+		static_cast<sge::scenic::render_queue::index_type>(
 			-1)),
 	current_vertex_buffer_(
-		static_cast<sge::scenic::render_context::index_type>(
+		static_cast<sge::scenic::render_queue::index_type>(
 			-1)),
 	current_texture_(
-		static_cast<sge::scenic::render_context::index_type>(
+		static_cast<sge::scenic::render_queue::index_type>(
 			-1))
 {
 }
 
 void
-sge::scenic::render_context::object::current_material(
+sge::scenic::render_queue::object::current_material(
 	sge::renderer::material const &_material)
 {
 	change_context_state(
@@ -99,7 +99,7 @@ sge::scenic::render_context::object::current_material(
 }
 
 void
-sge::scenic::render_context::object::current_vertex_buffer(
+sge::scenic::render_queue::object::current_vertex_buffer(
 	sge::renderer::vertex_buffer &_vertex_buffer)
 {
 	change_context_state(
@@ -109,7 +109,7 @@ sge::scenic::render_context::object::current_vertex_buffer(
 }
 
 void
-sge::scenic::render_context::object::current_texture(
+sge::scenic::render_queue::object::current_texture(
 	fcppt::optional<sge::renderer::texture::planar &> _texture)
 {
 	if(_texture)
@@ -125,13 +125,13 @@ sge::scenic::render_context::object::current_texture(
 }
 
 void
-sge::scenic::render_context::object::add_mesh(
+sge::scenic::render_queue::object::add_mesh(
 	sge::renderer::matrix4 const &_modelview,
 	sge::renderer::index_buffer &_index_buffer,
 	sge::model::obj::index_buffer_range const &_index_buffer_range)
 {
 	meshes_.push_back(
-		sge::scenic::render_context::mesh(
+		sge::scenic::render_queue::mesh(
 			current_material_,
 			current_vertex_buffer_,
 			current_texture_,
@@ -140,8 +140,8 @@ sge::scenic::render_context::object::add_mesh(
 			_index_buffer_range));
 }
 
-sge::scenic::render_context::state_change_count const
-sge::scenic::render_context::object::render(
+sge::scenic::render_queue::state_change_count const
+sge::scenic::render_queue::object::render(
 	sge::renderer::context::object &_context)
 {
 	std::sort(
@@ -160,7 +160,7 @@ sge::scenic::render_context::object::render(
 		current_render_texture =
 			invalid_index;
 
-	sge::scenic::render_context::state_change_count state_changes(
+	sge::scenic::render_queue::state_change_count state_changes(
 		0u);
 
 	for(
@@ -258,6 +258,6 @@ sge::scenic::render_context::object::render(
 		state_changes;
 }
 
-sge::scenic::render_context::object::~object()
+sge::scenic::render_queue::object::~object()
 {
 }

@@ -18,18 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SCENIC_RENDER_CONTEXT_INDEX_TYPE_HPP_INCLUDED
-#define SGE_SCENIC_RENDER_CONTEXT_INDEX_TYPE_HPP_INCLUDED
+#ifndef SGE_SCENIC_RENDER_QUEUE_OBJECT_FWD_HPP_INCLUDED
+#define SGE_SCENIC_RENDER_QUEUE_OBJECT_FWD_HPP_INCLUDED
 
 namespace sge
 {
 namespace scenic
 {
-namespace render_context
+namespace render_queue
 {
-typedef
-long
-index_type;
+class object;
 }
 }
 }

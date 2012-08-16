@@ -18,16 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SCENIC_RENDER_CONTEXT_MESH_FWD_HPP_INCLUDED
-#define SGE_SCENIC_RENDER_CONTEXT_MESH_FWD_HPP_INCLUDED
+#ifndef SGE_SCENIC_RENDER_QUEUE_STATE_CHANGE_COUNT_HPP_INCLUDED
+#define SGE_SCENIC_RENDER_QUEUE_STATE_CHANGE_COUNT_HPP_INCLUDED
+
+#include <fcppt/strong_typedef.hpp>
 
 namespace sge
 {
 namespace scenic
 {
-namespace render_context
+namespace render_queue
 {
-class mesh;
+FCPPT_MAKE_STRONG_TYPEDEF(
+	unsigned,
+	state_change_count);
 }
 }
 }

@@ -1,13 +1,14 @@
-#include <sge/scenic/cg_context/object.hpp>
-#include <sge/scenic/cg_context/manager.hpp>
+#include <sge/scenic/render_context/cg/object.hpp>
+#include <sge/scenic/render_context/cg/manager.hpp>
 #include <fcppt/math/matrix/inverse.hpp>
 #include <fcppt/math/matrix/transpose.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
 
-sge::scenic::cg_context::object::object(
-	sge::scenic::cg_context::manager &_manager,
+sge::scenic::render_context::cg::object::object(
+	sge::scenic::render_context::cg::manager &_manager,
 	sge::renderer::context::object &_context)
 :
+	sge::scenic::render_context::base(),
 	manager_(
 		_manager),
 	context_(
@@ -18,7 +19,7 @@ sge::scenic::cg_context::object::object(
 }
 
 void
-sge::scenic::cg_context::object::transform(
+sge::scenic::render_context::cg::object::transform(
 	sge::renderer::matrix_mode::type const _matrix_mode,
 	sge::renderer::matrix4 const &_matrix)
 {
@@ -52,8 +53,8 @@ sge::scenic::cg_context::object::transform(
 }
 
 void
-sge::scenic::cg_context::object::diffuse_texture(
-	sge::scenic::cg_context::optional_planar_texture const &_texture)
+sge::scenic::render_context::cg::object::diffuse_texture(
+	sge::scenic::render_context::optional_planar_texture const &_texture)
 {
 	manager_.diffuse_texture_.set(
 		_texture
@@ -64,6 +65,13 @@ sge::scenic::cg_context::object::diffuse_texture(
 			sge::shader::parameter::planar_texture::optional_value());
 }
 
-sge::scenic::cg_context::object::~object()
+void
+sge::scenic::render_context::cg::object::lights(
+	sge::scenic::light_sequence const &)
+{
+
+}
+
+sge::scenic::render_context::cg::object::~object()
 {
 }

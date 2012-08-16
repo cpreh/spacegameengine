@@ -2,11 +2,6 @@ set(
 	SGE_SCENIC_FILES
 	include/sge/scenic/camera_properties.hpp
 	include/sge/scenic/camera_properties_fwd.hpp
-	include/sge/scenic/cg_context/manager.hpp
-	include/sge/scenic/cg_context/manager_fwd.hpp
-	include/sge/scenic/cg_context/object.hpp
-	include/sge/scenic/cg_context/object_fwd.hpp
-	include/sge/scenic/cg_context/optional_planar_texture.hpp
 	include/sge/scenic/exception.hpp
 	include/sge/scenic/fog/color.hpp
 	include/sge/scenic/fog/end.hpp
@@ -30,13 +25,23 @@ set(
 	include/sge/scenic/mesh_sequence.hpp
 	include/sge/scenic/model_base_path.hpp
 	include/sge/scenic/position.hpp
-	include/sge/scenic/render_context/index_type.hpp
-	include/sge/scenic/render_context/mesh.hpp
-	include/sge/scenic/render_context/mesh_fwd.hpp
-	include/sge/scenic/render_context/object.hpp
-	include/sge/scenic/render_context/object_fwd.hpp
-	include/sge/scenic/render_context/sort_index.hpp
-	include/sge/scenic/render_context/state_change_count.hpp
+	include/sge/scenic/render_context/base.hpp
+	include/sge/scenic/render_context/base_fwd.hpp
+	include/sge/scenic/render_context/base_unique_ptr.hpp
+	include/sge/scenic/render_context/cg/manager.hpp
+	include/sge/scenic/render_context/cg/manager_fwd.hpp
+	include/sge/scenic/render_context/cg/object.hpp
+	include/sge/scenic/render_context/cg/object_fwd.hpp
+	include/sge/scenic/render_context/manager_base.hpp
+	include/sge/scenic/render_context/manager_base_fwd.hpp
+	include/sge/scenic/render_context/optional_planar_texture.hpp
+	include/sge/scenic/render_queue/index_type.hpp
+	include/sge/scenic/render_queue/mesh.hpp
+	include/sge/scenic/render_queue/mesh_fwd.hpp
+	include/sge/scenic/render_queue/object.hpp
+	include/sge/scenic/render_queue/object_fwd.hpp
+	include/sge/scenic/render_queue/sort_index.hpp
+	include/sge/scenic/render_queue/state_change_count.hpp
 	include/sge/scenic/rotation.hpp
 	include/sge/scenic/scale.hpp
 	include/sge/scenic/scene/from_blender_file.hpp
@@ -49,14 +54,16 @@ set(
 	include/sge/scenic/texture_base_path.hpp
 	include/sge/scenic/texture_manager.hpp
 	include/sge/scenic/texture_manager_fwd.hpp
-	src/scenic/cg_context/manager.cpp
-	src/scenic/cg_context/object.cpp
 	src/scenic/exception.cpp
 	src/scenic/fog/properties.cpp
 	src/scenic/grid/object.cpp
 	src/scenic/mesh.cpp
-	src/scenic/render_context/mesh.cpp
-	src/scenic/render_context/object.cpp
+	src/scenic/render_context/base.cpp
+	src/scenic/render_context/cg/manager.cpp
+	src/scenic/render_context/cg/object.cpp
+	src/scenic/render_context/manager_base.cpp
+	src/scenic/render_queue/mesh.cpp
+	src/scenic/render_queue/object.cpp
 	src/scenic/scene/camera_properties.cpp
 	src/scenic/scene/from_blender_file.cpp
 	src/scenic/scene/manager.cpp

@@ -18,20 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SCENIC_RENDER_CONTEXT_STATE_CHANGE_COUNT_HPP_INCLUDED
-#define SGE_SCENIC_RENDER_CONTEXT_STATE_CHANGE_COUNT_HPP_INCLUDED
+#ifndef SGE_SCENIC_RENDER_QUEUE_SORT_INDEX_HPP_INCLUDED
+#define SGE_SCENIC_RENDER_QUEUE_SORT_INDEX_HPP_INCLUDED
 
-#include <fcppt/strong_typedef.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/cstdint.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {
 namespace scenic
 {
-namespace render_context
+namespace render_queue
 {
-FCPPT_MAKE_STRONG_TYPEDEF(
-	unsigned,
-	state_change_count);
+typedef
+boost::uint64_t
+sort_index;
 }
 }
 }

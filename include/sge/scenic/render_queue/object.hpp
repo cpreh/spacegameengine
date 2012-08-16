@@ -18,17 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SCENIC_RENDER_CONTEXT_OBJECT_HPP_INCLUDED
-#define SGE_SCENIC_RENDER_CONTEXT_OBJECT_HPP_INCLUDED
+#ifndef SGE_SCENIC_RENDER_QUEUE_OBJECT_HPP_INCLUDED
+#define SGE_SCENIC_RENDER_QUEUE_OBJECT_HPP_INCLUDED
 
 #include <sge/renderer/index_buffer_fwd.hpp>
 #include <sge/renderer/material_fwd.hpp>
 #include <sge/renderer/vertex_buffer_fwd.hpp>
 #include <sge/renderer/context/object_fwd.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
-#include <sge/scenic/render_context/index_type.hpp>
-#include <sge/scenic/render_context/mesh.hpp>
-#include <sge/scenic/render_context/state_change_count.hpp>
+#include <sge/scenic/render_queue/index_type.hpp>
+#include <sge/scenic/render_queue/mesh.hpp>
+#include <sge/scenic/render_queue/state_change_count.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -40,7 +40,7 @@ namespace sge
 {
 namespace scenic
 {
-namespace render_context
+namespace render_queue
 {
 class object
 {
@@ -67,7 +67,7 @@ public:
 		sge::renderer::index_buffer &,
 		sge::model::obj::index_buffer_range const &);
 
-	sge::scenic::render_context::state_change_count const
+	sge::scenic::render_queue::state_change_count const
 	render(
 		sge::renderer::context::object &);
 
@@ -86,7 +86,7 @@ private:
 	texture_sequence;
 
 	typedef
-	std::vector<sge::scenic::render_context::mesh>
+	std::vector<sge::scenic::render_queue::mesh>
 	mesh_sequence;
 
 	material_sequence materials_;

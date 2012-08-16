@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/scenic/render_context/mesh.hpp>
+#include <sge/scenic/render_queue/mesh.hpp>
 
 namespace
 {
@@ -37,38 +37,38 @@ set_bits(
 		(input & ~part) | (value << begin);
 }
 
-sge::scenic::render_context::sort_index
+sge::scenic::render_queue::sort_index
 create_sort_index(
-	sge::scenic::render_context::index_type const _material,
-	sge::scenic::render_context::index_type const _vertex_buffer,
-	sge::scenic::render_context::index_type const _texture)
+	sge::scenic::render_queue::index_type const _material,
+	sge::scenic::render_queue::index_type const _vertex_buffer,
+	sge::scenic::render_queue::index_type const _texture)
 {
 	return
-		set_bits<sge::scenic::render_context::sort_index>(
+		set_bits<sge::scenic::render_queue::sort_index>(
 			3u,
 			20u,
-			static_cast<sge::scenic::render_context::sort_index>(
+			static_cast<sge::scenic::render_queue::sort_index>(
 				_material),
-			set_bits<sge::scenic::render_context::sort_index>(
+			set_bits<sge::scenic::render_queue::sort_index>(
 				//23u,
 				43u,
 				20u,
-				static_cast<sge::scenic::render_context::sort_index>(
+				static_cast<sge::scenic::render_queue::sort_index>(
 					_vertex_buffer),
-				set_bits<sge::scenic::render_context::sort_index>(
+				set_bits<sge::scenic::render_queue::sort_index>(
 					//43u,
 					23u,
 					20u,
-					static_cast<sge::scenic::render_context::sort_index>(
+					static_cast<sge::scenic::render_queue::sort_index>(
 						_texture),
 					0u)));
 }
 }
 
-sge::scenic::render_context::mesh::mesh(
-	sge::scenic::render_context::index_type const _material,
-	sge::scenic::render_context::index_type const _vertex_buffer,
-	sge::scenic::render_context::index_type const _texture,
+sge::scenic::render_queue::mesh::mesh(
+	sge::scenic::render_queue::index_type const _material,
+	sge::scenic::render_queue::index_type const _vertex_buffer,
+	sge::scenic::render_queue::index_type const _texture,
 	sge::renderer::matrix4 const &_modelview,
 	sge::renderer::index_buffer &_index_buffer,
 	sge::model::obj::index_buffer_range const &_index_buffer_range)
@@ -94,43 +94,43 @@ sge::scenic::render_context::mesh::mesh(
 
 }
 
-sge::scenic::render_context::index_type
-sge::scenic::render_context::mesh::material() const
+sge::scenic::render_queue::index_type
+sge::scenic::render_queue::mesh::material() const
 {
 	return
 		material_;
 }
 
-sge::scenic::render_context::index_type
-sge::scenic::render_context::mesh::vertex_buffer() const
+sge::scenic::render_queue::index_type
+sge::scenic::render_queue::mesh::vertex_buffer() const
 {
 	return
 		vertex_buffer_;
 }
 
-sge::scenic::render_context::index_type
-sge::scenic::render_context::mesh::texture() const
+sge::scenic::render_queue::index_type
+sge::scenic::render_queue::mesh::texture() const
 {
 	return
 		texture_;
 }
 
 sge::renderer::matrix4 const &
-sge::scenic::render_context::mesh::modelview() const
+sge::scenic::render_queue::mesh::modelview() const
 {
 	return
 		modelview_;
 }
 
 sge::renderer::index_buffer &
-sge::scenic::render_context::mesh::index_buffer() const
+sge::scenic::render_queue::mesh::index_buffer() const
 {
 	return
 		*index_buffer_;
 }
 
 sge::model::obj::index_buffer_range const &
-sge::scenic::render_context::mesh::index_buffer_range() const
+sge::scenic::render_queue::mesh::index_buffer_range() const
 {
 	return
 		index_buffer_range_;

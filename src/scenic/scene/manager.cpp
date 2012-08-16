@@ -50,7 +50,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/filter/scoped.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/scenic/exception.hpp>
-#include <sge/scenic/render_context/object.hpp>
+#include <sge/scenic/render_queue/object.hpp>
 #include <sge/scenic/scene/from_blender_file.hpp>
 #include <sge/scenic/scene/manager.hpp>
 #include <sge/scenic/scene/prototype.hpp>
@@ -166,7 +166,7 @@ sge::scenic::scene::manager::render(
 	this->activate_lights(
 		_context);
 
-	sge::scenic::render_context::object current_render_context;
+	sge::scenic::render_queue::object current_render_queue;
 	for(
 		sge::scenic::mesh_sequence::const_iterator it =
 			prototype_->meshes().begin();
@@ -179,9 +179,9 @@ sge::scenic::scene::manager::render(
 		*/
 		this->render_mesh_better(
 			*it,
-			current_render_context);
+			current_render_queue);
 
-	std::cout << "\r" << prototype_->meshes().size() << " meshes, " << current_render_context.render(_context).get() << " state changes";
+	std::cout << "\r" << prototype_->meshes().size() << " meshes, " << current_render_queue.render(_context).get() << " state changes";
 	std::cout.flush();
 }
 
@@ -357,7 +357,7 @@ sge::scenic::scene::manager::render_mesh(
 void
 sge::scenic::scene::manager::render_mesh_better(
 	sge::scenic::mesh const &_mesh,
-	sge::scenic::render_context::object &_context)
+	sge::scenic::render_queue::object &_context)
 {
 	sge::model::obj::instance &model(
 		*(model_name_to_instance_.find(
