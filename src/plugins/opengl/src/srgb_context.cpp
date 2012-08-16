@@ -40,7 +40,7 @@ sge::opengl::srgb_context::srgb_context()
 			)
 		:
 			sge::opengl::glew::is_supported(
-				"EXT_framebuffer_sRGB"
+				"GL_EXT_framebuffer_sRGB"
 			)
 			?
 				sge::opengl::optional_enum(
