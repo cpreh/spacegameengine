@@ -9,6 +9,7 @@ from bpy.props import (BoolProperty,
 					   EnumProperty,
 					   )
 import json
+import math
 
 bl_info = {
 		"name": "sge scene format",
@@ -39,6 +40,16 @@ class ExportSge(bpy.types.Operator, ExportHelper):
 		name = "Selected Only",
 		description = "export only selected objects, not the whole scene",
 		default = False,
+		)
+	export_fov = BoolProperty(
+		name = "Camera FOV",
+		description = "export camera fov",
+		default = True,
+		)
+	custom_fov = FloatProperty(
+		name = "Custom FOV",
+		description = "export this value instead of camera fov",
+		default = math.pi / 3,
 		)
 	format_output = BoolProperty(
 		name = "Formatted Output",
@@ -80,7 +91,7 @@ class ExportSge(bpy.types.Operator, ExportHelper):
 	def _process_camera(self, ob, entity):
 		render = self.context.scene.render
 		aspect = render.resolution_x / render.resolution_y
-		entity["fov"] = ob.data.angle / aspect
+		entity["fov"] = ob.data.angle / aspect if self.export_fov else self.custom_fov
 		entity["near"] = ob.data.clip_start
 		entity["far"] = ob.data.clip_end
 		return entity
