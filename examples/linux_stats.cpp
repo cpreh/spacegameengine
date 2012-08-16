@@ -267,10 +267,10 @@ count_memory()
 	unsigned value;
 
 	while(
-		meminfo >> first_word >> value >> last_word)
+		(meminfo >> first_word >> value).ignore(
+			std::numeric_limits<std::streamsize>::max(),
+			'\n'))
 	{
-		FCPPT_ASSERT_ERROR(last_word == "kB");
-
 		if (first_word == "MemTotal:")
 			total = value;
 		else if (first_word == "MemFree:")
@@ -284,6 +284,8 @@ count_memory()
 	}
 
 	unsigned used = total - free - buffers - cached - slab;
+	FCPPT_ASSERT_ERROR(
+		total > 0);
 	return
 		100.0 *
 		static_cast<double>(used) /
