@@ -69,7 +69,7 @@ void
 init(
 	sge::opengl::texture::binding const &_binding,
 	boost::ptr_vector<
-		typename Types::buffer_base
+		typename Types::buffer_types::base
 	> &_levels,
 	sge::opengl::texture::basic_parameters const &_basic_parameters,
 	typename Types::parameters const &_parameters,
@@ -79,7 +79,7 @@ init(
 )
 {
 	typedef typename sge::renderer::basic_dim<
-		Types::num_dims
+		Types::buffer_types::num_dims
 	>::type extended_dim;
 
 	typedef typename extended_dim::dim_wrapper dim_wrapper;
@@ -94,7 +94,7 @@ init(
 		dim_wrapper::value
 	>(
 		size,
-		Types::min_size(),
+		Types::buffer_types::min_size(),
 		Types::name()
 	);
 
@@ -122,7 +122,7 @@ init(
 		)
 	);
 
-	Types::init_function()(
+	Types::buffer_types::init_function()(
 		_binding,
 		_basic_parameters.system_context(),
 		_buffer_type,
@@ -150,7 +150,7 @@ init(
 			color_format_type,
 			internal_color_format,
 			size,
-			Types::init_function()
+			Types::buffer_types::init_function()
 		),
 		_parameters.mipmap()
 	);
@@ -171,7 +171,7 @@ init(
 	);
 
 	typedef sge::opengl::texture::basic_buffer<
-		Types
+		typename Types::buffer_types
 	> gl_buffer;
 
 	for(

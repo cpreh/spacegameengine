@@ -21,16 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_PLANAR_TYPES_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_PLANAR_TYPES_HPP_INCLUDED
 
-#include <sge/opengl/texture/init_function.hpp>
+#include <sge/opengl/texture/color_surface_types_fwd.hpp>
 #include <sge/opengl/texture/planar_types_fwd.hpp>
-#include <sge/opengl/texture/sub_function.hpp>
-#include <sge/renderer/basic_dim.hpp>
-#include <sge/renderer/size_type.hpp>
-#include <sge/renderer/color_buffer/surface_fwd.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/renderer/texture/planar_parameters_fwd.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/math/size_type.hpp>
 
 
 namespace sge
@@ -44,35 +39,13 @@ struct planar_types
 {
 	typedef sge::renderer::texture::planar base;
 
-	typedef sge::renderer::color_buffer::surface buffer_base;
-
 	typedef sge::renderer::texture::planar_parameters parameters;
 
-	static
-	sge::renderer::size_type
-	min_size();
+	typedef sge::opengl::texture::color_surface_types buffer_types;
 
 	static
-	fcppt::string
+	fcppt::string const
 	name();
-
-	static fcppt::math::size_type const num_dims = 2;
-
-	typedef sge::opengl::texture::init_function<
-		num_dims
-	>::type init_function_type;
-
-	typedef sge::opengl::texture::sub_function<
-		num_dims
-	>::type sub_function_type;
-
-	static
-	init_function_type
-	init_function();
-
-	static
-	sub_function_type
-	sub_function();
 };
 
 }

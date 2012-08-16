@@ -285,8 +285,12 @@ set(
 	src/plugins/opengl/include/sge/opengl/texture/check_dim.hpp
 	src/plugins/opengl/include/sge/opengl/texture/color_surface.hpp
 	src/plugins/opengl/include/sge/opengl/texture/color_surface_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/texture/color_surface_types.hpp
+	src/plugins/opengl/include/sge/opengl/texture/color_surface_types_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/color_volume.hpp
 	src/plugins/opengl/include/sge/opengl/texture/color_volume_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/texture/color_volume_types.hpp
+	src/plugins/opengl/include/sge/opengl/texture/color_volume_types_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/const_optional_base_ref.hpp
 	src/plugins/opengl/include/sge/opengl/texture/const_optional_base_ref_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/context.hpp
@@ -638,7 +642,9 @@ set(
 	src/plugins/opengl/src/texture/buffer_base.cpp
 	src/plugins/opengl/src/texture/check_dim.cpp
 	src/plugins/opengl/src/texture/color_surface.cpp
+	src/plugins/opengl/src/texture/color_surface_types.cpp
 	src/plugins/opengl/src/texture/color_volume.cpp
+	src/plugins/opengl/src/texture/color_volume_types.cpp
 	src/plugins/opengl/src/texture/context.cpp
 	src/plugins/opengl/src/texture/convert/address_mode.cpp
 	src/plugins/opengl/src/texture/convert/address_mode_type.cpp

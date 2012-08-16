@@ -55,7 +55,7 @@ template<
 >
 class basic_buffer
 :
-	public Types::buffer_base,
+	public Types::base,
 	public sge::opengl::texture::buffer_base
 {
 	FCPPT_NONCOPYABLE(
@@ -69,7 +69,7 @@ public:
 
 	~basic_buffer();
 
-	typedef typename Types::buffer_base base_type;
+	typedef typename Types::base base_type;
 
 	typedef typename base_type::image_tag image_tag;
 

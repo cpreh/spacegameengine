@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_TEXTURE_COLOR_VOLUME_FWD_HPP_INCLUDED
 
 #include <sge/opengl/texture/basic_buffer_fwd.hpp>
-#include <sge/opengl/texture/volume_types_fwd.hpp>
+#include <sge/opengl/texture/color_volume_types_fwd.hpp>
 
 
 namespace sge
@@ -33,7 +33,7 @@ namespace texture
 {
 
 typedef sge::opengl::texture::basic_buffer<
-	sge::opengl::texture::volume_types
+	sge::opengl::texture::color_volume_types
 > color_volume;
 
 }

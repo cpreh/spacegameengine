@@ -18,15 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image3d/view/const_object.hpp>
-#include <sge/image3d/view/object.hpp>
-#include <sge/opengl/texture/basic_buffer_impl.hpp>
-#include <sge/opengl/texture/color_volume.hpp>
 #include <sge/opengl/texture/color_volume_types.hpp>
+#include <sge/opengl/texture/funcs/set_3d.hpp>
+#include <sge/opengl/texture/funcs/set_box.hpp>
+#include <sge/renderer/size_type.hpp>
 
 
-template
-class
-sge::opengl::texture::basic_buffer<
-	sge::opengl::texture::color_volume_types
->;
+sge::renderer::size_type
+sge::opengl::texture::color_volume_types::min_size()
+{
+	return 16u;
+}
+
+sge::opengl::texture::color_volume_types::init_function_type
+sge::opengl::texture::color_volume_types::init_function()
+{
+	return &sge::opengl::texture::funcs::set_3d;
+}
+
+sge::opengl::texture::color_volume_types::sub_function_type
+sge::opengl::texture::color_volume_types::sub_function()
+{
+	return &sge::opengl::texture::funcs::set_box;
+}

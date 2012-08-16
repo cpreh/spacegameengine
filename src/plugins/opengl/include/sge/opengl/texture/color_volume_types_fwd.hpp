@@ -18,15 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image3d/view/const_object.hpp>
-#include <sge/image3d/view/object.hpp>
-#include <sge/opengl/texture/basic_buffer_impl.hpp>
-#include <sge/opengl/texture/color_volume.hpp>
-#include <sge/opengl/texture/color_volume_types.hpp>
+#ifndef SGE_OPENGL_TEXTURE_COLOR_VOLUME_TYPES_FWD_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_COLOR_VOLUME_TYPES_FWD_HPP_INCLUDED
 
 
-template
-class
-sge::opengl::texture::basic_buffer<
-	sge::opengl::texture::color_volume_types
->;
+namespace sge
+{
+namespace opengl
+{
+namespace texture
+{
+
+struct color_volume_types;
+
+}
+}
+}
+
+#endif

@@ -76,7 +76,7 @@ public:
 	Sets \a surface to \a level or unsets the surface for \a level if \a
 	surface is empty. Initially, no color surface is set.
 
-	\param surface The color surface to set or and empty optional to unset
+	\param surface The color surface to set or an empty optional to unset
 	the surface
 
 	\param level The level to set the surface for. Level 0 is the one that

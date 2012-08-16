@@ -22,19 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/object.hpp>
 #include <sge/opengl/texture/basic_buffer_impl.hpp>
 #include <sge/opengl/texture/color_surface.hpp>
-#include <sge/opengl/texture/cube_types.hpp>
-#include <sge/opengl/texture/planar_types.hpp>
+#include <sge/opengl/texture/color_surface_types.hpp>
 
 
 template
 class
 sge::opengl::texture::basic_buffer<
-	sge::opengl::texture::planar_types
->;
-
-// FIXME!
-template
-class
-sge::opengl::texture::basic_buffer<
-	sge::opengl::texture::cube_types
+	sge::opengl::texture::color_surface_types
 >;
