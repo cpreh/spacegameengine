@@ -18,27 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CREATE_VISUAL_HPP_INCLUDED
-#define SGE_OPENGL_CREATE_VISUAL_HPP_INCLUDED
-
-#include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/renderer/pixel_format/object_fwd.hpp>
-#include <awl/system/object_fwd.hpp>
-#include <awl/visual/object_unique_ptr.hpp>
+#ifndef SGE_OPENGL_GLX_VISUAL_CONTEXT_FWD_HPP_INCLUDED
+#define SGE_OPENGL_GLX_VISUAL_CONTEXT_FWD_HPP_INCLUDED
 
 
 namespace sge
 {
 namespace opengl
 {
+namespace glx
+{
+namespace visual
+{
 
-awl::visual::object_unique_ptr
-create_visual(
-	sge::opengl::context::system::object &,
-	awl::system::object &,
-	sge::renderer::pixel_format::object const &
-);
+class context;
 
+}
+}
 }
 }
 

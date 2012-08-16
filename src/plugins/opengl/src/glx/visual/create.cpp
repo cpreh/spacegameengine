@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/glx/visual/attribute_container.hpp>
 #include <sge/opengl/glx/visual/choose.hpp>
 #include <sge/opengl/glx/visual/create.hpp>
@@ -31,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 awl::visual::object_unique_ptr
 sge::opengl::glx::visual::create(
+	sge::opengl::context::system::object &_system_context,
 	awl::backends::x11::system::object &_awl_system,
 	sge::renderer::pixel_format::object const &_format
 )
@@ -44,6 +46,7 @@ sge::opengl::glx::visual::create(
 					_awl_system.display(),
 					_awl_system.screen(),
 					sge::opengl::glx::visual::make_attributes(
+						_system_context,
 						_format
 					)
 				)

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_SRGB_CONTEXT_HPP_INCLUDED
 #define SGE_OPENGL_SRGB_CONTEXT_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
+#include <sge/opengl/optional_enum.hpp>
 #include <sge/opengl/srgb_context_fwd.hpp>
 #include <sge/opengl/context/system/base.hpp>
 #include <sge/opengl/context/system/id.hpp>
@@ -45,21 +45,16 @@ public:
 
 	~srgb_context();
 
-	bool
-	is_supported() const;
-
-	GLenum
+	sge::opengl::optional_enum const
 	flag() const;
 
 	typedef void needs_before;
 
-	static sge::opengl::context::system::id const static_id;
+	static
+	sge::opengl::context::system::id const
+	static_id;
 private:
-	bool const
-		is_native_,
-		is_ext_;
-
-	GLenum const flag_;
+	sge::opengl::optional_enum const flag_;
 };
 
 }

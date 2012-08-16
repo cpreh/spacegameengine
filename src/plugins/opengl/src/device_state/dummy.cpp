@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/create_visual.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/device_state/context.hpp>
 #include <sge/opengl/device_state/create_context.hpp>
 #include <sge/opengl/device_state/dummy.hpp>
@@ -37,7 +38,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 
 
-sge::opengl::device_state::dummy::dummy()
+sge::opengl::device_state::dummy::dummy(
+	sge::opengl::context::system::object &_system_context
+)
 :
 	awl_system_(
 		awl::system::create()
@@ -45,6 +48,7 @@ sge::opengl::device_state::dummy::dummy()
 	awl_visual_(
 		// TODO: This is a hack for Windows, but is it wise? What if this visual isn't supported?
 		sge::opengl::create_visual(
+			_system_context,
 			*awl_system_,
 			sge::renderer::pixel_format::object(
 				sge::renderer::pixel_format::color::depth32,

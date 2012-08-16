@@ -20,16 +20,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/glew/is_supported.hpp>
+#include <sge/opengl/glew/string.hpp>
 
 
 bool
 sge::opengl::glew::is_supported(
-	glew::string const &_str
+	sge::opengl::glew::string const &_str
 )
 {
 	return
 		glewIsSupported(
 			_str.c_str()
 		)
-		!= GL_FALSE;
+		!=
+		GL_FALSE;
 }

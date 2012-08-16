@@ -182,6 +182,10 @@ set(
 	src/plugins/opengl/include/sge/opengl/onscreen_surface.hpp
 	src/plugins/opengl/include/sge/opengl/onscreen_target.hpp
 	src/plugins/opengl/include/sge/opengl/onscreen_target_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/optional_enum.hpp
+	src/plugins/opengl/include/sge/opengl/optional_enum_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/optional_int.hpp
+	src/plugins/opengl/include/sge/opengl/optional_int_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/optional_target_base_ref.hpp
 	src/plugins/opengl/include/sge/opengl/pixel_store_context.hpp
 	src/plugins/opengl/include/sge/opengl/pixel_store_context_fwd.hpp
@@ -807,6 +811,8 @@ set(
 	src/plugins/opengl/include/sge/opengl/glx/visual/attribute_container.hpp
 	src/plugins/opengl/include/sge/opengl/glx/visual/attribute_container_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/glx/visual/choose.hpp
+	src/plugins/opengl/include/sge/opengl/glx/visual/context.hpp
+	src/plugins/opengl/include/sge/opengl/glx/visual/context_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/glx/visual/convert_color.hpp
 	src/plugins/opengl/include/sge/opengl/glx/visual/create.hpp
 	src/plugins/opengl/include/sge/opengl/glx/visual/make_attributes.hpp
@@ -827,6 +833,7 @@ set(
 	src/plugins/opengl/src/glx/proc_address.cpp
 	src/plugins/opengl/src/glx/proc_context.cpp
 	src/plugins/opengl/src/glx/visual/choose.cpp
+	src/plugins/opengl/src/glx/visual/context.cpp
 	src/plugins/opengl/src/glx/visual/convert_color.cpp
 	src/plugins/opengl/src/glx/visual/create.cpp
 	src/plugins/opengl/src/glx/visual/make_attributes.cpp

@@ -53,7 +53,9 @@ sge::opengl::create_device_caps(
 	sge::opengl::context::system::object &_context
 )
 {
-	sge::opengl::device_state::dummy dummy_state;
+	sge::opengl::device_state::dummy dummy_state(
+		_context
+	);
 
 	sge::renderer::size_type const max_texture_size(
 		static_cast<

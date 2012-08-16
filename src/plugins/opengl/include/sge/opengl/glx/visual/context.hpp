@@ -18,27 +18,51 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CREATE_VISUAL_HPP_INCLUDED
-#define SGE_OPENGL_CREATE_VISUAL_HPP_INCLUDED
+#ifndef SGE_OPENGL_GLX_VISUAL_CONTEXT_HPP_INCLUDED
+#define SGE_OPENGL_GLX_VISUAL_CONTEXT_HPP_INCLUDED
 
-#include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/renderer/pixel_format/object_fwd.hpp>
-#include <awl/system/object_fwd.hpp>
-#include <awl/visual/object_unique_ptr.hpp>
+#include <sge/opengl/optional_int.hpp>
+#include <sge/opengl/context/system/base.hpp>
+#include <sge/opengl/context/system/id.hpp>
+#include <sge/opengl/glx/visual/context_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
 
 
 namespace sge
 {
 namespace opengl
 {
+namespace glx
+{
+namespace visual
+{
 
-awl::visual::object_unique_ptr
-create_visual(
-	sge::opengl::context::system::object &,
-	awl::system::object &,
-	sge::renderer::pixel_format::object const &
-);
+class context
+:
+	public sge::opengl::context::system::base
+{
+	FCPPT_NONCOPYABLE(
+		context
+	);
+public:
+	context();
 
+	~context();
+
+	sge::opengl::optional_int const
+	flag() const;
+
+	typedef void needs_before;
+
+	static
+	sge::opengl::context::system::id const
+	static_id;
+private:
+	sge::opengl::optional_int const flag_;
+};
+
+}
+}
 }
 }
 

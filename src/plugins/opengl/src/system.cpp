@@ -97,6 +97,7 @@ sge::opengl::system::create_visual(
 {
 	return
 		sge::opengl::create_visual(
+			system_context_,
 			_awl_system,
 			_pixel_format
 		);

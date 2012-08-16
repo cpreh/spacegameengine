@@ -18,51 +18,54 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/common.hpp>
-#include <sge/opengl/optional_enum.hpp>
-#include <sge/opengl/srgb_context.hpp>
+#include <sge/opengl/optional_int.hpp>
 #include <sge/opengl/context/system/base.hpp>
 #include <sge/opengl/context/system/id.hpp>
 #include <sge/opengl/context/system/make_id.hpp>
-#include <sge/opengl/glew/is_supported.hpp>
+#include <sge/opengl/glx/visual/context.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <GL/glx.h>
+#include <fcppt/config/external_end.hpp>
 
 
-sge::opengl::srgb_context::srgb_context()
+sge::opengl::glx::visual::context::context()
 :
 	sge::opengl::context::system::base(),
 	flag_(
+		// FIXME!
+/*
 		sge::opengl::glew::is_supported(
-			"GL_VERSION_3_0"
+			"GLX_EXT_framebuffer_sRGB"
 		)
-		?
-			sge::opengl::optional_enum(
-				GL_FRAMEBUFFER_SRGB
+		?*/
+			sge::opengl::optional_int(
+				GLX_FRAMEBUFFER_SRGB_CAPABLE_EXT
 			)
-		:
+		/*:
 			sge::opengl::glew::is_supported(
-				"EXT_framebuffer_sRGB"
+				"GLX_ARB_framebuffer_sRGB"
 			)
 			?
-				sge::opengl::optional_enum(
-					GL_FRAMEBUFFER_SRGB_EXT
+				sge::opengl::optional_int(
+					GLX_FRAMEBUFFER_SRGB_CAPABLE_ARB
 				)
 			:
-				sge::opengl::optional_enum()
+				sge::opengl::optional_int()*/
 	)
 {
 }
 
-sge::opengl::srgb_context::~srgb_context()
+sge::opengl::glx::visual::context::~context()
 {
 }
 
-sge::opengl::optional_enum const
-sge::opengl::srgb_context::flag() const
+sge::opengl::optional_int const
+sge::opengl::glx::visual::context::flag() const
 {
 	return flag_;
 }
 
 sge::opengl::context::system::id const
-sge::opengl::srgb_context::static_id(
+sge::opengl::glx::visual::context::static_id(
 	sge::opengl::context::system::make_id()
 );

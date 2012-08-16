@@ -18,13 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CREATE_VISUAL_HPP_INCLUDED
-#define SGE_OPENGL_CREATE_VISUAL_HPP_INCLUDED
+#ifndef SGE_OPENGL_OPTIONAL_INT_FWD_HPP_INCLUDED
+#define SGE_OPENGL_OPTIONAL_INT_FWD_HPP_INCLUDED
 
-#include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/renderer/pixel_format/object_fwd.hpp>
-#include <awl/system/object_fwd.hpp>
-#include <awl/visual/object_unique_ptr.hpp>
+#include <sge/opengl/common.hpp>
+#include <fcppt/optional_fwd.hpp>
 
 
 namespace sge
@@ -32,12 +30,9 @@ namespace sge
 namespace opengl
 {
 
-awl::visual::object_unique_ptr
-create_visual(
-	sge::opengl::context::system::object &,
-	awl::system::object &,
-	sge::renderer::pixel_format::object const &
-);
+typedef fcppt::optional<
+	GLint
+> optional_int;
 
 }
 }

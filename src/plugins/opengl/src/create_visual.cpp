@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/config.hpp>
 #include <sge/opengl/create_visual.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <awl/system/object_fwd.hpp>
 #include <awl/visual/object.hpp>
@@ -38,8 +39,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 awl::visual::object_unique_ptr
 sge::opengl::create_visual(
 #if defined(SGE_OPENGL_HAVE_X11)
+	sge::opengl::context::system::object &_system_context,
 	awl::system::object &_awl_system,
 #elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
+	sge::opengl::context::system::object &,
 	awl::system::object &,
 #endif
 	sge::renderer::pixel_format::object const &_format
@@ -48,6 +51,7 @@ sge::opengl::create_visual(
 #if defined(SGE_OPENGL_HAVE_X11)
 	return
 		sge::opengl::glx::visual::create(
+			_system_context,
 			dynamic_cast<
 				awl::backends::x11::system::object &
 			>(

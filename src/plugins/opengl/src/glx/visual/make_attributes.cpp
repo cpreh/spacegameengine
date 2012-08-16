@@ -18,16 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/optional_int.hpp>
+#include <sge/opengl/context/use.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/glx/visual/attribute_container.hpp>
 #include <sge/opengl/glx/visual/convert_color.hpp>
+#include <sge/opengl/glx/visual/context.hpp>
 #include <sge/opengl/glx/visual/make_attributes.hpp>
 #include <sge/opengl/glx/visual/rgb_triple.hpp>
+#include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/pixel_format/depth_bits.hpp>
 #include <sge/renderer/pixel_format/object.hpp>
 #include <sge/renderer/pixel_format/optional_bit_count.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/pixel_format/stencil_bits.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <GL/glx.h>
 #include <fcppt/config/external_end.hpp>
@@ -35,6 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::glx::visual::attribute_container const
 sge::opengl::glx::visual::make_attributes(
+	sge::opengl::context::system::object &_system_context,
 	sge::renderer::pixel_format::object const &_format
 )
 {
@@ -167,8 +174,29 @@ sge::opengl::glx::visual::make_attributes(
 		sge::renderer::pixel_format::srgb::yes
 	)
 	{
+		sge::opengl::glx::visual::context &visual_context(
+			sge::opengl::context::use<
+				sge::opengl::glx::visual::context
+			>(
+				_system_context
+			)
+		);
+
+		sge::opengl::optional_int const srgb_flag(
+			visual_context.flag()
+		);
+
+		if(
+			!srgb_flag
+		)
+			throw sge::renderer::unsupported(
+				FCPPT_TEXT("sRGB visuals"),
+				FCPPT_TEXT(""),
+				FCPPT_TEXT("GLX_EXT_framebuffer_sRGB, GLX_ARB_framebuffer_sRGB")
+			);
+
 		ret.push_back(
-			GLX_FRAMEBUFFER_SRGB_CAPABLE_ARB
+			*srgb_flag
 		);
 
 		ret.push_back(
