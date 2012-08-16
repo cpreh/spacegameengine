@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_GRAPH_OBJECT_HPP_INCLUDED
 
 #include <sge/graph/axis_constraint.hpp>
+#include <sge/graph/detail/draw_visitor_fwd.hpp>
 #include <sge/graph/background_color.hpp>
 #include <sge/graph/baseline.hpp>
 #include <sge/graph/color_scheme.hpp>
@@ -88,6 +89,8 @@ public:
 	~object();
 
 private:
+	friend class sge::graph::detail::draw_visitor;
+
 	typedef sge::sprite::config::choices<
 		sge::sprite::config::type_choices<
 			sge::sprite::config::unit_type<
@@ -159,13 +162,15 @@ private:
 	sge::graph::scalar
 	current_max_;
 
+	template<typename View>
 	void
 	clear(
-		sge::image2d::view::object const _view);
+		View const &_view);
 
+	template<typename View>
 	void
 	draw_data(
-		sge::image2d::view::object const _view);
+		View const &_view);
 };
 }
 }

@@ -58,11 +58,10 @@ sge::shader::parameter::planar_texture::planar_texture(
 
 void
 sge::shader::parameter::planar_texture::set(
-	sge::renderer::texture::planar &_value)
+	optional_value const &_value)
 {
 	value_ =
-		optional_value(
-			_value);
+		_value;
 
 	if(optional_render_context_)
 	{
@@ -70,17 +69,20 @@ sge::shader::parameter::planar_texture::set(
 
 		loaded_texture_.reset();
 
-		loaded_texture_.take(
-			renderer_.load_cg_texture(
-				parameter_.object(),
-				_value));
+		if(value_)
+		{
+			loaded_texture_.take(
+				renderer_.load_cg_texture(
+					parameter_.object(),
+					*_value));
 
-		scoped_texture_.take(
-			fcppt::make_unique_ptr<sge::renderer::cg::scoped_texture>(
-				fcppt::ref(
-					*optional_render_context_),
-				fcppt::cref(
-					*loaded_texture_)));
+			scoped_texture_.take(
+				fcppt::make_unique_ptr<sge::renderer::cg::scoped_texture>(
+					fcppt::ref(
+						*optional_render_context_),
+					fcppt::cref(
+						*loaded_texture_)));
+		}
 	}
 }
 
@@ -98,8 +100,8 @@ sge::shader::parameter::planar_texture::activate(
 		optional_render_context(
 			_render_context);
 
-	if(value_)
-		this->set(*value_);
+	this->set(
+		value_);
 }
 
 void
@@ -114,11 +116,16 @@ sge::shader::parameter::planar_texture::deactivate()
 		optional_render_context();
 }
 
-sge::renderer::cg::loaded_texture &
+sge::shader::parameter::planar_texture::optional_loaded_texture
 sge::shader::parameter::planar_texture::loaded_texture()
 {
 	return
-		*loaded_texture_;
+		loaded_texture_
+		?
+			sge::shader::parameter::planar_texture::optional_loaded_texture(
+				*loaded_texture_)
+		:
+			sge::shader::parameter::planar_texture::optional_loaded_texture();
 }
 
 sge::renderer::texture::stage const

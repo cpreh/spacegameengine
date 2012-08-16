@@ -51,6 +51,10 @@ public:
 	fcppt::optional<sge::renderer::texture::planar &>
 	optional_value;
 
+	typedef
+	fcppt::optional<sge::renderer::cg::loaded_texture &>
+	optional_loaded_texture;
+
 	SGE_SHADER_SYMBOL
 	planar_texture(
 		sge::shader::pair &,
@@ -62,7 +66,7 @@ public:
 	SGE_SHADER_SYMBOL
 	void
 	set(
-		sge::renderer::texture::planar &);
+		optional_value const &);
 
 	SGE_SHADER_SYMBOL
 	void
@@ -74,7 +78,7 @@ public:
 	deactivate();
 
 	SGE_SHADER_SYMBOL
-	sge::renderer::cg::loaded_texture &
+	optional_loaded_texture
 	loaded_texture();
 
 	SGE_SHADER_SYMBOL

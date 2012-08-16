@@ -25,6 +25,10 @@ include_directories(
 	${FCPPT_UTILS_INCLUDE_SYSTEM}
 )
 
+include_directories(
+	${CMAKE_CURRENT_SOURCE_DIR}/include
+)
+
 add_sge_base_library(
 	"graph"
 	"sgerenderer;sgeimage;sgeimage2d;sgesprite;sgetexture"

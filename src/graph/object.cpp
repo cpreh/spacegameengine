@@ -57,10 +57,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <algorithm>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
-
+#include <fcppt/nonassignable.hpp>
+#include <fcppt/variant/apply_unary.hpp>
+#include <mizuiro/image/algorithm/bresenham.hpp>
+#include <sge/image/color/any/convert.hpp>
+#include <sge/src/graph/detail/draw_visitor.hpp>
 
 namespace
 {
+template<typename View,typename Color>
+void
+adapted_bresenham(
+	View const &_view,
+	sge::image2d::vector const &_pos1,
+	sge::image2d::vector const &_pos2,
+	Color const &_color1,
+	Color const &_color2)
+{
+	mizuiro::image::algorithm::bresenham(
+		_view,
+		typename View::dim(
+			_pos1.x(),
+			_pos1.y()),
+		typename View::dim(
+			_pos2.x(),
+			_pos2.y()),
+		sge::image::color::any::convert<typename View::format::color_format>(
+			_color1),
+		sge::image::color::any::convert<typename View::format::color_format>(
+			_color2));
+}
+
 sge::graph::scalar
 normalize(
 	sge::graph::scalar const &t,
@@ -75,36 +102,37 @@ normalize(
 		(max - min);
 }
 
+template<typename View>
 void
 draw_rectangle(
-	sge::image2d::view::object const &_view,
+	View const &_view,
 	sge::image2d::vector const &_corner1,
 	sge::image2d::vector const &_corner2,
 	sge::image::color::any::object const &_color
 )
 {
-sge::image2d::algorithm::bresenham(
+adapted_bresenham(
 	_view,
 	_corner1,
 	sge::image2d::vector(_corner1.x(), _corner2.y()),
 	_color,
 	_color
 );
-sge::image2d::algorithm::bresenham(
+adapted_bresenham(
 	_view,
 	_corner1,
 	sge::image2d::vector(_corner2.x(), _corner1.y()),
 	_color,
 	_color
 );
-sge::image2d::algorithm::bresenham(
+adapted_bresenham(
 	_view,
 	sge::image2d::vector(_corner1.x(), _corner2.y()),
 	_corner2,
 	_color,
 	_color
 );
-sge::image2d::algorithm::bresenham(
+adapted_bresenham(
 	_view,
 	sge::image2d::vector(_corner2.x(), _corner1.y()),
 	_corner2,
@@ -223,12 +251,14 @@ current_max_(
 		baseline_)
 	)
 {
-	sge::renderer::texture::scoped_planar_lock lock(
+	sge::renderer::texture::scoped_planar_lock const lock(
 		*texture_,
 		sge::renderer::lock_mode::writeonly);
 
-	clear(
-		lock.value());
+	fcppt::variant::apply_unary(
+		sge::graph::detail::draw_visitor(
+			*this),
+		lock.value().get());
 }
 
 void
@@ -265,7 +295,10 @@ sge::graph::object::render(
 			*texture_,
 			sge::renderer::lock_mode::writeonly);
 
-		this->draw_data(lock.value());
+		fcppt::variant::apply_unary(
+			sge::graph::detail::draw_visitor(
+				*this),
+			lock.value().get());
 	}
 
 	sge::sprite::process::one(
@@ -275,14 +308,15 @@ sge::graph::object::render(
 	);
 }
 
+template<typename View>
 void
 sge::graph::object::clear(
-	sge::image2d::view::object const _view
+	View const &_view
 )
 {
 	for (sge::image::size_type x = 0; x < dim_.w(); ++x)
 	{
-		sge::image2d::algorithm::bresenham(
+		adapted_bresenham(
 			_view,
 			sge::image2d::vector(
 				x,
@@ -311,12 +345,13 @@ sge::graph::object::clear(
 	);
 }
 
+template<typename View>
 void
 sge::graph::object::draw_data(
-	sge::image2d::view::object const _view
+	View const &_view
 )
 {
-	clear(
+	this->clear(
 		_view);
 
 	sge::graph::axis_constraint const current_axis_constraint(
@@ -376,7 +411,7 @@ sge::graph::object::draw_data(
 				:
 				color_scheme_.foreground_color());
 
-		sge::image2d::algorithm::bresenham(
+		adapted_bresenham(
 			_view,
 			sge::image2d::vector(
 				i,
@@ -392,7 +427,7 @@ sge::graph::object::draw_data(
 	}
 
 	// zero line
-	sge::image2d::algorithm::bresenham(
+	adapted_bresenham(
 		_view,
 		sge::image2d::vector(
 			0,
@@ -407,7 +442,7 @@ sge::graph::object::draw_data(
 	);
 
 	// baseline
-	sge::image2d::algorithm::bresenham(
+	adapted_bresenham(
 		_view,
 		sge::image2d::vector(
 			0,

@@ -2,6 +2,11 @@ set(
 	SGE_SCENIC_FILES
 	include/sge/scenic/camera_properties.hpp
 	include/sge/scenic/camera_properties_fwd.hpp
+	include/sge/scenic/cg_context/manager.hpp
+	include/sge/scenic/cg_context/manager_fwd.hpp
+	include/sge/scenic/cg_context/object.hpp
+	include/sge/scenic/cg_context/object_fwd.hpp
+	include/sge/scenic/cg_context/optional_planar_texture.hpp
 	include/sge/scenic/exception.hpp
 	include/sge/scenic/fog/color.hpp
 	include/sge/scenic/fog/end.hpp
@@ -44,6 +49,8 @@ set(
 	include/sge/scenic/texture_base_path.hpp
 	include/sge/scenic/texture_manager.hpp
 	include/sge/scenic/texture_manager_fwd.hpp
+	src/scenic/cg_context/manager.cpp
+	src/scenic/cg_context/object.cpp
 	src/scenic/exception.cpp
 	src/scenic/fog/properties.cpp
 	src/scenic/grid/object.cpp
@@ -57,9 +64,14 @@ set(
 	src/scenic/texture_manager.cpp
 )
 
+include_directories(
+	${FCPPT_UTILS_INCLUDE_SYSTEM}
+	${Cg_INCLUDE_DIRS}
+)
+
 add_sge_base_library(
 	"scenic"
-	"sgeparse;sgeimage;sgemodelobj;sgerenderer;sgecamera;sgeviewport;sgeline_drawer"
+	"sgeparse;sgeimage;sgemodelobj;sgerenderer;sgecamera;sgeviewport;sgeline_drawer;sgecg;sgerenderercg;sgeshader;sgeconfig"
 	"${Fcppt_filesystem_LIBRARIES}"
 	""
 	""
