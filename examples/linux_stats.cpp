@@ -531,7 +531,7 @@ try
 		++it
 	)
 	{
-		int y = (2 + (it - devices.begin())) * graph_dim.h();
+		int y = static_cast<int>((2 + (it - devices.begin())) * graph_dim.h());
 		fcppt::container::ptr::insert_unique_ptr_map(
 			device_map,
 			*it,
