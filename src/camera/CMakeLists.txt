@@ -70,6 +70,7 @@ set(
 	include/sge/camera/spherical/coordinate_system/homogenous.hpp
 	include/sge/camera/spherical/coordinate_system/inclination.hpp
 	include/sge/camera/spherical/coordinate_system/look_down_positive_z.hpp
+	include/sge/camera/coordinate_system/scoped.hpp
 	include/sge/camera/spherical/coordinate_system/null.hpp
 	include/sge/camera/spherical/coordinate_system/object.hpp
 	include/sge/camera/spherical/coordinate_system/object_fwd.hpp
@@ -93,6 +94,7 @@ set(
 	src/camera/first_person/action/wasd_mapping.cpp
 	src/camera/first_person/object.cpp
 	src/camera/first_person/parameters.cpp
+	src/camera/coordinate_system/scoped.cpp
 	src/camera/has_activation.cpp
 	src/camera/has_mutable_coordinate_system.cpp
 	src/camera/has_mutable_projection.cpp

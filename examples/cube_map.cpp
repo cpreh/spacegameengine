@@ -69,6 +69,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/view.hpp>
 #include <sge/camera/coordinate_system/object.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
+#include <sge/camera/coordinate_system/scoped.hpp>
 #include <sge/renderer/vf/dynamic/make_part_index.hpp>
 #include <sge/systems/image2d.hpp>
 #include <sge/systems/input.hpp>
@@ -722,6 +723,64 @@ try
 			boost::chrono::seconds(
 				1)));
 
+	typedef
+	std::map
+	<
+		sge::renderer::texture::cube_side::type,
+		sge::camera::coordinate_system::object
+	>
+	side_to_coordinate_system_map;
+
+	side_to_coordinate_system_map side_to_coordinate_system;
+	side_to_coordinate_system.insert(
+		std::make_pair(
+			sge::renderer::texture::cube_side::back,
+			sge::camera::coordinate_system::object(
+				sge::camera::coordinate_system::right(
+					sge::renderer::vector3(1.0f,0.0f,0.0f)),
+				sge::camera::coordinate_system::up(
+					sge::renderer::vector3(0.0f,1.0f,0.0f)),
+				sge::camera::coordinate_system::forward(
+					sge::renderer::vector3(0.0f,0.0f,1.0f)),
+				sge::camera::coordinate_system::position(
+					sge::renderer::vector3::null()))));
+	side_to_coordinate_system.insert(
+		std::make_pair(
+			sge::renderer::texture::cube_side::front,
+			sge::camera::coordinate_system::object(
+				sge::camera::coordinate_system::right(
+					sge::renderer::vector3(1.0f,0.0f,0.0f)),
+				sge::camera::coordinate_system::up(
+					sge::renderer::vector3(0.0f,1.0f,0.0f)),
+				sge::camera::coordinate_system::forward(
+					sge::renderer::vector3(0.0f,0.0f,-1.0f)),
+				sge::camera::coordinate_system::position(
+					sge::renderer::vector3::null()))));
+	side_to_coordinate_system.insert(
+		std::make_pair(
+			sge::renderer::texture::cube_side::left,
+			sge::camera::coordinate_system::object(
+				sge::camera::coordinate_system::right(
+					sge::renderer::vector3(0.0f,0.0f,1.0f)),
+				sge::camera::coordinate_system::up(
+					sge::renderer::vector3(0.0f,1.0f,0.0f)),
+				sge::camera::coordinate_system::forward(
+					sge::renderer::vector3(-1.0f,0.0f,0.0f)),
+				sge::camera::coordinate_system::position(
+					sge::renderer::vector3::null()))));
+	side_to_coordinate_system.insert(
+		std::make_pair(
+			sge::renderer::texture::cube_side::right,
+			sge::camera::coordinate_system::object(
+				sge::camera::coordinate_system::right(
+					sge::renderer::vector3(0.0f,0.0f,-1.0f)),
+				sge::camera::coordinate_system::up(
+					sge::renderer::vector3(0.0f,1.0f,0.0f)),
+				sge::camera::coordinate_system::forward(
+					sge::renderer::vector3(1.0f,0.0f,0.0f)),
+				sge::camera::coordinate_system::position(
+					sge::renderer::vector3::null()))));
+
 	while(
 		sys.window_system().poll())
 	{
@@ -729,22 +788,20 @@ try
 			sge::timer::elapsed_and_reset<sge::camera::update_duration>(
 				frame_timer));
 
+		for(
+			side_to_coordinate_system_map::const_iterator to_coordinate =
+				side_to_coordinate_system.begin();
+			to_coordinate != side_to_coordinate_system.end();
+			++to_coordinate)
 		{
-			camera.update_coordinate_system(
-				sge::camera::coordinate_system::object(
-					sge::camera::coordinate_system::right(
-						sge::renderer::vector3(1.0f,0.0f,0.0f)),
-					sge::camera::coordinate_system::up(
-						sge::renderer::vector3(0.0f,1.0f,0.0f)),
-					sge::camera::coordinate_system::forward(
-						sge::renderer::vector3(0.0f,0.0f,1.0f)),
-					sge::camera::coordinate_system::position(
-						sge::renderer::vector3::null())));
+			sge::camera::coordinate_system::scoped scoped_coordinates(
+				camera,
+				to_coordinate->second);
 
 			sge::renderer::context::scoped const scoped_block(
 				sys.renderer(),
 				cube.target_for_side(
-					sge::renderer::texture::cube_side::left));
+					to_coordinate->first));
 
 			scoped_block.get().clear(
 				sge::renderer::clear::parameters()
