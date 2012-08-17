@@ -10,6 +10,7 @@ set(
 	src/plugins/pango/include/sge/pango/glib_deleter.hpp
 	src/plugins/pango/include/sge/pango/glib_deleter_fwd.hpp
 	src/plugins/pango/include/sge/pango/ink_rect.hpp
+	src/plugins/pango/include/sge/pango/no_multi_line.hpp
 	src/plugins/pango/include/sge/pango/object.hpp
 	src/plugins/pango/include/sge/pango/pango_layout_scoped_ptr.hpp
 	src/plugins/pango/include/sge/pango/pango_layout_unique_ptr.hpp

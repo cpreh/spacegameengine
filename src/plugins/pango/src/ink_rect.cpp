@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/font/rect.hpp>
 #include <sge/pango/ink_rect.hpp>
+#include <sge/pango/no_multi_line.hpp>
 #include <sge/pango/convert/from_rect.hpp>
 #include <fcppt/null_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -29,16 +30,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::font::rect const
 sge::pango::ink_rect(
-	PangoLayout &_layout
+	PangoLayout &_layout,
+	sge::pango::no_multi_line const _no_multi_line
 )
 {
 	PangoRectangle result;
 
-	::pango_layout_get_pixel_extents(
-		&_layout,
-		&result,
-		fcppt::null_ptr()
-	);
+	if(
+		_no_multi_line.get()
+	)
+	{
+		PangoLayoutLine *const line(
+			::pango_layout_get_line(
+				&_layout,
+				0
+			)
+		);
+
+		if(
+			line == fcppt::null_ptr()
+		)
+			return sge::font::rect::null();
+
+		::pango_layout_line_get_pixel_extents(
+			line,
+			&result,
+			fcppt::null_ptr()
+		);
+	}
+	else
+		::pango_layout_get_pixel_extents(
+			&_layout,
+			&result,
+			fcppt::null_ptr()
+		);
 
 	return
 		sge::pango::convert::from_rect(

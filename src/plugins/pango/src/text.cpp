@@ -60,7 +60,8 @@ sge::pango::text::text(
 	),
 	ink_rect_(
 		sge::pango::ink_rect(
-			*layout_
+			*layout_,
+			no_multi_line_
 		)
 	)
 {
@@ -90,7 +91,7 @@ sge::pango::text::render(
 	);
 
 	if(
-		no_multi_line_
+		no_multi_line_.get()
 	)
 	{
 		PangoLayoutLine *const line(

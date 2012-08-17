@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text_parameters_fwd.hpp>
 #include <sge/font/view_fwd.hpp>
 #include <sge/pango/pango_layout_scoped_ptr.hpp>
+#include <sge/pango/no_multi_line.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -67,7 +68,7 @@ private:
 
 	sge::pango::pango_layout_scoped_ptr const layout_;
 
-	bool const no_multi_line_;
+	sge::pango::no_multi_line const no_multi_line_;
 
 	sge::font::rect const ink_rect_;
 };
