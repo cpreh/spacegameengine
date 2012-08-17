@@ -20,13 +20,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/log/global.hpp>
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/optional_enum.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
-#include <sge/opengl/texture/context.hpp>
 #include <sge/opengl/texture/type.hpp>
 #include <sge/opengl/texture/funcs/parameter_int.hpp>
 #include <sge/opengl/texture/mipmap/auto_generate.hpp>
+#include <sge/opengl/texture/mipmap/context.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/log/output.hpp>
@@ -39,12 +40,16 @@ sge::opengl::texture::mipmap::auto_generate(
 	sge::opengl::texture::type const _type
 )
 {
-	if(
-		!sge::opengl::context::use<
-			sge::opengl::texture::context
+	sge::opengl::optional_enum const generate_mipmap_flag(
+		sge::opengl::context::use<
+			sge::opengl::texture::mipmap::context
 		>(
 			_system_context
-		).generate_mipmap_flag_supported()
+		).generate_mipmap_flag()
+	);
+
+	if(
+		!generate_mipmap_flag
 	)
 	{
 		FCPPT_LOG_ERROR(
@@ -60,7 +65,7 @@ sge::opengl::texture::mipmap::auto_generate(
 	sge::opengl::texture::funcs::parameter_int(
 		_binding,
 		_type,
-		GL_GENERATE_MIPMAP,
+		*generate_mipmap_flag,
 		GL_TRUE
 	);
 }

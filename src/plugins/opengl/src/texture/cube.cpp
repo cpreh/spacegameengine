@@ -48,7 +48,7 @@ sge::opengl::texture::cube::cube(
 )
 :
 	sge::opengl::texture::cube_basic(
-		sge::opengl::context::use<
+		*sge::opengl::context::use<
 			sge::opengl::texture::cube_context
 		>(
 			_basic_parameters.system_context()
@@ -94,9 +94,9 @@ sge::opengl::texture::cube::cube(
 			sides_.back(),
 			_basic_parameters,
 			_parameters,
-			context.cube_texture_type(),
+			*context.cube_texture_type(),
 			sge::opengl::texture::convert::cube_side(
-				context.cube_sides(),
+				*context.cube_sides(),
 				index
 			),
 			this->id()

@@ -26,38 +26,46 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/base.hpp>
 #include <sge/opengl/context/system/id.hpp>
 #include <sge/opengl/context/system/make_id.hpp>
-#include <sge/opengl/glew/is_supported.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
 
 sge::opengl::buffer::pbo_context::pbo_context()
 :
 	sge::opengl::context::system::base(),
 	impl_(
 		sge::opengl::buffer::create(
-			glew::is_supported("GL_VERSION_2_1")
-			|| glew::is_supported("GL_ARB_pixel_buffer_object")
+			GLEW_VERSION_2_1
+			||
+			GLEW_ARB_pixel_buffer_object
 		)
 	),
 	pixel_pack_buffer_type_(
-		sge::opengl::buffer::make_type(
+		SGE_OPENGL_BUFFER_MAKE_TYPE(
 			impl_->hardware_supported(),
-			"GL_VERSION_2_1",
+			GLEW_VERSION_2_1,
 			GL_PIXEL_PACK_BUFFER,
-			"GL_ARB_pixel_buffer_object",
+			GLEW_ARB_pixel_buffer_object,
 			GL_PIXEL_PACK_BUFFER_ARB
 		)
 	),
 	pixel_unpack_buffer_type_(
-		sge::opengl::buffer::make_type(
+		SGE_OPENGL_BUFFER_MAKE_TYPE(
 			impl_->hardware_supported(),
-			"GL_VERSION_2_1",
+			GLEW_VERSION_2_1,
 			GL_PIXEL_UNPACK_BUFFER,
-			"GL_ARB_pixel_buffer_object",
+			GLEW_ARB_pixel_buffer_object,
 			GL_PIXEL_UNPACK_BUFFER_ARB
 		)
 	)
 {
 }
+
+FCPPT_PP_POP_WARNING
 
 sge::opengl::buffer::pbo_context::~pbo_context()
 {

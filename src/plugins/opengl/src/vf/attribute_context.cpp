@@ -22,23 +22,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/base.hpp>
 #include <sge/opengl/context/system/id.hpp>
 #include <sge/opengl/context/system/make_id.hpp>
-#include <sge/opengl/glew/is_supported.hpp>
 #include <sge/opengl/vf/attribute_context.hpp>
 #include <fcppt/null_ptr.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
 
 sge::opengl::vf::attribute_context::attribute_context()
 :
 	sge::opengl::context::system::base(),
 	is_native_(
-		sge::opengl::glew::is_supported(
-			"GL_VERSION_2_0"
-		)
+		GLEW_VERSION_2_0
 	),
 	is_arb_(
-		sge::opengl::glew::is_supported(
-			"GL_ARB_vertex_shader"
-		)
+		GLEW_ARB_vertex_shader
 	),
 	vertex_attrib_pointer_(
 		is_native_
@@ -76,6 +77,8 @@ sge::opengl::vf::attribute_context::attribute_context()
 {
 }
 
+FCPPT_PP_POP_WARNING
+
 sge::opengl::vf::attribute_context::~attribute_context()
 {
 }
@@ -88,19 +91,19 @@ sge::opengl::vf::attribute_context::is_supported() const
 		|| is_arb_;
 }
 
-PFNGLVERTEXATTRIBPOINTERPROC
+sge::opengl::vf::attribute_context::gl_vertex_attrib_pointer
 sge::opengl::vf::attribute_context::vertex_attrib_pointer() const
 {
 	return vertex_attrib_pointer_;
 }
 
-PFNGLENABLEVERTEXATTRIBARRAYPROC
+sge::opengl::vf::attribute_context::gl_enable_vertex_attrib_array
 sge::opengl::vf::attribute_context::enable_vertex_attrib_array() const
 {
 	return enable_vertex_attrib_array_;
 }
 
-PFNGLDISABLEVERTEXATTRIBARRAYPROC
+sge::opengl::vf::attribute_context::gl_disable_vertex_attrib_array
 sge::opengl::vf::attribute_context::disable_vertex_attrib_array() const
 {
 	return disable_vertex_attrib_array_;

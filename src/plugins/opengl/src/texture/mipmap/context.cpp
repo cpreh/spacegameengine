@@ -19,80 +19,51 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/optional_enum.hpp>
 #include <sge/opengl/context/system/base.hpp>
 #include <sge/opengl/context/system/id.hpp>
 #include <sge/opengl/context/system/make_id.hpp>
-#include <sge/opengl/glew/is_supported.hpp>
-#include <sge/opengl/texture/context.hpp>
+#include <sge/opengl/texture/mipmap/context.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 
-sge::opengl::texture::context::context()
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
+
+sge::opengl::texture::mipmap::context::context()
 :
 	sge::opengl::context::system::base(),
-	anisotropic_filter_supported_(
-		sge::opengl::glew::is_supported(
-			"GL_EXT_texture_filter_anisotropic"
-		)
-	),
-	generate_mipmap_flag_supported_(
-		sge::opengl::glew::is_supported(
-			"GL_VERSION_1_4"
-		)
-	),
-	anisotropy_flag_(
-		static_cast<
-			GLenum
-		>(
-			anisotropic_filter_supported_
-			?
-				GL_TEXTURE_MAX_ANISOTROPY_EXT
-			:
-				0
-		)
-	),
-	max_anisotropy_flag_(
-		static_cast<
-			GLenum
-		>(
-			anisotropic_filter_supported_
-			?
-				GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT
-			:
-				0
-		)
+	generate_mipmap_flag_(
+		GLEW_VERSION_1_4
+		?
+			sge::opengl::optional_enum(
+				static_cast<
+					GLenum
+				>(
+					GL_GENERATE_MIPMAP
+				)
+			)
+		:
+			sge::opengl::optional_enum()
 	)
 {
 }
 
-sge::opengl::texture::context::~context()
+FCPPT_PP_POP_WARNING
+
+sge::opengl::texture::mipmap::context::~context()
 {
 }
 
-bool
-sge::opengl::texture::context::anisotropic_filter_supported() const
+sge::opengl::optional_enum const
+sge::opengl::texture::mipmap::context::generate_mipmap_flag() const
 {
-	return anisotropic_filter_supported_;
-}
-
-bool
-sge::opengl::texture::context::generate_mipmap_flag_supported() const
-{
-	return generate_mipmap_flag_supported_;
-}
-
-GLenum
-sge::opengl::texture::context::anisotropy_flag() const
-{
-	return anisotropy_flag_;
-}
-
-GLenum
-sge::opengl::texture::context::max_anisotropy_flag() const
-{
-	return max_anisotropy_flag_;
+	return generate_mipmap_flag_;
 }
 
 sge::opengl::context::system::id const
-sge::opengl::texture::context::static_id(
+sge::opengl::texture::mipmap::context::static_id(
 	sge::opengl::context::system::make_id()
 );

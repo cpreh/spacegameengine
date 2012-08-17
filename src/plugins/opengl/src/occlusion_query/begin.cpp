@@ -33,7 +33,7 @@ sge::opengl::occlusion_query::begin(
 )
 {
 	_context.begin_query()(
-		_context.samples_target(),
+		*_context.samples_target(),
 		_id.get()
 	);
 

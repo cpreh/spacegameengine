@@ -20,20 +20,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/internal_color_format.hpp>
 #include <sge/opengl/fbo/context.hpp>
 #include <sge/opengl/fbo/render_buffer.hpp>
+#include <sge/renderer/dim2.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
 
 
 sge::opengl::fbo::render_buffer::render_buffer(
-	fbo::context const &_context,
-	opengl::internal_color_format const _internal_format,
+	sge::opengl::fbo::context const &_context,
+	sge::opengl::internal_color_format const _internal_format,
 	sge::renderer::dim2 const &_dim
 )
 :
-	context_(_context),
+	context_(
+		_context
+	),
 	holder_(
 		_context
 	)
@@ -41,7 +44,7 @@ sge::opengl::fbo::render_buffer::render_buffer(
 	this->bind();
 
 	context_.renderbuffer_storage()(
-		context_.renderbuffer_target(),
+		*context_.renderbuffer_target(),
 		static_cast<
 			GLenum
 		>(
@@ -80,7 +83,7 @@ void
 sge::opengl::fbo::render_buffer::bind() const
 {
 	context_.bind_renderbuffer()(
-		context_.renderbuffer_target(),
+		*context_.renderbuffer_target(),
 		this->id()
 	);
 

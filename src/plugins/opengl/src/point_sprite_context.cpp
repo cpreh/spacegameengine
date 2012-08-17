@@ -19,73 +19,102 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/optional_enum.hpp>
 #include <sge/opengl/point_sprite_context.hpp>
 #include <sge/opengl/context/system/base.hpp>
 #include <sge/opengl/context/system/id.hpp>
 #include <sge/opengl/context/system/make_id.hpp>
-#include <sge/opengl/glew/is_supported.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
 
 sge::opengl::point_sprite_context::point_sprite_context()
 :
 	sge::opengl::context::system::base(),
 	is_native_(
-		sge::opengl::glew::is_supported(
-			"GL_VERSION_2_0"
-		)
+		GLEW_VERSION_2_0
 	),
 	is_arb_(
-		sge::opengl::glew::is_supported(
-			"GL_ARB_point_sprite"
-		)
+		GLEW_ARB_point_sprite
 	),
 	point_sprite_flag_(
-		static_cast<
-			GLenum
-		>(
-			is_native_
+		is_native_
+		?
+			sge::opengl::optional_enum(
+				static_cast<
+					GLenum
+				>(
+					GL_POINT_SPRITE
+				)
+			)
+		:
+			is_arb_
 			?
-				GL_POINT_SPRITE
+				sge::opengl::optional_enum(
+					static_cast<
+						GLenum
+					>(
+						GL_POINT_SPRITE_ARB
+					)
+
+				)
 			:
-				is_arb_
-				?
-					GL_POINT_SPRITE_ARB
-				:
-					0
-		)
+				sge::opengl::optional_enum()
 	),
 	vertex_shader_size_flag_(
-		static_cast<
-			GLenum
-		>(
-			is_native_
+		is_native_
+		?
+			sge::opengl::optional_enum(
+				static_cast<
+					GLenum
+				>(
+					GL_VERTEX_PROGRAM_POINT_SIZE
+				)
+			)
+		:
+			is_arb_
 			?
-				GL_VERTEX_PROGRAM_POINT_SIZE
+				sge::opengl::optional_enum(
+					static_cast<
+						GLenum
+					>(
+						GL_VERTEX_PROGRAM_POINT_SIZE_ARB
+					)
+				)
 			:
-				is_arb_
-				?
-					GL_VERTEX_PROGRAM_POINT_SIZE_ARB
-				:
-					0
-		)
+				sge::opengl::optional_enum()
 	),
 	coord_replace_flag_(
-		static_cast<
-			GLenum
-		>(
-			is_native_
+		is_native_
+		?
+			sge::opengl::optional_enum(
+				static_cast<
+					GLenum
+				>(
+					GL_COORD_REPLACE
+				)
+			)
+		:
+			is_arb_
 			?
-				GL_COORD_REPLACE
+				sge::opengl::optional_enum(
+					static_cast<
+						GLenum
+					>(
+						GL_COORD_REPLACE_ARB
+					)
+				)
 			:
-				is_arb_
-				?
-					GL_COORD_REPLACE_ARB
-				:
-					0
-		)
+				sge::opengl::optional_enum()
 	)
 {
 }
+
+FCPPT_PP_POP_WARNING
 
 sge::opengl::point_sprite_context::~point_sprite_context()
 {
@@ -99,19 +128,19 @@ sge::opengl::point_sprite_context::is_supported() const
 		|| is_arb_;
 }
 
-GLenum
+sge::opengl::optional_enum const
 sge::opengl::point_sprite_context::point_sprite_flag() const
 {
 	return point_sprite_flag_;
 }
 
-GLenum
+sge::opengl::optional_enum const
 sge::opengl::point_sprite_context::vertex_shader_size_flag() const
 {
 	return vertex_shader_size_flag_;
 }
 
-GLenum
+sge::opengl::optional_enum const
 sge::opengl::point_sprite_context::coord_replace_flag() const
 {
 	return coord_replace_flag_;

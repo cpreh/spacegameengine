@@ -51,10 +51,14 @@ public:
 	bool
 	is_supported() const;
 
-	PFNGLACTIVETEXTUREPROC
+	typedef PFNGLACTIVETEXTUREPROC gl_active_texture;
+
+	typedef PFNGLCLIENTACTIVETEXTUREPROC gl_client_active_texture;
+
+	gl_active_texture
 	active_texture() const;
 
-	PFNGLCLIENTACTIVETEXTUREPROC
+	gl_client_active_texture
 	client_active_texture() const;
 
 	sge::renderer::caps::texture_stages const
@@ -68,9 +72,9 @@ private:
 		is_native_,
 		is_arb_;
 
-	PFNGLACTIVETEXTUREPROC const active_texture_;
+	gl_active_texture const active_texture_;
 
-	PFNGLCLIENTACTIVETEXTUREPROC const client_active_texture_;
+	gl_client_active_texture const client_active_texture_;
 
 	sge::renderer::caps::texture_stages const max_level_;
 };

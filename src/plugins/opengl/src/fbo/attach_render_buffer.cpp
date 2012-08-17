@@ -34,9 +34,9 @@ sge::opengl::fbo::attach_render_buffer(
 )
 {
 	_context.framebuffer_renderbuffer()(
-		_context.framebuffer_target(),
+		*_context.framebuffer_target(),
 		_what.get(),
-		_context.renderbuffer_target(),
+		*_context.renderbuffer_target(),
 		_buffer
 	);
 

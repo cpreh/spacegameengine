@@ -18,22 +18,56 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLEW_STRING_HPP_INCLUDED
-#define SGE_OPENGL_GLEW_STRING_HPP_INCLUDED
+#ifndef SGE_OPENGL_TEXTURE_FILTER_ANISOTROPY_CONTEXT_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_FILTER_ANISOTROPY_CONTEXT_HPP_INCLUDED
 
-#include <fcppt/config/external_begin.hpp>
-#include <string>
-#include <fcppt/config/external_end.hpp>
+#include <sge/opengl/optional_enum.hpp>
+#include <sge/opengl/context/system/base.hpp>
+#include <sge/opengl/context/system/id.hpp>
+#include <fcppt/noncopyable.hpp>
+
 
 namespace sge
 {
 namespace opengl
 {
-namespace glew
+namespace texture
+{
+namespace filter
 {
 
-typedef std::string string;
+class anisotropy_context
+:
+	public sge::opengl::context::system::base
+{
+	FCPPT_NONCOPYABLE(
+		anisotropy_context
+	);
+public:
+	anisotropy_context();
 
+	~anisotropy_context();
+
+	sge::opengl::optional_enum const
+	anisotropy_flag() const;
+
+	sge::opengl::optional_enum const
+	max_anisotropy_flag() const;
+
+	typedef void needs_before;
+
+	static
+	sge::opengl::context::system::id const
+	static_id;
+private:
+	bool const is_ext_;
+
+	sge::opengl::optional_enum const
+		anisotropy_flag_,
+		max_anisotropy_flag_;
+};
+
+}
 }
 }
 }

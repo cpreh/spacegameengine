@@ -18,41 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/common.hpp>
-#include <sge/opengl/buffer/make_type.hpp>
-#include <sge/opengl/glew/is_supported.hpp>
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_OPENGL_FBO_OPTIONAL_ATTACHMENT_TYPE_FWD_HPP_INCLUDED
+#define SGE_OPENGL_FBO_OPTIONAL_ATTACHMENT_TYPE_FWD_HPP_INCLUDED
+
+#include <sge/opengl/fbo/attachment_type.hpp>
+#include <fcppt/optional_fwd.hpp>
 
 
-GLenum
-sge::opengl::buffer::make_type(
-	bool const _hardware_supported,
-	glew::string const &_gl_version,
-	GLenum const _normal_type,
-	glew::string const &_extension,
-	GLenum const _extension_type
-)
+namespace sge
 {
-	return
-		_hardware_supported
-		?
-			glew::is_supported(
-				_gl_version
-			)
-			?
-				_normal_type
-			:
-				glew::is_supported(
-					_extension
-				)
-				?
-					_extension_type
-				:
-					throw sge::renderer::exception(
-						FCPPT_TEXT("Should not happen.")
-					)
-		:
-			_normal_type
-		;
+namespace opengl
+{
+namespace fbo
+{
+
+typedef fcppt::optional<
+	sge::opengl::fbo::attachment_type
+> optional_attachment_type;
+
 }
+}
+}
+
+#endif

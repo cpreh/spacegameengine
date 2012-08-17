@@ -21,23 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_FBO_OPTIONAL_ATTACHMENT_TYPE_HPP_INCLUDED
 #define SGE_OPENGL_FBO_OPTIONAL_ATTACHMENT_TYPE_HPP_INCLUDED
 
-#include <sge/opengl/fbo/attachment_type.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <sge/opengl/fbo/optional_attachment_type_fwd.hpp>
+#include <fcppt/optional_impl.hpp>
 
-
-namespace sge
-{
-namespace opengl
-{
-namespace fbo
-{
-
-typedef fcppt::optional<
-	sge::opengl::fbo::attachment_type
-> optional_attachment_type;
-
-}
-}
-}
 
 #endif

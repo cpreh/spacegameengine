@@ -22,14 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/base.hpp>
 #include <sge/opengl/context/system/id.hpp>
 #include <sge/opengl/context/system/make_id.hpp>
-#include <sge/opengl/glew/is_supported.hpp>
 #include <sge/opengl/texture/cube_context.hpp>
 #include <sge/opengl/texture/cube_side_array.hpp>
 #include <sge/opengl/texture/optional_type.hpp>
-#include <sge/opengl/texture/type.hpp>
 #include <sge/opengl/texture/convert/make_buffer_type.hpp>
 #include <sge/opengl/texture/convert/make_type.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 
 namespace
@@ -81,14 +81,17 @@ sge::opengl::texture::cube_side_array const arb_sides =
 
 }
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
+
 sge::opengl::texture::cube_context::cube_context()
 :
 	sge::opengl::context::system::base(),
 	cube_texture_normal_(
-		sge::opengl::glew::is_supported("GL_VERSION_1_3")
+		GLEW_VERSION_1_3
 	),
 	cube_texture_arb_(
-		sge::opengl::glew::is_supported("GL_ARB_texture_cube_map")
+		GLEW_ARB_texture_cube_map
 	),
 	cube_texture_type_(
 		cube_texture_normal_
@@ -112,20 +115,22 @@ sge::opengl::texture::cube_context::cube_context()
 	cube_sides_(
 		cube_texture_normal_
 		?
-			optional_cube_side_array(
+			sge::opengl::texture::cube_context::optional_cube_side_array(
 				::normal_sides
 			)
 		:
 			cube_texture_arb_
 			?
-				optional_cube_side_array(
+				sge::opengl::texture::cube_context::optional_cube_side_array(
 					::arb_sides
 				)
 			:
-				optional_cube_side_array()
+				sge::opengl::texture::cube_context::optional_cube_side_array()
 	)
 {
 }
+
+FCPPT_PP_POP_WARNING
 
 sge::opengl::texture::cube_context::~cube_context()
 {
@@ -139,16 +144,16 @@ sge::opengl::texture::cube_context::have_cube_texture() const
 		|| cube_texture_arb_;
 }
 
-sge::opengl::texture::type const
+sge::opengl::texture::optional_type const
 sge::opengl::texture::cube_context::cube_texture_type() const
 {
-	return *cube_texture_type_;
+	return cube_texture_type_;
 }
 
-sge::opengl::texture::cube_side_array const &
+sge::opengl::texture::cube_context::optional_cube_side_array const &
 sge::opengl::texture::cube_context::cube_sides() const
 {
-	return *cube_sides_;
+	return cube_sides_;
 }
 
 sge::opengl::context::system::id const

@@ -20,56 +20,54 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/multi_sample_context.hpp>
+#include <sge/opengl/optional_enum.hpp>
 #include <sge/opengl/context/system/base.hpp>
 #include <sge/opengl/context/system/id.hpp>
 #include <sge/opengl/context/system/make_id.hpp>
-#include <sge/opengl/glew/is_supported.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
 
 sge::opengl::multi_sample_context::multi_sample_context()
 :
 	sge::opengl::context::system::base(),
-	is_native_(
-		sge::opengl::glew::is_supported(
-			"GL_VERSION_1_3"
-		)
-	),
-	is_arb_(
-		sge::opengl::glew::is_supported(
-			"GL_ARB_multisample"
-		)
-	),
 	flag_(
-		static_cast<
-			GLenum
-		>(
-			is_native_
+		GLEW_VERSION_1_3
+		?
+			sge::opengl::optional_enum(
+				static_cast<
+					GLenum
+				>(
+					GL_MULTISAMPLE
+				)
+			)
+		:
+			GLEW_ARB_multisample
 			?
-				GL_MULTISAMPLE
+				sge::opengl::optional_enum(
+					static_cast<
+						GLenum
+					>(
+						GL_MULTISAMPLE_ARB
+					)
+				)
 			:
-				is_arb_
-				?
-					GL_MULTISAMPLE_ARB
-				:
-					0
-		)
+				sge::opengl::optional_enum()
 	)
 {
 }
+
+FCPPT_PP_POP_WARNING
 
 sge::opengl::multi_sample_context::~multi_sample_context()
 {
 }
 
-bool
-sge::opengl::multi_sample_context::is_supported() const
-{
-	return
-		is_native_
-		|| is_arb_;
-}
-
-GLenum
+sge::opengl::optional_enum const
 sge::opengl::multi_sample_context::flag() const
 {
 	return flag_;

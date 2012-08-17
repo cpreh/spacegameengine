@@ -24,24 +24,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/base.hpp>
 #include <sge/opengl/context/system/id.hpp>
 #include <sge/opengl/context/system/make_id.hpp>
-#include <sge/opengl/glew/is_supported.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
 
 sge::opengl::srgb_context::srgb_context()
 :
 	sge::opengl::context::system::base(),
 	flag_(
-		sge::opengl::glew::is_supported(
-			"GL_VERSION_3_0"
-		)
+		GLEW_VERSION_3_0
 		?
 			sge::opengl::optional_enum(
 				GL_FRAMEBUFFER_SRGB
 			)
 		:
-			sge::opengl::glew::is_supported(
-				"GL_EXT_framebuffer_sRGB"
-			)
+			GLEW_EXT_framebuffer_sRGB
 			?
 				sge::opengl::optional_enum(
 					GL_FRAMEBUFFER_SRGB_EXT
@@ -51,6 +52,8 @@ sge::opengl::srgb_context::srgb_context()
 	)
 {
 }
+
+FCPPT_PP_POP_WARNING
 
 sge::opengl::srgb_context::~srgb_context()
 {

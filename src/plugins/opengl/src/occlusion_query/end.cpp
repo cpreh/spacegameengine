@@ -31,7 +31,7 @@ sge::opengl::occlusion_query::end(
 )
 {
 	_context.end_query()(
-		_context.samples_target()
+		*_context.samples_target()
 	);
 
 	SGE_OPENGL_CHECK_STATE(

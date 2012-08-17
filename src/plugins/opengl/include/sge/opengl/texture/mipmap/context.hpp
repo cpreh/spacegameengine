@@ -18,23 +18,49 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLEW_IS_SUPPORTED_HPP_INCLUDED
-#define SGE_OPENGL_GLEW_IS_SUPPORTED_HPP_INCLUDED
+#ifndef SGE_OPENGL_TEXTURE_MIPMAP_CONTEXT_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_MIPMAP_CONTEXT_HPP_INCLUDED
 
-#include <sge/opengl/glew/string.hpp>
+#include <sge/opengl/optional_enum.hpp>
+#include <sge/opengl/context/system/base.hpp>
+#include <sge/opengl/context/system/id.hpp>
+#include <fcppt/noncopyable.hpp>
+
 
 namespace sge
 {
 namespace opengl
 {
-namespace glew
+namespace texture
+{
+namespace mipmap
 {
 
-bool
-is_supported(
-	glew::string const &
-);
+class context
+:
+	public sge::opengl::context::system::base
+{
+	FCPPT_NONCOPYABLE(
+		context
+	);
+public:
+	context();
 
+	~context();
+
+	sge::opengl::optional_enum const
+	generate_mipmap_flag() const;
+
+	typedef void needs_before;
+
+	static
+	sge::opengl::context::system::id const
+	static_id;
+private:
+	sge::opengl::optional_enum const generate_mipmap_flag_;
+};
+
+}
 }
 }
 }

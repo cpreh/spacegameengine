@@ -39,7 +39,7 @@ sge::opengl::fbo::attach_texture_2d(
 )
 {
 	_context.framebuffer_texture_2d()(
-		_context.framebuffer_target(),
+		*_context.framebuffer_target(),
 		_attachment.get(),
 		_texture_type.get(),
 		_texture_id.get(),

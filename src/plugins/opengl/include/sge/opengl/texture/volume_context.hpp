@@ -22,13 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_TEXTURE_VOLUME_CONTEXT_HPP_INCLUDED
 
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/optional_enum.hpp>
 #include <sge/opengl/context/system/base.hpp>
 #include <sge/opengl/context/system/id.hpp>
 #include <sge/opengl/texture/optional_type.hpp>
-#include <sge/opengl/texture/type.hpp>
 #include <sge/opengl/texture/volume_context_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional_decl.hpp>
 
 
 namespace sge
@@ -57,7 +56,7 @@ public:
 
 	typedef PFNGLTEXSUBIMAGE3DPROC gl_tex_sub_image_3d;
 
-	sge::opengl::texture::type const
+	sge::opengl::texture::optional_type const
 	volume_texture_type() const;
 
 	gl_tex_image_3d
@@ -66,7 +65,7 @@ public:
 	gl_tex_sub_image_3d
 	tex_sub_image_3d() const;
 
-	GLenum
+	sge::opengl::optional_enum const
 	max_extent_flag() const;
 
 	typedef void needs_before;
@@ -81,7 +80,7 @@ private:
 
 	gl_tex_sub_image_3d const tex_sub_image_3d_;
 
-	GLenum const max_extent_flag_;
+	sge::opengl::optional_enum const max_extent_flag_;
 };
 
 }

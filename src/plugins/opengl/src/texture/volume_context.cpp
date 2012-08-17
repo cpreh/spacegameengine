@@ -19,23 +19,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/optional_enum.hpp>
 #include <sge/opengl/context/system/base.hpp>
 #include <sge/opengl/context/system/id.hpp>
 #include <sge/opengl/context/system/make_id.hpp>
-#include <sge/opengl/glew/is_supported.hpp>
 #include <sge/opengl/texture/optional_type.hpp>
-#include <sge/opengl/texture/type.hpp>
 #include <sge/opengl/texture/volume_context.hpp>
 #include <sge/opengl/texture/convert/make_type.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
 
 sge::opengl::texture::volume_context::volume_context()
 :
 	sge::opengl::context::system::base(),
 	volume_texture_normal_(
-		sge::opengl::glew::is_supported(
-			"GL_VERSION_1_3"
-		)
+		GLEW_VERSION_1_3
 	),
 	volume_texture_type_(
 		volume_texture_normal_
@@ -55,10 +58,18 @@ sge::opengl::texture::volume_context::volume_context()
 		glTexSubImage3D
 	),
 	max_extent_flag_(
-		GL_MAX_3D_TEXTURE_SIZE
+		sge::opengl::optional_enum(
+			static_cast<
+				GLenum
+			>(
+				GL_MAX_3D_TEXTURE_SIZE
+			)
+		)
 	)
 {
 }
+
+FCPPT_PP_POP_WARNING
 
 sge::opengl::texture::volume_context::~volume_context()
 {
@@ -70,10 +81,10 @@ sge::opengl::texture::volume_context::have_volume_texture() const
 	return volume_texture_normal_;
 }
 
-sge::opengl::texture::type const
+sge::opengl::texture::optional_type const
 sge::opengl::texture::volume_context::volume_texture_type() const
 {
-	return *volume_texture_type_;
+	return volume_texture_type_;
 }
 
 sge::opengl::texture::volume_context::gl_tex_image_3d
@@ -88,7 +99,7 @@ sge::opengl::texture::volume_context::tex_sub_image_3d() const
 	return tex_sub_image_3d_;
 }
 
-GLenum
+sge::opengl::optional_enum const
 sge::opengl::texture::volume_context::max_extent_flag() const
 {
 	return max_extent_flag_;

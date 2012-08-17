@@ -19,23 +19,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/optional_enum.hpp>
 #include <sge/opengl/context/system/base.hpp>
 #include <sge/opengl/context/system/id.hpp>
 #include <sge/opengl/context/system/make_id.hpp>
-#include <sge/opengl/glew/is_supported.hpp>
 #include <sge/opengl/occlusion_query/context.hpp>
 #include <fcppt/null_ptr.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 
 // ARB could be supported if necessary
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
 
 sge::opengl::occlusion_query::context::context()
 :
 	sge::opengl::context::system::base(),
 	has_native_(
-		sge::opengl::glew::is_supported(
-			"GL_VERSION_1_5"
-		)
+		GLEW_VERSION_1_5
 	),
 	gen_queries_(
 		has_native_
@@ -80,40 +84,48 @@ sge::opengl::occlusion_query::context::context()
 			fcppt::null_ptr()
 	),
 	samples_target_(
-		static_cast<
-			GLenum
-		>(
-			has_native_
-			?
-				GL_SAMPLES_PASSED
-			:
-				0
-		)
+		has_native_
+		?
+			sge::opengl::optional_enum(
+				static_cast<
+					GLenum
+				>(
+					GL_SAMPLES_PASSED
+				)
+			)
+		:
+			sge::opengl::optional_enum()
 	),
 	query_result_available_(
-		static_cast<
-			GLenum
-		>(
-			has_native_
-			?
-				GL_QUERY_RESULT_AVAILABLE
-			:
-				0
-		)
+		has_native_
+		?
+			sge::opengl::optional_enum(
+				static_cast<
+					GLenum
+				>(
+					GL_QUERY_RESULT_AVAILABLE
+				)
+			)
+		:
+			sge::opengl::optional_enum()
 	),
 	query_result_(
-		static_cast<
-			GLenum
-		>(
-			has_native_
-			?
-				GL_QUERY_RESULT
-			:
-				0
-		)
+		has_native_
+		?
+			sge::opengl::optional_enum(
+				static_cast<
+					GLenum
+				>(
+					GL_QUERY_RESULT
+				)
+			)
+		:
+			sge::opengl::optional_enum()
 	)
 {
 }
+
+FCPPT_PP_POP_WARNING
 
 sge::opengl::occlusion_query::context::~context()
 {
@@ -168,21 +180,21 @@ sge::opengl::occlusion_query::context::get_query_object_uiv() const
 		get_query_object_uiv_;
 }
 
-GLenum
+sge::opengl::optional_enum const
 sge::opengl::occlusion_query::context::samples_target() const
 {
 	return
 		samples_target_;
 }
 
-GLenum
+sge::opengl::optional_enum const
 sge::opengl::occlusion_query::context::query_result_available() const
 {
 	return
 		query_result_available_;
 }
 
-GLenum
+sge::opengl::optional_enum const
 sge::opengl::occlusion_query::context::query_result() const
 {
 	return

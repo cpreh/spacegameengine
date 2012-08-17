@@ -21,13 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/log/global.hpp>
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/optional_enum.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
-#include <sge/opengl/texture/context.hpp>
 #include <sge/opengl/texture/type.hpp>
 #include <sge/opengl/texture/convert/anisotropic_mip_filter.hpp>
 #include <sge/opengl/texture/filter/anisotropic.hpp>
+#include <sge/opengl/texture/filter/anisotropy_context.hpp>
 #include <sge/opengl/texture/funcs/parameter_int.hpp>
 #include <sge/renderer/texture/filter/anisotropic/object.hpp>
 #include <fcppt/text.hpp>
@@ -63,16 +64,16 @@ sge::opengl::texture::filter::anisotropic(
 		)
 	);
 
-	sge::opengl::texture::context const &texture_context(
+	sge::opengl::optional_enum const anisotropy_flag(
 		sge::opengl::context::use<
-			sge::opengl::texture::context
+			sge::opengl::texture::filter::anisotropy_context
 		>(
 			_system_context
-		)
+		).anisotropy_flag()
 	);
 
 	if(
-		!texture_context.anisotropic_filter_supported()
+		!anisotropy_flag
 	)
 	{
 		FCPPT_LOG_ERROR(
@@ -89,7 +90,7 @@ sge::opengl::texture::filter::anisotropic(
 		sge::opengl::texture::funcs::parameter_int(
 			_binding,
 			_type,
-			texture_context.anisotropy_flag(),
+			*anisotropy_flag,
 			static_cast<
 				GLint
 			>(

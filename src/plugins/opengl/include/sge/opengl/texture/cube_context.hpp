@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/optional_type.hpp>
 #include <sge/opengl/texture/type.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional_decl.hpp>
+#include <fcppt/optional_impl.hpp>
 
 
 namespace sge
@@ -53,10 +53,14 @@ public:
 	bool
 	have_cube_texture() const;
 
-	sge::opengl::texture::type const
+	sge::opengl::texture::optional_type const
 	cube_texture_type() const;
 
-	sge::opengl::texture::cube_side_array const &
+	typedef fcppt::optional<
+		sge::opengl::texture::cube_side_array
+	> optional_cube_side_array;
+
+	sge::opengl::texture::cube_context::optional_cube_side_array const &
 	cube_sides() const;
 
 	typedef void needs_before;
@@ -69,11 +73,7 @@ private:
 
 	sge::opengl::texture::optional_type const cube_texture_type_;
 
-	typedef fcppt::optional<
-		sge::opengl::texture::cube_side_array
-	> optional_cube_side_array;
-
-	optional_cube_side_array const cube_sides_;
+	sge::opengl::texture::cube_context::optional_cube_side_array const cube_sides_;
 };
 
 }

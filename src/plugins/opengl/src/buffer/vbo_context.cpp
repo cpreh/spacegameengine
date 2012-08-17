@@ -26,38 +26,46 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/base.hpp>
 #include <sge/opengl/context/system/id.hpp>
 #include <sge/opengl/context/system/make_id.hpp>
-#include <sge/opengl/glew/is_supported.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
 
 sge::opengl::buffer::vbo_context::vbo_context()
 :
 	sge::opengl::context::system::base(),
 	impl_(
-		opengl::buffer::create(
-			glew::is_supported("GL_VERSION_1_5")
-			|| glew::is_supported("GL_ARB_vertex_buffer_object")
+		sge::opengl::buffer::create(
+			GLEW_VERSION_1_5
+			||
+			GLEW_ARB_vertex_buffer_object
 		)
 	),
 	index_buffer_type_(
-		opengl::buffer::make_type(
+		SGE_OPENGL_BUFFER_MAKE_TYPE(
 			impl_->hardware_supported(),
-			"GL_VERSION_1_5",
+			GLEW_VERSION_1_5,
 			GL_ELEMENT_ARRAY_BUFFER,
-			"GL_ARB_vertex_buffer_object",
+			GLEW_ARB_vertex_buffer_object,
 			GL_ELEMENT_ARRAY_BUFFER_ARB
 		)
 	),
 	vertex_buffer_type_(
-		opengl::buffer::make_type(
+		SGE_OPENGL_BUFFER_MAKE_TYPE(
 			impl_->hardware_supported(),
-			"GL_VERSION_1_5",
+			GLEW_VERSION_1_5,
 			GL_ARRAY_BUFFER,
-			"GL_ARB_vertex_buffer_object",
+			GLEW_ARB_vertex_buffer_object,
 			GL_ARRAY_BUFFER_ARB
 		)
 	)
 {
 }
+
+FCPPT_PP_POP_WARNING
 
 sge::opengl::buffer::vbo_context::~vbo_context()
 {

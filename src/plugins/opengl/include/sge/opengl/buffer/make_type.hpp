@@ -22,26 +22,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_BUFFER_MAKE_TYPE_HPP_INCLUDED
 
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/glew/string.hpp>
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-namespace sge
-{
-namespace opengl
-{
-namespace buffer
-{
 
-GLenum
-make_type(
-	bool hardware_supported,
-	glew::string const &gl_version,
-	GLenum normal_type,
-	glew::string const &extension,
-	GLenum extension_type
-);
-
-}
-}
-}
+#define SGE_OPENGL_BUFFER_MAKE_TYPE(\
+	hardware_supported,\
+	min_gl_version,\
+	normal_type,\
+	extension,\
+	extension_type\
+)\
+	static_cast< \
+		GLenum \
+	>( \
+		hardware_supported \
+		? \
+			min_gl_version \
+			? \
+				normal_type \
+				: \
+					extension \
+					? \
+						extension_type \
+					: \
+						throw sge::renderer::exception( \
+							FCPPT_TEXT("Should not happen.") \
+						) \
+			: \
+				normal_type \
+	)
 
 #endif

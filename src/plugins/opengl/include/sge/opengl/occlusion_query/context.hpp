@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_OCCLUSION_QUERY_CONTEXT_HPP_INCLUDED
 
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/optional_enum.hpp>
 #include <sge/opengl/context/system/base.hpp>
 #include <sge/opengl/context/system/id.hpp>
 #include <sge/opengl/occlusion_query/context_fwd.hpp>
@@ -80,13 +81,13 @@ public:
 	gl_get_query_object_uiv
 	get_query_object_uiv() const;
 
-	GLenum
+	sge::opengl::optional_enum const
 	samples_target() const;
 
-	GLenum
+	sge::opengl::optional_enum const
 	query_result_available() const;
 
-	GLenum
+	sge::opengl::optional_enum const
 	query_result() const;
 
 	typedef void needs_before;
@@ -107,7 +108,7 @@ private:
 
 	gl_get_query_object_uiv const get_query_object_uiv_;
 
-	GLenum const
+	sge::opengl::optional_enum const
 		samples_target_,
 		query_result_available_,
 		query_result_;

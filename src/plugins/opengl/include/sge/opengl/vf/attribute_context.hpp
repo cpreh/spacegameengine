@@ -50,13 +50,19 @@ public:
 	bool
 	is_supported() const;
 
-	PFNGLVERTEXATTRIBPOINTERPROC
+	typedef PFNGLVERTEXATTRIBPOINTERPROC gl_vertex_attrib_pointer;
+
+	typedef PFNGLENABLEVERTEXATTRIBARRAYPROC gl_enable_vertex_attrib_array;
+
+	typedef PFNGLDISABLEVERTEXATTRIBARRAYPROC gl_disable_vertex_attrib_array;
+
+	gl_vertex_attrib_pointer
 	vertex_attrib_pointer() const;
 
-	PFNGLENABLEVERTEXATTRIBARRAYPROC
+	gl_enable_vertex_attrib_array
 	enable_vertex_attrib_array() const;
 
-	PFNGLDISABLEVERTEXATTRIBARRAYPROC
+	gl_disable_vertex_attrib_array
 	disable_vertex_attrib_array() const;
 
 	typedef void needs_before;
@@ -67,11 +73,11 @@ private:
 		is_native_,
 		is_arb_;
 
-	PFNGLVERTEXATTRIBPOINTERPROC const vertex_attrib_pointer_;
+	gl_vertex_attrib_pointer const vertex_attrib_pointer_;
 
-	PFNGLENABLEVERTEXATTRIBARRAYPROC const enable_vertex_attrib_array_;
+	gl_enable_vertex_attrib_array const enable_vertex_attrib_array_;
 
-	PFNGLDISABLEVERTEXATTRIBARRAYPROC const disable_vertex_attrib_array_;
+	gl_disable_vertex_attrib_array const disable_vertex_attrib_array_;
 };
 
 }

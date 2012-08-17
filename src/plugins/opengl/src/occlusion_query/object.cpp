@@ -76,7 +76,7 @@ sge::opengl::occlusion_query::object::result(
 			sge::opengl::occlusion_query::get_object_int(
 				context_,
 				holder_.id(),
-				context_.query_result_available()
+				*context_.query_result_available()
 			)
 			== GL_FALSE
 			&&
@@ -90,7 +90,7 @@ sge::opengl::occlusion_query::object::result(
 					sge::opengl::occlusion_query::get_object_uint(
 						context_,
 						holder_.id(),
-						context_.query_result()
+						*context_.query_result()
 					)
 				)
 			)

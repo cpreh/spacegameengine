@@ -21,24 +21,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/buffer/hardware.hpp>
-#include <sge/opengl/glew/is_supported.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
 
 sge::opengl::buffer::hardware::hardware()
 :
 	buffer::base(),
 	have_version_1_5_(
-		sge::opengl::glew::is_supported(
-			"GL_VERSION_1_5"
-		)
+		GLEW_VERSION_1_5
 	),
 	have_arb_(
-		sge::opengl::glew::is_supported(
-			"GL_ARB_vertex_buffer_object"
-		)
+		GLEW_ARB_vertex_buffer_object
 	),
 	gl_gen_buffers_(
 		have_version_1_5_
@@ -99,6 +100,8 @@ sge::opengl::buffer::hardware::hardware()
 	);
 }
 
+FCPPT_PP_POP_WARNING
+
 sge::opengl::buffer::hardware::~hardware()
 {
 }
@@ -119,7 +122,7 @@ sge::opengl::buffer::hardware::gen_buffer()
 	)
 
 	return
-		opengl::buffer::id(
+		sge::opengl::buffer::id(
 			new_id
 		);
 }

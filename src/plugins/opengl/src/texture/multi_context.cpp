@@ -23,24 +23,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/base.hpp>
 #include <sge/opengl/context/system/id.hpp>
 #include <sge/opengl/context/system/make_id.hpp>
-#include <sge/opengl/glew/is_supported.hpp>
 #include <sge/opengl/texture/multi_context.hpp>
 #include <sge/renderer/caps/texture_stages.hpp>
 #include <fcppt/null_ptr.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
 #include <fcppt/config/external_end.hpp>
 
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
+
 sge::opengl::texture::multi_context::multi_context()
 :
 	sge::opengl::context::system::base(),
 	is_native_(
-		glew::is_supported("GL_VERSION_1_3")
+		GLEW_VERSION_1_3
 	),
 	is_arb_(
-		glew::is_supported("GL_ARB_multitexture")
+		GLEW_ARB_multitexture
 	),
 	active_texture_(
 		is_native_
@@ -96,6 +101,8 @@ sge::opengl::texture::multi_context::multi_context()
 {
 }
 
+FCPPT_PP_POP_WARNING
+
 sge::opengl::texture::multi_context::~multi_context()
 {
 }
@@ -108,13 +115,13 @@ sge::opengl::texture::multi_context::is_supported() const
 		|| is_arb_;
 }
 
-PFNGLACTIVETEXTUREPROC
+sge::opengl::texture::multi_context::gl_active_texture
 sge::opengl::texture::multi_context::active_texture() const
 {
 	return active_texture_;
 }
 
-PFNGLCLIENTACTIVETEXTUREPROC
+sge::opengl::texture::multi_context::gl_client_active_texture
 sge::opengl::texture::multi_context::client_active_texture() const
 {
 	return client_active_texture_;

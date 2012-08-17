@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/texture/active_level.hpp>
 #include <sge/opengl/texture/set_stage_funcs.hpp>
 #include <sge/opengl/texture/convert/stage_arg.hpp>
 #include <sge/opengl/texture/convert/stage_arg_value.hpp>
@@ -28,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/funcs/env_int.hpp>
 #include <sge/opengl/texture/funcs/env_int_value.hpp>
 #include <sge/opengl/texture/funcs/env_target.hpp>
-#include <sge/opengl/texture/funcs/set_active_level.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/texture/stage_arg.hpp>
 #include <sge/renderer/texture/stage_arg_value.hpp>
@@ -49,12 +49,13 @@ sge::opengl::texture::set_stage_funcs(
 	Value const _value
 )
 {
-	sge::opengl::texture::funcs::set_active_level(
+	sge::opengl::texture::active_level const active_level(
 		_system_context,
 		_stage
 	);
 
 	sge::opengl::texture::funcs::env_int(
+		active_level,
 		fcppt::strong_typedef_construct_cast<
 			sge::opengl::texture::funcs::env_target
 		>(
@@ -73,6 +74,7 @@ sge::opengl::texture::set_stage_funcs(
 	);
 
 	sge::opengl::texture::funcs::env_int(
+		active_level,
 		fcppt::strong_typedef_construct_cast<
 			sge::opengl::texture::funcs::env_target
 		>(

@@ -25,12 +25,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/convert/to_gl_bool.hpp>
 #include <sge/opengl/state/point_sprite.hpp>
+#include <sge/opengl/texture/active_level.hpp>
 #include <sge/opengl/texture/multi_context.hpp>
 #include <sge/opengl/texture/funcs/env_arg.hpp>
 #include <sge/opengl/texture/funcs/env_int.hpp>
 #include <sge/opengl/texture/funcs/env_int_value.hpp>
 #include <sge/opengl/texture/funcs/env_target.hpp>
-#include <sge/opengl/texture/funcs/set_active_level.hpp>
 #include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
@@ -68,16 +68,15 @@ sge::opengl::state::point_sprite(
 	}
 
 	sge::opengl::enable_bool(
-		point_sprite_context.point_sprite_flag(),
+		*point_sprite_context.point_sprite_flag(),
 		_enable
 	);
 
 	sge::opengl::enable_bool(
-		point_sprite_context.vertex_shader_size_flag(),
+		*point_sprite_context.vertex_shader_size_flag(),
 		_enable
 	);
 
-#if 0
 	sge::opengl::texture::multi_context const &multi_context(
 		sge::opengl::context::use<
 			sge::opengl::texture::multi_context
@@ -93,27 +92,23 @@ sge::opengl::state::point_sprite(
 		stage.get() < multi_context.max_level().get();
 		++stage
 	)
-#endif
 	{
-		sge::renderer::texture::stage const stage(
-			0u
-		);
-
-		sge::opengl::texture::funcs::set_active_level(
+		sge::opengl::texture::active_level const active_level(
 			_system_context,
 			stage
 		);
 
 		sge::opengl::texture::funcs::env_int(
+			active_level,
 			fcppt::strong_typedef_construct_cast<
 				sge::opengl::texture::funcs::env_target
 			>(
-				point_sprite_context.point_sprite_flag()
+				*point_sprite_context.point_sprite_flag()
 			),
 			fcppt::strong_typedef_construct_cast<
 				sge::opengl::texture::funcs::env_arg
 			>(
-				point_sprite_context.coord_replace_flag()
+				*point_sprite_context.coord_replace_flag()
 			),
 			fcppt::strong_typedef_construct_cast<
 				sge::opengl::texture::funcs::env_int_value

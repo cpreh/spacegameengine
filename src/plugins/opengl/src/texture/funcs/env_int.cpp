@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/texture/active_level_fwd.hpp>
 #include <sge/opengl/texture/funcs/env_arg.hpp>
 #include <sge/opengl/texture/funcs/env_int.hpp>
 #include <sge/opengl/texture/funcs/env_int_value.hpp>
@@ -30,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::texture::funcs::env_int(
+	sge::opengl::texture::active_level const &,
 	sge::opengl::texture::funcs::env_target const _target,
 	sge::opengl::texture::funcs::env_arg const _arg,
 	sge::opengl::texture::funcs::env_int_value const _value

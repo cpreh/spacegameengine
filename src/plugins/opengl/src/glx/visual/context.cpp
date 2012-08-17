@@ -23,37 +23,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/id.hpp>
 #include <sge/opengl/context/system/make_id.hpp>
 #include <sge/opengl/glx/visual/context.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <GL/glx.h>
+//#include <GL/glx.h>
+#include <GL/glxew.h>
 #include <fcppt/config/external_end.hpp>
 
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
 
 sge::opengl::glx::visual::context::context()
 :
 	sge::opengl::context::system::base(),
 	flag_(
-		// FIXME!
-/*
-		sge::opengl::glew::is_supported(
-			"GLX_EXT_framebuffer_sRGB"
-		)
-		?*/
+		GLXEW_EXT_framebuffer_sRGB
+		?
 			sge::opengl::optional_int(
 				GLX_FRAMEBUFFER_SRGB_CAPABLE_EXT
 			)
-		/*:
-			sge::opengl::glew::is_supported(
-				"GLX_ARB_framebuffer_sRGB"
-			)
+		:
+			GLXEW_ARB_framebuffer_sRGB
 			?
 				sge::opengl::optional_int(
 					GLX_FRAMEBUFFER_SRGB_CAPABLE_ARB
 				)
 			:
-				sge::opengl::optional_int()*/
+				sge::opengl::optional_int()
 	)
 {
 }
+
+FCPPT_PP_POP_WARNING
 
 sge::opengl::glx::visual::context::~context()
 {

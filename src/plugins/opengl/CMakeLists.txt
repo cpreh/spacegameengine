@@ -127,6 +127,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/fbo/object.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/object_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/optional_attachment_type.hpp
+	src/plugins/opengl/include/sge/opengl/fbo/optional_attachment_type_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/render_buffer.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/render_buffer_binding.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/render_buffer_binding_fwd.hpp
@@ -142,8 +143,6 @@ set(
 	src/plugins/opengl/include/sge/opengl/get_ints.hpp
 	src/plugins/opengl/include/sge/opengl/get_string.hpp
 	src/plugins/opengl/include/sge/opengl/glew/initialize.hpp
-	src/plugins/opengl/include/sge/opengl/glew/is_supported.hpp
-	src/plugins/opengl/include/sge/opengl/glew/string.hpp
 	src/plugins/opengl/include/sge/opengl/index_buffer.hpp
 	src/plugins/opengl/include/sge/opengl/init_multi_sampling.hpp
 	src/plugins/opengl/include/sge/opengl/init_srgb.hpp
@@ -297,7 +296,6 @@ set(
 	src/plugins/opengl/include/sge/opengl/texture/color_volume_types_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/const_optional_base_ref.hpp
 	src/plugins/opengl/include/sge/opengl/texture/const_optional_base_ref_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/texture/context.hpp
 	src/plugins/opengl/include/sge/opengl/texture/convert/address_mode.hpp
 	src/plugins/opengl/include/sge/opengl/texture/convert/address_mode_type.hpp
 	src/plugins/opengl/include/sge/opengl/texture/convert/anisotropic_mip_filter.hpp
@@ -330,6 +328,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/texture/enable.hpp
 	src/plugins/opengl/include/sge/opengl/texture/extend_size.hpp
 	src/plugins/opengl/include/sge/opengl/texture/filter/anisotropic.hpp
+	src/plugins/opengl/include/sge/opengl/texture/filter/anisotropy_context.hpp
 	src/plugins/opengl/include/sge/opengl/texture/filter/context.hpp
 	src/plugins/opengl/include/sge/opengl/texture/filter/context_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/filter/normal.hpp
@@ -366,6 +365,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/texture/lock_base_unique_ptr.hpp
 	src/plugins/opengl/include/sge/opengl/texture/mipmap/all_levels.hpp
 	src/plugins/opengl/include/sge/opengl/texture/mipmap/auto_generate.hpp
+	src/plugins/opengl/include/sge/opengl/texture/mipmap/context.hpp
 	src/plugins/opengl/include/sge/opengl/texture/mipmap/create.hpp
 	src/plugins/opengl/include/sge/opengl/texture/mipmap/generate_levels.hpp
 	src/plugins/opengl/include/sge/opengl/texture/mipmap/get_levels.hpp
@@ -453,7 +453,6 @@ set(
 	src/plugins/opengl/src/buffer/create.cpp
 	src/plugins/opengl/src/buffer/hardware.cpp
 	src/plugins/opengl/src/buffer/holder.cpp
-	src/plugins/opengl/src/buffer/make_type.cpp
 	src/plugins/opengl/src/buffer/normal_lock_method.cpp
 	src/plugins/opengl/src/buffer/object.cpp
 	src/plugins/opengl/src/buffer/pbo_context.cpp
@@ -539,7 +538,6 @@ set(
 	src/plugins/opengl/src/get_ints.cpp
 	src/plugins/opengl/src/get_string.cpp
 	src/plugins/opengl/src/glew/initialize.cpp
-	src/plugins/opengl/src/glew/is_supported.cpp
 	src/plugins/opengl/src/index_buffer.cpp
 	src/plugins/opengl/src/init_multi_sampling.cpp
 	src/plugins/opengl/src/init_srgb.cpp
@@ -649,7 +647,6 @@ set(
 	src/plugins/opengl/src/texture/color_surface_types.cpp
 	src/plugins/opengl/src/texture/color_volume.cpp
 	src/plugins/opengl/src/texture/color_volume_types.cpp
-	src/plugins/opengl/src/texture/context.cpp
 	src/plugins/opengl/src/texture/convert/address_mode.cpp
 	src/plugins/opengl/src/texture/convert/address_mode_type.cpp
 	src/plugins/opengl/src/texture/convert/anisotropic_mip_filter.cpp
@@ -678,6 +675,7 @@ set(
 	src/plugins/opengl/src/texture/enable.cpp
 	src/plugins/opengl/src/texture/extend_size.cpp
 	src/plugins/opengl/src/texture/filter/anisotropic.cpp
+	src/plugins/opengl/src/texture/filter/anisotropy_context.cpp
 	src/plugins/opengl/src/texture/filter/context.cpp
 	src/plugins/opengl/src/texture/filter/normal.cpp
 	src/plugins/opengl/src/texture/filter/set.cpp
@@ -703,6 +701,7 @@ set(
 	src/plugins/opengl/src/texture/lock_base.cpp
 	src/plugins/opengl/src/texture/mipmap/all_levels.cpp
 	src/plugins/opengl/src/texture/mipmap/auto_generate.cpp
+	src/plugins/opengl/src/texture/mipmap/context.cpp
 	src/plugins/opengl/src/texture/mipmap/create.cpp
 	src/plugins/opengl/src/texture/mipmap/generate_levels.cpp
 	src/plugins/opengl/src/texture/mipmap/get_levels.cpp

@@ -19,30 +19,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/optional_enum.hpp>
 #include <sge/opengl/context/system/base.hpp>
 #include <sge/opengl/context/system/id.hpp>
 #include <sge/opengl/context/system/make_id.hpp>
 #include <sge/opengl/fbo/attachment_type.hpp>
 #include <sge/opengl/fbo/context.hpp>
 #include <sge/opengl/fbo/optional_attachment_type.hpp>
-#include <sge/opengl/glew/is_supported.hpp>
 #include <fcppt/null_ptr.hpp>
-#include <fcppt/optional_impl.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
 
 sge::opengl::fbo::context::context()
 :
 	sge::opengl::context::system::base(),
 	has_native_(
-		sge::opengl::glew::is_supported(
-			"GL_VERSION_3_0"
-		)
+		GLEW_VERSION_3_0
 	),
 	has_ext_(
-		sge::opengl::glew::is_supported(
-			"GL_EXT_framebuffer_object"
-		)
+		GLEW_EXT_framebuffer_object
 	),
 	gen_framebuffers_(
 		has_native_
@@ -155,19 +156,27 @@ sge::opengl::fbo::context::context()
 				fcppt::null_ptr()
 	),
 	framebuffer_target_(
-		static_cast<
-			GLenum
-		>(
-			has_native_
+		has_native_
+		?
+			sge::opengl::optional_enum(
+				static_cast<
+					GLenum
+				>(
+					GL_FRAMEBUFFER
+				)
+			)
+		:
+			has_ext_
 			?
-				GL_FRAMEBUFFER
+				sge::opengl::optional_enum(
+					static_cast<
+						GLenum
+					>(
+						GL_FRAMEBUFFER_EXT
+					)
+				)
 			:
-				has_ext_
-				?
-					GL_FRAMEBUFFER_EXT
-				:
-					0
-		)
+				sge::opengl::optional_enum()
 	),
 	color_attachment_(
 		has_native_
@@ -193,34 +202,50 @@ sge::opengl::fbo::context::context()
 				sge::opengl::fbo::optional_attachment_type()
 	),
 	framebuffer_complete_(
-		static_cast<
-			GLenum
-		>(
-			has_native_
+		has_native_
+		?
+			sge::opengl::optional_enum(
+				static_cast<
+					GLenum
+				>(
+					GL_FRAMEBUFFER_COMPLETE
+				)
+			)
+		:
+			has_ext_
 			?
-				GL_FRAMEBUFFER_COMPLETE
+				sge::opengl::optional_enum(
+					static_cast<
+						GLenum
+					>(
+						GL_FRAMEBUFFER_COMPLETE_EXT
+					)
+				)
 			:
-				has_ext_
-				?
-					GL_FRAMEBUFFER_COMPLETE_EXT
-				:
-					0
-		)
+				sge::opengl::optional_enum()
 	),
 	renderbuffer_target_(
-		static_cast<
-			GLenum
-		>(
-			has_native_
+		has_native_
+		?
+			sge::opengl::optional_enum(
+				static_cast<
+					GLenum
+				>(
+					GL_RENDERBUFFER
+				)
+			)
+		:
+			has_ext_
 			?
-				GL_RENDERBUFFER
+				sge::opengl::optional_enum(
+					static_cast<
+						GLenum
+					>(
+						GL_RENDERBUFFER_EXT
+					)
+				)
 			:
-				has_ext_
-				?
-					GL_RENDERBUFFER_EXT
-				:
-					0
-		)
+				sge::opengl::optional_enum()
 	),
 	depth_attachment_(
 		has_native_
@@ -260,6 +285,8 @@ sge::opengl::fbo::context::context()
 	)
 {
 }
+
+FCPPT_PP_POP_WARNING
 
 sge::opengl::fbo::context::~context()
 {
@@ -333,34 +360,34 @@ sge::opengl::fbo::context::framebuffer_renderbuffer() const
 	return framebuffer_renderbuffer_;
 }
 
-GLenum
+sge::opengl::optional_enum const
 sge::opengl::fbo::context::framebuffer_target() const
 {
 	return framebuffer_target_;
 }
 
-sge::opengl::fbo::attachment_type const
+sge::opengl::fbo::optional_attachment_type const
 sge::opengl::fbo::context::color_attachment() const
 {
-	return *color_attachment_;
+	return color_attachment_;
 }
 
-GLenum
+sge::opengl::optional_enum const
 sge::opengl::fbo::context::framebuffer_complete() const
 {
 	return framebuffer_complete_;
 }
 
-GLenum
+sge::opengl::optional_enum const
 sge::opengl::fbo::context::renderbuffer_target() const
 {
 	return renderbuffer_target_;
 }
 
-sge::opengl::fbo::attachment_type const
+sge::opengl::fbo::optional_attachment_type const
 sge::opengl::fbo::context::depth_attachment() const
 {
-	return *depth_attachment_;
+	return depth_attachment_;
 }
 
 sge::opengl::fbo::optional_attachment_type const

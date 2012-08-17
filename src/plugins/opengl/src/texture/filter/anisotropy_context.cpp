@@ -19,10 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/matrix_context.hpp>
+#include <sge/opengl/optional_enum.hpp>
 #include <sge/opengl/context/system/base.hpp>
 #include <sge/opengl/context/system/id.hpp>
 #include <sge/opengl/context/system/make_id.hpp>
+#include <sge/opengl/texture/filter/anisotropy_context.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -31,28 +32,60 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
 
-sge::opengl::matrix_context::matrix_context()
+sge::opengl::texture::filter::anisotropy_context::anisotropy_context()
 :
 	sge::opengl::context::system::base(),
-	have_transpose_(
-		GLEW_VERSION_1_3
+	is_ext_(
+		GLEW_EXT_texture_filter_anisotropic
+	),
+	anisotropy_flag_(
+		is_ext_
+		?
+			sge::opengl::optional_enum(
+				static_cast<
+					GLenum
+				>(
+					GL_TEXTURE_MAX_ANISOTROPY_EXT
+				)
+			)
+		:
+			sge::opengl::optional_enum()
+	),
+	max_anisotropy_flag_(
+		is_ext_
+		?
+			sge::opengl::optional_enum(
+				static_cast<
+					GLenum
+				>(
+					GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT
+				)
+			)
+		:
+			sge::opengl::optional_enum()
 	)
 {
 }
 
 FCPPT_PP_POP_WARNING
 
-sge::opengl::matrix_context::~matrix_context()
+sge::opengl::texture::filter::anisotropy_context::~anisotropy_context()
 {
 }
 
-bool
-sge::opengl::matrix_context::have_transpose() const
+sge::opengl::optional_enum const
+sge::opengl::texture::filter::anisotropy_context::anisotropy_flag() const
 {
-	return have_transpose_;
+	return anisotropy_flag_;
+}
+
+sge::opengl::optional_enum const
+sge::opengl::texture::filter::anisotropy_context::max_anisotropy_flag() const
+{
+	return max_anisotropy_flag_;
 }
 
 sge::opengl::context::system::id const
-sge::opengl::matrix_context::static_id(
+sge::opengl::texture::filter::anisotropy_context::static_id(
 	sge::opengl::context::system::make_id()
 );

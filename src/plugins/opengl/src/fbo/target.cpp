@@ -193,7 +193,7 @@ sge::opengl::fbo::target::color_surface(
 			this->create_texture_binding(
 				texture_surface,
 				sge::opengl::fbo::attachment_type(
-					context_.color_attachment().get()
+					context_.color_attachment()->get()
 					+ _index.get()
 				)
 			)
@@ -350,7 +350,7 @@ sge::opengl::fbo::target::check()
 {
 	GLenum const status(
 		context_.check_framebuffer_status()(
-			context_.framebuffer_target()
+			*context_.framebuffer_target()
 		)
 	);
 
@@ -360,8 +360,9 @@ sge::opengl::fbo::target::check()
 	)
 
 	if(
-		status !=
-		context_.framebuffer_complete()
+		status
+		!=
+		*context_.framebuffer_complete()
 	)
 		throw sge::renderer::exception(
 			FCPPT_TEXT("FBO is incomplete!")

@@ -22,13 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_FBO_CONTEXT_HPP_INCLUDED
 
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/optional_enum.hpp>
 #include <sge/opengl/context/system/base.hpp>
 #include <sge/opengl/context/system/id.hpp>
-#include <sge/opengl/fbo/attachment_type.hpp>
 #include <sge/opengl/fbo/context_fwd.hpp>
 #include <sge/opengl/fbo/optional_attachment_type.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional_decl.hpp>
 
 
 namespace sge
@@ -103,19 +102,19 @@ public:
 	gl_framebuffer_renderbuffer
 	framebuffer_renderbuffer() const;
 
-	GLenum
+	sge::opengl::optional_enum const
 	framebuffer_target() const;
 
-	sge::opengl::fbo::attachment_type const
+	sge::opengl::fbo::optional_attachment_type const
 	color_attachment() const;
 
-	GLenum
+	sge::opengl::optional_enum const
 	framebuffer_complete() const;
 
-	GLenum
+	sge::opengl::optional_enum const
 	renderbuffer_target() const;
 
-	sge::opengl::fbo::attachment_type const
+	sge::opengl::fbo::optional_attachment_type const
 	depth_attachment() const;
 
 	sge::opengl::fbo::optional_attachment_type const
@@ -149,11 +148,11 @@ private:
 
 	gl_framebuffer_renderbuffer const framebuffer_renderbuffer_;
 
-	GLenum const framebuffer_target_;
+	sge::opengl::optional_enum const framebuffer_target_;
 
 	sge::opengl::fbo::optional_attachment_type const color_attachment_;
 
-	GLenum const
+	sge::opengl::optional_enum const
 		framebuffer_complete_,
 		renderbuffer_target_;
 

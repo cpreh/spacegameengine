@@ -35,7 +35,7 @@ sge::opengl::texture::volume::volume(
 :
 	sge::opengl::texture::volume_basic(
 		_basic_parameters,
-		sge::opengl::context::use<
+		*sge::opengl::context::use<
 			sge::opengl::texture::volume_context
 		>(
 			_basic_parameters.system_context()
