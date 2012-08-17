@@ -43,6 +43,7 @@ sge::opengl::texture::basic_box<
 )
 :
 	base_type(
+		_basic_parameters,
 		_type,
 		_parameters
 	),

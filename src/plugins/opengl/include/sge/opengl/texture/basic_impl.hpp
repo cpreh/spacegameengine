@@ -21,9 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_BASIC_IMPL_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_BASIC_IMPL_HPP_INCLUDED
 
+#include <sge/opengl/context/device/object_fwd.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/base.hpp>
 #include <sge/opengl/texture/basic.hpp>
+#include <sge/opengl/texture/basic_parameters.hpp>
+#include <sge/opengl/texture/scoped_work_binding.hpp>
 #include <sge/opengl/texture/type.hpp>
+#include <sge/opengl/texture/mipmap/generate.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/mipmap/object.hpp>
@@ -35,6 +40,7 @@ template<
 sge::opengl::texture::basic<
 	Types
 >::basic(
+	sge::opengl::texture::basic_parameters const &_basic_parameters,
 	sge::opengl::texture::type const _type,
 	parameters_type const &_parameters
 )
@@ -42,6 +48,12 @@ sge::opengl::texture::basic<
 	Types::base(),
 	sge::opengl::texture::base(
 		_type
+	),
+	system_context_(
+		_basic_parameters.system_context()
+	),
+	device_context_(
+		_basic_parameters.device_context()
 	),
 	resource_flags_(
 		_parameters.resource_flags()
@@ -95,6 +107,50 @@ sge::opengl::texture::basic<
 >::mipmap() const
 {
 	return mipmap_;
+}
+
+template<
+	typename Types
+>
+sge::opengl::context::system::object &
+sge::opengl::texture::basic<
+	Types
+>::system_context() const
+{
+	return system_context_;
+}
+
+template<
+	typename Types
+>
+sge::opengl::context::device::object &
+sge::opengl::texture::basic<
+	Types
+>::device_context() const
+{
+	return device_context_;
+}
+
+template<
+	typename Types
+>
+void
+sge::opengl::texture::basic<
+	Types
+>::generate_mipmaps()
+{
+	sge::opengl::texture::scoped_work_binding const binding(
+		system_context_,
+		device_context_,
+		this->type(),
+		this->id()
+	);
+
+	sge::opengl::texture::mipmap::generate(
+		binding,
+		system_context_,
+		this->type()
+	);
 }
 
 #endif

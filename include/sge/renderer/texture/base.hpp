@@ -68,6 +68,12 @@ public:
 	virtual
 	sge::renderer::texture::mipmap::object const
 	mipmap() const = 0;
+
+	// TODO: Add levels() function here!
+
+	virtual
+	void
+	generate_mipmaps() = 0;
 };
 
 }

@@ -18,13 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_MIPMAP_CONTEXT_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_MIPMAP_CONTEXT_HPP_INCLUDED
+#ifndef SGE_OPENGL_TEXTURE_DEPTH_STENCIL_TYPES_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_DEPTH_STENCIL_TYPES_HPP_INCLUDED
 
-#include <sge/opengl/optional_enum.hpp>
-#include <sge/opengl/context/system/base.hpp>
-#include <sge/opengl/context/system/id.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/opengl/texture/depth_stencil_types_fwd.hpp>
+#include <sge/renderer/texture/depth_stencil_fwd.hpp>
+#include <sge/renderer/texture/depth_stencil_parameters_fwd.hpp>
+#include <fcppt/string.hpp>
 
 
 namespace sge
@@ -33,41 +33,21 @@ namespace opengl
 {
 namespace texture
 {
-namespace mipmap
+
+struct depth_stencil_types
 {
+	typedef sge::renderer::texture::depth_stencil base;
 
-class context
-:
-	public sge::opengl::context::system::base
-{
-	FCPPT_NONCOPYABLE(
-		context
-	);
-public:
-	context();
+	typedef sge::renderer::texture::depth_stencil_parameters parameters;
 
-	~context();
-
-	sge::opengl::optional_enum const
-	generate_mipmap_flag() const;
-
-	typedef PFNGLGENERATEMIPMAPPROC gl_generate_mipmap;
-
-	gl_generate_mipmap
-	generate_mipmap() const;
-
-	typedef void needs_before;
+	// FIXME!
+	//typedef sge::opengl::texture::color_surface_types buffer_types;
 
 	static
-	sge::opengl::context::system::id const
-	static_id;
-private:
-	sge::opengl::optional_enum const generate_mipmap_flag_;
-
-	gl_generate_mipmap const generate_mipmap_;
+	fcppt::string const
+	name();
 };
 
-}
 }
 }
 }

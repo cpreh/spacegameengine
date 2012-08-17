@@ -21,18 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_DEPTH_STENCIL_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_DEPTH_STENCIL_HPP_INCLUDED
 
-#include <sge/opengl/context/device/object_fwd.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/opengl/texture/base.hpp>
+#include <sge/opengl/texture/basic.hpp>
 #include <sge/opengl/texture/basic_parameters_fwd.hpp>
+#include <sge/opengl/texture/depth_stencil_basic.hpp>
 #include <sge/opengl/texture/depth_stencil_fwd.hpp>
+#include <sge/opengl/texture/depth_stencil_types.hpp>
 #include <sge/renderer/depth_stencil_format.hpp>
 #include <sge/renderer/depth_stencil_surface_unique_ptr.hpp>
-#include <sge/renderer/resource_flags_field_fwd.hpp>
-#include <sge/renderer/texture/capabilities_field_fwd.hpp>
 #include <sge/renderer/texture/depth_stencil.hpp>
 #include <sge/renderer/texture/depth_stencil_parameters_fwd.hpp>
-#include <sge/renderer/texture/mipmap/object_fwd.hpp>
 #include <fcppt/math/dim/object_decl.hpp>
 
 
@@ -45,8 +42,7 @@ namespace texture
 
 class depth_stencil
 :
-	public sge::renderer::texture::depth_stencil,
-	public sge::opengl::texture::base
+	public sge::opengl::texture::depth_stencil_basic
 {
 	FCPPT_NONCOPYABLE(
 		depth_stencil
@@ -64,20 +60,7 @@ public:
 
 	sge::renderer::depth_stencil_surface_unique_ptr
 	surface() const;
-
-	sge::renderer::resource_flags_field const
-	resource_flags() const;
-
-	sge::renderer::texture::capabilities_field const
-	capabilities() const;
 private:
-	sge::renderer::texture::mipmap::object const
-	mipmap() const;
-
-	sge::opengl::context::system::object &system_context_;
-
-	sge::opengl::context::device::object &device_context_;
-
 	sge::opengl::texture::depth_stencil::dim const size_;
 
 	sge::renderer::depth_stencil_format::type const format_;

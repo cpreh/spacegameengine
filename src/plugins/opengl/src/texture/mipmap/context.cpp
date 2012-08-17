@@ -47,6 +47,13 @@ sge::opengl::texture::mipmap::context::context()
 			)
 		:
 			sge::opengl::optional_enum()
+	),
+	generate_mipmap_(
+		GLEW_VERSION_3_0
+		?
+			glGenerateMipmap
+		:
+			glGenerateMipmapEXT
 	)
 {
 }
@@ -61,6 +68,12 @@ sge::opengl::optional_enum const
 sge::opengl::texture::mipmap::context::generate_mipmap_flag() const
 {
 	return generate_mipmap_flag_;
+}
+
+sge::opengl::texture::mipmap::context::gl_generate_mipmap
+sge::opengl::texture::mipmap::context::generate_mipmap() const
+{
+	return generate_mipmap_;
 }
 
 sge::opengl::context::system::id const

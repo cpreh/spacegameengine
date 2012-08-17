@@ -322,8 +322,11 @@ set(
 	src/plugins/opengl/include/sge/opengl/texture/cube_types.hpp
 	src/plugins/opengl/include/sge/opengl/texture/cube_types_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/depth_stencil.hpp
+	src/plugins/opengl/include/sge/opengl/texture/depth_stencil_basic.hpp
 	src/plugins/opengl/include/sge/opengl/texture/depth_stencil_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/depth_stencil_surface.hpp
+	src/plugins/opengl/include/sge/opengl/texture/depth_stencil_types.hpp
+	src/plugins/opengl/include/sge/opengl/texture/depth_stencil_types_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/disable.hpp
 	src/plugins/opengl/include/sge/opengl/texture/enable.hpp
 	src/plugins/opengl/include/sge/opengl/texture/extend_size.hpp
@@ -367,6 +370,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/texture/mipmap/auto_generate.hpp
 	src/plugins/opengl/include/sge/opengl/texture/mipmap/context.hpp
 	src/plugins/opengl/include/sge/opengl/texture/mipmap/create.hpp
+	src/plugins/opengl/include/sge/opengl/texture/mipmap/generate.hpp
 	src/plugins/opengl/include/sge/opengl/texture/mipmap/generate_levels.hpp
 	src/plugins/opengl/include/sge/opengl/texture/mipmap/get_levels.hpp
 	src/plugins/opengl/include/sge/opengl/texture/mipmap/levels.hpp
@@ -670,6 +674,7 @@ set(
 	src/plugins/opengl/src/texture/cube_context.cpp
 	src/plugins/opengl/src/texture/cube_types.cpp
 	src/plugins/opengl/src/texture/depth_stencil.cpp
+	src/plugins/opengl/src/texture/depth_stencil_basic.cpp
 	src/plugins/opengl/src/texture/depth_stencil_surface.cpp
 	src/plugins/opengl/src/texture/disable.cpp
 	src/plugins/opengl/src/texture/enable.cpp
@@ -703,6 +708,7 @@ set(
 	src/plugins/opengl/src/texture/mipmap/auto_generate.cpp
 	src/plugins/opengl/src/texture/mipmap/context.cpp
 	src/plugins/opengl/src/texture/mipmap/create.cpp
+	src/plugins/opengl/src/texture/mipmap/generate.cpp
 	src/plugins/opengl/src/texture/mipmap/generate_levels.cpp
 	src/plugins/opengl/src/texture/mipmap/get_levels.cpp
 	src/plugins/opengl/src/texture/mipmap/levels.cpp

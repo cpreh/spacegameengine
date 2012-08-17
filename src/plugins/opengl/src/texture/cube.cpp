@@ -48,6 +48,7 @@ sge::opengl::texture::cube::cube(
 )
 :
 	sge::opengl::texture::cube_basic(
+		_basic_parameters,
 		*sge::opengl::context::use<
 			sge::opengl::texture::cube_context
 		>(
