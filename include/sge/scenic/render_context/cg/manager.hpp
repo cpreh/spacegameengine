@@ -1,7 +1,6 @@
 #ifndef SGE_SCENIC_RENDER_CONTEXT_CG_MANAGER_HPP_INCLUDED
 #define SGE_SCENIC_RENDER_CONTEXT_CG_MANAGER_HPP_INCLUDED
 
-#include <fcppt/noncopyable.hpp>
 #include <sge/scenic/render_context/manager_base.hpp>
 #include <sge/scenic/symbol.hpp>
 #include <sge/scenic/render_context/cg/object_fwd.hpp>
@@ -12,6 +11,8 @@
 #include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/matrix4.hpp>
+#include <fcppt/noncopyable.hpp>
+
 
 namespace sge
 {
@@ -25,6 +26,8 @@ class manager
 :
 	public sge::scenic::render_context::manager_base
 {
+FCPPT_NONCOPYABLE(
+	manager);
 public:
 	SGE_SCENIC_SYMBOL
 	manager(

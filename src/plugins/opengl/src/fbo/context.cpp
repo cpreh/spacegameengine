@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/base.hpp>
 #include <sge/opengl/context/system/id.hpp>
 #include <sge/opengl/context/system/make_id.hpp>
+#include <sge/opengl/convert/from_gl_bool.hpp>
 #include <sge/opengl/fbo/attachment_type.hpp>
 #include <sge/opengl/fbo/context.hpp>
 #include <sge/opengl/fbo/optional_attachment_type.hpp>
@@ -40,10 +41,14 @@ sge::opengl::fbo::context::context()
 :
 	sge::opengl::context::system::base(),
 	has_native_(
-		GLEW_VERSION_3_0
+		sge::opengl::convert::from_gl_bool(
+			GLEW_VERSION_3_0
+		)
 	),
 	has_ext_(
-		GLEW_EXT_framebuffer_object
+		sge::opengl::convert::from_gl_bool(
+			GLEW_EXT_framebuffer_object
+		)
 	),
 	gen_framebuffers_(
 		has_native_

@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/base.hpp>
 #include <sge/opengl/context/system/id.hpp>
 #include <sge/opengl/context/system/make_id.hpp>
+#include <sge/opengl/convert/from_gl_bool.hpp>
 #include <sge/opengl/texture/filter/anisotropy_context.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -36,7 +37,9 @@ sge::opengl::texture::filter::anisotropy_context::anisotropy_context()
 :
 	sge::opengl::context::system::base(),
 	is_ext_(
-		GLEW_EXT_texture_filter_anisotropic
+		sge::opengl::convert::from_gl_bool(
+			GLEW_EXT_texture_filter_anisotropic
+		)
 	),
 	anisotropy_flag_(
 		is_ext_

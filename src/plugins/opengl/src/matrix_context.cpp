@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/base.hpp>
 #include <sge/opengl/context/system/id.hpp>
 #include <sge/opengl/context/system/make_id.hpp>
+#include <sge/opengl/convert/from_gl_bool.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -35,7 +36,9 @@ sge::opengl::matrix_context::matrix_context()
 :
 	sge::opengl::context::system::base(),
 	have_transpose_(
-		GLEW_VERSION_1_3
+		sge::opengl::convert::from_gl_bool(
+			GLEW_VERSION_1_3
+		)
 	)
 {
 }

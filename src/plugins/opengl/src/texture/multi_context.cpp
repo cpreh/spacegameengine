@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/base.hpp>
 #include <sge/opengl/context/system/id.hpp>
 #include <sge/opengl/context/system/make_id.hpp>
+#include <sge/opengl/convert/from_gl_bool.hpp>
 #include <sge/opengl/texture/multi_context.hpp>
 #include <sge/renderer/caps/texture_stages.hpp>
 #include <fcppt/null_ptr.hpp>
@@ -42,10 +43,14 @@ sge::opengl::texture::multi_context::multi_context()
 :
 	sge::opengl::context::system::base(),
 	is_native_(
-		GLEW_VERSION_1_3
+		sge::opengl::convert::from_gl_bool(
+			GLEW_VERSION_1_3
+		)
 	),
 	is_arb_(
-		GLEW_ARB_multitexture
+		sge::opengl::convert::from_gl_bool(
+			GLEW_ARB_multitexture
+		)
 	),
 	active_texture_(
 		is_native_

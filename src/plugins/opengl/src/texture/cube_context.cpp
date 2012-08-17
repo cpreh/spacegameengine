@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/base.hpp>
 #include <sge/opengl/context/system/id.hpp>
 #include <sge/opengl/context/system/make_id.hpp>
+#include <sge/opengl/convert/from_gl_bool.hpp>
 #include <sge/opengl/texture/cube_context.hpp>
 #include <sge/opengl/texture/cube_side_array.hpp>
 #include <sge/opengl/texture/optional_type.hpp>
@@ -88,10 +89,14 @@ sge::opengl::texture::cube_context::cube_context()
 :
 	sge::opengl::context::system::base(),
 	cube_texture_normal_(
-		GLEW_VERSION_1_3
+		sge::opengl::convert::from_gl_bool(
+			GLEW_VERSION_1_3
+		)
 	),
 	cube_texture_arb_(
-		GLEW_ARB_texture_cube_map
+		sge::opengl::convert::from_gl_bool(
+			GLEW_ARB_texture_cube_map
+		)
 	),
 	cube_texture_type_(
 		cube_texture_normal_

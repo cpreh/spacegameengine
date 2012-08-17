@@ -72,8 +72,6 @@ private:
 	typedef typename base_type::dim dim;
 
 	// implementation for base class
-	dim const
-	size() const;
 
 	color_buffer &
 	level(

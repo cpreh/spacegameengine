@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/buffer/hardware.hpp>
+#include <sge/opengl/convert/from_gl_bool.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
@@ -36,10 +37,14 @@ sge::opengl::buffer::hardware::hardware()
 :
 	buffer::base(),
 	have_version_1_5_(
-		GLEW_VERSION_1_5
+		sge::opengl::convert::from_gl_bool(
+			GLEW_VERSION_1_5
+		)
 	),
 	have_arb_(
-		GLEW_ARB_vertex_buffer_object
+		sge::opengl::convert::from_gl_bool(
+			GLEW_ARB_vertex_buffer_object
+		)
 	),
 	gl_gen_buffers_(
 		have_version_1_5_

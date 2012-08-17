@@ -47,9 +47,6 @@ sge::opengl::texture::basic_box<
 		_type,
 		_parameters
 	),
-	size_(
-		_parameters.size()
-	),
 	levels_()
 {
 	sge::opengl::texture::scoped_work_binding const binding(

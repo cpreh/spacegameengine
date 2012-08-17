@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/base.hpp>
 #include <sge/opengl/context/system/id.hpp>
 #include <sge/opengl/context/system/make_id.hpp>
+#include <sge/opengl/convert/from_gl_bool.hpp>
 #include <sge/opengl/occlusion_query/context.hpp>
 #include <fcppt/null_ptr.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
@@ -39,7 +40,9 @@ sge::opengl::occlusion_query::context::context()
 :
 	sge::opengl::context::system::base(),
 	has_native_(
-		GLEW_VERSION_1_5
+		sge::opengl::convert::from_gl_bool(
+			GLEW_VERSION_1_5
+		)
 	),
 	gen_queries_(
 		has_native_
