@@ -86,8 +86,6 @@ private:
 	sge::renderer::texture::mipmap::level_count const
 	levels() const;
 
-	dim const size_;
-
 	typedef boost::ptr_vector<
 		color_buffer
 	> buffer_vector;
