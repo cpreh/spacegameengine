@@ -84,6 +84,9 @@ private:
 
 	sge::renderer::texture::mipmap::object const
 	mipmap() const;
+
+	void
+	generate_mipmaps();
 protected:
 	sge::renderer::texture::mipmap::level_count const
 	levels() const;

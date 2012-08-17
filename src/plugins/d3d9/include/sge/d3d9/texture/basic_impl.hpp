@@ -126,6 +126,17 @@ sge::d3d9::texture::basic<
 template<
 	typename Types
 >
+void
+sge::d3d9::texture::basic<
+	Types
+>::generate_mipmaps()
+{
+	this->get().GenerateMipSubLevels();
+}
+
+template<
+	typename Types
+>
 sge::renderer::texture::mipmap::level_count const
 sge::d3d9::texture::basic<
 	Types
