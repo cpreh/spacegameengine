@@ -18,19 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/config.hpp>
 #include <sge/opengl/x11/resolution/create.hpp>
 #include <sge/opengl/x11/resolution/object.hpp>
 #include <sge/opengl/x11/resolution/object_unique_ptr.hpp>
-#if defined(SGE_OPENGL_HAVE_XRANDR)
 #include <sge/opengl/x11/resolution/xrandr_mode.hpp>
-#endif
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/log/global.hpp>
 #include <sge/exception.hpp>
 #include <awl/backends/x11/window/object.hpp>
+#include <fcppt/log/error.hpp>
 #include <fcppt/log/output.hpp>
-#include <fcppt/log/warning.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
@@ -47,18 +44,6 @@ sge::opengl::x11::resolution::create(
 	)
 		return sge::opengl::x11::resolution::object_unique_ptr();
 
-#if !defined(SGE_OPENGL_HAVE_XRANDR) && !defined(SGE_OPENGL_HAVE_XF86VMODE)
-	FCPPT_LOG_WARNING(
-		sge::log::global(),
-		fcppt::log::_
-			<< FCPPT_TEXT("sge has not been compiled with fullscreen support.")
-			<< FCPPT_TEXT(" Use -D ENABLE_XRANDR=ON.")
-	);
-
-	return
-		sge::opengl::x11::resolution::object_unique_ptr();
-#else
-#if defined(SGE_OPENGL_HAVE_XRANDR)
 	try
 	{
 		return
@@ -77,13 +62,13 @@ sge::opengl::x11::resolution::create(
 		sge::exception const &_exception
 	)
 	{
-		FCPPT_LOG_WARNING(
+		FCPPT_LOG_ERROR(
 			log::global(),
 			fcppt::log::_ << _exception.string()
 		);
 	}
-#endif
-	FCPPT_LOG_WARNING(
+
+	FCPPT_LOG_ERROR(
 		sge::log::global(),
 		fcppt::log::_
 			<< FCPPT_TEXT("sge cannot switch resolutions because ")
@@ -92,5 +77,4 @@ sge::opengl::x11::resolution::create(
 
 	return
 		sge::opengl::x11::resolution::object_unique_ptr();
-#endif
 }

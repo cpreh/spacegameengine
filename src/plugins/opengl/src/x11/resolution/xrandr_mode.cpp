@@ -18,8 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/config.hpp>
-#if defined(SGE_OPENGL_HAVE_XRANDR)
 #include <sge/opengl/x11/resolution/object.hpp>
 #include <sge/opengl/x11/resolution/xrandr_mode.hpp>
 #include <sge/opengl/xrandr/choose_resolution.hpp>
@@ -46,5 +44,3 @@ sge::opengl::x11::resolution::xrandr_mode::xrandr_mode(
 sge::opengl::x11::resolution::xrandr_mode::~xrandr_mode()
 {
 }
-
-#endif

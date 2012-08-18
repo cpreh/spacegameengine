@@ -959,35 +959,20 @@ if(
 		"${SGE_OPENGL_FILES};${SGE_OPENGL_X11_FILES}"
 	)
 
-	option(
-		ENABLE_XRANDR
-		"Enables screen mode switching via xrandr"
-		${X11_Xrandr_FOUND}
+	include_directories(
+		${FCPPT_UTILS_INCLUDE_SYSTEM}
+		${X11_Xrandr_INCLUDE_PATH}
 	)
 
-	if(
-		ENABLE_XRANDR
+	set(
+		SGE_OPENGL_FILES
+		"${SGE_OPENGL_FILES};${SGE_OPENGL_XRANDR_FILES}"
 	)
-		set(
-			SGE_OPENGL_HAVE_XRANDR
-			TRUE
-		)
 
-		include_directories(
-			${FCPPT_UTILS_INCLUDE_SYSTEM}
-			${X11_Xrandr_INCLUDE_PATH}
-		)
-
-		set(
-			SGE_OPENGL_FILES
-			"${SGE_OPENGL_FILES};${SGE_OPENGL_XRANDR_FILES}"
-		)
-
-		set(
-			SGE_OPENGL_ADDITIONAL_DEPS
-			"${SGE_OPENGL_ADDITIONAL_DEPS};${X11_Xrandr_LIB}"
-		)
-	endif()
+	set(
+		SGE_OPENGL_ADDITIONAL_DEPS
+		"${SGE_OPENGL_ADDITIONAL_DEPS};${X11_Xrandr_LIB}"
+	)
 elseif(
 	WIN32
 )

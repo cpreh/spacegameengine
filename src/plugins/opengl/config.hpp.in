@@ -22,7 +22,5 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_CONFIG_HPP_INCLUDED
 
 #cmakedefine SGE_OPENGL_HAVE_X11
-#cmakedefine SGE_OPENGL_HAVE_XRANDR
-#cmakedefine SGE_OPENGL_HAVE_XF86VMODE
 
 #endif
