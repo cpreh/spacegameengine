@@ -18,27 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_X11_RESOLUTION_OBJECT_UNIQUE_PTR_HPP_INCLUDED
-#define SGE_OPENGL_X11_RESOLUTION_OBJECT_UNIQUE_PTR_HPP_INCLUDED
+#ifndef SGE_OPENGL_XRANDR_CURRENT_DISPLAY_MODE_HPP_INCLUDED
+#define SGE_OPENGL_XRANDR_CURRENT_DISPLAY_MODE_HPP_INCLUDED
 
-#include <sge/opengl/x11/resolution/object_fwd.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
+#include <sge/opengl/xrandr/configuration_fwd.hpp>
+#include <sge/renderer/display_mode/object_fwd.hpp>
 
 
 namespace sge
 {
 namespace opengl
 {
-namespace x11
-{
-namespace resolution
+namespace xrandr
 {
 
-typedef fcppt::unique_ptr<
-	sge::opengl::x11::resolution::object
-> object_unique_ptr;
+sge::renderer::display_mode::object const
+current_display_mode(
+	sge::opengl::xrandr::configuration const &
+);
 
-}
 }
 }
 }

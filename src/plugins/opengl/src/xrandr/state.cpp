@@ -18,45 +18,53 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/xrandr/configuration_fwd.hpp>
-#include <sge/opengl/xrandr/mode.hpp>
+#include <sge/opengl/xrandr/choose_resolution.hpp>
+#include <sge/opengl/xrandr/current_display_mode.hpp>
+#include <sge/opengl/xrandr/get_version.hpp>
 #include <sge/opengl/xrandr/resolution.hpp>
-#include <sge/opengl/xrandr/set_resolution.hpp>
-#include <awl/backends/x11/window/object_fwd.hpp>
-#include <fcppt/move.hpp>
+#include <sge/opengl/xrandr/resolution_unique_ptr.hpp>
+#include <sge/opengl/xrandr/state.hpp>
+#include <sge/renderer/display_mode/object.hpp>
+#include <sge/renderer/display_mode/optional_object.hpp>
+#include <awl/backends/x11/window/object.hpp>
 
 
-sge::opengl::xrandr::resolution::resolution(
+sge::opengl::xrandr::state::state(
 	awl::backends::x11::window::object &_window,
-	sge::opengl::xrandr::configuration const &_config,
-	sge::opengl::xrandr::mode const &_new_mode,
-	sge::opengl::xrandr::mode const &_old_mode
+	sge::renderer::display_mode::optional_object const &_display_mode
 )
 :
-	window_(
-		_window
-	),
-	config_(
-		fcppt::move(
-			_config
+	version_(
+		sge::opengl::xrandr::get_version(
+			_window.display()
 		)
 	),
-	old_mode_(
-		_old_mode
+	config_(
+		_window
+	),
+	resolution_(
+		_display_mode
+		?
+			sge::opengl::xrandr::choose_resolution(
+				config_,
+				_window,
+				*_display_mode
+			)
+		:
+			sge::opengl::xrandr::resolution_unique_ptr()
 	)
 {
-	sge::opengl::xrandr::set_resolution(
-		_window,
-		config_,
-		_new_mode
-	);
 }
 
-sge::opengl::xrandr::resolution::~resolution()
+sge::opengl::xrandr::state::~state()
 {
-	sge::opengl::xrandr::set_resolution(
-		window_,
-		config_,
-		old_mode_
-	);
+}
+
+sge::renderer::display_mode::object const
+sge::opengl::xrandr::state::display_mode() const
+{
+	return
+		sge::opengl::xrandr::current_display_mode(
+			config_
+		);
 }

@@ -18,29 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/x11/resolution/object.hpp>
-#include <sge/opengl/x11/resolution/xrandr_mode.hpp>
-#include <sge/opengl/xrandr/choose_resolution.hpp>
-#include <sge/opengl/xrandr/resolution.hpp>
-#include <sge/renderer/display_mode/object_fwd.hpp>
-#include <awl/backends/x11/window/object_fwd.hpp>
+#include <sge/opengl/xrandr/version.hpp>
 
 
-sge::opengl::x11::resolution::xrandr_mode::xrandr_mode(
-	sge::renderer::display_mode::object const &_mode,
-	awl::backends::x11::window::object &_window
+sge::opengl::xrandr::version::version(
+	int const _major,
+	int const _minor
 )
 :
-	sge::opengl::x11::resolution::object(),
-	resolution_(
-		sge::opengl::xrandr::choose_resolution(
-			_window,
-			_mode
-		)
+	major_(
+		_major
+	),
+	minor_(
+		_minor
 	)
 {
 }
 
-sge::opengl::x11::resolution::xrandr_mode::~xrandr_mode()
+int
+sge::opengl::xrandr::version::major() const
 {
+	return major_;
+}
+
+int
+sge::opengl::xrandr::version::minor() const
+{
+	return minor_;
 }

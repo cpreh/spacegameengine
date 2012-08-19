@@ -22,16 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/glx/context.hpp>
 #include <sge/opengl/x11/state.hpp>
 #include <sge/opengl/x11/vsync.hpp>
-#include <sge/opengl/x11/resolution/create.hpp>
-#include <sge/opengl/x11/resolution/object.hpp>
+#include <sge/renderer/display_mode/object.hpp>
 #include <sge/renderer/parameters/object.hpp>
 #include <sge/renderer/parameters/vsync.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/visual/object.hpp>
 #include <awl/backends/x11/window/object.hpp>
-#include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <GL/glx.h>
 #include <fcppt/config/external_end.hpp>
@@ -53,11 +49,9 @@ sge::opengl::x11::state::state(
 	scoped_current_(
 		context_
 	),
-	resolution_(
-		sge::opengl::x11::resolution::create(
-			window_,
-			_parameters.display_mode()
-		)
+	xrandr_state_(
+		window_,
+		_parameters.display_mode()
 	)
 {
 	if(
@@ -90,4 +84,11 @@ sge::opengl::x11::state::swap_buffers()
 			window_.display().get(),
 			window_.get()
 		);
+}
+
+sge::renderer::display_mode::object const
+sge::opengl::x11::state::display_mode() const
+{
+	return
+		xrandr_state_.display_mode();
 }

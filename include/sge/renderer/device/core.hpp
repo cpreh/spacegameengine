@@ -38,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/context/core_fwd.hpp>
 #include <sge/renderer/context/core_unique_ptr.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
+#include <sge/renderer/display_mode/object_fwd.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/occlusion_query/object_unique_ptr.hpp>
 #include <sge/renderer/state/core/blend/object_unique_ptr.hpp>
@@ -408,6 +409,17 @@ public:
 	virtual
 	sge::renderer::caps::device const &
 	caps() const = 0;
+
+	/**
+	\brief Returns the current display mode
+
+	The display mode can change over time (for example, if the window is
+	moved between monitors). It can be used for dpi or refresh rate
+	calculations.
+	*/
+	virtual
+	sge::renderer::display_mode::object const
+	display_mode() const = 0;
 
 	SGE_RENDERER_SYMBOL
 	virtual

@@ -18,30 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_X11_RESOLUTION_CREATE_HPP_INCLUDED
-#define SGE_OPENGL_X11_RESOLUTION_CREATE_HPP_INCLUDED
-
-#include <sge/opengl/x11/resolution/object_unique_ptr.hpp>
-#include <sge/renderer/display_mode/optional_object_fwd.hpp>
-#include <awl/backends/x11/window/object_fwd.hpp>
+#ifndef SGE_OPENGL_XRANDR_VERSION_FWD_HPP_INCLUDED
+#define SGE_OPENGL_XRANDR_VERSION_FWD_HPP_INCLUDED
 
 
 namespace sge
 {
 namespace opengl
 {
-namespace x11
-{
-namespace resolution
+namespace xrandr
 {
 
-sge::opengl::x11::resolution::object_unique_ptr
-create(
-	awl::backends::x11::window::object &,
-	sge::renderer::display_mode::optional_object const &
-);
+class version;
 
-}
 }
 }
 }

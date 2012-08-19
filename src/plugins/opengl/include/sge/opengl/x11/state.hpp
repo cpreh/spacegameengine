@@ -25,11 +25,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/device_state/object.hpp>
 #include <sge/opengl/device_state/scoped_current.hpp>
 #include <sge/opengl/x11/context.hpp>
-#include <sge/opengl/x11/resolution/object_fwd.hpp>
+#include <sge/opengl/xrandr/state.hpp>
+#include <sge/renderer/display_mode/object_fwd.hpp>
 #include <sge/renderer/parameters/object_fwd.hpp>
 #include <awl/backends/x11/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
 
 
 namespace sge
@@ -54,24 +54,23 @@ public:
 	);
 
 	~state();
-
+private:
 	void
 	begin_rendering();
 
 	void
 	swap_buffers();
-private:
+
+	sge::renderer::display_mode::object const
+	display_mode() const;
+
 	awl::backends::x11::window::object &window_;
 
 	sge::opengl::x11::context context_;
 
 	sge::opengl::device_state::scoped_current const scoped_current_;
 
-	typedef fcppt::scoped_ptr<
-		sge::opengl::x11::resolution::object
-	> resolution_scoped_ptr;
-
-	resolution_scoped_ptr const resolution_;
+	sge::opengl::xrandr::state const xrandr_state_;
 };
 
 }

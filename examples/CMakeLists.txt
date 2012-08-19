@@ -201,6 +201,13 @@ message("Fix the cube map example!")
 #)
 
 add_sge_example(
+	display_mode
+	"sgerenderer;sgesystems;sgeviewport;sgewindow"
+	"${Fcppt_core_LIBRARIES}"
+	""
+)
+
+add_sge_example(
 	doppler
 	"sgeaudio;sgeconfig;sgeinput;sgelog;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"

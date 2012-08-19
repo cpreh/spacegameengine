@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_XRANDR_RESOLUTION_HPP_INCLUDED
 
 #include <sge/opengl/xrandr/configuration_fwd.hpp>
-#include <sge/opengl/xrandr/configuration_unique_ptr.hpp>
 #include <sge/opengl/xrandr/mode.hpp>
 #include <sge/opengl/xrandr/resolution_fwd.hpp>
 #include <awl/backends/x11/window/object_fwd.hpp>
@@ -45,7 +44,7 @@ class resolution
 public:
 	resolution(
 		awl::backends::x11::window::object &,
-		sge::opengl::xrandr::configuration_unique_ptr,
+		sge::opengl::xrandr::configuration const &,
 		sge::opengl::xrandr::mode const &new_mode,
 		sge::opengl::xrandr::mode const &old_mode
 	);
@@ -54,11 +53,7 @@ public:
 private:
 	awl::backends::x11::window::object &window_;
 
-	typedef fcppt::scoped_ptr<
-		sge::opengl::xrandr::configuration
-	> configuration_scoped_ptr;
-
-	configuration_scoped_ptr const config_;
+	sge::opengl::xrandr::configuration const &config_;
 
 	sge::opengl::xrandr::mode const old_mode_;
 };

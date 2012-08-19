@@ -1016,11 +1016,6 @@ set(
 	src/plugins/opengl/include/sge/opengl/glx/visual/rgb_triple.hpp
 	src/plugins/opengl/include/sge/opengl/glx/visual/rgb_triple_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/x11/context.hpp
-	src/plugins/opengl/include/sge/opengl/x11/resolution/create.hpp
-	src/plugins/opengl/include/sge/opengl/x11/resolution/object.hpp
-	src/plugins/opengl/include/sge/opengl/x11/resolution/object_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/x11/resolution/object_unique_ptr.hpp
-	src/plugins/opengl/include/sge/opengl/x11/resolution/xrandr_mode.hpp
 	src/plugins/opengl/include/sge/opengl/x11/state.hpp
 	src/plugins/opengl/include/sge/opengl/x11/swap_context.hpp
 	src/plugins/opengl/include/sge/opengl/x11/vsync.hpp
@@ -1036,9 +1031,6 @@ set(
 	src/plugins/opengl/src/glx/visual/make_attributes.cpp
 	src/plugins/opengl/src/glx/visual/rgb_triple.cpp
 	src/plugins/opengl/src/x11/context.cpp
-	src/plugins/opengl/src/x11/resolution/create.cpp
-	src/plugins/opengl/src/x11/resolution/object.cpp
-	src/plugins/opengl/src/x11/resolution/xrandr_mode.cpp
 	src/plugins/opengl/src/x11/state.cpp
 	src/plugins/opengl/src/x11/swap_context.cpp
 	src/plugins/opengl/src/x11/vsync.cpp
@@ -1050,21 +1042,29 @@ set(
 	src/plugins/opengl/include/sge/opengl/xrandr/choose_resolution.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/configuration.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/configuration_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/xrandr/configuration_unique_ptr.hpp
+	src/plugins/opengl/include/sge/opengl/xrandr/current_display_mode.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/current_resolution.hpp
+	src/plugins/opengl/include/sge/opengl/xrandr/get_version.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/mode.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/mode_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/resolution.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/resolution_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/resolution_unique_ptr.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/set_resolution.hpp
+	src/plugins/opengl/include/sge/opengl/xrandr/state.hpp
+	src/plugins/opengl/include/sge/opengl/xrandr/version.hpp
+	src/plugins/opengl/include/sge/opengl/xrandr/version_fwd.hpp
 	src/plugins/opengl/src/xrandr/check_extension.cpp
 	src/plugins/opengl/src/xrandr/choose_resolution.cpp
 	src/plugins/opengl/src/xrandr/configuration.cpp
+	src/plugins/opengl/src/xrandr/current_display_mode.cpp
 	src/plugins/opengl/src/xrandr/current_resolution.cpp
+	src/plugins/opengl/src/xrandr/get_version.cpp
 	src/plugins/opengl/src/xrandr/mode.cpp
 	src/plugins/opengl/src/xrandr/resolution.cpp
 	src/plugins/opengl/src/xrandr/set_resolution.cpp
+	src/plugins/opengl/src/xrandr/state.cpp
+	src/plugins/opengl/src/xrandr/version.cpp
 )
 
 set(

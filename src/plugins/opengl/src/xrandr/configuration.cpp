@@ -22,7 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/exception.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/window/object.hpp>
+#include <fcppt/null_ptr.hpp>
 #include <fcppt/assert/post.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <X11/extensions/Xrandr.h>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::opengl::xrandr::configuration::configuration(
@@ -37,7 +41,9 @@ sge::opengl::xrandr::configuration::configuration(
 	)
 {
 	FCPPT_ASSERT_POST(
-		config_,
+		config_
+		!=
+		fcppt::null_ptr(),
 		sge::renderer::exception
 	);
 }

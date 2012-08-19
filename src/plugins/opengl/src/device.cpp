@@ -69,6 +69,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/context/core_unique_ptr.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/context/ffp_unique_ptr.hpp>
+#include <sge/renderer/display_mode/object.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/occlusion_query/object.hpp>
 #include <sge/renderer/occlusion_query/object_unique_ptr.hpp>
@@ -636,6 +637,12 @@ sge::opengl::device::create_transform_state(
 			system_context_,
 			_parameters
 		);
+}
+
+sge::renderer::display_mode::object const
+sge::opengl::device::display_mode() const
+{
+	return device_state_->display_mode();
 }
 
 sge::opengl::texture::basic_parameters const

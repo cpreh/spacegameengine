@@ -18,13 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/x11/resolution/object.hpp>
+#include <sge/opengl/xrandr/check_extension.hpp>
+#include <sge/opengl/xrandr/get_version.hpp>
+#include <sge/opengl/xrandr/version.hpp>
+#include <sge/renderer/exception.hpp>
+#include <awl/backends/x11/display.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <X11/extensions/Xrandr.h>
+#include <fcppt/config/external_end.hpp>
 
 
-sge::opengl::x11::resolution::object::object()
+sge::opengl::xrandr::version const
+sge::opengl::xrandr::get_version(
+	awl::backends::x11::display &_display
+)
 {
-}
+	sge::opengl::xrandr::check_extension(
+		_display
+	);
 
-sge::opengl::x11::resolution::object::~object()
-{
+	int major, minor;
+
+	if(
+		::XRRQueryVersion(
+			_display.get(),
+			&major,
+			&minor
+		)
+		!=
+		1
+	)
+		throw sge::renderer::exception(
+			FCPPT_TEXT("Querying the xrandr version failed!")
+		);
+
+	return
+		sge::opengl::xrandr::version(
+			major,
+			minor
+		);
 }

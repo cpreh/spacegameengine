@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_XRANDR_CONFIGURATION_UNIQUE_PTR_HPP_INCLUDED
-#define SGE_OPENGL_XRANDR_CONFIGURATION_UNIQUE_PTR_HPP_INCLUDED
+#ifndef SGE_OPENGL_XRANDR_VERSION_HPP_INCLUDED
+#define SGE_OPENGL_XRANDR_VERSION_HPP_INCLUDED
 
-#include <sge/opengl/xrandr/configuration_fwd.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
+#include <sge/opengl/xrandr/version_fwd.hpp>
+
 
 namespace sge
 {
@@ -31,9 +31,24 @@ namespace opengl
 namespace xrandr
 {
 
-typedef fcppt::unique_ptr<
-	sge::opengl::xrandr::configuration
-> configuration_unique_ptr;
+class version
+{
+public:
+	version(
+		int major,
+		int minor
+	);
+
+	int
+	major() const;
+
+	int
+	minor() const;
+private:
+	int major_;
+
+	int minor_;
+};
 
 }
 }

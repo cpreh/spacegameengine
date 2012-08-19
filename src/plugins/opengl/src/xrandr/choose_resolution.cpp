@@ -18,47 +18,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/xrandr/check_extension.hpp>
 #include <sge/opengl/xrandr/choose_resolution.hpp>
 #include <sge/opengl/xrandr/configuration.hpp>
 #include <sge/opengl/xrandr/current_resolution.hpp>
 #include <sge/opengl/xrandr/mode.hpp>
 #include <sge/opengl/xrandr/resolution.hpp>
+#include <sge/opengl/xrandr/resolution_unique_ptr.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/screen_unit.hpp>
 #include <sge/renderer/display_mode/object.hpp>
 #include <awl/backends/x11/window/object.hpp>
+#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/move.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <X11/extensions/Xrandr.h>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::opengl::xrandr::resolution_unique_ptr
 sge::opengl::xrandr::choose_resolution(
+	sge::opengl::xrandr::configuration const &_config,
 	awl::backends::x11::window::object &_window,
 	sge::renderer::display_mode::object const &_mode
 )
 {
-	sge::opengl::xrandr::check_extension(
-		_window.display()
-	);
-
-	sge::opengl::xrandr::configuration_unique_ptr config(
-		fcppt::make_unique_ptr<
-			sge::opengl::xrandr::configuration
-		>(
-			fcppt::ref(
-				_window
-			)
-		)
-	);
-
 	int nsizes;
 
 	::XRRScreenSize *const sizes(
 		::XRRConfigSizes(
-			config->get(),
+			_config.get(),
 			&nsizes
 		)
 	);
@@ -91,10 +81,6 @@ sge::opengl::xrandr::choose_resolution(
 			== _mode.pixel_size().get().h()
 		)
 		{
-			sge::opengl::xrandr::configuration &config_ref(
-				*config
-			);
-
 			return
 				sge::opengl::xrandr::resolution_unique_ptr(
 					fcppt::make_unique_ptr<
@@ -103,16 +89,20 @@ sge::opengl::xrandr::choose_resolution(
 						fcppt::ref(
 							_window
 						),
-						fcppt::move(
-							config
+						fcppt::cref(
+							_config
 						),
 						sge::opengl::xrandr::mode(
-							index,
+							static_cast<
+								SizeID
+							>(
+								index
+							),
 							RR_Rotate_0,
 							_mode.refresh_rate()
 						),
 						sge::opengl::xrandr::current_resolution(
-							config_ref
+							_config
 						)
 					)
 				);

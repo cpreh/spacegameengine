@@ -18,49 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_X11_RESOLUTION_XRANDR_MODE_HPP_INCLUDED
-#define SGE_OPENGL_X11_RESOLUTION_XRANDR_MODE_HPP_INCLUDED
+#ifndef SGE_OPENGL_XRANDR_GET_VERSION_HPP_INCLUDED
+#define SGE_OPENGL_XRANDR_GET_VERSION_HPP_INCLUDED
 
-#include <sge/opengl/x11/resolution/object.hpp>
-#include <sge/opengl/xrandr/resolution_fwd.hpp>
-#include <sge/renderer/display_mode/object_fwd.hpp>
-#include <awl/backends/x11/window/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
+#include <sge/opengl/xrandr/version_fwd.hpp>
+#include <awl/backends/x11/display_fwd.hpp>
 
 
 namespace sge
 {
 namespace opengl
 {
-namespace x11
-{
-namespace resolution
+namespace xrandr
 {
 
-class xrandr_mode
-:
-	public sge::opengl::x11::resolution::object
-{
-	FCPPT_NONCOPYABLE(
-		xrandr_mode
-	);
-public:
-	xrandr_mode(
-		sge::renderer::display_mode::object const &,
-		awl::backends::x11::window::object &
-	);
+sge::opengl::xrandr::version const
+get_version(
+	awl::backends::x11::display &
+);
 
-	~xrandr_mode();
-private:
-	typedef fcppt::scoped_ptr<
-		sge::opengl::xrandr::resolution
-	> resolution_scoped_ptr;
-
-	resolution_scoped_ptr const resolution_;
-};
-
-}
 }
 }
 }

@@ -43,6 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/context/ffp_unique_ptr.hpp>
 #include <sge/renderer/device/ffp.hpp>
+#include <sge/renderer/display_mode/object_fwd.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/occlusion_query/object_unique_ptr.hpp>
 #include <sge/renderer/parameters/object_fwd.hpp>
@@ -297,12 +298,15 @@ private:
 		sge::renderer::state::ffp::transform::parameters const &
 	);
 
-	sge::opengl::context::system::object &system_context_;
-
-	sge::opengl::context::device::object device_context_;
+	sge::renderer::display_mode::object const
+	display_mode() const;
 
 	sge::opengl::texture::basic_parameters const
 	texture_parameters();
+
+	sge::opengl::context::system::object &system_context_;
+
+	sge::opengl::context::device::object device_context_;
 
 	sge::renderer::caps::device const &caps_;
 
