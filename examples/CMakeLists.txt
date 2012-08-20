@@ -23,7 +23,7 @@ function(
 
 	set(
 		FULL_NAME
-		sge${FULL_NAME}example
+		"sge_${FULL_NAME}_example"
 	)
 
 	set(
