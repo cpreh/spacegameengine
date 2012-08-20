@@ -1,0 +1,51 @@
+struct vertex_outputs
+{
+		float4 position : POSITION;
+		float2 texcoord : TEXCOORD0;
+};
+
+vertex_outputs
+vertex_main(
+	in float2 position : POSITION,
+	in float2 texcoord : TEXCOORD0)
+	: POSITION
+{
+	vertex_outputs outs;
+	outs.position = float4(position.xy,0.0,1.0);
+	outs.texcoord = texcoord;
+	return
+		outs;
+}
+
+float4
+gamma_correction(
+	float4 input)
+{
+	return
+		float4(
+			pow(
+				input.xyz,
+				1.0/2.2),
+			input.w);
+}
+
+float4
+pixel_main(
+	vertex_outputs vertex_data,
+	uniform sampler2D input_texture)
+	: COLOR
+{
+	float2
+		texcoords =
+			vertex_data.texcoord,
+		inverted_texcoords =
+			float2(
+				texcoords.x,
+				1.0 - texcoords.y);
+
+	return
+		gamma_correction(
+			tex2D(
+				input_texture,
+				inverted_texcoords));
+}

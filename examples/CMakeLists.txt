@@ -378,12 +378,6 @@ add_sge_console_example(
 )
 
 add_sge_example(
-	tutorial/sprite_01
-	"sgeconfig;sgeimage2d;sgerenderer;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
-	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
-)
-
-add_sge_example(
 	tutorial/sprite_02
 	"sgeconfig;sgeimage;sgeimage2d;sgeinput;sgerenderer;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"

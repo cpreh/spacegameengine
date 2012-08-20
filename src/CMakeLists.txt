@@ -156,6 +156,7 @@ OPTION (ENABLE_FONTDRAW "Build the font drawing library" ON)
 OPTION (ENABLE_LINE_DRAWER "Build the line drawing library" ON)
 OPTION (ENABLE_OPENCL "Build the opencl library" ${OPENCL_FOUND})
 OPTION (ENABLE_PARSE "Build the parse library" ON)
+OPTION (ENABLE_POSTPROCESSING "Build the postprocessing library" ON)
 OPTION (ENABLE_PROJECTILE "Build the projectile library" ${BULLET_FOUND})
 OPTION (ENABLE_RESOURCE_TREE "Build the resource tree library" ON)
 OPTION (ENABLE_RUCKSACK "Build the rucksack library" ON)
@@ -281,6 +282,10 @@ ENDIF ()
 
 IF (ENABLE_PARSE)
 	ADD_SUBDIRECTORY (parse)
+ENDIF ()
+
+IF (ENABLE_POSTPROCESSING)
+	ADD_SUBDIRECTORY(postprocessing)
 ENDIF ()
 
 IF (ENABLE_PROJECTILE)

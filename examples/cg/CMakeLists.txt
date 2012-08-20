@@ -30,3 +30,9 @@ add_sge_example(
 	"sgecg;sgeconfig;sgeimage;sgeinput;sgemedia;sgerenderer;sgerenderercg;sgesystems;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 )
+
+add_sge_example(
+	cg_blending
+	"sgeconfig;sgeimage2d;sgerenderer;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow;sgepostprocessing;sgeshader"
+	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+)

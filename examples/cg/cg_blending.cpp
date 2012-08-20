@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_scoped_ptr.hpp>
+#include <sge/shader/context.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/parameters.hpp>
@@ -49,7 +50,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/image2d.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/renderer/clear/parameters.hpp>
+#include <sge/image/colors.hpp>
 #include <sge/systems/renderer.hpp>
+#include <sge/postprocessing/context.hpp>
 #include <sge/systems/window.hpp>
 #include <sge/texture/part_raw_ref.hpp>
 #include <sge/viewport/center_on_resize.hpp>
@@ -105,7 +109,8 @@ try
 						sge::renderer::pixel_format::color::depth32,
 						sge::renderer::pixel_format::depth_stencil::off,
 						sge::renderer::pixel_format::optional_multi_samples(),
-						sge::renderer::pixel_format::srgb::yes
+						//sge::renderer::pixel_format::srgb::yes
+						sge::renderer::pixel_format::srgb::no
 					),
 					sge::renderer::parameters::vsync::on,
 					sge::renderer::display_mode::optional_object()
@@ -185,7 +190,7 @@ try
 		sge::renderer::texture::create_planar_from_path(
 			sge::config::media_path()
 			/ FCPPT_TEXT("images")
-			/ FCPPT_TEXT("tux.png"),
+			/ FCPPT_TEXT("nebula.png"),
 			sys.renderer(),
 			sys.image_system(),
 			sge::renderer::texture::mipmap::off(),
@@ -212,21 +217,42 @@ try
 	);
 //! [object_initialization]
 
+	sge::shader::context shader_context(
+		sys.renderer());
+
+	sge::postprocessing::context pp_context(
+		sys.renderer(),
+		sys.viewport_manager(),
+		shader_context);
+
 	while(
 		sys.window_system().poll()
 	)
 	{
 //! [process_one]
+		/*
 		sge::renderer::context::scoped const scoped_block(
 			sys.renderer(),
 			sys.renderer().onscreen_target()
 		);
+		*/
+		{
+		sge::renderer::context::scoped_unique_ptr const scoped_block_ptr(
+			pp_context.create_render_context());
+
+		scoped_block_ptr->get().clear(
+			sge::renderer::clear::parameters()
+				.back_buffer(
+					sge::image::colors::black()));
 
 		sge::sprite::process::one(
-			scoped_block.get(),
+			scoped_block_ptr->get(),
 			my_object,
 			sprite_buffers
 		);
+		}
+
+		pp_context.render();
 //! [process_one]
 	}
 

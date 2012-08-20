@@ -156,6 +156,8 @@ update_sublibrary opencl
 
 update_sublibrary parse
 
+update_sublibrary postprocessing
+
 update_sublibrary projectile
 
 update_sublibrary plugin
