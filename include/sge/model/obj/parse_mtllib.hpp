@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/model/obj/material_map.hpp>
 #include <sge/model/obj/symbol.hpp>
+#include <sge/charconv/system_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -37,7 +38,8 @@ namespace obj
 SGE_MODEL_OBJ_SYMBOL
 sge::model::obj::material_map const
 parse_mtllib(
-	boost::filesystem::path const &);
+	boost::filesystem::path const &,
+	sge::charconv::system &);
 }
 }
 }

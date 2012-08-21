@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/color/init.hpp>
 #include <sge/image/color/rgb32f.hpp>
+#include <sge/charconv/convert.hpp>
 #include <sge/log/global.hpp>
 #include <sge/model/obj/exception.hpp>
 #include <sge/model/obj/parse_mtllib.hpp>
@@ -29,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
+#include <sge/charconv/utf8_string_to_fcppt.hpp>
 #include <fcppt/log/headers.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -41,7 +43,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::model::obj::material_map const
 sge::model::obj::parse_mtllib(
-	boost::filesystem::path const &_filename)
+	boost::filesystem::path const &_filename,
+	sge::charconv::system &_charconv_system)
 {
 	boost::filesystem::ifstream stream(
 		_filename);
@@ -280,7 +283,11 @@ sge::model::obj::parse_mtllib(
 
 				result.insert(
 					std::make_pair(
-						current_material,
+						sge::charconv::utf8_string_to_fcppt(
+							_charconv_system,
+							sge::charconv::utf8_string(
+								current_material.get().begin(),
+								current_material.get().end())),
 						sge::model::obj::material(
 							current_material,
 							sge::renderer::material(

@@ -22,9 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MODEL_OBJ_IDENTIFIER_HPP_INCLUDED
 
 #include <fcppt/strong_typedef.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <string>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/string.hpp>
 
 
 namespace sge
@@ -34,7 +32,7 @@ namespace model
 namespace obj
 {
 FCPPT_MAKE_STRONG_TYPEDEF(
-	std::string,
+	fcppt::string,
 	identifier);
 }
 }

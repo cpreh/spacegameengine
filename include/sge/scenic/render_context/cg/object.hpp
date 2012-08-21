@@ -48,7 +48,8 @@ namespace render_context
 {
 namespace cg
 {
-class object
+
+	class object
 :
 	public sge::scenic::render_context::base
 {

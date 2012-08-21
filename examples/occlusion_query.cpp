@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/align_h.hpp>
 #include <sge/font/lit.hpp>
 #include <sge/font/object.hpp>
+#include <sge/scenic/scene/from_blender_file.hpp>
 #include <sge/font/object_scoped_ptr.hpp>
 #include <sge/font/parameters.hpp>
 #include <sge/font/string.hpp>
@@ -58,6 +59,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/occlusion_query/object.hpp>
 #include <sge/renderer/occlusion_query/object_scoped_ptr.hpp>
 #include <sge/renderer/occlusion_query/scoped.hpp>
+#include <sge/scenic/scene/prototype.hpp>
 #include <sge/renderer/projection/far.hpp>
 #include <sge/renderer/projection/fov.hpp>
 #include <sge/renderer/projection/near.hpp>
@@ -177,6 +179,9 @@ try
 		(
 			sge::systems::font()
 		)
+		(
+			sge::systems::charconv()
+		)
 	);
 
 	sge::camera::first_person::object camera(
@@ -277,9 +282,11 @@ try
 			sys.renderer(),
 			sys.image_system(),
 			sys.viewport_manager(),
+			sys.charconv_system(),
 			camera,
-			sge::scenic::scene::manager::prototype_file_path(
-				sge::config::media_path() / FCPPT_TEXT("scenes") / scene_directory / first_scene_description),
+			sge::scenic::scene::from_blender_file(
+				sge::config::media_path() / FCPPT_TEXT("scenes") / scene_directory / first_scene_description,
+				sys.charconv_system()),
 			sge::scenic::scene::manager::model_base_path(
 				sge::config::media_path() / FCPPT_TEXT("scenes") / scene_directory),
 			sge::scenic::scene::manager::material_base_path(
@@ -290,9 +297,11 @@ try
 			sys.renderer(),
 			sys.image_system(),
 			sys.viewport_manager(),
+			sys.charconv_system(),
 			camera,
-			sge::scenic::scene::manager::prototype_file_path(
-				sge::config::media_path() / FCPPT_TEXT("scenes") / scene_directory / second_scene_description),
+			sge::scenic::scene::from_blender_file(
+				sge::config::media_path() / FCPPT_TEXT("scenes") / scene_directory / second_scene_description,
+				sys.charconv_system()),
 			sge::scenic::scene::manager::model_base_path(
 				sge::config::media_path() / FCPPT_TEXT("scenes") / scene_directory),
 			sge::scenic::scene::manager::material_base_path(

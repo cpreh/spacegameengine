@@ -26,6 +26,7 @@ set(
 	include/sge/charconv/system_unique_ptr.hpp
 	include/sge/charconv/traits_type.hpp
 	include/sge/charconv/unsupported_conversion.hpp
+	include/sge/charconv/utf8_file_to_fcppt_string.hpp
 	include/sge/charconv/utf8_string.hpp
 	include/sge/charconv/utf8_string_to_fcppt.hpp
 	src/charconv/conversion_failed.cpp
@@ -38,6 +39,7 @@ set(
 	src/charconv/include/sge/src/charconv/fcppt_is_utf8.hpp
 	src/charconv/system.cpp
 	src/charconv/unsupported_conversion.cpp
+	src/charconv/utf8_file_to_fcppt_string.cpp
 	src/charconv/utf8_string_to_fcppt.cpp
 )
 
@@ -151,7 +153,7 @@ configure_file(
 add_sge_base_library(
 	charconv
 	"sgecore"
-	"${Fcppt_core_LIBRARIES};${SGE_CHARCONV_ADDITIONAL_DEPS}"
+	"${Fcppt_filesystem_LIBRARIES};${Fcppt_core_LIBRARIES};${SGE_CHARCONV_ADDITIONAL_DEPS}"
 	"sgecore"
 	""
 	"${CMAKE_CURRENT_SOURCE_DIR}/include;${CMAKE_CURRENT_BINARY_DIR}/include;${SGE_CHARCONV_ADDITIONAL_INCLUDES}"

@@ -49,7 +49,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/scenic/exception.hpp>
 #include <sge/scenic/render_queue/object.hpp>
-#include <sge/scenic/scene/from_blender_file.hpp>
 #include <sge/scenic/scene/manager.hpp>
 #include <sge/scenic/scene/material_from_obj_material.hpp>
 #include <sge/scenic/scene/prototype.hpp>
@@ -57,6 +56,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/vf/format.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/ref.hpp>
+#include <fcppt/move.hpp>
 #include <fcppt/scoped_ptr.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/assert/pre.hpp>
@@ -72,14 +72,17 @@ sge::scenic::scene::manager::manager(
 	sge::renderer::device &_renderer,
 	sge::image2d::system &_image_loader,
 	sge::viewport::manager &_viewport_manager,
+	sge::charconv::system &_charconv_system,
 	sge::camera::first_person::object &_camera,
-	prototype_file_path const &_prototype_file,
+	sge::scenic::scene::prototype_unique_ptr _prototype,
 	model_base_path const &_model_base_path,
 	material_base_path const &_material_base_path,
 	texture_base_path const &_texture_base_path)
 :
 	camera_(
 		_camera),
+	charconv_system_(
+		_charconv_system),
 	model_base_path_(
 		_model_base_path),
 	material_base_path_(
@@ -87,8 +90,8 @@ sge::scenic::scene::manager::manager(
 	texture_base_path_(
 		_texture_base_path),
 	prototype_(
-		sge::scenic::scene::from_blender_file(
-			_prototype_file.get())),
+		fcppt::move(
+			_prototype)),
 	camera_viewport_connection_(
 		camera_,
 		_renderer,
@@ -222,7 +225,8 @@ sge::scenic::scene::manager::load_entities(
 		{
 			sge::model::obj::material_map const new_materials(
 				sge::model::obj::parse_mtllib(
-					material_base_path_.get() / (*current_material_file)));
+					material_base_path_.get() / (*current_material_file),
+					charconv_system_));
 
 			for(
 				sge::model::obj::material_map::const_iterator current_obj_material =

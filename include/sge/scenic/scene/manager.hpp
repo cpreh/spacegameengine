@@ -33,8 +33,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/render_queue/object_fwd.hpp>
 #include <sge/scenic/scene/entity_sequence.hpp>
 #include <sge/scenic/scene/prototype_scoped_ptr.hpp>
+#include <sge/scenic/scene/prototype_unique_ptr.hpp>
 #include <sge/scenic/scene/material.hpp>
 #include <sge/scenic/scene/mesh/object_fwd.hpp>
+#include <sge/charconv/system_fwd.hpp>
 #include <sge/viewport/manager_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -66,17 +68,14 @@ public:
 		boost::filesystem::path,
 		texture_base_path);
 
-	FCPPT_MAKE_STRONG_TYPEDEF(
-		boost::filesystem::path,
-		prototype_file_path);
-
 	SGE_SCENIC_SYMBOL
 	manager(
 		sge::renderer::device &,
 		sge::image2d::system &,
 		sge::viewport::manager &,
+		sge::charconv::system &,
 		sge::camera::first_person::object &,
-		prototype_file_path const &,
+		sge::scenic::scene::prototype_unique_ptr,
 		model_base_path const &,
 		material_base_path const &,
 		texture_base_path const &);
@@ -106,6 +105,7 @@ private:
 	material_map;
 
 	sge::camera::first_person::object &camera_;
+	sge::charconv::system &charconv_system_;
 	model_base_path const model_base_path_;
 	material_base_path const material_base_path_;
 	texture_base_path const texture_base_path_;

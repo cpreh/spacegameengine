@@ -89,7 +89,7 @@ set(
 
 add_sge_base_library(
 	"scenic"
-	"sgeparse;sgeimage;sgemodelobj;sgerenderer;sgecamera;sgeviewport;sgeline_drawer;sgecg;sgerenderercg;sgeshader;sgeconfig"
+	"sgeparse;sgeimage;sgemodelobj;sgerenderer;sgecamera;sgeviewport;sgeline_drawer;sgecg;sgerenderercg;sgeshader;sgeconfig;sgecharconv"
 	"${Fcppt_filesystem_LIBRARIES}"
 	""
 	""

@@ -29,7 +29,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_set.hpp>
+#include <sge/scenic/scene/prototype.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/scenic/scene/from_blender_file.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/context/object.hpp>
@@ -136,6 +138,7 @@ try
 					sge::systems::input_helper::keyboard_collector) | sge::systems::input_helper::mouse_collector,
 				sge::systems::cursor_option_field(
 					sge::systems::cursor_option::exclusive)))
+		(sge::systems::charconv())
 		(sge::systems::image2d(
 				sge::image::capabilities_field::null(),
 				sge::media::optional_extension_set(
@@ -161,9 +164,11 @@ try
 		sys.renderer(),
 		sys.image_system(),
 		sys.viewport_manager(),
+		sys.charconv_system(),
 		camera,
-		sge::scenic::scene::manager::prototype_file_path(
-			sge::config::media_path() / FCPPT_TEXT("scenes") / scene_name / FCPPT_TEXT("description.json")),
+		sge::scenic::scene::from_blender_file(
+			sge::config::media_path() / FCPPT_TEXT("scenes") / scene_name / FCPPT_TEXT("description.json"),
+			sys.charconv_system()),
 		sge::scenic::scene::manager::model_base_path(
 			sge::config::media_path() / FCPPT_TEXT("scenes") / scene_name),
 		sge::scenic::scene::manager::material_base_path(

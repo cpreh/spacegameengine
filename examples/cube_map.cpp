@@ -59,6 +59,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/filter/mipmap.hpp>
 #include <sge/renderer/texture/filter/scoped.hpp>
 #include <sge/renderer/texture/mipmap/all_levels.hpp>
+#include <sge/systems/charconv.hpp>
+#include <sge/scenic/scene/prototype.hpp>
+#include <sge/scenic/scene/from_blender_file.hpp>
 #include <sge/renderer/vf/format.hpp>
 #include <sge/renderer/vf/index.hpp>
 #include <sge/renderer/vf/iterator.hpp>
@@ -655,6 +658,7 @@ try
 				sge::renderer::parameters::vsync::on,
 				sge::renderer::display_mode::optional_object()),
 			sge::viewport::fill_on_resize()))
+		(sge::systems::charconv())
 		(sge::systems::image2d(
 			sge::image::capabilities_field::null(),
 			sge::media::optional_extension_set(
@@ -705,9 +709,11 @@ try
 		sys.renderer(),
 		sys.image_system(),
 		sys.viewport_manager(),
+		sys.charconv_system(),
 		camera,
-		sge::scenic::scene::manager::prototype_file_path(
-			sge::config::media_path() / FCPPT_TEXT("scenes") / scene_name / FCPPT_TEXT("description.json")),
+		sge::scenic::scene::from_blender_file(
+			sge::config::media_path() / FCPPT_TEXT("scenes") / scene_name / FCPPT_TEXT("description.json"),
+			sys.charconv_system()),
 		sge::scenic::scene::manager::model_base_path(
 			sge::config::media_path() / FCPPT_TEXT("scenes") / scene_name),
 		sge::scenic::scene::manager::material_base_path(
