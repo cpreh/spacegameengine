@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/colors.hpp>
 #include <sge/image/size_type.hpp>
 #include <sge/image/color/format.hpp>
+#include <sge/image/color/any/convert.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/image2d/vector.hpp>
 #include <sge/image2d/algorithm/bresenham.hpp>
@@ -46,22 +47,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/sprite/buffers/option.hpp>
 #include <sge/sprite/process/one.hpp>
+#include <sge/src/graph/detail/draw_visitor.hpp>
 #include <sge/texture/part_raw_ref.hpp>
+#include <mizuiro/image/algorithm/bresenham.hpp>
 #include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/nonassignable.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/math/clamp.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
+#include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/circular_buffer.hpp>
 #include <boost/algorithm/minmax_element.hpp>
 #include <algorithm>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
-#include <fcppt/nonassignable.hpp>
-#include <fcppt/variant/apply_unary.hpp>
-#include <mizuiro/image/algorithm/bresenham.hpp>
-#include <sge/image/color/any/convert.hpp>
-#include <sge/src/graph/detail/draw_visitor.hpp>
+
 
 namespace
 {

@@ -20,14 +20,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/object.hpp>
-#include <sge/renderer/color_buffer/surface.hpp>
-#include <sge/renderer/texture/planar.hpp>
-#include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/opengl/texture/basic_box_impl.hpp>
 #include <sge/opengl/texture/basic_impl.hpp>
 #include <sge/opengl/texture/color_surface_types.hpp>
 #include <sge/opengl/texture/planar_basic.hpp>
 #include <sge/opengl/texture/planar_types.hpp>
+#include <sge/renderer/color_buffer/surface.hpp>
+#include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/texture/planar_parameters.hpp>
 
 
 template class

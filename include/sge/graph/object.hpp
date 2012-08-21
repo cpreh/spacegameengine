@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_GRAPH_OBJECT_HPP_INCLUDED
 
 #include <sge/graph/axis_constraint.hpp>
-#include <sge/graph/detail/draw_visitor_fwd.hpp>
 #include <sge/graph/background_color.hpp>
 #include <sge/graph/baseline.hpp>
 #include <sge/graph/color_scheme.hpp>
@@ -31,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/graph/position.hpp>
 #include <sge/graph/scalar.hpp>
 #include <sge/graph/symbol.hpp>
+#include <sge/graph/detail/draw_visitor_fwd.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/view/object.hpp>
 #include <sge/renderer/device.hpp>

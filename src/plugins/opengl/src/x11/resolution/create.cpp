@@ -18,19 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/exception.hpp>
+#include <sge/log/global.hpp>
 #include <sge/opengl/x11/resolution/create.hpp>
 #include <sge/opengl/x11/resolution/object.hpp>
 #include <sge/opengl/x11/resolution/object_unique_ptr.hpp>
 #include <sge/opengl/x11/resolution/xrandr_mode.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
-#include <sge/log/global.hpp>
-#include <sge/exception.hpp>
 #include <awl/backends/x11/window/object.hpp>
-#include <fcppt/log/error.hpp>
-#include <fcppt/log/output.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/log/error.hpp>
+#include <fcppt/log/output.hpp>
 
 
 sge::opengl::x11::resolution::object_unique_ptr

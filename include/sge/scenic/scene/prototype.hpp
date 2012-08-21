@@ -22,13 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SCENIC_SCENE_PROTOTYPE_HPP_INCLUDED
 
 #include <sge/renderer/ambient_color.hpp>
-#include <sge/scenic/camera_properties.hpp>
-#include <sge/scenic/light_sequence.hpp>
-#include <sge/scenic/mesh_sequence.hpp>
 #include <sge/scenic/symbol.hpp>
-#include <sge/scenic/fog/optional_properties.hpp>
-#include <sge/scenic/fog/properties.hpp>
+#include <sge/scenic/render_context/light_sequence.hpp>
+#include <sge/scenic/render_context/fog/optional_properties.hpp>
+#include <sge/scenic/render_context/fog/properties.hpp>
+#include <sge/scenic/scene/camera_properties.hpp>
+#include <sge/scenic/scene/entity_sequence.hpp>
 #include <fcppt/optional.hpp>
+
 
 namespace sge
 {
@@ -43,32 +44,32 @@ FCPPT_NONCOPYABLE(
 public:
 	SGE_SCENIC_SYMBOL
 	prototype(
-		sge::scenic::camera_properties const &,
-		sge::scenic::fog::optional_properties const &,
+		sge::scenic::scene::camera_properties const &,
+		sge::scenic::render_context::fog::optional_properties const &,
 		sge::renderer::ambient_color const &);
 
 	SGE_SCENIC_SYMBOL
-	sge::scenic::mesh_sequence const &
-	meshes() const;
+	sge::scenic::scene::entity_sequence const &
+	entities() const;
 
 	SGE_SCENIC_SYMBOL
-	sge::scenic::mesh_sequence &
-	meshes();
+	sge::scenic::scene::entity_sequence &
+	entities();
 
 	SGE_SCENIC_SYMBOL
-	sge::scenic::light_sequence const &
+	sge::scenic::render_context::light_sequence const &
 	lights() const;
 
 	SGE_SCENIC_SYMBOL
-	sge::scenic::light_sequence &
+	sge::scenic::render_context::light_sequence &
 	lights();
 
 	SGE_SCENIC_SYMBOL
-	sge::scenic::camera_properties const &
+	sge::scenic::scene::camera_properties const &
 	camera() const;
 
 	SGE_SCENIC_SYMBOL
-	sge::scenic::fog::optional_properties const &
+	sge::scenic::render_context::fog::optional_properties const &
 	fog() const;
 
 	SGE_SCENIC_SYMBOL
@@ -78,11 +79,11 @@ public:
 	SGE_SCENIC_SYMBOL
 	~prototype();
 private:
-	sge::scenic::camera_properties camera_;
-	sge::scenic::fog::optional_properties fog_;
+	sge::scenic::scene::camera_properties camera_;
+	sge::scenic::render_context::fog::optional_properties fog_;
 	sge::renderer::ambient_color ambient_color_;
-	sge::scenic::mesh_sequence meshes_;
-	sge::scenic::light_sequence lights_;
+	sge::scenic::scene::entity_sequence entities_;
+	sge::scenic::render_context::light_sequence lights_;
 };
 }
 }

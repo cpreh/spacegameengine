@@ -7,15 +7,11 @@ set(
 	include/sge/model/obj/face_vertex.hpp
 	include/sge/model/obj/face_vertex_sequence.hpp
 	include/sge/model/obj/identifier.hpp
-	include/sge/model/obj/index_buffer_range.hpp
-	include/sge/model/obj/instance.hpp
-	include/sge/model/obj/instance_fwd.hpp
 	include/sge/model/obj/material.hpp
 	include/sge/model/obj/material_file_sequence.hpp
 	include/sge/model/obj/material_fwd.hpp
 	include/sge/model/obj/material_map.hpp
 	include/sge/model/obj/material_to_face_sequence.hpp
-	include/sge/model/obj/material_to_index_buffer_range.hpp
 	include/sge/model/obj/normal.hpp
 	include/sge/model/obj/normal_index.hpp
 	include/sge/model/obj/normal_sequence.hpp
@@ -29,15 +25,8 @@ set(
 	include/sge/model/obj/vertex_coordinate.hpp
 	include/sge/model/obj/vertex_coordinate_index.hpp
 	include/sge/model/obj/vertex_coordinate_sequence.hpp
-	include/sge/model/obj/vf/format.hpp
-	include/sge/model/obj/vf/format_part.hpp
-	include/sge/model/obj/vf/normal.hpp
-	include/sge/model/obj/vf/position.hpp
-	include/sge/model/obj/vf/texcoord.hpp
 	src/model/obj/exception.cpp
 	src/model/obj/face_vertex.cpp
-	src/model/obj/index_buffer_range.cpp
-	src/model/obj/instance.cpp
 	src/model/obj/material.cpp
 	src/model/obj/parse_mtllib.cpp
 	src/model/obj/prototype.cpp

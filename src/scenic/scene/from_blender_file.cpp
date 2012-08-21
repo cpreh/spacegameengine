@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/vector4.hpp>
 #include <sge/scenic/exception.hpp>
-#include <sge/scenic/mesh.hpp>
+#include <sge/scenic/scene/entity.hpp>
 #include <sge/scenic/scene/from_blender_file.hpp>
 #include <sge/scenic/scene/prototype.hpp>
 #include <fcppt/cref.hpp>
@@ -78,7 +78,7 @@ from_blender_vector(
 
 // Converts a blender euler angle vector to a rotation matrix.
 // This _seems_ to be different for the camera. For everything else,
-// see "rotation_from_angles_mesh" below
+// see "rotation_from_angles_entity" below
 sge::renderer::matrix4 const
 rotation_from_angles_camera(
 	sge::renderer::vector3 const &_angles)
@@ -95,7 +95,7 @@ rotation_from_angles_camera(
 // Converts a blender euler angle vector to a rotation matrix. This
 // was created using Trial & Error (tm)
 sge::renderer::matrix4 const
-rotation_from_angles_mesh(
+rotation_from_angles_entity(
 	sge::renderer::vector3 const &_angles)
 {
 	return
@@ -123,7 +123,7 @@ multiply_matrix4_vector3(
 				1.0f));
 }
 
-sge::scenic::camera_properties const
+sge::scenic::scene::camera_properties const
 parse_camera_properties(
 	sge::parse::json::object const &_json_camera)
 {
@@ -158,7 +158,7 @@ parse_camera_properties(
 	// The rest of the properties are simple to extract from the json,
 	// so it's done inline here.
 	return
-		sge::scenic::camera_properties(
+		sge::scenic::scene::camera_properties(
 			sge::camera::coordinate_system::object(
 				sge::camera::coordinate_system::right(
 					right),
@@ -189,7 +189,7 @@ parse_camera_properties(
 							FCPPT_TEXT("far")))));
 }
 
-sge::scenic::fog::optional_properties const
+sge::scenic::render_context::fog::optional_properties const
 parse_fog_properties(
 	sge::parse::json::object const &_json_fog)
 {
@@ -199,19 +199,19 @@ parse_fog_properties(
 			sge::parse::json::path(
 				FCPPT_TEXT("enabled")))
 		?
-			sge::scenic::fog::optional_properties(
-				sge::scenic::fog::properties(
-					sge::scenic::fog::start(
+			sge::scenic::render_context::fog::optional_properties(
+				sge::scenic::render_context::fog::properties(
+					sge::scenic::render_context::fog::start(
 						sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
 							_json_fog,
 							sge::parse::json::path(
 								FCPPT_TEXT("start")))),
-					sge::scenic::fog::end(
+					sge::scenic::render_context::fog::end(
 						sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
 							_json_fog,
 							sge::parse::json::path(
 								FCPPT_TEXT("end")))),
-					sge::scenic::fog::color(
+					sge::scenic::render_context::fog::color(
 						sge::image::color::any::object(
 							vector3_to_rgb32f(
 								sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
@@ -219,7 +219,7 @@ parse_fog_properties(
 									sge::parse::json::path(
 										FCPPT_TEXT("color"))))))))
 		:
-			sge::scenic::fog::optional_properties();
+			sge::scenic::render_context::fog::optional_properties();
 }
 
 sge::renderer::ambient_color const
@@ -236,55 +236,55 @@ parse_ambient_color(
 							FCPPT_TEXT("ambient-color"))))));
 }
 
-// Loads a single mesh. Is called for every mesh.
+// Loads a single entity. Is called for every entity.
 void
-load_mesh(
+load_entity(
 	sge::scenic::scene::prototype &_scene,
-	sge::parse::json::object const &_json_mesh)
+	sge::parse::json::object const &_json_entity)
 {
-	_scene.meshes().push_back(
-		sge::scenic::mesh(
-			sge::scenic::identifier(
+	_scene.entities().push_back(
+		sge::scenic::scene::entity(
+			sge::scenic::scene::identifier(
 				sge::parse::json::find_and_convert_member<fcppt::string>(
-					_json_mesh,
+					_json_entity,
 					sge::parse::json::path(
 						FCPPT_TEXT("name")))),
-			sge::scenic::position(
+			sge::scenic::scene::position(
 				from_blender_vector(
 					sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
-						_json_mesh,
+						_json_entity,
 						sge::parse::json::path(
 							FCPPT_TEXT("position"))))),
-			sge::scenic::rotation(
-				rotation_from_angles_mesh(
+			sge::scenic::scene::rotation(
+				rotation_from_angles_entity(
 					from_blender_vector(
 						sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
-							_json_mesh,
+							_json_entity,
 							sge::parse::json::path(
 								FCPPT_TEXT("rotation")))))),
-			sge::scenic::scale(
+			sge::scenic::scene::scale(
 				from_blender_vector(
 					sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
-						_json_mesh,
+						_json_entity,
 						sge::parse::json::path(
 							FCPPT_TEXT("scale")))))));
 }
 
-// This is just a wrapper calling load_mesh on every mesh.
+// This is just a wrapper calling load_entity on every entity.
 void
-load_meshes(
+load_entities(
 	sge::scenic::scene::prototype &_scene,
-	sge::parse::json::array const &_json_meshes)
+	sge::parse::json::array const &_json_entities)
 {
 	for(
-		sge::parse::json::element_vector::const_iterator current_mesh =
-			_json_meshes.elements.begin();
-		current_mesh != _json_meshes.elements.end();
-		++current_mesh)
-		load_mesh(
+		sge::parse::json::element_vector::const_iterator current_entity =
+			_json_entities.elements.begin();
+		current_entity != _json_entities.elements.end();
+		++current_entity)
+		load_entity(
 			_scene,
 			sge::parse::json::get<sge::parse::json::object const>(
-				*current_mesh));
+				*current_entity));
 }
 
 sge::renderer::light::attenuation const
@@ -317,7 +317,7 @@ parse_light_direction(
 	return
 		sge::renderer::light::direction(
 			multiply_matrix4_vector3(
-				rotation_from_angles_mesh(
+				rotation_from_angles_entity(
 					from_blender_vector(
 						sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
 							_json_parent,
@@ -449,7 +449,7 @@ sge::scenic::scene::from_blender_file(
 			_path));
 
 	// The prototype is created with the world properties in the
-	// ctor. Meshes and lights are added below.
+	// ctor. Entities and lights are added below.
 	sge::scenic::scene::prototype_unique_ptr result(
 		fcppt::make_unique_ptr<sge::scenic::scene::prototype>(
 			fcppt::cref(
@@ -471,7 +471,7 @@ sge::scenic::scene::from_blender_file(
 						sge::parse::json::path(
 							FCPPT_TEXT("world")))))));
 
-	load_meshes(
+	load_entities(
 		*result,
 		sge::parse::json::find_and_convert_member<sge::parse::json::array>(
 			json_file,

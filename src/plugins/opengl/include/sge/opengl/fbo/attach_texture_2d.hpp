@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/fbo/attachment_type.hpp>
 #include <sge/opengl/fbo/context_fwd.hpp>
-#include <sge/opengl/texture/id.hpp>
 #include <sge/opengl/texture/buffer_type.hpp>
+#include <sge/opengl/texture/id.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
 
 

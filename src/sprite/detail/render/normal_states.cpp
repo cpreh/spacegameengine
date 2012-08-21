@@ -35,7 +35,11 @@ sge::sprite::detail::render::normal_states()
 	return
 		sge::renderer::state::list
 		(sge::renderer::state::bool_::enable_alpha_blending = true)
-		(sge::renderer::state::source_blend_func::src_alpha)
+		//(sge::renderer::state::source_blend_func::src_alpha)
+		//(sge::renderer::state::dest_blend_func::inv_src_alpha)
+		//(sge::renderer::state::source_blend_func::src_alpha)
+		//(sge::renderer::state::dest_blend_func::zero)
+		(sge::renderer::state::source_blend_func::one)
 		(sge::renderer::state::dest_blend_func::inv_src_alpha)
 		(sge::renderer::state::cull_mode::off)
 		(sge::renderer::state::draw_mode::fill);

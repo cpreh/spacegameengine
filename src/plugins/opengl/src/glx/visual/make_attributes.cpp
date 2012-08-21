@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/glx/visual/attribute_container.hpp>
-#include <sge/opengl/glx/visual/convert_color.hpp>
 #include <sge/opengl/glx/visual/context.hpp>
+#include <sge/opengl/glx/visual/convert_color.hpp>
 #include <sge/opengl/glx/visual/make_attributes.hpp>
 #include <sge/opengl/glx/visual/rgb_triple.hpp>
 #include <sge/renderer/unsupported.hpp>

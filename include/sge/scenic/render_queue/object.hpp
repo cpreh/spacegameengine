@@ -65,7 +65,7 @@ public:
 	add_mesh(
 		sge::renderer::matrix4 const &,
 		sge::renderer::index_buffer &,
-		sge::model::obj::index_buffer_range const &);
+		sge::scenic::index_buffer_range const &);
 
 	sge::scenic::render_queue::state_change_count const
 	render(

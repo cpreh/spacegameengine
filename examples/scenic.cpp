@@ -162,12 +162,13 @@ try
 		sys.image_system(),
 		sys.viewport_manager(),
 		camera,
-		sge::config::media_path() / FCPPT_TEXT("scenes") / scene_name / FCPPT_TEXT("description.json"),
-		sge::scenic::model_base_path(
+		sge::scenic::scene::manager::prototype_file_path(
+			sge::config::media_path() / FCPPT_TEXT("scenes") / scene_name / FCPPT_TEXT("description.json")),
+		sge::scenic::scene::manager::model_base_path(
 			sge::config::media_path() / FCPPT_TEXT("scenes") / scene_name),
-		sge::scenic::material_base_path(
+		sge::scenic::scene::manager::material_base_path(
 			sge::config::media_path() / FCPPT_TEXT("scenes") / scene_name),
-		sge::scenic::texture_base_path(
+		sge::scenic::scene::manager::texture_base_path(
 			sge::config::media_path() / FCPPT_TEXT("scenes") / scene_name));
 
 	sge::timer::basic<sge::timer::clocks::standard> camera_timer(

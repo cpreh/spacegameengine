@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::scenic::scene::prototype::prototype(
-	sge::scenic::camera_properties const &_camera,
-	sge::scenic::fog::optional_properties const &_fog,
+	sge::scenic::scene::camera_properties const &_camera,
+	sge::scenic::render_context::fog::optional_properties const &_fog,
 	sge::renderer::ambient_color const &_ambient_color)
 :
 	camera_(
@@ -33,47 +33,47 @@ sge::scenic::scene::prototype::prototype(
 		_fog),
 	ambient_color_(
 		_ambient_color),
-	meshes_(),
+	entities_(),
 	lights_()
 {
 }
 
-sge::scenic::mesh_sequence const &
-sge::scenic::scene::prototype::meshes() const
+sge::scenic::scene::entity_sequence const &
+sge::scenic::scene::prototype::entities() const
 {
 		return
-			meshes_;
+			entities_;
 }
 
-sge::scenic::mesh_sequence &
-sge::scenic::scene::prototype::meshes()
+sge::scenic::scene::entity_sequence &
+sge::scenic::scene::prototype::entities()
 {
 		return
-			meshes_;
+			entities_;
 }
 
-sge::scenic::light_sequence const &
+sge::scenic::render_context::light_sequence const &
 sge::scenic::scene::prototype::lights() const
 {
 		return
 			lights_;
 }
 
-sge::scenic::light_sequence &
+sge::scenic::render_context::light_sequence &
 sge::scenic::scene::prototype::lights()
 {
 		return
 			lights_;
 }
 
-sge::scenic::camera_properties const &
+sge::scenic::scene::camera_properties const &
 sge::scenic::scene::prototype::camera() const
 {
 		return
 			camera_;
 }
 
-sge::scenic::fog::optional_properties const &
+sge::scenic::render_context::fog::optional_properties const &
 sge::scenic::scene::prototype::fog() const
 {
 		return

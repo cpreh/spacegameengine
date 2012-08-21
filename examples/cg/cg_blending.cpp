@@ -20,18 +20,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/config/media_path.hpp>
 #include <sge/image/capabilities_field.hpp>
+#include <sge/image/colors.hpp>
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_set.hpp>
+#include <sge/postprocessing/context.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
+#include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/context/object.hpp>
 #include <sge/renderer/context/scoped.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_scoped_ptr.hpp>
-#include <sge/shader/context.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
+#include <sge/shader/context.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/parameters.hpp>
 #include <sge/sprite/buffers/option.hpp>
@@ -50,10 +53,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/image2d.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
-#include <sge/renderer/clear/parameters.hpp>
-#include <sge/image/colors.hpp>
 #include <sge/systems/renderer.hpp>
-#include <sge/postprocessing/context.hpp>
 #include <sge/systems/window.hpp>
 #include <sge/texture/part_raw_ref.hpp>
 #include <sge/viewport/center_on_resize.hpp>

@@ -27,8 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/bind_context_fwd.hpp>
 #include <sge/opengl/texture/const_optional_base_ref.hpp>
 #include <sge/renderer/texture/stage.hpp>
-#include <fcppt/container/index_map_decl.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/container/index_map_decl.hpp>
 
 
 namespace sge

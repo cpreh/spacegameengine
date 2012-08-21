@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/scenic/camera_properties.hpp>
+#include <sge/scenic/scene/camera_properties.hpp>
 
-sge::scenic::camera_properties::camera_properties(
+sge::scenic::scene::camera_properties::camera_properties(
 	sge::camera::coordinate_system::object const &_coordinate_system,
 	sge::renderer::projection::fov const &_fov,
 	sge::renderer::projection::near const &_near,
@@ -38,33 +38,33 @@ sge::scenic::camera_properties::camera_properties(
 }
 
 sge::camera::coordinate_system::object const &
-sge::scenic::camera_properties::coordinate_system() const
+sge::scenic::scene::camera_properties::coordinate_system() const
 {
 		return
 			coordinate_system_;
 }
 
 sge::renderer::projection::fov const &
-sge::scenic::camera_properties::fov() const
+sge::scenic::scene::camera_properties::fov() const
 {
 		return
 			fov_;
 }
 
 sge::renderer::projection::near const &
-sge::scenic::camera_properties::near() const
+sge::scenic::scene::camera_properties::near() const
 {
 		return
 			near_;
 }
 
 sge::renderer::projection::far const &
-sge::scenic::camera_properties::far() const
+sge::scenic::scene::camera_properties::far() const
 {
 		return
 			far_;
 }
 
-sge::scenic::camera_properties::~camera_properties()
+sge::scenic::scene::camera_properties::~camera_properties()
 {
 }

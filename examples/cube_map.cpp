@@ -17,9 +17,11 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+
 #include <sge/camera/perspective_projection_from_viewport.hpp>
 #include <sge/camera/coordinate_system/identity.hpp>
 #include <sge/camera/coordinate_system/object.hpp>
+#include <sge/camera/coordinate_system/scoped.hpp>
 #include <sge/camera/first_person/object.hpp>
 #include <sge/camera/first_person/parameters.hpp>
 #include <sge/camera/matrix_conversion/world.hpp>
@@ -30,9 +32,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/algorithm/copy_and_convert.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <sge/renderer/texture/filter/scoped.hpp>
-#include <sge/renderer/texture/filter/mipmap.hpp>
-#include <sge/scenic/scene/manager.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
@@ -46,31 +45,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/context/scoped.hpp>
 #include <sge/renderer/parameters/object.hpp>
 #include <sge/renderer/pixel_format/object.hpp>
-#include <sge/renderer/state/depth_func.hpp>
 #include <sge/renderer/state/cull_mode.hpp>
+#include <sge/renderer/state/depth_func.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/scoped.hpp>
+#include <sge/renderer/target/base.hpp>
+#include <sge/renderer/target/offscreen.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/texture/cube.hpp>
 #include <sge/renderer/texture/cube_parameters.hpp>
 #include <sge/renderer/texture/cube_scoped_ptr.hpp>
 #include <sge/renderer/texture/scoped.hpp>
+#include <sge/renderer/texture/filter/mipmap.hpp>
+#include <sge/renderer/texture/filter/scoped.hpp>
 #include <sge/renderer/texture/mipmap/all_levels.hpp>
 #include <sge/renderer/vf/format.hpp>
 #include <sge/renderer/vf/index.hpp>
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/normal.hpp>
 #include <sge/renderer/vf/part.hpp>
-#include <fcppt/math/dim/structure_cast.hpp>
-#include <fcppt/math/box/object_impl.hpp>
 #include <sge/renderer/vf/pos.hpp>
 #include <sge/renderer/vf/texpos.hpp>
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/vf/view.hpp>
-#include <sge/camera/coordinate_system/object.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
-#include <sge/camera/coordinate_system/scoped.hpp>
 #include <sge/renderer/vf/dynamic/make_part_index.hpp>
+#include <sge/scenic/scene/manager.hpp>
 #include <sge/systems/image2d.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/instance.hpp>
@@ -90,6 +90,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/function_context.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/foreach_enumerator.hpp>
+#include <fcppt/move.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/unreachable.hpp>
@@ -97,21 +98,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/array.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
+#include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
+#include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/signal/connection.hpp>
-#include <sge/renderer/target/base.hpp>
-#include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
-#include <sge/renderer/target/offscreen.hpp>
-#include <fcppt/move.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/chrono.hpp>
 #include <boost/mpl/vector/vector10.hpp>
-#include <example_main.hpp>
 #include <boost/ptr_container/ptr_map.hpp>
+#include <example_main.hpp>
 #include <exception>
 #include <ostream>
 #include <fcppt/config/external_end.hpp>
@@ -706,12 +706,13 @@ try
 		sys.image_system(),
 		sys.viewport_manager(),
 		camera,
-		sge::config::media_path() / FCPPT_TEXT("scenes") / scene_name / FCPPT_TEXT("description.json"),
-		sge::scenic::model_base_path(
+		sge::scenic::scene::manager::prototype_file_path(
+			sge::config::media_path() / FCPPT_TEXT("scenes") / scene_name / FCPPT_TEXT("description.json")),
+		sge::scenic::scene::manager::model_base_path(
 			sge::config::media_path() / FCPPT_TEXT("scenes") / scene_name),
-		sge::scenic::material_base_path(
+		sge::scenic::scene::manager::material_base_path(
 			sge::config::media_path() / FCPPT_TEXT("scenes") / scene_name),
-		sge::scenic::texture_base_path(
+		sge::scenic::scene::manager::texture_base_path(
 			sge::config::media_path() / FCPPT_TEXT("scenes") / scene_name));
 
 	typedef
