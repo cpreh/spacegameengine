@@ -11,12 +11,9 @@ set(
 	src/plugins/audio_null/src/positional.cpp
 )
 
-include_directories(
-	"${CMAKE_CURRENT_SOURCE_DIR}/include"
-)
-
 add_sge_plugin(
 	audio_null
 	"sgeaudio;sgeplugin"
+	""
 	""
 )

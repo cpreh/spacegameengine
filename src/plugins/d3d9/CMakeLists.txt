@@ -548,15 +548,6 @@ set(
 	"${Awl_LIBRARIES};${D3D9_LIBRARIES}"
 )
 
-include_directories(
-	"${CMAKE_CURRENT_SOURCE_DIR}/include"
-)
-
-include_directories(
-	${FCPPT_UTILS_INCLUDE_SYSTEM}
-	${D3D9_INCLUDE_DIRS}
-)
-
 add_definitions(
 	${Awl_DEFINITIONS}
 )
@@ -564,9 +555,9 @@ add_definitions(
 if(
 	ENABLE_CG
 )
-	include_directories(
-		${FCPPT_UTILS_INCLUDE_SYSTEM}
-		${Cg_INCLUDE_DIRS}
+	set(
+		SGE_D3D9_ADDITIONAL_INCLUDE_DIRS
+		"${Cg_INCLUDE_DIRS}"
 	)
 
 	set(
@@ -589,4 +580,5 @@ add_sge_plugin(
 	"d3d9"
 	"${SGE_D3D9_SGE_DEPS}"
 	"${SGE_D3D9_ADDITIONAL_DEPS}"
+	"${D3D9_INCLUDE_DIRS};${SGE_D3D9_ADDITIONAL_INCLUDE_DIRS}"
 )

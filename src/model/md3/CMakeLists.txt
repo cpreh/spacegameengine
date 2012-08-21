@@ -81,14 +81,11 @@ set(
 	src/model/md3/vertex.cpp
 )
 
-include_directories(
-	${CMAKE_CURRENT_SOURCE_DIR}/include
-)
-
 add_sge_base_library(
 	"model/md3"
 	"sgecore;sgelog"
 	"${Fcppt_filesystem_LIBRARIES}"
 	""
 	""
+	"${CMAKE_CURRENT_SOURCE_DIR}/include"
 )

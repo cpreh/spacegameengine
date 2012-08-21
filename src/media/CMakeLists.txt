@@ -26,10 +26,6 @@ set(
 	src/media/path_to_extension.cpp
 )
 
-include_directories(
-	${CMAKE_CURRENT_SOURCE_DIR}/include
-)
-
 sge_generate_instantiate_symbol_header(
 	media
 )
@@ -40,4 +36,5 @@ add_sge_base_library(
 	"${Fcppt_filesystem_LIBRARIES}"
 	"sgelog"
 	"${Fcppt_filesystem_LIBRARIES}"
+	"${CMAKE_CURRENT_SOURCE_DIR}/include"
 )

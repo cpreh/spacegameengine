@@ -8,12 +8,9 @@ set(
 	src/plugins/wave/src/loader.cpp
 )
 
-include_directories(
-	"${CMAKE_CURRENT_SOURCE_DIR}/include"
-)
-
 add_sge_plugin(
 	wave
 	"sgeaudio;sgelog;sgeplugin"
 	"${Fcppt_filesystem_LIBRARIES}"
+	""
 )

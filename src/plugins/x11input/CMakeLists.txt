@@ -162,24 +162,6 @@ set(
 	src/plugins/x11input/src/xi_version.cpp
 )
 
-include_directories(
-	"${CMAKE_CURRENT_SOURCE_DIR}/include"
-)
-
-include_directories(
-	${FCPPT_UTILS_INCLUDE_SYSTEM}
-	${X11_X11_INCLUDE_PATH}
-)
-
-include_directories(
-	${FCPPT_UTILS_INCLUDE_SYSTEM}
-	${X11_Xinput_INCLUDE_PATH}
-)
-
-include_directories(
-	${CMAKE_CURRENT_BINARY_DIR}/include
-)
-
 add_definitions(
 	"${Awl_DEFINITIONS}"
 )
@@ -188,4 +170,5 @@ add_sge_plugin(
 	x11input
 	"sgeinput;sgelog;sgeplugin;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Awl_LIBRARIES};${X11_X11_LIB};${X11_Xinput_LIB}"
+	"${X11_X11_INCLUDE_PATH};${X11_Xinput_INCLUDE_PATH}"
 )

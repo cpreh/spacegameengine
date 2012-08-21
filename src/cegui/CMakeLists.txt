@@ -1,8 +1,3 @@
-include_directories(
-	${FCPPT_UTILS_INCLUDE_SYSTEM}
-	"${CEGUI_INCLUDE_DIRS}"
-)
-
 link_directories(
 	"${CEGUI_LIBRARY_DIRS}"
 )
@@ -122,14 +117,11 @@ set(
 	src/cegui/toolbox/scoped_layout.cpp
 )
 
-include_directories(
-	${CMAKE_CURRENT_SOURCE_DIR}/include
-)
-
 add_sge_base_library(
 	cegui
 	"sgecharconv;sgeimage;sgeimage2d;sgeinput;sgelog;sgerenderer;sgeviewport"
 	"${Fcppt_filesystem_LIBRARIES};${CEGUI_LIBRARIES}"
 	""
 	"${CEGUI_LIBRARIES}"
+	"${CEGUI_INCLUDE_DIRS};${CMAKE_CURRENT_SOURCE_DIR}/include"
 )

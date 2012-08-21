@@ -35,17 +35,9 @@ set(
 	src/plugins/openal/src/stream_sound.cpp
 )
 
-include_directories(
-	"${CMAKE_CURRENT_SOURCE_DIR}/include"
-)
-
-include_directories(
-	${FCPPT_UTILS_INCLUDE_SYSTEM}
-	${OPENAL_INCLUDE_DIR}
-)
-
 add_sge_plugin(
 	openal
 	"sgeaudio;sgelog;sgeplugin"
 	"${Fcppt_core_LIBRARIES};${OPENAL_LIBRARY}"
+	"${OPENAL_INCLUDE_DIR}"
 )

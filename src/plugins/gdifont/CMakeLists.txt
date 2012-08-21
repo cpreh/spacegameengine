@@ -49,12 +49,9 @@ set(
 	src/plugins/gdifont/src/text.cpp
 )
 
-include_directories(
-	"${CMAKE_CURRENT_SOURCE_DIR}/include"
-)
-
 add_sge_plugin(
 	gdifont
 	"sgefont;sgeimage2d;sgeplugin"
+	""
 	""
 )

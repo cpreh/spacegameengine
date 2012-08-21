@@ -305,14 +305,6 @@ configure_file(
 	${CMAKE_CURRENT_BINARY_DIR}/include/sge/src/image/config.hpp
 )
 
-include_directories(
-	${CMAKE_CURRENT_SOURCE_DIR}/include
-)
-
-include_directories(
-	${CMAKE_CURRENT_BINARY_DIR}/include
-)
-
 sge_generate_instantiate_symbol_header(
 	image
 )
@@ -323,4 +315,5 @@ add_sge_base_library(
 	"${Fcppt_filesystem_LIBRARIES}"
 	"sgecore"
 	"${Fcppt_core_LIBRARIES}"
+	"${CMAKE_CURRENT_SOURCE_DIR}/include;${CMAKE_CURRENT_BINARY_DIR}/include"
 )

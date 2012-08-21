@@ -124,6 +124,31 @@ function(
 endfunction()
 
 function(
+	sge_add_include_dirs
+	TARGET_NAME
+	INCLUDE_DIRS
+)
+	get_target_property(
+		NEW_INCLUDE_DIRS
+		"${TARGET_NAME}"
+		INCLUDE_DIRECTORIES
+	)
+
+	list(
+		APPEND
+		NEW_INCLUDE_DIRS
+		"${INCLUDE_DIRS}"
+	)
+
+	set_target_properties(
+		"${TARGET_NAME}"
+		PROPERTIES
+		INCLUDE_DIRECTORIES
+		"${NEW_INCLUDE_DIRS}"
+	)
+endfunction()
+
+function(
 	add_sge_base_library_variant
 	SGE_LIB_NAME
 	SGE_LIB_FILES
@@ -131,6 +156,7 @@ function(
 	ADDITIONAL_DEPS
 	TRANSITIVE_SGE_DEPS
 	TRANSITIVE_ADDITIONAL_DEPS
+	INCLUDE_DIRS
 	VARIANT
 	BASE_VARIANT
 )
@@ -167,11 +193,9 @@ function(
 		${SGELIBS_TARGETS_RESULT}
 	)
 
-	set_target_properties(
+	sge_add_include_dirs(
 		${SGE_LIB_NAME}
-		PROPERTIES
-		LINK_INTERFACE_LIBRARIES
-		""
+		"${INCLUDE_DIRS}"
 	)
 
 	target_link_libraries(
@@ -202,6 +226,7 @@ function(
 	ADDITIONAL_DEPS
 	TRANSITIVE_SGE_DEPS
 	TRANSITIVE_ADDITIONAL_DEPS
+	INCLUDE_DIRS
 	BASE_VARIANT
 )
 	string(
@@ -296,6 +321,7 @@ function(
 			"${ADDITIONAL_DEPS}"
 			"${TRANSITIVE_SGE_DEPS}"
 			"${TRANSITIVE_ADDITIONAL_DEPS}"
+			"${INCLUDE_DIRS}"
 			SHARED
 			"${BASE_VARIANT}"
 		)
@@ -313,6 +339,7 @@ function(
 			"${ADDITIONAL_DEPS}"
 			"${TRANSITIVE_SGE_DEPS}"
 			"${TRANSITIVE_ADDITIONAL_DEPS}"
+			"${INCLUDE_DIRS}"
 			STATIC
 			"${BASE_VARIANT}"
 		)
@@ -387,6 +414,9 @@ endfunction()
 # TRANSITIVE_ADDITIONAL_DEPS:
 #	A list of additional (not sge) libraries that other libraries that use
 #	this library depend on.
+#
+# INCLUDE_DIRS:
+#	A list of include directories for this library.
 function(
 	add_sge_base_library
 	RELATIVE_PATH
@@ -394,6 +424,7 @@ function(
 	ADDITIONAL_DEPS
 	TRANSITIVE_SGE_DEPS
 	TRANSITIVE_ADDITIONAL_DEPS
+	INCLUDE_DIRS
 )
 	add_sge_base_library_base(
 		"${RELATIVE_PATH}"
@@ -401,6 +432,7 @@ function(
 		"${ADDITIONAL_DEPS}"
 		"${TRANSITIVE_SGE_DEPS}"
 		"${TRANSITIVE_ADDITIONAL_DEPS}"
+		"${INCLUDE_DIRS}"
 		""
 	)
 endfunction()
@@ -419,6 +451,7 @@ function(
 		"${ADDITIONAL_DEPS}"
 		"${TRANSITIVE_SGE_DEPS}"
 		"${TRANSITIVE_ADDITIONAL_DEPS}"
+		""
 		"DUMMY"
 	)
 endfunction()
@@ -430,6 +463,7 @@ function(
 	ADDITIONAL_DEPS
 	TRANSITIVE_SGE_DEPS
 	TRANSITIVE_ADDITIONAL_DEPS
+	INCLUDE_DIRS
 )
 	add_sge_base_library_base(
 		"${RELATIVE_PATH}"
@@ -437,6 +471,7 @@ function(
 		"${ADDITIONAL_DEPS}"
 		"${TRANSITIVE_SGE_DEPS}"
 		"${TRANSITIVE_ADDITIONAL_DEPS}"
+		"${INCLUDE_DIRS}"
 		"EXAMPLE"
 	)
 endfunction()
@@ -476,9 +511,73 @@ function(
 		"${Fcppt_core_LIBRARIES}"
 		""
 		""
+		""
 		"${VARIANT}"
 		""
 	)
 endfunction()
 
+function(
+	add_sge_plugin
+	PLUGIN_NAME
+	SGE_DEPS
+	ADDITONAL_DEPS
+	INCLUDE_DIRS
+)
+	set(
+		SGE_PLUGIN_NAME
+		sge${PLUGIN_NAME}
+	)
 
+	string(
+		TOUPPER
+		${PLUGIN_NAME}
+		UPPER_PLUGIN_NAME
+	)
+
+	FCPPT_UTILS_APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
+		"${SGE_${UPPER_PLUGIN_NAME}_FILES}"
+		SGE_${UPPER_PLUGIN_NAME}_FILES_ABS
+	)
+
+	add_library(
+		${SGE_PLUGIN_NAME}
+		SHARED
+		${SGE_${UPPER_PLUGIN_NAME}_FILES_ABS}
+	)
+
+	transform_sge_link_targets(
+		"${SGE_DEPS}"
+	)
+
+	if(
+		SGE_DEFAULT_LINK_STATIC
+	)
+		sge_set_static_flags(
+			${SGE_PLUGIN_NAME}
+		)
+	endif()
+
+	check_library_deps(
+		"${PLUGIN_NAME}"
+		"${SGE_DEPS}"
+	)
+
+	sge_add_include_dirs(
+		${SGE_PLUGIN_NAME}
+		"${CMAKE_CURRENT_SOURCE_DIR}/include;${INCLUDE_DIRS}"
+	)
+
+	target_link_libraries(
+		${SGE_PLUGIN_NAME}
+		${ADDITONAL_DEPS}
+		${SGELIBS_TARGETS_RESULT}
+	)
+
+	install(
+		TARGETS
+		${SGE_PLUGIN_NAME}
+		DESTINATION
+		${PLUGIN_INSTALL_DIR}
+	)
+endfunction()

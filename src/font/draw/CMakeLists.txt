@@ -14,14 +14,11 @@ set(
 	src/font/draw/static_text.cpp
 )
 
-include_directories(
-	${CMAKE_CURRENT_SOURCE_DIR}/include
-)
-
 add_sge_base_library(
 	"font/draw"
 	"sgecore;sgefont;sgeimage;sgeimage2d;sgerenderer;sgesprite;sgetexture"
 	""
 	""
 	""
+	"${CMAKE_CURRENT_SOURCE_DIR}/include"
 )

@@ -1,7 +1,3 @@
-include_directories(
-	${CMAKE_BINARY_DIR}/include
-)
-
 set(
 	SGE_RESOURCE_TREE_FILES
 	include/sge/resource_tree/detail/base_path.hpp
@@ -33,6 +29,7 @@ add_sge_base_library(
 	resource_tree
 	"sgecore"
 	"${Fcppt_filesystem_LIBRARIES}"
+	""
 	""
 	""
 )

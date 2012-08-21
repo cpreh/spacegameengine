@@ -19,14 +19,11 @@ set(
 	src/line_drawer/scoped_lock.cpp
 )
 
-include_directories(
-	${CMAKE_CURRENT_SOURCE_DIR}/include
-)
-
 add_sge_base_library(
 	line_drawer
 	"sgeimage;sgerenderer"
 	""
 	""
 	""
+	"${CMAKE_CURRENT_SOURCE_DIR}/include"
 )

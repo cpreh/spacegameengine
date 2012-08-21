@@ -148,14 +148,11 @@ set(
 	src/parse/json/string_to_value.cpp
 )
 
-include_directories(
-	${CMAKE_CURRENT_SOURCE_DIR}/include
-)
-
 add_sge_base_library(
 	parse
 	"sgecore"
 	"${Fcppt_filesystem_LIBRARIES}"
 	"sgecore"
 	""
+	"${CMAKE_CURRENT_SOURCE_DIR}/include"
 )

@@ -22,12 +22,9 @@ macro(
 		"rucksack_${EXAMPLE_NAME}"
 		"sgerucksacktestbed;${SGE_DEPS}"
 		"${ADDITIONAL_DEPS}"
+		"${CMAKE_CURRENT_SOURCE_DIR}/testbed/include"
 	)
 endmacro()
-
-include_directories(
-	"${CMAKE_CURRENT_SOURCE_DIR}/testbed/include"
-)
 
 add_sge_rucksack_example(
 	box

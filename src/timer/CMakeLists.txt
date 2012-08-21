@@ -46,4 +46,5 @@ add_sge_base_library(
 	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES}"
 	""
 	""
+	""
 )

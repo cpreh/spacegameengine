@@ -65,19 +65,12 @@ set(
 	src/texture/sub_data.cpp
 )
 
-# TODO!
-include_directories(
-	${CMAKE_SOURCE_DIR}/src/renderer/include
-)
-
-include_directories(
-	${CMAKE_CURRENT_SOURCE_DIR}/include
-)
-
 add_sge_base_library(
 	texture
 	"sgecore;sgeimage2d;sgelog;sgerenderer"
 	"${Fcppt_core_LIBRARIES}"
 	""
 	""
+	# TODO!
+	"${CMAKE_SOURCE_DIR}/src/renderer/include;${CMAKE_CURRENT_SOURCE_DIR}/include"
 )

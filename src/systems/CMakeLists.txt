@@ -149,14 +149,11 @@ add_definitions(
 	${Awl_DEFINITIONS}
 )
 
-include_directories(
-	${CMAKE_CURRENT_SOURCE_DIR}/include
-)
-
 add_sge_base_library(
 	systems
 	"sgeaudio;sgecharconv;sgeconfig;sgecore;sgefont;sgeimage2d;sgeinput;sgelog;sgeplugin;sgerenderer;sgeviewport;sgewindow"
 	"${Fcppt_filesystem_LIBRARIES};${Awl_LIBRARIES}"
 	""
 	""
+	"${CMAKE_CURRENT_SOURCE_DIR}/include"
 )

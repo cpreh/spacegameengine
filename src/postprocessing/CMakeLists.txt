@@ -12,15 +12,11 @@ set(
 	src/postprocessing/fullscreen_quad.cpp
 )
 
-include_directories(
-	${FCPPT_UTILS_INCLUDE_SYSTEM}
-	${Cg_INCLUDE_DIRS}
-)
-
 add_sge_base_library(
 	"postprocessing"
 	"sgecg;sgerenderer;sgerenderercg;sgeviewport;sgeconfig;sgeshader"
 	"${Fcppt_filesystem_LIBRARIES}"
 	""
 	""
+	"${Cg_INCLUDE_DIRS}"
 )

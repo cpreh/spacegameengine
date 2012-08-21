@@ -81,10 +81,6 @@ set(
 	src/plugin/manager.cpp
 )
 
-include_directories(
-	${CMAKE_CURRENT_SOURCE_DIR}/include
-)
-
 sge_generate_instantiate_symbol_header(
 	plugin
 )
@@ -118,4 +114,5 @@ add_sge_base_library(
 	"${Fcppt_filesystem_LIBRARIES};${SGE_PLUGIN_ADDITIONAL_LIBS}"
 	""
 	"${Fcppt_core_LIBRARIES};${Boost_SYSTEM_LIBRARIES}"
+	"${CMAKE_CURRENT_SOURCE_DIR}/include"
 )

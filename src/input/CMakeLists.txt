@@ -308,10 +308,6 @@ set(
 	src/input/system.cpp
 )
 
-include_directories(
-	${CMAKE_CURRENT_SOURCE_DIR}/include
-)
-
 sge_implement_from_lib(
 	plugin
 )
@@ -322,4 +318,5 @@ add_sge_base_library(
 	""
 	"sgecore"
 	""
+	"${CMAKE_CURRENT_SOURCE_DIR}/include"
 )

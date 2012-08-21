@@ -140,18 +140,11 @@ sge_implement_from_lib(
 	image
 )
 
-include_directories(
-	${CMAKE_BINARY_DIR}/src/image/include
-)
-
-include_directories(
-	${CMAKE_CURRENT_SOURCE_DIR}/include
-)
-
 add_sge_base_library(
 	image2d
 	"sgeimage;sgemedia;sgeplugin"
 	""
 	""
 	""
+	"${CMAKE_BINARY_DIR}/src/image/include;${CMAKE_CURRENT_SOURCE_DIR}/include"
 )

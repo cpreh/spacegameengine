@@ -143,26 +143,12 @@ set(
 	src/opencl/system.cpp
 )
 
-include_directories(
-	${CMAKE_CURRENT_SOURCE_DIR}/include
-)
-
 add_definitions(
 	-D CL_USE_DEPRECATED_OPENCL_1_1_APIS
 )
 
-include_directories(
-	${FCPPT_UTILS_INCLUDE_SYSTEM}
-	${OPENCL_INCLUDE_DIRS}
-)
-
 find_package(
 	OpenGL
-)
-
-include_directories(
-	${FCPPT_UTILS_INCLUDE_SYSTEM}
-	${OPENGL_INCLUDE_DIR}
 )
 
 if(
@@ -192,14 +178,11 @@ configure_file(
 	${CMAKE_CURRENT_BINARY_DIR}/include/sge/opencl/config.hpp
 )
 
-include_directories(
-	${CMAKE_CURRENT_BINARY_DIR}/include
-)
-
 add_sge_base_library(
 	opencl
 	"sgecore;sgeimage;sgeimage2d;sgelog;sgerenderer;sgerendereropengl"
 	"${Fcppt_core_LIBRARIES};${Fcppt_filesystem_LIBRARIES};${OPENCL_LIBRARIES};${OPENGL_gl_LIBRARY}"
 	""
 	""
+	"${OPENCL_INCLUDE_DIRS};${OPENGL_INCLUDE_DIR};${CMAKE_CURRENT_SOURCE_DIR}/include;${CMAKE_CURRENT_BINARY_DIR}/include"
 )

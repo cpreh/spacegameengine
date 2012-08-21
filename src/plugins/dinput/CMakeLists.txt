@@ -143,15 +143,6 @@ SET(
 	src/plugins/dinput/src/system.cpp
 )
 
-include_directories(
-	"${CMAKE_CURRENT_SOURCE_DIR}/include"
-)
-
-include_directories(
-	${FCPPT_UTILS_INCLUDE_SYSTEM}
-	${DINPUT_INCLUDE_DIR}
-)
-
 add_definitions(
 	${Awl_DEFINITIONS}
 )
@@ -160,4 +151,5 @@ add_sge_plugin(
 	"dinput"
 	"sgeinput;sgelog;sgeplugin;sgewindow"
 	"${Awl_LIBRARIES};${DINPUT_LIBRARIES}"
+	"${DINPUT_INCLUDE_DIR}"
 )

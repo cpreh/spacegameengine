@@ -922,8 +922,9 @@ set(
 	"${SGE_OPENGL_BASE_FILES}"
 )
 
-include_directories(
-	"${CMAKE_CURRENT_SOURCE_DIR}/include"
+set(
+	SGE_OPENGL_INCLUDE_DIRS
+	""
 )
 
 set(
@@ -949,9 +950,10 @@ if(
 		TRUE
 	)
 
-	include_directories(
-		${FCPPT_UTILS_INCLUDE_SYSTEM}
-		${X11_X11_INCLUDE}
+	list(
+		APPEND
+		SGE_OPENGL_INCLUDE_DIRS
+		"${X11_X11_INCLUDE}"
 	)
 
 	set(
@@ -959,9 +961,10 @@ if(
 		"${SGE_OPENGL_FILES};${SGE_OPENGL_X11_FILES}"
 	)
 
-	include_directories(
-		${FCPPT_UTILS_INCLUDE_SYSTEM}
-		${X11_Xrandr_INCLUDE_PATH}
+	list(
+		APPEND
+		SGE_OPENGL_INCLUDE_DIRS
+		"${X11_Xrandr_INCLUDE_PATH}"
 	)
 
 	set(
@@ -999,8 +1002,9 @@ endif()
 if(
 	ENABLE_CG
 )
-	include_directories(
-		${FCPPT_UTILS_INCLUDE_SYSTEM}
+	list(
+		APPEND
+		SGE_OPENGL_INCLUDE_DIRS
 		${Cg_INCLUDE_DIRS}
 	)
 
@@ -1025,22 +1029,28 @@ configure_file(
 	${CMAKE_CURRENT_BINARY_DIR}/include/sge/opengl/config.hpp
 )
 
-include_directories(
-	${CMAKE_CURRENT_BINARY_DIR}/include
+list(
+	APPEND
+	SGE_OPENGL_INCLUDE_DIRS
+	"${CMAKE_CURRENT_BINARY_DIR}/include"
 )
 
-include_directories(
-	${FCPPT_UTILS_INCLUDE_SYSTEM}
-	${OPENGL_INCLUDE_DIR}
+list(
+	APPEND
+	SGE_OPENGL_INCLUDE_DIRS
+	"${OPENGL_INCLUDE_DIR}"
 )
 
-include_directories(
-	${FCPPT_UTILS_INCLUDE_SYSTEM}
-	${GLEW_INCLUDE_DIRS}
+list(
+	APPEND
+	SGE_OPENGL_INCLUDE_DIRS
+	"${GLEW_INCLUDE_DIRS}"
 )
 
-include_directories(
-	${Awl_INCLUDE_DIRS}
+list(
+	APPEND
+	SGE_OPENGL_INCLUDE_DIRS
+	"${Awl_INCLUDE_DIRS}"
 )
 
 add_definitions(
@@ -1059,4 +1069,5 @@ add_sge_plugin(
 	opengl
 	"${SGE_OPENGL_SGE_DEPS}"
 	"${SGE_OPENGL_ADDITIONAL_DEPS}"
+	"${SGE_OPENGL_INCLUDE_DIRS}"
 )

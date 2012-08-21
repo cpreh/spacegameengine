@@ -56,66 +56,6 @@ OPTION (ENABLE_VORBIS "Build the vorbis loader plugin" ${VORBIS_FOUND})
 
 OPTION (ENABLE_X11INPUT "Build the x11 input plugin" ${X11_Xinput_FOUND})
 
-
-function(
-	add_sge_plugin
-	PLUGIN_NAME
-	SGE_DEPS
-	ADDITONAL_DEPS
-)
-	set(
-		SGE_PLUGIN_NAME
-		sge${PLUGIN_NAME}
-	)
-
-	string(
-		TOUPPER
-		${PLUGIN_NAME}
-		UPPER_PLUGIN_NAME
-	)
-
-	FCPPT_UTILS_APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
-		"${SGE_${UPPER_PLUGIN_NAME}_FILES}"
-		SGE_${UPPER_PLUGIN_NAME}_FILES_ABS
-	)
-
-	add_library(
-		${SGE_PLUGIN_NAME}
-		SHARED
-		${SGE_${UPPER_PLUGIN_NAME}_FILES_ABS}
-	)
-
-	transform_sge_link_targets(
-		"${SGE_DEPS}"
-	)
-
-	if(
-		SGE_DEFAULT_LINK_STATIC
-	)
-		sge_set_static_flags(
-			${SGE_PLUGIN_NAME}
-		)
-	endif()
-
-	check_library_deps(
-		"${PLUGIN_NAME}"
-		"${SGE_DEPS}"
-	)
-
-	target_link_libraries(
-		${SGE_PLUGIN_NAME}
-		${ADDITONAL_DEPS}
-		${SGELIBS_TARGETS_RESULT}
-	)
-
-	install(
-		TARGETS
-		${SGE_PLUGIN_NAME}
-		DESTINATION
-		${PLUGIN_INSTALL_DIR}
-	)
-endfunction()
-
 IF(ENABLE_AUDIO_NULL)
 	ADD_SUBDIRECTORY (audio_null)
 ENDIF ()

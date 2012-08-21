@@ -100,14 +100,11 @@ sge_implement_from_lib(
 	image
 )
 
-include_directories(
-	${CMAKE_BINARY_DIR}/src/image/include
-)
-
 add_sge_base_library(
 	image3d
 	"sgeimage"
 	""
 	""
 	""
+	"${CMAKE_BINARY_DIR}/src/image/include"
 )

@@ -1,11 +1,13 @@
 include(
-	AwlMainGenerator)
+	AwlMainGenerator
+)
 
 function(
 	add_sge_example_base
 	EXAMPLE_NAME
 	SGE_LIBRARIES
 	ADDITIONAL_LIBRARIES
+	INCLUDE_DIRS
 	CONSOLE_EXAMPLE
 )
 	sge_check_optional_deps(
@@ -63,6 +65,11 @@ function(
 		)
 	endif()
 
+	sge_add_include_dirs(
+		"${FULL_NAME}"
+		"${INCLUDE_DIRS}"
+	)
+
 	target_link_libraries(
 		${FULL_NAME}
 		${ADDITIONAL_LIBRARIES}
@@ -82,11 +89,13 @@ function(
 	EXAMPLE_NAME
 	SGE_LIBRARIES
 	ADDITIONAL_LIBRARIES
+	INCLUDE_DIRS
 )
 	add_sge_example_base(
 		"${EXAMPLE_NAME}"
 		"${SGE_LIBRARIES}"
 		"${ADDITIONAL_LIBRARIES}"
+		"${INCLUDE_DIRS}"
 		FALSE
 	)
 endfunction()
@@ -96,11 +105,13 @@ function(
 	EXAMPLE_NAME
 	SGE_LIBRARIES
 	ADDITIONAL_LIBRARIES
+	INCLUDE_DIRS
 )
 	add_sge_example_base(
 		"${EXAMPLE_NAME}"
 		"${SGE_LIBRARIES}"
 		"${ADDITIONAL_LIBRARIES}"
+		"${INCLUDE_DIRS}"
 		TRUE
 	)
 endfunction()
@@ -117,65 +128,76 @@ add_sge_example(
 	anaglyph
 	"sgecamera;sgeconfig;sgeimage;sgeinput;sgelog;sgemodelmd3;sgerenderer;sgeshader;sgesystems;sgetexture;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	""
 )
 
 add_sge_console_example(
 	app_path
 	"sgeconfig"
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	""
 )
 
 add_sge_console_example(
 	audio_minimal
 	"sgeaudio;sgeconfig;sgeplugin"
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	""
 )
 
 add_sge_example(
 	bitmapfont
 	"sgeconfig;sgefontbitmap;sgefonttext;sgeimage;sgeinput;sgerenderer;sgesystems;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	""
 )
 
 add_sge_console_example(
 	caps
 	"sgeconfig;sgeplugin;sgerenderer;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Awl_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	""
 )
 
 add_sge_console_example(
 	color_string_convert
 	"sgeimage"
 	"${Fcppt_core_LIBRARIES}"
+	""
 )
 
 add_sge_console_example(
 	config_path
 	"sgeconfig"
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	""
 )
 
 add_sge_example(
 	console
 	"sgeconfig;sgeconsole;sgefonttext;sgeimage;sgeinput;sgerenderer;sgesystems;sgetexture;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	""
 )
 
 add_sge_example(
 	cube_map
 	"sgecamera;sgeimage;sgeinput;sgerenderer;sgesystems;sgeviewport;sgewindow;sgeimage2d;sgeconfig;sgescenic"
 	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	""
 )
 
 add_sge_example(
 	doppler
 	"sgeaudio;sgeconfig;sgeinput;sgelog;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	""
 )
 
 add_sge_example(
 	font
 	"sgefont;sgefontdraw;sgeimage;sgerenderer;sgesystems;sgeviewport;sgewindow"
+	""
 	""
 )
 
@@ -183,42 +205,49 @@ add_sge_example(
 	fullscreen
 	"sgeimage;sgelog;sgerenderer;sgesystems;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	""
 )
 
 add_sge_example(
 	graph
 	"sgegraph;sgeimage;sgelog;sgerenderer;sgesystems;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	""
 )
 
 add_sge_console_example(
 	ini
 	"sgeparse"
 	"${Fcppt_core_LIBRARIES}"
+	""
 )
 
 add_sge_example(
 	input
 	"sgeinput;sgelog;sgesystems;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	""
 )
 
 add_sge_example(
 	intrusivesprite
 	"sgeconfig;sgeinput;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	""
 )
 
 add_sge_console_example(
 	json
 	"sgeparse"
 	"${Fcppt_core_LIBRARIES}"
+	""
 )
 
 add_sge_example(
 	line_drawer
 	"sgefont;sgefontdraw;sgeimage;sgeinput;sgeline_drawer;sgerenderer;sgesystems;sgetimer;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	""
 )
 
 if(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
@@ -226,6 +255,7 @@ if(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
 		linux_stats
 		"sgefont;sgefontdraw;sgegraph;sgelog;sgerenderer;sgesystems;sgeviewport;sgewindow;sgeimage;sgetimer"
 		"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+		""
 	)
 endif()
 
@@ -233,48 +263,56 @@ add_sge_console_example(
 	mergeimage
 	"sgecore;sgeimage;sgeimage2d;sgesystems"
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	""
 )
 
 add_sge_example(
 	multi_texture
 	"sgeconfig;sgeimage;sgeinput;sgemedia;sgerenderer;sgesystems;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	""
 )
 
 add_sge_example(
 	multi_texture_sprite
 	"sgeconfig;sgeinput;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	""
 )
 
 add_sge_example(
 	noise
 	"sgeimage;sgeimage2d;sgelog;sgerenderer;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	""
 )
 
 add_sge_example(
 	occlusion_query
 	"sgecamera;sgeconfig;sgefont;sgefontdraw;sgeimage;sgeinput;sgelog;sgemedia;sgescenic;sgerenderer;sgesystems;sgetimer;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	""
 )
 
 add_sge_console_example(
 	opengl
 	"sgerenderer;sgerendereropengl;sgesystems;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	""
 )
 
 add_sge_example(
 	ortho_view
 	"sgecamera;sgeconfig;sgeimage;sgeinput;sgelog;sgerenderer;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	""
 )
 
 add_sge_console_example(
 	plugin
 	"sgeaudio;sgeconfig;sgefont;sgeimage2d;sgeinput;sgelog;sgeplugin;sgerenderer"
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	""
 )
 
 message("Fix the point sprite example!")
@@ -289,7 +327,10 @@ add_sge_example(
 	projectile/main
 	"sgeimage;sgeinput;sgelog;sgeprojectile;sgerenderer;sgesprite;sgesystems;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	""
 )
+
+message("Fix the save texture example!")
 
 #add_sge_example(
 #	savetexture
@@ -301,25 +342,31 @@ add_sge_console_example(
 	raw_view
 	""
 	"${Fcppt_core_LIBRARIES}"
+	""
 )
 
 add_sge_console_example(
 	resource_tree
 	"sgeconfig;sgeresource_tree"
 	"${Fcppt_core_LIBRARIES};${Fcppt_filesystem_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	""
 )
 
 add_sge_example(
 	scenic
 	"sgeconfig;sgeimage;sgeinput;sgerenderer;sgesystems;sgeviewport;sgewindow;sgescenic;sgecamera;sgegraph"
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES};${Boost_CHRONO_LIBRARIES}"
+	""
 )
 
 add_sge_example(
 	screenshot
 	"sgeconfig;sgeimage;sgeimage2d;sgeinput;sgerenderer;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	""
 )
+
+message("Fix the shader cube example!")
 
 #add_sge_example(
 #	shader/cube
@@ -339,124 +386,123 @@ add_sge_console_example(
 	sound
 	"sgeaudio;sgeconfig;sgelog;sgesystems"
 	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	""
 )
 
 add_sge_example(
 	spritecolor
 	"sgeimage;sgeinput;sgelog;sgerenderer;sgesprite;sgesystems;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	""
 )
 
 add_sge_example(
 	stencil
 	"sgeconfig;sgeimage;sgeinput;sgerenderer;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	""
 )
 
 add_sge_example(
 	target
 	"sgeconfig;sgeimage;sgeimage2d;sgeinput;sgerenderer;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	""
 )
 
 add_sge_example(
 	texture_filter
 	"sgecamera;sgefont;sgefontdraw;sgeimage;sgeimage2d;sgeinput;sgerenderer;sgesprite;sgesystems;sgetexture;sgetimer;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	""
 )
 
 add_sge_console_example(
 	tutorial/sound_01
 	"sgeaudio;sgeconfig;sgesystems"
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	""
 )
 
 add_sge_console_example(
 	tutorial/sound_02
 	"sgeaudio;sgeconfig;sgesystems"
 	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	""
 )
 
 add_sge_example(
 	tutorial/sprite_02
 	"sgeconfig;sgeimage;sgeimage2d;sgeinput;sgerenderer;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	""
 )
 
 add_sge_example(
 	tutorial/sprite_03
 	"sgeconfig;sgeimage;sgeinput;sgerenderer;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	""
 )
 
 add_sge_example(
 	vertex
 	"sgeimage;sgeinput;sgerenderer;sgesystems;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	""
 )
 
 add_sge_example(
 	vertex_index
 	"sgeimage;sgeinput;sgerenderer;sgesystems;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	""
 )
 
 add_sge_example(
 	vertex_planar
 	"sgeimage;sgeinput;sgerenderer;sgesystems;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	""
 )
 
 add_sge_example(
 	vertex_texture
 	"sgeconfig;sgeinput;sgerenderer;sgesystems;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	""
 )
 
 add_sge_example(
 	volume_texture
 	"sgecamera;sgeimage;sgeimage3d;sgeinput;sgerenderer;sgesystems;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	""
 )
 
 add_sge_example(
 	window_without_input
 	"sgeimage;sgerenderer;sgesystems;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	""
 )
 
 add_subdirectory(
 	bvh
 )
 
-if(
-	ENABLE_CEGUI
+add_subdirectory(
+	gui
 )
-	add_subdirectory(
-		gui
-	)
-endif()
 
-if(
-	ENABLE_CG
+add_subdirectory(
+	cg
 )
-	add_subdirectory(
-		cg
-	)
-endif()
 
-if(
-	ENABLE_OPENCL
+add_subdirectory(
+	opencl
 )
-	add_subdirectory(
-		opencl
-	)
-endif()
 
-if(
-	ENABLE_RUCKSACK
+add_subdirectory(
+	rucksack
 )
-	add_subdirectory(
-		rucksack
-	)
-endif()

@@ -19,14 +19,11 @@ set(
 	src/font/bitmap/text.cpp
 )
 
-include_directories(
-	${CMAKE_CURRENT_SOURCE_DIR}/include
-)
-
 add_sge_base_library(
 	"font/bitmap"
 	"sgecore;sgefont;sgeimage2d;sgelog;sgeparse"
 	"${Fcppt_filesystem_LIBRARIES}"
 	""
 	""
+	"${CMAKE_CURRENT_SOURCE_DIR}/include"
 )

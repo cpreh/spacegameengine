@@ -7,18 +7,11 @@ set(
 	examples/rucksack/testbed/src/object_impl.cpp
 )
 
-include_directories(
-	"${CMAKE_CURRENT_SOURCE_DIR}/include"
-)
-
-include_directories(
-	"${CMAKE_CURRENT_SOURCE_DIR}/src/include"
-)
-
 add_sge_example_library(
 	"rucksack/testbed"
 	"sgelog;sgerenderer;sgerucksack;sgesprite;sgesystems;sgeviewport;sgewindow"
 	""
 	""
 	""
+	"${CMAKE_CURRENT_SOURCE_DIR}/include;${CMAKE_CURRENT_SOURCE_DIR}/src/include"
 )

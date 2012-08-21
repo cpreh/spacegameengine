@@ -107,19 +107,11 @@ set(
 	src/projectile/world.cpp
 )
 
-include_directories(
-	${CMAKE_CURRENT_SOURCE_DIR}/include
-)
-
-include_directories(
-	${FCPPT_UTILS_INCLUDE_SYSTEM}
-	${BULLET_INCLUDE_DIRS}
-)
-
 add_sge_base_library(
 	projectile
 	"sgeimage;sgelog;sgeline_drawer;sgerenderer"
 	"${Fcppt_core_LIBRARIES};${BULLET_LIBRARIES}"
 	""
 	""
+	"${CMAKE_CURRENT_SOURCE_DIR}/include;${BULLET_INCLUDE_DIRS}"
 )

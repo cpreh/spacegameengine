@@ -110,4 +110,5 @@ add_sge_base_library(
 	"${Fcppt_filesystem_LIBRARIES}"
 	"sgecore"
 	""
+	""
 )

@@ -109,8 +109,8 @@ if(
 		"${SGE_CHARCONV_BASE_FILES};${SGE_CHARCONV_ICONV_FILES}"
 	)
 
-	include_directories(
-		${FCPPT_UTILS_INCLUDE_SYSTEM}
+	set(
+		SGE_CHARCONV_ADDITIONAL_INCLUDES
 		${ICONV_INCLUDE_DIRS}
 	)
 
@@ -148,18 +148,11 @@ configure_file(
 	"${CMAKE_CURRENT_BINARY_DIR}/include/sge/charconv/backend.hpp"
 )
 
-include_directories(
-	${CMAKE_CURRENT_SOURCE_DIR}/include
-)
-
-include_directories(
-	${CMAKE_CURRENT_BINARY_DIR}/include
-)
-
 add_sge_base_library(
 	charconv
 	"sgecore"
 	"${Fcppt_core_LIBRARIES};${SGE_CHARCONV_ADDITIONAL_DEPS}"
 	"sgecore"
 	""
+	"${CMAKE_CURRENT_SOURCE_DIR}/include;${CMAKE_CURRENT_BINARY_DIR}/include;${SGE_CHARCONV_ADDITIONAL_INCLUDES}"
 )

@@ -104,19 +104,11 @@ set(
 	src/cg/true.cpp
 )
 
-include_directories(
-	${CMAKE_CURRENT_SOURCE_DIR}/include
-)
-
-include_directories(
-	${FCPPT_UTILS_INCLUDE_SYSTEM}
-	${Cg_INCLUDE_DIRS}
-)
-
 add_sge_base_library(
 	cg
 	"sgecore"
 	"${Fcppt_core_LIBRARIES};${Cg_LIBRARIES}"
 	"sgecore"
 	""
+	"${CMAKE_CURRENT_SOURCE_DIR}/include;${Cg_INCLUDE_DIRS}"
 )

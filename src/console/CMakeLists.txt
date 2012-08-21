@@ -58,14 +58,11 @@ set(
 	src/console/object.cpp
 )
 
-include_directories(
-	${CMAKE_CURRENT_SOURCE_DIR}/include
-)
-
 add_sge_base_library(
 	console
 	"sgecore;sgefonttext;sgeinput;sgesprite"
 	"${Fcppt_core_LIBRARIES}"
 	""
 	""
+	"${CMAKE_CURRENT_SOURCE_DIR}/include"
 )

@@ -35,15 +35,6 @@ set(
 	src/plugins/libpng/src/write_ptr.cpp
 )
 
-include_directories(
-	"${CMAKE_CURRENT_SOURCE_DIR}/include"
-)
-
-include_directories(
-	${FCPPT_UTILS_INCLUDE_SYSTEM}
-	${PNG_INCLUDE_DIR}
-)
-
 add_definitions(
 	${PNG_DEFINITIONS}
 )
@@ -52,4 +43,5 @@ add_sge_plugin(
 	libpng
 	"sgeimage;sgeimage2d;sgelog;sgeplugin"
 	"${Fcppt_filesystem_LIBRARIES};${PNG_LIBRARIES}"
+	"${PNG_INCLUDE_DIR}"
 )

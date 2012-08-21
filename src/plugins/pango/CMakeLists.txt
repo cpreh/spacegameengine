@@ -31,15 +31,6 @@ set(
 	src/plugins/pango/src/text.cpp
 )
 
-include_directories(
-	"${CMAKE_CURRENT_SOURCE_DIR}/include"
-)
-
-include_directories(
-	${FCPPT_UTILS_INCLUDE_SYSTEM}
-	${PANGO_INCLUDE_DIRS}
-)
-
 link_directories(
 	${PANGO_LIBRARY_DIRS}
 )
@@ -52,4 +43,5 @@ add_sge_plugin(
 	pango
 	"sgecharconv;sgefont;sgeimage2d;sgeplugin"
 	"${PANGO_LIBRARIES}"
+	"${PANGO_INCLUDE_DIRS}"
 )

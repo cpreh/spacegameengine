@@ -71,15 +71,11 @@ set(
 	src/scenic/texture_manager.cpp
 )
 
-include_directories(
-	${FCPPT_UTILS_INCLUDE_SYSTEM}
-	${Cg_INCLUDE_DIRS}
-)
-
 add_sge_base_library(
 	"scenic"
 	"sgeparse;sgeimage;sgemodelobj;sgerenderer;sgecamera;sgeviewport;sgeline_drawer;sgecg;sgerenderercg;sgeshader;sgeconfig"
 	"${Fcppt_filesystem_LIBRARIES}"
 	""
 	""
+	"${Cg_INCLUDE_DIRS}"
 )

@@ -2,11 +2,6 @@ remove_definitions(
 	"-D SGE_PLUGIN_INSTANTIATE_EXPORTS"
 )
 
-include_directories(
-	${FCPPT_UTILS_INCLUDE_SYSTEM}
-	${OPENGL_INCLUDE_DIR}
-)
-
 set(
 	SGE_RENDEREROPENGL_FILES
 	include/sge/renderer/opengl/buffer/base.hpp
@@ -27,4 +22,5 @@ add_sge_base_library(
 	"${OPENGL_gl_LIBRARY}"
 	""
 	""
+	"${OPENGL_INCLUDE_DIR}"
 )

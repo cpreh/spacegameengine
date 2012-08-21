@@ -2,10 +2,6 @@ include(
 	SGECustomPath
 )
 
-include_directories(
-	${CMAKE_BINARY_DIR}/include
-)
-
 sge_config_add_custom_path(
 	sge
 	media
@@ -47,14 +43,11 @@ set(
 	src/config/try_create_path.cpp
 )
 
-include_directories(
-	${CMAKE_CURRENT_SOURCE_DIR}/include
-)
-
 add_sge_base_library(
 	config
 	"sgecore"
 	"${Fcppt_filesystem_LIBRARIES}"
 	"sgecore"
 	""
+	"${CMAKE_CURRENT_SOURCE_DIR}/include"
 )

@@ -48,17 +48,9 @@ set(
 	src/plugins/devil/src/to_il_format.cpp
 )
 
-include_directories(
-	"${CMAKE_CURRENT_SOURCE_DIR}/include"
-)
-
-include_directories(
-	${FCPPT_UTILS_INCLUDE_SYSTEM}
-	${IL_INCLUDE_DIR}
-)
-
 add_sge_plugin(
 	"devil"
 	"sgeimage;sgeimage2d;sgelog;sgeplugin"
 	"${Fcppt_filesystem_LIBRARIES};${IL_LIBRARIES};${ILU_LIBRARIES}"
+	"${IL_INCLUDE_DIR}"
 )
