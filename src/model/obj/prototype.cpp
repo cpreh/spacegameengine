@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/obj/exception.hpp>
 #include <sge/model/obj/prototype.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/array.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
@@ -145,8 +146,8 @@ sge::model::obj::prototype::prototype(
 	face_vertex_to_index_map face_vertex_to_index;
 
 	line_count line_counter = 0u;
-	sge::model::obj::identifier current_material(
-		std::string(""));
+	sge::model::obj::identifier current_material((
+		fcppt::string()));
 	std::string line;
 	while(
 		std::getline(

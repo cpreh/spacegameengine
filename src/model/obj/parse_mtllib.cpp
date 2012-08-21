@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vector3.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/optional.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
