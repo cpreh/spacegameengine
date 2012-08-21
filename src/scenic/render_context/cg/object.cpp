@@ -20,7 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/scenic/render_context/cg/manager.hpp>
 #include <sge/scenic/render_context/cg/object.hpp>
+#include <sge/scenic/index_buffer_range.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
+#include <sge/renderer/vertex_buffer.hpp>
+#include <sge/renderer/context/object.hpp>
 #include <fcppt/math/matrix/inverse.hpp>
 #include <fcppt/math/matrix/transpose.hpp>
 
@@ -106,6 +109,22 @@ sge::scenic::render_context::cg::object::vertex_buffer(
 	current_vertex_buffer_ =
 		optional_vertex_buffer(
 			_vertex_buffer);
+}
+
+void
+sge::scenic::render_context::cg::object::render(
+	sge::renderer::index_buffer const &_index_buffer,
+	sge::scenic::index_buffer_range const &_index_buffer_range)
+{
+	context_.render_indexed(
+		_index_buffer,
+		sge::renderer::first_vertex(
+			0u),
+		sge::renderer::vertex_count(
+			current_vertex_buffer_->size()),
+		sge::renderer::primitive_type::triangle_list,
+		_index_buffer_range.first_index(),
+		_index_buffer_range.index_count());
 }
 
 sge::scenic::render_context::cg::object::~object()

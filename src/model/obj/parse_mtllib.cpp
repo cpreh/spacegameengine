@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/color/init.hpp>
 #include <sge/image/color/rgb32f.hpp>
-#include <sge/charconv/convert.hpp>
 #include <sge/log/global.hpp>
 #include <sge/model/obj/exception.hpp>
 #include <sge/model/obj/identifier.hpp>
@@ -283,12 +282,7 @@ sge::model::obj::parse_mtllib(
 
 				result.insert(
 					std::make_pair(
-						sge::model::obj::identifier(
-							sge::charconv::utf8_string_to_fcppt(
-								_charconv_system,
-								sge::charconv::utf8_string(
-									current_material.get().begin(),
-									current_material.get().end()))),
+						current_material,
 						sge::model::obj::material(
 							current_material,
 							sge::renderer::material(
@@ -328,7 +322,11 @@ sge::model::obj::parse_mtllib(
 
 			current_material =
 				sge::model::obj::identifier(
-					rest_of_line);
+					sge::charconv::utf8_string_to_fcppt(
+						_charconv_system,
+						sge::charconv::utf8_string(
+							rest_of_line.begin(),
+							rest_of_line.end())));
 		}
 		else
 		{
