@@ -215,7 +215,8 @@ sge::scenic::scene::manager::load_entities(
 			continue;
 
 		sge::model::obj::prototype const new_prototype(
-			model_base_path_.get() / (mesh_name.get()+FCPPT_TEXT(".obj")));
+			model_base_path_.get() / (mesh_name.get()+FCPPT_TEXT(".obj")),
+			charconv_system_);
 
 		for(
 			sge::model::obj::material_file_sequence::const_iterator current_material_file =

@@ -24,6 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
+#include <sge/charconv/system_fwd.hpp>
+#include <sge/charconv/utf8_string_to_fcppt.hpp>
 #include <fcppt/container/array.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/log/headers.hpp>
@@ -116,7 +118,8 @@ parse_face_vertex(
 }
 
 sge::model::obj::prototype::prototype(
-	boost::filesystem::path const &_filename)
+	boost::filesystem::path const &_filename,
+	sge::charconv::system &_charconv_system)
 :
 	vertex_coordinates_(),
 	texture_coordinates_(),
@@ -195,7 +198,11 @@ sge::model::obj::prototype::prototype(
 		{
 			current_material =
 				sge::model::obj::identifier(
-					rest_of_line);
+					sge::charconv::utf8_string_to_fcppt(
+						_charconv_system,
+						sge::charconv::utf8_string(
+							rest_of_line.begin(),
+							rest_of_line.end())));
 		}
 		else if(prefix == "v")
 		{
