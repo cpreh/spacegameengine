@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/convert.hpp>
 #include <sge/log/global.hpp>
 #include <sge/model/obj/exception.hpp>
+#include <sge/model/obj/identifier.hpp>
 #include <sge/model/obj/parse_mtllib.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
@@ -64,9 +65,8 @@ sge::model::obj::parse_mtllib(
 	line_count;
 
 	line_count line_counter = 0u;
-	sge::model::obj::identifier current_material(
-		std::string(
-			""));
+	sge::model::obj::identifier current_material((
+		fcppt::string()));
 	std::string line;
 
 	fcppt::optional<sge::renderer::scalar> shininess;
@@ -283,11 +283,12 @@ sge::model::obj::parse_mtllib(
 
 				result.insert(
 					std::make_pair(
-						sge::charconv::utf8_string_to_fcppt(
-							_charconv_system,
-							sge::charconv::utf8_string(
-								current_material.get().begin(),
-								current_material.get().end())),
+						sge::model::obj::identifier(
+							sge::charconv::utf8_string_to_fcppt(
+								_charconv_system,
+								sge::charconv::utf8_string(
+									current_material.get().begin(),
+									current_material.get().end()))),
 						sge::model::obj::material(
 							current_material,
 							sge::renderer::material(
