@@ -18,53 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_CONSOLE_NEXT_OR_LAST_HPP_INCLUDED
-#define SGE_SRC_CONSOLE_NEXT_OR_LAST_HPP_INCLUDED
-
-#include <fcppt/assert/error.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/next_prior.hpp>
-#include <algorithm>
-#include <iterator>
-#include <fcppt/config/external_end.hpp>
+#ifndef SGE_CONSOLE_FUNCTION_FWD_HPP_INCLUDED
+#define SGE_CONSOLE_FUNCTION_FWD_HPP_INCLUDED
 
 
 namespace sge
 {
 namespace console
 {
-template
-<
-	typename It1,
-	typename It2,
-	typename Distance
->
-It1 const
-next_or_last(
-	It1 it,
-	It2 const last,
-	Distance const u)
-{
-	typedef typename
-	std::iterator_traits<It1>::difference_type
-	difference_type;
 
-	difference_type const d =
-		std::distance(
-			it,
-			last);
+class function;
 
-	FCPPT_ASSERT_ERROR(
-		d >= static_cast<difference_type>(0));
-
-	return
-		boost::next(
-			it,
-			std::min(
-				static_cast<difference_type>(
-					u),
-				d));
-}
 }
 }
 

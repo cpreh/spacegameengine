@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/class_symbol.hpp>
 #include <sge/exception.hpp>
 #include <sge/console/symbol.hpp>
-#include <sge/font/text/string.hpp>
+#include <sge/font/string.hpp>
 
 
 namespace sge
@@ -37,18 +37,21 @@ class SGE_CLASS_SYMBOL exception
 	public sge::exception
 {
 public:
-	SGE_CONSOLE_SYMBOL explicit exception(
-		font::text::string const &
+	SGE_CONSOLE_SYMBOL
+	explicit
+	exception(
+		sge::font::string const &
 	);
 
 	SGE_CONSOLE_SYMBOL
-	virtual ~exception() throw();
+	virtual
+	~exception() throw();
 
 	SGE_CONSOLE_SYMBOL
-	font::text::string const &
+	sge::font::string const &
 	console_string() const;
 private:
-	font::text::string console_string_;
+	sge::font::string console_string_;
 };
 
 }

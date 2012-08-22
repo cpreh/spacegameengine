@@ -175,7 +175,7 @@ add_sge_console_example(
 
 add_sge_example(
 	console
-	"sgeconfig;sgeconsole;sgefonttext;sgeimage;sgeinput;sgerenderer;sgesystems;sgetexture;sgeviewport;sgewindow"
+	"sgeconfig;sgeconsole;sgefont;sgeimage;sgeinput;sgerenderer;sgesystems;sgetexture;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 )

@@ -22,17 +22,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CONSOLE_OUTPUT_LINE_SEQUENCE_HPP_INCLUDED
 
 #include <sge/console/pointed_history.hpp>
-#include <sge/font/text/string.hpp>
+#include <sge/font/string.hpp>
+
 
 namespace sge
 {
 namespace console
 {
+
 typedef
-pointed_history<
-	sge::font::text::string
+sge::console::pointed_history<
+	sge::font::string
 >
 output_line_sequence;
+
 }
 }
 

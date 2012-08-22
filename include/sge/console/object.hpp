@@ -30,8 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/message_callback.hpp>
 #include <sge/console/symbol.hpp>
 #include <sge/console/callback/parameters_fwd.hpp>
-#include <sge/font/text/char_type.hpp>
-#include <sge/font/text/string.hpp>
+#include <sge/font/char_type.hpp>
+#include <sge/font/string.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
 #include <fcppt/signal/object_decl.hpp>
@@ -49,78 +49,103 @@ class SGE_CLASS_SYMBOL object
 		object
 	);
 public:
-	SGE_CONSOLE_SYMBOL explicit
+	SGE_CONSOLE_SYMBOL
+	explicit
 	object(
-		font::text::char_type prefix
+		sge::font::char_type prefix
 	);
 
 	SGE_CONSOLE_SYMBOL
 	~object();
 
-	SGE_CONSOLE_SYMBOL fcppt::signal::auto_connection
+	SGE_CONSOLE_SYMBOL
+	fcppt::signal::auto_connection
 	insert(
-		callback::parameters const &
+		sge::console::callback::parameters const &
 	);
 
-	SGE_CONSOLE_SYMBOL fcppt::signal::auto_connection
+	SGE_CONSOLE_SYMBOL
+	fcppt::signal::auto_connection
 	register_fallback(
-		fallback const &
+		sge::console::fallback const &
 	);
 
-	SGE_CONSOLE_SYMBOL fcppt::signal::auto_connection
+	SGE_CONSOLE_SYMBOL
+	fcppt::signal::auto_connection
 	register_error_callback(
-		error_callback const &
+		sge::console::error_callback const &
 	);
 
-	SGE_CONSOLE_SYMBOL fcppt::signal::auto_connection
+	SGE_CONSOLE_SYMBOL
+	fcppt::signal::auto_connection
 	register_message_callback(
-		message_callback const &
+		sge::console::message_callback const &
 	);
 
-	SGE_CONSOLE_SYMBOL void
+	SGE_CONSOLE_SYMBOL
+	void
 	eval(
-		font::text::string const &
+		sge::font::string const &
 	);
 
-	SGE_CONSOLE_SYMBOL void
+	SGE_CONSOLE_SYMBOL
+	void
 	eval(
-		console::arg_list const &
+		sge::console::arg_list const &
 	);
 
-	SGE_CONSOLE_SYMBOL function_map const &
+	SGE_CONSOLE_SYMBOL
+	sge::console::function_map const &
 	functions() const;
 
-	SGE_CONSOLE_SYMBOL font::text::char_type
+	SGE_CONSOLE_SYMBOL
+	sge::font::char_type
 	prefix() const;
 
-	SGE_CONSOLE_SYMBOL void
+	SGE_CONSOLE_SYMBOL
+	void
 	emit_error(
-		font::text::string const &
+		sge::font::string const &
 	);
 
-	SGE_CONSOLE_SYMBOL void
+	SGE_CONSOLE_SYMBOL
+	void
 	emit_message(
-		font::text::string const &
+		sge::font::string const &
 	);
 private:
-	fcppt::signal::object<error_callback_fn> error_;
-	fcppt::signal::object<message_callback_fn> message_;
-	font::text::char_type const prefix_;
-	function_map funcs_;
-	fallback_signal fallback_;
-	fcppt::signal::scoped_connection help_connection_,man_connection_;
+	fcppt::signal::object<
+		sge::console::error_callback_fn
+	> error_;
+
+	fcppt::signal::object<
+		sge::console::message_callback_fn
+	> message_;
+
+	sge::font::char_type const prefix_;
+
+	sge::console::function_map funcs_;
+
+	sge::console::fallback_signal fallback_;
+
+	fcppt::signal::scoped_connection const
+		help_connection_,
+		man_connection_;
 
 	void
 	help_callback(
-		arg_list const &);
+		sge::console::arg_list const &
+	);
 
 	void
 	man_callback(
-		arg_list const &);
+		sge::console::arg_list const &
+	);
 
 	void
 	remove_function(
-		font::text::string const &);
+		sge::font::string const &
+	);
 };
 
 }

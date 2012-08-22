@@ -34,16 +34,16 @@ namespace console
 namespace callback
 {
 template<typename FunctionType,typename Functor>
-callback::parameters
+sge::console::callback::parameters
 from_functor(
-	Functor const &_f,
-	callback::name const &_name,
-	callback::short_description const &_short_description)
+	Functor const &_functor,
+	sge::console::callback::name const &_name,
+	sge::console::callback::short_description const &_short_description)
 {
 	return
-		callback::parameters(
-			detail::convenience_wrapper<FunctionType>(
-				_f,
+		sge::console::callback::parameters(
+			sge::console::callback::detail::convenience_wrapper<FunctionType>(
+				_functor,
 				_short_description.get()),
 			_name)
 			.short_description(

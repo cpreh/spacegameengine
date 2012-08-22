@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/arg_list.hpp>
 #include <sge/console/object.hpp>
 #include <sge/console/callback/detail/conversion_visitor.hpp>
-#include <sge/font/text/lit.hpp>
-#include <sge/font/text/string.hpp>
+#include <sge/font/lit.hpp>
+#include <sge/font/string.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/function/object.hpp>
 #include <fcppt/mpl/for_each.hpp>
@@ -60,7 +60,7 @@ public:
 	explicit
 	convenience_wrapper(
 		Functor const &_functor,
-		font::text::string const &_short_description)
+		sge::font::string const &_short_description)
 	:
 		functor_(
 			_functor),
@@ -81,7 +81,7 @@ public:
 		if(static_cast<unsigned>(_args.size() - 1) != arity)
 		{
 			_console.emit_error(
-				SGE_FONT_TEXT_LIT("Given too few or too many arguments!"));
+				SGE_FONT_LIT("Given too few or too many arguments!"));
 			_console.emit_error(
 				short_description_);
 			return;
@@ -117,7 +117,7 @@ public:
 	}
 private:
 	fcppt::function::object<function_type> functor_;
-	font::text::string short_description_;
+	sge::font::string short_description_;
 };
 }
 }

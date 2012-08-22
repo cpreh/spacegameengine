@@ -11,6 +11,7 @@ set(
 	include/sge/console/callback/parameters_fwd.hpp
 	include/sge/console/callback/short_description.hpp
 	include/sge/console/cursor.hpp
+	include/sge/console/cursor_fwd.hpp
 	include/sge/console/error_callback.hpp
 	include/sge/console/error_callback_fn.hpp
 	include/sge/console/exception.hpp
@@ -18,6 +19,7 @@ set(
 	include/sge/console/fallback_signal.hpp
 	include/sge/console/fallback_type.hpp
 	include/sge/console/function.hpp
+	include/sge/console/function_fwd.hpp
 	include/sge/console/function_map.hpp
 	include/sge/console/gfx.hpp
 	include/sge/console/gfx_fwd.hpp
@@ -52,7 +54,6 @@ set(
 	src/console/include/sge/src/console/eval_grammar_impl.hpp
 	src/console/include/sge/src/console/instantiate_muxing_streambuf.hpp
 	src/console/include/sge/src/console/muxing_streambuf_impl.hpp
-	src/console/include/sge/src/console/next_or_last.hpp
 	src/console/muxing_narrow_streambuf.cpp
 	src/console/muxing_wide_streambuf.cpp
 	src/console/object.cpp
@@ -60,7 +61,7 @@ set(
 
 add_sge_base_library(
 	console
-	"sgecore;sgefonttext;sgeinput;sgesprite"
+	"sgecore;sgefont;sgefontdraw;sgeinput;sgesprite"
 	"${Fcppt_core_LIBRARIES}"
 	""
 	""

@@ -49,8 +49,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 						throw sge::renderer::exception( \
 							FCPPT_TEXT("Should not happen.") \
 						) \
-			: \
-				normal_type \
+		: \
+			normal_type \
 	)
 
 #endif

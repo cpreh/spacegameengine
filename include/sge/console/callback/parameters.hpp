@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/symbol.hpp>
 #include <sge/console/callback/function.hpp>
 #include <sge/console/callback/name.hpp>
-#include <sge/font/text/string.hpp>
+#include <sge/font/string.hpp>
 #include <fcppt/nonassignable.hpp>
 
 
@@ -34,41 +34,56 @@ namespace console
 {
 namespace callback
 {
+
 class parameters
 {
-FCPPT_NONASSIGNABLE(
-	parameters);
+	FCPPT_NONASSIGNABLE(
+		parameters
+	);
 public:
-	SGE_CONSOLE_SYMBOL explicit
+	SGE_CONSOLE_SYMBOL
 	parameters(
-		callback::function const &,
-		callback::name const &);
+		sge::console::callback::function const &,
+		sge::console::callback::name const &
+	);
 
-	SGE_CONSOLE_SYMBOL parameters &
+	SGE_CONSOLE_SYMBOL
+	sge::console::callback::parameters &
 	short_description(
-		font::text::string const &);
+		sge::font::string const &
+	);
 
-	SGE_CONSOLE_SYMBOL parameters &
+	SGE_CONSOLE_SYMBOL
+	sge::console::callback::parameters &
 	long_description(
-		font::text::string const &);
+		sge::font::string const &
+	);
 
-	SGE_CONSOLE_SYMBOL callback::function const &
+	SGE_CONSOLE_SYMBOL
+	sge::console::callback::function const &
 	function() const;
 
-	SGE_CONSOLE_SYMBOL font::text::string const &
+	SGE_CONSOLE_SYMBOL
+	sge::font::string const &
 	name() const;
 
-	SGE_CONSOLE_SYMBOL font::text::string const &
+	SGE_CONSOLE_SYMBOL
+	sge::font::string const &
 	short_description() const;
 
-	SGE_CONSOLE_SYMBOL font::text::string const &
+	SGE_CONSOLE_SYMBOL
+	sge::font::string const &
 	long_description() const;
 private:
-	callback::function const function_;
-	font::text::string const name_;
-	font::text::string short_description_;
-	font::text::string long_description_;
+	sge::console::callback::function const function_;
+
+	sge::font::string const name_;
+
+	sge::font::string short_description_;
+
+	sge::font::string long_description_;
 };
+
 }
 }
 }

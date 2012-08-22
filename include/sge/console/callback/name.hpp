@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CONSOLE_CALLBACK_NAME_HPP_INCLUDED
 #define SGE_CONSOLE_CALLBACK_NAME_HPP_INCLUDED
 
-#include <sge/font/text/string.hpp>
+#include <sge/font/string.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
@@ -31,9 +31,12 @@ namespace console
 {
 namespace callback
 {
+
 FCPPT_MAKE_STRONG_TYPEDEF(
-	font::text::string,
-	name);
+	sge::font::string,
+	name
+);
+
 }
 }
 }

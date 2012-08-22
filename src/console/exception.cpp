@@ -18,12 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/exception.hpp>
 #include <sge/console/exception.hpp>
+#include <sge/font/string.hpp>
 #include <fcppt/text.hpp>
 
 
 sge::console::exception::exception(
-	font::text::string const &_console_string
+	sge::font::string const &_console_string
 )
 :
 	sge::exception(
@@ -32,14 +34,15 @@ sge::console::exception::exception(
 	console_string_(
 		_console_string
 	)
-{}
+{
+}
 
 sge::console::exception::~exception() throw()
 {
 }
 
 
-sge::font::text::string const &
+sge::font::string const &
 sge::console::exception::console_string() const
 {
 	return console_string_;

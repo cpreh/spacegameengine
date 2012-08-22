@@ -26,11 +26,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/sprite_object.hpp>
 #include <sge/console/sprite_parameters.hpp>
 #include <sge/console/callback/from_functor.hpp>
-#include <sge/font/metrics.hpp>
-#include <sge/font/metrics_scoped_ptr.hpp>
+#include <sge/font/lit.hpp>
+#include <sge/font/object.hpp>
+#include <sge/font/object_scoped_ptr.hpp>
+#include <sge/font/parameters.hpp>
 #include <sge/font/system.hpp>
-#include <sge/font/text/lit.hpp>
-#include <sge/font/text/to_fcppt_string.hpp>
+#include <sge/font/to_fcppt_string.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/system.hpp>
@@ -95,12 +96,12 @@ namespace
 {
 void
 fallback(
-	sge::font::text::string const &_arg
+	sge::font::string const &_arg
 )
 {
 	fcppt::io::cout()
 		<< FCPPT_TEXT("fallback called with argument:")
-		<< sge::font::text::to_fcppt_string(
+		<< sge::font::to_fcppt_string(
 			_arg
 		)
 		<< FCPPT_TEXT('\n');
@@ -122,8 +123,10 @@ increment(
 	float const f)
 {
 	_console.emit_message(
-		SGE_FONT_TEXT_LIT("New value is ")+
-		fcppt::insert_to_string<sge::font::text::string>(
+		SGE_FONT_LIT("New value is ")+
+		fcppt::insert_to_string<
+			sge::font::string
+		>(
 			f+1.0f));
 }
 
@@ -203,7 +206,7 @@ try
 	);
 
 	sge::console::object object(
-		SGE_FONT_TEXT_LIT('/')
+		SGE_FONT_LIT('/')
 	);
 
 	fcppt::signal::scoped_connection const c0(
@@ -214,9 +217,9 @@ try
 					fcppt::ref(
 						sys.window_system())),
 				sge::console::callback::name(
-					SGE_FONT_TEXT_LIT("quit")),
+					SGE_FONT_LIT("quit")),
 				sge::console::callback::short_description(
-					SGE_FONT_TEXT_LIT("Usage: /quit")))));
+					SGE_FONT_LIT("Usage: /quit")))));
 
 	fcppt::signal::scoped_connection const c1(
 		object.register_fallback(
@@ -233,11 +236,11 @@ try
 						object),
 					std::tr1::placeholders::_1),
 				sge::console::callback::name(
-					SGE_FONT_TEXT_LIT("increment")),
+					SGE_FONT_LIT("increment")),
 				sge::console::callback::short_description(
-					SGE_FONT_TEXT_LIT("Usage: /increment <float-value>")))
+					SGE_FONT_LIT("Usage: /increment <float-value>")))
 				.long_description(
-					SGE_FONT_TEXT_LIT("Increments the float value (extremely useful!)"))));
+					SGE_FONT_LIT("Increments the float value (extremely useful!)"))));
 
 	sge::texture::const_part_shared_ptr const
 		tex_bg(
@@ -256,20 +259,17 @@ try
 			)
 		);
 
-	sge::font::metrics_scoped_ptr const font_metrics(
+	sge::font::object_scoped_ptr const font_object(
 		sys.font_system().create_font(
-			sge::config::media_path()
-			/ FCPPT_TEXT("fonts")
-			/ FCPPT_TEXT("default.ttf"),
-			15
+			sge::font::parameters()
 		)
 	);
 
-	sge::console::gfx gfx_(
+	sge::console::gfx gfx(
 		object,
 		sys.renderer(),
 		sge::image::colors::white(),
-		*font_metrics,
+		*font_object,
 		sys.keyboard_collector(),
 		sge::console::sprite_object(
 			sge::console::sprite_parameters()
@@ -306,7 +306,7 @@ try
 	std::cerr << "Test for console muxer (cerr).\n";
 	std::cerr << "You should see this message _only_ in the console and _not_ in the terminal (if available)\n";
 
-	gfx_.active(
+	gfx.active(
 		true
 	);
 
@@ -326,7 +326,7 @@ try
 			)
 		);
 
-		gfx_.render(
+		gfx.render(
 			scoped_block.get()
 		);
 	}

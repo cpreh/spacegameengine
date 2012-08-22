@@ -20,71 +20,81 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/console/cursor.hpp>
 #include <sge/console/function_map.hpp>
-#include <sge/font/text/lit.hpp>
-#include <sge/font/text/string.hpp>
+#include <sge/font/char_type.hpp>
+#include <sge/font/lit.hpp>
+#include <sge/font/string.hpp>
+
 
 sge::console::cursor::cursor()
 :
 	line_(
-		SGE_FONT_TEXT_LIT(" ")),
+		SGE_FONT_LIT(" ")
+	),
 	pos_(
-		static_cast<size_type>(
-			0))
+		0u
+	)
 {
 }
 
-sge::font::text::string const
+sge::console::cursor::~cursor()
+{
+}
+
+sge::font::string const
 sge::console::cursor::edited(
 	bool const _active
 ) const
 {
-	font::text::string l =
+	sge::font::string l =
 		line_;
+
 	if (_active)
 		l[pos_] =
-			SGE_FONT_TEXT_LIT('_');
+			SGE_FONT_LIT('_');
 	return
 		l;
 }
 
-sge::font::text::string const
+sge::font::string const
 sge::console::cursor::string() const
 {
 	// skip last space
 	return
 		line_.substr(
-			static_cast<size_type>(
-				0),
-			static_cast<size_type>(
-				line_.length()-1));
+			0u,
+			line_.length()-1u
+		);
 }
 
 void
 sge::console::cursor::string(
-	font::text::string const &_line
+	sge::font::string const &_line
 )
 {
 	line_ =
-		_line + SGE_FONT_TEXT_LIT(' ');
+		_line + SGE_FONT_LIT(' ');
 	pos_ =
-		static_cast<size_type>(
-			line_.length()-1);
+		line_.length()-1u;
 }
 
 void
 sge::console::cursor::erase_word()
 {
-	if (line_.length() == static_cast<size_type>(1) || pos_ == static_cast<size_type>(0))
+	if(
+		this->empty()
+		||
+		this->at_start()
+	)
 		return;
 
 	size_type
 		s =
 			line_.rfind(
-				SGE_FONT_TEXT_LIT(' '),
+				SGE_FONT_LIT(' '),
 				static_cast<size_type>(
 					pos_-1));
 
-	if (s == font::text::string::npos)
+	if (s == sge::font::string::npos)
 		s =
 			static_cast<size_type>(
 				0);
@@ -147,21 +157,18 @@ bool
 sge::console::cursor::empty() const
 {
 	return
-		line_.length() ==
-			static_cast<size_type>(
-				1);
+		line_.length() == 1u;
 }
 
 void
 sge::console::cursor::insert(
-	font::text::char_type const c
+	sge::font::char_type const _char
 )
 {
 	line_.insert(
 		pos_++,
-		static_cast<size_type>(
-			1),
-		c
+		1u,
+		_char
 	);
 }
 
@@ -169,14 +176,12 @@ bool
 sge::console::cursor::at_start() const
 {
 	return
-		pos_ ==
-			static_cast<size_type>(
-				0);
+		pos_ == 0u;
 }
 
 void
 sge::console::cursor::complete_word(
-	console::function_map const &_map
+	sge::console::function_map const &_map
 )
 {
 }

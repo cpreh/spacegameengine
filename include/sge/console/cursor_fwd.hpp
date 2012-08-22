@@ -18,14 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CONSOLE_FUNCTION_MAP_HPP_INCLUDED
-#define SGE_CONSOLE_FUNCTION_MAP_HPP_INCLUDED
-
-#include <sge/console/function_fwd.hpp>
-#include <sge/font/string.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/ptr_container/ptr_map.hpp>
-#include <fcppt/config/external_end.hpp>
+#ifndef SGE_CONSOLE_CURSOR_FWD_HPP_INCLUDED
+#define SGE_CONSOLE_CURSOR_FWD_HPP_INCLUDED
 
 
 namespace sge
@@ -33,10 +27,7 @@ namespace sge
 namespace console
 {
 
-typedef boost::ptr_map<
-	sge::font::string,
-	sge::console::function
-> function_map;
+class cursor;
 
 }
 }

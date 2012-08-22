@@ -21,7 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CONSOLE_ERROR_CALLBACK_FN_HPP_INCLUDED
 #define SGE_CONSOLE_ERROR_CALLBACK_FN_HPP_INCLUDED
 
-#include <sge/font/text/string.hpp>
+#include <sge/font/string.hpp>
+
 
 namespace sge
 {
@@ -31,7 +32,7 @@ namespace console
 typedef
 void
 error_callback_fn(
-	font::text::string const &
+	sge::font::string const &
 );
 
 }

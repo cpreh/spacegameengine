@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/console/arg_list.hpp>
 #include <sge/console/object.hpp>
-#include <sge/font/text/from_fcppt_string.hpp>
-#include <sge/font/text/lit.hpp>
+#include <sge/font/from_fcppt_string.hpp>
+#include <sge/font/lit.hpp>
 #include <fcppt/extract_from_string.hpp>
 #include <fcppt/insert_to_string.hpp>
 #include <fcppt/nonassignable.hpp>
@@ -46,17 +46,19 @@ namespace callback
 {
 namespace detail
 {
-template<typename ParameterTypes>
+template<
+	typename ParameterTypes
+>
 struct conversion_visitor
 {
-FCPPT_NONASSIGNABLE(
-	conversion_visitor);
+	FCPPT_NONASSIGNABLE(
+		conversion_visitor
+	);
 public:
-	explicit
 	conversion_visitor(
-		console::object &_console,
+		sge::console::object &_console,
 		ParameterTypes &_parameters,
-		console::arg_list const &_args)
+		sge::console::arg_list const &_args)
 	:
 		console_(
 			_console),
@@ -68,7 +70,9 @@ public:
 
 	}
 
-	template<typename Index>
+	template<
+		typename Index
+	>
 	void
 	operator()() const
 	{
@@ -96,19 +100,21 @@ public:
 				*converted;
 		else
 			console_.emit_error(
-				SGE_FONT_TEXT_LIT("Couldn't convert argument ")+
-				fcppt::insert_to_string<sge::font::text::string>(
+				SGE_FONT_LIT("Couldn't convert argument ")+
+				fcppt::insert_to_string<sge::font::string>(
 					Index::value)+
-				SGE_FONT_TEXT_LIT(" to type ")+
-				sge::font::text::from_fcppt_string(
+				SGE_FONT_LIT(" to type ")+
+				sge::font::from_fcppt_string(
 					fcppt::type_name(
 						typeid(
 							result_type))));
 	}
 private:
-	console::object &console_;
+	sge::console::object &console_;
+
 	ParameterTypes &parameters_;
-	console::arg_list const &args_;
+
+	sge::console::arg_list const &args_;
 };
 }
 }

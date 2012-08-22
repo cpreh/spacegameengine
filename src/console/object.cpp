@@ -28,9 +28,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/object.hpp>
 #include <sge/console/signal.hpp>
 #include <sge/console/callback/parameters.hpp>
-#include <sge/font/text/char_type.hpp>
-#include <sge/font/text/lit.hpp>
-#include <sge/font/text/string.hpp>
+#include <sge/font/char_type.hpp>
+#include <sge/font/lit.hpp>
+#include <sge/font/string.hpp>
 #include <sge/src/console/eval_grammar.hpp>
 #include <fcppt/insert_to_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -53,8 +53,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
+
 sge::console::object::object(
-	font::text::char_type const _prefix
+	sge::font::char_type const _prefix
 )
 :
 	error_(),
@@ -71,9 +72,9 @@ sge::console::object::object(
 					this,
 					std::tr1::placeholders::_1),
 				callback::name(
-					SGE_FONT_TEXT_LIT("help")))
+					SGE_FONT_LIT("help")))
 				.short_description(
-					SGE_FONT_TEXT_LIT("Display help message")))),
+					SGE_FONT_LIT("Display help message")))),
 	man_connection_(
 		this->insert(
 			callback::parameters(
@@ -82,9 +83,9 @@ sge::console::object::object(
 					this,
 					std::tr1::placeholders::_1),
 				callback::name(
-					SGE_FONT_TEXT_LIT("man")))
+					SGE_FONT_LIT("man")))
 				.short_description(
-					SGE_FONT_TEXT_LIT("Display information for a specific function"))))
+					SGE_FONT_LIT("Display information for a specific function"))))
 {
 }
 FCPPT_PP_POP_WARNING
@@ -159,7 +160,7 @@ sge::console::object::register_message_callback(
 
 void
 sge::console::object::eval(
-	font::text::string const &sp
+	sge::font::string const &sp
 )
 {
 	if (sp.empty())
@@ -171,15 +172,15 @@ sge::console::object::eval(
 		return;
 	}
 
-	font::text::string const s = sp.substr(1);
+	sge::font::string const s = sp.substr(1);
 
 	sge::console::arg_list args;
 
 	sge::console::eval_grammar<
-		font::text::string::const_iterator
+		sge::font::string::const_iterator
 	> grammar;
 
-	font::text::string::const_iterator beg = s.begin();
+	sge::font::string::const_iterator beg = s.begin();
 
 	boost::spirit::qi::parse(
 		beg,
@@ -214,11 +215,11 @@ sge::console::object::eval(
 		it == funcs_.end()
 	)
 		throw console::exception(
-			SGE_FONT_TEXT_LIT("couldn't find command \"")
+			SGE_FONT_LIT("couldn't find command \"")
 			+
 			args[0]
 			+
-			SGE_FONT_TEXT_LIT('"')
+			SGE_FONT_LIT('"')
 		);
 
 	it->second->signal()(
@@ -232,7 +233,7 @@ sge::console::object::functions() const
 	return funcs_;
 }
 
-sge::font::text::char_type
+sge::font::char_type
 sge::console::object::prefix() const
 {
 	return prefix_;
@@ -240,7 +241,7 @@ sge::console::object::prefix() const
 
 void
 sge::console::object::emit_error(
-	font::text::string const &s)
+	sge::font::string const &s)
 {
 	error_(
 		s);
@@ -248,7 +249,7 @@ sge::console::object::emit_error(
 
 void
 sge::console::object::emit_message(
-	font::text::string const &s)
+	sge::font::string const &s)
 {
 	message_(
 		s);
@@ -259,9 +260,9 @@ sge::console::object::help_callback(
 	sge::console::arg_list const &)
 {
 	emit_message(
-		fcppt::insert_to_string<font::text::string>(
+		fcppt::insert_to_string<sge::font::string>(
 			funcs_.size())
-		+ SGE_FONT_TEXT_LIT(" available functions:"));
+		+ SGE_FONT_LIT(" available functions:"));
 
 	for(
 		function_map::const_iterator it(
@@ -273,7 +274,7 @@ sge::console::object::help_callback(
 		this->emit_message(
 			((*it)->first)
 			+
-			SGE_FONT_TEXT_LIT(": ")
+			SGE_FONT_LIT(": ")
 			+
 			(it->second)->short_description()
 		);
@@ -286,7 +287,7 @@ sge::console::object::man_callback(
 	if (v.size() < 2)
 	{
 		emit_error(
-			SGE_FONT_TEXT_LIT("no function given"));
+			SGE_FONT_LIT("no function given"));
 		return;
 	}
 
@@ -300,9 +301,9 @@ sge::console::object::man_callback(
 	if (i == fns.end())
 	{
 		emit_error(
-			SGE_FONT_TEXT_LIT("function \"")
+			SGE_FONT_LIT("function \"")
 			+ v[1]
-			+ SGE_FONT_TEXT_LIT("\" not found")
+			+ SGE_FONT_LIT("\" not found")
 		);
 
 		return;
@@ -310,7 +311,7 @@ sge::console::object::man_callback(
 
 	if (i->second->long_description().empty())
 		emit_message(
-			SGE_FONT_TEXT_LIT("No manpage available")
+			SGE_FONT_LIT("No manpage available")
 		);
 	else
 		emit_message(
@@ -319,7 +320,7 @@ sge::console::object::man_callback(
 
 void
 sge::console::object::remove_function(
-	font::text::string const &_name)
+	sge::font::string const &_name)
 {
 	function_map::iterator const it(
 		funcs_.find(

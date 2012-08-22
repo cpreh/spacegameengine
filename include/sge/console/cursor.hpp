@@ -21,74 +21,100 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CONSOLE_CURSOR_HPP_INCLUDED
 #define SGE_CONSOLE_CURSOR_HPP_INCLUDED
 
+#include <sge/console/cursor_fwd.hpp>
 #include <sge/console/function_map.hpp>
 #include <sge/console/symbol.hpp>
-#include <sge/font/text/char_type.hpp>
-#include <sge/font/text/string.hpp>
+#include <sge/font/char_type.hpp>
+#include <sge/font/string.hpp>
+#include <fcppt/noncopyable.hpp>
+
 
 namespace sge
 {
 namespace console
 {
+
 class cursor
 {
+	FCPPT_NONCOPYABLE(
+		cursor
+	);
 public:
 	typedef
-	font::text::string::size_type
+	sge::font::string::size_type
 	size_type;
 
-	SGE_CONSOLE_SYMBOL cursor();
+	SGE_CONSOLE_SYMBOL
+	cursor();
 
-	SGE_CONSOLE_SYMBOL font::text::string const
+	SGE_CONSOLE_SYMBOL
+	~cursor();
+
+	SGE_CONSOLE_SYMBOL
+	sge::font::string const
 	edited(
 		bool
 	) const;
 
-	SGE_CONSOLE_SYMBOL font::text::string const
+	SGE_CONSOLE_SYMBOL
+	sge::font::string const
 	string() const;
 
-	SGE_CONSOLE_SYMBOL void
+	SGE_CONSOLE_SYMBOL
+	void
 	string(
-		font::text::string const &
+		sge::font::string const &
 	);
 
-	SGE_CONSOLE_SYMBOL void
+	SGE_CONSOLE_SYMBOL
+	void
 	erase_word();
 
-	SGE_CONSOLE_SYMBOL void
+	SGE_CONSOLE_SYMBOL
+	void
 	erase_char();
 
-	SGE_CONSOLE_SYMBOL void
+	SGE_CONSOLE_SYMBOL
+	void
 	left();
 
-	SGE_CONSOLE_SYMBOL void
+	SGE_CONSOLE_SYMBOL
+	void
 	right();
 
-	SGE_CONSOLE_SYMBOL void
+	SGE_CONSOLE_SYMBOL
+	void
 	to_start();
 
-	SGE_CONSOLE_SYMBOL void
+	SGE_CONSOLE_SYMBOL
+	void
 	to_end();
 
-	SGE_CONSOLE_SYMBOL bool
+	SGE_CONSOLE_SYMBOL
+	bool
 	empty() const;
 
-	SGE_CONSOLE_SYMBOL void
+	SGE_CONSOLE_SYMBOL
+	void
 	insert(
-		font::text::char_type
+		sge::font::char_type
 	);
 
-	SGE_CONSOLE_SYMBOL bool
+	SGE_CONSOLE_SYMBOL
+	bool
 	at_start() const;
 
-	SGE_CONSOLE_SYMBOL void
+	SGE_CONSOLE_SYMBOL
+	void
 	complete_word(
-		console::function_map const &
+		sge::console::function_map const &
 	);
 private:
-	font::text::string line_;
+	sge::font::string line_;
+
 	size_type pos_;
 };
+
 }
 }
 

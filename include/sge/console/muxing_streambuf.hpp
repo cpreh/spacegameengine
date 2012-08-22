@@ -26,10 +26,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/object_fwd.hpp>
 #include <sge/console/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/scoped_ptr_decl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iosfwd>
 #include <streambuf>
+#include <string>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -50,51 +52,74 @@ A console (an sge::console::object, to be precise), might be present, however.
 So it would be great if you could redirect the output of the given ostream to
 the console. This is what the muxing_streambuf does.
 */
-template<typename Char,typename Traits>
+template<
+	typename Char,
+	typename Traits
+>
 class muxing_streambuf
 :
-		std::basic_streambuf<Char,Traits>
+	std::basic_streambuf<
+		Char,
+		Traits
+	>
 {
-FCPPT_NONCOPYABLE(
-	muxing_streambuf);
+	FCPPT_NONCOPYABLE(
+		muxing_streambuf
+	);
 public:
 	typedef
-	std::basic_streambuf<Char,Traits>
+	std::basic_streambuf<
+		Char,
+		Traits
+	>
 	streambuf_base;
 
-	// This is just here to help MSVC++ resolve the int_type (crappy
-	// compiler)
 	typedef typename
 	streambuf_base::int_type
 	int_type;
 
-	SGE_CONSOLE_SYMBOL explicit
+	SGE_CONSOLE_SYMBOL
 	muxing_streambuf(
 		std::basic_ostream<Char,Traits> &,
 		sge::console::object &,
-		console::muxing::type);
+		sge::console::muxing::type
+	);
 
-	SGE_CONSOLE_SYMBOL ~muxing_streambuf();
+	SGE_CONSOLE_SYMBOL
+	~muxing_streambuf();
 private:
 	bool in_progress_;
 	sge::console::object &object_;
+
 	std::basic_ostream<Char,Traits> &stream_;
-	std::basic_streambuf<Char,Traits> *old_streambuf_;
-	console::muxing::type does_muxing_;
+
+	fcppt::scoped_ptr<
+		std::basic_streambuf<Char,Traits>
+	> old_streambuf_;
+
+	sge::console::muxing::type const does_muxing_;
+
 	std::basic_string<Char,Traits> buffer_;
 
 	int_type
 	overflow(
-		int_type);
+		int_type
+	);
 
-	static fcppt::string
+	// TODO: This should be in src/
+	static
+	fcppt::string const
 	from_string(
-		std::string const &);
+		std::string const &
+	);
 
-	static fcppt::string
+	static
+	fcppt::string const
 	from_string(
-		std::wstring const &);
+		std::wstring const &
+	);
 };
+
 }
 }
 

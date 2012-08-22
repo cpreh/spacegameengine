@@ -21,17 +21,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/exception.hpp>
 #include <sge/console/gfx.hpp>
 #include <sge/console/object.hpp>
+#include <sge/console/output_line_limit.hpp>
 #include <sge/console/sprite_object.hpp>
-#include <sge/font/dim.hpp>
-#include <sge/font/pos.hpp>
+#include <sge/font/align_h.hpp>
+#include <sge/font/lit.hpp>
+#include <sge/font/object_fwd.hpp>
 #include <sge/font/rect.hpp>
-#include <sge/font/text/draw.hpp>
-#include <sge/font/text/drawer_3d.hpp>
-#include <sge/font/text/flags_none.hpp>
-#include <sge/font/text/height.hpp>
-#include <sge/font/text/line_width.hpp>
-#include <sge/font/text/lit.hpp>
-#include <sge/font/text/part.hpp>
+#include <sge/font/string.hpp>
+#include <sge/font/text_parameters.hpp>
+#include <sge/font/unit.hpp>
+#include <sge/font/vector.hpp>
+#include <sge/font/draw/static_text.hpp>
+#include <sge/image/color/any/object.hpp>
 #include <sge/input/keyboard/char_event.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_event.hpp>
@@ -41,10 +42,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/buffers/single_impl.hpp>
 #include <sge/sprite/buffers/with_declaration_impl.hpp>
 #include <sge/sprite/process/one.hpp>
-#include <sge/src/console/next_or_last.hpp>
-#include <fcppt/container/map_impl.hpp>
-#include <fcppt/container/bitfield/object_impl.hpp>
-#include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -55,73 +52,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-namespace
-{
-typedef
-std::vector
-<
-	sge::font::text::string
->
-line_sequence;
-
-line_sequence const
-wrap(
-	sge::font::metrics &metrics,
-	sge::font::text::string const &s,
-	sge::font::dim const &max_dim)
-{
-	if (s.empty())
-		return line_sequence();
-
-	line_sequence lines;
-
-	for (sge::font::text::string::const_iterator i = s.begin(); i != s.end();)
-	{
-
-		sge::font::text::part const tp =
-			sge::font::text::line_width(
-				metrics,
-				i,
-				s.end(),
-				max_dim.w(),
-				sge::font::text::flags::none);
-
-		lines.push_back(
-			sge::font::text::string(
-				i,
-				tp.end()));
-
-		i =
-			tp.next_begin();
-	}
-
-	return lines;
-}
-}
-
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
+
 sge::console::gfx::gfx(
 	sge::console::object &_object,
-	renderer::device &_rend,
-	image::color::any::object const &_font_color,
-	font::metrics &_metrics,
-	input::keyboard::device &_keyboard,
+	sge::renderer::device &_renderer,
+	sge::image::color::any::object const &_font_color,
+	sge::font::object &_font_object,
+	sge::input::keyboard::device &_keyboard,
 	sge::console::sprite_object const &_background,
-	output_line_limit const _line_limit
+	sge::console::output_line_limit const _line_limit
 )
 :
 	object_(
 		_object
 	),
-	font_metrics_(
-		_metrics
+	renderer_(
+		_renderer
 	),
-	font_drawer_(
-		_rend,
-		_font_color,
-		sge::font::text::set_matrices(
-			true)
+	font_color_(
+		_font_color
+	),
+	font_object_(
+		_font_object
 	),
 	keyboard_(
 		_keyboard
@@ -158,29 +112,40 @@ sge::console::gfx::gfx(
 			std::tr1::bind(
 				&gfx::error,
 				this,
-				std::tr1::placeholders::_1))),
+				std::tr1::placeholders::_1
+			)
+		)
+	),
 	message_conn_(
 		object_.register_message_callback(
 			std::tr1::bind(
 				&gfx::print,
 				this,
-				std::tr1::placeholders::_1))),
+				std::tr1::placeholders::_1
+			)
+		)
+	),
 	sprite_buffers_(
-		_rend,
+		_renderer,
 		sge::sprite::buffers::option::dynamic
 	),
 	background_(
-		_background),
+		_background
+	),
 	active_(
-		false),
+		false
+	),
 	input_line_(),
 	input_history_(),
 	current_input_(
-		input_history_.begin()),
+		input_history_.begin()
+	),
 	output_lines_(
-		_line_limit)
+		_line_limit
+	)
 {
 }
+
 FCPPT_PP_POP_WARNING
 
 sge::console::gfx::~gfx()
@@ -198,59 +163,21 @@ sge::console::gfx::render(
 		sprite_buffers_
 	);
 
-	output_line_sequence::size_type const line_count =
-		background_.h() < font::text::height(font_metrics_)
-		?
-			0
-		:
-			static_cast<output_line_sequence::size_type>(
-				background_.h()/
-				font::text::height(
-					font_metrics_));
+	sge::font::unit current_y(
+		background_.h()
+	);
 
-	font::unit current_y =
-		static_cast<font::unit>(
-			background_.y()+background_.h()-2*font::text::height(font_metrics_));
 
-	for(
-		output_line_sequence::const_iterator
-			i =
-				output_lines_.point(),
-			end =
-				next_or_last(
-					output_lines_.point(),
-					output_lines_.end(),
-					line_count);
-		i != end;
-		++i)
-	{
-		// draw history lines
-		font::text::draw(
-			_render_context,
-			font_metrics_,
-			font_drawer_,
-			*i,
-			font::rect(
-				font::pos(
-					background_.x(),
-					current_y),
-				font::dim(
-					background_.w(),
-					background_.h() - font::text::height(font_metrics_))),
-			font::text::align_h::left,
-			font::text::align_v::top,
-			font::text::flags::none);
-		current_y -=
-			font::text::height(
-				font_metrics_);
-	}
-
-	font::text::string const il =
+	// TODO: wrap drawing of a line in a function!
+/*
+	font::text::string const il(
 		input_line_.edited(
 			// This used to be "bool cursor_active" which was controlled by
 			// a timer, but due to the unneccessary timer depenceny, this
 			// was removed
-			true);
+			true
+		)
+	);
 
 	font::text::draw(
 		_render_context,
@@ -271,6 +198,53 @@ sge::console::gfx::render(
 		font::text::align_h::left,
 		font::text::align_v::top,
 		font::text::flags::none);
+*/
+	for(
+		output_line_sequence::const_iterator
+			iter(
+				output_lines_.point()
+			),
+			end(
+				output_lines_.end()
+			);
+		iter != end;
+		++iter
+	)
+	{
+		sge::font::draw::static_text static_text(
+			renderer_,
+			font_object_,
+			*iter,
+			sge::font::text_parameters(
+				sge::font::align_h::left
+			)
+			.max_width(
+				background_.w()
+			),
+			sge::font::vector::null(),
+			font_color_
+		);
+
+		sge::font::vector const pos(
+			0,
+			current_y
+			-
+			static_text.rect().size().h()
+		);
+
+		if(
+			pos.y() < 0
+		)
+			break;
+
+		static_text.pos(
+			pos
+		);
+
+		static_text.draw(
+			_render_context
+		);
+	}
 }
 
 bool
@@ -291,25 +265,12 @@ sge::console::gfx::active(
 
 void
 sge::console::gfx::print(
-	font::text::string const &_s
+	sge::font::string const &_string
 )
 {
-	line_sequence const sequence(
-		wrap(
-			font_metrics_,
-			_s,
-			fcppt::math::dim::structure_cast<font::dim>(
-				background_.size())));
-
-	for(
-		line_sequence::const_iterator it(
-			sequence.begin()
-		);
-		it != sequence.end();
-		++it
-	)
-		output_lines_.push_front(
-			*it);
+	output_lines_.push_front(
+		_string
+	);
 }
 
 sge::console::object &
@@ -340,16 +301,16 @@ sge::console::gfx::background_sprite() const
 
 void
 sge::console::gfx::key_callback(
-	input::keyboard::key_event const &_key
+	sge::input::keyboard::key_event const &_key
 )
 {
-	if (
+	if(
 		active_
 		&&
 		_key.pressed()
 	)
 		this->key_action(
-			input::keyboard::key_repeat_event(
+			sge::input::keyboard::key_repeat_event(
 				_key.key_code()
 			)
 		);
@@ -357,10 +318,12 @@ sge::console::gfx::key_callback(
 
 void
 sge::console::gfx::char_callback(
-	input::keyboard::char_event const &_event
+	sge::input::keyboard::char_event const &_event
 )
 {
-	if (!active_)
+	if(
+		!active_
+	)
 		return;
 
 	// is a printable character? then append to input
@@ -381,13 +344,17 @@ sge::console::gfx::char_callback(
 
 void
 sge::console::gfx::key_action(
-	input::keyboard::key_repeat_event const &_event
+	sge::input::keyboard::key_repeat_event const &_event
 )
 {
-	if (!active_)
+	if(
+		!active_
+	)
 		return;
 
-	switch (_event.key_code())
+	switch(
+		_event.key_code()
+	)
 	{
 		case input::keyboard::key_code::w:
 			if(
@@ -451,10 +418,12 @@ sge::console::gfx::key_action(
 				object_.eval(
 					input_line_.string());
 			}
-			catch (console::exception const &_error)
+			catch(
+				sge::console::exception const &_error
+			)
 			{
-				print(
-					SGE_FONT_TEXT_LIT("console error: ")
+				this->print(
+					SGE_FONT_LIT("console error: ")
 					+
 					_error.console_string()
 				);
@@ -469,7 +438,7 @@ sge::console::gfx::key_action(
 
 			// clear input line
 			input_line_.string(
-				SGE_FONT_TEXT_LIT("")
+				SGE_FONT_LIT("")
 			);
 		break;
 		// else we get a million warnings about unhandled enumeration values
@@ -479,9 +448,12 @@ sge::console::gfx::key_action(
 
 void
 sge::console::gfx::error(
-	font::text::string const &s)
+	sge::font::string const &_string
+)
 {
-	print(
-		SGE_FONT_TEXT_LIT("command error: ")+
-		s);
+	this->print(
+		SGE_FONT_LIT("command error: ")
+		+
+		_string
+	);
 }

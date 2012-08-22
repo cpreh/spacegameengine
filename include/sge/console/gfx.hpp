@@ -24,12 +24,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/cursor.hpp>
 #include <sge/console/object_fwd.hpp>
 #include <sge/console/output_line_limit.hpp>
+#include <sge/console/output_line_sequence.hpp>
 #include <sge/console/sprite_object.hpp>
 #include <sge/console/symbol.hpp>
-#include <sge/font/metrics_fwd.hpp>
-#include <sge/font/text/drawer_3d.hpp>
-#include <sge/font/text/string.hpp>
-#include <sge/image/color/any/object_fwd.hpp>
+#include <sge/font/object_fwd.hpp>
+#include <sge/font/string.hpp>
+#include <sge/image/color/any/object.hpp>
 #include <sge/input/keyboard/char_event_fwd.hpp>
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/input/keyboard/key_event_fwd.hpp>
@@ -57,40 +57,48 @@ class gfx
 		gfx
 	);
 public:
-	SGE_CONSOLE_SYMBOL gfx(
+	SGE_CONSOLE_SYMBOL
+	gfx(
 		sge::console::object &,
-		renderer::device &,
-		image::color::any::object const &font_color,
-		font::metrics &,
-		input::keyboard::device &,
+		sge::renderer::device &,
+		sge::image::color::any::object const &font_color,
+		sge::font::object &,
+		sge::input::keyboard::device &,
 		sge::console::sprite_object const &,
-		output_line_limit
+		sge::console::output_line_limit
 	);
 
-	SGE_CONSOLE_SYMBOL ~gfx();
+	SGE_CONSOLE_SYMBOL
+	~gfx();
 
-	SGE_CONSOLE_SYMBOL void
+	SGE_CONSOLE_SYMBOL
+	void
 	render(
 		sge::renderer::context::object &
 	);
 
-	SGE_CONSOLE_SYMBOL bool
+	SGE_CONSOLE_SYMBOL
+	bool
 	active() const;
 
-	SGE_CONSOLE_SYMBOL void
+	SGE_CONSOLE_SYMBOL
+	void
 	active(
 		bool
 	);
 
-	SGE_CONSOLE_SYMBOL void
+	SGE_CONSOLE_SYMBOL
+	void
 	print(
-		font::text::string const &
+		sge::font::string const &
 	);
 
-	SGE_CONSOLE_SYMBOL sge::console::object &
+	SGE_CONSOLE_SYMBOL
+	sge::console::object &
 	object();
 
-	SGE_CONSOLE_SYMBOL sge::console::object const &
+	SGE_CONSOLE_SYMBOL
+	sge::console::object const &
 	object() const;
 
 	SGE_CONSOLE_SYMBOL
@@ -102,16 +110,20 @@ public:
 	background_sprite() const;
 private:
 	typedef
-	std::list<font::text::string>
+	std::list<
+		sge::font::string
+	>
 	input_history_sequence;
 
 	sge::console::object &object_;
 
-	font::metrics &font_metrics_;
+	sge::renderer::device &renderer_;
 
-	font::text::drawer_3d font_drawer_;
+	sge::image::color::any::object const font_color_;
 
-	input::keyboard::device &keyboard_;
+	sge::font::object &font_object_;
+
+	sge::input::keyboard::device &keyboard_;
 
 	fcppt::signal::scoped_connection const
 		key_connection_,
@@ -132,34 +144,37 @@ private:
 
 	bool active_;
 
-	cursor input_line_;
-	input_history_sequence input_history_;
-	input_history_sequence::iterator current_input_;
-	output_line_sequence output_lines_;
+	sge::console::cursor input_line_;
+
+	sge::console::gfx::input_history_sequence input_history_;
+
+	sge::console::gfx::input_history_sequence::iterator current_input_;
+
+	sge::console::output_line_sequence output_lines_;
 
 	void
 	key_callback(
-		input::keyboard::key_event const &
+		sge::input::keyboard::key_event const &
 	);
 
 	void
 	char_callback(
-		input::keyboard::char_event const &
+		sge::input::keyboard::char_event const &
 	);
 
 	void
 	key_action(
-		input::keyboard::key_repeat_event const &
+		sge::input::keyboard::key_repeat_event const &
 	);
 
 	void
 	tab_complete(
-		font::text::string &
+		sge::font::string &
 	);
 
 	void
 	error(
-		font::text::string const &
+		sge::font::string const &
 	);
 };
 

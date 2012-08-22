@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_CONSOLE_EVAL_GRAMMAR_IMPL_HPP_INCLUDED
 #define SGE_SRC_CONSOLE_EVAL_GRAMMAR_IMPL_HPP_INCLUDED
 
-#include <sge/font/text/lit.hpp>
+#include <sge/font/lit.hpp>
 #include <sge/src/console/eval_grammar_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/spirit/include/qi_char.hpp>
@@ -54,9 +54,9 @@ sge::console::eval_grammar<
 		+~space;
 
 	quoted_string_ %=
-		SGE_FONT_TEXT_LIT('"')
-		>> +(~char_(SGE_FONT_TEXT_LIT('"')))
-		>> SGE_FONT_TEXT_LIT('"');
+		SGE_FONT_LIT('"')
+		>> +(~char_(SGE_FONT_LIT('"')))
+		>> SGE_FONT_LIT('"');
 
 	argument_ %=
 		quoted_string_

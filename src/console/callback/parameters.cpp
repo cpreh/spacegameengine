@@ -21,17 +21,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/callback/function.hpp>
 #include <sge/console/callback/name.hpp>
 #include <sge/console/callback/parameters.hpp>
-#include <sge/font/text/string.hpp>
+#include <sge/font/string.hpp>
 
 
 sge::console::callback::parameters::parameters(
-	callback::function const &_function,
-	callback::name const &_name)
+	sge::console::callback::function const &_function,
+	sge::console::callback::name const &_name
+)
 :
 	function_(
-		_function),
+		_function
+	),
 	name_(
-		_name.get()),
+		_name.get()
+	),
 	short_description_(),
 	long_description_()
 {
@@ -39,19 +42,23 @@ sge::console::callback::parameters::parameters(
 
 sge::console::callback::parameters &
 sge::console::callback::parameters::short_description(
-	font::text::string const &_short_description)
+	sge::font::string const &_short_description
+)
 {
 	short_description_ =
 		_short_description;
+
 	return *this;
 }
 
 sge::console::callback::parameters &
 sge::console::callback::parameters::long_description(
-	font::text::string const &_long_description)
+	sge::font::string const &_long_description
+)
 {
 	long_description_ =
 		_long_description;
+
 	return *this;
 }
 
@@ -61,19 +68,19 @@ sge::console::callback::parameters::function() const
 	return function_;
 }
 
-sge::font::text::string const &
+sge::font::string const &
 sge::console::callback::parameters::name() const
 {
 	return name_;
 }
 
-sge::font::text::string const &
+sge::font::string const &
 sge::console::callback::parameters::short_description() const
 {
 	return short_description_;
 }
 
-sge::font::text::string const &
+sge::font::string const &
 sge::console::callback::parameters::long_description() const
 {
 	return long_description_;

@@ -21,75 +21,115 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_CONSOLE_MUXING_STREAMBUF_IMPL_HPP_INCLUDED
 #define SGE_SRC_CONSOLE_MUXING_STREAMBUF_IMPL_HPP_INCLUDED
 
+#include <sge/console/muxing.hpp>
 #include <sge/console/muxing_streambuf.hpp>
 #include <sge/console/object.hpp>
-#include <sge/font/text/from_fcppt_string.hpp>
+#include <sge/font/from_fcppt_string.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/from_std_wstring.hpp>
+#include <fcppt/scoped_ptr_impl.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <ostream>
+#include <string>
 #include <fcppt/config/external_end.hpp>
 
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
-template<typename Char,typename Traits>
-sge::console::muxing_streambuf<Char,Traits>::muxing_streambuf(
+
+template<
+	typename Char,
+	typename Traits
+>
+sge::console::muxing_streambuf<
+	Char,
+	Traits
+>::muxing_streambuf(
 	std::basic_ostream<Char,Traits> &_stream,
 	sge::console::object &_object,
-	console::muxing::type const _does_muxing)
+	sge::console::muxing::type const _does_muxing
+)
 :
+	streambuf_base(),
 	in_progress_(
-		false),
+		false
+	),
 	object_(
-		_object),
+		_object
+	),
 	stream_(
-		_stream),
+		_stream
+	),
 	old_streambuf_(
 		stream_.rdbuf(
-			this)),
+			this
+		)
+	),
 	does_muxing_(
-		_does_muxing),
+		_does_muxing
+	),
 	buffer_()
 {
 }
 FCPPT_PP_POP_WARNING
 
-template<typename Char,typename Traits>
-sge::console::muxing_streambuf<Char,Traits>::~muxing_streambuf()
+template<
+	typename Char,
+	typename Traits
+>
+sge::console::muxing_streambuf<
+	Char,
+	Traits
+>::~muxing_streambuf()
 {
 	stream_.rdbuf(
-		old_streambuf_);
+		old_streambuf_.release().release()
+	);
 }
 
-template<typename Char,typename Traits>
-typename sge::console::muxing_streambuf<Char,Traits>::int_type
-sge::console::muxing_streambuf<Char,Traits>::overflow(
-	int_type c)
+template<
+	typename Char,
+	typename Traits
+>
+typename sge::console::muxing_streambuf<
+	Char,
+	Traits
+>::int_type
+sge::console::muxing_streambuf<
+	Char,
+	Traits
+>::overflow(
+	int_type const _char
+)
 {
-	if(in_progress_)
+	if(
+		in_progress_
+	)
 		return
 			streambuf_base::traits_type::not_eof(
-				c);
+				_char
+			);
 
 	in_progress_ = true;
 
-	if(does_muxing_ == muxing::enabled)
+	if(does_muxing_ == sge::console::muxing::enabled)
 	{
 		old_streambuf_->sputc(
 			streambuf_base::traits_type::to_char_type(
-				c));
+				_char));
 	}
 
-	if(c != streambuf_base::traits_type::eof())
+	if(_char != streambuf_base::traits_type::eof())
 	{
-		if(streambuf_base::traits_type::to_char_type(c) == stream_.widen('\n'))
+		if(streambuf_base::traits_type::to_char_type(_char) == stream_.widen('\n'))
 		{
 			object_.emit_message(
-				sge::font::text::from_fcppt_string(
+				sge::font::from_fcppt_string(
 					this->from_string(
 						buffer_)));
 			buffer_.clear();
@@ -98,7 +138,7 @@ sge::console::muxing_streambuf<Char,Traits>::overflow(
 		{
 			buffer_ +=
 				streambuf_base::traits_type::to_char_type(
-					c);
+					_char);
 		}
 	}
 
@@ -106,27 +146,43 @@ sge::console::muxing_streambuf<Char,Traits>::overflow(
 
 	return
 		streambuf_base::traits_type::not_eof(
-			c);
+			_char);
 }
 
-template<typename Char,typename Traits>
-fcppt::string
-sge::console::muxing_streambuf<Char,Traits>::from_string(
-	std::string const &s)
+template<
+	typename Char,
+	typename Traits
+>
+fcppt::string const
+sge::console::muxing_streambuf<
+	Char,
+	Traits
+>::from_string(
+	std::string const &_string
+)
 {
 	return
 		fcppt::from_std_string(
-			s);
+			_string
+		);
 }
 
-template<typename Char,typename Traits>
-fcppt::string
-sge::console::muxing_streambuf<Char,Traits>::from_string(
-	std::wstring const &s)
+template<
+	typename Char,
+	typename Traits
+>
+fcppt::string const
+sge::console::muxing_streambuf<
+	Char,
+	Traits
+>::from_string(
+	std::wstring const &_string
+)
 {
 	return
 		fcppt::from_std_wstring(
-			s);
+			_string
+		);
 }
 
 #endif
