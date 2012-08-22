@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/symbol.hpp>
 #include <sge/font/object_fwd.hpp>
 #include <sge/font/string.hpp>
+#include <sge/font/unit.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/input/keyboard/char_event_fwd.hpp>
 #include <sge/input/keyboard/device_fwd.hpp>
@@ -151,6 +152,13 @@ private:
 	sge::console::gfx::input_history_sequence::iterator current_input_;
 
 	sge::console::output_line_sequence output_lines_;
+
+	sge::font::unit
+	render_line(
+		sge::renderer::context::object &,
+		sge::font::string const &,
+		sge::font::unit
+	);
 
 	void
 	key_callback(

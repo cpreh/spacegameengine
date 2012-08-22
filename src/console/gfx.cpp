@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/gfx.hpp>
 #include <sge/console/object.hpp>
 #include <sge/console/output_line_limit.hpp>
+#include <sge/console/output_line_sequence.hpp>
 #include <sge/console/sprite_object.hpp>
 #include <sge/font/align_h.hpp>
 #include <sge/font/lit.hpp>
@@ -168,39 +169,20 @@ sge::console::gfx::render(
 	);
 
 
-	// TODO: wrap drawing of a line in a function!
-/*
-	font::text::string const il(
-		input_line_.edited(
-			// This used to be "bool cursor_active" which was controlled by
-			// a timer, but due to the unneccessary timer depenceny, this
-			// was removed
-			true
-		)
-	);
+	current_y =
+		this->render_line(
+			_render_context,
+			input_line_.edited(
+				// This used to be "bool cursor_active" which was controlled by
+				// a timer, but due to the unneccessary timer depenceny, this
+				// was removed
+				true
+			),
+			current_y
+		);
 
-	font::text::draw(
-		_render_context,
-		font_metrics_,
-		font_drawer_,
-		il,
-		font::rect(
-			font::pos(
-				static_cast<font::unit>(
-					background_.x()),
-				static_cast<font::unit>(
-					background_.y()+background_.h()-font::text::height(font_metrics_))),
-			font::dim(
-				static_cast<font::unit>(
-					background_.w()),
-				static_cast<font::unit>(
-					font::text::height(font_metrics_)))),
-		font::text::align_h::left,
-		font::text::align_v::top,
-		font::text::flags::none);
-*/
 	for(
-		output_line_sequence::const_iterator
+		sge::console::output_line_sequence::const_iterator
 			iter(
 				output_lines_.point()
 			),
@@ -211,39 +193,17 @@ sge::console::gfx::render(
 		++iter
 	)
 	{
-		sge::font::draw::static_text static_text(
-			renderer_,
-			font_object_,
-			*iter,
-			sge::font::text_parameters(
-				sge::font::align_h::left
-			)
-			.max_width(
-				background_.w()
-			),
-			sge::font::vector::null(),
-			font_color_
-		);
-
-		sge::font::vector const pos(
-			0,
-			current_y
-			-
-			static_text.rect().size().h()
-		);
+		current_y =
+			this->render_line(
+				_render_context,
+				*iter,
+				current_y
+			);
 
 		if(
-			pos.y() < 0
+			current_y < 0
 		)
 			break;
-
-		static_text.pos(
-			pos
-		);
-
-		static_text.draw(
-			_render_context
-		);
 	}
 }
 
@@ -297,6 +257,48 @@ sge::console::sprite_object const &
 sge::console::gfx::background_sprite() const
 {
 	return background_;
+}
+
+sge::font::unit
+sge::console::gfx::render_line(
+	sge::renderer::context::object &_render_context,
+	sge::font::string const &_line,
+	sge::font::unit const _current_y
+)
+{
+	sge::font::draw::static_text static_text(
+		renderer_,
+		font_object_,
+		_line,
+		sge::font::text_parameters(
+			sge::font::align_h::left
+		)
+		.max_width(
+			background_.w()
+		),
+		sge::font::vector::null(),
+		font_color_
+	);
+
+	sge::font::vector const pos(
+		0,
+		_current_y
+		-
+		static_text.rect().bottom()
+	);;
+
+	static_text.pos(
+		pos
+		+
+		background_.pos()
+	);
+
+	static_text.draw(
+		_render_context
+	);
+
+	return
+		pos.y();
 }
 
 void
