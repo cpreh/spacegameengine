@@ -50,7 +50,7 @@ public:
 	~char_metric();
 
 	sge::font::bitmap::const_view const
-	pixmap() const;
+	view() const;
 
 	sge::font::vector const
 	offset() const;
@@ -58,7 +58,7 @@ public:
 	sge::font::unit
 	x_advance() const;
 private:
-	sge::font::bitmap::const_view const pixmap_;
+	sge::font::bitmap::const_view const view_;
 
 	sge::font::vector const offset_;
 

@@ -26,12 +26,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/vector.hpp>
 #include <sge/font/draw/set_matrices_fwd.hpp>
 #include <sge/font/draw/set_states_fwd.hpp>
-#include <sge/image/color/a8.hpp>
 #include <sge/image/color/format.hpp>
-#include <sge/image/color/init.hpp>
+#include <sge/image/color/optional_format.hpp>
 #include <sge/image/color/any/convert.hpp>
 #include <sge/image/color/any/object.hpp>
-#include <sge/image2d/algorithm/fill.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/buffers/option.hpp>
 #include <sge/sprite/buffers/single_impl.hpp>
@@ -191,11 +189,19 @@ sge::font::draw::detail::static_text_impl::rebuild_texture()
 		new_size
 	)
 	{
+		sge::image::color::optional_format const font_color_format(
+			font_.color_format()
+		);
+
 		texture_.take(
 			renderer_.create_planar_texture(
 				sge::renderer::texture::planar_parameters(
 					new_size,
-					sge::image::color::format::a8,
+					font_color_format
+					?
+						*font_color_format
+					:
+						sge::image::color::format::a8,
 					sge::renderer::texture::mipmap::off(),
 					sge::renderer::resource_flags_field::null(),
 					sge::renderer::texture::capabilities_field::null()
@@ -218,15 +224,6 @@ sge::font::draw::detail::static_text_impl::rebuild_texture()
 		sge::renderer::texture::scoped_planar_lock const lock(
 			*texture_,
 			sge::renderer::lock_mode::writeonly
-		);
-
-		sge::image2d::algorithm::fill(
-			lock.value(),
-			sge::image::color::any::object(
-				sge::image::color::a8(
-					sge::image::color::init::alpha() %= 0.
-				)
-			)
 		);
 
 		text_->render(

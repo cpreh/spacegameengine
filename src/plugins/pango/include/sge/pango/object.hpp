@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/string.hpp>
 #include <sge/font/text_parameters_fwd.hpp>
 #include <sge/font/text_unique_ptr.hpp>
+#include <sge/image/color/optional_format_fwd.hpp>
 #include <sge/pango/pango_layout_scoped_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr_decl.hpp>
@@ -62,6 +63,9 @@ private:
 		sge::font::string const &,
 		sge::font::text_parameters const &
 	);
+
+	sge::image::color::optional_format const
+	color_format() const;
 
 	sge::charconv::system &charconv_system_;
 

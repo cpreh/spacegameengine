@@ -6,12 +6,16 @@ set(
 	src/font/bitmap/include/sge/src/font/bitmap/char_map.hpp
 	src/font/bitmap/include/sge/src/font/bitmap/char_metric.hpp
 	src/font/bitmap/include/sge/src/font/bitmap/char_metric_fwd.hpp
+	src/font/bitmap/include/sge/src/font/bitmap/char_metric_ref_vector.hpp
 	src/font/bitmap/include/sge/src/font/bitmap/const_view.hpp
+	src/font/bitmap/include/sge/src/font/bitmap/line.hpp
+	src/font/bitmap/include/sge/src/font/bitmap/line_fwd.hpp
 	src/font/bitmap/include/sge/src/font/bitmap/load_offset.hpp
 	src/font/bitmap/include/sge/src/font/bitmap/load_one_file.hpp
 	src/font/bitmap/include/sge/src/font/bitmap/load_rect.hpp
 	src/font/bitmap/include/sge/src/font/bitmap/object.hpp
 	src/font/bitmap/include/sge/src/font/bitmap/text.hpp
+	src/font/bitmap/line.cpp
 	src/font/bitmap/load_offset.cpp
 	src/font/bitmap/load_one_file.cpp
 	src/font/bitmap/load_rect.cpp
@@ -21,7 +25,7 @@ set(
 
 add_sge_base_library(
 	"font/bitmap"
-	"sgecore;sgefont;sgeimage2d;sgelog;sgeparse"
+	"sgecore;sgefont;sgeimage;sgeimage2d;sgelog;sgeparse"
 	"${Fcppt_filesystem_LIBRARIES}"
 	""
 	""

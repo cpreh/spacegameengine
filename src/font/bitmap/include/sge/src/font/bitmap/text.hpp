@@ -21,13 +21,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_FONT_BITMAP_TEXT_HPP_INCLUDED
 #define SGE_SRC_FONT_BITMAP_TEXT_HPP_INCLUDED
 
-#include <sge/font/rect_fwd.hpp>
+#include <sge/font/rect.hpp>
 #include <sge/font/string.hpp>
 #include <sge/font/text.hpp>
-#include <sge/font/text_parameters.hpp>
+#include <sge/font/text_parameters_fwd.hpp>
+#include <sge/font/unit.hpp>
 #include <sge/font/view_fwd.hpp>
 #include <sge/src/font/bitmap/char_map.hpp>
+#include <sge/src/font/bitmap/line_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/ptr_container/ptr_vector.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -46,9 +51,10 @@ class text
 	);
 public:
 	text(
-		sge::font::bitmap::char_map &,
+		sge::font::bitmap::char_map const &,
 		sge::font::string const &,
-		sge::font::text_parameters const &
+		sge::font::text_parameters const &,
+		sge::font::unit line_height
 	);
 
 	~text();
@@ -61,11 +67,15 @@ private:
 	sge::font::rect const
 	rect();
 
-	sge::font::bitmap::char_map &char_map_;
+	typedef boost::ptr_vector<
+		sge::font::bitmap::line
+	> line_vector;
 
-	sge::font::string const string_;
+	line_vector lines_;
 
-	sge::font::text_parameters const text_parameters_;
+	sge::font::rect rect_;
+
+	sge::font::unit const line_height_;
 };
 
 }

@@ -19,16 +19,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/config/media_path.hpp>
-#include <sge/font/metrics.hpp>
-#include <sge/font/metrics_scoped_ptr.hpp>
+#include <sge/font/align_h.hpp>
+#include <sge/font/from_fcppt_string.hpp>
+#include <sge/font/lit.hpp>
+#include <sge/font/object.hpp>
+#include <sge/font/object_scoped_ptr.hpp>
+#include <sge/font/string.hpp>
+#include <sge/font/text_parameters.hpp>
+#include <sge/font/vector.hpp>
 #include <sge/font/bitmap/create.hpp>
-#include <sge/font/text/draw.hpp>
-#include <sge/font/text/drawer_3d.hpp>
-#include <sge/font/text/flags_none.hpp>
-#include <sge/font/text/from_fcppt_string.hpp>
-#include <sge/font/text/lit.hpp>
-#include <sge/font/text/part.hpp>
-#include <sge/font/text/string.hpp>
+#include <sge/font/draw/static_text.hpp>
 #include <sge/image/capabilities_field.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/media/extension.hpp>
@@ -158,7 +158,7 @@ try
 		)
 	);
 
-	sge::font::metrics_scoped_ptr const font_metrics(
+	sge::font::object_scoped_ptr const font_object(
 		sge::font::bitmap::create(
 			sge::config::media_path()
 			/ FCPPT_TEXT("fonts")
@@ -168,28 +168,39 @@ try
 		)
 	);
 
-	sge::font::text::drawer_3d font_drawer(
-		sys.renderer(),
-		sge::image::colors::white(),
-		sge::font::text::set_matrices(
-			true));
-
 	fcppt::signal::scoped_connection const escape_connection(
 		sge::systems::quit_on_escape(
 			sys
 		)
 	);
 
-	sge::font::text::string const string(
+	sge::font::string const string(
 		_main_function_context.argc() == 2
 		?
-			sge::font::text::from_fcppt_string(
+			sge::font::from_fcppt_string(
 				fcppt::from_std_string(
 					_main_function_context.argv()[1]
 				)
 			)
 		:
-			SGE_FONT_TEXT_LIT("test abcd")
+			SGE_FONT_LIT("test abcd 123145135 adsjlajdlajdlasjd")
+	);
+
+	sge::font::draw::static_text static_text(
+		sys.renderer(),
+		*font_object,
+		string,
+		sge::font::text_parameters(
+			sge::font::align_h::left
+		)
+		.max_width(
+			300
+		),
+		sge::font::vector(
+			100,
+			100
+		),
+		sge::image::colors::white()
 	);
 
 	while(
@@ -208,24 +219,8 @@ try
 			)
 		);
 
-		sge::font::text::draw(
-			scoped_block.get(),
-			*font_metrics,
-			font_drawer,
-			string,
-			sge::font::rect(
-				sge::font::rect::vector::null(),
-				fcppt::math::dim::structure_cast<
-					sge::font::rect::dim
-				>(
-					sge::renderer::target::viewport_size(
-						scoped_block.get().target()
-					)
-				)
-			),
-			sge::font::text::align_h::center,
-			sge::font::text::align_v::center,
-			sge::font::text::flags::none
+		static_text.draw(
+			scoped_block.get()
 		);
 	}
 

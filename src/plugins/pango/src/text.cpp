@@ -25,6 +25,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text.hpp>
 #include <sge/font/text_parameters.hpp>
 #include <sge/font/view_fwd.hpp>
+#include <sge/image/color/a8.hpp>
+#include <sge/image/color/init.hpp>
+#include <sge/image/color/any/object.hpp>
+#include <sge/image2d/algorithm/fill.hpp>
 #include <sge/pango/create_text_layout.hpp>
 #include <sge/pango/glib_deleter.hpp>
 #include <sge/pango/ink_rect.hpp>
@@ -79,6 +83,16 @@ sge::pango::text::render(
 	FT_Bitmap bitmap(
 		sge::pango::freetype::make_bitmap(
 			_view
+		)
+	);
+
+	// TODO: do this properly
+	sge::image2d::algorithm::fill(
+		_view,
+		sge::image::color::any::object(
+			sge::image::color::a8(
+				sge::image::color::init::alpha() %= 0.f
+			)
 		)
 	);
 

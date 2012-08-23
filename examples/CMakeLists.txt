@@ -147,7 +147,7 @@ add_sge_console_example(
 
 add_sge_example(
 	bitmapfont
-	"sgeconfig;sgefontbitmap;sgefonttext;sgeimage;sgeinput;sgerenderer;sgesystems;sgeviewport;sgewindow"
+	"sgeconfig;sgefont;sgefontbitmap;sgefontdraw;sgeimage;sgeinput;sgerenderer;sgesystems;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 )

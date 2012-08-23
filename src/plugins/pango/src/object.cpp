@@ -25,6 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text.hpp>
 #include <sge/font/text_parameters_fwd.hpp>
 #include <sge/font/text_unique_ptr.hpp>
+#include <sge/image/color/format.hpp>
+#include <sge/image/color/optional_format.hpp>
 #include <sge/pango/create_layout.hpp>
 #include <sge/pango/glib_deleter.hpp>
 #include <sge/pango/object.hpp>
@@ -85,5 +87,15 @@ sge::pango::object::create_text(
 					_parameters
 				)
 			)
+		);
+}
+
+sge::image::color::optional_format const
+sge::pango::object::color_format() const
+{
+	// TODO: This should be extended to all formats
+	return
+		sge::image::color::optional_format(
+			sge::image::color::format::a8
 		);
 }

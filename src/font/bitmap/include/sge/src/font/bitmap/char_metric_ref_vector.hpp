@@ -18,48 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/font/unit.hpp>
-#include <sge/font/vector.hpp>
-#include <sge/src/font/bitmap/char_metric.hpp>
-#include <sge/src/font/bitmap/const_view.hpp>
+#ifndef SGE_SRC_FONT_BITMAP_CHAR_METRIC_REF_VECTOR_HPP_INCLUDED
+#define SGE_SRC_FONT_BITMAP_CHAR_METRIC_REF_VECTOR_HPP_INCLUDED
+
+#include <sge/src/font/bitmap/char_metric_fwd.hpp>
+#include <fcppt/reference_wrapper.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <vector>
+#include <fcppt/config/external_end.hpp>
 
 
-sge::font::bitmap::char_metric::char_metric(
-	sge::font::bitmap::const_view const &_view,
-	sge::font::vector const &_offset,
-	sge::font::unit const _x_advance
-)
-:
-	view_(
-		_view
-	),
-	offset_(
-		_offset
-	),
-	x_advance_(
-		_x_advance
-	)
+namespace sge
 {
+namespace font
+{
+namespace bitmap
+{
+
+typedef std::vector<
+	fcppt::reference_wrapper<
+		sge::font::bitmap::char_metric const
+	>
+> char_metric_ref_vector;
+
+}
+}
 }
 
-sge::font::bitmap::char_metric::~char_metric()
-{
-}
-
-sge::font::bitmap::const_view const
-sge::font::bitmap::char_metric::view() const
-{
-	return view_;
-}
-
-sge::font::vector const
-sge::font::bitmap::char_metric::offset() const
-{
-	return offset_;
-}
-
-sge::font::unit
-sge::font::bitmap::char_metric::x_advance() const
-{
-	return x_advance_;
-}
+#endif

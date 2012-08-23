@@ -19,47 +19,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/font/unit.hpp>
-#include <sge/font/vector.hpp>
-#include <sge/src/font/bitmap/char_metric.hpp>
-#include <sge/src/font/bitmap/const_view.hpp>
+#include <sge/src/font/bitmap/char_metric_ref_vector.hpp>
+#include <sge/src/font/bitmap/line.hpp>
 
 
-sge::font::bitmap::char_metric::char_metric(
-	sge::font::bitmap::const_view const &_view,
-	sge::font::vector const &_offset,
-	sge::font::unit const _x_advance
+sge::font::bitmap::line::line(
+	sge::font::bitmap::char_metric_ref_vector const &_char_metrics,
+	sge::font::unit const _width
 )
 :
-	view_(
-		_view
+	char_metrics_(
+		_char_metrics
 	),
-	offset_(
-		_offset
-	),
-	x_advance_(
-		_x_advance
+	width_(
+		_width
 	)
 {
 }
 
-sge::font::bitmap::char_metric::~char_metric()
+sge::font::bitmap::line::~line()
 {
 }
 
-sge::font::bitmap::const_view const
-sge::font::bitmap::char_metric::view() const
+sge::font::bitmap::char_metric_ref_vector const &
+sge::font::bitmap::line::char_metrics() const
 {
-	return view_;
-}
-
-sge::font::vector const
-sge::font::bitmap::char_metric::offset() const
-{
-	return offset_;
-}
-
-sge::font::unit
-sge::font::bitmap::char_metric::x_advance() const
-{
-	return x_advance_;
+	return char_metrics_;
 }

@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text_parameters_fwd.hpp>
 #include <sge/font/text_unique_ptr.hpp>
 #include <sge/font/unit.hpp>
+#include <sge/image/color/optional_format.hpp>
 #include <sge/image2d/file_fwd.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/src/font/bitmap/char_map.hpp>
@@ -64,6 +65,9 @@ private:
 		sge::font::text_parameters const &
 	);
 
+	sge::image::color::optional_format const
+	color_format() const;
+
 	typedef boost::ptr_vector<
 		sge::image2d::file
 	> image_vector;
@@ -73,6 +77,8 @@ private:
 	sge::font::unit line_height_;
 
 	sge::font::bitmap::char_map char_map_;
+
+	sge::image::color::optional_format color_format_;
 };
 
 }

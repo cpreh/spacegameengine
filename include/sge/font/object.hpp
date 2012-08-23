@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/symbol.hpp>
 #include <sge/font/text_parameters_fwd.hpp>
 #include <sge/font/text_unique_ptr.hpp>
+#include <sge/image/color/optional_format_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -54,6 +55,17 @@ public:
 		sge::font::string const &,
 		sge::font::text_parameters const &
 	) = 0;
+
+	/**
+	\brief Tells which color format this font can handle
+
+	If this font object can only handle a specific color type (including
+	all convertible formats) then this function will return which one it
+	is. Otherwise, the function returns an empty optional.
+	*/
+	virtual
+	sge::image::color::optional_format const
+	color_format() const = 0;
 };
 
 }
