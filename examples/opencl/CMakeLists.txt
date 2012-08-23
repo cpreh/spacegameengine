@@ -1,3 +1,8 @@
+find_package(
+	OpenCL
+	REQUIRED
+)
+
 add_sge_console_example(
 	opencl_simple
 	"sgelog;sgeopencl;sgerenderer;sgesystems;sgeviewport;sgewindow"
