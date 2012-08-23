@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_FONT_BITMAP_TEXT_HPP_INCLUDED
 #define SGE_SRC_FONT_BITMAP_TEXT_HPP_INCLUDED
 
+#include <sge/font/align_h.hpp>
 #include <sge/font/rect.hpp>
 #include <sge/font/string.hpp>
 #include <sge/font/text.hpp>
@@ -76,6 +77,8 @@ private:
 	sge::font::rect rect_;
 
 	sge::font::unit const line_height_;
+
+	sge::font::align_h::type const align_h_;
 };
 
 }

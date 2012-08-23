@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/font/align_h.hpp>
 #include <sge/font/flags.hpp>
 #include <sge/font/flags_field.hpp>
 #include <sge/font/optional_unit.hpp>
@@ -25,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/string.hpp>
 #include <sge/font/text.hpp>
 #include <sge/font/text_parameters.hpp>
+#include <sge/font/to_fcppt_string.hpp>
 #include <sge/font/unit.hpp>
 #include <sge/font/view.hpp>
 #include <sge/image/size_type.hpp>
@@ -33,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/algorithm/copy_and_convert.hpp>
 #include <sge/image2d/view/size.hpp>
 #include <sge/image2d/view/sub.hpp>
+#include <sge/log/global.hpp>
 #include <sge/src/font/bitmap/char_map.hpp>
 #include <sge/src/font/bitmap/char_metric.hpp>
 #include <sge/src/font/bitmap/char_metric_ref_vector.hpp>
@@ -40,8 +43,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/font/bitmap/line.hpp>
 #include <sge/src/font/bitmap/text.hpp>
 #include <fcppt/cref.hpp>
-#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
+#include <fcppt/log/output.hpp>
+#include <fcppt/log/error.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/next_prior.hpp>
 #include <algorithm>
@@ -62,6 +68,9 @@ sge::font::bitmap::text::text(
 	),
 	line_height_(
 		_line_height
+	),
+	align_h_(
+		_text_parameters.align_h()
 	)
 {
 	sge::font::unit current_x(
@@ -94,18 +103,6 @@ sge::font::bitmap::text::text(
 		++it
 	)
 	{
-		if(
-			std::isspace(
-				*it,
-				std::locale()
-			)
-		)
-		{
-			last_space_width = current_x;
-
-			last_space = it;
-		}
-
 		sge::font::bitmap::char_map::const_iterator const char_it(
 			_char_map.find(
 				*it
@@ -115,36 +112,68 @@ sge::font::bitmap::text::text(
 		if(
 			char_it == _char_map.end()
 		)
+		{
+			FCPPT_LOG_ERROR(
+				sge::log::global(),
+				fcppt::log::_
+					<<
+					FCPPT_TEXT("Bitmapfont character '")
+					<<
+					sge::font::to_fcppt_string(
+						sge::font::string(
+							1u,
+							*it
+						)
+					)
+					<<
+					FCPPT_TEXT("' not available!")
+			);
+
 			continue;
+		}
 
 		sge::font::bitmap::char_metric const &metric(
 			*char_it->second
 		);
 
-		if(
-			(
-				max_width
-				&&
-				*max_width
-				<
-				current_x + metric.x_advance()
+		current_line.push_back(
+			fcppt::cref(
+				metric
 			)
+		);
+
+		current_x += metric.x_advance();
+
+		bool const space_exceeded(
+			max_width
+			&&
+			current_x
+			>
+			*max_width
+		);
+
+		bool const new_line(
+			space_exceeded
 			||
 			boost::next(
 				it
 			)
 			==
 			_string.end()
+		);
+
+		sge::font::unit current_width(
+			current_x
+		);
+
+		if(
+			space_exceeded
 		)
 		{
 			if(
 				current_line.empty()
 			)
 				break;
-
-			sge::font::unit current_width(
-				current_x
-			);
 
 			if(
 				!(
@@ -159,8 +188,8 @@ sge::font::bitmap::text::text(
 			)
 			{
 				current_line.erase(
-					current_line.begin()
-					+
+					current_line.end()
+					-
 					std::distance(
 						last_space,
 						it
@@ -170,11 +199,22 @@ sge::font::bitmap::text::text(
 
 				it = last_space;
 
-				last_space = _string.end();
-
 				current_width = last_space_width;
 			}
+			else
+			{
+				current_line.pop_back();
 
+				current_width -= metric.x_advance();
+
+				--it;
+			}
+		}
+
+		if(
+			new_line
+		)
+		{
 			fcppt::container::ptr::push_back_unique_ptr(
 				lines_,
 				fcppt::make_unique_ptr<
@@ -202,15 +242,23 @@ sge::font::bitmap::text::text(
 			current_line.clear();
 
 			current_x = 0;
+
+			last_space = _string.end();
 		}
-
-		current_line.push_back(
-			fcppt::cref(
-				metric
+		else
+		{
+			if(
+				std::isspace(
+					*it,
+					std::locale()
+				)
 			)
-		);
+			{
+				last_space_width = current_x;
 
-		current_x += metric.x_advance();
+				last_space = it;
+			}
+		}
 	}
 
 	rect_.h(
@@ -222,6 +270,24 @@ sge::font::bitmap::text::text(
 			lines_.size()
 		)
 	);
+
+	switch(
+		align_h_
+	)
+	{
+	case sge::font::align_h::left:
+		break;
+	case sge::font::align_h::right:
+		rect_.left(
+			*max_width - rect_.w()
+		);
+		break;
+	case sge::font::align_h::center:
+		rect_.left(
+			(*max_width - rect_.w()) / 2
+		);
+		break;
+	}
 }
 
 sge::font::bitmap::text::~text()
@@ -253,6 +319,15 @@ sge::font::bitmap::text::render(
 		sge::font::unit left(
 			0u
 		);
+
+		if(
+			align_h_ == sge::font::align_h::right
+		)
+			left = rect_.w() - line.width();
+		else if(
+			align_h_ == sge::font::align_h::center
+		)
+			left = (rect_.w() - line.width()) / 2;
 
 		sge::font::bitmap::char_metric_ref_vector const &metrics(
 			line.char_metrics()

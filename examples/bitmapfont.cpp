@@ -183,10 +183,10 @@ try
 				)
 			)
 		:
-			SGE_FONT_LIT("test abcd 123145135 adsjlajdlajdlasjd")
+			SGE_FONT_LIT("test abcd e 123456789 10 11")
 	);
 
-	sge::font::draw::static_text static_text(
+	sge::font::draw::static_text static_text_left(
 		sys.renderer(),
 		*font_object,
 		string,
@@ -198,6 +198,40 @@ try
 		),
 		sge::font::vector(
 			100,
+			100
+		),
+		sge::image::colors::white()
+	);
+
+	sge::font::draw::static_text static_text_center(
+		sys.renderer(),
+		*font_object,
+		string,
+		sge::font::text_parameters(
+			sge::font::align_h::center
+		)
+		.max_width(
+			300
+		),
+		sge::font::vector(
+			400,
+			100
+		),
+		sge::image::colors::white()
+	);
+
+	sge::font::draw::static_text static_text_right(
+		sys.renderer(),
+		*font_object,
+		string,
+		sge::font::text_parameters(
+			sge::font::align_h::right
+		)
+		.max_width(
+			300
+		),
+		sge::font::vector(
+			700,
 			100
 		),
 		sge::image::colors::white()
@@ -219,7 +253,15 @@ try
 			)
 		);
 
-		static_text.draw(
+		static_text_left.draw(
+			scoped_block.get()
+		);
+
+		static_text_center.draw(
+			scoped_block.get()
+		);
+
+		static_text_right.draw(
 			scoped_block.get()
 		);
 	}

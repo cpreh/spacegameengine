@@ -46,3 +46,9 @@ sge::font::bitmap::line::char_metrics() const
 {
 	return char_metrics_;
 }
+
+sge::font::unit
+sge::font::bitmap::line::width() const
+{
+	return width_;
+}

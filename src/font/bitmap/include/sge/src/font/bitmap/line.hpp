@@ -49,6 +49,9 @@ public:
 
 	sge::font::bitmap::char_metric_ref_vector const &
 	char_metrics() const;
+
+	sge::font::unit
+	width() const;
 private:
 	sge::font::bitmap::char_metric_ref_vector const char_metrics_;
 
