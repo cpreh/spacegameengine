@@ -94,7 +94,7 @@ sge::x11input::device::manager::object::change(
 		(
 			(_info.flags & XIMasterAdded)
 			||
-			(_info.flags & XISlaveAdded)
+			(_info.flags & XIDeviceEnabled)
 		)
 	)
 	{
