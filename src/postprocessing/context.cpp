@@ -53,9 +53,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/connection.hpp>
 #include <fcppt/tr1/functional.hpp>
 
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::postprocessing::context::context(
 	sge::renderer::device &_renderer,
@@ -98,6 +104,8 @@ sge::postprocessing::context::context(
 	downsampled_texture_1_()*/
 {
 }
+
+FCPPT_PP_POP_WARNING
 
 sge::renderer::context::scoped_unique_ptr
 sge::postprocessing::context::create_render_context()
