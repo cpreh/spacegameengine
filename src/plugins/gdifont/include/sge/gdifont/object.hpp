@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gdifont/delete_object_deleter_fwd.hpp>
 #include <sge/gdifont/device_context_fwd.hpp>
 #include <sge/gdifont/include_windows.hpp>
+#include <sge/image/color/optional_format_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -61,6 +62,9 @@ private:
 		sge::font::string const &,
 		sge::font::text_parameters const &
 	);
+
+	sge::image::color::optional_format const
+	color_format() const;
 
 	sge::gdifont::device_context const &device_context_;
 
