@@ -57,28 +57,25 @@ sge::systems::modules::font::find_plugin(
 	)
 	{
 		if(
-			name
-			&&
+			!name
+			||
 			*name
-			!=
+			==
 			it->info().name()
 		)
-			continue;
-
-		return
-			it->load();
+			return
+				it->load();
 	}
 
 	throw sge::systems::exception(
 		name
 		?
-		(
 			FCPPT_TEXT("No plugin of type sge::font::system with name ")
 			+
 			name->get()
 			+
 			FCPPT_TEXT(" found!")
-		)
+
 		:
 			FCPPT_TEXT("No plugin of type sge::font::system found!")
 	);
