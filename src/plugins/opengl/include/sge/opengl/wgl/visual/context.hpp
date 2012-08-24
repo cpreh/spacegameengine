@@ -18,13 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_WINDOWS_VISUAL_OBJECT_HPP_INCLUDED
-#define SGE_OPENGL_WINDOWS_VISUAL_OBJECT_HPP_INCLUDED
+#ifndef SGE_OPENGL_WGL_VISUAL_CONTEXT_HPP_INCLUDED
+#define SGE_OPENGL_WGL_VISUAL_CONTEXT_HPP_INCLUDED
 
-#include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/renderer/pixel_format/object.hpp>
-#include <awl/backends/windows/windows.hpp>
-#include <awl/backends/windows/visual/object.hpp>
+#include <sge/opengl/optional_int.hpp>
+#include <sge/opengl/context/system/base.hpp>
+#include <sge/opengl/context/system/id.hpp>
+#include <sge/opengl/wgl/visual/context_fwd.hpp>
+#include <sge/opengl/wgl/visual/optional_pixel_format_types.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -32,34 +33,43 @@ namespace sge
 {
 namespace opengl
 {
-namespace windows
+namespace wgl
 {
 namespace visual
 {
 
-class object
+class context
 :
-	public awl::backends::windows::visual::object
+	public sge::opengl::context::system::base
 {
 	FCPPT_NONCOPYABLE(
-		object
+		context
 	);
 public:
-	object(
-		sge::opengl::context::system::object &,
-		sge::renderer::pixel_format::object const &
-	);
+	context();
 
-	~object();
+	~context();
+
+	sge::opengl::wgl::visual::optional_pixel_format_types const
+	pixel_format_types() const;
+
+	sge::opengl::optional_int const
+	multi_sample_flag() const;
+
+	sge::opengl::optional_int const
+	srgb_flag() const;
+
+	typedef void needs_before;
+
+	static
+	sge::opengl::context::system::id const
+	static_id;
 private:
-	void
-	apply(
-		HWND
-	) const;
+	sge::opengl::wgl::visual::optional_pixel_format_types const pixel_format_types_;
 
-	sge::opengl::context::system::object &system_context_;
+	sge::opengl::optional_int const multi_sample_flag_;
 
-	sge::renderer::pixel_format::object const format_;
+	sge::opengl::optional_int const srgb_flag_;
 };
 
 }

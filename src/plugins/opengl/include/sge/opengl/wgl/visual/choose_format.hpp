@@ -18,33 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_OPENGL_WGL_VISUAL_CHOOSE_FORMAT_HPP_INCLUDED
+#define SGE_OPENGL_WGL_VISUAL_CHOOSE_FORMAT_HPP_INCLUDED
+
 #include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/opengl/windows/visual/create.hpp>
-#include <sge/opengl/windows/visual/object.hpp>
+#include <sge/opengl/windows/gdi_device_fwd.hpp>
+#include <sge/opengl/windows/visual/format.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
-#include <awl/visual/object_unique_ptr.hpp>
-#include <fcppt/cref.hpp>
-#include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 
 
-awl::visual::object_unique_ptr
-sge::opengl::windows::visual::create(
-	sge::opengl::context::system::object &_system_context,
-	sge::renderer::pixel_format::object const &_pixel_format
-)
+namespace sge
 {
-	return
-		awl::visual::object_unique_ptr(
-			fcppt::make_unique_ptr<
-				sge::opengl::windows::visual::object
-			>(
-				fcppt::ref(
-					_system_context
-				),
-				fcppt::cref(
-					_pixel_format
-				)
-			)
-		);
+namespace opengl
+{
+namespace wgl
+{
+namespace visual
+{
+
+sge::opengl::windows::visual::format const
+choose_format(
+	sge::opengl::windows::gdi_device const &,
+	sge::opengl::context::system::object &,
+	sge::renderer::pixel_format::object const &
+);
+
 }
+}
+}
+}
+
+#endif

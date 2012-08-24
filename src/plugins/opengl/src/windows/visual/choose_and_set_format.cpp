@@ -18,21 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/wgl/visual/choose_format.hpp>
 #include <sge/opengl/windows/gdi_device.hpp>
 #include <sge/opengl/windows/visual/choose_and_set_format.hpp>
 #include <sge/opengl/windows/visual/choose_format.hpp>
 #include <sge/opengl/windows/visual/make_format.hpp>
 #include <sge/opengl/windows/visual/set_format.hpp>
-#include <sge/renderer/pixel_format/color.hpp>
-#include <sge/renderer/pixel_format/depth_stencil.hpp>
+#include <sge/renderer/pixel_format/object.hpp>
+#include <sge/renderer/pixel_format/srgb.hpp>
 #include <awl/backends/windows/windows.hpp>
 
 
 void
 sge::opengl::windows::visual::choose_and_set_format(
+	sge::opengl::context::system::object &_system_context,
 	HWND const _hwnd,
-	sge::renderer::pixel_format::color::type const _bit_depth,
-	sge::renderer::pixel_format::depth_stencil::type const _depth_stencil
+	sge::renderer::pixel_format::object const &_pixel_format
 )
 {
 	sge::opengl::windows::gdi_device const device(
@@ -40,19 +42,36 @@ sge::opengl::windows::visual::choose_and_set_format(
 		sge::opengl::windows::gdi_device::get_tag()
 	);
 
+	bool const needs_wgl(
+		_pixel_format.multi_samples()
+		||
+		_pixel_format.srgb()
+		==
+		sge::renderer::pixel_format::srgb::yes
+	);
+
 	PIXELFORMATDESCRIPTOR const format_desc(
 		sge::opengl::windows::visual::make_format(
-			_bit_depth,
-			_depth_stencil
+			_pixel_format.color(),
+			_pixel_format.depth_stencil()
 		)
 	);
 
 	sge::opengl::windows::visual::set_format(
 		device,
-		sge::opengl::windows::visual::choose_format(
-			device,
-			format_desc
-		),
+		needs_wgl
+		?
+			sge::opengl::wgl::visual::choose_format(
+				device,
+				_system_context,
+				_pixel_format
+			)
+		:
+			sge::opengl::windows::visual::choose_format(
+				device,
+				format_desc
+			)
+		,
 		format_desc
 	);
 }

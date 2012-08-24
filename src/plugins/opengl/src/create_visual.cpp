@@ -42,7 +42,7 @@ sge::opengl::create_visual(
 	sge::opengl::context::system::object &_system_context,
 	awl::system::object &_awl_system,
 #elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
-	sge::opengl::context::system::object &,
+	sge::opengl::context::system::object &_system_context,
 	awl::system::object &,
 #endif
 	sge::renderer::pixel_format::object const &_format
@@ -62,6 +62,7 @@ sge::opengl::create_visual(
 #elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 	return
 		sge::opengl::windows::visual::create(
+			_system_context,
 			_format
 		);
 #else

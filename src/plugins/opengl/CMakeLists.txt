@@ -771,6 +771,16 @@ set(
 	src/plugins/opengl/include/sge/opengl/wgl/context.hpp
 	src/plugins/opengl/include/sge/opengl/wgl/context_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/wgl/make_current.hpp
+	src/plugins/opengl/include/sge/opengl/wgl/visual/attribute_container.hpp
+	src/plugins/opengl/include/sge/opengl/wgl/visual/attribute_container_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/wgl/visual/choose_format.hpp
+	src/plugins/opengl/include/sge/opengl/wgl/visual/context.hpp
+	src/plugins/opengl/include/sge/opengl/wgl/visual/context_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/wgl/visual/make_attributes.hpp
+	src/plugins/opengl/include/sge/opengl/wgl/visual/optional_pixel_format_types.hpp
+	src/plugins/opengl/include/sge/opengl/wgl/visual/optional_pixel_format_types_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/wgl/visual/pixel_format_types.hpp
+	src/plugins/opengl/include/sge/opengl/wgl/visual/pixel_format_types_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/windows/change_display_settings.hpp
 	src/plugins/opengl/include/sge/opengl/windows/context.hpp
 	src/plugins/opengl/include/sge/opengl/windows/gdi_device.hpp
@@ -785,6 +795,10 @@ set(
 	src/plugins/opengl/include/sge/opengl/windows/visual/set_format.hpp
 	src/plugins/opengl/src/wgl/context.cpp
 	src/plugins/opengl/src/wgl/make_current.cpp
+	src/plugins/opengl/src/wgl/visual/choose_format.cpp
+	src/plugins/opengl/src/wgl/visual/context.cpp
+	src/plugins/opengl/src/wgl/visual/make_attributes.cpp
+	src/plugins/opengl/src/wgl/visual/pixel_format_types.cpp
 	src/plugins/opengl/src/windows/change_display_settings.cpp
 	src/plugins/opengl/src/windows/context.cpp
 	src/plugins/opengl/src/windows/gdi_device.cpp

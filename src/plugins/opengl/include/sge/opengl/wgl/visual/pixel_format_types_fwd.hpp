@@ -18,33 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/opengl/windows/visual/create.hpp>
-#include <sge/opengl/windows/visual/object.hpp>
-#include <sge/renderer/pixel_format/object_fwd.hpp>
-#include <awl/visual/object_unique_ptr.hpp>
-#include <fcppt/cref.hpp>
-#include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
+#ifndef SGE_OPENGL_WGL_VISUAL_PIXEL_FORMAT_TYPES_FWD_HPP_INCLUDED
+#define SGE_OPENGL_WGL_VISUAL_PIXEL_FORMAT_TYPES_FWD_HPP_INCLUDED
 
 
-awl::visual::object_unique_ptr
-sge::opengl::windows::visual::create(
-	sge::opengl::context::system::object &_system_context,
-	sge::renderer::pixel_format::object const &_pixel_format
-)
+namespace sge
 {
-	return
-		awl::visual::object_unique_ptr(
-			fcppt::make_unique_ptr<
-				sge::opengl::windows::visual::object
-			>(
-				fcppt::ref(
-					_system_context
-				),
-				fcppt::cref(
-					_pixel_format
-				)
-			)
-		);
+namespace opengl
+{
+namespace wgl
+{
+namespace visual
+{
+
+class pixel_format_types;
+
 }
+}
+}
+}
+
+#endif
