@@ -19,44 +19,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/plugin/name.hpp>
-#include <sge/renderer/parameters/object.hpp>
-#include <sge/renderer/caps/system_field.hpp>
+#include <sge/systems/font.hpp>
 #include <sge/systems/optional_name.hpp>
-#include <sge/systems/renderer.hpp>
-#include <sge/viewport/resize_function.hpp>
-#include <fcppt/math/box/object_impl.hpp>
 
 
-sge::systems::renderer::renderer(
-	sge::renderer::parameters::object const &_parameters,
-	sge::viewport::resize_function const &_resize_function
-)
+sge::systems::font::font()
 :
-	parameters_(
-		_parameters
-	),
-	resize_function_(
-		_resize_function
-	),
-	caps_(
-		sge::renderer::caps::system_field::null()
-	),
 	name_()
 {
 }
 
-sge::systems::renderer &
-sge::systems::renderer::caps(
-	sge::renderer::caps::system_field const &_caps
-)
-{
-	caps_ = _caps;
-
-	return *this;
-}
-
-sge::systems::renderer &
-sge::systems::renderer::name(
+sge::systems::font &
+sge::systems::font::name(
 	sge::plugin::name const &_name
 )
 {
@@ -65,26 +39,8 @@ sge::systems::renderer::name(
 	return *this;
 }
 
-sge::renderer::parameters::object const &
-sge::systems::renderer::parameters() const
-{
-	return parameters_;
-}
-
-sge::viewport::resize_function const &
-sge::systems::renderer::resize_function() const
-{
-	return resize_function_;
-}
-
-sge::renderer::caps::system_field const &
-sge::systems::renderer::caps() const
-{
-	return caps_;
-}
-
 sge::systems::optional_name const
-sge::systems::renderer::name() const
+sge::systems::font::name() const
 {
 	return name_;
 }

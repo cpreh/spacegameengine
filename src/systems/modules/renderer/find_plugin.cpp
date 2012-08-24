@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/find_plugin.hpp>
 #include <sge/src/systems/modules/renderer/find_plugin.hpp>
 #include <sge/src/systems/modules/renderer/system_pair.hpp>
+#include <sge/systems/optional_name.hpp>
 #include <fcppt/container/bitfield/is_subset_eq.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/spirit/home/phoenix/bind/bind_function.hpp>
@@ -37,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::systems::modules::renderer::system_pair const
 sge::systems::modules::renderer::find_plugin(
 	sge::renderer::plugin::collection const &_collection,
+	sge::systems::optional_name const &_name,
 	sge::renderer::caps::system_field const &_caps
 )
 {
@@ -45,6 +47,7 @@ sge::systems::modules::renderer::find_plugin(
 			sge::renderer::system
 		>(
 			_collection,
+			_name,
 			boost::phoenix::bind(
 				&fcppt::container::bitfield::is_subset_eq<
 					sge::renderer::caps::system_field::enum_type,

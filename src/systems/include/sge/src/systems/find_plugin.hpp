@@ -24,11 +24,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/collection.hpp>
 #include <sge/plugin/context.hpp>
 #include <sge/plugin/flags.hpp>
+#include <sge/plugin/info.hpp>
 #include <sge/plugin/iterator.hpp>
 #include <sge/plugin/object.hpp>
 #include <sge/plugin/object_shared_ptr.hpp>
 #include <sge/src/systems/plugin_pair_decl.hpp>
 #include <sge/systems/exception.hpp>
+#include <sge/systems/optional_name.hpp>
 #include <fcppt/move.hpp>
 #include <fcppt/shared_ptr_impl.hpp>
 #include <fcppt/text.hpp>
@@ -55,6 +57,7 @@ find_plugin(
 	sge::plugin::collection<
 		System
 	> const &_collection,
+	sge::systems::optional_name const &_name,
 	TestFunction const &_test_function
 )
 {
@@ -74,6 +77,21 @@ find_plugin(
 		++it
 	)
 	{
+		bool const name_is_same(
+			_name
+			&&
+			*_name
+			==
+			it->info().name()
+		);
+
+		if(
+			_name
+			&&
+			!name_is_same
+		)
+			continue;
+
 		typedef typename sge::plugin::object_shared_ptr<
 			System
 		>::type plugin_shared_ptr;
@@ -108,6 +126,24 @@ find_plugin(
 						)
 					)
 				);
+		else if(
+			name_is_same
+		)
+			throw sge::systems::exception(
+				FCPPT_TEXT("Plugin of type ")
+				+
+				fcppt::type_name(
+					typeid(
+						System
+					)
+				)
+				+
+				FCPPT_TEXT(" and name ")
+				+
+				_name->get()
+				+
+				FCPPT_TEXT(" was explicitly requested but doesn't match the requested capabilities.")
+			);
 	}
 
 	throw sge::systems::exception(

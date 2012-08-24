@@ -120,8 +120,10 @@ sge::systems::any_visitor::operator()(
 
 sge::systems::any_visitor::result_type
 sge::systems::any_visitor::operator()(
-	sge::systems::font const &
+	sge::systems::font const &_param
 ) const
 {
-	impl_.init_font();
+	impl_.init_font(
+		_param
+	);
 }

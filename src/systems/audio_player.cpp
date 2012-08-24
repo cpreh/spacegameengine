@@ -19,19 +19,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/audio/player_capabilities_field.hpp>
+#include <sge/plugin/name.hpp>
 #include <sge/systems/audio_player.hpp>
+#include <sge/systems/optional_name.hpp>
 
 
 sge::systems::audio_player::audio_player(
-	audio::player_capabilities_field const &_capabilities
+	sge::audio::player_capabilities_field const &_capabilities
 )
 :
-	capabilities_(_capabilities)
+	capabilities_(
+		_capabilities
+	),
+	name_()
 {
+}
+
+sge::systems::audio_player &
+sge::systems::audio_player::name(
+	sge::plugin::name const &_name
+)
+{
+	name_ = _name;
+
+	return *this;
 }
 
 sge::audio::player_capabilities_field const &
 sge::systems::audio_player::capabilities() const
 {
 	return capabilities_;
+}
+
+sge::systems::optional_name const
+sge::systems::audio_player::name() const
+{
+	return name_;
 }

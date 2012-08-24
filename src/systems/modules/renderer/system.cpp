@@ -39,6 +39,7 @@ sge::systems::modules::renderer::system::system(
 	system_pair_(
 		sge::systems::modules::renderer::find_plugin(
 			_collection,
+			_parameters.name(),
 			_parameters.caps()
 		)
 	)

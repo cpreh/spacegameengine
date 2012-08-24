@@ -31,6 +31,7 @@ set(
 	include/sge/systems/instance_fwd.hpp
 	include/sge/systems/list.hpp
 	include/sge/systems/list_fwd.hpp
+	include/sge/systems/optional_name.hpp
 	include/sge/systems/optional_name_fwd.hpp
 	include/sge/systems/plugin_path.hpp
 	include/sge/systems/quit_on_escape.hpp
@@ -50,6 +51,7 @@ set(
 	src/systems/detail/instance_impl.cpp
 	src/systems/exception.cpp
 	src/systems/extract_plugin_path.cpp
+	src/systems/font.cpp
 	src/systems/image2d.cpp
 	src/systems/include/sge/src/systems/any_visitor.hpp
 	src/systems/include/sge/src/systems/basic_loader_impl.hpp
@@ -76,6 +78,7 @@ set(
 	src/systems/include/sge/src/systems/modules/charconv/object_scoped_ptr.hpp
 	src/systems/include/sge/src/systems/modules/charconv/original.hpp
 	src/systems/include/sge/src/systems/modules/charconv/wrapped.hpp
+	src/systems/include/sge/src/systems/modules/font/find_plugin.hpp
 	src/systems/include/sge/src/systems/modules/font/object.hpp
 	src/systems/include/sge/src/systems/modules/font/object_fwd.hpp
 	src/systems/include/sge/src/systems/modules/font/object_scoped_ptr.hpp
@@ -125,6 +128,7 @@ set(
 	src/systems/modules/charconv/object.cpp
 	src/systems/modules/charconv/original.cpp
 	src/systems/modules/charconv/wrapped.cpp
+	src/systems/modules/font/find_plugin.cpp
 	src/systems/modules/font/object.cpp
 	src/systems/modules/image2d/object.cpp
 	src/systems/modules/input/cursor_modifier.cpp

@@ -18,42 +18,68 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/font/system.hpp>
+#include <sge/font/system_fwd.hpp>
 #include <sge/font/plugin/collection_fwd.hpp>
+#include <sge/font/plugin/object_unique_ptr.hpp>
 #include <sge/font/plugin/traits.hpp>
+#include <sge/plugin/collection.hpp>
+#include <sge/plugin/context.hpp>
+#include <sge/plugin/info.hpp>
+#include <sge/plugin/iterator.hpp>
 #include <sge/plugin/object.hpp>
-#include <sge/src/systems/modules/charconv/object.hpp>
 #include <sge/src/systems/modules/font/find_plugin.hpp>
-#include <sge/src/systems/modules/font/object.hpp>
-#include <sge/systems/font_fwd.hpp>
+#include <sge/systems/exception.hpp>
+#include <sge/systems/font.hpp>
+#include <sge/systems/optional_name.hpp>
+#include <fcppt/text.hpp>
 
 
-sge::systems::modules::font::object::object(
+sge::font::plugin::object_unique_ptr
+sge::systems::modules::font::find_plugin(
 	sge::font::plugin::collection const &_collection,
-	sge::systems::font const &_parameters,
-	sge::systems::modules::charconv::object const &_charconv
+	sge::systems::font const &_parameters
 )
-:
-	font_plugin_(
-		sge::systems::modules::font::find_plugin(
-			_collection,
-			_parameters
-		)
-	),
-	font_system_(
-		font_plugin_->get()(
-			_charconv.system()
-		)
+{
+	typedef sge::plugin::iterator<
+		sge::font::system
+	> iterator;
+
+	sge::systems::optional_name const name(
+		_parameters.name()
+	);
+
+	for(
+		iterator it(
+			_collection.begin()
+		);
+		it != _collection.end();
+		++it
 	)
-{
-}
+	{
+		if(
+			name
+			&&
+			*name
+			!=
+			it->info().name()
+		)
+			continue;
 
-sge::systems::modules::font::object::~object()
-{
-}
+		return
+			it->load();
+	}
 
-sge::font::system &
-sge::systems::modules::font::object::system() const
-{
-	return *font_system_;
+	throw sge::systems::exception(
+		name
+		?
+		(
+			FCPPT_TEXT("No plugin of type sge::font::system with name ")
+			+
+			name->get()
+			+
+			FCPPT_TEXT(" found!")
+		)
+		:
+			FCPPT_TEXT("No plugin of type sge::font::system found!")
+	);
 }

@@ -44,6 +44,7 @@ sge::systems::modules::audio::find_player_plugin(
 			sge::audio::player
 		>(
 			_collection,
+			_parameters.name(),
 			boost::phoenix::bind(
 				&sge::audio::player::capabilities,
 				boost::phoenix::arg_names::arg1

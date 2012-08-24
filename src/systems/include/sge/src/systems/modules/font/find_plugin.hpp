@@ -18,17 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_SYSTEMS_MODULES_FONT_OBJECT_HPP_INCLUDED
-#define SGE_SRC_SYSTEMS_MODULES_FONT_OBJECT_HPP_INCLUDED
+#ifndef SGE_SRC_SYSTEMS_MODULES_FONT_FIND_PLUGIN_HPP_INCLUDED
+#define SGE_SRC_SYSTEMS_MODULES_FONT_FIND_PLUGIN_HPP_INCLUDED
 
-#include <sge/font/system_fwd.hpp>
-#include <sge/font/system_scoped_ptr.hpp>
 #include <sge/font/plugin/collection_fwd.hpp>
-#include <sge/font/plugin/object_scoped_ptr.hpp>
-#include <sge/src/systems/modules/charconv/object_fwd.hpp>
-#include <sge/src/systems/modules/font/object_fwd.hpp>
+#include <sge/font/plugin/object_unique_ptr.hpp>
 #include <sge/systems/font_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
 
 
 namespace sge
@@ -40,27 +35,11 @@ namespace modules
 namespace font
 {
 
-class object
-{
-	FCPPT_NONCOPYABLE(
-		object
-	);
-public:
-	object(
-		sge::font::plugin::collection const &,
-		sge::systems::font const &,
-		sge::systems::modules::charconv::object const &
-	);
-
-	~object();
-
-	sge::font::system &
-	system() const;
-private:
-	sge::font::plugin::object_scoped_ptr const font_plugin_;
-
-	sge::font::system_scoped_ptr const font_system_;
-};
+sge::font::plugin::object_unique_ptr
+find_plugin(
+	sge::font::plugin::collection const &,
+	sge::systems::font const &
+);
 
 }
 }

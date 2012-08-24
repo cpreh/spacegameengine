@@ -21,8 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SYSTEMS_RENDERER_HPP_INCLUDED
 #define SGE_SYSTEMS_RENDERER_HPP_INCLUDED
 
+#include <sge/plugin/name.hpp>
 #include <sge/renderer/caps/system_field.hpp>
 #include <sge/renderer/parameters/object.hpp>
+#include <sge/systems/optional_name.hpp>
 #include <sge/systems/renderer_fwd.hpp>
 #include <sge/systems/symbol.hpp>
 #include <sge/viewport/resize_function.hpp>
@@ -47,9 +49,15 @@ public:
 	);
 
 	SGE_SYSTEMS_SYMBOL
-	renderer &
+	sge::systems::renderer &
 	caps(
 		sge::renderer::caps::system_field const &
+	);
+
+	SGE_SYSTEMS_SYMBOL
+	sge::systems::renderer &
+	name(
+		sge::plugin::name const &
 	);
 
 	sge::renderer::parameters::object const &
@@ -60,12 +68,17 @@ public:
 
 	sge::renderer::caps::system_field const &
 	caps() const;
+
+	sge::systems::optional_name const
+	name() const;
 private:
 	sge::renderer::parameters::object const parameters_;
 
 	sge::viewport::resize_function const resize_function_;
 
 	sge::renderer::caps::system_field caps_;
+
+	sge::systems::optional_name name_;
 };
 
 }

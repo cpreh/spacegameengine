@@ -18,39 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_FONT_HPP_INCLUDED
-#define SGE_SYSTEMS_FONT_HPP_INCLUDED
+#ifndef SGE_SYSTEMS_OPTIONAL_NAME_HPP_INCLUDED
+#define SGE_SYSTEMS_OPTIONAL_NAME_HPP_INCLUDED
 
-#include <sge/plugin/name.hpp>
-#include <sge/systems/font_fwd.hpp>
-#include <sge/systems/optional_name.hpp>
-#include <sge/systems/symbol.hpp>
+#include <sge/systems/optional_name_fwd.hpp>
+#include <fcppt/optional_impl.hpp>
 
-
-namespace sge
-{
-namespace systems
-{
-
-class font
-{
-public:
-	SGE_SYSTEMS_SYMBOL
-	font();
-
-	SGE_SYSTEMS_SYMBOL
-	sge::systems::font &
-	name(
-		sge::plugin::name const &
-	);
-
-	sge::systems::optional_name const
-	name() const;
-private:
-	sge::systems::optional_name name_;
-};
-
-}
-}
 
 #endif

@@ -47,6 +47,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/audio_loader_fwd.hpp>
 #include <sge/systems/audio_player_fwd.hpp>
 #include <sge/systems/charconv_fwd.hpp>
+#include <sge/systems/font_fwd.hpp>
 #include <sge/systems/image2d_fwd.hpp>
 #include <sge/systems/input_fwd.hpp>
 #include <sge/systems/plugin_path.hpp>
@@ -115,7 +116,9 @@ public:
 	);
 
 	void
-	init_font();
+	init_font(
+		sge::systems::font const &
+	);
 
 	void
 	init_charconv(

@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SYSTEMS_AUDIO_PLAYER_HPP_INCLUDED
 
 #include <sge/audio/player_capabilities_field.hpp>
+#include <sge/plugin/name.hpp>
 #include <sge/systems/audio_player_fwd.hpp>
+#include <sge/systems/optional_name.hpp>
 #include <sge/systems/symbol.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
@@ -42,13 +44,24 @@ public:
 	SGE_SYSTEMS_SYMBOL
 	explicit
 	audio_player(
-		audio::player_capabilities_field const &
+		sge::audio::player_capabilities_field const &
 	);
 
-	audio::player_capabilities_field const &
+	SGE_SYSTEMS_SYMBOL
+	sge::systems::audio_player &
+	name(
+		sge::plugin::name const &
+	);
+
+	sge::audio::player_capabilities_field const &
 	capabilities() const;
+
+	sge::systems::optional_name const
+	name() const;
 private:
-	audio::player_capabilities_field const capabilities_;
+	sge::audio::player_capabilities_field const capabilities_;
+
+	sge::systems::optional_name name_;
 };
 
 }
