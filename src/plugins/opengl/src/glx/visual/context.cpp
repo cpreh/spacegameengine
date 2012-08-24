@@ -38,7 +38,7 @@ FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
 sge::opengl::glx::visual::context::context()
 :
 	sge::opengl::context::system::base(),
-	flag_(
+	srgb_flag_(
 		sge::opengl::convert::from_gl_bool(
 			GLXEW_EXT_framebuffer_sRGB
 		)
@@ -67,9 +67,9 @@ sge::opengl::glx::visual::context::~context()
 }
 
 sge::opengl::optional_int const
-sge::opengl::glx::visual::context::flag() const
+sge::opengl::glx::visual::context::srgb_flag() const
 {
-	return flag_;
+	return srgb_flag_;
 }
 
 sge::opengl::context::system::id const

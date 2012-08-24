@@ -151,7 +151,7 @@ sge::opengl::glx::visual::make_attributes(
 			);
 
 			ret.push_back(
-				1
+				GL_TRUE
 			);
 
 			ret.push_back(
@@ -183,7 +183,7 @@ sge::opengl::glx::visual::make_attributes(
 		);
 
 		sge::opengl::optional_int const srgb_flag(
-			visual_context.flag()
+			visual_context.srgb_flag()
 		);
 
 		if(
@@ -200,7 +200,7 @@ sge::opengl::glx::visual::make_attributes(
 		);
 
 		ret.push_back(
-			1
+			GL_TRUE
 		);
 	}
 

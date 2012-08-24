@@ -50,7 +50,7 @@ public:
 	~context();
 
 	sge::opengl::optional_int const
-	flag() const;
+	srgb_flag() const;
 
 	typedef void needs_before;
 
@@ -58,7 +58,7 @@ public:
 	sge::opengl::context::system::id const
 	static_id;
 private:
-	sge::opengl::optional_int const flag_;
+	sge::opengl::optional_int const srgb_flag_;
 };
 
 }
