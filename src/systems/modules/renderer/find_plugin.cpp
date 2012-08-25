@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/find_plugin.hpp>
 #include <sge/src/systems/modules/renderer/find_plugin.hpp>
 #include <sge/src/systems/modules/renderer/system_pair.hpp>
-#include <sge/systems/optional_name.hpp>
+#include <sge/systems/optional_name_fwd.hpp>
 #include <fcppt/container/bitfield/is_subset_eq.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/spirit/home/phoenix/bind/bind_function.hpp>
