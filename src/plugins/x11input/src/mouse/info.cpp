@@ -77,26 +77,16 @@ sge::x11input::mouse::info(
 				);
 			break;
 		case XIValuatorClass:
-			{
-				XIValuatorClassInfo const &valuator_class(
+			axis.push_back(
+				sge::x11input::mouse::axis_info(
 					reinterpret_cast<
 						XIValuatorClassInfo const &
 					>(
 						cur
-					)
-				);
-
-				if(
-					valuator_class.mode
-					== XIModeRelative
+					),
+					_display
 				)
-					axis.push_back(
-						sge::x11input::mouse::axis_info(
-							valuator_class,
-							_display
-						)
-					);
-			}
+			);
 			break;
 		}
 	}

@@ -41,16 +41,22 @@ sge::x11input::mouse::axis_code(
 
 	if(
 		name == FCPPT_TEXT("Rel X")
+		||
+		name == FCPPT_TEXT("Abs X")
 	)
 		return sge::input::mouse::axis_code::x;
 
 	if(
 		name == FCPPT_TEXT("Rel Y")
+		||
+		name == FCPPT_TEXT("Abs Y")
 	)
 		return sge::input::mouse::axis_code::y;
 
 	if(
 		name == FCPPT_TEXT("Rel Z")
+		||
+		name == FCPPT_TEXT("Abs Z")
 	)
 		return sge::input::mouse::axis_code::wheel;
 
