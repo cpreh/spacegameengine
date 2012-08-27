@@ -657,6 +657,14 @@ try
 		sys.window_system().poll()
 	)
 	{
+		if(
+			sge::renderer::target::viewport_size(
+				sys.renderer().onscreen_target()
+			).content()
+			== 0u
+		)
+			continue;
+
 		camera.update(
 			sge::timer::elapsed_and_reset<
 				sge::camera::update_duration

@@ -49,6 +49,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/target/onscreen.hpp>
+#include <sge/renderer/target/viewport_size.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
@@ -305,6 +306,13 @@ try
 	while(
 		sys.window_system().poll())
 	{
+		if(
+			sge::renderer::target::viewport_size(
+				sys.renderer().onscreen_target()
+			).content()
+			== 0u
+		)
+			continue;
 
 		camera.update(
 			sge::timer::elapsed_and_reset<sge::camera::update_duration>(
