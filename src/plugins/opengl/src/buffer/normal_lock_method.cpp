@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 GLenum
 sge::opengl::buffer::normal_lock_method(
-	renderer::lock_flags::method::type const _method
+	sge::renderer::lock_flags::method::type const _method
 )
 {
 	switch(

@@ -18,40 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_BUFFER_MAKE_TYPE_HPP_INCLUDED
-#define SGE_OPENGL_BUFFER_MAKE_TYPE_HPP_INCLUDED
+#ifndef SGE_OPENGL_BUFFER_TYPE_HPP_INCLUDED
+#define SGE_OPENGL_BUFFER_TYPE_HPP_INCLUDED
 
-#include <sge/opengl/buffer/type.hpp>
-#include <sge/renderer/exception.hpp>
-#include <fcppt/strong_typedef_construct_cast.hpp>
-#include <fcppt/text.hpp>
+#include <sge/opengl/common.hpp>
+#include <fcppt/strong_typedef.hpp>
 
 
-#define SGE_OPENGL_BUFFER_MAKE_TYPE(\
-	hardware_supported,\
-	min_gl_version,\
-	normal_type,\
-	extension,\
-	extension_type\
-)\
-	fcppt::strong_typedef_construct_cast<\
-		sge::opengl::buffer::type\
-	>(\
-		hardware_supported \
-		? \
-			min_gl_version \
-			? \
-				normal_type \
-				: \
-					extension \
-					? \
-						extension_type \
-					: \
-						throw sge::renderer::exception( \
-							FCPPT_TEXT("Should not happen.") \
-						) \
-		: \
-			normal_type \
-	)
+namespace sge
+{
+namespace opengl
+{
+namespace buffer
+{
+
+FCPPT_MAKE_STRONG_TYPEDEF(
+	GLenum,
+	type
+);
+
+}
+}
+}
 
 #endif

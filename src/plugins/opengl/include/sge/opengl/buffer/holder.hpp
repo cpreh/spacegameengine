@@ -38,18 +38,19 @@ class holder
 		holder
 	);
 public:
-	explicit holder(
-		buffer::base &
+	explicit
+	holder(
+		sge::opengl::buffer::base &
 	);
 
 	~holder();
 
-	buffer::id const
+	sge::opengl::buffer::id const
 	id() const;
 private:
-	buffer::base &base_;
+	sge::opengl::buffer::base &base_;
 
-	buffer::id const id_;
+	sge::opengl::buffer::id const id_;
 };
 
 }

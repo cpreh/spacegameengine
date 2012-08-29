@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/buffer/base.hpp>
 #include <sge/opengl/buffer/create.hpp>
 #include <sge/opengl/buffer/make_type.hpp>
+#include <sge/opengl/buffer/type.hpp>
 #include <sge/opengl/buffer/vbo_context.hpp>
 #include <sge/opengl/context/system/base.hpp>
 #include <sge/opengl/context/system/id.hpp>
@@ -77,13 +78,13 @@ sge::opengl::buffer::vbo_context::impl()
 	return *impl_;
 }
 
-GLenum
+sge::opengl::buffer::type const
 sge::opengl::buffer::vbo_context::index_buffer_type() const
 {
 	return index_buffer_type_;
 }
 
-GLenum
+sge::opengl::buffer::type const
 sge::opengl::buffer::vbo_context::vertex_buffer_type() const
 {
 	return vertex_buffer_type_;

@@ -24,6 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/buffer/base_fwd.hpp>
 #include <sge/opengl/buffer/id.hpp>
+#include <sge/opengl/buffer/optional_id_fwd.hpp>
+#include <sge/opengl/buffer/type.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -42,67 +44,79 @@ class base
 protected:
 	base();
 public:
-	virtual ~base() = 0;
+	virtual
+	~base() = 0;
 
-	virtual buffer::id const
+	virtual
+	sge::opengl::buffer::id const
 	gen_buffer() = 0;
 
-	virtual void
+	virtual
+	void
 	delete_buffer(
-		buffer::id
+		sge::opengl::buffer::id
 	) = 0;
 
-	virtual void
+	virtual
+	void
 	bind_buffer(
-		GLenum type,
-		buffer::id
+		sge::opengl::buffer::type,
+		sge::opengl::buffer::optional_id const &
 	) = 0;
 
-	virtual GLvoid *
+	virtual
+	GLvoid *
 	map_buffer(
-		GLenum type,
+		sge::opengl::buffer::type,
 		GLenum flags
 	) = 0;
 
-	virtual GLvoid *
+	virtual
+	GLvoid *
 	map_buffer_range(
-		GLenum type,
+		sge::opengl::buffer::type,
 		GLenum flags,
 		GLsizei first,
 		GLsizei size
 	) = 0;
 
-	virtual bool
+	virtual
+	bool
 	map_buffer_range_supported() const = 0;
 
-	virtual void
+	virtual
+	void
 	unmap_buffer(
-		GLenum type
+		sge::opengl::buffer::type
 	) = 0;
 
-	virtual void
+	virtual
+	void
 	buffer_data(
-		GLenum type,
+		sge::opengl::buffer::type,
 		GLsizei size,
 		GLvoid const *data,
 		GLenum flags
 	) = 0;
 
-	virtual void
+	virtual
+	void
 	buffer_sub_data(
-		GLenum type,
+		sge::opengl::buffer::type,
 		GLsizei first,
 		GLsizei size,
 		GLvoid const *data
 	) = 0;
 
-	virtual GLvoid *
+	virtual
+	GLvoid *
 	buffer_offset(
-		GLenum type,
+		sge::opengl::buffer::type,
 		GLsizei offset
 	) const = 0;
 
-	virtual bool
+	virtual
+	bool
 	hardware_supported() const = 0;
 };
 

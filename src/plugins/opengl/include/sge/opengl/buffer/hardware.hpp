@@ -24,7 +24,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/buffer/base.hpp>
 #include <sge/opengl/buffer/id.hpp>
+#include <sge/opengl/buffer/optional_id_fwd.hpp>
+#include <sge/opengl/buffer/type.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <map>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -36,7 +41,7 @@ namespace buffer
 
 class hardware
 :
-	public buffer::base
+	public sge::opengl::buffer::base
 {
 	FCPPT_NONCOPYABLE(
 		hardware
@@ -46,29 +51,29 @@ public:
 
 	~hardware();
 private:
-	buffer::id const
+	sge::opengl::buffer::id const
 	gen_buffer();
 
 	void
 	delete_buffer(
-		buffer::id
+		sge::opengl::buffer::id
 	);
 
 	void
 	bind_buffer(
-		GLenum type,
-		buffer::id
+		sge::opengl::buffer::type,
+		sge::opengl::buffer::optional_id const &
 	);
 
 	GLvoid *
 	map_buffer(
-		GLenum type,
+		sge::opengl::buffer::type,
 		GLenum flags
 	);
 
 	GLvoid *
 	map_buffer_range(
-		GLenum type,
+		sge::opengl::buffer::type,
 		GLenum flags,
 		GLsizei first,
 		GLsizei size
@@ -79,12 +84,12 @@ private:
 
 	void
 	unmap_buffer(
-		GLenum type
+		sge::opengl::buffer::type
 	);
 
 	void
 	buffer_data(
-		GLenum type,
+		sge::opengl::buffer::type,
 		GLsizei size,
 		GLvoid const *data,
 		GLenum flags
@@ -92,7 +97,7 @@ private:
 
 	void
 	buffer_sub_data(
-		GLenum type,
+		sge::opengl::buffer::type,
 		GLsizei first,
 		GLsizei size,
 		GLvoid const *data
@@ -100,7 +105,7 @@ private:
 
 	void *
 	buffer_offset(
-		GLenum type,
+		sge::opengl::buffer::type,
 		GLsizei offset
 	) const;
 
@@ -126,6 +131,13 @@ private:
 	PFNGLBUFFERSUBDATAPROC const gl_buffer_sub_data_;
 
 	PFNGLMAPBUFFERRANGEPROC const gl_map_buffer_range_;
+
+	typedef std::map<
+		sge::opengl::buffer::type,
+		sge::opengl::buffer::id
+	> bound_buffer_map;
+
+	bound_buffer_map bound_buffers_;
 };
 
 }

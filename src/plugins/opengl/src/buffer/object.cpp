@@ -20,20 +20,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/buffer/base.hpp>
+#include <sge/opengl/buffer/id.hpp>
 #include <sge/opengl/buffer/normal_lock_method.hpp>
 #include <sge/opengl/buffer/object.hpp>
+#include <sge/opengl/buffer/optional_id.hpp>
 #include <sge/opengl/buffer/range_lock_method.hpp>
+#include <sge/opengl/buffer/type.hpp>
 #include <sge/opengl/convert/resource_flags.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/lock_flags/read.hpp>
+#include <fcppt/null_ptr.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/container/bitfield/object_impl.hpp>
 
 
 sge::opengl::buffer::object::object(
-	buffer::base &_base,
-	GLenum const _type,
+	sge::opengl::buffer::base &_base,
+	sge::opengl::buffer::type const _type,
 	size_type const _size,
 	size_type const _stride,
 	sge::renderer::resource_flags_field const &_flags,
@@ -56,7 +59,7 @@ sge::opengl::buffer::object::object(
 		_flags
 	),
 	dest_(
-		0
+		fcppt::null_ptr()
 	),
 	holder_(
 		base_
@@ -77,7 +80,7 @@ sge::opengl::buffer::object::object(
 	if(
 		new_size == 0
 	)
-		throw renderer::exception(
+		throw sge::renderer::exception(
 			FCPPT_TEXT("ogl_buffer: cannot create an empty buffer!")
 		);
 
@@ -91,7 +94,7 @@ sge::opengl::buffer::object::object(
 			new_size
 		),
 		_src,
-		opengl::convert::resource_flags(
+		sge::opengl::convert::resource_flags(
 			this->flags()
 		)
 	);
@@ -117,28 +120,29 @@ sge::opengl::buffer::object::lock(
 	if(
 		dest_
 	)
-		throw renderer::exception(
+		throw sge::renderer::exception(
 			FCPPT_TEXT("ogl_buffer::lock(): you have to unlock before locking!")
 		);
 
 	if(
-		renderer::lock_flags::read(
+		sge::renderer::lock_flags::read(
 			_lockflags
 		)
 		&&
 		!(
 			this->flags()
-			& renderer::resource_flags::readable
+			&
+			sge::renderer::resource_flags::readable
 		)
 	)
-		throw renderer::exception(
+		throw sge::renderer::exception(
 			FCPPT_TEXT("ogl_buffer: Cannot lock a writeonly buffer for reading!")
 		);
 
 	if(
 		_first > this->size()
 	)
-		throw renderer::exception(
+		throw sge::renderer::exception(
 			FCPPT_TEXT("ogl_buffer::lock(): first out of range!")
 		);
 
@@ -150,7 +154,7 @@ sge::opengl::buffer::object::lock(
 	if(
 		_first + _count > this->size()
 	)
-		throw renderer::exception(
+		throw sge::renderer::exception(
 			FCPPT_TEXT("ogl_buffer::lock(): first + count > size()")
 		);
 
@@ -167,7 +171,7 @@ sge::opengl::buffer::object::lock(
 			>(
 				base_.map_buffer_range(
 					type_,
-					opengl::buffer::range_lock_method(
+					sge::opengl::buffer::range_lock_method(
 						_lockflags
 					),
 					static_cast<
@@ -193,7 +197,7 @@ sge::opengl::buffer::object::lock(
 			>(
 				base_.map_buffer(
 					type_,
-					opengl::buffer::normal_lock_method(
+					sge::opengl::buffer::normal_lock_method(
 						_lockflags
 					)
 				)
@@ -209,9 +213,11 @@ void
 sge::opengl::buffer::object::unlock()
 {
 	if(
-		!dest_
+		dest_
+		==
+		fcppt::null_ptr()
 	)
-		throw renderer::exception(
+		throw sge::renderer::exception(
 			FCPPT_TEXT("ogl_buffer::unlock(), buffer is not locked! cannot unlock!")
 		);
 
@@ -221,11 +227,10 @@ sge::opengl::buffer::object::unlock()
 		type_
 	);
 
-	dest_ = 0;
+	dest_ = fcppt::null_ptr();
 
 	lock_offset_ = lock_size_ = 0;
 }
-
 
 void
 sge::opengl::buffer::object::sub_data(
@@ -235,16 +240,18 @@ sge::opengl::buffer::object::sub_data(
 )
 {
 	if(
-		_first + _count > size()
+		_first + _count > this->size()
 	)
-		throw renderer::exception(
+		throw sge::renderer::exception(
 			FCPPT_TEXT("ogl_buffer::sub_data(), first + count out of range!")
 		);
 
 	if(
 		dest_
+		!=
+		fcppt::null_ptr()
 	)
-		throw renderer::exception(
+		throw sge::renderer::exception(
 			FCPPT_TEXT("ogl_buffer::sub_data(), buffer must not be locked!")
 		);
 
@@ -288,13 +295,16 @@ sge::opengl::buffer::object::pointer
 sge::opengl::buffer::object::data()
 {
 	if(
-		!dest_
+		dest_
+		==
+		fcppt::null_ptr()
 	)
-		throw renderer::exception(
+		throw sge::renderer::exception(
 			FCPPT_TEXT("ogl_buffer used but the buffer has not been locked!")
 		);
 
-	return dest_ + lock_offset_;
+	return
+		dest_ + lock_offset_;
 }
 
 sge::opengl::buffer::object::const_pointer
@@ -322,9 +332,7 @@ void
 sge::opengl::buffer::object::unbind()
 {
 	this->bind_id(
-		buffer::id(
-			0u
-		)
+		sge::opengl::buffer::optional_id()
 	);
 }
 
@@ -332,7 +340,9 @@ void
 sge::opengl::buffer::object::bind() const
 {
 	this->bind_id(
-		this->id()
+		sge::opengl::buffer::optional_id(
+			this->id()
+		)
 	);
 }
 
@@ -359,7 +369,7 @@ sge::opengl::buffer::object::buffer_offset(
 				static_cast<
 					GLsizei
 				>(
-					_sz * stride()
+					_sz * this->stride()
 				)
 			)
 		);
@@ -388,7 +398,7 @@ sge::opengl::buffer::object::native() const
 
 void
 sge::opengl::buffer::object::bind_id(
-	buffer::id const _id
+	sge::opengl::buffer::optional_id const &_id
 ) const
 {
 	base_.bind_buffer(

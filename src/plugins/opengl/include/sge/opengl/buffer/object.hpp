@@ -21,17 +21,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_BUFFER_OBJECT_HPP_INCLUDED
 #define SGE_OPENGL_BUFFER_OBJECT_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/buffer/base_fwd.hpp>
 #include <sge/opengl/buffer/holder.hpp>
 #include <sge/opengl/buffer/id.hpp>
 #include <sge/opengl/buffer/object_fwd.hpp>
+#include <sge/opengl/buffer/optional_id_fwd.hpp>
+#include <sge/opengl/buffer/type.hpp>
 #include <sge/renderer/raw_value.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/container/bitfield/object_decl.hpp>
 
 
 namespace sge
@@ -47,7 +47,7 @@ class object
 		object
 	);
 public:
-	typedef renderer::size_type size_type;
+	typedef sge::renderer::size_type size_type;
 
 	typedef sge::renderer::raw_value value_type;
 
@@ -55,11 +55,11 @@ public:
 
 	typedef value_type const *const_pointer;
 
-	typedef renderer::lock_flags::method::type lock_flag_type;
+	typedef sge::renderer::lock_flags::method::type lock_flag_type;
 
 	object(
-		buffer::base &,
-		GLenum type,
+		sge::opengl::buffer::base &,
+		sge::opengl::buffer::type,
 		size_type size,
 		size_type stride,
 		sge::renderer::resource_flags_field const &,
@@ -119,7 +119,7 @@ public:
 	pointer
 	raw_buffer() const;
 
-	opengl::buffer::id const
+	sge::opengl::buffer::id const
 	id() const;
 
 	bool
@@ -127,12 +127,12 @@ public:
 private:
 	void
 	bind_id(
-		buffer::id
+		sge::opengl::buffer::optional_id const &
 	) const;
 
-	buffer::base &base_;
+	sge::opengl::buffer::base &base_;
 
-	GLenum const type_;
+	sge::opengl::buffer::type const type_;
 
 	size_type const
 		size_,
@@ -142,7 +142,7 @@ private:
 
 	pointer dest_;
 
-	buffer::holder const holder_;
+	sge::opengl::buffer::holder const holder_;
 
 	size_type
 		lock_offset_,

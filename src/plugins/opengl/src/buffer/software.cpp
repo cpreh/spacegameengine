@@ -19,10 +19,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/buffer/base.hpp>
+#include <sge/opengl/buffer/id.hpp>
+#include <sge/opengl/buffer/optional_id.hpp>
 #include <sge/opengl/buffer/software.hpp>
+#include <sge/opengl/buffer/type.hpp>
 #include <sge/renderer/const_raw_pointer.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/raw_value.hpp>
+#include <fcppt/null_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/copy_n.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -33,9 +38,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::buffer::software::software()
 :
-	buffer::base(),
+	sge::opengl::buffer::base(),
 	bound_buffers_(),
-	nextid_(1u),
+	nextid_(
+		0u
+	),
 	buffers_()
 {
 }
@@ -48,13 +55,9 @@ sge::opengl::buffer::id const
 sge::opengl::buffer::software::gen_buffer()
 {
 	buffers_.insert(
-		buffer_map::value_type(
+		std::make_pair(
 			nextid_,
-			static_cast<
-				buffer_map::mapped_type
-			>(
-				0
-			)
+			fcppt::null_ptr()
 		)
 	);
 
@@ -63,7 +66,7 @@ sge::opengl::buffer::software::gen_buffer()
 
 void
 sge::opengl::buffer::software::delete_buffer(
-	buffer::id const _id
+	sge::opengl::buffer::id const _id
 )
 {
 	buffer_map::iterator const it(
@@ -81,8 +84,8 @@ sge::opengl::buffer::software::delete_buffer(
 
 void
 sge::opengl::buffer::software::bind_buffer(
-	GLenum const _type,
-	buffer::id const _id
+	sge::opengl::buffer::type const _type,
+	sge::opengl::buffer::optional_id const &_id
 )
 {
 	bound_buffers_.insert(
@@ -95,14 +98,10 @@ sge::opengl::buffer::software::bind_buffer(
 
 GLvoid *
 sge::opengl::buffer::software::map_buffer(
-	GLenum const _type,
+	sge::opengl::buffer::type const _type,
 	GLenum
 )
 {
-	this->check_bound(
-		_type
-	);
-
 	return
 		this->buffer_object(
 			this->bound_buffer(
@@ -113,16 +112,12 @@ sge::opengl::buffer::software::map_buffer(
 
 GLvoid *
 sge::opengl::buffer::software::map_buffer_range(
-	GLenum const _type,
+	sge::opengl::buffer::type const _type,
 	GLenum const,
 	GLsizei const _first,
 	GLsizei const
 )
 {
-	this->check_bound(
-		_type
-	);
-
 	return
 		this->buffer_object(
 			this->bound_buffer(
@@ -140,17 +135,18 @@ sge::opengl::buffer::software::map_buffer_range_supported() const
 
 void
 sge::opengl::buffer::software::unmap_buffer(
-	GLenum const _type
+	sge::opengl::buffer::type const _type
 )
 {
-	this->check_bound(
+	// For error checking only
+	this->bound_buffer(
 		_type
 	);
 }
 
 void
 sge::opengl::buffer::software::buffer_data(
-	GLenum const _type,
+	sge::opengl::buffer::type const _type,
 	GLsizei const _size,
 	void const *const _data,
 	GLenum
@@ -192,7 +188,7 @@ sge::opengl::buffer::software::buffer_data(
 
 void
 sge::opengl::buffer::software::buffer_sub_data(
-	GLenum const _type,
+	sge::opengl::buffer::type const _type,
 	GLsizei const _first,
 	GLsizei const _size,
 	void const *const _data
@@ -223,7 +219,7 @@ sge::opengl::buffer::software::buffer_sub_data(
 
 void *
 sge::opengl::buffer::software::buffer_offset(
-	GLenum const _type,
+	sge::opengl::buffer::type const _type,
 	GLsizei const _offset
 ) const
 {
@@ -244,28 +240,31 @@ sge::opengl::buffer::software::hardware_supported() const
 
 sge::opengl::buffer::id const
 sge::opengl::buffer::software::bound_buffer(
-	GLenum const _type
+	sge::opengl::buffer::type const _type
 ) const
 {
-	bound_buffer_map::const_iterator const it(
+	sge::opengl::buffer::software::bound_buffer_map::const_iterator const it(
 		bound_buffers_.find(
 			_type
 		)
 	);
 
-	return
+	if(
 		it == bound_buffers_.end()
-		?
-			buffer::id(
-				0u
-			)
-		:
-			it->second;
+		||
+		!it->second
+	)
+		throw sge::renderer::exception(
+			FCPPT_TEXT("bound_buffer): No buffer bound!")
+		);
+
+	return
+		*it->second;
 }
 
 sge::opengl::buffer::software::buffer_map::iterator
 sge::opengl::buffer::software::buffer_object(
-	buffer::id const _id
+	sge::opengl::buffer::id const _id
 )
 {
 	buffer_map::iterator const it(
@@ -286,34 +285,15 @@ sge::opengl::buffer::software::buffer_object(
 
 sge::opengl::buffer::software::buffer_map::const_iterator
 sge::opengl::buffer::software::buffer_object(
-	buffer::id const _id
+	sge::opengl::buffer::id const _id
 ) const
 {
 	return
 		const_cast<
-			buffer::software &
+			sge::opengl::buffer::software &
 		>(
 			*this
 		).buffer_object(
 			_id
-		);
-}
-
-void
-sge::opengl::buffer::software::check_bound(
-	GLenum const _type
-)
-{
-	if(
-		this->bound_buffer(
-			_type
-		)
-		==
-		buffer::id(
-			0u
-		)
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("ogl soft buffer: no buffer bound!")
 		);
 }

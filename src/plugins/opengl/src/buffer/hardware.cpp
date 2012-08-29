@@ -20,14 +20,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/buffer/base.hpp>
+#include <sge/opengl/buffer/id.hpp>
+#include <sge/opengl/buffer/optional_id.hpp>
 #include <sge/opengl/buffer/hardware.hpp>
+#include <sge/opengl/buffer/type.hpp>
 #include <sge/opengl/convert/from_gl_bool.hpp>
 #include <sge/renderer/exception.hpp>
+#include <fcppt/null_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 FCPPT_PP_PUSH_WARNING
@@ -35,7 +43,7 @@ FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
 
 sge::opengl::buffer::hardware::hardware()
 :
-	buffer::base(),
+	sge::opengl::buffer::base(),
 	have_version_1_5_(
 		sge::opengl::convert::from_gl_bool(
 			GLEW_VERSION_1_5
@@ -97,7 +105,8 @@ sge::opengl::buffer::hardware::hardware()
 	),
 	gl_map_buffer_range_(
 		glMapBufferRange
-	)
+	),
+	bound_buffers_()
 {
 	FCPPT_ASSERT_ERROR(
 		have_version_1_5_
@@ -134,7 +143,7 @@ sge::opengl::buffer::hardware::gen_buffer()
 
 void
 sge::opengl::buffer::hardware::delete_buffer(
-	buffer::id const _id
+	sge::opengl::buffer::id const _id
 )
 {
 	gl_delete_buffers_(
@@ -150,13 +159,52 @@ sge::opengl::buffer::hardware::delete_buffer(
 
 void
 sge::opengl::buffer::hardware::bind_buffer(
-	GLenum const _type,
-	buffer::id const _id
+	sge::opengl::buffer::type const _type,
+	sge::opengl::buffer::optional_id const &_id
 )
 {
+	sge::opengl::buffer::id const id(
+		_id
+		?
+			*_id
+		:
+			sge::opengl::buffer::id(
+				0u
+			)
+	);
+
+	{
+		bound_buffer_map::iterator const it(
+			bound_buffers_.begin()
+		);
+
+		if(
+			it == bound_buffers_.end()
+		)
+		{
+			bound_buffers_.insert(
+				std::make_pair(
+					_type,
+					id
+				)
+			);
+
+			if(
+				!_id
+			)
+				return;
+		}
+		else if(
+			it->second == id
+		)
+			return;
+		else
+			it->second = id;
+	}
+
 	gl_bind_buffer_(
-		_type,
-		_id.get()
+		_type.get(),
+		id.get()
 	);
 
 	SGE_OPENGL_CHECK_STATE(
@@ -167,7 +215,7 @@ sge::opengl::buffer::hardware::bind_buffer(
 
 GLvoid *
 sge::opengl::buffer::hardware::map_buffer(
-	GLenum const _type,
+	sge::opengl::buffer::type const _type,
 	GLenum const _flags
 )
 {
@@ -176,7 +224,7 @@ sge::opengl::buffer::hardware::map_buffer(
 			GLvoid *
 		>(
 			gl_map_buffer_(
-				_type,
+				_type.get(),
 				_flags
 			)
 		)
@@ -192,7 +240,7 @@ sge::opengl::buffer::hardware::map_buffer(
 
 GLvoid *
 sge::opengl::buffer::hardware::map_buffer_range(
-	GLenum const _type,
+	sge::opengl::buffer::type const _type,
 	GLenum const _flags,
 	GLsizei const _first,
 	GLsizei const _size
@@ -204,7 +252,7 @@ sge::opengl::buffer::hardware::map_buffer_range(
 
 	GLvoid *const ret(
 		gl_map_buffer_range_(
-			_type,
+			_type.get(),
 			_first,
 			_size,
 			_flags
@@ -222,16 +270,17 @@ sge::opengl::buffer::hardware::map_buffer_range(
 bool
 sge::opengl::buffer::hardware::map_buffer_range_supported() const
 {
-	return gl_map_buffer_range_ != 0;
+	return
+		gl_map_buffer_range_ != fcppt::null_ptr();
 }
 
 void
 sge::opengl::buffer::hardware::unmap_buffer(
-	GLenum const _type
+	sge::opengl::buffer::type const _type
 )
 {
 	gl_unmap_buffer_(
-		_type
+		_type.get()
 	);
 
 	SGE_OPENGL_CHECK_STATE(
@@ -242,14 +291,14 @@ sge::opengl::buffer::hardware::unmap_buffer(
 
 void
 sge::opengl::buffer::hardware::buffer_data(
-	GLenum const _type,
+	sge::opengl::buffer::type const _type,
 	GLsizei const _size,
 	GLvoid const *const _data,
 	GLenum const _flags
 )
 {
 	gl_buffer_data_(
-		_type,
+		_type.get(),
 		_size,
 		_data,
 		_flags
@@ -263,14 +312,14 @@ sge::opengl::buffer::hardware::buffer_data(
 
 void
 sge::opengl::buffer::hardware::buffer_sub_data(
-	GLenum const _type,
+	sge::opengl::buffer::type const _type,
 	GLsizei const _first,
 	GLsizei const _size,
 	GLvoid const *const _data
 )
 {
 	gl_buffer_sub_data_(
-		_type,
+		_type.get(),
 		_first,
 		_size,
 		_data
@@ -284,7 +333,7 @@ sge::opengl::buffer::hardware::buffer_sub_data(
 
 void *
 sge::opengl::buffer::hardware::buffer_offset(
-	GLenum,
+	sge::opengl::buffer::type,
 	GLsizei const _offset
 ) const
 {

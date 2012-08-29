@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_BUFFER_VBO_CONTEXT_HPP_INCLUDED
 #define SGE_OPENGL_BUFFER_VBO_CONTEXT_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/buffer/base_fwd.hpp>
+#include <sge/opengl/buffer/type.hpp>
 #include <sge/opengl/context/system/base.hpp>
 #include <sge/opengl/context/system/id.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -51,10 +51,10 @@ public:
 	sge::opengl::buffer::base &
 	impl();
 
-	GLenum
+	sge::opengl::buffer::type const
 	index_buffer_type() const;
 
-	GLenum
+	sge::opengl::buffer::type const
 	vertex_buffer_type() const;
 
 	typedef void needs_before;
@@ -65,7 +65,7 @@ private:
 		sge::opengl::buffer::base
 	> const impl_;
 
-	GLenum const
+	sge::opengl::buffer::type const
 		index_buffer_type_,
 		vertex_buffer_type_;
 };
