@@ -41,6 +41,18 @@ include_directories(
 )
 
 function(
+	alda_set_static_flags
+	TARGETNAME
+)
+	set_target_properties(
+		${TARGETNAME}
+		PROPERTIES
+		COMPILE_DEFINITIONS
+		"ALDA_STATIC_LINK"
+	)
+endfunction()
+
+function(
 	add_alda_library
 	VARIANT
 )
@@ -68,6 +80,14 @@ function(
 		${VARIANT}
 		${ALDA_FILES_ABS}
 	)
+
+	if(
+		${VARIANT} STREQUAL "STATIC"
+	)
+		alda_set_static_flags(
+			${ALDA_LIB_NAME}
+		)
+	endif()
 
 	target_link_libraries(
 		${ALDA_LIB_NAME}
