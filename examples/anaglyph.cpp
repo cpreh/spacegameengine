@@ -927,6 +927,13 @@ try
 					camera.coordinate_system(),
 					-eye_distance,
 					focal_length)));
+
+		// Reset old states
+		context.state(
+			sge::renderer::state::list
+				(sge::renderer::state::bool_::write_red = true)
+				(sge::renderer::state::bool_::write_blue = true)
+				(sge::renderer::state::bool_::write_green = true));
 	}
 
 	return
