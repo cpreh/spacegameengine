@@ -135,7 +135,7 @@ sge::dinput::joypad::device::on_dispatch(
 			absolute_axis_signal_(
 				sge::input::joypad::absolute_axis_event(
 					sge::input::joypad::absolute_axis(
-						info_.input_info().absolute_axis()[
+						info_.input_info().absolute_axes()[
 							it->second
 						].code(),
 						it->second
@@ -190,7 +190,7 @@ sge::dinput::joypad::device::on_dispatch(
 			relative_axis_signal_(
 				sge::input::joypad::relative_axis_event(
 					sge::input::joypad::relative_axis(
-						info_.input_info().relative_axis()[
+						info_.input_info().relative_axes()[
 							it->second
 						].code(),
 						it->second

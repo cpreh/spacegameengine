@@ -120,7 +120,7 @@ sge::dinput::mouse::device::on_dispatch(
 			axis_signal_(
 				sge::input::mouse::axis_event(
 					sge::input::mouse::axis(
-						info_.input_info().axis()[
+						info_.input_info().axes()[
 							it->second
 						].code(),
 						it->second
