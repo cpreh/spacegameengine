@@ -128,7 +128,7 @@ sge::evdev::joypad::object::process_event(
 			_event,
 			absolute_axis_,
 			info_.event_map().absolute_axis(),
-			info_.input_info().absolute_axis(),
+			info_.input_info().absolute_axes(),
 			&sge::evdev::joypad::absolute_axis::make_event
 		);
 
@@ -148,7 +148,7 @@ sge::evdev::joypad::object::process_event(
 			_event,
 			relative_axis_,
 			info_.event_map().relative_axis(),
-			info_.input_info().relative_axis(),
+			info_.input_info().relative_axes(),
 			&sge::evdev::joypad::relative_axis::make_event
 		);
 

@@ -23,13 +23,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::input::mouse::info::info(
-	input::mouse::axis_info_container const &_axis,
+	input::mouse::axis_info_container const &_axes,
 	input::mouse::button_info_container const &_buttons,
 	input::info::name const &_name
 )
 :
-	axis_(
-		_axis
+	axes_(
+		_axes
 	),
 	buttons_(
 		_buttons
@@ -41,9 +41,9 @@ sge::input::mouse::info::info(
 }
 
 sge::input::mouse::axis_info_container const &
-sge::input::mouse::info::axis() const
+sge::input::mouse::info::axes() const
 {
-	return axis_;
+	return axes_;
 }
 
 sge::input::mouse::button_info_container const &

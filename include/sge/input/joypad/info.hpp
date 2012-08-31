@@ -49,7 +49,7 @@ public:
 
 	SGE_INPUT_SYMBOL
 	input::joypad::absolute_axis_info_container const &
-	absolute_axis() const;
+	absolute_axes() const;
 
 	SGE_INPUT_SYMBOL
 	input::joypad::button_info_container const &
@@ -57,17 +57,17 @@ public:
 
 	SGE_INPUT_SYMBOL
 	input::joypad::relative_axis_info_container const &
-	relative_axis() const;
+	relative_axes() const;
 
 	SGE_INPUT_SYMBOL
 	input::info::name const &
 	name() const;
 private:
-	input::joypad::absolute_axis_info_container absolute_axis_;
+	input::joypad::absolute_axis_info_container absolute_axes_;
 
 	input::joypad::button_info_container buttons_;
 
-	input::joypad::relative_axis_info_container relative_axis_;
+	input::joypad::relative_axis_info_container relative_axes_;
 
 	input::info::name name_;
 };

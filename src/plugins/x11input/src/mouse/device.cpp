@@ -180,7 +180,7 @@ sge::x11input::mouse::device::on_motion(
 				input::mouse::axis_event(
 					x11input::mouse::axis(
 						index,
-						info_.axis()
+						info_.axes()
 					),
 					x11input::mouse::axis_value(
 						*valuator

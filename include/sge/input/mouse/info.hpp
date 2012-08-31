@@ -47,7 +47,7 @@ public:
 
 	SGE_INPUT_SYMBOL
 	input::mouse::axis_info_container const &
-	axis() const;
+	axes() const;
 
 	SGE_INPUT_SYMBOL
 	input::mouse::button_info_container const &
@@ -57,7 +57,7 @@ public:
 	input::info::name const &
 	name() const;
 private:
-	input::mouse::axis_info_container axis_;
+	input::mouse::axis_info_container axes_;
 
 	input::mouse::button_info_container buttons_;
 

@@ -25,20 +25,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::input::joypad::info::info(
-	input::joypad::absolute_axis_info_container const &_absolute_axis,
+	input::joypad::absolute_axis_info_container const &_absolute_axes,
 	input::joypad::button_info_container const &_buttons,
-	input::joypad::relative_axis_info_container const &_relative_axis,
+	input::joypad::relative_axis_info_container const &_relative_axes,
 	input::info::name const &_name
 )
 :
-	absolute_axis_(
-		_absolute_axis
+	absolute_axes_(
+		_absolute_axes
 	),
 	buttons_(
 		_buttons
 	),
-	relative_axis_(
-		_relative_axis
+	relative_axes_(
+		_relative_axes
 	),
 	name_(
 		_name
@@ -47,9 +47,9 @@ sge::input::joypad::info::info(
 }
 
 sge::input::joypad::absolute_axis_info_container const &
-sge::input::joypad::info::absolute_axis() const
+sge::input::joypad::info::absolute_axes() const
 {
-	return absolute_axis_;
+	return absolute_axes_;
 }
 
 sge::input::joypad::button_info_container const &
@@ -59,9 +59,9 @@ sge::input::joypad::info::buttons() const
 }
 
 sge::input::joypad::relative_axis_info_container const &
-sge::input::joypad::info::relative_axis() const
+sge::input::joypad::info::relative_axes() const
 {
-	return relative_axis_;
+	return relative_axes_;
 }
 
 sge::input::info::name const &

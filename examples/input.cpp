@@ -529,20 +529,20 @@ joypad_discover(
 		<< FCPPT_TEXT('\n');
 
 	{
-		sge::input::joypad::absolute_axis_info_container::vector const &absolute_axis(
-			info.absolute_axis().get()
+		sge::input::joypad::absolute_axis_info_container::vector const &absolute_axes(
+			info.absolute_axes().get()
 		);
 
 		fcppt::io::cout()
-			<< FCPPT_TEXT("\tabsolute axis: ")
-			<< absolute_axis.size()
+			<< FCPPT_TEXT("\tabsolute axes: ")
+			<< absolute_axes.size()
 			<< FCPPT_TEXT('\n');
 
 		for(
 			sge::input::joypad::absolute_axis_info_container::vector::const_iterator it(
-				absolute_axis.begin()
+				absolute_axes.begin()
 			);
-			it != absolute_axis.end();
+			it != absolute_axes.end();
 			++it
 		)
 		{
@@ -568,20 +568,20 @@ joypad_discover(
 	}
 
 	{
-		sge::input::joypad::relative_axis_info_container::vector const &relative_axis(
-			info.relative_axis().get()
+		sge::input::joypad::relative_axis_info_container::vector const &relative_axes(
+			info.relative_axes().get()
 		);
 
 		fcppt::io::cout()
-			<< FCPPT_TEXT("\trelative axis: ")
-			<< relative_axis.size()
+			<< FCPPT_TEXT("\trelative axes: ")
+			<< relative_axes.size()
 			<< FCPPT_TEXT('\n');
 
 		for(
 			sge::input::joypad::relative_axis_info_container::vector::const_iterator it(
-				relative_axis.begin()
+				relative_axes.begin()
 			);
-			it != relative_axis.end();
+			it != relative_axes.end();
 			++it
 		)
 		{
@@ -802,20 +802,20 @@ mouse_discover(
 		<< FCPPT_TEXT('\n');
 
 	{
-		sge::input::mouse::axis_info_container::vector const &axis(
-			info.axis().get()
+		sge::input::mouse::axis_info_container::vector const &axes(
+			info.axes().get()
 		);
 
 		fcppt::io::cout()
-			<< FCPPT_TEXT("\taxis: ")
-			<< axis.size()
+			<< FCPPT_TEXT("\taxes: ")
+			<< axes.size()
 			<< FCPPT_TEXT('\n');
 
 		for(
 			sge::input::mouse::axis_info_container::vector::const_iterator it(
-				axis.begin()
+				axes.begin()
 			);
-			it != axis.end();
+			it != axes.end();
 			++it
 		)
 		{
