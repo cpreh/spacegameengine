@@ -88,13 +88,20 @@ output_optional_string(
 
 void
 joypad_discover(
-	sge::input::joypad::discover_event const &_event
+	sge::input::joypad::discover_event const &_event,
+	sge::font::draw::static_text &_text
 )
 {
-	// TODO give the user some positive feedback in the "GUI"
 	sge::input::joypad::info const info(
 		_event.get().info()
 	);
+
+	_text.color(
+		sge::image::colors::green());
+
+	_text.string(
+		sge::font::from_fcppt_string(
+			info.name().get()));
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("joypad_discover: ")
@@ -212,10 +219,16 @@ joypad_discover(
 
 void
 joypad_remove(
-	sge::input::joypad::remove_event const &_event
+	sge::input::joypad::remove_event const &_event,
+	sge::font::draw::static_text &_text
 )
 {
-	// TODO: warn the user here somehow
+	_text.string(
+		sge::font::from_fcppt_string(
+			FCPPT_TEXT("no joypad connected")));
+	_text.color(
+		sge::image::colors::red());
+
 	fcppt::io::cout()
 		<< FCPPT_TEXT("joypad_remove: ")
 		<< &_event.get()
@@ -347,17 +360,33 @@ try
 		)
 	);
 
-	sge::font::draw::static_text static_text(
+	sge::font::draw::static_text joypad_infotext(
 		sys.renderer(),
 		*font,
 		SGE_FONT_LIT(
-			"- press some joypad button -"
+			"no gamepad connected"
 		),
 		sge::font::text_parameters(
 			sge::font::align_h::left
 		),
 		sge::font::vector(
-			100,
+			0,
+			0
+		),
+		sge::image::colors::red()
+	);
+
+	sge::font::draw::static_text event_infotext(
+		sys.renderer(),
+		*font,
+		SGE_FONT_LIT(
+			"press some joypad button"
+		),
+		sge::font::text_parameters(
+			sge::font::align_h::left
+		),
+		sge::font::vector(
+			0,
 			100
 		),
 		sge::image::colors::white()
@@ -366,10 +395,18 @@ try
 	sge::input::joypad::manager const joypad_manager(
 		sys.input_processor(),
 		sge::input::joypad::discover_callback(
-			::joypad_discover
+				std::tr1::bind(
+					&::joypad_discover,
+					std::tr1::placeholders::_1,
+					fcppt::ref(
+						joypad_infotext))
 		),
 		sge::input::joypad::remove_callback(
-			::joypad_remove
+				std::tr1::bind(
+					&::joypad_remove,
+					std::tr1::placeholders::_1,
+					fcppt::ref(
+						joypad_infotext))
 		),
 		sge::input::joypad::manager::absolute_axis_callback(
 			std::tr1::bind(
@@ -377,7 +414,7 @@ try
 				std::tr1::placeholders::_1,
 				std::tr1::placeholders::_2,
 				fcppt::ref(
-					static_text))
+					event_infotext))
 		),
 		sge::input::joypad::manager::button_callback(
 			std::tr1::bind(
@@ -385,7 +422,7 @@ try
 				std::tr1::placeholders::_1,
 				std::tr1::placeholders::_2,
 				fcppt::ref(
-					static_text))
+					event_infotext))
 		),
 		sge::input::joypad::manager::relative_axis_callback(
 			std::tr1::bind(
@@ -393,7 +430,7 @@ try
 				std::tr1::placeholders::_1,
 				std::tr1::placeholders::_2,
 				fcppt::ref(
-					static_text))
+					event_infotext))
 		)
 	);
 
@@ -413,7 +450,11 @@ try
 			)
 		);
 
-		static_text.draw(
+		event_infotext.draw(
+			scoped_block.get()
+		);
+
+		joypad_infotext.draw(
 			scoped_block.get()
 		);
 	}
