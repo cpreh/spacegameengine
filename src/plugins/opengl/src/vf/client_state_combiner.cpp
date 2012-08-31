@@ -218,8 +218,8 @@ void
 apply_difference(
 	Set const &_old_states,
 	Set const &_new_states,
-	EnableFun const _enable,
-	DisableFun const _disable
+	EnableFun _enable, // nonconst because of VC++12
+	DisableFun _disable // nonconst because of VC++12
 )
 {
 	Set diff;
