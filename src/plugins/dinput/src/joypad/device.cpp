@@ -61,7 +61,8 @@ sge::dinput::joypad::device::device(
 	info_(
 		sge::dinput::joypad::make_info(
 			this->get(),
-			_parameters.name()
+			_parameters.name(),
+			_parameters.guid()
 		)
 	),
 	absolute_axis_signal_(),

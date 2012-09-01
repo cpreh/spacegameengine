@@ -18,30 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_DINPUT_JOYPAD_MAKE_INFO_HPP_INCLUDED
-#define SGE_DINPUT_JOYPAD_MAKE_INFO_HPP_INCLUDED
-
 #include <sge/dinput/di.hpp>
-#include <sge/dinput/joypad/info_fwd.hpp>
+#include <sge/dinput/guid_to_string.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/io/ostringstream.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <ostream>
+#include <fcppt/config/external_end.hpp>
 
 
-namespace sge
+fcppt::string const
+sge::dinput::guid_to_string(
+	GUID const &_guid
+)
 {
-namespace dinput
-{
-namespace joypad
-{
+	fcppt::io::ostringstream ostr;
 
-sge::dinput::joypad::info const
-make_info(
-	IDirectInputDevice8 &,
-	fcppt::string const &name,
-	GUID const &
-);
+	ostr
+		<< std::hex
+		<< _guid.Data1
+		<< FCPPT_TEXT('-')
+		<< _guid.Data2
+		<< FCPPT_TEXT('-')
+		<< _guid.Data3
+		<< FCPPT_TEXT('-')
+		<< _guid.Data4;
 
+	return
+		ostr.str();
 }
-}
-}
-
-#endif

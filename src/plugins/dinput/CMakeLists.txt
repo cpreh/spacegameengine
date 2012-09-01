@@ -39,6 +39,7 @@ SET(
 	src/plugins/dinput/include/sge/dinput/dinput_device_scoped_ptr.hpp
 	src/plugins/dinput/include/sge/dinput/dinput_device_unique_ptr.hpp
 	src/plugins/dinput/include/sge/dinput/dinput_unique_ptr.hpp
+	src/plugins/dinput/include/sge/dinput/guid_to_string.hpp
 	src/plugins/dinput/include/sge/dinput/is_down.hpp
 	src/plugins/dinput/include/sge/dinput/joypad/absolute_axis_map.hpp
 	src/plugins/dinput/include/sge/dinput/joypad/axis_code.hpp
@@ -112,6 +113,7 @@ SET(
 	src/plugins/dinput/src/device/parameters.cpp
 	src/plugins/dinput/src/device/range.cpp
 	src/plugins/dinput/src/exports.cpp
+	src/plugins/dinput/src/guid_to_string.cpp
 	src/plugins/dinput/src/is_down.cpp
 	src/plugins/dinput/src/joypad/axis_code.cpp
 	src/plugins/dinput/src/joypad/device.cpp

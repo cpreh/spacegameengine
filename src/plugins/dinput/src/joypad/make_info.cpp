@@ -19,11 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/dinput/di.hpp>
+#include <sge/dinput/guid_to_string.hpp>
 #include <sge/dinput/device/enumerate_objects.hpp>
 #include <sge/dinput/joypad/enumerator.hpp>
 #include <sge/dinput/joypad/info.hpp>
 #include <sge/dinput/joypad/make_info.hpp>
 #include <sge/input/info/name.hpp>
+#include <sge/input/info/unique_id.hpp>
 #include <sge/input/joypad/absolute_axis_info_container.hpp>
 #include <sge/input/joypad/button_info_container.hpp>
 #include <sge/input/joypad/info.hpp>
@@ -34,7 +36,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::dinput::joypad::info const
 sge::dinput::joypad::make_info(
 	IDirectInputDevice8 &_device,
-	fcppt::string const &_name
+	fcppt::string const &_name,
+	GUID const &_guid
 )
 {
 	sge::dinput::joypad::enumerator object(
@@ -63,6 +66,11 @@ sge::dinput::joypad::make_info(
 				),
 				sge::input::info::name(
 					_name
+				),
+				sge::input::info::unique_id(
+					sge::dinput::guid_to_string(
+						_guid
+					)
 				)
 			),
 			object.absolute_axis_map(),
