@@ -102,6 +102,12 @@ public:
 		sge::image::color::any::object const &
 	);
 
+	sge::font::string const
+	string() const;
+
+	sge::font::vector const
+	pos() const;
+
 	sge::font::rect const
 	rect() const;
 

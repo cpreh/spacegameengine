@@ -97,6 +97,14 @@ public:
 	);
 
 	SGE_FONT_DRAW_SYMBOL
+	sge::font::string const
+	string() const;
+
+	SGE_FONT_DRAW_SYMBOL
+	sge::font::vector const
+	pos() const;
+
+	SGE_FONT_DRAW_SYMBOL
 	sge::font::rect const
 	rect() const;
 private:

@@ -157,6 +157,18 @@ sge::font::draw::detail::static_text_impl::color(
 	);
 }
 
+sge::font::string const
+sge::font::draw::detail::static_text_impl::string() const
+{
+	return string_;
+}
+
+sge::font::vector const
+sge::font::draw::detail::static_text_impl::pos() const
+{
+	return pos_;
+}
+
 sge::font::rect const
 sge::font::draw::detail::static_text_impl::rect() const
 {
