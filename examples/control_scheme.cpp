@@ -10,6 +10,8 @@
 #include <sge/font/ttf_size.hpp>
 #include <sge/font/vector.hpp>
 #include <sge/font/draw/static_text.hpp>
+#include <sge/font/string.hpp>
+#include <sge/font/rect.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/input/cursor/button_event.hpp>
 #include <sge/input/cursor/object.hpp>
@@ -82,7 +84,10 @@
 #include <fcppt/io/cout.hpp>
 #include <fcppt/io/ifstream.hpp>
 #include <fcppt/io/ostringstream.hpp>
+#include <fcppt/math/box/contains_point.hpp>
+#include <fcppt/math/box/output.hpp>
 #include <fcppt/math/vector/output.hpp>
+#include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/signal/connection.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
@@ -90,11 +95,16 @@
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <example_main.hpp>
 #include <fcppt/config/external_end.hpp>
-#include <sge/font/string.hpp>
 
 
 namespace
 {
+typedef
+boost::ptr_vector<
+	sge::font::draw::static_text
+>
+text_vector;
+
 sge::font::string const
 disconnected_text(
 	sge::font::from_fcppt_string(
@@ -124,6 +134,8 @@ output_optional_string(
 void
 click_callback(
 	sge::input::cursor::object const &_cursor,
+	::text_vector &_texts,
+	::text_vector::iterator &_active,
 	sge::input::cursor::button_event const &_event
 )
 {
@@ -136,9 +148,29 @@ click_callback(
 	if (!pos)
 		return;
 
-	fcppt::io::cerr()
-		<< (*pos)
-		<< FCPPT_TEXT("\n");
+	for (
+		::text_vector::iterator text =
+			_texts.begin();
+		text !=
+			_texts.end();
+		++text)
+	{
+		sge::font::rect actual_box(
+			text->rect().pos() + text->pos(),
+			text->rect().size());
+
+		if (
+			fcppt::math::box::contains_point(
+				actual_box,
+				*pos)
+		)
+			_active = text;
+
+		text->color(
+			sge::image::colors::gray());
+	}
+	_active->color(
+		sge::image::colors::white());
 }
 
 void
@@ -296,7 +328,7 @@ void
 joypad_absolute_axis(
 	sge::input::joypad::device &_device,
 	sge::input::joypad::absolute_axis_event const &_event,
-	sge::font::draw::static_text &_text
+	::text_vector::iterator &_text
 )
 {
 	fcppt::io::ostringstream ss;
@@ -309,7 +341,7 @@ joypad_absolute_axis(
 			_device.info().absolute_axes()[_event.axis().id()].name())
 		<< FCPPT_TEXT(")");
 
-	_text.string(
+	_text->string(
 		sge::font::from_fcppt_string(
 			ss.str()));
 }
@@ -318,7 +350,7 @@ void
 joypad_relative_axis(
 	sge::input::joypad::device &_device,
 	sge::input::joypad::relative_axis_event const &_event,
-	sge::font::draw::static_text &_text
+	::text_vector::iterator &_text
 )
 {
 	fcppt::io::ostringstream ss;
@@ -331,7 +363,7 @@ joypad_relative_axis(
 			_device.info().relative_axes()[_event.axis().id()].name())
 		<< FCPPT_TEXT(")");
 
-	_text.string(
+	_text->string(
 		sge::font::from_fcppt_string(
 			ss.str()));
 }
@@ -340,7 +372,7 @@ void
 joypad_button(
 	sge::input::joypad::device &_device,
 	sge::input::joypad::button_event const &_event,
-	sge::font::draw::static_text &_text
+	::text_vector::iterator &_text
 )
 {
 	if (!_event.pressed()) return;
@@ -354,7 +386,7 @@ joypad_button(
 			_device.info().buttons()[_event.button_id()].name())
 		<< FCPPT_TEXT(")");
 
-	_text.string(
+	_text->string(
 		sge::font::from_fcppt_string(
 			ss.str()));
 }
@@ -481,15 +513,9 @@ try
 		return awl::main::exit_failure();
 	}
 
-	typedef
-	boost::ptr_vector<
-		sge::font::draw::static_text
-	>
-	text_vector;
-
-	text_vector control_labels;
-	text_vector control_texts;
-	text_vector::iterator active_text;
+	::text_vector control_labels;
+	::text_vector control_texts;
+	::text_vector::iterator active_text;
 
 	sge::parse::json::array	controls =
 		sge::parse::json::find_member_exn<
@@ -573,7 +599,8 @@ try
 			);
 		}
 	}
-	active_text =
+
+	active_text = 
 		control_texts.begin();
 
 	fcppt::signal::scoped_connection const click_connection(
@@ -582,6 +609,10 @@ try
 				::click_callback,
 				fcppt::cref(
 					sys.cursor_demuxer()),
+				fcppt::ref(
+					control_texts),
+				fcppt::ref(
+					active_text),
 				std::tr1::placeholders::_1
 			)
 		)
@@ -608,29 +639,26 @@ try
 				&::joypad_absolute_axis,
 				std::tr1::placeholders::_1,
 				std::tr1::placeholders::_2,
-				fcppt::ref(
-					*control_texts.begin()))
+				fcppt::ref(active_text))
 		),
 		sge::input::joypad::manager::button_callback(
 			std::tr1::bind(
 				&::joypad_button,
 				std::tr1::placeholders::_1,
 				std::tr1::placeholders::_2,
-				fcppt::ref(
-					*control_texts.begin()))
+				fcppt::ref(active_text))
 		),
 		sge::input::joypad::manager::relative_axis_callback(
 			std::tr1::bind(
 				&::joypad_relative_axis,
 				std::tr1::placeholders::_1,
 				std::tr1::placeholders::_2,
-				fcppt::ref(
-					*control_texts.begin()))
+				fcppt::ref(active_text))
 		)
 	);
 
 	while(
-		sys.window_system().next()
+		sys.window_system().poll()
 	)
 	{
 		sge::renderer::context::scoped const scoped_block(
@@ -645,11 +673,8 @@ try
 			)
 		);
 
-		active_text->color(
-			sge::image::colors::white());
-
 		for(
-			text_vector::iterator it =
+			::text_vector::iterator it =
 				control_labels.begin();
 			it !=
 				control_labels.end();
@@ -659,7 +684,7 @@ try
 				scoped_block.get());
 
 		for(
-			text_vector::iterator it =
+			::text_vector::iterator it =
 				control_texts.begin();
 			it !=
 				control_texts.end();
