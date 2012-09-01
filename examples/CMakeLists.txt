@@ -182,7 +182,7 @@ add_sge_example(
 
 add_sge_example(
 	control_scheme
-	"sgeconfig;sgefont;sgefontdraw;sgeimage;sgeinput;sgerenderer;sgesystems;sgeviewport;sgewindow"
+	"sgeconfig;sgefont;sgefontdraw;sgeimage;sgeinput;sgeparse;sgerenderer;sgesystems;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 )

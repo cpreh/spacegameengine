@@ -1,0 +1,9 @@
+{
+"controls":
+[
+	{"name": "rotate-left", "type": "scalar"},
+	{"name": "rotate-right", "type": "scalar"},
+	{"name": "thrust", "type": "bool"},
+	{"name": "fire", "type": "bool"}
+]
+}
