@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/symbol.hpp>
 #include <sge/input/info/name.hpp>
+#include <sge/input/info/unique_id.hpp>
 #include <sge/input/joypad/absolute_axis_info_container.hpp>
 #include <sge/input/joypad/button_info_container.hpp>
 #include <sge/input/joypad/info_fwd.hpp>
@@ -41,35 +42,42 @@ class info
 public:
 	SGE_INPUT_SYMBOL
 	info(
-		input::joypad::absolute_axis_info_container const &,
-		input::joypad::button_info_container const &,
-		input::joypad::relative_axis_info_container const &,
-		input::info::name const &
+		sge::input::joypad::absolute_axis_info_container const &,
+		sge::input::joypad::button_info_container const &,
+		sge::input::joypad::relative_axis_info_container const &,
+		sge::input::info::name const &,
+		sge::input::info::unique_id const &
 	);
 
 	SGE_INPUT_SYMBOL
-	input::joypad::absolute_axis_info_container const &
+	sge::input::joypad::absolute_axis_info_container const &
 	absolute_axes() const;
 
 	SGE_INPUT_SYMBOL
-	input::joypad::button_info_container const &
+	sge::input::joypad::button_info_container const &
 	buttons() const;
 
 	SGE_INPUT_SYMBOL
-	input::joypad::relative_axis_info_container const &
+	sge::input::joypad::relative_axis_info_container const &
 	relative_axes() const;
 
 	SGE_INPUT_SYMBOL
-	input::info::name const &
+	sge::input::info::name const &
 	name() const;
+
+	SGE_INPUT_SYMBOL
+	sge::input::info::unique_id const &
+	unique_id() const;
 private:
-	input::joypad::absolute_axis_info_container absolute_axes_;
+	sge::input::joypad::absolute_axis_info_container absolute_axes_;
 
-	input::joypad::button_info_container buttons_;
+	sge::input::joypad::button_info_container buttons_;
 
-	input::joypad::relative_axis_info_container relative_axes_;
+	sge::input::joypad::relative_axis_info_container relative_axes_;
 
-	input::info::name name_;
+	sge::input::info::name name_;
+
+	sge::input::info::unique_id unique_id_;
 };
 
 }

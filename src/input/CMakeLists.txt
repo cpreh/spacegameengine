@@ -59,6 +59,7 @@ set(
 	include/sge/input/info/name.hpp
 	include/sge/input/info/optional_string.hpp
 	include/sge/input/info/optional_string_fwd.hpp
+	include/sge/input/info/unique_id.hpp
 	include/sge/input/joypad/absolute_axis.hpp
 	include/sge/input/joypad/absolute_axis_callback.hpp
 	include/sge/input/joypad/absolute_axis_event.hpp

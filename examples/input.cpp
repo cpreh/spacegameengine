@@ -526,6 +526,8 @@ joypad_discover(
 		<< &_event.get()
 		<< FCPPT_TEXT(", ")
 		<< info.name()
+		<< FCPPT_TEXT(", ")
+		<< info.unique_id()
 		<< FCPPT_TEXT('\n');
 
 	{

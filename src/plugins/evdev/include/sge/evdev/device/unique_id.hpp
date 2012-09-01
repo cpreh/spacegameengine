@@ -18,23 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_INFO_NAME_HPP_INCLUDED
-#define SGE_INPUT_INFO_NAME_HPP_INCLUDED
+#ifndef SGE_EVDEV_DEVICE_UNIQUE_ID_HPP_INCLUDED
+#define SGE_EVDEV_DEVICE_UNIQUE_ID_HPP_INCLUDED
 
-#include <fcppt/string.hpp>
-#include <fcppt/strong_typedef.hpp>
+#include <sge/input/info/unique_id.hpp>
+#include <sge/evdev/device/fd_fwd.hpp>
 
 
 namespace sge
 {
-namespace input
+namespace evdev
 {
-namespace info
+namespace device
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
-	fcppt::string,
-	name
+sge::input::info::unique_id const
+unique_id(
+	sge::evdev::device::fd const &
 );
 
 }

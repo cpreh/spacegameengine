@@ -15,9 +15,12 @@ set(
 	src/plugins/opengl/include/sge/opengl/buffer/normal_lock_method.hpp
 	src/plugins/opengl/include/sge/opengl/buffer/object.hpp
 	src/plugins/opengl/include/sge/opengl/buffer/object_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/buffer/optional_id.hpp
+	src/plugins/opengl/include/sge/opengl/buffer/optional_id_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/buffer/pbo_context.hpp
 	src/plugins/opengl/include/sge/opengl/buffer/range_lock_method.hpp
 	src/plugins/opengl/include/sge/opengl/buffer/software.hpp
+	src/plugins/opengl/include/sge/opengl/buffer/type.hpp
 	src/plugins/opengl/include/sge/opengl/buffer/vbo_context.hpp
 	src/plugins/opengl/include/sge/opengl/buffer/wrapper.hpp
 	src/plugins/opengl/include/sge/opengl/check_state.hpp

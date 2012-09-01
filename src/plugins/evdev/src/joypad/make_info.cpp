@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/evdev/device/fd_fwd.hpp>
 #include <sge/evdev/device/name.hpp>
+#include <sge/evdev/device/unique_id.hpp>
 #include <sge/evdev/joypad/event_map.hpp>
 #include <sge/evdev/joypad/info.hpp>
 #include <sge/evdev/joypad/make_info.hpp>
@@ -70,6 +71,9 @@ try
 					buttons.infos(),
 					relative_axis.infos(),
 					sge::evdev::device::name(
+						_fd
+					),
+					sge::evdev::device::unique_id(
 						_fd
 					)
 				),

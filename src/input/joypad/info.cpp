@@ -18,6 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/input/info/name.hpp>
+#include <sge/input/info/unique_id.hpp>
 #include <sge/input/joypad/absolute_axis_info_container.hpp>
 #include <sge/input/joypad/button_info_container.hpp>
 #include <sge/input/joypad/info.hpp>
@@ -25,10 +27,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::input::joypad::info::info(
-	input::joypad::absolute_axis_info_container const &_absolute_axes,
-	input::joypad::button_info_container const &_buttons,
-	input::joypad::relative_axis_info_container const &_relative_axes,
-	input::info::name const &_name
+	sge::input::joypad::absolute_axis_info_container const &_absolute_axes,
+	sge::input::joypad::button_info_container const &_buttons,
+	sge::input::joypad::relative_axis_info_container const &_relative_axes,
+	sge::input::info::name const &_name,
+	sge::input::info::unique_id const &_unique_id
 )
 :
 	absolute_axes_(
@@ -42,6 +45,9 @@ sge::input::joypad::info::info(
 	),
 	name_(
 		_name
+	),
+	unique_id_(
+		_unique_id
 	)
 {
 }
@@ -68,4 +74,10 @@ sge::input::info::name const &
 sge::input::joypad::info::name() const
 {
 	return name_;
+}
+
+sge::input::info::unique_id const &
+sge::input::joypad::info::unique_id() const
+{
+	return unique_id_;
 }

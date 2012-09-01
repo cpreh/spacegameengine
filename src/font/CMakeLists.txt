@@ -25,6 +25,7 @@ set(
 	include/sge/font/parameters_to_string.hpp
 	include/sge/font/plugin/collection_fwd.hpp
 	include/sge/font/plugin/object_scoped_ptr.hpp
+	include/sge/font/plugin/object_unique_ptr.hpp
 	include/sge/font/plugin/traits.hpp
 	include/sge/font/rect.hpp
 	include/sge/font/rect_fwd.hpp
