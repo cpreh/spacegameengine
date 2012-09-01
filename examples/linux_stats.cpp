@@ -574,7 +574,8 @@ try
 					),
 					sge::image::colors::white())));
 
-		device_totals[*it] = 0u;
+		device_totals[*it] =
+			::count_traffic(*it);
 	}
 
 	while(
