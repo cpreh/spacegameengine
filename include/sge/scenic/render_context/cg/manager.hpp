@@ -59,10 +59,12 @@ public:
 	create_context(
 		sge::renderer::context::object &);
 
+	SGE_SCENIC_SYMBOL
 	~manager();
 private:
 	friend class sge::scenic::render_context::cg::object;
 
+	sge::renderer::vertex_declaration &vertex_declaration_;
 	sge::shader::pair shader_;
 	sge::shader::parameter::matrix<sge::renderer::scalar,4,4> world_matrix_;
 	sge::shader::parameter::matrix<sge::renderer::scalar,4,4> world_projection_matrix_;

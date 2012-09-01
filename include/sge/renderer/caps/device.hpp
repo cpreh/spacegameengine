@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/caps/clip_plane_indices.hpp>
 #include <sge/renderer/caps/description.hpp>
+#include <sge/renderer/caps/normalized_cvv.hpp>
 #include <sge/renderer/caps/device_fwd.hpp>
 #include <sge/renderer/caps/driver_name.hpp>
 #include <sge/renderer/caps/light_indices.hpp>
@@ -69,6 +70,7 @@ public:
 		sge::renderer::adapter,
 		sge::renderer::caps::driver_name const &,
 		sge::renderer::caps::description const &,
+		sge::renderer::caps::normalized_cvv const &,
 		sge::renderer::caps::max_texture_size const &,
 		sge::renderer::caps::max_volume_texture_extent,
 		sge::renderer::caps::max_anisotropy,
@@ -111,6 +113,23 @@ public:
 	SGE_RENDERER_SYMBOL
 	sge::renderer::caps::description const &
 	description() const;
+
+	/**
+	 * \brief Returns true if the canonical view volume (CVV) is the unit cube [-1,1]^3
+	 *
+	 * The canonical view volume is the volume into which the visible
+	 * vertices are projected. If you're using a perspective
+	 * projection matrix, the view frustum is transformed to the
+	 * CVV, perserving the objects' depth order.
+	 *
+	 * OpenGL and DirectX have different CVVs. OpenGL wants the
+	 * vertices projected into the unit cube [-1,1]^3 (e.g. it has a
+	 * normalized CVV), DirectX has "half a unit cube". The Z value is
+	 * in [0,1] while the X and Y values are in [-1,1].
+	*/
+	SGE_RENDERER_SYMBOL
+	sge::renderer::caps::normalized_cvv const &
+	normalized_cvv() const;
 
 	/**
 	 * \brief Returns the maximum size of a planar texture
@@ -209,6 +228,8 @@ private:
 	sge::renderer::caps::driver_name const driver_name_;
 
 	sge::renderer::caps::description const description_;
+
+	sge::renderer::caps::normalized_cvv const normalized_cvv_;
 
 	sge::renderer::caps::max_texture_size const max_texture_size_;
 

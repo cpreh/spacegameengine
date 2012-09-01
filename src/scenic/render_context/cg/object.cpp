@@ -25,8 +25,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/context/object.hpp>
 #include <fcppt/math/matrix/inverse.hpp>
+#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/state/cull_mode.hpp>
+#include <sge/renderer/state/depth_func.hpp>
+#include <sge/renderer/state/bool.hpp>
 #include <fcppt/math/matrix/transpose.hpp>
+#include <sge/renderer/texture/filter/mipmap.hpp>
 
+#include <iostream>
 
 sge::scenic::render_context::cg::object::object(
 	sge::scenic::render_context::cg::manager &_manager,
@@ -37,6 +43,23 @@ sge::scenic::render_context::cg::object::object(
 		_manager),
 	context_(
 		_context),
+	scoped_vd_(
+		_context,
+		_manager.vertex_declaration_),
+	scoped_state_(
+		_context,
+		sge::renderer::state::list
+			(sge::renderer::state::depth_func::less)
+			(sge::renderer::state::bool_::enable_alpha_blending = false)
+			(sge::renderer::state::cull_mode::counter_clockwise)),
+	scoped_texture_filter_(
+		_context,
+		sge::renderer::texture::stage(
+			0u),
+		sge::renderer::texture::filter::mipmap()),
+	scoped_shader_(
+		_context,
+		manager_.shader_),
 	current_world_(),
 	current_projection_(),
 	current_vertex_buffer_()
@@ -106,9 +129,16 @@ void
 sge::scenic::render_context::cg::object::vertex_buffer(
 	sge::renderer::vertex_buffer const &_vertex_buffer)
 {
+	if(current_vertex_buffer_)
+		context_.deactivate_vertex_buffer(
+			*current_vertex_buffer_);
+
 	current_vertex_buffer_ =
 		optional_vertex_buffer(
 			_vertex_buffer);
+
+	context_.activate_vertex_buffer(
+		*current_vertex_buffer_);
 }
 
 void
@@ -127,6 +157,16 @@ sge::scenic::render_context::cg::object::render(
 		_index_buffer_range.index_count());
 }
 
+sge::renderer::target::base &
+sge::scenic::render_context::cg::object::target()
+{
+	return
+		context_.target();
+}
+
 sge::scenic::render_context::cg::object::~object()
 {
+	if(current_vertex_buffer_)
+		context_.deactivate_vertex_buffer(
+			*current_vertex_buffer_);
 }

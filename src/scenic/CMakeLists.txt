@@ -28,6 +28,7 @@ set(
 	include/sge/scenic/render_context/light_sequence.hpp
 	include/sge/scenic/render_context/manager_base.hpp
 	include/sge/scenic/render_context/manager_base_fwd.hpp
+	include/sge/scenic/render_context/manager_base_scoped_ptr.hpp
 	include/sge/scenic/render_context/optional_planar_texture.hpp
 	include/sge/scenic/render_queue/index_type.hpp
 	include/sge/scenic/render_queue/mesh.hpp
@@ -51,6 +52,8 @@ set(
 	include/sge/scenic/scene/mesh/material_to_index_buffer_range.hpp
 	include/sge/scenic/scene/mesh/object.hpp
 	include/sge/scenic/scene/mesh/object_fwd.hpp
+	include/sge/scenic/scene/object.hpp
+	include/sge/scenic/scene/object_fwd.hpp
 	include/sge/scenic/scene/position.hpp
 	include/sge/scenic/scene/prototype.hpp
 	include/sge/scenic/scene/prototype_fwd.hpp
@@ -83,6 +86,7 @@ set(
 	src/scenic/scene/material.cpp
 	src/scenic/scene/material_from_obj_material.cpp
 	src/scenic/scene/mesh/object.cpp
+	src/scenic/scene/object.cpp
 	src/scenic/scene/prototype.cpp
 	src/scenic/texture_manager.cpp
 )

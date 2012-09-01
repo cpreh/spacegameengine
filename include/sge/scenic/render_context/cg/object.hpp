@@ -25,6 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/material_fwd.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/matrix_mode.hpp>
+#include <sge/renderer/texture/filter/scoped.hpp>
+#include <sge/renderer/scoped_vertex_declaration.hpp>
+#include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/vertex_buffer_fwd.hpp>
 #include <sge/renderer/context/object_fwd.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
@@ -34,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/render_context/light_sequence.hpp>
 #include <sge/scenic/render_context/optional_planar_texture.hpp>
 #include <sge/scenic/render_context/cg/manager_fwd.hpp>
-#include <sge/shader/pair.hpp>
+#include <sge/shader/scoped_pair.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
@@ -94,6 +97,10 @@ public:
 		sge::scenic::index_buffer_range const &);
 
 	SGE_SCENIC_SYMBOL
+	sge::renderer::target::base &
+	target();
+
+	SGE_SCENIC_SYMBOL
 	~object();
 private:
 	typedef
@@ -102,6 +109,10 @@ private:
 
 	sge::scenic::render_context::cg::manager &manager_;
 	sge::renderer::context::object &context_;
+	sge::renderer::scoped_vertex_declaration scoped_vd_;
+	sge::renderer::state::scoped scoped_state_;
+	sge::renderer::texture::filter::scoped scoped_texture_filter_;
+	sge::shader::scoped_pair scoped_shader_;
 	sge::renderer::matrix4 current_world_;
 	sge::renderer::matrix4 current_projection_;
 	optional_vertex_buffer current_vertex_buffer_;

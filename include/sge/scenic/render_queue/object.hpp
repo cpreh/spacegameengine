@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/scenic/render_queue/index_type.hpp>
 #include <sge/scenic/render_queue/mesh.hpp>
+#include <sge/scenic/render_context/base_fwd.hpp>
 #include <sge/scenic/render_queue/state_change_count.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional.hpp>
@@ -69,7 +70,7 @@ public:
 
 	sge::scenic::render_queue::state_change_count const
 	render(
-		sge::renderer::context::object &);
+		sge::scenic::render_context::base &);
 
 	~object();
 private:

@@ -124,6 +124,10 @@ add_definitions(
 	${Awl_DEFINITIONS}
 )
 
+find_package(
+	Cg
+)
+
 add_sge_example(
 	anaglyph
 	"sgecamera;sgeconfig;sgeimage;sgeinput;sgelog;sgemodelmd3;sgerenderer;sgeshader;sgesystems;sgetexture;sgeviewport;sgewindow"
@@ -187,12 +191,12 @@ add_sge_example(
 	""
 )
 
-add_sge_example(
-	cube_map
-	"sgecamera;sgeimage;sgeinput;sgerenderer;sgesystems;sgeviewport;sgewindow;sgeimage2d;sgeconfig;sgescenic"
-	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
-	""
-)
+#add_sge_example(
+#	cube_map
+#	"sgecamera;sgeimage;sgeinput;sgerenderer;sgesystems;sgeviewport;sgewindow;sgeimage2d;sgeconfig;sgescenic"
+#	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+#	"${Cg_INCLUDE_DIRS}"
+#)
 
 add_sge_example(
 	doppler
@@ -294,12 +298,12 @@ add_sge_example(
 	""
 )
 
-add_sge_example(
-	occlusion_query
-	"sgecamera;sgeconfig;sgefont;sgefontdraw;sgeimage;sgeinput;sgelog;sgemedia;sgescenic;sgerenderer;sgesystems;sgetimer;sgeviewport;sgewindow"
-	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
-	""
-)
+#add_sge_example(
+#	occlusion_query
+#	"sgecamera;sgeconfig;sgefont;sgefontdraw;sgeimage;sgeinput;sgelog;sgemedia;sgescenic;sgerenderer;sgesystems;sgetimer;sgeviewport;sgewindow"
+#	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+#	"${Cg_INCLUDE_DIRS}"
+#)
 
 add_sge_console_example(
 	opengl
@@ -363,7 +367,7 @@ add_sge_example(
 	scenic
 	"sgeconfig;sgeimage;sgeinput;sgerenderer;sgesystems;sgeviewport;sgewindow;sgescenic;sgecamera;sgegraph"
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES};${Boost_CHRONO_LIBRARIES}"
-	""
+	"${Cg_INCLUDE_DIRS}"
 )
 
 add_sge_example(

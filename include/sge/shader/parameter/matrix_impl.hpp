@@ -24,7 +24,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cg/parameter/matrix/set.hpp>
 #include <sge/cg/program/object.hpp>
 #include <sge/shader/parameter/matrix_decl.hpp>
-
+#include <fcppt/text.hpp>
+#include <sge/renderer/caps/device.hpp>
+#include <sge/renderer/device.hpp>
+#include <sge/renderer/scalar.hpp>
+#include <fcppt/math/matrix/translation.hpp>
+#include <fcppt/math/matrix/scaling.hpp>
+#include <fcppt/math/matrix/arithmetic.hpp>
 
 template
 <
@@ -35,6 +41,7 @@ template
 sge::shader::parameter::matrix<ValueType,M,N>::matrix(
 	sge::cg::program::object &_program,
 	sge::shader::parameter::name const &_name,
+	sge::renderer::device const &_renderer,
 	sge::shader::parameter::is_projection_matrix const &_is_projection_matrix,
 	matrix_type const &_initial_value)
 :
@@ -42,7 +49,11 @@ sge::shader::parameter::matrix<ValueType,M,N>::matrix(
 		_program.parameter(
 			_name.get())),
 	is_projection_matrix_(
-		_is_projection_matrix)
+		_is_projection_matrix.get() && _renderer.caps().normalized_cvv().get()
+		?
+			true
+		:
+			false)
 {
 	this->set(
 		_initial_value);
@@ -58,15 +69,31 @@ void
 sge::shader::parameter::matrix<ValueType,M,N>::set(
 	matrix_type const &_matrix)
 {
+	sge::renderer::scalar const
+		one(
+			1.f),
+		two(
+			0.5f),
+		zero(
+			0.0f);
+
 	sge::cg::parameter::matrix::set(
 		parameter_.object(),
-		_matrix
-		/*
 		is_projection_matrix_.get()
 		?
-
+			fcppt::math::matrix::translation(
+				zero,
+				zero,
+				-one)
+			*
+			fcppt::math::matrix::scaling(
+				one,
+				one,
+				two)
+			*
+			_matrix
 		:
-		_matrix*/);
+			_matrix);
 }
 
 template

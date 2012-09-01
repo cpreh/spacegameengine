@@ -32,6 +32,8 @@ sge::scenic::render_context::cg::manager::manager(
 	sge::renderer::vertex_declaration &_vertex_declaration)
 :
 	sge::scenic::render_context::manager_base(),
+	vertex_declaration_(
+		_vertex_declaration),
 	shader_(
 		_shader_context,
 		_vertex_declaration,
@@ -43,6 +45,7 @@ sge::scenic::render_context::cg::manager::manager(
 		shader_.vertex_program(),
 		sge::shader::parameter::name(
 			"camera.world"),
+		_shader_context.renderer(),
 		sge::shader::parameter::is_projection_matrix(
 			false),
 		sge::renderer::matrix4()),
@@ -50,6 +53,7 @@ sge::scenic::render_context::cg::manager::manager(
 		shader_.vertex_program(),
 		sge::shader::parameter::name(
 			"camera.world_projection"),
+		_shader_context.renderer(),
 		sge::shader::parameter::is_projection_matrix(
 			true),
 		sge::renderer::matrix4()),
@@ -57,6 +61,7 @@ sge::scenic::render_context::cg::manager::manager(
 		shader_.vertex_program(),
 		sge::shader::parameter::name(
 			"camera.world_it"),
+		_shader_context.renderer(),
 		sge::shader::parameter::is_projection_matrix(
 			false),
 		sge::renderer::matrix4()),

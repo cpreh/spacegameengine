@@ -29,6 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_set.hpp>
+#include <sge/scenic/render_context/base.hpp>
+#include <sge/scenic/scene/object.hpp>
 #include <sge/scenic/scene/prototype.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/scenic/scene/from_blender_file.hpp>
@@ -116,12 +118,12 @@ try
 
 	sge::systems::instance const sys(
 		sge::systems::list()
-		(sge::systems::window(
+			(sge::systems::window(
 				sge::window::parameters(
 					sge::window::title(
 						FCPPT_TEXT("sge scenic example")),
 					window_dim)))
-		(sge::systems::renderer(
+			(sge::systems::renderer(
 				sge::renderer::parameters::object(
 					sge::renderer::pixel_format::object(
 						sge::renderer::pixel_format::color::depth32,
@@ -133,13 +135,13 @@ try
 					sge::renderer::display_mode::optional_object()),
 				sge::viewport::center_on_resize(
 					window_dim)))
-		(sge::systems::input(
+			(sge::systems::input(
 				sge::systems::input_helper_field(
 					sge::systems::input_helper::keyboard_collector) | sge::systems::input_helper::mouse_collector,
 				sge::systems::cursor_option_field(
 					sge::systems::cursor_option::exclusive)))
-		(sge::systems::charconv())
-		(sge::systems::image2d(
+			(sge::systems::charconv())
+			(sge::systems::image2d(
 				sge::image::capabilities_field::null(),
 				sge::media::optional_extension_set(
 					fcppt::assign::make_container<sge::media::extension_set>(
@@ -160,20 +162,23 @@ try
 				4.0f),
 			sge::camera::coordinate_system::identity()));
 
-	sge::scenic::scene::manager test_scene(
+	sge::scenic::scene::manager scene_manager(
 		sys.renderer(),
-		sys.image_system(),
+		sys.image_system());
+
+	sge::scenic::scene::object test_scene(
+		scene_manager,
 		sys.viewport_manager(),
 		sys.charconv_system(),
 		camera,
 		sge::scenic::scene::from_blender_file(
 			sge::config::media_path() / FCPPT_TEXT("scenes") / scene_name / FCPPT_TEXT("description.json"),
 			sys.charconv_system()),
-		sge::scenic::scene::manager::model_base_path(
+		sge::scenic::scene::object::model_base_path(
 			sge::config::media_path() / FCPPT_TEXT("scenes") / scene_name),
-		sge::scenic::scene::manager::material_base_path(
+		sge::scenic::scene::object::material_base_path(
 			sge::config::media_path() / FCPPT_TEXT("scenes") / scene_name),
-		sge::scenic::scene::manager::texture_base_path(
+		sge::scenic::scene::object::texture_base_path(
 			sge::config::media_path() / FCPPT_TEXT("scenes") / scene_name));
 
 	sge::timer::basic<sge::timer::clocks::standard> camera_timer(
@@ -242,8 +247,14 @@ try
 				.depth_buffer(
 					1.0f));
 
-		test_scene.render(
-			scoped_block.get());
+		{
+			sge::scenic::render_context::base_unique_ptr wrapped_context(
+				scene_manager.create_render_context(
+					scoped_block.get()));
+
+			test_scene.render(
+				*wrapped_context);
+		}
 
 		simple_grid_xz.render(
 			scoped_block.get(),

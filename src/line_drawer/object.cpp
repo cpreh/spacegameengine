@@ -33,14 +33,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_declaration.hpp>
 #include <sge/renderer/context/object.hpp>
 #include <sge/renderer/state/bool.hpp>
-#include <sge/renderer/state/cull_mode.hpp>
-#include <sge/renderer/state/depth_func.hpp>
 #include <sge/renderer/state/dest_blend_func.hpp>
-#include <sge/renderer/state/draw_mode.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/state/source_blend_func.hpp>
-#include <sge/renderer/state/stencil_func.hpp>
 #include <sge/renderer/state/trampoline.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/texture/const_optional_base_ref.hpp>
@@ -83,9 +79,7 @@ sge::line_drawer::object::render(
 		sge::renderer::state::list
 			(sge::renderer::state::bool_::enable_alpha_blending = true)
 			(sge::renderer::state::source_blend_func::src_alpha)
-			(sge::renderer::state::dest_blend_func::inv_src_alpha)
-			(sge::renderer::state::cull_mode::off)
-			(sge::renderer::state::stencil_func::off));
+			(sge::renderer::state::dest_blend_func::inv_src_alpha));
 
 	sge::renderer::scoped_vertex_declaration const scoped_decl(
 		_render_context,
