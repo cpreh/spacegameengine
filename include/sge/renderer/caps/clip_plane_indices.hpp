@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_CAPS_CLIP_PLANE_INDICES_HPP_INCLUDED
 #define SGE_RENDERER_CAPS_CLIP_PLANE_INDICES_HPP_INCLUDED
 
-#include <sge/renderer/clip_plane_index_value.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
@@ -36,7 +35,7 @@ namespace caps
  * \brief A strong typedef for the maximum number of clip planes
 */
 FCPPT_MAKE_STRONG_TYPEDEF(
-	renderer::clip_plane_index_value,
+	unsigned,
 	clip_plane_indices
 );
 

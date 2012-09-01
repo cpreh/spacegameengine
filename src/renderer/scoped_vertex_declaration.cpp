@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/const_optional_vertex_declaration_ref.hpp>
 #include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
-#include <sge/renderer/context/object.hpp>
+#include <sge/renderer/context/core.hpp>
 
 
 sge::renderer::scoped_vertex_declaration::scoped_vertex_declaration(
-	sge::renderer::context::object &_context,
+	sge::renderer::context::core &_context,
 	sge::renderer::vertex_declaration const &_declaration
 )
 :

@@ -20,11 +20,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/vertex_buffer_fwd.hpp>
-#include <sge/renderer/context/object.hpp>
+#include <sge/renderer/context/core.hpp>
 
 
 sge::renderer::scoped_vertex_buffer::scoped_vertex_buffer(
-	sge::renderer::context::object &_context,
+	sge::renderer::context::core &_context,
 	sge::renderer::vertex_buffer const &_vertex_buffer
 )
 :

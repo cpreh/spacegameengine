@@ -193,7 +193,6 @@ update_cmake_file \
 	$(renderer_inc_src context) \
 	$(renderer_inc_src display_mode) \
 	$(renderer_inc_src index) \
-	$(renderer_inc_src light) \
 	$(renderer_inc_src lock_flags) \
 	$(renderer_inc_src occlusion_query) \
 	$(renderer_inc_src parameters) \

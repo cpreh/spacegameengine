@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
-#include <sge/renderer/context/object_fwd.hpp>
+#include <sge/renderer/context/core_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
@@ -65,7 +65,7 @@ public:
 	*/
 	SGE_RENDERER_SYMBOL
 	scoped_vertex_declaration_and_buffers(
-		sge::renderer::context::object &object,
+		sge::renderer::context::core &object,
 		sge::renderer::vertex_declaration const &vertex_declaration,
 		sge::renderer::const_vertex_buffer_ref_container const &vertex_buffers
 	);

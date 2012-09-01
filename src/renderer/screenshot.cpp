@@ -19,9 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image2d/save_from_view.hpp>
-#include <sge/renderer/device.hpp>
 #include <sge/renderer/screenshot.hpp>
 #include <sge/renderer/color_buffer/const_scoped_surface_lock.hpp>
+#include <sge/renderer/device/core.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::renderer::screenshot(
-	sge::renderer::device const &_renderer,
+	sge::renderer::device::core const &_renderer,
 	sge::image2d::system &_system,
 	boost::filesystem::path const &_path
 )

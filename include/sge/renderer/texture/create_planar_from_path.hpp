@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_TEXTURE_CREATE_PLANAR_FROM_PATH_HPP_INCLUDED
 
 #include <sge/image2d/system_fwd.hpp>
-#include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
 #include <sge/renderer/symbol.hpp>
+#include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/texture/planar_unique_ptr.hpp>
 #include <sge/renderer/texture/mipmap/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -41,13 +41,13 @@ namespace texture
 {
 
 SGE_RENDERER_SYMBOL
-renderer::texture::planar_unique_ptr
+sge::renderer::texture::planar_unique_ptr
 create_planar_from_path(
 	boost::filesystem::path const &,
-	renderer::device &,
-	image2d::system &,
-	renderer::texture::mipmap::object const &,
-	renderer::resource_flags_field const &
+	sge::renderer::device::core &,
+	sge::image2d::system &,
+	sge::renderer::texture::mipmap::object const &,
+	sge::renderer::resource_flags_field const &
 );
 
 }

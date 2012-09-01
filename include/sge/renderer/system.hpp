@@ -23,17 +23,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/class_symbol.hpp>
 #include <sge/renderer/adapter.hpp>
-#include <sge/renderer/device_unique_ptr.hpp>
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/system_fwd.hpp>
 #include <sge/renderer/caps/device_count.hpp>
 #include <sge/renderer/caps/device_fwd.hpp>
 #include <sge/renderer/caps/system_field_fwd.hpp>
-#include <sge/renderer/parameters/object_fwd.hpp>
+#include <sge/renderer/device/core_unique_ptr.hpp>
+#include <sge/renderer/device/ffp_unique_ptr.hpp>
+#include <sge/renderer/device/parameters_fwd.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <awl/system/object_fwd.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
-#include <awl/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -60,31 +60,16 @@ protected:
 	SGE_RENDERER_SYMBOL
 	system();
 public:
-	/**
-	 \brief Creates renderer::device objects
-
-	 This function is the starting point if you want to do anything with a
-	 renderer plugin.
-
-	 \param adapter A number that tells which device to load. This must be
-	 between 0 and the device count minus 1. Every system must have at
-	 least one device.
-
-	 \param params The renderer configuration like resolution and buffers
-
-	 \param window The window used for rendering to. This window must
-	 satisfy the requirements imposed by \a params
-
-	 \throw sge::renderer::exception if anything goes wrong
-
-	 \return An sge::renderer::device_ptr that may not be null
-	*/
 	virtual
-	sge::renderer::device_unique_ptr
-	create_renderer(
-		sge::renderer::adapter adapter,
-		sge::renderer::parameters::object const &params,
-		awl::window::object &window
+	sge::renderer::device::core_unique_ptr
+	create_core_renderer(
+		sge::renderer::device::parameters const &
+	) = 0;
+
+	virtual
+	sge::renderer::device::ffp_unique_ptr
+	create_ffp_renderer(
+		sge::renderer::device::parameters const &
 	) = 0;
 
 	/**

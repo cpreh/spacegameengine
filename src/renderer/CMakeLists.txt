@@ -2,7 +2,6 @@ set(
 	SGE_RENDERER_FILES
 	include/sge/renderer/adapter.hpp
 	include/sge/renderer/adapter_value.hpp
-	include/sge/renderer/ambient_color.hpp
 	include/sge/renderer/aspect.hpp
 	include/sge/renderer/basic_dim.hpp
 	include/sge/renderer/basic_dim_fwd.hpp
@@ -42,9 +41,6 @@ set(
 	include/sge/renderer/clear/parameters.hpp
 	include/sge/renderer/clear/parameters_fwd.hpp
 	include/sge/renderer/clear/stencil_buffer_value.hpp
-	include/sge/renderer/clip_plane.hpp
-	include/sge/renderer/clip_plane_index.hpp
-	include/sge/renderer/clip_plane_index_value.hpp
 	include/sge/renderer/color_buffer/basic.hpp
 	include/sge/renderer/color_buffer/basic_fwd.hpp
 	include/sge/renderer/color_buffer/basic_scoped_lock.hpp
@@ -67,29 +63,23 @@ set(
 	include/sge/renderer/const_scoped_vertex_lock.hpp
 	include/sge/renderer/const_vertex_buffer_ref.hpp
 	include/sge/renderer/const_vertex_buffer_ref_container.hpp
-	include/sge/renderer/context/object.hpp
-	include/sge/renderer/context/object_fwd.hpp
-	include/sge/renderer/context/object_scoped_ptr.hpp
-	include/sge/renderer/context/object_unique_ptr.hpp
-	include/sge/renderer/context/scoped.hpp
-	include/sge/renderer/context/scoped_fwd.hpp
+	include/sge/renderer/context/core.hpp
+	include/sge/renderer/context/core_fwd.hpp
+	include/sge/renderer/context/core_scoped_ptr.hpp
+	include/sge/renderer/context/core_unique_ptr.hpp
+	include/sge/renderer/context/scoped_core.hpp
+	include/sge/renderer/context/scoped_core_fwd.hpp
 	include/sge/renderer/context/scoped_offscreen_target.hpp
 	include/sge/renderer/context/scoped_offscreen_target_fwd.hpp
 	include/sge/renderer/context/scoped_scoped_ptr.hpp
 	include/sge/renderer/context/scoped_unique_ptr.hpp
 	include/sge/renderer/create_index_buffer_from_view.hpp
 	include/sge/renderer/create_vertex_buffer_from_view.hpp
-	include/sge/renderer/default_material.hpp
 	include/sge/renderer/depth_stencil_format.hpp
 	include/sge/renderer/depth_stencil_surface.hpp
 	include/sge/renderer/depth_stencil_surface_fwd.hpp
 	include/sge/renderer/depth_stencil_surface_scoped_ptr.hpp
 	include/sge/renderer/depth_stencil_surface_unique_ptr.hpp
-	include/sge/renderer/device.hpp
-	include/sge/renderer/device_fwd.hpp
-	include/sge/renderer/device_scoped_ptr.hpp
-	include/sge/renderer/device_unique_ptr.hpp
-	include/sge/renderer/diffuse_color.hpp
 	include/sge/renderer/dim2.hpp
 	include/sge/renderer/dim2_fwd.hpp
 	include/sge/renderer/dim3.hpp
@@ -110,7 +100,6 @@ set(
 	include/sge/renderer/display_mode/pixel_size_fwd.hpp
 	include/sge/renderer/display_mode/refresh_rate.hpp
 	include/sge/renderer/display_mode/refresh_rate_value.hpp
-	include/sge/renderer/emissive_color.hpp
 	include/sge/renderer/epsilon.hpp
 	include/sge/renderer/exception.hpp
 	include/sge/renderer/first_index.hpp
@@ -174,27 +163,6 @@ set(
 	include/sge/renderer/index_buffer_unique_ptr.hpp
 	include/sge/renderer/index_count.hpp
 	include/sge/renderer/is_epsilon_equal.hpp
-	include/sge/renderer/light/attenuation.hpp
-	include/sge/renderer/light/attenuation_fwd.hpp
-	include/sge/renderer/light/constant_attenuation.hpp
-	include/sge/renderer/light/cutoff_angle.hpp
-	include/sge/renderer/light/direction.hpp
-	include/sge/renderer/light/direction_fwd.hpp
-	include/sge/renderer/light/directional.hpp
-	include/sge/renderer/light/directional_fwd.hpp
-	include/sge/renderer/light/index.hpp
-	include/sge/renderer/light/index_value.hpp
-	include/sge/renderer/light/linear_attenuation.hpp
-	include/sge/renderer/light/object.hpp
-	include/sge/renderer/light/object_fwd.hpp
-	include/sge/renderer/light/point.hpp
-	include/sge/renderer/light/point_fwd.hpp
-	include/sge/renderer/light/position.hpp
-	include/sge/renderer/light/position_fwd.hpp
-	include/sge/renderer/light/quadratic_attenuation.hpp
-	include/sge/renderer/light/spot.hpp
-	include/sge/renderer/light/spot_fwd.hpp
-	include/sge/renderer/light/variant.hpp
 	include/sge/renderer/lock_box.hpp
 	include/sge/renderer/lock_box_fwd.hpp
 	include/sge/renderer/lock_flags/from_mode.hpp
@@ -205,11 +173,8 @@ set(
 	include/sge/renderer/lock_rect.hpp
 	include/sge/renderer/lock_rect_fwd.hpp
 	include/sge/renderer/lock_rect_to_coords.hpp
-	include/sge/renderer/material.hpp
-	include/sge/renderer/material_fwd.hpp
 	include/sge/renderer/matrix4.hpp
 	include/sge/renderer/matrix4_fwd.hpp
-	include/sge/renderer/matrix_mode.hpp
 	include/sge/renderer/npos.hpp
 	include/sge/renderer/occlusion_query/blocking_wait.hpp
 	include/sge/renderer/occlusion_query/object.hpp
@@ -268,7 +233,6 @@ set(
 	include/sge/renderer/resource_flags_field_fwd.hpp
 	include/sge/renderer/scalar.hpp
 	include/sge/renderer/scoped_index_lock.hpp
-	include/sge/renderer/scoped_transform.hpp
 	include/sge/renderer/scoped_vertex_buffer.hpp
 	include/sge/renderer/scoped_vertex_buffer_fwd.hpp
 	include/sge/renderer/scoped_vertex_declaration.hpp
@@ -278,70 +242,166 @@ set(
 	include/sge/renderer/screen_size_fwd.hpp
 	include/sge/renderer/screen_unit.hpp
 	include/sge/renderer/screenshot.hpp
-	include/sge/renderer/shininess.hpp
 	include/sge/renderer/size_type.hpp
-	include/sge/renderer/specular_color.hpp
-	include/sge/renderer/state/alpha_func.hpp
-	include/sge/renderer/state/any.hpp
-	include/sge/renderer/state/any_key.hpp
-	include/sge/renderer/state/any_key_types.hpp
-	include/sge/renderer/state/any_sort.hpp
-	include/sge/renderer/state/any_sort_functor.hpp
-	include/sge/renderer/state/apply.hpp
-	include/sge/renderer/state/apply_callback.hpp
 	include/sge/renderer/state/bool.hpp
-	include/sge/renderer/state/bool/available_states.hpp
-	include/sge/renderer/state/bool/base_type.hpp
-	include/sge/renderer/state/bool/trampoline.hpp
-	include/sge/renderer/state/bool/type.hpp
 	include/sge/renderer/state/color.hpp
-	include/sge/renderer/state/color/available_states.hpp
-	include/sge/renderer/state/color/base_type.hpp
-	include/sge/renderer/state/color/trampoline.hpp
-	include/sge/renderer/state/color/type.hpp
 	include/sge/renderer/state/color_type.hpp
-	include/sge/renderer/state/combine.hpp
-	include/sge/renderer/state/cull_mode.hpp
-	include/sge/renderer/state/default.hpp
-	include/sge/renderer/state/depth_func.hpp
-	include/sge/renderer/state/dest_blend_func.hpp
-	include/sge/renderer/state/draw_mode.hpp
-	include/sge/renderer/state/enum_key.hpp
-	include/sge/renderer/state/extract.hpp
-	include/sge/renderer/state/extract_trampoline.hpp
+	include/sge/renderer/state/core/blend/alpha_dest.hpp
+	include/sge/renderer/state/core/blend/alpha_enable.hpp
+	include/sge/renderer/state/core/blend/alpha_enable_fwd.hpp
+	include/sge/renderer/state/core/blend/alpha_enable_variant_fwd.hpp
+	include/sge/renderer/state/core/blend/alpha_off.hpp
+	include/sge/renderer/state/core/blend/alpha_off_fwd.hpp
+	include/sge/renderer/state/core/blend/alpha_source.hpp
+	include/sge/renderer/state/core/blend/alpha_variant.hpp
+	include/sge/renderer/state/core/blend/alpha_variant_fwd.hpp
+	include/sge/renderer/state/core/blend/color_dest.hpp
+	include/sge/renderer/state/core/blend/color_source.hpp
+	include/sge/renderer/state/core/blend/combined.hpp
+	include/sge/renderer/state/core/blend/combined_fwd.hpp
+	include/sge/renderer/state/core/blend/const_optional_object_ref.hpp
+	include/sge/renderer/state/core/blend/const_optional_object_ref_fwd.hpp
+	include/sge/renderer/state/core/blend/dest.hpp
+	include/sge/renderer/state/core/blend/object.hpp
+	include/sge/renderer/state/core/blend/object_fwd.hpp
+	include/sge/renderer/state/core/blend/object_scoped_ptr.hpp
+	include/sge/renderer/state/core/blend/object_unique_ptr.hpp
+	include/sge/renderer/state/core/blend/parameters.hpp
+	include/sge/renderer/state/core/blend/parameters_fwd.hpp
+	include/sge/renderer/state/core/blend/separate.hpp
+	include/sge/renderer/state/core/blend/separate_fwd.hpp
+	include/sge/renderer/state/core/blend/source.hpp
+	include/sge/renderer/state/core/blend/write_alpha.hpp
+	include/sge/renderer/state/core/blend/write_blue.hpp
+	include/sge/renderer/state/core/blend/write_green.hpp
+	include/sge/renderer/state/core/blend/write_mask.hpp
+	include/sge/renderer/state/core/blend/write_mask_all.hpp
+	include/sge/renderer/state/core/blend/write_mask_fwd.hpp
+	include/sge/renderer/state/core/blend/write_red.hpp
+	include/sge/renderer/state/core/depth_stencil/const_optional_object_ref.hpp
+	include/sge/renderer/state/core/depth_stencil/const_optional_object_ref_fwd.hpp
+	include/sge/renderer/state/core/depth_stencil/depth_enable.hpp
+	include/sge/renderer/state/core/depth_stencil/depth_enable_fwd.hpp
+	include/sge/renderer/state/core/depth_stencil/depth_func.hpp
+	include/sge/renderer/state/core/depth_stencil/depth_off.hpp
+	include/sge/renderer/state/core/depth_stencil/depth_off_fwd.hpp
+	include/sge/renderer/state/core/depth_stencil/depth_variant.hpp
+	include/sge/renderer/state/core/depth_stencil/depth_variant_fwd.hpp
+	include/sge/renderer/state/core/depth_stencil/depth_write_enable.hpp
+	include/sge/renderer/state/core/depth_stencil/object.hpp
+	include/sge/renderer/state/core/depth_stencil/object_fwd.hpp
+	include/sge/renderer/state/core/depth_stencil/object_scoped_ptr.hpp
+	include/sge/renderer/state/core/depth_stencil/object_unique_ptr.hpp
+	include/sge/renderer/state/core/depth_stencil/parameters.hpp
+	include/sge/renderer/state/core/depth_stencil/parameters_fwd.hpp
+	include/sge/renderer/state/core/depth_stencil/stencil_back.hpp
+	include/sge/renderer/state/core/depth_stencil/stencil_combined.hpp
+	include/sge/renderer/state/core/depth_stencil/stencil_combined_fwd.hpp
+	include/sge/renderer/state/core/depth_stencil/stencil_depth_fail_op.hpp
+	include/sge/renderer/state/core/depth_stencil/stencil_desc.hpp
+	include/sge/renderer/state/core/depth_stencil/stencil_desc_fwd.hpp
+	include/sge/renderer/state/core/depth_stencil/stencil_enable.hpp
+	include/sge/renderer/state/core/depth_stencil/stencil_enable_fwd.hpp
+	include/sge/renderer/state/core/depth_stencil/stencil_enable_variant_fwd.hpp
+	include/sge/renderer/state/core/depth_stencil/stencil_fail_op.hpp
+	include/sge/renderer/state/core/depth_stencil/stencil_front.hpp
+	include/sge/renderer/state/core/depth_stencil/stencil_func.hpp
+	include/sge/renderer/state/core/depth_stencil/stencil_off.hpp
+	include/sge/renderer/state/core/depth_stencil/stencil_off_fwd.hpp
+	include/sge/renderer/state/core/depth_stencil/stencil_op.hpp
+	include/sge/renderer/state/core/depth_stencil/stencil_pass_op.hpp
+	include/sge/renderer/state/core/depth_stencil/stencil_ref.hpp
+	include/sge/renderer/state/core/depth_stencil/stencil_separate.hpp
+	include/sge/renderer/state/core/depth_stencil/stencil_separate_fwd.hpp
+	include/sge/renderer/state/core/depth_stencil/stencil_value.hpp
+	include/sge/renderer/state/core/depth_stencil/stencil_variant.hpp
+	include/sge/renderer/state/core/depth_stencil/stencil_variant_fwd.hpp
+	include/sge/renderer/state/core/depth_stencil/stencil_write_mask.hpp
+	include/sge/renderer/state/core/rasterizer/const_optional_object_ref.hpp
+	include/sge/renderer/state/core/rasterizer/const_optional_object_ref_fwd.hpp
+	include/sge/renderer/state/core/rasterizer/cull_mode.hpp
+	include/sge/renderer/state/core/rasterizer/fill_mode.hpp
+	include/sge/renderer/state/core/rasterizer/object.hpp
+	include/sge/renderer/state/core/rasterizer/object_fwd.hpp
+	include/sge/renderer/state/core/rasterizer/object_scoped_ptr.hpp
+	include/sge/renderer/state/core/rasterizer/object_unique_ptr.hpp
+	include/sge/renderer/state/core/rasterizer/parameters.hpp
+	include/sge/renderer/state/core/rasterizer/parameters_fwd.hpp
+	include/sge/renderer/state/core/sampler/address/mode.hpp
+	include/sge/renderer/state/core/sampler/address/mode_all.hpp
+	include/sge/renderer/state/core/sampler/address/mode_default.hpp
+	include/sge/renderer/state/core/sampler/address/mode_s.hpp
+	include/sge/renderer/state/core/sampler/address/mode_t.hpp
+	include/sge/renderer/state/core/sampler/address/mode_u.hpp
+	include/sge/renderer/state/core/sampler/address/object.hpp
+	include/sge/renderer/state/core/sampler/address/object_fwd.hpp
+	include/sge/renderer/state/core/sampler/const_object_ref.hpp
+	include/sge/renderer/state/core/sampler/const_object_ref_vector.hpp
+	include/sge/renderer/state/core/sampler/filter/anisotropic/level.hpp
+	include/sge/renderer/state/core/sampler/filter/anisotropic/level_value.hpp
+	include/sge/renderer/state/core/sampler/filter/anisotropic/mip.hpp
+	include/sge/renderer/state/core/sampler/filter/anisotropic/object.hpp
+	include/sge/renderer/state/core/sampler/filter/anisotropic/object_fwd.hpp
+	include/sge/renderer/state/core/sampler/filter/default.hpp
+	include/sge/renderer/state/core/sampler/filter/linear.hpp
+	include/sge/renderer/state/core/sampler/filter/mipmap.hpp
+	include/sge/renderer/state/core/sampler/filter/need_mipmap.hpp
+	include/sge/renderer/state/core/sampler/filter/normal/mag.hpp
+	include/sge/renderer/state/core/sampler/filter/normal/min.hpp
+	include/sge/renderer/state/core/sampler/filter/normal/mip.hpp
+	include/sge/renderer/state/core/sampler/filter/normal/object.hpp
+	include/sge/renderer/state/core/sampler/filter/normal/object_fwd.hpp
+	include/sge/renderer/state/core/sampler/filter/object.hpp
+	include/sge/renderer/state/core/sampler/filter/object_fwd.hpp
+	include/sge/renderer/state/core/sampler/filter/point.hpp
+	include/sge/renderer/state/core/sampler/filter/trilinear.hpp
+	include/sge/renderer/state/core/sampler/filter/variant.hpp
+	include/sge/renderer/state/core/sampler/filter/variant_fwd.hpp
+	include/sge/renderer/state/core/sampler/object.hpp
+	include/sge/renderer/state/core/sampler/object_fwd.hpp
+	include/sge/renderer/state/core/sampler/object_scoped_ptr.hpp
+	include/sge/renderer/state/core/sampler/object_unique_ptr.hpp
+	include/sge/renderer/state/core/sampler/parameters.hpp
+	include/sge/renderer/state/core/sampler/parameters_fwd.hpp
+	include/sge/renderer/state/ffp/alpha_test/const_optional_object_ref.hpp
+	include/sge/renderer/state/ffp/alpha_test/const_optional_object_ref_fwd.hpp
+	include/sge/renderer/state/ffp/alpha_test/func.hpp
+	include/sge/renderer/state/ffp/alpha_test/object.hpp
+	include/sge/renderer/state/ffp/alpha_test/object_fwd.hpp
+	include/sge/renderer/state/ffp/alpha_test/object_scoped_ptr.hpp
+	include/sge/renderer/state/ffp/alpha_test/object_unique_ptr.hpp
+	include/sge/renderer/state/ffp/clip_plane/area.hpp
+	include/sge/renderer/state/ffp/lighting/ambient_color.hpp
+	include/sge/renderer/state/ffp/lighting/diffuse_color.hpp
+	include/sge/renderer/state/ffp/lighting/light/attenuation.hpp
+	include/sge/renderer/state/ffp/lighting/light/attenuation_fwd.hpp
+	include/sge/renderer/state/ffp/lighting/light/constant_attenuation.hpp
+	include/sge/renderer/state/ffp/lighting/light/cutoff_angle.hpp
+	include/sge/renderer/state/ffp/lighting/light/direction.hpp
+	include/sge/renderer/state/ffp/lighting/light/direction_fwd.hpp
+	include/sge/renderer/state/ffp/lighting/light/directional.hpp
+	include/sge/renderer/state/ffp/lighting/light/directional_fwd.hpp
+	include/sge/renderer/state/ffp/lighting/light/linear_attenuation.hpp
+	include/sge/renderer/state/ffp/lighting/light/object.hpp
+	include/sge/renderer/state/ffp/lighting/light/object_fwd.hpp
+	include/sge/renderer/state/ffp/lighting/light/point.hpp
+	include/sge/renderer/state/ffp/lighting/light/point_fwd.hpp
+	include/sge/renderer/state/ffp/lighting/light/position.hpp
+	include/sge/renderer/state/ffp/lighting/light/position_fwd.hpp
+	include/sge/renderer/state/ffp/lighting/light/quadratic_attenuation.hpp
+	include/sge/renderer/state/ffp/lighting/light/spot.hpp
+	include/sge/renderer/state/ffp/lighting/light/spot_fwd.hpp
+	include/sge/renderer/state/ffp/lighting/light/variant.hpp
+	include/sge/renderer/state/ffp/lighting/material/default.hpp
+	include/sge/renderer/state/ffp/lighting/material/emissive_color.hpp
+	include/sge/renderer/state/ffp/lighting/material/parameters.hpp
+	include/sge/renderer/state/ffp/lighting/material/parameters_fwd.hpp
+	include/sge/renderer/state/ffp/lighting/material/shininess.hpp
+	include/sge/renderer/state/ffp/lighting/specular_color.hpp
+	include/sge/renderer/state/ffp/transform/matrix_mode.hpp
+	include/sge/renderer/state/ffp/transform/scoped.hpp
 	include/sge/renderer/state/float.hpp
-	include/sge/renderer/state/float/available_states.hpp
-	include/sge/renderer/state/float/base_type.hpp
-	include/sge/renderer/state/float/trampoline.hpp
-	include/sge/renderer/state/float/type.hpp
 	include/sge/renderer/state/fog_mode.hpp
-	include/sge/renderer/state/int.hpp
-	include/sge/renderer/state/int/available_states.hpp
-	include/sge/renderer/state/int/base_type.hpp
-	include/sge/renderer/state/int/trampoline.hpp
-	include/sge/renderer/state/int/type.hpp
-	include/sge/renderer/state/list.hpp
-	include/sge/renderer/state/list_fwd.hpp
-	include/sge/renderer/state/map.hpp
-	include/sge/renderer/state/scoped.hpp
-	include/sge/renderer/state/source_blend_func.hpp
-	include/sge/renderer/state/stack.hpp
-	include/sge/renderer/state/stencil_func.hpp
-	include/sge/renderer/state/stencil_op.hpp
-	include/sge/renderer/state/stencil_op/available_states.hpp
-	include/sge/renderer/state/stencil_op/base_type.hpp
-	include/sge/renderer/state/stencil_op/trampoline.hpp
-	include/sge/renderer/state/stencil_op/type.hpp
-	include/sge/renderer/state/stencil_op_value.hpp
-	include/sge/renderer/state/trampoline.hpp
-	include/sge/renderer/state/trampoline_fwd.hpp
-	include/sge/renderer/state/uint.hpp
-	include/sge/renderer/state/uint/available_states.hpp
-	include/sge/renderer/state/uint/base_type.hpp
-	include/sge/renderer/state/uint/trampoline.hpp
-	include/sge/renderer/state/uint/type.hpp
-	include/sge/renderer/state/var.hpp
-	include/sge/renderer/state/var_fwd.hpp
 	include/sge/renderer/system.hpp
 	include/sge/renderer/system_fwd.hpp
 	include/sge/renderer/system_scoped_ptr.hpp
@@ -367,15 +427,6 @@ set(
 	include/sge/renderer/target/viewport.hpp
 	include/sge/renderer/target/viewport_fwd.hpp
 	include/sge/renderer/target/viewport_size.hpp
-	include/sge/renderer/texture/address_mode.hpp
-	include/sge/renderer/texture/address_mode2.hpp
-	include/sge/renderer/texture/address_mode2_fwd.hpp
-	include/sge/renderer/texture/address_mode3.hpp
-	include/sge/renderer/texture/address_mode3_fwd.hpp
-	include/sge/renderer/texture/address_mode_default.hpp
-	include/sge/renderer/texture/address_mode_s.hpp
-	include/sge/renderer/texture/address_mode_t.hpp
-	include/sge/renderer/texture/address_mode_u.hpp
 	include/sge/renderer/texture/base.hpp
 	include/sge/renderer/texture/base_fwd.hpp
 	include/sge/renderer/texture/base_scoped_ptr.hpp
@@ -411,28 +462,6 @@ set(
 	include/sge/renderer/texture/depth_stencil_parameters_fwd.hpp
 	include/sge/renderer/texture/depth_stencil_scoped_ptr.hpp
 	include/sge/renderer/texture/depth_stencil_unique_ptr.hpp
-	include/sge/renderer/texture/filter/anisotropic/level.hpp
-	include/sge/renderer/texture/filter/anisotropic/level_value.hpp
-	include/sge/renderer/texture/filter/anisotropic/make.hpp
-	include/sge/renderer/texture/filter/anisotropic/mip.hpp
-	include/sge/renderer/texture/filter/anisotropic/object.hpp
-	include/sge/renderer/texture/filter/anisotropic/object_fwd.hpp
-	include/sge/renderer/texture/filter/default.hpp
-	include/sge/renderer/texture/filter/linear.hpp
-	include/sge/renderer/texture/filter/mipmap.hpp
-	include/sge/renderer/texture/filter/need_mipmap.hpp
-	include/sge/renderer/texture/filter/normal/mag.hpp
-	include/sge/renderer/texture/filter/normal/make.hpp
-	include/sge/renderer/texture/filter/normal/min.hpp
-	include/sge/renderer/texture/filter/normal/mip.hpp
-	include/sge/renderer/texture/filter/normal/object.hpp
-	include/sge/renderer/texture/filter/normal/object_fwd.hpp
-	include/sge/renderer/texture/filter/object.hpp
-	include/sge/renderer/texture/filter/object_fwd.hpp
-	include/sge/renderer/texture/filter/point.hpp
-	include/sge/renderer/texture/filter/scoped.hpp
-	include/sge/renderer/texture/filter/trilinear.hpp
-	include/sge/renderer/texture/filter/variant.hpp
 	include/sge/renderer/texture/mipmap/all_levels.hpp
 	include/sge/renderer/texture/mipmap/all_levels_rep.hpp
 	include/sge/renderer/texture/mipmap/all_levels_rep_fwd.hpp
@@ -612,14 +641,12 @@ set(
 	src/renderer/color_buffer/volume.cpp
 	src/renderer/const_scoped_index_lock.cpp
 	src/renderer/const_scoped_vertex_lock.cpp
-	src/renderer/context/object.cpp
-	src/renderer/context/scoped.cpp
+	src/renderer/context/core.cpp
+	src/renderer/context/scoped_core.cpp
 	src/renderer/context/scoped_offscreen_target.cpp
 	src/renderer/create_index_buffer_from_view.cpp
 	src/renderer/create_vertex_buffer_from_view.cpp
-	src/renderer/default_material.cpp
 	src/renderer/depth_stencil_surface.cpp
-	src/renderer/device.cpp
 	src/renderer/display_mode/comparison.cpp
 	src/renderer/display_mode/object.cpp
 	src/renderer/display_mode/output.cpp
@@ -641,25 +668,10 @@ set(
 	src/renderer/include/sge/src/renderer/instantiate_float.hpp
 	src/renderer/include/sge/src/renderer/projection/check_near.hpp
 	src/renderer/include/sge/src/renderer/projection/check_near_far.hpp
-	src/renderer/include/sge/src/renderer/state/define_trampoline_object.hpp
-	src/renderer/include/sge/src/renderer/state/extract_impl.hpp
-	src/renderer/include/sge/src/renderer/state/extract_trampoline_impl.hpp
-	src/renderer/include/sge/src/renderer/state/instantiate_class.hpp
-	src/renderer/include/sge/src/renderer/state/instantiate_extract.hpp
-	src/renderer/include/sge/src/renderer/state/instantiate_extract_trampoline.hpp
-	src/renderer/include/sge/src/renderer/state/instantiate_trampoline.hpp
-	src/renderer/include/sge/src/renderer/state/instantiate_var.hpp
-	src/renderer/include/sge/src/renderer/state/instantiate_with_trampoline.hpp
-	src/renderer/include/sge/src/renderer/state/instantiate_without_trampoline.hpp
-	src/renderer/include/sge/src/renderer/state/make_enum_key.hpp
-	src/renderer/include/sge/src/renderer/state/make_key.hpp
-	src/renderer/include/sge/src/renderer/state/make_state_key.hpp
-	src/renderer/include/sge/src/renderer/state/trampoline_impl.hpp
-	src/renderer/include/sge/src/renderer/state/var_impl.hpp
+	src/renderer/include/sge/src/renderer/state/core/sampler/filter/need_mipmap_visitor.hpp
 	src/renderer/include/sge/src/renderer/texture/basic_parameters_impl.hpp
 	src/renderer/include/sge/src/renderer/texture/basic_scoped_lock_impl.hpp
 	src/renderer/include/sge/src/renderer/texture/const_basic_scoped_lock_impl.hpp
-	src/renderer/include/sge/src/renderer/texture/filter/need_mipmap_visitor.hpp
 	src/renderer/include/sge/src/renderer/texture/instantiate_basic_parameters.hpp
 	src/renderer/include/sge/src/renderer/texture/instantiate_basic_scoped_lock.hpp
 	src/renderer/include/sge/src/renderer/texture/instantiate_const_basic_scoped_lock.hpp
@@ -681,16 +693,10 @@ set(
 	src/renderer/index/dynamic/view.cpp
 	src/renderer/index/view.cpp
 	src/renderer/index_buffer.cpp
-	src/renderer/light/attenuation.cpp
-	src/renderer/light/directional.cpp
-	src/renderer/light/object.cpp
-	src/renderer/light/point.cpp
-	src/renderer/light/spot.cpp
 	src/renderer/lock_flags/from_mode.cpp
 	src/renderer/lock_flags/read.cpp
 	src/renderer/lock_flags/write.cpp
 	src/renderer/lock_rect_to_coords.cpp
-	src/renderer/material.cpp
 	src/renderer/npos.cpp
 	src/renderer/occlusion_query/object.cpp
 	src/renderer/occlusion_query/scoped.cpp
@@ -713,46 +719,25 @@ set(
 	src/renderer/projection/perspective_af.cpp
 	src/renderer/projection/perspective_wh.cpp
 	src/renderer/scoped_index_lock.cpp
-	src/renderer/scoped_transform.cpp
 	src/renderer/scoped_vertex_buffer.cpp
 	src/renderer/scoped_vertex_declaration.cpp
 	src/renderer/scoped_vertex_declaration_and_buffers.cpp
 	src/renderer/scoped_vertex_lock.cpp
 	src/renderer/screenshot.cpp
-	src/renderer/state/alpha_func.cpp
-	src/renderer/state/any_sort.cpp
-	src/renderer/state/any_sort_functor.cpp
-	src/renderer/state/apply.cpp
-	src/renderer/state/bool.cpp
-	src/renderer/state/bool/trampoline.cpp
-	src/renderer/state/bool/var.cpp
-	src/renderer/state/color.cpp
-	src/renderer/state/color/trampoline.cpp
-	src/renderer/state/color/var.cpp
-	src/renderer/state/combine.cpp
-	src/renderer/state/cull_mode.cpp
-	src/renderer/state/default.cpp
-	src/renderer/state/depth_func.cpp
-	src/renderer/state/dest_blend_func.cpp
-	src/renderer/state/draw_mode.cpp
-	src/renderer/state/float.cpp
-	src/renderer/state/float/trampoline.cpp
-	src/renderer/state/float/var.cpp
-	src/renderer/state/fog_mode.cpp
-	src/renderer/state/int.cpp
-	src/renderer/state/int/trampoline.cpp
-	src/renderer/state/int/var.cpp
-	src/renderer/state/list.cpp
-	src/renderer/state/make_key.cpp
-	src/renderer/state/scoped.cpp
-	src/renderer/state/source_blend_func.cpp
-	src/renderer/state/stencil_func.cpp
-	src/renderer/state/stencil_op.cpp
-	src/renderer/state/stencil_op/trampoline.cpp
-	src/renderer/state/stencil_op/var.cpp
-	src/renderer/state/uint.cpp
-	src/renderer/state/uint/trampoline.cpp
-	src/renderer/state/uint/var.cpp
+	src/renderer/state/core/sampler/address/mode_default.cpp
+	src/renderer/state/core/sampler/filter/anisotropic/object.cpp
+	src/renderer/state/core/sampler/filter/default.cpp
+	src/renderer/state/core/sampler/filter/linear.cpp
+	src/renderer/state/core/sampler/filter/mipmap.cpp
+	src/renderer/state/core/sampler/filter/need_mipmap.cpp
+	src/renderer/state/core/sampler/filter/need_mipmap_visitor.cpp
+	src/renderer/state/core/sampler/filter/normal/object.cpp
+	src/renderer/state/core/sampler/filter/object.cpp
+	src/renderer/state/core/sampler/filter/point.cpp
+	src/renderer/state/core/sampler/filter/trilinear.cpp
+	src/renderer/state/ffp/lighting/material/default.cpp
+	src/renderer/state/ffp/lighting/material/parameters.cpp
+	src/renderer/state/ffp/transform/scoped.cpp
 	src/renderer/system.cpp
 	src/renderer/target/aspect_from_viewport.cpp
 	src/renderer/target/base.cpp
@@ -761,9 +746,6 @@ set(
 	src/renderer/target/onscreen.cpp
 	src/renderer/target/scoped_scissor_area.cpp
 	src/renderer/target/viewport_size.cpp
-	src/renderer/texture/address_mode2.cpp
-	src/renderer/texture/address_mode3.cpp
-	src/renderer/texture/address_mode_default.cpp
 	src/renderer/texture/base.cpp
 	src/renderer/texture/const_scoped_planar_lock.cpp
 	src/renderer/texture/const_scoped_volume_lock.cpp
@@ -776,19 +758,6 @@ set(
 	src/renderer/texture/cube_parameters.cpp
 	src/renderer/texture/depth_stencil.cpp
 	src/renderer/texture/depth_stencil_parameters.cpp
-	src/renderer/texture/filter/anisotropic/make.cpp
-	src/renderer/texture/filter/anisotropic/object.cpp
-	src/renderer/texture/filter/default.cpp
-	src/renderer/texture/filter/linear.cpp
-	src/renderer/texture/filter/mipmap.cpp
-	src/renderer/texture/filter/need_mipmap.cpp
-	src/renderer/texture/filter/need_mipmap_visitor.cpp
-	src/renderer/texture/filter/normal/make.cpp
-	src/renderer/texture/filter/normal/object.cpp
-	src/renderer/texture/filter/object.cpp
-	src/renderer/texture/filter/point.cpp
-	src/renderer/texture/filter/scoped.cpp
-	src/renderer/texture/filter/trilinear.cpp
 	src/renderer/texture/mipmap/all_levels.cpp
 	src/renderer/texture/mipmap/all_levels_rep.cpp
 	src/renderer/texture/mipmap/levels.cpp

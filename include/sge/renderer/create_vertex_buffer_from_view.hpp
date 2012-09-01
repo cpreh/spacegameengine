@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_CREATE_VERTEX_BUFFER_FROM_VIEW_HPP_INCLUDED
 #define SGE_RENDERER_CREATE_VERTEX_BUFFER_FROM_VIEW_HPP_INCLUDED
 
-#include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/vertex_buffer_unique_ptr.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
+#include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/vf/dynamic/const_view_fwd.hpp>
 
 
@@ -50,12 +50,12 @@ namespace renderer
  * vertex_declaration
 */
 SGE_RENDERER_SYMBOL
-renderer::vertex_buffer_unique_ptr
+sge::renderer::vertex_buffer_unique_ptr
 create_vertex_buffer_from_view(
-	renderer::device &device,
-	renderer::vertex_declaration &vertex_declaration,
-	renderer::vf::dynamic::const_view const &view,
-	renderer::resource_flags_field const &flags
+	sge::renderer::device::core &device,
+	sge::renderer::vertex_declaration &vertex_declaration,
+	sge::renderer::vf::dynamic::const_view const &view,
+	sge::renderer::resource_flags_field const &flags
 );
 
 }

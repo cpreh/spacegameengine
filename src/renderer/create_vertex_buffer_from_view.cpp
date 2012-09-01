@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/create_vertex_buffer_from_view.hpp>
-#include <sge/renderer/device.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
@@ -27,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_buffer_unique_ptr.hpp>
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
+#include <sge/renderer/device/core.hpp>
 #include <sge/renderer/vf/dynamic/const_view.hpp>
 #include <sge/renderer/vf/dynamic/part.hpp>
 #include <fcppt/move.hpp>
@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer::vertex_buffer_unique_ptr
 sge::renderer::create_vertex_buffer_from_view(
-	sge::renderer::device &_device,
+	sge::renderer::device::core &_device,
 	sge::renderer::vertex_declaration &_vertex_declaration,
 	sge::renderer::vf::dynamic::const_view const &_view,
 	sge::renderer::resource_flags_field const &_resource_flags
@@ -54,9 +54,9 @@ sge::renderer::create_vertex_buffer_from_view(
 		)
 	);
 
-	renderer::scoped_vertex_lock const lock(
+	sge::renderer::scoped_vertex_lock const lock(
 		*buffer,
-		renderer::lock_mode::writeonly
+		sge::renderer::lock_mode::writeonly
 	);
 
 	std::memcpy(

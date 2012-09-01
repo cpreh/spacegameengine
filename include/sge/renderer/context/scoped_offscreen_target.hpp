@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_CONTEXT_SCOPED_OFFSCREEN_TARGET_HPP_INCLUDED
 
 #include <sge/renderer/symbol.hpp>
-#include <sge/renderer/context/object_fwd.hpp>
+#include <sge/renderer/context/core_fwd.hpp>
 #include <sge/renderer/context/scoped_offscreen_target_fwd.hpp>
 #include <sge/renderer/target/offscreen_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -43,14 +43,14 @@ class scoped_offscreen_target
 public:
 	SGE_RENDERER_SYMBOL
 	scoped_offscreen_target(
-		sge::renderer::context::object &,
+		sge::renderer::context::core &,
 		sge::renderer::target::offscreen &
 	);
 
 	SGE_RENDERER_SYMBOL
 	~scoped_offscreen_target();
 private:
-	sge::renderer::context::object &context_;
+	sge::renderer::context::core &context_;
 };
 
 }

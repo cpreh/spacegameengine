@@ -18,14 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/context/object.hpp>
+#include <sge/renderer/context/core.hpp>
 #include <sge/renderer/context/scoped_offscreen_target.hpp>
 #include <sge/renderer/target/offscreen_fwd.hpp>
 #include <sge/renderer/target/optional_offscreen_ref.hpp>
 
 
 sge::renderer::context::scoped_offscreen_target::scoped_offscreen_target(
-	sge::renderer::context::object &_context,
+	sge::renderer::context::core &_context,
 	sge::renderer::target::offscreen &_target
 )
 :
