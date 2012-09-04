@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/insert_to_std_string.hpp>
 
 
 sge::scenic::render_context::cg::manager::manager(
@@ -40,7 +41,11 @@ sge::scenic::render_context::cg::manager::manager(
 		sge::shader::vertex_program_path(
 			sge::config::media_path() / FCPPT_TEXT("shaders") / FCPPT_TEXT("ffp.cg")),
 		sge::shader::pixel_program_path(
-			sge::config::media_path() / FCPPT_TEXT("shaders") / FCPPT_TEXT("ffp.cg"))),
+			sge::config::media_path() / FCPPT_TEXT("shaders") / FCPPT_TEXT("ffp.cg")),
+		sge::shader::optional_cflags(
+			"-DMAX_POINT_LIGHTS="+
+			fcppt::insert_to_std_string(
+				max_point_lights))),
 	world_matrix_(
 		shader_.vertex_program(),
 		sge::shader::parameter::name(
@@ -65,6 +70,11 @@ sge::scenic::render_context::cg::manager::manager(
 		sge::shader::parameter::is_projection_matrix(
 			false),
 		sge::renderer::matrix4()),
+	point_light_count_(
+		shader_.pixel_program(),
+		sge::shader::parameter::name(
+			"point_light_count"),
+		0),
 	diffuse_texture_(
 		shader_,
 		shader_.context().renderer(),

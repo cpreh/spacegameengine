@@ -121,8 +121,25 @@ sge::scenic::render_context::cg::object::diffuse_texture(
 
 void
 sge::scenic::render_context::cg::object::lights(
-	sge::scenic::render_context::light_sequence const &)
+	sge::scenic::render_context::light_sequence const &_lights)
 {
+	manager_.point_light_count.set(
+		static_cast<int>(
+			_lights.size()));
+
+	unsigned current_index =
+		0u;
+
+	for(
+		sge::scenic::render_context::light_sequence::const_iterator l =
+			_lights.begin();
+		l != _lights.end();
+		++l)
+	{
+		
+
+		++current_index;
+	}
 }
 
 void

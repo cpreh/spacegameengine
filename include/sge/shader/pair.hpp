@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/shader/vertex_program_path.hpp>
 #include <sge/shader/parameter/matrix.hpp>
 #include <sge/shader/parameter/planar_texture_fwd.hpp>
+#include <sge/shader/optional_cflags.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
@@ -51,7 +52,8 @@ public:
 		sge::shader::context &,
 		sge::renderer::vertex_declaration &,
 		sge::shader::vertex_program_path const &,
-		sge::shader::pixel_program_path const &);
+		sge::shader::pixel_program_path const &,
+		sge::shader::optional_cflags const &);
 
 	SGE_SHADER_SYMBOL
 	sge::shader::context &

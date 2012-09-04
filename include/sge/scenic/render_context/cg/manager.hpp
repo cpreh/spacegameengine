@@ -31,8 +31,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/shader/pair.hpp>
 #include <sge/shader/parameter/matrix.hpp>
 #include <sge/shader/parameter/planar_texture.hpp>
+#include <sge/shader/parameter/scalar.hpp>
+#include <sge/shader/parameter/vector.hpp>
 #include <fcppt/noncopyable.hpp>
-
+#include <cstddef>
 
 namespace sge
 {
@@ -64,11 +66,22 @@ public:
 private:
 	friend class sge::scenic::render_context::cg::object;
 
+	static const std::size_t max_point_lights = 8u;
+
+	typedef
+	sge::shader::parameter::vector<sge::renderer::scalar,4u>
+	float4_parameter;
+
+	typedef
+	boost::ptr_array<max_point_lights,float4_parameter>
+	diffuse_point_light_colors;
+
 	sge::renderer::vertex_declaration &vertex_declaration_;
 	sge::shader::pair shader_;
 	sge::shader::parameter::matrix<sge::renderer::scalar,4,4> world_matrix_;
 	sge::shader::parameter::matrix<sge::renderer::scalar,4,4> world_projection_matrix_;
 	sge::shader::parameter::matrix<sge::renderer::scalar,4,4> world_inverse_transpose_matrix_;
+	sge::shader::parameter::scalar<int> point_light_count_;
 	sge::shader::parameter::planar_texture diffuse_texture_;
 };
 }

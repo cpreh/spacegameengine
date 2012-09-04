@@ -26,13 +26,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/cg/loaded_program.hpp>
 #include <fcppt/algorithm/ptr_container_erase.hpp>
+#include <fcppt/optional_impl.hpp>
 
 
 sge::shader::pair::pair(
 	sge::shader::context &_context,
 	sge::renderer::vertex_declaration &_vertex_declaration,
 	sge::shader::vertex_program_path const &_vertex_program_path,
-	sge::shader::pixel_program_path const &_pixel_program_path)
+	sge::shader::pixel_program_path const &_pixel_program_path,
+	sge::shader::optional_cflags const &_optional_cflags)
 :
 	context_(
 		_context),
@@ -47,7 +49,12 @@ sge::shader::pair::pair(
 				_vertex_program_path.get()),
 			sge::cg::program::main_function(
 				"vertex_main"),
-			_context.vertex_compile_options())),
+			_context.vertex_compile_options()+
+			(_optional_cflags
+			?
+				*_optional_cflags
+			:
+				sge::cg::string()))),
 	pixel_program_(
 		sge::cg::program::from_string_parameters(
 			_context.cg_context(),
@@ -59,7 +66,12 @@ sge::shader::pair::pair(
 				_pixel_program_path.get()),
 			sge::cg::program::main_function(
 				"pixel_main"),
-			_context.pixel_compile_options())),
+			_context.pixel_compile_options()+
+			(_optional_cflags
+			?
+				*_optional_cflags
+			:
+				sge::cg::string()))),
 	loaded_vertex_program_(
 		context_.renderer().load_cg_program(
 			vertex_program_)),
