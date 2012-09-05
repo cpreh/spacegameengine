@@ -161,6 +161,10 @@ add_subdirectory(
 	src
 )
 
+add_subdirectory(
+	tools
+)
+
 option(
 	ENABLE_DOC
 	"Build the documentation"

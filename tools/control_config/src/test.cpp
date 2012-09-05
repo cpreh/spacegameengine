@@ -18,16 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef EXAMPLE_MAIN_HPP_INCLUDED
-#define EXAMPLE_MAIN_HPP_INCLUDED
-
-#include <awl/main/exit_code.hpp>
-#include <awl/main/function_context_fwd.hpp>
+#include <control_config/test.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/io/cout.hpp>
 
 
-awl::main::exit_code const
-example_main(
-	awl::main::function_context const &
-);
-
-#endif
+void
+control_config::test()
+{
+	fcppt::io::cout()
+		<< FCPPT_TEXT("test\n");
+}

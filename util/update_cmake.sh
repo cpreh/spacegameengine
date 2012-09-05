@@ -85,6 +85,19 @@ function update_example_library()
 		"${prefix}"/src
 }
 
+function update_tool()
+{
+	local tool="$1"
+	local tooldir="tools/${tool}"
+	local uppertool="$(toupper "${tool}")"
+
+	update_cmake_file \
+		"${tooldir}/CMakeLists.txt" \
+		"SGE_TOOL_${uppertool}_FILES" \
+		"${tooldir}/include" \
+		"${tooldir}/src"
+}
+
 # base libs
 update_sublibrary audio
 
@@ -333,3 +346,6 @@ update_plugin wave
 update_plugin x11input
 
 update_example_library rucksack/testbed
+
+
+update_tool control_config
