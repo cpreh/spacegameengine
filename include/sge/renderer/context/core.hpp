@@ -22,17 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_CONTEXT_CORE_HPP_INCLUDED
 
 #include <sge/class_symbol.hpp>
-//#include <sge/renderer/clip_plane.hpp>
-//#include <sge/renderer/clip_plane_index.hpp>
 #include <sge/renderer/config.hpp>
 #include <sge/renderer/const_optional_vertex_declaration_ref_fwd.hpp>
 #include <sge/renderer/first_index.hpp>
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/index_buffer_fwd.hpp>
 #include <sge/renderer/index_count.hpp>
-//#include <sge/renderer/material_fwd.hpp>
-//#include <sge/renderer/matrix4_fwd.hpp>
-//#include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/vertex_buffer_fwd.hpp>
 #include <sge/renderer/vertex_count.hpp>
@@ -47,11 +42,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/optional_offscreen_ref_fwd.hpp>
 #include <sge/renderer/texture/const_optional_base_ref_fwd.hpp>
 #include <sge/renderer/texture/stage.hpp>
-//#include <sge/renderer/texture/stage_arg.hpp>
-//#include <sge/renderer/texture/stage_arg_value.hpp>
-//#include <sge/renderer/texture/stage_op.hpp>
-//#include <sge/renderer/texture/stage_op_value.hpp>
-//#include <sge/renderer/texture/filter/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 #if defined(SGE_RENDERER_HAVE_CG)
@@ -274,106 +264,6 @@ public:
 		sge::renderer::state::core::sampler::const_object_ref_vector const &
 	) = 0;
 
-#if 0
-	virtual
-	void
-	texture_stage_op(
-		sge::renderer::texture::stage stage,
-		sge::renderer::texture::stage_op::type what,
-		sge::renderer::texture::stage_op_value::type value
-	) = 0;
-
-	virtual
-	void
-	texture_stage_arg(
-		sge::renderer::texture::stage stage,
-		sge::renderer::texture::stage_arg::type what,
-		sge::renderer::texture::stage_arg_value::type value
-	) = 0;
-
-	/**
-	 * \brief Sets the texture filter for a texture stage
-	 *
-	 * Sets the texture filter for \a stage to \a filter. There are two
-	 * different texture filters: normal and anisotropic. Initially, the
-	 * filters for every texture stage are the same as
-	 * \link sge::renderer::texture::filter::default_ \endlink
-	 *
-	 * \param filter The filter to set
-	 * \param stage The texture stage to set the filter for
-	 *
-	 * \see sge::renderer::caps::object::texture_stages
-	 *
-	 * \warning The behaviour is undefined if \a stage is greater or equal
-	 * to sge::renderer::caps::object::texture_stages
-	 */
-	virtual
-	void
-	texture_filter(
-		sge::renderer::texture::filter::object const &filter,
-		sge::renderer::texture::stage stage
-	) = 0;
-
-	/**
-	 * \brief Sets the texture address mode for horizontal borders
-	 *
-	 * Sets the horizontal texture address mode for \a stage to \a mode.
-	 * Initially, the address modes for every texture stage are the same as
-	 * \link sge::renderer::texture::address_mode_default \endlink
-	 *
-	 * \param mode The horizontal address mode to set
-	 * \param stage The texture stage to set the address mode for
-	 *
-	 * \warning The behaviour is undefined if \a stage is greater or equal
-	 * to sge::renderer::caps::object::texture_stages
-	*/
-	virtual
-	void
-	texture_address_mode_s(
-		sge::renderer::texture::address_mode_s mode,
-		sge::renderer::texture::stage stage
-	) = 0;
-
-	/**
-	 * \brief Sets the texture address mode for vertical borders
-	 *
-	 * Sets the vertical texture address mode for \a stage to \a mode.
-	 * Initially, the address modes for every texture stage are the same as
-	 * \link sge::renderer::texture::address_mode_default \endlink
-	 *
-	 * \param mode The vertical address mode to set
-	 * \param stage The texture stage to set the address mode for
-	 *
-	 * \warning The behaviour is undefined if \a stage is greater or equal
-	 * to sge::renderer::caps::object::texture_stages
-	*/
-	virtual
-	void
-	texture_address_mode_t(
-		sge::renderer::texture::address_mode_t mode,
-		sge::renderer::texture::stage stage
-	) = 0;
-
-	/**
-	 * \brief Sets the texture address mode for depth borders
-	 *
-	 * Sets the depth texture address mode for \a stage to \a mode.
-	 * Initially, the address modes for every texture stage are the same as
-	 * \link sge::renderer::texture::address_mode_default \endlink
-	 *
-	 * \param mode The depth address mode to set
-	 * \param stage The texture stage to set the address mode for
-	 *
-	 * \warning The behaviour is undefined if \a stage is greater or equal
-	 * to sge::renderer::caps::object::texture_stages
-	*/
-	virtual
-	void
-	texture_address_mode_u(
-		sge::renderer::texture::address_mode_u mode,
-		sge::renderer::texture::stage stage
-	) = 0;
-#endif
 	/**
 	 * \brief Sets a texture for a texture stage
 	 *
@@ -395,21 +285,6 @@ public:
 		sge::renderer::texture::const_optional_base_ref const &texture,
 		sge::renderer::texture::stage stage
 	) = 0;
-
-#if 0
-	/**
-	 * \brief Sets the matrix for a matrix mode
-	 *
-	 * Sets the matrix mode of \a mode to \a matrix. Initially, the matrix
-	 * for every matrix mode is the identity.
-	*/
-	virtual
-	void
-	transform(
-		sge::renderer::matrix_mode::type mode,
-		sge::renderer::matrix4 const &matrix
-	) = 0;
-#endif
 
 #if defined(SGE_RENDERER_HAVE_CG)
 	virtual

@@ -18,35 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_LIGHT_VARIANT_HPP_INCLUDED
-#define SGE_RENDERER_LIGHT_VARIANT_HPP_INCLUDED
+#ifndef SGE_RENDERER_STATE_FFP_LIGHTING_LIGHT_VARIANT_HPP_INCLUDED
+#define SGE_RENDERER_STATE_FFP_LIGHTING_LIGHT_VARIANT_HPP_INCLUDED
 
-#include <sge/renderer/light/directional.hpp>
-#include <sge/renderer/light/point.hpp>
-#include <sge/renderer/light/spot.hpp>
-#include <fcppt/variant/object_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/vector/vector10.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <sge/renderer/state/ffp/lighting/light/directional.hpp>
+#include <sge/renderer/state/ffp/lighting/light/point.hpp>
+#include <sge/renderer/state/ffp/lighting/light/spot.hpp>
+#include <sge/renderer/state/ffp/lighting/light/variant_fwd.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
-
-namespace sge
-{
-namespace renderer
-{
-namespace light
-{
-
-typedef fcppt::variant::object<
-	boost::mpl::vector3<
-		light::directional,
-		light::point,
-		light::spot
-	>
-> variant;
-
-}
-}
-}
 
 #endif

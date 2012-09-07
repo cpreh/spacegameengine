@@ -18,17 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_LIGHT_DIRECTIONAL_HPP_INCLUDED
-#define SGE_RENDERER_LIGHT_DIRECTIONAL_HPP_INCLUDED
+#ifndef SGE_RENDERER_STATE_FFP_LIGHTING_LIGHT_DIRECTIONAL_HPP_INCLUDED
+#define SGE_RENDERER_STATE_FFP_LIGHTING_LIGHT_DIRECTIONAL_HPP_INCLUDED
 
 #include <sge/renderer/symbol.hpp>
-#include <sge/renderer/light/direction.hpp>
-#include <sge/renderer/light/directional_fwd.hpp>
+#include <sge/renderer/state/ffp/light/direction.hpp>
+#include <sge/renderer/state/ffp/light/directional_fwd.hpp>
 
 
 namespace sge
 {
 namespace renderer
+{
+namespace state
+{
+namespace ffp
+{
+namespace lighting
 {
 namespace light
 {
@@ -39,16 +45,19 @@ public:
 	SGE_RENDERER_SYMBOL
 	explicit
 	directional(
-		sge::renderer::light::direction const &
+		sge::renderer::state::ffp::lighting::light::direction const &
 	);
 
 	SGE_RENDERER_SYMBOL
-	sge::renderer::light::direction const &
+	sge::renderer::state::ffp::lighting::light::direction const &
 	direction() const;
 private:
-	sge::renderer::light::direction direction_;
+	sge::renderer::state::ffp::lighting::light::direction direction_;
 };
 
+}
+}
+}
 }
 }
 }

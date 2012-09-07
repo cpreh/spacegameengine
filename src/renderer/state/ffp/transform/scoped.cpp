@@ -19,35 +19,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/matrix4.hpp>
-#include <sge/renderer/matrix_mode.hpp>
-#include <sge/renderer/scoped_transform.hpp>
-#include <sge/renderer/context/object.hpp>
-#include <fcppt/math/matrix/object_impl.hpp>
+#include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/state/ffp/transform/parameters.hpp>
+#include <sge/renderer/state/ffp/transform/scoped.hpp>
 
 
-sge::renderer::scoped_transform::scoped_transform(
-	sge::renderer::context::object &_context,
-	sge::renderer::matrix_mode::type const _mode,
-	sge::renderer::matrix4 const &_new_matrix
+sge::renderer::state::ffp::transform::scoped::scoped(
+	sge::renderer::context::ffp &_context,
+	sge::renderer::state::ffp::transform::parameters const &_parameters
 )
 :
 	context_(
 		_context
 	),
 	mode_(
-		_mode
+		_parameters.mode()
 	)
 {
 	context_.transform(
-		_mode,
-		_new_matrix
+		_parameters
 	);
 }
 
-sge::renderer::scoped_transform::~scoped_transform()
+sge::renderer::state::ffp::transform::scoped::~scoped()
 {
 	context_.transform(
-		mode_,
-		sge::renderer::matrix4::identity()
+		sge::renderer::state::ffp::transform::parameters(
+			mode_,
+			sge::renderer::matrix4::identity()
+		)
 	);
 }

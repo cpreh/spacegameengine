@@ -18,62 +18,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_LIGHT_OBJECT_HPP_INCLUDED
-#define SGE_RENDERER_LIGHT_OBJECT_HPP_INCLUDED
+#ifndef SGE_RENDERER_STATE_FFP_LIGHTING_LIGHT_OBJECT_HPP_INCLUDED
+#define SGE_RENDERER_STATE_FFP_LIGHTING_LIGHT_OBJECT_HPP_INCLUDED
 
-#include <sge/image/color/any/object.hpp>
-#include <sge/renderer/ambient_color.hpp>
-#include <sge/renderer/diffuse_color.hpp>
-#include <sge/renderer/specular_color.hpp>
+#include <sge/class_symbol.hpp>
 #include <sge/renderer/symbol.hpp>
-#include <sge/renderer/light/object_fwd.hpp>
-#include <sge/renderer/light/variant.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#include <sge/renderer/state/ffp/lighting/light/object_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
 
 
 namespace sge
 {
 namespace renderer
 {
+namespace state
+{
+namespace ffp
+{
+namespace lighting
+{
 namespace light
 {
 
-class object
+class SGE_CLASS_SYMBOL object
 {
+	FCPPT_NONCOPYABLE(
+		object
+	);
+protected:
+	SGE_RENDERER_SYMBOL
+	object();
 public:
 	SGE_RENDERER_SYMBOL
-	object(
-		renderer::diffuse_color const &,
-		renderer::specular_color const &,
-		renderer::ambient_color const &,
-		light::variant const &
-	);
-
-	SGE_RENDERER_SYMBOL
-	renderer::diffuse_color const &
-	diffuse() const;
-
-	SGE_RENDERER_SYMBOL
-	renderer::specular_color const &
-	specular() const;
-
-	SGE_RENDERER_SYMBOL
-	renderer::ambient_color const &
-	ambient() const;
-
-	SGE_RENDERER_SYMBOL
-	light::variant const &
-	variant() const;
-private:
-	renderer::diffuse_color diffuse_;
-
-	renderer::specular_color specular_;
-
-	renderer::ambient_color ambient_;
-
-	light::variant variant_;
+	virtual
+	~object() = 0;
 };
 
+}
+}
+}
 }
 }
 }

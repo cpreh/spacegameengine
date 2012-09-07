@@ -18,13 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_SCOPED_TRANSFORM_HPP_INCLUDED
-#define SGE_RENDERER_SCOPED_TRANSFORM_HPP_INCLUDED
+#ifndef SGE_RENDERER_STATE_FFP_TRANSFORM_SCOPED_HPP_INCLUDED
+#define SGE_RENDERER_STATE_FFP_TRANSFORM_SCOPED_HPP_INCLUDED
 
-#include <sge/renderer/matrix4_fwd.hpp>
-#include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/symbol.hpp>
-#include <sge/renderer/context/object_fwd.hpp>
+#include <sge/renderer/context/ffp_fwd.hpp>
+#include <sge/renderer/state/ffp/transform/mode.hpp>
+#include <sge/renderer/state/ffp/transform/parameters_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -32,48 +32,42 @@ namespace sge
 {
 namespace renderer
 {
+namespace state
+{
+namespace ffp
+{
+namespace transform
+{
 
 /**
- * \brief A scoped transform block
- *
- * This class sets a new matrix for a given matrix mode in the constructor and
- * resets the matrix to the identity in the destructor.
+\brief A scoped transform block
+
+This class sets a new matrix for a given matrix mode in the constructor and
+resets the matrix to the identity in the destructor.
 */
-class scoped_transform
+class scoped
 {
 	FCPPT_NONCOPYABLE(
-		scoped_transform
+		scoped
 	);
 public:
-	/**
-	 * \brief Sets a new matrix
-	 *
-	 * Sets \a matrix for \a mode and \a device.
-	 *
-	 * \param context The context to set the matrix for
-	 *
-	 * \param mode The matrix mode to set the matrix for
-	 *
-	 * \param matrix The matrix to set
-	*/
 	SGE_RENDERER_SYMBOL
-	scoped_transform(
-		sge::renderer::context::object &context,
-		sge::renderer::matrix_mode::type mode,
-		sge::renderer::matrix4 const &matrix
+	scoped(
+		sge::renderer::context::ffp &context,
+		sge::renderer::state::ffp::transform::parameters const &
 	);
 
-	/**
-	 * \brief Resets the matrix of the given matrix mode to the identity
-	*/
 	SGE_RENDERER_SYMBOL
-	~scoped_transform();
+	~scoped();
 private:
-	sge::renderer::context::object &context_;
+	sge::renderer::context::ffp &context_;
 
-	sge::renderer::matrix_mode::type const mode_;
+	sge::renderer::state::ffp::transform::mode::type const mode_;
 };
 
+}
+}
+}
 }
 }
 

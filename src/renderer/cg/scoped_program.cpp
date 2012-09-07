@@ -20,11 +20,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/cg/loaded_program_fwd.hpp>
 #include <sge/renderer/cg/scoped_program.hpp>
-#include <sge/renderer/context/object.hpp>
+#include <sge/renderer/context/core.hpp>
 
 
 sge::renderer::cg::scoped_program::scoped_program(
-	sge::renderer::context::object &_context,
+	sge::renderer::context::core &_context,
 	sge::renderer::cg::loaded_program const &_program
 )
 :

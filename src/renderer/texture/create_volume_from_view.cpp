@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image3d/view/const_object_fwd.hpp>
 #include <sge/image3d/view/format.hpp>
 #include <sge/image3d/view/size.hpp>
-#include <sge/renderer/device.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
+#include <sge/renderer/device/core.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/create_volume_from_view.hpp>
 #include <sge/renderer/texture/scoped_volume_lock.hpp>
@@ -33,12 +33,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/volume_unique_ptr.hpp>
 #include <sge/renderer/texture/mipmap/object_fwd.hpp>
 #include <fcppt/move.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
 
 
 sge::renderer::texture::volume_unique_ptr
 sge::renderer::texture::create_volume_from_view(
-	sge::renderer::device &_renderer,
+	sge::renderer::device::core &_renderer,
 	sge::image3d::view::const_object const &_view,
 	sge::renderer::texture::mipmap::object const &_mipmap,
 	sge::renderer::resource_flags_field const &_resource_flags

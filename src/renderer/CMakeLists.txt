@@ -67,6 +67,8 @@ set(
 	include/sge/renderer/context/core_fwd.hpp
 	include/sge/renderer/context/core_scoped_ptr.hpp
 	include/sge/renderer/context/core_unique_ptr.hpp
+	include/sge/renderer/context/ffp.hpp
+	include/sge/renderer/context/ffp_fwd.hpp
 	include/sge/renderer/context/scoped_core.hpp
 	include/sge/renderer/context/scoped_core_fwd.hpp
 	include/sge/renderer/context/scoped_offscreen_target.hpp
@@ -245,7 +247,6 @@ set(
 	include/sge/renderer/size_type.hpp
 	include/sge/renderer/state/bool.hpp
 	include/sge/renderer/state/color.hpp
-	include/sge/renderer/state/color_type.hpp
 	include/sge/renderer/state/core/blend/alpha_dest.hpp
 	include/sge/renderer/state/core/blend/alpha_enable.hpp
 	include/sge/renderer/state/core/blend/alpha_enable_fwd.hpp
@@ -365,12 +366,40 @@ set(
 	include/sge/renderer/state/core/sampler/parameters_fwd.hpp
 	include/sge/renderer/state/ffp/alpha_test/const_optional_object_ref.hpp
 	include/sge/renderer/state/ffp/alpha_test/const_optional_object_ref_fwd.hpp
+	include/sge/renderer/state/ffp/alpha_test/enabled.hpp
+	include/sge/renderer/state/ffp/alpha_test/enabled_fwd.hpp
 	include/sge/renderer/state/ffp/alpha_test/func.hpp
 	include/sge/renderer/state/ffp/alpha_test/object.hpp
 	include/sge/renderer/state/ffp/alpha_test/object_fwd.hpp
 	include/sge/renderer/state/ffp/alpha_test/object_scoped_ptr.hpp
 	include/sge/renderer/state/ffp/alpha_test/object_unique_ptr.hpp
+	include/sge/renderer/state/ffp/alpha_test/off.hpp
+	include/sge/renderer/state/ffp/alpha_test/off_fwd.hpp
+	include/sge/renderer/state/ffp/alpha_test/parameters.hpp
+	include/sge/renderer/state/ffp/alpha_test/parameters_fwd.hpp
+	include/sge/renderer/state/ffp/alpha_test/ref.hpp
+	include/sge/renderer/state/ffp/alpha_test/variant.hpp
+	include/sge/renderer/state/ffp/alpha_test/variant_fwd.hpp
 	include/sge/renderer/state/ffp/clip_plane/area.hpp
+	include/sge/renderer/state/ffp/fog/color.hpp
+	include/sge/renderer/state/ffp/fog/const_optional_object_ref.hpp
+	include/sge/renderer/state/ffp/fog/const_optional_object_ref_fwd.hpp
+	include/sge/renderer/state/ffp/fog/density.hpp
+	include/sge/renderer/state/ffp/fog/enabled.hpp
+	include/sge/renderer/state/ffp/fog/enabled_fwd.hpp
+	include/sge/renderer/state/ffp/fog/end.hpp
+	include/sge/renderer/state/ffp/fog/mode.hpp
+	include/sge/renderer/state/ffp/fog/object.hpp
+	include/sge/renderer/state/ffp/fog/object_fwd.hpp
+	include/sge/renderer/state/ffp/fog/object_scoped_ptr.hpp
+	include/sge/renderer/state/ffp/fog/object_unique_ptr.hpp
+	include/sge/renderer/state/ffp/fog/off.hpp
+	include/sge/renderer/state/ffp/fog/off_fwd.hpp
+	include/sge/renderer/state/ffp/fog/parameters.hpp
+	include/sge/renderer/state/ffp/fog/parameters_fwd.hpp
+	include/sge/renderer/state/ffp/fog/start.hpp
+	include/sge/renderer/state/ffp/fog/variant.hpp
+	include/sge/renderer/state/ffp/fog/variant_fwd.hpp
 	include/sge/renderer/state/ffp/lighting/ambient_color.hpp
 	include/sge/renderer/state/ffp/lighting/diffuse_color.hpp
 	include/sge/renderer/state/ffp/lighting/light/attenuation.hpp
@@ -398,10 +427,14 @@ set(
 	include/sge/renderer/state/ffp/lighting/material/parameters_fwd.hpp
 	include/sge/renderer/state/ffp/lighting/material/shininess.hpp
 	include/sge/renderer/state/ffp/lighting/specular_color.hpp
-	include/sge/renderer/state/ffp/transform/matrix_mode.hpp
+	include/sge/renderer/state/ffp/texture_stage/arg.hpp
+	include/sge/renderer/state/ffp/texture_stage/arg_value.hpp
+	include/sge/renderer/state/ffp/texture_stage/op.hpp
+	include/sge/renderer/state/ffp/texture_stage/op_value.hpp
+	include/sge/renderer/state/ffp/transform/mode.hpp
+	include/sge/renderer/state/ffp/transform/parameters.hpp
+	include/sge/renderer/state/ffp/transform/parameters_fwd.hpp
 	include/sge/renderer/state/ffp/transform/scoped.hpp
-	include/sge/renderer/state/float.hpp
-	include/sge/renderer/state/fog_mode.hpp
 	include/sge/renderer/system.hpp
 	include/sge/renderer/system_fwd.hpp
 	include/sge/renderer/system_scoped_ptr.hpp
@@ -489,13 +522,7 @@ set(
 	include/sge/renderer/texture/scoped.hpp
 	include/sge/renderer/texture/scoped_planar_lock.hpp
 	include/sge/renderer/texture/scoped_volume_lock.hpp
-	include/sge/renderer/texture/set_address_mode2.hpp
-	include/sge/renderer/texture/set_address_mode3.hpp
 	include/sge/renderer/texture/stage.hpp
-	include/sge/renderer/texture/stage_arg.hpp
-	include/sge/renderer/texture/stage_arg_value.hpp
-	include/sge/renderer/texture/stage_op.hpp
-	include/sge/renderer/texture/stage_op_value.hpp
 	include/sge/renderer/texture/stage_value.hpp
 	include/sge/renderer/texture/volume.hpp
 	include/sge/renderer/texture/volume_fwd.hpp
@@ -737,6 +764,7 @@ set(
 	src/renderer/state/core/sampler/filter/trilinear.cpp
 	src/renderer/state/ffp/lighting/material/default.cpp
 	src/renderer/state/ffp/lighting/material/parameters.cpp
+	src/renderer/state/ffp/transform/parameters.cpp
 	src/renderer/state/ffp/transform/scoped.cpp
 	src/renderer/system.cpp
 	src/renderer/target/aspect_from_viewport.cpp
@@ -770,8 +798,6 @@ set(
 	src/renderer/texture/scoped.cpp
 	src/renderer/texture/scoped_planar_lock.cpp
 	src/renderer/texture/scoped_volume_lock.cpp
-	src/renderer/texture/set_address_mode2.cpp
-	src/renderer/texture/set_address_mode3.cpp
 	src/renderer/texture/volume.cpp
 	src/renderer/texture/volume_parameters.cpp
 	src/renderer/unsupported.cpp

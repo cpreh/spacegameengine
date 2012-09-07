@@ -39,7 +39,6 @@ namespace color
 SGE_RENDERER_SYMBOL
 extern color::trampoline const
 	ambient_light_color,
-	fog_color;
 
 }
 

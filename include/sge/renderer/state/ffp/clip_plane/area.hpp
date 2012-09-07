@@ -18,30 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_CLIP_PLANE_HPP_INCLUDED
-#define SGE_RENDERER_CLIP_PLANE_HPP_INCLUDED
+#ifndef SGE_RENDERER_STATE_FFP_CLIP_PLANE_AREA_HPP_INCLUDED
+#define SGE_RENDERER_STATE_FFP_CLIP_PLANE_AREA_HPP_INCLUDED
 
 #include <sge/renderer/vector4.hpp>
+#include <sge/renderer/state/ffp/clip_plane/area_fwd.hpp>
 #include <fcppt/strong_typedef.hpp>
 
-
-namespace sge
-{
-namespace renderer
-{
-
-/**
- * \brief Describes a clip plane
- *
- * A clip plane is a vector of four components, interpreted as a plane
- * equation.
- */
-FCPPT_MAKE_STRONG_TYPEDEF(
-	renderer::vector4,
-	clip_plane
-);
-
-}
-}
 
 #endif

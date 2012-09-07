@@ -18,19 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_LIGHT_POINT_HPP_INCLUDED
-#define SGE_RENDERER_LIGHT_POINT_HPP_INCLUDED
+#ifndef SGE_RENDERER_STATE_FFP_LIGHTING_LIGHT_POINT_HPP_INCLUDED
+#define SGE_RENDERER_STATE_FFP_LIGHTING_LIGHT_POINT_HPP_INCLUDED
 
 #include <sge/renderer/symbol.hpp>
-#include <sge/renderer/light/attenuation.hpp>
-#include <sge/renderer/light/point_fwd.hpp>
-#include <sge/renderer/light/position.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
+#include <sge/renderer/state/ffp/lighting/light/attenuation.hpp>
+#include <sge/renderer/state/ffp/lighting/light/point_fwd.hpp>
+#include <sge/renderer/state/ffp/lighting/light/position.hpp>
 
 
 namespace sge
 {
 namespace renderer
+{
+namespace state
+{
+namespace ffp
+{
+namespace lighting
 {
 namespace light
 {
@@ -40,23 +45,26 @@ class point
 public:
 	SGE_RENDERER_SYMBOL
 	point(
-		light::position const &,
-		light::attenuation const &
+		sge::renderer::state::ffp::lighting::light::position const &,
+		sge::renderer::state::ffp::lighting::light::attenuation const &
 	);
 
 	SGE_RENDERER_SYMBOL
-	light::position const &
+	sge::renderer::state::ffp::lighting::light::position const &
 	position() const;
 
 	SGE_RENDERER_SYMBOL
-	light::attenuation const &
+	sge::renderer::state::ffp::lighting::light::attenuation const &
 	attenuation() const;
 private:
-	light::position position_;
+	sge::renderer::state::ffp::lighting::light::position position_;
 
-	light::attenuation attenuation_;
+	sge::renderer::state::ffp::lighting::light::attenuation attenuation_;
 };
 
+}
+}
+}
 }
 }
 }

@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/config.hpp>
 #include <sge/renderer/depth_stencil_format.hpp>
 #include <sge/renderer/depth_stencil_surface_unique_ptr.hpp>
-#include <sge/renderer/device.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/index_buffer_unique_ptr.hpp>
 #include <sge/renderer/index_count.hpp>
@@ -41,6 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps/device_fwd.hpp>
 #include <sge/renderer/context/object_fwd.hpp>
 #include <sge/renderer/context/object_unique_ptr.hpp>
+#include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/occlusion_query/object_unique_ptr.hpp>
 #include <sge/renderer/parameters/object_fwd.hpp>
@@ -82,7 +82,7 @@ namespace opengl
 
 class device
 :
-	public sge::renderer::device
+	public sge::renderer::device::ffp
 {
 	FCPPT_NONCOPYABLE(
 		device
@@ -96,7 +96,7 @@ public:
 	);
 
 	~device();
-
+private:
 	sge::renderer::context::object_unique_ptr
 	begin_rendering(
 		sge::renderer::target::base &
@@ -105,6 +105,16 @@ public:
 	void
 	end_rendering(
 		sge::renderer::context::object &
+	);
+
+	sge::renderer::context::ffp_unique_ptr
+	begin_rendering_ffp(
+		sge::renderer::target::base &
+	);
+
+	void
+	end_rendering_ffp(
+		sge::renderer::context::ffp &
 	);
 
 	sge::renderer::target::offscreen_unique_ptr

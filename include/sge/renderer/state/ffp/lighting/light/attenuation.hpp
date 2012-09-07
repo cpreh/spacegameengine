@@ -18,19 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_LIGHT_ATTENUATION_HPP_INCLUDED
-#define SGE_RENDERER_LIGHT_ATTENUATION_HPP_INCLUDED
+#ifndef SGE_RENDERER_STATE_FFP_LIGHTING_LIGHT_ATTENUATION_HPP_INCLUDED
+#define SGE_RENDERER_STATE_FFP_LIGHTING_LIGHT_ATTENUATION_HPP_INCLUDED
 
 #include <sge/renderer/symbol.hpp>
-#include <sge/renderer/light/attenuation_fwd.hpp>
-#include <sge/renderer/light/constant_attenuation.hpp>
-#include <sge/renderer/light/linear_attenuation.hpp>
-#include <sge/renderer/light/quadratic_attenuation.hpp>
+#include <sge/renderer/state/ffp/light/attenuation_fwd.hpp>
+#include <sge/renderer/state/ffp/light/constant_attenuation.hpp>
+#include <sge/renderer/state/ffp/light/linear_attenuation.hpp>
+#include <sge/renderer/state/ffp/light/quadratic_attenuation.hpp>
 
 
 namespace sge
 {
 namespace renderer
+{
+namespace state
+{
+namespace ffp
+{
+namespace lighting
 {
 namespace light
 {
@@ -40,30 +46,33 @@ class attenuation
 public:
 	SGE_RENDERER_SYMBOL
 	attenuation(
-		light::constant_attenuation,
-		light::linear_attenuation,
-		light::quadratic_attenuation
+		sge::renderer::state::ffp::lighting::light::constant_attenuation,
+		sge::renderer::state::ffp::lighting::light::linear_attenuation,
+		sge::renderer::state::ffp::lighting::light::quadratic_attenuation
 	);
 
 	SGE_RENDERER_SYMBOL
-	light::constant_attenuation const
+	sge::renderer::state::ffp::lighting::light::constant_attenuation const
 	constant_attenuation() const;
 
 	SGE_RENDERER_SYMBOL
-	light::linear_attenuation const
+	sge::renderer::state::ffp::lighting::light::linear_attenuation const
 	linear_attenuation() const;
 
 	SGE_RENDERER_SYMBOL
-	light::quadratic_attenuation const
+	sge::renderer::state::ffp::lighting::light::quadratic_attenuation const
 	quadratic_attenuation() const;
 private:
-	light::constant_attenuation constant_attenuation_;
+	sge::renderer::state::ffp::lighting::light::constant_attenuation constant_attenuation_;
 
-	light::linear_attenuation linear_attenuation_;
+	sge::renderer::state::ffp::lighting::light::linear_attenuation linear_attenuation_;
 
-	light::quadratic_attenuation quadratic_attenuation_;
+	sge::renderer::state::ffp::lighting::light::quadratic_attenuation quadratic_attenuation_;
 };
 
+}
+}
+}
 }
 }
 }

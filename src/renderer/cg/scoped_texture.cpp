@@ -20,12 +20,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/cg/loaded_texture_fwd.hpp>
 #include <sge/renderer/cg/scoped_texture.hpp>
-#include <sge/renderer/context/object.hpp>
+#include <sge/renderer/context/core.hpp>
 #include <sge/renderer/texture/stage.hpp>
 
 
 sge::renderer::cg::scoped_texture::scoped_texture(
-	sge::renderer::context::object &_context,
+	sge::renderer::context::core &_context,
 	sge::renderer::cg::loaded_texture const &_texture
 )
 :

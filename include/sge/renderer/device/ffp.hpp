@@ -95,8 +95,8 @@ public:
 
 	virtual
 	sge::renderer::state::ffp::texture_stage::object_unique_ptr
-	create_texture_stage_state(
-		sge::renderer::state::ffp::texture_stage::parameters const &
+	create_ffp_sampler_state(
+		sge::renderer::state::ffp::sampler::parameters const &
 	) = 0;
 
 	SGE_RENDERER_SYMBOL

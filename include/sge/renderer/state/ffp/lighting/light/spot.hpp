@@ -18,21 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_LIGHT_SPOT_HPP_INCLUDED
-#define SGE_RENDERER_LIGHT_SPOT_HPP_INCLUDED
+#ifndef SGE_RENDERER_STATE_FFP_LIGHTING_LIGHT_SPOT_HPP_INCLUDED
+#define SGE_RENDERER_STATE_FFP_LIGHTING_LIGHT_SPOT_HPP_INCLUDED
 
 #include <sge/renderer/symbol.hpp>
-#include <sge/renderer/light/attenuation.hpp>
-#include <sge/renderer/light/cutoff_angle.hpp>
-#include <sge/renderer/light/direction.hpp>
-#include <sge/renderer/light/position.hpp>
-#include <sge/renderer/light/spot_fwd.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
+#include <sge/renderer/state/ffp/lighting/light/attenuation.hpp>
+#include <sge/renderer/state/ffp/lighting/light/cutoff_angle.hpp>
+#include <sge/renderer/state/ffp/lighting/light/direction.hpp>
+#include <sge/renderer/state/ffp/lighting/light/position.hpp>
+#include <sge/renderer/state/ffp/lighting/light/spot_fwd.hpp>
 
 
 namespace sge
 {
 namespace renderer
+{
+namespace state
+{
+namespace ffp
+{
+namespace lighting
 {
 namespace light
 {
@@ -42,37 +47,40 @@ class spot
 public:
 	SGE_RENDERER_SYMBOL
 	spot(
-		light::position const &,
-		light::direction const &,
-		light::cutoff_angle,
-		light::attenuation const &
+		sge::renderer::state::lighting::light::position const &,
+		sge::renderer::state::lighting::light::direction const &,
+		sge::renderer::state::lighting::light::cutoff_angle,
+		sge::renderer::state::lighting::light::attenuation const &
 	);
 
 	SGE_RENDERER_SYMBOL
-	light::position const &
+	sge::renderer::state::lighting::light::position const &
 	position() const;
 
 	SGE_RENDERER_SYMBOL
-	light::direction const &
+	sge::renderer::state::lighting::light::direction const &
 	direction() const;
 
 	SGE_RENDERER_SYMBOL
-	light::cutoff_angle const
+	sge::renderer::state::lighting::light::cutoff_angle const
 	cutoff_angle() const;
 
 	SGE_RENDERER_SYMBOL
-	light::attenuation const &
+	sge::renderer::state::lighting::light::attenuation const &
 	attenuation() const;
 private:
-	light::position position_;
+	sge::renderer::state::lighting::light::position position_;
 
-	light::direction direction_;
+	sge::renderer::state::lighting::light::direction direction_;
 
-	light::cutoff_angle cutoff_angle_;
+	sge::renderer::state::lighting::light::cutoff_angle cutoff_angle_;
 
-	light::attenuation attenuation_;
+	sge::renderer::state::lighting::light::attenuation attenuation_;
 };
 
+}
+}
+}
 }
 }
 }
