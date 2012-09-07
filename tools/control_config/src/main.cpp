@@ -18,16 +18,50 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef EXAMPLE_MAIN_HPP_INCLUDED
-#define EXAMPLE_MAIN_HPP_INCLUDED
-
+#include <control_config/test.hpp>
+#include <fcppt/exception.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/io/cerr.hpp>
 #include <awl/main/exit_code.hpp>
+#include <awl/main/exit_failure.hpp>
+#include <awl/main/exit_success.hpp>
 #include <awl/main/function_context_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <tool_main.hpp>
+#include <exception>
+#include <iostream>
+#include <ostream>
+#include <fcppt/config/external_end.hpp>
 
 
 awl::main::exit_code const
-example_main(
+tool_main(
 	awl::main::function_context const &
-);
+)
+try
+{
+	control_config::test();
 
-#endif
+	return
+		awl::main::exit_success();
+}
+catch(
+	fcppt::exception const &_exception
+)
+{
+	fcppt::io::cerr()
+		<< _exception.string()
+		<< FCPPT_TEXT('\n');
+
+	return awl::main::exit_failure();
+}
+catch(
+	std::exception const &_exception
+)
+{
+	std::cerr
+		<< _exception.what()
+		<< '\n';
+
+	return awl::main::exit_failure();
+}
