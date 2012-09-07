@@ -350,32 +350,32 @@ sge::model::obj::parse_mtllib(
 			current_material,
 			sge::model::obj::material(
 				current_material,
-				sge::renderer::material(
-					sge::renderer::diffuse_color(
+				sge::renderer::state::ffp::lighting::material::parameters(
+					sge::renderer::state::ffp::lighting::diffuse_color(
 						sge::image::color::any::object(
 							sge::image::color::rgb32f(
 								(sge::image::color::init::red() %= (*diffuse)[0])
 								(sge::image::color::init::green() %= (*diffuse)[1])
 								(sge::image::color::init::blue() %= (*diffuse)[2])))),
-					sge::renderer::ambient_color(
+					sge::renderer::state::ffp::lighting::ambient_color(
 						sge::image::color::any::object(
 							sge::image::color::rgb32f(
 								(sge::image::color::init::red() %= (*ambient)[0])
 								(sge::image::color::init::green() %= (*ambient)[1])
 								(sge::image::color::init::blue() %= (*ambient)[2])))),
-					sge::renderer::specular_color(
+					sge::renderer::state::ffp::lighting::specular_color(
 						sge::image::color::any::object(
 							sge::image::color::rgb32f(
 								(sge::image::color::init::red() %= (*specular)[0])
 								(sge::image::color::init::green() %= (*specular)[1])
 								(sge::image::color::init::blue() %= (*specular)[2])))),
-					sge::renderer::emissive_color(
+					sge::renderer::state::ffp::lighting::material::emissive_color(
 						sge::image::color::any::object(
 							sge::image::color::rgb32f(
 								(sge::image::color::init::red() %= (*emissive)[0])
 								(sge::image::color::init::green() %= (*emissive)[1])
 								(sge::image::color::init::blue() %= (*emissive)[2])))),
-					sge::renderer::shininess(
+					sge::renderer::state::ffp::lighting::material::shininess(
 						*shininess)),
 				sge::model::obj::texture_path(
 					texture

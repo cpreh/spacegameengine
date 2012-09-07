@@ -39,7 +39,7 @@ enum type
 {
 	modulate,
 	add,
-	substract,
+	subtract,
 	add_signed
 };
 }

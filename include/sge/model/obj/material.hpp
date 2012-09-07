@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/obj/identifier.hpp>
 #include <sge/model/obj/symbol.hpp>
 #include <sge/model/obj/texture_path.hpp>
-#include <sge/renderer/material.hpp>
+#include <sge/renderer/state/ffp/lighting/material/parameters.hpp>
 
 
 namespace sge
@@ -39,7 +39,7 @@ public:
 	SGE_MODEL_OBJ_SYMBOL
 	material(
 		sge::model::obj::identifier const &,
-		sge::renderer::material const &,
+		sge::renderer::state::ffp::lighting::material::parameters const &,
 		sge::model::obj::texture_path const &);
 
 	SGE_MODEL_OBJ_SYMBOL
@@ -47,7 +47,7 @@ public:
 	identifier() const;
 
 	SGE_MODEL_OBJ_SYMBOL
-	sge::renderer::material const &
+	sge::renderer::state::ffp::lighting::material::parameters const &
 	renderer_material() const;
 
 	SGE_MODEL_OBJ_SYMBOL
@@ -55,7 +55,7 @@ public:
 	texture() const;
 private:
 	sge::model::obj::identifier identifier_;
-	sge::renderer::material renderer_material_;
+	sge::renderer::state::ffp::lighting::material::parameters renderer_material_;
 	sge::model::obj::texture_path texture_;
 };
 }

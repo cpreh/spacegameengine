@@ -38,12 +38,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/vertex_declaration_unique_ptr.hpp>
 #include <sge/renderer/caps/device_fwd.hpp>
-#include <sge/renderer/context/object_fwd.hpp>
-#include <sge/renderer/context/object_unique_ptr.hpp>
+#include <sge/renderer/context/core_fwd.hpp>
+#include <sge/renderer/context/core_unique_ptr.hpp>
+#include <sge/renderer/context/ffp_fwd.hpp>
+#include <sge/renderer/context/ffp_unique_ptr.hpp>
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/occlusion_query/object_unique_ptr.hpp>
 #include <sge/renderer/parameters/object_fwd.hpp>
+#include <sge/renderer/state/core/blend/object_unique_ptr.hpp>
+#include <sge/renderer/state/core/blend/parameters_fwd.hpp>
+#include <sge/renderer/state/core/depth_stencil/object_unique_ptr.hpp>
+#include <sge/renderer/state/core/depth_stencil/parameters_fwd.hpp>
+#include <sge/renderer/state/core/rasterizer/object_unique_ptr.hpp>
+#include <sge/renderer/state/core/rasterizer/parameters_fwd.hpp>
+#include <sge/renderer/state/core/sampler/object_unique_ptr.hpp>
+#include <sge/renderer/state/core/sampler/parameters_fwd.hpp>
+#include <sge/renderer/state/ffp/alpha_test/object_unique_ptr.hpp>
+#include <sge/renderer/state/ffp/alpha_test/parameters_fwd.hpp>
+#include <sge/renderer/state/ffp/clip_plane/object_unique_ptr.hpp>
+#include <sge/renderer/state/ffp/clip_plane/parameters_fwd.hpp>
+#include <sge/renderer/state/ffp/fog/object_unique_ptr.hpp>
+#include <sge/renderer/state/ffp/fog/parameters_fwd.hpp>
+#include <sge/renderer/state/ffp/lighting/object_unique_ptr.hpp>
+#include <sge/renderer/state/ffp/lighting/parameters_fwd.hpp>
+#include <sge/renderer/state/ffp/lighting/light/object_unique_ptr.hpp>
+#include <sge/renderer/state/ffp/lighting/light/parameters_fwd.hpp>
+#include <sge/renderer/state/ffp/lighting/material/object_unique_ptr.hpp>
+#include <sge/renderer/state/ffp/lighting/material/parameters_fwd.hpp>
+#include <sge/renderer/state/ffp/misc/object_unique_ptr.hpp>
+#include <sge/renderer/state/ffp/misc/parameters_fwd.hpp>
+#include <sge/renderer/state/ffp/sampler/object_unique_ptr.hpp>
+#include <sge/renderer/state/ffp/sampler/parameters_fwd.hpp>
 #include <sge/renderer/target/base_fwd.hpp>
 #include <sge/renderer/target/offscreen_unique_ptr.hpp>
 #include <sge/renderer/target/onscreen_fwd.hpp>
@@ -107,16 +133,6 @@ private:
 		sge::renderer::context::object &
 	);
 
-	sge::renderer::context::ffp_unique_ptr
-	begin_rendering_ffp(
-		sge::renderer::target::base &
-	);
-
-	void
-	end_rendering_ffp(
-		sge::renderer::context::ffp &
-	);
-
 	sge::renderer::target::offscreen_unique_ptr
 	create_target();
 
@@ -169,6 +185,26 @@ private:
 	sge::renderer::occlusion_query::object_unique_ptr
 	create_occlusion_query();
 
+	sge::renderer::state::core::blend::object_unique_ptr
+	create_blend_state(
+		sge::renderer::state::core::blend::parameters const &
+	);
+
+	sge::renderer::state::core::depth_stencil::object_unique_ptr
+	create_depth_stencil_state(
+		sge::renderer::state::core::depth_stencil::parameters const &
+	);
+
+	sge::renderer::state::core::rasterizer::object_unique_ptr
+	create_rasterizer_state(
+		sge::renderer::state::core::rasterizer::parameters const &
+	);
+
+	sge::renderer::state::core::sampler::object_unique_ptr
+	create_sampler_state(
+		sge::renderer::state::core::sampler::parameters const &
+	);
+
 #if defined(SGE_RENDERER_HAVE_CG)
 	sge::cg::profile::object const
 	create_cg_profile(
@@ -198,13 +234,62 @@ private:
 		sge::cg::program::source const &
 	);
 #endif
-
 	sge::renderer::target::onscreen &
 	onscreen_target() const;
 
 	sge::renderer::caps::device const &
 	caps() const;
-private:
+
+	sge::renderer::context::ffp_unique_ptr
+	begin_rendering_ffp(
+		sge::renderer::target::base &
+	);
+
+	void
+	end_rendering_ffp(
+		sge::renderer::context::ffp &
+	);
+
+	sge::renderer::state::ffp::alpha_test::object_unique_ptr
+	create_alpha_test_state(
+		sge::renderer::state::ffp::alpha_test::parameters const &
+	);
+
+	sge::renderer::state::ffp::clip_plane::object_unique_ptr
+	create_clip_plane_state(
+		sge::renderer::state::ffp::clip_plane::parameters const &
+	);
+
+	sge::renderer::state::ffp::fog::object_unique_ptr
+	create_fog_state(
+		sge::renderer::state::ffp::fog::parameters const &
+	);
+
+	sge::renderer::state::ffp::lighting::object_unique_ptr
+	create_lighting_state(
+		sge::renderer::state::ffp::lighting::parameters const &
+	);
+
+	sge::renderer::state::ffp::lighting::light::object_unique_ptr
+	create_light_state(
+		sge::renderer::state::ffp::lighting::light::parameters const &
+	);
+
+	sge::renderer::state::ffp::lighting::material::object_unique_ptr
+	create_material_state(
+		sge::renderer::state::ffp::lighting::material::parameters const &
+	);
+
+	sge::renderer::state::ffp::misc::object_unique_ptr
+	create_misc_state(
+		sge::renderer::state::ffp::misc::parameters const &
+	);
+
+	sge::renderer::state::ffp::sampler::object_unique_ptr
+	create_ffp_sampler_state(
+		sge::renderer::state::ffp::sampler::parameters const &
+	);
+
 	sge::opengl::context::system::object &system_context_;
 
 	sge::opengl::context::device::object device_context_;

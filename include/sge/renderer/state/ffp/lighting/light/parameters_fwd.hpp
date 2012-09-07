@@ -35,7 +35,7 @@ namespace lighting
 namespace light
 {
 
-class object;
+class parameters;
 
 }
 }

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_FFP_ALPHA_TEST_CONST_OPTIONAL_OBJECT_REF_FWD_HPP_INCLUDED
 #define SGE_RENDERER_STATE_FFP_ALPHA_TEST_CONST_OPTIONAL_OBJECT_REF_FWD_HPP_INCLUDED
 
-#include <sge/renderer/state/core/blend/object_fwd.hpp>
+#include <sge/renderer/state/ffp/alpha_test/object_fwd.hpp>
 #include <fcppt/optional_fwd.hpp>
 
 

@@ -69,6 +69,8 @@ set(
 	include/sge/renderer/context/core_unique_ptr.hpp
 	include/sge/renderer/context/ffp.hpp
 	include/sge/renderer/context/ffp_fwd.hpp
+	include/sge/renderer/context/ffp_scoped_ptr.hpp
+	include/sge/renderer/context/ffp_unique_ptr.hpp
 	include/sge/renderer/context/scoped_core.hpp
 	include/sge/renderer/context/scoped_core_fwd.hpp
 	include/sge/renderer/context/scoped_offscreen_target.hpp
@@ -82,6 +84,16 @@ set(
 	include/sge/renderer/depth_stencil_surface_fwd.hpp
 	include/sge/renderer/depth_stencil_surface_scoped_ptr.hpp
 	include/sge/renderer/depth_stencil_surface_unique_ptr.hpp
+	include/sge/renderer/device/core.hpp
+	include/sge/renderer/device/core_fwd.hpp
+	include/sge/renderer/device/core_scoped_ptr.hpp
+	include/sge/renderer/device/core_unique_ptr.hpp
+	include/sge/renderer/device/ffp.hpp
+	include/sge/renderer/device/ffp_fwd.hpp
+	include/sge/renderer/device/ffp_scoped_ptr.hpp
+	include/sge/renderer/device/ffp_unique_ptr.hpp
+	include/sge/renderer/device/parameters.hpp
+	include/sge/renderer/device/parameters_fwd.hpp
 	include/sge/renderer/dim2.hpp
 	include/sge/renderer/dim2_fwd.hpp
 	include/sge/renderer/dim3.hpp
@@ -246,7 +258,6 @@ set(
 	include/sge/renderer/screenshot.hpp
 	include/sge/renderer/size_type.hpp
 	include/sge/renderer/state/bool.hpp
-	include/sge/renderer/state/color.hpp
 	include/sge/renderer/state/core/blend/alpha_dest.hpp
 	include/sge/renderer/state/core/blend/alpha_enable.hpp
 	include/sge/renderer/state/core/blend/alpha_enable_fwd.hpp
@@ -281,43 +292,46 @@ set(
 	include/sge/renderer/state/core/blend/write_red.hpp
 	include/sge/renderer/state/core/depth_stencil/const_optional_object_ref.hpp
 	include/sge/renderer/state/core/depth_stencil/const_optional_object_ref_fwd.hpp
-	include/sge/renderer/state/core/depth_stencil/depth_enable.hpp
-	include/sge/renderer/state/core/depth_stencil/depth_enable_fwd.hpp
-	include/sge/renderer/state/core/depth_stencil/depth_func.hpp
-	include/sge/renderer/state/core/depth_stencil/depth_off.hpp
-	include/sge/renderer/state/core/depth_stencil/depth_off_fwd.hpp
-	include/sge/renderer/state/core/depth_stencil/depth_variant.hpp
-	include/sge/renderer/state/core/depth_stencil/depth_variant_fwd.hpp
-	include/sge/renderer/state/core/depth_stencil/depth_write_enable.hpp
+	include/sge/renderer/state/core/depth_stencil/depth/enable.hpp
+	include/sge/renderer/state/core/depth_stencil/depth/enable_fwd.hpp
+	include/sge/renderer/state/core/depth_stencil/depth/func.hpp
+	include/sge/renderer/state/core/depth_stencil/depth/off.hpp
+	include/sge/renderer/state/core/depth_stencil/depth/off_fwd.hpp
+	include/sge/renderer/state/core/depth_stencil/depth/variant.hpp
+	include/sge/renderer/state/core/depth_stencil/depth/variant_fwd.hpp
+	include/sge/renderer/state/core/depth_stencil/depth/write_enable.hpp
 	include/sge/renderer/state/core/depth_stencil/object.hpp
 	include/sge/renderer/state/core/depth_stencil/object_fwd.hpp
 	include/sge/renderer/state/core/depth_stencil/object_scoped_ptr.hpp
 	include/sge/renderer/state/core/depth_stencil/object_unique_ptr.hpp
 	include/sge/renderer/state/core/depth_stencil/parameters.hpp
 	include/sge/renderer/state/core/depth_stencil/parameters_fwd.hpp
-	include/sge/renderer/state/core/depth_stencil/stencil_back.hpp
-	include/sge/renderer/state/core/depth_stencil/stencil_combined.hpp
-	include/sge/renderer/state/core/depth_stencil/stencil_combined_fwd.hpp
-	include/sge/renderer/state/core/depth_stencil/stencil_depth_fail_op.hpp
-	include/sge/renderer/state/core/depth_stencil/stencil_desc.hpp
-	include/sge/renderer/state/core/depth_stencil/stencil_desc_fwd.hpp
-	include/sge/renderer/state/core/depth_stencil/stencil_enable.hpp
-	include/sge/renderer/state/core/depth_stencil/stencil_enable_fwd.hpp
-	include/sge/renderer/state/core/depth_stencil/stencil_enable_variant_fwd.hpp
-	include/sge/renderer/state/core/depth_stencil/stencil_fail_op.hpp
-	include/sge/renderer/state/core/depth_stencil/stencil_front.hpp
-	include/sge/renderer/state/core/depth_stencil/stencil_func.hpp
-	include/sge/renderer/state/core/depth_stencil/stencil_off.hpp
-	include/sge/renderer/state/core/depth_stencil/stencil_off_fwd.hpp
-	include/sge/renderer/state/core/depth_stencil/stencil_op.hpp
-	include/sge/renderer/state/core/depth_stencil/stencil_pass_op.hpp
-	include/sge/renderer/state/core/depth_stencil/stencil_ref.hpp
-	include/sge/renderer/state/core/depth_stencil/stencil_separate.hpp
-	include/sge/renderer/state/core/depth_stencil/stencil_separate_fwd.hpp
-	include/sge/renderer/state/core/depth_stencil/stencil_value.hpp
-	include/sge/renderer/state/core/depth_stencil/stencil_variant.hpp
-	include/sge/renderer/state/core/depth_stencil/stencil_variant_fwd.hpp
-	include/sge/renderer/state/core/depth_stencil/stencil_write_mask.hpp
+	include/sge/renderer/state/core/depth_stencil/scoped.hpp
+	include/sge/renderer/state/core/depth_stencil/scoped_fwd.hpp
+	include/sge/renderer/state/core/depth_stencil/stencil/back.hpp
+	include/sge/renderer/state/core/depth_stencil/stencil/combined.hpp
+	include/sge/renderer/state/core/depth_stencil/stencil/combined_fwd.hpp
+	include/sge/renderer/state/core/depth_stencil/stencil/depth_fail_op.hpp
+	include/sge/renderer/state/core/depth_stencil/stencil/desc.hpp
+	include/sge/renderer/state/core/depth_stencil/stencil/desc_fwd.hpp
+	include/sge/renderer/state/core/depth_stencil/stencil/enable.hpp
+	include/sge/renderer/state/core/depth_stencil/stencil/enable_fwd.hpp
+	include/sge/renderer/state/core/depth_stencil/stencil/enable_variant_fwd.hpp
+	include/sge/renderer/state/core/depth_stencil/stencil/fail_op.hpp
+	include/sge/renderer/state/core/depth_stencil/stencil/front.hpp
+	include/sge/renderer/state/core/depth_stencil/stencil/func.hpp
+	include/sge/renderer/state/core/depth_stencil/stencil/off.hpp
+	include/sge/renderer/state/core/depth_stencil/stencil/off_fwd.hpp
+	include/sge/renderer/state/core/depth_stencil/stencil/op.hpp
+	include/sge/renderer/state/core/depth_stencil/stencil/pass_op.hpp
+	include/sge/renderer/state/core/depth_stencil/stencil/ref.hpp
+	include/sge/renderer/state/core/depth_stencil/stencil/separate.hpp
+	include/sge/renderer/state/core/depth_stencil/stencil/separate_fwd.hpp
+	include/sge/renderer/state/core/depth_stencil/stencil/value.hpp
+	include/sge/renderer/state/core/depth_stencil/stencil/variant.hpp
+	include/sge/renderer/state/core/depth_stencil/stencil/variant_fwd.hpp
+	include/sge/renderer/state/core/depth_stencil/stencil/write_mask.hpp
+	include/sge/renderer/state/core/depth_stencil/stencil/write_mask_all.hpp
 	include/sge/renderer/state/core/rasterizer/const_optional_object_ref.hpp
 	include/sge/renderer/state/core/rasterizer/const_optional_object_ref_fwd.hpp
 	include/sge/renderer/state/core/rasterizer/cull_mode.hpp
@@ -381,6 +395,15 @@ set(
 	include/sge/renderer/state/ffp/alpha_test/variant.hpp
 	include/sge/renderer/state/ffp/alpha_test/variant_fwd.hpp
 	include/sge/renderer/state/ffp/clip_plane/area.hpp
+	include/sge/renderer/state/ffp/clip_plane/area_fwd.hpp
+	include/sge/renderer/state/ffp/clip_plane/const_object_ref.hpp
+	include/sge/renderer/state/ffp/clip_plane/const_object_ref_vector.hpp
+	include/sge/renderer/state/ffp/clip_plane/object.hpp
+	include/sge/renderer/state/ffp/clip_plane/object_fwd.hpp
+	include/sge/renderer/state/ffp/clip_plane/object_scoped_ptr.hpp
+	include/sge/renderer/state/ffp/clip_plane/object_unique_ptr.hpp
+	include/sge/renderer/state/ffp/clip_plane/parameters.hpp
+	include/sge/renderer/state/ffp/clip_plane/parameters_fwd.hpp
 	include/sge/renderer/state/ffp/fog/color.hpp
 	include/sge/renderer/state/ffp/fog/const_optional_object_ref.hpp
 	include/sge/renderer/state/ffp/fog/const_optional_object_ref_fwd.hpp
@@ -401,9 +424,15 @@ set(
 	include/sge/renderer/state/ffp/fog/variant.hpp
 	include/sge/renderer/state/ffp/fog/variant_fwd.hpp
 	include/sge/renderer/state/ffp/lighting/ambient_color.hpp
+	include/sge/renderer/state/ffp/lighting/const_optional_object_ref.hpp
+	include/sge/renderer/state/ffp/lighting/const_optional_object_ref_fwd.hpp
 	include/sge/renderer/state/ffp/lighting/diffuse_color.hpp
+	include/sge/renderer/state/ffp/lighting/enabled.hpp
+	include/sge/renderer/state/ffp/lighting/enabled_fwd.hpp
 	include/sge/renderer/state/ffp/lighting/light/attenuation.hpp
 	include/sge/renderer/state/ffp/lighting/light/attenuation_fwd.hpp
+	include/sge/renderer/state/ffp/lighting/light/const_object_ref.hpp
+	include/sge/renderer/state/ffp/lighting/light/const_object_ref_vector.hpp
 	include/sge/renderer/state/ffp/lighting/light/constant_attenuation.hpp
 	include/sge/renderer/state/ffp/lighting/light/cutoff_angle.hpp
 	include/sge/renderer/state/ffp/lighting/light/direction.hpp
@@ -413,6 +442,10 @@ set(
 	include/sge/renderer/state/ffp/lighting/light/linear_attenuation.hpp
 	include/sge/renderer/state/ffp/lighting/light/object.hpp
 	include/sge/renderer/state/ffp/lighting/light/object_fwd.hpp
+	include/sge/renderer/state/ffp/lighting/light/object_scoped_ptr.hpp
+	include/sge/renderer/state/ffp/lighting/light/object_unique_ptr.hpp
+	include/sge/renderer/state/ffp/lighting/light/parameters.hpp
+	include/sge/renderer/state/ffp/lighting/light/parameters_fwd.hpp
 	include/sge/renderer/state/ffp/lighting/light/point.hpp
 	include/sge/renderer/state/ffp/lighting/light/point_fwd.hpp
 	include/sge/renderer/state/ffp/lighting/light/position.hpp
@@ -421,16 +454,65 @@ set(
 	include/sge/renderer/state/ffp/lighting/light/spot.hpp
 	include/sge/renderer/state/ffp/lighting/light/spot_fwd.hpp
 	include/sge/renderer/state/ffp/lighting/light/variant.hpp
+	include/sge/renderer/state/ffp/lighting/light/variant_fwd.hpp
+	include/sge/renderer/state/ffp/lighting/material/const_optional_object_ref.hpp
+	include/sge/renderer/state/ffp/lighting/material/const_optional_object_ref_fwd.hpp
 	include/sge/renderer/state/ffp/lighting/material/default.hpp
 	include/sge/renderer/state/ffp/lighting/material/emissive_color.hpp
+	include/sge/renderer/state/ffp/lighting/material/object.hpp
+	include/sge/renderer/state/ffp/lighting/material/object_fwd.hpp
+	include/sge/renderer/state/ffp/lighting/material/object_scoped_ptr.hpp
+	include/sge/renderer/state/ffp/lighting/material/object_unique_ptr.hpp
 	include/sge/renderer/state/ffp/lighting/material/parameters.hpp
 	include/sge/renderer/state/ffp/lighting/material/parameters_fwd.hpp
 	include/sge/renderer/state/ffp/lighting/material/shininess.hpp
+	include/sge/renderer/state/ffp/lighting/object.hpp
+	include/sge/renderer/state/ffp/lighting/object_fwd.hpp
+	include/sge/renderer/state/ffp/lighting/object_scoped_ptr.hpp
+	include/sge/renderer/state/ffp/lighting/object_unique_ptr.hpp
+	include/sge/renderer/state/ffp/lighting/off.hpp
+	include/sge/renderer/state/ffp/lighting/off_fwd.hpp
+	include/sge/renderer/state/ffp/lighting/parameters.hpp
+	include/sge/renderer/state/ffp/lighting/parameters_fwd.hpp
 	include/sge/renderer/state/ffp/lighting/specular_color.hpp
-	include/sge/renderer/state/ffp/texture_stage/arg.hpp
-	include/sge/renderer/state/ffp/texture_stage/arg_value.hpp
-	include/sge/renderer/state/ffp/texture_stage/op.hpp
-	include/sge/renderer/state/ffp/texture_stage/op_value.hpp
+	include/sge/renderer/state/ffp/lighting/variant.hpp
+	include/sge/renderer/state/ffp/lighting/variant_fwd.hpp
+	include/sge/renderer/state/ffp/misc/const_optional_object_ref.hpp
+	include/sge/renderer/state/ffp/misc/const_optional_object_ref_fwd.hpp
+	include/sge/renderer/state/ffp/misc/enable_point_sprites.hpp
+	include/sge/renderer/state/ffp/misc/local_viewer.hpp
+	include/sge/renderer/state/ffp/misc/normalize_normals.hpp
+	include/sge/renderer/state/ffp/misc/object.hpp
+	include/sge/renderer/state/ffp/misc/object_fwd.hpp
+	include/sge/renderer/state/ffp/misc/object_scoped_ptr.hpp
+	include/sge/renderer/state/ffp/misc/object_unique_ptr.hpp
+	include/sge/renderer/state/ffp/misc/parameters.hpp
+	include/sge/renderer/state/ffp/misc/parameters_fwd.hpp
+	include/sge/renderer/state/ffp/sampler/arg.hpp
+	include/sge/renderer/state/ffp/sampler/arg1.hpp
+	include/sge/renderer/state/ffp/sampler/arg2.hpp
+	include/sge/renderer/state/ffp/sampler/arg3.hpp
+	include/sge/renderer/state/ffp/sampler/binary_op.hpp
+	include/sge/renderer/state/ffp/sampler/binary_op_fwd.hpp
+	include/sge/renderer/state/ffp/sampler/binary_op_type.hpp
+	include/sge/renderer/state/ffp/sampler/const_object_ref.hpp
+	include/sge/renderer/state/ffp/sampler/const_object_ref_vector.hpp
+	include/sge/renderer/state/ffp/sampler/object.hpp
+	include/sge/renderer/state/ffp/sampler/object_fwd.hpp
+	include/sge/renderer/state/ffp/sampler/object_scoped_ptr.hpp
+	include/sge/renderer/state/ffp/sampler/object_unique_ptr.hpp
+	include/sge/renderer/state/ffp/sampler/op.hpp
+	include/sge/renderer/state/ffp/sampler/op_fwd.hpp
+	include/sge/renderer/state/ffp/sampler/op_variant.hpp
+	include/sge/renderer/state/ffp/sampler/op_variant_fwd.hpp
+	include/sge/renderer/state/ffp/sampler/parameters.hpp
+	include/sge/renderer/state/ffp/sampler/parameters_fwd.hpp
+	include/sge/renderer/state/ffp/sampler/ternary_op.hpp
+	include/sge/renderer/state/ffp/sampler/ternary_op_fwd.hpp
+	include/sge/renderer/state/ffp/sampler/ternary_op_type.hpp
+	include/sge/renderer/state/ffp/sampler/unary_op.hpp
+	include/sge/renderer/state/ffp/sampler/unary_op_fwd.hpp
+	include/sge/renderer/state/ffp/sampler/unary_op_type.hpp
 	include/sge/renderer/state/ffp/transform/mode.hpp
 	include/sge/renderer/state/ffp/transform/parameters.hpp
 	include/sge/renderer/state/ffp/transform/parameters_fwd.hpp
@@ -669,11 +751,14 @@ set(
 	src/renderer/const_scoped_index_lock.cpp
 	src/renderer/const_scoped_vertex_lock.cpp
 	src/renderer/context/core.cpp
+	src/renderer/context/ffp.cpp
 	src/renderer/context/scoped_core.cpp
 	src/renderer/context/scoped_offscreen_target.cpp
 	src/renderer/create_index_buffer_from_view.cpp
 	src/renderer/create_vertex_buffer_from_view.cpp
 	src/renderer/depth_stencil_surface.cpp
+	src/renderer/device/core.cpp
+	src/renderer/device/ffp.cpp
 	src/renderer/display_mode/comparison.cpp
 	src/renderer/display_mode/object.cpp
 	src/renderer/display_mode/output.cpp
@@ -751,6 +836,7 @@ set(
 	src/renderer/scoped_vertex_declaration_and_buffers.cpp
 	src/renderer/scoped_vertex_lock.cpp
 	src/renderer/screenshot.cpp
+	src/renderer/state/core/depth_stencil/scoped.cpp
 	src/renderer/state/core/sampler/address/mode_default.cpp
 	src/renderer/state/core/sampler/filter/anisotropic/object.cpp
 	src/renderer/state/core/sampler/filter/default.cpp

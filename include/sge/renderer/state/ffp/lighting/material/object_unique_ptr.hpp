@@ -33,7 +33,7 @@ namespace state
 {
 namespace ffp
 {
-namespace materialing
+namespace lighting
 {
 namespace material
 {

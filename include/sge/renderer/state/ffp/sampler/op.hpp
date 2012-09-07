@@ -32,7 +32,7 @@ namespace renderer
 {
 namespace state
 {
-namespace core
+namespace ffp
 {
 namespace sampler
 {
@@ -43,14 +43,14 @@ public:
 	SGE_RENDERER_SYMBOL
 	explicit
 	opt(
-		sge::renderer::state::core::sampler::op_variant const &
+		sge::renderer::state::ffp::sampler::op_variant const &
 	);
 
 	SGE_RENDERER_SYMBOL
-	sge::renderer::state::core::sampler::op_variant const &
+	sge::renderer::state::ffp::sampler::op_variant const &
 	variant() const;
 private:
-	sge::renderer::state::core::sampler::op_variant variant_;
+	sge::renderer::state::ffp::sampler::op_variant variant_;
 };
 
 }

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::model::obj::material::material(
 	sge::model::obj::identifier const &_identifier,
-	sge::renderer::material const &_renderer_material,
+	sge::renderer::state::ffp::lighting::material::parameters const &_renderer_material,
 	sge::model::obj::texture_path const &_texture)
 :
 	identifier_(
@@ -41,7 +41,7 @@ sge::model::obj::material::identifier() const
 		identifier_;
 }
 
-sge::renderer::material const &
+sge::renderer::state::ffp::lighting::material::parameters const &
 sge::model::obj::material::renderer_material() const
 {
 	return

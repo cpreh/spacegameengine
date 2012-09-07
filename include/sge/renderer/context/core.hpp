@@ -240,6 +240,28 @@ public:
 		sge::renderer::const_optional_vertex_declaration_ref const &vertex_declaration
 	) = 0;
 
+	/**
+	 * \brief Sets a texture for a texture stage
+	 *
+	 * Sets the texture for \a stage to \a texture.
+	 * Initially, the textures for every stage are none.
+	 *
+	 * \param texture The texture to set or
+	 * sge::renderer::texture::const_optional_base_ref() to disable
+	 * texturing. \param stage The stage to set the texture for
+	 *
+	 * \see sge::renderer::caps::object::texture_stages
+	 *
+	 * \warning The behaviour is undefined if \a stage is greater or equal
+	 * to sge::renderer::caps::object::texture_stages
+	 */
+	virtual
+	void
+	texture(
+		sge::renderer::texture::const_optional_base_ref const &texture,
+		sge::renderer::texture::stage stage
+	) = 0;
+
 	virtual
 	void
 	blend_state(
@@ -262,28 +284,6 @@ public:
 	void
 	sampler_state(
 		sge::renderer::state::core::sampler::const_object_ref_vector const &
-	) = 0;
-
-	/**
-	 * \brief Sets a texture for a texture stage
-	 *
-	 * Sets the texture for \a stage to \a texture.
-	 * Initially, the textures for every stage are none.
-	 *
-	 * \param texture The texture to set or
-	 * sge::renderer::texture::const_optional_base_ref() to disable
-	 * texturing. \param stage The stage to set the texture for
-	 *
-	 * \see sge::renderer::caps::object::texture_stages
-	 *
-	 * \warning The behaviour is undefined if \a stage is greater or equal
-	 * to sge::renderer::caps::object::texture_stages
-	 */
-	virtual
-	void
-	texture(
-		sge::renderer::texture::const_optional_base_ref const &texture,
-		sge::renderer::texture::stage stage
 	) = 0;
 
 #if defined(SGE_RENDERER_HAVE_CG)

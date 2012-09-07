@@ -54,12 +54,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_format/depth_stencil.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
-#include <sge/renderer/state/int.hpp>
-#include <sge/renderer/state/list.hpp>
-#include <sge/renderer/state/scoped.hpp>
-#include <sge/renderer/state/stencil_func.hpp>
-#include <sge/renderer/state/stencil_op.hpp>
-#include <sge/renderer/state/stencil_op_value.hpp>
+#include <sge/renderer/state/core/depth_stencil/object.hpp>
+#include <sge/renderer/state/core/depth_stencil/object_scoped_ptr.hpp>
+#include <sge/renderer/state/core/depth_stencil/parameters.hpp>
+#include <sge/renderer/state/core/depth_stencil/scoped.hpp>
+#include <sge/renderer/state/core/depth_stencil/depth/off.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/combined.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/depth_fail_op.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/desc.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/enable.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/fail_op.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/func.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/op.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/pass_op.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/ref.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/write_mask_all.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/planar.hpp>
@@ -326,6 +335,61 @@ try
 		)
 	);
 
+	// Create a stencil state which will always pass and increment the
+	// value stored in the stencil buffer for every pixel rendered.
+	sge::renderer::state::core::depth_stencil::object_scoped_ptr const inc_state(
+		sys.renderer().create_depth_stencil_state(
+			sge::renderer::state::core::depth_stencil::parameters(
+				sge::renderer::state::core::depth_stencil::depth::off(),
+				sge::renderer::state::core::depth_stencil::stencil::enable(
+					sge::renderer::state::core::depth_stencil::stencil::combined(
+						sge::renderer::state::core::depth_stencil::stencil::fail_op(
+							sge::renderer::state::core::depth_stencil::stencil::op::keep
+						),
+						sge::renderer::state::core::depth_stencil::stencil::depth_fail_op(
+							sge::renderer::state::core::depth_stencil::stencil::op::keep
+						),
+						sge::renderer::state::core::depth_stencil::stencil::pass_op(
+							sge::renderer::state::core::depth_stencil::stencil::op::inc_sat
+						),
+						sge::renderer::state::core::depth_stencil::stencil::func::always
+					),
+					sge::renderer::state::core::depth_stencil::stencil::ref(
+						0u
+					),
+					sge::renderer::state::core::depth_stencil::write_mask_all()
+				)
+			)
+		)
+	);
+
+	// Create a stencil state which will only pass if the current stencil value is still 0.
+	sge::renderer::state::core::depth_stencil::object_scoped_ptr const compare_state(
+		sys.renderer().create_depth_stencil_state(
+			sge::renderer::state::core::depth_stencil::parameters(
+				sge::renderer::state::core::depth_stencil::depth::off(),
+				sge::renderer::state::core::depth_stencil::stencil::enable(
+					sge::renderer::state::core::depth_stencil::stencil::combined(
+						sge::renderer::state::core::depth_stencil::stencil::fail_op(
+							sge::renderer::state::core::depth_stencil::stencil::op::keep
+						),
+						sge::renderer::state::core::depth_stencil::stencil::depth_fail_op(
+							sge::renderer::state::core::depth_stencil::stencil::op::keep
+						),
+						sge::renderer::state::core::depth_stencil::stencil::pass_op(
+							sge::renderer::state::core::depth_stencil::stencil::op::keep
+						),
+						sge::renderer::state::core::depth_stencil::stencil::func::equal
+					),
+					sge::renderer::state::core::depth_stencil::stencil::ref(
+						0u
+					),
+					sge::renderer::state::core::depth_stencil::write_mask_all()
+				)
+			)
+		)
+	);
+
 	while(
 		// Process window messages which will also process input.
 		sys.window_system().poll()
@@ -355,16 +419,9 @@ try
 			// Because the stencil buffer has been cleared to 0,
 			// every entry in the stencill buffer will be 1 where
 			// small_sprite is rendered.
-			sge::renderer::state::scoped const scoped_state(
+			sge::renderer::state::core::depth_stencil::scoped const scoped_state(
 				scoped_block.get(),
-				sge::renderer::state::list
-				(
-					sge::renderer::state::stencil_func::always
-				)
-				(
-					sge::renderer::state::stencil_op::pass =
-						sge::renderer::state::stencil_op_value::inc_sat
-				)
+				*inc_state
 			);
 
 			// Render small sprite.
@@ -379,15 +436,9 @@ try
 			// Set the stencil buffer to pass when its value is still 0,
 			// which means it passes everywhere where small_sprite
 			// has _not_ been rendered.
-			sge::renderer::state::scoped const scoped_state(
+			sge::renderer::state::core::depth_stencil::scoped const scoped_state(
 				scoped_block.get(),
-				sge::renderer::state::list
-				(
-					sge::renderer::state::int_::stencil_ref = 0
-				)
-				(
-					sge::renderer::state::stencil_func::equal
-				)
+				*compare_state
 			);
 
 			// Render big sprite.

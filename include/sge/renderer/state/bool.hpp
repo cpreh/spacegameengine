@@ -38,7 +38,6 @@ namespace bool_
 
 SGE_RENDERER_SYMBOL
 extern bool_::trampoline const
-	enable_lighting,
 	enable_point_sprites,
 	local_viewer,
 	normalize_normals;

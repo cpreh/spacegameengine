@@ -191,6 +191,7 @@ update_cmake_file \
 	$(renderer_inc_src clear) \
 	$(renderer_inc_src color_buffer) \
 	$(renderer_inc_src context) \
+	$(renderer_inc_src device) \
 	$(renderer_inc_src display_mode) \
 	$(renderer_inc_src index) \
 	$(renderer_inc_src lock_flags) \
