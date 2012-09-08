@@ -43,24 +43,23 @@ class combined
 public:
 	SGE_RENDERER_SYMBOL
 	combined(
-		sge::renderer::state::core::blend::source,
-		sge::renderer::state::core::blend::dest
+		sge::renderer::state::core::blend::source::type,
+		sge::renderer::state::core::blend::dest::type
 	);
 
 	SGE_RENDERER_SYMBOL
-	sge::renderer::state::core::blend::source const
+	sge::renderer::state::core::blend::source::type
 	source() const;
 
 	SGE_RENDERER_SYMBOL
-	sge::renderer::state::core::blend::dest const
+	sge::renderer::state::core::blend::dest::type
 	dest() const;
 private:
-	sge::renderer::state::core::blend::source source_;
+	sge::renderer::state::core::blend::source::type source_;
 
-	sge::renderer::state::core::blend::dest dest_;
+	sge::renderer::state::core::blend::dest::type dest_;
 };
 
-}
 }
 }
 }

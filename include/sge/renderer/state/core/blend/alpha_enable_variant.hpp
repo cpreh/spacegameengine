@@ -18,30 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/common.hpp>
-#include <sge/opengl/convert/matrix_mode.hpp>
-#include <sge/renderer/matrix_mode.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#ifndef SGE_RENDERER_STATE_CORE_BLEND_ALPHA_ENABLE_VARIANT_HPP_INCLUDED
+#define SGE_RENDERER_STATE_CORE_BLEND_ALPHA_ENABLE_VARIANT_HPP_INCLUDED
+
+#include <sge/renderer/state/core/blend/alpha_enable_variant_fwd.hpp>
+#include <sge/renderer/state/core/blend/combined.hpp>
+#include <sge/renderer/state/core/blend/separate.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
 
-GLenum
-sge::opengl::convert::matrix_mode(
-	renderer::matrix_mode::type const _mode
-)
-{
-	switch(
-		_mode
-	)
-	{
-	case renderer::matrix_mode::world:
-		return GL_MODELVIEW;
-	case renderer::matrix_mode::projection:
-		return GL_PROJECTION;
-	case renderer::matrix_mode::texture:
-		return GL_TEXTURE;
-	case renderer::matrix_mode::size:
-		break;
-	}
-
-	FCPPT_ASSERT_UNREACHABLE;
-}
+#endif

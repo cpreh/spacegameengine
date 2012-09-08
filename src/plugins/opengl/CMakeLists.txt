@@ -80,7 +80,6 @@ set(
 	src/plugins/opengl/include/sge/opengl/convert/light_index.hpp
 	src/plugins/opengl/include/sge/opengl/convert/make_color_format.hpp
 	src/plugins/opengl/include/sge/opengl/convert/make_color_format_type.hpp
-	src/plugins/opengl/include/sge/opengl/convert/matrix_mode.hpp
 	src/plugins/opengl/include/sge/opengl/convert/primitive_type.hpp
 	src/plugins/opengl/include/sge/opengl/convert/projection.hpp
 	src/plugins/opengl/include/sge/opengl/convert/resource_flags.hpp
@@ -224,9 +223,11 @@ set(
 	src/plugins/opengl/include/sge/opengl/state/convert/draw_mode.hpp
 	src/plugins/opengl/include/sge/opengl/state/convert/fog_float.hpp
 	src/plugins/opengl/include/sge/opengl/state/convert/fog_mode.hpp
+	src/plugins/opengl/include/sge/opengl/state/convert/matrix_mode.hpp
 	src/plugins/opengl/include/sge/opengl/state/convert/source_blend_func.hpp
 	src/plugins/opengl/include/sge/opengl/state/convert/stencil_func.hpp
 	src/plugins/opengl/include/sge/opengl/state/convert/stencil_op_value.hpp
+	src/plugins/opengl/include/sge/opengl/state/core/blend/create.hpp
 	src/plugins/opengl/include/sge/opengl/state/cull_mode.hpp
 	src/plugins/opengl/include/sge/opengl/state/deferred/alpha_test.hpp
 	src/plugins/opengl/include/sge/opengl/state/deferred/apply.hpp
@@ -498,7 +499,6 @@ set(
 	src/plugins/opengl/src/convert/light_index.cpp
 	src/plugins/opengl/src/convert/make_color_format.cpp
 	src/plugins/opengl/src/convert/make_color_format_type.cpp
-	src/plugins/opengl/src/convert/matrix_mode.cpp
 	src/plugins/opengl/src/convert/primitive_type.cpp
 	src/plugins/opengl/src/convert/projection.cpp
 	src/plugins/opengl/src/convert/resource_flags.cpp
@@ -609,6 +609,7 @@ set(
 	src/plugins/opengl/src/state/convert/draw_mode.cpp
 	src/plugins/opengl/src/state/convert/fog_float.cpp
 	src/plugins/opengl/src/state/convert/fog_mode.cpp
+	src/plugins/opengl/src/state/convert/matrix_mode.cpp
 	src/plugins/opengl/src/state/convert/source_blend_func.cpp
 	src/plugins/opengl/src/state/convert/stencil_func.cpp
 	src/plugins/opengl/src/state/convert/stencil_op_value.cpp

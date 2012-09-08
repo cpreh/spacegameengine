@@ -18,34 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_STATE_CORE_BLEND_COLOR_SOURCE_HPP_INCLUDED
-#define SGE_RENDERER_STATE_CORE_BLEND_COLOR_SOURCE_HPP_INCLUDED
-
-#include <sge/renderer/state/core/blend/source.hpp>
-#include <fcppt/strong_typedef.hpp>
+#include <sge/renderer/state/core/blend/alpha_variant.hpp>
+#include <sge/renderer/state/core/blend/parameters.hpp>
+#include <sge/renderer/state/core/blend/write_mask.hpp>
 
 
-namespace sge
+sge::renderer::state::core::blend::parameters::parameters(
+	sge::renderer::state::core::blend::alpha_variant const &_alpha_variant,
+	sge::renderer::state::core::blend::write_mask const &_write_mask
+)
+:
+	alpha_variant_(
+		_alpha_variant
+	),
+	write_mask_(
+		_write_mask
+	)
 {
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace blend
-{
-
-FCPPT_MAKE_STRONG_TYPEDEF(
-	sge::renderer::state::core::blend::source::type,
-	color_source
-);
-
-}
-}
-}
-}
 }
 
+sge::renderer::state::core::blend::alpha_variant const &
+sge::renderer::state::core::blend::parameters::alpha_variant() const
+{
+	return alpha_variant_;
+}
 
-#endif
+sge::renderer::state::core::blend::write_mask const &
+sge::renderer::state::core::blend::parameters::write_mask() const
+{
+	return write_mask_;
+}

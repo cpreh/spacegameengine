@@ -261,6 +261,7 @@ set(
 	include/sge/renderer/state/core/blend/alpha_dest.hpp
 	include/sge/renderer/state/core/blend/alpha_enable.hpp
 	include/sge/renderer/state/core/blend/alpha_enable_fwd.hpp
+	include/sge/renderer/state/core/blend/alpha_enable_variant.hpp
 	include/sge/renderer/state/core/blend/alpha_enable_variant_fwd.hpp
 	include/sge/renderer/state/core/blend/alpha_off.hpp
 	include/sge/renderer/state/core/blend/alpha_off_fwd.hpp
@@ -273,6 +274,7 @@ set(
 	include/sge/renderer/state/core/blend/combined_fwd.hpp
 	include/sge/renderer/state/core/blend/const_optional_object_ref.hpp
 	include/sge/renderer/state/core/blend/const_optional_object_ref_fwd.hpp
+	include/sge/renderer/state/core/blend/default.hpp
 	include/sge/renderer/state/core/blend/dest.hpp
 	include/sge/renderer/state/core/blend/object.hpp
 	include/sge/renderer/state/core/blend/object_fwd.hpp
@@ -836,6 +838,10 @@ set(
 	src/renderer/scoped_vertex_declaration_and_buffers.cpp
 	src/renderer/scoped_vertex_lock.cpp
 	src/renderer/screenshot.cpp
+	src/renderer/state/core/blend/default.cpp
+	src/renderer/state/core/blend/parameters.cpp
+	src/renderer/state/core/blend/write_mask.cpp
+	src/renderer/state/core/blend/write_mask_all.cpp
 	src/renderer/state/core/depth_stencil/scoped.cpp
 	src/renderer/state/core/sampler/address/mode_default.cpp
 	src/renderer/state/core/sampler/filter/anisotropic/object.cpp

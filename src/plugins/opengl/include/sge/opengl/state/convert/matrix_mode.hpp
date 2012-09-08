@@ -18,34 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_STATE_CORE_BLEND_COLOR_SOURCE_HPP_INCLUDED
-#define SGE_RENDERER_STATE_CORE_BLEND_COLOR_SOURCE_HPP_INCLUDED
+#ifndef SGE_OPENGL_STATE_CONVERT_MATRIX_MODE_HPP_INCLUDED
+#define SGE_OPENGL_STATE_CONVERT_MATRIX_MODE_HPP_INCLUDED
 
-#include <sge/renderer/state/core/blend/source.hpp>
-#include <fcppt/strong_typedef.hpp>
+#include <sge/opengl/common.hpp>
+#include <sge/renderer/state/ffp/transform/mode.hpp>
 
 
 namespace sge
 {
-namespace renderer
+namespace opengl
 {
 namespace state
 {
-namespace core
-{
-namespace blend
+namespace convert
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
-	sge::renderer::state::core::blend::source::type,
-	color_source
+GLenum
+matrix_mode(
+	sge::renderer::state::ffp::transform::mode::type
 );
 
 }
 }
 }
 }
-}
-
 
 #endif

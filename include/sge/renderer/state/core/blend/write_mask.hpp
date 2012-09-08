@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_CORE_BLEND_WRITE_MASK_HPP_INCLUDED
 #define SGE_RENDERER_STATE_CORE_BLEND_WRITE_MASK_HPP_INCLUDED
 
+#include <sge/renderer/symbol.hpp>
 #include <sge/renderer/state/core/blend/write_alpha.hpp>
 #include <sge/renderer/state/core/blend/write_blue.hpp>
 #include <sge/renderer/state/core/blend/write_green.hpp>

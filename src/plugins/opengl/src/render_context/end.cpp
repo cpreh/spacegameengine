@@ -21,11 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/check_state_once.hpp>
 #include <sge/opengl/render_context/end.hpp>
 #include <sge/opengl/render_context/object.hpp>
+#include <sge/renderer/context/core.hpp>
 
 
 void
 sge::opengl::render_context::end(
-	sge::renderer::context::object &_context
+	sge::renderer::context::core &_context
 )
 {
 	sge::opengl::check_state_once();

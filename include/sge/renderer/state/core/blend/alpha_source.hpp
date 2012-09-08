@@ -37,7 +37,7 @@ namespace blend
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
-	sge::renderer::state::core::blend::source,
+	sge::renderer::state::core::blend::source::type,
 	alpha_source
 );
 

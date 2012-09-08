@@ -18,34 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_STATE_CORE_BLEND_COLOR_SOURCE_HPP_INCLUDED
-#define SGE_RENDERER_STATE_CORE_BLEND_COLOR_SOURCE_HPP_INCLUDED
+#include <sge/opengl/common.hpp>
+#include <sge/opengl/convert/matrix_mode.hpp>
+#include <sge/renderer/state/ffp/transform/mode.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
-#include <sge/renderer/state/core/blend/source.hpp>
-#include <fcppt/strong_typedef.hpp>
 
-
-namespace sge
+GLenum
+sge::opengl::convert::matrix_mode(
+	sge::renderer::state::ffp::transform::mode::type const _mode
+)
 {
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace blend
-{
+	switch(
+		_mode
+	)
+	{
+	case sge::renderer::state::ffp::transform::mode::world:
+		return GL_MODELVIEW;
+	case sge::renderer::state::ffp::transform::mode::projection:
+		return GL_PROJECTION;
+	case sge::renderer::state::ffp::transform::mode::texture:
+		return GL_TEXTURE;
+	}
 
-FCPPT_MAKE_STRONG_TYPEDEF(
-	sge::renderer::state::core::blend::source::type,
-	color_source
-);
-
+	FCPPT_ASSERT_UNREACHABLE;
 }
-}
-}
-}
-}
-
-
-#endif

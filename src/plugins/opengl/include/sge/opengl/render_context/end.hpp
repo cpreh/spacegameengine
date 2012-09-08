@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_RENDER_CONTEXT_END_HPP_INCLUDED
 #define SGE_OPENGL_RENDER_CONTEXT_END_HPP_INCLUDED
 
-#include <sge/renderer/context/object_fwd.hpp>
+#include <sge/renderer/context/core_fwd.hpp>
 
 
 namespace sge
@@ -33,7 +33,7 @@ namespace render_context
 
 void
 end(
-	sge::renderer::context::object &
+	sge::renderer::context::core &
 );
 
 }

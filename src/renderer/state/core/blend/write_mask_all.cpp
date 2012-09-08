@@ -18,34 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_STATE_CORE_BLEND_COLOR_SOURCE_HPP_INCLUDED
-#define SGE_RENDERER_STATE_CORE_BLEND_COLOR_SOURCE_HPP_INCLUDED
+#include <sge/renderer/state/core/blend/write_alpha.hpp>
+#include <sge/renderer/state/core/blend/write_blue.hpp>
+#include <sge/renderer/state/core/blend/write_green.hpp>
+#include <sge/renderer/state/core/blend/write_mask.hpp>
+#include <sge/renderer/state/core/blend/write_mask_all.hpp>
+#include <sge/renderer/state/core/blend/write_red.hpp>
 
-#include <sge/renderer/state/core/blend/source.hpp>
-#include <fcppt/strong_typedef.hpp>
 
-
-namespace sge
+sge::renderer::state::core::blend::write_mask const
+sge::renderer::state::core::blend::write_mask_all()
 {
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace blend
-{
-
-FCPPT_MAKE_STRONG_TYPEDEF(
-	sge::renderer::state::core::blend::source::type,
-	color_source
-);
-
+	return
+		sge::renderer::state::core::blend::write_mask(
+			sge::renderer::state::core::blend::write_red(
+				true
+			),
+			sge::renderer::state::core::blend::write_blue(
+				true
+			),
+			sge::renderer::state::core::blend::write_green(
+				true
+			),
+			sge::renderer::state::core::blend::write_alpha(
+				true
+			)
+		);
 }
-}
-}
-}
-}
-
-
-#endif

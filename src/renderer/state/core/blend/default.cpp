@@ -18,34 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_STATE_CORE_BLEND_COLOR_SOURCE_HPP_INCLUDED
-#define SGE_RENDERER_STATE_CORE_BLEND_COLOR_SOURCE_HPP_INCLUDED
+#include <sge/renderer/state/core/blend/alpha_off.hpp>
+#include <sge/renderer/state/core/blend/default.hpp>
+#include <sge/renderer/state/core/blend/parameters.hpp>
+#include <sge/renderer/state/core/blend/write_mask_all.hpp>
 
-#include <sge/renderer/state/core/blend/source.hpp>
-#include <fcppt/strong_typedef.hpp>
 
-
-namespace sge
+sge::renderer::state::core::blend::parameters const
+sge::renderer::state::core::blend::default_()
 {
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace blend
-{
-
-FCPPT_MAKE_STRONG_TYPEDEF(
-	sge::renderer::state::core::blend::source::type,
-	color_source
-);
-
+	return
+		sge::renderer::state::core::blend::parameters(
+			sge::renderer::state::core::blend::alpha_off(),
+			sge::renderer::state::core::blend::write_mask_all()
+		);
 }
-}
-}
-}
-}
-
-
-#endif

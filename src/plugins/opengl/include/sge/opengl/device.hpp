@@ -123,14 +123,14 @@ public:
 
 	~device();
 private:
-	sge::renderer::context::object_unique_ptr
+	sge::renderer::context::core_unique_ptr
 	begin_rendering(
 		sge::renderer::target::base &
 	);
 
 	void
 	end_rendering(
-		sge::renderer::context::object &
+		sge::renderer::context::core &
 	);
 
 	sge::renderer::target::offscreen_unique_ptr

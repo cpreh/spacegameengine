@@ -52,8 +52,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/vertex_declaration_unique_ptr.hpp>
 #include <sge/renderer/caps/device_fwd.hpp>
-#include <sge/renderer/context/object.hpp>
-#include <sge/renderer/context/object_unique_ptr.hpp>
+#include <sge/renderer/context/core.hpp>
+#include <sge/renderer/context/core_unique_ptr.hpp>
+#include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/context/ffp_unique_ptr.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/occlusion_query/object.hpp>
 #include <sge/renderer/occlusion_query/object_unique_ptr.hpp>
@@ -189,18 +191,16 @@ sge::opengl::device::~device()
 {
 }
 
-sge::renderer::context::object_unique_ptr
+sge::renderer::context::core_unique_ptr
 sge::opengl::device::begin_rendering(
 	sge::renderer::target::base &_target
 )
 {
-	device_state_->begin_rendering();
-
 	return
-		sge::opengl::render_context::create(
-			system_context_,
-			device_context_,
-			_target
+		sge::renderer::context::core_unique_ptr(
+			this->begin_rendering_ffp(
+				_target
+			)
 		);
 }
 
@@ -374,9 +374,13 @@ sge::opengl::device::create_occlusion_query()
 
 sge::renderer::state::core::blend::object_unique_ptr
 sge::opengl::device::create_blend_state(
-	sge::renderer::state::core::blend::parameters const &
+	sge::renderer::state::core::blend::parameters const &_parameters
 )
 {
+	return
+		sge::opengl::state::core::blend::create(
+			_parameters
+		);
 }
 
 sge::renderer::state::core::depth_stencil::object_unique_ptr
@@ -483,16 +487,27 @@ sge::opengl::device::caps() const
 
 sge::renderer::context::ffp_unique_ptr
 sge::opengl::device::begin_rendering_ffp(
-	sge::renderer::target::base &_context
+	sge::renderer::target::base &_target
 )
 {
+	device_state_->begin_rendering();
+
+	return
+		sge::opengl::render_context::create(
+			system_context_,
+			device_context_,
+			_target
+		);
 }
 
 void
 sge::opengl::device::end_rendering_ffp(
-	sge::renderer::context::ffp &
+	sge::renderer::context::ffp &_context
 )
 {
+	this->end_rendering(
+		_context
+	);
 }
 
 sge::renderer::state::ffp::alpha_test::object_unique_ptr

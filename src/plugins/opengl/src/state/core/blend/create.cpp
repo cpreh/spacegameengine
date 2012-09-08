@@ -18,34 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_STATE_CORE_BLEND_COLOR_SOURCE_HPP_INCLUDED
-#define SGE_RENDERER_STATE_CORE_BLEND_COLOR_SOURCE_HPP_INCLUDED
+#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/state/core/blend/create.hpp>
+#include <sge/opengl/context/state/core/blend/object.hpp>
+#include <sge/renderer/state/core/blend/object_unique_ptr.hpp>
+#include <sge/renderer/state/core/blend/parameters_fwd.hpp>
+#include <fcppt/cref.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/ref.hpp>
 
-#include <sge/renderer/state/core/blend/source.hpp>
-#include <fcppt/strong_typedef.hpp>
 
-
-namespace sge
+sge::renderer::state::core::blend::object_unique_ptr
+sge::opengl::state::core::blend::create(
+	sge::opengl::context::system::object &_system_context,
+	sge::renderer::state::core::blend::parameters const &_parameters
+)
 {
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace blend
-{
-
-FCPPT_MAKE_STRONG_TYPEDEF(
-	sge::renderer::state::core::blend::source::type,
-	color_source
-);
-
+	return
+		sge::renderer::state::core::blend::object_unique_ptr(
+			fcppt::make_unique_ptr<
+				sge::opengl::state::core::blend::object
+			>(
+				fcppt::ref(
+					_system_context
+				),
+				fcppt::cref(
+					_parameters
+				)
+			)
+		);
 }
-}
-}
-}
-}
-
-
-#endif
