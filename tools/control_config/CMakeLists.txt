@@ -4,7 +4,7 @@ set(
 )
 
 add_sge_tool(
-	control_scheme
+	control_config
 	"sgeconfig;sgefont;sgefontdraw;sgeimage;sgeinput;sgeparse;sgerenderer;sgesystems;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 	""
