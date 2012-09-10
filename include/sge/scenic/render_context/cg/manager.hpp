@@ -27,7 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/symbol.hpp>
 #include <sge/scenic/render_context/manager_base.hpp>
 #include <sge/scenic/render_context/cg/object_fwd.hpp>
-#include <sge/scenic/render_context/cg/point_light_fwd.hpp>
+#include <sge/scenic/render_context/cg/light/point_fwd.hpp>
+#include <sge/scenic/render_context/cg/light/directional_fwd.hpp>
 #include <sge/shader/context_fwd.hpp>
 #include <sge/shader/pair.hpp>
 #include <sge/shader/parameter/matrix.hpp>
@@ -72,10 +73,15 @@ private:
 	friend class sge::scenic::render_context::cg::object;
 
 	static const std::size_t max_point_lights = 8u;
+	static const std::size_t max_directional_lights = 2u;
 
 	typedef
-	boost::ptr_array<sge::scenic::render_context::cg::point_light,max_point_lights>
+	boost::ptr_array<sge::scenic::render_context::cg::light::point,max_point_lights>
 	point_light_array;
+
+	typedef
+	boost::ptr_array<sge::scenic::render_context::cg::light::directional,max_directional_lights>
+	directional_light_array;
 
 	sge::renderer::vertex_declaration &vertex_declaration_;
 	sge::shader::pair shader_;
@@ -88,8 +94,10 @@ private:
 	sge::shader::parameter::vector<sge::renderer::scalar,4> material_emissive_color_;
 	sge::shader::parameter::scalar<sge::renderer::scalar> material_shininess_;
 	sge::shader::parameter::scalar<bool> use_diffuse_texture_;
-	sge::shader::parameter::scalar<int> point_light_count_;
+	sge::shader::parameter::scalar<std::size_t> point_light_count_;
+	sge::shader::parameter::scalar<std::size_t> directional_light_count_;
 	point_light_array point_lights_;
+	directional_light_array directional_lights_;
 	sge::shader::parameter::planar_texture diffuse_texture_;
 };
 }

@@ -29,6 +29,14 @@ struct point_light
 	uniform float3 attenuation;
 };
 
+struct directional_light
+{
+	uniform float4 diffuse_color;
+	uniform float4 specular_color;
+	uniform float4 ambient_color;
+	uniform float3 camera_space_direction;
+};
+
 struct material
 {
 	uniform float4 diffuse_color;
@@ -80,6 +88,8 @@ pixel_main(
 	in vertex_shader_output vertex_shader_out,
 	uniform int point_light_count,
 	uniform point_light point_lights[MAX_POINT_LIGHTS],
+	uniform int directional_light_count,
+	uniform directional_light directional_lights[MAX_DIRECTIONAL_LIGHTS],
 	uniform material current_material,
 	uniform int use_diffuse_texture,
 	uniform sampler2D diffuse_texture)
@@ -127,6 +137,34 @@ pixel_main(
 			 l.diffuse_color * current_material.diffuse_color * coeffs.y +
 			 l.specular_color * current_material.specular_color * coeffs.z) /
 			(l.attenuation.x + d*l.attenuation.y + d*d*l.attenuation.z);
+	}
+
+	for(int i = 0; i < directional_light_count; ++i)
+	{
+		directional_light l =
+			directional_lights[i];
+
+		float3 light_direction =
+			l.camera_space_direction;
+
+		float3 halfv =
+			normalize(
+				light_direction + view_direction);
+
+		float4 coeffs =
+			lit(
+				dot(
+					vertex_shader_out.normal,
+					light_direction),
+				dot(
+					vertex_shader_out.normal,
+					halfv),
+				current_material.shininess.x);
+
+		resulting_color +=
+			l.ambient_color * current_material.ambient_color +
+			l.diffuse_color * current_material.diffuse_color * coeffs.y +
+			l.specular_color * current_material.specular_color * coeffs.z;
 	}
 
 	// FIXME: How do we handle transparent objects?

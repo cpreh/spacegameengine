@@ -25,21 +25,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/cull_mode.hpp>
 #include <sge/renderer/state/depth_func.hpp>
+#include <fcppt/variant/holds_type.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/texture/filter/mipmap.hpp>
 #include <sge/scenic/index_buffer_range.hpp>
 #include <sge/scenic/render_context/cg/manager.hpp>
 #include <sge/scenic/render_context/cg/object.hpp>
-#include <sge/scenic/render_context/cg/point_light.hpp>
+#include <sge/scenic/render_context/cg/light/point.hpp>
+#include <sge/scenic/render_context/cg/light/directional.hpp>
 #include <sge/src/scenic/render_context/cg/any_color_to_vector4.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/matrix/inverse.hpp>
 #include <fcppt/math/matrix/multiply_matrix4_vector3.hpp>
 #include <fcppt/math/matrix/transpose.hpp>
-#include <fcppt/math/vector/output.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <iostream>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::scenic::render_context::cg::object::object(
@@ -152,12 +150,8 @@ void
 sge::scenic::render_context::cg::object::lights(
 	sge::scenic::render_context::light_sequence const &_lights)
 {
-	manager_.point_light_count_.set(
-		static_cast<int>(
-			_lights.size()));
-
-	std::size_t current_index =
-		0u;
+	std::size_t point_light_count = 0;
+	std::size_t directional_light_count = 0;
 
 	for(
 		sge::scenic::render_context::light_sequence::const_iterator l =
@@ -165,31 +159,64 @@ sge::scenic::render_context::cg::object::lights(
 		l != _lights.end();
 		++l)
 	{
-		sge::scenic::render_context::cg::point_light &current_light(
-			manager_.point_lights_[current_index]);
+		if(fcppt::variant::holds_type<sge::renderer::light::point>(l->variant()))
+		{
+			sge::scenic::render_context::cg::light::point &current_light(
+				manager_.point_lights_[static_cast<std::size_t>(point_light_count++)]);
 
-		current_light.diffuse_color(
-			l->diffuse());
+			current_light.diffuse_color(
+				l->diffuse());
 
-		current_light.specular_color(
-			l->specular());
+			current_light.specular_color(
+				l->specular());
 
-		current_light.ambient_color(
-			l->ambient());
+			current_light.ambient_color(
+				l->ambient());
 
-		sge::renderer::light::point const &point_light(
-			l->variant().get<sge::renderer::light::point>());
+			sge::renderer::light::point const &point_light(
+				l->variant().get<sge::renderer::light::point>());
 
-		current_light.camera_space_position(
-			fcppt::math::matrix::multiply_matrix4_vector3(
-				current_world_,
-				point_light.position().get()));
+			current_light.camera_space_position(
+				fcppt::math::matrix::multiply_matrix4_vector3(
+					current_world_,
+					point_light.position().get()));
 
-		current_light.attenuation(
-			point_light.attenuation());
+			current_light.attenuation(
+				point_light.attenuation());
+		}
+		else if(fcppt::variant::holds_type<sge::renderer::light::directional>(l->variant()))
+		{
+			sge::scenic::render_context::cg::light::directional &current_light(
+				manager_.directional_lights_[static_cast<std::size_t>(directional_light_count++)]);
 
-		++current_index;
+			current_light.diffuse_color(
+				l->diffuse());
+
+			current_light.specular_color(
+				l->specular());
+
+			current_light.ambient_color(
+				l->ambient());
+
+			sge::renderer::light::directional const &directional_light(
+				l->variant().get<sge::renderer::light::directional>());
+
+			current_light.camera_space_direction(
+				sge::renderer::light::direction(
+					fcppt::math::vector::narrow_cast<sge::renderer::vector3>(
+						current_world_ *
+						fcppt::math::vector::construct(
+							directional_light.direction().get(),
+							static_cast<sge::renderer::scalar>(
+								0.0f)))));
+		}
 	}
+
+	manager_.point_light_count_.set(
+		point_light_count);
+
+	manager_.directional_light_count_.set(
+		directional_light_count);
 }
 
 void

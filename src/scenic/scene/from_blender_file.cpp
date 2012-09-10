@@ -43,6 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/matrix/object_impl.hpp>
 #include <fcppt/math/matrix/rotation_x.hpp>
 #include <fcppt/math/matrix/rotation_y.hpp>
+#include <fcppt/math/matrix/multiply_matrix4_vector3.hpp>
 #include <fcppt/math/matrix/rotation_z.hpp>
 #include <fcppt/math/matrix/vector.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
@@ -108,22 +109,6 @@ rotation_from_angles_entity(
 			-_angles.x());
 }
 
-// Helper function to multiply a mat4 with a vec3
-sge::renderer::vector3 const
-multiply_matrix4_vector3(
-	sge::renderer::matrix4 const &_matrix,
-	sge::renderer::vector3 const &_vector)
-{
-	return
-		fcppt::math::vector::narrow_cast<sge::renderer::vector3>(
-			_matrix *
-			sge::renderer::vector4(
-				_vector.x(),
-				_vector.y(),
-				_vector.z(),
-				1.0f));
-}
-
 sge::scenic::scene::camera_properties const
 parse_camera_properties(
 	sge::parse::json::object const &_json_camera)
@@ -144,15 +129,15 @@ parse_camera_properties(
 	// resulting in a new orthogonal coordinate system.
 	sge::renderer::vector3 const
 		right(
-			multiply_matrix4_vector3(
+			fcppt::math::matrix::multiply_matrix4_vector3(
 				camera_rotation,
 				sge::renderer::vector3(1.0f,0.0f,0.0f))),
 		up(
-			multiply_matrix4_vector3(
+			fcppt::math::matrix::multiply_matrix4_vector3(
 				camera_rotation,
 				sge::renderer::vector3(0.0f,0.0f,1.0f))),
 		forward(
-			multiply_matrix4_vector3(
+			fcppt::math::matrix::multiply_matrix4_vector3(
 				camera_rotation,
 				sge::renderer::vector3(0.0f,-1.0f,0.0f)));
 
@@ -317,7 +302,7 @@ parse_light_direction(
 {
 	return
 		sge::renderer::light::direction(
-			multiply_matrix4_vector3(
+			fcppt::math::matrix::multiply_matrix4_vector3(
 				rotation_from_angles_entity(
 					from_blender_vector(
 						sge::parse::json::find_and_convert_member<sge::renderer::vector3>(

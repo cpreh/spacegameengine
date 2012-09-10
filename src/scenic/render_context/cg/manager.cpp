@@ -23,7 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vector4.hpp>
 #include <sge/scenic/render_context/cg/manager.hpp>
 #include <sge/scenic/render_context/cg/object.hpp>
-#include <sge/scenic/render_context/cg/point_light.hpp>
+#include <sge/scenic/render_context/cg/light/point.hpp>
+#include <sge/scenic/render_context/cg/light/directional.hpp>
 #include <sge/shader/context.hpp>
 #include <fcppt/insert_to_std_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -34,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 std::size_t const sge::scenic::render_context::cg::manager::max_point_lights;
+std::size_t const sge::scenic::render_context::cg::manager::max_directional_lights;
 
 sge::scenic::render_context::cg::manager::manager(
 	sge::shader::context &_shader_context,
@@ -51,7 +53,8 @@ sge::scenic::render_context::cg::manager::manager(
 			sge::config::media_path() / FCPPT_TEXT("shaders") / FCPPT_TEXT("ffp.cg")),
 		sge::shader::optional_cflags(
 			fcppt::assign::make_container<sge::shader::optional_cflags::string_sequence>
-				("-DMAX_POINT_LIGHTS="+fcppt::insert_to_std_string(max_point_lights)))),
+				("-DMAX_POINT_LIGHTS="+fcppt::insert_to_std_string(max_point_lights))
+				("-DMAX_DIRECTIONAL_LIGHTS="+fcppt::insert_to_std_string(max_directional_lights)))),
 	world_matrix_(
 		shader_.vertex_program(),
 		sge::shader::parameter::name(
@@ -111,7 +114,13 @@ sge::scenic::render_context::cg::manager::manager(
 		sge::shader::parameter::name(
 			"point_light_count"),
 		0),
+	directional_light_count_(
+		shader_.pixel_program(),
+		sge::shader::parameter::name(
+			"directional_light_count"),
+		0),
 	point_lights_(),
+	directional_lights_(),
 	diffuse_texture_(
 		shader_,
 		shader_.context().renderer(),
@@ -124,10 +133,20 @@ sge::scenic::render_context::cg::manager::manager(
 		fcppt::container::ptr::replace_unique_ptr(
 			point_lights_,
 			i,
-			fcppt::make_unique_ptr<sge::scenic::render_context::cg::point_light>(
+			fcppt::make_unique_ptr<sge::scenic::render_context::cg::light::point>(
 				fcppt::ref(
 					shader_.pixel_program()),
-				sge::scenic::render_context::cg::point_light::index(
+				sge::scenic::render_context::cg::light::index(
+					i)));
+
+	for(directional_light_array::size_type i = 0; i < directional_lights_.size(); ++i)
+		fcppt::container::ptr::replace_unique_ptr(
+			directional_lights_,
+			i,
+			fcppt::make_unique_ptr<sge::scenic::render_context::cg::light::directional>(
+				fcppt::ref(
+					shader_.pixel_program()),
+				sge::scenic::render_context::cg::light::index(
 					i)));
 }
 

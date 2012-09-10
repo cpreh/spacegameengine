@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/type_traits/is_same.hpp>
+#include <boost/type_traits/is_integral.hpp>
 #include <fcppt/config/external_end.hpp>
 #include <iostream>
 
@@ -55,7 +56,13 @@ sge::shader::parameter::scalar<ValueType>::set(
 	<
 		boost::is_same<value_type,bool>,
 		int,
-		value_type
+		typename
+		boost::mpl::if_
+		<
+			boost::is_integral<value_type>,
+			int,
+			value_type
+		>::type
 	>::type
 	promoted_type;
 

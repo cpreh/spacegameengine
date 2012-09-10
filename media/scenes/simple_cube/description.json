@@ -1,25 +1,22 @@
 {
     "lights": [
         {
-            "name": "Lamp", 
             "color": [
                 1.0, 
                 1.0, 
                 1.0
             ], 
-            "quadratic-falloff": 0.0, 
-            "light-type": "point", 
-            "linear-falloff": 0.0022222247653559154, 
-            "position": [
-                4.076245307922363, 
-                1.0054539442062378, 
-                5.903861999511719
+            "rotation": [
+                1.129837989807129, 
+                0.533422589302063, 
+                0.8226417303085327
             ], 
-            "constant-falloff": 1.0
+            "light-type": "directional", 
+            "name": "Hemi"
         }
     ], 
     "camera": {
-        "fov": 1.0471975803375244, 
+        "fov": 0.48237527534365654, 
         "name": "Camera", 
         "far": 100.0, 
         "near": 0.10000000149011612, 

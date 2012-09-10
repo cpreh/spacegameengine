@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/any/object.hpp>
 #include <sge/renderer/vector4.hpp>
 #include <sge/renderer/light/attenuation.hpp>
-#include <sge/scenic/render_context/cg/point_light.hpp>
+#include <sge/scenic/render_context/cg/light/point.hpp>
 #include <sge/src/scenic/render_context/cg/any_color_to_vector4.hpp>
 #include <fcppt/insert_to_std_string.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
@@ -31,7 +31,7 @@ namespace
 {
 sge::shader::parameter::name const
 param_name(
-	sge::scenic::render_context::cg::point_light::index const &_index,
+	sge::scenic::render_context::cg::light::index const &_index,
 	std::string const &_suffix)
 {
 	return
@@ -44,9 +44,9 @@ param_name(
 }
 }
 
-sge::scenic::render_context::cg::point_light::point_light(
+sge::scenic::render_context::cg::light::point::point(
 	sge::cg::program::object &_program,
-	index const &_index)
+	sge::scenic::render_context::cg::light::index const &_index)
 :
 	diffuse_color_(
 		_program,
@@ -82,7 +82,7 @@ sge::scenic::render_context::cg::point_light::point_light(
 }
 
 void
-sge::scenic::render_context::cg::point_light::diffuse_color(
+sge::scenic::render_context::cg::light::point::diffuse_color(
 	sge::renderer::diffuse_color const &_diffuse_color)
 {
 	diffuse_color_.set(
@@ -91,7 +91,7 @@ sge::scenic::render_context::cg::point_light::diffuse_color(
 }
 
 void
-sge::scenic::render_context::cg::point_light::specular_color(
+sge::scenic::render_context::cg::light::point::specular_color(
 	sge::renderer::specular_color const &_specular_color)
 {
 	specular_color_.set(
@@ -100,7 +100,7 @@ sge::scenic::render_context::cg::point_light::specular_color(
 }
 
 void
-sge::scenic::render_context::cg::point_light::ambient_color(
+sge::scenic::render_context::cg::light::point::ambient_color(
 	sge::renderer::ambient_color const &_ambient_color)
 {
 	ambient_color_.set(
@@ -109,7 +109,7 @@ sge::scenic::render_context::cg::point_light::ambient_color(
 }
 
 void
-sge::scenic::render_context::cg::point_light::camera_space_position(
+sge::scenic::render_context::cg::light::point::camera_space_position(
 	sge::renderer::vector3 const &_camera_space_position)
 {
 	camera_space_position_.set(
@@ -117,7 +117,7 @@ sge::scenic::render_context::cg::point_light::camera_space_position(
 }
 
 void
-sge::scenic::render_context::cg::point_light::attenuation(
+sge::scenic::render_context::cg::light::point::attenuation(
 	sge::renderer::light::attenuation const &_attenuation)
 {
 	attenuation_.set(
@@ -127,6 +127,6 @@ sge::scenic::render_context::cg::point_light::attenuation(
 			_attenuation.quadratic_attenuation().get()));
 }
 
-sge::scenic::render_context::cg::point_light::~point_light()
+sge::scenic::render_context::cg::light::point::~point()
 {
 }
