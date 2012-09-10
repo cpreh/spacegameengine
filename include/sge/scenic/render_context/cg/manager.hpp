@@ -87,7 +87,7 @@ private:
 	sge::shader::parameter::vector<sge::renderer::scalar,4> material_ambient_color_;
 	sge::shader::parameter::vector<sge::renderer::scalar,4> material_emissive_color_;
 	sge::shader::parameter::scalar<sge::renderer::scalar> material_shininess_;
-		//sge::shader::parameter::scalar<bool> use_texture_;
+	sge::shader::parameter::scalar<bool> use_diffuse_texture_;
 	sge::shader::parameter::scalar<int> point_light_count_;
 	point_light_array point_lights_;
 	sge::shader::parameter::planar_texture diffuse_texture_;

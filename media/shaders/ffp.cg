@@ -81,6 +81,7 @@ pixel_main(
 	uniform int point_light_count,
 	uniform point_light point_lights[MAX_POINT_LIGHTS],
 	uniform material current_material,
+	uniform int use_diffuse_texture,
 	uniform sampler2D diffuse_texture)
 	: COLOR
 {
@@ -132,9 +133,13 @@ pixel_main(
 	resulting_color.w = 1.0;
 
 	float4 texture_color =
-		tex2D(
-			diffuse_texture,
-			vertex_shader_out.texture_coordinate);
+		use_diffuse_texture
+		?
+			tex2D(
+				diffuse_texture,
+				vertex_shader_out.texture_coordinate)
+		:
+			float4(1.0,1.0,1.0,1.0);
 
 	return
 		resulting_color *

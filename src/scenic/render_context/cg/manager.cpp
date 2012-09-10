@@ -101,6 +101,11 @@ sge::scenic::render_context::cg::manager::manager(
 		sge::shader::parameter::name(
 			"current_material.shininess"),
 		sge::renderer::scalar()),
+	use_diffuse_texture_(
+		shader_.pixel_program(),
+		sge::shader::parameter::name(
+			"use_diffuse_texture"),
+		false),
 	point_light_count_(
 		shader_.pixel_program(),
 		sge::shader::parameter::name(

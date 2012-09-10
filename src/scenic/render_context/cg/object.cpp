@@ -136,6 +136,9 @@ void
 sge::scenic::render_context::cg::object::diffuse_texture(
 	sge::scenic::render_context::optional_planar_texture const &_texture)
 {
+	manager_.use_diffuse_texture_.set(
+		_texture.has_value());
+
 	manager_.diffuse_texture_.set(
 		_texture
 		?
