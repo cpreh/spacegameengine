@@ -82,7 +82,8 @@ sge::postprocessing::context::context(
 		sge::shader::vertex_program_path(
 			sge::config::media_path() / FCPPT_TEXT("shaders") / FCPPT_TEXT("postprocessing") / FCPPT_TEXT("finalize.cg")),
 		sge::shader::pixel_program_path(
-			sge::config::media_path() / FCPPT_TEXT("shaders") / FCPPT_TEXT("postprocessing") / FCPPT_TEXT("finalize.cg"))),
+			sge::config::media_path() / FCPPT_TEXT("shaders") / FCPPT_TEXT("postprocessing") / FCPPT_TEXT("finalize.cg")),
+		sge::shader::optional_cflags()),
 	finalize_input_texture_parameter_(
 		finalize_shader_,
 		renderer_,

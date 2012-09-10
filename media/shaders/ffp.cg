@@ -1,0 +1,142 @@
+struct camera_information
+{
+	float4x4 world;
+	float4x4 world_projection;
+	float4x4 world_it;
+};
+
+struct vertex_shader_input
+{
+	float3 position : POSITION;
+	float2 texture_coordinate : TEXCOORD0;
+	float3 normal : NORMAL;
+};
+
+struct vertex_shader_output
+{
+	float4 position : POSITION;
+	float2 texture_coordinate : TEXCOORD0;
+	float3 normal : TEXCOORD1;
+	float3 camera_space_position : TEXCOORD2;
+};
+
+struct point_light
+{
+	uniform float4 diffuse_color;
+	uniform float4 specular_color;
+	uniform float4 ambient_color;
+	uniform float3 camera_space_position;
+	uniform float3 attenuation;
+};
+
+struct material
+{
+	uniform float4 diffuse_color;
+	uniform float4 specular_color;
+	uniform float4 ambient_color;
+	uniform float4 emissive_color;
+	uniform float shininess;
+};
+
+vertex_shader_output
+vertex_main(
+	in vertex_shader_input inputs,
+	uniform camera_information camera)
+{
+	vertex_shader_output result;
+
+	float4 homogenous_position =
+		float4(
+			inputs.position,
+			1.0);
+
+	result.position =
+		mul(
+			camera.world_projection,
+			homogenous_position);
+
+	result.texture_coordinate =
+		inputs.texture_coordinate;
+
+	result.camera_space_position =
+		mul(
+			camera.world,
+			homogenous_position).xyz;
+
+	result.normal =
+		normalize(
+			mul(
+				camera.world_it,
+				float4(
+					inputs.normal,
+					0.0)).xyz);
+
+	return
+		result;
+}
+
+float4
+pixel_main(
+	in vertex_shader_output vertex_shader_out,
+	uniform int point_light_count,
+	uniform point_light point_lights[MAX_POINT_LIGHTS],
+	uniform material current_material,
+	uniform sampler2D diffuse_texture)
+	: COLOR
+{
+	float4 resulting_color =
+		current_material.emissive_color;
+
+	float3 view_direction =
+		normalize(
+			-vertex_shader_out.camera_space_position);
+
+	for(int i = 0; i < point_light_count; ++i)
+	{
+		point_light l =
+			point_lights[i];
+
+		float3 vertex_to_light =
+			l.camera_space_position - vertex_shader_out.camera_space_position;
+
+		float d =
+			length(
+				vertex_to_light);
+
+		float3 light_direction =
+			vertex_to_light / d;
+
+		float3 halfv =
+			normalize(
+				light_direction + view_direction);
+
+		float4 coeffs =
+			lit(
+				dot(
+					vertex_shader_out.normal,
+					light_direction),
+				dot(
+					vertex_shader_out.normal,
+					halfv),
+				current_material.shininess.x);
+
+
+		resulting_color +=
+			(l.ambient_color * current_material.ambient_color +
+			 l.diffuse_color * current_material.diffuse_color * coeffs.y +
+			 l.specular_color * current_material.specular_color * coeffs.z) /
+			(l.attenuation.x + d*l.attenuation.y + d*d*l.attenuation.z);
+	}
+
+	// FIXME: How do we handle transparent objects?
+	resulting_color.w = 1.0;
+
+	float4 texture_color =
+		tex2D(
+			diffuse_texture,
+			vertex_shader_out.texture_coordinate);
+
+	return
+		resulting_color *
+		texture_color;
+}

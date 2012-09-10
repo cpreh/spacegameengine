@@ -25,13 +25,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/cg/loaded_program_scoped_ptr.hpp>
 #include <sge/shader/context_fwd.hpp>
+#include <sge/shader/optional_cflags.hpp>
 #include <sge/shader/pixel_program_path.hpp>
 #include <sge/shader/scoped_pair_fwd.hpp>
 #include <sge/shader/symbol.hpp>
 #include <sge/shader/vertex_program_path.hpp>
 #include <sge/shader/parameter/matrix.hpp>
 #include <sge/shader/parameter/planar_texture_fwd.hpp>
-#include <sge/shader/optional_cflags.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>

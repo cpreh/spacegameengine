@@ -21,15 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SCENIC_SCENE_MANAGER_HPP_INCLUDED
 #define SGE_SCENIC_SCENE_MANAGER_HPP_INCLUDED
 
-#include <sge/renderer/device_fwd.hpp>
 #include <sge/image2d/system_fwd.hpp>
-#include <sge/shader/context.hpp>
+#include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/vertex_declaration_scoped_ptr.hpp>
-#include <sge/scenic/texture_manager.hpp>
-#include <sge/scenic/symbol.hpp>
-#include <sge/scenic/render_context/manager_base_scoped_ptr.hpp>
 #include <sge/renderer/context/object_fwd.hpp>
+#include <sge/scenic/symbol.hpp>
+#include <sge/scenic/texture_manager.hpp>
 #include <sge/scenic/render_context/base_unique_ptr.hpp>
+#include <sge/scenic/render_context/manager_base_scoped_ptr.hpp>
+#include <sge/shader/context.hpp>
+
 
 namespace sge
 {

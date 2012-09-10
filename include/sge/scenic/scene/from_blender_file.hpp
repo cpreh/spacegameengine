@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SCENIC_SCENE_FROM_BLENDER_FILE_HPP_INCLUDED
 #define SGE_SCENIC_SCENE_FROM_BLENDER_FILE_HPP_INCLUDED
 
-#include <sge/scenic/symbol.hpp>
 #include <sge/charconv/system_fwd.hpp>
+#include <sge/scenic/symbol.hpp>
 #include <sge/scenic/scene/prototype_unique_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>

@@ -18,18 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SHADER_OPTIONAL_CFLAGS_HPP_INCLUDED
-#define SGE_SHADER_OPTIONAL_CFLAGS_HPP_INCLUDED
-
-#include <sge/cg/program/compile_options.hpp>
+#ifndef SGE_SCENIC_RENDER_CONTEXT_CG_POINT_LIGHT_FWD_HPP_INCLUDED
+#define SGE_SCENIC_RENDER_CONTEXT_CG_POINT_LIGHT_FWD_HPP_INCLUDED
 
 namespace sge
 {
-namespace shader
+namespace scenic
 {
-typedef
-sge::cg::program::compile_options
-optional_cflags;
+namespace render_context
+{
+namespace cg
+{
+class point_light;
+}
+}
 }
 }
 

@@ -23,14 +23,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/cg/parameter/matrix/set.hpp>
 #include <sge/cg/program/object.hpp>
-#include <sge/shader/parameter/matrix_decl.hpp>
-#include <fcppt/text.hpp>
-#include <sge/renderer/caps/device.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <fcppt/math/matrix/translation.hpp>
-#include <fcppt/math/matrix/scaling.hpp>
+#include <sge/renderer/caps/device.hpp>
+#include <sge/shader/parameter/matrix_decl.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
+#include <fcppt/math/matrix/scaling.hpp>
+#include <fcppt/math/matrix/translation.hpp>
+
 
 template
 <

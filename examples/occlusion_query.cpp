@@ -28,7 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/align_h.hpp>
 #include <sge/font/lit.hpp>
 #include <sge/font/object.hpp>
-#include <sge/scenic/scene/from_blender_file.hpp>
 #include <sge/font/object_scoped_ptr.hpp>
 #include <sge/font/parameters.hpp>
 #include <sge/font/string.hpp>
@@ -59,7 +58,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/occlusion_query/object.hpp>
 #include <sge/renderer/occlusion_query/object_scoped_ptr.hpp>
 #include <sge/renderer/occlusion_query/scoped.hpp>
-#include <sge/scenic/scene/prototype.hpp>
 #include <sge/renderer/projection/far.hpp>
 #include <sge/renderer/projection/fov.hpp>
 #include <sge/renderer/projection/near.hpp>
@@ -69,7 +67,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/target/viewport_size.hpp>
 #include <sge/renderer/texture/stage.hpp>
+#include <sge/scenic/scene/from_blender_file.hpp>
 #include <sge/scenic/scene/manager.hpp>
+#include <sge/scenic/scene/prototype.hpp>
 #include <sge/systems/cursor_option.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/font.hpp>

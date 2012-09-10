@@ -25,12 +25,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/material_fwd.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/matrix_mode.hpp>
-#include <sge/renderer/texture/filter/scoped.hpp>
 #include <sge/renderer/scoped_vertex_declaration.hpp>
-#include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/vertex_buffer_fwd.hpp>
 #include <sge/renderer/context/object_fwd.hpp>
+#include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
+#include <sge/renderer/texture/filter/scoped.hpp>
 #include <sge/scenic/index_buffer_range_fwd.hpp>
 #include <sge/scenic/symbol.hpp>
 #include <sge/scenic/render_context/base.hpp>

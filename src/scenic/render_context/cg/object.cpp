@@ -18,21 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/scenic/render_context/cg/manager.hpp>
-#include <sge/scenic/render_context/cg/object.hpp>
-#include <sge/scenic/index_buffer_range.hpp>
-#include <fcppt/math/matrix/arithmetic.hpp>
+#include <sge/renderer/material.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/context/object.hpp>
-#include <fcppt/math/matrix/inverse.hpp>
-#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/light/point.hpp>
+#include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/cull_mode.hpp>
 #include <sge/renderer/state/depth_func.hpp>
-#include <sge/renderer/state/bool.hpp>
-#include <fcppt/math/matrix/transpose.hpp>
+#include <sge/renderer/state/list.hpp>
 #include <sge/renderer/texture/filter/mipmap.hpp>
-
+#include <sge/scenic/index_buffer_range.hpp>
+#include <sge/scenic/render_context/cg/manager.hpp>
+#include <sge/scenic/render_context/cg/object.hpp>
+#include <sge/scenic/render_context/cg/point_light.hpp>
+#include <sge/src/scenic/render_context/cg/any_color_to_vector4.hpp>
+#include <fcppt/math/matrix/arithmetic.hpp>
+#include <fcppt/math/matrix/inverse.hpp>
+#include <fcppt/math/matrix/multiply_matrix4_vector3.hpp>
+#include <fcppt/math/matrix/transpose.hpp>
+#include <fcppt/math/vector/output.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <iostream>
+#include <fcppt/config/external_end.hpp>
+
 
 sge::scenic::render_context::cg::object::object(
 	sge::scenic::render_context::cg::manager &_manager,
@@ -104,6 +112,24 @@ void
 sge::scenic::render_context::cg::object::material(
 	sge::renderer::material const &_material)
 {
+	manager_.material_diffuse_color_.set(
+		sge::scenic::render_context::cg::any_color_to_vector4(
+			_material.diffuse().get()));
+
+	manager_.material_specular_color_.set(
+		sge::scenic::render_context::cg::any_color_to_vector4(
+			_material.specular().get()));
+
+	manager_.material_emissive_color_.set(
+		sge::scenic::render_context::cg::any_color_to_vector4(
+			_material.emissive().get()));
+
+	manager_.material_ambient_color_.set(
+		sge::scenic::render_context::cg::any_color_to_vector4(
+			_material.ambient().get()));
+
+	manager_.material_shininess_.set(
+		_material.shininess().get());
 }
 
 void
@@ -123,11 +149,11 @@ void
 sge::scenic::render_context::cg::object::lights(
 	sge::scenic::render_context::light_sequence const &_lights)
 {
-	manager_.point_light_count.set(
+	manager_.point_light_count_.set(
 		static_cast<int>(
 			_lights.size()));
 
-	unsigned current_index =
+	std::size_t current_index =
 		0u;
 
 	for(
@@ -136,7 +162,28 @@ sge::scenic::render_context::cg::object::lights(
 		l != _lights.end();
 		++l)
 	{
-		
+		sge::scenic::render_context::cg::point_light &current_light(
+			manager_.point_lights_[current_index]);
+
+		current_light.diffuse_color(
+			l->diffuse());
+
+		current_light.specular_color(
+			l->specular());
+
+		current_light.ambient_color(
+			l->ambient());
+
+		sge::renderer::light::point const &point_light(
+			l->variant().get<sge::renderer::light::point>());
+
+		current_light.camera_space_position(
+			fcppt::math::matrix::multiply_matrix4_vector3(
+				current_world_,
+				point_light.position().get()));
+
+		current_light.attenuation(
+			point_light.attenuation());
 
 		++current_index;
 	}

@@ -49,12 +49,9 @@ sge::shader::pair::pair(
 				_vertex_program_path.get()),
 			sge::cg::program::main_function(
 				"vertex_main"),
-			_context.vertex_compile_options()+
-			(_optional_cflags
-			?
-				*_optional_cflags
-			:
-				sge::cg::string()))),
+			sge::cg::program::compile_options(
+				_context.vertex_compile_options().value(),
+				_optional_cflags.value()))),
 	pixel_program_(
 		sge::cg::program::from_string_parameters(
 			_context.cg_context(),
@@ -66,12 +63,9 @@ sge::shader::pair::pair(
 				_pixel_program_path.get()),
 			sge::cg::program::main_function(
 				"pixel_main"),
-			_context.pixel_compile_options()+
-			(_optional_cflags
-			?
-				*_optional_cflags
-			:
-				sge::cg::string()))),
+			sge::cg::program::compile_options(
+				_context.pixel_compile_options().value(),
+				_optional_cflags.value()))),
 	loaded_vertex_program_(
 		context_.renderer().load_cg_program(
 			vertex_program_)),

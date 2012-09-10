@@ -23,6 +23,7 @@ set(
 	include/sge/renderer/caps/max_anisotropy.hpp
 	include/sge/renderer/caps/max_texture_size.hpp
 	include/sge/renderer/caps/max_volume_texture_extent.hpp
+	include/sge/renderer/caps/normalized_cvv.hpp
 	include/sge/renderer/caps/render_target_inverted.hpp
 	include/sge/renderer/caps/render_target_supported.hpp
 	include/sge/renderer/caps/system.hpp

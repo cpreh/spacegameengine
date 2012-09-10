@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/symbol.hpp>
 #include <sge/scenic/render_context/manager_base.hpp>
 #include <sge/scenic/render_context/cg/object_fwd.hpp>
+#include <sge/scenic/render_context/cg/point_light_fwd.hpp>
 #include <sge/shader/context_fwd.hpp>
 #include <sge/shader/pair.hpp>
 #include <sge/shader/parameter/matrix.hpp>
@@ -34,7 +35,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/shader/parameter/scalar.hpp>
 #include <sge/shader/parameter/vector.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/ptr_container/ptr_array.hpp>
 #include <cstddef>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {
@@ -69,19 +74,22 @@ private:
 	static const std::size_t max_point_lights = 8u;
 
 	typedef
-	sge::shader::parameter::vector<sge::renderer::scalar,4u>
-	float4_parameter;
-
-	typedef
-	boost::ptr_array<max_point_lights,float4_parameter>
-	diffuse_point_light_colors;
+	boost::ptr_array<sge::scenic::render_context::cg::point_light,max_point_lights>
+	point_light_array;
 
 	sge::renderer::vertex_declaration &vertex_declaration_;
 	sge::shader::pair shader_;
 	sge::shader::parameter::matrix<sge::renderer::scalar,4,4> world_matrix_;
 	sge::shader::parameter::matrix<sge::renderer::scalar,4,4> world_projection_matrix_;
 	sge::shader::parameter::matrix<sge::renderer::scalar,4,4> world_inverse_transpose_matrix_;
+	sge::shader::parameter::vector<sge::renderer::scalar,4> material_diffuse_color_;
+	sge::shader::parameter::vector<sge::renderer::scalar,4> material_specular_color_;
+	sge::shader::parameter::vector<sge::renderer::scalar,4> material_ambient_color_;
+	sge::shader::parameter::vector<sge::renderer::scalar,4> material_emissive_color_;
+	sge::shader::parameter::scalar<sge::renderer::scalar> material_shininess_;
+		//sge::shader::parameter::scalar<bool> use_texture_;
 	sge::shader::parameter::scalar<int> point_light_count_;
+	point_light_array point_lights_;
 	sge::shader::parameter::planar_texture diffuse_texture_;
 };
 }

@@ -18,15 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/scenic/scene/manager.hpp>
-#include <sge/scenic/render_context/base.hpp>
-#include <sge/scenic/vf/format.hpp>
-#include <sge/renderer/vertex_declaration.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/vertex_declaration.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <sge/scenic/render_context/base.hpp>
 #include <sge/scenic/render_context/cg/manager.hpp>
+#include <sge/scenic/scene/manager.hpp>
+#include <sge/scenic/vf/format.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
+
 
 sge::scenic::scene::manager::manager(
 	sge::renderer::device &_renderer,

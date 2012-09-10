@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/charconv/utf8_string_to_fcppt.hpp>
 #include <sge/image/color/init.hpp>
 #include <sge/image/color/rgb32f.hpp>
 #include <sge/log/global.hpp>
@@ -31,7 +32,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
-#include <sge/charconv/utf8_string_to_fcppt.hpp>
 #include <fcppt/log/headers.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/config/external_begin.hpp>

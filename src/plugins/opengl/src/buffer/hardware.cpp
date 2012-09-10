@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/buffer/base.hpp>
+#include <sge/opengl/buffer/hardware.hpp>
 #include <sge/opengl/buffer/id.hpp>
 #include <sge/opengl/buffer/optional_id.hpp>
-#include <sge/opengl/buffer/hardware.hpp>
 #include <sge/opengl/buffer/type.hpp>
 #include <sge/opengl/convert/from_gl_bool.hpp>
 #include <sge/renderer/exception.hpp>

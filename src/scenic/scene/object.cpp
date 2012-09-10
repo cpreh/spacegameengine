@@ -1,3 +1,22 @@
+/*
+spacegameengine is a portable easy to use game engine written in C++.
+Copyright (C) 2006-2012 Carl Philipp Reh (sefi@s-e-f-i.de)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
 
 /*
 spacegameengine is a portable easy to use game engine written in C++.
@@ -29,9 +48,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/vertex_declaration.hpp>
-#include <sge/scenic/scene/manager.hpp>
 #include <sge/renderer/context/object.hpp>
-#include <sge/scenic/render_context/base.hpp>
 #include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/color.hpp>
 #include <sge/renderer/state/cull_mode.hpp>
@@ -48,15 +65,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/filter/scoped.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/scenic/exception.hpp>
+#include <sge/scenic/render_context/base.hpp>
 #include <sge/scenic/render_queue/object.hpp>
-#include <sge/scenic/scene/object.hpp>
+#include <sge/scenic/scene/manager.hpp>
 #include <sge/scenic/scene/material_from_obj_material.hpp>
+#include <sge/scenic/scene/object.hpp>
 #include <sge/scenic/scene/prototype.hpp>
 #include <sge/scenic/scene/mesh/object.hpp>
 #include <sge/scenic/vf/format.hpp>
 #include <fcppt/cref.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/move.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/scoped_ptr.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/assert/pre.hpp>
@@ -157,9 +176,9 @@ sge::scenic::scene::object::render(
 						(sge::renderer::state::color::fog_color = prototype_->fog()->color().get()))));
 	}
 
+	*/
 	this->activate_lights(
 		_context);
-	*/
 
 	sge::scenic::render_queue::object current_render_queue;
 	for(
@@ -248,43 +267,18 @@ sge::scenic::scene::object::load_entities()
 	}
 }
 
-	/*
 void
 sge::scenic::scene::object::activate_lights(
-	sge::renderer::context::object &_context)
+	sge::scenic::render_context::base &_context)
 {
-	sge::renderer::scoped_transform scoped_world(
-		_context,
+	_context.transform(
 		sge::renderer::matrix_mode::world,
 		sge::camera::matrix_conversion::world(
 			camera_.coordinate_system()));
 
-	if(prototype_->lights().size() > 8u)
-		throw
-			sge::scenic::exception(
-				FCPPT_TEXT("Found more than 8 lights in the scene.\nThat's currently not supported."));
-
-	sge::renderer::light::index current_light_index(
-		0u);
-
-	for(
-		sge::scenic::render_context::light_sequence::const_iterator current_light =
-			prototype_->lights().begin();
-		current_light != prototype_->lights().end();
-		current_light++)
-	{
-		_context.enable_light(
-			current_light_index,
-			true);
-
-		_context.light(
-			current_light_index,
-			*current_light);
-
-		++current_light_index;
-	}
+	_context.lights(
+		prototype_->lights());
 }
-	*/
 
 void
 sge::scenic::scene::object::render_entity(

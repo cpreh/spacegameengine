@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/context/object.hpp>
 #include <sge/renderer/texture/planar.hpp>
-#include <sge/scenic/render_queue/object.hpp>
 #include <sge/scenic/render_context/base.hpp>
+#include <sge/scenic/render_queue/object.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/next_prior.hpp>

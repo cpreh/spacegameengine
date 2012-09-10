@@ -19,6 +19,8 @@ set(
 	include/sge/scenic/render_context/cg/manager_fwd.hpp
 	include/sge/scenic/render_context/cg/object.hpp
 	include/sge/scenic/render_context/cg/object_fwd.hpp
+	include/sge/scenic/render_context/cg/point_light.hpp
+	include/sge/scenic/render_context/cg/point_light_fwd.hpp
 	include/sge/scenic/render_context/fog/color.hpp
 	include/sge/scenic/render_context/fog/end.hpp
 	include/sge/scenic/render_context/fog/optional_properties.hpp
@@ -71,10 +73,13 @@ set(
 	include/sge/scenic/vf/texcoord.hpp
 	src/scenic/exception.cpp
 	src/scenic/grid/object.cpp
+	src/scenic/include/sge/src/scenic/render_context/cg/any_color_to_vector4.hpp
 	src/scenic/index_buffer_range.cpp
 	src/scenic/render_context/base.cpp
+	src/scenic/render_context/cg/any_color_to_vector4.cpp
 	src/scenic/render_context/cg/manager.cpp
 	src/scenic/render_context/cg/object.cpp
+	src/scenic/render_context/cg/point_light.cpp
 	src/scenic/render_context/fog/properties.cpp
 	src/scenic/render_context/manager_base.cpp
 	src/scenic/render_queue/mesh.cpp
@@ -97,5 +102,5 @@ add_sge_base_library(
 	"${Fcppt_filesystem_LIBRARIES}"
 	""
 	""
-	"${Cg_INCLUDE_DIRS}"
+	"${CMAKE_CURRENT_SOURCE_DIR}/include;${Cg_INCLUDE_DIRS}"
 )

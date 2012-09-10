@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/make_id.hpp>
 #include <sge/opengl/convert/from_gl_bool.hpp>
 #include <sge/opengl/wgl/visual/context.hpp>
-#include <sge/opengl/wgl/visual/pixel_format_types.hpp>
 #include <sge/opengl/wgl/visual/optional_pixel_format_types.hpp>
+#include <sge/opengl/wgl/visual/pixel_format_types.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <GL/wglew.h>
 #include <fcppt/config/external_end.hpp>

@@ -18,18 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SHADER_OPTIONAL_CFLAGS_HPP_INCLUDED
-#define SGE_SHADER_OPTIONAL_CFLAGS_HPP_INCLUDED
+#ifndef SGE_SRC_SCENIC_RENDER_CONTEXT_CG_ANY_COLOR_TO_VECTOR4_HPP_INCLUDED
+#define SGE_SRC_SCENIC_RENDER_CONTEXT_CG_ANY_COLOR_TO_VECTOR4_HPP_INCLUDED
 
-#include <sge/cg/program/compile_options.hpp>
+#include <sge/image/color/any/object_fwd.hpp>
+#include <sge/renderer/vector4.hpp>
+
 
 namespace sge
 {
-namespace shader
+namespace scenic
 {
-typedef
-sge::cg::program::compile_options
-optional_cflags;
+namespace render_context
+{
+namespace cg
+{
+sge::renderer::vector4 const
+any_color_to_vector4(
+	sge::image::color::any::object const &);
+}
+}
 }
 }
 

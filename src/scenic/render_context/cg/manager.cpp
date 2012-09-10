@@ -19,14 +19,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/config/media_path.hpp>
+#include <sge/renderer/vector3.hpp>
+#include <sge/renderer/vector4.hpp>
 #include <sge/scenic/render_context/cg/manager.hpp>
 #include <sge/scenic/render_context/cg/object.hpp>
+#include <sge/scenic/render_context/cg/point_light.hpp>
 #include <sge/shader/context.hpp>
+#include <fcppt/insert_to_std_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/insert_to_std_string.hpp>
+#include <fcppt/assign/make_container.hpp>
+#include <fcppt/container/ptr/replace_unique_ptr.hpp>
 
+
+std::size_t const sge::scenic::render_context::cg::manager::max_point_lights;
 
 sge::scenic::render_context::cg::manager::manager(
 	sge::shader::context &_shader_context,
@@ -43,9 +50,8 @@ sge::scenic::render_context::cg::manager::manager(
 		sge::shader::pixel_program_path(
 			sge::config::media_path() / FCPPT_TEXT("shaders") / FCPPT_TEXT("ffp.cg")),
 		sge::shader::optional_cflags(
-			"-DMAX_POINT_LIGHTS="+
-			fcppt::insert_to_std_string(
-				max_point_lights))),
+			fcppt::assign::make_container<sge::shader::optional_cflags::string_sequence>
+				("-DMAX_POINT_LIGHTS="+fcppt::insert_to_std_string(max_point_lights)))),
 	world_matrix_(
 		shader_.vertex_program(),
 		sge::shader::parameter::name(
@@ -70,11 +76,37 @@ sge::scenic::render_context::cg::manager::manager(
 		sge::shader::parameter::is_projection_matrix(
 			false),
 		sge::renderer::matrix4()),
+	material_diffuse_color_(
+		shader_.pixel_program(),
+		sge::shader::parameter::name(
+			"current_material.diffuse_color"),
+		sge::renderer::vector4()),
+	material_specular_color_(
+		shader_.pixel_program(),
+		sge::shader::parameter::name(
+			"current_material.specular_color"),
+		sge::renderer::vector4()),
+	material_ambient_color_(
+		shader_.pixel_program(),
+		sge::shader::parameter::name(
+			"current_material.ambient_color"),
+		sge::renderer::vector4()),
+	material_emissive_color_(
+		shader_.pixel_program(),
+		sge::shader::parameter::name(
+			"current_material.emissive_color"),
+		sge::renderer::vector4()),
+	material_shininess_(
+		shader_.pixel_program(),
+		sge::shader::parameter::name(
+			"current_material.shininess"),
+		sge::renderer::scalar()),
 	point_light_count_(
 		shader_.pixel_program(),
 		sge::shader::parameter::name(
 			"point_light_count"),
 		0),
+	point_lights_(),
 	diffuse_texture_(
 		shader_,
 		shader_.context().renderer(),
@@ -83,6 +115,15 @@ sge::scenic::render_context::cg::manager::manager(
 			"diffuse_texture"),
 		sge::shader::parameter::planar_texture::optional_value())
 {
+	for(point_light_array::size_type i = 0; i < point_lights_.size(); ++i)
+		fcppt::container::ptr::replace_unique_ptr(
+			point_lights_,
+			i,
+			fcppt::make_unique_ptr<sge::scenic::render_context::cg::point_light>(
+				fcppt::ref(
+					shader_.pixel_program()),
+				sge::scenic::render_context::cg::point_light::index(
+					i)));
 }
 
 sge::scenic::render_context::base_unique_ptr
