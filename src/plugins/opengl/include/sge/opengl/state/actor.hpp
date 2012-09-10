@@ -18,30 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_CONVERT_DEST_BLEND_FUNC_HPP_INCLUDED
-#define SGE_OPENGL_STATE_CONVERT_DEST_BLEND_FUNC_HPP_INCLUDED
+#ifndef SGE_OPENGL_STATE_ACTOR_HPP_INCLUDED
+#define SGE_OPENGL_STATE_ACTOR_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
-#include <sge/renderer/state/core/blend/dest.hpp>
+#include <sge/opengl/state/actor_fwd.hpp>
+#include <fcppt/function/object.hpp>
 
-
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace convert
-{
-
-GLenum
-dest_blend_func(
-	sge::renderer::state::core::blend::dest::type
-);
-
-}
-}
-}
-}
 
 #endif

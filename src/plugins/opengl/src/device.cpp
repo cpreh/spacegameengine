@@ -33,6 +33,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/occlusion_query/create.hpp>
 #include <sge/opengl/render_context/create.hpp>
 #include <sge/opengl/render_context/end.hpp>
+#include <sge/opengl/state/core/blend/create.hpp>
+#include <sge/opengl/state/ffp/lighting/light/create.hpp>
 #include <sge/opengl/texture/basic_parameters.hpp>
 #include <sge/opengl/texture/create_cube.hpp>
 #include <sge/opengl/texture/create_depth_stencil.hpp>
@@ -540,9 +542,13 @@ sge::opengl::device::create_lighting_state(
 
 sge::renderer::state::ffp::lighting::light::object_unique_ptr
 sge::opengl::device::create_light_state(
-	sge::renderer::state::ffp::lighting::light::parameters const &
+	sge::renderer::state::ffp::lighting::light::parameters const &_parameters
 )
 {
+	return
+		sge::opengl::state::lighting::light::create(
+			_parameters
+		);
 }
 
 sge::renderer::state::ffp::lighting::material::object_unique_ptr

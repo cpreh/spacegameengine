@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_CORE_BLEND_PARAMETERS_HPP_INCLUDED
-#define SGE_OPENGL_STATE_CORE_BLEND_PARAMETERS_HPP_INCLUDED
+#ifndef SGE_OPENGL_STATE_FFP_LIGHTING_LIGHT_CREATE_HPP_INCLUDED
+#define SGE_OPENGL_STATE_FFP_LIGHTING_LIGHT_CREATE_HPP_INCLUDED
 
-#include <sge/opengl/state/core/blend/parameters_fwd.hpp>
+#include <sge/renderer/state/ffp/lighting/light/object_unique_ptr.hpp>
+#include <sge/renderer/state/ffp/lighting/light/parameters_fwd.hpp>
 
 
 namespace sge
@@ -30,27 +31,19 @@ namespace opengl
 {
 namespace state
 {
-namespace core
+namespace ffp
 {
-namespace blend
+namespace lighting
+{
+namespace light
 {
 
-class parameters
-{
-public:
-	parameters(
-		GLboolean write_red,
-		GLboolean write_blue,
-		GLboolean write_green,
-		GLboolean write_alpha,
-		bool enable_alpha,
-		GLenum source_blend_alpha,
-		GLenum dest_blend_alpha,
-		GLenum source_blend_color,
-		GLenum dest_blend_color
-	);
-};
+sge::renderer::state::ffp::lighting::light::object_unique_ptr
+create(
+	sge::renderer::state::ffp::lighting::light::parameters const &
+);
 
+}
 }
 }
 }

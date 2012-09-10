@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/state/ffp/transform/mode.hpp>
-#include <sge/renderer/state/ffp/transform/parameters_fwd.hpp>
+#include <sge/renderer/state/ffp/transform/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -54,7 +54,8 @@ public:
 	SGE_RENDERER_SYMBOL
 	scoped(
 		sge::renderer::context::ffp &context,
-		sge::renderer::state::ffp::transform::parameters const &
+		sge::renderer::state::ffp::transform::mode::type,
+		sge::renderer::state::ffp::transform::object const &
 	);
 
 	SGE_RENDERER_SYMBOL

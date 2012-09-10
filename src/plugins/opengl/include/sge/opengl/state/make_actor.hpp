@@ -18,23 +18,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CONVERT_CLIP_PLANE_INDEX_HPP_INCLUDED
-#define SGE_OPENGL_CONVERT_CLIP_PLANE_INDEX_HPP_INCLUDED
+#ifndef SGE_OPENGL_STATE_MAKE_ACTOR_HPP_INCLUDED
+#define SGE_OPENGL_STATE_MAKE_ACTOR_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
-#include <sge/renderer/clip_plane_index.hpp>
+#include <sge/opengl/check_state_always.hpp>
+#include <sge/opengl/state/check_function.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/tr1/functional.hpp>
+
 
 namespace sge
 {
 namespace opengl
 {
-namespace convert
+namespace state
 {
 
-GLenum
-clip_plane_index(
-	renderer::clip_plane_index
-);
+inline
+sge::opengl::state::actor const
+make_actor(
+	sge::opengl::state::actor const &_actor,
+#if defined(SGE_OPENGL_CHECK_STATE_ALWAYS)
+	fcppt::string const &_name
+#else
+	fcppt::string const &
+#endif
+)
+{
+#if defined(SGE_OPENGL_CHECK_STATE_ALWAYS)
+	return
+		std::tr1::bind(
+			&sge::opengl::state::check_function,
+			_actor,
+			_name
+		);
+#else
+	return
+		_actor;
+#endif
+}
 
 }
 }

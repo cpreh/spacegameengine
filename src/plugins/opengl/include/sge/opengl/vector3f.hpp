@@ -22,21 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_VECTOR3F_HPP_INCLUDED
 
 #include <sge/opengl/common.hpp>
-#include <fcppt/math/vector/object_decl.hpp>
-#include <fcppt/math/vector/static.hpp>
+#include <sge/opengl/vector3f_fwd.hpp>
+#include <fcppt/math/vector/object_impl.hpp>
 
-
-namespace sge
-{
-namespace opengl
-{
-
-typedef fcppt::math::vector::static_<
-	GLfloat,
-	3
->::type vector3f;
-
-}
-}
 
 #endif

@@ -18,30 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/common.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/opengl/context/state/core/blend/create.hpp>
-#include <sge/opengl/context/state/core/blend/make_actors.hpp>
-#include <sge/opengl/context/state/core/blend/object.hpp>
-#include <sge/renderer/state/core/blend/object_unique_ptr.hpp>
-#include <sge/renderer/state/core/blend/parameters_fwd.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <sge/opengl/state/actor_vector.hpp>
+#include <sge/opengl/state/core/blend/alpha_variant.hpp>
+#include <sge/opengl/state/core/blend/make_actors.hpp>
+#include <sge/renderer/state/core/blend/parameters.hpp>
+#include <fcppt/assign/make_container.hpp>
+#include <fcppt/tr1/functional.hpp>
+#include <fcppt/variant/apply_unary.hpp>
 
 
-sge::renderer::state::core::blend::object_unique_ptr
-sge::opengl::state::core::blend::create(
+sge::opengl::state::actor_vector const
+sge::opengl::state::core::blend::make_actors(
 	sge::opengl::context::system::object &_system_context,
 	sge::renderer::state::core::blend::parameters const &_parameters
 )
 {
 	return
-		sge::renderer::state::core::blend::object_unique_ptr(
-			fcppt::make_unique_ptr<
-				sge::opengl::state::core::blend::object
-			>(
-				sge::opengl::state::core::blend::make_actors(
-					_system_context,
-					_parameters
-				)
+		fcppt::assign::make_container<
+			sge::opengl::state::actor_vector
+		>(
+			fcppt::variant::apply_unary(
+				sge::opengl::state::core::blend::alpha_visitor(
+					_system_context
+				),
+				_parameters.alpha_variant()
+			)
+		)(
+			std::tr1::bind(
+				::glColorMask,
+				_parameters.write_mask().write_red().get(),
+				_parameters.write_mask().write_green().get(),
+				_parameters.write_mask().write_blue().get(),
+				_parameters.write_mask().write_alpha().get()
 			)
 		);
 }

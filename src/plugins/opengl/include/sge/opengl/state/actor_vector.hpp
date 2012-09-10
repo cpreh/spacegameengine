@@ -18,10 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_CORE_BLEND_SET_PARAMETERS_HPP_INCLUDED
-#define SGE_OPENGL_STATE_CORE_BLEND_SET_PARAMETERS_HPP_INCLUDED
+#ifndef SGE_OPENGL_STATE_ACTOR_VECTOR_HPP_INCLUDED
+#define SGE_OPENGL_STATE_ACTOR_VECTOR_HPP_INCLUDED
 
-#include <sge/opengl/state/core/blend/parameters_fwd.hpp>
+#include <sge/opengl/state/actor.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <vector>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -30,18 +33,11 @@ namespace opengl
 {
 namespace state
 {
-namespace core
-{
-namespace blend
-{
 
-void
-set_parameters(
-	sge::opengl::state::core::blend::parameters const &
-);
+typedef std::vector<
+	sge::opengl::state::actor
+> actor_vector;
 
-}
-}
 }
 }
 }

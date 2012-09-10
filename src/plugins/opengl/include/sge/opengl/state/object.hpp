@@ -18,11 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_CONVERT_DEST_BLEND_FUNC_HPP_INCLUDED
-#define SGE_OPENGL_STATE_CONVERT_DEST_BLEND_FUNC_HPP_INCLUDED
+#ifndef SGE_OPENGL_STATE_OBJECT_HPP_INCLUDED
+#define SGE_OPENGL_STATE_OBJECT_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
-#include <sge/renderer/state/core/blend/dest.hpp>
+#include <sge/opengl/state/actor_vector.hpp>
+#include <sge/opengl/state/object_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
 
 
 namespace sge
@@ -31,15 +32,31 @@ namespace opengl
 {
 namespace state
 {
-namespace convert
+
+template<
+	typename Base
+>
+class object
+:
+	public Base
 {
+	FCPPT_NONCOPYABLE(
+		object
+	);
+public:
+	explicit
+	object(
+		sge::opengl::state::actor_vector const &
+	);
 
-GLenum
-dest_blend_func(
-	sge::renderer::state::core::blend::dest::type
-);
+	~object();
 
-}
+	void
+	set();
+private:
+	sge::opengl::state::actor_vector const actors_;
+};
+
 }
 }
 }

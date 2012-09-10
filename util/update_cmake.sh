@@ -252,7 +252,6 @@ update_cmake_file \
 	$(opengl_inc_src device_state) \
 	$(opengl_inc_src fbo) \
 	$(opengl_inc_src glew) \
-	$(opengl_inc_src light) \
 	$(opengl_inc_src occlusion_query) \
 	$(opengl_inc_src render_context) \
 	$(opengl_inc_src state) \

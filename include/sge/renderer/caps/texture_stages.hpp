@@ -36,7 +36,7 @@ namespace caps
  * \brief A strong typedef for the maximum number of texture stages
 */
 FCPPT_MAKE_STRONG_TYPEDEF(
-	renderer::texture::stage_value,
+	sge::renderer::texture::stage_value,
 	texture_stages
 );
 

@@ -18,30 +18,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_STATE_BOOL_HPP_INCLUDED
-#define SGE_RENDERER_STATE_BOOL_HPP_INCLUDED
+#ifndef SGE_OPENGL_STATE_INDEX_OBJECT_HPP_INCLUDED
+#define SGE_OPENGL_STATE_INDEX_OBJECT_HPP_INCLUDED
 
-#include <sge/renderer/symbol.hpp>
-#include <sge/renderer/state/trampoline.hpp>
-#include <sge/renderer/state/var.hpp>
-#include <sge/renderer/state/bool/trampoline.hpp>
+#include <sge/opengl/state/index_actor_vector.hpp>
+#include <sge/opengl/state/index_object_fwd.hpp>
+#include <sge/renderer/state/index_count.hpp>
+#include <fcppt/noncopyable.hpp>
 
 
 namespace sge
 {
-namespace renderer
+namespace opengl
 {
 namespace state
 {
-namespace bool_
-{
 
-SGE_RENDERER_SYMBOL
-extern bool_::trampoline const
-	enable_point_sprites,
-	local_viewer,
-	normalize_normals;
-}
+template<
+	typename Base
+>
+class index_object
+:
+	public Base
+{
+	FCPPT_NONCOPYABLE(
+		index_object
+	);
+public:
+	explicit
+	index_object(
+		sge::opengl::state::index_actor_vector const &
+	);
+
+	~index_object();
+
+	void
+	set(
+		sge::renderer::state::index_count
+	);
+private:
+	sge::opengl::state::index_actor_vector const actors_;
+};
+
 }
 }
 }

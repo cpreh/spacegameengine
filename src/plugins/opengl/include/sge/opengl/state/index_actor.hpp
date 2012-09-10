@@ -18,27 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_CORE_BLEND_PARAMETERS_FWD_HPP_INCLUDED
-#define SGE_OPENGL_STATE_CORE_BLEND_PARAMETERS_FWD_HPP_INCLUDED
+#ifndef SGE_OPENGL_STATE_INDEX_ACTOR_HPP_INCLUDED
+#define SGE_OPENGL_STATE_INDEX_ACTOR_HPP_INCLUDED
 
+#include <sge/opengl/state/index_actor_fwd.hpp>
+#include <fcppt/function/object.hpp>
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace core
-{
-namespace blend
-{
-
-class parameters;
-
-}
-}
-}
-}
-}
 
 #endif

@@ -18,11 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_CONVERT_DEST_BLEND_FUNC_HPP_INCLUDED
-#define SGE_OPENGL_STATE_CONVERT_DEST_BLEND_FUNC_HPP_INCLUDED
+#ifndef SGE_OPENGL_STATE_CORE_BLEND_ALPHA_VISITOR_HPP_INCLUDED
+#define SGE_OPENGL_STATE_CORE_BLEND_ALPHA_VISITOR_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
-#include <sge/renderer/state/core/blend/dest.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/state/actor_fwd.hpp>
+#include <sge/renderer/state/core/blend/combined_fwd.hpp>
+#include <sge/renderer/state/core/blend/separate_fwd.hpp>
+#include <fcppt/nonassignable.hpp>
 
 
 namespace sge
@@ -31,14 +34,38 @@ namespace opengl
 {
 namespace state
 {
-namespace convert
+namespace core
+{
+namespace blend
 {
 
-GLenum
-dest_blend_func(
-	sge::renderer::state::core::blend::dest::type
-);
+class alpha_visitor
+{
+	FCPPT_NONASSIGNABLE(
+		alpha_visitor
+	);
+public:
+	explicit
+	alpha_visitor(
+		sge::opengl::context::system::object &
+	);
 
+	typedef sge::opengl::state::actor result_type;
+
+	result_type const
+	operator()(
+		sge::renderer::state::core::blend::combined const &
+	) const;
+
+	result_type const
+	operator()(
+		sge::renderer::state::core::blend::separate const &
+	) const;
+private:
+	sge::opengl::context::system::object &system_context_;
+};
+
+}
 }
 }
 }

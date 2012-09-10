@@ -18,35 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/context/ffp.hpp>
-#include <sge/renderer/state/ffp/transform/parameters.hpp>
+#include <sge/renderer/state/ffp/transform/const_optional_object_ref.hpp>
+#include <sge/renderer/state/ffp/transform/mode.hpp>
+#include <sge/renderer/state/ffp/transform/object_fwd.hpp>
 #include <sge/renderer/state/ffp/transform/scoped.hpp>
 
 
 sge::renderer::state::ffp::transform::scoped::scoped(
 	sge::renderer::context::ffp &_context,
-	sge::renderer::state::ffp::transform::parameters const &_parameters
+	sge::renderer::state::ffp::transform::mode::type const _mode,
+	sge::renderer::state::ffp::transform::object const &_object
 )
 :
 	context_(
 		_context
 	),
 	mode_(
-		_parameters.mode()
+		_mode
 	)
 {
 	context_.transform(
-		_parameters
+		mode_,
+		sge::renderer::state::ffp::transform::const_optional_object_ref(
+			_object
+		)
 	);
 }
 
 sge::renderer::state::ffp::transform::scoped::~scoped()
 {
 	context_.transform(
-		sge::renderer::state::ffp::transform::parameters(
-			mode_,
-			sge::renderer::matrix4::identity()
-		)
+		mode_,
+		sge::renderer::state::ffp::transform::const_optional_object_ref()
 	);
 }

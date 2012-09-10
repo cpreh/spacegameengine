@@ -18,15 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/common.hpp>
-#include <sge/opengl/convert/clip_plane_index.hpp>
-#include <sge/renderer/clip_plane_index.hpp>
+#ifndef SGE_RENDERER_STATE_FFP_TRANSFORM_OBJECT_FWD_HPP_INCLUDED
+#define SGE_RENDERER_STATE_FFP_TRANSFORM_OBJECT_FWD_HPP_INCLUDED
 
 
-GLenum
-sge::opengl::convert::clip_plane_index(
-	renderer::clip_plane_index const _index
-)
+namespace sge
 {
-	return GL_CLIP_PLANE0 + _index.get();
+namespace renderer
+{
+namespace state
+{
+namespace ffp
+{
+namespace transform
+{
+
+class object;
+
 }
+}
+}
+}
+}
+
+#endif

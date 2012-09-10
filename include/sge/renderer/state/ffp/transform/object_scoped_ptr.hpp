@@ -18,27 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_CONVERT_DEST_BLEND_FUNC_HPP_INCLUDED
-#define SGE_OPENGL_STATE_CONVERT_DEST_BLEND_FUNC_HPP_INCLUDED
+#ifndef SGE_RENDERER_STATE_FFP_TRANSFORM_OBJECT_SCOPED_PTR_HPP_INCLUDED
+#define SGE_RENDERER_STATE_FFP_TRANSFORM_OBJECT_SCOPED_PTR_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
-#include <sge/renderer/state/core/blend/dest.hpp>
+#include <sge/renderer/state/ffp/transform/object_fwd.hpp>
+#include <fcppt/scoped_ptr_impl.hpp>
 
 
 namespace sge
 {
-namespace opengl
+namespace renderer
 {
 namespace state
 {
-namespace convert
+namespace ffp
+{
+namespace transform
 {
 
-GLenum
-dest_blend_func(
-	sge::renderer::state::core::blend::dest::type
-);
+typedef fcppt::scoped_ptr<
+	sge::renderer::state::ffp::transform::object
+> object_scoped_ptr;
 
+}
 }
 }
 }

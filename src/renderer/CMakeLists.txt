@@ -257,7 +257,6 @@ set(
 	include/sge/renderer/screen_unit.hpp
 	include/sge/renderer/screenshot.hpp
 	include/sge/renderer/size_type.hpp
-	include/sge/renderer/state/bool.hpp
 	include/sge/renderer/state/core/blend/alpha_dest.hpp
 	include/sge/renderer/state/core/blend/alpha_enable.hpp
 	include/sge/renderer/state/core/blend/alpha_enable_fwd.hpp
@@ -515,10 +514,17 @@ set(
 	include/sge/renderer/state/ffp/sampler/unary_op.hpp
 	include/sge/renderer/state/ffp/sampler/unary_op_fwd.hpp
 	include/sge/renderer/state/ffp/sampler/unary_op_type.hpp
+	include/sge/renderer/state/ffp/transform/const_optional_object_ref.hpp
+	include/sge/renderer/state/ffp/transform/const_optional_object_ref_fwd.hpp
 	include/sge/renderer/state/ffp/transform/mode.hpp
+	include/sge/renderer/state/ffp/transform/object.hpp
+	include/sge/renderer/state/ffp/transform/object_fwd.hpp
+	include/sge/renderer/state/ffp/transform/object_scoped_ptr.hpp
+	include/sge/renderer/state/ffp/transform/object_unique_ptr.hpp
 	include/sge/renderer/state/ffp/transform/parameters.hpp
 	include/sge/renderer/state/ffp/transform/parameters_fwd.hpp
 	include/sge/renderer/state/ffp/transform/scoped.hpp
+	include/sge/renderer/state/index_count.hpp
 	include/sge/renderer/system.hpp
 	include/sge/renderer/system_fwd.hpp
 	include/sge/renderer/system_scoped_ptr.hpp

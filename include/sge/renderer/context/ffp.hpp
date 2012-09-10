@@ -31,7 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/lighting/material/const_optional_object_ref_fwd.hpp>
 #include <sge/renderer/state/ffp/misc/const_optional_object_ref_fwd.hpp>
 #include <sge/renderer/state/ffp/sampler/const_object_ref_vector.hpp>
-#include <sge/renderer/state/ffp/transform/parameters_fwd.hpp>
+#include <sge/renderer/state/ffp/transform/const_optional_object_ref_fwd.hpp>
+#include <sge/renderer/state/ffp/transform/mode.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -102,7 +103,8 @@ public:
 	virtual
 	void
 	transform(
-		sge::renderer::state::ffp::transform::parameters const &
+		sge::renderer::state::ffp::transform::mode::type,
+		sge::renderer::state::ffp::transform::const_optional_object_ref const &
 	) = 0;
 };
 

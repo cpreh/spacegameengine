@@ -18,11 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_CONVERT_DEST_BLEND_FUNC_HPP_INCLUDED
-#define SGE_OPENGL_STATE_CONVERT_DEST_BLEND_FUNC_HPP_INCLUDED
+#ifndef SGE_OPENGL_STATE_CORE_BLEND_MAKE_ACTORS_HPP_INCLUDED
+#define SGE_OPENGL_STATE_CORE_BLEND_MAKE_ACTORS_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
-#include <sge/renderer/state/core/blend/dest.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/state/actor_vector.hpp>
+#include <sge/renderer/state/core/blend/parameters_fwd.hpp>
 
 
 namespace sge
@@ -31,14 +32,18 @@ namespace opengl
 {
 namespace state
 {
-namespace convert
+namespace core
+{
+namespace blend
 {
 
-GLenum
-dest_blend_func(
-	sge::renderer::state::core::blend::dest::type
+sge::opengl::state::actor_vector const
+make_actors(
+	sge::opengl::context::system::object &,
+	sge::renderer::state::core::blend::parameters const &
 );
 
+}
 }
 }
 }

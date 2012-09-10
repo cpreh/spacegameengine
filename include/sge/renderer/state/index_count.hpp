@@ -18,20 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/common.hpp>
-#include <sge/opengl/convert/light_index.hpp>
-#include <sge/opengl/light/index.hpp>
-#include <sge/renderer/light/index.hpp>
+#ifndef SGE_RENDERER_STATE_INDEX_COUNT_HPP_INCLUDED
+#define SGE_RENDERER_STATE_INDEX_COUNT_HPP_INCLUDED
 
 
-sge::opengl::light::index const
-sge::opengl::convert::light_index(
-	renderer::light::index const _index
-)
+namespace sge
 {
-	return
-		opengl::light::index(
-			GL_LIGHT0
-			+ _index.get()
-		);
+namespace renderer
+{
+namespace state
+{
+
+typedef unsigned index_count;
+
 }
+}
+}
+
+#endif

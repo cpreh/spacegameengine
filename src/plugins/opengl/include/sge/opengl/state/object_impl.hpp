@@ -18,30 +18,53 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_CONVERT_DEST_BLEND_FUNC_HPP_INCLUDED
-#define SGE_OPENGL_STATE_CONVERT_DEST_BLEND_FUNC_HPP_INCLUDED
+#ifndef SGE_OPENGL_STATE_OBJECT_IMPL_HPP_INCLUDED
+#define SGE_OPENGL_STATE_OBJECT_IMPL_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
-#include <sge/renderer/state/core/blend/dest.hpp>
+#include <sge/opengl/state/actor_vector.hpp>
+#include <sge/opengl/state/object.hpp>
 
 
-namespace sge
+template<
+	typename Base
+>
+sge::opengl::state::object<
+	Base
+>::object(
+	sge::opengl::state::actor_vector const &_actors
+)
+:
+	actors_(
+		_actors
+	)
 {
-namespace opengl
-{
-namespace state
-{
-namespace convert
-{
-
-GLenum
-dest_blend_func(
-	sge::renderer::state::core::blend::dest::type
-);
-
 }
+
+template<
+	typename Base
+>
+sge::opengl::state::object<
+	Base
+>::~object()
+{
 }
-}
+
+template<
+	typename Base
+>
+void
+sge::opengl::state::object<
+	Base
+>::set()
+{
+	for(
+		sge::opengl::state::actor_vector::const_iterator it(
+			actors_.begin()
+		);
+		it != actors_.end();
+		++it
+	)
+		(*it)();
 }
 
 #endif

@@ -21,6 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TEXTURE_STAGE_VALUE_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_STAGE_VALUE_HPP_INCLUDED
 
+#include <sge/renderer/state/index_count.hpp>
+
+
 namespace sge
 {
 namespace renderer
@@ -28,7 +31,7 @@ namespace renderer
 namespace texture
 {
 
-typedef unsigned stage_value;
+typedef sge::renderer::state::index_count stage_value;
 
 }
 }

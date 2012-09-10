@@ -21,11 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_STATE_CORE_BLEND_OBJECT_HPP_INCLUDED
 #define SGE_OPENGL_STATE_CORE_BLEND_OBJECT_HPP_INCLUDED
 
-#include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/opengl/state/core/blend/parameters.hpp>
+#include <sge/opengl/state/object.hpp>
 #include <sge/renderer/state/core/blend/object.hpp>
-#include <sge/renderer/state/core/blend/parameters_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
 
 
 namespace sge
@@ -39,26 +36,9 @@ namespace core
 namespace blend
 {
 
-class object
-:
-	public sge::renderer::state::core::blend::object
-{
-	FCPPT_NONCOPYABLE(
-		object
-	);
-public:
-	object(
-		sge::opengl::context::system::object &,
-		sge::renderer::state::core::blend::parameters const &
-	);
-
-	~object();
-
-	void
-	set();
-private:
-	sge::opengl::state::core::blend::parameters const parameters_;
-};
+typedef sge::opengl::state::object<
+	sge::renderer::state::core::blend::object
+> object;
 
 }
 }

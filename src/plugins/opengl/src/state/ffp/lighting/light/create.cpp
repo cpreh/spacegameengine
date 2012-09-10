@@ -18,30 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_CONVERT_DEST_BLEND_FUNC_HPP_INCLUDED
-#define SGE_OPENGL_STATE_CONVERT_DEST_BLEND_FUNC_HPP_INCLUDED
-
-#include <sge/opengl/common.hpp>
-#include <sge/renderer/state/core/blend/dest.hpp>
+#include <sge/renderer/state/ffp/lighting/light/create.hpp>
+#include <sge/renderer/state/ffp/lighting/light/object_unique_ptr.hpp>
+#include <sge/renderer/state/ffp/lighting/light/parameters_fwd.hpp>
 
 
-namespace sge
+sge::renderer::state::ffp::lighting::light::object_unique_ptr
+sge::opengl::state::ffp::lighting::light::create(
+	sge::renderer::state::ffp::lighting::light::parameters const &_parameters
+)
 {
-namespace opengl
-{
-namespace state
-{
-namespace convert
-{
-
-GLenum
-dest_blend_func(
-	sge::renderer::state::core::blend::dest::type
-);
-
 }
-}
-}
-}
-
-#endif

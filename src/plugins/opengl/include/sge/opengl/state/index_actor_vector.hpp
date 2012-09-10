@@ -18,11 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_CONVERT_DEST_BLEND_FUNC_HPP_INCLUDED
-#define SGE_OPENGL_STATE_CONVERT_DEST_BLEND_FUNC_HPP_INCLUDED
+#ifndef SGE_OPENGL_STATE_INDEX_ACTOR_VECTOR_HPP_INCLUDED
+#define SGE_OPENGL_STATE_INDEX_ACTOR_VECTOR_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
-#include <sge/renderer/state/core/blend/dest.hpp>
+#include <sge/opengl/state/index_actor.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <vector>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -31,15 +33,11 @@ namespace opengl
 {
 namespace state
 {
-namespace convert
-{
 
-GLenum
-dest_blend_func(
-	sge::renderer::state::core::blend::dest::type
-);
+typedef std::vector<
+	sge::opengl::state::index_actor
+> index_actor_vector;
 
-}
 }
 }
 }

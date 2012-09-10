@@ -18,24 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CONVERT_LIGHT_INDEX_HPP_INCLUDED
-#define SGE_OPENGL_CONVERT_LIGHT_INDEX_HPP_INCLUDED
+#ifndef SGE_OPENGL_STATE_FFP_LIGHTING_LIGHT_MAKE_ACTORS_HPP_INCLUDED
+#define SGE_OPENGL_STATE_FFP_LIGHTING_LIGHT_MAKE_ACTORS_HPP_INCLUDED
 
-#include <sge/opengl/light/index.hpp>
-#include <sge/renderer/light/index.hpp>
+#include <sge/opengl/state/index_actor_vector.hpp>
+#include <sge/renderer/state/ffp/lighting/light/parameters_fwd.hpp>
+
 
 namespace sge
 {
 namespace opengl
 {
-namespace convert
+namespace state
+{
+namespace core
+{
+namespace blend
 {
 
-opengl::light::index const
-light_index(
-	renderer::light::index
+sge::opengl::state::index_actor_vector const
+make_actors(
+	sge::renderer::state::ffp::lighting::light::parameters const &
 );
 
+}
+}
 }
 }
 }

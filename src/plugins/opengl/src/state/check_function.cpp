@@ -18,30 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_CONVERT_DEST_BLEND_FUNC_HPP_INCLUDED
-#define SGE_OPENGL_STATE_CONVERT_DEST_BLEND_FUNC_HPP_INCLUDED
+#include <sge/opengl/check_state.hpp>
+#include <sge/opengl/state/actor.hpp>
+#include <sge/opengl/state/check_function.hpp>
+#include <sge/renderer/exception.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/text.hpp>
 
-#include <sge/opengl/common.hpp>
-#include <sge/renderer/state/core/blend/dest.hpp>
 
-
-namespace sge
+sge::opengl::state::actor const
+sge::opengl::state::check_function(
+	sge::opengl::state::actor const &_actor,
+	fcppt::string const &_name
+)
 {
-namespace opengl
-{
-namespace state
-{
-namespace convert
-{
+	_actor();
 
-GLenum
-dest_blend_func(
-	sge::renderer::state::core::blend::dest::type
-);
-
+	SGE_OPENGL_CHECK_STATE(
+		_name + FCPPT_TEXT(" failed!")
+		sge::renderer::exception
+	)
 }
-}
-}
-}
-
-#endif

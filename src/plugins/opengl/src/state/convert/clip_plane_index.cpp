@@ -18,28 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/color/object.hpp>
-#include <sge/image/color/rgba32f_format.hpp>
-#include <sge/image/color/any/convert.hpp>
-#include <sge/opengl/light/color.hpp>
-#include <sge/opengl/light/float_ptr.hpp>
-#include <fcppt/variant/object.hpp>
+#include <sge/opengl/common.hpp>
+#include <sge/opengl/state/convert/clip_plane_index.hpp>
+#include <sge/renderer/state/index_count.hpp>
 
 
-void
-sge::opengl::light::color(
-	light::index const _index,
-	GLenum const _name,
-	sge::image::color::any::object const &_color
+GLenum
+sge::opengl::state::convert::clip_plane_index(
+	sge::renderer::state::index_count const _index
 )
 {
-	light::float_ptr(
-		_index,
-		_name,
-		sge::image::color::any::convert<
-			sge::image::color::rgba32f_format
-		>(
-			_color
-		).data()
-	);
+	return
+		GL_CLIP_PLANE0
+		+
+		_index;
 }

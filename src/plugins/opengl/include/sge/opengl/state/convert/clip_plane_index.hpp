@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_CONVERT_DEST_BLEND_FUNC_HPP_INCLUDED
-#define SGE_OPENGL_STATE_CONVERT_DEST_BLEND_FUNC_HPP_INCLUDED
+#ifndef SGE_OPENGL_STATE_CONVERT_CLIP_PLANE_INDEX_HPP_INCLUDED
+#define SGE_OPENGL_STATE_CONVERT_CLIP_PLANE_INDEX_HPP_INCLUDED
 
 #include <sge/opengl/common.hpp>
-#include <sge/renderer/state/core/blend/dest.hpp>
+#include <sge/renderer/state/index_count.hpp>
 
 
 namespace sge
@@ -35,8 +35,8 @@ namespace convert
 {
 
 GLenum
-dest_blend_func(
-	sge::renderer::state::core::blend::dest::type
+clip_plane_index(
+	sge::renderer::state::index_count
 );
 
 }

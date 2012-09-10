@@ -18,29 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_CONVERT_DEST_BLEND_FUNC_HPP_INCLUDED
-#define SGE_OPENGL_STATE_CONVERT_DEST_BLEND_FUNC_HPP_INCLUDED
+#ifndef SGE_OPENGL_VECTOR4F_FWD_HPP_INCLUDED
+#define SGE_OPENGL_VECTOR4F_FWD_HPP_INCLUDED
 
 #include <sge/opengl/common.hpp>
-#include <sge/renderer/state/core/blend/dest.hpp>
+#include <fcppt/math/vector/object_fwd.hpp>
+#include <fcppt/math/vector/static.hpp>
 
 
 namespace sge
 {
 namespace opengl
 {
-namespace state
-{
-namespace convert
-{
 
-GLenum
-dest_blend_func(
-	sge::renderer::state::core::blend::dest::type
-);
+typedef fcppt::math::vector::static_<
+	GLfloat,
+	4
+>::type vector3f;
 
-}
-}
 }
 }
 

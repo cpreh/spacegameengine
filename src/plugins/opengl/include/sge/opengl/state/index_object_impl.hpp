@@ -18,30 +18,58 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_LIGHT_COLOR_HPP_INCLUDED
-#define SGE_OPENGL_LIGHT_COLOR_HPP_INCLUDED
+#ifndef SGE_OPENGL_STATE_INDEX_OBJECT_IMPL_HPP_INCLUDED
+#define SGE_OPENGL_STATE_INDEX_OBJECT_IMPL_HPP_INCLUDED
 
-#include <sge/image/color/any/object_fwd.hpp>
-#include <sge/opengl/common.hpp>
-#include <sge/opengl/light/index.hpp>
+#include <sge/opengl/state/index_actor_vector.hpp>
+#include <sge/opengl/state/index_index_object.hpp>
+#include <sge/renderer/state/index_count.hpp>
 
 
-namespace sge
+template<
+	typename Base
+>
+sge::opengl::state::index_object<
+	Base
+>::index_object(
+	sge::opengl::state::actor_vector const &_actors
+)
+:
+	actors_(
+		_actors
+	)
 {
-namespace opengl
-{
-namespace light
-{
+}
 
+template<
+	typename Base
+>
+sge::opengl::state::index_object<
+	Base
+>::~index_object()
+{
+}
+
+template<
+	typename Base
+>
 void
-color(
-	light::index,
-	GLenum name,
-	sge::image::color::any::object const &
-);
-
-}
-}
+sge::opengl::state::index_object<
+	Base
+>::set(
+	sge::renderer::state::index_count const _index
+)
+{
+	for(
+		sge::opengl::state::actor_vector::const_iterator it(
+			actors_.begin()
+		);
+		it != actors_.end();
+		++it
+	)
+		(*it)(
+			_index
+		);
 }
 
 #endif

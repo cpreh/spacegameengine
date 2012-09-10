@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/symbol.hpp>
-#include <sge/renderer/state/ffp/transform/mode.hpp>
 #include <sge/renderer/state/ffp/transform/parameters_fwd.hpp>
 
 
@@ -42,21 +41,15 @@ class parameters
 {
 public:
 	SGE_RENDERER_SYMBOL
+	explicit
 	parameters(
-		sge::renderer::state::ffp::transform::mode::type,
 		sge::renderer::matrix4 const &
 	);
-
-	SGE_RENDERER_SYMBOL
-	sge::renderer::state::ffp::transform::mode::type
-	mode() const;
 
 	SGE_RENDERER_SYMBOL
 	sge::renderer::matrix4 const &
 	matrix() const;
 private:
-	sge::renderer::state::ffp::transform::mode::type mode_;
-
 	sge::renderer::matrix4 matrix_;
 };
 

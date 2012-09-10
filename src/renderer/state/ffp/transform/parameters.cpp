@@ -19,28 +19,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/matrix4.hpp>
-#include <sge/renderer/state/ffp/transform/mode.hpp>
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
 
 
 sge::renderer::state::ffp::transform::parameters::parameters(
-	sge::renderer::state::ffp::transform::mode::type const _mode,
 	sge::renderer::matrix4 const &_matrix
 )
 :
-	mode_(
-		_mode
-	),
 	matrix_(
 		_matrix
 	)
 {
-}
-
-sge::renderer::state::ffp::transform::mode::type
-sge::renderer::state::ffp::transform::parameters::mode() const
-{
-	return mode_;
 }
 
 sge::renderer::matrix4 const &
