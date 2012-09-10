@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/symbol.hpp>
 #include <sge/scenic/render_context/light_sequence.hpp>
 #include <sge/scenic/render_context/optional_planar_texture.hpp>
+#include <sge/scenic/render_context/fog/optional_properties.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -66,6 +67,10 @@ public:
 	virtual void
 	vertex_buffer(
 		sge::renderer::vertex_buffer const &) = 0;
+
+	virtual void
+	fog(
+		sge::scenic::render_context::fog::optional_properties const &) = 0;
 
 	virtual
 	void

@@ -18,6 +18,7 @@ struct vertex_shader_output
 	float2 texture_coordinate : TEXCOORD0;
 	float3 normal : TEXCOORD1;
 	float3 camera_space_position : TEXCOORD2;
+	float fog_distance : TEXCOORD3;
 };
 
 struct point_light
@@ -46,6 +47,14 @@ struct material
 	uniform float shininess;
 };
 
+struct fog
+{
+	uniform int enabled;
+	uniform float start;
+	uniform float end;
+	uniform float4 color;
+};
+
 vertex_shader_output
 vertex_main(
 	in vertex_shader_input inputs,
@@ -71,6 +80,9 @@ vertex_main(
 			camera.world,
 			homogenous_position).xyz;
 
+	result.fog_distance =
+		result.camera_space_position.z;
+
 	result.normal =
 		normalize(
 			mul(
@@ -92,7 +104,8 @@ pixel_main(
 	uniform directional_light directional_lights[MAX_DIRECTIONAL_LIGHTS],
 	uniform material current_material,
 	uniform int use_diffuse_texture,
-	uniform sampler2D diffuse_texture)
+	uniform sampler2D diffuse_texture,
+	uniform fog fog_information)
 	: COLOR
 {
 	float4 resulting_color =
@@ -179,7 +192,22 @@ pixel_main(
 		:
 			float4(1.0,1.0,1.0,1.0);
 
+	resulting_color *= texture_color;
+
+	if(fog_information.enabled)
+	{
+		float fog_factor =
+			saturate(
+				(fog_information.end - vertex_shader_out.fog_distance) /
+				(fog_information.end - fog_information.start));
+
+		resulting_color =
+			lerp(
+				fog_information.color,
+				resulting_color,
+				fog_factor);
+	}
+
 	return
-		resulting_color *
-		texture_color;
+		resulting_color;
 }

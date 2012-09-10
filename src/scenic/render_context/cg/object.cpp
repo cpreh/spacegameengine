@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/filter/mipmap.hpp>
 #include <sge/scenic/index_buffer_range.hpp>
 #include <sge/scenic/render_context/cg/manager.hpp>
+#include <sge/scenic/render_context/fog/properties.hpp>
 #include <sge/scenic/render_context/cg/object.hpp>
 #include <sge/scenic/render_context/cg/light/point.hpp>
 #include <sge/scenic/render_context/cg/light/directional.hpp>
@@ -233,6 +234,24 @@ sge::scenic::render_context::cg::object::vertex_buffer(
 
 	context_.activate_vertex_buffer(
 		*current_vertex_buffer_);
+}
+
+void
+sge::scenic::render_context::cg::object::fog(
+	sge::scenic::render_context::fog::optional_properties const &_fog)
+{
+	manager_.use_fog_.set(
+		_fog.has_value());
+	if(_fog)
+	{
+		manager_.fog_start_.set(
+			_fog->start().get());
+		manager_.fog_end_.set(
+			_fog->end().get());
+		manager_.fog_color_.set(
+			sge::scenic::render_context::cg::any_color_to_vector4(
+				_fog->color().get()));
+	}
 }
 
 void

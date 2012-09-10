@@ -96,6 +96,10 @@ private:
 	sge::shader::parameter::scalar<bool> use_diffuse_texture_;
 	sge::shader::parameter::scalar<std::size_t> point_light_count_;
 	sge::shader::parameter::scalar<std::size_t> directional_light_count_;
+	sge::shader::parameter::scalar<bool> use_fog_;
+	sge::shader::parameter::scalar<sge::renderer::scalar> fog_start_;
+	sge::shader::parameter::scalar<sge::renderer::scalar> fog_end_;
+	sge::shader::parameter::vector<sge::renderer::scalar,4> fog_color_;
 	point_light_array point_lights_;
 	directional_light_array directional_lights_;
 	sge::shader::parameter::planar_texture diffuse_texture_;

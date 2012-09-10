@@ -119,6 +119,26 @@ sge::scenic::render_context::cg::manager::manager(
 		sge::shader::parameter::name(
 			"directional_light_count"),
 		0),
+	use_fog_(
+		shader_.pixel_program(),
+		sge::shader::parameter::name(
+			"fog_information.enabled"),
+		false),
+	fog_start_(
+		shader_.pixel_program(),
+		sge::shader::parameter::name(
+			"fog_information.start"),
+		sge::renderer::scalar()),
+	fog_end_(
+		shader_.pixel_program(),
+		sge::shader::parameter::name(
+			"fog_information.end"),
+		sge::renderer::scalar()),
+	fog_color_(
+		shader_.pixel_program(),
+		sge::shader::parameter::name(
+			"fog_information.color"),
+		sge::renderer::vector4()),
 	point_lights_(),
 	directional_lights_(),
 	diffuse_texture_(

@@ -92,6 +92,11 @@ public:
 
 	SGE_SCENIC_SYMBOL
 	void
+	fog(
+		sge::scenic::render_context::fog::optional_properties const &);
+
+	SGE_SCENIC_SYMBOL
+	void
 	render(
 		sge::renderer::index_buffer const &,
 		sge::scenic::index_buffer_range const &);
