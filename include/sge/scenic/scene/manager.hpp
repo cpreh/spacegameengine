@@ -66,6 +66,10 @@ public:
 	texture_manager();
 
 	SGE_SCENIC_SYMBOL
+	sge::shader::context &
+	shader_context();
+
+	SGE_SCENIC_SYMBOL
 	~manager();
 private:
 	sge::renderer::device &renderer_;

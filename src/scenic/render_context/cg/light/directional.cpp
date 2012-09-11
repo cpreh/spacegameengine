@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/render_context/cg/light/directional.hpp>
 #include <sge/src/scenic/render_context/cg/any_color_to_vector4.hpp>
 #include <fcppt/insert_to_std_string.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/math/vector/normalize.hpp>
+#include <fcppt/math/vector/object_impl.hpp>
 
 
 namespace

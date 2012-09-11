@@ -256,17 +256,30 @@ sge::scenic::scene::object::render_entity(
 		_context.current_material(
 			material.renderer_material());
 
-		if(material.texture().get().empty())
+		if(material.diffuse_texture().get().empty())
 		{
-			_context.current_texture(
+			_context.current_diffuse_texture(
 				fcppt::optional<sge::renderer::texture::planar &>());
 		}
 		else
 		{
-			_context.current_texture(
+			_context.current_diffuse_texture(
 				fcppt::optional<sge::renderer::texture::planar &>(
 					scene_manager_.texture_manager().texture_for_path(
-						texture_base_path_.get() / material.texture().get())));
+						texture_base_path_.get() / material.diffuse_texture().get())));
+		}
+
+		if(material.specular_texture().get().empty())
+		{
+			_context.current_specular_texture(
+				fcppt::optional<sge::renderer::texture::planar &>());
+		}
+		else
+		{
+			_context.current_specular_texture(
+				fcppt::optional<sge::renderer::texture::planar &>(
+					scene_manager_.texture_manager().texture_for_path(
+						texture_base_path_.get() / material.specular_texture().get())));
 		}
 
 		_context.add_mesh(

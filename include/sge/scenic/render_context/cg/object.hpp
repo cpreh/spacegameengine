@@ -77,6 +77,11 @@ public:
 
 	SGE_SCENIC_SYMBOL
 	void
+	specular_texture(
+		sge::scenic::render_context::optional_planar_texture const &);
+
+	SGE_SCENIC_SYMBOL
+	void
 	material(
 		sge::renderer::material const &);
 

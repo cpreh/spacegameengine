@@ -82,6 +82,13 @@ sge::scenic::scene::manager::texture_manager()
 		texture_manager_;
 }
 
+sge::shader::context &
+sge::scenic::scene::manager::shader_context()
+{
+	return
+		shader_context_;
+}
+
 sge::scenic::scene::manager::~manager()
 {
 }

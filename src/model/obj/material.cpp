@@ -23,14 +23,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::model::obj::material::material(
 	sge::model::obj::identifier const &_identifier,
 	sge::renderer::material const &_renderer_material,
-	sge::model::obj::texture_path const &_texture)
+	sge::model::obj::diffuse_texture_path const &_diffuse_texture,
+	sge::model::obj::specular_texture_path const &_specular_texture)
 :
 	identifier_(
 		_identifier),
 	renderer_material_(
 		_renderer_material),
-	texture_(
-		_texture)
+	diffuse_texture_(
+		_diffuse_texture),
+	specular_texture_(
+		_specular_texture)
 {
 }
 
@@ -48,9 +51,16 @@ sge::model::obj::material::renderer_material() const
 		renderer_material_;
 }
 
-sge::model::obj::texture_path const &
-sge::model::obj::material::texture() const
+sge::model::obj::diffuse_texture_path const &
+sge::model::obj::material::diffuse_texture() const
 {
 	return
-		texture_;
+		diffuse_texture_;
+}
+
+sge::model::obj::specular_texture_path const &
+sge::model::obj::material::specular_texture() const
+{
+	return
+		specular_texture_;
 }

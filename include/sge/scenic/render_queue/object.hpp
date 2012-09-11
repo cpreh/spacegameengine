@@ -59,7 +59,11 @@ public:
 		sge::renderer::vertex_buffer &);
 
 	void
-	current_texture(
+	current_diffuse_texture(
+		fcppt::optional<sge::renderer::texture::planar &>);
+
+	void
+	current_specular_texture(
 		fcppt::optional<sge::renderer::texture::planar &>);
 
 	void
@@ -92,11 +96,13 @@ private:
 
 	material_sequence materials_;
 	vertex_buffer_sequence vertex_buffers_;
-	texture_sequence textures_;
+	texture_sequence diffuse_textures_;
+	texture_sequence specular_textures_;
 	mesh_sequence meshes_;
 	index_type current_material_;
 	index_type current_vertex_buffer_;
-	index_type current_texture_;
+	index_type current_diffuse_texture_;
+	index_type current_specular_texture_;
 };
 }
 }

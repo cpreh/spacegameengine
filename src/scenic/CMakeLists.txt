@@ -16,6 +16,7 @@ set(
 	include/sge/scenic/render_context/base_fwd.hpp
 	include/sge/scenic/render_context/base_unique_ptr.hpp
 	include/sge/scenic/render_context/cg/light/directional.hpp
+	include/sge/scenic/render_context/cg/light/directional_fwd.hpp
 	include/sge/scenic/render_context/cg/light/index.hpp
 	include/sge/scenic/render_context/cg/light/point.hpp
 	include/sge/scenic/render_context/cg/light/point_fwd.hpp
@@ -66,6 +67,11 @@ set(
 	include/sge/scenic/scene/rotation.hpp
 	include/sge/scenic/scene/scale.hpp
 	include/sge/scenic/scene/texture_path.hpp
+	include/sge/scenic/sky/dome/latitude.hpp
+	include/sge/scenic/sky/dome/object.hpp
+	include/sge/scenic/sky/dome/object_fwd.hpp
+	include/sge/scenic/sky/dome/size_type.hpp
+	include/sge/scenic/sky/dome/y_translation.hpp
 	include/sge/scenic/texture_manager.hpp
 	include/sge/scenic/texture_manager_fwd.hpp
 	include/sge/scenic/vf/format.hpp
@@ -96,6 +102,7 @@ set(
 	src/scenic/scene/mesh/object.cpp
 	src/scenic/scene/object.cpp
 	src/scenic/scene/prototype.cpp
+	src/scenic/sky/dome/object.cpp
 	src/scenic/texture_manager.cpp
 )
 

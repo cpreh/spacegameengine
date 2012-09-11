@@ -25,20 +25,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/bool.hpp>
 #include <sge/renderer/state/cull_mode.hpp>
 #include <sge/renderer/state/depth_func.hpp>
-#include <fcppt/variant/holds_type.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/texture/filter/mipmap.hpp>
 #include <sge/scenic/index_buffer_range.hpp>
 #include <sge/scenic/render_context/cg/manager.hpp>
-#include <sge/scenic/render_context/fog/properties.hpp>
 #include <sge/scenic/render_context/cg/object.hpp>
-#include <sge/scenic/render_context/cg/light/point.hpp>
 #include <sge/scenic/render_context/cg/light/directional.hpp>
+#include <sge/scenic/render_context/cg/light/point.hpp>
+#include <sge/scenic/render_context/fog/properties.hpp>
 #include <sge/src/scenic/render_context/cg/any_color_to_vector4.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/matrix/inverse.hpp>
 #include <fcppt/math/matrix/multiply_matrix4_vector3.hpp>
 #include <fcppt/math/matrix/transpose.hpp>
+#include <fcppt/variant/holds_type.hpp>
 
 
 sge::scenic::render_context::cg::object::object(
@@ -139,6 +139,22 @@ sge::scenic::render_context::cg::object::diffuse_texture(
 		_texture.has_value());
 
 	manager_.diffuse_texture_.set(
+		_texture
+		?
+			sge::shader::parameter::planar_texture::optional_value(
+				*_texture)
+		:
+			sge::shader::parameter::planar_texture::optional_value());
+}
+
+void
+sge::scenic::render_context::cg::object::specular_texture(
+	sge::scenic::render_context::optional_planar_texture const &_texture)
+{
+	manager_.use_specular_texture_.set(
+		_texture.has_value());
+
+	manager_.specular_texture_.set(
 		_texture
 		?
 			sge::shader::parameter::planar_texture::optional_value(

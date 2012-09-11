@@ -24,7 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/material.hpp>
 #include <sge/scenic/symbol.hpp>
 #include <sge/scenic/scene/identifier.hpp>
-#include <sge/scenic/scene/texture_path.hpp>
+#include <sge/scenic/scene/diffuse_texture_path.hpp>
+#include <sge/scenic/scene/specular_texture_path.hpp>
 
 
 namespace sge
@@ -40,7 +41,8 @@ public:
 	material(
 		sge::scenic::scene::identifier const &,
 		sge::renderer::material const &,
-		sge::scenic::scene::texture_path const &);
+		sge::scenic::scene::diffuse_texture_path const &,
+		sge::scenic::scene::specular_texture_path const &);
 
 	SGE_SCENIC_SYMBOL
 	sge::scenic::scene::identifier const &
@@ -51,12 +53,17 @@ public:
 	renderer_material() const;
 
 	SGE_SCENIC_SYMBOL
-	sge::scenic::scene::texture_path const &
-	texture() const;
+	sge::scenic::scene::diffuse_texture_path const &
+	diffuse_texture() const;
+
+	SGE_SCENIC_SYMBOL
+	sge::scenic::scene::specular_texture_path const &
+	specular_texture() const;
 private:
 	sge::scenic::scene::identifier identifier_;
 	sge::renderer::material renderer_material_;
-	sge::scenic::scene::texture_path texture_;
+	sge::scenic::scene::diffuse_texture_path diffuse_texture_;
+	sge::scenic::scene::specular_texture_path specular_texture_;
 };
 }
 }

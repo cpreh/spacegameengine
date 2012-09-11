@@ -46,6 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/render_context/base.hpp>
 #include <sge/scenic/scene/from_blender_file.hpp>
 #include <sge/scenic/scene/manager.hpp>
+#include <sge/scenic/sky/dome/object.hpp>
 #include <sge/scenic/scene/object.hpp>
 #include <sge/scenic/scene/prototype.hpp>
 #include <sge/systems/cursor_option_field.hpp>
@@ -205,6 +206,22 @@ try
 			0.0f),
 		sge::image::colors::white());
 
+	/*
+	sge::scenic::sky::dome::object skydome(
+		sys.renderer(),
+		scene_manager.shader_context(),
+		scene_manager.texture_manager(),
+		sge::scenic::sky::dome::texture_path(
+			sge::config::media_path() / FCPPT_TEXT("scenes") / scene_name / FCPPT_TEXT("sky.png")),
+		camera,
+		sge::scenic::sky::dome::longitude(
+			30u),
+		sge::scenic::sky::dome::latitude(
+			30u),
+		sge::scenic::sky::dome::y_translation(
+			0.0f));
+	*/
+
 	sge::graph::object graph(
 		sge::graph::position(
 			sge::renderer::vector2(
@@ -246,6 +263,11 @@ try
 					sge::image::colors::black())
 				.depth_buffer(
 					1.0f));
+
+		/*
+		skydome.render(
+			scoped_block.get());
+		*/
 
 		{
 			sge::scenic::render_context::base_unique_ptr wrapped_context(

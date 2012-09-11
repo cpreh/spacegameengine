@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vector4.hpp>
 #include <sge/scenic/render_context/cg/manager.hpp>
 #include <sge/scenic/render_context/cg/object.hpp>
-#include <sge/scenic/render_context/cg/light/point.hpp>
 #include <sge/scenic/render_context/cg/light/directional.hpp>
+#include <sge/scenic/render_context/cg/light/point.hpp>
 #include <sge/shader/context.hpp>
 #include <fcppt/insert_to_std_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -109,6 +109,25 @@ sge::scenic::render_context::cg::manager::manager(
 		sge::shader::parameter::name(
 			"use_diffuse_texture"),
 		false),
+	diffuse_texture_(
+		shader_,
+		shader_.context().renderer(),
+		shader_.pixel_program(),
+		sge::shader::parameter::name(
+			"diffuse_texture"),
+		sge::shader::parameter::planar_texture::optional_value()),
+	use_specular_texture_(
+		shader_.pixel_program(),
+		sge::shader::parameter::name(
+			"use_specular_texture"),
+		false),
+	specular_texture_(
+		shader_,
+		shader_.context().renderer(),
+		shader_.pixel_program(),
+		sge::shader::parameter::name(
+			"specular_texture"),
+		sge::shader::parameter::planar_texture::optional_value()),
 	point_light_count_(
 		shader_.pixel_program(),
 		sge::shader::parameter::name(
@@ -140,14 +159,7 @@ sge::scenic::render_context::cg::manager::manager(
 			"fog_information.color"),
 		sge::renderer::vector4()),
 	point_lights_(),
-	directional_lights_(),
-	diffuse_texture_(
-		shader_,
-		shader_.context().renderer(),
-		shader_.pixel_program(),
-		sge::shader::parameter::name(
-			"diffuse_texture"),
-		sge::shader::parameter::planar_texture::optional_value())
+	directional_lights_()
 {
 	for(point_light_array::size_type i = 0; i < point_lights_.size(); ++i)
 		fcppt::container::ptr::replace_unique_ptr(

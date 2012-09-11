@@ -40,10 +40,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
+#include <fcppt/math/matrix/multiply_matrix4_vector3.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
 #include <fcppt/math/matrix/rotation_x.hpp>
 #include <fcppt/math/matrix/rotation_y.hpp>
-#include <fcppt/math/matrix/multiply_matrix4_vector3.hpp>
 #include <fcppt/math/matrix/rotation_z.hpp>
 #include <fcppt/math/matrix/vector.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>

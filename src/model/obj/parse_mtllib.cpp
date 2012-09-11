@@ -71,7 +71,8 @@ sge::model::obj::parse_mtllib(
 
 	fcppt::optional<sge::renderer::scalar> shininess;
 	fcppt::optional<sge::renderer::vector3> ambient, diffuse, specular, emissive;
-	fcppt::optional<boost::filesystem::path> texture;
+	fcppt::optional<boost::filesystem::path> diffuse_texture;
+	fcppt::optional<boost::filesystem::path> specular_texture;
 
 	while(
 		std::getline(
@@ -264,7 +265,13 @@ sge::model::obj::parse_mtllib(
 		}
 		else if(prefix == "map_Kd")
 		{
-			texture =
+			diffuse_texture =
+				boost::filesystem::path(
+					rest_of_line);
+		}
+		else if(prefix == "map_Ks")
+		{
+			specular_texture =
 				boost::filesystem::path(
 					rest_of_line);
 		}
@@ -313,10 +320,16 @@ sge::model::obj::parse_mtllib(
 											(sge::image::color::init::blue() %= (*emissive)[2])))),
 								sge::renderer::shininess(
 									*shininess)),
-							sge::model::obj::texture_path(
-								texture
+							sge::model::obj::diffuse_texture_path(
+								diffuse_texture
 								?
-									*texture
+									*diffuse_texture
+								:
+								boost::filesystem::path()),
+							sge::model::obj::specular_texture_path(
+								specular_texture
+								?
+									*specular_texture
 								:
 									boost::filesystem::path()))));
 			}
@@ -377,10 +390,16 @@ sge::model::obj::parse_mtllib(
 								(sge::image::color::init::blue() %= (*emissive)[2])))),
 					sge::renderer::shininess(
 						*shininess)),
-				sge::model::obj::texture_path(
-					texture
+				sge::model::obj::diffuse_texture_path(
+					diffuse_texture
 					?
-						*texture
+						*diffuse_texture
+					:
+						boost::filesystem::path()),
+				sge::model::obj::specular_texture_path(
+					specular_texture
+					?
+						*specular_texture
 					:
 						boost::filesystem::path()))));
 

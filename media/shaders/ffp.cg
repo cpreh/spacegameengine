@@ -105,6 +105,8 @@ pixel_main(
 	uniform material current_material,
 	uniform int use_diffuse_texture,
 	uniform sampler2D diffuse_texture,
+	uniform int use_specular_texture,
+	uniform sampler2D specular_texture,
 	uniform fog fog_information)
 	: COLOR
 {
@@ -114,6 +116,15 @@ pixel_main(
 	float3 view_direction =
 		normalize(
 			-vertex_shader_out.camera_space_position);
+
+	float global_specular_coeff =
+		use_specular_texture
+		?
+			tex2D(
+				specular_texture,
+				vertex_shader_out.texture_coordinate).x
+		:
+			1.0;
 
 	for(int i = 0; i < point_light_count; ++i)
 	{
@@ -148,7 +159,7 @@ pixel_main(
 		resulting_color +=
 			(l.ambient_color * current_material.ambient_color +
 			 l.diffuse_color * current_material.diffuse_color * coeffs.y +
-			 l.specular_color * current_material.specular_color * coeffs.z) /
+			 l.specular_color * current_material.specular_color * global_specular_coeff * coeffs.z) /
 			(l.attenuation.x + d*l.attenuation.y + d*d*l.attenuation.z);
 	}
 
@@ -177,7 +188,7 @@ pixel_main(
 		resulting_color +=
 			l.ambient_color * current_material.ambient_color +
 			l.diffuse_color * current_material.diffuse_color * coeffs.y +
-			l.specular_color * current_material.specular_color * coeffs.z;
+			l.specular_color * current_material.specular_color * global_specular_coeff * coeffs.z;
 	}
 
 	// FIXME: How do we handle transparent objects?

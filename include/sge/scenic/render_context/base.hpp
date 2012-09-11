@@ -57,6 +57,10 @@ public:
 		sge::scenic::render_context::optional_planar_texture const &) = 0;
 
 	virtual void
+	specular_texture(
+		sge::scenic::render_context::optional_planar_texture const &) = 0;
+
+	virtual void
 	material(
 		sge::renderer::material const &) = 0;
 

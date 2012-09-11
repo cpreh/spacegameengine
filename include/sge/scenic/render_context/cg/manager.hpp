@@ -27,8 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/symbol.hpp>
 #include <sge/scenic/render_context/manager_base.hpp>
 #include <sge/scenic/render_context/cg/object_fwd.hpp>
-#include <sge/scenic/render_context/cg/light/point_fwd.hpp>
 #include <sge/scenic/render_context/cg/light/directional_fwd.hpp>
+#include <sge/scenic/render_context/cg/light/point_fwd.hpp>
 #include <sge/shader/context_fwd.hpp>
 #include <sge/shader/pair.hpp>
 #include <sge/shader/parameter/matrix.hpp>
@@ -94,6 +94,9 @@ private:
 	sge::shader::parameter::vector<sge::renderer::scalar,4> material_emissive_color_;
 	sge::shader::parameter::scalar<sge::renderer::scalar> material_shininess_;
 	sge::shader::parameter::scalar<bool> use_diffuse_texture_;
+	sge::shader::parameter::planar_texture diffuse_texture_;
+	sge::shader::parameter::scalar<bool> use_specular_texture_;
+	sge::shader::parameter::planar_texture specular_texture_;
 	sge::shader::parameter::scalar<std::size_t> point_light_count_;
 	sge::shader::parameter::scalar<std::size_t> directional_light_count_;
 	sge::shader::parameter::scalar<bool> use_fog_;
@@ -102,7 +105,6 @@ private:
 	sge::shader::parameter::vector<sge::renderer::scalar,4> fog_color_;
 	point_light_array point_lights_;
 	directional_light_array directional_lights_;
-	sge::shader::parameter::planar_texture diffuse_texture_;
 };
 }
 }

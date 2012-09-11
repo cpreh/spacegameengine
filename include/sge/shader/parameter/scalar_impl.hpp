@@ -27,10 +27,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/shader/parameter/scalar_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/if.hpp>
-#include <boost/type_traits/is_same.hpp>
 #include <boost/type_traits/is_integral.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <boost/type_traits/is_same.hpp>
 #include <iostream>
+#include <fcppt/config/external_end.hpp>
+
 
 template<typename ValueType>
 sge::shader::parameter::scalar<ValueType>::scalar(
