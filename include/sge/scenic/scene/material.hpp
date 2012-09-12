@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/material.hpp>
 #include <sge/scenic/symbol.hpp>
-#include <sge/scenic/scene/identifier.hpp>
 #include <sge/scenic/scene/diffuse_texture_path.hpp>
+#include <sge/scenic/scene/identifier.hpp>
 #include <sge/scenic/scene/specular_texture_path.hpp>
 
 

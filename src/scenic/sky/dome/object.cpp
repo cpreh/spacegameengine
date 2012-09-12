@@ -1,3 +1,23 @@
+/*
+spacegameengine is a portable easy to use game engine written in C++.
+Copyright (C) 2006-2012 Carl Philipp Reh (sefi@s-e-f-i.de)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
+
 #include <sge/camera/base.hpp>
 #include <sge/camera/coordinate_system/object.hpp>
 #include <sge/camera/matrix_conversion/world.hpp>
@@ -10,8 +30,8 @@
 #include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
-#include <sge/renderer/vector3.hpp>
 #include <sge/renderer/vector2.hpp>
+#include <sge/renderer/vector3.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/vertex_declaration.hpp>
 #include <sge/renderer/context/object.hpp>
@@ -28,11 +48,11 @@
 #include <sge/renderer/texture/set_address_mode2.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/renderer/vf/iterator.hpp>
-#include <sge/scenic/texture_manager.hpp>
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/renderer/vf/dynamic/make_part_index.hpp>
+#include <sge/scenic/texture_manager.hpp>
 #include <sge/scenic/sky/dome/index_format.hpp>
 #include <sge/scenic/sky/dome/object.hpp>
 #include <sge/scenic/sky/dome/vf/format.hpp>

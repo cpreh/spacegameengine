@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MODEL_OBJ_MATERIAL_HPP_INCLUDED
 #define SGE_MODEL_OBJ_MATERIAL_HPP_INCLUDED
 
-#include <sge/model/obj/identifier.hpp>
-#include <sge/model/obj/symbol.hpp>
 #include <sge/model/obj/diffuse_texture_path.hpp>
+#include <sge/model/obj/identifier.hpp>
 #include <sge/model/obj/specular_texture_path.hpp>
+#include <sge/model/obj/symbol.hpp>
 #include <sge/renderer/material.hpp>
 
 

@@ -44,6 +44,7 @@ set(
 	include/sge/scenic/render_queue/state_change_count.hpp
 	include/sge/scenic/scene/camera_properties.hpp
 	include/sge/scenic/scene/camera_properties_fwd.hpp
+	include/sge/scenic/scene/diffuse_texture_path.hpp
 	include/sge/scenic/scene/entity.hpp
 	include/sge/scenic/scene/entity_fwd.hpp
 	include/sge/scenic/scene/entity_sequence.hpp
@@ -66,11 +67,18 @@ set(
 	include/sge/scenic/scene/prototype_unique_ptr.hpp
 	include/sge/scenic/scene/rotation.hpp
 	include/sge/scenic/scene/scale.hpp
-	include/sge/scenic/scene/texture_path.hpp
+	include/sge/scenic/scene/specular_texture_path.hpp
+	include/sge/scenic/sky/dome/index_format.hpp
 	include/sge/scenic/sky/dome/latitude.hpp
+	include/sge/scenic/sky/dome/longitude.hpp
 	include/sge/scenic/sky/dome/object.hpp
 	include/sge/scenic/sky/dome/object_fwd.hpp
 	include/sge/scenic/sky/dome/size_type.hpp
+	include/sge/scenic/sky/dome/texture_path.hpp
+	include/sge/scenic/sky/dome/vf/format.hpp
+	include/sge/scenic/sky/dome/vf/format_part.hpp
+	include/sge/scenic/sky/dome/vf/position.hpp
+	include/sge/scenic/sky/dome/vf/texcoord.hpp
 	include/sge/scenic/sky/dome/y_translation.hpp
 	include/sge/scenic/texture_manager.hpp
 	include/sge/scenic/texture_manager_fwd.hpp
