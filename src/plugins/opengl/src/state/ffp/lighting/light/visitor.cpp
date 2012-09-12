@@ -18,48 +18,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/light/directional.hpp>
-#include <sge/opengl/light/point.hpp>
-#include <sge/opengl/light/spot.hpp>
-#include <sge/opengl/light/visitor.hpp>
+#include <sge/opengl/state/ffp/lighting/light/directional.hpp>
+#include <sge/opengl/state/ffp/lighting/llight/point.hpp>
+#include <sge/opengl/state/ffp/lighting/llight/spot.hpp>
+#include <sge/opengl/state/ffp/lighting/llight/visitor.hpp>
+#include <sge/renderer/state/ffp/lighting/light/directional_fwd.hpp>
+#include <sge/renderer/state/ffp/lighting/light/point_fwd.hpp>
+#include <sge/renderer/state/ffp/lighting/light/spot_fwd.hpp>
 
 
-sge::opengl::light::visitor::visitor(
-	light::index const _index
-)
-:
-	index_(_index)
-{
-}
-
-sge::opengl::light::visitor::result_type
-sge::opengl::light::visitor::operator()(
-	sge::renderer::light::directional const &_directional
+sge::opengl::state::ffp::lighting::light::visitor::result_type
+sge::opengl::state::ffp::lighting::light::visitor::operator()(
+	sge::renderer::state::ffp::lighting::light::directional const &_directional
 ) const
 {
-	light::directional(
+	sge::opengl::state::ffp::lighting::light::directional(
 		index_,
 		_directional
 	);
 }
 
-sge::opengl::light::visitor::result_type
-sge::opengl::light::visitor::operator()(
-	sge::renderer::light::point const &_point
+sge::opengl::state::ffp::lighting::light::visitor::result_type
+sge::opengl::state::ffp::lighting::light::visitor::operator()(
+	sge::renderer::state::ffp::lighting::light::point const &_point
 ) const
 {
-	light::point(
+	sge::opengl::state::ffp::lighting::light::point(
 		index_,
 		_point
 	);
 }
 
-sge::opengl::light::visitor::result_type
-sge::opengl::light::visitor::operator()(
-	sge::renderer::light::spot const &_spot
+sge::opengl::state::ffp::lighting::light::visitor::result_type
+sge::opengl::state::ffp::lighting::light::visitor::operator()(
+	sge::renderer::state::ffp::lighting::light::spot const &_spot
 ) const
 {
-	light::spot(
+	sge::opengl::state::ffp::lighting::light::spot(
 		index_,
 		_spot
 	);

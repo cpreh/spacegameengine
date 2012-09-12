@@ -31,9 +31,9 @@ namespace opengl
 namespace state
 {
 
-typedef fcppt:function::object<
+typedef fcppt::function::object<
 	void ()
-> actor_fwd;
+> actor;
 
 }
 }

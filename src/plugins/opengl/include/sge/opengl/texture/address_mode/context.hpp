@@ -24,9 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/device/base.hpp>
 #include <sge/opengl/context/device/id.hpp>
 #include <sge/opengl/texture/address_mode/context_fwd.hpp>
-#include <sge/renderer/texture/address_mode_s.hpp>
-#include <sge/renderer/texture/address_mode_t.hpp>
-#include <sge/renderer/texture/address_mode_u.hpp>
+#include <sge/renderer/state/core/sampler/address/parameters.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/container/index_map_decl.hpp>
@@ -53,60 +51,31 @@ public:
 
 	~context();
 
-	sge::renderer::texture::address_mode_s const &
-	get_s(
-		sge::renderer::texture::stage
-	);
-
-	sge::renderer::texture::address_mode_t const &
-	get_t(
-		sge::renderer::texture::stage
-	);
-
-	sge::renderer::texture::address_mode_u const &
-	get_u(
+	sge::renderer::state::core::sampler::address::parameters const &
+	get(
 		sge::renderer::texture::stage
 	);
 
 	bool
 	set(
 		sge::renderer::texture::stage,
-		sge::renderer::texture::address_mode_s
-	);
-
-	bool
-	set(
-		sge::renderer::texture::stage,
-		sge::renderer::texture::address_mode_t
-	);
-
-	bool
-	set(
-		sge::renderer::texture::stage,
-		sge::renderer::texture::address_mode_u
+		sge::renderer::state::core::sampler::address::parameters const &
 	);
 
 	typedef void needs_before;
 
 	static sge::opengl::context::device::id const static_id;
 private:
-	typedef fcppt::container::index_map<
-		sge::renderer::texture::address_mode_s
-	> address_mode_s_map;
+	sge::renderer::state::core::sampler::address::parameters &
+	get_mutable(
+		sge::renderer::texture::stage
+	);
 
 	typedef fcppt::container::index_map<
-		sge::renderer::texture::address_mode_t
-	> address_mode_t_map;
+		sge::renderer::state::core::sampler::address::parameters
+	> address_mode_map;
 
-	typedef fcppt::container::index_map<
-		sge::renderer::texture::address_mode_u
-	> address_mode_u_map;
-
-	address_mode_s_map mode_s_;
-
-	address_mode_t_map mode_t_;
-
-	address_mode_u_map mode_u_;
+	address_mode_map modes_;
 };
 
 }

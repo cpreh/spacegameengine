@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_STATE_INDEX_ACTOR_FWD_HPP_INCLUDED
 #define SGE_OPENGL_STATE_INDEX_ACTOR_FWD_HPP_INCLUDED
 
-#include <sge/renderer/state/index_count.hpp>
+#include <sge/opengl/common.hpp>
 #include <fcppt/function/object_fwd.hpp>
 
 
@@ -32,11 +32,11 @@ namespace opengl
 namespace state
 {
 
-typedef fcppt:function::object<
+typedef fcppt::function::object<
 	void (
-		sge::renderer::state::index_count
+		GLenum
 	)
-> index_actor_fwd;
+> index_actor;
 
 }
 }

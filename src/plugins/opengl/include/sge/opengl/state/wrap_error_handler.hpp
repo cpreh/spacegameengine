@@ -18,28 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_STATE_CORE_SAMPLER_ADDRESS_OBJECT_FWD_HPP_INCLUDED
-#define SGE_RENDERER_STATE_CORE_SAMPLER_ADDRESS_OBJECT_FWD_HPP_INCLUDED
+#ifndef SGE_OPENGL_STATE_WRAP_ERROR_HANDLER_HPP_INCLUDED
+#define SGE_OPENGL_STATE_WRAP_ERROR_HANDLER_HPP_INCLUDED
+
+#include <fcppt/string.hpp>
 
 
 namespace sge
 {
-namespace renderer
+namespace opengl
 {
 namespace state
 {
-namespace core
-{
-namespace sampler
-{
-namespace address
-{
 
-class object;
+template<
+	typename Actor
+>
+Actor const
+wrap_error_handler(
+	Actor const &,
+	fcppt::string const &name
+);
 
-}
-}
-}
 }
 }
 }

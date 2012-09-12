@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_STATE_CORE_SAMPLER_FILTER_OBJECT_HPP_INCLUDED
-#define SGE_RENDERER_STATE_CORE_SAMPLER_FILTER_OBJECT_HPP_INCLUDED
+#ifndef SGE_RENDERER_STATE_CORE_SAMPLER_FILTER_PARAMETERS_HPP_INCLUDED
+#define SGE_RENDERER_STATE_CORE_SAMPLER_FILTER_PARAMETERS_HPP_INCLUDED
 
 #include <sge/renderer/symbol.hpp>
-#include <sge/renderer/state/core/sampler/filter/object_fwd.hpp>
+#include <sge/renderer/state/core/sampler/filter/parameters_fwd.hpp>
 #include <sge/renderer/state/core/sampler/filter/variant.hpp>
 
 
@@ -39,12 +39,12 @@ namespace sampler
 namespace filter
 {
 
-class object
+class parameters
 {
 public:
 	SGE_RENDERER_SYMBOL
 	explicit
-	object(
+	parameters(
 		sge::renderer::state::core::sampler::filter::variant const &
 	);
 
@@ -58,8 +58,8 @@ private:
 SGE_RENDERER_SYMBOL
 bool
 operator==(
-	sge::renderer::state::core::sampler::filter::object const &,
-	sge::renderer::state::core::sampler::filter::object const &
+	sge::renderer::state::core::sampler::filter::parameters const &,
+	sge::renderer::state::core::sampler::filter::parameters const &
 );
 
 }

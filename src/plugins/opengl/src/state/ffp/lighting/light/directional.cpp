@@ -18,24 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/light/directional.hpp>
-#include <sge/opengl/light/position_impl.hpp>
-#include <sge/renderer/light/directional.hpp>
+#include <sge/opengl/state/index_actor_vector.hpp>
+#include <sge/opengl/state/ffp/lighting/light/directional.hpp>
+#include <sge/opengl/state/ffp/lighting/light/position_impl.hpp>
+#include <sge/renderer/state/ffp/lighting/light/directional.hpp>
+#include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/vector/construct.hpp>
 
 
-void
-sge::opengl::light::directional(
-	sge::opengl::light::index const _index,
-	sge::renderer::light::directional const &_directional
+sge::opengl::state::index_actor_vector const
+sge::opengl::state::ffp::lighting::light::directional(
+	sge::renderer::state::ffp::lighting::light::directional const &_directional
 )
 {
-	sge::opengl::light::position_impl(
-		_index,
-		fcppt::math::vector::construct(
-			_directional.direction().get(),
-			// special value to make this a directional light
-			0.f
-		)
-	);
+	return
+		fcppt::assign::make_container<
+			sge::opengl::state::index_actor_vector
+		>(
+			sge::opengl::state::ffp::lighting::light::position_impl(
+				fcppt::math::vector::construct(
+					_directional.direction().get(),
+					// special value to make this a directional light
+					0.f
+				)
+			)
+		);
 }

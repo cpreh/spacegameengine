@@ -19,19 +19,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/light/cutoff_angle.hpp>
-#include <sge/opengl/light/float.hpp>
+#include <sge/opengl/state/index_actor.hpp>
+#include <sge/opengl/state/ffp/lighting/light/cutoff_angle.hpp>
+#include <sge/opengl/state/ffp/lighting/light/float.hpp>
+#include <sge/renderer/state/ffp/lighting/light/cutoff_angle.hpp>
 
 
-void
-sge::opengl::light::cutoff_angle(
-	light::index const _index,
-	renderer::light::cutoff_angle const _angle
+sge::opengl::state::index_actor const
+sge::opengl::state::ffp::lighting::light::cutoff_angle(
+	sge::renderer::state::ffp::lighting::light::cutoff_angle const _angle
 )
 {
-	light::float_(
-		_index,
-		GL_SPOT_CUTOFF,
-		_angle.get()
-	);
+	return
+		sge::opengl::state::ffp::lighting::light::float_(
+			GL_SPOT_CUTOFF,
+			_angle.get()
+		);
 }

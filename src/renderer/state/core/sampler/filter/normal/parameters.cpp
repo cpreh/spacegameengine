@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/sampler/filter/normal/mag.hpp>
 #include <sge/renderer/state/core/sampler/filter/normal/min.hpp>
 #include <sge/renderer/state/core/sampler/filter/normal/mip.hpp>
-#include <sge/renderer/state/core/sampler/filter/normal/object.hpp>
+#include <sge/renderer/state/core/sampler/filter/normal/parameters.hpp>
 
 
-sge::renderer::state::core::sampler::filter::normal::object::object(
+sge::renderer::state::core::sampler::filter::normal::parameters::parameters(
 	sge::renderer::state::core::sampler::filter::normal::mag::type const _mag,
 	sge::renderer::state::core::sampler::filter::normal::min::type const _min,
 	sge::renderer::state::core::sampler::filter::normal::mip::type const _mip
@@ -43,27 +43,27 @@ sge::renderer::state::core::sampler::filter::normal::object::object(
 }
 
 sge::renderer::state::core::sampler::filter::normal::mag::type
-sge::renderer::state::core::sampler::filter::normal::object::mag() const
+sge::renderer::state::core::sampler::filter::normal::parameters::mag() const
 {
 	return mag_;
 }
 
 sge::renderer::state::core::sampler::filter::normal::min::type
-sge::renderer::state::core::sampler::filter::normal::object::min() const
+sge::renderer::state::core::sampler::filter::normal::parameters::min() const
 {
 	return min_;
 }
 
 sge::renderer::state::core::sampler::filter::normal::mip::type
-sge::renderer::state::core::sampler::filter::normal::object::mip() const
+sge::renderer::state::core::sampler::filter::normal::parameters::mip() const
 {
 	return mip_;
 }
 
 bool
 sge::renderer::state::core::sampler::filter::normal::operator==(
-	sge::renderer::state::core::sampler::filter::normal::object const &_left,
-	sge::renderer::state::core::sampler::filter::normal::object const &_right
+	sge::renderer::state::core::sampler::filter::normal::parameters const &_left,
+	sge::renderer::state::core::sampler::filter::normal::parameters const &_right
 )
 {
 	return

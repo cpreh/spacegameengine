@@ -133,3 +133,17 @@ sge::opengl::set_material(
 		)
 	);
 }
+
+	case rs::ambient_light_color:
+		::glLightModelfv(
+			GL_LIGHT_MODEL_AMBIENT,
+			fcolor.data()
+		);
+
+		SGE_OPENGL_CHECK_STATE(
+			FCPPT_TEXT("glLightModelfv failed"),
+			sge::renderer::exception
+		)
+
+		return;
+

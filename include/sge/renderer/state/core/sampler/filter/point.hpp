@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_STATE_CORE_SAMPLER_FILTER_POINT_HPP_INCLUDED
 
 #include <sge/renderer/symbol.hpp>
-#include <sge/renderer/state/core/sampler/filter/object.hpp>
+#include <sge/renderer/state/core/sampler/filter/parameters.hpp>
 
 
 namespace sge
@@ -39,7 +39,7 @@ namespace filter
 {
 
 SGE_RENDERER_SYMBOL
-sge::renderer::state::core::sampler::filter::object const
+sge::renderer::state::core::sampler::filter::parameters const
 point();
 
 }

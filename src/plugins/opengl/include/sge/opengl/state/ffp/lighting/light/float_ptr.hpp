@@ -22,23 +22,59 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_LIGHT_FLOAT_PTR_HPP_INCLUDED
 
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/light/index.hpp>
+#include <sge/opengl/state/index_actor.hpp>
+#include <sge/opengl/state/wrap_error_handler.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/phoenix/bind/bind_function.hpp>
+#include <boost/phoenix/core/value.hpp>
+#include <boost/phoenix/operator/self.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
 {
 namespace opengl
 {
+namespace state
+{
+namespace ffp
+{
+namespace lighting
+{
 namespace light
 {
 
-void
+template<
+	typename Vector
+>
+sge::opengl::state::index_actor const
 float_ptr(
-	light::index,
-	GLenum name,
-	GLfloat const *
-);
+	GLenum const _name,
+	Vector const &_vector
+)
+{
+	return
+		sge::opengl::state::wrap_error_handler(
+			std::tr1::bind(
+				::glLightfv,
+				std::tr1::placeholders::_1,
+				_name,
+				boost::phoenix::bind(
+					&Vector::data,
+					boost::phoenix::val(
+						_vector
+					)
+				)
+			),
+			FCPPT_TEXT("glLightfv")
+		);
+}
 
+}
+}
+}
 }
 }
 }

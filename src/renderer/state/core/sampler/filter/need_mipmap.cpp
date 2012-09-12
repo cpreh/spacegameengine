@@ -19,15 +19,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/state/core/sampler/filter/need_mipmap.hpp>
-#include <sge/renderer/state/core/sampler/filter/object.hpp>
+#include <sge/renderer/state/core/sampler/filter/parameters.hpp>
 #include <sge/src/renderer/state/core/sampler/filter/need_mipmap_visitor.hpp>
 #include <fcppt/variant/apply_unary.hpp>
-#include <fcppt/variant/object_impl.hpp>
 
 
 bool
 sge::renderer::state::core::sampler::filter::need_mipmap(
-	sge::renderer::state::core::sampler::filter::object const &_filter
+	sge::renderer::state::core::sampler::filter::parameters const &_filter
 )
 {
 	return

@@ -18,25 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_COLOR_HPP_INCLUDED
-#define SGE_OPENGL_STATE_COLOR_HPP_INCLUDED
+#ifndef SGE_RENDERER_STATE_CORE_SAMPLER_FILTER_ANISOTROPIC_PARAMETERS_FWD_HPP_INCLUDED
+#define SGE_RENDERER_STATE_CORE_SAMPLER_FILTER_ANISOTROPIC_PARAMETERS_FWD_HPP_INCLUDED
 
-#include <sge/opengl/state/parameters_fwd.hpp>
-#include <sge/renderer/state/color/type.hpp>
 
 namespace sge
 {
-namespace opengl
+namespace renderer
 {
 namespace state
 {
+namespace core
+{
+namespace sampler
+{
+namespace filter
+{
+namespace anisotropic
+{
 
-void
-color(
-	state::parameters const &,
-	renderer::state::color::type const &
-);
+class parameters;
 
+}
+}
+}
+}
 }
 }
 }

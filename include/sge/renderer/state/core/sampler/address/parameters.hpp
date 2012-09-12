@@ -18,14 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_STATE_CORE_SAMPLER_ADDRESS_OBJECT_HPP_INCLUDED
-#define SGE_RENDERER_STATE_CORE_SAMPLER_ADDRESS_OBJECT_HPP_INCLUDED
+#ifndef SGE_RENDERER_STATE_CORE_SAMPLER_ADDRESS_PARAMETERS_HPP_INCLUDED
+#define SGE_RENDERER_STATE_CORE_SAMPLER_ADDRESS_PARAMETERS_HPP_INCLUDED
 
 #include <sge/renderer/symbol.hpp>
-#include <sge/renderer/texture/address/mode_s.hpp>
-#include <sge/renderer/texture/address/mode_t.hpp>
-#include <sge/renderer/texture/address/mode_u.hpp>
-#include <sge/renderer/texture/address/object_fwd.hpp>
+#include <sge/renderer/state/core/sampler/address/mode_s.hpp>
+#include <sge/renderer/state/core/sampler/address/mode_t.hpp>
+#include <sge/renderer/state/core/sampler/address/mode_u.hpp>
+#include <sge/renderer/state/core/sampler/address/parameters_fwd.hpp>
 
 
 namespace sge
@@ -41,10 +41,10 @@ namespace sampler
 namespace address
 {
 
-class object
+class parameters
 {
 public:
-	object(
+	parameters(
 		sge::renderer::state::core::sampler::address::mode_s,
 		sge::renderer::state::core::sampler::address::mode_t,
 		sge::renderer::state::core::sampler::address::mode_u
@@ -72,8 +72,8 @@ private:
 SGE_RENDERER_SYMBOL
 bool
 operator==(
-	sge::renderer::state::core::sampler::address::object const &,
-	sge::renderer::state::core::sampler::address::object const &
+	sge::renderer::state::core::sampler::address::parameters const &,
+	sge::renderer::state::core::sampler::address::parameters const &
 );
 
 }

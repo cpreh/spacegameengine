@@ -35,14 +35,11 @@ namespace texture
 namespace address_mode
 {
 
-template<
-	typename Mode
->
 void
 update(
 	sge::opengl::context::system::object &,
 	sge::opengl::context::device::object &,
-	Mode,
+	sge::renderer::state::core::sampler::address::parameters const &,
 	sge::renderer::texture::stage
 );
 

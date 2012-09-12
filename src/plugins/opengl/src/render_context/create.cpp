@@ -37,7 +37,7 @@ sge::opengl::render_context::create(
 )
 {
 	return
-		sge::renderer::context::object_unique_ptr(
+		sge::renderer::context::ffp_unique_ptr(
 			fcppt::make_unique_ptr<
 				sge::opengl::render_context::object
 			>(

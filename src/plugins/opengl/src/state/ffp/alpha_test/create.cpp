@@ -18,48 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_MAKE_ACTOR_HPP_INCLUDED
-#define SGE_OPENGL_STATE_MAKE_ACTOR_HPP_INCLUDED
+#include <sge/opengl/state/ffp/alpha_test/create.hpp>
+#include <sge/opengl/state/ffp/alpha_test/make_actors.hpp>
+#include <sge/opengl/state/ffp/alpha_test/object.hpp>
+#include <sge/renderer/state/ffp/alpha_test/object_unique_ptr.hpp>
+#include <sge/renderer/state/ffp/alpha_test/parameters_fwd.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 
-#include <sge/opengl/check_state_always.hpp>
-#include <sge/opengl/state/check_function.hpp>
-#include <fcppt/string.hpp>
-#include <fcppt/tr1/functional.hpp>
 
-
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-
-inline
-sge::opengl::state::actor const
-make_actor(
-	sge::opengl::state::actor const &_actor,
-#if defined(SGE_OPENGL_CHECK_STATE_ALWAYS)
-	fcppt::string const &_name
-#else
-	fcppt::string const &
-#endif
+sge::renderer::state::ffp::alpha_test::object_unique_ptr
+sge::opengl::state::ffp::alpha_test::create(
+	sge::renderer::state::ffp::alpha_test::parameters const &_parameters
 )
 {
-#if defined(SGE_OPENGL_CHECK_STATE_ALWAYS)
 	return
-		std::tr1::bind(
-			&sge::opengl::state::check_function,
-			_actor,
-			_name
+		sge::renderer::state::ffp::alpha_test::object_unique_ptr(
+			fcppt::make_unique_ptr<
+				sge::opengl::state::ffp::alpha_test::object
+			>(
+				sge::opengl::state::ffp::alpha_test::make_actors(
+					_parameters
+				)
+			)
 		);
-#else
-	return
-		_actor;
-#endif
 }
-
-}
-}
-}
-
-#endif

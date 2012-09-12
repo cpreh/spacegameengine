@@ -20,10 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/state/core/sampler/filter/default.hpp>
 #include <sge/renderer/state/core/sampler/filter/linear.hpp>
-#include <sge/renderer/state/core/sampler/filter/object.hpp>
+#include <sge/renderer/state/core/sampler/filter/parameters.hpp>
 
 
-sge::renderer::state::core::sampler::filter::object const
+sge::renderer::state::core::sampler::filter::parameters const
 sge::renderer::state::core::sampler::filter::default_()
 {
 	return

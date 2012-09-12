@@ -19,14 +19,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/color/object.hpp>
+#include <sge/image/color/rgba32f.hpp>
 #include <sge/image/color/rgba32f_format.hpp>
 #include <sge/image/color/any/convert.hpp>
-#include <sge/opengl/light/color.hpp>
-#include <sge/opengl/light/float_ptr.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/phoenix/bind/bind_function.hpp>
-#include <boost/phoenix/core/value.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <sge/image/color/any/object_fwd.hpp>
+#include <sge/opengl/common.hpp>
+#include <sge/opengl/vector4f.hpp>
+#include <sge/opengl/state/index_actor.hpp>
+#include <sge/opengl/state/ffp/lighting/light/color.hpp>
+#include <sge/opengl/state/ffp/lighting/light/float_ptr.hpp>
 
 
 sge::opengl::state::index_actor const
@@ -44,18 +45,11 @@ sge::opengl::state::ffp::lighting::light::color(
 	);
 
 	return
-		std::tr1::bind(
-			::glLightfv,
-			std::tr1::placeholders::_1,
+		sge::opengl::state::ffp::lighting::light::float_ptr(
 			_name,
-			boost::phoenix::bind(
-				&sge::opengl::vector4::data,
-				boost::phoenix::val(
-					sge::opengl::vector4(
-						color.data(),
-						color.data_end()
-					)
-				)
+			sge::opengl::vector4f(
+				color.data(),
+				color.data_end()
 			)
 		);
 }

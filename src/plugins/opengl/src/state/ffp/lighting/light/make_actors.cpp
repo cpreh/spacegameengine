@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/ffp/lighting/light/make_actors.hpp>
 #include <sge/opengl/state/ffp/lighting/light/visitor.hpp>
 #include <sge/renderer/state/ffp/lighting/light/parameters_fwd.hpp>
+#include <fcppt/algorithm/join.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 
@@ -33,22 +34,24 @@ sge::opengl::state::ffp::lighting::light::make_actors(
 )
 {
 	return
-		fcppt::assign::make_container<
-			sge::opengl::state::index_actor_vector
-		>(
-			sge::opengl::state::ffp::lighting::light::color(
-				GL_AMBIENT,
-				_parameters.ambient().get()
-			)
-		)(
-			sge::opengl::state::ffp::lighting::light::color(
-				GL_DIFFUSE,
-				_light.diffuse().get()
-			)
-		)(
-			sge::opengl::state::ffp::lighting::light::color(
-				GL_SPECULAR,
-				_light.specular().get()
+		fcppt::algorithm::join(
+			fcppt::assign::make_container<
+				sge::opengl::state::index_actor_vector
+			>(
+				sge::opengl::state::ffp::lighting::light::color(
+					GL_AMBIENT,
+					_parameters.ambient().get()
+				)
+			)(
+				sge::opengl::state::ffp::lighting::light::color(
+					GL_DIFFUSE,
+					_light.diffuse().get()
+				)
+			)(
+				sge::opengl::state::ffp::lighting::light::color(
+					GL_SPECULAR,
+					_light.specular().get()
+				)
 			)
 		)(
 			fcppt::variant::apply_unary(

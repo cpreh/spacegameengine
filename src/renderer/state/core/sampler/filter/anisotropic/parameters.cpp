@@ -20,10 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/state/core/sampler/filter/anisotropic/level.hpp>
 #include <sge/renderer/state/core/sampler/filter/anisotropic/mip.hpp>
-#include <sge/renderer/state/core/sampler/filter/anisotropic/object.hpp>
+#include <sge/renderer/state/core/sampler/filter/anisotropic/parameters.hpp>
 
 
-sge::renderer::state::core::sampler::filter::anisotropic::object::object(
+sge::renderer::state::core::sampler::filter::anisotropic::parameters::parameters(
 	sge::renderer::state::core::sampler::filter::anisotropic::mip::type const _mip,
 	sge::renderer::state::core::sampler::filter::anisotropic::level const _level
 )
@@ -38,21 +38,21 @@ sge::renderer::state::core::sampler::filter::anisotropic::object::object(
 }
 
 sge::renderer::state::core::sampler::filter::anisotropic::mip::type
-sge::renderer::state::core::sampler::filter::anisotropic::object::mip() const
+sge::renderer::state::core::sampler::filter::anisotropic::parameters::mip() const
 {
 	return mip_;
 }
 
 sge::renderer::state::core::sampler::filter::anisotropic::level const
-sge::renderer::state::core::sampler::filter::anisotropic::object::level() const
+sge::renderer::state::core::sampler::filter::anisotropic::parameters::level() const
 {
 	return level_;
 }
 
 bool
 sge::renderer::state::core::sampler::filter::anisotropic::operator==(
-	sge::renderer::state::core::sampler::filter::anisotropic::object const &_left,
-	sge::renderer::state::core::sampler::filter::anisotropic::object const &_right
+	sge::renderer::state::core::sampler::filter::anisotropic::parameters const &_left,
+	sge::renderer::state::core::sampler::filter::anisotropic::parameters const &_right
 )
 {
 	return

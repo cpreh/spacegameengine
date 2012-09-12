@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_RENDERER_STATE_CORE_SAMPLER_FILTER_NEED_MIPMAP_VISITOR_HPP_INCLUDED
 #define SGE_SRC_RENDERER_STATE_CORE_SAMPLER_FILTER_NEED_MIPMAP_VISITOR_HPP_INCLUDED
 
-#include <sge/renderer/state/core/sampler/filter/anisotropic/object_fwd.hpp>
-#include <sge/renderer/state/core/sampler/filter/normal/object_fwd.hpp>
+#include <sge/renderer/state/core/sampler/filter/anisotropic/parameters_fwd.hpp>
+#include <sge/renderer/state/core/sampler/filter/normal/parameters_fwd.hpp>
 #include <fcppt/nonassignable.hpp>
 
 
@@ -49,12 +49,12 @@ public:
 
 	result_type
 	operator()(
-		sge::renderer::state::core::sampler::filter::anisotropic::object const &
+		sge::renderer::state::core::sampler::filter::anisotropic::parameters const &
 	) const;
 
 	result_type
 	operator()(
-		sge::renderer::state::core::sampler::filter::normal::object const &
+		sge::renderer::state::core::sampler::filter::normal::parameters const &
 	) const;
 };
 

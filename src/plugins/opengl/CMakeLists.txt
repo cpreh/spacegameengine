@@ -192,11 +192,6 @@ set(
 	src/plugins/opengl/include/sge/opengl/state/actor.hpp
 	src/plugins/opengl/include/sge/opengl/state/actor_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/state/actor_vector.hpp
-	src/plugins/opengl/include/sge/opengl/state/alpha_func.hpp
-	src/plugins/opengl/include/sge/opengl/state/apply.hpp
-	src/plugins/opengl/include/sge/opengl/state/bool.hpp
-	src/plugins/opengl/include/sge/opengl/state/check_function.hpp
-	src/plugins/opengl/include/sge/opengl/state/color.hpp
 	src/plugins/opengl/include/sge/opengl/state/convert/alpha_func.hpp
 	src/plugins/opengl/include/sge/opengl/state/convert/bool.hpp
 	src/plugins/opengl/include/sge/opengl/state/convert/clip_plane_index.hpp
@@ -215,6 +210,8 @@ set(
 	src/plugins/opengl/include/sge/opengl/state/core/blend/create.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/blend/make_actors.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/blend/object.hpp
+	src/plugins/opengl/include/sge/opengl/state/core/depth_stencil/depth/visitor.hpp
+	src/plugins/opengl/include/sge/opengl/state/core/depth_stencil/object.hpp
 	src/plugins/opengl/include/sge/opengl/state/cull_mode.hpp
 	src/plugins/opengl/include/sge/opengl/state/deferred/alpha_test.hpp
 	src/plugins/opengl/include/sge/opengl/state/deferred/apply.hpp
@@ -225,9 +222,10 @@ set(
 	src/plugins/opengl/include/sge/opengl/state/deferred/object_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/state/deferred/stencil_func.hpp
 	src/plugins/opengl/include/sge/opengl/state/deferred/stencil_op.hpp
-	src/plugins/opengl/include/sge/opengl/state/depth_func.hpp
 	src/plugins/opengl/include/sge/opengl/state/dest_blend_func.hpp
 	src/plugins/opengl/include/sge/opengl/state/draw_mode.hpp
+	src/plugins/opengl/include/sge/opengl/state/ffp/alpha_test/create.hpp
+	src/plugins/opengl/include/sge/opengl/state/ffp/alpha_test/make_actors.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/clip_plane/make_actors.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/lighting/light/attenuation.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/lighting/light/color.hpp
@@ -261,7 +259,6 @@ set(
 	src/plugins/opengl/include/sge/opengl/state/index_object_impl.hpp
 	src/plugins/opengl/include/sge/opengl/state/initial.hpp
 	src/plugins/opengl/include/sge/opengl/state/int.hpp
-	src/plugins/opengl/include/sge/opengl/state/make_actor.hpp
 	src/plugins/opengl/include/sge/opengl/state/object.hpp
 	src/plugins/opengl/include/sge/opengl/state/object_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/state/object_impl.hpp
@@ -273,6 +270,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/state/stencil_op.hpp
 	src/plugins/opengl/include/sge/opengl/state/uint.hpp
 	src/plugins/opengl/include/sge/opengl/state/visitor.hpp
+	src/plugins/opengl/include/sge/opengl/state/wrap_error_handler.hpp
 	src/plugins/opengl/include/sge/opengl/system.hpp
 	src/plugins/opengl/include/sge/opengl/target_base.hpp
 	src/plugins/opengl/include/sge/opengl/target_base_fwd.hpp
@@ -598,11 +596,6 @@ set(
 	src/plugins/opengl/src/set_vertex_buffer.cpp
 	src/plugins/opengl/src/set_vertex_declaration.cpp
 	src/plugins/opengl/src/srgb_context.cpp
-	src/plugins/opengl/src/state/alpha_func.cpp
-	src/plugins/opengl/src/state/apply.cpp
-	src/plugins/opengl/src/state/bool.cpp
-	src/plugins/opengl/src/state/check_function.cpp
-	src/plugins/opengl/src/state/color.cpp
 	src/plugins/opengl/src/state/convert/alpha_func.cpp
 	src/plugins/opengl/src/state/convert/bool.cpp
 	src/plugins/opengl/src/state/convert/clip_plane_index.cpp
@@ -620,6 +613,7 @@ set(
 	src/plugins/opengl/src/state/core/blend/alpha_visitor.cpp
 	src/plugins/opengl/src/state/core/blend/create.cpp
 	src/plugins/opengl/src/state/core/blend/make_actors.hpp
+	src/plugins/opengl/src/state/core/depth_stencil/depth/visitor.cpp
 	src/plugins/opengl/src/state/cull_mode.cpp
 	src/plugins/opengl/src/state/deferred/alpha_test.cpp
 	src/plugins/opengl/src/state/deferred/apply.cpp
@@ -628,10 +622,12 @@ set(
 	src/plugins/opengl/src/state/deferred/object.cpp
 	src/plugins/opengl/src/state/deferred/stencil_func.cpp
 	src/plugins/opengl/src/state/deferred/stencil_op.cpp
-	src/plugins/opengl/src/state/depth_func.cpp
 	src/plugins/opengl/src/state/dest_blend_func.cpp
 	src/plugins/opengl/src/state/draw_mode.cpp
+	src/plugins/opengl/src/state/ffp/alpha_test/create.cpp
+	src/plugins/opengl/src/state/ffp/alpha_test/make_actors.cpp
 	src/plugins/opengl/src/state/ffp/clip_plane/make_actors.cpp
+	src/plugins/opengl/src/state/ffp/fog/make_actors.cpp
 	src/plugins/opengl/src/state/ffp/lighting/light/attenuation.cpp
 	src/plugins/opengl/src/state/ffp/lighting/light/color.cpp
 	src/plugins/opengl/src/state/ffp/lighting/light/create.cpp
@@ -649,6 +645,7 @@ set(
 	src/plugins/opengl/src/state/ffp/lighting/light/spot.cpp
 	src/plugins/opengl/src/state/ffp/lighting/light/visitor.cpp
 	src/plugins/opengl/src/state/ffp/lighting/make_actors.cpp
+	src/plugins/opengl/src/state/ffp/misc/make_actors.cpp
 	src/plugins/opengl/src/state/ffp/transform/matrix_mode.cpp
 	src/plugins/opengl/src/state/ffp/transform/set_matrix.cpp
 	src/plugins/opengl/src/state/ffp/transform/set_matrix_and_mode.cpp

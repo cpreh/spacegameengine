@@ -18,47 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/check_state.hpp>
-#include <sge/opengl/common.hpp>
-#include <sge/opengl/disable.hpp>
-#include <sge/opengl/enable.hpp>
-#include <sge/opengl/state/depth_func.hpp>
-#include <sge/opengl/state/parameters.hpp>
-#include <sge/opengl/state/convert/depth_func.hpp>
-#include <sge/renderer/exception.hpp>
-#include <sge/renderer/state/depth_func.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_OBJECT_HPP_INCLUDED
+#define SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_OBJECT_HPP_INCLUDED
+
+#include <sge/opengl/state/object.hpp>
+#include <sge/renderer/state/core/depth_stencil/object.hpp>
 
 
-void
-sge::opengl::state::depth_func(
-	state::parameters const &,
-	renderer::state::depth_func::type const _func
-)
+namespace sge
 {
-	if(
-		_func == renderer::state::depth_func::off
-	)
-	{
-		opengl::disable(
-			GL_DEPTH_TEST
-		);
+namespace opengl
+{
+namespace state
+{
+namespace core
+{
+namespace depth_stencil
+{
 
-		return;
-	}
+typedef sge::opengl::state::object<
+	sge::renderer::state::core::depth_stencil::object
+> object;
 
-	opengl::enable(
-		GL_DEPTH_TEST
-	);
-
-	::glDepthFunc(
-		state::convert::depth_func(
-			_func
-		)
-	);
-
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("glDepthFunc failed"),
-		sge::renderer::exception
-	)
 }
+}
+}
+}
+}
+
+#endif

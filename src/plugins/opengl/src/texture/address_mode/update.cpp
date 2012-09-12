@@ -28,20 +28,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/address_mode/context.hpp>
 #include <sge/opengl/texture/address_mode/set.hpp>
 #include <sge/opengl/texture/address_mode/update.hpp>
-#include <sge/renderer/texture/address_mode_s.hpp>
-#include <sge/renderer/texture/address_mode_t.hpp>
-#include <sge/renderer/texture/address_mode_u.hpp>
+#include <sge/renderer/state/core/sampler/address/parameters_fwd.hpp>
 #include <sge/renderer/texture/stage.hpp>
 
 
-template<
-	typename Mode
->
 void
 sge::opengl::texture::address_mode::update(
 	sge::opengl::context::system::object &_system_context,
 	sge::opengl::context::device::object &_device_context,
-	Mode const _mode,
+	sge::renderer::state::core::sampler::address::parameters const &_parameters,
 	sge::renderer::texture::stage const _stage
 )
 {
@@ -52,7 +47,7 @@ sge::opengl::texture::address_mode::update(
 			_device_context
 		).set(
 			_stage,
-			_mode
+			_parameters
 		)
 	)
 		return;
@@ -84,29 +79,3 @@ sge::opengl::texture::address_mode::update(
 		*bound_type
 	);
 }
-
-#define SGE_OPENGL_TEXTURE_ADDRESS_MODE_INSTANTIATE_UPDATE(\
-	mode_type\
-)\
-template \
-void \
-sge::opengl::texture::address_mode::update<\
-	mode_type \
->( \
-	sge::opengl::context::system::object &, \
-	sge::opengl::context::device::object &, \
-	mode_type, \
-	sge::renderer::texture::stage \
-)
-
-SGE_OPENGL_TEXTURE_ADDRESS_MODE_INSTANTIATE_UPDATE(
-	sge::renderer::texture::address_mode_s
-);
-
-SGE_OPENGL_TEXTURE_ADDRESS_MODE_INSTANTIATE_UPDATE(
-	sge::renderer::texture::address_mode_t
-);
-
-SGE_OPENGL_TEXTURE_ADDRESS_MODE_INSTANTIATE_UPDATE(
-	sge::renderer::texture::address_mode_u
-);

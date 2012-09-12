@@ -18,29 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_STATE_CORE_SAMPLER_FILTER_ANISOTROPIC_OBJECT_FWD_HPP_INCLUDED
-#define SGE_RENDERER_STATE_CORE_SAMPLER_FILTER_ANISOTROPIC_OBJECT_FWD_HPP_INCLUDED
+#ifndef SGE_OPENGL_STATE_FFP_ALPHA_TEST_MAKE_ACTORS_HPP_INCLUDED
+#define SGE_OPENGL_STATE_FFP_ALPHA_TEST_MAKE_ACTORS_HPP_INCLUDED
+
+#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/state/actor_vector.hpp>
+#include <sge/renderer/state/ffp/alpha_test/parameters_fwd.hpp>
 
 
 namespace sge
 {
-namespace renderer
+namespace opengl
 {
 namespace state
 {
-namespace core
+namespace ffp
 {
-namespace sampler
-{
-namespace filter
-{
-namespace anisotropic
+namespace alpha_test
 {
 
-class object;
+sge::opengl::state::actor_vector const
+make_actors(
+	sge::renderer::state::ffp::alpha_test::parameters const &
+);
 
-}
-}
 }
 }
 }

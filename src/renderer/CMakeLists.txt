@@ -349,15 +349,15 @@ set(
 	include/sge/renderer/state/core/sampler/address/mode_s.hpp
 	include/sge/renderer/state/core/sampler/address/mode_t.hpp
 	include/sge/renderer/state/core/sampler/address/mode_u.hpp
-	include/sge/renderer/state/core/sampler/address/object.hpp
-	include/sge/renderer/state/core/sampler/address/object_fwd.hpp
+	include/sge/renderer/state/core/sampler/address/parameters.hpp
+	include/sge/renderer/state/core/sampler/address/parameters_fwd.hpp
 	include/sge/renderer/state/core/sampler/const_object_ref.hpp
 	include/sge/renderer/state/core/sampler/const_object_ref_vector.hpp
 	include/sge/renderer/state/core/sampler/filter/anisotropic/level.hpp
 	include/sge/renderer/state/core/sampler/filter/anisotropic/level_value.hpp
 	include/sge/renderer/state/core/sampler/filter/anisotropic/mip.hpp
-	include/sge/renderer/state/core/sampler/filter/anisotropic/object.hpp
-	include/sge/renderer/state/core/sampler/filter/anisotropic/object_fwd.hpp
+	include/sge/renderer/state/core/sampler/filter/anisotropic/parameters.hpp
+	include/sge/renderer/state/core/sampler/filter/anisotropic/parameters_fwd.hpp
 	include/sge/renderer/state/core/sampler/filter/default.hpp
 	include/sge/renderer/state/core/sampler/filter/linear.hpp
 	include/sge/renderer/state/core/sampler/filter/mipmap.hpp
@@ -365,10 +365,10 @@ set(
 	include/sge/renderer/state/core/sampler/filter/normal/mag.hpp
 	include/sge/renderer/state/core/sampler/filter/normal/min.hpp
 	include/sge/renderer/state/core/sampler/filter/normal/mip.hpp
-	include/sge/renderer/state/core/sampler/filter/normal/object.hpp
-	include/sge/renderer/state/core/sampler/filter/normal/object_fwd.hpp
-	include/sge/renderer/state/core/sampler/filter/object.hpp
-	include/sge/renderer/state/core/sampler/filter/object_fwd.hpp
+	include/sge/renderer/state/core/sampler/filter/normal/parameters.hpp
+	include/sge/renderer/state/core/sampler/filter/normal/parameters_fwd.hpp
+	include/sge/renderer/state/core/sampler/filter/parameters.hpp
+	include/sge/renderer/state/core/sampler/filter/parameters_fwd.hpp
 	include/sge/renderer/state/core/sampler/filter/point.hpp
 	include/sge/renderer/state/core/sampler/filter/trilinear.hpp
 	include/sge/renderer/state/core/sampler/filter/variant.hpp
@@ -850,14 +850,14 @@ set(
 	src/renderer/state/core/blend/write_mask_all.cpp
 	src/renderer/state/core/depth_stencil/scoped.cpp
 	src/renderer/state/core/sampler/address/mode_default.cpp
-	src/renderer/state/core/sampler/filter/anisotropic/object.cpp
+	src/renderer/state/core/sampler/filter/anisotropic/parameters.cpp
 	src/renderer/state/core/sampler/filter/default.cpp
 	src/renderer/state/core/sampler/filter/linear.cpp
 	src/renderer/state/core/sampler/filter/mipmap.cpp
 	src/renderer/state/core/sampler/filter/need_mipmap.cpp
 	src/renderer/state/core/sampler/filter/need_mipmap_visitor.cpp
-	src/renderer/state/core/sampler/filter/normal/object.cpp
-	src/renderer/state/core/sampler/filter/object.cpp
+	src/renderer/state/core/sampler/filter/normal/parameters.cpp
+	src/renderer/state/core/sampler/filter/parameters.cpp
 	src/renderer/state/core/sampler/filter/point.cpp
 	src/renderer/state/core/sampler/filter/trilinear.cpp
 	src/renderer/state/ffp/lighting/material/default.cpp

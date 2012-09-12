@@ -19,20 +19,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/light/float_ptr.hpp>
-#include <sge/opengl/light/position_impl.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
+#include <sge/opengl/vector4f.hpp>
+#include <sge/opengl/state/index_actor.hpp>
+#include <sge/opengl/state/ffp/lighting/light/float_ptr.hpp>
+#include <sge/opengl/state/ffp/lighting/light/position_impl.hpp>
 
 
-void
-sge::opengl::light::position_impl(
-	light::index const _index,
-	opengl::vector4f const &_pos4
+sge::opengl::state::index_actor const
+sge::opengl::state::ffp::lighting::light::position_impl(
+	sge::opengl::vector4f const &_pos4
 )
 {
-	light::float_ptr(
-		_index,
-		GL_POSITION,
-		_pos4.data()
-	);
+	return
+		sge::opengl::state::ffp::lighting::light::float_ptr(
+			GL_POSITION,
+			_pos4
+		);
 }

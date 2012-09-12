@@ -18,27 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_DEPTH_FUNC_HPP_INCLUDED
-#define SGE_OPENGL_STATE_DEPTH_FUNC_HPP_INCLUDED
+#include <sge/renderer/state/core/sampler/filter/parameters.hpp>
+#include <sge/renderer/state/core/sampler/filter/variant.hpp>
+#include <fcppt/variant/equal.hpp>
 
-#include <sge/opengl/state/parameters_fwd.hpp>
-#include <sge/renderer/state/depth_func.hpp>
 
-namespace sge
+sge::renderer::state::core::sampler::filter::parameters::parameters(
+	sge::renderer::state::core::sampler::filter::variant const &_variant
+)
+:
+	variant_(
+		_variant
+	)
 {
-namespace opengl
-{
-namespace state
-{
-
-void
-depth_func(
-	state::parameters const &,
-	renderer::state::depth_func::type
-);
-
-}
-}
 }
 
-#endif
+sge::renderer::state::core::sampler::filter::variant const &
+sge::renderer::state::core::sampler::filter::parameters::variant() const
+{
+	return variant_;
+}
+
+bool
+sge::renderer::state::core::sampler::filter::operator==(
+	sge::renderer::state::core::sampler::filter::parameters const &_left,
+	sge::renderer::state::core::sampler::filter::parameters const &_right
+)
+{
+	return
+		_left.variant()
+		==
+		_right.variant();
+}

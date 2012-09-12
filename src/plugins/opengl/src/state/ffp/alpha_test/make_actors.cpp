@@ -18,33 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_STATE_CORE_SAMPLER_FILTER_NORMAL_OBJECT_FWD_HPP_INCLUDED
-#define SGE_RENDERER_STATE_CORE_SAMPLER_FILTER_NORMAL_OBJECT_FWD_HPP_INCLUDED
+#include <sge/opengl/state/actor_vector.hpp>
+#include <sge/opengl/state/ffp/alpha_test/make_actors.hpp>
+#include <sge/opengl/state/ffp/alpha_test/visitor.hpp>
+#include <sge/renderer/state/ffp/alpha_test/parameters.hpp>
+#include <fcppt/variant/apply_unary.hpp>
 
 
-namespace sge
+sge::opengl::state::actor_vector const
+sge::opengl::state::ffp::alpha_test::make_actors(
+	sge::renderer::state::ffp::alpha_test::parameters const &_parameters
+)
 {
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace sampler
-{
-namespace filter
-{
-namespace normal
-{
-
-class object;
-
+	return
+		fcppt::variant::apply_unary(
+			sge::opengl::state::ffp::alpha_test::visitor(),
+			_parameters.variant()
+		);
 }
-}
-}
-}
-}
-}
-}
-
-#endif

@@ -18,14 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_STATE_CORE_SAMPLER_FILTER_NORMAL_OBJECT_HPP_INCLUDED
-#define SGE_RENDERER_STATE_CORE_SAMPLER_FILTER_NORMAL_OBJECT_HPP_INCLUDED
+#ifndef SGE_RENDERER_STATE_CORE_SAMPLER_FILTER_NORMAL_PARAMETERS_HPP_INCLUDED
+#define SGE_RENDERER_STATE_CORE_SAMPLER_FILTER_NORMAL_PARAMETERS_HPP_INCLUDED
 
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/state/core/sampler/filter/normal/mag.hpp>
 #include <sge/renderer/state/core/sampler/filter/normal/min.hpp>
 #include <sge/renderer/state/core/sampler/filter/normal/mip.hpp>
-#include <sge/renderer/state/core/sampler/filter/normal/object_fwd.hpp>
+#include <sge/renderer/state/core/sampler/filter/normal/parameters_fwd.hpp>
 
 
 namespace sge
@@ -43,11 +43,11 @@ namespace filter
 namespace normal
 {
 
-class object
+class parameters
 {
 public:
 	SGE_RENDERER_SYMBOL
-	object(
+	parameters(
 		sge::renderer::state::core::sampler::filter::normal::mag::type,
 		sge::renderer::state::core::sampler::filter::normal::min::type,
 		sge::renderer::state::core::sampler::filter::normal::mip::type
@@ -75,8 +75,8 @@ private:
 SGE_RENDERER_SYMBOL
 bool
 operator==(
-	sge::renderer::state::core::sampler::filter::normal::object const &,
-	sge::renderer::state::core::sampler::filter::normal::object const &
+	sge::renderer::state::core::sampler::filter::normal::parameters const &,
+	sge::renderer::state::core::sampler::filter::normal::parameters const &
 );
 
 }

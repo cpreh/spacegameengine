@@ -18,27 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_APPLY_HPP_INCLUDED
-#define SGE_OPENGL_STATE_APPLY_HPP_INCLUDED
-
-#include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/renderer/state/list_fwd.hpp>
+#ifndef SGE_RENDERER_STATE_CORE_SAMPLER_FILTER_PARAMETERS_FWD_HPP_INCLUDED
+#define SGE_RENDERER_STATE_CORE_SAMPLER_FILTER_PARAMETERS_FWD_HPP_INCLUDED
 
 
 namespace sge
 {
-namespace opengl
+namespace renderer
 {
 namespace state
 {
+namespace core
+{
+namespace sampler
+{
+namespace filter
+{
 
-void
-apply(
-	sge::opengl::context::system::object &,
-	sge::renderer::state::list &current_states,
-	sge::renderer::state::list const &new_states
-);
+class parameters;
 
+}
+}
+}
 }
 }
 }

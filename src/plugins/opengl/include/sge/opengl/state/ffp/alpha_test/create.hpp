@@ -18,24 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/check_state.hpp>
-#include <sge/opengl/state/actor.hpp>
-#include <sge/opengl/state/check_function.hpp>
-#include <sge/renderer/exception.hpp>
-#include <fcppt/string.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_OPENGL_STATE_FFP_ALPHA_TEST_CREATE_HPP_INCLUDED
+#define SGE_OPENGL_STATE_FFP_ALPHA_TEST_CREATE_HPP_INCLUDED
+
+#include <sge/renderer/state/ffp/alpha_test/object_unique_ptr.hpp>
+#include <sge/renderer/state/ffp/alpha_test/parameters_fwd.hpp>
 
 
-sge::opengl::state::actor const
-sge::opengl::state::check_function(
-	sge::opengl::state::actor const &_actor,
-	fcppt::string const &_name
-)
+namespace sge
 {
-	_actor();
+namespace opengl
+{
+namespace state
+{
+namespace ffp
+{
+namespace alpha_test
+{
 
-	SGE_OPENGL_CHECK_STATE(
-		_name + FCPPT_TEXT(" failed!")
-		sge::renderer::exception
-	)
+sge::renderer::state::ffp::alpha_test::object_unique_ptr
+create(
+	sge::renderer::state::ffp::alpha_test::parameters const &
+);
+
 }
+}
+}
+}
+}
+
+#endif

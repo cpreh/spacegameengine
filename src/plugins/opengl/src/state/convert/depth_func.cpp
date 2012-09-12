@@ -20,37 +20,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/state/convert/depth_func.hpp>
-#include <sge/renderer/state/depth_func.hpp>
+#include <sge/renderer/state/core/depth_stencil/depth/func.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 
 GLenum
 sge::opengl::state::convert::depth_func(
-	renderer::state::depth_func::type const _func
+	sge::renderer::state::core::depth_stencil::depth::func::type const _func
 )
 {
 	switch(
 		_func
 	)
 	{
-	case renderer::state::depth_func::never:
+	case sge::renderer::state::core::depth_stencil::depth::func::never:
 		return GL_NEVER;
-	case renderer::state::depth_func::less:
+	case sge::renderer::state::core::depth_stencil::depth::func::less:
 		return GL_LESS;
-	case renderer::state::depth_func::equal:
+	case sge::renderer::state::core::depth_stencil::depth::func::equal:
 		return GL_EQUAL;
-	case renderer::state::depth_func::less_equal:
+	case sge::renderer::state::core::depth_stencil::depth::func::less_equal:
 		return GL_LEQUAL;
-	case renderer::state::depth_func::greater:
+	case sge::renderer::state::core::depth_stencil::depth::func::greater:
 		return GL_GREATER;
-	case renderer::state::depth_func::not_equal:
+	case sge::renderer::state::core::depth_stencil::depth::func::not_equal:
 		return GL_NOTEQUAL;
-	case renderer::state::depth_func::greater_equal:
+	case sge::renderer::state::core::depth_stencil::depth::func::greater_equal:
 		return GL_GEQUAL;
-	case renderer::state::depth_func::always:
+	case sge::renderer::state::core::depth_stencil::depth::func::always:
 		return GL_ALWAYS;
-	case renderer::state::depth_func::off:
-		break;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

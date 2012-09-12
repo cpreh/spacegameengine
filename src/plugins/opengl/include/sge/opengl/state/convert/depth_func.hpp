@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_STATE_CONVERT_DEPTH_FUNC_HPP_INCLUDED
 
 #include <sge/opengl/common.hpp>
-#include <sge/renderer/state/depth_func.hpp>
+#include <sge/renderer/state/core/depth_stencil/depth/func.hpp>
+
 
 namespace sge
 {
@@ -35,7 +36,7 @@ namespace convert
 
 GLenum
 depth_func(
-	renderer::state::depth_func::type
+	sge::renderer::state::core::depth_stencil::depth::func::type
 );
 
 }

@@ -18,35 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/state/core/sampler/filter/object.hpp>
-#include <sge/renderer/state/core/sampler/filter/variant.hpp>
-#include <fcppt/variant/equal.hpp>
+#ifndef SGE_RENDERER_STATE_CORE_SAMPLER_FILTER_NORMAL_PARAMETERS_FWD_HPP_INCLUDED
+#define SGE_RENDERER_STATE_CORE_SAMPLER_FILTER_NORMAL_PARAMETERS_FWD_HPP_INCLUDED
 
 
-sge::renderer::state::core::sampler::filter::object::object(
-	sge::renderer::state::core::sampler::filter::variant const &_variant
-)
-:
-	variant_(
-		_variant
-	)
+namespace sge
 {
+namespace renderer
+{
+namespace state
+{
+namespace core
+{
+namespace sampler
+{
+namespace filter
+{
+namespace normal
+{
+
+class parameters;
+
+}
+}
+}
+}
+}
+}
 }
 
-sge::renderer::state::core::sampler::filter::variant const &
-sge::renderer::state::core::sampler::filter::object::variant() const
-{
-	return variant_;
-}
-
-bool
-sge::renderer::state::core::sampler::filter::operator==(
-	sge::renderer::state::core::sampler::filter::object const &_left,
-	sge::renderer::state::core::sampler::filter::object const &_right
-)
-{
-	return
-		_left.variant()
-		==
-		_right.variant();
-}
+#endif

@@ -19,30 +19,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/state/core/sampler/filter/anisotropic/mip.hpp>
-#include <sge/renderer/state/core/sampler/filter/anisotropic/object.hpp>
+#include <sge/renderer/state/core/sampler/filter/anisotropic/parameters.hpp>
 #include <sge/renderer/state/core/sampler/filter/normal/mip.hpp>
-#include <sge/renderer/state/core/sampler/filter/normal/object.hpp>
+#include <sge/renderer/state/core/sampler/filter/normal/parameters.hpp>
 #include <sge/src/renderer/state/core/sampler/filter/need_mipmap_visitor.hpp>
 
 
 sge::renderer::state::core::sampler::filter::need_mipmap_visitor::result_type
 sge::renderer::state::core::sampler::filter::need_mipmap_visitor::operator()(
-	sge::renderer::state::core::sampler::filter::anisotropic::object const &_object
+	sge::renderer::state::core::sampler::filter::anisotropic::parameters const &_parameters
 ) const
 {
 	return
-		_object.mip()
+		_parameters.mip()
 		!=
 		sge::renderer::state::core::sampler::filter::anisotropic::mip::off;
 }
 
 sge::renderer::state::core::sampler::filter::need_mipmap_visitor::result_type
 sge::renderer::state::core::sampler::filter::need_mipmap_visitor::operator()(
-	sge::renderer::state::core::sampler::filter::normal::object const &_object
+	sge::renderer::state::core::sampler::filter::normal::parameters const &_parameters
 ) const
 {
 	return
-		_object.mip()
+		_parameters.mip()
 		!=
 		sge::renderer::state::core::sampler::filter::normal::mip::off;
 }

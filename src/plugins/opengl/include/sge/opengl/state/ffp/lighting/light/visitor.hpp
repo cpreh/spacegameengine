@@ -21,50 +21,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_LIGHT_VISITOR_HPP_INCLUDED
 #define SGE_OPENGL_LIGHT_VISITOR_HPP_INCLUDED
 
-#include <sge/opengl/light/index.hpp>
-#include <sge/renderer/light/directional_fwd.hpp>
-#include <sge/renderer/light/point_fwd.hpp>
-#include <sge/renderer/light/spot_fwd.hpp>
-#include <fcppt/nonassignable.hpp>
+#include <sge/opengl/state/index_actor_vector.hpp>
+#include <sge/renderer/state/ffp/lighting/light/directional_fwd.hpp>
+#include <sge/renderer/state/ffp/lighting/light/light/point_fwd.hpp>
+#include <sge/renderer/state/ffp/lighting/light/light/spot_fwd.hpp>
 
 
 namespace sge
 {
 namespace opengl
 {
+namespace state
+{
+namespace ffp
+{
+namespace lighting
+{
 namespace light
 {
 
 class visitor
 {
-	FCPPT_NONASSIGNABLE(
-		visitor
-	);
-public:
-	explicit visitor(
-		light::index
-	);
-
-	typedef void result_type;
+	typedef sge::opengl::state::index_actor_vector result_type;
 
 	result_type
 	operator()(
-		sge::renderer::light::directional const &
+		sge::renderer::state::ffp::lighting::light::directional const &
 	) const;
 
 	result_type
 	operator()(
-		sge::renderer::light::point const &
+		sge::renderer::state::ffp::lighting::light::point const &
 	) const;
 
 	result_type
 	operator()(
-		sge::renderer::light::spot const &
+		sge::renderer::state::ffp::lighting::light::spot const &
 	) const;
-private:
-	light::index const index_;
 };
 
+}
+}
+}
 }
 }
 }

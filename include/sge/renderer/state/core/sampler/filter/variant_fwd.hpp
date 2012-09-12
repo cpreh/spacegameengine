@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_CORE_SAMPLER_FILTER_VARIANT_FWD_HPP_INCLUDED
 #define SGE_RENDERER_STATE_CORE_SAMPLER_FILTER_VARIANT_FWD_HPP_INCLUDED
 
-#include <sge/renderer/state/core/sampler/filter/anisotropic/object_fwd.hpp>
-#include <sge/renderer/state/core/sampler/filter/normal/object_fwd.hpp>
+#include <sge/renderer/state/core/sampler/filter/anisotropic/parameters_fwd.hpp>
+#include <sge/renderer/state/core/sampler/filter/normal/parameters_fwd.hpp>
 #include <fcppt/variant/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -44,8 +44,8 @@ namespace filter
 
 typedef fcppt::variant::object<
 	boost::mpl::vector2<
-		sge::renderer::state::core::sampler::filter::anisotropic::object,
-		sge::renderer::state::core::sampler::filter::normal::object
+		sge::renderer::state::core::sampler::filter::anisotropic::parameters,
+		sge::renderer::state::core::sampler::filter::normal::parameters
 	>
 > variant;
 
