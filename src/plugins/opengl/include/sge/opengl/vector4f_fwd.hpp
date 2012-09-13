@@ -34,7 +34,7 @@ namespace opengl
 typedef fcppt::math::vector::static_<
 	GLfloat,
 	4
->::type vector3f;
+>::type vector4f;
 
 }
 }

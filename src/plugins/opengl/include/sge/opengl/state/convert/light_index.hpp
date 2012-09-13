@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_STATE_CONVERT_LIGHT_INDEX_HPP_INCLUDED
 #define SGE_OPENGL_STATE_CONVERT_LIGHT_INDEX_HPP_INCLUDED
 
-#include <sge/opengl/state/ffp/lighting/light/index.hpp>
+#include <sge/opengl/common.hpp>
 #include <sge/renderer/state/index_count.hpp>
 
 
@@ -34,7 +34,7 @@ namespace state
 namespace convert
 {
 
-sge::opengl::state::ffp::lighting::light::index const
+GLenum
 light_index(
 	sge::renderer::state::index_count
 );

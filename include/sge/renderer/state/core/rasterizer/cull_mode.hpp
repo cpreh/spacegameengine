@@ -37,7 +37,6 @@ namespace cull_mode
 {
 enum type
 {
-	off,
 	clockwise,
 	counter_clockwise
 };

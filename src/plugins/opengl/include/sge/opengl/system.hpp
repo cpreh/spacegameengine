@@ -23,16 +23,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/context/system/object.hpp>
 #include <sge/renderer/adapter.hpp>
-#include <sge/renderer/device_unique_ptr.hpp>
 #include <sge/renderer/system.hpp>
 #include <sge/renderer/caps/device_count.hpp>
 #include <sge/renderer/caps/device_fwd.hpp>
 #include <sge/renderer/caps/system_field_fwd.hpp>
-#include <sge/renderer/parameters/object_fwd.hpp>
+#include <sge/renderer/device/core_unique_ptr.hpp>
+#include <sge/renderer/device/ffp_unique_ptr.hpp>
+#include <sge/renderer/device/parameters_fwd.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <awl/system/object_fwd.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
-#include <awl/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
 
@@ -54,11 +54,14 @@ public:
 
 	~system();
 private:
-	sge::renderer::device_unique_ptr
-	create_renderer(
-		sge::renderer::adapter,
-		sge::renderer::parameters::object const &,
-		awl::window::object &
+	sge::renderer::device::core_unique_ptr
+	create_core_renderer(
+		sge::renderer::device::parameters const &
+	);
+
+	sge::renderer::device::ffp_unique_ptr
+	create_ffp_renderer(
+		sge::renderer::device::parameters const &
 	);
 
 	awl::visual::object_unique_ptr

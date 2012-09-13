@@ -18,29 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_CONVERT_DRAW_MODE_HPP_INCLUDED
-#define SGE_OPENGL_STATE_CONVERT_DRAW_MODE_HPP_INCLUDED
-
 #include <sge/opengl/common.hpp>
-#include <sge/renderer/state/draw_mode.hpp>
+#include <sge/opengl/state/convert/fill_mode.hpp>
+#include <sge/renderer/state/core/rasterizer/fill_mode.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace convert
-{
 
 GLenum
-draw_mode(
-	renderer::state::draw_mode::type
-);
+sge::opengl::state::convert::fill_mode(
+	sge::renderer::state::core::rasterizer::fill_mode::type const _mode
+)
+{
+	switch(
+		_mode
+	)
+	{
+	case sge::renderer::state::core::rasterizer::fill_mode::line:
+		return GL_LINE;
+	case sge::renderer::state::core::rasterizer::fill_mode::solid:
+		return GL_FILL;
+	}
 
+	FCPPT_ASSERT_UNREACHABLE;
 }
-}
-}
-}
-
-#endif

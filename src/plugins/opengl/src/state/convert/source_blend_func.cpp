@@ -20,36 +20,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/state/convert/source_blend_func.hpp>
-#include <sge/renderer/state/source_blend_func.hpp>
+#include <sge/renderer/state/core/blend/source.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 
 GLenum
 sge::opengl::state::convert::source_blend_func(
-	renderer::state::source_blend_func::type const _func
+	sge::renderer::state::core::blend::source::type const _func
 )
 {
 	switch(
 		_func
 	)
 	{
-	case renderer::state::source_blend_func::zero:
+	case sge::renderer::state::core::blend::source::zero:
 		return GL_ZERO;
-	case renderer::state::source_blend_func::one:
+	case sge::renderer::state::core::blend::source::one:
 		return GL_ONE;
-	case renderer::state::source_blend_func::dest_color:
+	case sge::renderer::state::core::blend::source::dest_color:
 		return GL_DST_COLOR;
-	case renderer::state::source_blend_func::inv_dest_color:
+	case sge::renderer::state::core::blend::source::inv_dest_color:
 		return GL_ONE_MINUS_DST_COLOR;
-	case renderer::state::source_blend_func::src_alpha:
+	case sge::renderer::state::core::blend::source::src_alpha:
 		return GL_SRC_ALPHA;
-	case renderer::state::source_blend_func::inv_src_alpha:
+	case sge::renderer::state::core::blend::source::inv_src_alpha:
 		return GL_ONE_MINUS_SRC_ALPHA;
-	case renderer::state::source_blend_func::dest_alpha:
+	case sge::renderer::state::core::blend::source::dest_alpha:
 		return GL_DST_ALPHA;
-	case renderer::state::source_blend_func::inv_dest_alpha:
+	case sge::renderer::state::core::blend::source::inv_dest_alpha:
 		return GL_ONE_MINUS_DST_ALPHA;
-	case renderer::state::source_blend_func::src_alpha_sat:
+	case sge::renderer::state::core::blend::source::src_alpha_sat:
 		return GL_SRC_ALPHA_SATURATE;
 	}
 

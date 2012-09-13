@@ -19,9 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/opengl/context/state/core/blend/create.hpp>
-#include <sge/opengl/context/state/core/blend/make_actors.hpp>
-#include <sge/opengl/context/state/core/blend/object.hpp>
+#include <sge/opengl/state/core/blend/create.hpp>
+#include <sge/opengl/state/core/blend/make_actors.hpp>
+#include <sge/opengl/state/core/blend/object.hpp>
 #include <sge/renderer/state/core/blend/object_unique_ptr.hpp>
 #include <sge/renderer/state/core/blend/parameters_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>

@@ -20,25 +20,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/state/convert/cull_mode.hpp>
-#include <sge/renderer/state/cull_mode.hpp>
+#include <sge/renderer/state/core/rasterizer/cull_mode.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 
 GLenum
 sge::opengl::state::convert::cull_mode(
-	renderer::state::cull_mode::type const _mode
+	sge::renderer::state::core::rasterizer::cull_mode::type const _mode
 )
 {
 	switch(
 		_mode
 	)
 	{
-	case renderer::state::cull_mode::clockwise:
+	case sge::renderer::state::core::rasterizer::cull_mode::clockwise:
 		return GL_BACK;
-	case renderer::state::cull_mode::counter_clockwise:
+	case sge::renderer::state::core::rasterizer::cull_mode::counter_clockwise:
 		return GL_FRONT;
-	case renderer::state::cull_mode::off:
-		break;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

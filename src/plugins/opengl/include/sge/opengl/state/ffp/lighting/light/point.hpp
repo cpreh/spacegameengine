@@ -18,25 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_LIGHT_POINT_HPP_INCLUDED
-#define SGE_OPENGL_LIGHT_POINT_HPP_INCLUDED
+#ifndef SGE_OPENGL_STATE_FFP_LIGHTING_LIGHT_POINT_HPP_INCLUDED
+#define SGE_OPENGL_STATE_FFP_LIGHTING_LIGHT_POINT_HPP_INCLUDED
 
-#include <sge/opengl/light/index.hpp>
-#include <sge/renderer/light/point_fwd.hpp>
+#include <sge/opengl/state/index_actor_vector.hpp>
+#include <sge/renderer/state/ffp/lighting/light/point_fwd.hpp>
+
 
 namespace sge
 {
 namespace opengl
 {
+namespace state
+{
+namespace ffp
+{
+namespace lighting
+{
 namespace light
 {
 
-void
+sge::opengl::state::index_actor_vector const
 point(
-	light::index,
-	renderer::light::point const &
+	sge::renderer::state::ffp::lighting::light::point const &
 );
 
+}
+}
+}
 }
 }
 }

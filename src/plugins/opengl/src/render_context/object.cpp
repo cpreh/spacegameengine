@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_buffer_fwd.hpp>
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/clear/parameters_fwd.hpp>
-#include <sge/renderer/context/object.hpp>
+#include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/state/core/blend/const_optional_object_ref_fwd.hpp>
 #include <sge/renderer/state/core/depth_stencil/const_optional_object_ref_fwd.hpp>
 #include <sge/renderer/state/core/rasterizer/const_optional_object_ref_fwd.hpp>
@@ -79,6 +79,7 @@ sge::opengl::render_context::object::object(
 	sge::renderer::target::base &_target
 )
 :
+	sge::renderer::context::ffp(),
 	system_context_(
 		_system_context
 	),

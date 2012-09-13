@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_STATE_FFP_LIGHTING_LIGHT_DIRECTIONAL_HPP_INCLUDED
 
 #include <sge/renderer/symbol.hpp>
-#include <sge/renderer/state/ffp/light/direction.hpp>
-#include <sge/renderer/state/ffp/light/directional_fwd.hpp>
+#include <sge/renderer/state/ffp/lighting/light/direction.hpp>
+#include <sge/renderer/state/ffp/lighting/light/directional_fwd.hpp>
 
 
 namespace sge

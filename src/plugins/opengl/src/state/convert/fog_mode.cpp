@@ -20,27 +20,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/state/convert/fog_mode.hpp>
-#include <sge/renderer/state/fog_mode.hpp>
+#include <sge/renderer/state/ffp/fog/mode.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 
 GLint
 sge::opengl::state::convert::fog_mode(
-	renderer::state::fog_mode::type const _mode
+	sge::renderer::state::ffp::fog::mode::type const _mode
 )
 {
 	switch(
 		_mode
 	)
 	{
-	case renderer::state::fog_mode::linear:
+	case sge::renderer::state::ffp::fog::mode::linear:
 		return GL_LINEAR;
-	case renderer::state::fog_mode::exp:
+	case sge::renderer::state::ffp::fog::mode::exp:
 		return GL_EXP;
-	case renderer::state::fog_mode::exp2:
+	case sge::renderer::state::ffp::fog::mode::exp2:
 		return GL_EXP2;
-	case renderer::state::fog_mode::off:
-		break;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

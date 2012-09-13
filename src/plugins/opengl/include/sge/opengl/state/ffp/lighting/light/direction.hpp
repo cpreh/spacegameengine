@@ -18,26 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_LIGHT_DIRECTION_HPP_INCLUDED
-#define SGE_OPENGL_LIGHT_DIRECTION_HPP_INCLUDED
+#ifndef SGE_OPENGL_STATE_FFP_LIGHTING_LIGHT_DIRECTION_HPP_INCLUDED
+#define SGE_OPENGL_STATE_FFP_LIGHTING_LIGHT_DIRECTION_HPP_INCLUDED
 
-#include <sge/opengl/light/index.hpp>
-#include <sge/renderer/light/direction_fwd.hpp>
+#include <sge/renderer/state/ffp/lighting/light/direction_fwd.hpp>
 
 
 namespace sge
 {
 namespace opengl
 {
+namespace state
+{
+namespace ffp
+{
+namespace lighting
+{
 namespace light
 {
 
-void
+sge::opengl::state::index_actor const
 direction(
-	sge::opengl::light::index,
-	sge::renderer::light::direction const &
+	sge::renderer::state::ffp::lighting::light::direction const &
 );
 
+}
+}
+}
 }
 }
 }

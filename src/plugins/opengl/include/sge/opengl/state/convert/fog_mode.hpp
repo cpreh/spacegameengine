@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_STATE_CONVERT_FOG_MODE_HPP_INCLUDED
 
 #include <sge/opengl/common.hpp>
-#include <sge/renderer/state/fog_mode.hpp>
+#include <sge/renderer/state/ffp/fog/mode.hpp>
+
 
 namespace sge
 {
@@ -35,7 +36,7 @@ namespace convert
 
 GLint
 fog_mode(
-	renderer::state::fog_mode::type
+	sge::renderer::state::ffp::fog::mode::type
 );
 
 }

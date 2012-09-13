@@ -18,18 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_LIGHT_FLOAT_PTR_HPP_INCLUDED
-#define SGE_OPENGL_LIGHT_FLOAT_PTR_HPP_INCLUDED
+#ifndef SGE_OPENGL_STATE_FFP_LIGHTING_LIGHT_FLOAT_PTR_HPP_INCLUDED
+#define SGE_OPENGL_STATE_FFP_LIGHTING_LIGHT_FLOAT_PTR_HPP_INCLUDED
 
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/state/index_actor.hpp>
 #include <sge/opengl/state/wrap_error_handler.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/phoenix/bind/bind_function.hpp>
+#include <boost/phoenix/bind.hpp>
+#include <boost/phoenix/core/argument.hpp>
 #include <boost/phoenix/core/value.hpp>
-#include <boost/phoenix/operator/self.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -57,12 +56,17 @@ float_ptr(
 {
 	return
 		sge::opengl::state::wrap_error_handler(
-			std::tr1::bind(
+			boost::phoenix::bind(
 				::glLightfv,
-				std::tr1::placeholders::_1,
+				boost::phoenix::arg_names::arg1,
 				_name,
 				boost::phoenix::bind(
-					&Vector::data,
+					static_cast<
+						typename Vector::const_pointer
+						(Vector::*)() const
+					>(
+						&Vector::data
+					),
 					boost::phoenix::val(
 						_vector
 					)

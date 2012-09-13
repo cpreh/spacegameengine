@@ -20,37 +20,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/state/convert/stencil_func.hpp>
-#include <sge/renderer/state/stencil_func.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/func.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 
 GLenum
 sge::opengl::state::convert::stencil_func(
-	renderer::state::stencil_func::type const _func
+	sge::renderer::state::core::depth_stencil::stencil::func::type const _func
 )
 {
 	switch(
 		_func
 	)
 	{
-	case renderer::state::stencil_func::never:
+	case sge::renderer::state::core::depth_stencil::stencil::func::never:
 		return GL_NEVER;
-	case renderer::state::stencil_func::less:
+	case sge::renderer::state::core::depth_stencil::stencil::func::less:
 		return GL_LESS;
-	case renderer::state::stencil_func::equal:
+	case sge::renderer::state::core::depth_stencil::stencil::func::equal:
 		return GL_EQUAL;
-	case renderer::state::stencil_func::less_equal:
+	case sge::renderer::state::core::depth_stencil::stencil::func::less_equal:
 		return GL_LEQUAL;
-	case renderer::state::stencil_func::greater:
+	case sge::renderer::state::core::depth_stencil::stencil::func::greater:
 		return GL_GREATER;
-	case renderer::state::stencil_func::not_equal:
+	case sge::renderer::state::core::depth_stencil::stencil::func::not_equal:
 		return GL_NOTEQUAL;
-	case renderer::state::stencil_func::greater_equal:
+	case sge::renderer::state::core::depth_stencil::stencil::func::greater_equal:
 		return GL_GEQUAL;
-	case renderer::state::stencil_func::always:
+	case sge::renderer::state::core::depth_stencil::stencil::func::always:
 		return GL_ALWAYS;
-	case renderer::state::stencil_func::off:
-		break;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

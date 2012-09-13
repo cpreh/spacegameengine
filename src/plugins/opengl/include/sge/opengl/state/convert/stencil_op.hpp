@@ -18,24 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_LIGHT_INDEX_HPP_INCLUDED
-#define SGE_OPENGL_LIGHT_INDEX_HPP_INCLUDED
+#ifndef SGE_OPENGL_STATE_CONVERT_STENCIL_OP_HPP_INCLUDED
+#define SGE_OPENGL_STATE_CONVERT_STENCIL_OP_HPP_INCLUDED
 
 #include <sge/opengl/common.hpp>
-#include <fcppt/strong_typedef.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/op.hpp>
+
 
 namespace sge
 {
 namespace opengl
 {
-namespace light
+namespace state
+{
+namespace convert
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
-	GLenum,
-	index
+GLenum
+stencil_op(
+	sge::renderer::state::core::depth_stencil::stencil::op::type
 );
 
+}
 }
 }
 }

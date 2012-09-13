@@ -21,13 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_FFP_LIGHTING_LIGHT_PARAMETERS_HPP_INCLUDED
 #define SGE_RENDERER_STATE_FFP_LIGHTING_LIGHT_PARAMETERS_HPP_INCLUDED
 
-#include <sge/image/color/any/object.hpp>
-#include <sge/renderer/ambient_color.hpp>
-#include <sge/renderer/diffuse_color.hpp>
-#include <sge/renderer/specular_color.hpp>
 #include <sge/renderer/symbol.hpp>
-#include <sge/renderer/state/ffp/light/object_fwd.hpp>
-#include <sge/renderer/state/ffp/light/variant.hpp>
+#include <sge/renderer/state/ffp/lighting/ambient_color.hpp>
+#include <sge/renderer/state/ffp/lighting/diffuse_color.hpp>
+#include <sge/renderer/state/ffp/lighting/specular_color.hpp>
+#include <sge/renderer/state/ffp/lighting/light/object_fwd.hpp>
+#include <sge/renderer/state/ffp/lighting/light/variant.hpp>
 
 
 namespace sge
@@ -43,11 +42,11 @@ namespace lighting
 namespace light
 {
 
-class object
+class parameters
 {
 public:
 	SGE_RENDERER_SYMBOL
-	object(
+	parameters(
 		sge::renderer::state::ffp::lighting::diffuse_color const &,
 		sge::renderer::state::ffp::lighting::specular_color const &,
 		sge::renderer::state::ffp::lighting::ambient_color const &,

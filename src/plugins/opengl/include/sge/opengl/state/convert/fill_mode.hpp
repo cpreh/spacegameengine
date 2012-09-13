@@ -18,28 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/check_state.hpp>
+#ifndef SGE_OPENGL_STATE_CONVERT_FILL_MODE_HPP_INCLUDED
+#define SGE_OPENGL_STATE_CONVERT_FILL_MODE_HPP_INCLUDED
+
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/light/float_ptr.hpp>
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include <sge/renderer/state/core/rasterizer/fill_mode.hpp>
 
 
-void
-sge::opengl::light::float_ptr(
-	light::index const _index,
-	GLenum const _name,
-	GLfloat const *const _data
-)
+namespace sge
 {
-	::glLightfv(
-		_index.get(),
-		_name,
-		_data
-	);
+namespace opengl
+{
+namespace state
+{
+namespace convert
+{
 
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("glLightfv failed"),
-		sge::renderer::exception
-	)
+GLenum
+fill_mode(
+	sge::renderer::state::core::rasterizer::fill_mode::type
+);
+
 }
+}
+}
+}
+
+#endif

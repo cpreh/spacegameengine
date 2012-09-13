@@ -18,11 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/common.hpp>
 #include <sge/opengl/state/index_actor_vector.hpp>
 #include <sge/opengl/state/ffp/lighting/light/color.hpp>
 #include <sge/opengl/state/ffp/lighting/light/make_actors.hpp>
 #include <sge/opengl/state/ffp/lighting/light/visitor.hpp>
-#include <sge/renderer/state/ffp/lighting/light/parameters_fwd.hpp>
+#include <sge/renderer/state/ffp/lighting/light/parameters.hpp>
 #include <fcppt/algorithm/join.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/variant/apply_unary.hpp>
@@ -45,15 +46,15 @@ sge::opengl::state::ffp::lighting::light::make_actors(
 			)(
 				sge::opengl::state::ffp::lighting::light::color(
 					GL_DIFFUSE,
-					_light.diffuse().get()
+					_parameters.diffuse().get()
 				)
 			)(
 				sge::opengl::state::ffp::lighting::light::color(
 					GL_SPECULAR,
-					_light.specular().get()
+					_parameters.specular().get()
 				)
 			)
-		)(
+			.container(),
 			fcppt::variant::apply_unary(
 				sge::opengl::state::ffp::lighting::light::visitor(),
 				_parameters.variant()

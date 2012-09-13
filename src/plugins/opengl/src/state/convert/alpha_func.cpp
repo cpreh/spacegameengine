@@ -20,37 +20,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/state/convert/alpha_func.hpp>
-#include <sge/renderer/state/alpha_func.hpp>
+#include <sge/renderer/state/ffp/alpha_test/func.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 
 GLenum
 sge::opengl::state::convert::alpha_func(
-	renderer::state::alpha_func::type const _func
+	sge::renderer::state::ffp::alpha_test::func::type const _func
 )
 {
 	switch(
 		_func
 	)
 	{
-	case renderer::state::alpha_func::never:
+	case sge::renderer::state::ffp::alpha_test::func::never:
 		return GL_NEVER;
-	case renderer::state::alpha_func::less:
+	case sge::renderer::state::ffp::alpha_test::func::less:
 		return GL_LESS;
-	case renderer::state::alpha_func::equal:
+	case sge::renderer::state::ffp::alpha_test::func::equal:
 		return GL_EQUAL;
-	case renderer::state::alpha_func::less_equal:
+	case sge::renderer::state::ffp::alpha_test::func::less_equal:
 		return GL_LEQUAL;
-	case renderer::state::alpha_func::greater:
+	case sge::renderer::state::ffp::alpha_test::func::greater:
 		return GL_GREATER;
-	case renderer::state::alpha_func::not_equal:
+	case sge::renderer::state::ffp::alpha_test::func::not_equal:
 		return GL_NOTEQUAL;
-	case renderer::state::alpha_func::greater_equal:
+	case sge::renderer::state::ffp::alpha_test::func::greater_equal:
 		return GL_GEQUAL;
-	case renderer::state::alpha_func::always:
+	case sge::renderer::state::ffp::alpha_test::func::always:
 		return GL_ALWAYS;
-	case renderer::state::alpha_func::off:
-		break;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

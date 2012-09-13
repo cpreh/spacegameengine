@@ -31,9 +31,11 @@ namespace opengl
 {
 namespace state
 {
-namespace core
+namespace ffp
 {
-namespace blend
+namespace lighting
+{
+namespace light
 {
 
 sge::opengl::state::index_actor_vector const
@@ -41,6 +43,7 @@ make_actors(
 	sge::renderer::state::ffp::lighting::light::parameters const &
 );
 
+}
 }
 }
 }

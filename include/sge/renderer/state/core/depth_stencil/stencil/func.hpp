@@ -33,6 +33,7 @@ namespace core
 namespace depth_stencil
 {
 namespace stencil
+{
 
 namespace func
 {

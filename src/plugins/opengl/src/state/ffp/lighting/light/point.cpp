@@ -18,35 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/light/attenuation.hpp>
-#include <sge/opengl/light/cutoff_angle.hpp>
-#include <sge/opengl/light/point.hpp>
-#include <sge/opengl/light/position.hpp>
-#include <sge/renderer/light/cutoff_angle.hpp>
-#include <sge/renderer/light/point.hpp>
+#include <sge/opengl/state/index_actor_vector.hpp>
+#include <sge/opengl/state/ffp/lighting/light/attenuation.hpp>
+#include <sge/opengl/state/ffp/lighting/light/cutoff_angle.hpp>
+#include <sge/opengl/state/ffp/lighting/light/point.hpp>
+#include <sge/opengl/state/ffp/lighting/light/position.hpp>
+#include <sge/renderer/state/ffp/lighting/light/cutoff_angle.hpp>
+#include <sge/renderer/state/ffp/lighting/light/point.hpp>
+#include <fcppt/algorithm/join.hpp>
+#include <fcppt/assign/make_container.hpp>
 
 
-void
-sge::opengl::light::point(
-	light::index const _index,
-	renderer::light::point const &_point
+sge::opengl::state::index_actor_vector const
+sge::opengl::state::ffp::lighting::light::point(
+	sge::renderer::state::ffp::lighting::light::point const &_point
 )
 {
-	light::position(
-		_index,
-		_point.position()
-	);
-
-	light::attenuation(
-		_index,
-		_point.attenuation()
-	);
-
-	// special value to make this a point light
-	light::cutoff_angle(
-		_index,
-		renderer::light::cutoff_angle(
-			180.f
-		)
-	);
+	return
+		fcppt::algorithm::join(
+			fcppt::assign::make_container<
+				sge::opengl::state::index_actor_vector
+			>(
+				sge::opengl::state::ffp::lighting::light::position(
+					_point.position()
+				)
+			)(
+				// special value to make this a point light
+				sge::opengl::state::ffp::lighting::light::cutoff_angle(
+					sge::renderer::state::ffp::lighting::light::cutoff_angle(
+						180.f
+					)
+				)
+			).container(),
+			sge::opengl::state::ffp::lighting::light::attenuation(
+				_point.attenuation()
+			)
+		);
 }

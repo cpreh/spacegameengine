@@ -19,13 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/convert/matrix_mode.hpp>
+#include <sge/opengl/state/convert/matrix_mode.hpp>
 #include <sge/renderer/state/ffp/transform/mode.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 
 GLenum
-sge::opengl::convert::matrix_mode(
+sge::opengl::state::convert::matrix_mode(
 	sge::renderer::state::ffp::transform::mode::type const _mode
 )
 {

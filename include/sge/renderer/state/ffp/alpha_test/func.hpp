@@ -51,5 +51,7 @@ enum type
 }
 }
 }
+}
+}
 
 #endif

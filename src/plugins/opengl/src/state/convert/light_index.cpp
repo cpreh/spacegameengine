@@ -20,19 +20,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/state/convert/light_index.hpp>
-#include <sge/opengl/state/ffp/lighting/light/index.hpp>
 #include <sge/renderer/state/index_count.hpp>
 
 
-sge::opengl::state::ffp::lighting::light::index const
+GLenum
 sge::opengl::state::convert::light_index(
 	sge::renderer::state::index_count const _index
 )
 {
 	return
-		sge::opengl::state::ffp::lighting::light::index(
-			GL_LIGHT0
-			+
-			_index
-		);
+		GL_LIGHT0
+		+
+		_index;
 }

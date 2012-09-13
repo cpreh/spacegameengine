@@ -18,10 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_DEFERRED_COLOR_WRITE_HPP_INCLUDED
-#define SGE_OPENGL_STATE_DEFERRED_COLOR_WRITE_HPP_INCLUDED
+#ifndef SGE_OPENGL_STATE_FFP_FOG_MAKE_ACTORS_HPP_INCLUDED
+#define SGE_OPENGL_STATE_FFP_FOG_MAKE_ACTORS_HPP_INCLUDED
 
-#include <sge/renderer/state/list_fwd.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/state/actor_vector.hpp>
+#include <sge/renderer/state/ffp/fog/parameters_fwd.hpp>
+
 
 namespace sge
 {
@@ -29,14 +32,17 @@ namespace opengl
 {
 namespace state
 {
-namespace deferred
+namespace ffp
+{
+namespace fog
 {
 
-void
-color_write(
-	sge::renderer::state::list const &
+sge::opengl::state::actor_vector const
+make_actors(
+	sge::renderer::state::ffp::fog::parameters const &
 );
 
+}
 }
 }
 }

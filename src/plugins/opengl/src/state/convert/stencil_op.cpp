@@ -19,35 +19,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/state/convert/stencil_op_value.hpp>
-#include <sge/renderer/state/stencil_op_value.hpp>
+#include <sge/opengl/state/convert/stencil_op.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/op.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 
 GLenum
-sge::opengl::state::convert::stencil_op_value(
-	sge::renderer::state::stencil_op_value::type const _value
+sge::opengl::state::convert::stencil_op(
+	sge::renderer::state::core::depth_stencil::stencil::op::type const _value
 )
 {
 	switch(
 		_value
 	)
 	{
-	case sge::renderer::state::stencil_op_value::keep:
+	case sge::renderer::state::core::depth_stencil::stencil::op::keep:
 		return GL_KEEP;
-	case sge::renderer::state::stencil_op_value::zero:
+	case sge::renderer::state::core::depth_stencil::stencil::op::zero:
 		return GL_ZERO;
-	case sge::renderer::state::stencil_op_value::replace:
+	case sge::renderer::state::core::depth_stencil::stencil::op::replace:
 		return GL_REPLACE;
-	case sge::renderer::state::stencil_op_value::inc_sat:
+	case sge::renderer::state::core::depth_stencil::stencil::op::inc_sat:
 		return GL_INCR;
-	case sge::renderer::state::stencil_op_value::inc_wrap:
+	case sge::renderer::state::core::depth_stencil::stencil::op::inc_wrap:
 		return GL_INCR_WRAP;
-	case sge::renderer::state::stencil_op_value::dec_sat:
+	case sge::renderer::state::core::depth_stencil::stencil::op::dec_sat:
 		return GL_DECR;
-	case sge::renderer::state::stencil_op_value::dec_wrap:
+	case sge::renderer::state::core::depth_stencil::stencil::op::dec_wrap:
 		return GL_DECR_WRAP;
-	case sge::renderer::state::stencil_op_value::invert:
+	case sge::renderer::state::core::depth_stencil::stencil::op::invert:
 		return GL_INVERT;
 	}
 

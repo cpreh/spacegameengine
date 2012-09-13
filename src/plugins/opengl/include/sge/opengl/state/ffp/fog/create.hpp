@@ -18,28 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/common.hpp>
-#include <sge/opengl/state/convert/draw_mode.hpp>
-#include <sge/renderer/state/draw_mode.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#ifndef SGE_OPENGL_STATE_FFP_FOG_CREATE_HPP_INCLUDED
+#define SGE_OPENGL_STATE_FFP_FOG_CREATE_HPP_INCLUDED
+
+#include <sge/renderer/state/ffp/fog/object_unique_ptr.hpp>
+#include <sge/renderer/state/ffp/fog/parameters_fwd.hpp>
 
 
-GLenum
-sge::opengl::state::convert::draw_mode(
-	renderer::state::draw_mode::type const _mode
-)
+namespace sge
 {
-	switch(
-		_mode
-	)
-	{
-	case renderer::state::draw_mode::point:
-		return GL_POINT;
-	case renderer::state::draw_mode::line:
-		return GL_LINE;
-	case renderer::state::draw_mode::fill:
-		return GL_FILL;
-	}
+namespace opengl
+{
+namespace state
+{
+namespace ffp
+{
+namespace fog
+{
 
-	FCPPT_ASSERT_UNREACHABLE;
+sge::renderer::state::ffp::fog::object_unique_ptr
+create(
+	sge::renderer::state::ffp::fog::parameters const &
+);
+
 }
+}
+}
+}
+}
+
+#endif

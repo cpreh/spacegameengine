@@ -47,35 +47,35 @@ class spot
 public:
 	SGE_RENDERER_SYMBOL
 	spot(
-		sge::renderer::state::lighting::light::position const &,
-		sge::renderer::state::lighting::light::direction const &,
-		sge::renderer::state::lighting::light::cutoff_angle,
-		sge::renderer::state::lighting::light::attenuation const &
+		sge::renderer::state::ffp::lighting::light::position const &,
+		sge::renderer::state::ffp::lighting::light::direction const &,
+		sge::renderer::state::ffp::lighting::light::cutoff_angle,
+		sge::renderer::state::ffp::lighting::light::attenuation const &
 	);
 
 	SGE_RENDERER_SYMBOL
-	sge::renderer::state::lighting::light::position const &
+	sge::renderer::state::ffp::lighting::light::position const &
 	position() const;
 
 	SGE_RENDERER_SYMBOL
-	sge::renderer::state::lighting::light::direction const &
+	sge::renderer::state::ffp::lighting::light::direction const &
 	direction() const;
 
 	SGE_RENDERER_SYMBOL
-	sge::renderer::state::lighting::light::cutoff_angle const
+	sge::renderer::state::ffp::lighting::light::cutoff_angle const
 	cutoff_angle() const;
 
 	SGE_RENDERER_SYMBOL
-	sge::renderer::state::lighting::light::attenuation const &
+	sge::renderer::state::ffp::lighting::light::attenuation const &
 	attenuation() const;
 private:
-	sge::renderer::state::lighting::light::position position_;
+	sge::renderer::state::ffp::lighting::light::position position_;
 
-	sge::renderer::state::lighting::light::direction direction_;
+	sge::renderer::state::ffp::lighting::light::direction direction_;
 
-	sge::renderer::state::lighting::light::cutoff_angle cutoff_angle_;
+	sge::renderer::state::ffp::lighting::light::cutoff_angle cutoff_angle_;
 
-	sge::renderer::state::lighting::light::attenuation attenuation_;
+	sge::renderer::state::ffp::lighting::light::attenuation attenuation_;
 };
 
 }

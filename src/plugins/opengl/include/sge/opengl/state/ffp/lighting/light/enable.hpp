@@ -18,24 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_LIGHT_ENABLE_HPP_INCLUDED
-#define SGE_OPENGL_LIGHT_ENABLE_HPP_INCLUDED
+#ifndef SGE_OPENGL_STATE_FFP_LIGHTING_LIGHT_ENABLE_HPP_INCLUDED
+#define SGE_OPENGL_STATE_FFP_LIGHTING_LIGHT_ENABLE_HPP_INCLUDED
 
-#include <sge/renderer/light/index.hpp>
+#include <sge/renderer/state/index_count.hpp>
+
 
 namespace sge
 {
 namespace opengl
+{
+namespace state
+{
+namespace ffp
+{
+namespace lighting
 {
 namespace light
 {
 
 void
 enable(
-	renderer::light::index,
+	sge::renderer::state::index_count,
 	bool
 );
 
+}
+}
+}
 }
 }
 }

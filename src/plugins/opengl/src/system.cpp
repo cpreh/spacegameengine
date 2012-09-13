@@ -23,17 +23,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/device.hpp>
 #include <sge/opengl/system.hpp>
 #include <sge/renderer/adapter.hpp>
-#include <sge/renderer/device_unique_ptr.hpp>
 #include <sge/renderer/caps/device.hpp>
 #include <sge/renderer/caps/device_count.hpp>
 #include <sge/renderer/caps/system.hpp>
 #include <sge/renderer/caps/system_field.hpp>
-#include <sge/renderer/parameters/object_fwd.hpp>
+#include <sge/renderer/device/core.hpp>
+#include <sge/renderer/device/core_unique_ptr.hpp>
+#include <sge/renderer/device/ffp.hpp>
+#include <sge/renderer/device/ffp_unique_ptr.hpp>
+#include <sge/renderer/device/parameters.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <awl/system/object_fwd.hpp>
 #include <awl/visual/object.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
-#include <awl/window/object_fwd.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
@@ -55,15 +57,26 @@ sge::opengl::system::~system()
 {
 }
 
-sge::renderer::device_unique_ptr
-sge::opengl::system::create_renderer(
-	sge::renderer::adapter const _adapter,
-	sge::renderer::parameters::object const &_parameters,
-	awl::window::object &_window
+sge::renderer::device::core_unique_ptr
+sge::opengl::system::create_core_renderer(
+	sge::renderer::device::parameters const &_parameters
+)
+{
+	return
+		sge::renderer::device::core_unique_ptr(
+			this->create_ffp_renderer(
+				_parameters
+			)
+		);
+}
+
+sge::renderer::device::ffp_unique_ptr
+sge::opengl::system::create_ffp_renderer(
+	sge::renderer::device::parameters const &_parameters
 )
 {
 	FCPPT_ASSERT_PRE(
-		_adapter.get()
+		_parameters.adapter().get()
 		<
 		this->device_count().get()
 	);
@@ -74,10 +87,10 @@ sge::opengl::system::create_renderer(
 				sge::opengl::device
 			>(
 				fcppt::cref(
-					_parameters
+					_parameters.params()
 				),
 				fcppt::ref(
-					_window
+					_parameters.window()
 				),
 				fcppt::ref(
 					system_context_

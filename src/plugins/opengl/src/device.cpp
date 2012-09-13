@@ -208,7 +208,7 @@ sge::opengl::device::begin_rendering(
 
 void
 sge::opengl::device::end_rendering(
-	sge::renderer::context::object &_context
+	sge::renderer::context::core &_context
 )
 {
 	sge::opengl::render_context::end(
@@ -381,6 +381,7 @@ sge::opengl::device::create_blend_state(
 {
 	return
 		sge::opengl::state::core::blend::create(
+			system_context_,
 			_parameters
 		);
 }
@@ -404,10 +405,12 @@ sge::opengl::device::create_sampler_state(
 	sge::renderer::state::core::sampler::parameters const &_parameters
 )
 {
+#if 0
 	return
 		sge::opengl::state::core::sampler::create(
 			_parameters
 		);
+#endif
 }
 
 #if defined(SGE_RENDERER_HAVE_CG)
@@ -546,7 +549,7 @@ sge::opengl::device::create_light_state(
 )
 {
 	return
-		sge::opengl::state::lighting::light::create(
+		sge::opengl::state::ffp::lighting::light::create(
 			_parameters
 		);
 }

@@ -18,13 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_LIGHT_VISITOR_HPP_INCLUDED
-#define SGE_OPENGL_LIGHT_VISITOR_HPP_INCLUDED
+#ifndef SGE_OPENGL_STATE_FFP_LIGHTING_LIGHT_VISITOR_HPP_INCLUDED
+#define SGE_OPENGL_STATE_FFP_LIGHTING_LIGHT_VISITOR_HPP_INCLUDED
 
 #include <sge/opengl/state/index_actor_vector.hpp>
 #include <sge/renderer/state/ffp/lighting/light/directional_fwd.hpp>
-#include <sge/renderer/state/ffp/lighting/light/light/point_fwd.hpp>
-#include <sge/renderer/state/ffp/lighting/light/light/spot_fwd.hpp>
+#include <sge/renderer/state/ffp/lighting/light/point_fwd.hpp>
+#include <sge/renderer/state/ffp/lighting/light/spot_fwd.hpp>
 
 
 namespace sge
@@ -40,7 +40,7 @@ namespace lighting
 namespace light
 {
 
-class visitor
+struct visitor
 {
 	typedef sge::opengl::state::index_actor_vector result_type;
 
