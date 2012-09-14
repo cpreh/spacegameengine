@@ -47,3 +47,38 @@ sge::opengl::state::convert::fog_float(
 
 	FCPPT_ASSERT_UNREACHABLE;
 }
+
+void
+sge::opengl::state::fog_mode(
+	state::parameters const &,
+	renderer::state::fog_mode::type const _mode
+)
+{
+
+	if(
+		_mode == renderer::state::fog_mode::off
+	)
+	{
+		opengl::disable(
+			GL_FOG
+		);
+
+		return;
+	}
+
+	opengl::enable(
+		GL_FOG
+	);
+
+	::glFogi(
+		GL_FOG_MODE,
+		state::convert::fog_mode(
+			_mode
+		)
+	);
+
+	SGE_OPENGL_CHECK_STATE(
+		FCPPT_TEXT("glFogi failed"),
+		sge::renderer::exception
+	)
+}

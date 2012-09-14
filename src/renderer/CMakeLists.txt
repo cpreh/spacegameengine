@@ -258,10 +258,10 @@ set(
 	include/sge/renderer/screenshot.hpp
 	include/sge/renderer/size_type.hpp
 	include/sge/renderer/state/core/blend/alpha_dest.hpp
-	include/sge/renderer/state/core/blend/alpha_enable.hpp
-	include/sge/renderer/state/core/blend/alpha_enable_fwd.hpp
-	include/sge/renderer/state/core/blend/alpha_enable_variant.hpp
-	include/sge/renderer/state/core/blend/alpha_enable_variant_fwd.hpp
+	include/sge/renderer/state/core/blend/alpha_enabled.hpp
+	include/sge/renderer/state/core/blend/alpha_enabled_fwd.hpp
+	include/sge/renderer/state/core/blend/alpha_enabled_variant.hpp
+	include/sge/renderer/state/core/blend/alpha_enabled_variant_fwd.hpp
 	include/sge/renderer/state/core/blend/alpha_off.hpp
 	include/sge/renderer/state/core/blend/alpha_off_fwd.hpp
 	include/sge/renderer/state/core/blend/alpha_source.hpp
@@ -293,8 +293,8 @@ set(
 	include/sge/renderer/state/core/blend/write_red.hpp
 	include/sge/renderer/state/core/depth_stencil/const_optional_object_ref.hpp
 	include/sge/renderer/state/core/depth_stencil/const_optional_object_ref_fwd.hpp
-	include/sge/renderer/state/core/depth_stencil/depth/enable.hpp
-	include/sge/renderer/state/core/depth_stencil/depth/enable_fwd.hpp
+	include/sge/renderer/state/core/depth_stencil/depth/enabled.hpp
+	include/sge/renderer/state/core/depth_stencil/depth/enabled_fwd.hpp
 	include/sge/renderer/state/core/depth_stencil/depth/func.hpp
 	include/sge/renderer/state/core/depth_stencil/depth/off.hpp
 	include/sge/renderer/state/core/depth_stencil/depth/off_fwd.hpp
@@ -315,9 +315,9 @@ set(
 	include/sge/renderer/state/core/depth_stencil/stencil/depth_fail_op.hpp
 	include/sge/renderer/state/core/depth_stencil/stencil/desc.hpp
 	include/sge/renderer/state/core/depth_stencil/stencil/desc_fwd.hpp
-	include/sge/renderer/state/core/depth_stencil/stencil/enable.hpp
-	include/sge/renderer/state/core/depth_stencil/stencil/enable_fwd.hpp
-	include/sge/renderer/state/core/depth_stencil/stencil/enable_variant_fwd.hpp
+	include/sge/renderer/state/core/depth_stencil/stencil/enabled.hpp
+	include/sge/renderer/state/core/depth_stencil/stencil/enabled_fwd.hpp
+	include/sge/renderer/state/core/depth_stencil/stencil/enabled_variant_fwd.hpp
 	include/sge/renderer/state/core/depth_stencil/stencil/fail_op.hpp
 	include/sge/renderer/state/core/depth_stencil/stencil/front.hpp
 	include/sge/renderer/state/core/depth_stencil/stencil/func.hpp

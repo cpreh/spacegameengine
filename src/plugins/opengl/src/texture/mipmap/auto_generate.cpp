@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
-#include <sge/opengl/texture/type.hpp>
 #include <sge/opengl/texture/funcs/parameter_int.hpp>
 #include <sge/opengl/texture/mipmap/auto_generate.hpp>
 #include <sge/opengl/texture/mipmap/context.hpp>
@@ -36,8 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 void
 sge::opengl::texture::mipmap::auto_generate(
 	sge::opengl::texture::binding const &_binding,
-	sge::opengl::context::system::object &_system_context,
-	sge::opengl::texture::type const _type
+	sge::opengl::context::system::object &_system_context
 )
 {
 	sge::opengl::optional_enum const generate_mipmap_flag(
@@ -64,7 +62,6 @@ sge::opengl::texture::mipmap::auto_generate(
 
 	sge::opengl::texture::funcs::parameter_int(
 		_binding,
-		_type,
 		*generate_mipmap_flag,
 		GL_TRUE
 	);

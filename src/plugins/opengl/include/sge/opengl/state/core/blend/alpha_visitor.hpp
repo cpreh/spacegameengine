@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_STATE_CORE_BLEND_ALPHA_VISITOR_HPP_INCLUDED
 
 #include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/opengl/state/actor_fwd.hpp>
-#include <sge/renderer/state/core/blend/combined_fwd.hpp>
-#include <sge/renderer/state/core/blend/separate_fwd.hpp>
+#include <sge/opengl/state/actor_vector.hpp>
+#include <sge/renderer/state/core/blend/alpha_enabled_fwd.hpp>
+#include <sge/renderer/state/core/blend/alpha_off_fwd.hpp>
 #include <fcppt/nonassignable.hpp>
 
 
@@ -50,16 +50,16 @@ public:
 		sge::opengl::context::system::object &
 	);
 
-	typedef sge::opengl::state::actor result_type;
+	typedef sge::opengl::state::actor_vector result_type;
 
 	result_type const
 	operator()(
-		sge::renderer::state::core::blend::combined const &
+		sge::renderer::state::core::blend::alpha_off const &
 	) const;
 
 	result_type const
 	operator()(
-		sge::renderer::state::core::blend::separate const &
+		sge::renderer::state::core::blend::alpha_enabled const &
 	) const;
 private:
 	sge::opengl::context::system::object &system_context_;

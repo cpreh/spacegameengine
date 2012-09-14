@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_STATE_CORE_SAMPLER_PARAMETERS_HPP_INCLUDED
 
 #include <sge/renderer/symbol.hpp>
-#include <sge/renderer/state/core/sampler/address_mode/parameters.hpp>
+#include <sge/renderer/state/core/sampler/parameters_fwd.hpp>
+#include <sge/renderer/state/core/sampler/address/parameters.hpp>
 #include <sge/renderer/state/core/sampler/filter/parameters.hpp>
 
 
@@ -42,11 +43,21 @@ class parameters
 public:
 	SGE_RENDERER_SYMBOL
 	parameters(
-		sge::renderer::state::core::sampler::address_mode::parameters const &,
+		sge::renderer::state::core::sampler::address::parameters const &,
 		sge::renderer::state::core::sampler::filter::parameters const &
 	);
 
+	SGE_RENDERER_SYMBOL
+	sge::renderer::state::core::sampler::address::parameters const &
+	address() const;
+
+	SGE_RENDERER_SYMBOL
+	sge::renderer::state::core::sampler::filter::parameters const &
+	filter() const;
 private:
+	sge::renderer::state::core::sampler::address::parameters address_;
+
+	sge::renderer::state::core::sampler::filter::parameters filter_;
 };
 
 }

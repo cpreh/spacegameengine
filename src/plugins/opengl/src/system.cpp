@@ -82,7 +82,7 @@ sge::opengl::system::create_ffp_renderer(
 	);
 
 	return
-		sge::renderer::device_unique_ptr(
+		sge::renderer::device::ffp_unique_ptr(
 			fcppt::make_unique_ptr<
 				sge::opengl::device
 			>(

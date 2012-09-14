@@ -192,7 +192,10 @@ set(
 	src/plugins/opengl/include/sge/opengl/state/actor.hpp
 	src/plugins/opengl/include/sge/opengl/state/actor_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/state/actor_vector.hpp
+	src/plugins/opengl/include/sge/opengl/state/convert/address_mode.hpp
+	src/plugins/opengl/include/sge/opengl/state/convert/address_mode_type.hpp
 	src/plugins/opengl/include/sge/opengl/state/convert/alpha_func.hpp
+	src/plugins/opengl/include/sge/opengl/state/convert/anisotropic_mip_filter.hpp
 	src/plugins/opengl/include/sge/opengl/state/convert/clip_plane_index.hpp
 	src/plugins/opengl/include/sge/opengl/state/convert/cull_mode.hpp
 	src/plugins/opengl/include/sge/opengl/state/convert/depth_func.hpp
@@ -200,29 +203,43 @@ set(
 	src/plugins/opengl/include/sge/opengl/state/convert/fill_mode.hpp
 	src/plugins/opengl/include/sge/opengl/state/convert/fog_mode.hpp
 	src/plugins/opengl/include/sge/opengl/state/convert/light_index.hpp
+	src/plugins/opengl/include/sge/opengl/state/convert/mag_filter.hpp
 	src/plugins/opengl/include/sge/opengl/state/convert/matrix_mode.hpp
+	src/plugins/opengl/include/sge/opengl/state/convert/min_filter.hpp
 	src/plugins/opengl/include/sge/opengl/state/convert/source_blend_func.hpp
 	src/plugins/opengl/include/sge/opengl/state/convert/stencil_func.hpp
 	src/plugins/opengl/include/sge/opengl/state/convert/stencil_op.hpp
+	src/plugins/opengl/include/sge/opengl/state/core/blend/alpha_enable_visitor.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/blend/alpha_visitor.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/blend/create.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/blend/make_actors.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/blend/object.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/depth_stencil/depth/visitor.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/depth_stencil/object.hpp
-	src/plugins/opengl/include/sge/opengl/state/cull_mode.hpp
-	src/plugins/opengl/include/sge/opengl/state/deferred/alpha_test.hpp
-	src/plugins/opengl/include/sge/opengl/state/deferred/apply.hpp
-	src/plugins/opengl/include/sge/opengl/state/deferred/blend_func.hpp
-	src/plugins/opengl/include/sge/opengl/state/deferred/bundle.hpp
-	src/plugins/opengl/include/sge/opengl/state/deferred/object.hpp
-	src/plugins/opengl/include/sge/opengl/state/deferred/object_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/state/core/rasterizer/cull_mode.hpp
+	src/plugins/opengl/include/sge/opengl/state/core/sampler/actor.hpp
+	src/plugins/opengl/include/sge/opengl/state/core/sampler/actor_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/state/core/sampler/actor_vector.hpp
+	src/plugins/opengl/include/sge/opengl/state/core/sampler/address/default.hpp
+	src/plugins/opengl/include/sge/opengl/state/core/sampler/address/make_actors.hpp
+	src/plugins/opengl/include/sge/opengl/state/core/sampler/context.hpp
+	src/plugins/opengl/include/sge/opengl/state/core/sampler/create.hpp
+	src/plugins/opengl/include/sge/opengl/state/core/sampler/filter/anisotropic.hpp
+	src/plugins/opengl/include/sge/opengl/state/core/sampler/filter/anisotropy_context.hpp
+	src/plugins/opengl/include/sge/opengl/state/core/sampler/filter/make_actors.hpp
+	src/plugins/opengl/include/sge/opengl/state/core/sampler/filter/normal.hpp
+	src/plugins/opengl/include/sge/opengl/state/core/sampler/filter/visitor.hpp
+	src/plugins/opengl/include/sge/opengl/state/core/sampler/make_actors.hpp
+	src/plugins/opengl/include/sge/opengl/state/core/sampler/object.hpp
+	src/plugins/opengl/include/sge/opengl/state/core/sampler/object_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/state/core/sampler/set.hpp
 	src/plugins/opengl/include/sge/opengl/state/deferred/stencil_func.hpp
 	src/plugins/opengl/include/sge/opengl/state/deferred/stencil_op.hpp
 	src/plugins/opengl/include/sge/opengl/state/dest_blend_func.hpp
 	src/plugins/opengl/include/sge/opengl/state/draw_mode.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/alpha_test/create.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/alpha_test/make_actors.hpp
+	src/plugins/opengl/include/sge/opengl/state/ffp/alpha_test/visitor.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/clip_plane/make_actors.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/fog/create.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/fog/make_actors.hpp
@@ -247,16 +264,9 @@ set(
 	src/plugins/opengl/include/sge/opengl/state/ffp/transform/matrix_mode.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/transform/set_matrix.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/transform/set_matrix_and_mode.hpp
-	src/plugins/opengl/include/sge/opengl/state/float.hpp
-	src/plugins/opengl/include/sge/opengl/state/fog_mode.hpp
 	src/plugins/opengl/include/sge/opengl/state/index_actor.hpp
 	src/plugins/opengl/include/sge/opengl/state/index_actor_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/state/index_actor_vector.hpp
-	src/plugins/opengl/include/sge/opengl/state/index_object.hpp
-	src/plugins/opengl/include/sge/opengl/state/index_object_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/state/index_object_impl.hpp
-	src/plugins/opengl/include/sge/opengl/state/initial.hpp
-	src/plugins/opengl/include/sge/opengl/state/int.hpp
 	src/plugins/opengl/include/sge/opengl/state/object.hpp
 	src/plugins/opengl/include/sge/opengl/state/object_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/state/object_impl.hpp
@@ -267,6 +277,9 @@ set(
 	src/plugins/opengl/include/sge/opengl/state/stencil_func.hpp
 	src/plugins/opengl/include/sge/opengl/state/stencil_op.hpp
 	src/plugins/opengl/include/sge/opengl/state/uint.hpp
+	src/plugins/opengl/include/sge/opengl/state/unary_object.hpp
+	src/plugins/opengl/include/sge/opengl/state/unary_object_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/state/unary_object_impl.hpp
 	src/plugins/opengl/include/sge/opengl/state/visitor.hpp
 	src/plugins/opengl/include/sge/opengl/state/wrap_error_handler.hpp
 	src/plugins/opengl/include/sge/opengl/system.hpp
@@ -277,11 +290,6 @@ set(
 	src/plugins/opengl/include/sge/opengl/texture/activate.hpp
 	src/plugins/opengl/include/sge/opengl/texture/active_level.hpp
 	src/plugins/opengl/include/sge/opengl/texture/active_level_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/texture/address_mode/context.hpp
-	src/plugins/opengl/include/sge/opengl/texture/address_mode/context_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/texture/address_mode/default.hpp
-	src/plugins/opengl/include/sge/opengl/texture/address_mode/set.hpp
-	src/plugins/opengl/include/sge/opengl/texture/address_mode/update.hpp
 	src/plugins/opengl/include/sge/opengl/texture/base.hpp
 	src/plugins/opengl/include/sge/opengl/texture/base_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/basic.hpp
@@ -317,15 +325,10 @@ set(
 	src/plugins/opengl/include/sge/opengl/texture/color_volume_types_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/const_optional_base_ref.hpp
 	src/plugins/opengl/include/sge/opengl/texture/const_optional_base_ref_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/texture/convert/address_mode.hpp
-	src/plugins/opengl/include/sge/opengl/texture/convert/address_mode_type.hpp
-	src/plugins/opengl/include/sge/opengl/texture/convert/anisotropic_mip_filter.hpp
 	src/plugins/opengl/include/sge/opengl/texture/convert/cube_side.hpp
 	src/plugins/opengl/include/sge/opengl/texture/convert/level.hpp
-	src/plugins/opengl/include/sge/opengl/texture/convert/mag_filter.hpp
 	src/plugins/opengl/include/sge/opengl/texture/convert/make_buffer_type.hpp
 	src/plugins/opengl/include/sge/opengl/texture/convert/make_type.hpp
-	src/plugins/opengl/include/sge/opengl/texture/convert/min_filter.hpp
 	src/plugins/opengl/include/sge/opengl/texture/convert/stage_arg.hpp
 	src/plugins/opengl/include/sge/opengl/texture/convert/stage_arg_value.hpp
 	src/plugins/opengl/include/sge/opengl/texture/convert/stage_op.hpp
@@ -351,14 +354,6 @@ set(
 	src/plugins/opengl/include/sge/opengl/texture/disable.hpp
 	src/plugins/opengl/include/sge/opengl/texture/enable.hpp
 	src/plugins/opengl/include/sge/opengl/texture/extend_size.hpp
-	src/plugins/opengl/include/sge/opengl/texture/filter/anisotropic.hpp
-	src/plugins/opengl/include/sge/opengl/texture/filter/anisotropy_context.hpp
-	src/plugins/opengl/include/sge/opengl/texture/filter/context.hpp
-	src/plugins/opengl/include/sge/opengl/texture/filter/context_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/texture/filter/normal.hpp
-	src/plugins/opengl/include/sge/opengl/texture/filter/set.hpp
-	src/plugins/opengl/include/sge/opengl/texture/filter/update.hpp
-	src/plugins/opengl/include/sge/opengl/texture/filter/visitor.hpp
 	src/plugins/opengl/include/sge/opengl/texture/funcs/bind.hpp
 	src/plugins/opengl/include/sge/opengl/texture/funcs/delete.hpp
 	src/plugins/opengl/include/sge/opengl/texture/funcs/env_arg.hpp
@@ -414,6 +409,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/texture/readonly_lock.hpp
 	src/plugins/opengl/include/sge/opengl/texture/readwrite_lock.hpp
 	src/plugins/opengl/include/sge/opengl/texture/render_binding.hpp
+	src/plugins/opengl/include/sge/opengl/texture/render_binding_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/scoped_work_binding.hpp
 	src/plugins/opengl/include/sge/opengl/texture/scoped_work_binding_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/set_samplers.hpp
@@ -594,7 +590,10 @@ set(
 	src/plugins/opengl/src/set_vertex_buffer.cpp
 	src/plugins/opengl/src/set_vertex_declaration.cpp
 	src/plugins/opengl/src/srgb_context.cpp
+	src/plugins/opengl/src/state/convert/address_mode.cpp
+	src/plugins/opengl/src/state/convert/address_mode_type.cpp
 	src/plugins/opengl/src/state/convert/alpha_func.cpp
+	src/plugins/opengl/src/state/convert/anisotropic_mip_filter.cpp
 	src/plugins/opengl/src/state/convert/clip_plane_index.cpp
 	src/plugins/opengl/src/state/convert/cull_mode.cpp
 	src/plugins/opengl/src/state/convert/depth_func.cpp
@@ -602,25 +601,35 @@ set(
 	src/plugins/opengl/src/state/convert/fill_mode.cpp
 	src/plugins/opengl/src/state/convert/fog_mode.cpp
 	src/plugins/opengl/src/state/convert/light_index.cpp
+	src/plugins/opengl/src/state/convert/mag_filter.cpp
 	src/plugins/opengl/src/state/convert/matrix_mode.cpp
+	src/plugins/opengl/src/state/convert/min_filter.cpp
 	src/plugins/opengl/src/state/convert/source_blend_func.cpp
 	src/plugins/opengl/src/state/convert/stencil_func.cpp
 	src/plugins/opengl/src/state/convert/stencil_op.cpp
+	src/plugins/opengl/src/state/core/blend/alpha_enable_visitor.cpp
 	src/plugins/opengl/src/state/core/blend/alpha_visitor.cpp
 	src/plugins/opengl/src/state/core/blend/create.cpp
 	src/plugins/opengl/src/state/core/blend/make_actors.hpp
 	src/plugins/opengl/src/state/core/depth_stencil/depth/visitor.cpp
-	src/plugins/opengl/src/state/cull_mode.cpp
-	src/plugins/opengl/src/state/deferred/alpha_test.cpp
-	src/plugins/opengl/src/state/deferred/apply.cpp
-	src/plugins/opengl/src/state/deferred/blend_func.cpp
-	src/plugins/opengl/src/state/deferred/object.cpp
+	src/plugins/opengl/src/state/core/rasterizer/cull_mode.cpp
+	src/plugins/opengl/src/state/core/sampler/address/default.cpp
+	src/plugins/opengl/src/state/core/sampler/address/make_actors.cpp
+	src/plugins/opengl/src/state/core/sampler/create.cpp
+	src/plugins/opengl/src/state/core/sampler/filter/anisotropic.cpp
+	src/plugins/opengl/src/state/core/sampler/filter/anisotropy_context.cpp
+	src/plugins/opengl/src/state/core/sampler/filter/make_actors.cpp
+	src/plugins/opengl/src/state/core/sampler/filter/normal.cpp
+	src/plugins/opengl/src/state/core/sampler/filter/visitor.cpp
+	src/plugins/opengl/src/state/core/sampler/make_actors.cpp
+	src/plugins/opengl/src/state/core/sampler/set.cpp
 	src/plugins/opengl/src/state/deferred/stencil_func.cpp
 	src/plugins/opengl/src/state/deferred/stencil_op.cpp
 	src/plugins/opengl/src/state/dest_blend_func.cpp
 	src/plugins/opengl/src/state/draw_mode.cpp
 	src/plugins/opengl/src/state/ffp/alpha_test/create.cpp
 	src/plugins/opengl/src/state/ffp/alpha_test/make_actors.cpp
+	src/plugins/opengl/src/state/ffp/alpha_test/visitor.cpp
 	src/plugins/opengl/src/state/ffp/clip_plane/make_actors.cpp
 	src/plugins/opengl/src/state/ffp/fog/make_actors.cpp
 	src/plugins/opengl/src/state/ffp/fog/variant.cpp
@@ -644,10 +653,6 @@ set(
 	src/plugins/opengl/src/state/ffp/transform/matrix_mode.cpp
 	src/plugins/opengl/src/state/ffp/transform/set_matrix.cpp
 	src/plugins/opengl/src/state/ffp/transform/set_matrix_and_mode.cpp
-	src/plugins/opengl/src/state/float.cpp
-	src/plugins/opengl/src/state/fog_mode.cpp
-	src/plugins/opengl/src/state/initial.cpp
-	src/plugins/opengl/src/state/int.cpp
 	src/plugins/opengl/src/state/parameters.cpp
 	src/plugins/opengl/src/state/point_sprite.cpp
 	src/plugins/opengl/src/state/source_blend_func.cpp
@@ -660,10 +665,6 @@ set(
 	src/plugins/opengl/src/target_context.cpp
 	src/plugins/opengl/src/texture/activate.cpp
 	src/plugins/opengl/src/texture/active_level.cpp
-	src/plugins/opengl/src/texture/address_mode/context.cpp
-	src/plugins/opengl/src/texture/address_mode/default.cpp
-	src/plugins/opengl/src/texture/address_mode/set.cpp
-	src/plugins/opengl/src/texture/address_mode/update.cpp
 	src/plugins/opengl/src/texture/base.cpp
 	src/plugins/opengl/src/texture/basic_buffer_parameters.cpp
 	src/plugins/opengl/src/texture/basic_parameters.cpp
@@ -677,15 +678,10 @@ set(
 	src/plugins/opengl/src/texture/color_surface_types.cpp
 	src/plugins/opengl/src/texture/color_volume.cpp
 	src/plugins/opengl/src/texture/color_volume_types.cpp
-	src/plugins/opengl/src/texture/convert/address_mode.cpp
-	src/plugins/opengl/src/texture/convert/address_mode_type.cpp
-	src/plugins/opengl/src/texture/convert/anisotropic_mip_filter.cpp
 	src/plugins/opengl/src/texture/convert/cube_side.cpp
 	src/plugins/opengl/src/texture/convert/level.cpp
-	src/plugins/opengl/src/texture/convert/mag_filter.cpp
 	src/plugins/opengl/src/texture/convert/make_buffer_type.cpp
 	src/plugins/opengl/src/texture/convert/make_type.cpp
-	src/plugins/opengl/src/texture/convert/min_filter.cpp
 	src/plugins/opengl/src/texture/convert/stage_arg.cpp
 	src/plugins/opengl/src/texture/convert/stage_arg_value.cpp
 	src/plugins/opengl/src/texture/convert/stage_op.cpp
@@ -705,13 +701,6 @@ set(
 	src/plugins/opengl/src/texture/disable.cpp
 	src/plugins/opengl/src/texture/enable.cpp
 	src/plugins/opengl/src/texture/extend_size.cpp
-	src/plugins/opengl/src/texture/filter/anisotropic.cpp
-	src/plugins/opengl/src/texture/filter/anisotropy_context.cpp
-	src/plugins/opengl/src/texture/filter/context.cpp
-	src/plugins/opengl/src/texture/filter/normal.cpp
-	src/plugins/opengl/src/texture/filter/set.cpp
-	src/plugins/opengl/src/texture/filter/update.cpp
-	src/plugins/opengl/src/texture/filter/visitor.cpp
 	src/plugins/opengl/src/texture/funcs/bind.cpp
 	src/plugins/opengl/src/texture/funcs/delete.cpp
 	src/plugins/opengl/src/texture/funcs/env_int.cpp
@@ -749,7 +738,6 @@ set(
 	src/plugins/opengl/src/texture/readwrite_lock.cpp
 	src/plugins/opengl/src/texture/render_binding.cpp
 	src/plugins/opengl/src/texture/scoped_work_binding.cpp
-	src/plugins/opengl/src/texture/set_samplers.cpp
 	src/plugins/opengl/src/texture/set_stage_funcs.cpp
 	src/plugins/opengl/src/texture/volume.cpp
 	src/plugins/opengl/src/texture/volume_basic.cpp

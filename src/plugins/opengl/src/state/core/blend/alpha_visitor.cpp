@@ -19,13 +19,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/disable.hpp>
+#include <sge/opengl/enable.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/opengl/state/actor.hpp>
-#include <sge/opengl/state/convert/dest_blend_func.hpp>
-#include <sge/opengl/state/convert/source_blend_func.hpp>
+#include <sge/opengl/state/core/blend/alpha_enable_visitor.hpp>
 #include <sge/opengl/state/core/blend/alpha_visitor.hpp>
-#include <sge/renderer/state/core/blend/combined.hpp>
-#include <sge/renderer/state/core/blend/separate.hpp>
+#include <sge/renderer/state/core/blend/alpha_enabled.hpp>
+#include <sge/renderer/state/core/blend/alpha_off_fwd.hpp>
+#include <fcppt/assign/make_container.hpp>
+#include <fcppt/tr1/functional.hpp>
+#include <fcppt/variant/apply_unary.hpp>
 
 
 sge::opengl::state::core::blend::alpha_visitor::alpha_visitor(
@@ -40,24 +43,39 @@ sge::opengl::state::core::blend::alpha_visitor::alpha_visitor(
 
 sge::opengl::state::core::blend::alpha_visitor::result_type const
 sge::opengl::state::core::blend::alpha_visitor::operator()(
-	sge::renderer::state::core::blend::combined const &_combined
+	sge::renderer::state::core::blend::alpha_off const &
 ) const
 {
 	return
-		std::tr1::bind(
-			::glBlendFunc,
-			sge::opengl::state::convert::source_blend_func(
-				_combined.source()
-			),
-			sge::opengl::state::convert::dest_blend_func(
-				_combined.dest()
+		fcppt::assign::make_container<
+			sge::opengl::state::core::blend::alpha_visitor::result_type
+		>(
+			std::tr1::bind(
+				sge::opengl::disable,
+				GL_BLEND
 			)
 		);
 }
 
 sge::opengl::state::core::blend::alpha_visitor::result_type const
 sge::opengl::state::core::blend::alpha_visitor::operator()(
-	sge::renderer::state::core::blend::separate const &_separate
+	sge::renderer::state::core::blend::alpha_enabled const &_enabled
 ) const
 {
+	return
+		fcppt::assign::make_container<
+			sge::opengl::state::core::blend::alpha_visitor::result_type
+		>(
+			std::tr1::bind(
+				sge::opengl::enable,
+				GL_BLEND
+			)
+		)(
+			fcppt::variant::apply_unary(
+				sge::opengl::state::core::blend::alpha_enable_visitor(
+					system_context_
+				),
+				_enabled.variant()
+			)
+		);
 }

@@ -24,6 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/core/blend/alpha_variant.hpp>
 #include <sge/opengl/state/core/blend/make_actors.hpp>
 #include <sge/renderer/state/core/blend/parameters.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/algorithm/join.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/variant/apply_unary.hpp>
@@ -36,22 +38,26 @@ sge::opengl::state::core::blend::make_actors(
 )
 {
 	return
-		fcppt::assign::make_container<
-			sge::opengl::state::actor_vector
-		>(
+		fcppt::algorithm::join(
 			fcppt::variant::apply_unary(
 				sge::opengl::state::core::blend::alpha_visitor(
 					_system_context
 				),
 				_parameters.alpha_variant()
-			)
-		)(
-			std::tr1::bind(
-				::glColorMask,
-				_parameters.write_mask().write_red().get(),
-				_parameters.write_mask().write_green().get(),
-				_parameters.write_mask().write_blue().get(),
-				_parameters.write_mask().write_alpha().get()
+			),
+			fcppt::assign::make_container<
+				sge::opengl::state::actor_vector
+			>(
+				sge;:opengl::state::wrap_error_handler(
+					std::tr1::bind(
+						::glColorMask,
+						_parameters.write_mask().write_red().get(),
+						_parameters.write_mask().write_green().get(),
+						_parameters.write_mask().write_blue().get(),
+						_parameters.write_mask().write_alpha().get()
+					),
+					FCPPT_TEXT("glColorMask")
+				)
 			)
 		);
 }

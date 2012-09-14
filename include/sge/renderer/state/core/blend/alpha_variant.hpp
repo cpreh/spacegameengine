@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_CORE_BLEND_ALPHA_VARIANT_HPP_INCLUDED
 #define SGE_RENDERER_STATE_CORE_BLEND_ALPHA_VARIANT_HPP_INCLUDED
 
-#include <sge/renderer/state/core/blend/alpha_enable.hpp>
+#include <sge/renderer/state/core/blend/alpha_enabled.hpp>
 #include <sge/renderer/state/core/blend/alpha_off.hpp>
 #include <sge/renderer/state/core/blend/alpha_variant_fwd.hpp>
 #include <fcppt/variant/object_impl.hpp>

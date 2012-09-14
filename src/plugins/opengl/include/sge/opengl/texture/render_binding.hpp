@@ -23,6 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/texture/active_level_fwd.hpp>
 #include <sge/opengl/texture/binding.hpp>
+#include <sge/opengl/texture/render_binding_fwd.hpp>
+#include <sge/opengl/texture/type.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -42,9 +44,9 @@ class render_binding
 		render_binding
 	);
 public:
-	explicit
 	render_binding(
-		sge::opengl::texture::active_level const &
+		sge::opengl::texture::active_level const &,
+		sge::opengl::texture::type
 	);
 
 	~render_binding();
@@ -52,7 +54,12 @@ private:
 	sge::renderer::texture::stage const
 	stage() const;
 
+	sge::opengl::texture::type const
+	type() const;
+
 	sge::renderer::texture::stage const stage_;
+
+	sge::opengl::texture::type const type_;
 };
 
 }

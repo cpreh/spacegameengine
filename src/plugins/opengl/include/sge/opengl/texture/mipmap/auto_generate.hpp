@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
-#include <sge/opengl/texture/type.hpp>
 
 
 namespace sge
@@ -38,8 +37,7 @@ namespace mipmap
 void
 auto_generate(
 	sge::opengl::texture::binding const &,
-	sge::opengl::context::system::object &,
-	sge::opengl::texture::type
+	sge::opengl::context::system::object &
 );
 
 }

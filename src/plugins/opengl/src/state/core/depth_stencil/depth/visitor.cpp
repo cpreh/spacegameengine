@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/wrap_error_handler.hpp>
 #include <sge/opengl/state/convert/depth_func.hpp>
 #include <sge/opengl/state/core/depth_stencil/depth/visitor.hpp>
-#include <sge/renderer/state/core/depth_stencil/depth/enable.hpp>
+#include <sge/renderer/state/core/depth_stencil/depth/enabled.hpp>
 #include <sge/renderer/state/core/depth_stencil/depth/off_fwd.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
@@ -50,7 +50,7 @@ sge::opengl::state::core::depth_stencil::depth::visitor::operator()(
 
 sge::opengl::state::core::depth_stencil::depth::visitor::result_type const
 sge::opengl::state::core::depth_stencil::depth::visitor::operator()(
-	sge::renderer::state::core::depth_stencil::depth::enable const &_enable
+	sge::renderer::state::core::depth_stencil::depth::enabled const &_enabled
 ) const
 {
 	return
@@ -66,7 +66,7 @@ sge::opengl::state::core::depth_stencil::depth::visitor::operator()(
 				std::tr1::bind(
 					::glDepthFunc,
 					sge::opengl::state::convert::depth_func(
-						_enable.func()
+						_enabled.func()
 					)
 				),
 				FCPPT_TEXT("glDepthFunc")
@@ -76,7 +76,7 @@ sge::opengl::state::core::depth_stencil::depth::visitor::operator()(
 				std::tr1::bind(
 					::glDepthMask,
 					sge::opengl::convert::to_gl_bool(
-						_enable.write_enable().get()
+						_enabled.write_enable().get()
 					)
 				),
 				FCPPT_TEXT("glDepthMask")

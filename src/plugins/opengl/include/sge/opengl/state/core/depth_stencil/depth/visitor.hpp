@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_DEPTH_VISITOR_HPP_INCLUDED
 
 #include <sge/opengl/state/actor_vector.hpp>
-#include <sge/renderer/state/core/depth_stencil/depth/enable_fwd.hpp>
+#include <sge/renderer/state/core/depth_stencil/depth/enabled_fwd.hpp>
 #include <sge/renderer/state/core/depth_stencil/depth/off_fwd.hpp>
 
 
@@ -51,7 +51,7 @@ public:
 
 	result_type const
 	operator()(
-		sge::renderer::state::core::depth_stencil::depth::enable const &
+		sge::renderer::state::core::depth_stencil::depth::enabled const &
 	) const;
 };
 

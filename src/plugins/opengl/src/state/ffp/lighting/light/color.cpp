@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::opengl::state::index_actor const
 sge::opengl::state::ffp::lighting::light::color(
 	GLenum const _name,
-	sge::image::color::any::object const &_object
+	sge::image::color::any::object const &_color
 )
 {
 	sge::image::color::rgba32f const color(

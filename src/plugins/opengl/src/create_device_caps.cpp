@@ -26,9 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/device_state/dummy.hpp>
 #include <sge/opengl/fbo/context.hpp>
+#include <sge/opengl/state/core/sampler/filter/anisotropy_context.hpp>
 #include <sge/opengl/texture/multi_context.hpp>
 #include <sge/opengl/texture/volume_context.hpp>
-#include <sge/opengl/texture/filter/anisotropy_context.hpp>
 #include <sge/renderer/adapter.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/caps/clip_plane_indices.hpp>
@@ -67,9 +67,9 @@ sge::opengl::create_device_caps(
 		)
 	);
 
-	sge::opengl::texture::filter::anisotropy_context const &texture_anisotropy_context(
+	sge::opengl::state::core::sampler::filter::anisotropy_context const &anisotropy_context(
 		sge::opengl::context::use<
-			sge::opengl::texture::filter::anisotropy_context
+			sge::opengl::state::core::sampler::filter::anisotropy_context
 		>(
 			_context
 		)
@@ -142,10 +142,10 @@ sge::opengl::create_device_caps(
 			fcppt::strong_typedef_construct_cast<
 				sge::renderer::caps::max_anisotropy
 			>(
-				texture_anisotropy_context.max_anisotropy_flag()
+				anisotropy_context.max_anisotropy_flag()
 				?
 					sge::opengl::get_int(
-						*texture_anisotropy_context.max_anisotropy_flag()
+						*anisotropy_context.max_anisotropy_flag()
 					)
 				:
 					0

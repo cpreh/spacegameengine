@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/render_context/create.hpp>
 #include <sge/opengl/render_context/end.hpp>
 #include <sge/opengl/state/core/blend/create.hpp>
+#include <sge/opengl/state/core/sampler/create.hpp>
 #include <sge/opengl/state/ffp/lighting/light/create.hpp>
 #include <sge/opengl/texture/basic_parameters.hpp>
 #include <sge/opengl/texture/create_cube.hpp>
@@ -405,12 +406,11 @@ sge::opengl::device::create_sampler_state(
 	sge::renderer::state::core::sampler::parameters const &_parameters
 )
 {
-#if 0
 	return
 		sge::opengl::state::core::sampler::create(
+			system_context_,
 			_parameters
 		);
-#endif
 }
 
 #if defined(SGE_RENDERER_HAVE_CG)

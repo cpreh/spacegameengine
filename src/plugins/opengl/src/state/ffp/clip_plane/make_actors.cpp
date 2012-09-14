@@ -18,44 +18,54 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/check_state.hpp>
-#include <sge/opengl/set_clip_plane.hpp>
-#include <sge/opengl/convert/clip_plane_index.hpp>
-#include <sge/renderer/exception.hpp>
-#include <fcppt/format.hpp>
+#include <sge/opengl/common.hpp>
+#include <sge/opengl/state/index_actor.hpp>
+#include <sge/opengl/state/wrap_error_handler.hpp>
+#include <sge/opengl/state/ffp/clip_plane/make_actors.hpp>
+#include <sge/renderer/state/ffp/clip_plane/parameters.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/math/vector/static.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/phoenix/core/argument.hpp>
+#include <boost/phoenix/core/value.hpp>
+#include <boost/phoenix/bind/bind_function.hpp>
+#include <boost/phoenix/bind/bind_member_function.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
-void
-sge::opengl::set_clip_plane(
-	renderer::clip_plane_index const _index,
-	renderer::clip_plane const &_clip_plane
+sge::opengl::state::index_actor const
+sge::opengl::state::ffp::clip_plane::make_actors(
+	sge::renderer::state::ffp::clip_plane::parameters const &_parameters
 )
 {
-	::glClipPlane(
-		opengl::convert::clip_plane_index(
-			_index
-		),
-		fcppt::math::vector::structure_cast
-		<
-			fcppt::math::vector::static_<GLdouble,4>::type
-		>(
-			_clip_plane.get()
-		).data()
-	);
+	typedef fcppt::math::vector::static_<
+		GLdouble,
+		4
+	>::type vector4d;
 
-	SGE_OPENGL_CHECK_STATE(
-		(
-			fcppt::format(
-				FCPPT_TEXT("Setting clip plane %1% failed. ")
-				FCPPT_TEXT(" Note that a minimum of six clip planes is supported.")
-			)
-			%
-				_index
-		).str(),
-		sge::renderer::exception
-	)
+	return
+		sge::opengl::state::wrap_error_handler(
+			boost::phoenix::bind(
+				::glClipPlane,
+				boost::phoenix::arg_names::arg1,
+				boost::phoenix::bind(
+					static_cast<
+						vector4d::const_pointer
+						(vector4d::*)() const
+					>(
+						&vector4d::data
+					),
+					boost::phoenix::val(
+						fcppt::math::vector::structure_cast<
+							vector4d
+						>(
+							_parameters.area().get()
+						)
+					)
+				)
+			),
+			FCPPT_TEXT("glClipPlane")
+		);
 }

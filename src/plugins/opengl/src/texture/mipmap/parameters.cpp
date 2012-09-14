@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/instantiate_dim.hpp>
-#include <sge/opengl/texture/type.hpp>
 #include <sge/opengl/texture/mipmap/parameters.hpp>
 #include <fcppt/math/size_type.hpp>
 
@@ -37,7 +36,6 @@ sge::opengl::texture::mipmap::parameters<
 >::parameters(
 	sge::opengl::texture::binding const &_binding,
 	sge::opengl::context::system::object &_system_context,
-	sge::opengl::texture::type const _type,
 	sge::opengl::texture::buffer_type const _buffer_type,
 	sge::opengl::color_format const _format,
 	sge::opengl::color_format_type const _format_type,
@@ -96,17 +94,6 @@ sge::opengl::texture::mipmap::parameters<
 >::system_context() const
 {
 	return system_context_;
-}
-
-template<
-	fcppt::math::size_type Dim
->
-sge::opengl::texture::type const
-sge::opengl::texture::mipmap::parameters<
-	Dim
->::type() const
-{
-	return type_;
 }
 
 template<

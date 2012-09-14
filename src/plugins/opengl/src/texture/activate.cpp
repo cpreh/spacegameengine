@@ -128,13 +128,12 @@ sge::opengl::texture::activate(
 	);
 
 	sge::opengl::texture::render_binding const binding(
-		active_level
+		active_level,
+		base.type()
 	);
 
 	sge::opengl::texture::set_samplers(
 		binding,
-		_system_context,
-		_device_context,
-		base.type()
+		_device_context
 	);
 }

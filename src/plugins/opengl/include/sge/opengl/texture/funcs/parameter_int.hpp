@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
-#include <sge/opengl/texture/type.hpp>
 
 
 namespace sge
@@ -38,7 +37,6 @@ namespace funcs
 void
 parameter_int(
 	sge::opengl::texture::binding const &,
-	sge::opengl::texture::type,
 	GLenum name,
 	GLint value
 );

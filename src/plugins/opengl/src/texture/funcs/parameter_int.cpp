@@ -20,8 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/texture/binding_fwd.hpp>
-#include <sge/opengl/texture/type.hpp>
+#include <sge/opengl/texture/binding.hpp>
 #include <sge/opengl/texture/funcs/parameter_int.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
@@ -29,14 +28,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::texture::funcs::parameter_int(
-	sge::opengl::texture::binding const &,
-	sge::opengl::texture::type const _type,
+	sge::opengl::texture::binding const &_binding,
 	GLenum const _name,
 	GLint const _value
 )
 {
 	::glTexParameteri(
-		_type.get(),
+		_binding.type().get(),
 		_name,
 		_value
 	);

@@ -60,6 +60,9 @@ private:
 	sge::renderer::texture::stage const
 	stage() const;
 
+	sge::opengl::texture::type const
+	type() const;
+
 	void
 	bind(
 		sge::opengl::texture::optional_id,

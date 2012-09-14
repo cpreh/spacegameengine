@@ -37,6 +37,8 @@ sge::opengl::state::convert::cull_mode(
 		return GL_BACK;
 	case sge::renderer::state::core::rasterizer::cull_mode::counter_clockwise:
 		return GL_FRONT;
+	case sge::renderer::state::core::rasterizer::cull_mode::off:
+		break;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;
