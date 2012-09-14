@@ -18,20 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_PARAMETERS_FWD_HPP_INCLUDED
-#define SGE_OPENGL_STATE_PARAMETERS_FWD_HPP_INCLUDED
+#ifndef SGE_RENDERER_STATE_CORE_DEPTH_STENCIL_STENCIL_ENABLED_VARIANT_HPP_INCLUDED
+#define SGE_RENDERER_STATE_CORE_DEPTH_STENCIL_STENCIL_ENABLED_VARIANT_HPP_INCLUDED
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
+#include <sge/renderer/state/core/depth_stencil/stencil/combined.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/enabled_variant_fwd.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/separate.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
-class parameters;
-
-}
-}
-}
 
 #endif

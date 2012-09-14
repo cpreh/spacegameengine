@@ -18,11 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_DRAW_MODE_HPP_INCLUDED
-#define SGE_OPENGL_STATE_DRAW_MODE_HPP_INCLUDED
+#ifndef SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_STENCIL_VISITOR_HPP_INCLUDED
+#define SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_STENCIL_VISITOR_HPP_INCLUDED
 
-#include <sge/opengl/state/parameters_fwd.hpp>
-#include <sge/renderer/state/draw_mode.hpp>
+#include <sge/opengl/state/actor_vector.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/enabled_fwd.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/off_fwd.hpp>
+
 
 namespace sge
 {
@@ -30,13 +32,32 @@ namespace opengl
 {
 namespace state
 {
+namespace core
+{
+namespace depth_stencil
+{
+namespace stencil
+{
 
-void
-draw_mode(
-	state::parameters const &,
-	renderer::state::draw_mode::type
-);
+class visitor
+{
+public:
+	typedef sge::opengl::state::actor_vector result_type;
 
+	result_type const
+	operator()(
+		sge::renderer::state::core::depth_stencil::stencil::off const &
+	) const;
+
+	result_type const
+	operator()(
+		sge::renderer::state::core::depth_stencil::stencil::enabled const &
+	) const;
+};
+
+}
+}
+}
 }
 }
 }

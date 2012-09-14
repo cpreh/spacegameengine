@@ -18,21 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/state/parameters.hpp>
-#include <sge/opengl/state/stencil_op.hpp>
-#include <sge/opengl/state/deferred/bundle.hpp>
-#include <sge/opengl/state/deferred/object.hpp>
-#include <sge/renderer/state/var.hpp>
-#include <sge/renderer/state/stencil_op/type.hpp>
+#ifndef SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_MAKE_ACTORS_HPP_INCLUDED
+#define SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_MAKE_ACTORS_HPP_INCLUDED
+
+#include <sge/opengl/state/actor_vector.hpp>
+#include <sge/renderer/state/core/depth_stencil/parameters_fwd.hpp>
 
 
-void
-sge::opengl::state::stencil_op(
-	state::parameters const &_parameters,
-	renderer::state::stencil_op::type const &
-)
+namespace sge
 {
-	_parameters.deferred().add(
-		deferred::bundle::stencil_op
-	);
+namespace opengl
+{
+namespace state
+{
+namespace core
+{
+namespace depth_stencil
+{
+
+sge::opengl::state::actor_vector const
+make_actors(
+	sge::renderer::state::core::depth_stencil::parameters const &
+);
+
 }
+}
+}
+}
+}
+
+#endif

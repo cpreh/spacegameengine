@@ -18,20 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/state/parameters.hpp>
-#include <sge/opengl/state/source_blend_func.hpp>
-#include <sge/opengl/state/deferred/bundle.hpp>
-#include <sge/opengl/state/deferred/object.hpp>
-#include <sge/renderer/state/source_blend_func.hpp>
+#ifndef SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_STENCIL_WRITE_MASK_HPP_INCLUDED
+#define SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_STENCIL_WRITE_MASK_HPP_INCLUDED
+
+#include <sge/opengl/state/actor_fwd.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/write_mask.hpp>
 
 
-void
-sge::opengl::state::source_blend_func(
-	state::parameters const &_parameters,
-	renderer::state::source_blend_func::type
-)
+namespace sge
 {
-	_parameters.deferred().add(
-		deferred::bundle::blend_func
-	);
+namespace opengl
+{
+namespace state
+{
+namespace core
+{
+namespace depth_stencil
+{
+namespace stencil
+{
+
+sge::opengl::state::actor const
+write_mask(
+	sge::renderer::state::core::depth_stencil::stencil::write_mask
+);
+
 }
+}
+}
+}
+}
+}
+
+#endif

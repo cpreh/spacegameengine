@@ -18,46 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_PARAMETERS_HPP_INCLUDED
-#define SGE_OPENGL_STATE_PARAMETERS_HPP_INCLUDED
+#include <sge/opengl/state/core/depth_stencil/create.hpp>
+#include <sge/opengl/state/core/depth_stencil/make_actors.hpp>
+#include <sge/opengl/state/core/depth_stencil/object.hpp>
+#include <sge/renderer/state/core/depth_stencil/object_unique_ptr.hpp>
+#include <sge/renderer/state/core/depth_stencil/parameters_fwd.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 
-#include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/opengl/state/parameters_fwd.hpp>
-#include <sge/opengl/state/deferred/object_fwd.hpp>
-#include <fcppt/nonassignable.hpp>
 
-
-namespace sge
+sge::renderer::state::core::depth_stencil::object_unique_ptr
+sge::opengl::state::core::depth_stencil::create(
+	sge::renderer::state::core::depth_stencil::parameters const &_parameters
+)
 {
-namespace opengl
-{
-namespace state
-{
-
-class parameters
-{
-	FCPPT_NONASSIGNABLE(
-		parameters
-	);
-public:
-	parameters(
-		sge::opengl::context::system::object &,
-		sge::opengl::state::deferred::object &
-	);
-
-	sge::opengl::context::system::object &
-	system_context() const;
-
-	sge::opengl::state::deferred::object &
-	deferred() const;
-private:
-	sge::opengl::context::system::object &system_context_;
-
-	sge::opengl::state::deferred::object &deferred_;
-};
-
+	return
+		sge::renderer::state::core::depth_stencil::object_unique_ptr(
+			fcppt::make_unique_ptr<
+				sge::opengl::state::core::depth_stencil::object
+			>(
+				sge::opengl::state::core::depth_stencil::make_actors(
+					_parameters
+				)
+			)
+		);
 }
-}
-}
-
-#endif

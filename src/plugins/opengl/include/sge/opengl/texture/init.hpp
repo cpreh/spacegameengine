@@ -144,7 +144,6 @@ init(
 		>(
 			_binding,
 			_basic_parameters.system_context(),
-			_type,
 			_buffer_type,
 			color_format,
 			color_format_type,

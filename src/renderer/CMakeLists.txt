@@ -317,6 +317,7 @@ set(
 	include/sge/renderer/state/core/depth_stencil/stencil/desc_fwd.hpp
 	include/sge/renderer/state/core/depth_stencil/stencil/enabled.hpp
 	include/sge/renderer/state/core/depth_stencil/stencil/enabled_fwd.hpp
+	include/sge/renderer/state/core/depth_stencil/stencil/enabled_variant.hpp
 	include/sge/renderer/state/core/depth_stencil/stencil/enabled_variant_fwd.hpp
 	include/sge/renderer/state/core/depth_stencil/stencil/fail_op.hpp
 	include/sge/renderer/state/core/depth_stencil/stencil/front.hpp

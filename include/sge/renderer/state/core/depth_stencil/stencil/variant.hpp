@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_CORE_DEPTH_STENCIL_STENCIL_VARIANT_HPP_INCLUDED
 #define SGE_RENDERER_STATE_CORE_DEPTH_STENCIL_STENCIL_VARIANT_HPP_INCLUDED
 
-#include <sge/renderer/state/core/depth_stencil/stencil/enable.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/enabled.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/off.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/variant_fwd.hpp>
 #include <fcppt/variant/object_impl.hpp>

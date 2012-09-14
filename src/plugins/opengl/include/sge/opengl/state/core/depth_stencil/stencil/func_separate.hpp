@@ -18,19 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/state/dest_blend_func.hpp>
-#include <sge/opengl/state/parameters.hpp>
-#include <sge/opengl/state/deferred/bundle.hpp>
-#include <sge/opengl/state/deferred/object.hpp>
-#include <sge/renderer/state/dest_blend_func.hpp>
+#ifndef SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_STENCIL_FUNC_SEPARATE_HPP_INCLUDED
+#define SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_STENCIL_FUNC_SEPARATE_HPP_INCLUDED
 
-void
-sge::opengl::state::dest_blend_func(
-	state::parameters const &_parameters,
-	renderer::state::dest_blend_func::type
-)
+#include <sge/opengl/common.hpp>
+#include <sge/opengl/state/actor_fwd.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/func.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/ref.hpp>
+
+
+namespace sge
 {
-	_parameters.deferred().add(
-		deferred::bundle::blend_func
-	);
+namespace opengl
+{
+namespace state
+{
+namespace core
+{
+namespace depth_stencil
+{
+namespace stencil
+{
+
+sge::opengl::state::actor const
+func_separate(
+	GLenum side,
+	sge::renderer::state::core::depth_stencil::stencil::func::type,
+	sge::renderer::state::core::depth_stencil::stencil::ref
+);
+
 }
+}
+}
+}
+}
+}
+
+#endif

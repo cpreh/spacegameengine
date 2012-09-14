@@ -18,13 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_CORE_BLEND_ALPHA_ENABLE_VISITOR_HPP_INCLUDED
-#define SGE_OPENGL_STATE_CORE_BLEND_ALPHA_ENABLE_VISITOR_HPP_INCLUDED
+#ifndef SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_STENCIL_ENABLED_VISITOR_HPP_INCLUDED
+#define SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_STENCIL_ENABLED_VISITOR_HPP_INCLUDED
 
-#include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/opengl/state/actor_fwd.hpp>
-#include <sge/renderer/state/core/blend/combined_fwd.hpp>
-#include <sge/renderer/state/core/blend/separate_fwd.hpp>
+#include <sge/opengl/state/actor_vector.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/combined_fwd.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/ref.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/separate_fwd.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/write_mask.hpp>
 #include <fcppt/nonassignable.hpp>
 
 
@@ -36,35 +37,37 @@ namespace state
 {
 namespace core
 {
-namespace blend
+namespace depth_stencil
+{
+namespace stencil
 {
 
-class alpha_enable_visitor
+class enabled_visitor
 {
-	FCPPT_NONASSIGNABLE(
-		alpha_enable_visitor
-	);
 public:
-	explicit
-	alpha_enable_visitor(
-		sge::opengl::context::system::object &
+	enabled_visitor(
+		sge::renderer::state::core::depth_stencil::stencil::ref,
+		sge::renderer::state::core::depth_stencil::stencil::write_mask
 	);
 
-	typedef sge::opengl::state::actor result_type;
+	typedef sge::opengl::state::actor_vector result_type;
 
 	result_type const
 	operator()(
-		sge::renderer::state::core::blend::combined const &
+		sge::renderer::state::core::depth_stencil::stencil::combined const &
 	) const;
 
 	result_type const
 	operator()(
-		sge::renderer::state::core::blend::separate const &
+		sge::renderer::state::core::depth_stencil::stencil::separate const &
 	) const;
 private:
-	sge::opengl::context::system::object &system_context_;
+	sge::renderer::state::core::depth_stencil::stencil::ref const ref_;
+
+	sge::renderer::state::core::depth_stencil::stencil::write_mask const write_mask_;
 };
 
+}
 }
 }
 }

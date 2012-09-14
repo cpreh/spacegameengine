@@ -24,7 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/device/base.hpp>
 #include <sge/opengl/context/device/id.hpp>
 #include <sge/opengl/state/core/sampler/object_fwd.hpp>
-#include <sge/renderer/state/core/sampler/const_object_ref_vectgor.hpp>
+#include <sge/renderer/state/core/sampler/const_object_ref_vector.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/reference_wrapper.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
@@ -60,6 +61,11 @@ public:
 	set(
 		sge::renderer::state::core::sampler::const_object_ref_vector const &
 	);
+
+	sge::opengl::state::core::sampler::object const &
+	get(
+		sge::renderer::texture::stage
+	) const;
 
 	typedef void needs_before;
 

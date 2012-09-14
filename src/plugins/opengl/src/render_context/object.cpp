@@ -278,6 +278,8 @@ sge::opengl::render_context::object::sampler_state(
 )
 {
 	sge::opengl::state::core::sampler::set(
+		system_context_,
+		device_context_,
 		_state
 	);
 }

@@ -18,11 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_DEST_BLEND_FUNC_HPP_INCLUDED
-#define SGE_OPENGL_STATE_DEST_BLEND_FUNC_HPP_INCLUDED
+#ifndef SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_CREATE_HPP_INCLUDED
+#define SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_CREATE_HPP_INCLUDED
 
-#include <sge/opengl/state/parameters_fwd.hpp>
-#include <sge/renderer/state/dest_blend_func.hpp>
+#include <sge/renderer/state/core/depth_stencil/object_unique_ptr.hpp>
+#include <sge/renderer/state/core/depth_stencil/parameters_fwd.hpp>
+
 
 namespace sge
 {
@@ -30,13 +31,18 @@ namespace opengl
 {
 namespace state
 {
+namespace core
+{
+namespace depth_stencil
+{
 
-void
-dest_blend_func(
-	state::parameters const &,
-	renderer::state::dest_blend_func::type
+sge::renderer::state::core::depth_stencil::object_unique_ptr
+create(
+	sge::renderer::state::core::depth_stencil::parameters const &
 );
 
+}
+}
 }
 }
 }

@@ -18,20 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/state/parameters.hpp>
-#include <sge/opengl/state/stencil_func.hpp>
-#include <sge/opengl/state/deferred/bundle.hpp>
-#include <sge/opengl/state/deferred/object.hpp>
-#include <sge/renderer/state/stencil_func.hpp>
+#include <sge/opengl/common.hpp>
+#include <sge/opengl/state/actor.hpp>
+#include <sge/opengl/state/wrap_error_handler.hpp>
+#include <sge/opengl/state/convert/fill_mode.hpp>
+#include <sge/opengl/state/core/rasterizer/fill_mode.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/tr1/functional.hpp>
 
 
-void
-sge::opengl::state::stencil_func(
-	state::parameters const &_parameters,
-	renderer::state::stencil_func::type
+sge::opengl::state::actor const
+sge::opengl::state::core::rasterizer::fill_mode(
+	sge::renderer::state::core::rasterizer::fill_mode::type const _mode
 )
 {
-	_parameters.deferred().add(
-		deferred::bundle::stencil_func
-	);
+	return
+		sge::opengl::state::wrap_error_handler(
+			std::tr1::bind(
+				::glPolygonMode,
+				GL_FRONT_AND_BACK,
+				sge::opengl::state::convert::fill_mode(
+					_mode
+				)
+			),
+			FCPPT_TEXT("glPolygonMode")
+		);
 }

@@ -24,13 +24,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/wrap_error_handler.hpp>
 #include <sge/opengl/state/convert/dest_blend_func.hpp>
 #include <sge/opengl/state/convert/source_blend_func.hpp>
-#include <sge/opengl/state/core/blend/alpha_enable_visitor.hpp>
+#include <sge/opengl/state/core/blend/alpha_enabled_visitor.hpp>
 #include <sge/renderer/state/core/blend/combined.hpp>
 #include <sge/renderer/state/core/blend/separate.hpp>
 #include <fcppt/text.hpp>
 
 
-sge::opengl::state::core::blend::alpha_enable_visitor::alpha_enable_visitor(
+sge::opengl::state::core::blend::alpha_enabled_visitor::alpha_enabled_visitor(
 	sge::opengl::context::system::object &_system_context
 )
 :
@@ -42,8 +42,8 @@ sge::opengl::state::core::blend::alpha_enable_visitor::alpha_enable_visitor(
 
 // TODO: check what is supported here!
 
-sge::opengl::state::core::blend::alpha_enable_visitor::result_type const
-sge::opengl::state::core::blend::alpha_enable_visitor::operator()(
+sge::opengl::state::core::blend::alpha_enabled_visitor::result_type const
+sge::opengl::state::core::blend::alpha_enabled_visitor::operator()(
 	sge::renderer::state::core::blend::combined const &_combined
 ) const
 {
@@ -62,8 +62,8 @@ sge::opengl::state::core::blend::alpha_enable_visitor::operator()(
 		);
 }
 
-sge::opengl::state::core::blend::alpha_enable_visitor::result_type const
-sge::opengl::state::core::blend::alpha_enable_visitor::operator()(
+sge::opengl::state::core::blend::alpha_enabled_visitor::result_type const
+sge::opengl::state::core::blend::alpha_enabled_visitor::operator()(
 	sge::renderer::state::core::blend::separate const &_separate
 ) const
 {

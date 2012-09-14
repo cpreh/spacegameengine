@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_CORE_DEPTH_STENCIL_STENCIL_VARIANT_FWD_HPP_INCLUDED
 #define SGE_RENDERER_STATE_CORE_DEPTH_STENCIL_STENCIL_VARIANT_FWD_HPP_INCLUDED
 
-#include <sge/renderer/state/core/depth_stencil/stencil/enable_fwd.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/enabled_fwd.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/off_fwd.hpp>
 #include <fcppt/variant/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -45,7 +45,7 @@ namespace stencil
 typedef fcppt::variant::object<
 	boost::mpl::vector2<
 		sge::renderer::state::core::depth_stencil::stencil::off,
-		sge::renderer::state::core::depth_stencil::stencil::enable
+		sge::renderer::state::core::depth_stencil::stencil::enabled
 	>
 > variant;
 

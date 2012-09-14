@@ -18,31 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/state/draw_mode.hpp>
-#include <sge/opengl/state/parameters_fwd.hpp>
-#include <sge/opengl/state/convert/draw_mode.hpp>
-#include <sge/renderer/exception.hpp>
-#include <sge/renderer/state/draw_mode.hpp>
+#include <sge/opengl/state/actor.hpp>
+#include <sge/opengl/state/wrap_error_handler.hpp>
+#include <sge/opengl/state/core/depth_stencil/stencil/write_mask.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/write_mask.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/tr1/functional.hpp>
 
 
-void
-sge::opengl::state::draw_mode(
-	state::parameters const &,
-	renderer::state::draw_mode::type const _mode
+sge::opengl::state::actor const
+sge::opengl::state::core::depth_stencil::stencil::write_mask(
+	sge::renderer::state::core::depth_stencil::stencil::write_mask const _write_mask
 )
 {
-	::glPolygonMode(
-		GL_FRONT_AND_BACK,
-		state::convert::draw_mode(
-			_mode
-		)
-	);
+	return
+		sge::opengl::state::wrap_error_handler(
+			std::tr1::bind(
+				::glStencilMask,
+				static_cast<
+					GLuint
+				>(
+					_write_mask.get()
+				)
 
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("glPolygonMode failed"),
-		sge::renderer::exception
-	)
+			),
+			FCPPT_TEXT("glStencilMask")
+		);
 }

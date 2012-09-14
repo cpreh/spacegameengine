@@ -18,33 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/opengl/state/parameters.hpp>
-#include <sge/opengl/state/deferred/object_fwd.hpp>
+#ifndef SGE_OPENGL_STATE_CORE_RASTERIZER_FILL_MODE_HPP_INCLUDED
+#define SGE_OPENGL_STATE_CORE_RASTERIZER_FILL_MODE_HPP_INCLUDED
+
+#include <sge/opengl/state/actor_fwd.hpp>
+#include <sge/renderer/state/core/rasterizer/fill_mode.hpp>
 
 
-sge::opengl::state::parameters::parameters(
-	sge::opengl::context::system::object &_system_context,
-	sge::opengl::state::deferred::object &_deferred
-)
-:
-	system_context_(
-		_system_context
-	),
-	deferred_(
-		_deferred
-	)
+namespace sge
 {
+namespace opengl
+{
+namespace state
+{
+namespace core
+{
+namespace rasterizer
+{
+
+sge::opengl::state::actor const
+fill_mode(
+	sge::renderer::state::core::rasterizer::fill_mode::type
+);
+
+}
+}
+}
+}
 }
 
-sge::opengl::context::system::object &
-sge::opengl::state::parameters::system_context() const
-{
-	return system_context_;
-}
-
-sge::opengl::state::deferred::object &
-sge::opengl::state::parameters::deferred() const
-{
-	return deferred_;
-}
+#endif

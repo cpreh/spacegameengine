@@ -18,10 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_DEFERRED_STENCIL_FUNC_HPP_INCLUDED
-#define SGE_OPENGL_STATE_DEFERRED_STENCIL_FUNC_HPP_INCLUDED
+#ifndef SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_STENCIL_OP_SEPARATE_HPP_INCLUDED
+#define SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_STENCIL_OP_SEPARATE_HPP_INCLUDED
 
-#include <sge/renderer/state/list_fwd.hpp>
+#include <sge/opengl/common.hpp>
+#include <sge/opengl/state/actor_fwd.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/depth_fail_op.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/fail_op.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/pass_op.hpp>
+
 
 namespace sge
 {
@@ -29,14 +34,23 @@ namespace opengl
 {
 namespace state
 {
-namespace deferred
+namespace core
+{
+namespace depth_stencil
+{
+namespace stencil
 {
 
-void
-stencil_func(
-	sge::renderer::state::list const &
+sge::opengl::state::actor const
+op_separate(
+	GLenum side,
+	sge::renderer::state::core::depth_stencil::stencil::fail_op,
+	sge::renderer::state::core::depth_stencil::stencil::depth_fail_op,
+	sge::renderer::state::core::depth_stencil::stencil::pass_op
 );
 
+}
+}
 }
 }
 }

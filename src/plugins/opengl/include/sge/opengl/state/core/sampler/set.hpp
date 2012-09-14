@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_STATE_CORE_SAMPLER_SET_HPP_INCLUDED
 #define SGE_OPENGL_STATE_CORE_SAMPLER_SET_HPP_INCLUDED
 
+#include <sge/opengl/context/device/object_fwd.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/renderer/state/core/sampler/const_object_ref_vector.hpp>
 
 
@@ -37,6 +39,8 @@ namespace sampler
 
 void
 set(
+	sge::opengl::context::system::object &_system_context,
+	sge::opengl::context::device::object &_device_context,
 	sge::renderer::state::core::sampler::const_object_ref_vector const &
 );
 
