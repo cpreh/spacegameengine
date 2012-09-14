@@ -71,8 +71,8 @@ function(
 
 	target_link_libraries(
 		"${FULL_NAME}"
-		"${ADDITIONAL_LIBRARIES}"
-		"${SGELIBS_TARGETS_RESULT}"
+		${ADDITIONAL_LIBRARIES}
+		${SGELIBS_TARGETS_RESULT}
 	)
 
 	install(
