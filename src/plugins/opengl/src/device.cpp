@@ -34,6 +34,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/render_context/create.hpp>
 #include <sge/opengl/render_context/end.hpp>
 #include <sge/opengl/state/core/blend/create.hpp>
+#include <sge/opengl/state/core/depth_stencil/create.hpp>
+#include <sge/opengl/state/core/rasterizer/create.hpp>
 #include <sge/opengl/state/core/sampler/create.hpp>
 #include <sge/opengl/state/ffp/lighting/light/create.hpp>
 #include <sge/opengl/texture/basic_parameters.hpp>
@@ -389,16 +391,24 @@ sge::opengl::device::create_blend_state(
 
 sge::renderer::state::core::depth_stencil::object_unique_ptr
 sge::opengl::device::create_depth_stencil_state(
-	sge::renderer::state::core::depth_stencil::parameters const &
+	sge::renderer::state::core::depth_stencil::parameters const &_parameters
 )
 {
+	return
+		sge::opengl::state::core::depth_stencil::create(
+			_parameters
+		);
 }
 
 sge::renderer::state::core::rasterizer::object_unique_ptr
 sge::opengl::device::create_rasterizer_state(
-	sge::renderer::state::core::rasterizer::parameters const &
+	sge::renderer::state::core::rasterizer::parameters const &_parameters
 )
 {
+	return
+		sge::opengl::state::core::rasterizer::create(
+			_parameters
+		);
 }
 
 sge::renderer::state::core::sampler::object_unique_ptr

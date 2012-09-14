@@ -18,11 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_STENCIL_FUNC_HPP_INCLUDED
-#define SGE_OPENGL_STATE_STENCIL_FUNC_HPP_INCLUDED
+#ifndef SGE_OPENGL_STATE_FFP_FOG_OBJECT_FWD_HPP_INCLUDED
+#define SGE_OPENGL_STATE_FFP_FOG_OBJECT_FWD_HPP_INCLUDED
 
-#include <sge/opengl/state/parameters_fwd.hpp>
-#include <sge/renderer/state/stencil_func.hpp>
+#include <sge/opengl/state/object_fwd.hpp>
+#include <sge/renderer/state/ffp/fog/object_fwd.hpp>
+
 
 namespace sge
 {
@@ -30,13 +31,17 @@ namespace opengl
 {
 namespace state
 {
+namespace ffp
+{
+namespace fog
+{
 
-void
-stencil_func(
-	state::parameters const &,
-	renderer::state::stencil_func::type
-);
+typedef sge::opengl::state::object<
+	sge::renderer::state::ffp::fog::object
+> object;
 
+}
+}
 }
 }
 }

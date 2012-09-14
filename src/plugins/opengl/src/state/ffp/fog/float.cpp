@@ -18,27 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_SOURCE_BLEND_FUNC_HPP_INCLUDED
-#define SGE_OPENGL_STATE_SOURCE_BLEND_FUNC_HPP_INCLUDED
+#include <sge/opengl/common.hpp>
+#include <sge/opengl/state/actor.hpp>
+#include <sge/opengl/state/wrap_error_handler.hpp>
+#include <sge/opengl/state/ffp/fog/float.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/tr1/functional.hpp>
 
-#include <sge/opengl/state/parameters_fwd.hpp>
-#include <sge/renderer/state/source_blend_func.hpp>
 
-namespace sge
+sge::opengl::state::actor const
+sge::opengl::state::ffp::fog::float_(
+	GLenum const _what,
+	GLfloat const _value
+)
 {
-namespace opengl
-{
-namespace state
-{
-
-void
-source_blend_func(
-	state::parameters const &,
-	renderer::state::source_blend_func::type
-);
-
+	return
+		sge::opengl::state::wrap_error_handler(
+			std::tr1::bind(
+				::glFogf,
+				_what,
+				_value
+			),
+			FCPPT_TEXT("glFogf")
+		);
 }
-}
-}
-
-#endif

@@ -22,54 +22,75 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/disable.hpp>
 #include <sge/opengl/enable.hpp>
 #include <sge/opengl/state/wrap_error_handler.hpp>
-#include <sge/opengl/state/convert/alpha_func.hpp>
-#include <sge/opengl/state/ffp/alpha_test/visitor.hpp>
-#include <sge/renderer/state/ffp/alpha_test/enabled.hpp>
-#include <sge/renderer/state/ffp/alpha_test/off_fwd.hpp>
+#include <sge/opengl/state/convert/fog_mode.hpp>
+#include <sge/opengl/state/ffp/fog/color.hpp>
+#include <sge/opengl/state/ffp/fog/float.hpp>
+#include <sge/opengl/state/ffp/fog/visitor.hpp>
+#include <sge/renderer/state/ffp/fog/enabled.hpp>
+#include <sge/renderer/state/ffp/fog/off_fwd.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/tr1/functional.hpp>
 
 
-sge::opengl::state::ffp::alpha_test::visitor::result_type const
-sge::opengl::state::ffp::alpha_test::visitor::operator()(
-	sge::renderer::state::ffp::alpha_test::off const &
+sge::opengl::state::ffp::fog::visitor::result_type const
+sge::opengl::state::ffp::fog::visitor::operator()(
+	sge::renderer::state::ffp::fog::off const &
 ) const
 {
 	return
 		fcppt::assign::make_container<
-			sge::opengl::state::ffp::alpha_test::visitor::result_type
+			sge::opengl::state::ffp::fog::visitor::result_type
 		>(
 			std::tr1::bind(
 				sge::opengl::disable,
-				GL_ALPHA_TEST
+				GL_FOG
 			)
 		);
 }
 
-sge::opengl::state::ffp::alpha_test::visitor::result_type const
-sge::opengl::state::ffp::alpha_test::visitor::operator()(
-	sge::renderer::state::ffp::alpha_test::enabled const &_enabled
+sge::opengl::state::ffp::fog::visitor::result_type const
+sge::opengl::state::ffp::fog::visitor::operator()(
+	sge::renderer::state::ffp::fog::enabled const &_enabled
 ) const
 {
 	return
 		fcppt::assign::make_container<
-			sge::opengl::state::ffp::alpha_test::visitor::result_type
+			sge::opengl::state::ffp::fog::visitor::result_type
 		>(
 			std::tr1::bind(
 				sge::opengl::enable,
-				GL_ALPHA_TEST
+				GL_FOG
 			)
 		)(
 			sge::opengl::state::wrap_error_handler(
 				std::tr1::bind(
-					::glAlphaFunc,
-					sge::opengl::state::convert::alpha_func(
-						_enabled.func()
-					),
-					_enabled.ref().get()
+					::glFogi,
+					GL_FOG_MODE,
+					sge::opengl::state::convert::fog_mode(
+						_enabled.mode()
+					)
 				),
-				FCPPT_TEXT("glAlphaFunc")
+				FCPPT_TEXT("glFogi")
+			)
+		)(
+			sge::opengl::state::ffp::fog::float_(
+				GL_FOG_START,
+				_enabled.start().get()
+			)
+		)(
+			sge::opengl::state::ffp::fog::float_(
+				GL_FOG_END,
+				_enabled.end().get()
+			)
+		)(
+			sge::opengl::state::ffp::fog::float_(
+				GL_FOG_DENSITY,
+				_enabled.density().get()
+			)
+		)(
+			sge::opengl::state::ffp::fog::color(
+				_enabled.color()
 			)
 		);
 }

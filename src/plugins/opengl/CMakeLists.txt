@@ -192,6 +192,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/state/actor.hpp
 	src/plugins/opengl/include/sge/opengl/state/actor_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/state/actor_vector.hpp
+	src/plugins/opengl/include/sge/opengl/state/bind_data_getter.hpp
 	src/plugins/opengl/include/sge/opengl/state/convert/address_mode.hpp
 	src/plugins/opengl/include/sge/opengl/state/convert/address_mode_type.hpp
 	src/plugins/opengl/include/sge/opengl/state/convert/alpha_func.hpp
@@ -223,6 +224,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/state/core/depth_stencil/stencil/op_separate.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/depth_stencil/stencil/visitor.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/depth_stencil/stencil/write_mask.hpp
+	src/plugins/opengl/include/sge/opengl/state/core/rasterizer/create.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/rasterizer/cull_mode.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/rasterizer/fill_mode.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/sampler/actor.hpp
@@ -243,10 +245,17 @@ set(
 	src/plugins/opengl/include/sge/opengl/state/core/sampler/set.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/alpha_test/create.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/alpha_test/make_actors.hpp
+	src/plugins/opengl/include/sge/opengl/state/ffp/alpha_test/object.hpp
+	src/plugins/opengl/include/sge/opengl/state/ffp/alpha_test/object_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/alpha_test/visitor.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/clip_plane/make_actors.hpp
+	src/plugins/opengl/include/sge/opengl/state/ffp/fog/color.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/fog/create.hpp
+	src/plugins/opengl/include/sge/opengl/state/ffp/fog/float.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/fog/make_actors.hpp
+	src/plugins/opengl/include/sge/opengl/state/ffp/fog/object.hpp
+	src/plugins/opengl/include/sge/opengl/state/ffp/fog/object_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/state/ffp/fog/visitor.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/lighting/light/attenuation.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/lighting/light/color.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/lighting/light/create.hpp
@@ -275,10 +284,6 @@ set(
 	src/plugins/opengl/include/sge/opengl/state/object.hpp
 	src/plugins/opengl/include/sge/opengl/state/object_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/state/object_impl.hpp
-	src/plugins/opengl/include/sge/opengl/state/source_blend_func.hpp
-	src/plugins/opengl/include/sge/opengl/state/stencil_func.hpp
-	src/plugins/opengl/include/sge/opengl/state/stencil_op.hpp
-	src/plugins/opengl/include/sge/opengl/state/uint.hpp
 	src/plugins/opengl/include/sge/opengl/state/unary_object.hpp
 	src/plugins/opengl/include/sge/opengl/state/unary_object_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/state/unary_object_impl.hpp
@@ -636,8 +641,10 @@ set(
 	src/plugins/opengl/src/state/ffp/alpha_test/make_actors.cpp
 	src/plugins/opengl/src/state/ffp/alpha_test/visitor.cpp
 	src/plugins/opengl/src/state/ffp/clip_plane/make_actors.cpp
+	src/plugins/opengl/src/state/ffp/fog/color.cpp
+	src/plugins/opengl/src/state/ffp/fog/float.cpp
 	src/plugins/opengl/src/state/ffp/fog/make_actors.cpp
-	src/plugins/opengl/src/state/ffp/fog/variant.cpp
+	src/plugins/opengl/src/state/ffp/fog/visitor.cpp
 	src/plugins/opengl/src/state/ffp/lighting/light/attenuation.cpp
 	src/plugins/opengl/src/state/ffp/lighting/light/color.cpp
 	src/plugins/opengl/src/state/ffp/lighting/light/create.cpp
@@ -659,7 +666,6 @@ set(
 	src/plugins/opengl/src/state/ffp/transform/matrix_mode.cpp
 	src/plugins/opengl/src/state/ffp/transform/set_matrix.cpp
 	src/plugins/opengl/src/state/ffp/transform/set_matrix_and_mode.cpp
-	src/plugins/opengl/src/state/uint.cpp
 	src/plugins/opengl/src/system.cpp
 	src/plugins/opengl/src/target_base.cpp
 	src/plugins/opengl/src/target_context.cpp

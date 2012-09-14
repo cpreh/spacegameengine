@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_FFP_ALPHA_TEST_MAKE_ACTORS_HPP_INCLUDED
-#define SGE_OPENGL_STATE_FFP_ALPHA_TEST_MAKE_ACTORS_HPP_INCLUDED
+#ifndef SGE_OPENGL_STATE_FFP_FOG_FLOAT_HPP_INCLUDED
+#define SGE_OPENGL_STATE_FFP_FOG_FLOAT_HPP_INCLUDED
 
-#include <sge/opengl/state/actor_vector.hpp>
-#include <sge/renderer/state/ffp/alpha_test/parameters_fwd.hpp>
+#include <sge/opengl/common.hpp>
+#include <sge/opengl/state/actor_fwd.hpp>
 
 
 namespace sge
@@ -33,12 +33,13 @@ namespace state
 {
 namespace ffp
 {
-namespace alpha_test
+namespace fog
 {
 
-sge::opengl::state::actor_vector const
-make_actors(
-	sge::renderer::state::ffp::alpha_test::parameters const &
+sge::opengl::state::actor const
+float_(
+	GLenum,
+	GLfloat
 );
 
 }

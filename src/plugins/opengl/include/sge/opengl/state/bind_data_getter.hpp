@@ -18,11 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_STENCIL_OP_HPP_INCLUDED
-#define SGE_OPENGL_STATE_STENCIL_OP_HPP_INCLUDED
+#ifndef SGE_OPENGL_STATE_BIND_DATA_GETTER_HPP_INCLUDED
+#define SGE_OPENGL_STATE_BIND_DATA_GETTER_HPP_INCLUDED
 
-#include <sge/opengl/state/parameters_fwd.hpp>
-#include <sge/renderer/state/stencil_op/type.hpp>
+#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/phoenix/bind/bind_member_function.hpp>
+#include <boost/phoenix/core/value.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {
@@ -31,11 +35,29 @@ namespace opengl
 namespace state
 {
 
-void
-stencil_op(
-	state::parameters const &,
-	renderer::state::stencil_op::type const &
-);
+template<
+	typename Type
+>
+std::tr1::function<
+	typename Type::const_pointer ()
+> const
+bind_data_getter(
+	Type const &_value
+)
+{
+	return
+		boost::phoenix::bind(
+			static_cast<
+				typename Type::const_pointer
+				(Type::*)() const
+			>(
+				&Type::data
+			),
+			boost::phoenix::val(
+				_value
+			)
+		);
+}
 
 }
 }

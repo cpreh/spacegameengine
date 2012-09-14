@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_FFP_ALPHA_TEST_MAKE_ACTORS_HPP_INCLUDED
-#define SGE_OPENGL_STATE_FFP_ALPHA_TEST_MAKE_ACTORS_HPP_INCLUDED
+#ifndef SGE_OPENGL_STATE_CORE_RASTERIZER_CREATE_HPP_INCLUDED
+#define SGE_OPENGL_STATE_CORE_RASTERIZER_CREATE_HPP_INCLUDED
 
-#include <sge/opengl/state/actor_vector.hpp>
-#include <sge/renderer/state/ffp/alpha_test/parameters_fwd.hpp>
+#include <sge/renderer/state/core/rasterizer/object_unique_ptr.hpp>
+#include <sge/renderer/state/core/rasterizer/parameters_fwd.hpp>
 
 
 namespace sge
@@ -31,14 +31,14 @@ namespace opengl
 {
 namespace state
 {
-namespace ffp
+namespace core
 {
-namespace alpha_test
+namespace rasterizer
 {
 
-sge::opengl::state::actor_vector const
-make_actors(
-	sge::renderer::state::ffp::alpha_test::parameters const &
+sge::renderer::state::core::rasterizer::object_unique_ptr
+create(
+	sge::renderer::state::core::rasterizer::parameters const &
 );
 
 }

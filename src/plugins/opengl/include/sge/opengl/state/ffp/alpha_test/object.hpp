@@ -18,27 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_UINT_HPP_INCLUDED
-#define SGE_OPENGL_STATE_UINT_HPP_INCLUDED
+#ifndef SGE_OPENGL_STATE_FFP_ALPHA_TEST_OBJECT_HPP_INCLUDED
+#define SGE_OPENGL_STATE_FFP_ALPHA_TEST_OBJECT_HPP_INCLUDED
 
-#include <sge/opengl/state/parameters_fwd.hpp>
-#include <sge/renderer/state/uint/type.hpp>
+#include <sge/opengl/state/object.hpp>
+#include <sge/opengl/state/ffp/alpha_test/object_fwd.hpp>
+#include <sge/renderer/state/ffp/alpha_test/object.hpp>
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-
-void
-uint(
-	state::parameters const &,
-	renderer::state::uint::type const &
-);
-
-}
-}
-}
 
 #endif

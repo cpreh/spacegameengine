@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/any/convert.hpp>
 #include <sge/image/color/any/object_fwd.hpp>
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/vector4f.hpp>
 #include <sge/opengl/state/index_actor.hpp>
 #include <sge/opengl/state/ffp/lighting/light/color.hpp>
 #include <sge/opengl/state/ffp/lighting/light/float_ptr.hpp>
@@ -36,20 +35,13 @@ sge::opengl::state::ffp::lighting::light::color(
 	sge::image::color::any::object const &_color
 )
 {
-	sge::image::color::rgba32f const color(
-		sge::image::color::any::convert<
-			sge::image::color::rgba32f_format
-		>(
-			_color
-		)
-	);
-
 	return
 		sge::opengl::state::ffp::lighting::light::float_ptr(
 			_name,
-			sge::opengl::vector4f(
-				color.data(),
-				color.data_end()
+			sge::image::color::any::convert<
+				sge::image::color::rgba32f_format
+			>(
+				_color
 			)
 		);
 }

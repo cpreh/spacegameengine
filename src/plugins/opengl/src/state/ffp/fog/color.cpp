@@ -18,64 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_FFP_LIGHTING_LIGHT_FLOAT_PTR_HPP_INCLUDED
-#define SGE_OPENGL_STATE_FFP_LIGHTING_LIGHT_FLOAT_PTR_HPP_INCLUDED
-
+#include <sge/image/color/object.hpp>
+#include <sge/image/color/rgba32f.hpp>
+#include <sge/image/color/rgba32f_format.hpp>
+#include <sge/image/color/any/convert.hpp>
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/common.hpp>
+#include <sge/opengl/state/actor.hpp>
 #include <sge/opengl/state/bind_data_getter.hpp>
-#include <sge/opengl/state/index_actor.hpp>
 #include <sge/opengl/state/wrap_error_handler.hpp>
+#include <sge/opengl/state/ffp/fog/color.hpp>
+#include <sge/renderer/state/ffp/fog/color.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/phoenix/bind/bind_function.hpp>
 #include <boost/phoenix/bind/bind_function_object.hpp>
-#include <boost/phoenix/core/argument.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace lighting
-{
-namespace light
-{
-
-template<
-	typename Vector
->
-sge::opengl::state::index_actor const
-float_ptr(
-	GLenum const _name,
-	Vector const &_vector
+sge::opengl::state::actor const
+sge::opengl::state::ffp::fog::color(
+	sge::renderer::state::ffp::fog::color const &_color
 )
 {
 	return
 		sge::opengl::state::wrap_error_handler(
 			boost::phoenix::bind(
-				::glLightfv,
-				boost::phoenix::arg_names::arg1,
-				_name,
+				::glFogfv,
+				GL_FOG_COLOR,
 				boost::phoenix::bind(
 					sge::opengl::state::bind_data_getter(
-						_vector
+						sge::image::color::any::convert<
+							sge::image::color::rgba32f_format
+						>(
+							_color.get()
+						)
 					)
 				)
 			),
-			FCPPT_TEXT("glLightfv")
+			FCPPT_TEXT("glFogfv")
 		);
 }
-
-}
-}
-}
-}
-}
-}
-
-#endif

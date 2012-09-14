@@ -18,33 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_FFP_ALPHA_TEST_MAKE_ACTORS_HPP_INCLUDED
-#define SGE_OPENGL_STATE_FFP_ALPHA_TEST_MAKE_ACTORS_HPP_INCLUDED
+#ifndef SGE_OPENGL_STATE_FFP_FOG_OBJECT_HPP_INCLUDED
+#define SGE_OPENGL_STATE_FFP_FOG_OBJECT_HPP_INCLUDED
 
-#include <sge/opengl/state/actor_vector.hpp>
-#include <sge/renderer/state/ffp/alpha_test/parameters_fwd.hpp>
+#include <sge/opengl/state/object.hpp>
+#include <sge/opengl/state/ffp/fog/object_fwd.hpp>
+#include <sge/renderer/state/ffp/fog/object.hpp>
 
-
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace alpha_test
-{
-
-sge::opengl::state::actor_vector const
-make_actors(
-	sge::renderer::state::ffp::alpha_test::parameters const &
-);
-
-}
-}
-}
-}
-}
 
 #endif
