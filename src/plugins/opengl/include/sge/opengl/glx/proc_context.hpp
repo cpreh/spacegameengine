@@ -68,7 +68,7 @@ public:
 	proc_address_pointer
 	get_proc_address() const;
 
-	typedef void needs_before;
+	typedef void parameter;
 
 	static sge::opengl::context::system::id const static_id;
 private:

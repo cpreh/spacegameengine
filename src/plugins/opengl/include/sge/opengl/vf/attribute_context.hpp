@@ -65,7 +65,7 @@ public:
 	gl_disable_vertex_attrib_array
 	disable_vertex_attrib_array() const;
 
-	typedef void needs_before;
+	typedef void parameter;
 
 	static sge::opengl::context::system::id const static_id;
 private:

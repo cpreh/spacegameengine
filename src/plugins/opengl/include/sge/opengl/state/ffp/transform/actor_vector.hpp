@@ -1,3 +1,4 @@
+
 /*
 spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2012 Carl Philipp Reh (sefi@s-e-f-i.de)
@@ -18,26 +19,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/common.hpp>
-#include <sge/opengl/texture/convert/stage_op.hpp>
-#include <sge/renderer/texture/stage_op.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#ifndef SGE_OPENGL_STATE_FFP_TRANSFORM_ACTOR_VECTOR_HPP_INCLUDED
+#define SGE_OPENGL_STATE_FFP_TRANSFORM_ACTOR_VECTOR_HPP_INCLUDED
+
+#include <sge/opengl/state/ffp/transform/actor.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <vector>
+#include <fcppt/config/external_end.hpp>
 
 
-GLenum
-sge::opengl::texture::convert::stage_arg_op(
-	renderer::texture::stage_op::type const _op
-)
+namespace sge
 {
-	switch(
-		_op
-	)
-	{
-	case renderer::texture::stage_op::color:
-		return GL_COMBINE_RGB;
-	case renderer::texture::stage_op::alpha:
-		return GL_COMBINE_ALPHA;
-	}
+namespace opengl
+{
+namespace state
+{
+namespace ffp
+{
+namespace transform
+{
 
-	FCPPT_ASSERT_UNREACHABLE;
+typedef std::vector<
+	sge::opengl::state::ffp::transform::actor
+> actor_vector;
+
 }
+}
+}
+}
+}
+
+#endif

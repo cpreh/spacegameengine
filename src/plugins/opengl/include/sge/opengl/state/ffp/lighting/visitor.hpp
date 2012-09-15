@@ -18,10 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_FFP_LIGHTING_LIGHT_ENABLE_HPP_INCLUDED
-#define SGE_OPENGL_STATE_FFP_LIGHTING_LIGHT_ENABLE_HPP_INCLUDED
+#ifndef SGE_OPENGL_STATE_FFP_LIGHTING_VISITOR_HPP_INCLUDED
+#define SGE_OPENGL_STATE_FFP_LIGHTING_VISITOR_HPP_INCLUDED
 
-#include <sge/renderer/state/index_count.hpp>
+#include <sge/opengl/state/actor_vector.hpp>
+#include <sge/renderer/state/ffp/lighting/enabled_fwd.hpp>
+#include <sge/renderer/state/ffp/lighting/off_fwd.hpp>
 
 
 namespace sge
@@ -34,16 +36,23 @@ namespace ffp
 {
 namespace lighting
 {
-namespace light
+
+class visitor
 {
+public:
+	typedef sge::opengl::state::actor_vector result_type;
 
-void
-enable(
-	sge::renderer::state::index_count,
-	bool
-);
+	result_type const
+	operator()(
+		sge::renderer::state::ffp::lighting::off const &
+	) const;
 
-}
+	result_type const
+	operator()(
+		sge::renderer::state::ffp::lighting::enabled const &
+	) const;
+};
+
 }
 }
 }

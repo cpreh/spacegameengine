@@ -53,7 +53,7 @@ public:
 	sge::opengl::unpack_alignment const
 	unpack_alignment() const;
 
-	typedef void needs_before;
+	typedef void parameter;
 
 	static sge::opengl::context::device::id const static_id;
 private:

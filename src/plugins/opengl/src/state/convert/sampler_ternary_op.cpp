@@ -19,26 +19,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/texture/convert/stage_arg_value.hpp>
-#include <sge/renderer/texture/stage_arg_value.hpp>
+#include <sge/opengl/state/convert/sampler_ternary_op.hpp>
+#include <sge/renderer/state/ffp/sampler/ternary_op_type.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 
 GLenum
-sge::opengl::texture::convert::stage_arg_op_value(
-	renderer::texture::stage_arg_value::type const _value
+sge::opengl::state::convert::sampler_ternary_op(
+	sge::renderer::state::ffp::sampler::ternary_op_type::type const _op
 )
 {
 	switch(
-		_value
+		_op
 	)
 	{
-	case renderer::texture::stage_arg_value::previous:
-		return GL_PREVIOUS;
-	case renderer::texture::stage_arg_value::texture:
-		return GL_TEXTURE;
-	case renderer::texture::stage_arg_value::constant:
-		return GL_CONSTANT;
+
+	case sge::renderer::state::ffp::sampler::ternary_op_type::interpolate:
+		return GL_INTERPOLATE;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

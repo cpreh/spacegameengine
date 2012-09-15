@@ -58,7 +58,7 @@ public:
 	sge::opengl::optional_enum const
 	max_anisotropy_flag() const;
 
-	typedef void needs_before;
+	typedef void parameter;
 
 	static
 	sge::opengl::context::system::id const

@@ -498,6 +498,7 @@ set(
 	include/sge/renderer/state/ffp/sampler/binary_op.hpp
 	include/sge/renderer/state/ffp/sampler/binary_op_fwd.hpp
 	include/sge/renderer/state/ffp/sampler/binary_op_type.hpp
+	include/sge/renderer/state/ffp/sampler/color_op.hpp
 	include/sge/renderer/state/ffp/sampler/const_object_ref.hpp
 	include/sge/renderer/state/ffp/sampler/const_object_ref_vector.hpp
 	include/sge/renderer/state/ffp/sampler/object.hpp

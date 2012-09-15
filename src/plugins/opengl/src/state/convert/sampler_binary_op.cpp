@@ -19,32 +19,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/texture/convert/stage_op_value.hpp>
-#include <sge/renderer/texture/stage_op_value.hpp>
+#include <sge/opengl/state/convert/sampler_binary_op.hpp>
+#include <sge/renderer/state/ffp/sampler/binary_op_type.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 
 GLenum
-sge::opengl::texture::convert::stage_arg_op_value(
-	renderer::texture::stage_op_value::type const _value
+sge::opengl::state::convert::sampler_binary_op(
+	sge::renderer::state::ffp::sampler::binary_op_type::type const _op
 )
 {
 	switch(
-		_value
+		_op
 	)
 	{
-	case renderer::texture::stage_op_value::arg0:
-		return GL_REPLACE;
-	case renderer::texture::stage_op_value::modulate:
+	case sge::renderer::state::ffp::sampler::binary_op_type::modulate:
 		return GL_MODULATE;
-	case renderer::texture::stage_op_value::add:
+	case sge::renderer::state::ffp::sampler::binary_op_type::add:
 		return GL_ADD;
-	case renderer::texture::stage_op_value::substract:
+	case sge::renderer::state::ffp::sampler::binary_op_type::subtract:
 		return GL_SUBTRACT;
-	case renderer::texture::stage_op_value::add_signed:
+	case sge::renderer::state::ffp::sampler::binary_op_type::add_signed:
 		return GL_ADD_SIGNED;
-	case renderer::texture::stage_op_value::interpolate:
-		return GL_INTERPOLATE;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

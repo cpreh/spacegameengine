@@ -18,50 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/convert/light_index.hpp>
-#include <sge/opengl/light/color.hpp>
-#include <sge/opengl/light/index.hpp>
-#include <sge/opengl/light/set.hpp>
-#include <sge/opengl/light/visitor.hpp>
-#include <sge/renderer/light/object.hpp>
-#include <fcppt/variant/apply_unary.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#include <sge/opengl/context/device/object_fwd.hpp>
+#include <sge/opengl/state/ffp/lighting/light/set.hpp>
+#include <sge/renderer/state/ffp/lighting/light/const_object_ref_vector.hpp>
 
 
 void
-sge::opengl::light::set(
-	renderer::light::index const _index,
-	renderer::light::object const &_light
+sge::opengl::state::ffp::lighting::light::set(
+	sge::opengl::context::device::object &_device_context,
+	sge::renderer::state::ffp::lighting::light::const_object_ref_vector const &_lights
 )
 {
-	light::index const glindex(
-		convert::light_index(
-			_index
-		)
-	);
-
-	light::color(
-		glindex,
-		GL_AMBIENT,
-		_light.ambient().get()
-	);
-
-	light::color(
-		glindex,
-		GL_DIFFUSE,
-		_light.diffuse().get()
-	);
-
-	light::color(
-		glindex,
-		GL_SPECULAR,
-		_light.specular().get()
-	);
-
-	fcppt::variant::apply_unary(
-		light::visitor(
-			glindex
-		),
-		_light.variant()
-	);
 }

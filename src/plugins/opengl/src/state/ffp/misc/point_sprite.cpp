@@ -23,24 +23,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/point_sprite_context.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/opengl/convert/to_gl_bool.hpp>
-#include <sge/opengl/state/point_sprite.hpp>
-#include <sge/opengl/texture/active_level.hpp>
+#include <sge/opengl/state/actor_vector.hpp>
+#include <sge/opengl/state/ffp/misc/point_sprite.hpp>
+#include <sge/opengl/state/ffp/misc/point_sprite_texture.hpp>
 #include <sge/opengl/texture/multi_context.hpp>
-#include <sge/opengl/texture/funcs/env_arg.hpp>
-#include <sge/opengl/texture/funcs/env_int.hpp>
-#include <sge/opengl/texture/funcs/env_int_value.hpp>
-#include <sge/opengl/texture/funcs/env_target.hpp>
 #include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/texture/stage.hpp>
-#include <fcppt/strong_typedef_construct_cast.hpp>
+#include <sge/renderer/state/ffp/misc/enable_point_sprites.hpp>
+#include <fcppt/cref.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/assign/make_container.hpp>
+#include <fcppt/tr1/functional.hpp>
 
 
-void
-sge::opengl::state::point_sprite(
+sge::opengl::state::actor_vector const
+sge::opengl::state::ffp::misc::point_sprite(
 	sge::opengl::context::system::object &_system_context,
-	bool const _enable
+	sge::renderer::state::ffp::misc::enable_point_sprites const _enable
 )
 {
 	sge::opengl::point_sprite_context &point_sprite_context(
@@ -56,9 +56,10 @@ sge::opengl::state::point_sprite(
 	)
 	{
 		if(
-			!_enable
+			!_enable.get()
 		)
-			return;
+			return
+				sge::opengl::state::actor_vector();
 
 		throw sge::renderer::unsupported(
 			FCPPT_TEXT("GL_POINT_SPRITE"),
@@ -67,14 +68,22 @@ sge::opengl::state::point_sprite(
 		);
 	}
 
-	sge::opengl::enable_bool(
-		*point_sprite_context.point_sprite_flag(),
-		_enable
-	);
-
-	sge::opengl::enable_bool(
-		*point_sprite_context.vertex_shader_size_flag(),
-		_enable
+	sge::opengl::state::actor_vector result(
+		fcppt::assign::make_container<
+			sge::opengl::state::actor_vector
+		>(
+			std::tr1::bind(
+				sge::opengl::enable_bool,
+				*point_sprite_context.point_sprite_flag(),
+				_enable.get()
+			)
+		)(
+			std::tr1::bind(
+				sge::opengl::enable_bool,
+				*point_sprite_context.vertex_shader_size_flag(),
+				_enable.get()
+			)
+		)
 	);
 
 	sge::opengl::texture::multi_context const &multi_context(
@@ -92,31 +101,19 @@ sge::opengl::state::point_sprite(
 		stage.get() < multi_context.max_level().get();
 		++stage
 	)
-	{
-		sge::opengl::texture::active_level const active_level(
-			_system_context,
-			stage
-		);
-
-		sge::opengl::texture::funcs::env_int(
-			active_level,
-			fcppt::strong_typedef_construct_cast<
-				sge::opengl::texture::funcs::env_target
-			>(
-				*point_sprite_context.point_sprite_flag()
-			),
-			fcppt::strong_typedef_construct_cast<
-				sge::opengl::texture::funcs::env_arg
-			>(
-				*point_sprite_context.coord_replace_flag()
-			),
-			fcppt::strong_typedef_construct_cast<
-				sge::opengl::texture::funcs::env_int_value
-			>(
-				sge::opengl::convert::to_gl_bool(
-					_enable
-				)
+		result.push_back(
+			std::tr1::bind(
+				sge::opengl::state::ffp::misc::point_sprite_texture,
+				fcppt::ref(
+					_system_context
+				),
+				fcppt::cref(
+					point_sprite_context
+				),
+				stage,
+				_enable
 			)
 		);
-	}
+
+	return result;
 }

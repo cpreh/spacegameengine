@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#if 0
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/active_level.hpp>
 #include <sge/opengl/texture/set_stage_funcs.hpp>
@@ -121,3 +122,4 @@ SGE_OPENGL_INSTANTIATE_TEXTURE_SET_STAGE_FUNCS(
 )
 
 #undef SGE_OPENGL_INSTANTIATE_TEXTURE_SET_STAGE_FUNCS
+#endif

@@ -110,14 +110,13 @@ sge::opengl::cg::texture::loaded_object::enable() const
 	);
 
 	sge::opengl::texture::render_binding const binding(
-		active_level
+		active_level,
+		texture_.type()
 	);
 
 	sge::opengl::texture::set_samplers(
 		binding,
-		system_context_,
-		device_context_,
-		texture_.type()
+		device_context_
 	);
 
 	return

@@ -18,132 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/color/rgba32f_format.hpp>
-#include <sge/image/color/any/convert.hpp>
-#include <sge/opengl/check_state.hpp>
-#include <sge/opengl/common.hpp>
-#include <sge/opengl/set_material.hpp>
-#include <sge/renderer/exception.hpp>
-#include <sge/renderer/material.hpp>
-#include <fcppt/nonassignable.hpp>
-#include <fcppt/text.hpp>
+#include <sge/opengl/state/actor_vector.hpp>
+#include <sge/opengl/state/ffp/lighting/make_actors.hpp>
+#include <sge/opengl/state/ffp/lighting/visitor.hpp>
+#include <sge/renderer/state/ffp/lighting/parameters.hpp>
+#include <fcppt/variant/apply_unary.hpp>
 
 
-namespace
-{
-
-void
-materialfv(
-	GLenum const _face,
-	GLenum const _type,
-	GLfloat const *const _data
+sge::opengl::state::actor_vector const
+sge::opengl::state::ffp::lighting::make_actors(
+	sge::renderer::state::ffp::lighting::parameters const &_parameters
 )
 {
-	::glMaterialfv(
-		_face,
-		_type,
-		_data
-	);
-
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("glMaterialfv failed"),
-		sge::renderer::exception
-	)
-}
-
-void
-materialf(
-	GLenum const _face,
-	GLenum const _type,
-	GLfloat const _value
-)
-{
-	::glMaterialf(
-		_face,
-		_type,
-		_value
-	);
-
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("glMaterialf failed"),
-		sge::renderer::exception
-	)
-}
-
-void
-material_color(
-	GLenum const _face,
-	GLenum const _type,
-	sge::image::color::any::object const &_color
-)
-{
-	materialfv(
-		_face,
-		_type,
-		sge::image::color::any::convert<
-			sge::image::color::rgba32f_format
-		>(
-			_color
-		).data()
-	);
-}
-
-}
-
-void
-sge::opengl::set_material(
-	renderer::material const &_material
-)
-{
-	GLenum const face(
-		GL_FRONT_AND_BACK
-	);
-
-	::material_color(
-		face,
-		GL_AMBIENT,
-		_material.ambient().get()
-	);
-
-	::material_color(
-		face,
-		GL_DIFFUSE,
-		_material.diffuse().get()
-	);
-
-	::material_color(
-		face,
-		GL_SPECULAR,
-		_material.specular().get()
-	);
-
-	::material_color(
-		face,
-		GL_EMISSION,
-		_material.emissive().get()
-	);
-
-	::materialf(
-		face,
-		GL_SHININESS,
-		static_cast<
-			GLfloat
-		>(
-			_material.shininess().get()
-		)
-	);
-}
-
-	case rs::ambient_light_color:
-		::glLightModelfv(
-			GL_LIGHT_MODEL_AMBIENT,
-			fcolor.data()
+	return
+		fcppt::variant::apply_unary(
+			sge::opengl::state::ffp::lighting::visitor(),
+			_parameters.variant()
 		);
-
-		SGE_OPENGL_CHECK_STATE(
-			FCPPT_TEXT("glLightModelfv failed"),
-			sge::renderer::exception
-		)
-
-		return;
-
+}

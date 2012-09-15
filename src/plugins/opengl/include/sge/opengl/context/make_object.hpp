@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_CONTEXT_MAKE_OBJECT_HPP_INCLUDED
 
 #include <sge/opengl/context/base_unique_ptr.hpp>
+#include <sge/opengl/context/dummy_parameter_fwd.hpp>
 #include <sge/opengl/context/has_parameter.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
@@ -51,9 +51,6 @@ typename boost::enable_if<
 	>::type
 >::type
 make_object(
-	sge::opengl::context::object<
-		Domain
-	> &,
 	Parameter const &_parameter
 )
 {
@@ -82,9 +79,7 @@ typename boost::disable_if<
 	>::type
 >::type
 make_object(
-	sge::opengl::context::object<
-		Domain
-	> &_object
+	sge::opengl::context::dummy_parameter const &
 )
 {
 	return

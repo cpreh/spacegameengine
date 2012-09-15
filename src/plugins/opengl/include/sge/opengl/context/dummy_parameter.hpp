@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_CONTEXT_DUMMY_PARAMETER_HPP_INCLUDED
 #define SGE_OPENGL_CONTEXT_DUMMY_PARAMETER_HPP_INCLUDED
 
+#include <sge/opengl/context/dummy_parameter_fwd.hpp>
+
 
 namespace sge
 {

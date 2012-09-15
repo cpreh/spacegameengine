@@ -49,7 +49,6 @@ sge::opengl::texture::mipmap::levels(
 	{
 		sge::opengl::texture::funcs::parameter_int(
 			_parameters.binding(),
-			_parameters.type(),
 			GL_TEXTURE_MAX_LEVEL,
 			static_cast<
 				GLint
@@ -60,8 +59,7 @@ sge::opengl::texture::mipmap::levels(
 
 		sge::opengl::texture::mipmap::auto_generate(
 			_parameters.binding(),
-			_parameters.system_context(),
-			_parameters.type()
+			_parameters.system_context()
 		);
 	}
 	else

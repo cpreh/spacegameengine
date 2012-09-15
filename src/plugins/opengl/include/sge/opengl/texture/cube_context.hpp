@@ -63,7 +63,7 @@ public:
 	sge::opengl::texture::cube_context::optional_cube_side_array const &
 	cube_sides() const;
 
-	typedef void needs_before;
+	typedef void parameter;
 
 	static sge::opengl::context::system::id const static_id;
 private:

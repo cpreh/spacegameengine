@@ -120,7 +120,7 @@ public:
 	sge::opengl::fbo::optional_attachment_type const
 	depth_stencil_attachment() const;
 
-	typedef void needs_before;
+	typedef void parameter;
 
 	static sge::opengl::context::system::id const static_id;
 private:

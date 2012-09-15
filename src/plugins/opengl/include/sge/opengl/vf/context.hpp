@@ -55,7 +55,7 @@ public:
 		sge::opengl::vf::client_state const &
 	);
 
-	typedef void needs_before;
+	typedef void parameter;
 
 	static sge::opengl::context::device::id const static_id;
 private:

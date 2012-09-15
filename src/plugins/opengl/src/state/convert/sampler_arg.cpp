@@ -18,29 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_CONVERT_STAGE_ARG_VALUE_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_CONVERT_STAGE_ARG_VALUE_HPP_INCLUDED
-
 #include <sge/opengl/common.hpp>
-#include <sge/renderer/texture/stage_arg_value.hpp>
+#include <sge/opengl/state/convert/sampler_arg.hpp>
+#include <sge/renderer/state/ffp/sampler/arg.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
-{
-namespace convert
-{
 
 GLenum
-stage_arg_op_value(
-	renderer::texture::stage_arg_value::type
-);
+sge::opengl::state::convert::sampler_arg(
+	sge::renderer::state::ffp::sampler::arg::type const _value
+)
+{
+	switch(
+		_value
+	)
+	{
+	case sge::renderer::state::ffp::sampler::arg::previous:
+		return GL_PREVIOUS;
+	case sge::renderer::state::ffp::sampler::arg::texture:
+		return GL_TEXTURE;
+	case sge::renderer::state::ffp::sampler::arg::constant:
+		return GL_CONSTANT;
+	}
 
+	FCPPT_ASSERT_UNREACHABLE;
 }
-}
-}
-}
-
-#endif

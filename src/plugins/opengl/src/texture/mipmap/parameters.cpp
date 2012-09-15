@@ -50,9 +50,6 @@ sge::opengl::texture::mipmap::parameters<
 	system_context_(
 		_system_context
 	),
-	type_(
-		_type
-	),
 	buffer_type_(
 		_buffer_type
 	),

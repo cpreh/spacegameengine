@@ -18,29 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_CONVERT_STAGE_OP_VALUE_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_CONVERT_STAGE_OP_VALUE_HPP_INCLUDED
-
+/*
 #include <sge/opengl/common.hpp>
-#include <sge/renderer/texture/stage_op_value.hpp>
+#include <sge/opengl/texture/convert/stage_op.hpp>
+#include <sge/renderer/texture/stage_op.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
-{
-namespace convert
-{
 
 GLenum
-stage_arg_op_value(
-	renderer::texture::stage_op_value::type
-);
+sge::opengl::texture::convert::stage_arg_op(
+	renderer::texture::stage_op::type const _op
+)
+{
+	switch(
+		_op
+	)
+	{
+	case renderer::texture::stage_op::color:
+		return GL_COMBINE_RGB;
+	case renderer::texture::stage_op::alpha:
+		return GL_COMBINE_ALPHA;
+	}
 
+	FCPPT_ASSERT_UNREACHABLE;
 }
-}
-}
-}
-
-#endif
+*/

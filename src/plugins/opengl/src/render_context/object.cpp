@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/render_context/object.hpp>
 #include <sge/opengl/state/core/sampler/set.hpp>
 #include <sge/opengl/state/ffp/lighting/light/set.hpp>
+#include <sge/opengl/state/ffp/transform/set.hpp>
 #include <sge/opengl/texture/activate.hpp>
 #include <sge/renderer/config.hpp>
 #include <sge/renderer/const_optional_vertex_declaration_ref_fwd.hpp>
@@ -287,21 +288,21 @@ sge::opengl::render_context::object::sampler_state(
 
 void
 sge::opengl::render_context::object::alpha_test_state(
-	sge::renderer::state::ffp::alpha_test::const_optional_object_ref const &
+	sge::renderer::state::ffp::alpha_test::const_optional_object_ref const &_state
 )
 {
 }
 
 void
 sge::opengl::render_context::object::clip_plane_state(
-	sge::renderer::state::ffp::clip_plane::const_object_ref_vector const &
+	sge::renderer::state::ffp::clip_plane::const_object_ref_vector const &_planes
 )
 {
 }
 
 void
 sge::opengl::render_context::object::lighting_state(
-	sge::renderer::state::ffp::lighting::const_optional_object_ref const &
+	sge::renderer::state::ffp::lighting::const_optional_object_ref const &_state
 )
 {
 }
@@ -319,31 +320,35 @@ sge::opengl::render_context::object::lights_state(
 
 void
 sge::opengl::render_context::object::material_state(
-	sge::renderer::state::ffp::lighting::material::const_optional_object_ref const &
+	sge::renderer::state::ffp::lighting::material::const_optional_object_ref const &_state
 )
 {
 }
 
 void
 sge::opengl::render_context::object::misc_state(
-	sge::renderer::state::ffp::misc::const_optional_object_ref const &
+	sge::renderer::state::ffp::misc::const_optional_object_ref const &_state
 )
 {
 }
 
 void
 sge::opengl::render_context::object::sampler_ffp_state(
-	sge::renderer::state::ffp::sampler::const_object_ref_vector const &
+	sge::renderer::state::ffp::sampler::const_object_ref_vector const &_state
 )
 {
 }
 
 void
 sge::opengl::render_context::object::transform(
-	sge::renderer::state::ffp::transform::mode::type,
-	sge::renderer::state::ffp::transform::const_optional_object_ref const &
+	sge::renderer::state::ffp::transform::mode::type const _mode,
+	sge::renderer::state::ffp::transform::const_optional_object_ref const &_state
 )
 {
+	sge::opengl::state::ffp::transform::set(
+		_mode,
+		_state
+	);
 }
 
 #if defined(SGE_RENDERER_HAVE_CG)

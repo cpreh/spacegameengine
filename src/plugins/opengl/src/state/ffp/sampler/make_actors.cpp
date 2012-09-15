@@ -18,29 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_CONVERT_STAGE_OP_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_CONVERT_STAGE_OP_HPP_INCLUDED
+#include <sge/opengl/state/ffp/sampler/actor_vector.hpp>
+#include <sge/opengl/state/ffp/sampler/make_actors.hpp>
+#include <sge/renderer/state/ffp/sampler/parameters_fwd.hpp>
 
-#include <sge/opengl/common.hpp>
-#include <sge/renderer/texture/stage_op.hpp>
 
-namespace sge
+sge::opengl::state::ffp::sampler::actor_vector const
+sge::opengl::state::ffp::sampler::make_actors(
+	sge::renderer::state::ffp::sampler::parameters const &_parameters
+)
 {
-namespace opengl
-{
-namespace texture
-{
-namespace convert
-{
-
-GLenum
-stage_arg_op(
-	sge::renderer::texture::stage_op::type
-);
-
 }
-}
-}
-}
-
-#endif

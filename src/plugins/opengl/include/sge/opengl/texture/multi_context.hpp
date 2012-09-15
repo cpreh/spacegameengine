@@ -64,7 +64,7 @@ public:
 	sge::renderer::caps::texture_stages const
 	max_level() const;
 
-	typedef void needs_before;
+	typedef void parameter;
 
 	static sge::opengl::context::system::id const static_id;
 private:

@@ -62,7 +62,7 @@ sge::opengl::state::unary_object<
 	Parameter
 >::set(
 	Parameter const &_parameter
-)
+) const
 {
 	for(
 		typename actor_vector::const_iterator it(

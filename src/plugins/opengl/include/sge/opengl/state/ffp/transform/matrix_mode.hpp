@@ -18,14 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_MATRIX_MODE_HPP_INCLUDED
-#define SGE_OPENGL_MATRIX_MODE_HPP_INCLUDED
+#ifndef SGE_OPENGL_STATE_FFP_TRANSFORM_MATRIX_MODE_HPP_INCLUDED
+#define SGE_OPENGL_STATE_FFP_TRANSFORM_MATRIX_MODE_HPP_INCLUDED
 
 #include <sge/opengl/common.hpp>
+
 
 namespace sge
 {
 namespace opengl
+{
+namespace state
+{
+namespace ffp
+{
+namespace transform
 {
 
 void
@@ -33,6 +40,9 @@ matrix_mode(
 	GLenum
 );
 
+}
+}
+}
 }
 }
 

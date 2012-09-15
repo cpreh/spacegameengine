@@ -19,9 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/state/ffp/lighting/light/directional.hpp>
-#include <sge/opengl/state/ffp/lighting/llight/point.hpp>
-#include <sge/opengl/state/ffp/lighting/llight/spot.hpp>
-#include <sge/opengl/state/ffp/lighting/llight/visitor.hpp>
+#include <sge/opengl/state/ffp/lighting/light/point.hpp>
+#include <sge/opengl/state/ffp/lighting/light/spot.hpp>
+#include <sge/opengl/state/ffp/lighting/light/visitor.hpp>
 #include <sge/renderer/state/ffp/lighting/light/directional_fwd.hpp>
 #include <sge/renderer/state/ffp/lighting/light/point_fwd.hpp>
 #include <sge/renderer/state/ffp/lighting/light/spot_fwd.hpp>
@@ -32,10 +32,10 @@ sge::opengl::state::ffp::lighting::light::visitor::operator()(
 	sge::renderer::state::ffp::lighting::light::directional const &_directional
 ) const
 {
-	sge::opengl::state::ffp::lighting::light::directional(
-		index_,
-		_directional
-	);
+	return
+		sge::opengl::state::ffp::lighting::light::directional(
+			_directional
+		);
 }
 
 sge::opengl::state::ffp::lighting::light::visitor::result_type
@@ -43,10 +43,10 @@ sge::opengl::state::ffp::lighting::light::visitor::operator()(
 	sge::renderer::state::ffp::lighting::light::point const &_point
 ) const
 {
-	sge::opengl::state::ffp::lighting::light::point(
-		index_,
-		_point
-	);
+	return
+		sge::opengl::state::ffp::lighting::light::point(
+			_point
+		);
 }
 
 sge::opengl::state::ffp::lighting::light::visitor::result_type
@@ -54,8 +54,8 @@ sge::opengl::state::ffp::lighting::light::visitor::operator()(
 	sge::renderer::state::ffp::lighting::light::spot const &_spot
 ) const
 {
-	sge::opengl::state::ffp::lighting::light::spot(
-		index_,
-		_spot
-	);
+	return
+		sge::opengl::state::ffp::lighting::light::spot(
+			_spot
+		);
 }

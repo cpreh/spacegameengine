@@ -68,7 +68,7 @@ public:
 	void
 	set(
 		Parameter const &
-	);
+	) const;
 private:
 	actor_vector const actors_;
 };

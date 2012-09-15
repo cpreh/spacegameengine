@@ -56,7 +56,7 @@ public:
 	gl_generate_mipmap
 	generate_mipmap() const;
 
-	typedef void needs_before;
+	typedef void parameter;
 
 	static
 	sge::opengl::context::system::id const

@@ -38,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/core/rasterizer/create.hpp>
 #include <sge/opengl/state/core/sampler/create.hpp>
 #include <sge/opengl/state/ffp/lighting/light/create.hpp>
+#include <sge/opengl/state/ffp/transform/create.hpp>
 #include <sge/opengl/texture/basic_parameters.hpp>
 #include <sge/opengl/texture/create_cube.hpp>
 #include <sge/opengl/texture/create_depth_stencil.hpp>
@@ -100,6 +101,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/sampler/object.hpp>
 #include <sge/renderer/state/ffp/sampler/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/sampler/parameters_fwd.hpp>
+#include <sge/renderer/state/ffp/transform/object.hpp>
+#include <sge/renderer/state/ffp/transform/object_unique_ptr.hpp>
+#include <sge/renderer/state/ffp/transform/parameters_fwd.hpp>
 #include <sge/renderer/target/base_fwd.hpp>
 #include <sge/renderer/target/offscreen.hpp>
 #include <sge/renderer/target/offscreen_unique_ptr.hpp>
@@ -583,6 +587,18 @@ sge::opengl::device::create_ffp_sampler_state(
 	sge::renderer::state::ffp::sampler::parameters const &
 )
 {
+}
+
+sge::renderer::state::ffp::transform::object_unique_ptr
+sge::opengl::device::create_transform_state(
+	sge::renderer::state::ffp::transform::parameters const &_parameters
+)
+{
+	return
+		sge::opengl::state::ffp::transform::create(
+			system_context_,
+			_parameters
+		);
 }
 
 sge::opengl::texture::basic_parameters const

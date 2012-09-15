@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/x11/vsync.hpp>
 #include <sge/renderer/exception.hpp>
 #include <awl/backends/x11/display.hpp>
+#include <fcppt/cref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/log/info.hpp>
@@ -43,7 +44,14 @@ sge::opengl::x11::vsync(
 		sge::opengl::context::use<
 			sge::opengl::x11::swap_context
 		>(
-			_system_context
+			_system_context,
+			fcppt::cref(
+				sge::opengl::context::use<
+					sge::opengl::glx::proc_context
+				>(
+					_system_context
+				)
+			)
 		)
 	);
 

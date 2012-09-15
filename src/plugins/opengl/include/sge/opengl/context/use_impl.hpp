@@ -74,9 +74,9 @@ use_impl(
 				_object.insert(
 					Type::static_id,
 					sge::opengl::context::make_object<
-						Type
+						Type,
+						Domain
 					>(
-						_object,
 						_parameter
 					)
 				)

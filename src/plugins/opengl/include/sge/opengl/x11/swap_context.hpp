@@ -28,7 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <X11/Xlib.h>
 #include <GL/glx.h>
-#include <boost/fusion/container/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -47,13 +46,11 @@ class swap_context
 		swap_context
 	);
 public:
-	typedef boost::fusion::vector1<
-		sge::opengl::glx::proc_context const *
-	> needs_before;
+	typedef sge::opengl::glx::proc_context const &parameter;
 
 	explicit
 	swap_context(
-		sge::opengl::x11::swap_context::needs_before const &
+		parameter
 	);
 
 	~swap_context();
@@ -61,13 +58,15 @@ public:
 	bool
 	swap_interval_supported() const;
 
-	typedef int(
+	typedef
+	int(
 		*glx_swap_interval_sgi
 	)(
 		int
 	);
 
-	typedef void(
+	typedef
+	void(
 		*glx_swap_interval_ext
 	)(
 		Display *,

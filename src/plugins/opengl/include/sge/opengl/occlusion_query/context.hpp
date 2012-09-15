@@ -90,7 +90,7 @@ public:
 	sge::opengl::optional_enum const
 	query_result() const;
 
-	typedef void needs_before;
+	typedef void parameter;
 
 	static sge::opengl::context::system::id const static_id;
 private:

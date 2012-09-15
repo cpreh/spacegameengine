@@ -18,21 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/enable_bool.hpp>
-#include <sge/opengl/convert/light_index.hpp>
-#include <sge/opengl/light/enable.hpp>
+#ifndef SGE_OPENGL_STATE_FFP_SAMPLER_ACTOR_HPP_INCLUDED
+#define SGE_OPENGL_STATE_FFP_SAMPLER_ACTOR_HPP_INCLUDED
+
+#include <sge/opengl/state/ffp/sampler/actor_fwd.hpp>
+#include <fcppt/function/object.hpp>
 
 
-void
-sge::opengl::light::enable(
-	renderer::light::index const _index,
-	bool const _enable
-)
-{
-	opengl::enable_bool(
-		convert::light_index(
-			_index
-		).get(),
-		_enable
-	);
-}
+#endif

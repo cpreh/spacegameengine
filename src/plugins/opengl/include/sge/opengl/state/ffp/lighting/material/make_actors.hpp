@@ -18,21 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_SET_MATERIAL_HPP_INCLUDED
-#define SGE_OPENGL_SET_MATERIAL_HPP_INCLUDED
+#ifndef SGE_OPENGL_STATE_FFP_LIGHTING_MATERIAL_MAKE_ACTORS_HPP_INCLUDED
+#define SGE_OPENGL_STATE_FFP_LIGHTING_MATERIAL_MAKE_ACTORS_HPP_INCLUDED
 
-#include <sge/renderer/material_fwd.hpp>
+#include <sge/opengl/state/actor_vector.hpp>
+#include <sge/renderer/state/ffp/lighting/material/parameters_fwd.hpp>
+
 
 namespace sge
 {
 namespace opengl
 {
+namespace state
+{
+namespace ffp
+{
+namespace lighting
+{
+namespace material
+{
 
-void
-set_material(
-	renderer::material const &
+sge::opengl::state::actor_vector const
+make_actors(
+	sge::renderer::state::ffp::lighting::material::parameters const &
 );
 
+}
+}
+}
+}
 }
 }
 

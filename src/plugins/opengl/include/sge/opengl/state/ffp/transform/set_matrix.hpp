@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_SET_MATRIX_HPP_INCLUDED
-#define SGE_OPENGL_SET_MATRIX_HPP_INCLUDED
+#ifndef SGE_OPENGL_STATE_FFP_TRANSFORM_SET_MATRIX_HPP_INCLUDED
+#define SGE_OPENGL_STATE_FFP_TRANSFORM_SET_MATRIX_HPP_INCLUDED
 
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/renderer/matrix4_fwd.hpp>
@@ -29,6 +29,12 @@ namespace sge
 {
 namespace opengl
 {
+namespace state
+{
+namespace ffp
+{
+namespace transform
+{
 
 void
 set_matrix(
@@ -36,6 +42,9 @@ set_matrix(
 	sge::renderer::matrix4 const &
 );
 
+}
+}
+}
 }
 }
 

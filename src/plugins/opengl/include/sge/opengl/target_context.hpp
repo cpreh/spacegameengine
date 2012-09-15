@@ -52,7 +52,7 @@ public:
 		sge::opengl::optional_target_base_ref const &
 	);
 
-	typedef void needs_before;
+	typedef void parameter;
 
 	static sge::opengl::context::device::id const static_id;
 private:
