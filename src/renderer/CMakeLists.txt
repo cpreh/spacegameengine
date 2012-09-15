@@ -354,6 +354,7 @@ set(
 	include/sge/renderer/state/core/sampler/address/parameters_fwd.hpp
 	include/sge/renderer/state/core/sampler/const_object_ref.hpp
 	include/sge/renderer/state/core/sampler/const_object_ref_vector.hpp
+	include/sge/renderer/state/core/sampler/default.hpp
 	include/sge/renderer/state/core/sampler/filter/anisotropic/level.hpp
 	include/sge/renderer/state/core/sampler/filter/anisotropic/level_value.hpp
 	include/sge/renderer/state/core/sampler/filter/anisotropic/mip.hpp
@@ -851,6 +852,8 @@ set(
 	src/renderer/state/core/blend/write_mask_all.cpp
 	src/renderer/state/core/depth_stencil/scoped.cpp
 	src/renderer/state/core/sampler/address/mode_default.cpp
+	src/renderer/state/core/sampler/address/parameters.cpp
+	src/renderer/state/core/sampler/default.cpp
 	src/renderer/state/core/sampler/filter/anisotropic/parameters.cpp
 	src/renderer/state/core/sampler/filter/default.cpp
 	src/renderer/state/core/sampler/filter/linear.cpp
@@ -861,6 +864,7 @@ set(
 	src/renderer/state/core/sampler/filter/parameters.cpp
 	src/renderer/state/core/sampler/filter/point.cpp
 	src/renderer/state/core/sampler/filter/trilinear.cpp
+	src/renderer/state/core/sampler/parameters.cpp
 	src/renderer/state/ffp/lighting/material/default.cpp
 	src/renderer/state/ffp/lighting/material/parameters.cpp
 	src/renderer/state/ffp/transform/parameters.cpp

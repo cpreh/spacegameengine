@@ -22,12 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_CONTEXT_MAKE_OBJECT_HPP_INCLUDED
 
 #include <sge/opengl/context/base_unique_ptr.hpp>
-#include <sge/opengl/context/make_parameters.hpp>
+#include <sge/opengl/context/has_parameter.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/fusion/include/for_each.hpp>
-#include <boost/type_traits/is_same.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
 
@@ -41,12 +39,12 @@ namespace context
 
 template<
 	typename Type,
-	typename Domain
+	typename Domain,
+	typename Parameter
 >
 typename boost::enable_if<
-	boost::is_same<
-		typename Type::needs_before,
-		void
+	sge::opengl::context::has_parameter<
+		Type
 	>,
 	typename sge::opengl::context::base_unique_ptr<
 		Domain
@@ -55,7 +53,8 @@ typename boost::enable_if<
 make_object(
 	sge::opengl::context::object<
 		Domain
-	> &
+	> &,
+	Parameter const &_parameter
 )
 {
 	return
@@ -64,7 +63,9 @@ make_object(
 		>::type(
 			fcppt::make_unique_ptr<
 				Type
-			>()
+			>(
+				_parameter
+			)
 		);
 }
 
@@ -73,9 +74,8 @@ template<
 	typename Domain
 >
 typename boost::disable_if<
-	boost::is_same<
-		typename Type::needs_before,
-		void
+	sge::opengl::context::has_parameter<
+		Type
 	>,
 	typename sge::opengl::context::base_unique_ptr<
 		Domain
@@ -87,28 +87,13 @@ make_object(
 	> &_object
 )
 {
-	typedef typename Type::needs_before param_type;
-
-	param_type params;
-
-	boost::fusion::for_each(
-		params,
-		sge::opengl::context::make_parameters<
-			Domain
-		>(
-			_object
-		)
-	);
-
 	return
 		typename sge::opengl::context::base_unique_ptr<
 			Domain
 		>::type(
 			fcppt::make_unique_ptr<
 				Type
-			>(
-				params
-			)
+			>()
 		);
 }
 

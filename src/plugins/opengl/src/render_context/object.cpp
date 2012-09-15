@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/render_context/object.hpp>
 #include <sge/opengl/state/core/sampler/set.hpp>
+#include <sge/opengl/state/ffp/lighting/light/set.hpp>
 #include <sge/opengl/texture/activate.hpp>
 #include <sge/renderer/config.hpp>
 #include <sge/renderer/const_optional_vertex_declaration_ref_fwd.hpp>
@@ -307,9 +308,13 @@ sge::opengl::render_context::object::lighting_state(
 
 void
 sge::opengl::render_context::object::lights_state(
-	sge::renderer::state::ffp::lighting::light::const_object_ref_vector const &
+	sge::renderer::state::ffp::lighting::light::const_object_ref_vector const &_lights
 )
 {
+	sge::opengl::state::ffp::lighting::light::set(
+		device_context_,
+		_lights
+	);
 }
 
 void

@@ -66,7 +66,7 @@ public:
 	sge::opengl::vertex_declaration const *
 	vertex_declaration() const;
 
-	typedef void needs_before;
+	typedef void parameter;
 
 	static sge::opengl::context::device::id const static_id;
 private:

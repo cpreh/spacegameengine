@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/context/device/base.hpp>
 #include <sge/opengl/context/device/id.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/state/core/sampler/object_fwd.hpp>
 #include <sge/renderer/state/core/sampler/const_object_ref_vector.hpp>
 #include <sge/renderer/texture/stage.hpp>
@@ -53,7 +54,12 @@ class context
 		context
 	);
 public:
-	context();
+	typedef sge::opengl::context::system::object &parameter;
+
+	explicit
+	context(
+		parameter
+	);
 
 	~context();
 
@@ -66,8 +72,6 @@ public:
 	get(
 		sge::renderer::texture::stage
 	) const;
-
-	typedef void needs_before;
 
 	static
 	sge::opengl::context::device::id const

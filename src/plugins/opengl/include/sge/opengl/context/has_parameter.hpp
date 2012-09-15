@@ -18,12 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CONTEXT_MAKE_PARAMETERS_HPP_INCLUDED
-#define SGE_OPENGL_CONTEXT_MAKE_PARAMETERS_HPP_INCLUDED
+#ifndef SGE_OPENGL_CONTEXT_HAS_PARAMETER_HPP_INCLUDED
+#define SGE_OPENGL_CONTEXT_HAS_PARAMETER_HPP_INCLUDED
 
-#include <sge/opengl/context/object_fwd.hpp>
-#include <sge/opengl/context/use_fwd.hpp>
-#include <fcppt/nonassignable.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/not.hpp>
+#include <boost/type_traits/is_same.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -33,50 +37,24 @@ namespace opengl
 namespace context
 {
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
+
 template<
-	typename Domain
+	typename Type
 >
-class make_parameters
-{
-	FCPPT_NONASSIGNABLE(
-		make_parameters
-	);
-public:
-	explicit
-	make_parameters(
-		sge::opengl::context::object<
-			Domain
-		> &_context
-	)
-	:
-		context_(
-			_context
-		)
-	{
-	}
-
-	template<
-		typename Type
+struct has_parameter
+:
+boost::mpl::not_<
+	boost::is_same<
+		typename Type::parameter,
+		void
 	>
-	void
-	operator()(
-		Type const *&_value
-	) const
-	{
-		_value
-		=
-			&sge::opengl::context::use<
-				Type
-			>(
-				context_
-			);
-
-	}
-private:
-	sge::opengl::context::object<
-		Domain
-	> &context_;
+>
+{
 };
+
+FCPPT_PP_POP_WARNING
 
 }
 }

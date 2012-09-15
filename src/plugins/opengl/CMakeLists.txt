@@ -48,12 +48,13 @@ set(
 	src/plugins/opengl/include/sge/opengl/context/device/make_id.hpp
 	src/plugins/opengl/include/sge/opengl/context/device/object.hpp
 	src/plugins/opengl/include/sge/opengl/context/device/object_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/context/dummy_parameter.hpp
+	src/plugins/opengl/include/sge/opengl/context/has_parameter.hpp
 	src/plugins/opengl/include/sge/opengl/context/id_decl.hpp
 	src/plugins/opengl/include/sge/opengl/context/id_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/context/id_impl.hpp
 	src/plugins/opengl/include/sge/opengl/context/make_id.hpp
 	src/plugins/opengl/include/sge/opengl/context/make_object.hpp
-	src/plugins/opengl/include/sge/opengl/context/make_parameters.hpp
 	src/plugins/opengl/include/sge/opengl/context/object_decl.hpp
 	src/plugins/opengl/include/sge/opengl/context/object_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/context/object_impl.hpp
@@ -65,7 +66,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/context/system/object.hpp
 	src/plugins/opengl/include/sge/opengl/context/system/object_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/context/use.hpp
-	src/plugins/opengl/include/sge/opengl/context/use_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/context/use_impl.hpp
 	src/plugins/opengl/include/sge/opengl/convert/color_to_format.hpp
 	src/plugins/opengl/include/sge/opengl/convert/color_to_format_type.hpp
 	src/plugins/opengl/include/sge/opengl/convert/color_to_internal_format.hpp
@@ -267,6 +268,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/state/ffp/lighting/light/float_ptr.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/lighting/light/make_actors.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/lighting/light/object.hpp
+	src/plugins/opengl/include/sge/opengl/state/ffp/lighting/light/object_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/lighting/light/point.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/lighting/light/position.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/lighting/light/position_impl.hpp
@@ -629,6 +631,7 @@ set(
 	src/plugins/opengl/src/state/core/rasterizer/fill_mode.cpp
 	src/plugins/opengl/src/state/core/sampler/address/default.cpp
 	src/plugins/opengl/src/state/core/sampler/address/make_actors.cpp
+	src/plugins/opengl/src/state/core/sampler/context.cpp
 	src/plugins/opengl/src/state/core/sampler/create.cpp
 	src/plugins/opengl/src/state/core/sampler/filter/anisotropic.cpp
 	src/plugins/opengl/src/state/core/sampler/filter/anisotropy_context.cpp

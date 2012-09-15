@@ -21,10 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_CONTEXT_USE_HPP_INCLUDED
 #define SGE_OPENGL_CONTEXT_USE_HPP_INCLUDED
 
-#include <sge/opengl/context/base_fwd.hpp>
-#include <sge/opengl/context/make_object.hpp>
-#include <sge/opengl/context/object_decl.hpp>
-#include <sge/opengl/context/use_fwd.hpp>
+#include <sge/opengl/context/dummy_parameter.hpp>
+#include <sge/opengl/context/has_parameter.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/use_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/utility/enable_if.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -38,46 +41,53 @@ template<
 	typename Type,
 	typename Domain
 >
-Type &
+typename boost::disable_if<
+	sge::opengl::context::has_parameter<
+		Type
+	>,
+	Type &
+>::type
 use(
 	sge::opengl::context::object<
 		Domain
 	> &_object
 )
 {
-	typedef sge::opengl::context::base<
-		Domain
-	> base_type;
-
-	base_type *ptr(
-		_object.get(
-			Type::static_id
-		)
-	);
-
-	if(
-		ptr
-	)
-		return
-			static_cast<
-				Type &
-			>(
-				*ptr
-			);
-
 	return
-		static_cast<
-			Type &
+		sge::opengl::context::use_impl<
+			Type
 		>(
-			_object.insert(
-				Type::static_id,
-				sge::opengl::context::make_object<
-					Type
-				>(
-					_object
-				)
-			)
+			_object,
+			sge::opengl::context::dummy_parameter()
 		);
+}
+
+template<
+	typename Type,
+	typename Domain,
+	typename Parameter
+>
+typename boost::enable_if<
+	sge::opengl::context::has_parameter<
+		Type
+	>,
+	Type &
+>::type
+use(
+	sge::opengl::context::object<
+		Domain
+	> &_object,
+	Parameter const &_parameter
+)
+{
+	return
+		sge::opengl::context::use_impl<
+			Type
+		>(
+			_object,
+			_parameter
+		);
+
 }
 
 }

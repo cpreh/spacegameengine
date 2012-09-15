@@ -34,7 +34,7 @@ namespace state
 
 typedef fcppt::function::object<
 	void (
-		GLenum
+		GLenum const &
 	)
 > index_actor;
 

@@ -40,7 +40,7 @@ namespace light
 
 sge::opengl::state::index_actor_vector const
 directional(
-	sge::renderer::state::ffp::light::lighting::directional const &
+	sge::renderer::state::ffp::lighting::light::directional const &
 );
 
 }

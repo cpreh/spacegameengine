@@ -18,35 +18,72 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_FFP_LIGHTING_LIGHT_SET_HPP_INCLUDED
-#define SGE_OPENGL_STATE_FFP_LIGHTING_LIGHT_SET_HPP_INCLUDED
+#ifndef SGE_OPENGL_CONTEXT_USE_IMPL_HPP_INCLUDED
+#define SGE_OPENGL_CONTEXT_USE_IMPL_HPP_INCLUDED
 
-#include <sge/opengl/context/device/object_fwd.hpp>
-#include <sge/renderer/state/ffp/lighting/light/const_object_ref_vector.hpp>
+#include <sge/opengl/context/base_fwd.hpp>
+#include <sge/opengl/context/make_object.hpp>
+#include <sge/opengl/context/object_decl.hpp>
+#include <fcppt/null_ptr.hpp>
 
 
 namespace sge
 {
 namespace opengl
 {
-namespace state
-{
-namespace ffp
-{
-namespace lighting
-{
-namespace light
+namespace context
 {
 
-void
-set(
-	sge::opengl::context::device::object &,
-	sge::renderer::state::ffp::lighting::light::const_object_ref_vector const &
-);
+template<
+	typename Type,
+	typename Domain,
+	typename Parameter
+>
+Type &
+use_impl(
+	sge::opengl::context::object<
+		Domain
+	> &_object,
+	Parameter const &_parameter
+)
+{
+	typedef sge::opengl::context::base<
+		Domain
+	> base_type;
 
+	base_type *ptr(
+		_object.get(
+			Type::static_id
+		)
+	);
+
+	return
+		ptr
+		!=
+		fcppt::null_ptr()
+		?
+			static_cast<
+				Type &
+			>(
+				*ptr
+			)
+		:
+			static_cast<
+				Type &
+			>(
+				_object.insert(
+					Type::static_id,
+					sge::opengl::context::make_object<
+						Type
+					>(
+						_object,
+						_parameter
+					)
+				)
+			)
+		;
 }
-}
-}
+
 }
 }
 }

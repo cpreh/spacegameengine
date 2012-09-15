@@ -18,10 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CONTEXT_USE_FWD_HPP_INCLUDED
-#define SGE_OPENGL_CONTEXT_USE_FWD_HPP_INCLUDED
-
-#include <sge/opengl/context/object_fwd.hpp>
+#ifndef SGE_OPENGL_CONTEXT_DUMMY_PARAMETER_HPP_INCLUDED
+#define SGE_OPENGL_CONTEXT_DUMMY_PARAMETER_HPP_INCLUDED
 
 
 namespace sge
@@ -31,16 +29,9 @@ namespace opengl
 namespace context
 {
 
-template<
-	typename Type,
-	typename Domain
->
-Type &
-use(
-	sge::opengl::context::object<
-		Domain
-	> &
-);
+class dummy_parameter
+{
+};
 
 }
 }

@@ -18,11 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_FFP_LIGHTING_LIGHT_SET_HPP_INCLUDED
-#define SGE_OPENGL_STATE_FFP_LIGHTING_LIGHT_SET_HPP_INCLUDED
+#ifndef SGE_OPENGL_STATE_FFP_LIGHTING_LIGHT_OBJECT_FWD_HPP_INCLUDED
+#define SGE_OPENGL_STATE_FFP_LIGHTING_LIGHT_OBJECT_FWD_HPP_INCLUDED
 
-#include <sge/opengl/context/device/object_fwd.hpp>
-#include <sge/renderer/state/ffp/lighting/light/const_object_ref_vector.hpp>
+#include <sge/opengl/common.hpp>
+#include <sge/opengl/state/unary_object_fwd.hpp>
+#include <sge/renderer/state/ffp/lighting/light/object_fwd.hpp>
 
 
 namespace sge
@@ -38,11 +39,10 @@ namespace lighting
 namespace light
 {
 
-void
-set(
-	sge::opengl::context::device::object &,
-	sge::renderer::state::ffp::lighting::light::const_object_ref_vector const &
-);
+typedef sge::opengl::state::unary_object<
+	sge::renderer::state::ffp::lighting::light::object,
+	GLenum
+> object;
 
 }
 }

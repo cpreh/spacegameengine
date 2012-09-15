@@ -18,33 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_FFP_LIGHTING_LIGHT_SET_HPP_INCLUDED
-#define SGE_OPENGL_STATE_FFP_LIGHTING_LIGHT_SET_HPP_INCLUDED
+#ifndef SGE_RENDERER_STATE_CORE_SAMPLER_DEFAULT_HPP_INCLUDED
+#define SGE_RENDERER_STATE_CORE_SAMPLER_DEFAULT_HPP_INCLUDED
 
-#include <sge/opengl/context/device/object_fwd.hpp>
-#include <sge/renderer/state/ffp/lighting/light/const_object_ref_vector.hpp>
+#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/state/core/sampler/parameters_fwd.hpp>
 
 
 namespace sge
 {
-namespace opengl
+namespace renderer
 {
 namespace state
 {
-namespace ffp
+namespace core
 {
-namespace lighting
-{
-namespace light
+namespace sampler
 {
 
-void
-set(
-	sge::opengl::context::device::object &,
-	sge::renderer::state::ffp::lighting::light::const_object_ref_vector const &
-);
+SGE_RENDERER_SYMBOL
+sge::renderer::state::core::sampler::parameters const
+default_();
 
-}
 }
 }
 }

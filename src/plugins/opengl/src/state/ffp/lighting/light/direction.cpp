@@ -19,21 +19,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/light/direction.hpp>
-#include <sge/opengl/light/float_ptr.hpp>
-#include <sge/opengl/light/index.hpp>
-#include <sge/renderer/light/direction.hpp>
+#include <sge/opengl/state/index_actor.hpp>
+#include <sge/opengl/state/ffp/lighting/light/direction.hpp>
+#include <sge/opengl/state/ffp/lighting/light/float_ptr.hpp>
+#include <sge/renderer/state/ffp/lighting/light/direction.hpp>
 
 
-void
-sge::opengl::light::direction(
-	sge::opengl::light::index const _index,
-	sge::renderer::light::direction const &_direction
+sge::opengl::state::index_actor const
+sge::opengl::state::ffp::lighting::light::direction(
+	sge::renderer::state::ffp::lighting::light::direction const &_direction
 )
 {
-	sge::opengl::light::float_ptr(
-		_index,
-		GL_SPOT_DIRECTION,
-		_direction.get().data()
-	);
+	return
+		sge::opengl::state::ffp::lighting::light::float_ptr(
+			GL_SPOT_DIRECTION,
+			_direction.get()
+		);
 }

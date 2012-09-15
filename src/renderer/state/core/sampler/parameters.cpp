@@ -18,37 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_FFP_LIGHTING_LIGHT_SET_HPP_INCLUDED
-#define SGE_OPENGL_STATE_FFP_LIGHTING_LIGHT_SET_HPP_INCLUDED
-
-#include <sge/opengl/context/device/object_fwd.hpp>
-#include <sge/renderer/state/ffp/lighting/light/const_object_ref_vector.hpp>
+#include <sge/renderer/state/core/sampler/parameters.hpp>
+#include <sge/renderer/state/core/sampler/address/parameters.hpp>
+#include <sge/renderer/state/core/sampler/filter/parameters.hpp>
 
 
-namespace sge
+sge::renderer::state::core::sampler::parameters::parameters(
+	sge::renderer::state::core::sampler::address::parameters const &_address,
+	sge::renderer::state::core::sampler::filter::parameters const &_filter
+)
+:
+	address_(
+		_address
+	),
+	filter_(
+		_filter
+	)
 {
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace lighting
-{
-namespace light
-{
-
-void
-set(
-	sge::opengl::context::device::object &,
-	sge::renderer::state::ffp::lighting::light::const_object_ref_vector const &
-);
-
-}
-}
-}
-}
-}
 }
 
-#endif
+sge::renderer::state::core::sampler::address::parameters const &
+sge::renderer::state::core::sampler::parameters::address() const
+{
+	return address_;
+}
+
+sge::renderer::state::core::sampler::filter::parameters const &
+sge::renderer::state::core::sampler::parameters::filter() const
+{
+	return filter_;
+}
