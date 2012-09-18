@@ -18,29 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/state/actor_vector.hpp>
-#include <sge/opengl/state/core/depth_stencil/make_actors.hpp>
-#include <sge/opengl/state/core/depth_stencil/depth/visitor.hpp>
-#include <sge/opengl/state/core/depth_stencil/stencil/visitor.hpp>
 #include <sge/renderer/state/core/depth_stencil/parameters.hpp>
-#include <fcppt/algorithm/join.hpp>
-#include <fcppt/variant/apply_unary.hpp>
+#include <sge/renderer/state/core/depth_stencil/depth/variant.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/variant.hpp>
 
 
-sge::opengl::state::actor_vector const
-sge::opengl::state::core::depth_stencil::make_actors(
-	sge::renderer::state::core::depth_stencil::parameters const &_parameters
+sge::renderer::state::core::depth_stencil::parameters::parameters(
+	sge::renderer::state::core::depth_stencil::depth::variant const &_depth_variant,
+	sge::renderer::state::core::depth_stencil::stencil::variant const &_stencil_variant
 )
+:
+	depth_variant_(
+		_depth_variant
+	),
+	stencil_variant_(
+		_stencil_variant
+	)
 {
-	return
-		fcppt::algorithm::join(
-			fcppt::variant::apply_unary(
-				sge::opengl::state::core::depth_stencil::depth::visitor(),
-				_parameters.depth_variant()
-			),
-			fcppt::variant::apply_unary(
-				sge::opengl::state::core::depth_stencil::stencil::visitor(),
-				_parameters.stencil_variant()
-			)
-		);
+}
+
+sge::renderer::state::core::depth_stencil::depth::variant const &
+sge::renderer::state::core::depth_stencil::parameters::depth_variant() const
+{
+	return depth_variant_;
+}
+
+sge::renderer::state::core::depth_stencil::stencil::variant const &
+sge::renderer::state::core::depth_stencil::parameters::stencil_variant() const
+{
+	return stencil_variant_;
 }

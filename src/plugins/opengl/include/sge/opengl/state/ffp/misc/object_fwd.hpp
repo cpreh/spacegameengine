@@ -18,12 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_FFP_MISC_CREATE_HPP_INCLUDED
-#define SGE_OPENGL_STATE_FFP_MISC_CREATE_HPP_INCLUDED
+#ifndef SGE_OPENGL_STATE_FFP_MISC_OBJECT_FWD_HPP_INCLUDED
+#define SGE_OPENGL_STATE_FFP_MISC_OBJECT_FWD_HPP_INCLUDED
 
-#include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/renderer/state/ffp/misc/object_unique_ptr.hpp>
-#include <sge/renderer/state/ffp/misc/parameters_fwd.hpp>
+#include <sge/opengl/state/object_fwd.hpp>
+#include <sge/renderer/state/ffp/misc/object_fwd.hpp>
 
 
 namespace sge
@@ -37,11 +36,9 @@ namespace ffp
 namespace misc
 {
 
-sge::renderer::state::ffp::misc::object_unique_ptr
-create(
-	sge::opengl::context::system::object &,
-	sge::renderer::state::ffp::misc::parameters const &
-);
+typedef sge::opengl::state::object<
+	sge::renderer::state::ffp::misc::object
+> object;
 
 }
 }

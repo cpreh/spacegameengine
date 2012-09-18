@@ -18,29 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_FFP_MISC_CREATE_HPP_INCLUDED
-#define SGE_OPENGL_STATE_FFP_MISC_CREATE_HPP_INCLUDED
+#ifndef SGE_RENDERER_STATE_CORE_RASTERIZER_ENABLE_SCISSOR_TEST_HPP_INCLUDED
+#define SGE_RENDERER_STATE_CORE_RASTERIZER_ENABLE_SCISSOR_TEST_HPP_INCLUDED
 
-#include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/renderer/state/ffp/misc/object_unique_ptr.hpp>
-#include <sge/renderer/state/ffp/misc/parameters_fwd.hpp>
+#include <fcppt/strong_typedef.hpp>
 
 
 namespace sge
 {
-namespace opengl
+namespace renderer
 {
 namespace state
 {
-namespace ffp
+namespace core
 {
-namespace misc
+namespace rasterizer
 {
 
-sge::renderer::state::ffp::misc::object_unique_ptr
-create(
-	sge::opengl::context::system::object &,
-	sge::renderer::state::ffp::misc::parameters const &
+FCPPT_MAKE_STRONG_TYPEDEF(
+	bool,
+	enable_scissor_test
 );
 
 }

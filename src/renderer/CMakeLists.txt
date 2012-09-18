@@ -337,6 +337,7 @@ set(
 	include/sge/renderer/state/core/rasterizer/const_optional_object_ref.hpp
 	include/sge/renderer/state/core/rasterizer/const_optional_object_ref_fwd.hpp
 	include/sge/renderer/state/core/rasterizer/cull_mode.hpp
+	include/sge/renderer/state/core/rasterizer/enable_scissor_test.hpp
 	include/sge/renderer/state/core/rasterizer/fill_mode.hpp
 	include/sge/renderer/state/core/rasterizer/object.hpp
 	include/sge/renderer/state/core/rasterizer/object_fwd.hpp
@@ -849,8 +850,10 @@ set(
 	src/renderer/screenshot.cpp
 	src/renderer/state/core/blend/default.cpp
 	src/renderer/state/core/blend/parameters.cpp
+	src/renderer/state/core/blend/separate.cpp
 	src/renderer/state/core/blend/write_mask.cpp
 	src/renderer/state/core/blend/write_mask_all.cpp
+	src/renderer/state/core/depth_stencil/parameters.cpp
 	src/renderer/state/core/depth_stencil/scoped.cpp
 	src/renderer/state/core/sampler/address/mode_default.cpp
 	src/renderer/state/core/sampler/address/parameters.cpp

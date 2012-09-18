@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_STATE_FFP_CLIP_PLANE_MAKE_ACTORS_HPP_INCLUDED
 #define SGE_OPENGL_STATE_FFP_CLIP_PLANE_MAKE_ACTORS_HPP_INCLUDED
 
-#include <sge/opengl/state/index_actor_fwd.hpp>
+#include <sge/opengl/state/index_actor_vector.hpp>
 #include <sge/renderer/state/ffp/clip_plane/parameters_fwd.hpp>
 
 
@@ -36,7 +36,7 @@ namespace ffp
 namespace clip_plane
 {
 
-sge::opengl::state::index_actor const
+sge::opengl::state::index_actor_vector const
 make_actors(
 	sge::renderer::state::ffp::clip_plane::parameters const &
 );

@@ -20,10 +20,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/state/index_actor.hpp>
+#include <sge/opengl/state/index_actor_vector.hpp>
 #include <sge/opengl/state/wrap_error_handler.hpp>
 #include <sge/opengl/state/ffp/clip_plane/make_actors.hpp>
 #include <sge/renderer/state/ffp/clip_plane/parameters.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/math/vector/static.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
@@ -35,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::opengl::state::index_actor const
+sge::opengl::state::index_actor_vector const
 sge::opengl::state::ffp::clip_plane::make_actors(
 	sge::renderer::state::ffp::clip_plane::parameters const &_parameters
 )
@@ -46,28 +48,32 @@ sge::opengl::state::ffp::clip_plane::make_actors(
 	>::type vector4d;
 
 	return
-		sge::opengl::state::wrap_error_handler<
-			sge::opengl::state::index_actor
+		fcppt::assign::make_container<
+			sge::opengl::state::index_actor_vector
 		>(
-			boost::phoenix::bind(
-				::glClipPlane,
-				boost::phoenix::arg_names::arg1,
+			sge::opengl::state::wrap_error_handler<
+				sge::opengl::state::index_actor
+			>(
 				boost::phoenix::bind(
-					static_cast<
-						vector4d::const_pointer
-						(vector4d::*)() const
-					>(
-						&vector4d::data
-					),
-					boost::phoenix::val(
-						fcppt::math::vector::structure_cast<
-							vector4d
+					::glClipPlane,
+					boost::phoenix::arg_names::arg1,
+					boost::phoenix::bind(
+						static_cast<
+							vector4d::const_pointer
+							(vector4d::*)() const
 						>(
-							_parameters.area().get()
+							&vector4d::data
+						),
+						boost::phoenix::val(
+							fcppt::math::vector::structure_cast<
+								vector4d
+							>(
+								_parameters.area().get()
+							)
 						)
 					)
-				)
-			),
-			FCPPT_TEXT("glClipPlane")
+				),
+				FCPPT_TEXT("glClipPlane")
+			)
 		);
 }

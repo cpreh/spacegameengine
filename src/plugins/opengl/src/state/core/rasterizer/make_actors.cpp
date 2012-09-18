@@ -18,35 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_FFP_MISC_CREATE_HPP_INCLUDED
-#define SGE_OPENGL_STATE_FFP_MISC_CREATE_HPP_INCLUDED
+#include <sge/opengl/state/actor_vector.hpp>
+#include <sge/opengl/state/core/rasterizer/cull_mode.hpp>
+#include <sge/opengl/state/core/rasterizer/fill_mode.hpp>
+#include <sge/opengl/state/core/rasterizer/make_actors.hpp>
+#include <sge/renderer/state/core/rasterizer/parameters.hpp>
+#include <fcppt/algorithm/join.hpp>
+#include <fcppt/assign/make_container.hpp>
 
-#include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/renderer/state/ffp/misc/object_unique_ptr.hpp>
-#include <sge/renderer/state/ffp/misc/parameters_fwd.hpp>
 
-
-namespace sge
+sge::opengl::state::actor_vector const
+sge::opengl::state::core::rasterizer::make_actors(
+	sge::renderer::state::core::rasterizer::parameters const &_parameters
+)
 {
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace misc
-{
-
-sge::renderer::state::ffp::misc::object_unique_ptr
-create(
-	sge::opengl::context::system::object &,
-	sge::renderer::state::ffp::misc::parameters const &
-);
-
+	return
+		fcppt::algorithm::join(
+			sge::opengl::state::core::rasterizer::cull_mode(
+				_parameters.cull_mode()
+			),
+			fcppt::assign::make_container<
+				sge::opengl::state::actor_vector
+			>(
+				sge::opengl::state::core::rasterizer::fill_mode(
+					_parameters.fill_mode()
+				)
+			)
+			.container()
+		);
 }
-}
-}
-}
-}
-
-#endif

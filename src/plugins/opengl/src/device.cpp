@@ -609,6 +609,7 @@ sge::opengl::device::create_misc_state(
 {
 	return
 		sge::opengl::state::ffp::misc::create(
+			system_context_,
 			_parameters
 		);
 }
