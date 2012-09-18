@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/disable.hpp>
 #include <sge/opengl/enable.hpp>
 #include <sge/opengl/convert/to_gl_bool.hpp>
+#include <sge/opengl/state/actor.hpp>
 #include <sge/opengl/state/actor_vector.hpp>
 #include <sge/opengl/state/wrap_error_handler.hpp>
 #include <sge/opengl/state/convert/depth_func.hpp>
@@ -30,6 +31,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/phoenix/bind.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::opengl::state::core::depth_stencil::depth::visitor::result_type const
@@ -62,8 +66,10 @@ sge::opengl::state::core::depth_stencil::depth::visitor::operator()(
 				GL_DEPTH_TEST
 			)
 		)(
-			sge::opengl::state::wrap_error_handler(
-				std::tr1::bind(
+			sge::opengl::state::wrap_error_handler<
+				sge::opengl::state::actor
+			>(
+				boost::phoenix::bind(
 					::glDepthFunc,
 					sge::opengl::state::convert::depth_func(
 						_enabled.func()
@@ -72,8 +78,10 @@ sge::opengl::state::core::depth_stencil::depth::visitor::operator()(
 				FCPPT_TEXT("glDepthFunc")
 			)
 		)(
-			sge::opengl::state::wrap_error_handler(
-				std::tr1::bind(
+			sge::opengl::state::wrap_error_handler<
+				sge::opengl::state::actor
+			>(
+				boost::phoenix::bind(
 					::glDepthMask,
 					sge::opengl::convert::to_gl_bool(
 						_enabled.write_enable().get()

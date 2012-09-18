@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/state/actor.hpp>
 #include <sge/opengl/state/actor_vector.hpp>
 #include <sge/opengl/state/wrap_error_handler.hpp>
 #include <sge/opengl/state/convert/stencil_func.hpp>
@@ -33,7 +34,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/depth_stencil/stencil/write_mask.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/phoenix/bind.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::opengl::state::core::depth_stencil::stencil::enabled_visitor::enabled_visitor(
@@ -59,8 +62,10 @@ sge::opengl::state::core::depth_stencil::stencil::enabled_visitor::operator()(
 		fcppt::assign::make_container<
 			sge::opengl::state::core::depth_stencil::stencil::enabled_visitor::result_type
 		>(
-			sge::opengl::state::wrap_error_handler(
-				std::tr1::bind(
+			sge::opengl::state::wrap_error_handler<
+				sge::opengl::state::actor
+			>(
+				boost::phoenix::bind(
 					::glStencilFunc,
 					sge::opengl::state::convert::stencil_func(
 						_combined.desc().func()
@@ -75,8 +80,10 @@ sge::opengl::state::core::depth_stencil::stencil::enabled_visitor::operator()(
 				FCPPT_TEXT("glStencilFunc")
 			)
 		)(
-			sge::opengl::state::wrap_error_handler(
-				std::tr1::bind(
+			sge::opengl::state::wrap_error_handler<
+				sge::opengl::state::actor
+			>(
+				boost::phoenix::bind(
 					::glStencilOp,
 					sge::opengl::state::convert::stencil_op(
 						_combined.desc().fail_op().get()

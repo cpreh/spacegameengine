@@ -18,32 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/common.hpp>
-#include <sge/opengl/state/index_actor.hpp>
-#include <sge/opengl/state/wrap_error_handler.hpp>
-#include <sge/opengl/state/ffp/lighting/light/float.hpp>
+#ifndef SGE_OPENGL_STATE_CHECK_ERROR_HPP_INCLUDED
+#define SGE_OPENGL_STATE_CHECK_ERROR_HPP_INCLUDED
+
+#include <sge/opengl/check_state.hpp>
+#include <sge/renderer/exception.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/phoenix/bind.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
-sge::opengl::state::index_actor const
-sge::opengl::state::ffp::lighting::light::float_(
-	GLenum const _name,
-	GLfloat const _value
+namespace sge
+{
+namespace opengl
+{
+namespace state
+{
+
+inline
+void
+check_error(
+	fcppt::string const &_what
 )
 {
-	return
-		sge::opengl::state::wrap_error_handler<
-			sge::opengl::state::index_actor
-		>(
-			boost::phoenix::bind(
-				::glLightf,
-				std::tr1::placeholders::_1,
-				_name,
-				_value
-			),
-			FCPPT_TEXT("glLightf")
-		);
+	SGE_OPENGL_CHECK_STATE(
+		_what + FCPPT_TEXT(" failed!"),
+		sge::renderer::exception
+	)
 }
+
+}
+}
+}
+
+#endif

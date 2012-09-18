@@ -18,32 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/common.hpp>
-#include <sge/opengl/state/index_actor.hpp>
-#include <sge/opengl/state/wrap_error_handler.hpp>
-#include <sge/opengl/state/ffp/lighting/light/float.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/phoenix/bind.hpp>
-#include <fcppt/config/external_end.hpp>
+#ifndef SGE_OPENGL_STATE_FFP_SAMPLER_CREATE_HPP_INCLUDED
+#define SGE_OPENGL_STATE_FFP_SAMPLER_CREATE_HPP_INCLUDED
+
+#include <sge/renderer/state/ffp/sampler/object_unique_ptr.hpp>
+#include <sge/renderer/state/ffp/sampler/parameters_fwd.hpp>
 
 
-sge::opengl::state::index_actor const
-sge::opengl::state::ffp::lighting::light::float_(
-	GLenum const _name,
-	GLfloat const _value
-)
+namespace sge
 {
-	return
-		sge::opengl::state::wrap_error_handler<
-			sge::opengl::state::index_actor
-		>(
-			boost::phoenix::bind(
-				::glLightf,
-				std::tr1::placeholders::_1,
-				_name,
-				_value
-			),
-			FCPPT_TEXT("glLightf")
-		);
+namespace opengl
+{
+namespace state
+{
+namespace ffp
+{
+namespace sampler
+{
+
+sge::renderer::state::ffp::sampler::object_unique_ptr
+create(
+	sge::renderer::state::ffp::sampler::parameters const &
+);
+
 }
+}
+}
+}
+}
+
+#endif

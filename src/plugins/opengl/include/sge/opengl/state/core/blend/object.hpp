@@ -22,28 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_STATE_CORE_BLEND_OBJECT_HPP_INCLUDED
 
 #include <sge/opengl/state/object.hpp>
+#include <sge/opengl/state/core/blend/object_fwd.hpp>
 #include <sge/renderer/state/core/blend/object.hpp>
 
-
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace core
-{
-namespace blend
-{
-
-typedef sge::opengl::state::object<
-	sge::renderer::state::core::blend::object
-> object;
-
-}
-}
-}
-}
-}
 
 #endif

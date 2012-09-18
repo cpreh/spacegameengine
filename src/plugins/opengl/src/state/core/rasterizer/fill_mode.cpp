@@ -24,7 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/convert/fill_mode.hpp>
 #include <sge/opengl/state/core/rasterizer/fill_mode.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/phoenix/bind.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::opengl::state::actor const
@@ -33,8 +35,10 @@ sge::opengl::state::core::rasterizer::fill_mode(
 )
 {
 	return
-		sge::opengl::state::wrap_error_handler(
-			std::tr1::bind(
+		sge::opengl::state::wrap_error_handler<
+			sge::opengl::state::actor
+		>(
+			boost::phoenix::bind(
 				::glPolygonMode,
 				GL_FRONT_AND_BACK,
 				sge::opengl::state::convert::fill_mode(

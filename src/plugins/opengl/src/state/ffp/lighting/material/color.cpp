@@ -42,7 +42,9 @@ sge::opengl::state::ffp::lighting::material::color(
 )
 {
 	return
-		sge::opengl::state::wrap_error_handler(
+		sge::opengl::state::wrap_error_handler<
+			sge::opengl::state::actor
+		>(
 			boost::phoenix::bind(
 				::glMaterialfv,
 				_face,

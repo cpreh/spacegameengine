@@ -26,7 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/depth_stencil/stencil/func.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/ref.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/phoenix/bind.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::opengl::state::actor const
@@ -37,8 +39,10 @@ sge::opengl::state::core::depth_stencil::stencil::func_separate(
 )
 {
 	return
-		sge::opengl::state::wrap_error_handler(
-			std::tr1::bind(
+		sge::opengl::state::wrap_error_handler<
+			sge::opengl::state::actor
+		>(
+			boost::phoenix::bind(
 				::glStencilFuncSeparate,
 				_side,
 				sge::opengl::state::convert::stencil_func(

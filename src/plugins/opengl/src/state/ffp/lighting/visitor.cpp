@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/disable.hpp>
 #include <sge/opengl/enable.hpp>
+#include <sge/opengl/state/actor.hpp>
 #include <sge/opengl/state/actor_vector.hpp>
 #include <sge/opengl/state/bind_data_getter.hpp>
 #include <sge/opengl/state/wrap_error_handler.hpp>
@@ -69,7 +70,9 @@ sge::opengl::state::ffp::lighting::visitor::operator()(
 				GL_LIGHTING
 			)
 		)(
-			sge::opengl::state::wrap_error_handler(
+			sge::opengl::state::wrap_error_handler<
+				sge::opengl::state::actor
+			>(
 				boost::phoenix::bind(
 					::glLightModelfv,
 					GL_LIGHT_MODEL_AMBIENT,

@@ -18,32 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/common.hpp>
-#include <sge/opengl/state/index_actor.hpp>
-#include <sge/opengl/state/wrap_error_handler.hpp>
-#include <sge/opengl/state/ffp/lighting/light/float.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/phoenix/bind.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <sge/opengl/context/use.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/state/set_or_default_single.hpp>
+#include <sge/opengl/state/core/blend/context.hpp>
+#include <sge/opengl/state/core/blend/object.hpp>
+#include <sge/opengl/state/core/blend/set.hpp>
+#include <sge/renderer/state/core/blend/const_optional_object_ref.hpp>
+#include <fcppt/ref.hpp>
 
 
-sge::opengl::state::index_actor const
-sge::opengl::state::ffp::lighting::light::float_(
-	GLenum const _name,
-	GLfloat const _value
+void
+sge::opengl::state::core::blend::set(
+	sge::opengl::context::system::object &_system_context,
+	sge::renderer::state::core::blend::const_optional_object_ref const &_state
 )
 {
-	return
-		sge::opengl::state::wrap_error_handler<
-			sge::opengl::state::index_actor
+	sge::opengl::state::set_or_default_single<
+		sge::opengl::state::core::blend::object
+	>(
+		sge::opengl::context::use<
+			sge::opengl::state::core::blend::context
 		>(
-			boost::phoenix::bind(
-				::glLightf,
-				std::tr1::placeholders::_1,
-				_name,
-				_value
-			),
-			FCPPT_TEXT("glLightf")
-		);
+			_system_context,
+			fcppt::ref(
+				_system_context
+			)
+		),
+		_state
+	);
 }

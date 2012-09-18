@@ -18,16 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_WRAP_ERROR_HANDLER_HPP_INCLUDED
-#define SGE_OPENGL_STATE_WRAP_ERROR_HANDLER_HPP_INCLUDED
+#ifndef SGE_OPENGL_STATE_CORE_BLEND_CONTEXT_HPP_INCLUDED
+#define SGE_OPENGL_STATE_CORE_BLEND_CONTEXT_HPP_INCLUDED
 
-#include <sge/opengl/state/check_error.hpp>
-#include <fcppt/string.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/phoenix/bind/bind_function.hpp>
-#include <boost/phoenix/bind/bind_function_object.hpp>
-#include <boost/phoenix/statement/sequence.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <sge/opengl/context/system/base.hpp>
+#include <sge/opengl/context/system/id.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/state/core/blend/object_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/scoped_ptr_impl.hpp>
 
 
 namespace sge
@@ -36,27 +35,44 @@ namespace opengl
 {
 namespace state
 {
-
-template<
-	typename Result,
-	typename Actor
->
-Result const
-wrap_error_handler(
-	Actor const &_actor,
-	fcppt::string const &_name
-)
+namespace core
 {
-	return
-		boost::phoenix::bind(
-			_actor
-		),
-		boost::phoenix::bind(
-			sge::opengl::state::check_error,
-			_name
-		);
-}
+namespace blend
+{
 
+class context
+:
+	public sge::opengl::context::system::base
+{
+	FCPPT_NONCOPYABLE(
+		context
+	);
+public:
+	typedef sge::opengl::context::system::object &parameter;
+
+	explicit
+	context(
+		parameter
+	);
+
+	~context();
+
+	sge::opengl::state::core::blend::object const &
+	default_state() const;
+
+	static
+	sge::opengl::context::system::id const
+	static_id;
+private:
+	typedef fcppt::scoped_ptr<
+		sge::opengl::state::core::blend::object
+	> object_scoped_ptr;
+
+	object_scoped_ptr const default_state_;
+};
+
+}
+}
 }
 }
 }

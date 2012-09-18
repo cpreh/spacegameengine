@@ -1,3 +1,4 @@
+
 /*
 spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2012 Carl Philipp Reh (sefi@s-e-f-i.de)
@@ -18,32 +19,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/common.hpp>
-#include <sge/opengl/state/index_actor.hpp>
-#include <sge/opengl/state/wrap_error_handler.hpp>
-#include <sge/opengl/state/ffp/lighting/light/float.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/phoenix/bind.hpp>
-#include <fcppt/config/external_end.hpp>
+#ifndef SGE_OPENGL_STATE_CORE_BLEND_OBJECT_FWD_HPP_INCLUDED
+#define SGE_OPENGL_STATE_CORE_BLEND_OBJECT_FWD_HPP_INCLUDED
+
+#include <sge/opengl/state/object_fwd.hpp>
+#include <sge/renderer/state/core/blend/object_fwd.hpp>
 
 
-sge::opengl::state::index_actor const
-sge::opengl::state::ffp::lighting::light::float_(
-	GLenum const _name,
-	GLfloat const _value
-)
+namespace sge
 {
-	return
-		sge::opengl::state::wrap_error_handler<
-			sge::opengl::state::index_actor
-		>(
-			boost::phoenix::bind(
-				::glLightf,
-				std::tr1::placeholders::_1,
-				_name,
-				_value
-			),
-			FCPPT_TEXT("glLightf")
-		);
+namespace opengl
+{
+namespace state
+{
+namespace core
+{
+namespace blend
+{
+
+typedef sge::opengl::state::object<
+	sge::renderer::state::core::blend::object
+> object;
+
 }
+}
+}
+}
+}
+
+#endif

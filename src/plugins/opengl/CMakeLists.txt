@@ -195,6 +195,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/state/actor_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/state/actor_vector.hpp
 	src/plugins/opengl/include/sge/opengl/state/bind_data_getter.hpp
+	src/plugins/opengl/include/sge/opengl/state/check_error.hpp
 	src/plugins/opengl/include/sge/opengl/state/convert/address_mode.hpp
 	src/plugins/opengl/include/sge/opengl/state/convert/address_mode_type.hpp
 	src/plugins/opengl/include/sge/opengl/state/convert/alpha_func.hpp
@@ -220,13 +221,17 @@ set(
 	src/plugins/opengl/include/sge/opengl/state/convert/stencil_op.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/blend/alpha_enabled_visitor.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/blend/alpha_visitor.hpp
+	src/plugins/opengl/include/sge/opengl/state/core/blend/context.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/blend/create.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/blend/make_actors.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/blend/object.hpp
+	src/plugins/opengl/include/sge/opengl/state/core/blend/object_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/state/core/blend/set.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/depth_stencil/create.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/depth_stencil/depth/visitor.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/depth_stencil/make_actors.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/depth_stencil/object.hpp
+	src/plugins/opengl/include/sge/opengl/state/core/depth_stencil/set.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/depth_stencil/stencil/enabled_visitor.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/depth_stencil/stencil/func_separate.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/depth_stencil/stencil/op_separate.hpp
@@ -235,6 +240,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/state/core/rasterizer/create.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/rasterizer/cull_mode.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/rasterizer/fill_mode.hpp
+	src/plugins/opengl/include/sge/opengl/state/core/rasterizer/set.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/sampler/actor.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/sampler/actor_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/sampler/actor_vector.hpp
@@ -255,7 +261,9 @@ set(
 	src/plugins/opengl/include/sge/opengl/state/ffp/alpha_test/make_actors.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/alpha_test/object.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/alpha_test/object_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/state/ffp/alpha_test/set.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/alpha_test/visitor.hpp
+	src/plugins/opengl/include/sge/opengl/state/ffp/clip_plane/create.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/clip_plane/make_actors.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/fog/color.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/fog/create.hpp
@@ -263,7 +271,9 @@ set(
 	src/plugins/opengl/include/sge/opengl/state/ffp/fog/make_actors.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/fog/object.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/fog/object_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/state/ffp/fog/set.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/fog/visitor.hpp
+	src/plugins/opengl/include/sge/opengl/state/ffp/lighting/create.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/lighting/light/attenuation.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/lighting/light/color.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/lighting/light/create.hpp
@@ -283,15 +293,19 @@ set(
 	src/plugins/opengl/include/sge/opengl/state/ffp/lighting/light/visitor.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/lighting/make_actors.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/lighting/material/color.hpp
+	src/plugins/opengl/include/sge/opengl/state/ffp/lighting/material/create.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/lighting/material/float.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/lighting/material/make_actors.hpp
+	src/plugins/opengl/include/sge/opengl/state/ffp/lighting/set.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/lighting/visitor.hpp
+	src/plugins/opengl/include/sge/opengl/state/ffp/misc/create.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/misc/make_actors.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/misc/point_sprite.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/misc/point_sprite_texture.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/sampler/actor.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/sampler/actor_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/sampler/actor_vector.hpp
+	src/plugins/opengl/include/sge/opengl/state/ffp/sampler/create.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/sampler/make_actors.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/sampler/set_one.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/transform/actor.hpp
@@ -311,6 +325,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/state/object.hpp
 	src/plugins/opengl/include/sge/opengl/state/object_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/state/object_impl.hpp
+	src/plugins/opengl/include/sge/opengl/state/set_or_default_single.hpp
 	src/plugins/opengl/include/sge/opengl/state/unary_object.hpp
 	src/plugins/opengl/include/sge/opengl/state/unary_object_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/state/unary_object_impl.hpp
@@ -644,8 +659,11 @@ set(
 	src/plugins/opengl/src/state/convert/stencil_op.cpp
 	src/plugins/opengl/src/state/core/blend/alpha_enabled_visitor.cpp
 	src/plugins/opengl/src/state/core/blend/alpha_visitor.cpp
+	src/plugins/opengl/src/state/core/blend/context.cpp
 	src/plugins/opengl/src/state/core/blend/create.cpp
-	src/plugins/opengl/src/state/core/blend/make_actors.hpp
+	src/plugins/opengl/src/state/core/blend/make_actors.cpp
+	src/plugins/opengl/src/state/core/blend/object.cpp
+	src/plugins/opengl/src/state/core/blend/set.cpp
 	src/plugins/opengl/src/state/core/depth_stencil/create.cpp
 	src/plugins/opengl/src/state/core/depth_stencil/depth/visitor.cpp
 	src/plugins/opengl/src/state/core/depth_stencil/make_actors.cpp

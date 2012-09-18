@@ -18,32 +18,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/common.hpp>
-#include <sge/opengl/state/index_actor.hpp>
-#include <sge/opengl/state/wrap_error_handler.hpp>
-#include <sge/opengl/state/ffp/lighting/light/float.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/phoenix/bind.hpp>
-#include <fcppt/config/external_end.hpp>
+#ifndef SGE_OPENGL_STATE_SET_OR_DEFAULT_SINGLE_HPP_INCLUDED
+#define SGE_OPENGL_STATE_SET_OR_DEFAULT_SINGLE_HPP_INCLUDED
 
 
-sge::opengl::state::index_actor const
-sge::opengl::state::ffp::lighting::light::float_(
-	GLenum const _name,
-	GLfloat const _value
+namespace sge
+{
+namespace opengl
+{
+namespace state
+{
+
+template<
+	typename GLState,
+	typename Context,
+	typename StateRef
+>
+void
+set_or_default_single(
+	Context const &_context,
+	StateRef const &_state
 )
 {
-	return
-		sge::opengl::state::wrap_error_handler<
-			sge::opengl::state::index_actor
-		>(
-			boost::phoenix::bind(
-				::glLightf,
-				std::tr1::placeholders::_1,
-				_name,
-				_value
-			),
-			FCPPT_TEXT("glLightf")
-		);
+	(
+		_state
+		?
+			static_cast<
+				GLState const &
+			>(
+				*_state
+			)
+
+		:
+			_context.default_state()
+	).set();
 }
+
+
+}
+}
+}
+
+#endif

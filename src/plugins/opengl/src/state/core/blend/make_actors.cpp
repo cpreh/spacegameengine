@@ -20,15 +20,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/state/actor.hpp>
 #include <sge/opengl/state/actor_vector.hpp>
-#include <sge/opengl/state/core/blend/alpha_variant.hpp>
+#include <sge/opengl/state/wrap_error_handler.hpp>
+#include <sge/opengl/state/core/blend/alpha_visitor.hpp>
 #include <sge/opengl/state/core/blend/make_actors.hpp>
 #include <sge/renderer/state/core/blend/parameters.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/join.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/phoenix/bind.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::opengl::state::actor_vector const
@@ -48,8 +52,10 @@ sge::opengl::state::core::blend::make_actors(
 			fcppt::assign::make_container<
 				sge::opengl::state::actor_vector
 			>(
-				sge;:opengl::state::wrap_error_handler(
-					std::tr1::bind(
+				sge::opengl::state::wrap_error_handler<
+					sge::opengl::state::actor
+				>(
+					boost::phoenix::bind(
 						::glColorMask,
 						_parameters.write_mask().write_red().get(),
 						_parameters.write_mask().write_green().get(),
@@ -59,5 +65,6 @@ sge::opengl::state::core::blend::make_actors(
 					FCPPT_TEXT("glColorMask")
 				)
 			)
+			.container()
 		);
 }

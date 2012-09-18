@@ -28,6 +28,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/blend/combined.hpp>
 #include <sge/renderer/state/core/blend/separate.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/phoenix/bind.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::opengl::state::core::blend::alpha_enabled_visitor::alpha_enabled_visitor(
@@ -48,8 +51,10 @@ sge::opengl::state::core::blend::alpha_enabled_visitor::operator()(
 ) const
 {
 	return
-		sge::opengl::state::wrap_error_handler(
-			std::tr1::bind(
+		sge::opengl::state::wrap_error_handler<
+			sge::opengl::state::core::blend::alpha_enabled_visitor::result_type
+		>(
+			boost::phoenix::bind(
 				::glBlendFunc,
 				sge::opengl::state::convert::source_blend_func(
 					_combined.source()
@@ -68,8 +73,10 @@ sge::opengl::state::core::blend::alpha_enabled_visitor::operator()(
 ) const
 {
 	return
-		sge::opengl::state::wrap_error_handler(
-			std::tr1::bind(
+		sge::opengl::state::wrap_error_handler<
+			sge::opengl::state::core::blend::alpha_enabled_visitor::result_type
+		>(
+			boost::phoenix::bind(
 				::glBlendFuncSeparate,
 				sge::opengl::state::convert::source_blend_func(
 					_separate.color_source().get()

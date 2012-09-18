@@ -55,7 +55,7 @@ template<
 void
 sge::opengl::state::object<
 	Base
->::set()
+>::set() const
 {
 	for(
 		sge::opengl::state::actor_vector::const_iterator it(

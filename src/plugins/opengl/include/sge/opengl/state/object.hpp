@@ -52,7 +52,7 @@ public:
 	~object();
 
 	void
-	set();
+	set() const;
 private:
 	sge::opengl::state::actor_vector const actors_;
 };

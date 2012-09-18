@@ -46,7 +46,9 @@ sge::opengl::state::ffp::clip_plane::make_actors(
 	>::type vector4d;
 
 	return
-		sge::opengl::state::wrap_error_handler(
+		sge::opengl::state::wrap_error_handler<
+			sge::opengl::state::index_actor
+		>(
 			boost::phoenix::bind(
 				::glClipPlane,
 				boost::phoenix::arg_names::arg1,

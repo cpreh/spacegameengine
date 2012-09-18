@@ -56,7 +56,9 @@ float_ptr(
 )
 {
 	return
-		sge::opengl::state::wrap_error_handler(
+		sge::opengl::state::wrap_error_handler<
+			sge::opengl::state::index_actor
+		>(
 			boost::phoenix::bind(
 				::glLightfv,
 				boost::phoenix::arg_names::arg1,

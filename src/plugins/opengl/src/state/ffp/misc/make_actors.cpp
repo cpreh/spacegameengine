@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/enable_bool.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/state/actor.hpp>
 #include <sge/opengl/state/actor_vector.hpp>
 #include <sge/opengl/state/wrap_error_handler.hpp>
 #include <sge/opengl/state/ffp/misc/make_actors.hpp>
@@ -30,6 +31,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/algorithm/join.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/phoenix/bind.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::opengl::state::actor_vector const
@@ -49,8 +53,10 @@ sge::opengl::state::ffp::misc::make_actors(
 					_parameters.normalize_normals().get()
 				)
 			)(
-				sge::opengl::state::wrap_error_handler(
-					std::tr1::bind(
+				sge::opengl::state::wrap_error_handler<
+					sge::opengl::state::actor
+				>(
+					boost::phoenix::bind(
 						::glLightModeli,
 						GL_LIGHT_MODEL_LOCAL_VIEWER,
 						_parameters.local_viewer().get()

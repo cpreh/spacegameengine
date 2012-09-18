@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/disable.hpp>
 #include <sge/opengl/enable.hpp>
+#include <sge/opengl/state/actor.hpp>
 #include <sge/opengl/state/actor_vector.hpp>
 #include <sge/opengl/state/wrap_error_handler.hpp>
 #include <sge/opengl/state/convert/cull_mode.hpp>
@@ -29,6 +30,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/phoenix/bind.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::opengl::state::actor_vector const
@@ -58,8 +62,10 @@ sge::opengl::state::core::rasterizer::cull_mode(
 					GL_CULL_FACE
 				)
 			)(
-				sge::opengl::state::wrap_error_handler(
-					std::tr1::bind(
+				sge::opengl::state::wrap_error_handler<
+					sge::opengl::state::actor
+				>(
+					boost::phoenix::bind(
 						::glCullFace,
 						sge::opengl::state::convert::cull_mode(
 							_mode

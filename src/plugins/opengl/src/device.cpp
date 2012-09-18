@@ -37,7 +37,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/core/depth_stencil/create.hpp>
 #include <sge/opengl/state/core/rasterizer/create.hpp>
 #include <sge/opengl/state/core/sampler/create.hpp>
+#include <sge/opengl/state/ffp/alpha_test/create.hpp>
+#include <sge/opengl/state/ffp/clip_plane/create.hpp>
+#include <sge/opengl/state/ffp/fog/create.hpp>
+#include <sge/opengl/state/ffp/lighting/create.hpp>
 #include <sge/opengl/state/ffp/lighting/light/create.hpp>
+#include <sge/opengl/state/ffp/lighting/material/create.hpp>
+#include <sge/opengl/state/ffp/misc/create.hpp>
+#include <sge/opengl/state/ffp/sampler/create.hpp>
 #include <sge/opengl/state/ffp/transform/create.hpp>
 #include <sge/opengl/texture/basic_parameters.hpp>
 #include <sge/opengl/texture/create_cube.hpp>
@@ -531,30 +538,46 @@ sge::opengl::device::end_rendering_ffp(
 
 sge::renderer::state::ffp::alpha_test::object_unique_ptr
 sge::opengl::device::create_alpha_test_state(
-	sge::renderer::state::ffp::alpha_test::parameters const &
+	sge::renderer::state::ffp::alpha_test::parameters const &_parameters
 )
 {
+	return
+		sge::opengl::state::ffp::alpha_test::create(
+			_parameters
+		);
 }
 
 sge::renderer::state::ffp::clip_plane::object_unique_ptr
 sge::opengl::device::create_clip_plane_state(
-	sge::renderer::state::ffp::clip_plane::parameters const &
+	sge::renderer::state::ffp::clip_plane::parameters const &_parameters
 )
 {
+	return
+		sge::opengl::state::ffp::clip_plane::create(
+			_parameters
+		);
 }
 
 sge::renderer::state::ffp::fog::object_unique_ptr
 sge::opengl::device::create_fog_state(
-	sge::renderer::state::ffp::fog::parameters const &
+	sge::renderer::state::ffp::fog::parameters const &_parameters
 )
 {
+	return
+		sge::opengl::state::ffp::fog::create(
+			_parameters
+		);
 }
 
 sge::renderer::state::ffp::lighting::object_unique_ptr
 sge::opengl::device::create_lighting_state(
-	sge::renderer::state::ffp::lighting::parameters const &
+	sge::renderer::state::ffp::lighting::parameters const &_parameters
 )
 {
+	return
+		sge::opengl::state::ffp::lighting::create(
+			_parameters
+		);
 }
 
 sge::renderer::state::ffp::lighting::light::object_unique_ptr
@@ -570,23 +593,35 @@ sge::opengl::device::create_light_state(
 
 sge::renderer::state::ffp::lighting::material::object_unique_ptr
 sge::opengl::device::create_material_state(
-	sge::renderer::state::ffp::lighting::material::parameters const &
+	sge::renderer::state::ffp::lighting::material::parameters const &_parameters
 )
 {
+	return
+		sge::opengl::state::ffp::lighting::material::create(
+			_parameters
+		);
 }
 
 sge::renderer::state::ffp::misc::object_unique_ptr
 sge::opengl::device::create_misc_state(
-	sge::renderer::state::ffp::misc::parameters const &
+	sge::renderer::state::ffp::misc::parameters const &_parameters
 )
 {
+	return
+		sge::opengl::state::ffp::misc::create(
+			_parameters
+		);
 }
 
 sge::renderer::state::ffp::sampler::object_unique_ptr
 sge::opengl::device::create_ffp_sampler_state(
-	sge::renderer::state::ffp::sampler::parameters const &
+	sge::renderer::state::ffp::sampler::parameters const &_parameters
 )
 {
+	return
+		sge::opengl::state::ffp::sampler::create(
+			_parameters
+		);
 }
 
 sge::renderer::state::ffp::transform::object_unique_ptr
