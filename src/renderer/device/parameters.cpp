@@ -18,34 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_SET_HPP_INCLUDED
-#define SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_SET_HPP_INCLUDED
+#include <sge/renderer/adapter.hpp>
+#include <sge/renderer/device/parameters.hpp>
+#include <sge/renderer/parameters/object.hpp>
+#include <awl/window/object_fwd.hpp>
 
-#include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/renderer/state/core/depth_stencil/const_optional_object_ref_fwd.hpp>
 
-
-namespace sge
+sge::renderer::device::parameters::parameters(
+	sge::renderer::adapter const _adapter,
+	sge::renderer::parameters::object const &_params,
+	awl::window::object &_window
+)
+:
+	adapter_(
+		_adapter
+	),
+	params_(
+		_params
+	),
+	window_(
+		_window
+	)
 {
-namespace opengl
-{
-namespace state
-{
-namespace core
-{
-namespace depth_stencil
-{
-
-void
-set(
-	sge::opengl::context::system::object &,
-	sge::renderer::state::core::depth_stencil::const_optional_object_ref const &
-);
-
-}
-}
-}
-}
 }
 
-#endif
+sge::renderer::adapter const
+sge::renderer::device::parameters::adapter() const
+{
+	return adapter_;
+}
+
+sge::renderer::parameters::object const &
+sge::renderer::device::parameters::params() const
+{
+	return params_;
+}
+
+awl::window::object &
+sge::renderer::device::parameters::window() const
+{
+	return window_;
+}

@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/lighting/ambient_color.hpp>
 #include <sge/renderer/state/ffp/lighting/diffuse_color.hpp>
 #include <sge/renderer/state/ffp/lighting/specular_color.hpp>
-#include <sge/renderer/state/ffp/lighting/light/object_fwd.hpp>
+#include <sge/renderer/state/ffp/lighting/light/parameters_fwd.hpp>
 #include <sge/renderer/state/ffp/lighting/light/variant.hpp>
 
 

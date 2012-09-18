@@ -407,6 +407,7 @@ sge::opengl::device::create_depth_stencil_state(
 {
 	return
 		sge::opengl::state::core::depth_stencil::create(
+			system_context_,
 			_parameters
 		);
 }

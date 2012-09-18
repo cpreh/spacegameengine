@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_CREATE_HPP_INCLUDED
 #define SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_CREATE_HPP_INCLUDED
 
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/renderer/state/core/depth_stencil/object_unique_ptr.hpp>
 #include <sge/renderer/state/core/depth_stencil/parameters_fwd.hpp>
 
@@ -38,6 +39,7 @@ namespace depth_stencil
 
 sge::renderer::state::core::depth_stencil::object_unique_ptr
 create(
+	sge::opengl::context::system::object &,
 	sge::renderer::state::core::depth_stencil::parameters const &
 );
 

@@ -18,34 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_SET_HPP_INCLUDED
-#define SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_SET_HPP_INCLUDED
-
-#include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/renderer/state/core/depth_stencil/const_optional_object_ref_fwd.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/combined.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/desc.hpp>
 
 
-namespace sge
+sge::renderer::state::core::depth_stencil::stencil::combined::combined(
+	sge::renderer::state::core::depth_stencil::stencil::desc const &_desc
+)
+:
+	desc_(
+		_desc
+	)
 {
-namespace opengl
-{
-namespace state
-{
-namespace core
-{
-namespace depth_stencil
-{
-
-void
-set(
-	sge::opengl::context::system::object &,
-	sge::renderer::state::core::depth_stencil::const_optional_object_ref const &
-);
-
-}
-}
-}
-}
 }
 
-#endif
+sge::renderer::state::core::depth_stencil::stencil::desc const &
+sge::renderer::state::core::depth_stencil::stencil::combined::desc() const
+{
+	return desc_;
+}

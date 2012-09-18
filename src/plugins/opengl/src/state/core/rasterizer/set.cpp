@@ -18,34 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_SET_HPP_INCLUDED
-#define SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_SET_HPP_INCLUDED
-
+#include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/renderer/state/core/depth_stencil/const_optional_object_ref_fwd.hpp>
+#include <sge/opengl/state/set_or_default_single.hpp>
+#include <sge/opengl/state/core/rasterizer/context.hpp>
+#include <sge/opengl/state/core/rasterizer/object.hpp>
+#include <sge/opengl/state/core/rasterizer/set.hpp>
+#include <sge/renderer/state/core/rasterizer/const_optional_object_ref.hpp>
 
-
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace core
-{
-namespace depth_stencil
-{
 
 void
-set(
-	sge::opengl::context::system::object &,
-	sge::renderer::state::core::depth_stencil::const_optional_object_ref const &
-);
-
+sge::opengl::state::core::rasterizer::set(
+	sge::opengl::context::system::object &_system_context,
+	sge::renderer::state::core::rasterizer::const_optional_object_ref const &_state
+)
+{
+	sge::opengl::state::set_or_default_single<
+		sge::opengl::state::core::rasterizer::object
+	>(
+		sge::opengl::context::use<
+			sge::opengl::state::core::rasterizer::context
+		>(
+			_system_context
+		),
+		_state
+	);
 }
-}
-}
-}
-}
-
-#endif

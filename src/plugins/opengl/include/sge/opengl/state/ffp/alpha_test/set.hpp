@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_STATE_FFP_ALPHA_TEST_SET_HPP_INCLUDED
 #define SGE_OPENGL_STATE_FFP_ALPHA_TEST_SET_HPP_INCLUDED
 
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/renderer/state/ffp/alpha_test/const_optional_object_ref_fwd.hpp>
 
 
@@ -37,6 +38,7 @@ namespace alpha_test
 
 void
 set(
+	sge::opengl::context::system::object &,
 	sge::renderer::state::ffp::alpha_test::const_optional_object_ref const &
 );
 

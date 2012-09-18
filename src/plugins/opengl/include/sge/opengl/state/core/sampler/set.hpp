@@ -39,8 +39,8 @@ namespace sampler
 
 void
 set(
-	sge::opengl::context::system::object &_system_context,
-	sge::opengl::context::device::object &_device_context,
+	sge::opengl::context::system::object &,
+	sge::opengl::context::device::object &,
 	sge::renderer::state::core::sampler::const_object_ref_vector const &
 );
 

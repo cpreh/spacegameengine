@@ -33,13 +33,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/core/rasterizer/set.hpp>
 #include <sge/opengl/state/core/sampler/set.hpp>
 #include <sge/opengl/state/ffp/alpha_test/set.hpp>
-//#include <sge/opengl/state/ffp/clip_plane/set.hpp>
+#include <sge/opengl/state/ffp/clip_plane/set.hpp>
 #include <sge/opengl/state/ffp/fog/set.hpp>
-//#include <sge/opengl/state/ffp/lighting/set.hpp>
-//#include <sge/opengl/state/ffp/lighting/material/set.hpp>
-//#include <sge/opengl/state/ffp/lighting/light/set.hpp>
-//#include <sge/opengl/state/ffp/misc/set.hpp>
-//#include <sge/opengl/state/ffp/sampler/set.hpp>
+#include <sge/opengl/state/ffp/lighting/set.hpp>
+#include <sge/opengl/state/ffp/lighting/material/set.hpp>
+#include <sge/opengl/state/ffp/lighting/light/set.hpp>
+#include <sge/opengl/state/ffp/misc/set.hpp>
+#include <sge/opengl/state/ffp/sampler/set.hpp>
 #include <sge/opengl/state/ffp/transform/set.hpp>
 #include <sge/opengl/texture/activate.hpp>
 #include <sge/renderer/config.hpp>
@@ -280,6 +280,7 @@ sge::opengl::render_context::object::depth_stencil_state(
 )
 {
 	sge::opengl::state::core::depth_stencil::set(
+		system_context_,
 		_state
 	);
 }
@@ -290,6 +291,7 @@ sge::opengl::render_context::object::rasterizer_state(
 )
 {
 	sge::opengl::state::core::rasterizer::set(
+		system_context_,
 		_state
 	);
 }
@@ -312,6 +314,7 @@ sge::opengl::render_context::object::alpha_test_state(
 )
 {
 	sge::opengl::state::ffp::alpha_test::set(
+		system_context_,
 		_state
 	);
 }
@@ -321,12 +324,11 @@ sge::opengl::render_context::object::clip_plane_state(
 	sge::renderer::state::ffp::clip_plane::const_object_ref_vector const &_planes
 )
 {
-#if 0
 	sge::opengl::state::ffp::clip_plane::set(
-		device_state_,
+		system_context_,
+		device_context_,
 		_planes
 	);
-#endif
 }
 
 void
@@ -334,11 +336,10 @@ sge::opengl::render_context::object::lighting_state(
 	sge::renderer::state::ffp::lighting::const_optional_object_ref const &_state
 )
 {
-#if 0
 	sge::opengl::state::ffp::lighting::set(
+		system_context_,
 		_state
 	);
-#endif
 }
 
 void
@@ -346,12 +347,11 @@ sge::opengl::render_context::object::lights_state(
 	sge::renderer::state::ffp::lighting::light::const_object_ref_vector const &_lights
 )
 {
-#if 0
 	sge::opengl::state::ffp::lighting::light::set(
+		system_context_,
 		device_context_,
 		_lights
 	);
-#endif
 }
 
 void
@@ -359,11 +359,10 @@ sge::opengl::render_context::object::material_state(
 	sge::renderer::state::ffp::lighting::material::const_optional_object_ref const &_state
 )
 {
-#if 0
 	sge::opengl::state::ffp::lighting::material::set(
+		system_context_,
 		_state
 	);
-#endif
 }
 
 void
@@ -371,11 +370,10 @@ sge::opengl::render_context::object::misc_state(
 	sge::renderer::state::ffp::misc::const_optional_object_ref const &_state
 )
 {
-#if 0
-	sge::opengl::state::ffp::misc::material::set(
+	sge::opengl::state::ffp::misc::set(
+		system_context_,
 		_state
 	);
-#endif
 }
 
 void
@@ -383,12 +381,11 @@ sge::opengl::render_context::object::sampler_ffp_state(
 	sge::renderer::state::ffp::sampler::const_object_ref_vector const &_samplers
 )
 {
-#if 0
-	sge::opengl::state::ffp::sampler::material::set(
+	sge::opengl::state::ffp::sampler::set(
+		system_context_,
 		device_context_,
 		_samplers
 	);
-#endif
 }
 
 void

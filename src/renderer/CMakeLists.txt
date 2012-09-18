@@ -293,6 +293,7 @@ set(
 	include/sge/renderer/state/core/blend/write_red.hpp
 	include/sge/renderer/state/core/depth_stencil/const_optional_object_ref.hpp
 	include/sge/renderer/state/core/depth_stencil/const_optional_object_ref_fwd.hpp
+	include/sge/renderer/state/core/depth_stencil/default.hpp
 	include/sge/renderer/state/core/depth_stencil/depth/enabled.hpp
 	include/sge/renderer/state/core/depth_stencil/depth/enabled_fwd.hpp
 	include/sge/renderer/state/core/depth_stencil/depth/func.hpp
@@ -337,6 +338,7 @@ set(
 	include/sge/renderer/state/core/rasterizer/const_optional_object_ref.hpp
 	include/sge/renderer/state/core/rasterizer/const_optional_object_ref_fwd.hpp
 	include/sge/renderer/state/core/rasterizer/cull_mode.hpp
+	include/sge/renderer/state/core/rasterizer/default.hpp
 	include/sge/renderer/state/core/rasterizer/enable_scissor_test.hpp
 	include/sge/renderer/state/core/rasterizer/fill_mode.hpp
 	include/sge/renderer/state/core/rasterizer/object.hpp
@@ -771,6 +773,7 @@ set(
 	src/renderer/depth_stencil_surface.cpp
 	src/renderer/device/core.cpp
 	src/renderer/device/ffp.cpp
+	src/renderer/device/parameters.cpp
 	src/renderer/display_mode/comparison.cpp
 	src/renderer/display_mode/object.cpp
 	src/renderer/display_mode/output.cpp
@@ -848,13 +851,23 @@ set(
 	src/renderer/scoped_vertex_declaration_and_buffers.cpp
 	src/renderer/scoped_vertex_lock.cpp
 	src/renderer/screenshot.cpp
+	src/renderer/state/core/blend/combined.cpp
 	src/renderer/state/core/blend/default.cpp
 	src/renderer/state/core/blend/parameters.cpp
 	src/renderer/state/core/blend/separate.cpp
 	src/renderer/state/core/blend/write_mask.cpp
 	src/renderer/state/core/blend/write_mask_all.cpp
+	src/renderer/state/core/depth_stencil/default.cpp
+	src/renderer/state/core/depth_stencil/depth/enabled.cpp
 	src/renderer/state/core/depth_stencil/parameters.cpp
 	src/renderer/state/core/depth_stencil/scoped.cpp
+	src/renderer/state/core/depth_stencil/stencil/combined.cpp
+	src/renderer/state/core/depth_stencil/stencil/desc.cpp
+	src/renderer/state/core/depth_stencil/stencil/enabled.cpp
+	src/renderer/state/core/depth_stencil/stencil/separate.cpp
+	src/renderer/state/core/rasterizer/default.cpp
+	src/renderer/state/core/rasterizer/object.cpp
+	src/renderer/state/core/rasterizer/parameters.cpp
 	src/renderer/state/core/sampler/address/mode_default.cpp
 	src/renderer/state/core/sampler/address/parameters.cpp
 	src/renderer/state/core/sampler/default.cpp
@@ -869,6 +882,9 @@ set(
 	src/renderer/state/core/sampler/filter/point.cpp
 	src/renderer/state/core/sampler/filter/trilinear.cpp
 	src/renderer/state/core/sampler/parameters.cpp
+	src/renderer/state/ffp/fog/enabled.cpp
+	src/renderer/state/ffp/lighting/light/attenuation.cpp
+	src/renderer/state/ffp/lighting/light/parameters.cpp
 	src/renderer/state/ffp/lighting/material/default.cpp
 	src/renderer/state/ffp/lighting/material/parameters.cpp
 	src/renderer/state/ffp/transform/parameters.cpp

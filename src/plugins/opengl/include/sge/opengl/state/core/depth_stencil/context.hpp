@@ -18,11 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_SET_HPP_INCLUDED
-#define SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_SET_HPP_INCLUDED
+#ifndef SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_CONTEXT_HPP_INCLUDED
+#define SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_CONTEXT_HPP_INCLUDED
 
+#include <sge/opengl/context/system/base.hpp>
+#include <sge/opengl/context/system/id.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/renderer/state/core/depth_stencil/const_optional_object_ref_fwd.hpp>
+#include <sge/opengl/state/core/depth_stencil/object_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/scoped_ptr_impl.hpp>
 
 
 namespace sge
@@ -36,11 +40,36 @@ namespace core
 namespace depth_stencil
 {
 
-void
-set(
-	sge::opengl::context::system::object &,
-	sge::renderer::state::core::depth_stencil::const_optional_object_ref const &
-);
+class context
+:
+	public sge::opengl::context::system::base
+{
+	FCPPT_NONCOPYABLE(
+		context
+	);
+public:
+	typedef sge::opengl::context::system::object &parameter;
+
+	explicit
+	context(
+		parameter
+	);
+
+	~context();
+
+	sge::opengl::state::core::depth_stencil::object const &
+	default_state() const;
+
+	static
+	sge::opengl::context::system::id const
+	static_id;
+private:
+	typedef fcppt::scoped_ptr<
+		sge::opengl::state::core::depth_stencil::object
+	> object_scoped_ptr;
+
+	object_scoped_ptr const default_state_;
+};
 
 }
 }

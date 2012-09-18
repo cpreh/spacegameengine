@@ -18,34 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_SET_HPP_INCLUDED
-#define SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_SET_HPP_INCLUDED
-
-#include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/renderer/state/core/depth_stencil/const_optional_object_ref_fwd.hpp>
+#include <sge/renderer/state/core/depth_stencil/depth/enabled.hpp>
+#include <sge/renderer/state/core/depth_stencil/depth/func.hpp>
+#include <sge/renderer/state/core/depth_stencil/depth/write_enable.hpp>
 
 
-namespace sge
+sge::renderer::state::core::depth_stencil::depth::enabled::enabled(
+	sge::renderer::state::core::depth_stencil::depth::func::type const _func,
+	sge::renderer::state::core::depth_stencil::depth::write_enable const _write_enable
+)
+:
+	func_(
+		_func
+	),
+	write_enable_(
+		_write_enable
+	)
 {
-namespace opengl
-{
-namespace state
-{
-namespace core
-{
-namespace depth_stencil
-{
-
-void
-set(
-	sge::opengl::context::system::object &,
-	sge::renderer::state::core::depth_stencil::const_optional_object_ref const &
-);
-
-}
-}
-}
-}
 }
 
-#endif
+sge::renderer::state::core::depth_stencil::depth::func::type
+sge::renderer::state::core::depth_stencil::depth::enabled::func() const
+{
+	return func_;
+}
+
+sge::renderer::state::core::depth_stencil::depth::write_enable const
+sge::renderer::state::core::depth_stencil::depth::enabled::write_enable() const
+{
+	return write_enable_;
+}

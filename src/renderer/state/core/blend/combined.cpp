@@ -18,34 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_SET_HPP_INCLUDED
-#define SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_SET_HPP_INCLUDED
-
-#include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/renderer/state/core/depth_stencil/const_optional_object_ref_fwd.hpp>
+#include <sge/renderer/state/core/blend/combined.hpp>
+#include <sge/renderer/state/core/blend/dest.hpp>
+#include <sge/renderer/state/core/blend/source.hpp>
 
 
-namespace sge
+sge::renderer::state::core::blend::combined::combined(
+	sge::renderer::state::core::blend::source::type const _source,
+	sge::renderer::state::core::blend::dest::type const _dest
+)
+:
+	source_(
+		_source
+	),
+	dest_(
+		_dest
+	)
 {
-namespace opengl
-{
-namespace state
-{
-namespace core
-{
-namespace depth_stencil
-{
-
-void
-set(
-	sge::opengl::context::system::object &,
-	sge::renderer::state::core::depth_stencil::const_optional_object_ref const &
-);
-
-}
-}
-}
-}
 }
 
-#endif
+sge::renderer::state::core::blend::source::type
+sge::renderer::state::core::blend::combined::source() const
+{
+	return source_;
+}
+
+sge::renderer::state::core::blend::dest::type
+sge::renderer::state::core::blend::combined::dest() const
+{
+	return dest_;
+}

@@ -18,34 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_SET_HPP_INCLUDED
-#define SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_SET_HPP_INCLUDED
+#include <sge/renderer/state/core/rasterizer/enable_scissor_test.hpp>
+#include <sge/renderer/state/core/rasterizer/cull_mode.hpp>
+#include <sge/renderer/state/core/rasterizer/default.hpp>
+#include <sge/renderer/state/core/rasterizer/fill_mode.hpp>
+#include <sge/renderer/state/core/rasterizer/parameters.hpp>
 
-#include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/renderer/state/core/depth_stencil/const_optional_object_ref_fwd.hpp>
 
-
-namespace sge
+sge::renderer::state::core::rasterizer::parameters const
+sge::renderer::state::core::rasterizer::default_()
 {
-namespace opengl
-{
-namespace state
-{
-namespace core
-{
-namespace depth_stencil
-{
-
-void
-set(
-	sge::opengl::context::system::object &,
-	sge::renderer::state::core::depth_stencil::const_optional_object_ref const &
-);
-
+	return
+		sge::renderer::state::core::rasterizer::parameters(
+			sge::renderer::state::core::rasterizer::cull_mode::off,
+			sge::renderer::state::core::rasterizer::fill_mode::solid,
+			sge::renderer::state::core::rasterizer::enable_scissor_test(
+				false
+			)
+		);
 }
-}
-}
-}
-}
-
-#endif

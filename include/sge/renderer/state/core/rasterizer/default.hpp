@@ -18,29 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_SET_HPP_INCLUDED
-#define SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_SET_HPP_INCLUDED
+#ifndef SGE_RENDERER_STATE_CORE_RASTERIZER_DEFAULT_HPP_INCLUDED
+#define SGE_RENDERER_STATE_CORE_RASTERIZER_DEFAULT_HPP_INCLUDED
 
-#include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/renderer/state/core/depth_stencil/const_optional_object_ref_fwd.hpp>
+#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/state/core/rasterizer/parameters_fwd.hpp>
 
 
 namespace sge
 {
-namespace opengl
+namespace renderer
 {
 namespace state
 {
 namespace core
 {
-namespace depth_stencil
+namespace rasterizer
 {
 
-void
-set(
-	sge::opengl::context::system::object &,
-	sge::renderer::state::core::depth_stencil::const_optional_object_ref const &
-);
+SGE_RENDERER_SYMBOL
+sge::renderer::state::core::rasterizer::parameters const
+default_();
 
 }
 }

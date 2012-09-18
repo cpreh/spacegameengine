@@ -53,21 +53,21 @@ public:
 
 	SGE_RENDERER_SYMBOL
 	sge::renderer::state::ffp::lighting::light::constant_attenuation const
-	constant_attenuation() const;
+	constant() const;
 
 	SGE_RENDERER_SYMBOL
 	sge::renderer::state::ffp::lighting::light::linear_attenuation const
-	linear_attenuation() const;
+	linear() const;
 
 	SGE_RENDERER_SYMBOL
 	sge::renderer::state::ffp::lighting::light::quadratic_attenuation const
-	quadratic_attenuation() const;
+	quadratic() const;
 private:
-	sge::renderer::state::ffp::lighting::light::constant_attenuation constant_attenuation_;
+	sge::renderer::state::ffp::lighting::light::constant_attenuation constant_;
 
-	sge::renderer::state::ffp::lighting::light::linear_attenuation linear_attenuation_;
+	sge::renderer::state::ffp::lighting::light::linear_attenuation linear_;
 
-	sge::renderer::state::ffp::lighting::light::quadratic_attenuation quadratic_attenuation_;
+	sge::renderer::state::ffp::lighting::light::quadratic_attenuation quadratic_;
 };
 
 }

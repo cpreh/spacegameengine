@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/state/core/depth_stencil/create.hpp>
 #include <sge/opengl/state/core/depth_stencil/make_actors.hpp>
 #include <sge/opengl/state/core/depth_stencil/object.hpp>
@@ -28,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer::state::core::depth_stencil::object_unique_ptr
 sge::opengl::state::core::depth_stencil::create(
+	sge::opengl::context::system::object &_system_context,
 	sge::renderer::state::core::depth_stencil::parameters const &_parameters
 )
 {
@@ -37,6 +39,7 @@ sge::opengl::state::core::depth_stencil::create(
 				sge::opengl::state::core::depth_stencil::object
 			>(
 				sge::opengl::state::core::depth_stencil::make_actors(
+					_system_context,
 					_parameters
 				)
 			)

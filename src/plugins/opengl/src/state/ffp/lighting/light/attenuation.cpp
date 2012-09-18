@@ -37,17 +37,17 @@ sge::opengl::state::ffp::lighting::light::attenuation(
 		>(
 			sge::opengl::state::ffp::lighting::light::float_(
 				GL_CONSTANT_ATTENUATION,
-				_attenuation.constant_attenuation().get()
+				_attenuation.constant().get()
 			)
 		)(
 			sge::opengl::state::ffp::lighting::light::float_(
 				GL_LINEAR_ATTENUATION,
-				_attenuation.linear_attenuation().get()
+				_attenuation.linear().get()
 			)
 		)(
 			sge::opengl::state::ffp::lighting::light::float_(
 				GL_QUADRATIC_ATTENUATION,
-				_attenuation.quadratic_attenuation().get()
+				_attenuation.quadratic().get()
 			)
 		);
 }
