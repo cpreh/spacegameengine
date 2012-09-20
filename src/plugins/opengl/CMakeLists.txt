@@ -688,6 +688,7 @@ set(
 	src/plugins/opengl/src/state/core/depth_stencil/create.cpp
 	src/plugins/opengl/src/state/core/depth_stencil/depth/visitor.cpp
 	src/plugins/opengl/src/state/core/depth_stencil/make_actors.cpp
+	src/plugins/opengl/src/state/core/depth_stencil/object.cpp
 	src/plugins/opengl/src/state/core/depth_stencil/set.cpp
 	src/plugins/opengl/src/state/core/depth_stencil/stencil/enabled_visitor.cpp
 	src/plugins/opengl/src/state/core/depth_stencil/stencil/func_separate.cpp

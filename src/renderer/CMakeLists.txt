@@ -855,12 +855,14 @@ set(
 	src/renderer/state/core/blend/alpha_enabled.cpp
 	src/renderer/state/core/blend/combined.cpp
 	src/renderer/state/core/blend/default.cpp
+	src/renderer/state/core/blend/object.cpp
 	src/renderer/state/core/blend/parameters.cpp
 	src/renderer/state/core/blend/separate.cpp
 	src/renderer/state/core/blend/write_mask.cpp
 	src/renderer/state/core/blend/write_mask_all.cpp
 	src/renderer/state/core/depth_stencil/default.cpp
 	src/renderer/state/core/depth_stencil/depth/enabled.cpp
+	src/renderer/state/core/depth_stencil/object.cpp
 	src/renderer/state/core/depth_stencil/parameters.cpp
 	src/renderer/state/core/depth_stencil/scoped.cpp
 	src/renderer/state/core/depth_stencil/stencil/combined.cpp
@@ -889,6 +891,7 @@ set(
 	src/renderer/state/ffp/clip_plane/parameters.cpp
 	src/renderer/state/ffp/fog/enabled.cpp
 	src/renderer/state/ffp/fog/parameters.cpp
+	src/renderer/state/ffp/lighting/enabled.cpp
 	src/renderer/state/ffp/lighting/light/attenuation.cpp
 	src/renderer/state/ffp/lighting/light/directional.cpp
 	src/renderer/state/ffp/lighting/light/parameters.cpp
@@ -896,6 +899,7 @@ set(
 	src/renderer/state/ffp/lighting/light/spot.cpp
 	src/renderer/state/ffp/lighting/material/default.cpp
 	src/renderer/state/ffp/lighting/material/parameters.cpp
+	src/renderer/state/ffp/lighting/parameters.cpp
 	src/renderer/state/ffp/misc/parameters.cpp
 	src/renderer/state/ffp/transform/parameters.cpp
 	src/renderer/state/ffp/transform/scoped.cpp
