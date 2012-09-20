@@ -85,12 +85,12 @@ sge::postprocessing::context::context(
 			sge::config::media_path() / FCPPT_TEXT("shaders") / FCPPT_TEXT("postprocessing") / FCPPT_TEXT("finalize.cg")),
 		sge::shader::optional_cflags()),
 	finalize_input_texture_parameter_(
-		finalize_shader_,
-		renderer_,
 		finalize_shader_.pixel_program(),
 		sge::shader::parameter::name(
 			sge::cg::string(
 				"input_texture")),
+		finalize_shader_,
+		renderer_,
 		sge::shader::parameter::planar_texture::optional_value()),
 	viewport_connection_(
 		_viewport_manager.manage_callback(

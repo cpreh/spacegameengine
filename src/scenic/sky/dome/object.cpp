@@ -151,12 +151,12 @@ sge::scenic::sky::dome::object::object(
 			true),
 		sge::renderer::matrix4()),
 	texture_parameter_(
-		shader_,
-		renderer_,
 		shader_.pixel_program(),
 		sge::shader::parameter::name(
 			sge::cg::string(
 				"sky_texture")),
+		shader_,
+		renderer_,
 		sge::shader::parameter::planar_texture::optional_value())
 {
 	sge::renderer::scoped_vertex_lock vblock(

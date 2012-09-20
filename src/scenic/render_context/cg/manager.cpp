@@ -110,11 +110,11 @@ sge::scenic::render_context::cg::manager::manager(
 			"use_diffuse_texture"),
 		false),
 	diffuse_texture_(
-		shader_,
-		shader_.context().renderer(),
 		shader_.pixel_program(),
 		sge::shader::parameter::name(
 			"diffuse_texture"),
+		shader_,
+		shader_.context().renderer(),
 		sge::shader::parameter::planar_texture::optional_value()),
 	use_specular_texture_(
 		shader_.pixel_program(),
@@ -122,11 +122,11 @@ sge::scenic::render_context::cg::manager::manager(
 			"use_specular_texture"),
 		false),
 	specular_texture_(
-		shader_,
-		shader_.context().renderer(),
 		shader_.pixel_program(),
 		sge::shader::parameter::name(
 			"specular_texture"),
+		shader_,
+		shader_.context().renderer(),
 		sge::shader::parameter::planar_texture::optional_value()),
 	point_light_count_(
 		shader_.pixel_program(),
