@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_STATE_FFP_SAMPLER_OBJECT_FWD_HPP_INCLUDED
 #define SGE_OPENGL_STATE_FFP_SAMPLER_OBJECT_FWD_HPP_INCLUDED
 
-#include <sge/opengl/state/object_fwd.hpp>
+#include <sge/opengl/state/unary_object_fwd.hpp>
 #include <sge/opengl/texture/active_level_fwd.hpp>
 #include <sge/renderer/state/ffp/sampler/object_fwd.hpp>
 

@@ -387,6 +387,7 @@ set(
 	include/sge/renderer/state/core/sampler/parameters_fwd.hpp
 	include/sge/renderer/state/ffp/alpha_test/const_optional_object_ref.hpp
 	include/sge/renderer/state/ffp/alpha_test/const_optional_object_ref_fwd.hpp
+	include/sge/renderer/state/ffp/alpha_test/default.hpp
 	include/sge/renderer/state/ffp/alpha_test/enabled.hpp
 	include/sge/renderer/state/ffp/alpha_test/enabled_fwd.hpp
 	include/sge/renderer/state/ffp/alpha_test/func.hpp
@@ -414,6 +415,7 @@ set(
 	include/sge/renderer/state/ffp/fog/color.hpp
 	include/sge/renderer/state/ffp/fog/const_optional_object_ref.hpp
 	include/sge/renderer/state/ffp/fog/const_optional_object_ref_fwd.hpp
+	include/sge/renderer/state/ffp/fog/default.hpp
 	include/sge/renderer/state/ffp/fog/density.hpp
 	include/sge/renderer/state/ffp/fog/enabled.hpp
 	include/sge/renderer/state/ffp/fog/enabled_fwd.hpp
@@ -433,6 +435,7 @@ set(
 	include/sge/renderer/state/ffp/lighting/ambient_color.hpp
 	include/sge/renderer/state/ffp/lighting/const_optional_object_ref.hpp
 	include/sge/renderer/state/ffp/lighting/const_optional_object_ref_fwd.hpp
+	include/sge/renderer/state/ffp/lighting/default.hpp
 	include/sge/renderer/state/ffp/lighting/diffuse_color.hpp
 	include/sge/renderer/state/ffp/lighting/enabled.hpp
 	include/sge/renderer/state/ffp/lighting/enabled_fwd.hpp
@@ -486,6 +489,7 @@ set(
 	include/sge/renderer/state/ffp/lighting/variant_fwd.hpp
 	include/sge/renderer/state/ffp/misc/const_optional_object_ref.hpp
 	include/sge/renderer/state/ffp/misc/const_optional_object_ref_fwd.hpp
+	include/sge/renderer/state/ffp/misc/default.hpp
 	include/sge/renderer/state/ffp/misc/enable_point_sprites.hpp
 	include/sge/renderer/state/ffp/misc/local_viewer.hpp
 	include/sge/renderer/state/ffp/misc/normalize_normals.hpp
@@ -495,6 +499,7 @@ set(
 	include/sge/renderer/state/ffp/misc/object_unique_ptr.hpp
 	include/sge/renderer/state/ffp/misc/parameters.hpp
 	include/sge/renderer/state/ffp/misc/parameters_fwd.hpp
+	include/sge/renderer/state/ffp/sampler/alpha_op.hpp
 	include/sge/renderer/state/ffp/sampler/arg.hpp
 	include/sge/renderer/state/ffp/sampler/arg1.hpp
 	include/sge/renderer/state/ffp/sampler/arg2.hpp
@@ -505,6 +510,7 @@ set(
 	include/sge/renderer/state/ffp/sampler/color_op.hpp
 	include/sge/renderer/state/ffp/sampler/const_object_ref.hpp
 	include/sge/renderer/state/ffp/sampler/const_object_ref_vector.hpp
+	include/sge/renderer/state/ffp/sampler/default.hpp
 	include/sge/renderer/state/ffp/sampler/object.hpp
 	include/sge/renderer/state/ffp/sampler/object_fwd.hpp
 	include/sge/renderer/state/ffp/sampler/object_scoped_ptr.hpp
@@ -885,22 +891,40 @@ set(
 	src/renderer/state/core/sampler/filter/parameters.cpp
 	src/renderer/state/core/sampler/filter/point.cpp
 	src/renderer/state/core/sampler/filter/trilinear.cpp
+	src/renderer/state/core/sampler/object.cpp
 	src/renderer/state/core/sampler/parameters.cpp
+	src/renderer/state/ffp/alpha_test/default.cpp
 	src/renderer/state/ffp/alpha_test/enabled.cpp
+	src/renderer/state/ffp/alpha_test/object.cpp
 	src/renderer/state/ffp/alpha_test/parameters.cpp
+	src/renderer/state/ffp/clip_plane/object.cpp
 	src/renderer/state/ffp/clip_plane/parameters.cpp
+	src/renderer/state/ffp/fog/default.cpp
 	src/renderer/state/ffp/fog/enabled.cpp
+	src/renderer/state/ffp/fog/object.cpp
 	src/renderer/state/ffp/fog/parameters.cpp
+	src/renderer/state/ffp/lighting/default.cpp
 	src/renderer/state/ffp/lighting/enabled.cpp
 	src/renderer/state/ffp/lighting/light/attenuation.cpp
 	src/renderer/state/ffp/lighting/light/directional.cpp
+	src/renderer/state/ffp/lighting/light/object.cpp
 	src/renderer/state/ffp/lighting/light/parameters.cpp
 	src/renderer/state/ffp/lighting/light/point.cpp
 	src/renderer/state/ffp/lighting/light/spot.cpp
 	src/renderer/state/ffp/lighting/material/default.cpp
+	src/renderer/state/ffp/lighting/material/object.cpp
 	src/renderer/state/ffp/lighting/material/parameters.cpp
+	src/renderer/state/ffp/lighting/object.cpp
 	src/renderer/state/ffp/lighting/parameters.cpp
+	src/renderer/state/ffp/misc/default.cpp
+	src/renderer/state/ffp/misc/object.cpp
 	src/renderer/state/ffp/misc/parameters.cpp
+	src/renderer/state/ffp/sampler/binary_op.cpp
+	src/renderer/state/ffp/sampler/default.cpp
+	src/renderer/state/ffp/sampler/object.cpp
+	src/renderer/state/ffp/sampler/op.cpp
+	src/renderer/state/ffp/sampler/parameters.cpp
+	src/renderer/state/ffp/transform/object.cpp
 	src/renderer/state/ffp/transform/parameters.cpp
 	src/renderer/state/ffp/transform/scoped.cpp
 	src/renderer/system.cpp

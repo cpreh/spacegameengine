@@ -26,8 +26,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/core/sampler/object.hpp>
 #include <sge/renderer/state/core/sampler/const_object_ref_vector.hpp>
 #include <sge/renderer/state/core/sampler/default.hpp>
+#include <sge/renderer/state/core/sampler/object.hpp>
 #include <sge/renderer/state/core/sampler/parameters.hpp>
 #include <sge/renderer/texture/stage.hpp>
+#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 
 
@@ -59,6 +61,24 @@ sge::opengl::state::core::sampler::context::set(
 	sge::renderer::state::core::sampler::const_object_ref_vector const &_samplers
 )
 {
+	objects_.clear();
+
+	for(
+		sge::renderer::state::core::sampler::const_object_ref_vector::const_iterator it(
+			_samplers.begin()
+		);
+		it != _samplers.end();
+		++it
+	)
+		objects_.push_back(
+			fcppt::cref(
+				static_cast<
+					sge::opengl::state::core::sampler::object const &
+				>(
+					it->get()
+				)
+			)
+		);
 }
 
 sge::opengl::state::core::sampler::object const &
@@ -66,6 +86,15 @@ sge::opengl::state::core::sampler::context::get(
 	sge::renderer::texture::stage const _stage
 ) const
 {
+	return
+		_stage.get() < objects_.size()
+		?
+			objects_[
+				_stage.get()
+			].get()
+		:
+			*defaults_
+		;
 }
 
 sge::opengl::context::device::id const

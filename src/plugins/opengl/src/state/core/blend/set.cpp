@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/state/set_or_default_single.hpp>
-#include <sge/opengl/state/core/blend/context.hpp>
+#include <sge/opengl/state/core/blend/default_context.hpp>
 #include <sge/opengl/state/core/blend/object.hpp>
 #include <sge/opengl/state/core/blend/set.hpp>
 #include <sge/renderer/state/core/blend/const_optional_object_ref.hpp>
@@ -38,7 +38,7 @@ sge::opengl::state::core::blend::set(
 		sge::opengl::state::core::blend::object
 	>(
 		sge::opengl::context::use<
-			sge::opengl::state::core::blend::context
+			sge::opengl::state::core::blend::default_context
 		>(
 			_system_context,
 			fcppt::ref(

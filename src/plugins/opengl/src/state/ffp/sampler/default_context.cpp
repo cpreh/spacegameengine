@@ -21,45 +21,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/base.hpp>
 #include <sge/opengl/context/system/id.hpp>
 #include <sge/opengl/context/system/make_id.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/opengl/state/core/blend/context.hpp>
-#include <sge/opengl/state/core/blend/make_actors.hpp>
-#include <sge/opengl/state/core/blend/object.hpp>
-#include <sge/renderer/state/core/blend/default.hpp>
-#include <sge/renderer/state/core/blend/parameters.hpp>
+#include <sge/opengl/state/ffp/sampler/default_context.hpp>
+#include <sge/opengl/state/ffp/sampler/make_actors.hpp>
+#include <sge/opengl/state/ffp/sampler/object.hpp>
+#include <sge/renderer/state/ffp/sampler/default.hpp>
+#include <sge/renderer/state/ffp/sampler/parameters.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 
 
-sge::opengl::state::core::blend::context::context(
-	sge::opengl::state::core::blend::context::parameter _system_context
-)
+sge::opengl::state::ffp::sampler::default_context::default_context()
 :
 	sge::opengl::context::system::base(),
 	default_state_(
 		fcppt::make_unique_ptr<
-			sge::opengl::state::core::blend::object
+			sge::opengl::state::ffp::sampler::object
 		>(
-			sge::opengl::state::core::blend::make_actors(
-				_system_context,
-				sge::renderer::state::core::blend::default_()
+			sge::opengl::state::ffp::sampler::make_actors(
+				sge::renderer::state::ffp::sampler::default_()
 			)
 		)
 	)
 {
 }
 
-sge::opengl::state::core::blend::context::~context()
+sge::opengl::state::ffp::sampler::default_context::~default_context()
 {
 }
 
-sge::opengl::state::core::blend::object const &
-sge::opengl::state::core::blend::context::default_state() const
+sge::opengl::state::ffp::sampler::object const &
+sge::opengl::state::ffp::sampler::default_context::default_state() const
 {
 	return
 		*default_state_;
 }
 
 sge::opengl::context::system::id const
-sge::opengl::state::core::blend::context::static_id(
+sge::opengl::state::ffp::sampler::default_context::static_id(
 	sge::opengl::context::system::make_id()
 );

@@ -21,45 +21,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/base.hpp>
 #include <sge/opengl/context/system/id.hpp>
 #include <sge/opengl/context/system/make_id.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/opengl/state/core/depth_stencil/context.hpp>
-#include <sge/opengl/state/core/depth_stencil/make_actors.hpp>
-#include <sge/opengl/state/core/depth_stencil/object.hpp>
-#include <sge/renderer/state/core/depth_stencil/default.hpp>
-#include <sge/renderer/state/core/depth_stencil/parameters.hpp>
+#include <sge/opengl/state/core/rasterizer/default_context.hpp>
+#include <sge/opengl/state/core/rasterizer/make_actors.hpp>
+#include <sge/opengl/state/core/rasterizer/object.hpp>
+#include <sge/renderer/state/core/rasterizer/default.hpp>
+#include <sge/renderer/state/core/rasterizer/parameters.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 
 
-sge::opengl::state::core::depth_stencil::context::context(
-	sge::opengl::state::core::depth_stencil::context::parameter _system_context
-)
+sge::opengl::state::core::rasterizer::default_context::default_context()
 :
 	sge::opengl::context::system::base(),
 	default_state_(
 		fcppt::make_unique_ptr<
-			sge::opengl::state::core::depth_stencil::object
+			sge::opengl::state::core::rasterizer::object
 		>(
-			sge::opengl::state::core::depth_stencil::make_actors(
-				_system_context,
-				sge::renderer::state::core::depth_stencil::default_()
+			sge::opengl::state::core::rasterizer::make_actors(
+				sge::renderer::state::core::rasterizer::default_()
 			)
 		)
 	)
 {
 }
 
-sge::opengl::state::core::depth_stencil::context::~context()
+sge::opengl::state::core::rasterizer::default_context::~default_context()
 {
 }
 
-sge::opengl::state::core::depth_stencil::object const &
-sge::opengl::state::core::depth_stencil::context::default_state() const
+sge::opengl::state::core::rasterizer::object const &
+sge::opengl::state::core::rasterizer::default_context::default_state() const
 {
 	return
 		*default_state_;
 }
 
 sge::opengl::context::system::id const
-sge::opengl::state::core::depth_stencil::context::static_id(
+sge::opengl::state::core::rasterizer::default_context::static_id(
 	sge::opengl::context::system::make_id()
 );

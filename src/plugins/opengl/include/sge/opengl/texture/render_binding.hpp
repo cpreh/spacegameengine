@@ -50,13 +50,13 @@ public:
 	);
 
 	~render_binding();
-private:
+
 	sge::renderer::texture::stage const
 	stage() const;
 
 	sge::opengl::texture::type const
 	type() const;
-
+private:
 	sge::renderer::texture::stage const stage_;
 
 	sge::opengl::texture::type const type_;

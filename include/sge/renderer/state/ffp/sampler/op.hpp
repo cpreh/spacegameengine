@@ -42,7 +42,7 @@ class op
 public:
 	SGE_RENDERER_SYMBOL
 	explicit
-	opt(
+	op(
 		sge::renderer::state::ffp::sampler::op_variant const &
 	);
 

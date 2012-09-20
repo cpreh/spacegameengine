@@ -44,6 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/sampler/const_object_ref_vector.hpp>
 #include <sge/renderer/state/ffp/alpha_test/const_optional_object_ref_fwd.hpp>
 #include <sge/renderer/state/ffp/clip_plane/const_object_ref_vector.hpp>
+#include <sge/renderer/state/ffp/fog/const_optional_object_ref_fwd.hpp>
 #include <sge/renderer/state/ffp/lighting/const_optional_object_ref_fwd.hpp>
 #include <sge/renderer/state/ffp/lighting/light/const_object_ref_vector.hpp>
 #include <sge/renderer/state/ffp/lighting/material/const_optional_object_ref_fwd.hpp>
@@ -167,6 +168,11 @@ private:
 	void
 	clip_plane_state(
 		sge::renderer::state::ffp::clip_plane::const_object_ref_vector const &
+	);
+
+	void
+	fog_state(
+		sge::renderer::state::ffp::fog::const_optional_object_ref const &
 	);
 
 	void

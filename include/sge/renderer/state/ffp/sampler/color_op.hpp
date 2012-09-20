@@ -36,4 +36,15 @@ namespace ffp
 namespace sampler
 {
 
+FCPPT_MAKE_STRONG_TYPEDEF(
+	sge::renderer::state::ffp::sampler::op,
+	color_op
+);
 
+}
+}
+}
+}
+}
+
+#endif

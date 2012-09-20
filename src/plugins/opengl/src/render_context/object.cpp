@@ -60,6 +60,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/sampler/const_object_ref_vector.hpp>
 #include <sge/renderer/state/ffp/alpha_test/const_optional_object_ref_fwd.hpp>
 #include <sge/renderer/state/ffp/clip_plane/const_object_ref_vector.hpp>
+#include <sge/renderer/state/ffp/fog/const_optional_object_ref_fwd.hpp>
 #include <sge/renderer/state/ffp/lighting/const_optional_object_ref_fwd.hpp>
 #include <sge/renderer/state/ffp/lighting/light/const_object_ref_vector.hpp>
 #include <sge/renderer/state/ffp/lighting/material/const_optional_object_ref_fwd.hpp>
@@ -325,9 +326,19 @@ sge::opengl::render_context::object::clip_plane_state(
 )
 {
 	sge::opengl::state::ffp::clip_plane::set(
-		system_context_,
 		device_context_,
 		_planes
+	);
+}
+
+void
+sge::opengl::render_context::object::fog_state(
+	sge::renderer::state::ffp::fog::const_optional_object_ref const &_state
+)
+{
+	sge::opengl::state::ffp::fog::set(
+		system_context_,
+		_state
 	);
 }
 
@@ -348,7 +359,6 @@ sge::opengl::render_context::object::lights_state(
 )
 {
 	sge::opengl::state::ffp::lighting::light::set(
-		system_context_,
 		device_context_,
 		_lights
 	);

@@ -18,17 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/device/object_fwd.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/state/set_array.hpp>
+#include <sge/opengl/state/convert/light_index.hpp>
+#include <sge/opengl/state/ffp/lighting/light/context.hpp>
+#include <sge/opengl/state/ffp/lighting/light/object.hpp>
 #include <sge/opengl/state/ffp/lighting/light/set.hpp>
 #include <sge/renderer/state/ffp/lighting/light/const_object_ref_vector.hpp>
 
 
 void
 sge::opengl::state::ffp::lighting::light::set(
-	sge::opengl::context::system::object &_system_context,
 	sge::opengl::context::device::object &_device_context,
 	sge::renderer::state::ffp::lighting::light::const_object_ref_vector const &_lights
 )
 {
+	sge::opengl::state::set_array<
+		sge::opengl::state::ffp::lighting::light::object
+	>(
+		sge::opengl::context::use<
+			sge::opengl::state::ffp::lighting::light::context
+		>(
+			_device_context
+		),
+		_lights,
+		sge::opengl::state::convert::light_index
+	);
 }

@@ -96,6 +96,12 @@ sge::opengl::texture::scoped_work_binding::stage() const
 		);
 }
 
+sge::opengl::texture::type const
+sge::opengl::texture::scoped_work_binding::type() const
+{
+	return type_;
+}
+
 void
 sge::opengl::texture::scoped_work_binding::bind(
 	sge::opengl::texture::optional_id const _id,

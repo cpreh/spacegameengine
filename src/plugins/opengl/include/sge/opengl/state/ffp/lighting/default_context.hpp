@@ -18,13 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_CONTEXT_HPP_INCLUDED
-#define SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_CONTEXT_HPP_INCLUDED
+#ifndef SGE_OPENGL_STATE_FFP_LIGHTING_DEFAULT_CONTEXT_HPP_INCLUDED
+#define SGE_OPENGL_STATE_FFP_LIGHTING_DEFAULT_CONTEXT_HPP_INCLUDED
 
 #include <sge/opengl/context/system/base.hpp>
 #include <sge/opengl/context/system/id.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/opengl/state/core/depth_stencil/object_fwd.hpp>
+#include <sge/opengl/state/ffp/lighting/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
 
@@ -35,29 +34,26 @@ namespace opengl
 {
 namespace state
 {
-namespace core
+namespace ffp
 {
-namespace depth_stencil
+namespace lighting
 {
 
-class context
+class default_context
 :
 	public sge::opengl::context::system::base
 {
 	FCPPT_NONCOPYABLE(
-		context
+		default_context
 	);
 public:
-	typedef sge::opengl::context::system::object &parameter;
+	typedef void parameter;
 
-	explicit
-	context(
-		parameter
-	);
+	default_context();
 
-	~context();
+	~default_context();
 
-	sge::opengl::state::core::depth_stencil::object const &
+	sge::opengl::state::ffp::lighting::object const &
 	default_state() const;
 
 	static
@@ -65,7 +61,7 @@ public:
 	static_id;
 private:
 	typedef fcppt::scoped_ptr<
-		sge::opengl::state::core::depth_stencil::object
+		sge::opengl::state::ffp::lighting::object
 	> object_scoped_ptr;
 
 	object_scoped_ptr const default_state_;

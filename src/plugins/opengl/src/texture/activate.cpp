@@ -134,6 +134,7 @@ sge::opengl::texture::activate(
 
 	sge::opengl::texture::set_samplers(
 		binding,
+		_system_context,
 		_device_context
 	);
 }

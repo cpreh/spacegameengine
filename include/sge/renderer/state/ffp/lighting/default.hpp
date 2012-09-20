@@ -18,54 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_CORE_RASTERIZER_CONTEXT_HPP_INCLUDED
-#define SGE_OPENGL_STATE_CORE_RASTERIZER_CONTEXT_HPP_INCLUDED
+#ifndef SGE_RENDERER_STATE_FFP_LIGHTING_DEFAULT_HPP_INCLUDED
+#define SGE_RENDERER_STATE_FFP_LIGHTING_DEFAULT_HPP_INCLUDED
 
-#include <sge/opengl/context/system/base.hpp>
-#include <sge/opengl/context/system/id.hpp>
-#include <sge/opengl/state/core/rasterizer/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
+#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/state/ffp/lighting/parameters_fwd.hpp>
 
 
 namespace sge
 {
-namespace opengl
+namespace renderer
 {
 namespace state
 {
-namespace core
+namespace ffp
 {
-namespace rasterizer
+namespace lighting
 {
 
-class context
-:
-	public sge::opengl::context::system::base
-{
-	FCPPT_NONCOPYABLE(
-		context
-	);
-public:
-	typedef void parameter;
-
-	context();
-
-	~context();
-
-	sge::opengl::state::core::rasterizer::object const &
-	default_state() const;
-
-	static
-	sge::opengl::context::system::id const
-	static_id;
-private:
-	typedef fcppt::scoped_ptr<
-		sge::opengl::state::core::rasterizer::object
-	> object_scoped_ptr;
-
-	object_scoped_ptr const default_state_;
-};
+SGE_RENDERER_SYMBOL
+sge::renderer::state::ffp::lighting::parameters const
+default_();
 
 }
 }

@@ -86,6 +86,7 @@ sge::opengl::state::core::sampler::set(
 
 		sge::opengl::texture::set_samplers(
 			render_binding,
+			_system_context,
 			_device_context
 		);
 	}

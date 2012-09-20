@@ -116,6 +116,7 @@ sge::opengl::cg::texture::loaded_object::enable() const
 
 	sge::opengl::texture::set_samplers(
 		binding,
+		system_context_,
 		device_context_
 	);
 
