@@ -65,7 +65,7 @@ private:
 
 	sge::renderer::state::ffp::misc::local_viewer local_viewer_;
 
-	sge::renderer::state::ffp::misc::normalize_normals normailze_normals_;
+	sge::renderer::state::ffp::misc::normalize_normals normalize_normals_;
 };
 
 }

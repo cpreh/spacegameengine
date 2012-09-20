@@ -851,6 +851,7 @@ set(
 	src/renderer/scoped_vertex_declaration_and_buffers.cpp
 	src/renderer/scoped_vertex_lock.cpp
 	src/renderer/screenshot.cpp
+	src/renderer/state/core/blend/alpha_enabled.cpp
 	src/renderer/state/core/blend/combined.cpp
 	src/renderer/state/core/blend/default.cpp
 	src/renderer/state/core/blend/parameters.cpp
@@ -882,11 +883,19 @@ set(
 	src/renderer/state/core/sampler/filter/point.cpp
 	src/renderer/state/core/sampler/filter/trilinear.cpp
 	src/renderer/state/core/sampler/parameters.cpp
+	src/renderer/state/ffp/alpha_test/enabled.cpp
+	src/renderer/state/ffp/alpha_test/parameters.cpp
+	src/renderer/state/ffp/clip_plane/parameters.cpp
 	src/renderer/state/ffp/fog/enabled.cpp
+	src/renderer/state/ffp/fog/parameters.cpp
 	src/renderer/state/ffp/lighting/light/attenuation.cpp
+	src/renderer/state/ffp/lighting/light/directional.cpp
 	src/renderer/state/ffp/lighting/light/parameters.cpp
+	src/renderer/state/ffp/lighting/light/point.cpp
+	src/renderer/state/ffp/lighting/light/spot.cpp
 	src/renderer/state/ffp/lighting/material/default.cpp
 	src/renderer/state/ffp/lighting/material/parameters.cpp
+	src/renderer/state/ffp/misc/parameters.cpp
 	src/renderer/state/ffp/transform/parameters.cpp
 	src/renderer/state/ffp/transform/scoped.cpp
 	src/renderer/system.cpp
