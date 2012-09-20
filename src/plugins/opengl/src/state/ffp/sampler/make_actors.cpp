@@ -18,9 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/common.hpp>
 #include <sge/opengl/state/ffp/sampler/actor_vector.hpp>
 #include <sge/opengl/state/ffp/sampler/make_actors.hpp>
-#include <sge/renderer/state/ffp/sampler/parameters_fwd.hpp>
+#include <sge/opengl/state/ffp/sampler/make_one.hpp>
+#include <sge/opengl/state/ffp/sampler/set_one.hpp>
+#include <sge/renderer/state/ffp/sampler/parameters.hpp>
+#include <fcppt/strong_typedef_construct_cast.hpp>
+#include <fcppt/algorithm/join.hpp>
+#include <fcppt/assign/make_container.hpp>
 
 
 sge::opengl::state::ffp::sampler::actor_vector const
@@ -28,4 +34,31 @@ sge::opengl::state::ffp::sampler::make_actors(
 	sge::renderer::state::ffp::sampler::parameters const &_parameters
 )
 {
+	return
+		fcppt::algorithm::join(
+			fcppt::assign::make_container<
+				sge::opengl::state::ffp::sampler::actor_vector
+			>(
+				sge::opengl::state::ffp::sampler::set_one(
+					fcppt::strong_typedef_construct_cast<
+						sge::opengl::texture::funcs::env_arg
+					>(
+						GL_TEXTURE_ENV_MODE
+					),
+					fcppt::strong_typedef_construct_cast<
+						sge::opengl::texture::funcs::env_int_value
+					>(
+						GL_COMBINE
+					)
+				)
+			),
+			fcppt::algorithm::join(
+				sge::opengl::state::ffp::sampler::make_one(
+					_parameters.color_op()
+				),
+				sge::opengl::state::ffp::sampler::make_one(
+					_parameters.alpha_op()
+				)
+			)
+		);
 }
