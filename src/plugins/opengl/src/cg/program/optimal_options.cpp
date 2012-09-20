@@ -39,7 +39,7 @@ sge::opengl::cg::program::optimal_options(
 	sge::cg::profile::object const &_profile
 )
 {
-	sge::cg::program::compile_options::value_type const ret(
+	sge::cg::char_type const ** const ret(
 #if CG_VERSION_NUM < 3100
 		::cgGLGetOptimalOptions(
 			_profile.get()

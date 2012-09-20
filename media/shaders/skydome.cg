@@ -1,0 +1,39 @@
+struct vertex_outputs
+{
+	float4 position : POSITION;
+	float2 texcoord : TEXCOORD0;
+};
+
+vertex_outputs
+vertex_main(
+	in float3 position : POSITION,
+	in float2 texcoord : TEXCOORD0,
+	uniform float4x4 mvp)
+{
+	vertex_outputs outs;
+
+	outs.position =
+		mul(
+			mvp,
+			float4(
+				position,
+				1.0));
+
+	outs.texcoord =
+		texcoord;
+
+	return
+		outs;
+}
+
+float4
+pixel_main(
+	vertex_outputs vertex_data,
+	uniform sampler2D sky_texture)
+	: COLOR
+{
+	return
+		tex2D(
+			sky_texture,
+			vertex_data.texcoord);
+}

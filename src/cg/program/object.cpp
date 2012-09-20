@@ -69,7 +69,7 @@ sge::cg::program::object::object(
 			_parameters.source().get().c_str(),
 			profile_.get(),
 			_parameters.main_function().get().c_str(),
-			_parameters.compile_options().get()
+			_parameters.compile_options().pointers().data()
 		)
 	)
 {
@@ -96,7 +96,7 @@ sge::cg::program::object::object(
 			_parameters.path().string().c_str(),
 			profile_.get(),
 			_parameters.main_function().get().c_str(),
-			_parameters.compile_options().get()
+			_parameters.compile_options().pointers().data()
 		)
 	)
 {

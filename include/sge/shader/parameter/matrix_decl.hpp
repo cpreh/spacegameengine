@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/cg/parameter/named.hpp>
 #include <sge/cg/program/object_fwd.hpp>
+#include <sge/renderer/device_fwd.hpp>
 #include <sge/shader/parameter/is_projection_matrix.hpp>
 #include <sge/shader/parameter/matrix_fwd.hpp>
 #include <sge/shader/parameter/name.hpp>
@@ -64,6 +65,7 @@ public:
 	matrix(
 		sge::cg::program::object &,
 		sge::shader::parameter::name const &,
+		sge::renderer::device const &,
 		sge::shader::parameter::is_projection_matrix const &,
 		matrix_type const &);
 

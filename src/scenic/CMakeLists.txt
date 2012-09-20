@@ -15,6 +15,11 @@ set(
 	include/sge/scenic/render_context/base.hpp
 	include/sge/scenic/render_context/base_fwd.hpp
 	include/sge/scenic/render_context/base_unique_ptr.hpp
+	include/sge/scenic/render_context/cg/light/directional.hpp
+	include/sge/scenic/render_context/cg/light/directional_fwd.hpp
+	include/sge/scenic/render_context/cg/light/index.hpp
+	include/sge/scenic/render_context/cg/light/point.hpp
+	include/sge/scenic/render_context/cg/light/point_fwd.hpp
 	include/sge/scenic/render_context/cg/manager.hpp
 	include/sge/scenic/render_context/cg/manager_fwd.hpp
 	include/sge/scenic/render_context/cg/object.hpp
@@ -28,6 +33,7 @@ set(
 	include/sge/scenic/render_context/light_sequence.hpp
 	include/sge/scenic/render_context/manager_base.hpp
 	include/sge/scenic/render_context/manager_base_fwd.hpp
+	include/sge/scenic/render_context/manager_base_scoped_ptr.hpp
 	include/sge/scenic/render_context/optional_planar_texture.hpp
 	include/sge/scenic/render_queue/index_type.hpp
 	include/sge/scenic/render_queue/mesh.hpp
@@ -38,6 +44,7 @@ set(
 	include/sge/scenic/render_queue/state_change_count.hpp
 	include/sge/scenic/scene/camera_properties.hpp
 	include/sge/scenic/scene/camera_properties_fwd.hpp
+	include/sge/scenic/scene/diffuse_texture_path.hpp
 	include/sge/scenic/scene/entity.hpp
 	include/sge/scenic/scene/entity_fwd.hpp
 	include/sge/scenic/scene/entity_sequence.hpp
@@ -51,6 +58,8 @@ set(
 	include/sge/scenic/scene/mesh/material_to_index_buffer_range.hpp
 	include/sge/scenic/scene/mesh/object.hpp
 	include/sge/scenic/scene/mesh/object_fwd.hpp
+	include/sge/scenic/scene/object.hpp
+	include/sge/scenic/scene/object_fwd.hpp
 	include/sge/scenic/scene/position.hpp
 	include/sge/scenic/scene/prototype.hpp
 	include/sge/scenic/scene/prototype_fwd.hpp
@@ -58,7 +67,19 @@ set(
 	include/sge/scenic/scene/prototype_unique_ptr.hpp
 	include/sge/scenic/scene/rotation.hpp
 	include/sge/scenic/scene/scale.hpp
-	include/sge/scenic/scene/texture_path.hpp
+	include/sge/scenic/scene/specular_texture_path.hpp
+	include/sge/scenic/sky/dome/index_format.hpp
+	include/sge/scenic/sky/dome/latitude.hpp
+	include/sge/scenic/sky/dome/longitude.hpp
+	include/sge/scenic/sky/dome/object.hpp
+	include/sge/scenic/sky/dome/object_fwd.hpp
+	include/sge/scenic/sky/dome/size_type.hpp
+	include/sge/scenic/sky/dome/texture_path.hpp
+	include/sge/scenic/sky/dome/vf/format.hpp
+	include/sge/scenic/sky/dome/vf/format_part.hpp
+	include/sge/scenic/sky/dome/vf/position.hpp
+	include/sge/scenic/sky/dome/vf/texcoord.hpp
+	include/sge/scenic/sky/dome/y_translation.hpp
 	include/sge/scenic/texture_manager.hpp
 	include/sge/scenic/texture_manager_fwd.hpp
 	include/sge/scenic/vf/format.hpp
@@ -68,8 +89,12 @@ set(
 	include/sge/scenic/vf/texcoord.hpp
 	src/scenic/exception.cpp
 	src/scenic/grid/object.cpp
+	src/scenic/include/sge/src/scenic/render_context/cg/any_color_to_vector4.hpp
 	src/scenic/index_buffer_range.cpp
 	src/scenic/render_context/base.cpp
+	src/scenic/render_context/cg/any_color_to_vector4.cpp
+	src/scenic/render_context/cg/light/directional.cpp
+	src/scenic/render_context/cg/light/point.cpp
 	src/scenic/render_context/cg/manager.cpp
 	src/scenic/render_context/cg/object.cpp
 	src/scenic/render_context/fog/properties.cpp
@@ -83,7 +108,9 @@ set(
 	src/scenic/scene/material.cpp
 	src/scenic/scene/material_from_obj_material.cpp
 	src/scenic/scene/mesh/object.cpp
+	src/scenic/scene/object.cpp
 	src/scenic/scene/prototype.cpp
+	src/scenic/sky/dome/object.cpp
 	src/scenic/texture_manager.cpp
 )
 
@@ -93,5 +120,5 @@ add_sge_base_library(
 	"${Fcppt_filesystem_LIBRARIES}"
 	""
 	""
-	"${Cg_INCLUDE_DIRS}"
+	"${CMAKE_CURRENT_SOURCE_DIR}/include;${Cg_INCLUDE_DIRS}"
 )

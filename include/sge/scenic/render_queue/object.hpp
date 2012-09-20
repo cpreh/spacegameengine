@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_buffer_fwd.hpp>
 #include <sge/renderer/context/object_fwd.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
+#include <sge/scenic/render_context/base_fwd.hpp>
 #include <sge/scenic/render_queue/index_type.hpp>
 #include <sge/scenic/render_queue/mesh.hpp>
 #include <sge/scenic/render_queue/state_change_count.hpp>
@@ -58,7 +59,11 @@ public:
 		sge::renderer::vertex_buffer &);
 
 	void
-	current_texture(
+	current_diffuse_texture(
+		fcppt::optional<sge::renderer::texture::planar &>);
+
+	void
+	current_specular_texture(
 		fcppt::optional<sge::renderer::texture::planar &>);
 
 	void
@@ -69,7 +74,7 @@ public:
 
 	sge::scenic::render_queue::state_change_count const
 	render(
-		sge::renderer::context::object &);
+		sge::scenic::render_context::base &);
 
 	~object();
 private:
@@ -91,11 +96,13 @@ private:
 
 	material_sequence materials_;
 	vertex_buffer_sequence vertex_buffers_;
-	texture_sequence textures_;
+	texture_sequence diffuse_textures_;
+	texture_sequence specular_textures_;
 	mesh_sequence meshes_;
 	index_type current_material_;
 	index_type current_vertex_buffer_;
-	index_type current_texture_;
+	index_type current_diffuse_texture_;
+	index_type current_specular_texture_;
 };
 }
 }

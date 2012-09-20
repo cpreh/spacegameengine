@@ -18,24 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_OBJ_TEXTURE_PATH_HPP_INCLUDED
-#define SGE_MODEL_OBJ_TEXTURE_PATH_HPP_INCLUDED
+#ifndef SGE_SCENIC_SCENE_SPECULAR_TEXTURE_PATH_HPP_INCLUDED
+#define SGE_SCENIC_SCENE_SPECULAR_TEXTURE_PATH_HPP_INCLUDED
 
 #include <fcppt/strong_typedef.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge
 {
-namespace model
+namespace scenic
 {
-namespace obj
+namespace scene
 {
 FCPPT_MAKE_STRONG_TYPEDEF(
 	boost::filesystem::path,
-	texture_path);
+	specular_texture_path);
 }
 }
 }

@@ -19,56 +19,52 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/scenic/render_queue/mesh.hpp>
+#include <fcppt/number_multiplexer/object.hpp>
 
 namespace
 {
-template<typename T>
-T
-set_bits(
-	T const begin,
-	T const size,
-	T const value,
-	T const input)
-{
-	T const part =
-		((1u << begin) - 1u) ^ ((1u << (begin + size)) - 1u);
-
-	return
-		(input & ~part) | (value << begin);
-}
-
 sge::scenic::render_queue::sort_index
 create_sort_index(
 	sge::scenic::render_queue::index_type const _material,
 	sge::scenic::render_queue::index_type const _vertex_buffer,
-	sge::scenic::render_queue::index_type const _texture)
+	sge::scenic::render_queue::index_type const _diffuse_texture,
+	sge::scenic::render_queue::index_type const _specular_texture)
 {
+	typedef
+	fcppt::number_multiplexer::object<sge::scenic::render_queue::sort_index>
+	multiplexer;
+
 	return
-		set_bits<sge::scenic::render_queue::sort_index>(
-			3u,
-			20u,
-			static_cast<sge::scenic::render_queue::sort_index>(
-				_material),
-			set_bits<sge::scenic::render_queue::sort_index>(
-				//23u,
-				43u,
-				20u,
+		multiplexer()
+			.append(
+				multiplexer::bit_count(
+					20u),
 				static_cast<sge::scenic::render_queue::sort_index>(
-					_vertex_buffer),
-				set_bits<sge::scenic::render_queue::sort_index>(
-					//43u,
-					23u,
-					20u,
-					static_cast<sge::scenic::render_queue::sort_index>(
-						_texture),
-					0u)));
+					_material))
+			.append(
+				multiplexer::bit_count(
+					20u),
+				static_cast<sge::scenic::render_queue::sort_index>(
+					_vertex_buffer))
+			.append(
+				multiplexer::bit_count(
+					10u),
+				static_cast<sge::scenic::render_queue::sort_index>(
+					_diffuse_texture))
+			.append(
+				multiplexer::bit_count(
+					10u),
+				static_cast<sge::scenic::render_queue::sort_index>(
+					_specular_texture))
+			.value();
 }
 }
 
 sge::scenic::render_queue::mesh::mesh(
 	sge::scenic::render_queue::index_type const _material,
 	sge::scenic::render_queue::index_type const _vertex_buffer,
-	sge::scenic::render_queue::index_type const _texture,
+	sge::scenic::render_queue::index_type const _diffuse_texture,
+	sge::scenic::render_queue::index_type const _specular_texture,
 	sge::renderer::matrix4 const &_modelview,
 	sge::renderer::index_buffer &_index_buffer,
 	sge::scenic::index_buffer_range const &_index_buffer_range)
@@ -77,13 +73,16 @@ sge::scenic::render_queue::mesh::mesh(
 		_material),
 	vertex_buffer_(
 		_vertex_buffer),
-	texture_(
-		_texture),
+	diffuse_texture_(
+		_diffuse_texture),
+	specular_texture_(
+		_specular_texture),
 	sort_index_(
 		create_sort_index(
 			_material,
 			_vertex_buffer,
-			_texture)),
+			_diffuse_texture,
+			_specular_texture)),
 	modelview_(
 		_modelview),
 	index_buffer_(
@@ -109,10 +108,17 @@ sge::scenic::render_queue::mesh::vertex_buffer() const
 }
 
 sge::scenic::render_queue::index_type
-sge::scenic::render_queue::mesh::texture() const
+sge::scenic::render_queue::mesh::diffuse_texture() const
 {
 	return
-		texture_;
+		diffuse_texture_;
+}
+
+sge::scenic::render_queue::index_type
+sge::scenic::render_queue::mesh::specular_texture() const
+{
+	return
+		specular_texture_;
 }
 
 sge::renderer::matrix4 const &

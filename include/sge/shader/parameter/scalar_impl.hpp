@@ -25,6 +25,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cg/program/object.hpp>
 #include <sge/shader/parameter/name.hpp>
 #include <sge/shader/parameter/scalar_decl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/if.hpp>
+#include <boost/type_traits/is_integral.hpp>
+#include <boost/type_traits/is_same.hpp>
+#include <iostream>
+#include <fcppt/config/external_end.hpp>
 
 
 template<typename ValueType>
@@ -46,9 +52,25 @@ void
 sge::shader::parameter::scalar<ValueType>::set(
 	value_type const _scalar)
 {
+	typedef typename
+	boost::mpl::if_
+	<
+		boost::is_same<value_type,bool>,
+		int,
+		typename
+		boost::mpl::if_
+		<
+			boost::is_integral<value_type>,
+			int,
+			value_type
+		>::type
+	>::type
+	promoted_type;
+
 	sge::cg::parameter::scalar::set(
 		parameter_.object(),
-		_scalar);
+		static_cast<promoted_type>(
+			_scalar));
 }
 
 template<typename ValueType>

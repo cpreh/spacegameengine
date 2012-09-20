@@ -29,6 +29,8 @@ sge::scenic::scene::material_from_obj_material(
 			sge::scenic::scene::identifier(
 				_material.identifier().get()),
 			_material.renderer_material(),
-			sge::scenic::scene::texture_path(
-				_material.texture().get()));
+			sge::scenic::scene::diffuse_texture_path(
+				_material.diffuse_texture().get()),
+			sge::scenic::scene::specular_texture_path(
+				_material.specular_texture().get()));
 }

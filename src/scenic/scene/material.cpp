@@ -23,14 +23,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::scenic::scene::material::material(
 	sge::scenic::scene::identifier const &_identifier,
 	sge::renderer::material const &_renderer_material,
-	sge::scenic::scene::texture_path const &_texture)
+	sge::scenic::scene::diffuse_texture_path const &_diffuse_texture,
+	sge::scenic::scene::specular_texture_path const &_specular_texture)
 :
 	identifier_(
 		_identifier),
 	renderer_material_(
 		_renderer_material),
-	texture_(
-		_texture)
+	diffuse_texture_(
+		_diffuse_texture),
+	specular_texture_(
+		_specular_texture)
 {
 }
 
@@ -48,9 +51,16 @@ sge::scenic::scene::material::renderer_material() const
 		renderer_material_;
 }
 
-sge::scenic::scene::texture_path const &
-sge::scenic::scene::material::texture() const
+sge::scenic::scene::diffuse_texture_path const &
+sge::scenic::scene::material::diffuse_texture() const
 {
 	return
-		texture_;
+		diffuse_texture_;
+}
+
+sge::scenic::scene::specular_texture_path const &
+sge::scenic::scene::material::specular_texture() const
+{
+	return
+		specular_texture_;
 }

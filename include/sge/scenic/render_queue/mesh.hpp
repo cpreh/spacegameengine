@@ -47,7 +47,8 @@ public:
 	mesh(
 		sge::scenic::render_queue::index_type material,
 		sge::scenic::render_queue::index_type vertex_buffer,
-		sge::scenic::render_queue::index_type texture,
+		sge::scenic::render_queue::index_type diffuse_texture,
+		sge::scenic::render_queue::index_type specular_texture,
 		sge::renderer::matrix4 const &,
 		sge::renderer::index_buffer &,
 		sge::scenic::index_buffer_range const &);
@@ -59,7 +60,10 @@ public:
 	vertex_buffer() const;
 
 	sge::scenic::render_queue::index_type
-	texture() const;
+	diffuse_texture() const;
+
+	sge::scenic::render_queue::index_type
+	specular_texture() const;
 
 	sge::renderer::matrix4 const &
 	modelview() const;
@@ -80,7 +84,8 @@ public:
 private:
 	sge::scenic::render_queue::index_type material_;
 	sge::scenic::render_queue::index_type vertex_buffer_;
-	sge::scenic::render_queue::index_type texture_;
+	sge::scenic::render_queue::index_type diffuse_texture_;
+	sge::scenic::render_queue::index_type specular_texture_;
 	sge::scenic::render_queue::sort_index sort_index_;
 	sge::renderer::matrix4 modelview_;
 	sge::renderer::index_buffer *index_buffer_;

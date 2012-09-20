@@ -129,6 +129,9 @@ sge::d3d9::create_device_caps(
 					identifier.Description
 				)
 			),
+			sge::renderer::caps::normalized_cvv(
+				false
+			),
 			sge::renderer::caps::max_texture_size(
 				sge::renderer::dim2(
 					caps.MaxTextureWidth,

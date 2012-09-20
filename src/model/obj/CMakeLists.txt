@@ -1,6 +1,7 @@
 set(
 	SGE_MODELOBJ_FILES
 	include/sge/model/obj/box.hpp
+	include/sge/model/obj/diffuse_texture_path.hpp
 	include/sge/model/obj/exception.hpp
 	include/sge/model/obj/face.hpp
 	include/sge/model/obj/face_sequence.hpp
@@ -18,10 +19,10 @@ set(
 	include/sge/model/obj/parse_mtllib.hpp
 	include/sge/model/obj/prototype.hpp
 	include/sge/model/obj/prototype_fwd.hpp
+	include/sge/model/obj/specular_texture_path.hpp
 	include/sge/model/obj/texture_coordinate.hpp
 	include/sge/model/obj/texture_coordinate_index.hpp
 	include/sge/model/obj/texture_coordinate_sequence.hpp
-	include/sge/model/obj/texture_path.hpp
 	include/sge/model/obj/vertex_coordinate.hpp
 	include/sge/model/obj/vertex_coordinate_index.hpp
 	include/sge/model/obj/vertex_coordinate_sequence.hpp

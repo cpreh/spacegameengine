@@ -95,6 +95,7 @@ set(
 	src/cg/parameter/vector/detail/set_int.cpp
 	src/cg/parameter/vector/element_count.cpp
 	src/cg/profile/object.cpp
+	src/cg/program/compile_options.cpp
 	src/cg/program/convert_source_type.cpp
 	src/cg/program/from_file_parameters.cpp
 	src/cg/program/from_string_parameters.cpp

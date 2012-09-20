@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/context/object.hpp>
 #include <sge/renderer/texture/planar.hpp>
+#include <sge/scenic/render_context/base.hpp>
 #include <sge/scenic/render_queue/object.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -74,7 +75,8 @@ sge::scenic::render_queue::object::object()
 :
 	materials_(),
 	vertex_buffers_(),
-	textures_(),
+	diffuse_textures_(),
+	specular_textures_(),
 	meshes_(),
 	current_material_(
 		static_cast<sge::scenic::render_queue::index_type>(
@@ -82,7 +84,10 @@ sge::scenic::render_queue::object::object()
 	current_vertex_buffer_(
 		static_cast<sge::scenic::render_queue::index_type>(
 			-1)),
-	current_texture_(
+	current_diffuse_texture_(
+		static_cast<sge::scenic::render_queue::index_type>(
+			-1)),
+	current_specular_texture_(
 		static_cast<sge::scenic::render_queue::index_type>(
 			-1))
 {
@@ -109,19 +114,35 @@ sge::scenic::render_queue::object::current_vertex_buffer(
 }
 
 void
-sge::scenic::render_queue::object::current_texture(
+sge::scenic::render_queue::object::current_diffuse_texture(
 	fcppt::optional<sge::renderer::texture::planar &> _texture)
 {
 	if(_texture)
 		change_context_state(
-			textures_,
+			diffuse_textures_,
 			&(*_texture),
-			current_texture_);
+			current_diffuse_texture_);
 	else
 		change_context_state(
-			textures_,
+			diffuse_textures_,
 			0,
-			current_texture_);
+			current_diffuse_texture_);
+}
+
+void
+sge::scenic::render_queue::object::current_specular_texture(
+	fcppt::optional<sge::renderer::texture::planar &> _texture)
+{
+	if(_texture)
+		change_context_state(
+			specular_textures_,
+			&(*_texture),
+			current_specular_texture_);
+	else
+		change_context_state(
+			specular_textures_,
+			0,
+			current_specular_texture_);
 }
 
 void
@@ -134,7 +155,8 @@ sge::scenic::render_queue::object::add_mesh(
 		sge::scenic::render_queue::mesh(
 			current_material_,
 			current_vertex_buffer_,
-			current_texture_,
+			current_diffuse_texture_,
+			current_specular_texture_,
 			_modelview,
 			_index_buffer,
 			_index_buffer_range));
@@ -142,7 +164,7 @@ sge::scenic::render_queue::object::add_mesh(
 
 sge::scenic::render_queue::state_change_count const
 sge::scenic::render_queue::object::render(
-	sge::renderer::context::object &_context)
+	sge::scenic::render_context::base &_context)
 {
 	std::sort(
 		meshes_.begin(),
@@ -157,7 +179,9 @@ sge::scenic::render_queue::object::render(
 			invalid_index,
 		current_render_vertex_buffer =
 			invalid_index,
-		current_render_texture =
+		current_render_diffuse_texture =
+			invalid_index,
+		current_render_specular_texture =
 			invalid_index;
 
 	sge::scenic::render_queue::state_change_count state_changes(
@@ -186,13 +210,7 @@ sge::scenic::render_queue::object::render(
 		{
 			state_changes++;
 
-			if(current_render_vertex_buffer != invalid_index)
-				_context.deactivate_vertex_buffer(
-					*vertex_buffers_[
-						static_cast<vertex_buffer_sequence::size_type>(
-							current_render_vertex_buffer)]);
-
-			_context.activate_vertex_buffer(
+			_context.vertex_buffer(
 				*vertex_buffers_[
 					static_cast<vertex_buffer_sequence::size_type>(
 						current_mesh->vertex_buffer())]);
@@ -201,58 +219,51 @@ sge::scenic::render_queue::object::render(
 				current_mesh->vertex_buffer();
 		}
 
-		if(current_mesh->texture() != current_render_texture)
+		if(current_mesh->diffuse_texture() != current_render_diffuse_texture)
 		{
 			state_changes++;
 
-			if(current_mesh->texture() == invalid_index || !textures_[static_cast<texture_sequence::size_type>(current_mesh->texture())])
-				_context.texture(
-					sge::renderer::texture::const_optional_base_ref(),
-					sge::renderer::texture::stage(
-						0u));
+			if(current_mesh->diffuse_texture() == invalid_index || !diffuse_textures_[static_cast<texture_sequence::size_type>(current_mesh->diffuse_texture())])
+				_context.diffuse_texture(
+					sge::scenic::render_context::optional_planar_texture());
 			else
-				_context.texture(
-					sge::renderer::texture::const_optional_base_ref(
-						*textures_[
+				_context.diffuse_texture(
+					sge::scenic::render_context::optional_planar_texture(
+						*diffuse_textures_[
 							static_cast<texture_sequence::size_type>(
-								current_mesh->texture())]),
-					sge::renderer::texture::stage(
-						0u));
+								current_mesh->diffuse_texture())]));
 
-			current_render_texture =
-				current_mesh->texture();
+			current_render_diffuse_texture =
+				current_mesh->diffuse_texture();
+		}
+
+		if(current_mesh->specular_texture() != current_render_specular_texture)
+		{
+			state_changes++;
+
+			if(current_mesh->specular_texture() == invalid_index || !specular_textures_[static_cast<texture_sequence::size_type>(current_mesh->specular_texture())])
+				_context.specular_texture(
+					sge::scenic::render_context::optional_planar_texture());
+			else
+				_context.specular_texture(
+					sge::scenic::render_context::optional_planar_texture(
+						*specular_textures_[
+							static_cast<texture_sequence::size_type>(
+								current_mesh->specular_texture())]));
+
+			current_render_specular_texture =
+				current_mesh->specular_texture();
 		}
 
 		state_changes++;
 		_context.transform(
 			sge::renderer::matrix_mode::world,
-				current_mesh->modelview());
+			current_mesh->modelview());
 
-		_context.render_indexed(
+		_context.render(
 			current_mesh->index_buffer(),
-			sge::renderer::first_vertex(
-				0u),
-			sge::renderer::vertex_count(
-				vertex_buffers_[
-					static_cast<vertex_buffer_sequence::size_type>(
-						current_render_vertex_buffer)]->size()),
-			sge::renderer::primitive_type::triangle_list,
-			current_mesh->index_buffer_range().first_index(),
-			current_mesh->index_buffer_range().index_count());
+			current_mesh->index_buffer_range());
 	}
-
-	_context.deactivate_vertex_buffer(
-		*vertex_buffers_[
-			static_cast<vertex_buffer_sequence::size_type>(
-				current_render_vertex_buffer)]);
-
-	_context.texture(
-		sge::renderer::texture::const_optional_base_ref(),
-		sge::renderer::texture::stage(
-			0u));
-
-	_context.material(
-		sge::renderer::default_material());
 
 	return
 		state_changes;
