@@ -33,10 +33,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::shader::parameter::planar_texture::planar_texture(
-	sge::shader::pair &_parent,
-	sge::renderer::device &_renderer,
 	sge::cg::program::object &_program,
 	sge::shader::parameter::name const &_name,
+	sge::shader::pair &_parent,
+	sge::renderer::device &_renderer,
 	optional_value const &_value)
 :
 	parent_(

@@ -18,14 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/charconv/system_fwd.hpp>
+#include <sge/charconv/utf8_string_to_fcppt.hpp>
 #include <sge/log/global.hpp>
 #include <sge/model/obj/exception.hpp>
 #include <sge/model/obj/prototype.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <sge/charconv/system_fwd.hpp>
-#include <sge/charconv/utf8_string_to_fcppt.hpp>
 #include <fcppt/container/array.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/log/headers.hpp>

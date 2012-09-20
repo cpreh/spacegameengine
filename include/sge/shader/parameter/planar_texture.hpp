@@ -57,10 +57,10 @@ public:
 
 	SGE_SHADER_SYMBOL
 	planar_texture(
-		sge::shader::pair &,
-		sge::renderer::device &,
 		sge::cg::program::object &,
 		sge::shader::parameter::name const &,
+		sge::shader::pair &,
+		sge::renderer::device &,
 		optional_value const &);
 
 	SGE_SHADER_SYMBOL

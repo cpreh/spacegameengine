@@ -120,6 +120,9 @@ sge::opengl::create_device_caps(
 					GL_VERSION
 				)
 			),
+			sge::renderer::caps::normalized_cvv(
+				true
+			),
 			sge::renderer::caps::max_texture_size(
 				sge::renderer::dim2(
 					max_texture_size,

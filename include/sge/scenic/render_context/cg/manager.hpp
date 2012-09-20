@@ -27,11 +27,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/symbol.hpp>
 #include <sge/scenic/render_context/manager_base.hpp>
 #include <sge/scenic/render_context/cg/object_fwd.hpp>
+#include <sge/scenic/render_context/cg/light/directional_fwd.hpp>
+#include <sge/scenic/render_context/cg/light/point_fwd.hpp>
 #include <sge/shader/context_fwd.hpp>
 #include <sge/shader/pair.hpp>
 #include <sge/shader/parameter/matrix.hpp>
 #include <sge/shader/parameter/planar_texture.hpp>
+#include <sge/shader/parameter/scalar.hpp>
+#include <sge/shader/parameter/vector.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/ptr_container/ptr_array.hpp>
+#include <cstddef>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -59,15 +67,44 @@ public:
 	create_context(
 		sge::renderer::context::object &);
 
+	SGE_SCENIC_SYMBOL
 	~manager();
 private:
 	friend class sge::scenic::render_context::cg::object;
 
+	static const std::size_t max_point_lights = 8u;
+	static const std::size_t max_directional_lights = 2u;
+
+	typedef
+	boost::ptr_array<sge::scenic::render_context::cg::light::point,max_point_lights>
+	point_light_array;
+
+	typedef
+	boost::ptr_array<sge::scenic::render_context::cg::light::directional,max_directional_lights>
+	directional_light_array;
+
+	sge::renderer::vertex_declaration &vertex_declaration_;
 	sge::shader::pair shader_;
 	sge::shader::parameter::matrix<sge::renderer::scalar,4,4> world_matrix_;
 	sge::shader::parameter::matrix<sge::renderer::scalar,4,4> world_projection_matrix_;
 	sge::shader::parameter::matrix<sge::renderer::scalar,4,4> world_inverse_transpose_matrix_;
+	sge::shader::parameter::vector<sge::renderer::scalar,4> material_diffuse_color_;
+	sge::shader::parameter::vector<sge::renderer::scalar,4> material_specular_color_;
+	sge::shader::parameter::vector<sge::renderer::scalar,4> material_ambient_color_;
+	sge::shader::parameter::vector<sge::renderer::scalar,4> material_emissive_color_;
+	sge::shader::parameter::scalar<sge::renderer::scalar> material_shininess_;
+	sge::shader::parameter::scalar<bool> use_diffuse_texture_;
 	sge::shader::parameter::planar_texture diffuse_texture_;
+	sge::shader::parameter::scalar<bool> use_specular_texture_;
+	sge::shader::parameter::planar_texture specular_texture_;
+	sge::shader::parameter::scalar<std::size_t> point_light_count_;
+	sge::shader::parameter::scalar<std::size_t> directional_light_count_;
+	sge::shader::parameter::scalar<bool> use_fog_;
+	sge::shader::parameter::scalar<sge::renderer::scalar> fog_start_;
+	sge::shader::parameter::scalar<sge::renderer::scalar> fog_end_;
+	sge::shader::parameter::vector<sge::renderer::scalar,4> fog_color_;
+	point_light_array point_lights_;
+	directional_light_array directional_lights_;
 };
 }
 }

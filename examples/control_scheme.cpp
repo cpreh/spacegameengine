@@ -1,51 +1,56 @@
-#include <awl/main/exit_code.hpp>
-#include <awl/main/exit_failure.hpp>
-#include <awl/main/function_context.hpp>
-#include <fcppt/exception.hpp>
-#include <fcppt/io/cerr.hpp>
-#include <fcppt/io/cout.hpp>
-#include <fcppt/text.hpp>
-#include <sge/input/joypad/discover_callback.hpp>
-#include <sge/input/joypad/manager.hpp>
-#include <sge/input/joypad/remove_callback.hpp>
-#include <sge/systems/cursor_option.hpp>
-#include <sge/systems/cursor_option_field.hpp>
-#include <sge/systems/input.hpp>
-#include <sge/systems/input_helper.hpp>
-#include <sge/systems/input_helper_field.hpp>
-#include <sge/systems/instance.hpp>
-#include <sge/systems/list.hpp>
-#include <sge/systems/window.hpp>
-#include <sge/window/dim.hpp>
-#include <sge/window/parameters.hpp>
-#include <sge/window/system.hpp>
-#include <sge/window/title.hpp>
-#include <example_main.hpp>
-#include <sge/input/joypad/absolute_axis_event.hpp>
-#include <sge/input/joypad/button_event.hpp>
-#include <sge/input/joypad/discover_event.hpp>
-#include <sge/input/joypad/relative_axis_event.hpp>
-#include <sge/input/joypad/remove_event.hpp>
-#include <sge/input/joypad/device.hpp>
-#include <sge/input/joypad/axis_code_to_string.hpp>
-#include <sge/input/joypad/absolute_axis_info.hpp>
-#include <sge/input/joypad/absolute_axis_info_container.hpp>
-#include <sge/input/joypad/button_info.hpp>
-#include <sge/input/joypad/button_info_container.hpp>
-#include <sge/input/joypad/info.hpp>
-#include <sge/input/joypad/relative_axis_info.hpp>
-#include <sge/input/joypad/relative_axis_info_container.hpp>
-#include <fcppt/string.hpp>
-#include <sge/input/info/optional_string.hpp>
+/*
+spacegameengine is a portable easy to use game engine written in C++.
+Copyright (C) 2006-2012 Carl Philipp Reh (sefi@s-e-f-i.de)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
+
 #include <sge/font/align_h.hpp>
-#include <sge/font/draw/static_text.hpp>
-#include <sge/font/text_parameters.hpp>
-#include <sge/font/vector.hpp>
-#include <sge/image/colors.hpp>
-#include <sge/renderer/clear/parameters.hpp>
-#include <sge/renderer/context/scoped.hpp>
+#include <sge/font/from_fcppt_string.hpp>
+#include <sge/font/lit.hpp>
+#include <sge/font/object.hpp>
 #include <sge/font/object_scoped_ptr.hpp>
 #include <sge/font/parameters.hpp>
+#include <sge/font/system.hpp>
+#include <sge/font/text_parameters.hpp>
+#include <sge/font/vector.hpp>
+#include <sge/font/draw/static_text.hpp>
+#include <sge/image/colors.hpp>
+#include <sge/input/info/optional_string.hpp>
+#include <sge/input/joypad/absolute_axis_event.hpp>
+#include <sge/input/joypad/absolute_axis_info.hpp>
+#include <sge/input/joypad/absolute_axis_info_container.hpp>
+#include <sge/input/joypad/axis_code_to_string.hpp>
+#include <sge/input/joypad/button_event.hpp>
+#include <sge/input/joypad/button_info.hpp>
+#include <sge/input/joypad/button_info_container.hpp>
+#include <sge/input/joypad/device.hpp>
+#include <sge/input/joypad/discover_callback.hpp>
+#include <sge/input/joypad/discover_event.hpp>
+#include <sge/input/joypad/info.hpp>
+#include <sge/input/joypad/manager.hpp>
+#include <sge/input/joypad/relative_axis_event.hpp>
+#include <sge/input/joypad/relative_axis_info.hpp>
+#include <sge/input/joypad/relative_axis_info_container.hpp>
+#include <sge/input/joypad/remove_callback.hpp>
+#include <sge/input/joypad/remove_event.hpp>
+#include <sge/renderer/device.hpp>
+#include <sge/renderer/clear/parameters.hpp>
+#include <sge/renderer/context/object.hpp>
+#include <sge/renderer/context/scoped.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/parameters/object.hpp>
 #include <sge/renderer/parameters/vsync.hpp>
@@ -54,19 +59,37 @@
 #include <sge/renderer/pixel_format/object.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
-#include <sge/systems/font.hpp>
-#include <sge/systems/renderer.hpp>
-#include <sge/viewport/fill_on_resize.hpp>
-#include <sge/font/lit.hpp>
-#include <sge/font/system.hpp>
-#include <sge/font/object.hpp>
-#include <sge/renderer/device.hpp>
-#include <sge/renderer/context/object.hpp>
 #include <sge/renderer/target/onscreen.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <sge/systems/cursor_option.hpp>
+#include <sge/systems/cursor_option_field.hpp>
+#include <sge/systems/font.hpp>
+#include <sge/systems/input.hpp>
+#include <sge/systems/input_helper.hpp>
+#include <sge/systems/input_helper_field.hpp>
+#include <sge/systems/instance.hpp>
+#include <sge/systems/list.hpp>
+#include <sge/systems/renderer.hpp>
+#include <sge/systems/window.hpp>
+#include <sge/viewport/fill_on_resize.hpp>
+#include <sge/window/dim.hpp>
+#include <sge/window/parameters.hpp>
+#include <sge/window/system.hpp>
+#include <sge/window/title.hpp>
+#include <awl/main/exit_code.hpp>
+#include <awl/main/exit_failure.hpp>
+#include <awl/main/function_context.hpp>
+#include <fcppt/exception.hpp>
 #include <fcppt/ref.hpp>
-#include <sge/font/from_fcppt_string.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/io/cerr.hpp>
+#include <fcppt/io/cout.hpp>
 #include <fcppt/io/ostringstream.hpp>
+#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <example_main.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace
 {
