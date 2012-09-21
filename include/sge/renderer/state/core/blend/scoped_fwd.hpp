@@ -18,11 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_PROJECTION_RECT_HPP_INCLUDED
-#define SGE_RENDERER_PROJECTION_RECT_HPP_INCLUDED
+#ifndef SGE_RENDERER_STATE_CORE_BLEND_SCOPED_FWD_HPP_INCLUDED
+#define SGE_RENDERER_STATE_CORE_BLEND_SCOPED_FWD_HPP_INCLUDED
 
-#include <sge/renderer/projection/rect_fwd.hpp>
-#include <fcppt/math/box/object_impl.hpp>
 
+namespace sge
+{
+namespace renderer
+{
+namespace state
+{
+namespace core
+{
+namespace blend
+{
+
+class scoped;
+
+}
+}
+}
+}
+}
 
 #endif

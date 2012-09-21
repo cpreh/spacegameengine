@@ -18,11 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_PROJECTION_RECT_HPP_INCLUDED
-#define SGE_RENDERER_PROJECTION_RECT_HPP_INCLUDED
+#ifndef SGE_RENDERER_PROJECTION_RECT_FWD_HPP_INCLUDED
+#define SGE_RENDERER_PROJECTION_RECT_FWD_HPP_INCLUDED
 
-#include <sge/renderer/projection/rect_fwd.hpp>
-#include <fcppt/math/box/object_impl.hpp>
+#include <sge/renderer/scalar.hpp>
+#include <fcppt/math/box/object_fwd.hpp>
 
+
+namespace sge
+{
+namespace renderer
+{
+namespace projection
+{
+
+typedef fcppt::math::box::object<
+	sge::renderer::scalar,
+	2
+> rect;
+
+}
+}
+}
 
 #endif

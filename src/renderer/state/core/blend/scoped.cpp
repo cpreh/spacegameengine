@@ -18,11 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_PROJECTION_RECT_HPP_INCLUDED
-#define SGE_RENDERER_PROJECTION_RECT_HPP_INCLUDED
+#include <sge/renderer/context/core.hpp>
+#include <sge/renderer/state/core/blend/const_optional_object_ref.hpp>
+#include <sge/renderer/state/core/blend/object_fwd.hpp>
+#include <sge/renderer/state/core/blend/scoped.hpp>
 
-#include <sge/renderer/projection/rect_fwd.hpp>
-#include <fcppt/math/box/object_impl.hpp>
 
+sge::renderer::state::core::blend::scoped::scoped(
+	sge::renderer::context::core &_context,
+	sge::renderer::state::core::blend::object const &_object
+)
+:
+	context_(
+		_context
+	)
+{
+	context_.blend_state(
+		sge::renderer::state::core::blend::const_optional_object_ref(
+			_object
+		)
+	);
+}
 
-#endif
+sge::renderer::state::core::blend::scoped::~scoped()
+{
+	context_.blend_state(
+		sge::renderer::state::core::blend::const_optional_object_ref()
+	);
+}

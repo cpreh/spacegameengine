@@ -33,7 +33,7 @@ namespace projection
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
-	renderer::scalar,
+	sge::renderer::scalar,
 	aspect
 );
 

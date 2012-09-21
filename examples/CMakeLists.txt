@@ -11,7 +11,7 @@ function(
 	CONSOLE_EXAMPLE
 )
 	sge_check_optional_deps(
-		"${EXAMPLE_NAME}"
+		"The ${EXAMPLE_NAME} example"
 		"${SGE_LIBRARIES}"
 	)
 

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/matrix4_fwd.hpp>
 #include <sge/renderer/symbol.hpp>
-#include <sge/renderer/projection/dim.hpp>
+#include <sge/renderer/projection/dim_fwd.hpp>
 #include <sge/renderer/projection/far.hpp>
 #include <sge/renderer/projection/near.hpp>
 
@@ -36,11 +36,11 @@ namespace projection
 {
 
 SGE_RENDERER_SYMBOL
-renderer::matrix4 const
+sge::renderer::matrix4 const
 perspective_wh(
-	projection::dim const &,
-	projection::near,
-	projection::far
+	sge::renderer::projection::dim const &,
+	sge::renderer::projection::near,
+	sge::renderer::projection::far
 );
 
 }

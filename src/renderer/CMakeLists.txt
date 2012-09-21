@@ -282,6 +282,8 @@ set(
 	include/sge/renderer/state/core/blend/object_unique_ptr.hpp
 	include/sge/renderer/state/core/blend/parameters.hpp
 	include/sge/renderer/state/core/blend/parameters_fwd.hpp
+	include/sge/renderer/state/core/blend/scoped.hpp
+	include/sge/renderer/state/core/blend/scoped_fwd.hpp
 	include/sge/renderer/state/core/blend/separate.hpp
 	include/sge/renderer/state/core/blend/separate_fwd.hpp
 	include/sge/renderer/state/core/blend/source.hpp
@@ -866,6 +868,7 @@ set(
 	src/renderer/state/core/blend/default.cpp
 	src/renderer/state/core/blend/object.cpp
 	src/renderer/state/core/blend/parameters.cpp
+	src/renderer/state/core/blend/scoped.cpp
 	src/renderer/state/core/blend/separate.cpp
 	src/renderer/state/core/blend/write_mask.cpp
 	src/renderer/state/core/blend/write_mask_all.cpp

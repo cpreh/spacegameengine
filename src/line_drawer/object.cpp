@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/line_drawer/object.hpp>
-#include <sge/renderer/device.hpp>
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/primitive_type.hpp>
@@ -31,14 +30,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/vertex_declaration.hpp>
-#include <sge/renderer/context/object.hpp>
-#include <sge/renderer/state/bool.hpp>
-#include <sge/renderer/state/dest_blend_func.hpp>
-#include <sge/renderer/state/list.hpp>
-#include <sge/renderer/state/scoped.hpp>
-#include <sge/renderer/state/source_blend_func.hpp>
-#include <sge/renderer/state/trampoline.hpp>
-#include <sge/renderer/state/var.hpp>
+#include <sge/renderer/context/core.hpp>
+#include <sge/renderer/device/core.hpp>
+#include <sge/renderer/state/core/blend/alpha_enabled.hpp>
+#include <sge/renderer/state/core/blend/combined.hpp>
+#include <sge/renderer/state/core/blend/dest.hpp>
+#include <sge/renderer/state/core/blend/object.hpp>
+#include <sge/renderer/state/core/blend/parameters.hpp>
+#include <sge/renderer/state/core/blend/scoped.hpp>
+#include <sge/renderer/state/core/blend/source.hpp>
+#include <sge/renderer/state/core/blend/write_mask_all.hpp>
 #include <sge/renderer/texture/const_optional_base_ref.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/stage.hpp>
@@ -54,13 +55,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::line_drawer::object::object(
-	sge::renderer::device &_renderer)
+	sge::renderer::device::core &_renderer)
 :
 	renderer_(
 		_renderer),
 	vertex_declaration_(
 		renderer_.create_vertex_declaration(
 			sge::renderer::vf::dynamic::make_format<vf::format>())),
+	blend_state_(
+		renderer_.create_blend_state(
+			sge::renderer::state::core::blend::parameters(
+				sge::renderer::state::core::blend::alpha_enabled(
+					sge::renderer::state::core::blend::combined(
+						sge::renderer::state::core::blend::source::src_alpha,
+						sge::renderer::state::core::blend::dest::inv_src_alpha)),
+				sge::renderer::state::core::blend::write_mask_all()))),
 	vb_(),
 	lines_()
 {
@@ -68,18 +77,16 @@ sge::line_drawer::object::object(
 
 void
 sge::line_drawer::object::render(
-	sge::renderer::context::object &_render_context
+	sge::renderer::context::core &_render_context
 )
 {
 	if (!vb_ || lines_.empty())
 		return;
 
-	sge::renderer::state::scoped scoped_state(
+	sge::renderer::state::core::blend::scoped const scoped_blend(
 		_render_context,
-		sge::renderer::state::list
-			(sge::renderer::state::bool_::enable_alpha_blending = true)
-			(sge::renderer::state::source_blend_func::src_alpha)
-			(sge::renderer::state::dest_blend_func::inv_src_alpha));
+		*blend_state_
+	);
 
 	sge::renderer::scoped_vertex_declaration const scoped_decl(
 		_render_context,

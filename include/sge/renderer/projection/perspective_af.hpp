@@ -37,12 +37,12 @@ namespace projection
 {
 
 SGE_RENDERER_SYMBOL
-renderer::matrix4 const
+sge::renderer::matrix4 const
 perspective_af(
-	projection::aspect,
-	projection::fov,
-	projection::near,
-	projection::far
+	sge::renderer::projection::aspect,
+	sge::renderer::projection::fov,
+	sge::renderer::projection::near,
+	sge::renderer::projection::far
 );
 
 }
