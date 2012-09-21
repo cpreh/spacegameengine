@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/device/object_fwd.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/render_context/object.hpp>
+#include <sge/opengl/state/set_defaults.hpp>
 #include <sge/opengl/state/core/blend/set.hpp>
 #include <sge/opengl/state/core/depth_stencil/set.hpp>
 #include <sge/opengl/state/core/rasterizer/set.hpp>
@@ -112,6 +113,10 @@ sge::opengl::render_context::object::object(
 	),
 	scoped_offscreen_target_()
 {
+	sge::opengl::state::set_defaults(
+		_system_context,
+		_device_context
+	);
 }
 
 sge::opengl::render_context::object::~object()

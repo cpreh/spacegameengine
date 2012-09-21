@@ -266,6 +266,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/state/core/sampler/object.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/sampler/object_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/sampler/set.hpp
+	src/plugins/opengl/include/sge/opengl/state/core/set_defaults.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/alpha_test/create.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/alpha_test/default_context.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/alpha_test/make_actors.hpp
@@ -342,10 +343,12 @@ set(
 	src/plugins/opengl/include/sge/opengl/state/ffp/sampler/object_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/sampler/op_visitor.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/sampler/set.hpp
+	src/plugins/opengl/include/sge/opengl/state/ffp/sampler/set_defaults.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/sampler/set_one.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/sampler/set_one_arg.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/sampler/set_one_op.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/set_array.hpp
+	src/plugins/opengl/include/sge/opengl/state/ffp/set_defaults.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/transform/actor.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/transform/actor_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/transform/actor_vector.hpp
@@ -356,6 +359,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/state/ffp/transform/object.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/transform/object_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/transform/set.hpp
+	src/plugins/opengl/include/sge/opengl/state/ffp/transform/set_defaults.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/transform/set_matrix.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/transform/set_matrix_and_mode.hpp
 	src/plugins/opengl/include/sge/opengl/state/index_actor.hpp
@@ -365,6 +369,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/state/object_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/state/object_impl.hpp
 	src/plugins/opengl/include/sge/opengl/state/set_array.hpp
+	src/plugins/opengl/include/sge/opengl/state/set_defaults.hpp
 	src/plugins/opengl/include/sge/opengl/state/set_or_default_single.hpp
 	src/plugins/opengl/include/sge/opengl/state/unary_object.hpp
 	src/plugins/opengl/include/sge/opengl/state/unary_object_fwd.hpp
@@ -737,6 +742,7 @@ set(
 	src/plugins/opengl/src/state/core/sampler/make_actors.cpp
 	src/plugins/opengl/src/state/core/sampler/object.cpp
 	src/plugins/opengl/src/state/core/sampler/set.cpp
+	src/plugins/opengl/src/state/core/set_defaults.cpp
 	src/plugins/opengl/src/state/ffp/alpha_test/create.cpp
 	src/plugins/opengl/src/state/ffp/alpha_test/default_context.cpp
 	src/plugins/opengl/src/state/ffp/alpha_test/make_actors.cpp
@@ -800,15 +806,19 @@ set(
 	src/plugins/opengl/src/state/ffp/sampler/object.cpp
 	src/plugins/opengl/src/state/ffp/sampler/op_visitor.cpp
 	src/plugins/opengl/src/state/ffp/sampler/set.cpp
+	src/plugins/opengl/src/state/ffp/sampler/set_defaults.cpp
 	src/plugins/opengl/src/state/ffp/sampler/set_one.cpp
+	src/plugins/opengl/src/state/ffp/set_defaults.cpp
 	src/plugins/opengl/src/state/ffp/transform/create.cpp
 	src/plugins/opengl/src/state/ffp/transform/default_context.cpp
 	src/plugins/opengl/src/state/ffp/transform/make_actors.cpp
 	src/plugins/opengl/src/state/ffp/transform/matrix_mode.cpp
 	src/plugins/opengl/src/state/ffp/transform/object.cpp
 	src/plugins/opengl/src/state/ffp/transform/set.cpp
+	src/plugins/opengl/src/state/ffp/transform/set_defaults.cpp
 	src/plugins/opengl/src/state/ffp/transform/set_matrix.cpp
 	src/plugins/opengl/src/state/ffp/transform/set_matrix_and_mode.cpp
+	src/plugins/opengl/src/state/set_defaults.cpp
 	src/plugins/opengl/src/system.cpp
 	src/plugins/opengl/src/target_base.cpp
 	src/plugins/opengl/src/target_context.cpp

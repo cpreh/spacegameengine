@@ -18,30 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/common.hpp>
-#include <sge/opengl/state/convert/matrix_mode.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/state/ffp/transform/set.hpp>
+#include <sge/opengl/state/ffp/transform/set_defaults.hpp>
+#include <sge/renderer/state/ffp/transform/const_optional_object_ref.hpp>
 #include <sge/renderer/state/ffp/transform/mode.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/foreach_enumerator.hpp>
 
 
-GLenum
-sge::opengl::state::convert::matrix_mode(
-	sge::renderer::state::ffp::transform::mode::type const _mode
+void
+sge::opengl::state::ffp::transform::set_defaults(
+	sge::opengl::context::system::object &_system_context
 )
 {
-	switch(
-		_mode
+	FCPPT_FOREACH_ENUMERATOR(
+		mode,
+		sge::renderer::state::ffp::transform::mode
 	)
-	{
-	case sge::renderer::state::ffp::transform::mode::world:
-		return GL_MODELVIEW;
-	case sge::renderer::state::ffp::transform::mode::projection:
-		return GL_PROJECTION;
-	case sge::renderer::state::ffp::transform::mode::texture:
-		return GL_TEXTURE;
-	case sge::renderer::state::ffp::transform::mode::size:
-		break;
-	}
-
-	FCPPT_ASSERT_UNREACHABLE;
+		sge::opengl::state::ffp::transform::set(
+			_system_context,
+			mode,
+			sge::renderer::state::ffp::transform::const_optional_object_ref()
+		);
 }

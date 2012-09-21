@@ -55,7 +55,11 @@ enum type
 
 	The texture matrix describes how texture coordinates are transformed.
 	*/
-	texture
+	texture,
+	/**
+	\brief The number of elements
+	*/
+	size
 };
 }
 

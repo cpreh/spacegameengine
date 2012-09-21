@@ -18,30 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/common.hpp>
-#include <sge/opengl/state/convert/matrix_mode.hpp>
-#include <sge/renderer/state/ffp/transform/mode.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#ifndef SGE_OPENGL_STATE_SET_DEFAULTS_HPP_INCLUDED
+#define SGE_OPENGL_STATE_SET_DEFAULTS_HPP_INCLUDED
+
+#include <sge/opengl/context/device/object_fwd.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 
 
-GLenum
-sge::opengl::state::convert::matrix_mode(
-	sge::renderer::state::ffp::transform::mode::type const _mode
-)
+namespace sge
 {
-	switch(
-		_mode
-	)
-	{
-	case sge::renderer::state::ffp::transform::mode::world:
-		return GL_MODELVIEW;
-	case sge::renderer::state::ffp::transform::mode::projection:
-		return GL_PROJECTION;
-	case sge::renderer::state::ffp::transform::mode::texture:
-		return GL_TEXTURE;
-	case sge::renderer::state::ffp::transform::mode::size:
-		break;
-	}
+namespace opengl
+{
+namespace state
+{
 
-	FCPPT_ASSERT_UNREACHABLE;
+void
+set_defaults(
+	sge::opengl::context::system::object &,
+	sge::opengl::context::device::object &
+);
+
 }
+}
+}
+
+#endif
