@@ -18,30 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_FFP_TRANSFORM_SET_HPP_INCLUDED
-#define SGE_OPENGL_STATE_FFP_TRANSFORM_SET_HPP_INCLUDED
+#ifndef SGE_RENDERER_STATE_FFP_SAMPLER_ALPHA_OP_FWD_HPP_INCLUDED
+#define SGE_RENDERER_STATE_FFP_SAMPLER_ALPHA_OP_FWD_HPP_INCLUDED
 
-#include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/renderer/state/ffp/transform/const_optional_object_ref_fwd.hpp>
-#include <sge/renderer/state/ffp/transform/mode.hpp>
+#include <sge/renderer/state/ffp/sampler/op_fwd.hpp>
+#include <fcppt/make_strong_typedef.hpp>
 
 
 namespace sge
 {
-namespace opengl
+namespace renderer
 {
 namespace state
 {
 namespace ffp
 {
-namespace transform
+namespace sampler
 {
 
-void
-set(
-	sge::opengl::context::system::object &,
-	sge::renderer::state::ffp::transform::mode::type,
-	sge::renderer::state::ffp::transform::const_optional_object_ref const &
+FCPPT_MAKE_STRONG_TYPEDEF(
+	sge::renderer::state::ffp::sampler::op,
+	alpha_op
 );
 
 }

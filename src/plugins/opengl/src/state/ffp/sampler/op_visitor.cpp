@@ -18,51 +18,139 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/state/ffp/sampler/actor_vector.hpp>
+#include <sge/opengl/state/ffp/sampler/instantiate_op_type.hpp>
 #include <sge/opengl/state/ffp/sampler/op_visitor.hpp>
-#include <sge/renderer/state/ffp/sampler/binary_op_fwd.hpp>
-#include <sge/renderer/state/ffp/sampler/ternany_op_fwd.hpp>
-#include <sge/renderer/state/ffp/sampler/unary_op_fwd.hpp>
+#include <sge/opengl/state/ffp/sampler/set_one_arg.hpp>
+#include <sge/opengl/state/ffp/sampler/set_one_op.hpp>
+#include <sge/renderer/state/ffp/sampler/binary_op.hpp>
+#include <sge/renderer/state/ffp/sampler/ternary_op.hpp>
+#include <sge/renderer/state/ffp/sampler/unary_op.hpp>
+#include <fcppt/assign/make_container.hpp>
 
 
 template<
 	typename OpType
 >
-typename sge::oepngl::state::ffp::sampler::op_visitor<
+typename sge::opengl::state::ffp::sampler::op_visitor<
 	OpType
 >::result_type const
-sge::oepngl::state::ffp::sampler::op_visitor<
+sge::opengl::state::ffp::sampler::op_visitor<
 	OpType
 >::operator()(
 	sge::renderer::state::ffp::sampler::unary_op const &_unary_op
 ) const
 {
+	return
+		fcppt::assign::make_container<
+			typename sge::opengl::state::ffp::sampler::op_visitor<
+				OpType
+			>::result_type
+		>(
+			sge::opengl::state::ffp::sampler::set_one_op<
+				OpType
+			>(
+				_unary_op.type()
+			)
+		)(
+			sge::opengl::state::ffp::sampler::set_one_arg<
+				OpType
+			>(
+				_unary_op.arg1()
+			)
+		);
 }
 
 template<
 	typename OpType
 >
-typename sge::oepngl::state::ffp::sampler::op_visitor<
+typename sge::opengl::state::ffp::sampler::op_visitor<
 	OpType
 >::result_type const
-sge::oepngl::state::ffp::sampler::op_visitor<
+sge::opengl::state::ffp::sampler::op_visitor<
 	OpType
 >::operator()(
 	sge::renderer::state::ffp::sampler::binary_op const &_binary_op
 ) const
 {
+	return
+		fcppt::assign::make_container<
+			typename sge::opengl::state::ffp::sampler::op_visitor<
+				OpType
+			>::result_type
+		>(
+			sge::opengl::state::ffp::sampler::set_one_op<
+				OpType
+			>(
+				_binary_op.type()
+			)
+		)(
+			sge::opengl::state::ffp::sampler::set_one_arg<
+				OpType
+			>(
+				_binary_op.arg1()
+			)
+		)(
+			sge::opengl::state::ffp::sampler::set_one_arg<
+				OpType
+			>(
+				_binary_op.arg2()
+			)
+		);
 }
 
 template<
 	typename OpType
 >
-typename sge::oepngl::state::ffp::sampler::op_visitor<
+typename sge::opengl::state::ffp::sampler::op_visitor<
 	OpType
 >::result_type const
-sge::oepngl::state::ffp::sampler::op_visitor<
+sge::opengl::state::ffp::sampler::op_visitor<
 	OpType
 >::operator()(
 	sge::renderer::state::ffp::sampler::ternary_op const &_ternary_op
 ) const
 {
+	return
+		fcppt::assign::make_container<
+			typename sge::opengl::state::ffp::sampler::op_visitor<
+				OpType
+			>::result_type
+		>(
+			sge::opengl::state::ffp::sampler::set_one_op<
+				OpType
+			>(
+				_ternary_op.type()
+			)
+		)(
+			sge::opengl::state::ffp::sampler::set_one_arg<
+				OpType
+			>(
+				_ternary_op.arg1()
+			)
+		)(
+			sge::opengl::state::ffp::sampler::set_one_arg<
+				OpType
+			>(
+				_ternary_op.arg2()
+			)
+		)(
+			sge::opengl::state::ffp::sampler::set_one_arg<
+				OpType
+			>(
+				_ternary_op.arg3()
+			)
+		);
 }
+
+#define SGE_OPENGL_STATE_FFP_SAMPLER_INSTANTIATE_OP_VISITOR(\
+	op_type\
+)\
+template \
+class \
+sge::opengl::state::ffp::sampler::op_visitor<\
+	op_type\
+>
+
+SGE_OPENGL_STATE_FFP_SAMPLER_INSTANTIATE_OP_TYPE(
+	SGE_OPENGL_STATE_FFP_SAMPLER_INSTANTIATE_OP_VISITOR
+);

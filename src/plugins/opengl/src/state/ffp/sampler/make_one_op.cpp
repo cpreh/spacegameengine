@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/state/ffp/sampler/actor_vector.hpp>
+#include <sge/opengl/state/ffp/sampler/instantiate_op_type.hpp>
 #include <sge/opengl/state/ffp/sampler/make_one_op.hpp>
 #include <sge/opengl/state/ffp/sampler/op_visitor.hpp>
 #include <sge/renderer/state/ffp/sampler/alpha_op.hpp>
@@ -39,25 +40,21 @@ sge::opengl::state::ffp::sampler::make_one_op(
 			sge::opengl::state::ffp::sampler::op_visitor<
 				OpType
 			>(),
-			_op.variant()
+			_op.get().variant()
 		);
 }
 
 #define SGE_OPENGL_STATE_FFP_SAMPLER_INSTANTIATE_MAKE_ONE_OP(\
 	op_type\
 )\
-template<>\
+template \
 sge::opengl::state::ffp::sampler::actor_vector const \
-make_one_op<\
-	OpType\
+sge::opengl::state::ffp::sampler::make_one_op<\
+	op_type\
 >(\
-	OpType const &\
+	op_type const &\
 )
 
-SGE_OPENGL_STATE_FFP_SAMPLER_INSTANTIATE_MAKE_ONE_OP(
-	sge::renderer::state::ffp::sampler::alpha_op
-);
-
-SGE_OPENGL_STATE_FFP_SAMPLER_INSTANTIATE_MAKE_ONE_OP(
-	sge::renderer::state::ffp::sampler::color_op
+SGE_OPENGL_STATE_FFP_SAMPLER_INSTANTIATE_OP_TYPE(
+	SGE_OPENGL_STATE_FFP_SAMPLER_INSTANTIATE_MAKE_ONE_OP
 );

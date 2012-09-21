@@ -18,36 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_FFP_TRANSFORM_SET_HPP_INCLUDED
-#define SGE_OPENGL_STATE_FFP_TRANSFORM_SET_HPP_INCLUDED
-
-#include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/renderer/state/ffp/transform/const_optional_object_ref_fwd.hpp>
-#include <sge/renderer/state/ffp/transform/mode.hpp>
+#include <sge/renderer/state/ffp/sampler/arg1.hpp>
+#include <sge/renderer/state/ffp/sampler/unary_op.hpp>
+#include <sge/renderer/state/ffp/sampler/unary_op_type.hpp>
 
 
-namespace sge
+sge::renderer::state::ffp::sampler::unary_op::unary_op(
+	sge::renderer::state::ffp::sampler::unary_op_type::type const _type,
+	sge::renderer::state::ffp::sampler::arg1 const _arg1
+)
+:
+	type_(
+		_type
+	),
+	arg1_(
+		_arg1
+	)
 {
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace transform
-{
-
-void
-set(
-	sge::opengl::context::system::object &,
-	sge::renderer::state::ffp::transform::mode::type,
-	sge::renderer::state::ffp::transform::const_optional_object_ref const &
-);
-
-}
-}
-}
-}
 }
 
-#endif
+sge::renderer::state::ffp::sampler::unary_op_type::type
+sge::renderer::state::ffp::sampler::unary_op::type() const
+{
+	return type_;
+}
+
+sge::renderer::state::ffp::sampler::arg1 const
+sge::renderer::state::ffp::sampler::unary_op::arg1() const
+{
+	return arg1_;
+}

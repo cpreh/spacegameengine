@@ -500,6 +500,7 @@ set(
 	include/sge/renderer/state/ffp/misc/parameters.hpp
 	include/sge/renderer/state/ffp/misc/parameters_fwd.hpp
 	include/sge/renderer/state/ffp/sampler/alpha_op.hpp
+	include/sge/renderer/state/ffp/sampler/alpha_op_fwd.hpp
 	include/sge/renderer/state/ffp/sampler/arg.hpp
 	include/sge/renderer/state/ffp/sampler/arg1.hpp
 	include/sge/renderer/state/ffp/sampler/arg2.hpp
@@ -508,6 +509,7 @@ set(
 	include/sge/renderer/state/ffp/sampler/binary_op_fwd.hpp
 	include/sge/renderer/state/ffp/sampler/binary_op_type.hpp
 	include/sge/renderer/state/ffp/sampler/color_op.hpp
+	include/sge/renderer/state/ffp/sampler/color_op_fwd.hpp
 	include/sge/renderer/state/ffp/sampler/const_object_ref.hpp
 	include/sge/renderer/state/ffp/sampler/const_object_ref_vector.hpp
 	include/sge/renderer/state/ffp/sampler/default.hpp
@@ -529,6 +531,7 @@ set(
 	include/sge/renderer/state/ffp/sampler/unary_op_type.hpp
 	include/sge/renderer/state/ffp/transform/const_optional_object_ref.hpp
 	include/sge/renderer/state/ffp/transform/const_optional_object_ref_fwd.hpp
+	include/sge/renderer/state/ffp/transform/default.hpp
 	include/sge/renderer/state/ffp/transform/mode.hpp
 	include/sge/renderer/state/ffp/transform/object.hpp
 	include/sge/renderer/state/ffp/transform/object_fwd.hpp
@@ -924,6 +927,9 @@ set(
 	src/renderer/state/ffp/sampler/object.cpp
 	src/renderer/state/ffp/sampler/op.cpp
 	src/renderer/state/ffp/sampler/parameters.cpp
+	src/renderer/state/ffp/sampler/ternary_op.cpp
+	src/renderer/state/ffp/sampler/unary_op.cpp
+	src/renderer/state/ffp/transform/default.cpp
 	src/renderer/state/ffp/transform/object.cpp
 	src/renderer/state/ffp/transform/parameters.cpp
 	src/renderer/state/ffp/transform/scoped.cpp

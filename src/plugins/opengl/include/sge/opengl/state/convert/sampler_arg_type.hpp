@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_FFP_TRANSFORM_SET_HPP_INCLUDED
-#define SGE_OPENGL_STATE_FFP_TRANSFORM_SET_HPP_INCLUDED
+#ifndef SGE_OPENGL_STATE_CONVERT_SAMPLER_ARG_TYPE_HPP_INCLUDED
+#define SGE_OPENGL_STATE_CONVERT_SAMPLER_ARG_TYPE_HPP_INCLUDED
 
-#include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/renderer/state/ffp/transform/const_optional_object_ref_fwd.hpp>
-#include <sge/renderer/state/ffp/transform/mode.hpp>
+#include <sge/opengl/common.hpp>
+#include <sge/renderer/state/ffp/sampler/alpha_op_fwd.hpp>
+#include <sge/renderer/state/ffp/sampler/color_op_fwd.hpp>
 
 
 namespace sge
@@ -32,19 +32,41 @@ namespace opengl
 {
 namespace state
 {
-namespace ffp
-{
-namespace transform
+namespace convert
 {
 
-void
-set(
-	sge::opengl::context::system::object &,
-	sge::renderer::state::ffp::transform::mode::type,
-	sge::renderer::state::ffp::transform::const_optional_object_ref const &
-);
+template<
+	typename OpType,
+	typename Arg
+>
+struct sampler_arg_type;
 
-}
+template<
+	typename Arg
+>
+struct sampler_arg_type<
+	sge::renderer::state::ffp::sampler::alpha_op,
+	Arg
+>
+{
+	static
+	GLenum
+	get();
+};
+
+template<
+	typename Arg
+>
+struct sampler_arg_type<
+	sge::renderer::state::ffp::sampler::color_op,
+	Arg
+>
+{
+	static
+	GLenum
+	get();
+};
+
 }
 }
 }

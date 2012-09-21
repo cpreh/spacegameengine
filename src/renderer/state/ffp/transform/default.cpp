@@ -18,36 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_FFP_TRANSFORM_SET_HPP_INCLUDED
-#define SGE_OPENGL_STATE_FFP_TRANSFORM_SET_HPP_INCLUDED
-
-#include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/renderer/state/ffp/transform/const_optional_object_ref_fwd.hpp>
-#include <sge/renderer/state/ffp/transform/mode.hpp>
+#include <sge/renderer/matrix4.hpp>
+#include <sge/renderer/state/ffp/transform/default.hpp>
+#include <sge/renderer/state/ffp/transform/parameters.hpp>
 
 
-namespace sge
+sge::renderer::state::ffp::transform::parameters const
+sge::renderer::state::ffp::transform::default_()
 {
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace transform
-{
-
-void
-set(
-	sge::opengl::context::system::object &,
-	sge::renderer::state::ffp::transform::mode::type,
-	sge::renderer::state::ffp::transform::const_optional_object_ref const &
-);
-
+	return
+		sge::renderer::state::ffp::transform::parameters(
+			sge::renderer::matrix4::identity()
+		);
 }
-}
-}
-}
-}
-
-#endif

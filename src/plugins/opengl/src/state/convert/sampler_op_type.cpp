@@ -18,36 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_FFP_TRANSFORM_SET_HPP_INCLUDED
-#define SGE_OPENGL_STATE_FFP_TRANSFORM_SET_HPP_INCLUDED
-
-#include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/renderer/state/ffp/transform/const_optional_object_ref_fwd.hpp>
-#include <sge/renderer/state/ffp/transform/mode.hpp>
+#include <sge/opengl/common.hpp>
+#include <sge/opengl/state/convert/sampler_op_type.hpp>
+#include <sge/renderer/state/ffp/sampler/alpha_op_fwd.hpp>
+#include <sge/renderer/state/ffp/sampler/color_op_fwd.hpp>
 
 
-namespace sge
+GLenum
+sge::opengl::state::convert::sampler_op_type<
+	sge::renderer::state::ffp::sampler::alpha_op
+>::get()
 {
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace transform
-{
-
-void
-set(
-	sge::opengl::context::system::object &,
-	sge::renderer::state::ffp::transform::mode::type,
-	sge::renderer::state::ffp::transform::const_optional_object_ref const &
-);
-
-}
-}
-}
-}
+	return GL_COMBINE_ALPHA;
 }
 
-#endif
+GLenum
+sge::opengl::state::convert::sampler_op_type<
+	sge::renderer::state::ffp::sampler::color_op
+>::get()
+{
+	return GL_COMBINE_RGB;
+}

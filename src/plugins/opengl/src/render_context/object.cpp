@@ -405,6 +405,7 @@ sge::opengl::render_context::object::transform(
 )
 {
 	sge::opengl::state::ffp::transform::set(
+		system_context_,
 		_mode,
 		_state
 	);

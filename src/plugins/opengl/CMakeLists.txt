@@ -212,8 +212,11 @@ set(
 	src/plugins/opengl/include/sge/opengl/state/convert/min_filter.hpp
 	src/plugins/opengl/include/sge/opengl/state/convert/sampler_alpha_arg_type.hpp
 	src/plugins/opengl/include/sge/opengl/state/convert/sampler_arg.hpp
+	src/plugins/opengl/include/sge/opengl/state/convert/sampler_arg_type.hpp
 	src/plugins/opengl/include/sge/opengl/state/convert/sampler_binary_op.hpp
 	src/plugins/opengl/include/sge/opengl/state/convert/sampler_color_arg_type.hpp
+	src/plugins/opengl/include/sge/opengl/state/convert/sampler_op.hpp
+	src/plugins/opengl/include/sge/opengl/state/convert/sampler_op_type.hpp
 	src/plugins/opengl/include/sge/opengl/state/convert/sampler_ternary_op.hpp
 	src/plugins/opengl/include/sge/opengl/state/convert/sampler_unary_op.hpp
 	src/plugins/opengl/include/sge/opengl/state/convert/source_blend_func.hpp
@@ -332,16 +335,22 @@ set(
 	src/plugins/opengl/include/sge/opengl/state/ffp/sampler/context.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/sampler/create.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/sampler/default_context.hpp
+	src/plugins/opengl/include/sge/opengl/state/ffp/sampler/instantiate_op_type.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/sampler/make_actors.hpp
+	src/plugins/opengl/include/sge/opengl/state/ffp/sampler/make_one_op.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/sampler/object.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/sampler/object_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/state/ffp/sampler/op_visitor.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/sampler/set.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/sampler/set_one.hpp
+	src/plugins/opengl/include/sge/opengl/state/ffp/sampler/set_one_arg.hpp
+	src/plugins/opengl/include/sge/opengl/state/ffp/sampler/set_one_op.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/set_array.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/transform/actor.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/transform/actor_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/transform/actor_vector.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/transform/create.hpp
+	src/plugins/opengl/include/sge/opengl/state/ffp/transform/default_context.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/transform/make_actors.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/transform/matrix_mode.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/transform/object.hpp
@@ -680,8 +689,11 @@ set(
 	src/plugins/opengl/src/state/convert/min_filter.cpp
 	src/plugins/opengl/src/state/convert/sampler_alpha_arg_type.cpp
 	src/plugins/opengl/src/state/convert/sampler_arg.cpp
+	src/plugins/opengl/src/state/convert/sampler_arg_type.cpp
 	src/plugins/opengl/src/state/convert/sampler_binary_op.cpp
 	src/plugins/opengl/src/state/convert/sampler_color_arg_type.cpp
+	src/plugins/opengl/src/state/convert/sampler_op.cpp
+	src/plugins/opengl/src/state/convert/sampler_op_type.cpp
 	src/plugins/opengl/src/state/convert/sampler_ternary_op.cpp
 	src/plugins/opengl/src/state/convert/sampler_unary_op.cpp
 	src/plugins/opengl/src/state/convert/source_blend_func.cpp
@@ -784,10 +796,13 @@ set(
 	src/plugins/opengl/src/state/ffp/sampler/create.cpp
 	src/plugins/opengl/src/state/ffp/sampler/default_context.cpp
 	src/plugins/opengl/src/state/ffp/sampler/make_actors.cpp
+	src/plugins/opengl/src/state/ffp/sampler/make_one_op.cpp
 	src/plugins/opengl/src/state/ffp/sampler/object.cpp
+	src/plugins/opengl/src/state/ffp/sampler/op_visitor.cpp
 	src/plugins/opengl/src/state/ffp/sampler/set.cpp
 	src/plugins/opengl/src/state/ffp/sampler/set_one.cpp
 	src/plugins/opengl/src/state/ffp/transform/create.cpp
+	src/plugins/opengl/src/state/ffp/transform/default_context.cpp
 	src/plugins/opengl/src/state/ffp/transform/make_actors.cpp
 	src/plugins/opengl/src/state/ffp/transform/matrix_mode.cpp
 	src/plugins/opengl/src/state/ffp/transform/object.cpp

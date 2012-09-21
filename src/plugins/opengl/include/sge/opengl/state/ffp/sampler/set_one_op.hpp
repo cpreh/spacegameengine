@@ -18,33 +18,61 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/common.hpp>
+#ifndef SGE_OPENGL_STATE_FFP_SAMPLER_SET_ONE_OP_HPP_INCLUDED
+#define SGE_OPENGL_STATE_FFP_SAMPLER_SET_ONE_OP_HPP_INCLUDED
+
+#include <sge/opengl/state/convert/sampler_op.hpp>
+#include <sge/opengl/state/convert/sampler_op_type.hpp>
 #include <sge/opengl/state/ffp/sampler/actor.hpp>
 #include <sge/opengl/state/ffp/sampler/set_one.hpp>
 #include <sge/opengl/texture/funcs/env_arg.hpp>
-#include <sge/opengl/texture/funcs/env_int.hpp>
 #include <sge/opengl/texture/funcs/env_int_value.hpp>
-#include <sge/opengl/texture/funcs/env_target.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
-#include <fcppt/tr1/functional.hpp>
 
 
+namespace sge
+{
+namespace opengl
+{
+namespace state
+{
+namespace ffp
+{
+namespace sampler
+{
+
+template<
+	typename OpType,
+	typename Op
+>
 sge::opengl::state::ffp::sampler::actor const
-sge::opengl::state::ffp::sampler::set_one(
-	sge::opengl::texture::funcs::env_arg const _arg,
-	sge::opengl::texture::funcs::env_int_value const _value
+set_one_op(
+	Op const _op
 )
 {
 	return
-		std::tr1::bind(
-			sge::opengl::texture::funcs::env_int,
-			std::tr1::placeholders::_1,
+		sge::opengl::state::ffp::sampler::set_one(
 			fcppt::strong_typedef_construct_cast<
-				sge::opengl::texture::funcs::env_target
+				sge::opengl::texture::funcs::env_arg
 			>(
-				GL_TEXTURE_ENV
+				sge::opengl::state::convert::sampler_op_type<
+					OpType
+				>::get()
 			),
-			_arg,
-			_value
+			fcppt::strong_typedef_construct_cast<
+				sge::opengl::texture::funcs::env_int_value
+			>(
+				sge::opengl::state::convert::sampler_op(
+					_op
+				)
+			)
 		);
 }
+
+}
+}
+}
+}
+}
+
+#endif

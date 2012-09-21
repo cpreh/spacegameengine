@@ -21,30 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_FFP_SAMPLER_COLOR_OP_HPP_INCLUDED
 #define SGE_RENDERER_STATE_FFP_SAMPLER_COLOR_OP_HPP_INCLUDED
 
+#include <sge/renderer/state/ffp/sampler/color_op_fwd.hpp>
 #include <sge/renderer/state/ffp/sampler/op.hpp>
 #include <fcppt/strong_typedef.hpp>
 
-
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace sampler
-{
-
-FCPPT_MAKE_STRONG_TYPEDEF(
-	sge::renderer::state::ffp::sampler::op,
-	color_op
-);
-
-}
-}
-}
-}
-}
 
 #endif

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/state/ffp/sampler/actor_vector.hpp>
 #include <sge/renderer/state/ffp/sampler/binary_op_fwd.hpp>
-#include <sge/renderer/state/ffp/sampler/ternany_op_fwd.hpp>
+#include <sge/renderer/state/ffp/sampler/ternary_op_fwd.hpp>
 #include <sge/renderer/state/ffp/sampler/unary_op_fwd.hpp>
 
 

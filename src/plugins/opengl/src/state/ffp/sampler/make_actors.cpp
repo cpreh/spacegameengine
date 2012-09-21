@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/state/ffp/sampler/actor_vector.hpp>
 #include <sge/opengl/state/ffp/sampler/make_actors.hpp>
-#include <sge/opengl/state/ffp/sampler/make_one.hpp>
+#include <sge/opengl/state/ffp/sampler/make_one_op.hpp>
 #include <sge/opengl/state/ffp/sampler/set_one.hpp>
 #include <sge/renderer/state/ffp/sampler/parameters.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
@@ -51,12 +51,13 @@ sge::opengl::state::ffp::sampler::make_actors(
 						GL_COMBINE
 					)
 				)
-			),
+			)
+			.container(),
 			fcppt::algorithm::join(
-				sge::opengl::state::ffp::sampler::make_one(
+				sge::opengl::state::ffp::sampler::make_one_op(
 					_parameters.color_op()
 				),
-				sge::opengl::state::ffp::sampler::make_one(
+				sge::opengl::state::ffp::sampler::make_one_op(
 					_parameters.alpha_op()
 				)
 			)

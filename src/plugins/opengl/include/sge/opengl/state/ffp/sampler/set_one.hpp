@@ -18,32 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_SET_STAGE_FUNCS_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_SET_STAGE_FUNCS_HPP_INCLUDED
+#ifndef SGE_OPENGL_STATE_FFP_SAMPLER_SET_ONE_HPP_INCLUDED
+#define SGE_OPENGL_STATE_FFP_SAMPLER_SET_ONE_HPP_INCLUDED
 
-#include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/renderer/texture/stage.hpp>
+#include <sge/opengl/state/ffp/sampler/actor_fwd.hpp>
+#include <sge/opengl/texture/funcs/env_arg.hpp>
+#include <sge/opengl/texture/funcs/env_int_value.hpp>
 
 
 namespace sge
 {
 namespace opengl
 {
-namespace texture
+namespace state
+{
+namespace ffp
+{
+namespace sampler
 {
 
-template<
-	typename Arg,
-	typename Value
->
-void
-set_stage_funcs(
-	sge::opengl::context::system::object &,
-	sge::renderer::texture::stage,
-	Arg,
-	Value
+sge::opengl::state::ffp::sampler::actor const
+set_one(
+	sge::opengl::texture::funcs::env_arg,
+	sge::opengl::texture::funcs::env_int_value
 );
 
+}
+}
 }
 }
 }
