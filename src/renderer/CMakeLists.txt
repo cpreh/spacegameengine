@@ -232,6 +232,7 @@ set(
 	include/sge/renderer/primitive_type.hpp
 	include/sge/renderer/projection/aspect.hpp
 	include/sge/renderer/projection/dim.hpp
+	include/sge/renderer/projection/dim_fwd.hpp
 	include/sge/renderer/projection/far.hpp
 	include/sge/renderer/projection/fov.hpp
 	include/sge/renderer/projection/near.hpp
@@ -241,6 +242,7 @@ set(
 	include/sge/renderer/projection/perspective_af.hpp
 	include/sge/renderer/projection/perspective_wh.hpp
 	include/sge/renderer/projection/rect.hpp
+	include/sge/renderer/projection/rect_fwd.hpp
 	include/sge/renderer/raw_pointer.hpp
 	include/sge/renderer/raw_value.hpp
 	include/sge/renderer/resource_flags.hpp
@@ -542,6 +544,7 @@ set(
 	include/sge/renderer/state/ffp/transform/parameters.hpp
 	include/sge/renderer/state/ffp/transform/parameters_fwd.hpp
 	include/sge/renderer/state/ffp/transform/scoped.hpp
+	include/sge/renderer/state/ffp/transform/scoped_fwd.hpp
 	include/sge/renderer/state/index_count.hpp
 	include/sge/renderer/system.hpp
 	include/sge/renderer/system_fwd.hpp

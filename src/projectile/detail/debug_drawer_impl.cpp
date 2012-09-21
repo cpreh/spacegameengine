@@ -23,15 +23,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/line_drawer/line.hpp>
 #include <sge/line_drawer/scoped_lock.hpp>
 #include <sge/projectile/world.hpp>
-#include <sge/renderer/scoped_transform.hpp>
+#include <sge/renderer/vector3.hpp>
+#include <sge/renderer/context/core_fwd.hpp>
+#include <sge/renderer/device/core_fwd.hpp>
 #include <sge/src/projectile/declare_local_logger.hpp>
 #include <sge/src/projectile/structure_cast.hpp>
 #include <sge/src/projectile/detail/debug_drawer_impl.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/assert/pre.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
-#include <fcppt/math/vector/output.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h>
 #include <iostream>
@@ -43,8 +43,8 @@ SGE_PROJECTILE_DECLARE_LOCAL_LOGGER(
 	FCPPT_TEXT("debug_drawer_impl"))
 
 sge::projectile::detail::debug_drawer_impl::debug_drawer_impl(
-	world &_world,
-	sge::renderer::device &_renderer)
+	sge::projectile::world &_world,
+	sge::renderer::device::core &_renderer)
 :
 	world_(
 		*_world.world_),
@@ -90,21 +90,10 @@ sge::projectile::detail::debug_drawer_impl::update()
 
 void
 sge::projectile::detail::debug_drawer_impl::render(
-	sge::renderer::context::object &_render_context,
-	sge::renderer::matrix4 const &mvp)
+	sge::renderer::context::core &_render_context)
 {
 	if (debug_mode_ == btIDebugDraw::DBG_NoDebug)
 		return;
-
-	sge::renderer::scoped_transform const projection_scope(
-		_render_context,
-		sge::renderer::matrix_mode::projection,
-		mvp);
-
-	sge::renderer::scoped_transform const world_scope(
-		_render_context,
-		sge::renderer::matrix_mode::world,
-		sge::renderer::matrix4::identity());
 
 	line_drawer_.render(
 		_render_context);

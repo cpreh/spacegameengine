@@ -312,7 +312,6 @@ set(
 	include/sge/sprite/render/range_part_vector.hpp
 	include/sge/sprite/render/range_with_options.hpp
 	include/sge/sprite/render/state_options.hpp
-	include/sge/sprite/render/states.hpp
 	include/sge/sprite/render/vertex_options.hpp
 	include/sge/sprite/repetition.hpp
 	include/sge/sprite/roles/color.hpp

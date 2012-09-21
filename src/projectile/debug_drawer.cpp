@@ -19,14 +19,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/projectile/debug_drawer.hpp>
+#include <sge/projectile/world_fwd.hpp>
+#include <sge/renderer/context/core_fwd.hpp>
+#include <sge/renderer/device/core_fwd.hpp>
 #include <sge/src/projectile/detail/debug_drawer_impl.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
 
 
 sge::projectile::debug_drawer::debug_drawer(
-	world &_world,
-	sge::renderer::device &_renderer)
+	sge::projectile::world &_world,
+	sge::renderer::device::core &_renderer)
 :
 	impl_(
 		fcppt::make_unique_ptr<detail::debug_drawer_impl>(
@@ -45,12 +48,10 @@ sge::projectile::debug_drawer::update()
 
 void
 sge::projectile::debug_drawer::render(
-	sge::renderer::context::object &_render_context,
-	sge::renderer::matrix4 const &mvp)
+	sge::renderer::context::core &_render_context)
 {
 	impl_->render(
-		_render_context,
-		mvp);
+		_render_context);
 }
 
 void

@@ -24,9 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/line_drawer/object.hpp>
 #include <sge/line_drawer/scoped_lock.hpp>
 #include <sge/projectile/world_fwd.hpp>
-#include <sge/renderer/device_fwd.hpp>
-#include <sge/renderer/matrix4.hpp>
-#include <sge/renderer/context/object_fwd.hpp>
+#include <sge/renderer/context/core_fwd.hpp>
+#include <sge/renderer/device/core_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
@@ -52,15 +51,14 @@ FCPPT_NONCOPYABLE(
 public:
 	debug_drawer_impl(
 		sge::projectile::world &,
-		sge::renderer::device &);
+		sge::renderer::device::core &);
 
 	void
 	update();
 
 	void
 	render(
-		sge::renderer::context::object &,
-		sge::renderer::matrix4 const &);
+		sge::renderer::context::core &);
 
 	void
 	active(
