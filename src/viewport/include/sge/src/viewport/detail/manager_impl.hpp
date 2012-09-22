@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_VIEWPORT_DETAIL_MANAGER_IMPL_HPP_INCLUDED
 #define SGE_SRC_VIEWPORT_DETAIL_MANAGER_IMPL_HPP_INCLUDED
 
-#include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/target/base_fwd.hpp>
 #include <sge/viewport/manage_callback.hpp>
 #include <sge/viewport/resize_function.hpp>
@@ -49,7 +49,7 @@ class manager_impl
 	);
 public:
 	manager_impl(
-		sge::renderer::device &,
+		sge::renderer::device::core &,
 		sge::window::object &,
 		sge::viewport::resize_function const &
 	);

@@ -18,13 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_SPRITE_RENDER_PARAMETERS_IMPL_HPP_INCLUDED
+#define SGE_SPRITE_RENDER_PARAMETERS_IMPL_HPP_INCLUDED
+
 #include <sge/renderer/vertex_declaration_fwd.hpp>
-#include <sge/renderer/context/object_fwd.hpp>
-#include <sge/sprite/render/parameters.hpp>
+#include <sge/sprite/render/parameters_decl.hpp>
 
 
-sge::sprite::render::parameters::parameters(
-	sge::renderer::context::object &_render_context,
+template<
+	typename StateOptions
+>
+sge::sprite::render::parameters<
+	StateOptions
+>::parameters(
+	render_context_type &_render_context,
 	sge::renderer::vertex_declaration const &_vertex_declaration
 )
 :
@@ -37,16 +44,29 @@ sge::sprite::render::parameters::parameters(
 {
 }
 
-sge::renderer::context::object &
-sge::sprite::render::parameters::render_context() const
+template<
+	typename StateOptions
+>
+typename
+sge::sprite::render::parameters<
+	StateOptions
+>::render_context_type &
+sge::sprite::render::parameters<
+	StateOptions
+>::render_context() const
 {
-	return
-		render_context_;
+	return render_context_;
 }
 
+template<
+	typename StateOptions
+>
 sge::renderer::vertex_declaration const &
-sge::sprite::render::parameters::vertex_declaration() const
+sge::sprite::render::parameters<
+	StateOptions
+>::vertex_declaration() const
 {
-	return
-		vertex_declaration_;
+	return vertex_declaration_;
 }
+
+#endif

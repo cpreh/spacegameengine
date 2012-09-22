@@ -18,25 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/state/bool.hpp>
-#include <sge/renderer/state/cull_mode.hpp>
-#include <sge/renderer/state/dest_blend_func.hpp>
-#include <sge/renderer/state/draw_mode.hpp>
-#include <sge/renderer/state/list.hpp>
-#include <sge/renderer/state/source_blend_func.hpp>
-#include <sge/renderer/state/trampoline.hpp>
-#include <sge/renderer/state/var.hpp>
-#include <sge/sprite/detail/render/normal_states.hpp>
+#ifndef SGE_SPRITE_STATE_WITH_BLEND_FWD_HPP_INCLUDED
+#define SGE_SPRITE_STATE_WITH_BLEND_FWD_HPP_INCLUDED
 
 
-sge::renderer::state::list const
-sge::sprite::detail::render::normal_states()
+namespace sge
 {
-	return
-		sge::renderer::state::list
-		(sge::renderer::state::bool_::enable_alpha_blending = true)
-		(sge::renderer::state::source_blend_func::src_alpha)
-		(sge::renderer::state::dest_blend_func::inv_src_alpha)
-		(sge::renderer::state::cull_mode::off)
-		(sge::renderer::state::draw_mode::fill);
+namespace sprite
+{
+namespace state
+{
+
+struct with_blend;
+
 }
+}
+}
+
+#endif

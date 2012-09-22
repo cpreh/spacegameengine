@@ -21,12 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_PROCESS_WITH_OPTIONS_HPP_INCLUDED
 #define SGE_SPRITE_PROCESS_WITH_OPTIONS_HPP_INCLUDED
 
-#include <sge/renderer/context/object_fwd.hpp>
 #include <sge/sprite/detail/process/geometry.hpp>
 #include <sge/sprite/process/is_options.hpp>
-#include <sge/sprite/render/options_fwd.hpp>
 #include <sge/sprite/render/parameters.hpp>
 #include <sge/sprite/render/range_with_options.hpp>
+#include <sge/sprite/state/render_context.hpp>
+#include <sge/sprite/state/object_fwd.hpp>
+#include <sge/sprite/state/options_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -43,7 +44,8 @@ template<
 	typename Options,
 	typename Range,
 	typename Buffers,
-	typename Compare
+	typename Compare,
+	typename StateChoices
 >
 typename boost::enable_if<
 	sge::sprite::process::is_options<
@@ -52,15 +54,24 @@ typename boost::enable_if<
 	void
 >::type
 with_options(
-	sge::renderer::context::object &_render_context,
+	typename sge::sprite::state::render_context<
+		StateChoices
+	>::type &_render_context,
 	Range const &_range,
 	Buffers &_buffers,
 	Compare const &_compare,
-	sge::sprite::render::options const &_render_options
+	sge::sprite::state::object<
+		StateChoices
+	> const &_states,
+	sge::sprite::state::options<
+		StateChoices
+	> const &_state_options
 )
 {
 	sge::sprite::render::range_with_options(
-		sge::sprite::render::parameters(
+		sge::sprite::render::parameters<
+			StateChoices
+		>(
 			_render_context,
 			_buffers.parameters().vertex_declaration()
 		),
@@ -72,7 +83,8 @@ with_options(
 			_buffers,
 			_compare
 		),
-		_render_options
+		_states,
+		_state_options
 	);
 }
 

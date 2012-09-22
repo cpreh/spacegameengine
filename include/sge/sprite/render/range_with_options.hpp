@@ -22,12 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_RENDER_RANGE_WITH_OPTIONS_HPP_INCLUDED
 
 #include <sge/sprite/detail/render/range.hpp>
-#include <sge/sprite/detail/render/scoped_matrices.hpp>
 #include <sge/sprite/detail/render/scoped_states.hpp>
 #include <sge/sprite/detail/render/scoped_vertex.hpp>
-#include <sge/sprite/render/options_impl.hpp>
 #include <sge/sprite/render/parameters.hpp>
 #include <sge/sprite/render/range_impl.hpp>
+#include <sge/sprite/state/object_fwd.hpp>
+#include <sge/sprite/state/options_fwd.hpp>
 
 
 namespace sge
@@ -38,15 +38,23 @@ namespace render
 {
 
 template<
-	typename Choices
+	typename Choices,
+	typename StateChoices
 >
 void
 range_with_options(
-	sge::sprite::render::parameters const &_parameters,
+	sge::sprite::render::parameters<
+		StateChoices
+	> const &_parameters,
 	sge::sprite::render::range<
 		Choices
 	> const &_range,
-	sge::sprite::render::options const &_options
+	sge::sprite::state::object<
+		StateChoices
+	> const &_states,
+	sge::sprite::state::options<
+		StateChoices
+	> const &_options
 )
 {
 	if(
@@ -54,16 +62,12 @@ range_with_options(
 	)
 		return;
 
-	sge::sprite::detail::render::scoped_matrices const matrices(
-		_parameters.render_context(),
-		_options.matrix_options()
-	);
-
 	sge::sprite::detail::render::scoped_states<
-		Choices
-	> const scoped_states(
+		StateChoices
+	> const states(
 		_parameters.render_context(),
-		_options.state_options()
+		_options,
+		_states
 	);
 
 	sge::sprite::detail::render::scoped_vertex const scoped_vertex(

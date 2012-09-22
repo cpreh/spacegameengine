@@ -63,7 +63,7 @@ public:
 	pos(
 		typename majutsu::role_return_type<
 			flattened_types,
-			roles::pos
+			sge::sprite::roles::pos
 		>::type const &
 	);
 
@@ -71,7 +71,7 @@ public:
 	center(
 		typename majutsu::role_return_type<
 			flattened_types,
-			roles::pos
+			sge::sprite::roles::pos
 		>::type const &
 	);
 
@@ -79,20 +79,20 @@ public:
 	texture(
 		typename majutsu::role_return_type<
 			flattened_types,
-			roles::texture<
+			sge::sprite::roles::texture<
 				0
 			>
 		>::type const &
 	);
 
 	template<
-		sprite::texture_level Level
+		sge::sprite::texture_level Level
 	>
 	parameters &
 	texture_level(
 		typename majutsu::role_return_type<
 			flattened_types,
-			roles::texture<
+			sge::sprite::roles::texture<
 				Level
 			>
 		>::type const &
@@ -102,7 +102,7 @@ public:
 	size(
 		typename majutsu::role_return_type<
 			flattened_types,
-			roles::size
+			sge::sprite::roles::size
 		>::type const &
 	);
 
@@ -110,7 +110,7 @@ public:
 	point_size(
 		typename majutsu::role_return_type<
 			flattened_types,
-			roles::point_size
+			sge::sprite::roles::point_size
 		>::type const &
 	);
 
@@ -121,7 +121,7 @@ public:
 	color(
 		typename majutsu::role_return_type<
 			flattened_types,
-			roles::color
+			sge::sprite::roles::color
 		>::type const &
 	);
 
@@ -137,7 +137,7 @@ public:
 	depth(
 		typename majutsu::role_return_type<
 			flattened_types,
-			roles::depth
+			sge::sprite::roles::depth
 		>::type const &
 	);
 
@@ -145,7 +145,7 @@ public:
 	rotation(
 		typename majutsu::role_return_type<
 			flattened_types,
-			roles::rotation
+			sge::sprite::roles::rotation
 		>::type const &
 	);
 
@@ -156,7 +156,7 @@ public:
 	rotation_point(
 		typename majutsu::role_return_type<
 			flattened_types,
-			roles::rotate_around
+			sge::sprite::roles::rotate_around
 		>::type const &
 	);
 
@@ -164,7 +164,7 @@ public:
 	repetition(
 		typename majutsu::role_return_type<
 			flattened_types,
-			roles::repetition
+			sge::sprite::roles::repetition
 		>::type const &
 	);
 
@@ -172,20 +172,20 @@ public:
 	texture_coordinates(
 		typename majutsu::role_return_type<
 			flattened_types,
-			roles::texture_coordinates<
+			sge::sprite::roles::texture_coordinates<
 				0
 			>
 		>::type const &
 	);
 
 	template<
-		sprite::texture_level Level
+		sge::sprite::texture_level Level
 	>
 	parameters &
 	texture_coordinates_level(
 		typename majutsu::role_return_type<
 			flattened_types,
-			roles::texture_coordinates<
+			sge::sprite::roles::texture_coordinates<
 				Level
 			>
 		>::type const &

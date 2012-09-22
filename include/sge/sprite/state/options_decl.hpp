@@ -18,25 +18,54 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_RENDER_MATRIX_OPTIONS_HPP_INCLUDED
-#define SGE_SPRITE_RENDER_MATRIX_OPTIONS_HPP_INCLUDED
+#ifndef SGE_SPRITE_STATE_OPTIONS_DECL_HPP_INCLUDED
+#define SGE_SPRITE_STATE_OPTIONS_DECL_HPP_INCLUDED
+
+#include <sge/sprite/state/options_fwd.hpp>
+#include <sge/sprite/state/vertex_options.hpp>
+#include <sge/sprite/state/detail/options_class.hpp>
+
 
 namespace sge
 {
 namespace sprite
 {
-namespace render
+namespace state
 {
 
-namespace matrix_options
+template<
+	typename StateChoices
+>
+class options
 {
-enum type
-{
-	set,
-	nothing
+	typedef typename sge::sprite::state::detail::options_class<
+		StateChoices
+	>::type elements_type;
+public:
+	explicit
+	options(
+		sge::sprite::state::vertex_options::type
+	);
+
+	options &
+	no_blend_state();
+
+	options &
+	no_rasterizer_state();
+
+	options &
+	no_transform_state();
+
+	sge::sprite::state::vertex_options::type
+	vertex_options() const;
+
+	elements_type const &
+	elements() const;
+private:
+	sge::sprite::state::vertex_options::type vertex_options_;
+
+	elements_type elements_;
 };
-
-}
 
 }
 }

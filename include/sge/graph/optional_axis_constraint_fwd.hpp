@@ -18,19 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/matrix4.hpp>
-#include <sge/renderer/matrix_mode.hpp>
-#include <sge/renderer/context/object.hpp>
-#include <sge/sprite/unset_matrices.hpp>
+#ifndef SGE_GRAPH_OPTIONAL_AXIS_CONSTRAINT_FWD_HPP_INCLUDED
+#define SGE_GRAPH_OPTIONAL_AXIS_CONSTRAINT_FWD_HPP_INCLUDED
 
+#include <sge/graph/axis_constraint_fwd.hpp>
+#include <fcppt/optional_fwd.hpp>
 
-void
-sge::sprite::unset_matrices(
-	sge::renderer::context::object &_context
-)
+namespace sge
 {
-	_context.transform(
-		sge::renderer::matrix_mode::projection,
-		sge::renderer::matrix4::identity()
-	);
+namespace graph
+{
+typedef
+fcppt::optional<sge::graph::axis_constraint>
+optional_axis_constraint;
 }
+}
+
+#endif

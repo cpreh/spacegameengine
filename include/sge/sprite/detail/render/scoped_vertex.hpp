@@ -22,10 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_RENDER_SCOPED_VERTEX_HPP_INCLUDED
 
 #include <sge/renderer/vertex_buffer_fwd.hpp>
-#include <sge/renderer/context/object.hpp>
+#include <sge/renderer/context/core.hpp>
 #include <sge/sprite/detail/render/scoped_vertex_declaration.hpp>
 #include <sge/sprite/render/parameters.hpp>
-#include <sge/sprite/render/vertex_options.hpp>
+#include <sge/sprite/state/vertex_options.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -44,10 +44,15 @@ class scoped_vertex
 		scoped_vertex
 	);
 public:
+	template<
+		typename StateChoices
+	>
 	scoped_vertex(
-		sge::sprite::render::parameters const &_parameters,
+		sge::sprite::render::parameters<
+			StateChoices
+		> const &_parameters,
 		sge::renderer::vertex_buffer const &_vertex_buffer,
-		sge::sprite::render::vertex_options::type const &_options
+		sge::sprite::state::vertex_options::type const &_options
 	)
 	:
 		scoped_vertex_declaration_(
@@ -63,11 +68,11 @@ public:
 		set_buffer_(
 			_options
 			==
-			sge::sprite::render::vertex_options::buffer
+			sge::sprite::state::vertex_options::buffer
 			||
 			_options
 			==
-			sge::sprite::render::vertex_options::declaration_and_buffer
+			sge::sprite::state::vertex_options::declaration_and_buffer
 		)
 	{
 		if(
@@ -90,7 +95,7 @@ public:
 private:
 	sge::sprite::detail::render::scoped_vertex_declaration const scoped_vertex_declaration_;
 
-	sge::renderer::context::object &render_context_;
+	sge::renderer::context::core &render_context_;
 
 	sge::renderer::vertex_buffer const &vertex_buffer_;
 

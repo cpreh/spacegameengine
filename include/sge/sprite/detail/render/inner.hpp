@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_RENDER_INNER_HPP_INCLUDED
 
 #include <sge/renderer/primitive_type.hpp>
-#include <sge/renderer/context/object.hpp>
+#include <sge/renderer/context/core.hpp>
 #include <sge/sprite/detail/config/needs_index_buffer.hpp>
 #include <sge/sprite/render/range_impl.hpp>
 #include <sge/sprite/render/range_part_impl.hpp>
@@ -50,7 +50,7 @@ typename boost::enable_if<
 	void
 >::type
 inner(
-	sge::renderer::context::object &_render_context,
+	sge::renderer::context::core &_render_context,
 	sge::sprite::render::range<
 		Choices
 	> const &_range,
@@ -79,7 +79,7 @@ typename boost::disable_if<
 	void
 >::type
 inner(
-	sge::renderer::context::object &_render_context,
+	sge::renderer::context::core &_render_context,
 	sge::sprite::render::range<
 		Choices
 	> const &,

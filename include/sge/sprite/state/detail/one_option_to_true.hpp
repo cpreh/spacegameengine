@@ -18,29 +18,67 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/matrix4.hpp>
-#include <sge/renderer/matrix_mode.hpp>
-#include <sge/renderer/context/object.hpp>
-#include <sge/renderer/target/base.hpp>
-#include <sge/renderer/target/viewport.hpp>
-#include <sge/sprite/projection_matrix.hpp>
-#include <sge/sprite/set_matrices.hpp>
+#ifndef SGE_SPRITE_STATE_DETAIL_ONE_OPTION_TO_TRUE_HPP_INCLUDED
+#define SGE_SPRITE_STATE_DETAIL_ONE_OPTION_TO_TRUE_HPP_INCLUDED
+
+#include <sge/sprite/state/detail/options_class.hpp>
+#include <fcppt/nonassignable.hpp>
 
 
-void
-sge::sprite::set_matrices(
-	sge::renderer::context::object &_context
-)
+namespace sge
 {
-	_context.transform(
-		sge::renderer::matrix_mode::world,
-		sge::renderer::matrix4::identity()
-	);
+namespace sprite
+{
+namespace state
+{
+namespace detail
+{
 
-	_context.transform(
-		sge::renderer::matrix_mode::projection,
-		sprite::projection_matrix(
-			_context.target().viewport()
-		)
+template<
+	typename StateChoices
+>
+class one_option_to_true
+{
+	FCPPT_NONASSIGNABLE(
+		one_option_to_true
 	);
+public:
+	typedef typename sge::sprite::state::detail::options_class<
+		StateChoices
+	>::type options_class;
+
+	explicit
+	one_option_to_true(
+		options_class &_result
+	)
+	:
+		result_(
+			_result
+		)
+	{
+	}
+
+	typedef void result_type;
+
+	template<
+		typename Type
+	>
+	result_type
+	operator()() const
+	{
+		result_. template set<
+			typename Type::role
+		>(
+			true
+		);
+	}
+private:
+	options_class &result_;
+};
+
 }
+}
+}
+}
+
+#endif

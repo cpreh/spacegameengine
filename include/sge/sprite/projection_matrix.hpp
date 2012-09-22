@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_PROJECTION_MATRIX_HPP_INCLUDED
 
 #include <sge/renderer/target/viewport_fwd.hpp>
-#include <sge/sprite/matrix.hpp>
+#include <sge/sprite/matrix_fwd.hpp>
 #include <sge/sprite/symbol.hpp>
 
 

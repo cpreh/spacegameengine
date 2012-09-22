@@ -21,12 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_PROCESS_ONE_HPP_INCLUDED
 #define SGE_SPRITE_PROCESS_ONE_HPP_INCLUDED
 
-#include <sge/renderer/context/object_fwd.hpp>
 #include <sge/sprite/object_fwd.hpp>
 #include <sge/sprite/process/geometry_options.hpp>
 #include <sge/sprite/process/one_with_options.hpp>
 #include <sge/sprite/process/options.hpp>
-#include <sge/sprite/render/default_options.hpp>
+#include <sge/sprite/state/default_options.hpp>
+#include <sge/sprite/state/object_fwd.hpp>
+#include <sge/sprite/state/render_context.hpp>
 
 
 namespace sge
@@ -37,16 +38,21 @@ namespace process
 {
 
 template<
+	typename RenderContext,
 	typename Choices,
+	typename StateChoices,
 	typename Buffers
 >
 void
 one(
-	sge::renderer::context::object &_render_context,
+	RenderContext &_render_context,
 	sge::sprite::object<
 		Choices
 	> const &_sprite,
-	Buffers &_buffers
+	Buffers &_buffers,
+	sge::sprite::state::object<
+		StateChoices
+	> const &_sprite_state
 )
 {
 	sge::sprite::process::one_with_options<
@@ -57,7 +63,10 @@ one(
 		_render_context,
 		_sprite,
 		_buffers,
-		sge::sprite::render::default_options()
+		_sprite_state,
+		sge::sprite::state::default_options<
+			StateChoices
+		>()
 	);
 }
 

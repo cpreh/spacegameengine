@@ -19,9 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/color/format.hpp>
-#include <sge/renderer/device.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
+#include <sge/renderer/device/core.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
@@ -41,7 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::texture::rect_fragmented::rect_fragmented(
-	sge::renderer::device &_renderer,
+	sge::renderer::device::core &_renderer,
 	sge::image::color::format::type const _format,
 	sge::renderer::texture::mipmap::object const &_mipmap,
 	sge::renderer::dim2 const &_initial_size

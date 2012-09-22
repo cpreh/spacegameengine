@@ -18,24 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_UNSET_MATRICES_HPP_INCLUDED
-#define SGE_SPRITE_UNSET_MATRICES_HPP_INCLUDED
-
-#include <sge/renderer/context/object_fwd.hpp>
-#include <sge/sprite/symbol.hpp>
+#ifndef SGE_SPRITE_STATE_PARAMETERS_FWD_HPP_INCLUDED
+#define SGE_SPRITE_STATE_PARAMETERS_FWD_HPP_INCLUDED
 
 
 namespace sge
 {
 namespace sprite
 {
+namespace state
+{
 
-SGE_SPRITE_SYMBOL
-void
-unset_matrices(
-	sge::renderer::context::object &
-);
+template<
+	typename StateChoices
+>
+class parameters;
 
+}
 }
 }
 

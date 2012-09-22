@@ -21,10 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_PROCESS_ALL_HPP_INCLUDED
 #define SGE_SPRITE_PROCESS_ALL_HPP_INCLUDED
 
-#include <sge/renderer/context/object_fwd.hpp>
 #include <sge/sprite/process/default_options.hpp>
 #include <sge/sprite/process/with_options.hpp>
-#include <sge/sprite/render/default_options.hpp>
+#include <sge/sprite/state/default_options.hpp>
+#include <sge/sprite/state/object_fwd.hpp>
+#include <sge/sprite/state/render_context.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iterator>
 #include <fcppt/config/external_end.hpp>
@@ -40,14 +41,20 @@ namespace process
 template<
 	typename Range,
 	typename Buffers,
-	typename Compare
+	typename Compare,
+	typename StateChoices
 >
 void
 all(
-	sge::renderer::context::object &_render_context,
+	typename sge::sprite::state::render_context<
+		StateChoices
+	>::type &_render_context,
 	Range const &_range,
 	Buffers &_buffers,
-	Compare const &_compare
+	Compare const &_compare,
+	sge::sprite::state::object<
+		StateChoices
+	> const &_states
 )
 {
 	sge::sprite::process::with_options<
@@ -62,7 +69,9 @@ all(
 		_range,
 		_buffers,
 		_compare,
-		sge::sprite::render::default_options()
+		sge::sprite::state::default_options<
+			StateChoices
+		>()
 	);
 }
 

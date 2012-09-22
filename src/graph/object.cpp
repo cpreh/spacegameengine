@@ -31,22 +31,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/any/convert.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/image2d/vector.hpp>
-#include <sge/image2d/algorithm/bresenham.hpp>
-#include <sge/image2d/view/object.hpp>
-#include <sge/renderer/device.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
-#include <sge/renderer/vector2.hpp>
-#include <sge/renderer/context/object.hpp>
+#include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/texture/planar_scoped_ptr.hpp>
 #include <sge/renderer/texture/scoped_planar_lock.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
+#include <sge/sprite/object_impl.hpp>
+#include <sge/sprite/parameters_impl.hpp>
 #include <sge/sprite/buffers/option.hpp>
+#include <sge/sprite/buffers/single_impl.hpp>
+#include <sge/sprite/buffers/with_declaration_impl.hpp>
 #include <sge/sprite/process/one.hpp>
+#include <sge/sprite/state/object_impl.hpp>
+#include <sge/sprite/state/parameters_impl.hpp>
 #include <sge/src/graph/detail/draw_visitor.hpp>
 #include <sge/texture/part_raw_ref.hpp>
 #include <mizuiro/image/algorithm/bresenham.hpp>
@@ -57,7 +60,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/circular_buffer.hpp>
 #include <boost/algorithm/minmax_element.hpp>
 #include <algorithm>
 #include <utility>
@@ -112,34 +114,34 @@ draw_rectangle(
 	sge::image::color::any::object const &_color
 )
 {
-adapted_bresenham(
-	_view,
-	_corner1,
-	sge::image2d::vector(_corner1.x(), _corner2.y()),
-	_color,
-	_color
-);
-adapted_bresenham(
-	_view,
-	_corner1,
-	sge::image2d::vector(_corner2.x(), _corner1.y()),
-	_color,
-	_color
-);
-adapted_bresenham(
-	_view,
-	sge::image2d::vector(_corner1.x(), _corner2.y()),
-	_corner2,
-	_color,
-	_color
-);
-adapted_bresenham(
-	_view,
-	sge::image2d::vector(_corner2.x(), _corner1.y()),
-	_corner2,
-	_color,
-	_color
-);
+	adapted_bresenham(
+		_view,
+		_corner1,
+		sge::image2d::vector(_corner1.x(), _corner2.y()),
+		_color,
+		_color
+	);
+	adapted_bresenham(
+		_view,
+		_corner1,
+		sge::image2d::vector(_corner2.x(), _corner1.y()),
+		_color,
+		_color
+	);
+	adapted_bresenham(
+		_view,
+		sge::image2d::vector(_corner1.x(), _corner2.y()),
+		_corner2,
+		_color,
+		_color
+	);
+	adapted_bresenham(
+		_view,
+		sge::image2d::vector(_corner2.x(), _corner1.y()),
+		_corner2,
+		_color,
+		_color
+	);
 }
 
 sge::image2d::vector::value_type
@@ -190,67 +192,71 @@ fit_into_scale(
 sge::graph::object::object(
 	sge::graph::position const &_position,
 	sge::renderer::dim2 const &_dim,
-	sge::renderer::device &_renderer,
+	sge::renderer::device::ffp &_renderer,
 	sge::graph::baseline _baseline,
 	sge::graph::optional_axis_constraint const &_axis_constraint,
 	sge::graph::color_scheme const &_color_scheme
 )
 :
-dim_(
-	_dim),
-texture_(
-	_renderer.create_planar_texture(
-		sge::renderer::texture::planar_parameters(
-			_dim,
-			sge::image::color::format::rgba8,
-			sge::renderer::texture::mipmap::off(),
-			sge::renderer::resource_flags_field::null(),
-			sge::renderer::texture::capabilities_field(
-				sge::renderer::texture::capabilities_field::null()
+	dim_(
+		_dim),
+	texture_(
+		_renderer.create_planar_texture(
+			sge::renderer::texture::planar_parameters(
+				_dim,
+				sge::image::color::format::rgba8,
+				sge::renderer::texture::mipmap::off(),
+				sge::renderer::resource_flags_field::null(),
+				sge::renderer::texture::capabilities_field(
+					sge::renderer::texture::capabilities_field::null()
+				)
 			)
 		)
-	)
-),
-sprite_object_(
-	sprite_parameters()
-	.pos(
-		fcppt::math::vector::structure_cast<
-			sprite_object::vector>(
-				_position.get()))
-	.texture(
-		fcppt::make_shared_ptr<
-			sge::texture::part_raw_ref
-		>(
-			fcppt::ref(
-				*texture_
-			)
-		)
-	)
-	.texture_size()
-),
-sprite_buffers_(
-	_renderer,
-	sge::sprite::buffers::option::dynamic
-),
-data_buffer_(
-	dim_.w()),
-baseline_(
-	_baseline.get()),
-color_scheme_(
-	_color_scheme),
-axis_constraint_(
-	_axis_constraint),
-current_min_(
-	std::min(
-		0.,
-		baseline_)
 	),
-current_max_(
-	1. +
-	std::max(
-		current_min_,
-		baseline_)
-	)
+	sprite_object_(
+		sprite_parameters()
+		.pos(
+			fcppt::math::vector::structure_cast<
+				sprite_object::vector>(
+					_position.get()))
+		.texture(
+			fcppt::make_shared_ptr<
+				sge::texture::part_raw_ref
+			>(
+				fcppt::ref(
+					*texture_
+				)
+			)
+		)
+		.texture_size()
+	),
+	sprite_buffers_(
+		_renderer,
+		sge::sprite::buffers::option::dynamic
+	),
+	sprite_state_(
+		_renderer,
+		sprite_state_parameters()
+	),
+	data_buffer_(
+		dim_.w()),
+	baseline_(
+		_baseline.get()),
+	color_scheme_(
+		_color_scheme),
+	axis_constraint_(
+		_axis_constraint),
+	current_min_(
+		std::min(
+			0.,
+			baseline_)
+		),
+	current_max_(
+		1. +
+		std::max(
+			current_min_,
+			baseline_)
+		)
 {
 	sge::renderer::texture::scoped_planar_lock const lock(
 		*texture_,
@@ -289,7 +295,7 @@ sge::graph::object::push(
 
 void
 sge::graph::object::render(
-	sge::renderer::context::object &_context)
+	sge::renderer::context::ffp &_context)
 {
 	{
 		sge::renderer::texture::scoped_planar_lock const lock(
@@ -305,7 +311,8 @@ sge::graph::object::render(
 	sge::sprite::process::one(
 		_context,
 		sprite_object_,
-		sprite_buffers_
+		sprite_buffers_,
+		sprite_state_
 	);
 }
 

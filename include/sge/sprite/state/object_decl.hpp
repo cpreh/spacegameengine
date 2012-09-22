@@ -18,13 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DETAIL_RENDER_SCOPED_MATRICES_HPP_INCLUDED
-#define SGE_SPRITE_DETAIL_RENDER_SCOPED_MATRICES_HPP_INCLUDED
+#ifndef SGE_SPRITE_STATE_OBJECT_DECL_HPP_INCLUDED
+#define SGE_SPRITE_STATE_OBJECT_DECL_HPP_INCLUDED
 
-#include <sge/renderer/context/object_fwd.hpp>
-#include <sge/sprite/set_matrices.hpp>
-#include <sge/sprite/unset_matrices.hpp>
-#include <sge/sprite/render/matrix_options.hpp>
+#include <sge/sprite/state/object_fwd.hpp>
+#include <sge/sprite/state/parameters_fwd.hpp>
+#include <sge/sprite/state/render_device.hpp>
+#include <sge/sprite/state/detail/object_class.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -32,55 +32,45 @@ namespace sge
 {
 namespace sprite
 {
-namespace detail
-{
-namespace render
+namespace state
 {
 
-class scoped_matrices
+template<
+	typename StateChoices
+>
+class object
 {
 	FCPPT_NONCOPYABLE(
-		scoped_matrices
+		object
 	);
 public:
-	scoped_matrices(
-		sge::renderer::context::object &_render_context,
-		sge::sprite::render::matrix_options::type const _options
-	)
-	:
-		render_context_(
-			_render_context
-		),
-		set_matrices_(
-			_options
-			==
-			sge::sprite::render::matrix_options::set
-		)
-	{
-		if(
-			set_matrices_
-		)
-			sge::sprite::set_matrices(
-				render_context_
-			);
-	}
+	typedef StateChoices state_choices;
 
-	~scoped_matrices()
-	{
-		if(
-			set_matrices_
-		)
-			sge::sprite::unset_matrices(
-				render_context_
-			);
-	}
+	typedef typename sge::sprite::state::detail::object_class<
+		StateChoices
+	>::type elements_type;
+
+	typedef sge::sprite::state::parameters<
+		state_choices
+	> parameters_type;
+
+	typedef typename sge::sprite::state::render_device<
+		StateChoices
+	>::type render_device;
+
+	object(
+		render_device &,
+		parameters_type const &
+	);
+
+	~object();
+
+	elements_type const &
+	elements() const;
 private:
-	sge::renderer::context::object &render_context_;
-
-	bool const set_matrices_;
+	elements_type const elements_;
 };
 
-}
 }
 }
 }

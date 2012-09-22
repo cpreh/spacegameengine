@@ -29,6 +29,9 @@ namespace sprite
 namespace render
 {
 
+template<
+	typename StateOptions
+>
 class parameters;
 
 }

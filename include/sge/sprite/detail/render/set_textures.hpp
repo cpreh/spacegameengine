@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_RENDER_SET_TEXTURES_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_RENDER_SET_TEXTURES_HPP_INCLUDED
 
-#include <sge/renderer/context/object_fwd.hpp>
+#include <sge/renderer/context/core_fwd.hpp>
 #include <sge/sprite/detail/apply_texture_levels.hpp>
 #include <sge/sprite/detail/config/has_texture_levels.hpp>
 #include <sge/sprite/detail/config/texture_levels.hpp>
@@ -51,7 +51,7 @@ typename boost::enable_if<
 	void
 >::type
 set_textures(
-	sge::renderer::context::object &_render_context,
+	sge::renderer::context::core &_render_context,
 	sge::sprite::render::range_part<
 		Choices
 	> const &_range
@@ -81,7 +81,7 @@ typename boost::disable_if<
 	void
 >::type
 set_textures(
-	sge::renderer::context::object &,
+	sge::renderer::context::core &,
 	sge::sprite::render::range_part<
 		Choices
 	> const &

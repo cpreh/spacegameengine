@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_RENDER_RANGE_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_RENDER_RANGE_HPP_INCLUDED
 
-#include <sge/renderer/context/object_fwd.hpp>
+#include <sge/renderer/context/core_fwd.hpp>
 #include <sge/sprite/detail/render/inner.hpp>
 #include <sge/sprite/detail/render/set_textures.hpp>
 #include <sge/sprite/detail/render/unset_textures.hpp>
@@ -42,7 +42,7 @@ template<
 >
 void
 range(
-	sge::renderer::context::object &_render_context,
+	sge::renderer::context::core &_render_context,
 	sge::sprite::render::range<
 		Choices
 	> const &_range

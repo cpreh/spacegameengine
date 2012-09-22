@@ -18,33 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_RENDER_DEFAULT_OPTIONS_HPP_INCLUDED
-#define SGE_SPRITE_RENDER_DEFAULT_OPTIONS_HPP_INCLUDED
-
-#include <sge/sprite/render/matrix_options.hpp>
-#include <sge/sprite/render/options.hpp>
-#include <sge/sprite/render/state_options.hpp>
-#include <sge/sprite/render/vertex_options.hpp>
+#ifndef SGE_SPRITE_STATE_OPTIONS_FWD_HPP_INCLUDED
+#define SGE_SPRITE_STATE_OPTIONS_FWD_HPP_INCLUDED
 
 
 namespace sge
 {
 namespace sprite
 {
-namespace render
+namespace state
 {
 
-inline
-sge::sprite::render::options const
-default_options()
-{
-	return
-		sge::sprite::render::options(
-			sge::sprite::render::matrix_options::set,
-			sge::sprite::render::state_options::set,
-			sge::sprite::render::vertex_options::declaration_and_buffer
-		);
-}
+template<
+	typename StateChoices
+>
+class options;
 
 }
 }

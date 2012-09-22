@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_VIEWPORT_MANAGER_HPP_INCLUDED
 
 #include <sge/class_symbol.hpp>
-#include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/device/core_fwd.hpp>
 #include <sge/viewport/manage_callback.hpp>
 #include <sge/viewport/manager_fwd.hpp>
 #include <sge/viewport/resize_function.hpp>
@@ -47,7 +47,7 @@ class SGE_CLASS_SYMBOL manager
 public:
 	SGE_VIEWPORT_SYMBOL
 	manager(
-		sge::renderer::device &,
+		sge::renderer::device::core &,
 		sge::window::object &,
 		sge::viewport::resize_function const &
 	);

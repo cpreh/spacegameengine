@@ -99,6 +99,7 @@ set(
 	include/sge/sprite/defaults/use_center.hpp
 	include/sge/sprite/defaults/use_texture_size.hpp
 	include/sge/sprite/depth.hpp
+	include/sge/sprite/detail/application.hpp
 	include/sge/sprite/detail/apply_texture_levels.hpp
 	include/sge/sprite/detail/assign_post.hpp
 	include/sge/sprite/detail/assign_pre.hpp
@@ -197,13 +198,11 @@ set(
 	include/sge/sprite/detail/render/range.hpp
 	include/sge/sprite/detail/render/range_object.hpp
 	include/sge/sprite/detail/render/range_part_object.hpp
-	include/sge/sprite/detail/render/scoped_matrices.hpp
 	include/sge/sprite/detail/render/scoped_states.hpp
 	include/sge/sprite/detail/render/scoped_vertex.hpp
 	include/sge/sprite/detail/render/scoped_vertex_declaration.hpp
 	include/sge/sprite/detail/render/set_texture_level.hpp
 	include/sge/sprite/detail/render/set_textures.hpp
-	include/sge/sprite/detail/render/states.hpp
 	include/sge/sprite/detail/render/unset_texture_stage.hpp
 	include/sge/sprite/detail/render/unset_texture_stages.hpp
 	include/sge/sprite/detail/render/unset_textures.hpp
@@ -274,6 +273,7 @@ set(
 	include/sge/sprite/intrusive/range_impl.hpp
 	include/sge/sprite/make_vertex_format.hpp
 	include/sge/sprite/matrix.hpp
+	include/sge/sprite/matrix_fwd.hpp
 	include/sge/sprite/object.hpp
 	include/sge/sprite/object_decl.hpp
 	include/sge/sprite/object_fwd.hpp
@@ -295,14 +295,10 @@ set(
 	include/sge/sprite/process/with_options.hpp
 	include/sge/sprite/projection_matrix.hpp
 	include/sge/sprite/rect.hpp
-	include/sge/sprite/render/default_options.hpp
-	include/sge/sprite/render/matrix_options.hpp
-	include/sge/sprite/render/options.hpp
-	include/sge/sprite/render/options_decl.hpp
-	include/sge/sprite/render/options_fwd.hpp
-	include/sge/sprite/render/options_impl.hpp
 	include/sge/sprite/render/parameters.hpp
+	include/sge/sprite/render/parameters_decl.hpp
 	include/sge/sprite/render/parameters_fwd.hpp
+	include/sge/sprite/render/parameters_impl.hpp
 	include/sge/sprite/render/range_decl.hpp
 	include/sge/sprite/render/range_fwd.hpp
 	include/sge/sprite/render/range_impl.hpp
@@ -311,8 +307,6 @@ set(
 	include/sge/sprite/render/range_part_impl.hpp
 	include/sge/sprite/render/range_part_vector.hpp
 	include/sge/sprite/render/range_with_options.hpp
-	include/sge/sprite/render/state_options.hpp
-	include/sge/sprite/render/vertex_options.hpp
 	include/sge/sprite/repetition.hpp
 	include/sge/sprite/roles/color.hpp
 	include/sge/sprite/roles/connection.hpp
@@ -331,6 +325,44 @@ set(
 	include/sge/sprite/rotation.hpp
 	include/sge/sprite/rotation_center.hpp
 	include/sge/sprite/set_matrices.hpp
+	include/sge/sprite/state/all_choices.hpp
+	include/sge/sprite/state/choices.hpp
+	include/sge/sprite/state/choices_fwd.hpp
+	include/sge/sprite/state/default_options.hpp
+	include/sge/sprite/state/detail/choose_ffp.hpp
+	include/sge/sprite/state/detail/make_objects.hpp
+	include/sge/sprite/state/detail/make_one_object.hpp
+	include/sge/sprite/state/detail/needs_ffp.hpp
+	include/sge/sprite/state/detail/object_class.hpp
+	include/sge/sprite/state/detail/one_option_to_true.hpp
+	include/sge/sprite/state/detail/options_class.hpp
+	include/sge/sprite/state/detail/options_to_true.hpp
+	include/sge/sprite/state/detail/parameters_class.hpp
+	include/sge/sprite/state/detail/set_one.hpp
+	include/sge/sprite/state/detail/unset_one.hpp
+	include/sge/sprite/state/object_decl.hpp
+	include/sge/sprite/state/object_fwd.hpp
+	include/sge/sprite/state/object_impl.hpp
+	include/sge/sprite/state/options_decl.hpp
+	include/sge/sprite/state/options_fwd.hpp
+	include/sge/sprite/state/options_impl.hpp
+	include/sge/sprite/state/parameters_decl.hpp
+	include/sge/sprite/state/parameters_fwd.hpp
+	include/sge/sprite/state/parameters_impl.hpp
+	include/sge/sprite/state/render_context.hpp
+	include/sge/sprite/state/render_device.hpp
+	include/sge/sprite/state/roles/blend.hpp
+	include/sge/sprite/state/roles/blend_write_mask.hpp
+	include/sge/sprite/state/roles/enable_scissor_test.hpp
+	include/sge/sprite/state/roles/rasterizer.hpp
+	include/sge/sprite/state/roles/transform.hpp
+	include/sge/sprite/state/vertex_options.hpp
+	include/sge/sprite/state/with_blend.hpp
+	include/sge/sprite/state/with_blend_fwd.hpp
+	include/sge/sprite/state/with_rasterizer.hpp
+	include/sge/sprite/state/with_rasterizer_fwd.hpp
+	include/sge/sprite/state/with_transform.hpp
+	include/sge/sprite/state/with_transform_fwd.hpp
 	include/sge/sprite/texture.hpp
 	include/sge/sprite/texture_coordinates.hpp
 	include/sge/sprite/texture_level.hpp
@@ -345,16 +377,14 @@ set(
 	include/sge/sprite/types/texture_point_pos.hpp
 	include/sge/sprite/types/texture_point_size.hpp
 	include/sge/sprite/types/vector.hpp
-	include/sge/sprite/unset_matrices.hpp
 	include/sge/sprite/vector.hpp
 	include/sge/sprite/vertex_format.hpp
 	src/sprite/buffers/option_to_resource_flags.cpp
 	src/sprite/buffers/parameters.cpp
-	src/sprite/detail/render/normal_states.cpp
 	src/sprite/projection_matrix.cpp
-	src/sprite/render/parameters.cpp
-	src/sprite/set_matrices.cpp
-	src/sprite/unset_matrices.cpp
+	src/sprite/state/with_blend.cpp
+	src/sprite/state/with_rasterizer.cpp
+	src/sprite/state/with_transform.cpp
 )
 
 add_sge_base_library(

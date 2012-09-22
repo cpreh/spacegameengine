@@ -21,47 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_RENDER_PARAMETERS_HPP_INCLUDED
 #define SGE_SPRITE_RENDER_PARAMETERS_HPP_INCLUDED
 
-#include <sge/renderer/vertex_declaration_fwd.hpp>
-#include <sge/renderer/context/object_fwd.hpp>
-#include <sge/sprite/symbol.hpp>
+#include <sge/sprite/render/parameters_decl.hpp>
 #include <sge/sprite/render/parameters_fwd.hpp>
-#include <fcppt/nonassignable.hpp>
+#include <sge/sprite/render/parameters_impl.hpp>
 
-
-namespace sge
-{
-namespace sprite
-{
-namespace render
-{
-
-class parameters
-{
-	FCPPT_NONASSIGNABLE(
-		parameters
-	);
-public:
-	SGE_SPRITE_SYMBOL
-	parameters(
-		sge::renderer::context::object &,
-		sge::renderer::vertex_declaration const &
-	);
-
-	SGE_SPRITE_SYMBOL
-	sge::renderer::context::object &
-	render_context() const;
-
-	SGE_SPRITE_SYMBOL
-	sge::renderer::vertex_declaration const &
-	vertex_declaration() const;
-private:
-	sge::renderer::context::object &render_context_;
-
-	sge::renderer::vertex_declaration const &vertex_declaration_;
-};
-
-}
-}
-}
 
 #endif

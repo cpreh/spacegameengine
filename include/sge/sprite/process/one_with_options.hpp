@@ -21,14 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_PROCESS_ONE_WITH_OPTIONS_HPP_INCLUDED
 #define SGE_SPRITE_PROCESS_ONE_WITH_OPTIONS_HPP_INCLUDED
 
-#include <sge/renderer/context/object_fwd.hpp>
 #include <sge/sprite/object_fwd.hpp>
 #include <sge/sprite/compare/nothing.hpp>
 #include <sge/sprite/geometry/make_single_range.hpp>
 #include <sge/sprite/process/geometry_options.hpp>
 #include <sge/sprite/process/is_options.hpp>
 #include <sge/sprite/process/with_options.hpp>
-#include <sge/sprite/render/options_fwd.hpp>
+#include <sge/sprite/state/object_fwd.hpp>
+#include <sge/sprite/state/options_fwd.hpp>
 #include <fcppt/static_assert_expression.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
@@ -44,8 +44,10 @@ namespace process
 
 template<
 	typename Options,
+	typename RenderContext,
 	typename Choices,
-	typename Buffers
+	typename Buffers,
+	typename StateChoices
 >
 typename boost::enable_if<
 	sge::sprite::process::is_options<
@@ -54,17 +56,23 @@ typename boost::enable_if<
 	void
 >::type
 one_with_options(
-	sge::renderer::context::object &_render_context,
+	RenderContext &_render_context,
 	sge::sprite::object<
 		Choices
 	> const &_sprite,
 	Buffers &_buffers,
-	sge::sprite::render::options const &_render_options
+	sge::sprite::state::object<
+		StateChoices
+	> const &_states,
+	sge::sprite::state::options<
+		StateChoices
+	> const &_state_options
 )
 {
 	FCPPT_STATIC_ASSERT_EXPRESSION(
 		Options::geometry_options
-		!= sge::sprite::process::geometry_options::sort_and_update
+		!=
+		sge::sprite::process::geometry_options::sort_and_update
 	);
 
 	sge::sprite::process::with_options<
@@ -76,7 +84,8 @@ one_with_options(
 		),
 		_buffers,
 		sge::sprite::compare::nothing(),
-		_render_options
+		_states,
+		_state_options
 	);
 }
 

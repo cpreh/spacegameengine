@@ -18,13 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_RENDER_OPTIONS_DECL_HPP_INCLUDED
-#define SGE_SPRITE_RENDER_OPTIONS_DECL_HPP_INCLUDED
+#ifndef SGE_SPRITE_STATE_DETAIL_UNSET_ONE_HPP_INCLUDED
+#define SGE_SPRITE_STATE_DETAIL_UNSET_ONE_HPP_INCLUDED
 
-#include <sge/sprite/render/matrix_options.hpp>
-#include <sge/sprite/render/options_fwd.hpp>
-#include <sge/sprite/render/state_options.hpp>
-#include <sge/sprite/render/vertex_options.hpp>
+#include <sge/sprite/state/render_context.hpp>
+#include <sge/sprite/state/detail/options_class.hpp>
 #include <fcppt/nonassignable.hpp>
 
 
@@ -32,37 +30,66 @@ namespace sge
 {
 namespace sprite
 {
-namespace render
+namespace state
+{
+namespace detail
 {
 
-class options
+template<
+	typename StateChoices
+>
+class unset_one
 {
 	FCPPT_NONASSIGNABLE(
-		options
+		unset_one
 	);
 public:
-	options(
-		sge::sprite::render::matrix_options::type,
-		sge::sprite::render::state_options::type,
-		sge::sprite::render::vertex_options::type
-	);
+	typedef typename sge::sprite::state::detail::options_class<
+		StateChoices
+	>::type options_class;
 
-	sge::sprite::render::matrix_options::type
-	matrix_options() const;
+	typedef typename sge::sprite::state::render_context<
+		StateChoices
+	>::type render_context;
 
-	sge::sprite::render::state_options::type
-	state_options() const;
+	unset_one(
+		render_context &_render_context,
+		options_class const &_options
+	)
+	:
+		render_context_(
+			_render_context
+		),
+		options_(
+			_options
+		)
+	{
+	}
 
-	sge::sprite::render::vertex_options::type
-	vertex_options() const;
+	typedef void result_type;
+
+	template<
+		typename Type
+	>
+	result_type
+	operator()() const
+	{
+		if(
+			options_. template get<
+				typename Type::role
+			>()
+		)
+			Type::unset(
+				render_context_
+			);
+	}
 private:
-	sge::sprite::render::matrix_options::type const matrix_options_;
+	render_context &render_context_;
 
-	sge::sprite::render::state_options::type const state_options_;
-
-	sge::sprite::render::vertex_options::type const vertex_options_;
+	options_class const &options_;
 };
 
+}
 }
 }
 }

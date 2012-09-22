@@ -21,17 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_MATRIX_HPP_INCLUDED
 #define SGE_SPRITE_MATRIX_HPP_INCLUDED
 
-#include <sge/renderer/matrix4_fwd.hpp>
+#include <sge/renderer/matrix4.hpp>
+#include <sge/sprite/matrix_fwd.hpp>
 
-
-namespace sge
-{
-namespace sprite
-{
-
-typedef sge::renderer::matrix4 matrix;
-
-}
-}
 
 #endif

@@ -22,14 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_MAKE_CLASS_HPP_INCLUDED
 
 #include <sge/sprite/vector.hpp>
+#include <sge/sprite/detail/application.hpp>
 #include <sge/sprite/roles/pos.hpp>
 #include <majutsu/class.hpp>
 #include <majutsu/role.hpp>
 #include <majutsu/simple.hpp>
 #include <majutsu/memory/fusion.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/apply.hpp>
 #include <boost/mpl/joint_view.hpp>
@@ -52,32 +50,11 @@ template<
 >
 struct make_class
 {
-private:
-
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-	// TODO: why do we need this?
-	template<
-		typename F,
-		typename T1
-	>
-	struct application
-	:
-	boost::mpl::apply<
-		F,
-		T1
-	>
-	{};
-
-FCPPT_PP_POP_WARNING
-
-public:
 	typedef majutsu::class_<
 		typename boost::mpl::joint_view<
 			typename boost::mpl::transform<
 				typename Choices::optional_elements,
-				application<
+				sge::sprite::detail::application<
 					boost::mpl::_1,
 					Choices
 				>

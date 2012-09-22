@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_RENDER_SCOPED_VERTEX_DECLARATION_HPP_INCLUDED
 
 #include <sge/renderer/const_optional_vertex_declaration_ref.hpp>
-#include <sge/renderer/context/object.hpp>
+#include <sge/renderer/context/core.hpp>
 #include <sge/sprite/render/parameters.hpp>
-#include <sge/sprite/render/vertex_options.hpp>
+#include <sge/sprite/state/vertex_options.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -43,9 +43,14 @@ class scoped_vertex_declaration
 		scoped_vertex_declaration
 	);
 public:
+	template<
+		typename StateChoices
+	>
 	scoped_vertex_declaration(
-		sge::sprite::render::parameters const &_parameters,
-		sge::sprite::render::vertex_options::type const &_options
+		sge::sprite::render::parameters<
+			StateChoices
+		> const &_parameters,
+		sge::sprite::state::vertex_options::type const &_options
 	)
 	:
 		render_context_(
@@ -54,11 +59,11 @@ public:
 		set_declaration_(
 			_options
 			==
-			sge::sprite::render::vertex_options::declaration
+			sge::sprite::state::vertex_options::declaration
 			||
 			_options
 			==
-			sge::sprite::render::vertex_options::declaration_and_buffer
+			sge::sprite::state::vertex_options::declaration_and_buffer
 		)
 	{
 		if(
@@ -81,7 +86,7 @@ public:
 			);
 	}
 private:
-	sge::renderer::context::object &render_context_;
+	sge::renderer::context::core &render_context_;
 
 	bool const set_declaration_;
 };

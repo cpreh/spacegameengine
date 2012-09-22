@@ -21,10 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_RENDER_SCOPED_STATES_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_RENDER_SCOPED_STATES_HPP_INCLUDED
 
-#include <sge/renderer/context/object.hpp>
-#include <sge/sprite/detail/render/states.hpp>
-#include <sge/sprite/render/state_options.hpp>
+#include <sge/sprite/state/render_context.hpp>
+#include <sge/sprite/state/options_fwd.hpp>
+#include <sge/sprite/state/object_fwd.hpp>
+#include <sge/sprite/state/detail/set_one.hpp>
+#include <sge/sprite/state/detail/unset_one.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/mpl/for_each.hpp>
 
 
 namespace sge
@@ -37,7 +40,7 @@ namespace render
 {
 
 template<
-	typename Choices
+	typename StateChoices
 >
 class scoped_states
 {
@@ -45,41 +48,66 @@ class scoped_states
 		scoped_states
 	);
 public:
+	typedef typename sge::sprite::state::render_context<
+		StateChoices
+	>::type render_context;
+
+	typedef sge::sprite::state::options<
+		StateChoices
+	> state_options;
+
+	typedef sge::sprite::state::object<
+		StateChoices
+	> state_object;
+
 	scoped_states(
-		sge::renderer::context::object &_render_context,
-		sge::sprite::render::state_options::type const _options
+		render_context &_render_context,
+		state_options const &_options,
+		state_object const &_object
 	)
 	:
 		render_context_(
 			_render_context
 		),
-		set_states_(
+		options_(
 			_options
-			==
-			sge::sprite::render::state_options::set
+		),
+		object_(
+			_object
 		)
 	{
-		if(
-			set_states_
-		)
-			render_context_.push_state(
-				sge::sprite::detail::render::states<
-					Choices
-				>::value
-			);
+		fcppt::mpl::for_each<
+			typename StateChoices::optional_elements
+		>(
+			sge::sprite::state::detail::set_one<
+				StateChoices
+			>(
+				render_context_,
+				options_.elements(),
+				object_.elements()
+			)
+		);
 	}
 
 	~scoped_states()
 	{
-		if(
-			set_states_
-		)
-			render_context_.pop_state();
+		fcppt::mpl::for_each<
+			typename StateChoices::optional_elements
+		>(
+			sge::sprite::state::detail::unset_one<
+				StateChoices
+			>(
+				render_context_,
+				options_.elements()
+			)
+		);
 	}
 private:
-	sge::renderer::context::object &render_context_;
+	render_context &render_context_;
 
-	bool const set_states_;
+	state_options const &options_;
+
+	state_object const &object_;
 };
 
 }

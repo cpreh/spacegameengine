@@ -21,27 +21,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GRAPH_OBJECT_HPP_INCLUDED
 #define SGE_GRAPH_OBJECT_HPP_INCLUDED
 
-#include <sge/graph/axis_constraint.hpp>
-#include <sge/graph/background_color.hpp>
 #include <sge/graph/baseline.hpp>
 #include <sge/graph/color_scheme.hpp>
-#include <sge/graph/foreground_color.hpp>
 #include <sge/graph/optional_axis_constraint.hpp>
 #include <sge/graph/position.hpp>
 #include <sge/graph/scalar.hpp>
 #include <sge/graph/symbol.hpp>
 #include <sge/graph/detail/draw_visitor_fwd.hpp>
-#include <sge/image2d/dim.hpp>
-#include <sge/image2d/view/object.hpp>
-#include <sge/renderer/device.hpp>
 #include <sge/renderer/dim2.hpp>
-#include <sge/renderer/vector2.hpp>
-#include <sge/renderer/context/object.hpp>
+#include <sge/renderer/context/ffp_fwd.hpp>
+#include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/renderer/texture/planar_scoped_ptr.hpp>
-#include <sge/sprite/object.hpp>
-#include <sge/sprite/parameters.hpp>
-#include <sge/sprite/buffers/single.hpp>
-#include <sge/sprite/buffers/with_declaration.hpp>
+#include <sge/sprite/object_decl.hpp>
+#include <sge/sprite/parameters_fwd.hpp>
+#include <sge/sprite/buffers/single_decl.hpp>
+#include <sge/sprite/buffers/with_declaration_decl.hpp>
 #include <sge/sprite/config/choices.hpp>
 #include <sge/sprite/config/float_type.hpp>
 #include <sge/sprite/config/normal_size.hpp>
@@ -51,7 +45,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/type_choices.hpp>
 #include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/config/with_texture.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <sge/sprite/state/all_choices.hpp>
+#include <sge/sprite/state/object_decl.hpp>
+#include <sge/sprite/state/parameters_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/circular_buffer.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -70,7 +66,7 @@ public:
 	object(
 		sge::graph::position const &,
 		sge::renderer::dim2 const &,
-		sge::renderer::device &,
+		sge::renderer::device::ffp &,
 		sge::graph::baseline,
 		sge::graph::optional_axis_constraint const &,
 		sge::graph::color_scheme const &);
@@ -83,7 +79,7 @@ public:
 	SGE_GRAPH_SYMBOL
 	void
 	render(
-		sge::renderer::context::object &);
+		sge::renderer::context::ffp &);
 
 	SGE_GRAPH_SYMBOL
 	~object();
@@ -126,6 +122,16 @@ private:
 		>
 	> sprite_buffers_type;
 
+	typedef sge::sprite::state::all_choices sprite_state_choices;
+
+	typedef sge::sprite::state::object<
+		sprite_state_choices
+	> sprite_state;
+
+	typedef sge::sprite::state::parameters<
+		sprite_state_choices
+	> sprite_state_parameters;
+
 	typedef
 	boost::circular_buffer<
 		sge::graph::scalar
@@ -143,6 +149,9 @@ private:
 
 	sprite_buffers_type
 	sprite_buffers_;
+
+	sprite_state const
+	sprite_state_;
 
 	buffer_type
 	data_buffer_;

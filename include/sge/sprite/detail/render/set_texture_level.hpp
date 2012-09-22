@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_RENDER_SET_TEXTURE_LEVEL_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_RENDER_SET_TEXTURE_LEVEL_HPP_INCLUDED
 
-#include <sge/renderer/context/object.hpp>
+#include <sge/renderer/context/core.hpp>
 #include <sge/renderer/texture/const_optional_base_ref.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/stage.hpp>
@@ -54,7 +54,7 @@ public:
 	> range_part;
 
 	set_texture_level(
-		sge::renderer::context::object &_render_context,
+		sge::renderer::context::core &_render_context,
 		range_part const &_range_part
 	)
 	:
@@ -96,7 +96,7 @@ public:
 		);
 	}
 private:
-	sge::renderer::context::object &render_context_;
+	sge::renderer::context::core &render_context_;
 
 	range_part const &range_part_;
 };

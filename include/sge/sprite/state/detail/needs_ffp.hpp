@@ -18,26 +18,59 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_RENDER_STATE_OPTIONS_HPP_INCLUDED
-#define SGE_SPRITE_RENDER_STATE_OPTIONS_HPP_INCLUDED
+#ifndef SGE_SPRITE_STATE_DETAIL_NEEDS_FFP_HPP_INCLUDED
+#define SGE_SPRITE_STATE_DETAIL_NEEDS_FFP_HPP_INCLUDED
+
+#include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/bool.hpp>
+#include <boost/mpl/fold.hpp>
+#include <boost/mpl/or.hpp>
+#include <boost/mpl/placeholders.hpp>
+#include <boost/mpl/transform.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {
 namespace sprite
 {
-namespace render
+namespace state
+{
+namespace detail
 {
 
-namespace state_options
+template<
+	typename StateChoices
+>
+struct needs_ffp
 {
-enum type
-{
-	set,
-	nothing
+private:
+	template<
+		typename Type
+	>
+	struct extract
+	{
+		typedef typename Type::needs_ffp type;
+	};
+public:
+	typedef
+	typename
+	boost::mpl::fold<
+		typename boost::mpl::transform<
+			typename StateChoices::optional_elements,
+			extract<
+				boost::mpl::_1
+			>
+		>::type,
+		boost::mpl::false_,
+		boost::mpl::or_<
+			boost::mpl::_1,
+			boost::mpl::_2
+		>
+	>::type type;
 };
 
 }
-
 }
 }
 }

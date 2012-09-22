@@ -18,28 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_RENDER_VERTEX_OPTIONS_HPP_INCLUDED
-#define SGE_SPRITE_RENDER_VERTEX_OPTIONS_HPP_INCLUDED
+#ifndef SGE_SPRITE_STATE_ROLES_ENABLE_SCISSOR_TEST_HPP_INCLUDED
+#define SGE_SPRITE_STATE_ROLES_ENABLE_SCISSOR_TEST_HPP_INCLUDED
+
 
 namespace sge
 {
 namespace sprite
 {
-namespace render
+namespace state
+{
+namespace roles
 {
 
-namespace vertex_options
+struct enable_scissor_test
 {
-enum type
-{
-	declaration_and_buffer,
-	declaration,
-	buffer,
-	nothing
 };
 
 }
-
 }
 }
 }

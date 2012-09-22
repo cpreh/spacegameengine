@@ -23,9 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/class_symbol.hpp>
 #include <sge/image/color/format.hpp>
-#include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/size_type.hpp>
+#include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/texture/planar_scoped_ptr.hpp>
 #include <sge/renderer/texture/mipmap/object_fwd.hpp>
 #include <sge/texture/fragmented.hpp>
@@ -50,7 +50,7 @@ class SGE_CLASS_SYMBOL rect_fragmented
 public:
 	SGE_TEXTURE_SYMBOL
 	rect_fragmented(
-		sge::renderer::device &,
+		sge::renderer::device::core &,
 		sge::image::color::format::type,
 		sge::renderer::texture::mipmap::object const &,
 		sge::renderer::dim2 const &initial_size
