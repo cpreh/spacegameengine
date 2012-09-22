@@ -340,12 +340,15 @@ set(
 	include/sge/sprite/state/detail/parameters_class.hpp
 	include/sge/sprite/state/detail/set_one.hpp
 	include/sge/sprite/state/detail/unset_one.hpp
+	include/sge/sprite/state/object.hpp
 	include/sge/sprite/state/object_decl.hpp
 	include/sge/sprite/state/object_fwd.hpp
 	include/sge/sprite/state/object_impl.hpp
+	include/sge/sprite/state/options.hpp
 	include/sge/sprite/state/options_decl.hpp
 	include/sge/sprite/state/options_fwd.hpp
 	include/sge/sprite/state/options_impl.hpp
+	include/sge/sprite/state/parameters.hpp
 	include/sge/sprite/state/parameters_decl.hpp
 	include/sge/sprite/state/parameters_fwd.hpp
 	include/sge/sprite/state/parameters_impl.hpp

@@ -23,8 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/rgba8_format.hpp>
 #include <sge/log/global.hpp>
 #include <sge/renderer/clear/parameters.hpp>
-#include <sge/renderer/context/object.hpp>
-#include <sge/renderer/context/scoped.hpp>
+#include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/context/scoped_ffp.hpp>
+#include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/parameters/object.hpp>
 #include <sge/renderer/parameters/vsync.hpp>
@@ -47,6 +48,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/with_color.hpp>
 #include <sge/sprite/defaults/defaults.hpp>
 #include <sge/sprite/process/one.hpp>
+#include <sge/sprite/state/all_choices.hpp>
+#include <sge/sprite/state/object.hpp>
+#include <sge/sprite/state/parameters.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/quit_on_escape.hpp>
@@ -154,6 +158,21 @@ try
 		sprite_choices
 	> sprite_object;
 
+	typedef sge::sprite::state::all_choices sprite_state_choices;
+
+	typedef sge::sprite::state::object<
+		sprite_state_choices
+	> sprite_state_object;
+
+	typedef sge::sprite::state::parameters<
+		sprite_state_choices
+	> sprite_state_parameters;
+
+	sprite_state_object const sprite_state(
+		sys.renderer(),
+		sprite_state_parameters()
+	);
+
 	/*
 	typedef sge::sprite::parameters<
 		sprite_choices
@@ -197,7 +216,7 @@ try
 		sys.window_system().poll()
 	)
 	{
-		sge::renderer::context::scoped const scoped_block(
+		sge::renderer::context::scoped_ffp const scoped_block(
 			sys.renderer(),
 			sys.renderer().onscreen_target()
 		);
@@ -212,7 +231,8 @@ try
 		sge::sprite::process::one(
 			scoped_block.get(),
 			spr,
-			sprite_buffers
+			sprite_buffers,
+			sprite_state
 		);
 	}
 
