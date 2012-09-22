@@ -27,8 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/wrap_error_handler.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/phoenix/bind/bind_function.hpp>
-#include <boost/phoenix/bind/bind_function_object.hpp>
+#include <boost/phoenix/bind.hpp>
 #include <boost/phoenix/core/argument.hpp>
 #include <fcppt/config/external_end.hpp>
 

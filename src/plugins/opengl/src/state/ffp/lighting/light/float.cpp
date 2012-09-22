@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/phoenix/bind.hpp>
+#include <boost/phoenix/core/argument.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -40,7 +41,7 @@ sge::opengl::state::ffp::lighting::light::float_(
 		>(
 			boost::phoenix::bind(
 				::glLightf,
-				std::tr1::placeholders::_1,
+				boost::phoenix::arg_names::arg1,
 				_name,
 				_value
 			),

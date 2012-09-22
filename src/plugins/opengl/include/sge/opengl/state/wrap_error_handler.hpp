@@ -23,11 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/state/check_error.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/phoenix/bind/bind_function.hpp>
-#include <boost/phoenix/bind/bind_function_object.hpp>
-#include <boost/phoenix/statement/sequence.hpp>
-#include <fcppt/config/external_end.hpp>
+//#include <fcppt/config/external_begin.hpp>
+//#include <boost/phoenix/bind.hpp>
+//#include <boost/phoenix/operator.hpp>
+//#include <boost/phoenix.hpp>///statement.hpp>
+//#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -37,6 +37,7 @@ namespace opengl
 namespace state
 {
 
+// FIXME: Write this by hand!
 template<
 	typename Result,
 	typename Actor
@@ -48,13 +49,15 @@ wrap_error_handler(
 )
 {
 	return
+		_actor;
+		/*
 		boost::phoenix::bind(
 			_actor
 		),
 		boost::phoenix::bind(
 			sge::opengl::state::check_error,
 			_name
-		);
+		);*/
 }
 
 }
