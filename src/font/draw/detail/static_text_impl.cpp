@@ -35,18 +35,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/buffers/single_impl.hpp>
 #include <sge/sprite/buffers/with_declaration_impl.hpp>
 #include <sge/sprite/geometry/update_one.hpp>
-#include <sge/sprite/render/matrix_options.hpp>
-#include <sge/sprite/render/options.hpp>
 #include <sge/sprite/render/parameters.hpp>
 #include <sge/sprite/render/range_impl.hpp>
 #include <sge/sprite/render/range_with_options.hpp>
-#include <sge/sprite/render/state_options.hpp>
-#include <sge/sprite/render/vertex_options.hpp>
-#include <sge/renderer/device.hpp>
+#include <sge/sprite/state/object_impl.hpp>
+#include <sge/sprite/state/options_impl.hpp>
+#include <sge/sprite/state/parameters_impl.hpp>
+#include <sge/sprite/state/vertex_options.hpp>
+#include <sge/sprite/state/roles/blend.hpp>
+#include <sge/sprite/state/roles/rasterizer.hpp>
+#include <sge/sprite/state/roles/transform.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
-#include <sge/renderer/context/object_fwd.hpp>
+#include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
@@ -62,7 +65,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::font::draw::detail::static_text_impl::static_text_impl(
-	sge::renderer::device &_renderer,
+	sge::renderer::device::ffp &_renderer,
 	sge::font::object &_font,
 	sge::font::text_parameters const &_text_parameters
 )
@@ -87,6 +90,10 @@ sge::font::draw::detail::static_text_impl::static_text_impl(
 		_renderer,
 		sge::sprite::buffers::option::static_
 	),
+	sprite_state_(
+		_renderer,
+		sge::font::draw::detail::static_text_impl::sprite_state_parameters()
+	),
 	sprite_(),
 	sprite_range_()
 {
@@ -98,31 +105,37 @@ sge::font::draw::detail::static_text_impl::~static_text_impl()
 
 void
 sge::font::draw::detail::static_text_impl::draw(
-	sge::renderer::context::object &_context,
+	sge::renderer::context::ffp &_context,
 	sge::font::draw::set_matrices const &_set_matrices,
 	sge::font::draw::set_states const &_set_states
 )
 {
 	sge::sprite::render::range_with_options(
-		sge::sprite::render::parameters(
+		sge::sprite::render::parameters<
+			sprite_state_choices
+		>(
 			_context,
 			sprite_buffers_.parameters().vertex_declaration()
 		),
 		sprite_range_,
-		sge::sprite::render::options(
+		sprite_state_,
+		sge::font::draw::detail::static_text_impl::sprite_state_options(
+			sge::sprite::state::vertex_options::declaration_and_buffer
+		)
+		.set<
+			sge::sprite::state::roles::transform
+		>(
 			_set_matrices.get()
-			?
-				sge::sprite::render::matrix_options::set
-			:
-				sge::sprite::render::matrix_options::nothing
-			,
+		)
+		.set<
+			sge::sprite::state::roles::rasterizer
+		>(
 			_set_states.get()
-			?
-				sge::sprite::render::state_options::set
-			:
-				sge::sprite::render::state_options::nothing
-			,
-			sge::sprite::render::vertex_options::declaration_and_buffer
+		)
+		.set<
+			sge::sprite::state::roles::blend
+		>(
+			_set_states.get()
 		)
 	);
 }

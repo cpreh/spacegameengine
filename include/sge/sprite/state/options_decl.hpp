@@ -42,6 +42,8 @@ class options
 		StateChoices
 	>::type elements_type;
 public:
+	typedef typename elements_type::memory_type::types flattened_types;
+
 	explicit
 	options(
 		sge::sprite::state::vertex_options::type
@@ -58,6 +60,17 @@ public:
 
 	sge::sprite::state::vertex_options::type
 	vertex_options() const;
+
+	template<
+		typename Role
+	>
+	options &
+	set(
+		typename majutsu::role_return_type<
+			flattened_types,
+			Role
+		>::type const &
+	);
 
 	elements_type const &
 	elements() const;

@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/device/core_fwd.hpp>
 #include <sge/src/viewport/detail/manager_impl.hpp>
 #include <sge/viewport/manage_callback.hpp>
 #include <sge/viewport/manager.hpp>
@@ -31,9 +31,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::viewport::manager::manager(
-	renderer::device &_device,
+	sge::renderer::device::core &_device,
 	sge::window::object &_window,
-	viewport::resize_function const &_resize_function
+	sge::viewport::resize_function const &_resize_function
 )
 :
 	impl_(
@@ -60,7 +60,7 @@ sge::viewport::manager::~manager()
 
 fcppt::signal::auto_connection
 sge::viewport::manager::manage_callback(
-	viewport::manage_callback const &_callback
+	sge::viewport::manage_callback const &_callback
 )
 {
 	return

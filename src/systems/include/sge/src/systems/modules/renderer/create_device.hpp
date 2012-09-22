@@ -18,38 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_DRAW_SIMPLE_HPP_INCLUDED
-#define SGE_FONT_DRAW_SIMPLE_HPP_INCLUDED
+#ifndef SGE_SRC_SYSTEMS_MODULES_RENDERER_CREATE_DEVICE_HPP_INCLUDED
+#define SGE_SRC_SYSTEMS_MODULES_RENDERER_CREATE_DEVICE_HPP_INCLUDED
 
-#include <sge/font/object_fwd.hpp>
-#include <sge/font/string.hpp>
-#include <sge/font/text_parameters_fwd.hpp>
-#include <sge/font/vector_fwd.hpp>
-#include <sge/font/draw/symbol.hpp>
-#include <sge/image/color/any/object_fwd.hpp>
-#include <sge/renderer/device/ffp_fwd.hpp>
-#include <sge/renderer/context/ffp_fwd.hpp>
+#include <sge/renderer/device/core_unique_ptr.hpp>
+#include <sge/systems/renderer_fwd.hpp>
+#include <sge/src/systems/modules/renderer/system_fwd.hpp>
+#include <sge/src/systems/modules/window/object_fwd.hpp>
 
 
 namespace sge
 {
-namespace font
+namespace systems
 {
-namespace draw
+namespace modules
+{
+namespace renderer
 {
 
-SGE_FONT_DRAW_SYMBOL
-void
-simple(
-	sge::renderer::device::ffp &,
-	sge::renderer::context::ffp &,
-	sge::font::object &,
-	sge::font::string const &,
-	sge::font::text_parameters const &,
-	sge::font::vector const &,
-	sge::image::color::any::object const &
+sge::renderer::device::core_unique_ptr
+create_device(
+	sge::systems::renderer const &,
+	sge::systems::modules::renderer::system const &,
+	sge::systems::modules::window::object const &
 );
 
+}
 }
 }
 }

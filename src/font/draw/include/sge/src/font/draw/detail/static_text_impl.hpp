@@ -47,8 +47,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/with_color.hpp>
 #include <sge/sprite/config/with_texture.hpp>
 #include <sge/sprite/render/range_decl.hpp>
-#include <sge/renderer/device_fwd.hpp>
-#include <sge/renderer/context/object_fwd.hpp>
+#include <sge/sprite/state/all_choices.hpp>
+#include <sge/sprite/state/object_decl.hpp>
+#include <sge/sprite/state/options_fwd.hpp>
+#include <sge/sprite/state/parameters_fwd.hpp>
+#include <sge/renderer/context/ffp_fwd.hpp>
+#include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/renderer/texture/planar_scoped_ptr.hpp>
 #include <sge/texture/part_scoped_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -73,7 +77,7 @@ class static_text_impl
 	);
 public:
 	static_text_impl(
-		sge::renderer::device &,
+		sge::renderer::device::ffp &,
 		sge::font::object &,
 		sge::font::text_parameters const &
 	);
@@ -82,7 +86,7 @@ public:
 
 	void
 	draw(
-		sge::renderer::context::object &,
+		sge::renderer::context::ffp &,
 		sge::font::draw::set_matrices const &,
 		sge::font::draw::set_states const &
 	);
@@ -117,7 +121,7 @@ public:
 	void
 	rebuild_sprite();
 private:
-	sge::renderer::device &renderer_;
+	sge::renderer::device::ffp &renderer_;
 
 	sge::font::object &font_;
 
@@ -169,11 +173,27 @@ private:
 		>
 	> sprite_buffers;
 
+	typedef sge::sprite::state::all_choices sprite_state_choices;
+
+	typedef sge::sprite::state::object<
+		sprite_state_choices
+	> sprite_state;
+
+	typedef sge::sprite::state::parameters<
+		sprite_state_choices
+	> sprite_state_parameters;
+
+	typedef sge::sprite::state::options<
+		sprite_state_choices
+	> sprite_state_options;
+
 	typedef sge::sprite::render::range<
 		sprite_choices
 	> sprite_range;
 
 	sprite_buffers sprite_buffers_;
+
+	sprite_state const sprite_state_;
 
 	sprite_object sprite_;
 

@@ -91,6 +91,7 @@ set(
 	src/systems/include/sge/src/systems/modules/input/object.hpp
 	src/systems/include/sge/src/systems/modules/input/object_fwd.hpp
 	src/systems/include/sge/src/systems/modules/input/object_scoped_ptr.hpp
+	src/systems/include/sge/src/systems/modules/renderer/create_device.hpp
 	src/systems/include/sge/src/systems/modules/renderer/device.hpp
 	src/systems/include/sge/src/systems/modules/renderer/device_fwd.hpp
 	src/systems/include/sge/src/systems/modules/renderer/device_scoped_ptr.hpp
@@ -133,6 +134,7 @@ set(
 	src/systems/modules/image2d/object.cpp
 	src/systems/modules/input/cursor_modifier.cpp
 	src/systems/modules/input/object.cpp
+	src/systems/modules/renderer/create_device.cpp
 	src/systems/modules/renderer/device.cpp
 	src/systems/modules/renderer/find_plugin.cpp
 	src/systems/modules/renderer/system.cpp

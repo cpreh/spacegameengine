@@ -30,8 +30,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/global.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/clear/parameters.hpp>
-#include <sge/renderer/context/object.hpp>
-#include <sge/renderer/context/scoped.hpp>
+#include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/context/scoped_ffp.hpp>
+#include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/parameters/object.hpp>
 #include <sge/renderer/parameters/vsync.hpp>
@@ -155,12 +156,12 @@ try
 		sys.window_system().poll()
 	)
 	{
-		sge::renderer::context::scoped const scoped_block(
+		sge::renderer::context::scoped_ffp const scoped_block(
 			sys.renderer(),
 			sys.renderer().onscreen_target()
 		);
 
-		sge::renderer::context::object &context(
+		sge::renderer::context::ffp &context(
 			scoped_block.get());
 
 		context.clear(

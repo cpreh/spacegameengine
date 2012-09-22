@@ -18,37 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_DRAW_SIMPLE_HPP_INCLUDED
-#define SGE_FONT_DRAW_SIMPLE_HPP_INCLUDED
-
-#include <sge/font/object_fwd.hpp>
-#include <sge/font/string.hpp>
-#include <sge/font/text_parameters_fwd.hpp>
-#include <sge/font/vector_fwd.hpp>
-#include <sge/font/draw/symbol.hpp>
-#include <sge/image/color/any/object_fwd.hpp>
-#include <sge/renderer/device/ffp_fwd.hpp>
-#include <sge/renderer/context/ffp_fwd.hpp>
+#ifndef SGE_RENDERER_CONTEXT_SCOPED_FFP_FWD_HPP_INCLUDED
+#define SGE_RENDERER_CONTEXT_SCOPED_FFP_FWD_HPP_INCLUDED
 
 
 namespace sge
 {
-namespace font
+namespace renderer
 {
-namespace draw
+namespace context
 {
 
-SGE_FONT_DRAW_SYMBOL
-void
-simple(
-	sge::renderer::device::ffp &,
-	sge::renderer::context::ffp &,
-	sge::font::object &,
-	sge::font::string const &,
-	sge::font::text_parameters const &,
-	sge::font::vector const &,
-	sge::image::color::any::object const &
-);
+class scoped_ffp;
 
 }
 }

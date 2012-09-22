@@ -33,8 +33,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/device_fwd.hpp>
 #include <sge/plugin/cache.hpp>
 #include <sge/plugin/manager.hpp>
-#include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/system_fwd.hpp>
+#include <sge/renderer/device/core_fwd.hpp>
+#include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/src/systems/modules/audio/loader_scoped_ptr.hpp>
 #include <sge/src/systems/modules/audio/player_scoped_ptr.hpp>
 #include <sge/src/systems/modules/charconv/object_scoped_ptr.hpp>
@@ -134,8 +135,11 @@ public:
 	sge::renderer::system &
 	renderer_system() const;
 
-	sge::renderer::device &
+	sge::renderer::device::ffp &
 	renderer_device() const;
+
+	sge::renderer::device::core &
+	renderer_device_core() const;
 
 	sge::input::system &
 	input_system() const;

@@ -59,11 +59,12 @@ sge::sprite::state::options<
 	StateChoices
 >::no_blend_state()
 {
-	elements_. template set<
-		sge::sprite::state::roles::blend
-	>(
-		false
-	);
+	return
+		this->set<
+			sge::sprite::state::roles::blend
+		>(
+			false
+		);
 }
 
 template<
@@ -76,11 +77,12 @@ sge::sprite::state::options<
 	StateChoices
 >::no_rasterizer_state()
 {
-	elements_. template set<
-		sge::sprite::state::roles::rasterizer
-	>(
-		false
-	);
+	return
+		this->set<
+			sge::sprite::state::roles::rasterizer
+		>(
+			false
+		);
 }
 
 template<
@@ -93,11 +95,12 @@ sge::sprite::state::options<
 	StateChoices
 >::no_transform_state()
 {
-	elements_. template set<
-		sge::sprite::state::roles::transform
-	>(
-		false
-	);
+	return
+		this->set<
+			sge::sprite::state::roles::transform
+		>(
+			false
+		);
 }
 
 template<
@@ -109,6 +112,33 @@ sge::sprite::state::options<
 >::vertex_options() const
 {
 	return vertex_options_;
+}
+
+template<
+	typename StateChoices
+>
+template<
+	typename Role
+>
+sge::sprite::state::options<
+	StateChoices
+> &
+sge::sprite::state::options<
+	StateChoices
+>::set(
+	typename majutsu::role_return_type<
+		flattened_types,
+		Role
+	>::type const &_state
+)
+{
+	elements_. template set<
+		Role
+	>(
+		_state
+	);
+
+	return *this;
 }
 
 template<

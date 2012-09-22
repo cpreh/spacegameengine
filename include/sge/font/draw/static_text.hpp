@@ -32,8 +32,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/draw/symbol.hpp>
 #include <sge/font/draw/detail/static_text_impl_fwd.hpp>
 #include <sge/image/color/any/object_fwd.hpp>
-#include <sge/renderer/device_fwd.hpp>
-#include <sge/renderer/context/object_fwd.hpp>
+#include <sge/renderer/context/ffp_fwd.hpp>
+#include <sge/renderer/device/ffp_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr_decl.hpp>
 
@@ -53,7 +53,7 @@ class static_text
 public:
 	SGE_FONT_DRAW_SYMBOL
 	static_text(
-		sge::renderer::device &,
+		sge::renderer::device::ffp &,
 		sge::font::object &,
 		sge::font::string const &,
 		sge::font::text_parameters const &,
@@ -67,13 +67,13 @@ public:
 	SGE_FONT_DRAW_SYMBOL
 	void
 	draw(
-		sge::renderer::context::object &
+		sge::renderer::context::ffp &
 	);
 
 	SGE_FONT_DRAW_SYMBOL
 	void
 	draw_advanced(
-		sge::renderer::context::object &,
+		sge::renderer::context::ffp &,
 		sge::font::draw::set_matrices const &,
 		sge::font::draw::set_states const &
 	);

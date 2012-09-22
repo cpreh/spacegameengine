@@ -32,8 +32,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/input/mouse/device_fwd.hpp>
 #include <sge/plugin/manager_fwd.hpp>
-#include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/system_fwd.hpp>
+#include <sge/renderer/device/core_fwd.hpp>
+#include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/systems/list_fwd.hpp>
 #include <sge/systems/symbol.hpp>
 #include <sge/systems/detail/instance_impl_fwd.hpp>
@@ -56,8 +57,9 @@ class instance
 	);
 public:
 	SGE_SYSTEMS_SYMBOL
-	explicit instance(
-		systems::list const &
+	explicit
+	instance(
+		sge::systems::list const &
 	);
 
 	SGE_SYSTEMS_SYMBOL
@@ -72,8 +74,12 @@ public:
 	renderer_system() const;
 
 	SGE_SYSTEMS_SYMBOL
-	sge::renderer::device &
+	sge::renderer::device::ffp &
 	renderer() const;
+
+	SGE_SYSTEMS_SYMBOL
+	sge::renderer::device::core &
+	renderer_core() const;
 
 	SGE_SYSTEMS_SYMBOL
 	sge::input::system &

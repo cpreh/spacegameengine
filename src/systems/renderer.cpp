@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/plugin/name.hpp>
 #include <sge/renderer/parameters/object.hpp>
+#include <sge/renderer/caps/system.hpp>
 #include <sge/renderer/caps/system_field.hpp>
 #include <sge/systems/optional_name.hpp>
 #include <sge/systems/renderer.hpp>
@@ -39,7 +40,9 @@ sge::systems::renderer::renderer(
 		_resize_function
 	),
 	caps_(
-		sge::renderer::caps::system_field::null()
+		sge::renderer::caps::system_field(
+			sge::renderer::caps::system::ffp
+		)
 	),
 	name_()
 {

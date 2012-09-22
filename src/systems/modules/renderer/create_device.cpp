@@ -18,61 +18,50 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/renderer/adapter.hpp>
+#include <sge/renderer/system.hpp>
+#include <sge/renderer/caps/system.hpp>
 #include <sge/renderer/device/core.hpp>
+#include <sge/renderer/device/core_unique_ptr.hpp>
 #include <sge/renderer/device/ffp.hpp>
-#include <sge/src/systems/modules/renderer/create_device.hpp>
-#include <sge/src/systems/modules/renderer/device.hpp>
-#include <sge/src/systems/modules/renderer/system_fwd.hpp>
-#include <sge/src/systems/modules/window/object.hpp>
+#include <sge/renderer/device/parameters.hpp>
 #include <sge/systems/renderer.hpp>
-#include <sge/viewport/manager.hpp>
+#include <sge/src/systems/modules/renderer/create_device.hpp>
+#include <sge/src/systems/modules/renderer/system.hpp>
+#include <sge/src/systems/modules/window/object.hpp>
+#include <sge/window/object.hpp>
 
 
-sge::systems::modules::renderer::device::device(
+sge::renderer::device::core_unique_ptr
+sge::systems::modules::renderer::create_device(
 	sge::systems::renderer const &_parameters,
 	sge::systems::modules::renderer::system const &_system,
 	sge::systems::modules::window::object const &_window
 )
-:
-	renderer_device_(
-		sge::systems::modules::renderer::create_device(
-			_parameters,
-			_system,
-			_window
-		)
-	),
-	viewport_manager_(
-		*renderer_device_,
-		_window.window(),
-		_parameters.resize_function()
-	)
 {
-}
+	sge::renderer::device::parameters const parameters(
+		sge::renderer::adapter(
+			0u
+		),
+		_parameters.parameters(),
+		_window.window().awl_object()
+	);
 
-sge::systems::modules::renderer::device::~device()
-{
-}
-
-sge::renderer::device::ffp &
-sge::systems::modules::renderer::device::get() const
-{
-	// TODO: error checking?
 	return
-		static_cast<
-			sge::renderer::device::ffp &
-		>(
-			this->get_core()
-		);
-}
-
-sge::renderer::device::core &
-sge::systems::modules::renderer::device::get_core() const
-{
-	return *renderer_device_;
-}
-
-sge::viewport::manager &
-sge::systems::modules::renderer::device::viewport_manager()
-{
-	return viewport_manager_;
+		(
+			_parameters.caps()
+			&
+			sge::renderer::caps::system::ffp
+		)
+		?
+			sge::renderer::device::core_unique_ptr(
+				_system.get().create_ffp_renderer(
+					parameters
+				)
+			)
+		:
+			_system.get().create_core_renderer(
+				parameters
+			)
+		;
 }

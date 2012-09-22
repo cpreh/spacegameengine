@@ -74,10 +74,12 @@ set(
 	include/sge/renderer/context/ffp_unique_ptr.hpp
 	include/sge/renderer/context/scoped_core.hpp
 	include/sge/renderer/context/scoped_core_fwd.hpp
+	include/sge/renderer/context/scoped_core_scoped_ptr.hpp
+	include/sge/renderer/context/scoped_core_unique_ptr.hpp
+	include/sge/renderer/context/scoped_ffp.hpp
+	include/sge/renderer/context/scoped_ffp_fwd.hpp
 	include/sge/renderer/context/scoped_offscreen_target.hpp
 	include/sge/renderer/context/scoped_offscreen_target_fwd.hpp
-	include/sge/renderer/context/scoped_scoped_ptr.hpp
-	include/sge/renderer/context/scoped_unique_ptr.hpp
 	include/sge/renderer/create_index_buffer_from_view.hpp
 	include/sge/renderer/create_vertex_buffer_from_view.hpp
 	include/sge/renderer/depth_stencil_format.hpp
@@ -782,6 +784,7 @@ set(
 	src/renderer/context/core.cpp
 	src/renderer/context/ffp.cpp
 	src/renderer/context/scoped_core.cpp
+	src/renderer/context/scoped_ffp.cpp
 	src/renderer/context/scoped_offscreen_target.cpp
 	src/renderer/create_index_buffer_from_view.cpp
 	src/renderer/create_vertex_buffer_from_view.cpp

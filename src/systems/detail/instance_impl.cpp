@@ -31,8 +31,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/collection.hpp>
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/optional_cache_ref.hpp>
-#include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/system_fwd.hpp>
+#include <sge/renderer/device/core_fwd.hpp>
+#include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/src/systems/detail/instance_impl.hpp>
 #include <sge/src/systems/modules/audio/loader.hpp>
 #include <sge/src/systems/modules/audio/player.hpp>
@@ -319,10 +320,16 @@ sge::systems::detail::instance_impl::renderer_system() const
 	return renderer_system_->get();
 }
 
-sge::renderer::device &
+sge::renderer::device::ffp &
 sge::systems::detail::instance_impl::renderer_device() const
 {
 	return renderer_device_->get();
+}
+
+sge::renderer::device::core &
+sge::systems::detail::instance_impl::renderer_device_core() const
+{
+	return renderer_device_->get_core();
 }
 
 sge::input::system &

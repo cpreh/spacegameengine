@@ -29,8 +29,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/input/mouse/device_fwd.hpp>
 #include <sge/plugin/manager_fwd.hpp>
-#include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/system_fwd.hpp>
+#include <sge/renderer/device/core_fwd.hpp>
+#include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/src/systems/any_visitor.hpp>
 #include <sge/src/systems/extract_plugin_path.hpp>
 #include <sge/src/systems/detail/instance_impl.hpp>
@@ -118,10 +119,16 @@ sge::systems::instance::renderer_system() const
 	return impl_->renderer_system();
 }
 
-sge::renderer::device &
+sge::renderer::device::ffp &
 sge::systems::instance::renderer() const
 {
 	return impl_->renderer_device();
+}
+
+sge::renderer::device::core &
+sge::systems::instance::renderer_core() const
+{
+	return impl_->renderer_device_core();
 }
 
 sge::input::system &

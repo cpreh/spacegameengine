@@ -118,4 +118,18 @@ sge::sprite::state::parameters<
 		);
 }
 
+template<
+	typename StateChoices
+>
+typename
+sge::sprite::state::parameters<
+	StateChoices
+>::elements_type const &
+sge::sprite::state::parameters<
+	StateChoices
+>::elements() const
+{
+	return elements_;
+}
+
 #endif
