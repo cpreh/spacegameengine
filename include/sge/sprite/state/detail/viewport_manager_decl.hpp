@@ -18,16 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_STATE_OBJECT_DECL_HPP_INCLUDED
-#define SGE_SPRITE_STATE_OBJECT_DECL_HPP_INCLUDED
+#ifndef SGE_SPRITE_STATE_DETAIL_VIEWPORT_MANAGER_DECL_HPP_INCLUDED
+#define SGE_SPRITE_STATE_DETAIL_VIEWPORT_MANAGER_DECL_HPP_INCLUDED
 
-#include <sge/sprite/state/object_fwd.hpp>
-#include <sge/sprite/state/parameters_fwd.hpp>
-#include <sge/sprite/state/render_device.hpp>
+#include <sge/renderer/device/ffp_fwd.hpp>
+#include <sge/renderer/target/viewport_fwd.hpp>
 #include <sge/sprite/state/detail/object_class.hpp>
 #include <sge/sprite/state/detail/viewport_manager_fwd.hpp>
+#include <sge/viewport/manager_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr_decl.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
 
 
 namespace sge
@@ -36,51 +36,43 @@ namespace sprite
 {
 namespace state
 {
+namespace detail
+{
 
 template<
 	typename StateChoices
 >
-class object
+class viewport_manager
 {
 	FCPPT_NONCOPYABLE(
-		object
+		viewport_manager
 	);
 public:
-	typedef StateChoices state_choices;
-
 	typedef typename sge::sprite::state::detail::object_class<
 		StateChoices
-	>::type elements_type;
+	>::type object_class;
 
-	typedef sge::sprite::state::parameters<
-		state_choices
-	> parameters_type;
-
-	typedef typename sge::sprite::state::render_device<
-		StateChoices
-	>::type render_device;
-
-	object(
-		render_device &,
-		parameters_type const &
+	viewport_manager(
+		object_class &,
+		sge::renderer::device::ffp &,
+		sge::viewport::manager &
 	);
 
-	~object();
-
-	elements_type const &
-	elements() const;
+	~viewport_manager();
 private:
-	elements_type elements_;
+	void
+	on_manage(
+		sge::renderer::target::viewport const &
+	);
 
-	typedef fcppt::scoped_ptr<
-		sge::sprite::state::detail::viewport_manager<
-			StateChoices
-		>
-	> viewport_manager_scoped_ptr;
+	object_class &objects_;
 
-	viewport_manager_scoped_ptr const viewport_manager_;
+	sge::renderer::device::ffp &renderer_;
+
+	fcppt::signal::scoped_connection const resize_connection_;
 };
 
+}
 }
 }
 }

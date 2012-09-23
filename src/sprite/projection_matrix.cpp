@@ -24,30 +24,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/projection/rect.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/sprite/matrix.hpp>
+#include <sge/sprite/optional_matrix.hpp>
 #include <sge/sprite/projection_matrix.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 
 
-sge::sprite::matrix const
+sge::sprite::optional_matrix const
 sge::sprite::projection_matrix(
 	sge::renderer::target::viewport const &_viewport
 )
 {
 	return
-		sge::renderer::projection::orthogonal(
-			sge::renderer::projection::rect(
-				sge::renderer::projection::rect::vector::null(),
-				fcppt::math::dim::structure_cast<
-					sge::renderer::projection::rect::dim
-				>(
-					_viewport.get().size()
+		_viewport.get().size().content()
+		!=
+		0u
+		?
+			sge::sprite::optional_matrix(
+				sge::renderer::projection::orthogonal(
+					sge::renderer::projection::rect(
+						sge::renderer::projection::rect::vector::null(),
+						fcppt::math::dim::structure_cast<
+							sge::renderer::projection::rect::dim
+						>(
+							_viewport.get().size()
+						)
+					),
+					sge::renderer::projection::near(
+						0.f
+					),
+					sge::renderer::projection::far(
+						10.f
+					)
 				)
-			),
-			sge::renderer::projection::near(
-				0.f
-			),
-			sge::renderer::projection::far(
-				10.f
 			)
-		);
+		:
+			sge::sprite::optional_matrix()
+		;
 }

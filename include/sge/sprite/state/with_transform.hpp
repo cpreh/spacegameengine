@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/renderer/state/ffp/transform/object.hpp>
 #include <sge/renderer/state/ffp/transform/object_unique_ptr.hpp>
+#include <sge/renderer/target/viewport_fwd.hpp>
 #include <sge/sprite/symbol.hpp>
 #include <sge/sprite/state/with_transform_fwd.hpp>
 #include <sge/sprite/state/roles/transform.hpp>
@@ -55,9 +56,8 @@ struct with_transform
 
 	typedef sge::renderer::state::ffp::transform::object state_type;
 
-	// TODO: remove this!
 	typedef fcppt::optional<
-		sge::sprite::state::with_transform::dummy
+		sge::renderer::target::viewport
 	> optional_extra_parameters;
 
 	SGE_SPRITE_SYMBOL

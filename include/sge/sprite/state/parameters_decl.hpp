@@ -21,12 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_STATE_PARAMETERS_DECL_HPP_INCLUDED
 #define SGE_SPRITE_STATE_PARAMETERS_DECL_HPP_INCLUDED
 
-#include <sge/sprite/state/needs_window.hpp>
+#include <sge/sprite/state/needs_viewport_manager.hpp>
 #include <sge/sprite/state/parameters_fwd.hpp>
 #include <sge/sprite/state/detail/parameters_class.hpp>
 #include <sge/sprite/state/roles/blend_write_mask.hpp>
 #include <sge/sprite/state/roles/enable_scissor_test.hpp>
-#include <sge/window/object_fwd.hpp>
+#include <sge/viewport/manager_fwd.hpp>
 #include <majutsu/role_return_type.hpp>
 #include <fcppt/optional_impl.hpp>
 
@@ -51,15 +51,15 @@ public:
 
 	typedef typename elements_type::memory_type::types flattened_types;
 
-	typedef typename sge::sprite::state::needs_window<
+	typedef typename sge::sprite::state::needs_viewport_manager<
 		StateChoices
-	>::type needs_window;
+	>::type needs_viewport_manager;
 
 	parameters();
 
 	explicit
 	parameters(
-		sge::window::object &
+		sge::viewport::manager &
 	);
 
 	parameters &
@@ -91,8 +91,17 @@ public:
 
 	elements_type const &
 	elements() const;
+
+	typedef fcppt::optional<
+		sge::viewport::manager &
+	> optional_viewport_manager_ref;
+
+	optional_viewport_manager_ref const
+	viewport_manager() const;
 private:
 	elements_type elements_;
+
+	optional_viewport_manager_ref const viewport_manager_;
 };
 
 }

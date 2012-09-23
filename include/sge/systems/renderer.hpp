@@ -24,10 +24,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/name.hpp>
 #include <sge/renderer/caps/system_field.hpp>
 #include <sge/renderer/parameters/object.hpp>
+#include <sge/renderer/target/viewport.hpp>
 #include <sge/systems/optional_name.hpp>
 #include <sge/systems/renderer_fwd.hpp>
 #include <sge/systems/symbol.hpp>
-#include <sge/viewport/resize_function.hpp>
+#include <sge/viewport/resize_callback.hpp>
 #include <fcppt/nonassignable.hpp>
 
 
@@ -45,7 +46,7 @@ public:
 	SGE_SYSTEMS_SYMBOL
 	renderer(
 		sge::renderer::parameters::object const &,
-		sge::viewport::resize_function const &
+		sge::viewport::resize_callback const &
 	);
 
 	SGE_SYSTEMS_SYMBOL
@@ -63,8 +64,8 @@ public:
 	sge::renderer::parameters::object const &
 	parameters() const;
 
-	sge::viewport::resize_function const &
-	resize_function() const;
+	sge::viewport::resize_callback const &
+	resize_callback() const;
 
 	sge::renderer::caps::system_field const &
 	caps() const;
@@ -74,7 +75,7 @@ public:
 private:
 	sge::renderer::parameters::object const parameters_;
 
-	sge::viewport::resize_function const resize_function_;
+	sge::viewport::resize_callback const resize_callback_;
 
 	sge::renderer::caps::system_field caps_;
 

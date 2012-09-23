@@ -22,7 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_STATE_OBJECT_IMPL_HPP_INCLUDED
 
 #include <sge/sprite/state/object_decl.hpp>
+#include <sge/sprite/state/parameters_impl.hpp>
 #include <sge/sprite/state/detail/make_objects.hpp>
+#include <sge/sprite/state/detail/make_viewport_manager.hpp>
+#include <sge/sprite/state/detail/viewport_manager_impl.hpp>
 
 
 template<
@@ -41,6 +44,15 @@ sge::sprite::state::object<
 		>(
 			_device,
 			_parameters.elements()
+		)
+	),
+	viewport_manager_(
+		sge::sprite::state::detail::make_viewport_manager<
+			StateChoices
+		>(
+			elements_,
+			_device,
+			_parameters
 		)
 	)
 {

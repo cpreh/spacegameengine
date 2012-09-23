@@ -169,8 +169,10 @@ try
 	> sprite_state_parameters;
 
 	sprite_state_object const sprite_state(
-		sys.renderer(),
-		sprite_state_parameters()
+		sys.renderer_ffp(),
+		sprite_state_parameters(
+			sys.viewport_manager()
+		)
 	);
 
 	/*
@@ -179,7 +181,7 @@ try
 	> sprite_parameters;*/
 
 	sprite_buffers_type sprite_buffers(
-		sys.renderer(),
+		sys.renderer_ffp(),
 		sge::sprite::buffers::option::dynamic
 	);
 
@@ -217,8 +219,8 @@ try
 	)
 	{
 		sge::renderer::context::scoped_ffp const scoped_block(
-			sys.renderer(),
-			sys.renderer().onscreen_target()
+			sys.renderer_ffp(),
+			sys.renderer_ffp().onscreen_target()
 		);
 
 		scoped_block.get().clear(

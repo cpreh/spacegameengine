@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/graph/baseline.hpp>
 #include <sge/graph/color_scheme.hpp>
+#include <sge/graph/object_fwd.hpp>
 #include <sge/graph/optional_axis_constraint.hpp>
 #include <sge/graph/position.hpp>
 #include <sge/graph/scalar.hpp>
@@ -48,6 +49,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/all_choices.hpp>
 #include <sge/sprite/state/object_decl.hpp>
 #include <sge/sprite/state/parameters_fwd.hpp>
+#include <sge/viewport/manager_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/circular_buffer.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -67,6 +69,7 @@ public:
 		sge::graph::position const &,
 		sge::renderer::dim2 const &,
 		sge::renderer::device::ffp &,
+		sge::viewport::manager &,
 		sge::graph::baseline,
 		sge::graph::optional_axis_constraint const &,
 		sge::graph::color_scheme const &);

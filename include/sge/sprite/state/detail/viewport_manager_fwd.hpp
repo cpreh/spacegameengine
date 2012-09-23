@@ -18,25 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_PROJECTION_MATRIX_HPP_INCLUDED
-#define SGE_SPRITE_PROJECTION_MATRIX_HPP_INCLUDED
-
-#include <sge/renderer/target/viewport_fwd.hpp>
-#include <sge/sprite/optional_matrix_fwd.hpp>
-#include <sge/sprite/symbol.hpp>
+#ifndef SGE_SPRITE_STATE_DETAIL_VIEWPORT_MANAGER_FWD_HPP_INCLUDED
+#define SGE_SPRITE_STATE_DETAIL_VIEWPORT_MANAGER_FWD_HPP_INCLUDED
 
 
 namespace sge
 {
 namespace sprite
 {
+namespace state
+{
+namespace detail
+{
 
-SGE_SPRITE_SYMBOL
-sge::sprite::optional_matrix const
-projection_matrix(
-	sge::renderer::target::viewport const &
-);
+template<
+	typename StateChoices
+>
+class viewport_manager;
 
+}
+}
 }
 }
 

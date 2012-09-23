@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/transform/object.hpp>
 #include <sge/renderer/state/ffp/transform/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
-#include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/sprite/matrix.hpp>
 #include <sge/sprite/projection_matrix.hpp>
@@ -35,17 +34,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::renderer::state::ffp::transform::object_unique_ptr
 sge::sprite::state::with_transform::make(
 	sge::renderer::device::ffp &_device,
-	sge::sprite::state::with_transform::optional_extra_parameters const &
+	sge::sprite::state::with_transform::optional_extra_parameters const &_viewport
 )
 {
+	if(
+		!_viewport
+	)
+		return
+			sge::renderer::state::ffp::transform::object_unique_ptr();
+
+	sge::sprite::optional_matrix const matrix(
+		sge::sprite::projection_matrix(
+			*_viewport
+		)
+	);
+
 	return
-		_device.create_transform_state(
-			sge::renderer::state::ffp::transform::parameters(
-				sge::sprite::projection_matrix(
-					_device.onscreen_target().viewport()
+		matrix
+		?
+			_device.create_transform_state(
+				sge::renderer::state::ffp::transform::parameters(
+					*matrix
 				)
 			)
-		);
+		:
+			sge::renderer::state::ffp::transform::object_unique_ptr()
+		;
 }
 
 void

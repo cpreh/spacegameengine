@@ -18,25 +18,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_PROJECTION_MATRIX_HPP_INCLUDED
-#define SGE_SPRITE_PROJECTION_MATRIX_HPP_INCLUDED
+#ifndef SGE_SPRITE_STATE_NEEDS_VIEWPORT_MANAGER_HPP_INCLUDED
+#define SGE_SPRITE_STATE_NEEDS_VIEWPORT_MANAGER_HPP_INCLUDED
 
-#include <sge/renderer/target/viewport_fwd.hpp>
-#include <sge/sprite/optional_matrix_fwd.hpp>
-#include <sge/sprite/symbol.hpp>
+#include <sge/sprite/state/is_with_transform.hpp>
+#include <sge/sprite/detail/config/contains_if.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 
 namespace sge
 {
 namespace sprite
 {
+namespace state
+{
 
-SGE_SPRITE_SYMBOL
-sge::sprite::optional_matrix const
-projection_matrix(
-	sge::renderer::target::viewport const &
-);
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
+template<
+	typename StateChoices
+>
+struct needs_viewport_manager
+:
+sge::sprite::detail::config::contains_if<
+	typename StateChoices::optional_elements,
+	sge::sprite::state::is_with_transform
+>
+{
+};
+
+FCPPT_PP_POP_WARNING
+
+}
 }
 }
 

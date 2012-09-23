@@ -22,22 +22,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/parameters/object.hpp>
 #include <sge/renderer/caps/system.hpp>
 #include <sge/renderer/caps/system_field.hpp>
+#include <sge/renderer/target/viewport.hpp>
 #include <sge/systems/optional_name.hpp>
 #include <sge/systems/renderer.hpp>
-#include <sge/viewport/resize_function.hpp>
-#include <fcppt/math/box/object_impl.hpp>
+#include <sge/viewport/resize_callback.hpp>
 
 
 sge::systems::renderer::renderer(
 	sge::renderer::parameters::object const &_parameters,
-	sge::viewport::resize_function const &_resize_function
+	sge::viewport::resize_callback const &_resize_callback
 )
 :
 	parameters_(
 		_parameters
 	),
-	resize_function_(
-		_resize_function
+	resize_callback_(
+		_resize_callback
 	),
 	caps_(
 		sge::renderer::caps::system_field(
@@ -74,10 +74,10 @@ sge::systems::renderer::parameters() const
 	return parameters_;
 }
 
-sge::viewport::resize_function const &
-sge::systems::renderer::resize_function() const
+sge::viewport::resize_callback const &
+sge::systems::renderer::resize_callback() const
 {
-	return resize_function_;
+	return resize_callback_;
 }
 
 sge::renderer::caps::system_field const &

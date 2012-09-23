@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/parameters_decl.hpp>
 #include <sge/sprite/state/roles/blend_write_mask.hpp>
 #include <sge/sprite/state/roles/enable_scissor_test.hpp>
-#include <sge/window/object_fwd.hpp>
+#include <sge/viewport/manager_fwd.hpp>
 #include <majutsu/role_return_type.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/static_assert_expression.hpp>
@@ -37,10 +37,11 @@ sge::sprite::state::parameters<
 	StateChoices
 >::parameters()
 :
-	elements_()
+	elements_(),
+	viewport_manager_()
 {
 	FCPPT_STATIC_ASSERT_EXPRESSION(
-		!needs_window::value
+		!needs_viewport_manager::value
 	);
 }
 
@@ -50,13 +51,16 @@ template<
 sge::sprite::state::parameters<
 	StateChoices
 >::parameters(
-	sge::window::object &_window
+	sge::viewport::manager &_viewport_manager
 )
 :
-	elements_()
+	elements_(),
+	viewport_manager_(
+		_viewport_manager
+	)
 {
 	FCPPT_STATIC_ASSERT_EXPRESSION(
-		needs_window::value
+		needs_viewport_manager::value
 	);
 }
 
@@ -151,6 +155,21 @@ sge::sprite::state::parameters<
 >::elements() const
 {
 	return elements_;
+}
+
+
+template<
+	typename StateChoices
+>
+typename
+sge::sprite::state::parameters<
+	StateChoices
+>::optional_viewport_manager_ref const
+sge::sprite::state::parameters<
+	StateChoices
+>::viewport_manager() const
+{
+	return viewport_manager_;
 }
 
 #endif

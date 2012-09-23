@@ -100,5 +100,7 @@ sge::viewport::detail::manager_impl::on_resize(
 			)
 		);
 
-	manage_signal_();
+	manage_signal_(
+		target_.viewport()
+	);
 }

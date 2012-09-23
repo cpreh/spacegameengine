@@ -12,6 +12,7 @@ set(
 	include/sge/graph/foreground_alt_color.hpp
 	include/sge/graph/foreground_color.hpp
 	include/sge/graph/object.hpp
+	include/sge/graph/object_fwd.hpp
 	include/sge/graph/optional_axis_constraint.hpp
 	include/sge/graph/optional_axis_constraint_fwd.hpp
 	include/sge/graph/parameters.hpp
