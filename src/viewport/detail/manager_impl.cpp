@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/src/viewport/detail/manager_impl.hpp>
 #include <sge/viewport/manage_callback.hpp>
-#include <sge/viewport/resize_function.hpp>
+#include <sge/viewport/resize_callback.hpp>
 #include <sge/window/object.hpp>
 #include <awl/window/event/processor.hpp>
 #include <awl/window/event/resize_fwd.hpp>
@@ -40,14 +40,14 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::viewport::detail::manager_impl::manager_impl(
 	sge::renderer::device::core &_device,
 	sge::window::object &_window,
-	sge::viewport::resize_function const &_resize_function
+	sge::viewport::resize_callback const &_resize_callback
 )
 :
 	target_(
 		_device.onscreen_target()
 	),
-	resize_function_(
-		_resize_function
+	resize_callback_(
+		_resize_callback
 	),
 	resize_connection_(
 		_window.awl_window_event_processor().resize_callback(
@@ -69,7 +69,7 @@ sge::viewport::detail::manager_impl::~manager_impl()
 
 fcppt::signal::auto_connection
 sge::viewport::detail::manager_impl::manage_callback(
-	viewport::manage_callback const &_callback
+	sge::viewport::manage_callback const &_callback
 )
 {
 	return
@@ -79,11 +79,11 @@ sge::viewport::detail::manager_impl::manage_callback(
 }
 
 void
-sge::viewport::detail::manager_impl::resize_function(
-	sge::viewport::resize_function const &_resize_function
+sge::viewport::detail::manager_impl::resize_callback(
+	sge::viewport::resize_callback const &_resize_callback
 )
 {
-	resize_function_ = _resize_function;
+	resize_callback_ = _resize_callback;
 }
 
 void
@@ -92,10 +92,10 @@ sge::viewport::detail::manager_impl::on_resize(
 )
 {
 	if(
-		resize_function_
+		resize_callback_
 	)
 		target_.viewport(
-			resize_function_(
+			resize_callback_(
 				_resize
 			)
 		);

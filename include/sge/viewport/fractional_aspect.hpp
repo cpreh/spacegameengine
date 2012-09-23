@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/viewport/fractional_aspect_fwd.hpp>
 #include <sge/viewport/symbol.hpp>
+#include <sge/window/unit.hpp>
 
 
 namespace sge
@@ -33,7 +34,7 @@ namespace viewport
 class fractional_aspect
 {
 public:
-	typedef unsigned value_type;
+	typedef sge::window::unit value_type;
 
 	SGE_VIEWPORT_SYMBOL
 	fractional_aspect(

@@ -24,8 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/parameters_decl.hpp>
 #include <sge/sprite/state/roles/blend_write_mask.hpp>
 #include <sge/sprite/state/roles/enable_scissor_test.hpp>
+#include <sge/window/object_fwd.hpp>
 #include <majutsu/role_return_type.hpp>
 #include <fcppt/optional_impl.hpp>
+#include <fcppt/static_assert_expression.hpp>
 
 
 template<
@@ -37,6 +39,25 @@ sge::sprite::state::parameters<
 :
 	elements_()
 {
+	FCPPT_STATIC_ASSERT_EXPRESSION(
+		!needs_window::value
+	);
+}
+
+template<
+	typename StateChoices
+>
+sge::sprite::state::parameters<
+	StateChoices
+>::parameters(
+	sge::window::object &_window
+)
+:
+	elements_()
+{
+	FCPPT_STATIC_ASSERT_EXPRESSION(
+		needs_window::value
+	);
 }
 
 template<

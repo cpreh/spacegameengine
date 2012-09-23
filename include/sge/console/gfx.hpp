@@ -35,11 +35,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/input/keyboard/key_event_fwd.hpp>
 #include <sge/input/keyboard/key_repeat_event_fwd.hpp>
-#include <sge/renderer/device_fwd.hpp>
-#include <sge/renderer/context/object_fwd.hpp>
+#include <sge/renderer/context/ffp_fwd.hpp>
+#include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/sprite/object_decl.hpp>
 #include <sge/sprite/buffers/single_decl.hpp>
 #include <sge/sprite/buffers/with_declaration_decl.hpp>
+#include <sge/sprite/state/all_choices.hpp>
+#include <sge/sprite/state/object_decl.hpp>
+#include <sge/sprite/state/parameters_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -61,7 +64,7 @@ public:
 	SGE_CONSOLE_SYMBOL
 	gfx(
 		sge::console::object &,
-		sge::renderer::device &,
+		sge::renderer::device::ffp &,
 		sge::image::color::any::object const &font_color,
 		sge::font::object &,
 		sge::input::keyboard::device &,
@@ -75,7 +78,7 @@ public:
 	SGE_CONSOLE_SYMBOL
 	void
 	render(
-		sge::renderer::context::object &
+		sge::renderer::context::ffp &
 	);
 
 	SGE_CONSOLE_SYMBOL
@@ -118,7 +121,7 @@ private:
 
 	sge::console::object &object_;
 
-	sge::renderer::device &renderer_;
+	sge::renderer::device::ffp &renderer_;
 
 	sge::image::color::any::object const font_color_;
 
@@ -141,6 +144,18 @@ private:
 
 	sprite_buffers sprite_buffers_;
 
+	typedef sge::sprite::state::all_choices sprite_state_choices;
+
+	typedef sge::sprite::state::object<
+		sprite_state_choices
+	> sprite_state;
+
+	typedef sge::sprite::state::parameters<
+		sprite_state_choices
+	> sprite_state_parameters;
+
+	sprite_state const sprite_state_;
+
 	sge::console::sprite_object background_;
 
 	bool active_;
@@ -155,7 +170,7 @@ private:
 
 	sge::font::unit
 	render_line(
-		sge::renderer::context::object &,
+		sge::renderer::context::ffp &,
 		sge::font::string const &,
 		sge::font::unit
 	);

@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/target/base_fwd.hpp>
-#include <sge/viewport/manage_callback.hpp>
-#include <sge/viewport/resize_function.hpp>
+#include <sge/viewport/manage_callback_fwd.hpp>
+#include <sge/viewport/resize_callback.hpp>
 #include <sge/viewport/detail/manager_impl_fwd.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <awl/window/event/resize_fwd.hpp>
@@ -51,19 +51,19 @@ public:
 	manager_impl(
 		sge::renderer::device::core &,
 		sge::window::object &,
-		sge::viewport::resize_function const &
+		sge::viewport::resize_callback const &
 	);
 
 	~manager_impl();
 
 	fcppt::signal::auto_connection
 	manage_callback(
-		viewport::manage_callback const &
+		sge::viewport::manage_callback const &
 	);
 
 	void
-	resize_function(
-		sge::viewport::resize_function const &
+	resize_callback(
+		sge::viewport::resize_callback const &
 	);
 private:
 	void
@@ -73,12 +73,12 @@ private:
 
 	sge::renderer::target::base &target_;
 
-	viewport::resize_function resize_function_;
+	sge::viewport::resize_callback resize_callback_;
 
 	fcppt::signal::scoped_connection const resize_connection_;
 
 	typedef fcppt::signal::object<
-		viewport::manage_function
+		sge::viewport::manage_function
 	> manage_signal;
 
 	manage_signal manage_signal_;

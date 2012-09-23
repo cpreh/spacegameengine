@@ -120,9 +120,9 @@ sge::systems::instance::renderer_system() const
 }
 
 sge::renderer::device::ffp &
-sge::systems::instance::renderer() const
+sge::systems::instance::renderer_ffp() const
 {
-	return impl_->renderer_device();
+	return impl_->renderer_device_ffp();
 }
 
 sge::renderer::device::core &

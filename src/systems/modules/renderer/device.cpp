@@ -20,12 +20,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/device/core.hpp>
 #include <sge/renderer/device/ffp.hpp>
+#include <sge/renderer/target/viewport.hpp>
 #include <sge/src/systems/modules/renderer/create_device.hpp>
 #include <sge/src/systems/modules/renderer/device.hpp>
 #include <sge/src/systems/modules/renderer/system_fwd.hpp>
 #include <sge/src/systems/modules/window/object.hpp>
 #include <sge/systems/renderer.hpp>
 #include <sge/viewport/manager.hpp>
+#include <sge/window/dim.hpp>
 
 
 sge::systems::modules::renderer::device::device(
@@ -54,7 +56,7 @@ sge::systems::modules::renderer::device::~device()
 }
 
 sge::renderer::device::ffp &
-sge::systems::modules::renderer::device::get() const
+sge::systems::modules::renderer::device::get_ffp() const
 {
 	// TODO: error checking?
 	return

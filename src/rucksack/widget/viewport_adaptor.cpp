@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/rucksack/widget/viewport_adaptor.hpp>
-#include <sge/renderer/device.hpp>
+#include <sge/renderer/device/core.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/viewport/manager.hpp>
 #include <fcppt/exception.hpp>
@@ -39,12 +39,12 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::rucksack::widget::viewport_adaptor::viewport_adaptor(
 	sge::viewport::manager &_viewport,
-	sge::renderer::device &_renderer)
+	sge::renderer::device::core &_renderer)
 :
 	widget::base(
 		widget::optional_parent()),
-	renderer_(
-		_renderer),
+	target_(
+		_renderer.onscreen_target()),
 	viewport_connection_(
 		_viewport.manage_callback(
 			std::tr1::bind(
@@ -60,10 +60,10 @@ void
 sge::rucksack::widget::viewport_adaptor::size(
 	sge::rucksack::dim const &_size)
 {
-	renderer_.onscreen_target().viewport(
+	target_.viewport(
 		sge::renderer::target::viewport(
 			sge::renderer::pixel_rect(
-				renderer_.onscreen_target().viewport().get().pos(),
+				target_.viewport().get().pos(),
 				fcppt::math::dim::structure_cast<sge::renderer::pixel_rect::dim>(
 					_size))));
 }
@@ -72,12 +72,12 @@ void
 sge::rucksack::widget::viewport_adaptor::position(
 	sge::rucksack::vector const &_pos)
 {
-	renderer_.onscreen_target().viewport(
+	target_.viewport(
 		sge::renderer::target::viewport(
 			sge::renderer::pixel_rect(
 				fcppt::math::vector::structure_cast<sge::renderer::pixel_rect::vector>(
 					_pos),
-				renderer_.onscreen_target().viewport().get().size())));
+				target_.viewport().get().size())));
 }
 
 sge::rucksack::dim const
@@ -85,7 +85,7 @@ sge::rucksack::widget::viewport_adaptor::size() const
 {
 	return
 		fcppt::math::dim::structure_cast<sge::rucksack::dim>(
-			renderer_.onscreen_target().viewport().get().size());
+			target_.viewport().get().size());
 }
 
 sge::rucksack::vector const
@@ -93,7 +93,7 @@ sge::rucksack::widget::viewport_adaptor::position() const
 {
 	return
 		fcppt::math::vector::structure_cast<sge::rucksack::vector>(
-			renderer_.onscreen_target().viewport().get().pos());
+			target_.viewport().get().pos());
 }
 
 sge::rucksack::axis_policy2 const

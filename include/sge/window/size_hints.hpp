@@ -25,8 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/optional_dim.hpp>
 #include <sge/window/size_hints_fwd.hpp>
 #include <sge/window/symbol.hpp>
-#include <fcppt/optional_impl.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
 
 
 namespace sge
@@ -41,36 +39,36 @@ public:
 	size_hints();
 
 	SGE_WINDOW_SYMBOL
-	size_hints &
+	sge::window::size_hints &
 	exact_size_hint(
-		window::dim const &
+		sge::window::dim const &
 	);
 
 	SGE_WINDOW_SYMBOL
-	size_hints &
+	sge::window::size_hints &
 	minimum_size_hint(
-		window::dim const &
+		sge::window::dim const &
 	);
 
 	SGE_WINDOW_SYMBOL
-	size_hints &
+	sge::window::size_hints &
 	maximum_size_hint(
-		window::dim const &
+		sge::window::dim const &
 	);
 
 	SGE_WINDOW_SYMBOL
-	window::optional_dim const &
+	sge::window::optional_dim const &
 	exact_size_hint() const;
 
 	SGE_WINDOW_SYMBOL
-	window::optional_dim const &
+	sge::window::optional_dim const &
 	minimum_size_hint() const;
 
 	SGE_WINDOW_SYMBOL
-	window::optional_dim const &
+	sge::window::optional_dim const &
 	maximum_size_hint() const;
 private:
-	window::optional_dim
+	sge::window::optional_dim
 		exact_size_hint_,
 		minimum_size_hint_,
 		maximum_size_hint_;

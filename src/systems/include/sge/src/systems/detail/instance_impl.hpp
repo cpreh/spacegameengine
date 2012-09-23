@@ -136,7 +136,7 @@ public:
 	renderer_system() const;
 
 	sge::renderer::device::ffp &
-	renderer_device() const;
+	renderer_device_ffp() const;
 
 	sge::renderer::device::core &
 	renderer_device_core() const;

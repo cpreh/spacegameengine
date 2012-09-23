@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_WINDOW_OBJECT_HPP_INCLUDED
 #define SGE_WINDOW_OBJECT_HPP_INCLUDED
 
-#include <sge/window/dim.hpp>
+#include <sge/window/dim_fwd.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/symbol.hpp>
 #include <awl/event/processor_fwd.hpp>
@@ -53,7 +53,7 @@ public:
 	~object();
 
 	SGE_WINDOW_SYMBOL
-	window::dim const
+	sge::window::dim const
 	size() const;
 
 	SGE_WINDOW_SYMBOL

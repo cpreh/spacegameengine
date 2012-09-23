@@ -21,20 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_VIEWPORT_MANAGE_CALLBACK_HPP_INCLUDED
 #define SGE_VIEWPORT_MANAGE_CALLBACK_HPP_INCLUDED
 
-#include <sge/viewport/manage_function.hpp>
-#include <fcppt/function/object_fwd.hpp>
+#include <sge/viewport/manage_callback_fwd.hpp>
+#include <fcppt/function/object.hpp>
 
-
-namespace sge
-{
-namespace viewport
-{
-
-typedef fcppt::function::object<
-	viewport::manage_function
-> manage_callback;
-
-}
-}
 
 #endif

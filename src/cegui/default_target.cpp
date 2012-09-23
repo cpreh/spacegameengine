@@ -18,9 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/device.hpp>
 #include <sge/renderer/matrix4.hpp>
-#include <sge/renderer/context/object.hpp>
+#include <sge/renderer/device/core.hpp>
 #include <sge/renderer/projection/far.hpp>
 #include <sge/renderer/projection/near.hpp>
 #include <sge/renderer/projection/orthogonal.hpp>
@@ -62,7 +61,7 @@ SGE_CEGUI_DECLARE_LOCAL_LOGGER(
 // sge already provides this viewport-adaption technique so I just
 // update the viewport variable when the viewport is requested.
 sge::cegui::default_target::default_target(
-	sge::renderer::device &_renderer,
+	sge::renderer::device::core &_renderer,
 	sge::cegui::optional_render_context_ref const &_render_context
 )
 :

@@ -23,9 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/class_symbol.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
-#include <sge/viewport/manage_callback.hpp>
+#include <sge/viewport/manage_callback_fwd.hpp>
 #include <sge/viewport/manager_fwd.hpp>
-#include <sge/viewport/resize_function.hpp>
+#include <sge/viewport/resize_callback.hpp>
 #include <sge/viewport/symbol.hpp>
 #include <sge/viewport/detail/manager_impl_fwd.hpp>
 #include <sge/window/object_fwd.hpp>
@@ -49,7 +49,7 @@ public:
 	manager(
 		sge::renderer::device::core &,
 		sge::window::object &,
-		sge::viewport::resize_function const &
+		sge::viewport::resize_callback const &
 	);
 
 	SGE_VIEWPORT_SYMBOL
@@ -58,13 +58,13 @@ public:
 	SGE_VIEWPORT_SYMBOL
 	fcppt::signal::auto_connection
 	manage_callback(
-		viewport::manage_callback const &
+		sge::viewport::manage_callback const &
 	);
 
 	SGE_VIEWPORT_SYMBOL
 	void
-	resize_function(
-		sge::viewport::resize_function const &
+	resize_callback(
+		sge::viewport::resize_callback const &
 	);
 private:
 	typedef fcppt::scoped_ptr<

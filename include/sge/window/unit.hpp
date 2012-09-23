@@ -18,23 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_VIEWPORT_RESIZE_FUNCTION_HPP_INCLUDED
-#define SGE_VIEWPORT_RESIZE_FUNCTION_HPP_INCLUDED
-
-#include <sge/renderer/target/viewport_fwd.hpp>
-#include <awl/window/event/resize_fwd.hpp>
+#ifndef SGE_WINDOW_UNIT_HPP_INCLUDED
+#define SGE_WINDOW_UNIT_HPP_INCLUDED
 
 
 namespace sge
 {
-namespace viewport
+namespace window
 {
 
-typedef
-sge::renderer::target::viewport
-resize_function(
-	awl::window::event::resize const &
-);
+typedef unsigned unit;
 
 }
 }

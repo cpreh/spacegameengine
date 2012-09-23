@@ -18,23 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_VIEWPORT_RESIZE_FUNCTION_HPP_INCLUDED
-#define SGE_VIEWPORT_RESIZE_FUNCTION_HPP_INCLUDED
+#ifndef SGE_WINDOW_DIM_FWD_HPP_INCLUDED
+#define SGE_WINDOW_DIM_FWD_HPP_INCLUDED
 
-#include <sge/renderer/target/viewport_fwd.hpp>
-#include <awl/window/event/resize_fwd.hpp>
+#include <sge/window/unit.hpp>
+#include <fcppt/math/dim/static.hpp>
 
 
 namespace sge
 {
-namespace viewport
+namespace window
 {
 
-typedef
-sge::renderer::target::viewport
-resize_function(
-	awl::window::event::resize const &
-);
+typedef fcppt::math::dim::static_<
+	sge::window::unit,
+	2
+>::type dim;
 
 }
 }

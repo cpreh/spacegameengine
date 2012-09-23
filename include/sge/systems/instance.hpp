@@ -75,7 +75,7 @@ public:
 
 	SGE_SYSTEMS_SYMBOL
 	sge::renderer::device::ffp &
-	renderer() const;
+	renderer_ffp() const;
 
 	SGE_SYSTEMS_SYMBOL
 	sge::renderer::device::core &

@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_CEGUI_BATCH_HPP_INCLUDED
 #define SGE_SRC_CEGUI_BATCH_HPP_INCLUDED
 
-#include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/vertex_buffer_scoped_ptr.hpp>
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
+#include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/src/cegui/batch_fwd.hpp>
 #include <sge/src/cegui/clip.hpp>
@@ -43,7 +43,7 @@ class batch
 	);
 public:
 	batch(
-		sge::renderer::device &,
+		sge::renderer::device::core &,
 		sge::renderer::vertex_declaration const &,
 		sge::renderer::texture::planar &,
 		sge::renderer::vertex_count,

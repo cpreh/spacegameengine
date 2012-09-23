@@ -21,10 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_STATE_PARAMETERS_DECL_HPP_INCLUDED
 #define SGE_SPRITE_STATE_PARAMETERS_DECL_HPP_INCLUDED
 
+#include <sge/sprite/state/needs_window.hpp>
 #include <sge/sprite/state/parameters_fwd.hpp>
 #include <sge/sprite/state/detail/parameters_class.hpp>
 #include <sge/sprite/state/roles/blend_write_mask.hpp>
 #include <sge/sprite/state/roles/enable_scissor_test.hpp>
+#include <sge/window/object_fwd.hpp>
 #include <majutsu/role_return_type.hpp>
 #include <fcppt/optional_impl.hpp>
 
@@ -49,7 +51,16 @@ public:
 
 	typedef typename elements_type::memory_type::types flattened_types;
 
+	typedef typename sge::sprite::state::needs_window<
+		StateChoices
+	>::type needs_window;
+
 	parameters();
+
+	explicit
+	parameters(
+		sge::window::object &
+	);
 
 	parameters &
 	blend_write_mask(

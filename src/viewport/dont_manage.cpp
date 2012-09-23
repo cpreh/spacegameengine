@@ -18,12 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/renderer/target/viewport.hpp>
 #include <sge/viewport/dont_manage.hpp>
-#include <fcppt/math/box/object_impl.hpp>
+#include <sge/viewport/resize_callback.hpp>
+#include <sge/window/dim.hpp>
 
 
-sge::viewport::resize_function const
+sge::viewport::resize_callback const
 sge::viewport::dont_manage()
 {
-	return sge::viewport::resize_function();
+	return
+		sge::viewport::resize_callback();
 }

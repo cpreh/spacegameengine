@@ -22,12 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/viewport/maintain_aspect_function.hpp>
 #include <sge/viewport/fractional_aspect.hpp>
 #include <sge/viewport/maintain_aspect.hpp>
-#include <sge/viewport/resize_function.hpp>
+#include <sge/viewport/resize_callback.hpp>
 #include <fcppt/function/object.hpp>
 #include <fcppt/tr1/functional.hpp>
 
 
-sge::viewport::resize_function const
+sge::viewport::resize_callback const
 sge::viewport::maintain_aspect(
 	sge::viewport::fractional_aspect const &_aspect
 )

@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RUCKSACK_WIDGET_VIEWPORT_ADAPTOR_HPP_INCLUDED
 
 #include <sge/class_symbol.hpp>
-#include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/device/core_fwd.hpp>
+#include <sge/renderer/target/base_fwd.hpp>
 #include <sge/rucksack/symbol.hpp>
 #include <sge/rucksack/widget/base.hpp>
 #include <sge/rucksack/widget/optional_parent.hpp>
@@ -62,7 +63,7 @@ public:
 	SGE_RUCKSACK_SYMBOL explicit
 	viewport_adaptor(
 		sge::viewport::manager &,
-		sge::renderer::device &);
+		sge::renderer::device::core &);
 
 	SGE_RUCKSACK_SYMBOL void
 	size(
@@ -90,7 +91,7 @@ public:
 
 	SGE_RUCKSACK_SYMBOL ~viewport_adaptor();
 private:
-	sge::renderer::device &renderer_;
+	sge::renderer::target::base &target_;
 	fcppt::signal::scoped_connection viewport_connection_;
 	sge::rucksack::widget::base *child_;
 

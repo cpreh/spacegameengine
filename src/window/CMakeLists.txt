@@ -4,11 +4,13 @@ set(
 	include/sge/window/create_from_awl.hpp
 	include/sge/window/default_class_name.hpp
 	include/sge/window/dim.hpp
+	include/sge/window/dim_fwd.hpp
 	include/sge/window/object.hpp
 	include/sge/window/object_fwd.hpp
 	include/sge/window/object_scoped_ptr.hpp
 	include/sge/window/object_unique_ptr.hpp
 	include/sge/window/optional_dim.hpp
+	include/sge/window/optional_dim_fwd.hpp
 	include/sge/window/parameters.hpp
 	include/sge/window/parameters_fwd.hpp
 	include/sge/window/size_hints.hpp
@@ -17,6 +19,7 @@ set(
 	include/sge/window/system_fwd.hpp
 	include/sge/window/title.hpp
 	include/sge/window/to_awl_parameters.hpp
+	include/sge/window/unit.hpp
 	src/window/convert_size_hints.cpp
 	src/window/create_from_awl.cpp
 	src/window/default_class_name.cpp

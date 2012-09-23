@@ -56,7 +56,7 @@ public:
 	~device();
 
 	sge::renderer::device::ffp &
-	get() const;
+	get_ffp() const;
 
 	sge::renderer::device::core &
 	get_core() const;

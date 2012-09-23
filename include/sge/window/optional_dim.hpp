@@ -22,19 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_WINDOW_OPTIONAL_DIM_HPP_INCLUDED
 
 #include <sge/window/dim.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <sge/window/optional_dim_fwd.hpp>
+#include <fcppt/optional_impl.hpp>
 
-
-namespace sge
-{
-namespace window
-{
-
-typedef fcppt::optional<
-	window::dim
-> optional_dim;
-
-}
-}
 
 #endif

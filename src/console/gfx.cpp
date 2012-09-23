@@ -38,11 +38,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/input/keyboard/key_repeat_event.hpp>
-#include <sge/renderer/context/object_fwd.hpp>
+#include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/device/ffp.hpp>
 #include <sge/sprite/buffers/option.hpp>
 #include <sge/sprite/buffers/single_impl.hpp>
 #include <sge/sprite/buffers/with_declaration_impl.hpp>
 #include <sge/sprite/process/one.hpp>
+#include <sge/sprite/state/object_impl.hpp>
+#include <sge/sprite/state/parameters_impl.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -58,7 +61,7 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::console::gfx::gfx(
 	sge::console::object &_object,
-	sge::renderer::device &_renderer,
+	sge::renderer::device::ffp &_renderer,
 	sge::image::color::any::object const &_font_color,
 	sge::font::object &_font_object,
 	sge::input::keyboard::device &_keyboard,
@@ -130,6 +133,10 @@ sge::console::gfx::gfx(
 		_renderer,
 		sge::sprite::buffers::option::dynamic
 	),
+	sprite_state_(
+		_renderer,
+		sprite_state_parameters()
+	),
 	background_(
 		_background
 	),
@@ -155,19 +162,19 @@ sge::console::gfx::~gfx()
 
 void
 sge::console::gfx::render(
-	sge::renderer::context::object &_render_context
+	sge::renderer::context::ffp &_render_context
 )
 {
 	sge::sprite::process::one(
 		_render_context,
 		background_,
-		sprite_buffers_
+		sprite_buffers_,
+		sprite_state_
 	);
 
 	sge::font::unit current_y(
 		background_.h()
 	);
-
 
 	current_y =
 		this->render_line(
@@ -261,7 +268,7 @@ sge::console::gfx::background_sprite() const
 
 sge::font::unit
 sge::console::gfx::render_line(
-	sge::renderer::context::object &_render_context,
+	sge::renderer::context::ffp &_render_context,
 	sge::font::string const &_line,
 	sge::font::unit const _current_y
 )

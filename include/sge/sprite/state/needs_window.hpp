@@ -18,24 +18,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_VIEWPORT_RESIZE_FUNCTION_HPP_INCLUDED
-#define SGE_VIEWPORT_RESIZE_FUNCTION_HPP_INCLUDED
+#ifndef SGE_SPRITE_STATE_NEEDS_WINDOW_HPP_INCLUDED
+#define SGE_SPRITE_STATE_NEEDS_WINDOW_HPP_INCLUDED
 
-#include <sge/renderer/target/viewport_fwd.hpp>
-#include <awl/window/event/resize_fwd.hpp>
+#include <sge/sprite/state/is_with_transform.hpp>
+#include <sge/sprite/detail/config/contains_if.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 
 namespace sge
 {
-namespace viewport
+namespace sprite
+{
+namespace state
 {
 
-typedef
-sge::renderer::target::viewport
-resize_function(
-	awl::window::event::resize const &
-);
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
+template<
+	typename StateChoices
+>
+struct needs_window
+:
+sge::sprite::detail::config::contains_if<
+	typename StateChoices::optional_elements,
+	sge::sprite::state::is_with_transform
+>
+{
+};
+
+FCPPT_PP_POP_WARNING
+
+}
 }
 }
 

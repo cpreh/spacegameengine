@@ -18,23 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/renderer/target/viewport.hpp>
 #include <sge/src/viewport/center_on_resize_function.hpp>
 #include <sge/viewport/center_on_resize.hpp>
-#include <sge/viewport/resize_function.hpp>
+#include <sge/viewport/resize_callback.hpp>
 #include <sge/window/dim.hpp>
-#include <fcppt/math/box/object_impl.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/tr1/functional.hpp>
 
 
-sge::viewport::resize_function const
+sge::viewport::resize_callback const
 sge::viewport::center_on_resize(
 	sge::window::dim const &_dim
 )
 {
 	return
 		std::tr1::bind(
-			&viewport::center_on_resize_function,
+			&sge::viewport::center_on_resize_function,
 			_dim,
 			std::tr1::placeholders::_1
 		);
