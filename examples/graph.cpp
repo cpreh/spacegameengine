@@ -116,7 +116,8 @@ try
 			512u,
 			128u
 		),
-		sys.renderer(),
+		sys.renderer_ffp(),
+		sys.viewport_manager(),
 		sge::graph::baseline(
 			20.0),
 		sge::graph::optional_axis_constraint(),
@@ -157,8 +158,8 @@ try
 	)
 	{
 		sge::renderer::context::scoped_ffp const scoped_block(
-			sys.renderer(),
-			sys.renderer().onscreen_target()
+			sys.renderer_ffp(),
+			sys.renderer_ffp().onscreen_target()
 		);
 
 		sge::renderer::context::ffp &context(

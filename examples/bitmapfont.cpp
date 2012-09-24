@@ -34,10 +34,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_set.hpp>
-#include <sge/renderer/device.hpp>
 #include <sge/renderer/clear/parameters.hpp>
-#include <sge/renderer/context/object.hpp>
-#include <sge/renderer/context/scoped.hpp>
+#include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/context/scoped_ffp.hpp>
+#include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/parameters/object.hpp>
 #include <sge/renderer/parameters/vsync.hpp>
@@ -187,7 +187,8 @@ try
 	);
 
 	sge::font::draw::static_text static_text_left(
-		sys.renderer(),
+		sys.renderer_ffp(),
+		sys.viewport_manager(),
 		*font_object,
 		string,
 		sge::font::text_parameters(
@@ -204,7 +205,8 @@ try
 	);
 
 	sge::font::draw::static_text static_text_center(
-		sys.renderer(),
+		sys.renderer_ffp(),
+		sys.viewport_manager(),
 		*font_object,
 		string,
 		sge::font::text_parameters(
@@ -221,7 +223,8 @@ try
 	);
 
 	sge::font::draw::static_text static_text_right(
-		sys.renderer(),
+		sys.renderer_ffp(),
+		sys.viewport_manager(),
 		*font_object,
 		string,
 		sge::font::text_parameters(
@@ -241,9 +244,9 @@ try
 		sys.window_system().poll()
 	)
 	{
-		sge::renderer::context::scoped const scoped_block(
-			sys.renderer(),
-			sys.renderer().onscreen_target()
+		sge::renderer::context::scoped_ffp const scoped_block(
+			sys.renderer_ffp(),
+			sys.renderer_ffp().onscreen_target()
 		);
 
 		scoped_block.get().clear(

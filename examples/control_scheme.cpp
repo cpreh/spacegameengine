@@ -47,10 +47,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/joypad/relative_axis_info_container.hpp>
 #include <sge/input/joypad/remove_callback.hpp>
 #include <sge/input/joypad/remove_event.hpp>
-#include <sge/renderer/device.hpp>
 #include <sge/renderer/clear/parameters.hpp>
-#include <sge/renderer/context/object.hpp>
-#include <sge/renderer/context/scoped.hpp>
+#include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/context/scoped_ffp.hpp>
+#include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/parameters/object.hpp>
 #include <sge/renderer/parameters/vsync.hpp>
@@ -384,7 +384,8 @@ try
 	);
 
 	sge::font::draw::static_text joypad_infotext(
-		sys.renderer(),
+		sys.renderer_ffp(),
+		sys.viewport_manager(),
 		*font,
 		SGE_FONT_LIT(
 			"no gamepad connected"
@@ -400,7 +401,8 @@ try
 	);
 
 	sge::font::draw::static_text event_infotext(
-		sys.renderer(),
+		sys.renderer_ffp(),
+		sys.viewport_manager(),
 		*font,
 		SGE_FONT_LIT(
 			"press some joypad button"
@@ -461,9 +463,9 @@ try
 		sys.window_system().next()
 	)
 	{
-		sge::renderer::context::scoped const scoped_block(
-			sys.renderer(),
-			sys.renderer().onscreen_target()
+		sge::renderer::context::scoped_ffp const scoped_block(
+			sys.renderer_ffp(),
+			sys.renderer_ffp().onscreen_target()
 		);
 
 		scoped_block.get().clear(

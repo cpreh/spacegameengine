@@ -20,11 +20,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/colors.hpp>
 #include <sge/log/global.hpp>
-#include <sge/renderer/device.hpp>
 #include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/clear/parameters.hpp>
-#include <sge/renderer/context/object.hpp>
-#include <sge/renderer/context/scoped.hpp>
+#include <sge/renderer/context/core.hpp>
+#include <sge/renderer/context/scoped_core.hpp>
+#include <sge/renderer/device/core.hpp>
 #include <sge/renderer/display_mode/object.hpp>
 #include <sge/renderer/display_mode/optional_dimensions.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
@@ -152,9 +152,9 @@ try
 			);
 		}
 
-		sge::renderer::context::scoped const scoped_block(
-			sys.renderer(),
-			sys.renderer().onscreen_target()
+		sge::renderer::context::scoped_core const scoped_block(
+			sys.renderer_core(),
+			sys.renderer_core().onscreen_target()
 		);
 
 		scoped_block.get().clear(

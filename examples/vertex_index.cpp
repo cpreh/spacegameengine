@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/any/convert.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/renderer/const_vertex_buffer_ref_container.hpp>
-#include <sge/renderer/device.hpp>
 #include <sge/renderer/first_index.hpp>
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/index_buffer.hpp>
@@ -40,8 +39,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/vertex_declaration.hpp>
 #include <sge/renderer/vertex_declaration_scoped_ptr.hpp>
-#include <sge/renderer/context/object.hpp>
-#include <sge/renderer/context/scoped.hpp>
+#include <sge/renderer/context/core.hpp>
+#include <sge/renderer/context/scoped_core.hpp>
+#include <sge/renderer/device/core.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/index/format_16.hpp>
 #include <sge/renderer/index/iterator.hpp>
@@ -167,7 +167,7 @@ try
 	> format;
 
 	sge::renderer::vertex_declaration_scoped_ptr const vertex_declaration(
-		sys.renderer().create_vertex_declaration(
+		sys.renderer_core().create_vertex_declaration(
 			sge::renderer::vf::dynamic::make_format<
 				format
 			>()
@@ -175,7 +175,7 @@ try
 	);
 
 	sge::renderer::vertex_buffer_scoped_ptr const vertex_buffer(
-		sys.renderer().create_vertex_buffer(
+		sys.renderer_core().create_vertex_buffer(
 			*vertex_declaration,
 			sge::renderer::vf::dynamic::make_part_index<
 				format,
@@ -285,7 +285,7 @@ try
 
 //! [index_buffer_declaration]
 	sge::renderer::index_buffer_scoped_ptr const index_buffer(
-		sys.renderer().create_index_buffer(
+		sys.renderer_core().create_index_buffer(
 			sge::renderer::index::dynamic::make_format<
 				index_format
 			>(),
@@ -338,9 +338,9 @@ try
 		sys.window_system().poll()
 	)
 	{
-		sge::renderer::context::scoped const scoped_block(
-			sys.renderer(),
-			sys.renderer().onscreen_target()
+		sge::renderer::context::scoped_core const scoped_block(
+			sys.renderer_core(),
+			sys.renderer_core().onscreen_target()
 		);
 
 		sge::renderer::scoped_vertex_declaration_and_buffers const vb_context(

@@ -42,11 +42,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension.hpp>
 #include <sge/media/optional_extension_set.hpp>
-#include <sge/renderer/device.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/clear/parameters.hpp>
-#include <sge/renderer/context/object.hpp>
-#include <sge/renderer/context/scoped.hpp>
+#include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/context/scoped_ffp.hpp>
+#include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/parameters/object.hpp>
 #include <sge/renderer/parameters/vsync.hpp>
@@ -73,6 +73,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/config/with_texture.hpp>
 #include <sge/sprite/process/one.hpp>
+#include <sge/sprite/state/all_choices.hpp>
+#include <sge/sprite/state/object.hpp>
+#include <sge/sprite/state/parameters.hpp>
 #include <sge/systems/audio_player_default.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
@@ -340,7 +343,7 @@ try
 					sge::config::media_path()
 					/ FCPPT_TEXT("images")
 					/ FCPPT_TEXT("grass.png"),
-					sys.renderer(),
+					sys.renderer_ffp(),
 					sys.image_system(),
 					sge::renderer::texture::mipmap::off(),
 					sge::renderer::resource_flags_field::null()
@@ -355,7 +358,7 @@ try
 					sge::config::media_path()
 					/ FCPPT_TEXT("images")
 					/ FCPPT_TEXT("tux.png"),
-					sys.renderer(),
+					sys.renderer_ffp(),
 					sys.image_system(),
 					sge::renderer::texture::mipmap::off(),
 					sge::renderer::resource_flags_field::null()
@@ -373,9 +376,26 @@ try
 		sprite_choices
 	> sprite_parameters;
 
+	typedef sge::sprite::state::all_choices sprite_state_choices;
+
+	typedef sge::sprite::state::object<
+		sprite_state_choices
+	> sprite_state_object;
+
+	typedef sge::sprite::state::parameters<
+		sprite_state_choices
+	> sprite_state_parameters;
+
 	sprite_buffers sprite_buf(
-		sys.renderer(),
+		sys.renderer_ffp(),
 		sge::sprite::buffers::option::dynamic
+	);
+
+	sprite_state_object sprite_states(
+		sys.renderer_ffp(),
+		sprite_state_parameters(
+			sys.viewport_manager()
+		)
 	);
 
 	sprite_object const background(
@@ -504,9 +524,9 @@ try
 		sys.window_system().poll()
 	)
 	{
-		sge::renderer::context::scoped const scoped_block(
-			sys.renderer(),
-			sys.renderer().onscreen_target()
+		sge::renderer::context::scoped_ffp const scoped_block(
+			sys.renderer_ffp(),
+			sys.renderer_ffp().onscreen_target()
 		);
 
 		scoped_block.get().clear(
@@ -519,13 +539,15 @@ try
 		sge::sprite::process::one(
 			scoped_block.get(),
 			background,
-			sprite_buf
+			sprite_buf,
+			sprite_states
 		);
 
 		sge::sprite::process::one(
 			scoped_block.get(),
 			tux,
-			sprite_buf
+			sprite_buf,
+			sprite_states
 		);
 
 		sound_siren->update();
