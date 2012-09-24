@@ -64,7 +64,7 @@ sge::opengl::state::convert::sampler_arg_type<
 	arg_type\
 )\
 template \
-class \
+struct \
 sge::opengl::state::convert::sampler_arg_type<\
 	op_type,\
 	arg_type\

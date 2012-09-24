@@ -84,16 +84,31 @@ public:
 	operator()() const
 	{
 		if(
-			options_. template get<
+			!options_. template get<
 				typename Type::role
 			>()
 		)
-			Type::set(
-				render_context_,
-				*objects_. template get<
-					typename Type::role
-				>()
-			);
+			return;
+
+		typedef fcppt::shared_ptr<
+			typename Type::state_type
+		> state_shared_ptr;
+
+		state_shared_ptr const object(
+			objects_. template get<
+				typename Type::role
+			>()
+		);
+
+		if(
+			!object
+		)
+			return;
+
+		Type::set(
+			render_context_,
+			*object
+		);
 	}
 private:
 	render_context &render_context_;

@@ -267,6 +267,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/state/core/sampler/object_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/sampler/set.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/set_defaults.hpp
+	src/plugins/opengl/include/sge/opengl/state/error_handler.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/alpha_test/create.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/alpha_test/default_context.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/alpha_test/make_actors.hpp

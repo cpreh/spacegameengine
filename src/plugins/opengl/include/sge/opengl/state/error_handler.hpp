@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_WRAP_ERROR_HANDLER_HPP_INCLUDED
-#define SGE_OPENGL_STATE_WRAP_ERROR_HANDLER_HPP_INCLUDED
+#ifndef SGE_OPENGL_STATE_ERROR_HANDLER_HPP_INCLUDED
+#define SGE_OPENGL_STATE_ERROR_HANDLER_HPP_INCLUDED
 
-#include <sge/opengl/state/error_handler.hpp>
+#include <sge/opengl/state/check_error.hpp>
+#include <fcppt/nonassignable.hpp>
 #include <fcppt/string.hpp>
 
 
@@ -33,23 +34,65 @@ namespace state
 {
 
 template<
-	typename Result,
 	typename Actor
 >
-Result const
-wrap_error_handler(
-	Actor const &_actor,
-	fcppt::string const &_name
-)
+class error_handler
 {
-	return
-		sge::opengl::state::error_handler<
-			Actor
-		>(
-			_actor,
+	FCPPT_NONASSIGNABLE(
+		error_handler
+	);
+public:
+	error_handler(
+		Actor const &_actor,
+		fcppt::string const &_name
+	)
+	:
+		actor_(
+			_actor
+		),
+		name_(
 			_name
+		)
+	{
+	}
+
+	typedef void result_type;
+
+	result_type
+	operator()() const
+	{
+		actor_();
+
+		this->check_error();
+	}
+
+	template<
+		typename Arg1
+	>
+	result_type
+	operator()(
+		Arg1 const &_arg1
+	) const
+	{
+		actor_(
+			_arg1
 		);
-}
+
+		this->check_error();
+	}
+private:
+	void
+	check_error() const
+	{
+		sge::opengl::state::check_error(
+			name_
+		);
+	}
+
+	Actor const actor_;
+
+	fcppt::string const name_;
+};
 
 }
 }
