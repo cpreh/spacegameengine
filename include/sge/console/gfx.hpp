@@ -43,6 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/all_choices.hpp>
 #include <sge/sprite/state/object_decl.hpp>
 #include <sge/sprite/state/parameters_fwd.hpp>
+#include <sge/viewport/manager_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -65,6 +66,7 @@ public:
 	gfx(
 		sge::console::object &,
 		sge::renderer::device::ffp &,
+		sge::viewport::manager &,
 		sge::image::color::any::object const &font_color,
 		sge::font::object &,
 		sge::input::keyboard::device &,
@@ -122,6 +124,8 @@ private:
 	sge::console::object &object_;
 
 	sge::renderer::device::ffp &renderer_;
+
+	sge::viewport::manager &viewport_manager_;
 
 	sge::image::color::any::object const font_color_;
 

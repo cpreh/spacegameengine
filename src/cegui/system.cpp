@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/system.hpp>
 #include <sge/charconv/system_fwd.hpp>
 #include <sge/image2d/system_fwd.hpp>
-#include <sge/renderer/device_fwd.hpp>
-#include <sge/renderer/context/object_fwd.hpp>
+#include <sge/renderer/context/ffp_fwd.hpp>
+#include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/src/cegui/detail/system_impl.hpp>
 #include <sge/viewport/manager_fwd.hpp>
 #include <fcppt/cref.hpp>
@@ -38,10 +38,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::cegui::system::system(
 	sge::cegui::load_context const &_load_context,
-	sge::renderer::device &_renderer,
+	sge::renderer::device::ffp &_renderer,
 	sge::image2d::system &_image_system,
 	sge::charconv::system &_charconv_system,
-	sge::viewport::manager &_viewport,
+	sge::viewport::manager &_viewport_manager,
 	sge::cegui::cursor_visibility::type const _cursor_visibility
 )
 :
@@ -62,7 +62,7 @@ sge::cegui::system::system(
 				_charconv_system
 			),
 			fcppt::ref(
-				_viewport
+				_viewport_manager
 			),
 			_cursor_visibility
 		)
@@ -86,7 +86,7 @@ sge::cegui::system::update(
 
 void
 sge::cegui::system::render(
-	sge::renderer::context::object &_context
+	sge::renderer::context::ffp &_context
 )
 {
 	impl_->render(

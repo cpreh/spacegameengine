@@ -18,30 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/state/dest_blend_func.hpp>
-#include <sge/src/cegui/to_dest_blend_func.hpp>
-#include <fcppt/assert/unreachable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <CEGUI/Renderer.h>
-#include <fcppt/config/external_end.hpp>
+#ifndef SGE_RENDERER_OPTIONAL_MATRIX4_HPP_INCLUDED
+#define SGE_RENDERER_OPTIONAL_MATRIX4_HPP_INCLUDED
+
+#include <sge/renderer/matrix4.hpp>
+#include <fcppt/optional_impl.hpp>
 
 
-sge::renderer::state::dest_blend_func::type
-sge::cegui::to_dest_blend_func(
-	CEGUI::BlendMode const _mode
-)
-{
-	switch(
-		_mode
-	)
-	{
-	case CEGUI::BM_RTT_PREMULTIPLIED:
-	case CEGUI::BM_NORMAL:
-		return
-			sge::renderer::state::dest_blend_func::inv_src_alpha;
-	case CEGUI::BM_INVALID:
-		break;
-	}
-
-	FCPPT_ASSERT_UNREACHABLE;
-}
+#endif

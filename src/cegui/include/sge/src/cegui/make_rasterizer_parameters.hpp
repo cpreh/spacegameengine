@@ -18,13 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_CEGUI_TO_DEST_BLEND_FUNC_HPP_INCLUDED
-#define SGE_SRC_CEGUI_TO_DEST_BLEND_FUNC_HPP_INCLUDED
+#ifndef SGE_SRC_CEGUI_MAKE_RASTERIZER_PARAMETERS_HPP_INCLUDED
+#define SGE_SRC_CEGUI_MAKE_RASTERIZER_PARAMETERS_HPP_INCLUDED
 
-#include <sge/renderer/state/dest_blend_func.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <CEGUI/Renderer.h>
-#include <fcppt/config/external_end.hpp>
+#include <sge/renderer/state/core/rasterizer/enable_scissor_test.hpp>
+#include <sge/renderer/state/core/rasterizer/parameters_fwd.hpp>
 
 
 namespace sge
@@ -32,9 +30,9 @@ namespace sge
 namespace cegui
 {
 
-sge::renderer::state::dest_blend_func::type
-to_dest_blend_func(
-	CEGUI::BlendMode
+sge::renderer::state::core::rasterizer::parameters const
+make_rasterizer_parameters(
+	sge::renderer::state::core::rasterizer::enable_scissor_test
 );
 
 }

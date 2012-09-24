@@ -62,6 +62,7 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::console::gfx::gfx(
 	sge::console::object &_object,
 	sge::renderer::device::ffp &_renderer,
+	sge::viewport::manager &_viewport_manager,
 	sge::image::color::any::object const &_font_color,
 	sge::font::object &_font_object,
 	sge::input::keyboard::device &_keyboard,
@@ -74,6 +75,9 @@ sge::console::gfx::gfx(
 	),
 	renderer_(
 		_renderer
+	),
+	viewport_manager_(
+		_viewport_manager
 	),
 	font_color_(
 		_font_color
@@ -135,7 +139,9 @@ sge::console::gfx::gfx(
 	),
 	sprite_state_(
 		_renderer,
-		sprite_state_parameters()
+		sprite_state_parameters(
+			_viewport_manager
+		)
 	),
 	background_(
 		_background
@@ -275,6 +281,7 @@ sge::console::gfx::render_line(
 {
 	sge::font::draw::static_text static_text(
 		renderer_,
+		viewport_manager_,
 		font_object_,
 		_line,
 		sge::font::text_parameters(

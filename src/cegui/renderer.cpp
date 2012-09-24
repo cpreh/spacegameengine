@@ -19,20 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/cegui/from_cegui_string.hpp>
-#include <sge/renderer/device.hpp>
 #include <sge/renderer/dim2.hpp>
-#include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/vertex_declaration.hpp>
 #include <sge/renderer/caps/device.hpp>
-#include <sge/renderer/context/object.hpp>
-#include <sge/renderer/state/bool.hpp>
-#include <sge/renderer/state/cull_mode.hpp>
-#include <sge/renderer/state/depth_func.hpp>
-#include <sge/renderer/state/draw_mode.hpp>
-#include <sge/renderer/state/list.hpp>
-#include <sge/renderer/state/stencil_func.hpp>
-#include <sge/renderer/state/trampoline.hpp>
-#include <sge/renderer/state/var.hpp>
+#include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
@@ -46,7 +37,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/cegui/to_cegui_rect.hpp>
 #include <sge/src/cegui/vf/format.hpp>
 #include <fcppt/cref.hpp>
-#include <fcppt/foreach_enumerator.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/move.hpp>
@@ -132,7 +122,7 @@ sge::cegui::renderer::render_context(
 		_render_context;
 }
 
-sge::renderer::device &
+sge::renderer::device::ffp &
 sge::cegui::renderer::impl() const
 {
 	return renderer_;
@@ -226,9 +216,6 @@ sge::cegui::renderer::createTextureTarget()
 		>(
 			fcppt::cref(
 				texture_parameters_
-			),
-			fcppt::cref(
-				default_target_.projection()
 			),
 			fcppt::cref(
 				render_context_
@@ -527,16 +514,6 @@ sge::cegui::renderer::beginRendering()
 	FCPPT_ASSERT_PRE(
 		render_context_
 	);
-
-	render_context_->push_state(
-		sge::renderer::state::list
-			(sge::renderer::state::bool_::enable_alpha_blending = true)
-			(sge::renderer::state::bool_::enable_scissor_test = true)
-			(sge::renderer::state::cull_mode::off)
-			(sge::renderer::state::depth_func::off)
-			(sge::renderer::state::stencil_func::off)
-			(sge::renderer::state::draw_mode::fill)
-	);
 }
 
 void
@@ -551,17 +528,6 @@ sge::cegui::renderer::endRendering()
 	FCPPT_ASSERT_PRE(
 		render_context_
 	);
-
-	render_context_->pop_state();
-
-	FCPPT_FOREACH_ENUMERATOR(
-		index,
-		sge::renderer::matrix_mode
-	)
-		render_context_->transform(
-			index,
-			sge::renderer::matrix4::identity()
-		);
 }
 
 void

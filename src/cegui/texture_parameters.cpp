@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/charconv/system_fwd.hpp>
 #include <sge/image2d/system_fwd.hpp>
-#include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/src/cegui/prefix.hpp>
 #include <sge/src/cegui/texture_parameters.hpp>
 
@@ -29,7 +29,7 @@ sge::cegui::texture_parameters::texture_parameters(
 	sge::cegui::prefix const &_prefix,
 	sge::charconv::system &_charconv_system,
 	sge::image2d::system &_image_system,
-	sge::renderer::device &_renderer
+	sge::renderer::device::ffp &_renderer
 )
 :
 	prefix_(
@@ -68,7 +68,7 @@ sge::cegui::texture_parameters::image_system() const
 		image_system_;
 }
 
-sge::renderer::device &
+sge::renderer::device::ffp &
 sge::cegui::texture_parameters::renderer() const
 {
 	return

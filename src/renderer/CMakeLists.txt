@@ -206,6 +206,8 @@ set(
 	include/sge/renderer/occlusion_query/scoped_fwd.hpp
 	include/sge/renderer/optional_depth_stencil_surface_ref.hpp
 	include/sge/renderer/optional_depth_stencil_surface_ref_fwd.hpp
+	include/sge/renderer/optional_matrix4.hpp
+	include/sge/renderer/optional_matrix4_fwd.hpp
 	include/sge/renderer/parameters/object.hpp
 	include/sge/renderer/parameters/object_fwd.hpp
 	include/sge/renderer/parameters/vsync.hpp
@@ -239,6 +241,7 @@ set(
 	include/sge/renderer/projection/fov.hpp
 	include/sge/renderer/projection/near.hpp
 	include/sge/renderer/projection/orthogonal.hpp
+	include/sge/renderer/projection/orthogonal_viewport.hpp
 	include/sge/renderer/projection/orthogonal_wh.hpp
 	include/sge/renderer/projection/orthogonal_xy.hpp
 	include/sge/renderer/projection/perspective_af.hpp
@@ -572,6 +575,7 @@ set(
 	include/sge/renderer/target/surface_index_value.hpp
 	include/sge/renderer/target/viewport.hpp
 	include/sge/renderer/target/viewport_fwd.hpp
+	include/sge/renderer/target/viewport_is_null.hpp
 	include/sge/renderer/target/viewport_size.hpp
 	include/sge/renderer/texture/base.hpp
 	include/sge/renderer/texture/base_fwd.hpp
@@ -859,6 +863,7 @@ set(
 	src/renderer/projection/check_near.cpp
 	src/renderer/projection/check_near_far.cpp
 	src/renderer/projection/orthogonal.cpp
+	src/renderer/projection/orthogonal_viewport.cpp
 	src/renderer/projection/orthogonal_wh.cpp
 	src/renderer/projection/orthogonal_xy.cpp
 	src/renderer/projection/perspective_af.cpp
@@ -949,6 +954,7 @@ set(
 	src/renderer/target/offscreen.cpp
 	src/renderer/target/onscreen.cpp
 	src/renderer/target/scoped_scissor_area.cpp
+	src/renderer/target/viewport_is_null.cpp
 	src/renderer/target/viewport_size.cpp
 	src/renderer/texture/base.cpp
 	src/renderer/texture/const_scoped_planar_lock.cpp

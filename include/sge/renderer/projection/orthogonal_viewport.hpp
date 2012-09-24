@@ -18,43 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CAMERA_ORTHO_FREELOOK_PROJECTION_RECTANGLE_FROM_VIEWPORT_HPP_INCLUDED
-#define SGE_CAMERA_ORTHO_FREELOOK_PROJECTION_RECTANGLE_FROM_VIEWPORT_HPP_INCLUDED
+#ifndef SGE_RENDERER_PROJECTION_ORTHOGONAL_VIEWPORT_HPP_INCLUDED
+#define SGE_RENDERER_PROJECTION_ORTHOGONAL_VIEWPORT_HPP_INCLUDED
 
-#include <sge/camera/symbol.hpp>
-#include <sge/camera/ortho_freelook/object_fwd.hpp>
+#include <sge/renderer/optional_matrix4_fwd.hpp>
+#include <sge/renderer/symbol.hpp>
 #include <sge/renderer/target/viewport_fwd.hpp>
-#include <sge/viewport/manager_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
 
 
 namespace sge
 {
-namespace camera
+namespace renderer
 {
-namespace ortho_freelook
+namespace projection
 {
-class projection_rectangle_from_viewport
-{
-FCPPT_NONCOPYABLE(
-	projection_rectangle_from_viewport);
-public:
-	SGE_CAMERA_SYMBOL
-	projection_rectangle_from_viewport(
-		sge::camera::ortho_freelook::object &,
-		sge::viewport::manager &);
 
-	SGE_CAMERA_SYMBOL
-	~projection_rectangle_from_viewport();
-private:
-	sge::camera::ortho_freelook::object &camera_;
-	fcppt::signal::scoped_connection viewport_callback_connection_;
+SGE_RENDERER_SYMBOL
+sge::renderer::optional_matrix4 const
+orthogonal_viewport(
+	sge::renderer::target::viewport const &
+);
 
-	void
-	viewport_callback(
-		sge::renderer::target::viewport const &);
-};
 }
 }
 }

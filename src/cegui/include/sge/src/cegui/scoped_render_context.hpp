@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_CEGUI_SCOPED_RENDER_CONTEXT_HPP_INCLUDED
 #define SGE_SRC_CEGUI_SCOPED_RENDER_CONTEXT_HPP_INCLUDED
 
-#include <sge/renderer/context/object_fwd.hpp>
+#include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/src/cegui/renderer_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -39,7 +39,7 @@ class scoped_render_context
 public:
 	scoped_render_context(
 		sge::cegui::renderer &,
-		sge::renderer::context::object &
+		sge::renderer::context::ffp &
 	);
 
 	~scoped_render_context();

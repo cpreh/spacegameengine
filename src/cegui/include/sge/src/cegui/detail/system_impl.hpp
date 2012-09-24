@@ -27,9 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/detail/system_impl_fwd.hpp>
 #include <sge/charconv/system_fwd.hpp>
 #include <sge/image2d/system_fwd.hpp>
-#include <sge/renderer/device_fwd.hpp>
-#include <sge/renderer/pixel_rect.hpp>
-#include <sge/renderer/context/object_fwd.hpp>
+#include <sge/renderer/context/ffp_fwd.hpp>
+#include <sge/renderer/device/ffp_fwd.hpp>
+#include <sge/renderer/target/viewport.hpp>
 #include <sge/src/cegui/cegui_logger.hpp>
 #include <sge/src/cegui/image_codec.hpp>
 #include <sge/src/cegui/prefix.hpp>
@@ -59,7 +59,7 @@ class system_impl
 public:
 	system_impl(
 		sge::cegui::load_context const &,
-		sge::renderer::device &,
+		sge::renderer::device::ffp &,
 		sge::image2d::system &,
 		sge::charconv::system &,
 		sge::viewport::manager &,
@@ -75,7 +75,7 @@ public:
 
 	void
 	render(
-		sge::renderer::context::object &
+		sge::renderer::context::ffp &
 	);
 
 	CEGUI::GUIContext &
@@ -85,7 +85,9 @@ public:
 	charconv_system() const;
 private:
 	void
-	viewport_change();
+	viewport_change(
+		sge::renderer::target::viewport const &
+	);
 
 	sge::charconv::system &charconv_system_;
 
@@ -107,7 +109,7 @@ private:
 
 	// We have to memorize the old viewport so we don't call
 	// notifyDisplaySizeChanged if old == new (costs performance)
-	sge::renderer::pixel_rect old_viewport_;
+	sge::renderer::target::viewport old_viewport_;
 };
 
 }

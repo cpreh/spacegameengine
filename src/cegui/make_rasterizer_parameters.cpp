@@ -18,32 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/state/source_blend_func.hpp>
-#include <sge/src/cegui/to_source_blend_func.hpp>
-#include <fcppt/assert/unreachable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <CEGUI/Renderer.h>
-#include <fcppt/config/external_end.hpp>
+#include <sge/renderer/state/core/rasterizer/cull_mode.hpp>
+#include <sge/renderer/state/core/rasterizer/enable_scissor_test.hpp>
+#include <sge/renderer/state/core/rasterizer/fill_mode.hpp>
+#include <sge/renderer/state/core/rasterizer/parameters.hpp>
+#include <sge/src/cegui/make_rasterizer_parameters.hpp>
 
 
-sge::renderer::state::source_blend_func::type
-sge::cegui::to_source_blend_func(
-	CEGUI::BlendMode const _mode
+sge::renderer::state::core::rasterizer::parameters const
+sge::cegui::make_rasterizer_parameters(
+	sge::renderer::state::core::rasterizer::enable_scissor_test const _enable_scissor_test
 )
 {
-	switch(
-		_mode
-	)
-	{
-	case CEGUI::BM_RTT_PREMULTIPLIED:
-		return
-			sge::renderer::state::source_blend_func::one;
-	case CEGUI::BM_NORMAL:
-		return
-			sge::renderer::state::source_blend_func::src_alpha;
-	case CEGUI::BM_INVALID:
-		break;
-	}
-
-	FCPPT_ASSERT_UNREACHABLE;
+	return
+		sge::renderer::state::core::rasterizer::parameters(
+			sge::renderer::state::core::rasterizer::cull_mode::off,
+			sge::renderer::state::core::rasterizer::fill_mode::solid,
+			_enable_scissor_test
+		);
 }

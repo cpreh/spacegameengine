@@ -23,10 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/camera/has_mutable_projection_fwd.hpp>
 #include <sge/camera/symbol.hpp>
-#include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/projection/far.hpp>
 #include <sge/renderer/projection/fov.hpp>
 #include <sge/renderer/projection/near.hpp>
+#include <sge/renderer/target/viewport_fwd.hpp>
 #include <sge/viewport/manager_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
@@ -44,7 +44,6 @@ public:
 	SGE_CAMERA_SYMBOL
 	perspective_projection_from_viewport(
 		sge::camera::has_mutable_projection &,
-		sge::renderer::device &,
 		sge::viewport::manager &,
 		sge::renderer::projection::near const &,
 		sge::renderer::projection::far const &,
@@ -54,14 +53,14 @@ public:
 	~perspective_projection_from_viewport();
 private:
 	sge::camera::has_mutable_projection &camera_;
-	sge::renderer::device &renderer_;
 	sge::renderer::projection::near near_;
 	sge::renderer::projection::far far_;
 	sge::renderer::projection::fov fov_;
 	fcppt::signal::scoped_connection viewport_callback_connection_;
 
 	void
-	viewport_callback();
+	viewport_callback(
+		sge::renderer::target::viewport const &);
 };
 }
 }

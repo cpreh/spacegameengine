@@ -18,24 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_CEGUI_TO_SOURCE_BLEND_FUNC_HPP_INCLUDED
-#define SGE_SRC_CEGUI_TO_SOURCE_BLEND_FUNC_HPP_INCLUDED
+#ifndef SGE_RENDERER_OPTIONAL_MATRIX4_FWD_HPP_INCLUDED
+#define SGE_RENDERER_OPTIONAL_MATRIX4_FWD_HPP_INCLUDED
 
-#include <sge/renderer/state/source_blend_func.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <CEGUI/Renderer.h>
-#include <fcppt/config/external_end.hpp>
+#include <sge/renderer/matrix4_fwd.hpp>
+#include <fcppt/optional_fwd.hpp>
 
 
 namespace sge
 {
-namespace cegui
+namespace renderer
 {
 
-sge::renderer::state::source_blend_func::type
-to_source_blend_func(
-	CEGUI::BlendMode
-);
+typedef
+fcppt::optional<
+	sge::renderer::matrix4
+>
+optional_matrix4;
 
 }
 }

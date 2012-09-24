@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/context/object_fwd.hpp>
+#include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/src/cegui/optional_render_context_ref.hpp>
 #include <sge/src/cegui/renderer.hpp>
 #include <sge/src/cegui/scoped_render_context.hpp>
@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::cegui::scoped_render_context::scoped_render_context(
 	sge::cegui::renderer &_renderer,
-	sge::renderer::context::object &_render_context
+	sge::renderer::context::ffp &_render_context
 )
 :
 	renderer_(

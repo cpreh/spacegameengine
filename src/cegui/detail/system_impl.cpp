@@ -22,11 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/load_context.hpp>
 #include <sge/cegui/system.hpp>
 #include <sge/cegui/to_cegui_string.hpp>
-#include <sge/renderer/device.hpp>
 #include <sge/renderer/pixel_rect.hpp>
-#include <sge/renderer/context/object_fwd.hpp>
-#include <sge/renderer/target/onscreen.hpp>
+#include <sge/renderer/context/ffp_fwd.hpp>
+#include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/target/viewport.hpp>
+#include <sge/renderer/target/viewport_is_null.hpp>
 #include <sge/src/cegui/declare_local_logger.hpp>
 #include <sge/src/cegui/scoped_render_context.hpp>
 #include <sge/src/cegui/texture_parameters.hpp>
@@ -65,10 +65,10 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::cegui::detail::system_impl::system_impl(
 	sge::cegui::load_context const &_load_context,
-	sge::renderer::device &_renderer,
+	sge::renderer::device::ffp &_renderer,
 	sge::image2d::system &_image_system,
 	sge::charconv::system &_charconv_system,
-	sge::viewport::manager &_viewport,
+	sge::viewport::manager &_viewport_manager,
 	sge::cegui::cursor_visibility::type const _cursor_visibility
 )
 :
@@ -104,10 +104,11 @@ sge::cegui::detail::system_impl::system_impl(
 		renderer_.getDefaultRenderTarget()
 	),
 	viewport_change_connection_(
-		_viewport.manage_callback(
+		_viewport_manager.manage_callback(
 			std::tr1::bind(
 				&sge::cegui::detail::system_impl::viewport_change,
-				this
+				this,
+				std::tr1::placeholders::_1
 			)
 		)
 	),
@@ -196,7 +197,9 @@ sge::cegui::detail::system_impl::system_impl(
 			)
 		);
 
-	this->viewport_change();
+	this->viewport_change(
+		_viewport_manager.viewport()
+	);
 }
 FCPPT_PP_POP_WARNING
 
@@ -216,7 +219,7 @@ sge::cegui::detail::system_impl::update(
 
 void
 sge::cegui::detail::system_impl::render(
-	sge::renderer::context::object &_context
+	sge::renderer::context::ffp &_context
 )
 {
 	sge::cegui::scoped_render_context const context(
@@ -242,24 +245,24 @@ sge::cegui::detail::system_impl::charconv_system() const
 }
 
 void
-sge::cegui::detail::system_impl::viewport_change()
+sge::cegui::detail::system_impl::viewport_change(
+	sge::renderer::target::viewport const &_viewport
+)
 {
-	sge::renderer::pixel_rect const new_area_fcppt(
-		renderer_.impl().onscreen_target().viewport().get()
-	);
-
 	FCPPT_LOG_DEBUG(
 		local_log,
 		fcppt::log::_
 			<< FCPPT_TEXT("viewport_change() with ")
-			<< new_area_fcppt
+			<< _viewport.get()
 	);
 
 	// Calling notifyDisplaySizeChanged with a null rect causes a strange problem
 	if(
-		!new_area_fcppt.content()
+		sge::renderer::target::viewport_is_null(
+			_viewport
+		)
 		||
-		old_viewport_ == new_area_fcppt
+		old_viewport_ == _viewport
 	)
 		return;
 
@@ -267,7 +270,7 @@ sge::cegui::detail::system_impl::viewport_change()
 		sge::cegui::to_cegui_rect<
 			CEGUI::Rectf::value_type
 		>(
-			new_area_fcppt
+			_viewport.get()
 		)
 	);
 
@@ -283,5 +286,5 @@ sge::cegui::detail::system_impl::viewport_change()
 		&new_area_cegui
 	);
 
-	old_viewport_ = new_area_fcppt;
+	old_viewport_ = _viewport;
 }

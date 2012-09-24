@@ -20,8 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/camera/ortho_freelook/object.hpp>
 #include <sge/camera/ortho_freelook/projection_rectangle_from_viewport.hpp>
-#include <sge/renderer/device.hpp>
-#include <sge/renderer/target/onscreen.hpp>
+#include <sge/renderer/target/viewport.hpp>
 #include <sge/viewport/manager.hpp>
 #include <fcppt/math/box/structure_cast.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
@@ -36,18 +35,16 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::camera::ortho_freelook::projection_rectangle_from_viewport::projection_rectangle_from_viewport(
 	sge::camera::ortho_freelook::object &_camera,
-	sge::renderer::device &_renderer,
 	sge::viewport::manager &_viewport_manager)
 :
 	camera_(
 		_camera),
-	renderer_(
-		_renderer),
 	viewport_callback_connection_(
 		_viewport_manager.manage_callback(
 			std::tr1::bind(
 				&projection_rectangle_from_viewport::viewport_callback,
-				this)))
+				this,
+				std::tr1::placeholders::_1)))
 {
 }
 
@@ -58,9 +55,11 @@ sge::camera::ortho_freelook::projection_rectangle_from_viewport::~projection_rec
 }
 
 void
-sge::camera::ortho_freelook::projection_rectangle_from_viewport::viewport_callback()
+sge::camera::ortho_freelook::projection_rectangle_from_viewport::viewport_callback(
+	sge::renderer::target::viewport const &_viewport
+)
 {
 	camera_.projection_rectangle(
 		fcppt::math::box::structure_cast<sge::renderer::projection::rect>(
-			renderer_.onscreen_target().viewport().get()));
+			_viewport.get()));
 }

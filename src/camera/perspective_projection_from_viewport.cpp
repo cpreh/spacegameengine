@@ -20,11 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/camera/has_mutable_projection.hpp>
 #include <sge/camera/perspective_projection_from_viewport.hpp>
-#include <sge/renderer/device.hpp>
 #include <sge/renderer/projection/aspect.hpp>
 #include <sge/renderer/projection/perspective_af.hpp>
 #include <sge/renderer/target/aspect_from_viewport.hpp>
-#include <sge/renderer/target/onscreen.hpp>
+#include <sge/renderer/target/viewport.hpp>
 #include <sge/viewport/manager.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
@@ -39,7 +38,6 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::camera::perspective_projection_from_viewport::perspective_projection_from_viewport(
 	sge::camera::has_mutable_projection &_camera,
-	sge::renderer::device &_renderer,
 	sge::viewport::manager &_viewport_manager,
 	sge::renderer::projection::near const &_near,
 	sge::renderer::projection::far const &_far,
@@ -47,8 +45,6 @@ sge::camera::perspective_projection_from_viewport::perspective_projection_from_v
 :
 	camera_(
 		_camera),
-	renderer_(
-		_renderer),
 	near_(
 		_near),
 	far_(
@@ -59,7 +55,8 @@ sge::camera::perspective_projection_from_viewport::perspective_projection_from_v
 		_viewport_manager.manage_callback(
 			std::tr1::bind(
 				&perspective_projection_from_viewport::viewport_callback,
-				this)))
+				this,
+				std::tr1::placeholders::_1)))
 {
 }
 
@@ -70,14 +67,15 @@ sge::camera::perspective_projection_from_viewport::~perspective_projection_from_
 }
 
 void
-sge::camera::perspective_projection_from_viewport::viewport_callback()
+sge::camera::perspective_projection_from_viewport::viewport_callback(
+	sge::renderer::target::viewport const &_viewport)
 {
 	camera_.update_projection_matrix(
 		sge::camera::projection_matrix(
 			sge::renderer::projection::perspective_af(
 				sge::renderer::projection::aspect(
 					sge::renderer::target::aspect_from_viewport(
-						renderer_.onscreen_target().viewport())),
+						_viewport)),
 				fov_,
 				near_,
 				far_)));

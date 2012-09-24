@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_CEGUI_TEXTURE_TARGET_HPP_INCLUDED
 #define SGE_SRC_CEGUI_TEXTURE_TARGET_HPP_INCLUDED
 
-#include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/caps/render_target_inverted.hpp>
+#include <sge/renderer/state/ffp/transform/object_scoped_ptr.hpp>
 #include <sge/renderer/target/offscreen_scoped_ptr.hpp>
 #include <sge/src/cegui/optional_render_context_ref.hpp>
 #include <sge/src/cegui/texture_fwd.hpp>
@@ -60,7 +60,6 @@ class texture_target
 public:
 	texture_target(
 		sge::cegui::texture_parameters const &,
-		sge::renderer::matrix4 const &projection,
 		sge::cegui::optional_render_context_ref const &
 	);
 
@@ -128,9 +127,9 @@ private:
 
 	CEGUI::Rectf area_;
 
-	sge::renderer::matrix4 const default_projection_;
-
 	sge::renderer::caps::render_target_inverted const is_inverted_;
+
+	sge::renderer::state::ffp::transform::object_scoped_ptr transform_state_;
 };
 
 }

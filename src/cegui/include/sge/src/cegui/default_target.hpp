@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_CEGUI_DEFAULT_TARGET_HPP_INCLUDED
 #define SGE_SRC_CEGUI_DEFAULT_TARGET_HPP_INCLUDED
 
-#include <sge/renderer/device_fwd.hpp>
-#include <sge/renderer/matrix4_fwd.hpp>
+#include <sge/renderer/device/ffp_fwd.hpp>
+#include <sge/renderer/state/ffp/transform/object_scoped_ptr.hpp>
 #include <sge/src/cegui/optional_render_context_ref.hpp>
 #include <sge/src/cegui/fwds/vector2f_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -52,7 +52,7 @@ class default_target
 	);
 public:
 	default_target(
-		sge::renderer::device &,
+		sge::renderer::device::ffp &,
 		sge::cegui::optional_render_context_ref const &
 	);
 
@@ -91,13 +91,12 @@ private:
 		CEGUI::Vector2f const &p_in,
 		CEGUI::Vector2f &p_out
 	) const;
-public:
-	sge::renderer::matrix4 const
-	projection() const;
-private:
-	sge::renderer::device &renderer_;
 
-	mutable CEGUI::Rectf viewport_;
+	sge::renderer::device::ffp &renderer_;
+
+	CEGUI::Rectf viewport_;
+
+	sge::renderer::state::ffp::transform::object_scoped_ptr transform_;
 
 	sge::cegui::optional_render_context_ref const &render_context_;
 };

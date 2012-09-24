@@ -20,14 +20,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/device/core.hpp>
 #include <sge/renderer/target/onscreen.hpp>
+#include <sge/renderer/target/viewport.hpp>
 #include <sge/src/viewport/detail/manager_impl.hpp>
 #include <sge/viewport/manage_callback.hpp>
 #include <sge/viewport/resize_callback.hpp>
 #include <sge/window/object.hpp>
 #include <awl/window/event/processor.hpp>
 #include <awl/window/event/resize_fwd.hpp>
-#include <fcppt/math/box/object_impl.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -86,6 +85,13 @@ sge::viewport::detail::manager_impl::resize_callback(
 	resize_callback_ = _resize_callback;
 }
 
+sge::renderer::target::viewport const
+sge::viewport::detail::manager_impl::viewport() const
+{
+	return
+		target_.viewport();
+}
+
 void
 sge::viewport::detail::manager_impl::on_resize(
 	awl::window::event::resize const &_resize
@@ -101,6 +107,6 @@ sge::viewport::detail::manager_impl::on_resize(
 		);
 
 	manage_signal_(
-		target_.viewport()
+		this->viewport()
 	);
 }

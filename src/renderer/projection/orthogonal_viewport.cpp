@@ -18,19 +18,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/renderer/optional_matrix4.hpp>
+#include <sge/renderer/projection/far.hpp>
+#include <sge/renderer/projection/near.hpp>
+#include <sge/renderer/projection/rect.hpp>
+#include <sge/renderer/projection/orthogonal.hpp>
 #include <sge/renderer/projection/orthogonal_viewport.hpp>
-#include <sge/renderer/target/viewport_fwd.hpp>
-#include <sge/sprite/optional_matrix.hpp>
-#include <sge/sprite/projection_matrix.hpp>
+#include <sge/renderer/target/viewport.hpp>
+#include <sge/renderer/target/viewport_is_null.hpp>
+#include <fcppt/math/box/structure_cast.hpp>
 
 
-sge::sprite::optional_matrix const
-sge::sprite::projection_matrix(
+sge::renderer::optional_matrix4 const
+sge::renderer::projection::orthogonal_viewport(
 	sge::renderer::target::viewport const &_viewport
 )
 {
 	return
-		sge::renderer::projection::orthogonal_viewport(
+		sge::renderer::target::viewport_is_null(
 			_viewport
-		);
+		)
+		?
+			sge::renderer::optional_matrix4()
+		:
+			sge::renderer::optional_matrix4(
+				sge::renderer::projection::orthogonal(
+					fcppt::math::box::structure_cast<
+						sge::renderer::projection::rect
+					>(
+						_viewport.get()
+					),
+					sge::renderer::projection::near(
+						0.f
+					),
+					sge::renderer::projection::far(
+						10.f
+					)
+				)
+			)
+		;
 }

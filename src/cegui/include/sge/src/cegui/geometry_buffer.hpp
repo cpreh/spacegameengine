@@ -21,11 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_CEGUI_GEOMETRY_BUFFER_HPP_INCLUDED
 #define SGE_SRC_CEGUI_GEOMETRY_BUFFER_HPP_INCLUDED
 
-#include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
+#include <sge/renderer/device/ffp_fwd.hpp>
+#include <sge/renderer/state/core/rasterizer/object_scoped_ptr.hpp>
 #include <sge/renderer/target/scissor_area.hpp>
 #include <sge/src/cegui/batch_fwd.hpp>
 #include <sge/src/cegui/clip.hpp>
@@ -65,7 +66,7 @@ class geometry_buffer
 	);
 public:
 	geometry_buffer(
-		sge::renderer::device &,
+		sge::renderer::device::ffp &,
 		sge::renderer::vertex_declaration const &,
 		sge::cegui::optional_render_context_ref const &
 	);
@@ -155,7 +156,7 @@ private:
 
 	batch_sequence batches_;
 
-	sge::renderer::device &renderer_;
+	sge::renderer::device::ffp &renderer_;
 
 	sge::renderer::vertex_declaration const &vertex_declaration_;
 
@@ -174,6 +175,10 @@ private:
 	sge::cegui::clip clip_;
 
 	CEGUI::RenderEffect *render_effect_;
+
+	sge::renderer::state::core::rasterizer::object_scoped_ptr const rasterizer_scissor_on_;
+
+	sge::renderer::state::core::rasterizer::object_scoped_ptr const rasterizer_scissor_off_;
 };
 
 }

@@ -18,29 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/matrix4.hpp>
-#include <sge/renderer/device/core.hpp>
-#include <sge/renderer/projection/far.hpp>
-#include <sge/renderer/projection/near.hpp>
-#include <sge/renderer/projection/orthogonal.hpp>
-#include <sge/renderer/projection/rect.hpp>
-#include <sge/renderer/target/onscreen.hpp>
+#include <sge/renderer/optional_matrix4.hpp>
+#include <sge/renderer/pixel_rect.hpp>
+#include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/device/ffp.hpp>
+#include <sge/renderer/projection/orthogonal_viewport.hpp>
+#include <sge/renderer/state/ffp/transform/const_optional_object_ref.hpp>
+#include <sge/renderer/state/ffp/transform/mode.hpp>
+#include <sge/renderer/state/ffp/transform/object.hpp>
+#include <sge/renderer/state/ffp/transform/parameters.hpp>
 #include <sge/renderer/target/viewport.hpp>
-#include <sge/renderer/target/viewport_size.hpp>
+#include <sge/src/cegui/from_cegui_rect.hpp>
 #include <sge/src/cegui/declare_local_logger.hpp>
 #include <sge/src/cegui/default_target.hpp>
-#include <sge/src/cegui/from_cegui_rect.hpp>
 #include <sge/src/cegui/optional_render_context_ref.hpp>
 #include <sge/src/cegui/to_cegui_rect.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/error.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/assert/unimplemented_message.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/output.hpp>
-#include <fcppt/math/box/object_impl.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
-#include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/GeometryBuffer.h>
 #include <CEGUI/Rect.h>
@@ -61,7 +59,7 @@ SGE_CEGUI_DECLARE_LOCAL_LOGGER(
 // sge already provides this viewport-adaption technique so I just
 // update the viewport variable when the viewport is requested.
 sge::cegui::default_target::default_target(
-	sge::renderer::device::core &_renderer,
+	sge::renderer::device::ffp &_renderer,
 	sge::cegui::optional_render_context_ref const &_render_context
 )
 :
@@ -69,6 +67,7 @@ sge::cegui::default_target::default_target(
 		_renderer
 	),
 	viewport_(),
+	transform_(),
 	render_context_(
 		_render_context
 	)
@@ -116,22 +115,36 @@ sge::cegui::default_target::setArea(
 	CEGUI::Rectf const &_area
 )
 {
-	// This is a check to see if setArea might be called from outside,
-	// too. If this fails, it _should_ indicate that indeed, it _is_
-	// called from outside the renderer
-	FCPPT_ASSERT_ERROR(
-		sge::cegui::from_cegui_rect<
-			sge::renderer::pixel_rect
-		>(
-			_area
-		)
-		==
-		renderer_.onscreen_target().viewport().get()
-	);
-
 	CEGUI::RenderTargetEventArgs args(
 		this
 	);
+
+	viewport_ = _area;
+
+	sge::renderer::optional_matrix4 const matrix(
+		sge::renderer::projection::orthogonal_viewport(
+			sge::renderer::target::viewport(
+				sge::cegui::from_cegui_rect<
+					sge::renderer::pixel_rect
+				>(
+					viewport_
+				)
+			)
+		)
+	);
+
+	if(
+		matrix
+	)
+		transform_.take(
+			renderer_.create_transform_state(
+				sge::renderer::state::ffp::transform::parameters(
+					*matrix
+				)
+			)
+		);
+	else
+		transform_.reset();
 
 	this->fireEvent(
 		CEGUI::RenderTarget::EventAreaChanged,
@@ -142,13 +155,6 @@ sge::cegui::default_target::setArea(
 CEGUI::Rectf const &
 sge::cegui::default_target::getArea() const
 {
-	viewport_ =
-		sge::cegui::to_cegui_rect<
-			CEGUI::Rectf::value_type
-		>(
-			renderer_.onscreen_target().viewport().get()
-		);
-
 	return
 		viewport_;
 }
@@ -174,10 +180,15 @@ sge::cegui::default_target::activate()
 			<< FCPPT_TEXT(")::activate()")
 	);
 
-	render_context_->transform(
-		sge::renderer::matrix_mode::projection,
-		this->projection()
-	);
+	if(
+		transform_
+	)
+		render_context_->transform(
+			sge::renderer::state::ffp::transform::mode::projection,
+			sge::renderer::state::ffp::transform::const_optional_object_ref(
+				*transform_
+			)
+		);
 }
 
 void
@@ -189,6 +200,11 @@ sge::cegui::default_target::deactivate()
 			<< FCPPT_TEXT("default_target(")
 			<< this
 			<< FCPPT_TEXT(")::deactivate()")
+	);
+
+	render_context_->transform(
+		sge::renderer::state::ffp::transform::mode::projection,
+		sge::renderer::state::ffp::transform::const_optional_object_ref()
 	);
 }
 
@@ -202,28 +218,4 @@ sge::cegui::default_target::unprojectPoint(
 	FCPPT_ASSERT_UNIMPLEMENTED_MESSAGE(
 		FCPPT_TEXT("default_target::unprojectPoint not implemented yet")
 	);
-}
-
-sge::renderer::matrix4 const
-sge::cegui::default_target::projection() const
-{
-	return
-		sge::renderer::projection::orthogonal(
-			sge::renderer::projection::rect(
-				sge::renderer::projection::rect::vector::null(),
-				fcppt::math::dim::structure_cast<
-					sge::renderer::projection::rect::dim
-				>(
-					sge::renderer::target::viewport_size(
-						renderer_.onscreen_target()
-					)
-				)
-			),
-			sge::renderer::projection::near(
-				0.f
-			),
-			sge::renderer::projection::far(
-				2.f
-			)
-		);
 }

@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/device/core_fwd.hpp>
+#include <sge/renderer/target/viewport.hpp>
 #include <sge/src/viewport/detail/manager_impl.hpp>
 #include <sge/viewport/manage_callback.hpp>
 #include <sge/viewport/manager.hpp>
@@ -77,4 +78,11 @@ sge::viewport::manager::resize_callback(
 	impl_->resize_callback(
 		_resize_callback
 	);
+}
+
+sge::renderer::target::viewport const
+sge::viewport::manager::viewport() const
+{
+	return
+		impl_->viewport();
 }

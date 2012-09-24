@@ -28,8 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/detail/system_impl_fwd.hpp>
 #include <sge/charconv/system_fwd.hpp>
 #include <sge/image2d/system_fwd.hpp>
-#include <sge/renderer/device_fwd.hpp>
-#include <sge/renderer/context/object_fwd.hpp>
+#include <sge/renderer/context/ffp_fwd.hpp>
+#include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/viewport/manager_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
@@ -55,7 +55,7 @@ public:
 	SGE_CEGUI_SYMBOL
 	system(
 		sge::cegui::load_context const &,
-		sge::renderer::device &,
+		sge::renderer::device::ffp &,
 		sge::image2d::system &,
 		sge::charconv::system &,
 		sge::viewport::manager &,
@@ -76,7 +76,7 @@ public:
 	SGE_CEGUI_SYMBOL
 	void
 	render(
-		sge::renderer::context::object &
+		sge::renderer::context::ffp &
 	);
 
 	SGE_CEGUI_SYMBOL

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/charconv/system_fwd.hpp>
 #include <sge/image2d/system_fwd.hpp>
-#include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/src/cegui/prefix.hpp>
 #include <sge/src/cegui/texture_parameters_fwd.hpp>
 #include <fcppt/nonassignable.hpp>
@@ -44,7 +44,7 @@ public:
 		sge::cegui::prefix const &,
 		sge::charconv::system &,
 		sge::image2d::system &,
-		sge::renderer::device &
+		sge::renderer::device::ffp &
 	);
 
 	sge::cegui::prefix const &
@@ -56,7 +56,7 @@ public:
 	sge::image2d::system &
 	image_system() const;
 
-	sge::renderer::device &
+	sge::renderer::device::ffp &
 	renderer() const;
 private:
 	sge::cegui::prefix const prefix_;
@@ -65,7 +65,7 @@ private:
 
 	sge::image2d::system &image_system_;
 
-	sge::renderer::device &renderer_;
+	sge::renderer::device::ffp &renderer_;
 };
 
 }

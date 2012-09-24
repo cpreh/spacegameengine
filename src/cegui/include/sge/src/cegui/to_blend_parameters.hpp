@@ -18,19 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/projection/orthogonal_viewport.hpp>
-#include <sge/renderer/target/viewport_fwd.hpp>
-#include <sge/sprite/optional_matrix.hpp>
-#include <sge/sprite/projection_matrix.hpp>
+#ifndef SGE_SRC_CEGUI_TO_BLEND_PARAMETERS_HPP_INCLUDED
+#define SGE_SRC_CEGUI_TO_BLEND_PARAMETERS_HPP_INCLUDED
+
+#include <sge/renderer/state/core/blend/alpha_enabled_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <CEGUI/Renderer.h>
+#include <fcppt/config/external_end.hpp>
 
 
-sge::sprite::optional_matrix const
-sge::sprite::projection_matrix(
-	sge::renderer::target::viewport const &_viewport
-)
+namespace sge
 {
-	return
-		sge::renderer::projection::orthogonal_viewport(
-			_viewport
-		);
+namespace cegui
+{
+
+sge::renderer::state::core::blend::alpha_enabled const
+to_blend_parameters(
+	CEGUI::BlendMode
+);
+
 }
+}
+
+#endif

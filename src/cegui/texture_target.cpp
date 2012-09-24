@@ -20,17 +20,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/colors.hpp>
 #include <sge/image/color/format.hpp>
-#include <sge/renderer/device.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/caps/device.hpp>
 #include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/color_buffer/optional_surface_ref.hpp>
-#include <sge/renderer/context/object.hpp>
+#include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/projection/far.hpp>
 #include <sge/renderer/projection/near.hpp>
 #include <sge/renderer/projection/orthogonal.hpp>
 #include <sge/renderer/projection/rect.hpp>
+#include <sge/renderer/state/ffp/transform/const_optional_object_ref.hpp>
+#include <sge/renderer/state/ffp/transform/mode.hpp>
+#include <sge/renderer/state/ffp/transform/object.hpp>
+#include <sge/renderer/state/ffp/transform/parameters.hpp>
 #include <sge/renderer/target/offscreen.hpp>
 #include <sge/renderer/target/optional_offscreen_ref.hpp>
 #include <sge/renderer/target/surface_index.hpp>
@@ -65,7 +69,6 @@ SGE_CEGUI_DECLARE_LOCAL_LOGGER(
 
 sge::cegui::texture_target::texture_target(
 	sge::cegui::texture_parameters const &_texture_parameters,
-	sge::renderer::matrix4 const &_projection,
 	sge::cegui::optional_render_context_ref const &_render_context
 )
 :
@@ -86,12 +89,10 @@ sge::cegui::texture_target::texture_target(
 		0,
 		0
 	),
-	default_projection_(
-		_projection
-	),
 	is_inverted_(
 		_texture_parameters.renderer().caps().render_target_inverted()
-	)
+	),
+	transform_state_()
 {
 	FCPPT_LOG_DEBUG(
 		local_log,
@@ -169,6 +170,39 @@ sge::cegui::texture_target::setArea(
 
 	area_ =
 		_area;
+
+	if(
+		area_.getWidth()
+		*
+		area_.getHeight()
+		<
+		0.01f
+	)
+	{
+		transform_state_.reset();
+
+		return;
+	}
+
+	transform_state_.take(
+		texture_parameters_.renderer().create_transform_state(
+			sge::renderer::state::ffp::transform::parameters(
+				sge::renderer::projection::orthogonal(
+					sge::cegui::from_cegui_rect<
+						sge::renderer::projection::rect
+					>(
+						area_
+					),
+					sge::renderer::projection::near(
+						0.f
+					),
+					sge::renderer::projection::far(
+						2.f
+					)
+				)
+			)
+		)
+	);
 }
 
 CEGUI::Rectf const &
@@ -204,6 +238,10 @@ sge::cegui::texture_target::activate()
 		render_context_
 	);
 
+	FCPPT_ASSERT_PRE(
+		transform_state_
+	);
+
 	render_context_->offscreen_target(
 		sge::renderer::target::optional_offscreen_ref(
 			*target_
@@ -221,19 +259,9 @@ sge::cegui::texture_target::activate()
 	);
 
 	render_context_->transform(
-		sge::renderer::matrix_mode::projection,
-		sge::renderer::projection::orthogonal(
-			sge::cegui::from_cegui_rect<
-				sge::renderer::projection::rect
-			>(
-				area_
-			),
-			sge::renderer::projection::near(
-				0.f
-			),
-			sge::renderer::projection::far(
-				2.f
-			)
+		sge::renderer::state::ffp::transform::mode::projection,
+		sge::renderer::state::ffp::transform::const_optional_object_ref(
+			*transform_state_
 		)
 	);
 }
@@ -259,8 +287,8 @@ sge::cegui::texture_target::deactivate()
 	);
 
 	render_context_->transform(
-		sge::renderer::matrix_mode::projection,
-		default_projection_
+		sge::renderer::state::ffp::transform::mode::projection,
+		sge::renderer::state::ffp::transform::const_optional_object_ref()
 	);
 
 	render_context_->offscreen_target(

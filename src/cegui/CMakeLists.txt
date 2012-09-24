@@ -63,6 +63,7 @@ set(
 	src/cegui/include/sge/src/cegui/image_codec.hpp
 	src/cegui/include/sge/src/cegui/image_codec_fwd.hpp
 	src/cegui/include/sge/src/cegui/log_location.hpp
+	src/cegui/include/sge/src/cegui/make_rasterizer_parameters.hpp
 	src/cegui/include/sge/src/cegui/optional_key_scan.hpp
 	src/cegui/include/sge/src/cegui/optional_key_scan_fwd.hpp
 	src/cegui/include/sge/src/cegui/optional_mouse_button.hpp
@@ -84,10 +85,9 @@ set(
 	src/cegui/include/sge/src/cegui/texture_target.hpp
 	src/cegui/include/sge/src/cegui/texture_target_fwd.hpp
 	src/cegui/include/sge/src/cegui/to_absolute_path.hpp
+	src/cegui/include/sge/src/cegui/to_blend_parameters.hpp
 	src/cegui/include/sge/src/cegui/to_cegui_rect.hpp
 	src/cegui/include/sge/src/cegui/to_cegui_size.hpp
-	src/cegui/include/sge/src/cegui/to_dest_blend_func.hpp
-	src/cegui/include/sge/src/cegui/to_source_blend_func.hpp
 	src/cegui/include/sge/src/cegui/vf/color.hpp
 	src/cegui/include/sge/src/cegui/vf/format.hpp
 	src/cegui/include/sge/src/cegui/vf/part.hpp
@@ -97,6 +97,7 @@ set(
 	src/cegui/load_context.cpp
 	src/cegui/log_location.cpp
 	src/cegui/logger.cpp
+	src/cegui/make_rasterizer_parameters.cpp
 	src/cegui/renderer.cpp
 	src/cegui/resource_provider.cpp
 	src/cegui/scoped_render_context.cpp
@@ -108,10 +109,9 @@ set(
 	src/cegui/texture_parameters.cpp
 	src/cegui/texture_target.cpp
 	src/cegui/to_absolute_path.cpp
+	src/cegui/to_blend_parameters.cpp
 	src/cegui/to_cegui_color.cpp
 	src/cegui/to_cegui_string.cpp
-	src/cegui/to_dest_blend_func.cpp
-	src/cegui/to_source_blend_func.cpp
 	src/cegui/toolbox/append_row.cpp
 	src/cegui/toolbox/scoped_gui_sheet.cpp
 	src/cegui/toolbox/scoped_layout.cpp

@@ -20,14 +20,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/cegui/exception.hpp>
 #include <sge/image/color/init.hpp>
-#include <sge/renderer/device.hpp>
+#include <sge/image/color/object.hpp>
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/lock_mode.hpp>
-#include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <sge/renderer/scoped_transform.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
@@ -35,15 +33,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/vertex_buffer_shared_ptr.hpp>
 #include <sge/renderer/vertex_count.hpp>
-#include <sge/renderer/context/object.hpp>
-#include <sge/renderer/state/bool.hpp>
-#include <sge/renderer/state/cull_mode.hpp>
-#include <sge/renderer/state/depth_func.hpp>
-#include <sge/renderer/state/draw_mode.hpp>
-#include <sge/renderer/state/list.hpp>
-#include <sge/renderer/state/scoped.hpp>
-#include <sge/renderer/state/stencil_func.hpp>
-#include <sge/renderer/state/trampoline.hpp>
+#include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/device/ffp.hpp>
+#include <sge/renderer/state/core/blend/const_optional_object_ref.hpp>
+#include <sge/renderer/state/core/blend/object.hpp>
+#include <sge/renderer/state/core/blend/object_scoped_ptr.hpp>
+#include <sge/renderer/state/core/blend/parameters.hpp>
+#include <sge/renderer/state/core/blend/scoped.hpp>
+#include <sge/renderer/state/core/blend/write_mask_all.hpp>
+#include <sge/renderer/state/core/rasterizer/const_optional_object_ref.hpp>
+#include <sge/renderer/state/core/rasterizer/enable_scissor_test.hpp>
+#include <sge/renderer/state/core/rasterizer/object.hpp>
+#include <sge/renderer/state/core/rasterizer/parameters.hpp>
+#include <sge/renderer/state/ffp/transform/mode.hpp>
+#include <sge/renderer/state/ffp/transform/object.hpp>
+#include <sge/renderer/state/ffp/transform/object_scoped_ptr.hpp>
+#include <sge/renderer/state/ffp/transform/parameters.hpp>
+#include <sge/renderer/state/ffp/transform/scoped.hpp>
 #include <sge/renderer/target/base.hpp>
 #include <sge/renderer/target/scoped_scissor_area.hpp>
 #include <sge/renderer/texture/planar.hpp>
@@ -56,10 +62,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/cegui/from_cegui_vector2.hpp>
 #include <sge/src/cegui/from_cegui_vector3.hpp>
 #include <sge/src/cegui/geometry_buffer.hpp>
+#include <sge/src/cegui/make_rasterizer_parameters.hpp>
 #include <sge/src/cegui/optional_render_context_ref.hpp>
 #include <sge/src/cegui/texture.hpp>
-#include <sge/src/cegui/to_dest_blend_func.hpp>
-#include <sge/src/cegui/to_source_blend_func.hpp>
+#include <sge/src/cegui/to_blend_parameters.hpp>
 #include <sge/src/cegui/vf/color.hpp>
 #include <sge/src/cegui/vf/format.hpp>
 #include <sge/src/cegui/vf/position.hpp>
@@ -98,7 +104,7 @@ SGE_CEGUI_DECLARE_LOCAL_LOGGER(
 )
 
 sge::cegui::geometry_buffer::geometry_buffer(
-	sge::renderer::device &_renderer,
+	sge::renderer::device::ffp &_renderer,
 	sge::renderer::vertex_declaration const &_vertex_declaration,
 	sge::cegui::optional_render_context_ref const &_render_context
 )
@@ -136,6 +142,24 @@ sge::cegui::geometry_buffer::geometry_buffer(
 	),
 	render_effect_(
 		fcppt::null_ptr()
+	),
+	rasterizer_scissor_on_(
+		renderer_.create_rasterizer_state(
+			sge::cegui::make_rasterizer_parameters(
+				sge::renderer::state::core::rasterizer::enable_scissor_test(
+					true
+				)
+			)
+		)
+	),
+	rasterizer_scissor_off_(
+		renderer_.create_rasterizer_state(
+			sge::cegui::make_rasterizer_parameters(
+				sge::renderer::state::core::rasterizer::enable_scissor_test(
+					false
+				)
+			)
+		)
 	)
 {
 	FCPPT_LOG_DEBUG(
@@ -166,22 +190,30 @@ sge::cegui::geometry_buffer::draw() const
 			<< FCPPT_TEXT(")::draw()")
 	);
 
-	sge::renderer::scoped_transform const scoped_world(
+	sge::renderer::state::ffp::transform::object_scoped_ptr const transform_state(
+		renderer_.create_transform_state(
+			sge::renderer::state::ffp::transform::parameters(
+				fcppt::math::matrix::translation(
+					translation_
+					+
+					pivot_
+				)
+				*
+				fcppt::math::quaternion::to_matrix(
+					rotation_
+				)
+				*
+				fcppt::math::matrix::translation(
+					-pivot_
+				)
+			)
+		)
+	);
+
+	sge::renderer::state::ffp::transform::scoped const scoped_world(
 		*render_context_,
-		sge::renderer::matrix_mode::world,
-		fcppt::math::matrix::translation(
-			translation_
-			+
-			pivot_
-		)
-		*
-		fcppt::math::quaternion::to_matrix(
-			rotation_
-		)
-		*
-		fcppt::math::matrix::translation(
-			-pivot_
-		)
+		sge::renderer::state::ffp::transform::mode::world,
+		*transform_state
 	);
 
 	FCPPT_ASSERT_ERROR(
@@ -190,23 +222,20 @@ sge::cegui::geometry_buffer::draw() const
 		CEGUI::BM_INVALID
 	);
 
-	sge::renderer::state::scoped const scoped_state(
+	sge::renderer::state::core::blend::object_scoped_ptr const blend_state(
+		renderer_.create_blend_state(
+			sge::renderer::state::core::blend::parameters(
+				sge::cegui::to_blend_parameters(
+					this->getBlendMode()
+				),
+				sge::renderer::state::core::blend::write_mask_all()
+			)
+		)
+	);
+
+	sge::renderer::state::core::blend::scoped const scoped_blend(
 		*render_context_,
-		sge::renderer::state::list
-		(
-			sge::cegui::to_source_blend_func(
-				this->getBlendMode()
-			)
-		)
-		(
-			sge::cegui::to_dest_blend_func(
-				this->getBlendMode()
-			)
-		)
-		(
-			sge::renderer::state::bool_::enable_alpha_blending
-				= true
-		)
+		*blend_state
 	);
 
 	sge::renderer::target::base &current_target(
@@ -230,6 +259,8 @@ sge::cegui::geometry_buffer::draw() const
 		:
 			1
 	);
+
+	sge::renderer::state::core::rasterizer::const_optional_object_ref prev_rasterizer;
 
 	for(
 		int pass(
@@ -267,13 +298,28 @@ sge::cegui::geometry_buffer::draw() const
 				)
 			);
 
-			sge::renderer::state::scoped const inner_state(
-				*render_context_,
-				sge::renderer::state::list(
-					sge::renderer::state::bool_::enable_scissor_test =
-						it->clip().get()
+			{
+				sge::renderer::state::core::rasterizer::const_optional_object_ref new_state(
+					it->clip().get()
+					?
+						*rasterizer_scissor_on_
+					:
+						*rasterizer_scissor_off_
+				);
+
+				if(
+					new_state
+					!=
+					prev_rasterizer
 				)
-			);
+				{
+					prev_rasterizer = new_state;
+
+					render_context_->rasterizer_state(
+						new_state
+					);
+				}
+			}
 
 			render_context_->render_nonindexed(
 				sge::renderer::first_vertex(
@@ -286,6 +332,10 @@ sge::cegui::geometry_buffer::draw() const
 			);
 		}
 	}
+
+	render_context_->rasterizer_state(
+		sge::renderer::state::core::rasterizer::const_optional_object_ref()
+	);
 
 	if(
 		render_effect_
