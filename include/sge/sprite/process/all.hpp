@@ -69,6 +69,7 @@ all(
 		_range,
 		_buffers,
 		_compare,
+		_states,
 		sge::sprite::state::default_options<
 			StateChoices
 		>()

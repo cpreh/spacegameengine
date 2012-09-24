@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_INTRUSIVE_DETAIL_RENDER_ONE_HPP_INCLUDED
 
 #include <sge/renderer/scoped_vertex_buffer.hpp>
-#include <sge/renderer/context/object_fwd.hpp>
 #include <sge/sprite/detail/process/geometry.hpp>
 #include <sge/sprite/detail/render/range.hpp>
 #include <sge/sprite/render/range_impl.hpp>
@@ -39,13 +38,14 @@ namespace detail
 
 template<
 	typename Options,
+	typename RenderContext,
 	typename Buffers,
 	typename Compare,
 	typename Range
 >
 void
 render_one(
-	sge::renderer::context::object &_render_context,
+	RenderContext &_render_context,
 	Buffers &_buffers,
 	Compare const &_compare,
 	Range const &_range

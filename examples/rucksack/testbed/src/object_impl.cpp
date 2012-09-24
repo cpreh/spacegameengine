@@ -20,17 +20,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/colors.hpp>
 #include <sge/log/global.hpp>
-#include <sge/renderer/device.hpp>
-#include <sge/renderer/context/scoped.hpp>
+#include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/context/scoped_ffp.hpp>
+#include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/parameters/object.hpp>
 #include <sge/renderer/pixel_format/object.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/rucksack/widget/base.hpp>
+#include <sge/sprite/object_impl.hpp>
+#include <sge/sprite/parameters_impl.hpp>
+#include <sge/sprite/buffers/single_impl.hpp>
+#include <sge/sprite/buffers/with_declaration_impl.hpp>
 #include <sge/sprite/compare/default.hpp>
 #include <sge/sprite/config/float_type.hpp>
 #include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/geometry/make_random_access_range.hpp>
 #include <sge/sprite/process/all.hpp>
+#include <sge/sprite/state/object_impl.hpp>
+#include <sge/sprite/state/parameters_impl.hpp>
 #include <sge/src/rucksack/testbed/object_impl.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/input.hpp>
@@ -44,9 +51,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/parameters.hpp>
 #include <sge/window/system.hpp>
 #include <awl/main/exit_code.hpp>
-#include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/log/activate_levels.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/signal/auto_connection.hpp>
@@ -78,8 +83,12 @@ sge::rucksack::testbed::object_impl::object_impl(
 					sge::systems::input_helper::keyboard_collector),
 				sge::systems::cursor_option_field::null()))),
 	buffers_(
-		systems_.renderer(),
+		systems_.renderer_ffp(),
 		sge::sprite::buffers::option::dynamic),
+	sprite_states_(
+		systems_.renderer_ffp(),
+		sge::rucksack::testbed::object_impl::sprite_state_parameters(
+			systems_.viewport_manager())),
 	sprites_(),
 	quit_connection_(
 		sge::systems::quit_on_escape(
@@ -112,9 +121,9 @@ sge::rucksack::testbed::object_impl::run()
 	{
 		this->update();
 
-		sge::renderer::context::scoped const scoped_block(
-			systems_.renderer(),
-			systems_.renderer().onscreen_target());
+		sge::renderer::context::scoped_ffp const scoped_block(
+			systems_.renderer_ffp(),
+			systems_.renderer_ffp().onscreen_target());
 
 		this->render(
 			scoped_block.get());
@@ -142,7 +151,7 @@ sge::rucksack::testbed::object_impl::update()
 
 void
 sge::rucksack::testbed::object_impl::render(
-	sge::renderer::context::object &_render_context)
+	sge::renderer::context::ffp &_render_context)
 {
 	/*
 	sge::renderer::state::scoped scoped_state(
@@ -172,7 +181,8 @@ sge::rucksack::testbed::object_impl::render(
 			raw_sprites.begin(),
 			raw_sprites.end()),
 		buffers_,
-		sge::sprite::compare::default_());
+		sge::sprite::compare::default_(),
+		sprite_states_);
 }
 
 sge::systems::instance const &

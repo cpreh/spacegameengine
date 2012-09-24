@@ -18,24 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/common.hpp>
-#include <sge/opengl/state/convert/sampler_unary_op.hpp>
-#include <sge/renderer/state/ffp/sampler/unary_op_type.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#ifndef SGE_RENDERER_STATE_FFP_SAMPLER_PARAMETERS_BOTH_HPP_INCLUDED
+#define SGE_RENDERER_STATE_FFP_SAMPLER_PARAMETERS_BOTH_HPP_INCLUDED
+
+#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/state/ffp/sampler/op_fwd.hpp>
+#include <sge/renderer/state/ffp/sampler/parameters_fwd.hpp>
 
 
-GLenum
-sge::opengl::state::convert::sampler_unary_op(
-	sge::renderer::state::ffp::sampler::unary_op_type::type const _op
-)
+namespace sge
 {
-	switch(
-		_op
-	)
-	{
-	case sge::renderer::state::ffp::sampler::unary_op_type::arg:
-		return GL_REPLACE;
-	}
+namespace renderer
+{
+namespace state
+{
+namespace ffp
+{
+namespace sampler
+{
 
-	FCPPT_ASSERT_UNREACHABLE;
+SGE_RENDERER_SYMBOL
+sge::renderer::state::ffp::sampler::parameters const
+parameters_both(
+	sge::renderer::state::ffp::sampler::op const &
+);
+
 }
+}
+}
+}
+}
+
+#endif

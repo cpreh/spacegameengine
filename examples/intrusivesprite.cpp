@@ -28,8 +28,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/optional_extension_set.hpp>
 #include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/clear/parameters.hpp>
-#include <sge/renderer/context/object.hpp>
-#include <sge/renderer/context/scoped.hpp>
+#include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/context/scoped_ffp.hpp>
+#include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/parameters/object.hpp>
 #include <sge/renderer/parameters/vsync.hpp>
@@ -62,6 +63,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/intrusive/ordered/collection.hpp>
 #include <sge/sprite/intrusive/process/ordered.hpp>
 #include <sge/sprite/process/all.hpp>
+#include <sge/sprite/state/all_choices.hpp>
+#include <sge/sprite/state/object.hpp>
+#include <sge/sprite/state/parameters.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/quit_on_escape.hpp>
@@ -165,7 +169,7 @@ try
 					sge::config::media_path()
 					/ FCPPT_TEXT("images")
 					/ FCPPT_TEXT("cloudsquare.png"),
-					sys.renderer(),
+					sys.renderer_core(),
 					sys.image_system(),
 					sge::renderer::texture::mipmap::off(),
 					sge::renderer::resource_flags_field::null()
@@ -180,7 +184,7 @@ try
 					sge::config::media_path()
 					/ FCPPT_TEXT("images")
 					/ FCPPT_TEXT("grass.png"),
-					sys.renderer(),
+					sys.renderer_core(),
 					sys.image_system(),
 					sge::renderer::texture::mipmap::off(),
 					sge::renderer::resource_flags_field::null()
@@ -237,9 +241,26 @@ try
 		order
 	> ordered_collection_type;
 
+	typedef sge::sprite::state::all_choices sprite_state_choices;
+
+	typedef sge::sprite::state::object<
+		sprite_state_choices
+	> sprite_state_object;
+
+	typedef sge::sprite::state::parameters<
+		sprite_state_choices
+	> sprite_state_parameters;
+
 	sprite_buffers_type sprite_buffers(
-		sys.renderer(),
+		sys.renderer_core(),
 		sge::sprite::buffers::option::dynamic
+	);
+
+	sprite_state_object sprite_states(
+		sys.renderer_ffp(),
+		sprite_state_parameters(
+			sys.viewport_manager()
+		)
 	);
 
 	ordered_collection_type ordered_collection;
@@ -319,9 +340,9 @@ try
 		sys.window_system().poll()
 	)
 	{
-		sge::renderer::context::scoped const scoped_block(
-			sys.renderer(),
-			sys.renderer().onscreen_target()
+		sge::renderer::context::scoped_ffp const scoped_block(
+			sys.renderer_ffp(),
+			sys.renderer_ffp().onscreen_target()
 		);
 
 		scoped_block.get().clear(
@@ -335,7 +356,8 @@ try
 			scoped_block.get(),
 			ordered_collection.range(),
 			sprite_buffers,
-			sge::sprite::compare::default_()
+			sge::sprite::compare::default_(),
+			sprite_states
 		);
 	}
 

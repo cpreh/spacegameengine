@@ -25,10 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/intrusive/process/ordered_with_options.hpp>
 #include <sge/sprite/process/default_geometry_options.hpp>
 #include <sge/sprite/process/options.hpp>
-#include <sge/sprite/render/matrix_options.hpp>
-#include <sge/sprite/render/options.hpp>
-#include <sge/sprite/render/state_options.hpp>
-#include <sge/sprite/render/vertex_options.hpp>
+#include <sge/sprite/state/object_fwd.hpp>
+#include <sge/sprite/state/options_impl.hpp>
+#include <sge/sprite/state/vertex_options.hpp>
 
 
 namespace sge
@@ -44,6 +43,7 @@ template<
 	typename Choices,
 	typename Order,
 	typename Buffers,
+	typename StateChoices,
 	typename Compare
 >
 void
@@ -53,6 +53,9 @@ ordered(
 		Order
 	> &_collection,
 	Buffers &_buffers,
+	sge::sprite::state::object<
+		StateChoices
+	> const &_states,
 	Compare const &_compare
 )
 {
@@ -66,11 +69,12 @@ ordered(
 	>(
 		_collection,
 		_buffers,
+		_states,
 		_compare,
-		sge::sprite::render::options(
-			sge::sprite::render::matrix_options::set,
-			sge::sprite::render::state_options::set,
-			sge::sprite::render::vertex_options::declaration
+		sge::sprite::state::options<
+			StateChoices
+		>(
+			sge::sprite::state::vertex_options::declaration
 		)
 	);
 }

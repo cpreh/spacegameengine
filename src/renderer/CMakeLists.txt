@@ -531,6 +531,7 @@ set(
 	include/sge/renderer/state/ffp/sampler/op_variant.hpp
 	include/sge/renderer/state/ffp/sampler/op_variant_fwd.hpp
 	include/sge/renderer/state/ffp/sampler/parameters.hpp
+	include/sge/renderer/state/ffp/sampler/parameters_both.hpp
 	include/sge/renderer/state/ffp/sampler/parameters_fwd.hpp
 	include/sge/renderer/state/ffp/sampler/ternary_op.hpp
 	include/sge/renderer/state/ffp/sampler/ternary_op_fwd.hpp
@@ -941,6 +942,7 @@ set(
 	src/renderer/state/ffp/sampler/object.cpp
 	src/renderer/state/ffp/sampler/op.cpp
 	src/renderer/state/ffp/sampler/parameters.cpp
+	src/renderer/state/ffp/sampler/parameters_both.cpp
 	src/renderer/state/ffp/sampler/ternary_op.cpp
 	src/renderer/state/ffp/sampler/unary_op.cpp
 	src/renderer/state/ffp/transform/default.cpp

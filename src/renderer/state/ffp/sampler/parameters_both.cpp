@@ -18,24 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/common.hpp>
-#include <sge/opengl/state/convert/sampler_unary_op.hpp>
-#include <sge/renderer/state/ffp/sampler/unary_op_type.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <sge/renderer/state/ffp/sampler/alpha_op.hpp>
+#include <sge/renderer/state/ffp/sampler/color_op.hpp>
+#include <sge/renderer/state/ffp/sampler/op.hpp>
+#include <sge/renderer/state/ffp/sampler/parameters.hpp>
+#include <sge/renderer/state/ffp/sampler/parameters_both.hpp>
 
 
-GLenum
-sge::opengl::state::convert::sampler_unary_op(
-	sge::renderer::state::ffp::sampler::unary_op_type::type const _op
+sge::renderer::state::ffp::sampler::parameters const
+sge::renderer::state::ffp::sampler::parameters_both(
+	sge::renderer::state::ffp::sampler::op const &_op
 )
 {
-	switch(
-		_op
-	)
-	{
-	case sge::renderer::state::ffp::sampler::unary_op_type::arg:
-		return GL_REPLACE;
-	}
-
-	FCPPT_ASSERT_UNREACHABLE;
+	return
+		sge::renderer::state::ffp::sampler::parameters(
+			sge::renderer::state::ffp::sampler::color_op(
+				_op
+			),
+			sge::renderer::state::ffp::sampler::alpha_op(
+				_op
+			)
+		);
 }

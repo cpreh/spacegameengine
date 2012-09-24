@@ -21,16 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_INTRUSIVE_PROCESS_ORDERED_WITH_OPTIONS_HPP_INCLUDED
 #define SGE_SPRITE_INTRUSIVE_PROCESS_ORDERED_WITH_OPTIONS_HPP_INCLUDED
 
-#include <sge/renderer/context/object_fwd.hpp>
 #include <sge/sprite/buffers/parameters.hpp>
-#include <sge/sprite/detail/render/scoped_matrices.hpp>
 #include <sge/sprite/detail/render/scoped_states.hpp>
 #include <sge/sprite/detail/render/scoped_vertex_declaration.hpp>
 #include <sge/sprite/intrusive/detail/render_one.hpp>
 #include <sge/sprite/intrusive/ordered/collection_impl.hpp>
 #include <sge/sprite/process/is_options.hpp>
-#include <sge/sprite/render/options.hpp>
-#include <sge/sprite/render/parameters.hpp>
+#include <sge/sprite/render/parameters_impl.hpp>
+#include <sge/sprite/state/object_fwd.hpp>
+#include <sge/sprite/state/options_impl.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/tr1/functional.hpp>
@@ -50,9 +49,11 @@ namespace process
 
 template<
 	typename Options,
+	typename RenderContext,
 	typename Choices,
 	typename Order,
 	typename Buffers,
+	typename StateChoices,
 	typename Compare
 >
 typename boost::enable_if<
@@ -62,14 +63,19 @@ typename boost::enable_if<
 	void
 >::type
 ordered_with_options(
-	sge::renderer::context::object &_render_context,
+	RenderContext &_render_context,
 	sge::sprite::intrusive::ordered::collection<
 		Choices,
 		Order
 	> &_collection,
 	Buffers &_buffers,
+	sge::sprite::state::object<
+		StateChoices
+	> const &_states,
 	Compare const &_compare,
-	sge::sprite::render::options const &_render_options
+	sge::sprite::state::options<
+		StateChoices
+	> const &_options
 )
 {
 	typedef typename sge::sprite::intrusive::ordered::collection<
@@ -77,24 +83,22 @@ ordered_with_options(
 		Order
 	>::collection_base collection;
 
-	sge::sprite::detail::render::scoped_matrices const scoped_matrices(
-		_render_context,
-		_render_options.matrix_options()
-	);
-
 	sge::sprite::detail::render::scoped_states<
-		Choices
+		StateChoices
 	> const scoped_states(
 		_render_context,
-		_render_options.state_options()
+		_options,
+		_states
 	);
 
 	sge::sprite::detail::render::scoped_vertex_declaration const scoped_vertex_declaration(
-		sge::sprite::render::parameters(
+		sge::sprite::render::parameters<
+			StateChoices
+		>(
 			_render_context,
 			_buffers.parameters().vertex_declaration()
 		),
-		_render_options.vertex_options()
+		_options.vertex_options()
 	);
 
 	_collection.for_each(

@@ -37,7 +37,7 @@ namespace unary_op_type
 {
 enum type
 {
-	arg1
+	arg
 };
 }
 

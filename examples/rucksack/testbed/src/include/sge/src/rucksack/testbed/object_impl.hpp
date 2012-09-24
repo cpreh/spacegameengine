@@ -23,17 +23,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/color/rgba8_format.hpp>
 #include <sge/image/color/any/object_fwd.hpp>
-#include <sge/renderer/context/object_fwd.hpp>
+#include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/rucksack/scalar.hpp>
 #include <sge/rucksack/widget/base_fwd.hpp>
-#include <sge/sprite/object.hpp>
-#include <sge/sprite/parameters.hpp>
-#include <sge/sprite/buffers/single.hpp>
-#include <sge/sprite/buffers/with_declaration.hpp>
+#include <sge/sprite/object_decl.hpp>
+#include <sge/sprite/parameters_fwd.hpp>
+#include <sge/sprite/buffers/single_decl.hpp>
+#include <sge/sprite/buffers/with_declaration_decl.hpp>
 #include <sge/sprite/config/choices.hpp>
 #include <sge/sprite/config/normal_size.hpp>
 #include <sge/sprite/config/type_choices.hpp>
 #include <sge/sprite/config/with_color.hpp>
+#include <sge/sprite/state/all_choices.hpp>
+#include <sge/sprite/state/object_decl.hpp>
+#include <sge/sprite/state/parameters_fwd.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/window/title.hpp>
 #include <awl/main/exit_code.hpp>
@@ -75,7 +78,7 @@ public:
 
 	void
 	render(
-		sge::renderer::context::object &);
+		sge::renderer::context::ffp &);
 
 	sge::systems::instance const &
 	systems() const;
@@ -106,12 +109,36 @@ private:
 	sprite_buffers;
 
 	typedef
-	sge::sprite::object<sprite_choices>
+	sge::sprite::object
+	<
+		sprite_choices
+	>
 	sprite_object;
 
 	typedef
-	sge::sprite::parameters<sprite_choices>
+	sge::sprite::parameters
+	<
+		sprite_choices
+	>
 	sprite_parameters;
+
+	typedef
+	sge::sprite::state::all_choices
+	sprite_state_choices;
+
+	typedef
+	sge::sprite::state::object
+	<
+		sprite_state_choices
+	>
+	sprite_state_object;
+
+	typedef
+	sge::sprite::state::parameters
+	<
+		sprite_state_choices
+	>
+	sprite_state_parameters;
 
 	typedef
 	std::vector
@@ -126,6 +153,7 @@ private:
 
 	sge::systems::instance const systems_;
 	sprite_buffers buffers_;
+	sprite_state_object const sprite_states_;
 	sprite_list sprites_;
 	fcppt::signal::scoped_connection const quit_connection_;
 };

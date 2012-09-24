@@ -24,8 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_set.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
-#include <sge/renderer/context/object.hpp>
-#include <sge/renderer/context/scoped.hpp>
+#include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/context/scoped_ffp.hpp>
+#include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/parameters/object.hpp>
 #include <sge/renderer/parameters/vsync.hpp>
@@ -33,15 +34,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_format/depth_stencil.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
+#include <sge/renderer/state/ffp/sampler/arg.hpp>
+#include <sge/renderer/state/ffp/sampler/arg1.hpp>
+#include <sge/renderer/state/ffp/sampler/arg2.hpp>
+#include <sge/renderer/state/ffp/sampler/const_object_ref_vector.hpp>
+#include <sge/renderer/state/ffp/sampler/binary_op.hpp>
+#include <sge/renderer/state/ffp/sampler/binary_op_type.hpp>
+#include <sge/renderer/state/ffp/sampler/object.hpp>
+#include <sge/renderer/state/ffp/sampler/object_scoped_ptr.hpp>
+#include <sge/renderer/state/ffp/sampler/op.hpp>
+#include <sge/renderer/state/ffp/sampler/parameters.hpp>
+#include <sge/renderer/state/ffp/sampler/parameters_both.hpp>
+#include <sge/renderer/state/ffp/sampler/unary_op.hpp>
+#include <sge/renderer/state/ffp/sampler/unary_op_type.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_scoped_ptr.hpp>
-#include <sge/renderer/texture/stage.hpp>
-#include <sge/renderer/texture/stage_arg.hpp>
-#include <sge/renderer/texture/stage_arg_value.hpp>
-#include <sge/renderer/texture/stage_op.hpp>
-#include <sge/renderer/texture/stage_op_value.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/parameters.hpp>
@@ -58,6 +67,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/config/with_texture.hpp>
 #include <sge/sprite/process/one.hpp>
+#include <sge/sprite/state/all_choices.hpp>
+#include <sge/sprite/state/object.hpp>
+#include <sge/sprite/state/parameters.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/image2d.hpp>
 #include <sge/systems/input.hpp>
@@ -77,6 +89,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>
+#include <fcppt/cref.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/ref.hpp>
@@ -164,7 +177,7 @@ try
 			sge::config::media_path()
 			/ FCPPT_TEXT("images")
 			/ FCPPT_TEXT("color_map.png"),
-			sys.renderer(),
+			sys.renderer_core(),
 			sys.image_system(),
 			sge::renderer::texture::mipmap::off(),
 			sge::renderer::resource_flags_field::null()
@@ -176,7 +189,7 @@ try
 			sge::config::media_path()
 			/ FCPPT_TEXT("images")
 			/ FCPPT_TEXT("grass.png"),
-			sys.renderer(),
+			sys.renderer_core(),
 			sys.image_system(),
 			sge::renderer::texture::mipmap::off(),
 			sge::renderer::resource_flags_field::null()
@@ -218,9 +231,26 @@ try
 		>
 	> sprite_buffers_type;
 
+	typedef sge::sprite::state::all_choices sprite_state_choices;
+
+	typedef sge::sprite::state::object<
+		sprite_state_choices
+	> sprite_state_object;
+
+	typedef sge::sprite::state::parameters<
+		sprite_state_choices
+	> sprite_state_parameters;
+
 	sprite_buffers_type sprite_buffers(
-		sys.renderer(),
+		sys.renderer_ffp(),
 		sge::sprite::buffers::option::dynamic
+	);
+
+	sprite_state_object sprite_states(
+		sys.renderer_ffp(),
+		sprite_state_parameters(
+			sys.viewport_manager()
+		)
 	);
 
 	sprite_object const sprite(
@@ -255,49 +285,71 @@ try
 		)
 	);
 
+	sge::renderer::state::ffp::sampler::object_scoped_ptr const sampler0(
+		sys.renderer_ffp().create_ffp_sampler_state(
+			sge::renderer::state::ffp::sampler::parameters_both(
+				sge::renderer::state::ffp::sampler::op(
+					sge::renderer::state::ffp::sampler::unary_op(
+						sge::renderer::state::ffp::sampler::unary_op_type::arg,
+						sge::renderer::state::ffp::sampler::arg1(
+							sge::renderer::state::ffp::sampler::arg::texture
+						)
+					)
+				)
+			)
+		)
+	);
+
+	sge::renderer::state::ffp::sampler::object_scoped_ptr const sampler1(
+		sys.renderer_ffp().create_ffp_sampler_state(
+			sge::renderer::state::ffp::sampler::parameters_both(
+				sge::renderer::state::ffp::sampler::op(
+					sge::renderer::state::ffp::sampler::binary_op(
+						sge::renderer::state::ffp::sampler::binary_op_type::modulate,
+						sge::renderer::state::ffp::sampler::arg1(
+							sge::renderer::state::ffp::sampler::arg::previous
+						),
+						sge::renderer::state::ffp::sampler::arg2(
+							sge::renderer::state::ffp::sampler::arg::texture
+						)
+					)
+				)
+			)
+		)
+	);
+
+	sge::renderer::state::ffp::sampler::const_object_ref_vector const samplers(
+		fcppt::assign::make_container<
+			sge::renderer::state::ffp::sampler::const_object_ref_vector
+		>(
+			fcppt::cref(
+				*sampler0
+			)
+		)(
+			fcppt::cref(
+				*sampler1
+			)
+		)
+	);
+
 	while(
 		sys.window_system().poll()
 	)
 	{
-		sge::renderer::context::scoped const scoped_block(
-			sys.renderer(),
-			sys.renderer().onscreen_target()
+		sge::renderer::context::scoped_ffp const scoped_block(
+			sys.renderer_ffp(),
+			sys.renderer_ffp().onscreen_target()
 		);
 
-		scoped_block.get().texture_stage_arg(
-			sge::renderer::texture::stage(0u),
-			sge::renderer::texture::stage_arg::color0,
-			sge::renderer::texture::stage_arg_value::texture
-		);
-
-		scoped_block.get().texture_stage_op(
-			sge::renderer::texture::stage(0u),
-			sge::renderer::texture::stage_op::color,
-			sge::renderer::texture::stage_op_value::arg0
-		);
-
-		scoped_block.get().texture_stage_arg(
-			sge::renderer::texture::stage(1u),
-			sge::renderer::texture::stage_arg::color0,
-			sge::renderer::texture::stage_arg_value::previous
-		);
-
-		scoped_block.get().texture_stage_arg(
-			sge::renderer::texture::stage(1u),
-			sge::renderer::texture::stage_arg::color1,
-			sge::renderer::texture::stage_arg_value::texture
-		);
-
-		scoped_block.get().texture_stage_op(
-			sge::renderer::texture::stage(1u),
-			sge::renderer::texture::stage_op::color,
-			sge::renderer::texture::stage_op_value::modulate
+		scoped_block.get().sampler_ffp_state(
+			samplers
 		);
 
 		sge::sprite::process::one(
 			scoped_block.get(),
 			sprite,
-			sprite_buffers
+			sprite_buffers,
+			sprite_states
 		);
 	}
 
