@@ -22,9 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_STATE_DETAIL_SET_ONE_HPP_INCLUDED
 
 #include <sge/sprite/state/render_context.hpp>
+#include <sge/sprite/state/render_device.hpp>
 #include <sge/sprite/state/detail/object_class.hpp>
 #include <sge/sprite/state/detail/options_class.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/utility/enable_if.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -53,16 +57,24 @@ public:
 		StateChoices
 	>::type options_class;
 
+	typedef typename sge::sprite::state::render_device<
+		StateChoices
+	>::type render_device;
+
 	typedef typename sge::sprite::state::render_context<
 		StateChoices
 	>::type render_context;
 
 	set_one(
+		render_device &_render_device,
 		render_context &_render_context,
 		options_class const &_options,
-		object_class const &_objects
+		object_class &_objects
 	)
 	:
+		render_device_(
+			_render_device
+		),
 		render_context_(
 			_render_context
 		),
@@ -80,7 +92,34 @@ public:
 	template<
 		typename Type
 	>
-	result_type
+	typename boost::enable_if<
+		typename Type::persistent,
+		result_type
+	>::type
+	operator()() const
+	{
+		if(
+			!options_. template get<
+				typename Type::role
+			>()
+		)
+			return;
+
+		Type::set(
+			render_context_,
+			*objects_. template get<
+				typename Type::role
+			>()
+		);
+	}
+
+	template<
+		typename Type
+	>
+	typename boost::disable_if<
+		typename Type::persistent,
+		result_type
+	>::type
 	operator()() const
 	{
 		if(
@@ -94,10 +133,13 @@ public:
 			typename Type::state_type
 		> state_shared_ptr;
 
+		// This should be more generic, but it will do for transform
+		// for now
 		state_shared_ptr const object(
-			objects_. template get<
-				typename Type::role
-			>()
+			Type::make(
+				render_device_,
+				render_context_
+			)
 		);
 
 		if(
@@ -105,17 +147,25 @@ public:
 		)
 			return;
 
+		objects_. template set<
+			typename Type::role
+		>(
+			object
+		);
+
 		Type::set(
 			render_context_,
 			*object
 		);
 	}
 private:
+	render_device &render_device_;
+
 	render_context &render_context_;
 
 	options_class const &options_;
 
-	object_class const &objects_;
+	object_class &objects_;
 };
 
 }

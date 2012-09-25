@@ -24,8 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/object_decl.hpp>
 #include <sge/sprite/state/parameters_impl.hpp>
 #include <sge/sprite/state/detail/make_objects.hpp>
-#include <sge/sprite/state/detail/make_viewport_manager.hpp>
-#include <sge/sprite/state/detail/viewport_manager_impl.hpp>
 
 
 template<
@@ -34,25 +32,19 @@ template<
 sge::sprite::state::object<
 	StateChoices
 >::object(
-	render_device &_device,
+	render_device &_renderer,
 	parameters_type const &_parameters
 )
 :
+	renderer_(
+		_renderer
+	),
 	elements_(
 		sge::sprite::state::detail::make_objects<
 			StateChoices
 		>(
-			_device,
+			_renderer,
 			_parameters.elements()
-		)
-	),
-	viewport_manager_(
-		sge::sprite::state::detail::make_viewport_manager<
-			StateChoices
-		>(
-			elements_,
-			_device,
-			_parameters
 		)
 	)
 {
@@ -73,12 +65,40 @@ template<
 typename
 sge::sprite::state::object<
 	StateChoices
+>::elements_type &
+sge::sprite::state::object<
+	StateChoices
+>::elements()
+{
+	return elements_;
+}
+
+template<
+	typename StateChoices
+>
+typename
+sge::sprite::state::object<
+	StateChoices
 >::elements_type const &
 sge::sprite::state::object<
 	StateChoices
 >::elements() const
 {
 	return elements_;
+}
+
+template<
+	typename StateChoices
+>
+typename
+sge::sprite::state::object<
+	StateChoices
+>::render_device &
+sge::sprite::state::object<
+	StateChoices
+>::renderer() const
+{
+	return renderer_;
 }
 
 #endif

@@ -117,7 +117,6 @@ try
 			128u
 		),
 		sys.renderer_ffp(),
-		sys.viewport_manager(),
 		sge::graph::baseline(
 			20.0),
 		sge::graph::optional_axis_constraint(),

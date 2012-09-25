@@ -385,7 +385,6 @@ try
 
 	sge::font::draw::static_text joypad_infotext(
 		sys.renderer_ffp(),
-		sys.viewport_manager(),
 		*font,
 		SGE_FONT_LIT(
 			"no gamepad connected"
@@ -402,7 +401,6 @@ try
 
 	sge::font::draw::static_text event_infotext(
 		sys.renderer_ffp(),
-		sys.viewport_manager(),
 		*font,
 		SGE_FONT_LIT(
 			"press some joypad button"

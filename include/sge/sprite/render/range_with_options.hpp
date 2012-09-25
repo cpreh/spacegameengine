@@ -51,7 +51,7 @@ range_with_options(
 	> const &_range,
 	sge::sprite::state::object<
 		StateChoices
-	> const &_states,
+	> &_states,
 	sge::sprite::state::options<
 		StateChoices
 	> const &_options
@@ -65,6 +65,7 @@ range_with_options(
 	sge::sprite::state::scoped<
 		StateChoices
 	> const states(
+		_states.renderer(),
 		_parameters.render_context(),
 		_options,
 		_states

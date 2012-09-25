@@ -35,18 +35,20 @@ namespace state
 {
 
 template<
+	typename RenderDevice,
 	typename RenderContext,
 	typename StateChoices
 >
 void
 set(
+	RenderDevice &_render_device,
 	RenderContext &_render_context,
 	sge::sprite::state::options<
 		StateChoices
 	> const &_options,
 	sge::sprite::state::object<
 		StateChoices
-	> const &_states
+	> &_states
 )
 {
 	fcppt::mpl::for_each<
@@ -55,6 +57,7 @@ set(
 		sge::sprite::state::detail::set_one<
 			StateChoices
 		>(
+			_render_device,
 			_render_context,
 			_options.elements(),
 			_states.elements()

@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_STATE_SCOPED_DECL_HPP_INCLUDED
 
 #include <sge/sprite/state/render_context.hpp>
+#include <sge/sprite/state/render_device.hpp>
 #include <sge/sprite/state/options_fwd.hpp>
 #include <sge/sprite/state/object_fwd.hpp>
 #include <sge/sprite/state/scoped_fwd.hpp>
@@ -44,6 +45,10 @@ class scoped
 		scoped
 	);
 public:
+	typedef typename sge::sprite::state::render_device<
+		StateChoices
+	>::type render_device;
+
 	typedef typename sge::sprite::state::render_context<
 		StateChoices
 	>::type render_context;
@@ -57,9 +62,10 @@ public:
 	> state_object;
 
 	scoped(
+		render_device &,
 		render_context &,
 		state_options const &,
-		state_object const &
+		state_object &
 	);
 
 	~scoped();

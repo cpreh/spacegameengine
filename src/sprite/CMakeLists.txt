@@ -333,7 +333,6 @@ set(
 	include/sge/sprite/state/detail/choose_ffp.hpp
 	include/sge/sprite/state/detail/make_objects.hpp
 	include/sge/sprite/state/detail/make_one_object.hpp
-	include/sge/sprite/state/detail/make_viewport_manager.hpp
 	include/sge/sprite/state/detail/needs_ffp.hpp
 	include/sge/sprite/state/detail/object_class.hpp
 	include/sge/sprite/state/detail/one_option_to_true.hpp
@@ -342,11 +341,7 @@ set(
 	include/sge/sprite/state/detail/parameters_class.hpp
 	include/sge/sprite/state/detail/set_one.hpp
 	include/sge/sprite/state/detail/unset_one.hpp
-	include/sge/sprite/state/detail/viewport_manager_decl.hpp
-	include/sge/sprite/state/detail/viewport_manager_fwd.hpp
-	include/sge/sprite/state/detail/viewport_manager_impl.hpp
 	include/sge/sprite/state/is_with_transform.hpp
-	include/sge/sprite/state/needs_viewport_manager.hpp
 	include/sge/sprite/state/object.hpp
 	include/sge/sprite/state/object_decl.hpp
 	include/sge/sprite/state/object_fwd.hpp

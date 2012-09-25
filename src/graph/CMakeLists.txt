@@ -27,7 +27,7 @@ set(
 
 add_sge_base_library(
 	"graph"
-	"sgerenderer;sgeimage;sgeimage2d;sgesprite;sgetexture;sgeviewport"
+	"sgerenderer;sgeimage;sgeimage2d;sgesprite;sgetexture"
 	"${Fcppt_filesystem_LIBRARIES}"
 	""
 	""

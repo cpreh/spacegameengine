@@ -61,7 +61,7 @@ set(
 
 add_sge_base_library(
 	console
-	"sgecore;sgefont;sgefontdraw;sgeinput;sgesprite;sgeviewport"
+	"sgecore;sgefont;sgefontdraw;sgeinput;sgesprite"
 	"${Fcppt_core_LIBRARIES}"
 	""
 	""

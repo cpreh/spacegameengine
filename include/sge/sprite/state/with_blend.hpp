@@ -51,6 +51,10 @@ struct with_blend
 
 	typedef boost::mpl::false_ needs_ffp;
 
+	typedef boost::mpl::true_ persistent;
+
+	typedef boost::mpl::true_ has_parameter;
+
 	typedef sge::renderer::state::core::blend::object state_type;
 
 	typedef fcppt::optional<

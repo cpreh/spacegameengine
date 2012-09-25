@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/any/object_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
-#include <sge/viewport/manager_fwd.hpp>
 
 
 namespace sge
@@ -44,7 +43,6 @@ void
 simple(
 	sge::renderer::device::ffp &,
 	sge::renderer::context::ffp &,
-	sge::viewport::manager &,
 	sge::font::object &,
 	sge::font::string const &,
 	sge::font::text_parameters const &,

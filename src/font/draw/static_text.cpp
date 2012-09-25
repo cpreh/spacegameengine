@@ -30,7 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/src/font/draw/detail/static_text_impl.hpp>
-#include <sge/viewport/manager_fwd.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
@@ -39,7 +38,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::font::draw::static_text::static_text(
 	sge::renderer::device::ffp &_device,
-	sge::viewport::manager &_viewport_manager,
 	sge::font::object &_font,
 	sge::font::string const &_string,
 	sge::font::text_parameters const &_parameters,
@@ -53,9 +51,6 @@ sge::font::draw::static_text::static_text(
 		>(
 			fcppt::ref(
 				_device
-			),
-			fcppt::ref(
-				_viewport_manager
 			),
 			fcppt::ref(
 				_font

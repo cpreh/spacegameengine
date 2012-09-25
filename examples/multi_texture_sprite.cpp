@@ -248,9 +248,7 @@ try
 
 	sprite_state_object sprite_states(
 		sys.renderer_ffp(),
-		sprite_state_parameters(
-			sys.viewport_manager()
-		)
+		sprite_state_parameters()
 	);
 
 	sprite_object const sprite(

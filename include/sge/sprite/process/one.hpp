@@ -52,7 +52,7 @@ one(
 	Buffers &_buffers,
 	sge::sprite::state::object<
 		StateChoices
-	> const &_sprite_state
+	> &_sprite_state
 )
 {
 	sge::sprite::process::one_with_options<

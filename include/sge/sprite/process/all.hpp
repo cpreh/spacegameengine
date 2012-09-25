@@ -54,7 +54,7 @@ all(
 	Compare const &_compare,
 	sge::sprite::state::object<
 		StateChoices
-	> const &_states
+	> &_states
 )
 {
 	sge::sprite::process::with_options<

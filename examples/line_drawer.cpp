@@ -357,7 +357,6 @@ try
 		sge::font::draw::simple(
 			sys.renderer_ffp(),
 			scoped_block.get(),
-			sys.viewport_manager(),
 			*font,
 			SGE_FONT_LIT("Press the left mouse button to set a point"),
 			sge::font::text_parameters(
@@ -372,7 +371,6 @@ try
 		sge::font::draw::simple(
 			sys.renderer_ffp(),
 			scoped_block.get(),
-			sys.viewport_manager(),
 			*font,
 			sge::font::from_fcppt_string(
 				frames_counter.frames_str())

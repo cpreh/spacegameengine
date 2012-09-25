@@ -32,9 +32,10 @@ template<
 sge::sprite::state::scoped<
 	StateChoices
 >::scoped(
+	render_device &_render_device,
 	render_context &_render_context,
 	state_options const &_options,
-	state_object const &_object
+	state_object &_object
 )
 :
 	render_context_(
@@ -45,6 +46,7 @@ sge::sprite::state::scoped<
 	)
 {
 	sge::sprite::state::set(
+		_render_device,
 		render_context_,
 		options_,
 		_object

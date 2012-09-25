@@ -268,7 +268,6 @@ try
 	sge::console::gfx gfx(
 		object,
 		sys.renderer_ffp(),
-		sys.viewport_manager(),
 		sge::image::colors::white(),
 		*font_object,
 		sys.keyboard_collector(),

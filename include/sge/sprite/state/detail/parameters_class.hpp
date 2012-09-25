@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <majutsu/simple.hpp>
 #include <majutsu/memory/fusion.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/copy_if.hpp>
 #include <boost/mpl/placeholders.hpp>
 #include <boost/mpl/transform.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -50,6 +51,14 @@ private:
 	template<
 		typename Type
 	>
+	struct has_parameter
+	{
+		typedef typename Type::has_parameter type;
+	};
+
+	template<
+		typename Type
+	>
 	struct parameter_class_element
 	{
 		typedef majutsu::role<
@@ -63,7 +72,12 @@ public:
 	typedef majutsu::class_<
 		majutsu::composite<
 			typename boost::mpl::transform<
-				typename StateChoices::optional_elements,
+				typename boost::mpl::copy_if<
+					typename StateChoices::optional_elements,
+					has_parameter<
+						boost::mpl::_1
+					>
+				>::type,
 				parameter_class_element<
 					boost::mpl::_1
 				>

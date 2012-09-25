@@ -872,7 +872,6 @@ try
 		sge::font::draw::simple(
 			sys.renderer_ffp(),
 			scoped_block.get(),
-			sys.viewport_manager(),
 			*font,
 			current_filter->first
 			+
@@ -890,7 +889,6 @@ try
 		sge::font::draw::simple(
 			sys.renderer_ffp(),
 			scoped_block.get(),
-			sys.viewport_manager(),
 			*font,
 			sge::font::from_fcppt_string(
 				frames_counter.frames_str()

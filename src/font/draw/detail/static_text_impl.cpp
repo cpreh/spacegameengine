@@ -58,7 +58,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/font/draw/detail/static_text_impl.hpp>
 #include <sge/texture/const_optional_part_ref.hpp>
 #include <sge/texture/part_raw_ref.hpp>
-#include <sge/viewport/manager_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
@@ -67,7 +66,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::font::draw::detail::static_text_impl::static_text_impl(
 	sge::renderer::device::ffp &_renderer,
-	sge::viewport::manager &_viewport_manager,
 	sge::font::object &_font,
 	sge::font::text_parameters const &_text_parameters
 )
@@ -94,9 +92,7 @@ sge::font::draw::detail::static_text_impl::static_text_impl(
 	),
 	sprite_state_(
 		_renderer,
-		sge::font::draw::detail::static_text_impl::sprite_state_parameters(
-			_viewport_manager
-		)
+		sge::font::draw::detail::static_text_impl::sprite_state_parameters()
 	),
 	sprite_(),
 	sprite_range_()

@@ -52,7 +52,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/parameters_impl.hpp>
 #include <sge/src/graph/detail/draw_visitor.hpp>
 #include <sge/texture/part_raw_ref.hpp>
-#include <sge/viewport/manager_fwd.hpp>
 #include <mizuiro/image/algorithm/bresenham.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/nonassignable.hpp>
@@ -194,7 +193,6 @@ sge::graph::object::object(
 	sge::graph::position const &_position,
 	sge::renderer::dim2 const &_dim,
 	sge::renderer::device::ffp &_renderer,
-	sge::viewport::manager &_viewport_manager,
 	sge::graph::baseline _baseline,
 	sge::graph::optional_axis_constraint const &_axis_constraint,
 	sge::graph::color_scheme const &_color_scheme
@@ -238,9 +236,7 @@ sge::graph::object::object(
 	),
 	sprite_state_(
 		_renderer,
-		sprite_state_parameters(
-			_viewport_manager
-		)
+		sprite_state_parameters()
 	),
 	data_buffer_(
 		dim_.w()),

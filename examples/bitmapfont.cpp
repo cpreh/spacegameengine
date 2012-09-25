@@ -188,7 +188,6 @@ try
 
 	sge::font::draw::static_text static_text_left(
 		sys.renderer_ffp(),
-		sys.viewport_manager(),
 		*font_object,
 		string,
 		sge::font::text_parameters(
@@ -206,7 +205,6 @@ try
 
 	sge::font::draw::static_text static_text_center(
 		sys.renderer_ffp(),
-		sys.viewport_manager(),
 		*font_object,
 		string,
 		sge::font::text_parameters(
@@ -224,7 +222,6 @@ try
 
 	sge::font::draw::static_text static_text_right(
 		sys.renderer_ffp(),
-		sys.viewport_manager(),
 		*font_object,
 		string,
 		sge::font::text_parameters(

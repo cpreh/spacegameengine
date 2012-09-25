@@ -272,9 +272,7 @@ try
 
 	sprite_state_object sprite_states(
 		sys.renderer_ffp(),
-		sprite_state_parameters(
-			sys.viewport_manager()
-		)
+		sprite_state_parameters()
 	);
 
 	sprite_object const background(
@@ -366,6 +364,7 @@ try
 		sge::sprite::state::scoped<
 			sprite_state_choices
 		> const scoped_state(
+			sys.renderer_ffp(),
 			scoped_block.get(),
 			sge::sprite::state::default_options<
 				sprite_state_choices

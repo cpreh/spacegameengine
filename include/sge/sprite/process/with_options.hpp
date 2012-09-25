@@ -62,7 +62,7 @@ with_options(
 	Compare const &_compare,
 	sge::sprite::state::object<
 		StateChoices
-	> const &_states,
+	> &_states,
 	sge::sprite::state::options<
 		StateChoices
 	> const &_state_options

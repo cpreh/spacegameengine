@@ -26,6 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/detail/parameters_class.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/shared_ptr_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/utility/enable_if.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -81,7 +84,10 @@ public:
 	template<
 		typename Type
 	>
-	result_type
+	typename boost::enable_if<
+		typename Type::persistent,
+		result_type
+	>::type
 	operator()() const
 	{
 		result_. template set<
@@ -97,6 +103,24 @@ public:
 					>()
 				)
 			)
+		);
+	}
+
+	template<
+		typename Type
+	>
+	typename boost::disable_if<
+		typename Type::persistent,
+		result_type
+	>::type
+	operator()() const
+	{
+		result_. template set<
+			typename Type::role
+		>(
+			fcppt::shared_ptr<
+				typename Type::state_type
+			>()
 		);
 	}
 private:

@@ -168,11 +168,9 @@ try
 		sprite_state_choices
 	> sprite_state_parameters;
 
-	sprite_state_object const sprite_state(
+	sprite_state_object sprite_state(
 		sys.renderer_ffp(),
-		sprite_state_parameters(
-			sys.viewport_manager()
-		)
+		sprite_state_parameters()
 	);
 
 	/*

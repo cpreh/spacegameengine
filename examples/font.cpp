@@ -129,7 +129,6 @@ try
 
 	sge::font::draw::static_text static_text(
 		sys.renderer_ffp(),
-		sys.viewport_manager(),
 		*font,
 		SGE_FONT_LIT(
 			"日本語は書ける"

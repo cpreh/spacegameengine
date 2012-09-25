@@ -63,7 +63,7 @@ one_with_options(
 	Buffers &_buffers,
 	sge::sprite::state::object<
 		StateChoices
-	> const &_states,
+	> &_states,
 	sge::sprite::state::options<
 		StateChoices
 	> const &_state_options

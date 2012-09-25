@@ -448,7 +448,6 @@ try
 
 	sge::font::draw::static_text cpu_label(
 		sys.renderer_ffp(),
-		sys.viewport_manager(),
 		*font,
 		SGE_FONT_LIT(
 			"cpu"
@@ -465,7 +464,6 @@ try
 
 	sge::font::draw::static_text mem_label(
 		sys.renderer_ffp(),
-		sys.viewport_manager(),
 		*font,
 		SGE_FONT_LIT(
 			"mem"
@@ -488,7 +486,6 @@ try
 		fcppt::math::dim::structure_cast<sge::image2d::dim>(
 			graph_dim),
 		sys.renderer_ffp(),
-		sys.viewport_manager(),
 		sge::graph::baseline(
 			50.0),
 		sge::graph::optional_axis_constraint(
@@ -506,7 +503,6 @@ try
 		fcppt::math::dim::structure_cast<sge::image2d::dim>(
 			graph_dim),
 		sys.renderer_ffp(),
-		sys.viewport_manager(),
 		sge::graph::baseline(
 			50.0),
 		sge::graph::optional_axis_constraint(
@@ -555,7 +551,6 @@ try
 					fcppt::math::dim::structure_cast<sge::image2d::dim>(
 						graph_dim),
 					fcppt::ref(sys.renderer_ffp()),
-					fcppt::ref(sys.viewport_manager()),
 					sge::graph::baseline(
 						0.0),
 					sge::graph::optional_axis_constraint(),
@@ -565,7 +560,6 @@ try
 					sge::font::draw::static_text
 				>(
 					fcppt::ref(sys.renderer_ffp()),
-					fcppt::ref(sys.viewport_manager()),
 					fcppt::ref(*font),
 					sge::font::from_fcppt_string(
 						fcppt::from_std_string(

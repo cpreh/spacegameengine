@@ -25,11 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/renderer/state/ffp/transform/object.hpp>
 #include <sge/renderer/state/ffp/transform/object_unique_ptr.hpp>
-#include <sge/renderer/target/viewport_fwd.hpp>
 #include <sge/sprite/symbol.hpp>
 #include <sge/sprite/state/with_transform_fwd.hpp>
 #include <sge/sprite/state/roles/transform.hpp>
-#include <fcppt/optional_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/bool.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -46,26 +44,20 @@ struct with_transform
 {
 	typedef sge::sprite::state::roles::transform role;
 
-	struct dummy
-	{
-	};
-
-	typedef sge::sprite::state::with_transform::dummy parameter_role;
-
 	typedef boost::mpl::true_ needs_ffp;
 
-	typedef sge::renderer::state::ffp::transform::object state_type;
+	typedef boost::mpl::false_ persistent;
 
-	typedef fcppt::optional<
-		sge::renderer::target::viewport
-	> optional_extra_parameters;
+	typedef boost::mpl::false_ has_parameter;
+
+	typedef sge::renderer::state::ffp::transform::object state_type;
 
 	SGE_SPRITE_SYMBOL
 	static
 	sge::renderer::state::ffp::transform::object_unique_ptr
 	make(
 		sge::renderer::device::ffp &,
-		sge::sprite::state::with_transform::optional_extra_parameters const &
+		sge::renderer::context::ffp &
 	);
 
 	SGE_SPRITE_SYMBOL

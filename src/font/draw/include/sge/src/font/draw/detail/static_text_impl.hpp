@@ -55,7 +55,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/renderer/texture/planar_scoped_ptr.hpp>
 #include <sge/texture/part_scoped_ptr.hpp>
-#include <sge/viewport/manager_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -79,7 +78,6 @@ class static_text_impl
 public:
 	static_text_impl(
 		sge::renderer::device::ffp &,
-		sge::viewport::manager &,
 		sge::font::object &,
 		sge::font::text_parameters const &
 	);
@@ -195,7 +193,7 @@ private:
 
 	sprite_buffers sprite_buffers_;
 
-	sprite_state const sprite_state_;
+	sprite_state sprite_state_;
 
 	sprite_object sprite_;
 

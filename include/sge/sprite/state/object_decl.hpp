@@ -25,9 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/parameters_fwd.hpp>
 #include <sge/sprite/state/render_device.hpp>
 #include <sge/sprite/state/detail/object_class.hpp>
-#include <sge/sprite/state/detail/viewport_manager_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr_decl.hpp>
 
 
 namespace sge
@@ -67,18 +65,18 @@ public:
 
 	~object();
 
+	elements_type &
+	elements();
+
 	elements_type const &
 	elements() const;
+
+	render_device &
+	renderer() const;
 private:
+	render_device &renderer_;
+
 	elements_type elements_;
-
-	typedef fcppt::scoped_ptr<
-		sge::sprite::state::detail::viewport_manager<
-			StateChoices
-		>
-	> viewport_manager_scoped_ptr;
-
-	viewport_manager_scoped_ptr const viewport_manager_;
 };
 
 }

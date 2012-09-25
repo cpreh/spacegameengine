@@ -24,28 +24,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/transform/object.hpp>
 #include <sge/renderer/state/ffp/transform/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
+#include <sge/renderer/target/base.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/sprite/matrix.hpp>
+#include <sge/sprite/optional_matrix.hpp>
 #include <sge/sprite/projection_matrix.hpp>
 #include <sge/sprite/state/with_transform.hpp>
-#include <fcppt/optional_impl.hpp>
 
 
 sge::renderer::state::ffp::transform::object_unique_ptr
 sge::sprite::state::with_transform::make(
 	sge::renderer::device::ffp &_device,
-	sge::sprite::state::with_transform::optional_extra_parameters const &_viewport
+	sge::renderer::context::ffp &_context
 )
 {
-	if(
-		!_viewport
-	)
-		return
-			sge::renderer::state::ffp::transform::object_unique_ptr();
-
 	sge::sprite::optional_matrix const matrix(
 		sge::sprite::projection_matrix(
-			*_viewport
+			_context.target().viewport()
 		)
 	);
 
