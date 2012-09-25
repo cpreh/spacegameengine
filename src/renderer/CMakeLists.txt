@@ -901,6 +901,7 @@ set(
 	src/renderer/state/core/rasterizer/object.cpp
 	src/renderer/state/core/rasterizer/parameters.cpp
 	src/renderer/state/core/sampler/address/default.cpp
+	src/renderer/state/core/sampler/address/mode_all.cpp
 	src/renderer/state/core/sampler/address/mode_default.cpp
 	src/renderer/state/core/sampler/address/parameters.cpp
 	src/renderer/state/core/sampler/default.cpp

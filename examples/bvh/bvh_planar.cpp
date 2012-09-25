@@ -31,8 +31,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/optional_extension_set.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/clear/parameters.hpp>
-#include <sge/renderer/context/object.hpp>
-#include <sge/renderer/context/scoped.hpp>
+#include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/context/scoped_ffp.hpp>
+#include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/parameters/object.hpp>
 #include <sge/renderer/parameters/vsync.hpp>
@@ -40,12 +41,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_format/depth_stencil.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
-#include <sge/renderer/state/int.hpp>
-#include <sge/renderer/state/list.hpp>
-#include <sge/renderer/state/scoped.hpp>
-#include <sge/renderer/state/stencil_func.hpp>
-#include <sge/renderer/state/stencil_op.hpp>
-#include <sge/renderer/state/stencil_op_value.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/parameters.hpp>
@@ -61,6 +56,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/with_color.hpp>
 #include <sge/sprite/geometry/make_random_access_range.hpp>
 #include <sge/sprite/process/all.hpp>
+#include <sge/sprite/state/all_choices.hpp>
+#include <sge/sprite/state/object.hpp>
+#include <sge/sprite/state/parameters.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/input_helper.hpp>
@@ -144,6 +142,16 @@ typedef sge::sprite::object<
 typedef sge::sprite::parameters<
 	sprite_choices
 > sprite_parameters;
+
+typedef sge::sprite::state::all_choices sprite_state_choices;
+
+typedef sge::sprite::state::object<
+	sprite_state_choices
+> sprite_state_object;
+
+typedef sge::sprite::state::parameters<
+	sprite_state_choices
+> sprite_state_parameters;
 
 typedef
 fcppt::math::box::object<sge::renderer::scalar,2>
@@ -409,8 +417,13 @@ try
 
 
 	sprite_buffers_type sprite_buffers(
-		sys.renderer(),
+		sys.renderer_ffp(),
 		sge::sprite::buffers::option::dynamic
+	);
+
+	sprite_state_object sprite_state(
+		sys.renderer_ffp(),
+		sprite_state_parameters()
 	);
 
 	typedef
@@ -528,9 +541,9 @@ try
 	)
 	{
 		// Declare a render block, using the renderer's onscreen target.
-		sge::renderer::context::scoped const scoped_block(
-			sys.renderer(),
-			sys.renderer().onscreen_target()
+		sge::renderer::context::scoped_ffp const scoped_block(
+			sys.renderer_ffp(),
+			sys.renderer_ffp().onscreen_target()
 		);
 
 		// Here, we clear the back buffer with the clear color black() on each frame.
@@ -548,7 +561,8 @@ try
 			sge::sprite::geometry::make_random_access_range(
 				traverser.sprites()),
 			sprite_buffers,
-			sge::sprite::compare::default_()
+			sge::sprite::compare::default_(),
+			sprite_state
 		);
 	}
 

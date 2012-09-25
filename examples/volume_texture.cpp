@@ -42,7 +42,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/noise/simplex/object.hpp>
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/lock_mode.hpp>
-#include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/scalar.hpp>
@@ -55,9 +54,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_declaration.hpp>
 #include <sge/renderer/vertex_declaration_scoped_ptr.hpp>
 #include <sge/renderer/clear/parameters.hpp>
-#include <sge/renderer/context/core.hpp>
-#include <sge/renderer/context/scoped_core.hpp>
+#include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/context/scoped_ffp.hpp>
 #include <sge/renderer/device/core.hpp>
+#include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/parameters/object.hpp>
 #include <sge/renderer/parameters/vsync.hpp>
@@ -68,15 +68,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/projection/far.hpp>
 #include <sge/renderer/projection/fov.hpp>
 #include <sge/renderer/projection/near.hpp>
-#include <sge/renderer/state/depth_func.hpp>
-#include <sge/renderer/state/list.hpp>
-#include <sge/renderer/state/scoped.hpp>
+#include <sge/renderer/state/core/depth_stencil/object.hpp>
+#include <sge/renderer/state/core/depth_stencil/object_scoped_ptr.hpp>
+#include <sge/renderer/state/core/depth_stencil/parameters.hpp>
+#include <sge/renderer/state/core/depth_stencil/scoped.hpp>
+#include <sge/renderer/state/core/depth_stencil/depth/enabled.hpp>
+#include <sge/renderer/state/core/depth_stencil/depth/func.hpp>
+#include <sge/renderer/state/core/depth_stencil/depth/write_enable.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/off.hpp>
+#include <sge/renderer/state/core/sampler/const_object_ref_vector.hpp>
+#include <sge/renderer/state/core/sampler/parameters.hpp>
+#include <sge/renderer/state/core/sampler/object.hpp>
+#include <sge/renderer/state/core/sampler/object_scoped_ptr.hpp>
+#include <sge/renderer/state/core/sampler/scoped.hpp>
+#include <sge/renderer/state/core/sampler/address/mode.hpp>
+#include <sge/renderer/state/core/sampler/address/mode_all.hpp>
+#include <sge/renderer/state/core/sampler/address/parameters.hpp>
+#include <sge/renderer/state/core/sampler/filter/default.hpp>
+#include <sge/renderer/state/core/sampler/filter/parameters.hpp>
+#include <sge/renderer/state/ffp/transform/mode.hpp>
+#include <sge/renderer/state/ffp/transform/object.hpp>
+#include <sge/renderer/state/ffp/transform/object_scoped_ptr.hpp>
+#include <sge/renderer/state/ffp/transform/parameters.hpp>
+#include <sge/renderer/state/ffp/transform/scoped.hpp>
 #include <sge/renderer/target/onscreen.hpp>
-#include <sge/renderer/texture/address_mode.hpp>
-#include <sge/renderer/texture/address_mode3.hpp>
 #include <sge/renderer/texture/create_volume_from_view.hpp>
 #include <sge/renderer/texture/scoped.hpp>
-#include <sge/renderer/texture/set_address_mode3.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/texture/volume.hpp>
 #include <sge/renderer/texture/volume_scoped_ptr.hpp>
@@ -115,11 +132,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>
+#include <fcppt/cref.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/array_map.hpp>
 #include <fcppt/assign/make_array.hpp>
+#include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/array.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
@@ -433,7 +452,7 @@ fill_geometry(
 
 sge::renderer::texture::volume_unique_ptr
 create_noise_texture(
-	sge::renderer::device &_device)
+	sge::renderer::device::core &_device)
 {
 	typedef
 	sge::image3d::l8
@@ -521,7 +540,7 @@ create_noise_texture(
 
 sge::renderer::texture::volume_unique_ptr
 create_checkers_texture(
-	sge::renderer::device &_device
+	sge::renderer::device::core &_device
 )
 {
 	typedef sge::image3d::l8 store_type;
@@ -728,7 +747,6 @@ try
 
 	sge::camera::perspective_projection_from_viewport camera_viewport_connection(
 		camera,
-		sys.renderer_core(),
 		sys.viewport_manager(),
 		sge::renderer::projection::near(
 			0.1f
@@ -755,6 +773,45 @@ try
 		)
 	);
 
+	sge::renderer::state::core::depth_stencil::object_scoped_ptr const depth_stencil_state(
+		sys.renderer_core().create_depth_stencil_state(
+			sge::renderer::state::core::depth_stencil::parameters(
+				sge::renderer::state::core::depth_stencil::depth::enabled(
+					sge::renderer::state::core::depth_stencil::depth::func::less,
+					sge::renderer::state::core::depth_stencil::depth::write_enable(
+						true
+					)
+				),
+				sge::renderer::state::core::depth_stencil::stencil::off()
+			)
+		)
+	);
+
+	sge::renderer::state::core::sampler::object_scoped_ptr const sampler_state(
+		sys.renderer_core().create_sampler_state(
+			sge::renderer::state::core::sampler::parameters(
+				sge::renderer::state::core::sampler::address::mode_all(
+					sge::renderer::state::core::sampler::address::mode::clamp
+				),
+				sge::renderer::state::core::sampler::filter::default_()
+			)
+		)
+	);
+
+	sge::renderer::state::core::sampler::const_object_ref_vector const samplers(
+		fcppt::assign::make_container<
+			sge::renderer::state::core::sampler::const_object_ref_vector
+		>(
+			fcppt::cref(
+				*sampler_state
+			)
+		)(
+			fcppt::cref(
+				*sampler_state
+			)
+		)
+	);
+
 	while(
 		sys.window_system().poll()
 	)
@@ -767,9 +824,9 @@ try
 			)
 		);
 
-		sge::renderer::context::scoped const scoped_block(
-			sys.renderer_core(),
-			sys.renderer_core().onscreen_target()
+		sge::renderer::context::scoped_ffp const scoped_block(
+			sys.renderer_ffp(),
+			sys.renderer_ffp().onscreen_target()
 		);
 
 		sge::renderer::scoped_vertex_declaration const scoped_vd(
@@ -798,32 +855,14 @@ try
 			)
 		);
 
-		sge::renderer::state::scoped const scoped_state(
+		sge::renderer::state::core::depth_stencil::scoped const scoped_depth_stencil(
 			scoped_block.get(),
-			sge::renderer::state::list
-			(
-				sge::renderer::state::depth_func::less
-			)
+			*depth_stencil_state
 		);
 
-		sge::renderer::texture::set_address_mode3(
+		sge::renderer::state::core::sampler::scoped const scoped_sampler(
 			scoped_block.get(),
-			sge::renderer::texture::stage(
-				0u
-			),
-			sge::renderer::texture::address_mode3(
-				sge::renderer::texture::address_mode::clamp
-			)
-		);
-
-		sge::renderer::texture::set_address_mode3(
-			scoped_block.get(),
-			sge::renderer::texture::stage(
-				1u
-			),
-			sge::renderer::texture::address_mode3(
-				sge::renderer::texture::address_mode::clamp
-			)
+			samplers
 		);
 
 		scoped_block.get().clear(
@@ -836,15 +875,34 @@ try
 			)
 		);
 
-		scoped_block.get().transform(
-			sge::renderer::matrix_mode::world,
-			sge::camera::matrix_conversion::world(
-				camera.coordinate_system())
+		sge::renderer::state::ffp::transform::object_scoped_ptr const projection_state(
+			sys.renderer_ffp().create_transform_state(
+				sge::renderer::state::ffp::transform::parameters(
+					camera.projection_matrix().get()
+				)
+			)
 		);
 
-		scoped_block.get().transform(
-			sge::renderer::matrix_mode::projection,
-			camera.projection_matrix().get()
+		sge::renderer::state::ffp::transform::object_scoped_ptr const world_state(
+			sys.renderer_ffp().create_transform_state(
+				sge::renderer::state::ffp::transform::parameters(
+					sge::camera::matrix_conversion::world(
+						camera.coordinate_system()
+					)
+				)
+			)
+		);
+
+		sge::renderer::state::ffp::transform::scoped const projection_transform(
+			scoped_block.get(),
+			sge::renderer::state::ffp::transform::mode::projection,
+			*projection_state
+		);
+
+		sge::renderer::state::ffp::transform::scoped const world_transform(
+			scoped_block.get(),
+			sge::renderer::state::ffp::transform::mode::world,
+			*world_state
 		);
 
 		scoped_block.get().render_nonindexed(

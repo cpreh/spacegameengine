@@ -47,7 +47,7 @@ try
 
 	sge::rucksack::widget::viewport_adaptor viewport_box(
 		testbed.systems().viewport_manager(),
-		testbed.systems().renderer());
+		testbed.systems().renderer_core());
 
 	sge::rucksack::widget::box::base outer_box(
 		sge::rucksack::axis::x,

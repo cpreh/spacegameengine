@@ -34,7 +34,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cg/program/source_type.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/renderer/const_vertex_buffer_ref_container.hpp>
-#include <sge/renderer/device.hpp>
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/primitive_type.hpp>
@@ -50,8 +49,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/cg/loaded_program_scoped_ptr.hpp>
 #include <sge/renderer/cg/scoped_program.hpp>
 #include <sge/renderer/clear/parameters.hpp>
-#include <sge/renderer/context/object.hpp>
-#include <sge/renderer/context/scoped.hpp>
+#include <sge/renderer/context/core.hpp>
+#include <sge/renderer/context/scoped_core.hpp>
+#include <sge/renderer/device/core.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/parameters/object.hpp>
 #include <sge/renderer/parameters/vsync.hpp>
@@ -154,7 +154,7 @@ try
 	sge::cg::context::object const cg_context;
 
 	sge::cg::profile::object const vertex_profile(
-		sys.renderer().create_cg_profile(
+		sys.renderer_core().create_cg_profile(
 			sge::cg::profile::shader_type::vertex
 		)
 	);
@@ -187,7 +187,7 @@ try
 			sge::cg::program::main_function(
 				"C2E1v_green"
 			),
-			sys.renderer().cg_compile_options(
+			sys.renderer_core().cg_compile_options(
 				cg_context,
 				vertex_profile
 			)
@@ -228,7 +228,7 @@ try
 	);
 
 	sge::renderer::cg::loaded_program_scoped_ptr const loaded_program(
-		sys.renderer().load_cg_program(
+		sys.renderer_core().load_cg_program(
 			vertex_program
 		)
 	);
@@ -251,7 +251,7 @@ try
 	> format;
 
 	sge::renderer::vertex_declaration_scoped_ptr const vertex_declaration(
-		sys.renderer().create_vertex_declaration(
+		sys.renderer_core().create_vertex_declaration(
 			sge::renderer::vf::dynamic::make_format<
 				format
 			>()
@@ -259,7 +259,7 @@ try
 	);
 
 	sge::renderer::vertex_buffer_scoped_ptr const vertex_buffer(
-		sys.renderer().create_vertex_buffer(
+		sys.renderer_core().create_vertex_buffer(
 			*vertex_declaration,
 			sge::renderer::vf::dynamic::make_part_index<
 				format,
@@ -337,9 +337,9 @@ try
 		sys.window_system().poll()
 	)
 	{
-		sge::renderer::context::scoped const scoped_block(
-			sys.renderer(),
-			sys.renderer().onscreen_target()
+		sge::renderer::context::scoped_core const scoped_block(
+			sys.renderer_core(),
+			sys.renderer_core().onscreen_target()
 		);
 
 		scoped_block.get().clear(

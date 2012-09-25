@@ -87,8 +87,7 @@ sge::rucksack::testbed::object_impl::object_impl(
 		sge::sprite::buffers::option::dynamic),
 	sprite_states_(
 		systems_.renderer_ffp(),
-		sge::rucksack::testbed::object_impl::sprite_state_parameters(
-			systems_.viewport_manager())),
+		sge::rucksack::testbed::object_impl::sprite_state_parameters()),
 	sprites_(),
 	quit_connection_(
 		sge::systems::quit_on_escape(

@@ -153,7 +153,7 @@ private:
 
 	sge::systems::instance const systems_;
 	sprite_buffers buffers_;
-	sprite_state_object const sprite_states_;
+	sprite_state_object sprite_states_;
 	sprite_list sprites_;
 	fcppt::signal::scoped_connection const quit_connection_;
 };
