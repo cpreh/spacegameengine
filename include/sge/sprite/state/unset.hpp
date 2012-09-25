@@ -18,20 +18,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/state/core/sampler/default.hpp>
-#include <sge/renderer/state/core/sampler/parameters.hpp>
-#include <sge/renderer/state/core/sampler/address/default.hpp>
-#include <sge/renderer/state/core/sampler/address/parameters.hpp>
-#include <sge/renderer/state/core/sampler/filter/default.hpp>
-#include <sge/renderer/state/core/sampler/filter/parameters.hpp>
+#ifndef SGE_SPRITE_STATE_UNSET_HPP_INCLUDED
+#define SGE_SPRITE_STATE_UNSET_HPP_INCLUDED
+
+#include <sge/sprite/state/options_impl.hpp>
+#include <sge/sprite/state/detail/unset_one.hpp>
+#include <fcppt/mpl/for_each.hpp>
 
 
-sge::renderer::state::core::sampler::parameters const
-sge::renderer::state::core::sampler::default_()
+namespace sge
 {
-	return
-		sge::renderer::state::core::sampler::parameters(
-			sge::renderer::state::core::sampler::address::default_(),
-			sge::renderer::state::core::sampler::filter::default_()
-		);
+namespace sprite
+{
+namespace state
+{
+
+template<
+	typename RenderContext,
+	typename StateChoices
+>
+void
+unset(
+	RenderContext &_render_context,
+	sge::sprite::state::options<
+		StateChoices
+	> const &_options
+)
+{
+	fcppt::mpl::for_each<
+		typename StateChoices::optional_elements
+	>(
+		sge::sprite::state::detail::unset_one<
+			StateChoices
+		>(
+			_render_context,
+			_options.elements()
+		)
+	);
 }
+
+}
+}
+}
+
+#endif

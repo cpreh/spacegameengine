@@ -18,20 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/state/core/sampler/default.hpp>
-#include <sge/renderer/state/core/sampler/parameters.hpp>
-#include <sge/renderer/state/core/sampler/address/default.hpp>
-#include <sge/renderer/state/core/sampler/address/parameters.hpp>
-#include <sge/renderer/state/core/sampler/filter/default.hpp>
-#include <sge/renderer/state/core/sampler/filter/parameters.hpp>
+#ifndef SGE_RENDERER_STATE_CORE_SAMPLER_ADDRESS_DEFAULT_HPP_INCLUDED
+#define SGE_RENDERER_STATE_CORE_SAMPLER_ADDRESS_DEFAULT_HPP_INCLUDED
+
+#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/state/core/sampler/address/parameters_fwd.hpp>
 
 
-sge::renderer::state::core::sampler::parameters const
-sge::renderer::state::core::sampler::default_()
+namespace sge
 {
-	return
-		sge::renderer::state::core::sampler::parameters(
-			sge::renderer::state::core::sampler::address::default_(),
-			sge::renderer::state::core::sampler::filter::default_()
-		);
+namespace renderer
+{
+namespace state
+{
+namespace core
+{
+namespace sampler
+{
+namespace address
+{
+
+SGE_RENDERER_SYMBOL
+sge::renderer::state::core::sampler::address::parameters const
+default_();
+
 }
+}
+}
+}
+}
+}
+
+#endif

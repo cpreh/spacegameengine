@@ -336,7 +336,7 @@ message("Fix the point sprite example!")
 
 add_sge_example(
 	projectile/main
-	"sgeimage;sgeinput;sgelog;sgeprojectile;sgerenderer;sgesprite;sgesystems;sgeviewport;sgewindow"
+	"sgeimage;sgeinput;sgelog;sgeprojectile;sgerenderer;sgesystems;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 )

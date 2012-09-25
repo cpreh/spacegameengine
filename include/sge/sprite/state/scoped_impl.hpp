@@ -18,20 +18,50 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/state/core/sampler/default.hpp>
-#include <sge/renderer/state/core/sampler/parameters.hpp>
-#include <sge/renderer/state/core/sampler/address/default.hpp>
-#include <sge/renderer/state/core/sampler/address/parameters.hpp>
-#include <sge/renderer/state/core/sampler/filter/default.hpp>
-#include <sge/renderer/state/core/sampler/filter/parameters.hpp>
+#ifndef SGE_SPRITE_STATE_SCOPED_IMPL_HPP_INCLUDED
+#define SGE_SPRITE_STATE_SCOPED_IMPL_HPP_INCLUDED
+
+#include <sge/sprite/state/scoped_decl.hpp>
+#include <sge/sprite/state/set.hpp>
+#include <sge/sprite/state/unset.hpp>
 
 
-sge::renderer::state::core::sampler::parameters const
-sge::renderer::state::core::sampler::default_()
+template<
+	typename StateChoices
+>
+sge::sprite::state::scoped<
+	StateChoices
+>::scoped(
+	render_context &_render_context,
+	state_options const &_options,
+	state_object const &_object
+)
+:
+	render_context_(
+		_render_context
+	),
+	options_(
+		_options
+	)
 {
-	return
-		sge::renderer::state::core::sampler::parameters(
-			sge::renderer::state::core::sampler::address::default_(),
-			sge::renderer::state::core::sampler::filter::default_()
-		);
+	sge::sprite::state::set(
+		render_context_,
+		options_,
+		_object
+	);
 }
+
+template<
+	typename StateChoices
+>
+sge::sprite::state::scoped<
+	StateChoices
+>::~scoped()
+{
+	sge::sprite::state::unset(
+		render_context_,
+		options_
+	);
+}
+
+#endif

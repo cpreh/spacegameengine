@@ -18,20 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/state/core/sampler/default.hpp>
-#include <sge/renderer/state/core/sampler/parameters.hpp>
-#include <sge/renderer/state/core/sampler/address/default.hpp>
-#include <sge/renderer/state/core/sampler/address/parameters.hpp>
-#include <sge/renderer/state/core/sampler/filter/default.hpp>
-#include <sge/renderer/state/core/sampler/filter/parameters.hpp>
+#ifndef SGE_SPRITE_STATE_SCOPED_HPP_INCLUDED
+#define SGE_SPRITE_STATE_SCOPED_HPP_INCLUDED
+
+#include <sge/sprite/state/scoped_decl.hpp>
+#include <sge/sprite/state/scoped_fwd.hpp>
+#include <sge/sprite/state/scoped_impl.hpp>
 
 
-sge::renderer::state::core::sampler::parameters const
-sge::renderer::state::core::sampler::default_()
-{
-	return
-		sge::renderer::state::core::sampler::parameters(
-			sge::renderer::state::core::sampler::address::default_(),
-			sge::renderer::state::core::sampler::filter::default_()
-		);
-}
+#endif

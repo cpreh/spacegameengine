@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/projection/orthogonal_viewport.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/renderer/target/viewport_is_null.hpp>
-#include <fcppt/math/box/structure_cast.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
 
 
 sge::renderer::optional_matrix4 const
@@ -43,10 +43,13 @@ sge::renderer::projection::orthogonal_viewport(
 		:
 			sge::renderer::optional_matrix4(
 				sge::renderer::projection::orthogonal(
-					fcppt::math::box::structure_cast<
-						sge::renderer::projection::rect
-					>(
-						_viewport.get()
+					sge::renderer::projection::rect(
+						sge::renderer::projection::rect::vector::null(),
+						fcppt::math::dim::structure_cast<
+							sge::renderer::projection::rect::dim
+						>(
+							_viewport.get().size()
+						)
 					),
 					sge::renderer::projection::near(
 						0.f

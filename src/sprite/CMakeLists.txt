@@ -198,7 +198,6 @@ set(
 	include/sge/sprite/detail/render/range.hpp
 	include/sge/sprite/detail/render/range_object.hpp
 	include/sge/sprite/detail/render/range_part_object.hpp
-	include/sge/sprite/detail/render/scoped_states.hpp
 	include/sge/sprite/detail/render/scoped_vertex.hpp
 	include/sge/sprite/detail/render/scoped_vertex_declaration.hpp
 	include/sge/sprite/detail/render/set_texture_level.hpp
@@ -367,6 +366,12 @@ set(
 	include/sge/sprite/state/roles/enable_scissor_test.hpp
 	include/sge/sprite/state/roles/rasterizer.hpp
 	include/sge/sprite/state/roles/transform.hpp
+	include/sge/sprite/state/scoped.hpp
+	include/sge/sprite/state/scoped_decl.hpp
+	include/sge/sprite/state/scoped_fwd.hpp
+	include/sge/sprite/state/scoped_impl.hpp
+	include/sge/sprite/state/set.hpp
+	include/sge/sprite/state/unset.hpp
 	include/sge/sprite/state/vertex_options.hpp
 	include/sge/sprite/state/with_blend.hpp
 	include/sge/sprite/state/with_blend_fwd.hpp

@@ -34,11 +34,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_set.hpp>
-#include <sge/renderer/device.hpp>
-#include <sge/renderer/scoped_transform.hpp>
 #include <sge/renderer/clear/parameters.hpp>
-#include <sge/renderer/context/object.hpp>
-#include <sge/renderer/context/scoped.hpp>
+#include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/context/scoped_ffp.hpp>
+#include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/parameters/object.hpp>
 #include <sge/renderer/parameters/vsync.hpp>
@@ -46,10 +45,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_format/depth_stencil.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
-#include <sge/renderer/state/list.hpp>
-#include <sge/renderer/state/scoped.hpp>
+#include <sge/renderer/state/ffp/transform/mode.hpp>
+#include <sge/renderer/state/ffp/transform/object.hpp>
+#include <sge/renderer/state/ffp/transform/object_scoped_ptr.hpp>
+#include <sge/renderer/state/ffp/transform/parameters.hpp>
+#include <sge/renderer/state/ffp/transform/scoped.hpp>
 #include <sge/renderer/target/onscreen.hpp>
-#include <sge/renderer/target/viewport_size.hpp>
+#include <sge/renderer/target/viewport_is_null.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
@@ -70,11 +72,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/process/geometry_options.hpp>
 #include <sge/sprite/process/one_with_options.hpp>
 #include <sge/sprite/process/options.hpp>
-#include <sge/sprite/render/matrix_options.hpp>
-#include <sge/sprite/render/options.hpp>
-#include <sge/sprite/render/state_options.hpp>
-#include <sge/sprite/render/states.hpp>
-#include <sge/sprite/render/vertex_options.hpp>
+#include <sge/sprite/state/all_choices.hpp>
+#include <sge/sprite/state/default_options.hpp>
+#include <sge/sprite/state/object.hpp>
+#include <sge/sprite/state/parameters.hpp>
+#include <sge/sprite/state/scoped.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/quit_on_escape.hpp>
@@ -192,7 +194,6 @@ try
 
 	sge::camera::ortho_freelook::projection_rectangle_from_viewport projection_rectangle_from_viewport(
 		camera,
-		sys.renderer(),
 		sys.viewport_manager());
 
 	sge::texture::const_part_scoped_ptr const
@@ -203,7 +204,7 @@ try
 					sge::config::media_path()
 					/ FCPPT_TEXT("images")
 					/ FCPPT_TEXT("grass.png"),
-					sys.renderer(),
+					sys.renderer_ffp(),
 					sys.image_system(),
 					sge::renderer::texture::mipmap::off(),
 					sge::renderer::resource_flags_field::null()))),
@@ -214,7 +215,7 @@ try
 					sge::config::media_path()
 					/ FCPPT_TEXT("images")
 					/ FCPPT_TEXT("tux.png"),
-					sys.renderer(),
+					sys.renderer_ffp(),
 					sys.image_system(),
 					sge::renderer::texture::mipmap::off(),
 					sge::renderer::resource_flags_field::null())));
@@ -255,8 +256,25 @@ try
 	> sprite_parameters;
 
 	sprite_buffers_type sprite_buffers(
-		sys.renderer(),
+		sys.renderer_ffp(),
 		sge::sprite::buffers::option::dynamic
+	);
+
+	typedef sge::sprite::state::all_choices sprite_state_choices;
+
+	typedef sge::sprite::state::object<
+		sprite_state_choices
+	> sprite_state_object;
+
+	typedef sge::sprite::state::parameters<
+		sprite_state_choices
+	> sprite_state_parameters;
+
+	sprite_state_object sprite_states(
+		sys.renderer_ffp(),
+		sprite_state_parameters(
+			sys.viewport_manager()
+		)
 	);
 
 	sprite_object const background(
@@ -307,48 +325,65 @@ try
 		sys.window_system().poll())
 	{
 		if(
-			sge::renderer::target::viewport_size(
-				sys.renderer().onscreen_target()
-			).content()
-			== 0u
-		)
+			sge::renderer::target::viewport_is_null(
+				sys.renderer_ffp().onscreen_target().viewport()))
 			continue;
 
 		camera.update(
 			sge::timer::elapsed_and_reset<sge::camera::update_duration>(
 				camera_timer));
 
-		sge::renderer::context::scoped const scoped_block(
-			sys.renderer(),
-			sys.renderer().onscreen_target());
+		sge::renderer::context::scoped_ffp const scoped_block(
+			sys.renderer_ffp(),
+			sys.renderer_ffp().onscreen_target());
 
 		scoped_block.get().clear(
 			sge::renderer::clear::parameters()
 			.back_buffer(
 				sge::image::colors::black()));
 
-		sge::renderer::scoped_transform const projection_transform(
-			scoped_block.get(),
-			sge::renderer::matrix_mode::projection,
-			camera.projection_matrix().get());
+		sge::renderer::state::ffp::transform::object_scoped_ptr const projection_state(
+			sys.renderer_ffp().create_transform_state(
+				sge::renderer::state::ffp::transform::parameters(
+					camera.projection_matrix().get())));
 
-		sge::renderer::scoped_transform const world_transform(
-			scoped_block.get(),
-			sge::renderer::matrix_mode::world,
-			sge::camera::matrix_conversion::world(
-				camera.coordinate_system()));
+		sge::renderer::state::ffp::transform::object_scoped_ptr const world_state(
+			sys.renderer_ffp().create_transform_state(
+				sge::renderer::state::ffp::transform::parameters(
+					sge::camera::matrix_conversion::world(
+						camera.coordinate_system()))));
 
-		sge::renderer::state::scoped const scoped_state(
+		sge::renderer::state::ffp::transform::scoped const projection_transform(
 			scoped_block.get(),
-			sge::sprite::render::states<
-				sprite_choices
-			>()
+			sge::renderer::state::ffp::transform::mode::projection,
+			*projection_state);
+
+		sge::renderer::state::ffp::transform::scoped const world_transform(
+			scoped_block.get(),
+			sge::renderer::state::ffp::transform::mode::world,
+			*world_state);
+
+		sge::sprite::state::scoped<
+			sprite_state_choices
+		> const scoped_state(
+			scoped_block.get(),
+			sge::sprite::state::default_options<
+				sprite_state_choices
+			>(),
+			sprite_states
 		);
 
-		sge::sprite::render::options const render_options(
-			sge::sprite::render::matrix_options::nothing,
-			sge::sprite::render::state_options::nothing,
-			sge::sprite::render::vertex_options::declaration_and_buffer
+		typedef sge::sprite::state::options<
+			sprite_state_choices
+		> sprite_state_options;
+
+		sprite_state_options const state_options(
+			sge::sprite::state::default_options<
+				sprite_state_choices
+			>()
+			.no_blend_state()
+			.no_rasterizer_state()
+			.no_transform_state()
 		);
 
 		typedef sge::sprite::process::options<
@@ -361,7 +396,8 @@ try
 			scoped_block.get(),
 			background,
 			sprite_buffers,
-			render_options
+			sprite_states,
+			state_options
 		);
 
 		sge::sprite::process::one_with_options<
@@ -370,7 +406,8 @@ try
 			scoped_block.get(),
 			tux,
 			sprite_buffers,
-			render_options
+			sprite_states,
+			state_options
 		);
 	}
 

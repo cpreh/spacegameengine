@@ -22,12 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_RENDER_RANGE_WITH_OPTIONS_HPP_INCLUDED
 
 #include <sge/sprite/detail/render/range.hpp>
-#include <sge/sprite/detail/render/scoped_states.hpp>
 #include <sge/sprite/detail/render/scoped_vertex.hpp>
 #include <sge/sprite/render/parameters.hpp>
 #include <sge/sprite/render/range_impl.hpp>
 #include <sge/sprite/state/object_fwd.hpp>
 #include <sge/sprite/state/options_fwd.hpp>
+#include <sge/sprite/state/scoped_impl.hpp>
 
 
 namespace sge
@@ -62,7 +62,7 @@ range_with_options(
 	)
 		return;
 
-	sge::sprite::detail::render::scoped_states<
+	sge::sprite::state::scoped<
 		StateChoices
 	> const states(
 		_parameters.render_context(),

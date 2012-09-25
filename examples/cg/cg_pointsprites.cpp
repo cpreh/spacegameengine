@@ -36,7 +36,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_set.hpp>
 #include <sge/renderer/const_vertex_buffer_ref_container.hpp>
-#include <sge/renderer/device.hpp>
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/primitive_type.hpp>
@@ -55,8 +54,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/cg/scoped_program.hpp>
 #include <sge/renderer/cg/scoped_texture.hpp>
 #include <sge/renderer/clear/parameters.hpp>
-#include <sge/renderer/context/object.hpp>
-#include <sge/renderer/context/scoped.hpp>
+#include <sge/renderer/context/core.hpp>
+#include <sge/renderer/context/scoped_core.hpp>
+#include <sge/renderer/device/core.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/parameters/object.hpp>
 #include <sge/renderer/parameters/vsync.hpp>
@@ -64,9 +64,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_format/depth_stencil.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
-#include <sge/renderer/state/bool.hpp>
-#include <sge/renderer/state/list.hpp>
-#include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/planar.hpp>
@@ -217,7 +214,7 @@ try
 	> format;
 
 	sge::renderer::vertex_declaration_scoped_ptr const vertex_declaration(
-		sys.renderer().create_vertex_declaration(
+		sys.renderer_core().create_vertex_declaration(
 			sge::renderer::vf::dynamic::make_format<
 				format
 			>()
@@ -227,7 +224,7 @@ try
 	sge::cg::context::object const cg_context;
 
 	sge::cg::profile::object const vertex_profile(
-		sys.renderer().create_cg_profile(
+		sys.renderer_core().create_cg_profile(
 			sge::cg::profile::shader_type::vertex
 		)
 	);
@@ -271,7 +268,7 @@ try
 			cg_context,
 			sge::cg::program::source_type::text,
 			vertex_profile,
-			sys.renderer().transform_cg_vertex_program(
+			sys.renderer_core().transform_cg_vertex_program(
 				*vertex_declaration,
 				sge::cg::program::source(
 					vertex_shader_source
@@ -280,7 +277,7 @@ try
 			sge::cg::program::main_function(
 				"vertex_main"
 			),
-			sys.renderer().cg_compile_options(
+			sys.renderer_core().cg_compile_options(
 				cg_context,
 				vertex_profile
 			)
@@ -288,13 +285,13 @@ try
 	);
 
 	sge::renderer::cg::loaded_program_scoped_ptr const loaded_vertex_program(
-		sys.renderer().load_cg_program(
+		sys.renderer_core().load_cg_program(
 			vertex_program
 		)
 	);
 
 	sge::cg::profile::object const pixel_profile(
-		sys.renderer().create_cg_profile(
+		sys.renderer_core().create_cg_profile(
 			sge::cg::profile::shader_type::pixel
 		)
 	);
@@ -310,7 +307,7 @@ try
 			sge::cg::program::main_function(
 				"pixel_main"
 			),
-			sys.renderer().cg_compile_options(
+			sys.renderer_core().cg_compile_options(
 				cg_context,
 				pixel_profile
 			)
@@ -318,13 +315,13 @@ try
 	);
 
 	sge::renderer::cg::loaded_program_scoped_ptr const loaded_pixel_program(
-		sys.renderer().load_cg_program(
+		sys.renderer_core().load_cg_program(
 			pixel_program
 		)
 	);
 
 	sge::renderer::vertex_buffer_scoped_ptr const vertex_buffer(
-		sys.renderer().create_vertex_buffer(
+		sys.renderer_core().create_vertex_buffer(
 			*vertex_declaration,
 			sge::renderer::vf::dynamic::make_part_index<
 				format,
@@ -393,7 +390,7 @@ try
 			sge::config::media_path()
 			/ FCPPT_TEXT("images")
 			/ FCPPT_TEXT("uvtestgrid.png"),
-			sys.renderer(),
+			sys.renderer_core(),
 			sys.image_system(),
 			sge::renderer::texture::mipmap::off(),
 			sge::renderer::resource_flags_field::null()
@@ -401,7 +398,7 @@ try
 	);
 
 	sge::renderer::cg::loaded_texture_scoped_ptr const loaded_texture(
-		sys.renderer().load_cg_texture(
+		sys.renderer_core().load_cg_texture(
 			pixel_program.parameter(
 				"decal"
 			).object(),
@@ -419,9 +416,9 @@ try
 		sys.window_system().poll()
 	)
 	{
-		sge::renderer::context::scoped const scoped_block(
-			sys.renderer(),
-			sys.renderer().onscreen_target()
+		sge::renderer::context::scoped_core const scoped_block(
+			sys.renderer_core(),
+			sys.renderer_core().onscreen_target()
 		);
 
 		scoped_block.get().clear(
@@ -443,6 +440,7 @@ try
 			)
 		);
 
+		// FIXME: Do we need really need to enable point sprites here?
 		sge::renderer::cg::scoped_program const scoped_vertex_program(
 			scoped_block.get(),
 			*loaded_vertex_program
@@ -457,10 +455,6 @@ try
 			scoped_block.get(),
 			*loaded_texture
 		);
-
-		scoped_block.get().state(
-			sge::renderer::state::list
-				(sge::renderer::state::bool_::enable_point_sprites = true));
 
 		scoped_block.get().render_nonindexed(
 			sge::renderer::first_vertex(

@@ -56,15 +56,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/input/keyboard/optional_digit.hpp>
 #include <sge/renderer/aspect.hpp>
-#include <sge/renderer/device.hpp>
-#include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/caps/device.hpp>
 #include <sge/renderer/clear/parameters.hpp>
-#include <sge/renderer/context/object.hpp>
-#include <sge/renderer/context/scoped.hpp>
+#include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/context/scoped_ffp.hpp>
+#include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/parameters/object.hpp>
 #include <sge/renderer/parameters/vsync.hpp>
@@ -76,19 +75,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/projection/fov.hpp>
 #include <sge/renderer/projection/near.hpp>
 #include <sge/renderer/target/onscreen.hpp>
+#include <sge/renderer/target/viewport_is_null.hpp>
 #include <sge/renderer/target/viewport_size.hpp>
+#include <sge/renderer/state/core/sampler/const_object_ref.hpp>
+#include <sge/renderer/state/core/sampler/const_object_ref_vector.hpp>
+#include <sge/renderer/state/core/sampler/object.hpp>
+#include <sge/renderer/state/core/sampler/object_scoped_ptr.hpp>
+#include <sge/renderer/state/core/sampler/parameters.hpp>
+#include <sge/renderer/state/core/sampler/scoped.hpp>
+#include <sge/renderer/state/core/sampler/address/default.hpp>
+#include <sge/renderer/state/core/sampler/address/parameters.hpp>
+#include <sge/renderer/state/core/sampler/filter/linear.hpp>
+#include <sge/renderer/state/core/sampler/filter/mipmap.hpp>
+#include <sge/renderer/state/core/sampler/filter/parameters.hpp>
+#include <sge/renderer/state/core/sampler/filter/point.hpp>
+#include <sge/renderer/state/core/sampler/filter/trilinear.hpp>
+#include <sge/renderer/state/core/sampler/filter/anisotropic/level.hpp>
+#include <sge/renderer/state/core/sampler/filter/anisotropic/mip.hpp>
+#include <sge/renderer/state/core/sampler/filter/anisotropic/parameters.hpp>
+#include <sge/renderer/state/ffp/transform/mode.hpp>
+#include <sge/renderer/state/ffp/transform/object.hpp>
+#include <sge/renderer/state/ffp/transform/object_scoped_ptr.hpp>
+#include <sge/renderer/state/ffp/transform/parameters.hpp>
+#include <sge/renderer/state/ffp/transform/scoped.hpp>
 #include <sge/renderer/texture/create_planar_from_view.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/stage.hpp>
-#include <sge/renderer/texture/filter/linear.hpp>
-#include <sge/renderer/texture/filter/mipmap.hpp>
-#include <sge/renderer/texture/filter/object.hpp>
-#include <sge/renderer/texture/filter/point.hpp>
-#include <sge/renderer/texture/filter/scoped.hpp>
-#include <sge/renderer/texture/filter/trilinear.hpp>
-#include <sge/renderer/texture/filter/anisotropic/level.hpp>
-#include <sge/renderer/texture/filter/anisotropic/make.hpp>
-#include <sge/renderer/texture/filter/anisotropic/mip.hpp>
 #include <sge/renderer/texture/mipmap/all_levels.hpp>
 #include <sge/renderer/texture/mipmap/auto_generate.hpp>
 #include <sge/sprite/object.hpp>
@@ -106,12 +118,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/config/with_texture.hpp>
 #include <sge/sprite/geometry/update_one.hpp>
-#include <sge/sprite/render/matrix_options.hpp>
-#include <sge/sprite/render/options.hpp>
 #include <sge/sprite/render/parameters.hpp>
 #include <sge/sprite/render/range_with_options.hpp>
-#include <sge/sprite/render/state_options.hpp>
-#include <sge/sprite/render/vertex_options.hpp>
+#include <sge/sprite/state/choices.hpp>
+#include <sge/sprite/state/default_options.hpp>
+#include <sge/sprite/state/object.hpp>
+#include <sge/sprite/state/parameters.hpp>
 #include <sge/systems/cursor_option.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/font.hpp>
@@ -139,25 +151,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>
+#include <fcppt/cref.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/insert_to_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/array.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
-#include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
-#include <fcppt/variant/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <example_main.hpp>
@@ -173,7 +183,7 @@ namespace
 
 typedef std::pair<
 	sge::font::string,
-	sge::renderer::texture::filter::object
+	sge::renderer::state::core::sampler::const_object_ref
 > string_filter_pair;
 
 typedef fcppt::container::array<
@@ -256,6 +266,35 @@ private:
 
 	filter_array::const_pointer &result_;
 };
+
+sge::renderer::state::core::sampler::parameters const
+make_sampler_parameters(
+	sge::renderer::state::core::sampler::filter::parameters const &_filter
+)
+{
+	return
+		sge::renderer::state::core::sampler::parameters(
+			sge::renderer::state::core::sampler::address::default_(),
+			_filter
+		);
+}
+
+sge::renderer::state::core::sampler::parameters const
+make_anisotropic_sampler_parameters(
+	sge::renderer::state::core::sampler::filter::anisotropic::mip::type const _mip,
+	sge::renderer::state::core::sampler::filter::anisotropic::level const _level
+)
+{
+	return
+		make_sampler_parameters(
+			sge::renderer::state::core::sampler::filter::parameters(
+				sge::renderer::state::core::sampler::filter::anisotropic::parameters(
+					_mip,
+					_level
+				)
+			)
+		);
+}
 
 }
 
@@ -411,8 +450,8 @@ try
 				);
 	}
 
-	sge::renderer::texture::filter::anisotropic::level const anisotropy(
-		sys.renderer().caps().max_anisotropy().get()
+	sge::renderer::state::core::sampler::filter::anisotropic::level const anisotropy(
+		sys.renderer_core().caps().max_anisotropy().get()
 	);
 
 	sge::font::string const anisotropy_string(
@@ -427,31 +466,92 @@ try
 		SGE_FONT_LIT('x')
 	);
 
+	sge::renderer::state::core::sampler::object_scoped_ptr const
+		point_sampler(
+			sys.renderer_core().create_sampler_state(
+				make_sampler_parameters(
+					sge::renderer::state::core::sampler::filter::point()
+				)
+			)
+		),
+		linear_sampler(
+			sys.renderer_core().create_sampler_state(
+				make_sampler_parameters(
+					sge::renderer::state::core::sampler::filter::linear()
+				)
+			)
+		),
+		mipmap_sampler(
+			sys.renderer_core().create_sampler_state(
+				make_sampler_parameters(
+					sge::renderer::state::core::sampler::filter::mipmap()
+				)
+			)
+		),
+		trilinear_sampler(
+			sys.renderer_core().create_sampler_state(
+				make_sampler_parameters(
+					sge::renderer::state::core::sampler::filter::trilinear()
+				)
+			)
+		),
+		anisotropic_sampler(
+			sys.renderer_core().create_sampler_state(
+				make_anisotropic_sampler_parameters(
+					sge::renderer::state::core::sampler::filter::anisotropic::mip::off,
+					anisotropy
+				)
+			)
+		),
+		anisotropic_mipmap_sampler(
+			sys.renderer_core().create_sampler_state(
+				make_anisotropic_sampler_parameters(
+					sge::renderer::state::core::sampler::filter::anisotropic::mip::point,
+					anisotropy
+				)
+			)
+		),
+		anisotropic_trilinear_sampler(
+			sys.renderer_core().create_sampler_state(
+				make_anisotropic_sampler_parameters(
+					sge::renderer::state::core::sampler::filter::anisotropic::mip::linear,
+					anisotropy
+				)
+			)
+		);
+
 	filter_array const filters =
 	{{
 		std::make_pair(
 			SGE_FONT_LIT("point"),
-			sge::renderer::texture::filter::point()
+			fcppt::cref(
+				*point_sampler
+			)
 		),
 		std::make_pair(
 			SGE_FONT_LIT("linear"),
-			sge::renderer::texture::filter::linear()
+			fcppt::cref(
+				*linear_sampler
+			)
 		),
 		std::make_pair(
 			SGE_FONT_LIT("mipmap"),
-			sge::renderer::texture::filter::mipmap()
+			fcppt::cref(
+				*mipmap_sampler
+			)
 		),
 		std::make_pair(
 			SGE_FONT_LIT("trilinear"),
-			sge::renderer::texture::filter::trilinear()
+			fcppt::cref(
+				*trilinear_sampler
+			)
 		),
 		std::make_pair(
 			SGE_FONT_LIT("anisotropic")
 			+
 			anisotropy_string,
-			sge::renderer::texture::filter::anisotropic::make(
-				sge::renderer::texture::filter::anisotropic::mip::off,
-				anisotropy
+			fcppt::cref(
+				*anisotropic_sampler
 			)
 		),
 		std::make_pair(
@@ -460,9 +560,8 @@ try
 			anisotropy_string
 			+
 			SGE_FONT_LIT(" + mipmap"),
-			sge::renderer::texture::filter::anisotropic::make(
-				sge::renderer::texture::filter::anisotropic::mip::point,
-				anisotropy
+			fcppt::cref(
+				*anisotropic_mipmap_sampler
 			)
 		),
 		std::make_pair(
@@ -471,9 +570,8 @@ try
 			anisotropy_string
 			+
 			SGE_FONT_LIT(" + trilinear"),
-			sge::renderer::texture::filter::anisotropic::make(
-				sge::renderer::texture::filter::anisotropic::mip::linear,
-				anisotropy
+			fcppt::cref(
+				*anisotropic_trilinear_sampler
 			)
 		)
 	}};
@@ -513,9 +611,26 @@ try
 		sprite_choices
 	> sprite_parameters;
 
+	typedef sge::sprite::state::choices<
+		boost::mpl::vector0<>
+	> sprite_state_choices;
+
+	typedef sge::sprite::state::object<
+		sprite_state_choices
+	> sprite_state_object;
+
+	typedef sge::sprite::state::parameters<
+		sprite_state_choices
+	> sprite_state_parameters;
+
 	sprite_buffers_type sprite_buffers(
-		sys.renderer(),
+		sys.renderer_core(),
 		sge::sprite::buffers::option::static_
+	);
+
+	sprite_state_object sprite_states(
+		sys.renderer_ffp(),
+		sprite_state_parameters()
 	);
 
 	sprite_object::unit const sprite_size(
@@ -556,7 +671,7 @@ try
 					sge::texture::part_raw_ptr
 				>(
 					sge::renderer::texture::create_planar_from_view(
-						sys.renderer(),
+						sys.renderer_core(),
 						sge::image2d::view::to_const(
 							sge::image2d::view::object(
 								whole_store.wrapped_view()
@@ -604,7 +719,6 @@ try
 
 	sge::camera::perspective_projection_from_viewport camera_viewport_connection(
 		camera,
-		sys.renderer(),
 		sys.viewport_manager(),
 		sge::renderer::projection::near(
 			0.1f
@@ -658,10 +772,9 @@ try
 	)
 	{
 		if(
-			sge::renderer::target::viewport_size(
-				sys.renderer().onscreen_target()
-			).content()
-			== 0u
+			sge::renderer::target::viewport_is_null(
+				sys.renderer_core().onscreen_target().viewport()
+			)
 		)
 			continue;
 
@@ -675,9 +788,9 @@ try
 
 		frames_counter.update();
 
-		sge::renderer::context::scoped const scoped_block(
-			sys.renderer(),
-			sys.renderer().onscreen_target()
+		sge::renderer::context::scoped_ffp const scoped_block(
+			sys.renderer_ffp(),
+			sys.renderer_ffp().onscreen_target()
 		);
 
 		scoped_block.get().clear(
@@ -687,38 +800,58 @@ try
 			)
 		);
 
-		scoped_block.get().transform(
-			sge::renderer::matrix_mode::world,
-			sge::camera::matrix_conversion::world(
-				camera.coordinate_system()
+		sge::renderer::state::ffp::transform::object_scoped_ptr const projection_state(
+			sys.renderer_ffp().create_transform_state(
+				sge::renderer::state::ffp::transform::parameters(
+					camera.projection_matrix().get()
+				)
 			)
 		);
 
-		scoped_block.get().transform(
-			sge::renderer::matrix_mode::projection,
-			camera.projection_matrix().get()
+		sge::renderer::state::ffp::transform::object_scoped_ptr const world_state(
+			sys.renderer_ffp().create_transform_state(
+				sge::renderer::state::ffp::transform::parameters(
+					sge::camera::matrix_conversion::world(
+						camera.coordinate_system()
+					)
+				)
+			)
+		);
+
+		sge::renderer::state::ffp::transform::scoped const projection_transform(
+			scoped_block.get(),
+			sge::renderer::state::ffp::transform::mode::projection,
+			*projection_state
+		);
+
+		sge::renderer::state::ffp::transform::scoped const world_transform(
+			scoped_block.get(),
+			sge::renderer::state::ffp::transform::mode::world,
+			*world_state
 		);
 
 		{
-			sge::renderer::texture::filter::scoped const scoped_filter(
+			sge::renderer::state::core::sampler::scoped const scoped_filter(
 				scoped_block.get(),
-				sge::renderer::texture::stage(
-					0u
-				),
-				current_filter->second
+				fcppt::assign::make_container<
+					sge::renderer::state::core::sampler::const_object_ref_vector
+				>(
+					current_filter->second
+				)
 			);
 
 			sge::sprite::render::range_with_options(
-				sge::sprite::render::parameters(
+				sge::sprite::render::parameters<
+					sprite_state_choices
+				>(
 					scoped_block.get(),
 					sprite_buffers.parameters().vertex_declaration()
 				),
 				sprite_range,
-				sge::sprite::render::options(
-					sge::sprite::render::matrix_options::nothing,
-					sge::sprite::render::state_options::nothing,
-					sge::sprite::render::vertex_options::declaration_and_buffer
-				)
+				sprite_states,
+				sge::sprite::state::default_options<
+					sprite_state_choices
+				>()
 			);
 		}
 
@@ -731,14 +864,15 @@ try
 				sge::font::unit
 			>(
 				sge::renderer::target::viewport_size(
-					sys.renderer().onscreen_target()
+					sys.renderer_core().onscreen_target()
 				).w()
 			)
 		);
 
 		sge::font::draw::simple(
-			sys.renderer(),
+			sys.renderer_ffp(),
 			scoped_block.get(),
+			sys.viewport_manager(),
 			*font,
 			current_filter->first
 			+
@@ -754,8 +888,9 @@ try
 		);
 
 		sge::font::draw::simple(
-			sys.renderer(),
+			sys.renderer_ffp(),
 			scoped_block.get(),
+			sys.viewport_manager(),
 			*font,
 			sge::font::from_fcppt_string(
 				frames_counter.frames_str()

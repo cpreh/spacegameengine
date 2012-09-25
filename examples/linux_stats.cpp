@@ -42,7 +42,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/dim.hpp>
 #include <sge/log/global.hpp>
 #include <sge/renderer/vector2.hpp>
-#include <sge/renderer/context/scoped.hpp>
+#include <sge/renderer/context/scoped_ffp.hpp>
+#include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/parameters/object.hpp>
 #include <sge/renderer/parameters/vsync.hpp>
@@ -446,7 +447,8 @@ try
 	);
 
 	sge::font::draw::static_text cpu_label(
-		sys.renderer(),
+		sys.renderer_ffp(),
+		sys.viewport_manager(),
 		*font,
 		SGE_FONT_LIT(
 			"cpu"
@@ -462,7 +464,8 @@ try
 	);
 
 	sge::font::draw::static_text mem_label(
-		sys.renderer(),
+		sys.renderer_ffp(),
+		sys.viewport_manager(),
 		*font,
 		SGE_FONT_LIT(
 			"mem"
@@ -484,7 +487,8 @@ try
 				0.0f)),
 		fcppt::math::dim::structure_cast<sge::image2d::dim>(
 			graph_dim),
-		sys.renderer(),
+		sys.renderer_ffp(),
+		sys.viewport_manager(),
 		sge::graph::baseline(
 			50.0),
 		sge::graph::optional_axis_constraint(
@@ -501,7 +505,8 @@ try
 				static_cast<sge::renderer::vector2::value_type>(graph_dim.h()))),
 		fcppt::math::dim::structure_cast<sge::image2d::dim>(
 			graph_dim),
-		sys.renderer(),
+		sys.renderer_ffp(),
+		sys.viewport_manager(),
 		sge::graph::baseline(
 			50.0),
 		sge::graph::optional_axis_constraint(
@@ -549,7 +554,8 @@ try
 							)),
 					fcppt::math::dim::structure_cast<sge::image2d::dim>(
 						graph_dim),
-					fcppt::ref(sys.renderer()),
+					fcppt::ref(sys.renderer_ffp()),
+					fcppt::ref(sys.viewport_manager()),
 					sge::graph::baseline(
 						0.0),
 					sge::graph::optional_axis_constraint(),
@@ -558,7 +564,8 @@ try
 				fcppt::make_unique_ptr<
 					sge::font::draw::static_text
 				>(
-					fcppt::ref(sys.renderer()),
+					fcppt::ref(sys.renderer_ffp()),
+					fcppt::ref(sys.viewport_manager()),
 					fcppt::ref(*font),
 					sge::font::from_fcppt_string(
 						fcppt::from_std_string(
@@ -585,9 +592,9 @@ try
 		sge::timer::scoped_frame_limiter limiter(
 			desired_fps);
 
-		sge::renderer::context::scoped const scoped_block(
-			sys.renderer(),
-			sys.renderer().onscreen_target()
+		sge::renderer::context::scoped_ffp const scoped_block(
+			sys.renderer_ffp(),
+			sys.renderer_ffp().onscreen_target()
 		);
 
 		jiffies const current_jiffies =

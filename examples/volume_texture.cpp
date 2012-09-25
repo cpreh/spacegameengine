@@ -40,7 +40,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/noise/sample.hpp>
 #include <sge/noise/sample_parameters.hpp>
 #include <sge/noise/simplex/object.hpp>
-#include <sge/renderer/device.hpp>
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/matrix_mode.hpp>
@@ -56,8 +55,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_declaration.hpp>
 #include <sge/renderer/vertex_declaration_scoped_ptr.hpp>
 #include <sge/renderer/clear/parameters.hpp>
-#include <sge/renderer/context/object.hpp>
-#include <sge/renderer/context/scoped.hpp>
+#include <sge/renderer/context/core.hpp>
+#include <sge/renderer/context/scoped_core.hpp>
+#include <sge/renderer/device/core.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/parameters/object.hpp>
 #include <sge/renderer/parameters/vsync.hpp>
@@ -676,12 +676,12 @@ try
 
 	sge::renderer::texture::volume_scoped_ptr const texture(
 		create_noise_texture(
-			sys.renderer()
+			sys.renderer_core()
 		)
 	);
 
 	sge::renderer::vertex_declaration_scoped_ptr const vertex_declaration(
-		sys.renderer().create_vertex_declaration(
+		sys.renderer_core().create_vertex_declaration(
 			sge::renderer::vf::dynamic::make_format<
 				vf_format
 			>()
@@ -689,7 +689,7 @@ try
 	);
 
 	sge::renderer::vertex_buffer_scoped_ptr const vertex_buffer(
-		sys.renderer().create_vertex_buffer(
+		sys.renderer_core().create_vertex_buffer(
 			*vertex_declaration,
 			sge::renderer::vf::dynamic::make_part_index<
 				vf_format,
@@ -728,7 +728,7 @@ try
 
 	sge::camera::perspective_projection_from_viewport camera_viewport_connection(
 		camera,
-		sys.renderer(),
+		sys.renderer_core(),
 		sys.viewport_manager(),
 		sge::renderer::projection::near(
 			0.1f
@@ -768,8 +768,8 @@ try
 		);
 
 		sge::renderer::context::scoped const scoped_block(
-			sys.renderer(),
-			sys.renderer().onscreen_target()
+			sys.renderer_core(),
+			sys.renderer_core().onscreen_target()
 		);
 
 		sge::renderer::scoped_vertex_declaration const scoped_vd(

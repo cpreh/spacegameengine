@@ -18,20 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/state/core/sampler/default.hpp>
-#include <sge/renderer/state/core/sampler/parameters.hpp>
-#include <sge/renderer/state/core/sampler/address/default.hpp>
-#include <sge/renderer/state/core/sampler/address/parameters.hpp>
-#include <sge/renderer/state/core/sampler/filter/default.hpp>
-#include <sge/renderer/state/core/sampler/filter/parameters.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/write_mask.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/write_mask_all.hpp>
 
 
-sge::renderer::state::core::sampler::parameters const
-sge::renderer::state::core::sampler::default_()
+sge::renderer::state::core::depth_stencil::stencil::write_mask const
+sge::renderer::state::core::depth_stencil::stencil::write_mask_all()
 {
 	return
-		sge::renderer::state::core::sampler::parameters(
-			sge::renderer::state::core::sampler::address::default_(),
-			sge::renderer::state::core::sampler::filter::default_()
+		sge::renderer::state::core::depth_stencil::stencil::write_mask(
+			~0u
 		);
 }

@@ -37,7 +37,7 @@ template<
 >
 sge::sprite::state::options<
 	StateChoices
-> const
+>
 default_options()
 {
 	return

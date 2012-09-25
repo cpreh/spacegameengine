@@ -18,34 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DETAIL_RENDER_SCOPED_STATES_HPP_INCLUDED
-#define SGE_SPRITE_DETAIL_RENDER_SCOPED_STATES_HPP_INCLUDED
+#ifndef SGE_SPRITE_STATE_SCOPED_DECL_HPP_INCLUDED
+#define SGE_SPRITE_STATE_SCOPED_DECL_HPP_INCLUDED
 
 #include <sge/sprite/state/render_context.hpp>
 #include <sge/sprite/state/options_fwd.hpp>
 #include <sge/sprite/state/object_fwd.hpp>
-#include <sge/sprite/state/detail/set_one.hpp>
-#include <sge/sprite/state/detail/unset_one.hpp>
+#include <sge/sprite/state/scoped_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/mpl/for_each.hpp>
 
 
 namespace sge
 {
 namespace sprite
 {
-namespace detail
-{
-namespace render
+namespace state
 {
 
 template<
 	typename StateChoices
 >
-class scoped_states
+class scoped
 {
 	FCPPT_NONCOPYABLE(
-		scoped_states
+		scoped
 	);
 public:
 	typedef typename sge::sprite::state::render_context<
@@ -60,57 +56,19 @@ public:
 		StateChoices
 	> state_object;
 
-	scoped_states(
-		render_context &_render_context,
-		state_options const &_options,
-		state_object const &_object
-	)
-	:
-		render_context_(
-			_render_context
-		),
-		options_(
-			_options
-		),
-		object_(
-			_object
-		)
-	{
-		fcppt::mpl::for_each<
-			typename StateChoices::optional_elements
-		>(
-			sge::sprite::state::detail::set_one<
-				StateChoices
-			>(
-				render_context_,
-				options_.elements(),
-				object_.elements()
-			)
-		);
-	}
+	scoped(
+		render_context &,
+		state_options const &,
+		state_object const &
+	);
 
-	~scoped_states()
-	{
-		fcppt::mpl::for_each<
-			typename StateChoices::optional_elements
-		>(
-			sge::sprite::state::detail::unset_one<
-				StateChoices
-			>(
-				render_context_,
-				options_.elements()
-			)
-		);
-	}
+	~scoped();
 private:
 	render_context &render_context_;
 
 	state_options const &options_;
-
-	state_object const &object_;
 };
 
-}
 }
 }
 }

@@ -66,11 +66,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/line_drawer/render_to_screen.hpp>
 #include <sge/line_drawer/scoped_lock.hpp>
 #include <sge/renderer/aspect.hpp>
-#include <sge/renderer/device.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/clear/parameters.hpp>
-#include <sge/renderer/context/object.hpp>
-#include <sge/renderer/context/scoped.hpp>
+#include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/context/scoped_ffp.hpp>
+#include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/parameters/object.hpp>
 #include <sge/renderer/parameters/vsync.hpp>
@@ -315,7 +315,7 @@ try
 	sge::timer::frames_counter frames_counter;
 
 	sge::line_drawer::object line_drawer(
-		sys.renderer());
+		sys.renderer_ffp());
 
 	::follows_cursor follows_cursor(
 		line_drawer,
@@ -327,9 +327,9 @@ try
 
 		frames_counter.update();
 
-		sge::renderer::context::scoped const scoped_block(
-			sys.renderer(),
-			sys.renderer().onscreen_target());
+		sge::renderer::context::scoped_ffp const scoped_block(
+			sys.renderer_ffp(),
+			sys.renderer_ffp().onscreen_target());
 
 		scoped_block.get().clear(
 			sge::renderer::clear::parameters()
@@ -339,6 +339,7 @@ try
 		// This function sets up an orthographic projection and calls
 		// render. It's just a wrapper.
 		sge::line_drawer::render_to_screen(
+			sys.renderer_ffp(),
 			scoped_block.get(),
 			line_drawer);
 
@@ -350,12 +351,13 @@ try
 				sge::font::unit
 			>(
 				sge::renderer::target::viewport_size(
-					sys.renderer().onscreen_target()
+					sys.renderer_ffp().onscreen_target()
 				).w()));
 
 		sge::font::draw::simple(
-			sys.renderer(),
+			sys.renderer_ffp(),
 			scoped_block.get(),
+			sys.viewport_manager(),
 			*font,
 			SGE_FONT_LIT("Press the left mouse button to set a point"),
 			sge::font::text_parameters(
@@ -368,8 +370,9 @@ try
 			sge::image::colors::red());
 
 		sge::font::draw::simple(
-			sys.renderer(),
+			sys.renderer_ffp(),
 			scoped_block.get(),
+			sys.viewport_manager(),
 			*font,
 			sge::font::from_fcppt_string(
 				frames_counter.frames_str())

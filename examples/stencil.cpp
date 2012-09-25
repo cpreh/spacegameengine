@@ -45,8 +45,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/optional_extension_set.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/clear/parameters.hpp>
-#include <sge/renderer/context/object.hpp>
-#include <sge/renderer/context/scoped.hpp>
+#include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/context/scoped_ffp.hpp>
+#include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/parameters/object.hpp>
 #include <sge/renderer/parameters/vsync.hpp>
@@ -62,7 +63,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/depth_stencil/stencil/combined.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/depth_fail_op.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/desc.hpp>
-#include <sge/renderer/state/core/depth_stencil/stencil/enable.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/enabled.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/fail_op.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/func.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/op.hpp>
@@ -89,6 +90,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/config/with_texture.hpp>
 #include <sge/sprite/process/one.hpp>
+#include <sge/sprite/state/all_choices.hpp>
+#include <sge/sprite/state/object.hpp>
+#include <sge/sprite/state/parameters.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/image2d.hpp>
 #include <sge/systems/input.hpp>
@@ -113,10 +117,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/io/cerr.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -243,11 +244,29 @@ try
 		sprite_choices
 	> sprite_parameters;
 
+	typedef sge::sprite::state::all_choices sprite_state_choices;
+
+	typedef sge::sprite::state::object<
+		sprite_state_choices
+	> sprite_state_object;
+
+	typedef sge::sprite::state::parameters<
+		sprite_state_choices
+	> sprite_state_parameters;
+
 	// Allocate a sprite buffers object. This uses dynamic buffers, which
 	// means that they are updated every frame.
 	sprite_buffers_type sprite_buffers(
-		sys.renderer(),
+		sys.renderer_ffp(),
 		sge::sprite::buffers::option::dynamic
+	);
+
+	// Allocate sprite states that are used during rendering.
+	sprite_state_object const sprite_state(
+		sys.renderer_ffp(),
+		sprite_state_parameters(
+			sys.viewport_manager()
+		)
 	);
 
 	// Create the two textures we are going to use
@@ -260,7 +279,7 @@ try
 				sge::config::media_path()
 				/ FCPPT_TEXT("images")
 				/ FCPPT_TEXT("grass.png"),
-				sys.renderer(),
+				sys.renderer_ffp(),
 				sys.image_system(),
 				sge::renderer::texture::mipmap::off(),
 				sge::renderer::resource_flags_field::null()
@@ -271,7 +290,7 @@ try
 				sge::config::media_path()
 				/ FCPPT_TEXT("images")
 				/ FCPPT_TEXT("cloudsquare.png"),
-				sys.renderer(),
+				sys.renderer_ffp(),
 				sys.image_system(),
 				sge::renderer::texture::mipmap::off(),
 				sge::renderer::resource_flags_field::null()
@@ -335,29 +354,33 @@ try
 		)
 	);
 
+	// TODO: Create helper functions for this (not every combination makes sense)
+
 	// Create a stencil state which will always pass and increment the
 	// value stored in the stencil buffer for every pixel rendered.
 	sge::renderer::state::core::depth_stencil::object_scoped_ptr const inc_state(
-		sys.renderer().create_depth_stencil_state(
+		sys.renderer_ffp().create_depth_stencil_state(
 			sge::renderer::state::core::depth_stencil::parameters(
 				sge::renderer::state::core::depth_stencil::depth::off(),
-				sge::renderer::state::core::depth_stencil::stencil::enable(
+				sge::renderer::state::core::depth_stencil::stencil::enabled(
 					sge::renderer::state::core::depth_stencil::stencil::combined(
-						sge::renderer::state::core::depth_stencil::stencil::fail_op(
-							sge::renderer::state::core::depth_stencil::stencil::op::keep
-						),
-						sge::renderer::state::core::depth_stencil::stencil::depth_fail_op(
-							sge::renderer::state::core::depth_stencil::stencil::op::keep
-						),
-						sge::renderer::state::core::depth_stencil::stencil::pass_op(
-							sge::renderer::state::core::depth_stencil::stencil::op::inc_sat
-						),
-						sge::renderer::state::core::depth_stencil::stencil::func::always
+						sge::renderer::state::core::depth_stencil::stencil::desc(
+							sge::renderer::state::core::depth_stencil::stencil::fail_op(
+								sge::renderer::state::core::depth_stencil::stencil::op::keep
+							),
+							sge::renderer::state::core::depth_stencil::stencil::depth_fail_op(
+								sge::renderer::state::core::depth_stencil::stencil::op::keep
+							),
+							sge::renderer::state::core::depth_stencil::stencil::pass_op(
+								sge::renderer::state::core::depth_stencil::stencil::op::inc_sat
+							),
+							sge::renderer::state::core::depth_stencil::stencil::func::always
+						)
 					),
 					sge::renderer::state::core::depth_stencil::stencil::ref(
 						0u
 					),
-					sge::renderer::state::core::depth_stencil::write_mask_all()
+					sge::renderer::state::core::depth_stencil::stencil::write_mask_all()
 				)
 			)
 		)
@@ -365,26 +388,28 @@ try
 
 	// Create a stencil state which will only pass if the current stencil value is still 0.
 	sge::renderer::state::core::depth_stencil::object_scoped_ptr const compare_state(
-		sys.renderer().create_depth_stencil_state(
+		sys.renderer_ffp().create_depth_stencil_state(
 			sge::renderer::state::core::depth_stencil::parameters(
 				sge::renderer::state::core::depth_stencil::depth::off(),
-				sge::renderer::state::core::depth_stencil::stencil::enable(
+				sge::renderer::state::core::depth_stencil::stencil::enabled(
 					sge::renderer::state::core::depth_stencil::stencil::combined(
-						sge::renderer::state::core::depth_stencil::stencil::fail_op(
-							sge::renderer::state::core::depth_stencil::stencil::op::keep
-						),
-						sge::renderer::state::core::depth_stencil::stencil::depth_fail_op(
-							sge::renderer::state::core::depth_stencil::stencil::op::keep
-						),
-						sge::renderer::state::core::depth_stencil::stencil::pass_op(
-							sge::renderer::state::core::depth_stencil::stencil::op::keep
-						),
-						sge::renderer::state::core::depth_stencil::stencil::func::equal
+						sge::renderer::state::core::depth_stencil::stencil::desc(
+							sge::renderer::state::core::depth_stencil::stencil::fail_op(
+								sge::renderer::state::core::depth_stencil::stencil::op::keep
+							),
+							sge::renderer::state::core::depth_stencil::stencil::depth_fail_op(
+								sge::renderer::state::core::depth_stencil::stencil::op::keep
+							),
+							sge::renderer::state::core::depth_stencil::stencil::pass_op(
+								sge::renderer::state::core::depth_stencil::stencil::op::keep
+							),
+							sge::renderer::state::core::depth_stencil::stencil::func::equal
+						)
 					),
 					sge::renderer::state::core::depth_stencil::stencil::ref(
 						0u
 					),
-					sge::renderer::state::core::depth_stencil::write_mask_all()
+					sge::renderer::state::core::depth_stencil::stencil::write_mask_all()
 				)
 			)
 		)
@@ -396,9 +421,9 @@ try
 	)
 	{
 		// Declare a render block, using the renderer's onscreen target.
-		sge::renderer::context::scoped const scoped_block(
-			sys.renderer(),
-			sys.renderer().onscreen_target()
+		sge::renderer::context::scoped_ffp const scoped_block(
+			sys.renderer_ffp(),
+			sys.renderer_ffp().onscreen_target()
 		);
 
 		// Here, we clear the back buffer with the clear color black() on each frame.
@@ -428,7 +453,8 @@ try
 			sge::sprite::process::one(
 				scoped_block.get(),
 				small_sprite,
-				sprite_buffers
+				sprite_buffers,
+				sprite_state
 			);
 		}
 
@@ -445,7 +471,8 @@ try
 			sge::sprite::process::one(
 				scoped_block.get(),
 				big_sprite,
-				sprite_buffers
+				sprite_buffers,
+				sprite_state
 			);
 		}
 	}

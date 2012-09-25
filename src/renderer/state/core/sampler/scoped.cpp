@@ -18,20 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/state/core/sampler/default.hpp>
-#include <sge/renderer/state/core/sampler/parameters.hpp>
-#include <sge/renderer/state/core/sampler/address/default.hpp>
-#include <sge/renderer/state/core/sampler/address/parameters.hpp>
-#include <sge/renderer/state/core/sampler/filter/default.hpp>
-#include <sge/renderer/state/core/sampler/filter/parameters.hpp>
+#include <sge/renderer/context/core.hpp>
+#include <sge/renderer/state/core/sampler/const_object_ref_vector.hpp>
+#include <sge/renderer/state/core/sampler/scoped.hpp>
 
 
-sge::renderer::state::core::sampler::parameters const
-sge::renderer::state::core::sampler::default_()
+sge::renderer::state::core::sampler::scoped::scoped(
+	sge::renderer::context::core &_context,
+	sge::renderer::state::core::sampler::const_object_ref_vector const &_states
+)
+:
+	context_(
+		_context
+	)
 {
-	return
-		sge::renderer::state::core::sampler::parameters(
-			sge::renderer::state::core::sampler::address::default_(),
-			sge::renderer::state::core::sampler::filter::default_()
-		);
+	context_.sampler_state(
+		_states
+	);
+}
+
+sge::renderer::state::core::sampler::scoped::~scoped()
+{
+	context_.sampler_state(
+		sge::renderer::state::core::sampler::const_object_ref_vector()
+	);
 }

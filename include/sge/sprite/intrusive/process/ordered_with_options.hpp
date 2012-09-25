@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_INTRUSIVE_PROCESS_ORDERED_WITH_OPTIONS_HPP_INCLUDED
 
 #include <sge/sprite/buffers/parameters.hpp>
-#include <sge/sprite/detail/render/scoped_states.hpp>
 #include <sge/sprite/detail/render/scoped_vertex_declaration.hpp>
 #include <sge/sprite/intrusive/detail/render_one.hpp>
 #include <sge/sprite/intrusive/ordered/collection_impl.hpp>
@@ -30,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/render/parameters_impl.hpp>
 #include <sge/sprite/state/object_fwd.hpp>
 #include <sge/sprite/state/options_impl.hpp>
+#include <sge/sprite/state/scoped_impl.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/tr1/functional.hpp>
@@ -83,7 +83,7 @@ ordered_with_options(
 		Order
 	>::collection_base collection;
 
-	sge::sprite::detail::render::scoped_states<
+	sge::sprite::state::scoped<
 		StateChoices
 	> const scoped_states(
 		_render_context,

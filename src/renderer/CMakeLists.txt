@@ -357,6 +357,7 @@ set(
 	include/sge/renderer/state/core/rasterizer/object_unique_ptr.hpp
 	include/sge/renderer/state/core/rasterizer/parameters.hpp
 	include/sge/renderer/state/core/rasterizer/parameters_fwd.hpp
+	include/sge/renderer/state/core/sampler/address/default.hpp
 	include/sge/renderer/state/core/sampler/address/mode.hpp
 	include/sge/renderer/state/core/sampler/address/mode_all.hpp
 	include/sge/renderer/state/core/sampler/address/mode_default.hpp
@@ -394,6 +395,8 @@ set(
 	include/sge/renderer/state/core/sampler/object_unique_ptr.hpp
 	include/sge/renderer/state/core/sampler/parameters.hpp
 	include/sge/renderer/state/core/sampler/parameters_fwd.hpp
+	include/sge/renderer/state/core/sampler/scoped.hpp
+	include/sge/renderer/state/core/sampler/scoped_fwd.hpp
 	include/sge/renderer/state/ffp/alpha_test/const_optional_object_ref.hpp
 	include/sge/renderer/state/ffp/alpha_test/const_optional_object_ref_fwd.hpp
 	include/sge/renderer/state/ffp/alpha_test/default.hpp
@@ -893,9 +896,11 @@ set(
 	src/renderer/state/core/depth_stencil/stencil/desc.cpp
 	src/renderer/state/core/depth_stencil/stencil/enabled.cpp
 	src/renderer/state/core/depth_stencil/stencil/separate.cpp
+	src/renderer/state/core/depth_stencil/stencil/write_mask_all.cpp
 	src/renderer/state/core/rasterizer/default.cpp
 	src/renderer/state/core/rasterizer/object.cpp
 	src/renderer/state/core/rasterizer/parameters.cpp
+	src/renderer/state/core/sampler/address/default.cpp
 	src/renderer/state/core/sampler/address/mode_default.cpp
 	src/renderer/state/core/sampler/address/parameters.cpp
 	src/renderer/state/core/sampler/default.cpp
@@ -911,6 +916,7 @@ set(
 	src/renderer/state/core/sampler/filter/trilinear.cpp
 	src/renderer/state/core/sampler/object.cpp
 	src/renderer/state/core/sampler/parameters.cpp
+	src/renderer/state/core/sampler/scoped.cpp
 	src/renderer/state/ffp/alpha_test/default.cpp
 	src/renderer/state/ffp/alpha_test/enabled.cpp
 	src/renderer/state/ffp/alpha_test/object.cpp

@@ -56,11 +56,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/projectile/shape/triangle_sequence.hpp>
 #include <sge/projectile/triangulation/default_tag.hpp>
 #include <sge/projectile/triangulation/triangulate.hpp>
-#include <sge/renderer/device.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/clear/parameters.hpp>
-#include <sge/renderer/context/object.hpp>
-#include <sge/renderer/context/scoped.hpp>
+#include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/context/scoped_ffp.hpp>
+#include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/parameters/object.hpp>
 #include <sge/renderer/parameters/vsync.hpp>
@@ -68,9 +68,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_format/depth_stencil.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
+#include <sge/renderer/projection/orthogonal_viewport.hpp>
+#include <sge/renderer/state/ffp/transform/mode.hpp>
+#include <sge/renderer/state/ffp/transform/scoped.hpp>
+#include <sge/renderer/state/ffp/transform/object.hpp>
+#include <sge/renderer/state/ffp/transform/object_scoped_ptr.hpp>
+#include <sge/renderer/state/ffp/transform/parameters.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/target/viewport.hpp>
-#include <sge/sprite/projection_matrix.hpp>
+#include <sge/renderer/target/viewport_is_null.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/input_helper.hpp>
@@ -459,7 +465,7 @@ try
 
 	sge::projectile::debug_drawer debug_drawer(
 		world,
-		sys.renderer());
+		sys.renderer_ffp());
 	sge::projectile::group::object
 		first_group(
 			world),
@@ -538,7 +544,6 @@ try
 	while(
 		sys.window_system().poll())
 	{
-
 		world.update_continuous(
 			sge::projectile::time_increment(
 				sge::timer::elapsed<sge::projectile::duration>(
@@ -548,20 +553,34 @@ try
 
 		debug_drawer.update();
 
-		sge::renderer::context::scoped const scoped_block(
-			sys.renderer(),
-			sys.renderer().onscreen_target()
+		sge::renderer::context::scoped_ffp const scoped_block(
+			sys.renderer_ffp(),
+			sys.renderer_ffp().onscreen_target()
 		);
+
+		if(
+			sge::renderer::target::viewport_is_null(
+				scoped_block.get().target().viewport()))
+			continue;
 
 		scoped_block.get().clear(
 			sge::renderer::clear::parameters()
 			.back_buffer(
 				sge::image::colors::black()));
 
-		debug_drawer.render(
+		sge::renderer::state::ffp::transform::object_scoped_ptr const transform_state(
+			sys.renderer_ffp().create_transform_state(
+				sge::renderer::state::ffp::transform::parameters(
+					*sge::renderer::projection::orthogonal_viewport(
+						scoped_block.get().target().viewport()))));
+
+		sge::renderer::state::ffp::transform::scoped const scoped_transform(
 			scoped_block.get(),
-			sge::sprite::projection_matrix(
-				scoped_block.get().target().viewport()));
+			sge::renderer::state::ffp::transform::mode::projection,
+			*transform_state);
+
+		debug_drawer.render(
+			scoped_block.get());
 	}
 
 	return
