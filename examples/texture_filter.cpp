@@ -818,19 +818,19 @@ try
 			)
 		);
 
-		sge::renderer::state::ffp::transform::scoped const projection_transform(
-			scoped_block.get(),
-			sge::renderer::state::ffp::transform::mode::projection,
-			*projection_state
-		);
-
-		sge::renderer::state::ffp::transform::scoped const world_transform(
-			scoped_block.get(),
-			sge::renderer::state::ffp::transform::mode::world,
-			*world_state
-		);
-
 		{
+			sge::renderer::state::ffp::transform::scoped const projection_transform(
+				scoped_block.get(),
+				sge::renderer::state::ffp::transform::mode::projection,
+				*projection_state
+			);
+
+			sge::renderer::state::ffp::transform::scoped const world_transform(
+				scoped_block.get(),
+				sge::renderer::state::ffp::transform::mode::world,
+				*world_state
+			);
+
 			sge::renderer::state::core::sampler::scoped const scoped_filter(
 				scoped_block.get(),
 				fcppt::assign::make_container<
