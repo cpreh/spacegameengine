@@ -48,7 +48,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/scene/manager.hpp>
 #include <sge/scenic/scene/object.hpp>
 #include <sge/scenic/scene/prototype.hpp>
-#include <sge/scenic/sky/dome/object.hpp>
+//#include <sge/scenic/sky/dome/object.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/image2d.hpp>
 #include <sge/systems/input.hpp>
