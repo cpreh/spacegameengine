@@ -33,7 +33,7 @@ add_sge_example(
 
 add_sge_example(
 	cg_blending
-	"sgeconfig;sgeimage2d;sgerenderer;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow;sgepostprocessing;sgeshader"
+	"sgeconfig;sgeimage2d;sgepostprocessing;sgerenderer;sgeshader;sgesystems;sgetexture;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 	"${Cg_INCLUDE_DIRS}"
 )
