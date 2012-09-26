@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/cg/scoped_program.hpp>
 #include <sge/renderer/cg/scoped_texture.hpp>
-#include <sge/renderer/context/object_fwd.hpp>
+#include <sge/renderer/context/core_fwd.hpp>
 #include <sge/shader/pair_fwd.hpp>
 #include <sge/shader/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -40,7 +40,7 @@ class scoped_pair
 public:
 	SGE_SHADER_SYMBOL
 	scoped_pair(
-		sge::renderer::context::object &,
+		sge::renderer::context::core &,
 		sge::shader::pair &);
 
 	SGE_SHADER_SYMBOL

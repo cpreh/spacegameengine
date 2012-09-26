@@ -20,8 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/color/any/object.hpp>
 #include <sge/renderer/vector4.hpp>
-#include <sge/renderer/light/attenuation.hpp>
 #include <sge/scenic/render_context/cg/light/point.hpp>
+#include <sge/scenic/render_context/light/attenuation.hpp>
 #include <sge/src/scenic/render_context/cg/any_color_to_vector4.hpp>
 #include <fcppt/insert_to_std_string.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
@@ -83,7 +83,7 @@ sge::scenic::render_context::cg::light::point::point(
 
 void
 sge::scenic::render_context::cg::light::point::diffuse_color(
-	sge::renderer::diffuse_color const &_diffuse_color)
+	sge::scenic::render_context::diffuse_color const &_diffuse_color)
 {
 	diffuse_color_.set(
 		sge::scenic::render_context::cg::any_color_to_vector4(
@@ -92,7 +92,7 @@ sge::scenic::render_context::cg::light::point::diffuse_color(
 
 void
 sge::scenic::render_context::cg::light::point::specular_color(
-	sge::renderer::specular_color const &_specular_color)
+	sge::scenic::render_context::specular_color const &_specular_color)
 {
 	specular_color_.set(
 		sge::scenic::render_context::cg::any_color_to_vector4(
@@ -101,7 +101,7 @@ sge::scenic::render_context::cg::light::point::specular_color(
 
 void
 sge::scenic::render_context::cg::light::point::ambient_color(
-	sge::renderer::ambient_color const &_ambient_color)
+	sge::scenic::render_context::ambient_color const &_ambient_color)
 {
 	ambient_color_.set(
 		sge::scenic::render_context::cg::any_color_to_vector4(
@@ -118,7 +118,7 @@ sge::scenic::render_context::cg::light::point::camera_space_position(
 
 void
 sge::scenic::render_context::cg::light::point::attenuation(
-	sge::renderer::light::attenuation const &_attenuation)
+	sge::scenic::render_context::light::attenuation const &_attenuation)
 {
 	attenuation_.set(
 		sge::renderer::vector3(

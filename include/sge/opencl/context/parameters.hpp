@@ -26,8 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/context/parameters_fwd.hpp>
 #include <sge/opencl/device/object_ref_sequence.hpp>
 #include <sge/opencl/platform/object_fwd.hpp>
-#include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/device/core_fwd.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <fcppt/optional.hpp>
 
 
 namespace sge
@@ -41,6 +42,10 @@ class parameters
 FCPPT_NONASSIGNABLE(
 	parameters);
 public:
+	typedef
+	fcppt::optional<renderer::device::core &>
+	optional_renderer;
+
 	SGE_OPENCL_SYMBOL
 	parameters(
 		platform::object &,
@@ -59,7 +64,7 @@ public:
 
 	SGE_OPENCL_SYMBOL context::parameters &
 	share_with(
-		renderer::device &);
+		renderer::device::core &);
 
 	SGE_OPENCL_SYMBOL opencl::device::object_ref_sequence const &
 	device_refs() const;
@@ -67,7 +72,7 @@ public:
 	SGE_OPENCL_SYMBOL context::error_callback const &
 	error_callback() const;
 
-	SGE_OPENCL_SYMBOL renderer::device *
+	SGE_OPENCL_SYMBOL optional_renderer const &
 	shared_renderer() const;
 
 	SGE_OPENCL_SYMBOL platform::object &
@@ -76,8 +81,7 @@ private:
 	platform::object &platform_;
 	device::object_ref_sequence device_refs_;
 	context::error_callback error_callback_;
-	// TODO: this should be an optional reference
-	renderer::device *shared_renderer_;
+	optional_renderer shared_renderer_;
 };
 }
 }

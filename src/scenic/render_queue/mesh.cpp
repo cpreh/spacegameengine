@@ -26,9 +26,7 @@ namespace
 sge::scenic::render_queue::sort_index
 create_sort_index(
 	sge::scenic::render_queue::index_type const _material,
-	sge::scenic::render_queue::index_type const _vertex_buffer,
-	sge::scenic::render_queue::index_type const _diffuse_texture,
-	sge::scenic::render_queue::index_type const _specular_texture)
+	sge::scenic::render_queue::index_type const _vertex_buffer)
 {
 	typedef
 	fcppt::number_multiplexer::object<sge::scenic::render_queue::sort_index>
@@ -38,7 +36,7 @@ create_sort_index(
 		multiplexer()
 			.append(
 				multiplexer::bit_count(
-					20u),
+					40u),
 				static_cast<sge::scenic::render_queue::sort_index>(
 					_material))
 			.append(
@@ -46,16 +44,6 @@ create_sort_index(
 					20u),
 				static_cast<sge::scenic::render_queue::sort_index>(
 					_vertex_buffer))
-			.append(
-				multiplexer::bit_count(
-					10u),
-				static_cast<sge::scenic::render_queue::sort_index>(
-					_diffuse_texture))
-			.append(
-				multiplexer::bit_count(
-					10u),
-				static_cast<sge::scenic::render_queue::sort_index>(
-					_specular_texture))
 			.value();
 }
 }
@@ -63,8 +51,6 @@ create_sort_index(
 sge::scenic::render_queue::mesh::mesh(
 	sge::scenic::render_queue::index_type const _material,
 	sge::scenic::render_queue::index_type const _vertex_buffer,
-	sge::scenic::render_queue::index_type const _diffuse_texture,
-	sge::scenic::render_queue::index_type const _specular_texture,
 	sge::renderer::matrix4 const &_modelview,
 	sge::renderer::index_buffer &_index_buffer,
 	sge::scenic::index_buffer_range const &_index_buffer_range)
@@ -73,16 +59,10 @@ sge::scenic::render_queue::mesh::mesh(
 		_material),
 	vertex_buffer_(
 		_vertex_buffer),
-	diffuse_texture_(
-		_diffuse_texture),
-	specular_texture_(
-		_specular_texture),
 	sort_index_(
 		create_sort_index(
 			_material,
-			_vertex_buffer,
-			_diffuse_texture,
-			_specular_texture)),
+			_vertex_buffer)),
 	modelview_(
 		_modelview),
 	index_buffer_(
@@ -105,20 +85,6 @@ sge::scenic::render_queue::mesh::vertex_buffer() const
 {
 	return
 		vertex_buffer_;
-}
-
-sge::scenic::render_queue::index_type
-sge::scenic::render_queue::mesh::diffuse_texture() const
-{
-	return
-		diffuse_texture_;
-}
-
-sge::scenic::render_queue::index_type
-sge::scenic::render_queue::mesh::specular_texture() const
-{
-	return
-		specular_texture_;
 }
 
 sge::renderer::matrix4 const &

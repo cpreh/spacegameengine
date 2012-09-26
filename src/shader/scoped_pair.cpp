@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::shader::scoped_pair::scoped_pair(
-	sge::renderer::context::object &_render_context,
+	sge::renderer::context::core &_render_context,
 	sge::shader::pair &_parent)
 :
 	parent_(

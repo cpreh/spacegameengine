@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_CORE_SAMPLER_FILTER_VARIANT_HPP_INCLUDED
 #define SGE_RENDERER_STATE_CORE_SAMPLER_FILTER_VARIANT_HPP_INCLUDED
 
+#include <sge/renderer/state/core/sampler/filter/variant_fwd.hpp>
 #include <sge/renderer/state/core/sampler/filter/anisotropic/parameters.hpp>
 #include <sge/renderer/state/core/sampler/filter/normal/parameters.hpp>
-#include <sge/renderer/state/core/sampler/filter/variant_fwd.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
 

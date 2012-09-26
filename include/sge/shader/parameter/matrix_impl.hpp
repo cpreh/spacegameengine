@@ -23,9 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/cg/parameter/matrix/set.hpp>
 #include <sge/cg/program/object.hpp>
-#include <sge/renderer/device.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/caps/device.hpp>
+#include <sge/renderer/device/core.hpp>
 #include <sge/shader/parameter/matrix_decl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
@@ -42,7 +42,7 @@ template
 sge::shader::parameter::matrix<ValueType,M,N>::matrix(
 	sge::cg::program::object &_program,
 	sge::shader::parameter::name const &_name,
-	sge::renderer::device const &_renderer,
+	sge::renderer::device::core const &_renderer,
 	sge::shader::parameter::is_projection_matrix const &_is_projection_matrix,
 	matrix_type const &_initial_value)
 :

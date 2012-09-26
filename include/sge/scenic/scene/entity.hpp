@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SCENIC_SCENE_ENTITY_HPP_INCLUDED
 
 #include <sge/scenic/symbol.hpp>
-#include <sge/scenic/scene/identifier.hpp>
+#include <sge/scenic/scene/mesh_path.hpp>
 #include <sge/scenic/scene/position.hpp>
 #include <sge/scenic/scene/rotation.hpp>
 #include <sge/scenic/scene/scale.hpp>
@@ -41,14 +41,14 @@ class entity
 public:
 	SGE_SCENIC_SYMBOL
 	entity(
-		sge::scenic::scene::identifier const &,
+		sge::scenic::scene::mesh_path const &,
 		sge::scenic::scene::position const &,
 		sge::scenic::scene::rotation const &,
 		sge::scenic::scene::scale const &);
 
 	SGE_SCENIC_SYMBOL
-	sge::scenic::scene::identifier const &
-	mesh() const;
+	sge::scenic::scene::mesh_path const &
+	mesh_path() const;
 
 	SGE_SCENIC_SYMBOL
 	sge::scenic::scene::position const &
@@ -65,7 +65,7 @@ public:
 	SGE_SCENIC_SYMBOL
 	~entity();
 private:
-	sge::scenic::scene::identifier mesh_;
+	sge::scenic::scene::mesh_path mesh_path_;
 	sge::scenic::scene::position position_;
 	sge::scenic::scene::rotation rotation_;
 	sge::scenic::scene::scale scale_;

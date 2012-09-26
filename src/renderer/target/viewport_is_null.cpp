@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/target/viewport_is_null.hpp>
 #include <sge/renderer/target/viewport.hpp>
+#include <sge/renderer/target/viewport_is_null.hpp>
 
 
 bool

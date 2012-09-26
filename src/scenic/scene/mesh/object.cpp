@@ -19,11 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/model/obj/prototype.hpp>
-#include <sge/renderer/device.hpp>
 #include <sge/renderer/index_buffer.hpp>
 #include <sge/renderer/scoped_index_lock.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
+#include <sge/renderer/device/core.hpp>
 #include <sge/renderer/index/iterator.hpp>
 #include <sge/renderer/index/dynamic/view.hpp>
 #include <sge/renderer/vf/iterator.hpp>
@@ -44,7 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::scenic::scene::mesh::object::object(
-	sge::renderer::device &_renderer,
+	sge::renderer::device::core &_renderer,
 	sge::renderer::vertex_declaration &_vertex_declaration,
 	sge::model::obj::prototype const &_prototype)
 :

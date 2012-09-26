@@ -22,8 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/context/parameters.hpp>
 #include <sge/opencl/device/object_ref_sequence.hpp>
 #include <sge/opencl/platform/object_fwd.hpp>
-#include <sge/renderer/device_fwd.hpp>
-#include <fcppt/null_ptr.hpp>
+#include <sge/renderer/device/core_fwd.hpp>
 
 
 sge::opencl::context::parameters::parameters(
@@ -35,8 +34,7 @@ sge::opencl::context::parameters::parameters(
 	device_refs_(
 		_device_refs),
 	error_callback_(),
-	shared_renderer_(
-		fcppt::null_ptr())
+	shared_renderer_()
 {
 }
 
@@ -69,10 +67,11 @@ sge::opencl::context::parameters::error_callback(
 
 sge::opencl::context::parameters &
 sge::opencl::context::parameters::share_with(
-	renderer::device &_shared_renderer)
+	renderer::device::core &_shared_renderer)
 {
 	shared_renderer_ =
-		&_shared_renderer;
+		optional_renderer(
+			_shared_renderer);
 	return *this;
 }
 
@@ -88,7 +87,7 @@ sge::opencl::context::parameters::error_callback() const
 	return error_callback_;
 }
 
-sge::renderer::device *
+sge::opencl::context::parameters::optional_renderer const &
 sge::opencl::context::parameters::shared_renderer() const
 {
 	return shared_renderer_;

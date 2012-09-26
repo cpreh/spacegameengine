@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::scenic::scene::prototype::prototype(
 	sge::scenic::scene::camera_properties const &_camera,
 	sge::scenic::render_context::fog::optional_properties const &_fog,
-	sge::renderer::ambient_color const &_ambient_color)
+	sge::scenic::render_context::ambient_color const &_ambient_color)
 :
 	camera_(
 		_camera),
@@ -52,14 +52,14 @@ sge::scenic::scene::prototype::entities()
 			entities_;
 }
 
-sge::scenic::render_context::light_sequence const &
+sge::scenic::render_context::light::sequence const &
 sge::scenic::scene::prototype::lights() const
 {
 		return
 			lights_;
 }
 
-sge::scenic::render_context::light_sequence &
+sge::scenic::render_context::light::sequence &
 sge::scenic::scene::prototype::lights()
 {
 		return
@@ -80,7 +80,7 @@ sge::scenic::scene::prototype::fog() const
 			fog_;
 }
 
-sge::renderer::ambient_color const &
+sge::scenic::render_context::ambient_color const &
 sge::scenic::scene::prototype::ambient_color() const
 {
 		return

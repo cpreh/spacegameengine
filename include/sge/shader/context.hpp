@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cg/context/object.hpp>
 #include <sge/cg/profile/object.hpp>
 #include <sge/cg/program/compile_options.hpp>
-#include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/device/core_fwd.hpp>
 #include <sge/shader/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -41,10 +41,10 @@ public:
 	SGE_SHADER_SYMBOL
 	explicit
 	context(
-		sge::renderer::device &);
+		sge::renderer::device::core &);
 
 	SGE_SHADER_SYMBOL
-	sge::renderer::device &
+	sge::renderer::device::core &
 	renderer() const;
 
 	SGE_SHADER_SYMBOL
@@ -74,7 +74,7 @@ public:
 	SGE_SHADER_SYMBOL
 	~context();
 private:
-	sge::renderer::device &renderer_;
+	sge::renderer::device::core &renderer_;
 	sge::cg::context::object cg_context_;
 	sge::cg::profile::object const vertex_profile_;
 	sge::cg::profile::object const pixel_profile_;

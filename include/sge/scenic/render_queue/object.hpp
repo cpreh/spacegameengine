@@ -22,14 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SCENIC_RENDER_QUEUE_OBJECT_HPP_INCLUDED
 
 #include <sge/renderer/index_buffer_fwd.hpp>
-#include <sge/renderer/material_fwd.hpp>
 #include <sge/renderer/vertex_buffer_fwd.hpp>
-#include <sge/renderer/context/object_fwd.hpp>
-#include <sge/renderer/texture/planar_fwd.hpp>
+#include <sge/scenic/texture_manager_fwd.hpp>
 #include <sge/scenic/render_context/base_fwd.hpp>
+#include <sge/scenic/render_context/material/object.hpp>
 #include <sge/scenic/render_queue/index_type.hpp>
 #include <sge/scenic/render_queue/mesh.hpp>
 #include <sge/scenic/render_queue/state_change_count.hpp>
+#include <sge/scenic/scene/material/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -48,23 +48,16 @@ class object
 FCPPT_NONCOPYABLE(
 	object);
 public:
-	object();
+	object(
+		sge::scenic::texture_manager &);
 
 	void
 	current_material(
-		sge::renderer::material const &);
+		sge::scenic::scene::material::object const &);
 
 	void
 	current_vertex_buffer(
 		sge::renderer::vertex_buffer &);
-
-	void
-	current_diffuse_texture(
-		fcppt::optional<sge::renderer::texture::planar &>);
-
-	void
-	current_specular_texture(
-		fcppt::optional<sge::renderer::texture::planar &>);
 
 	void
 	add_mesh(
@@ -79,7 +72,7 @@ public:
 	~object();
 private:
 	typedef
-	std::vector<sge::renderer::material const *>
+	std::vector<sge::scenic::render_context::material::object>
 	material_sequence;
 
 	typedef
@@ -87,22 +80,15 @@ private:
 	vertex_buffer_sequence;
 
 	typedef
-	std::vector<sge::renderer::texture::planar*>
-	texture_sequence;
-
-	typedef
 	std::vector<sge::scenic::render_queue::mesh>
 	mesh_sequence;
 
+	sge::scenic::texture_manager &texture_manager_;
 	material_sequence materials_;
 	vertex_buffer_sequence vertex_buffers_;
-	texture_sequence diffuse_textures_;
-	texture_sequence specular_textures_;
 	mesh_sequence meshes_;
 	index_type current_material_;
 	index_type current_vertex_buffer_;
-	index_type current_diffuse_texture_;
-	index_type current_specular_texture_;
 };
 }
 }

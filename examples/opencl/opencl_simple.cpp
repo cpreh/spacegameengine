@@ -37,7 +37,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/program/build_parameters.hpp>
 #include <sge/opencl/program/object.hpp>
 #include <sge/opencl/program/source_string_sequence.hpp>
-#include <sge/renderer/device.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
@@ -49,6 +48,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/vertex_declaration.hpp>
 #include <sge/renderer/vertex_declaration_scoped_ptr.hpp>
+#include <sge/renderer/device/core.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/parameters/object.hpp>
 #include <sge/renderer/parameters/vsync.hpp>
@@ -359,7 +359,7 @@ try
 			chosen_platform,
 			device_refs)
 			.share_with(
-				sys.renderer())
+				sys.renderer_core())
 			.error_callback(
 				&opencl_error_callback));
 
@@ -449,11 +449,11 @@ try
 		<< FCPPT_TEXT("Kernel created, now creating a vertex buffer...\n");
 
 	sge::renderer::vertex_declaration_scoped_ptr const vertex_declaration(
-		sys.renderer().create_vertex_declaration(
+		sys.renderer_core().create_vertex_declaration(
 			sge::renderer::vf::dynamic::make_format<vf::format>()));
 
 	sge::renderer::vertex_buffer_scoped_ptr const vb(
-		sys.renderer().create_vertex_buffer(
+		sys.renderer_core().create_vertex_buffer(
 			*vertex_declaration,
 			sge::renderer::vf::dynamic::make_part_index<
 				vf::format,

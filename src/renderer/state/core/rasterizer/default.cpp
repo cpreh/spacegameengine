@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/state/core/rasterizer/enable_scissor_test.hpp>
 #include <sge/renderer/state/core/rasterizer/cull_mode.hpp>
 #include <sge/renderer/state/core/rasterizer/default.hpp>
+#include <sge/renderer/state/core/rasterizer/enable_scissor_test.hpp>
 #include <sge/renderer/state/core/rasterizer/fill_mode.hpp>
 #include <sge/renderer/state/core/rasterizer/parameters.hpp>
 

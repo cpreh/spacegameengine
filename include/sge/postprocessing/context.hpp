@@ -24,10 +24,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/postprocessing/fullscreen_quad.hpp>
 #include <sge/postprocessing/symbol.hpp>
 #include <sge/renderer/depth_stencil_surface_scoped_ptr.hpp>
-#include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/vertex_buffer_scoped_ptr.hpp>
 #include <sge/renderer/vertex_declaration_scoped_ptr.hpp>
-#include <sge/renderer/context/scoped_unique_ptr.hpp>
+#include <sge/renderer/context/scoped_core_unique_ptr.hpp>
+#include <sge/renderer/device/core_fwd.hpp>
+#include <sge/renderer/state/core/sampler/object_scoped_ptr.hpp>
 #include <sge/renderer/target/offscreen_scoped_ptr.hpp>
 #include <sge/renderer/texture/planar_scoped_ptr.hpp>
 #include <sge/shader/context_fwd.hpp>
@@ -50,12 +51,12 @@ FCPPT_NONCOPYABLE(
 public:
 	SGE_POSTPROCESSING_SYMBOL
 	context(
-		sge::renderer::device &,
+		sge::renderer::device::core &,
 		sge::viewport::manager &,
 		sge::shader::context &);
 
 	SGE_POSTPROCESSING_SYMBOL
-	sge::renderer::context::scoped_unique_ptr
+	sge::renderer::context::scoped_core_unique_ptr
 	create_render_context();
 
 	SGE_POSTPROCESSING_SYMBOL
@@ -63,14 +64,15 @@ public:
 	render();
 
 	SGE_POSTPROCESSING_SYMBOL
-	sge::renderer::context::scoped_unique_ptr
+	sge::renderer::context::scoped_core_unique_ptr
 	render_and_return_overlay();
 
 	SGE_POSTPROCESSING_SYMBOL
 	~context();
 private:
-	sge::renderer::device &renderer_;
+	sge::renderer::device::core &renderer_;
 	sge::renderer::vertex_declaration_scoped_ptr const quad_vertex_declaration_;
+	sge::renderer::state::core::sampler::object_scoped_ptr const point_sampler_;
 	sge::postprocessing::fullscreen_quad fullscreen_quad_;
 		/*
 	sge::shader::pair downsample_shader_;
@@ -118,7 +120,7 @@ private:
 	blur();
 		*/
 
-	sge::renderer::context::scoped_unique_ptr
+	sge::renderer::context::scoped_core_unique_ptr
 	finalize();
 };
 }

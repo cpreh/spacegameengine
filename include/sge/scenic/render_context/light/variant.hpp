@@ -18,19 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/scenic/scene/material_from_obj_material.hpp>
+#ifndef SGE_SCENIC_RENDER_CONTEXT_LIGHT_VARIANT_HPP_INCLUDED
+#define SGE_SCENIC_RENDER_CONTEXT_LIGHT_VARIANT_HPP_INCLUDED
 
-sge::scenic::scene::material const
-sge::scenic::scene::material_from_obj_material(
-	sge::model::obj::material const &_material)
+#include <sge/scenic/render_context/light/directional.hpp>
+#include <sge/scenic/render_context/light/point.hpp>
+#include <fcppt/variant/object_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/vector/vector10.hpp>
+#include <fcppt/config/external_end.hpp>
+
+
+namespace sge
 {
-	return
-		sge::scenic::scene::material(
-			sge::scenic::scene::identifier(
-				_material.identifier().get()),
-			_material.renderer_material(),
-			sge::scenic::scene::diffuse_texture_path(
-				_material.diffuse_texture().get()),
-			sge::scenic::scene::specular_texture_path(
-				_material.specular_texture().get()));
+namespace scenic
+{
+namespace render_context
+{
+namespace light
+{
+typedef
+fcppt::variant::object
+<
+	boost::mpl::vector2
+	<
+		sge::scenic::render_context::light::directional,
+		sge::scenic::render_context::light::point
+	>
+>
+variant;
 }
+}
+}
+}
+
+#endif

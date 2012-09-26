@@ -35,7 +35,7 @@ sge::opencl::single_device_system::parameters::parameters()
 
 sge::opencl::single_device_system::parameters &
 sge::opencl::single_device_system::parameters::renderer(
-	sge::renderer::device &_renderer)
+	sge::renderer::device::core &_renderer)
 {
 	renderer_ =
 		sge::opencl::single_device_system::optional_renderer(

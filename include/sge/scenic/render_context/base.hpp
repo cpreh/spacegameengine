@@ -23,16 +23,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/class_symbol.hpp>
 #include <sge/renderer/index_buffer_fwd.hpp>
-#include <sge/renderer/material_fwd.hpp>
 #include <sge/renderer/matrix4.hpp>
-#include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/vertex_buffer_fwd.hpp>
 #include <sge/renderer/target/base_fwd.hpp>
 #include <sge/scenic/index_buffer_range_fwd.hpp>
 #include <sge/scenic/symbol.hpp>
-#include <sge/scenic/render_context/light_sequence.hpp>
-#include <sge/scenic/render_context/optional_planar_texture.hpp>
+#include <sge/scenic/render_context/transform_matrix_type.hpp>
 #include <sge/scenic/render_context/fog/optional_properties.hpp>
+#include <sge/scenic/render_context/light/sequence.hpp>
+#include <sge/scenic/render_context/material/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -49,24 +48,16 @@ FCPPT_NONCOPYABLE(
 public:
 	virtual void
 	transform(
-		sge::renderer::matrix_mode::type,
+		sge::scenic::render_context::transform_matrix_type::type,
 		sge::renderer::matrix4 const &) = 0;
 
 	virtual void
-	diffuse_texture(
-		sge::scenic::render_context::optional_planar_texture const &) = 0;
-
-	virtual void
-	specular_texture(
-		sge::scenic::render_context::optional_planar_texture const &) = 0;
-
-	virtual void
 	material(
-		sge::renderer::material const &) = 0;
+		sge::scenic::render_context::material::object const &) = 0;
 
 	virtual void
 	lights(
-		sge::scenic::render_context::light_sequence const &) = 0;
+		sge::scenic::render_context::light::sequence const &) = 0;
 
 	virtual void
 	vertex_buffer(

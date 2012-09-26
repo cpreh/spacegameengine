@@ -22,21 +22,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SCENIC_RENDER_CONTEXT_CG_OBJECT_HPP_INCLUDED
 
 #include <sge/renderer/index_buffer_fwd.hpp>
-#include <sge/renderer/material_fwd.hpp>
 #include <sge/renderer/matrix4.hpp>
-#include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/vertex_buffer_fwd.hpp>
-#include <sge/renderer/context/object_fwd.hpp>
-#include <sge/renderer/state/scoped.hpp>
+#include <sge/renderer/context/core_fwd.hpp>
+#include <sge/renderer/state/core/blend/scoped.hpp>
+#include <sge/renderer/state/core/depth_stencil/scoped.hpp>
+#include <sge/renderer/state/core/rasterizer/scoped.hpp>
+#include <sge/renderer/state/core/sampler/scoped.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
-#include <sge/renderer/texture/filter/scoped.hpp>
 #include <sge/scenic/index_buffer_range_fwd.hpp>
 #include <sge/scenic/symbol.hpp>
 #include <sge/scenic/render_context/base.hpp>
-#include <sge/scenic/render_context/light_sequence.hpp>
 #include <sge/scenic/render_context/optional_planar_texture.hpp>
+#include <sge/scenic/render_context/transform_matrix_type.hpp>
 #include <sge/scenic/render_context/cg/manager_fwd.hpp>
+#include <sge/scenic/render_context/light/sequence.hpp>
+#include <sge/scenic/render_context/material/object_fwd.hpp>
 #include <sge/shader/scoped_pair.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional.hpp>
@@ -62,33 +64,23 @@ public:
 	SGE_SCENIC_SYMBOL
 	object(
 		sge::scenic::render_context::cg::manager &,
-		sge::renderer::context::object &);
+		sge::renderer::context::core &);
 
 	SGE_SCENIC_SYMBOL
 	void
 	transform(
-		sge::renderer::matrix_mode::type,
+		sge::scenic::render_context::transform_matrix_type::type,
 		sge::renderer::matrix4 const &);
 
 	SGE_SCENIC_SYMBOL
 	void
-	diffuse_texture(
-		sge::scenic::render_context::optional_planar_texture const &);
-
-	SGE_SCENIC_SYMBOL
-	void
-	specular_texture(
-		sge::scenic::render_context::optional_planar_texture const &);
-
-	SGE_SCENIC_SYMBOL
-	void
 	material(
-		sge::renderer::material const &);
+		sge::scenic::render_context::material::object const &);
 
 	SGE_SCENIC_SYMBOL
 	void
 	lights(
-		sge::scenic::render_context::light_sequence const &);
+		sge::scenic::render_context::light::sequence const &);
 
 	SGE_SCENIC_SYMBOL
 	void
@@ -118,10 +110,12 @@ private:
 	optional_vertex_buffer;
 
 	sge::scenic::render_context::cg::manager &manager_;
-	sge::renderer::context::object &context_;
+	sge::renderer::context::core &context_;
 	sge::renderer::scoped_vertex_declaration scoped_vd_;
-	sge::renderer::state::scoped scoped_state_;
-	sge::renderer::texture::filter::scoped scoped_texture_filter_;
+	sge::renderer::state::core::depth_stencil::scoped depth_stencil_state_;
+	sge::renderer::state::core::blend::scoped blend_state_;
+	sge::renderer::state::core::rasterizer::scoped rasterizer_state_;
+	sge::renderer::state::core::sampler::scoped sampler_state_;
 	sge::shader::scoped_pair scoped_shader_;
 	sge::renderer::matrix4 current_world_;
 	sge::renderer::matrix4 current_projection_;

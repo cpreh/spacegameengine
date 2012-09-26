@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/device.hpp>
 #include <sge/renderer/vertex_declaration.hpp>
+#include <sge/renderer/device/core.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/scenic/render_context/base.hpp>
 #include <sge/scenic/render_context/cg/manager.hpp>
@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::scenic::scene::manager::manager(
-	sge::renderer::device &_renderer,
+	sge::renderer::device::core &_renderer,
 	sge::image2d::system &_image_loader)
 :
 	renderer_(
@@ -54,14 +54,14 @@ sge::scenic::scene::manager::manager(
 
 sge::scenic::render_context::base_unique_ptr
 sge::scenic::scene::manager::create_render_context(
-	sge::renderer::context::object &_context)
+	sge::renderer::context::core &_context)
 {
 	return
 		render_context_manager_->create_context(
 			_context);
 }
 
-sge::renderer::device &
+sge::renderer::device::core &
 sge::scenic::scene::manager::renderer() const
 {
 	return

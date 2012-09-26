@@ -21,27 +21,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/config/media_path.hpp>
 #include <sge/postprocessing/context.hpp>
 #include <sge/renderer/depth_stencil_surface.hpp>
-#include <sge/renderer/device.hpp>
+#include <sge/renderer/device/core.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/vertex_declaration.hpp>
-#include <sge/renderer/context/object.hpp>
-#include <sge/renderer/context/scoped.hpp>
+#include <sge/renderer/context/core.hpp>
+#include <sge/renderer/context/scoped_core.hpp>
 #include <sge/renderer/target/from_texture.hpp>
+#include <sge/renderer/state/core/sampler/object.hpp>
 #include <sge/renderer/target/offscreen.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/renderer/target/viewport_size.hpp>
+#include <sge/renderer/texture/capabilities_field.hpp>
+#include <sge/renderer/texture/planar_parameters.hpp>
+#include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/state/core/sampler/parameters.hpp>
+#include <sge/renderer/state/core/sampler/address/default.hpp>
+#include <sge/renderer/state/core/sampler/scoped.hpp>
+#include <sge/renderer/state/core/sampler/filter/point.hpp>
+	/*
 #include <sge/renderer/texture/address_mode.hpp>
 #include <sge/renderer/texture/address_mode2.hpp>
-#include <sge/renderer/texture/capabilities_field.hpp>
-#include <sge/renderer/texture/planar.hpp>
-#include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/texture/set_address_mode2.hpp>
-#include <sge/renderer/texture/filter/linear.hpp>
-#include <sge/renderer/texture/filter/point.hpp>
-#include <sge/renderer/texture/filter/scoped.hpp>
+	*/
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/shader/scoped_pair.hpp>
 #include <sge/viewport/manager.hpp>
@@ -49,6 +53,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/move.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/ref.hpp>
+#include <fcppt/cref.hpp>
+#include <fcppt/assign/make_container.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
@@ -64,7 +70,7 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::postprocessing::context::context(
-	sge::renderer::device &_renderer,
+	sge::renderer::device::core &_renderer,
 	sge::viewport::manager &_viewport_manager,
 	sge::shader::context &_shader_context)
 :
@@ -73,6 +79,11 @@ sge::postprocessing::context::context(
 	quad_vertex_declaration_(
 		sge::postprocessing::fullscreen_quad::create_vertex_declaration(
 			renderer_)),
+	point_sampler_(
+		renderer_.create_sampler_state(
+			sge::renderer::state::core::sampler::parameters(
+				sge::renderer::state::core::sampler::address::default_(),
+				sge::renderer::state::core::sampler::filter::point()))),
 	fullscreen_quad_(
 		renderer_,
 		*quad_vertex_declaration_),
@@ -108,7 +119,7 @@ sge::postprocessing::context::context(
 
 FCPPT_PP_POP_WARNING
 
-sge::renderer::context::scoped_unique_ptr
+sge::renderer::context::scoped_core_unique_ptr
 sge::postprocessing::context::create_render_context()
 {
 	FCPPT_ASSERT_PRE(
@@ -121,7 +132,7 @@ sge::postprocessing::context::create_render_context()
 		*rendering_result_texture_);
 
 	return
-		fcppt::make_unique_ptr<sge::renderer::context::scoped>(
+		fcppt::make_unique_ptr<sge::renderer::context::scoped_core>(
 			fcppt::ref(
 				renderer_),
 			fcppt::ref(
@@ -134,7 +145,7 @@ sge::postprocessing::context::render()
 	this->render_and_return_overlay();
 }
 
-sge::renderer::context::scoped_unique_ptr
+sge::renderer::context::scoped_core_unique_ptr
 sge::postprocessing::context::render_and_return_overlay()
 {
 	/*
@@ -273,7 +284,7 @@ sge::postprocessing::context::downsample()
 	this->switch_downsampled_target_texture(
 		*downsampled_texture_0_);
 
-	sge::renderer::context::scoped const scoped_block(
+	sge::renderer::context::scoped_core const scoped_block(
 		renderer_,
 		*offscreen_downsampled_target_);
 
@@ -299,7 +310,7 @@ sge::postprocessing::context::blur_h()
 	this->switch_downsampled_target_texture(
 		*downsampled_texture_1_);
 
-	sge::renderer::context::scoped const scoped_block(
+	sge::renderer::context::scoped_core const scoped_block(
 		renderer_,
 		*offscreen_downsampled_target_);
 
@@ -331,7 +342,7 @@ sge::postprocessing::context::blur_v()
 	this->switch_downsampled_target_texture(
 		*downsampled_texture_0_);
 
-	sge::renderer::context::scoped const scoped_block(
+	sge::renderer::context::scoped_core const scoped_block(
 		renderer_,
 		*offscreen_downsampled_target_);
 
@@ -370,11 +381,11 @@ sge::postprocessing::context::blur()
 }
 	*/
 
-sge::renderer::context::scoped_unique_ptr
+sge::renderer::context::scoped_core_unique_ptr
 sge::postprocessing::context::finalize()
 {
-	sge::renderer::context::scoped_unique_ptr result(
-		fcppt::make_unique_ptr<sge::renderer::context::scoped>(
+	sge::renderer::context::scoped_core_unique_ptr result(
+		fcppt::make_unique_ptr<sge::renderer::context::scoped_core>(
 			fcppt::ref(
 				renderer_),
 			fcppt::ref(
@@ -384,10 +395,13 @@ sge::postprocessing::context::finalize()
 		result->get(),
 		finalize_shader_);
 
-	sge::renderer::texture::filter::scoped scoped_texture_filter_0(
+	FCPPT_ASSERT_PRE(
+		finalize_input_texture_parameter_.stage().get() == 0u);
+
+	sge::renderer::state::core::sampler::scoped scoped_filter(
 		result->get(),
-		finalize_input_texture_parameter_.stage(),
-		sge::renderer::texture::filter::point());
+		fcppt::assign::make_container<sge::renderer::state::core::sampler::const_object_ref_vector>
+			(fcppt::cref(*point_sampler_)));
 
 	/*
 	sge::renderer::texture::filter::scoped scoped_texture_filter_1(

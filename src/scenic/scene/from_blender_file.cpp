@@ -208,12 +208,12 @@ parse_fog_properties(
 			sge::scenic::render_context::fog::optional_properties();
 }
 
-sge::renderer::ambient_color const
+sge::scenic::render_context::ambient_color const
 parse_ambient_color(
 	sge::parse::json::object const &_json_world)
 {
 	return
-		sge::renderer::ambient_color(
+		sge::scenic::render_context::ambient_color(
 			sge::image::color::any::object(
 				vector3_to_rgb32f(
 					sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
@@ -225,16 +225,18 @@ parse_ambient_color(
 // Loads a single entity. Is called for every entity.
 void
 load_entity(
+	boost::filesystem::path const &_base_path,
 	sge::scenic::scene::prototype &_scene,
 	sge::parse::json::object const &_json_entity)
 {
 	_scene.entities().push_back(
 		sge::scenic::scene::entity(
-			sge::scenic::scene::identifier(
-				sge::parse::json::find_and_convert_member<fcppt::string>(
+			sge::scenic::scene::mesh_path(
+				_base_path /
+				(sge::parse::json::find_and_convert_member<fcppt::string>(
 					_json_entity,
 					sge::parse::json::path(
-						FCPPT_TEXT("name")))),
+						FCPPT_TEXT("name")))+FCPPT_TEXT(".obj"))),
 			sge::scenic::scene::position(
 				from_blender_vector(
 					sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
@@ -259,6 +261,7 @@ load_entity(
 // This is just a wrapper calling load_entity on every entity.
 void
 load_entities(
+	boost::filesystem::path const &_base_path,
 	sge::scenic::scene::prototype &_scene,
 	sge::parse::json::array const &_json_entities)
 {
@@ -268,40 +271,41 @@ load_entities(
 		current_entity != _json_entities.elements.end();
 		++current_entity)
 		load_entity(
+			_base_path,
 			_scene,
 			sge::parse::json::get<sge::parse::json::object const>(
 				*current_entity));
 }
 
-sge::renderer::light::attenuation const
+sge::scenic::render_context::light::attenuation const
 parse_light_attenuation(
 	sge::parse::json::object const &_json_attenuation)
 {
 	return
-		sge::renderer::light::attenuation(
-			sge::renderer::light::constant_attenuation(
+		sge::scenic::render_context::light::attenuation(
+			sge::scenic::render_context::light::constant_attenuation(
 				sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
 					_json_attenuation,
 					sge::parse::json::path(
 						FCPPT_TEXT("constant-falloff")))),
-			sge::renderer::light::linear_attenuation(
+			sge::scenic::render_context::light::linear_attenuation(
 				sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
 					_json_attenuation,
 					sge::parse::json::path(
 						FCPPT_TEXT("linear-falloff")))),
-			sge::renderer::light::quadratic_attenuation(
+			sge::scenic::render_context::light::quadratic_attenuation(
 				sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
 					_json_attenuation,
 					sge::parse::json::path(
 						FCPPT_TEXT("quadratic-falloff")))));
 }
 
-sge::renderer::light::direction const
+sge::scenic::render_context::light::direction const
 parse_light_direction(
 	sge::parse::json::object const &_json_parent)
 {
 	return
-		sge::renderer::light::direction(
+		sge::scenic::render_context::light::direction(
 			fcppt::math::matrix::multiply_matrix4_vector3(
 				rotation_from_angles_entity(
 					from_blender_vector(
@@ -315,12 +319,12 @@ parse_light_direction(
 					0.0f)));
 }
 
-sge::renderer::light::position const
+sge::scenic::render_context::light::position const
 parse_light_position(
 	sge::parse::json::object const &_json_parent)
 {
 	return
-		sge::renderer::light::position(
+		sge::scenic::render_context::light::position(
 			from_blender_vector(
 				sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
 					_json_parent,
@@ -346,34 +350,34 @@ load_light(
 				sge::parse::json::path(
 					FCPPT_TEXT("color")))));
 
-	sge::renderer::diffuse_color const diffuse_color(
+	sge::scenic::render_context::diffuse_color const diffuse_color(
 		converted_color);
 
-	sge::renderer::specular_color const specular_color(
+	sge::scenic::render_context::specular_color const specular_color(
 		converted_color);
 
-	sge::renderer::ambient_color ambient_color(
+	sge::scenic::render_context::ambient_color ambient_color(
 		sge::image::colors::black());
 
 	if(light_type == FCPPT_TEXT("directional"))
 	{
 		_scene.lights().push_back(
-			sge::renderer::light::object(
+			sge::scenic::render_context::light::object(
 				diffuse_color,
 				specular_color,
 				ambient_color,
-				sge::renderer::light::directional(
+				sge::scenic::render_context::light::directional(
 					parse_light_direction(
 						_json_light))));
 	}
 	else if(light_type == FCPPT_TEXT("point"))
 	{
 		_scene.lights().push_back(
-			sge::renderer::light::object(
+			sge::scenic::render_context::light::object(
 				diffuse_color,
 				specular_color,
 				ambient_color,
-				sge::renderer::light::point(
+				sge::scenic::render_context::light::point(
 					parse_light_position(
 						_json_light),
 					parse_light_attenuation(
@@ -381,23 +385,25 @@ load_light(
 	}
 	else if(light_type == FCPPT_TEXT("spot"))
 	{
+		/*
 		_scene.lights().push_back(
-			sge::renderer::light::object(
+			sge::scenic::render_context::light::object(
 				diffuse_color,
 				specular_color,
 				ambient_color,
-				sge::renderer::light::spot(
+				sge::scenic::render_context::light::spot(
 					parse_light_position(
 						_json_light),
 					parse_light_direction(
 						_json_light),
-					sge::renderer::light::cutoff_angle(
+					sge::scenic::render_context::light::cutoff_angle(
 						sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
 							_json_light,
 							sge::parse::json::path(
 								FCPPT_TEXT("spot_cutoff")))),
 					parse_light_attenuation(
 						_json_light))));
+		*/
 	}
 	else
 	{
@@ -461,6 +467,7 @@ sge::scenic::scene::from_blender_file(
 							FCPPT_TEXT("world")))))));
 
 	load_entities(
+		_path.parent_path(),
 		*result,
 		sge::parse::json::find_and_convert_member<sge::parse::json::array>(
 			json_file,

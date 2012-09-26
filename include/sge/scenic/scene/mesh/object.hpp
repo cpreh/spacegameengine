@@ -22,10 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SCENIC_SCENE_MESH_OBJECT_HPP_INCLUDED
 
 #include <sge/model/obj/prototype_fwd.hpp>
-#include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/index_buffer_scoped_ptr.hpp>
 #include <sge/renderer/vertex_buffer_scoped_ptr.hpp>
 #include <sge/renderer/vertex_declaration_fwd.hpp>
+#include <sge/renderer/device/core_fwd.hpp>
 #include <sge/scenic/box.hpp>
 #include <sge/scenic/scene/mesh/material_to_index_buffer_range.hpp>
 #include <fcppt/math/box/object_impl.hpp>
@@ -46,7 +46,7 @@ FCPPT_NONCOPYABLE(
 public:
 	SGE_SCENIC_SYMBOL
 	object(
-		sge::renderer::device &,
+		sge::renderer::device::core &,
 		sge::renderer::vertex_declaration &,
 		sge::model::obj::prototype const &);
 

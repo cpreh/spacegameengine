@@ -18,15 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/cg/program/from_string_parameters.hpp>
+#include <sge/cg/program/main_function.hpp>
+#include <sge/renderer/cg/loaded_program.hpp>
+#include <sge/renderer/device/core.hpp>
 #include <sge/shader/context.hpp>
 #include <sge/shader/load_edited_string.hpp>
 #include <sge/shader/pair.hpp>
-#include <sge/cg/program/from_string_parameters.hpp>
-#include <sge/cg/program/main_function.hpp>
-#include <sge/renderer/device.hpp>
-#include <sge/renderer/cg/loaded_program.hpp>
-#include <fcppt/algorithm/ptr_container_erase.hpp>
 #include <fcppt/optional_impl.hpp>
+#include <fcppt/algorithm/ptr_container_erase.hpp>
 
 
 sge::shader::pair::pair(

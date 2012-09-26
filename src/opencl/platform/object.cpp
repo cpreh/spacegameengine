@@ -147,7 +147,7 @@ sge::opencl::platform::object::extensions() const
 
 bool
 sge::opencl::platform::object::supports_memory_sharing_with(
-	renderer::device const &) const
+	renderer::device::core const &) const
 {
 	return
 		fcppt::algorithm::contains(

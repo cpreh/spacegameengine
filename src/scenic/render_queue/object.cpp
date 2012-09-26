@@ -18,13 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/default_material.hpp>
-#include <sge/renderer/material.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
-#include <sge/renderer/context/object.hpp>
+#include <sge/renderer/context/core.hpp>
 #include <sge/renderer/texture/planar.hpp>
+#include <sge/scenic/texture_manager.hpp>
 #include <sge/scenic/render_context/base.hpp>
 #include <sge/scenic/render_queue/object.hpp>
+#include <sge/scenic/scene/material/object.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/next_prior.hpp>
@@ -39,19 +39,19 @@ template<typename StateSequence>
 void
 change_context_state(
 	StateSequence &_states,
-	typename StateSequence::value_type _state_ptr,
+	typename StateSequence::value_type _state,
 	sge::scenic::render_queue::index_type &_current_state)
 {
 	typename StateSequence::const_iterator it =
 		std::find(
 			_states.begin(),
 			_states.end(),
-			_state_ptr);
+			_state);
 
 	if(it == _states.end())
 	{
 		_states.push_back(
-			_state_ptr);
+			_state);
 
 		it =
 			boost::prior(
@@ -62,32 +62,25 @@ change_context_state(
 		_states.begin());
 
 	_current_state =
-		static_cast<
-			sge::scenic::render_queue::index_type
-		>(
+		static_cast<sge::scenic::render_queue::index_type>(
 			std::distance(
 				begin,
 				it));
 }
 }
 
-sge::scenic::render_queue::object::object()
+sge::scenic::render_queue::object::object(
+	sge::scenic::texture_manager &_texture_manager)
 :
+	texture_manager_(
+		_texture_manager),
 	materials_(),
 	vertex_buffers_(),
-	diffuse_textures_(),
-	specular_textures_(),
 	meshes_(),
 	current_material_(
 		static_cast<sge::scenic::render_queue::index_type>(
 			-1)),
 	current_vertex_buffer_(
-		static_cast<sge::scenic::render_queue::index_type>(
-			-1)),
-	current_diffuse_texture_(
-		static_cast<sge::scenic::render_queue::index_type>(
-			-1)),
-	current_specular_texture_(
 		static_cast<sge::scenic::render_queue::index_type>(
 			-1))
 {
@@ -95,11 +88,37 @@ sge::scenic::render_queue::object::object()
 
 void
 sge::scenic::render_queue::object::current_material(
-	sge::renderer::material const &_material)
+	sge::scenic::scene::material::object const &_material)
 {
+	sge::scenic::render_context::material::object const renderable_material(
+		sge::scenic::render_context::diffuse_color(
+			_material.diffuse_color().get()),
+		sge::scenic::render_context::ambient_color(
+			_material.ambient_color().get()),
+		sge::scenic::render_context::specular_color(
+			_material.specular_color().get()),
+		sge::scenic::render_context::emissive_color(
+			_material.emissive_color().get()),
+		sge::scenic::render_context::material::shininess(
+			_material.shininess().get()),
+		_material.diffuse_texture().get().empty()
+		?
+			sge::scenic::render_context::material::diffuse_texture()
+		:
+			sge::scenic::render_context::material::diffuse_texture(
+				texture_manager_.texture_for_path(
+					_material.diffuse_texture().get())),
+		_material.specular_texture().get().empty()
+		?
+			sge::scenic::render_context::material::specular_texture()
+		:
+			sge::scenic::render_context::material::specular_texture(
+				texture_manager_.texture_for_path(
+					_material.specular_texture().get())));
+
 	change_context_state(
 		materials_,
-		&_material,
+		renderable_material,
 		current_material_);
 }
 
@@ -114,38 +133,6 @@ sge::scenic::render_queue::object::current_vertex_buffer(
 }
 
 void
-sge::scenic::render_queue::object::current_diffuse_texture(
-	fcppt::optional<sge::renderer::texture::planar &> _texture)
-{
-	if(_texture)
-		change_context_state(
-			diffuse_textures_,
-			&(*_texture),
-			current_diffuse_texture_);
-	else
-		change_context_state(
-			diffuse_textures_,
-			0,
-			current_diffuse_texture_);
-}
-
-void
-sge::scenic::render_queue::object::current_specular_texture(
-	fcppt::optional<sge::renderer::texture::planar &> _texture)
-{
-	if(_texture)
-		change_context_state(
-			specular_textures_,
-			&(*_texture),
-			current_specular_texture_);
-	else
-		change_context_state(
-			specular_textures_,
-			0,
-			current_specular_texture_);
-}
-
-void
 sge::scenic::render_queue::object::add_mesh(
 	sge::renderer::matrix4 const &_modelview,
 	sge::renderer::index_buffer &_index_buffer,
@@ -155,8 +142,6 @@ sge::scenic::render_queue::object::add_mesh(
 		sge::scenic::render_queue::mesh(
 			current_material_,
 			current_vertex_buffer_,
-			current_diffuse_texture_,
-			current_specular_texture_,
 			_modelview,
 			_index_buffer,
 			_index_buffer_range));
@@ -178,10 +163,6 @@ sge::scenic::render_queue::object::render(
 		current_render_material =
 			invalid_index,
 		current_render_vertex_buffer =
-			invalid_index,
-		current_render_diffuse_texture =
-			invalid_index,
-		current_render_specular_texture =
 			invalid_index;
 
 	sge::scenic::render_queue::state_change_count state_changes(
@@ -198,7 +179,7 @@ sge::scenic::render_queue::object::render(
 			state_changes++;
 
 			_context.material(
-				*materials_[
+				materials_[
 					static_cast<material_sequence::size_type>(
 						current_mesh->material())]);
 
@@ -219,45 +200,9 @@ sge::scenic::render_queue::object::render(
 				current_mesh->vertex_buffer();
 		}
 
-		if(current_mesh->diffuse_texture() != current_render_diffuse_texture)
-		{
-			state_changes++;
-
-			if(current_mesh->diffuse_texture() == invalid_index || !diffuse_textures_[static_cast<texture_sequence::size_type>(current_mesh->diffuse_texture())])
-				_context.diffuse_texture(
-					sge::scenic::render_context::optional_planar_texture());
-			else
-				_context.diffuse_texture(
-					sge::scenic::render_context::optional_planar_texture(
-						*diffuse_textures_[
-							static_cast<texture_sequence::size_type>(
-								current_mesh->diffuse_texture())]));
-
-			current_render_diffuse_texture =
-				current_mesh->diffuse_texture();
-		}
-
-		if(current_mesh->specular_texture() != current_render_specular_texture)
-		{
-			state_changes++;
-
-			if(current_mesh->specular_texture() == invalid_index || !specular_textures_[static_cast<texture_sequence::size_type>(current_mesh->specular_texture())])
-				_context.specular_texture(
-					sge::scenic::render_context::optional_planar_texture());
-			else
-				_context.specular_texture(
-					sge::scenic::render_context::optional_planar_texture(
-						*specular_textures_[
-							static_cast<texture_sequence::size_type>(
-								current_mesh->specular_texture())]));
-
-			current_render_specular_texture =
-				current_mesh->specular_texture();
-		}
-
 		state_changes++;
 		_context.transform(
-			sge::renderer::matrix_mode::world,
+			sge::scenic::render_context::transform_matrix_type::world,
 			current_mesh->modelview());
 
 		_context.render(

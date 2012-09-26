@@ -21,13 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SCENIC_RENDER_CONTEXT_CG_LIGHT_DIRECTIONAL_HPP_INCLUDED
 #define SGE_SCENIC_RENDER_CONTEXT_CG_LIGHT_DIRECTIONAL_HPP_INCLUDED
 
-#include <sge/renderer/ambient_color.hpp>
-#include <sge/renderer/diffuse_color.hpp>
-#include <sge/renderer/specular_color.hpp>
-#include <sge/renderer/light/direction_fwd.hpp>
+#include <sge/scenic/render_context/ambient_color.hpp>
+#include <sge/scenic/render_context/diffuse_color.hpp>
+#include <sge/scenic/render_context/specular_color.hpp>
 #include <sge/scenic/render_context/cg/light/index.hpp>
+#include <sge/scenic/render_context/light/direction_fwd.hpp>
 #include <sge/shader/parameter/vector.hpp>
 #include <fcppt/noncopyable.hpp>
+
 
 namespace sge
 {
@@ -50,19 +51,19 @@ public:
 
 	void
 	diffuse_color(
-		sge::renderer::diffuse_color const &);
+		sge::scenic::render_context::diffuse_color const &);
 
 	void
 	specular_color(
-		sge::renderer::specular_color const &);
+		sge::scenic::render_context::specular_color const &);
 
 	void
 	ambient_color(
-		sge::renderer::ambient_color const &);
+		sge::scenic::render_context::ambient_color const &);
 
 	void
 	camera_space_direction(
-		sge::renderer::light::direction const &);
+		sge::scenic::render_context::light::direction const &);
 
 	~directional();
 private:

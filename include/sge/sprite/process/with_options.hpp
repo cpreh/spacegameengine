@@ -25,9 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/process/is_options.hpp>
 #include <sge/sprite/render/parameters.hpp>
 #include <sge/sprite/render/range_with_options.hpp>
-#include <sge/sprite/state/render_context.hpp>
 #include <sge/sprite/state/object_fwd.hpp>
 #include <sge/sprite/state/options_fwd.hpp>
+#include <sge/sprite/state/render_context.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>

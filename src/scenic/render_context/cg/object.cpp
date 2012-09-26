@@ -18,22 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/material.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
-#include <sge/renderer/context/object.hpp>
-#include <sge/renderer/light/point.hpp>
-#include <sge/renderer/state/bool.hpp>
-#include <sge/renderer/state/cull_mode.hpp>
-#include <sge/renderer/state/depth_func.hpp>
-#include <sge/renderer/state/list.hpp>
-#include <sge/renderer/texture/filter/mipmap.hpp>
+#include <sge/renderer/context/core.hpp>
 #include <sge/scenic/index_buffer_range.hpp>
 #include <sge/scenic/render_context/cg/manager.hpp>
 #include <sge/scenic/render_context/cg/object.hpp>
 #include <sge/scenic/render_context/cg/light/directional.hpp>
 #include <sge/scenic/render_context/cg/light/point.hpp>
 #include <sge/scenic/render_context/fog/properties.hpp>
+#include <sge/scenic/render_context/material/object.hpp>
 #include <sge/src/scenic/render_context/cg/any_color_to_vector4.hpp>
+#include <fcppt/cref.hpp>
+#include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/matrix/inverse.hpp>
 #include <fcppt/math/matrix/multiply_matrix4_vector3.hpp>
@@ -43,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::scenic::render_context::cg::object::object(
 	sge::scenic::render_context::cg::manager &_manager,
-	sge::renderer::context::object &_context)
+	sge::renderer::context::core &_context)
 :
 	sge::scenic::render_context::base(),
 	manager_(
@@ -53,17 +49,20 @@ sge::scenic::render_context::cg::object::object(
 	scoped_vd_(
 		_context,
 		_manager.vertex_declaration_),
-	scoped_state_(
+	depth_stencil_state_(
 		_context,
-		sge::renderer::state::list
-			(sge::renderer::state::depth_func::less)
-			(sge::renderer::state::bool_::enable_alpha_blending = false)
-			(sge::renderer::state::cull_mode::counter_clockwise)),
-	scoped_texture_filter_(
+		*manager_.depth_stencil_state_),
+	blend_state_(
 		_context,
-		sge::renderer::texture::stage(
-			0u),
-		sge::renderer::texture::filter::mipmap()),
+		*manager_.blend_state_),
+	rasterizer_state_(
+		_context,
+		*manager_.rasterizer_state_),
+	sampler_state_(
+		_context,
+		fcppt::assign::make_container<sge::renderer::state::core::sampler::const_object_ref_vector>
+			(fcppt::cref(*manager_.mipmap_sampler_state_))
+			(fcppt::cref(*manager_.mipmap_sampler_state_))),
 	scoped_shader_(
 		_context,
 		manager_.shader_),
@@ -75,12 +74,12 @@ sge::scenic::render_context::cg::object::object(
 
 void
 sge::scenic::render_context::cg::object::transform(
-	sge::renderer::matrix_mode::type const _matrix_mode,
+	sge::scenic::render_context::transform_matrix_type::type const _matrix_mode,
 	sge::renderer::matrix4 const &_matrix)
 {
 	switch(_matrix_mode)
 	{
-	case sge::renderer::matrix_mode::world:
+	case sge::scenic::render_context::transform_matrix_type::world:
 		current_world_ =
 			_matrix;
 
@@ -95,103 +94,91 @@ sge::scenic::render_context::cg::object::transform(
 		manager_.world_projection_matrix_.set(
 			current_projection_ * current_world_);
 		break;
-	case sge::renderer::matrix_mode::projection:
+	case sge::scenic::render_context::transform_matrix_type::projection:
 		current_projection_ =
 			_matrix;
 
 		manager_.world_projection_matrix_.set(
 			current_projection_ * current_world_);
 		break;
-	case sge::renderer::matrix_mode::size:
-		break;
 	}
 }
 
 void
 sge::scenic::render_context::cg::object::material(
-	sge::renderer::material const &_material)
+	sge::scenic::render_context::material::object const &_material)
 {
 	manager_.material_diffuse_color_.set(
 		sge::scenic::render_context::cg::any_color_to_vector4(
-			_material.diffuse().get()));
+			_material.diffuse_color().get()));
 
 	manager_.material_specular_color_.set(
 		sge::scenic::render_context::cg::any_color_to_vector4(
-			_material.specular().get()));
+			_material.specular_color().get()));
 
 	manager_.material_emissive_color_.set(
 		sge::scenic::render_context::cg::any_color_to_vector4(
-			_material.emissive().get()));
+			_material.emissive_color().get()));
 
 	manager_.material_ambient_color_.set(
 		sge::scenic::render_context::cg::any_color_to_vector4(
-			_material.ambient().get()));
+			_material.ambient_color().get()));
 
 	manager_.material_shininess_.set(
 		_material.shininess().get());
-}
 
-void
-sge::scenic::render_context::cg::object::diffuse_texture(
-	sge::scenic::render_context::optional_planar_texture const &_texture)
-{
 	manager_.use_diffuse_texture_.set(
-		_texture.has_value());
+		_material.diffuse_texture().has_value());
 
 	manager_.diffuse_texture_.set(
-		_texture
+		_material.diffuse_texture()
 		?
 			sge::shader::parameter::planar_texture::optional_value(
-				*_texture)
+				_material.diffuse_texture())
 		:
 			sge::shader::parameter::planar_texture::optional_value());
-}
 
-void
-sge::scenic::render_context::cg::object::specular_texture(
-	sge::scenic::render_context::optional_planar_texture const &_texture)
-{
 	manager_.use_specular_texture_.set(
-		_texture.has_value());
+		_material.specular_texture().has_value());
 
 	manager_.specular_texture_.set(
-		_texture
+		_material.specular_texture()
 		?
 			sge::shader::parameter::planar_texture::optional_value(
-				*_texture)
+				_material.specular_texture())
 		:
 			sge::shader::parameter::planar_texture::optional_value());
 }
 
 void
 sge::scenic::render_context::cg::object::lights(
-	sge::scenic::render_context::light_sequence const &_lights)
+	sge::scenic::render_context::light::sequence const &_lights)
 {
 	std::size_t point_light_count = 0;
 	std::size_t directional_light_count = 0;
 
 	for(
-		sge::scenic::render_context::light_sequence::const_iterator l =
+		sge::scenic::render_context::light::sequence::const_iterator l =
 			_lights.begin();
 		l != _lights.end();
 		++l)
 	{
-		if(fcppt::variant::holds_type<sge::renderer::light::point>(l->variant()))
+		if(fcppt::variant::holds_type<sge::scenic::render_context::light::point>(l->variant()))
 		{
 			sge::scenic::render_context::cg::light::point &current_light(
 				manager_.point_lights_[static_cast<std::size_t>(point_light_count++)]);
 
 			current_light.diffuse_color(
-				l->diffuse());
+				l->diffuse_color());
 
 			current_light.specular_color(
-				l->specular());
+				l->specular_color());
 
 			current_light.ambient_color(
-				l->ambient());
+				l->ambient_color());
 
-			sge::renderer::light::point const &point_light(
-				l->variant().get<sge::renderer::light::point>());
+			sge::scenic::render_context::light::point const &point_light(
+				l->variant().get<sge::scenic::render_context::light::point>());
 
 			current_light.camera_space_position(
 				fcppt::math::matrix::multiply_matrix4_vector3(
@@ -201,25 +188,25 @@ sge::scenic::render_context::cg::object::lights(
 			current_light.attenuation(
 				point_light.attenuation());
 		}
-		else if(fcppt::variant::holds_type<sge::renderer::light::directional>(l->variant()))
+		else if(fcppt::variant::holds_type<sge::scenic::render_context::light::directional>(l->variant()))
 		{
 			sge::scenic::render_context::cg::light::directional &current_light(
 				manager_.directional_lights_[static_cast<std::size_t>(directional_light_count++)]);
 
 			current_light.diffuse_color(
-				l->diffuse());
+				l->diffuse_color());
 
 			current_light.specular_color(
-				l->specular());
+				l->specular_color());
 
 			current_light.ambient_color(
-				l->ambient());
+				l->ambient_color());
 
-			sge::renderer::light::directional const &directional_light(
-				l->variant().get<sge::renderer::light::directional>());
+			sge::scenic::render_context::light::directional const &directional_light(
+				l->variant().get<sge::scenic::render_context::light::directional>());
 
 			current_light.camera_space_direction(
-				sge::renderer::light::direction(
+				sge::scenic::render_context::light::direction(
 					fcppt::math::vector::narrow_cast<sge::renderer::vector3>(
 						current_world_ *
 						fcppt::math::vector::construct(

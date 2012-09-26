@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SCENIC_TEXTURE_MANAGER_HPP_INCLUDED
 
 #include <sge/image2d/system_fwd.hpp>
-#include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/scenic/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -43,7 +43,7 @@ FCPPT_NONCOPYABLE(
 public:
 	SGE_SCENIC_SYMBOL
 	texture_manager(
-		sge::renderer::device &,
+		sge::renderer::device::core &,
 		sge::image2d::system &);
 
 	SGE_SCENIC_SYMBOL
@@ -62,7 +62,7 @@ private:
 	>
 	path_to_texture_map;
 
-	sge::renderer::device &renderer_;
+	sge::renderer::device::core &renderer_;
 	sge::image2d::system &image_loader_;
 	path_to_texture_map path_to_texture_;
 };

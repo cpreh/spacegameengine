@@ -21,6 +21,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/config/media_path.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/vector4.hpp>
+#include <sge/renderer/state/core/blend/object.hpp>
+#include <sge/renderer/state/core/blend/parameters.hpp>
+#include <sge/renderer/state/core/blend/write_mask_all.hpp>
+#include <sge/renderer/state/core/depth_stencil/object.hpp>
+#include <sge/renderer/state/core/depth_stencil/parameters.hpp>
+#include <sge/renderer/state/core/rasterizer/object.hpp>
+#include <sge/renderer/state/core/rasterizer/parameters.hpp>
+#include <sge/renderer/state/core/sampler/object.hpp>
+#include <sge/renderer/state/core/sampler/parameters.hpp>
+#include <sge/renderer/state/core/sampler/address/default.hpp>
+#include <sge/renderer/state/core/sampler/filter/mipmap.hpp>
 #include <sge/scenic/render_context/cg/manager.hpp>
 #include <sge/scenic/render_context/cg/object.hpp>
 #include <sge/scenic/render_context/cg/light/directional.hpp>
@@ -159,7 +170,33 @@ sge::scenic::render_context::cg::manager::manager(
 			"fog_information.color"),
 		sge::renderer::vector4()),
 	point_lights_(),
-	directional_lights_()
+	directional_lights_(),
+	depth_stencil_state_(
+		_shader_context.renderer().create_depth_stencil_state(
+			sge::renderer::state::core::depth_stencil::parameters(
+				sge::renderer::state::core::depth_stencil::depth::variant(
+					sge::renderer::state::core::depth_stencil::depth::enabled(
+						sge::renderer::state::core::depth_stencil::depth::func::less,
+						sge::renderer::state::core::depth_stencil::depth::write_enable(
+							true))),
+				sge::renderer::state::core::depth_stencil::stencil::off()))),
+	blend_state_(
+		_shader_context.renderer().create_blend_state(
+			sge::renderer::state::core::blend::parameters(
+				sge::renderer::state::core::blend::alpha_off(),
+				sge::renderer::state::core::blend::write_mask_all()))),
+	rasterizer_state_(
+		_shader_context.renderer().create_rasterizer_state(
+			sge::renderer::state::core::rasterizer::parameters(
+				sge::renderer::state::core::rasterizer::cull_mode::counter_clockwise,
+				sge::renderer::state::core::rasterizer::fill_mode::solid,
+				sge::renderer::state::core::rasterizer::enable_scissor_test(
+					false)))),
+	mipmap_sampler_state_(
+		_shader_context.renderer().create_sampler_state(
+			sge::renderer::state::core::sampler::parameters(
+				sge::renderer::state::core::sampler::address::default_(),
+				sge::renderer::state::core::sampler::filter::mipmap())))
 {
 	for(point_light_array::size_type i = 0; i < point_lights_.size(); ++i)
 		fcppt::container::ptr::replace_unique_ptr(
@@ -184,7 +221,7 @@ sge::scenic::render_context::cg::manager::manager(
 
 sge::scenic::render_context::base_unique_ptr
 sge::scenic::render_context::cg::manager::create_context(
-	sge::renderer::context::object &_context)
+	sge::renderer::context::core &_context)
 {
 	return
 		sge::scenic::render_context::base_unique_ptr(

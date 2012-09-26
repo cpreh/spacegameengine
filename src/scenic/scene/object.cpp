@@ -25,33 +25,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/colors.hpp>
 #include <sge/model/obj/parse_mtllib.hpp>
 #include <sge/model/obj/prototype.hpp>
-#include <sge/renderer/device.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/vertex_declaration.hpp>
-#include <sge/renderer/context/object.hpp>
-#include <sge/renderer/state/bool.hpp>
-#include <sge/renderer/state/color.hpp>
-#include <sge/renderer/state/cull_mode.hpp>
-#include <sge/renderer/state/depth_func.hpp>
-#include <sge/renderer/state/float.hpp>
-#include <sge/renderer/state/fog_mode.hpp>
-#include <sge/renderer/state/list.hpp>
-#include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/target/base.hpp>
 #include <sge/renderer/target/viewport_size.hpp>
-#include <sge/renderer/texture/scoped.hpp>
-#include <sge/renderer/texture/filter/mipmap.hpp>
-#include <sge/renderer/texture/filter/object.hpp>
-#include <sge/renderer/texture/filter/scoped.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/scenic/exception.hpp>
 #include <sge/scenic/render_context/base.hpp>
 #include <sge/scenic/render_context/fog/properties.hpp>
 #include <sge/scenic/render_queue/object.hpp>
 #include <sge/scenic/scene/manager.hpp>
-#include <sge/scenic/scene/material_from_obj_material.hpp>
 #include <sge/scenic/scene/object.hpp>
 #include <sge/scenic/scene/prototype.hpp>
+#include <sge/scenic/scene/material/from_obj_material.hpp>
 #include <sge/scenic/scene/mesh/object.hpp>
 #include <sge/scenic/vf/format.hpp>
 #include <fcppt/cref.hpp>
@@ -73,10 +59,7 @@ sge::scenic::scene::object::object(
 	sge::viewport::manager &_viewport_manager,
 	sge::charconv::system &_charconv_system,
 	sge::camera::first_person::object &_camera,
-	sge::scenic::scene::prototype_unique_ptr _prototype,
-	model_base_path const &_model_base_path,
-	material_base_path const &_material_base_path,
-	texture_base_path const &_texture_base_path)
+	sge::scenic::scene::prototype_unique_ptr _prototype)
 :
 	scene_manager_(
 		_scene_manager),
@@ -84,18 +67,11 @@ sge::scenic::scene::object::object(
 		_camera),
 	charconv_system_(
 		_charconv_system),
-	model_base_path_(
-		_model_base_path),
-	material_base_path_(
-		_material_base_path),
-	texture_base_path_(
-		_texture_base_path),
 	prototype_(
 		fcppt::move(
 			_prototype)),
 	camera_viewport_connection_(
 		camera_,
-		_scene_manager.renderer(),
 		_viewport_manager,
 		prototype_->camera().near(),
 		prototype_->camera().far(),
@@ -123,27 +99,18 @@ sge::scenic::scene::object::render(
 		0u;
 
 	_context.transform(
-		sge::renderer::matrix_mode::projection,
+		sge::scenic::render_context::transform_matrix_type::projection,
 		camera_.projection_matrix().get());
 
-	/*
-	sge::renderer::state::scoped scoped_global_state(
-		_context,
-		sge::renderer::state::list
-			(sge::renderer::state::bool_::enable_lighting = true)
-			(sge::renderer::state::depth_func::less)
-			(sge::renderer::state::color::ambient_light_color = prototype_->ambient_color().get())
-			(prototype_->fog() ? sge::renderer::state::fog_mode::linear : sge::renderer::state::fog_mode::off)
-			(sge::renderer::state::cull_mode::counter_clockwise));
-
-	*/
 	this->activate_lights(
 		_context);
 
 	_context.fog(
 		prototype_->fog());
 
-	sge::scenic::render_queue::object current_render_queue;
+	sge::scenic::render_queue::object current_render_queue(
+		scene_manager_.texture_manager());
+
 	for(
 		sge::scenic::scene::entity_sequence::const_iterator it =
 			prototype_->entities().begin();
@@ -177,29 +144,26 @@ sge::scenic::scene::object::load_entities()
 		current_entity != prototype_->entities().end();
 		++current_entity)
 	{
-		sge::scenic::scene::identifier const mesh_name(
-			current_entity->mesh().get());
-
 		mesh_map::iterator mesh_name_and_instance(
 			mesh_name_to_instance_.find(
-				mesh_name));
+				current_entity->mesh_path()));
 
 		if(mesh_name_and_instance != mesh_name_to_instance_.end())
 			continue;
 
 		sge::model::obj::prototype const new_prototype(
-			model_base_path_.get() / (mesh_name.get()+FCPPT_TEXT(".obj")),
+			current_entity->mesh_path().get(),
 			charconv_system_);
 
 		for(
-			sge::model::obj::material_file_sequence::const_iterator current_material_file =
+			sge::model::obj::material::file_sequence::const_iterator current_material_file =
 				new_prototype.material_files().begin();
 			current_material_file != new_prototype.material_files().end();
 			++current_material_file)
 		{
 			sge::model::obj::material_map const new_materials(
 				sge::model::obj::parse_mtllib(
-					material_base_path_.get() / (*current_material_file),
+					*current_material_file,
 					charconv_system_));
 
 			for(
@@ -212,14 +176,14 @@ sge::scenic::scene::object::load_entities()
 					std::make_pair(
 						sge::scenic::scene::identifier(
 							current_obj_material->first.get()),
-						sge::scenic::scene::material_from_obj_material(
+						sge::scenic::scene::material::from_obj_material(
 							current_obj_material->second)));
 			}
 		}
 
 		fcppt::container::ptr::insert_unique_ptr_map(
 			mesh_name_to_instance_,
-			mesh_name,
+			current_entity->mesh_path(),
 			fcppt::make_unique_ptr<sge::scenic::scene::mesh::object>(
 				fcppt::ref(
 					scene_manager_.renderer()),
@@ -235,7 +199,7 @@ sge::scenic::scene::object::activate_lights(
 	sge::scenic::render_context::base &_context)
 {
 	_context.transform(
-		sge::renderer::matrix_mode::world,
+		sge::scenic::render_context::transform_matrix_type::world,
 		sge::camera::matrix_conversion::world(
 			camera_.coordinate_system()));
 
@@ -250,7 +214,7 @@ sge::scenic::scene::object::render_entity(
 {
 	sge::scenic::scene::mesh::object &mesh(
 		*(mesh_name_to_instance_.find(
-			_entity.mesh())->second));
+			_entity.mesh_path())->second));
 
 	_context.current_vertex_buffer(
 		mesh.vertex_buffer());
@@ -268,37 +232,11 @@ sge::scenic::scene::object::render_entity(
 		FCPPT_ASSERT_PRE(
 			material_name_and_material != materials_.end());
 
-		sge::scenic::scene::material const &material(
+		sge::scenic::scene::material::object const &material(
 			material_name_and_material->second);
 
 		_context.current_material(
-			material.renderer_material());
-
-		if(material.diffuse_texture().get().empty())
-		{
-			_context.current_diffuse_texture(
-				fcppt::optional<sge::renderer::texture::planar &>());
-		}
-		else
-		{
-			_context.current_diffuse_texture(
-				fcppt::optional<sge::renderer::texture::planar &>(
-					scene_manager_.texture_manager().texture_for_path(
-						texture_base_path_.get() / material.diffuse_texture().get())));
-		}
-
-		if(material.specular_texture().get().empty())
-		{
-			_context.current_specular_texture(
-				fcppt::optional<sge::renderer::texture::planar &>());
-		}
-		else
-		{
-			_context.current_specular_texture(
-				fcppt::optional<sge::renderer::texture::planar &>(
-					scene_manager_.texture_manager().texture_for_path(
-						texture_base_path_.get() / material.specular_texture().get())));
-		}
+			material);
 
 		_context.add_mesh(
 			sge::camera::matrix_conversion::world(

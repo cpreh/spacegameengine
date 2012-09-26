@@ -29,11 +29,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_set.hpp>
-#include <sge/renderer/device.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/clear/parameters.hpp>
-#include <sge/renderer/context/object.hpp>
-#include <sge/renderer/context/scoped.hpp>
+#include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/context/scoped_ffp.hpp>
+#include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/parameters/object.hpp>
 #include <sge/renderer/parameters/vsync.hpp>
@@ -164,7 +164,7 @@ try
 			sge::camera::coordinate_system::identity()));
 
 	sge::scenic::scene::manager scene_manager(
-		sys.renderer(),
+		sys.renderer_core(),
 		sys.image_system());
 
 	sge::scenic::scene::object test_scene(
@@ -174,13 +174,7 @@ try
 		camera,
 		sge::scenic::scene::from_blender_file(
 			sge::config::media_path() / FCPPT_TEXT("scenes") / scene_name / FCPPT_TEXT("description.json"),
-			sys.charconv_system()),
-		sge::scenic::scene::object::model_base_path(
-			sge::config::media_path() / FCPPT_TEXT("scenes") / scene_name),
-		sge::scenic::scene::object::material_base_path(
-			sge::config::media_path() / FCPPT_TEXT("scenes") / scene_name),
-		sge::scenic::scene::object::texture_base_path(
-			sge::config::media_path() / FCPPT_TEXT("scenes") / scene_name));
+			sys.charconv_system()));
 
 	sge::timer::basic<sge::timer::clocks::standard> camera_timer(
 		sge::timer::parameters<sge::timer::clocks::standard>(
@@ -188,7 +182,7 @@ try
 				1.0f)));
 
 	sge::scenic::grid::object simple_grid_xz(
-		sys.renderer(),
+		sys.renderer_ffp(),
 		camera,
 		sge::scenic::grid::orientation::xz,
 		sge::scenic::grid::rect(
@@ -208,7 +202,7 @@ try
 
 	/*
 	sge::scenic::sky::dome::object skydome(
-		sys.renderer(),
+		sys.renderer_core(),
 		scene_manager.shader_context(),
 		scene_manager.texture_manager(),
 		sge::scenic::sky::dome::texture_path(
@@ -227,10 +221,10 @@ try
 			sge::renderer::vector2(
 				0.0f,
 				0.0f)),
-		sge::image2d::dim(
+		sge::renderer::dim2(
 			256u,
 			64u),
-		sys.renderer(),
+		sys.renderer_ffp(),
 		sge::graph::baseline(
 			1.0f/30.0f),
 		sge::graph::optional_axis_constraint(
@@ -253,9 +247,9 @@ try
 		graph.push(
 			difference_since_last_frame.count());
 
-		sge::renderer::context::scoped const scoped_block(
-			sys.renderer(),
-			sys.renderer().onscreen_target());
+		sge::renderer::context::scoped_ffp const scoped_block(
+			sys.renderer_ffp(),
+			sys.renderer_ffp().onscreen_target());
 
 		scoped_block.get().clear(
 			sge::renderer::clear::parameters()

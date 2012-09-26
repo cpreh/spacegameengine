@@ -18,11 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/renderer/device/core.hpp>
 #include <sge/shader/context.hpp>
-#include <sge/renderer/device.hpp>
+
 
 sge::shader::context::context(
-	sge::renderer::device &_renderer)
+	sge::renderer::device::core &_renderer)
 :
 	renderer_(
 		_renderer),
@@ -36,7 +37,7 @@ sge::shader::context::context(
 {
 }
 
-sge::renderer::device &
+sge::renderer::device::core &
 sge::shader::context::renderer() const
 {
 	return

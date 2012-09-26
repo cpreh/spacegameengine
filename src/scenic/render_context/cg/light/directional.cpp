@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/color/any/object.hpp>
 #include <sge/renderer/vector4.hpp>
-#include <sge/renderer/light/attenuation.hpp>
 #include <sge/scenic/render_context/cg/light/directional.hpp>
 #include <sge/src/scenic/render_context/cg/any_color_to_vector4.hpp>
 #include <fcppt/insert_to_std_string.hpp>
@@ -78,7 +77,7 @@ sge::scenic::render_context::cg::light::directional::directional(
 
 void
 sge::scenic::render_context::cg::light::directional::diffuse_color(
-	sge::renderer::diffuse_color const &_diffuse_color)
+	sge::scenic::render_context::diffuse_color const &_diffuse_color)
 {
 	diffuse_color_.set(
 		sge::scenic::render_context::cg::any_color_to_vector4(
@@ -87,7 +86,7 @@ sge::scenic::render_context::cg::light::directional::diffuse_color(
 
 void
 sge::scenic::render_context::cg::light::directional::specular_color(
-	sge::renderer::specular_color const &_specular_color)
+	sge::scenic::render_context::specular_color const &_specular_color)
 {
 	specular_color_.set(
 		sge::scenic::render_context::cg::any_color_to_vector4(
@@ -96,7 +95,7 @@ sge::scenic::render_context::cg::light::directional::specular_color(
 
 void
 sge::scenic::render_context::cg::light::directional::ambient_color(
-	sge::renderer::ambient_color const &_ambient_color)
+	sge::scenic::render_context::ambient_color const &_ambient_color)
 {
 	ambient_color_.set(
 		sge::scenic::render_context::cg::any_color_to_vector4(
@@ -105,7 +104,7 @@ sge::scenic::render_context::cg::light::directional::ambient_color(
 
 void
 sge::scenic::render_context::cg::light::directional::camera_space_direction(
-	sge::renderer::light::direction const &_camera_space_direction)
+	sge::scenic::render_context::light::direction const &_camera_space_direction)
 {
 	camera_space_direction_.set(
 		fcppt::math::vector::normalize(

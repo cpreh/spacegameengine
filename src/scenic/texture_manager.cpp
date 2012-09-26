@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::scenic::texture_manager::texture_manager(
-	sge::renderer::device &_renderer,
+	sge::renderer::device::core &_renderer,
 	sge::image2d::system &_image_loader)
 :
 	renderer_(

@@ -146,6 +146,9 @@ sge::model::obj::prototype::prototype(
 		//boost::unordered_map<sge::model::obj::face_vertex,std::size_t>
 	face_vertex_to_index_map;
 
+	boost::filesystem::path const _obj_file_path(
+		_filename.parent_path());
+
 	face_vertex_to_index_map face_vertex_to_index;
 
 	line_count line_counter = 0u;
@@ -192,7 +195,7 @@ sge::model::obj::prototype::prototype(
 		if(prefix == "mtllib")
 		{
 			material_files_.push_back(
-				rest_of_line);
+				_obj_file_path / rest_of_line);
 		}
 		else if(prefix == "usemtl")
 		{
@@ -413,7 +416,7 @@ sge::model::obj::prototype::face_count() const
 		result;
 }
 
-sge::model::obj::material_file_sequence const &
+sge::model::obj::material::file_sequence const &
 sge::model::obj::prototype::material_files() const
 {
 	return

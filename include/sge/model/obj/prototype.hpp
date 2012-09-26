@@ -24,12 +24,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/system_fwd.hpp>
 #include <sge/model/obj/box.hpp>
 #include <sge/model/obj/face_vertex_sequence.hpp>
-#include <sge/model/obj/material_file_sequence.hpp>
 #include <sge/model/obj/material_to_face_sequence.hpp>
 #include <sge/model/obj/normal_sequence.hpp>
 #include <sge/model/obj/symbol.hpp>
 #include <sge/model/obj/texture_coordinate_sequence.hpp>
 #include <sge/model/obj/vertex_coordinate_sequence.hpp>
+#include <sge/model/obj/material/file_sequence.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -79,7 +79,7 @@ public:
 	face_count() const;
 
 	SGE_MODEL_OBJ_SYMBOL
-	sge::model::obj::material_file_sequence const &
+	sge::model::obj::material::file_sequence const &
 	material_files() const;
 
 	SGE_MODEL_OBJ_SYMBOL
@@ -94,7 +94,7 @@ private:
 	sge::model::obj::normal_sequence normals_;
 	sge::model::obj::face_vertex_sequence face_vertices_;
 	sge::model::obj::material_to_face_sequence parts_;
-	sge::model::obj::material_file_sequence material_files_;
+	sge::model::obj::material::file_sequence material_files_;
 	sge::model::obj::box bounding_box_;
 };
 }

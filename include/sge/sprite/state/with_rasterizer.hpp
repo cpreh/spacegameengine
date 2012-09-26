@@ -26,10 +26,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/rasterizer/enable_scissor_test.hpp>
 #include <sge/renderer/state/core/rasterizer/object.hpp>
 #include <sge/renderer/state/core/rasterizer/object_unique_ptr.hpp>
+#include <sge/sprite/symbol.hpp>
 #include <sge/sprite/state/with_rasterizer_fwd.hpp>
 #include <sge/sprite/state/roles/enable_scissor_test.hpp>
 #include <sge/sprite/state/roles/rasterizer.hpp>
-#include <sge/sprite/symbol.hpp>
 #include <fcppt/optional_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/bool.hpp>

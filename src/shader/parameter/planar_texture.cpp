@@ -18,14 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/shader/pair.hpp>
-#include <sge/shader/parameter/planar_texture.hpp>
 #include <sge/cg/parameter/named.hpp>
 #include <sge/cg/program/object.hpp>
-#include <sge/renderer/device.hpp>
 #include <sge/renderer/cg/loaded_texture.hpp>
 #include <sge/renderer/cg/scoped_texture.hpp>
+#include <sge/renderer/device/core.hpp>
 #include <sge/renderer/texture/planar.hpp>
+#include <sge/shader/pair.hpp>
+#include <sge/shader/parameter/planar_texture.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
@@ -36,7 +36,7 @@ sge::shader::parameter::planar_texture::planar_texture(
 	sge::cg::program::object &_program,
 	sge::shader::parameter::name const &_name,
 	sge::shader::pair &_parent,
-	sge::renderer::device &_renderer,
+	sge::renderer::device::core &_renderer,
 	optional_value const &_value)
 :
 	parent_(
@@ -88,7 +88,7 @@ sge::shader::parameter::planar_texture::set(
 
 void
 sge::shader::parameter::planar_texture::activate(
-	sge::renderer::context::object &_render_context)
+	sge::renderer::context::core &_render_context)
 {
 	FCPPT_ASSERT_PRE(
 		!optional_render_context_);

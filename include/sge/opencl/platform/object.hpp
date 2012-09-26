@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/platform/extension_sequence.hpp>
 #include <sge/opencl/platform/profile_type.hpp>
 #include <sge/opencl/platform/version.hpp>
-#include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/device/core_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -72,7 +72,7 @@ public:
 
 	SGE_OPENCL_SYMBOL bool
 	supports_memory_sharing_with(
-		renderer::device const &) const;
+		renderer::device::core const &) const;
 
 	SGE_OPENCL_SYMBOL bool
 	has_gpu() const;

@@ -18,13 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SCENIC_RENDER_CONTEXT_LIGHT_SEQUENCE_HPP_INCLUDED
-#define SGE_SCENIC_RENDER_CONTEXT_LIGHT_SEQUENCE_HPP_INCLUDED
-
-#include <sge/renderer/light/object.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <vector>
-#include <fcppt/config/external_end.hpp>
+#ifndef SGE_SCENIC_RENDER_CONTEXT_LIGHT_INDEX_VALUE_HPP_INCLUDED
+#define SGE_SCENIC_RENDER_CONTEXT_LIGHT_INDEX_VALUE_HPP_INCLUDED
 
 
 namespace sge
@@ -33,9 +28,11 @@ namespace scenic
 {
 namespace render_context
 {
+namespace light
+{
 typedef
-std::vector<sge::renderer::light::object>
-light_sequence;
+unsigned
+index_value;
 }
 }
 }

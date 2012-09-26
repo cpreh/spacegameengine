@@ -18,24 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_OBJ_MATERIAL_FILE_SEQUENCE_HPP_INCLUDED
-#define SGE_MODEL_OBJ_MATERIAL_FILE_SEQUENCE_HPP_INCLUDED
-
-#include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
-#include <vector>
-#include <fcppt/config/external_end.hpp>
-
+#ifndef SGE_SCENIC_RENDER_CONTEXT_LIGHT_ATTENUATION_FWD_HPP_INCLUDED
+#define SGE_SCENIC_RENDER_CONTEXT_LIGHT_ATTENUATION_FWD_HPP_INCLUDED
 
 namespace sge
 {
-namespace model
+namespace scenic
 {
-namespace obj
+namespace render_context
 {
-typedef
-std::vector<boost::filesystem::path>
-material_file_sequence;
+namespace light
+{
+class attenuation;
+}
 }
 }
 }

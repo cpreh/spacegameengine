@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/state/actor.hpp>
 #include <sge/opengl/state/wrap_error_handler.hpp>
-#include <sge/opengl/state/core/depth_stencil/stencil/func_separate.hpp>
 #include <sge/opengl/state/convert/stencil_func.hpp>
+#include <sge/opengl/state/core/depth_stencil/stencil/func_separate.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/func.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/ref.hpp>
 #include <fcppt/text.hpp>

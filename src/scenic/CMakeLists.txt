@@ -12,6 +12,7 @@ set(
 	include/sge/scenic/grid/spacing.hpp
 	include/sge/scenic/index_buffer_range.hpp
 	include/sge/scenic/index_buffer_range_fwd.hpp
+	include/sge/scenic/render_context/ambient_color.hpp
 	include/sge/scenic/render_context/base.hpp
 	include/sge/scenic/render_context/base_fwd.hpp
 	include/sge/scenic/render_context/base_unique_ptr.hpp
@@ -24,17 +25,44 @@ set(
 	include/sge/scenic/render_context/cg/manager_fwd.hpp
 	include/sge/scenic/render_context/cg/object.hpp
 	include/sge/scenic/render_context/cg/object_fwd.hpp
+	include/sge/scenic/render_context/diffuse_color.hpp
+	include/sge/scenic/render_context/emissive_color.hpp
 	include/sge/scenic/render_context/fog/color.hpp
 	include/sge/scenic/render_context/fog/end.hpp
 	include/sge/scenic/render_context/fog/optional_properties.hpp
 	include/sge/scenic/render_context/fog/properties.hpp
 	include/sge/scenic/render_context/fog/properties_fwd.hpp
 	include/sge/scenic/render_context/fog/start.hpp
-	include/sge/scenic/render_context/light_sequence.hpp
+	include/sge/scenic/render_context/light/attenuation.hpp
+	include/sge/scenic/render_context/light/attenuation_fwd.hpp
+	include/sge/scenic/render_context/light/constant_attenuation.hpp
+	include/sge/scenic/render_context/light/direction.hpp
+	include/sge/scenic/render_context/light/direction_fwd.hpp
+	include/sge/scenic/render_context/light/directional.hpp
+	include/sge/scenic/render_context/light/directional_fwd.hpp
+	include/sge/scenic/render_context/light/index.hpp
+	include/sge/scenic/render_context/light/index_value.hpp
+	include/sge/scenic/render_context/light/linear_attenuation.hpp
+	include/sge/scenic/render_context/light/object.hpp
+	include/sge/scenic/render_context/light/object_fwd.hpp
+	include/sge/scenic/render_context/light/point.hpp
+	include/sge/scenic/render_context/light/point_fwd.hpp
+	include/sge/scenic/render_context/light/position.hpp
+	include/sge/scenic/render_context/light/position_fwd.hpp
+	include/sge/scenic/render_context/light/quadratic_attenuation.hpp
+	include/sge/scenic/render_context/light/sequence.hpp
+	include/sge/scenic/render_context/light/variant.hpp
 	include/sge/scenic/render_context/manager_base.hpp
 	include/sge/scenic/render_context/manager_base_fwd.hpp
 	include/sge/scenic/render_context/manager_base_scoped_ptr.hpp
+	include/sge/scenic/render_context/material/diffuse_texture.hpp
+	include/sge/scenic/render_context/material/object.hpp
+	include/sge/scenic/render_context/material/object_fwd.hpp
+	include/sge/scenic/render_context/material/shininess.hpp
+	include/sge/scenic/render_context/material/specular_texture.hpp
 	include/sge/scenic/render_context/optional_planar_texture.hpp
+	include/sge/scenic/render_context/specular_color.hpp
+	include/sge/scenic/render_context/transform_matrix_type.hpp
 	include/sge/scenic/render_queue/index_type.hpp
 	include/sge/scenic/render_queue/mesh.hpp
 	include/sge/scenic/render_queue/mesh_fwd.hpp
@@ -52,12 +80,21 @@ set(
 	include/sge/scenic/scene/identifier.hpp
 	include/sge/scenic/scene/manager.hpp
 	include/sge/scenic/scene/manager_fwd.hpp
-	include/sge/scenic/scene/material.hpp
-	include/sge/scenic/scene/material_from_obj_material.hpp
-	include/sge/scenic/scene/material_fwd.hpp
+	include/sge/scenic/scene/material/ambient_color.hpp
+	include/sge/scenic/scene/material/diffuse_color.hpp
+	include/sge/scenic/scene/material/diffuse_texture_path.hpp
+	include/sge/scenic/scene/material/emissive_color.hpp
+	include/sge/scenic/scene/material/file_sequence.hpp
+	include/sge/scenic/scene/material/from_obj_material.hpp
+	include/sge/scenic/scene/material/object.hpp
+	include/sge/scenic/scene/material/object_fwd.hpp
+	include/sge/scenic/scene/material/shininess.hpp
+	include/sge/scenic/scene/material/specular_color.hpp
+	include/sge/scenic/scene/material/specular_texture_path.hpp
 	include/sge/scenic/scene/mesh/material_to_index_buffer_range.hpp
 	include/sge/scenic/scene/mesh/object.hpp
 	include/sge/scenic/scene/mesh/object_fwd.hpp
+	include/sge/scenic/scene/mesh_path.hpp
 	include/sge/scenic/scene/object.hpp
 	include/sge/scenic/scene/object_fwd.hpp
 	include/sge/scenic/scene/position.hpp
@@ -98,19 +135,23 @@ set(
 	src/scenic/render_context/cg/manager.cpp
 	src/scenic/render_context/cg/object.cpp
 	src/scenic/render_context/fog/properties.cpp
+	src/scenic/render_context/light/attenuation.cpp
+	src/scenic/render_context/light/directional.cpp
+	src/scenic/render_context/light/object.cpp
+	src/scenic/render_context/light/point.cpp
 	src/scenic/render_context/manager_base.cpp
+	src/scenic/render_context/material/object.cpp
 	src/scenic/render_queue/mesh.cpp
 	src/scenic/render_queue/object.cpp
 	src/scenic/scene/camera_properties.cpp
 	src/scenic/scene/entity.cpp
 	src/scenic/scene/from_blender_file.cpp
 	src/scenic/scene/manager.cpp
-	src/scenic/scene/material.cpp
-	src/scenic/scene/material_from_obj_material.cpp
+	src/scenic/scene/material/from_obj_material.cpp
+	src/scenic/scene/material/object.cpp
 	src/scenic/scene/mesh/object.cpp
 	src/scenic/scene/object.cpp
 	src/scenic/scene/prototype.cpp
-	src/scenic/sky/dome/object.cpp
 	src/scenic/texture_manager.cpp
 )
 

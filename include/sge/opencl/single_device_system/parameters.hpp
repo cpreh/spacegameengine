@@ -44,7 +44,7 @@ public:
 	SGE_OPENCL_SYMBOL
 	parameters &
 	renderer(
-		sge::renderer::device &);
+		sge::renderer::device::core &);
 
 	SGE_OPENCL_SYMBOL
 	parameters &

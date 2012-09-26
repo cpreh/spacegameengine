@@ -22,11 +22,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/coordinate_system/object.hpp>
 #include <sge/camera/matrix_conversion/world.hpp>
 #include <sge/line_drawer/scoped_lock.hpp>
-#include <sge/renderer/scoped_transform.hpp>
-#include <sge/renderer/context/object.hpp>
-#include <sge/renderer/state/depth_func.hpp>
-#include <sge/renderer/state/list.hpp>
-#include <sge/renderer/state/scoped.hpp>
+#include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/device/ffp.hpp>
+#include <sge/renderer/state/core/depth_stencil/object.hpp>
+#include <sge/renderer/state/core/depth_stencil/object_scoped_ptr.hpp>
+#include <sge/renderer/state/core/depth_stencil/parameters.hpp>
+#include <sge/renderer/state/core/depth_stencil/scoped.hpp>
+#include <sge/renderer/state/ffp/transform/object.hpp>
+#include <sge/renderer/state/ffp/transform/object_scoped_ptr.hpp>
+#include <sge/renderer/state/ffp/transform/parameters.hpp>
+#include <sge/renderer/state/ffp/transform/scoped.hpp>
 #include <sge/renderer/target/base.hpp>
 #include <sge/renderer/target/viewport_size.hpp>
 #include <sge/scenic/grid/object.hpp>
@@ -71,7 +76,7 @@ permute_vector_according_to_orientation(
 }
 
 sge::scenic::grid::object::object(
-	sge::renderer::device &_renderer,
+	sge::renderer::device::ffp &_renderer,
 	sge::camera::base const &_camera,
 	sge::scenic::grid::orientation::type const _orientation,
 	sge::scenic::grid::rect const &_rect,
@@ -79,6 +84,8 @@ sge::scenic::grid::object::object(
 	sge::scenic::grid::distance_to_origin const &_distance_to_origin,
 	sge::image::color::any::object const &_color)
 :
+	renderer_(
+		_renderer),
 	camera_(
 		_camera),
 	line_drawer_(
@@ -136,7 +143,7 @@ sge::scenic::grid::object::object(
 
 void
 sge::scenic::grid::object::render(
-	sge::renderer::context::object &_context,
+	sge::renderer::context::ffp &_context,
 	sge::scenic::grid::depth_test const &_depth_test)
 {
 	if(
@@ -144,25 +151,45 @@ sge::scenic::grid::object::render(
 			_context.target()).content())
 		return;
 
-	sge::renderer::state::scoped scoped_state(
-		_context,
-		sge::renderer::state::list
-			(_depth_test.get()
-			?
-				sge::renderer::state::depth_func::less
-			:
-				sge::renderer::state::depth_func::off));
+	sge::renderer::state::core::depth_stencil::object_scoped_ptr const depth_state(
+		renderer_.create_depth_stencil_state(
+			sge::renderer::state::core::depth_stencil::parameters(
+				_depth_test.get()
+				?
+					sge::renderer::state::core::depth_stencil::depth::variant(
+						sge::renderer::state::core::depth_stencil::depth::enabled(
+							sge::renderer::state::core::depth_stencil::depth::func::less,
+							sge::renderer::state::core::depth_stencil::depth::write_enable(
+								true)))
+				:
+					sge::renderer::state::core::depth_stencil::depth::variant(
+						sge::renderer::state::core::depth_stencil::depth::off()),
+				sge::renderer::state::core::depth_stencil::stencil::off())));
 
-	sge::renderer::scoped_transform scoped_world(
+	sge::renderer::state::core::depth_stencil::scoped const depth_transform(
 		_context,
-		sge::renderer::matrix_mode::world,
-		sge::camera::matrix_conversion::world(
-			camera_.coordinate_system()));
+		*depth_state);
 
-	sge::renderer::scoped_transform scoped_projection(
+	sge::renderer::state::ffp::transform::object_scoped_ptr const projection_state(
+		renderer_.create_transform_state(
+			sge::renderer::state::ffp::transform::parameters(
+				camera_.projection_matrix().get())));
+
+	sge::renderer::state::ffp::transform::object_scoped_ptr const world_state(
+		renderer_.create_transform_state(
+			sge::renderer::state::ffp::transform::parameters(
+				sge::camera::matrix_conversion::world(
+					camera_.coordinate_system()))));
+
+	sge::renderer::state::ffp::transform::scoped const projection_transform(
 		_context,
-		sge::renderer::matrix_mode::projection,
-		camera_.projection_matrix().get());
+		sge::renderer::state::ffp::transform::mode::projection,
+		*projection_state);
+
+	sge::renderer::state::ffp::transform::scoped const world_transform(
+		_context,
+		sge::renderer::state::ffp::transform::mode::world,
+		*world_state);
 
 	line_drawer_.render(
 		_context);

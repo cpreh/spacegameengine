@@ -23,9 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/cg/parameter/named.hpp>
 #include <sge/cg/program/object_fwd.hpp>
-#include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/cg/loaded_texture_scoped_ptr.hpp>
 #include <sge/renderer/cg/scoped_texture.hpp>
+#include <sge/renderer/context/core_fwd.hpp>
+#include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/shader/pair_fwd.hpp>
 #include <sge/shader/symbol.hpp>
@@ -60,7 +61,7 @@ public:
 		sge::cg::program::object &,
 		sge::shader::parameter::name const &,
 		sge::shader::pair &,
-		sge::renderer::device &,
+		sge::renderer::device::core &,
 		optional_value const &);
 
 	SGE_SHADER_SYMBOL
@@ -71,7 +72,7 @@ public:
 	SGE_SHADER_SYMBOL
 	void
 	activate(
-		sge::renderer::context::object &);
+		sge::renderer::context::core &);
 
 	SGE_SHADER_SYMBOL
 	void
@@ -89,11 +90,11 @@ public:
 	~planar_texture();
 private:
 	typedef
-	fcppt::optional<sge::renderer::context::object &>
+	fcppt::optional<sge::renderer::context::core &>
 	optional_render_context;
 
 	sge::shader::pair &parent_;
-	sge::renderer::device &renderer_;
+	sge::renderer::device::core &renderer_;
 	sge::cg::parameter::named const parameter_;
 	sge::renderer::cg::loaded_texture_scoped_ptr loaded_texture_;
 	fcppt::scoped_ptr<sge::renderer::cg::scoped_texture> scoped_texture_;

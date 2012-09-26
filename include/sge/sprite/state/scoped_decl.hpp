@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_STATE_SCOPED_DECL_HPP_INCLUDED
 #define SGE_SPRITE_STATE_SCOPED_DECL_HPP_INCLUDED
 
+#include <sge/sprite/state/object_fwd.hpp>
+#include <sge/sprite/state/options_fwd.hpp>
 #include <sge/sprite/state/render_context.hpp>
 #include <sge/sprite/state/render_device.hpp>
-#include <sge/sprite/state/options_fwd.hpp>
-#include <sge/sprite/state/object_fwd.hpp>
 #include <sge/sprite/state/scoped_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 

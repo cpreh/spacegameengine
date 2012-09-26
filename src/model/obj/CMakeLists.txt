@@ -1,16 +1,22 @@
 set(
 	SGE_MODELOBJ_FILES
 	include/sge/model/obj/box.hpp
-	include/sge/model/obj/diffuse_texture_path.hpp
 	include/sge/model/obj/exception.hpp
 	include/sge/model/obj/face.hpp
 	include/sge/model/obj/face_sequence.hpp
 	include/sge/model/obj/face_vertex.hpp
 	include/sge/model/obj/face_vertex_sequence.hpp
 	include/sge/model/obj/identifier.hpp
-	include/sge/model/obj/material.hpp
-	include/sge/model/obj/material_file_sequence.hpp
-	include/sge/model/obj/material_fwd.hpp
+	include/sge/model/obj/material/ambient_color.hpp
+	include/sge/model/obj/material/diffuse_color.hpp
+	include/sge/model/obj/material/diffuse_texture_path.hpp
+	include/sge/model/obj/material/emissive_color.hpp
+	include/sge/model/obj/material/file_sequence.hpp
+	include/sge/model/obj/material/object.hpp
+	include/sge/model/obj/material/object_fwd.hpp
+	include/sge/model/obj/material/shininess.hpp
+	include/sge/model/obj/material/specular_color.hpp
+	include/sge/model/obj/material/specular_texture_path.hpp
 	include/sge/model/obj/material_map.hpp
 	include/sge/model/obj/material_to_face_sequence.hpp
 	include/sge/model/obj/normal.hpp
@@ -19,7 +25,6 @@ set(
 	include/sge/model/obj/parse_mtllib.hpp
 	include/sge/model/obj/prototype.hpp
 	include/sge/model/obj/prototype_fwd.hpp
-	include/sge/model/obj/specular_texture_path.hpp
 	include/sge/model/obj/texture_coordinate.hpp
 	include/sge/model/obj/texture_coordinate_index.hpp
 	include/sge/model/obj/texture_coordinate_sequence.hpp
@@ -28,7 +33,7 @@ set(
 	include/sge/model/obj/vertex_coordinate_sequence.hpp
 	src/model/obj/exception.cpp
 	src/model/obj/face_vertex.cpp
-	src/model/obj/material.cpp
+	src/model/obj/material/object.cpp
 	src/model/obj/parse_mtllib.cpp
 	src/model/obj/prototype.cpp
 )

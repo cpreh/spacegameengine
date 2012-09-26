@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SCENIC_SCENE_MANAGER_HPP_INCLUDED
 
 #include <sge/image2d/system_fwd.hpp>
-#include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/vertex_declaration_scoped_ptr.hpp>
-#include <sge/renderer/context/object_fwd.hpp>
+#include <sge/renderer/context/core_fwd.hpp>
+#include <sge/renderer/device/core_fwd.hpp>
 #include <sge/scenic/symbol.hpp>
 #include <sge/scenic/texture_manager.hpp>
 #include <sge/scenic/render_context/base_unique_ptr.hpp>
@@ -45,16 +45,16 @@ FCPPT_NONCOPYABLE(
 public:
 	SGE_SCENIC_SYMBOL
 	manager(
-		sge::renderer::device &,
+		sge::renderer::device::core &,
 		sge::image2d::system &);
 
 	SGE_SCENIC_SYMBOL
 	sge::scenic::render_context::base_unique_ptr
 	create_render_context(
-		sge::renderer::context::object &);
+		sge::renderer::context::core &);
 
 	SGE_SCENIC_SYMBOL
-	sge::renderer::device &
+	sge::renderer::device::core &
 	renderer() const;
 
 	SGE_SCENIC_SYMBOL
@@ -72,7 +72,7 @@ public:
 	SGE_SCENIC_SYMBOL
 	~manager();
 private:
-	sge::renderer::device &renderer_;
+	sge::renderer::device::core &renderer_;
 	sge::renderer::vertex_declaration_scoped_ptr const mesh_vertex_declaration_;
 	sge::scenic::texture_manager texture_manager_;
 	sge::shader::context shader_context_;

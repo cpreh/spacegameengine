@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MODEL_OBJ_MATERIAL_MAP_HPP_INCLUDED
 
 #include <sge/model/obj/identifier.hpp>
-#include <sge/model/obj/material.hpp>
+#include <sge/model/obj/material/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <map>
 #include <fcppt/config/external_end.hpp>
@@ -38,7 +38,7 @@ typedef
 std::map
 <
 	sge::model::obj::identifier,
-	sge::model::obj::material
+	sge::model::obj::material::object
 >
 material_map;
 }

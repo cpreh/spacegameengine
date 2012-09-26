@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/rucksack/widget/viewport_adaptor.hpp>
 #include <sge/renderer/device/core.hpp>
 #include <sge/renderer/target/onscreen.hpp>
+#include <sge/rucksack/widget/viewport_adaptor.hpp>
 #include <sge/viewport/manager.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/text.hpp>
