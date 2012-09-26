@@ -784,7 +784,6 @@ try
 
 	sge::camera::perspective_projection_from_viewport camera_viewport_connection(
 		camera,
-		sys.renderer(),
 		sys.viewport_manager(),
 		sge::renderer::projection::near(
 			0.1f
@@ -800,7 +799,7 @@ try
 	);
 
 	sge::renderer::vertex_declaration_scoped_ptr const vertex_declaration(
-		sys.renderer().create_vertex_declaration(
+		sys.renderer_ffp().create_vertex_declaration(
 			sge::renderer::vf::dynamic::make_format<vf::format>()));
 
 	// Create an md3 loader using the "create" function.
@@ -809,7 +808,7 @@ try
 
 	// Create a model and a model collection
 	compiled_model main_model(
-		sys.renderer(),
+		sys.renderer_ffp(),
 		*vertex_declaration,
 		*md3_loader->load(
 			sge::config::media_path()
@@ -817,7 +816,7 @@ try
 				/ FCPPT_TEXT("arrow.md3")));
 
 	random_model_collection model_collection(
-		sys.renderer(),
+		sys.renderer_ffp(),
 		main_model);
 
 	sge::timer::basic<sge::timer::clocks::standard> camera_timer(
@@ -831,7 +830,9 @@ try
 	{
 		// If we have no viewport (yet), don't do anything (this is just a
 		// precaution, we _might_ divide by zero somewhere below, otherwise)
-		if(!sge::renderer::target::viewport_size(sys.renderer().onscreen_target()).content())
+		if(
+			sge::renderer::target::viewport_is_null(
+				sys.renderer_ffp().onscreen_target().viewport()))
 			continue;
 
 		// This moves the camera around
@@ -839,11 +840,11 @@ try
 			sge::timer::elapsed_and_reset<sge::camera::update_duration>(
 				camera_timer));
 
-		sge::renderer::context::scoped scoped_block(
-			sys.renderer(),
-			sys.renderer().onscreen_target());
+		sge::renderer::context::scoped_ffp const scoped_block(
+			sys.renderer_ffp(),
+			sys.renderer_ffp().onscreen_target());
 
-		sge::renderer::context::object &context(
+		sge::renderer::context::ffp &context(
 			scoped_block.get());
 
 		context.transform(
@@ -851,7 +852,7 @@ try
 			camera.projection_matrix().get());
 
 		// The vertex declaration can be set once in this case
-		sge::renderer::scoped_vertex_declaration scoped_vd(
+		sge::renderer::scoped_vertex_declaration const scoped_vd(
 			context,
 			*vertex_declaration);
 
