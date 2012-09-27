@@ -513,6 +513,8 @@ set(
 	include/sge/renderer/state/ffp/misc/object_unique_ptr.hpp
 	include/sge/renderer/state/ffp/misc/parameters.hpp
 	include/sge/renderer/state/ffp/misc/parameters_fwd.hpp
+	include/sge/renderer/state/ffp/misc/scoped.hpp
+	include/sge/renderer/state/ffp/misc/scoped_fwd.hpp
 	include/sge/renderer/state/ffp/sampler/alpha_op.hpp
 	include/sge/renderer/state/ffp/sampler/alpha_op_fwd.hpp
 	include/sge/renderer/state/ffp/sampler/arg.hpp
@@ -947,6 +949,7 @@ set(
 	src/renderer/state/ffp/misc/default.cpp
 	src/renderer/state/ffp/misc/object.cpp
 	src/renderer/state/ffp/misc/parameters.cpp
+	src/renderer/state/ffp/misc/scoped.cpp
 	src/renderer/state/ffp/sampler/binary_op.cpp
 	src/renderer/state/ffp/sampler/default.cpp
 	src/renderer/state/ffp/sampler/object.cpp

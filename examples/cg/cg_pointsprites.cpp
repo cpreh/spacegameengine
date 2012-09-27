@@ -54,9 +54,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/cg/scoped_program.hpp>
 #include <sge/renderer/cg/scoped_texture.hpp>
 #include <sge/renderer/clear/parameters.hpp>
-#include <sge/renderer/context/core.hpp>
-#include <sge/renderer/context/scoped_core.hpp>
+#include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/context/scoped_ffp.hpp>
 #include <sge/renderer/device/core.hpp>
+#include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/parameters/object.hpp>
 #include <sge/renderer/parameters/vsync.hpp>
@@ -64,6 +65,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_format/depth_stencil.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
+#include <sge/renderer/state/ffp/misc/enable_point_sprite.hpp>
+#include <sge/renderer/state/ffp/misc/local_viewer.hpp>
+#include <sge/renderer/state/ffp/misc/normalize_normals.hpp>
+#include <sge/renderer/state/ffp/misc/object.hpp>
+#include <sge/renderer/state/ffp/misc/object_scoped_ptr.hpp>
+#include <sge/renderer/state/ffp/misc/parameters.hpp>
+#include <sge/renderer/state/ffp/misc/scoped.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/planar.hpp>
@@ -412,13 +420,29 @@ try
 		)
 	);
 
+	sge::renderer::state::ffp::misc::object_scoped_ptr const misc_state(
+		sys.renderer_ffp().create_misc_state(
+			sge::renderer::state::ffp::misc::parameters(
+				sge::renderer::state::ffp::misc::enable_point_sprites(
+					true
+				),
+				sge::renderer::state::ffp::misc::local_viewer(
+					false
+				),
+				sge::renderer::state::ffp::misc::normalize_normals(
+					false
+				)
+			)
+		)
+	);
+
 	while(
 		sys.window_system().poll()
 	)
 	{
-		sge::renderer::context::scoped_core const scoped_block(
-			sys.renderer_core(),
-			sys.renderer_core().onscreen_target()
+		sge::renderer::context::scoped_ffp const scoped_block(
+			sys.renderer_ffp(),
+			sys.renderer_ffp().onscreen_target()
 		);
 
 		scoped_block.get().clear(
@@ -426,6 +450,11 @@ try
 			.back_buffer(
 				sge::image::colors::blue()
 			)
+		);
+
+		sge::renderer::state::ffp::misc::scoped const scoped_misc(
+			scoped_block.get(),
+			*misc_state
 		);
 
 		sge::renderer::scoped_vertex_declaration_and_buffers const vb_context(
@@ -440,7 +469,6 @@ try
 			)
 		);
 
-		// FIXME: Do we need really need to enable point sprites here?
 		sge::renderer::cg::scoped_program const scoped_vertex_program(
 			scoped_block.get(),
 			*loaded_vertex_program
