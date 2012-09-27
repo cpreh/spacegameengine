@@ -31,9 +31,11 @@ add_sge_example(
 	"${Cg_INCLUDE_DIRS}"
 )
 
-add_sge_example(
-	cg_blending
-	"sgeconfig;sgeimage2d;sgepostprocessing;sgerenderer;sgeshader;sgesystems;sgetexture;sgeviewport;sgewindow"
-	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
-	"${Cg_INCLUDE_DIRS}"
-)
+message("Fix the cg blending example!")
+
+#add_sge_example(
+#	cg_blending
+#	"sgeconfig;sgeimage2d;sgepostprocessing;sgerenderer;sgeshader;sgesystems;sgetexture;sgeviewport;sgewindow"
+#	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+#	"${Cg_INCLUDE_DIRS}"
+#)

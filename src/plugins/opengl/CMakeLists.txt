@@ -703,7 +703,6 @@ set(
 	src/plugins/opengl/src/state/convert/sampler_ternary_op.cpp
 	src/plugins/opengl/src/state/convert/sampler_unary_op.cpp
 	src/plugins/opengl/src/state/convert/source_blend_func.cpp
-	src/plugins/opengl/src/state/convert/stage_op.cpp
 	src/plugins/opengl/src/state/convert/stencil_func.cpp
 	src/plugins/opengl/src/state/convert/stencil_op.cpp
 	src/plugins/opengl/src/state/core/blend/alpha_enabled_visitor.cpp

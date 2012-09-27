@@ -30,7 +30,7 @@ sge::opengl::state::convert::sampler_color_arg_type<
 	sge::renderer::state::ffp::sampler::arg1
 >::get()
 {
-	return GL_SOURCE0_RGB;
+	return GL_SRC0_RGB;
 }
 
 GLenum
@@ -38,7 +38,7 @@ sge::opengl::state::convert::sampler_color_arg_type<
 	sge::renderer::state::ffp::sampler::arg2
 >::get()
 {
-	return GL_SOURCE1_RGB;
+	return GL_SRC1_RGB;
 }
 
 GLenum
@@ -46,5 +46,5 @@ sge::opengl::state::convert::sampler_color_arg_type<
 	sge::renderer::state::ffp::sampler::arg3
 >::get()
 {
-	return GL_SOURCE2_RGB;
+	return GL_SRC2_RGB;
 }

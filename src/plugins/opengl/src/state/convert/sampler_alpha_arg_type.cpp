@@ -30,7 +30,7 @@ sge::opengl::state::convert::sampler_alpha_arg_type<
 	sge::renderer::state::ffp::sampler::arg1
 >::get()
 {
-	return GL_SOURCE0_ALPHA;
+	return GL_SRC0_ALPHA;
 }
 
 GLenum
@@ -38,7 +38,7 @@ sge::opengl::state::convert::sampler_alpha_arg_type<
 	sge::renderer::state::ffp::sampler::arg2
 >::get()
 {
-	return GL_SOURCE1_ALPHA;
+	return GL_SRC1_ALPHA;
 }
 
 GLenum
@@ -46,5 +46,5 @@ sge::opengl::state::convert::sampler_alpha_arg_type<
 	sge::renderer::state::ffp::sampler::arg3
 >::get()
 {
-	return GL_SOURCE2_ALPHA;
+	return GL_SRC2_ALPHA;
 }

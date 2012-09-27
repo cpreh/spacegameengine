@@ -34,14 +34,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/md3/normal_sequence.hpp>
 #include <sge/model/md3/object.hpp>
 #include <sge/model/md3/vertex_sequence.hpp>
-#include <sge/renderer/device.hpp>
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/index_buffer.hpp>
 #include <sge/renderer/index_buffer_scoped_ptr.hpp>
 #include <sge/renderer/index_count.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/matrix4.hpp>
-#include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/scoped_index_lock.hpp>
@@ -56,8 +54,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_declaration_scoped_ptr.hpp>
 #include <sge/renderer/clear/depth_buffer_value.hpp>
 #include <sge/renderer/clear/parameters.hpp>
-#include <sge/renderer/context/object.hpp>
-#include <sge/renderer/context/scoped.hpp>
+#include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/context/scoped_ffp.hpp>
+#include <sge/renderer/device/core.hpp>
+#include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/index/i16.hpp>
 #include <sge/renderer/index/iterator.hpp>
@@ -69,14 +69,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_format/depth_stencil.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
-#include <sge/renderer/state/bool.hpp>
-#include <sge/renderer/state/cull_mode.hpp>
-#include <sge/renderer/state/depth_func.hpp>
-#include <sge/renderer/state/float.hpp>
-#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/state/core/blend/alpha_off.hpp>
+#include <sge/renderer/state/core/blend/object.hpp>
+#include <sge/renderer/state/core/blend/object_scoped_ptr.hpp>
+#include <sge/renderer/state/core/blend/parameters.hpp>
+#include <sge/renderer/state/core/blend/scoped.hpp>
+#include <sge/renderer/state/core/blend/write_alpha.hpp>
+#include <sge/renderer/state/core/blend/write_blue.hpp>
+#include <sge/renderer/state/core/blend/write_green.hpp>
+#include <sge/renderer/state/core/blend/write_mask.hpp>
+#include <sge/renderer/state/core/blend/write_red.hpp>
+#include <sge/renderer/state/core/depth_stencil/object.hpp>
+#include <sge/renderer/state/core/depth_stencil/object_scoped_ptr.hpp>
+#include <sge/renderer/state/core/depth_stencil/parameters.hpp>
+#include <sge/renderer/state/core/depth_stencil/depth/enabled.hpp>
+#include <sge/renderer/state/core/depth_stencil/depth/func.hpp>
+#include <sge/renderer/state/core/depth_stencil/depth/write_enable.hpp>
+#include <sge/renderer/state/core/rasterizer/cull_mode.hpp>
+#include <sge/renderer/state/core/rasterizer/enable_scissor_test.hpp>
+#include <sge/renderer/state/core/rasterizer/fill_mode.hpp>
+#include <sge/renderer/state/core/rasterizer/object.hpp>
+#include <sge/renderer/state/core/rasterizer/object_scoped_ptr.hpp>
+#include <sge/renderer/state/core/rasterizer/parameters.hpp>
+#include <sge/renderer/state/ffp/transform/mode.hpp>
+#include <sge/renderer/state/ffp/transform/object.hpp>
+#include <sge/renderer/state/ffp/transform/object_scoped_ptr.hpp>
+#include <sge/renderer/state/ffp/transform/parameters.hpp>
+#include <sge/renderer/state/ffp/transform/scoped.hpp>
 #include <sge/renderer/target/base.hpp>
 #include <sge/renderer/target/onscreen.hpp>
-#include <sge/renderer/target/viewport_size.hpp>
+#include <sge/renderer/target/viewport_is_null.hpp>
 #include <sge/renderer/vf/format.hpp>
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/normal.hpp>
@@ -115,7 +137,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/extract_from_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional_impl.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
@@ -124,9 +145,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/level.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
 #include <fcppt/math/twopi.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
-#include <fcppt/math/matrix/object_impl.hpp>
 #include <fcppt/math/matrix/rotation_x.hpp>
 #include <fcppt/math/matrix/rotation_y.hpp>
 #include <fcppt/math/matrix/rotation_z.hpp>
@@ -134,7 +153,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/matrix/translation.hpp>
 #include <fcppt/math/matrix/vector.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/random/variate.hpp>
 #include <fcppt/random/distribution/uniform_real.hpp>
@@ -224,9 +242,8 @@ class compiled_model
 FCPPT_NONCOPYABLE(
 	compiled_model);
 public:
-	explicit
 	compiled_model(
-		sge::renderer::device &,
+		sge::renderer::device::core &,
 		sge::renderer::vertex_declaration const &,
 		sge::model::md3::object const &);
 
@@ -235,17 +252,17 @@ public:
 
 	void
 	render(
-		sge::renderer::context::object &) const;
+		sge::renderer::context::core &) const;
 
 	~compiled_model();
 private:
-	sge::renderer::device &renderer_;
+	sge::renderer::device::core &renderer_;
 	sge::renderer::vertex_buffer_scoped_ptr const vb_;
 	sge::renderer::index_buffer_scoped_ptr const ib_;
 };
 
 compiled_model::compiled_model(
-	sge::renderer::device &_renderer,
+	sge::renderer::device::core &_renderer,
 	sge::renderer::vertex_declaration const &_vd,
 	sge::model::md3::object const &_model)
 :
@@ -353,7 +370,7 @@ compiled_model::vb() const
 
 void
 compiled_model::render(
-	sge::renderer::context::object &_context) const
+	sge::renderer::context::core &_context) const
 {
 	// This should be pretty self-explanatory. Note that here, we just
 	// call render. The vertex buffer isn't activated here, neither is
@@ -391,7 +408,7 @@ public:
 
 	void
 	render(
-		sge::renderer::context::object &);
+		sge::renderer::context::core &);
 
 	sge::renderer::matrix4 const &
 	modelview() const;
@@ -415,7 +432,7 @@ model_instance::model_instance(
 
 void
 model_instance::render(
-	sge::renderer::context::object &_context)
+	sge::renderer::context::core &_context)
 {
 	backend_.render(
 		_context);
@@ -438,14 +455,13 @@ class random_model_collection
 FCPPT_NONCOPYABLE(
 	random_model_collection);
 public:
-	explicit
 	random_model_collection(
-		sge::renderer::device &,
+		sge::renderer::device::ffp &,
 		compiled_model const &);
 
 	void
 	render(
-		sge::renderer::context::object &,
+		sge::renderer::context::ffp &,
 		sge::renderer::matrix4 const &);
 
 	~random_model_collection();
@@ -454,13 +470,13 @@ private:
 	boost::ptr_vector<model_instance>
 	model_sequence;
 
-	sge::renderer::device &renderer_;
+	sge::renderer::device::ffp &renderer_;
 	compiled_model const &backend_;
 	model_sequence models_;
 };
 
 random_model_collection::random_model_collection(
-	sge::renderer::device &_renderer,
+	sge::renderer::device::ffp &_renderer,
 	compiled_model const &_backend)
 :
 	renderer_(
@@ -540,12 +556,12 @@ random_model_collection::random_model_collection(
 
 void
 random_model_collection::render(
-	sge::renderer::context::object &_context,
+	sge::renderer::context::ffp &_context,
 	sge::renderer::matrix4 const &mv)
 {
 	// Finally, we activate the vertex buffer so we can render stuff
 	// with it. We only activate it once, however, not for every model.
-	sge::renderer::scoped_vertex_buffer scoped_vb(
+	sge::renderer::scoped_vertex_buffer const scoped_vb(
 		_context,
 		backend_.vb());
 
@@ -555,10 +571,17 @@ random_model_collection::render(
 		current_model != models_.end();
 		++current_model)
 	{
+		sge::renderer::state::ffp::transform::object_scoped_ptr const world_state(
+			renderer_.create_transform_state(
+				sge::renderer::state::ffp::transform::parameters(
+					mv * current_model->modelview())));
+
 		// Set the world transformation and render
-		_context.transform(
-			sge::renderer::matrix_mode::world,
-			mv * current_model->modelview());
+		sge::renderer::state::ffp::transform::scoped const world_transform(
+			_context,
+			sge::renderer::state::ffp::transform::mode::world,
+			*world_state);
+
 
 		current_model->render(
 			_context);
@@ -824,6 +847,51 @@ try
 			sge::camera::update_duration(
 				1.0f)));
 
+	sge::renderer::state::core::depth_stencil::object_scoped_ptr const depth_stencil_state(
+		sys.renderer_core().create_depth_stencil_state(
+			sge::renderer::state::core::depth_stencil::parameters(
+				sge::renderer::state::core::depth_stencil::depth::enabled(
+					sge::renderer::state::core::depth_stencil::depth::func::less,
+					sge::renderer::state::core::depth_stencil::depth::write_enable(
+						true)),
+				sge::renderer::state::core::depth_stencil::stencil::off())));
+
+	sge::renderer::state::core::rasterizer::object_scoped_ptr const rasterizer_state(
+		sys.renderer_core().create_rasterizer_state(
+			sge::renderer::state::core::rasterizer::parameters(
+				sge::renderer::state::core::rasterizer::cull_mode::counter_clockwise,
+				sge::renderer::state::core::rasterizer::fill_mode::solid,
+				sge::renderer::state::core::rasterizer::enable_scissor_test(
+					false))));
+
+	sge::renderer::state::core::blend::object_scoped_ptr const blend_red_state(
+		sys.renderer_core().create_blend_state(
+			sge::renderer::state::core::blend::parameters(
+				sge::renderer::state::core::blend::alpha_off(),
+				sge::renderer::state::core::blend::write_mask(
+					sge::renderer::state::core::blend::write_red(
+						true),
+					sge::renderer::state::core::blend::write_blue(
+						false),
+					sge::renderer::state::core::blend::write_green(
+						false),
+					sge::renderer::state::core::blend::write_alpha(
+						true)))));
+
+	sge::renderer::state::core::blend::object_scoped_ptr const blend_cyan_state(
+		sys.renderer_core().create_blend_state(
+			sge::renderer::state::core::blend::parameters(
+				sge::renderer::state::core::blend::alpha_off(),
+				sge::renderer::state::core::blend::write_mask(
+					sge::renderer::state::core::blend::write_red(
+						false),
+					sge::renderer::state::core::blend::write_blue(
+						true),
+					sge::renderer::state::core::blend::write_green(
+						true),
+					sge::renderer::state::core::blend::write_alpha(
+						true)))));
+
 	while(
 		sys.window_system().poll()
 	)
@@ -847,35 +915,20 @@ try
 		sge::renderer::context::ffp &context(
 			scoped_block.get());
 
-		context.transform(
-			sge::renderer::matrix_mode::projection,
-			camera.projection_matrix().get());
+		sge::renderer::state::ffp::transform::object_scoped_ptr const projection_state(
+			sys.renderer_ffp().create_transform_state(
+				sge::renderer::state::ffp::transform::parameters(
+					camera.projection_matrix().get())));
+
+		sge::renderer::state::ffp::transform::scoped const projection_transform(
+			context,
+			sge::renderer::state::ffp::transform::mode::projection,
+			*projection_state);
 
 		// The vertex declaration can be set once in this case
 		sge::renderer::scoped_vertex_declaration const scoped_vd(
 			context,
 			*vertex_declaration);
-
-		// Set the important render states
-		context.state(
-			sge::renderer::state::list
-				(sge::renderer::state::depth_func::less)
-				(sge::renderer::state::bool_::enable_alpha_blending = false)
-				(sge::renderer::state::cull_mode::counter_clockwise)
-				(sge::renderer::state::bool_::enable_lighting = true));
-
-		context.enable_light(
-			sge::renderer::light::index(
-				0u),
-			true);
-
-		// Since the "write_*" attributes also apply to the "clear
-		// backbuffer" stuff, we set everything to "true" here.
-		context.state(
-			sge::renderer::state::list
-				(sge::renderer::state::bool_::write_red = true)
-				(sge::renderer::state::bool_::write_blue = true)
-				(sge::renderer::state::bool_::write_green = true));
 
 		sge::renderer::clear::depth_buffer_value const depth_clear_value(
 			1.f
@@ -891,20 +944,20 @@ try
 			)
 		);
 
-		// Set the color mask to "red"
-		context.state(
-			sge::renderer::state::list
-				(sge::renderer::state::bool_::write_red = true)
-				(sge::renderer::state::bool_::write_blue = false)
-				(sge::renderer::state::bool_::write_green = false));
+		{
+			// Set the color mask to "red"
+			sge::renderer::state::core::blend::scoped const scoped_blend(
+				context,
+				*blend_red_state);
 
-		model_collection.render(
-			context,
-			sge::camera::matrix_conversion::world(
-				move_eye_position(
-					camera.coordinate_system(),
-					eye_distance,
-					focal_length)));
+			model_collection.render(
+				context,
+				sge::camera::matrix_conversion::world(
+					move_eye_position(
+						camera.coordinate_system(),
+						eye_distance,
+						focal_length)));
+		}
 
 		// Clear depth buffer
 		context.clear(
@@ -914,27 +967,20 @@ try
 			)
 		);
 
-		// Set the color mask to cyan
-		context.state(
-			sge::renderer::state::list
-				(sge::renderer::state::bool_::write_red = false)
-				(sge::renderer::state::bool_::write_blue = true)
-				(sge::renderer::state::bool_::write_green = true));
+		{
+			// Set the color mask to cyan
+			sge::renderer::state::core::blend::scoped const scoped_blend(
+				context,
+				*blend_cyan_state);
 
-		model_collection.render(
-			context,
-			sge::camera::matrix_conversion::world(
-				move_eye_position(
-					camera.coordinate_system(),
-					-eye_distance,
-					focal_length)));
-
-		// Reset old states
-		context.state(
-			sge::renderer::state::list
-				(sge::renderer::state::bool_::write_red = true)
-				(sge::renderer::state::bool_::write_blue = true)
-				(sge::renderer::state::bool_::write_green = true));
+			model_collection.render(
+				context,
+				sge::camera::matrix_conversion::world(
+					move_eye_position(
+						camera.coordinate_system(),
+						-eye_distance,
+						focal_length)));
+		}
 	}
 
 	return

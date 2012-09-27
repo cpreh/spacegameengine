@@ -191,6 +191,8 @@ add_sge_example(
 	""
 )
 
+message("Fix the cube map example!")
+
 #add_sge_example(
 #	cube_map
 #	"sgecamera;sgeimage;sgeinput;sgerenderer;sgesystems;sgeviewport;sgewindow;sgeimage2d;sgeconfig;sgescenic"
