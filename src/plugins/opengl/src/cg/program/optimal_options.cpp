@@ -39,7 +39,7 @@ sge::opengl::cg::program::optimal_options(
 	sge::cg::profile::object const &_profile
 )
 {
-	sge::cg::char_type const ** const ret(
+	sge::cg::char_type const ** const ret =
 #if CG_VERSION_NUM < 3100
 		::cgGLGetOptimalOptions(
 			_profile.get()
@@ -48,8 +48,7 @@ sge::opengl::cg::program::optimal_options(
 			_context.get(),
 			_profile.get()
 #endif
-		)
-	);
+		);
 
 	SGE_CG_CHECK_STATE(
 		FCPPT_TEXT("cgGLGetContextOptimalOptions failed"),

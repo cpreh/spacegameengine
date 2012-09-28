@@ -8,6 +8,6 @@ set(
 add_sge_tool(
 	control_config
 	""
-	""
+	"${Awl_LIBRARIES}"
 	""
 )

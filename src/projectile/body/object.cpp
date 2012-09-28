@@ -40,10 +40,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <BulletCollision/CollisionShapes/btCollisionShape.h>
+#include <BulletDynamics/Dynamics/btRigidBody.h>
 #include <LinearMath/btMatrix3x3.h>
 #include <LinearMath/btTransform.h>
-#include <BulletDynamics/Dynamics/btRigidBody.h>
-#include <BulletCollision/CollisionShapes/btCollisionShape.h>
 #include <fcppt/config/external_end.hpp>
 
 

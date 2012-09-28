@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/obj/parse_mtllib.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
+#include <fcppt/nonassignable.hpp>
 #include <fcppt/optional.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
@@ -45,6 +46,8 @@ namespace
 {
 class parser
 {
+FCPPT_NONASSIGNABLE(
+	parser);
 public:
 	parser(
 		boost::filesystem::path const &_filename,

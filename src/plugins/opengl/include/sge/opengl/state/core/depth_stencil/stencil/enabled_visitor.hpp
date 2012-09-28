@@ -44,6 +44,9 @@ namespace stencil
 
 class enabled_visitor
 {
+	FCPPT_NONASSIGNABLE(
+		enabled_visitor
+	);
 public:
 	enabled_visitor(
 		sge::renderer::state::core::depth_stencil::stencil::ref,

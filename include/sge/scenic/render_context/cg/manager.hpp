@@ -41,6 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/shader/parameter/vector.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/integral_c.hpp>
 #include <boost/ptr_container/ptr_array.hpp>
 #include <cstddef>
 #include <fcppt/config/external_end.hpp>
@@ -76,15 +77,36 @@ public:
 private:
 	friend class sge::scenic::render_context::cg::object;
 
-	static const std::size_t max_point_lights = 8u;
-	static const std::size_t max_directional_lights = 2u;
+	typedef
+	boost::mpl::integral_c
+	<
+		std::size_t,
+		8u
+	>
+	max_point_lights;
+
+	typedef 
+	boost::mpl::integral_c
+	<
+		std::size_t,
+		2u
+	>
+	max_directional_lights;
 
 	typedef
-	boost::ptr_array<sge::scenic::render_context::cg::light::point,max_point_lights>
+	boost::ptr_array
+	<
+		sge::scenic::render_context::cg::light::point,
+		max_point_lights::value
+	>
 	point_light_array;
 
 	typedef
-	boost::ptr_array<sge::scenic::render_context::cg::light::directional,max_directional_lights>
+	boost::ptr_array
+	<
+		sge::scenic::render_context::cg::light::directional,
+		max_directional_lights::value
+	>
 	directional_light_array;
 
 	sge::renderer::vertex_declaration &vertex_declaration_;
