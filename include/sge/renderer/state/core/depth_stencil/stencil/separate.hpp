@@ -57,9 +57,9 @@ public:
 	sge::renderer::state::core::depth_stencil::stencil::back const &
 	back() const;
 private:
-	sge::renderer::state::core::depth_stencil::stencil::front const front_;
+	sge::renderer::state::core::depth_stencil::stencil::front front_;
 
-	sge::renderer::state::core::depth_stencil::stencil::back const back_;
+	sge::renderer::state::core::depth_stencil::stencil::back back_;
 };
 
 }

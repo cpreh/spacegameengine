@@ -45,9 +45,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/ptr/replace_unique_ptr.hpp>
 
 
-std::size_t const sge::scenic::render_context::cg::manager::max_point_lights;
-std::size_t const sge::scenic::render_context::cg::manager::max_directional_lights;
-
 sge::scenic::render_context::cg::manager::manager(
 	sge::shader::context &_shader_context,
 	sge::renderer::vertex_declaration &_vertex_declaration)
@@ -64,8 +61,8 @@ sge::scenic::render_context::cg::manager::manager(
 			sge::config::media_path() / FCPPT_TEXT("shaders") / FCPPT_TEXT("ffp.cg")),
 		sge::shader::optional_cflags(
 			fcppt::assign::make_container<sge::shader::optional_cflags::string_sequence>
-				("-DMAX_POINT_LIGHTS="+fcppt::insert_to_std_string(max_point_lights))
-				("-DMAX_DIRECTIONAL_LIGHTS="+fcppt::insert_to_std_string(max_directional_lights)))),
+				("-DMAX_POINT_LIGHTS="+fcppt::insert_to_std_string(max_point_lights::value))
+				("-DMAX_DIRECTIONAL_LIGHTS="+fcppt::insert_to_std_string(max_directional_lights::value)))),
 	world_matrix_(
 		shader_.vertex_program(),
 		sge::shader::parameter::name(

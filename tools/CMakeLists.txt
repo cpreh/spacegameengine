@@ -93,6 +93,10 @@ option(
 	ON
 )
 
+add_definitions(
+	${Awl_DEFINITIONS}
+)
+
 if(
 	ENABLE_CONTROL_CONFIG
 )
