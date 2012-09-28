@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/evdev/device/conditional_event.hpp>
 #include <sge/evdev/device/event.hpp>
 #include <sge/evdev/device/event_type.hpp>
-#include <sge/evdev/device/fd_unique_ptr.hpp>
 #include <sge/evdev/device/fd.hpp>
+#include <sge/evdev/device/fd_unique_ptr.hpp>
 #include <sge/evdev/joypad/event_map.hpp>
 #include <sge/evdev/joypad/object.hpp>
 #include <sge/evdev/joypad/absolute_axis/make_event.hpp>

@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/x11input/keyboard/translate_key_code.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <X11/keysym.h>
 #include <X11/X.h>
+#include <X11/keysym.h>
 #include <fcppt/config/external_end.hpp>
 
 

@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_EVDEV_JOYPAD_ABSOLUTE_AXIS_MAKE_EVENT_HPP_INCLUDED
 #define SGE_EVDEV_JOYPAD_ABSOLUTE_AXIS_MAKE_EVENT_HPP_INCLUDED
 
+#include <sge/evdev/device/event_fwd.hpp>
 #include <sge/input/joypad/absolute_axis_event_fwd.hpp>
 #include <sge/input/joypad/absolute_axis_id.hpp>
 #include <sge/input/joypad/absolute_axis_info_container_fwd.hpp>
-#include <sge/evdev/device/event_fwd.hpp>
 
 
 namespace sge

@@ -18,16 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/exception.hpp>
-#include <sge/input/info/name.hpp>
 #include <sge/evdev/device/fd.hpp>
 #include <sge/evdev/device/name.hpp>
+#include <sge/input/exception.hpp>
+#include <sge/input/info/name.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/array_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <linux/input.h>
 #include <sys/ioctl.h>
+#include <linux/input.h>
 #include <fcppt/config/external_end.hpp>
 
 

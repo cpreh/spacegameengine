@@ -20,15 +20,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/color/any/object_fwd.hpp>
 #include <sge/image2d/dim.hpp>
-#include <sge/image2d/view/size.hpp>
 #include <sge/image2d/vector_fwd.hpp>
 #include <sge/image2d/algorithm/bresenham.hpp>
 #include <sge/image2d/view/object.hpp>
+#include <sge/image2d/view/size.hpp>
 #include <sge/src/image2d/algorithm/bresenham_visitor.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/assert/pre_message.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
-#include <fcppt/assert/pre_message.hpp>
-#include <fcppt/text.hpp>
+
 
 void
 sge::image2d::algorithm::bresenham(

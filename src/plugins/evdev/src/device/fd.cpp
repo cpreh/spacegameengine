@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/linux/fd/object.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
-#include <sys/types.h>
 #include <sys/stat.h>
+#include <sys/types.h>
+#include <boost/filesystem/path.hpp>
 #include <fcntl.h>
 #include <unistd.h>
 #include <fcppt/config/external_end.hpp>

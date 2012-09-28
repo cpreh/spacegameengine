@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_EVDEV_DEVICE_NAME_HPP_INCLUDED
 #define SGE_EVDEV_DEVICE_NAME_HPP_INCLUDED
 
-#include <sge/input/info/name.hpp>
 #include <sge/evdev/device/fd_fwd.hpp>
+#include <sge/input/info/name.hpp>
 
 
 namespace sge

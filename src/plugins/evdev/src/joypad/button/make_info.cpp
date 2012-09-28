@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/joypad/button_info.hpp>
 #include <sge/evdev/device/event_type.hpp>
 #include <sge/evdev/joypad/button/make_info.hpp>
 #include <sge/evdev/joypad/button/make_string.hpp>
+#include <sge/input/joypad/button_info.hpp>
 
 
 sge::input::joypad::button_info const
