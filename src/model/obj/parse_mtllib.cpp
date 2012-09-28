@@ -232,9 +232,12 @@ public:
 			FCPPT_ASSERT_PRE(
 				diffuse_);
 
+			FCPPT_LOG_WARNING(
+				sge::log::global(),
+				fcppt::log::_ << FCPPT_TEXT("obj (mtl): dissolve currently not supported"));
+			/*
 			(*diffuse_)[3] =
 				dissolve;
-			/*
 			if(std::abs(dissolve - 1.0f) > 0.0001f)
 				throw
 					sge::model::obj::exception(
