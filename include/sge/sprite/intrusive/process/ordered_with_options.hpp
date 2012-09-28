@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/render/parameters_impl.hpp>
 #include <sge/sprite/state/object_fwd.hpp>
 #include <sge/sprite/state/options_impl.hpp>
+#include <sge/sprite/state/render_context.hpp>
 #include <sge/sprite/state/scoped_impl.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/ref.hpp>
@@ -71,7 +72,7 @@ ordered_with_options(
 	Buffers &_buffers,
 	sge::sprite::state::object<
 		StateChoices
-	> const &_states,
+	> &_states,
 	Compare const &_compare,
 	sge::sprite::state::options<
 		StateChoices
@@ -86,6 +87,7 @@ ordered_with_options(
 	sge::sprite::state::scoped<
 		StateChoices
 	> const scoped_states(
+		_states.renderer(),
 		_render_context,
 		_options,
 		_states
@@ -105,6 +107,9 @@ ordered_with_options(
 		std::tr1::bind(
 			sge::sprite::intrusive::detail::render_one<
 				Options,
+				typename sge::sprite::state::render_context<
+					StateChoices
+				>::type,
 				Buffers,
 				Compare,
 				typename collection::range_type
