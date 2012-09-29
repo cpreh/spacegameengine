@@ -132,7 +132,7 @@ sge::scenic::render_context::ffp::object::object(
 			sge::renderer::state::ffp::lighting::parameters(
 				sge::renderer::state::ffp::lighting::enabled(
 					sge::renderer::state::ffp::lighting::ambient_color(
-						sge::image::colors::white()))))),
+						sge::image::colors::black()))))),
 	depth_stencil_state_(
 		manager_.renderer_.create_depth_stencil_state(
 			sge::renderer::state::core::depth_stencil::parameters(
