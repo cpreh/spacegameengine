@@ -27,6 +27,10 @@ set(
 	include/sge/scenic/render_context/cg/object_fwd.hpp
 	include/sge/scenic/render_context/diffuse_color.hpp
 	include/sge/scenic/render_context/emissive_color.hpp
+	include/sge/scenic/render_context/ffp/manager.hpp
+	include/sge/scenic/render_context/ffp/manager_fwd.hpp
+	include/sge/scenic/render_context/ffp/object.hpp
+	include/sge/scenic/render_context/ffp/object_fwd.hpp
 	include/sge/scenic/render_context/fog/color.hpp
 	include/sge/scenic/render_context/fog/end.hpp
 	include/sge/scenic/render_context/fog/optional_properties.hpp
@@ -134,6 +138,8 @@ set(
 	src/scenic/render_context/cg/light/point.cpp
 	src/scenic/render_context/cg/manager.cpp
 	src/scenic/render_context/cg/object.cpp
+	src/scenic/render_context/ffp/manager.cpp
+	src/scenic/render_context/ffp/object.cpp
 	src/scenic/render_context/fog/properties.cpp
 	src/scenic/render_context/light/attenuation.cpp
 	src/scenic/render_context/light/directional.cpp

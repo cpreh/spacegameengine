@@ -20,9 +20,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/vertex_declaration.hpp>
 #include <sge/renderer/device/core.hpp>
+#include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/scenic/render_context/base.hpp>
 #include <sge/scenic/render_context/cg/manager.hpp>
+#include <sge/scenic/render_context/ffp/manager.hpp>
 #include <sge/scenic/scene/manager.hpp>
 #include <sge/scenic/vf/format.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -43,10 +45,18 @@ sge::scenic::scene::manager::manager(
 		_image_loader),
 	shader_context_(
 		renderer_),
+	/*
 	render_context_manager_(
 		fcppt::make_unique_ptr<sge::scenic::render_context::cg::manager>(
 			fcppt::ref(
 				shader_context_),
+			fcppt::ref(
+			*mesh_vertex_declaration_)))*/
+	render_context_manager_(
+		fcppt::make_unique_ptr<sge::scenic::render_context::ffp::manager>(
+			fcppt::ref(
+				dynamic_cast<sge::renderer::device::ffp &>(
+					_renderer)),
 			fcppt::ref(
 				*mesh_vertex_declaration_)))
 {

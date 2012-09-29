@@ -54,7 +54,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/cref.hpp>
-#include <fcppt/assign/make_container.hpp>
+#include <fcppt/assign/make_map.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
@@ -395,13 +395,13 @@ sge::postprocessing::context::finalize()
 		result->get(),
 		finalize_shader_);
 
-	FCPPT_ASSERT_PRE(
-		finalize_input_texture_parameter_.stage().get() == 0u);
-
 	sge::renderer::state::core::sampler::scoped scoped_filter(
 		result->get(),
-		fcppt::assign::make_container<sge::renderer::state::core::sampler::const_object_ref_vector>
-			(fcppt::cref(*point_sampler_)));
+		fcppt::assign::make_map<sge::renderer::state::core::sampler::const_object_ref_map>
+			(
+				finalize_input_texture_parameter_.stage(),
+				fcppt::cref(
+					*point_sampler_)));
 
 	/*
 	sge::renderer::texture::filter::scoped scoped_texture_filter_1(
@@ -413,7 +413,7 @@ sge::postprocessing::context::finalize()
 	fullscreen_quad_.render(
 		result->get());
 
-	return
+
 		fcppt::move(
 			result);
 }

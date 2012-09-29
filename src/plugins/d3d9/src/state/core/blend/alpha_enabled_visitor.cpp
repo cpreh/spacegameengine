@@ -20,9 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/state/render.hpp>
 #include <sge/d3d9/state/render_vector.hpp>
-#include <sge/d3d9/state/core/blend/alpha_enabled_visitor.hpp>
 #include <sge/d3d9/state/convert/dest_blend_func.hpp>
 #include <sge/d3d9/state/convert/source_blend_func.hpp>
+#include <sge/d3d9/state/core/blend/alpha_enabled_visitor.hpp>
 #include <sge/renderer/state/core/blend/combined.hpp>
 #include <sge/renderer/state/core/blend/separate.hpp>
 #include <fcppt/assign/make_container.hpp>
@@ -55,7 +55,7 @@ sge::d3d9::state::core::blend::alpha_enabled_visitor::operator()(
 					_combined.dest()
 				)
 			)
-		);	
+		);
 }
 
 sge::d3d9::state::core::blend::alpha_enabled_visitor::result_type

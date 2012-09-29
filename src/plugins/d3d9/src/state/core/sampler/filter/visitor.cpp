@@ -19,13 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/state/core/sampler/state.hpp>
-#include <sge/d3d9/state/core/sampler/state_vector.hpp>
-#include <sge/d3d9/state/core/sampler/filter/visitor.hpp>
 #include <sge/d3d9/state/convert/anisotropic_mip_filter.hpp>
 #include <sge/d3d9/state/convert/mag_filter.hpp>
 #include <sge/d3d9/state/convert/min_filter.hpp>
 #include <sge/d3d9/state/convert/normal_mip_filter.hpp>
+#include <sge/d3d9/state/core/sampler/state.hpp>
+#include <sge/d3d9/state/core/sampler/state_vector.hpp>
+#include <sge/d3d9/state/core/sampler/filter/visitor.hpp>
 #include <sge/renderer/state/core/sampler/filter/anisotropic/parameters.hpp>
 #include <sge/renderer/state/core/sampler/filter/normal/parameters.hpp>
 #include <fcppt/assign/make_container.hpp>
