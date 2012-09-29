@@ -112,13 +112,21 @@ sge::scenic::render_context::ffp::object::object(
 		0u),
 	current_vertex_buffer_(),
 	current_material_(),
-	current_diffuse_texture_(
+	diffuse_texture_sampler_(
 		manager_.renderer_.create_sampler_state(
 			sge::renderer::state::core::sampler::parameters(
 				sge::renderer::state::core::sampler::address::parameters(
 					sge::renderer::state::core::sampler::address::mode_all(
 						sge::renderer::state::core::sampler::address::mode::repeat)),
 				sge::renderer::state::core::sampler::filter::trilinear()))),
+	scoped_sampler_(
+		_context,
+		fcppt::assign::make_map<sge::renderer::state::core::sampler::const_object_ref_map>
+		(
+			sge::renderer::texture::stage(
+				0u),
+			fcppt::cref(
+				*diffuse_texture_sampler_))),
 	current_lighting_(
 		manager_.renderer_.create_lighting_state(
 			sge::renderer::state::ffp::lighting::parameters(
@@ -159,14 +167,6 @@ sge::scenic::render_context::ffp::object::object(
 	context_.lighting_state(
 		sge::renderer::state::ffp::lighting::const_optional_object_ref(
 			*current_lighting_));
-
-	context_.sampler_state(
-		fcppt::assign::make_map<sge::renderer::state::core::sampler::const_optional_object_ref_map>
-			(
-				sge::renderer::texture::stage(
-					0u),
-				sge::renderer::state::core::sampler::const_optional_object_ref(
-					*current_diffuse_texture_)));
 }
 
 void
@@ -269,6 +269,8 @@ void
 sge::scenic::render_context::ffp::object::vertex_buffer(
 	sge::renderer::vertex_buffer const &_vertex_buffer)
 {
+	current_vertex_buffer_.reset();
+
 	current_vertex_buffer_.take(
 		fcppt::make_unique_ptr<sge::renderer::scoped_vertex_buffer>(
 			fcppt::ref(

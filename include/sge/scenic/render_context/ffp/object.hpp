@@ -11,6 +11,7 @@
 #include <sge/renderer/state/core/rasterizer/object_scoped_ptr.hpp>
 #include <sge/renderer/state/core/rasterizer/scoped.hpp>
 #include <sge/renderer/state/core/sampler/object_scoped_ptr.hpp>
+#include <sge/renderer/state/core/sampler/scoped.hpp>
 #include <sge/renderer/state/ffp/lighting/object_scoped_ptr.hpp>
 #include <sge/renderer/state/ffp/lighting/light/parameters_fwd.hpp>
 #include <sge/renderer/state/ffp/lighting/material/object_scoped_ptr.hpp>
@@ -91,7 +92,8 @@ private:
 	sge::renderer::vertex_count current_vertex_buffer_size_;
 	fcppt::scoped_ptr<sge::renderer::scoped_vertex_buffer> current_vertex_buffer_;
 	sge::renderer::state::ffp::lighting::material::object_scoped_ptr current_material_;
-	sge::renderer::state::core::sampler::object_scoped_ptr const current_diffuse_texture_;
+	sge::renderer::state::core::sampler::object_scoped_ptr const diffuse_texture_sampler_;
+	sge::renderer::state::core::sampler::scoped scoped_sampler_;
 	sge::renderer::state::ffp::lighting::object_scoped_ptr const current_lighting_;
 	sge::renderer::state::core::depth_stencil::object_scoped_ptr const depth_stencil_state_;
 	sge::renderer::state::core::blend::object_scoped_ptr const blend_state_;

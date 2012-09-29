@@ -413,7 +413,7 @@ sge::postprocessing::context::finalize()
 	fullscreen_quad_.render(
 		result->get());
 
-
+	return
 		fcppt::move(
 			result);
 }
