@@ -76,7 +76,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/depth_stencil/depth/func.hpp>
 #include <sge/renderer/state/core/depth_stencil/depth/write_enable.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/off.hpp>
-#include <sge/renderer/state/core/sampler/const_object_ref_vector.hpp>
+#include <sge/renderer/state/core/sampler/const_object_ref_map.hpp>
 #include <sge/renderer/state/core/sampler/object.hpp>
 #include <sge/renderer/state/core/sampler/object_scoped_ptr.hpp>
 #include <sge/renderer/state/core/sampler/parameters.hpp>
@@ -138,7 +138,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/array_map.hpp>
 #include <fcppt/assign/make_array.hpp>
-#include <fcppt/assign/make_container.hpp>
+#include <fcppt/assign/make_map.hpp>
 #include <fcppt/container/array.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
@@ -798,14 +798,20 @@ try
 		)
 	);
 
-	sge::renderer::state::core::sampler::const_object_ref_vector const samplers(
-		fcppt::assign::make_container<
-			sge::renderer::state::core::sampler::const_object_ref_vector
+	sge::renderer::state::core::sampler::const_object_ref_map const samplers(
+		fcppt::assign::make_map<
+			sge::renderer::state::core::sampler::const_object_ref_map
 		>(
+			sge::renderer::texture::stage(
+				0u
+			),
 			fcppt::cref(
 				*sampler_state
 			)
 		)(
+			sge::renderer::texture::stage(
+				1u
+			),
 			fcppt::cref(
 				*sampler_state
 			)
