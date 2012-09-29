@@ -38,6 +38,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/surface/depth_stencil.hpp>
 #include <sge/d3d9/surface/depth_stencil_native.hpp>
 #include <sge/d3d9/swapchainfuncs/present.hpp>
+#include <sge/d3d9/state/core/blend/create.hpp>
+#include <sge/d3d9/state/core/depth_stencil/create.hpp>
+#include <sge/d3d9/state/core/rasterizer/create.hpp>
+#include <sge/d3d9/state/core/sampler/create.hpp>
 #include <sge/d3d9/target/offscreen.hpp>
 #include <sge/d3d9/target/onscreen.hpp>
 #include <sge/d3d9/texture/cube.hpp>
@@ -47,7 +51,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/config.hpp>
 #include <sge/renderer/depth_stencil_format.hpp>
 #include <sge/renderer/depth_stencil_surface_unique_ptr.hpp>
-#include <sge/renderer/device.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/index_buffer_unique_ptr.hpp>
 #include <sge/renderer/index_count.hpp>
@@ -58,12 +61,55 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/vertex_declaration_unique_ptr.hpp>
 #include <sge/renderer/caps/device.hpp>
-#include <sge/renderer/context/object.hpp>
-#include <sge/renderer/context/object_unique_ptr.hpp>
+#include <sge/renderer/context/core.hpp>
+#include <sge/renderer/context/core_unique_ptr.hpp>
+#include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/context/ffp_unique_ptr.hpp>
+#include <sge/renderer/device/ffp.hpp>
+#include <sge/renderer/device/parameters.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/occlusion_query/object.hpp>
 #include <sge/renderer/occlusion_query/object_unique_ptr.hpp>
 #include <sge/renderer/parameters/object.hpp>
+#include <sge/renderer/state/core/blend/object.hpp>
+#include <sge/renderer/state/core/blend/object_unique_ptr.hpp>
+#include <sge/renderer/state/core/blend/parameters_fwd.hpp>
+#include <sge/renderer/state/core/depth_stencil/object.hpp>
+#include <sge/renderer/state/core/depth_stencil/object_unique_ptr.hpp>
+#include <sge/renderer/state/core/depth_stencil/parameters_fwd.hpp>
+#include <sge/renderer/state/core/rasterizer/object.hpp>
+#include <sge/renderer/state/core/rasterizer/object_unique_ptr.hpp>
+#include <sge/renderer/state/core/rasterizer/parameters_fwd.hpp>
+#include <sge/renderer/state/core/sampler/object.hpp>
+#include <sge/renderer/state/core/sampler/object_unique_ptr.hpp>
+#include <sge/renderer/state/core/sampler/parameters_fwd.hpp>
+#include <sge/renderer/state/ffp/alpha_test/object.hpp>
+#include <sge/renderer/state/ffp/alpha_test/object_unique_ptr.hpp>
+#include <sge/renderer/state/ffp/alpha_test/parameters_fwd.hpp>
+#include <sge/renderer/state/ffp/clip_plane/object.hpp>
+#include <sge/renderer/state/ffp/clip_plane/object_unique_ptr.hpp>
+#include <sge/renderer/state/ffp/clip_plane/parameters_fwd.hpp>
+#include <sge/renderer/state/ffp/fog/object.hpp>
+#include <sge/renderer/state/ffp/fog/object_unique_ptr.hpp>
+#include <sge/renderer/state/ffp/fog/parameters_fwd.hpp>
+#include <sge/renderer/state/ffp/lighting/object.hpp>
+#include <sge/renderer/state/ffp/lighting/object_unique_ptr.hpp>
+#include <sge/renderer/state/ffp/lighting/parameters_fwd.hpp>
+#include <sge/renderer/state/ffp/lighting/light/object.hpp>
+#include <sge/renderer/state/ffp/lighting/light/object_unique_ptr.hpp>
+#include <sge/renderer/state/ffp/lighting/light/parameters_fwd.hpp>
+#include <sge/renderer/state/ffp/lighting/material/object.hpp>
+#include <sge/renderer/state/ffp/lighting/material/object_unique_ptr.hpp>
+#include <sge/renderer/state/ffp/lighting/material/parameters_fwd.hpp>
+#include <sge/renderer/state/ffp/misc/object.hpp>
+#include <sge/renderer/state/ffp/misc/object_unique_ptr.hpp>
+#include <sge/renderer/state/ffp/misc/parameters_fwd.hpp>
+#include <sge/renderer/state/ffp/sampler/object.hpp>
+#include <sge/renderer/state/ffp/sampler/object_unique_ptr.hpp>
+#include <sge/renderer/state/ffp/sampler/parameters_fwd.hpp>
+#include <sge/renderer/state/ffp/transform/object.hpp>
+#include <sge/renderer/state/ffp/transform/object_unique_ptr.hpp>
+#include <sge/renderer/state/ffp/transform/parameters_fwd.hpp>
 #include <sge/renderer/target/base_fwd.hpp>
 #include <sge/renderer/target/offscreen_unique_ptr.hpp>
 #include <sge/renderer/target/onscreen_fwd.hpp>
@@ -113,29 +159,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::d3d9::device::device(
 	IDirect3D9 *const _system,
-	sge::renderer::adapter const _adapter,
-	sge::renderer::parameters::object const &_parameters,
-	awl::window::object &_window,
+	sge::renderer::device::parameters const &_parameters,
 	sge::renderer::caps::device const &_caps
 )
 :
-	sge::renderer::device(),
+	sge::renderer::device::ffp(),
 	srgb_(
-		_parameters.pixel_format().srgb()
+		_parameters.params().pixel_format().srgb()
 	),
 	caps_(
 		_caps
 	),
 	present_parameters_(
 		sge::d3d9::parameters::create(
-			_parameters,
-			_window
+			_parameters.params(),
+			_parameters.window()
 		)
 	),
 	device_(
 		sge::d3d9::create_device(
 			_system,
-			_adapter,
+			_parameters.adapter(),
 			present_parameters_
 		)
 	),
@@ -161,7 +205,7 @@ sge::d3d9::device::device(
 					fcppt::math::dim::structure_cast<
 						sge::renderer::pixel_rect::dim
 					>(
-						_window.size()
+						_parameters.window().size()
 					)
 				)
 			),
@@ -178,7 +222,7 @@ sge::d3d9::device::~device()
 {
 }
 
-sge::renderer::context::object_unique_ptr
+sge::renderer::context::core_unique_ptr
 sge::d3d9::device::begin_rendering(
 	sge::renderer::target::base &_target
 )
@@ -197,7 +241,7 @@ sge::d3d9::device::begin_rendering(
 
 void
 sge::d3d9::device::end_rendering(
-	sge::renderer::context::object &_context
+	sge::renderer::context::core &_context
 )
 {
 	sge::d3d9::devicefuncs::end_scene(
@@ -439,6 +483,54 @@ sge::d3d9::device::create_occlusion_query()
 	return
 		sge::d3d9::occlusion_query::create(
 			*device_
+		);
+}
+
+sge::renderer::state::core::blend::object_unique_ptr
+sge::d3d9::device::create_blend_state(
+	sge::renderer::state::core::blend::parameters const &_parameters
+)
+{
+	return
+		sge::d3d9::state::core::blend::create(
+			*device_,
+			_parameters
+		);
+}
+
+sge::renderer::state::core::depth_stencil::object_unique_ptr
+sge::d3d9::device::create_depth_stencil_state(
+	sge::renderer::state::core::depth_stencil::parameters const &_parameters
+)
+{
+	return
+		sge::d3d9::state::core::depth_stencil::create(
+			*device_,
+			_parameters
+		);
+}
+
+sge::renderer::state::core::rasterizer::object_unique_ptr
+sge::d3d9::device::create_rasterizer_state(
+	sge::renderer::state::core::rasterizer::parameters const &_parameters
+)
+{
+	return
+		sge::d3d9::state::core::rasterizer::create(
+			*device_,
+			_parameters
+		);
+}
+
+sge::renderer::state::core::sampler::object_unique_ptr
+sge::d3d9::device::create_sampler_state(
+	sge::renderer::state::core::sampler::parameters const &_parameters
+)
+{
+	return
+		sge::d3d9::state::core::sampler::create(
+			*device_,
+			_parameters
 		);
 }
 

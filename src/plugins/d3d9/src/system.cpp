@@ -23,20 +23,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/device.hpp>
 #include <sge/d3d9/system.hpp>
 #include <sge/renderer/adapter.hpp>
-#include <sge/renderer/device_unique_ptr.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/caps/device.hpp>
 #include <sge/renderer/caps/device_count.hpp>
 #include <sge/renderer/caps/system_field.hpp>
-#include <sge/renderer/parameters/object_fwd.hpp>
+#include <sge/renderer/device/core_unique_ptr.hpp>
+#include <sge/renderer/device/ffp_unique_ptr.hpp>
+#include <sge/renderer/device/parameters.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <awl/system/object.hpp>
 #include <awl/visual/object.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
-#include <awl/window/object_fwd.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
@@ -82,29 +81,36 @@ sge::d3d9::system::~system()
 {
 }
 
-sge::renderer::device_unique_ptr
-sge::d3d9::system::create_renderer(
-	sge::renderer::adapter const _adapter,
-	sge::renderer::parameters::object const &_parameters,
-	awl::window::object &_window
+sge::renderer::device::core_unique_ptr
+sge::d3d9::system::create_core_renderer(
+	sge::renderer::device::parameters const &_parameters
 )
 {
 	return
-		sge::renderer::device_unique_ptr(
+		sge::renderer::device::core_unique_ptr(
+			this->create_ffp_renderer(
+				_parameters
+			)
+		);
+}
+
+sge::renderer::device::ffp_unique_ptr
+sge::d3d9::system::create_ffp_renderer(
+	sge::renderer::device::parameters const &_parameters
+)
+{
+	return
+		sge::renderer::device::ffp_unique_ptr(
 			fcppt::make_unique_ptr<
-				d3d9::device
+				sge::d3d9::device
 			>(
 				system_.get(),
-				_adapter,
 				fcppt::cref(
 					_parameters
 				),
-				fcppt::ref(
-					_window
-				),
 				fcppt::cref(
 					this->device_caps(
-						_adapter
+						_parameters.adapter()
 					)
 				)
 			)

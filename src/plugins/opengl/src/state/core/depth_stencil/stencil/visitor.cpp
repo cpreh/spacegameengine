@@ -66,6 +66,7 @@ sge::opengl::state::core::depth_stencil::stencil::visitor::operator()(
 			fcppt::variant::apply_unary(
 				sge::opengl::state::core::depth_stencil::stencil::enabled_visitor(
 					_enabled.ref(),
+					_enabled.read_mask(),
 					_enabled.write_mask()
 				),
 				_enabled.enabled_variant()

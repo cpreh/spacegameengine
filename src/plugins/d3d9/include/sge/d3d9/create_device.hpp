@@ -33,7 +33,7 @@ namespace d3d9
 
 sge::d3d9::d3d_device_unique_ptr
 create_device(
-	IDirect3D9 *,
+	IDirect3D9 &,
 	sge::renderer::adapter,
 	D3DPRESENT_PARAMETERS &
 );

@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/enabled_fwd.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/enabled_variant.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/read_mask.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/ref.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/write_mask.hpp>
 
@@ -48,6 +49,7 @@ public:
 	enabled(
 		sge::renderer::state::core::depth_stencil::stencil::enabled_variant const &,
 		sge::renderer::state::core::depth_stencil::stencil::ref,
+		sge::renderer::state::core::depth_stencil::stencil::read_mask,
 		sge::renderer::state::core::depth_stencil::stencil::write_mask
 	);
 
@@ -60,12 +62,18 @@ public:
 	ref() const;
 
 	SGE_RENDERER_SYMBOL
+	sge::renderer::state::core::depth_stencil::stencil::read_mask const
+	read_mask() const;
+
+	SGE_RENDERER_SYMBOL
 	sge::renderer::state::core::depth_stencil::stencil::write_mask const
 	write_mask() const;
 private:
 	sge::renderer::state::core::depth_stencil::stencil::enabled_variant enabled_variant_;
 
 	sge::renderer::state::core::depth_stencil::stencil::ref ref_;
+	
+	sge::renderer::state::core::depth_stencil::stencil::read_mask read_mask_;
 
 	sge::renderer::state::core::depth_stencil::stencil::write_mask write_mask_;
 };

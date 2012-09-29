@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/renderer/adapter.hpp>
 
+
 namespace sge
 {
 namespace d3d9
@@ -33,8 +34,8 @@ namespace systemfuncs
 
 D3DCAPS9 const
 get_caps(
-	IDirect3D9 *,
-	renderer::adapter
+	IDirect3D9 &,
+	sge::renderer::adapter
 );
 
 }

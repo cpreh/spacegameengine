@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/core/depth_stencil/stencil/op_separate.hpp>
 #include <sge/opengl/state/core/depth_stencil/stencil/write_mask.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/combined.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/read_mask.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/ref.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/separate.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/write_mask.hpp>
@@ -41,11 +42,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::state::core::depth_stencil::stencil::enabled_visitor::enabled_visitor(
 	sge::renderer::state::core::depth_stencil::stencil::ref const _ref,
+	sge::renderer::state::core::depth_stencil::stencil::read_mask const _read_mask,
 	sge::renderer::state::core::depth_stencil::stencil::write_mask const _write_mask
 )
 :
 	ref_(
 		_ref
+	),
+	read_mask_(
+		_read_mask
 	),
 	write_mask_(
 		_write_mask
@@ -75,7 +80,7 @@ sge::opengl::state::core::depth_stencil::stencil::enabled_visitor::operator()(
 					>(
 						ref_.get()
 					),
-					0u
+					read_mask_.get()
 				),
 				FCPPT_TEXT("glStencilFunc")
 			)
@@ -118,13 +123,15 @@ sge::opengl::state::core::depth_stencil::stencil::enabled_visitor::operator()(
 			sge::opengl::state::core::depth_stencil::stencil::func_separate(
 				GL_FRONT,
 				_separate.front().get().func(),
-				ref_
+				ref_,
+				read_mask_
 			)
 		)(
 			sge::opengl::state::core::depth_stencil::stencil::func_separate(
 				GL_BACK,
 				_separate.back().get().func(),
-				ref_
+				ref_,
+				read_mask_
 			)
 		)(
 			sge::opengl::state::core::depth_stencil::stencil::op_separate(

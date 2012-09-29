@@ -27,14 +27,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 D3DCAPS9 const
 sge::d3d9::systemfuncs::get_caps(
-	IDirect3D9 *const _system,
+	IDirect3D9 &_system,
 	sge::renderer::adapter const _adapter
 )
 {
 	D3DCAPS9 caps;
 
 	if(
-		_system->GetDeviceCaps(
+		_system.GetDeviceCaps(
 			_adapter.get(),
 			D3DDEVTYPE_HAL,
 			&caps

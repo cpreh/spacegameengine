@@ -20,25 +20,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/state/convert/fog_mode.hpp>
+#include <sge/renderer/state/ffp/fog/mode.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 
 D3DFOGMODE
 sge::d3d9::state::convert::fog_mode(
-	sge::renderer::state::fog_mode::type const _type
+	sge::renderer::state::ffp::fog::mode::type const _type
 )
 {
 	switch(
 		_type
 	)
 	{
-	case sge::renderer::state::fog_mode::off:
-		return D3DFOG_NONE;
-	case sge::renderer::state::fog_mode::linear:
+	case sge::renderer::state::ffp::fog::mode::linear:
 		return D3DFOG_LINEAR;
-	case sge::renderer::state::fog_mode::exp:
+	case sge::renderer::state::ffp::fog::mode::exp:
 		return D3DFOG_EXP;
-	case sge::renderer::state::fog_mode::exp2:
+	case sge::renderer::state::ffp::fog::mode::exp2:
 		return D3DFOG_EXP2;
 	}
 

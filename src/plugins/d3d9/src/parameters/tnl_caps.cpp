@@ -21,16 +21,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/parameters/tnl_caps.hpp>
 #include <sge/d3d9/systemfuncs/get_caps.hpp>
+#include <sge/renderer/adapter.hpp>
 
 
 DWORD
 sge::d3d9::parameters::tnl_caps(
-	IDirect3D9 *const _system,
-	renderer::adapter const _adapter
+	IDirect3D9 &_system,
+	sge::renderer::adapter const _adapter
 )
 {
 	D3DCAPS9 const caps(
-		systemfuncs::get_caps(
+		sge::d3d9::systemfuncs::get_caps(
 			_system,
 			_adapter
 		)

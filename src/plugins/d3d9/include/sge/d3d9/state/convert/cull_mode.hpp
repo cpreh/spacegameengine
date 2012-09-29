@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_STATE_CONVERT_CULL_MODE_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/renderer/state/cull_mode.hpp>
+#include <sge/renderer/state/core/rasterizer/cull_mode.hpp>
+
 
 namespace sge
 {
@@ -35,7 +36,7 @@ namespace convert
 
 D3DCULL
 cull_mode(
-	sge::renderer::state::cull_mode::type
+	sge::renderer::state::core::rasterizer::cull_mode::type
 );
 
 }

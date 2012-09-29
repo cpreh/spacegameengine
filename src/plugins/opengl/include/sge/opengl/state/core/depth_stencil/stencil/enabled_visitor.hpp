@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/state/actor_vector.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/combined_fwd.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/read_mask.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/ref.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/separate_fwd.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/write_mask.hpp>
@@ -50,6 +51,7 @@ class enabled_visitor
 public:
 	enabled_visitor(
 		sge::renderer::state::core::depth_stencil::stencil::ref,
+		sge::renderer::state::core::depth_stencil::stencil::read_mask,
 		sge::renderer::state::core::depth_stencil::stencil::write_mask
 	);
 
@@ -66,6 +68,8 @@ public:
 	) const;
 private:
 	sge::renderer::state::core::depth_stencil::stencil::ref const ref_;
+	
+	sge::renderer::state::core::depth_stencil::stencil::read_mask const read_mask_;
 
 	sge::renderer::state::core::depth_stencil::stencil::write_mask const write_mask_;
 };

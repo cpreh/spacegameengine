@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_STATE_CONVERT_STENCIL_OP_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/renderer/state/stencil_op/available_states.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/op.hpp>
+
 
 namespace sge
 {
@@ -35,7 +36,7 @@ namespace convert
 
 D3DRENDERSTATETYPE
 stencil_op(
-	sge::renderer::state::stencil_op::available_states::type
+	sge::renderer::state::core::depth_stencil::stencil::op::type
 );
 
 }

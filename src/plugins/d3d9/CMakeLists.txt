@@ -1,37 +1,19 @@
 SET(
 	SGE_D3D9_BASE_FILES
-	src/plugins/d3d9/include/sge/d3d9/convert/address_mode.hpp
-	src/plugins/d3d9/include/sge/d3d9/convert/address_mode_type.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/bool.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/color_format.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/cube_side.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/depth_stencil_format.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/index_format.hpp
-	src/plugins/d3d9/include/sge/d3d9/convert/light/attenuation.hpp
-	src/plugins/d3d9/include/sge/d3d9/convert/light/cutoff_angle.hpp
-	src/plugins/d3d9/include/sge/d3d9/convert/light/direction.hpp
-	src/plugins/d3d9/include/sge/d3d9/convert/light/directional.hpp
-	src/plugins/d3d9/include/sge/d3d9/convert/light/index.hpp
-	src/plugins/d3d9/include/sge/d3d9/convert/light/object.hpp
-	src/plugins/d3d9/include/sge/d3d9/convert/light/point.hpp
-	src/plugins/d3d9/include/sge/d3d9/convert/light/position.hpp
-	src/plugins/d3d9/include/sge/d3d9/convert/light/spot.hpp
-	src/plugins/d3d9/include/sge/d3d9/convert/light/visitor.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/lock_box.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/lock_flags.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/lock_rect.hpp
-	src/plugins/d3d9/include/sge/d3d9/convert/material.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/matrix.hpp
-	src/plugins/d3d9/include/sge/d3d9/convert/matrix_mode.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/pixel_rect.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/primitive_type.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/rect_base.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/resource_flags.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/resource_flags_to_pool.hpp
-	src/plugins/d3d9/include/sge/d3d9/convert/texture_stage_arg.hpp
-	src/plugins/d3d9/include/sge/d3d9/convert/texture_stage_arg_value.hpp
-	src/plugins/d3d9/include/sge/d3d9/convert/texture_stage_op.hpp
-	src/plugins/d3d9/include/sge/d3d9/convert/texture_stage_op_value.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/to_color.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/to_color_value.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/to_depth_stencil_format.hpp
@@ -115,43 +97,62 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/resource_manager.hpp
 	src/plugins/d3d9/include/sge/d3d9/resource_manager_fwd.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/alpha_func.hpp
-	src/plugins/d3d9/include/sge/d3d9/state/apply.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/bool.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/clip_plane.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/color.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/convert/address_mode.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/convert/alpha_func.hpp
-	src/plugins/d3d9/include/sge/d3d9/state/convert/bool.hpp
-	src/plugins/d3d9/include/sge/d3d9/state/convert/color.hpp
-	src/plugins/d3d9/include/sge/d3d9/state/convert/color_write.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/convert/cull_mode.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/convert/depth_func.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/convert/dest_blend_func.hpp
-	src/plugins/d3d9/include/sge/d3d9/state/convert/draw_mode.hpp
-	src/plugins/d3d9/include/sge/d3d9/state/convert/float.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/convert/fill_mode.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/convert/fog_mode.hpp
-	src/plugins/d3d9/include/sge/d3d9/state/convert/int.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/convert/light/attenuation.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/convert/light/cutoff_angle.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/convert/light/direction.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/convert/light/directional.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/convert/light/parameters.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/convert/light/point.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/convert/light/position.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/convert/light/spot.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/convert/light/visitor.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/convert/material.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/convert/matrix_mode.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/convert/sampler_arg.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/convert/sampler_arg_value.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/convert/sampler_op.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/convert/sampler_op_value.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/convert/source_blend_func.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/convert/stencil_func.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/convert/stencil_op.hpp
-	src/plugins/d3d9/include/sge/d3d9/state/convert/stencil_op_value.hpp
-	src/plugins/d3d9/include/sge/d3d9/state/convert/uint.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/core/blend/alpha_enabled_visitor.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/core/blend/alpha_visitor.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/core/blend/create.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/core/blend/make_states.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/core/blend/object.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/core/blend/object_fwd.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/core/blend/write_mask.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/core/depth_stencil/create.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/core/depth_stencil/depth/visitor.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/core/depth_stencil/make_states.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/core/depth_stencil/object.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/core/depth_stencil/object_fwd.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/core/depth_stencil/stencil/enabled_visitor.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/core/depth_stencil/stencil/one_side.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/core/depth_stencil/stencil/visitor.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/cull_mode.hpp
-	src/plugins/d3d9/include/sge/d3d9/state/deferred/apply.hpp
-	src/plugins/d3d9/include/sge/d3d9/state/deferred/bundle.hpp
-	src/plugins/d3d9/include/sge/d3d9/state/deferred/color_write.hpp
-	src/plugins/d3d9/include/sge/d3d9/state/deferred/object.hpp
-	src/plugins/d3d9/include/sge/d3d9/state/deferred/object_fwd.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/depth_func.hpp
-	src/plugins/d3d9/include/sge/d3d9/state/dest_blend_func.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/draw_mode.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/float.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/float_to_dword.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/fog_mode.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/int.hpp
-	src/plugins/d3d9/include/sge/d3d9/state/parameters.hpp
-	src/plugins/d3d9/include/sge/d3d9/state/parameters_fwd.hpp
-	src/plugins/d3d9/include/sge/d3d9/state/set_render_state_bool.hpp
-	src/plugins/d3d9/include/sge/d3d9/state/set_render_state_float.hpp
-	src/plugins/d3d9/include/sge/d3d9/state/source_blend_func.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/object.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/object_fwd.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/object_impl.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/render.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/render_fwd.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/render_vector.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/stencil_func.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/stencil_op.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/uint.hpp
@@ -275,37 +276,19 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/volumefuncs/get_desc.hpp
 	src/plugins/d3d9/include/sge/d3d9/volumefuncs/lock_box.hpp
 	src/plugins/d3d9/include/sge/d3d9/volumefuncs/unlock_box.hpp
-	src/plugins/d3d9/src/convert/address_mode.cpp
-	src/plugins/d3d9/src/convert/address_mode_type.cpp
 	src/plugins/d3d9/src/convert/bool.cpp
 	src/plugins/d3d9/src/convert/color_format.cpp
 	src/plugins/d3d9/src/convert/cube_side.cpp
 	src/plugins/d3d9/src/convert/depth_stencil_format.cpp
 	src/plugins/d3d9/src/convert/index_format.cpp
-	src/plugins/d3d9/src/convert/light/attenuation.cpp
-	src/plugins/d3d9/src/convert/light/cutoff_angle.cpp
-	src/plugins/d3d9/src/convert/light/direction.cpp
-	src/plugins/d3d9/src/convert/light/directional.cpp
-	src/plugins/d3d9/src/convert/light/index.cpp
-	src/plugins/d3d9/src/convert/light/object.cpp
-	src/plugins/d3d9/src/convert/light/point.cpp
-	src/plugins/d3d9/src/convert/light/position.cpp
-	src/plugins/d3d9/src/convert/light/spot.cpp
-	src/plugins/d3d9/src/convert/light/visitor.cpp
 	src/plugins/d3d9/src/convert/lock_box.cpp
 	src/plugins/d3d9/src/convert/lock_flags.cpp
 	src/plugins/d3d9/src/convert/lock_rect.cpp
-	src/plugins/d3d9/src/convert/material.cpp
 	src/plugins/d3d9/src/convert/matrix.cpp
-	src/plugins/d3d9/src/convert/matrix_mode.cpp
 	src/plugins/d3d9/src/convert/pixel_rect.cpp
 	src/plugins/d3d9/src/convert/primitive_type.cpp
 	src/plugins/d3d9/src/convert/resource_flags.cpp
 	src/plugins/d3d9/src/convert/resource_flags_to_pool.cpp
-	src/plugins/d3d9/src/convert/texture_stage_arg.cpp
-	src/plugins/d3d9/src/convert/texture_stage_arg_value.cpp
-	src/plugins/d3d9/src/convert/texture_stage_op.cpp
-	src/plugins/d3d9/src/convert/texture_stage_op_value.cpp
 	src/plugins/d3d9/src/convert/to_color.cpp
 	src/plugins/d3d9/src/convert/to_color_value.cpp
 	src/plugins/d3d9/src/convert/to_depth_stencil_format.cpp
@@ -373,40 +356,54 @@ SET(
 	src/plugins/d3d9/src/resource.cpp
 	src/plugins/d3d9/src/resource_manager.cpp
 	src/plugins/d3d9/src/state/alpha_func.cpp
-	src/plugins/d3d9/src/state/apply.cpp
 	src/plugins/d3d9/src/state/bool.cpp
 	src/plugins/d3d9/src/state/clip_plane.cpp
 	src/plugins/d3d9/src/state/color.cpp
+	src/plugins/d3d9/src/state/convert/address_mode.cpp
 	src/plugins/d3d9/src/state/convert/alpha_func.cpp
-	src/plugins/d3d9/src/state/convert/bool.cpp
-	src/plugins/d3d9/src/state/convert/color.cpp
-	src/plugins/d3d9/src/state/convert/color_write.cpp
 	src/plugins/d3d9/src/state/convert/cull_mode.cpp
 	src/plugins/d3d9/src/state/convert/depth_func.cpp
 	src/plugins/d3d9/src/state/convert/dest_blend_func.cpp
-	src/plugins/d3d9/src/state/convert/draw_mode.cpp
-	src/plugins/d3d9/src/state/convert/float.cpp
+	src/plugins/d3d9/src/state/convert/fill_mode.cpp
 	src/plugins/d3d9/src/state/convert/fog_mode.cpp
-	src/plugins/d3d9/src/state/convert/int.cpp
+	src/plugins/d3d9/src/state/convert/light/attenuation.cpp
+	src/plugins/d3d9/src/state/convert/light/cutoff_angle.cpp
+	src/plugins/d3d9/src/state/convert/light/direction.cpp
+	src/plugins/d3d9/src/state/convert/light/directional.cpp
+	src/plugins/d3d9/src/state/convert/light/parameters.cpp
+	src/plugins/d3d9/src/state/convert/light/point.cpp
+	src/plugins/d3d9/src/state/convert/light/position.cpp
+	src/plugins/d3d9/src/state/convert/light/spot.cpp
+	src/plugins/d3d9/src/state/convert/light/visitor.cpp
+	src/plugins/d3d9/src/state/convert/material.cpp
+	src/plugins/d3d9/src/state/convert/matrix_mode.cpp
+	src/plugins/d3d9/src/state/convert/sampler_arg.cpp
+	src/plugins/d3d9/src/state/convert/sampler_arg_value.cpp
+	src/plugins/d3d9/src/state/convert/sampler_op.cpp
+	src/plugins/d3d9/src/state/convert/sampler_op_value.cpp
 	src/plugins/d3d9/src/state/convert/source_blend_func.cpp
 	src/plugins/d3d9/src/state/convert/stencil_func.cpp
 	src/plugins/d3d9/src/state/convert/stencil_op.cpp
-	src/plugins/d3d9/src/state/convert/stencil_op_value.cpp
-	src/plugins/d3d9/src/state/convert/uint.cpp
+	src/plugins/d3d9/src/state/core/blend/alpha_enabled_visitor.cpp
+	src/plugins/d3d9/src/state/core/blend/alpha_visitor.cpp
+	src/plugins/d3d9/src/state/core/blend/create.cpp
+	src/plugins/d3d9/src/state/core/blend/make_states.cpp
+	src/plugins/d3d9/src/state/core/blend/object.cpp
+	src/plugins/d3d9/src/state/core/blend/write_mask.cpp
+	src/plugins/d3d9/src/state/core/depth_stencil/create.cpp
+	src/plugins/d3d9/src/state/core/depth_stencil/depth/visitor.cpp
+	src/plugins/d3d9/src/state/core/depth_stencil/make_states.cpp
+	src/plugins/d3d9/src/state/core/depth_stencil/object.cpp
+	src/plugins/d3d9/src/state/core/depth_stencil/stencil/enabled_visitor.cpp
+	src/plugins/d3d9/src/state/core/depth_stencil/stencil/one_side.cpp
+	src/plugins/d3d9/src/state/core/depth_stencil/stencil/visitor.cpp
 	src/plugins/d3d9/src/state/cull_mode.cpp
-	src/plugins/d3d9/src/state/deferred/apply.cpp
-	src/plugins/d3d9/src/state/deferred/color_write.cpp
-	src/plugins/d3d9/src/state/deferred/object.cpp
 	src/plugins/d3d9/src/state/depth_func.cpp
-	src/plugins/d3d9/src/state/dest_blend_func.cpp
 	src/plugins/d3d9/src/state/draw_mode.cpp
 	src/plugins/d3d9/src/state/float.cpp
+	src/plugins/d3d9/src/state/float_to_dword.cpp
 	src/plugins/d3d9/src/state/fog_mode.cpp
 	src/plugins/d3d9/src/state/int.cpp
-	src/plugins/d3d9/src/state/parameters.cpp
-	src/plugins/d3d9/src/state/set_render_state_bool.cpp
-	src/plugins/d3d9/src/state/set_render_state_float.cpp
-	src/plugins/d3d9/src/state/source_blend_func.cpp
 	src/plugins/d3d9/src/state/stencil_func.cpp
 	src/plugins/d3d9/src/state/stencil_op.cpp
 	src/plugins/d3d9/src/state/uint.cpp

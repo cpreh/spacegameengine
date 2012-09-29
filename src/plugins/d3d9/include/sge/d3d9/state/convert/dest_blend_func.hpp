@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_STATE_CONVERT_DEST_BLEND_FUNC_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/renderer/state/dest_blend_func.hpp>
+#include <sge/renderer/state/core/blend/dest.hpp>
+
 
 namespace sge
 {
@@ -35,7 +36,7 @@ namespace convert
 
 D3DBLEND
 dest_blend_func(
-	sge::renderer::state::dest_blend_func::type
+	sge::renderer::state::core::blend::dest::type
 );
 
 }

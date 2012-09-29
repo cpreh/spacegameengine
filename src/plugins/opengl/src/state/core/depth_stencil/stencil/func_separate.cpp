@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/convert/stencil_func.hpp>
 #include <sge/opengl/state/core/depth_stencil/stencil/func_separate.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/func.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/read_mask.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -35,7 +36,8 @@ sge::opengl::state::actor const
 sge::opengl::state::core::depth_stencil::stencil::func_separate(
 	GLenum const _side,
 	sge::renderer::state::core::depth_stencil::stencil::func::type const _func,
-	sge::renderer::state::core::depth_stencil::stencil::ref const _ref
+	sge::renderer::state::core::depth_stencil::stencil::ref const _ref,
+	sge::renderer::state::core::depth_stencil::stencil::read_mask const _read_mask
 )
 {
 	return
@@ -53,7 +55,7 @@ sge::opengl::state::core::depth_stencil::stencil::func_separate(
 				>(
 					_ref.get()
 				),
-				0u
+				_read_mask.get()
 			),
 			FCPPT_TEXT("glStencilFuncSeparate")
 		);

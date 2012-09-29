@@ -20,23 +20,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/state/convert/cull_mode.hpp>
+#include <sge/renderer/state/core/rasterizer/cull_mode.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 
 D3DCULL
 sge::d3d9::state::convert::cull_mode(
-	sge::renderer::state::cull_mode::type const _type
+	sge::renderer::state::core::rasterizer::cull_mode::type const _type
 )
 {
 	switch(
 		_type
 	)
 	{
-	case sge::renderer::state::cull_mode::off:
+	case sge::renderer::state::core::rasterizer::cull_mode::off:
 		return D3DCULL_NONE;
-	case sge::renderer::state::cull_mode::clockwise:
+	case sge::renderer::state::core::rasterizer::cull_mode::clockwise:
 		return D3DCULL_CW;
-	case sge::renderer::state::cull_mode::counter_clockwise:
+	case sge::renderer::state::core::rasterizer::cull_mode::counter_clockwise:
 		return D3DCULL_CCW;
 	}
 

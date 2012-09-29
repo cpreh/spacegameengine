@@ -68,6 +68,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/depth_stencil/stencil/func.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/op.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/pass_op.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/read_mask_all.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/ref.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/write_mask_all.hpp>
 #include <sge/renderer/target/onscreen.hpp>
@@ -378,6 +379,7 @@ try
 					sge::renderer::state::core::depth_stencil::stencil::ref(
 						0u
 					),
+					sge::renderer::state::core::depth_stencil::stencil::read_mask_all(),
 					sge::renderer::state::core::depth_stencil::stencil::write_mask_all()
 				)
 			)
@@ -407,6 +409,7 @@ try
 					sge::renderer::state::core::depth_stencil::stencil::ref(
 						0u
 					),
+					sge::renderer::state::core::depth_stencil::stencil::read_mask_all(),
 					sge::renderer::state::core::depth_stencil::stencil::write_mask_all()
 				)
 			)

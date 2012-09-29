@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/config.hpp>
 #include <sge/renderer/depth_stencil_format.hpp>
 #include <sge/renderer/depth_stencil_surface_unique_ptr.hpp>
-#include <sge/renderer/device.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/index_buffer_unique_ptr.hpp>
 #include <sge/renderer/index_count.hpp>
@@ -39,12 +38,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/vertex_declaration_unique_ptr.hpp>
 #include <sge/renderer/caps/device_fwd.hpp>
-#include <sge/renderer/context/object_fwd.hpp>
-#include <sge/renderer/context/object_unique_ptr.hpp>
+#include <sge/renderer/context/core_fwd.hpp>
+#include <sge/renderer/context/core_unique_ptr.hpp>
+#include <sge/renderer/context/ffp_fwd.hpp>
+#include <sge/renderer/context/ffp_unique_ptr.hpp>
+#include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/occlusion_query/object_unique_ptr.hpp>
 #include <sge/renderer/parameters/object_fwd.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
+#include <sge/renderer/state/core/blend/object_unique_ptr.hpp>
+#include <sge/renderer/state/core/blend/parameters_fwd.hpp>
+#include <sge/renderer/state/core/depth_stencil/object_unique_ptr.hpp>
+#include <sge/renderer/state/core/depth_stencil/parameters_fwd.hpp>
+#include <sge/renderer/state/core/rasterizer/object_unique_ptr.hpp>
+#include <sge/renderer/state/core/rasterizer/parameters_fwd.hpp>
+#include <sge/renderer/state/core/sampler/object_unique_ptr.hpp>
+#include <sge/renderer/state/core/sampler/parameters_fwd.hpp>
+#include <sge/renderer/state/ffp/alpha_test/object_unique_ptr.hpp>
+#include <sge/renderer/state/ffp/alpha_test/parameters_fwd.hpp>
+#include <sge/renderer/state/ffp/clip_plane/object_unique_ptr.hpp>
+#include <sge/renderer/state/ffp/clip_plane/parameters_fwd.hpp>
+#include <sge/renderer/state/ffp/fog/object_unique_ptr.hpp>
+#include <sge/renderer/state/ffp/fog/parameters_fwd.hpp>
+#include <sge/renderer/state/ffp/lighting/object_unique_ptr.hpp>
+#include <sge/renderer/state/ffp/lighting/parameters_fwd.hpp>
+#include <sge/renderer/state/ffp/lighting/light/object_unique_ptr.hpp>
+#include <sge/renderer/state/ffp/lighting/light/parameters_fwd.hpp>
+#include <sge/renderer/state/ffp/lighting/material/object_unique_ptr.hpp>
+#include <sge/renderer/state/ffp/lighting/material/parameters_fwd.hpp>
+#include <sge/renderer/state/ffp/misc/object_unique_ptr.hpp>
+#include <sge/renderer/state/ffp/misc/parameters_fwd.hpp>
+#include <sge/renderer/state/ffp/sampler/object_unique_ptr.hpp>
+#include <sge/renderer/state/ffp/sampler/parameters_fwd.hpp>
+#include <sge/renderer/state/ffp/transform/object_unique_ptr.hpp>
+#include <sge/renderer/state/ffp/transform/parameters_fwd.hpp>
 #include <sge/renderer/target/base_fwd.hpp>
 #include <sge/renderer/target/offscreen_unique_ptr.hpp>
 #include <sge/renderer/target/onscreen_fwd.hpp>
@@ -85,7 +113,7 @@ namespace d3d9
 
 class device
 :
-	public sge::renderer::device
+	public sge::renderer::device::ffp
 {
 	FCPPT_NONCOPYABLE(
 		device
@@ -93,22 +121,20 @@ class device
 public:
 	device(
 		IDirect3D9 *,
-		sge::renderer::adapter,
-		sge::renderer::parameters::object const &,
-		awl::window::object &,
+		sge::renderer::device::parameters const &,
 		sge::renderer::caps::device const &
 	);
 
 	~device();
 
-	sge::renderer::context::object_unique_ptr
+	sge::renderer::context::core_unique_ptr
 	begin_rendering(
 		sge::renderer::target::base &
 	);
 
 	void
 	end_rendering(
-		sge::renderer::context::object &
+		sge::renderer::context::core &
 	);
 
 	sge::renderer::target::offscreen_unique_ptr
@@ -163,6 +189,25 @@ public:
 	sge::renderer::occlusion_query::object_unique_ptr
 	create_occlusion_query();
 
+	sge::renderer::state::core::blend::object_unique_ptr
+	create_blend_state(
+		sge::renderer::state::core::blend::parameters const &
+	);
+
+	sge::renderer::state::core::depth_stencil::object_unique_ptr
+	create_depth_stencil_state(
+		sge::renderer::state::core::depth_stencil::parameters const &
+	);
+
+	sge::renderer::state::core::rasterizer::object_unique_ptr
+	create_rasterizer_state(
+		sge::renderer::state::core::rasterizer::parameters const &
+	);
+
+	sge::renderer::state::core::sampler::object_unique_ptr
+	create_sampler_state(
+		sge::renderer::state::core::sampler::parameters const &
+	);
 #if defined(SGE_RENDERER_HAVE_CG)
 	sge::cg::profile::object const
 	create_cg_profile(
