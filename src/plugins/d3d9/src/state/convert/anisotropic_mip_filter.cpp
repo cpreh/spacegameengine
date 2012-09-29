@@ -18,33 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_STATE_CORE_BLEND_MAKE_STATES_HPP_INCLUDED
-#define SGE_D3D9_STATE_CORE_BLEND_MAKE_STATES_HPP_INCLUDED
+#include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/state/convert/anisotropic_mip_filter.hpp>
+#include <sge/renderer/state/core/sampler/filter/anisotropic/mip.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
-#include <sge/d3d9/state/render_vector.hpp>
-#include <sge/renderer/state/core/blend/parameters_fwd.hpp>
 
-
-namespace sge
+DWORD
+sge::d3d9::state::convert::anisotropic_mip_filter(
+	sge::renderer::state::core::sampler::filter::anisotropic::mip::type const _type
+)
 {
-namespace d3d9
-{
-namespace state
-{
-namespace core
-{
-namespace blend
-{
+	switch(
+		_type
+	)
+	{
+	case sge::renderer::state::core::sampler::filter::anisotropic::mip::off:
+		return D3DTEXF_NONE;
+	case sge::renderer::state::core::sampler::filter::anisotropic::mip::point:
+		return D3DTEXF_POINT;
+	case sge::renderer::state::core::sampler::filter::anisotropic::mip::linear:
+		return D3DTEXF_LINEAR;
+	}
 
-sge::d3d9::state::render_vector const
-make_states(
-	sge::renderer::state::core::blend::parameters const &
-);
-
+	FCPPT_ASSERT_UNREACHABLE;
 }
-}
-}
-}
-}
-
-#endif

@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_STATE_CORE_BLEND_MAKE_STATES_HPP_INCLUDED
-#define SGE_D3D9_STATE_CORE_BLEND_MAKE_STATES_HPP_INCLUDED
+#ifndef SGE_D3D9_STATE_CORE_RASTERIZER_OBJECT_FWD_HPP_INCLUDED
+#define SGE_D3D9_STATE_CORE_RASTERIZER_OBJECT_FWD_HPP_INCLUDED
 
-#include <sge/d3d9/state/render_vector.hpp>
-#include <sge/renderer/state/core/blend/parameters_fwd.hpp>
+#include <sge/d3d9/state/object_fwd.hpp>
+#include <sge/renderer/state/core/rasterizer/object_fwd.hpp>
 
 
 namespace sge
@@ -33,13 +33,12 @@ namespace state
 {
 namespace core
 {
-namespace blend
+namespace rasterizer
 {
 
-sge::d3d9::state::render_vector const
-make_states(
-	sge::renderer::state::core::blend::parameters const &
-);
+typedef sge::d3d9::state::object<
+	sge::renderer::state::core::rasterizer::object
+> object;
 
 }
 }

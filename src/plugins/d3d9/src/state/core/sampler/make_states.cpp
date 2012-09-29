@@ -18,33 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_STATE_CORE_BLEND_MAKE_STATES_HPP_INCLUDED
-#define SGE_D3D9_STATE_CORE_BLEND_MAKE_STATES_HPP_INCLUDED
+#include <sge/d3d9/state/core/sampler/make_states.hpp>
+#include <sge/d3d9/state/core/sampler/state_vector.hpp>
+#include <sge/d3d9/state/core/sampler/address/make_states.hpp>
+#include <sge/d3d9/state/core/sampler/filter/make_states.hpp>
+#include <sge/renderer/state/core/sampler/parameters.hpp>
+#include <fcppt/algorithm/join.hpp>
 
-#include <sge/d3d9/state/render_vector.hpp>
-#include <sge/renderer/state/core/blend/parameters_fwd.hpp>
 
-
-namespace sge
+sge::d3d9::state::core::sampler::state_vector const
+sge::d3d9::state::core::sampler::make_states(
+	sge::renderer::state::core::sampler::parameters const &_parameters
+)
 {
-namespace d3d9
-{
-namespace state
-{
-namespace core
-{
-namespace blend
-{
-
-sge::d3d9::state::render_vector const
-make_states(
-	sge::renderer::state::core::blend::parameters const &
-);
-
+	return
+		fcppt::algorithm::join(
+			sge::d3d9::state::core::sampler::address::make_states(
+				_parameters.address()
+			),
+			sge::d3d9::state::core::sampler::filter::make_states(
+				_parameters.filter()
+			)
+		);
 }
-}
-}
-}
-}
-
-#endif

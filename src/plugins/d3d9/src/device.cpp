@@ -38,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/surface/depth_stencil.hpp>
 #include <sge/d3d9/surface/depth_stencil_native.hpp>
 #include <sge/d3d9/swapchainfuncs/present.hpp>
+#include <sge/d3d9/state/core/defaults.hpp>
 #include <sge/d3d9/state/core/blend/create.hpp>
 #include <sge/d3d9/state/core/depth_stencil/create.hpp>
 #include <sge/d3d9/state/core/rasterizer/create.hpp>
@@ -213,6 +214,15 @@ sge::d3d9::device::device(
 				resources_
 			),
 			caps_.target_surfaces()
+		)
+	),
+	default_core_states_(
+		fcppt::make_unique_ptr<
+			sge::d3d9::state::core::defaults
+		>(
+			fcppt::ref(
+				*device_
+			)
 		)
 	)
 {

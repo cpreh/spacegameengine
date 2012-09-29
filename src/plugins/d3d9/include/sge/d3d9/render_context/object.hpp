@@ -23,41 +23,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/render_context/scoped_target.hpp>
-#include <sge/d3d9/state/clip_plane.hpp>
-#include <sge/renderer/clip_plane.hpp>
-#include <sge/renderer/clip_plane_index.hpp>
 #include <sge/renderer/config.hpp>
 #include <sge/renderer/const_optional_vertex_declaration_ref_fwd.hpp>
 #include <sge/renderer/first_index.hpp>
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/index_buffer_fwd.hpp>
 #include <sge/renderer/index_count.hpp>
-#include <sge/renderer/material_fwd.hpp>
-#include <sge/renderer/matrix4_fwd.hpp>
-#include <sge/renderer/matrix_mode.hpp>
 #include <sge/renderer/primitive_count.hpp>
 #include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/vertex_buffer_fwd.hpp>
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/caps/texture_stages.hpp>
 #include <sge/renderer/clear/parameters_fwd.hpp>
-#include <sge/renderer/context/object.hpp>
-#include <sge/renderer/light/index.hpp>
-#include <sge/renderer/light/object_fwd.hpp>
-#include <sge/renderer/state/list.hpp>
-#include <sge/renderer/state/stack.hpp>
+#include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/state/core/blend/const_optional_object_ref_fwd.hpp>
+#include <sge/renderer/state/core/depth_stencil/const_optional_object_ref_fwd.hpp>
+#include <sge/renderer/state/core/rasterizer/const_optional_object_ref_fwd.hpp>
+#include <sge/renderer/state/core/sampler/const_object_ref_vector.hpp>
 #include <sge/renderer/target/base_fwd.hpp>
 #include <sge/renderer/target/offscreen_fwd.hpp>
-#include <sge/renderer/texture/address_mode_s.hpp>
-#include <sge/renderer/texture/address_mode_t.hpp>
-#include <sge/renderer/texture/address_mode_u.hpp>
 #include <sge/renderer/texture/const_optional_base_ref_fwd.hpp>
 #include <sge/renderer/texture/stage.hpp>
-#include <sge/renderer/texture/stage_arg.hpp>
-#include <sge/renderer/texture/stage_arg_value.hpp>
-#include <sge/renderer/texture/stage_op.hpp>
-#include <sge/renderer/texture/stage_op_value.hpp>
-#include <sge/renderer/texture/filter/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_decl.hpp>
 
@@ -77,7 +63,7 @@ namespace render_context
 
 class object
 :
-	public sge::renderer::context::object
+	public sge::renderer::context::ffp
 {
 	FCPPT_NONCOPYABLE(
 		object
@@ -140,95 +126,29 @@ private:
 	);
 
 	void
-	state(
-		sge::renderer::state::list const &
-	);
-
-	void
-	push_state(
-		sge::renderer::state::list const &
-	);
-
-	void
-	pop_state();
-
-	void
-	material(
-		sge::renderer::material const &
-	);
-
-	void
-	enable_light(
-		sge::renderer::light::index,
-		bool enable
-	);
-
-	void
-	light(
-		sge::renderer::light::index,
-		sge::renderer::light::object const &
-	);
-
-	void
-	enable_clip_plane(
-		sge::renderer::clip_plane_index,
-		bool enable
-	);
-
-	void
-	clip_plane(
-		sge::renderer::clip_plane_index,
-		sge::renderer::clip_plane const &
-	);
-
-	void
-	texture_stage_op(
-		sge::renderer::texture::stage,
-		sge::renderer::texture::stage_op::type,
-		sge::renderer::texture::stage_op_value::type
-	);
-
-	void
-	texture_stage_arg(
-		sge::renderer::texture::stage,
-		sge::renderer::texture::stage_arg::type,
-		sge::renderer::texture::stage_arg_value::type
-	);
-
-	void
-	texture_filter(
-		sge::renderer::texture::filter::object const &,
-		sge::renderer::texture::stage
-	);
-
-	void
-	texture_address_mode_s(
-		sge::renderer::texture::address_mode_s,
-		sge::renderer::texture::stage
-	);
-
-	void
-	texture_address_mode_t(
-		sge::renderer::texture::address_mode_t,
-		sge::renderer::texture::stage
-	);
-
-	void
-	texture_address_mode_u(
-		sge::renderer::texture::address_mode_u,
-		sge::renderer::texture::stage
-	);
-
-	void
 	texture(
 		sge::renderer::texture::const_optional_base_ref const &,
 		sge::renderer::texture::stage
 	) ;
 
 	void
-	transform(
-		sge::renderer::matrix_mode::type,
-		sge::renderer::matrix4 const &
+	blend_state(
+		sge::renderer::state::core::blend::const_optional_object_ref const &
+	);
+
+	void
+	depth_stencil_state(
+		sge::renderer::state::core::depth_stencil::const_optional_object_ref const &
+	);
+
+	void
+	rasterizer_state(
+		sge::renderer::state::core::rasterizer::const_optional_object_ref const &
+	);
+
+	void
+	sampler_state(
+		sge::renderer::state::core::sampler::const_object_ref_vector const &
 	);
 
 #if defined(SGE_RENDERER_HAVE_CG)
@@ -256,12 +176,6 @@ private:
 	IDirect3DDevice9 &device_;
 
 	sge::renderer::target::base &target_;
-
-	sge::renderer::state::list current_states_;
-
-	sge::renderer::state::stack states_;
-
-	sge::d3d9::state::clip_plane clip_planes_;
 
 	sge::d3d9::render_context::scoped_target const scoped_target_;
 

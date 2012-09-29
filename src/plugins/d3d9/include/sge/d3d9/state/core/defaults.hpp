@@ -18,11 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_STATE_CORE_BLEND_MAKE_STATES_HPP_INCLUDED
-#define SGE_D3D9_STATE_CORE_BLEND_MAKE_STATES_HPP_INCLUDED
+#ifndef SGE_D3D9_STATE_CORE_DEFAULTS_HPP_INCLUDED
+#define SGE_D3D9_STATE_CORE_DEFAULTS_HPP_INCLUDED
 
-#include <sge/d3d9/state/render_vector.hpp>
-#include <sge/renderer/state/core/blend/parameters_fwd.hpp>
+#include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/state/core/defaults_fwd.hpp>
+#include <sge/d3d9/state/core/blend/object_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/scoped_ptr_impl.hpp>
 
 
 namespace sge
@@ -33,15 +36,31 @@ namespace state
 {
 namespace core
 {
-namespace blend
+
+class defaults
 {
+	FCPPT_NONCOPYABLE(
+		defaults
+	);
+public:
+	explicit
+	defaults(
+		IDirect3DDevice9 &
+	);
 
-sge::d3d9::state::render_vector const
-make_states(
-	sge::renderer::state::core::blend::parameters const &
-);
+	~defaults();
 
-}
+	sge::d3d9::state::core::blend::object const &
+	blend() const;
+private:
+	typedef fcppt::scoped_ptr<
+		sge::d3d9::state::core::blend::object
+	> blend_scoped_ptr;
+
+	blend_scoped_ptr const blend_;
+
+};
+
 }
 }
 }

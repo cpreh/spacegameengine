@@ -18,11 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_STATE_CORE_BLEND_MAKE_STATES_HPP_INCLUDED
-#define SGE_D3D9_STATE_CORE_BLEND_MAKE_STATES_HPP_INCLUDED
+#ifndef SGE_D3D9_STATE_CORE_SAMPLER_FILTER_VISITOR_HPP_INCLUDED
+#define SGE_D3D9_STATE_CORE_SAMPLER_FILTER_VISITOR_HPP_INCLUDED
 
-#include <sge/d3d9/state/render_vector.hpp>
-#include <sge/renderer/state/core/blend/parameters_fwd.hpp>
+#include <sge/d3d9/state/core/sampler/state_vector.hpp>
+#include <sge/renderer/state/core/sampler/filter/anisotropic/parameters_fwd.hpp>
+#include <sge/renderer/state/core/sampler/filter/normal/parameters_fwd.hpp>
 
 
 namespace sge
@@ -33,14 +34,28 @@ namespace state
 {
 namespace core
 {
-namespace blend
+namespace sampler
+{
+namespace filter
 {
 
-sge::d3d9::state::render_vector const
-make_states(
-	sge::renderer::state::core::blend::parameters const &
-);
+class visitor
+{
+public:
+	typedef sge::d3d9::state::core::sampler::state_vector result_type;
 
+	result_type const
+	operator()(
+		sge::renderer::state::core::sampler::filter::anisotropic::parameters const &
+	) const;
+
+	result_type const
+	operator()(
+		sge::renderer::state::core::sampler::filter::normal::parameters const &
+	) const;
+};
+
+}
 }
 }
 }

@@ -18,11 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_STATE_CORE_BLEND_MAKE_STATES_HPP_INCLUDED
-#define SGE_D3D9_STATE_CORE_BLEND_MAKE_STATES_HPP_INCLUDED
-
-#include <sge/d3d9/state/render_vector.hpp>
-#include <sge/renderer/state/core/blend/parameters_fwd.hpp>
+#ifndef SGE_D3D9_STATE_SET_OR_DEFAULT_HPP_INCLUDED
+#define SGE_D3D9_STATE_SET_OR_DEFAULT_HPP_INCLUDED
 
 
 namespace sge
@@ -31,18 +28,30 @@ namespace d3d9
 {
 namespace state
 {
-namespace core
-{
-namespace blend
-{
 
-sge::d3d9::state::render_vector const
-make_states(
-	sge::renderer::state::core::blend::parameters const &
-);
+template<
+		typename StateRef,
+		typename D3DState
+>
+void
+set_or_default(
+	StateRef const &_state_ref,
+	D3DState const &_default_state
+)
+{
+	(
+		_state_ref
+		?
+			static_cast<
+				D3DState const &
+			>(
+				*_state_ref
+			)
+		:
+			_default_state
+	).set();
+}
 
-}
-}
 }
 }
 }

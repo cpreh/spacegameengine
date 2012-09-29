@@ -18,33 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_STATE_CORE_BLEND_MAKE_STATES_HPP_INCLUDED
-#define SGE_D3D9_STATE_CORE_BLEND_MAKE_STATES_HPP_INCLUDED
+#include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/state/core/sampler/create.hpp>
+#include <sge/d3d9/state/core/sampler/make_states.hpp>
+#include <sge/d3d9/state/core/sampler/object.hpp>
+#include <sge/renderer/state/core/sampler/object_unique_ptr.hpp>
+#include <sge/renderer/state/core/sampler/parameters_fwd.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/ref.hpp>
 
-#include <sge/d3d9/state/render_vector.hpp>
-#include <sge/renderer/state/core/blend/parameters_fwd.hpp>
 
-
-namespace sge
+sge::renderer::state::core::sampler::object_unique_ptr
+sge::d3d9::state::core::sampler::create(
+	IDirect3DDevice9 &_device,
+	sge::renderer::state::core::sampler::parameters const &_parameters
+)
 {
-namespace d3d9
-{
-namespace state
-{
-namespace core
-{
-namespace blend
-{
-
-sge::d3d9::state::render_vector const
-make_states(
-	sge::renderer::state::core::blend::parameters const &
-);
-
+	return
+		sge::renderer::state::core::sampler::object_unique_ptr(
+			fcppt::make_unique_ptr<
+				sge::d3d9::state::core::sampler::object
+			>(
+				fcppt::ref(
+					_device
+				),
+				sge::d3d9::state::core::sampler::make_states(
+					_parameters
+				)
+			)
+		);
 }
-}
-}
-}
-}
-
-#endif

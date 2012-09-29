@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/resource_manager.hpp>
 #include <sge/d3d9/swapchain/d3d_scoped_ptr.hpp>
 #include <sge/d3d9/target/onscreen_fwd.hpp>
+#include <sge/d3d9/state/core/defaults_fwd.hpp>
 #include <sge/renderer/adapter.hpp>
 #include <sge/renderer/config.hpp>
 #include <sge/renderer/depth_stencil_format.hpp>
@@ -287,6 +288,12 @@ private:
 	> onscreen_target_scoped_ptr;
 
 	onscreen_target_scoped_ptr const onscreen_target_;
+
+	typedef fcppt::scoped_ptr<
+		sge::d3d9::state::core::defaults
+	> core_defaults_scoped_ptr;
+	
+	core_defaults_scoped_ptr const default_core_states_;
 };
 
 }

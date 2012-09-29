@@ -18,33 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_STATE_CORE_BLEND_MAKE_STATES_HPP_INCLUDED
-#define SGE_D3D9_STATE_CORE_BLEND_MAKE_STATES_HPP_INCLUDED
+#include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/state/core/blend/create_default.hpp>
+#include <sge/d3d9/state/core/blend/object.hpp>
+#include <sge/d3d9/state/core/blend/object_unique_ptr.hpp>
+#include <sge/renderer/state/core/blend/default.hpp>
+#include <sge/renderer/state/core/blend/parameters.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/ref.hpp>
 
-#include <sge/d3d9/state/render_vector.hpp>
-#include <sge/renderer/state/core/blend/parameters_fwd.hpp>
 
-
-namespace sge
+sge::d3d9::state::core::blend::object_unique_ptr
+sge::d3d9::state::core::blend::create_default(
+	IDirect3DDevice9 &_device
+)
 {
-namespace d3d9
-{
-namespace state
-{
-namespace core
-{
-namespace blend
-{
-
-sge::d3d9::state::render_vector const
-make_states(
-	sge::renderer::state::core::blend::parameters const &
-);
-
+	return
+		fcppt::make_unique_ptr<
+			sge::d3d9::state::core::blend::object
+		>(
+			fcppt::ref(
+				_device
+			),
+			sge::renderer::state::core::blend::default_()
+		);
 }
-}
-}
-}
-}
-
-#endif

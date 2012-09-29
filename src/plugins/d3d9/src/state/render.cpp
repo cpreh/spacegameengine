@@ -18,33 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_STATE_CORE_BLEND_MAKE_STATES_HPP_INCLUDED
-#define SGE_D3D9_STATE_CORE_BLEND_MAKE_STATES_HPP_INCLUDED
-
-#include <sge/d3d9/state/render_vector.hpp>
-#include <sge/renderer/state/core/blend/parameters_fwd.hpp>
+#include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/state/render.hpp>
 
 
-namespace sge
+sge::d3d9::state::render::render(
+	D3DRENDERSTATETYPE const _state,
+	DWORD const _value
+)
+:
+	state_(
+		_state
+	),
+	value_(
+		_value
+	)
 {
-namespace d3d9
-{
-namespace state
-{
-namespace core
-{
-namespace blend
-{
-
-sge::d3d9::state::render_vector const
-make_states(
-	sge::renderer::state::core::blend::parameters const &
-);
-
-}
-}
-}
-}
 }
 
-#endif
+D3DRENDERSTATETYPE
+sge::d3d9::state::render::state() const
+{
+	return state_;
+}
+
+DWORD
+sge::d3d9::state::render::value() const
+{
+	return value_;
+}
