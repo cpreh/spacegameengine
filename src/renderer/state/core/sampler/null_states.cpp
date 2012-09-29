@@ -18,36 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_CORE_SAMPLER_SET_HPP_INCLUDED
-#define SGE_OPENGL_STATE_CORE_SAMPLER_SET_HPP_INCLUDED
 
-#include <sge/opengl/context/device/object_fwd.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/renderer/state/core/sampler/const_object_ref_map.hpp>
 #include <sge/renderer/state/core/sampler/const_optional_object_ref_map.hpp>
+#include <sge/renderer/state/core/sampler/const_optional_object_ref.hpp>
+#include <sge/src/renderer/state/core/sampler/null_states.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
-namespace sge
+sge::renderer::state::core::sampler::const_optional_object_ref_map const
+sge::renderer::state::core::sampler::null_states(
+	sge::renderer::state::core::sampler::const_object_ref_map const &_map
+)
 {
-namespace opengl
-{
-namespace state
-{
-namespace core
-{
-namespace sampler
-{
+	sge::renderer::state::core::sampler::const_optional_object_ref_map result;
 
-void
-set(
-	sge::opengl::context::system::object &,
-	sge::opengl::context::device::object &,
-	sge::renderer::state::core::sampler::const_optional_object_ref_map const &
-);
+	for(
+		sge::renderer::state::core::sampler::const_object_ref_map::const_iterator it(
+			_map.begin()
+		);
+		it != _map.end();
+		++it
+	)
+		result.insert(
+			std::make_pair(
+				it->first,
+				sge::renderer::state::core::sampler::const_optional_object_ref()
+			)
+		);
 
+	return result;
 }
-}
-}
-}
-}
-
-#endif

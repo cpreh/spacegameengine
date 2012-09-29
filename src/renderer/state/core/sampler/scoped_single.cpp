@@ -18,37 +18,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/context/core.hpp>
-#include <sge/renderer/state/core/sampler/const_object_ref_map.hpp>
-#include <sge/renderer/state/core/sampler/scoped.hpp>
-#include <sge/src/renderer/state/core/sampler/null_states.hpp>
-#include <sge/src/renderer/state/core/sampler/scoped_states.hpp>
+#include <sge/renderer/context/core_fwd.hpp>
+#include <sge/renderer/state/core/sampler/const_optional_object_ref.hpp>
+#include <sge/renderer/state/core/sampler/object_fwd.hpp>
+#include <sge/renderer/state/core/sampler/single.hpp>
+#include <sge/renderer/state/core/sampler/scoped_single.hpp>
+#include <sge/renderer/texture/stage.hpp>
 
 
-sge::renderer::state::core::sampler::scoped::scoped(
+sge::renderer::state::core::sampler::scoped_single::scoped_single(
 	sge::renderer::context::core &_context,
-	sge::renderer::state::core::sampler::const_object_ref_map const &_states
+	sge::renderer::texture::stage const _stage,
+	sge::renderer::state::core::sampler::object const &_object
 )
 :
 	context_(
 		_context
 	),
-	null_states_(
-		sge::renderer::state::core::sampler::null_states(
-			_states
-		)
+	stage_(
+		_stage
 	)
 {
-	context_.sampler_state(
-		sge::renderer::state::core::sampler::scoped_states(
-			_states
+	sge::renderer::state::core::sampler::single(
+		context_,
+		stage_,
+		sge::renderer::state::core::sampler::const_optional_object_ref(
+			_object
 		)
 	);
 }
 
-sge::renderer::state::core::sampler::scoped::~scoped()
+sge::renderer::state::core::sampler::scoped_single::~scoped_single()
 {
-	context_.sampler_state(
-		null_states_
+	sge::renderer::state::core::sampler::single(
+		context_,
+		stage_,
+		sge::renderer::state::core::sampler::const_optional_object_ref()
 	);
 }

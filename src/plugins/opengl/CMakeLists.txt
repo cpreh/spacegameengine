@@ -266,6 +266,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/state/core/sampler/object.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/sampler/object_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/sampler/set.hpp
+	src/plugins/opengl/include/sge/opengl/state/core/sampler/set_defaults.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/set_defaults.hpp
 	src/plugins/opengl/include/sge/opengl/state/error_handler.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/alpha_test/create.hpp
@@ -742,6 +743,7 @@ set(
 	src/plugins/opengl/src/state/core/sampler/make_actors.cpp
 	src/plugins/opengl/src/state/core/sampler/object.cpp
 	src/plugins/opengl/src/state/core/sampler/set.cpp
+	src/plugins/opengl/src/state/core/sampler/set_defaults.cpp
 	src/plugins/opengl/src/state/core/set_defaults.cpp
 	src/plugins/opengl/src/state/ffp/alpha_test/create.cpp
 	src/plugins/opengl/src/state/ffp/alpha_test/default_context.cpp

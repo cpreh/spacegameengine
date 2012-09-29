@@ -18,17 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_CORE_SAMPLER_SET_HPP_INCLUDED
-#define SGE_OPENGL_STATE_CORE_SAMPLER_SET_HPP_INCLUDED
+#ifndef SGE_RENDERER_STATE_CORE_SAMPLER_SCOPED_SINGLE_HPP_INCLUDED
+#define SGE_RENDERER_STATE_CORE_SAMPLER_SCOPED_SINGLE_HPP_INCLUDED
 
-#include <sge/opengl/context/device/object_fwd.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/renderer/state/core/sampler/const_optional_object_ref_map.hpp>
+#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/context/core_fwd.hpp>
+#include <sge/renderer/state/core/sampler/object_fwd.hpp>
+#include <sge/renderer/state/core/sampler/scoped_single_fwd.hpp>
+#include <sge/renderer/texture/stage.hpp>
+#include <fcppt/noncopyable.hpp>
 
 
 namespace sge
 {
-namespace opengl
+namespace renderer
 {
 namespace state
 {
@@ -37,12 +40,26 @@ namespace core
 namespace sampler
 {
 
-void
-set(
-	sge::opengl::context::system::object &,
-	sge::opengl::context::device::object &,
-	sge::renderer::state::core::sampler::const_optional_object_ref_map const &
-);
+class scoped_single
+{
+	FCPPT_NONCOPYABLE(
+		scoped_single
+	);
+public:
+	SGE_RENDERER_SYMBOL
+	scoped_single(
+		sge::renderer::context::core &,
+		sge::renderer::texture::stage,
+		sge::renderer::state::core::sampler::object const &
+	);
+
+	SGE_RENDERER_SYMBOL
+	~scoped_single();
+private:
+	sge::renderer::context::core &context_;
+
+	sge::renderer::texture::stage const stage_;
+};
 
 }
 }

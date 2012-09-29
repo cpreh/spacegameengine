@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/blend/const_optional_object_ref_fwd.hpp>
 #include <sge/renderer/state/core/depth_stencil/const_optional_object_ref_fwd.hpp>
 #include <sge/renderer/state/core/rasterizer/const_optional_object_ref_fwd.hpp>
-#include <sge/renderer/state/core/sampler/const_object_ref_vector.hpp>
+#include <sge/renderer/state/core/sampler/const_optional_object_ref_map.hpp>
 #include <sge/renderer/target/base_fwd.hpp>
 #include <sge/renderer/target/optional_offscreen_ref_fwd.hpp>
 #include <sge/renderer/texture/const_optional_base_ref_fwd.hpp>
@@ -283,7 +283,7 @@ public:
 	virtual
 	void
 	sampler_state(
-		sge::renderer::state::core::sampler::const_object_ref_vector const &
+		sge::renderer::state::core::sampler::const_optional_object_ref_map const &
 	) = 0;
 
 #if defined(SGE_RENDERER_HAVE_CG)

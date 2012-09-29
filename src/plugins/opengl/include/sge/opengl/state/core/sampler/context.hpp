@@ -25,13 +25,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/device/id.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/state/core/sampler/object_fwd.hpp>
-#include <sge/renderer/state/core/sampler/const_object_ref_vector.hpp>
+#include <sge/renderer/state/core/sampler/const_optional_object_ref_map.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/reference_wrapper.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
+#include <fcppt/optional_decl.hpp>
+#include <fcppt/scoped_ptr_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <vector>
+#include <map>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -52,6 +52,7 @@ class context
 {
 	FCPPT_NONCOPYABLE(
 		context
+
 	);
 public:
 	typedef sge::opengl::context::system::object &parameter;
@@ -65,13 +66,16 @@ public:
 
 	void
 	set(
-		sge::renderer::state::core::sampler::const_object_ref_vector const &
+		sge::renderer::state::core::sampler::const_optional_object_ref_map const &
 	);
 
 	sge::opengl::state::core::sampler::object const &
 	get(
 		sge::renderer::texture::stage
 	) const;
+
+	void
+	reset();
 
 	static
 	sge::opengl::context::device::id const
@@ -81,15 +85,18 @@ private:
 		sge::opengl::state::core::sampler::object
 	> object_scoped_ptr;
 
+	typedef fcppt::optional<
+		sge::opengl::state::core::sampler::object const &
+	> optional_object_ref;
+
+	typedef std::map<
+		sge::renderer::texture::stage,
+		optional_object_ref
+	> optional_object_ref_map;
+
 	object_scoped_ptr const defaults_;
 
-	typedef std::vector<
-		fcppt::reference_wrapper<
-			sge::opengl::state::core::sampler::object const
-		>
-	> object_ref_vector;
-
-	object_ref_vector objects_;
+	optional_object_ref_map objects_;
 };
 
 }

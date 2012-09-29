@@ -23,7 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/context/core_fwd.hpp>
-#include <sge/renderer/state/core/sampler/const_object_ref_vector.hpp>
+#include <sge/renderer/state/core/sampler/const_object_ref_map.hpp>
+#include <sge/renderer/state/core/sampler/const_optional_object_ref_map.hpp>
 #include <sge/renderer/state/core/sampler/scoped_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -48,13 +49,15 @@ public:
 	SGE_RENDERER_SYMBOL
 	scoped(
 		sge::renderer::context::core &,
-		sge::renderer::state::core::sampler::const_object_ref_vector const &
+		sge::renderer::state::core::sampler::const_object_ref_map const &
 	);
 
 	SGE_RENDERER_SYMBOL
 	~scoped();
 private:
 	sge::renderer::context::core &context_;
+
+	sge::renderer::state::core::sampler::const_optional_object_ref_map const null_states_;
 };
 
 }

@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/optional_type.hpp>
 #include <sge/opengl/texture/render_binding.hpp>
 #include <sge/opengl/texture/set_samplers.hpp>
-#include <sge/renderer/state/core/sampler/const_object_ref_vector.hpp>
+#include <sge/renderer/state/core/sampler/const_optional_object_ref_map.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/ref.hpp>
 
@@ -38,7 +38,7 @@ void
 sge::opengl::state::core::sampler::set(
 	sge::opengl::context::system::object &_system_context,
 	sge::opengl::context::device::object &_device_context,
-	sge::renderer::state::core::sampler::const_object_ref_vector const &_objects
+	sge::renderer::state::core::sampler::const_optional_object_ref_map const &_objects
 )
 {
 	// Record this so we can update the samplers for textures when they are activated
@@ -55,13 +55,17 @@ sge::opengl::state::core::sampler::set(
 
 	// Update all samplers for currently bound textures
 	for(
-		sge::renderer::texture::stage stage(
-			0u
+		sge::renderer::state::core::sampler::const_optional_object_ref_map::const_iterator it(
+			_objects.begin()
 		);
-		stage.get() < _objects.size();
-		++stage
+		it != _objects.end();
+		++it
 	)
 	{
+		sge::renderer::texture::stage stage(
+			it->first
+		);
+
 		sge::opengl::texture::optional_type const bound_type(
 			sge::opengl::texture::get_stage_type(
 				_device_context,
@@ -72,7 +76,7 @@ sge::opengl::state::core::sampler::set(
 		if(
 			!bound_type
 		)
-			return;
+			continue;
 
 		sge::opengl::texture::active_level const active_level(
 			_system_context,

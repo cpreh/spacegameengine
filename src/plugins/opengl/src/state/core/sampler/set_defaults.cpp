@@ -18,34 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_STATE_CORE_SAMPLER_CONST_OBJECT_REF_VECTOR_HPP_INCLUDED
-#define SGE_RENDERER_STATE_CORE_SAMPLER_CONST_OBJECT_REF_VECTOR_HPP_INCLUDED
+#include <sge/opengl/context/use.hpp>
+#include <sge/opengl/context/device/object_fwd.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/state/core/sampler/context.hpp>
+#include <sge/opengl/state/core/sampler/set_defaults.hpp>
+#include <fcppt/ref.hpp>
 
-#include <sge/renderer/state/core/sampler/const_object_ref.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <vector>
-#include <fcppt/config/external_end.hpp>
 
-
-namespace sge
+void
+sge::opengl::state::core::sampler::set_defaults(
+	sge::opengl::context::system::object &_system_context,
+	sge::opengl::context::device::object &_device_context
+)
 {
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace sampler
-{
-
-typedef std::vector<
-	sge::renderer::state::core::sampler::const_object_ref
-> const_object_ref_vector;
-
+	sge::opengl::context::use<
+		sge::opengl::state::core::sampler::context
+	>(
+		_device_context,
+		fcppt::ref(
+			_system_context
+		)
+	).reset();
 }
-}
-}
-}
-}
-
-#endif

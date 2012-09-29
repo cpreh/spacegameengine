@@ -58,7 +58,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/blend/const_optional_object_ref_fwd.hpp>
 #include <sge/renderer/state/core/depth_stencil/const_optional_object_ref_fwd.hpp>
 #include <sge/renderer/state/core/rasterizer/const_optional_object_ref_fwd.hpp>
-#include <sge/renderer/state/core/sampler/const_object_ref_vector.hpp>
+#include <sge/renderer/state/core/sampler/const_optional_object_ref_map.hpp>
 #include <sge/renderer/state/ffp/alpha_test/const_optional_object_ref_fwd.hpp>
 #include <sge/renderer/state/ffp/clip_plane/const_object_ref_vector.hpp>
 #include <sge/renderer/state/ffp/fog/const_optional_object_ref_fwd.hpp>
@@ -304,13 +304,13 @@ sge::opengl::render_context::object::rasterizer_state(
 
 void
 sge::opengl::render_context::object::sampler_state(
-	sge::renderer::state::core::sampler::const_object_ref_vector const &_state
+	sge::renderer::state::core::sampler::const_optional_object_ref_map const &_samplers
 )
 {
 	sge::opengl::state::core::sampler::set(
 		system_context_,
 		device_context_,
-		_state
+		_samplers
 	);
 }
 

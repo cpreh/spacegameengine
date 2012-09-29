@@ -24,11 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/core/blend/set.hpp>
 #include <sge/opengl/state/core/depth_stencil/set.hpp>
 #include <sge/opengl/state/core/rasterizer/set.hpp>
-#include <sge/opengl/state/core/sampler/set.hpp>
+#include <sge/opengl/state/core/sampler/set_defaults.hpp>
 #include <sge/renderer/state/core/blend/const_optional_object_ref.hpp>
 #include <sge/renderer/state/core/depth_stencil/const_optional_object_ref.hpp>
 #include <sge/renderer/state/core/rasterizer/const_optional_object_ref.hpp>
-#include <sge/renderer/state/core/sampler/const_object_ref_vector.hpp>
 
 
 void
@@ -52,9 +51,8 @@ sge::opengl::state::core::set_defaults(
 		sge::renderer::state::core::rasterizer::const_optional_object_ref()
 	);
 
-	sge::opengl::state::core::sampler::set(
+	sge::opengl::state::core::sampler::set_defaults(
 		_system_context,
-		_device_context,
-		sge::renderer::state::core::sampler::const_object_ref_vector()
+		_device_context
 	);
 }

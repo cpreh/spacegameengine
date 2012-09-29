@@ -373,7 +373,10 @@ set(
 	include/sge/renderer/state/core/sampler/address/parameters.hpp
 	include/sge/renderer/state/core/sampler/address/parameters_fwd.hpp
 	include/sge/renderer/state/core/sampler/const_object_ref.hpp
-	include/sge/renderer/state/core/sampler/const_object_ref_vector.hpp
+	include/sge/renderer/state/core/sampler/const_object_ref_map.hpp
+	include/sge/renderer/state/core/sampler/const_optional_object_ref.hpp
+	include/sge/renderer/state/core/sampler/const_optional_object_ref_fwd.hpp
+	include/sge/renderer/state/core/sampler/const_optional_object_ref_map.hpp
 	include/sge/renderer/state/core/sampler/default.hpp
 	include/sge/renderer/state/core/sampler/filter/anisotropic/level.hpp
 	include/sge/renderer/state/core/sampler/filter/anisotropic/level_value.hpp
@@ -403,6 +406,9 @@ set(
 	include/sge/renderer/state/core/sampler/parameters_fwd.hpp
 	include/sge/renderer/state/core/sampler/scoped.hpp
 	include/sge/renderer/state/core/sampler/scoped_fwd.hpp
+	include/sge/renderer/state/core/sampler/scoped_single.hpp
+	include/sge/renderer/state/core/sampler/scoped_single_fwd.hpp
+	include/sge/renderer/state/core/sampler/single.hpp
 	include/sge/renderer/state/ffp/alpha_test/const_optional_object_ref.hpp
 	include/sge/renderer/state/ffp/alpha_test/const_optional_object_ref_fwd.hpp
 	include/sge/renderer/state/ffp/alpha_test/default.hpp
@@ -830,6 +836,8 @@ set(
 	src/renderer/include/sge/src/renderer/projection/check_near.hpp
 	src/renderer/include/sge/src/renderer/projection/check_near_far.hpp
 	src/renderer/include/sge/src/renderer/state/core/sampler/filter/need_mipmap_visitor.hpp
+	src/renderer/include/sge/src/renderer/state/core/sampler/null_states.hpp
+	src/renderer/include/sge/src/renderer/state/core/sampler/scoped_states.hpp
 	src/renderer/include/sge/src/renderer/texture/basic_parameters_impl.hpp
 	src/renderer/include/sge/src/renderer/texture/basic_scoped_lock_impl.hpp
 	src/renderer/include/sge/src/renderer/texture/const_basic_scoped_lock_impl.hpp
@@ -925,9 +933,13 @@ set(
 	src/renderer/state/core/sampler/filter/parameters.cpp
 	src/renderer/state/core/sampler/filter/point.cpp
 	src/renderer/state/core/sampler/filter/trilinear.cpp
+	src/renderer/state/core/sampler/null_states.cpp
 	src/renderer/state/core/sampler/object.cpp
 	src/renderer/state/core/sampler/parameters.cpp
 	src/renderer/state/core/sampler/scoped.cpp
+	src/renderer/state/core/sampler/scoped_single.cpp
+	src/renderer/state/core/sampler/scoped_states.cpp
+	src/renderer/state/core/sampler/single.cpp
 	src/renderer/state/ffp/alpha_test/default.cpp
 	src/renderer/state/ffp/alpha_test/enabled.cpp
 	src/renderer/state/ffp/alpha_test/object.cpp

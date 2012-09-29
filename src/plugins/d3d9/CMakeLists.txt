@@ -139,7 +139,6 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/state/core/blend/object_unique_ptr.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/core/blend/set.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/core/blend/write_mask.hpp
-	src/plugins/d3d9/include/sge/d3d9/state/core/create_defaults.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/core/defaults.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/core/defaults_fwd.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/core/depth_stencil/create.hpp
@@ -211,7 +210,6 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/target/onscreen.hpp
 	src/plugins/d3d9/include/sge/d3d9/target/onscreen_fwd.hpp
 	src/plugins/d3d9/include/sge/d3d9/target/temporary.hpp
-	src/plugins/d3d9/include/sge/d3d9/texture/address_mode.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/base.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/base_fwd.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/basic.hpp
@@ -234,7 +232,6 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/texture/depth_stencil.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/depth_stencil_basic.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/depth_stencil_types.hpp
-	src/plugins/d3d9/include/sge/d3d9/texture/init_state.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/mipmap/auto_generate_usage.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/mipmap/level_count.hpp
 	src/plugins/d3d9/include/sge/d3d9/texture/mipmap/level_count_visitor.hpp
@@ -447,7 +444,6 @@ SET(
 	src/plugins/d3d9/src/target/offscreen.cpp
 	src/plugins/d3d9/src/target/onscreen.cpp
 	src/plugins/d3d9/src/target/temporary.cpp
-	src/plugins/d3d9/src/texture/address_mode.cpp
 	src/plugins/d3d9/src/texture/base.cpp
 	src/plugins/d3d9/src/texture/best_color_format.cpp
 	src/plugins/d3d9/src/texture/buffer_size.cpp
@@ -456,7 +452,6 @@ SET(
 	src/plugins/d3d9/src/texture/cube_types.cpp
 	src/plugins/d3d9/src/texture/depth_stencil.cpp
 	src/plugins/d3d9/src/texture/depth_stencil_types.cpp
-	src/plugins/d3d9/src/texture/init_state.cpp
 	src/plugins/d3d9/src/texture/mipmap/auto_generate_usage.cpp
 	src/plugins/d3d9/src/texture/mipmap/level_count.cpp
 	src/plugins/d3d9/src/texture/mipmap/level_count_visitor.cpp

@@ -18,17 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_CORE_SAMPLER_SET_HPP_INCLUDED
-#define SGE_OPENGL_STATE_CORE_SAMPLER_SET_HPP_INCLUDED
+#ifndef SGE_SRC_RENDERER_STATE_CORE_SAMPLER_SCOPED_STATES_HPP_INCLUDED
+#define SGE_SRC_RENDERER_STATE_CORE_SAMPLER_SCOPED_STATES_HPP_INCLUDED
 
-#include <sge/opengl/context/device/object_fwd.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/renderer/state/core/sampler/const_object_ref_map.hpp>
 #include <sge/renderer/state/core/sampler/const_optional_object_ref_map.hpp>
 
 
 namespace sge
 {
-namespace opengl
+namespace renderer
 {
 namespace state
 {
@@ -37,11 +36,9 @@ namespace core
 namespace sampler
 {
 
-void
-set(
-	sge::opengl::context::system::object &,
-	sge::opengl::context::device::object &,
-	sge::renderer::state::core::sampler::const_optional_object_ref_map const &
+sge::renderer::state::core::sampler::const_optional_object_ref_map const
+scoped_states(
+	sge::renderer::state::core::sampler::const_object_ref_map const &
 );
 
 }

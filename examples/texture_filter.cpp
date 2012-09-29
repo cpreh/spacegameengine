@@ -75,11 +75,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/projection/fov.hpp>
 #include <sge/renderer/projection/near.hpp>
 #include <sge/renderer/state/core/sampler/const_object_ref.hpp>
-#include <sge/renderer/state/core/sampler/const_object_ref_vector.hpp>
 #include <sge/renderer/state/core/sampler/object.hpp>
 #include <sge/renderer/state/core/sampler/object_scoped_ptr.hpp>
 #include <sge/renderer/state/core/sampler/parameters.hpp>
-#include <sge/renderer/state/core/sampler/scoped.hpp>
+#include <sge/renderer/state/core/sampler/scoped_single.hpp>
 #include <sge/renderer/state/core/sampler/address/default.hpp>
 #include <sge/renderer/state/core/sampler/address/parameters.hpp>
 #include <sge/renderer/state/core/sampler/filter/linear.hpp>
@@ -157,10 +156,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/ref.hpp>
+#include <fcppt/reference_wrapper.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assign/make_container.hpp>
+#include <fcppt/assign/make_map.hpp>
 #include <fcppt/container/array.hpp>
-#include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
@@ -831,13 +830,12 @@ try
 				*world_state
 			);
 
-			sge::renderer::state::core::sampler::scoped const scoped_filter(
+			sge::renderer::state::core::sampler::scoped_single const scoped_filter(
 				scoped_block.get(),
-				fcppt::assign::make_container<
-					sge::renderer::state::core::sampler::const_object_ref_vector
-				>(
-					current_filter->second
-				)
+				sge::renderer::texture::stage(
+					0u
+				),
+				current_filter->second.get()
 			);
 
 			sge::sprite::render::range_with_options(
