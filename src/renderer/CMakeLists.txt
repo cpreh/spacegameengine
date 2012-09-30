@@ -424,6 +424,8 @@ set(
 	include/sge/renderer/state/ffp/alpha_test/parameters.hpp
 	include/sge/renderer/state/ffp/alpha_test/parameters_fwd.hpp
 	include/sge/renderer/state/ffp/alpha_test/ref.hpp
+	include/sge/renderer/state/ffp/alpha_test/scoped.hpp
+	include/sge/renderer/state/ffp/alpha_test/scoped_fwd.hpp
 	include/sge/renderer/state/ffp/alpha_test/variant.hpp
 	include/sge/renderer/state/ffp/alpha_test/variant_fwd.hpp
 	include/sge/renderer/state/ffp/clip_plane/area.hpp
@@ -436,6 +438,8 @@ set(
 	include/sge/renderer/state/ffp/clip_plane/object_unique_ptr.hpp
 	include/sge/renderer/state/ffp/clip_plane/parameters.hpp
 	include/sge/renderer/state/ffp/clip_plane/parameters_fwd.hpp
+	include/sge/renderer/state/ffp/clip_plane/scoped.hpp
+	include/sge/renderer/state/ffp/clip_plane/scoped_fwd.hpp
 	include/sge/renderer/state/ffp/fog/color.hpp
 	include/sge/renderer/state/ffp/fog/const_optional_object_ref.hpp
 	include/sge/renderer/state/ffp/fog/const_optional_object_ref_fwd.hpp
@@ -453,6 +457,8 @@ set(
 	include/sge/renderer/state/ffp/fog/off_fwd.hpp
 	include/sge/renderer/state/ffp/fog/parameters.hpp
 	include/sge/renderer/state/ffp/fog/parameters_fwd.hpp
+	include/sge/renderer/state/ffp/fog/scoped.hpp
+	include/sge/renderer/state/ffp/fog/scoped_fwd.hpp
 	include/sge/renderer/state/ffp/fog/start.hpp
 	include/sge/renderer/state/ffp/fog/variant.hpp
 	include/sge/renderer/state/ffp/fog/variant_fwd.hpp
@@ -485,6 +491,8 @@ set(
 	include/sge/renderer/state/ffp/lighting/light/position.hpp
 	include/sge/renderer/state/ffp/lighting/light/position_fwd.hpp
 	include/sge/renderer/state/ffp/lighting/light/quadratic_attenuation.hpp
+	include/sge/renderer/state/ffp/lighting/light/scoped.hpp
+	include/sge/renderer/state/ffp/lighting/light/scoped_fwd.hpp
 	include/sge/renderer/state/ffp/lighting/light/spot.hpp
 	include/sge/renderer/state/ffp/lighting/light/spot_fwd.hpp
 	include/sge/renderer/state/ffp/lighting/light/variant.hpp
@@ -499,6 +507,8 @@ set(
 	include/sge/renderer/state/ffp/lighting/material/object_unique_ptr.hpp
 	include/sge/renderer/state/ffp/lighting/material/parameters.hpp
 	include/sge/renderer/state/ffp/lighting/material/parameters_fwd.hpp
+	include/sge/renderer/state/ffp/lighting/material/scoped.hpp
+	include/sge/renderer/state/ffp/lighting/material/scoped_fwd.hpp
 	include/sge/renderer/state/ffp/lighting/material/shininess.hpp
 	include/sge/renderer/state/ffp/lighting/object.hpp
 	include/sge/renderer/state/ffp/lighting/object_fwd.hpp
@@ -508,6 +518,8 @@ set(
 	include/sge/renderer/state/ffp/lighting/off_fwd.hpp
 	include/sge/renderer/state/ffp/lighting/parameters.hpp
 	include/sge/renderer/state/ffp/lighting/parameters_fwd.hpp
+	include/sge/renderer/state/ffp/lighting/scoped.hpp
+	include/sge/renderer/state/ffp/lighting/scoped_fwd.hpp
 	include/sge/renderer/state/ffp/lighting/specular_color.hpp
 	include/sge/renderer/state/ffp/lighting/variant.hpp
 	include/sge/renderer/state/ffp/lighting/variant_fwd.hpp
@@ -550,6 +562,8 @@ set(
 	include/sge/renderer/state/ffp/sampler/parameters.hpp
 	include/sge/renderer/state/ffp/sampler/parameters_both.hpp
 	include/sge/renderer/state/ffp/sampler/parameters_fwd.hpp
+	include/sge/renderer/state/ffp/sampler/scoped.hpp
+	include/sge/renderer/state/ffp/sampler/scoped_fwd.hpp
 	include/sge/renderer/state/ffp/sampler/ternary_op.hpp
 	include/sge/renderer/state/ffp/sampler/ternary_op_fwd.hpp
 	include/sge/renderer/state/ffp/sampler/ternary_op_type.hpp
@@ -944,12 +958,15 @@ set(
 	src/renderer/state/ffp/alpha_test/enabled.cpp
 	src/renderer/state/ffp/alpha_test/object.cpp
 	src/renderer/state/ffp/alpha_test/parameters.cpp
+	src/renderer/state/ffp/alpha_test/scoped.cpp
 	src/renderer/state/ffp/clip_plane/object.cpp
 	src/renderer/state/ffp/clip_plane/parameters.cpp
+	src/renderer/state/ffp/clip_plane/scoped.cpp
 	src/renderer/state/ffp/fog/default.cpp
 	src/renderer/state/ffp/fog/enabled.cpp
 	src/renderer/state/ffp/fog/object.cpp
 	src/renderer/state/ffp/fog/parameters.cpp
+	src/renderer/state/ffp/fog/scoped.cpp
 	src/renderer/state/ffp/lighting/default.cpp
 	src/renderer/state/ffp/lighting/enabled.cpp
 	src/renderer/state/ffp/lighting/light/attenuation.cpp
@@ -957,12 +974,15 @@ set(
 	src/renderer/state/ffp/lighting/light/object.cpp
 	src/renderer/state/ffp/lighting/light/parameters.cpp
 	src/renderer/state/ffp/lighting/light/point.cpp
+	src/renderer/state/ffp/lighting/light/scoped.cpp
 	src/renderer/state/ffp/lighting/light/spot.cpp
 	src/renderer/state/ffp/lighting/material/default.cpp
 	src/renderer/state/ffp/lighting/material/object.cpp
 	src/renderer/state/ffp/lighting/material/parameters.cpp
+	src/renderer/state/ffp/lighting/material/scoped.cpp
 	src/renderer/state/ffp/lighting/object.cpp
 	src/renderer/state/ffp/lighting/parameters.cpp
+	src/renderer/state/ffp/lighting/scoped.cpp
 	src/renderer/state/ffp/misc/default.cpp
 	src/renderer/state/ffp/misc/object.cpp
 	src/renderer/state/ffp/misc/parameters.cpp
@@ -973,6 +993,7 @@ set(
 	src/renderer/state/ffp/sampler/op.cpp
 	src/renderer/state/ffp/sampler/parameters.cpp
 	src/renderer/state/ffp/sampler/parameters_both.cpp
+	src/renderer/state/ffp/sampler/scoped.cpp
 	src/renderer/state/ffp/sampler/ternary_op.cpp
 	src/renderer/state/ffp/sampler/unary_op.cpp
 	src/renderer/state/ffp/transform/default.cpp
