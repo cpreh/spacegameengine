@@ -54,7 +54,7 @@ sge::opengl::state::core::depth_stencil::depth::visitor::operator()(
 		)(
 			sge::opengl::state::core::depth_stencil::depth::write_enable(
 				sge::renderer::state::core::depth_stencil::depth::write_enable(
-					false
+					true
 				)
 			)
 		);
