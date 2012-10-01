@@ -233,6 +233,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/state/core/depth_stencil/create.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/depth_stencil/default_context.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/depth_stencil/depth/visitor.hpp
+	src/plugins/opengl/include/sge/opengl/state/core/depth_stencil/depth/write_enable.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/depth_stencil/make_actors.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/depth_stencil/object.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/depth_stencil/object_fwd.hpp
@@ -716,6 +717,7 @@ set(
 	src/plugins/opengl/src/state/core/depth_stencil/create.cpp
 	src/plugins/opengl/src/state/core/depth_stencil/default_context.cpp
 	src/plugins/opengl/src/state/core/depth_stencil/depth/visitor.cpp
+	src/plugins/opengl/src/state/core/depth_stencil/depth/write_enable.cpp
 	src/plugins/opengl/src/state/core/depth_stencil/make_actors.cpp
 	src/plugins/opengl/src/state/core/depth_stencil/object.cpp
 	src/plugins/opengl/src/state/core/depth_stencil/set.cpp
