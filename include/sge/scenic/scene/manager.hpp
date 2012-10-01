@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/symbol.hpp>
 #include <sge/scenic/texture_manager.hpp>
 #include <sge/scenic/render_context/base_unique_ptr.hpp>
+#include <sge/scenic/scene/prefer_cg_context.hpp>
 #include <sge/scenic/render_context/manager_base_scoped_ptr.hpp>
 #include <sge/shader/context.hpp>
 
@@ -46,7 +47,8 @@ public:
 	SGE_SCENIC_SYMBOL
 	manager(
 		sge::renderer::device::core &,
-		sge::image2d::system &);
+		sge::image2d::system &,
+		sge::scenic::scene::prefer_cg_context const &);
 
 	SGE_SCENIC_SYMBOL
 	sge::scenic::render_context::base_unique_ptr

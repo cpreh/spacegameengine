@@ -115,8 +115,8 @@ private:
 	sge::renderer::state::core::depth_stencil::scoped depth_stencil_state_;
 	sge::renderer::state::core::blend::scoped blend_state_;
 	sge::renderer::state::core::rasterizer::scoped rasterizer_state_;
-	sge::renderer::state::core::sampler::scoped sampler_state_;
 	sge::shader::scoped_pair scoped_shader_;
+	sge::renderer::state::core::sampler::scoped sampler_state_;
 	sge::renderer::matrix4 current_world_;
 	sge::renderer::matrix4 current_projection_;
 	optional_vertex_buffer current_vertex_buffer_;

@@ -58,20 +58,26 @@ sge::scenic::render_context::cg::object::object(
 	rasterizer_state_(
 		_context,
 		*manager_.rasterizer_state_),
+	scoped_shader_(
+		_context,
+		manager_.shader_),
 	sampler_state_(
 		_context,
 		fcppt::assign::make_map<sge::renderer::state::core::sampler::const_object_ref_map>
 			(
-				manager_.diffuse_texture_.stage(),
+				// I'd love to write this, but for this, the texture would have to be scoped, which it isn't yet
+				//manager_.diffuse_texture_.stage(),
+				sge::renderer::texture::stage(
+					0u),
 				fcppt::cref(
 					*manager_.mipmap_sampler_state_))
 			(
-				manager_.specular_texture_.stage(),
+				// I'd love to write this, but for this, the texture would have to be scoped, which it isn't yet
+				//manager_.specular_texture_.stage(),
+				sge::renderer::texture::stage(
+					1u),
 				fcppt::cref(
 					*manager_.mipmap_sampler_state_))),
-	scoped_shader_(
-		_context,
-		manager_.shader_),
 	current_world_(),
 	current_projection_(),
 	current_vertex_buffer_()

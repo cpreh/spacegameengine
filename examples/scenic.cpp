@@ -164,7 +164,9 @@ try
 
 	sge::scenic::scene::manager scene_manager(
 		sys.renderer_core(),
-		sys.image_system());
+		sys.image_system(),
+		sge::scenic::scene::prefer_cg_context(
+			true));
 
 	sge::scenic::scene::object test_scene(
 		scene_manager,
