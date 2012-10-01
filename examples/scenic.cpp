@@ -68,6 +68,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
 #include <awl/main/exit_code.hpp>
+#include <awl/main/exit_success.hpp>
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context.hpp>
 #include <fcppt/exception.hpp>
@@ -81,6 +82,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/program_options.hpp>
 #include <example_main.hpp>
 #include <exception>
 #include <iostream>
@@ -94,23 +96,46 @@ example_main(
 )
 try
 {
-	if(_context.argc() <= 1)
-	{
-		std::cerr
-			<< "Usage: "
-			<<
-				_context.argv()[0]
-			<<
-				" <scene-name>\n";
+	fcppt::string scene_name;
 
+	boost::program_options::options_description allowed_options_description("Allowed options");
+	allowed_options_description.add_options()
+		(
+			"help",
+			"produce help message")
+		(
+			"scene-name",
+			boost::program_options::value<fcppt::string>(&scene_name)->required(),
+			"Scene name (denotes a path below media/scenes)")
+		(
+			"ffp",
+			"Use an ffp context instead of a shader context");
+
+	boost::program_options::variables_map compiled_options;
+	boost::program_options::store(
+		boost::program_options::parse_command_line(
+			_context.argc(),
+			_context.argv(),
+			allowed_options_description),
+		compiled_options);
+
+	if(compiled_options.count("help"))
+	{
+		std::cout << allowed_options_description << "\n";
 		return
-			awl::main::exit_failure();
+			awl::main::exit_success();
 	}
 
+	boost::program_options::notify(
+		compiled_options);
+
+
+	/*
 	fcppt::string const scene_name(
 		fcppt::from_std_string(
 			std::string(
 				_context.argv()[1])));
+	*/
 
 	sge::window::dim const window_dim(
 		1024,
@@ -166,7 +191,8 @@ try
 		sys.renderer_core(),
 		sys.image_system(),
 		sge::scenic::scene::prefer_cg_context(
-			true));
+			!compiled_options.count(
+				"ffp")));
 
 	sge::scenic::scene::object test_scene(
 		scene_manager,

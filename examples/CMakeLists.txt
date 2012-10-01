@@ -368,7 +368,7 @@ add_sge_console_example(
 add_sge_example(
 	scenic
 	"sgeconfig;sgeimage;sgeinput;sgerenderer;sgesystems;sgeviewport;sgewindow;sgescenic;sgecamera;sgegraph"
-	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES};${Boost_CHRONO_LIBRARIES}"
+	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_PROGRAM_OPTIONS_LIBRARIES}"
 	"${Cg_INCLUDE_DIRS}"
 )
 

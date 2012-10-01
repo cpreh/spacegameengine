@@ -74,6 +74,7 @@ find_package(
 	chrono
 	filesystem
 	thread
+	program_options
 )
 
 include_directories(
