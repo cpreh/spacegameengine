@@ -96,7 +96,7 @@ example_main(
 )
 try
 {
-	fcppt::string scene_name;
+	std::string scene_name_narrow;
 
 	boost::program_options::options_description allowed_options_description("Allowed options");
 	allowed_options_description.add_options()
@@ -105,7 +105,7 @@ try
 			"produce help message")
 		(
 			"scene-name",
-			boost::program_options::value<fcppt::string>(&scene_name)->required(),
+			boost::program_options::value<std::string>(&scene_name_narrow)->required(),
 			"Scene name (denotes a path below media/scenes)")
 		(
 			"ffp",
@@ -130,12 +130,9 @@ try
 		compiled_options);
 
 
-	/*
 	fcppt::string const scene_name(
 		fcppt::from_std_string(
-			std::string(
-				_context.argv()[1])));
-	*/
+			scene_name_narrow));
 
 	sge::window::dim const window_dim(
 		1024,

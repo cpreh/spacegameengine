@@ -44,7 +44,14 @@ sge::opengl::state::core::depth_stencil::depth::visitor::operator()(
 	return
 		fcppt::assign::make_container<
 			sge::opengl::state::core::depth_stencil::depth::visitor::result_type
-		>(
+		>
+		(
+			std::tr1::bind(
+				::glDepthMask,
+				GL_TRUE
+			)
+		)
+		(
 			std::tr1::bind(
 				sge::opengl::disable,
 				GL_DEPTH_TEST
