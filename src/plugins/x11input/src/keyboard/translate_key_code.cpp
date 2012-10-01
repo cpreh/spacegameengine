@@ -415,15 +415,14 @@ sge::x11input::keyboard::translate_key_code(
 #endif
 	case XK_plus:
 		return sge::input::keyboard::key_code::add;
-#if 0
-#define XK_comma             0x002c /* U+002C COMMA */
-#endif
+	case XK_comma:
+		return sge::input::keyboard::key_code::comma;
 	case XK_minus:
 		return sge::input::keyboard::key_code::minus;
-#if 0
-#define XK_period            0x002e /* U+002E FULL STOP */
-#define XK_slash             0x002f /* U+002F SOLIDUS */
-#endif
+	case XK_period:
+		return sge::input::keyboard::key_code::period;
+	case XK_slash:
+		return sge::input::keyboard::key_code::slash;
 	case XK_0:
 		return sge::input::keyboard::key_code::_0;
 	case XK_1:
