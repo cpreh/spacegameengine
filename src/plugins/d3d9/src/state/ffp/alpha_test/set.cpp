@@ -18,51 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_STATE_FFP_DEFAULTS_HPP_INCLUDED
-#define SGE_D3D9_STATE_FFP_DEFAULTS_HPP_INCLUDED
-
-#include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/state/ffp/defaults_fwd.hpp>
-#include <sge/d3d9/state/ffp/alpha_test/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
+#include <sge/d3d9/state/set_or_default.hpp>
+#include <sge/d3d9/state/ffp/alpha_test/object.hpp>
+#include <sge/d3d9/state/ffp/alpha_test/set.hpp>
+#include <sge/renderer/state/ffp/alpha_test/const_optional_object_ref.hpp>
 
 
-namespace sge
+void
+sge::d3d9::state::ffp::alpha_test::set(
+	sge::renderer::state::ffp::alpha_test::const_optional_object_ref const &_state,
+	sge::d3d9::state::ffp::alpha_test::object const &_default
+)
 {
-namespace d3d9
-{
-namespace state
-{
-namespace ffp
-{
-
-class defaults
-{
-	FCPPT_NONCOPYABLE(
-		defaults
+	sge::d3d9::state::set_or_default(
+		_state,
+		_default
 	);
-public:
-	explicit
-	defaults(
-		IDirect3DDevice9 &
-	);
-
-	~defaults();
-
-	sge::d3d9::state::ffp::alpha_test::object const &
-	alpha_test() const;
-private:
-	typedef fcppt::scoped_ptr<
-		sge::d3d9::state::ffp::alpha_test::object
-	> alpha_test_scoped_ptr;
-
-	alpha_test_scoped_ptr const alpha_test_;
-};
-
 }
-}
-}
-}
-
-#endif

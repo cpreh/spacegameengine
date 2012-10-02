@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/state/core/sampler/set.hpp>
 #include <sge/d3d9/state/ffp/defaults.hpp>
 #include <sge/d3d9/state/ffp/set_defaults.hpp>
+#include <sge/d3d9/state/ffp/alpha_test/set.hpp>
 #include <sge/d3d9/target/base.hpp>
 #include <sge/d3d9/texture/set.hpp>
 #include <sge/renderer/config.hpp>
@@ -378,3 +379,71 @@ sge::d3d9::render_context::object::unset_cg_texture(
 	);
 }
 #endif
+
+void
+sge::d3d9::render_context::object::alpha_test_state(
+	sge::renderer::state::ffp::alpha_test::const_optional_object_ref const &_state
+)
+{
+	sge::d3d9::state::ffp::alpha_test::set(
+		_state,
+		ffp_defaults_.alpha_test()
+	);
+}
+
+void
+sge::d3d9::render_context::object::clip_plane_state(
+	sge::renderer::state::ffp::clip_plane::const_object_ref_vector const &_state
+)
+{
+}
+
+void
+sge::d3d9::render_context::object::fog_state(
+	sge::renderer::state::ffp::fog::const_optional_object_ref const &_state
+)
+{
+}
+
+void
+sge::d3d9::render_context::object::lighting_state(
+	sge::renderer::state::ffp::lighting::const_optional_object_ref const &_state
+)
+{
+}
+
+void
+sge::d3d9::render_context::object::lights_state(
+	sge::renderer::state::ffp::lighting::light::const_object_ref_vector const &_states
+)
+{
+}
+
+void
+sge::d3d9::render_context::object::material_state(
+	sge::renderer::state::ffp::lighting::material::const_optional_object_ref const &_state
+)
+{
+}
+
+void
+sge::d3d9::render_context::object::misc_state(
+	sge::renderer::state::ffp::misc::const_optional_object_ref const &_state
+)
+{
+}
+
+void
+sge::d3d9::render_context::object::sampler_ffp_state(
+	sge::renderer::state::ffp::sampler::const_object_ref_vector const &_states
+)
+{
+}
+
+void
+sge::d3d9::render_context::object::transform(
+	sge::renderer::state::ffp::transform::mode::type const _mode,
+	sge::renderer::state::ffp::transform::const_optional_object_ref const &_state
+)
+{
+}

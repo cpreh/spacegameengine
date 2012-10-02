@@ -18,51 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_STATE_FFP_DEFAULTS_HPP_INCLUDED
-#define SGE_D3D9_STATE_FFP_DEFAULTS_HPP_INCLUDED
-
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/state/ffp/defaults_fwd.hpp>
-#include <sge/d3d9/state/ffp/alpha_test/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
+#include <sge/d3d9/state/ffp/alpha_test/create.hpp>
+#include <sge/d3d9/state/ffp/alpha_test/make_states.hpp>
+#include <sge/d3d9/state/ffp/alpha_test/object.hpp>
+#include <sge/renderer/state/ffp/alpha_test/object_unique_ptr.hpp>
+#include <sge/renderer/state/ffp/alpha_test/parameters_fwd.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/ref.hpp>
 
 
-namespace sge
+sge::renderer::state::ffp::alpha_test::object_unique_ptr
+sge::d3d9::state::ffp::alpha_test::create(
+	IDirect3DDevice9 &_device,
+	sge::renderer::state::ffp::alpha_test::parameters const &_parameters
+)
 {
-namespace d3d9
-{
-namespace state
-{
-namespace ffp
-{
-
-class defaults
-{
-	FCPPT_NONCOPYABLE(
-		defaults
-	);
-public:
-	explicit
-	defaults(
-		IDirect3DDevice9 &
-	);
-
-	~defaults();
-
-	sge::d3d9::state::ffp::alpha_test::object const &
-	alpha_test() const;
-private:
-	typedef fcppt::scoped_ptr<
-		sge::d3d9::state::ffp::alpha_test::object
-	> alpha_test_scoped_ptr;
-
-	alpha_test_scoped_ptr const alpha_test_;
-};
-
+	return
+		sge::renderer::state::ffp::alpha_test::object_unique_ptr(
+			fcppt::make_unique_ptr<
+				sge::d3d9::state::ffp::alpha_test::object
+			>(
+				fcppt::ref(
+					_device
+				),
+				sge::d3d9::state::ffp::alpha_test::make_states(
+					_parameters
+				)
+			)
+		);
 }
-}
-}
-}
-
-#endif

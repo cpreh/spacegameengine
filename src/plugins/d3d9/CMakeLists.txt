@@ -168,6 +168,13 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/state/core/sampler/state_vector.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/core/set_defaults.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/ffp/alpha_test/create.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/alpha_test/create_default.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/alpha_test/make_states.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/alpha_test/object.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/alpha_test/object_fwd.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/alpha_test/object_unique_ptr.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/alpha_test/set.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/alpha_test/visitor.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/ffp/clip_plane/create.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/ffp/defaults.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/ffp/defaults_fwd.hpp
@@ -433,6 +440,12 @@ SET(
 	src/plugins/d3d9/src/state/core/sampler/set_defaults.cpp
 	src/plugins/d3d9/src/state/core/sampler/state.cpp
 	src/plugins/d3d9/src/state/core/set_defaults.cpp
+	src/plugins/d3d9/src/state/ffp/alpha_test/create.cpp
+	src/plugins/d3d9/src/state/ffp/alpha_test/create_default.cpp
+	src/plugins/d3d9/src/state/ffp/alpha_test/make_states.cpp
+	src/plugins/d3d9/src/state/ffp/alpha_test/object.cpp
+	src/plugins/d3d9/src/state/ffp/alpha_test/set.cpp
+	src/plugins/d3d9/src/state/ffp/alpha_test/visitor.cpp
 	src/plugins/d3d9/src/state/ffp/defaults.cpp
 	src/plugins/d3d9/src/state/ffp/set_defaults.cpp
 	src/plugins/d3d9/src/state/render.cpp

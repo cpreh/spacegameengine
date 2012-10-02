@@ -21,18 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/state/render.hpp>
 #include <sge/d3d9/state/render_vector.hpp>
-#include <sge/d3d9/state/core/blend/alpha_enabled_visitor.hpp>
-#include <sge/d3d9/state/core/blend/alpha_visitor.hpp>
-#include <sge/renderer/state/core/blend/alpha_enabled.hpp>
-#include <sge/renderer/state/core/blend/alpha_off_fwd.hpp>
-#include <fcppt/algorithm/join.hpp>
+#include <sge/d3d9/state/convert/alpha_func.hpp>
+#include <sge/d3d9/state/ffp/alpha_test/visitor.hpp>
+#include <sge/renderer/state/ffp/alpha_test/enabled.hpp>
+#include <sge/renderer/state/ffp/alpha_test/off_fwd.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <fcppt/variant/apply_unary.hpp>
 
 
-sge::d3d9::state::core::blend::alpha_visitor::result_type
-sge::d3d9::state::core::blend::alpha_visitor::operator()(
-	sge::renderer::state::core::blend::alpha_off const &
+sge::d3d9::state::ffp::alpha_test::visitor::result_type
+sge::d3d9::state::ffp::alpha_test::visitor::operator()(
+	sge::renderer::state::ffp::alpha_test::off const &
 ) const
 {
 	return
@@ -40,31 +38,43 @@ sge::d3d9::state::core::blend::alpha_visitor::operator()(
 			sge::d3d9::state::render_vector
 		>(
 			sge::d3d9::state::render(
-				D3DRS_ALPHABLENDENABLE,
+				D3DRS_ALPHATESTENABLE,
 				FALSE
 			)
 		);
 }
 
-sge::d3d9::state::core::blend::alpha_visitor::result_type
-sge::d3d9::state::core::blend::alpha_visitor::operator()(
-	sge::renderer::state::core::blend::alpha_enabled const &_enabled
+sge::d3d9::state::ffp::alpha_test::visitor::result_type
+sge::d3d9::state::ffp::alpha_test::visitor::operator()(
+	sge::renderer::state::ffp::alpha_test::enabled const &_enabled
 ) const
 {
 	return
-		fcppt::algorithm::join(
-			fcppt::assign::make_container<
-				sge::d3d9::state::render_vector
-			>(
-				sge::d3d9::state::render(
-					D3DRS_ALPHABLENDENABLE,
-					TRUE
+		fcppt::assign::make_container<
+			sge::d3d9::state::render_vector
+		>(
+			sge::d3d9::state::render(
+				D3DRS_ALPHATESTENABLE,
+				TRUE
+			)
+		)(
+			sge::d3d9::state::render(
+				D3DRS_ALPHAFUNC,
+				sge::d3d9::state::convert::alpha_func(
+					_enabled.func()
 				)
 			)
-			.container(),
-			fcppt::variant::apply_unary(
-				sge::d3d9::state::core::blend::alpha_enabled_visitor(),
-				_enabled.variant()
+		)(
+			// TODO: should we change the API for this?
+			sge::d3d9::state::render(
+				D3DRS_ALPHAREF,
+				static_cast<
+					DWORD
+				>(
+					_enabled.ref().get()
+					*
+					256.f
+				)
 			)
 		);
 }
