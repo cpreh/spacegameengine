@@ -53,7 +53,7 @@ public:
 	~object();
 
 	void
-	set();
+	set() const;
 private:
 	IDirect3DDevice9 &device_;
 

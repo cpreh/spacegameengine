@@ -33,7 +33,7 @@ namespace d3d9
 
 sge::renderer::caps::device_unique_ptr
 create_device_caps(
-	IDirect3D9 *,
+	IDirect3D9 &,
 	sge::renderer::adapter
 );
 

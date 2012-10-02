@@ -20,25 +20,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/convert/bool.hpp>
-#include <sge/d3d9/convert/light/index.hpp>
 #include <sge/d3d9/devicefuncs/light_enable.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/light/index.hpp>
+#include <sge/renderer/state/index_count.hpp>
 #include <fcppt/text.hpp>
 
 
 void
 sge::d3d9::devicefuncs::light_enable(
-	IDirect3DDevice9&_device,
-	sge::renderer::light::index const _index,
+	IDirect3DDevice9 &_device,
+	sge::renderer::state::index_count const _index,
 	bool const _enable
 )
 {
 	if(
 		_device.LightEnable(
-			sge::d3d9::convert::light::index(
-				_index
-			),
+			_index,
 			sge::d3d9::convert::bool_(
 				_enable
 			)

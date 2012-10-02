@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 void
 sge::d3d9::state::convert::light::point(
 	D3DLIGHT9 &_light,
-	sge::renderer:state::ffp::lighting::light::point const &_point
+	sge::renderer::state::ffp::lighting::light::point const &_point
 )
 {
 	_light.Type = D3DLIGHT_POINT;

@@ -43,6 +43,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/state/core/depth_stencil/create.hpp>
 #include <sge/d3d9/state/core/rasterizer/create.hpp>
 #include <sge/d3d9/state/core/sampler/create.hpp>
+#include <sge/d3d9/state/ffp/defaults.hpp>
+#include <sge/d3d9/state/ffp/alpha_test/create.hpp>
+#include <sge/d3d9/state/ffp/clip_plane/create.hpp>
+#include <sge/d3d9/state/ffp/fog/create.hpp>
+#include <sge/d3d9/state/ffp/lighting/create.hpp>
+#include <sge/d3d9/state/ffp/lighting/light/create.hpp>
+#include <sge/d3d9/state/ffp/lighting/material/create.hpp>
+#include <sge/d3d9/state/ffp/misc/create.hpp>
+#include <sge/d3d9/state/ffp/sampler/create.hpp>
+#include <sge/d3d9/state/ffp/transform/create.hpp>
 #include <sge/d3d9/target/offscreen.hpp>
 #include <sge/d3d9/target/onscreen.hpp>
 #include <sge/d3d9/texture/cube.hpp>
@@ -159,7 +169,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::d3d9::device::device(
-	IDirect3D9 *const _system,
+	IDirect3D9 &_system,
 	sge::renderer::device::parameters const &_parameters,
 	sge::renderer::caps::device const &_caps
 )
@@ -216,9 +226,18 @@ sge::d3d9::device::device(
 			caps_.target_surfaces()
 		)
 	),
-	default_core_states_(
+	core_defaults_(
 		fcppt::make_unique_ptr<
 			sge::d3d9::state::core::defaults
+		>(
+			fcppt::ref(
+				*device_
+			)
+		)
+	),
+	ffp_defaults_(
+		fcppt::make_unique_ptr<
+			sge::d3d9::state::ffp::defaults
 		>(
 			fcppt::ref(
 				*device_
@@ -237,15 +256,11 @@ sge::d3d9::device::begin_rendering(
 	sge::renderer::target::base &_target
 )
 {
-	sge::d3d9::devicefuncs::begin_scene(
-		*device_
-	);
-
 	return
-		sge::d3d9::render_context::create(
-			*device_,
-			_target,
-			caps_.texture_stages()
+		sge::renderer::context::core_unique_ptr(
+			this->begin_rendering_ffp(
+				_target
+			)
 		);
 }
 
@@ -621,6 +636,143 @@ sge::renderer::caps::device const &
 sge::d3d9::device::caps() const
 {
 	return caps_;
+}
+
+sge::renderer::context::ffp_unique_ptr
+sge::d3d9::device::begin_rendering_ffp(
+	sge::renderer::target::base &_target
+)
+{
+	sge::d3d9::devicefuncs::begin_scene(
+		*device_
+	);
+
+	return
+		sge::d3d9::render_context::create(
+			*device_,
+			_target,
+			caps_.texture_stages(),
+			*core_defaults_,
+			*ffp_defaults_
+		);
+}
+
+void
+sge::d3d9::device::end_rendering_ffp(
+	sge::renderer::context::ffp &_context
+)
+{
+	this->end_rendering(
+		_context
+	);
+}
+
+sge::renderer::state::ffp::alpha_test::object_unique_ptr
+sge::d3d9::device::create_alpha_test_state(
+	sge::renderer::state::ffp::alpha_test::parameters const &_parameters
+)
+{
+	return
+		sge::d3d9::state::ffp::alpha_test::create(
+			*device_,
+			_parameters
+		);
+}
+
+sge::renderer::state::ffp::clip_plane::object_unique_ptr
+sge::d3d9::device::create_clip_plane_state(
+	sge::renderer::state::ffp::clip_plane::parameters const &_parameters
+)
+{
+	return
+		sge::d3d9::state::ffp::clip_plane::create(
+			*device_,
+			_parameters
+		);
+}
+
+sge::renderer::state::ffp::fog::object_unique_ptr
+sge::d3d9::device::create_fog_state(
+	sge::renderer::state::ffp::fog::parameters const &_parameters
+)
+{
+	return
+		sge::d3d9::state::ffp::fog::create(
+			*device_,
+			_parameters
+		);
+}
+
+sge::renderer::state::ffp::lighting::object_unique_ptr
+sge::d3d9::device::create_lighting_state(
+	sge::renderer::state::ffp::lighting::parameters const &_parameters
+)
+{
+	return
+		sge::d3d9::state::ffp::lighting::create(
+			*device_,
+			_parameters
+		);
+}
+
+sge::renderer::state::ffp::lighting::light::object_unique_ptr
+sge::d3d9::device::create_light_state(
+	sge::renderer::state::ffp::lighting::light::parameters const &_parameters
+)
+{
+	return
+		sge::d3d9::state::ffp::lighting::light::create(
+			*device_,
+			_parameters
+		);
+}
+
+sge::renderer::state::ffp::lighting::material::object_unique_ptr
+sge::d3d9::device::create_material_state(
+	sge::renderer::state::ffp::lighting::material::parameters const &_parameters
+)
+{
+	return
+		sge::d3d9::state::ffp::lighting::material::create(
+			*device_,
+			_parameters
+		);
+}
+
+sge::renderer::state::ffp::misc::object_unique_ptr
+sge::d3d9::device::create_misc_state(
+	sge::renderer::state::ffp::misc::parameters const &_parameters
+)
+{
+	return
+		sge::d3d9::state::ffp::misc::create(
+			*device_,
+			_parameters
+		);
+}
+
+sge::renderer::state::ffp::sampler::object_unique_ptr
+sge::d3d9::device::create_ffp_sampler_state(
+	sge::renderer::state::ffp::sampler::parameters const &_parameters
+)
+{
+	return
+		sge::d3d9::state::ffp::sampler::create(
+			*device_,
+			_parameters
+		);
+}
+
+sge::renderer::state::ffp::transform::object_unique_ptr
+sge::d3d9::device::create_transform_state(
+	sge::renderer::state::ffp::transform::parameters const &_parameters
+)
+{
+	return
+		sge::d3d9::state::ffp::transform::create(
+			*device_,
+			_parameters
+		);
 }
 
 template<

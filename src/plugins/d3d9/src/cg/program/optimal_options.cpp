@@ -43,11 +43,10 @@ sge::d3d9::cg::program::optimal_options(
 		_device
 	);
 
-	sge::cg::program::compile_options::value_type const ret(
+	char const ** const ret =
 		::cgD3D9GetOptimalOptions(
 			_profile.get()
-		)
-	);
+		);
 
 	SGE_CG_CHECK_STATE(
 		FCPPT_TEXT("cgD3D9GetOptimalOptions failed"),

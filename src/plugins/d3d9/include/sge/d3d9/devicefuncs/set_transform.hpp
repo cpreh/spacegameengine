@@ -22,8 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_DEVICEFUNCS_SET_TRANSFORM_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/renderer/matrix4.hpp>
-#include <sge/renderer/matrix_mode.hpp>
 
 
 namespace sge
@@ -36,8 +34,8 @@ namespace devicefuncs
 void
 set_transform(
 	IDirect3DDevice9 &,
-	sge::renderer::matrix_mode::type,
-	sge::renderer::matrix4 const &
+	D3DTRANSFORMSTATETYPE,
+	D3DMATRIX const &
 );
 
 }

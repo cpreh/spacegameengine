@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/state/core/blend/create_default.hpp>
+#include <sge/d3d9/state/core/blend/make_states.hpp>
 #include <sge/d3d9/state/core/blend/object.hpp>
 #include <sge/d3d9/state/core/blend/object_unique_ptr.hpp>
 #include <sge/renderer/state/core/blend/default.hpp>
@@ -40,6 +41,8 @@ sge::d3d9::state::core::blend::create_default(
 			fcppt::ref(
 				_device
 			),
-			sge::renderer::state::core::blend::default_()
+			sge::d3d9::state::core::blend::make_states(
+				sge::renderer::state::core::blend::default_()
+			)
 		);
 }

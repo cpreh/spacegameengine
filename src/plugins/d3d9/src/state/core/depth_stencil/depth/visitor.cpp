@@ -19,9 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/convert/bool.hpp>
 #include <sge/d3d9/state/render.hpp>
 #include <sge/d3d9/state/render_vector.hpp>
+#include <sge/d3d9/state/convert/bool_to_dword.hpp>
 #include <sge/d3d9/state/convert/depth_func.hpp>
 #include <sge/d3d9/state/core/depth_stencil/depth/visitor.hpp>
 #include <sge/renderer/state/core/depth_stencil/depth/enabled.hpp>
@@ -68,7 +68,7 @@ sge::d3d9::state::core::depth_stencil::depth::visitor::operator()(
 		)(
 			sge::d3d9::state::render(
 				D3DRS_ZWRITEENABLE,
-				sge::d3d9::convert::bool_(
+				sge::d3d9::state::convert::bool_to_dword(
 					_enabled.write_enable().get()
 				)
 			)

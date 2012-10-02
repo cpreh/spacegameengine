@@ -48,7 +48,7 @@ sge::d3d9::state::core::sampler::object::~object()
 void
 sge::d3d9::state::core::sampler::object::set(
 	sge::renderer::texture::stage const _stage
-)
+) const
 {
 	for(
 		sge::d3d9::state::core::sampler::state_vector::const_iterator it(

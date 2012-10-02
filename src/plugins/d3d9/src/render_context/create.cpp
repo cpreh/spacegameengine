@@ -21,23 +21,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/render_context/create.hpp>
 #include <sge/d3d9/render_context/object.hpp>
+#include <sge/d3d9/state/core/defaults_fwd.hpp>
+#include <sge/d3d9/state/ffp/defaults_fwd.hpp>
 #include <sge/renderer/caps/texture_stages.hpp>
-#include <sge/renderer/context/object.hpp>
-#include <sge/renderer/context/object_unique_ptr.hpp>
+#include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/context/ffp_unique_ptr.hpp>
 #include <sge/renderer/target/base_fwd.hpp>
+#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
 
 
-sge::renderer::context::object_unique_ptr
+sge::renderer::context::ffp_unique_ptr
 sge::d3d9::render_context::create(
 	IDirect3DDevice9 &_device,
 	sge::renderer::target::base &_target,
-	sge::renderer::caps::texture_stages const _texture_stages
+	sge::renderer::caps::texture_stages const _texture_stages,
+	sge::d3d9::state::core::defaults const &_core_defaults,
+	sge::d3d9::state::ffp::defaults const &_ffp_defaults
 )
 {
 	return
-		sge::renderer::context::object_unique_ptr(
+		sge::renderer::context::ffp_unique_ptr(
 			fcppt::make_unique_ptr<
 				sge::d3d9::render_context::object
 			>(
@@ -47,7 +52,13 @@ sge::d3d9::render_context::create(
 				fcppt::ref(
 					_target
 				),
-				_texture_stages
+				_texture_stages,
+				fcppt::cref(
+					_core_defaults
+				),
+				fcppt::cref(
+					_ffp_defaults
+				)
 			)
 		);
 }

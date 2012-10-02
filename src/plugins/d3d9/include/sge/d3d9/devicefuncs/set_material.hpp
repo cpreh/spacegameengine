@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_DEVICEFUNCS_SET_MATERIAL_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/renderer/material_fwd.hpp>
 
 
 namespace sge
@@ -35,7 +34,7 @@ namespace devicefuncs
 void
 set_material(
 	IDirect3DDevice9 &,
-	sge::renderer::material const &
+	D3DMATERIAL9 const &
 );
 
 }

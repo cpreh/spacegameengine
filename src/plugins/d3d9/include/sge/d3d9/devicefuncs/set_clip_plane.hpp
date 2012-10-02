@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_DEVICEFUNCS_SET_CLIP_PLANE_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/renderer/clip_plane.hpp>
-#include <sge/renderer/clip_plane_index.hpp>
+#include <sge/renderer/state/index_count.hpp>
+#include <sge/renderer/state/ffp/clip_plane/area_fwd.hpp>
 
 
 namespace sge
@@ -36,8 +36,8 @@ namespace devicefuncs
 void
 set_clip_plane(
 	IDirect3DDevice9 &,
-	sge::renderer::clip_plane_index,
-	sge::renderer::clip_plane const &
+	sge::renderer::state::index_count,
+	sge::renderer::state::ffp::clip_plane::area const &
 );
 
 }

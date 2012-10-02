@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_RENDER_CONTEXT_NEEDS_PRESENT_HPP_INCLUDED
 #define SGE_D3D9_RENDER_CONTEXT_NEEDS_PRESENT_HPP_INCLUDED
 
-#include <sge/renderer/context/object_fwd.hpp>
+#include <sge/renderer/context/core_fwd.hpp>
 
 
 namespace sge
@@ -33,7 +33,7 @@ namespace render_context
 
 bool
 needs_present(
-	sge::renderer::context::object const &
+	sge::renderer::context::core const &
 );
 
 }

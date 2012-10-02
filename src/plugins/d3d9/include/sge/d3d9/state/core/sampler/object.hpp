@@ -58,7 +58,7 @@ public:
 	void
 	set(
 		sge::renderer::texture::stage
-	);
+	) const;
 private:
 	IDirect3DDevice9 &device_;
 

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_STATE_FFP_CLIP_PLANE_AREA_FWD_HPP_INCLUDED
 
 #include <sge/renderer/vector4_fwd.hpp>
-#include <fcppt/strong_typedef_fwd.hpp>
+#include <fcppt/make_strong_typedef.hpp>
 
 
 namespace sge

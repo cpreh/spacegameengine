@@ -19,34 +19,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/convert/light/index.hpp>
-#include <sge/d3d9/convert/light/object.hpp>
 #include <sge/d3d9/devicefuncs/set_light.hpp>
+#include <sge/renderer/state/index_count.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/light/index.hpp>
-#include <sge/renderer/light/object_fwd.hpp>
 #include <fcppt/text.hpp>
 
 
 void
 sge::d3d9::devicefuncs::set_light(
 	IDirect3DDevice9 &_device,
-	sge::renderer::light::index const _index,
-	sge::renderer::light::object const &_light
+	sge::renderer::state::index_count const _index,
+	D3DLIGHT9 const &_light
 )
 {
-	D3DLIGHT9 const d3d_light(
-		sge::d3d9::convert::light::object(
-			_light
-		)
-	);
-
 	if(
 		_device.SetLight(
-			sge::d3d9::convert::light::index(
-				_index
-			),
-			&d3d_light
+			_index,
+			&_light
 		)
 		!= D3D_OK
 	)

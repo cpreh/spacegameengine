@@ -19,9 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/convert/bool.hpp>
 #include <sge/d3d9/state/render.hpp>
 #include <sge/d3d9/state/render_vector.hpp>
+#include <sge/d3d9/state/convert/bool_to_dword.hpp>
 #include <sge/d3d9/state/convert/cull_mode.hpp>
 #include <sge/d3d9/state/convert/fill_mode.hpp>
 #include <sge/d3d9/state/core/rasterizer/make_states.hpp>
@@ -54,7 +54,7 @@ sge::d3d9::state::core::rasterizer::make_states(
 		)(
 			sge::d3d9::state::render(
 				D3DRS_SCISSORTESTENABLE,
-				sge::d3d9::convert::bool_(
+				sge::d3d9::state::convert::bool_to_dword(
 					_parameters.enable_scissor_test().get()
 				)
 			)

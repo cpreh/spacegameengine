@@ -20,16 +20,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/render_context/needs_present.hpp>
 #include <sge/d3d9/render_context/object.hpp>
-#include <sge/renderer/context/object_fwd.hpp>
+#include <sge/renderer/context/core_fwd.hpp>
 
 
 bool
 sge::d3d9::render_context::needs_present(
-	sge::renderer::context::object const &_context
+	sge::renderer::context::core const &_context
 )
 {
 	return
-		dynamic_cast<
+		static_cast<
 			sge::d3d9::render_context::object const &
 		>(
 			_context

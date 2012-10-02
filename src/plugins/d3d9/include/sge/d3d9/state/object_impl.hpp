@@ -61,7 +61,7 @@ template<
 void
 sge::d3d9::state::object<
 	State
->::set()
+>::set() const
 {
 	for(
 		sge::d3d9::state::render_vector::const_iterator it(

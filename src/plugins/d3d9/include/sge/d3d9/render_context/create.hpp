@@ -22,8 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_RENDER_CONTEXT_CREATE_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/state/core/defaults_fwd.hpp>
+#include <sge/d3d9/state/ffp/defaults_fwd.hpp>
 #include <sge/renderer/caps/texture_stages.hpp>
-#include <sge/renderer/context/object_unique_ptr.hpp>
+#include <sge/renderer/context/ffp_unique_ptr.hpp>
 #include <sge/renderer/target/base_fwd.hpp>
 
 
@@ -34,11 +36,13 @@ namespace d3d9
 namespace render_context
 {
 
-sge::renderer::context::object_unique_ptr
+sge::renderer::context::ffp_unique_ptr
 create(
 	IDirect3DDevice9 &,
 	sge::renderer::target::base &,
-	sge::renderer::caps::texture_stages
+	sge::renderer::caps::texture_stages,
+	sge::d3d9::state::core::defaults const &,
+	sge::d3d9::state::ffp::defaults const &
 );
 
 }

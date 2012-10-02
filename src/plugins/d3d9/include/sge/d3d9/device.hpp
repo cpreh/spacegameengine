@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/swapchain/d3d_scoped_ptr.hpp>
 #include <sge/d3d9/target/onscreen_fwd.hpp>
 #include <sge/d3d9/state/core/defaults_fwd.hpp>
-#include <sge/renderer/adapter.hpp>
+#include <sge/d3d9/state/ffp/defaults_fwd.hpp>
 #include <sge/renderer/config.hpp>
 #include <sge/renderer/depth_stencil_format.hpp>
 #include <sge/renderer/depth_stencil_surface_unique_ptr.hpp>
@@ -44,9 +44,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/context/ffp_unique_ptr.hpp>
 #include <sge/renderer/device/ffp.hpp>
+#include <sge/renderer/device/parameters_fwd.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/occlusion_query/object_unique_ptr.hpp>
-#include <sge/renderer/parameters/object_fwd.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/state/core/blend/object_unique_ptr.hpp>
 #include <sge/renderer/state/core/blend/parameters_fwd.hpp>
@@ -87,7 +87,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/volume_unique_ptr.hpp>
 #include <sge/renderer/vf/dynamic/format_fwd.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
-#include <awl/window/object_fwd.hpp>
 #include <fcppt/com_deleter.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
@@ -121,13 +120,13 @@ class device
 	);
 public:
 	device(
-		IDirect3D9 *,
+		IDirect3D9 &,
 		sge::renderer::device::parameters const &,
 		sge::renderer::caps::device const &
 	);
 
 	~device();
-
+private:
 	sge::renderer::context::core_unique_ptr
 	begin_rendering(
 		sge::renderer::target::base &
@@ -244,7 +243,62 @@ public:
 
 	sge::renderer::caps::device const &
 	caps() const;
-private:
+
+	sge::renderer::context::ffp_unique_ptr
+	begin_rendering_ffp(
+		sge::renderer::target::base &
+	);
+
+	void
+	end_rendering_ffp(
+		sge::renderer::context::ffp &
+	);
+
+	sge::renderer::state::ffp::alpha_test::object_unique_ptr
+	create_alpha_test_state(
+		sge::renderer::state::ffp::alpha_test::parameters const &
+	);
+
+	sge::renderer::state::ffp::clip_plane::object_unique_ptr
+	create_clip_plane_state(
+		sge::renderer::state::ffp::clip_plane::parameters const &
+	);
+
+	sge::renderer::state::ffp::fog::object_unique_ptr
+	create_fog_state(
+		sge::renderer::state::ffp::fog::parameters const &
+	);
+
+	sge::renderer::state::ffp::lighting::object_unique_ptr
+	create_lighting_state(
+		sge::renderer::state::ffp::lighting::parameters const &
+	);
+
+	sge::renderer::state::ffp::lighting::light::object_unique_ptr
+	create_light_state(
+		sge::renderer::state::ffp::lighting::light::parameters const &
+	);
+
+	sge::renderer::state::ffp::lighting::material::object_unique_ptr
+	create_material_state(
+		sge::renderer::state::ffp::lighting::material::parameters const &
+	);
+
+	sge::renderer::state::ffp::misc::object_unique_ptr
+	create_misc_state(
+		sge::renderer::state::ffp::misc::parameters const &
+	);
+
+	sge::renderer::state::ffp::sampler::object_unique_ptr
+	create_ffp_sampler_state(
+		sge::renderer::state::ffp::sampler::parameters const &
+	);
+
+	sge::renderer::state::ffp::transform::object_unique_ptr
+	create_transform_state(
+		sge::renderer::state::ffp::transform::parameters const &
+	);
+
 	template<
 		typename Ptr
 	>
@@ -293,7 +347,13 @@ private:
 		sge::d3d9::state::core::defaults
 	> core_defaults_scoped_ptr;
 	
-	core_defaults_scoped_ptr const default_core_states_;
+	core_defaults_scoped_ptr const core_defaults_;
+
+	typedef fcppt::scoped_ptr<
+		sge::d3d9::state::ffp::defaults
+	> ffp_defaults_scoped_ptr;
+
+	ffp_defaults_scoped_ptr const ffp_defaults_;
 };
 
 }

@@ -23,6 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/render_context/scoped_target.hpp>
+#include <sge/d3d9/state/core/defaults_fwd.hpp>
+#include <sge/d3d9/state/ffp/defaults_fwd.hpp>
 #include <sge/renderer/config.hpp>
 #include <sge/renderer/const_optional_vertex_declaration_ref_fwd.hpp>
 #include <sge/renderer/first_index.hpp>
@@ -39,7 +41,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/blend/const_optional_object_ref_fwd.hpp>
 #include <sge/renderer/state/core/depth_stencil/const_optional_object_ref_fwd.hpp>
 #include <sge/renderer/state/core/rasterizer/const_optional_object_ref_fwd.hpp>
-#include <sge/renderer/state/core/sampler/const_object_ref_vector.hpp>
+#include <sge/renderer/state/core/sampler/const_optional_object_ref_map.hpp>
+#include <sge/renderer/state/ffp/alpha_test/const_optional_object_ref_fwd.hpp>
+#include <sge/renderer/state/ffp/clip_plane/const_object_ref_vector.hpp>
+#include <sge/renderer/state/ffp/fog/const_optional_object_ref_fwd.hpp>
+#include <sge/renderer/state/ffp/lighting/const_optional_object_ref_fwd.hpp>
+#include <sge/renderer/state/ffp/lighting/light/const_object_ref_vector.hpp>
+#include <sge/renderer/state/ffp/lighting/material/const_optional_object_ref_fwd.hpp>
+#include <sge/renderer/state/ffp/misc/const_optional_object_ref_fwd.hpp>
+#include <sge/renderer/state/ffp/sampler/const_object_ref_vector.hpp>
+#include <sge/renderer/state/ffp/transform/const_optional_object_ref_fwd.hpp>
+#include <sge/renderer/state/ffp/transform/mode.hpp>
 #include <sge/renderer/target/base_fwd.hpp>
 #include <sge/renderer/target/offscreen_fwd.hpp>
 #include <sge/renderer/texture/const_optional_base_ref_fwd.hpp>
@@ -72,7 +84,9 @@ public:
 	object(
 		IDirect3DDevice9 &,
 		sge::renderer::target::base &,
-		sge::renderer::caps::texture_stages
+		sge::renderer::caps::texture_stages,
+		sge::d3d9::state::core::defaults const &,
+		sge::d3d9::state::ffp::defaults const &
 	);
 
 	~object();
@@ -148,7 +162,7 @@ private:
 
 	void
 	sampler_state(
-		sge::renderer::state::core::sampler::const_object_ref_vector const &
+		sge::renderer::state::core::sampler::const_optional_object_ref_map const &
 	);
 
 #if defined(SGE_RENDERER_HAVE_CG)
@@ -173,6 +187,52 @@ private:
 	);
 #endif
 
+	void
+	alpha_test_state(
+		sge::renderer::state::ffp::alpha_test::const_optional_object_ref const &
+	);
+
+	void
+	clip_plane_state(
+		sge::renderer::state::ffp::clip_plane::const_object_ref_vector const &
+	);
+
+	void
+	fog_state(
+		sge::renderer::state::ffp::fog::const_optional_object_ref const &
+	);
+
+	void
+	lighting_state(
+		sge::renderer::state::ffp::lighting::const_optional_object_ref const &
+	);
+
+	void
+	lights_state(
+		sge::renderer::state::ffp::lighting::light::const_object_ref_vector const &
+	);
+
+	void
+	material_state(
+		sge::renderer::state::ffp::lighting::material::const_optional_object_ref const &
+	);
+
+	void
+	misc_state(
+		sge::renderer::state::ffp::misc::const_optional_object_ref const &
+	);
+
+	void
+	sampler_ffp_state(
+		sge::renderer::state::ffp::sampler::const_object_ref_vector const &
+	);
+
+	void
+	transform(
+		sge::renderer::state::ffp::transform::mode::type,
+		sge::renderer::state::ffp::transform::const_optional_object_ref const &
+	);
+
 	IDirect3DDevice9 &device_;
 
 	sge::renderer::target::base &target_;
@@ -184,6 +244,10 @@ private:
 	> optional_target_base_ref;
 
 	optional_target_base_ref offscreen_target_;
+
+	sge::d3d9::state::core::defaults const &core_defaults_;
+
+	sge::d3d9::state::ffp::defaults const &ffp_defaults_;
 
 #if defined(SGE_RENDERER_HAVE_CG)
 	sge::d3d9::cg::scoped_device const scoped_cg_device_;

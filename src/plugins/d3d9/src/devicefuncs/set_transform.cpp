@@ -19,14 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/convert/matrix.hpp>
-#include <sge/d3d9/convert/matrix_mode.hpp>
 #include <sge/d3d9/devicefuncs/set_transform.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/matrix4.hpp>
-#include <sge/renderer/matrix_mode.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/math/matrix/transpose.hpp>
 
 
 namespace
@@ -44,33 +39,19 @@ do_set(
 void
 sge::d3d9::devicefuncs::set_transform(
 	IDirect3DDevice9 &_device,
-	sge::renderer::matrix_mode::type const _mode,
-	sge::renderer::matrix4 const &_matrix
+	D3DTRANSFORMSTATETYPE const _mode,
+	D3DMATRIX const &_matrix
 )
 {
-	D3DMATRIX d3d_matrix(
-		sge::d3d9::convert::matrix(
-			fcppt::math::matrix::transpose(
-				_matrix
-			)
-		)
-	);
-
-	D3DTRANSFORMSTATETYPE const d3d_mode(
-		sge::d3d9::convert::matrix_mode(
-			_mode
-		)
-	);
-
 	if(
-		d3d_mode
+		_mode
 		==
 		D3DTS_TEXTURE0
 	)
 	{
 		// TODO: make a macro in this for fcppt!
 		for(
-			unsigned index = d3d_mode;
+			unsigned index = _mode;
 			index <= D3DTS_TEXTURE7;
 			++index
 		)
@@ -81,7 +62,7 @@ sge::d3d9::devicefuncs::set_transform(
 				>(
 					index
 				),
-				d3d_matrix
+				_matrix
 			);
 
 		return;
@@ -89,8 +70,8 @@ sge::d3d9::devicefuncs::set_transform(
 
 	do_set(
 		_device,
-		d3d_mode,
-		d3d_matrix
+		_mode,
+		_matrix
 	);
 }
 

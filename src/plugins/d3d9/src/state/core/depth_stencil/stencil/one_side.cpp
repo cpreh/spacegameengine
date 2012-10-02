@@ -35,6 +35,7 @@ sge::d3d9::state::core::depth_stencil::stencil::one_side(
 {
 	return
 		fcppt::assign::make_container<
+			sge::d3d9::state::render_vector
 		>(
 			sge::d3d9::state::render(
 				D3DRS_STENCILFAIL,

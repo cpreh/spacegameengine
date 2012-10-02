@@ -34,7 +34,7 @@ namespace state
 namespace convert
 {
 
-D3DRENDERSTATETYPE
+D3DSTENCILOP
 stencil_op(
 	sge::renderer::state::core::depth_stencil::stencil::op::type
 );

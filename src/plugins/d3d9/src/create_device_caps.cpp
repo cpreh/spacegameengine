@@ -82,7 +82,7 @@ add_display_modes(
 
 sge::renderer::caps::device_unique_ptr
 sge::d3d9::create_device_caps(
-	IDirect3D9 *const _system,
+	IDirect3D9 &_system,
 	sge::renderer::adapter const _adapter
 )
 {
@@ -96,7 +96,7 @@ sge::d3d9::create_device_caps(
 	D3DADAPTER_IDENTIFIER9 identifier;
 
 	if(
-		_system->GetAdapterIdentifier(
+		_system.GetAdapterIdentifier(
 			_adapter.get(),
 			0,
 			&identifier
