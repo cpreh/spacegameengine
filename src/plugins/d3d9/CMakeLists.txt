@@ -176,6 +176,12 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/state/ffp/alpha_test/set.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/ffp/alpha_test/visitor.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/ffp/clip_plane/create.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/clip_plane/make_states.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/clip_plane/object.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/clip_plane/object_fwd.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/clip_plane/set.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/clip_plane/state.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/clip_plane/state_fwd.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/ffp/defaults.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/ffp/defaults_fwd.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/ffp/fog/create.hpp
@@ -446,6 +452,11 @@ SET(
 	src/plugins/d3d9/src/state/ffp/alpha_test/object.cpp
 	src/plugins/d3d9/src/state/ffp/alpha_test/set.cpp
 	src/plugins/d3d9/src/state/ffp/alpha_test/visitor.cpp
+	src/plugins/d3d9/src/state/ffp/clip_plane/create.cpp
+	src/plugins/d3d9/src/state/ffp/clip_plane/make_states.cpp
+	src/plugins/d3d9/src/state/ffp/clip_plane/object.cpp
+	src/plugins/d3d9/src/state/ffp/clip_plane/set.cpp
+	src/plugins/d3d9/src/state/ffp/clip_plane/state.cpp
 	src/plugins/d3d9/src/state/ffp/defaults.cpp
 	src/plugins/d3d9/src/state/ffp/set_defaults.cpp
 	src/plugins/d3d9/src/state/render.cpp

@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/state/ffp/defaults.hpp>
 #include <sge/d3d9/state/ffp/set_defaults.hpp>
 #include <sge/d3d9/state/ffp/alpha_test/set.hpp>
+#include <sge/d3d9/state/ffp/clip_plane/set.hpp>
 #include <sge/d3d9/target/base.hpp>
 #include <sge/d3d9/texture/set.hpp>
 #include <sge/renderer/config.hpp>
@@ -393,9 +394,13 @@ sge::d3d9::render_context::object::alpha_test_state(
 
 void
 sge::d3d9::render_context::object::clip_plane_state(
-	sge::renderer::state::ffp::clip_plane::const_object_ref_vector const &_state
+	sge::renderer::state::ffp::clip_plane::const_object_ref_vector const &_states
 )
 {
+	sge::d3d9::state::ffp::clip_plane::set(
+		device_,
+		_states
+	);
 }
 
 void
