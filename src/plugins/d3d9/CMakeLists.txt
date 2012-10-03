@@ -185,6 +185,13 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/state/ffp/defaults.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/ffp/defaults_fwd.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/ffp/fog/create.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/fog/create_default.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/fog/make_states.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/fog/object.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/fog/object_fwd.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/fog/object_unique_ptr.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/fog/set.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/fog/visitor.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/ffp/lighting/create.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/ffp/lighting/light/create.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/ffp/lighting/material/create.hpp
@@ -458,6 +465,12 @@ SET(
 	src/plugins/d3d9/src/state/ffp/clip_plane/set.cpp
 	src/plugins/d3d9/src/state/ffp/clip_plane/state.cpp
 	src/plugins/d3d9/src/state/ffp/defaults.cpp
+	src/plugins/d3d9/src/state/ffp/fog/create.cpp
+	src/plugins/d3d9/src/state/ffp/fog/create_default.cpp
+	src/plugins/d3d9/src/state/ffp/fog/make_states.cpp
+	src/plugins/d3d9/src/state/ffp/fog/object.cpp
+	src/plugins/d3d9/src/state/ffp/fog/set.cpp
+	src/plugins/d3d9/src/state/ffp/fog/visitor.cpp
 	src/plugins/d3d9/src/state/ffp/set_defaults.cpp
 	src/plugins/d3d9/src/state/render.cpp
 	src/plugins/d3d9/src/surface/color.cpp

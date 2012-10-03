@@ -36,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/state/ffp/set_defaults.hpp>
 #include <sge/d3d9/state/ffp/alpha_test/set.hpp>
 #include <sge/d3d9/state/ffp/clip_plane/set.hpp>
+#include <sge/d3d9/state/ffp/fog/set.hpp>
 #include <sge/d3d9/target/base.hpp>
 #include <sge/d3d9/texture/set.hpp>
 #include <sge/renderer/config.hpp>
@@ -408,6 +409,10 @@ sge::d3d9::render_context::object::fog_state(
 	sge::renderer::state::ffp::fog::const_optional_object_ref const &_state
 )
 {
+	sge::d3d9::state::ffp::fog::set(
+		_state,
+		ffp_defaults_.fog()
+	);
 }
 
 void

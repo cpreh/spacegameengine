@@ -18,43 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/state/ffp/defaults.hpp>
-#include <sge/d3d9/state/ffp/alpha_test/create_default.hpp>
-#include <sge/d3d9/state/ffp/alpha_test/object.hpp>
-#include <sge/d3d9/state/ffp/fog/create_default.hpp>
+#include <sge/d3d9/state/object_impl.hpp>
 #include <sge/d3d9/state/ffp/fog/object.hpp>
+#include <sge/renderer/state/ffp/fog/object.hpp>
 
 
-sge::d3d9::state::ffp::defaults::defaults(
-	IDirect3DDevice9 &_device
-)
-:
-	alpha_test_(
-		sge::d3d9::state::ffp::alpha_test::create_default(
-			_device
-		)
-	),
-	fog_(
-		sge::d3d9::state::ffp::fog::create_default(
-			_device
-		)
-	)
-{
-}
-
-sge::d3d9::state::ffp::defaults::~defaults()
-{
-}
-
-sge::d3d9::state::ffp::alpha_test::object const &
-sge::d3d9::state::ffp::defaults::alpha_test() const
-{
-	return *alpha_test_;
-}
-
-sge::d3d9::state::ffp::fog::object const &
-sge::d3d9::state::ffp::defaults::fog() const
-{
-	return *fog_;
-}
+template
+class
+sge::d3d9::state::object<
+	sge::renderer::state::ffp::fog::object
+>;
