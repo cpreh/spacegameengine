@@ -31,10 +31,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/draw/set_matrices_fwd.hpp>
 #include <sge/font/draw/set_states_fwd.hpp>
 #include <sge/font/draw/detail/static_text_impl_fwd.hpp>
+#include <sge/image/color/format.hpp>
 #include <sge/image/color/rgba8_format.hpp>
 #include <sge/image/color/any/object_fwd.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
+#include <sge/renderer/state/ffp/sampler/object_scoped_ptr.hpp>
 #include <sge/renderer/texture/planar_scoped_ptr.hpp>
 #include <sge/sprite/object_decl.hpp>
 #include <sge/sprite/buffers/single_decl.hpp>
@@ -128,6 +130,10 @@ private:
 	sge::font::string string_;
 
 	sge::font::text_parameters const text_parameters_;
+
+	sge::image::color::format::type const color_format_;
+
+	sge::renderer::state::ffp::sampler::object_scoped_ptr const sampler_state_;
 
 	sge::renderer::texture::planar_scoped_ptr texture_;
 

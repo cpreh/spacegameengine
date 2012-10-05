@@ -35,6 +35,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/device/ffp.hpp>
+#include <sge/renderer/state/ffp/sampler/const_object_ref_vector.hpp>
+#include <sge/renderer/state/ffp/sampler/object.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
@@ -55,11 +57,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/roles/blend.hpp>
 #include <sge/sprite/state/roles/rasterizer.hpp>
 #include <sge/sprite/state/roles/transform.hpp>
+#include <sge/src/font/draw/create_ffp_sampler.hpp>
 #include <sge/src/font/draw/detail/static_text_impl.hpp>
 #include <sge/texture/const_optional_part_ref.hpp>
 #include <sge/texture/part_raw_ref.hpp>
+#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
+#include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 
@@ -79,6 +84,19 @@ sge::font::draw::detail::static_text_impl::static_text_impl(
 	string_(),
 	text_parameters_(
 		_text_parameters
+	),
+	color_format_(
+		font_.color_format()
+		?
+			*font_.color_format()
+		:
+			sge::image::color::format::a8
+	),
+	sampler_state_(
+		sge::font::draw::create_ffp_sampler(
+			renderer_,
+			color_format_
+		)
 	),
 	texture_(),
 	texture_part_(),
@@ -110,6 +128,20 @@ sge::font::draw::detail::static_text_impl::draw(
 	sge::font::draw::set_states const &_set_states
 )
 {
+	// TODO: Really scope this!
+	if(
+		sampler_state_
+	)
+		_context.sampler_ffp_state(
+			fcppt::assign::make_container<
+				sge::renderer::state::ffp::sampler::const_object_ref_vector
+			>(
+				fcppt::cref(
+					*sampler_state_
+				)
+			)
+		);
+
 	sge::sprite::render::range_with_options(
 		sge::sprite::render::parameters<
 			sprite_state_choices
@@ -138,6 +170,13 @@ sge::font::draw::detail::static_text_impl::draw(
 			_set_states.get()
 		)
 	);
+
+	if(
+		sampler_state_
+	)
+		_context.sampler_ffp_state(
+			sge::renderer::state::ffp::sampler::const_object_ref_vector()
+		);
 }
 
 void
@@ -214,19 +253,11 @@ sge::font::draw::detail::static_text_impl::rebuild_texture()
 		new_size
 	)
 	{
-		sge::image::color::optional_format const font_color_format(
-			font_.color_format()
-		);
-
 		texture_.take(
 			renderer_.create_planar_texture(
 				sge::renderer::texture::planar_parameters(
 					new_size,
-					font_color_format
-					?
-						*font_color_format
-					:
-						sge::image::color::format::a8,
+					color_format_,
 					sge::renderer::texture::mipmap::off(),
 					sge::renderer::resource_flags_field::null(),
 					sge::renderer::texture::capabilities_field::null()

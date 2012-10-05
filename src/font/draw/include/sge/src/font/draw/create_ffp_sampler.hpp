@@ -18,47 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_STATE_FFP_SAMPLER_MAKE_ONE_OP_HPP_INCLUDED
-#define SGE_D3D9_STATE_FFP_SAMPLER_MAKE_ONE_OP_HPP_INCLUDED
+#ifndef SGE_SRC_FONT_DRAW_CREATE_FFP_SAMPLER_HPP_INCLUDED
+#define SGE_SRC_FONT_DRAW_CREATE_FFP_SAMPLER_HPP_INCLUDED
 
-#include <sge/d3d9/state/convert/sampler_op.hpp>
-#include <sge/d3d9/state/convert/sampler_op_type.hpp>
-#include <sge/d3d9/state/ffp/sampler/state.hpp>
+#include <sge/image/color/format.hpp>
+#include <sge/renderer/device/ffp_fwd.hpp>
+#include <sge/renderer/state/ffp/sampler/object_unique_ptr.hpp>
 
 
 namespace sge
 {
-namespace d3d9
+namespace font
 {
-namespace state
-{
-namespace ffp
-{
-namespace sampler
+namespace draw
 {
 
-template<
-	typename OpType,
-	typename Op
->
-sge::d3d9::state::ffp::sampler::state const
-make_one_op(
-	Op const _op
-)
-{
-	return
-		sge::d3d9::state::ffp::sampler::state(
-			sge::d3d9::state::convert::sampler_op_type<
-				OpType
-			>::get(),
-			sge::d3d9::state::convert::sampler_op(
-				_op
-			)
-		);
-}
+sge::renderer::state::ffp::sampler::object_unique_ptr
+create_ffp_sampler(
+	sge::renderer::device::ffp &,
+	sge::image::color::format::type
+);
 
-}
-}
 }
 }
 }
