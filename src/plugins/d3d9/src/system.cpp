@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/caps/device.hpp>
 #include <sge/renderer/caps/device_count.hpp>
+#include <sge/renderer/caps/system.hpp>
 #include <sge/renderer/caps/system_field.hpp>
 #include <sge/renderer/device/core_unique_ptr.hpp>
 #include <sge/renderer/device/ffp_unique_ptr.hpp>
@@ -134,7 +135,9 @@ sge::renderer::caps::system_field const
 sge::d3d9::system::caps() const
 {
 	return
-		sge::renderer::caps::system_field::null();
+		sge::renderer::caps::system_field(
+			sge::renderer::caps::system::ffp
+		);
 }
 
 sge::renderer::caps::device_count const
