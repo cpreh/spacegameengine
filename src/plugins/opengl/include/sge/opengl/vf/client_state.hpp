@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/common.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/container/index_map.hpp>
-#include <fcppt/tr1/unordered_set.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <set>
 #include <fcppt/config/external_end.hpp>
@@ -40,16 +39,15 @@ namespace vf
 class client_state
 {
 public:
-	typedef std::tr1::unordered_set<
+	typedef std::set<
 		GLenum
 	> normal_state_set;
 
-	// use until we have a good way to define hashes
 	typedef std::set<
 		renderer::texture::stage
 	> texture_state_set;
 
-	typedef std::tr1::unordered_set<
+	typedef std::set<
 		GLuint
 	> index_state_set;
 
@@ -67,12 +65,12 @@ public:
 
 	void
 	enable_texture(
-		renderer::texture::stage
+		sge::renderer::texture::stage
 	);
 
 	void
 	disable_texture(
-		renderer::texture::stage
+		sge::renderer::texture::stage
 	);
 
 	void
