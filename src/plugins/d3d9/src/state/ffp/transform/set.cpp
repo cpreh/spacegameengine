@@ -18,35 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_STATE_FFP_SET_DEFAULTS_HPP_INCLUDED
-#define SGE_D3D9_STATE_FFP_SET_DEFAULTS_HPP_INCLUDED
+#include <sge/d3d9/state/ffp/transform/object.hpp>
+#include <sge/d3d9/state/ffp/transform/set.hpp>
+#include <sge/renderer/state/ffp/transform/const_optional_object_ref.hpp>
+#include <sge/renderer/state/ffp/transform/mode.hpp>
 
-#include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/state/ffp/defaults_fwd.hpp>
-#include <sge/renderer/caps/light_indices.hpp>
-#include <sge/renderer/caps/texture_stages.hpp>
-
-
-namespace sge
-{
-namespace d3d9
-{
-namespace state
-{
-namespace ffp
-{
 
 void
-set_defaults(
-	IDirect3DDevice9 &,
-	sge::d3d9::state::ffp::defaults const &,
-	sge::renderer::caps::light_indices,
-	sge::renderer::caps::texture_stages
-);
-
+sge::d3d9::state::ffp::transform::set(
+	sge::renderer::state::ffp::transform::mode::type const _mode,
+	sge::renderer::state::ffp::transform::const_optional_object_ref const &_state,
+	sge::d3d9::state::ffp::transform::object const &_default
+)
+{
+	(
+		_state
+		?
+			static_cast<
+				sge::d3d9::state::ffp::transform::object const &
+			>(
+				*_state
+			)
+		:
+			_default
+	).set(
+		_mode
+	);
 }
-}
-}
-}
-
-#endif

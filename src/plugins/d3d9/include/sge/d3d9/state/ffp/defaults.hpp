@@ -28,6 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/state/ffp/lighting/object_fwd.hpp>
 #include <sge/d3d9/state/ffp/lighting/material/object_fwd.hpp>
 #include <sge/d3d9/state/ffp/misc/object_fwd.hpp>
+#include <sge/d3d9/state/ffp/sampler/object_fwd.hpp>
+#include <sge/d3d9/state/ffp/transform/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
 
@@ -68,6 +70,12 @@ public:
 
 	sge::d3d9::state::ffp::misc::object const &
 	misc() const;
+	
+	sge::d3d9::state::ffp::sampler::object const &
+	sampler() const;
+
+	sge::d3d9::state::ffp::transform::object const &
+	transform() const;
 private:
 	typedef fcppt::scoped_ptr<
 		sge::d3d9::state::ffp::alpha_test::object
@@ -88,6 +96,14 @@ private:
 	typedef fcppt::scoped_ptr<
 		sge::d3d9::state::ffp::misc::object
 	> misc_scoped_ptr;
+	
+	typedef fcppt::scoped_ptr<
+		sge::d3d9::state::ffp::sampler::object
+	> sampler_scoped_ptr;
+
+	typedef fcppt::scoped_ptr<
+		sge::d3d9::state::ffp::transform::object
+	> transform_scoped_ptr;
 
 	alpha_test_scoped_ptr const alpha_test_;
 
@@ -98,6 +114,10 @@ private:
 	material_scoped_ptr const material_;
 
 	misc_scoped_ptr const misc_;
+	
+	sampler_scoped_ptr const sampler_;
+
+	transform_scoped_ptr const transform_;
 };
 
 }

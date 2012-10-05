@@ -30,6 +30,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/state/ffp/lighting/material/object.hpp>
 #include <sge/d3d9/state/ffp/misc/create_default.hpp>
 #include <sge/d3d9/state/ffp/misc/object.hpp>
+#include <sge/d3d9/state/ffp/sampler/create_default.hpp>
+#include <sge/d3d9/state/ffp/sampler/object.hpp>
+#include <sge/d3d9/state/ffp/transform/create_default.hpp>
+#include <sge/d3d9/state/ffp/transform/object.hpp>
 
 
 sge::d3d9::state::ffp::defaults::defaults(
@@ -58,6 +62,16 @@ sge::d3d9::state::ffp::defaults::defaults(
 	),
 	misc_(
 		sge::d3d9::state::ffp::misc::create_default(
+			_device
+		)
+	),
+	sampler_(
+		sge::d3d9::state::ffp::sampler::create_default(
+			_device
+		)
+	),
+	transform_(
+		sge::d3d9::state::ffp::transform::create_default(
 			_device
 		)
 	)
@@ -96,4 +110,16 @@ sge::d3d9::state::ffp::misc::object const &
 sge::d3d9::state::ffp::defaults::misc() const
 {
 	return *misc_;
+}
+
+sge::d3d9::state::ffp::sampler::object const &
+sge::d3d9::state::ffp::defaults::sampler() const
+{
+	return *sampler_;
+}
+
+sge::d3d9::state::ffp::transform::object const &
+sge::d3d9::state::ffp::defaults::transform() const
+{
+	return *transform_;
 }

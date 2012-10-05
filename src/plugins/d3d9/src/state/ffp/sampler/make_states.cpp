@@ -18,35 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_STATE_FFP_SET_DEFAULTS_HPP_INCLUDED
-#define SGE_D3D9_STATE_FFP_SET_DEFAULTS_HPP_INCLUDED
-
-#include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/state/ffp/defaults_fwd.hpp>
-#include <sge/renderer/caps/light_indices.hpp>
-#include <sge/renderer/caps/texture_stages.hpp>
+#include <sge/d3d9/state/ffp/sampler/make_op.hpp>
+#include <sge/d3d9/state/ffp/sampler/make_states.hpp>
+#include <sge/d3d9/state/ffp/sampler/state_vector.hpp>
+#include <sge/renderer/state/ffp/sampler/parameters.hpp>
+#include <fcppt/algorithm/join.hpp>
 
 
-namespace sge
+sge::d3d9::state::ffp::sampler::state_vector const
+sge::d3d9::state::ffp::sampler::make_states(
+	sge::renderer::state::ffp::sampler::parameters const &_parameters
+)
 {
-namespace d3d9
-{
-namespace state
-{
-namespace ffp
-{
-
-void
-set_defaults(
-	IDirect3DDevice9 &,
-	sge::d3d9::state::ffp::defaults const &,
-	sge::renderer::caps::light_indices,
-	sge::renderer::caps::texture_stages
-);
-
+	return
+		fcppt::algorithm::join(
+			sge::d3d9::state::ffp::sampler::make_op(
+				_parameters.alpha_op()
+			),
+			sge::d3d9::state::ffp::sampler::make_op(
+				_parameters.color_op()
+			)
+		);
 }
-}
-}
-}
-
-#endif

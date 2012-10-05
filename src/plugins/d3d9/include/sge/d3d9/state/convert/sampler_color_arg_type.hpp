@@ -18,13 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_STATE_FFP_SET_DEFAULTS_HPP_INCLUDED
-#define SGE_D3D9_STATE_FFP_SET_DEFAULTS_HPP_INCLUDED
+#ifndef SGE_D3D9_STATE_CONVERT_SAMPLER_COLOR_ARG_TYPE_HPP_INCLUDED
+#define SGE_D3D9_STATE_CONVERT_SAMPLER_COLOR_ARG_TYPE_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/state/ffp/defaults_fwd.hpp>
-#include <sge/renderer/caps/light_indices.hpp>
-#include <sge/renderer/caps/texture_stages.hpp>
+#include <sge/renderer/state/ffp/sampler/arg1.hpp>
+#include <sge/renderer/state/ffp/sampler/arg2.hpp>
+#include <sge/renderer/state/ffp/sampler/arg3.hpp>
 
 
 namespace sge
@@ -33,16 +33,43 @@ namespace d3d9
 {
 namespace state
 {
-namespace ffp
+namespace convert
 {
 
-void
-set_defaults(
-	IDirect3DDevice9 &,
-	sge::d3d9::state::ffp::defaults const &,
-	sge::renderer::caps::light_indices,
-	sge::renderer::caps::texture_stages
-);
+template<
+	typename Arg
+>
+struct sampler_color_arg_type;
+
+template<>
+struct sampler_color_arg_type<
+	sge::renderer::state::ffp::sampler::arg1
+>
+{
+	static
+	D3DTEXTURESTAGESTATETYPE
+	get();
+};
+
+template<>
+struct sampler_color_arg_type<
+	sge::renderer::state::ffp::sampler::arg2
+>
+{
+	static
+	D3DTEXTURESTAGESTATETYPE
+	get();
+};
+
+template<>
+struct sampler_color_arg_type<
+	sge::renderer::state::ffp::sampler::arg3
+>
+{
+	static
+	D3DTEXTURESTAGESTATETYPE
+	get();
+};
 
 }
 }

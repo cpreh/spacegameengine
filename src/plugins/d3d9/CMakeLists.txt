@@ -120,7 +120,15 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/state/convert/matrix_mode.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/convert/min_filter.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/convert/normal_mip_filter.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/convert/sampler_alpha_arg_type.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/convert/sampler_arg.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/convert/sampler_arg_type.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/convert/sampler_binary_op.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/convert/sampler_color_arg_type.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/convert/sampler_op.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/convert/sampler_op_type.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/convert/sampler_ternary_op.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/convert/sampler_unary_op.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/convert/source_blend_func.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/convert/stencil_func.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/convert/stencil_op.hpp
@@ -226,14 +234,40 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/state/ffp/misc/object_unique_ptr.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/ffp/misc/set.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/ffp/sampler/create.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/sampler/create_default.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/sampler/disable.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/sampler/instantiate_op_type.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/sampler/make_one_arg.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/sampler/make_one_op.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/sampler/make_op.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/sampler/make_states.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/sampler/object.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/sampler/object_fwd.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/sampler/object_unique_ptr.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/sampler/op_visitor.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/sampler/set.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/sampler/set_defaults.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/sampler/state.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/sampler/state_fwd.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/sampler/state_vector.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/ffp/set_defaults.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/ffp/transform/create.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/transform/create_default.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/transform/make_states.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/transform/object.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/transform/object_fwd.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/transform/object_unique_ptr.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/transform/set.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/transform/set_defaults.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/transform/state.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/transform/state_fwd.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/object.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/object_fwd.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/object_impl.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/render.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/render_fwd.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/render_vector.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/set_defaults.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/set_or_default.hpp
 	src/plugins/d3d9/include/sge/d3d9/surface/color.hpp
 	src/plugins/d3d9/include/sge/d3d9/surface/color_create.hpp
@@ -445,7 +479,15 @@ SET(
 	src/plugins/d3d9/src/state/convert/matrix_mode.cpp
 	src/plugins/d3d9/src/state/convert/min_filter.cpp
 	src/plugins/d3d9/src/state/convert/normal_mip_filter.cpp
+	src/plugins/d3d9/src/state/convert/sampler_alpha_arg_type.cpp
 	src/plugins/d3d9/src/state/convert/sampler_arg.cpp
+	src/plugins/d3d9/src/state/convert/sampler_arg_type.cpp
+	src/plugins/d3d9/src/state/convert/sampler_binary_op.cpp
+	src/plugins/d3d9/src/state/convert/sampler_color_arg_type.cpp
+	src/plugins/d3d9/src/state/convert/sampler_op.cpp
+	src/plugins/d3d9/src/state/convert/sampler_op_type.cpp
+	src/plugins/d3d9/src/state/convert/sampler_ternary_op.cpp
+	src/plugins/d3d9/src/state/convert/sampler_unary_op.cpp
 	src/plugins/d3d9/src/state/convert/source_blend_func.cpp
 	src/plugins/d3d9/src/state/convert/stencil_func.cpp
 	src/plugins/d3d9/src/state/convert/stencil_op.cpp
@@ -523,8 +565,26 @@ SET(
 	src/plugins/d3d9/src/state/ffp/misc/make_states.cpp
 	src/plugins/d3d9/src/state/ffp/misc/object.cpp
 	src/plugins/d3d9/src/state/ffp/misc/set.cpp
+	src/plugins/d3d9/src/state/ffp/sampler/create.cpp
+	src/plugins/d3d9/src/state/ffp/sampler/create_default.cpp
+	src/plugins/d3d9/src/state/ffp/sampler/disable.cpp
+	src/plugins/d3d9/src/state/ffp/sampler/make_op.cpp
+	src/plugins/d3d9/src/state/ffp/sampler/make_states.cpp
+	src/plugins/d3d9/src/state/ffp/sampler/object.cpp
+	src/plugins/d3d9/src/state/ffp/sampler/op_visitor.cpp
+	src/plugins/d3d9/src/state/ffp/sampler/set.cpp
+	src/plugins/d3d9/src/state/ffp/sampler/set_defaults.cpp
+	src/plugins/d3d9/src/state/ffp/sampler/state.cpp
 	src/plugins/d3d9/src/state/ffp/set_defaults.cpp
+	src/plugins/d3d9/src/state/ffp/transform/create.cpp
+	src/plugins/d3d9/src/state/ffp/transform/create_default.cpp
+	src/plugins/d3d9/src/state/ffp/transform/make_states.cpp
+	src/plugins/d3d9/src/state/ffp/transform/object.cpp
+	src/plugins/d3d9/src/state/ffp/transform/set.cpp
+	src/plugins/d3d9/src/state/ffp/transform/set_defaults.cpp
+	src/plugins/d3d9/src/state/ffp/transform/state.cpp
 	src/plugins/d3d9/src/state/render.cpp
+	src/plugins/d3d9/src/state/set_defaults.cpp
 	src/plugins/d3d9/src/surface/color.cpp
 	src/plugins/d3d9/src/surface/color_create.cpp
 	src/plugins/d3d9/src/surface/color_holder.cpp

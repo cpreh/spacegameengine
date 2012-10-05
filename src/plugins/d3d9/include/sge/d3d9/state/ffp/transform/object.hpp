@@ -18,13 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_STATE_FFP_SET_DEFAULTS_HPP_INCLUDED
-#define SGE_D3D9_STATE_FFP_SET_DEFAULTS_HPP_INCLUDED
+#ifndef SGE_D3D9_STATE_FFP_TRANSFORM_OBJECT_HPP_INCLUDED
+#define SGE_D3D9_STATE_FFP_TRANSFORM_OBJECT_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/state/ffp/defaults_fwd.hpp>
-#include <sge/renderer/caps/light_indices.hpp>
-#include <sge/renderer/caps/texture_stages.hpp>
+#include <sge/d3d9/state/ffp/transform/object_fwd.hpp>
+#include <sge/d3d9/state/ffp/transform/state.hpp>
+#include <sge/renderer/state/ffp/transform/mode.hpp>
+#include <sge/renderer/state/ffp/transform/object.hpp>
+#include <fcppt/noncopyable.hpp>
 
 
 namespace sge
@@ -35,15 +37,35 @@ namespace state
 {
 namespace ffp
 {
+namespace transform
+{
 
-void
-set_defaults(
-	IDirect3DDevice9 &,
-	sge::d3d9::state::ffp::defaults const &,
-	sge::renderer::caps::light_indices,
-	sge::renderer::caps::texture_stages
-);
+class object
+:
+	public sge::renderer::state::ffp::transform::object
+{
+	FCPPT_NONCOPYABLE(
+		object
+	);
+public:
+	object(
+		IDirect3DDevice9 &,
+		sge::d3d9::state::ffp::transform::state const &
+	);
 
+	~object();
+
+	void
+	set(
+		sge::renderer::state::ffp::transform::mode::type
+	) const;
+private:
+	IDirect3DDevice9 &device_;
+
+	sge::d3d9::state::ffp::transform::state const state_;
+};
+
+}
 }
 }
 }

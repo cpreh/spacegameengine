@@ -18,35 +18,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_STATE_FFP_SET_DEFAULTS_HPP_INCLUDED
-#define SGE_D3D9_STATE_FFP_SET_DEFAULTS_HPP_INCLUDED
-
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/state/ffp/defaults_fwd.hpp>
-#include <sge/renderer/caps/light_indices.hpp>
-#include <sge/renderer/caps/texture_stages.hpp>
+#include <sge/d3d9/devicefuncs/set_transform.hpp>
+#include <sge/d3d9/state/convert/matrix_mode.hpp>
+#include <sge/d3d9/state/ffp/transform/object.hpp>
+#include <sge/d3d9/state/ffp/transform/state.hpp>
+#include <sge/renderer/state/ffp/transform/mode.hpp>
+#include <sge/renderer/state/ffp/transform/object.hpp>	
 
 
-namespace sge
+sge::d3d9::state::ffp::transform::object::object(
+	IDirect3DDevice9 &_device,
+	sge::d3d9::state::ffp::transform::state const &_state
+)
+:
+	device_(
+		_device
+	),
+	state_(
+		_state
+	)
 {
-namespace d3d9
+}
+
+sge::d3d9::state::ffp::transform::object::~object()
 {
-namespace state
-{
-namespace ffp
-{
+}
 
 void
-set_defaults(
-	IDirect3DDevice9 &,
-	sge::d3d9::state::ffp::defaults const &,
-	sge::renderer::caps::light_indices,
-	sge::renderer::caps::texture_stages
-);
-
+sge::d3d9::state::ffp::transform::object::set(
+	sge::renderer::state::ffp::transform::mode::type const _mode
+) const
+{
+	sge::d3d9::devicefuncs::set_transform(
+		device_,
+		sge::d3d9::state::convert::matrix_mode(
+			_mode
+		),
+		state_.matrix()
+	);
 }
-}
-}
-}
-
-#endif

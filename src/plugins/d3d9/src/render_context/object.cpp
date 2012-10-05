@@ -26,14 +26,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/devicefuncs/set_vertex_declaration.hpp>
 #include <sge/d3d9/render_context/object.hpp>
 #include <sge/d3d9/render_context/parameters.hpp>
+#include <sge/d3d9/state/set_defaults.hpp>
 #include <sge/d3d9/state/core/defaults.hpp>
-#include <sge/d3d9/state/core/set_defaults.hpp>
 #include <sge/d3d9/state/core/blend/set.hpp>
 #include <sge/d3d9/state/core/depth_stencil/set.hpp>
 #include <sge/d3d9/state/core/rasterizer/set.hpp>
 #include <sge/d3d9/state/core/sampler/set.hpp>
 #include <sge/d3d9/state/ffp/defaults.hpp>
-#include <sge/d3d9/state/ffp/set_defaults.hpp>
 #include <sge/d3d9/state/ffp/alpha_test/set.hpp>
 #include <sge/d3d9/state/ffp/clip_plane/set.hpp>
 #include <sge/d3d9/state/ffp/fog/set.hpp>
@@ -41,6 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/state/ffp/lighting/light/set.hpp>
 #include <sge/d3d9/state/ffp/lighting/material/set.hpp>
 #include <sge/d3d9/state/ffp/misc/set.hpp>
+#include <sge/d3d9/state/ffp/transform/set.hpp>
 #include <sge/d3d9/target/base.hpp>
 #include <sge/d3d9/texture/set.hpp>
 #include <sge/renderer/config.hpp>
@@ -112,13 +112,12 @@ sge::d3d9::render_context::object::object(
 	)
 #endif
 {
-	sge::d3d9::state::core::set_defaults(
+	sge::d3d9::state::set_defaults(
+		parameters_.device(),
 		parameters_.core_defaults(),
+		parameters_.ffp_defaults(),
+		parameters_.light_indices(),
 		parameters_.texture_stages()
-	);
-
-	sge::d3d9::state::ffp::set_defaults(
-		parameters_.ffp_defaults()
 	);
 }
 
@@ -463,4 +462,9 @@ sge::d3d9::render_context::object::transform(
 	sge::renderer::state::ffp::transform::const_optional_object_ref const &_state
 )
 {
+	sge::d3d9::state::ffp::transform::set(
+		_mode,
+		_state,
+		parameters_.ffp_defaults().transform()
+	);
 }
