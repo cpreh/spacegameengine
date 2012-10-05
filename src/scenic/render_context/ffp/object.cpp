@@ -1,35 +1,55 @@
+/*
+spacegameengine is a portable easy to use game engine written in C++.
+Copyright (C) 2006-2012 Carl Philipp Reh (sefi@s-e-f-i.de)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
+
 #include <sge/image/colors.hpp>
-#include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
-#include <sge/renderer/caps/device.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
+#include <sge/renderer/caps/device.hpp>
+#include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/state/core/blend/object.hpp>
 #include <sge/renderer/state/core/blend/parameters.hpp>
 #include <sge/renderer/state/core/blend/write_mask_all.hpp>
 #include <sge/renderer/state/core/depth_stencil/object.hpp>
-#include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/state/core/depth_stencil/parameters.hpp>
 #include <sge/renderer/state/core/rasterizer/object.hpp>
 #include <sge/renderer/state/core/rasterizer/parameters.hpp>
 #include <sge/renderer/state/core/sampler/object.hpp>
-#include <sge/renderer/state/ffp/lighting/light/object.hpp>
 #include <sge/renderer/state/core/sampler/parameters.hpp>
 #include <sge/renderer/state/core/sampler/address/mode_all.hpp>
 #include <sge/renderer/state/core/sampler/address/parameters.hpp>
-#include <sge/scenic/index_buffer_range.hpp>
 #include <sge/renderer/state/core/sampler/filter/trilinear.hpp>
 #include <sge/renderer/state/ffp/lighting/enabled.hpp>
 #include <sge/renderer/state/ffp/lighting/object.hpp>
 #include <sge/renderer/state/ffp/lighting/parameters.hpp>
+#include <sge/renderer/state/ffp/lighting/light/object.hpp>
 #include <sge/renderer/state/ffp/lighting/light/parameters.hpp>
 #include <sge/renderer/state/ffp/lighting/material/object.hpp>
 #include <sge/renderer/state/ffp/lighting/material/parameters.hpp>
 #include <sge/renderer/state/ffp/transform/object.hpp>
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
+#include <sge/renderer/texture/planar.hpp>
+#include <sge/scenic/index_buffer_range.hpp>
 #include <sge/scenic/render_context/ffp/manager.hpp>
-#include <sge/scenic/render_context/material/object.hpp>
 #include <sge/scenic/render_context/ffp/object.hpp>
+#include <sge/scenic/render_context/material/object.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
@@ -40,6 +60,7 @@
 #include <fcppt/config/external_begin.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace
 {

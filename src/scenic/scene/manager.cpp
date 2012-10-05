@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/scenic/render_context/base.hpp>
-#include <sge/scenic/render_context/cg/manager.hpp>
 #include <sge/scenic/render_context/manager_base_unique_ptr.hpp>
+#include <sge/scenic/render_context/cg/manager.hpp>
 #include <sge/scenic/render_context/ffp/manager.hpp>
 #include <sge/scenic/scene/manager.hpp>
 #include <sge/scenic/vf/format.hpp>

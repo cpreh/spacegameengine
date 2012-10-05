@@ -22,12 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/state/core/defaults.hpp>
 #include <sge/d3d9/state/core/blend/create_default.hpp>
 #include <sge/d3d9/state/core/blend/object.hpp>
-#include <sge/d3d9/state/core/depth_stencil/object.hpp>
 #include <sge/d3d9/state/core/depth_stencil/create_default.hpp>
-#include <sge/d3d9/state/core/rasterizer/object.hpp>
+#include <sge/d3d9/state/core/depth_stencil/object.hpp>
 #include <sge/d3d9/state/core/rasterizer/create_default.hpp>
-#include <sge/d3d9/state/core/sampler/object.hpp>
+#include <sge/d3d9/state/core/rasterizer/object.hpp>
 #include <sge/d3d9/state/core/sampler/create_default.hpp>
+#include <sge/d3d9/state/core/sampler/object.hpp>
 
 
 sge::d3d9::state::core::defaults::defaults(
@@ -72,7 +72,7 @@ sge::d3d9::state::core::defaults::depth_stencil() const
 {
 	return *depth_stencil_;
 }
-		
+
 sge::d3d9::state::core::rasterizer::object const &
 sge::d3d9::state::core::defaults::rasterizer() const
 {

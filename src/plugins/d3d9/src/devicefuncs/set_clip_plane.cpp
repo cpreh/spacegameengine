@@ -20,9 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/devicefuncs/set_clip_plane.hpp>
+#include <sge/renderer/exception.hpp>
 #include <sge/renderer/state/index_count.hpp>
 #include <sge/renderer/state/ffp/clip_plane/area.hpp>
-#include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
 
