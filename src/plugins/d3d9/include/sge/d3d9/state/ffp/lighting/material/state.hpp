@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_STATE_FFP_LIGHTING_LIGHT_MAKE_STATES_HPP_INCLUDED
-#define SGE_D3D9_STATE_FFP_LIGHTING_LIGHT_MAKE_STATES_HPP_INCLUDED
+#ifndef SGE_D3D9_STATE_FFP_LIGHTING_MATERIAL_STATE_HPP_INCLUDED
+#define SGE_D3D9_STATE_FFP_LIGHTING_MATERIAL_STATE_HPP_INCLUDED
 
-#include <sge/d3d9/state/ffp/lighting/light/state_fwd.hpp>
-#include <sge/renderer/state/ffp/lighting/light/parameters_fwd.hpp>
+#include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/state/ffp/lighting/material/state_fwd.hpp>
 
 
 namespace sge
@@ -35,13 +35,22 @@ namespace ffp
 {
 namespace lighting
 {
-namespace light
+namespace material
 {
 
-sge::d3d9::state::ffp::lighting::light::state const
-make_states(
-	sge::renderer::state::ffp::lighting::light::parameters const &
-);
+class state
+{
+public:
+	explicit
+	state(
+		D3DMATERIAL9 const &
+	);
+
+	D3DMATERIAL9 const &
+	material() const;
+private:
+	D3DMATERIAL9 material_;
+};
 
 }
 }

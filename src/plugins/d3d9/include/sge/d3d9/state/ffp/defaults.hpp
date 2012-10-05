@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/state/ffp/alpha_test/object_fwd.hpp>
 #include <sge/d3d9/state/ffp/fog/object_fwd.hpp>
 #include <sge/d3d9/state/ffp/lighting/object_fwd.hpp>
+#include <sge/d3d9/state/ffp/lighting/material/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
 
@@ -60,6 +61,9 @@ public:
 
 	sge::d3d9::state::ffp::lighting::object const &
 	lighting() const;
+
+	sge::d3d9::state::ffp::lighting::material::object const &
+	material() const;
 private:
 	typedef fcppt::scoped_ptr<
 		sge::d3d9::state::ffp::alpha_test::object
@@ -72,12 +76,18 @@ private:
 	typedef fcppt::scoped_ptr<
 		sge::d3d9::state::ffp::lighting::object
 	> lighting_scoped_ptr;
+	
+	typedef fcppt::scoped_ptr<
+		sge::d3d9::state::ffp::lighting::material::object
+	> material_scoped_ptr;
 
 	alpha_test_scoped_ptr const alpha_test_;
 
 	fog_scoped_ptr const fog_;
 
 	lighting_scoped_ptr const lighting_;
+
+	material_scoped_ptr const material_;
 };
 
 }

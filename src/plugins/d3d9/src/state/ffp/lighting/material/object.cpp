@@ -18,36 +18,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_STATE_FFP_LIGHTING_LIGHT_MAKE_STATES_HPP_INCLUDED
-#define SGE_D3D9_STATE_FFP_LIGHTING_LIGHT_MAKE_STATES_HPP_INCLUDED
+#include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/devicefuncs/set_material.hpp>
+#include <sge/d3d9/state/ffp/lighting/material/object.hpp>
+#include <sge/d3d9/state/ffp/lighting/material/state.hpp>
+#include <sge/renderer/state/ffp/lighting/material/object.hpp>
 
-#include <sge/d3d9/state/ffp/lighting/light/state_fwd.hpp>
-#include <sge/renderer/state/ffp/lighting/light/parameters_fwd.hpp>
 
-
-namespace sge
+sge::d3d9::state::ffp::lighting::material::object::object(
+	IDirect3DDevice9 &_device,
+	sge::d3d9::state::ffp::lighting::material::state const &_state
+)
+:
+	sge::renderer::state::ffp::lighting::material::object(),
+	device_(
+		_device
+	),
+	state_(
+		_state
+	)
 {
-namespace d3d9
-{
-namespace state
-{
-namespace ffp
-{
-namespace lighting
-{
-namespace light
-{
-
-sge::d3d9::state::ffp::lighting::light::state const
-make_states(
-	sge::renderer::state::ffp::lighting::light::parameters const &
-);
-
-}
-}
-}
-}
-}
 }
 
-#endif
+sge::d3d9::state::ffp::lighting::material::object::~object()
+{
+}
+	
+void
+sge::d3d9::state::ffp::lighting::material::object::set() const
+{
+	sge::d3d9::devicefuncs::set_material(
+		device_,
+		state_.material()
+	);
+}

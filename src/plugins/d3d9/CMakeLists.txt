@@ -205,6 +205,14 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/state/ffp/lighting/light/state_fwd.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/ffp/lighting/make_states.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/ffp/lighting/material/create.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/lighting/material/create_default.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/lighting/material/make_states.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/lighting/material/object.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/lighting/material/object_fwd.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/lighting/material/object_unique_ptr.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/lighting/material/set.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/lighting/material/state.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/lighting/material/state_fwd.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/ffp/lighting/object.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/ffp/lighting/object_fwd.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/ffp/lighting/object_unique_ptr.hpp
@@ -490,10 +498,17 @@ SET(
 	src/plugins/d3d9/src/state/ffp/lighting/create.cpp
 	src/plugins/d3d9/src/state/ffp/lighting/create_default.cpp
 	src/plugins/d3d9/src/state/ffp/lighting/light/create.cpp
+	src/plugins/d3d9/src/state/ffp/lighting/light/make_states.cpp
 	src/plugins/d3d9/src/state/ffp/lighting/light/object.cpp
 	src/plugins/d3d9/src/state/ffp/lighting/light/set.cpp
 	src/plugins/d3d9/src/state/ffp/lighting/light/state.cpp
 	src/plugins/d3d9/src/state/ffp/lighting/make_states.cpp
+	src/plugins/d3d9/src/state/ffp/lighting/material/create.cpp
+	src/plugins/d3d9/src/state/ffp/lighting/material/create_default.cpp
+	src/plugins/d3d9/src/state/ffp/lighting/material/make_states.cpp
+	src/plugins/d3d9/src/state/ffp/lighting/material/object.cpp
+	src/plugins/d3d9/src/state/ffp/lighting/material/set.cpp
+	src/plugins/d3d9/src/state/ffp/lighting/material/state.cpp
 	src/plugins/d3d9/src/state/ffp/lighting/object.cpp
 	src/plugins/d3d9/src/state/ffp/lighting/set.cpp
 	src/plugins/d3d9/src/state/ffp/lighting/visitor.cpp
