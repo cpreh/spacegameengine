@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/state/ffp/sampler/make_op.hpp>
 #include <sge/d3d9/state/ffp/sampler/op_visitor.hpp>
 #include <sge/d3d9/state/ffp/sampler/state_vector.hpp>
+#include <sge/renderer/state/ffp/sampler/alpha_op.hpp>
+#include <sge/renderer/state/ffp/sampler/color_op.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 
 
@@ -50,7 +52,7 @@ sge::d3d9::state::ffp::sampler::state_vector const \
 sge::d3d9::state::ffp::sampler::make_op<\
 	op_type\
 >(\
-	OpType const & \
+	op_type const & \
 )
 
 SGE_D3D9_STATE_FFP_SAMPLER_INSTANTIATE_OP_TYPE(

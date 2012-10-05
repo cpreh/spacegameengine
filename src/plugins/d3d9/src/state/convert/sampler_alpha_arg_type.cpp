@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/sampler/arg3.hpp>
 
 
-DWORD
+D3DTEXTURESTAGESTATETYPE
 sge::d3d9::state::convert::sampler_alpha_arg_type<
 	sge::renderer::state::ffp::sampler::arg1
 >::get()
@@ -33,7 +33,7 @@ sge::d3d9::state::convert::sampler_alpha_arg_type<
 	return D3DTSS_ALPHAARG1;
 }
 
-DWORD
+D3DTEXTURESTAGESTATETYPE
 sge::d3d9::state::convert::sampler_alpha_arg_type<
 	sge::renderer::state::ffp::sampler::arg2
 >::get()
@@ -41,7 +41,7 @@ sge::d3d9::state::convert::sampler_alpha_arg_type<
 	return D3DTSS_ALPHAARG2;
 }
 
-DWORD
+D3DTEXTURESTAGESTATETYPE
 sge::d3d9::state::convert::sampler_alpha_arg_type<
 	sge::renderer::state::ffp::sampler::arg3
 >::get()

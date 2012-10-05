@@ -50,7 +50,7 @@ struct sampler_arg_type<
 >
 {
 	static
-	DWORD
+	D3DTEXTURESTAGESTATETYPE
 	get();
 };
 
@@ -63,7 +63,7 @@ struct sampler_arg_type<
 >
 {
 	static
-	DWORD
+	D3DTEXTURESTAGESTATETYPE
 	get();
 };
 

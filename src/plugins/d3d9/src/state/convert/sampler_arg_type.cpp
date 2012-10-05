@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<
 	typename Arg
 >
-GLenum
+D3DTEXTURESTAGESTATETYPE
 sge::d3d9::state::convert::sampler_arg_type<
 	sge::renderer::state::ffp::sampler::alpha_op,
 	Arg
@@ -47,7 +47,7 @@ sge::d3d9::state::convert::sampler_arg_type<
 template<
 	typename Arg
 >
-GLenum
+D3DTEXTURESTAGESTATETYPE
 sge::d3d9::state::convert::sampler_arg_type<
 	sge::renderer::state::ffp::sampler::color_op,
 	Arg
