@@ -28,6 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/state/ffp/lighting/object.hpp>
 #include <sge/d3d9/state/ffp/lighting/material/create_default.hpp>
 #include <sge/d3d9/state/ffp/lighting/material/object.hpp>
+#include <sge/d3d9/state/ffp/misc/create_default.hpp>
+#include <sge/d3d9/state/ffp/misc/object.hpp>
 
 
 sge::d3d9::state::ffp::defaults::defaults(
@@ -51,6 +53,11 @@ sge::d3d9::state::ffp::defaults::defaults(
 	),
 	material_(
 		sge::d3d9::state::ffp::lighting::material::create_default(
+			_device
+		)
+	),
+	misc_(
+		sge::d3d9::state::ffp::misc::create_default(
 			_device
 		)
 	)
@@ -85,3 +92,8 @@ sge::d3d9::state::ffp::defaults::material() const
 	return *material_;
 }
 
+sge::d3d9::state::ffp::misc::object const &
+sge::d3d9::state::ffp::defaults::misc() const
+{
+	return *misc_;
+}

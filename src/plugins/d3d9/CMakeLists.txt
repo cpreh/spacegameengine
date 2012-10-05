@@ -219,6 +219,12 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/state/ffp/lighting/set.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/ffp/lighting/visitor.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/ffp/misc/create.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/misc/create_default.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/misc/make_states.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/misc/object.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/misc/object_fwd.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/misc/object_unique_ptr.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/misc/set.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/ffp/sampler/create.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/ffp/set_defaults.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/ffp/transform/create.hpp
@@ -512,6 +518,11 @@ SET(
 	src/plugins/d3d9/src/state/ffp/lighting/object.cpp
 	src/plugins/d3d9/src/state/ffp/lighting/set.cpp
 	src/plugins/d3d9/src/state/ffp/lighting/visitor.cpp
+	src/plugins/d3d9/src/state/ffp/misc/create.cpp
+	src/plugins/d3d9/src/state/ffp/misc/create_default.cpp
+	src/plugins/d3d9/src/state/ffp/misc/make_states.cpp
+	src/plugins/d3d9/src/state/ffp/misc/object.cpp
+	src/plugins/d3d9/src/state/ffp/misc/set.cpp
 	src/plugins/d3d9/src/state/ffp/set_defaults.cpp
 	src/plugins/d3d9/src/state/render.cpp
 	src/plugins/d3d9/src/surface/color.cpp

@@ -40,6 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/state/ffp/lighting/set.hpp>
 #include <sge/d3d9/state/ffp/lighting/light/set.hpp>
 #include <sge/d3d9/state/ffp/lighting/material/set.hpp>
+#include <sge/d3d9/state/ffp/misc/set.hpp>
 #include <sge/d3d9/target/base.hpp>
 #include <sge/d3d9/texture/set.hpp>
 #include <sge/renderer/config.hpp>
@@ -443,6 +444,10 @@ sge::d3d9::render_context::object::misc_state(
 	sge::renderer::state::ffp::misc::const_optional_object_ref const &_state
 )
 {
+	sge::d3d9::state::ffp::misc::set(
+		_state,
+		parameters_.ffp_defaults().misc()
+	);
 }
 
 void
