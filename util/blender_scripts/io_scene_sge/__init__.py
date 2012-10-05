@@ -140,7 +140,7 @@ class ExportSge(bpy.types.Operator, ExportHelper):
 
 	def execute(self, context):
 		self.context = context
-		objects = context.selected_objects if self.selected_only else context.scene.objects
+		objects = context.selected_objects if self.selected_only else context.selectable_objects
 
 		result = dict()
 		result["meshes"] = []
