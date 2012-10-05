@@ -64,7 +64,7 @@ public:
 		int,
 		pixel_type_flag
 	);
-	
+
 	FCPPT_MAKE_STRONG_TYPEDEF(
 		int,
 		pixel_type_rgba_flag
@@ -136,13 +136,13 @@ private:
 	sge::opengl::wgl::visual::pixel_format_types::pixel_type_flag const pixel_type_;
 
 	sge::opengl::wgl::visual::pixel_format_types::pixel_type_rgba_flag const pixel_type_rgba_;
-	
+
 	sge::opengl::wgl::visual::pixel_format_types::color_bits_flag const color_bits_;
 
 	sge::opengl::wgl::visual::pixel_format_types::depth_bits_flag const depth_bits_;
 
 	sge::opengl::wgl::visual::pixel_format_types::stencil_bits_flag const stencil_bits_;
-	
+
 	sge::opengl::wgl::visual::pixel_format_types::wgl_choose_pixel_format const choose_pixel_format_;
 };
 

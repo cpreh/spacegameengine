@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/state/ffp/sampler/object.hpp>
 #include <sge/d3d9/state/ffp/sampler/state_vector.hpp>
 #include <sge/renderer/state/ffp/sampler/object.hpp>
-#include <sge/renderer/texture/stage.hpp>	
+#include <sge/renderer/texture/stage.hpp>
 
 
 sge::d3d9::state::ffp::sampler::object::object(

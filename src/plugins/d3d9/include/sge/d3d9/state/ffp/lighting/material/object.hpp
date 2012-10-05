@@ -55,7 +55,7 @@ public:
 	);
 
 	~object();
-	
+
 	void
 	set() const;
 private:

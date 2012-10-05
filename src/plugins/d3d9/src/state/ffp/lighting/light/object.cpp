@@ -44,7 +44,7 @@ sge::d3d9::state::ffp::lighting::light::object::object(
 sge::d3d9::state::ffp::lighting::light::object::~object()
 {
 }
-	
+
 void
 sge::d3d9::state::ffp::lighting::light::object::set(
 	sge::renderer::state::index_count const _index

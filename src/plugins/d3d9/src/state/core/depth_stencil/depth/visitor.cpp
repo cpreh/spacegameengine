@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/state/convert/depth_func.hpp>
 #include <sge/d3d9/state/core/depth_stencil/depth/visitor.hpp>
 #include <sge/renderer/state/core/depth_stencil/depth/enabled.hpp>
-#include <sge/renderer/state/core/depth_stencil/depth/off_fwd.hpp>	
+#include <sge/renderer/state/core/depth_stencil/depth/off_fwd.hpp>
 #include <fcppt/assign/make_container.hpp>
 
 

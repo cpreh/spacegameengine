@@ -54,7 +54,7 @@ sge::d3d9::state::object<
 >::~object()
 {
 }
-	
+
 template<
 	typename State
 >

@@ -85,7 +85,7 @@ private:
 	>
 	max_point_lights;
 
-	typedef 
+	typedef
 	boost::mpl::integral_c
 	<
 		std::size_t,

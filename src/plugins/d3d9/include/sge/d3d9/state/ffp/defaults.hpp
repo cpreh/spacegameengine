@@ -70,7 +70,7 @@ public:
 
 	sge::d3d9::state::ffp::misc::object const &
 	misc() const;
-	
+
 	sge::d3d9::state::ffp::sampler::object const &
 	sampler() const;
 
@@ -80,23 +80,23 @@ private:
 	typedef fcppt::scoped_ptr<
 		sge::d3d9::state::ffp::alpha_test::object
 	> alpha_test_scoped_ptr;
-	
+
 	typedef fcppt::scoped_ptr<
 		sge::d3d9::state::ffp::fog::object
 	> fog_scoped_ptr;
-	
+
 	typedef fcppt::scoped_ptr<
 		sge::d3d9::state::ffp::lighting::object
 	> lighting_scoped_ptr;
-	
+
 	typedef fcppt::scoped_ptr<
 		sge::d3d9::state::ffp::lighting::material::object
 	> material_scoped_ptr;
-	
+
 	typedef fcppt::scoped_ptr<
 		sge::d3d9::state::ffp::misc::object
 	> misc_scoped_ptr;
-	
+
 	typedef fcppt::scoped_ptr<
 		sge::d3d9::state::ffp::sampler::object
 	> sampler_scoped_ptr;
@@ -114,7 +114,7 @@ private:
 	material_scoped_ptr const material_;
 
 	misc_scoped_ptr const misc_;
-	
+
 	sampler_scoped_ptr const sampler_;
 
 	transform_scoped_ptr const transform_;

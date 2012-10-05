@@ -71,7 +71,7 @@ sge::opengl::wgl::visual::choose_format(
 		);
 
 	int result;
-	
+
 	UINT num_results;
 
 	if(

@@ -68,7 +68,7 @@ public:
 	) const;
 private:
 	sge::renderer::state::core::depth_stencil::stencil::ref const ref_;
-	
+
 	sge::renderer::state::core::depth_stencil::stencil::read_mask const read_mask_;
 
 	sge::renderer::state::core::depth_stencil::stencil::write_mask const write_mask_;

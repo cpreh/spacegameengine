@@ -43,7 +43,7 @@ sge::d3d9::state::ffp::lighting::material::object::object(
 sge::d3d9::state::ffp::lighting::material::object::~object()
 {
 }
-	
+
 void
 sge::d3d9::state::ffp::lighting::material::object::set() const
 {

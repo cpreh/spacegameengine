@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/state/ffp/transform/object.hpp>
 #include <sge/d3d9/state/ffp/transform/state.hpp>
 #include <sge/renderer/state/ffp/transform/mode.hpp>
-#include <sge/renderer/state/ffp/transform/object.hpp>	
+#include <sge/renderer/state/ffp/transform/object.hpp>
 
 
 sge::d3d9::state::ffp::transform::object::object(

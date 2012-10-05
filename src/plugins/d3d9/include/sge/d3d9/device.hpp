@@ -346,7 +346,7 @@ private:
 	typedef fcppt::scoped_ptr<
 		sge::d3d9::state::core::defaults
 	> core_defaults_scoped_ptr;
-	
+
 	core_defaults_scoped_ptr const core_defaults_;
 
 	typedef fcppt::scoped_ptr<

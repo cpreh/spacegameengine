@@ -57,7 +57,7 @@ sge::d3d9::state::ffp::clip_plane::set(
 				)
 			)
 		);
-	
+
 		static_cast<
 			sge::d3d9::state::ffp::clip_plane::object const &
 		>(

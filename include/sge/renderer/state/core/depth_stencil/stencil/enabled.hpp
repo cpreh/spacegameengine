@@ -72,7 +72,7 @@ private:
 	sge::renderer::state::core::depth_stencil::stencil::enabled_variant enabled_variant_;
 
 	sge::renderer::state::core::depth_stencil::stencil::ref ref_;
-	
+
 	sge::renderer::state::core::depth_stencil::stencil::read_mask read_mask_;
 
 	sge::renderer::state::core::depth_stencil::stencil::write_mask write_mask_;

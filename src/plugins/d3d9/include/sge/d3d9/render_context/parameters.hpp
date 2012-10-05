@@ -52,7 +52,7 @@ public:
 		sge::d3d9::state::core::defaults const &,
 		sge::d3d9::state::ffp::defaults const &
 	);
-	
+
 	IDirect3DDevice9 &
 	device() const;
 

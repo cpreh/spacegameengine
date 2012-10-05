@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/state/ffp/defaults_fwd.hpp>
 #include <sge/renderer/caps/light_indices.hpp>
 #include <sge/renderer/caps/texture_stages.hpp>
-#include <sge/renderer/target/base_fwd.hpp>	
+#include <sge/renderer/target/base_fwd.hpp>
 
 
 sge::d3d9::render_context::parameters::parameters(
@@ -56,7 +56,7 @@ sge::d3d9::render_context::parameters::parameters(
 	)
 {
 }
-	
+
 IDirect3DDevice9 &
 sge::d3d9::render_context::parameters::device() const
 {

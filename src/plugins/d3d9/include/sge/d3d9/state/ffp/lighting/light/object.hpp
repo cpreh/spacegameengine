@@ -56,7 +56,7 @@ public:
 	);
 
 	~object();
-	
+
 	void
 	set(
 		sge::renderer::state::index_count
