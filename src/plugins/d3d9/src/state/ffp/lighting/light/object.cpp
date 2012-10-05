@@ -18,27 +18,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/d3d9/render_context/create.hpp>
-#include <sge/d3d9/render_context/object.hpp>
-#include <sge/d3d9/render_context/parameters_fwd.hpp>
-#include <sge/renderer/context/ffp_unique_ptr.hpp>
-#include <fcppt/cref.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/devicefuncs/set_light.hpp>
+#include <sge/d3d9/state/ffp/lighting/light/object.hpp>
+#include <sge/d3d9/state/ffp/lighting/light/state.hpp>
+#include <sge/renderer/state/index_count.hpp>
+#include <sge/renderer/state/ffp/lighting/light/object.hpp>
 
 
-sge::renderer::context::ffp_unique_ptr
-sge::d3d9::render_context::create(
-	sge::d3d9::render_context::parameters const &_parameters
+sge::d3d9::state::ffp::lighting::light::object::object(
+	IDirect3DDevice9 &_device,
+	sge::d3d9::state::ffp::lighting::light::state const &_state
 )
+:
+	sge::renderer::state::ffp::lighting::light::object(),
+	device_(
+		_device
+	),
+	state_(
+		_state
+	)
 {
-	return
-		sge::renderer::context::ffp_unique_ptr(
-			fcppt::make_unique_ptr<
-				sge::d3d9::render_context::object
-			>(
-				fcppt::cref(
-					_parameters
-				)
-			)
-		);
+}
+
+sge::d3d9::state::ffp::lighting::light::object::~object()
+{
+}
+	
+void
+sge::d3d9::state::ffp::lighting::light::object::set(
+	sge::renderer::state::index_count const _index
+) const
+{
+	sge::d3d9::devicefuncs::set_light(
+		device_,
+		_index,
+		state_.light()
+	);
 }

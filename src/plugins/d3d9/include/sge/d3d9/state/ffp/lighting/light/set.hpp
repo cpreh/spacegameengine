@@ -18,27 +18,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/d3d9/render_context/create.hpp>
-#include <sge/d3d9/render_context/object.hpp>
-#include <sge/d3d9/render_context/parameters_fwd.hpp>
-#include <sge/renderer/context/ffp_unique_ptr.hpp>
-#include <fcppt/cref.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#ifndef SGE_D3D9_STATE_FFP_LIGHTING_LIGHT_SET_HPP_INCLUDED
+#define SGE_D3D9_STATE_FFP_LIGHTING_LIGHT_SET_HPP_INCLUDED
+
+#include <sge/d3d9/d3dinclude.hpp>
+#include <sge/renderer/caps/light_indices.hpp>
+#include <sge/renderer/state/ffp/lighting/light/const_object_ref_vector.hpp>
 
 
-sge::renderer::context::ffp_unique_ptr
-sge::d3d9::render_context::create(
-	sge::d3d9::render_context::parameters const &_parameters
-)
+namespace sge
 {
-	return
-		sge::renderer::context::ffp_unique_ptr(
-			fcppt::make_unique_ptr<
-				sge::d3d9::render_context::object
-			>(
-				fcppt::cref(
-					_parameters
-				)
-			)
-		);
+namespace d3d9
+{
+namespace state
+{
+namespace ffp
+{
+namespace lighting
+{
+namespace light
+{
+
+void
+set(
+	IDirect3DDevice9 &,
+	sge::renderer::state::ffp::lighting::light::const_object_ref_vector const &,
+	sge::renderer::caps::light_indices
+);
+
 }
+}
+}
+}
+}
+}
+
+#endif

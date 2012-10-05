@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/devicefuncs/clear.hpp>
 #include <sge/d3d9/devicefuncs/draw_indexed_primitive.hpp>
 #include <sge/d3d9/devicefuncs/draw_primitive.hpp>
@@ -26,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/devicefuncs/set_stream_source.hpp>
 #include <sge/d3d9/devicefuncs/set_vertex_declaration.hpp>
 #include <sge/d3d9/render_context/object.hpp>
+#include <sge/d3d9/render_context/parameters.hpp>
 #include <sge/d3d9/state/core/defaults.hpp>
 #include <sge/d3d9/state/core/set_defaults.hpp>
 #include <sge/d3d9/state/core/blend/set.hpp>
@@ -37,6 +37,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/state/ffp/alpha_test/set.hpp>
 #include <sge/d3d9/state/ffp/clip_plane/set.hpp>
 #include <sge/d3d9/state/ffp/fog/set.hpp>
+#include <sge/d3d9/state/ffp/lighting/set.hpp>
+#include <sge/d3d9/state/ffp/lighting/light/set.hpp>
 #include <sge/d3d9/target/base.hpp>
 #include <sge/d3d9/texture/set.hpp>
 #include <sge/renderer/config.hpp>
@@ -49,7 +51,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/vertex_buffer_fwd.hpp>
 #include <sge/renderer/vertex_count.hpp>
-#include <sge/renderer/caps/texture_stages.hpp>
 #include <sge/renderer/clear/parameters_fwd.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/state/core/blend/const_optional_object_ref_fwd.hpp>
@@ -87,48 +88,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::d3d9::render_context::object::object(
-	IDirect3DDevice9 &_device,
-	sge::renderer::target::base &_target,
-	sge::renderer::caps::texture_stages const _texture_stages,
-	sge::d3d9::state::core::defaults const &_core_defaults,
-	sge::d3d9::state::ffp::defaults const &_ffp_defaults
+	sge::d3d9::render_context::parameters const &_parameters
 )
 :
 	sge::renderer::context::ffp(),
-	device_(
-		_device
-	),
-	target_(
-		_target
+	parameters_(
+		_parameters
 	),
 	scoped_target_(
 		dynamic_cast<
 			sge::d3d9::target::base &
 		>(
-			target_
+			parameters_.target()
 		)
 	),
-	offscreen_target_(),
-	core_defaults_(
-		_core_defaults
-	),
-	ffp_defaults_(
-		_ffp_defaults
-	)
+	offscreen_target_()
 #if defined(SGE_RENDERER_HAVE_CG)
 	,
 	scoped_cg_device_(
-		device_
+		parameters_.device()
 	)
 #endif
 {
 	sge::d3d9::state::core::set_defaults(
-		core_defaults_,
-		_texture_stages
+		parameters_.core_defaults(),
+		parameters_.texture_stages()
 	);
 
 	sge::d3d9::state::ffp::set_defaults(
-		ffp_defaults_
+		parameters_.ffp_defaults()
 	);
 }
 
@@ -147,7 +135,7 @@ sge::renderer::target::base &
 sge::d3d9::render_context::object::target()
 {
 	return
-		target_;
+		parameters_.target();
 }
 
 void
@@ -156,7 +144,7 @@ sge::d3d9::render_context::object::clear(
 )
 {
 	sge::d3d9::devicefuncs::clear(
-		device_,
+		parameters_.device(),
 		_parameters
 	);
 }
@@ -219,12 +207,12 @@ sge::d3d9::render_context::object::render_indexed(
 )
 {
 	sge::d3d9::devicefuncs::set_index_buffer(
-		device_,
+		parameters_.device(),
 		_index_buffer
 	);
 
 	sge::d3d9::devicefuncs::draw_indexed_primitive(
-		device_,
+		parameters_.device(),
 		_first_vertex,
 		_num_vertices,
 		_primitive_type,
@@ -241,7 +229,7 @@ sge::d3d9::render_context::object::render_nonindexed(
 )
 {
 	sge::d3d9::devicefuncs::draw_primitive(
-		device_,
+		parameters_.device(),
 		_first_vertex,
 		_num_vertices,
 		_primitive_type
@@ -254,7 +242,7 @@ sge::d3d9::render_context::object::activate_vertex_buffer(
 )
 {
 	sge::d3d9::devicefuncs::set_stream_source(
-		device_,
+		parameters_.device(),
 		_buffer
 	);
 }
@@ -277,7 +265,7 @@ sge::d3d9::render_context::object::vertex_declaration(
 		return;
 
 	sge::d3d9::devicefuncs::set_vertex_declaration(
-		device_,
+		parameters_.device(),
 		*_declaration
 	);
 }
@@ -289,7 +277,7 @@ sge::d3d9::render_context::object::texture(
 )
 {
 	sge::d3d9::texture::set(
-		device_,
+		parameters_.device(),
 		_stage,
 		_texture
 	);
@@ -302,7 +290,7 @@ sge::d3d9::render_context::object::blend_state(
 {
 	sge::d3d9::state::core::blend::set(
 		_state,
-		core_defaults_.blend()
+		parameters_.core_defaults().blend()
 	);
 }
 
@@ -313,7 +301,7 @@ sge::d3d9::render_context::object::depth_stencil_state(
 {
 	sge::d3d9::state::core::depth_stencil::set(
 		_state,
-		core_defaults_.depth_stencil()
+		parameters_.core_defaults().depth_stencil()
 	);
 }
 
@@ -324,7 +312,7 @@ sge::d3d9::render_context::object::rasterizer_state(
 {
 	sge::d3d9::state::core::rasterizer::set(
 		_state,
-		core_defaults_.rasterizer()
+		parameters_.core_defaults().rasterizer()
 	);
 }
 
@@ -335,7 +323,7 @@ sge::d3d9::render_context::object::sampler_state(
 {
 	sge::d3d9::state::core::sampler::set(
 		_states,
-		core_defaults_.sampler()
+		parameters_.core_defaults().sampler()
 	);
 }
 
@@ -389,7 +377,7 @@ sge::d3d9::render_context::object::alpha_test_state(
 {
 	sge::d3d9::state::ffp::alpha_test::set(
 		_state,
-		ffp_defaults_.alpha_test()
+		parameters_.ffp_defaults().alpha_test()
 	);
 }
 
@@ -399,7 +387,7 @@ sge::d3d9::render_context::object::clip_plane_state(
 )
 {
 	sge::d3d9::state::ffp::clip_plane::set(
-		device_,
+		parameters_.device(),
 		_states
 	);
 }
@@ -411,7 +399,7 @@ sge::d3d9::render_context::object::fog_state(
 {
 	sge::d3d9::state::ffp::fog::set(
 		_state,
-		ffp_defaults_.fog()
+		parameters_.ffp_defaults().fog()
 	);
 }
 
@@ -420,6 +408,10 @@ sge::d3d9::render_context::object::lighting_state(
 	sge::renderer::state::ffp::lighting::const_optional_object_ref const &_state
 )
 {
+	sge::d3d9::state::ffp::lighting::set(
+		_state,
+		parameters_.ffp_defaults().lighting()
+	);
 }
 
 void
@@ -427,6 +419,11 @@ sge::d3d9::render_context::object::lights_state(
 	sge::renderer::state::ffp::lighting::light::const_object_ref_vector const &_states
 )
 {
+	sge::d3d9::state::ffp::lighting::light::set(
+		parameters_.device(),
+		_states,
+		parameters_.light_indices()
+	);
 }
 
 void

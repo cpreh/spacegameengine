@@ -88,6 +88,8 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/render_context/create.hpp
 	src/plugins/d3d9/include/sge/d3d9/render_context/needs_present.hpp
 	src/plugins/d3d9/include/sge/d3d9/render_context/object.hpp
+	src/plugins/d3d9/include/sge/d3d9/render_context/parameters.hpp
+	src/plugins/d3d9/include/sge/d3d9/render_context/parameters_fwd.hpp
 	src/plugins/d3d9/include/sge/d3d9/render_context/scoped_target.hpp
 	src/plugins/d3d9/include/sge/d3d9/resource.hpp
 	src/plugins/d3d9/include/sge/d3d9/resource_fwd.hpp
@@ -193,8 +195,21 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/state/ffp/fog/set.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/ffp/fog/visitor.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/ffp/lighting/create.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/lighting/create_default.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/ffp/lighting/light/create.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/lighting/light/make_states.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/lighting/light/object.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/lighting/light/object_fwd.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/lighting/light/set.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/lighting/light/state.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/lighting/light/state_fwd.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/lighting/make_states.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/ffp/lighting/material/create.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/lighting/object.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/lighting/object_fwd.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/lighting/object_unique_ptr.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/lighting/set.hpp
+	src/plugins/d3d9/include/sge/d3d9/state/ffp/lighting/visitor.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/ffp/misc/create.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/ffp/sampler/create.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/ffp/set_defaults.hpp
@@ -388,6 +403,7 @@ SET(
 	src/plugins/d3d9/src/render_context/create.cpp
 	src/plugins/d3d9/src/render_context/needs_present.cpp
 	src/plugins/d3d9/src/render_context/object.cpp
+	src/plugins/d3d9/src/render_context/parameters.cpp
 	src/plugins/d3d9/src/render_context/scoped_target.cpp
 	src/plugins/d3d9/src/resource.cpp
 	src/plugins/d3d9/src/resource_manager.cpp
@@ -471,6 +487,16 @@ SET(
 	src/plugins/d3d9/src/state/ffp/fog/object.cpp
 	src/plugins/d3d9/src/state/ffp/fog/set.cpp
 	src/plugins/d3d9/src/state/ffp/fog/visitor.cpp
+	src/plugins/d3d9/src/state/ffp/lighting/create.cpp
+	src/plugins/d3d9/src/state/ffp/lighting/create_default.cpp
+	src/plugins/d3d9/src/state/ffp/lighting/light/create.cpp
+	src/plugins/d3d9/src/state/ffp/lighting/light/object.cpp
+	src/plugins/d3d9/src/state/ffp/lighting/light/set.cpp
+	src/plugins/d3d9/src/state/ffp/lighting/light/state.cpp
+	src/plugins/d3d9/src/state/ffp/lighting/make_states.cpp
+	src/plugins/d3d9/src/state/ffp/lighting/object.cpp
+	src/plugins/d3d9/src/state/ffp/lighting/set.cpp
+	src/plugins/d3d9/src/state/ffp/lighting/visitor.cpp
 	src/plugins/d3d9/src/state/ffp/set_defaults.cpp
 	src/plugins/d3d9/src/state/render.cpp
 	src/plugins/d3d9/src/surface/color.cpp

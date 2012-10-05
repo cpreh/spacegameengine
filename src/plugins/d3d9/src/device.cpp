@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/parameters/create.hpp>
 #include <sge/d3d9/render_context/create.hpp>
 #include <sge/d3d9/render_context/needs_present.hpp>
+#include <sge/d3d9/render_context/parameters.hpp>
 #include <sge/d3d9/surface/depth_stencil.hpp>
 #include <sge/d3d9/surface/depth_stencil_native.hpp>
 #include <sge/d3d9/swapchainfuncs/present.hpp>
@@ -649,11 +650,14 @@ sge::d3d9::device::begin_rendering_ffp(
 
 	return
 		sge::d3d9::render_context::create(
-			*device_,
-			_target,
-			caps_.texture_stages(),
-			*core_defaults_,
-			*ffp_defaults_
+			sge::d3d9::render_context::parameters(
+				*device_,
+				_target,
+				caps_.texture_stages(),
+				caps_.light_indices(),
+				*core_defaults_,
+				*ffp_defaults_
+			)
 		);
 }
 

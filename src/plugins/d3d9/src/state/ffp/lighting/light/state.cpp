@@ -18,27 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/d3d9/render_context/create.hpp>
-#include <sge/d3d9/render_context/object.hpp>
-#include <sge/d3d9/render_context/parameters_fwd.hpp>
-#include <sge/renderer/context/ffp_unique_ptr.hpp>
-#include <fcppt/cref.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/state/ffp/lighting/light/state.hpp>
 
 
-sge::renderer::context::ffp_unique_ptr
-sge::d3d9::render_context::create(
-	sge::d3d9::render_context::parameters const &_parameters
+sge::d3d9::state::ffp::lighting::light::state::state(
+	D3DLIGHT9 const &_light
 )
+:
+	light_(
+		_light
+	)
 {
-	return
-		sge::renderer::context::ffp_unique_ptr(
-			fcppt::make_unique_ptr<
-				sge::d3d9::render_context::object
-			>(
-				fcppt::cref(
-					_parameters
-				)
-			)
-		);
+}
+
+D3DLIGHT9 const &
+sge::d3d9::state::ffp::lighting::light::state::light() const
+{
+	return light_;
 }

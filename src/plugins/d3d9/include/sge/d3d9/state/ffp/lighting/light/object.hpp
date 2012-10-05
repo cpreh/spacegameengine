@@ -18,16 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_STATE_FFP_DEFAULTS_HPP_INCLUDED
-#define SGE_D3D9_STATE_FFP_DEFAULTS_HPP_INCLUDED
+#ifndef SGE_D3D9_STATE_FFP_LIGHTING_LIGHT_OBJECT_HPP_INCLUDED
+#define SGE_D3D9_STATE_FFP_LIGHTING_LIGHT_OBJECT_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/state/ffp/defaults_fwd.hpp>
-#include <sge/d3d9/state/ffp/alpha_test/object_fwd.hpp>
-#include <sge/d3d9/state/ffp/fog/object_fwd.hpp>
-#include <sge/d3d9/state/ffp/lighting/object_fwd.hpp>
+#include <sge/d3d9/state/ffp/lighting/light/object_fwd.hpp>
+#include <sge/d3d9/state/ffp/lighting/light/state.hpp>
+#include <sge/renderer/state/index_count.hpp>
+#include <sge/renderer/state/ffp/lighting/light/object.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
 
 
 namespace sge
@@ -38,48 +37,38 @@ namespace state
 {
 namespace ffp
 {
+namespace lighting
+{
+namespace light
+{
 
-class defaults
+class object
+:
+	public sge::renderer::state::ffp::lighting::light::object
 {
 	FCPPT_NONCOPYABLE(
-		defaults
+		object
 	);
 public:
-	explicit
-	defaults(
-		IDirect3DDevice9 &
+	object(
+		IDirect3DDevice9 &,
+		sge::d3d9::state::ffp::lighting::light::state const &
 	);
 
-	~defaults();
-
-	sge::d3d9::state::ffp::alpha_test::object const &
-	alpha_test() const;
-
-	sge::d3d9::state::ffp::fog::object const &
-	fog() const;
-
-	sge::d3d9::state::ffp::lighting::object const &
-	lighting() const;
+	~object();
+	
+	void
+	set(
+		sge::renderer::state::index_count
+	) const;
 private:
-	typedef fcppt::scoped_ptr<
-		sge::d3d9::state::ffp::alpha_test::object
-	> alpha_test_scoped_ptr;
-	
-	typedef fcppt::scoped_ptr<
-		sge::d3d9::state::ffp::fog::object
-	> fog_scoped_ptr;
-	
-	typedef fcppt::scoped_ptr<
-		sge::d3d9::state::ffp::lighting::object
-	> lighting_scoped_ptr;
+	IDirect3DDevice9 &device_;
 
-	alpha_test_scoped_ptr const alpha_test_;
-
-	fog_scoped_ptr const fog_;
-
-	lighting_scoped_ptr const lighting_;
+	sge::d3d9::state::ffp::lighting::light::state const state_;
 };
 
+}
+}
 }
 }
 }

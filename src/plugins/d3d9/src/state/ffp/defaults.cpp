@@ -24,6 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/state/ffp/alpha_test/object.hpp>
 #include <sge/d3d9/state/ffp/fog/create_default.hpp>
 #include <sge/d3d9/state/ffp/fog/object.hpp>
+#include <sge/d3d9/state/ffp/lighting/create_default.hpp>
+#include <sge/d3d9/state/ffp/lighting/object.hpp>
 
 
 sge::d3d9::state::ffp::defaults::defaults(
@@ -37,6 +39,11 @@ sge::d3d9::state::ffp::defaults::defaults(
 	),
 	fog_(
 		sge::d3d9::state::ffp::fog::create_default(
+			_device
+		)
+	),
+	lighting_(
+		sge::d3d9::state::ffp::lighting::create_default(
 			_device
 		)
 	)
@@ -57,4 +64,10 @@ sge::d3d9::state::ffp::fog::object const &
 sge::d3d9::state::ffp::defaults::fog() const
 {
 	return *fog_;
+}
+
+sge::d3d9::state::ffp::lighting::object const &
+sge::d3d9::state::ffp::defaults::lighting() const
+{
+	return *lighting_;
 }

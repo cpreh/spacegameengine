@@ -21,10 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_RENDER_CONTEXT_OBJECT_HPP_INCLUDED
 #define SGE_D3D9_RENDER_CONTEXT_OBJECT_HPP_INCLUDED
 
-#include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/render_context/parameters.hpp>
 #include <sge/d3d9/render_context/scoped_target.hpp>
-#include <sge/d3d9/state/core/defaults_fwd.hpp>
-#include <sge/d3d9/state/ffp/defaults_fwd.hpp>
 #include <sge/renderer/config.hpp>
 #include <sge/renderer/const_optional_vertex_declaration_ref_fwd.hpp>
 #include <sge/renderer/first_index.hpp>
@@ -35,7 +33,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/vertex_buffer_fwd.hpp>
 #include <sge/renderer/vertex_count.hpp>
-#include <sge/renderer/caps/texture_stages.hpp>
 #include <sge/renderer/clear/parameters_fwd.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/state/core/blend/const_optional_object_ref_fwd.hpp>
@@ -81,12 +78,9 @@ class object
 		object
 	);
 public:
+	explicit
 	object(
-		IDirect3DDevice9 &,
-		sge::renderer::target::base &,
-		sge::renderer::caps::texture_stages,
-		sge::d3d9::state::core::defaults const &,
-		sge::d3d9::state::ffp::defaults const &
+		sge::d3d9::render_context::parameters const &
 	);
 
 	~object();
@@ -233,9 +227,7 @@ private:
 		sge::renderer::state::ffp::transform::const_optional_object_ref const &
 	);
 
-	IDirect3DDevice9 &device_;
-
-	sge::renderer::target::base &target_;
+	sge::d3d9::render_context::parameters const parameters_;
 
 	sge::d3d9::render_context::scoped_target const scoped_target_;
 
@@ -244,10 +236,6 @@ private:
 	> optional_target_base_ref;
 
 	optional_target_base_ref offscreen_target_;
-
-	sge::d3d9::state::core::defaults const &core_defaults_;
-
-	sge::d3d9::state::ffp::defaults const &ffp_defaults_;
 
 #if defined(SGE_RENDERER_HAVE_CG)
 	sge::d3d9::cg::scoped_device const scoped_cg_device_;
