@@ -18,22 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/dim2.hpp>
-#include <sge/renderer/lock_rect.hpp>
-#include <sge/texture/part.hpp>
+#ifndef SGE_TEXTURE_WRAP_NPOT_HPP_INCLUDED
+#define SGE_TEXTURE_WRAP_NPOT_HPP_INCLUDED
+
+#include <sge/renderer/device/core_fwd.hpp>
+#include <sge/renderer/texture/planar_parameters_fwd.hpp>
+#include <sge/texture/part_unique_ptr.hpp>
+#include <sge/texture/symbol.hpp>
 
 
-sge::texture::part::part()
+namespace sge
 {
+namespace texture
+{
+
+SGE_TEXTURE_SYMBOL
+sge::texture::part_unique_ptr
+wrap_npot(
+	sge::renderer::device::core &,
+	sge::renderer::texture::planar_parameters const &
+);
+
+}
 }
 
-sge::texture::part::~part()
-{
-}
-
-sge::renderer::dim2 const
-sge::texture::part::size() const
-{
-	return
-		this->area().size();
-}
+#endif

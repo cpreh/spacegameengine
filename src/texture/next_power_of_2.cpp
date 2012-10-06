@@ -19,21 +19,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/dim2.hpp>
-#include <sge/renderer/lock_rect.hpp>
-#include <sge/texture/part.hpp>
+#include <sge/texture/next_power_of_2.hpp>
+#include <fcppt/math/next_power_of_2.hpp>
 
-
-sge::texture::part::part()
-{
-}
-
-sge::texture::part::~part()
-{
-}
 
 sge::renderer::dim2 const
-sge::texture::part::size() const
+sge::texture::next_power_of_2(
+	sge::renderer::dim2 const &_size
+)
 {
 	return
-		this->area().size();
+		sge::renderer::dim2(
+			fcppt::math::next_power_of_2(
+				_size.w()
+			),
+			fcppt::math::next_power_of_2(
+				_size.h()
+			)
+		);
 }

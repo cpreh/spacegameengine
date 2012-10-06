@@ -38,7 +38,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/sampler/const_object_ref_vector.hpp>
 #include <sge/renderer/state/ffp/sampler/object.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
-#include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/texture/scoped_planar_lock.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
@@ -60,10 +59,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/font/draw/create_ffp_sampler.hpp>
 #include <sge/src/font/draw/detail/static_text_impl.hpp>
 #include <sge/texture/const_optional_part_ref.hpp>
-#include <sge/texture/part_raw_ref.hpp>
+#include <sge/texture/part.hpp>
+#include <sge/texture/wrap_npot.hpp>
 #include <fcppt/cref.hpp>
-#include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
@@ -98,7 +96,6 @@ sge::font::draw::detail::static_text_impl::static_text_impl(
 			color_format_
 		)
 	),
-	texture_(),
 	texture_part_(),
 	text_(),
 	pos_(
@@ -246,15 +243,15 @@ sge::font::draw::detail::static_text_impl::rebuild_texture()
 	);
 
 	if(
-		!texture_
+		!texture_part_
 		||
-		texture_->size()
+		texture_part_->size()
 		!=
 		new_size
 	)
-	{
-		texture_.take(
-			renderer_.create_planar_texture(
+		texture_part_.take(
+			sge::texture::wrap_npot(
+				renderer_,
 				sge::renderer::texture::planar_parameters(
 					new_size,
 					color_format_,
@@ -265,20 +262,9 @@ sge::font::draw::detail::static_text_impl::rebuild_texture()
 			)
 		);
 
-		texture_part_.take(
-			fcppt::make_unique_ptr<
-				sge::texture::part_raw_ref
-			>(
-				fcppt::ref(
-					*texture_
-				)
-			)
-		);
-	}
-
 	{
 		sge::renderer::texture::scoped_planar_lock const lock(
-			*texture_,
+			texture_part_->texture(),
 			sge::renderer::lock_mode::writeonly
 		);
 

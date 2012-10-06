@@ -26,6 +26,7 @@ set(
 	include/sge/texture/image_too_big.hpp
 	include/sge/texture/manager.hpp
 	include/sge/texture/manager_fwd.hpp
+	include/sge/texture/next_power_of_2.hpp
 	include/sge/texture/on_alloc_function.hpp
 	include/sge/texture/part.hpp
 	include/sge/texture/part_fragmented.hpp
@@ -41,6 +42,7 @@ set(
 	include/sge/texture/pos_type_fwd.hpp
 	include/sge/texture/rect_fragmented.hpp
 	include/sge/texture/sub_data.hpp
+	include/sge/texture/wrap_npot.hpp
 	src/texture/area_texc.cpp
 	src/texture/atlasing/border_h.cpp
 	src/texture/atlasing/border_size.cpp
@@ -57,12 +59,14 @@ set(
 	src/texture/include/sge/src/texture/init_basic_part.hpp
 	src/texture/include/sge/src/texture/instantiate_basic_part_raw.hpp
 	src/texture/manager.cpp
+	src/texture/next_power_of_2.cpp
 	src/texture/part.cpp
 	src/texture/part_fragmented.cpp
 	src/texture/part_raw_ptr.cpp
 	src/texture/part_raw_ref.cpp
 	src/texture/rect_fragmented.cpp
 	src/texture/sub_data.cpp
+	src/texture/wrap_npot.cpp
 )
 
 add_sge_base_library(
