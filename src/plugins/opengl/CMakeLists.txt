@@ -488,6 +488,8 @@ set(
 	src/plugins/opengl/include/sge/opengl/texture/multi_context.hpp
 	src/plugins/opengl/include/sge/opengl/texture/multi_context_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/no_id.hpp
+	src/plugins/opengl/include/sge/opengl/texture/npot_context.hpp
+	src/plugins/opengl/include/sge/opengl/texture/npot_context_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/optional_bind_type.hpp
 	src/plugins/opengl/include/sge/opengl/texture/optional_id.hpp
 	src/plugins/opengl/include/sge/opengl/texture/optional_id_fwd.hpp
@@ -890,6 +892,7 @@ set(
 	src/plugins/opengl/src/texture/mipmap/visitor.cpp
 	src/plugins/opengl/src/texture/multi_context.cpp
 	src/plugins/opengl/src/texture/no_id.cpp
+	src/plugins/opengl/src/texture/npot_context.cpp
 	src/plugins/opengl/src/texture/planar.cpp
 	src/plugins/opengl/src/texture/planar_basic.cpp
 	src/plugins/opengl/src/texture/planar_types.cpp

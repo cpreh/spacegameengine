@@ -27,6 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps/max_anisotropy.hpp>
 #include <sge/renderer/caps/max_texture_size.hpp>
 #include <sge/renderer/caps/max_volume_texture_extent.hpp>
+#include <sge/renderer/caps/non_power_of_2_textures.hpp>
+#include <sge/renderer/caps/normalized_cvv.hpp>
 #include <sge/renderer/caps/render_target_inverted.hpp>
 #include <sge/renderer/caps/render_target_supported.hpp>
 #include <sge/renderer/caps/target_surface_indices.hpp>
@@ -40,6 +42,7 @@ sge::renderer::caps::device::device(
 	sge::renderer::caps::normalized_cvv const &_normalized_cvv,
 	sge::renderer::caps::max_texture_size const &_max_texture_size,
 	sge::renderer::caps::max_volume_texture_extent const _max_volume_texture_extent,
+	sge::renderer::caps::non_power_of_2_textures const _non_power_of_2_textures,
 	sge::renderer::caps::max_anisotropy const _max_anisotropy,
 	sge::renderer::caps::render_target_supported const _render_target_supported,
 	sge::renderer::caps::render_target_inverted const _render_target_inverted,
@@ -66,6 +69,9 @@ sge::renderer::caps::device::device(
 	),
 	max_volume_texture_extent_(
 		_max_volume_texture_extent
+	),
+	non_power_of_2_textures_(
+		_non_power_of_2_textures
 	),
 	max_anisotropy_(
 		_max_anisotropy
@@ -129,6 +135,12 @@ sge::renderer::caps::max_volume_texture_extent const
 sge::renderer::caps::device::max_volume_texture_extent() const
 {
 	return max_volume_texture_extent_;
+}
+
+sge::renderer::caps::non_power_of_2_textures const
+sge::renderer::caps::device::non_power_of_2_textures() const
+{
+	return non_power_of_2_textures_;
 }
 
 sge::renderer::caps::max_anisotropy const

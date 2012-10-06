@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps/max_anisotropy.hpp>
 #include <sge/renderer/caps/max_texture_size.hpp>
 #include <sge/renderer/caps/max_volume_texture_extent.hpp>
+#include <sge/renderer/caps/non_power_of_2_textures.hpp>
 #include <sge/renderer/caps/normalized_cvv.hpp>
 #include <sge/renderer/caps/render_target_inverted.hpp>
 #include <sge/renderer/caps/render_target_supported.hpp>
@@ -61,9 +62,9 @@ class device
 	);
 public:
 	/**
-	 * \brief Constructs a capabilities object
-	 *
-	 * This function is for internal use only
+	\brief Constructs a capabilities object
+
+	This function is for internal use only
 	*/
 	SGE_RENDERER_SYMBOL
 	device(
@@ -73,6 +74,7 @@ public:
 		sge::renderer::caps::normalized_cvv const &,
 		sge::renderer::caps::max_texture_size const &,
 		sge::renderer::caps::max_volume_texture_extent,
+		sge::renderer::caps::non_power_of_2_textures,
 		sge::renderer::caps::max_anisotropy,
 		sge::renderer::caps::render_target_supported,
 		sge::renderer::caps::render_target_inverted,
@@ -86,128 +88,142 @@ public:
 	~device();
 
 	/**
-	 * \brief Returns the adapter the renderer::device represents
-	 *
-	 * This value is the same as has been specified in renderer::parameters
-	 * when creating the device.
+	\brief Returns the adapter the renderer::device represents
+
+	This value is the same as has been specified in
+	sge::renderer::device::parameters when creating the device.
 	*/
 	SGE_RENDERER_SYMBOL
 	sge::renderer::adapter const
 	adapter() const;
 
 	/**
-	 * \brief Returns the driver's name
-	 *
-	 * A string representation of the driver name.
+	\brief Returns the driver's name
+
+	A string representation of the driver name.
 	*/
 	SGE_RENDERER_SYMBOL
 	sge::renderer::caps::driver_name const &
 	driver_name() const;
 
 	/**
-	 * \brief Returns a description of the renderer::device
-	 *
-	 * This usually contains the vendor or the model name of the graphics
-	 * card.
+	\brief Returns a description of the renderer::device
+
+	This usually contains the vendor or the model name of the graphics
+	card.
 	*/
 	SGE_RENDERER_SYMBOL
 	sge::renderer::caps::description const &
 	description() const;
 
 	/**
-	 * \brief Returns true if the canonical view volume (CVV) is the unit cube [-1,1]^3
-	 *
-	 * The canonical view volume is the volume into which the visible
-	 * vertices are projected. If you're using a perspective
-	 * projection matrix, the view frustum is transformed to the
-	 * CVV, perserving the objects' depth order.
-	 *
-	 * OpenGL and DirectX have different CVVs. OpenGL wants the
-	 * vertices projected into the unit cube [-1,1]^3 (e.g. it has a
-	 * normalized CVV), DirectX has "half a unit cube". The Z value is
-	 * in [0,1] while the X and Y values are in [-1,1].
+	\brief Returns true if the canonical view volume (CVV) is the unit cube
+	[-1,1]^3
+
+	The canonical view volume is the volume into which the visible vertices
+	are projected. If you're using a perspective projection matrix, the
+	view frustum is transformed to the CVV, perserving the objects' depth
+	order.
+
+	OpenGL and DirectX have different CVVs. OpenGL wants the vertices
+	projected into the unit cube [-1,1]^3 (e.g. it has a normalized CVV),
+	DirectX has "half a unit cube". The Z value is in [0,1] while the X and
+	Y values are in [-1,1].
 	*/
 	SGE_RENDERER_SYMBOL
 	sge::renderer::caps::normalized_cvv const &
 	normalized_cvv() const;
 
 	/**
-	 * \brief Returns the maximum size of a planar texture
-	 *
-	 * This is the maximum size for a renderer::texture::planar. Creating
-	 * anything bigger in any of the dimensions (width or height) is not
-	 * supported. This value is highly dependant on your graphics drivers
-	 * and your graphics card. Typical values might be (4096,4096)
-	 * or (8192,8192).
+	\brief Returns the maximum size of a planar texture
+
+	This is the maximum size for an sge::renderer::texture::planar.
+	Creating anything bigger in any of the dimensions (width or height) is
+	not supported. This value is highly dependant on your graphics drivers
+	and your graphics card. Typical values might be (4096,4096) or
+	(8192,8192).
 	*/
 	SGE_RENDERER_SYMBOL
 	sge::renderer::caps::max_texture_size const &
 	max_texture_size() const;
 
 	/**
-	 * \brief Returns the maximum size of a volume texture's side
-	 *
-	 * This is the maximum size for each side of a volume texture.
-	 * Creating anything bigger than that is not supported.
+	\brief Returns the maximum size of a volume texture's side
+
+	This is the maximum size for each side of a volume texture. Creating
+	anything bigger than that is not supported.
 	*/
 	SGE_RENDERER_SYMBOL
 	sge::renderer::caps::max_volume_texture_extent const
 	max_volume_texture_extent() const;
 
 	/**
-	 * \brief Returns the maximum supported anisotropy
-	 *
-	 * This is the maximum anisotropy supported for anisotropic texture
-	 * filters. If this is 0, no anisotropic filtering is supported.
+	\brief Returns if non power of 2 textures are supported
+
+	Older hardware or environments with limited capabilities (like OpenGL
+	in a virtual machine, over vnc or rdesktop, etc.) might not support non
+	power of 2 textures.
+	*/
+	SGE_RENDERER_SYMBOL
+	sge::renderer::caps::non_power_of_2_textures const
+	non_power_of_2_textures() const;
+
+	/**
+	\brief Returns the maximum supported anisotropy
+
+	This is the maximum anisotropy supported for anisotropic texture
+	filters. If this is 0, no anisotropic filtering is supported.
 	*/
 	SGE_RENDERER_SYMBOL
 	sge::renderer::caps::max_anisotropy const
 	max_anisotropy() const;
 
 	/**
-	 * \brief Returns if render targets are supported
-	 *
-	 * If no render targets are supported, then you cannot use
-	 * renderer::device::create_target.
+	\brief Returns if render targets are supported
+
+	If no render targets are supported, then you cannot use
+	sge::renderer::device::create_target.
 	*/
 	SGE_RENDERER_SYMBOL
 	sge::renderer::caps::render_target_supported const
 	render_target_supported() const;
 
 	/**
-	 * \brief Returns if render targets are inverted
-	 *
-	 * If render targets are not supported, this value has no meaning.
+	\brief Returns if render targets are inverted
+
+	An inverted render target means that the buffers are flipped
+	vertically. If render targets are not supported, this value has no
+	meaning.
 	*/
 	SGE_RENDERER_SYMBOL
 	sge::renderer::caps::render_target_inverted const
 	render_target_inverted() const;
 
 	/**
-	 * \brief Returns the number of clip planes
-	 *
-	 * Valid clip plane indices range from 0 to the returned value - 1. If
-	 * this value is 0, no clip planes are supported.
+	\brief Returns the number of clip planes
+
+	Valid clip plane indices range from 0 to the returned value - 1. If
+	this value is 0, no clip planes are supported.
 	*/
 	SGE_RENDERER_SYMBOL
 	sge::renderer::caps::clip_plane_indices const
 	clip_plane_indices() const;
 
 	/**
-	 * \brief Returns the number of light indices
-	 *
-	 * Valid light indices range from 0 to the returned value - 1. If this
-	 * value is 0, no lights are supported.
+	\brief Returns the number of light indices
+
+	Valid light indices range from 0 to the returned value - 1. If this
+	value is 0, no lights are supported.
 	*/
 	SGE_RENDERER_SYMBOL
 	sge::renderer::caps::light_indices const
 	light_indices() const;
 
 	/**
-	 * \brief Returns the number of texture stages
-	 *
-	 * Valid texture stages range from 0 to the returned value - 1. The
-	 * 0th texture stage is always supported.
+	\brief Returns the number of texture stages
+
+	Valid texture stages range from 0 to the returned value - 1. The 0th
+	texture stage is always supported.
 	*/
 	SGE_RENDERER_SYMBOL
 	sge::renderer::caps::texture_stages const
@@ -234,6 +250,8 @@ private:
 	sge::renderer::caps::max_texture_size const max_texture_size_;
 
 	sge::renderer::caps::max_volume_texture_extent const max_volume_texture_extent_;
+
+	sge::renderer::caps::non_power_of_2_textures const non_power_of_2_textures_;
 
 	sge::renderer::caps::max_anisotropy const max_anisotropy_;
 

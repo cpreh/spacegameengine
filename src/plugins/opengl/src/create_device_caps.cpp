@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/fbo/context.hpp>
 #include <sge/opengl/state/core/sampler/filter/anisotropy_context.hpp>
 #include <sge/opengl/texture/multi_context.hpp>
+#include <sge/opengl/texture/npot_context.hpp>
 #include <sge/opengl/texture/volume_context.hpp>
 #include <sge/renderer/adapter.hpp>
 #include <sge/renderer/size_type.hpp>
@@ -40,6 +41,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps/max_anisotropy.hpp>
 #include <sge/renderer/caps/max_texture_size.hpp>
 #include <sge/renderer/caps/max_volume_texture_extent.hpp>
+#include <sge/renderer/caps/non_power_of_2_textures.hpp>
+#include <sge/renderer/caps/normalized_cvv.hpp>
 #include <sge/renderer/caps/render_target_inverted.hpp>
 #include <sge/renderer/caps/render_target_supported.hpp>
 #include <sge/renderer/caps/target_surface_indices.hpp>
@@ -141,6 +144,13 @@ sge::opengl::create_device_caps(
 					:
 						0
 				)
+			),
+			sge::renderer::caps::non_power_of_2_textures(
+				sge::opengl::context::use<
+					sge::opengl::texture::npot_context
+				>(
+					_context
+				).is_supported()
 			),
 			fcppt::strong_typedef_construct_cast<
 				sge::renderer::caps::max_anisotropy
