@@ -120,14 +120,19 @@ sge::scenic::scene::object::render(
 			*it,
 			current_render_queue);
 
+	sge::scenic::render_queue::state_change_count const state_changes(
+		current_render_queue.render(_context));
+
+	/*
 	std::cout
 		<< "\r"
 		<< prototype_->entities().size()
 		<< " entities, "
-		<< current_render_queue.render(_context).get()
+		<< state_changes.get()
 		<< " state changes";
 
 	std::cout.flush();
+	*/
 }
 
 sge::scenic::scene::object::~object()
