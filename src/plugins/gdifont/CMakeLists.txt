@@ -1,6 +1,10 @@
 set(
 	SGE_GDIFONT_FILES
+	src/plugins/gdifont/include/sge/gdifont/a8_view.hpp
+	src/plugins/gdifont/include/sge/gdifont/alpha_to_max.hpp
 	src/plugins/gdifont/include/sge/gdifont/calc_rect.hpp
+	src/plugins/gdifont/include/sge/gdifont/colors_to_max.hpp
+	src/plugins/gdifont/include/sge/gdifont/colors_to_max_visitor.hpp
 	src/plugins/gdifont/include/sge/gdifont/convert/align_h.hpp
 	src/plugins/gdifont/include/sge/gdifont/convert/flags.hpp
 	src/plugins/gdifont/include/sge/gdifont/create_dib_section.hpp
@@ -27,6 +31,7 @@ set(
 	src/plugins/gdifont/include/sge/gdifont/system.hpp
 	src/plugins/gdifont/include/sge/gdifont/text.hpp
 	src/plugins/gdifont/src/calc_rect.cpp
+	src/plugins/gdifont/src/colors_to_max.cpp
 	src/plugins/gdifont/src/convert/align_h.cpp
 	src/plugins/gdifont/src/convert/flags.cpp
 	src/plugins/gdifont/src/create_dib_section.cpp

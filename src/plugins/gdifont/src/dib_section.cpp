@@ -24,12 +24,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gdifont/dib_section.hpp>
 #include <sge/gdifont/get_bitmap.hpp>
 #include <sge/gdifont/include_windows.hpp>
-#include <sge/image/const_raw_pointer.hpp>
+#include <sge/image/raw_pointer.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/pitch.hpp>
 #include <sge/image2d/view/const_object.hpp>
-#include <sge/image2d/view/make_const.hpp>
+#include <sge/image2d/view/make.hpp>
+#include <sge/image2d/view/object.hpp>
+#include <sge/image2d/view/to_const.hpp>
 #include <fcppt/null_ptr.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
 
@@ -61,13 +63,13 @@ sge::gdifont::dib_section::~dib_section()
 {
 }
 
-sge::image2d::view::const_object const
-sge::gdifont::dib_section::view() const
+sge::image2d::view::object const
+sge::gdifont::dib_section::view()
 {
 	return
-		sge::image2d::view::make_const(
+		sge::image2d::view::make(
 			static_cast<
-				sge::image::const_raw_pointer
+				sge::image::raw_pointer
 			>(
 				data_
 			),
@@ -87,6 +89,19 @@ sge::gdifont::dib_section::view() const
 			sge::image2d::pitch(
 				bitmap_.bmWidthBytes - bitmap_.bmWidth
 			)
+		);
+}
+
+sge::image2d::view::const_object const
+sge::gdifont::dib_section::const_view() const
+{
+	return
+		sge::image2d::view::to_const(
+			const_cast<
+				sge::gdifont::dib_section &
+			>(
+				*this
+			).view()
 		);
 }
 

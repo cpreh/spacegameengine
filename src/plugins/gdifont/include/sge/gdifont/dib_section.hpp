@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gdifont/include_windows.hpp>
 #include <sge/image2d/dim_fwd.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
+#include <sge/image2d/view/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -51,8 +52,11 @@ public:
 
 	~dib_section();
 
+	sge::image2d::view::object const
+	view();
+
 	sge::image2d::view::const_object const
-	view() const;
+	const_view() const;
 
 	HBITMAP
 	handle();

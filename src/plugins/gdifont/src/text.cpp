@@ -24,7 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text.hpp>
 #include <sge/font/text_parameters.hpp>
 #include <sge/font/view.hpp>
+#include <sge/gdifont/a8_view.hpp>
 #include <sge/gdifont/calc_rect.hpp>
+#include <sge/gdifont/colors_to_max.hpp>
 #include <sge/gdifont/device_context_fwd.hpp>
 #include <sge/gdifont/dib_section.hpp>
 #include <sge/gdifont/make_flags.hpp>
@@ -34,13 +36,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gdifont/set_text_color.hpp>
 #include <sge/gdifont/text.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
-#include <sge/image/color/a8_format.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/algorithm/copy.hpp>
 #include <sge/image2d/view/const_object.hpp>
-#include <sge/image2d/view/element_base.hpp>
 #include <sge/image2d/view/size.hpp>
-#include <mizuiro/nonconst_tag.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/variant/holds_type.hpp>
 #include <fcppt/variant/object_impl.hpp>
@@ -89,14 +88,9 @@ sge::gdifont::text::render(
 	sge::font::view const &_view
 )
 {
-	typedef sge::image2d::view::element_base<
-		sge::image::color::a8_format,
-		mizuiro::nonconst_tag
-	>::type a8_view;
-
 	if(
 		!fcppt::variant::holds_type<
-			a8_view
+			sge::gdifont::a8_view
 		>(
 			_view.get()
 		)
@@ -143,8 +137,12 @@ sge::gdifont::text::render(
 		render_flags_
 	);
 
+	sge::gdifont::colors_to_max(
+		dib_section.view()
+	);
+
 	sge::image2d::algorithm::copy(
-		dib_section.view(),
+		dib_section.const_view(),
 		_view,
 		sge::image::algorithm::may_overlap::no
 	);
