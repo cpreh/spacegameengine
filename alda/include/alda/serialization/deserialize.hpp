@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/throw.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstddef>
+#include <iosfwd>
 #include <istream>
 #include <fcppt/config/external_end.hpp>
 
@@ -75,8 +76,12 @@ deserialize(
 		>(
 			&type
 		),
-		sizeof(
-			alda::serialization::detail::message_int_type
+		static_cast<
+			std::streamsize
+		>(
+			sizeof(
+				alda::serialization::detail::message_int_type
+			)
 		)
 	);
 

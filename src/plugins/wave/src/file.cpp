@@ -37,6 +37,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <boost/cstdint.hpp>
 #include <algorithm>
+#include <iosfwd>
+#include <string>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -275,7 +277,11 @@ T sge::wave::file::extract_primitive(
 	// TODO: replace this with io::read
 	T ret;
 	file_->read(
-		reinterpret_cast<char *>(&ret), sizeof(T));
+		reinterpret_cast<char *>(&ret),
+		static_cast<
+			std::streamsize
+		>(
+			sizeof(T)));
 
 	if (file_->fail())
 		throw audio::file_exception(
