@@ -34,6 +34,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/audio_player_default.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/systems/make_list.hpp>
+#include <sge/systems/with_audio_loader.hpp>
+#include <sge/systems/with_audio_player.hpp>
 #include <sge/timer/basic.hpp>
 #include <sge/timer/elapsed_fractional.hpp>
 #include <sge/timer/parameters.hpp>
@@ -41,12 +44,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/math/twopi.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/chrono/duration.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 #include <cmath>
 #include <cstdlib>
 #include <exception>
@@ -58,8 +60,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 int main()
 try
 {
-	sge::systems::instance const sys(
-		sge::systems::list()
+	sge::systems::instance<
+		boost::mpl::vector2<
+			sge::systems::with_audio_loader,
+			sge::systems::with_audio_player
+		>
+	> const sys(
+		sge::systems::make_list
 		(
 			sge::systems::audio_player_default()
 		)

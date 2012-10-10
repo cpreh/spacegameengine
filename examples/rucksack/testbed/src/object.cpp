@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/rucksack/testbed/object.hpp>
+#include <sge/rucksack/testbed/systems_fwd.hpp>
 #include <sge/src/rucksack/testbed/object_impl.hpp>
 #include <sge/window/title.hpp>
 #include <awl/main/exit_code.hpp>
@@ -54,7 +55,7 @@ sge::rucksack::testbed::object::run()
 		impl_->run();
 }
 
-sge::systems::instance const &
+sge::rucksack::testbed::systems const &
 sge::rucksack::testbed::object::systems() const
 {
 	return

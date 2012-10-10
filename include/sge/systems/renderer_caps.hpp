@@ -18,15 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_ANY_MAP_HPP_INCLUDED
-#define SGE_SYSTEMS_ANY_MAP_HPP_INCLUDED
-
-#include <sge/systems/any.hpp>
-#include <sge/systems/any_key.hpp>
-#include <fcppt/variant/object_impl.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <map>
-#include <fcppt/config/external_end.hpp>
+#ifndef SGE_SYSTEMS_RENDERER_CAPS_HPP_INCLUDED
+#define SGE_SYSTEMS_RENDERER_CAPS_HPP_INCLUDED
 
 
 namespace sge
@@ -34,10 +27,14 @@ namespace sge
 namespace systems
 {
 
-typedef std::map<
-	sge::systems::any_key::type,
-	sge::systems::any
-> any_map;
+namespace renderer_caps
+{
+enum type
+{
+	core,
+	ffp
+};
+}
 
 }
 }

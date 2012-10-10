@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/parameters/object.hpp>
 #include <sge/renderer/pixel_format/object.hpp>
 #include <sge/renderer/target/onscreen.hpp>
+#include <sge/rucksack/testbed/systems.hpp>
 #include <sge/rucksack/widget/base.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/parameters_impl.hpp>
@@ -41,9 +42,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/rucksack/testbed/object_impl.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/input.hpp>
-#include <sge/systems/input_helper.hpp>
-#include <sge/systems/input_helper_field.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/systems/make_list.hpp>
 #include <sge/systems/quit_on_escape.hpp>
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/window.hpp>
@@ -61,7 +61,7 @@ sge::rucksack::testbed::object_impl::object_impl(
 	sge::window::title const &_window_title)
 :
 	systems_(
-		sge::systems::list()
+		sge::systems::make_list
 		(sge::systems::window(
 				sge::window::parameters(
 					_window_title,
@@ -79,8 +79,6 @@ sge::rucksack::testbed::object_impl::object_impl(
 					sge::renderer::display_mode::optional_object()),
 				sge::viewport::fill_on_resize()))
 		(sge::systems::input(
-				sge::systems::input_helper_field(
-					sge::systems::input_helper::keyboard_collector),
 				sge::systems::cursor_option_field::null()))),
 	buffers_(
 		systems_.renderer_ffp(),
@@ -184,7 +182,7 @@ sge::rucksack::testbed::object_impl::render(
 		sprite_states_);
 }
 
-sge::systems::instance const &
+sge::rucksack::testbed::systems const &
 sge::rucksack::testbed::object_impl::systems() const
 {
 	return systems_;

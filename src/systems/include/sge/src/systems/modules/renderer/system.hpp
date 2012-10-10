@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/plugin/collection_fwd.hpp>
 #include <sge/src/systems/modules/renderer/system_fwd.hpp>
 #include <sge/src/systems/modules/renderer/system_pair.hpp>
-#include <sge/systems/renderer_fwd.hpp>
+#include <sge/systems/detail/renderer_fwd.hpp>
 #include <awl/system/object_fwd.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -49,7 +49,7 @@ class system
 public:
 	system(
 		sge::renderer::plugin::collection const &,
-		sge::systems::renderer const &
+		sge::systems::detail::renderer const &
 	);
 
 	~system();

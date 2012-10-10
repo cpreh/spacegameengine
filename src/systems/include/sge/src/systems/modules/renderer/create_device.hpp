@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device/core_unique_ptr.hpp>
 #include <sge/src/systems/modules/renderer/system_fwd.hpp>
 #include <sge/src/systems/modules/window/object_fwd.hpp>
-#include <sge/systems/renderer_fwd.hpp>
+#include <sge/systems/detail/renderer_fwd.hpp>
 
 
 namespace sge
@@ -38,7 +38,7 @@ namespace renderer
 
 sge::renderer::device::core_unique_ptr
 create_device(
-	sge::systems::renderer const &,
+	sge::systems::detail::renderer const &,
 	sge::systems::modules::renderer::system const &,
 	sge::systems::modules::window::object const &
 );

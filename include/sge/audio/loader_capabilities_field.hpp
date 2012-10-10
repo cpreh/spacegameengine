@@ -21,22 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_LOADER_CAPABILITIES_FIELD_HPP_INCLUDED
 #define SGE_AUDIO_LOADER_CAPABILITIES_FIELD_HPP_INCLUDED
 
-#include <sge/audio/loader_capabilities.hpp>
-#include <fcppt/container/bitfield/object_fwd.hpp>
+#include <sge/audio/loader_capabilities_field_fwd.hpp>
+#include <fcppt/container/bitfield/object_impl.hpp>
 
-
-namespace sge
-{
-namespace audio
-{
-
-/// Holds loader capabilities (if it's threadsafe or not, for example), see sge::audio::loader_capabilities
-typedef fcppt::container::bitfield::object<
-	loader_capabilities::type,
-	loader_capabilities::size
-> loader_capabilities_field;
-
-}
-}
 
 #endif

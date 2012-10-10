@@ -45,17 +45,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/image2d.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/systems/make_list.hpp>
+#include <sge/systems/with_image2d.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/io/cerr.hpp>
-#include <fcppt/math/box/object_impl.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/operations.hpp>
 #include <boost/filesystem/path.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 #include <algorithm>
 #include <cstdlib>
 #include <exception>
@@ -162,19 +161,21 @@ try
 		return EXIT_FAILURE;
 	}
 
-	sge::systems::instance const sys(
+	sge::systems::instance<
+		boost::mpl::vector1<
+			sge::systems::with_image2d
+		>
+	> const sys(
+		sge::systems::make_list
 		(
-			sge::systems::list
-			(
-				sge::systems::image2d(
-					sge::image::capabilities_field::null(),
-					sge::media::optional_extension_set(
-						fcppt::assign::make_container<
-							sge::media::extension_set
-						>(
-							sge::media::extension(
-								FCPPT_TEXT("png")
-							)
+			sge::systems::image2d(
+				sge::image::capabilities_field::null(),
+				sge::media::optional_extension_set(
+					fcppt::assign::make_container<
+						sge::media::extension_set
+					>(
+						sge::media::extension(
+							FCPPT_TEXT("png")
 						)
 					)
 				)

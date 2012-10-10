@@ -19,10 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/src/systems/make_any_key.hpp>
-#include <sge/systems/any.hpp>
-#include <sge/systems/any_types.hpp>
+#include <sge/systems/detail/any.hpp>
+#include <sge/systems/detail/any_types.hpp>
 #include <fcppt/variant/apply_unary.hpp>
-#include <fcppt/variant/object_impl.hpp>
 
 
 namespace
@@ -30,62 +29,72 @@ namespace
 
 struct make_key_visitor
 {
-	typedef sge::systems::any_key::type result_type;
+	typedef sge::systems::detail::any_key::type result_type;
 
 #define SGE_SYSTEMS_MAKE_KEY_CASE(\
+	type,\
 	name\
 )\
 	result_type \
 	operator()( \
-		sge::systems::name const & \
+		sge::systems::type const & \
 	) const \
 	{ \
 		return \
-			sge::systems::any_key::name;\
+			sge::systems::detail::any_key::name;\
 	}
 
 	SGE_SYSTEMS_MAKE_KEY_CASE(
+		config,
 		config
 	)
 
 	SGE_SYSTEMS_MAKE_KEY_CASE(
+		window,
 		window
 	)
 
 	SGE_SYSTEMS_MAKE_KEY_CASE(
+		detail::renderer,
 		renderer
 	)
 
 	SGE_SYSTEMS_MAKE_KEY_CASE(
+		image2d,
 		image2d
 	)
 
 	SGE_SYSTEMS_MAKE_KEY_CASE(
+		audio_loader,
 		audio_loader
 	)
 
 	SGE_SYSTEMS_MAKE_KEY_CASE(
+		audio_player,
 		audio_player
 	)
 
 	SGE_SYSTEMS_MAKE_KEY_CASE(
+		detail::input,
 		input
 	)
 
 	SGE_SYSTEMS_MAKE_KEY_CASE(
+		charconv,
 		charconv
 	)
 
 	SGE_SYSTEMS_MAKE_KEY_CASE(
+		font,
 		font
 	)
 };
 
 }
 
-sge::systems::any_key::type
+sge::systems::detail::any_key::type
 sge::systems::make_any_key(
-	sge::systems::any const &_any
+	sge::systems::detail::any const &_any
 )
 {
 	return

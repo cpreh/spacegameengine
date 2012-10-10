@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SYSTEMS_IMAGE2D_FWD_HPP_INCLUDED
 #define SGE_SYSTEMS_IMAGE2D_FWD_HPP_INCLUDED
 
-#include <sge/image/capabilities_field.hpp>
+#include <sge/image/capabilities_field_fwd.hpp>
 #include <sge/systems/basic_loader_fwd.hpp>
 
 

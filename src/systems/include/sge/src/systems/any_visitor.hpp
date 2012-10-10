@@ -27,10 +27,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/config_fwd.hpp>
 #include <sge/systems/font_fwd.hpp>
 #include <sge/systems/image2d_fwd.hpp>
-#include <sge/systems/input_fwd.hpp>
-#include <sge/systems/renderer_fwd.hpp>
 #include <sge/systems/window_fwd.hpp>
+#include <sge/systems/detail/input_fwd.hpp>
 #include <sge/systems/detail/instance_impl_fwd.hpp>
+#include <sge/systems/detail/renderer_fwd.hpp>
 #include <fcppt/nonassignable.hpp>
 
 
@@ -59,7 +59,7 @@ public:
 
 	result_type
 	operator()(
-		sge::systems::renderer const &
+		sge::systems::detail::renderer const &
 	) const;
 
 	result_type
@@ -84,7 +84,7 @@ public:
 
 	result_type
 	operator()(
-		sge::systems::input const &
+		sge::systems::detail::input const &
 	) const;
 
 	result_type

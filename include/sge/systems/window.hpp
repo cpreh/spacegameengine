@@ -52,7 +52,8 @@ public:
 	> parameter_variant;
 
 	SGE_SYSTEMS_SYMBOL
-	explicit window(
+	explicit
+	window(
 		parameter_variant const &
 	);
 

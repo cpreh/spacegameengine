@@ -47,13 +47,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/modules/window/object.hpp>
 #include <sge/systems/audio_loader_fwd.hpp>
 #include <sge/systems/audio_player_fwd.hpp>
-#include <sge/systems/charconv.hpp>
+#include <sge/systems/charconv_fwd.hpp>
 #include <sge/systems/font_fwd.hpp>
 #include <sge/systems/image2d_fwd.hpp>
-#include <sge/systems/input_fwd.hpp>
 #include <sge/systems/plugin_path.hpp>
-#include <sge/systems/renderer_fwd.hpp>
 #include <sge/systems/window_fwd.hpp>
+#include <sge/systems/detail/input_fwd.hpp>
+#include <sge/systems/detail/renderer_fwd.hpp>
 #include <sge/viewport/manager_fwd.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
@@ -93,7 +93,7 @@ sge::systems::detail::instance_impl::~instance_impl()
 
 void
 sge::systems::detail::instance_impl::init_renderer_system(
-	sge::systems::renderer const &_param
+	sge::systems::detail::renderer const &_param
 )
 {
 	renderer_system_.take(
@@ -114,7 +114,7 @@ sge::systems::detail::instance_impl::init_renderer_system(
 
 void
 sge::systems::detail::instance_impl::init_renderer(
-	sge::systems::renderer const &_param
+	sge::systems::detail::renderer const &_param
 )
 {
 	FCPPT_ASSERT_PRE(
@@ -163,7 +163,7 @@ sge::systems::detail::instance_impl::init_window(
 
 void
 sge::systems::detail::instance_impl::init_input(
-	sge::systems::input const &_parameters
+	sge::systems::detail::input const &_parameters
 )
 {
 	FCPPT_ASSERT_PRE(
@@ -257,12 +257,9 @@ sge::systems::detail::instance_impl::init_font(
 	sge::systems::font const &_parameters
 )
 {
-	if(
-		!charconv_
-	)
-		this->init_charconv(
-			sge::systems::charconv()
-		);
+	FCPPT_ASSERT_PRE(
+		charconv_
+	);
 
 	font_.take(
 		fcppt::make_unique_ptr<

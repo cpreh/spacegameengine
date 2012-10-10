@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_SYSTEMS_EXTRACT_PLUGIN_PATH_HPP_INCLUDED
 #define SGE_SRC_SYSTEMS_EXTRACT_PLUGIN_PATH_HPP_INCLUDED
 
-#include <sge/systems/any_map.hpp>
 #include <sge/systems/plugin_path.hpp>
+#include <sge/systems/detail/any_map.hpp>
 
 
 namespace sge
@@ -32,7 +32,7 @@ namespace systems
 
 sge::systems::plugin_path const
 extract_plugin_path(
-	sge::systems::any_map const &
+	sge::systems::detail::any_map const &
 );
 
 }

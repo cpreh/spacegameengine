@@ -39,9 +39,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension.hpp>
 #include <sge/media/optional_extension_set.hpp>
+#include <sge/systems/audio_loader.hpp>
 #include <sge/systems/audio_player_default.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/systems/make_list.hpp>
+#include <sge/systems/with_audio_loader.hpp>
+#include <sge/systems/with_audio_player.hpp>
 #include <sge/timer/basic.hpp>
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/clocks/standard.hpp>
@@ -61,6 +65,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/chrono/duration.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <boost/filesystem/path.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <algorithm>
 #include <cmath>
@@ -151,8 +156,13 @@ try
 
 	wait_for_input();
 
-	sge::systems::instance sys(
-		sge::systems::list()
+	sge::systems::instance<
+		boost::mpl::vector2<
+			sge::systems::with_audio_player,
+			sge::systems::with_audio_loader
+		>
+	> const sys(
+		sge::systems::make_list
 		(
 			sge::systems::audio_player_default()
 		)

@@ -18,31 +18,49 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/keyboard/action.hpp>
-#include <sge/input/keyboard/device.hpp>
-#include <sge/input/keyboard/key_code.hpp>
-#include <sge/systems/instance.hpp>
-#include <sge/systems/quit_on_escape.hpp>
-#include <sge/window/system.hpp>
-#include <awl/main/exit_success.hpp>
-#include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/tr1/functional.hpp>
+#ifndef SGE_SYSTEMS_DETAIL_ASSERT_DEPENDENCIES_ONE_HPP_INCLUDED
+#define SGE_SYSTEMS_DETAIL_ASSERT_DEPENDENCIES_ONE_HPP_INCLUDED
+
+#include <fcppt/mpl/all_of.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/contains.hpp>
+#include <boost/mpl/placeholders.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
-fcppt::signal::auto_connection
-sge::systems::quit_on_escape(
-	sge::systems::instance const &_instance
-)
+namespace sge
 {
-	return
-		_instance.keyboard_collector().key_callback(
-			sge::input::keyboard::action(
-				sge::input::keyboard::key_code::escape,
-				std::tr1::bind(
-					&sge::window::system::quit,
-					&_instance.window_system(),
-					awl::main::exit_success()
-				)
-			)
-		);
+namespace systems
+{
+namespace detail
+{
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
+
+template<
+	typename Choices,
+	typename Option
+>
+struct assert_dependencies_one
+:
+fcppt::mpl::all_of<
+	typename Option::needs_before,
+	boost::mpl::contains<
+		Choices,
+		boost::mpl::_1
+	>
+>
+{
+};
+
+FCPPT_PP_POP_WARNING
+
 }
+}
+}
+
+#endif

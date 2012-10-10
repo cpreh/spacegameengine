@@ -77,10 +77,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/object.hpp>
 #include <sge/sprite/state/parameters.hpp>
 #include <sge/systems/audio_player_default.hpp>
+#include <sge/systems/cursor_demuxer.hpp>
+#include <sge/systems/cursor_option_field.hpp>
+#include <sge/systems/image2d.hpp>
+#include <sge/systems/input.hpp>
 #include <sge/systems/instance.hpp>
+#include <sge/systems/keyboard_collector.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/systems/make_list.hpp>
 #include <sge/systems/quit_on_escape.hpp>
+#include <sge/systems/renderer.hpp>
+#include <sge/systems/renderer_caps.hpp>
 #include <sge/systems/window.hpp>
+#include <sge/systems/with_audio_loader.hpp>
+#include <sge/systems/with_audio_player.hpp>
+#include <sge/systems/with_image2d.hpp>
+#include <sge/systems/with_input.hpp>
+#include <sge/systems/with_renderer.hpp>
+#include <sge/systems/with_window.hpp>
 #include <sge/texture/const_part_scoped_ptr.hpp>
 #include <sge/texture/part_raw_ptr.hpp>
 #include <sge/viewport/center_on_resize.hpp>
@@ -103,7 +117,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/assign/list_of.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <boost/filesystem/path.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -258,8 +271,24 @@ try
 		768
 	);
 
-	sge::systems::instance const sys(
-		sge::systems::list()
+	sge::systems::instance<
+		boost::mpl::vector6<
+			sge::systems::with_renderer<
+				sge::systems::renderer_caps::ffp
+			>,
+			sge::systems::with_window,
+			sge::systems::with_input<
+				boost::mpl::vector2<
+					sge::systems::keyboard_collector,
+					sge::systems::cursor_demuxer
+				>
+			>,
+			sge::systems::with_audio_player,
+			sge::systems::with_audio_loader,
+			sge::systems::with_image2d
+		>
+	> const sys(
+		sge::systems::make_list
 		(
 			sge::systems::window(
 				sge::window::parameters(
@@ -289,11 +318,6 @@ try
 		)
 		(
 			sge::systems::input(
-				sge::systems::input_helper_field(
-					sge::systems::input_helper::keyboard_collector
-				)
-				|
-				sge::systems::input_helper::cursor_demuxer,
 				sge::systems::cursor_option_field::null()
 			)
 		)

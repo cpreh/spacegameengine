@@ -35,8 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/modules/input/cursor_modifier_unique_ptr.hpp>
 #include <sge/src/systems/modules/input/object.hpp>
 #include <sge/src/systems/modules/window/object.hpp>
-#include <sge/systems/input.hpp>
-#include <sge/systems/input_helper.hpp>
+#include <sge/systems/detail/input.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
@@ -44,7 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::systems::modules::input::object::object(
 	sge::input::plugin::collection const &_collection,
-	sge::systems::input const &_parameters,
+	sge::systems::detail::input const &_parameters,
 	sge::systems::modules::window::object const &_window
 )
 :
@@ -60,11 +59,7 @@ sge::systems::modules::input::object::object(
 		)
 	),
 	cursor_demuxer_(
-		(
-			_parameters.input_helpers()
-			&
-			sge::systems::input_helper::cursor_demuxer
-		)
+		_parameters.get_cursor_demuxer().get()
 		?
 			sge::input::cursor::object_unique_ptr(
 				fcppt::make_unique_ptr<
@@ -79,11 +74,7 @@ sge::systems::modules::input::object::object(
 			sge::input::cursor::object_unique_ptr()
 	),
 	keyboard_collector_(
-		(
-			_parameters.input_helpers()
-			&
-			systems::input_helper::keyboard_collector
-		)
+		_parameters.get_keyboard_collector().get()
 		?
 			sge::input::keyboard::device_unique_ptr(
 				fcppt::make_unique_ptr<
@@ -98,11 +89,7 @@ sge::systems::modules::input::object::object(
 			sge::input::keyboard::device_unique_ptr()
 	),
 	mouse_collector_(
-		(
-			_parameters.input_helpers()
-			&
-			systems::input_helper::mouse_collector
-		)
+		_parameters.get_mouse_collector().get()
 		?
 			sge::input::mouse::device_unique_ptr(
 				fcppt::make_unique_ptr<
@@ -117,7 +104,7 @@ sge::systems::modules::input::object::object(
 			sge::input::mouse::device_unique_ptr()
 	),
 	cursor_modifier_(
-		_parameters.cursor_options()
+		_parameters.parameters().cursor_options()
 		?
 			fcppt::make_unique_ptr<
 				sge::systems::modules::input::cursor_modifier
@@ -125,7 +112,7 @@ sge::systems::modules::input::object::object(
 				fcppt::ref(
 					*input_processor_
 				),
-				_parameters.cursor_options()
+				_parameters.parameters().cursor_options()
 			)
 		:
 			sge::systems::modules::input::cursor_modifier_unique_ptr()

@@ -97,13 +97,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/image2d.hpp>
 #include <sge/systems/input.hpp>
-#include <sge/systems/input_helper.hpp>
-#include <sge/systems/input_helper_field.hpp>
 #include <sge/systems/instance.hpp>
+#include <sge/systems/keyboard_collector.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/systems/make_list.hpp>
 #include <sge/systems/quit_on_escape.hpp>
 #include <sge/systems/renderer.hpp>
+#include <sge/systems/renderer_caps.hpp>
 #include <sge/systems/window.hpp>
+#include <sge/systems/with_image2d.hpp>
+#include <sge/systems/with_input.hpp>
+#include <sge/systems/with_renderer.hpp>
+#include <sge/systems/with_window.hpp>
 #include <sge/texture/part_raw_ref.hpp>
 #include <sge/viewport/center_on_resize.hpp>
 #include <sge/window/dim.hpp>
@@ -122,6 +127,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 #include <example_main.hpp>
 #include <exception>
 #include <iostream>
@@ -141,10 +147,29 @@ try
 		768
 	);
 
-	sge::systems::instance const sys(
-		sge::systems::list()
+	// Tell the system which static capabilities we need:
+	// - We need a renderer that is ffp capable (for sprite)
+	// - A window is needed for renderer/input
+	// - The keyboard collector is needed so we can quit the application
+	//   using any connected keyboard
+	// - The image2d system is used to load some png files
+	sge::systems::instance<
+		boost::mpl::vector4<
+			sge::systems::with_renderer<
+				sge::systems::renderer_caps::ffp
+			>,
+			sge::systems::with_window,
+			sge::systems::with_input<
+				boost::mpl::vector1<
+					sge::systems::keyboard_collector
+				>
+			>,
+			sge::systems::with_image2d
+		>
+	> const sys(
+		sge::systems::make_list
 		(
-			// Request a window with the desired size.
+			// Request a window with the desired title and size.
 			sge::systems::window(
 				sge::window::parameters(
 					sge::window::title(
@@ -177,17 +202,6 @@ try
 			)
 		)
 		(
-			// Request a keyboard collector which acts as if
-			// all the connected keyboards were a sinlge keyboard.
-			sge::systems::input(
-				sge::systems::input_helper_field(
-					sge::systems::input_helper::keyboard_collector
-				),
-				// Nothing special to do with the cursor.
-				sge::systems::cursor_option_field()
-			)
-		)
-		(
 			// Request an image loader that can load png files.
 			sge::systems::image2d(
 				sge::image::capabilities_field::null(),
@@ -200,6 +214,11 @@ try
 						)
 					)
 				)
+			)
+		)
+		(
+			sge::systems::input(
+				sge::systems::cursor_option_field::null()
 			)
 		)
 	);

@@ -18,22 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_ANY_HPP_INCLUDED
-#define SGE_SYSTEMS_ANY_HPP_INCLUDED
-
-#include <sge/systems/any_types.hpp>
-#include <fcppt/variant/object_fwd.hpp>
+#ifndef SGE_SYSTEMS_DETAIL_INPUT_FWD_HPP_INCLUDED
+#define SGE_SYSTEMS_DETAIL_INPUT_FWD_HPP_INCLUDED
 
 
 namespace sge
 {
 namespace systems
 {
+namespace detail
+{
 
-typedef fcppt::variant::object<
-	sge::systems::any_types
-> any;
+class input;
 
+}
 }
 }
 

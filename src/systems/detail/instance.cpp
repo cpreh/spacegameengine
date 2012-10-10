@@ -35,11 +35,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/any_visitor.hpp>
 #include <sge/src/systems/extract_plugin_path.hpp>
 #include <sge/src/systems/detail/instance_impl.hpp>
-#include <sge/systems/any_key.hpp>
-#include <sge/systems/any_map.hpp>
-#include <sge/systems/instance.hpp>
-#include <sge/systems/list.hpp>
-#include <sge/systems/renderer.hpp>
+#include <sge/systems/detail/any_key.hpp>
+#include <sge/systems/detail/any_map.hpp>
+#include <sge/systems/detail/instance.hpp>
+#include <sge/systems/detail/list.hpp>
+#include <sge/systems/detail/renderer.hpp>
 #include <sge/viewport/manager_fwd.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
@@ -48,8 +48,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/variant/object_impl.hpp>
 
 
-sge::systems::instance::instance(
-	sge::systems::list const &_list
+sge::systems::detail::instance::instance(
+	sge::systems::detail::list const &_list
 )
 :
 	impl_(
@@ -62,7 +62,7 @@ sge::systems::instance::instance(
 		)
 	)
 {
-	sge::systems::any_map const &map(
+	sge::systems::detail::any_map const &map(
 		_list.get()
 	);
 
@@ -70,9 +70,9 @@ sge::systems::instance::instance(
 	// The renderer system must be initialized before the window,
 	// but the window must be initialized before a renderer device
 	{
-		sge::systems::any_map::const_iterator const it(
+		sge::systems::detail::any_map::const_iterator const it(
 			map.find(
-				sge::systems::any_key::renderer
+				sge::systems::detail::any_key::renderer
 			)
 		);
 
@@ -81,13 +81,13 @@ sge::systems::instance::instance(
 		)
 			impl_->init_renderer_system(
 				it->second.get<
-					sge::systems::renderer
+					sge::systems::detail::renderer
 				>()
 			);
 	}
 
 	for(
-		sge::systems::any_map::const_iterator it(
+		sge::systems::detail::any_map::const_iterator it(
 			map.begin()
 		);
 		it != map.end();
@@ -103,108 +103,108 @@ sge::systems::instance::instance(
 	impl_->post_init();
 }
 
-sge::systems::instance::~instance()
+sge::systems::detail::instance::~instance()
 {
 }
 
 sge::plugin::manager &
-sge::systems::instance::plugin_manager()
+sge::systems::detail::instance::plugin_manager()
 {
 	return impl_->plugin_manager();
 }
 
 sge::renderer::system &
-sge::systems::instance::renderer_system() const
+sge::systems::detail::instance::renderer_system() const
 {
 	return impl_->renderer_system();
 }
 
 sge::renderer::device::ffp &
-sge::systems::instance::renderer_ffp() const
+sge::systems::detail::instance::renderer_ffp() const
 {
 	return impl_->renderer_device_ffp();
 }
 
 sge::renderer::device::core &
-sge::systems::instance::renderer_core() const
+sge::systems::detail::instance::renderer_core() const
 {
 	return impl_->renderer_device_core();
 }
 
 sge::input::system &
-sge::systems::instance::input_system() const
+sge::systems::detail::instance::input_system() const
 {
 	return impl_->input_system();
 }
 
 sge::input::processor &
-sge::systems::instance::input_processor() const
+sge::systems::detail::instance::input_processor() const
 {
 	return impl_->input_processor();
 }
 
 sge::input::cursor::object &
-sge::systems::instance::cursor_demuxer() const
+sge::systems::detail::instance::cursor_demuxer() const
 {
 	return impl_->cursor_demuxer();
 }
 
 sge::input::keyboard::device &
-sge::systems::instance::keyboard_collector() const
+sge::systems::detail::instance::keyboard_collector() const
 {
 	return impl_->keyboard_collector();
 }
 
 sge::input::mouse::device &
-sge::systems::instance::mouse_collector() const
+sge::systems::detail::instance::mouse_collector() const
 {
 	return impl_->mouse_collector();
 }
 
 sge::image2d::system &
-sge::systems::instance::image_system() const
+sge::systems::detail::instance::image_system() const
 {
 	return impl_->image_system();
 }
 
 sge::audio::loader &
-sge::systems::instance::audio_loader() const
+sge::systems::detail::instance::audio_loader() const
 {
 	return impl_->audio_loader();
 }
 
 sge::audio::player &
-sge::systems::instance::audio_player() const
+sge::systems::detail::instance::audio_player() const
 {
 	return impl_->audio_player();
 }
 
 sge::charconv::system &
-sge::systems::instance::charconv_system() const
+sge::systems::detail::instance::charconv_system() const
 {
 	return impl_->charconv_system();
 }
 
 sge::font::system &
-sge::systems::instance::font_system() const
+sge::systems::detail::instance::font_system() const
 {
 	return impl_->font_system();
 }
 
 sge::window::object &
-sge::systems::instance::window() const
+sge::systems::detail::instance::window() const
 {
 	return impl_->window();
 }
 
 sge::window::system &
-sge::systems::instance::window_system() const
+sge::systems::detail::instance::window_system() const
 {
 	return impl_->window_system();
 }
 
 sge::viewport::manager &
-sge::systems::instance::viewport_manager() const
+sge::systems::detail::instance::viewport_manager() const
 {
 	return impl_->viewport_manager();
 }

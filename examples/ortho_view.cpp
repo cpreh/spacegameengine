@@ -77,9 +77,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/object.hpp>
 #include <sge/sprite/state/parameters.hpp>
 #include <sge/sprite/state/scoped.hpp>
+#include <sge/systems/cursor_demuxer.hpp>
+#include <sge/systems/image2d.hpp>
 #include <sge/systems/instance.hpp>
+#include <sge/systems/keyboard_collector.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/systems/make_list.hpp>
+#include <sge/systems/mouse_collector.hpp>
 #include <sge/systems/quit_on_escape.hpp>
+#include <sge/systems/renderer.hpp>
+#include <sge/systems/renderer_caps.hpp>
+#include <sge/systems/window.hpp>
+#include <sge/systems/with_image2d.hpp>
+#include <sge/systems/with_input.hpp>
+#include <sge/systems/with_renderer.hpp>
+#include <sge/systems/with_window.hpp>
 #include <sge/texture/const_part_scoped_ptr.hpp>
 #include <sge/texture/part_raw_ptr.hpp>
 #include <sge/timer/basic.hpp>
@@ -145,8 +157,23 @@ try
 		1024,
 		768);
 
-	sge::systems::instance const sys(
-		sge::systems::list()
+	sge::systems::instance<
+		boost::mpl::vector4<
+			sge::systems::with_window,
+			sge::systems::with_renderer<
+				sge::systems::renderer_caps::ffp
+			>,
+			sge::systems::with_input<
+				boost::mpl::vector3<
+					sge::systems::cursor_demuxer,
+					sge::systems::keyboard_collector,
+					sge::systems::mouse_collector
+				>
+			>,
+			sge::systems::with_image2d
+		>
+	> const sys(
+		sge::systems::make_list
 		(sge::systems::window(
 				sge::window::parameters(
 					sge::window::title(
@@ -165,21 +192,13 @@ try
 				),
 				sge::viewport::fill_on_resize()))
 		(sge::systems::input(
-				sge::systems::input_helper_field(
-					sge::systems::input_helper::keyboard_collector) | sge::systems::input_helper::mouse_collector | sge::systems::input_helper::cursor_demuxer,
 				sge::systems::cursor_option_field()))
 		(sge::systems::image2d(
 				sge::image::capabilities_field::null(),
 				sge::media::optional_extension_set(
 					fcppt::assign::make_container<sge::media::extension_set>(
 						sge::media::extension(
-							FCPPT_TEXT("png"))))))
-		(sge::systems::audio_loader(
-				sge::audio::loader_capabilities_field::null(),
-				sge::media::optional_extension_set(
-					fcppt::assign::make_container<sge::media::extension_set>(
-						sge::media::extension(
-							FCPPT_TEXT("ogg")))))));
+							FCPPT_TEXT("png")))))));
 
 	sge::camera::ortho_freelook::object camera(
 		sge::camera::ortho_freelook::parameters(

@@ -18,23 +18,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_INPUT_HELPER_FIELD_HPP_INCLUDED
-#define SGE_SYSTEMS_INPUT_HELPER_FIELD_HPP_INCLUDED
+#ifndef SGE_SYSTEMS_DETAIL_HAS_WITH_AUDIO_LOADER_HPP_INCLUDED
+#define SGE_SYSTEMS_DETAIL_HAS_WITH_AUDIO_LOADER_HPP_INCLUDED
 
-#include <sge/systems/input_helper.hpp>
-#include <fcppt/container/bitfield/object_fwd.hpp>
+#include <sge/systems/with_audio_loader_fwd.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/contains.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
 {
 namespace systems
 {
+namespace detail
+{
 
-typedef fcppt::container::bitfield::object<
-	input_helper::type,
-	input_helper::size
-> input_helper_field;
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
+template<
+	typename Choices
+>
+struct has_with_audio_loader
+:
+boost::mpl::contains<
+	Choices,
+	sge::systems::with_audio_loader
+>
+{
+};
+
+FCPPT_PP_POP_WARNING
+
+}
 }
 }
 

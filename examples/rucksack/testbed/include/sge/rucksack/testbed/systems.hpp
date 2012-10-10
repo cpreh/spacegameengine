@@ -18,18 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-class ffp_context
-{
-public:
-	void
-	transform(
-		sge::renderer::matrix_mode::type,
-		sge::renderer::matrix4 const &);
-private:
-	sge::shader::pair shader_;
-};
+#ifndef SGE_RUCKSACK_TESTBED_SYSTEMS_HPP_INCLUDED
+#define SGE_RUCKSACK_TESTBED_SYSTEMS_HPP_INCLUDED
 
-void
-ffp_context::transform()
-{
-}
+#include <sge/rucksack/testbed/systems_fwd.hpp>
+#include <sge/systems/instance.hpp>
+#include <sge/systems/keyboard_collector.hpp>
+#include <sge/systems/renderer_caps.hpp>
+#include <sge/systems/with_input.hpp>
+#include <sge/systems/with_renderer.hpp>
+#include <sge/systems/with_window.hpp>
+
+
+#endif

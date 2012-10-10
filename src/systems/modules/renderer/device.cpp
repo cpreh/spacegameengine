@@ -25,13 +25,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/modules/renderer/device.hpp>
 #include <sge/src/systems/modules/renderer/system_fwd.hpp>
 #include <sge/src/systems/modules/window/object.hpp>
-#include <sge/systems/renderer.hpp>
+#include <sge/systems/detail/renderer.hpp>
 #include <sge/viewport/manager.hpp>
 #include <sge/window/dim.hpp>
 
 
 sge::systems::modules::renderer::device::device(
-	sge::systems::renderer const &_parameters,
+	sge::systems::detail::renderer const &_parameters,
 	sge::systems::modules::renderer::system const &_system,
 	sge::systems::modules::window::object const &_window
 )
@@ -46,7 +46,7 @@ sge::systems::modules::renderer::device::device(
 	viewport_manager_(
 		*renderer_device_,
 		_window.window(),
-		_parameters.resize_callback()
+		_parameters.parameters().resize_callback()
 	)
 {
 }
@@ -58,7 +58,6 @@ sge::systems::modules::renderer::device::~device()
 sge::renderer::device::ffp &
 sge::systems::modules::renderer::device::get_ffp() const
 {
-	// TODO: error checking?
 	return
 		static_cast<
 			sge::renderer::device::ffp &

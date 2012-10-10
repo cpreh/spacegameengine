@@ -24,13 +24,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/audio_player.hpp>
 #include <sge/systems/symbol.hpp>
 
+
 namespace sge
 {
 namespace systems
 {
 
 SGE_SYSTEMS_SYMBOL
-systems::audio_player const
+sge::systems::audio_player const
 audio_player_default();
 
 }

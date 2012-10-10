@@ -23,10 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/input_fwd.hpp>
-#include <sge/systems/input_helper_field.hpp>
 #include <sge/systems/symbol.hpp>
 #include <fcppt/nonassignable.hpp>
-#include <fcppt/container/bitfield/object_impl.hpp>
 
 
 namespace sge
@@ -41,20 +39,15 @@ class input
 	);
 public:
 	SGE_SYSTEMS_SYMBOL
+	explicit
 	input(
-		systems::input_helper_field const &,
-		systems::cursor_option_field const &
+		sge::systems::cursor_option_field const &
 	);
 
-	systems::input_helper_field const &
-	input_helpers() const;
-
-	systems::cursor_option_field const &
+	sge::systems::cursor_option_field const &
 	cursor_options() const;
 private:
-	systems::input_helper_field const input_helpers_;
-
-	systems::cursor_option_field const cursor_options_;
+	sge::systems::cursor_option_field const cursor_options_;
 };
 
 }

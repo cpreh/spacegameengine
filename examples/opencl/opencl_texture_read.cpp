@@ -41,6 +41,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/image2d.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/systems/make_list.hpp>
+#include <sge/systems/with_image2d.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
@@ -51,6 +53,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 #include <cstddef>
 #include <iostream>
 #include <ostream>
@@ -108,8 +111,12 @@ try
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Done, creating systems object\n");
 
-	sge::systems::instance const sys(
-		sge::systems::list()
+	sge::systems::instance<
+		boost::mpl::vector1<
+			sge::systems::with_image2d
+		>
+	> const sys(
+		sge::systems::make_list
 			(sge::systems::image2d(
 				sge::image::capabilities_field::null(),
 				sge::media::all_extensions)));

@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_SYSTEMS_MAKE_ANY_KEY_HPP_INCLUDED
 #define SGE_SRC_SYSTEMS_MAKE_ANY_KEY_HPP_INCLUDED
 
-#include <sge/systems/any.hpp>
-#include <sge/systems/any_key.hpp>
+#include <sge/systems/detail/any.hpp>
+#include <sge/systems/detail/any_key.hpp>
 
 
 namespace sge
@@ -30,9 +30,9 @@ namespace sge
 namespace systems
 {
 
-sge::systems::any_key::type
+sge::systems::detail::any_key::type
 make_any_key(
-	sge::systems::any const &
+	sge::systems::detail::any const &
 );
 
 }

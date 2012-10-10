@@ -2,6 +2,8 @@ set(
 	SGE_RUCKSACKTESTBED_FILES
 	examples/rucksack/testbed/include/sge/rucksack/testbed/object.hpp
 	examples/rucksack/testbed/include/sge/rucksack/testbed/object_impl_fwd.hpp
+	examples/rucksack/testbed/include/sge/rucksack/testbed/systems.hpp
+	examples/rucksack/testbed/include/sge/rucksack/testbed/systems_fwd.hpp
 	examples/rucksack/testbed/src/include/sge/src/rucksack/testbed/object_impl.hpp
 	examples/rucksack/testbed/src/object.cpp
 	examples/rucksack/testbed/src/object_impl.cpp

@@ -18,22 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_ANY_TYPES_HPP_INCLUDED
-#define SGE_SYSTEMS_ANY_TYPES_HPP_INCLUDED
-
-#include <sge/systems/audio_loader.hpp>
-#include <sge/systems/audio_player.hpp>
-#include <sge/systems/basic_loader.hpp>
-#include <sge/systems/charconv.hpp>
-#include <sge/systems/config.hpp>
-#include <sge/systems/font.hpp>
-#include <sge/systems/image2d.hpp>
-#include <sge/systems/input.hpp>
-#include <sge/systems/renderer.hpp>
-#include <sge/systems/window.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/vector/vector10.hpp>
-#include <fcppt/config/external_end.hpp>
+#ifndef SGE_SYSTEMS_WITH_IMAGE2D_FWD_HPP_INCLUDED
+#define SGE_SYSTEMS_WITH_IMAGE2D_FWD_HPP_INCLUDED
 
 
 namespace sge
@@ -41,17 +27,7 @@ namespace sge
 namespace systems
 {
 
-typedef boost::mpl::vector9<
-	systems::config,
-	systems::window,
-	systems::renderer,
-	systems::image2d,
-	systems::audio_loader,
-	systems::audio_player,
-	systems::input,
-	systems::charconv,
-	systems::font
-> any_types;
+struct with_image2d;
 
 }
 }

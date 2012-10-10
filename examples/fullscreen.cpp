@@ -39,8 +39,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/systems/make_list.hpp>
 #include <sge/systems/renderer.hpp>
+#include <sge/systems/renderer_caps.hpp>
 #include <sge/systems/window.hpp>
+#include <sge/systems/with_renderer.hpp>
+#include <sge/systems/with_window.hpp>
 #include <sge/timer/basic.hpp>
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/clocks/standard.hpp>
@@ -61,6 +65,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/chrono/duration.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 #include <example_main.hpp>
 #include <exception>
 #include <ostream>
@@ -83,8 +88,15 @@ try
 		600
 	);
 
-	sge::systems::instance const sys(
-		sge::systems::list()
+	sge::systems::instance<
+		boost::mpl::vector2<
+			sge::systems::with_renderer<
+				sge::systems::renderer_caps::core
+			>,
+			sge::systems::with_window
+		>
+	> const sys(
+		sge::systems::make_list
 		(
 			sge::systems::window(
 				sge::window::parameters(

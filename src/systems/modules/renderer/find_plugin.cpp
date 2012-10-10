@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/system.hpp>
+#include <sge/renderer/caps/system.hpp>
 #include <sge/renderer/caps/system_field.hpp>
 #include <sge/renderer/plugin/collection_fwd.hpp>
 #include <sge/renderer/plugin/traits.hpp>
@@ -26,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/modules/renderer/find_plugin.hpp>
 #include <sge/src/systems/modules/renderer/system_pair.hpp>
 #include <sge/systems/optional_name_fwd.hpp>
+#include <sge/systems/renderer_caps.hpp>
 #include <fcppt/container/bitfield/is_subset_eq.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/spirit/home/phoenix/bind/bind_function.hpp>
@@ -39,7 +41,8 @@ sge::systems::modules::renderer::system_pair const
 sge::systems::modules::renderer::find_plugin(
 	sge::renderer::plugin::collection const &_collection,
 	sge::systems::optional_name const &_name,
-	sge::renderer::caps::system_field const &_caps
+	sge::renderer::caps::system_field const &_caps,
+	sge::systems::renderer_caps::type const _renderer_caps
 )
 {
 	return
@@ -54,7 +57,16 @@ sge::systems::modules::renderer::find_plugin(
 					sge::renderer::caps::system_field::static_size::value,
 					sge::renderer::caps::system_field::internal_type
 				>,
-				_caps,
+				_renderer_caps
+				==
+				sge::systems::renderer_caps::ffp
+				?
+					_caps
+					|
+					sge::renderer::caps::system::ffp
+				:
+					_caps
+				,
 				boost::phoenix::bind(
 					&sge::renderer::system::caps,
 					boost::phoenix::arg_names::arg1

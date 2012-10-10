@@ -1,9 +1,5 @@
 set(
 	SGE_SYSTEMS_FILES
-	include/sge/systems/any.hpp
-	include/sge/systems/any_key.hpp
-	include/sge/systems/any_map.hpp
-	include/sge/systems/any_types.hpp
 	include/sge/systems/audio_loader.hpp
 	include/sge/systems/audio_loader_fwd.hpp
 	include/sge/systems/audio_player.hpp
@@ -15,9 +11,46 @@ set(
 	include/sge/systems/charconv_fwd.hpp
 	include/sge/systems/config.hpp
 	include/sge/systems/config_fwd.hpp
+	include/sge/systems/cursor_demuxer.hpp
+	include/sge/systems/cursor_demuxer_fwd.hpp
 	include/sge/systems/cursor_option.hpp
 	include/sge/systems/cursor_option_field.hpp
+	include/sge/systems/cursor_option_field_fwd.hpp
+	include/sge/systems/detail/add_defaults.hpp
+	include/sge/systems/detail/any.hpp
+	include/sge/systems/detail/any_fwd.hpp
+	include/sge/systems/detail/any_key.hpp
+	include/sge/systems/detail/any_map.hpp
+	include/sge/systems/detail/any_types.hpp
+	include/sge/systems/detail/any_types_fwd.hpp
+	include/sge/systems/detail/assert_dependencies.hpp
+	include/sge/systems/detail/assert_dependencies_one.hpp
+	include/sge/systems/detail/extract_needs_init.hpp
+	include/sge/systems/detail/extract_parameter_type.hpp
+	include/sge/systems/detail/has_input_option.hpp
+	include/sge/systems/detail/has_with_audio_loader.hpp
+	include/sge/systems/detail/has_with_audio_player.hpp
+	include/sge/systems/detail/has_with_charconv.hpp
+	include/sge/systems/detail/has_with_font.hpp
+	include/sge/systems/detail/has_with_image2d.hpp
+	include/sge/systems/detail/has_with_input.hpp
+	include/sge/systems/detail/has_with_renderer.hpp
+	include/sge/systems/detail/has_with_window.hpp
+	include/sge/systems/detail/input.hpp
+	include/sge/systems/detail/input_fwd.hpp
+	include/sge/systems/detail/input_option.hpp
+	include/sge/systems/detail/instance.hpp
 	include/sge/systems/detail/instance_impl_fwd.hpp
+	include/sge/systems/detail/is_with_input.hpp
+	include/sge/systems/detail/is_with_renderer.hpp
+	include/sge/systems/detail/list.hpp
+	include/sge/systems/detail/list_fwd.hpp
+	include/sge/systems/detail/make_list.hpp
+	include/sge/systems/detail/make_list_visitor.hpp
+	include/sge/systems/detail/quit_on_escape.hpp
+	include/sge/systems/detail/renderer.hpp
+	include/sge/systems/detail/renderer_caps.hpp
+	include/sge/systems/detail/renderer_fwd.hpp
 	include/sge/systems/exception.hpp
 	include/sge/systems/font.hpp
 	include/sge/systems/font_fwd.hpp
@@ -25,30 +58,59 @@ set(
 	include/sge/systems/image2d_fwd.hpp
 	include/sge/systems/input.hpp
 	include/sge/systems/input_fwd.hpp
-	include/sge/systems/input_helper.hpp
-	include/sge/systems/input_helper_field.hpp
 	include/sge/systems/instance.hpp
+	include/sge/systems/instance_decl.hpp
 	include/sge/systems/instance_fwd.hpp
+	include/sge/systems/instance_impl.hpp
+	include/sge/systems/keyboard_collector.hpp
+	include/sge/systems/keyboard_collector_fwd.hpp
 	include/sge/systems/list.hpp
+	include/sge/systems/list_decl.hpp
 	include/sge/systems/list_fwd.hpp
+	include/sge/systems/list_impl.hpp
+	include/sge/systems/make_list.hpp
+	include/sge/systems/mouse_collector.hpp
+	include/sge/systems/mouse_collector_fwd.hpp
 	include/sge/systems/optional_name.hpp
 	include/sge/systems/optional_name_fwd.hpp
 	include/sge/systems/plugin_path.hpp
 	include/sge/systems/quit_on_escape.hpp
 	include/sge/systems/renderer.hpp
+	include/sge/systems/renderer_caps.hpp
 	include/sge/systems/renderer_fwd.hpp
 	include/sge/systems/window.hpp
 	include/sge/systems/window_fwd.hpp
+	include/sge/systems/with_audio_loader.hpp
+	include/sge/systems/with_audio_loader_fwd.hpp
+	include/sge/systems/with_audio_player.hpp
+	include/sge/systems/with_audio_player_fwd.hpp
+	include/sge/systems/with_charconv.hpp
+	include/sge/systems/with_charconv_fwd.hpp
+	include/sge/systems/with_font.hpp
+	include/sge/systems/with_font_fwd.hpp
+	include/sge/systems/with_image2d.hpp
+	include/sge/systems/with_image2d_fwd.hpp
+	include/sge/systems/with_input.hpp
+	include/sge/systems/with_input_fwd.hpp
+	include/sge/systems/with_renderer.hpp
+	include/sge/systems/with_renderer_fwd.hpp
+	include/sge/systems/with_window.hpp
+	include/sge/systems/with_window_fwd.hpp
 	include/sge/systems/wrapped_window.hpp
 	include/sge/systems/wrapped_window_fwd.hpp
-	src/systems/any_key.cpp
 	src/systems/any_visitor.cpp
 	src/systems/audio_loader.cpp
 	src/systems/audio_player.cpp
 	src/systems/audio_player_default.cpp
 	src/systems/charconv.cpp
 	src/systems/config.cpp
+	src/systems/detail/any_key.cpp
+	src/systems/detail/input.cpp
+	src/systems/detail/instance.cpp
 	src/systems/detail/instance_impl.cpp
+	src/systems/detail/list.cpp
+	src/systems/detail/quit_on_escape.cpp
+	src/systems/detail/renderer.cpp
 	src/systems/exception.cpp
 	src/systems/extract_plugin_path.cpp
 	src/systems/font.cpp
@@ -118,8 +180,6 @@ set(
 	src/systems/include/sge/src/systems/plugin_pair_fwd.hpp
 	src/systems/include/sge/src/systems/plugin_pair_impl.hpp
 	src/systems/input.cpp
-	src/systems/instance.cpp
-	src/systems/list.cpp
 	src/systems/make_any_key.cpp
 	src/systems/modules/audio/find_player_plugin.cpp
 	src/systems/modules/audio/loader.cpp
@@ -145,7 +205,6 @@ set(
 	src/systems/modules/window/original.cpp
 	src/systems/modules/window/quit.cpp
 	src/systems/modules/window/wrapped.cpp
-	src/systems/quit_on_escape.cpp
 	src/systems/renderer.cpp
 	src/systems/window.cpp
 	src/systems/wrapped_window.cpp

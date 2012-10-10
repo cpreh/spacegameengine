@@ -53,11 +53,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/target/onscreen.hpp>
-#include <sge/systems/font.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/systems/make_list.hpp>
 #include <sge/systems/renderer.hpp>
+#include <sge/systems/renderer_caps.hpp>
 #include <sge/systems/window.hpp>
+#include <sge/systems/with_charconv.hpp>
+#include <sge/systems/with_font.hpp>
+#include <sge/systems/with_renderer.hpp>
+#include <sge/systems/with_window.hpp>
 #include <sge/timer/scoped_frame_limiter.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
 #include <sge/window/dim.hpp>
@@ -410,8 +415,17 @@ try
 
 	std::map<std::string, unsigned long> device_totals;
 
-	sge::systems::instance const sys(
-		sge::systems::list()
+	sge::systems::instance<
+		boost::mpl::vector4<
+			sge::systems::with_window,
+			sge::systems::with_renderer<
+				sge::systems::renderer_caps::ffp
+			>,
+			sge::systems::with_charconv,
+			sge::systems::with_font
+		>
+	> const sys(
+		sge::systems::make_list
 		(sge::systems::window(
 				sge::window::parameters(
 					sge::window::title(
@@ -431,11 +445,7 @@ try
 					sge::renderer::parameters::vsync::on,
 					sge::renderer::display_mode::optional_object()
 				),
-				sge::viewport::fill_on_resize()))
-		(
-			sge::systems::font()
-		)
-	);
+				sge::viewport::fill_on_resize())));
 
 	sge::font::object_scoped_ptr const font(
 		sys.font_system().create_font(

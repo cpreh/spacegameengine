@@ -21,21 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SYSTEMS_CURSOR_OPTION_FIELD_HPP_INCLUDED
 #define SGE_SYSTEMS_CURSOR_OPTION_FIELD_HPP_INCLUDED
 
-#include <sge/systems/cursor_option.hpp>
-#include <fcppt/container/bitfield/object_fwd.hpp>
+#include <sge/systems/cursor_option_field_fwd.hpp>
+#include <fcppt/container/bitfield/object_impl.hpp>
 
-
-namespace sge
-{
-namespace systems
-{
-
-typedef fcppt::container::bitfield::object<
-	cursor_option::type,
-	cursor_option::size
-> cursor_option_field;
-
-}
-}
 
 #endif

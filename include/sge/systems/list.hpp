@@ -21,41 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SYSTEMS_LIST_HPP_INCLUDED
 #define SGE_SYSTEMS_LIST_HPP_INCLUDED
 
-#include <sge/systems/any.hpp>
-#include <sge/systems/any_map.hpp>
+#include <sge/systems/list_decl.hpp>
 #include <sge/systems/list_fwd.hpp>
-#include <sge/systems/symbol.hpp>
+#include <sge/systems/list_impl.hpp>
 
-
-namespace sge
-{
-namespace systems
-{
-
-class list
-{
-public:
-	SGE_SYSTEMS_SYMBOL
-	list();
-
-	SGE_SYSTEMS_SYMBOL
-	explicit list(
-		systems::any const &
-	);
-
-	SGE_SYSTEMS_SYMBOL
-	systems::list const
-	operator()(
-		systems::any const &
-	) const;
-
-	systems::any_map const &
-	get() const;
-private:
-	systems::any_map states_;
-};
-
-}
-}
 
 #endif

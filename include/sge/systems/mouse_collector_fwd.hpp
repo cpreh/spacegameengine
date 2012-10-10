@@ -18,31 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_ANY_KEY_HPP_INCLUDED
-#define SGE_SYSTEMS_ANY_KEY_HPP_INCLUDED
+#ifndef SGE_SYSTEMS_MOUSE_COLLECTOR_FWD_HPP_INCLUDED
+#define SGE_SYSTEMS_MOUSE_COLLECTOR_FWD_HPP_INCLUDED
 
 
 namespace sge
 {
 namespace systems
 {
-namespace any_key
-{
-enum type
-{
-	config,
-	window,
-	renderer,
-	image2d,
-	audio_loader,
-	audio_player,
-	input,
-	charconv,
-	font,
-	size
-};
 
-}
+struct mouse_collector;
+
 }
 }
 

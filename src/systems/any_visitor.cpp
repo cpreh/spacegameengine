@@ -26,9 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/config_fwd.hpp>
 #include <sge/systems/font_fwd.hpp>
 #include <sge/systems/image2d_fwd.hpp>
-#include <sge/systems/input_fwd.hpp>
-#include <sge/systems/renderer_fwd.hpp>
 #include <sge/systems/window_fwd.hpp>
+#include <sge/systems/detail/input_fwd.hpp>
+#include <sge/systems/detail/renderer_fwd.hpp>
 
 
 sge::systems::any_visitor::any_visitor(
@@ -50,7 +50,7 @@ sge::systems::any_visitor::operator()(
 
 sge::systems::any_visitor::result_type
 sge::systems::any_visitor::operator()(
-	sge::systems::renderer const &_param
+	sge::systems::detail::renderer const &_param
 ) const
 {
 	impl_.init_renderer(
@@ -100,7 +100,7 @@ sge::systems::any_visitor::operator()(
 
 sge::systems::any_visitor::result_type
 sge::systems::any_visitor::operator()(
-	sge::systems::input const &_param
+	sge::systems::detail::input const &_param
 ) const
 {
 	impl_.init_input(

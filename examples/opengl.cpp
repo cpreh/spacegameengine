@@ -51,8 +51,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/systems/make_list.hpp>
 #include <sge/systems/renderer.hpp>
+#include <sge/systems/renderer_caps.hpp>
 #include <sge/systems/window.hpp>
+#include <sge/systems/with_renderer.hpp>
+#include <sge/systems/with_window.hpp>
 #include <sge/viewport/dont_manage.hpp>
 #include <sge/window/dim.hpp>
 #include <sge/window/parameters.hpp>
@@ -74,8 +78,15 @@ int
 main()
 try
 {
-	sge::systems::instance const sys(
-		sge::systems::list()
+	sge::systems::instance<
+		boost::mpl::vector2<
+			sge::systems::with_window,
+			sge::systems::with_renderer<
+				sge::systems::renderer_caps::core
+			>
+		>
+	> const sys(
+		sge::systems::make_list
 		(
 			sge::systems::window(
 				sge::window::parameters(
@@ -126,24 +137,18 @@ try
 		)
 	);
 
-	sge::renderer::opengl::texture::base const *const opengl_texture(
+	sge::renderer::opengl::texture::base const &opengl_texture(
 		dynamic_cast<
-			sge::renderer::opengl::texture::base const *
+			sge::renderer::opengl::texture::base const &
 		>(
-			texture.get()
+			*texture
 		)
 	);
 
-	if(
-		!opengl_texture
-	)
-		fcppt::io::cout()
-			<< FCPPT_TEXT("Not an opengl texture!\n");
-	else
-		fcppt::io::cout()
-			<< FCPPT_TEXT("Opengl texture id is ")
-			<< opengl_texture->id()
-			<< FCPPT_TEXT('\n');
+	fcppt::io::cout()
+		<< FCPPT_TEXT("Opengl texture id is ")
+		<< opengl_texture.id()
+		<< FCPPT_TEXT('\n');
 
 	typedef sge::renderer::vf::part<
 		boost::mpl::vector1<
@@ -182,27 +187,21 @@ try
 		)
 	);
 
-	sge::renderer::opengl::buffer::base const *const opengl_buffer(
+	sge::renderer::opengl::buffer::base const &opengl_buffer(
 		dynamic_cast<
-			sge::renderer::opengl::buffer::base const *
+			sge::renderer::opengl::buffer::base const &
 		>(
-			vertex_buffer.get()
+			*vertex_buffer
 		)
 	);
 
-	if(
-		!opengl_buffer
-	)
-		fcppt::io::cout()
-			<< FCPPT_TEXT("Not an opengl buffer!\n");
-	else
-		fcppt::io::cout()
-			<< FCPPT_TEXT("Opengl buffer id is ")
-			<< opengl_buffer->id()
-			<< FCPPT_TEXT(" and native is ")
-			<< std::boolalpha
-			<< opengl_buffer->native()
-			<< FCPPT_TEXT('\n');
+	fcppt::io::cout()
+		<< FCPPT_TEXT("Opengl buffer id is ")
+		<< opengl_buffer.id()
+		<< FCPPT_TEXT(" and native is ")
+		<< std::boolalpha
+		<< opengl_buffer.native()
+		<< FCPPT_TEXT('\n');
 }
 catch(
 	fcppt::exception const &_error

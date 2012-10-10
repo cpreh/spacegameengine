@@ -28,13 +28,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/modules/renderer/create_device.hpp>
 #include <sge/src/systems/modules/renderer/system.hpp>
 #include <sge/src/systems/modules/window/object.hpp>
-#include <sge/systems/renderer.hpp>
+#include <sge/systems/renderer_caps.hpp>
+#include <sge/systems/detail/renderer.hpp>
 #include <sge/window/object.hpp>
 
 
 sge::renderer::device::core_unique_ptr
 sge::systems::modules::renderer::create_device(
-	sge::systems::renderer const &_parameters,
+	sge::systems::detail::renderer const &_parameters,
 	sge::systems::modules::renderer::system const &_system,
 	sge::systems::modules::window::object const &_window
 )
@@ -43,15 +44,15 @@ sge::systems::modules::renderer::create_device(
 		sge::renderer::adapter(
 			0u
 		),
-		_parameters.parameters(),
+		_parameters.parameters().parameters(),
 		_window.window().awl_object()
 	);
 
 	return
 		(
 			_parameters.caps()
-			&
-			sge::renderer::caps::system::ffp
+			==
+			sge::systems::renderer_caps::ffp
 		)
 		?
 			sge::renderer::device::core_unique_ptr(

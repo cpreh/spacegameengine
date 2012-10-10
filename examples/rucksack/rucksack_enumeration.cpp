@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/colors.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/rucksack/testbed/object.hpp>
+#include <sge/rucksack/testbed/systems.hpp>
 #include <sge/rucksack/widget/dummy.hpp>
 #include <sge/rucksack/widget/enumeration.hpp>
 #include <sge/rucksack/widget/viewport_adaptor.hpp>
-#include <sge/systems/instance.hpp>
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>

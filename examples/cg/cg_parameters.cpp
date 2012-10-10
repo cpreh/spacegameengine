@@ -70,13 +70,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/make_part_index.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/input.hpp>
-#include <sge/systems/input_helper.hpp>
-#include <sge/systems/input_helper_field.hpp>
 #include <sge/systems/instance.hpp>
+#include <sge/systems/keyboard_collector.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/systems/make_list.hpp>
 #include <sge/systems/quit_on_escape.hpp>
 #include <sge/systems/renderer.hpp>
+#include <sge/systems/renderer_caps.hpp>
 #include <sge/systems/window.hpp>
+#include <sge/systems/with_input.hpp>
+#include <sge/systems/with_renderer.hpp>
+#include <sge/systems/with_window.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
 #include <sge/window/dim.hpp>
 #include <sge/window/parameters.hpp>
@@ -111,8 +115,20 @@ example_main(
 )
 try
 {
-	sge::systems::instance const sys(
-		sge::systems::list()
+	sge::systems::instance<
+		boost::mpl::vector3<
+			sge::systems::with_window,
+			sge::systems::with_renderer<
+				sge::systems::renderer_caps::core
+			>,
+			sge::systems::with_input<
+				boost::mpl::vector1<
+					sge::systems::keyboard_collector
+				>
+			>
+		>
+	> const sys(
+		sge::systems::make_list
 		(
 			sge::systems::window(
 				sge::window::parameters(
@@ -143,9 +159,6 @@ try
 		)
 		(
 			sge::systems::input(
-				sge::systems::input_helper_field(
-					sge::systems::input_helper::keyboard_collector
-				),
 				sge::systems::cursor_option_field::null()
 			)
 		)

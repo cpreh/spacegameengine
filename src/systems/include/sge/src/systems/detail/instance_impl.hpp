@@ -50,11 +50,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/charconv_fwd.hpp>
 #include <sge/systems/font_fwd.hpp>
 #include <sge/systems/image2d_fwd.hpp>
-#include <sge/systems/input_fwd.hpp>
 #include <sge/systems/plugin_path.hpp>
-#include <sge/systems/renderer_fwd.hpp>
 #include <sge/systems/window_fwd.hpp>
+#include <sge/systems/detail/input_fwd.hpp>
 #include <sge/systems/detail/instance_impl_fwd.hpp>
+#include <sge/systems/detail/renderer_fwd.hpp>
 #include <sge/viewport/manager_fwd.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
@@ -83,12 +83,12 @@ public:
 
 	void
 	init_renderer_system(
-		sge::systems::renderer const &
+		sge::systems::detail::renderer const &
 	);
 
 	void
 	init_renderer(
-		sge::systems::renderer const &
+		sge::systems::detail::renderer const &
 	);
 
 	void
@@ -98,7 +98,7 @@ public:
 
 	void
 	init_input(
-		sge::systems::input const &
+		sge::systems::detail::input const &
 	);
 
 	void

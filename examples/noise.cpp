@@ -68,8 +68,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/parameters.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/systems/make_list.hpp>
 #include <sge/systems/renderer.hpp>
+#include <sge/systems/renderer_caps.hpp>
 #include <sge/systems/window.hpp>
+#include <sge/systems/with_renderer.hpp>
+#include <sge/systems/with_window.hpp>
 #include <sge/texture/const_part_shared_ptr.hpp>
 #include <sge/texture/part_raw_ref.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
@@ -95,6 +99,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/random/generator/minstd_rand.hpp>
 #include <fcppt/random/generator/seed_from_chrono.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 #include <example_main.hpp>
 #include <exception>
 #include <iostream>
@@ -205,8 +210,15 @@ try
 		1024
 	);
 
-	sge::systems::instance const sys(
-		sge::systems::list()
+	sge::systems::instance<
+		boost::mpl::vector2<
+			sge::systems::with_window,
+			sge::systems::with_renderer<
+				sge::systems::renderer_caps::ffp
+			>
+		>
+	> const sys(
+		sge::systems::make_list
 		(sge::systems::window(
 				sge::window::parameters(
 					sge::window::title(

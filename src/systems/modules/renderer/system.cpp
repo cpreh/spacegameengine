@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/plugin/collection_fwd.hpp>
 #include <sge/src/systems/modules/renderer/find_plugin.hpp>
 #include <sge/src/systems/modules/renderer/system.hpp>
-#include <sge/systems/renderer.hpp>
+#include <sge/systems/detail/renderer.hpp>
 #include <awl/system/object_fwd.hpp>
 #include <awl/visual/object.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
@@ -30,16 +30,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::systems::modules::renderer::system::system(
 	sge::renderer::plugin::collection const &_collection,
-	sge::systems::renderer const &_parameters
+	sge::systems::detail::renderer const &_parameters
 )
 :
 	renderer_parameters_(
-		_parameters.parameters()
+		_parameters.parameters().parameters()
 	),
 	system_pair_(
 		sge::systems::modules::renderer::find_plugin(
 			_collection,
-			_parameters.name(),
+			_parameters.parameters().name(),
+			_parameters.parameters().caps(),
 			_parameters.caps()
 		)
 	)

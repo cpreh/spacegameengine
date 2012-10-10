@@ -24,6 +24,7 @@ set(
 	include/sge/audio/loader.hpp
 	include/sge/audio/loader_capabilities.hpp
 	include/sge/audio/loader_capabilities_field.hpp
+	include/sge/audio/loader_capabilities_field_fwd.hpp
 	include/sge/audio/loader_fwd.hpp
 	include/sge/audio/loader_plugin/collection_fwd.hpp
 	include/sge/audio/loader_plugin/traits.hpp

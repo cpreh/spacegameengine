@@ -18,15 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/systems/any_key.hpp>
-#include <sge/systems/any_types.hpp>
-#include <fcppt/static_assert_statement.hpp>
+#ifndef SGE_SYSTEMS_WITH_CHARCONV_HPP_INCLUDED
+#define SGE_SYSTEMS_WITH_CHARCONV_HPP_INCLUDED
+
+#include <sge/systems/charconv_fwd.hpp>
+#include <sge/systems/with_charconv_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/size.hpp>
+#include <boost/mpl/bool.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
-FCPPT_STATIC_ASSERT_STATEMENT(
-	boost::mpl::size<sge::systems::any_types>::value
-	== sge::systems::any_key::size
-);
+namespace sge
+{
+namespace systems
+{
+
+struct with_charconv
+{
+	typedef boost::mpl::false_ needs_init;
+
+	typedef sge::systems::charconv parameter_type;
+
+	typedef boost::mpl::vector0<> needs_before;
+};
+
+}
+}
+
+#endif

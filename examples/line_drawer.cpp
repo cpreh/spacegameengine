@@ -80,17 +80,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/target/viewport_size.hpp>
-#include <sge/systems/cursor_option.hpp>
+#include <sge/systems/cursor_demuxer.hpp>
 #include <sge/systems/cursor_option_field.hpp>
-#include <sge/systems/font.hpp>
 #include <sge/systems/input.hpp>
-#include <sge/systems/input_helper.hpp>
-#include <sge/systems/input_helper_field.hpp>
 #include <sge/systems/instance.hpp>
+#include <sge/systems/keyboard_collector.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/systems/make_list.hpp>
 #include <sge/systems/quit_on_escape.hpp>
 #include <sge/systems/renderer.hpp>
+#include <sge/systems/renderer_caps.hpp>
 #include <sge/systems/window.hpp>
+#include <sge/systems/with_charconv.hpp>
+#include <sge/systems/with_font.hpp>
+#include <sge/systems/with_input.hpp>
+#include <sge/systems/with_renderer.hpp>
+#include <sge/systems/with_window.hpp>
 #include <sge/timer/frames_counter.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
 #include <sge/viewport/manager.hpp>
@@ -120,6 +125,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 #include <example_main.hpp>
 #include <exception>
 #include <iostream>
@@ -270,8 +276,23 @@ example_main(
 )
 try
 {
-	sge::systems::instance const sys(
-		sge::systems::list()
+	sge::systems::instance<
+		boost::mpl::vector5<
+			sge::systems::with_charconv,
+			sge::systems::with_font,
+			sge::systems::with_window,
+			sge::systems::with_renderer<
+				sge::systems::renderer_caps::ffp
+			>,
+			sge::systems::with_input<
+				boost::mpl::vector2<
+					sge::systems::cursor_demuxer,
+					sge::systems::keyboard_collector
+				>
+			>
+		>
+	> const sys(
+		sge::systems::make_list
 		(sge::systems::window(
 				sge::window::parameters(
 					sge::window::title(
@@ -292,12 +313,7 @@ try
 				),
 				sge::viewport::fill_on_resize()))
 		(sge::systems::input(
-				sge::systems::input_helper_field(
-					sge::systems::input_helper::mouse_collector)
-					| sge::systems::input_helper::cursor_demuxer
-					| sge::systems::input_helper::keyboard_collector,
-				sge::systems::cursor_option_field::null()))
-		(sge::systems::font()));
+				sge::systems::cursor_option_field::null())));
 
 	fcppt::signal::scoped_connection const escape_connection(
 		sge::systems::quit_on_escape(
