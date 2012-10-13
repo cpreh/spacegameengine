@@ -44,12 +44,14 @@ template<
 class iterator
 :
 public
-	detail::iterator_base_type<
+	sge::plugin::detail::iterator_base_type<
 		T
 	>::type
 {
 public:
-	typedef typename detail::iterator_base_type<T>::type base_type;
+	typedef typename sge::plugin::detail::iterator_base_type<
+		T
+	>::type base_type;
 
 	typedef typename base_type::value_type value_type;
 
@@ -62,8 +64,9 @@ public:
 	typedef typename base_type::iterator_category iterator_category;
 
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
-	explicit iterator(
-		category_array::iterator
+	explicit
+	iterator(
+		sge::plugin::category_array::iterator
 	);
 
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
@@ -96,7 +99,7 @@ public:
 		iterator const &
 	) const;
 private:
-	category_array::iterator it_;
+	sge::plugin::category_array::iterator it_;
 
 	friend class boost::iterator_core_access;
 };

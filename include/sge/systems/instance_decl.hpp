@@ -138,7 +138,7 @@ public:
 	sge::viewport::manager &
 	viewport_manager() const;
 private:
-	sge::systems::detail::instance const instance_;
+	sge::systems::detail::instance instance_;
 };
 
 }

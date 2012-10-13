@@ -58,61 +58,80 @@ class instance
 		instance
 	);
 public:
+	SGE_SYSTEMS_SYMBOL
 	explicit
 	instance(
 		sge::systems::detail::list const &
 	);
 
+	SGE_SYSTEMS_SYMBOL
 	~instance();
 
+	SGE_SYSTEMS_SYMBOL
 	sge::plugin::manager &
 	plugin_manager();
 
+	SGE_SYSTEMS_SYMBOL
 	sge::renderer::system &
 	renderer_system() const;
 
+	SGE_SYSTEMS_SYMBOL
 	sge::renderer::device::ffp &
 	renderer_ffp() const;
 
+	SGE_SYSTEMS_SYMBOL
 	sge::renderer::device::core &
 	renderer_core() const;
 
+	SGE_SYSTEMS_SYMBOL
 	sge::input::system &
 	input_system() const;
 
+	SGE_SYSTEMS_SYMBOL
 	sge::input::processor &
 	input_processor() const;
 
+	SGE_SYSTEMS_SYMBOL
 	sge::input::cursor::object &
 	cursor_demuxer() const;
 
+	SGE_SYSTEMS_SYMBOL
 	sge::input::keyboard::device &
 	keyboard_collector() const;
 
+	SGE_SYSTEMS_SYMBOL
 	sge::input::mouse::device &
 	mouse_collector() const;
 
+	SGE_SYSTEMS_SYMBOL
 	sge::image2d::system &
 	image_system() const;
 
+	SGE_SYSTEMS_SYMBOL
 	sge::audio::loader &
 	audio_loader() const;
 
+	SGE_SYSTEMS_SYMBOL
 	sge::audio::player &
 	audio_player() const;
 
+	SGE_SYSTEMS_SYMBOL
 	sge::charconv::system &
 	charconv_system() const;
 
+	SGE_SYSTEMS_SYMBOL
 	sge::font::system &
 	font_system() const;
 
+	SGE_SYSTEMS_SYMBOL
 	sge::window::system &
 	window_system() const;
 
+	SGE_SYSTEMS_SYMBOL
 	sge::window::object &
 	window() const;
 
+	SGE_SYSTEMS_SYMBOL
 	sge::viewport::manager &
 	viewport_manager() const;
 private:
