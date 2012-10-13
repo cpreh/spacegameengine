@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_JSON_OUTPUT_TO_RANGE_HPP_INCLUDED
 #define SGE_PARSE_JSON_OUTPUT_TO_RANGE_HPP_INCLUDED
 
-#//include <sge/parse/json/object.hpp>
-#include <sge/parse/json/output/grammar.hpp>
+#include <sge/parse/json/start_fwd.hpp>
+//#include <sge/parse/json/output/grammar.hpp>
 #include <sge/parse/json/output/tabbed_to_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -46,7 +46,7 @@ template<
 bool
 to_range(
 	Out &_beg,
-	json::object const &_data
+	sge::parse::json::start const &_data
 )
 {
 	fcppt::string const result(

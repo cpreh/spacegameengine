@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/member_map.hpp>
 #include <sge/parse/json/null.hpp>
 #include <sge/parse/json/object.hpp>
+#include <sge/parse/json/start.hpp>
 #include <sge/parse/json/string.hpp>
 #include <sge/parse/json/detail/member_wrapper.hpp>
 #include <sge/parse/json/detail/value_wrapper.hpp>
@@ -62,7 +63,7 @@ class grammar
 :
 	public boost::spirit::qi::grammar<
 		In,
-		sge::parse::json::object(),
+		sge::parse::json::start(),
 		sge::parse::encoding::space_type
 	>
 {
@@ -140,6 +141,12 @@ private:
 		sge::parse::json::object(),
 		space_type
 	> object_;
+
+	boost::spirit::qi::rule<
+		In,
+		sge::parse::json::start(),
+		space_type
+	> start_;
 };
 
 FCPPT_PP_POP_WARNING

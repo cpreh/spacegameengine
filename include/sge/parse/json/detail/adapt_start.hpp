@@ -18,26 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/json/array.hpp>
-#include <sge/parse/json/object.hpp>
-#include <sge/parse/json/parse_file_exn.hpp>
-#include <sge/parse/json/parse_stream.hpp>
+#ifndef SGE_PARSE_JSON_DETAIL_ADAPT_START_HPP_INCLUDED
+#define SGE_PARSE_JSON_DETAIL_ADAPT_START_HPP_INCLUDED
+
 #include <sge/parse/json/start.hpp>
-#include <sge/src/parse/parse_file_exn.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <boost/fusion/adapted/struct/adapt_struct.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
-sge::parse::json::start const
-sge::parse::json::parse_file_exn(
-	boost::filesystem::path const &_path
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
+
+BOOST_FUSION_ADAPT_STRUCT(
+	sge::parse::json::start,
+	(sge::parse::json::start_variant, variant)
 )
-{
-	return
-		sge::parse::parse_file_exn<
-			sge::parse::json::start
-		>(
-			_path
-		);
-}
+
+FCPPT_PP_POP_WARNING
+
+#endif

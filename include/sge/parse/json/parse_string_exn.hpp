@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PARSE_JSON_PARSE_STRING_EXN_HPP_INCLUDED
 
 #include <sge/parse/symbol.hpp>
-#include <sge/parse/json/object.hpp>
+#include <sge/parse/json/start.hpp>
 #include <fcppt/string.hpp>
 
 
@@ -32,9 +32,13 @@ namespace parse
 {
 namespace json
 {
-SGE_PARSE_SYMBOL sge::parse::json::object const
+
+SGE_PARSE_SYMBOL
+sge::parse::json::start const
 parse_string_exn(
-	fcppt::string const &);
+	fcppt::string const &
+);
+
 }
 }
 }

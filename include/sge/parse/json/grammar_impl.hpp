@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/null.hpp>
 #include <sge/parse/json/detail/adapt_array.hpp>
 #include <sge/parse/json/detail/adapt_object.hpp>
+#include <sge/parse/json/detail/adapt_start.hpp>
 #include <sge/parse/json/detail/insert_member.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
@@ -62,7 +63,7 @@ sge::parse::json::grammar<
 >::grammar()
 :
 	grammar::base_type(
-		object_
+		start_
 	),
 	int_(),
 	strict_float_(),
@@ -74,7 +75,8 @@ sge::parse::json::grammar<
 	value_wrapper_(),
 	member_wrapper_(),
 	member_map_(),
-	object_()
+	object_(),
+	start_()
 {
 	namespace encoding = parse::encoding;
 
@@ -170,10 +172,15 @@ sge::parse::json::grammar<
 			> qi::lit(FCPPT_TEXT('}'))
 		);
 
+	start_ %=
+		array_
+		|
+		object_;
+
 	boost::spirit::qi::on_error<
 		boost::spirit::qi::fail
 	>(
-		object_,
+		start_,
 		boost::phoenix::throw_(
 			boost::phoenix::construct<
 				parse::exception

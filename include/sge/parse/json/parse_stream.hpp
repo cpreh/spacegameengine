@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PARSE_JSON_PARSE_STREAM_HPP_INCLUDED
 
 #include <sge/parse/symbol.hpp>
-#include <sge/parse/json/object_fwd.hpp>
+#include <sge/parse/json/start_fwd.hpp>
 #include <fcppt/io/istream.hpp>
 
 
@@ -37,7 +37,7 @@ SGE_PARSE_SYMBOL
 bool
 parse_stream(
 	fcppt::io::istream &,
-	object &ret
+	sge::parse::json::start &
 );
 
 }

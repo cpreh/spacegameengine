@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/member_map.hpp>
 #include <sge/parse/json/null.hpp>
 #include <sge/parse/json/object.hpp>
+#include <sge/parse/json/start.hpp>
 #include <sge/parse/json/string.hpp>
 #include <sge/parse/json/value.hpp>
 #include <sge/parse/json/output/tabbed_to_stream.hpp>
@@ -280,24 +281,57 @@ private:
 	}
 };
 
+class start_visitor
+{
+	FCPPT_NONASSIGNABLE(
+		start_visitor
+	);
+public:
+	explicit
+	start_visitor(
+		fcppt::io::ostream &_stream
+	)
+	:
+		stream_(
+			_stream
+		)
+	{
+	}
+
+	typedef void result_type;
+
+	template<
+		typename Type
+	>
+	result_type
+	operator()(
+		Type const &_type
+	) const
+	{
+		output_visitor(
+			stream_,
+			0u
+		)(
+			_type
+		);
+	}
+private:
+	fcppt::io::ostream &stream_;
+};
+
 }
 
 void
 sge::parse::json::output::tabbed_to_stream(
 	fcppt::io::ostream &_stream,
-	sge::parse::json::object const &_object
+	sge::parse::json::start const &_start
 )
 {
-	sge::parse::json::value value(
-		_object
-	);
-
 	return
 		fcppt::variant::apply_unary(
-			output_visitor(
-				_stream,
-				0u
+			start_visitor(
+				_stream
 			),
-			value
+			_start.variant
 		);
 }

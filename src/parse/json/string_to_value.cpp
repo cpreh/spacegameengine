@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/exception.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/parse_stream.hpp>
+#include <sge/parse/json/start.hpp>
 #include <sge/parse/json/string_to_value.hpp>
 #include <sge/parse/json/value.hpp>
 #include <fcppt/format.hpp>
@@ -32,18 +33,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::parse::json::value const
 sge::parse::json::string_to_value(
-	fcppt::string const &s)
+	fcppt::string const &_string
+)
 {
-	fcppt::string const edited =
-		(fcppt::format(FCPPT_TEXT("{ \"value\" : %s }")) % s).str();
+	fcppt::string const edited(
+		(
+			fcppt::format(
+				FCPPT_TEXT("{ \"value\" : %s }")
+			)
+			%
+			_string
+		).str()
+	);
 
 	fcppt::io::istringstream stream(edited);
 
-	json::object result;
+	sge::parse::json::start result;
 
-	if (!json::parse_stream(stream,result))
-		throw sge::parse::json::exception(FCPPT_TEXT("Couldn't convert string \"")+s+FCPPT_TEXT("\" to json value"));
+	if(
+		!sge::parse::json::parse_stream(
+			stream,
+			result
+		)
+	)
+		throw sge::parse::json::exception(
+			FCPPT_TEXT("Couldn't convert string \"")
+			+
+			_string
+			+
+			FCPPT_TEXT("\" to json value")
+		);
+
 	return
-		result.members.find(
-			FCPPT_TEXT("value"))->second;
+		result.variant.get<
+			sge::parse::json::object
+		>().members.find(
+			FCPPT_TEXT("value")
+		)->second;
 }

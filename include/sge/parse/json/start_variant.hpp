@@ -18,26 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_PARSE_JSON_START_VARIANT_HPP_INCLUDED
+#define SGE_PARSE_JSON_START_VARIANT_HPP_INCLUDED
+
+#include <fcppt/variant/object_impl.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/object.hpp>
-#include <sge/parse/json/parse_file_exn.hpp>
-#include <sge/parse/json/parse_stream.hpp>
-#include <sge/parse/json/start.hpp>
-#include <sge/src/parse/parse_file_exn.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <sge/parse/json/start_variant_fwd.hpp>
 
 
-sge::parse::json::start const
-sge::parse::json::parse_file_exn(
-	boost::filesystem::path const &_path
-)
-{
-	return
-		sge::parse::parse_file_exn<
-			sge::parse::json::start
-		>(
-			_path
-		);
-}
+#endif

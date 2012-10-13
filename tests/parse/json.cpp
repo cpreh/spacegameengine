@@ -18,9 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/json/parse_stream.hpp>
-#include <sge/parse/json/object.hpp>
 #include <sge/parse/json/array.hpp>
+#include <sge/parse/json/object.hpp>
+#include <sge/parse/json/parse_stream.hpp>
+#include <sge/parse/json/start.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/io/istringstream.hpp>
 #include <fcppt/string.hpp>
@@ -54,7 +55,7 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 BOOST_AUTO_TEST_CASE(
-	parse_json_main
+	parse_json_object
 )
 {
 FCPPT_PP_POP_WARNING
@@ -74,7 +75,37 @@ FCPPT_PP_POP_WARNING
 		test
 	);
 
-	sge::parse::json::object result;
+	sge::parse::json::start result;
+
+	BOOST_REQUIRE(
+		sge::parse::json::parse_stream(
+			ss,
+			result
+		)
+	);
+}
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
+
+BOOST_AUTO_TEST_CASE(
+	parse_json_array
+)
+{
+FCPPT_PP_POP_WARNING
+
+	fcppt::string const test(
+		FCPPT_TEXT("[")
+			FCPPT_TEXT("42,")
+			FCPPT_TEXT("100")
+		FCPPT_TEXT("]")
+	);
+
+	fcppt::io::istringstream ss(
+		test
+	);
+
+	sge::parse::json::start result;
 
 	BOOST_REQUIRE(
 		sge::parse::json::parse_stream(
@@ -108,7 +139,7 @@ FCPPT_PP_POP_WARNING
 		test
 	);
 
-	sge::parse::json::object result;
+	sge::parse::json::start result;
 
 	BOOST_REQUIRE_EXCEPTION(
 		sge::parse::json::parse_stream(

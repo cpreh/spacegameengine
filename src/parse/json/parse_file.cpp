@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/json/object_fwd.hpp>
 #include <sge/parse/json/parse_file.hpp>
 #include <sge/parse/json/parse_stream.hpp>
+#include <sge/parse/json/start_fwd.hpp>
 #include <sge/src/parse/parse_file.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
@@ -30,11 +30,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 bool
 sge::parse::json::parse_file(
 	boost::filesystem::path const &_path,
-	json::object &_result
+	sge::parse::json::start &_result
 )
 {
 	return
-		parse::parse_file(
+		sge::parse::parse_file(
 			_path,
 			_result
 		);

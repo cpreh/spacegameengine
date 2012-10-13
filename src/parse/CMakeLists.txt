@@ -51,6 +51,7 @@ set(
 	include/sge/parse/json/convert_to.hpp
 	include/sge/parse/json/detail/adapt_array.hpp
 	include/sge/parse/json/detail/adapt_object.hpp
+	include/sge/parse/json/detail/adapt_start.hpp
 	include/sge/parse/json/detail/get_return_type.hpp
 	include/sge/parse/json/detail/insert_member.hpp
 	include/sge/parse/json/detail/is_array.hpp
@@ -82,12 +83,16 @@ set(
 	include/sge/parse/json/member_map.hpp
 	include/sge/parse/json/member_not_found.hpp
 	include/sge/parse/json/null.hpp
+	include/sge/parse/json/null_fwd.hpp
 	include/sge/parse/json/object.hpp
 	include/sge/parse/json/object_fwd.hpp
 	include/sge/parse/json/optional_element_vector.hpp
 	include/sge/parse/json/optional_object_ref.hpp
 	include/sge/parse/json/optional_object_ref_fwd.hpp
 	include/sge/parse/json/output/grammar.hpp
+	include/sge/parse/json/output/grammar_decl.hpp
+	include/sge/parse/json/output/grammar_fwd.hpp
+	include/sge/parse/json/output/grammar_impl.hpp
 	include/sge/parse/json/output/tabbed_to_stream.hpp
 	include/sge/parse/json/output/tabbed_to_string.hpp
 	include/sge/parse/json/output/to_file.hpp
@@ -101,10 +106,15 @@ set(
 	include/sge/parse/json/path.hpp
 	include/sge/parse/json/path_fwd.hpp
 	include/sge/parse/json/path_to_string.hpp
+	include/sge/parse/json/start.hpp
+	include/sge/parse/json/start_fwd.hpp
+	include/sge/parse/json/start_variant.hpp
+	include/sge/parse/json/start_variant_fwd.hpp
 	include/sge/parse/json/string.hpp
 	include/sge/parse/json/string_to_path.hpp
 	include/sge/parse/json/string_to_value.hpp
 	include/sge/parse/json/value.hpp
+	include/sge/parse/json/value_fwd.hpp
 	src/parse/exception.cpp
 	src/parse/include/sge/src/parse/output/to_file.hpp
 	src/parse/include/sge/src/parse/output/to_stream.hpp
@@ -144,6 +154,7 @@ set(
 	src/parse/json/parse_string_exn.cpp
 	src/parse/json/path.cpp
 	src/parse/json/path_to_string.cpp
+	src/parse/json/start.cpp
 	src/parse/json/string_to_path.cpp
 	src/parse/json/string_to_value.cpp
 )

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PARSE_JSON_MEMBER_MAP_HPP_INCLUDED
 
 #include <sge/parse/json/string.hpp>
-#include <sge/parse/json/value.hpp>
+#include <sge/parse/json/value_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/unordered_map.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -36,8 +36,8 @@ namespace json
 {
 
 typedef boost::unordered_map<
-	json::string,
-	json::value
+	sge::parse::json::string,
+	sge::parse::json::value
 > member_map;
 
 }

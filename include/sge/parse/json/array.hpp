@@ -41,16 +41,18 @@ struct array
 	array();
 
 	SGE_PARSE_SYMBOL
-	explicit array(
-		json::element_vector const &
+	explicit
+	array(
+		sge::parse::json::element_vector const &
 	);
 
 	SGE_PARSE_SYMBOL
-	explicit array(
-		json::optional_element_vector const &
+	explicit
+	array(
+		sge::parse::json::optional_element_vector const &
 	);
 
-	json::element_vector elements;
+	sge::parse::json::element_vector elements;
 };
 
 }

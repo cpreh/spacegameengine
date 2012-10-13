@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/json/object_fwd.hpp>
 #include <sge/parse/json/parse_range.hpp>
 #include <sge/parse/json/parse_stream.hpp>
+#include <sge/parse/json/start_fwd.hpp>
 #include <sge/src/parse/parse_stream.hpp>
 #include <fcppt/io/istream.hpp>
 
@@ -28,11 +28,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 bool
 sge::parse::json::parse_stream(
 	fcppt::io::istream &_stream,
-	json::object &_result
+	sge::parse::json::start &_result
 )
 {
 	return
-		parse::parse_stream(
+		sge::parse::parse_stream(
 			_stream,
 			_result
 		);

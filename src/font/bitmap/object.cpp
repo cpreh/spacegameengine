@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/member_map.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/parse_file.hpp>
+#include <sge/parse/json/start.hpp>
 #include <sge/src/font/bitmap/char_metric.hpp>
 #include <sge/src/font/bitmap/load_one_file.hpp>
 #include <sge/src/font/bitmap/object.hpp>
@@ -59,7 +60,7 @@ sge::font::bitmap::object::object(
 	char_map_(),
 	color_format_()
 {
-	sge::parse::json::object result;
+	sge::parse::json::start result;
 
 	if(
 		!sge::parse::json::parse_file(
@@ -76,7 +77,7 @@ sge::font::bitmap::object::object(
 
 
 	sge::parse::json::member_map const &top_members(
-		result.members
+		result.object().members
 	);
 
 	line_height_

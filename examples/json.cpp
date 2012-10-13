@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/parse_stream.hpp>
 #include <sge/parse/json/value.hpp>
+#include <sge/parse/json/start.hpp>
 #include <sge/parse/json/output/to_stream.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/string.hpp>
@@ -51,7 +52,7 @@ try
 			test
 		);
 
-	sge::parse::json::object result;
+	sge::parse::json::start result;
 
 	if(
 		!sge::parse::json::parse_stream(
@@ -70,14 +71,14 @@ try
 	sge::parse::json::find_member_exn<
 		int
 	>(
-		result.members,
+		result.object().members,
 		FCPPT_TEXT("foo")
 	);
 
 	// test if this also works with const results
 	{
 		sge::parse::json::object const &const_result(
-			result
+			result.object()
 		);
 
 		sge::parse::json::find_member_exn<

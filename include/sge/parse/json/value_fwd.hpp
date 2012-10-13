@@ -18,26 +18,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/json/array.hpp>
-#include <sge/parse/json/object.hpp>
-#include <sge/parse/json/parse_file_exn.hpp>
-#include <sge/parse/json/parse_stream.hpp>
-#include <sge/parse/json/start.hpp>
-#include <sge/src/parse/parse_file_exn.hpp>
+#ifndef SGE_PARSE_JSON_VALUE_FWD_HPP_INCLUDED
+#define SGE_PARSE_JSON_VALUE_FWD_HPP_INCLUDED
+
+#include <sge/parse/json/array_fwd.hpp>
+#include <sge/parse/json/float_type.hpp>
+#include <sge/parse/json/int_type.hpp>
+#include <sge/parse/json/null_fwd.hpp>
+#include <sge/parse/json/object_fwd.hpp>
+#include <sge/parse/json/string.hpp>
+#include <fcppt/variant/object_fwd.hpp>
+#include <fcppt/variant/recursive_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
-sge::parse::json::start const
-sge::parse::json::parse_file_exn(
-	boost::filesystem::path const &_path
-)
+namespace sge
 {
-	return
-		sge::parse::parse_file_exn<
-			sge::parse::json::start
-		>(
-			_path
-		);
+namespace parse
+{
+namespace json
+{
+
+typedef fcppt::variant::object<
+	boost::mpl::vector7<
+		fcppt::variant::recursive<
+			sge::parse::json::object
+		>,
+		fcppt::variant::recursive<
+			sge::parse::json::array
+		>,
+		bool,
+		sge::parse::json::string,
+		sge::parse::json::float_type,
+		sge::parse::json::int_type,
+		sge::parse::json::null
+	>
+> value;
+
 }
+}
+}
+
+#endif

@@ -20,24 +20,62 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/object.hpp>
-#include <sge/parse/json/parse_file_exn.hpp>
-#include <sge/parse/json/parse_stream.hpp>
 #include <sge/parse/json/start.hpp>
-#include <sge/src/parse/parse_file_exn.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <sge/parse/json/start_variant.hpp>
 
 
-sge::parse::json::start const
-sge::parse::json::parse_file_exn(
-	boost::filesystem::path const &_path
+sge::parse::json::start::start()
+:
+	// Just put something here because spirit needs default initialized
+	// objects
+	variant(
+		sge::parse::json::array()
+	)
+{
+}
+
+sge::parse::json::start::start(
+	sge::parse::json::start_variant const &_variant
 )
+:
+	variant(
+		_variant
+	)
+{
+}
+
+sge::parse::json::array &
+sge::parse::json::start::array()
 {
 	return
-		sge::parse::parse_file_exn<
-			sge::parse::json::start
-		>(
-			_path
-		);
+		variant.get<
+			sge::parse::json::array
+		>();
+}
+
+sge::parse::json::array const &
+sge::parse::json::start::array() const
+{
+	return
+		variant.get<
+			sge::parse::json::array
+		>();
+}
+
+sge::parse::json::object &
+sge::parse::json::start::object()
+{
+	return
+		variant.get<
+			sge::parse::json::object
+		>();
+}
+
+sge::parse::json::object const &
+sge::parse::json::start::object() const
+{
+	return
+		variant.get<
+			sge::parse::json::object
+		>();
 }

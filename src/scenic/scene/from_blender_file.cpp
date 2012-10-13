@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/parse_string_exn.hpp>
+#include <sge/parse/json/start.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/vector4.hpp>
@@ -441,7 +442,7 @@ sge::scenic::scene::from_blender_file(
 		sge::parse::json::parse_string_exn(
 			sge::charconv::utf8_file_to_fcppt_string(
 				_charconv_system,
-				_path)));
+				_path)).object());
 
 	// The prototype is created with the world properties in the
 	// ctor. Entities and lights are added below.

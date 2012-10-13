@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/parse/encoding.hpp>
 #include <sge/parse/json/grammar.hpp>
-#include <sge/parse/json/object.hpp>
+#include <sge/parse/json/start.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/spirit/include/qi_parse.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -43,17 +43,19 @@ bool
 parse_range(
 	In &_beg,
 	In const _end,
-	object &_result
+	sge::parse::json::start &_result
 )
 {
-	grammar<In> parser;
+	sge::parse::json::grammar<
+		In
+	> parser;
 
 	return
 		boost::spirit::qi::phrase_parse(
 			_beg,
 			_end,
 			parser,
-			encoding::space,
+			sge::parse::encoding::space,
 			_result
 		);
 }
