@@ -80,14 +80,16 @@ make_list(
 				Choices,
 				boost::mpl::not_<
 					sge::systems::detail::extract_needs_init<
-						boost::mpl::_
+						boost::mpl::_1
 					>
 				>
 			>,
-			boost::mpl::contains<
-				Inits,
-				sge::systems::detail::extract_parameter_type<
-					boost::mpl::_1
+			boost::mpl::not_<
+				boost::mpl::contains<
+					Inits,
+					sge::systems::detail::extract_parameter_type<
+						boost::mpl::_1
+					>
 				>
 			>
 		>
