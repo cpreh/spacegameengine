@@ -35,8 +35,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/system_fwd.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
+#include <sge/systems/cursor_demuxer_fwd.hpp>
 #include <sge/systems/instance_decl.hpp>
+#include <sge/systems/keyboard_collector_fwd.hpp>
 #include <sge/systems/list_fwd.hpp>
+#include <sge/systems/mouse_collector_fwd.hpp>
 #include <sge/systems/renderer_caps.hpp>
 #include <sge/systems/detail/has_input_option.hpp>
 #include <sge/systems/detail/has_with_audio_loader.hpp>

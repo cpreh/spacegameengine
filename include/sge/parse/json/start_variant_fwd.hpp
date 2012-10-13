@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_JSON_START_VARIANT_FWD_HPP_INCLUDED
 #define SGE_PARSE_JSON_START_VARIANT_FWD_HPP_INCLUDED
 
-#include <fcppt/variant/object_fwd.hpp>
 #include <sge/parse/json/array_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
+#include <fcppt/variant/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>

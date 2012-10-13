@@ -32,8 +32,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/spirit/include/karma_bool.hpp>
 #include <boost/spirit/include/karma_char.hpp>
 #include <boost/spirit/include/karma_directive.hpp>
-#include <boost/spirit/include/karma_nonterminal.hpp>
 #include <boost/spirit/include/karma_int.hpp>
+#include <boost/spirit/include/karma_nonterminal.hpp>
 #include <boost/spirit/include/karma_operator.hpp>
 #include <boost/spirit/include/karma_real.hpp>
 #include <boost/spirit/include/karma_rule.hpp>
