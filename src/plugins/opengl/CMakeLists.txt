@@ -350,7 +350,6 @@ set(
 	src/plugins/opengl/include/sge/opengl/state/ffp/sampler/set_one.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/sampler/set_one_arg.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/sampler/set_one_op.hpp
-	src/plugins/opengl/include/sge/opengl/state/ffp/set_array.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/set_defaults.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/transform/actor.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/transform/actor_fwd.hpp
@@ -490,7 +489,6 @@ set(
 	src/plugins/opengl/include/sge/opengl/texture/no_id.hpp
 	src/plugins/opengl/include/sge/opengl/texture/npot_context.hpp
 	src/plugins/opengl/include/sge/opengl/texture/npot_context_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/texture/optional_bind_type.hpp
 	src/plugins/opengl/include/sge/opengl/texture/optional_id.hpp
 	src/plugins/opengl/include/sge/opengl/texture/optional_id_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/optional_type.hpp

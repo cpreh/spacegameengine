@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_EVDEV_INOTIFY_WATCH_HPP_INCLUDED
 #define SGE_EVDEV_INOTIFY_WATCH_HPP_INCLUDED
 
+#include <sge/evdev/inotify/object_fwd.hpp>
 #include <sge/evdev/inotify/watch_fwd.hpp>
 #include <awl/backends/linux/fd/object.hpp>
 #include <fcppt/noncopyable.hpp>

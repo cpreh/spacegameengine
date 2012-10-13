@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_FFP_LIGHTING_LIGHT_OBJECT_SCOPED_PTR_HPP_INCLUDED
 #define SGE_RENDERER_STATE_FFP_LIGHTING_LIGHT_OBJECT_SCOPED_PTR_HPP_INCLUDED
 
-#include <sge/renderer/state/ffp/lighting/object_fwd.hpp>
+#include <sge/renderer/state/ffp/lighting/light/object_fwd.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
 
 

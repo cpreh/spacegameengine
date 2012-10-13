@@ -193,8 +193,6 @@ set(
 	include/sge/sprite/detail/process/geometry.hpp
 	include/sge/sprite/detail/process/is_same_geometry_options.hpp
 	include/sge/sprite/detail/render/inner.hpp
-	include/sge/sprite/detail/render/is_same_matrix_options.hpp
-	include/sge/sprite/detail/render/normal_states.hpp
 	include/sge/sprite/detail/render/range.hpp
 	include/sge/sprite/detail/render/range_object.hpp
 	include/sge/sprite/detail/render/range_part_object.hpp
@@ -325,7 +323,6 @@ set(
 	include/sge/sprite/roles/use_rotation.hpp
 	include/sge/sprite/rotation.hpp
 	include/sge/sprite/rotation_center.hpp
-	include/sge/sprite/set_matrices.hpp
 	include/sge/sprite/state/all_choices.hpp
 	include/sge/sprite/state/choices.hpp
 	include/sge/sprite/state/choices_fwd.hpp

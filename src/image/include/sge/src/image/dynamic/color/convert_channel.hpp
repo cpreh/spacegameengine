@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <mizuiro/color/channel/green.hpp>
 #include <mizuiro/color/channel/luminance.hpp>
 #include <mizuiro/color/channel/red.hpp>
+#include <mizuiro/color/channel/undefined.hpp>
 
 
 namespace sge

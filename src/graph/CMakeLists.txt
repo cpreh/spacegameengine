@@ -15,7 +15,6 @@ set(
 	include/sge/graph/object_fwd.hpp
 	include/sge/graph/optional_axis_constraint.hpp
 	include/sge/graph/optional_axis_constraint_fwd.hpp
-	include/sge/graph/parameters.hpp
 	include/sge/graph/position.hpp
 	include/sge/graph/scalar.hpp
 	src/graph/axis_constraint.cpp

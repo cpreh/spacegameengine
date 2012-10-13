@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SCENIC_RENDER_CONTEXT_MATERIAL_SHININESS_HPP_INCLUDED
 
 #include <sge/renderer/scalar.hpp>
+#include <fcppt/strong_typedef.hpp>
+
 
 namespace sge
 {

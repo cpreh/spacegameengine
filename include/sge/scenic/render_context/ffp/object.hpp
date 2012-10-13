@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/scoped_vertex_buffer_fwd.hpp>
 #include <sge/renderer/scoped_vertex_declaration.hpp>
+#include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/state/core/blend/object_scoped_ptr.hpp>
 #include <sge/renderer/state/core/blend/scoped.hpp>

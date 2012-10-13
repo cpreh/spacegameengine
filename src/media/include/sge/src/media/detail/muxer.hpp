@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/container/bitfield/object_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <fcppt/config/external_end.hpp>
 
@@ -54,7 +55,7 @@ public:
 
 	typedef Capabilities capabilities_field;
 
-	typedef media::muxer_parameters<
+	typedef sge::media::muxer_parameters<
 		system,
 		capabilities_field
 	> parameters;
@@ -73,7 +74,7 @@ public:
 
 	system &
 	mux_extension(
-		media::optional_extension const &
+		sge::media::optional_extension const &
 	) const;
 
 	capabilities_field const

@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/evdev/focus_manager_fwd.hpp>
 #include <sge/evdev/device/event_fwd.hpp>
 #include <sge/evdev/device/fd_fwd.hpp>
+#include <sge/evdev/device/fd_unique_ptr.hpp>
 #include <awl/backends/linux/fd/event_fwd.hpp>
 #include <awl/backends/linux/fd/processor_fwd.hpp>
 #include <fcppt/noncopyable.hpp>

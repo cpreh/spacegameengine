@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/with_input_fwd.hpp>
 #include <sge/systems/with_window_fwd.hpp>
 #include <sge/systems/detail/input_option.hpp>
-#include <fcppt/static_assert_expression.hpp>
+#include <fcppt/static_assert_statement.hpp>
 #include <fcppt/mpl/all_of.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/bool.hpp>
