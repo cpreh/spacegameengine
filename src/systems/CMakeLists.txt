@@ -51,6 +51,8 @@ set(
 	include/sge/systems/detail/renderer.hpp
 	include/sge/systems/detail/renderer_caps.hpp
 	include/sge/systems/detail/renderer_fwd.hpp
+	include/sge/systems/empty_list.hpp
+	include/sge/systems/empty_list_fwd.hpp
 	include/sge/systems/exception.hpp
 	include/sge/systems/font.hpp
 	include/sge/systems/font_fwd.hpp
@@ -68,6 +70,7 @@ set(
 	include/sge/systems/list_decl.hpp
 	include/sge/systems/list_fwd.hpp
 	include/sge/systems/list_impl.hpp
+	include/sge/systems/make_empty_list.hpp
 	include/sge/systems/make_list.hpp
 	include/sge/systems/mouse_collector.hpp
 	include/sge/systems/mouse_collector_fwd.hpp
@@ -181,6 +184,7 @@ set(
 	src/systems/include/sge/src/systems/plugin_pair_impl.hpp
 	src/systems/input.cpp
 	src/systems/make_any_key.cpp
+	src/systems/make_empty_list.cpp
 	src/systems/modules/audio/find_player_plugin.cpp
 	src/systems/modules/audio/loader.cpp
 	src/systems/modules/audio/player.cpp
