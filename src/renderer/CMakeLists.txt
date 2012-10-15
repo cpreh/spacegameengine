@@ -326,6 +326,8 @@ set(
 	include/sge/renderer/state/core/depth_stencil/stencil/back.hpp
 	include/sge/renderer/state/core/depth_stencil/stencil/combined.hpp
 	include/sge/renderer/state/core/depth_stencil/stencil/combined_fwd.hpp
+	include/sge/renderer/state/core/depth_stencil/stencil/combined_simple.hpp
+	include/sge/renderer/state/core/depth_stencil/stencil/combined_simple_fwd.hpp
 	include/sge/renderer/state/core/depth_stencil/stencil/depth_fail_op.hpp
 	include/sge/renderer/state/core/depth_stencil/stencil/desc.hpp
 	include/sge/renderer/state/core/depth_stencil/stencil/desc_fwd.hpp
@@ -924,6 +926,7 @@ set(
 	src/renderer/state/core/depth_stencil/parameters.cpp
 	src/renderer/state/core/depth_stencil/scoped.cpp
 	src/renderer/state/core/depth_stencil/stencil/combined.cpp
+	src/renderer/state/core/depth_stencil/stencil/combined_simple.cpp
 	src/renderer/state/core/depth_stencil/stencil/desc.cpp
 	src/renderer/state/core/depth_stencil/stencil/enabled.cpp
 	src/renderer/state/core/depth_stencil/stencil/read_mask_all.cpp

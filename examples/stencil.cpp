@@ -60,17 +60,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/depth_stencil/parameters.hpp>
 #include <sge/renderer/state/core/depth_stencil/scoped.hpp>
 #include <sge/renderer/state/core/depth_stencil/depth/off.hpp>
-#include <sge/renderer/state/core/depth_stencil/stencil/combined.hpp>
-#include <sge/renderer/state/core/depth_stencil/stencil/depth_fail_op.hpp>
-#include <sge/renderer/state/core/depth_stencil/stencil/desc.hpp>
-#include <sge/renderer/state/core/depth_stencil/stencil/enabled.hpp>
-#include <sge/renderer/state/core/depth_stencil/stencil/fail_op.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/combined_simple.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/func.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/op.hpp>
-#include <sge/renderer/state/core/depth_stencil/stencil/pass_op.hpp>
-#include <sge/renderer/state/core/depth_stencil/stencil/read_mask_all.hpp>
-#include <sge/renderer/state/core/depth_stencil/stencil/ref.hpp>
-#include <sge/renderer/state/core/depth_stencil/stencil/write_mask_all.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/planar.hpp>
@@ -331,7 +323,7 @@ try
 			// (which is texture::part) that can refer to
 			// a part of a physical texture.
 			// We don't want that here, so we use part_raw which
-			// coveres the whole texture.
+			// covers the whole texture.
 			fcppt::make_shared_ptr<
 				sge::texture::part_raw_ref
 			>(
@@ -347,7 +339,7 @@ try
 	// This is our bigger sprite.
 	// It will be placed at position (0, 0) and have the size
 	// of its texture "cloudsquare.png" which is (512, 512).
-	// Everything else is pretty much the same to small_sprite.
+	// Everything else is pretty much the same as small_sprite.
 	sprite_object const big_sprite(
 		sprite_parameters()
 		.pos(
@@ -372,65 +364,33 @@ try
 		)
 	);
 
-	// TODO: Create helper functions for this (not every combination makes sense)
-
 	// Create a stencil state which will always pass and increment the
 	// value stored in the stencil buffer for every pixel rendered.
 	sge::renderer::state::core::depth_stencil::object_scoped_ptr const inc_state(
 		sys.renderer_ffp().create_depth_stencil_state(
 			sge::renderer::state::core::depth_stencil::parameters(
 				sge::renderer::state::core::depth_stencil::depth::off(),
-				sge::renderer::state::core::depth_stencil::stencil::enabled(
-					sge::renderer::state::core::depth_stencil::stencil::combined(
-						sge::renderer::state::core::depth_stencil::stencil::desc(
-							sge::renderer::state::core::depth_stencil::stencil::fail_op(
-								sge::renderer::state::core::depth_stencil::stencil::op::keep
-							),
-							sge::renderer::state::core::depth_stencil::stencil::depth_fail_op(
-								sge::renderer::state::core::depth_stencil::stencil::op::keep
-							),
-							sge::renderer::state::core::depth_stencil::stencil::pass_op(
-								sge::renderer::state::core::depth_stencil::stencil::op::inc_sat
-							),
-							sge::renderer::state::core::depth_stencil::stencil::func::always
-						)
-					),
-					sge::renderer::state::core::depth_stencil::stencil::ref(
-						0u
-					),
-					sge::renderer::state::core::depth_stencil::stencil::read_mask_all(),
-					sge::renderer::state::core::depth_stencil::stencil::write_mask_all()
+				sge::renderer::state::core::depth_stencil::stencil::combined_simple(
+					sge::renderer::state::core::depth_stencil::stencil::func::always
 				)
+				.pass_op(
+					sge::renderer::state::core::depth_stencil::stencil::op::inc_sat
+				)
+				.to_enabled()
 			)
 		)
 	);
 
-	// Create a stencil state which will only pass if the current stencil value is still 0.
+	// Create a stencil state which will only pass if the current stencil
+	// value is still 0.
 	sge::renderer::state::core::depth_stencil::object_scoped_ptr const compare_state(
 		sys.renderer_ffp().create_depth_stencil_state(
 			sge::renderer::state::core::depth_stencil::parameters(
 				sge::renderer::state::core::depth_stencil::depth::off(),
-				sge::renderer::state::core::depth_stencil::stencil::enabled(
-					sge::renderer::state::core::depth_stencil::stencil::combined(
-						sge::renderer::state::core::depth_stencil::stencil::desc(
-							sge::renderer::state::core::depth_stencil::stencil::fail_op(
-								sge::renderer::state::core::depth_stencil::stencil::op::keep
-							),
-							sge::renderer::state::core::depth_stencil::stencil::depth_fail_op(
-								sge::renderer::state::core::depth_stencil::stencil::op::keep
-							),
-							sge::renderer::state::core::depth_stencil::stencil::pass_op(
-								sge::renderer::state::core::depth_stencil::stencil::op::keep
-							),
-							sge::renderer::state::core::depth_stencil::stencil::func::equal
-						)
-					),
-					sge::renderer::state::core::depth_stencil::stencil::ref(
-						0u
-					),
-					sge::renderer::state::core::depth_stencil::stencil::read_mask_all(),
-					sge::renderer::state::core::depth_stencil::stencil::write_mask_all()
+				sge::renderer::state::core::depth_stencil::stencil::combined_simple(
+					sge::renderer::state::core::depth_stencil::stencil::func::equal
 				)
+				.to_enabled()
 			)
 		)
 	);
