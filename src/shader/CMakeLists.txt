@@ -2,6 +2,8 @@ set(
 	SGE_SHADER_FILES
 	include/sge/shader/context.hpp
 	include/sge/shader/context_fwd.hpp
+	include/sge/shader/exception.hpp
+	include/sge/shader/exception_fwd.hpp
 	include/sge/shader/load_edited_string.hpp
 	include/sge/shader/optional_cflags.hpp
 	include/sge/shader/pair.hpp
@@ -29,6 +31,7 @@ set(
 	include/sge/shader/vertex_profile.hpp
 	include/sge/shader/vertex_program_path.hpp
 	src/shader/context.cpp
+	src/shader/exception.cpp
 	src/shader/load_edited_string.cpp
 	src/shader/pair.cpp
 	src/shader/parameter/planar_texture.cpp

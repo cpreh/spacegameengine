@@ -19,11 +19,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/device/core.hpp>
+#include <sge/shader/exception.hpp>
 #include <sge/shader/load_edited_string.hpp>
 #include <fcppt/io/stream_to_string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <fcppt/config/external_end.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/filesystem/path_to_string.hpp>
 
 
 sge::cg::program::source const
@@ -34,6 +37,14 @@ sge::shader::load_edited_string(
 {
 	boost::filesystem::ifstream file(
 		_path);
+
+	if(!file.is_open())
+		throw
+			sge::shader::exception(
+				FCPPT_TEXT("Couldn't open file \"")+
+				fcppt::filesystem::path_to_string(
+					_path)+
+				FCPPT_TEXT("\""));
 
 	return
 		_renderer.transform_cg_vertex_program(
