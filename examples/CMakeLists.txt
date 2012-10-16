@@ -332,8 +332,8 @@ message("Fix the point sprite example!")
 
 add_sge_example(
 	pointsprite
-	"sgeconfig;sgeinput;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
-	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES};${Boost_PROGRAM_OPTIONS_LIBRARIES}"
+	"sgeconfig;sgeinput;sgelog;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
+	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES};${Boost_PROGRAM_OPTIONS_LIBRARIES}"
 	""
 )
 
