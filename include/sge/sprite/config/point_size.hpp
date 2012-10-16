@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_CONFIG_POINT_SIZE_HPP_INCLUDED
 #define SGE_SPRITE_CONFIG_POINT_SIZE_HPP_INCLUDED
 
-#include <sge/renderer/vf/index_fwd.hpp>
+#include <sge/renderer/vf/is_index.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
 #include <sge/sprite/point_size.hpp>
 #include <sge/sprite/config/point_size_fwd.hpp>
@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <majutsu/composite.hpp>
 #include <majutsu/role.hpp>
 #include <majutsu/simple.hpp>
+#include <fcppt/static_assert_statement.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -49,19 +50,20 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
-	sge::renderer::vf::vertex_size Index
+	typename Index
 >
-struct point_size<
-	sge::renderer::vf::index<
-		Index
-	>
->
+struct point_size
 :
 	sge::sprite::config::size_choice
 {
-	typedef sge::renderer::vf::index<
-		Index
-	> attribute_index;
+private:
+	FCPPT_STATIC_ASSERT_STATEMENT(
+		sge::renderer::vf::is_index<
+			Index
+		>::value
+	);
+public:
+	typedef Index attribute_index;
 
 	template<
 		typename Choices
