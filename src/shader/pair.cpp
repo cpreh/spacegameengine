@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::shader::pair::pair(
 	sge::shader::context &_context,
-	sge::renderer::vertex_declaration &_vertex_declaration,
+	sge::renderer::vertex_declaration const &_vertex_declaration,
 	sge::shader::vertex_program_path const &_vertex_program_path,
 	sge::shader::pixel_program_path const &_pixel_program_path,
 	sge::shader::optional_cflags const &_optional_cflags)

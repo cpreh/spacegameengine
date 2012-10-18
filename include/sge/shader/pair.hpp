@@ -50,7 +50,7 @@ public:
 	SGE_SHADER_SYMBOL
 	pair(
 		sge::shader::context &,
-		sge::renderer::vertex_declaration &,
+		sge::renderer::vertex_declaration const &,
 		sge::shader::vertex_program_path const &,
 		sge::shader::pixel_program_path const &,
 		sge::shader::optional_cflags const &);

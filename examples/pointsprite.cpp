@@ -55,6 +55,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/texture_level_count.hpp>
 #include <sge/sprite/config/texture_ownership.hpp>
 #include <sge/sprite/config/type_choices.hpp>
+#include <sge/shader/context.hpp>
+#include <sge/shader/pair.hpp>
 #include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/config/with_color.hpp>
 #include <sge/sprite/config/with_texture_point_size.hpp>
@@ -692,6 +694,35 @@ try
 	fcppt::signal::scoped_connection const escape_connection(
 		sge::systems::quit_on_escape(
 			sys));
+
+	sge::shader::context shader_context(
+		sys.renderer_core());
+
+	sge::shader::pair shader(
+		shader_context,
+		particle_system.vertex_declaration(),
+		sge::shader::vertex_program_path(
+			sge::config::media_path() / FCPPT_TEXT("shaders") / FCPPT_TEXT("point_sprite.cg")),
+		sge::shader::pixel_program_path(
+			sge::config::media_path() / FCPPT_TEXT("shaders") / FCPPT_TEXT("point_sprite.cg")),
+		sge::shader::optional_cflags()),
+
+	sge::shader::parameter::matrix<sge::renderer::scalar,4,4> mvp_parameter(
+		shader.vertex_program(),
+		sge::shader::parameter::name(
+			"mvp_matrix"),
+		sys.renderer_core(),
+		sge::shader::parameter::is_projection_matrix(
+			true),
+		sge::renderer::matrix4());
+
+	sge::shader::parameter::planar_texture input_texture_parameter(
+		shader.pixel_program(),
+		sge::shader::parameter::name(
+			"input_texture"),
+		shader,
+		sys.renderer_core(),
+		);
 
 	/*
 	while(
