@@ -80,12 +80,6 @@ public:
 
 	SGE_FONT_DRAW_SYMBOL
 	void
-	string(
-		sge::font::string const &
-	);
-
-	SGE_FONT_DRAW_SYMBOL
-	void
 	pos(
 		sge::font::vector const &
 	);
@@ -95,10 +89,6 @@ public:
 	color(
 		sge::image::color::any::object const &
 	);
-
-	SGE_FONT_DRAW_SYMBOL
-	sge::font::string const
-	string() const;
 
 	SGE_FONT_DRAW_SYMBOL
 	sge::font::vector const

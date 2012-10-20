@@ -567,6 +567,8 @@ set(
 	include/sge/renderer/state/ffp/sampler/parameters_fwd.hpp
 	include/sge/renderer/state/ffp/sampler/scoped.hpp
 	include/sge/renderer/state/ffp/sampler/scoped_fwd.hpp
+	include/sge/renderer/state/ffp/sampler/scoped_scoped_ptr.hpp
+	include/sge/renderer/state/ffp/sampler/scoped_unique_ptr.hpp
 	include/sge/renderer/state/ffp/sampler/ternary_op.hpp
 	include/sge/renderer/state/ffp/sampler/ternary_op_fwd.hpp
 	include/sge/renderer/state/ffp/sampler/ternary_op_type.hpp

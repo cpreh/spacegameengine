@@ -18,8 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_STATE_FFP_SAMPLER_SCOPED_FWD_HPP_INCLUDED
-#define SGE_RENDERER_STATE_FFP_SAMPLER_SCOPED_FWD_HPP_INCLUDED
+#ifndef SGE_RENDERER_STATE_FFP_SAMPLER_SCOPED_SCOPED_PTR_HPP_INCLUDED
+#define SGE_RENDERER_STATE_FFP_SAMPLER_SCOPED_SCOPED_PTR_HPP_INCLUDED
+
+#include <sge/renderer/state/ffp/sampler/scoped_fwd.hpp>
+#include <fcppt/scoped_ptr_impl.hpp>
 
 
 namespace sge
@@ -33,7 +36,9 @@ namespace ffp
 namespace sampler
 {
 
-class scoped;
+typedef fcppt::scoped_ptr<
+	sge::renderer::state::ffp::sampler::scoped
+> scoped_scoped_ptr;
 
 }
 }

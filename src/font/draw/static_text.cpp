@@ -55,25 +55,19 @@ sge::font::draw::static_text::static_text(
 			fcppt::ref(
 				_font
 			),
+			_string,
 			fcppt::cref(
 				_parameters
+			),
+			fcppt::cref(
+				_pos
+			),
+			fcppt::cref(
+				_color
 			)
 		)
 	)
 {
-	impl_->string(
-		_string
-	);
-
-	impl_->pos(
-		_pos
-	);
-
-	impl_->color(
-		_color
-	);
-
-	impl_->rebuild_texture();
 }
 
 sge::font::draw::static_text::~static_text()
@@ -111,18 +105,6 @@ sge::font::draw::static_text::draw_advanced(
 }
 
 void
-sge::font::draw::static_text::string(
-	sge::font::string const &_text
-)
-{
-	impl_->string(
-		_text
-	);
-
-	impl_->rebuild_texture();
-}
-
-void
 sge::font::draw::static_text::pos(
 	sge::font::vector const &_pos
 )
@@ -130,8 +112,6 @@ sge::font::draw::static_text::pos(
 	impl_->pos(
 		_pos
 	);
-
-	impl_->rebuild_sprite();
 }
 
 void
@@ -142,17 +122,8 @@ sge::font::draw::static_text::color(
 	impl_->color(
 		_color
 	);
-
-	impl_->rebuild_sprite();
 }
 
-
-sge::font::string const
-sge::font::draw::static_text::string() const
-{
-	return
-		impl_->string();
-}
 
 sge::font::vector const
 sge::font::draw::static_text::pos() const

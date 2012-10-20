@@ -18,27 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_STATE_FFP_SAMPLER_SCOPED_FWD_HPP_INCLUDED
-#define SGE_RENDERER_STATE_FFP_SAMPLER_SCOPED_FWD_HPP_INCLUDED
+#include <sge/image/color/format.hpp>
+#include <sge/image/color/optional_format.hpp>
+#include <sge/src/font/draw/color_format.hpp>
 
 
-namespace sge
+sge::image::color::format::type
+sge::font::draw::color_format(
+	sge::image::color::optional_format const &_color_format
+)
 {
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace sampler
-{
-
-class scoped;
-
+	return
+		_color_format
+		?
+			*_color_format
+		:
+			sge::image::color::format::a8
+		;
 }
-}
-}
-}
-}
-
-#endif

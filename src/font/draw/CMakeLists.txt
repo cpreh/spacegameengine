@@ -8,9 +8,13 @@ set(
 	include/sge/font/draw/simple.hpp
 	include/sge/font/draw/static_text.hpp
 	include/sge/font/draw/static_text_fwd.hpp
+	src/font/draw/color_format.cpp
 	src/font/draw/create_ffp_sampler.cpp
+	src/font/draw/create_texture.cpp
 	src/font/draw/detail/static_text_impl.cpp
+	src/font/draw/include/sge/src/font/draw/color_format.hpp
 	src/font/draw/include/sge/src/font/draw/create_ffp_sampler.hpp
+	src/font/draw/include/sge/src/font/draw/create_texture.hpp
 	src/font/draw/include/sge/src/font/draw/detail/static_text_impl.hpp
 	src/font/draw/simple.cpp
 	src/font/draw/static_text.cpp

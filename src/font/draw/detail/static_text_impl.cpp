@@ -26,22 +26,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/vector.hpp>
 #include <sge/font/draw/set_matrices_fwd.hpp>
 #include <sge/font/draw/set_states_fwd.hpp>
-#include <sge/image/color/format.hpp>
 #include <sge/image/color/optional_format.hpp>
 #include <sge/image/color/any/convert.hpp>
 #include <sge/image/color/any/object.hpp>
-#include <sge/renderer/dim2.hpp>
-#include <sge/renderer/lock_mode.hpp>
-#include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/state/ffp/sampler/const_object_ref_vector.hpp>
 #include <sge/renderer/state/ffp/sampler/object.hpp>
-#include <sge/renderer/texture/capabilities_field.hpp>
-#include <sge/renderer/texture/planar_parameters.hpp>
-#include <sge/renderer/texture/scoped_planar_lock.hpp>
-#include <sge/renderer/texture/mipmap/off.hpp>
+#include <sge/renderer/state/ffp/sampler/scoped.hpp>
+#include <sge/renderer/state/ffp/sampler/scoped_scoped_ptr.hpp>
+#include <sge/renderer/state/ffp/sampler/scoped_unique_ptr.hpp>
 #include <sge/sprite/object_impl.hpp>
+#include <sge/sprite/parameters_impl.hpp>
 #include <sge/sprite/buffers/option.hpp>
 #include <sge/sprite/buffers/single_impl.hpp>
 #include <sge/sprite/buffers/with_declaration_impl.hpp>
@@ -56,50 +52,56 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/roles/blend.hpp>
 #include <sge/sprite/state/roles/rasterizer.hpp>
 #include <sge/sprite/state/roles/transform.hpp>
+#include <sge/src/font/draw/color_format.hpp>
 #include <sge/src/font/draw/create_ffp_sampler.hpp>
+#include <sge/src/font/draw/create_texture.hpp>
 #include <sge/src/font/draw/detail/static_text_impl.hpp>
 #include <sge/texture/const_optional_part_ref.hpp>
 #include <sge/texture/part.hpp>
-#include <sge/texture/wrap_npot.hpp>
 #include <fcppt/cref.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::font::draw::detail::static_text_impl::static_text_impl(
 	sge::renderer::device::ffp &_renderer,
 	sge::font::object &_font,
-	sge::font::text_parameters const &_text_parameters
+	sge::font::string const &_string,
+	sge::font::text_parameters const &_text_parameters,
+	sge::font::vector const &_pos,
+	sge::image::color::any::object const &_color
 )
 :
-	renderer_(
-		_renderer
-	),
-	font_(
-		_font
-	),
-	string_(),
-	text_parameters_(
-		_text_parameters
-	),
-	color_format_(
-		font_.color_format()
-		?
-			*font_.color_format()
-		:
-			sge::image::color::format::a8
-	),
 	sampler_state_(
 		sge::font::draw::create_ffp_sampler(
-			renderer_,
-			color_format_
+			_renderer,
+			sge::font::draw::color_format(
+				_font.color_format()
+			)
 		)
 	),
-	texture_part_(),
-	text_(),
-	pos_(
-		sge::font::vector::null()
+	text_(
+		_font.create_text(
+			_string,
+			_text_parameters
+		)
+	),
+	texture_part_(
+		sge::font::draw::create_texture(
+			_renderer,
+			*text_,
+			sge::font::draw::color_format(
+				_font.color_format()
+			)
+		)
 	),
 	sprite_buffers_(
 		_renderer,
@@ -109,10 +111,33 @@ sge::font::draw::detail::static_text_impl::static_text_impl(
 		_renderer,
 		sge::font::draw::detail::static_text_impl::sprite_state_parameters()
 	),
-	sprite_(),
-	sprite_range_()
+	sprite_(
+		sge::font::draw::detail::static_text_impl::sprite_parameters()
+		.pos(
+			this->sprite_pos(
+				_pos
+			)
+		)
+		.size(
+			text_->rect().size()
+		)
+		.any_color(
+			_color
+		)
+		.texture(
+			sge::texture::const_optional_part_ref(
+				*texture_part_
+			)
+		)
+	),
+	sprite_range_(
+		this->make_sprite_range()
+	)
 {
 }
+
+FCPPT_PP_POP_WARNING
+
 
 sge::font::draw::detail::static_text_impl::~static_text_impl()
 {
@@ -125,19 +150,31 @@ sge::font::draw::detail::static_text_impl::draw(
 	sge::font::draw::set_states const &_set_states
 )
 {
-	// TODO: Really scope this!
 	if(
-		sampler_state_
+		!texture_part_
 	)
-		_context.sampler_ffp_state(
-			fcppt::assign::make_container<
-				sge::renderer::state::ffp::sampler::const_object_ref_vector
+		return;
+
+	sge::renderer::state::ffp::sampler::scoped_scoped_ptr const scoepd_state(
+		sampler_state_
+		?
+			fcppt::make_unique_ptr<
+				sge::renderer::state::ffp::sampler::scoped
 			>(
-				fcppt::cref(
-					*sampler_state_
+				fcppt::ref(
+					_context
+				),
+				fcppt::assign::make_container<
+					sge::renderer::state::ffp::sampler::const_object_ref_vector
+				>(
+					fcppt::cref(
+						*sampler_state_
+					)
 				)
 			)
-		);
+		:
+			sge::renderer::state::ffp::sampler::scoped_unique_ptr()
+	);
 
 	sge::sprite::render::range_with_options(
 		sge::sprite::render::parameters<
@@ -167,21 +204,6 @@ sge::font::draw::detail::static_text_impl::draw(
 			_set_states.get()
 		)
 	);
-
-	if(
-		sampler_state_
-	)
-		_context.sampler_ffp_state(
-			sge::renderer::state::ffp::sampler::const_object_ref_vector()
-		);
-}
-
-void
-sge::font::draw::detail::static_text_impl::string(
-	sge::font::string const &_string
-)
-{
-	string_ = _string;
 }
 
 void
@@ -189,7 +211,13 @@ sge::font::draw::detail::static_text_impl::pos(
 	sge::font::vector const &_pos
 )
 {
-	pos_ = _pos;
+	sprite_.pos(
+		this->sprite_pos(
+			_pos
+		)
+	);
+
+	this->rebuild_sprite_range();
 }
 
 void
@@ -204,101 +232,50 @@ sge::font::draw::detail::static_text_impl::color(
 			_color
 		)
 	);
-}
 
-sge::font::string const
-sge::font::draw::detail::static_text_impl::string() const
-{
-	return string_;
+	this->rebuild_sprite_range();
 }
 
 sge::font::vector const
 sge::font::draw::detail::static_text_impl::pos() const
 {
-	return pos_;
+	return
+		sprite_.pos()
+		-
+		text_->rect().pos();
 }
 
 sge::font::rect const
 sge::font::draw::detail::static_text_impl::rect() const
 {
-	return text_->rect();
+	return
+		text_->rect();
 }
 
 void
-sge::font::draw::detail::static_text_impl::rebuild_texture()
+sge::font::draw::detail::static_text_impl::rebuild_sprite_range()
 {
-	text_.take(
-		font_.create_text(
-			string_,
-			text_parameters_
-		)
-	);
-
-	sge::renderer::dim2 const new_size(
-		fcppt::math::dim::structure_cast<
-			sge::renderer::dim2
-		>(
-			text_->rect().size()
-		)
-	);
-
-	if(
-		!texture_part_
-		||
-		texture_part_->size()
-		!=
-		new_size
-	)
-		texture_part_.take(
-			sge::texture::wrap_npot(
-				renderer_,
-				sge::renderer::texture::planar_parameters(
-					new_size,
-					color_format_,
-					sge::renderer::texture::mipmap::off(),
-					sge::renderer::resource_flags_field::null(),
-					sge::renderer::texture::capabilities_field::null()
-				)
-			)
-		);
-
-	{
-		sge::renderer::texture::scoped_planar_lock const lock(
-			texture_part_->texture(),
-			sge::renderer::lock_mode::writeonly
-		);
-
-		text_->render(
-			lock.value()
-		);
-	}
-
-	this->rebuild_sprite();
-}
-
-void
-sge::font::draw::detail::static_text_impl::rebuild_sprite()
-{
-	sprite_.texture(
-		sge::texture::const_optional_part_ref(
-			*texture_part_
-		)
-	);
-
-	sprite_.pos(
-		pos_
-		+
-		text_->rect().pos()
-	);
-
-	sprite_.size(
-		text_->rect().size()
-	);
-
 	sprite_range_ =
+		this->make_sprite_range();
+}
+
+sge::font::draw::detail::static_text_impl::sprite_range const
+sge::font::draw::detail::static_text_impl::make_sprite_range()
+{
+	return
 		sge::sprite::geometry::update_one(
 			sprite_,
 			sprite_buffers_
 		);
+}
 
+sge::font::draw::detail::static_text_impl::sprite_pos_type const
+sge::font::draw::detail::static_text_impl::sprite_pos(
+	sge::font::vector const &_pos
+) const
+{
+	return
+		_pos
+		+
+		text_->rect().pos();
 }

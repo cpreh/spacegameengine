@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text_parameters.hpp>
 #include <sge/font/text_scoped_ptr.hpp>
 #include <sge/font/unit.hpp>
-#include <sge/font/vector.hpp>
+#include <sge/font/vector_fwd.hpp>
 #include <sge/font/draw/set_matrices_fwd.hpp>
 #include <sge/font/draw/set_states_fwd.hpp>
 #include <sge/font/draw/detail/static_text_impl_fwd.hpp>
@@ -38,6 +38,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/renderer/state/ffp/sampler/object_scoped_ptr.hpp>
 #include <sge/sprite/object_decl.hpp>
+#include <sge/sprite/parameters_fwd.hpp>
+#include <sge/sprite/vector.hpp>
 #include <sge/sprite/buffers/single_decl.hpp>
 #include <sge/sprite/buffers/with_declaration_decl.hpp>
 #include <sge/sprite/config/choices.hpp>
@@ -80,7 +82,10 @@ public:
 	static_text_impl(
 		sge::renderer::device::ffp &,
 		sge::font::object &,
-		sge::font::text_parameters const &
+		sge::font::string const &,
+		sge::font::text_parameters const &,
+		sge::font::vector const &,
+		sge::image::color::any::object const &
 	);
 
 	~static_text_impl();
@@ -93,11 +98,6 @@ public:
 	);
 
 	void
-	string(
-		sge::font::string const &
-	);
-
-	void
 	pos(
 		sge::font::vector const &
 	);
@@ -107,38 +107,20 @@ public:
 		sge::image::color::any::object const &
 	);
 
-	sge::font::string const
-	string() const;
-
 	sge::font::vector const
 	pos() const;
 
 	sge::font::rect const
 	rect() const;
-
-	void
-	rebuild_texture();
-
-	void
-	rebuild_sprite();
 private:
-	sge::renderer::device::ffp &renderer_;
-
-	sge::font::object &font_;
-
-	sge::font::string string_;
-
-	sge::font::text_parameters const text_parameters_;
-
-	sge::image::color::format::type const color_format_;
+	void
+	rebuild_sprite_range();
 
 	sge::renderer::state::ffp::sampler::object_scoped_ptr const sampler_state_;
 
-	sge::texture::part_scoped_ptr texture_part_;
+	sge::font::text_scoped_ptr const text_;
 
-	sge::font::text_scoped_ptr text_;
-
-	sge::font::vector pos_;
+	sge::texture::part_scoped_ptr const texture_part_;
 
 	typedef sge::image::color::rgba8_format color_format;
 
@@ -193,6 +175,22 @@ private:
 	typedef sge::sprite::render::range<
 		sprite_choices
 	> sprite_range;
+
+	sge::font::draw::detail::static_text_impl::sprite_range const
+	make_sprite_range();
+
+	typedef sge::sprite::vector<
+		sprite_choices
+	>::type sprite_pos_type;
+
+	sge::font::draw::detail::static_text_impl::sprite_pos_type const
+	sprite_pos(
+		sge::font::vector const &
+	) const;
+
+	typedef sge::sprite::parameters<
+		sprite_choices
+	> sprite_parameters;
 
 	sprite_buffers sprite_buffers_;
 
