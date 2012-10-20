@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/object_scoped_ptr.hpp>
 #include <sge/window/parameters_fwd.hpp>
 #include <sge/window/system.hpp>
+#include <awl/cursor/object_scoped_ptr.hpp>
 #include <awl/event/processor_scoped_ptr.hpp>
 #include <awl/system/object_scoped_ptr.hpp>
 #include <awl/system/event/processor_scoped_ptr.hpp>
@@ -72,6 +73,8 @@ private:
 	awl::event::processor_scoped_ptr const awl_event_processor_;
 
 	awl::visual::object_scoped_ptr const awl_visual_;
+
+	awl::cursor::object_scoped_ptr const awl_cursor_;
 
 	awl::window::object_scoped_ptr const awl_window_;
 

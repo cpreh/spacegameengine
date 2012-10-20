@@ -18,6 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <awl/cursor/const_optional_object_ref.hpp>
+#include <awl/cursor/object_fwd.hpp>
 #include <sge/window/default_class_name.hpp>
 #include <sge/window/dim.hpp>
 #include <sge/window/parameters.hpp>
@@ -40,7 +42,8 @@ sge::window::parameters::parameters(
 	class_name_(
 		sge::window::default_class_name()
 	),
-	size_hints_()
+	size_hints_(),
+	cursor_()
 {
 }
 
@@ -56,10 +59,23 @@ sge::window::parameters::class_name(
 
 sge::window::parameters &
 sge::window::parameters::size_hints(
-	window::size_hints const &_size_hints
+	sge::window::size_hints const &_size_hints
 )
 {
 	size_hints_ = _size_hints;
+
+	return *this;
+}
+
+sge::window::parameters &
+sge::window::parameters::cursor(
+	awl::cursor::object const &_cursor
+)
+{
+	cursor_ =
+		awl::cursor::const_optional_object_ref(
+			_cursor
+		);
 
 	return *this;
 }
@@ -82,9 +98,14 @@ sge::window::parameters::class_name() const
 	return class_name_;
 }
 
-
 sge::window::size_hints const &
 sge::window::parameters::size_hints() const
 {
 	return size_hints_;
+}
+
+awl::cursor::const_optional_object_ref const &
+sge::window::parameters::cursor() const
+{
+	return cursor_;
 }

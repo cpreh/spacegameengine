@@ -53,5 +53,8 @@ sge::window::to_awl_parameters(
 			>(
 				_param.dim()
 			)
+		)
+		.cursor(
+			_param.cursor()
 		);
 }

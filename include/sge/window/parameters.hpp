@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_WINDOW_PARAMETERS_HPP_INCLUDED
 #define SGE_WINDOW_PARAMETERS_HPP_INCLUDED
 
+#include <awl/cursor/const_optional_object_ref.hpp>
+#include <awl/cursor/object_fwd.hpp>
 #include <sge/window/dim.hpp>
 #include <sge/window/parameters_fwd.hpp>
 #include <sge/window/size_hints.hpp>
@@ -52,7 +54,13 @@ public:
 	SGE_WINDOW_SYMBOL
 	sge::window::parameters &
 	size_hints(
-		window::size_hints const &
+		sge::window::size_hints const &
+	);
+
+	SGE_WINDOW_SYMBOL
+	sge::window::parameters &
+	cursor(
+		awl::cursor::object const &
 	);
 
 	SGE_WINDOW_SYMBOL
@@ -68,8 +76,12 @@ public:
 	class_name() const;
 
 	SGE_WINDOW_SYMBOL
-	window::size_hints const &
+	sge::window::size_hints const &
 	size_hints() const;
+
+	SGE_WINDOW_SYMBOL
+	awl::cursor::const_optional_object_ref const &
+	cursor() const;
 private:
 	sge::window::title title_;
 
@@ -78,6 +90,8 @@ private:
 	fcppt::string class_name_;
 
 	sge::window::size_hints size_hints_;
+
+	awl::cursor::const_optional_object_ref cursor_;
 };
 
 }

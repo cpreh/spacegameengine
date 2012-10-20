@@ -25,6 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/object.hpp>
 #include <sge/window/parameters.hpp>
 #include <sge/window/system.hpp>
+#include <awl/cursor/create_predefined.hpp>
+#include <awl/cursor/object.hpp>
+#include <awl/cursor/predefined.hpp>
 #include <awl/event/create_processor.hpp>
 #include <awl/event/processor.hpp>
 #include <awl/system/create.hpp>
@@ -69,11 +72,30 @@ sge::systems::modules::window::original::original(
 		:
 			awl_system_->default_visual()
 	),
+	awl_cursor_(
+		_parameters.cursor()
+		?
+			awl::cursor::object_unique_ptr()
+		:
+			awl::cursor::create_predefined(
+				*awl_system_,
+				awl::cursor::predefined::arrow
+			)
+	),
 	awl_window_(
 		sge::window::create_from_awl(
 			*awl_system_,
 			*awl_visual_,
-			_parameters
+			awl_cursor_
+			?
+				sge::window::parameters(
+					_parameters
+				)
+				.cursor(
+					*awl_cursor_
+				)
+			:
+				_parameters
 		)
 	),
 	awl_window_event_processor_(
