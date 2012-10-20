@@ -31,8 +31,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/view.hpp>
 #include <sge/image/size_type.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
+#include <sge/image/color/any/clear.hpp>
+#include <sge/image/color/any/object.hpp>
 #include <sge/image2d/rect.hpp>
 #include <sge/image2d/algorithm/copy_and_convert.hpp>
+#include <sge/image2d/algorithm/fill.hpp>
+#include <sge/image2d/view/format.hpp>
 #include <sge/image2d/view/size.hpp>
 #include <sge/image2d/view/sub.hpp>
 #include <sge/log/global.hpp>
@@ -46,6 +50,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -299,6 +304,25 @@ sge::font::bitmap::text::render(
 	sge::font::view const &_view
 )
 {
+	sge::image2d::algorithm::fill(
+		sge::image2d::view::sub(
+			_view,
+			sge::image2d::rect(
+				sge::image2d::rect::vector::null(),
+				fcppt::math::dim::structure_cast<
+					sge::image2d::rect::dim
+				>(
+					rect_.size()
+				)
+			)
+		),
+		sge::image::color::any::clear(
+			sge::image2d::view::format(
+				_view
+			)
+		)
+	);
+
 	sge::font::unit top(
 		0u
 	);

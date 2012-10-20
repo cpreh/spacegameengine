@@ -20,6 +20,7 @@ set(
 	include/sge/image/capabilities_field_fwd.hpp
 	include/sge/image/color/a8.hpp
 	include/sge/image/color/a8_format.hpp
+	include/sge/image/color/any/clear.hpp
 	include/sge/image/color/any/convert.hpp
 	include/sge/image/color/any/detail/make_object.hpp
 	include/sge/image/color/any/elements.hpp
@@ -140,6 +141,7 @@ set(
 	include/sge/image/view/wrap.hpp
 	include/sge/image/view/wrapped_type.hpp
 	src/image/algorithm/invalid_copy.cpp
+	src/image/color/any/clear.cpp
 	src/image/color/any/convert.cpp
 	src/image/color/any/from_string.cpp
 	src/image/color/any/object.cpp
