@@ -35,12 +35,12 @@ namespace image
 
 class SGE_CLASS_SYMBOL unsupported_format
 :
-	public image::file_exception
+	public sge::image::file_exception
 {
 public:
 	SGE_IMAGE_SYMBOL
 	unsupported_format(
-		image::optional_path const &,
+		sge::image::optional_path const &,
 		fcppt::string const &
 	);
 };

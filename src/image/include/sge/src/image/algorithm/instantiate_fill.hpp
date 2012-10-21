@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_IMAGE_ALGORITHM_INSTANTIATE_FILL_HPP_INCLUDED
 
 #include <sge/image/color/any/object_fwd.hpp>
-#include <sge/image/traits/view.hpp>
+#include <sge/image/traits/view_fwd.hpp>
 #include <sge/src/export_function_instantiation.hpp>
 #include <sge/src/image/algorithm/fill_impl.hpp>
 

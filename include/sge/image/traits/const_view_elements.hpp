@@ -41,18 +41,18 @@ struct const_view_elements;
 
 template<>
 struct const_view_elements<
-	image2d::tag
+	sge::image2d::tag
 >
 {
-	typedef image2d::view::const_elements type;
+	typedef sge::image2d::view::const_elements type;
 };
 
 template<>
 struct const_view_elements<
-	image3d::tag
+	sge::image3d::tag
 >
 {
-	typedef image3d::view::const_elements type;
+	typedef sge::image3d::view::const_elements type;
 };
 
 }

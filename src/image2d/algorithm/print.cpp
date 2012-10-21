@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 void
 sge::image2d::algorithm::print(
 	fcppt::io::ostream &_ostream,
-	view::const_object const &_view
+	sge::image2d::view::const_object const &_view
 )
 {
 	sge::image::algorithm::print<

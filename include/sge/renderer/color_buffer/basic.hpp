@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_COLOR_BUFFER_BASIC_HPP_INCLUDED
 
 #include <sge/class_symbol.hpp>
-#include <sge/image/traits/const_view.hpp>
+#include <sge/image/traits/const_view_fwd.hpp>
 #include <sge/image/traits/tag_from_dimension.hpp>
-#include <sge/image/traits/view.hpp>
+#include <sge/image/traits/view_fwd.hpp>
 #include <sge/renderer/basic_dim_fwd.hpp>
 #include <sge/renderer/basic_lock_box_fwd.hpp>
 #include <sge/renderer/lock_mode.hpp>

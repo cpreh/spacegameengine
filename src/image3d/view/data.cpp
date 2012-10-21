@@ -18,6 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/image/const_raw_pointer.hpp>
+#include <sge/image/raw_pointer.hpp>
 #include <sge/image3d/tag.hpp>
 #include <sge/image3d/view/const_object.hpp>
 #include <sge/image3d/view/data.hpp>
@@ -28,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::image::raw_pointer
 sge::image3d::view::data(
-	view::object const &_view
+	sge::image3d::view::object const &_view
 )
 {
 	return
@@ -41,7 +43,7 @@ sge::image3d::view::data(
 
 sge::image::const_raw_pointer
 sge::image3d::view::data(
-	view::const_object const &_view
+	sge::image3d::view::const_object const &_view
 )
 {
 	return

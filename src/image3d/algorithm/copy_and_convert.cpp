@@ -29,9 +29,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::image3d::algorithm::copy_and_convert(
-	view::const_object const &_src,
-	view::object const &_dest,
-	image::algorithm::may_overlap::type const _overlap
+	sge::image3d::view::const_object const &_src,
+	sge::image3d::view::object const &_dest,
+	sge::image::algorithm::may_overlap::type const _overlap
 )
 {
 	sge::image::algorithm::copy_and_convert<

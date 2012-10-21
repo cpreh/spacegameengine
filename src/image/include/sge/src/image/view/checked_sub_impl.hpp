@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_IMAGE_VIEW_CHECKED_SUB_IMPL_HPP_INCLUDED
 #define SGE_SRC_IMAGE_VIEW_CHECKED_SUB_IMPL_HPP_INCLUDED
 
-#include <sge/image/traits/box.hpp>
-#include <sge/image/traits/const_view.hpp>
-#include <sge/image/traits/view.hpp>
+#include <sge/image/traits/box_fwd.hpp>
+#include <sge/image/traits/const_view_fwd.hpp>
+#include <sge/image/traits/view_fwd.hpp>
 #include <sge/image/view/checked_sub.hpp>
 #include <sge/src/image/view/checked_sub_any.hpp>
 

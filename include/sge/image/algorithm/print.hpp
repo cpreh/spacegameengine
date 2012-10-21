@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_ALGORITHM_PRINT_HPP_INCLUDED
 
 #include <sge/image/detail/instantiate/symbol.hpp>
-#include <sge/image/traits/const_view.hpp>
+#include <sge/image/traits/const_view_fwd.hpp>
 #include <fcppt/io/ostream.hpp>
 
 
@@ -40,7 +40,7 @@ SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 void
 print(
 	fcppt::io::ostream &,
-	typename image::traits::const_view<
+	typename sge::image::traits::const_view<
 		Tag
 	>::type const &
 );

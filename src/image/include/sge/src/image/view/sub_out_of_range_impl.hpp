@@ -31,7 +31,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<
 	typename Box
 >
-sge::image::view::sub_out_of_range<Box>::sub_out_of_range(
+sge::image::view::sub_out_of_range<
+	Box
+>::sub_out_of_range(
 	Box const &_outer,
 	Box const &_inner
 )
@@ -45,8 +47,12 @@ sge::image::view::sub_out_of_range<Box>::sub_out_of_range(
 			% _outer
 		).str()
 	),
-	outer_(_outer),
-	inner_(_inner)
+	outer_(
+		_outer
+	),
+	inner_(
+		_inner
+	)
 {
 }
 
@@ -54,7 +60,9 @@ template<
 	typename Box
 >
 Box const &
-sge::image::view::sub_out_of_range<Box>::outer() const
+sge::image::view::sub_out_of_range<
+	Box
+>::outer() const
 {
 	return outer_;
 }
@@ -63,7 +71,9 @@ template<
 	typename Box
 >
 Box const &
-sge::image::view::sub_out_of_range<Box>::inner() const
+sge::image::view::sub_out_of_range<
+	Box
+>::inner() const
 {
 	return inner_;
 }
@@ -71,7 +81,9 @@ sge::image::view::sub_out_of_range<Box>::inner() const
 template<
 	typename Box
 >
-sge::image::view::sub_out_of_range<Box>::~sub_out_of_range() throw()
+sge::image::view::sub_out_of_range<
+	Box
+>::~sub_out_of_range() throw()
 {
 }
 

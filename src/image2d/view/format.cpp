@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::image::color::format::type
 sge::image2d::view::format(
-	view::object const &_view
+	sge::image2d::view::object const &_view
 )
 {
 	return
@@ -41,7 +41,7 @@ sge::image2d::view::format(
 
 sge::image::color::format::type
 sge::image2d::view::format(
-	view::const_object const &_view
+	sge::image2d::view::const_object const &_view
 )
 {
 	return

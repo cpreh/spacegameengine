@@ -41,18 +41,18 @@ struct view_elements;
 
 template<>
 struct view_elements<
-	image2d::tag
+	sge::image2d::tag
 >
 {
-	typedef image2d::view::elements type;
+	typedef sge::image2d::view::elements type;
 };
 
 template<>
 struct view_elements<
-	image3d::tag
+	sge::image3d::tag
 >
 {
-	typedef image3d::view::elements type;
+	typedef sge::image3d::view::elements type;
 };
 
 }

@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/view/wrapped_type.hpp>
 
+
 namespace sge
 {
 namespace image
@@ -34,7 +35,7 @@ template<
 	typename View
 >
 
-typename view::wrapped_type<
+typename sge::image::view::wrapped_type<
 	View
 >::type const
 wrap(
@@ -42,7 +43,7 @@ wrap(
 )
 {
 	return
-		typename view::wrapped_type<
+		typename sge::image::view::wrapped_type<
 			View
 		>::type(
 			_view

@@ -106,15 +106,18 @@ set(
 	include/sge/image/store.hpp
 	include/sge/image/store_fwd.hpp
 	include/sge/image/traits/box.hpp
-	include/sge/image/traits/const_view.hpp
+	include/sge/image/traits/box_fwd.hpp
 	include/sge/image/traits/const_view_elements.hpp
+	include/sge/image/traits/const_view_fwd.hpp
 	include/sge/image/traits/dim.hpp
+	include/sge/image/traits/dim_fwd.hpp
 	include/sge/image/traits/pitch.hpp
+	include/sge/image/traits/pitch_fwd.hpp
 	include/sge/image/traits/sub_out_of_range.hpp
 	include/sge/image/traits/tag_from_dimension.hpp
 	include/sge/image/traits/tag_from_view.hpp
-	include/sge/image/traits/view.hpp
 	include/sge/image/traits/view_elements.hpp
+	include/sge/image/traits/view_fwd.hpp
 	include/sge/image/unsupported_format.hpp
 	include/sge/image/vector.hpp
 	include/sge/image/vector_fwd.hpp

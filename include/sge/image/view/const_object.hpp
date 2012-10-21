@@ -41,7 +41,7 @@ template<
 class const_object
 {
 public:
-	typedef view::object<
+	typedef sge::image::view::object<
 		NonConstElementsWrapper
 	> nonconst_object;
 
@@ -50,12 +50,14 @@ public:
 	> variant;
 
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
-	explicit const_object(
+	explicit
+	const_object(
 		variant const &
 	);
 
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
-	explicit const_object(
+	explicit
+	const_object(
 		nonconst_object const  &
 	);
 

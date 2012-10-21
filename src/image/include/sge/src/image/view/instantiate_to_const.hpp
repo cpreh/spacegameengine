@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_IMAGE_VIEW_INSTANTIATE_TO_CONST_HPP_INCLUDED
 #define SGE_SRC_IMAGE_VIEW_INSTANTIATE_TO_CONST_HPP_INCLUDED
 
-#include <sge/image/traits/const_view.hpp>
-#include <sge/image/traits/view.hpp>
+#include <sge/image/traits/const_view_fwd.hpp>
+#include <sge/image/traits/view_fwd.hpp>
 #include <sge/src/export_function_instantiation.hpp>
 #include <sge/src/image/view/to_const_impl.hpp>
 

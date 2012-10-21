@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_IMAGE_VIEW_GET_VISITOR_HPP_INCLUDED
 #define SGE_SRC_IMAGE_VIEW_GET_VISITOR_HPP_INCLUDED
 
+#include <sge/image/dim.hpp>
 #include <sge/image/color/object.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/src/image/convert_dim.hpp>
 #include <fcppt/nonassignable.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
 
 
 namespace sge

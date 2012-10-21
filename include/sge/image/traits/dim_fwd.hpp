@@ -18,32 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_ALGORITHM_FILL_HPP_INCLUDED
-#define SGE_IMAGE_ALGORITHM_FILL_HPP_INCLUDED
+#ifndef SGE_IMAGE_TRAITS_DIM_FWD_HPP_INCLUDED
+#define SGE_IMAGE_TRAITS_DIM_FWD_HPP_INCLUDED
 
-#include <sge/image/color/any/object_fwd.hpp>
-#include <sge/image/detail/instantiate/symbol.hpp>
-#include <sge/image/traits/view_fwd.hpp>
+#include <sge/image2d/dim_fwd.hpp>
+#include <sge/image2d/tag.hpp>
+#include <sge/image3d/dim_fwd.hpp>
+#include <sge/image3d/tag.hpp>
 
 
 namespace sge
 {
 namespace image
 {
-namespace algorithm
+namespace traits
 {
 
 template<
 	typename Tag
 >
-SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
-void
-fill(
-	typename sge::image::traits::view<
-		Tag
-	>::type const &,
-	sge::image::color::any::object const &
-);
+struct dim;
+
+template<>
+struct dim<
+	sge::image2d::tag
+>
+{
+	typedef sge::image2d::dim type;
+};
+
+template<>
+struct dim<
+	sge::image3d::tag
+>
+{
+	typedef sge::image3d::dim type;
+};
 
 }
 }

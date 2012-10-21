@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/la8.hpp>
 #include <sge/image/color/r32f.hpp>
 #include <sge/image/color/object.hpp>
+#include <sge/image/color/srgba8.hpp>
 #include <sge/image/color/any/clear.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <fcppt/assert/unreachable.hpp>
@@ -36,6 +37,7 @@ sge::image::color::any::clear(
 	sge::image::color::format::type const _format
 )
 {
+	// TODO: Make this more generic
 	switch(
 		_format
 	)
@@ -79,10 +81,19 @@ sge::image::color::any::clear(
 	case sge::image::color::format::bgr32f:
 	case sge::image::color::format::rgba32f:
 	case sge::image::color::format::bgra32f:
+		return
+			sge::image::colors::transparent();
 	case sge::image::color::format::srgb8:
 	case sge::image::color::format::srgba8:
 		return
-			sge::image::colors::transparent();
+			sge::image::color::any::object(
+				sge::image::color::srgba8(
+					(sge::image::color::init::red() %= 0.)
+					(sge::image::color::init::green() %= 0.)
+					(sge::image::color::init::blue() %= 0.)
+					(sge::image::color::init::alpha() %= 0.)
+				)
+			);
 	case sge::image::color::format::size:
 		break;
 	}

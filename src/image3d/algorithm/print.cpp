@@ -23,12 +23,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image3d/view/const_object.hpp>
 #include <sge/src/image/algorithm/instantiate_print.hpp>
 #include <sge/src/image/algorithm/print_impl.hpp>
+#include <fcppt/io/ostream.hpp>
 
 
 void
 sge::image3d::algorithm::print(
 	fcppt::io::ostream &_ostream,
-	view::const_object const &_view
+	sge::image3d::view::const_object const &_view
 )
 {
 	sge::image::algorithm::print<

@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_IMAGE_DYNAMIC_ALGORITHM_COPY_AND_CONVERT_HPP_INCLUDED
 
 #include <sge/image/algorithm/may_overlap.hpp>
-#include <sge/image/traits/const_view.hpp>
+#include <sge/image/traits/const_view_fwd.hpp>
 #include <sge/image/traits/dim.hpp>
-#include <sge/image/traits/view.hpp>
+#include <sge/image/traits/view_fwd.hpp>
 #include <sge/src/image/dynamic/algorithm/cac/visitor.hpp>
 #include <sge/src/image/dynamic/color/access.hpp>
 #include <sge/src/image/dynamic/color/format_object_decl.hpp>
@@ -36,7 +36,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <mizuiro/color/access/homogenous_dynamic.hpp>
 #include <mizuiro/color/types/homogenous.hpp>
 #include <mizuiro/color/types/homogenous_dynamic.hpp>
-#include <fcppt/math/dim/object_decl.hpp>
 #include <fcppt/variant/apply_binary.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 

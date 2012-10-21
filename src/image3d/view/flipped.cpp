@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::image3d::view::object const
 sge::image3d::view::flipped(
-	view::object const &_view
+	sge::image3d::view::object const &_view
 )
 {
 	return
@@ -41,7 +41,7 @@ sge::image3d::view::flipped(
 
 sge::image3d::view::const_object const
 sge::image3d::view::flipped(
-	view::const_object const &_view
+	sge::image3d::view::const_object const &_view
 )
 {
 	return

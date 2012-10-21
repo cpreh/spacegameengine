@@ -48,7 +48,7 @@ template<
 struct elements_base
 :
 boost::mpl::transform<
-	image::color::elements,
+	sge::image::color::elements,
 	boost::mpl::quote1<
 		Element
 	>

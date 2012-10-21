@@ -41,18 +41,18 @@ struct sub_out_of_range;
 
 template<>
 struct sub_out_of_range<
-	image2d::tag
+	sge::image2d::tag
 >
 {
-	typedef image2d::view::sub_out_of_range type;
+	typedef sge::image2d::view::sub_out_of_range type;
 };
 
 template<>
 struct sub_out_of_range<
-	image3d::tag
+	sge::image3d::tag
 >
 {
-	typedef image3d::view::sub_out_of_range type;
+	typedef sge::image3d::view::sub_out_of_range type;
 };
 
 }
