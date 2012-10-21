@@ -18,35 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_IMAGE_VIEW_DATA_VISITOR_HPP_INCLUDED
-#define SGE_SRC_IMAGE_VIEW_DATA_VISITOR_HPP_INCLUDED
+#ifndef SGE_IMAGE2D_VIEW_GET_HPP_INCLUDED
+#define SGE_IMAGE2D_VIEW_GET_HPP_INCLUDED
+
+#include <sge/image/color/any/object_fwd.hpp>
+#include <sge/image2d/dim_fwd.hpp>
+#include <sge/image2d/symbol.hpp>
+#include <sge/image2d/view/const_object_fwd.hpp>
+#include <sge/image2d/view/object_fwd.hpp>
 
 
 namespace sge
 {
-namespace image
+namespace image2d
 {
 namespace view
 {
 
-template<
-	typename Dst
->
-struct data_visitor
-{
-	typedef Dst result_type;
+SGE_IMAGE2D_SYMBOL
+sge::image::color::any::object const
+get(
+	sge::image2d::view::object const &,
+	sge::image2d::dim const &
+);
 
-	template<
-		typename Src
-	>
-	result_type
-	operator()(
-		Src const &_src
-	) const
-	{
-		return _src.data();
-	}
-};
+SGE_IMAGE2D_SYMBOL
+sge::image::color::any::object const
+get(
+	sge::image2d::view::const_object const &,
+	sge::image2d::dim const &
+);
 
 }
 }

@@ -18,8 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_IMAGE_VIEW_DATA_VISITOR_HPP_INCLUDED
-#define SGE_SRC_IMAGE_VIEW_DATA_VISITOR_HPP_INCLUDED
+#ifndef SGE_SRC_IMAGE_VIEW_GET_VISITOR_HPP_INCLUDED
+#define SGE_SRC_IMAGE_VIEW_GET_VISITOR_HPP_INCLUDED
+
+#include <sge/image/color/object.hpp>
+#include <sge/image/color/any/object.hpp>
+#include <sge/src/image/convert_dim.hpp>
+#include <fcppt/nonassignable.hpp>
+#include <fcppt/math/dim/object_impl.hpp>
 
 
 namespace sge
@@ -30,11 +36,26 @@ namespace view
 {
 
 template<
-	typename Dst
+	typename Dim
 >
-struct data_visitor
+class get_visitor
 {
-	typedef Dst result_type;
+	FCPPT_NONASSIGNABLE(
+		get_visitor
+	);
+public:
+	typedef sge::image::color::any::object result_type;
+
+	explicit
+	get_visitor(
+		Dim const &_index
+	)
+	:
+		index_(
+			_index
+		)
+	{
+	}
 
 	template<
 		typename Src
@@ -44,8 +65,23 @@ struct data_visitor
 		Src const &_src
 	) const
 	{
-		return _src.data();
+		return
+			sge::image::color::any::object(
+				typename sge::image::color::object<
+					typename Src::format::color_format
+				>::type(
+					_src[
+						sge::image::convert_dim<
+							typename Src::dim
+						>(
+							index_
+						)
+					]
+				)
+			);
 	}
+private:
+	Dim const index_;
 };
 
 }

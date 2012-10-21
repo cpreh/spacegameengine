@@ -18,8 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_IMAGE_VIEW_DATA_VISITOR_HPP_INCLUDED
-#define SGE_SRC_IMAGE_VIEW_DATA_VISITOR_HPP_INCLUDED
+#ifndef SGE_IMAGE_VIEW_GET_HPP_INCLUDED
+#define SGE_IMAGE_VIEW_GET_HPP_INCLUDED
+
+#include <sge/image/color/any/object_fwd.hpp>
+#include <sge/image/detail/instantiate/symbol.hpp>
+#include <sge/image/traits/const_view.hpp>
+#include <sge/image/traits/dim.hpp>
+#include <sge/image/traits/view.hpp>
 
 
 namespace sge
@@ -30,23 +36,32 @@ namespace view
 {
 
 template<
-	typename Dst
+	typename Tag
 >
-struct data_visitor
-{
-	typedef Dst result_type;
+SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
+sge::image::color::any::object const
+get(
+	typename sge::image::traits::view<
+		Tag
+	>::type const &,
+	typename sge::image::traits::dim<
+		Tag
+	>::type const &
+);
 
-	template<
-		typename Src
-	>
-	result_type
-	operator()(
-		Src const &_src
-	) const
-	{
-		return _src.data();
-	}
-};
+template<
+	typename Tag
+>
+SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
+sge::image::color::any::object const
+get(
+	typename sge::image::traits::const_view<
+		Tag
+	>::type const &,
+	typename sge::image::traits::dim<
+		Tag
+	>::type const &
+);
 
 }
 }

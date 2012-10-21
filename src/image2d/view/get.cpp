@@ -18,38 +18,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_IMAGE_VIEW_DATA_VISITOR_HPP_INCLUDED
-#define SGE_SRC_IMAGE_VIEW_DATA_VISITOR_HPP_INCLUDED
+#include <sge/image/color/any/object.hpp>
+#include <sge/image2d/tag.hpp>
+#include <sge/image2d/view/const_object.hpp>
+#include <sge/image2d/view/get.hpp>
+#include <sge/image2d/view/object.hpp>
+#include <sge/src/image/view/get_impl.hpp>
+#include <sge/src/image/view/instantiate_get.hpp>
 
 
-namespace sge
+sge::image::color::any::object const
+sge::image2d::view::get(
+	sge::image2d::view::object const &_view,
+	sge::image2d::dim const &_index
+)
 {
-namespace image
-{
-namespace view
-{
-
-template<
-	typename Dst
->
-struct data_visitor
-{
-	typedef Dst result_type;
-
-	template<
-		typename Src
-	>
-	result_type
-	operator()(
-		Src const &_src
-	) const
-	{
-		return _src.data();
-	}
-};
-
-}
-}
+	return
+		sge::image::view::get<
+			sge::image2d::tag
+		>(
+			_view,
+			_index
+		);
 }
 
-#endif
+sge::image::color::any::object const
+sge::image2d::view::get(
+	sge::image2d::view::const_object const &_view,
+	sge::image2d::dim const &_index
+)
+{
+	return
+		sge::image::view::get<
+			sge::image2d::tag
+		>(
+			_view,
+			_index
+		);
+}
+
+SGE_SRC_IMAGE_VIEW_INSTANTIATE_GET(
+	sge::image2d::tag
+)

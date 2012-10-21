@@ -54,6 +54,7 @@ set(
 	include/sge/image3d/view/elements_wrapper_fwd.hpp
 	include/sge/image3d/view/flipped.hpp
 	include/sge/image3d/view/format.hpp
+	include/sge/image3d/view/get.hpp
 	include/sge/image3d/view/make.hpp
 	include/sge/image3d/view/make_const.hpp
 	include/sge/image3d/view/object.hpp
@@ -86,6 +87,7 @@ set(
 	src/image3d/view/data.cpp
 	src/image3d/view/flipped.cpp
 	src/image3d/view/format.cpp
+	src/image3d/view/get.cpp
 	src/image3d/view/make.cpp
 	src/image3d/view/make_const.cpp
 	src/image3d/view/object.cpp

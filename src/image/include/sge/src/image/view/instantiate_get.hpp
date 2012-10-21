@@ -18,38 +18,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_IMAGE_VIEW_DATA_VISITOR_HPP_INCLUDED
-#define SGE_SRC_IMAGE_VIEW_DATA_VISITOR_HPP_INCLUDED
+#ifndef SGE_SRC_IMAGE_VIEW_INSTANTIATE_GET_HPP_INCLUDED
+#define SGE_SRC_IMAGE_VIEW_INSTANTIATE_GET_HPP_INCLUDED
+
+#include <sge/image/color/any/object.hpp>
+#include <sge/image/traits/const_view.hpp>
+#include <sge/image/traits/dim.hpp>
+#include <sge/image/traits/view.hpp>
+#include <sge/src/export_function_instantiation.hpp>
+#include <sge/src/image/view/data_impl.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace view
-{
+#define SGE_SRC_IMAGE_VIEW_INSTANTIATE_GET_BASE(\
+	tag,\
+	view_type\
+)\
+template \
+SGE_EXPORT_FUNCTION_INSTANTIATION \
+sge::image::color::any::object const \
+sge::image::view::get<\
+	tag\
+>(\
+	sge::image::traits::view_type<\
+		tag\
+	>::type const &,\
+	sge::image::traits::dim<\
+		tag\
+	>::type const &\
+);
 
-template<
-	typename Dst
->
-struct data_visitor
-{
-	typedef Dst result_type;
-
-	template<
-		typename Src
-	>
-	result_type
-	operator()(
-		Src const &_src
-	) const
-	{
-		return _src.data();
-	}
-};
-
-}
-}
-}
+#define SGE_SRC_IMAGE_VIEW_INSTANTIATE_GET(\
+	tag\
+)\
+SGE_SRC_IMAGE_VIEW_INSTANTIATE_GET_BASE(\
+	tag,\
+	view\
+)\
+SGE_SRC_IMAGE_VIEW_INSTANTIATE_GET_BASE(\
+	tag,\
+	const_view\
+)
 
 #endif

@@ -18,8 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_IMAGE_VIEW_DATA_VISITOR_HPP_INCLUDED
-#define SGE_SRC_IMAGE_VIEW_DATA_VISITOR_HPP_INCLUDED
+#ifndef SGE_SRC_IMAGE_VIEW_GET_ANY_HPP_INCLUDED
+#define SGE_SRC_IMAGE_VIEW_GET_ANY_HPP_INCLUDED
+
+#include <sge/image/color/any/object.hpp>
+#include <sge/src/image/view/get_visitor.hpp>
+#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
 
 namespace sge
@@ -30,23 +35,25 @@ namespace view
 {
 
 template<
-	typename Dst
+	typename View,
+	typename Dim
 >
-struct data_visitor
+sge::image::color::any::object const
+get_any(
+	View const &_view,
+	Dim const &_index
+)
 {
-	typedef Dst result_type;
-
-	template<
-		typename Src
-	>
-	result_type
-	operator()(
-		Src const &_src
-	) const
-	{
-		return _src.data();
-	}
-};
+	return
+		fcppt::variant::apply_unary(
+			sge::image::view::get_visitor<
+				Dim
+			>(
+				_index
+			),
+			_view.get()
+		);
+}
 
 }
 }

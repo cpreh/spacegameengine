@@ -126,6 +126,7 @@ set(
 	include/sge/image/view/elements_base.hpp
 	include/sge/image/view/flipped.hpp
 	include/sge/image/view/format.hpp
+	include/sge/image/view/get.hpp
 	include/sge/image/view/make.hpp
 	include/sge/image/view/make_const.hpp
 	include/sge/image/view/make_mizuiro_type.hpp
@@ -253,12 +254,16 @@ set(
 	src/image/include/sge/src/image/view/format_any.hpp
 	src/image/include/sge/src/image/view/format_impl.hpp
 	src/image/include/sge/src/image/view/format_visitor.hpp
+	src/image/include/sge/src/image/view/get_any.hpp
+	src/image/include/sge/src/image/view/get_impl.hpp
+	src/image/include/sge/src/image/view/get_visitor.hpp
 	src/image/include/sge/src/image/view/instantiate_checked_sub.hpp
 	src/image/include/sge/src/image/view/instantiate_const_nonconst.hpp
 	src/image/include/sge/src/image/view/instantiate_const_object.hpp
 	src/image/include/sge/src/image/view/instantiate_data.hpp
 	src/image/include/sge/src/image/view/instantiate_flipped.hpp
 	src/image/include/sge/src/image/view/instantiate_format.hpp
+	src/image/include/sge/src/image/view/instantiate_get.hpp
 	src/image/include/sge/src/image/view/instantiate_make.hpp
 	src/image/include/sge/src/image/view/instantiate_make_const.hpp
 	src/image/include/sge/src/image/view/instantiate_object.hpp

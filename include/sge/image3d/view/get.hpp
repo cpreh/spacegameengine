@@ -18,35 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_IMAGE_VIEW_DATA_VISITOR_HPP_INCLUDED
-#define SGE_SRC_IMAGE_VIEW_DATA_VISITOR_HPP_INCLUDED
+#ifndef SGE_IMAGE3D_VIEW_GET_HPP_INCLUDED
+#define SGE_IMAGE3D_VIEW_GET_HPP_INCLUDED
+
+#include <sge/image/color/any/object_fwd.hpp>
+#include <sge/image3d/dim_fwd.hpp>
+#include <sge/image3d/symbol.hpp>
+#include <sge/image3d/view/const_object_fwd.hpp>
+#include <sge/image3d/view/object_fwd.hpp>
 
 
 namespace sge
 {
-namespace image
+namespace image3d
 {
 namespace view
 {
 
-template<
-	typename Dst
->
-struct data_visitor
-{
-	typedef Dst result_type;
+SGE_IMAGE3D_SYMBOL
+sge::image::color::any::object const
+get(
+	sge::image3d::view::object const &,
+	sge::image3d::dim const &
+);
 
-	template<
-		typename Src
-	>
-	result_type
-	operator()(
-		Src const &_src
-	) const
-	{
-		return _src.data();
-	}
-};
+SGE_IMAGE3D_SYMBOL
+sge::image::color::any::object const
+get(
+	sge::image3d::view::const_object const &,
+	sge::image3d::dim const &
+);
 
 }
 }

@@ -73,6 +73,7 @@ set(
 	include/sge/image2d/view/elements_wrapper_fwd.hpp
 	include/sge/image2d/view/flipped.hpp
 	include/sge/image2d/view/format.hpp
+	include/sge/image2d/view/get.hpp
 	include/sge/image2d/view/make.hpp
 	include/sge/image2d/view/make_const.hpp
 	include/sge/image2d/view/object.hpp
@@ -118,6 +119,7 @@ set(
 	src/image2d/view/data.cpp
 	src/image2d/view/flipped.cpp
 	src/image2d/view/format.cpp
+	src/image2d/view/get.cpp
 	src/image2d/view/make.cpp
 	src/image2d/view/make_const.cpp
 	src/image2d/view/object.cpp

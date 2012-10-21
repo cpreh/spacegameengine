@@ -36,15 +36,15 @@ namespace view
 {
 
 SGE_IMAGE2D_SYMBOL
-image::raw_pointer
+sge::image::raw_pointer
 data(
-	view::object const &
+	sge::image2d::view::object const &
 );
 
 SGE_IMAGE2D_SYMBOL
-image::const_raw_pointer
+sge::image::const_raw_pointer
 data(
-	view::const_object const &
+	sge::image2d::view::const_object const &
 );
 
 }

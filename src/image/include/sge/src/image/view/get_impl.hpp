@@ -18,42 +18,55 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/const_raw_pointer.hpp>
-#include <sge/image/raw_pointer.hpp>
-#include <sge/image2d/tag.hpp>
-#include <sge/image2d/view/const_object.hpp>
-#include <sge/image2d/view/data.hpp>
-#include <sge/image2d/view/object.hpp>
-#include <sge/src/image/view/data_impl.hpp>
-#include <sge/src/image/view/instantiate_data.hpp>
+#ifndef SGE_SRC_IMAGE_VIEW_GET_IMPL_HPP_INCLUDED
+#define SGE_SRC_IMAGE_VIEW_GET_IMPL_HPP_INCLUDED
+
+#include <sge/image/color/any/object.hpp>
+#include <sge/image/view/get.hpp>
+#include <sge/image/traits/const_view.hpp>
+#include <sge/image/traits/dim.hpp>
+#include <sge/image/traits/view.hpp>
+#include <sge/src/image/view/get_any.hpp>
 
 
-sge::image::raw_pointer
-sge::image2d::view::data(
-	sge::image2d::view::object const &_view
+template<
+	typename Tag
+>
+sge::image::color::any::object const
+sge::image::view::get(
+	typename sge::image::traits::view<
+		Tag
+	>::type const &_view,
+	typename sge::image::traits::dim<
+		Tag
+	>::type const &_index
 )
 {
 	return
-		sge::image::view::data<
-			sge::image2d::tag
-		>(
-			_view
+		sge::image::view::get_any(
+			_view,
+			_index
 		);
 }
 
-sge::image::const_raw_pointer
-sge::image2d::view::data(
-	sge::image2d::view::const_object const &_view
+template<
+	typename Tag
+>
+sge::image::color::any::object const
+sge::image::view::get(
+	typename sge::image::traits::const_view<
+		Tag
+	>::type const &_view,
+	typename sge::image::traits::dim<
+		Tag
+	>::type const &_index
 )
 {
 	return
-		sge::image::view::data<
-			sge::image2d::tag
-		>(
-			_view
+		sge::image::view::get_any(
+			_view,
+			_index
 		);
 }
 
-SGE_SRC_IMAGE_VIEW_INSTANTIATE_DATA(
-	sge::image2d::tag
-)
+#endif
