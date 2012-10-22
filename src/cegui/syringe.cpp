@@ -229,6 +229,15 @@ sge::cegui::syringe::inject(
 
 void
 sge::cegui::syringe::inject(
+	sge::cegui::wheel_axis_delta const &_delta
+)
+{
+	gui_context_.injectMouseWheelChange(
+		_delta.get());
+}
+
+void
+sge::cegui::syringe::inject(
 	sge::input::cursor::position const &_cursor_position
 )
 {

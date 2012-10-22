@@ -55,6 +55,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/input.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/keyboard_collector.hpp>
+#include <sge/systems/mouse_collector.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/make_list.hpp>
 #include <sge/systems/quit_on_escape.hpp>
@@ -128,8 +129,9 @@ try
 			>,
 			sge::systems::with_window,
 			sge::systems::with_input<
-				boost::mpl::vector2<
+				boost::mpl::vector3<
 					sge::systems::keyboard_collector,
+					sge::systems::mouse_collector,
 					sge::systems::cursor_demuxer
 				>
 			>,
@@ -184,7 +186,8 @@ try
 
 	sge::cegui::default_cursor gui_cursor(
 		gui_syringe,
-		sys.cursor_demuxer());
+		sys.cursor_demuxer(),
+		sys.mouse_collector());
 
 	sge::cegui::default_keyboard gui_keyboard(
 		gui_syringe,

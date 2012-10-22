@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/program/notification_callback.hpp>
 #include <sge/opencl/program/optional_build_parameters.hpp>
 #include <sge/opencl/program/source_string_sequence.hpp>
+#include <fcppt/container/raw_vector.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional.hpp>
 
@@ -71,8 +72,18 @@ public:
 private:
 	friend class sge::opencl::kernel::object;
 
+	typedef
+	fcppt::container::raw_vector<cl_device_id>
+	device_id_vector;
+
 	cl_program program_;
 	sge::opencl::program::notification_callback notification_callback_;
+
+	device_id_vector const
+	program_devices() const;
+
+	void
+	check_program_return_values();
 
 	static void
 	notification_callback(

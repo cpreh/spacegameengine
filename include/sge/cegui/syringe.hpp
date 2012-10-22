@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/symbol.hpp>
 #include <sge/cegui/syringe_fwd.hpp>
 #include <sge/cegui/system_fwd.hpp>
+#include <sge/cegui/wheel_axis_delta.hpp>
 #include <sge/charconv/system_fwd.hpp>
 #include <sge/input/cursor/button_event_fwd.hpp>
 #include <sge/input/cursor/move_event_fwd.hpp>
@@ -88,6 +89,12 @@ public:
 	void
 	inject(
 		sge::input::cursor::move_event const &
+	);
+
+	SGE_CEGUI_SYMBOL
+	void
+	inject(
+		sge::cegui::wheel_axis_delta const &
 	);
 
 	SGE_CEGUI_SYMBOL

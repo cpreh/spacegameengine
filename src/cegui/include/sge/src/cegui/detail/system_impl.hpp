@@ -86,7 +86,7 @@ public:
 private:
 	void
 	viewport_change(
-		sge::renderer::target::viewport const &
+		sge::renderer::target::viewport
 	);
 
 	sge::charconv::system &charconv_system_;

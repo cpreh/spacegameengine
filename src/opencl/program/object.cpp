@@ -53,10 +53,6 @@ sge::opencl::program::object::object(
 	fcppt::container::raw_vector<size_t>
 	length_vector;
 
-	typedef
-	fcppt::container::raw_vector<cl_device_id>
-	device_id_vector;
-
 	blob_ptr_vector blobs;
 
 	blobs.reserve(
@@ -204,10 +200,6 @@ void
 sge::opencl::program::object::build(
 	program::build_parameters const &params)
 {
-	typedef
-	fcppt::container::raw_vector<cl_device_id>
-	device_id_vector;
-
 	device_id_vector devices;
 
 	if(params.devices())
@@ -226,45 +218,13 @@ sge::opencl::program::object::build(
 	}
 	else
 	{
-		// We need the device vector anyway when we handle the
-		// errors, so we get it here. Hope it's not too much
-		// of a performance penalty.
-		cl_uint number_of_devices;
-
-		cl_int const error_code =
-			clGetProgramInfo(
-				program_,
-				CL_PROGRAM_NUM_DEVICES,
-				sizeof(cl_uint),
-				&number_of_devices,
-				0);
-
-		opencl::handle_error(
-			error_code,
-			FCPPT_TEXT("clGetProgramInfo(CL_PROGRAM_NUM_DEVICES)"));
-
-		devices.resize(
-			static_cast<device_id_vector::size_type>(
-				number_of_devices));
-
-		cl_int const error_code2 =
-			clGetProgramInfo(
-				program_,
-				CL_PROGRAM_DEVICES,
-				static_cast<size_t>(
-					sizeof(cl_device_id) * devices.size()),
-				devices.data(),
-				0);
-
-		opencl::handle_error(
-			error_code2,
-			FCPPT_TEXT("clGetProgramInfo(CL_PROGRAM_DEVICES)"));
+		devices = this->program_devices();
 	}
 
 	notification_callback_ =
 		params.notification_callback();
 
-	cl_int const error_code3 =
+	//cl_int const error_code3 =
 		clBuildProgram(
 			program_,
 			static_cast<cl_uint>(
@@ -290,87 +250,7 @@ sge::opencl::program::object::build(
 //	if(error_code3 == CL_SUCCESS)
 //		return;
 
-	for(
-		device_id_vector::const_iterator it =
-			devices.begin();
-		it != devices.end();
-		++it)
-	{
-		cl_build_status return_status;
-
-		cl_int const error_code4 =
-			clGetProgramBuildInfo(
-				program_,
-				*it,
-				CL_PROGRAM_BUILD_STATUS,
-				sizeof(
-					cl_build_status),
-				&return_status,
-				0);
-
-		opencl::handle_error(
-			error_code4,
-			FCPPT_TEXT("clGetProgramBuildInfo(Build status of a device)"));
-
-		FCPPT_ASSERT_ERROR(
-			return_status != CL_BUILD_NONE);
-
-		// This will only be sent if we specify a callback
-		FCPPT_ASSERT_ERROR(
-			return_status != CL_BUILD_IN_PROGRESS);
-
-		if(return_status == CL_BUILD_SUCCESS)
-			continue;
-
-		std::size_t program_build_log_size;
-		cl_int const error_code5 =
-			clGetProgramBuildInfo(
-				program_,
-				*it,
-				CL_PROGRAM_BUILD_LOG,
-				0,
-				0,
-				&program_build_log_size);
-
-		opencl::handle_error(
-			error_code5,
-			FCPPT_TEXT("clGetProgramBuildInfo(Build log size)"));
-
-		std::string build_log;
-		build_log.resize(
-			static_cast<std::string::size_type>(
-				program_build_log_size));
-
-		cl_int const error_code6 =
-			clGetProgramBuildInfo(
-				program_,
-				*it,
-				CL_PROGRAM_BUILD_LOG,
-				program_build_log_size,
-				&build_log[0],
-				0);
-
-		opencl::handle_error(
-			error_code6,
-			FCPPT_TEXT("clGetProgramBuildInfo(Build log string)"));
-
-		if(!build_log.empty())
-		{
-			FCPPT_LOG_VERBOSE(
-				local_log,
-				fcppt::log::_
-					<< FCPPT_TEXT("Program build failed with error code ")
-					<< error_code3
-					<< FCPPT_TEXT(", build log:\n")
-					<< fcppt::from_std_string(build_log));
-		}
-
-		if(error_code3 != CL_SUCCESS)
-			throw
-				program::build_error(
-					fcppt::from_std_string(
-						build_log));
-	}
+	this->check_program_return_values();
 }
 
 sge::opencl::program::device_blob_map const
@@ -398,7 +278,7 @@ sge::opencl::program::object::binaries() const
 		&number_of_devices,
 		0);
 
-	fcppt::container::raw_vector<cl_device_id> devices;
+	device_id_vector devices;
 
 	clGetProgramInfo(
 		program_,
@@ -443,10 +323,148 @@ sge::opencl::program::object::~object()
 		FCPPT_TEXT("clReleaseProgram"));
 }
 
+sge::opencl::program::object::device_id_vector const
+sge::opencl::program::object::program_devices() const
+{
+	device_id_vector devices;
+
+	// We need the device vector anyway when we handle the
+	// errors, so we get it here. Hope it's not too much
+	// of a performance penalty.
+	cl_uint number_of_devices;
+
+	cl_int const error_code =
+		clGetProgramInfo(
+			program_,
+			CL_PROGRAM_NUM_DEVICES,
+			sizeof(cl_uint),
+			&number_of_devices,
+			0);
+
+	sge::opencl::handle_error(
+		error_code,
+		FCPPT_TEXT("clGetProgramInfo(CL_PROGRAM_NUM_DEVICES)"));
+
+	devices.resize(
+		static_cast<device_id_vector::size_type>(
+			number_of_devices));
+
+	cl_int const error_code2 =
+		clGetProgramInfo(
+			program_,
+			CL_PROGRAM_DEVICES,
+			static_cast<size_t>(
+				sizeof(cl_device_id) * devices.size()),
+			devices.data(),
+			0);
+
+	sge::opencl::handle_error(
+		error_code2,
+		FCPPT_TEXT("clGetProgramInfo(CL_PROGRAM_DEVICES)"));
+
+	return
+		devices;
+}
+
+void
+sge::opencl::program::object::check_program_return_values()
+{
+	device_id_vector const devices =
+		this->program_devices();
+
+	for(
+		device_id_vector::const_iterator it =
+			devices.begin();
+		it != devices.end();
+		++it)
+	{
+		cl_build_status return_status;
+
+		cl_int const error_code4 =
+			clGetProgramBuildInfo(
+				program_,
+				*it,
+				CL_PROGRAM_BUILD_STATUS,
+				sizeof(
+					cl_build_status),
+				&return_status,
+				0);
+
+		opencl::handle_error(
+			error_code4,
+			FCPPT_TEXT("clGetProgramBuildInfo(Build status of a device)"));
+
+		FCPPT_ASSERT_ERROR(
+			return_status != CL_BUILD_NONE);
+
+		// This will only be sent if we specify a callback
+		FCPPT_ASSERT_ERROR(
+			notification_callback_ ||
+			return_status != CL_BUILD_IN_PROGRESS);
+
+		if(return_status == CL_BUILD_SUCCESS)
+			continue;
+
+		std::size_t program_build_log_size;
+		cl_int const error_code5 =
+			clGetProgramBuildInfo(
+				program_,
+				*it,
+				CL_PROGRAM_BUILD_LOG,
+				0,
+				0,
+				&program_build_log_size);
+
+		opencl::handle_error(
+			error_code5,
+			FCPPT_TEXT("clGetProgramBuildInfo(Build log size)"));
+
+		std::string build_log;
+		build_log.resize(
+			static_cast<std::string::size_type>(
+				program_build_log_size));
+
+		cl_int const error_code6 =
+			clGetProgramBuildInfo(
+				program_,
+				*it,
+				CL_PROGRAM_BUILD_LOG,
+				program_build_log_size,
+				&build_log[0],
+				0);
+
+		opencl::handle_error(
+			error_code6,
+			FCPPT_TEXT("clGetProgramBuildInfo(Build log string)"));
+
+		if(!build_log.empty())
+		{
+			FCPPT_LOG_VERBOSE(
+				local_log,
+				fcppt::log::_
+					<< FCPPT_TEXT("Program build failed, build log:\n")
+					<< fcppt::from_std_string(build_log));
+		}
+
+		/*
+		if(error_code3 != CL_SUCCESS)
+			throw
+				program::build_error(
+					fcppt::from_std_string(
+						build_log));
+		*/
+	}
+}
+
 void
 sge::opencl::program::object::notification_callback(
 	cl_program,
 	void *user_data)
 {
-	static_cast<object *>(user_data)->notification_callback_();
+	sge::opencl::program::object * const program =
+		static_cast<sge::opencl::program::object *>(
+			user_data);
+
+	program->check_program_return_values();
+	program->notification_callback_();
 }

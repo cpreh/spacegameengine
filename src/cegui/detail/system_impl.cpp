@@ -246,7 +246,7 @@ sge::cegui::detail::system_impl::charconv_system() const
 
 void
 sge::cegui::detail::system_impl::viewport_change(
-	sge::renderer::target::viewport const &_viewport
+	sge::renderer::target::viewport _viewport
 )
 {
 	FCPPT_LOG_DEBUG(
@@ -255,6 +255,21 @@ sge::cegui::detail::system_impl::viewport_change(
 			<< FCPPT_TEXT("viewport_change() with ")
 			<< _viewport.get()
 	);
+
+	if(
+		sge::renderer::target::viewport_is_null(
+			_viewport
+		)
+	)
+	{
+		_viewport =
+			sge::renderer::target::viewport(
+				sge::renderer::pixel_rect(
+					sge::renderer::pixel_rect::vector::null(),
+					sge::renderer::pixel_rect::dim(
+						10,
+						10)));
+	}
 
 	// Calling notifyDisplaySizeChanged with a null rect causes a strange problem
 	if(
