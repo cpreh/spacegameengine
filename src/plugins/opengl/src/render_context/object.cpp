@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/draw_arrays.hpp>
 #include <sge/opengl/draw_elements.hpp>
+#include <sge/opengl/scoped_target.hpp>
 #include <sge/opengl/set_vertex_buffer.hpp>
 #include <sge/opengl/set_vertex_declaration.hpp>
 #include <sge/opengl/target_base.hpp>
@@ -163,7 +164,7 @@ sge::opengl::render_context::object::offscreen_target(
 
 		scoped_offscreen_target_.take(
 			fcppt::make_unique_ptr<
-				sge::opengl::render_context::scoped_target
+				sge::opengl::scoped_target
 			>(
 				fcppt::ref(
 					dynamic_cast<

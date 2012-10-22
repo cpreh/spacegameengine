@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_RENDER_CONTEXT_OBJECT_HPP_INCLUDED
 #define SGE_OPENGL_RENDER_CONTEXT_OBJECT_HPP_INCLUDED
 
+#include <sge/opengl/scoped_target.hpp>
 #include <sge/opengl/context/device/object_fwd.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/opengl/render_context/scoped_target.hpp>
 #include <sge/renderer/config.hpp>
 #include <sge/renderer/const_optional_vertex_declaration_ref_fwd.hpp>
 #include <sge/renderer/first_index.hpp>
@@ -234,10 +234,10 @@ private:
 
 	sge::renderer::target::base &target_;
 
-	sge::opengl::render_context::scoped_target const scoped_target_;
+	sge::opengl::scoped_target const scoped_target_;
 
 	typedef fcppt::scoped_ptr<
-		sge::opengl::render_context::scoped_target
+		sge::opengl::scoped_target
 	> scoped_offscreen_target_ptr;
 
 	scoped_offscreen_target_ptr scoped_offscreen_target_;

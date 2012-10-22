@@ -183,7 +183,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/render_context/create.hpp
 	src/plugins/opengl/include/sge/opengl/render_context/end.hpp
 	src/plugins/opengl/include/sge/opengl/render_context/object.hpp
-	src/plugins/opengl/include/sge/opengl/render_context/scoped_target.hpp
+	src/plugins/opengl/include/sge/opengl/scoped_target.hpp
 	src/plugins/opengl/include/sge/opengl/set_flipped_area.hpp
 	src/plugins/opengl/include/sge/opengl/set_scissor_area.hpp
 	src/plugins/opengl/include/sge/opengl/set_unpack_alignment.hpp
@@ -674,7 +674,7 @@ set(
 	src/plugins/opengl/src/render_context/create.cpp
 	src/plugins/opengl/src/render_context/end.cpp
 	src/plugins/opengl/src/render_context/object.cpp
-	src/plugins/opengl/src/render_context/scoped_target.cpp
+	src/plugins/opengl/src/scoped_target.cpp
 	src/plugins/opengl/src/set_flipped_area.cpp
 	src/plugins/opengl/src/set_scissor_area.cpp
 	src/plugins/opengl/src/set_unpack_alignment.cpp

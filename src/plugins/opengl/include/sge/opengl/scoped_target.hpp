@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_RENDER_CONTEXT_SCOPED_TARGET_HPP_INCLUDED
-#define SGE_OPENGL_RENDER_CONTEXT_SCOPED_TARGET_HPP_INCLUDED
+#ifndef SGE_OPENGL_SCOPED_TARGET_HPP_INCLUDED
+#define SGE_OPENGL_SCOPED_TARGET_HPP_INCLUDED
 
 #include <sge/opengl/target_base_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -28,8 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 namespace opengl
-{
-namespace render_context
 {
 
 class scoped_target
@@ -51,7 +49,6 @@ private:
 	sge::opengl::target_base &target_;
 };
 
-}
 }
 }
 

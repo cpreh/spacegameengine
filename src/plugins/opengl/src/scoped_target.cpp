@@ -19,10 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/target_base.hpp>
-#include <sge/opengl/render_context/scoped_target.hpp>
+#include <sge/opengl/scoped_target.hpp>
 
 
-sge::opengl::render_context::scoped_target::scoped_target(
+sge::opengl::scoped_target::scoped_target(
 	sge::opengl::target_base &_target
 )
 :
@@ -33,13 +33,13 @@ sge::opengl::render_context::scoped_target::scoped_target(
 	target_.bind();
 }
 
-sge::opengl::render_context::scoped_target::~scoped_target()
+sge::opengl::scoped_target::~scoped_target()
 {
 	target_.unbind();
 }
 
 sge::opengl::target_base &
-sge::opengl::render_context::scoped_target::target() const
+sge::opengl::scoped_target::target() const
 {
 	return
 		target_;

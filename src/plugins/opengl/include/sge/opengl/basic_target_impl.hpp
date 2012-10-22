@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/clear/set.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/device/object_fwd.hpp>
+#include <sge/opengl/scoped_target.hpp>
 #include <sge/renderer/target/scissor_area.hpp>
 #include <sge/renderer/target/viewport.hpp>
 
@@ -193,11 +194,15 @@ sge::opengl::basic_target<
 	)
 		last_target->unbind();
 
-	this->bind();
+	{
+		sge::opengl::scoped_target const scoped(
+			*this
+		);
 
-	sge::opengl::clear::set(
-		_param
-	);
+		sge::opengl::clear::set(
+			_param
+		);
+	}
 
 	if(
 		last_target

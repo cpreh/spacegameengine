@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/fbo/last_context.hpp>
 #include <sge/opengl/fbo/object.hpp>
 #include <sge/opengl/fbo/temporary_bind.hpp>
+#include <fcppt/assert/pre.hpp>
 
 
 sge::opengl::fbo::temporary_bind::temporary_bind(
@@ -41,6 +42,12 @@ sge::opengl::fbo::temporary_bind::temporary_bind(
 		last_context_.last_buffer()
 	)
 {
+	FCPPT_ASSERT_PRE(
+		last_buffer_
+		!=
+		_object.id()
+	);
+
 	_object.bind();
 }
 
