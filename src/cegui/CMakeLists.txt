@@ -26,7 +26,6 @@ set(
 	include/sge/cegui/toolbox/scoped_gui_sheet.hpp
 	include/sge/cegui/toolbox/scoped_layout.hpp
 	include/sge/cegui/unit.hpp
-	include/sge/cegui/wheel_axis_delta.hpp
 	src/cegui/batch.cpp
 	src/cegui/cegui_logger.cpp
 	src/cegui/convert_cursor_button.cpp
