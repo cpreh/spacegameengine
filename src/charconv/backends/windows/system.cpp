@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/charconv/backends/windows/is_utf16.hpp>
 #include <sge/src/charconv/backends/windows/system.hpp>
 #include <sge/src/charconv/backends/windows/utf16_to_utf32.hpp>
+#include <sge/src/charconv/backends/windows/utf32_to_utf16.hpp>
 #include <sge/src/charconv/backends/windows/utf8_to_wchar.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 
@@ -56,6 +57,22 @@ sge::charconv::backends::windows::system::create_converter(
 			sge::charconv::converter_unique_ptr(
 				fcppt::make_unique_ptr<
 					sge::charconv::backends::windows::utf16_to_utf32
+				>()
+			);
+
+	if(
+		sge::charconv::backends::windows::is_utf16(
+			_dest.get()
+		)
+		&&
+		_source.get()
+		==
+		sge::charconv::encoding::utf32
+	)
+		return
+			sge::charconv::converter_unique_ptr(
+				fcppt::make_unique_ptr<
+					sge::charconv::backends::windows::utf32_to_utf16
 				>()
 			);
 

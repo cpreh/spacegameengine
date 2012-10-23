@@ -21,13 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_WINDOW_PARAMETERS_HPP_INCLUDED
 #define SGE_WINDOW_PARAMETERS_HPP_INCLUDED
 
-#include <awl/cursor/const_optional_object_ref.hpp>
-#include <awl/cursor/object_fwd.hpp>
 #include <sge/window/dim.hpp>
 #include <sge/window/parameters_fwd.hpp>
 #include <sge/window/size_hints.hpp>
 #include <sge/window/symbol.hpp>
 #include <sge/window/title.hpp>
+#include <awl/cursor/const_optional_object_ref.hpp>
+#include <awl/cursor/object_fwd.hpp>
 #include <fcppt/string.hpp>
 
 

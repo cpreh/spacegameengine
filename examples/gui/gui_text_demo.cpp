@@ -55,9 +55,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/input.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/keyboard_collector.hpp>
-#include <sge/systems/mouse_collector.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/make_list.hpp>
+#include <sge/systems/mouse_collector.hpp>
 #include <sge/systems/quit_on_escape.hpp>
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/renderer_caps.hpp>

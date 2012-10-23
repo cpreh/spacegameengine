@@ -18,29 +18,49 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/scoped_target.hpp>
-#include <sge/opengl/target_base.hpp>
+#ifndef SGE_SRC_CHARCONV_BACKENDS_WINDOWS_UTF32_TO_UTF16_HPP_INCLUDED
+#define SGE_SRC_CHARCONV_BACKENDS_WINDOWS_UTF32_TO_UTF16_HPP_INCLUDED
+
+#include <sge/charconv/conversion_status.hpp>
+#include <sge/charconv/converter.hpp>
+#include <sge/charconv/dest_encoding.hpp>
+#include <sge/charconv/input_range.hpp>
+#include <sge/charconv/output_range.hpp>
+#include <sge/charconv/source_encoding.hpp>
+#include <fcppt/noncopyable.hpp>
 
 
-sge::opengl::scoped_target::scoped_target(
-	sge::opengl::target_base &_target
-)
+namespace sge
+{
+namespace charconv
+{
+namespace backends
+{
+namespace windows
+{
+
+class utf32_to_utf16
 :
-	target_(
-		_target
-	)
+	public sge::charconv::converter
 {
-	target_.bind();
+	FCPPT_NONCOPYABLE(
+		utf32_to_utf16
+	);
+public:
+	utf32_to_utf16();
+
+	~utf32_to_utf16();
+private:
+	sge::charconv::conversion_status::type
+	convert(
+		sge::charconv::input_range &,
+		sge::charconv::output_range &
+	);
+};
+
+}
+}
+}
 }
 
-sge::opengl::scoped_target::~scoped_target()
-{
-	target_.unbind();
-}
-
-sge::opengl::target_base &
-sge::opengl::scoped_target::target() const
-{
-	return
-		target_;
-}
+#endif

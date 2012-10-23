@@ -59,12 +59,14 @@ set(
 	src/charconv/backends/windows/is_utf16.cpp
 	src/charconv/backends/windows/system.cpp
 	src/charconv/backends/windows/utf16_to_utf32.cpp
+	src/charconv/backends/windows/utf32_to_utf16.cpp
 	src/charconv/backends/windows/utf8_to_wchar.cpp
 	src/charconv/backends/windows/wchar_to_utf8.cpp
 	src/charconv/include/sge/src/charconv/backends/windows/is_utf16.hpp
 	src/charconv/include/sge/src/charconv/backends/windows/system.hpp
 	src/charconv/include/sge/src/charconv/backends/windows/utf16_to_utf32.hpp
 	src/charconv/include/sge/src/charconv/backends/windows/utf16_to_wchar.hpp
+	src/charconv/include/sge/src/charconv/backends/windows/utf32_to_utf16.hpp
 	src/charconv/include/sge/src/charconv/backends/windows/utf8_to_wchar.hpp
 )
 
