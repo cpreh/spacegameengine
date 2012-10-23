@@ -21,13 +21,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/dinput/cursor/exclusive_mode.hpp>
 #include <sge/dinput/cursor/get_pos.hpp>
 #include <sge/dinput/cursor/object.hpp>
+#include <sge/input/cursor/button_callback.hpp>
 #include <sge/input/cursor/button_code.hpp>
 #include <sge/input/cursor/button_event.hpp>
 #include <sge/input/cursor/mode.hpp>
+#include <sge/input/cursor/move_callback.hpp>
 #include <sge/input/cursor/move_event.hpp>
 #include <sge/input/cursor/optional_position.hpp>
 #include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/position_unit.hpp>
+#include <sge/input/cursor/scroll_callback.hpp>
+#include <sge/input/cursor/scroll_code.hpp>
+#include <sge/input/cursor/scroll_event.hpp>
 #include <awl/backends/windows/optional_point.hpp>
 #include <awl/backends/windows/windows.hpp>
 #include <awl/backends/windows/event/type.hpp>
@@ -64,6 +69,7 @@ sge::dinput::cursor::object::object(
 	),
 	button_signal_(),
 	move_signal_(),
+	scroll_signal_(),
 	exclusive_mode_(),
 	mode_(
 		sge::input::cursor::mode::normal
@@ -85,7 +91,7 @@ sge::dinput::cursor::object::~object()
 
 fcppt::signal::auto_connection
 sge::dinput::cursor::object::button_callback(
-	input::cursor::button_callback const &_callback
+	sge::input::cursor::button_callback const &_callback
 )
 {
 	return
@@ -96,11 +102,22 @@ sge::dinput::cursor::object::button_callback(
 
 fcppt::signal::auto_connection
 sge::dinput::cursor::object::move_callback(
-	input::cursor::move_callback const &_callback
+	sge::input::cursor::move_callback const &_callback
 )
 {
 	return
 		move_signal_.connect(
+			_callback
+		);
+}
+
+fcppt::signal::auto_connection
+sge::dinput::cursor::object::scroll_callback(
+	sge::input::cursor::scroll_callback const &_callback
+)
+{
+	return
+		scroll_signal_.connect(
 			_callback
 		);
 }
@@ -244,6 +261,26 @@ sge::dinput::cursor::object::on_button(
 	return awl::backends::windows::window::event::return_type();
 }
 
+awl::backends::windows::window::event::return_type
+sge::dinput::cursor::object::on_scroll(
+	awl::backends::windows::window::event::object const &_event,
+	sge::input::cursor::scroll_code::type const _code
+)
+{
+	// TODO: How do we want to scale this?
+
+	scroll_signal_(
+		sge::input::cursor::scroll_event(
+			_code,
+			GET_WHEEL_DELTA_WPARAM(
+				_event.wparam().get()
+			)
+		)
+	);
+
+	return awl::backends::windows::window::event::return_type();
+}
+
 fcppt::signal::connection_manager::container const
 sge::dinput::cursor::object::make_connections()
 {
@@ -285,6 +322,18 @@ sge::dinput::cursor::object::make_connections()
 		WM_RBUTTONDOWN,
 		WM_RBUTTONUP,
 		sge::input::cursor::button_code::right
+	);
+
+	this->make_scroll_connection(
+		ret,
+		WM_MOUSEWHEEL,
+		sge::input::cursor::scroll_code::vertical
+	);
+
+	this->make_scroll_connection(
+		ret,
+		WM_MOUSEHWHEEL,
+		sge::input::cursor::scroll_code::horizontal
 	);
 
 	return ret;
@@ -331,6 +380,32 @@ sge::dinput::cursor::object::make_button_connections(
 					std::tr1::placeholders::_1,
 					_code,
 					false
+				)
+			)
+		)
+	);
+}
+
+void
+sge::dinput::cursor::object::make_scroll_connection(
+	fcppt::signal::connection_manager::container &_container,
+	awl::backends::windows::event::type::value_type const _event,
+	sge::input::cursor::scroll_code::type const _code
+)
+{
+	_container.push_back(
+		fcppt::signal::shared_connection(
+			event_processor_.register_callback(
+				fcppt::strong_typedef_construct_cast<
+					awl::backends::windows::event::type
+				>(
+					_event
+				),
+				std::tr1::bind(
+					&dinput::cursor::object::on_scroll,
+					this,
+					std::tr1::placeholders::_1,
+					_code
 				)
 			)
 		)

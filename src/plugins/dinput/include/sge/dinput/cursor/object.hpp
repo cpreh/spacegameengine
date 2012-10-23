@@ -31,6 +31,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/move_signal.hpp>
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/position.hpp>
+#include <sge/input/cursor/scroll_callback.hpp>
+#include <sge/input/cursor/scroll_code.hpp>
+#include <sge/input/cursor/scroll_signal.hpp>
 #include <awl/backends/windows/event/type.hpp>
 #include <awl/backends/windows/window/object_fwd.hpp>
 #include <awl/backends/windows/window/event/object_fwd.hpp>
@@ -75,6 +78,11 @@ public:
 		sge::input::cursor::move_callback const &
 	);
 
+	fcppt::signal::auto_connection
+	scroll_callback(
+		sge::input::cursor::scroll_callback const &
+	);
+
 	sge::input::cursor::optional_position const
 	position() const;
 
@@ -104,6 +112,12 @@ private:
 		bool down
 	);
 
+	awl::backends::windows::window::event::return_type
+	on_scroll(
+		awl::backends::windows::window::event::object const &,
+		sge::input::cursor::scroll_code::type
+	);
+
 	fcppt::signal::connection_manager::container const
 	make_connections();
 
@@ -115,6 +129,13 @@ private:
 		sge::input::cursor::button_code::type
 	);
 
+	void
+	make_scroll_connection(
+		fcppt::signal::connection_manager::container &,
+		awl::backends::windows::event::type::value_type,
+		sge::input::cursor::scroll_code::type
+	);
+
 	awl::backends::windows::window::event::processor &event_processor_;
 
 	awl::backends::windows::window::object &window_;
@@ -122,6 +143,8 @@ private:
 	sge::input::cursor::button_signal button_signal_;
 
 	sge::input::cursor::move_signal move_signal_;
+
+	sge::input::cursor::scroll_signal scroll_signal_;
 
 	typedef fcppt::scoped_ptr<
 		sge::dinput::cursor::exclusive_mode
