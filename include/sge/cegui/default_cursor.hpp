@@ -26,8 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/button_event_fwd.hpp>
 #include <sge/input/cursor/move_event_fwd.hpp>
 #include <sge/input/cursor/object_fwd.hpp>
-#include <sge/input/mouse/axis_event_fwd.hpp>
-#include <sge/input/mouse/device_fwd.hpp>
+#include <sge/input/cursor/scroll_event_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 
@@ -46,8 +45,7 @@ public:
 	SGE_CEGUI_SYMBOL
 	default_cursor(
 		sge::cegui::syringe &,
-		sge::input::cursor::object &,
-		sge::input::mouse::device &
+		sge::input::cursor::object &
 	);
 
 	SGE_CEGUI_SYMBOL
@@ -57,7 +55,7 @@ private:
 	fcppt::signal::scoped_connection const
 		button_connection_,
 		move_connection_,
-		mouse_device_axis_connection_;
+		scroll_connection_;
 
 	void
 	button_callback(
@@ -70,8 +68,8 @@ private:
 	);
 
 	void
-	mouse_device_axis_callback(
-		sge::input::mouse::axis_event const &
+	scroll_callback(
+		sge::input::cursor::scroll_event const &
 	);
 };
 

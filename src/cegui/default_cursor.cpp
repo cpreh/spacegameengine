@@ -22,8 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/syringe.hpp>
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/optional_position.hpp>
-#include <sge/input/mouse/axis_event.hpp>
-#include <sge/input/mouse/device.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -35,8 +33,7 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::cegui::default_cursor::default_cursor(
 	sge::cegui::syringe &_syringe,
-	sge::input::cursor::object &_cursor,
-	sge::input::mouse::device &_mouse)
+	sge::input::cursor::object &_cursor)
 :
 	syringe_(
 		_syringe),
@@ -52,10 +49,10 @@ sge::cegui::default_cursor::default_cursor(
 				&default_cursor::move_callback,
 				this,
 				std::tr1::placeholders::_1))),
-	mouse_device_axis_connection_(
-		_mouse.axis_callback(
+	scroll_connection_(
+		_cursor.scroll_callback(
 			std::tr1::bind(
-				&default_cursor::mouse_device_axis_callback,
+				&default_cursor::scroll_callback,
 				this,
 				std::tr1::placeholders::_1)))
 {
@@ -91,18 +88,9 @@ sge::cegui::default_cursor::move_callback(
 }
 
 void
-sge::cegui::default_cursor::mouse_device_axis_callback(
-	sge::input::mouse::axis_event const &e)
+sge::cegui::default_cursor::scroll_callback(
+	sge::input::cursor::scroll_event const &e)
 {
-	switch(e.axis().code())
-	{
-	case sge::input::mouse::axis_code::wheel:
-		syringe_.inject(
-			sge::cegui::wheel_axis_delta(
-				static_cast<sge::cegui::wheel_axis_delta::value_type>(
-					e.value())));
-		break;
-	default:
-		break;
-	}
+	syringe_.inject(
+		e);
 }

@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/string_type.hpp>
 #include <sge/charconv/system_fwd.hpp>
 #include <sge/input/cursor/button_code_to_string.hpp>
+#include <sge/input/cursor/scroll_event.hpp>
 #include <sge/input/cursor/button_event.hpp>
 #include <sge/input/cursor/move_event.hpp>
 #include <sge/input/cursor/position.hpp>
@@ -229,11 +230,19 @@ sge::cegui::syringe::inject(
 
 void
 sge::cegui::syringe::inject(
-	sge::cegui::wheel_axis_delta const &_delta
+	sge::input::cursor::scroll_event const &_event
 )
 {
-	gui_context_.injectMouseWheelChange(
-		_delta.get());
+	switch(_event.code())
+	{
+	case sge::input::cursor::scroll_code::horizontal:
+		break;
+	case sge::input::cursor::scroll_code::vertical:
+		gui_context_.injectMouseWheelChange(
+			static_cast<float>(
+				_event.value()));
+		break;
+	}
 }
 
 void
