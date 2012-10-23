@@ -38,19 +38,19 @@ class button_event
 public:
 	SGE_INPUT_SYMBOL
 	button_event(
-		cursor::button_code::type,
+		sge::input::cursor::button_code::type,
 		bool pressed
 	);
 
 	SGE_INPUT_SYMBOL
-	cursor::button_code::type
+	sge::input::cursor::button_code::type
 	button_code() const;
 
 	SGE_INPUT_SYMBOL
 	bool
 	pressed() const;
 private:
-	cursor::button_code::type button_code_;
+	sge::input::cursor::button_code::type button_code_;
 
 	bool pressed_;
 };

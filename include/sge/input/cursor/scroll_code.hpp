@@ -18,21 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_XI_2_1_HPP_INCLUDED
-#define SGE_X11INPUT_XI_2_1_HPP_INCLUDED
+#ifndef SGE_INPUT_CURSOR_SCROLL_CODE_HPP_INCLUDED
+#define SGE_INPUT_CURSOR_SCROLL_CODE_HPP_INCLUDED
 
-#include <fcppt/strong_typedef.hpp>
 
 namespace sge
 {
-namespace x11input
+namespace input
+{
+namespace cursor
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
-	bool,
-	xi_2_1
-);
-
+namespace scroll_code
+{
+enum type
+{
+	vertical,
+	horizontal
+};
+}
+}
 }
 }
 

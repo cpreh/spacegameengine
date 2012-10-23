@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/object_fwd.hpp>
 #include <sge/input/cursor/remove_callback.hpp>
 #include <sge/input/cursor/remove_event_fwd.hpp>
+#include <sge/input/cursor/scroll_event_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/function/object.hpp>
 #include <fcppt/signal/connection_manager.hpp>
@@ -53,25 +54,33 @@ class manager
 public:
 	typedef fcppt::function::object<
 		void (
-			cursor::object &,
-			cursor::button_event const &
+			sge::input::cursor::object &,
+			sge::input::cursor::button_event const &
 		)
 	> button_callback;
 
 	typedef fcppt::function::object<
 		void (
-			cursor::object &,
-			cursor::move_event const &
+			sge::input::cursor::object &,
+			sge::input::cursor::move_event const &
 		)
 	> move_callback;
 
+	typedef fcppt::function::object<
+		void (
+			sge::input::cursor::object &,
+			sge::input::cursor::scroll_event const &
+		)
+	> scroll_callback;
+
 	SGE_INPUT_SYMBOL
 	manager(
-		input::processor &,
-		input::cursor::discover_callback const &,
-		input::cursor::remove_callback const &,
-		button_callback const &,
-		move_callback const &
+		sge::input::processor &,
+		sge::input::cursor::discover_callback const &,
+		sge::input::cursor::remove_callback const &,
+		sge::input::cursor::manager::button_callback const &,
+		sge::input::cursor::manager::move_callback const &,
+		sge::input::cursor::manager::scroll_callback const &
 	);
 
 	SGE_INPUT_SYMBOL
@@ -83,28 +92,30 @@ public:
 	> object_map;
 
 	SGE_INPUT_SYMBOL
-	object_map const &
+	sge::input::cursor::manager::object_map const &
 	devices() const;
 private:
 	void
 	discover(
-		input::cursor::discover_event const &
+		sge::input::cursor::discover_event const &
 	);
 
 	void
 	remove(
-		input::cursor::remove_event const &
+		sge::input::cursor::remove_event const &
 	);
 
-	object_map objects_;
+	sge::input::cursor::manager::object_map objects_;
 
-	input::cursor::discover_callback const discover_callback_;
+	sge::input::cursor::discover_callback const discover_callback_;
 
-	input::cursor::remove_callback const remove_callback_;
+	sge::input::cursor::remove_callback const remove_callback_;
 
-	button_callback const button_callback_;
+	sge::input::cursor::manager::button_callback const button_callback_;
 
-	move_callback const move_callback_;
+	sge::input::cursor::manager::move_callback const move_callback_;
+
+	sge::input::cursor::manager::scroll_callback const scroll_callback_;
 
 	fcppt::signal::connection_manager const connections_;
 };

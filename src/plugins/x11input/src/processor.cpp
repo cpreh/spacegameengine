@@ -35,7 +35,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/input_method.hpp>
 #include <sge/x11input/processor.hpp>
 #include <sge/x11input/send_init_event.hpp>
-#include <sge/x11input/xi_2_1.hpp>
 #include <sge/x11input/cursor/object.hpp>
 #include <sge/x11input/device/hierarchy_event.hpp>
 #include <sge/x11input/device/id.hpp>
@@ -76,8 +75,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::x11input::processor::processor(
 	sge::window::object const &_window,
 	sge::window::system const &_window_system,
-	awl::backends::x11::system::event::opcode const _opcode,
-	x11input::xi_2_1 const _supports_xi_2_1
+	awl::backends::x11::system::event::opcode const _opcode
 )
 :
 	opcode_(
@@ -213,11 +211,7 @@ sge::x11input::processor::processor(
 		(
 			std::make_pair(
 				x11input::device::use(
-					_supports_xi_2_1.get()
-					?
-						XISlavePointer
-					:
-						XIMasterPointer
+					XISlavePointer
 				),
 				device::manager::make_config<
 					sge::x11input::mouse::device

@@ -40,6 +40,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/optional_object_ref.hpp>
 #include <sge/input/cursor/optional_position.hpp>
 #include <sge/input/cursor/remove_event_fwd.hpp>
+#include <sge/input/cursor/scroll_callback.hpp>
+#include <sge/input/cursor/scroll_event_fwd.hpp>
+#include <sge/input/cursor/scroll_signal.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/function/object.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
@@ -63,10 +66,11 @@ class SGE_CLASS_SYMBOL demuxer
 	);
 public:
 	SGE_INPUT_SYMBOL
-	explicit demuxer(
-		input::processor &,
-		cursor::choose_callback const &
-			= cursor::default_choose()
+	explicit
+	demuxer(
+		sge::input::processor &,
+		sge::input::cursor::choose_callback const &
+			= sge::input::cursor::default_choose()
 	);
 
 	SGE_INPUT_SYMBOL
@@ -75,47 +79,58 @@ public:
 	SGE_INPUT_SYMBOL
 	fcppt::signal::auto_connection
 	button_callback(
-		cursor::button_callback const &
+		sge::input::cursor::button_callback const &
 	);
 
 	SGE_INPUT_SYMBOL
 	fcppt::signal::auto_connection
 	move_callback(
-		cursor::move_callback const &
+		sge::input::cursor::move_callback const &
 	);
 
 	SGE_INPUT_SYMBOL
-	cursor::optional_position const
+	fcppt::signal::auto_connection
+	scroll_callback(
+		sge::input::cursor::scroll_callback const &
+	);
+
+	SGE_INPUT_SYMBOL
+	sge::input::cursor::optional_position const
 	position() const;
 
 	SGE_INPUT_SYMBOL
 	void
 	mode(
-		cursor::mode::type
+		sge::input::cursor::mode::type
 	);
 
 	SGE_INPUT_SYMBOL
-	cursor::optional_object_ref const
+	sge::input::cursor::optional_object_ref const
 	current_cursor() const;
 private:
 	void
 	button_callback_internal(
-		cursor::button_event const &
+		sge::input::cursor::button_event const &
 	);
 
 	void
 	move_callback_internal(
-		cursor::move_event const &
+		sge::input::cursor::move_event const &
+	);
+
+	void
+	scroll_callback_internal(
+		sge::input::cursor::scroll_event const &
 	);
 
 	void
 	discover_callback(
-		cursor::discover_event const &
+		sge::input::cursor::discover_event const &
 	);
 
 	void
 	remove_callback(
-		cursor::remove_event const &
+		sge::input::cursor::remove_event const &
 	);
 
 	void
@@ -128,6 +143,8 @@ private:
 	sge::input::cursor::button_signal button_signal_;
 
 	sge::input::cursor::move_signal move_signal_;
+
+	sge::input::cursor::scroll_signal scroll_signal_;
 
 	sge::input::cursor::object_set cursors_;
 

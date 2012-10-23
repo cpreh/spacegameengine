@@ -18,26 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_CURSOR_BUTTON_SIGNAL_HPP_INCLUDED
-#define SGE_INPUT_CURSOR_BUTTON_SIGNAL_HPP_INCLUDED
 
-#include <sge/input/cursor/button_function.hpp>
-#include <fcppt/signal/object_fwd.hpp>
+#include <sge/input/cursor/scroll_code.hpp>
+#include <sge/input/cursor/scroll_event.hpp>
+#include <sge/input/cursor/scroll_value.hpp>
 
 
-namespace sge
+sge::input::cursor::scroll_event::scroll_event(
+	sge::input::cursor::scroll_code::type const _code,
+	sge::input::cursor::scroll_value const _value
+)
+:
+	code_(
+		_code
+	),
+	value_(
+		_value
+	)
 {
-namespace input
-{
-namespace cursor
-{
-
-typedef fcppt::signal::object<
-	sge::input::cursor::button_function
-> button_signal;
-
-}
-}
 }
 
-#endif
+sge::input::cursor::scroll_code::type
+sge::input::cursor::scroll_event::code() const
+{
+	return code_;
+}
+
+sge::input::cursor::scroll_value
+sge::input::cursor::scroll_event::value() const
+{
+	return value_;
+}

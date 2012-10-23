@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
 
+
 namespace sge
 {
 namespace x11input
@@ -34,7 +35,7 @@ namespace x11input
 namespace mouse
 {
 
-input::mouse::axis_info const
+sge::input::mouse::axis_info const
 axis_info(
 	XIValuatorClassInfo const &,
 	awl::backends::x11::display &

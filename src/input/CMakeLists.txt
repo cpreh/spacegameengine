@@ -48,6 +48,14 @@ set(
 	include/sge/input/cursor/remove_event_fwd.hpp
 	include/sge/input/cursor/remove_function.hpp
 	include/sge/input/cursor/remove_signal.hpp
+	include/sge/input/cursor/scroll_callback.hpp
+	include/sge/input/cursor/scroll_code.hpp
+	include/sge/input/cursor/scroll_code_to_string.hpp
+	include/sge/input/cursor/scroll_event.hpp
+	include/sge/input/cursor/scroll_event_fwd.hpp
+	include/sge/input/cursor/scroll_function.hpp
+	include/sge/input/cursor/scroll_signal.hpp
+	include/sge/input/cursor/scroll_value.hpp
 	include/sge/input/event/discover.hpp
 	include/sge/input/event/discover_fwd.hpp
 	include/sge/input/event/remove.hpp
@@ -239,6 +247,8 @@ set(
 	src/input/cursor/relative_move_event.cpp
 	src/input/cursor/relative_movement.cpp
 	src/input/cursor/remove_event.cpp
+	src/input/cursor/scroll_code_to_string.cpp
+	src/input/cursor/scroll_event.cpp
 	src/input/exception.cpp
 	src/input/include/sge/src/input/event/discover_impl.hpp
 	src/input/include/sge/src/input/event/instantiate_discover.hpp

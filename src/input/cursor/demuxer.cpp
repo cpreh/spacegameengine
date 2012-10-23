@@ -19,13 +19,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/input/processor.hpp>
+#include <sge/input/cursor/button_callback.hpp>
+#include <sge/input/cursor/button_event_fwd.hpp>
 #include <sge/input/cursor/choose_callback.hpp>
 #include <sge/input/cursor/demuxer.hpp>
 #include <sge/input/cursor/discover_event.hpp>
+#include <sge/input/cursor/move_callback.hpp>
+#include <sge/input/cursor/move_event_fwd.hpp>
 #include <sge/input/cursor/no_object.hpp>
 #include <sge/input/cursor/optional_object_ref.hpp>
 #include <sge/input/cursor/optional_position.hpp>
 #include <sge/input/cursor/remove_event.hpp>
+#include <sge/input/cursor/scroll_callback.hpp>
+#include <sge/input/cursor/scroll_event_fwd.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
@@ -40,6 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
+
 sge::input::cursor::demuxer::demuxer(
 	sge::input::processor &_processor,
 	sge::input::cursor::choose_callback const &_choose
@@ -55,7 +62,7 @@ sge::input::cursor::demuxer::demuxer(
 			fcppt::signal::shared_connection(
 				_processor.cursor_discover_callback(
 					std::tr1::bind(
-						&cursor::demuxer::discover_callback,
+						&sge::input::cursor::demuxer::discover_callback,
 						this,
 						std::tr1::placeholders::_1
 					)
@@ -66,7 +73,7 @@ sge::input::cursor::demuxer::demuxer(
 			fcppt::signal::shared_connection(
 				_processor.cursor_remove_callback(
 					std::tr1::bind(
-						&cursor::demuxer::remove_callback,
+						&sge::input::cursor::demuxer::remove_callback,
 						this,
 						std::tr1::placeholders::_1
 					)
@@ -76,6 +83,7 @@ sge::input::cursor::demuxer::demuxer(
 	),
 	button_signal_(),
 	move_signal_(),
+	scroll_signal_(),
 	cursors_(),
 	cursor_connections_(),
 	current_cursor_()
@@ -89,7 +97,7 @@ sge::input::cursor::demuxer::~demuxer()
 
 fcppt::signal::auto_connection
 sge::input::cursor::demuxer::button_callback(
-	cursor::button_callback const &_callback
+	sge::input::cursor::button_callback const &_callback
 )
 {
 	return
@@ -100,11 +108,22 @@ sge::input::cursor::demuxer::button_callback(
 
 fcppt::signal::auto_connection
 sge::input::cursor::demuxer::move_callback(
-	cursor::move_callback const &_callback
+	sge::input::cursor::move_callback const &_callback
 )
 {
 	return
 		move_signal_.connect(
+			_callback
+		);
+}
+
+fcppt::signal::auto_connection
+sge::input::cursor::demuxer::scroll_callback(
+	sge::input::cursor::scroll_callback const &_callback
+)
+{
+	return
+		scroll_signal_.connect(
 			_callback
 		);
 }
@@ -143,7 +162,7 @@ sge::input::cursor::demuxer::current_cursor() const
 
 void
 sge::input::cursor::demuxer::button_callback_internal(
-	cursor::button_event const &_event
+	sge::input::cursor::button_event const &_event
 )
 {
 	button_signal_(
@@ -153,7 +172,7 @@ sge::input::cursor::demuxer::button_callback_internal(
 
 void
 sge::input::cursor::demuxer::move_callback_internal(
-	cursor::move_event const &_event
+	sge::input::cursor::move_event const &_event
 )
 {
 	move_signal_(
@@ -162,8 +181,18 @@ sge::input::cursor::demuxer::move_callback_internal(
 }
 
 void
+sge::input::cursor::demuxer::scroll_callback_internal(
+	sge::input::cursor::scroll_event const &_event
+)
+{
+	scroll_signal_(
+		_event
+	);
+}
+
+void
 sge::input::cursor::demuxer::discover_callback(
-	cursor::discover_event const &_event
+	sge::input::cursor::discover_event const &_event
 )
 {
 	FCPPT_ASSERT_ERROR(
@@ -177,7 +206,7 @@ sge::input::cursor::demuxer::discover_callback(
 
 void
 sge::input::cursor::demuxer::remove_callback(
-	cursor::remove_event const &_event
+	sge::input::cursor::remove_event const &_event
 )
 {
 	cursors_.erase(
@@ -211,7 +240,7 @@ sge::input::cursor::demuxer::assign_cursor()
 			fcppt::signal::shared_connection(
 				current_cursor_->button_callback(
 					std::tr1::bind(
-						&cursor::demuxer::button_callback_internal,
+						&sge::input::cursor::demuxer::button_callback_internal,
 						this,
 						std::tr1::placeholders::_1
 					)
@@ -222,7 +251,18 @@ sge::input::cursor::demuxer::assign_cursor()
 			fcppt::signal::shared_connection(
 				current_cursor_->move_callback(
 					std::tr1::bind(
-						&cursor::demuxer::move_callback_internal,
+						&sge::input::cursor::demuxer::move_callback_internal,
+						this,
+						std::tr1::placeholders::_1
+					)
+				)
+			)
+		)
+		(
+			fcppt::signal::shared_connection(
+				current_cursor_->scroll_callback(
+					std::tr1::bind(
+						&sge::input::cursor::demuxer::scroll_callback_internal,
 						this,
 						std::tr1::placeholders::_1
 					)

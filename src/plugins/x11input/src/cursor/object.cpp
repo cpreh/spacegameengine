@@ -23,17 +23,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/optional_position.hpp>
 #include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/position_unit.hpp>
+#include <sge/input/cursor/scroll_event.hpp>
 #include <sge/x11input/cursor/button_code.hpp>
 #include <sge/x11input/cursor/grab.hpp>
+#include <sge/x11input/cursor/make_info.hpp>
 #include <sge/x11input/cursor/object.hpp>
 #include <sge/x11input/cursor/query_pointer.hpp>
+#include <sge/x11input/cursor/scroll_valuator_map.hpp>
+#include <sge/x11input/cursor/scroll_value.hpp>
+#include <sge/x11input/device/foreach_valuator.hpp>
 #include <sge/x11input/device/parameters.hpp>
+#include <sge/x11input/device/valuator_index.hpp>
+#include <sge/x11input/device/valuator_value.hpp>
 #include <sge/x11input/device/window_demuxer.hpp>
 #include <sge/x11input/device/window_event.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/assign/make_container.hpp>
+#include <fcppt/math/vector/comparison.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/signal/shared_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
@@ -44,8 +52,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::x11input::cursor::object::object(
-	x11input::device::parameters const &_param,
-	cursor::image const _invisible_image,
+	sge::x11input::device::parameters const &_param,
+	sge::x11input::cursor::image const _invisible_image,
 	bool const _entered
 )
 :
@@ -70,7 +78,7 @@ sge::x11input::cursor::object::object(
 					),
 					_param.id(),
 					std::tr1::bind(
-						&object::on_motion,
+						&sge::x11input::cursor::object::on_motion,
 						this,
 						std::tr1::placeholders::_1
 					)
@@ -85,7 +93,7 @@ sge::x11input::cursor::object::object(
 					),
 					_param.id(),
 					std::tr1::bind(
-						&object::on_button_down,
+						&sge::x11input::cursor::object::on_button_down,
 						this,
 						std::tr1::placeholders::_1
 					)
@@ -100,7 +108,7 @@ sge::x11input::cursor::object::object(
 					),
 					_param.id(),
 					std::tr1::bind(
-						&object::on_button_up,
+						&sge::x11input::cursor::object::on_button_up,
 						this,
 						std::tr1::placeholders::_1
 					)
@@ -115,13 +123,19 @@ sge::x11input::cursor::object::object(
 		_entered
 	),
 	position_(
-		x11input::cursor::query_pointer(
+		sge::x11input::cursor::query_pointer(
 			window_,
 			_param.id()
 		)
 	),
+	info_(
+		sge::x11input::cursor::make_info(
+			_param.info()
+		)
+	),
 	button_signal_(),
 	move_signal_(),
+	scroll_signal_(),
 	cursor_grab_()
 {
 }
@@ -156,7 +170,7 @@ sge::x11input::cursor::object::on_leave()
 
 fcppt::signal::auto_connection
 sge::x11input::cursor::object::button_callback(
-	input::cursor::button_callback const &_callback
+	sge::input::cursor::button_callback const &_callback
 )
 {
 	return
@@ -167,11 +181,22 @@ sge::x11input::cursor::object::button_callback(
 
 fcppt::signal::auto_connection
 sge::x11input::cursor::object::move_callback(
-	input::cursor::move_callback const &_callback
+	sge::input::cursor::move_callback const &_callback
 )
 {
 	return
 		move_signal_.connect(
+			_callback
+		);
+}
+
+fcppt::signal::auto_connection
+sge::x11input::cursor::object::scroll_callback(
+	sge::input::cursor::scroll_callback const &_callback
+)
+{
+	return
+		scroll_signal_.connect(
 			_callback
 		);
 }
@@ -194,29 +219,91 @@ sge::x11input::cursor::object::mode(
 
 void
 sge::x11input::cursor::object::on_motion(
-	x11input::device::window_event const &_event
+	sge::x11input::device::window_event const &_event
 )
 {
+	sge::x11input::device::foreach_valuator(
+		_event.get().valuators,
+		std::tr1::bind(
+			&sge::x11input::cursor::object::process_valuator,
+			this,
+			std::tr1::placeholders::_1,
+			std::tr1::placeholders::_2
+		)
+	);
+
+	sge::input::cursor::position const new_position(
+		static_cast<
+			sge::input::cursor::position_unit
+		>(
+			_event.get().event_x
+		),
+		static_cast<
+			sge::input::cursor::position_unit
+		>(
+			_event.get().event_y
+		)
+	);
+
+	if(
+		position_
+		&&
+		new_position
+		==
+		*position_
+	)
+		return;
+
 	position_ =
-		input::cursor::position(
-			static_cast<
-				input::cursor::position_unit
-			>(
-				_event.get().event_x
-			),
-			static_cast<
-				input::cursor::position_unit
-			>(
-				_event.get().event_y
-			)
-		);
+		new_position;
 
 	this->move_event();
 }
 
 void
+sge::x11input::cursor::object::process_valuator(
+	sge::x11input::device::valuator_index const _index,
+	sge::x11input::device::valuator_value const _value
+)
+{
+	sge::x11input::cursor::scroll_valuator_map &scroll_valuators(
+		info_.scroll_valuators()
+	);
+
+	sge::x11input::cursor::scroll_valuator_map::iterator const it(
+		scroll_valuators.find(
+			_index
+		)
+	);
+
+	if(
+		it == scroll_valuators.end()
+	)
+		return;
+
+	sge::x11input::device::valuator_value const delta(
+		_value
+		-
+		it->second.last_value()
+	);
+
+	it->second.last_value(
+		_value
+	);
+
+	scroll_signal_(
+		sge::input::cursor::scroll_event(
+			it->second.code(),
+			sge::x11input::cursor::scroll_value(
+				delta
+			)
+		)
+	);
+}
+
+void
 sge::x11input::cursor::object::on_button_down(
-	x11input::device::window_event const &_event
+	sge::x11input::device::window_event const &_event
 )
 {
 	this->button_event(
@@ -227,7 +314,7 @@ sge::x11input::cursor::object::on_button_down(
 
 void
 sge::x11input::cursor::object::on_button_up(
-	x11input::device::window_event const &_event
+	sge::x11input::device::window_event const &_event
 )
 {
 	this->button_event(
@@ -238,13 +325,13 @@ sge::x11input::cursor::object::on_button_up(
 
 void
 sge::x11input::cursor::object::button_event(
-	x11input::device::window_event const &_event,
+	sge::x11input::device::window_event const &_event,
 	bool const _pressed
 )
 {
 	button_signal_(
-		input::cursor::button_event(
-			x11input::cursor::button_code(
+		sge::input::cursor::button_event(
+			sge::x11input::cursor::button_code(
 				_event.get().detail
 			),
 			_pressed
@@ -256,7 +343,7 @@ void
 sge::x11input::cursor::object::move_event()
 {
 	move_signal_(
-		input::cursor::move_event(
+		sge::input::cursor::move_event(
 			position_
 		)
 	);
@@ -269,14 +356,14 @@ sge::x11input::cursor::object::check_grab()
 		mode_
 	)
 	{
-	case input::cursor::mode::exclusive:
+	case sge::input::cursor::mode::exclusive:
 		if(
 			!cursor_grab_
 			&& entered_
 		)
 			cursor_grab_.take(
 				fcppt::make_unique_ptr<
-					cursor::grab
+					sge::x11input::cursor::grab
 				>(
 					fcppt::cref(
 						window_
@@ -291,10 +378,10 @@ sge::x11input::cursor::object::check_grab()
 			cursor_grab_.reset();
 
 		return;
-	case input::cursor::mode::normal:
+	case sge::input::cursor::mode::normal:
 		cursor_grab_.reset();
 		return;
-	case input::cursor::mode::size:
+	case sge::input::cursor::mode::size:
 		break;
 	}
 

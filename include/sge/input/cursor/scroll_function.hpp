@@ -1,3 +1,4 @@
+
 /*
 spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2012 Carl Philipp Reh (sefi@s-e-f-i.de)
@@ -18,11 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_CURSOR_BUTTON_SIGNAL_HPP_INCLUDED
-#define SGE_INPUT_CURSOR_BUTTON_SIGNAL_HPP_INCLUDED
+#ifndef SGE_INPUT_CURSOR_SCROLL_FUNCTION_HPP_INCLUDED
+#define SGE_INPUT_CURSOR_SCROLL_FUNCTION_HPP_INCLUDED
 
-#include <sge/input/cursor/button_function.hpp>
-#include <fcppt/signal/object_fwd.hpp>
+#include <sge/input/cursor/scroll_event_fwd.hpp>
 
 
 namespace sge
@@ -32,9 +32,11 @@ namespace input
 namespace cursor
 {
 
-typedef fcppt::signal::object<
-	sge::input::cursor::button_function
-> button_signal;
+typedef
+void
+scroll_function(
+	sge::input::cursor::scroll_event const &
+);
 
 }
 }

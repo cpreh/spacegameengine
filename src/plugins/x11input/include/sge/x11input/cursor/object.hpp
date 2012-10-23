@@ -28,11 +28,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/move_signal.hpp>
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/optional_position.hpp>
+#include <sge/input/cursor/scroll_callback.hpp>
+#include <sge/input/cursor/scroll_signal.hpp>
 #include <sge/x11input/cursor/grab_fwd.hpp>
 #include <sge/x11input/cursor/image.hpp>
+#include <sge/x11input/cursor/info.hpp>
 #include <sge/x11input/cursor/object_fwd.hpp>
 #include <sge/x11input/device/object.hpp>
 #include <sge/x11input/device/parameters_fwd.hpp>
+#include <sge/x11input/device/valuator_index.hpp>
+#include <sge/x11input/device/valuator_value.hpp>
 #include <sge/x11input/device/window_event_fwd.hpp>
 #include <awl/backends/x11/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -60,8 +65,8 @@ class object
 	);
 public:
 	object(
-		x11input::device::parameters const &,
-		cursor::image invisible_pixmap,
+		sge::x11input::device::parameters const &,
+		sge::x11input::cursor::image invisible_pixmap,
 		bool entered
 	);
 
@@ -78,40 +83,51 @@ public:
 private:
 	fcppt::signal::auto_connection
 	button_callback(
-		input::cursor::button_callback const &
+		sge::input::cursor::button_callback const &
 	);
 
 	fcppt::signal::auto_connection
 	move_callback(
-		input::cursor::move_callback const &
+		sge::input::cursor::move_callback const &
 	);
 
-	input::cursor::optional_position const
+	fcppt::signal::auto_connection
+	scroll_callback(
+		sge::input::cursor::scroll_callback const &
+	);
+
+	sge::input::cursor::optional_position const
 	position() const;
 
 	void
 	mode(
-		input::cursor::mode::type
+		sge::input::cursor::mode::type
 	);
 
 	void
 	on_motion(
-		x11input::device::window_event const &
+		sge::x11input::device::window_event const &
+	);
+
+	void
+	process_valuator(
+		sge::x11input::device::valuator_index,
+		sge::x11input::device::valuator_value
 	);
 
 	void
 	on_button_down(
-		x11input::device::window_event const &
+		sge::x11input::device::window_event const &
 	);
 
 	void
 	on_button_up(
-		x11input::device::window_event const &
+		sge::x11input::device::window_event const &
 	);
 
 	void
 	button_event(
-		x11input::device::window_event const &,
+		sge::x11input::device::window_event const &,
 		bool pressed
 	);
 
@@ -123,7 +139,7 @@ private:
 
 	awl::backends::x11::window::object const &window_;
 
-	cursor::image const invisible_image_;
+	sge::x11input::cursor::image const invisible_image_;
 
 	fcppt::signal::connection_manager const connections_;
 
@@ -133,12 +149,16 @@ private:
 
 	sge::input::cursor::optional_position position_;
 
+	sge::x11input::cursor::info info_;
+
 	sge::input::cursor::button_signal button_signal_;
 
 	sge::input::cursor::move_signal move_signal_;
 
+	sge::input::cursor::scroll_signal scroll_signal_;
+
 	fcppt::scoped_ptr<
-		x11input::cursor::grab
+		sge::x11input::cursor::grab
 	> cursor_grab_;
 };
 

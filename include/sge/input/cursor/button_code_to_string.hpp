@@ -36,7 +36,7 @@ namespace cursor
 SGE_INPUT_SYMBOL
 fcppt::string const
 button_code_to_string(
-	cursor::button_code::type
+	sge::input::cursor::button_code::type
 );
 
 }

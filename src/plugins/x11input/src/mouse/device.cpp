@@ -23,10 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/button.hpp>
 #include <sge/input/mouse/button_event.hpp>
 #include <sge/input/mouse/info.hpp>
-#include <sge/x11input/mask_is_set.hpp>
+#include <sge/x11input/device/foreach_valuator.hpp>
 #include <sge/x11input/device/parameters.hpp>
 #include <sge/x11input/device/raw_demuxer.hpp>
 #include <sge/x11input/device/raw_event.hpp>
+#include <sge/x11input/device/valuator_index.hpp>
+#include <sge/x11input/device/valuator_value.hpp>
 #include <sge/x11input/device/window_demuxer.hpp>
 #include <sge/x11input/device/window_event.hpp>
 #include <sge/x11input/mouse/axis.hpp>
@@ -104,7 +106,7 @@ sge::x11input::mouse::device::device(
 		)
 	),
 	info_(
-		x11input::mouse::info(
+		sge::x11input::mouse::info(
 			_param.window().display(),
 			_param.info()
 		)
@@ -151,48 +153,39 @@ sge::x11input::mouse::device::on_motion(
 	x11input::device::raw_event const &_event
 )
 {
-	XIValuatorState const &valuators(
-		_event.get().valuators
+	sge::x11input::device::foreach_valuator(
+		_event.get().valuators,
+		std::tr1::bind(
+			&sge::x11input::mouse::device::process_valuator,
+			this,
+			std::tr1::placeholders::_1,
+			std::tr1::placeholders::_2
+		)
 	);
+}
 
-	if(
-		valuators.mask_len == 0
-	)
-		return;
-
-	double const *valuator(
-		valuators.values
-	);
-
-	for(
-		int index = 0;
-		index < valuators.mask_len * 8;
-		++index, ++valuator
-	)
-	{
-		if(
-			x11input::mask_is_set(
-				valuators.mask,
-				index
+void
+sge::x11input::mouse::device::process_valuator(
+	sge::x11input::device::valuator_index const _index,
+	sge::x11input::device::valuator_value const _value
+)
+{
+	axis_signal_(
+		sge::input::mouse::axis_event(
+			sge::x11input::mouse::axis(
+				_index,
+				info_.axes()
+			),
+			sge::x11input::mouse::axis_value(
+				_value
 			)
 		)
-			axis_signal_(
-				input::mouse::axis_event(
-					x11input::mouse::axis(
-						index,
-						info_.axes()
-					),
-					x11input::mouse::axis_value(
-						*valuator
-					)
-				)
-			);
-	}
+	);
 }
 
 void
 sge::x11input::mouse::device::on_button_down(
-	x11input::device::window_event const &_event
+	sge::x11input::device::window_event const &_event
 )
 {
 	this->button_event(
@@ -203,7 +196,7 @@ sge::x11input::mouse::device::on_button_down(
 
 void
 sge::x11input::mouse::device::on_button_up(
-	x11input::device::window_event const &_event
+	sge::x11input::device::window_event const &_event
 )
 {
 	this->button_event(
@@ -214,14 +207,14 @@ sge::x11input::mouse::device::on_button_up(
 
 void
 sge::x11input::mouse::device::button_event(
-	x11input::device::window_event const &_event,
+	sge::x11input::device::window_event const &_event,
 	bool const _pressed
 )
 {
 	button_signal_(
-		input::mouse::button_event(
-			input::mouse::button(
-				x11input::mouse::button(
+		sge::input::mouse::button_event(
+			sge::input::mouse::button(
+				sge::x11input::mouse::button(
 					_event,
 					info_.buttons()
 				)

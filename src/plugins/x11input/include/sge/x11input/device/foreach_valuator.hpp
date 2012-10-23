@@ -18,23 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_CURSOR_BUTTON_SIGNAL_HPP_INCLUDED
-#define SGE_INPUT_CURSOR_BUTTON_SIGNAL_HPP_INCLUDED
+#ifndef SGE_X11INPUT_DEVICE_FOREACH_VALUATOR_HPP_INCLUDED
+#define SGE_X11INPUT_DEVICE_FOREACH_VALUATOR_HPP_INCLUDED
 
-#include <sge/input/cursor/button_function.hpp>
-#include <fcppt/signal/object_fwd.hpp>
+#include <sge/x11input/device/valuator_callback_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <X11/extensions/XInput2.h>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
 {
-namespace input
+namespace x11input
 {
-namespace cursor
+namespace device
 {
 
-typedef fcppt::signal::object<
-	sge::input::cursor::button_function
-> button_signal;
+void
+foreach_valuator(
+	XIValuatorState const &,
+	sge::x11input::device::valuator_callback const &
+);
 
 }
 }

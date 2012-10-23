@@ -18,26 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_CURSOR_BUTTON_SIGNAL_HPP_INCLUDED
-#define SGE_INPUT_CURSOR_BUTTON_SIGNAL_HPP_INCLUDED
+#include <sge/input/cursor/scroll_code.hpp>
+#include <sge/input/cursor/scroll_code_to_string.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
-#include <sge/input/cursor/button_function.hpp>
-#include <fcppt/signal/object_fwd.hpp>
 
-
-namespace sge
+fcppt::string const
+sge::input::cursor::scroll_code_to_string(
+	sge::input::cursor::scroll_code::type const _code
+)
 {
-namespace input
-{
-namespace cursor
-{
+#define MAKE_CASE(\
+	name\
+)\
+case sge::input::cursor::scroll_code::name:\
+	return FCPPT_TEXT(#name);
 
-typedef fcppt::signal::object<
-	sge::input::cursor::button_function
-> button_signal;
+	switch(
+		_code
+	)
+	{
+	MAKE_CASE(vertical)
+	MAKE_CASE(horizontal)
+	}
 
+	FCPPT_ASSERT_UNREACHABLE;
 }
-}
-}
-
-#endif

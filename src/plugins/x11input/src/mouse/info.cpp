@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/axis_info_container.hpp>
 #include <sge/input/mouse/button_info_container.hpp>
 #include <sge/input/mouse/info.hpp>
+#include <sge/x11input/device/info/class_cast.hpp>
 #include <sge/x11input/device/info/class_type.hpp>
 #include <sge/x11input/device/info/name.hpp>
 #include <sge/x11input/mouse/axis_info.hpp>
@@ -56,7 +57,7 @@ sge::x11input::mouse::info(
 		);
 
 		switch(
-			x11input::device::info::class_type(
+			sge::x11input::device::info::class_type(
 				cur
 			)
 		)
@@ -68,7 +69,7 @@ sge::x11input::mouse::info(
 
 			buttons =
 				sge::x11input::mouse::button_infos(
-					reinterpret_cast<
+					sge::x11input::device::info::class_cast<
 						XIButtonClassInfo const &
 					>(
 						cur
@@ -79,7 +80,7 @@ sge::x11input::mouse::info(
 		case XIValuatorClass:
 			axis.push_back(
 				sge::x11input::mouse::axis_info(
-					reinterpret_cast<
+					sge::x11input::device::info::class_cast<
 						XIValuatorClassInfo const &
 					>(
 						cur
@@ -99,7 +100,7 @@ sge::x11input::mouse::info(
 			sge::input::mouse::button_info_container(
 				buttons
 			),
-			x11input::device::info::name(
+			sge::x11input::device::info::name(
 				_info
 			)
 		);

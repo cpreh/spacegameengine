@@ -27,6 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/remove_callback.hpp>
 #include <sge/input/cursor/remove_event.hpp>
+#include <sge/input/cursor/scroll_event.hpp>
+#include <sge/input/cursor/scroll_code_to_string.hpp>
 #include <sge/input/info/optional_string.hpp>
 #include <sge/input/joypad/absolute_axis_event.hpp>
 #include <sge/input/joypad/absolute_axis_info.hpp>
@@ -134,6 +136,12 @@ void
 cursor_move(
 	sge::input::cursor::object &,
 	sge::input::cursor::move_event const &
+);
+
+void
+cursor_scroll(
+	sge::input::cursor::object &,
+	sge::input::cursor::scroll_event const &
 );
 
 void
@@ -348,6 +356,12 @@ try
 		>(
 			::cursor_move,
 			silent
+		),
+		wrap_silent<
+			sge::input::cursor::manager::scroll_callback
+		>(
+			::cursor_scroll,
+			silent
 		)
 	);
 
@@ -518,6 +532,24 @@ cursor_move(
 		<< &_object
 		<< FCPPT_TEXT("\n\tposition: ")
 		<< _event.position()
+		<< FCPPT_TEXT('\n');
+}
+
+void
+cursor_scroll(
+	sge::input::cursor::object &_object,
+	sge::input::cursor::scroll_event const &_event
+)
+{
+	fcppt::io::cout()
+		<< FCPPT_TEXT("cursor_scroll: ")
+		<< &_object
+		<< FCPPT_TEXT("\n\tcode: ")
+		<< sge::input::cursor::scroll_code_to_string(
+			_event.code()
+		)
+		<< FCPPT_TEXT("\n\tdelta: ")
+		<< _event.value()
 		<< FCPPT_TEXT('\n');
 }
 

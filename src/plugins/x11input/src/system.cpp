@@ -28,7 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/processor.hpp>
 #include <sge/x11input/scoped_locale.hpp>
 #include <sge/x11input/system.hpp>
-#include <sge/x11input/xi_2_1.hpp>
 #include <sge/x11input/xi_opcode.hpp>
 #include <sge/x11input/xi_version.hpp>
 #include <awl/backends/x11/window/object.hpp>
@@ -38,7 +37,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/null_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/log/info.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/log/warning.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -68,8 +66,8 @@ sge::x11input::system::create_processor(
 		)
 	);
 
-	x11input::optional_opcode const opcode(
-		x11input::xi_opcode(
+	sge::x11input::optional_opcode const opcode(
+		sge::x11input::xi_opcode(
 			x11_window.display()
 		)
 	);
@@ -82,39 +80,30 @@ sge::x11input::system::create_processor(
 		);
 
 	// The first supported version we ask for and that is supported will be used
-	x11input::xi_2_1 const supports_xi_2_1(
-		x11input::xi_version(
+	if(
+		!sge::x11input::xi_version(
 			x11_window.display(),
 			2,
 			1
 		)
-	);
-
-	if(
-		!supports_xi_2_1.get()
-		&&
-		!x11input::xi_version(
-			x11_window.display(),
-			2,
-			0
-		)
 	)
 		throw sge::input::exception(
-			FCPPT_TEXT("The X server doesn't support XI2!")
+			FCPPT_TEXT("The X server doesn't support XI2.1!")
 		);
 
 	if(
 		char const *const locale_name =
-			x11input::lc_ctype()
+			sge::x11input::lc_ctype()
 	)
 	{
-		x11input::scoped_locale const temp_locale(
+		sge::x11input::scoped_locale const temp_locale(
 			locale_name
 		);
 
 		if(
 			::XSupportsLocale()
-			== False
+			==
+			False
 		)
 			throw sge::input::exception(
 				FCPPT_TEXT("X doesn't support the locale ")
@@ -145,20 +134,6 @@ sge::x11input::system::create_processor(
 		);
 	}
 
-	FCPPT_LOG_INFO(
-		sge::log::global(),
-		fcppt::log::_
-			<< FCPPT_TEXT("Using XI version ")
-			<<
-			(
-				supports_xi_2_1.get()
-				?
-					FCPPT_TEXT("2.1")
-				:
-					FCPPT_TEXT("2.0")
-			)
-	);
-
 	return
 		sge::input::processor_unique_ptr(
 			fcppt::make_unique_ptr<
@@ -170,8 +145,7 @@ sge::x11input::system::create_processor(
 				fcppt::cref(
 					_window_system
 				),
-				*opcode,
-				supports_xi_2_1
+				*opcode
 			)
 		);
 }

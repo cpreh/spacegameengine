@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_MOUSE_AXIS_VALUE_HPP_INCLUDED
 
 #include <sge/input/mouse/axis_value.hpp>
+#include <sge/x11input/device/valuator_value.hpp>
+
 
 namespace sge
 {
@@ -32,7 +34,7 @@ namespace mouse
 
 sge::input::mouse::axis_value
 axis_value(
-	double
+	sge::x11input::device::valuator_value
 );
 
 }

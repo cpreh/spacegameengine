@@ -33,7 +33,7 @@ namespace cursor
 {
 
 typedef fcppt::function::object<
-	cursor::button_function
+	sge::input::cursor::button_function
 > button_callback;
 
 }

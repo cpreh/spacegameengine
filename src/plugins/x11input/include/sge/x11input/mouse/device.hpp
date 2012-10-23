@@ -30,6 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/object.hpp>
 #include <sge/x11input/device/parameters_fwd.hpp>
 #include <sge/x11input/device/raw_event_fwd.hpp>
+#include <sge/x11input/device/valuator_index.hpp>
+#include <sge/x11input/device/valuator_value.hpp>
 #include <sge/x11input/device/window_event_fwd.hpp>
 #include <sge/x11input/mouse/device_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -54,44 +56,50 @@ class device
 		device
 	);
 public:
-	explicit device(
-		x11input::device::parameters const &
+	explicit
+	device(
+		sge::x11input::device::parameters const &
 	);
 
 	~device();
 private:
 	fcppt::signal::auto_connection
 	axis_callback(
-		input::mouse::axis_callback const &
+		sge::input::mouse::axis_callback const &
 	);
-
 
 	fcppt::signal::auto_connection
 	button_callback(
-		input::mouse::button_callback const &
+		sge::input::mouse::button_callback const &
 	);
 
-	input::mouse::info const &
+	sge::input::mouse::info const &
 	info() const;
 
 	void
 	on_motion(
-		x11input::device::raw_event const &
+		sge::x11input::device::raw_event const &
+	);
+
+	void
+	process_valuator(
+		sge::x11input::device::valuator_index,
+		sge::x11input::device::valuator_value
 	);
 
 	void
 	on_button_down(
-		x11input::device::window_event const &
+		sge::x11input::device::window_event const &
 	);
 
 	void
 	on_button_up(
-		x11input::device::window_event const &
+		sge::x11input::device::window_event const &
 	);
 
 	void
 	button_event(
-		x11input::device::window_event const &,
+		sge::x11input::device::window_event const &,
 		bool pressed
 	);
 

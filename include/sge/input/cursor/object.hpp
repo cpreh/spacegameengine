@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/move_callback.hpp>
 #include <sge/input/cursor/object_fwd.hpp>
 #include <sge/input/cursor/optional_position_fwd.hpp>
+#include <sge/input/cursor/scroll_callback.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
 
@@ -62,6 +63,12 @@ public:
 	fcppt::signal::auto_connection
 	move_callback(
 		sge::input::cursor::move_callback const &
+	) = 0;
+
+	virtual
+	fcppt::signal::auto_connection
+	scroll_callback(
+		sge::input::cursor::scroll_callback const &
 	) = 0;
 
 	virtual

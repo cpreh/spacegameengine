@@ -40,25 +40,25 @@ class axis_event
 public:
 	SGE_INPUT_SYMBOL
 	axis_event(
-		mouse::axis const &,
-		mouse::axis_value
+		sge::input::mouse::axis const &,
+		sge::input::mouse::axis_value
 	);
 
 	SGE_INPUT_SYMBOL
-	mouse::axis const &
+	sge::input::mouse::axis const &
 	axis() const;
 
 	SGE_INPUT_SYMBOL
-	mouse::axis_code::type
+	sge::input::mouse::axis_code::type
 	code() const;
 
 	SGE_INPUT_SYMBOL
-	mouse::axis_value
+	sge::input::mouse::axis_value
 	value() const;
 private:
-	mouse::axis axis_;
+	sge::input::mouse::axis axis_;
 
-	mouse::axis_value value_;
+	sge::input::mouse::axis_value value_;
 };
 
 }

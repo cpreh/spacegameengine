@@ -41,12 +41,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
+
 sge::input::cursor::manager::manager(
-	input::processor &_processor,
-	input::cursor::discover_callback const &_discover_callback,
-	input::cursor::remove_callback const &_remove_callback,
-	button_callback const &_button_callback,
-	move_callback const &_move_callback
+	sge::input::processor &_processor,
+	sge::input::cursor::discover_callback const &_discover_callback,
+	sge::input::cursor::remove_callback const &_remove_callback,
+	sge::input::cursor::manager::button_callback const &_button_callback,
+	sge::input::cursor::manager::move_callback const &_move_callback,
+	sge::input::cursor::manager::scroll_callback const &_scroll_callback
 )
 :
 	objects_(),
@@ -62,6 +64,9 @@ sge::input::cursor::manager::manager(
 	move_callback_(
 		_move_callback
 	),
+	scroll_callback_(
+		_scroll_callback
+	),
 	connections_(
 		fcppt::assign::make_container<
 			fcppt::signal::connection_manager::container
@@ -69,7 +74,7 @@ sge::input::cursor::manager::manager(
 			fcppt::signal::shared_connection(
 				_processor.cursor_discover_callback(
 					std::tr1::bind(
-						&cursor::manager::discover,
+						&sge::input::cursor::manager::discover,
 						this,
 						std::tr1::placeholders::_1
 					)
@@ -80,7 +85,7 @@ sge::input::cursor::manager::manager(
 			fcppt::signal::shared_connection(
 				_processor.cursor_remove_callback(
 					std::tr1::bind(
-						&cursor::manager::remove,
+						&sge::input::cursor::manager::remove,
 						this,
 						std::tr1::placeholders::_1
 					)
@@ -90,10 +95,17 @@ sge::input::cursor::manager::manager(
 	)
 {
 }
+
 FCPPT_PP_POP_WARNING
 
 sge::input::cursor::manager::~manager()
 {
+}
+
+sge::input::cursor::manager::object_map const &
+sge::input::cursor::manager::devices() const
+{
+	return objects_;
 }
 
 void
@@ -136,6 +148,19 @@ sge::input::cursor::manager::discover(
 						)
 					)
 				)
+				(
+					fcppt::signal::shared_connection(
+						_event.get().scroll_callback(
+							std::tr1::bind(
+								scroll_callback_,
+								fcppt::ref(
+									_event.get()
+								),
+								std::tr1::placeholders::_1
+							)
+						)
+					)
+				)
 			)
 		).second
 		== true
@@ -151,7 +176,7 @@ sge::input::cursor::manager::discover(
 
 void
 sge::input::cursor::manager::remove(
-	input::cursor::remove_event const &_event
+	sge::input::cursor::remove_event const &_event
 )
 {
 	FCPPT_ASSERT_ERROR(

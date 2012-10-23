@@ -18,31 +18,58 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_MOUSE_INFO_HPP_INCLUDED
-#define SGE_X11INPUT_MOUSE_INFO_HPP_INCLUDED
-
-#include <sge/input/mouse/info_fwd.hpp>
-#include <awl/backends/x11/display_fwd.hpp>
+#include <sge/x11input/mask_is_set.hpp>
+#include <sge/x11input/device/foreach_valuator.hpp>
+#include <sge/x11input/device/valuator_callback.hpp>
+#include <sge/x11input/device/valuator_index.hpp>
+#include <sge/x11input/device/valuator_value.hpp>
+#include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
+#include <climits>
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
+void
+sge::x11input::device::foreach_valuator(
+	XIValuatorState const &_valuators,
+	sge::x11input::device::valuator_callback const &_callback
+)
 {
-namespace x11input
-{
-namespace mouse
-{
+	if(
+		_valuators.mask_len == 0
+	)
+		return;
 
-sge::input::mouse::info const
-info(
-	awl::backends::x11::display &,
-	XIDeviceInfo const &
-);
+	double const *valuator(
+		_valuators.values
+	);
 
-}
-}
-}
+	for(
+		int index = 0;
+		index < _valuators.mask_len * CHAR_BIT;
+		++index
+	)
+	{
+		if(
+			sge::x11input::mask_is_set(
+				_valuators.mask,
+				index
+			)
+		)
+		{
+			_callback(
+				fcppt::strong_typedef_construct_cast<
+					sge::x11input::device::valuator_index
+				>(
+					index
+				),
+				sge::x11input::device::valuator_value(
+					*valuator
+				)
+			);
 
-#endif
+			++valuator;
+		}
+	}
+}

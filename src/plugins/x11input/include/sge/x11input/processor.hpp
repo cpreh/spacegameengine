@@ -44,7 +44,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/input_context_fwd.hpp>
 #include <sge/x11input/input_method_fwd.hpp>
 #include <sge/x11input/pixmap.hpp>
-#include <sge/x11input/xi_2_1.hpp>
 #include <sge/x11input/cursor/manager.hpp>
 #include <sge/x11input/cursor/object_unique_ptr.hpp>
 #include <sge/x11input/cursor/pixmap.hpp>
@@ -87,8 +86,7 @@ public:
 	processor(
 		sge::window::object const &,
 		sge::window::system const &,
-		awl::backends::x11::system::event::opcode,
-		x11input::xi_2_1
+		awl::backends::x11::system::event::opcode
 	);
 
 	~processor();

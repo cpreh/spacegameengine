@@ -23,6 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/mouse/axis_fwd.hpp>
 #include <sge/input/mouse/axis_info_container_fwd.hpp>
+#include <sge/x11input/device/valuator_index.hpp>
+
 
 namespace sge
 {
@@ -31,10 +33,10 @@ namespace x11input
 namespace mouse
 {
 
-input::mouse::axis const
+sge::input::mouse::axis const
 axis(
-	int code,
-	input::mouse::axis_info_container const &
+	sge::x11input::device::valuator_index,
+	sge::input::mouse::axis_info_container const &
 );
 
 }

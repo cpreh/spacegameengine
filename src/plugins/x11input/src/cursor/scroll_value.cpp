@@ -18,26 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_CURSOR_BUTTON_SIGNAL_HPP_INCLUDED
-#define SGE_INPUT_CURSOR_BUTTON_SIGNAL_HPP_INCLUDED
+#include <sge/input/cursor/scroll_value.hpp>
+#include <sge/x11input/device/valuator_value.hpp>
+#include <sge/x11input/cursor/scroll_value.hpp>
+#include <fcppt/preprocessor/todo.hpp>
 
-#include <sge/input/cursor/button_function.hpp>
-#include <fcppt/signal/object_fwd.hpp>
 
-
-namespace sge
+sge::input::cursor::scroll_value
+sge::x11input::cursor::scroll_value(
+	sge::x11input::device::valuator_value const _value
+)
 {
-namespace input
-{
-namespace cursor
-{
+	FCPPT_PP_TODO("Should we translate doubles differently?")
 
-typedef fcppt::signal::object<
-	sge::input::cursor::button_function
-> button_signal;
-
+	return _value.get();
 }
-}
-}
-
-#endif
