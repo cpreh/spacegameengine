@@ -44,6 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/shared_connection.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <X11/extensions/XI2.h>
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
 
@@ -211,6 +212,13 @@ sge::x11input::mouse::device::button_event(
 	bool const _pressed
 )
 {
+	if(
+		_event.get().flags
+		&
+		XIPointerEmulated
+	)
+		return;
+
 	button_signal_(
 		sge::input::mouse::button_event(
 			sge::input::mouse::button(

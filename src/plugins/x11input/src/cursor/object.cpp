@@ -329,6 +329,13 @@ sge::x11input::cursor::object::button_event(
 	bool const _pressed
 )
 {
+	if(
+		_event.get().flags
+		&
+		XIPointerEmulated
+	)
+		return;
+
 	button_signal_(
 		sge::input::cursor::button_event(
 			sge::x11input::cursor::button_code(
