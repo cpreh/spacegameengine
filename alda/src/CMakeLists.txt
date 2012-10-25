@@ -11,6 +11,7 @@ set(
 	ALDA_FILES
 	alda/src/exception.cpp
 	alda/src/include/alda/src/log_parameters.hpp
+	alda/src/include/alda/src/net/client/detail/object_impl.hpp
 	alda/src/include/alda/src/net/server/detail/connection.hpp
 	alda/src/include/alda/src/net/server/detail/object_impl.hpp
 	alda/src/log.cpp
@@ -21,6 +22,8 @@ set(
 	alda/src/net/buffer/circular_receive/object.cpp
 	alda/src/net/buffer/circular_receive/part.cpp
 	alda/src/net/buffer/circular_send/object.cpp
+	alda/src/net/client/detail/object_impl.cpp
+	alda/src/net/client/object.cpp
 	alda/src/net/exception.cpp
 	alda/src/net/io_service_wrapper.cpp
 	alda/src/net/log_location.cpp

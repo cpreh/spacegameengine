@@ -18,26 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef ALDA_NET_SERVER_DATA_FUNCTION_HPP_INCLUDED
-#define ALDA_NET_SERVER_DATA_FUNCTION_HPP_INCLUDED
+#ifndef ALDA_NET_CLIENT_CONNECT_CALLBACK_FWD_HPP_INCLUDED
+#define ALDA_NET_CLIENT_CONNECT_CALLBACK_FWD_HPP_INCLUDED
 
-#include <alda/net/id.hpp>
-#include <alda/net/buffer/circular_receive/object_fwd.hpp>
+#include <alda/net/client/connect_function.hpp>
+#include <fcppt/function/object_fwd.hpp>
 
 
 namespace alda
 {
 namespace net
 {
-namespace server
+namespace client
 {
 
-typedef
-void
-data_function(
-	alda::net::id,
-	alda::net::buffer::circular_receive::object &
-);
+typedef fcppt::function::object<
+	alda::net::client::connect_function
+> connect_callback;
 
 }
 }

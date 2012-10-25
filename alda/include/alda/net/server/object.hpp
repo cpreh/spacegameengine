@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <alda/net/server/connection_id_container.hpp>
 #include <alda/net/server/data_callback_fwd.hpp>
 #include <alda/net/server/disconnect_callback_fwd.hpp>
+#include <alda/net/server/object_fwd.hpp>
 #include <alda/net/server/detail/object_impl_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>

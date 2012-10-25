@@ -32,7 +32,8 @@ namespace net
 namespace server
 {
 
-typedef void
+typedef
+void
 disconnect_function(
 	alda::net::id,
 	fcppt::string const &

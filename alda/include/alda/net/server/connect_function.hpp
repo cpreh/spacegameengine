@@ -31,7 +31,8 @@ namespace net
 namespace server
 {
 
-typedef void
+typedef
+void
 connect_function(
 	alda::net::id
 );

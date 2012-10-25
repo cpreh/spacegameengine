@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <alda/net/buffer/circular_receive/for_asio.hpp>
 #include <alda/net/buffer/circular_receive/part.hpp>
 #include <alda/net/buffer/circular_send/boost_type.hpp>
+#include <alda/net/buffer/circular_send/object.hpp>
 #include <alda/net/buffer/circular_send/optional_ref.hpp>
 #include <alda/net/server/connect_callback.hpp>
 #include <alda/net/server/connection_id_container.hpp>
@@ -36,7 +37,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <alda/src/net/server/detail/object_impl.hpp>
 #include <alda/src/log_parameters.hpp>
 #include <fcppt/assert/pre.hpp>
-#include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/log/debug.hpp>

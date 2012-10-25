@@ -71,3 +71,9 @@ alda::net::buffer::circular_send::object::empty() const
 	return
 		impl_.empty();
 }
+
+void
+alda::net::buffer::circular_send::object::clear()
+{
+	impl_.clear();
+}

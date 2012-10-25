@@ -68,6 +68,10 @@ public:
 	ALDA_SYMBOL
 	bool
 	empty() const;
+
+	ALDA_SYMBOL
+	void
+	clear();
 private:
 	alda::net::buffer::circular_send::boost_type impl_;
 };
