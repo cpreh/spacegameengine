@@ -170,7 +170,6 @@ try
 		"\n"
 		"struct C2E1v_Output {\n"
 		"	float4 position : POSITION;\n"
-		"	float3 color    : COLOR;\n"
 		"};\n"
 		"\n"
 		"C2E1v_Output C2E1v_green(float2 position : POSITION)\n"
@@ -178,7 +177,6 @@ try
 		"	C2E1v_Output OUT;\n"
 		"\n"
 		"	OUT.position = float4(position,0,1);\n"
-		"	OUT.color = float3(0,1,0);\n"
 		"\n"
 		"	return OUT;\n"
 		"}\n"
@@ -202,9 +200,53 @@ try
 		)
 	);
 
-	sge::renderer::cg::loaded_program_scoped_ptr const loaded_program(
+	sge::renderer::cg::loaded_program_scoped_ptr const loaded_vertex_program(
 		sys.renderer_core().load_cg_program(
 			vertex_program
+		)
+	);
+
+	sge::cg::profile::object const pixel_profile(
+		sys.renderer_core().create_cg_profile(
+			sge::cg::profile::shader_type::pixel
+		)
+	);
+
+	sge::cg::string const pixel_shader_source(
+		"struct C3E3f_Output {\n"
+		"	float4 color : COLOR;\n"
+		"};\n"
+		"C3E3f_Output\n"
+		"C3E3f_simple()\n"
+		"{\n"
+		"	C3E3f_Output OUT;\n"
+		"\n"
+		"	OUT.color = float4(0,1,0,1);\n"
+		"	return OUT;\n"
+		"}\n"
+	);
+
+	sge::cg::program::object pixel_program(
+		sge::cg::program::from_string_parameters(
+			cg_context,
+			sge::cg::program::source_type::text,
+			pixel_profile,
+			sge::cg::program::source(
+				pixel_shader_source
+			),
+			sge::cg::program::main_function(
+				"C3E3f_simple"
+			),
+			sys.renderer_core().cg_compile_options(
+				cg_context,
+				pixel_profile
+			)
+		)
+	);
+
+	sge::renderer::cg::loaded_program_scoped_ptr const loaded_pixel_program(
+		sys.renderer_core().load_cg_program(
+			pixel_program
 		)
 	);
 
@@ -336,9 +378,14 @@ try
 			)
 		);
 
-		sge::renderer::cg::scoped_program const scoped_program(
+		sge::renderer::cg::scoped_program const scoped_vertex_program(
 			scoped_block.get(),
-			*loaded_program
+			*loaded_vertex_program
+		);
+
+		sge::renderer::cg::scoped_program const scoped_pixel_program(
+			scoped_block.get(),
+			*loaded_pixel_program
 		);
 
 		scoped_block.get().render_nonindexed(
