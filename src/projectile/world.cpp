@@ -77,9 +77,10 @@ void_ptr_to_body(
 	FCPPT_ASSERT_PRE(
 		a);
 
-	void_ptr_to_body(
-		static_cast<btCollisionObject const *>(
-			a));
+	return
+		void_ptr_to_body(
+			static_cast<btCollisionObject const *>(
+				a));
 }
 
 // Determines if the void* in the persistent manifold is a ghost (this
