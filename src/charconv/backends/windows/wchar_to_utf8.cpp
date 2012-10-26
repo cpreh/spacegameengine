@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/raw_vector.hpp>
 #include <fcppt/algorithm/copy_n.hpp>
 #include <fcppt/assert/error.hpp>
+#include <fcppt/assert/unreachable.hpp>
 #include <fcppt/truncation_check_cast.hpp>
 
 sge::charconv::backends::windows::wchar_to_utf8::wchar_to_utf8()

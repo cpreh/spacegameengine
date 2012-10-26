@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/charconv/backends/windows/utf16_to_utf32.hpp>
 #include <sge/src/charconv/backends/windows/utf32_to_utf16.hpp>
 #include <sge/src/charconv/backends/windows/utf8_to_wchar.hpp>
-#include <sge/src/charconv/backends/windows/wchar_to_utfwchar8.hpp>
+#include <sge/src/charconv/backends/windows/wchar_to_utf8.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 
 
