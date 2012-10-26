@@ -55,26 +55,31 @@ FCPPT_STATIC_ASSERT_STATEMENT((
 
 namespace
 {
+sge::projectile::body::object const &
+void_ptr_to_body(
+	btCollisionObject const *co)
+{
+	FCPPT_ASSERT_PRE(
+		co->getUserPointer());
+
+	return
+		*static_cast<sge::projectile::body::object const *>(
+			co->getUserPointer());
+}
+
 // The btPersistentManifold stores a void* to the collision
 // object. This function makes a body out of it by following the
 // various user_ptrs and casts.
 sge::projectile::body::object &
 void_ptr_to_body(
-	void *a)
+	void const *a)
 {
 	FCPPT_ASSERT_PRE(
 		a);
 
-	btCollisionObject *co =
-		static_cast<btCollisionObject *>(
-			a);
-
-	FCPPT_ASSERT_PRE(
-		co->getUserPointer());
-
-	return
-		*static_cast<sge::projectile::body::object *>(
-			co->getUserPointer());
+	void_ptr_to_body(
+		static_cast<btCollisionObject const *>(
+			a));
 }
 
 // Determines if the void* in the persistent manifold is a ghost (this
