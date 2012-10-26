@@ -70,7 +70,7 @@ void_ptr_to_body(
 // The btPersistentManifold stores a void* to the collision
 // object. This function makes a body out of it by following the
 // various user_ptrs and casts.
-sge::projectile::body::object &
+sge::projectile::body::object const &
 void_ptr_to_body(
 	void const *a)
 {
