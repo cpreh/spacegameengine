@@ -24,7 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/raw_value.hpp>
 #include <sge/src/charconv/backends/windows/wchar_to_utf8.hpp>
 #include <sge/src/include_windows.hpp>
-
+#include <fcppt/container/raw_vector.hpp>
+#include <fcppt/algorithm/copy_n.hpp>
+#include <fcppt/assert/error.hpp>
+#include <fcppt/truncation_check_cast.hpp>
 
 sge::charconv::backends::windows::wchar_to_utf8::wchar_to_utf8()
 {
@@ -34,14 +37,33 @@ sge::charconv::backends::windows::wchar_to_utf8::~wchar_to_utf8()
 {
 }
 
+
 sge::charconv::conversion_status::type
 sge::charconv::backends::windows::wchar_to_utf8::convert(
 	sge::charconv::input_range &_input,
 	sge::charconv::output_range &_output
 )
 {
-	if (_input.size() % static_cast<charconv::output_range::difference_type>(2) != 0)
+	if(
+		_input.empty())
+		return sge::charconv::conversion_status::ok;
+
+	if (_input.size() % static_cast<sge::charconv::output_range::difference_type>(2) != 0)
 		return sge::charconv::conversion_status::invalid_input;
+
+	typedef
+	fcppt::container::raw_vector<wchar_t>
+	temp_input_container;
+
+	temp_input_container temp_input(
+		static_cast<temp_input_container::size_type>(
+			_input.size() / sizeof(wchar_t)));
+
+	fcppt::algorithm::copy_n(
+		_input.begin(),
+		_input.size(),
+		reinterpret_cast<char *>(
+			temp_input.data()));
 
 	int const required_output_size =
 		WideCharToMultiByte(
@@ -50,51 +72,94 @@ sge::charconv::backends::windows::wchar_to_utf8::convert(
 			// Flags
 			0,
 			// Input
-			&(*_input),
+			temp_input.data(),
 			// Input size
-			static_cast<int>(
-				_input.size()),
+			fcppt::truncation_check_cast<
+				int
+			>(
+				temp_input.size()
+			),
 			// Output
-			&(*_output),
+			0,
 			// Output size
 			0,
 			// default char
-			0
+			0,
 			// used default char
 			0);
 
 	if(required_output_size == 0xfffd)
 		return sge::charconv::conversion_status::invalid_input;
 
-	// Let the system resize the output until we've got double the input size
 	if(_output.size() < required_output_size)
 		return sge::charconv::conversion_status::output_too_small;
 
-	int const required_output_size =
+	int const conversion_result =
 		WideCharToMultiByte(
 			// Codepage
 			CP_UTF8,
 			// Flags
 			0,
 			// Input
-			&(*_input),
+			temp_input.data(),
 			// Input size
-			static_cast<int>(
-				_input.size()),
+			fcppt::truncation_check_cast<
+				int
+			>(
+				temp_input.size()
+			),
 			// Output
-			&(*_output),
+			reinterpret_cast<
+				LPSTR
+			>(
+				&*_output.begin()
+			),
 			// Output size
-			static_cast<int>(
-				_output.size()),
+			fcppt::truncation_check_cast<
+				int
+			>(
+				_output.size()
+			),
 			// default char
-			0
+			0,
 			// used default char
 			0);
 
-	return
-		required_output_size
-		?
-			sge::charconv::conversion_status::ok
-		:
-			sge::charconv::conversion_status::invalid_input;
+	if(conversion_result)
+	{
+		_input.advance_begin(
+			_input.size()
+		);
+
+		_output.advance_begin(
+			static_cast<
+				sge::charconv::output_range::difference_type
+			>(
+				conversion_result
+			)
+		);
+
+		return
+			sge::charconv::conversion_status::ok;
+	}
+
+	FCPPT_ASSERT_ERROR(
+		conversion_result == 0
+	);
+
+	DWORD const error(
+		::GetLastError()
+	);
+
+	switch(
+		error
+	)
+	{
+	case ERROR_INSUFFICIENT_BUFFER:
+		return sge::charconv::conversion_status::output_too_small;
+	case ERROR_NO_UNICODE_TRANSLATION:
+		return sge::charconv::conversion_status::invalid_input;
+	}
+
+	FCPPT_ASSERT_UNREACHABLE;
 }
