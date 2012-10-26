@@ -40,7 +40,10 @@ sge::opengl::cg::program::optimal_options(
 )
 {
 	sge::cg::char_type const ** const ret =
-#if CG_VERSION_NUM < 3100
+// 26.10.2012: cgGLGetContextOptimalOptions is broken. It causes a segfault on
+// Windows at program exit
+//#if CG_VERSION_NUM < 3100
+#if 1
 		::cgGLGetOptimalOptions(
 			_profile.get()
 #else
