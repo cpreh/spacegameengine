@@ -87,7 +87,8 @@ sge::cegui::resource_provider::loadRawDataContainer(
 				converted_filename);
 
 	boost::filesystem::ifstream file_stream(
-		load_path);
+		load_path,
+		std::ios::binary);
 
 	if(!file_stream.is_open())
 		throw cegui::exception(
