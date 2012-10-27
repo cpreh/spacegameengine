@@ -23,12 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/model/md3/texpos.hpp>
 #include <fcppt/io/read.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <algorithm>
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
 
-#include <fcppt/math/vector/output.hpp>
-#include <iostream>
 
 sge::model::md3::texpos::texpos(
 	std::istream &_stream
@@ -45,10 +42,6 @@ sge::model::md3::texpos::texpos(
 		)
 	)
 {
-	std::swap(
-		x_,
-		y_
-	);
 }
 
 sge::model::md3::texcoord const
