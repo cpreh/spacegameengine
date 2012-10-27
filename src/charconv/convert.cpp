@@ -19,23 +19,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/charconv/const_raw_pointer.hpp>
-#include <sge/charconv/conversion_failed.hpp>
-#include <sge/charconv/conversion_status.hpp>
 #include <sge/charconv/convert.hpp>
-#include <sge/charconv/converter.hpp>
-#include <sge/charconv/converter_unique_ptr.hpp>
+#include <sge/charconv/convert_raw.hpp>
 #include <sge/charconv/dest_encoding.hpp>
 #include <sge/charconv/encoding.hpp>
-#include <sge/charconv/raw_pointer.hpp>
+#include <sge/charconv/input_range.hpp>
+#include <sge/charconv/raw_vector.hpp>
 #include <sge/charconv/source_encoding.hpp>
 #include <sge/charconv/string_type.hpp>
-#include <sge/charconv/system.hpp>
+#include <sge/charconv/system_fwd.hpp>
 #include <sge/src/export_function_instantiation.hpp>
-#include <fcppt/container/raw_vector.hpp>
+#include <fcppt/assert/error.hpp>
+#include <fcppt/container/data.hpp>
+#include <fcppt/container/data_end.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/preprocessor/seq/elem.hpp>
 #include <boost/preprocessor/seq/for_each_product.hpp>
-#include <iterator>
+#include <cstring>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -53,133 +53,67 @@ sge::charconv::convert(
 	>::type const &_source
 )
 {
-	typedef typename sge::charconv::string_type<
-		SourceEncoding
-	>::type source_type;
-
-	typedef typename sge::charconv::string_type<
-		DestEncoding
-	>::type dest_type;
-
-	if(
-		_source.empty()
-	)
-		return dest_type();
-
-	sge::charconv::converter_unique_ptr converter(
-		_system.create_converter(
+	sge::charconv::raw_vector const raw_result(
+		sge::charconv::convert_raw(
+			_system,
 			sge::charconv::source_encoding(
 				SourceEncoding
 			),
 			sge::charconv::dest_encoding(
 				DestEncoding
-			)
-		)
-	);
-
-	typedef fcppt::container::raw_vector<
-		typename source_type::value_type
-	> source_buffer_type;
-
-	source_buffer_type source_buffer(
-		_source.begin(),
-		_source.end()
-	);
-
-	typedef fcppt::container::raw_vector<
-		typename dest_type::value_type
-	> dest_buffer_type;
-
-	// some guess
-	dest_buffer_type dest_buffer(
-		_source.size()
-	);
-
-	sge::charconv::input_range source_range(
-		reinterpret_cast<
-			sge::charconv::const_raw_pointer
-		>(
-			source_buffer.data()
-		),
-		reinterpret_cast<
-			sge::charconv::const_raw_pointer
-		>(
-			source_buffer.data_end()
-		)
-	);
-
-	sge::charconv::output_range dest_range(
-		reinterpret_cast<
-			sge::charconv::raw_pointer
-		>(
-			dest_buffer.data()
-		),
-		reinterpret_cast<
-			sge::charconv::raw_pointer
-		>(
-			dest_buffer.data_end()
-		)
-	);
-
-	for(
-		;;
-	)
-	{
-		sge::charconv::conversion_status::type const status(
-			converter->convert(
-				source_range,
-				dest_range
-			)
-		);
-
-		typedef typename dest_buffer_type::size_type dest_size_type;
-
-		dest_size_type const elements_converted(
-			dest_buffer.size()
-			-
-			static_cast<
-				dest_size_type
-			>(
-				dest_range.size()
-			)
-			/ sizeof(typename dest_type::value_type)
-		);
-
-		switch(
-			status
-		)
-		{
-		case sge::charconv::conversion_status::invalid_input:
-		case sge::charconv::conversion_status::incomplete_input:
-			throw charconv::conversion_failed();
-		case sge::charconv::conversion_status::ok:
-			return
-				dest_type(
-					dest_buffer.data(),
-					dest_buffer.data()
-					+ elements_converted
-				);
-		case sge::charconv::conversion_status::output_too_small:
-			dest_buffer.resize(
-				dest_buffer.size() * 2
-			);
-
-			dest_range =
-				sge::charconv::output_range(
-					reinterpret_cast<
-						sge::charconv::raw_pointer
-					>(
-						dest_buffer.data()
-						+ elements_converted
-					),
-					reinterpret_cast<
-						sge::charconv::raw_pointer
-					>(
-						dest_buffer.data_end()
+			),
+			// A string must be contiguous in C++11 and most
+			// implementations do it that anyway
+			sge::charconv::input_range(
+				reinterpret_cast<
+					sge::charconv::const_raw_pointer
+				>(
+					fcppt::container::data(
+						_source
 					)
-				);
-		}
-	}
+				),
+				reinterpret_cast<
+					sge::charconv::const_raw_pointer
+				>(
+					fcppt::container::data_end(
+						_source
+					)
+				)
+			)
+		)
+	);
+
+	typedef typename sge::charconv::string_type<
+		DestEncoding
+	>::type dest_type;
+
+	// Copy the result over to avoid strict-aliasing problems
+	dest_type dest;
+
+	FCPPT_ASSERT_ERROR(
+		raw_result.size()
+		%
+		sizeof(typename dest_type::value_type)
+		==
+		0u
+	);
+
+	dest.resize(
+		raw_result.size()
+		/
+		sizeof(typename dest_type::value_type)
+	);
+
+	std::memcpy(
+		fcppt::container::data(
+			dest
+		),
+		raw_result.data(),
+		raw_result.size()
+	);
+
+	return
+		dest;
 }
 
 #define SGE_CHARCONV_INSTANTIATE_ENCODING(\

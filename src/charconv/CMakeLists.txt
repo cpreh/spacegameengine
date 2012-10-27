@@ -5,6 +5,7 @@ set(
 	include/sge/charconv/conversion_failed.hpp
 	include/sge/charconv/conversion_status.hpp
 	include/sge/charconv/convert.hpp
+	include/sge/charconv/convert_raw.hpp
 	include/sge/charconv/converter.hpp
 	include/sge/charconv/converter_fwd.hpp
 	include/sge/charconv/converter_unique_ptr.hpp
@@ -18,6 +19,8 @@ set(
 	include/sge/charconv/output_range.hpp
 	include/sge/charconv/raw_pointer.hpp
 	include/sge/charconv/raw_value.hpp
+	include/sge/charconv/raw_vector.hpp
+	include/sge/charconv/raw_vector_fwd.hpp
 	include/sge/charconv/source_encoding.hpp
 	include/sge/charconv/string_type.hpp
 	include/sge/charconv/system.hpp
@@ -31,6 +34,7 @@ set(
 	include/sge/charconv/utf8_string_to_fcppt.hpp
 	src/charconv/conversion_failed.cpp
 	src/charconv/convert.cpp
+	src/charconv/convert_raw.cpp
 	src/charconv/converter.cpp
 	src/charconv/create_system.cpp
 	src/charconv/encoding_to_string.cpp
@@ -68,6 +72,7 @@ set(
 	src/charconv/include/sge/src/charconv/backends/windows/utf16_to_wchar.hpp
 	src/charconv/include/sge/src/charconv/backends/windows/utf32_to_utf16.hpp
 	src/charconv/include/sge/src/charconv/backends/windows/utf8_to_wchar.hpp
+	src/charconv/include/sge/src/charconv/backends/windows/wchar_to_utf8.hpp
 )
 
 find_package(

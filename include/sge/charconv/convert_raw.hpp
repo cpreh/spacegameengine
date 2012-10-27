@@ -18,11 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CHARCONV_CONVERT_HPP_INCLUDED
-#define SGE_CHARCONV_CONVERT_HPP_INCLUDED
+#ifndef SGE_CHARCONV_CONVERT_RAW_HPP_INCLUDED
+#define SGE_CHARCONV_CONVERT_RAW_HPP_INCLUDED
 
-#include <sge/charconv/encoding.hpp>
-#include <sge/charconv/string_type.hpp>
+#include <sge/charconv/dest_encoding.hpp>
+#include <sge/charconv/input_range.hpp>
+#include <sge/charconv/raw_vector_fwd.hpp>
+#include <sge/charconv/source_encoding.hpp>
 #include <sge/charconv/symbol.hpp>
 #include <sge/charconv/system_fwd.hpp>
 
@@ -32,19 +34,13 @@ namespace sge
 namespace charconv
 {
 
-template<
-	sge::charconv::encoding::type DestEncoding,
-	sge::charconv::encoding::type SourceEncoding
->
 SGE_CHARCONV_SYMBOL
-typename sge::charconv::string_type<
-	DestEncoding
->::type
-convert(
+sge::charconv::raw_vector const
+convert_raw(
 	sge::charconv::system &,
-	typename sge::charconv::string_type<
-		SourceEncoding
-	>::type const &
+	sge::charconv::source_encoding,
+	sge::charconv::dest_encoding,
+	sge::charconv::input_range const &
 );
 
 }

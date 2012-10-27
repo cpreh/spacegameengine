@@ -38,7 +38,8 @@ class SGE_CLASS_SYMBOL exception
 {
 public:
 	SGE_CHARCONV_SYMBOL
-	explicit exception(
+	explicit
+	exception(
 		fcppt::string const &
 	);
 };

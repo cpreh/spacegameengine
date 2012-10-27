@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CHARCONV_ENCODING_HPP_INCLUDED
 #define SGE_CHARCONV_ENCODING_HPP_INCLUDED
 
+
 namespace sge
 {
 namespace charconv
@@ -33,7 +34,8 @@ enum type
 	utf8,
 	utf16,
 	utf32,
-	wchar
+	wchar,
+	size
 };
 }
 

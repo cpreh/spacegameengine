@@ -28,15 +28,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
 
+
 namespace sge
 {
 namespace charconv
 {
+
 SGE_CHARCONV_SYMBOL
 fcppt::string const
 utf8_file_to_fcppt_string(
 	sge::charconv::system &,
-	boost::filesystem::path const &);
+	boost::filesystem::path const &
+);
+
 }
 }
 

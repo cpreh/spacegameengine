@@ -23,12 +23,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/charconv/raw_value.hpp>
 
+
 namespace sge
 {
 namespace charconv
 {
 
-typedef charconv::raw_value *raw_pointer;
+typedef sge::charconv::raw_value *raw_pointer;
 
 }
 }

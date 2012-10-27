@@ -26,13 +26,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/range/iterator_range_core.hpp>
 #include <fcppt/config/external_end.hpp>
 
+
 namespace sge
 {
 namespace charconv
 {
 
 typedef boost::iterator_range<
-	charconv::raw_pointer
+	sge::charconv::raw_pointer
 > output_range;
 
 }

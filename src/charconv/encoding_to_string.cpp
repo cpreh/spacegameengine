@@ -52,6 +52,8 @@ case sge::charconv::encoding::name:\
 		SGE_CHARCONV_ENCODING_CASE(
 			wchar
 		);
+		case sge::charconv::encoding::size:
+			break;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

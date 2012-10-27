@@ -45,12 +45,14 @@ protected:
 	converter();
 public:
 	SGE_CHARCONV_SYMBOL
-	virtual ~converter() = 0;
+	virtual
+	~converter() = 0;
 
-	virtual charconv::conversion_status::type
+	virtual
+	sge::charconv::conversion_status::type
 	convert(
-		charconv::input_range &,
-		charconv::output_range &
+		sge::charconv::input_range &,
+		sge::charconv::output_range &
 	) = 0;
 };
 

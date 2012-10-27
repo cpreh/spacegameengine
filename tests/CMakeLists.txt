@@ -8,6 +8,7 @@ function(
 	PATHNAME
 	SGE_LIBRARIES
 	ADDITIONAL_LIBRARIES
+	INCLUDE_DIRS
 )
 	sge_check_optional_deps(
 		"${PATHNAME}"
@@ -48,6 +49,11 @@ function(
 		)
 	endif()
 
+	sge_add_include_dirs(
+		"${TESTNAME}"
+		"${INCLUDE_DIRS}"
+	)
+
 	transform_sge_link_targets(
 		"${SGE_LIBRARIES}"
 	)
@@ -75,15 +81,27 @@ function(
 	)
 endfunction()
 
+set(
+	SGE_TESTS_CHARCONV_TEST_DATA
+	"${CMAKE_CURRENT_SOURCE_DIR}/charconv/test_data"
+)
+
+configure_file(
+	charconv/test_data.hpp.in
+	"${CMAKE_CURRENT_BINARY_DIR}/include/sge/tests/charconv/test_data.hpp"
+)
+
 add_sge_test(
 	charconv/main
 	"sgecharconv"
-	""
+	"${Fcppt_core_LIBRARIES}"
+	"${CMAKE_CURRENT_BINARY_DIR}/include"
 )
 
 add_sge_test(
 	console/cursor
 	"sgeconsole"
+	""
 	""
 )
 
@@ -91,10 +109,12 @@ add_sge_test(
 	image2d/copy_and_convert
 	"sgeimage2d"
 	""
+	""
 )
 
 add_sge_test(
 	parse/json
 	"sgeparse"
 	"${Fcppt_core_LIBRARIES}"
+	""
 )

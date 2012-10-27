@@ -18,21 +18,94 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/charconv/convert.hpp>
+#include <sge/charconv/const_raw_pointer.hpp>
+#include <sge/charconv/convert_raw.hpp>
 #include <sge/charconv/create_system.hpp>
+#include <sge/charconv/dest_encoding.hpp>
 #include <sge/charconv/encoding.hpp>
+#include <sge/charconv/raw_vector.hpp>
+#include <sge/charconv/source_encoding.hpp>
 #include <sge/charconv/string_type.hpp>
 #include <sge/charconv/system.hpp>
 #include <sge/charconv/system_scoped_ptr.hpp>
+#include <sge/tests/charconv/test_data.hpp>
+#include <fcppt/exception.hpp>
+#include <fcppt/foreach_enumerator.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/container/data.hpp>
+#include <fcppt/container/data_end.hpp>
+#include <fcppt/io/cerr.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/fstream.hpp>
+#include <boost/filesystem/path.hpp>
 #include <boost/test/unit_test.hpp>
-#include <string>
-#include <iostream>
+#include <algorithm>
+#include <istream>
 #include <ostream>
+#include <sstream>
+#include <string>
 #include <fcppt/config/external_end.hpp>
+
+
+namespace
+{
+
+void
+test_convert_from_to(
+	sge::charconv::system &_system,
+	sge::charconv::source_encoding const _source,
+	sge::charconv::dest_encoding const _dest,
+	sge::charconv::input_range const &_raw_data
+)
+{
+	sge::charconv::raw_vector const result(
+		sge::charconv::convert_raw(
+			_system,
+			_source,
+			_dest,
+			_raw_data
+		)
+	);
+
+	sge::charconv::raw_vector const result2(
+		sge::charconv::convert_raw(
+			_system,
+			sge::charconv::source_encoding(
+				_dest.get()
+			),
+			sge::charconv::dest_encoding(
+				_source.get()
+			),
+			sge::charconv::input_range(
+				result.begin(),
+				result.end()
+			)
+		)
+	);
+
+	BOOST_REQUIRE(
+		result2.size()
+		==
+		static_cast<
+			sge::charconv::raw_vector::size_type
+		>(
+			_raw_data.size()
+		)
+	);
+
+	BOOST_REQUIRE((
+		std::equal(
+			_raw_data.begin(),
+			_raw_data.end(),
+			result2.begin()
+		)
+	));
+}
+
+}
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
@@ -43,44 +116,75 @@ BOOST_AUTO_TEST_CASE(
 {
 FCPPT_PP_POP_WARNING
 
-	// TODO: adapt this to different platforms
-	std::string const test(
-		"馬鹿"
-	);
-
-	typedef sge::charconv::string_type<
-		sge::charconv::encoding::utf8
-	>::type utf8_string;
-
-	utf8_string const utf8_test(
-		test.begin(),
-		test.end()
-	);
-
-	typedef sge::charconv::string_type<
-		sge::charconv::encoding::utf32
-	>::type utf32_string;
-
-	sge::charconv::system_scoped_ptr const charconv_system(
+	sge::charconv::system_scoped_ptr const system(
 		sge::charconv::create_system()
 	);
 
-	utf32_string const utf32_test(
-		sge::charconv::convert<
-			sge::charconv::encoding::utf32,
-			sge::charconv::encoding::utf8
-		>(
-			*charconv_system,
-			utf8_test
+	boost::filesystem::path const test_data_path(
+		boost::filesystem::path(
+			SGE_TESTS_CHARCONV_TEST_DATA
 		)
+		/ "test_data.txt"
 	);
 
-	std::wstring const out(
-		utf32_test.begin(),
-		utf32_test.end()
+	boost::filesystem::ifstream stream(
+		test_data_path
 	);
 
 	BOOST_REQUIRE(
-		out == L"馬鹿"
+		stream.is_open()
 	);
+
+	std::stringstream stringstream;
+
+	stringstream << stream.rdbuf();
+
+	std::string const data(
+		stringstream.str()
+	);
+
+	sge::charconv::input_range const input(
+		reinterpret_cast<
+			sge::charconv::const_raw_pointer
+		>(
+			fcppt::container::data(
+				data
+			)
+		),
+		reinterpret_cast<
+			sge::charconv::const_raw_pointer
+		>(
+			fcppt::container::data_end(
+				data
+			)
+		)
+	);
+
+	try
+	{
+		FCPPT_FOREACH_ENUMERATOR(
+			dest_encoding,
+			sge::charconv::encoding
+		)
+			test_convert_from_to(
+				*system,
+				sge::charconv::source_encoding(
+					sge::charconv::encoding::utf8
+				),
+				sge::charconv::dest_encoding(
+					dest_encoding
+				),
+				input
+			);
+	}
+	catch(
+		fcppt::exception const &_error
+	)
+	{
+		fcppt::io::cerr()
+			<< _error.string()
+			<< FCPPT_TEXT('\n');
+
+		BOOST_CHECK(false);
+	}
 }

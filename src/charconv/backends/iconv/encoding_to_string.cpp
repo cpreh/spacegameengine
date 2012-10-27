@@ -52,6 +52,8 @@ sge::charconv::backends::iconv::encoding_to_string(
 				"UTF-32BE";
 	case sge::charconv::encoding::wchar:
 		return "WCHAR_T";
+	case sge::charconv::encoding::size:
+		break;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;
