@@ -27,28 +27,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
 
+#include <fcppt/math/vector/output.hpp>
+#include <iostream>
 
 sge::model::md3::texpos::texpos(
 	std::istream &_stream
 )
 :
-	texcoord_(
+	x_(
 		sge::model::md3::read_scalar(
 			_stream
-		),
+		)
+	),
+	y_(
 		sge::model::md3::read_scalar(
 			_stream
 		)
 	)
 {
 	std::swap(
-		texcoord_.x(),
-		texcoord_.y()
+		x_,
+		y_
 	);
 }
 
-sge::model::md3::texcoord const &
+sge::model::md3::texcoord const
 sge::model::md3::texpos::texcoord() const
 {
-	return texcoord_;
+	return
+		sge::model::md3::texcoord(
+			x_,
+			y_
+		);
 }

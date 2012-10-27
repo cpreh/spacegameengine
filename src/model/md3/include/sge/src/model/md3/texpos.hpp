@@ -42,10 +42,10 @@ public:
 		std::istream &
 	);
 
-	md3::texcoord const &
+	md3::texcoord const
 	texcoord() const;
 private:
-	md3::texcoord texcoord_;
+	sge::model::md3::scalar x_,y_;
 };
 
 }
