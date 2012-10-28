@@ -18,13 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <alda/net/buffer/max_size.hpp>
+#include <alda/net/buffer/max_send_size.hpp>
 #include <alda/net/buffer/circular_send/boost_type.hpp>
 #include <alda/net/buffer/circular_send/object.hpp>
 
 
 alda::net::buffer::circular_send::object::object(
-	alda::net::buffer::max_size const _buffer_max_size
+	alda::net::buffer::max_send_size const _buffer_max_size
 )
 :
 	impl_(

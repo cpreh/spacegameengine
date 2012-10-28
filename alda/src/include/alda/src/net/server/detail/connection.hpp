@@ -23,7 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <alda/net/id.hpp>
 #include <alda/net/value_type.hpp>
-#include <alda/net/buffer/max_size.hpp>
+#include <alda/net/buffer/max_receive_size.hpp>
+#include <alda/net/buffer/max_send_size.hpp>
 #include <alda/net/buffer/circular_send/object.hpp>
 #include <alda/net/buffer/circular_receive/object.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -50,7 +51,8 @@ class connection
 public:
 	connection(
 		alda::net::id,
-		alda::net::buffer::max_size,
+		alda::net::buffer::max_receive_size,
+		alda::net::buffer::max_send_size,
 		boost::asio::io_service &
 	);
 

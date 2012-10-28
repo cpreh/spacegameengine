@@ -27,6 +27,7 @@ set(
 	alda/src/net/exception.cpp
 	alda/src/net/io_service_wrapper.cpp
 	alda/src/net/log_location.cpp
+	alda/src/net/parameters.cpp
 	alda/src/net/server/detail/connection.cpp
 	alda/src/net/server/detail/object_impl.cpp
 	alda/src/net/server/object.cpp

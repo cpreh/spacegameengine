@@ -18,66 +18,51 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef ALDA_NET_BUFFER_CIRCULAR_SEND_OBJECT_HPP_INCLUDED
-#define ALDA_NET_BUFFER_CIRCULAR_SEND_OBJECT_HPP_INCLUDED
+#ifndef ALDA_NET_PARAMETERS_HPP_INCLUDED
+#define ALDA_NET_PARAMETERS_HPP_INCLUDED
 
 #include <alda/symbol.hpp>
-#include <alda/net/size_type.hpp>
+#include <alda/net/io_service_wrapper_fwd.hpp>
+#include <alda/net/parameters_fwd.hpp>
+#include <alda/net/buffer/max_receive_size.hpp>
 #include <alda/net/buffer/max_send_size.hpp>
-#include <alda/net/buffer/circular_send/boost_type.hpp>
-#include <alda/net/buffer/circular_send/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonassignable.hpp>
 
 
 namespace alda
 {
 namespace net
 {
-namespace buffer
-{
-namespace circular_send
-{
 
-class object
+class parameters
 {
-	FCPPT_NONCOPYABLE(
-		object
+	FCPPT_NONASSIGNABLE(
+		parameters
 	);
 public:
-	typedef alda::net::size_type size_type;
-
 	ALDA_SYMBOL
-	explicit
-	object(
-		alda::net::buffer::max_send_size
+	parameters(
+		alda::net::io_service_wrapper const &,
+		alda::net::buffer::max_send_size,
+		alda::net::buffer::max_receive_size
 	);
 
-	ALDA_SYMBOL
-	~object();
+	alda::net::io_service_wrapper const &
+	io_service_wrapper() const;
 
-	ALDA_SYMBOL
-	alda::net::buffer::circular_send::boost_type::const_array_range const
-	send_part() const;
+	alda::net::buffer::max_send_size const
+	max_send_size() const;
 
-	ALDA_SYMBOL
-	void
-	erase_front(
-		alda::net::buffer::circular_send::object::size_type
-	);
-
-	ALDA_SYMBOL
-	bool
-	empty() const;
-
-	ALDA_SYMBOL
-	void
-	clear();
+	alda::net::buffer::max_receive_size const
+	max_receive_size() const;
 private:
-	alda::net::buffer::circular_send::boost_type impl_;
+	alda::net::io_service_wrapper const &io_service_wrapper_;
+
+	alda::net::buffer::max_send_size const max_send_size_;
+
+	alda::net::buffer::max_receive_size const max_receive_size_;
 };
 
-}
-}
 }
 }
 

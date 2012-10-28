@@ -22,8 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define ALDA_SRC_NET_SERVER_DETAIL_OBJECT_IMPL_HPP_INCLUDED
 
 #include <alda/net/id.hpp>
+#include <alda/net/parameters_fwd.hpp>
 #include <alda/net/port.hpp>
-#include <alda/net/buffer/max_size.hpp>
+#include <alda/net/buffer/max_receive_size.hpp>
+#include <alda/net/buffer/max_send_size.hpp>
 #include <alda/net/buffer/circular_send/optional_ref_fwd.hpp>
 #include <alda/net/server/connect_callback_fwd.hpp>
 #include <alda/net/server/connect_function.hpp>
@@ -61,9 +63,9 @@ class object_impl
 		object_impl
 	);
 public:
+	explicit
 	object_impl(
-		boost::asio::io_service &,
-		alda::net::buffer::max_size
+		alda::net::parameters const &
 	);
 
 	~object_impl();
@@ -106,7 +108,9 @@ public:
 private:
 	boost::asio::io_service &io_service_;
 
-	alda::net::buffer::max_size const buffer_max_size_;
+	alda::net::buffer::max_receive_size const buffer_receive_size_;
+
+	alda::net::buffer::max_send_size const buffer_send_size_;
 
 	boost::asio::ip::tcp::acceptor acceptor_;
 

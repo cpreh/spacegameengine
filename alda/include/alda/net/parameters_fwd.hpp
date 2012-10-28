@@ -18,26 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef ALDA_NET_BUFFER_MAX_SIZE_HPP_INCLUDED
-#define ALDA_NET_BUFFER_MAX_SIZE_HPP_INCLUDED
-
-#include <alda/net/size_type.hpp>
-#include <fcppt/strong_typedef.hpp>
+#ifndef ALDA_NET_PARAMETERS_FWD_HPP_INCLUDED
+#define ALDA_NET_PARAMETERS_FWD_HPP_INCLUDED
 
 
 namespace alda
 {
 namespace net
 {
-namespace buffer
-{
 
-FCPPT_MAKE_STRONG_TYPEDEF(
-	alda::net::size_type,
-	max_size
-);
+class parameters;
 
-}
 }
 }
 

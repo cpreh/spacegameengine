@@ -19,33 +19,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <alda/net/host.hpp>
-#include <alda/net/io_service_wrapper.hpp>
+#include <alda/net/parameters_fwd.hpp>
 #include <alda/net/port.hpp>
-#include <alda/net/buffer/max_size.hpp>
 #include <alda/net/buffer/circular_send/object_fwd.hpp>
 #include <alda/net/client/connect_callback_fwd.hpp>
 #include <alda/net/client/data_callback_fwd.hpp>
 #include <alda/net/client/error_callback_fwd.hpp>
 #include <alda/net/client/object.hpp>
 #include <alda/src/net/client/detail/object_impl.hpp>
+#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 
 
 alda::net::client::object::object(
-	alda::net::io_service_wrapper const &_io_service,
-	alda::net::buffer::max_size const _max_buffer_size
+	alda::net::parameters const &_parameters
 )
 :
 	impl_(
 		fcppt::make_unique_ptr<
 			alda::net::client::detail::object_impl
 		>(
-			fcppt::ref(
-				_io_service.get()
-			),
-			_max_buffer_size
+			fcppt::cref(
+				_parameters
+			)
 		)
 	)
 {

@@ -2,9 +2,8 @@
 #define ALDA_NET_CLIENT_OBJECT_HPP_INCLUDED
 
 #include <alda/net/host.hpp>
-#include <alda/net/io_service_wrapper_fwd.hpp>
+#include <alda/net/parameters_fwd.hpp>
 #include <alda/net/port.hpp>
-#include <alda/net/buffer/max_size.hpp>
 #include <alda/net/buffer/circular_send/object_fwd.hpp>
 #include <alda/net/client/connect_callback_fwd.hpp>
 #include <alda/net/client/data_callback_fwd.hpp>
@@ -29,9 +28,9 @@ class object
 		object
 	);
 public:
+	explicit
 	object(
-		alda::net::io_service_wrapper const &,
-		alda::net::buffer::max_size
+		alda::net::parameters const &
 	);
 
 	~object();

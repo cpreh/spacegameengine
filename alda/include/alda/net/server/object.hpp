@@ -22,9 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define ALDA_NET_SERVER_OBJECT_HPP_INCLUDED
 
 #include <alda/net/id.hpp>
-#include <alda/net/io_service_wrapper_fwd.hpp>
+#include <alda/net/parameters_fwd.hpp>
 #include <alda/net/port.hpp>
-#include <alda/net/buffer/max_size.hpp>
 #include <alda/net/buffer/circular_send/optional_ref_fwd.hpp>
 #include <alda/net/server/connect_callback_fwd.hpp>
 #include <alda/net/server/connection_id_container.hpp>
@@ -50,9 +49,9 @@ class object
 		object
 	);
 public:
+	explicit
 	object(
-		alda::net::io_service_wrapper const &,
-		alda::net::buffer::max_size
+		alda::net::parameters const &
 	);
 
 	~object();

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <alda/symbol.hpp>
 #include <alda/net/value_type.hpp>
-#include <alda/net/buffer/max_size.hpp>
+#include <alda/net/buffer/max_receive_size.hpp>
 #include <alda/net/buffer/circular_receive/object_fwd.hpp>
 #include <alda/net/buffer/circular_receive/part_fwd.hpp>
 #include <fcppt/container/raw_vector_decl.hpp>
@@ -62,7 +62,7 @@ public:
 	ALDA_SYMBOL
 	explicit
 	object(
-		alda::net::buffer::max_size
+		alda::net::buffer::max_receive_size
 	);
 
 	ALDA_SYMBOL

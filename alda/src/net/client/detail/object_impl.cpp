@@ -20,9 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <alda/net/exception.hpp>
 #include <alda/net/host.hpp>
+#include <alda/net/io_service_wrapper.hpp>
 #include <alda/net/log_location.hpp>
+#include <alda/net/parameters.hpp>
 #include <alda/net/port.hpp>
-#include <alda/net/buffer/max_size.hpp>
 #include <alda/net/buffer/circular_receive/for_asio.hpp>
 #include <alda/net/buffer/circular_receive/part.hpp>
 #include <alda/net/buffer/circular_send/boost_type.hpp>
@@ -71,12 +72,11 @@ fcppt::log::object logger(
 }
 
 alda::net::client::detail::object_impl::object_impl(
-	boost::asio::io_service &_io_service,
-	alda::net::buffer::max_size const _max_buffer_size
+	alda::net::parameters const &_parameters
 )
 :
 	io_service_(
-		_io_service
+		_parameters.io_service_wrapper().get()
 	),
 	socket_(
 		io_service_
@@ -86,10 +86,10 @@ alda::net::client::detail::object_impl::object_impl(
 	),
 	query_(),
 	receive_buffer_(
-		_max_buffer_size
+		_parameters.max_receive_size()
 	),
 	send_buffer_(
-		_max_buffer_size
+		_parameters.max_send_size()
 	),
 	connect_signal_(),
 	error_signal_(),

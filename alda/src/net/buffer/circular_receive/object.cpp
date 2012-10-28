@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <alda/net/buffer/max_size.hpp>
+#include <alda/net/buffer/max_receive_size.hpp>
 #include <alda/net/buffer/circular_receive/object.hpp>
 #include <alda/net/buffer/circular_receive/part.hpp>
 #include <fcppt/assert/error.hpp>
@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 alda::net::buffer::circular_receive::object::object(
-	alda::net::buffer::max_size const _max_size
+	alda::net::buffer::max_receive_size const _max_size
 )
 :
 	impl_(

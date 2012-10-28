@@ -19,7 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <alda/net/id.hpp>
-#include <alda/net/buffer/max_size.hpp>
+#include <alda/net/buffer/max_receive_size.hpp>
+#include <alda/net/buffer/max_send_size.hpp>
 #include <alda/net/buffer/circular_receive/object.hpp>
 #include <alda/net/buffer/circular_send/object.hpp>
 #include <alda/src/net/server/detail/connection.hpp>
@@ -31,7 +32,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 alda::net::server::detail::connection::connection(
 	alda::net::id const _id,
-	alda::net::buffer::max_size const _buffer_max_size,
+	alda::net::buffer::max_receive_size const _buffer_receive_size,
+	alda::net::buffer::max_send_size const _buffer_send_size,
 	boost::asio::io_service &_io_service
 )
 :
@@ -42,10 +44,10 @@ alda::net::server::detail::connection::connection(
 		_io_service
 	),
 	send_data_(
-		_buffer_max_size
+		_buffer_send_size
 	),
 	received_data_(
-		_buffer_max_size
+		_buffer_receive_size
 	),
 	sending_(
 		false

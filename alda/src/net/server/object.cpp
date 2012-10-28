@@ -19,9 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <alda/net/id.hpp>
-#include <alda/net/io_service_wrapper.hpp>
+#include <alda/net/parameters_fwd.hpp>
 #include <alda/net/port.hpp>
-#include <alda/net/buffer/max_size.hpp>
 #include <alda/net/buffer/circular_send/optional_ref.hpp>
 #include <alda/net/server/connect_callback_fwd.hpp>
 #include <alda/net/server/connection_id_container.hpp>
@@ -30,23 +29,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <alda/net/server/object.hpp>
 #include <alda/src/net/server/detail/object_impl.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
+#include <fcppt/cref.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 
 
 alda::net::server::object::object(
-	alda::net::io_service_wrapper const &_io_service,
-	alda::net::buffer::max_size const _buffer_max_size
+	alda::net::parameters const &_parameters
 )
 :
 	impl_(
 		fcppt::make_unique_ptr<
 			alda::net::server::detail::object_impl
 		>(
-			fcppt::ref(
-				_io_service.get()
-			),
-			_buffer_max_size
+			fcppt::cref(
+				_parameters
+			)
 		)
 	)
 {
