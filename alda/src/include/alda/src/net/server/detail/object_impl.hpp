@@ -102,9 +102,6 @@ public:
 	register_data(
 		alda::net::server::data_callback const &
 	);
-
-	void
-	stop();
 private:
 	boost::asio::io_service &io_service_;
 

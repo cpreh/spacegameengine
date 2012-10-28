@@ -77,3 +77,26 @@ alda::net::buffer::circular_send::object::clear()
 {
 	impl_.clear();
 }
+
+alda::net::buffer::circular_send::object::size_type
+alda::net::buffer::circular_send::object::space_left() const
+{
+	return
+		impl_.capacity()
+		-
+		impl_.size();
+}
+
+alda::net::buffer::circular_send::boost_type &
+alda::net::buffer::circular_send::object::get()
+{
+	return
+		impl_;
+}
+
+alda::net::buffer::circular_send::boost_type const &
+alda::net::buffer::circular_send::object::get() const
+{
+	return
+		impl_;
+}

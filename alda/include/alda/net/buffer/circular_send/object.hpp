@@ -72,6 +72,18 @@ public:
 	ALDA_SYMBOL
 	void
 	clear();
+
+	ALDA_SYMBOL
+	alda::net::buffer::circular_send::object::size_type
+	space_left() const;
+
+	ALDA_SYMBOL
+	alda::net::buffer::circular_send::boost_type &
+	get();
+
+	ALDA_SYMBOL
+	alda::net::buffer::circular_send::boost_type const &
+	get() const;
 private:
 	alda::net::buffer::circular_send::boost_type impl_;
 };

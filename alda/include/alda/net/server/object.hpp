@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef ALDA_NET_SERVER_OBJECT_HPP_INCLUDED
 #define ALDA_NET_SERVER_OBJECT_HPP_INCLUDED
 
+#include <alda/symbol.hpp>
 #include <alda/net/id.hpp>
 #include <alda/net/parameters_fwd.hpp>
 #include <alda/net/port.hpp>
@@ -49,48 +50,54 @@ class object
 		object
 	);
 public:
+	ALDA_SYMBOL
 	explicit
 	object(
 		alda::net::parameters const &
 	);
 
+	ALDA_SYMBOL
 	~object();
 
+	ALDA_SYMBOL
 	void
 	listen(
 		alda::net::port
 	);
 
+	ALDA_SYMBOL
 	alda::net::buffer::circular_send::optional_ref const
 	send_buffer(
 		alda::net::id
 	);
 
+	ALDA_SYMBOL
 	alda::net::server::connection_id_container const
 	connections() const;
 
+	ALDA_SYMBOL
 	void
 	queue_send(
 		alda::net::id
 	);
 
+	ALDA_SYMBOL
 	fcppt::signal::auto_connection
 	register_connect(
 		alda::net::server::connect_callback const &
 	);
 
+	ALDA_SYMBOL
 	fcppt::signal::auto_connection
 	register_disconnect(
 		alda::net::server::disconnect_callback const &
 	);
 
+	ALDA_SYMBOL
 	fcppt::signal::auto_connection
 	register_data(
 		alda::net::server::data_callback const &
 	);
-
-	void
-	stop();
 private:
 	fcppt::scoped_ptr<
 		alda::net::server::detail::object_impl

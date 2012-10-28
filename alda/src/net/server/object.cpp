@@ -125,10 +125,3 @@ alda::net::server::object::register_data(
 			_callback
 		);
 }
-
-void
-alda::net::server::object::stop()
-{
-	return
-		impl_->stop();
-}

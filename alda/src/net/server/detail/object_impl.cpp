@@ -237,12 +237,6 @@ alda::net::server::detail::object_impl::register_data(
 }
 
 void
-alda::net::server::detail::object_impl::stop()
-{
-	io_service_.stop();
-}
-
-void
 alda::net::server::detail::object_impl::accept()
 {
 	new_connection_ =
