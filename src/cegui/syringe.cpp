@@ -26,10 +26,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/string_type.hpp>
 #include <sge/charconv/system_fwd.hpp>
 #include <sge/input/cursor/button_code_to_string.hpp>
-#include <sge/input/cursor/scroll_event.hpp>
 #include <sge/input/cursor/button_event.hpp>
 #include <sge/input/cursor/move_event.hpp>
 #include <sge/input/cursor/position.hpp>
+#include <sge/input/cursor/scroll_event.hpp>
 #include <sge/input/keyboard/char_event.hpp>
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/input/keyboard/key_code_to_string.hpp>

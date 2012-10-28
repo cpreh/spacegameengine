@@ -27,8 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/remove_callback.hpp>
 #include <sge/input/cursor/remove_event.hpp>
-#include <sge/input/cursor/scroll_event.hpp>
 #include <sge/input/cursor/scroll_code_to_string.hpp>
+#include <sge/input/cursor/scroll_event.hpp>
 #include <sge/input/info/optional_string.hpp>
 #include <sge/input/joypad/absolute_axis_event.hpp>
 #include <sge/input/joypad/absolute_axis_info.hpp>
