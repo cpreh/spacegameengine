@@ -26,6 +26,7 @@ set(
 	include/sge/renderer/caps/normalized_cvv.hpp
 	include/sge/renderer/caps/render_target_inverted.hpp
 	include/sge/renderer/caps/render_target_supported.hpp
+	include/sge/renderer/caps/srgb_framebuffer.hpp
 	include/sge/renderer/caps/system.hpp
 	include/sge/renderer/caps/system_field.hpp
 	include/sge/renderer/caps/system_field_fwd.hpp

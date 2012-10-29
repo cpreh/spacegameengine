@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps/max_volume_texture_extent.hpp>
 #include <sge/renderer/caps/non_power_of_2_textures.hpp>
 #include <sge/renderer/caps/normalized_cvv.hpp>
+#include <sge/renderer/caps/srgb_framebuffer.hpp>
 #include <sge/renderer/caps/render_target_inverted.hpp>
 #include <sge/renderer/caps/render_target_supported.hpp>
 #include <sge/renderer/caps/target_surface_indices.hpp>
@@ -81,7 +82,8 @@ public:
 		sge::renderer::caps::clip_plane_indices,
 		sge::renderer::caps::light_indices,
 		sge::renderer::caps::texture_stages,
-		sge::renderer::caps::target_surface_indices
+		sge::renderer::caps::target_surface_indices,
+		sge::renderer::caps::srgb_framebuffer
 	);
 
 	SGE_RENDERER_SYMBOL
@@ -238,6 +240,15 @@ public:
 	SGE_RENDERER_SYMBOL
 	sge::renderer::caps::target_surface_indices const
 	target_surfaces() const;
+
+	/**
+	\brief Returns whether srgb framebuffers are supported
+
+	This is required for creating a pixel format with srgb support.
+	*/
+	SGE_RENDERER_SYMBOL
+	sge::renderer::caps::srgb_framebuffer const
+	srgb_framebuffer() const;
 private:
 	sge::renderer::adapter const adapter_;
 
@@ -266,6 +277,8 @@ private:
 	sge::renderer::caps::texture_stages const texture_stages_;
 
 	sge::renderer::caps::target_surface_indices const target_surfaces_;
+
+	sge::renderer::caps::srgb_framebuffer const srgb_framebuffer_;
 };
 
 }

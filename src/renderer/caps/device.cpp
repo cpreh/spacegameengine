@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps/normalized_cvv.hpp>
 #include <sge/renderer/caps/render_target_inverted.hpp>
 #include <sge/renderer/caps/render_target_supported.hpp>
+#include <sge/renderer/caps/srgb_framebuffer.hpp>
 #include <sge/renderer/caps/target_surface_indices.hpp>
 #include <sge/renderer/caps/texture_stages.hpp>
 
@@ -49,7 +50,8 @@ sge::renderer::caps::device::device(
 	sge::renderer::caps::clip_plane_indices const _clip_plane_indices,
 	sge::renderer::caps::light_indices const _light_indices,
 	sge::renderer::caps::texture_stages const _texture_stages,
-	sge::renderer::caps::target_surface_indices const _target_surfaces
+	sge::renderer::caps::target_surface_indices const _target_surfaces,
+	sge::renderer::caps::srgb_framebuffer const _srgb_framebuffer
 )
 :
 	adapter_(
@@ -93,6 +95,9 @@ sge::renderer::caps::device::device(
 	),
 	target_surfaces_(
 		_target_surfaces
+	),
+	srgb_framebuffer_(
+		_srgb_framebuffer
 	)
 {
 }
@@ -183,4 +188,10 @@ sge::renderer::caps::target_surface_indices const
 sge::renderer::caps::device::target_surfaces() const
 {
 	return target_surfaces_;
+}
+
+sge::renderer::caps::srgb_framebuffer const
+sge::renderer::caps::device::srgb_framebuffer() const
+{
+	return srgb_framebuffer_;
 }

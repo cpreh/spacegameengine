@@ -64,5 +64,7 @@ sge::renderer::caps::operator<<(
 		<< _caps.texture_stages()
 		<< FCPPT_TEXT(", target_surfaces = ")
 		<< _caps.target_surfaces()
+		<< FCPPT_TEXT(", srgb_framebuffer = ")
+		<< _caps.srgb_framebuffer()
 		;
 }

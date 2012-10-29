@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/create_device_caps.hpp>
 #include <sge/opengl/get_int.hpp>
 #include <sge/opengl/get_string.hpp>
+#include <sge/opengl/srgb_context.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/device_state/dummy.hpp>
@@ -45,6 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps/normalized_cvv.hpp>
 #include <sge/renderer/caps/render_target_inverted.hpp>
 #include <sge/renderer/caps/render_target_supported.hpp>
+#include <sge/renderer/caps/srgb_framebuffer.hpp>
 #include <sge/renderer/caps/target_surface_indices.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
@@ -192,6 +194,13 @@ sge::opengl::create_device_caps(
 					)
 				:
 					0
+			),
+			sge::renderer::caps::srgb_framebuffer(
+				sge::opengl::context::use<
+					sge::opengl::srgb_context
+				>(
+					_context
+				).flag().has_value()
 			)
 		);
 }
