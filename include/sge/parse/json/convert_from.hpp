@@ -59,7 +59,7 @@ typename
 boost::enable_if_c
 <
 	boost::is_floating_point<T>::value,
-	T const
+	T
 >::type
 convert_from(
 	sge::parse::json::value const &);
@@ -86,7 +86,7 @@ boost::enable_if
 			boost::is_same<T,bool>
 		>
 	>,
-	T const
+	T
 >::type
 convert_from(
 	sge::parse::json::value const &);
@@ -110,7 +110,7 @@ boost::enable_if
 		fcppt::type_traits::is_iterable<T>,
 		boost::mpl::not_
 		<
-			detail::is_array<T>
+			sge::parse::json::detail::is_array<T>
 		>,
 		boost::mpl::not_
 		<
@@ -130,7 +130,7 @@ template<typename T>
 typename
 boost::enable_if_c
 <
-	detail::is_array<T>::value,
+	sge::parse::json::detail::is_array<T>::value,
 	T const
 >::type
 convert_from(
@@ -150,8 +150,12 @@ template<typename T>
 typename
 boost::enable_if_c
 <
-	boost::is_same<T,sge::parse::json::value>::value,
-	sge::parse::json::value const
+	boost::is_same
+	<
+		typename boost::remove_const<T>::type,
+		sge::parse::json::value
+	>::value,
+	T const &
 >::type
 convert_from(
 	sge::parse::json::value const &);
@@ -176,7 +180,11 @@ boost::enable_if
 		>,
 		boost::mpl::not_
 		<
-			boost::is_same<T,sge::parse::json::value>
+			boost::is_same
+			<
+				typename boost::remove_const<T>::type,
+				sge::parse::json::value
+			>
 		>
 	>,
 	T const &
@@ -194,7 +202,7 @@ typename
 boost::enable_if_c
 <
 	boost::is_floating_point<T>::value,
-	T const
+	T
 >::type
 sge::parse::json::convert_from(
 	sge::parse::json::value const &v)
@@ -233,7 +241,7 @@ boost::enable_if
 			boost::is_same<T,bool>
 		>
 	>,
-	T const
+	T
 >::type
 sge::parse::json::convert_from(
 	sge::parse::json::value const &v)
@@ -352,7 +360,7 @@ sge::parse::json::convert_from(
 		++i)
 		result.insert(
 			result.end(),
-			json::convert_from<typename T::value_type>(
+			sge::parse::json::convert_from<typename T::value_type>(
 				*i));
 
 	return result;
@@ -423,8 +431,12 @@ template<typename T>
 typename
 boost::enable_if_c
 <
-	boost::is_same<T,sge::parse::json::value>::value,
-	sge::parse::json::value const
+	boost::is_same
+	<
+		typename boost::remove_const<T>::type,
+		sge::parse::json::value
+	>::value,
+	T const &
 >::type
 sge::parse::json::convert_from(
 	sge::parse::json::value const &v)
@@ -453,7 +465,11 @@ boost::enable_if
 		>,
 		boost::mpl::not_
 		<
-			boost::is_same<T,sge::parse::json::value>
+			boost::is_same
+			<
+				typename boost::remove_const<T>::type,
+				sge::parse::json::value
+			>
 		>
 	>,
 	T const &

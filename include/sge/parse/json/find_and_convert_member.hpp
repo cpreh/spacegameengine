@@ -27,6 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/invalid_get.hpp>
 #include <sge/parse/json/member_map.hpp>
 #include <sge/parse/json/object.hpp>
+#include <sge/parse/json/array.hpp>
+#include <sge/parse/json/value.hpp>
 #include <sge/parse/json/path.hpp>
 #include <sge/parse/json/path_to_string.hpp>
 #include <fcppt/text.hpp>
@@ -34,6 +36,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <boost/next_prior.hpp>
 #include <boost/range/algorithm/find_if.hpp>
+#include <boost/type_traits/remove_reference.hpp>
+#include <boost/type_traits/remove_const.hpp>
+#include <boost/mpl/if.hpp>
+#include <boost/mpl/or.hpp>
+#include <boost/type_traits/is_same.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -44,22 +51,51 @@ namespace parse
 namespace json
 {
 template<typename T>
-T const
+typename
+boost::mpl::if_
+<
+	boost::mpl::or_
+	<
+		boost::is_same
+		<
+			typename boost::remove_const<T>::type,
+			sge::parse::json::value
+		>,
+		boost::mpl::or_
+		<
+			boost::is_same
+			<
+				typename boost::remove_const<T>::type,
+				sge::parse::json::object
+			>,
+			boost::mpl::or_
+			<
+				boost::is_same
+				<
+					typename boost::remove_const<T>::type,
+					sge::parse::json::array
+				>
+			>
+		>
+	>,
+	T const &,
+	T const
+>::type
 find_and_convert_member(
 	sge::parse::json::object const &o,
-	json::path const &input_path)
+	sge::parse::json::path const &input_path)
 {
 	FCPPT_ASSERT_PRE(
 		!input_path.empty());
 
-	json::path const shortened_path =
-		json::path(
+	sge::parse::json::path const shortened_path =
+		sge::parse::json::path(
 			input_path.begin(),
 			boost::prior(
 				input_path.end()));
 
 	sge::parse::json::object const &found_object =
-		json::find_object_exn(
+		sge::parse::json::find_object_exn(
 			o,
 			shortened_path);
 
@@ -73,14 +109,14 @@ find_and_convert_member(
 				FCPPT_TEXT("Couldn't find member \"")+
 				input_path.back()+
 				FCPPT_TEXT("\" in the object \"")+
-				json::path_to_string(
+				sge::parse::json::path_to_string(
 					shortened_path)+
 				FCPPT_TEXT("\""));
 
 	try
 	{
 		return
-			json::convert_from<T>(
+			sge::parse::json::convert_from<T>(
 				it->second);
 	}
 	catch (sge::parse::json::invalid_get const &e)
@@ -90,7 +126,7 @@ find_and_convert_member(
 				FCPPT_TEXT("Unable to parse member \"")+
 				it->first+
 				FCPPT_TEXT("\" of object \"")+
-				json::path_to_string(
+				sge::parse::json::path_to_string(
 					shortened_path)+
 				FCPPT_TEXT("\": ")+
 				e.string());
