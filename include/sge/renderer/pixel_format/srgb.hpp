@@ -31,10 +31,23 @@ namespace pixel_format
 
 namespace srgb
 {
+/**
+\brief Specifies if gamma correction should be performed
+*/
 enum type
 {
+	/**
+	\brief Don't do gamma correction
+	*/
 	no,
-	yes
+	/**
+	\brief Do gamma correction and fail if it is not supported
+	*/
+	yes,
+	/**
+	\brief Do gamma correction if it is supported, else do nothing
+	*/
+	try_
 };
 }
 

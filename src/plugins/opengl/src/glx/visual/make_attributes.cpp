@@ -170,8 +170,8 @@ sge::opengl::glx::visual::make_attributes(
 
 	if(
 		_format.srgb()
-		==
-		sge::renderer::pixel_format::srgb::yes
+		!=
+		sge::renderer::pixel_format::srgb::no
 	)
 	{
 		sge::opengl::glx::visual::context &visual_context(
@@ -189,19 +189,28 @@ sge::opengl::glx::visual::make_attributes(
 		if(
 			!srgb_flag
 		)
-			throw sge::renderer::unsupported(
-				FCPPT_TEXT("sRGB visuals"),
-				FCPPT_TEXT(""),
-				FCPPT_TEXT("GLX_EXT_framebuffer_sRGB, GLX_ARB_framebuffer_sRGB")
+		{
+			if(
+				_format.srgb()
+				==
+				sge::renderer::pixel_format::srgb::yes
+			)
+				throw sge::renderer::unsupported(
+					FCPPT_TEXT("sRGB visuals"),
+					FCPPT_TEXT(""),
+					FCPPT_TEXT("GLX_EXT_framebuffer_sRGB, GLX_ARB_framebuffer_sRGB")
+				);
+		}
+		else
+		{
+			ret.push_back(
+				*srgb_flag
 			);
 
-		ret.push_back(
-			*srgb_flag
-		);
-
-		ret.push_back(
-			GL_TRUE
-		);
+			ret.push_back(
+				GL_TRUE
+			);
+		}
 	}
 
 	ret.push_back(
