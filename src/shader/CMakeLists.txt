@@ -6,6 +6,7 @@ set(
 	include/sge/shader/exception_fwd.hpp
 	include/sge/shader/load_edited_string.hpp
 	include/sge/shader/optional_cflags.hpp
+	include/sge/shader/optional_context_ref.hpp
 	include/sge/shader/pair.hpp
 	include/sge/shader/pair_fwd.hpp
 	include/sge/shader/parameter/is_projection_matrix.hpp
