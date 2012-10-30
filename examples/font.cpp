@@ -157,7 +157,8 @@ try
 			100,
 			100
 		),
-		sge::image::colors::white()
+		sge::image::colors::white(),
+		sge::renderer::texture::emulate_srgb::yes
 	);
 
 	fcppt::signal::scoped_connection const escape_connection(

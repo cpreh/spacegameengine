@@ -77,7 +77,8 @@ sge::font::draw::detail::static_text_impl::static_text_impl(
 	sge::font::string const &_string,
 	sge::font::text_parameters const &_text_parameters,
 	sge::font::vector const &_pos,
-	sge::image::color::any::object const &_color
+	sge::image::color::any::object const &_color,
+	sge::renderer::texture::emulate_srgb::type const _emulate_srgb
 )
 :
 	sampler_state_(
@@ -100,7 +101,8 @@ sge::font::draw::detail::static_text_impl::static_text_impl(
 			*text_,
 			sge::font::draw::color_format(
 				_font.color_format()
-			)
+			),
+			_emulate_srgb
 		)
 	),
 	sprite_buffers_(

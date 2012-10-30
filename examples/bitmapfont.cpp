@@ -216,7 +216,8 @@ try
 			100,
 			100
 		),
-		sge::image::colors::white()
+		sge::image::colors::white(),
+		sge::renderer::texture::emulate_srgb::yes
 	);
 
 	sge::font::draw::static_text static_text_center(
@@ -233,7 +234,8 @@ try
 			400,
 			100
 		),
-		sge::image::colors::white()
+		sge::image::colors::white(),
+		sge::renderer::texture::emulate_srgb::yes
 	);
 
 	sge::font::draw::static_text static_text_right(
@@ -250,7 +252,8 @@ try
 			700,
 			100
 		),
-		sge::image::colors::white()
+		sge::image::colors::white(),
+		sge::renderer::texture::emulate_srgb::yes
 	);
 
 	while(

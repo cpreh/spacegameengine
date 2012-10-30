@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text_parameters.hpp>
 #include <sge/font/text_scoped_ptr.hpp>
 #include <sge/font/unit.hpp>
+#include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/font/vector_fwd.hpp>
 #include <sge/font/draw/set_matrices_fwd.hpp>
 #include <sge/font/draw/set_states_fwd.hpp>
@@ -85,7 +86,8 @@ public:
 		sge::font::string const &,
 		sge::font::text_parameters const &,
 		sge::font::vector const &,
-		sge::image::color::any::object const &
+		sge::image::color::any::object const &,
+		sge::renderer::texture::emulate_srgb::type
 	);
 
 	~static_text_impl();

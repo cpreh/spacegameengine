@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/format.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/texture/part_unique_ptr.hpp>
-
+#include <sge/renderer/texture/emulate_srgb.hpp>
 
 namespace sge
 {
@@ -38,7 +38,8 @@ sge::texture::part_unique_ptr
 create_texture(
 	sge::renderer::device::core &,
 	sge::font::text &,
-	sge::image::color::format::type
+	sge::image::color::format::type,
+	sge::renderer::texture::emulate_srgb::type
 );
 
 }

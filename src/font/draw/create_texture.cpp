@@ -43,7 +43,8 @@ sge::texture::part_unique_ptr
 sge::font::draw::create_texture(
 	sge::renderer::device::core &_renderer,
 	sge::font::text &_text,
-	sge::image::color::format::type const _color_format
+	sge::image::color::format::type const _color_format,
+	sge::renderer::texture::emulate_srgb::type const _emulate_srgb
 )
 {
 	sge::renderer::dim2 const new_size(
@@ -69,7 +70,7 @@ sge::font::draw::create_texture(
 				new_size,
 				sge::renderer::texture::color_format(
 					_color_format,
-					sge::renderer::texture::emulate_srgb::no
+					_emulate_srgb
 				),
 				sge::renderer::texture::mipmap::off(),
 				sge::renderer::resource_flags_field::null(),

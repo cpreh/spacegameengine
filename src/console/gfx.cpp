@@ -284,7 +284,9 @@ sge::console::gfx::render_line(
 			background_.w()
 		),
 		sge::font::vector::null(),
-		font_color_
+		font_color_,
+		// FIXME
+		sge::renderer::texture::emulate_srgb::yes
 	);
 
 	sge::font::vector const pos(

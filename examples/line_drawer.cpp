@@ -382,7 +382,8 @@ try
 				font_width
 			),
 			font_pos,
-			sge::image::colors::red());
+			sge::image::colors::red(),
+			sge::renderer::texture::emulate_srgb::yes);
 
 		sge::font::draw::simple(
 			sys.renderer_ffp(),
@@ -398,7 +399,9 @@ try
 				font_width
 			),
 			font_pos,
-			sge::image::colors::red());
+			sge::image::colors::red(),
+			sge::renderer::texture::emulate_srgb::yes
+		);
 	}
 
 	return

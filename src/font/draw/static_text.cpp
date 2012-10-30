@@ -42,7 +42,8 @@ sge::font::draw::static_text::static_text(
 	sge::font::string const &_string,
 	sge::font::text_parameters const &_parameters,
 	sge::font::vector const &_pos,
-	sge::image::color::any::object const &_color
+	sge::image::color::any::object const &_color,
+	sge::renderer::texture::emulate_srgb::type const _emulate_srgb
 )
 :
 	impl_(
@@ -64,7 +65,8 @@ sge::font::draw::static_text::static_text(
 			),
 			fcppt::cref(
 				_color
-			)
+			),
+			_emulate_srgb
 		)
 	)
 {

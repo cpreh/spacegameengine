@@ -469,7 +469,8 @@ try
 			0,
 			0
 		),
-		sge::image::colors::white()
+		sge::image::colors::white(),
+		sge::renderer::texture::emulate_srgb::yes
 	);
 
 	sge::font::draw::static_text mem_label(
@@ -485,7 +486,8 @@ try
 			0,
 			static_cast<int>(graph_dim.h())
 		),
-		sge::image::colors::white()
+		sge::image::colors::white(),
+		sge::renderer::texture::emulate_srgb::yes
 	);
 
 	sge::graph::object cpugraph(
@@ -583,7 +585,8 @@ try
 						0,
 						y
 					),
-					sge::image::colors::white())));
+					sge::image::colors::white(),
+					sge::renderer::texture::emulate_srgb::yes)));
 
 		device_totals[*it] =
 			::count_traffic(*it);
