@@ -45,6 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/basic_dim.hpp>
 #include <sge/renderer/texture/capabilities.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
+#include <sge/renderer/texture/translate_srgb_emulation.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <sge/renderer/texture/mipmap/level_count.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -100,7 +101,9 @@ init(
 
 	sge::image::color::format::type const format(
 		sge::opengl::texture::best_color_format(
-			_parameters.format()
+			sge::renderer::texture::translate_srgb_emulation(
+				_parameters.format()
+			)
 		)
 	);
 

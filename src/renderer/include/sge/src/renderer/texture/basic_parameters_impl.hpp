@@ -36,17 +36,27 @@ sge::renderer::texture::basic_parameters<
 	Format
 >::basic_parameters(
 	Dim const &_dim,
-	Format const _format,
-	texture::mipmap::object const &_mipmap,
-	renderer::resource_flags_field const &_resource_flags,
-	texture::capabilities_field const &_capabilities
+	Format const &_format,
+	sge::renderer::texture::mipmap::object const &_mipmap,
+	sge::renderer::resource_flags_field const &_resource_flags,
+	sge::renderer::texture::capabilities_field const &_capabilities
 )
 :
-	dim_(_dim),
-	format_(_format),
-	mipmap_(_mipmap),
-	resource_flags_(_resource_flags),
-	capabilities_(_capabilities)
+	dim_(
+		_dim
+	),
+	format_(
+		_format
+	),
+	mipmap_(
+		_mipmap
+	),
+	resource_flags_(
+		_resource_flags
+	),
+	capabilities_(
+		_capabilities
+	)
 {
 }
 

@@ -626,6 +626,8 @@ set(
 	include/sge/renderer/texture/capabilities.hpp
 	include/sge/renderer/texture/capabilities_field.hpp
 	include/sge/renderer/texture/capabilities_field_fwd.hpp
+	include/sge/renderer/texture/color_format.hpp
+	include/sge/renderer/texture/color_format_fwd.hpp
 	include/sge/renderer/texture/const_basic_scoped_lock.hpp
 	include/sge/renderer/texture/const_optional_base_ref.hpp
 	include/sge/renderer/texture/const_optional_base_ref_fwd.hpp
@@ -650,6 +652,8 @@ set(
 	include/sge/renderer/texture/depth_stencil_parameters_fwd.hpp
 	include/sge/renderer/texture/depth_stencil_scoped_ptr.hpp
 	include/sge/renderer/texture/depth_stencil_unique_ptr.hpp
+	include/sge/renderer/texture/emulate_srgb.hpp
+	include/sge/renderer/texture/emulate_srgb_from_caps.hpp
 	include/sge/renderer/texture/mipmap/all_levels.hpp
 	include/sge/renderer/texture/mipmap/all_levels_rep.hpp
 	include/sge/renderer/texture/mipmap/all_levels_rep_fwd.hpp
@@ -679,6 +683,7 @@ set(
 	include/sge/renderer/texture/scoped_volume_lock.hpp
 	include/sge/renderer/texture/stage.hpp
 	include/sge/renderer/texture/stage_value.hpp
+	include/sge/renderer/texture/translate_srgb_emulation.hpp
 	include/sge/renderer/texture/volume.hpp
 	include/sge/renderer/texture/volume_fwd.hpp
 	include/sge/renderer/texture/volume_parameters.hpp
@@ -1017,6 +1022,7 @@ set(
 	src/renderer/target/viewport_is_null.cpp
 	src/renderer/target/viewport_size.cpp
 	src/renderer/texture/base.cpp
+	src/renderer/texture/color_format.cpp
 	src/renderer/texture/const_scoped_planar_lock.cpp
 	src/renderer/texture/const_scoped_volume_lock.cpp
 	src/renderer/texture/create_planar_from_file.cpp
@@ -1028,6 +1034,7 @@ set(
 	src/renderer/texture/cube_parameters.cpp
 	src/renderer/texture/depth_stencil.cpp
 	src/renderer/texture/depth_stencil_parameters.cpp
+	src/renderer/texture/emulate_srgb_from_caps.cpp
 	src/renderer/texture/mipmap/all_levels.cpp
 	src/renderer/texture/mipmap/all_levels_rep.cpp
 	src/renderer/texture/mipmap/levels.cpp
@@ -1040,6 +1047,7 @@ set(
 	src/renderer/texture/scoped.cpp
 	src/renderer/texture/scoped_planar_lock.cpp
 	src/renderer/texture/scoped_volume_lock.cpp
+	src/renderer/texture/translate_srgb_emulation.cpp
 	src/renderer/texture/volume.cpp
 	src/renderer/texture/volume_parameters.cpp
 	src/renderer/unsupported.cpp

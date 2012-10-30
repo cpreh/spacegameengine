@@ -44,6 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/texture/create_planar_from_view.hpp>
+#include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/renderer/texture/planar_scoped_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/sprite/default_parameters.hpp>
@@ -305,7 +306,8 @@ try
 				sge::image2d::view::object(
 					store.wrapped_view())),
 			sge::renderer::texture::mipmap::off(),
-			sge::renderer::resource_flags_field::null()));
+			sge::renderer::resource_flags_field::null(),
+			sge::renderer::texture::emulate_srgb::no));
 
 	sprite_object const spr(
 		sge::sprite::default_parameters<

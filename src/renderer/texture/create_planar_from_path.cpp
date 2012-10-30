@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/texture/create_planar_from_file.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
+#include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_unique_ptr.hpp>
 #include <sge/renderer/texture/mipmap/object_fwd.hpp>
@@ -39,7 +40,8 @@ sge::renderer::texture::create_planar_from_path(
 	sge::renderer::device::core &_renderer,
 	sge::image2d::system &_system,
 	sge::renderer::texture::mipmap::object const &_mipmap,
-	sge::renderer::resource_flags_field const &_flags
+	sge::renderer::resource_flags_field const &_flags,
+	sge::renderer::texture::emulate_srgb::type const _emulate_srgb
 )
 {
 	return
@@ -49,6 +51,7 @@ sge::renderer::texture::create_planar_from_path(
 				_file
 			),
 			_mipmap,
-			_flags
+			_flags,
+			_emulate_srgb
 		);
 }

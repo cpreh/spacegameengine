@@ -18,12 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_TEXTURE_CUBE_PARAMETERS_FWD_HPP_INCLUDED
-#define SGE_RENDERER_TEXTURE_CUBE_PARAMETERS_FWD_HPP_INCLUDED
-
-#include <sge/renderer/size_type.hpp>
-#include <sge/renderer/texture/basic_parameters_fwd.hpp>
-#include <sge/renderer/texture/color_format_fwd.hpp>
+#ifndef SGE_RENDERER_TEXTURE_EMULATE_SRGB_HPP_INCLUDED
+#define SGE_RENDERER_TEXTURE_EMULATE_SRGB_HPP_INCLUDED
 
 
 namespace sge
@@ -33,10 +29,27 @@ namespace renderer
 namespace texture
 {
 
-typedef sge::renderer::texture::basic_parameters<
-	sge::renderer::size_type,
-	sge::renderer::texture::color_format
-> cube_parameters;
+namespace emulate_srgb
+{
+enum type
+{
+	/**
+	\brief srgb color formats will be created as srgb textures
+
+	This option should be used when hardware gamma correction is available.
+	*/
+	no,
+	/**
+	\brief srgb color formats will be created as normal rgb textures
+
+	When a texture is mapped, the color format will still be srgb, so the
+	texture can easily be mapped and filled by an srgb image, for example.
+	However, gamma correction will not work at all. This compatibility
+	option should be used when hardware gamma correction is not available.
+	*/
+	yes
+};
+}
 
 }
 }

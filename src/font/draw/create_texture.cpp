@@ -26,6 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
+#include <sge/renderer/texture/color_format.hpp>
+#include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/texture/scoped_planar_lock.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
@@ -65,7 +67,10 @@ sge::font::draw::create_texture(
 			_renderer,
 			sge::renderer::texture::planar_parameters(
 				new_size,
-				_color_format,
+				sge::renderer::texture::color_format(
+					_color_format,
+					sge::renderer::texture::emulate_srgb::no
+				),
 				sge::renderer::texture::mipmap::off(),
 				sge::renderer::resource_flags_field::null(),
 				sge::renderer::texture::capabilities_field::null()

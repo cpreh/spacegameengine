@@ -39,6 +39,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
+#include <sge/renderer/texture/color_format.hpp>
+#include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/texture/planar_scoped_ptr.hpp>
@@ -129,7 +131,10 @@ try
 					256,
 					256
 				),
-				sge::image::color::format::rgba8,
+				sge::renderer::texture::color_format(
+					sge::image::color::format::rgba8,
+					sge::renderer::texture::emulate_srgb::no
+				),
 				sge::renderer::texture::mipmap::off(),
 				sge::renderer::resource_flags_field::null(),
 				sge::renderer::texture::capabilities_field::null()

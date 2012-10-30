@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_TEXTURE_CUBE_PARAMETERS_FWD_HPP_INCLUDED
-#define SGE_RENDERER_TEXTURE_CUBE_PARAMETERS_FWD_HPP_INCLUDED
+#ifndef SGE_RENDERER_TEXTURE_TRANSLATE_SRGB_EMULATION_HPP_INCLUDED
+#define SGE_RENDERER_TEXTURE_TRANSLATE_SRGB_EMULATION_HPP_INCLUDED
 
-#include <sge/renderer/size_type.hpp>
-#include <sge/renderer/texture/basic_parameters_fwd.hpp>
+#include <sge/image/color/format.hpp>
+#include <sge/renderer/symbol.hpp>
 #include <sge/renderer/texture/color_format_fwd.hpp>
 
 
@@ -33,10 +33,11 @@ namespace renderer
 namespace texture
 {
 
-typedef sge::renderer::texture::basic_parameters<
-	sge::renderer::size_type,
-	sge::renderer::texture::color_format
-> cube_parameters;
+SGE_RENDERER_SYMBOL
+sge::image::color::format::type
+translate_srgb_emulation(
+	sge::renderer::texture::color_format const &
+);
 
 }
 }

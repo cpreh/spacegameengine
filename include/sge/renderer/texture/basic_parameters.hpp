@@ -45,10 +45,10 @@ public:
 	SGE_RENDERER_SYMBOL
 	basic_parameters(
 		Dim const &,
-		Format,
-		texture::mipmap::object const &,
-		renderer::resource_flags_field const &,
-		texture::capabilities_field const &
+		Format const &,
+		sge::renderer::texture::mipmap::object const &,
+		sge::renderer::resource_flags_field const &,
+		sge::renderer::texture::capabilities_field const &
 	);
 
 	SGE_RENDERER_SYMBOL
@@ -60,26 +60,26 @@ public:
 	format() const;
 
 	SGE_RENDERER_SYMBOL
-	texture::mipmap::object const &
+	sge::renderer::texture::mipmap::object const &
 	mipmap() const;
 
 	SGE_RENDERER_SYMBOL
-	renderer::resource_flags_field const &
+	sge::renderer::resource_flags_field const &
 	resource_flags() const;
 
 	SGE_RENDERER_SYMBOL
-	texture::capabilities_field const &
+	sge::renderer::texture::capabilities_field const &
 	capabilities() const;
 private:
 	Dim dim_;
 
 	Format format_;
 
-	texture::mipmap::object mipmap_;
+	sge::renderer::texture::mipmap::object mipmap_;
 
-	renderer::resource_flags_field resource_flags_;
+	sge::renderer::resource_flags_field resource_flags_;
 
-	texture::capabilities_field capabilities_;
+	sge::renderer::texture::capabilities_field capabilities_;
 };
 
 }

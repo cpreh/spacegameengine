@@ -18,12 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_TEXTURE_CUBE_PARAMETERS_FWD_HPP_INCLUDED
-#define SGE_RENDERER_TEXTURE_CUBE_PARAMETERS_FWD_HPP_INCLUDED
+#ifndef SGE_RENDERER_TEXTURE_COLOR_FORMAT_HPP_INCLUDED
+#define SGE_RENDERER_TEXTURE_COLOR_FORMAT_HPP_INCLUDED
 
-#include <sge/renderer/size_type.hpp>
-#include <sge/renderer/texture/basic_parameters_fwd.hpp>
+#include <sge/image/color/format.hpp>
+#include <sge/renderer/symbol.hpp>
 #include <sge/renderer/texture/color_format_fwd.hpp>
+#include <sge/renderer/texture/emulate_srgb.hpp>
+#include <fcppt/nonassignable.hpp>
 
 
 namespace sge
@@ -33,10 +35,30 @@ namespace renderer
 namespace texture
 {
 
-typedef sge::renderer::texture::basic_parameters<
-	sge::renderer::size_type,
-	sge::renderer::texture::color_format
-> cube_parameters;
+class color_format
+{
+	FCPPT_NONASSIGNABLE(
+		color_format
+	);
+public:
+	SGE_RENDERER_SYMBOL
+	color_format(
+		sge::image::color::format::type,
+		sge::renderer::texture::emulate_srgb::type
+	);
+
+	SGE_RENDERER_SYMBOL
+	sge::image::color::format::type
+	format() const;
+
+	SGE_RENDERER_SYMBOL
+	sge::renderer::texture::emulate_srgb::type
+	emulate_srgb() const;
+private:
+	sge::image::color::format::type const format_;
+
+	sge::renderer::texture::emulate_srgb::type const emulate_srgb_;
+};
 
 }
 }

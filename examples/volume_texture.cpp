@@ -93,6 +93,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/transform/scoped.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/texture/create_volume_from_view.hpp>
+#include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/renderer/texture/scoped.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/texture/volume.hpp>
@@ -539,7 +540,8 @@ create_noise_texture(
 				sge::image3d::view::object(
 					s.wrapped_view())),
 			sge::renderer::texture::mipmap::off(),
-			sge::renderer::resource_flags_field::null());
+			sge::renderer::resource_flags_field::null(),
+			sge::renderer::texture::emulate_srgb::no);
 }
 
 sge::renderer::texture::volume_unique_ptr
@@ -639,7 +641,8 @@ create_checkers_texture(
 				)
 			),
 			sge::renderer::texture::mipmap::off(),
-			sge::renderer::resource_flags_field::null()
+			sge::renderer::resource_flags_field::null(),
+			sge::renderer::texture::emulate_srgb::no
 		);
 }
 

@@ -38,7 +38,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/texture/capabilities_field_fwd.hpp>
+#include <sge/renderer/texture/color_format.hpp>
 #include <sge/renderer/texture/create_planar_from_view.hpp>
+#include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/texture/scoped_planar_lock.hpp>
@@ -130,7 +132,10 @@ sge::cegui::texture::texture(
 				>(
 					*size_
 				),
-				sge::image::color::format::rgba8,
+				sge::renderer::texture::color_format(
+					sge::image::color::format::rgba8,
+					sge::renderer::texture::emulate_srgb::no
+				),
 				sge::renderer::texture::mipmap::off(),
 				sge::renderer::resource_flags_field::null(),
 				_caps
@@ -209,7 +214,8 @@ sge::cegui::texture::create_from_view(
 			texture_parameters_.renderer(),
 			_view,
 			sge::renderer::texture::mipmap::off(),
-			sge::renderer::resource_flags_field::null()
+			sge::renderer::resource_flags_field::null(),
+			sge::renderer::texture::emulate_srgb::no
 		)
 	);
 }

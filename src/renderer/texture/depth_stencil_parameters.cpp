@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/texture/depth_stencil_parameters.hpp>
 #include <sge/src/renderer/texture/instantiate_basic_parameters.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
 
 
 SGE_RENDERER_TEXTURE_INSTANTIATE_BASIC_PARAMETERS(

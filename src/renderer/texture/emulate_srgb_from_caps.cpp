@@ -18,28 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_TEXTURE_CUBE_PARAMETERS_FWD_HPP_INCLUDED
-#define SGE_RENDERER_TEXTURE_CUBE_PARAMETERS_FWD_HPP_INCLUDED
-
-#include <sge/renderer/size_type.hpp>
-#include <sge/renderer/texture/basic_parameters_fwd.hpp>
-#include <sge/renderer/texture/color_format_fwd.hpp>
+#include <sge/renderer/caps/device.hpp>
+#include <sge/renderer/texture/emulate_srgb.hpp>
+#include <sge/renderer/texture/emulate_srgb_from_caps.hpp>
 
 
-namespace sge
+sge::renderer::texture::emulate_srgb::type
+sge::renderer::texture::emulate_srgb_from_caps(
+	sge::renderer::caps::device const &_caps
+)
 {
-namespace renderer
-{
-namespace texture
-{
-
-typedef sge::renderer::texture::basic_parameters<
-	sge::renderer::size_type,
-	sge::renderer::texture::color_format
-> cube_parameters;
-
+	// TODO: We need to find a way to test this properly
+	return
+		_caps.srgb_framebuffer().get()
+		?
+			sge::renderer::texture::emulate_srgb::no
+		:
+			sge::renderer::texture::emulate_srgb::yes
+		;
 }
-}
-}
-
-#endif

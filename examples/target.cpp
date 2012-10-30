@@ -46,8 +46,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/texture/capabilities.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
+#include <sge/renderer/texture/color_format.hpp>
 #include <sge/renderer/texture/const_optional_base_ref.hpp>
 #include <sge/renderer/texture/create_planar_from_view.hpp>
+#include <sge/renderer/texture/emulate_srgb.hpp>
+#include <sge/renderer/texture/emulate_srgb_from_caps.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/texture/planar_scoped_ptr.hpp>
@@ -155,7 +158,7 @@ try
 						sge::renderer::pixel_format::color::depth32,
 						sge::renderer::pixel_format::depth_stencil::off,
 						sge::renderer::pixel_format::optional_multi_samples(),
-						sge::renderer::pixel_format::srgb::yes
+						sge::renderer::pixel_format::srgb::try_
 					),
 					sge::renderer::parameters::vsync::on,
 					sge::renderer::display_mode::optional_object()
@@ -201,6 +204,9 @@ try
 			sge::renderer::texture::mipmap::off(),
 			sge::renderer::resource_flags_field(
 				sge::renderer::resource_flags::readable
+			),
+			sge::renderer::texture::emulate_srgb_from_caps(
+				sys.renderer_ffp().caps()
 			)
 		)
 	);
@@ -267,7 +273,10 @@ try
 					640,
 					480
 				),
-				sge::image::color::format::rgba8,
+				sge::renderer::texture::color_format(
+					sge::image::color::format::rgba8,
+					sge::renderer::texture::emulate_srgb::no
+				),
 				sge::renderer::texture::mipmap::off(),
 				sge::renderer::resource_flags_field::null(),
 				sge::renderer::texture::capabilities_field(

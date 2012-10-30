@@ -35,6 +35,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/renderer/target/viewport_size.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
+#include <sge/renderer/texture/color_format.hpp>
+#include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/state/core/sampler/parameters.hpp>
@@ -198,7 +200,9 @@ sge::postprocessing::context::viewport_callback()
 		renderer_.create_planar_texture(
 			sge::renderer::texture::planar_parameters(
 				target_size,
-				sge::image::color::format::rgba32f,
+				sge::renderer::texture::color_format(
+					sge::image::color::format::rgba32f,
+					sge::renderer::texture::emulate_srgb::no),
 				sge::renderer::texture::mipmap::off(),
 				sge::renderer::resource_flags_field::null(),
 				sge::renderer::texture::capabilities_field(

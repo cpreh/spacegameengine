@@ -98,6 +98,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/viewport_is_null.hpp>
 #include <sge/renderer/target/viewport_size.hpp>
 #include <sge/renderer/texture/create_planar_from_view.hpp>
+#include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/texture/mipmap/all_levels.hpp>
@@ -693,7 +694,8 @@ try
 						sge::renderer::texture::mipmap::all_levels(
 							sge::renderer::texture::mipmap::auto_generate::yes
 						),
-						sge::renderer::resource_flags_field::null()
+						sge::renderer::resource_flags_field::null(),
+						sge::renderer::texture::emulate_srgb::no
 					)
 				)
 			)

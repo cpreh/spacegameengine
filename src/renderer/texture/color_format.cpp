@@ -18,28 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_TEXTURE_CUBE_PARAMETERS_FWD_HPP_INCLUDED
-#define SGE_RENDERER_TEXTURE_CUBE_PARAMETERS_FWD_HPP_INCLUDED
-
-#include <sge/renderer/size_type.hpp>
-#include <sge/renderer/texture/basic_parameters_fwd.hpp>
-#include <sge/renderer/texture/color_format_fwd.hpp>
+#include <sge/image/color/format.hpp>
+#include <sge/renderer/texture/color_format.hpp>
+#include <sge/renderer/texture/emulate_srgb.hpp>
 
 
-namespace sge
+sge::renderer::texture::color_format::color_format(
+	sge::image::color::format::type const _format,
+	sge::renderer::texture::emulate_srgb::type const _emulate_srgb
+)
+:
+	format_(
+		_format
+	),
+	emulate_srgb_(
+		_emulate_srgb
+	)
 {
-namespace renderer
-{
-namespace texture
-{
-
-typedef sge::renderer::texture::basic_parameters<
-	sge::renderer::size_type,
-	sge::renderer::texture::color_format
-> cube_parameters;
-
-}
-}
 }
 
-#endif
+sge::image::color::format::type
+sge::renderer::texture::color_format::format() const
+{
+	return format_;
+}
+
+sge::renderer::texture::emulate_srgb::type
+sge::renderer::texture::color_format::emulate_srgb() const
+{
+	return emulate_srgb_;
+}
