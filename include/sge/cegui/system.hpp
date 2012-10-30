@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/system_fwd.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
+#include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/viewport/manager_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -59,7 +60,8 @@ public:
 		sge::image2d::system &,
 		sge::charconv::system &,
 		sge::viewport::manager &,
-		sge::cegui::cursor_visibility::type
+		sge::cegui::cursor_visibility::type,
+		sge::renderer::texture::emulate_srgb::type
 	);
 
 	SGE_CEGUI_SYMBOL

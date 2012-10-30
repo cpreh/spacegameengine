@@ -177,7 +177,8 @@ try
 		sys.image_system(),
 		sys.charconv_system(),
 		sys.viewport_manager(),
-		sge::cegui::cursor_visibility::visible);
+		sge::cegui::cursor_visibility::visible,
+		sge::renderer::texture::emulate_srgb::yes);
 
 	sge::cegui::syringe gui_syringe(
 		gui_sys);

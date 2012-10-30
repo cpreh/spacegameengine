@@ -134,7 +134,7 @@ sge::cegui::texture::texture(
 				),
 				sge::renderer::texture::color_format(
 					sge::image::color::format::rgba8,
-					sge::renderer::texture::emulate_srgb::no
+					texture_parameters_.emulate_srgb()
 				),
 				sge::renderer::texture::mipmap::off(),
 				sge::renderer::resource_flags_field::null(),
@@ -215,7 +215,7 @@ sge::cegui::texture::create_from_view(
 			_view,
 			sge::renderer::texture::mipmap::off(),
 			sge::renderer::resource_flags_field::null(),
-			sge::renderer::texture::emulate_srgb::no
+			texture_parameters_.emulate_srgb()
 		)
 	);
 }

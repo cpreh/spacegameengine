@@ -29,7 +29,8 @@ sge::cegui::texture_parameters::texture_parameters(
 	sge::cegui::prefix const &_prefix,
 	sge::charconv::system &_charconv_system,
 	sge::image2d::system &_image_system,
-	sge::renderer::device::ffp &_renderer
+	sge::renderer::device::ffp &_renderer,
+	sge::renderer::texture::emulate_srgb::type const _emulate_srgb
 )
 :
 	prefix_(
@@ -43,6 +44,9 @@ sge::cegui::texture_parameters::texture_parameters(
 	),
 	renderer_(
 		_renderer
+	),
+	emulate_srgb_(
+		_emulate_srgb
 	)
 {
 }
@@ -73,4 +77,11 @@ sge::cegui::texture_parameters::renderer() const
 {
 	return
 		renderer_;
+}
+
+sge::renderer::texture::emulate_srgb::type
+sge::cegui::texture_parameters::emulate_srgb() const
+{
+	return
+		emulate_srgb_;
 }
