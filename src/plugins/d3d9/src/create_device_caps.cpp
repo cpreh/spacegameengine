@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps/max_volume_texture_extent.hpp>
 #include <sge/renderer/caps/non_power_of_2_textures.hpp>
 #include <sge/renderer/caps/normalized_cvv.hpp>
+#include <sge/renderer/caps/srgb_framebuffer.hpp>
 #include <sge/renderer/caps/render_target_inverted.hpp>
 #include <sge/renderer/caps/render_target_supported.hpp>
 #include <sge/renderer/caps/target_surface_indices.hpp>
@@ -174,6 +175,15 @@ sge::d3d9::create_device_caps(
 			),
 			sge::renderer::caps::target_surface_indices(
 				caps.NumSimultaneousRTs
+			),
+			sge::renderer::caps::srgb_framebuffer(
+				(
+					caps.Caps3
+					&
+					D3DCAPS3_LINEAR_TO_SRGB_PRESENTATION
+				)
+				!=
+				0u
 			)
 		);
 }

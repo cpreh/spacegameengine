@@ -30,6 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/texturefuncs/get_level_count.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
+#include <sge/renderer/texture/color_format.hpp>
+#include <sge/renderer/texture/translate_srgb_emulation.hpp>
 #include <sge/renderer/texture/mipmap/level_count.hpp>
 #include <sge/renderer/texture/mipmap/object.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
@@ -62,12 +64,17 @@ sge::d3d9::texture::basic<
 	),
 	color_format_(
 		sge::d3d9::texture::best_color_format(
-			_parameters.format()
+			_parameters.format().format()
 		)
 	),
 	d3d_color_format_(
 		sge::d3d9::convert::color_format(
-			color_format_
+			sge::renderer::texture::translate_srgb_emulation(
+				sge::renderer::texture::color_format(
+					color_format_,
+					_parameters.format().emulate_srgb()
+				)
+			)
 		)
 	),
 	usage_(

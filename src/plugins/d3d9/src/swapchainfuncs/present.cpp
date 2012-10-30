@@ -32,6 +32,7 @@ sge::d3d9::swapchainfuncs::present(
 	sge::renderer::pixel_format::srgb::type const _srgb
 )
 {
+	// TODO: Does this silently fail to do gamma correction if srgb is not supported?
 	switch(
 		_swap_chain.Present(
 			fcppt::null_ptr(),
@@ -43,11 +44,11 @@ sge::d3d9::swapchainfuncs::present(
 			>(
 				_srgb
 				==
-				sge::renderer::pixel_format::srgb::yes
+				sge::renderer::pixel_format::srgb::no
 				?
-					D3DPRESENT_LINEAR_CONTENT
-				:
 					0L
+				:
+					D3DPRESENT_LINEAR_CONTENT
 			)
 		)
 	)

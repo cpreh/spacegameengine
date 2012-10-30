@@ -186,8 +186,8 @@ sge::opengl::wgl::visual::make_attributes(
 
 	if(
 		_format.srgb()
-		==
-		sge::renderer::pixel_format::srgb::yes
+		!=
+		sge::renderer::pixel_format::srgb::no
 	)
 	{
 		sge::opengl::optional_int const srgb_flag(
@@ -197,19 +197,28 @@ sge::opengl::wgl::visual::make_attributes(
 		if(
 			!srgb_flag
 		)
-			throw sge::renderer::unsupported(
-				FCPPT_TEXT("SRGB framebuffer"),
-				FCPPT_TEXT(""),
-				FCPPT_TEXT("WGLEW_EXT_framebuffer_sRGB, WGLEW_ARB_framebuffer_sRGB")
+		{
+			if(
+				_format.srgb()
+				==
+				sge::renderer::pixel_format::srgb::yes
+			)
+				throw sge::renderer::unsupported(
+					FCPPT_TEXT("SRGB framebuffer"),
+					FCPPT_TEXT(""),
+					FCPPT_TEXT("WGLEW_EXT_framebuffer_sRGB, WGLEW_ARB_framebuffer_sRGB")
+				);
+		}
+		else
+		{
+			ret.push_back(
+				*srgb_flag
 			);
 
-		ret.push_back(
-			*srgb_flag
-		);
-
-		ret.push_back(
-			GL_TRUE
-		);
+			ret.push_back(
+				GL_TRUE
+			);
+		}
 	}
 
 	// End

@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/texture/color_format_fwd.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
-#include <fcppt/nonassignable.hpp>
 
 
 namespace sge
@@ -37,9 +36,6 @@ namespace texture
 
 class color_format
 {
-	FCPPT_NONASSIGNABLE(
-		color_format
-	);
 public:
 	SGE_RENDERER_SYMBOL
 	color_format(
@@ -55,9 +51,9 @@ public:
 	sge::renderer::texture::emulate_srgb::type
 	emulate_srgb() const;
 private:
-	sge::image::color::format::type const format_;
+	sge::image::color::format::type format_;
 
-	sge::renderer::texture::emulate_srgb::type const emulate_srgb_;
+	sge::renderer::texture::emulate_srgb::type emulate_srgb_;
 };
 
 }
