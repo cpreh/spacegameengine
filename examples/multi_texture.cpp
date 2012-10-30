@@ -71,7 +71,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/sampler/unary_op_type.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
-#include <sge/renderer/texture/emulate_srgb_from_caps.hpp>
+#include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_scoped_ptr.hpp>
 #include <sge/renderer/texture/scoped.hpp>
@@ -171,7 +171,7 @@ try
 						sge::renderer::pixel_format::color::depth32,
 						sge::renderer::pixel_format::depth_stencil::off,
 						sge::renderer::pixel_format::optional_multi_samples(),
-						sge::renderer::pixel_format::srgb::try_
+						sge::renderer::pixel_format::srgb::no
 					),
 					sge::renderer::parameters::vsync::on,
 					sge::renderer::display_mode::optional_object()
@@ -212,9 +212,7 @@ try
 			sys.image_system(),
 			sge::renderer::texture::mipmap::off(),
 			sge::renderer::resource_flags_field::null(),
-			sge::renderer::texture::emulate_srgb_from_caps(
-				sys.renderer_ffp().caps()
-			)
+			sge::renderer::texture::emulate_srgb::yes
 		)
 	);
 
@@ -227,9 +225,7 @@ try
 			sys.image_system(),
 			sge::renderer::texture::mipmap::off(),
 			sge::renderer::resource_flags_field::null(),
-			sge::renderer::texture::emulate_srgb_from_caps(
-				sys.renderer_ffp().caps()
-			)
+			sge::renderer::texture::emulate_srgb::yes
 		)
 	);
 

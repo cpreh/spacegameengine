@@ -45,6 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/basic_dim.hpp>
 #include <sge/renderer/texture/capabilities.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
+#include <sge/renderer/texture/color_format.hpp>
 #include <sge/renderer/texture/translate_srgb_emulation.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <sge/renderer/texture/mipmap/level_count.hpp>
@@ -101,27 +102,34 @@ init(
 
 	sge::image::color::format::type const format(
 		sge::opengl::texture::best_color_format(
-			sge::renderer::texture::translate_srgb_emulation(
-				_parameters.format()
+			_parameters.format().format()
+		)
+	);
+
+	sge::image::color::format::type const gl_format(
+		sge::renderer::texture::translate_srgb_emulation(
+			sge::renderer::texture::color_format(
+				format,
+				_parameters.format().emulate_srgb()
 			)
 		)
 	);
 
 	sge::opengl::color_format const color_format(
 		sge::opengl::convert::color_to_format(
-			format
+			gl_format
 		)
 	);
 
 	sge::opengl::color_format_type const color_format_type(
 		sge::opengl::convert::color_to_format_type(
-			format
+			gl_format
 		)
 	);
 
 	sge::opengl::internal_color_format const internal_color_format(
 		sge::opengl::convert::color_to_internal_format(
-			format
+			gl_format
 		)
 	);
 
