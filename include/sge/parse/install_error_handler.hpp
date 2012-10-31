@@ -27,14 +27,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/spirit/home/qi/domain.hpp>
-#include <boost/spirit/home/qi/nonterminal/error_handler.hpp>
 #include <boost/spirit/home/phoenix/bind/bind_function.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
 #include <boost/spirit/home/phoenix/core/value.hpp>
 #include <boost/spirit/home/phoenix/object/construct.hpp>
 #include <boost/spirit/home/phoenix/operator/arithmetic.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
+#include <boost/spirit/home/qi/domain.hpp>
+#include <boost/spirit/home/qi/nonterminal/error_handler.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/input/cursor/scroll_value.hpp>
-#include <sge/x11input/device/valuator_value.hpp>
 #include <sge/x11input/cursor/scroll_value.hpp>
+#include <sge/x11input/device/valuator_value.hpp>
 #include <fcppt/preprocessor/todo.hpp>
 
 

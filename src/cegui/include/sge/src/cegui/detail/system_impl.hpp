@@ -29,8 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
-#include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/renderer/target/viewport.hpp>
+#include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/src/cegui/cegui_logger.hpp>
 #include <sge/src/cegui/image_codec.hpp>
 #include <sge/src/cegui/prefix.hpp>

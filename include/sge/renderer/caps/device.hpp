@@ -33,9 +33,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps/max_volume_texture_extent.hpp>
 #include <sge/renderer/caps/non_power_of_2_textures.hpp>
 #include <sge/renderer/caps/normalized_cvv.hpp>
-#include <sge/renderer/caps/srgb_framebuffer.hpp>
 #include <sge/renderer/caps/render_target_inverted.hpp>
 #include <sge/renderer/caps/render_target_supported.hpp>
+#include <sge/renderer/caps/srgb_framebuffer.hpp>
 #include <sge/renderer/caps/target_surface_indices.hpp>
 #include <sge/renderer/caps/texture_stages.hpp>
 #include <fcppt/noncopyable.hpp>

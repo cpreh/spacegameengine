@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/parse/ini/entry.hpp>
 #include <sge/parse/ini/entry_name.hpp>
 #include <sge/parse/ini/entry_name_equal.hpp>
 #include <sge/parse/ini/entry_vector.hpp>
-#include <sge/parse/ini/entry.hpp>
 #include <sge/parse/ini/get_or_create_entry.hpp>
 #include <sge/parse/ini/section.hpp>
 #include <sge/parse/ini/value.hpp>

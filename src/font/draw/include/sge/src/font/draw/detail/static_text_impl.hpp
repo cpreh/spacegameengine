@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text_parameters.hpp>
 #include <sge/font/text_scoped_ptr.hpp>
 #include <sge/font/unit.hpp>
-#include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/font/vector_fwd.hpp>
 #include <sge/font/draw/set_matrices_fwd.hpp>
 #include <sge/font/draw/set_states_fwd.hpp>
@@ -38,6 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/renderer/state/ffp/sampler/object_scoped_ptr.hpp>
+#include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/sprite/object_decl.hpp>
 #include <sge/sprite/parameters_fwd.hpp>
 #include <sge/sprite/vector.hpp>

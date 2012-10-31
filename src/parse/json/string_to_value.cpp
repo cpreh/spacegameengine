@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/parse/parse_exception.hpp>
-#include <sge/parse/result_code.hpp>
 #include <sge/parse/result.hpp>
+#include <sge/parse/result_code.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/parse_stream.hpp>

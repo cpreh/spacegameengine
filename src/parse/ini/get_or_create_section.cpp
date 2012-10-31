@@ -18,13 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/parse/ini/entry.hpp>
 #include <sge/parse/ini/get_or_create_section.hpp>
 #include <sge/parse/ini/section.hpp>
 #include <sge/parse/ini/section_name.hpp>
 #include <sge/parse/ini/section_name_equal.hpp>
 #include <sge/parse/ini/section_vector.hpp>
 #include <sge/parse/ini/start.hpp>
-#include <sge/parse/ini/entry.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
 #include <fcppt/config/external_end.hpp>

@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PARSE_PARSE_EXCEPTION_HPP_INCLUDED
 
 #include <sge/class_symbol.hpp>
-#include <sge/parse/exception.hpp>
 #include <sge/parse/error_string.hpp>
+#include <sge/parse/exception.hpp>
 #include <sge/parse/parse_exception_fwd.hpp>
 #include <sge/parse/result_code.hpp>
 #include <sge/parse/symbol.hpp>
