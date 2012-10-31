@@ -155,7 +155,17 @@ find_plugin(
 			)
 		)
 		+
-		FCPPT_TEXT(" matched the requested capabilities.")
+		(
+			_name
+			?
+				FCPPT_TEXT(" and with name ")
+				+
+				_name->get()
+				+
+				FCPPT_TEXT(" found.")
+			:
+				FCPPT_TEXT(" matched the requested capabilities.")
+		)
 	);
 }
 
