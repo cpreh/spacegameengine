@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_JSON_FIND_AND_CONVERT_MEMBER_HPP_INCLUDED
 #define SGE_PARSE_JSON_FIND_AND_CONVERT_MEMBER_HPP_INCLUDED
 
+#include <sge/parse/exception.hpp>
 #include <sge/parse/json/convert_from.hpp>
-#include <sge/parse/json/exception.hpp>
 #include <sge/parse/json/find_object_exn.hpp>
 #include <sge/parse/json/invalid_get.hpp>
 #include <sge/parse/json/member_map.hpp>
@@ -105,7 +105,7 @@ find_and_convert_member(
 
 	if (it == found_object.members.end())
 		throw
-			sge::parse::json::exception(
+			sge::parse::exception(
 				FCPPT_TEXT("Couldn't find member \"")+
 				input_path.back()+
 				FCPPT_TEXT("\" in the object \"")+
@@ -122,7 +122,7 @@ find_and_convert_member(
 	catch (sge::parse::json::invalid_get const &e)
 	{
 		throw
-			sge::parse::json::exception(
+			sge::parse::exception(
 				FCPPT_TEXT("Unable to parse member \"")+
 				it->first+
 				FCPPT_TEXT("\" of object \"")+

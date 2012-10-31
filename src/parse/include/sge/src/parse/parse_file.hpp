@@ -21,7 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_PARSE_PARSE_FILE_HPP_INCLUDED
 #define SGE_SRC_PARSE_PARSE_FILE_HPP_INCLUDED
 
-#include <sge/src/parse/parse_stream.hpp>
+#include <sge/parse/error_string.hpp>
+#include <sge/parse/optional_error_string.hpp>
+#include <sge/parse/result.hpp>
+#include <sge/parse/result_code.hpp>
+#include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/io/ifstream.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
@@ -37,7 +41,7 @@ namespace parse
 template<
 	typename Result
 >
-bool
+sge::parse::result const
 parse_file(
 	boost::filesystem::path const &_path,
 	Result &_result
@@ -52,15 +56,59 @@ parse_file(
 		std::ios_base::skipws
 	);
 
-	return
-		ifs.is_open()
-		&&
+	if(
+		!ifs.is_open()
+	)
+		return
+			sge::parse::result(
+				sge::parse::result_code::not_open,
+				sge::parse::optional_error_string(
+					sge::parse::error_string(
+						FCPPT_TEXT("Failed to open ")
+						+
+						fcppt::filesystem::path_to_string(
+							_path
+						)
+					)
+				)
+			);
+
+	bool const result(
 		// use ADL
 		parse_stream(
 			ifs,
 			_result
 		)
-		&& ifs.eof();
+	);
+
+	if(
+		result
+	)
+		return
+			sge::parse::result(
+				sge::parse::result_code::ok,
+				sge::parse::optional_error_string()
+			);
+
+	return
+		sge::parse::result(
+			ifs.eof()
+			?
+				sge::parse::result_code::failure
+			:
+				sge::parse::result_code::partial
+			,
+			sge::parse::optional_error_string(
+				sge::parse::error_string(
+					FCPPT_TEXT("Failed to parse ")
+					+
+					fcppt::filesystem::path_to_string(
+						_path
+					)
+				)
+				// TODO: Add error information here!
+			)
+		);
 }
 
 }

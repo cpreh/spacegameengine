@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/json/exception.hpp>
+#include <sge/parse/exception.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/make_recursive_objects.hpp>
 #include <sge/parse/json/member.hpp>
@@ -53,7 +53,7 @@ sge::parse::json::config::modify_user_value(
 
 	if(old_value.type_index() != new_value.type_index())
 		throw
-			sge::parse::json::exception(
+			sge::parse::exception(
 				FCPPT_TEXT("Error trying to update the user configuration node \"")+
 				json::path_to_string(
 					input_path)+

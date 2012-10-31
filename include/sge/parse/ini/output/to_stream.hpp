@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PARSE_INI_OUTPUT_TO_STREAM_HPP_INCLUDED
 
 #include <sge/parse/symbol.hpp>
-#include <sge/parse/ini/section_vector.hpp>
+#include <sge/parse/ini/start_fwd.hpp>
 #include <fcppt/io/ostream.hpp>
 
 
@@ -39,7 +39,7 @@ SGE_PARSE_SYMBOL
 bool
 to_stream(
 	fcppt::io::ostream &,
-	section_vector const &
+	sge::parse::ini::start const &
 );
 
 }

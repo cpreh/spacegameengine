@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/get.hpp>
 #include <sge/parse/json/member_map.hpp>
 #include <sge/parse/json/object.hpp>
-#include <sge/parse/json/parse_file.hpp>
+#include <sge/parse/json/parse_file_exn.hpp>
 #include <sge/parse/json/start.hpp>
 #include <sge/src/font/bitmap/char_metric.hpp>
 #include <sge/src/font/bitmap/load_one_file.hpp>
@@ -44,7 +44,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
-#include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -60,21 +59,11 @@ sge::font::bitmap::object::object(
 	char_map_(),
 	color_format_()
 {
-	sge::parse::json::start result;
-
-	if(
-		!sge::parse::json::parse_file(
-			_path,
-			result
+	sge::parse::json::start const result(
+		sge::parse::json::parse_file_exn(
+			_path
 		)
-	)
-		throw sge::font::exception(
-			fcppt::filesystem::path_to_string(
-				_path
-			)
-			+ FCPPT_TEXT(" contains errors!")
-		);
-
+	);
 
 	sge::parse::json::member_map const &top_members(
 		result.object().members

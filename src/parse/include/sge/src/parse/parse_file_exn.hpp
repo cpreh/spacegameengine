@@ -21,10 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_PARSE_PARSE_FILE_EXN_HPP_INCLUDED
 #define SGE_SRC_PARSE_PARSE_FILE_EXN_HPP_INCLUDED
 
-#include <sge/parse/exception.hpp>
+#include <sge/parse/parse_exception.hpp>
+#include <sge/parse/result.hpp>
+#include <sge/parse/result_code.hpp>
 #include <sge/src/parse/parse_file.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -43,23 +44,26 @@ parse_file_exn(
 	boost::filesystem::path const &_path
 )
 {
-	Result result;
+	Result parse_result;
+
+	sge::parse::result const result(
+		sge::parse::parse_file(
+			_path,
+			parse_result
+		)
+	);
 
 	if(
-		!parse::parse_file(
-			_path,
-			result
-		)
+		result.result_code()
+		!=
+		sge::parse::result_code::ok
 	)
-		throw sge::parse::exception(
-			FCPPT_TEXT("Unable to parse file \"")
-			+
-			fcppt::filesystem::path_to_string(
-				_path
-			)
+		throw sge::parse::parse_exception(
+			result.result_code(),
+			*result.error_string()
 		);
 
-	return result;
+	return parse_result;
 }
 
 }

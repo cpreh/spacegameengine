@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_JSON_CONVERT_FROM_HPP_INCLUDED
 #define SGE_PARSE_JSON_CONVERT_FROM_HPP_INCLUDED
 
+#include <sge/parse/exception.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/convert_from.hpp>
 #include <sge/parse/json/element_vector.hpp>
-#include <sge/parse/json/exception.hpp>
 #include <sge/parse/json/float_type.hpp>
 #include <sge/parse/json/get.hpp>
 #include <sge/parse/json/int_type.hpp>
@@ -289,7 +289,7 @@ sge::parse::json::convert_from(
 
 		if(current_inner_array.size() != first_outer_vector.size())
 			throw
-				sge::parse::json::exception(
+				sge::parse::exception(
 					FCPPT_TEXT("You tried to input a matrix, but the inner dimensions don't match!"));
 
 		for(
@@ -345,7 +345,7 @@ sge::parse::json::convert_from(
 
 	if(result.size() && result.size() != a.elements.size())
 		throw
-			sge::parse::json::exception(
+			sge::parse::exception(
 				FCPPT_TEXT("Tried to convert into an array, but the dimensions did not match. Target array has dimension ")+
 				fcppt::insert_to_fcppt_string(
 					result.size())+
@@ -385,7 +385,7 @@ sge::parse::json::convert_from(
 
 	if(result.size() != a.elements.size())
 		throw
-			sge::parse::json::exception(
+			sge::parse::exception(
 				FCPPT_TEXT("Tried to convert into an array, but the dimensions did not match. Target array has dimension ")+
 				fcppt::insert_to_fcppt_string(
 					result.size())+

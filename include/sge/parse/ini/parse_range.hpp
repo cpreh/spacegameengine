@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/parse/encoding.hpp>
 #include <sge/parse/ini/grammar.hpp>
-#include <sge/parse/ini/section_vector.hpp>
+#include <sge/parse/ini/start.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/spirit/include/qi_parse.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -43,10 +43,10 @@ bool
 parse_range(
 	In &_beg,
 	In const _end,
-	section_vector &_result
+	sge::parse::ini::start &_result
 )
 {
-	ini::grammar<
+	sge::parse::ini::grammar<
 		In
 	> parser;
 
@@ -55,7 +55,7 @@ parse_range(
 			_beg,
 			_end,
 			parser,
-			encoding::blank,
+			sge::parse::encoding::blank,
 			_result
 		);
 }

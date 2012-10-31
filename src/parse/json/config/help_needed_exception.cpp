@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/json/exception.hpp>
+#include <sge/parse/exception.hpp>
 #include <sge/parse/json/config/help_needed_exception.hpp>
 #include <fcppt/string.hpp>
 
@@ -27,7 +27,8 @@ sge::parse::json::config::help_needed_exception::help_needed_exception(
 	fcppt::string const &_string
 )
 :
-	sge::parse::json::exception(
+	sge::parse::exception(
 		_string
 	)
-{}
+{
+}

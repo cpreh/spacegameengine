@@ -21,10 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_INI_SECTION_VECTOR_HPP_INCLUDED
 #define SGE_PARSE_INI_SECTION_VECTOR_HPP_INCLUDED
 
-#include <sge/parse/ini/section_fwd.hpp>
+#include <sge/parse/ini/section.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {
@@ -34,7 +35,7 @@ namespace ini
 {
 
 typedef std::vector<
-	section
+	sge::parse::ini::section
 > section_vector;
 
 }

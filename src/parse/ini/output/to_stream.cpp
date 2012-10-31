@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/ini/section_vector.hpp>
+#include <sge/parse/ini/start.hpp>
 #include <sge/parse/ini/output/to_range.hpp>
 #include <sge/parse/ini/output/to_stream.hpp>
 #include <fcppt/io/ostream.hpp>
@@ -29,11 +29,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 bool
 sge::parse::ini::output::to_stream(
 	fcppt::io::ostream &_stream,
-	ini::section_vector const &_result
+	sge::parse::ini::start const &_result
 )
 {
 	return
-		parse::output::to_stream(
+		sge::parse::output::to_stream(
 			_stream,
 			_result
 		);

@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/encoding.hpp>
 #include <sge/parse/ini/detail/adapt_entry.hpp>
 #include <sge/parse/ini/detail/adapt_section.hpp>
+#include <sge/parse/ini/detail/adapt_start.hpp>
 #include <sge/parse/ini/output/grammar_decl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -46,6 +47,7 @@ sge::parse::ini::output::grammar<
 	entry_(),
 	header_(),
 	section_(),
+	section_vector_(),
 	ini_()
 {
 	using encoding::char_;
@@ -70,8 +72,11 @@ sge::parse::ini::output::grammar<
 			<< lit(FCPPT_TEXT('\n'))
 		);
 
-	ini_ %=
+	section_vector_ %=
 		*section_;
+
+	ini_ %=
+		section_vector_;
 }
 
 template<

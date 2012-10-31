@@ -18,16 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/exception.hpp>
 #include <sge/parse/exception.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 
 
 sge::parse::exception::exception(
-	fcppt::string const &_string
+	fcppt::string const &_what
 )
 :
 	sge::exception(
-		FCPPT_TEXT("parse: " )
-		+ _string
+		FCPPT_TEXT("parse: ")
+		+ _what
 	)
-{}
+{
+}

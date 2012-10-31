@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/parse/exception.hpp>
 #include <sge/parse/json/array.hpp>
-#include <sge/parse/json/exception.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/parse_stream.hpp>
 #include <sge/parse/json/start.hpp>
@@ -56,7 +56,7 @@ sge::parse::json::string_to_value(
 			result
 		)
 	)
-		throw sge::parse::json::exception(
+		throw sge::parse::exception(
 			FCPPT_TEXT("Couldn't convert string \"")
 			+
 			_string

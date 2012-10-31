@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/ini/entry.hpp>
 #include <sge/parse/ini/section.hpp>
 #include <sge/parse/ini/section_vector.hpp>
+#include <sge/parse/ini/start.hpp>
 #include <sge/parse/ini/string.hpp>
 #include <sge/parse/ini/output/grammar_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -55,7 +56,7 @@ class grammar
 :
 	public boost::spirit::karma::grammar<
 		Out,
-		sge::parse::ini::section_vector()
+		sge::parse::ini::start()
 	>
 {
 	FCPPT_NONCOPYABLE(
@@ -84,6 +85,11 @@ private:
 	boost::spirit::karma::rule<
 		Out,
 		sge::parse::ini::section_vector()
+	> section_vector_;
+
+	boost::spirit::karma::rule<
+		Out,
+		sge::parse::ini::start()
 	> ini_;
 };
 

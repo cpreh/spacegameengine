@@ -18,13 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_JSON_EXCEPTION_HPP_INCLUDED
-#define SGE_PARSE_JSON_EXCEPTION_HPP_INCLUDED
+#ifndef SGE_PARSE_JSON_PARSE_FILE_OPT_HPP_INCLUDED
+#define SGE_PARSE_JSON_PARSE_FILE_OPT_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
-#include <sge/parse/exception.hpp>
 #include <sge/parse/symbol.hpp>
-#include <fcppt/string.hpp>
+#include <sge/parse/json/result_with_value_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -34,16 +35,11 @@ namespace parse
 namespace json
 {
 
-class SGE_CLASS_SYMBOL exception
-:
-	public sge::parse::exception
-{
-public:
-	SGE_PARSE_SYMBOL
-	explicit exception(
-		fcppt::string const &
-	);
-};
+SGE_PARSE_SYMBOL
+sge::parse::json::result_with_value const
+parse_file_opt(
+	boost::filesystem::path const &
+);
 
 }
 }

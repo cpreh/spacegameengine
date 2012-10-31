@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/ini/grammar_fwd.hpp>
 #include <sge/parse/ini/section.hpp>
 #include <sge/parse/ini/section_vector.hpp>
+#include <sge/parse/ini/start.hpp>
 #include <sge/parse/ini/string.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
@@ -54,7 +55,7 @@ class grammar
 :
 	public boost::spirit::qi::grammar<
 		In,
-		sge::parse::ini::section_vector(),
+		sge::parse::ini::start(),
 		sge::parse::encoding::blank_type
 	>
 {
@@ -93,6 +94,12 @@ private:
 	boost::spirit::qi::rule<
 		In,
 		sge::parse::ini::section_vector(),
+		sge::parse::encoding::blank_type
+	> section_vector_;
+
+	boost::spirit::qi::rule<
+		In,
+		sge::parse::ini::start(),
 		sge::parse::encoding::blank_type
 	> ini_;
 };

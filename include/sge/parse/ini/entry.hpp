@@ -35,11 +35,13 @@ namespace ini
 
 struct entry
 {
-	SGE_PARSE_SYMBOL entry();
+	SGE_PARSE_SYMBOL
+	entry();
 
-	SGE_PARSE_SYMBOL entry(
-		string const &name,
-		string const &value
+	SGE_PARSE_SYMBOL
+	entry(
+		sge::parse::ini::string const &name,
+		sge::parse::ini::string const &value
 	);
 
 	string

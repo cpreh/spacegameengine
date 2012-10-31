@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/parse/exception.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/const_optional_object_ref.hpp>
-#include <sge/parse/json/exception.hpp>
 #include <sge/parse/json/find_member_return_type.hpp>
 #include <sge/parse/json/find_member_value.hpp>
 #include <sge/parse/json/find_object.hpp>
@@ -75,7 +75,7 @@ find_object_impl(
 
 		if(val->type() != typeid(sge::parse::json::object))
 			throw
-				sge::parse::json::exception(
+				sge::parse::exception(
 					FCPPT_TEXT("Couldn't navigate to \"")+
 					sge::parse::json::path_to_string(
 						_path)+

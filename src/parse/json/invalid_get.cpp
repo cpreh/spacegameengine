@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/json/exception.hpp>
+#include <sge/parse/exception.hpp>
 #include <sge/parse/json/invalid_get.hpp>
 #include <fcppt/string.hpp>
 
@@ -27,7 +27,8 @@ sge::parse::json::invalid_get::invalid_get(
 	fcppt::string const &_string
 )
 :
-	sge::parse::json::exception(
+	sge::parse::exception(
 		_string
 	)
-{}
+{
+}

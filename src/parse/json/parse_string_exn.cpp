@@ -18,7 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/json/exception.hpp>
+#include <sge/parse/error_string.hpp>
+#include <sge/parse/parse_exception.hpp>
+#include <sge/parse/result_code.hpp>
 #include <sge/parse/json/parse_range.hpp>
 #include <sge/parse/json/parse_string_exn.hpp>
 #include <sge/parse/json/start.hpp>
@@ -45,8 +47,12 @@ sge::parse::json::parse_string_exn(
 		)
 	)
 		throw
-			sge::parse::json::exception(
-				FCPPT_TEXT("Error parsing json")
+			sge::parse::parse_exception(
+				sge::parse::result_code::failure,
+				// TODO!
+				sge::parse::error_string(
+					FCPPT_TEXT("Error parsing json")
+				)
 			);
 
 	return result;

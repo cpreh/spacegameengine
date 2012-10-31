@@ -40,13 +40,14 @@ struct section
 	section();
 
 	SGE_PARSE_SYMBOL
-	explicit section(
-		string const &header
+	explicit
+	section(
+		sge::parse::ini::string const &header
 	);
 
-	string header;
+	sge::parse::ini::string header;
 
-	entry_vector entries;
+	sge::parse::ini::entry_vector entries;
 };
 
 }

@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PARSE_JSON_INVALID_GET_HPP_INCLUDED
 
 #include <sge/class_symbol.hpp>
+#include <sge/parse/exception.hpp>
 #include <sge/parse/symbol.hpp>
-#include <sge/parse/json/exception.hpp>
 #include <fcppt/string.hpp>
 
 
@@ -36,11 +36,12 @@ namespace json
 
 class SGE_CLASS_SYMBOL invalid_get
 :
-	public sge::parse::json::exception
+	public sge::parse::exception
 {
 public:
 	SGE_PARSE_SYMBOL
-	explicit invalid_get(
+	explicit
+	invalid_get(
 		fcppt::string const &
 	);
 };

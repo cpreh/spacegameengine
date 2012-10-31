@@ -39,17 +39,18 @@ public:
 	typedef bool result_type;
 
 	SGE_PARSE_SYMBOL
-	explicit entry_name_equal(
-		string const &
+	explicit
+	entry_name_equal(
+		sge::parse::ini::string const &
 	);
 
 	SGE_PARSE_SYMBOL
 	bool
 	operator()(
-		entry const &
+		sge::parse::ini::entry const &
 	) const;
 private:
-	string name_;
+	sge::parse::ini::string name_;
 };
 
 }

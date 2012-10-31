@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/parse/exception.hpp>
 #include <sge/parse/json/array.hpp>
-#include <sge/parse/json/exception.hpp>
 #include <sge/parse/json/float_type.hpp>
 #include <sge/parse/json/int_type.hpp>
 #include <sge/parse/json/member_map.hpp>
@@ -183,7 +183,7 @@ public:
 			)
 			!= sge::parse::json::string::npos
 		)
-			throw sge::parse::json::exception(
+			throw sge::parse::exception(
 				FCPPT_TEXT("quoted strings are unsupported")
 			);
 

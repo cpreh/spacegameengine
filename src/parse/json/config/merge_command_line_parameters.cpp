@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/parse/exception.hpp>
 #include <sge/parse/json/array.hpp>
-#include <sge/parse/json/exception.hpp>
 #include <sge/parse/json/find_member_exn.hpp>
 #include <sge/parse/json/find_member_value.hpp>
 #include <sge/parse/json/member_map.hpp>
@@ -74,7 +74,7 @@ process_option(
 			>> boost::spirit::lit('=')
 			>> *encoding::char_,
 			result ) )
-		throw sge::parse::json::exception(
+		throw sge::parse::exception(
 			FCPPT_TEXT("The command line parameter \"")+
 			input+
 			FCPPT_TEXT("\" has an invalid format. See --help to see what that means."));
@@ -119,7 +119,7 @@ process_option(
 	if(
 		!pos
 	)
-		throw sge::parse::json::exception(
+		throw sge::parse::exception(
 			FCPPT_TEXT("Couldn't find member \"")+
 			element+
 			FCPPT_TEXT("\", did you mean: ")+

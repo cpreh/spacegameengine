@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/parse/exception.hpp>
 #include <sge/parse/json/array.hpp>
-#include <sge/parse/json/exception.hpp>
 #include <sge/parse/json/find_member_value.hpp>
 #include <sge/parse/json/get.hpp>
 #include <sge/parse/json/make_recursive_objects.hpp>
@@ -94,7 +94,7 @@ create_or_navigate_path(
 		)
 	)
 		throw
-			sge::parse::json::exception(
+			sge::parse::exception(
 				FCPPT_TEXT("Couldn't navigate to (make_recursive) \"")+
 				sge::parse::json::path_to_string(
 					_input_path)+

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_INI_OUTPUT_TO_RANGE_HPP_INCLUDED
 #define SGE_PARSE_INI_OUTPUT_TO_RANGE_HPP_INCLUDED
 
-#include <sge/parse/ini/section_vector.hpp>
+#include <sge/parse/ini/start.hpp>
 #include <sge/parse/ini/output/grammar.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/spirit/include/karma_generate.hpp>
@@ -42,19 +42,19 @@ template<
 >
 bool
 to_range(
-	Out &beg,
-	section_vector const &data
+	Out &_beg,
+	sge::parse::ini::start const &_data
 )
 {
-	output::grammar<
+	sge::parse::ini::output::grammar<
 		Out
 	> parser;
 
 	return
 		boost::spirit::karma::generate(
-			beg,
+			_beg,
 			parser,
-			data
+			_data
 		);
 }
 

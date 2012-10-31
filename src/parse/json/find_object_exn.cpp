@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/parse/exception.hpp>
 #include <sge/parse/json/array.hpp>
-#include <sge/parse/json/exception.hpp>
 #include <sge/parse/json/find_object.hpp>
 #include <sge/parse/json/find_object_exn.hpp>
 #include <sge/parse/json/object.hpp>
@@ -51,7 +51,7 @@ find_object_exn_impl(
 		!ref
 	)
 		throw
-			sge::parse::json::exception(
+			sge::parse::exception(
 				FCPPT_TEXT("Couldn't navigate to \"")+
 				sge::parse::json::path_to_string(
 					_path)+

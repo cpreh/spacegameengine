@@ -18,13 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/json/exception.hpp>
+#ifndef SGE_PARSE_JSON_RESULT_WITH_VALUE_FWD_HPP_INCLUDED
+#define SGE_PARSE_JSON_RESULT_WITH_VALUE_FWD_HPP_INCLUDED
 
-sge::parse::json::exception::exception(
-	fcppt::string const &_string
-)
-:
-	sge::parse::exception(
-		_string
-	)
-{}
+#include <sge/parse/result_with_value_fwd.hpp>
+#include <sge/parse/json/start_fwd.hpp>
+
+
+namespace sge
+{
+namespace parse
+{
+namespace json
+{
+
+typedef sge::parse::result_with_value<
+	sge::parse::json::start
+> result_with_value;
+
+}
+}
+}
+
+#endif

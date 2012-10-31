@@ -20,18 +20,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/parse/ini/parse_range.hpp>
 #include <sge/parse/ini/parse_stream.hpp>
-#include <sge/parse/ini/section_vector.hpp>
+#include <sge/parse/ini/start.hpp>
 #include <sge/src/parse/parse_stream.hpp>
 #include <fcppt/io/istream.hpp>
+
 
 bool
 sge::parse::ini::parse_stream(
 	fcppt::io::istream &stream,
-	ini::section_vector &result
+	sge::parse::ini::start &result
 )
 {
 	return
-		parse::parse_stream(
+		sge::parse::parse_stream(
 			stream,
 			result
 		);

@@ -1,10 +1,13 @@
 set(
 	SGE_PARSE_FILES
 	include/sge/parse/encoding.hpp
+	include/sge/parse/error_string.hpp
 	include/sge/parse/exception.hpp
+	include/sge/parse/exception_fwd.hpp
 	include/sge/parse/info_to_string.hpp
 	include/sge/parse/ini/detail/adapt_entry.hpp
 	include/sge/parse/ini/detail/adapt_section.hpp
+	include/sge/parse/ini/detail/adapt_start.hpp
 	include/sge/parse/ini/entry.hpp
 	include/sge/parse/ini/entry_fwd.hpp
 	include/sge/parse/ini/entry_name_equal.hpp
@@ -22,11 +25,17 @@ set(
 	include/sge/parse/ini/output/to_range.hpp
 	include/sge/parse/ini/output/to_stream.hpp
 	include/sge/parse/ini/parse_file.hpp
+	include/sge/parse/ini/parse_file_exn.hpp
+	include/sge/parse/ini/parse_file_opt.hpp
 	include/sge/parse/ini/parse_range.hpp
 	include/sge/parse/ini/parse_stream.hpp
+	include/sge/parse/ini/result_with_value.hpp
+	include/sge/parse/ini/result_with_value_fwd.hpp
 	include/sge/parse/ini/section.hpp
 	include/sge/parse/ini/section_fwd.hpp
 	include/sge/parse/ini/section_vector.hpp
+	include/sge/parse/ini/start.hpp
+	include/sge/parse/ini/start_fwd.hpp
 	include/sge/parse/ini/string.hpp
 	include/sge/parse/json/array.hpp
 	include/sge/parse/json/array_fwd.hpp
@@ -59,7 +68,6 @@ set(
 	include/sge/parse/json/detail/value_wrapper.hpp
 	include/sge/parse/json/detail/value_wrapper_fwd.hpp
 	include/sge/parse/json/element_vector.hpp
-	include/sge/parse/json/exception.hpp
 	include/sge/parse/json/find_and_convert_member.hpp
 	include/sge/parse/json/find_member.hpp
 	include/sge/parse/json/find_member_exn.hpp
@@ -100,12 +108,15 @@ set(
 	include/sge/parse/json/output/to_stream.hpp
 	include/sge/parse/json/parse_file.hpp
 	include/sge/parse/json/parse_file_exn.hpp
+	include/sge/parse/json/parse_file_opt.hpp
 	include/sge/parse/json/parse_range.hpp
 	include/sge/parse/json/parse_stream.hpp
 	include/sge/parse/json/parse_string_exn.hpp
 	include/sge/parse/json/path.hpp
 	include/sge/parse/json/path_fwd.hpp
 	include/sge/parse/json/path_to_string.hpp
+	include/sge/parse/json/result_with_value.hpp
+	include/sge/parse/json/result_with_value_fwd.hpp
 	include/sge/parse/json/start.hpp
 	include/sge/parse/json/start_fwd.hpp
 	include/sge/parse/json/start_variant.hpp
@@ -115,12 +126,24 @@ set(
 	include/sge/parse/json/string_to_value.hpp
 	include/sge/parse/json/value.hpp
 	include/sge/parse/json/value_fwd.hpp
+	include/sge/parse/optional_error_string.hpp
+	include/sge/parse/optional_error_string_fwd.hpp
+	include/sge/parse/parse_exception.hpp
+	include/sge/parse/parse_exception_fwd.hpp
+	include/sge/parse/result.hpp
+	include/sge/parse/result_code.hpp
+	include/sge/parse/result_fwd.hpp
+	include/sge/parse/result_with_value.hpp
+	include/sge/parse/result_with_value_fwd.hpp
 	src/parse/exception.cpp
+	src/parse/include/sge/src/parse/instantiate_result_with_value.hpp
 	src/parse/include/sge/src/parse/output/to_file.hpp
 	src/parse/include/sge/src/parse/output/to_stream.hpp
 	src/parse/include/sge/src/parse/parse_file.hpp
 	src/parse/include/sge/src/parse/parse_file_exn.hpp
+	src/parse/include/sge/src/parse/parse_file_opt.hpp
 	src/parse/include/sge/src/parse/parse_stream.hpp
+	src/parse/include/sge/src/parse/result_with_value_impl.hpp
 	src/parse/info_to_string.cpp
 	src/parse/ini/entry.cpp
 	src/parse/ini/entry_name_equal.cpp
@@ -128,15 +151,18 @@ set(
 	src/parse/ini/output/to_file.cpp
 	src/parse/ini/output/to_stream.cpp
 	src/parse/ini/parse_file.cpp
+	src/parse/ini/parse_file_exn.cpp
+	src/parse/ini/parse_file_opt.cpp
 	src/parse/ini/parse_stream.cpp
+	src/parse/ini/result_with_value.cpp
 	src/parse/ini/section.cpp
+	src/parse/ini/start.cpp
 	src/parse/json/array.cpp
 	src/parse/json/config/create_command_line_parameters.cpp
 	src/parse/json/config/help_needed_exception.cpp
 	src/parse/json/config/merge_command_line_parameters.cpp
 	src/parse/json/config/merge_trees.cpp
 	src/parse/json/config/modify_user_value.cpp
-	src/parse/json/exception.cpp
 	src/parse/json/find_object.cpp
 	src/parse/json/find_object_exn.cpp
 	src/parse/json/invalid_get.cpp
@@ -150,13 +176,17 @@ set(
 	src/parse/json/output/to_stream.cpp
 	src/parse/json/parse_file.cpp
 	src/parse/json/parse_file_exn.cpp
+	src/parse/json/parse_file_opt.cpp
 	src/parse/json/parse_stream.cpp
 	src/parse/json/parse_string_exn.cpp
 	src/parse/json/path.cpp
 	src/parse/json/path_to_string.cpp
+	src/parse/json/result_with_value.cpp
 	src/parse/json/start.cpp
 	src/parse/json/string_to_path.cpp
 	src/parse/json/string_to_value.cpp
+	src/parse/parse_exception.cpp
+	src/parse/result.cpp
 )
 
 add_sge_base_library(
