@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_JSON_CONVERT_TO_ENUM_HPP_INCLUDED
 #define SGE_PARSE_JSON_CONVERT_TO_ENUM_HPP_INCLUDED
 
-#include <sge/parse/json/exception.hpp>
+#include <sge/parse/exception.hpp>
 #include <sge/parse/json/get.hpp>
 #include <sge/parse/json/int_type.hpp>
 #include <sge/parse/json/value.hpp>
@@ -74,7 +74,7 @@ to_enum(
 			_max_value
 		)
 	)
-		throw sge::parse::json::exception(
+		throw sge::parse::exception(
 			FCPPT_TEXT("Enum value out of range!")
 		);
 

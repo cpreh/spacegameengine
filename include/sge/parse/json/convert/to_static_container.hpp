@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_JSON_CONVERT_TO_STATIC_CONTAINER_HPP_INCLUDED
 #define SGE_PARSE_JSON_CONVERT_TO_STATIC_CONTAINER_HPP_INCLUDED
 
+#include <sge/parse/exception.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/element_vector.hpp>
-#include <sge/parse/json/exception.hpp>
 #include <sge/parse/json/get.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/convert/choose_fundamental.hpp>
@@ -64,7 +64,7 @@ to_static_container(
 				Container::dim_wrapper::value
 			)
 		)
-			throw sge::parse::json::exception(
+			throw sge::parse::exception(
 				FCPPT_TEXT("convert::to_static_container out of range!")
 			);
 
