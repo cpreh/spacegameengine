@@ -22,13 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/ini/start.hpp>
 
 
-sge::parse::ini::start::start::start()
+sge::parse::ini::start::start()
 :
 	sections()
 {
 }
 
-sge::parse::ini::start::start::start(
+sge::parse::ini::start::start(
 	sge::parse::ini::section_vector const &_sections
 )
 :
