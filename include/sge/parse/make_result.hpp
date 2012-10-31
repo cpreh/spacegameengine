@@ -21,8 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_MAKE_RESULT_HPP_INCLUDED
 #define SGE_PARSE_MAKE_RESULT_HPP_INCLUDED
 
+#include <sge/parse/error_string.hpp>
 #include <sge/parse/result_code.hpp>
+#include <sge/parse/optional_error_string.hpp>
 #include <sge/parse/result.hpp>
+#include <fcppt/string.hpp>
 
 
 namespace sge
@@ -42,21 +45,46 @@ make_result(
 	Grammar const &_grammar
 )
 {
+	sge::parse::result_code::type const result_code(
+		_retval
+		?
+			_begin
+			==
+			_end
+			?
+				sge::parse::result_code::ok
+			:
+				sge::parse::result_code::partial
+		:
+			sge::parse::result_code::failure
+	);
+
 	return
 		sge::parse::result(
-			_retval
-			?
-				_begin
-				==
-				_end
-				?
-					sge::parse::result_code::ok
-				:
-					sge::parse::result_code::partial
-			:
-				sge::parse::result_code::failure
+			result_code
 			,
-			_grammar.error_string()
+			result_code
+			==
+			sge::parse::result_code::ok
+			?
+				sge::parse::optional_error_string()
+			:
+				_grammar.error_string()
+				?
+					_grammar.error_string()
+				:
+					sge::parse::optional_error_string(
+						sge::parse::error_string(
+							FCPPT_TEXT("Parsing failed without an error, probably trailing garbage: \"")
+							+
+							fcppt::string(
+								_begin,
+								_end
+							)
+							+
+							FCPPT_TEXT('"')
+						)
+					)
 		);
 }
 

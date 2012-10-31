@@ -63,7 +63,7 @@ install_error_handler(
 				sge::parse::error_string
 			>(
 				boost::phoenix::val(
-					FCPPT_TEXT('"')
+					FCPPT_TEXT("Parsing failed: \"")
 				)
 				+
 				boost::phoenix::construct<

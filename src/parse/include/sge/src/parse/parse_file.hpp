@@ -98,11 +98,9 @@ parse_file(
 							_path
 						)
 						+
-						FCPPT_TEXT("\", reason: \"")
+						FCPPT_TEXT("\", ")
 						+
 						result.error_string()->get()
-						+
-						FCPPT_TEXT('"')
 					)
 				)
 			);
