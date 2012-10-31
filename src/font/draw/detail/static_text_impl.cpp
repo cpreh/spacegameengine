@@ -36,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/sampler/scoped.hpp>
 #include <sge/renderer/state/ffp/sampler/scoped_scoped_ptr.hpp>
 #include <sge/renderer/state/ffp/sampler/scoped_unique_ptr.hpp>
+#include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/parameters_impl.hpp>
 #include <sge/sprite/buffers/option.hpp>
