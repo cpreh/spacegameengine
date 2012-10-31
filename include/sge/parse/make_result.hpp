@@ -18,23 +18,56 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_PARSE_MAKE_RESULT_HPP_INCLUDED
+#define SGE_PARSE_MAKE_RESULT_HPP_INCLUDED
+
+#include <sge/parse/error_string.hpp>
+#include <sge/parse/optional_error_string.hpp>
+#include <sge/parse/result_code.hpp>
 #include <sge/parse/result.hpp>
-#include <sge/parse/json/parse_range.hpp>
-#include <sge/parse/json/parse_stream.hpp>
-#include <sge/parse/json/start_fwd.hpp>
-#include <sge/src/parse/parse_stream.hpp>
-#include <fcppt/io/istream.hpp>
+#include <fcppt/string.hpp>
 
 
+namespace sge
+{
+namespace parse
+{
+
+template<
+	typename In,
+	typename Grammar
+>
 sge::parse::result const
-sge::parse::json::parse_stream(
-	fcppt::io::istream &_stream,
-	sge::parse::json::start &_result
+make_result(
+	bool const _retval,
+	In &_begin,
+	In const &_end,
+	Grammar const &_grammar
 )
 {
 	return
-		sge::parse::parse_stream(
-			_stream,
-			_result
+		sge::parse::result(
+			_retval
+			?
+				_begin
+				==
+				_end
+				?
+					sge::parse::result_code::ok
+				:
+					sge::parse::result_code::partial
+			:
+				sge::parse::result_code::failure
+			,
+			sge::parse::optional_error_string(
+				sge::parse::error_string(
+					fcppt::string()
+				) // TODO!
+			)
 		);
 }
+
+}
+}
+
+#endif

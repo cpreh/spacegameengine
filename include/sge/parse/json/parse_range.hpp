@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PARSE_JSON_PARSE_RANGE_HPP_INCLUDED
 
 #include <sge/parse/encoding.hpp>
+#include <sge/parse/make_result.hpp>
+#include <sge/parse/result.hpp>
 #include <sge/parse/json/grammar.hpp>
 #include <sge/parse/json/start.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -39,7 +41,7 @@ namespace json
 template<
 	typename In
 >
-bool
+sge::parse::result const
 parse_range(
 	In &_beg,
 	In const _end,
@@ -51,12 +53,17 @@ parse_range(
 	> parser;
 
 	return
-		boost::spirit::qi::phrase_parse(
+		sge::parse::make_result(
+			boost::spirit::qi::phrase_parse(
+				_beg,
+				_end,
+				parser,
+				sge::parse::encoding::space,
+				_result
+			),
 			_beg,
 			_end,
-			parser,
-			sge::parse::encoding::space,
-			_result
+			parser
 		);
 }
 

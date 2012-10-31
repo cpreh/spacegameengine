@@ -73,7 +73,7 @@ parse_file(
 				)
 			);
 
-	bool const result(
+	sge::parse::result const result(
 		// use ADL
 		parse_stream(
 			ifs,
@@ -81,34 +81,31 @@ parse_file(
 		)
 	);
 
-	if(
-		result
-	)
-		return
-			sge::parse::result(
-				sge::parse::result_code::ok,
-				sge::parse::optional_error_string()
-			);
-
 	return
-		sge::parse::result(
-			ifs.eof()
-			?
-				sge::parse::result_code::failure
-			:
-				sge::parse::result_code::partial
-			,
-			sge::parse::optional_error_string(
-				sge::parse::error_string(
-					FCPPT_TEXT("Failed to parse ")
-					+
-					fcppt::filesystem::path_to_string(
-						_path
+		result.result_code()
+		==
+		sge::parse::result_code::ok
+		?
+			result
+		:
+			sge::parse::result(
+				result.result_code(),
+				sge::parse::optional_error_string(
+					sge::parse::error_string(
+						FCPPT_TEXT("Failed to parse \"")
+						+
+						fcppt::filesystem::path_to_string(
+							_path
+						)
+						+
+						FCPPT_TEXT("\", reason: \"")
+						+
+						result.error_string()->get()
+						+
+						FCPPT_TEXT('"')
 					)
 				)
-				// TODO: Add error information here!
-			)
-		);
+			);
 }
 
 }

@@ -18,6 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/parse/result_code.hpp>
+#include <sge/parse/result.hpp>
 #include <sge/parse/ini/parse_range.hpp>
 #include <sge/parse/ini/start.hpp>
 #include <sge/parse/ini/output/to_stream.hpp>
@@ -43,16 +45,23 @@ int main()
 
 	sge::parse::ini::start result;
 
-	if(
-		!sge::parse::ini::parse_range(
+	sge::parse::result const ret(
+		sge::parse::ini::parse_range(
 			beg,
 			test.end(),
 			result
 		)
+	);
+
+	if(
+		ret.result_code()
+		!=
+		sge::parse::result_code::ok
 	)
 	{
 		fcppt::io::cerr()
-			<< FCPPT_TEXT("Parsing failed\n");
+			<< ret.error_string()->get()
+			<< FCPPT_TEXT('\n');
 
 		return EXIT_FAILURE;
 	}

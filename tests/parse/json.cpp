@@ -18,21 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/parse/result.hpp>
+#include <sge/parse/result_code.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/parse_stream.hpp>
 #include <sge/parse/json/start.hpp>
-#include <fcppt/io/cout.hpp>
-#include <fcppt/io/istringstream.hpp>
+#include <fcppt/exception.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/exception.hpp>
+#include <fcppt/io/cout.hpp>
+#include <fcppt/io/istringstream.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/test/unit_test.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace
 {
@@ -81,7 +84,9 @@ FCPPT_PP_POP_WARNING
 		sge::parse::json::parse_stream(
 			ss,
 			result
-		)
+		).result_code()
+		==
+		sge::parse::result_code::ok
 	);
 }
 
@@ -111,7 +116,9 @@ FCPPT_PP_POP_WARNING
 		sge::parse::json::parse_stream(
 			ss,
 			result
-		)
+		).result_code()
+		==
+		sge::parse::result_code::ok
 	);
 }
 

@@ -46,7 +46,6 @@ sge::parse::ini::grammar<
 	grammar::base_type(
 		ini_
 	),
-	char_seq_(),
 	entry_(),
 	header_(),
 	section_(),
@@ -58,25 +57,22 @@ sge::parse::ini::grammar<
 	using boost::spirit::lexeme;
 	using boost::spirit::eol;
 
-	char_seq_ %=
-		+(
-			char_
-			- eol
-		);
-
 	entry_ %=
 		!char_(FCPPT_TEXT('['))
 		>> +~char_(FCPPT_TEXT('='))
 		>> lit(FCPPT_TEXT('='))
-		>> char_seq_
+		>> +(char_ - eol)
 		>> eol;
-
 
 	header_ %=
 		lexeme[
-			FCPPT_TEXT('[')
-			>> +~char_(FCPPT_TEXT(']'))
-			>> FCPPT_TEXT(']')
+			lit(FCPPT_TEXT('['))
+			>> +(
+				~char_(FCPPT_TEXT(']'))
+				-
+				eol
+			)
+			>> lit(FCPPT_TEXT(']'))
 		]
 		>> eol;
 
@@ -89,6 +85,23 @@ sge::parse::ini::grammar<
 
 	ini_ %=
 		section_vector_;
+
+	/*
+	BOOST_SPIRIT_DEBUG_NODE(
+		entry_
+	);
+
+	BOOST_SPIRIT_DEBUG_NODE(
+		header_
+	);
+
+	BOOST_SPIRIT_DEBUG_NODE(
+		section_
+	);
+
+	BOOST_SPIRIT_DEBUG_NODE(
+		section_vector_
+	);*/
 }
 
 template<

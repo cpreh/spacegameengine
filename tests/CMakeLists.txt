@@ -118,3 +118,10 @@ add_sge_test(
 	"${Fcppt_core_LIBRARIES}"
 	""
 )
+
+add_sge_test(
+	parse/ini
+	"sgeparse"
+	"${Fcppt_core_LIBRARIES}"
+	""
+)

@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <fcppt/char_type.hpp>
 #include <fcppt/io/istream.hpp>
+#include <sge/parse/result.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/spirit/home/support/iterators/istream_iterator.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -36,10 +37,10 @@ namespace parse
 template<
 	typename Result
 >
-bool
+sge::parse::result const
 parse_stream(
-	fcppt::io::istream &ifs,
-	Result &result
+	fcppt::io::istream &_ifs,
+	Result &_result
 )
 {
 	typedef boost::spirit::basic_istream_iterator<
@@ -47,14 +48,14 @@ parse_stream(
 	> istream_iterator;
 
 	istream_iterator begin(
-		ifs
+		_ifs
 	);
 
 	return
 		parse_range(
 			begin,
 			istream_iterator(),
-			result
+			_result
 		);
 }
 

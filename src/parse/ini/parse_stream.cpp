@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/parse/result.hpp>
 #include <sge/parse/ini/parse_range.hpp>
 #include <sge/parse/ini/parse_stream.hpp>
 #include <sge/parse/ini/start.hpp>
@@ -25,15 +26,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/io/istream.hpp>
 
 
-bool
+sge::parse::result const
 sge::parse::ini::parse_stream(
-	fcppt::io::istream &stream,
-	sge::parse::ini::start &result
+	fcppt::io::istream &_stream,
+	sge::parse::ini::start &_result
 )
 {
 	return
 		sge::parse::parse_stream(
-			stream,
-			result
+			_stream,
+			_result
 		);
 }

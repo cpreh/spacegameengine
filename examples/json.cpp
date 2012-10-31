@@ -18,6 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/parse/result_code.hpp>
+#include <sge/parse/result.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/find_member_exn.hpp>
 #include <sge/parse/json/null.hpp>
@@ -54,15 +56,22 @@ try
 
 	sge::parse::json::start result;
 
-	if(
-		!sge::parse::json::parse_stream(
+	sge::parse::result const ret(
+		sge::parse::json::parse_stream(
 			ss,
 			result
 		)
+	);
+
+	if(
+		ret.result_code()
+		!=
+		sge::parse::result_code::ok
 	)
 	{
 		fcppt::io::cerr()
-			<< FCPPT_TEXT("failure\n");
+			<< ret.error_string()->get()
+			<< FCPPT_TEXT('\n');
 
 		return EXIT_FAILURE;
 	}

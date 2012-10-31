@@ -69,12 +69,6 @@ public:
 private:
 	boost::spirit::qi::rule<
 		In,
-		sge::parse::ini::string(),
-		sge::parse::encoding::blank_type
-	> char_seq_;
-
-	boost::spirit::qi::rule<
-		In,
 		sge::parse::ini::entry(),
 		sge::parse::encoding::blank_type
 	> entry_;

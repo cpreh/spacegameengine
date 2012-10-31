@@ -18,14 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/error_string.hpp>
 #include <sge/parse/parse_exception.hpp>
+#include <sge/parse/result.hpp>
 #include <sge/parse/result_code.hpp>
 #include <sge/parse/json/parse_range.hpp>
 #include <sge/parse/json/parse_string_exn.hpp>
 #include <sge/parse/json/start.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/text.hpp>
 
 
 sge::parse::json::start const
@@ -39,20 +38,23 @@ sge::parse::json::parse_string_exn(
 		_string.begin()
 	);
 
-	if(
-		!sge::parse::json::parse_range(
+	sge::parse::result const ret(
+		sge::parse::json::parse_range(
 			current,
 			_string.end(),
 			result
 		)
+	);
+
+	if(
+		ret.result_code()
+		!=
+		sge::parse::result_code::ok
 	)
 		throw
 			sge::parse::parse_exception(
-				sge::parse::result_code::failure,
-				// TODO!
-				sge::parse::error_string(
-					FCPPT_TEXT("Error parsing json")
-				)
+				ret.result_code(),
+				*ret.error_string()
 			);
 
 	return result;

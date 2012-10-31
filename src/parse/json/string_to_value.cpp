@@ -18,7 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/exception.hpp>
+#include <sge/parse/parse_exception.hpp>
+#include <sge/parse/result_code.hpp>
+#include <sge/parse/result.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/parse_stream.hpp>
@@ -46,22 +48,27 @@ sge::parse::json::string_to_value(
 		).str()
 	);
 
-	fcppt::io::istringstream stream(edited);
+	fcppt::io::istringstream stream(
+		edited
+	);
 
 	sge::parse::json::start result;
 
-	if(
-		!sge::parse::json::parse_stream(
+	sge::parse::result const ret(
+		sge::parse::json::parse_stream(
 			stream,
 			result
 		)
+	);
+
+	if(
+		ret.result_code()
+		!=
+		sge::parse::result_code::ok
 	)
-		throw sge::parse::exception(
-			FCPPT_TEXT("Couldn't convert string \"")
-			+
-			_string
-			+
-			FCPPT_TEXT("\" to json value")
+		throw sge::parse::parse_exception(
+			ret.result_code(),
+			*ret.error_string()
 		);
 
 	return
