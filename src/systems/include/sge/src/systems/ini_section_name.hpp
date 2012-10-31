@@ -18,11 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CONFIG_OPTIONAL_STRING_HPP_INCLUDED
-#define SGE_CONFIG_OPTIONAL_STRING_HPP_INCLUDED
+#ifndef SGE_SRC_SYSTEMS_INI_SECTION_NAME_HPP_INCLUDED
+#define SGE_SRC_SYSTEMS_INI_SECTION_NAME_HPP_INCLUDED
 
-#include <sge/config/optional_string_fwd.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <sge/parse/ini/section_name.hpp>
 
+
+namespace sge
+{
+namespace systems
+{
+
+sge::parse::ini::section_name const
+ini_section_name();
+
+}
+}
 
 #endif

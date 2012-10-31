@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
-#include <awl/backends/windows/windows.hpp>
+#include <sge/src/include_windows.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/char_type.hpp>
 #elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
@@ -38,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #error "Implement me!"
 #endif
 
+
 boost::filesystem::path const
 sge::config::app_path()
 {
@@ -46,16 +47,22 @@ sge::config::app_path()
 		fcppt::char_type
 	> buffer_type;
 
-	buffer_type buf(32768);
+	buffer_type buf(
+		32768u
+	);
 
 	if(
 		!::GetModuleFileName(
 			NULL,
 			buf.data(),
-			static_cast<DWORD>(buf.size())
+			static_cast<
+				DWORD
+			>(
+				buf.size()
+			)
 		)
 	)
-		throw config::exception(
+		throw sge::config::exception(
 			FCPPT_TEXT("GetModuleFileName() failed!")
 		);
 
@@ -75,7 +82,7 @@ sge::config::app_path()
 			self
 		)
 	)
-		throw config::exception(
+		throw sge::config::exception(
 			FCPPT_TEXT("/prof/self/exe does not exist")
 		);
 

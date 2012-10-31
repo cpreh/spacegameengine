@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/config/app_name.hpp>
 #include <sge/config/config_path.hpp>
 #include <sge/src/config/try_create_path.hpp>
 #include <fcppt/config/platform.hpp>
@@ -30,29 +31,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/config/getenv.hpp>
 #include <sge/config/homedir.hpp>
 #include <sge/config/optional_string.hpp>
-#include <fcppt/optional_impl.hpp>
 #elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 #include <sge/config/getenv_exn.hpp>
 #endif
 
+
 boost::filesystem::path const
 sge::config::config_path(
-	fcppt::string const &_appname
+	sge::config::app_name const &_app_name
 )
 {
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 	return
-		config::try_create_path(
+		sge::config::try_create_path(
 			boost::filesystem::path(
-				config::getenv_exn(
+				sge::config::getenv_exn(
 					FCPPT_TEXT("APPDATA")
 				)
 			)
-			/ _appname
+			/
+			_app_name.get()
 		);
 #elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
-	optional_string const xdg_config_path(
-		config::getenv(
+	sge::config::optional_string const xdg_config_path(
+		sge::config::getenv(
 			FCPPT_TEXT("XDG_CONFIG_HOME")
 		)
 	);
@@ -62,13 +64,14 @@ sge::config::config_path(
 		?
 			*xdg_config_path
 		:
-			config::homedir() / FCPPT_TEXT(".config")
+			sge::config::homedir() / FCPPT_TEXT(".config")
 	);
 
 	return
-		config::try_create_path(
+		sge::config::try_create_path(
 			path
-			/ _appname
+			/
+			_app_name.get()
 		);
 #else
 #error "don't know how to find a config path"

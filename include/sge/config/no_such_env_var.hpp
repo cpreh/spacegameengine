@@ -34,10 +34,12 @@ namespace config
 
 class SGE_CLASS_SYMBOL no_such_env_var
 :
-	public exception
+	public sge::config::exception
 {
 public:
-	SGE_CONFIG_SYMBOL explicit no_such_env_var(
+	SGE_CONFIG_SYMBOL
+	explicit
+	no_such_env_var(
 		fcppt::string const &env_var
 	);
 };

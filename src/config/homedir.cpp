@@ -32,12 +32,12 @@ sge::config::homedir()
 {
 #if defined(FCPPT_CONFIG_POSIX_PLATFORM)
 	return
-		config::getenv_exn(
+		sge::config::getenv_exn(
 			FCPPT_TEXT("HOME")
 		);
 #elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 	return
-		config::getenv_exn(
+		sge::config::getenv_exn(
 			FCPPT_TEXT("USERPROFILE")
 		);
 #else

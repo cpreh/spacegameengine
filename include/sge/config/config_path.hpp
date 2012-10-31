@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CONFIG_CONFIG_PATH_HPP_INCLUDED
 #define SGE_CONFIG_CONFIG_PATH_HPP_INCLUDED
 
+#include <sge/config/app_name.hpp>
 #include <sge/config/symbol.hpp>
-#include <fcppt/string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -36,7 +36,7 @@ namespace config
 SGE_CONFIG_SYMBOL
 boost::filesystem::path const
 config_path(
-	fcppt::string const &appname
+	sge::config::app_name const &
 );
 
 }

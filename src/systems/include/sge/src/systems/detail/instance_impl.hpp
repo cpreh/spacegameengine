@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/object_fwd.hpp>
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/input/mouse/device_fwd.hpp>
+#include <sge/parse/ini/start_fwd.hpp>
 #include <sge/plugin/cache.hpp>
 #include <sge/plugin/manager.hpp>
 #include <sge/renderer/system_fwd.hpp>
@@ -83,7 +84,8 @@ public:
 
 	void
 	init_renderer_system(
-		sge::systems::detail::renderer const &
+		sge::systems::detail::renderer const &,
+		sge::parse::ini::start const &
 	);
 
 	void

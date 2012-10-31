@@ -18,11 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CONFIG_OPTIONAL_STRING_HPP_INCLUDED
-#define SGE_CONFIG_OPTIONAL_STRING_HPP_INCLUDED
+#ifndef SGE_SRC_SYSTEMS_MERGE_CONFIG_STRINGS_HPP_INCLUDED
+#define SGE_SRC_SYSTEMS_MERGE_CONFIG_STRINGS_HPP_INCLUDED
 
-#include <sge/config/optional_string_fwd.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <sge/parse/ini/entry_name.hpp>
+#include <sge/parse/ini/start_fwd.hpp>
+#include <sge/systems/optional_name_fwd.hpp>
 
+
+namespace sge
+{
+namespace systems
+{
+
+sge::systems::optional_name const
+merge_config_strings(
+	sge::systems::optional_name const &,
+	sge::parse::ini::start const &,
+	sge::parse::ini::entry_name const &
+);
+
+}
+}
 
 #endif

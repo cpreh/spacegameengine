@@ -123,8 +123,10 @@ set(
 	src/systems/include/sge/src/systems/detail/instance_impl.hpp
 	src/systems/include/sge/src/systems/extract_plugin_path.hpp
 	src/systems/include/sge/src/systems/find_plugin.hpp
+	src/systems/include/sge/src/systems/ini_section_name.hpp
 	src/systems/include/sge/src/systems/instantiate_basic_loader.hpp
 	src/systems/include/sge/src/systems/make_any_key.hpp
+	src/systems/include/sge/src/systems/merge_config_strings.hpp
 	src/systems/include/sge/src/systems/modules/audio/find_player_plugin.hpp
 	src/systems/include/sge/src/systems/modules/audio/loader.hpp
 	src/systems/include/sge/src/systems/modules/audio/loader_fwd.hpp
@@ -182,9 +184,11 @@ set(
 	src/systems/include/sge/src/systems/plugin_pair_decl.hpp
 	src/systems/include/sge/src/systems/plugin_pair_fwd.hpp
 	src/systems/include/sge/src/systems/plugin_pair_impl.hpp
+	src/systems/ini_section_name.cpp
 	src/systems/input.cpp
 	src/systems/make_any_key.cpp
 	src/systems/make_empty_list.cpp
+	src/systems/merge_config_strings.cpp
 	src/systems/modules/audio/find_player_plugin.cpp
 	src/systems/modules/audio/loader.cpp
 	src/systems/modules/audio/player.cpp
@@ -220,7 +224,7 @@ add_definitions(
 
 add_sge_base_library(
 	systems
-	"sgeaudio;sgecharconv;sgeconfig;sgecore;sgefont;sgeimage2d;sgeinput;sgelog;sgeplugin;sgerenderer;sgeviewport;sgewindow"
+	"sgeaudio;sgecharconv;sgeconfig;sgecore;sgefont;sgeimage2d;sgeinput;sgelog;sgeparse;sgeplugin;sgerenderer;sgeviewport;sgewindow"
 	"${Fcppt_filesystem_LIBRARIES};${Awl_LIBRARIES}"
 	""
 	""

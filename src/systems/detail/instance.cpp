@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/loader_fwd.hpp>
 #include <sge/audio/player_fwd.hpp>
 #include <sge/charconv/system_fwd.hpp>
+#include <sge/config/config_path.hpp>
+#include <sge/config/own_app_name.hpp>
 #include <sge/font/system_fwd.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/input/processor_fwd.hpp>
@@ -28,6 +30,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/object_fwd.hpp>
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/input/mouse/device_fwd.hpp>
+#include <sge/log/global.hpp>
+#include <sge/parse/result.hpp>
+#include <sge/parse/result_code.hpp>
+#include <sge/parse/ini/parse_file_opt.hpp>
+#include <sge/parse/ini/result_with_value.hpp>
+#include <sge/parse/ini/start.hpp>
 #include <sge/plugin/manager_fwd.hpp>
 #include <sge/renderer/system_fwd.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
@@ -43,9 +51,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/viewport/manager_fwd.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
+#include <fcppt/log/error.hpp>
+#include <fcppt/log/output.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/variant/apply_unary.hpp>
-#include <fcppt/variant/object_impl.hpp>
 
 
 sge::systems::detail::instance::instance(
@@ -62,6 +71,47 @@ sge::systems::detail::instance::instance(
 		)
 	)
 {
+	sge::parse::ini::result_with_value const ini_result_value(
+		sge::parse::ini::parse_file_opt(
+			sge::config::config_path(
+				sge::config::own_app_name()
+			)
+			/
+			FCPPT_TEXT("systems.ini")
+		)
+	);
+
+	sge::parse::result const &ini_result(
+		ini_result_value.result()
+	);
+
+	switch(
+		ini_result.result_code()
+	)
+	{
+	case sge::parse::result_code::failure:
+	case sge::parse::result_code::partial:
+		FCPPT_LOG_ERROR(
+			sge::log::global(),
+			fcppt::log::_
+				<< ini_result.error_string()->get()
+		);
+		break;
+	case sge::parse::result_code::ok:
+	case sge::parse::result_code::not_open:
+		break;
+	}
+
+	sge::parse::ini::start const &ini_config(
+		ini_result.result_code()
+		==
+		sge::parse::result_code::ok
+		?
+			*ini_result_value.start()
+		:
+			sge::parse::ini::start()
+	);
+
 	sge::systems::detail::any_map const &map(
 		_list.get()
 	);
@@ -82,7 +132,8 @@ sge::systems::detail::instance::instance(
 			impl_->init_renderer_system(
 				it->second.get<
 					sge::systems::detail::renderer
-				>()
+				>(),
+				ini_config
 			);
 	}
 

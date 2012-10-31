@@ -18,11 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CONFIG_OPTIONAL_STRING_HPP_INCLUDED
-#define SGE_CONFIG_OPTIONAL_STRING_HPP_INCLUDED
+#ifndef SGE_CONFIG_OWN_APP_NAME_HPP_INCLUDED
+#define SGE_CONFIG_OWN_APP_NAME_HPP_INCLUDED
 
-#include <sge/config/optional_string_fwd.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <sge/config/app_name.hpp>
+#include <sge/config/symbol.hpp>
 
+
+namespace sge
+{
+namespace config
+{
+
+SGE_CONFIG_SYMBOL
+sge::config::app_name const
+own_app_name();
+
+}
+}
 
 #endif

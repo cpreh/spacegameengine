@@ -19,21 +19,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/config/getenv.hpp>
+#include <sge/config/optional_string.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/config/platform.hpp>
-#include <fcppt/optional_impl.hpp>
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
-#include <awl/backends/windows/windows.hpp>
+#include <sge/src/include_windows.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/char_type.hpp>
 #include <fcppt/text.hpp>
 #else
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/null_ptr.hpp>
 #include <fcppt/to_std_string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstdlib>
 #include <fcppt/config/external_end.hpp>
 #endif
+
 
 sge::config::optional_string const
 sge::config::getenv(
@@ -63,7 +66,7 @@ sge::config::getenv(
 	if(
 		ret == 0
 	)
-		return config::optional_string();
+		return sge::config::optional_string();
 
 	FCPPT_ASSERT_ERROR(
 		ret <=
@@ -75,11 +78,11 @@ sge::config::getenv(
 	);
 
 	return
-			config::optional_string(
-				fcppt::string(
-					buffer.data()
-				)
-			);
+		sge::config::optional_string(
+			fcppt::string(
+				buffer.data()
+			)
+		);
 #else
 	char const *const ret(
 		::std::getenv(
@@ -91,13 +94,15 @@ sge::config::getenv(
 
 	return
 		ret
+		!=
+		fcppt::null_ptr()
 		?
-			config::optional_string(
+			sge::config::optional_string(
 				fcppt::from_std_string(
 					ret
 				)
 			)
 		:
-			config::optional_string();
+			sge::config::optional_string();
 #endif
 }

@@ -18,6 +18,7 @@ sge_config_add_custom_path(
 
 set(
 	SGE_CONFIG_FILES
+	include/sge/config/app_name.hpp
 	include/sge/config/app_path.hpp
 	include/sge/config/cache_path.hpp
 	include/sge/config/config_path.hpp
@@ -28,6 +29,8 @@ set(
 	include/sge/config/media_path.hpp
 	include/sge/config/no_such_env_var.hpp
 	include/sge/config/optional_string.hpp
+	include/sge/config/optional_string_fwd.hpp
+	include/sge/config/own_app_name.hpp
 	include/sge/config/plugin_path.hpp
 	src/config/app_path.cpp
 	src/config/cache_path.cpp
@@ -39,6 +42,7 @@ set(
 	src/config/include/sge/src/config/try_create_path.hpp
 	src/config/media_path.cpp
 	src/config/no_such_env_var.cpp
+	src/config/own_app_name.cpp
 	src/config/plugin_path.cpp
 	src/config/try_create_path.cpp
 )

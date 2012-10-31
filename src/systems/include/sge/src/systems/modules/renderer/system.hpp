@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_SYSTEMS_MODULES_RENDERER_SYSTEM_HPP_INCLUDED
 #define SGE_SRC_SYSTEMS_MODULES_RENDERER_SYSTEM_HPP_INCLUDED
 
+#include <sge/parse/ini/start_fwd.hpp>
 #include <sge/renderer/system_fwd.hpp>
 #include <sge/renderer/parameters/object.hpp>
 #include <sge/renderer/plugin/collection_fwd.hpp>
@@ -49,7 +50,8 @@ class system
 public:
 	system(
 		sge::renderer::plugin::collection const &,
-		sge::systems::detail::renderer const &
+		sge::systems::detail::renderer const &,
+		sge::parse::ini::start const &
 	);
 
 	~system();

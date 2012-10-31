@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/object_fwd.hpp>
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/input/mouse/device_fwd.hpp>
+#include <sge/parse/ini/start_fwd.hpp>
 #include <sge/plugin/collection.hpp>
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/optional_cache_ref.hpp>
@@ -93,7 +94,8 @@ sge::systems::detail::instance_impl::~instance_impl()
 
 void
 sge::systems::detail::instance_impl::init_renderer_system(
-	sge::systems::detail::renderer const &_param
+	sge::systems::detail::renderer const &_param,
+	sge::parse::ini::start const &_config
 )
 {
 	renderer_system_.take(
@@ -107,6 +109,9 @@ sge::systems::detail::instance_impl::init_renderer_system(
 			),
 			fcppt::cref(
 				_param
+			),
+			fcppt::cref(
+				_config
 			)
 		)
 	);

@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/config/app_name.hpp>
 #include <sge/config/config_path.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/text.hpp>
@@ -33,7 +34,9 @@ try
 {
 	fcppt::io::cout()
 		<< sge::config::config_path(
-			FCPPT_TEXT("sgeconfigtest")
+			sge::config::app_name(
+				FCPPT_TEXT("sgeconfigtest")
+			)
 		)
 		<< FCPPT_TEXT('\n');
 }
