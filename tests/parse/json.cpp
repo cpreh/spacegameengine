@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/parse_stream.hpp>
 #include <sge/parse/json/start.hpp>
-#include <fcppt/exception.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/io/cout.hpp>
@@ -36,23 +35,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/test/unit_test.hpp>
 #include <fcppt/config/external_end.hpp>
 
-
-namespace
-{
-
-bool
-print_exception(
-	fcppt::exception const &_exception
-)
-{
-	fcppt::io::cout()
-		<< _exception.string()
-		<< FCPPT_TEXT('\n');
-
-	return true;
-}
-
-}
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
@@ -148,12 +130,20 @@ FCPPT_PP_POP_WARNING
 
 	sge::parse::json::start result;
 
-	BOOST_REQUIRE_EXCEPTION(
+	sge::parse::result const ret(
 		sge::parse::json::parse_stream(
 			ss,
 			result
-		),
-		fcppt::exception,
-		::print_exception
+		)
 	);
+
+	BOOST_REQUIRE(
+		ret.result_code()
+		!=
+		sge::parse::result_code::ok
+	);
+
+	fcppt::io::cout()
+		<< *ret.error_string()
+		<< FCPPT_TEXT('\n');
 }

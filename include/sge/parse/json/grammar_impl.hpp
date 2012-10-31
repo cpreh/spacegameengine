@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PARSE_JSON_GRAMMAR_IMPL_HPP_INCLUDED
 
 #include <sge/parse/encoding.hpp>
-#include <sge/parse/exception.hpp>
-#include <sge/parse/info_to_string.hpp>
+#include <sge/parse/install_error_handler.hpp>
+#include <sge/parse/optional_error_string.hpp>
 #include <sge/parse/json/grammar_decl.hpp>
 #include <sge/parse/json/null.hpp>
 #include <sge/parse/json/detail/adapt_array.hpp>
@@ -38,11 +38,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/fusion/adapted/std_pair.hpp>
 #include <boost/spirit/home/phoenix/bind/bind_function.hpp>
 #include <boost/spirit/home/phoenix/bind/bind_member_function.hpp>
-#include <boost/spirit/home/phoenix/core/value.hpp>
 #include <boost/spirit/home/phoenix/object/construct.hpp>
-#include <boost/spirit/home/phoenix/operator/arithmetic.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
-#include <boost/spirit/home/phoenix/statement/throw.hpp>
 #include <boost/spirit/home/phoenix/stl/container.hpp>
 #include <boost/spirit/include/qi_action.hpp>
 #include <boost/spirit/include/qi_attr.hpp>
@@ -76,7 +73,8 @@ sge::parse::json::grammar<
 	member_wrapper_(),
 	member_map_(),
 	object_(),
-	start_()
+	start_(),
+	error_string_()
 {
 	namespace encoding = parse::encoding;
 
@@ -88,7 +86,7 @@ sge::parse::json::grammar<
 		)[
 			qi::_val
 			= boost::phoenix::construct<
-				json::null
+				sge::parse::json::null
 			>()
 		];
 
@@ -126,7 +124,7 @@ sge::parse::json::grammar<
 			boost::phoenix::push_back(
 				boost::spirit::qi::_val,
 				boost::phoenix::bind(
-					&json::detail::value_wrapper::get,
+					&sge::parse::json::detail::value_wrapper::get,
 					boost::spirit::qi::_1
 				)
 			)
@@ -157,7 +155,7 @@ sge::parse::json::grammar<
 	member_map_ =
 		member_wrapper_[
 			boost::phoenix::bind(
-				json::detail::insert_member,
+				sge::parse::json::detail::insert_member,
 				boost::spirit::qi::_val,
 				boost::spirit::qi::_1,
 				boost::spirit::qi::_pass
@@ -177,35 +175,9 @@ sge::parse::json::grammar<
 		|
 		object_;
 
-	boost::spirit::qi::on_error<
-		boost::spirit::qi::fail
-	>(
+	sge::parse::install_error_handler(
 		start_,
-		boost::phoenix::throw_(
-			boost::phoenix::construct<
-				parse::exception
-			>(
-				boost::phoenix::val(
-					FCPPT_TEXT("Json parsing failed: \"")
-				)
-				+
-				boost::phoenix::construct<
-					fcppt::string
-				>(
-					boost::spirit::qi::labels::_1,
-					boost::spirit::qi::labels::_3
-				)
-				+
-				FCPPT_TEXT("\" - expected ")
-				+
-				boost::phoenix::bind(
-					&info_to_string,
-					boost::spirit::qi::labels::_4
-				)
-				+
-				FCPPT_TEXT(" here.")
-			)
-		)
+		error_string_
 	);
 }
 
@@ -216,6 +188,17 @@ sge::parse::json::grammar<
 	In
 >::~grammar()
 {
+}
+
+template<
+	typename In
+>
+sge::parse::optional_error_string const &
+sge::parse::json::grammar<
+	In
+>::error_string() const
+{
+	return error_string_;
 }
 
 #endif

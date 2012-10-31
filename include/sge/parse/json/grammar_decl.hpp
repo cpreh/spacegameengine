@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PARSE_JSON_GRAMMAR_DECL_HPP_INCLUDED
 
 #include <sge/parse/encoding.hpp>
+#include <sge/parse/optional_error_string.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/element_vector.hpp>
 #include <sge/parse/json/float_type.hpp>
@@ -76,6 +77,9 @@ public:
 	grammar();
 
 	~grammar();
+
+	sge::parse::optional_error_string const &
+	error_string() const;
 private:
 	boost::spirit::qi::int_parser<
 		sge::parse::json::int_type
@@ -147,6 +151,8 @@ private:
 		sge::parse::json::start(),
 		space_type
 	> start_;
+
+	sge::parse::optional_error_string error_string_;
 };
 
 FCPPT_PP_POP_WARNING

@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PARSE_INI_GRAMMAR_IMPL_HPP_INCLUDED
 
 #include <sge/parse/encoding.hpp>
+#include <sge/parse/install_error_handler.hpp>
+#include <sge/parse/optional_error_string.hpp>
 #include <sge/parse/ini/grammar_decl.hpp>
 #include <sge/parse/ini/detail/adapt_entry.hpp>
 #include <sge/parse/ini/detail/adapt_section.hpp>
@@ -50,7 +52,8 @@ sge::parse::ini::grammar<
 	header_(),
 	section_(),
 	section_vector_(),
-	ini_()
+	ini_(),
+	error_string_()
 {
 	using sge::parse::encoding::char_;
 	using boost::spirit::lit;
@@ -86,22 +89,10 @@ sge::parse::ini::grammar<
 	ini_ %=
 		section_vector_;
 
-	/*
-	BOOST_SPIRIT_DEBUG_NODE(
-		entry_
+	sge::parse::install_error_handler(
+		ini_,
+		error_string_
 	);
-
-	BOOST_SPIRIT_DEBUG_NODE(
-		header_
-	);
-
-	BOOST_SPIRIT_DEBUG_NODE(
-		section_
-	);
-
-	BOOST_SPIRIT_DEBUG_NODE(
-		section_vector_
-	);*/
 }
 
 template<
@@ -111,6 +102,17 @@ sge::parse::ini::grammar<
 	In
 >::~grammar()
 {
+}
+
+template<
+	typename In
+>
+sge::parse::optional_error_string const &
+sge::parse::ini::grammar<
+	In
+>::error_string() const
+{
+	return error_string_;
 }
 
 #endif

@@ -21,11 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_MAKE_RESULT_HPP_INCLUDED
 #define SGE_PARSE_MAKE_RESULT_HPP_INCLUDED
 
-#include <sge/parse/error_string.hpp>
-#include <sge/parse/optional_error_string.hpp>
 #include <sge/parse/result_code.hpp>
 #include <sge/parse/result.hpp>
-#include <fcppt/string.hpp>
 
 
 namespace sge
@@ -59,11 +56,7 @@ make_result(
 			:
 				sge::parse::result_code::failure
 			,
-			sge::parse::optional_error_string(
-				sge::parse::error_string(
-					fcppt::string()
-				) // TODO!
-			)
+			_grammar.error_string()
 		);
 }
 
