@@ -10,13 +10,19 @@ set(
 	include/sge/parse/ini/detail/adapt_start.hpp
 	include/sge/parse/ini/entry.hpp
 	include/sge/parse/ini/entry_fwd.hpp
+	include/sge/parse/ini/entry_name.hpp
 	include/sge/parse/ini/entry_name_equal.hpp
 	include/sge/parse/ini/entry_vector.hpp
+	include/sge/parse/ini/find_value.hpp
+	include/sge/parse/ini/get_or_create.hpp
+	include/sge/parse/ini/get_or_create_entry.hpp
+	include/sge/parse/ini/get_or_create_section.hpp
 	include/sge/parse/ini/grammar.hpp
 	include/sge/parse/ini/grammar_decl.hpp
 	include/sge/parse/ini/grammar_fwd.hpp
 	include/sge/parse/ini/grammar_impl.hpp
-	include/sge/parse/ini/header_name_equal.hpp
+	include/sge/parse/ini/optional_value.hpp
+	include/sge/parse/ini/optional_value_fwd.hpp
 	include/sge/parse/ini/output/grammar.hpp
 	include/sge/parse/ini/output/grammar_decl.hpp
 	include/sge/parse/ini/output/grammar_fwd.hpp
@@ -33,10 +39,14 @@ set(
 	include/sge/parse/ini/result_with_value_fwd.hpp
 	include/sge/parse/ini/section.hpp
 	include/sge/parse/ini/section_fwd.hpp
+	include/sge/parse/ini/section_name.hpp
+	include/sge/parse/ini/section_name_equal.hpp
 	include/sge/parse/ini/section_vector.hpp
+	include/sge/parse/ini/set_or_create.hpp
 	include/sge/parse/ini/start.hpp
 	include/sge/parse/ini/start_fwd.hpp
 	include/sge/parse/ini/string.hpp
+	include/sge/parse/ini/value.hpp
 	include/sge/parse/json/array.hpp
 	include/sge/parse/json/array_fwd.hpp
 	include/sge/parse/json/config/command_line_parameters.hpp
@@ -147,7 +157,10 @@ set(
 	src/parse/info_to_string.cpp
 	src/parse/ini/entry.cpp
 	src/parse/ini/entry_name_equal.cpp
-	src/parse/ini/header_name_equal.cpp
+	src/parse/ini/find_value.cpp
+	src/parse/ini/get_or_create.cpp
+	src/parse/ini/get_or_create_entry.cpp
+	src/parse/ini/get_or_create_section.cpp
 	src/parse/ini/output/to_file.cpp
 	src/parse/ini/output/to_stream.cpp
 	src/parse/ini/parse_file.cpp
@@ -156,6 +169,8 @@ set(
 	src/parse/ini/parse_stream.cpp
 	src/parse/ini/result_with_value.cpp
 	src/parse/ini/section.cpp
+	src/parse/ini/section_name_equal.cpp
+	src/parse/ini/set_or_create.cpp
 	src/parse/ini/start.cpp
 	src/parse/json/array.cpp
 	src/parse/json/config/create_command_line_parameters.cpp

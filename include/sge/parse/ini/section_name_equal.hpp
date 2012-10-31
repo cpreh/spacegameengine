@@ -18,28 +18,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/ini/entry.hpp>
-#include <sge/parse/ini/entry_name.hpp>
-#include <sge/parse/ini/value.hpp>
+#ifndef SGE_PARSE_INI_SECTION_NAME_EQUAL_HPP_INCLUDED
+#define SGE_PARSE_INI_SECTION_NAME_EQUAL_HPP_INCLUDED
+
+#include <sge/parse/symbol.hpp>
+#include <sge/parse/ini/section_fwd.hpp>
+#include <sge/parse/ini/section_name.hpp>
 
 
-sge::parse::ini::entry::entry()
-:
-	name(),
-	value()
+namespace sge
 {
+namespace parse
+{
+namespace ini
+{
+
+class section_name_equal
+{
+public:
+	typedef bool result_type;
+
+	SGE_PARSE_SYMBOL
+	explicit
+	section_name_equal(
+		sge::parse::ini::section_name const &
+	);
+
+	SGE_PARSE_SYMBOL
+	result_type
+	operator()(
+		sge::parse::ini::section const &
+	) const;
+private:
+	sge::parse::ini::section_name name_;
+};
+
+}
+}
 }
 
-sge::parse::ini::entry::entry(
-	sge::parse::ini::entry_name const &_name,
-	sge::parse::ini::value const &_value
-)
-:
-	name(
-		_name.get()
-	),
-	value(
-		_value.get()
-	)
-{
-}
+#endif

@@ -18,12 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_INI_HEADER_NAME_EQUAL_HPP_INCLUDED
-#define SGE_PARSE_INI_HEADER_NAME_EQUAL_HPP_INCLUDED
+#ifndef SGE_PARSE_INI_OPTIONAL_VALUE_FWD_HPP_INCLUDED
+#define SGE_PARSE_INI_OPTIONAL_VALUE_FWD_HPP_INCLUDED
 
-#include <sge/parse/symbol.hpp>
-#include <sge/parse/ini/section_fwd.hpp>
-#include <sge/parse/ini/string.hpp>
+#include <sge/parse/ini/value.hpp>
+#include <fcppt/optional_fwd.hpp>
 
 
 namespace sge
@@ -33,25 +32,9 @@ namespace parse
 namespace ini
 {
 
-class header_name_equal
-{
-public:
-	typedef bool result_type;
-
-	SGE_PARSE_SYMBOL
-	explicit
-	header_name_equal(
-		sge::parse::ini::string const &
-	);
-
-	SGE_PARSE_SYMBOL
-	result_type
-	operator()(
-		sge::parse::ini::section const &
-	) const;
-private:
-	sge::parse::ini::string name_;
-};
+typedef fcppt::optional<
+	sge::parse::ini::value
+> optional_value;
 
 }
 }

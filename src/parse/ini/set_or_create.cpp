@@ -20,26 +20,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/parse/ini/entry.hpp>
 #include <sge/parse/ini/entry_name.hpp>
+#include <sge/parse/ini/get_or_create_entry.hpp>
+#include <sge/parse/ini/get_or_create_section.hpp>
+#include <sge/parse/ini/section_name.hpp>
+#include <sge/parse/ini/set_or_create.hpp>
+#include <sge/parse/ini/start_fwd.hpp>
+#include <sge/parse/ini/string.hpp>
 #include <sge/parse/ini/value.hpp>
 
 
-sge::parse::ini::entry::entry()
-:
-	name(),
-	value()
-{
-}
-
-sge::parse::ini::entry::entry(
-	sge::parse::ini::entry_name const &_name,
+void
+sge::parse::ini::set_or_create(
+	sge::parse::ini::start &_start,
+	sge::parse::ini::section_name const &_section_name,
+	sge::parse::ini::entry_name const &_entry_name,
 	sge::parse::ini::value const &_value
 )
-:
-	name(
-		_name.get()
-	),
-	value(
-		_value.get()
-	)
 {
+	sge::parse::ini::get_or_create_entry(
+		sge::parse::ini::get_or_create_section(
+			_start,
+			_section_name
+		),
+		_entry_name,
+		sge::parse::ini::value(
+			sge::parse::ini::string()
+		)
+	).value =
+		_value.get();
 }

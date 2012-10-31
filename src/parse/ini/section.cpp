@@ -18,20 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/ini/entry.hpp>
 #include <sge/parse/ini/section.hpp>
+#include <sge/parse/ini/section_name.hpp>
+#include <sge/parse/ini/string.hpp>
 
 
 sge::parse::ini::section::section()
 :
-	header(),
+	name(),
 	entries()
-{}
+{
+}
 
 sge::parse::ini::section::section(
-	string const &_header
+	sge::parse::ini::section_name const &_name
 )
 :
-	header(_header),
+	name(
+		_name.get()
+	),
 	entries()
-{}
+{
+}

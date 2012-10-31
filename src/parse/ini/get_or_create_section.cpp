@@ -18,26 +18,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_INI_DETAIL_ADAPT_SECTION_HPP_INCLUDED
-#define SGE_PARSE_INI_DETAIL_ADAPT_SECTION_HPP_INCLUDED
-
+#include <sge/parse/ini/get_or_create_section.hpp>
 #include <sge/parse/ini/section.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
+#include <sge/parse/ini/section_name.hpp>
+#include <sge/parse/ini/section_name_equal.hpp>
+#include <sge/parse/ini/section_vector.hpp>
+#include <sge/parse/ini/start.hpp>
+#include <sge/parse/ini/entry.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/fusion/adapted/struct/adapt_struct.hpp>
+#include <algorithm>
 #include <fcppt/config/external_end.hpp>
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
-BOOST_FUSION_ADAPT_STRUCT(
-	sge::parse::ini::section,
-	(sge::parse::ini::string, name)
-	(sge::parse::ini::entry_vector, entries)
+sge::parse::ini::section &
+sge::parse::ini::get_or_create_section(
+	sge::parse::ini::start &_start,
+	sge::parse::ini::section_name const &_section_name
 )
+{
+	sge::parse::ini::section_vector &sections(
+		_start.sections
+	);
 
-FCPPT_PP_POP_WARNING
+	sge::parse::ini::section_vector::iterator it(
+		std::find_if(
+			sections.begin(),
+			sections.end(),
+			sge::parse::ini::section_name_equal(
+				_section_name
+			)
+		)
+	);
 
-#endif
+	if(
+		it == sections.end()
+	)
+		it =
+			sections.insert(
+				sections.end(),
+				sge::parse::ini::section(
+					_section_name
+				)
+			);
+
+	return *it;
+}

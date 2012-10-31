@@ -18,20 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/ini/header_name_equal.hpp>
-#include <sge/parse/ini/section.hpp>
+#include <sge/parse/ini/entry.hpp>
+#include <sge/parse/ini/entry_name.hpp>
+#include <sge/parse/ini/get_or_create.hpp>
+#include <sge/parse/ini/get_or_create_entry.hpp>
+#include <sge/parse/ini/get_or_create_section.hpp>
+#include <sge/parse/ini/section_name.hpp>
+#include <sge/parse/ini/start_fwd.hpp>
+#include <sge/parse/ini/value.hpp>
 
-sge::parse::ini::header_name_equal::header_name_equal(
-	string const &_name
+
+sge::parse::ini::value const
+sge::parse::ini::get_or_create(
+	sge::parse::ini::start &_start,
+	sge::parse::ini::section_name const &_section_name,
+	sge::parse::ini::entry_name const &_entry_name,
+	sge::parse::ini::value const &_value
 )
-:
-	name_(_name)
-{}
-
-sge::parse::ini::header_name_equal::result_type
-sge::parse::ini::header_name_equal::operator()(
-	section const &_section
-) const
 {
-	return _section.header == name_;
+	return
+		sge::parse::ini::value(
+			sge::parse::ini::get_or_create_entry(
+				sge::parse::ini::get_or_create_section(
+					_start,
+					_section_name
+				),
+				_entry_name,
+				_value
+			).value
+		);
 }

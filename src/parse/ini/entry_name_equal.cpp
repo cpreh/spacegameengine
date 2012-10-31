@@ -19,20 +19,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/parse/ini/entry.hpp>
+#include <sge/parse/ini/entry_name.hpp>
 #include <sge/parse/ini/entry_name_equal.hpp>
 
 
 sge::parse::ini::entry_name_equal::entry_name_equal(
-	string const &_name
+	sge::parse::ini::entry_name const &_name
 )
 :
-	name_(_name)
-{}
+	name_(
+		_name
+	)
+{
+}
 
 sge::parse::ini::entry_name_equal::result_type
 sge::parse::ini::entry_name_equal::operator()(
-	entry const &_entry
+	sge::parse::ini::entry const &_entry
 ) const
 {
-	return _entry.name == name_;
+	return
+		_entry.name == name_.get();
 }
