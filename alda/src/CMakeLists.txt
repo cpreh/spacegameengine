@@ -9,6 +9,7 @@ add_definitions(
 
 set(
 	ALDA_FILES
+	alda/src/bindings/float.cpp
 	alda/src/exception.cpp
 	alda/src/include/alda/src/log_parameters.hpp
 	alda/src/include/alda/src/net/client/detail/object_impl.hpp

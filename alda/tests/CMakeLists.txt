@@ -49,6 +49,11 @@ function(
 endfunction()
 
 add_alda_test(
+	float
+	""
+)
+
+add_alda_test(
 	length_stream
 	"${Fcppt_core_LIBRARIES}"
 )

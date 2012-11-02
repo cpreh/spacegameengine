@@ -47,6 +47,7 @@ set(
 	include/sge/parse/ini/start_fwd.hpp
 	include/sge/parse/ini/string.hpp
 	include/sge/parse/ini/value.hpp
+	include/sge/parse/install_error_handler.hpp
 	include/sge/parse/json/array.hpp
 	include/sge/parse/json/array_fwd.hpp
 	include/sge/parse/json/config/command_line_parameters.hpp
@@ -136,6 +137,7 @@ set(
 	include/sge/parse/json/string_to_value.hpp
 	include/sge/parse/json/value.hpp
 	include/sge/parse/json/value_fwd.hpp
+	include/sge/parse/make_result.hpp
 	include/sge/parse/optional_error_string.hpp
 	include/sge/parse/optional_error_string_fwd.hpp
 	include/sge/parse/parse_exception.hpp
