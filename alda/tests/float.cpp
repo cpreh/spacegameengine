@@ -60,25 +60,54 @@ fuzzy_equal(
 		(_val2 < 0)
 	);
 
-	BOOST_CHECK((
-		(
-			std::abs(
-				_val1
-				-
-				_val2
-			)
-			/
-			std::max(
+	alda::bindings::float_::type const abs1(
+		std::abs(
+			_val1
+		)
+	);
+
+	alda::bindings::float_::type const abs2(
+		std::abs(
+			_val2
+		)
+	);
+
+	alda::bindings::float_::type const max(
+		std::max(
+			abs1,
+			abs2
+		)
+	);
+
+	alda::bindings::float_::type const epsilon(
+		0.0001f
+	);
+
+	if(
+		max < epsilon
+	)
+		BOOST_CHECK(
+			abs1
+			<
+			epsilon
+			&&
+			abs2
+			<
+			epsilon
+		);
+	else
+		BOOST_CHECK((
+			(
 				std::abs(
 					_val1
-				),
-				std::abs(
+					-
 					_val2
 				)
+				/
+				max
 			)
-		)
-		< 0.0001f
-	));
+			< epsilon
+		));
 }
 
 void
@@ -115,10 +144,22 @@ BOOST_AUTO_TEST_CASE(
 FCPPT_PP_POP_WARNING
 
 	test_conversion(
+		0.f
+	);
+
+	test_conversion(
 		-1.f
 	);
 
 	test_conversion(
 		1.f
+	);
+
+	test_conversion(
+		-10000.f
+	);
+
+	test_conversion(
+		10000.f
 	);
 }

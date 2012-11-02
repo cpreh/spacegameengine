@@ -105,7 +105,7 @@ serialize(
 		_val < 0
 		?
 			make_fixed(
-				_val
+				-_val
 			)
 			| sign_bit
 		:
