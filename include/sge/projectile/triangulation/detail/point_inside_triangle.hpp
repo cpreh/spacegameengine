@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/projectile/triangulation/traits/access_element.hpp>
 #include <sge/projectile/triangulation/traits/scalar.hpp>
 
+
 namespace sge
 {
 namespace projectile
@@ -45,13 +46,13 @@ point_inside_triangle(
 	Vertex const &_point
 )
 {
-	typedef traits::access_element<
+	typedef sge::projectile::triangulation::traits::access_element<
 		Vertex,
 		Tag
 	> access_element;
 
 	typedef typename
-	traits::scalar<
+	sge::projectile::triangulation::traits::scalar<
 		Vertex,
 		Tag
 	>::type

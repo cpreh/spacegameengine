@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PROJECTILE_TRIANGULATION_TRAITS_SCALAR_HPP_INCLUDED
 
 #include <sge/projectile/triangulation/default_tag.hpp>
+#include <sge/projectile/triangulation/traits/scalar_fwd.hpp>
+
 
 namespace sge
 {
@@ -33,17 +35,11 @@ namespace traits
 {
 
 template<
-	typename Vertex,
-	typename Tag
->
-struct scalar;
-
-template<
 	typename Vertex
 >
 struct scalar<
 	Vertex,
-	triangulation::default_tag
+	sge::projectile::triangulation::default_tag
 >
 {
 	typedef typename Vertex::value_type type;

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/projectile/triangulation/detail/area.hpp>
 #include <sge/projectile/triangulation/detail/snip.hpp>
-#include <sge/projectile/triangulation/traits/construct_result.hpp>
+#include <sge/projectile/triangulation/traits/insert_result.hpp>
 #include <sge/projectile/triangulation/traits/scalar.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/container/raw_vector.hpp>
@@ -48,7 +48,7 @@ template
 ResultContainer const
 triangulate(
 	ContourContainer const &_contour,
-	typename traits::scalar<
+	typename sge::projectile::triangulation::traits::scalar<
 		typename ContourContainer::value_type,
 		Tag
 	>::type const _epsilon
@@ -63,7 +63,7 @@ triangulate(
 	vertex;
 
 	typedef typename
-	traits::scalar<
+	sge::projectile::triangulation::traits::scalar<
 		vertex,
 		Tag
 	>::type
@@ -191,31 +191,27 @@ triangulate(
 			)
 		)
 		{
-			typedef typename ResultContainer::value_type new_triangle;
-
-			result.insert(
-				result.end(),
-				traits::construct_result<
-					new_triangle,
-					vertex,
-					Tag
-				>::execute(
-					_contour[
-						indices[
-							prev_vertex
-						]
-					],
-					_contour[
-						indices[
-							cur_vertex
-						]
-					],
-					_contour[
-						indices[
-							next_vertex
-						]
+			sge::projectile::triangulation::traits::insert_result<
+				ResultContainer,
+				vertex,
+				Tag
+			>::execute(
+				result,
+				_contour[
+					indices[
+						prev_vertex
 					]
-				)
+				],
+				_contour[
+					indices[
+						cur_vertex
+					]
+				],
+				_contour[
+					indices[
+						next_vertex
+					]
+				]
 			);
 
 			// remove v from remaining polygon

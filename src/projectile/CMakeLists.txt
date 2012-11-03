@@ -64,8 +64,11 @@ set(
 	include/sge/projectile/triangulation/detail/point_inside_triangle.hpp
 	include/sge/projectile/triangulation/detail/snip.hpp
 	include/sge/projectile/triangulation/traits/access_element.hpp
-	include/sge/projectile/triangulation/traits/construct_result.hpp
+	include/sge/projectile/triangulation/traits/access_element_fwd.hpp
+	include/sge/projectile/triangulation/traits/insert_result.hpp
+	include/sge/projectile/triangulation/traits/insert_result_fwd.hpp
 	include/sge/projectile/triangulation/traits/scalar.hpp
+	include/sge/projectile/triangulation/traits/scalar_fwd.hpp
 	include/sge/projectile/triangulation/triangulate.hpp
 	include/sge/projectile/vector2.hpp
 	include/sge/projectile/vector3.hpp

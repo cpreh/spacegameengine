@@ -23,9 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/projectile/triangulation/traits/access_element.hpp>
 #include <sge/projectile/triangulation/traits/scalar.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/identity.hpp>
-#include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {
@@ -40,11 +38,10 @@ template<
 	typename Tag,
 	typename PointContainer
 >
-typename
-// hack VC++ constructor type bug
-boost::mpl::identity<
-	typename PointContainer::value_type
->::type::value_type
+typename sge::projectile::triangulation::traits::scalar<
+	typename PointContainer::value_type,
+	Tag
+>::type
 area(
 	PointContainer const &_contour
 )
@@ -57,13 +54,13 @@ area(
 	PointContainer::value_type vertex;
 
 	typedef
-	traits::access_element<
+	sge::projectile::triangulation::traits::access_element<
 		vertex,
 		Tag
 	> access_element;
 
 	typedef typename
-	traits::scalar<
+	sge::projectile::triangulation::traits::scalar<
 		vertex,
 		Tag
 	>::type

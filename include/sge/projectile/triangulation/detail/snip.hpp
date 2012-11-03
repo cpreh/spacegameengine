@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/projectile/triangulation/traits/access_element.hpp>
 #include <sge/projectile/triangulation/traits/scalar.hpp>
 
+
 namespace sge
 {
 namespace projectile
@@ -47,7 +48,7 @@ snip(
 	typename PointContainer::size_type const _next_vertex,
 	typename PointContainer::size_type const _num_vertices,
 	IndexContainer const &_indices,
-	typename traits::scalar<
+	typename sge::projectile::triangulation::traits::scalar<
 		typename PointContainer::value_type,
 		Tag
 	>::type const _epsilon
@@ -61,13 +62,13 @@ snip(
 	PointContainer::value_type
 	vertex;
 
-	typedef traits::access_element<
+	typedef sge::projectile::triangulation::traits::access_element<
 		vertex,
 		Tag
 	> access_element;
 
 	typedef typename
-	traits::scalar<
+	sge::projectile::triangulation::traits::scalar<
 		vertex,
 		Tag
 	>::type

@@ -18,10 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PROJECTILE_TRIANGULATION_TRAITS_CONSTRUCT_RESULT_HPP_INCLUDED
-#define SGE_PROJECTILE_TRIANGULATION_TRAITS_CONSTRUCT_RESULT_HPP_INCLUDED
+#ifndef SGE_PROJECTILE_TRIANGULATION_TRAITS_INSERT_RESULT_HPP_INCLUDED
+#define SGE_PROJECTILE_TRIANGULATION_TRAITS_INSERT_RESULT_HPP_INCLUDED
 
 #include <sge/projectile/triangulation/default_tag.hpp>
+#include <sge/projectile/triangulation/traits/insert_result_fwd.hpp>
+
 
 namespace sge
 {
@@ -33,37 +35,35 @@ namespace traits
 {
 
 template<
-	typename Result,
-	typename Vertex,
-	typename Tag
->
-struct construct_result;
-
-template<
-	typename Result,
+	typename Container,
 	typename Vertex
 >
-struct construct_result<
-	Result,
+struct insert_result<
+	Container,
 	Vertex,
-	triangulation::default_tag
+	sge::projectile::triangulation::default_tag
 >
 {
 	static
-	Result const
+	void
 	execute(
+		Container &_container,
 		Vertex const &_v1,
 		Vertex const &_v2,
 		Vertex const &_v3
 	)
 	{
-		Result const ret = {{
+		typename Container::value_type result =
+		{{
 			_v1,
 			_v2,
 			_v3
 		}};
 
-		return ret;
+		_container.insert(
+			_container.end(),
+			result
+		);
 	}
 };
 

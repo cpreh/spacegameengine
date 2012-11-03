@@ -18,11 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PROJECTILE_TRIANGULATION_TRAITS_ACCESS_ELEMENT_HPP_INCLUDED
-#define SGE_PROJECTILE_TRIANGULATION_TRAITS_ACCESS_ELEMENT_HPP_INCLUDED
-
-#include <sge/projectile/triangulation/default_tag.hpp>
-#include <sge/projectile/triangulation/traits/access_element_fwd.hpp>
+#ifndef SGE_PROJECTILE_TRIANGULATION_TRAITS_INSERT_RESULT_FWD_HPP_INCLUDED
+#define SGE_PROJECTILE_TRIANGULATION_TRAITS_INSERT_RESULT_FWD_HPP_INCLUDED
 
 
 namespace sge
@@ -35,26 +32,11 @@ namespace traits
 {
 
 template<
-	typename Vertex
+	typename Result,
+	typename Vertex,
+	typename Tag
 >
-struct access_element<
-	Vertex,
-	sge::projectile::triangulation::default_tag
->
-{
-	static
-	typename Vertex::value_type
-	execute(
-		Vertex const &_vertex,
-		typename Vertex::size_type const _index
-	)
-	{
-		return
-			_vertex[
-				_index
-			];
-	}
-};
+struct insert_result;
 
 }
 }
