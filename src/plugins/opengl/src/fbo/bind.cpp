@@ -33,7 +33,7 @@ sge::opengl::fbo::bind(
 )
 {
 	_context.bind_framebuffer()(
-		*_context.framebuffer_target(),
+		_context.framebuffer_target(),
 		_id.get()
 	);
 

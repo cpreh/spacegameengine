@@ -44,7 +44,7 @@ sge::opengl::fbo::render_buffer::render_buffer(
 	this->bind();
 
 	context_.renderbuffer_storage()(
-		*context_.renderbuffer_target(),
+		context_.renderbuffer_target(),
 		static_cast<
 			GLenum
 		>(
@@ -83,7 +83,7 @@ void
 sge::opengl::fbo::render_buffer::bind() const
 {
 	context_.bind_renderbuffer()(
-		*context_.renderbuffer_target(),
+		context_.renderbuffer_target(),
 		this->id()
 	);
 

@@ -22,12 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_FBO_CONTEXT_HPP_INCLUDED
 
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/optional_enum.hpp>
 #include <sge/opengl/context/system/base.hpp>
 #include <sge/opengl/context/system/id.hpp>
+#include <sge/opengl/fbo/context_config.hpp>
 #include <sge/opengl/fbo/context_fwd.hpp>
+#include <sge/opengl/fbo/error_string_map.hpp>
 #include <sge/opengl/fbo/optional_attachment_type.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/optional_decl.hpp>
 
 
 namespace sge
@@ -102,19 +104,22 @@ public:
 	gl_framebuffer_renderbuffer
 	framebuffer_renderbuffer() const;
 
-	sge::opengl::optional_enum const
+	GLenum
 	framebuffer_target() const;
 
-	sge::opengl::fbo::optional_attachment_type const
+	sge::opengl::fbo::attachment_type const
 	color_attachment() const;
 
-	sge::opengl::optional_enum const
+	GLenum
 	framebuffer_complete() const;
 
-	sge::opengl::optional_enum const
+	sge::opengl::fbo::error_string_map const &
+	error_strings() const;
+
+	GLenum
 	renderbuffer_target() const;
 
-	sge::opengl::fbo::optional_attachment_type const
+	sge::opengl::fbo::attachment_type const
 	depth_attachment() const;
 
 	sge::opengl::fbo::optional_attachment_type const
@@ -124,41 +129,11 @@ public:
 
 	static sge::opengl::context::system::id const static_id;
 private:
-	bool const
-		has_native_,
-		has_ext_;
+	typedef fcppt::optional<
+		sge::opengl::fbo::context_config
+	> optional_context_config;
 
-	gl_gen_framebuffers const gen_framebuffers_;
-
-	gl_delete_framebuffers const delete_framebuffers_;
-
-	gl_bind_framebuffer const bind_framebuffer_;
-
-	gl_framebuffer_texture_2d const framebuffer_texture_2d_;
-
-	gl_check_framebuffer_status const check_framebuffer_status_;
-
-	gl_gen_renderbuffers const gen_renderbuffers_;
-
-	gl_delete_renderbuffers const delete_renderbuffers_;
-
-	gl_bind_renderbuffer const bind_renderbuffer_;
-
-	gl_renderbuffer_storage const renderbuffer_storage_;
-
-	gl_framebuffer_renderbuffer const framebuffer_renderbuffer_;
-
-	sge::opengl::optional_enum const framebuffer_target_;
-
-	sge::opengl::fbo::optional_attachment_type const color_attachment_;
-
-	sge::opengl::optional_enum const
-		framebuffer_complete_,
-		renderbuffer_target_;
-
-	sge::opengl::fbo::optional_attachment_type const
-		depth_attachment_,
-		depth_stencil_attachment_;
+	optional_context_config config_;
 };
 
 }

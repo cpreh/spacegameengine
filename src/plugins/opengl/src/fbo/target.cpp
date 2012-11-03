@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/fbo/context.hpp>
 #include <sge/opengl/fbo/depth_stencil_format_to_attachment.hpp>
 #include <sge/opengl/fbo/depth_stencil_surface.hpp>
+#include <sge/opengl/fbo/error_string_map.hpp>
 #include <sge/opengl/fbo/last_context.hpp>
 #include <sge/opengl/fbo/no_buffer.hpp>
 #include <sge/opengl/fbo/optional_attachment_type.hpp>
@@ -193,7 +194,7 @@ sge::opengl::fbo::target::color_surface(
 			this->create_texture_binding(
 				texture_surface,
 				sge::opengl::fbo::attachment_type(
-					context_.color_attachment()->get()
+					context_.color_attachment().get()
 					+ _index.get()
 				)
 			)
@@ -350,7 +351,7 @@ sge::opengl::fbo::target::check()
 {
 	GLenum const status(
 		context_.check_framebuffer_status()(
-			*context_.framebuffer_target()
+			context_.framebuffer_target()
 		)
 	);
 
@@ -362,11 +363,31 @@ sge::opengl::fbo::target::check()
 	if(
 		status
 		!=
-		*context_.framebuffer_complete()
+		context_.framebuffer_complete()
 	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("FBO is incomplete!")
+	{
+		sge::opengl::fbo::error_string_map const &error_strings(
+			context_.error_strings()
 		);
+
+		sge::opengl::fbo::error_string_map::const_iterator const it(
+			error_strings.find(
+				status
+			)
+		);
+
+		throw sge::renderer::exception(
+			FCPPT_TEXT("FBO is incomplete! ")
+			+
+			(
+				it == error_strings.end()
+				?
+					FCPPT_TEXT("unknown")
+				:
+					it->second
+			)
+		);
+	}
 }
 
 template class
