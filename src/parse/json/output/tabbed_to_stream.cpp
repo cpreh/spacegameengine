@@ -97,7 +97,7 @@ public:
 			stream_ <<
 				(
 					fcppt::format(
-						FCPPT_TEXT("%s\"%s\" : \n")
+						FCPPT_TEXT("%s\"%s\" :\n")
 					)
 					% this->make_more_tabs()
 					% it->first
