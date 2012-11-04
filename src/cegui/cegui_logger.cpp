@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 SGE_CEGUI_DECLARE_LOCAL_LOGGER(
-	FCPPT_TEXT("cegui")
+	FCPPT_TEXT("CEGUI")
 )
 
 sge::cegui::cegui_logger::cegui_logger(
