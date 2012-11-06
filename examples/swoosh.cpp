@@ -258,11 +258,17 @@ private:
 #include <fcppt/math/vector/length.hpp>
 #include <fcppt/math/vector/static.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <sge/input/cursor/relative_move_event.hpp>
 #include <numeric>
 
 namespace
 {
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 cursor_speed_tracker::cursor_speed_tracker(
 	sge::input::cursor::object &_cursor,
@@ -291,6 +297,8 @@ cursor_speed_tracker::cursor_speed_tracker(
 		modifier_(
 			0.0f));
 }
+
+FCPPT_PP_POP_WARNING
 
 void
 cursor_speed_tracker::move_callback(

@@ -26,15 +26,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/parse/json/start.hpp>
 #include <sge/parse/json/output/to_file.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iostream>
 #include <fcppt/config/external_end.hpp>
 
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::camera::tracking::json::key_press_exporter::key_press_exporter(
 	sge::camera::base const &_camera,
@@ -44,21 +49,27 @@ sge::camera::tracking::json::key_press_exporter::key_press_exporter(
 	keyframe_keypress const &_keyframe_keypress,
 	export_keypress const &_export_keypress)
 :
+	camera_(
+		_camera),
+	target_path_(
+		_target_path),
+	duration_(
+		_duration),
+	keyframe_keypress_(
+		_keyframe_keypress),
+	export_keypress_(
+		_export_keypress),
 	key_press_connection_(
 		_keyboard.key_callback(
 			std::tr1::bind(
 				&key_press_exporter::key_callback,
 				this,
-				std::tr1::placeholders::_1,
-				fcppt::cref(
-					_camera),
-				_target_path,
-				_duration,
-				_keyframe_keypress,
-				_export_keypress))),
+				std::tr1::placeholders::_1))),
 	keyframes_()
 {
 }
+
+FCPPT_PP_POP_WARNING
 
 sge::camera::tracking::json::key_press_exporter::~key_press_exporter()
 {
@@ -66,31 +77,26 @@ sge::camera::tracking::json::key_press_exporter::~key_press_exporter()
 
 void
 sge::camera::tracking::json::key_press_exporter::key_callback(
-	sge::input::keyboard::key_event const &_key_event,
-	sge::camera::base const &_camera,
-	boost::filesystem::path const &_target_path,
-	sge::camera::update_duration const &_duration,
-	keyframe_keypress const &_keyframe_keypress,
-	export_keypress const &_export_keypress)
+	sge::input::keyboard::key_event const &_key_event)
 {
 	if(!_key_event.pressed())
 		return;
 
-	if(_key_event.key_code() == _keyframe_keypress.get())
+	if(_key_event.key_code() == keyframe_keypress_.get())
 	{
 		std::cout << "Storing keyframe...\n";
 		keyframes_.push_back(
 			sge::camera::tracking::keyframe(
-				_duration,
-				_camera.coordinate_system()));
+				duration_,
+				camera_.coordinate_system()));
 		std::cout << "Done!\n";
 	}
-	else if(_key_event.key_code() == _export_keypress.get())
+	else if(_key_event.key_code() == export_keypress_.get())
 	{
-		std::cout << "Storing keyframe file " << _target_path << "...\n";
+		std::cout << "Storing keyframe file " << target_path_ << "...\n";
 		if(
 			!sge::parse::json::output::to_file(
-				_target_path,
+				target_path_,
 				sge::parse::json::start(
 					sge::parse::json::start_variant(
 						sge::camera::tracking::json::keyframes_to_json(
@@ -99,7 +105,7 @@ sge::camera::tracking::json::key_press_exporter::key_callback(
 				sge::exception(
 					FCPPT_TEXT("Couldn't write to file \"")+
 					fcppt::filesystem::path_to_string(
-						_target_path)+
+						target_path_)+
 					FCPPT_TEXT("\""));
 		std::cout << "Done!\n";
 	}

@@ -70,17 +70,17 @@ public:
 	SGE_CAMERA_SYMBOL
 	~key_press_exporter();
 private:
+	sge::camera::base const &camera_;
+	boost::filesystem::path const target_path_;
+	sge::camera::update_duration const duration_;
+	keyframe_keypress const keyframe_keypress_;
+	export_keypress const export_keypress_;
 	fcppt::signal::scoped_connection const key_press_connection_;
 	sge::camera::tracking::keyframe_sequence keyframes_;
 
 	void
 	key_callback(
-		sge::input::keyboard::key_event const &,
-		sge::camera::base const &,
-		boost::filesystem::path const &,
-		sge::camera::update_duration const &,
-		keyframe_keypress const &,
-		export_keypress const &);
+		sge::input::keyboard::key_event const &);
 };
 }
 }
