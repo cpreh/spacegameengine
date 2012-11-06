@@ -18,27 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CAMERA_FIRST_PERSON_IS_ACTIVE_HPP_INCLUDED
-#define SGE_CAMERA_FIRST_PERSON_IS_ACTIVE_HPP_INCLUDED
+#include <sge/camera/tracking/json/keyframe_to_json.hpp>
+#include <sge/camera/tracking/json/keyframes_to_json.hpp>
+#include <sge/parse/json/array.hpp>
 
-#include <fcppt/strong_typedef.hpp>
 
-namespace sge
+sge::parse::json::array const
+sge::camera::tracking::json::keyframes_to_json(
+	sge::camera::tracking::keyframe_sequence const &_keyframes)
 {
-namespace camera
-{
-namespace first_person
-{
-/**
-\brief Tells if the camera is "active"
-\ingroup sgecamera
-*/
-FCPPT_MAKE_STRONG_TYPEDEF(
-	bool,
-	is_active);
-}
-}
-}
+	sge::parse::json::array result;
 
-#endif
+	for(
+		sge::camera::tracking::keyframe_sequence::const_iterator it =
+			_keyframes.begin();
+		it != _keyframes.end();
+		++it)
+		result.elements.push_back(
+			sge::parse::json::value(
+				sge::camera::tracking::json::keyframe_to_json(
+					*it)));
 
+	return result;
+}

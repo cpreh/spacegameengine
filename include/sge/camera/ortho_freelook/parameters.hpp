@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CAMERA_ORTHO_FREELOOK_PARAMETERS_HPP_INCLUDED
 #define SGE_CAMERA_ORTHO_FREELOOK_PARAMETERS_HPP_INCLUDED
 
+#include <sge/camera/is_active.hpp>
 #include <sge/camera/symbol.hpp>
-#include <sge/camera/ortho_freelook/is_active.hpp>
 #include <sge/camera/ortho_freelook/optional_projection_rectangle.hpp>
 #include <sge/camera/ortho_freelook/pan_speed.hpp>
 #include <sge/camera/ortho_freelook/zoom_speed.hpp>
@@ -55,7 +55,7 @@ public:
 		sge::input::keyboard::device &,
 		renderer::projection::near const &,
 		renderer::projection::far const &,
-		ortho_freelook::is_active const &);
+		sge::camera::is_active const &);
 
 	SGE_CAMERA_SYMBOL
 	sge::input::mouse::device &
@@ -110,7 +110,7 @@ public:
 	far() const;
 
 	SGE_CAMERA_SYMBOL
-	ortho_freelook::is_active const &
+	sge::camera::is_active const &
 	is_active() const;
 
 	SGE_CAMERA_SYMBOL
@@ -123,7 +123,7 @@ private:
 	ortho_freelook::optional_projection_rectangle projection_rectangle_;
 	renderer::projection::near near_;
 	renderer::projection::far far_;
-	ortho_freelook::is_active is_active_;
+	sge::camera::is_active is_active_;
 	ortho_freelook::action::mapping action_mapping_;
 };
 }

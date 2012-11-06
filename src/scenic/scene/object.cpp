@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/camera/base.hpp>
+#include <sge/camera/has_mutable_projection.hpp>
 #include <sge/camera/coordinate_system/object.hpp>
-#include <sge/camera/first_person/object.hpp>
 #include <sge/camera/matrix_conversion/world.hpp>
 #include <sge/image/colors.hpp>
 #include <sge/model/obj/parse_mtllib.hpp>
@@ -58,7 +58,7 @@ sge::scenic::scene::object::object(
 	sge::scenic::scene::manager &_scene_manager,
 	sge::viewport::manager &_viewport_manager,
 	sge::charconv::system &_charconv_system,
-	sge::camera::first_person::object &_camera,
+	sge::camera::base &_camera,
 	sge::scenic::scene::prototype_unique_ptr _prototype)
 :
 	scene_manager_(
@@ -71,7 +71,8 @@ sge::scenic::scene::object::object(
 		fcppt::move(
 			_prototype)),
 	camera_viewport_connection_(
-		camera_,
+		dynamic_cast<sge::camera::has_mutable_projection &>(
+			camera_),
 		_viewport_manager,
 		prototype_->camera().near(),
 		prototype_->camera().far(),
@@ -82,8 +83,10 @@ sge::scenic::scene::object::object(
 {
 	this->load_entities();
 
+	/*
 	camera_.update_coordinate_system(
 		prototype_->camera().coordinate_system());
+	*/
 }
 
 void
@@ -120,8 +123,9 @@ sge::scenic::scene::object::render(
 			*it,
 			current_render_queue);
 
-	sge::scenic::render_queue::state_change_count const state_changes(
-		current_render_queue.render(_context));
+	/*sge::scenic::render_queue::state_change_count const state_changes(
+	 */
+	current_render_queue.render(_context)/*)*/;
 
 	/*
 	std::cout
@@ -137,7 +141,7 @@ sge::scenic::scene::object::render(
 
 sge::scenic::scene::object::~object()
 {
-	std::cout << "\n";
+	//std::cout << "\n";
 }
 
 void

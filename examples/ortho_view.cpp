@@ -209,7 +209,7 @@ try
 				0.0f),
 			sge::renderer::projection::far(
 				10.0f),
-			sge::camera::ortho_freelook::is_active(
+			sge::camera::is_active(
 				true)));
 
 	sge::camera::ortho_freelook::projection_rectangle_from_viewport projection_rectangle_from_viewport(

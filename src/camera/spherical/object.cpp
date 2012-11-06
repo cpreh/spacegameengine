@@ -124,27 +124,26 @@ sge::camera::spherical::object::update_projection_matrix(
 		_projection_matrix;
 }
 
-bool
+sge::camera::is_active const
 sge::camera::spherical::object::is_active() const
 {
 	return
-		is_active_.get();
+		is_active_;
 }
 
 void
 sge::camera::spherical::object::is_active(
-	bool const _is_active)
+	sge::camera::is_active const &_is_active)
 {
 	is_active_ =
-		spherical::is_active(
-			_is_active);
+		_is_active;
 }
 
 void
 sge::camera::spherical::object::update(
 	camera::update_duration const &_time_delta)
 {
-	if(!this->is_active())
+	if(!this->is_active().get())
 		return;
 
 	velocity_.azimuth(

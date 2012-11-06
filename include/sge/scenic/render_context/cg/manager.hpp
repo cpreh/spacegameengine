@@ -89,7 +89,7 @@ private:
 	boost::mpl::integral_c
 	<
 		std::size_t,
-		2u
+		4u
 	>
 	max_directional_lights;
 

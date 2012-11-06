@@ -18,31 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/scoped_vertex_buffer.hpp>
-#include <sge/renderer/vertex_buffer_fwd.hpp>
-#include <sge/renderer/context/core.hpp>
+#ifndef SGE_CAMERA_MATRIX_CONVERSION_WORLD_MATRIX_TO_COORDINATE_SYSTEM_HPP_INCLUDED
+#define SGE_CAMERA_MATRIX_CONVERSION_WORLD_MATRIX_TO_COORDINATE_SYSTEM_HPP_INCLUDED
 
+#include <sge/camera/symbol.hpp>
+#include <sge/camera/coordinate_system/object_fwd.hpp>
+#include <sge/renderer/matrix4.hpp>
 
-sge::renderer::scoped_vertex_buffer::scoped_vertex_buffer(
-	sge::renderer::context::core &_context,
-sge::renderer::vertex_buffer const &_vertex_buffer
-)
-:
-	context_(
-		_context
-	),
-	vertex_buffer_(
-		_vertex_buffer
-	)
+namespace sge
 {
-	context_.activate_vertex_buffer(
-		_vertex_buffer
-	);
+namespace camera
+{
+namespace matrix_conversion
+{
+SGE_CAMERA_SYMBOL
+sge::camera::coordinate_system::object
+world_matrix_to_coordinate_system(
+	sge::renderer::matrix4 const &);
+}
+}
 }
 
-sge::renderer::scoped_vertex_buffer::~scoped_vertex_buffer()
-{
-	context_.deactivate_vertex_buffer(
-		vertex_buffer_
-	);
-}
+#endif

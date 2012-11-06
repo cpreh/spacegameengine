@@ -18,23 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CAMERA_SPHERICAL_IS_ACTIVE_HPP_INCLUDED
-#define SGE_CAMERA_SPHERICAL_IS_ACTIVE_HPP_INCLUDED
+#ifndef SGE_CAMERA_TRACKING_TIME_POINT_HPP_INCLUDED
+#define SGE_CAMERA_TRACKING_TIME_POINT_HPP_INCLUDED
 
+#include <sge/renderer/scalar.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 namespace sge
 {
 namespace camera
 {
-namespace spherical
+namespace tracking
 {
 FCPPT_MAKE_STRONG_TYPEDEF(
-	bool,
-	is_active);
+	sge::renderer::scalar,
+	time_point);
 }
 }
 }
 
 #endif
-

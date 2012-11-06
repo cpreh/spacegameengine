@@ -86,14 +86,14 @@ public:
 
 	/* override */
 	SGE_CAMERA_SYMBOL
-	bool
+	sge::camera::is_active const
 	is_active() const;
 
 	/* override */
 	SGE_CAMERA_SYMBOL
 	void
 	is_active(
-		bool);
+		sge::camera::is_active const &);
 
 	/* override */
 	SGE_CAMERA_SYMBOL
@@ -117,7 +117,7 @@ private:
 	ortho_freelook::pan_speed pan_speed_;
 	renderer::projection::near near_;
 	renderer::projection::far far_;
-	bool is_active_;
+	sge::camera::is_active is_active_;
 	bool zoom_in_pressed_;
 	bool zoom_out_pressed_;
 	bool pan_pressed_;

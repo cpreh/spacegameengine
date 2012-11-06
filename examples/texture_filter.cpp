@@ -368,7 +368,7 @@ try
 		sge::camera::first_person::parameters(
 			sys.keyboard_collector(),
 			sys.mouse_collector(),
-			sge::camera::first_person::is_active(
+			sge::camera::is_active(
 				true
 			),
 			sge::camera::first_person::movement_speed(

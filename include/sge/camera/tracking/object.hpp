@@ -18,63 +18,50 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CAMERA_FIRST_PERSON_OBJECT_HPP_INCLUDED
-#define SGE_CAMERA_FIRST_PERSON_OBJECT_HPP_INCLUDED
+#ifndef SGE_CAMERA_TRACKING_OBJECT_HPP_INCLUDED
+#define SGE_CAMERA_TRACKING_OBJECT_HPP_INCLUDED
 
 #include <sge/class_symbol.hpp>
 #include <sge/camera/base.hpp>
 #include <sge/camera/has_activation.hpp>
 #include <sge/camera/has_mutable_coordinate_system.hpp>
 #include <sge/camera/has_mutable_projection.hpp>
-#include <sge/camera/is_active.hpp>
 #include <sge/camera/is_dynamic.hpp>
 #include <sge/camera/optional_projection_matrix.hpp>
 #include <sge/camera/symbol.hpp>
-#include <sge/camera/coordinate_system/object.hpp>
-#include <sge/camera/first_person/mouse_speed_multiplier.hpp>
-#include <sge/camera/first_person/movement_speed.hpp>
-#include <sge/camera/first_person/parameters_fwd.hpp>
-#include <sge/camera/first_person/action/mapping.hpp>
-#include <sge/input/keyboard/key_event_fwd.hpp>
-#include <sge/input/mouse/axis_event_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/optional_impl.hpp>
-#include <fcppt/math/matrix/object_impl.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <sge/camera/tracking/is_looping.hpp>
+#include <sge/camera/tracking/keyframe_sequence.hpp>
+#include <fcppt/cyclic_iterator.hpp>
+#include <fcppt/optional.hpp>
 
 
 namespace sge
 {
 namespace camera
 {
-namespace first_person
+namespace tracking
 {
 class SGE_CLASS_SYMBOL object
 :
 	public virtual sge::camera::base,
 	public sge::camera::has_activation,
 	public sge::camera::is_dynamic,
-	public sge::camera::has_mutable_projection,
-	public sge::camera::has_mutable_coordinate_system
+	public sge::camera::has_mutable_projection
 {
 FCPPT_NONCOPYABLE(
 	object);
 public:
 	SGE_CAMERA_SYMBOL
-	explicit
 	object(
-		sge::camera::first_person::parameters const &);
+		sge::camera::optional_projection_matrix const &,
+		sge::camera::tracking::keyframe_sequence const &,
+		sge::camera::tracking::is_looping const &,
+		sge::camera::is_active const &);
 
 	/* override */
 	SGE_CAMERA_SYMBOL
 	sge::camera::coordinate_system::object const
 	coordinate_system() const;
-
-	SGE_CAMERA_SYMBOL
-	void
-	update_coordinate_system(
-		sge::camera::coordinate_system::object const &);
 
 	/* override */
 	SGE_CAMERA_SYMBOL
@@ -105,36 +92,27 @@ public:
 		sge::camera::update_duration const &);
 
 	SGE_CAMERA_SYMBOL
+	bool
+	finished() const;
+
+	SGE_CAMERA_SYMBOL
 	~object();
 private:
-	fcppt::signal::scoped_connection keyboard_connection_;
-	fcppt::signal::scoped_connection mouse_axis_connection_;
-	sge::camera::first_person::action::mapping action_mapping_;
-	sge::camera::first_person::movement_speed movement_speed_;
-	sge::camera::first_person::mouse_speed_multiplier mouse_speed_multiplier_;
-	sge::camera::is_active is_active_;
-	sge::renderer::vector3 directions_;
-	sge::camera::coordinate_system::object coordinate_system_;
+	typedef
+	fcppt::cyclic_iterator
+	<
+		sge::camera::tracking::keyframe_sequence::const_iterator
+	>
+	cyclic_iterator;
+
 	sge::camera::optional_projection_matrix projection_matrix_;
-	bool left_pressed_,right_pressed_;
-	bool up_pressed_,down_pressed_;
-	bool forward_pressed_,backward_pressed_;
-
-	void
-	key_callback(
-		sge::input::keyboard::key_event const &);
-
-	void
-	mouse_axis_callback(
-		sge::input::mouse::axis_event const &);
-
-	void
-	rotate_on_x(
-		sge::renderer::scalar);
-
-	void
-	rotate_on_y(
-		sge::renderer::scalar);
+	sge::camera::tracking::keyframe_sequence const keyframes_;
+	sge::camera::tracking::is_looping const is_looping_;
+	cyclic_iterator current_keyframe_;
+	sge::camera::update_duration current_time_point_;
+	sge::camera::is_active is_active_;
+	sge::camera::coordinate_system::object coordinate_system_;
+	bool finished_;
 };
 }
 }

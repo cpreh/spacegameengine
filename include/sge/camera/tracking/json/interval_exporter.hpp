@@ -18,46 +18,51 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CAMERA_HAS_ACTIVATION_HPP_INCLUDED
-#define SGE_CAMERA_HAS_ACTIVATION_HPP_INCLUDED
+#ifndef SGE_CAMERA_TRACKING_JSON_INTERVAL_EXPORTER_HPP_INCLUDED
+#define SGE_CAMERA_TRACKING_JSON_INTERVAL_EXPORTER_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
 #include <sge/camera/base.hpp>
-#include <sge/camera/has_activation.hpp>
-#include <sge/camera/is_active.hpp>
-#include <sge/camera/symbol.hpp>
+#include <sge/camera/update_duration.hpp>
+#include <sge/camera/tracking/keyframe_sequence.hpp>
+#include <sge/timer/basic.hpp>
+#include <sge/timer/clocks/standard.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
 {
 namespace camera
 {
-class SGE_CLASS_SYMBOL has_activation
-:
-	public virtual camera::base
+namespace tracking
+{
+namespace json
+{
+class interval_exporter
 {
 FCPPT_NONCOPYABLE(
-	has_activation);
-protected:
-	SGE_CAMERA_SYMBOL
-	has_activation();
+	interval_exporter);
 public:
-	virtual sge::camera::is_active const
-	is_active() const = 0;
-
-	virtual void
-	is_active(
-		sge::camera::is_active const &) = 0;
+	interval_exporter(
+		sge::camera::base const &,
+		sge::camera::update_duration const &,
+		boost::filesystem::path const &);
 
 	void
-	toggle_is_active();
+	update();
 
-	SGE_CAMERA_SYMBOL
-	virtual ~has_activation() = 0;
+	~interval_exporter();
+private:
+	sge::camera::base const &camera_;
+	sge::timer::basic<sge::timer::clocks::standard> update_timer_;
+	boost::filesystem::path const export_file_path_;
+	sge::camera::tracking::keyframe_sequence keyframes_;
 };
+}
+}
 }
 }
 
 #endif
-

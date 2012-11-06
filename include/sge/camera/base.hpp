@@ -37,7 +37,6 @@ class SGE_CLASS_SYMBOL base
 FCPPT_NONCOPYABLE(
 	base);
 protected:
-	explicit
 	base();
 public:
 	virtual coordinate_system::object const

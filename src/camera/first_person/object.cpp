@@ -123,27 +123,26 @@ sge::camera::first_person::object::update_projection_matrix(
 		_projection_matrix;
 }
 
-bool
+sge::camera::is_active const
 sge::camera::first_person::object::is_active() const
 {
 	return
-		is_active_.get();
+		is_active_;
 }
 
 void
 sge::camera::first_person::object::is_active(
-	bool const _is_active)
+	sge::camera::is_active  const &_is_active)
 {
 	is_active_ =
-		first_person::is_active(
-			_is_active);
+		_is_active;
 }
 
 void
 sge::camera::first_person::object::update(
 	camera::update_duration const &_time_delta)
 {
-	if(!this->is_active())
+	if(!this->is_active().get())
 		return;
 
 	coordinate_system_.position(
@@ -242,7 +241,7 @@ void
 sge::camera::first_person::object::mouse_axis_callback(
 	sge::input::mouse::axis_event const &_mouse_axis_event)
 {
-	if(!this->is_active())
+	if(!this->is_active().get())
 		return;
 
 	sge::renderer::scalar const scaled_axis_value =

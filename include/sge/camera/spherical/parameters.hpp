@@ -21,12 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CAMERA_SPHERICAL_PARAMETERS_HPP_INCLUDED
 #define SGE_CAMERA_SPHERICAL_PARAMETERS_HPP_INCLUDED
 
+#include <sge/camera/is_active.hpp>
 #include <sge/camera/optional_projection_matrix.hpp>
 #include <sge/camera/projection_matrix.hpp>
 #include <sge/camera/symbol.hpp>
 #include <sge/camera/spherical/acceleration_factor.hpp>
 #include <sge/camera/spherical/damping_factor.hpp>
-#include <sge/camera/spherical/is_active.hpp>
 #include <sge/camera/spherical/maximum_radius.hpp>
 #include <sge/camera/spherical/minimum_radius.hpp>
 #include <sge/camera/spherical/movement_speed.hpp>
@@ -54,7 +54,7 @@ public:
 	explicit
 	parameters(
 		input::keyboard::device &,
-		spherical::is_active const &,
+		sge::camera::is_active const &,
 		spherical::coordinate_system::object const &,
 		spherical::action::mapping const &);
 
@@ -63,7 +63,7 @@ public:
 	keyboard() const;
 
 	SGE_CAMERA_SYMBOL
-	spherical::is_active const &
+	sge::camera::is_active const &
 	is_active() const;
 
 	SGE_CAMERA_SYMBOL
@@ -141,7 +141,7 @@ public:
 private:
 	input::keyboard::device &keyboard_;
 	spherical::movement_speed movement_speed_;
-	spherical::is_active is_active_;
+	sge::camera::is_active is_active_;
 	spherical::coordinate_system::object coordinate_system_;
 	spherical::action::mapping action_mapping_;
 	spherical::origin origin_;

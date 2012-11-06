@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::camera::spherical::parameters::parameters(
 	input::keyboard::device &_keyboard,
-	spherical::is_active const &_is_active,
+	sge::camera::is_active const &_is_active,
 	spherical::coordinate_system::object const &_coordinate_system,
 	spherical::action::mapping const &_action_mapping)
 :
@@ -79,7 +79,7 @@ sge::camera::spherical::parameters::keyboard() const
 		keyboard_;
 }
 
-sge::camera::spherical::is_active const &
+sge::camera::is_active const &
 sge::camera::spherical::parameters::is_active() const
 {
 	return

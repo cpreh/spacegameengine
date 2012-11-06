@@ -18,31 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/scoped_vertex_buffer.hpp>
-#include <sge/renderer/vertex_buffer_fwd.hpp>
-#include <sge/renderer/context/core.hpp>
+#include <sge/camera/tracking/keyframe.hpp>
 
-
-sge::renderer::scoped_vertex_buffer::scoped_vertex_buffer(
-	sge::renderer::context::core &_context,
-sge::renderer::vertex_buffer const &_vertex_buffer
-)
+sge::camera::tracking::keyframe::keyframe(
+	sge::camera::update_duration const &_duration,
+	sge::camera::coordinate_system::object const &_coordinate_system)
 :
-	context_(
-		_context
-	),
-	vertex_buffer_(
-		_vertex_buffer
-	)
+	duration_(
+		_duration),
+	coordinate_system_(
+		_coordinate_system)
 {
-	context_.activate_vertex_buffer(
-		_vertex_buffer
-	);
 }
 
-sge::renderer::scoped_vertex_buffer::~scoped_vertex_buffer()
+sge::camera::update_duration const &
+sge::camera::tracking::keyframe::duration() const
 {
-	context_.deactivate_vertex_buffer(
-		vertex_buffer_
-	);
+	return
+		duration_;
+}
+
+sge::camera::coordinate_system::object const &
+sge::camera::tracking::keyframe::coordinate_system() const
+{
+	return
+		coordinate_system_;
 }

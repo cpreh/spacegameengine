@@ -18,31 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/scoped_vertex_buffer.hpp>
-#include <sge/renderer/vertex_buffer_fwd.hpp>
-#include <sge/renderer/context/core.hpp>
+#include <sge/camera/tracking/json/keyframe_from_json.hpp>
+#include <sge/camera/tracking/json/keyframes_from_json.hpp>
+#include <sge/parse/json/array.hpp>
+#include <sge/parse/json/get.hpp>
+#include <sge/parse/json/object.hpp>
 
 
-sge::renderer::scoped_vertex_buffer::scoped_vertex_buffer(
-	sge::renderer::context::core &_context,
-sge::renderer::vertex_buffer const &_vertex_buffer
-)
-:
-	context_(
-		_context
-	),
-	vertex_buffer_(
-		_vertex_buffer
-	)
+sge::camera::tracking::keyframe_sequence const
+sge::camera::tracking::json::keyframes_from_json(
+	sge::parse::json::array const &_array)
 {
-	context_.activate_vertex_buffer(
-		_vertex_buffer
-	);
-}
+	sge::camera::tracking::keyframe_sequence result;
 
-sge::renderer::scoped_vertex_buffer::~scoped_vertex_buffer()
-{
-	context_.deactivate_vertex_buffer(
-		vertex_buffer_
-	);
+	for(
+		sge::parse::json::element_vector::const_iterator it =
+			_array.elements.begin();
+		it != _array.elements.end();
+		++it)
+		result.push_back(
+			sge::camera::tracking::json::keyframe_from_json(
+				sge::parse::json::get<sge::parse::json::object const>(
+					*it)));
+
+	return
+		result;
 }

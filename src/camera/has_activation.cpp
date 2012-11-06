@@ -28,7 +28,8 @@ void
 sge::camera::has_activation::toggle_is_active()
 {
 	this->is_active(
-		!this->is_active());
+		sge::camera::is_active(
+			!this->is_active().get()));
 }
 
 sge::camera::has_activation::~has_activation()

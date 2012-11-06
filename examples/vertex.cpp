@@ -295,6 +295,7 @@ try
 		)
 	);
 
+#if 0
 //! [running_block]
 	while(
 		sys.window_system().poll()
@@ -342,6 +343,7 @@ try
 			sge::renderer::primitive_type::triangle_list
 		);
 	}
+#endif
 //! [scoped_block]
 
 	return

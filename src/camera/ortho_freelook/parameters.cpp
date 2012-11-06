@@ -26,7 +26,7 @@ sge::camera::ortho_freelook::parameters::parameters(
 	sge::input::keyboard::device &_keyboard,
 	renderer::projection::near const &_near,
 	renderer::projection::far const &_far,
-	ortho_freelook::is_active const &_is_active)
+	sge::camera::is_active const &_is_active)
 :
 	mouse_(
 		_mouse),
@@ -147,7 +147,7 @@ sge::camera::ortho_freelook::parameters::far() const
 		far_;
 }
 
-sge::camera::ortho_freelook::is_active const &
+sge::camera::is_active const &
 sge::camera::ortho_freelook::parameters::is_active() const
 {
 	return

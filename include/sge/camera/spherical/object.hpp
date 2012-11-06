@@ -25,13 +25,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/base.hpp>
 #include <sge/camera/has_activation.hpp>
 #include <sge/camera/has_mutable_projection.hpp>
+#include <sge/camera/is_active.hpp>
 #include <sge/camera/is_dynamic.hpp>
 #include <sge/camera/optional_projection_matrix.hpp>
 #include <sge/camera/symbol.hpp>
 #include <sge/camera/coordinate_system/object.hpp>
 #include <sge/camera/spherical/acceleration_factor.hpp>
 #include <sge/camera/spherical/damping_factor.hpp>
-#include <sge/camera/spherical/is_active.hpp>
 #include <sge/camera/spherical/maximum_radius.hpp>
 #include <sge/camera/spherical/minimum_radius.hpp>
 #include <sge/camera/spherical/movement_speed.hpp>
@@ -87,14 +87,14 @@ public:
 
 	/* override */
 	SGE_CAMERA_SYMBOL
-	bool
+	sge::camera::is_active const
 	is_active() const;
 
 	/* override */
 	SGE_CAMERA_SYMBOL
 	void
 	is_active(
-		bool);
+		sge::camera::is_active const &);
 
 	/* override */
 	SGE_CAMERA_SYMBOL
@@ -113,7 +113,7 @@ private:
 	spherical::maximum_radius maximum_radius_;
 	spherical::acceleration_factor acceleration_factor_;
 	spherical::damping_factor damping_factor_;
-	spherical::is_active is_active_;
+	sge::camera::is_active is_active_;
 	spherical::coordinate_system::object coordinate_system_;
 	camera::optional_projection_matrix projection_matrix_;
 	spherical::coordinate_system::object acceleration_;

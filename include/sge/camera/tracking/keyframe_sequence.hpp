@@ -18,31 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/scoped_vertex_buffer.hpp>
-#include <sge/renderer/vertex_buffer_fwd.hpp>
-#include <sge/renderer/context/core.hpp>
+#ifndef SGE_CAMERA_TRACKING_TRACKING_SEQUENCE_HPP_INCLUDED
+#define SGE_CAMERA_TRACKING_TRACKING_SEQUENCE_HPP_INCLUDED
+
+#include <sge/camera/tracking/keyframe.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <vector>
+#include <fcppt/config/external_end.hpp>
 
 
-sge::renderer::scoped_vertex_buffer::scoped_vertex_buffer(
-	sge::renderer::context::core &_context,
-sge::renderer::vertex_buffer const &_vertex_buffer
-)
-:
-	context_(
-		_context
-	),
-	vertex_buffer_(
-		_vertex_buffer
-	)
+namespace sge
 {
-	context_.activate_vertex_buffer(
-		_vertex_buffer
-	);
+namespace camera
+{
+namespace tracking
+{
+typedef
+std::vector<sge::camera::tracking::keyframe>
+keyframe_sequence;
+}
+}
 }
 
-sge::renderer::scoped_vertex_buffer::~scoped_vertex_buffer()
-{
-	context_.deactivate_vertex_buffer(
-		vertex_buffer_
-	);
-}
+#endif

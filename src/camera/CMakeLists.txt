@@ -19,7 +19,6 @@ set(
 	include/sge/camera/first_person/action/right.hpp
 	include/sge/camera/first_person/action/up.hpp
 	include/sge/camera/first_person/action/wasd_mapping.hpp
-	include/sge/camera/first_person/is_active.hpp
 	include/sge/camera/first_person/mouse_speed_multiplier.hpp
 	include/sge/camera/first_person/movement_speed.hpp
 	include/sge/camera/first_person/object.hpp
@@ -32,11 +31,13 @@ set(
 	include/sge/camera/has_mutable_coordinate_system_fwd.hpp
 	include/sge/camera/has_mutable_projection.hpp
 	include/sge/camera/has_mutable_projection_fwd.hpp
+	include/sge/camera/is_active.hpp
 	include/sge/camera/is_dynamic.hpp
 	include/sge/camera/is_dynamic_fwd.hpp
 	include/sge/camera/matrix_conversion/rotation.hpp
 	include/sge/camera/matrix_conversion/translation.hpp
 	include/sge/camera/matrix_conversion/world.hpp
+	include/sge/camera/matrix_conversion/world_matrix_to_coordinate_system.hpp
 	include/sge/camera/matrix_conversion/world_projection.hpp
 	include/sge/camera/optional_projection_matrix.hpp
 	include/sge/camera/ortho_freelook/action/activate_pan.hpp
@@ -77,7 +78,6 @@ set(
 	include/sge/camera/spherical/coordinate_system/radius.hpp
 	include/sge/camera/spherical/coordinate_system/to_camera_coordinate_system.hpp
 	include/sge/camera/spherical/damping_factor.hpp
-	include/sge/camera/spherical/is_active.hpp
 	include/sge/camera/spherical/maximum_radius.hpp
 	include/sge/camera/spherical/minimum_radius.hpp
 	include/sge/camera/spherical/movement_speed.hpp
@@ -86,6 +86,22 @@ set(
 	include/sge/camera/spherical/origin.hpp
 	include/sge/camera/spherical/parameters.hpp
 	include/sge/camera/spherical/parameters_fwd.hpp
+	include/sge/camera/tracking/alexa/add.hpp
+	include/sge/camera/tracking/alexa/lerp.hpp
+	include/sge/camera/tracking/alexa/multiply.hpp
+	include/sge/camera/tracking/is_looping.hpp
+	include/sge/camera/tracking/json/interval_exporter.hpp
+	include/sge/camera/tracking/json/key_press_exporter.hpp
+	include/sge/camera/tracking/json/keyframe_from_json.hpp
+	include/sge/camera/tracking/json/keyframe_to_json.hpp
+	include/sge/camera/tracking/json/keyframes_from_json.hpp
+	include/sge/camera/tracking/json/keyframes_to_json.hpp
+	include/sge/camera/tracking/keyframe.hpp
+	include/sge/camera/tracking/keyframe_fwd.hpp
+	include/sge/camera/tracking/keyframe_sequence.hpp
+	include/sge/camera/tracking/object.hpp
+	include/sge/camera/tracking/object_fwd.hpp
+	include/sge/camera/tracking/time_point.hpp
 	include/sge/camera/update_duration.hpp
 	src/camera/base.cpp
 	src/camera/coordinate_system/identity.cpp
@@ -102,6 +118,7 @@ set(
 	src/camera/matrix_conversion/rotation.cpp
 	src/camera/matrix_conversion/translation.cpp
 	src/camera/matrix_conversion/world.cpp
+	src/camera/matrix_conversion/world_matrix_to_coordinate_system.cpp
 	src/camera/matrix_conversion/world_projection.cpp
 	src/camera/ortho_freelook/action/mapping.cpp
 	src/camera/ortho_freelook/action/wsg_mapping.cpp
@@ -118,11 +135,19 @@ set(
 	src/camera/spherical/coordinate_system/to_camera_coordinate_system.cpp
 	src/camera/spherical/object.cpp
 	src/camera/spherical/parameters.cpp
+	src/camera/tracking/json/interval_exporter.cpp
+	src/camera/tracking/json/key_press_exporter.cpp
+	src/camera/tracking/json/keyframe_from_json.cpp
+	src/camera/tracking/json/keyframe_to_json.cpp
+	src/camera/tracking/json/keyframes_from_json.cpp
+	src/camera/tracking/json/keyframes_to_json.cpp
+	src/camera/tracking/keyframe.cpp
+	src/camera/tracking/object.cpp
 )
 
 add_sge_base_library(
 	camera
-	"sgeinput;sgerenderer;sgeviewport"
+	"sgeinput;sgerenderer;sgeviewport;sgeparse"
 	"${Fcppt_core_LIBRARIES}"
 	""
 	""

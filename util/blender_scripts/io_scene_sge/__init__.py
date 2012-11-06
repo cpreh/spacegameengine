@@ -44,7 +44,7 @@ class ExportSge(bpy.types.Operator, ExportHelper):
 	export_fov = BoolProperty(
 		name = "Camera FOV",
 		description = "export camera fov",
-		default = True,
+		default = False,
 		)
 	custom_fov = FloatProperty(
 		name = "Custom FOV",

@@ -83,7 +83,7 @@ sge::camera::ortho_freelook::object::object(
 	far_(
 		_params.far()),
 	is_active_(
-		_params.is_active().get()),
+		_params.is_active()),
 	zoom_in_pressed_(
 		false),
 	zoom_out_pressed_(
@@ -124,7 +124,7 @@ sge::camera::ortho_freelook::object::projection_matrix() const
 				far_));
 }
 
-bool
+sge::camera::is_active const
 sge::camera::ortho_freelook::object::is_active() const
 {
 	return
@@ -133,7 +133,7 @@ sge::camera::ortho_freelook::object::is_active() const
 
 void
 sge::camera::ortho_freelook::object::is_active(
-	bool const _is_active)
+	sge::camera::is_active const &_is_active)
 {
 	is_active_ =
 		_is_active;
@@ -143,7 +143,7 @@ void
 sge::camera::ortho_freelook::object::update(
 	camera::update_duration const &_delta)
 {
-	if(!is_active_ || !current_projection_rectangle_ || zoom_in_pressed_ == zoom_out_pressed_)
+	if(!is_active_.get() || !current_projection_rectangle_ || zoom_in_pressed_ == zoom_out_pressed_)
 		return;
 
 	renderer::vector2 const
@@ -188,7 +188,7 @@ void
 sge::camera::ortho_freelook::object::mouse_axis_callback(
 	sge::input::mouse::axis_event const &_axis)
 {
-	if(!is_active_ || !current_projection_rectangle_ || !pan_pressed_)
+	if(!is_active_.get() || !current_projection_rectangle_ || !pan_pressed_)
 		return;
 
 	if(_axis.code() != input::mouse::axis_code::x && _axis.code() != input::mouse::axis_code::y)

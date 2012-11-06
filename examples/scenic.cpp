@@ -21,14 +21,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/coordinate_system/identity.hpp>
 #include <sge/camera/first_person/object.hpp>
 #include <sge/camera/first_person/parameters.hpp>
+#include <sge/camera/matrix_conversion/world.hpp>
+#include <sge/camera/tracking/object.hpp>
+#include <sge/camera/tracking/json/interval_exporter.hpp>
+#include <sge/camera/tracking/json/key_press_exporter.hpp>
+#include <sge/camera/tracking/json/keyframes_from_json.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/graph/color_schemes.hpp>
 #include <sge/graph/object.hpp>
 #include <sge/image/capabilities_field.hpp>
 #include <sge/image/colors.hpp>
+#include <sge/input/keyboard/device.hpp>
+#include <sge/input/keyboard/key_event.hpp>
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_set.hpp>
+#include <sge/parse/json/parse_file_exn.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/context/ffp.hpp>
@@ -78,16 +86,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/exit_success.hpp>
 #include <awl/main/function_context.hpp>
+#include <fcppt/cref.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/optional.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
+#include <fcppt/math/matrix/output.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
+#include <fcppt/math/vector/output.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/program_options.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -105,6 +118,9 @@ example_main(
 try
 {
 	std::string scene_name_narrow;
+	std::string record_to_file;
+	std::string track_from_file;
+	sge::camera::update_duration::rep exporter_interval;
 
 	boost::program_options::options_description allowed_options_description("Allowed options");
 	allowed_options_description.add_options()
@@ -112,8 +128,26 @@ try
 			"help",
 			"produce help message")
 		(
+			"record-to-file",
+			boost::program_options::value<std::string>(
+				&record_to_file),
+			"Use a first-person camera and record the keyframes to this file (use recording-interval to control the keyframe interval)")
+		(
+			"recording-interval",
+			boost::program_options::value<sge::camera::update_duration::rep>(
+				&exporter_interval)->default_value(
+					static_cast<sge::camera::update_duration::rep>(
+						0.25f)),
+			"Take a keyframe each recording-interval seconds (only makes sense together with record-to-file)")
+		(
+			"track-from-file",
+			boost::program_options::value<std::string>(
+				&track_from_file),
+			"Use a tracking camera and load keyframes from this file")
+		(
 			"scene-name",
-			boost::program_options::value<std::string>(&scene_name_narrow)->required(),
+			boost::program_options::value<std::string>(
+				&scene_name_narrow)->required(),
 			"Scene name (denotes a path below media/scenes)")
 		(
 			"ffp",
@@ -137,6 +171,13 @@ try
 	boost::program_options::notify(
 		compiled_options);
 
+	if(compiled_options.count("record-to-file") && compiled_options.count("track-from-file"))
+	{
+		fcppt::io::cerr() <<
+			FCPPT_TEXT("You specified to record a file and use the tracking camera, that doesn't make sense.\n");
+		return
+			awl::main::exit_failure();
+	}
 
 	fcppt::string const scene_name(
 		fcppt::from_std_string(
@@ -194,15 +235,52 @@ try
 		sge::systems::quit_on_escape(
 			sys));
 
-	sge::camera::first_person::object camera(
-		sge::camera::first_person::parameters(
-			sys.keyboard_collector(),
-			sys.mouse_collector(),
-			sge::camera::first_person::is_active(
-				true),
-			sge::camera::first_person::movement_speed(
-				4.0f),
-			sge::camera::coordinate_system::identity()));
+//#define SGE_EXAMPLE_SCENIC_CAPTURE
+
+	fcppt::scoped_ptr<sge::camera::base> camera;
+	fcppt::scoped_ptr<sge::camera::tracking::json::interval_exporter> exporter;
+
+	if(!compiled_options.count("track-from-file"))
+	{
+		camera.take(
+			fcppt::make_unique_ptr<sge::camera::first_person::object>(
+				fcppt::cref(
+					sge::camera::first_person::parameters(
+						sys.keyboard_collector(),
+						sys.mouse_collector(),
+						sge::camera::is_active(
+							true),
+						sge::camera::first_person::movement_speed(
+							4.0f),
+						sge::camera::coordinate_system::identity()))));
+	}
+	else
+	{
+		camera.take(
+			fcppt::make_unique_ptr<sge::camera::tracking::object>(
+				sge::camera::optional_projection_matrix(),
+				fcppt::cref(
+					sge::camera::tracking::json::keyframes_from_json(
+						sge::parse::json::parse_file_exn(
+							boost::filesystem::path(
+								track_from_file)).array())),
+				sge::camera::tracking::is_looping(
+					true),
+				sge::camera::is_active(
+					true)));
+	}
+
+	if(compiled_options.count("record-to-file"))
+	{
+		exporter.take(
+			fcppt::make_unique_ptr<sge::camera::tracking::json::interval_exporter>(
+				fcppt::cref(
+					*camera),
+				sge::camera::update_duration(
+					exporter_interval),
+				boost::filesystem::path(
+					record_to_file)));
+	}
 
 	sge::scenic::scene::manager scene_manager(
 		sys.renderer_core(),
@@ -215,7 +293,7 @@ try
 		scene_manager,
 		sys.viewport_manager(),
 		sys.charconv_system(),
-		camera,
+		*camera,
 		sge::scenic::scene::from_blender_file(
 			sge::config::media_path() / FCPPT_TEXT("scenes") / scene_name / FCPPT_TEXT("description.json"),
 			sys.charconv_system()));
@@ -227,7 +305,7 @@ try
 
 	sge::scenic::grid::object simple_grid_xz(
 		sys.renderer_ffp(),
-		camera,
+		*camera,
 		sge::scenic::grid::orientation::xz,
 		sge::scenic::grid::rect(
 			sge::scenic::grid::rect::vector(
@@ -278,6 +356,11 @@ try
 		sge::graph::color_schemes::default_()
 	);
 
+	/*
+	camera.update_coordinate_system(
+		sge::camera::coordinate_system::identity());
+	*/
+
 	while(
 		sys.window_system().poll())
 	{
@@ -285,11 +368,14 @@ try
 			sge::timer::elapsed_and_reset<sge::camera::update_duration>(
 				camera_timer));
 
-		camera.update(
+		dynamic_cast<sge::camera::is_dynamic &>(*camera).update(
 			difference_since_last_frame);
 
 		graph.push(
 			difference_since_last_frame.count());
+
+		if(exporter)
+			exporter->update();
 
 		sge::renderer::context::scoped_ffp const scoped_block(
 			sys.renderer_ffp(),

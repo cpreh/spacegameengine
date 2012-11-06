@@ -24,9 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::camera::first_person::parameters::parameters(
 	sge::input::keyboard::device &_keyboard,
 	sge::input::mouse::device &_mouse,
-	first_person::is_active const &_is_active,
-	first_person::movement_speed const &_movement_speed,
-	camera::coordinate_system::object const &_coordinate_system)
+	sge::camera::is_active const &_is_active,
+	sge::camera::first_person::movement_speed const &_movement_speed,
+	sge::camera::coordinate_system::object const &_coordinate_system)
 :
 	keyboard_(
 		_keyboard),
@@ -35,7 +35,7 @@ sge::camera::first_person::parameters::parameters(
 	is_active_(
 		_is_active),
 	action_mapping_(
-		action::wasd_mapping()),
+		sge::camera::first_person::action::wasd_mapping()),
 	movement_speed_(
 		_movement_speed),
 	coordinate_system_(
@@ -60,7 +60,7 @@ sge::camera::first_person::parameters::mouse() const
 		mouse_;
 }
 
-sge::camera::first_person::is_active const &
+sge::camera::is_active const &
 sge::camera::first_person::parameters::is_active() const
 {
 	return
@@ -69,7 +69,7 @@ sge::camera::first_person::parameters::is_active() const
 
 sge::camera::first_person::parameters &
 sge::camera::first_person::parameters::action_mapping(
-	action::mapping const &_action_mapping)
+	sge::camera::first_person::action::mapping const &_action_mapping)
 {
 	action_mapping_ =
 		_action_mapping;
@@ -99,7 +99,7 @@ sge::camera::first_person::parameters::coordinate_system() const
 
 sge::camera::first_person::parameters &
 sge::camera::first_person::parameters::mouse_speed_multiplier(
-	camera::first_person::mouse_speed_multiplier const &_mouse_speed_multiplier)
+	sge::camera::first_person::mouse_speed_multiplier const &_mouse_speed_multiplier)
 {
 	mouse_speed_multiplier_ =
 		_mouse_speed_multiplier;
@@ -117,7 +117,7 @@ sge::camera::first_person::parameters::mouse_speed_multiplier() const
 
 sge::camera::first_person::parameters &
 sge::camera::first_person::parameters::projection(
-	camera::projection_matrix const &_projection_matrix)
+	sge::camera::projection_matrix const &_projection_matrix)
 {
 	projection_matrix_ =
 		_projection_matrix;

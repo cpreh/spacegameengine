@@ -1,0 +1,106 @@
+/*
+spacegameengine is a portable easy to use game engine written in C++.
+Copyright (C) 2006-2012 Carl Philipp Reh (sefi@s-e-f-i.de)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
+
+#include <sge/exception.hpp>
+#include <sge/camera/base.hpp>
+#include <sge/camera/tracking/json/key_press_exporter.hpp>
+#include <sge/camera/tracking/json/keyframes_to_json.hpp>
+#include <sge/input/keyboard/device.hpp>
+#include <sge/input/keyboard/key_event.hpp>
+#include <sge/parse/json/start.hpp>
+#include <sge/parse/json/output/to_file.hpp>
+#include <fcppt/cref.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/unique_ptr.hpp>
+#include <fcppt/filesystem/path_to_string.hpp>
+#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <iostream>
+#include <fcppt/config/external_end.hpp>
+
+
+sge::camera::tracking::json::key_press_exporter::key_press_exporter(
+	sge::camera::base const &_camera,
+	boost::filesystem::path const &_target_path,
+	sge::camera::update_duration const &_duration,
+	sge::input::keyboard::device &_keyboard,
+	keyframe_keypress const &_keyframe_keypress,
+	export_keypress const &_export_keypress)
+:
+	key_press_connection_(
+		_keyboard.key_callback(
+			std::tr1::bind(
+				&key_press_exporter::key_callback,
+				this,
+				std::tr1::placeholders::_1,
+				fcppt::cref(
+					_camera),
+				_target_path,
+				_duration,
+				_keyframe_keypress,
+				_export_keypress))),
+	keyframes_()
+{
+}
+
+sge::camera::tracking::json::key_press_exporter::~key_press_exporter()
+{
+}
+
+void
+sge::camera::tracking::json::key_press_exporter::key_callback(
+	sge::input::keyboard::key_event const &_key_event,
+	sge::camera::base const &_camera,
+	boost::filesystem::path const &_target_path,
+	sge::camera::update_duration const &_duration,
+	keyframe_keypress const &_keyframe_keypress,
+	export_keypress const &_export_keypress)
+{
+	if(!_key_event.pressed())
+		return;
+
+	if(_key_event.key_code() == _keyframe_keypress.get())
+	{
+		std::cout << "Storing keyframe...\n";
+		keyframes_.push_back(
+			sge::camera::tracking::keyframe(
+				_duration,
+				_camera.coordinate_system()));
+		std::cout << "Done!\n";
+	}
+	else if(_key_event.key_code() == _export_keypress.get())
+	{
+		std::cout << "Storing keyframe file " << _target_path << "...\n";
+		if(
+			!sge::parse::json::output::to_file(
+				_target_path,
+				sge::parse::json::start(
+					sge::parse::json::start_variant(
+						sge::camera::tracking::json::keyframes_to_json(
+							keyframes_)))))
+			throw
+				sge::exception(
+					FCPPT_TEXT("Couldn't write to file \"")+
+					fcppt::filesystem::path_to_string(
+						_target_path)+
+					FCPPT_TEXT("\""));
+		std::cout << "Done!\n";
+	}
+}
