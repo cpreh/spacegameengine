@@ -113,6 +113,13 @@ add_sge_test(
 )
 
 add_sge_test(
+	projectile/triangulate_long
+	""
+	"${Fcppt_core_LIBRARIES}"
+	""
+)
+
+add_sge_test(
 	parse/json
 	"sgeparse"
 	"${Fcppt_core_LIBRARIES}"
