@@ -148,7 +148,7 @@ set(
 add_sge_base_library(
 	camera
 	"sgeinput;sgerenderer;sgeviewport;sgeparse"
-	"${Fcppt_core_LIBRARIES}"
+	"${Fcppt_core_LIBRARIES};${Fcppt_filesystem_LIBRARIES};${Boost_CHRONO_LIBRARIES}"
 	""
 	""
 	""

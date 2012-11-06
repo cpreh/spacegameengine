@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/camera/base.hpp>
 #include <sge/camera/update_duration.hpp>
+#include <sge/camera/symbol.hpp>
 #include <sge/camera/tracking/keyframe_sequence.hpp>
 #include <sge/timer/basic.hpp>
 #include <sge/timer/clocks/standard.hpp>
@@ -45,14 +46,17 @@ class interval_exporter
 FCPPT_NONCOPYABLE(
 	interval_exporter);
 public:
+	SGE_CAMERA_SYMBOL
 	interval_exporter(
 		sge::camera::base const &,
 		sge::camera::update_duration const &,
 		boost::filesystem::path const &);
 
+	SGE_CAMERA_SYMBOL
 	void
 	update();
 
+	SGE_CAMERA_SYMBOL
 	~interval_exporter();
 private:
 	sge::camera::base const &camera_;
