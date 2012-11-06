@@ -179,13 +179,13 @@ FCPPT_PP_POP_WARNING
 			)
 		)(
 			vector2(
-				2000,
-				2000
+				0,
+				1000
 			)
 		)(
 			vector2(
-				0,
-				1000
+				2000,
+				2000
 			)
 		)(
 			vector2(
@@ -194,7 +194,7 @@ FCPPT_PP_POP_WARNING
 			)
 		)
 		,
-		-1000000l
+		0l
 	);
 
 }
