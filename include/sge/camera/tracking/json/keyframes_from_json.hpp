@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CAMERA_TRACKING_KEYFRAMES_FROM_JSON_HPP_INCLUDED
-#define SGE_CAMERA_TRACKING_KEYFRAMES_FROM_JSON_HPP_INCLUDED
+#ifndef SGE_CAMERA_TRACKING_JSON_KEYFRAMES_FROM_JSON_HPP_INCLUDED
+#define SGE_CAMERA_TRACKING_JSON_KEYFRAMES_FROM_JSON_HPP_INCLUDED
 
 #include <sge/camera/symbol.hpp>
 #include <sge/camera/tracking/keyframe_sequence.hpp>
