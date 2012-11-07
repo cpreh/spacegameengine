@@ -99,6 +99,13 @@ add_sge_test(
 )
 
 add_sge_test(
+	charconv/flake_config
+	"sgecharconv"
+	"${Fcppt_core_LIBRARIES}"
+	"${CMAKE_CURRENT_BINARY_DIR}/include"
+)
+
+add_sge_test(
 	console/cursor
 	"sgeconsole"
 	""

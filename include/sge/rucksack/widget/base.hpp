@@ -71,6 +71,7 @@ public:
 	virtual sge::rucksack::dim const
 	size() const = 0;
 
+	SGE_RUCKSACK_SYMBOL
 	sge::rucksack::rect const
 	area() const;
 

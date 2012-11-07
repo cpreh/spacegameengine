@@ -1,0 +1,196 @@
+{
+	"tests" :
+	{
+		"notification-font-size" : 19,
+		"notification-ttl-ms" : 2000,
+		"information-font-size" : 14,
+		"window-size" : [1280,1024],
+		"desired-fps" : 60,
+		"opencl-compiler-flags" : "-cl-mad-enable -cl-fast-relaxed-math -Werror",
+		"planar-vorticity" :
+		{
+			"wind-strength" : 10.0,
+			"vorticity-strength" : 0.15,
+			"jacobi-iterations" : 105,
+			"monitor-font-size" : 14,
+			"master-and-slave-padding" : 3,
+			"boundary" : "256/zagged.png",
+			"velocity-arrow-scale" : 1.0,
+			"velocity-grid-scale" : 2.0,
+			"vorticity-gradient-arrow-scale" : 1.0,
+			"vorticity-gradient-grid-scale" : 2.0,
+			"smoke-density-splat-per-second" : 0.2,
+			"texture-grid-scale" : 1,
+			"features" :
+			{
+				"paused" : false
+			}
+		},
+		"planar-buoyancy" :
+		{
+			"vorticity-strength" : 0.15,
+			"jacobi-iterations" : 105,
+			"monitor-font-size" : 14,
+			"master-and-slave-padding" : 3,
+			"boundary" : "256/black.png",
+			"velocity-arrow-scale" : 1.0,
+			"velocity-grid-scale" : 2.0,
+			"texture-grid-scale" : 1,
+			"buissnesq-density-strength" : 0.5,
+			"buissnesq-temperature-strength" : 0.5,
+			"buissnesq-ambient-temperature" : 20.0,
+			"smoke-density-splat-per-second" : 0.2,
+			"temperature-degrees-splat-per-second" : 1.0,
+			"features" :
+			{
+				"paused" : false
+			}
+		},
+		"marching-cubes" :
+		{
+			"simulation-size" : [128,128,128],
+			"snow-texture-size" : [64,64,64],
+			"snow-texture-repeats" : 100.0,
+			"near-plane" : 0.01,
+			"iso-level" : 0.2,
+			"far-plane" : 1000.0,
+			"sun-direction" : [0.8804509,0.17609018,0.440225453],
+			"fov" : 60.0,
+			"scene-name" : "sphere",
+			"snow-cover" :
+			{
+				"texture-repeats" : 20.0,
+				"steep-texture" : "snow_rough",
+				"flat-texture" : "snow_calm"
+			},
+			"features" :
+			{
+				"paused" : false,
+				"wireframe" : true
+			}
+		},
+		"flakes" :
+		{
+			"simulation-size" : [128,64,128],
+			"snow-cover" :
+			{
+				"texture-repeats" : 20.0,
+				"steep-texture" : "snow_rough",
+				"flat-texture" : "snow_calm"
+			},
+			"arrow-scale" : 1.0,
+			"grid-scale" : 1.0,
+			"wind-strength-start" : 0.0,
+			"wind-strength-mean" : -3.0,
+			"wind-strength-variance" : 3.0,
+			"wind-strength-frequency-seconds" : 1.0,
+			"jacobi-iterations" : 20,
+			"near-plane" : 1.0,
+			"far-plane" : 1000.0,
+			"fov" : 60.0,
+			"camera-movement-speed" : 6.0,
+			"flakes" :
+			{
+				"start-count" : 1024,
+				"maximum-count" : 32768,
+				"minimum-size" : 10.0,
+				"maximum-size" : 30.0,
+				"texture" : "flakes.png",
+				"texture-tile-size" : 0.25,
+				"texture-tile-count" : 4
+			},
+			"gravity-magnitude" : 2.0,
+			"collision-increment-real" : 0.01,
+			"collision-increment-test" : 1.0,
+			"collision-increment" : 0.001,
+			"sun-direction" : [0.666667,-0.333333,-0.666667],
+		    "fog-color" : [0.3,0.3,0.3],
+		    "fog-density" : 0.01,
+			"iso-level" : 0.2,
+			"scene-name" : "avz_lowpoly",
+			"features" :
+			{
+				"paused" : false,
+				"arrows" : false,
+				"marchingcubes" : true,
+				"wireframe" : false,
+				"snowcover" : true,
+				"models" : true,
+				"flakes" : true
+			},
+			"flake-configuration" :
+			{
+				"texture" : "flakes.png",
+				"tile-size" : 0.25,
+				"part-count" : 4
+			}
+		},
+		"solipsistic" :
+		{
+			"simulation-size" : [128,128,128],
+			"wind-strength-start" : 1.0,
+			"jacobi-iterations" : 105,
+			"iterations" : 200
+		},
+		"density-visualization" :
+		{
+			"simulation-size" : [64,64,64],
+			"raycast-step-size" : 0.5,
+			"near-plane" : 0.1,
+			"far-plane" : 1000.0,
+			"fov" : 60.0,
+			"sun-direction" : [0.666667,-0.333333,-0.666667],
+			"voxel-file" :
+			{
+				"name" : "landhaus_skaliert.binvox"
+			},
+			"features" :
+			{
+				"paused" : false
+			}
+		},
+		"smoke" :
+		{
+			"simulation-size" : [64,64,64],
+			"arrow-scale" : 1.0,
+			"grid-scale" : 1.0,
+			"wind-strength-start" : 1.0,
+			"wind-strength-minimum" : 2.0,
+			"wind-strength-maximum" : 3.0,
+			"wind-strength-frequency-seconds" : 1.0,
+			"obstacles" :
+			[
+				{
+					"left-bottom-back-position" : [30,0,30],
+					"bounding-box-size" : [10,10,10]
+				}
+			],
+			"vorticity-strength" : 10.0,
+			"camera-movement-speed" : 400.0,
+			"raycast-step-size" : 0.5,
+			"model-name" : "avz",
+			"buissnesq" :
+			{
+				"density-strength" : 0.1,
+				"temperature-strength" : 0.1,
+				"ambient-temperature" : 20.0,
+				"splat-temperature" : 60.0
+			},
+			"jacobi-iterations" : 105,
+			"near-plane" : 1.0,
+			"far-plane" : 1000.0,
+			"fov" : 60.0,
+			"sun-direction" : [0.8804509,0.17609018,0.440225453],
+			"features" :
+			{
+				"arrows" : false,
+				"paused" : false,
+				"wireframe" : false,
+				"windsource" : false,
+				"temperaturevisual" : false,
+				"smoke" : true,
+				"models" : true
+			}
+		}
+	}
+}
