@@ -52,6 +52,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/matrix/scaling.hpp>
 #include <fcppt/math/matrix/translation.hpp>
 #include <fcppt/math/vector/output.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::scenic::scene::object::object(
@@ -126,22 +129,10 @@ sge::scenic::scene::object::render(
 	/*sge::scenic::render_queue::state_change_count const state_changes(
 	 */
 	current_render_queue.render(_context)/*)*/;
-
-	/*
-	std::cout
-		<< "\r"
-		<< prototype_->entities().size()
-		<< " entities, "
-		<< state_changes.get()
-		<< " state changes";
-
-	std::cout.flush();
-	*/
 }
 
 sge::scenic::scene::object::~object()
 {
-	//std::cout << "\n";
 }
 
 void

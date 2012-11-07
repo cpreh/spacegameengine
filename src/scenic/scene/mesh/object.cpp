@@ -142,16 +142,6 @@ sge::scenic::scene::mesh::object::fill_vertex_buffer(
 		current_face_vertex != _prototype.face_vertices().end();
 		++current_face_vertex)
 	{
-		/*
-		std::cout
-			<< "Adding vertex: "
-			<< vertex_coordinates[current_face_vertex->vertex_coordinate_index().get()]
-			<< ", "
-			<< texture_coordinates[current_face_vertex->texture_coordinate_index().get()]
-			<< ", "
-			<< normals[current_face_vertex->normal_index().get()] << "\n";
-			*/
-
 		(*current_vertex).set<sge::scenic::vf::position>(
 			vertex_coordinates[
 				current_face_vertex->vertex_coordinate_index().get()]);

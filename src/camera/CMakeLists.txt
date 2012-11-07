@@ -34,6 +34,7 @@ set(
 	include/sge/camera/is_active.hpp
 	include/sge/camera/is_dynamic.hpp
 	include/sge/camera/is_dynamic_fwd.hpp
+	include/sge/camera/log_location.hpp
 	include/sge/camera/matrix_conversion/rotation.hpp
 	include/sge/camera/matrix_conversion/translation.hpp
 	include/sge/camera/matrix_conversion/world.hpp
@@ -114,7 +115,10 @@ set(
 	src/camera/has_activation.cpp
 	src/camera/has_mutable_coordinate_system.cpp
 	src/camera/has_mutable_projection.cpp
+	src/camera/include/sge/src/camera/logger.hpp
 	src/camera/is_dynamic.cpp
+	src/camera/log_location.cpp
+	src/camera/logger.cpp
 	src/camera/matrix_conversion/rotation.cpp
 	src/camera/matrix_conversion/translation.cpp
 	src/camera/matrix_conversion/world.cpp
@@ -147,9 +151,9 @@ set(
 
 add_sge_base_library(
 	camera
-	"sgeinput;sgerenderer;sgeviewport;sgeparse"
+	"sgeinput;sgelog;sgerenderer;sgeviewport;sgeparse"
 	"${Fcppt_core_LIBRARIES};${Fcppt_filesystem_LIBRARIES};${Boost_CHRONO_LIBRARIES}"
 	""
 	""
-	""
+	"${CMAKE_CURRENT_SOURCE_DIR}/include"
 )

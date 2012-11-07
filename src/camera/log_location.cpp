@@ -18,23 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CEGUI_LOGGER_HPP_INCLUDED
-#define SGE_CEGUI_LOGGER_HPP_INCLUDED
+#include <sge/camera/log_location.hpp>
+#include <sge/log/location.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/log/location.hpp>
 
-#include <sge/cegui/symbol.hpp>
-#include <fcppt/log/object_fwd.hpp>
 
-
-namespace sge
+fcppt::log::location const
+sge::camera::log_location()
 {
-namespace cegui
-{
-
-SGE_CEGUI_SYMBOL
-fcppt::log::object &
-logger();
-
+	return
+		sge::log::location()
+		/
+		FCPPT_TEXT("camera");
 }
-}
-
-#endif

@@ -18,19 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_CEGUI_DECLARE_LOCAL_LOGGER_HPP_INCLUDED
-#define SGE_SRC_CEGUI_DECLARE_LOCAL_LOGGER_HPP_INCLUDED
+#ifndef SGE_CEGUI_LOG_LOCATION_HPP_INCLUDED
+#define SGE_CEGUI_LOG_LOCATION_HPP_INCLUDED
 
-#include <sge/cegui/log_location.hpp>
-#include <sge/log/declare_local.hpp>
+#include <sge/cegui/symbol.hpp>
+#include <fcppt/log/location.hpp>
 
 
-#define SGE_CEGUI_DECLARE_LOCAL_LOGGER(\
-	name\
-)\
-SGE_LOG_DECLARE_LOCAL(\
-	name,\
-	sge::cegui::log_location() \
-)
+namespace sge
+{
+namespace cegui
+{
+
+SGE_CEGUI_SYMBOL
+fcppt::log::location const
+log_location();
+
+}
+}
 
 #endif

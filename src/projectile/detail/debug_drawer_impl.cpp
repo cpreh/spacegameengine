@@ -29,13 +29,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/projectile/declare_local_logger.hpp>
 #include <sge/src/projectile/structure_cast.hpp>
 #include <sge/src/projectile/detail/debug_drawer_impl.hpp>
+#include <fcppt/from_std_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/assert/pre.hpp>
+#include <fcppt/log/debug.hpp>
+#include <fcppt/log/output.hpp>
+#include <fcppt/log/warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h>
-#include <iostream>
-#include <ostream>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -68,11 +70,9 @@ sge::projectile::detail::debug_drawer_impl::update()
 			fcppt::ref(
 				line_drawer_)));
 
-	/*
 	FCPPT_LOG_DEBUG(
 		local_log,
 		fcppt::log::_ << FCPPT_TEXT("acquired lock"));
-	*/
 
 	scoped_lock_->value().clear();
 
@@ -81,11 +81,9 @@ sge::projectile::detail::debug_drawer_impl::update()
 
 	scoped_lock_.reset();
 
-	/*
 	FCPPT_LOG_DEBUG(
 		local_log,
 		fcppt::log::_ << FCPPT_TEXT("released lock"));
-	*/
 }
 
 void
@@ -196,11 +194,14 @@ void
 sge::projectile::detail::debug_drawer_impl::reportErrorWarning(
 	char const* warningString)
 {
-	// FIXME!
-	std::cerr
-		<< "Debug drawer warning: "
-		<< warningString
-		<< "\n";
+	FCPPT_LOG_WARNING(
+		local_log,
+		fcppt::log::_
+			<<
+			fcppt::from_std_string(
+				warningString
+			)
+	);
 }
 
 // @override

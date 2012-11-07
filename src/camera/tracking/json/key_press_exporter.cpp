@@ -26,15 +26,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/parse/json/start.hpp>
 #include <sge/parse/json/output/to_file.hpp>
+#include <sge/src/camera/logger.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
+#include <fcppt/log/info.hpp>
+#include <fcppt/log/output.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <iostream>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -84,16 +86,28 @@ sge::camera::tracking::json::key_press_exporter::key_callback(
 
 	if(_key_event.key_code() == keyframe_keypress_.get())
 	{
-		std::cout << "Storing keyframe...\n";
+		FCPPT_LOG_INFO(
+			sge::camera::logger(),
+			fcppt::log::_
+				<< FCPPT_TEXT("Storing keyframe..."));
+
 		keyframes_.push_back(
 			sge::camera::tracking::keyframe(
 				duration_,
 				camera_.coordinate_system()));
-		std::cout << "Done!\n";
+		FCPPT_LOG_INFO(
+			sge::camera::logger(),
+			fcppt::log::_
+				<< FCPPT_TEXT("Done!"));
 	}
 	else if(_key_event.key_code() == export_keypress_.get())
 	{
-		std::cout << "Storing keyframe file " << target_path_ << "...\n";
+		FCPPT_LOG_INFO(
+			sge::camera::logger(),
+			fcppt::log::_
+				<< FCPPT_TEXT("Storing keyframe file ")
+				<< target_path_
+				<< FCPPT_TEXT("..."));
 		if(
 			!sge::parse::json::output::to_file(
 				target_path_,
@@ -107,6 +121,9 @@ sge::camera::tracking::json::key_press_exporter::key_callback(
 					fcppt::filesystem::path_to_string(
 						target_path_)+
 					FCPPT_TEXT("\""));
-		std::cout << "Done!\n";
+		FCPPT_LOG_INFO(
+			sge::camera::logger(),
+			fcppt::log::_
+				<< FCPPT_TEXT("Done!"));
 	}
 }

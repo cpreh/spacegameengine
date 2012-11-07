@@ -14,7 +14,7 @@ set(
 	include/sge/cegui/from_cegui_string.hpp
 	include/sge/cegui/load_context.hpp
 	include/sge/cegui/load_context_fwd.hpp
-	include/sge/cegui/logger.hpp
+	include/sge/cegui/log_location.hpp
 	include/sge/cegui/syringe.hpp
 	include/sge/cegui/syringe_fwd.hpp
 	include/sge/cegui/system.hpp
@@ -62,7 +62,7 @@ set(
 	src/cegui/include/sge/src/cegui/geometry_buffer_fwd.hpp
 	src/cegui/include/sge/src/cegui/image_codec.hpp
 	src/cegui/include/sge/src/cegui/image_codec_fwd.hpp
-	src/cegui/include/sge/src/cegui/log_location.hpp
+	src/cegui/include/sge/src/cegui/logger.hpp
 	src/cegui/include/sge/src/cegui/make_rasterizer_parameters.hpp
 	src/cegui/include/sge/src/cegui/optional_key_scan.hpp
 	src/cegui/include/sge/src/cegui/optional_key_scan_fwd.hpp
