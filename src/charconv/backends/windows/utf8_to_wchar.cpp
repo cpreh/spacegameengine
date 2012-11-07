@@ -62,6 +62,8 @@ sge::charconv::backends::windows::utf8_to_wchar::convert(
 			temp_output_container::size_type
 		>(
 			_output.size()
+			/
+			sizeof(wchar_t)
 		)
 	);
 
