@@ -50,7 +50,7 @@ sge::d3d9::cg::program::loaded_object::loaded_object(
 	if(
 		::cgD3D9LoadProgram(
 			program_.get(),
-			CG_TRUE,
+			CG_FALSE,
 			0u
 		)
 		!=
