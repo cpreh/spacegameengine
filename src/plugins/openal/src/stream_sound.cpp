@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/openal/stream_sound.hpp>
 #include <sge/openal/openal.hpp>
-#include <sge/openal/log.hpp>
+#include <sge/openal/logger.hpp>
 #include <sge/openal/check_state.hpp>
 #include <sge/openal/file_format.hpp>
 #include <sge/audio/exception.hpp>
@@ -60,7 +60,7 @@ sge::openal::stream_sound::stream_sound(
 				2))
 {
 	FCPPT_LOG_DEBUG(
-		log(),
+		sge::openal::logger(),
 		fcppt::log::_
 			<< FCPPT_TEXT("Creating ")
 			<< al_buffers_.size()
@@ -105,7 +105,7 @@ sge::openal::stream_sound::stream_sound(
 				2))
 {
 	FCPPT_LOG_DEBUG(
-		log(),
+		sge::openal::logger(),
 		fcppt::log::_
 			<< FCPPT_TEXT("Creating ")
 			<< al_buffers_.size()
@@ -149,7 +149,7 @@ sge::openal::stream_sound::update()
 	if (processed)
 	{
 		FCPPT_LOG_DEBUG(
-			log(),
+			sge::openal::logger(),
 			fcppt::log::_ << processed << FCPPT_TEXT(" buffers processed"));
 	}
 	else
@@ -237,7 +237,7 @@ sge::openal::stream_sound::do_play()
 	)
 
 	FCPPT_LOG_DEBUG(
-		log(),
+		sge::openal::logger(),
 		fcppt::log::_ << FCPPT_TEXT("queued ") << al_buffers_.size() <<  FCPPT_TEXT(" buffers"));
 }
 
@@ -252,13 +252,13 @@ sge::openal::stream_sound::fill_buffer(
 			data);
 
 	FCPPT_LOG_DEBUG(
-		log(),
+		sge::openal::logger(),
 		fcppt::log::_ << FCPPT_TEXT("read ") << samples_read << FCPPT_TEXT(" samples"));
 
 	if (samples_read == static_cast<audio::sample_count>(0))
 	{
 		FCPPT_LOG_DEBUG(
-			log(),
+			sge::openal::logger(),
 			fcppt::log::_ << FCPPT_TEXT("at the end of last buffer"));
 
 		// there's nothing more to load, but the sound should be looped? then reset

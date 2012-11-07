@@ -18,20 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef ALDA_LOG_HPP_INCLUDED
-#define ALDA_LOG_HPP_INCLUDED
+#include <sge/openal/logger.hpp>
+#include <sge/log/declare_lib.hpp>
+#include <sge/log/location.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/log/location.hpp>
 
-#include <alda/symbol.hpp>
-#include <fcppt/log/object_fwd.hpp>
 
-
-namespace alda
-{
-
-ALDA_SYMBOL
-fcppt::log::object &
-log();
-
-}
-
-#endif
+SGE_LOG_DECLARE_LIB(
+	sge::openal::logger,
+	sge::log::location()
+	/
+	FCPPT_TEXT("openal")
+)

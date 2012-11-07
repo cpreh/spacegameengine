@@ -15,10 +15,10 @@ set(
 	alda/src/include/alda/src/net/client/detail/object_impl.hpp
 	alda/src/include/alda/src/net/server/detail/connection.hpp
 	alda/src/include/alda/src/net/server/detail/object_impl.hpp
-	alda/src/log.cpp
 	alda/src/log_context.cpp
 	alda/src/log_location.cpp
 	alda/src/log_parameters.cpp
+	alda/src/logger.cpp
 	alda/src/net/buffer/circular_receive/for_asio.cpp
 	alda/src/net/buffer/circular_receive/object.cpp
 	alda/src/net/buffer/circular_receive/part.cpp

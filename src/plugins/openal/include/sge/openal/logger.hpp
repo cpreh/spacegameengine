@@ -18,16 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/openal/log.hpp>
-#include <sge/log/declare_lib.hpp>
-#include <sge/log/location.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/log/location.hpp>
+#ifndef SGE_OPENAL_LOGGER_HPP_INCLUDED
+#define SGE_OPENAL_LOGGER_HPP_INCLUDED
+
+#include <fcppt/log/object_fwd.hpp>
 
 
-SGE_LOG_DECLARE_LIB(
-	sge::openal::log,
-	sge::log::location()
-	/
-	FCPPT_TEXT("openal")
-)
+namespace sge
+{
+namespace openal
+{
+
+fcppt::log::object &
+logger();
+
+}
+}
+
+#endif

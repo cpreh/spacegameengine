@@ -12,7 +12,7 @@ set(
 	src/plugins/openal/include/sge/openal/error_string.hpp
 	src/plugins/openal/include/sge/openal/file_format.hpp
 	src/plugins/openal/include/sge/openal/listener.hpp
-	src/plugins/openal/include/sge/openal/log.hpp
+	src/plugins/openal/include/sge/openal/logger.hpp
 	src/plugins/openal/include/sge/openal/openal.hpp
 	src/plugins/openal/include/sge/openal/player.hpp
 	src/plugins/openal/include/sge/openal/source.hpp
@@ -28,7 +28,7 @@ set(
 	src/plugins/openal/src/exports.cpp
 	src/plugins/openal/src/file_format.cpp
 	src/plugins/openal/src/listener.cpp
-	src/plugins/openal/src/log.cpp
+	src/plugins/openal/src/logger.cpp
 	src/plugins/openal/src/player.cpp
 	src/plugins/openal/src/source.cpp
 	src/plugins/openal/src/source_wrapper.cpp

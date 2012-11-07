@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/openal/source.hpp>
 #include <sge/openal/check_state.hpp>
-#include <sge/openal/log.hpp>
 #include <sge/audio/exception.hpp>
 #include <sge/audio/scalar.hpp>
 #include <sge/audio/vector.hpp>
@@ -32,7 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/math/rad_to_deg.hpp>
-#include <fcppt/math/vector/output.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 sge::openal::source::source(

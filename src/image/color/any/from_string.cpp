@@ -126,7 +126,6 @@ rgb8_from_hex_string(
 #include <fcppt/container/array.hpp>
 #include <sge/image/exception.hpp>
 #include <sge/image/color/init.hpp>
-#include <fcppt/io/cout.hpp>
 
 namespace
 {

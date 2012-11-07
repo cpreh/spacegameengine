@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef ALDA_NET_LOG_HPP_INCLUDED
-#define ALDA_NET_LOG_HPP_INCLUDED
+#ifndef ALDA_LOGGER_HPP_INCLUDED
+#define ALDA_LOGGER_HPP_INCLUDED
 
 #include <alda/symbol.hpp>
 #include <fcppt/log/object_fwd.hpp>
@@ -27,14 +27,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace alda
 {
-namespace net
-{
 
 ALDA_SYMBOL
 fcppt::log::object &
-log();
+logger();
 
-}
 }
 
 #endif

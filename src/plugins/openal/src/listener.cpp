@@ -20,12 +20,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/openal/listener.hpp>
 #include <sge/openal/check_state.hpp>
-#include <sge/openal/log.hpp>
+//#include <sge/openal/logger.hpp>
 #include <sge/openal/openal.hpp>
 #include <sge/audio/exception.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/log/headers.hpp>
-#include <fcppt/math/vector/output.hpp>
+//#include <fcppt/log/headers.hpp>
+//#include <fcppt/math/vector/output.hpp>
 
 
 namespace
@@ -65,7 +65,7 @@ sge::openal::listener::linear_velocity(
 {
 /*
 	FCPPT_LOG_DEBUG(
-		log(),
+		sge::openal::logger(),
 		fcppt::log::_ << FCPPT_TEXT("setting listener velocity to ") << n);*/
 
 	linear_velocity_ =
@@ -90,7 +90,7 @@ sge::openal::listener::position(
 {
 	/*
 	FCPPT_LOG_DEBUG(
-		log(),
+		sge::openal::logger(),
 		fcppt::log::_ << FCPPT_TEXT("setting listener position to ") << n);
 */
 

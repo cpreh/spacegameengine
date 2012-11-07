@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <alda/log.hpp>
 #include <alda/log_location.hpp>
+#include <alda/logger.hpp>
 #include <alda/src/log_parameters.hpp>
 #include <sge/log/declare_lib_base.hpp>
 #include <fcppt/log/parameters/object.hpp>
@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 SGE_LOG_DECLARE_LIB_BASE(
-	alda::log,
+	alda::logger,
 	alda::log_parameters(
 		alda::log_location()
 	)

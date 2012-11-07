@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/openal/stream_sound.hpp>
 #include <sge/openal/check_state.hpp>
 #include <sge/openal/file_format.hpp>
-#include <sge/openal/log.hpp>
 #include <sge/openal/buffer.hpp>
 #include <sge/audio/exception.hpp>
 #include <sge/audio/file.hpp>
@@ -35,7 +34,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
-#include <fcppt/log/headers.hpp>
 
 
 sge::openal::player::player()

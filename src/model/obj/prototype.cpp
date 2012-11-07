@@ -160,10 +160,6 @@ sge::model::obj::prototype::prototype(
 			stream,
 			line))
 	{
-		/*
-		if(line_counter % 100u == 0)
-			std::cout << "\r" << line_counter;
-			*/
 		++line_counter;
 
 		if(line.empty() || line[0] == '#')
@@ -361,8 +357,6 @@ sge::model::obj::prototype::prototype(
 		texture_coordinates_.push_back(
 			sge::renderer::vector2::null());
 	}
-
-	//std::cout << "\n";
 }
 
 sge::model::obj::vertex_coordinate_sequence const &

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/openal/source.hpp>
 #include <sge/openal/check_state.hpp>
 #include <sge/openal/file_format.hpp>
-#include <sge/openal/log.hpp>
+#include <sge/openal/logger.hpp>
 #include <sge/audio/exception.hpp>
 #include <sge/audio/file.hpp>
 #include <sge/audio/sample_container.hpp>
@@ -48,7 +48,7 @@ sge::openal::buffer::buffer(
 	);
 
 	FCPPT_LOG_DEBUG(
-		openal::log(),
+		sge::openal::logger(),
 		fcppt::log::_
 			<< FCPPT_TEXT("creating buffer of size ")
 			<< data.size()

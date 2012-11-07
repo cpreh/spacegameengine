@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/openal/source_wrapper.hpp>
 #include <sge/openal/check_state.hpp>
-#include <sge/openal/log.hpp>
+#include <sge/openal/logger.hpp>
 #include <sge/audio/bad_sound_alloc.hpp>
 #include <sge/audio/exception.hpp>
 #include <fcppt/text.hpp>
@@ -43,7 +43,7 @@ sge::openal::source_wrapper::source_wrapper()
 sge::openal::source_wrapper::~source_wrapper()
 {
 	FCPPT_LOG_DEBUG(
-		log(),
+		sge::openal::logger(),
 		fcppt::log::_
 			<< FCPPT_TEXT("Deleting a source"));
 

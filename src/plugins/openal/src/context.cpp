@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/openal/check_state.hpp>
 #include <sge/openal/check_alc_state.hpp>
 #include <sge/openal/openal.hpp>
-#include <sge/openal/log.hpp>
+#include <sge/openal/logger.hpp>
 #include <sge/audio/exception.hpp>
 #include <fcppt/assert/post.hpp>
 #include <fcppt/log/headers.hpp>
@@ -61,7 +61,11 @@ sge::openal::context::context(
 	al_attributes.push_back(static_cast<ALCint>(0));
 	al_attributes.push_back(static_cast<ALCint>(0));
 
-	FCPPT_LOG_DEBUG(log(),fcppt::log::_ << FCPPT_TEXT("creating audio context"))
+	FCPPT_LOG_DEBUG(
+		sge::openal::logger(),
+		fcppt::log::_
+			<< FCPPT_TEXT("creating audio context")
+	)
 
 	context_ = alcCreateContext(device_.aldevice(),&(al_attributes[0]));
 
@@ -86,7 +90,11 @@ sge::openal::context::context(
 		sge::audio::exception
 	);
 
-	FCPPT_LOG_DEBUG(log(),fcppt::log::_ << FCPPT_TEXT("created audio context"))
+	FCPPT_LOG_DEBUG(
+		sge::openal::logger(),
+		fcppt::log::_
+			<< FCPPT_TEXT("created audio context")
+	)
 }
 
 ALCcontext *
@@ -97,8 +105,11 @@ sge::openal::context::alcontext()
 
 void sge::openal::context::make_current()
 {
-	FCPPT_LOG_DEBUG(log(),
-		fcppt::log::_ << FCPPT_TEXT("making audio context the current context"));
+	FCPPT_LOG_DEBUG(
+		sge::openal::logger(),
+		fcppt::log::_
+			<< FCPPT_TEXT("making audio context the current context")
+	);
 
 	alcMakeContextCurrent(context_);
 
@@ -113,8 +124,11 @@ void sge::openal::context::make_current()
 		audio::exception
 	)
 
-	FCPPT_LOG_DEBUG(log(),
-		fcppt::log::_ << FCPPT_TEXT("made audio context the current context"));
+	FCPPT_LOG_DEBUG(
+		sge::openal::logger(),
+		fcppt::log::_
+			<< FCPPT_TEXT("made audio context the current context")
+	);
 }
 
 sge::openal::context::~context()
@@ -136,8 +150,11 @@ sge::openal::context::~context()
 
 	if (current == context_)
 	{
-		FCPPT_LOG_DEBUG(log(),
-			fcppt::log::_ << FCPPT_TEXT("context is the current context, so resetting current context"));
+		FCPPT_LOG_DEBUG(
+			sge::openal::logger(),
+			fcppt::log::_
+				<< FCPPT_TEXT("context is the current context, so resetting current context")
+		);
 
 		// TODO: alcMakeContextCurrent is called more than once, split this!
 		alcMakeContextCurrent(0);

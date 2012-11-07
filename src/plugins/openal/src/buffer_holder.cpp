@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/openal/buffer_holder.hpp>
 #include <sge/openal/check_state.hpp>
-#include <sge/openal/log.hpp>
+#include <sge/openal/logger.hpp>
 #include <sge/openal/openal.hpp>
 #include <sge/audio/exception.hpp>
 #include <fcppt/text.hpp>
@@ -49,7 +49,7 @@ sge::openal::buffer_holder::buffer_holder()
 sge::openal::buffer_holder::~buffer_holder()
 {
 	FCPPT_LOG_DEBUG(
-		openal::log(),
+		sge::openal::logger(),
 		fcppt::log::_
 			<< FCPPT_TEXT("Deleting a buffer")
 	);
