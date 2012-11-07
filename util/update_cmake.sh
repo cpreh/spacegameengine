@@ -304,6 +304,7 @@ update_cmake_file \
 	src/plugins/d3d9/include/sge/d3d9/query \
 	src/plugins/d3d9/include/sge/d3d9/swapchain \
 	src/plugins/d3d9/include/sge/d3d9/volume \
+	$(d3d9_inc_src com) \
 	$(d3d9_inc_src convert) \
 	$(d3d9_inc_src devicefuncs) \
 	$(d3d9_inc_src occlusion_query) \

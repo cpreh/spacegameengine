@@ -19,40 +19,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/com/compare.hpp>
 #include <sge/d3d9/com/compare_ptr.hpp>
-#include <sge/d3d9/cg/texture/assigned_stage.hpp>
-#include <sge/d3d9/devicefuncs/get_texture.hpp>
-#include <sge/d3d9/texture/base.hpp>
-#include <sge/renderer/caps/texture_stages.hpp>
-#include <sge/renderer/texture/stage.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/null_ptr.hpp>
 
 
-sge::renderer::texture::stage const
-sge::d3d9::cg::texture::assigned_stage(
-	IDirect3DDevice9 &_device,
-	sge::d3d9::texture::base const &_texture,
-	sge::renderer::caps::texture_stages const _max_stages
+bool
+sge::d3d9::com::compare_ptr(
+	IUnknown *const _ptr1,
+	IUnknown *const _ptr2
 )
 {
-	for(
-		sge::renderer::texture::stage stage(
-			0u
+	return
+		_ptr1 == _ptr2
+		||
+		(
+			_ptr1 == fcppt::null_ptr()
+			||
+			_ptr2 == fcppt::null_ptr()
+			?
+				_ptr1
+				==
+				_ptr2
+			:
+				sge::d3d9::com::compare(
+					*_ptr1,
+					*_ptr2
+				)
 		);
-		stage.get() < _max_stages.get();
-		++stage
-	)
-		if(
-			sge::d3d9::com::compare_ptr(
-				sge::d3d9::devicefuncs::get_texture(
-					_device,
-					stage
-				).get(),
-				&_texture.get()
-			)
-		)
-			return
-				stage;
-
-	FCPPT_ASSERT_UNREACHABLE;
 }

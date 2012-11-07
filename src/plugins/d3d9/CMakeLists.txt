@@ -1,5 +1,8 @@
 SET(
 	SGE_D3D9_BASE_FILES
+	src/plugins/d3d9/include/sge/d3d9/com/compare.hpp
+	src/plugins/d3d9/include/sge/d3d9/com/compare_ptr.hpp
+	src/plugins/d3d9/include/sge/d3d9/com/query_interface.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/bool.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/color_format.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/cube_side.hpp
@@ -377,6 +380,9 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/volumefuncs/get_desc.hpp
 	src/plugins/d3d9/include/sge/d3d9/volumefuncs/lock_box.hpp
 	src/plugins/d3d9/include/sge/d3d9/volumefuncs/unlock_box.hpp
+	src/plugins/d3d9/src/com/compare.cpp
+	src/plugins/d3d9/src/com/compare_ptr.cpp
+	src/plugins/d3d9/src/com/query_interface.cpp
 	src/plugins/d3d9/src/convert/bool.cpp
 	src/plugins/d3d9/src/convert/color_format.cpp
 	src/plugins/d3d9/src/convert/cube_side.cpp

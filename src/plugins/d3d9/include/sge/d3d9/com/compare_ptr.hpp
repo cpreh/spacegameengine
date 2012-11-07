@@ -18,41 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_D3D9_COM_COMPARE_PTR_HPP_INCLUDED
+#define SGE_D3D9_COM_COMPARE_PTR_HPP_INCLUDED
+
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/com/compare_ptr.hpp>
-#include <sge/d3d9/cg/texture/assigned_stage.hpp>
-#include <sge/d3d9/devicefuncs/get_texture.hpp>
-#include <sge/d3d9/texture/base.hpp>
-#include <sge/renderer/caps/texture_stages.hpp>
-#include <sge/renderer/texture/stage.hpp>
-#include <fcppt/assert/unreachable.hpp>
 
 
-sge::renderer::texture::stage const
-sge::d3d9::cg::texture::assigned_stage(
-	IDirect3DDevice9 &_device,
-	sge::d3d9::texture::base const &_texture,
-	sge::renderer::caps::texture_stages const _max_stages
-)
+namespace sge
 {
-	for(
-		sge::renderer::texture::stage stage(
-			0u
-		);
-		stage.get() < _max_stages.get();
-		++stage
-	)
-		if(
-			sge::d3d9::com::compare_ptr(
-				sge::d3d9::devicefuncs::get_texture(
-					_device,
-					stage
-				).get(),
-				&_texture.get()
-			)
-		)
-			return
-				stage;
+namespace d3d9
+{
+namespace com
+{
 
-	FCPPT_ASSERT_UNREACHABLE;
+bool
+compare_ptr(
+	IUnknown *,
+	IUnknown *
+);
+
 }
+}
+}
+
+#endif
