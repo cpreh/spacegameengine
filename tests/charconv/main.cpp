@@ -23,11 +23,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/create_system.hpp>
 #include <sge/charconv/dest_encoding.hpp>
 #include <sge/charconv/encoding.hpp>
+#include <sge/charconv/encoding_to_string.hpp>
 #include <sge/charconv/raw_vector.hpp>
 #include <sge/charconv/source_encoding.hpp>
 #include <sge/charconv/string_type.hpp>
 #include <sge/charconv/system.hpp>
 #include <sge/charconv/system_scoped_ptr.hpp>
+#include <sge/charconv/unsupported_conversion.hpp>
 #include <sge/tests/charconv/test_data.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/foreach_enumerator.hpp>
@@ -176,6 +178,26 @@ FCPPT_PP_POP_WARNING
 				),
 				input
 			);
+	}
+	catch(
+		sge::charconv::unsupported_conversion const &_error
+	)
+	{
+		fcppt::io::cerr()
+			<<
+			FCPPT_TEXT("Unsupported conversion from ")
+			<<
+			sge::charconv::encoding_to_string(
+				_error.source().get()
+			)
+			<<
+			FCPPT_TEXT(" to ")
+			<<
+			sge::charconv::encoding_to_string(
+				_error.dest().get()
+			)
+			<<
+			FCPPT_TEXT('\n');
 	}
 	catch(
 		fcppt::exception const &_error
