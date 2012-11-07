@@ -162,22 +162,22 @@ FCPPT_PP_POP_WARNING
 		)
 	);
 
+	FCPPT_FOREACH_ENUMERATOR(
+		dest_encoding,
+		sge::charconv::encoding
+	)
 	try
 	{
-		FCPPT_FOREACH_ENUMERATOR(
-			dest_encoding,
-			sge::charconv::encoding
-		)
-			test_convert_from_to(
-				*system,
-				sge::charconv::source_encoding(
-					sge::charconv::encoding::utf8
+		test_convert_from_to(
+			*system,
+			sge::charconv::source_encoding(
+				sge::charconv::encoding::utf8
+			),
+			sge::charconv::dest_encoding(
+				dest_encoding
 				),
-				sge::charconv::dest_encoding(
-					dest_encoding
-				),
-				input
-			);
+			input
+		);
 	}
 	catch(
 		sge::charconv::unsupported_conversion const &_error
