@@ -50,6 +50,7 @@ public:
 	is_active(
 		sge::camera::is_active const &) = 0;
 
+	SGE_CAMERA_SYMBOL
 	void
 	toggle_is_active();
 
