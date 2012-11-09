@@ -92,6 +92,7 @@ set(
 	include/sge/camera/tracking/alexa/multiply.hpp
 	include/sge/camera/tracking/is_looping.hpp
 	include/sge/camera/tracking/json/interval_exporter.hpp
+	include/sge/camera/tracking/json/interval_exporter_fwd.hpp
 	include/sge/camera/tracking/json/key_press_exporter.hpp
 	include/sge/camera/tracking/json/keyframe_from_json.hpp
 	include/sge/camera/tracking/json/keyframe_to_json.hpp

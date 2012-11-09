@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CAMERA_TRACKING_JSON_INTERVAL_EXPORTER_HPP_INCLUDED
 
 #include <sge/camera/base.hpp>
-#include <sge/camera/update_duration.hpp>
 #include <sge/camera/symbol.hpp>
+#include <sge/camera/update_duration.hpp>
 #include <sge/camera/tracking/keyframe_sequence.hpp>
 #include <sge/timer/basic.hpp>
 #include <sge/timer/clocks/standard.hpp>
