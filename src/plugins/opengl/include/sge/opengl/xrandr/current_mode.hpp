@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_XRANDR_CURRENT_RESOLUTION_HPP_INCLUDED
-#define SGE_OPENGL_XRANDR_CURRENT_RESOLUTION_HPP_INCLUDED
+#ifndef SGE_OPENGL_XRANDR_CURRENT_MODE_HPP_INCLUDED
+#define SGE_OPENGL_XRANDR_CURRENT_MODE_HPP_INCLUDED
 
 #include <sge/opengl/xrandr/configuration_fwd.hpp>
 #include <sge/opengl/xrandr/mode_fwd.hpp>
@@ -33,7 +33,7 @@ namespace xrandr
 {
 
 sge::opengl::xrandr::mode const
-current_resolution(
+current_mode(
 	sge::opengl::xrandr::configuration const &
 );
 

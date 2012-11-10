@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/xrandr/choose_resolution.hpp>
 #include <sge/opengl/xrandr/configuration.hpp>
-#include <sge/opengl/xrandr/current_resolution.hpp>
+#include <sge/opengl/xrandr/current_mode.hpp>
 #include <sge/opengl/xrandr/mode.hpp>
 #include <sge/opengl/xrandr/resolution.hpp>
 #include <sge/opengl/xrandr/resolution_unique_ptr.hpp>
@@ -101,7 +101,7 @@ sge::opengl::xrandr::choose_resolution(
 							RR_Rotate_0,
 							_mode.refresh_rate()
 						),
-						sge::opengl::xrandr::current_resolution(
+						sge::opengl::xrandr::current_mode(
 							_config
 						)
 					)

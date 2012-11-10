@@ -1047,7 +1047,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/xrandr/configuration.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/configuration_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/current_display_mode.hpp
-	src/plugins/opengl/include/sge/opengl/xrandr/current_resolution.hpp
+	src/plugins/opengl/include/sge/opengl/xrandr/current_mode.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/get_version.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/mode.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/mode_fwd.hpp
@@ -1062,7 +1062,7 @@ set(
 	src/plugins/opengl/src/xrandr/choose_resolution.cpp
 	src/plugins/opengl/src/xrandr/configuration.cpp
 	src/plugins/opengl/src/xrandr/current_display_mode.cpp
-	src/plugins/opengl/src/xrandr/current_resolution.cpp
+	src/plugins/opengl/src/xrandr/current_mode.cpp
 	src/plugins/opengl/src/xrandr/get_version.cpp
 	src/plugins/opengl/src/xrandr/mode.cpp
 	src/plugins/opengl/src/xrandr/resolution.cpp

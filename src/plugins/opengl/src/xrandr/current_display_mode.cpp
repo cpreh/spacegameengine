@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/xrandr/configuration.hpp>
 #include <sge/opengl/xrandr/current_display_mode.hpp>
-#include <sge/opengl/xrandr/current_resolution.hpp>
+#include <sge/opengl/xrandr/current_mode.hpp>
 #include <sge/opengl/xrandr/mode.hpp>
 #include <sge/renderer/screen_unit.hpp>
 #include <sge/renderer/screen_size.hpp>
@@ -39,7 +39,7 @@ sge::opengl::xrandr::current_display_mode(
 )
 {
 	sge::opengl::xrandr::mode const mode(
-		sge::opengl::xrandr::current_resolution(
+		sge::opengl::xrandr::current_mode(
 			_config
 		)
 	);
