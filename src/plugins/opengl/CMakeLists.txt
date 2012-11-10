@@ -959,6 +959,8 @@ set(
 	src/plugins/opengl/include/sge/opengl/wgl/visual/pixel_format_types_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/windows/change_display_settings.hpp
 	src/plugins/opengl/include/sge/opengl/windows/context.hpp
+	src/plugins/opengl/include/sge/opengl/windows/current_display_mode.hpp
+	src/plugins/opengl/include/sge/opengl/windows/enum_display_settings.hpp
 	src/plugins/opengl/include/sge/opengl/windows/gdi_device.hpp
 	src/plugins/opengl/include/sge/opengl/windows/gdi_device_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/windows/state.hpp
@@ -977,6 +979,8 @@ set(
 	src/plugins/opengl/src/wgl/visual/pixel_format_types.cpp
 	src/plugins/opengl/src/windows/change_display_settings.cpp
 	src/plugins/opengl/src/windows/context.cpp
+	src/plugins/opengl/src/windows/current_display_mode.cpp
+	src/plugins/opengl/src/windows/enum_display_settings.cpp
 	src/plugins/opengl/src/windows/gdi_device.cpp
 	src/plugins/opengl/src/windows/state.cpp
 	src/plugins/opengl/src/windows/visual/choose_and_set_format.cpp

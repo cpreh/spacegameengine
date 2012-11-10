@@ -19,9 +19,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/device_state/object.hpp>
 #include <sge/opengl/windows/change_display_settings.hpp>
+#include <sge/opengl/windows/current_display_mode.hpp>
 #include <sge/opengl/windows/state.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/display_mode/object.hpp>
 #include <sge/renderer/parameters/object.hpp>
 #include <awl/backends/windows/windows.hpp>
 #include <fcppt/text.hpp>
@@ -33,6 +36,7 @@ sge::opengl::windows::state::state(
 	awl::backends::windows::window::object &_window
 )
 :
+	sge::opengl::device_state::object(),
 	context_(
 		_window
 	),
@@ -70,4 +74,11 @@ sge::opengl::windows::state::swap_buffers()
 		throw sge::renderer::exception(
 			FCPPT_TEXT("wglSwapLayerBuffers() failed!")
 		);
+}
+
+sge::renderer::display_mode::object const
+sge::opengl::windows::state::display_mode() const
+{
+	return
+		sge::opengl::windows::current_display_mode();
 }

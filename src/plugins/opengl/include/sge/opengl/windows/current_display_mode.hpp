@@ -18,17 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_WINDOWS_STATE_HPP_INCLUDED
-#define SGE_OPENGL_WINDOWS_STATE_HPP_INCLUDED
+#ifndef SGE_OPENGL_WINDOWS_CURRENT_DISPLAY_MODE_HPP_INCLUDED
+#define SGE_OPENGL_WINDOWS_CURRENT_DISPLAY_MODE_HPP_INCLUDED
 
-#include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/opengl/device_state/object.hpp>
-#include <sge/opengl/device_state/scoped_current.hpp>
-#include <sge/opengl/windows/context.hpp>
 #include <sge/renderer/display_mode/object_fwd.hpp>
-#include <sge/renderer/parameters/object_fwd.hpp>
-#include <awl/backends/windows/window/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
 
 
 namespace sge
@@ -38,35 +31,8 @@ namespace opengl
 namespace windows
 {
 
-class state
-:
-	public sge::opengl::device_state::object
-{
-	FCPPT_NONCOPYABLE(
-		state
-	);
-public:
-	state(
-		sge::opengl::context::system::object &,
-		sge::renderer::parameters::object const &,
-		awl::backends::windows::window::object &
-	);
-
-	~state();
-private:
-	void
-	begin_rendering();
-
-	void
-	swap_buffers();
-
-	sge::renderer::display_mode::object const
-	display_mode() const;
-
-	sge::opengl::windows::context context_;
-
-	sge::opengl::device_state::scoped_current const scoped_current_;
-};
+sge::renderer::display_mode::object const
+current_display_mode();
 
 }
 }
