@@ -18,24 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_DPI_FWD_HPP_INCLUDED
-#define SGE_FONT_DPI_FWD_HPP_INCLUDED
+#ifndef SGE_FONT_OPTIONAL_DPI_HPP_INCLUDED
+#define SGE_FONT_OPTIONAL_DPI_HPP_INCLUDED
 
-#include <sge/font/dpi_unit.hpp>
-#include <fcppt/math/vector/static.hpp>
+#include <sge/font/dpi.hpp>
+#include <sge/font/optional_dpi_fwd.hpp>
+#include <fcppt/optional_impl.hpp>
 
-
-namespace sge
-{
-namespace font
-{
-
-typedef fcppt::math::vector::static_<
-	sge::font::dpi_unit,
-	2
->::type dpi;
-
-}
-}
 
 #endif

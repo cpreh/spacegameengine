@@ -25,13 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/object_unique_ptr.hpp>
 #include <sge/font/parameters_fwd.hpp>
 #include <sge/font/system.hpp>
-#include <sge/pango/glib_deleter_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr_decl.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <pango/pango-fontmap.h>
-#include <pango/pango-types.h>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -60,20 +54,6 @@ private:
 	);
 
 	sge::charconv::system &charconv_system_;
-
-	typedef fcppt::scoped_ptr<
-		PangoFontMap,
-		sge::pango::glib_deleter
-	> font_map_scoped_ptr;
-
-	font_map_scoped_ptr const font_map_;
-
-	typedef fcppt::scoped_ptr<
-		PangoContext,
-		sge::pango::glib_deleter
-	> context_scoped_ptr;
-
-	context_scoped_ptr const context_;
 };
 
 }

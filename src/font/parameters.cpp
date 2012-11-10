@@ -18,6 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/font/dpi.hpp>
+#include <sge/font/optional_dpi.hpp>
 #include <sge/font/optional_family.hpp>
 #include <sge/font/optional_ttf_size.hpp>
 #include <sge/font/parameters.hpp>
@@ -29,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::font::parameters::parameters()
 :
+	dpi_(),
 	ttf_size_(),
 	family_(),
 	weight_(),
@@ -36,6 +39,16 @@ sge::font::parameters::parameters()
 		false
 	)
 {
+}
+
+sge::font::parameters &
+sge::font::parameters::dpi(
+	sge::font::dpi const &_dpi
+)
+{
+	dpi_ = _dpi;
+
+	return *this;
 }
 
 sge::font::parameters &
@@ -74,6 +87,12 @@ sge::font::parameters::italic()
 	italic_ = true;
 
 	return *this;
+}
+
+sge::font::optional_dpi const &
+sge::font::parameters::dpi() const
+{
+	return dpi_;
 }
 
 sge::font::optional_ttf_size const &

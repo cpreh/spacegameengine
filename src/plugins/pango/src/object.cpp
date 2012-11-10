@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/charconv/system_fwd.hpp>
 #include <sge/font/object.hpp>
-#include <sge/font/parameters_fwd.hpp>
+#include <sge/font/parameters.hpp>
 #include <sge/font/string.hpp>
 #include <sge/font/text.hpp>
 #include <sge/font/text_parameters_fwd.hpp>
@@ -36,13 +36,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/ref.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <pango/pango-fontmap.h>
+#include <pango/pangoft2.h>
 #include <pango/pango-types.h>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::pango::object::object(
 	sge::charconv::system &_charconv_system,
-	PangoContext &_context,
 	sge::font::parameters const &_parameters
 )
 :
@@ -50,13 +51,33 @@ sge::pango::object::object(
 	charconv_system_(
 		_charconv_system
 	),
+	font_map_(
+		::pango_ft2_font_map_new()
+	),
+	context_(
+		::pango_font_map_create_context(
+			font_map_.get()
+		)
+	),
 	layout_(
 		sge::pango::create_layout(
-			_context,
+			*context_,
 			_parameters
 		)
 	)
 {
+	if(
+		_parameters.dpi()
+	)
+		::pango_ft2_font_map_set_resolution(
+			reinterpret_cast<
+				PangoFT2FontMap *
+			>(
+				font_map_.get()
+			),
+			_parameters.dpi()->x(),
+			_parameters.dpi()->y()
+		);
 }
 
 sge::pango::object::~object()

@@ -17,6 +17,8 @@ set(
 	include/sge/font/object_fwd.hpp
 	include/sge/font/object_scoped_ptr.hpp
 	include/sge/font/object_unique_ptr.hpp
+	include/sge/font/optional_dpi.hpp
+	include/sge/font/optional_dpi_fwd.hpp
 	include/sge/font/optional_family.hpp
 	include/sge/font/optional_family_fwd.hpp
 	include/sge/font/optional_ttf_size.hpp

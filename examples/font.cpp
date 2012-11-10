@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/context/scoped_ffp.hpp>
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
+#include <sge/renderer/display_mode/to_dpi.hpp>
 #include <sge/renderer/parameters/object.hpp>
 #include <sge/renderer/parameters/vsync.hpp>
 #include <sge/renderer/pixel_format/color.hpp>
@@ -142,6 +143,11 @@ try
 	sge::font::object_scoped_ptr const font(
 		sys.font_system().create_font(
 			sge::font::parameters()
+			.dpi(
+				sge::renderer::display_mode::to_dpi(
+					sys.renderer_ffp().display_mode()
+				)
+			)
 		)
 	);
 

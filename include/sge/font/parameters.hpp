@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FONT_PARAMETERS_HPP_INCLUDED
 #define SGE_FONT_PARAMETERS_HPP_INCLUDED
 
+#include <sge/font/dpi_fwd.hpp>
+#include <sge/font/optional_dpi.hpp>
 #include <sge/font/optional_family.hpp>
 #include <sge/font/optional_ttf_size.hpp>
 #include <sge/font/parameters_fwd.hpp>
@@ -41,6 +43,12 @@ class parameters
 public:
 	SGE_FONT_SYMBOL
 	parameters();
+
+	SGE_FONT_SYMBOL
+	sge::font::parameters &
+	dpi(
+		sge::font::dpi const &
+	);
 
 	SGE_FONT_SYMBOL
 	sge::font::parameters &
@@ -65,6 +73,10 @@ public:
 	italic();
 
 	SGE_FONT_SYMBOL
+	sge::font::optional_dpi const &
+	dpi() const;
+
+	SGE_FONT_SYMBOL
 	sge::font::optional_ttf_size const &
 	ttf_size() const;
 
@@ -80,6 +92,8 @@ public:
 	bool
 	italic() const;
 private:
+	sge::font::optional_dpi dpi_;
+
 	sge::font::optional_ttf_size ttf_size_;
 
 	sge::font::optional_family family_;

@@ -23,17 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/object_unique_ptr.hpp>
 #include <sge/font/parameters_fwd.hpp>
 #include <sge/font/system.hpp>
-#include <sge/pango/glib_deleter.hpp>
 #include <sge/pango/object.hpp>
 #include <sge/pango/system.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <pango/pango-fontmap.h>
-#include <pango/pangoft2.h>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::pango::system::system(
@@ -43,14 +37,6 @@ sge::pango::system::system(
 	sge::font::system(),
 	charconv_system_(
 		_charconv_system
-	),
-	font_map_(
-		::pango_ft2_font_map_new()
-	),
-	context_(
-		::pango_font_map_create_context(
-			font_map_.get()
-		)
 	)
 {
 }
@@ -71,9 +57,6 @@ sge::pango::system::create_font(
 			>(
 				fcppt::ref(
 					charconv_system_
-				),
-				fcppt::ref(
-					*context_
 				),
 				fcppt::cref(
 					_parameters
