@@ -24,6 +24,7 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/convert/viewport.hpp
 	src/plugins/d3d9/include/sge/d3d9/create_device.hpp
 	src/plugins/d3d9/include/sge/d3d9/create_device_caps.hpp
+	src/plugins/d3d9/include/sge/d3d9/current_display_mode.hpp
 	src/plugins/d3d9/include/sge/d3d9/d3d_device_unique_ptr.hpp
 	src/plugins/d3d9/include/sge/d3d9/d3dinclude.hpp
 	src/plugins/d3d9/include/sge/d3d9/device.hpp
@@ -39,6 +40,7 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/draw_primitive.hpp
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/end_scene.hpp
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/get_depth_stencil_surface.hpp
+	src/plugins/d3d9/include/sge/d3d9/devicefuncs/get_display_mode.hpp
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/get_render_target.hpp
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/get_render_target_data.hpp
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/get_swap_chain.hpp
@@ -403,6 +405,7 @@ SET(
 	src/plugins/d3d9/src/convert/viewport.cpp
 	src/plugins/d3d9/src/create_device.cpp
 	src/plugins/d3d9/src/create_device_caps.cpp
+	src/plugins/d3d9/src/current_display_mode.cpp
 	src/plugins/d3d9/src/device.cpp
 	src/plugins/d3d9/src/devicefuncs/begin_rendering.cpp
 	src/plugins/d3d9/src/devicefuncs/clear.cpp
@@ -416,6 +419,7 @@ SET(
 	src/plugins/d3d9/src/devicefuncs/draw_primitive.cpp
 	src/plugins/d3d9/src/devicefuncs/end_scene.cpp
 	src/plugins/d3d9/src/devicefuncs/get_depth_stencil_surface.cpp
+	src/plugins/d3d9/src/devicefuncs/get_display_mode.cpp
 	src/plugins/d3d9/src/devicefuncs/get_render_target.cpp
 	src/plugins/d3d9/src/devicefuncs/get_render_target_data.cpp
 	src/plugins/d3d9/src/devicefuncs/get_swap_chain.cpp

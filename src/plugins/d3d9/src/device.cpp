@@ -19,10 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/d3d9/create_device.hpp>
+#include <sge/d3d9/current_display_mode.hpp>
 #include <sge/d3d9/device.hpp>
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/index_buffer.hpp>
-#include <sge/d3d9/multi_sample_quality.hpp>
+#include <sge/d3d9/multi_sample_quality.hpp>	
 #include <sge/d3d9/needs_reset.hpp>
 #include <sge/d3d9/resource_manager.hpp>
 #include <sge/d3d9/vertex_buffer.hpp>
@@ -79,6 +80,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/context/ffp_unique_ptr.hpp>
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/device/parameters.hpp>
+#include <sge/renderer/display_mode/object.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/occlusion_query/object.hpp>
 #include <sge/renderer/occlusion_query/object_unique_ptr.hpp>
@@ -637,6 +639,15 @@ sge::renderer::caps::device const &
 sge::d3d9::device::caps() const
 {
 	return caps_;
+}
+
+sge::renderer::display_mode::object const
+sge::d3d9::device::display_mode() const
+{
+	return
+		sge::d3d9::current_display_mode(
+			*device_
+		);
 }
 
 sge::renderer::context::ffp_unique_ptr

@@ -45,6 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/context/ffp_unique_ptr.hpp>
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/device/parameters_fwd.hpp>
+#include <sge/renderer/display_mode/object_fwd.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/occlusion_query/object_unique_ptr.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
@@ -243,6 +244,9 @@ private:
 
 	sge::renderer::caps::device const &
 	caps() const;
+
+	sge::renderer::display_mode::object const
+	display_mode() const;
 
 	sge::renderer::context::ffp_unique_ptr
 	begin_rendering_ffp(
