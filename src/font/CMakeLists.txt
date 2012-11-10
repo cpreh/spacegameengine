@@ -4,6 +4,9 @@ set(
 	include/sge/font/char_type.hpp
 	include/sge/font/dim.hpp
 	include/sge/font/dim_fwd.hpp
+	include/sge/font/dpi.hpp
+	include/sge/font/dpi_fwd.hpp
+	include/sge/font/dpi_unit.hpp
 	include/sge/font/exception.hpp
 	include/sge/font/flags.hpp
 	include/sge/font/flags_field.hpp

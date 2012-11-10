@@ -108,6 +108,9 @@ set(
 	include/sge/renderer/display_mode/comparison.hpp
 	include/sge/renderer/display_mode/dimensions.hpp
 	include/sge/renderer/display_mode/dimensions_fwd.hpp
+	include/sge/renderer/display_mode/dpi.hpp
+	include/sge/renderer/display_mode/dpi_fwd.hpp
+	include/sge/renderer/display_mode/dpi_unit.hpp
 	include/sge/renderer/display_mode/object.hpp
 	include/sge/renderer/display_mode/object_fwd.hpp
 	include/sge/renderer/display_mode/optional_dimensions.hpp
@@ -121,6 +124,7 @@ set(
 	include/sge/renderer/display_mode/pixel_size_fwd.hpp
 	include/sge/renderer/display_mode/refresh_rate.hpp
 	include/sge/renderer/display_mode/refresh_rate_value.hpp
+	include/sge/renderer/display_mode/to_dpi.hpp
 	include/sge/renderer/epsilon.hpp
 	include/sge/renderer/exception.hpp
 	include/sge/renderer/first_index.hpp
@@ -842,6 +846,7 @@ set(
 	src/renderer/display_mode/comparison.cpp
 	src/renderer/display_mode/object.cpp
 	src/renderer/display_mode/output.cpp
+	src/renderer/display_mode/to_dpi.cpp
 	src/renderer/exception.cpp
 	src/renderer/include/sge/src/renderer/basic_scoped_buffer_lock_impl.hpp
 	src/renderer/include/sge/src/renderer/color_buffer/basic_impl.hpp

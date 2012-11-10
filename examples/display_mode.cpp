@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode/object.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/display_mode/output.hpp>
+#include <sge/renderer/display_mode/to_dpi.hpp>
 #include <sge/renderer/pixel_format/color.hpp>
 #include <sge/renderer/pixel_format/depth_stencil.hpp>
 #include <sge/renderer/pixel_format/object.hpp>
@@ -50,6 +51,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
+#include <fcppt/math/vector/output.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <example_main.hpp>
@@ -105,9 +107,23 @@ try
 		)
 	);
 
+	sge::renderer::display_mode::object const mode(
+		sys.renderer_core().display_mode()
+	);
+
 	fcppt::io::cout()
-		<< sys.renderer_core().display_mode()
-		<< FCPPT_TEXT('\n');
+		<<
+		FCPPT_TEXT("Display mode:\n\t")
+		<<
+		mode
+		<<
+		FCPPT_TEXT("\nDPI:\n\t")
+		<<
+		sge::renderer::display_mode::to_dpi(
+			mode
+		)
+		<<
+		FCPPT_TEXT('\n');
 
 	sys.window_system().quit(
 		awl::main::exit_success()
