@@ -88,6 +88,7 @@ set(
 	src/cegui/include/sge/src/cegui/to_blend_parameters.hpp
 	src/cegui/include/sge/src/cegui/to_cegui_rect.hpp
 	src/cegui/include/sge/src/cegui/to_cegui_size.hpp
+	src/cegui/include/sge/src/cegui/to_cegui_vector2.hpp
 	src/cegui/include/sge/src/cegui/vf/color.hpp
 	src/cegui/include/sge/src/cegui/vf/format.hpp
 	src/cegui/include/sge/src/cegui/vf/part.hpp

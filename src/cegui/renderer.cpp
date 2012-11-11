@@ -24,6 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps/device.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/device/ffp.hpp>
+#include <sge/renderer/display_mode/object.hpp>
+#include <sge/renderer/display_mode/to_dpi.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
@@ -35,6 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/cegui/texture.hpp>
 #include <sge/src/cegui/texture_target.hpp>
 #include <sge/src/cegui/to_cegui_rect.hpp>
+#include <sge/src/cegui/to_cegui_vector2.hpp>
 #include <sge/src/cegui/vf/format.hpp>
 #include <fcppt/cref.hpp>
 #include <fcppt/from_std_string.hpp>
@@ -85,12 +88,15 @@ sge::cegui::renderer::renderer(
 		640,
 		480
 	),
-	// TODO: Implement a scheme for sge to read the DPI
 	display_dpi_(
-		static_cast<unit>(
-			96),
-		static_cast<unit>(
-			96)),
+		sge::cegui::to_cegui_vector2<
+			CEGUI::Vector2f::value_type
+		>(
+			sge::renderer::display_mode::to_dpi(
+				renderer_.display_mode()
+			)
+		)
+	),
 	identifier_(
 		"sge renderer"
 	),
