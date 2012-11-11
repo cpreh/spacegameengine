@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/null_ptr.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <X11/Xlib.h>
+#include <GL/glx.h>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -78,5 +78,14 @@ sge::opengl::x11::context::deactivate()
 		display_.get(),
 		None,
 		fcppt::null_ptr()
+	);
+}
+
+void
+sge::opengl::x11::context::swap_buffers()
+{
+	::glXSwapBuffers(
+		window_.display().get(),
+		window_.get()
 	);
 }

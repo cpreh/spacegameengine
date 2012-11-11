@@ -55,6 +55,9 @@ public:
 
 	void
 	deactivate();
+
+	void
+	swap_buffers();
 private:
 	awl::backends::x11::window::object &window_;
 

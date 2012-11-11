@@ -1111,6 +1111,10 @@ set(
 	src/plugins/opengl/src/cg/texture/set_parameter.cpp
 )
 
+find_package(
+	EGL
+)
+
 set(
 	SGE_OPENGL_FILES
 	"${SGE_OPENGL_BASE_FILES}"

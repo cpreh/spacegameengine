@@ -25,12 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode/object.hpp>
 #include <sge/renderer/parameters/object.hpp>
 #include <sge/renderer/parameters/vsync.hpp>
-#include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/visual/object.hpp>
 #include <awl/backends/x11/window/object.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <GL/glx.h>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::opengl::x11::state::state(
@@ -80,10 +76,7 @@ sge::opengl::x11::state::swap_buffers()
 	if(
 		!window_.destroyed()
 	)
-		::glXSwapBuffers(
-			window_.display().get(),
-			window_.get()
-		);
+		context_.swap_buffers();
 }
 
 sge::renderer::display_mode::object const
