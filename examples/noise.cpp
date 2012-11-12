@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/noise/simplex/object.hpp>
 #include <sge/renderer/resource_flags.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
+#include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/context/scoped_ffp.hpp>
 #include <sge/renderer/device/ffp.hpp>
@@ -340,6 +341,13 @@ try
 		sge::renderer::context::scoped_ffp const scoped_block(
 			sys.renderer_ffp(),
 			sys.renderer_ffp().onscreen_target()
+		);
+
+		scoped_block.get().clear(
+			sge::renderer::clear::parameters()
+			.back_buffer(
+				sge::image::colors::black()
+			)
 		);
 
 		sge::sprite::process::one(

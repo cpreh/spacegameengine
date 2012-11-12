@@ -109,7 +109,6 @@ try
 						sge::renderer::pixel_format::color::depth32,
 						sge::renderer::pixel_format::depth_stencil::off,
 						sge::renderer::pixel_format::optional_multi_samples(),
-						//sge::renderer::pixel_format::srgb::yes
 						sge::renderer::pixel_format::srgb::no
 					),
 					sge::renderer::parameters::vsync::on,

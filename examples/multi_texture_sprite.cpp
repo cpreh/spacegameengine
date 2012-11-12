@@ -20,10 +20,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/config/media_path.hpp>
 #include <sge/image/capabilities_field.hpp>
+#include <sge/image/colors.hpp>
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_set.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
+#include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/context/scoped_ffp.hpp>
 #include <sge/renderer/device/ffp.hpp>
@@ -156,7 +158,7 @@ try
 						sge::renderer::pixel_format::color::depth32,
 						sge::renderer::pixel_format::depth_stencil::off,
 						sge::renderer::pixel_format::optional_multi_samples(),
-						sge::renderer::pixel_format::srgb::try_
+						sge::renderer::pixel_format::srgb::no
 					),
 					sge::renderer::parameters::vsync::on,
 					sge::renderer::display_mode::optional_object()
@@ -363,6 +365,13 @@ try
 
 		scoped_block.get().sampler_ffp_state(
 			samplers
+		);
+
+		scoped_block.get().clear(
+			sge::renderer::clear::parameters()
+			.back_buffer(
+				sge::image::colors::black()
+			)
 		);
 
 		sge::sprite::process::one(
