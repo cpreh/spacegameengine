@@ -21,9 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_WGL_CONTEXT_HPP_INCLUDED
 #define SGE_OPENGL_WGL_CONTEXT_HPP_INCLUDED
 
+#include <sge/opengl/device_state/context.hpp>
 #include <sge/opengl/wgl/context_fwd.hpp>
-#include <sge/opengl/windows/gdi_device_fwd.hpp>
+#include <sge/opengl/windows/gdi_device.hpp>
+#include <sge/renderer/parameters/vsync.hpp>
 #include <awl/backends/windows/windows.hpp>
+#include <awl/backends/windows/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -35,6 +38,8 @@ namespace wgl
 {
 
 class context
+:
+	public sge::opengl::device_state::context
 {
 	FCPPT_NONCOPYABLE(
 		context
@@ -42,15 +47,31 @@ class context
 public:
 	explicit
 	context(
-		sge::opengl::windows::gdi_device const &
+		awl::backends::windows::window::object &
 	);
 
 	~context();
-
-	HGLRC
-	hglrc() const;
 private:
-	HGLRC glrc_;
+	void
+	activate();
+
+	void
+	deactivate();
+
+	void
+	begin_rendering();
+
+	void
+	end_rendering();
+
+	void
+	vsync(
+		sge::renderer::parameters::vsync::type
+	);
+
+	sge::opengl::windows::gdi_device const gdi_device_;
+
+	HGLRC const glrc_;
 };
 
 }

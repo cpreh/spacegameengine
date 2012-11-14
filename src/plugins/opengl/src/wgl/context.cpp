@@ -20,18 +20,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/wgl/context.hpp>
 #include <sge/opengl/windows/gdi_device.hpp>
+#include <sge/opengl/wgl/make_current.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/parameters/vsync.hpp>
 #include <awl/backends/windows/windows.hpp>
+#include <awl/backends/windows/window/object.hpp>
+#include <fcppt/null_ptr.hpp>
 #include <fcppt/text.hpp>
 
 
 sge::opengl::wgl::context::context(
-	sge::opengl::windows::gdi_device const &_device
+	awl::backends::windows::window::object &_window
 )
 :
+	gdi_device_(
+		_window.hwnd(),
+		sge::opengl::windows::gdi_device::get_tag()
+	),
 	glrc_(
 		::wglCreateContext(
-			_device.hdc()
+			gdi_device_.hdc()
 		)
 	)
 {
@@ -50,8 +58,47 @@ sge::opengl::wgl::context::~context()
 	);
 }
 
-HGLRC
-sge::opengl::wgl::context::hglrc() const
+void
+sge::opengl::wgl::context::activate()
 {
-	return glrc_;
+	sge::opengl::wgl::make_current(
+		gdi_device_.hdc(),
+		glrc_
+	);
+}
+
+void
+sge::opengl::wgl::context::deactivate()
+{
+	sge::opengl::wgl::make_current(
+		fcppt::null_ptr(),
+		fcppt::null_ptr()
+	);
+}
+
+void
+sge::opengl::wgl::context::begin_rendering()
+{
+}
+
+void
+sge::opengl::wgl::context::end_rendering()
+{
+	if(
+		::wglSwapLayerBuffers(
+			gdi_device_.hdc(),
+			WGL_SWAP_MAIN_PLANE
+		)
+		== FALSE
+	)
+		throw sge::renderer::exception(
+			FCPPT_TEXT("wglSwapLayerBuffers() failed!")
+		);
+}
+
+void
+sge::opengl::wgl::context::vsync(
+	sge::renderer::parameters::vsync::type const _vsync
+)
+{
 }

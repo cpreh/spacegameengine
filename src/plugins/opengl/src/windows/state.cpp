@@ -19,29 +19,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/device_state/context.hpp>
+#include <sge/opengl/device_state/create_context.hpp>
 #include <sge/opengl/device_state/object.hpp>
 #include <sge/opengl/windows/change_display_settings.hpp>
 #include <sge/opengl/windows/current_display_mode.hpp>
 #include <sge/opengl/windows/state.hpp>
-#include <sge/renderer/exception.hpp>
 #include <sge/renderer/display_mode/object.hpp>
 #include <sge/renderer/parameters/object.hpp>
-#include <awl/backends/windows/windows.hpp>
-#include <fcppt/text.hpp>
+#include <awl/backends/windows/window/object.hpp>
 
 
 sge::opengl::windows::state::state(
-	sge::opengl::context::system::object &,
+	sge::opengl::context::system::object &_system_context,
 	sge::renderer::parameters::object const &_parameters,
 	awl::backends::windows::window::object &_window
 )
 :
 	sge::opengl::device_state::object(),
 	context_(
-		_window
+		sge::opengl::device_state::create_context(
+			_system_context,
+			_window
+		)
 	),
 	scoped_current_(
-		context_
+		*context_
 	)
 {
 	if(
@@ -56,24 +59,11 @@ sge::opengl::windows::state::~state()
 {
 }
 
-void
-sge::opengl::windows::state::begin_rendering()
+sge::opengl::device_state::context &
+sge::opengl::windows::state::context()
 {
-}
-
-void
-sge::opengl::windows::state::swap_buffers()
-{
-	if(
-		::wglSwapLayerBuffers(
-			context_.dc().hdc(),
-			WGL_SWAP_MAIN_PLANE
-		)
-		== FALSE
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("wglSwapLayerBuffers() failed!")
-		);
+	return
+		*context_;
 }
 
 sge::renderer::display_mode::object const
