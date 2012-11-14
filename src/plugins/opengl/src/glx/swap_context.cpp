@@ -22,12 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/id.hpp>
 #include <sge/opengl/context/system/make_id.hpp>
 #include <sge/opengl/glx/proc_address.hpp>
-#include <sge/opengl/x11/swap_context.hpp>
+#include <sge/opengl/glx/swap_context.hpp>
 #include <fcppt/null_ptr.hpp>
 
 
-sge::opengl::x11::swap_context::swap_context(
-	sge::opengl::x11::swap_context::parameter _proc_context
+sge::opengl::glx::swap_context::swap_context(
+	sge::opengl::glx::swap_context::parameter _proc_context
 )
 :
 	sge::opengl::context::system::base(),
@@ -55,12 +55,12 @@ sge::opengl::x11::swap_context::swap_context(
 {
 }
 
-sge::opengl::x11::swap_context::~swap_context()
+sge::opengl::glx::swap_context::~swap_context()
 {
 }
 
 bool
-sge::opengl::x11::swap_context::swap_interval_supported() const
+sge::opengl::glx::swap_context::swap_interval_supported() const
 {
 	return
 		swap_interval_sgi_
@@ -73,19 +73,19 @@ sge::opengl::x11::swap_context::swap_interval_supported() const
 		;
 }
 
-sge::opengl::x11::swap_context::glx_swap_interval_sgi
-sge::opengl::x11::swap_context::swap_interval_sgi() const
+sge::opengl::glx::swap_context::glx_swap_interval_sgi
+sge::opengl::glx::swap_context::swap_interval_sgi() const
 {
 	return swap_interval_sgi_;
 }
 
-sge::opengl::x11::swap_context::glx_swap_interval_ext
-sge::opengl::x11::swap_context::swap_interval_ext() const
+sge::opengl::glx::swap_context::glx_swap_interval_ext
+sge::opengl::glx::swap_context::swap_interval_ext() const
 {
 	return swap_interval_ext_;
 }
 
 sge::opengl::context::system::id const
-sge::opengl::x11::swap_context::static_id(
+sge::opengl::glx::swap_context::static_id(
 	sge::opengl::context::system::make_id()
 );

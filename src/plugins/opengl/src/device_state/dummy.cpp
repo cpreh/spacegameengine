@@ -32,7 +32,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/system/create.hpp>
 #include <awl/system/object.hpp>
 #include <awl/visual/object.hpp>
-#include <awl/window/dim.hpp>
 #include <awl/window/object.hpp>
 #include <awl/window/parameters.hpp>
 #include <fcppt/text.hpp>
@@ -63,13 +62,6 @@ sge::opengl::device_state::dummy::dummy(
 			awl::window::parameters(
 				*awl_visual_
 			)
-			// FIXME: Make it possible to omit this
-			.size(
-				awl::window::dim(
-					100,
-					100
-				)
-			)
 			.class_name(
 				FCPPT_TEXT("sgeopengl_dummy_window")
 			)
@@ -77,6 +69,7 @@ sge::opengl::device_state::dummy::dummy(
 	),
 	context_(
 		sge::opengl::device_state::create_context(
+			_system_context,
 			*awl_window_
 		)
 	),

@@ -1009,6 +1009,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/glx/proc_context.hpp
 	src/plugins/opengl/include/sge/opengl/glx/proc_context_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/glx/raw_function.hpp
+	src/plugins/opengl/include/sge/opengl/glx/swap_context.hpp
 	src/plugins/opengl/include/sge/opengl/glx/visual/attribute_container.hpp
 	src/plugins/opengl/include/sge/opengl/glx/visual/attribute_container_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/glx/visual/choose.hpp
@@ -1019,25 +1020,22 @@ set(
 	src/plugins/opengl/include/sge/opengl/glx/visual/make_attributes.hpp
 	src/plugins/opengl/include/sge/opengl/glx/visual/rgb_triple.hpp
 	src/plugins/opengl/include/sge/opengl/glx/visual/rgb_triple_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/x11/context.hpp
+	src/plugins/opengl/include/sge/opengl/glx/vsync.hpp
 	src/plugins/opengl/include/sge/opengl/x11/state.hpp
-	src/plugins/opengl/include/sge/opengl/x11/swap_context.hpp
-	src/plugins/opengl/include/sge/opengl/x11/vsync.hpp
 	src/plugins/opengl/src/glx/context.cpp
 	src/plugins/opengl/src/glx/current_drawable.cpp
 	src/plugins/opengl/src/glx/make_current.cpp
 	src/plugins/opengl/src/glx/proc_address.cpp
 	src/plugins/opengl/src/glx/proc_context.cpp
+	src/plugins/opengl/src/glx/swap_context.cpp
 	src/plugins/opengl/src/glx/visual/choose.cpp
 	src/plugins/opengl/src/glx/visual/context.cpp
 	src/plugins/opengl/src/glx/visual/convert_color.cpp
 	src/plugins/opengl/src/glx/visual/create.cpp
 	src/plugins/opengl/src/glx/visual/make_attributes.cpp
 	src/plugins/opengl/src/glx/visual/rgb_triple.cpp
-	src/plugins/opengl/src/x11/context.cpp
+	src/plugins/opengl/src/glx/vsync.cpp
 	src/plugins/opengl/src/x11/state.cpp
-	src/plugins/opengl/src/x11/swap_context.cpp
-	src/plugins/opengl/src/x11/vsync.cpp
 )
 
 set(

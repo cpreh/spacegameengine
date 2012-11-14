@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/glx/current_drawable.hpp>
 #include <sge/opengl/glx/proc_context.hpp>
-#include <sge/opengl/x11/swap_context.hpp>
-#include <sge/opengl/x11/vsync.hpp>
+#include <sge/opengl/glx/swap_context.hpp>
+#include <sge/opengl/glx/vsync.hpp>
 #include <sge/renderer/exception.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <fcppt/cref.hpp>
@@ -35,14 +35,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 void
-sge::opengl::x11::vsync(
+sge::opengl::glx::vsync(
 	awl::backends::x11::display &_display,
 	sge::opengl::context::system::object &_system_context
 )
 {
-	sge::opengl::x11::swap_context &context(
+	sge::opengl::glx::swap_context &context(
 		sge::opengl::context::use<
-			sge::opengl::x11::swap_context
+			sge::opengl::glx::swap_context
 		>(
 			_system_context,
 			fcppt::cref(

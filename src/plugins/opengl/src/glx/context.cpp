@@ -18,28 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/glx/context.hpp>
+#include <sge/opengl/glx/make_current.hpp>
+#include <sge/opengl/glx/vsync.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/parameters/vsync.hpp>
 #include <awl/backends/x11/display.hpp>
+#include <awl/backends/x11/visual/object.hpp>
+#include <awl/backends/x11/window/object.hpp>
 #include <fcppt/null_ptr.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <GL/glx.h>
+#include <X11/X.h>
+#include <X11/Xutil.h>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::opengl::glx::context::context(
-	awl::backends::x11::display &_display,
-	XVisualInfo const &_visual_info
+	sge::opengl::context::system::object &_system_context,
+	awl::backends::x11::window::object &_window
 )
 :
-	display_(
-		_display
+	system_context_(
+		_system_context
+	),
+	window_(
+		_window
 	),
 	context_(
 		::glXCreateContext(
-			_display.get(),
+			_window.display().get(),
 			const_cast<
 				XVisualInfo *
 			>(
-				&_visual_info
+				&window_.visual().info()
 			),
 			fcppt::null_ptr(),
 			True
@@ -47,7 +61,9 @@ sge::opengl::glx::context::context(
 	)
 {
 	if(
-		context_ == fcppt::null_ptr()
+		context_
+		==
+		fcppt::null_ptr()
 	)
 		throw sge::renderer::exception(
 			FCPPT_TEXT("glXCreateContext() failed!")
@@ -57,13 +73,60 @@ sge::opengl::glx::context::context(
 sge::opengl::glx::context::~context()
 {
 	::glXDestroyContext(
-		display_.get(),
-		this->get()
+		window_.display().get(),
+		context_
 	);
 }
 
-GLXContext &
-sge::opengl::glx::context::get()
+void
+sge::opengl::glx::context::activate()
 {
-	return context_;
+	sge::opengl::glx::make_current(
+		window_.display().get(),
+		window_.get(),
+		context_
+	);
+}
+
+void
+sge::opengl::glx::context::deactivate()
+{
+	sge::opengl::glx::make_current(
+		window_.display().get(),
+		None,
+		fcppt::null_ptr()
+	);
+}
+
+void
+sge::opengl::glx::context::begin_rendering()
+{
+}
+
+void
+sge::opengl::glx::context::end_rendering()
+{
+	if(
+		!window_.destroyed()
+	)
+		::glXSwapBuffers(
+			window_.display().get(),
+			window_.get()
+		);
+}
+
+void
+sge::opengl::glx::context::vsync(
+	sge::renderer::parameters::vsync::type const _vsync
+)
+{
+	if(
+		_vsync
+		==
+		sge::renderer::parameters::vsync::on
+	)
+		sge::opengl::glx::vsync(
+			window_.display(),
+			system_context_
+		);
 }

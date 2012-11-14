@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_DEVICE_STATE_OBJECT_HPP_INCLUDED
 #define SGE_OPENGL_DEVICE_STATE_OBJECT_HPP_INCLUDED
 
+#include <sge/opengl/device_state/context_fwd.hpp>
 #include <sge/opengl/device_state/object_fwd.hpp>
 #include <sge/renderer/display_mode/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -42,12 +43,8 @@ protected:
 	object();
 public:
 	virtual
-	void
-	begin_rendering() = 0;
-
-	virtual
-	void
-	swap_buffers() = 0;
+	sge::opengl::device_state::context &
+	context() = 0;
 
 	virtual
 	sge::renderer::display_mode::object const

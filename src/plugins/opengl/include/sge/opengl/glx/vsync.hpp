@@ -18,57 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_X11_CONTEXT_HPP_INCLUDED
-#define SGE_OPENGL_X11_CONTEXT_HPP_INCLUDED
+#ifndef SGE_OPENGL_GLX_VSYNC_HPP_INCLUDED
+#define SGE_OPENGL_GLX_VSYNC_HPP_INCLUDED
 
-#include <sge/opengl/device_state/context.hpp>
-#include <sge/opengl/glx/context_scoped_ptr.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <awl/backends/x11/display_fwd.hpp>
-#include <awl/backends/x11/window/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
 
 
 namespace sge
 {
 namespace opengl
 {
-namespace x11
+namespace glx
 {
 
-class context
-:
-	public sge::opengl::device_state::context
-{
-	FCPPT_NONCOPYABLE(
-		context
-	);
-public:
-	explicit
-	context(
-		awl::backends::x11::window::object &
-	);
-
-	~context();
-
-	void
-	activate();
-
-	void
-	deactivate();
-
-	void
-	swap_buffers();
-private:
-	awl::backends::x11::window::object &window_;
-
-	awl::backends::x11::display &display_;
-
-	sge::opengl::glx::context_scoped_ptr const glx_context_;
-};
+void
+vsync(
+	awl::backends::x11::display &,
+	sge::opengl::context::system::object &
+);
 
 }
 }
 }
-
 
 #endif

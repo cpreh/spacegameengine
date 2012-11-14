@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/basic_target_impl.hpp>
 #include <sge/opengl/onscreen_surface.hpp>
 #include <sge/opengl/onscreen_target.hpp>
-#include <sge/opengl/device_state/object.hpp>
+#include <sge/opengl/device_state/context.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/screen_unit.hpp>
 #include <sge/renderer/color_buffer/surface_fwd.hpp>
@@ -33,19 +33,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::opengl::onscreen_target::onscreen_target(
-	sge::opengl::context::device::object &_context,
-	sge::opengl::device_state::object &_device_state,
+	sge::opengl::context::device::object &_device_context,
+	sge::opengl::device_state::context &_context,
 	awl::window::object &_window
 )
 :
 	base(
-		_context,
+		_device_context,
 		sge::renderer::target::viewport(
 			sge::renderer::pixel_rect::null()
 		)
 	),
-	device_state_(
-		_device_state
+	context_(
+		_context
 	),
 	main_surface_(
 		fcppt::make_unique_ptr<
@@ -76,7 +76,7 @@ sge::opengl::onscreen_target::on_unbind()
 void
 sge::opengl::onscreen_target::end_rendering()
 {
-	device_state_.swap_buffers();
+	context_.end_rendering();
 }
 
 sge::renderer::color_buffer::surface const &

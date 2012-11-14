@@ -19,12 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/config.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/device_state/context_unique_ptr.hpp>
 #include <sge/opengl/device_state/create_context.hpp>
 #include <awl/window/object_fwd.hpp>
 #include <fcppt/config/platform.hpp>
 #if defined(SGE_OPENGL_HAVE_X11)
-#include <sge/opengl/x11/context.hpp>
+#include <sge/opengl/glx/context.hpp>
 #include <awl/backends/x11/window/object.hpp>
 #elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 #include <sge/opengl/windows/context.hpp>
@@ -38,6 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::device_state::context_unique_ptr
 sge::opengl::device_state::create_context(
+	sge::opengl::context::system::object &_system_context,
 	awl::window::object &_window
 )
 {
@@ -45,8 +47,11 @@ sge::opengl::device_state::create_context(
 	return
 		sge::opengl::device_state::context_unique_ptr(
 			fcppt::make_unique_ptr<
-				sge::opengl::x11::context
+				sge::opengl::glx::context
 			>(
+				fcppt::ref(
+					_system_context
+				),
 				fcppt::ref(
 					dynamic_cast<
 						awl::backends::x11::window::object &

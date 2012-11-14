@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_X11_SWAP_CONTEXT_HPP_INCLUDED
-#define SGE_OPENGL_X11_SWAP_CONTEXT_HPP_INCLUDED
+#ifndef SGE_OPENGL_GLX_SWAP_CONTEXT_HPP_INCLUDED
+#define SGE_OPENGL_GLX_SWAP_CONTEXT_HPP_INCLUDED
 
 #include <sge/opengl/context/system/base.hpp>
 #include <sge/opengl/context/system/id.hpp>
@@ -35,7 +35,7 @@ namespace sge
 {
 namespace opengl
 {
-namespace x11
+namespace glx
 {
 
 class swap_context

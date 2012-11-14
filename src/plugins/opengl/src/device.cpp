@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/vertex_buffer.hpp>
 #include <sge/opengl/vertex_declaration.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/device_state/context.hpp>
 #include <sge/opengl/device_state/create.hpp>
 #include <sge/opengl/device_state/object.hpp>
 #include <sge/opengl/fbo/create_depth_stencil_surface.hpp>
@@ -185,7 +186,7 @@ sge::opengl::device::device(
 				device_context_
 			),
 			fcppt::ref(
-				*device_state_
+				device_state_->context()
 			),
 			fcppt::ref(
 				_window
@@ -518,7 +519,7 @@ sge::opengl::device::begin_rendering_ffp(
 	sge::renderer::target::base &_target
 )
 {
-	device_state_->begin_rendering();
+	device_state_->context().begin_rendering();
 
 	return
 		sge::opengl::render_context::create(

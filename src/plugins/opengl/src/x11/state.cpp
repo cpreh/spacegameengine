@@ -18,14 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/device_state/context.hpp>
+#include <sge/opengl/device_state/create_context.hpp>
 #include <sge/opengl/device_state/object.hpp>
-#include <sge/opengl/glx/context.hpp>
 #include <sge/opengl/x11/state.hpp>
-#include <sge/opengl/x11/vsync.hpp>
 #include <sge/renderer/display_mode/object.hpp>
 #include <sge/renderer/parameters/object.hpp>
-#include <sge/renderer/parameters/vsync.hpp>
-#include <awl/backends/x11/visual/object.hpp>
 #include <awl/backends/x11/window/object.hpp>
 
 
@@ -36,47 +34,33 @@ sge::opengl::x11::state::state(
 )
 :
 	sge::opengl::device_state::object(),
-	window_(
-		_window
-	),
 	context_(
-		_window
+		sge::opengl::device_state::create_context(
+			_system_context,
+			_window
+		)
 	),
 	scoped_current_(
-		context_
+		*context_
 	),
 	xrandr_state_(
-		window_,
+		_window,
 		_parameters.display_mode()
 	)
 {
-	if(
+	context_->vsync(
 		_parameters.vsync()
-		==
-		sge::renderer::parameters::vsync::on
-	)
-		sge::opengl::x11::vsync(
-			window_.display(),
-			_system_context
-		);
-}
-
-void
-sge::opengl::x11::state::begin_rendering()
-{
+	);
 }
 
 sge::opengl::x11::state::~state()
 {
 }
 
-void
-sge::opengl::x11::state::swap_buffers()
+sge::opengl::device_state::context &
+sge::opengl::x11::state::context()
 {
-	if(
-		!window_.destroyed()
-	)
-		context_.swap_buffers();
+	return *context_;
 }
 
 sge::renderer::display_mode::object const
