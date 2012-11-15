@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/ref.hpp>
 #include <sge/opengl/glx/system.hpp>
 #elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
+#include <fcppt/ref.hpp>
 #include <sge/opengl/wgl/system.hpp>
 #else
 #error "Implement me!"
@@ -65,7 +66,11 @@ sge::opengl::device_state::create_system(
 		sge::opengl::device_state::system_unique_ptr(
 			fcppt::make_unique_ptr<
 				sge::opengl::wgl::system
-			>()
+			>(
+				fcppt::ref(
+					_system_context
+				)
+			)
 		);
 #else
 #error "Implement me!"

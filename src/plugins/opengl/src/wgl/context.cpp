@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/windows/gdi_device.hpp>
 #include <sge/opengl/wgl/make_current.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/parameters/vsync.hpp>
 #include <awl/backends/windows/windows.hpp>
 #include <awl/backends/windows/window/object.hpp>
 #include <fcppt/null_ptr.hpp>
@@ -94,11 +93,4 @@ sge::opengl::wgl::context::end_rendering()
 		throw sge::renderer::exception(
 			FCPPT_TEXT("wglSwapLayerBuffers() failed!")
 		);
-}
-
-void
-sge::opengl::wgl::context::vsync(
-	sge::renderer::parameters::vsync::type const _vsync
-)
-{
 }

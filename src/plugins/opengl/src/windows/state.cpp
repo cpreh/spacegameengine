@@ -18,40 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/opengl/device_state/context.hpp>
-#include <sge/opengl/device_state/create_context.hpp>
 #include <sge/opengl/device_state/object.hpp>
 #include <sge/opengl/windows/change_display_settings.hpp>
 #include <sge/opengl/windows/current_display_mode.hpp>
 #include <sge/opengl/windows/state.hpp>
 #include <sge/renderer/display_mode/object.hpp>
-#include <sge/renderer/parameters/object.hpp>
-#include <awl/backends/windows/window/object.hpp>
+#include <sge/renderer/display_mode/optional_object.hpp>
 
 
 sge::opengl::windows::state::state(
-	sge::opengl::context::system::object &_system_context,
-	sge::renderer::parameters::object const &_parameters,
-	awl::backends::windows::window::object &_window
+	sge::renderer::display_mode::optional_object const &_display_mode
 )
 :
-	sge::opengl::device_state::object(),
-	context_(
-		sge::opengl::device_state::create_context(
-			_system_context,
-			_window
-		)
-	),
-	scoped_current_(
-		*context_
-	)
+	sge::opengl::device_state::object()
 {
 	if(
-		_parameters.display_mode()
+		_display_mode
 	)
 		sge::opengl::windows::change_display_settings(
-			*_parameters.display_mode()
+			*_display_mode
 		);
 }
 
@@ -59,16 +44,10 @@ sge::opengl::windows::state::~state()
 {
 }
 
-sge::opengl::device_state::context &
-sge::opengl::windows::state::context()
-{
-	return
-		*context_;
-}
-
 sge::renderer::display_mode::object const
 sge::opengl::windows::state::display_mode() const
 {
+	// TODO!
 	return
 		sge::opengl::windows::current_display_mode();
 }

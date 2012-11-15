@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/device_state/context.hpp>
 #include <sge/opengl/wgl/context_fwd.hpp>
 #include <sge/opengl/windows/gdi_device.hpp>
-#include <sge/renderer/parameters/vsync.hpp>
 #include <awl/backends/windows/windows.hpp>
 #include <awl/backends/windows/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -63,11 +62,6 @@ private:
 
 	void
 	end_rendering();
-
-	void
-	vsync(
-		sge::renderer::parameters::vsync::type
-	);
 
 	sge::opengl::windows::gdi_device const gdi_device_;
 
