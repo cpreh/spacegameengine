@@ -18,12 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_DEVICE_STATE_CREATE_CONTEXT_HPP_INCLUDED
-#define SGE_OPENGL_DEVICE_STATE_CREATE_CONTEXT_HPP_INCLUDED
-
-#include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/opengl/device_state/context_unique_ptr.hpp>
-#include <awl/window/object_fwd.hpp>
+#ifndef SGE_OPENGL_DEVICE_STATE_SYSTEM_FWD_HPP_INCLUDED
+#define SGE_OPENGL_DEVICE_STATE_SYSTEM_FWD_HPP_INCLUDED
 
 
 namespace sge
@@ -33,11 +29,7 @@ namespace opengl
 namespace device_state
 {
 
-sge::opengl::device_state::context_unique_ptr
-create_context(
-	sge::opengl::context::system::object &,
-	awl::window::object &
-);
+class system;
 
 }
 }

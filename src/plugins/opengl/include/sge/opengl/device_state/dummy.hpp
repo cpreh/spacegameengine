@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_DEVICE_STATE_DUMMY_HPP_INCLUDED
 #define SGE_OPENGL_DEVICE_STATE_DUMMY_HPP_INCLUDED
 
-#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/device_state/context_scoped_ptr.hpp>
 #include <sge/opengl/device_state/scoped_current.hpp>
+#include <sge/opengl/device_state/system_fwd.hpp>
 #include <awl/system/object_scoped_ptr.hpp>
 #include <awl/visual/object_scoped_ptr.hpp>
 #include <awl/window/object_scoped_ptr.hpp>
@@ -45,7 +45,7 @@ class dummy
 public:
 	explicit
 	dummy(
-		sge::opengl::context::system::object &
+		sge::opengl::device_state::system &
 	);
 
 	~dummy();

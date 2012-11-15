@@ -21,10 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_GLX_CONTEXT_HPP_INCLUDED
 #define SGE_OPENGL_GLX_CONTEXT_HPP_INCLUDED
 
-#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/device_state/context.hpp>
 #include <sge/opengl/glx/context_fwd.hpp>
-#include <sge/renderer/parameters/vsync.hpp>
 #include <awl/backends/x11/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -47,8 +45,8 @@ class context
 		context
 	);
 public:
+	explicit
 	context(
-		sge::opengl::context::system::object &,
 		awl::backends::x11::window::object &
 	);
 
@@ -65,13 +63,6 @@ private:
 
 	void
 	end_rendering();
-
-	void
-	vsync(
-		sge::renderer::parameters::vsync::type
-	);
-
-	sge::opengl::context::system::object &system_context_;
 
 	awl::backends::x11::window::object &window_;
 

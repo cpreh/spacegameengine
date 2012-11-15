@@ -19,62 +19,53 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/config.hpp>
+#include <sge/opengl/device_state/create_system.hpp>
+#include <sge/opengl/device_state/system.hpp>
+#include <sge/opengl/device_state/system_unique_ptr.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/opengl/device_state/context_unique_ptr.hpp>
-#include <sge/opengl/device_state/create_context.hpp>
-#include <awl/window/object_fwd.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/config/platform.hpp>
-#if defined(SGE_OPENGL_HAVE_X11)
-#include <sge/opengl/glx/context.hpp>
-#include <awl/backends/x11/window/object.hpp>
+#if defined(SGE_OPENGL_HAVE_EGL)
+#include <sge/opengl/egl/system.hpp>
+#elif defined(SGE_OPENGL_HAVE_X11)
+#include <fcppt/ref.hpp>
+#include <sge/opengl/glx/system.hpp>
 #elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
-#include <sge/opengl/wgl/context.hpp>
-#include <awl/backends/windows/window/object.hpp>
+#include <sge/opengl/wgl/system.hpp>
 #else
 #error "Implement me!"
 #endif
-#include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 
 
-sge::opengl::device_state::context_unique_ptr
-sge::opengl::device_state::create_context(
-	sge::opengl::context::system::object &_system_context,
-	awl::window::object &_window
+sge::opengl::device_state::system_unique_ptr
+sge::opengl::device_state::create_system(
+	sge::opengl::context::system::object &_system_context
 )
 {
-#if defined(SGE_OPENGL_HAVE_X11)
+#if defined(SGE_OPENGL_HAVE_EGL)
 	return
-		sge::opengl::device_state::context_unique_ptr(
+		sge::opengl::device_state::system_unique_ptr(
 			fcppt::make_unique_ptr<
-				sge::opengl::glx::context
+				sge::opengl::egl::system
+			>()
+		);
+#elif defined(SGE_OPENGL_HAVE_X11)
+	return
+		sge::opengl::device_state::system_unique_ptr(
+			fcppt::make_unique_ptr<
+				sge::opengl::glx::system
 			>(
 				fcppt::ref(
 					_system_context
-				),
-				fcppt::ref(
-					dynamic_cast<
-						awl::backends::x11::window::object &
-					>(
-						_window
-					)
 				)
 			)
 		);
 #elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 	return
-		sge::opengl::device_state::context_unique_ptr(
+		sge::opengl::device_state::system_unique_ptr(
 			fcppt::make_unique_ptr<
-				sge::opengl::wgl::context
-			>(
-				fcppt::ref(
-					dynamic_cast<
-						awl::backends::windows::window::object &
-					>(
-						_window
-					)
-				)
-			)
+				sge::opengl::wgl::system
+			>()
 		);
 #else
 #error "Implement me!"

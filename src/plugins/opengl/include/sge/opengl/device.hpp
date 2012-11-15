@@ -22,7 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_DEVICE_HPP_INCLUDED
 
 #include <sge/opengl/onscreen_target_fwd.hpp>
+#include <sge/opengl/device_state/context_scoped_ptr.hpp>
 #include <sge/opengl/device_state/object_fwd.hpp>
+#include <sge/opengl/device_state/scoped_current.hpp>
+#include <sge/opengl/device_state/system_fwd.hpp>
 #include <sge/opengl/context/device/object.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/basic_parameters_fwd.hpp>
@@ -120,6 +123,7 @@ public:
 	device(
 		sge::renderer::parameters::object const &,
 		awl::window::object &,
+		sge::opengl::device_state::system &,
 		sge::opengl::context::system::object &,
 		sge::renderer::caps::device const &
 	);
@@ -315,6 +319,10 @@ private:
 	> device_state_scoped_ptr;
 
 	device_state_scoped_ptr const device_state_;
+
+	sge::opengl::device_state::context_scoped_ptr const context_;
+
+	sge::opengl::device_state::scoped_current const scoped_current_;
 
 	typedef fcppt::scoped_ptr<
 		sge::opengl::onscreen_target

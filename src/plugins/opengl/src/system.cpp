@@ -19,9 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/create_device_caps.hpp>
-#include <sge/opengl/create_visual.hpp>
 #include <sge/opengl/device.hpp>
 #include <sge/opengl/system.hpp>
+#include <sge/opengl/device_state/create_system.hpp>
+#include <sge/opengl/device_state/system.hpp>
 #include <sge/renderer/adapter.hpp>
 #include <sge/renderer/caps/device.hpp>
 #include <sge/renderer/caps/device_count.hpp>
@@ -45,9 +46,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::opengl::system::system()
 :
 	system_context_(),
+	device_system_(
+		sge::opengl::device_state::create_system(
+			system_context_
+		)
+	),
 	caps_(
 		sge::opengl::create_device_caps(
-			system_context_
+			system_context_,
+			*device_system_
 		)
 	)
 {
@@ -93,6 +100,9 @@ sge::opengl::system::create_ffp_renderer(
 					_parameters.window()
 				),
 				fcppt::ref(
+					*device_system_
+				),
+				fcppt::ref(
 					system_context_
 				),
 				fcppt::cref(
@@ -109,8 +119,7 @@ sge::opengl::system::create_visual(
 )
 {
 	return
-		sge::opengl::create_visual(
-			system_context_,
+		device_system_->create_visual(
 			_awl_system,
 			_pixel_format
 		);

@@ -18,49 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/device_state/context.hpp>
-#include <sge/opengl/device_state/create_context.hpp>
 #include <sge/opengl/device_state/object.hpp>
 #include <sge/opengl/x11/state.hpp>
 #include <sge/renderer/display_mode/object.hpp>
-#include <sge/renderer/parameters/object.hpp>
-#include <awl/backends/x11/window/object.hpp>
+#include <sge/renderer/display_mode/optional_object_fwd.hpp>
+#include <awl/backends/x11/window/object_fwd.hpp>
 
 
 sge::opengl::x11::state::state(
-	sge::opengl::context::system::object &_system_context,
-	sge::renderer::parameters::object const &_parameters,
+	sge::renderer::display_mode::optional_object const &_display_mode,
 	awl::backends::x11::window::object &_window
 )
 :
 	sge::opengl::device_state::object(),
-	context_(
-		sge::opengl::device_state::create_context(
-			_system_context,
-			_window
-		)
-	),
-	scoped_current_(
-		*context_
-	),
 	xrandr_state_(
 		_window,
-		_parameters.display_mode()
+		_display_mode
 	)
 {
-	context_->vsync(
-		_parameters.vsync()
-	);
 }
 
 sge::opengl::x11::state::~state()
 {
-}
-
-sge::opengl::device_state::context &
-sge::opengl::x11::state::context()
-{
-	return *context_;
 }
 
 sge::renderer::display_mode::object const

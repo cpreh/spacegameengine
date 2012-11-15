@@ -18,12 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/glx/context.hpp>
 #include <sge/opengl/glx/make_current.hpp>
-#include <sge/opengl/glx/vsync.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/parameters/vsync.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/visual/object.hpp>
 #include <awl/backends/x11/window/object.hpp>
@@ -37,13 +34,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::opengl::glx::context::context(
-	sge::opengl::context::system::object &_system_context,
 	awl::backends::x11::window::object &_window
 )
 :
-	system_context_(
-		_system_context
-	),
 	window_(
 		_window
 	),
@@ -112,21 +105,5 @@ sge::opengl::glx::context::end_rendering()
 		::glXSwapBuffers(
 			window_.display().get(),
 			window_.get()
-		);
-}
-
-void
-sge::opengl::glx::context::vsync(
-	sge::renderer::parameters::vsync::type const _vsync
-)
-{
-	if(
-		_vsync
-		==
-		sge::renderer::parameters::vsync::on
-	)
-		sge::opengl::glx::vsync(
-			window_.display(),
-			system_context_
 		);
 }

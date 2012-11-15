@@ -18,28 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLX_VSYNC_HPP_INCLUDED
-#define SGE_OPENGL_GLX_VSYNC_HPP_INCLUDED
-
-#include <sge/opengl/context/system/object_fwd.hpp>
-#include <awl/backends/x11/display_fwd.hpp>
+#include <sge/opengl/device_state/system.hpp>
 
 
-namespace sge
+sge::opengl::device_state::system::system()
 {
-namespace opengl
-{
-namespace glx
-{
-
-void
-vsync(
-	sge::opengl::context::system::object &,
-	awl::backends::x11::display &
-);
-
-}
-}
 }
 
-#endif
+sge::opengl::device_state::system::~system()
+{
+}

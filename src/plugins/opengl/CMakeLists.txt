@@ -92,12 +92,16 @@ set(
 	src/plugins/opengl/include/sge/opengl/device_state/context_scoped_ptr.hpp
 	src/plugins/opengl/include/sge/opengl/device_state/context_unique_ptr.hpp
 	src/plugins/opengl/include/sge/opengl/device_state/create.hpp
-	src/plugins/opengl/include/sge/opengl/device_state/create_context.hpp
+	src/plugins/opengl/include/sge/opengl/device_state/create_system.hpp
 	src/plugins/opengl/include/sge/opengl/device_state/dummy.hpp
 	src/plugins/opengl/include/sge/opengl/device_state/object.hpp
 	src/plugins/opengl/include/sge/opengl/device_state/object_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/device_state/object_unique_ptr.hpp
 	src/plugins/opengl/include/sge/opengl/device_state/scoped_current.hpp
+	src/plugins/opengl/include/sge/opengl/device_state/scoped_current_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/device_state/system.hpp
+	src/plugins/opengl/include/sge/opengl/device_state/system_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/device_state/system_unique_ptr.hpp
 	src/plugins/opengl/include/sge/opengl/disable.hpp
 	src/plugins/opengl/include/sge/opengl/disable_client_state.hpp
 	src/plugins/opengl/include/sge/opengl/draw_arrays.hpp
@@ -614,10 +618,11 @@ set(
 	src/plugins/opengl/src/device.cpp
 	src/plugins/opengl/src/device_state/context.cpp
 	src/plugins/opengl/src/device_state/create.cpp
-	src/plugins/opengl/src/device_state/create_context.cpp
+	src/plugins/opengl/src/device_state/create_system.cpp
 	src/plugins/opengl/src/device_state/dummy.cpp
 	src/plugins/opengl/src/device_state/object.cpp
 	src/plugins/opengl/src/device_state/scoped_current.cpp
+	src/plugins/opengl/src/device_state/system.cpp
 	src/plugins/opengl/src/disable.cpp
 	src/plugins/opengl/src/disable_client_state.cpp
 	src/plugins/opengl/src/draw_arrays.cpp
@@ -1008,6 +1013,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/glx/proc_context_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/glx/raw_function.hpp
 	src/plugins/opengl/include/sge/opengl/glx/swap_context.hpp
+	src/plugins/opengl/include/sge/opengl/glx/system.hpp
 	src/plugins/opengl/include/sge/opengl/glx/visual/attribute_container.hpp
 	src/plugins/opengl/include/sge/opengl/glx/visual/attribute_container_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/glx/visual/choose.hpp
@@ -1026,6 +1032,7 @@ set(
 	src/plugins/opengl/src/glx/proc_address.cpp
 	src/plugins/opengl/src/glx/proc_context.cpp
 	src/plugins/opengl/src/glx/swap_context.cpp
+	src/plugins/opengl/src/glx/system.cpp
 	src/plugins/opengl/src/glx/visual/choose.cpp
 	src/plugins/opengl/src/glx/visual/context.cpp
 	src/plugins/opengl/src/glx/visual/convert_color.cpp
@@ -1107,8 +1114,34 @@ set(
 	src/plugins/opengl/src/cg/texture/set_parameter.cpp
 )
 
+set(
+	SGE_OPENGL_EGL_FILES
+	src/plugins/opengl/include/sge/opengl/egl/system.hpp
+)
+
+option(
+	ENABLE_EGL
+	"Use EGL in OpenGL"
+	OFF
+)
+
+if(
+	ENABLE_EGL
+)
+	set(
+		SGE_FIND_EGL_REQUIRED
+		"REQUIRED"
+	)
+endif()
+
 find_package(
 	EGL
+	${SGE_FIND_EGL_REQUIRED}
+)
+
+set(
+	SGE_OPENGL_HAVE_EGL
+	${ENABLE_EGL}
 )
 
 set(

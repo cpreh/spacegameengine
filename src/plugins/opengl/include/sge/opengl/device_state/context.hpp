@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_DEVICE_STATE_CONTEXT_HPP_INCLUDED
 
 #include <sge/opengl/device_state/context_fwd.hpp>
-#include <sge/renderer/parameters/vsync.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -59,12 +58,6 @@ public:
 	virtual
 	void
 	end_rendering() = 0;
-
-	virtual
-	void
-	vsync(
-		sge::renderer::parameters::vsync::type
-	) = 0;
 };
 
 }

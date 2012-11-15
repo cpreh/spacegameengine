@@ -283,6 +283,11 @@ update_cmake_file \
 
 update_cmake_file \
 	src/plugins/opengl/CMakeLists.txt \
+	SGE_OPENGL_EGL_FILES \
+	$(opengl_inc_src egl)
+
+update_cmake_file \
+	src/plugins/opengl/CMakeLists.txt \
 	SGE_OPENGL_CG_FILES \
 	$(opengl_inc_src cg)
 

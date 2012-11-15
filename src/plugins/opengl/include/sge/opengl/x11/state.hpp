@@ -21,14 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_X11_STATE_HPP_INCLUDED
 #define SGE_OPENGL_X11_STATE_HPP_INCLUDED
 
-#include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/opengl/device_state/context_fwd.hpp>
-#include <sge/opengl/device_state/context_scoped_ptr.hpp>
 #include <sge/opengl/device_state/object.hpp>
-#include <sge/opengl/device_state/scoped_current.hpp>
 #include <sge/opengl/xrandr/state.hpp>
 #include <sge/renderer/display_mode/object_fwd.hpp>
-#include <sge/renderer/parameters/object_fwd.hpp>
+#include <sge/renderer/display_mode/optional_object_fwd.hpp>
 #include <awl/backends/x11/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -49,22 +45,14 @@ class state
 	);
 public:
 	state(
-		sge::opengl::context::system::object &,
-		sge::renderer::parameters::object const &,
+		sge::renderer::display_mode::optional_object const &,
 		awl::backends::x11::window::object &
 	);
 
 	~state();
 private:
-	sge::opengl::device_state::context &
-	context();
-
 	sge::renderer::display_mode::object const
 	display_mode() const;
-
-	sge::opengl::device_state::context_scoped_ptr const context_;
-
-	sge::opengl::device_state::scoped_current const scoped_current_;
 
 	sge::opengl::xrandr::state const xrandr_state_;
 };

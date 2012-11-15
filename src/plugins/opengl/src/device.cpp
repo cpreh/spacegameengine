@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/device_state/context.hpp>
 #include <sge/opengl/device_state/create.hpp>
 #include <sge/opengl/device_state/object.hpp>
+#include <sge/opengl/device_state/system.hpp>
 #include <sge/opengl/fbo/create_depth_stencil_surface.hpp>
 #include <sge/opengl/fbo/create_target.hpp>
 #include <sge/opengl/occlusion_query/create.hpp>
@@ -160,6 +161,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::opengl::device::device(
 	sge::renderer::parameters::object const &_parameters,
 	awl::window::object &_window,
+	sge::opengl::device_state::system &_device_system,
 	sge::opengl::context::system::object &_system_context,
 	sge::renderer::caps::device const &_caps
 )
@@ -173,10 +175,17 @@ sge::opengl::device::device(
 	),
 	device_state_(
 		sge::opengl::device_state::create(
-			system_context_,
-			_parameters,
+			_parameters.display_mode(),
 			_window
 		)
+	),
+	context_(
+		_device_system.create_context(
+			_window
+		)
+	),
+	scoped_current_(
+		*context_
 	),
 	onscreen_target_(
 		fcppt::make_unique_ptr<
@@ -186,7 +195,7 @@ sge::opengl::device::device(
 				device_context_
 			),
 			fcppt::ref(
-				device_state_->context()
+				*context_
 			),
 			fcppt::ref(
 				_window
@@ -194,6 +203,12 @@ sge::opengl::device::device(
 		)
 	)
 {
+	_device_system.vsync(
+		scoped_current_,
+		_window,
+		_parameters.vsync()
+	);
+
 	sge::opengl::init_multi_sampling(
 		system_context_,
 		_parameters.pixel_format().multi_samples()
@@ -519,7 +534,7 @@ sge::opengl::device::begin_rendering_ffp(
 	sge::renderer::target::base &_target
 )
 {
-	device_state_->context().begin_rendering();
+	context_->begin_rendering();
 
 	return
 		sge::opengl::render_context::create(
@@ -643,7 +658,8 @@ sge::opengl::device::create_transform_state(
 sge::renderer::display_mode::object const
 sge::opengl::device::display_mode() const
 {
-	return device_state_->display_mode();
+	return
+		device_state_->display_mode();
 }
 
 sge::opengl::texture::basic_parameters const

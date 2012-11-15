@@ -21,9 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_DEVICE_STATE_CREATE_HPP_INCLUDED
 #define SGE_OPENGL_DEVICE_STATE_CREATE_HPP_INCLUDED
 
-#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/device_state/object_unique_ptr.hpp>
-#include <sge/renderer/parameters/object_fwd.hpp>
+#include <sge/renderer/display_mode/optional_object_fwd.hpp>
 #include <awl/window/object_fwd.hpp>
 
 
@@ -36,8 +35,7 @@ namespace device_state
 
 sge::opengl::device_state::object_unique_ptr
 create(
-	sge::opengl::context::system::object &,
-	sge::renderer::parameters::object const &,
+	sge::renderer::display_mode::optional_object const &,
 	awl::window::object &
 );
 

@@ -19,14 +19,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/config.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/device_state/create.hpp>
 #include <sge/opengl/device_state/object_unique_ptr.hpp>
-#include <sge/renderer/parameters/object_fwd.hpp>
+#include <sge/renderer/display_mode/optional_object_fwd.hpp>
+#include <awl/window/object_fwd.hpp>
+#include <fcppt/cref.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/config/platform.hpp>
 #if defined(SGE_OPENGL_HAVE_X11)
 #include <sge/opengl/x11/state.hpp>
 #include <awl/backends/x11/window/object.hpp>
+#include <awl/window/object.hpp>
+#include <fcppt/ref.hpp>
 #elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 #include <sge/opengl/windows/state.hpp>
 #include <awl/backends/windows/window/object.hpp>
@@ -36,16 +40,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #else
 #error "Implement me!"
 #endif
-#include <awl/window/object.hpp>
-#include <fcppt/cref.hpp>
-#include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 
 
 sge::opengl::device_state::object_unique_ptr
 sge::opengl::device_state::create(
-	sge::opengl::context::system::object &_context,
-	sge::renderer::parameters::object const &_parameters,
+	sge::renderer::display_mode::optional_object const &_display_mode,
 	awl::window::object &_window
 )
 {
@@ -55,11 +54,8 @@ sge::opengl::device_state::create(
 			fcppt::make_unique_ptr<
 				sge::opengl::x11::state
 			>(
-				fcppt::ref(
-					_context
-				),
 				fcppt::cref(
-					_parameters
+					_display_mode
 				),
 				fcppt::ref(
 					dynamic_cast<
@@ -76,25 +72,14 @@ sge::opengl::device_state::create(
 			fcppt::make_unique_ptr<
 				sge::opengl::windows::state
 			>(
-				fcppt::ref(
-					_context
-				),
 				fcppt::cref(
-					_parameters
-				),
-				fcppt::ref(
-					dynamic_cast<
-						awl::backends::windows::window::object &
-					>(
-						_window
-					)
+					_display_mode
 				)
 			)
 		);
 #elif defined(FCPPT_CONFIG_DARWIN_PLATFORM)
 	return
 		sge::opengl::cocoa::create_device_state(
-			_context,
 			_parameters,
 			_window
 		);

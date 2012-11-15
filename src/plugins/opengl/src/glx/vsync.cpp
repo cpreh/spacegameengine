@@ -36,8 +36,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::glx::vsync(
-	awl::backends::x11::display &_display,
-	sge::opengl::context::system::object &_system_context
+	sge::opengl::context::system::object &_system_context,
+	awl::backends::x11::display &_display
 )
 {
 	sge::opengl::glx::swap_context &context(

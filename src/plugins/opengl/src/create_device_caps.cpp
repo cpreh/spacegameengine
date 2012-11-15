@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/device_state/dummy.hpp>
+#include <sge/opengl/device_state/system_fwd.hpp>
 #include <sge/opengl/fbo/context.hpp>
 #include <sge/opengl/state/core/sampler/filter/anisotropy_context.hpp>
 #include <sge/opengl/texture/multi_context.hpp>
@@ -55,11 +56,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer::caps::device_unique_ptr
 sge::opengl::create_device_caps(
-	sge::opengl::context::system::object &_context
+	sge::opengl::context::system::object &_context,
+	sge::opengl::device_state::system &_device_system
 )
 {
 	sge::opengl::device_state::dummy dummy_state(
-		_context
+		_device_system
 	);
 
 	sge::renderer::size_type const max_texture_size(

@@ -19,10 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/create_visual.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/device_state/context.hpp>
-#include <sge/opengl/device_state/create_context.hpp>
 #include <sge/opengl/device_state/dummy.hpp>
+#include <sge/opengl/device_state/system.hpp>
 #include <sge/opengl/glew/initialize.hpp>
 #include <sge/renderer/pixel_format/color.hpp>
 #include <sge/renderer/pixel_format/depth_stencil.hpp>
@@ -38,16 +37,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::opengl::device_state::dummy::dummy(
-	sge::opengl::context::system::object &_system_context
+	sge::opengl::device_state::system &_device_system
 )
 :
 	awl_system_(
 		awl::system::create()
 	),
 	awl_visual_(
-		// TODO: This is a hack for Windows, but is it wise? What if this visual isn't supported?
-		sge::opengl::create_visual(
-			_system_context,
+		// TODO: This is a hack for querying device caps, but is it
+		// wise? What if this visual isn't supported?
+		_device_system.create_visual(
 			*awl_system_,
 			sge::renderer::pixel_format::object(
 				sge::renderer::pixel_format::color::depth32,
@@ -68,8 +67,7 @@ sge::opengl::device_state::dummy::dummy(
 		)
 	),
 	context_(
-		sge::opengl::device_state::create_context(
-			_system_context,
+		_device_system.create_context(
 			*awl_window_
 		)
 	),
