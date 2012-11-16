@@ -281,10 +281,10 @@ update_cmake_file \
 	SGE_OPENGL_XRANDR_FILES \
 	$(opengl_inc_src xrandr)
 
-update_cmake_file \
-	src/plugins/opengl/CMakeLists.txt \
-	SGE_OPENGL_EGL_FILES \
-	$(opengl_inc_src egl)
+#update_cmake_file \
+#	src/plugins/opengl/CMakeLists.txt \
+#	SGE_OPENGL_EGL_FILES \
+#	$(opengl_inc_src egl)
 
 update_cmake_file \
 	src/plugins/opengl/CMakeLists.txt \

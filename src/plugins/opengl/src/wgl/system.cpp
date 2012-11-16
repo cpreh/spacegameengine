@@ -16,7 +16,9 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
-	
+
+
+
 
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/device_state/context_unique_ptr.hpp>
@@ -27,10 +29,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/windows/visual/create.hpp>
 #include <sge/renderer/parameters/vsync.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
+#include <awl/backends/windows/window/object.hpp>
 #include <awl/system/object_fwd.hpp>
 #include <awl/visual/object.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
-#include <awl/backends/windows/window/object.hpp>
 #include <awl/window/object_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/ref.hpp>

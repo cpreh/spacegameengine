@@ -18,41 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/cg/texture/assigned_stage.hpp>
-#include <sge/d3d9/com/compare_ptr.hpp>
-#include <sge/d3d9/devicefuncs/get_texture.hpp>
-#include <sge/d3d9/texture/base.hpp>
-#include <sge/renderer/caps/texture_stages.hpp>
-#include <sge/renderer/texture/stage.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <sge/config/app_name.hpp>
+#include <sge/config/config_path.hpp>
+#include <sge/config/user_name.hpp>
+#include <fcppt/exception.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/io/cerr.hpp>
+#include <fcppt/io/cout.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <cstdlib>
+#include <fcppt/config/external_end.hpp>
 
 
-sge::renderer::texture::stage const
-sge::d3d9::cg::texture::assigned_stage(
-	IDirect3DDevice9 &_device,
-	sge::d3d9::texture::base const &_texture,
-	sge::renderer::caps::texture_stages const _max_stages
-)
+int main()
+try
 {
-	for(
-		sge::renderer::texture::stage stage(
-			0u
-		);
-		stage.get() < _max_stages.get();
-		++stage
-	)
-		if(
-			sge::d3d9::com::compare_ptr(
-				sge::d3d9::devicefuncs::get_texture(
-					_device,
-					stage
-				).get(),
-				&_texture.get()
+	fcppt::io::cout()
+		<< FCPPT_TEXT("Config path: ")
+		<< sge::config::config_path(
+			sge::config::app_name(
+				FCPPT_TEXT("sgeconfigtest")
 			)
 		)
-			return
-				stage;
+		<< FCPPT_TEXT('\n');
 
-	FCPPT_ASSERT_UNREACHABLE;
+	fcppt::io::cout()
+		<< FCPPT_TEXT("User name: ")
+		<< sge::config::user_name()
+		<< FCPPT_TEXT('\n');
+}
+catch(
+	fcppt::exception const &_exception
+)
+{
+	fcppt::io::cerr()
+		<< _exception.string()
+		<< FCPPT_TEXT('\n');
+
+	return EXIT_FAILURE;
 }

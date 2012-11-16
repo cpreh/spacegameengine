@@ -171,7 +171,7 @@ add_sge_console_example(
 )
 
 add_sge_console_example(
-	config_path
+	config
 	"sgeconfig"
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 	""

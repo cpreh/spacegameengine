@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode/object.hpp>
 #include <sge/renderer/display_mode/optional_dimensions.hpp>
 #include <sge/renderer/display_mode/optional_refresh_rate.hpp>
-#include <sge/renderer/display_mode/refresh_rate.hpp>
 #include <sge/renderer/display_mode/pixel_size.hpp>
+#include <sge/renderer/display_mode/refresh_rate.hpp>
 #include <awl/backends/windows/windows.hpp>
 #include <fcppt/null_ptr.hpp>
 

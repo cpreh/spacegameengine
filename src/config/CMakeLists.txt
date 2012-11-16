@@ -32,6 +32,7 @@ set(
 	include/sge/config/optional_string_fwd.hpp
 	include/sge/config/own_app_name.hpp
 	include/sge/config/plugin_path.hpp
+	include/sge/config/user_name.hpp
 	src/config/app_path.cpp
 	src/config/cache_path.cpp
 	src/config/config_path.cpp
@@ -45,6 +46,7 @@ set(
 	src/config/own_app_name.cpp
 	src/config/plugin_path.cpp
 	src/config/try_create_path.cpp
+	src/config/user_name.cpp
 )
 
 add_sge_base_library(
