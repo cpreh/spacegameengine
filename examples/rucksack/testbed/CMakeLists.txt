@@ -12,7 +12,7 @@ set(
 add_sge_example_library(
 	"rucksack/testbed"
 	"sgelog;sgerenderer;sgerucksack;sgesprite;sgesystems;sgeviewport;sgewindow"
-	""
+	"${fcppt_core_TARGET}"
 	""
 	""
 	"${CMAKE_CURRENT_SOURCE_DIR}/include;${CMAKE_CURRENT_SOURCE_DIR}/src/include"

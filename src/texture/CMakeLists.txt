@@ -72,7 +72,7 @@ set(
 add_sge_base_library(
 	texture
 	"sgecore;sgeimage2d;sgelog;sgerenderer"
-	"${Fcppt_core_LIBRARIES}"
+	"${fcppt_core_TARGET}"
 	""
 	""
 	# TODO!

@@ -42,7 +42,7 @@ set(
 add_sge_base_library(
 	"model/obj"
 	"sgecore;sgerenderer;sgeimage;sgelog;sgecharconv"
-	"${Fcppt_filesystem_LIBRARIES}"
+	"${fcppt_core_TARGET};${fcppt_filesystem_TARGET}"
 	""
 	""
 	""

@@ -108,7 +108,7 @@ set(
 add_sge_base_library(
 	cg
 	"sgecore"
-	"${Fcppt_core_LIBRARIES};${Cg_LIBRARIES}"
+	"${fcppt_core_TARGET};${Cg_LIBRARIES}"
 	"sgecore"
 	""
 	"${CMAKE_CURRENT_SOURCE_DIR}/include;${Cg_INCLUDE_DIRS}"

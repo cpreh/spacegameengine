@@ -33,8 +33,8 @@ sge_generate_instantiate_symbol_header(
 add_sge_base_library(
 	media
 	"sgecore"
-	"${Fcppt_filesystem_LIBRARIES}"
+	"${fcppt_filesystem_TARGET}"
 	"sgelog"
-	"${Fcppt_filesystem_LIBRARIES}"
+	"${fcppt_filesystem_TARGET}"
 	"${CMAKE_CURRENT_SOURCE_DIR}/include"
 )

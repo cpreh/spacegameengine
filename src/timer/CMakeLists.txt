@@ -43,7 +43,7 @@ set(
 add_sge_base_library(
 	timer
 	""
-	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES}"
+	"${fcppt_core_TARGET};${Boost_CHRONO_LIBRARIES}"
 	""
 	""
 	""

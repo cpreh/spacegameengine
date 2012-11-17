@@ -146,7 +146,7 @@ SET(
 )
 
 add_definitions(
-	${Awl_DEFINITIONS}
+	${awl_DEFINITIONS}
 )
 
 add_sge_plugin(

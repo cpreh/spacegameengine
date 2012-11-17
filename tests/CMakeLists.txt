@@ -1,8 +1,3 @@
-find_package(
-	Boost 1.45.0 REQUIRED COMPONENTS
-	unit_test_framework
-)
-
 function(
 	ADD_SGE_TEST
 	PATHNAME
@@ -94,14 +89,14 @@ configure_file(
 add_sge_test(
 	charconv/main
 	"sgecharconv"
-	"${Fcppt_core_LIBRARIES}"
+	"${fcppt_core_TARGET}"
 	"${CMAKE_CURRENT_BINARY_DIR}/include"
 )
 
 add_sge_test(
 	charconv/flake_config
 	"sgecharconv"
-	"${Fcppt_core_LIBRARIES}"
+	"${fcppt_core_TARGET}"
 	"${CMAKE_CURRENT_BINARY_DIR}/include"
 )
 
@@ -122,20 +117,20 @@ add_sge_test(
 add_sge_test(
 	projectile/triangulate_long
 	""
-	"${Fcppt_core_LIBRARIES}"
+	"${fcppt_core_TARGET}"
 	""
 )
 
 add_sge_test(
 	parse/json
 	"sgeparse"
-	"${Fcppt_core_LIBRARIES}"
+	"${fcppt_core_TARGET}"
 	""
 )
 
 add_sge_test(
 	parse/ini
 	"sgeparse"
-	"${Fcppt_core_LIBRARIES}"
+	"${fcppt_core_TARGET}"
 	""
 )

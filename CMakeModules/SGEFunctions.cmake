@@ -205,16 +205,36 @@ function(
 		${TRANSITIVE_ADDITIONAL_DEPS}
 	)
 
-	# Don't install dummy libraries or static example libraries
+	fcppt_utils_library_output_path(
+		SGE_LIBRARY_DIR
+	)
+
+	#Dummy and example libs should not be exported
 	if(
 		NOT "${BASE_VARIANT}" STREQUAL "DUMMY"
-		AND NOT (("${BASE_VARIANT}" STREQUAL "EXAMPLE") AND ("${VARIANT}" STREQUAL "STATIC"))
+		AND
+		NOT "${BASE_VARIANT}" STREQUAL "EXAMPLE"
 	)
 		install(
 			TARGETS
 			"${SGE_LIB_NAME}"
 			DESTINATION
-			"${INSTALL_LIBRARY_DIR}"
+			"${SGE_LIBRARY_DIR}"
+			EXPORT
+			sgeTargets
+		)
+	# Dynamic example libs still need to be installed,
+	# otherwise the examples won't work
+	elseif(
+		"${BASE_VARIANT}" STREQUAL "EXAMPLE"
+		AND
+		NOT "${VARIANT}" STREQUAL "STATIC"
+	)
+		install(
+			TARGETS
+			"${SGE_LIB_NAME}"
+			DESTINATION
+			"${SGE_LIBRARY_DIR}"
 		)
 	endif()
 endfunction()
@@ -417,7 +437,7 @@ endfunction()
 #
 # INCLUDE_DIRS:
 #	A list of include directories for this library.
-function(
+macro(
 	add_sge_base_library
 	RELATIVE_PATH
 	SGE_DEPS
@@ -426,6 +446,24 @@ function(
 	TRANSITIVE_ADDITIONAL_DEPS
 	INCLUDE_DIRS
 )
+	string(
+		REPLACE
+		"/"
+		""
+		LIB_NAME
+		"${RELATIVE_PATH}"
+	)
+
+	set(
+		SGE_LIBRARIES
+		"${SGE_LIBRARIES};sge${LIB_NAME}"
+		PARENT_SCOPE
+	)
+
+	unset(
+		LIB_NAME
+	)
+
 	add_sge_base_library_base(
 		"${RELATIVE_PATH}"
 		"${SGE_DEPS}"
@@ -435,7 +473,7 @@ function(
 		"${INCLUDE_DIRS}"
 		""
 	)
-endfunction()
+endmacro()
 
 function(
 	add_sge_dummy_library
@@ -535,7 +573,7 @@ function(
 		UPPER_PLUGIN_NAME
 	)
 
-	FCPPT_UTILS_APPEND_SOURCE_DIR_AND_MAKE_GROUPS(
+	fcppt_utils_append_source_dir_and_make_groups(
 		"${SGE_${UPPER_PLUGIN_NAME}_FILES}"
 		SGE_${UPPER_PLUGIN_NAME}_FILES_ABS
 	)

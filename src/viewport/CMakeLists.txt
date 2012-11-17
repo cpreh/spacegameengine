@@ -34,13 +34,13 @@ set(
 )
 
 add_definitions(
-	${Awl_DEFINITIONS}
+	${awl_DEFINITIONS}
 )
 
 add_sge_base_library(
 	viewport
 	"sgerenderer;sgewindow"
-	"${Awl_LIBRARIES}"
+	"${awl_TARGET}"
 	""
 	""
 	"${CMAKE_CURRENT_SOURCE_DIR}/include"

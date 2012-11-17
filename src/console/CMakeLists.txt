@@ -62,7 +62,7 @@ set(
 add_sge_base_library(
 	console
 	"sgecore;sgefont;sgefontdraw;sgeinput;sgesprite"
-	"${Fcppt_core_LIBRARIES}"
+	"${fcppt_core_TARGET}"
 	""
 	""
 	"${CMAKE_CURRENT_SOURCE_DIR}/include"

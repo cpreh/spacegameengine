@@ -89,7 +89,7 @@ if(
 	WIN32
 )
 	add_definitions(
-		${Awl_DEFINITIONS}
+		${awl_DEFINITIONS}
 	)
 
 	set(
@@ -111,8 +111,8 @@ endif()
 add_sge_base_library(
 	plugin
 	"sgecore;sgelog"
-	"${Fcppt_filesystem_LIBRARIES};${SGE_PLUGIN_ADDITIONAL_LIBS}"
+	"${fcppt_core_TARGET};${fcppt_filesystem_TARGET};${SGE_PLUGIN_ADDITIONAL_LIBS}"
 	""
-	"${Fcppt_core_LIBRARIES};${Boost_SYSTEM_LIBRARIES}"
+	"${fcppt_core_TARGET};${Boost_SYSTEM_LIBRARIES}"
 	"${CMAKE_CURRENT_SOURCE_DIR}/include"
 )

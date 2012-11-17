@@ -26,7 +26,7 @@ set(
 add_sge_base_library(
 	"font/bitmap"
 	"sgecore;sgefont;sgeimage;sgeimage2d;sgelog;sgeparse"
-	"${Fcppt_filesystem_LIBRARIES}"
+	"${fcppt_core_TARGET};${fcppt_filesystem_TARGET}"
 	""
 	""
 	"${CMAKE_CURRENT_SOURCE_DIR}/include"

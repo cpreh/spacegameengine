@@ -43,7 +43,7 @@ function(
 
 	target_link_libraries(
 		"${FULL_NAME}"
-		${Awl_LIBRARIES}
+		${awl_TARGET}
 	)
 
 	transform_sge_link_targets(
@@ -94,7 +94,7 @@ option(
 )
 
 add_definitions(
-	${Awl_DEFINITIONS}
+	${awl_DEFINITIONS}
 )
 
 if(

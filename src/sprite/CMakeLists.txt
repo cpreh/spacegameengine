@@ -398,7 +398,7 @@ set(
 add_sge_base_library(
 	sprite
 	"sgeimage;sgerenderer"
-	""
+	"${fcppt_core_TARGET}"
 	"sgeimage;sgerenderer"
 	""
 	""

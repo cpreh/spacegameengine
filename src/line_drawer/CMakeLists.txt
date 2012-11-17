@@ -22,7 +22,7 @@ set(
 add_sge_base_library(
 	line_drawer
 	"sgeimage;sgerenderer"
-	""
+	"${fcppt_core_TARGET}"
 	""
 	""
 	"${CMAKE_CURRENT_SOURCE_DIR}/include"

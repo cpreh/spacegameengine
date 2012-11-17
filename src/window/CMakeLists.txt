@@ -31,13 +31,13 @@ set(
 )
 
 add_definitions(
-	"${Awl_DEFINITIONS}"
+	"${awl_DEFINITIONS}"
 )
 
 add_sge_base_library(
 	window
 	""
-	"${Awl_LIBRARIES}"
+	"${awl_TARGET}"
 	""
 	""
 	""

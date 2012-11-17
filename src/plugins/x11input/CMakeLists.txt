@@ -182,12 +182,12 @@ set(
 )
 
 add_definitions(
-	"${Awl_DEFINITIONS}"
+	"${awl_DEFINITIONS}"
 )
 
 add_sge_plugin(
 	x11input
 	"sgeinput;sgelog;sgeplugin;sgewindow"
-	"${Fcppt_core_LIBRARIES};${Awl_LIBRARIES};${X11_X11_LIB};${X11_Xinput_LIB}"
+	"${fcppt_core_TARGET};${awl_TARGET};${X11_X11_LIB};${X11_Xinput_LIB}"
 	"${X11_X11_INCLUDE_PATH};${X11_Xinput_INCLUDE_PATH}"
 )

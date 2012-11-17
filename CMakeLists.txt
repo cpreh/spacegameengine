@@ -3,7 +3,7 @@ cmake_minimum_required(
 )
 
 project(
-	spacegameengine
+	sge
 )
 
 set(
@@ -69,11 +69,30 @@ include_directories(
 	${CMAKE_SOURCE_DIR}/include
 )
 
+option(
+	ENABLE_TEST
+	"Build the tests"
+	OFF
+)
+
+set(
+	NEEDED_BOOST_LIBS
+	"chrono;filesystem;program_options;system"
+)
+
+if(
+	ENABLE_TEST
+)
+	list(
+		APPEND
+		NEEDED_BOOST_LIBS
+		"unit_test_framework"
+	)
+endif()
+
 find_package(
-	Boost 1.47.0 REQUIRED
-	chrono
-	filesystem
-	program_options
+	Boost 1.47.0 REQUIRED COMPONENTS
+	"${NEEDED_BOOST_LIBS}"
 )
 
 include_directories(
@@ -85,49 +104,39 @@ link_directories(
 	${Boost_LIBRARY_DIRS}
 )
 
-# Workaround Boost-1.48 bug, remove this as soon as this is fixed in a boost
-# release
-if(
-	MSVC AND ${Boost_VERSION} STREQUAL "104800"
-)
-	add_definitions(
-		-D BOOST_FUSION_DONT_USE_PREPROCESSED_FILES
-	)
-endif()
-
 
 # FIND FCPPT
 find_package(
-	Fcppt
+	fcppt
 	REQUIRED
 )
 
 add_definitions(
-	${Fcppt_DEFINITIONS}
+	${fcppt_DEFINITIONS}
 )
 
 include_directories(
-	${Fcppt_INCLUDE_DIRS}
+	${fcppt_INCLUDE_DIRS}
 )
 
 # FIND MIZUIRO
 find_package(
-	Mizuiro
+	mizuiro
 	REQUIRED
 )
 
 include_directories(
-	${Mizuiro_INCLUDE_DIRS}
+	${mizuiro_INCLUDE_DIRS}
 )
 
 # FIND AWL
 find_package(
-	Awl
+	awl
 	REQUIRED
 )
 
 include_directories(
-	${Awl_INCLUDE_DIRS}
+	${awl_INCLUDE_DIRS}
 )
 
 # TODO: Check if this is needed (or move it to fcppt/awl)
@@ -230,12 +239,6 @@ if(
 	)
 endif()
 
-option(
-	ENABLE_TEST
-	"Build the tests"
-	OFF
-)
-
 if(
 	ENABLE_TEST
 )
@@ -261,6 +264,14 @@ if(
 	)
 endif()
 
+fcppt_utils_include_path(
+	sge_INCLUDE_DIR
+)
+
+fcppt_utils_generate_config(
+	sge
+)
+
 install(
 	DIRECTORY
 	media/
@@ -276,4 +287,11 @@ install(
 	${CMAKE_SOURCE_DIR}/CMakeModules/SGECustomPath.cmake
 	DESTINATION
 	${INSTALL_CMAKEMODULES_DIR}
+)
+
+install(
+	EXPORT
+	sgeTargets
+	DESTINATION
+	${INSTALL_CMAKECONFIG_DIR}
 )

@@ -28,7 +28,7 @@ set(
 add_sge_base_library(
 	resource_tree
 	"sgecore"
-	"${Fcppt_filesystem_LIBRARIES}"
+	"${fcppt_filesystem_TARGET}"
 	""
 	""
 	""

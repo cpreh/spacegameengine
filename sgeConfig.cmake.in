@@ -1,0 +1,43 @@
+include(
+	FcpptExport
+)
+
+set(
+	SGE_BINARY_DIR
+	@CMAKE_BINARY_DIR@
+)
+
+set(
+	SGE_INSTALL_LIBRARY_DIR
+	@INSTALL_LIBRARY_DIR@
+)
+
+set(
+	FCPPT_EXPORT_IN_SOURCE_BUILD
+	@FCPPT_UTILS_IN_SOURCE_BUILD@
+)
+
+fcppt_export_init(
+	"sge"
+	"${SGE_BINARY_DIR}"
+	"${SGE_INSTALL_LIBRARY_DIR}"
+)
+
+fcppt_export_generate_targets(
+	"sgecore@SGE_LIBRARIES@"
+	"${sge_USE_STATIC_LIBS}"
+)
+
+if(
+	sge_USE_STATIC_LIBS
+)
+	set(
+		sge_DEFINITIONS
+		"-D SGE_STATIC_LINK"
+	)
+endif()
+
+set(
+	sge_INCLUDE_DIRS
+	"@Boost_INCLUDE_DIRS@;@awl_INCLUDE_DIRS@;@mizuiro_INCLUDE_DIRS@;@sge_INCLUDE_DIR@"
+)

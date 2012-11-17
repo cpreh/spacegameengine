@@ -1161,7 +1161,7 @@ set(
 
 set(
 	SGE_OPENGL_ADDITIONAL_DEPS
-	"${OPENGL_gl_LIBRARY};${GLEW_LIBRARIES};${Awl_LIBRARIES}"
+	"${OPENGL_gl_LIBRARY};${GLEW_LIBRARIES};${awl_TARGET}"
 )
 
 if(
@@ -1277,7 +1277,7 @@ list(
 list(
 	APPEND
 	SGE_OPENGL_INCLUDE_DIRS
-	"${Awl_INCLUDE_DIRS}"
+	"${awl_INCLUDE_DIRS}"
 )
 
 add_definitions(
@@ -1289,7 +1289,7 @@ add_definitions(
 )
 
 add_definitions(
-	${Awl_DEFINITIONS}
+	${awl_DEFINITIONS}
 )
 
 add_sge_plugin(

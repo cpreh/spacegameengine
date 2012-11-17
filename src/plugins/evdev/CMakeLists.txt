@@ -124,6 +124,6 @@ set(
 add_sge_plugin(
 	evdev
 	"sgeinput;sgelog;sgeplugin;sgewindow"
-	"${Awl_LIBRARIES};${Fcppt_filesystem_LIBRARIES}"
+	"${awl_TARGET};${fcppt_filesystem_TARGET}"
 	""
 )

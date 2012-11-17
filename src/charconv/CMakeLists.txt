@@ -160,7 +160,7 @@ configure_file(
 add_sge_base_library(
 	charconv
 	"sgecore"
-	"${Fcppt_filesystem_LIBRARIES};${Fcppt_core_LIBRARIES};${SGE_CHARCONV_ADDITIONAL_DEPS}"
+	"${fcppt_filesystem_TARGET};${fcppt_core_TARGET};${SGE_CHARCONV_ADDITIONAL_DEPS}"
 	"sgecore"
 	""
 	"${CMAKE_CURRENT_SOURCE_DIR}/include;${CMAKE_CURRENT_BINARY_DIR}/include;${SGE_CHARCONV_ADDITIONAL_INCLUDES}"

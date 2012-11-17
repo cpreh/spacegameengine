@@ -96,7 +96,7 @@ function(
 
 	target_link_libraries(
 		${ALDA_LIB_NAME}
-		${Fcppt_core_LIBRARIES}
+		${fcppt_core_TARGET}
 		${FcpptThreads_LIBRARIES}
 		${Boost_SYSTEM_LIBRARY}
 	)

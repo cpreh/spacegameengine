@@ -166,7 +166,7 @@ set(
 add_sge_base_library(
 	"scenic"
 	"sgeparse;sgeimage;sgemodelobj;sgerenderer;sgecamera;sgeviewport;sgeline_drawer;sgecg;sgerenderercg;sgeshader;sgeconfig;sgecharconv"
-	"${Fcppt_filesystem_LIBRARIES}"
+	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 	""
 	"${CMAKE_CURRENT_SOURCE_DIR}/include;${Cg_INCLUDE_DIRS}"

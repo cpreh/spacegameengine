@@ -49,7 +49,7 @@ function(
 
 		target_link_libraries(
 			${FULL_NAME}
-			${Awl_LIBRARIES}
+			${awl_TARGET}
 		)
 	endif()
 
@@ -121,7 +121,7 @@ include_directories(
 )
 
 add_definitions(
-	${Awl_DEFINITIONS}
+	${awl_DEFINITIONS}
 )
 
 find_package(
@@ -131,63 +131,63 @@ find_package(
 add_sge_example(
 	anaglyph
 	"sgecamera;sgeconfig;sgeimage;sgeinput;sgelog;sgemodelmd3;sgerenderer;sgesystems;sgeviewport;sgewindow"
-	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	"${fcppt_core_TARGET};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 )
 
 add_sge_console_example(
 	app_path
 	"sgeconfig"
-	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 )
 
 add_sge_console_example(
 	audio_minimal
 	"sgeaudio;sgeconfig;sgeplugin"
-	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 )
 
 add_sge_example(
 	bitmapfont
 	"sgeconfig;sgefont;sgefontbitmap;sgefontdraw;sgeimage;sgeinput;sgerenderer;sgesystems;sgeviewport;sgewindow"
-	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 )
 
 add_sge_console_example(
 	caps
 	"sgeconfig;sgeplugin;sgerenderer;sgewindow"
-	"${Fcppt_core_LIBRARIES};${Awl_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	"${fcppt_core_TARGET};${awl_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 )
 
 add_sge_console_example(
 	color_string_convert
 	"sgeimage"
-	"${Fcppt_core_LIBRARIES}"
+	"${fcppt_core_TARGET}"
 	""
 )
 
 add_sge_console_example(
 	config
 	"sgeconfig"
-	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 )
 
 add_sge_example(
 	console
 	"sgeconfig;sgeconsole;sgefont;sgeimage;sgeinput;sgerenderer;sgesystems;sgetexture;sgeviewport;sgewindow"
-	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 )
 
 #add_sge_example(
 #	control_scheme
 #	"sgeconfig;sgefont;sgefontdraw;sgeimage;sgeinput;sgerenderer;sgesystems;sgeviewport;sgewindow"
-#	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+#	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
 #	""
 #)
 
@@ -196,21 +196,21 @@ message("Fix the cube map example!")
 #add_sge_example(
 #	cube_map
 #	"sgecamera;sgeimage;sgeinput;sgerenderer;sgesystems;sgeviewport;sgewindow;sgeimage2d;sgeconfig;sgescenic"
-#	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+#	"${fcppt_core_TARGET};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 #	"${Cg_INCLUDE_DIRS}"
 #)
 
 add_sge_example(
 	display_mode
 	"sgerenderer;sgesystems;sgeviewport;sgewindow"
-	"${Fcppt_core_LIBRARIES}"
+	"${fcppt_core_TARGET}"
 	""
 )
 
 add_sge_example(
 	doppler
 	"sgeaudio;sgeconfig;sgeinput;sgelog;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
-	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 )
 
@@ -224,49 +224,49 @@ add_sge_example(
 add_sge_example(
 	fullscreen
 	"sgeimage;sgelog;sgerenderer;sgesystems;sgeviewport;sgewindow"
-	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	"${fcppt_core_TARGET};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 )
 
 add_sge_example(
 	graph
 	"sgegraph;sgeimage;sgelog;sgerenderer;sgesystems;sgeviewport;sgewindow"
-	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	"${fcppt_core_TARGET};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 )
 
 add_sge_console_example(
 	ini
 	"sgeparse"
-	"${Fcppt_core_LIBRARIES}"
+	"${fcppt_core_TARGET}"
 	""
 )
 
 add_sge_example(
 	input
 	"sgeinput;sgelog;sgesystems;sgewindow"
-	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 )
 
 add_sge_example(
 	intrusivesprite
 	"sgeconfig;sgeinput;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
-	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 )
 
 add_sge_console_example(
 	json
 	"sgeparse"
-	"${Fcppt_core_LIBRARIES}"
+	"${fcppt_core_TARGET}"
 	""
 )
 
 add_sge_example(
 	line_drawer
 	"sgefont;sgefontdraw;sgeimage;sgeinput;sgeline_drawer;sgerenderer;sgesystems;sgetimer;sgeviewport;sgewindow"
-	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	"${fcppt_core_TARGET};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 )
 
@@ -274,7 +274,7 @@ if(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
 	add_sge_example(
 		linux_stats
 		"sgefont;sgefontdraw;sgegraph;sgelog;sgerenderer;sgesystems;sgeviewport;sgewindow;sgeimage;sgetimer"
-		"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+		"${fcppt_core_TARGET};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 		""
 	)
 endif()
@@ -282,56 +282,56 @@ endif()
 add_sge_console_example(
 	mergeimage
 	"sgecore;sgeimage;sgeimage2d;sgesystems"
-	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 )
 
 add_sge_example(
 	multi_texture
 	"sgeconfig;sgeimage;sgeinput;sgemedia;sgerenderer;sgesystems;sgeviewport;sgewindow"
-	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 )
 
 add_sge_example(
 	multi_texture_sprite
 	"sgeconfig;sgeinput;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
-	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 )
 
 add_sge_example(
 	noise
 	"sgeimage;sgeimage2d;sgelog;sgerenderer;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
-	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	"${fcppt_core_TARGET};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 )
 
 #add_sge_example(
 #	occlusion_query
 #	"sgecamera;sgeconfig;sgefont;sgefontdraw;sgeimage;sgeinput;sgelog;sgemedia;sgescenic;sgerenderer;sgesystems;sgetimer;sgeviewport;sgewindow"
-#	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+#	"${fcppt_core_TARGET};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 #	"${Cg_INCLUDE_DIRS}"
 #)
 
 add_sge_console_example(
 	opengl
 	"sgerenderer;sgerendereropengl;sgesystems;sgeviewport;sgewindow"
-	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 )
 
 add_sge_example(
 	ortho_view
 	"sgecamera;sgeconfig;sgeimage;sgeinput;sgelog;sgerenderer;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
-	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	"${fcppt_core_TARGET};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 )
 
 add_sge_console_example(
 	plugin
 	"sgeaudio;sgeconfig;sgefont;sgeimage2d;sgeinput;sgelog;sgeplugin;sgerenderer"
-	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 )
 
@@ -340,14 +340,14 @@ message("Fix the point sprite example!")
 #add_sge_example(
 #	pointsprite
 #	"sgeconfig;sgeinput;sgelog;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
-#	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES};${Boost_PROGRAM_OPTIONS_LIBRARIES}"
+#	"${fcppt_core_TARGET};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES};${Boost_PROGRAM_OPTIONS_LIBRARIES}"
 #	""
 #)
 
 add_sge_example(
 	projectile/main
 	"sgeimage;sgeinput;sgelog;sgeprojectile;sgerenderer;sgesystems;sgeviewport;sgewindow"
-	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	"${fcppt_core_TARGET};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 )
 
@@ -356,34 +356,34 @@ message("Fix the save texture example!")
 #add_sge_example(
 #	savetexture
 #	"sgeconfig;sgeimage;sgeimage2d;sgeinput;sgemedia;sgerenderer;sgeshader;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
-#	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+#	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
 #)
 
 add_sge_console_example(
 	raw_view
 	""
-	"${Fcppt_core_LIBRARIES}"
+	"${fcppt_core_TARGET}"
 	""
 )
 
 add_sge_console_example(
 	resource_tree
 	"sgeconfig;sgeresource_tree"
-	"${Fcppt_core_LIBRARIES};${Fcppt_filesystem_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	"${fcppt_core_TARGET};${fcppt_filesystem_TARGET};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 )
 
 add_sge_example(
 	scenic
 	"sgeconfig;sgeimage;sgeinput;sgerenderer;sgesystems;sgeviewport;sgewindow;sgescenic;sgecamera;sgegraph;sgeparse"
-	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_PROGRAM_OPTIONS_LIBRARIES}"
+	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_PROGRAM_OPTIONS_LIBRARIES}"
 	"${Cg_INCLUDE_DIRS}"
 )
 
 add_sge_example(
 	screenshot
 	"sgeconfig;sgeimage;sgeimage2d;sgeinput;sgerenderer;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
-	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 )
 
@@ -392,7 +392,7 @@ message("Fix the shader cube example!")
 #add_sge_example(
 #	shader/cube
 #	"sgecamera;sgeconfig;sgefonttext;sgeimage;sgeimage2d;sgeinput;sgelog;sgerenderer;sgeshader;sgesystems;sgeviewport;sgewindow"
-#	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+#	"${fcppt_core_TARGET};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 #)
 
 message("Fix the shader raw example!")
@@ -400,118 +400,118 @@ message("Fix the shader raw example!")
 #add_sge_example(
 #	shader/raw
 #	"sgeconfig;sgeimage;sgeimage2d;sgeinput;sgelog;sgerenderer;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
-#	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+#	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
 #)
 
 add_sge_console_example(
 	sound
 	"sgeaudio;sgeconfig;sgelog;sgesystems"
-	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	"${fcppt_core_TARGET};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 )
 
 add_sge_example(
 	spritecolor
 	"sgeimage;sgeinput;sgelog;sgerenderer;sgesprite;sgesystems;sgeviewport;sgewindow"
-	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 )
 
 add_sge_example(
 	stencil
 	"sgeconfig;sgeimage;sgeinput;sgerenderer;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
-	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 )
 
 add_sge_example(
 	swoosh
 	"sgeaudio;sgeconfig;sgeinput;sgelog;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow;sgegraph"
-	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 )
 
 add_sge_example(
 	target
 	"sgeconfig;sgeimage;sgeimage2d;sgeinput;sgerenderer;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
-	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 )
 
 add_sge_example(
 	texture_filter
 	"sgecamera;sgefont;sgefontdraw;sgeimage;sgeimage2d;sgeinput;sgerenderer;sgesprite;sgesystems;sgetexture;sgetimer;sgeviewport;sgewindow"
-	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	"${fcppt_core_TARGET};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 )
 
 add_sge_console_example(
 	tutorial/sound_01
 	"sgeaudio;sgeconfig;sgesystems"
-	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 )
 
 add_sge_console_example(
 	tutorial/sound_02
 	"sgeaudio;sgeconfig;sgesystems"
-	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	"${fcppt_core_TARGET};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 )
 
 add_sge_example(
 	tutorial/sprite_02
 	"sgeconfig;sgeimage;sgeimage2d;sgeinput;sgerenderer;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
-	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 )
 
 add_sge_example(
 	tutorial/sprite_03
 	"sgeconfig;sgeimage;sgeinput;sgerenderer;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
-	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 )
 
 add_sge_example(
 	vertex
 	"sgeimage;sgeinput;sgerenderer;sgesystems;sgeviewport;sgewindow"
-	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 )
 
 add_sge_example(
 	vertex_index
 	"sgeimage;sgeinput;sgerenderer;sgesystems;sgeviewport;sgewindow"
-	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 )
 
 add_sge_example(
 	vertex_planar
 	"sgeimage;sgeinput;sgerenderer;sgesystems;sgeviewport;sgewindow"
-	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 )
 
 add_sge_example(
 	vertex_texture
 	"sgeconfig;sgeinput;sgerenderer;sgesystems;sgeviewport;sgewindow"
-	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 )
 
 add_sge_example(
 	volume_texture
 	"sgecamera;sgeimage;sgeimage3d;sgeinput;sgerenderer;sgesystems;sgeviewport;sgewindow"
-	"${Fcppt_core_LIBRARIES};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	"${fcppt_core_TARGET};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 )
 
 add_sge_example(
 	window_without_input
 	"sgeimage;sgerenderer;sgesystems;sgeviewport;sgewindow"
-	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
+	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 )
 

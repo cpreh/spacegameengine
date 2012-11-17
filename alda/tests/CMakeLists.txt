@@ -55,15 +55,15 @@ add_alda_test(
 
 add_alda_test(
 	length_stream
-	"${Fcppt_core_LIBRARIES}"
+	"${fcppt_core_TARGET}"
 )
 
 add_alda_test(
 	signed
-	"${Fcppt_core_LIBRARIES}"
+	"${fcppt_core_TARGET}"
 )
 
 add_alda_test(
 	simple
-	"${Fcppt_core_LIBRARIES}"
+	"${fcppt_core_TARGET}"
 )

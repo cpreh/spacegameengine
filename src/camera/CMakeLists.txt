@@ -153,7 +153,7 @@ set(
 add_sge_base_library(
 	camera
 	"sgeinput;sgelog;sgerenderer;sgeviewport;sgeparse"
-	"${Fcppt_core_LIBRARIES};${Fcppt_filesystem_LIBRARIES};${Boost_CHRONO_LIBRARIES}"
+	"${fcppt_core_TARGET};${fcppt_filesystem_TARGET};${Boost_CHRONO_LIBRARIES}"
 	""
 	""
 	"${CMAKE_CURRENT_SOURCE_DIR}/include"

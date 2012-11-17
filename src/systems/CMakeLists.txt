@@ -219,13 +219,13 @@ set(
 )
 
 add_definitions(
-	${Awl_DEFINITIONS}
+	${awl_DEFINITIONS}
 )
 
 add_sge_base_library(
 	systems
 	"sgeaudio;sgecharconv;sgeconfig;sgecore;sgefont;sgeimage2d;sgeinput;sgelog;sgeparse;sgeplugin;sgerenderer;sgeviewport;sgewindow"
-	"${Fcppt_filesystem_LIBRARIES};${Awl_LIBRARIES}"
+	"${awl_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 	""
 	"${CMAKE_CURRENT_SOURCE_DIR}/include"
