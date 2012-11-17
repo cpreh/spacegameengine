@@ -51,7 +51,9 @@ sge::config::user_name()
 
 	raw_character_sequence raw_characters;
 	// I don't know if the size argument can be NULL.
-	DWORD size;
+	DWORD size =
+		static_cast<DWORD>(
+			raw_characters.size());
 
 	if(!GetUserName(raw_characters.data(),&size))
 		throw

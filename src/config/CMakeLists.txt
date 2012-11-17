@@ -52,7 +52,7 @@ set(
 add_sge_base_library(
 	config
 	"sgecore"
-	"${Fcppt_filesystem_LIBRARIES}"
+	"${Fcppt_filesystem_LIBRARIES};${Awl_LIBRARIES}"
 	"sgecore"
 	""
 	"${CMAKE_CURRENT_SOURCE_DIR}/include"
