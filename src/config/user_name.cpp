@@ -21,24 +21,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/config/user_name.hpp>
 #include <fcppt/config/platform.hpp>
 #if defined(FCPPT_CONFIG_POSIX_PLATFORM)
-#include <sys/types.h>
 #include <sge/config/exception.hpp>
+#include <fcppt/container/raw_vector.hpp>
+#include <fcppt/error/strerrno.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/from_std_string.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <sys/types.h>
 #include <pwd.h>
 #include <unistd.h>
-#include <fcppt/container/raw_vector.hpp>
 #include <cerrno>
-#include <fcppt/from_std_string.hpp>
-#include <fcppt/error/strerrno.hpp>
+#include <fcppt/config/external_end.hpp>
 #elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
-#include <windows.h>
-#include <fcppt/container/array.hpp>
 #include <sge/config/exception.hpp>
+#include <sge/config/exception.hpp>
+#include <awl/backends/windows/format_message.hpp>
+#include <fcppt/container/array.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/char_type.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <windows.h>
 #include <Lmcons.h>
-#include <awl/backends/windows/format_message.hpp>
-#include <sge/config/exception.hpp>
+#include <fcppt/config/external_end.hpp>
 #endif
 
 fcppt::string const
