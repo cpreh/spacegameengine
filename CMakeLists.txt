@@ -268,6 +268,13 @@ fcppt_utils_include_path(
 	sge_INCLUDE_DIR
 )
 
+get_property(
+	SGE_LIBRARIES
+	GLOBAL
+	PROPERTY
+	SGE_LIBRARIES_GLOBAL
+)
+
 fcppt_utils_generate_config(
 	sge
 )
@@ -281,7 +288,6 @@ install(
 
 install(
 	FILES
-	${CMAKE_SOURCE_DIR}/CMakeModules/FindSGE.cmake
 	${CMAKE_SOURCE_DIR}/CMakeModules/FindCg.cmake
 	${CMAKE_SOURCE_DIR}/CMakeModules/FindCEGUI.cmake
 	${CMAKE_SOURCE_DIR}/CMakeModules/SGECustomPath.cmake

@@ -1145,7 +1145,7 @@ if(
 endif()
 
 if(
-	ENABLE_CG
+	ENABLE_RENDERERCG
 )
 	add_subdirectory(
 		cg

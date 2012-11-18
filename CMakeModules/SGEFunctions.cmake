@@ -454,14 +454,32 @@ macro(
 		"${RELATIVE_PATH}"
 	)
 
-	set(
-		SGE_LIBRARIES
-		"${SGE_LIBRARIES};sge${LIB_NAME}"
-		PARENT_SCOPE
+	get_property(
+		SGE_LIBS
+		GLOBAL
+		PROPERTY
+		"SGE_LIBRARIES_GLOBAL"
+	)
+
+	list(
+		APPEND
+		SGE_LIBS
+		"sge${LIB_NAME}"
+	)
+
+	set_property(
+		GLOBAL
+		PROPERTY
+		"SGE_LIBRARIES_GLOBAL"
+		"${SGE_LIBS}"
 	)
 
 	unset(
 		LIB_NAME
+	)
+
+	unset(
+		SGE_LIBS
 	)
 
 	add_sge_base_library_base(

@@ -317,9 +317,3 @@ IF (ENABLE_VIEWPORT)
 ENDIF ()
 
 add_subdirectory (plugins)
-
-set(
-	SGE_LIBRARIES
-	"${SGE_LIBRARIES}"
-	PARENT_SCOPE
-)

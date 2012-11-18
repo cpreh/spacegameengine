@@ -24,8 +24,45 @@ fcppt_export_init(
 )
 
 fcppt_export_generate_targets(
-	"sgecore@SGE_LIBRARIES@"
+	"sgecore;@SGE_LIBRARIES@"
 	"${sge_USE_STATIC_LIBS}"
+)
+
+foreach(
+	COMPONENT
+	${sge_FIND_COMPONENTS}
+)
+	set(
+		CURRENT_TARGET
+		"sge${COMPONENT}_TARGET"
+	)
+
+	if(
+		TARGET
+		"${${CURRENT_TARGET}}"
+	)
+		list(
+			APPEND
+			sge_TARGETS
+			"${${CURRENT_TARGET}}"
+		)
+	else()
+		message(
+			"${${CURRENT_TARGET}}"
+		)
+		message(
+			"sge.${COMPONENT} has not been built!"
+		)
+
+		set(
+			sge_FOUND
+			FALSE
+		)
+	endif()
+endforeach()
+
+unset(
+	CURRENT_TARGET
 )
 
 if(
