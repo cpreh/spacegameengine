@@ -34,11 +34,6 @@ update_cmake_file \
 	-n \
 	src
 
-update_cmake_file \
-	alda/src/CMakeLists.txt \
-	ALDA_FILES \
-	alda/src
-
 function toupper()
 {
 	echo $(tr 'a-z' 'A-Z' <<< "$1")
