@@ -205,23 +205,14 @@ function(
 		${TRANSITIVE_ADDITIONAL_DEPS}
 	)
 
-	fcppt_utils_library_output_path(
-		SGE_LIBRARY_DIR
-	)
-
 	#Dummy and example libs should not be exported
 	if(
 		NOT "${BASE_VARIANT}" STREQUAL "DUMMY"
 		AND
 		NOT "${BASE_VARIANT}" STREQUAL "EXAMPLE"
 	)
-		install(
-			TARGETS
+		fcppt_utils_export_install_target(
 			"${SGE_LIB_NAME}"
-			DESTINATION
-			"${SGE_LIBRARY_DIR}"
-			EXPORT
-			sgeTargets
 		)
 	# Dynamic example libs still need to be installed,
 	# otherwise the examples won't work
@@ -234,7 +225,7 @@ function(
 			TARGETS
 			"${SGE_LIB_NAME}"
 			DESTINATION
-			"${SGE_LIBRARY_DIR}"
+			"${INSTALL_LIBRARY_DIR}"
 		)
 	endif()
 endfunction()

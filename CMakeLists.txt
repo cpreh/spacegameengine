@@ -15,6 +15,8 @@ include(
 	FcpptCMakeUtils
 )
 
+fcppt_utils_prepare_config()
+
 include(
 	FcpptSymbol
 )
@@ -249,10 +251,6 @@ if(
 	)
 endif()
 
-fcppt_utils_include_path(
-	sge_INCLUDE_DIR
-)
-
 get_property(
 	SGE_LIBRARIES
 	GLOBAL
@@ -260,9 +258,7 @@ get_property(
 	SGE_LIBRARIES_GLOBAL
 )
 
-fcppt_utils_generate_config(
-	sge
-)
+fcppt_utils_generate_config()
 
 install(
 	DIRECTORY
@@ -278,11 +274,4 @@ install(
 	${CMAKE_SOURCE_DIR}/CMakeModules/SGECustomPath.cmake
 	DESTINATION
 	${INSTALL_CMAKEMODULES_DIR}
-)
-
-install(
-	EXPORT
-	sgeTargets
-	DESTINATION
-	${INSTALL_CMAKECONFIG_DIR}
 )

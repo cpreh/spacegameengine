@@ -2,25 +2,8 @@ include(
 	FcpptExport
 )
 
-set(
-	SGE_BINARY_DIR
-	@CMAKE_BINARY_DIR@
-)
-
-set(
-	SGE_INSTALL_LIBRARY_DIR
-	@INSTALL_LIBRARY_DIR@
-)
-
-set(
-	FCPPT_EXPORT_IN_SOURCE_BUILD
-	@FCPPT_UTILS_IN_SOURCE_BUILD@
-)
-
 fcppt_export_init(
 	"sge"
-	"${SGE_BINARY_DIR}"
-	"${SGE_INSTALL_LIBRARY_DIR}"
 )
 
 fcppt_export_generate_targets(
