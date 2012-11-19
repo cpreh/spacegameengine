@@ -2,6 +2,10 @@ include(
 	SGECustomPath
 )
 
+add_definitions(
+	${awl_DEFINITIONS}
+)
+
 sge_config_add_custom_path(
 	sge
 	media

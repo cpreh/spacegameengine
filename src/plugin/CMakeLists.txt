@@ -94,7 +94,7 @@ if(
 
 	set(
 		SGE_PLUGIN_ADDITIONAL_LIBS
-		"${Awl_LIBRARIES}"
+		"${awl_TARGET}"
 	)
 else()
 	find_library(

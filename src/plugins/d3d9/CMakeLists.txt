@@ -718,7 +718,7 @@ set(
 
 set(
 	SGE_D3D9_ADDITIONAL_DEPS
-	"${Awl_LIBRARIES};${D3D9_LIBRARIES}"
+	"${awl_TARGET};${D3D9_LIBRARIES}"
 )
 
 add_definitions(
