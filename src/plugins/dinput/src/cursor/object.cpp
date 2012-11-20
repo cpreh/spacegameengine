@@ -258,6 +258,15 @@ sge::dinput::cursor::object::on_button(
 		)
 	);
 
+	if(
+		_code == sge::input::cursor::button_code::left
+		&&
+		_down
+		&&
+		!has_focus_
+	)
+		this->acquire();
+
 	return awl::backends::windows::window::event::return_type();
 }
 

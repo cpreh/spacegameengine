@@ -308,7 +308,7 @@ sge::dinput::processor::on_focus_in(
 		&sge::dinput::device::object::acquire
 	);
 
-	cursor_->acquire();
+	//cursor_->acquire();
 }
 
 void
