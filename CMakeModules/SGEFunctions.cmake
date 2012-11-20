@@ -193,6 +193,17 @@ function(
 		${SGELIBS_TARGETS_RESULT}
 	)
 
+	if(
+		NOT "${VARIANT}" STREQUAL "STATIC"
+	)
+		set_target_properties(
+			${SGE_LIB_NAME}
+			PROPERTIES
+			LINK_INTERFACE_LIBRARIES
+			""
+		)
+	endif()
+
 	sge_add_include_dirs(
 		${SGE_LIB_NAME}
 		"${INCLUDE_DIRS}"
