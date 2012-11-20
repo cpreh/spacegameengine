@@ -31,9 +31,6 @@ foreach(
 		)
 	else()
 		message(
-			"${${CURRENT_TARGET}}"
-		)
-		message(
 			"sge.${COMPONENT} has not been built!"
 		)
 
