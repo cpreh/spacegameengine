@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/evdev/device/fd.hpp>
 #include <sge/evdev/device/fd_unique_ptr.hpp>
 #include <sge/input/exception.hpp>
-#include <sge/log/global.hpp>
+#include <sge/input/logger.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/move.hpp>
 #include <fcppt/text.hpp>
@@ -57,7 +57,7 @@ sge::evdev::device::create_fd(
 			);
 
 	FCPPT_LOG_ERROR(
-		sge::log::global(),
+		sge::input::logger(),
 		fcppt::log::_
 			<<
 			FCPPT_TEXT("Opening \"")

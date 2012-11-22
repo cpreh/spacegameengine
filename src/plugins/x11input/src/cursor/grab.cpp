@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/input/exception.hpp>
-#include <sge/log/global.hpp>
+#include <sge/input/logger.hpp>
 #include <sge/x11input/cursor/grab.hpp>
 #include <sge/x11input/cursor/image.hpp>
 #include <sge/x11input/device/id.hpp>
@@ -43,12 +43,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::x11input::cursor::grab::grab(
 	awl::backends::x11::window::object const &_window,
-	device::id const _id,
-	cursor::image const _image
+	sge::x11input::device::id const _id,
+	sge::x11input::cursor::image const _image
 )
 :
-	window_(_window),
-	id_(_id)
+	window_(
+		_window
+	),
+	id_(
+		_id
+	)
 {
 	XIEventMask mask =
 	{
@@ -85,7 +89,7 @@ sge::x11input::cursor::grab::grab(
 		case GrabNotViewable:
 		case GrabFrozen:
 			FCPPT_LOG_DEBUG(
-				sge::log::global(),
+				sge::input::logger(),
 				fcppt::log::_
 					<< FCPPT_TEXT("XIGrabDevice failed with code ")
 					<< ret

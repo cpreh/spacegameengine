@@ -187,7 +187,7 @@ add_definitions(
 
 add_sge_plugin(
 	x11input
-	"sgeinput;sgelog;sgeplugin;sgewindow"
+	"sgeinput;sgeplugin;sgewindow"
 	"${fcppt_core_TARGET};${awl_TARGET};${X11_X11_LIB};${X11_Xinput_LIB}"
 	"${X11_X11_INCLUDE_PATH};${X11_Xinput_INCLUDE_PATH}"
 )

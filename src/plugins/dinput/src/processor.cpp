@@ -28,8 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/dinput/create_dinput.hpp>
 #include <sge/dinput/di.hpp>
 #include <sge/input/exception.hpp>
+#include <sge/input/logger.hpp>
 #include <sge/input/cursor/discover_event.hpp>
-#include <sge/log/global.hpp>
 #include <sge/window/object.hpp>
 #include <sge/window/system.hpp>
 #include <awl/backends/windows/event/lparam.hpp>
@@ -297,7 +297,7 @@ sge::dinput::processor::on_focus_in(
 )
 {
 	FCPPT_LOG_DEBUG(
-		sge::log::global(),
+		sge::input::logger(),
 		fcppt::log::_
 			<< FCPPT_TEXT("DirectInput: focus in")
 	);
@@ -317,7 +317,7 @@ sge::dinput::processor::on_focus_out(
 )
 {
 	FCPPT_LOG_DEBUG(
-		sge::log::global(),
+		sge::input::logger(),
 		fcppt::log::_
 			<< FCPPT_TEXT("DirectInput: focus out")
 	);

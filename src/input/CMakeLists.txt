@@ -174,6 +174,8 @@ set(
 	include/sge/input/keyboard/remove_function.hpp
 	include/sge/input/keyboard/remove_signal.hpp
 	include/sge/input/keyboard/to_modifier.hpp
+	include/sge/input/log_location.hpp
+	include/sge/input/logger.hpp
 	include/sge/input/mouse/axis.hpp
 	include/sge/input/mouse/axis_callback.hpp
 	include/sge/input/mouse/axis_code.hpp
@@ -291,6 +293,8 @@ set(
 	src/input/keyboard/manager.cpp
 	src/input/keyboard/remove_event.cpp
 	src/input/keyboard/to_modifier.cpp
+	src/input/log_location.cpp
+	src/input/logger.cpp
 	src/input/mouse/axis.cpp
 	src/input/mouse/axis_code_to_string.cpp
 	src/input/mouse/axis_event.cpp
@@ -325,7 +329,7 @@ sge_implement_from_lib(
 
 add_sge_base_library(
 	input
-	"sgecore;sgeplugin"
+	"sgecore;sgelog;sgeplugin"
 	""
 	"sgecore"
 	""

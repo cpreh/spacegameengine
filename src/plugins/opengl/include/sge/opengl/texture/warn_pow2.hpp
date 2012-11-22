@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_WARN_POW2_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_WARN_POW2_HPP_INCLUDED
 
-#include <sge/log/global.hpp>
+#include <sge/renderer/logger.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/debug.hpp>
@@ -69,7 +69,7 @@ warn_pow2(
 		)
 		{
 			FCPPT_LOG_DEBUG(
-				log::global(),
+				sge::renderer::logger(),
 				fcppt::log::_
 					<< FCPPT_TEXT("OpenGL implementations are not required to support ")
 					<< _what

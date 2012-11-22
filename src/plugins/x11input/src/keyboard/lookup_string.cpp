@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/input/exception.hpp>
-#include <sge/log/global.hpp>
+#include <sge/input/logger.hpp>
 #include <sge/x11input/input_context.hpp>
 #include <sge/x11input/keyboard/char_vector.hpp>
 #include <sge/x11input/keyboard/looked_up_string.hpp>
@@ -66,14 +66,14 @@ do_lookup(
 
 sge::x11input::keyboard::looked_up_string const
 sge::x11input::keyboard::lookup_string(
-	x11input::input_context const &_input_context,
+	sge::x11input::input_context const &_input_context,
 	XIDeviceEvent const &_event
 )
 {
 	KeySym key_sym;
 
 	XKeyPressedEvent xev(
-		keyboard::translate_event(
+		sge::x11input::keyboard::translate_event(
 			_event
 		)
 	);
@@ -102,9 +102,9 @@ sge::x11input::keyboard::lookup_string(
 		status == XBufferOverflow
 	);
 
-	x11input::keyboard::char_vector buffer(
+	sge::x11input::keyboard::char_vector buffer(
 		static_cast<
-			x11input::keyboard::char_vector::size_type
+			sge::x11input::keyboard::char_vector::size_type
 		>(
 			needed_chars
 		)
@@ -132,7 +132,7 @@ sge::x11input::keyboard::lookup_string(
 	// less chars might be returned here if the locale doesn't support it
 	buffer.resize_uninitialized(
 		static_cast<
-			x11input::keyboard::char_vector::size_type
+			sge::x11input::keyboard::char_vector::size_type
 		>(
 			chars_return
 		)
@@ -143,7 +143,7 @@ sge::x11input::keyboard::lookup_string(
 	)
 	{
 		FCPPT_LOG_ERROR(
-			sge::log::global(),
+			sge::input::logger(),
 			fcppt::log::_
 				<< FCPPT_TEXT("XwcLookupString mismatch of lengths!")
 				FCPPT_TEXT(" This usually happens if your locale is not set.")
@@ -160,30 +160,30 @@ sge::x11input::keyboard::lookup_string(
 		);
 	case XLookupChars:
 		return
-			x11input::keyboard::looked_up_string(
+			sge::x11input::keyboard::looked_up_string(
 				buffer,
 				sge::input::keyboard::key_code::unknown
 			);
 	case XLookupKeySym:
 		return
-			x11input::keyboard::looked_up_string(
-				x11input::keyboard::char_vector(),
-				x11input::keyboard::translate_key_code(
+			sge::x11input::keyboard::looked_up_string(
+				sge::x11input::keyboard::char_vector(),
+				sge::x11input::keyboard::translate_key_code(
 					key_sym
 				)
 			);
 	case XLookupBoth:
 		return
-			x11input::keyboard::looked_up_string(
+			sge::x11input::keyboard::looked_up_string(
 				buffer,
-				x11input::keyboard::translate_key_code(
+				sge::x11input::keyboard::translate_key_code(
 					key_sym
 				)
 			);
 	case XLookupNone:
 		return
-			x11input::keyboard::looked_up_string(
-				x11input::keyboard::char_vector(),
+			sge::x11input::keyboard::looked_up_string(
+				sge::x11input::keyboard::char_vector(),
 				sge::input::keyboard::key_code::unknown
 			);
 	}

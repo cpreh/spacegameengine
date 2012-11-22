@@ -18,13 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/log/global.hpp>
 #include <sge/opengl/enable.hpp>
 #include <sge/opengl/init_srgb.hpp>
 #include <sge/opengl/optional_enum.hpp>
 #include <sge/opengl/srgb_context.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/renderer/logger.hpp>
 #include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <fcppt/text.hpp>
@@ -68,7 +68,7 @@ sge::opengl::init_srgb(
 		)
 		{
 			FCPPT_LOG_WARNING(
-				sge::log::global(),
+				sge::renderer::logger(),
 				fcppt::log::_
 					<< FCPPT_TEXT("srgb::try_ was specified but srgb is not supported!")
 			);

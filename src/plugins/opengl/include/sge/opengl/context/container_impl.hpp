@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_CONTEXT_CONTAINER_IMPL_HPP_INCLUDED
 #define SGE_OPENGL_CONTEXT_CONTAINER_IMPL_HPP_INCLUDED
 
-#include <sge/log/global.hpp>
 #include <sge/opengl/context/base_decl.hpp>
 #include <sge/opengl/context/container_decl.hpp>
+#include <sge/renderer/logger.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/log/output.hpp>
@@ -141,7 +141,7 @@ sge::opengl::context::container<
 		catch(...)
 		{
 			FCPPT_LOG_ERROR(
-				sge::log::global(),
+				sge::renderer::logger(),
 				fcppt::log::_
 					<< FCPPT_TEXT("Destructor throwed in opengl::context::container")
 			);

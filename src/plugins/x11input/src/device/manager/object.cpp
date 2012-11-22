@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/log/global.hpp>
+#include <sge/input/logger.hpp>
 #include <sge/x11input/create_parameters.hpp>
 #include <sge/x11input/device/id.hpp>
 #include <sge/x11input/device/use.hpp>
@@ -42,7 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::x11input::device::manager::object::object(
 	awl::backends::x11::display &_display,
-	device::manager::config_map const &_config
+	sge::x11input::device::manager::config_map const &_config
 )
 :
 	display_(
@@ -103,7 +103,7 @@ sge::x11input::device::manager::object::change(
 		);
 
 		FCPPT_LOG_DEBUG(
-			sge::log::global(),
+			sge::input::logger(),
 			fcppt::log::_
 				<< FCPPT_TEXT("x11input: Discovered device with id: ")
 				<< device_id
@@ -123,7 +123,7 @@ sge::x11input::device::manager::object::change(
 		)
 		{
 			FCPPT_LOG_DEBUG(
-				sge::log::global(),
+				sge::input::logger(),
 				fcppt::log::_
 					<< FCPPT_TEXT("x11input: Device with id: ")
 					<< device_id
@@ -164,7 +164,7 @@ sge::x11input::device::manager::object::change(
 	)
 	{
 		FCPPT_LOG_DEBUG(
-			sge::log::global(),
+			sge::input::logger(),
 			fcppt::log::_
 				<< FCPPT_TEXT("x11input: Removed device with id: ")
 				<< device_id

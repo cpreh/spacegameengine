@@ -123,7 +123,7 @@ set(
 
 add_sge_plugin(
 	evdev
-	"sgeinput;sgelog;sgeplugin;sgewindow"
+	"sgeinput;sgeplugin;sgewindow"
 	"${awl_TARGET};${fcppt_filesystem_TARGET}"
 	""
 )

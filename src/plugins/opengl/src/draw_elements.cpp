@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/log/global.hpp>
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/draw_context.hpp>
@@ -32,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/index_buffer.hpp>
 #include <sge/renderer/index_count.hpp>
+#include <sge/renderer/logger.hpp>
 #include <sge/renderer/primitive_count.hpp>
 #include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/vertex_count.hpp>
@@ -58,7 +58,7 @@ sge::opengl::draw_elements(
 	)
 	{
 		FCPPT_LOG_WARNING(
-			sge::log::global(),
+			sge::renderer::logger(),
 			fcppt::log::_
 				<< FCPPT_TEXT("Rendering point lists with index buffers is not portable!")
 		);
@@ -69,7 +69,7 @@ sge::opengl::draw_elements(
 	)
 	{
 		FCPPT_LOG_WARNING(
-			sge::log::global(),
+			sge::renderer::logger(),
 			fcppt::log::_
 				<< FCPPT_TEXT("Empty device::render() call with index_buffer. ")
 				<< FCPPT_TEXT("vertex_count was 0.")

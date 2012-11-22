@@ -198,6 +198,8 @@ set(
 	include/sge/renderer/lock_rect.hpp
 	include/sge/renderer/lock_rect_fwd.hpp
 	include/sge/renderer/lock_rect_to_coords.hpp
+	include/sge/renderer/log_location.hpp
+	include/sge/renderer/logger.hpp
 	include/sge/renderer/matrix4.hpp
 	include/sge/renderer/matrix4_fwd.hpp
 	include/sge/renderer/npos.hpp
@@ -896,6 +898,8 @@ set(
 	src/renderer/lock_flags/read.cpp
 	src/renderer/lock_flags/write.cpp
 	src/renderer/lock_rect_to_coords.cpp
+	src/renderer/log_location.cpp
+	src/renderer/logger.cpp
 	src/renderer/npos.cpp
 	src/renderer/occlusion_query/object.cpp
 	src/renderer/occlusion_query/scoped.cpp
