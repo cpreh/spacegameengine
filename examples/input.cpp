@@ -18,6 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/console/gfx.hpp>
+#include <sge/console/muxing.hpp>
+#include <sge/console/muxing_streambuf.hpp>
+#include <sge/console/object.hpp>
+#include <sge/console/output_line_limit.hpp>
+#include <sge/console/sprite_object.hpp>
+#include <sge/console/sprite_parameters.hpp>
+#include <sge/font/lit.hpp>
+#include <sge/font/object.hpp>
+#include <sge/font/object_scoped_ptr.hpp>
+#include <sge/font/parameters.hpp>
+#include <sge/font/system.hpp>
+#include <sge/image/colors.hpp>
+#include <sge/input/logger.hpp>
 #include <sge/input/cursor/button_code_to_string.hpp>
 #include <sge/input/cursor/button_event.hpp>
 #include <sge/input/cursor/discover_callback.hpp>
@@ -72,7 +86,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/manager.hpp>
 #include <sge/input/mouse/remove_callback.hpp>
 #include <sge/input/mouse/remove_event.hpp>
-#include <sge/log/global.hpp>
+#include <sge/renderer/clear/parameters.hpp>
+#include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/context/scoped_ffp.hpp>
+#include <sge/renderer/device/ffp.hpp>
+#include <sge/renderer/display_mode/optional_object.hpp>
+#include <sge/renderer/parameters/object.hpp>
+#include <sge/renderer/parameters/vsync.hpp>
+#include <sge/renderer/pixel_format/color.hpp>
+#include <sge/renderer/pixel_format/depth_stencil.hpp>
+#include <sge/renderer/pixel_format/object.hpp>
+#include <sge/renderer/pixel_format/optional_multi_samples.hpp>
+#include <sge/renderer/pixel_format/srgb.hpp>
+#include <sge/renderer/target/onscreen.hpp>
+#include <sge/renderer/target/viewport.hpp>
+#include <sge/sprite/object.hpp>
+#include <sge/sprite/parameters.hpp>
 #include <sge/systems/cursor_option.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/input.hpp>
@@ -80,9 +109,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/keyboard_collector.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/make_list.hpp>
+#include <sge/systems/renderer.hpp>
+#include <sge/systems/renderer_caps.hpp>
 #include <sge/systems/window.hpp>
+#include <sge/systems/with_charconv.hpp>
+#include <sge/systems/with_font.hpp>
 #include <sge/systems/with_input.hpp>
+#include <sge/systems/with_renderer.hpp>
 #include <sge/systems/with_window.hpp>
+#include <sge/viewport/fill_on_resize.hpp>
+#include <sge/viewport/manager.hpp>
 #include <sge/window/dim.hpp>
 #include <sge/window/parameters.hpp>
 #include <sge/window/system.hpp>
@@ -92,14 +128,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/function_context.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/from_std_wstring.hpp>
+#include <fcppt/ref.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
+#include <fcppt/io/ostream.hpp>
 #include <fcppt/log/activate_levels.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/log/object.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/output.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <example_main.hpp>
@@ -256,6 +297,12 @@ wrap_silent(
 	bool silent
 );
 
+void
+manage_console_size(
+	sge::console::sprite_object &,
+	sge::renderer::target::viewport const &
+);
+
 }
 
 awl::main::exit_code const
@@ -292,23 +339,28 @@ try
 	if(
 		silent
 	)
-		sge::log::global().enable(
+		sge::input::logger().enable(
 			false
 		);
 	else
 		fcppt::log::activate_levels(
-			sge::log::global(),
+			sge::input::logger(),
 			fcppt::log::level::debug
 		);
 
 	sge::systems::instance<
-		boost::mpl::vector2<
+		boost::mpl::vector5<
 			sge::systems::with_window,
+			sge::systems::with_renderer<
+				sge::systems::renderer_caps::ffp
+			>,
 			sge::systems::with_input<
 				boost::mpl::vector1<
 					sge::systems::keyboard_collector
 				>
-			>
+			>,
+			sge::systems::with_font,
+			sge::systems::with_charconv
 		>
 	> const sys(
 		sge::systems::make_list
@@ -326,10 +378,82 @@ try
 			)
 		)
 		(
+			sge::systems::renderer(
+				sge::renderer::parameters::object(
+					sge::renderer::pixel_format::object(
+						sge::renderer::pixel_format::color::depth32,
+						sge::renderer::pixel_format::depth_stencil::off,
+						sge::renderer::pixel_format::optional_multi_samples(),
+						sge::renderer::pixel_format::srgb::no
+					),
+					sge::renderer::parameters::vsync::on,
+					sge::renderer::display_mode::optional_object()
+				),
+				sge::viewport::fill_on_resize()
+			)
+		)
+		(
 			sge::systems::input(
 				sge::systems::cursor_option_field(
 					sge::systems::cursor_option::exclusive
 				)
+			)
+		)
+	);
+
+	sge::console::object console(
+		SGE_FONT_LIT('/')
+	);
+
+	sge::console::muxing_streambuf<
+		fcppt::io::ostream::char_type,
+		fcppt::io::ostream::traits_type
+	> muxing_streambuf(
+		fcppt::io::cout(),
+		console,
+		sge::console::muxing::enabled
+	);
+
+	sge::console::sprite_object console_sprite(
+		sge::console::sprite_parameters()
+		.pos(
+			sge::console::sprite_object::vector::null()
+		)
+		.size(
+			sge::console::sprite_object::dim::null()
+		)
+	);
+
+	sge::font::object_scoped_ptr const font(
+		sys.font_system().create_font(
+			sge::font::parameters()
+		)
+	);
+
+	sge::console::gfx console_gfx(
+		console,
+		sys.renderer_ffp(),
+		sge::image::colors::white(),
+		*font,
+		sys.keyboard_collector(),
+		console_sprite,
+		sge::console::output_line_limit(
+			1000u
+		)
+	);
+
+	console_gfx.active(
+		true
+	);
+
+	fcppt::signal::scoped_connection const console_resize_con(
+		sys.viewport_manager().manage_callback(
+			std::tr1::bind(
+				manage_console_size,
+				fcppt::ref(
+					console_sprite
+				),
+				std::tr1::placeholders::_1
 			)
 		)
 	);
@@ -444,9 +568,25 @@ try
 	);
 
 	while(
-		sys.window_system().next()
+		sys.window_system().poll()
 	)
-		;
+	{
+		sge::renderer::context::scoped_ffp const scoped_ffp(
+			sys.renderer_ffp(),
+			sys.renderer_ffp().onscreen_target()
+		);
+
+		scoped_ffp.get().clear(
+			sge::renderer::clear::parameters()
+			.back_buffer(
+				sge::image::colors::black()
+			)
+		);
+
+		console_gfx.render(
+			scoped_ffp.get()
+		);
+	}
 
 	return
 		sys.window_system().exit_code();
@@ -459,7 +599,8 @@ catch(
 		<< _exception.string()
 		<< FCPPT_TEXT('\n');
 
-	return awl::main::exit_failure();
+	return
+		awl::main::exit_failure();
 }
 
 namespace
@@ -1013,6 +1154,21 @@ wrap_silent(
 				_function
 			)
 		;
+}
+
+void
+manage_console_size(
+	sge::console::sprite_object &_sprite,
+	sge::renderer::target::viewport const &_viewport
+)
+{
+	_sprite.size(
+		fcppt::math::dim::structure_cast<
+			sge::console::sprite_object::dim
+		>(
+			_viewport.get().size()
+		)
+	);
 }
 
 }

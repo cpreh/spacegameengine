@@ -244,7 +244,7 @@ add_sge_console_example(
 
 add_sge_example(
 	input
-	"sgeinput;sgelog;sgesystems;sgewindow"
+	"sgeconsole;sgefont;sgeimage;sgeinput;sgelog;sgerenderer;sgesystems;sgeviewport;sgewindow"
 	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 )
