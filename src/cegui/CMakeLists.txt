@@ -2,6 +2,10 @@ link_directories(
 	"${CEGUI_LIBRARY_DIRS}"
 )
 
+add_definitions(
+	"${CEGUI_DEFINITIONS}"
+)
+
 set(
 	SGE_CEGUI_FILES
 	include/sge/cegui/cursor_visibility.hpp

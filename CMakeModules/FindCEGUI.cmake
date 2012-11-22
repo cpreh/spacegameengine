@@ -3,6 +3,26 @@ set(
 	"9999.0"
 )
 
+if(
+	CEGUI_USE_STATIC_LIBS
+)
+	set(
+		CEGUI_BASE_LIB_NAME
+		"CEGUIBase_Static"
+	)
+
+	set(
+		CEGUI_DEFINITIONS
+		"-D CEGUI_STATIC"
+	)
+else()
+	set(
+		CEGUI_BASE_LIB_NAME
+		"CEGUIBase"
+	)
+endif()
+
+
 find_path(
 	CEGUI_INCLUDE_DIR
 	NAMES CEGUI/Element.h
@@ -13,7 +33,7 @@ find_path(
 
 find_library(
 	CEGUI_LIBRARY
-	NAMES CEGUIBase
+	NAMES "${CEGUI_BASE_LIB_NAME}"
 	PATHS /usr/lib/CEGUI-${CEGUI_VERSION}
 	HINTS ${CEGUI_LIBRARYDIR}
 	NO_DEFAULT_PATH
