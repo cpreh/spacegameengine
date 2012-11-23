@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assign/make_map.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/matrix/inverse.hpp>
-#include <fcppt/math/matrix/multiply_matrix4_vector3.hpp>
+#include <fcppt/math/matrix/transform_point.hpp>
 #include <fcppt/math/matrix/transpose.hpp>
 #include <fcppt/variant/holds_type.hpp>
 
@@ -193,7 +193,7 @@ sge::scenic::render_context::cg::object::lights(
 				l->variant().get<sge::scenic::render_context::light::point>());
 
 			current_light.camera_space_position(
-				fcppt::math::matrix::multiply_matrix4_vector3(
+				fcppt::math::matrix::transform_point(
 					current_world_,
 					point_light.position().get()));
 

@@ -41,7 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
-#include <fcppt/math/matrix/multiply_matrix4_vector3.hpp>
+#include <fcppt/math/matrix/transform_direction.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
 #include <fcppt/math/matrix/rotation_x.hpp>
 #include <fcppt/math/matrix/rotation_y.hpp>
@@ -130,15 +130,15 @@ parse_camera_properties(
 	// resulting in a new orthogonal coordinate system.
 	sge::renderer::vector3 const
 		right(
-			fcppt::math::matrix::multiply_matrix4_vector3(
+			fcppt::math::matrix::transform_direction(
 				camera_rotation,
 				sge::renderer::vector3(1.0f,0.0f,0.0f))),
 		up(
-			fcppt::math::matrix::multiply_matrix4_vector3(
+			fcppt::math::matrix::transform_direction(
 				camera_rotation,
 				sge::renderer::vector3(0.0f,0.0f,1.0f))),
 		forward(
-			fcppt::math::matrix::multiply_matrix4_vector3(
+			fcppt::math::matrix::transform_direction(
 				camera_rotation,
 				sge::renderer::vector3(0.0f,-1.0f,0.0f)));
 
@@ -307,7 +307,7 @@ parse_light_direction(
 {
 	return
 		sge::scenic::render_context::light::direction(
-			fcppt::math::matrix::multiply_matrix4_vector3(
+			fcppt::math::matrix::transform_direction(
 				rotation_from_angles_entity(
 					from_blender_vector(
 						sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
