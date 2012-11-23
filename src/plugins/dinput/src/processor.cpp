@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/dinput/has_cursor.hpp>
 #include <sge/dinput/processor.hpp>
 #include <sge/dinput/cursor/object.hpp>
 #include <sge/dinput/device/parameters.hpp>
@@ -29,6 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/dinput/di.hpp>
 #include <sge/input/exception.hpp>
 #include <sge/input/logger.hpp>
+#include <sge/input/cursor/button_code.hpp>
+#include <sge/input/cursor/button_event.hpp>
 #include <sge/input/cursor/discover_event.hpp>
 #include <sge/window/object.hpp>
 #include <sge/window/system.hpp>
@@ -63,8 +66,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/shared_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/spirit/home/phoenix/bind/bind_member_function.hpp>
-#include <boost/spirit/home/phoenix/core/argument.hpp>
 #include <algorithm>
 #include <fcppt/config/external_end.hpp>
 
@@ -78,6 +79,9 @@ sge::dinput::processor::processor(
 :
 	dinput_(
 		sge::dinput::create_dinput()
+	),
+	awl_system_(
+		_window_system.awl_system()
 	),
 	windows_window_(
 		dynamic_cast<
@@ -116,11 +120,8 @@ sge::dinput::processor::processor(
 	event_handle_(
 		system_processor_.create_event_handle()
 	),
-	acquired_(
-		awl::window::has_focus(
-			_window_system.awl_system(),
-			_window.awl_object()
-		)
+	has_focus_(
+		false
 	),
 	cursor_discover_(),
 	cursor_remove_(),
@@ -180,6 +181,17 @@ sge::dinput::processor::processor(
 					std::tr1::bind(
 						&dinput::processor::on_handle_ready,
 						this
+					)
+				)
+			)
+		)
+		(
+			fcppt::signal::shared_connection(
+				cursor_->button_callback(
+					std::tr1::bind(
+						&sge::dinput::processor::on_cursor_button,
+						this,
+						std::tr1::placeholders::_1
 					)
 				)
 			)
@@ -301,14 +313,20 @@ sge::dinput::processor::on_focus_in(
 		fcppt::log::_
 			<< FCPPT_TEXT("DirectInput: focus in")
 	);
-
-	acquired_ = true;
+	
+	has_focus_ =
+		sge::dinput::has_focus(
+			true
+		);
 
 	this->for_each_device(
-		&sge::dinput::device::object::acquire
+		std::tr1::bind(
+			&sge::dinput::device::object::acquire,
+			std::tr1::placeholders::_1,
+			has_focus_,
+			this->cursor_active()
+		)
 	);
-
-	//cursor_->acquire();
 }
 
 void
@@ -322,10 +340,16 @@ sge::dinput::processor::on_focus_out(
 			<< FCPPT_TEXT("DirectInput: focus out")
 	);
 
-	acquired_ = false;
+	has_focus_ =
+		sge::dinput::has_focus(
+			false
+		);
 
 	this->for_each_device(
-		&sge::dinput::device::object::unacquire
+		std::tr1::bind(
+			&sge::dinput::device::object::unacquire,
+			std::tr1::placeholders::_1
+		)
 	);
 
 	cursor_->unacquire();
@@ -334,13 +358,11 @@ sge::dinput::processor::on_focus_out(
 void
 sge::dinput::processor::on_handle_ready()
 {
-	if(
-		!acquired_
-	)
-		return;
-
 	this->for_each_device(
-		&dinput::device::object::dispatch
+		std::tr1::bind(
+			&sge::dinput::device::object::dispatch,
+			std::tr1::placeholders::_1
+		)
 	);
 }
 
@@ -350,9 +372,19 @@ sge::dinput::processor::on_init(
 )
 {
 	if(
-		acquired_
+		awl::window::has_focus(
+			awl_system_,
+			windows_window_
+		)
 	)
+	{
+		has_focus_ =
+			sge::dinput::has_focus(
+				true
+			);
+
 		cursor_->acquire();
+	}
 
 	if(
 		dinput_->EnumDevices(
@@ -379,6 +411,47 @@ sge::dinput::processor::on_init(
 		);
 }
 
+void
+sge::dinput::processor::on_cursor_button(
+	sge::input::cursor::button_event const &_event
+)
+{
+	if(
+		_event.button_code() != sge::input::cursor::button_code::left
+		||
+		!_event.pressed()
+		||
+		this->cursor_active().get()
+	)
+		return;
+
+	FCPPT_LOG_DEBUG(
+		sge::input::logger(),
+		fcppt::log::_
+			<< FCPPT_TEXT("DirectInput: cursor grab")
+	);
+
+	cursor_->acquire();
+
+	this->for_each_device(
+		std::tr1::bind(
+			&sge::dinput::device::object::acquire,
+			std::tr1::placeholders::_1,
+			has_focus_,
+			this->cursor_active()
+		)
+	);
+}
+
+sge::dinput::has_cursor const
+sge::dinput::processor::cursor_active() const
+{
+	return
+		sge::dinput::has_cursor(
+			cursor_->acquired()
+		);
+}
+
 template<
 	typename Function
 >
@@ -390,10 +463,7 @@ sge::dinput::processor::for_each_device(
 	std::for_each(
 		devices_.begin(),
 		devices_.end(),
-		boost::phoenix::bind(
-			_function,
-			boost::phoenix::arg_names::arg1
-		)
+		_function
 	);
 }
 
@@ -424,10 +494,10 @@ sge::dinput::processor::add_device(
 		)
 	);
 
-	if(
-		acquired_
-	)
-		devices_.back().acquire();
+	devices_.back().acquire(
+		has_focus_,
+		this->cursor_active()
+	);
 }
 
 BOOL

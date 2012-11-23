@@ -96,6 +96,9 @@ public:
 
 	void
 	unacquire();
+
+	bool
+	acquired() const;
 private:
 	void
 	make_grab();

@@ -23,6 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/dinput/di.hpp>
 #include <sge/dinput/dinput_device_scoped_ptr.hpp>
+#include <sge/dinput/has_cursor.hpp>
+#include <sge/dinput/has_focus.hpp>
 #include <sge/dinput/device/object_fwd.hpp>
 #include <sge/dinput/device/parameters_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -48,8 +50,11 @@ public:
 	virtual
 	~object() = 0;
 
-	bool
-	acquire();
+	void
+	acquire(
+		sge::dinput::has_focus,
+		sge::dinput::has_cursor
+	);
 
 	void
 	unacquire();
@@ -62,6 +67,9 @@ protected:
 	IDirectInputDevice8 &
 	get();
 private:
+	bool
+	acquire_impl();
+
 	void
 	set_data_format(
 		DIDATAFORMAT const &
@@ -77,6 +85,13 @@ private:
 	set_event_handle(
 		HANDLE
 	);
+
+	virtual
+	bool
+	needs_acquire(
+		sge::dinput::has_focus,
+		sge::dinput::has_cursor
+	) const = 0;
 
 	virtual
 	void

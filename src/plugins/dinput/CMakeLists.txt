@@ -40,6 +40,8 @@ SET(
 	src/plugins/dinput/include/sge/dinput/dinput_device_unique_ptr.hpp
 	src/plugins/dinput/include/sge/dinput/dinput_unique_ptr.hpp
 	src/plugins/dinput/include/sge/dinput/guid_to_string.hpp
+	src/plugins/dinput/include/sge/dinput/has_cursor.hpp
+	src/plugins/dinput/include/sge/dinput/has_focus.hpp
 	src/plugins/dinput/include/sge/dinput/is_down.hpp
 	src/plugins/dinput/include/sge/dinput/joypad/absolute_axis_map.hpp
 	src/plugins/dinput/include/sge/dinput/joypad/axis_code.hpp

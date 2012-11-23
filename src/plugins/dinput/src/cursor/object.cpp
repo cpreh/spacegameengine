@@ -199,6 +199,13 @@ sge::dinput::cursor::object::unacquire()
 	exclusive_mode_.reset();
 }
 
+bool
+sge::dinput::cursor::object::acquired() const
+{
+	return
+		has_focus_;
+}
+
 void
 sge::dinput::cursor::object::make_grab()
 {
@@ -257,15 +264,6 @@ sge::dinput::cursor::object::on_button(
 			_down
 		)
 	);
-
-	if(
-		_code == sge::input::cursor::button_code::left
-		&&
-		_down
-		&&
-		!has_focus_
-	)
-		this->acquire();
 
 	return awl::backends::windows::window::event::return_type();
 }

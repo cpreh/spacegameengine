@@ -20,6 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/dinput/create_device.hpp>
 #include <sge/dinput/di.hpp>
+#include <sge/dinput/has_cursor.hpp>
+#include <sge/dinput/has_focus.hpp>
 #include <sge/dinput/device/object.hpp>
 #include <sge/dinput/device/parameters.hpp>
 #include <sge/dinput/device/funcs/acquire.hpp>
@@ -120,13 +122,13 @@ sge::dinput::device::object::dispatch()
 			break;
 		case DIERR_INPUTLOST:
 			if(
-				!this->acquire()
+				!this->acquire_impl()
 			)
 				return;
 
 			break;
 		case DIERR_NOTACQUIRED:
-			this->acquire();
+			this->acquire_impl();
 
 			return;
 		default:
@@ -137,13 +139,19 @@ sge::dinput::device::object::dispatch()
 	}
 }
 
-bool
-sge::dinput::device::object::acquire()
+void
+sge::dinput::device::object::acquire(
+	sge::dinput::has_focus const _has_focus,
+	sge::dinput::has_cursor const _has_cursor
+)
 {
-	return
-		sge::dinput::device::funcs::acquire(
-			device_.get()
-		);
+	if(
+		this->needs_acquire(
+			_has_focus,
+			_has_cursor
+		)
+	)
+		this->acquire_impl();
 }
 
 void
@@ -191,6 +199,15 @@ sge::dinput::device::object::get()
 {
 	return
 		*device_;
+}
+
+bool
+sge::dinput::device::object::acquire_impl()
+{
+	return
+		sge::dinput::device::funcs::acquire(
+			device_.get()
+		);
 }
 
 void

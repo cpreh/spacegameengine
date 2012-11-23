@@ -19,6 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/dinput/di.hpp>
+#include <sge/dinput/has_cursor.hpp>
+#include <sge/dinput/has_focus.hpp>
 #include <sge/dinput/is_down.hpp>
 #include <sge/dinput/device/object.hpp>
 #include <sge/dinput/device/parameters.hpp>
@@ -99,6 +101,16 @@ sge::dinput::mouse::device::info() const
 {
 	return
 		info_.input_info();
+}
+
+bool
+sge::dinput::mouse::device::needs_acquire(
+	sge::dinput::has_focus,
+	sge::dinput::has_cursor const _has_cursor
+) const
+{
+	return
+		_has_cursor.get();
 }
 
 void

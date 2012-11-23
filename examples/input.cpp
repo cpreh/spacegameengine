@@ -39,6 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/manager.hpp>
 #include <sge/input/cursor/move_event.hpp>
 #include <sge/input/cursor/object.hpp>
+#include <sge/input/cursor/optional_position.hpp>
 #include <sge/input/cursor/remove_callback.hpp>
 #include <sge/input/cursor/remove_event.hpp>
 #include <sge/input/cursor/scroll_code_to_string.hpp>
@@ -131,6 +132,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/function_context.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/from_std_wstring.hpp>
+#include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
@@ -158,6 +160,11 @@ namespace
 fcppt::string const
 output_optional_string(
 	sge::input::info::optional_string const &
+);
+
+fcppt::string const
+output_optional_position(
+	sge::input::cursor::optional_position const &
 );
 
 void
@@ -633,6 +640,24 @@ output_optional_string(
 		;
 }
 
+fcppt::string const
+output_optional_position(
+	sge::input::cursor::optional_position const &_position
+)
+{
+	return
+		_position
+		?
+			fcppt::insert_to_fcppt_string(
+				*_position
+			)
+		:
+			fcppt::string(
+				FCPPT_TEXT("none")
+			)
+		;
+}
+
 void
 cursor_discover(
 	sge::input::cursor::discover_event const &_event
@@ -683,7 +708,9 @@ cursor_move(
 		<< FCPPT_TEXT("cursor_move: ")
 		<< &_object
 		<< FCPPT_TEXT("\n\tposition: ")
-		<< _event.position()
+		<< output_optional_position(
+			_event.position()
+		)
 		<< FCPPT_TEXT('\n');
 }
 

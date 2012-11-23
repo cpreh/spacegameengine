@@ -22,9 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_DINPUT_PROCESSOR_HPP_INCLUDED
 
 #include <sge/dinput/di.hpp>
+#include <sge/dinput/has_cursor.hpp>
+#include <sge/dinput/has_focus.hpp>
 #include <sge/dinput/cursor/object_fwd.hpp>
 #include <sge/dinput/device/object_fwd.hpp>
 #include <sge/input/processor.hpp>
+#include <sge/input/cursor/button_event_fwd.hpp>
 #include <sge/input/cursor/discover_callback.hpp>
 #include <sge/input/cursor/discover_signal.hpp>
 #include <sge/input/cursor/remove_callback.hpp>
@@ -50,6 +53,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/window/event/processor_fwd.hpp>
 #include <awl/backends/windows/window/event/return_type_fwd.hpp>
 #include <awl/backends/windows/window/event/scoped_user_message.hpp>
+#include <awl/system/object_fwd.hpp>
 #include <awl/window/event/focus_in_fwd.hpp>
 #include <awl/window/event/focus_out_fwd.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
@@ -139,6 +143,14 @@ private:
 		awl::backends::windows::window::event::object const &
 	);
 
+	void
+	on_cursor_button(
+		sge::input::cursor::button_event const &
+	);
+
+	sge::dinput::has_cursor const
+	cursor_active() const;
+
 	template<
 		typename Function
 	>
@@ -178,6 +190,8 @@ private:
 
 	dinput_scoped_ptr const dinput_;
 
+	awl::system::object &awl_system_;
+
 	awl::backends::windows::window::object &windows_window_;
 
 	awl::backends::windows::window::event::processor &event_processor_;
@@ -198,7 +212,7 @@ private:
 
 	event_handle_scoped_ptr const event_handle_;
 
-	bool acquired_;
+	sge::dinput::has_focus has_focus_;
 
 	sge::input::cursor::discover_signal cursor_discover_;
 

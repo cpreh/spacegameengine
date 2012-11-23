@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_DINPUT_KEYBOARD_DEVICE_HPP_INCLUDED
 
 #include <sge/dinput/di.hpp>
+#include <sge/dinput/has_cursor.hpp>
+#include <sge/dinput/has_focus.hpp>
 #include <sge/dinput/state_array.hpp>
 #include <sge/dinput/device/object.hpp>
 #include <sge/dinput/device/parameters_fwd.hpp>
@@ -88,6 +90,12 @@ private:
 
 	sge::input::keyboard::mod_state const
 	mod_state() const;
+	
+	bool
+	needs_acquire(
+		sge::dinput::has_focus,
+		sge::dinput::has_cursor
+	) const;
 
 	void
 	on_dispatch(

@@ -19,6 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/dinput/di.hpp>
+#include <sge/dinput/has_cursor.hpp>
+#include <sge/dinput/has_focus.hpp>
 #include <sge/dinput/is_down.hpp>
 #include <sge/dinput/device/object.hpp>
 #include <sge/dinput/device/parameters.hpp>
@@ -115,6 +117,16 @@ sge::dinput::joypad::device::info() const
 {
 	return
 		info_.input_info();
+}
+
+bool
+sge::dinput::joypad::device::needs_acquire(
+	sge::dinput::has_focus,
+	sge::dinput::has_cursor
+) const
+{
+	return
+		true;
 }
 
 void

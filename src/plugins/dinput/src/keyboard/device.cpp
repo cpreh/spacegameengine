@@ -18,6 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/dinput/has_cursor.hpp>
+#include <sge/dinput/has_focus.hpp>
 #include <sge/dinput/is_down.hpp>
 #include <sge/dinput/keyboard/device.hpp>
 #include <sge/dinput/keyboard/key_map.hpp>
@@ -161,6 +163,16 @@ sge::dinput::keyboard::device::mod_state() const
 		ret |= sge::input::keyboard::modifier::shift;
 
 	return ret;
+}
+
+bool
+sge::dinput::keyboard::device::needs_acquire(
+	sge::dinput::has_focus const _has_focus,
+	sge::dinput::has_cursor
+) const
+{
+	return
+		_has_focus.get();
 }
 
 void
