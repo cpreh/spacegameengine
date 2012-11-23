@@ -106,6 +106,7 @@ set(
 	include/sge/renderer/dim3.hpp
 	include/sge/renderer/dim3_fwd.hpp
 	include/sge/renderer/display_mode/comparison.hpp
+	include/sge/renderer/display_mode/desired_fps.hpp
 	include/sge/renderer/display_mode/dimensions.hpp
 	include/sge/renderer/display_mode/dimensions_fwd.hpp
 	include/sge/renderer/display_mode/dpi.hpp
@@ -846,6 +847,7 @@ set(
 	src/renderer/device/ffp.cpp
 	src/renderer/device/parameters.cpp
 	src/renderer/display_mode/comparison.cpp
+	src/renderer/display_mode/desired_fps.cpp
 	src/renderer/display_mode/object.cpp
 	src/renderer/display_mode/output.cpp
 	src/renderer/display_mode/to_dpi.cpp

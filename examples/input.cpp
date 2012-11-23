@@ -90,6 +90,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/context/scoped_ffp.hpp>
 #include <sge/renderer/device/ffp.hpp>
+#include <sge/renderer/display_mode/desired_fps.hpp>
+#include <sge/renderer/display_mode/object.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/parameters/object.hpp>
 #include <sge/renderer/parameters/vsync.hpp>
@@ -117,6 +119,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/with_input.hpp>
 #include <sge/systems/with_renderer.hpp>
 #include <sge/systems/with_window.hpp>
+#include <sge/timer/scoped_frame_limiter.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
 #include <sge/viewport/manager.hpp>
 #include <sge/window/dim.hpp>
@@ -573,6 +576,12 @@ try
 		sys.window_system().poll()
 	)
 	{
+		sge::timer::scoped_frame_limiter const limiter(
+			sge::renderer::display_mode::desired_fps(
+				sys.renderer_ffp().display_mode().refresh_rate()
+			)
+		);
+
 		sge::renderer::context::scoped_ffp const scoped_ffp(
 			sys.renderer_ffp(),
 			sys.renderer_ffp().onscreen_target()

@@ -18,48 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/timer/scoped_frame_limiter.hpp>
-#include <fcppt/time/sleep_any.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/chrono/duration.hpp>
-#include <fcppt/config/external_end.hpp>
+#ifndef SGE_RENDERER_DISPLAY_MODE_DESIRED_FPS_HPP_INCLUDED
+#define SGE_RENDERER_DISPLAY_MODE_DESIRED_FPS_HPP_INCLUDED
+
+#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/display_mode/refresh_rate_value.hpp>
+#include <sge/renderer/display_mode/optional_refresh_rate_fwd.hpp>
 
 
-sge::timer::scoped_frame_limiter::scoped_frame_limiter(
-	ticks_per_second const _desired_fps
-)
-:
-	before_frame_(
-		clock_type::now()
-	),
-	minimum_frame_length_(
-		boost::chrono::duration_cast<
-			clock_type::duration
-		>(
-			boost::chrono::seconds(1)
-		)
-		/
-		static_cast<
-			clock_type::rep
-		>(
-			_desired_fps
-		)
-	)
+namespace sge
 {
+namespace renderer
+{
+namespace display_mode
+{
+
+SGE_RENDERER_SYMBOL
+sge::renderer::display_mode::refresh_rate_value
+desired_fps(
+	sge::renderer::display_mode::optional_refresh_rate const &
+);
+
+}
+}
 }
 
-sge::timer::scoped_frame_limiter::~scoped_frame_limiter()
-{
-	clock_type::duration const diff(
-		clock_type::now() - before_frame_
-	);
-
-	if(
-		diff > minimum_frame_length_
-	)
-		return;
-
-	fcppt::time::sleep_any(
-		minimum_frame_length_ - diff
-	);
-}
+#endif

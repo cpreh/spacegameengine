@@ -48,7 +48,7 @@ public:
 	clock_type;
 
 	typedef
-	clock_type::rep
+	unsigned
 	ticks_per_second;
 
 	/**
