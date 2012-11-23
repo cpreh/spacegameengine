@@ -302,13 +302,14 @@ try
 				tex_bg
 			)
 			.size(
-				sge::console::sprite_object::dim(400,300)
+				sge::console::sprite_object::dim(
+					400,
+					300
+				)
 			)
 		),
-		static_cast<
-			sge::console::output_line_limit
-		>(
-			100
+		sge::console::output_line_limit(
+			100u
 		)
 	);
 

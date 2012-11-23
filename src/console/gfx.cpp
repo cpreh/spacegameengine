@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/gfx.hpp>
 #include <sge/console/object.hpp>
 #include <sge/console/output_line_limit.hpp>
-#include <sge/console/output_line_sequence.hpp>
 #include <sge/console/sprite_object.hpp>
+#include <sge/console/detail/pointed_history.hpp>
 #include <sge/font/align_h.hpp>
 #include <sge/font/lit.hpp>
 #include <sge/font/object_fwd.hpp>
@@ -143,13 +143,20 @@ sge::console::gfx::gfx(
 	active_(
 		false
 	),
+	input_active_(
+		true
+	),
 	input_line_(),
 	input_history_(),
 	current_input_(
 		input_history_.begin()
 	),
 	output_lines_(
-		_line_limit
+		static_cast<
+			sge::console::detail::pointed_history::size_type
+		>(
+			_line_limit.get()
+		)
 	)
 {
 }
@@ -165,31 +172,37 @@ sge::console::gfx::render(
 	sge::renderer::context::ffp &_render_context
 )
 {
-	sge::sprite::process::one(
-		_render_context,
-		background_,
-		sprite_buffers_,
-		sprite_state_
-	);
+	if(
+		background_.texture()
+	)
+		sge::sprite::process::one(
+			_render_context,
+			background_,
+			sprite_buffers_,
+			sprite_state_
+		);
 
 	sge::font::unit current_y(
 		background_.h()
 	);
 
-	current_y =
-		this->render_line(
-			_render_context,
-			input_line_.edited(
-				// This used to be "bool cursor_active" which was controlled by
-				// a timer, but due to the unneccessary timer depenceny, this
-				// was removed
-				true
-			),
-			current_y
-		);
+	if(
+		input_active_
+	)
+		current_y =
+			this->render_line(
+				_render_context,
+				input_line_.edited(
+					// This used to be "bool cursor_active" which was controlled by
+					// a timer, but due to the unneccessary timer depenceny, this
+					// was removed
+					true
+				),
+				current_y
+			);
 
 	for(
-		sge::console::output_line_sequence::const_iterator
+		sge::console::detail::pointed_history::const_iterator
 			iter(
 				output_lines_.point()
 			),
@@ -228,6 +241,22 @@ sge::console::gfx::active(
 {
 	active_ =
 		_active;
+}
+
+bool
+sge::console::gfx::input_active() const
+{
+	return
+		input_active_;
+}
+
+void
+sge::console::gfx::input_active(
+	bool const _input_active
+)
+{
+	input_active_ =
+		_input_active;
 }
 
 void
@@ -334,6 +363,8 @@ sge::console::gfx::char_callback(
 {
 	if(
 		!active_
+		||
+		!input_active_
 	)
 		return;
 
@@ -360,6 +391,15 @@ sge::console::gfx::key_action(
 {
 	if(
 		!active_
+	)
+		return;
+
+	if(
+		!input_active_
+		&&
+		_event.key_code() != input::keyboard::key_code::pageup
+		&&
+		_event.key_code() != input::keyboard::key_code::pagedown
 	)
 		return;
 

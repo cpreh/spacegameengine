@@ -24,9 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/cursor.hpp>
 #include <sge/console/object_fwd.hpp>
 #include <sge/console/output_line_limit.hpp>
-#include <sge/console/output_line_sequence.hpp>
 #include <sge/console/sprite_object.hpp>
 #include <sge/console/symbol.hpp>
+#include <sge/console/detail/pointed_history.hpp>
 #include <sge/font/object_fwd.hpp>
 #include <sge/font/string.hpp>
 #include <sge/font/unit.hpp>
@@ -92,6 +92,15 @@ public:
 	);
 
 	SGE_CONSOLE_SYMBOL
+	bool
+	input_active() const;
+
+	SGE_CONSOLE_SYMBOL
+	void
+	input_active(
+		bool
+	);
+
 	void
 	print(
 		sge::font::string const &
@@ -160,13 +169,15 @@ private:
 
 	bool active_;
 
+	bool input_active_;
+
 	sge::console::cursor input_line_;
 
 	sge::console::gfx::input_history_sequence input_history_;
 
 	sge::console::gfx::input_history_sequence::iterator current_input_;
 
-	sge::console::output_line_sequence output_lines_;
+	sge::console::detail::pointed_history output_lines_;
 
 	sge::font::unit
 	render_line(

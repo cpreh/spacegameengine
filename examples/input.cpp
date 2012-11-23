@@ -414,16 +414,6 @@ try
 		sge::console::muxing::enabled
 	);
 
-	sge::console::sprite_object console_sprite(
-		sge::console::sprite_parameters()
-		.pos(
-			sge::console::sprite_object::vector::null()
-		)
-		.size(
-			sge::console::sprite_object::dim::null()
-		)
-	);
-
 	sge::font::object_scoped_ptr const font(
 		sys.font_system().create_font(
 			sge::font::parameters()
@@ -436,9 +426,17 @@ try
 		sge::image::colors::white(),
 		*font,
 		sys.keyboard_collector(),
-		console_sprite,
+		sge::console::sprite_object(
+			sge::console::sprite_parameters()
+			.pos(
+				sge::console::sprite_object::vector::null()
+			)
+			.size(
+				sge::console::sprite_object::dim::null()
+			)
+		),
 		sge::console::output_line_limit(
-			1000u
+			200u
 		)
 	);
 
@@ -446,12 +444,16 @@ try
 		true
 	);
 
+	console_gfx.input_active(
+		false
+	);
+
 	fcppt::signal::scoped_connection const console_resize_con(
 		sys.viewport_manager().manage_callback(
 			std::tr1::bind(
 				manage_console_size,
 				fcppt::ref(
-					console_sprite
+					console_gfx.background_sprite()
 				),
 				std::tr1::placeholders::_1
 			)

@@ -12,6 +12,7 @@ set(
 	include/sge/console/callback/short_description.hpp
 	include/sge/console/cursor.hpp
 	include/sge/console/cursor_fwd.hpp
+	include/sge/console/detail/pointed_history.hpp
 	include/sge/console/error_callback.hpp
 	include/sge/console/error_callback_fn.hpp
 	include/sge/console/exception.hpp
@@ -34,8 +35,6 @@ set(
 	include/sge/console/object.hpp
 	include/sge/console/object_fwd.hpp
 	include/sge/console/output_line_limit.hpp
-	include/sge/console/output_line_sequence.hpp
-	include/sge/console/pointed_history.hpp
 	include/sge/console/signal.hpp
 	include/sge/console/signal_fwd.hpp
 	include/sge/console/sprite_choices.hpp
@@ -45,6 +44,7 @@ set(
 	include/sge/console/sprite_type_choices.hpp
 	src/console/callback/parameters.cpp
 	src/console/cursor.cpp
+	src/console/detail/pointed_history.cpp
 	src/console/exception.cpp
 	src/console/function.cpp
 	src/console/gfx.cpp

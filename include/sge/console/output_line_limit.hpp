@@ -21,15 +21,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CONSOLE_OUTPUT_LINE_LIMIT_HPP_INCLUDED
 #define SGE_CONSOLE_OUTPUT_LINE_LIMIT_HPP_INCLUDED
 
-#include <sge/console/output_line_sequence.hpp>
+#include <fcppt/strong_typedef.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <cstddef>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {
 namespace console
 {
-typedef
-output_line_sequence::size_type
-output_line_limit;
+
+FCPPT_MAKE_STRONG_TYPEDEF(
+	std::size_t,
+	output_line_limit
+);
+
 }
 }
 
