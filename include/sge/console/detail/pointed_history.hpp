@@ -78,6 +78,12 @@ public:
 	void
 	down();
 
+	void
+	to_begin();
+
+	void
+	to_end();
+
 	const_iterator const
 	point() const;
 

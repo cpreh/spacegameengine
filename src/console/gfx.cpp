@@ -396,12 +396,17 @@ sge::console::gfx::key_action(
 
 	if(
 		!input_active_
-		&&
-		_event.key_code() != input::keyboard::key_code::pageup
-		&&
-		_event.key_code() != input::keyboard::key_code::pagedown
 	)
-		return;
+		switch(
+			_event.key_code()
+		)
+		{
+		case sge::input::keyboard::key_code::pageup:
+		case sge::input::keyboard::key_code::pagedown:
+			break;
+		default:
+			return;
+		}
 
 	switch(
 		_event.key_code()
@@ -427,10 +432,22 @@ sge::console::gfx::key_action(
 			input_line_.complete_word(object_.functions());
 		break;
 		case input::keyboard::key_code::pageup:
-			output_lines_.up();
+			if(
+				keyboard_.mod_state()
+				& input::keyboard::modifier::shift
+			)
+				output_lines_.to_end();
+			else
+				output_lines_.up();
 		break;
 		case input::keyboard::key_code::pagedown:
-			output_lines_.down();
+			if(
+				keyboard_.mod_state()
+				& input::keyboard::modifier::shift
+			)
+				output_lines_.to_begin();
+			else
+				output_lines_.down();
 		break;
 		case input::keyboard::key_code::up:
 			if (input_history_.empty())

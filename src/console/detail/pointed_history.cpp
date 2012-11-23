@@ -87,6 +87,20 @@ sge::console::detail::pointed_history::down()
 		--point_;
 }
 
+void
+sge::console::detail::pointed_history::to_begin()
+{
+	point_ =
+		0u;
+}
+
+void
+sge::console::detail::pointed_history::to_end()
+{
+	point_ =
+		container_.size() - 1u;
+}
+
 sge::console::detail::pointed_history::const_iterator const
 sge::console::detail::pointed_history::point() const
 {
