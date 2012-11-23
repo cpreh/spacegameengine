@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CONSOLE_GFX_HPP_INCLUDED
 
 #include <sge/console/cursor.hpp>
+#include <sge/console/font_color.hpp>
 #include <sge/console/object_fwd.hpp>
 #include <sge/console/output_line_limit.hpp>
 #include <sge/console/sprite_object.hpp>
@@ -30,7 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/object_fwd.hpp>
 #include <sge/font/string.hpp>
 #include <sge/font/unit.hpp>
-#include <sge/image/color/any/object.hpp>
 #include <sge/input/keyboard/char_event_fwd.hpp>
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/input/keyboard/key_event_fwd.hpp>
@@ -65,7 +65,7 @@ public:
 	gfx(
 		sge::console::object &,
 		sge::renderer::device::ffp &,
-		sge::image::color::any::object const &font_color,
+		sge::console::font_color const &,
 		sge::font::object &,
 		sge::input::keyboard::device &,
 		sge::console::sprite_object const &,
@@ -132,7 +132,7 @@ private:
 
 	sge::renderer::device::ffp &renderer_;
 
-	sge::image::color::any::object const font_color_;
+	sge::console::font_color const font_color_;
 
 	sge::font::object &font_object_;
 

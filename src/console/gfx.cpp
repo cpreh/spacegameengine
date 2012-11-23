@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/console/exception.hpp>
+#include <sge/console/font_color.hpp>
 #include <sge/console/gfx.hpp>
 #include <sge/console/object.hpp>
 #include <sge/console/output_line_limit.hpp>
@@ -33,7 +34,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/unit.hpp>
 #include <sge/font/vector.hpp>
 #include <sge/font/draw/static_text.hpp>
-#include <sge/image/color/any/object.hpp>
 #include <sge/input/keyboard/char_event.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_event.hpp>
@@ -62,7 +62,7 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::console::gfx::gfx(
 	sge::console::object &_object,
 	sge::renderer::device::ffp &_renderer,
-	sge::image::color::any::object const &_font_color,
+	sge::console::font_color const &_font_color,
 	sge::font::object &_font_object,
 	sge::input::keyboard::device &_keyboard,
 	sge::console::sprite_object const &_background,
@@ -313,7 +313,7 @@ sge::console::gfx::render_line(
 			background_.w()
 		),
 		sge::font::vector::null(),
-		font_color_,
+		font_color_.get(),
 		// FIXME
 		sge::renderer::texture::emulate_srgb::yes
 	);

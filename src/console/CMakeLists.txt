@@ -19,6 +19,8 @@ set(
 	include/sge/console/fallback.hpp
 	include/sge/console/fallback_signal.hpp
 	include/sge/console/fallback_type.hpp
+	include/sge/console/font_color.hpp
+	include/sge/console/font_color_fwd.hpp
 	include/sge/console/function.hpp
 	include/sge/console/function_fwd.hpp
 	include/sge/console/function_map.hpp

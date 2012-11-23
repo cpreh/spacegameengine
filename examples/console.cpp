@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/config/media_path.hpp>
 #include <sge/console/arg_list.hpp>
+#include <sge/console/font_color.hpp>
 #include <sge/console/gfx.hpp>
 #include <sge/console/muxing_narrow_streambuf.hpp>
 #include <sge/console/object.hpp>
@@ -290,7 +291,9 @@ try
 	sge::console::gfx gfx(
 		object,
 		sys.renderer_ffp(),
-		sge::image::colors::white(),
+		sge::console::font_color(
+			sge::image::colors::white()
+		),
 		*font_object,
 		sys.keyboard_collector(),
 		sge::console::sprite_object(
