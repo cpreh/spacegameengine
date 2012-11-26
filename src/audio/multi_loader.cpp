@@ -74,6 +74,21 @@ sge::audio::multi_loader::load_raw(
 		);
 }
 
+sge::audio::file_unique_ptr
+sge::audio::multi_loader::load_stream(
+	std::istream &_stream,
+	sge::media::optional_extension const &_extension
+)
+{
+	return
+		muxer_.mux_extension(
+			_extension
+		).load_stream(
+			_stream,
+			_extension
+		);
+}
+
 sge::audio::loader_capabilities_field const
 sge::audio::multi_loader::capabilities() const
 {

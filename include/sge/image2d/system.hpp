@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/optional_extension_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <iosfwd>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
 
@@ -60,6 +61,12 @@ public:
 	virtual image2d::file_unique_ptr
 	load_raw(
 		sge::media::const_raw_range const &,
+		sge::media::optional_extension const &
+	) = 0;
+
+	virtual image2d::file_unique_ptr
+	load_stream(
+		std::istream &,
 		sge::media::optional_extension const &
 	) = 0;
 

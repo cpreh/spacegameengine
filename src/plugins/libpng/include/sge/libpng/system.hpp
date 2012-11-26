@@ -64,6 +64,12 @@ public:
 	);
 
 	image2d::file_unique_ptr
+	load_stream(
+		std::istream &,
+		sge::media::optional_extension const &
+	);
+
+	image2d::file_unique_ptr
 	create(
 		image2d::view::const_object const &,
 		sge::media::optional_extension const &

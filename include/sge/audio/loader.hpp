@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
+#include <iosfwd>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -72,6 +73,12 @@ public:
 	virtual audio::file_unique_ptr
 	load_raw(
 		sge::media::const_raw_range const &range,
+		sge::media::optional_extension const &extension
+	) = 0;
+
+	virtual audio::file_unique_ptr
+	load_stream(
+		std::istream &,
 		sge::media::optional_extension const &extension
 	) = 0;
 

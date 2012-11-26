@@ -72,6 +72,13 @@ public:
 	);
 
 	SGE_AUDIO_SYMBOL
+	audio::file_unique_ptr
+	load_stream(
+		std::istream &,
+		sge::media::optional_extension const &
+	);
+
+	SGE_AUDIO_SYMBOL
 	audio::loader_capabilities_field const
 	capabilities() const;
 

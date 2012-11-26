@@ -45,7 +45,6 @@ class file
 FCPPT_NONCOPYABLE(
 	file);
 public:
-	explicit
 	file(
 		stream_ptr,
 		audio::optional_path const &);

@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/function/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <IL/il.h>
+#include <iosfwd>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
 
@@ -76,6 +77,12 @@ public:
 	devil::optional_error const
 	load(
 		sge::media::const_raw_range const &,
+		sge::media::optional_extension const &
+	);
+
+	devil::optional_error const
+	load(
+		std::istream &,
 		sge::media::optional_extension const &
 	);
 private:

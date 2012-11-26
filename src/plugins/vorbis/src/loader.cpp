@@ -136,6 +136,37 @@ sge::vorbis::loader::load_raw(
 	}
 }
 
+sge::audio::file_unique_ptr
+sge::vorbis::loader::load_stream(
+	std::istream &_stream,
+	sge::media::optional_extension const &_extension
+)
+{
+	if(_extension && extensions_.find(*_extension) == extensions_.end())
+		return sge::audio::file_unique_ptr();
+
+	try
+	{
+		return
+			sge::audio::file_unique_ptr(
+				fcppt::make_unique_ptr<
+					sge::vorbis::file
+				>(
+					// This is supposed to create a new istream which
+					// replaces the old one. I'm not sure if rdbuf(0)
+					// is allowed and if this is the best way to
+					// achieve the goal.
+					fcppt::make_unique_ptr<std::istream>(
+						_stream.rdbuf(
+							0)),
+					sge::audio::optional_path()));
+	}
+	catch (audio::unsupported_format const &)
+	{
+		return sge::audio::file_unique_ptr();
+	}
+}
+
 sge::audio::loader_capabilities_field const
 sge::vorbis::loader::capabilities() const
 {

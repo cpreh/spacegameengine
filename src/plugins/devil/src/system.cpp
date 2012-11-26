@@ -105,6 +105,33 @@ sge::devil::system::load_raw(
 }
 
 sge::image2d::file_unique_ptr
+sge::devil::system::load_stream(
+	std::istream &_stream,
+	sge::media::optional_extension const &_extension
+)
+{
+	sge::devil::file_unique_ptr ret(
+		fcppt::make_unique_ptr<
+			devil::file
+		>()
+	);
+
+	return
+		ret->load(
+			_stream,
+			_extension
+		)
+		?
+			sge::image2d::file_unique_ptr()
+		:
+			sge::image2d::file_unique_ptr(
+				fcppt::move(
+					ret
+				)
+			);
+}
+
+sge::image2d::file_unique_ptr
 sge::devil::system::create(
 	image2d::view::const_object const &_src,
 	sge::media::optional_extension const &_extension

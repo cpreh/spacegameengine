@@ -50,6 +50,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/optional_extension.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/io/stream_to_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/to_std_string.hpp>
 #include <fcppt/assert/post.hpp>
@@ -290,6 +291,34 @@ sge::devil::file::load(
 			std::tr1::bind(
 				devil::load_memory,
 				_range,
+				_extension
+			)
+		);
+
+}
+
+sge::devil::optional_error const
+sge::devil::file::load(
+	std::istream &_stream,
+	sge::media::optional_extension const &_extension
+)
+{
+	std::string const content(
+		fcppt::io::stream_to_string(
+			_stream));
+
+	return
+		this->load_impl(
+			std::tr1::bind(
+				devil::load_memory,
+				boost::make_iterator_range(
+					reinterpret_cast<sge::media::const_raw_pointer>(
+						&(*content.begin())
+					),
+					reinterpret_cast<sge::media::const_raw_pointer>(
+						&(*content.end())
+					)
+				),
 				_extension
 			)
 		);

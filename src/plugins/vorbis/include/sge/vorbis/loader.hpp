@@ -61,6 +61,12 @@ public:
 		sge::media::optional_extension const &
 	);
 
+	audio::file_unique_ptr
+	load_stream(
+		std::istream &,
+		sge::media::optional_extension const &
+	);
+
 	audio::loader_capabilities_field const
 	capabilities() const;
 

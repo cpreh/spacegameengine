@@ -81,6 +81,21 @@ sge::image2d::multi_system::load_raw(
 }
 
 sge::image2d::file_unique_ptr
+sge::image2d::multi_system::load_stream(
+	std::istream &_stream,
+	sge::media::optional_extension const &_extension
+)
+{
+	return
+		muxer_.mux_extension(
+			_extension
+		).load_stream(
+			_stream,
+			_extension
+		);
+}
+
+sge::image2d::file_unique_ptr
 sge::image2d::multi_system::create(
 	image2d::view::const_object const &_object,
 	sge::media::optional_extension const &_extension

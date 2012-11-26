@@ -33,23 +33,12 @@ sge::cg::program::source const
 sge::shader::load_edited_string(
 	sge::renderer::device::core &_renderer,
 	sge::renderer::vertex_declaration const &_vd,
-	boost::filesystem::path const &_path)
+	std::istream &_stream)
 {
-	boost::filesystem::ifstream file(
-		_path);
-
-	if(!file.is_open())
-		throw
-			sge::shader::exception(
-				FCPPT_TEXT("Couldn't open file \"")+
-				fcppt::filesystem::path_to_string(
-					_path)+
-				FCPPT_TEXT("\""));
-
 	return
 		_renderer.transform_cg_vertex_program(
 			_vd,
 			sge::cg::program::source(
 				fcppt::io::stream_to_string(
-					file)));
+					_stream)));
 }

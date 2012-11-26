@@ -166,6 +166,42 @@ sge::libpng::system::load_raw(
 }
 
 sge::image2d::file_unique_ptr
+sge::libpng::system::load_stream(
+	std::istream &_stream,
+	sge::media::optional_extension const &_extension
+)
+{
+	if(
+		_extension &&
+		_extension
+		!=
+		sge::media::optional_extension(
+			supported_extension
+		)
+	)
+		return sge::image2d::file_unique_ptr();
+
+	try
+	{
+		return
+			sge::image2d::file_unique_ptr(
+				fcppt::make_unique_ptr<
+					libpng::file
+				>(
+					fcppt::ref(
+						_stream),
+					sge::image::optional_path()
+				)
+			);
+	}
+	catch (
+		sge::image::unsupported_format const &)
+	{
+		return sge::image2d::file_unique_ptr();
+	}
+}
+
+sge::image2d::file_unique_ptr
 sge::libpng::system::create(
 	image2d::view::const_object const &_view,
 	sge::media::optional_extension const &_extension
