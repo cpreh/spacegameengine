@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_IMAGE_VIEW_GET_IMPL_HPP_INCLUDED
 #define SGE_SRC_IMAGE_VIEW_GET_IMPL_HPP_INCLUDED
 
-#include <sge/image/color/any/object.hpp>
+#include <sge/image/traits/any_object_fwd.hpp>
 #include <sge/image/traits/const_view_fwd.hpp>
 #include <sge/image/traits/dim.hpp>
 #include <sge/image/traits/view_fwd.hpp>
@@ -32,7 +32,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<
 	typename Tag
 >
-sge::image::color::any::object const
+typename sge::image::traits::any_object<
+	Tag
+>::type const
 sge::image::view::get(
 	typename sge::image::traits::view<
 		Tag
@@ -43,7 +45,11 @@ sge::image::view::get(
 )
 {
 	return
-		sge::image::view::get_any(
+		sge::image::view::get_any<
+			typename sge::image::traits::any_object<
+				Tag
+			>::type
+		>(
 			_view,
 			_index
 		);
@@ -52,7 +58,9 @@ sge::image::view::get(
 template<
 	typename Tag
 >
-sge::image::color::any::object const
+typename sge::image::traits::any_object<
+	Tag
+>::type const
 sge::image::view::get(
 	typename sge::image::traits::const_view<
 		Tag
@@ -63,7 +71,11 @@ sge::image::view::get(
 )
 {
 	return
-		sge::image::view::get_any(
+		sge::image::view::get_any<
+			typename sge::image::traits::any_object<
+				Tag
+			>::type
+		>(
 			_view,
 			_index
 		);

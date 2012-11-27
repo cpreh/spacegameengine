@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_VIEW_FORMAT_HPP_INCLUDED
 #define SGE_IMAGE_VIEW_FORMAT_HPP_INCLUDED
 
-#include <sge/image/color/format.hpp>
 #include <sge/image/detail/instantiate/symbol.hpp>
 #include <sge/image/traits/const_view_fwd.hpp>
+#include <sge/image/traits/format.hpp>
 #include <sge/image/traits/view_fwd.hpp>
 
 
@@ -38,7 +38,9 @@ template<
 	typename Tag
 >
 SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
-sge::image::color::format::type
+typename sge::image::traits::format<
+	Tag
+>::type
 format(
 	typename sge::image::traits::view<
 		Tag
@@ -49,7 +51,9 @@ template<
 	typename Tag
 >
 SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
-sge::image::color::format::type
+typename sge::image::traits::format<
+	Tag
+>::type
 format(
 	typename sge::image::traits::const_view<
 		Tag

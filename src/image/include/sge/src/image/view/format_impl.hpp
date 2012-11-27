@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_IMAGE_VIEW_FORMAT_IMPL_HPP_INCLUDED
 #define SGE_SRC_IMAGE_VIEW_FORMAT_IMPL_HPP_INCLUDED
 
-#include <sge/image/color/format.hpp>
 #include <sge/image/traits/const_view_fwd.hpp>
+#include <sge/image/traits/format.hpp>
 #include <sge/image/traits/view_fwd.hpp>
 #include <sge/image/view/format.hpp>
 #include <sge/src/image/view/format_any.hpp>
@@ -31,7 +31,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<
 	typename Tag
 >
-sge::image::color::format::type
+typename sge::image::traits::format<
+	Tag
+>::type
 sge::image::view::format(
 	typename sge::image::traits::view<
 		Tag
@@ -39,7 +41,11 @@ sge::image::view::format(
 )
 {
 	return
-		sge::image::view::format_any(
+		sge::image::view::format_any<
+			typename sge::image::traits::format<
+				Tag
+			>::type
+		>(
 			_view
 		);
 
@@ -48,7 +54,9 @@ sge::image::view::format(
 template<
 	typename Tag
 >
-sge::image::color::format::type
+typename sge::image::traits::format<
+	Tag
+>::type
 sge::image::view::format(
 	typename sge::image::traits::const_view<
 		Tag
@@ -56,7 +64,11 @@ sge::image::view::format(
 )
 {
 	return
-		sge::image::view::format_any(
+		sge::image::view::format_any<
+			typename sge::image::traits::format<
+				Tag
+			>::type
+		>(
 			_view
 		);
 }

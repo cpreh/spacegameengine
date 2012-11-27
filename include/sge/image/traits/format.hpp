@@ -18,23 +18,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE3D_VIEW_CONST_ELEMENTS_HPP_INCLUDED
-#define SGE_IMAGE3D_VIEW_CONST_ELEMENTS_HPP_INCLUDED
+#ifndef SGE_IMAGE_TRAITS_FORMAT_HPP_INCLUDED
+#define SGE_IMAGE_TRAITS_FORMAT_HPP_INCLUDED
 
-#include <sge/image/color/view_elements_base.hpp>
-#include <sge/image3d/view/const_element.hpp>
+#include <sge/image/color/format.hpp>
+#include <sge/image2d/tag.hpp>
+#include <sge/image3d/tag.hpp>
 
 
 namespace sge
 {
-namespace image3d
+namespace image
 {
-namespace view
+namespace traits
 {
 
-typedef sge::image::color::view_elements_base<
-	sge::image3d::view::const_element
->::type const_elements;
+template<
+	typename Tag
+>
+struct format;
+
+template<>
+struct format<
+	sge::image2d::tag
+>
+{
+	typedef sge::image::color::format::type type;
+};
+
+template<>
+struct format<
+	sge::image3d::tag
+>
+{
+	typedef sge::image::color::format::type type;
+};
 
 }
 }

@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/dim.hpp>
 #include <sge/image/color/object.hpp>
-#include <sge/image/color/any/object.hpp>
 #include <sge/src/image/convert_dim.hpp>
 #include <fcppt/nonassignable.hpp>
 
@@ -36,6 +35,7 @@ namespace view
 {
 
 template<
+	typename Result,
 	typename Dim
 >
 class get_visitor
@@ -44,7 +44,7 @@ class get_visitor
 		get_visitor
 	);
 public:
-	typedef sge::image::color::any::object result_type;
+	typedef Result result_type;
 
 	explicit
 	get_visitor(
@@ -66,7 +66,7 @@ public:
 	) const
 	{
 		return
-			sge::image::color::any::object(
+			Result(
 				typename sge::image::color::object<
 					typename Src::format::color_format
 				>::type(

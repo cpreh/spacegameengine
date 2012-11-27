@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_IMAGE_VIEW_FORMAT_ANY_HPP_INCLUDED
 #define SGE_SRC_IMAGE_VIEW_FORMAT_ANY_HPP_INCLUDED
 
-#include <sge/image/color/format.hpp>
 #include <sge/src/image/view/format_visitor.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
@@ -35,16 +34,19 @@ namespace view
 {
 
 template<
+	typename Format,
 	typename View
 >
-sge::image::color::format::type
+Format
 format_any(
 	View const &_view
 )
 {
 	return
 		fcppt::variant::apply_unary(
-			sge::image::view::format_visitor(),
+			sge::image::view::format_visitor<
+				Format
+			>(),
 			_view.get()
 		);
 }

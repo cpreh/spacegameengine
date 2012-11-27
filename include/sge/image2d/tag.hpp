@@ -21,14 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE2D_TAG_HPP_INCLUDED
 #define SGE_IMAGE2D_TAG_HPP_INCLUDED
 
+
 namespace sge
 {
 namespace image2d
 {
 
-struct tag
-{
-};
+struct tag;
 
 }
 }

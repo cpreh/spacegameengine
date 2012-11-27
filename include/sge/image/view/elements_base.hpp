@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_VIEW_ELEMENTS_BASE_HPP_INCLUDED
 #define SGE_IMAGE_VIEW_ELEMENTS_BASE_HPP_INCLUDED
 
-#include <sge/image/color/elements.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -29,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/mpl/placeholders.hpp>
 #include <boost/mpl/transform.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {
@@ -41,6 +41,7 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
+	typename Elements,
 	template<
 		typename
 	> class Element
@@ -48,7 +49,7 @@ template<
 struct elements_base
 :
 boost::mpl::transform<
-	sge::image::color::elements,
+	Elements,
 	boost::mpl::quote1<
 		Element
 	>

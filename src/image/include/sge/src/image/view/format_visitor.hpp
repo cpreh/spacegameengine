@@ -32,9 +32,12 @@ namespace image
 namespace view
 {
 
+template<
+	typename Format
+>
 struct format_visitor
 {
-	typedef sge::image::color::format::type result_type;
+	typedef Format result_type;
 
 	template<
 		typename View

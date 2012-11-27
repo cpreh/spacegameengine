@@ -79,6 +79,7 @@ set(
 	include/sge/image/color/srgb8_format.hpp
 	include/sge/image/color/srgba8.hpp
 	include/sge/image/color/srgba8_format.hpp
+	include/sge/image/color/view_elements_base.hpp
 	include/sge/image/colors.hpp
 	include/sge/image/const_raw_pointer.hpp
 	include/sge/image/difference_type.hpp
@@ -105,12 +106,14 @@ set(
 	include/sge/image/size_type.hpp
 	include/sge/image/store.hpp
 	include/sge/image/store_fwd.hpp
+	include/sge/image/traits/any_object_fwd.hpp
 	include/sge/image/traits/box.hpp
 	include/sge/image/traits/box_fwd.hpp
 	include/sge/image/traits/const_view_elements.hpp
 	include/sge/image/traits/const_view_fwd.hpp
 	include/sge/image/traits/dim.hpp
 	include/sge/image/traits/dim_fwd.hpp
+	include/sge/image/traits/format.hpp
 	include/sge/image/traits/pitch.hpp
 	include/sge/image/traits/pitch_fwd.hpp
 	include/sge/image/traits/sub_out_of_range.hpp

@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/raw_pointer.hpp>
 #include <sge/image/size_type.hpp>
-#include <sge/image/color/format.hpp>
 #include <sge/image/traits/dim_fwd.hpp>
+#include <sge/image/traits/format.hpp>
 #include <sge/image/traits/pitch_fwd.hpp>
 #include <sge/image/traits/view_elements.hpp>
 #include <sge/image/traits/view_fwd.hpp>
@@ -51,7 +51,9 @@ sge::image::view::make(
 	typename sge::image::traits::dim<
 		Tag
 	>::type const &_dim,
-	sge::image::color::format::type const _format,
+	typename sge::image::traits::format<
+		Tag
+	>::type const _format,
 	typename sge::image::traits::pitch<
 		Tag
 	>::type const &_pitch
