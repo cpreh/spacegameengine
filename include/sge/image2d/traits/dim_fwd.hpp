@@ -18,13 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_TRAITS_TAG_FROM_VIEW_HPP_INCLUDED
-#define SGE_IMAGE_TRAITS_TAG_FROM_VIEW_HPP_INCLUDED
+#ifndef SGE_IMAGE2D_TRAITS_DIM_FWD_HPP_INCLUDED
+#define SGE_IMAGE2D_TRAITS_DIM_FWD_HPP_INCLUDED
 
+#include <sge/image/traits/dim_fwd.hpp>
+#include <sge/image2d/dim_fwd.hpp>
 #include <sge/image2d/tag.hpp>
-#include <sge/image2d/view/object_fwd.hpp>
-#include <sge/image3d/tag.hpp>
-#include <sge/image3d/view/object_fwd.hpp>
 
 
 namespace sge
@@ -34,25 +33,12 @@ namespace image
 namespace traits
 {
 
-template<
-	typename View
->
-struct tag_from_view;
-
 template<>
-struct tag_from_view<
-	sge::image2d::view::object
+struct dim<
+	sge::image2d::tag
 >
 {
-	typedef sge::image2d::tag type;
-};
-
-template<>
-struct tag_from_view<
-	sge::image3d::view::object
->
-{
-	typedef sge::image3d::tag type;
+	typedef sge::image2d::dim type;
 };
 
 }

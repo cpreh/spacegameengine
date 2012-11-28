@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_TRAITS_TAG_FROM_DIMENSION_HPP_INCLUDED
-#define SGE_IMAGE_TRAITS_TAG_FROM_DIMENSION_HPP_INCLUDED
+#ifndef SGE_IMAGE2D_TRAITS_SUB_OUT_OF_RANGE_HPP_INCLUDED
+#define SGE_IMAGE2D_TRAITS_SUB_OUT_OF_RANGE_HPP_INCLUDED
 
-#include <sge/image/size_type.hpp>
+#include <sge/image/traits/sub_out_of_range.hpp>
 #include <sge/image2d/tag.hpp>
-#include <sge/image3d/tag.hpp>
+#include <sge/image2d/view/sub_out_of_range.hpp>
 
 
 namespace sge
@@ -33,25 +33,12 @@ namespace image
 namespace traits
 {
 
-template<
-	sge::image::size_type
->
-struct tag_from_dimension;
-
 template<>
-struct tag_from_dimension<
-	2u
+struct sub_out_of_range<
+	sge::image2d::tag
 >
 {
-	typedef sge::image2d::tag type;
-};
-
-template<>
-struct tag_from_dimension<
-	3u
->
-{
-	typedef sge::image3d::tag type;
+	typedef sge::image2d::view::sub_out_of_range type;
 };
 
 }

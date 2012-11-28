@@ -21,10 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_TRAITS_ANY_OBJECT_FWD_HPP_INCLUDED
 #define SGE_IMAGE_TRAITS_ANY_OBJECT_FWD_HPP_INCLUDED
 
-#include <sge/image/color/any/object_fwd.hpp>
-#include <sge/image2d/tag.hpp>
-#include <sge/image3d/tag.hpp>
-
 
 namespace sge
 {
@@ -37,22 +33,6 @@ template<
 	typename Tag
 >
 struct any_object;
-
-template<>
-struct any_object<
-	sge::image2d::tag
->
-{
-	typedef sge::image::color::any::object type;
-};
-
-template<>
-struct any_object<
-	sge::image3d::tag
->
-{
-	typedef sge::image::color::any::object type;
-};
 
 }
 }

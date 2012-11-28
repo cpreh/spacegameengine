@@ -21,11 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_TRAITS_BOX_FWD_HPP_INCLUDED
 #define SGE_IMAGE_TRAITS_BOX_FWD_HPP_INCLUDED
 
-#include <sge/image2d/rect_fwd.hpp>
-#include <sge/image2d/tag.hpp>
-#include <sge/image3d/box_fwd.hpp>
-#include <sge/image3d/tag.hpp>
-
 
 namespace sge
 {
@@ -38,22 +33,6 @@ template<
 	typename Tag
 >
 struct box;
-
-template<>
-struct box<
-	sge::image2d::tag
->
-{
-	typedef sge::image2d::rect type;
-};
-
-template<>
-struct box<
-	sge::image3d::tag
->
-{
-	typedef sge::image3d::box type;
-};
 
 }
 }

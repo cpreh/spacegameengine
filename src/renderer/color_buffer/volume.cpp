@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image3d/view/const_object.hpp>
 #include <sge/image3d/view/object.hpp>
-#include <sge/renderer/color_buffer/surface.hpp>
+#include <sge/renderer/color_buffer/volume.hpp>
 #include <sge/src/renderer/color_buffer/instantiate_basic.hpp>
 
 

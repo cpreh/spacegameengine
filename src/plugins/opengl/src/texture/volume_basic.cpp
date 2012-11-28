@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/image3d/traits/pitch_fwd.hpp>
 #include <sge/image3d/view/const_object.hpp>
 #include <sge/image3d/view/object.hpp>
 #include <sge/opengl/texture/basic_box_impl.hpp>
@@ -25,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/color_volume_types.hpp>
 #include <sge/opengl/texture/volume_basic.hpp>
 #include <sge/opengl/texture/volume_types.hpp>
-#include <sge/renderer/color_buffer/surface.hpp>
+#include <sge/renderer/color_buffer/volume.hpp>
 #include <sge/renderer/texture/volume.hpp>
 #include <sge/renderer/texture/volume_parameters.hpp>
 

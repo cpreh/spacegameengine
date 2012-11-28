@@ -18,12 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_TRAITS_BOX_HPP_INCLUDED
-#define SGE_IMAGE_TRAITS_BOX_HPP_INCLUDED
+#ifndef SGE_IMAGE3D_TRAITS_BOX_FWD_HPP_INCLUDED
+#define SGE_IMAGE3D_TRAITS_BOX_FWD_HPP_INCLUDED
 
 #include <sge/image/traits/box_fwd.hpp>
-#include <sge/image2d/rect.hpp>
-#include <sge/image3d/box.hpp>
+#include <sge/image3d/box_fwd.hpp>
+#include <sge/image3d/tag.hpp>
 
+
+namespace sge
+{
+namespace image
+{
+namespace traits
+{
+
+template<>
+struct box<
+	sge::image3d::tag
+>
+{
+	typedef sge::image3d::box type;
+};
+
+}
+}
+}
 
 #endif

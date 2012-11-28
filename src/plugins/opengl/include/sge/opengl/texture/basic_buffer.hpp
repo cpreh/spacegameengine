@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_TEXTURE_BASIC_BUFFER_HPP_INCLUDED
 
 #include <sge/image/color/format.hpp>
-#include <sge/image/traits/pitch.hpp>
+#include <sge/image/traits/pitch_fwd.hpp>
 #include <sge/opengl/color_format.hpp>
 #include <sge/opengl/color_format_type.hpp>
 #include <sge/opengl/internal_color_format.hpp>

@@ -20,9 +20,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/const_raw_pointer.hpp>
 #include <sge/image/color/format.hpp>
-#include <sge/image3d/dim_fwd.hpp>
-#include <sge/image3d/pitch_fwd.hpp>
+#include <sge/image3d/dim.hpp>
+#include <sge/image3d/pitch.hpp>
 #include <sge/image3d/tag.hpp>
+#include <sge/image3d/traits/const_view_fwd.hpp>
+#include <sge/image3d/traits/dim_fwd.hpp>
+#include <sge/image3d/traits/format.hpp>
+#include <sge/image3d/traits/pitch_fwd.hpp>
+#include <sge/image3d/traits/view_fwd.hpp>
 #include <sge/image3d/view/const_object.hpp>
 #include <sge/image3d/view/make_const.hpp>
 #include <sge/image3d/view/object.hpp>

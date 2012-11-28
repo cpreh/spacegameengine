@@ -21,11 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_TRAITS_VIEW_FWD_HPP_INCLUDED
 #define SGE_IMAGE_TRAITS_VIEW_FWD_HPP_INCLUDED
 
-#include <sge/image2d/tag.hpp>
-#include <sge/image2d/view/object_fwd.hpp>
-#include <sge/image3d/tag.hpp>
-#include <sge/image3d/view/object_fwd.hpp>
-
 
 namespace sge
 {
@@ -38,22 +33,6 @@ template<
 	typename Tag
 >
 struct view;
-
-template<>
-struct view<
-	sge::image2d::tag
->
-{
-	typedef sge::image2d::view::object type;
-};
-
-template<>
-struct view<
-	sge::image3d::tag
->
-{
-	typedef sge::image3d::view::object type;
-};
 
 }
 }

@@ -18,13 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_TRAITS_CONST_VIEW_ELEMENTS_HPP_INCLUDED
-#define SGE_IMAGE_TRAITS_CONST_VIEW_ELEMENTS_HPP_INCLUDED
+#ifndef SGE_IMAGE3D_TRAITS_CONST_VIEW_FWD_HPP_INCLUDED
+#define SGE_IMAGE3D_TRAITS_CONST_VIEW_FWD_HPP_INCLUDED
 
-#include <sge/image2d/tag.hpp>
-#include <sge/image2d/view/const_elements.hpp>
+#include <sge/image/traits/const_view_fwd.hpp>
 #include <sge/image3d/tag.hpp>
-#include <sge/image3d/view/const_elements.hpp>
+#include <sge/image3d/view/const_object_fwd.hpp>
 
 
 namespace sge
@@ -34,25 +33,12 @@ namespace image
 namespace traits
 {
 
-template<
-	typename Tag
->
-struct const_view_elements;
-
 template<>
-struct const_view_elements<
-	sge::image2d::tag
->
-{
-	typedef sge::image2d::view::const_elements type;
-};
-
-template<>
-struct const_view_elements<
+struct const_view<
 	sge::image3d::tag
 >
 {
-	typedef sge::image3d::view::const_elements type;
+	typedef sge::image3d::view::const_object type;
 };
 
 }

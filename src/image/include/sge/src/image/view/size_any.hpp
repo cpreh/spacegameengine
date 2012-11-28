@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_IMAGE_VIEW_SIZE_ANY_HPP_INCLUDED
 #define SGE_SRC_IMAGE_VIEW_SIZE_ANY_HPP_INCLUDED
 
-#include <sge/image/traits/dim.hpp>
+#include <sge/image/traits/dim_fwd.hpp>
 #include <sge/src/image/view/size_visitor.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>

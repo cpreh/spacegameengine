@@ -39,6 +39,15 @@ set(
 	include/sge/image3d/rgbx8.hpp
 	include/sge/image3d/rgbx8_format.hpp
 	include/sge/image3d/tag.hpp
+	include/sge/image3d/traits/any_object_fwd.hpp
+	include/sge/image3d/traits/box_fwd.hpp
+	include/sge/image3d/traits/const_view_fwd.hpp
+	include/sge/image3d/traits/dim_fwd.hpp
+	include/sge/image3d/traits/format.hpp
+	include/sge/image3d/traits/pitch_fwd.hpp
+	include/sge/image3d/traits/sub_out_of_range.hpp
+	include/sge/image3d/traits/view_elements.hpp
+	include/sge/image3d/traits/view_fwd.hpp
 	include/sge/image3d/view/checked_sub.hpp
 	include/sge/image3d/view/const_element.hpp
 	include/sge/image3d/view/const_elements.hpp

@@ -21,11 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_TRAITS_PITCH_FWD_HPP_INCLUDED
 #define SGE_IMAGE_TRAITS_PITCH_FWD_HPP_INCLUDED
 
-#include <sge/image2d/pitch_fwd.hpp>
-#include <sge/image2d/tag.hpp>
-#include <sge/image3d/pitch_fwd.hpp>
-#include <sge/image3d/tag.hpp>
-
 
 namespace sge
 {
@@ -38,22 +33,6 @@ template<
 	typename Tag
 >
 struct pitch;
-
-template<>
-struct pitch<
-	sge::image2d::tag
->
-{
-	typedef sge::image2d::pitch type;
-};
-
-template<>
-struct pitch<
-	sge::image3d::tag
->
-{
-	typedef sge::image3d::pitch type;
-};
 
 }
 }

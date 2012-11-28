@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_COLOR_BUFFER_SURFACE_HPP_INCLUDED
 #define SGE_RENDERER_COLOR_BUFFER_SURFACE_HPP_INCLUDED
 
+#include <sge/image2d/traits/const_view_fwd.hpp>
+#include <sge/image2d/traits/view_fwd.hpp>
 #include <sge/renderer/color_buffer/basic.hpp>
 #include <sge/renderer/color_buffer/surface_fwd.hpp>
 

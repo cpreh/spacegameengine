@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_ALGORITHM_FILL_HPP_INCLUDED
 #define SGE_IMAGE_ALGORITHM_FILL_HPP_INCLUDED
 
-#include <sge/image/color/any/object_fwd.hpp>
 #include <sge/image/detail/instantiate/symbol.hpp>
+#include <sge/image/traits/any_object_fwd.hpp>
 #include <sge/image/traits/view_fwd.hpp>
 
 
@@ -42,7 +42,9 @@ fill(
 	typename sge::image::traits::view<
 		Tag
 	>::type const &,
-	sge::image::color::any::object const &
+	typename sge::image::traits::any_object<
+		Tag
+	>::type const &
 );
 
 }

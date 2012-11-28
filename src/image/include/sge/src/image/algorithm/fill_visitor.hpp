@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/color/object.hpp>
 #include <sge/image/color/any/convert.hpp>
-#include <sge/image/color/any/object_fwd.hpp>
 #include <mizuiro/color/object_impl.hpp>
 #include <mizuiro/image/view_impl.hpp>
 #include <mizuiro/image/algorithm/fill_c.hpp>
@@ -37,6 +36,9 @@ namespace image
 namespace algorithm
 {
 
+template<
+	typename Value
+>
 class fill_visitor
 {
 	FCPPT_NONASSIGNABLE(
@@ -47,11 +49,11 @@ public:
 
 	explicit
 	fill_visitor(
-		sge::image::color::any::object const &_color
+		Value const &_value
 	)
 	:
-		color_(
-			_color
+		value_(
+			_value
 		)
 	{
 	}
@@ -69,12 +71,12 @@ public:
 			sge::image::color::any::convert<
 				typename View::format::color_format
 			>(
-				color_
+				value_
 			)
 		);
 	}
 private:
-	sge::image::color::any::object const &color_;
+	Value const &value_;
 };
 
 }

@@ -56,6 +56,7 @@ set(
 	include/sge/renderer/color_buffer/scoped_volume_lock.hpp
 	include/sge/renderer/color_buffer/surface.hpp
 	include/sge/renderer/color_buffer/surface_fwd.hpp
+	include/sge/renderer/color_buffer/tag_from_dimension.hpp
 	include/sge/renderer/color_buffer/volume.hpp
 	include/sge/renderer/color_buffer/volume_fwd.hpp
 	include/sge/renderer/const_basic_scoped_buffer_lock.hpp

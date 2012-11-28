@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/class_symbol.hpp>
 #include <sge/image/traits/const_view_fwd.hpp>
-#include <sge/image/traits/tag_from_dimension.hpp>
 #include <sge/image/traits/view_fwd.hpp>
 #include <sge/renderer/basic_dim_fwd.hpp>
 #include <sge/renderer/basic_lock_box_fwd.hpp>
@@ -31,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/color_buffer/basic_fwd.hpp>
+#include <sge/renderer/color_buffer/tag_from_dimension.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -87,7 +87,7 @@ public:
 
 	The image tag is used to generic algorithms that abstract 2D/3D.
 	*/
-	typedef typename sge::image::traits::tag_from_dimension<
+	typedef typename sge::renderer::color_buffer::tag_from_dimension<
 		Dim
 	>::type image_tag;
 
