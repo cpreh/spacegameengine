@@ -41,6 +41,6 @@ sge::image::view::to_const< \
 	sge::image::traits::view<\
 		Tag\
 	>::type const &\
-);
+)
 
 #endif

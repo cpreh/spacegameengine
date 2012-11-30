@@ -43,4 +43,4 @@ sge::image3d::view::to_const(
 
 SGE_SRC_IMAGE_VIEW_INSTANTIATE_TO_CONST(
 	sge::image3d::tag
-)
+);

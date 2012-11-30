@@ -42,7 +42,7 @@ sge::image::view::pitch<\
 	sge::image::traits::view_type<\
 		tag\
 	>::type const &\
-);
+)
 
 #define SGE_SRC_IMAGE_VIEW_INSTANTIATE_PITCH(\
 	tag\

@@ -21,23 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_COLOR_RGBX8_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_RGBX8_HPP_INCLUDED
 
-#include <sge/image/color/object.hpp>
-#include <sge/image/color/rgbx8_format.hpp>
+#include <sge/image/mizuiro_color.hpp>
+#include <sge/image/color/rgbx8_fwd.hpp>
 
-
-namespace sge
-{
-namespace image
-{
-namespace color
-{
-
-typedef sge::image::color::object<
-	sge::image::color::rgbx8_format
->::type rgbx8;
-
-}
-}
-}
 
 #endif

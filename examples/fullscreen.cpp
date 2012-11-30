@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/colors.hpp>
+#include <sge/image/color/predef.hpp>
 #include <sge/log/global.hpp>
 #include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/clear/parameters.hpp>
@@ -172,7 +172,7 @@ try
 		scoped_block.get().clear(
 			sge::renderer::clear::parameters()
 			.back_buffer(
-				sge::image::colors::yellow()
+				sge::image::color::predef::yellow()
 			)
 		);
 	}

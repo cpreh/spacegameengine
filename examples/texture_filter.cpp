@@ -35,12 +35,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/unit.hpp>
 #include <sge/font/vector.hpp>
 #include <sge/font/draw/simple.hpp>
-#include <sge/image/colors.hpp>
 #include <sge/image/size_type.hpp>
 #include <sge/image/store.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/color/init.hpp>
 #include <sge/image/color/l8.hpp>
+#include <sge/image/color/predef.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/l8.hpp>
@@ -811,7 +811,7 @@ try
 		scoped_block.get().clear(
 			sge::renderer::clear::parameters()
 			.back_buffer(
-				sge::image::colors::lightblue()
+				sge::image::color::predef::lightblue()
 			)
 		);
 
@@ -897,7 +897,7 @@ try
 				font_width
 			),
 			font_pos,
-			sge::image::colors::red(),
+			sge::image::color::predef::red(),
 			sge::renderer::texture::emulate_srgb::yes
 		);
 
@@ -916,7 +916,7 @@ try
 				font_width
 			),
 			font_pos,
-			sge::image::colors::red(),
+			sge::image::color::predef::red(),
 			sge::renderer::texture::emulate_srgb::yes
 		);
 	}

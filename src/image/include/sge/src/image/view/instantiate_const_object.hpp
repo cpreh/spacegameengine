@@ -35,6 +35,6 @@ SGE_EXPORT_CLASS_INSTANTIATION \
 sge::image::view::const_object<\
 	wrapper,\
 	nonconstwrapper\
->;
+>
 
 #endif

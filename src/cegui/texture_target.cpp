@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/colors.hpp>
 #include <sge/image/color/format.hpp>
+#include <sge/image/color/predef.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/caps/device.hpp>
@@ -350,7 +350,7 @@ sge::cegui::texture_target::clear()
 	target_->clear(
 		sge::renderer::clear::parameters()
 		.back_buffer(
-			sge::image::colors::transparent()
+			sge::image::color::predef::transparent()
 		)
 	);
 }

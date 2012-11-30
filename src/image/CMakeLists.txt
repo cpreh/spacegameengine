@@ -1,86 +1,18 @@
 set(
 	SGE_IMAGE_FILES
-	include/sge/image/a8_format.hpp
 	include/sge/image/algorithm/copy.hpp
 	include/sge/image/algorithm/copy_and_convert.hpp
 	include/sge/image/algorithm/fill.hpp
 	include/sge/image/algorithm/invalid_copy.hpp
 	include/sge/image/algorithm/may_overlap.hpp
 	include/sge/image/algorithm/print.hpp
-	include/sge/image/basic_format.hpp
-	include/sge/image/bgr32f_format.hpp
-	include/sge/image/bgr8_format.hpp
-	include/sge/image/bgra32f_format.hpp
-	include/sge/image/bgra8_format.hpp
-	include/sge/image/bgrx8_format.hpp
 	include/sge/image/box.hpp
 	include/sge/image/box_fwd.hpp
 	include/sge/image/capabilities.hpp
 	include/sge/image/capabilities_field.hpp
 	include/sge/image/capabilities_field_fwd.hpp
-	include/sge/image/color/a8.hpp
-	include/sge/image/color/a8_format.hpp
-	include/sge/image/color/any/clear.hpp
-	include/sge/image/color/any/convert.hpp
-	include/sge/image/color/any/detail/make_object.hpp
-	include/sge/image/color/any/elements.hpp
-	include/sge/image/color/any/from_string.hpp
-	include/sge/image/color/any/object.hpp
-	include/sge/image/color/any/object_fwd.hpp
-	include/sge/image/color/any/print.hpp
-	include/sge/image/color/bgr32f.hpp
-	include/sge/image/color/bgr32f_format.hpp
-	include/sge/image/color/bgr8.hpp
-	include/sge/image/color/bgr8_format.hpp
-	include/sge/image/color/bgra32f.hpp
-	include/sge/image/color/bgra32f_format.hpp
-	include/sge/image/color/bgra8.hpp
-	include/sge/image/color/bgra8_format.hpp
-	include/sge/image/color/bgrx8.hpp
-	include/sge/image/color/bgrx8_format.hpp
-	include/sge/image/color/channel32f.hpp
-	include/sge/image/color/channel8.hpp
-	include/sge/image/color/convert.hpp
-	include/sge/image/color/element_count.hpp
-	include/sge/image/color/elements.hpp
-	include/sge/image/color/format.hpp
-	include/sge/image/color/format_is_srgb.hpp
-	include/sge/image/color/format_static.hpp
-	include/sge/image/color/format_stride.hpp
-	include/sge/image/color/format_to_string.hpp
-	include/sge/image/color/homogenous_format.hpp
-	include/sge/image/color/init.hpp
-	include/sge/image/color/is_convertible.hpp
-	include/sge/image/color/l8.hpp
-	include/sge/image/color/l8_format.hpp
-	include/sge/image/color/la8.hpp
-	include/sge/image/color/la8_format.hpp
-	include/sge/image/color/mizuiro_traits.hpp
-	include/sge/image/color/object.hpp
-	include/sge/image/color/object_fwd.hpp
-	include/sge/image/color/optional_format.hpp
-	include/sge/image/color/optional_format_fwd.hpp
-	include/sge/image/color/print.hpp
-	include/sge/image/color/r32f.hpp
-	include/sge/image/color/r32f_format.hpp
-	include/sge/image/color/rgb32f.hpp
-	include/sge/image/color/rgb32f_format.hpp
-	include/sge/image/color/rgb8.hpp
-	include/sge/image/color/rgb8_format.hpp
-	include/sge/image/color/rgb8_from_hex_string.hpp
-	include/sge/image/color/rgba32f.hpp
-	include/sge/image/color/rgba32f_format.hpp
-	include/sge/image/color/rgba8.hpp
-	include/sge/image/color/rgba8_format.hpp
-	include/sge/image/color/rgba8_from_hex_string.hpp
-	include/sge/image/color/rgbx8.hpp
-	include/sge/image/color/rgbx8_format.hpp
-	include/sge/image/color/srgb8.hpp
-	include/sge/image/color/srgb8_format.hpp
-	include/sge/image/color/srgba8.hpp
-	include/sge/image/color/srgba8_format.hpp
-	include/sge/image/color/view_elements_base.hpp
-	include/sge/image/colors.hpp
+	include/sge/image/channel32f.hpp
+	include/sge/image/channel8.hpp
 	include/sge/image/const_raw_pointer.hpp
 	include/sge/image/difference_type.hpp
 	include/sge/image/dim.hpp
@@ -88,21 +20,18 @@ set(
 	include/sge/image/exception.hpp
 	include/sge/image/exception_fwd.hpp
 	include/sge/image/file_exception.hpp
+	include/sge/image/homogenous_format.hpp
 	include/sge/image/integral_size.hpp
 	include/sge/image/invalid_convert.hpp
-	include/sge/image/l8_format.hpp
-	include/sge/image/la8_format.hpp
+	include/sge/image/mizuiro_color.hpp
+	include/sge/image/mizuiro_color_fwd.hpp
+	include/sge/image/mizuiro_color_traits.hpp
 	include/sge/image/optional_path.hpp
+	include/sge/image/optional_path_fwd.hpp
 	include/sge/image/pitch.hpp
 	include/sge/image/pitch_fwd.hpp
-	include/sge/image/r32f_format.hpp
 	include/sge/image/raw_pointer.hpp
 	include/sge/image/raw_value.hpp
-	include/sge/image/rgb32f_format.hpp
-	include/sge/image/rgb8_format.hpp
-	include/sge/image/rgba32f_format.hpp
-	include/sge/image/rgba8_format.hpp
-	include/sge/image/rgbx8_format.hpp
 	include/sge/image/size_type.hpp
 	include/sge/image/store.hpp
 	include/sge/image/store_fwd.hpp
@@ -118,6 +47,7 @@ set(
 	include/sge/image/unsupported_format.hpp
 	include/sge/image/vector.hpp
 	include/sge/image/vector_fwd.hpp
+	include/sge/image/view/basic_format.hpp
 	include/sge/image/view/checked_sub.hpp
 	include/sge/image/view/const_object.hpp
 	include/sge/image/view/const_object_fwd.hpp
@@ -141,38 +71,10 @@ set(
 	include/sge/image/view/to_const.hpp
 	include/sge/image/view/wrap.hpp
 	include/sge/image/view/wrapped_type.hpp
-	src/image/algorithm/invalid_copy.cpp
-	src/image/color/any/clear.cpp
-	src/image/color/any/convert.cpp
-	src/image/color/any/from_string.cpp
-	src/image/color/any/object.cpp
-	src/image/color/any/print.cpp
-	src/image/color/element_count.cpp
-	src/image/color/format.cpp
-	src/image/color/format_is_srgb.cpp
-	src/image/color/format_stride.cpp
-	src/image/color/format_to_string.cpp
-	src/image/colors.cpp
-	src/image/dynamic/color/a8_format.cpp
-	src/image/dynamic/color/bgr32f_format.cpp
-	src/image/dynamic/color/bgr8_format.cpp
-	src/image/dynamic/color/bgra32f_format.cpp
-	src/image/dynamic/color/bgra8_format.cpp
-	src/image/dynamic/color/bgrx8_format.cpp
-	src/image/dynamic/color/from_static_format.cpp
-	src/image/dynamic/color/l8_format.cpp
-	src/image/dynamic/color/la8_format.cpp
-	src/image/dynamic/color/r32f_format.cpp
-	src/image/dynamic/color/rgb32f_format.cpp
-	src/image/dynamic/color/rgb8_format.cpp
-	src/image/dynamic/color/rgba32f_format.cpp
-	src/image/dynamic/color/rgba8_format.cpp
-	src/image/dynamic/color/rgbx8_format.cpp
-	src/image/dynamic/color/srgb8_format.cpp
-	src/image/dynamic/color/srgba8_format.cpp
 	src/image/exception.cpp
 	src/image/file_exception.cpp
 	src/image/include/sge/src/image/algorithm/copy_and_convert_impl.hpp
+	src/image/include/sge/src/image/algorithm/copy_and_convert_static.hpp
 	src/image/include/sge/src/image/algorithm/copy_and_convert_visitor.hpp
 	src/image/include/sge/src/image/algorithm/copy_impl.hpp
 	src/image/include/sge/src/image/algorithm/copy_visitor.hpp
@@ -181,66 +83,18 @@ set(
 	src/image/include/sge/src/image/algorithm/instantiate_copy.hpp
 	src/image/include/sge/src/image/algorithm/instantiate_copy_and_convert.hpp
 	src/image/include/sge/src/image/algorithm/instantiate_fill.hpp
+	src/image/include/sge/src/image/algorithm/instantiate_invalid_copy.hpp
 	src/image/include/sge/src/image/algorithm/instantiate_print.hpp
+	src/image/include/sge/src/image/algorithm/invalid_copy_impl.hpp
 	src/image/include/sge/src/image/algorithm/print_impl.hpp
 	src/image/include/sge/src/image/algorithm/print_visitor.hpp
-	src/image/include/sge/src/image/color/any/convert_visitor.hpp
-	src/image/include/sge/src/image/color/converter.hpp
 	src/image/include/sge/src/image/convert_dim.hpp
-	src/image/include/sge/src/image/dynamic/algorithm/cac/choose.hpp
-	src/image/include/sge/src/image/dynamic/algorithm/cac/convert.hpp
-	src/image/include/sge/src/image/dynamic/algorithm/cac/convert_visitor.hpp
-	src/image/include/sge/src/image/dynamic/algorithm/cac/copy.hpp
-	src/image/include/sge/src/image/dynamic/algorithm/cac/function.hpp
-	src/image/include/sge/src/image/dynamic/algorithm/cac/permutate_compare.hpp
-	src/image/include/sge/src/image/dynamic/algorithm/cac/source.hpp
-	src/image/include/sge/src/image/dynamic/algorithm/cac/visitor.hpp
-	src/image/include/sge/src/image/dynamic/algorithm/copy_and_convert.hpp
-	src/image/include/sge/src/image/dynamic/color/a8_format.hpp
-	src/image/include/sge/src/image/dynamic/color/access.hpp
-	src/image/include/sge/src/image/dynamic/color/available_channels.hpp
-	src/image/include/sge/src/image/dynamic/color/available_layouts.hpp
-	src/image/include/sge/src/image/dynamic/color/bgr32f_format.hpp
-	src/image/include/sge/src/image/dynamic/color/bgr8_format.hpp
-	src/image/include/sge/src/image/dynamic/color/bgra32f_format.hpp
-	src/image/include/sge/src/image/dynamic/color/bgra8_format.hpp
-	src/image/include/sge/src/image/dynamic/color/bgrx8_format.hpp
-	src/image/include/sge/src/image/dynamic/color/c32f_1_format.hpp
-	src/image/include/sge/src/image/dynamic/color/c32f_3_format.hpp
-	src/image/include/sge/src/image/dynamic/color/c32f_4_format.hpp
-	src/image/include/sge/src/image/dynamic/color/c8_1_format.hpp
-	src/image/include/sge/src/image/dynamic/color/c8_2_format.hpp
-	src/image/include/sge/src/image/dynamic/color/c8_3_format.hpp
-	src/image/include/sge/src/image/dynamic/color/c8_4_format.hpp
-	src/image/include/sge/src/image/dynamic/color/convert_channel.hpp
-	src/image/include/sge/src/image/dynamic/color/format_object_base.hpp
-	src/image/include/sge/src/image/dynamic/color/format_object_decl.hpp
-	src/image/include/sge/src/image/dynamic/color/format_object_fwd.hpp
-	src/image/include/sge/src/image/dynamic/color/format_object_impl.hpp
-	src/image/include/sge/src/image/dynamic/color/format_object_traits.hpp
-	src/image/include/sge/src/image/dynamic/color/formats.hpp
-	src/image/include/sge/src/image/dynamic/color/from_static_format.hpp
-	src/image/include/sge/src/image/dynamic/color/from_static_format_type.hpp
-	src/image/include/sge/src/image/dynamic/color/l8_format.hpp
-	src/image/include/sge/src/image/dynamic/color/la8_format.hpp
-	src/image/include/sge/src/image/dynamic/color/r32f_format.hpp
-	src/image/include/sge/src/image/dynamic/color/rgb32f_format.hpp
-	src/image/include/sge/src/image/dynamic/color/rgb8_format.hpp
-	src/image/include/sge/src/image/dynamic/color/rgba32f_format.hpp
-	src/image/include/sge/src/image/dynamic/color/rgba8_format.hpp
-	src/image/include/sge/src/image/dynamic/color/rgbx8_format.hpp
-	src/image/include/sge/src/image/dynamic/color/srgb8_format.hpp
-	src/image/include/sge/src/image/dynamic/color/srgba8_format.hpp
-	src/image/include/sge/src/image/dynamic/view/basic_elements.hpp
-	src/image/include/sge/src/image/dynamic/view/basic_variant.hpp
-	src/image/include/sge/src/image/dynamic/view/color_format.hpp
-	src/image/include/sge/src/image/dynamic/view/color_layout.hpp
-	src/image/include/sge/src/image/dynamic/view/format_channel.hpp
-	src/image/include/sge/src/image/dynamic/view/from_static.hpp
-	src/image/include/sge/src/image/dynamic/view/from_static_visitor.hpp
-	src/image/include/sge/src/image/dynamic/view/image_format.hpp
+	src/image/include/sge/src/image/instantiate_invalid_convert.hpp
 	src/image/include/sge/src/image/instantiate_store.hpp
+	src/image/include/sge/src/image/invalid_convert_impl.hpp
 	src/image/include/sge/src/image/store_impl.hpp
+	src/image/include/sge/src/image/traits/dynamic_copy_and_convert.hpp
+	src/image/include/sge/src/image/traits/static_converter.hpp
 	src/image/include/sge/src/image/view/checked_sub_any.hpp
 	src/image/include/sge/src/image/view/checked_sub_condition.hpp
 	src/image/include/sge/src/image/view/checked_sub_impl.hpp
@@ -288,7 +142,6 @@ set(
 	src/image/include/sge/src/image/view/sub_visitor.hpp
 	src/image/include/sge/src/image/view/to_const_impl.hpp
 	src/image/include/sge/src/image/view/to_const_visitor.hpp
-	src/image/invalid_convert.cpp
 	src/image/unsupported_format.cpp
 )
 

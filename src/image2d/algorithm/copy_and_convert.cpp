@@ -29,6 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/object.hpp>
 #include <sge/src/image/algorithm/copy_and_convert_impl.hpp>
 #include <sge/src/image/algorithm/instantiate_copy_and_convert.hpp>
+#include <sge/src/image2d/traits/dynamic_copy_and_convert.hpp>
+#include <sge/src/image2d/traits/static_converter.hpp>
 
 
 void
@@ -49,4 +51,4 @@ sge::image2d::algorithm::copy_and_convert(
 
 SGE_SRC_IMAGE_ALGORITHM_INSTANTIATE_COPY_AND_CONVERT(
 	sge::image2d::tag
-)
+);

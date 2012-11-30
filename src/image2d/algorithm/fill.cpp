@@ -43,4 +43,4 @@ sge::image2d::algorithm::fill(
 
 SGE_SRC_IMAGE_ALGORITHM_INSTANTIATE_FILL(
 	sge::image2d::tag
-)
+);

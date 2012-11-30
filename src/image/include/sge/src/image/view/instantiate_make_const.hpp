@@ -49,6 +49,6 @@ sge::image::view::make_const< \
 	sge::image::traits::pitch<\
 		Tag\
 	>::type const &\
-);
+)
 
 #endif

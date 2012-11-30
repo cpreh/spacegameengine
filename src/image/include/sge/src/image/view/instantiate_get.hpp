@@ -22,11 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_IMAGE_VIEW_INSTANTIATE_GET_HPP_INCLUDED
 
 #include <sge/image/color/any/object.hpp>
-#include <sge/image/traits/const_view_fwd.hpp>
+#include <sge/image/traits/any_object_fwd.hpp>
 #include <sge/image/traits/dim_fwd.hpp>
-#include <sge/image/traits/view_fwd.hpp>
 #include <sge/src/export_function_instantiation.hpp>
-#include <sge/src/image/view/data_impl.hpp>
+#include <sge/src/image/view/get_impl.hpp>
+#include <sge/src/image/view/instantiate_const_nonconst.hpp>
 
 
 #define SGE_SRC_IMAGE_VIEW_INSTANTIATE_GET_BASE(\
@@ -35,7 +35,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 )\
 template \
 SGE_EXPORT_FUNCTION_INSTANTIATION \
-sge::image::color::any::object const \
+sge::image::traits::any_object<\
+	tag\
+>::type const \
 sge::image::view::get<\
 	tag\
 >(\
@@ -45,18 +47,14 @@ sge::image::view::get<\
 	sge::image::traits::dim<\
 		tag\
 	>::type const &\
-);
+)
 
 #define SGE_SRC_IMAGE_VIEW_INSTANTIATE_GET(\
 	tag\
 )\
-SGE_SRC_IMAGE_VIEW_INSTANTIATE_GET_BASE(\
+SGE_SRC_IMAGE_VIEW_INSTANTIATE_CONST_NONCONST(\
 	tag,\
-	view\
-)\
-SGE_SRC_IMAGE_VIEW_INSTANTIATE_GET_BASE(\
-	tag,\
-	const_view\
+	SGE_SRC_IMAGE_VIEW_INSTANTIATE_GET_BASE\
 )
 
 #endif

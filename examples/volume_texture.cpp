@@ -23,10 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/first_person/object.hpp>
 #include <sge/camera/first_person/parameters.hpp>
 #include <sge/camera/matrix_conversion/world.hpp>
-#include <sge/image/colors.hpp>
+#include <sge/image/channel8.hpp>
 #include <sge/image/size_type.hpp>
 #include <sge/image/store.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
+#include <sge/image/color/predef.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/image3d/box.hpp>
 #include <sge/image3d/dim.hpp>
@@ -509,7 +510,7 @@ create_noise_texture(
 
 				view[current_position].set(
 					mizuiro::color::channel::luminance(),
-					static_cast<sge::image::color::channel8>(
+					static_cast<sge::image::channel8>(
 						256.0f *
 						(0.5f + 0.5f *
 						sge::noise::sample(
@@ -577,7 +578,7 @@ create_checkers_texture(
 		sge::image3d::view::object(
 			white_store.wrapped_view()
 		),
-		sge::image::colors::white()
+		sge::image::color::predef::white()
 	);
 
 	store_type black_store(
@@ -588,7 +589,7 @@ create_checkers_texture(
 		sge::image3d::view::object(
 			black_store.wrapped_view()
 		),
-		sge::image::colors::black()
+		sge::image::color::predef::black()
 	);
 
 	for(
@@ -887,7 +888,7 @@ try
 		scoped_block.get().clear(
 			sge::renderer::clear::parameters()
 			.back_buffer(
-				sge::image::colors::black()
+				sge::image::color::predef::black()
 			)
 			.depth_buffer(
 				1.f

@@ -58,4 +58,4 @@ sge::image3d::view::format(
 
 SGE_SRC_IMAGE_VIEW_INSTANTIATE_FORMAT(
 	sge::image3d::tag
-)
+);

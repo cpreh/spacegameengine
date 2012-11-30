@@ -117,6 +117,7 @@ OPTION (ENABLE_CHARCONV "Build the charconv library" ON)
 OPTION (ENABLE_FONT "Build the font library" ON)
 OPTION (ENABLE_GRAPH "Build the graph library" ON)
 OPTION (ENABLE_IMAGE "Build the image library" ON)
+OPTION (ENABLE_IMAGECOLOR "Build the imagecolor library" ON)
 OPTION (ENABLE_IMAGE2D "Build the image2d library" ON)
 OPTION (ENABLE_IMAGE3D "Build the image3d library" ON)
 OPTION (ENABLE_INPUT "Build the input library" ON)
@@ -187,6 +188,10 @@ ENDIF ()
 
 IF (ENABLE_IMAGE)
 	ADD_SUBDIRECTORY(image)
+ENDIF ()
+
+IF (ENABLE_IMAGECOLOR)
+	ADD_SUBDIRECTORY(image/color)
 ENDIF ()
 
 IF (ENABLE_IMAGE2D)

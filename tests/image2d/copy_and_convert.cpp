@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/color/channel8.hpp>
-#include <sge/image/color/init.hpp>
-#include <sge/image/color/object.hpp>
+#include <sge/image/channel8.hpp>
+#include <sge/image/mizuiro_color.hpp>
 #include <sge/image/store.hpp>
+#include <sge/image/color/init.hpp>
 #include <sge/image2d/bgra8_format.hpp>
 #include <sge/image2d/rgb8_format.hpp>
 #include <sge/image2d/rgba8_format.hpp>
@@ -42,14 +42,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-sge::image::color::channel8
+sge::image::channel8
 channel8(
 	unsigned const _value
 )
 {
 	return
 		static_cast<
-			sge::image::color::channel8
+			sge::image::channel8
 		>(
 			_value
 		);
@@ -90,7 +90,7 @@ test_conversion(
 			0
 		)
 	] =
-		typename sge::image::color::object<
+		typename sge::image::mizuiro_color<
 			typename Source::color_format
 		>::type(
 			_source
@@ -130,7 +130,7 @@ test_conversion(
 			)
 		]
 		==
-		typename sge::image::color::object<
+		typename sge::image::mizuiro_color<
 			typename Dest::color_format
 		>::type(
 			_dest

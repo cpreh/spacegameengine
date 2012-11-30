@@ -36,8 +36,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/unit.hpp>
 #include <sge/font/vector.hpp>
 #include <sge/font/draw/simple.hpp>
-#include <sge/image/colors.hpp>
 #include <sge/image/color/init.hpp>
+#include <sge/image/color/predef.hpp>
 #include <sge/image/color/rgba8.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_code_to_digit.hpp>
@@ -339,7 +339,7 @@ try
 			context.clear(
 				sge::renderer::clear::parameters()
 				.back_buffer(
-					sge::image::colors::black()
+					sge::image::color::predef::black()
 				)
 				.depth_buffer(
 					1.f)
@@ -434,7 +434,7 @@ try
 				)
 			),
 			sge::font::vector::null(),
-			sge::image::colors::red()
+			sge::image::color::predef::red()
 		);
 	}
 

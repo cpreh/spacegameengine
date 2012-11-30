@@ -26,7 +26,7 @@ set(
 
 add_sge_base_library(
 	"graph"
-	"sgerenderer;sgeimage;sgeimage2d;sgesprite;sgetexture"
+	"sgeimage;sgeimagecolor;sgeimage2d;sgerenderer;sgesprite;sgetexture"
 	"${fcppt_core_TARGET}"
 	""
 	""

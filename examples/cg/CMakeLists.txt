@@ -5,28 +5,28 @@ find_package(
 
 add_sge_example(
 	cg_parameters
-	"sgecg;sgeimage;sgeinput;sgerenderer;sgerenderercg;sgesystems;sgeviewport;sgewindow"
+	"sgecg;sgeimagecolor;sgeinput;sgerenderer;sgerenderercg;sgesystems;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 	"${Cg_INCLUDE_DIRS}"
 )
 
 add_sge_example(
 	cg_simple
-	"sgecg;sgeimage;sgeinput;sgerenderer;sgerenderercg;sgesystems;sgeviewport;sgewindow"
+	"sgecg;sgeimagecolor;sgeinput;sgerenderer;sgerenderercg;sgesystems;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 	"${Cg_INCLUDE_DIRS}"
 )
 
 add_sge_example(
 	cg_texture
-	"sgecg;sgeconfig;sgeimage;sgeinput;sgemedia;sgerenderer;sgerenderercg;sgesystems;sgeviewport;sgewindow"
+	"sgecg;sgeconfig;sgeimagecolor;sgeinput;sgemedia;sgerenderer;sgerenderercg;sgesystems;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 	"${Cg_INCLUDE_DIRS}"
 )
 
 add_sge_example(
 	cg_pointsprites
-	"sgecg;sgeconfig;sgeimage;sgeinput;sgemedia;sgerenderer;sgerenderercg;sgesystems;sgeviewport;sgewindow"
+	"sgecg;sgeconfig;sgeimagecolor;sgeinput;sgemedia;sgerenderer;sgerenderercg;sgesystems;sgeviewport;sgewindow"
 	"${Fcppt_core_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
 	"${Cg_INCLUDE_DIRS}"
 )

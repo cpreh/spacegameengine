@@ -18,13 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/colors.hpp>
 #include <sge/image/color/a8.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image/color/init.hpp>
 #include <sge/image/color/l8.hpp>
 #include <sge/image/color/la8.hpp>
-#include <sge/image/color/object.hpp>
+#include <sge/image/color/predef.hpp>
 #include <sge/image/color/r32f.hpp>
 #include <sge/image/color/srgba8.hpp>
 #include <sge/image/color/any/clear.hpp>
@@ -82,7 +81,7 @@ sge::image::color::any::clear(
 	case sge::image::color::format::rgba32f:
 	case sge::image::color::format::bgra32f:
 		return
-			sge::image::colors::transparent();
+			sge::image::color::predef::transparent();
 	case sge::image::color::format::srgb8:
 	case sge::image::color::format::srgba8:
 		return

@@ -58,4 +58,4 @@ sge::image3d::view::pitch(
 
 SGE_SRC_IMAGE_VIEW_INSTANTIATE_PITCH(
 	sge::image3d::tag
-)
+);

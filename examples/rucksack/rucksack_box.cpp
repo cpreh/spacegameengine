@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/colors.hpp>
+#include <sge/image/color/predef.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/rucksack/testbed/object.hpp>
 #include <sge/rucksack/testbed/systems.hpp>
@@ -128,15 +128,15 @@ try
 
 	testbed.add_widget(
 		viewport_box,
-		sge::image::colors::blue());
+		sge::image::color::predef::blue());
 
 	testbed.add_widget(
 		inner_sprite,
-		sge::image::colors::red());
+		sge::image::color::predef::red());
 
 	testbed.add_widget(
 		inner_sprite2,
-		sge::image::colors::green());
+		sge::image::color::predef::green());
 
 	return testbed.run();
 }

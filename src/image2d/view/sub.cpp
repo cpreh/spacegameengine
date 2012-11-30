@@ -62,4 +62,4 @@ sge::image2d::view::sub(
 
 SGE_SRC_IMAGE_VIEW_INSTANTIATE_SUB(
 	sge::image2d::tag
-)
+);

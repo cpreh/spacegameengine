@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/first_person/parameters.hpp>
 #include <sge/camera/matrix_conversion/world.hpp>
 #include <sge/config/media_path.hpp>
-#include <sge/image/colors.hpp>
+#include <sge/image/color/predef.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/system.hpp>
 #include <sge/image2d/algorithm/copy_and_convert.hpp>
@@ -813,7 +813,7 @@ try
 			scoped_block.get().clear(
 				sge::renderer::clear::parameters()
 					.back_buffer(
-						sge::image::colors::black())
+						sge::image::color::predef::black())
 					.depth_buffer(
 						1.f));
 
@@ -829,7 +829,7 @@ try
 		scoped_block.get().clear(
 			sge::renderer::clear::parameters()
 				.back_buffer(
-					sge::image::colors::black())
+					sge::image::color::predef::black())
 				.depth_buffer(
 					1.f));
 

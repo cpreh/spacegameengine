@@ -28,12 +28,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/image/config.hpp>
 
 #if defined(SGE_IMAGE_STATIC_COPY_AND_CONVERT)
-#include <sge/src/image/algorithm/copy_and_convert_visitor.hpp>
-#include <fcppt/variant/apply_binary.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#include <sge/src/image/algorithm/copy_and_convert_static.hpp>
 #else
-#include <sge/src/image/dynamic/algorithm/copy_and_convert.hpp>
+#include <sge/src/image/traits/dynamic_copy_and_convert.hpp>
 #endif
+
 
 template<
 	typename Tag
@@ -49,16 +48,19 @@ sge::image::algorithm::copy_and_convert(
 	sge::image::algorithm::may_overlap::type const _overlap
 )
 {
+	// TODO: automatically use the static version if the dynamic one is not specialized
 #if defined(SGE_IMAGE_STATIC_COPY_AND_CONVERT)
-	fcppt::variant::apply_binary(
-		sge::image::algorithm::copy_and_convert_visitor(
-			_overlap
-		),
-		_src.get(),
-		_dest.get()
+	sge::image::algorithm::copy_and_convert_static<
+		Tag
+	>(
+		_src,
+		_dest,
+		_overlap
 	);
 #else
-	sge::image::dynamic::algorithm::copy_and_convert<
+	sge::image::traits::dynamic_copy_and_convert<
+		Tag
+	>:: template execute<
 		Tag
 	>(
 		_src,

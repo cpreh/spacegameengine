@@ -33,6 +33,6 @@ class \
 SGE_EXPORT_CLASS_INSTANTIATION \
 sge::image::view::object<\
 	wrapper\
->;
+>
 
 #endif

@@ -18,18 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/image/file_exception.hpp>
+#include <sge/image/optional_path_fwd.hpp>
 #include <sge/image/unsupported_format.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 
 
 sge::image::unsupported_format::unsupported_format(
-	optional_path const &_path,
+	sge::image::optional_path const &_path,
 	fcppt::string const &_string
 )
 :
-	image::file_exception(
+	sge::image::file_exception(
 		_path,
 		FCPPT_TEXT("file has unsupported format: ")
 		+ _string
 	)
-{}
+{
+}

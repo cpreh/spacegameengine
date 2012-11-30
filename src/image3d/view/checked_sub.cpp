@@ -64,4 +64,4 @@ sge::image3d::view::checked_sub(
 
 SGE_SRC_IMAGE_VIEW_INSTANTIATE_CHECKED_SUB(
 	sge::image3d::tag
-)
+);

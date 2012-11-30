@@ -25,7 +25,7 @@ set(
 
 add_sge_base_library(
 	"font/bitmap"
-	"sgecore;sgefont;sgeimage;sgeimage2d;sgelog;sgeparse"
+	"sgecore;sgefont;sgeimagecolor;sgeimage2d;sgelog;sgeparse"
 	"${fcppt_core_TARGET};${fcppt_filesystem_TARGET}"
 	""
 	""

@@ -2,7 +2,10 @@
 #define SGE_SHADER_VERTEX_PROGRAM_STREAM_HPP_INCLUDED
 
 #include <fcppt/strong_typedef.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <iosfwd>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

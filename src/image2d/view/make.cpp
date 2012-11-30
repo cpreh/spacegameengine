@@ -55,4 +55,4 @@ sge::image2d::view::make(
 
 SGE_SRC_IMAGE_VIEW_INSTANTIATE_MAKE(
 	sge::image2d::tag
-)
+);

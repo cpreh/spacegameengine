@@ -180,7 +180,7 @@ configure_file(
 
 add_sge_base_library(
 	opencl
-	"sgecore;sgeimage;sgeimage2d;sgelog;sgerenderer;sgerendereropengl"
+	"sgecore;sgeimagecolor;sgeimage2d;sgelog;sgerenderer;sgerendereropengl"
 	"${fcppt_core_TARGET};${fcppt_filesystem_TARGET};${OPENCL_LIBRARIES};${OPENGL_gl_LIBRARY}"
 	""
 	""

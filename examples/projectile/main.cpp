@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/colors.hpp>
+#include <sge/image/color/predef.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/input/keyboard/key_event.hpp>
@@ -579,7 +579,7 @@ try
 		scoped_block.get().clear(
 			sge::renderer::clear::parameters()
 			.back_buffer(
-				sge::image::colors::black()));
+				sge::image::color::predef::black()));
 
 		sge::renderer::state::ffp::transform::object_scoped_ptr const transform_state(
 			sys.renderer_ffp().create_transform_state(

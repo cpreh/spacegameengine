@@ -40,6 +40,6 @@ sge::image::algorithm::print< \
 	sge::image::traits::const_view<\
 		tag\
 	>::type const & \
-);
+)
 
 #endif

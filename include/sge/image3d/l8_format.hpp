@@ -21,14 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE3D_L8_FORMAT_HPP_INCLUDED
 #define SGE_IMAGE3D_L8_FORMAT_HPP_INCLUDED
 
-#include <sge/image/l8_format.hpp>
+#include <sge/image/color/view/l8_format.hpp>
+
 
 namespace sge
 {
 namespace image3d
 {
 
-typedef image::l8_format<
+typedef sge::image::color::view::l8_format<
 	3
 >::type l8_format;
 

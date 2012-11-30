@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/object_scoped_ptr.hpp>
 #include <sge/font/parameters.hpp>
 #include <sge/font/system.hpp>
-#include <sge/image/colors.hpp>
+#include <sge/image/color/predef.hpp>
 #include <sge/input/logger.hpp>
 #include <sge/input/cursor/button_code_to_string.hpp>
 #include <sge/input/cursor/button_event.hpp>
@@ -435,7 +435,7 @@ try
 		console,
 		sys.renderer_ffp(),
 		sge::console::font_color(
-			sge::image::colors::white()
+			sge::image::color::predef::white()
 		),
 		*font,
 		sys.keyboard_collector(),
@@ -600,7 +600,7 @@ try
 		scoped_ffp.get().clear(
 			sge::renderer::clear::parameters()
 			.back_buffer(
-				sge::image::colors::black()
+				sge::image::color::predef::black()
 			)
 		);
 

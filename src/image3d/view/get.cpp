@@ -64,4 +64,4 @@ sge::image3d::view::get(
 
 SGE_SRC_IMAGE_VIEW_INSTANTIATE_GET(
 	sge::image3d::tag
-)
+);

@@ -124,7 +124,7 @@ set(
 
 add_sge_base_library(
 	cegui
-	"sgecharconv;sgeimage;sgeimage2d;sgeinput;sgelog;sgerenderer;sgeviewport"
+	"sgecharconv;sgeimagecolor;sgeimage2d;sgeinput;sgelog;sgerenderer;sgeviewport"
 	"${fcppt_core_TARGET};${fcppt_filesystem_TARGET};${CEGUI_LIBRARIES}"
 	""
 	"${CEGUI_LIBRARIES}"

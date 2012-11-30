@@ -43,7 +43,7 @@ sge::image::view::data<\
 	sge::image::traits::view_type<\
 		tag\
 	>::type const &\
-);
+)
 
 #define SGE_SRC_IMAGE_VIEW_INSTANTIATE_DATA(\
 	tag\
@@ -52,7 +52,7 @@ SGE_SRC_IMAGE_VIEW_INSTANTIATE_DATA_BASE(\
 	tag,\
 	view,\
 	sge::image::raw_pointer\
-)\
+);\
 SGE_SRC_IMAGE_VIEW_INSTANTIATE_DATA_BASE(\
 	tag,\
 	const_view,\

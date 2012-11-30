@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_COLOR_ANY_OBJECT_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_ANY_OBJECT_HPP_INCLUDED
 
-#include <sge/image/symbol.hpp>
-#include <sge/image/color/object.hpp>
+#include <sge/image/mizuiro_color.hpp>
+#include <sge/image/color/symbol.hpp>
 #include <sge/image/color/any/elements.hpp>
 #include <sge/image/color/any/object_fwd.hpp>
 #include <fcppt/variant/object_impl.hpp>
@@ -44,35 +44,43 @@ public:
 		sge::image::color::any::elements
 	> variant;
 
-	SGE_IMAGE_SYMBOL
-	explicit object(
+	SGE_IMAGE_COLOR_SYMBOL
+	explicit
+	object(
 		variant const &
 	);
 
-	SGE_IMAGE_SYMBOL
+	SGE_IMAGE_COLOR_SYMBOL
 	object(
 		object const &
 	);
 
-	SGE_IMAGE_SYMBOL
+	SGE_IMAGE_COLOR_SYMBOL
 	object &
 	operator=(
 		object const &
 	);
 
-	SGE_IMAGE_SYMBOL
+	SGE_IMAGE_COLOR_SYMBOL
 	~object();
 
-	SGE_IMAGE_SYMBOL
+	SGE_IMAGE_COLOR_SYMBOL
 	variant const &
 	get() const;
 private:
 	variant variant_;
 };
 
-SGE_IMAGE_SYMBOL
+SGE_IMAGE_COLOR_SYMBOL
 bool
 operator==(
+	sge::image::color::any::object const &,
+	sge::image::color::any::object const &
+);
+
+SGE_IMAGE_COLOR_SYMBOL
+bool
+operator!=(
 	sge::image::color::any::object const &,
 	sge::image::color::any::object const &
 );

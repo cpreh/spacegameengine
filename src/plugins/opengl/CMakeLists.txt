@@ -1156,7 +1156,7 @@ set(
 
 set(
 	SGE_OPENGL_SGE_DEPS
-	"sgeimage;sgeimage2d;sgeimage3d;sgelog;sgeplugin;sgerenderer;sgerendereropengl;sgewindow"
+	"sgeimagecolor;sgeimage2d;sgeimage3d;sgelog;sgeplugin;sgerenderer;sgerendereropengl"
 )
 
 set(

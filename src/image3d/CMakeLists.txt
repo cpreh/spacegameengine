@@ -5,6 +5,7 @@ set(
 	include/sge/image3d/algorithm/copy.hpp
 	include/sge/image3d/algorithm/copy_and_convert.hpp
 	include/sge/image3d/algorithm/fill.hpp
+	include/sge/image3d/algorithm/invalid_copy.hpp
 	include/sge/image3d/algorithm/print.hpp
 	include/sge/image3d/bgr32f.hpp
 	include/sge/image3d/bgr32f_format.hpp
@@ -83,6 +84,8 @@ set(
 	src/image3d/bgra32f.cpp
 	src/image3d/bgra8.cpp
 	src/image3d/bgrx8.cpp
+	src/image3d/include/sge/src/image3d/traits/dynamic_copy_and_convert.hpp
+	src/image3d/include/sge/src/image3d/traits/static_converter.hpp
 	src/image3d/l8.cpp
 	src/image3d/la8.cpp
 	src/image3d/r32f.cpp
@@ -113,9 +116,9 @@ sge_implement_from_lib(
 
 add_sge_base_library(
 	image3d
-	"sgeimage"
+	"sgeimage;sgeimagecolor"
 	""
 	""
 	""
-	"${CMAKE_BINARY_DIR}/src/image/include"
+	"${CMAKE_SOURCE_DIR}/src/image/color/include;${CMAKE_BINARY_DIR}/src/image/include;${CMAKE_CURRENT_SOURCE_DIR}/include"
 )

@@ -48,4 +48,4 @@ sge::image3d::algorithm::copy(
 
 SGE_SRC_IMAGE_ALGORITHM_INSTANTIATE_COPY(
 	sge::image3d::tag
-)
+);

@@ -44,6 +44,6 @@ sge::image::algorithm::copy< \
 		tag\
 	>::type const &, \
 	sge::image::algorithm::may_overlap::type \
-);
+)
 
 #endif

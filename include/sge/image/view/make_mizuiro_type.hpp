@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_VIEW_MAKE_MIZUIRO_TYPE_HPP_INCLUDED
 #define SGE_IMAGE_VIEW_MAKE_MIZUIRO_TYPE_HPP_INCLUDED
 
-#include <sge/image/basic_format.hpp>
+#include <sge/image/view/basic_format.hpp>
 #include <sge/image/view/mizuiro_type.hpp>
 #include <mizuiro/color/access/homogenous_raw.hpp>
 #include <mizuiro/color/types/homogenous.hpp>
@@ -53,7 +53,7 @@ template<
 struct make_mizuiro_type
 :
 sge::image::view::mizuiro_type<
-	typename sge::image::basic_format<
+	typename sge::image::view::basic_format<
 		Dim::value,
 		ColorFormat
 	>::type,

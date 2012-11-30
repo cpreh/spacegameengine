@@ -6,6 +6,7 @@ set(
 	include/sge/image2d/algorithm/copy.hpp
 	include/sge/image2d/algorithm/copy_and_convert.hpp
 	include/sge/image2d/algorithm/fill.hpp
+	include/sge/image2d/algorithm/invalid_copy.hpp
 	include/sge/image2d/algorithm/print.hpp
 	include/sge/image2d/bgr32f.hpp
 	include/sge/image2d/bgr32f_format.hpp
@@ -105,6 +106,8 @@ set(
 	src/image2d/bgrx8.cpp
 	src/image2d/file.cpp
 	src/image2d/include/sge/src/image2d/algorithm/bresenham_visitor.hpp
+	src/image2d/include/sge/src/image2d/traits/dynamic_copy_and_convert.hpp
+	src/image2d/include/sge/src/image2d/traits/static_converter.hpp
 	src/image2d/l8.cpp
 	src/image2d/la8.cpp
 	src/image2d/multi_system.cpp
@@ -153,9 +156,9 @@ sge_implement_from_lib(
 
 add_sge_base_library(
 	image2d
-	"sgeimage;sgemedia;sgeplugin"
+	"sgeimage;sgeimagecolor;sgemedia;sgeplugin"
 	""
 	""
 	""
-	"${CMAKE_BINARY_DIR}/src/image/include;${CMAKE_CURRENT_SOURCE_DIR}/include"
+	"${CMAKE_SOURCE_DIR}/src/image/color/include;${CMAKE_BINARY_DIR}/src/image/include;${CMAKE_CURRENT_SOURCE_DIR}/include"
 )

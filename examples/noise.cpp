@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/colors.hpp>
+#include <sge/image/channel8.hpp>
 #include <sge/image/store.hpp>
-#include <sge/image/color/channel8.hpp>
+#include <sge/image/color/predef.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/l8.hpp>
 #include <sge/image2d/view/const_object.hpp>
@@ -156,7 +156,7 @@ fill_texture(
 				)
 			].set(
 				mizuiro::color::channel::luminance(),
-				static_cast<sge::image::color::channel8>(
+				static_cast<sge::image::channel8>(
 					256.0 *
 					(0.5 + 0.5 *
 					sge::noise::sample(
@@ -346,7 +346,7 @@ try
 		scoped_block.get().clear(
 			sge::renderer::clear::parameters()
 			.back_buffer(
-				sge::image::colors::black()
+				sge::image::color::predef::black()
 			)
 		);
 

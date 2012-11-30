@@ -41,7 +41,7 @@ sge::image::view::flipped<\
 	sge::image::traits::view_type<\
 		tag\
 	>::type const &\
-);
+)
 
 #define SGE_SRC_IMAGE_VIEW_INSTANTIATE_FLIPPED(\
 	tag\

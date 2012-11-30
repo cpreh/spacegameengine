@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_LINE_DRAWER_LINE_HPP_INCLUDED
 #define SGE_LINE_DRAWER_LINE_HPP_INCLUDED
 
-#include <sge/image/colors.hpp>
+#include <sge/image/color/predef.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/line_drawer/color.hpp>
 #include <sge/line_drawer/color_format.hpp>
@@ -42,8 +42,9 @@ public:
 	line(
 		sge::renderer::vector3 const &,
 		sge::renderer::vector3 const &,
-		sge::image::color::any::object const & = sge::image::colors::white(),
-		sge::image::color::any::object const & = sge::image::colors::white());
+		// TODO: Move this into another ctor when we have delegating ctors
+		sge::image::color::any::object const & = sge::image::color::predef::white(),
+		sge::image::color::any::object const & = sge::image::color::predef::white());
 
 	SGE_LINE_DRAWER_SYMBOL sge::renderer::vector3 const &
 	begin() const;

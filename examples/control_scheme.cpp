@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text_parameters.hpp>
 #include <sge/font/vector.hpp>
 #include <sge/font/draw/static_text.hpp>
-#include <sge/image/colors.hpp>
+#include <sge/image/color/predef.hpp>
 #include <sge/input/info/optional_string.hpp>
 #include <sge/input/joypad/absolute_axis_event.hpp>
 #include <sge/input/joypad/absolute_axis_info.hpp>
@@ -124,7 +124,7 @@ joypad_discover(
 	);
 
 	_text.color(
-		sge::image::colors::green());
+		sge::image::color::predef::green());
 
 	_text.string(
 		sge::font::from_fcppt_string(
@@ -254,7 +254,7 @@ joypad_remove(
 		sge::font::from_fcppt_string(
 			FCPPT_TEXT("no joypad connected")));
 	_text.color(
-		sge::image::colors::red());
+		sge::image::color::predef::red());
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("joypad_remove: ")
@@ -406,7 +406,7 @@ try
 			0,
 			0
 		),
-		sge::image::colors::red()
+		sge::image::color::predef::red()
 	);
 
 	sge::font::draw::static_text event_infotext(
@@ -422,7 +422,7 @@ try
 			0,
 			100
 		),
-		sge::image::colors::white()
+		sge::image::color::predef::white()
 	);
 
 	sge::input::joypad::manager const joypad_manager(
@@ -479,7 +479,7 @@ try
 		scoped_block.get().clear(
 			sge::renderer::clear::parameters()
 			.back_buffer(
-				sge::image::colors::black()
+				sge::image::color::predef::black()
 			)
 		);
 

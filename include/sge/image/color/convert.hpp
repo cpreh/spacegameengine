@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_COLOR_CONVERT_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_CONVERT_HPP_INCLUDED
 
+#include <sge/image/mizuiro_color.hpp>
 #include <sge/image/color/is_convertible.hpp>
-#include <sge/image/color/object.hpp>
 #include <mizuiro/color/conversion/same_to_same.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
@@ -45,7 +45,7 @@ typename boost::enable_if<
 		typename Src::format,
 		DestFormat
 	>,
-	typename sge::image::color::object<
+	typename sge::image::mizuiro_color<
 		DestFormat
 	>::type
 >::type const

@@ -112,7 +112,7 @@ set(
 
 add_sge_base_library(
 	projectile
-	"sgeimage;sgelog;sgeline_drawer;sgerenderer"
+	"sgeimagecolor;sgeline_drawer;sgelog;sgerenderer"
 	"${fcppt_core_TARGET};${BULLET_LIBRARIES}"
 	""
 	""

@@ -21,14 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE2D_RGB8_FORMAT_HPP_INCLUDED
 #define SGE_IMAGE2D_RGB8_FORMAT_HPP_INCLUDED
 
-#include <sge/image/rgb8_format.hpp>
+#include <sge/image/color/view/rgb8_format.hpp>
+
 
 namespace sge
 {
 namespace image2d
 {
 
-typedef image::rgb8_format<
+typedef sge::image::color::view::rgb8_format<
 	2
 >::type rgb8_format;
 

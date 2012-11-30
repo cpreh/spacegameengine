@@ -21,9 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_IMAGE_ALGORITHM_COPY_AND_CONVERT_VISITOR_HPP_INCLUDED
 #define SGE_SRC_IMAGE_ALGORITHM_COPY_AND_CONVERT_VISITOR_HPP_INCLUDED
 
+#include <sge/image/mizuiro_color_traits.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
-#include <sge/image/color/mizuiro_traits.hpp>
-#include <sge/src/image/color/converter.hpp>
 #include <mizuiro/image/algorithm/copy_and_convert.hpp>
 #include <fcppt/nonassignable.hpp>
 
@@ -35,6 +34,9 @@ namespace image
 namespace algorithm
 {
 
+template<
+	typename Converter
+>
 class copy_and_convert_visitor
 {
 	FCPPT_NONASSIGNABLE(
@@ -66,7 +68,7 @@ public:
 	{
 		return
 			mizuiro::image::algorithm::copy_and_convert<
-				sge::image::color::converter
+				Converter
 			>(
 				_src,
 				_dest,

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_IMAGE_VIEW_GET_VISITOR_HPP_INCLUDED
 
 #include <sge/image/dim.hpp>
-#include <sge/image/color/object.hpp>
+#include <sge/image/mizuiro_color.hpp>
 #include <sge/src/image/convert_dim.hpp>
 #include <fcppt/nonassignable.hpp>
 
@@ -67,7 +67,7 @@ public:
 	{
 		return
 			Result(
-				typename sge::image::color::object<
+				typename sge::image::mizuiro_color<
 					typename Src::format::color_format
 				>::type(
 					_src[

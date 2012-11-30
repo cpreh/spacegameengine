@@ -21,14 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE3D_RGB32F_FORMAT_HPP_INCLUDED
 #define SGE_IMAGE3D_RGB32F_FORMAT_HPP_INCLUDED
 
-#include <sge/image/rgb32f_format.hpp>
+#include <sge/image/color/view/rgb32f_format.hpp>
+
 
 namespace sge
 {
 namespace image3d
 {
 
-typedef image::rgb32f_format<
+typedef sge::image::color::view::rgb32f_format<
 	3
 >::type rgb32f_format;
 

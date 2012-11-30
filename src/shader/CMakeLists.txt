@@ -27,10 +27,12 @@ set(
 	include/sge/shader/parameter/vector_impl.hpp
 	include/sge/shader/pixel_profile.hpp
 	include/sge/shader/pixel_program_path.hpp
+	include/sge/shader/pixel_program_stream.hpp
 	include/sge/shader/scoped_pair.hpp
 	include/sge/shader/scoped_pair_fwd.hpp
 	include/sge/shader/vertex_profile.hpp
 	include/sge/shader/vertex_program_path.hpp
+	include/sge/shader/vertex_program_stream.hpp
 	src/shader/context.cpp
 	src/shader/exception.cpp
 	src/shader/load_edited_string.cpp

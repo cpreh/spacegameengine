@@ -20,9 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/exception.hpp>
 #include <sge/image/capabilities_field.hpp>
-#include <sge/image/colors.hpp>
 #include <sge/image/store.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
+#include <sge/image/color/predef.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/file.hpp>
@@ -245,7 +245,7 @@ try
 
 	sge::image2d::algorithm::fill(
 		dest_view,
-		sge::image::colors::transparent()
+		sge::image::color::predef::transparent()
 	);
 
 	sge::image2d::rect::vector pos(

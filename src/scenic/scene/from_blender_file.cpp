@@ -20,8 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/camera/coordinate_system/object.hpp>
 #include <sge/charconv/utf8_file_to_fcppt_string.hpp>
-#include <sge/image/colors.hpp>
 #include <sge/image/color/init.hpp>
+#include <sge/image/color/predef.hpp>
 #include <sge/image/color/rgb32f.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
@@ -41,11 +41,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
-#include <fcppt/math/matrix/transform_direction.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
 #include <fcppt/math/matrix/rotation_x.hpp>
 #include <fcppt/math/matrix/rotation_y.hpp>
 #include <fcppt/math/matrix/rotation_z.hpp>
+#include <fcppt/math/matrix/transform_direction.hpp>
 #include <fcppt/math/matrix/vector.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/narrow_cast.hpp>
@@ -358,7 +358,7 @@ load_light(
 		converted_color);
 
 	sge::scenic::render_context::ambient_color ambient_color(
-		sge::image::colors::black());
+		sge::image::color::predef::black());
 
 	if(light_type == FCPPT_TEXT("directional"))
 	{

@@ -28,18 +28,18 @@ endmacro()
 
 add_sge_rucksack_example(
 	box
-	"sgeimage;sgerucksack;sgesystems"
+	"sgeimagecolor;sgerucksack;sgesystems"
 	""
 )
 
 add_sge_rucksack_example(
 	enumeration
-	"sgeimage;sgerucksack;sgesystems"
+	"sgeimagecolor;sgerucksack;sgesystems"
 	"${Boost_CHRONO_LIBRARIES}"
 )
 
 add_sge_rucksack_example(
 	master_and_slaves
-	"sgeimage;sgerucksack;sgesystems"
+	"sgeimagecolor;sgerucksack;sgesystems"
 	"${Boost_CHRONO_LIBRARIES}"
 )

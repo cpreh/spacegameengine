@@ -42,4 +42,4 @@ sge::image2d::algorithm::print(
 
 SGE_SRC_IMAGE_ALGORITHM_INSTANTIATE_PRINT(
 	sge::image2d::tag
-)
+);

@@ -45,7 +45,7 @@ sge::image::view::sub<\
 	sge::image::traits::box<\
 		tag\
 	>::type const &\
-);
+)
 
 #define SGE_SRC_IMAGE_VIEW_INSTANTIATE_SUB(\
 	tag\

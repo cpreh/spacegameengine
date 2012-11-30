@@ -55,4 +55,4 @@ sge::image3d::view::make(
 
 SGE_SRC_IMAGE_VIEW_INSTANTIATE_MAKE(
 	sge::image3d::tag
-)
+);

@@ -26,14 +26,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/shader/exception.hpp>
 #include <sge/shader/load_edited_string.hpp>
 #include <sge/shader/pair.hpp>
-#include <fcppt/optional_impl.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/filesystem/path_to_string.hpp>
-#include <fcppt/algorithm/ptr_container_erase.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/move.hpp>
+#include <fcppt/optional_impl.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/unique_ptr.hpp>
+#include <fcppt/algorithm/ptr_container_erase.hpp>
+#include <fcppt/filesystem/path_to_string.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/fstream.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace
 {

@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/colors.hpp>
 #include <sge/image/color/bgra8_format.hpp>
+#include <sge/image/color/predef.hpp>
 #include <sge/image/color/any/convert.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/renderer/const_vertex_buffer_ref_container.hpp>
@@ -233,7 +233,7 @@ try
 			sge::image::color::any::convert<
 				sge::image::color::bgra8_format
 			>(
-				sge::image::colors::cyan()
+				sge::image::color::predef::cyan()
 			)
 		);
 
@@ -251,7 +251,7 @@ try
 			sge::image::color::any::convert<
 				sge::image::color::bgra8_format
 			>(
-				sge::image::colors::yellow()
+				sge::image::color::predef::yellow()
 			)
 		);
 
@@ -269,7 +269,7 @@ try
 			sge::image::color::any::convert<
 				sge::image::color::bgra8_format
 			>(
-				sge::image::colors::magenta()
+				sge::image::color::predef::magenta()
 			)
 		);
 
@@ -287,7 +287,7 @@ try
 			sge::image::color::any::convert<
 				sge::image::color::bgra8_format
 			>(
-				sge::image::colors::red()
+				sge::image::color::predef::red()
 			)
 		);
 	}

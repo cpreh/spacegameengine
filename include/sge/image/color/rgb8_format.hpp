@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_COLOR_RGB8_FORMAT_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_RGB8_FORMAT_HPP_INCLUDED
 
-#include <sge/image/color/channel8.hpp>
-#include <sge/image/color/homogenous_format.hpp>
+#include <sge/image/channel8.hpp>
+#include <sge/image/homogenous_format.hpp>
 #include <mizuiro/color/layout/rgb.hpp>
 
 
@@ -33,8 +33,8 @@ namespace image
 namespace color
 {
 
-typedef sge::image::color::homogenous_format<
-	sge::image::color::channel8,
+typedef sge::image::homogenous_format<
+	sge::image::channel8,
 	mizuiro::color::layout::rgb
 >::type rgb8_format;
 

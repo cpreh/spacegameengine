@@ -1092,7 +1092,7 @@ sge_implement_from_lib(
 
 add_sge_base_library(
 	renderer
-	"sgecore;sgeimage;sgeimage2d;sgeimage3d;sgelog;sgeplugin"
+	"sgecore;sgeimagecolor;sgeimage2d;sgeimage3d;sgelog;sgeplugin"
 	""
 	"sgecore"
 	""

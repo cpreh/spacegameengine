@@ -21,7 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_COLOR_INIT_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_INIT_HPP_INCLUDED
 
-#include <mizuiro/color/init.hpp>
+#include <mizuiro/color/init/alpha.hpp>
+#include <mizuiro/color/init/blue.hpp>
+#include <mizuiro/color/init/green.hpp>
+#include <mizuiro/color/init/luminance.hpp>
+#include <mizuiro/color/init/red.hpp>
 
 
 namespace sge
@@ -30,9 +34,16 @@ namespace image
 {
 namespace color
 {
+namespace init
+{
 
-namespace init = mizuiro::color::init;
+using mizuiro::color::init::alpha;
+using mizuiro::color::init::blue;
+using mizuiro::color::init::green;
+using mizuiro::color::init::luminance;
+using mizuiro::color::init::red;
 
+}
 }
 }
 }

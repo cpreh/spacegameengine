@@ -22,7 +22,7 @@ set(
 
 add_sge_base_library(
 	"font/draw"
-	"sgecore;sgefont;sgeimage;sgeimage2d;sgerenderer;sgesprite;sgetexture"
+	"sgecore;sgefont;sgeimagecolor;sgeimage2d;sgerenderer;sgesprite;sgetexture"
 	""
 	""
 	""

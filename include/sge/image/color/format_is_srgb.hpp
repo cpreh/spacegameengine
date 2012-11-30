@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_COLOR_FORMAT_IS_SRGB_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_FORMAT_IS_SRGB_HPP_INCLUDED
 
-#include <sge/image/symbol.hpp>
 #include <sge/image/color/format.hpp>
+#include <sge/image/color/symbol.hpp>
 
 
 namespace sge
@@ -32,7 +32,7 @@ namespace image
 namespace color
 {
 
-SGE_IMAGE_SYMBOL
+SGE_IMAGE_COLOR_SYMBOL
 bool
 format_is_srgb(
 	sge::image::color::format::type

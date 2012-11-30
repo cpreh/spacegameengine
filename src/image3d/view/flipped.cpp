@@ -56,4 +56,4 @@ sge::image3d::view::flipped(
 
 SGE_SRC_IMAGE_VIEW_INSTANTIATE_FLIPPED(
 	sge::image3d::tag
-)
+);

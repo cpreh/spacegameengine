@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/config/media_path.hpp>
-#include <sge/image/colors.hpp>
 #include <sge/image/color/format.hpp>
+#include <sge/image/color/predef.hpp>
 #include <sge/image2d/save_from_view.hpp>
 #include <sge/log/global.hpp>
 #include <sge/media/extension.hpp>
@@ -379,7 +379,7 @@ try
 		temp_target->clear(
 			sge::renderer::clear::parameters()
 			.back_buffer(
-				sge::image::colors::black()));
+				sge::image::color::predef::black()));
 
 		sge::renderer::scoped_block const scoped_block(
 			sys.renderer());

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_COLOR_ANY_FROM_STRING_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_ANY_FROM_STRING_HPP_INCLUDED
 
-#include <sge/image/symbol.hpp>
+#include <sge/image/color/symbol.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <string>
@@ -36,15 +36,19 @@ namespace color
 {
 namespace any
 {
-SGE_IMAGE_SYMBOL
-sge::image::color::any::object const
-from_string(
-	std::string const &);
 
-SGE_IMAGE_SYMBOL
+SGE_IMAGE_COLOR_SYMBOL
 sge::image::color::any::object const
 from_string(
-	std::wstring const &);
+	std::string const &
+);
+
+SGE_IMAGE_COLOR_SYMBOL
+sge::image::color::any::object const
+from_string(
+	std::wstring const &
+);
+
 }
 }
 }

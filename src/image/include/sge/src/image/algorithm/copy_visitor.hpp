@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_IMAGE_ALGORITHM_COPY_VISITOR_HPP_INCLUDED
 #define SGE_SRC_IMAGE_ALGORITHM_COPY_VISITOR_HPP_INCLUDED
 
+#include <sge/image/mizuiro_color.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
-#include <sge/image/color/object.hpp>
 #include <sge/image/traits/view_fwd.hpp>
 #include <sge/image/view/mizuiro_type.hpp>
 #include <sge/image/view/object.hpp>

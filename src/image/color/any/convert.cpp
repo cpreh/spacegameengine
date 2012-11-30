@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/image/mizuiro_color.hpp>
 #include <sge/image/color/a8_format.hpp>
 #include <sge/image/color/bgr32f_format.hpp>
 #include <sge/image/color/bgr8_format.hpp>
@@ -26,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/bgrx8_format.hpp>
 #include <sge/image/color/l8_format.hpp>
 #include <sge/image/color/la8_format.hpp>
-#include <sge/image/color/object.hpp>
 #include <sge/image/color/r32f_format.hpp>
 #include <sge/image/color/rgb32f_format.hpp>
 #include <sge/image/color/rgb8_format.hpp>
@@ -46,7 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<
 	typename Dest
 >
-typename sge::image::color::object<
+typename sge::image::mizuiro_color<
 	Dest
 >::type const
 sge::image::color::any::convert(
@@ -67,7 +67,7 @@ sge::image::color::any::convert(
 )\
 template \
 SGE_EXPORT_FUNCTION_INSTANTIATION \
-sge::image::color::object<\
+sge::image::mizuiro_color<\
 	sge::image::color::format\
 >::type const \
 sge::image::color::any::convert<\

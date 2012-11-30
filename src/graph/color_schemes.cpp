@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/graph/color_schemes.hpp>
 #include <sge/graph/foreground_alt_color.hpp>
 #include <sge/graph/foreground_color.hpp>
-#include <sge/image/colors.hpp>
+#include <sge/image/color/predef.hpp>
 #include <sge/image/color/rgba8.hpp>
 #include <sge/image/color/rgba8_from_hex_string.hpp>
 #include <sge/image/color/any/object.hpp>
@@ -37,15 +37,15 @@ sge::graph::color_schemes::default_()
 	return
 	sge::graph::color_scheme(
 		sge::graph::foreground_color(
-			sge::image::colors::gray()),
+			sge::image::color::predef::gray()),
 		sge::graph::foreground_alt_color(
-			sge::image::colors::gray()),
+			sge::image::color::predef::gray()),
 		sge::graph::background_color(
-			sge::image::colors::black()),
+			sge::image::color::predef::black()),
 		sge::graph::background_alt_color(
-			sge::image::colors::black()),
+			sge::image::color::predef::black()),
 		sge::graph::baseline_color(
-			sge::image::colors::lightgreen())
+			sge::image::color::predef::lightgreen())
 	);
 }
 

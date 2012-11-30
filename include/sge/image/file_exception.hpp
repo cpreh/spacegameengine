@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/class_symbol.hpp>
 #include <sge/image/exception.hpp>
-#include <sge/image/optional_path.hpp>
+#include <sge/image/optional_path_fwd.hpp>
 #include <sge/image/symbol.hpp>
 #include <fcppt/string.hpp>
 
@@ -35,12 +35,12 @@ namespace image
 
 class SGE_CLASS_SYMBOL file_exception
 :
-	public image::exception
+	public sge::image::exception
 {
 public:
 	SGE_IMAGE_SYMBOL
 	file_exception(
-		image::optional_path const &,
+		sge::image::optional_path const &,
 		fcppt::string const &
 	);
 };

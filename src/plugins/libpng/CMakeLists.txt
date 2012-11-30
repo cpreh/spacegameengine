@@ -41,7 +41,7 @@ add_definitions(
 
 add_sge_plugin(
 	libpng
-	"sgeimage;sgeimage2d;sgelog;sgeplugin"
+	"sgeimage;sgeimagecolor;sgeimage2d;sgelog;sgeplugin"
 	"${Fcppt_filesystem_LIBRARIES};${PNG_LIBRARIES}"
 	"${PNG_INCLUDE_DIR}"
 )

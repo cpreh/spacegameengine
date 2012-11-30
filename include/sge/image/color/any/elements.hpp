@@ -39,8 +39,8 @@ namespace any
 {
 
 typedef boost::mpl::transform<
-	color::elements,
-	detail::make_object<
+	sge::image::color::elements,
+	sge::image::color::any::detail::make_object<
 		boost::mpl::_1
 	>
 >::type elements;

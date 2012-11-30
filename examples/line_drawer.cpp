@@ -55,7 +55,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/unit.hpp>
 #include <sge/font/vector.hpp>
 #include <sge/font/draw/simple.hpp>
-#include <sge/image/colors.hpp>
+#include <sge/image/color/predef.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/input/cursor/button_event.hpp>
 #include <sge/input/cursor/move_event.hpp>
@@ -255,8 +255,8 @@ private:
 				sge::line_drawer::line(
 					pos3,
 					pos3,
-					sge::image::colors::red(),
-					sge::image::colors::blue()));
+					sge::image::color::predef::red(),
+					sge::image::color::predef::blue()));
 		}
 		else
 			lock.value().push_back(
@@ -351,7 +351,7 @@ try
 		scoped_block.get().clear(
 			sge::renderer::clear::parameters()
 			.back_buffer(
-				sge::image::colors::black()));
+				sge::image::color::predef::black()));
 
 		// This function sets up an orthographic projection and calls
 		// render. It's just a wrapper.
@@ -383,7 +383,7 @@ try
 				font_width
 			),
 			font_pos,
-			sge::image::colors::red(),
+			sge::image::color::predef::red(),
 			sge::renderer::texture::emulate_srgb::yes);
 
 		sge::font::draw::simple(
@@ -400,7 +400,7 @@ try
 				font_width
 			),
 			font_pos,
-			sge::image::colors::red(),
+			sge::image::color::predef::red(),
 			sge::renderer::texture::emulate_srgb::yes
 		);
 	}

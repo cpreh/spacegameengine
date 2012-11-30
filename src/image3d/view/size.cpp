@@ -58,4 +58,4 @@ sge::image3d::view::size(
 
 SGE_SRC_IMAGE_VIEW_INSTANTIATE_SIZE(
 	sge::image3d::tag
-)
+);

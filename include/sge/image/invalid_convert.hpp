@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/class_symbol.hpp>
 #include <sge/image/exception.hpp>
-#include <sge/image/color/format.hpp>
+#include <sge/image/detail/instantiate/symbol.hpp>
 
 
 namespace sge
@@ -31,15 +31,18 @@ namespace sge
 namespace image
 {
 
+template<
+	typename Format
+>
 class SGE_CLASS_SYMBOL invalid_convert
 :
 	public sge::image::exception
 {
 public:
-	SGE_IMAGE_SYMBOL
+	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	invalid_convert(
-		sge::image::color::format::type source,
-		sge::image::color::format::type dest
+		Format source,
+		Format dest
 	);
 };
 

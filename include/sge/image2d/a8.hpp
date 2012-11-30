@@ -30,8 +30,8 @@ namespace sge
 namespace image2d
 {
 
-typedef image::store<
-	image2d::a8_format
+typedef sge::image::store<
+	sge::image2d::a8_format
 > a8;
 
 }

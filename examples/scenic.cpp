@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/graph/color_schemes.hpp>
 #include <sge/graph/object.hpp>
 #include <sge/image/capabilities_field.hpp>
-#include <sge/image/colors.hpp>
+#include <sge/image/color/predef.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/media/extension.hpp>
@@ -320,7 +320,7 @@ try
 					1.0f)),
 		sge::scenic::grid::distance_to_origin(
 			0.0f),
-		sge::image::colors::white());
+		sge::image::color::predef::white());
 
 	/*
 	sge::scenic::sky::dome::object skydome(
@@ -384,7 +384,7 @@ try
 		scoped_block.get().clear(
 			sge::renderer::clear::parameters()
 				.back_buffer(
-					sge::image::colors::black())
+					sge::image::color::predef::black())
 				.depth_buffer(
 					1.0f));
 

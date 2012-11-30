@@ -142,7 +142,14 @@ update_sublibrary font/draw
 
 update_sublibrary graph
 
-update_sublibrary image
+update_sublibrary image \
+	"include/sge/image/algorithm" \
+	"include/sge/image/traits" \
+	"include/sge/image/view" \
+	"src/image/include" \
+	"-n"
+
+update_sublibrary image/color
 
 update_sublibrary image2d
 

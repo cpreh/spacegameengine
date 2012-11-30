@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_DISPLAY_MODE_DESIRED_FPS_HPP_INCLUDED
 
 #include <sge/renderer/symbol.hpp>
-#include <sge/renderer/display_mode/refresh_rate_value.hpp>
 #include <sge/renderer/display_mode/optional_refresh_rate_fwd.hpp>
+#include <sge/renderer/display_mode/refresh_rate_value.hpp>
 
 
 namespace sge

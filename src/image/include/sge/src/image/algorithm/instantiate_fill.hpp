@@ -40,6 +40,6 @@ sge::image::algorithm::fill< \
 		tag\
 	>::type const &, \
 	sge::image::color::any::object const &\
-);
+)
 
 #endif

@@ -45,7 +45,7 @@ sge::image::view::checked_sub<\
 	sge::image::traits::box<\
 		tag\
 	>::type const &\
-);
+)
 
 #define SGE_SRC_IMAGE_VIEW_INSTANTIATE_CHECKED_SUB(\
 	tag\

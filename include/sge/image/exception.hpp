@@ -40,12 +40,14 @@ class SGE_CLASS_SYMBOL exception
 {
 public:
 	SGE_IMAGE_SYMBOL
-	explicit exception(
+	explicit
+	exception(
 		fcppt::string const &
 	);
 
 	SGE_IMAGE_SYMBOL
-	explicit exception(
+	explicit
+	exception(
 		fcppt::assert_::information const &
 	);
 };

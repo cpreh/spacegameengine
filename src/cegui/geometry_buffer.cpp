@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/cegui/exception.hpp>
+#include <sge/image/mizuiro_color.hpp>
 #include <sge/image/color/init.hpp>
-#include <sge/image/color/object.hpp>
 #include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/pixel_rect.hpp>

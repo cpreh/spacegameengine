@@ -50,7 +50,7 @@ set(
 
 add_sge_plugin(
 	"devil"
-	"sgeimage;sgeimage2d;sgelog;sgeplugin"
+	"sgeimage;sgeimagecolor;sgeimage2d;sgelog;sgeplugin"
 	"${Fcppt_filesystem_LIBRARIES};${IL_LIBRARIES};${ILU_LIBRARIES}"
 	"${IL_INCLUDE_DIR}"
 )
