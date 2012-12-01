@@ -18,42 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_COLOR_FORMAT_STATIC_HPP_INCLUDED
-#define SGE_IMAGE_COLOR_FORMAT_STATIC_HPP_INCLUDED
+#ifndef SGE_IMAGE_DS_FORMAT_TO_STRING_HPP_INCLUDED
+#define SGE_IMAGE_DS_FORMAT_TO_STRING_HPP_INCLUDED
 
-#include <sge/image/format_static.hpp>
-#include <sge/image/color/elements.hpp>
-#include <sge/image/color/format.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
+#include <sge/image/ds/format.hpp>
+#include <sge/image/ds/symbol.hpp>
+#include <fcppt/string.hpp>
 
 
 namespace sge
 {
 namespace image
 {
-namespace color
+namespace ds
 {
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-template<
-	typename Format
->
-struct format_static
-:
-sge::image::format_static<
-	sge::image::color::format::type,
-	sge::image::color::format::size,
-	sge::image::color::elements,
-	Format
->
-{
-};
-
-FCPPT_PP_POP_WARNING
+SGE_IMAGE_DS_SYMBOL
+fcppt::string const
+format_to_string(
+	sge::image::ds::format::type
+);
 
 }
 }

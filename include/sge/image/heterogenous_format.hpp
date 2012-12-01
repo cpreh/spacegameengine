@@ -18,44 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_COLOR_FORMAT_STATIC_HPP_INCLUDED
-#define SGE_IMAGE_COLOR_FORMAT_STATIC_HPP_INCLUDED
+#ifndef SGE_IMAGE_HETEROGENOUS_FORMAT_HPP_INCLUDED
+#define SGE_IMAGE_HETEROGENOUS_FORMAT_HPP_INCLUDED
 
-#include <sge/image/format_static.hpp>
-#include <sge/image/color/elements.hpp>
-#include <sge/image/color/format.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
+#include <mizuiro/color/heterogenous_static.hpp>
 
 
 namespace sge
 {
 namespace image
 {
-namespace color
-{
-
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
-	typename Format
+	typename Sizes,
+	typename Layout
 >
-struct format_static
-:
-sge::image::format_static<
-	sge::image::color::format::type,
-	sge::image::color::format::size,
-	sge::image::color::elements,
-	Format
->
+struct heterogenous_format
 {
+	typedef mizuiro::color::heterogenous_static<
+		Sizes,
+		Layout
+	> type;
 };
 
-FCPPT_PP_POP_WARNING
-
-}
 }
 }
 

@@ -11,6 +11,8 @@ set(
 	include/sge/image/capabilities.hpp
 	include/sge/image/capabilities_field.hpp
 	include/sge/image/capabilities_field_fwd.hpp
+	include/sge/image/channel16.hpp
+	include/sge/image/channel32.hpp
 	include/sge/image/channel32f.hpp
 	include/sge/image/channel8.hpp
 	include/sge/image/const_raw_pointer.hpp
@@ -20,6 +22,8 @@ set(
 	include/sge/image/exception.hpp
 	include/sge/image/exception_fwd.hpp
 	include/sge/image/file_exception.hpp
+	include/sge/image/format_static.hpp
+	include/sge/image/heterogenous_format.hpp
 	include/sge/image/homogenous_format.hpp
 	include/sge/image/integral_size.hpp
 	include/sge/image/invalid_convert.hpp

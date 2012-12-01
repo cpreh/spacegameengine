@@ -23,8 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/view/basic_format.hpp>
 #include <sge/image/view/mizuiro_type.hpp>
+#include <mizuiro/color/access/heterogenous_raw.hpp>
 #include <mizuiro/color/access/homogenous_raw.hpp>
-#include <mizuiro/color/types/homogenous.hpp>
+#include <mizuiro/color/types/heterogenous_raw.hpp>
 #include <mizuiro/color/types/homogenous_raw.hpp>
 #include <mizuiro/image/view_impl.hpp>
 #include <mizuiro/image/access/interleaved.hpp>

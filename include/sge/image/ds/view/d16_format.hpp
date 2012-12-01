@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_COLOR_FORMAT_STATIC_HPP_INCLUDED
-#define SGE_IMAGE_COLOR_FORMAT_STATIC_HPP_INCLUDED
+#ifndef SGE_IMAGE_DS_VIEW_D16_FORMAT_HPP_INCLUDED
+#define SGE_IMAGE_DS_VIEW_D16_FORMAT_HPP_INCLUDED
 
-#include <sge/image/format_static.hpp>
-#include <sge/image/color/elements.hpp>
-#include <sge/image/color/format.hpp>
+#include <sge/image/size_type.hpp>
+#include <sge/image/ds/d16_format.hpp>
+#include <sge/image/view/basic_format.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -33,28 +33,29 @@ namespace sge
 {
 namespace image
 {
-namespace color
+namespace ds
+{
+namespace view
 {
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
-	typename Format
+	sge::image::size_type Dim
 >
-struct format_static
+struct d16_format
 :
-sge::image::format_static<
-	sge::image::color::format::type,
-	sge::image::color::format::size,
-	sge::image::color::elements,
-	Format
+sge::image::view::basic_format<
+	Dim,
+	sge::image::ds::d16_format
 >
 {
 };
 
 FCPPT_PP_POP_WARNING
 
+}
 }
 }
 }

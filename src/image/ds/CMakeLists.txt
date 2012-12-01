@@ -1,0 +1,36 @@
+set(
+	SGE_IMAGEDS_FILES
+	include/sge/image/ds/d16_format.hpp
+	include/sge/image/ds/d24s8_format.hpp
+	include/sge/image/ds/d32_format.hpp
+	include/sge/image/ds/elements.hpp
+	include/sge/image/ds/format.hpp
+	include/sge/image/ds/format_static.hpp
+	include/sge/image/ds/format_to_string.hpp
+	include/sge/image/ds/invalid_convert.hpp
+	include/sge/image/ds/invalid_copy.hpp
+	include/sge/image/ds/tag.hpp
+	include/sge/image/ds/traits/format.hpp
+	include/sge/image/ds/traits/format_to_string.hpp
+	include/sge/image/ds/view/d16_format.hpp
+	include/sge/image/ds/view/d24s8_format.hpp
+	include/sge/image/ds/view/d32_format.hpp
+	include/sge/image/ds/view/elements_base.hpp
+	src/image/ds/format_to_string.cpp
+	src/image/ds/invalid_convert.cpp
+	src/image/ds/invalid_copy.cpp
+	src/image/ds/traits/format_to_string.cpp
+)
+
+sge_implement_from_lib(
+	image
+)
+
+add_sge_base_library(
+	"image/ds"
+	"sgeimage"
+	"${fcppt_core_TARGET}"
+	""
+	""
+	"${CMAKE_CURRENT_SOURCE_DIR}/include"
+)

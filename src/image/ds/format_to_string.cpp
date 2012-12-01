@@ -18,45 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_COLOR_FORMAT_STATIC_HPP_INCLUDED
-#define SGE_IMAGE_COLOR_FORMAT_STATIC_HPP_INCLUDED
-
-#include <sge/image/format_static.hpp>
-#include <sge/image/color/elements.hpp>
-#include <sge/image/color/format.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
+#include <sge/image/ds/format.hpp>
+#include <sge/image/ds/format_to_string.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/preprocessor/stringize.hpp>
 
 
-namespace sge
+fcppt::string const
+sge::image::ds::format_to_string(
+	sge::image::ds::format::type const _format
+)
 {
-namespace image
-{
-namespace color
-{
+#define SGE_IMAGE_DS_FORMAT_TO_STRING_CASE(\
+	fmt \
+) \
+case sge::image::ds::format::fmt: \
+	return FCPPT_PP_STRINGIZE(fmt)
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
+	switch(
+		_format
+	)
+	{
+	SGE_IMAGE_DS_FORMAT_TO_STRING_CASE(d16);
+	SGE_IMAGE_DS_FORMAT_TO_STRING_CASE(d32);
+	SGE_IMAGE_DS_FORMAT_TO_STRING_CASE(d24s8);
+	case sge::image::ds::format::size:
+		break;
+	}
 
-template<
-	typename Format
->
-struct format_static
-:
-sge::image::format_static<
-	sge::image::color::format::type,
-	sge::image::color::format::size,
-	sge::image::color::elements,
-	Format
->
-{
-};
-
-FCPPT_PP_POP_WARNING
-
+	FCPPT_ASSERT_UNREACHABLE;
 }
-}
-}
-
-#endif

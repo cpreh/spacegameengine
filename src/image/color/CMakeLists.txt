@@ -116,7 +116,6 @@ set(
 	src/image/color/dynamic/srgb8_format.cpp
 	src/image/color/dynamic/srgba8_format.cpp
 	src/image/color/element_count.cpp
-	src/image/color/format.cpp
 	src/image/color/format_is_srgb.cpp
 	src/image/color/format_stride.cpp
 	src/image/color/format_to_string.cpp

@@ -149,11 +149,15 @@ update_sublibrary image \
 	"src/image/include" \
 	"-n"
 
-update_sublibrary image/color
-
 update_sublibrary image2d
 
 update_sublibrary image3d
+
+update_sublibrary image/color
+
+update_sublibrary image/ds
+
+update_sublibrary imageds2d
 
 update_sublibrary input
 
