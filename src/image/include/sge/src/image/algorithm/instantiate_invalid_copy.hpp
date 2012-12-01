@@ -26,13 +26,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #define SGE_SRC_IMAGE_ALGORITHM_INSTANTIATE_INVALID_COPY(\
-	format\
+	tag\
 )\
 template \
 class \
 SGE_EXPORT_CLASS_INSTANTIATION \
 sge::image::algorithm::invalid_copy<\
-	format\
+	tag\
 >
 
 #endif

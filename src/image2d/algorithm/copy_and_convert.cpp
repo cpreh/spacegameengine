@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/tag.hpp>
 #include <sge/image2d/algorithm/copy_and_convert.hpp>
+#include <sge/image2d/traits/color_tag.hpp>
 #include <sge/image2d/traits/const_view_fwd.hpp>
 #include <sge/image2d/traits/dim_fwd.hpp>
 #include <sge/image2d/traits/view_fwd.hpp>
@@ -29,8 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/object.hpp>
 #include <sge/src/image/algorithm/copy_and_convert_impl.hpp>
 #include <sge/src/image/algorithm/instantiate_copy_and_convert.hpp>
-#include <sge/src/image2d/traits/dynamic_copy_and_convert.hpp>
-#include <sge/src/image2d/traits/static_converter.hpp>
+#include <sge/src/image/color/traits/dynamic_copy_and_convert.hpp>
+#include <sge/src/image/color/traits/static_converter.hpp>
 
 
 void

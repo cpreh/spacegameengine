@@ -18,8 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-
-
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/device_state/context_unique_ptr.hpp>
 #include <sge/opengl/device_state/scoped_current_fwd.hpp>

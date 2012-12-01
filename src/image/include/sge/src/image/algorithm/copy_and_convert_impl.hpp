@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #if defined(SGE_IMAGE_STATIC_COPY_AND_CONVERT)
 #include <sge/src/image/algorithm/copy_and_convert_static.hpp>
 #else
-#include <sge/src/image/traits/dynamic_copy_and_convert.hpp>
+#include <sge/src/image/algorithm/copy_and_convert_dynamic.hpp>
 #endif
 
 
@@ -58,9 +58,7 @@ sge::image::algorithm::copy_and_convert(
 		_overlap
 	);
 #else
-	sge::image::traits::dynamic_copy_and_convert<
-		Tag
-	>:: template execute<
+	sge::image::algorithm::copy_and_convert_dynamic<
 		Tag
 	>(
 		_src,

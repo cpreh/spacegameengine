@@ -26,13 +26,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #define SGE_SRC_IMAGE_INSTANTIATE_INVALID_CONVERT(\
-	format\
+	tag\
 )\
 template \
 class \
 SGE_EXPORT_CLASS_INSTANTIATION \
 sge::image::invalid_convert<\
-	format \
+	tag\
 >
 
 #endif

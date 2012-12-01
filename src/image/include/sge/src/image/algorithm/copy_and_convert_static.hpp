@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_IMAGE_ALGORITHM_COPY_AND_CONVERT_STATIC_HPP_INCLUDED
 
 #include <sge/image/algorithm/may_overlap.hpp>
+#include <sge/image/traits/color_tag.hpp>
 #include <sge/image/traits/const_view_fwd.hpp>
 #include <sge/image/traits/view_fwd.hpp>
 #include <sge/src/image/algorithm/copy_and_convert_visitor.hpp>
@@ -54,7 +55,9 @@ copy_and_convert_static(
 	fcppt::variant::apply_binary(
 		sge::image::algorithm::copy_and_convert_visitor<
 			typename sge::image::traits::static_converter<
-				Tag
+				typename sge::image::traits::color_tag<
+					Tag
+				>::type
 			>::type
 		>(
 			_overlap

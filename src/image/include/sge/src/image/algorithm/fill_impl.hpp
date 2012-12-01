@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/algorithm/fill.hpp>
 #include <sge/image/traits/any_object_fwd.hpp>
+#include <sge/image/traits/color_tag.hpp>
 #include <sge/image/traits/view_fwd.hpp>
 #include <sge/src/image/algorithm/fill_visitor.hpp>
 #include <fcppt/variant/apply_unary.hpp>
@@ -38,14 +39,18 @@ sge::image::algorithm::fill(
 		Tag
 	>::type const &_view,
 	typename sge::image::traits::any_object<
-		Tag
+		typename sge::image::traits::color_tag<
+			Tag
+		>::type
 	>::type const &_value
 )
 {
 	fcppt::variant::apply_unary(
 		sge::image::algorithm::fill_visitor<
 			typename sge::image::traits::any_object<
-				Tag
+				typename sge::image::traits::color_tag<
+					Tag
+				>::type
 			>::type
 		>(
 			_value

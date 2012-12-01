@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/detail/instantiate/symbol.hpp>
 #include <sge/image/traits/any_object_fwd.hpp>
+#include <sge/image/traits/color_tag.hpp>
 #include <sge/image/traits/view_fwd.hpp>
 
 
@@ -43,7 +44,9 @@ fill(
 		Tag
 	>::type const &,
 	typename sge::image::traits::any_object<
-		Tag
+		typename sge::image::traits::color_tag<
+			Tag
+		>::type
 	>::type const &
 );
 

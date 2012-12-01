@@ -37,9 +37,11 @@ set(
 	include/sge/image/store_fwd.hpp
 	include/sge/image/traits/any_object_fwd.hpp
 	include/sge/image/traits/box_fwd.hpp
+	include/sge/image/traits/color_tag.hpp
 	include/sge/image/traits/const_view_fwd.hpp
 	include/sge/image/traits/dim_fwd.hpp
 	include/sge/image/traits/format.hpp
+	include/sge/image/traits/format_to_string.hpp
 	include/sge/image/traits/pitch_fwd.hpp
 	include/sge/image/traits/sub_out_of_range.hpp
 	include/sge/image/traits/view_elements.hpp
@@ -73,6 +75,7 @@ set(
 	include/sge/image/view/wrapped_type.hpp
 	src/image/exception.cpp
 	src/image/file_exception.cpp
+	src/image/include/sge/src/image/algorithm/copy_and_convert_dynamic.hpp
 	src/image/include/sge/src/image/algorithm/copy_and_convert_impl.hpp
 	src/image/include/sge/src/image/algorithm/copy_and_convert_static.hpp
 	src/image/include/sge/src/image/algorithm/copy_and_convert_visitor.hpp

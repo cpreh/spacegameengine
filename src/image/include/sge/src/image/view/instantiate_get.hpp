@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/color/any/object.hpp>
 #include <sge/image/traits/any_object_fwd.hpp>
+#include <sge/image/traits/color_tag.hpp>
 #include <sge/image/traits/dim_fwd.hpp>
 #include <sge/src/export_function_instantiation.hpp>
 #include <sge/src/image/view/get_impl.hpp>
@@ -36,7 +37,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template \
 SGE_EXPORT_FUNCTION_INSTANTIATION \
 sge::image::traits::any_object<\
-	tag\
+	sge::image::traits::color_tag<\
+		tag\
+	>::type\
 >::type const \
 sge::image::view::get<\
 	tag\

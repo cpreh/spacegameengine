@@ -18,42 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_IMAGE2D_TRAITS_DYNAMIC_COPY_AND_CONVERT_HPP_INCLUDED
-#define SGE_SRC_IMAGE2D_TRAITS_DYNAMIC_COPY_AND_CONVERT_HPP_INCLUDED
-
+#include <sge/image/color/format.hpp>
+#include <sge/image/color/format_to_string.hpp>
+#include <sge/image/color/symbol.hpp>
 #include <sge/image/color/tag.hpp>
-#include <sge/image2d/tag.hpp>
-#include <sge/src/image/color/traits/dynamic_copy_and_convert.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
+#include <sge/image/color/traits/format_to_string.hpp>
+#include <fcppt/string.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace traits
-{
-
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-template<>
-struct dynamic_copy_and_convert<
-	sge::image2d::tag
->
-:
-sge::image::traits::dynamic_copy_and_convert<
+fcppt::string const
+sge::image::traits::format_to_string<
 	sge::image::color::tag
->
+>::execute(
+	sge::image::color::format::type const _format
+)
 {
-};
-
-FCPPT_PP_POP_WARNING
-
+	return
+		sge::image::color::format_to_string(
+			_format
+		);
 }
-}
-}
-
-#endif

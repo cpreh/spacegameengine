@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_COLOR_INVALID_CONVERT_HPP_INCLUDED
 
 #include <sge/image/invalid_convert.hpp>
-#include <sge/image/color/format.hpp>
+#include <sge/image/color/tag.hpp>
+#include <sge/image/color/traits/format.hpp>
 
 
 namespace sge
@@ -33,7 +34,7 @@ namespace color
 {
 
 typedef sge::image::invalid_convert<
-	sge::image::color::format::type
+	sge::image::color::tag
 > invalid_convert;
 
 }

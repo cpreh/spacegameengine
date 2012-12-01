@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE3D_TRAITS_FORMAT_HPP_INCLUDED
-#define SGE_IMAGE3D_TRAITS_FORMAT_HPP_INCLUDED
+#ifndef SGE_IMAGE2D_TRAITS_COLOR_TAG_HPP_INCLUDED
+#define SGE_IMAGE2D_TRAITS_COLOR_TAG_HPP_INCLUDED
 
-#include <sge/image/color/format.hpp>
-#include <sge/image/traits/format.hpp>
-#include <sge/image3d/tag.hpp>
+#include <sge/image/color/tag.hpp>
+#include <sge/image/traits/color_tag.hpp>
+#include <sge/image2d/tag.hpp>
 
 
 namespace sge
@@ -34,11 +34,11 @@ namespace traits
 {
 
 template<>
-struct format<
-	sge::image3d::tag
+struct color_tag<
+	sge::image2d::tag
 >
 {
-	typedef sge::image::color::format::type type;
+	typedef sge::image::color::tag type;
 };
 
 }

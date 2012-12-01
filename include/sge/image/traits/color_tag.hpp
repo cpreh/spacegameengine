@@ -18,12 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE2D_TRAITS_ANY_OBJECT_FWD_HPP_INCLUDED
-#define SGE_IMAGE2D_TRAITS_ANY_OBJECT_FWD_HPP_INCLUDED
-
-#include <sge/image/color/any/object_fwd.hpp>
-#include <sge/image/traits/any_object_fwd.hpp>
-#include <sge/image2d/tag.hpp>
+#ifndef SGE_IMAGE_TRAITS_COLOR_TAG_HPP_INCLUDED
+#define SGE_IMAGE_TRAITS_COLOR_TAG_HPP_INCLUDED
 
 
 namespace sge
@@ -33,13 +29,10 @@ namespace image
 namespace traits
 {
 
-template<>
-struct any_object<
-	sge::image2d::tag
+template<
+	typename Tag
 >
-{
-	typedef sge::image::color::any::object type;
-};
+struct color_tag;
 
 }
 }

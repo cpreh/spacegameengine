@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/class_symbol.hpp>
 #include <sge/image/exception.hpp>
 #include <sge/image/detail/instantiate/symbol.hpp>
+#include <sge/image/traits/format.hpp>
 
 
 namespace sge
@@ -34,17 +35,21 @@ namespace algorithm
 {
 
 template<
-	typename Format
+	typename Tag
 >
 class SGE_CLASS_SYMBOL invalid_copy
 :
 	public sge::image::exception
 {
 public:
+	typedef typename sge::image::traits::format<
+		Tag
+	>::type format;
+
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	invalid_copy(
-		Format source,
-		Format dest
+		format source,
+		format dest
 	);
 };
 

@@ -18,15 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_IMAGE2D_TRAITS_STATIC_CONVERTER_HPP_INCLUDED
-#define SGE_SRC_IMAGE2D_TRAITS_STATIC_CONVERTER_HPP_INCLUDED
+#ifndef SGE_IMAGE_COLOR_TRAITS_ANY_OBJECT_FWD_HPP_INCLUDED
+#define SGE_IMAGE_COLOR_TRAITS_ANY_OBJECT_FWD_HPP_INCLUDED
 
 #include <sge/image/color/tag.hpp>
-#include <sge/image2d/tag.hpp>
-#include <sge/src/image/color/traits/static_converter.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
+#include <sge/image/color/any/object_fwd.hpp>
+#include <sge/image/traits/any_object_fwd.hpp>
 
 
 namespace sge
@@ -36,21 +33,13 @@ namespace image
 namespace traits
 {
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
 template<>
-struct static_converter<
-	sge::image2d::tag
->
-:
-sge::image::traits::static_converter<
+struct any_object<
 	sge::image::color::tag
 >
 {
+	typedef sge::image::color::any::object type;
 };
-
-FCPPT_PP_POP_WARNING
 
 }
 }

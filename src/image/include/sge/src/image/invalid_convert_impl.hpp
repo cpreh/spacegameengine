@@ -23,32 +23,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/exception.hpp>
 #include <sge/image/invalid_convert.hpp>
-#include <sge/image/color/format_to_string.hpp>
+#include <sge/image/traits/format_to_string.hpp>
 #include <fcppt/text.hpp>
 
 
 template<
-	typename Format
+	typename Tag
 >
 sge::image::invalid_convert<
-	Format
+	Tag
 >::invalid_convert(
-	Format const _source,
-	Format const _dest
+	format const _source,
+	format const _dest
 )
 :
 	sge::image::exception(
 		FCPPT_TEXT("Invalid image convert from ")
 		+
-		// FIXME!
-		sge::image::color::format_to_string(
+		sge::image::traits::format_to_string<
+			Tag
+		>::execute(
 			_source
 		)
 		+
 		FCPPT_TEXT(" to ")
 		+
-		// FIXME
-		sge::image::color::format_to_string(
+		sge::image::traits::format_to_string<
+			Tag
+		>::execute(
 			_dest
 		)
 		+

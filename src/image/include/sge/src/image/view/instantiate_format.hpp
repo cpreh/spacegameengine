@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_IMAGE_VIEW_INSTANTIATE_FORMAT_HPP_INCLUDED
 #define SGE_SRC_IMAGE_VIEW_INSTANTIATE_FORMAT_HPP_INCLUDED
 
+#include <sge/image/traits/color_tag.hpp>
 #include <sge/image/traits/format.hpp>
 #include <sge/src/export_function_instantiation.hpp>
 #include <sge/src/image/view/format_impl.hpp>
@@ -34,7 +35,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template \
 SGE_EXPORT_FUNCTION_INSTANTIATION \
 sge::image::traits::format< \
-	tag \
+	sge::image::traits::color_tag<\
+		tag \
+	>::type\
 >::type \
 sge::image::view::format<\
 	tag\

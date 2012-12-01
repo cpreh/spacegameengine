@@ -16,12 +16,16 @@ set(
 	include/sge/image/color/bgr32f_fwd.hpp
 	include/sge/image/color/bgr8.hpp
 	include/sge/image/color/bgr8_format.hpp
+	include/sge/image/color/bgr8_fwd.hpp
 	include/sge/image/color/bgra32f.hpp
 	include/sge/image/color/bgra32f_format.hpp
+	include/sge/image/color/bgra32f_fwd.hpp
 	include/sge/image/color/bgra8.hpp
 	include/sge/image/color/bgra8_format.hpp
+	include/sge/image/color/bgra8_fwd.hpp
 	include/sge/image/color/bgrx8.hpp
 	include/sge/image/color/bgrx8_format.hpp
+	include/sge/image/color/bgrx8_fwd.hpp
 	include/sge/image/color/convert.hpp
 	include/sge/image/color/element_count.hpp
 	include/sge/image/color/elements.hpp
@@ -63,12 +67,17 @@ set(
 	include/sge/image/color/rgba8_fwd.hpp
 	include/sge/image/color/rgbx8.hpp
 	include/sge/image/color/rgbx8_format.hpp
+	include/sge/image/color/rgbx8_fwd.hpp
 	include/sge/image/color/srgb8.hpp
 	include/sge/image/color/srgb8_format.hpp
+	include/sge/image/color/srgb8_fwd.hpp
 	include/sge/image/color/srgba8.hpp
 	include/sge/image/color/srgba8_format.hpp
 	include/sge/image/color/srgba8_fwd.hpp
 	include/sge/image/color/tag.hpp
+	include/sge/image/color/traits/any_object_fwd.hpp
+	include/sge/image/color/traits/format.hpp
+	include/sge/image/color/traits/format_to_string.hpp
 	include/sge/image/color/view/a8_format.hpp
 	include/sge/image/color/view/bgr32f_format.hpp
 	include/sge/image/color/view/bgr8_format.hpp
@@ -170,6 +179,7 @@ set(
 	src/image/color/invalid_convert.cpp
 	src/image/color/invalid_copy.cpp
 	src/image/color/predef.cpp
+	src/image/color/traits/format_to_string.cpp
 )
 
 sge_implement_from_lib(

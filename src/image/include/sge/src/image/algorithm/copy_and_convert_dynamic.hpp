@@ -18,39 +18,50 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_IMAGE3D_TRAITS_DYNAMIC_COPY_AND_CONVERT_HPP_INCLUDED
-#define SGE_SRC_IMAGE3D_TRAITS_DYNAMIC_COPY_AND_CONVERT_HPP_INCLUDED
+#ifndef SGE_SRC_IMAGE_ALGORITHM_COPY_AND_CONVERT_DYNAMIC_HPP_INCLUDED
+#define SGE_SRC_IMAGE_ALGORITHM_COPY_AND_CONVERT_DYNAMIC_HPP_INCLUDED
 
-#include <sge/image/color/tag.hpp>
-#include <sge/image3d/tag.hpp>
-#include <sge/src/image/color/traits/dynamic_copy_and_convert.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
+#include <sge/image/algorithm/may_overlap.hpp>
+#include <sge/image/traits/color_tag.hpp>
+#include <sge/image/traits/const_view_fwd.hpp>
+#include <sge/image/traits/view_fwd.hpp>
+#include <sge/src/image/traits/dynamic_copy_and_convert.hpp>
+
 
 
 namespace sge
 {
 namespace image
 {
-namespace traits
+namespace algorithm
 {
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-template<>
-struct dynamic_copy_and_convert<
-	sge::image3d::tag
+template<
+	typename Tag
 >
-:
-sge::image::traits::dynamic_copy_and_convert<
-	sge::image::color::tag
->
+void
+copy_and_convert_dynamic(
+	typename sge::image::traits::const_view<
+		Tag
+	>::type const &_src,
+	typename sge::image::traits::view<
+		Tag
+	>::type const &_dest,
+	sge::image::algorithm::may_overlap::type const _overlap
+)
 {
-};
-
-FCPPT_PP_POP_WARNING
+	sge::image::traits::dynamic_copy_and_convert<
+		typename sge::image::traits::color_tag<
+			Tag
+		>::type
+	>:: template execute<
+		Tag
+	>(
+		_src,
+		_dest,
+		_overlap
+	);
+}
 
 }
 }

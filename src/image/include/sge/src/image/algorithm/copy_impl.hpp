@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/algorithm/copy.hpp>
 #include <sge/image/algorithm/invalid_copy.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
+#include <sge/image/traits/color_tag.hpp>
 #include <sge/image/traits/const_view_fwd.hpp>
-#include <sge/image/traits/format.hpp>
 #include <sge/image/traits/view_fwd.hpp>
 #include <sge/image/view/format.hpp>
 #include <sge/src/image/algorithm/copy_visitor.hpp>
@@ -64,7 +64,7 @@ catch(
 )
 {
 	throw sge::image::algorithm::invalid_copy<
-		typename sge::image::traits::format<
+		typename sge::image::traits::color_tag<
 			Tag
 		>::type
 	>(

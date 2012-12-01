@@ -57,11 +57,10 @@ set(
 	include/sge/image2d/system_scoped_ptr.hpp
 	include/sge/image2d/system_unique_ptr.hpp
 	include/sge/image2d/tag.hpp
-	include/sge/image2d/traits/any_object_fwd.hpp
 	include/sge/image2d/traits/box_fwd.hpp
+	include/sge/image2d/traits/color_tag.hpp
 	include/sge/image2d/traits/const_view_fwd.hpp
 	include/sge/image2d/traits/dim_fwd.hpp
-	include/sge/image2d/traits/format.hpp
 	include/sge/image2d/traits/pitch_fwd.hpp
 	include/sge/image2d/traits/sub_out_of_range.hpp
 	include/sge/image2d/traits/view_elements.hpp
@@ -106,8 +105,6 @@ set(
 	src/image2d/bgrx8.cpp
 	src/image2d/file.cpp
 	src/image2d/include/sge/src/image2d/algorithm/bresenham_visitor.hpp
-	src/image2d/include/sge/src/image2d/traits/dynamic_copy_and_convert.hpp
-	src/image2d/include/sge/src/image2d/traits/static_converter.hpp
 	src/image2d/l8.cpp
 	src/image2d/la8.cpp
 	src/image2d/multi_system.cpp

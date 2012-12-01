@@ -18,22 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/color/traits/format.hpp>
-#include <sge/image3d/traits/box_fwd.hpp>
-#include <sge/image3d/traits/color_tag.hpp>
-#include <sge/image3d/traits/const_view_fwd.hpp>
-#include <sge/image3d/traits/dim_fwd.hpp>
-#include <sge/image3d/traits/pitch_fwd.hpp>
-#include <sge/image3d/traits/view_fwd.hpp>
-#include <sge/image3d/view/const_object.hpp>
-#include <sge/image3d/view/object.hpp>
-#include <sge/opengl/texture/basic_buffer_impl.hpp>
-#include <sge/opengl/texture/color_volume.hpp>
-#include <sge/opengl/texture/color_volume_types.hpp>
+#ifndef SGE_IMAGE3D_TRAITS_COLOR_TAG_HPP_INCLUDED
+#define SGE_IMAGE3D_TRAITS_COLOR_TAG_HPP_INCLUDED
+
+#include <sge/image/color/tag.hpp>
+#include <sge/image/traits/color_tag.hpp>
+#include <sge/image3d/tag.hpp>
 
 
-template
-class
-sge::opengl::texture::basic_buffer<
-	sge::opengl::texture::color_volume_types
->;
+namespace sge
+{
+namespace image
+{
+namespace traits
+{
+
+template<>
+struct color_tag<
+	sge::image3d::tag
+>
+{
+	typedef sge::image::color::tag type;
+};
+
+}
+}
+}
+
+#endif

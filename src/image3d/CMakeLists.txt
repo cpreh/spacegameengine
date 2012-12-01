@@ -40,11 +40,10 @@ set(
 	include/sge/image3d/rgbx8.hpp
 	include/sge/image3d/rgbx8_format.hpp
 	include/sge/image3d/tag.hpp
-	include/sge/image3d/traits/any_object_fwd.hpp
 	include/sge/image3d/traits/box_fwd.hpp
+	include/sge/image3d/traits/color_tag.hpp
 	include/sge/image3d/traits/const_view_fwd.hpp
 	include/sge/image3d/traits/dim_fwd.hpp
-	include/sge/image3d/traits/format.hpp
 	include/sge/image3d/traits/pitch_fwd.hpp
 	include/sge/image3d/traits/sub_out_of_range.hpp
 	include/sge/image3d/traits/view_elements.hpp
@@ -84,8 +83,6 @@ set(
 	src/image3d/bgra32f.cpp
 	src/image3d/bgra8.cpp
 	src/image3d/bgrx8.cpp
-	src/image3d/include/sge/src/image3d/traits/dynamic_copy_and_convert.hpp
-	src/image3d/include/sge/src/image3d/traits/static_converter.hpp
 	src/image3d/l8.cpp
 	src/image3d/la8.cpp
 	src/image3d/r32f.cpp
