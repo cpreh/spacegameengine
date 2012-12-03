@@ -27,8 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/fbo/render_buffer.hpp>
 #include <sge/renderer/depth_stencil_format.hpp>
 #include <sge/renderer/depth_stencil_surface.hpp>
+#include <sge/renderer/dim2.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/math/dim/object_decl.hpp>
 
 
 namespace sge
@@ -46,26 +46,26 @@ class depth_stencil_surface
 		depth_stencil_surface
 	);
 public:
-	explicit depth_stencil_surface(
-		fbo::context const &,
-		renderer::depth_stencil_format::type,
+	depth_stencil_surface(
+		sge::opengl::fbo::context const &,
+		sge::renderer::depth_stencil_format::type,
 		dim const &
 	);
 
 	~depth_stencil_surface();
 
-	fbo::render_buffer const &
+	sge::opengl::fbo::render_buffer const &
 	render_buffer() const;
 private:
 	dim const
 	size() const;
 
-	renderer::depth_stencil_format::type
+	sge::renderer::depth_stencil_format::type
 	format() const;
 
-	fbo::render_buffer const render_buffer_;
+	sge::opengl::fbo::render_buffer const render_buffer_;
 
-	renderer::depth_stencil_format::type const format_;
+	sge::renderer::depth_stencil_format::type const format_;
 
 	dim const dim_;
 };

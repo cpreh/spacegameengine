@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE2D_VIEW_CONST_ELEMENT_HPP_INCLUDED
-#define SGE_IMAGE2D_VIEW_CONST_ELEMENT_HPP_INCLUDED
+#ifndef SGE_IMAGEDS2D_VIEW_CONST_ELEMENT_HPP_INCLUDED
+#define SGE_IMAGEDS2D_VIEW_CONST_ELEMENT_HPP_INCLUDED
 
-#include <sge/image2d/view/element_base.hpp>
+#include <sge/imageds2d/view/element_base.hpp>
 #include <mizuiro/const_tag.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
-namespace image2d
+namespace imageds2d
 {
 namespace view
 {
@@ -43,7 +43,7 @@ template<
 >
 struct const_element
 :
-sge::image2d::view::element_base<
+sge::imageds2d::view::element_base<
 	ColorFormat,
 	mizuiro::const_tag
 >

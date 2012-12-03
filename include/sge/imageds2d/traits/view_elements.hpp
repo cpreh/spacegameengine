@@ -18,39 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE2D_VIEW_CONST_ELEMENT_HPP_INCLUDED
-#define SGE_IMAGE2D_VIEW_CONST_ELEMENT_HPP_INCLUDED
+#ifndef SGE_IMAGEDS2D_TRAITS_VIEW_ELEMENTS_HPP_INCLUDED
+#define SGE_IMAGEDS2D_TRAITS_VIEW_ELEMENTS_HPP_INCLUDED
 
-#include <sge/image2d/view/element_base.hpp>
-#include <mizuiro/const_tag.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
+#include <sge/image/traits/view_elements.hpp>
+#include <sge/imageds2d/tag.hpp>
+#include <sge/imageds2d/view/elements.hpp>
 
 
 namespace sge
 {
-namespace image2d
+namespace image
 {
-namespace view
+namespace traits
 {
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-template<
-	typename ColorFormat
->
-struct const_element
-:
-sge::image2d::view::element_base<
-	ColorFormat,
-	mizuiro::const_tag
+template<>
+struct view_elements<
+	sge::imageds2d::tag
 >
 {
+	typedef sge::imageds2d::view::elements type;
 };
-
-FCPPT_PP_POP_WARNING
 
 }
 }

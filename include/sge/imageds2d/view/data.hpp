@@ -18,39 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE2D_VIEW_CONST_ELEMENT_HPP_INCLUDED
-#define SGE_IMAGE2D_VIEW_CONST_ELEMENT_HPP_INCLUDED
+#ifndef SGE_IMAGEDS2D_VIEW_DATA_HPP_INCLUDED
+#define SGE_IMAGEDS2D_VIEW_DATA_HPP_INCLUDED
 
-#include <sge/image2d/view/element_base.hpp>
-#include <mizuiro/const_tag.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
+#include <sge/image/const_raw_pointer.hpp>
+#include <sge/image/raw_pointer.hpp>
+#include <sge/imageds2d/symbol.hpp>
+#include <sge/imageds2d/view/const_object_fwd.hpp>
+#include <sge/imageds2d/view/object_fwd.hpp>
 
 
 namespace sge
 {
-namespace image2d
+namespace imageds2d
 {
 namespace view
 {
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
+SGE_IMAGEDS2D_SYMBOL
+sge::image::raw_pointer
+data(
+	sge::imageds2d::view::object const &
+);
 
-template<
-	typename ColorFormat
->
-struct const_element
-:
-sge::image2d::view::element_base<
-	ColorFormat,
-	mizuiro::const_tag
->
-{
-};
-
-FCPPT_PP_POP_WARNING
+SGE_IMAGEDS2D_SYMBOL
+sge::image::const_raw_pointer
+data(
+	sge::imageds2d::view::const_object const &
+);
 
 }
 }

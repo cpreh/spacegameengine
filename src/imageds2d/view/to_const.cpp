@@ -18,42 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE2D_VIEW_CONST_ELEMENT_HPP_INCLUDED
-#define SGE_IMAGE2D_VIEW_CONST_ELEMENT_HPP_INCLUDED
+#include <sge/imageds2d/tag.hpp>
+#include <sge/imageds2d/traits/const_view_fwd.hpp>
+#include <sge/imageds2d/traits/view_fwd.hpp>
+#include <sge/imageds2d/view/const_object.hpp>
+#include <sge/imageds2d/view/object.hpp>
+#include <sge/imageds2d/view/to_const.hpp>
+#include <sge/src/image/view/instantiate_to_const.hpp>
+#include <sge/src/image/view/to_const_impl.hpp>
 
-#include <sge/image2d/view/element_base.hpp>
-#include <mizuiro/const_tag.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 
-
-namespace sge
+sge::imageds2d::view::const_object const
+sge::imageds2d::view::to_const(
+	sge::imageds2d::view::object const &_view
+)
 {
-namespace image2d
-{
-namespace view
-{
-
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-template<
-	typename ColorFormat
->
-struct const_element
-:
-sge::image2d::view::element_base<
-	ColorFormat,
-	mizuiro::const_tag
->
-{
-};
-
-FCPPT_PP_POP_WARNING
-
-}
-}
+	return
+		sge::image::view::to_const<
+			sge::imageds2d::tag
+		>(
+			_view
+		);
 }
 
-#endif
+SGE_SRC_IMAGE_VIEW_INSTANTIATE_TO_CONST(
+	sge::imageds2d::tag
+);

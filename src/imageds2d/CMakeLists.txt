@@ -9,9 +9,42 @@ set(
 	include/sge/imageds2d/d32.hpp
 	include/sge/imageds2d/d32_format.hpp
 	include/sge/imageds2d/d32_fwd.hpp
+	include/sge/imageds2d/dim.hpp
+	include/sge/imageds2d/dim_fwd.hpp
+	include/sge/imageds2d/pitch.hpp
+	include/sge/imageds2d/pitch_fwd.hpp
+	include/sge/imageds2d/tag.hpp
+	include/sge/imageds2d/traits/box_fwd.hpp
+	include/sge/imageds2d/traits/color_tag.hpp
+	include/sge/imageds2d/traits/const_view_fwd.hpp
+	include/sge/imageds2d/traits/dim_fwd.hpp
+	include/sge/imageds2d/traits/pitch_fwd.hpp
+	include/sge/imageds2d/traits/sub_out_of_range.hpp
+	include/sge/imageds2d/traits/view_elements.hpp
+	include/sge/imageds2d/traits/view_fwd.hpp
+	include/sge/imageds2d/view/const_element.hpp
+	include/sge/imageds2d/view/const_elements.hpp
+	include/sge/imageds2d/view/const_elements_wrapper.hpp
+	include/sge/imageds2d/view/const_elements_wrapper_fwd.hpp
+	include/sge/imageds2d/view/const_object.hpp
+	include/sge/imageds2d/view/const_object_fwd.hpp
+	include/sge/imageds2d/view/data.hpp
+	include/sge/imageds2d/view/element.hpp
+	include/sge/imageds2d/view/element_base.hpp
+	include/sge/imageds2d/view/elements.hpp
+	include/sge/imageds2d/view/elements_wrapper.hpp
+	include/sge/imageds2d/view/elements_wrapper_fwd.hpp
+	include/sge/imageds2d/view/make.hpp
+	include/sge/imageds2d/view/object.hpp
+	include/sge/imageds2d/view/object_fwd.hpp
+	include/sge/imageds2d/view/to_const.hpp
 	src/imageds2d/d16.cpp
 	src/imageds2d/d24s8.cpp
 	src/imageds2d/d32.cpp
+	src/imageds2d/view/const_object.cpp
+	src/imageds2d/view/make.cpp
+	src/imageds2d/view/object.cpp
+	src/imageds2d/view/to_const.cpp
 )
 
 sge_implement_from_lib(
