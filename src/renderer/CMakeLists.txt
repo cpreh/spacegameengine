@@ -87,11 +87,14 @@ set(
 	include/sge/renderer/context/scoped_offscreen_target_fwd.hpp
 	include/sge/renderer/create_index_buffer_from_view.hpp
 	include/sge/renderer/create_vertex_buffer_from_view.hpp
-	include/sge/renderer/depth_stencil_format.hpp
-	include/sge/renderer/depth_stencil_surface.hpp
-	include/sge/renderer/depth_stencil_surface_fwd.hpp
-	include/sge/renderer/depth_stencil_surface_scoped_ptr.hpp
-	include/sge/renderer/depth_stencil_surface_unique_ptr.hpp
+	include/sge/renderer/depth_stencil_buffer/optional_surface_ref.hpp
+	include/sge/renderer/depth_stencil_buffer/optional_surface_ref_fwd.hpp
+	include/sge/renderer/depth_stencil_buffer/surface.hpp
+	include/sge/renderer/depth_stencil_buffer/surface_fwd.hpp
+	include/sge/renderer/depth_stencil_buffer/surface_parameters.hpp
+	include/sge/renderer/depth_stencil_buffer/surface_parameters_fwd.hpp
+	include/sge/renderer/depth_stencil_buffer/surface_scoped_ptr.hpp
+	include/sge/renderer/depth_stencil_buffer/surface_unique_ptr.hpp
 	include/sge/renderer/device/core.hpp
 	include/sge/renderer/device/core_fwd.hpp
 	include/sge/renderer/device/core_scoped_ptr.hpp
@@ -216,8 +219,6 @@ set(
 	include/sge/renderer/occlusion_query/pixel_count_value.hpp
 	include/sge/renderer/occlusion_query/scoped.hpp
 	include/sge/renderer/occlusion_query/scoped_fwd.hpp
-	include/sge/renderer/optional_depth_stencil_surface_ref.hpp
-	include/sge/renderer/optional_depth_stencil_surface_ref_fwd.hpp
 	include/sge/renderer/optional_matrix4.hpp
 	include/sge/renderer/optional_matrix4_fwd.hpp
 	include/sge/renderer/parameters/object.hpp
@@ -843,7 +844,8 @@ set(
 	src/renderer/context/scoped_offscreen_target.cpp
 	src/renderer/create_index_buffer_from_view.cpp
 	src/renderer/create_vertex_buffer_from_view.cpp
-	src/renderer/depth_stencil_surface.cpp
+	src/renderer/depth_stencil_buffer/surface.cpp
+	src/renderer/depth_stencil_buffer/surface_parameters.cpp
 	src/renderer/device/core.cpp
 	src/renderer/device/ffp.cpp
 	src/renderer/device/parameters.cpp

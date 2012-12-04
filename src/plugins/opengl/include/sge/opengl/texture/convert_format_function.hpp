@@ -18,26 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/texture/color_surface_types.hpp>
-#include <sge/opengl/texture/funcs/set_2d.hpp>
-#include <sge/opengl/texture/funcs/set_rect.hpp>
-#include <sge/renderer/size_type.hpp>
+#ifndef SGE_OPENGL_TEXTURE_CONVERT_FORMAT_FUNCTION_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_CONVERT_FORMAT_FUNCTION_HPP_INCLUDED
+
+#include <sge/opengl/color_format.hpp>
 
 
-sge::renderer::size_type
-sge::opengl::texture::color_surface_types::min_size()
+namespace sge
 {
-	return 64u;
+namespace opengl
+{
+namespace texture
+{
+
+template<
+	typename Format
+>
+struct convert_format_function
+{
+	typedef
+	sge::opengl::color_format const
+	(*type)
+	(
+		Format
+	);
+};
+
+}
+}
 }
 
-sge::opengl::texture::color_surface_types::init_function_type
-sge::opengl::texture::color_surface_types::init_function()
-{
-	return &sge::opengl::texture::funcs::set_2d;
-}
-
-sge::opengl::texture::color_surface_types::sub_function_type
-sge::opengl::texture::color_surface_types::sub_function()
-{
-	return &sge::opengl::texture::funcs::set_rect;
-}
+#endif

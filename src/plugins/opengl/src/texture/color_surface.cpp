@@ -18,9 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/color/traits/format.hpp>
+#include <sge/image/color/traits/format_stride.hpp>
 #include <sge/image2d/traits/box_fwd.hpp>
-#include <sge/image2d/traits/color_tag.hpp>
 #include <sge/image2d/traits/const_view_fwd.hpp>
 #include <sge/image2d/traits/dim_fwd.hpp>
 #include <sge/image2d/traits/pitch_fwd.hpp>
@@ -28,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/object.hpp>
 #include <sge/opengl/texture/basic_buffer_impl.hpp>
+#include <sge/opengl/texture/buffer_surface_types.hpp>
 #include <sge/opengl/texture/color_surface.hpp>
 #include <sge/opengl/texture/color_surface_types.hpp>
 

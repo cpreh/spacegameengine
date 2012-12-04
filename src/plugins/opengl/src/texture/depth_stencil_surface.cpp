@@ -18,61 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/texture/binding_fwd.hpp>
-#include <sge/opengl/texture/buffer_base.hpp>
-#include <sge/opengl/texture/buffer_type.hpp>
+#include <sge/image/ds/traits/format_stride.hpp>
+#include <sge/imageds2d/traits/box_fwd.hpp>
+#include <sge/imageds2d/traits/color_tag.hpp>
+#include <sge/imageds2d/traits/const_view_fwd.hpp>
+#include <sge/imageds2d/traits/dim_fwd.hpp>
+#include <sge/imageds2d/traits/pitch_fwd.hpp>
+#include <sge/imageds2d/traits/view_fwd.hpp>
+#include <sge/imageds2d/view/const_object.hpp>
+#include <sge/imageds2d/view/object.hpp>
+#include <sge/opengl/texture/basic_buffer_impl.hpp>
+#include <sge/opengl/texture/buffer_surface_types.hpp>
 #include <sge/opengl/texture/depth_stencil_surface.hpp>
-#include <sge/opengl/texture/get_level_size.hpp>
-#include <sge/opengl/texture/id.hpp>
-#include <sge/renderer/depth_stencil_format.hpp>
-#include <sge/renderer/depth_stencil_surface.hpp>
-#include <sge/renderer/texture/mipmap/level.hpp>
+#include <sge/opengl/texture/depth_stencil_surface_types.hpp>
 
 
-sge::opengl::texture::depth_stencil_surface::depth_stencil_surface(
-	sge::opengl::texture::binding const &_binding,
-	sge::opengl::texture::buffer_type const _buffer_type,
-	sge::opengl::texture::id const _id,
-	sge::renderer::depth_stencil_format::type const _format
-)
-:
-	sge::renderer::depth_stencil_surface(),
-	sge::opengl::texture::buffer_base(
-		_buffer_type,
-		_id,
-		sge::renderer::texture::mipmap::level(
-			0u
-		)
-	),
-	size_(
-		sge::opengl::texture::get_level_size<
-			2u
-		>(
-			_binding,
-			_buffer_type,
-			sge::renderer::texture::mipmap::level(
-				0u
-			)
-		)
-	),
-	format_(
-		_format
-	)
-{
-}
-
-sge::opengl::texture::depth_stencil_surface::~depth_stencil_surface()
-{
-}
-
-sge::opengl::texture::depth_stencil_surface::dim const
-sge::opengl::texture::depth_stencil_surface::size() const
-{
-	return size_;
-}
-
-sge::renderer::depth_stencil_format::type
-sge::opengl::texture::depth_stencil_surface::format() const
-{
-	return format_;
-}
+template
+class
+sge::opengl::texture::basic_buffer<
+	sge::opengl::texture::depth_stencil_surface_types
+>;

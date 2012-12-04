@@ -18,12 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/depth_stencil_surface.hpp>
+#include <sge/opengl/texture/buffer_surface_types.hpp>
+#include <sge/opengl/texture/funcs/set_2d.hpp>
+#include <sge/opengl/texture/funcs/set_rect.hpp>
+#include <sge/renderer/size_type.hpp>
 
-sge::renderer::depth_stencil_surface::depth_stencil_surface()
+
+sge::renderer::size_type
+sge::opengl::texture::buffer_surface_types::min_size()
 {
+	return 64u;
 }
 
-sge::renderer::depth_stencil_surface::~depth_stencil_surface()
+sge::opengl::texture::buffer_surface_types::init_function_type
+sge::opengl::texture::buffer_surface_types::init_function()
 {
+	return &sge::opengl::texture::funcs::set_2d;
+}
+
+sge::opengl::texture::buffer_surface_types::sub_function_type
+sge::opengl::texture::buffer_surface_types::sub_function()
+{
+	return &sge::opengl::texture::funcs::set_rect;
 }

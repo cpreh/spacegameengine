@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGEDS2D_TRAITS_COLOR_TAG_HPP_INCLUDED
 #define SGE_IMAGEDS2D_TRAITS_COLOR_TAG_HPP_INCLUDED
 
-#include <sge/image/color/tag.hpp>
+#include <sge/image/ds/tag.hpp>
 #include <sge/image/traits/color_tag.hpp>
 #include <sge/imageds2d/tag.hpp>
 
@@ -38,7 +38,7 @@ struct color_tag<
 	sge::imageds2d::tag
 >
 {
-	typedef sge::image::color::tag type;
+	typedef sge::image::ds::tag type;
 };
 
 }

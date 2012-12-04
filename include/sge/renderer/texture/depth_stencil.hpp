@@ -22,11 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_TEXTURE_DEPTH_STENCIL_HPP_INCLUDED
 
 #include <sge/class_symbol.hpp>
-#include <sge/renderer/depth_stencil_surface_unique_ptr.hpp>
 #include <sge/renderer/dim2_fwd.hpp>
+#include <sge/renderer/lock_rect_fwd.hpp>
 #include <sge/renderer/symbol.hpp>
+#include <sge/renderer/depth_stencil_buffer/surface_fwd.hpp>
 #include <sge/renderer/texture/base.hpp>
 #include <sge/renderer/texture/depth_stencil_fwd.hpp>
+#include <sge/renderer/texture/mipmap/level.hpp>
+#include <sge/renderer/texture/mipmap/level_count.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -49,18 +52,34 @@ protected:
 	depth_stencil();
 public:
 	SGE_RENDERER_SYMBOL
-	virtual ~depth_stencil() = 0;
+	virtual
+	~depth_stencil() = 0;
 
 	typedef sge::renderer::dim2 dim;
 
-	virtual
-	dim const
-	size() const = 0;
+	typedef sge::renderer::lock_rect rect;
+
+	typedef sge::renderer::depth_stencil_buffer::surface color_buffer;
 
 	SGE_RENDERER_SYMBOL
+	dim const
+	size() const;
+
 	virtual
-	sge::renderer::depth_stencil_surface_unique_ptr
-	surface() const = 0;
+	color_buffer &
+	level(
+		sge::renderer::texture::mipmap::level
+	) = 0;
+
+	virtual
+	color_buffer const &
+	level(
+		sge::renderer::texture::mipmap::level
+	) const = 0;
+
+	SGE_RENDERER_SYMBOL
+	rect const
+	area() const;
 
 	SGE_RENDERER_SYMBOL
 	sge::renderer::texture::base::size_type

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_DEPTH_STENCIL_BASIC_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_DEPTH_STENCIL_BASIC_HPP_INCLUDED
 
-#include <sge/opengl/texture/basic_fwd.hpp>
+#include <sge/opengl/texture/basic_box_fwd.hpp>
 #include <sge/opengl/texture/depth_stencil_types_fwd.hpp>
 
 
@@ -32,7 +32,7 @@ namespace opengl
 namespace texture
 {
 
-typedef sge::opengl::texture::basic<
+typedef sge::opengl::texture::basic_box<
 	sge::opengl::texture::depth_stencil_types
 > depth_stencil_basic;
 

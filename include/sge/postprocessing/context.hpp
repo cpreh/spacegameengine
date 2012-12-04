@@ -23,10 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/postprocessing/fullscreen_quad.hpp>
 #include <sge/postprocessing/symbol.hpp>
-#include <sge/renderer/depth_stencil_surface_scoped_ptr.hpp>
 #include <sge/renderer/vertex_buffer_scoped_ptr.hpp>
 #include <sge/renderer/vertex_declaration_scoped_ptr.hpp>
 #include <sge/renderer/context/scoped_core_unique_ptr.hpp>
+#include <sge/renderer/depth_stencil_buffer/surface_scoped_ptr.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/state/core/sampler/object_scoped_ptr.hpp>
 #include <sge/renderer/target/offscreen_scoped_ptr.hpp>
@@ -88,7 +88,7 @@ private:
 	fcppt::signal::scoped_connection viewport_connection_;
 	sge::renderer::texture::planar_scoped_ptr rendering_result_texture_;
 	sge::renderer::target::offscreen_scoped_ptr offscreen_target_;
-	sge::renderer::depth_stencil_surface_scoped_ptr depth_stencil_surface_;
+	sge::renderer::depth_stencil_buffer::surface_scoped_ptr depth_stencil_surface_;
 		/*
 	sge::renderer::target::offscreen_scoped_ptr offscreen_downsampled_target_;
 	sge::renderer::texture::planar_scoped_ptr downsampled_texture_0_;

@@ -18,25 +18,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_DEPTH_STENCIL_SURFACE_SCOPED_PTR_HPP_INCLUDED
-#define SGE_RENDERER_DEPTH_STENCIL_SURFACE_SCOPED_PTR_HPP_INCLUDED
+#ifndef SGE_RENDERER_DEPTH_STENCIL_BUFFER_SURFACE_PARAMETERS_HPP_INCLUDED
+#define SGE_RENDERER_DEPTH_STENCIL_BUFFER_SURFACE_PARAMETERS_HPP_INCLUDED
 
-#include <sge/renderer/depth_stencil_surface_fwd.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
+#include <sge/image/ds/format.hpp>
+#include <sge/renderer/dim2.hpp>
+#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/depth_stencil_buffer/surface_parameters_fwd.hpp>
 
 
 namespace sge
 {
 namespace renderer
 {
+namespace depth_stencil_buffer
+{
 
-/**
- * \brief A scoped pointer to a renderer::depth_stencil_surface
-*/
-typedef fcppt::scoped_ptr<
-	renderer::depth_stencil_surface
-> depth_stencil_surface_scoped_ptr;
+class surface_parameters
+{
+public:
+	SGE_RENDERER_SYMBOL
+	surface_parameters(
+		sge::renderer::dim2 const &,
+		sge::image::ds::format::type
+	);
 
+	SGE_RENDERER_SYMBOL
+	sge::renderer::dim2 const &
+	size() const;
+
+	SGE_RENDERER_SYMBOL
+	sge::image::ds::format::type
+	format() const;
+private:
+	sge::renderer::dim2 size_;
+
+	sge::image::ds::format::type format_;
+};
+
+}
 }
 }
 

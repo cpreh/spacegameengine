@@ -18,26 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/texture/color_volume_types.hpp>
-#include <sge/opengl/texture/funcs/set_3d.hpp>
-#include <sge/opengl/texture/funcs/set_box.hpp>
-#include <sge/renderer/size_type.hpp>
+#include <sge/image/algorithm/may_overlap.hpp>
+#include <sge/image/ds/traits/format.hpp>
+#include <sge/imageds2d/tag.hpp>
+#include <sge/imageds2d/algorithm/copy.hpp>
+#include <sge/imageds2d/traits/color_tag.hpp>
+#include <sge/imageds2d/traits/const_view_fwd.hpp>
+#include <sge/imageds2d/traits/view_fwd.hpp>
+#include <sge/imageds2d/view/const_object.hpp>
+#include <sge/imageds2d/view/object.hpp>
+#include <sge/src/image/algorithm/copy_impl.hpp>
+#include <sge/src/image/algorithm/instantiate_copy.hpp>
 
 
-sge::renderer::size_type
-sge::opengl::texture::color_volume_types::min_size()
+void
+sge::imageds2d::algorithm::copy(
+	sge::imageds2d::view::const_object const &_src,
+	sge::imageds2d::view::object const &_dest,
+	sge::image::algorithm::may_overlap::type const _overlap
+)
 {
-	return 16u;
+	sge::image::algorithm::copy<
+		sge::imageds2d::tag
+	>(
+		_src,
+		_dest,
+		_overlap
+	);
 }
 
-sge::opengl::texture::color_volume_types::init_function_type
-sge::opengl::texture::color_volume_types::init_function()
-{
-	return &sge::opengl::texture::funcs::set_3d;
-}
-
-sge::opengl::texture::color_volume_types::sub_function_type
-sge::opengl::texture::color_volume_types::sub_function()
-{
-	return &sge::opengl::texture::funcs::set_box;
-}
+SGE_SRC_IMAGE_ALGORITHM_INSTANTIATE_COPY(
+	sge::imageds2d::tag
+);

@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_CONVERT_DEPTH_STENCIL_TO_FORMAT_TYPE_HPP_INCLUDED
 
 #include <sge/opengl/color_format_type.hpp>
-#include <sge/renderer/depth_stencil_format.hpp>
+#include <sge/image/ds/format.hpp>
+
 
 namespace sge
 {
@@ -31,9 +32,9 @@ namespace opengl
 namespace convert
 {
 
-opengl::color_format_type const
+sge::opengl::color_format_type const
 depth_stencil_to_format_type(
-	renderer::depth_stencil_format::type
+	sge::image::ds::format::type
 );
 
 }

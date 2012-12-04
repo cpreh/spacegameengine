@@ -21,16 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_DEPTH_STENCIL_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_DEPTH_STENCIL_HPP_INCLUDED
 
-#include <sge/opengl/texture/basic.hpp>
+#include <sge/opengl/texture/basic_box.hpp>
 #include <sge/opengl/texture/basic_parameters_fwd.hpp>
 #include <sge/opengl/texture/depth_stencil_basic.hpp>
 #include <sge/opengl/texture/depth_stencil_fwd.hpp>
 #include <sge/opengl/texture/depth_stencil_types.hpp>
-#include <sge/renderer/depth_stencil_format.hpp>
-#include <sge/renderer/depth_stencil_surface_unique_ptr.hpp>
 #include <sge/renderer/texture/depth_stencil.hpp>
 #include <sge/renderer/texture/depth_stencil_parameters_fwd.hpp>
-#include <fcppt/math/dim/object_decl.hpp>
+#include <fcppt/noncopyable.hpp>
 
 
 namespace sge
@@ -54,16 +52,6 @@ public:
 	);
 
 	~depth_stencil();
-
-	sge::opengl::texture::depth_stencil::dim const
-	size() const;
-
-	sge::renderer::depth_stencil_surface_unique_ptr
-	surface() const;
-private:
-	sge::opengl::texture::depth_stencil::dim const size_;
-
-	sge::renderer::depth_stencil_format::type const format_;
 };
 
 }

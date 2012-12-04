@@ -18,34 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/image/ds/format.hpp>
 #include <sge/opengl/color_format_type.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/convert/depth_stencil_to_format_type.hpp>
 #include <sge/opengl/convert/make_color_format_type.hpp>
-#include <sge/renderer/depth_stencil_format.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 
 sge::opengl::color_format_type const
 sge::opengl::convert::depth_stencil_to_format_type(
-	renderer::depth_stencil_format::type const _type
+	sge::image::ds::format::type const _type
 )
 {
 	switch(
 		_type
 	)
 	{
-	case sge::renderer::depth_stencil_format::d16:
+	case sge::image::ds::format::d16:
 		return
 			sge::opengl::convert::make_color_format_type(
 				GL_UNSIGNED_SHORT
 			);
-	case sge::renderer::depth_stencil_format::d32:
-	case sge::renderer::depth_stencil_format::d24s8:
+	case sge::image::ds::format::d32:
+	case sge::image::ds::format::d24s8:
 		return
 			sge::opengl::convert::make_color_format_type(
 				GL_FLOAT
 			);
+	case sge::image::ds::format::size:
+		break;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

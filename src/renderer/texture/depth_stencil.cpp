@@ -18,8 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/renderer/dim2.hpp>
+#include <sge/renderer/lock_rect.hpp>
+#include <sge/renderer/depth_stencil_buffer/surface.hpp>
 #include <sge/renderer/texture/depth_stencil.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
+#include <sge/renderer/texture/mipmap/level.hpp>
 
 
 sge::renderer::texture::depth_stencil::depth_stencil()
@@ -28,6 +31,27 @@ sge::renderer::texture::depth_stencil::depth_stencil()
 
 sge::renderer::texture::depth_stencil::~depth_stencil()
 {
+}
+
+sge::renderer::texture::depth_stencil::dim const
+sge::renderer::texture::depth_stencil::size() const
+{
+	return
+		this->level(
+			sge::renderer::texture::mipmap::level(
+				0u
+			)
+		).size();
+}
+
+sge::renderer::texture::depth_stencil::rect const
+sge::renderer::texture::depth_stencil::area() const
+{
+	return
+		sge::renderer::texture::depth_stencil::rect(
+			sge::renderer::texture::depth_stencil::rect::vector::null(),
+			this->size()
+		);
 }
 
 sge::renderer::texture::depth_stencil::size_type

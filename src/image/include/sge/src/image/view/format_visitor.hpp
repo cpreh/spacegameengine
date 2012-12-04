@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_IMAGE_VIEW_FORMAT_VISITOR_HPP_INCLUDED
 #define SGE_SRC_IMAGE_VIEW_FORMAT_VISITOR_HPP_INCLUDED
 
-#include <sge/image/color/format.hpp>
-#include <sge/image/color/format_static.hpp>
+#include <sge/image/traits/format.hpp>
+#include <sge/image/traits/format_static.hpp>
 
 
 namespace sge
@@ -33,11 +33,13 @@ namespace view
 {
 
 template<
-	typename Format
+	typename ColorTag
 >
 struct format_visitor
 {
-	typedef Format result_type;
+	typedef typename sge::image::traits::format<
+		ColorTag
+	>::type result_type;
 
 	template<
 		typename View
@@ -48,7 +50,9 @@ struct format_visitor
 	) const
 	{
 		return
-			sge::image::color::format_static<
+			sge::image::traits::format_static<
+				ColorTag
+			>:: template apply<
 				typename View::format::color_format
 			>::value;
 	}

@@ -45,6 +45,8 @@ set(
 	include/sge/image/traits/const_view_fwd.hpp
 	include/sge/image/traits/dim_fwd.hpp
 	include/sge/image/traits/format.hpp
+	include/sge/image/traits/format_static.hpp
+	include/sge/image/traits/format_stride.hpp
 	include/sge/image/traits/format_to_string.hpp
 	include/sge/image/traits/pitch_fwd.hpp
 	include/sge/image/traits/sub_out_of_range.hpp

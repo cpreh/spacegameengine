@@ -18,39 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_DEPTH_STENCIL_FORMAT_HPP_INCLUDED
-#define SGE_RENDERER_DEPTH_STENCIL_FORMAT_HPP_INCLUDED
+#ifndef SGE_OPENGL_TEXTURE_DEPTH_STENCIL_SURFACE_TYPES_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_DEPTH_STENCIL_SURFACE_TYPES_HPP_INCLUDED
+
+#include <sge/opengl/texture/depth_stencil_format_types_fwd.hpp>
+#include <sge/opengl/texture/depth_stencil_surface_types_fwd.hpp>
+#include <sge/opengl/texture/buffer_surface_types_fwd.hpp>
+#include <sge/renderer/depth_stencil_buffer/surface_fwd.hpp>
+
 
 namespace sge
 {
-namespace renderer
+namespace opengl
+{
+namespace texture
 {
 
-/**
- * \brief The namespace for the depth stencil format enum
-*/
-namespace depth_stencil_format
+struct depth_stencil_surface_types
 {
-/**
- * The enum type for depth stencil formats
-*/
-enum type
-{
-	/**
-	 * \brief 16 bits for depth, no stencil
-	*/
-	d16,
-	/**
-	 * \brief 32 bits for depth, no stencil
-	*/
-	d32,
-	/**
-	 * \brief 24 bits for depth, 8 bits for stencil
-	*/
-	d24s8
+	typedef sge::renderer::depth_stencil_buffer::surface base;
+
+	typedef sge::opengl::texture::buffer_surface_types dim_types;
+
+	typedef sge::opengl::texture::depth_stencil_format_types format_types;
 };
-}
 
+}
 }
 }
 

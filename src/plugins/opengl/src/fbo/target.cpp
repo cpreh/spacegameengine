@@ -42,11 +42,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/buffer_base.hpp>
 #include <sge/opengl/texture/color_surface.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/optional_depth_stencil_surface_ref.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/screen_unit.hpp>
 #include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/color_buffer/optional_surface_ref.hpp>
+#include <sge/renderer/depth_stencil_buffer/optional_surface_ref.hpp>
 #include <sge/renderer/target/offscreen.hpp>
 #include <sge/renderer/target/surface_index.hpp>
 #include <sge/renderer/target/viewport.hpp>
@@ -204,7 +204,7 @@ sge::opengl::fbo::target::color_surface(
 
 void
 sge::opengl::fbo::target::depth_stencil_surface(
-	sge::renderer::optional_depth_stencil_surface_ref const &_surface
+	sge::renderer::depth_stencil_buffer::optional_surface_ref const &_surface
 )
 {
 	sge::opengl::fbo::temporary_bind const scoped_exit(

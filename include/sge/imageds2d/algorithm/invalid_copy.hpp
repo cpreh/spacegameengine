@@ -18,11 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_OPTIONAL_DEPTH_STENCIL_SURFACE_REF_HPP_INCLUDED
-#define SGE_RENDERER_OPTIONAL_DEPTH_STENCIL_SURFACE_REF_HPP_INCLUDED
+#ifndef SGE_IMAGEDS2D_ALGORITHM_INVALID_COPY_HPP_INCLUDED
+#define SGE_IMAGEDS2D_ALGORITHM_INVALID_COPY_HPP_INCLUDED
 
-#include <sge/renderer/optional_depth_stencil_surface_ref_fwd.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <sge/image/ds/invalid_copy.hpp>
 
+
+namespace sge
+{
+namespace imageds2d
+{
+namespace algorithm
+{
+
+typedef sge::image::ds::invalid_copy invalid_copy;
+
+}
+}
+}
 
 #endif

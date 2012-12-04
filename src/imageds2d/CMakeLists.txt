@@ -1,5 +1,7 @@
 set(
 	SGE_IMAGEDS2D_FILES
+	include/sge/imageds2d/algorithm/copy.hpp
+	include/sge/imageds2d/algorithm/invalid_copy.hpp
 	include/sge/imageds2d/d16.hpp
 	include/sge/imageds2d/d16_format.hpp
 	include/sge/imageds2d/d16_fwd.hpp
@@ -13,6 +15,8 @@ set(
 	include/sge/imageds2d/dim_fwd.hpp
 	include/sge/imageds2d/pitch.hpp
 	include/sge/imageds2d/pitch_fwd.hpp
+	include/sge/imageds2d/rect.hpp
+	include/sge/imageds2d/rect_fwd.hpp
 	include/sge/imageds2d/tag.hpp
 	include/sge/imageds2d/traits/box_fwd.hpp
 	include/sge/imageds2d/traits/color_tag.hpp
@@ -34,16 +38,23 @@ set(
 	include/sge/imageds2d/view/elements.hpp
 	include/sge/imageds2d/view/elements_wrapper.hpp
 	include/sge/imageds2d/view/elements_wrapper_fwd.hpp
+	include/sge/imageds2d/view/flipped.hpp
+	include/sge/imageds2d/view/format.hpp
 	include/sge/imageds2d/view/make.hpp
 	include/sge/imageds2d/view/object.hpp
 	include/sge/imageds2d/view/object_fwd.hpp
+	include/sge/imageds2d/view/sub.hpp
 	include/sge/imageds2d/view/to_const.hpp
+	src/imageds2d/algorithm/copy.cpp
 	src/imageds2d/d16.cpp
 	src/imageds2d/d24s8.cpp
 	src/imageds2d/d32.cpp
 	src/imageds2d/view/const_object.cpp
+	src/imageds2d/view/flipped.cpp
+	src/imageds2d/view/format.cpp
 	src/imageds2d/view/make.cpp
 	src/imageds2d/view/object.cpp
+	src/imageds2d/view/sub.cpp
 	src/imageds2d/view/to_const.cpp
 )
 

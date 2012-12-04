@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/image/ds/format.hpp>
 #include <sge/opengl/fbo/context.hpp>
 #include <sge/opengl/fbo/depth_stencil_format_to_attachment.hpp>
 #include <sge/opengl/fbo/optional_attachment_type.hpp>
-#include <sge/renderer/depth_stencil_format.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
@@ -29,22 +29,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::opengl::fbo::optional_attachment_type const
 sge::opengl::fbo::depth_stencil_format_to_attachment(
 	sge::opengl::fbo::context const &_context,
-	sge::renderer::depth_stencil_format::type const _format
+	sge::image::ds::format::type const _format
 )
 {
 	switch(
 		_format
 	)
 	{
-	case sge::renderer::depth_stencil_format::d16:
-	case sge::renderer::depth_stencil_format::d32:
+	case sge::image::ds::format::d16:
+	case sge::image::ds::format::d32:
 		return
 			sge::opengl::fbo::optional_attachment_type(
 				_context.depth_attachment()
 			);
-	case sge::renderer::depth_stencil_format::d24s8:
+	case sge::image::ds::format::d24s8:
 		return
 			_context.depth_stencil_attachment();
+	case sge::image::ds::format::size:
+		break;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

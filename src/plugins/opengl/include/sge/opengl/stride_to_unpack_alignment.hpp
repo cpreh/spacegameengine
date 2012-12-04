@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_COLOR_FORMAT_TO_UNPACK_ALIGNMENT_HPP_INCLUDED
-#define SGE_OPENGL_COLOR_FORMAT_TO_UNPACK_ALIGNMENT_HPP_INCLUDED
+#ifndef SGE_OPENGL_STRIDE_TO_UNPACK_ALIGNMENT_HPP_INCLUDED
+#define SGE_OPENGL_STRIDE_TO_UNPACK_ALIGNMENT_HPP_INCLUDED
 
-#include <sge/image/color/format.hpp>
+#include <sge/image/size_type.hpp>
 #include <sge/opengl/unpack_alignment.hpp>
 
 
@@ -31,8 +31,8 @@ namespace opengl
 {
 
 sge::opengl::unpack_alignment const
-color_format_to_unpack_alignment(
-	sge::image::color::format::type
+stride_to_unpack_alignment(
+	sge::image::size_type stride
 );
 
 }

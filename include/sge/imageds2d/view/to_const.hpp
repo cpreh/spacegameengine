@@ -34,9 +34,9 @@ namespace view
 {
 
 SGE_IMAGEDS2D_SYMBOL
-view::const_object const
+sge::imageds2d::view::const_object const
 to_const(
-	view::object const &
+	sge::imageds2d::view::object const &
 );
 
 }

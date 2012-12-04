@@ -18,50 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/size_type.hpp>
-#include <sge/image/color/format.hpp>
-#include <sge/image/color/format_stride.hpp>
-#include <sge/opengl/color_format_to_unpack_alignment.hpp>
-#include <sge/opengl/unpack_alignment.hpp>
+#ifndef SGE_RENDERER_DEPTH_STENCIL_BUFFER_SURFACE_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_RENDERER_DEPTH_STENCIL_BUFFER_SURFACE_UNIQUE_PTR_HPP_INCLUDED
+
+#include <sge/renderer/depth_stencil_buffer/surface_fwd.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 
 
-sge::opengl::unpack_alignment const
-sge::opengl::color_format_to_unpack_alignment(
-	sge::image::color::format::type const _format
-)
+namespace sge
 {
-	sge::image::size_type const stride(
-		sge::image::color::format_stride(
-			_format
-		)
-	);
+namespace renderer
+{
+namespace depth_stencil_buffer
+{
 
-	if(
-		(stride % 8u) == 0u
-	)
-		return
-			sge::opengl::unpack_alignment(
-				8
-			);
+/**
+\brief A unique pointer to an sge::renderer::depth_stencil_buffer::surface
+*/
+typedef fcppt::unique_ptr<
+	sge::renderer::depth_stencil_buffer::surface
+> surface_unique_ptr;
 
-	if(
-		(stride % 4u) == 0u
-	)
-		return
-			sge::opengl::unpack_alignment(
-				4
-			);
-
-	if(
-		(stride % 2u) == 0u
-	)
-		return
-			sge::opengl::unpack_alignment(
-				2
-			);
-
-	return
-		sge::opengl::unpack_alignment(
-			1
-		);
 }
+}
+}
+
+#endif

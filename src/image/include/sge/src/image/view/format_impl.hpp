@@ -45,10 +45,8 @@ sge::image::view::format(
 {
 	return
 		sge::image::view::format_any<
-			typename sge::image::traits::format<
-				typename sge::image::traits::color_tag<
-					Tag
-				>::type
+			typename sge::image::traits::color_tag<
+				Tag
 			>::type
 		>(
 			_view
@@ -72,10 +70,8 @@ sge::image::view::format(
 {
 	return
 		sge::image::view::format_any<
-			typename sge::image::traits::format<
-				typename sge::image::traits::color_tag<
-					Tag
-				>::type
+			typename sge::image::traits::color_tag<
+				Tag
 			>::type
 		>(
 			_view

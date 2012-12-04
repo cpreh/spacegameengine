@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_BASIC_BUFFER_PARAMETERS_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_BASIC_BUFFER_PARAMETERS_HPP_INCLUDED
 
-#include <sge/image/color/format.hpp>
 #include <sge/opengl/color_format.hpp>
 #include <sge/opengl/color_format_type.hpp>
 #include <sge/opengl/internal_color_format.hpp>
@@ -60,7 +59,6 @@ public:
 		sge::opengl::texture::buffer_type,
 		sge::opengl::texture::id,
 		sge::renderer::resource_flags_field const &,
-		sge::image::color::format::type,
 		sge::opengl::color_format,
 		sge::opengl::color_format_type,
 		sge::opengl::internal_color_format,
@@ -91,9 +89,6 @@ public:
 	sge::renderer::resource_flags_field const &
 	resource_flags() const;
 
-	sge::image::color::format::type
-	format() const;
-
 	sge::opengl::color_format const
 	color_format() const;
 
@@ -121,8 +116,6 @@ private:
 	sge::opengl::texture::id const id_;
 
 	sge::renderer::resource_flags_field const resource_flags_;
-
-	sge::image::color::format::type const format_;
 
 	sge::opengl::color_format const color_format_;
 

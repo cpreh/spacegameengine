@@ -19,28 +19,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/convert/depth_stencil_to_format.hpp>
-#include <sge/opengl/convert/depth_stencil_to_format_type.hpp>
-#include <sge/opengl/convert/depth_stencil_to_internal_format.hpp>
-#include <sge/opengl/texture/basic_parameters.hpp>
-#include <sge/opengl/texture/buffer_type.hpp>
+#include <sge/opengl/texture/basic_parameters_fwd.hpp>
 #include <sge/opengl/texture/depth_stencil.hpp>
 #include <sge/opengl/texture/depth_stencil_basic.hpp>
-#include <sge/opengl/texture/depth_stencil_surface.hpp>
-#include <sge/opengl/texture/scoped_work_binding.hpp>
 #include <sge/opengl/texture/convert/make_type.hpp>
-#include <sge/opengl/texture/funcs/set_2d.hpp>
-#include <sge/renderer/depth_stencil_surface_unique_ptr.hpp>
 #include <sge/renderer/texture/depth_stencil.hpp>
-#include <sge/renderer/texture/depth_stencil_parameters.hpp>
-#include <sge/renderer/texture/mipmap/level.hpp>
-#include <fcppt/cref.hpp>
-#include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/null_ptr.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
+#include <sge/renderer/texture/depth_stencil_parameters_fwd.hpp>
 
 
-// FIXME: this should inherit from texture::basic_box!
 sge::opengl::texture::depth_stencil::depth_stencil(
 	sge::opengl::texture::basic_parameters const &_basic_parameters,
 	sge::renderer::texture::depth_stencil_parameters const &_parameters
@@ -52,77 +38,10 @@ sge::opengl::texture::depth_stencil::depth_stencil(
 			GL_TEXTURE_2D
 		),
 		_parameters
-	),
-	size_(
-		_parameters.size()
-	),
-	format_(
-		_parameters.format()
 	)
 {
-	sge::opengl::texture::scoped_work_binding const binding(
-		this->system_context(),
-		this->device_context(),
-		this->type(),
-		this->id()
-	);
-
-	sge::opengl::texture::funcs::set_2d(
-		binding,
-		this->system_context(),
-		sge::opengl::texture::buffer_type(
-			this->type().get()
-		),
-		sge::opengl::convert::depth_stencil_to_format(
-			format_
-		),
-		sge::opengl::convert::depth_stencil_to_format_type(
-			format_
-		),
-		sge::opengl::convert::depth_stencil_to_internal_format(
-			format_
-		),
-		sge::renderer::texture::mipmap::level(
-			0u
-		),
-		this->size(),
-		fcppt::null_ptr()
-	);
 }
 
 sge::opengl::texture::depth_stencil::~depth_stencil()
 {
-}
-
-sge::opengl::texture::depth_stencil::dim const
-sge::opengl::texture::depth_stencil::size() const
-{
-	return size_;
-}
-
-sge::renderer::depth_stencil_surface_unique_ptr
-sge::opengl::texture::depth_stencil::surface() const
-{
-	sge::opengl::texture::scoped_work_binding const binding(
-		this->system_context(),
-		this->device_context(),
-		this->type(),
-		this->id()
-	);
-
-	return
-		sge::renderer::depth_stencil_surface_unique_ptr(
-			fcppt::make_unique_ptr<
-				sge::opengl::texture::depth_stencil_surface
-			>(
-				fcppt::cref(
-					binding
-				),
-				sge::opengl::texture::buffer_type(
-					this->type().get()
-				),
-				this->id(),
-				format_
-			)
-		);
 }

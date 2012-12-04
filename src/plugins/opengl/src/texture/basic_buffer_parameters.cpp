@@ -43,7 +43,6 @@ sge::opengl::texture::basic_buffer_parameters::basic_buffer_parameters(
 	sge::opengl::texture::buffer_type const _buffer_type,
 	sge::opengl::texture::id const _id,
 	sge::renderer::resource_flags_field const &_resource_flags,
-	sge::image::color::format::type const _format,
 	sge::opengl::color_format const _color_format,
 	sge::opengl::color_format_type const _color_format_type,
 	sge::opengl::internal_color_format const _internal_color_format,
@@ -73,9 +72,6 @@ sge::opengl::texture::basic_buffer_parameters::basic_buffer_parameters(
 	),
 	resource_flags_(
 		_resource_flags
-	),
-	format_(
-		_format
 	),
 	color_format_(
 		_color_format
@@ -138,12 +134,6 @@ sge::renderer::resource_flags_field const &
 sge::opengl::texture::basic_buffer_parameters::resource_flags() const
 {
 	return resource_flags_;
-}
-
-sge::image::color::format::type
-sge::opengl::texture::basic_buffer_parameters::format() const
-{
-	return format_;
 }
 
 sge::opengl::color_format const

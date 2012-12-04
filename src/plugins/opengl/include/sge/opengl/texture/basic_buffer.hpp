@@ -21,7 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_BASIC_BUFFER_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_BASIC_BUFFER_HPP_INCLUDED
 
-#include <sge/image/color/format.hpp>
+#include <sge/image/traits/color_tag.hpp>
+#include <sge/image/traits/format.hpp>
 #include <sge/image/traits/pitch_fwd.hpp>
 #include <sge/opengl/color_format.hpp>
 #include <sge/opengl/color_format_type.hpp>
@@ -62,16 +63,24 @@ class basic_buffer
 		basic_buffer
 	);
 public:
-	explicit
+	typedef typename Types::base base_type;
+
+	typedef typename base_type::image_tag image_tag;
+
+	typedef typename sge::image::traits::color_tag<
+		image_tag
+	>::type color_tag;
+
+	typedef typename sge::image::traits::format<
+		color_tag
+	>::type format_type;
+
 	basic_buffer(
+		format_type,
 		sge::opengl::texture::basic_buffer_parameters const &
 	);
 
 	~basic_buffer();
-
-	typedef typename Types::base base_type;
-
-	typedef typename base_type::image_tag image_tag;
 
 	typedef sge::opengl::texture::lock_base::pointer pointer;
 
@@ -93,6 +102,9 @@ private:
 	// implementation for base class
 	dim const
 	size() const;
+
+	format_type
+	format() const;
 
 	view const
 	lock(
@@ -140,7 +152,7 @@ private:
 
 	dim const size_;
 
-	sge::image::color::format::type const format_;
+	format_type const format_;
 
 	sge::opengl::color_format const color_format_;
 

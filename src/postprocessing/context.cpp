@@ -19,8 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/config/media_path.hpp>
+#include <sge/image/ds/format.hpp>
 #include <sge/postprocessing/context.hpp>
-#include <sge/renderer/depth_stencil_surface.hpp>
+#include <sge/renderer/depth_stencil_buffer/optional_surface_ref.hpp>
+#include <sge/renderer/depth_stencil_buffer/surface.hpp>
+#include <sge/renderer/depth_stencil_buffer/surface_parameters.hpp>
 #include <sge/renderer/device/core.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
@@ -231,11 +234,12 @@ sge::postprocessing::context::viewport_callback()
 
 	depth_stencil_surface_.take(
 		renderer_.create_depth_stencil_surface(
-			target_size,
-			sge::renderer::depth_stencil_format::d32));
+			sge::renderer::depth_stencil_buffer::surface_parameters(
+				target_size,
+				sge::image::ds::format::d32)));
 
 	offscreen_target_->depth_stencil_surface(
-		sge::renderer::optional_depth_stencil_surface_ref(
+		sge::renderer::depth_stencil_buffer::optional_surface_ref(
 			*depth_stencil_surface_));
 }
 

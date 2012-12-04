@@ -22,10 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_DS_ELEMENTS_HPP_INCLUDED
 
 #include <sge/image/ds/d16_format.hpp>
-#include <sge/image/ds/d32_format.hpp>
 #include <sge/image/ds/d24s8_format.hpp>
+#include <sge/image/ds/d32_format.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/vector/vector20.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

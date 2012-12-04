@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_TARGET_OFFSCREEN_HPP_INCLUDED
 
 #include <sge/class_symbol.hpp>
-#include <sge/renderer/optional_depth_stencil_surface_ref_fwd.hpp>
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/color_buffer/optional_surface_ref_fwd.hpp>
+#include <sge/renderer/depth_stencil_buffer/optional_surface_ref_fwd.hpp>
 #include <sge/renderer/target/base.hpp>
 #include <sge/renderer/target/offscreen_fwd.hpp>
 #include <sge/renderer/target/surface_index.hpp>
@@ -102,7 +102,7 @@ public:
 	virtual
 	void
 	depth_stencil_surface(
-		sge::renderer::optional_depth_stencil_surface_ref const &surface
+		sge::renderer::depth_stencil_buffer::optional_surface_ref const &surface
 	) = 0;
 
 	SGE_RENDERER_SYMBOL

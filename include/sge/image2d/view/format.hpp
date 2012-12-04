@@ -35,15 +35,15 @@ namespace view
 {
 
 SGE_IMAGE2D_SYMBOL
-image::color::format::type
+sge::image::color::format::type
 format(
-	view::object const &
+	sge::image2d::view::object const &
 );
 
 SGE_IMAGE2D_SYMBOL
-image::color::format::type
+sge::image::color::format::type
 format(
-	view::const_object const &
+	sge::image2d::view::const_object const &
 );
 
 }

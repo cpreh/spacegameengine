@@ -77,6 +77,8 @@ set(
 	include/sge/image/color/tag.hpp
 	include/sge/image/color/traits/any_object_fwd.hpp
 	include/sge/image/color/traits/format.hpp
+	include/sge/image/color/traits/format_static.hpp
+	include/sge/image/color/traits/format_stride.hpp
 	include/sge/image/color/traits/format_to_string.hpp
 	include/sge/image/color/view/a8_format.hpp
 	include/sge/image/color/view/bgr32f_format.hpp
@@ -178,6 +180,7 @@ set(
 	src/image/color/invalid_convert.cpp
 	src/image/color/invalid_copy.cpp
 	src/image/color/predef.cpp
+	src/image/color/traits/format_stride.cpp
 	src/image/color/traits/format_to_string.cpp
 )
 

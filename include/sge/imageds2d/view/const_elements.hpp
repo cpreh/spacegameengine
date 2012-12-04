@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGEDS2D_VIEW_CONST_ELEMENTS_HPP_INCLUDED
 #define SGE_IMAGEDS2D_VIEW_CONST_ELEMENTS_HPP_INCLUDED
 
-#include <sge/image/color/view/elements_base.hpp>
+#include <sge/image/ds/view/elements_base.hpp>
 #include <sge/imageds2d/view/const_element.hpp>
 
 
@@ -32,7 +32,7 @@ namespace imageds2d
 namespace view
 {
 
-typedef sge::image::color::view::elements_base<
+typedef sge::image::ds::view::elements_base<
 	sge::imageds2d::view::const_element
 >::type const_elements;
 

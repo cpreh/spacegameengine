@@ -18,25 +18,49 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_DEPTH_STENCIL_SURFACE_UNIQUE_PTR_HPP_INCLUDED
-#define SGE_RENDERER_DEPTH_STENCIL_SURFACE_UNIQUE_PTR_HPP_INCLUDED
+#ifndef SGE_OPENGL_TEXTURE_BUFFER_SURFACE_TYPES_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_BUFFER_SURFACE_TYPES_HPP_INCLUDED
 
-#include <sge/renderer/depth_stencil_surface_fwd.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
+#include <sge/opengl/texture/buffer_surface_types_fwd.hpp>
+#include <sge/opengl/texture/init_function.hpp>
+#include <sge/opengl/texture/sub_function.hpp>
+#include <sge/renderer/size_type.hpp>
+#include <fcppt/math/size_type.hpp>
 
 
 namespace sge
 {
-namespace renderer
+namespace opengl
+{
+namespace texture
 {
 
-/**
- * \brief A unique pointer to a renderer::depth_stencil_surface
-*/
-typedef fcppt::unique_ptr<
-	renderer::depth_stencil_surface
-> depth_stencil_surface_unique_ptr;
+struct buffer_surface_types
+{
+	static
+	sge::renderer::size_type
+	min_size();
 
+	static fcppt::math::size_type const num_dims = 2;
+
+	typedef sge::opengl::texture::init_function<
+		num_dims
+	>::type init_function_type;
+
+	static
+	init_function_type
+	init_function();
+
+	typedef sge::opengl::texture::sub_function<
+		num_dims
+	>::type sub_function_type;
+
+	static
+	sub_function_type
+	sub_function();
+};
+
+}
 }
 }
 

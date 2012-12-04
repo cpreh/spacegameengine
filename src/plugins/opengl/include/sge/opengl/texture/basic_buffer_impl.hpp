@@ -23,14 +23,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/algorithm/copy.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
-#include <sge/image/color/format_stride.hpp>
+#include <sge/image/traits/format_stride.hpp>
 #include <sge/image/view/flipped.hpp>
 #include <sge/image/view/make.hpp>
 #include <sge/image/view/sub.hpp>
 #include <sge/image/view/to_const.hpp>
-#include <sge/opengl/color_format_to_unpack_alignment.hpp>
 #include <sge/opengl/range_check.hpp>
 #include <sge/opengl/set_unpack_alignment.hpp>
+#include <sge/opengl/stride_to_unpack_alignment.hpp>
 #include <sge/opengl/texture/basic_buffer.hpp>
 #include <sge/opengl/texture/basic_buffer_parameters.hpp>
 #include <sge/opengl/texture/buffer_base.hpp>
@@ -62,6 +62,7 @@ template<
 sge::opengl::texture::basic_buffer<
 	Types
 >::basic_buffer(
+	format_type const _format,
 	sge::opengl::texture::basic_buffer_parameters const &_parameters
 )
 :
@@ -93,7 +94,7 @@ sge::opengl::texture::basic_buffer<
 		)
 	),
 	format_(
-		_parameters.format()
+		_format
 	),
 	color_format_(
 		_parameters.color_format()
@@ -108,7 +109,9 @@ sge::opengl::texture::basic_buffer<
 		_parameters.is_render_target()
 	),
 	stride_(
-		sge::image::color::format_stride(
+		sge::image::traits::format_stride<
+			color_tag
+		>::execute(
 			format_
 		)
 	),
@@ -148,6 +151,19 @@ sge::opengl::texture::basic_buffer<
 >::size() const
 {
 	return size_;
+}
+
+template<
+	typename Types
+>
+typename sge::opengl::texture::basic_buffer<
+	Types
+>::format_type
+sge::opengl::texture::basic_buffer<
+	Types
+>::format() const
+{
+	return format_;
 }
 
 template<
@@ -252,12 +268,12 @@ sge::opengl::texture::basic_buffer<
 
 		sge::opengl::set_unpack_alignment(
 			device_context_,
-			sge::opengl::color_format_to_unpack_alignment(
-				format_
+			sge::opengl::stride_to_unpack_alignment(
+				stride_
 			)
 		);
 
-		Types::sub_function()(
+		Types::dim_types::sub_function()(
 			binding,
 			system_context_,
 			this->buffer_type(),

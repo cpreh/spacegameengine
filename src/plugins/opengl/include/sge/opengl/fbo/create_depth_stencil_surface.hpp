@@ -22,9 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_FBO_CREATE_DEPTH_STENCIL_SURFACE_HPP_INCLUDED
 
 #include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/renderer/depth_stencil_format.hpp>
-#include <sge/renderer/depth_stencil_surface_unique_ptr.hpp>
-#include <sge/renderer/dim2.hpp>
+#include <sge/renderer/depth_stencil_buffer/surface_parameters_fwd.hpp>
+#include <sge/renderer/depth_stencil_buffer/surface_unique_ptr.hpp>
 
 
 namespace sge
@@ -34,11 +33,10 @@ namespace opengl
 namespace fbo
 {
 
-sge::renderer::depth_stencil_surface_unique_ptr
+sge::renderer::depth_stencil_buffer::surface_unique_ptr
 create_depth_stencil_surface(
 	sge::opengl::context::system::object &,
-	sge::renderer::dim2 const &,
-	sge::renderer::depth_stencil_format::type
+	sge::renderer::depth_stencil_buffer::surface_parameters const &
 );
 
 }

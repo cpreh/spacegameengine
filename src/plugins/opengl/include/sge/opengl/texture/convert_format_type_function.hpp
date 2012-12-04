@@ -18,16 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_DEPTH_STENCIL_SURFACE_FWD_HPP_INCLUDED
-#define SGE_RENDERER_DEPTH_STENCIL_SURFACE_FWD_HPP_INCLUDED
+#ifndef SGE_OPENGL_TEXTURE_CONVERT_FORMAT_TYPE_FUNCTION_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_CONVERT_FORMAT_TYPE_FUNCTION_HPP_INCLUDED
+
+#include <sge/opengl/color_format_type.hpp>
+
 
 namespace sge
 {
-namespace renderer
+namespace opengl
+{
+namespace texture
 {
 
-class depth_stencil_surface;
+template<
+	typename Format
+>
+struct convert_format_type_function
+{
+	typedef
+	sge::opengl::color_format_type const
+	(*type)
+	(
+		Format
+	);
+};
 
+}
 }
 }
 

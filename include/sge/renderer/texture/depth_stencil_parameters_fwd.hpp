@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TEXTURE_DEPTH_STENCIL_PARAMETERS_FWD_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_DEPTH_STENCIL_PARAMETERS_FWD_HPP_INCLUDED
 
-#include <sge/renderer/depth_stencil_format.hpp>
+#include <sge/image/ds/format.hpp>
 #include <sge/renderer/dim2_fwd.hpp>
 #include <sge/renderer/texture/basic_parameters_fwd.hpp>
 
@@ -33,9 +33,9 @@ namespace renderer
 namespace texture
 {
 
-typedef texture::basic_parameters<
+typedef sge::renderer::texture::basic_parameters<
 	sge::renderer::dim2,
-	sge::renderer::depth_stencil_format::type
+	sge::image::ds::format::type
 > depth_stencil_parameters;
 
 }

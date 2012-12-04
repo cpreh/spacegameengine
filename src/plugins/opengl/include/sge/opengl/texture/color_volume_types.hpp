@@ -21,12 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_COLOR_VOLUME_TYPES_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_COLOR_VOLUME_TYPES_HPP_INCLUDED
 
+#include <sge/opengl/texture/color_format_types_fwd.hpp>
 #include <sge/opengl/texture/color_volume_types_fwd.hpp>
-#include <sge/opengl/texture/init_function.hpp>
-#include <sge/opengl/texture/sub_function.hpp>
-#include <sge/renderer/size_type.hpp>
+#include <sge/opengl/texture/buffer_volume_types_fwd.hpp>
 #include <sge/renderer/color_buffer/volume_fwd.hpp>
-#include <fcppt/math/size_type.hpp>
 
 
 namespace sge
@@ -40,27 +38,9 @@ struct color_volume_types
 {
 	typedef sge::renderer::color_buffer::volume base;
 
-	static
-	sge::renderer::size_type
-	min_size();
+	typedef sge::opengl::texture::buffer_volume_types dim_types;
 
-	static fcppt::math::size_type const num_dims = 3;
-
-	typedef sge::opengl::texture::init_function<
-		num_dims
-	>::type init_function_type;
-
-	static
-	init_function_type
-	init_function();
-
-	typedef sge::opengl::texture::sub_function<
-		num_dims
-	>::type sub_function_type;
-
-	static
-	sub_function_type
-	sub_function();
+	typedef sge::opengl::texture::color_format_types format_types;
 };
 
 }

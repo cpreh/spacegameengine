@@ -23,8 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/class_symbol.hpp>
 #include <sge/renderer/config.hpp>
-#include <sge/renderer/depth_stencil_format.hpp>
-#include <sge/renderer/depth_stencil_surface_unique_ptr.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/index_buffer_unique_ptr.hpp>
 #include <sge/renderer/index_count.hpp>
@@ -37,6 +35,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps/device_fwd.hpp>
 #include <sge/renderer/context/core_fwd.hpp>
 #include <sge/renderer/context/core_unique_ptr.hpp>
+#include <sge/renderer/depth_stencil_buffer/surface_parameters_fwd.hpp>
+#include <sge/renderer/depth_stencil_buffer/surface_unique_ptr.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/display_mode/object_fwd.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
@@ -198,18 +198,17 @@ public:
 	 * Creates a depth stencil surface with dimension \a size and format \a
 	 * format. Initially, the contents of the surface are undefined.
 	 *
-	 * \param size The size of the surface
-	 * \param format The format of the surface
+	 * \param parameters The parameters for the surface, including its
+	 * format and size
 	 *
 	 * \return A unique pointer to the created depth stencil surface
 	 *
 	 * \throw sge::renderer::exception if anything goes wrong
 	 */
 	virtual
-	sge::renderer::depth_stencil_surface_unique_ptr
+	sge::renderer::depth_stencil_buffer::surface_unique_ptr
 	create_depth_stencil_surface(
-		sge::renderer::dim2 const &size,
-		sge::renderer::depth_stencil_format::type format
+		sge::renderer::depth_stencil_buffer::surface_parameters const &parameters
 	) = 0;
 
 	/**

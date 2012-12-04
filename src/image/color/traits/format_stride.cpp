@@ -18,23 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_OPTIONAL_DEPTH_STENCIL_SURFACE_REF_FWD_HPP_INCLUDED
-#define SGE_RENDERER_OPTIONAL_DEPTH_STENCIL_SURFACE_REF_FWD_HPP_INCLUDED
+#include <sge/image/size_type.hpp>
+#include <sge/image/color/format.hpp>
+#include <sge/image/color/format_stride.hpp>
+#include <sge/image/color/symbol.hpp>
+#include <sge/image/color/tag.hpp>
+#include <sge/image/color/traits/format_stride.hpp>
 
-#include <sge/renderer/depth_stencil_surface_fwd.hpp>
-#include <fcppt/optional_fwd.hpp>
 
-
-namespace sge
+sge::image::size_type
+sge::image::traits::format_stride<
+	sge::image::color::tag
+>::execute(
+	sge::image::color::format::type const _format
+)
 {
-namespace renderer
-{
-
-typedef fcppt::optional<
-	sge::renderer::depth_stencil_surface &
-> optional_depth_stencil_surface_ref;
-
+	return
+		sge::image::color::format_stride(
+			_format
+		);
 }
-}
-
-#endif

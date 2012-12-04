@@ -31,7 +31,6 @@ set(
 	src/plugins/opengl/include/sge/opengl/clear/set.hpp
 	src/plugins/opengl/include/sge/opengl/clear/stencil_buffer.hpp
 	src/plugins/opengl/include/sge/opengl/color_format.hpp
-	src/plugins/opengl/include/sge/opengl/color_format_to_unpack_alignment.hpp
 	src/plugins/opengl/include/sge/opengl/color_format_type.hpp
 	src/plugins/opengl/include/sge/opengl/common.hpp
 	src/plugins/opengl/include/sge/opengl/context/base_decl.hpp
@@ -383,6 +382,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/state/unary_object_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/state/unary_object_impl.hpp
 	src/plugins/opengl/include/sge/opengl/state/wrap_error_handler.hpp
+	src/plugins/opengl/include/sge/opengl/stride_to_unpack_alignment.hpp
 	src/plugins/opengl/include/sge/opengl/system.hpp
 	src/plugins/opengl/include/sge/opengl/target_base.hpp
 	src/plugins/opengl/include/sge/opengl/target_base_fwd.hpp
@@ -414,8 +414,14 @@ set(
 	src/plugins/opengl/include/sge/opengl/texture/binding_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/buffer_base.hpp
 	src/plugins/opengl/include/sge/opengl/texture/buffer_base_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/texture/buffer_surface_types.hpp
+	src/plugins/opengl/include/sge/opengl/texture/buffer_surface_types_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/buffer_type.hpp
+	src/plugins/opengl/include/sge/opengl/texture/buffer_volume_types.hpp
+	src/plugins/opengl/include/sge/opengl/texture/buffer_volume_types_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/check_dim.hpp
+	src/plugins/opengl/include/sge/opengl/texture/color_format_types.hpp
+	src/plugins/opengl/include/sge/opengl/texture/color_format_types_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/color_surface.hpp
 	src/plugins/opengl/include/sge/opengl/texture/color_surface_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/color_surface_types.hpp
@@ -430,6 +436,9 @@ set(
 	src/plugins/opengl/include/sge/opengl/texture/convert/level.hpp
 	src/plugins/opengl/include/sge/opengl/texture/convert/make_buffer_type.hpp
 	src/plugins/opengl/include/sge/opengl/texture/convert/make_type.hpp
+	src/plugins/opengl/include/sge/opengl/texture/convert_format_function.hpp
+	src/plugins/opengl/include/sge/opengl/texture/convert_format_type_function.hpp
+	src/plugins/opengl/include/sge/opengl/texture/convert_internal_format_function.hpp
 	src/plugins/opengl/include/sge/opengl/texture/create_cube.hpp
 	src/plugins/opengl/include/sge/opengl/texture/create_depth_stencil.hpp
 	src/plugins/opengl/include/sge/opengl/texture/create_lock.hpp
@@ -444,8 +453,13 @@ set(
 	src/plugins/opengl/include/sge/opengl/texture/cube_types_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/depth_stencil.hpp
 	src/plugins/opengl/include/sge/opengl/texture/depth_stencil_basic.hpp
+	src/plugins/opengl/include/sge/opengl/texture/depth_stencil_format_types.hpp
+	src/plugins/opengl/include/sge/opengl/texture/depth_stencil_format_types_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/depth_stencil_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/depth_stencil_surface.hpp
+	src/plugins/opengl/include/sge/opengl/texture/depth_stencil_surface_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/texture/depth_stencil_surface_types.hpp
+	src/plugins/opengl/include/sge/opengl/texture/depth_stencil_surface_types_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/depth_stencil_types.hpp
 	src/plugins/opengl/include/sge/opengl/texture/depth_stencil_types_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/disable.hpp
@@ -585,7 +599,6 @@ set(
 	src/plugins/opengl/src/clear/depth_buffer.cpp
 	src/plugins/opengl/src/clear/set.cpp
 	src/plugins/opengl/src/clear/stencil_buffer.cpp
-	src/plugins/opengl/src/color_format_to_unpack_alignment.cpp
 	src/plugins/opengl/src/context/device/base.cpp
 	src/plugins/opengl/src/context/device/container.cpp
 	src/plugins/opengl/src/context/device/id.cpp
@@ -830,6 +843,7 @@ set(
 	src/plugins/opengl/src/state/ffp/transform/set_matrix.cpp
 	src/plugins/opengl/src/state/ffp/transform/set_matrix_and_mode.cpp
 	src/plugins/opengl/src/state/set_defaults.cpp
+	src/plugins/opengl/src/stride_to_unpack_alignment.cpp
 	src/plugins/opengl/src/system.cpp
 	src/plugins/opengl/src/target_base.cpp
 	src/plugins/opengl/src/target_context.cpp
@@ -843,11 +857,12 @@ set(
 	src/plugins/opengl/src/texture/bind_level.cpp
 	src/plugins/opengl/src/texture/binding.cpp
 	src/plugins/opengl/src/texture/buffer_base.cpp
+	src/plugins/opengl/src/texture/buffer_surface_types.cpp
+	src/plugins/opengl/src/texture/buffer_volume_types.cpp
 	src/plugins/opengl/src/texture/check_dim.cpp
+	src/plugins/opengl/src/texture/color_format_types.cpp
 	src/plugins/opengl/src/texture/color_surface.cpp
-	src/plugins/opengl/src/texture/color_surface_types.cpp
 	src/plugins/opengl/src/texture/color_volume.cpp
-	src/plugins/opengl/src/texture/color_volume_types.cpp
 	src/plugins/opengl/src/texture/convert/cube_side.cpp
 	src/plugins/opengl/src/texture/convert/level.cpp
 	src/plugins/opengl/src/texture/convert/make_buffer_type.cpp
@@ -863,7 +878,9 @@ set(
 	src/plugins/opengl/src/texture/cube_types.cpp
 	src/plugins/opengl/src/texture/depth_stencil.cpp
 	src/plugins/opengl/src/texture/depth_stencil_basic.cpp
+	src/plugins/opengl/src/texture/depth_stencil_format_types.cpp
 	src/plugins/opengl/src/texture/depth_stencil_surface.cpp
+	src/plugins/opengl/src/texture/depth_stencil_types.cpp
 	src/plugins/opengl/src/texture/disable.cpp
 	src/plugins/opengl/src/texture/enable.cpp
 	src/plugins/opengl/src/texture/extend_size.cpp
@@ -1156,7 +1173,7 @@ set(
 
 set(
 	SGE_OPENGL_SGE_DEPS
-	"sgeimagecolor;sgeimage2d;sgeimage3d;sgelog;sgeplugin;sgerenderer;sgerendereropengl"
+	"sgeimagecolor;sgeimageds;sgeimageds2d;sgeimage2d;sgeimage3d;sgelog;sgeplugin;sgerenderer;sgerendereropengl"
 )
 
 set(

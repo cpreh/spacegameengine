@@ -33,15 +33,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/fbo/render_buffer_fwd.hpp>
 #include <sge/opengl/fbo/target_fwd.hpp>
 #include <sge/opengl/texture/buffer_base_fwd.hpp>
-#include <sge/renderer/optional_depth_stencil_surface_ref_fwd.hpp>
 #include <sge/renderer/screen_unit.hpp>
 #include <sge/renderer/color_buffer/optional_surface_ref_fwd.hpp>
+#include <sge/renderer/depth_stencil_buffer/optional_surface_ref_fwd.hpp>
 #include <sge/renderer/target/offscreen.hpp>
 #include <sge/renderer/target/surface_index.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_decl.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
-#include <fcppt/math/vector/object_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/ptr_container/ptr_map.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -92,7 +91,7 @@ private:
 
 	void
 	depth_stencil_surface(
-		sge::renderer::optional_depth_stencil_surface_ref const &
+		sge::renderer::depth_stencil_buffer::optional_surface_ref const &
 	);
 
 	sge::renderer::screen_unit
