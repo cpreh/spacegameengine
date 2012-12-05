@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
+#include <iosfwd>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -53,6 +54,12 @@ public:
 	md3::object_unique_ptr
 	load(
 		boost::filesystem::path const &,
+		md3::load_flags::type
+	);
+
+	md3::object_unique_ptr
+	load_stream(
+		std::istream &,
 		md3::load_flags::type
 	);
 };

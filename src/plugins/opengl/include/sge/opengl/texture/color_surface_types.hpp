@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_COLOR_SURFACE_TYPES_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_COLOR_SURFACE_TYPES_HPP_INCLUDED
 
+#include <sge/opengl/texture/buffer_surface_types_fwd.hpp>
 #include <sge/opengl/texture/color_format_types_fwd.hpp>
 #include <sge/opengl/texture/color_surface_types_fwd.hpp>
-#include <sge/opengl/texture/buffer_surface_types_fwd.hpp>
 #include <sge/renderer/color_buffer/surface_fwd.hpp>
 
 

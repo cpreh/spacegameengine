@@ -18,30 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_DEPTH_STENCIL_SURFACE_TYPES_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_DEPTH_STENCIL_SURFACE_TYPES_HPP_INCLUDED
+#ifndef SGE_RENDERER_TEXTURE_CREATE_PLANAR_FROM_STREAM_HPP_INCLUDED
+#define SGE_RENDERER_TEXTURE_CREATE_PLANAR_FROM_STREAM_HPP_INCLUDED
 
-#include <sge/opengl/texture/buffer_surface_types_fwd.hpp>
-#include <sge/opengl/texture/depth_stencil_format_types_fwd.hpp>
-#include <sge/opengl/texture/depth_stencil_surface_types_fwd.hpp>
-#include <sge/renderer/depth_stencil_buffer/surface_fwd.hpp>
+#include <sge/image2d/system_fwd.hpp>
+#include <sge/renderer/resource_flags_field_fwd.hpp>
+#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/device/core_fwd.hpp>
+#include <sge/renderer/texture/emulate_srgb.hpp>
+#include <sge/renderer/texture/planar_unique_ptr.hpp>
+#include <sge/renderer/texture/mipmap/object_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <iosfwd>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
 {
-namespace opengl
+namespace renderer
 {
 namespace texture
 {
 
-struct depth_stencil_surface_types
-{
-	typedef sge::renderer::depth_stencil_buffer::surface base;
-
-	typedef sge::opengl::texture::buffer_surface_types dim_types;
-
-	typedef sge::opengl::texture::depth_stencil_format_types format_types;
-};
+SGE_RENDERER_SYMBOL
+sge::renderer::texture::planar_unique_ptr
+create_planar_from_stream(
+	std::istream &,
+	sge::renderer::device::core &,
+	sge::image2d::system &,
+	sge::renderer::texture::mipmap::object const &,
+	sge::renderer::resource_flags_field const &,
+	sge::renderer::texture::emulate_srgb::type
+);
 
 }
 }

@@ -66,3 +66,22 @@ sge::model::md3::loader_impl::load(
 			)
 		);
 }
+
+sge::model::md3::object_unique_ptr
+sge::model::md3::loader_impl::load_stream(
+	std::istream &_stream,
+	md3::load_flags::type const _flags
+)
+{
+	return
+		sge::model::md3::object_unique_ptr(
+			fcppt::make_unique_ptr<
+				md3::object_impl
+			>(
+				fcppt::ref(
+					_stream
+				),
+				_flags
+			)
+		);
+}

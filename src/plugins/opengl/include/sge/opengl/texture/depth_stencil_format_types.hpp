@@ -22,10 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_TEXTURE_DEPTH_STENCIL_FORMAT_TYPES_HPP_INCLUDED
 
 #include <sge/image/ds/format.hpp>
-#include <sge/opengl/texture/depth_stencil_format_types_fwd.hpp>
 #include <sge/opengl/texture/convert_format_function.hpp>
 #include <sge/opengl/texture/convert_format_type_function.hpp>
 #include <sge/opengl/texture/convert_internal_format_function.hpp>
+#include <sge/opengl/texture/depth_stencil_format_types_fwd.hpp>
 
 
 namespace sge

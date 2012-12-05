@@ -50,13 +50,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/optional_extension.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/io/stream_to_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/to_std_string.hpp>
 #include <fcppt/assert/post.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/function/object.hpp>
+#include <fcppt/io/stream_to_string.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/log/warning.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
