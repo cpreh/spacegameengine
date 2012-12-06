@@ -713,7 +713,7 @@ set(
 
 set(
 	SGE_D3D9_SGE_DEPS
-	"sgeimage;sgeimage2d;sgeimage3d;sgeplugin;sgerenderer;sgewindow"
+	"sgeimage2d;sgeimage3d;sgeimagecolor;sgeimageds;sgeimageds2d;sgeplugin;sgerenderer;sgewindow"
 )
 
 set(

@@ -18,19 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/convert/to_depth_stencil_format.hpp>
 #include <sge/d3d9/surfacefuncs/depth_stencil_format.hpp>
 #include <sge/d3d9/surfacefuncs/get_desc.hpp>
+#include <sge/image/ds/format.hpp>
 
 
-sge::renderer::depth_stencil_format::type
+sge::image::ds::format::type
 sge::d3d9::surfacefuncs::depth_stencil_format(
 	IDirect3DSurface9 &_surface
 )
 {
 	return
-		convert::to_depth_stencil_format(
-			surfacefuncs::get_desc(
+		sge::d3d9::convert::to_depth_stencil_format(
+			sge::d3d9::surfacefuncs::get_desc(
 				_surface
 			).Format
 		);

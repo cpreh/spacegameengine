@@ -23,14 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/devicefuncs/create_depth_stencil_surface.hpp>
 #include <sge/d3d9/surface/d3d_unique_ptr.hpp>
 #include <sge/d3d9/surface/depth_stencil_native.hpp>
-#include <sge/renderer/depth_stencil_format.hpp>
-#include <sge/renderer/dim2.hpp>
+#include <sge/renderer/depth_stencil_buffer/surface_parameters.hpp>
 
 
 sge::d3d9::surface::depth_stencil_native::depth_stencil_native(
 	IDirect3DDevice9 &_device,
-	sge::renderer::dim2 const &_dim,
-	sge::renderer::depth_stencil_format::type const _format,
+	sge::renderer::depth_stencil_buffer::surface_parameters const &_parameters,
 	D3DMULTISAMPLE_TYPE const _samples,
 	sge::d3d9::multi_sample_quality const _multi_sample_quality
 )
@@ -38,11 +36,8 @@ sge::d3d9::surface::depth_stencil_native::depth_stencil_native(
 	device_(
 		_device
 	),
-	dim_(
-		_dim
-	),
-	format_(
-		_format
+	parameters_(
+		_parameters
 	),
 	samples_(
 		_samples
@@ -63,8 +58,7 @@ sge::d3d9::surface::depth_stencil_native::create() const
 	return
 		sge::d3d9::devicefuncs::create_depth_stencil_surface(
 			device_,
-			dim_,
-			format_,
+			parameters_,
 			samples_,
 			multi_sample_quality_
 		);

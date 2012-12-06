@@ -28,9 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/state/core/defaults_fwd.hpp>
 #include <sge/d3d9/state/ffp/defaults_fwd.hpp>
 #include <sge/renderer/config.hpp>
-#include <sge/renderer/depth_stencil_format.hpp>
-#include <sge/renderer/depth_stencil_surface_unique_ptr.hpp>
-#include <sge/renderer/dim2.hpp>
 #include <sge/renderer/index_buffer_unique_ptr.hpp>
 #include <sge/renderer/index_count.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
@@ -43,6 +40,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/context/core_unique_ptr.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/context/ffp_unique_ptr.hpp>
+#include <sge/renderer/depth_stencil_buffer/surface_parameters_fwd.hpp>
+#include <sge/renderer/depth_stencil_buffer/surface_unique_ptr.hpp>
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/device/parameters_fwd.hpp>
 #include <sge/renderer/display_mode/object_fwd.hpp>
@@ -151,10 +150,9 @@ private:
 		sge::renderer::texture::depth_stencil_parameters const &
 	);
 
-	sge::renderer::depth_stencil_surface_unique_ptr
+	sge::renderer::depth_stencil_buffer::surface_unique_ptr
 	create_depth_stencil_surface(
-		sge::renderer::dim2 const &,
-		sge::renderer::depth_stencil_format::type
+		sge::renderer::depth_stencil_buffer::surface_parameters const &
 	);
 
 	sge::renderer::texture::volume_unique_ptr

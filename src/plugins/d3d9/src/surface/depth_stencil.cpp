@@ -18,17 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/needs_reset.hpp>
 #include <sge/d3d9/surface/depth_stencil.hpp>
 #include <sge/d3d9/surface/depth_stencil_create.hpp>
+#include <sge/d3d9/surface/depth_stencil_create_unique_ptr.hpp>
 #include <sge/d3d9/surfacefuncs/depth_stencil_format.hpp>
 #include <sge/d3d9/surfacefuncs/dim.hpp>
+#include <sge/image/ds/format.hpp>
+#include <sge/renderer/dim2.hpp>
 #include <fcppt/move.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
 
 
 sge::d3d9::surface::depth_stencil::depth_stencil(
-	d3d9::surface::depth_stencil_create_unique_ptr _create,
-	d3d9::needs_reset::type const _needs_reset
+	sge::d3d9::surface::depth_stencil_create_unique_ptr _create,
+	sge::d3d9::needs_reset::type const _needs_reset
 )
 :
 	resource(
@@ -52,16 +56,16 @@ sge::d3d9::surface::depth_stencil::dim const
 sge::d3d9::surface::depth_stencil::size() const
 {
 	return
-		d3d9::surfacefuncs::dim(
+		sge::d3d9::surfacefuncs::dim(
 			*surface_
 		);
 }
 
-sge::renderer::depth_stencil_format::type
+sge::image::ds::format::type
 sge::d3d9::surface::depth_stencil::format() const
 {
 	return
-		d3d9::surfacefuncs::depth_stencil_format(
+		sge::d3d9::surfacefuncs::depth_stencil_format(
 			*surface_
 		);
 }

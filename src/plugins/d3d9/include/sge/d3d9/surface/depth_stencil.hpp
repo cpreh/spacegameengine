@@ -29,8 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/surface/depth_stencil_create_fwd.hpp>
 #include <sge/d3d9/surface/depth_stencil_create_unique_ptr.hpp>
 #include <sge/d3d9/surface/depth_stencil_fwd.hpp>
-#include <sge/renderer/depth_stencil_format.hpp>
-#include <sge/renderer/depth_stencil_surface.hpp>
+#include <sge/image/ds/format.hpp>
+#include <sge/renderer/depth_stencil_buffer/surface.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
 
@@ -44,16 +44,16 @@ namespace surface
 
 class depth_stencil
 :
-	public sge::renderer::depth_stencil_surface,
-	public d3d9::resource
+	public sge::renderer::depth_stencil_buffer::surface,
+	public sge::d3d9::resource
 {
 	FCPPT_NONCOPYABLE(
 		depth_stencil
 	);
 public:
 	depth_stencil(
-		surface::depth_stencil_create_unique_ptr,
-		d3d9::needs_reset::type
+		sge::d3d9::surface::depth_stencil_create_unique_ptr,
+		sge::d3d9::needs_reset::type
 	);
 
 	~depth_stencil();
@@ -61,7 +61,7 @@ public:
 	dim const
 	size() const;
 
-	renderer::depth_stencil_format::type
+	sge::image::ds::format::type
 	format() const;
 
 	IDirect3DSurface9 &
@@ -77,12 +77,12 @@ private:
 	on_reset();
 
 	typedef fcppt::scoped_ptr<
-		d3d9::surface::depth_stencil_create
+		sge::d3d9::surface::depth_stencil_create
 	> depth_stencil_create_scoped_ptr;
 
 	depth_stencil_create_scoped_ptr const create_;
 
-	surface::d3d_scoped_ptr surface_;
+	sge::d3d9::surface::d3d_scoped_ptr surface_;
 };
 
 }

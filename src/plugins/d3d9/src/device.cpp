@@ -62,9 +62,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/texture/volume.hpp>
 #include <sge/renderer/adapter.hpp>
 #include <sge/renderer/config.hpp>
-#include <sge/renderer/depth_stencil_format.hpp>
-#include <sge/renderer/depth_stencil_surface_unique_ptr.hpp>
-#include <sge/renderer/dim2.hpp>
 #include <sge/renderer/index_buffer_unique_ptr.hpp>
 #include <sge/renderer/index_count.hpp>
 #include <sge/renderer/pixel_rect.hpp>
@@ -78,6 +75,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/context/core_unique_ptr.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/context/ffp_unique_ptr.hpp>
+#include <sge/renderer/depth_stencil_buffer/surface.hpp>
+#include <sge/renderer/depth_stencil_buffer/surface_parameters_fwd.hpp>
+#include <sge/renderer/depth_stencil_buffer/surface_unique_ptr.hpp>
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/device/parameters.hpp>
 #include <sge/renderer/display_mode/object.hpp>
@@ -140,6 +140,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/format_fwd.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <awl/window/object.hpp>
+#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/move.hpp>
 #include <fcppt/ref.hpp>
@@ -350,14 +351,13 @@ sge::d3d9::device::create_depth_stencil_texture(
 #endif
 }
 
-sge::renderer::depth_stencil_surface_unique_ptr
+sge::renderer::depth_stencil_buffer::surface_unique_ptr
 sge::d3d9::device::create_depth_stencil_surface(
-	sge::renderer::dim2 const &_dim,
-	sge::renderer::depth_stencil_format::type const _format
+	sge::renderer::depth_stencil_buffer::surface_parameters const &_parameters
 )
 {
 	return
-		sge::renderer::depth_stencil_surface_unique_ptr(
+		sge::renderer::depth_stencil_buffer::surface_unique_ptr(
 			this->add_resource<
 				sge::d3d9::surface::depth_stencil
 			>(
@@ -370,8 +370,9 @@ sge::d3d9::device::create_depth_stencil_surface(
 						fcppt::ref(
 							*device_
 						),
-						_dim,
-						_format,
+						fcppt::cref(
+							_parameters
+						),
 						present_parameters_.MultiSampleType,
 						sge::d3d9::multi_sample_quality(
 							present_parameters_.MultiSampleQuality

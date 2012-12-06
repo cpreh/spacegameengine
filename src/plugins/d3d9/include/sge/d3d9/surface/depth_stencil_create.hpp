@@ -41,9 +41,11 @@ class depth_stencil_create
 protected:
 	depth_stencil_create();
 public:
-	virtual ~depth_stencil_create();
+	virtual
+	~depth_stencil_create() = 0;
 
-	virtual surface::d3d_unique_ptr
+	virtual
+	sge::d3d9::surface::d3d_unique_ptr
 	create() const = 0;
 };
 

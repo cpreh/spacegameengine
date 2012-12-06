@@ -25,10 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/multi_sample_quality.hpp>
 #include <sge/d3d9/surface/d3d_unique_ptr.hpp>
 #include <sge/d3d9/surface/depth_stencil_create.hpp>
-#include <sge/renderer/depth_stencil_format.hpp>
-#include <sge/renderer/dim2_fwd.hpp>
+#include <sge/renderer/depth_stencil_buffer/surface_parameters.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/math/dim/object_decl.hpp>
 
 
 namespace sge
@@ -48,8 +46,7 @@ class depth_stencil_native
 public:
 	depth_stencil_native(
 		IDirect3DDevice9 &,
-		sge::renderer::dim2 const &,
-		sge::renderer::depth_stencil_format::type,
+		sge::renderer::depth_stencil_buffer::surface_parameters const &,
 		D3DMULTISAMPLE_TYPE,
 		sge::d3d9::multi_sample_quality
 	);
@@ -61,9 +58,7 @@ public:
 private:
 	IDirect3DDevice9 &device_;
 
-	sge::renderer::dim2 const dim_;
-
-	sge::renderer::depth_stencil_format::type const format_;
+	sge::renderer::depth_stencil_buffer::surface_parameters const parameters_;
 
 	D3DMULTISAMPLE_TYPE const samples_;
 
