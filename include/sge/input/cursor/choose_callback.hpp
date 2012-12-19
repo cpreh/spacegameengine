@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_CURSOR_CHOOSE_CALLBACK_HPP_INCLUDED
 #define SGE_INPUT_CURSOR_CHOOSE_CALLBACK_HPP_INCLUDED
 
-#include <sge/input/cursor/object_set.hpp>
-#include <sge/input/cursor/optional_object_ref_fwd.hpp>
-#include <fcppt/function/object_fwd.hpp>
+#include <sge/input/cursor/choose_function.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -33,10 +34,8 @@ namespace input
 namespace cursor
 {
 
-typedef fcppt::function::object<
-	sge::input::cursor::optional_object_ref const (
-		sge::input::cursor::object_set const &
-	)
+typedef std::function<
+	sge::input::cursor::choose_function
 > choose_callback;
 
 }

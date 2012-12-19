@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/src/projectile/detail/debug_drawer_impl.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 
 
 sge::projectile::debug_drawer::debug_drawer(
@@ -33,10 +32,8 @@ sge::projectile::debug_drawer::debug_drawer(
 :
 	impl_(
 		fcppt::make_unique_ptr<detail::debug_drawer_impl>(
-			fcppt::ref(
-				_world),
-			fcppt::ref(
-				_renderer)))
+			_world,
+			_renderer))
 {
 }
 

@@ -31,13 +31,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/plugin_pair_decl.hpp>
 #include <sge/systems/exception.hpp>
 #include <sge/systems/optional_name.hpp>
-#include <fcppt/move.hpp>
 #include <fcppt/shared_ptr_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <memory>
 #include <typeinfo>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -100,7 +100,7 @@ find_plugin(
 			it->load()
 		);
 
-		typedef fcppt::unique_ptr<
+		typedef std::unique_ptr<
 			System
 		> system_unique_ptr;
 
@@ -121,7 +121,7 @@ find_plugin(
 				return_type(
 					plugin,
 					system_shared_ptr(
-						fcppt::move(
+						std::move(
 							system
 						)
 					)

@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_SYSTEMS_MODULES_INPUT_CURSOR_MODIFIER_UNIQUE_PTR_HPP_INCLUDED
 
 #include <sge/src/systems/modules/input/cursor_modifier_fwd.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -34,7 +36,7 @@ namespace modules
 namespace input
 {
 
-typedef fcppt::unique_ptr<
+typedef std::unique_ptr<
 	sge::systems::modules::input::cursor_modifier
 > cursor_modifier_unique_ptr;
 

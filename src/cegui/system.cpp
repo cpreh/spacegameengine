@@ -28,9 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/src/cegui/detail/system_impl.hpp>
 #include <sge/viewport/manager_fwd.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/WindowManager.h>
 #include <fcppt/config/external_end.hpp>
@@ -50,21 +48,11 @@ sge::cegui::system::system(
 		fcppt::make_unique_ptr<
 			sge::cegui::detail::system_impl
 		>(
-			fcppt::cref(
-				_load_context
-			),
-			fcppt::ref(
-				_renderer
-			),
-			fcppt::ref(
-				_image_system
-			),
-			fcppt::ref(
-				_charconv_system
-			),
-			fcppt::ref(
-				_viewport_manager
-			),
+			_load_context,
+			_renderer,
+			_image_system,
+			_charconv_system,
+			_viewport_manager,
 			_cursor_visibility,
 			_emulate_srgb
 		)

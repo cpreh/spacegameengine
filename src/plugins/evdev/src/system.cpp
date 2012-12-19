@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/system.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 
 
@@ -49,12 +48,8 @@ sge::evdev::system::create_processor(
 			fcppt::make_unique_ptr<
 				sge::evdev::processor
 			>(
-				fcppt::cref(
-					_window
-				),
-				fcppt::cref(
-					_window_system
-				)
+				_window,
+				_window_system
 			)
 		);
 }

@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/device/id.hpp>
 #include <sge/opengl/context/device/make_id.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
-#include <fcppt/null_ptr.hpp>
 #include <fcppt/container/index_map_impl.hpp>
 
 
@@ -33,7 +32,7 @@ sge::opengl::vertex_context::vertex_context()
 :
 	sge::opengl::context::device::base(),
 	last_declaration_(
-		fcppt::null_ptr()
+		nullptr
 	),
 	last_buffers_()
 {

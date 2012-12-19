@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_CHARCONV_BACKENDS_WINDOWS_IS_UTF16_HPP_INCLUDED
 #define SGE_SRC_CHARCONV_BACKENDS_WINDOWS_IS_UTF16_HPP_INCLUDED
 
-#include <sge/charconv/encoding.hpp>
+#include <sge/charconv/encoding_fwd.hpp>
 
 
 namespace sge
@@ -35,7 +35,7 @@ namespace windows
 
 bool
 is_utf16(
-	sge::charconv::encoding::type
+	sge::charconv::encoding
 );
 
 }

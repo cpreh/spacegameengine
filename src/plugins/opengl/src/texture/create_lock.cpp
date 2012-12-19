@@ -28,7 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 
@@ -52,9 +51,7 @@ sge::opengl::texture::create_lock(
 				fcppt::make_unique_ptr<
 					opengl::texture::readonly_lock
 				>(
-					fcppt::ref(
-						_system_context
-					),
+					_system_context,
 					_read_size,
 					_stride,
 					_flags
@@ -66,9 +63,7 @@ sge::opengl::texture::create_lock(
 				fcppt::make_unique_ptr<
 					texture::writeonly_lock
 				>(
-					fcppt::ref(
-						_system_context
-					),
+					_system_context,
 					_write_size,
 					_stride,
 					_flags
@@ -80,9 +75,7 @@ sge::opengl::texture::create_lock(
 				fcppt::make_unique_ptr<
 					texture::readwrite_lock
 				>(
-					fcppt::ref(
-						_system_context
-					),
+					_system_context,
 					_read_size,
 					_write_size,
 					_stride,

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_STATE_FFP_FOG_FLOAT_HPP_INCLUDED
 
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/state/actor_fwd.hpp>
+#include <sge/opengl/state/actor.hpp>
 
 
 namespace sge

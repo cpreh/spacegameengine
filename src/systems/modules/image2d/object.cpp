@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/plugin/collection_fwd.hpp>
 #include <sge/src/systems/modules/image2d/object.hpp>
 #include <sge/systems/image2d.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 
 
@@ -38,9 +37,7 @@ sge::systems::modules::image2d::object::object(
 			sge::image2d::multi_system
 		>(
 			sge::image2d::multi_system_parameters(
-				fcppt::cref(
-					_collection
-				),
+				_collection,
 				_parameters.extensions(),
 				_parameters.capabilities()
 			)

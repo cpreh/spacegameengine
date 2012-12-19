@@ -52,7 +52,7 @@ set(
 	include/sge/cg/program/object_fwd.hpp
 	include/sge/cg/program/replace_extra.hpp
 	include/sge/cg/program/replace_extra_callback.hpp
-	include/sge/cg/program/replace_extra_callback_fwd.hpp
+	include/sge/cg/program/replace_extra_function.hpp
 	include/sge/cg/program/source.hpp
 	include/sge/cg/program/source_type.hpp
 	include/sge/cg/string.hpp

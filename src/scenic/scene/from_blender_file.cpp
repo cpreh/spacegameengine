@@ -35,9 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/scene/entity.hpp>
 #include <sge/scenic/scene/from_blender_file.hpp>
 #include <sge/scenic/scene/prototype.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/move.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
@@ -51,6 +49,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/narrow_cast.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/math/vector/output.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace
@@ -448,24 +449,21 @@ sge::scenic::scene::from_blender_file(
 	// ctor. Entities and lights are added below.
 	sge::scenic::scene::prototype_unique_ptr result(
 		fcppt::make_unique_ptr<sge::scenic::scene::prototype>(
-			fcppt::cref(
-				parse_camera_properties(
-					sge::parse::json::find_and_convert_member<sge::parse::json::object>(
-						json_file,
-						sge::parse::json::path(
-							FCPPT_TEXT("camera"))))),
-			fcppt::cref(
-				parse_fog_properties(
-					sge::parse::json::find_and_convert_member<sge::parse::json::object>(
-						json_file,
-						sge::parse::json::path(
-							FCPPT_TEXT("world")) / FCPPT_TEXT("fog")))),
-			fcppt::cref(
-				parse_ambient_color(
-					sge::parse::json::find_and_convert_member<sge::parse::json::object>(
-						json_file,
-						sge::parse::json::path(
-							FCPPT_TEXT("world")))))));
+			parse_camera_properties(
+				sge::parse::json::find_and_convert_member<sge::parse::json::object>(
+					json_file,
+					sge::parse::json::path(
+						FCPPT_TEXT("camera")))),
+			parse_fog_properties(
+				sge::parse::json::find_and_convert_member<sge::parse::json::object>(
+					json_file,
+					sge::parse::json::path(
+						FCPPT_TEXT("world")) / FCPPT_TEXT("fog"))),
+			parse_ambient_color(
+				sge::parse::json::find_and_convert_member<sge::parse::json::object>(
+					json_file,
+					sge::parse::json::path(
+						FCPPT_TEXT("world"))))));
 
 	load_entities(
 		_path.parent_path(),
@@ -483,6 +481,6 @@ sge::scenic::scene::from_blender_file(
 				FCPPT_TEXT("lights"))));
 
 	return
-		fcppt::move(
+		std::move(
 			result);
 }

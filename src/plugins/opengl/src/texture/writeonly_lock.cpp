@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/writeonly_lock.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
-#include <fcppt/null_ptr.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 
@@ -48,7 +47,7 @@ sge::opengl::texture::writeonly_lock::writeonly_lock(
 		_lock_size,
 		_stride,
 		_flags,
-		fcppt::null_ptr()
+		nullptr
 	)
 {
 }

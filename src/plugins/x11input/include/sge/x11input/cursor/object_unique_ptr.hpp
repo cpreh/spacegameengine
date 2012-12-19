@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_CURSOR_OBJECT_UNIQUE_PTR_HPP_INCLUDED
 
 #include <sge/x11input/cursor/object_fwd.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -32,8 +34,8 @@ namespace x11input
 namespace cursor
 {
 
-typedef fcppt::unique_ptr<
-	cursor::object
+typedef std::unique_ptr<
+	sge::x11input::cursor::object
 > object_unique_ptr;
 
 }

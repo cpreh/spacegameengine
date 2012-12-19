@@ -90,11 +90,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/object.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <example_main.hpp>
 #include <exception>
+#include <functional>
 #include <iostream>
 #include <ostream>
 #include <set>
@@ -116,9 +116,9 @@ try
 			sge::log::location()
 			/
 			FCPPT_TEXT("cegui")),
-		std::tr1::bind(
+		std::bind(
 			&fcppt::log::object::activate,
-			std::tr1::placeholders::_1,
+			std::placeholders::_1,
 			fcppt::log::level::debug));
 
 	sge::systems::instance<

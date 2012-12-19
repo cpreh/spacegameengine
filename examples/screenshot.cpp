@@ -82,7 +82,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
@@ -90,12 +89,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/io/cout.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <example_main.hpp>
 #include <exception>
+#include <functional>
 #include <iostream>
 #include <ostream>
 #include <fcppt/config/external_end.hpp>
@@ -275,12 +274,12 @@ try
 		sys.keyboard_collector().key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::f12,
-				std::tr1::bind(
+				std::bind(
 					sge::renderer::screenshot,
-					fcppt::ref(
+					std::ref(
 						sys.renderer_ffp()
 					),
-					fcppt::ref(
+					std::ref(
 						sys.image_system()
 					),
 					boost::filesystem::path(

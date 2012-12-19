@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/roles/texture.hpp>
 #include <sge/sprite/roles/texture.hpp>
 #include <fcppt/nonassignable.hpp>
-#include <fcppt/null_ptr.hpp>
 
 
 namespace sge
@@ -94,7 +93,7 @@ public:
 			?
 				&part->texture()
 			:
-				fcppt::null_ptr()
+				nullptr
 		);
 	}
 private:

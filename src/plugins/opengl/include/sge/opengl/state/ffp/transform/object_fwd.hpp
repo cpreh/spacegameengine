@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_STATE_FFP_TRANSFORM_OBJECT_FWD_HPP_INCLUDED
 
 #include <sge/opengl/state/unary_object_fwd.hpp>
-#include <sge/renderer/state/ffp/transform/mode.hpp>
+#include <sge/renderer/state/ffp/transform/mode_fwd.hpp>
 #include <sge/renderer/state/ffp/transform/object_fwd.hpp>
 
 
@@ -39,7 +39,7 @@ namespace transform
 
 typedef sge::opengl::state::unary_object<
 	sge::renderer::state::ffp::transform::object,
-	sge::renderer::state::ffp::transform::mode::type
+	sge::renderer::state::ffp::transform::mode
 > object;
 
 }

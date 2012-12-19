@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_CONVERT_CUBE_SIDE_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/renderer/texture/cube_side.hpp>
+#include <sge/renderer/texture/cube_side_fwd.hpp>
 
 namespace sge
 {
@@ -33,7 +33,7 @@ namespace convert
 
 D3DCUBEMAP_FACES
 cube_side(
-	sge::renderer::texture::cube_side::type
+	sge::renderer::texture::cube_side
 );
 
 }

@@ -25,7 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/funcs/parameter_int.hpp>
 #include <sge/renderer/state/core/sampler/address/parameters.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace
@@ -76,9 +78,9 @@ set_one(
 )
 {
 	return
-		std::tr1::bind(
+		std::bind(
 			sge::opengl::texture::funcs::parameter_int,
-			std::tr1::placeholders::_1,
+			std::placeholders::_1,
 			sge::opengl::state::convert::address_mode_type<
 				Mode
 			>::get(),

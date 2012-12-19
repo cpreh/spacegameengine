@@ -41,11 +41,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/input/system_ptr_vector.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
-#include <fcppt/move.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_impl.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::input::multi_processor::multi_processor(
@@ -67,15 +69,11 @@ sge::input::multi_processor::multi_processor(
 	connections_()
 {
 	for(
-		sge::input::system_ptr_vector::iterator it(
-			_systems.begin()
-		);
-		it != _systems.end();
-		++it
+		auto &system : _systems
 	)
 	{
 		sge::input::processor_unique_ptr new_processor(
-			it->create_processor(
+			system.create_processor(
 				_window,
 				_window_system
 			)
@@ -84,10 +82,10 @@ sge::input::multi_processor::multi_processor(
 		fcppt::container::ptr::push_back_unique_ptr(
 			connections_,
 			new_processor->keyboard_discover_callback(
-				std::tr1::bind(
+				std::bind(
 					&sge::input::multi_processor::on_keyboard_discover,
 					this,
-					std::tr1::placeholders::_1
+					std::placeholders::_1
 				)
 			)
 		);
@@ -95,10 +93,10 @@ sge::input::multi_processor::multi_processor(
 		fcppt::container::ptr::push_back_unique_ptr(
 			connections_,
 			new_processor->keyboard_remove_callback(
-				std::tr1::bind(
+				std::bind(
 					&sge::input::multi_processor::on_keyboard_remove,
 					this,
-					std::tr1::placeholders::_1
+					std::placeholders::_1
 				)
 			)
 		);
@@ -106,10 +104,10 @@ sge::input::multi_processor::multi_processor(
 		fcppt::container::ptr::push_back_unique_ptr(
 			connections_,
 			new_processor->mouse_discover_callback(
-				std::tr1::bind(
+				std::bind(
 					&sge::input::multi_processor::on_mouse_discover,
 					this,
-					std::tr1::placeholders::_1
+					std::placeholders::_1
 				)
 			)
 		);
@@ -117,10 +115,10 @@ sge::input::multi_processor::multi_processor(
 		fcppt::container::ptr::push_back_unique_ptr(
 			connections_,
 			new_processor->mouse_remove_callback(
-				std::tr1::bind(
+				std::bind(
 					&sge::input::multi_processor::on_mouse_remove,
 					this,
-					std::tr1::placeholders::_1
+					std::placeholders::_1
 				)
 			)
 		);
@@ -128,10 +126,10 @@ sge::input::multi_processor::multi_processor(
 		fcppt::container::ptr::push_back_unique_ptr(
 			connections_,
 			new_processor->cursor_discover_callback(
-				std::tr1::bind(
+				std::bind(
 					&sge::input::multi_processor::on_cursor_discover,
 					this,
-					std::tr1::placeholders::_1
+					std::placeholders::_1
 				)
 			)
 		);
@@ -139,10 +137,10 @@ sge::input::multi_processor::multi_processor(
 		fcppt::container::ptr::push_back_unique_ptr(
 			connections_,
 			new_processor->cursor_remove_callback(
-				std::tr1::bind(
+				std::bind(
 					&sge::input::multi_processor::on_cursor_remove,
 					this,
-					std::tr1::placeholders::_1
+					std::placeholders::_1
 				)
 			)
 		);
@@ -150,10 +148,10 @@ sge::input::multi_processor::multi_processor(
 		fcppt::container::ptr::push_back_unique_ptr(
 			connections_,
 			new_processor->joypad_discover_callback(
-				std::tr1::bind(
+				std::bind(
 					&sge::input::multi_processor::on_joypad_discover,
 					this,
-					std::tr1::placeholders::_1
+					std::placeholders::_1
 				)
 			)
 		);
@@ -161,17 +159,17 @@ sge::input::multi_processor::multi_processor(
 		fcppt::container::ptr::push_back_unique_ptr(
 			connections_,
 			new_processor->joypad_remove_callback(
-				std::tr1::bind(
+				std::bind(
 					&sge::input::multi_processor::on_joypad_remove,
 					this,
-					std::tr1::placeholders::_1
+					std::placeholders::_1
 				)
 			)
 		);
 
 		fcppt::container::ptr::push_back_unique_ptr(
 			processors_,
-			fcppt::move(
+			std::move(
 				new_processor
 			)
 		);

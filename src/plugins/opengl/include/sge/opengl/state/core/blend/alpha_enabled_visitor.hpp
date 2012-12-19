@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_STATE_CORE_BLEND_ALPHA_ENABLED_VISITOR_HPP_INCLUDED
 
 #include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/opengl/state/actor_fwd.hpp>
+#include <sge/opengl/state/actor.hpp>
 #include <sge/renderer/state/core/blend/combined_fwd.hpp>
 #include <sge/renderer/state/core/blend/separate_fwd.hpp>
 #include <fcppt/nonassignable.hpp>

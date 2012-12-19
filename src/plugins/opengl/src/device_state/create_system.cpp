@@ -28,10 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #if defined(SGE_OPENGL_HAVE_EGL)
 #include <sge/opengl/egl/system.hpp>
 #elif defined(SGE_OPENGL_HAVE_X11)
-#include <fcppt/ref.hpp>
 #include <sge/opengl/glx/system.hpp>
 #elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
-#include <fcppt/ref.hpp>
 #include <sge/opengl/wgl/system.hpp>
 #else
 #error "Implement me!"
@@ -56,9 +54,7 @@ sge::opengl::device_state::create_system(
 			fcppt::make_unique_ptr<
 				sge::opengl::glx::system
 			>(
-				fcppt::ref(
-					_system_context
-				)
+				_system_context
 			)
 		);
 #elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
@@ -67,9 +63,7 @@ sge::opengl::device_state::create_system(
 			fcppt::make_unique_ptr<
 				sge::opengl::wgl::system
 			>(
-				fcppt::ref(
-					_system_context
-				)
+				_system_context
 			)
 		);
 #else

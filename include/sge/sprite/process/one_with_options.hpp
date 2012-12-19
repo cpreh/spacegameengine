@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/process/with_options.hpp>
 #include <sge/sprite/state/object_fwd.hpp>
 #include <sge/sprite/state/options_fwd.hpp>
-#include <fcppt/static_assert_expression.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -69,10 +68,11 @@ one_with_options(
 	> const &_state_options
 )
 {
-	FCPPT_STATIC_ASSERT_EXPRESSION(
+	static_assert(
 		Options::geometry_options
 		!=
-		sge::sprite::process::geometry_options::sort_and_update
+		sge::sprite::process::geometry_options::sort_and_update,
+		"This function can't be used with geometry_options::sort_and_udpate"
 	);
 
 	sge::sprite::process::with_options<

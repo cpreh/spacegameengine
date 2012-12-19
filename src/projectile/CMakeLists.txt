@@ -46,6 +46,7 @@ set(
 	include/sge/projectile/group/id.hpp
 	include/sge/projectile/group/object.hpp
 	include/sge/projectile/group/object_fwd.hpp
+	include/sge/projectile/group/object_ref.hpp
 	include/sge/projectile/group/sequence.hpp
 	include/sge/projectile/log_location.hpp
 	include/sge/projectile/maximum_substeps.hpp

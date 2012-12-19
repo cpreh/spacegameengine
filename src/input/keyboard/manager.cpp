@@ -28,26 +28,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/manager.hpp>
 #include <sge/input/keyboard/remove_callback.hpp>
 #include <sge/input/keyboard/remove_event.hpp>
-#include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/connection_manager.hpp>
-#include <fcppt/signal/shared_connection.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::input::keyboard::manager::manager(
-	input::processor &_processor,
-	input::keyboard::discover_callback const &_discover_callback,
-	input::keyboard::remove_callback const &_remove_callback,
+	sge::input::processor &_processor,
+	sge::input::keyboard::discover_callback const &_discover_callback,
+	sge::input::keyboard::remove_callback const &_remove_callback,
 	char_callback const &_char_callback,
 	key_callback const &_key_callback,
 	key_repeat_callback const &_key_repeat_callback
@@ -73,27 +72,24 @@ sge::input::keyboard::manager::manager(
 		fcppt::assign::make_container<
 			fcppt::signal::connection_manager::container
 		>(
-			fcppt::signal::shared_connection(
-				_processor.keyboard_discover_callback(
-					std::tr1::bind(
-						&keyboard::manager::discover,
-						this,
-						std::tr1::placeholders::_1
-					)
+			_processor.keyboard_discover_callback(
+				std::bind(
+					&keyboard::manager::discover,
+					this,
+					std::placeholders::_1
 				)
 			)
 		)
 		(
-			fcppt::signal::shared_connection(
-				_processor.keyboard_remove_callback(
-					std::tr1::bind(
-						&keyboard::manager::remove,
-						this,
-						std::tr1::placeholders::_1
-					)
+			_processor.keyboard_remove_callback(
+				std::bind(
+					&keyboard::manager::remove,
+					this,
+					std::placeholders::_1
 				)
 			)
 		)
+		.move_container()
 	)
 {
 }
@@ -111,56 +107,50 @@ sge::input::keyboard::manager::devices() const
 
 void
 sge::input::keyboard::manager::discover(
-	input::keyboard::discover_event const &_event
+	sge::input::keyboard::discover_event const &_event
 )
 {
 	FCPPT_ASSERT_ERROR(
-		fcppt::container::ptr::insert_unique_ptr_map(
-			devices_,
-			&_event.get(),
-			fcppt::make_unique_ptr<
-				fcppt::signal::connection_manager
-			>(
-				fcppt::assign::make_container<
-					fcppt::signal::connection_manager::container
-				>(
-					fcppt::signal::shared_connection(
+		devices_.insert(
+			std::make_pair(
+				&_event.get(),
+				fcppt::signal::connection_manager(
+					fcppt::assign::make_container<
+						fcppt::signal::connection_manager::container
+					>(
 						_event.get().char_callback(
-							std::tr1::bind(
+							std::bind(
 								char_callback_,
-								fcppt::ref(
+								std::ref(
 									_event.get()
 								),
-								std::tr1::placeholders::_1
+								std::placeholders::_1
 							)
 						)
 					)
-				)
-				(
-					fcppt::signal::shared_connection(
+					(
 						_event.get().key_callback(
-							std::tr1::bind(
+							std::bind(
 								key_callback_,
-								fcppt::ref(
+								std::ref(
 									_event.get()
 								),
-								std::tr1::placeholders::_1
+								std::placeholders::_1
 							)
 						)
 					)
-				)
-				(
-					fcppt::signal::shared_connection(
+					(
 						_event.get().key_repeat_callback(
-							std::tr1::bind(
+							std::bind(
 								key_repeat_callback_,
-								fcppt::ref(
+								std::ref(
 									_event.get()
 								),
-								std::tr1::placeholders::_1
+								std::placeholders::_1
 							)
 						)
 					)
+					.move_container()
 				)
 			)
 		).second
@@ -177,7 +167,7 @@ sge::input::keyboard::manager::discover(
 
 void
 sge::input::keyboard::manager::remove(
-	input::keyboard::remove_event const &_event
+	sge::input::keyboard::remove_event const &_event
 )
 {
 	FCPPT_ASSERT_ERROR(

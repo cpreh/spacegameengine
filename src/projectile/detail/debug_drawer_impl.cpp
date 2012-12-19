@@ -31,7 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/projectile/detail/debug_drawer_impl.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/output.hpp>
@@ -67,8 +66,7 @@ sge::projectile::detail::debug_drawer_impl::update()
 {
 	scoped_lock_.take(
 		fcppt::make_unique_ptr<sge::line_drawer::scoped_lock>(
-			fcppt::ref(
-				line_drawer_)));
+			line_drawer_));
 
 	FCPPT_LOG_DEBUG(
 		local_log,

@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/default_choose.hpp>
 #include <sge/input/cursor/object_set.hpp>
 #include <sge/input/cursor/optional_object_ref.hpp>
-#include <fcppt/function/object.hpp>
 
 
 namespace

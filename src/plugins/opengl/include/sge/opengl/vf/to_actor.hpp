@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_VF_TO_ACTOR_HPP_INCLUDED
 
 #include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/opengl/vf/actor_ptr.hpp>
+#include <sge/opengl/vf/actor_unique_ptr.hpp>
 #include <sge/renderer/vf/dynamic/ordered_element_fwd.hpp>
 #include <sge/renderer/vf/dynamic/stride.hpp>
 
@@ -34,7 +34,7 @@ namespace opengl
 namespace vf
 {
 
-sge::opengl::vf::actor_ptr
+sge::opengl::vf::actor_unique_ptr
 to_actor(
 	sge::renderer::vf::dynamic::ordered_element const &,
 	sge::renderer::vf::dynamic::stride,

@@ -31,6 +31,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/algorithm/join.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::opengl::state::core::depth_stencil::stencil::visitor::result_type const
@@ -42,7 +45,7 @@ sge::opengl::state::core::depth_stencil::stencil::visitor::operator()(
 		fcppt::assign::make_container<
 			sge::opengl::state::core::depth_stencil::stencil::visitor::result_type
 		>(
-			std::tr1::bind(
+			std::bind(
 				sge::opengl::disable,
 				GL_STENCIL_TEST
 			)
@@ -63,7 +66,7 @@ sge::opengl::state::core::depth_stencil::stencil::visitor::operator()(
 			fcppt::assign::make_container<
 				sge::opengl::state::core::depth_stencil::stencil::visitor::result_type
 			>(
-				std::tr1::bind(
+				std::bind(
 					sge::opengl::enable,
 					GL_STENCIL_TEST
 				)

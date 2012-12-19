@@ -45,7 +45,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/roles/texture_point_size.hpp>
 #include <sge/sprite/roles/use_rotation.hpp>
 #include <majutsu/subelements.hpp>
-#include <fcppt/static_assert_expression.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 
@@ -53,21 +52,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<
 	typename Choices
 >
-sge::sprite::object<Choices>::object()
+sge::sprite::object<
+	Choices
+>::object()
 :
 	elements_()
 {
-	FCPPT_STATIC_ASSERT_EXPRESSION(
+	static_assert(
 		!sge::sprite::detail::config::is_intrusive<
 			Choices
-		>::value
+		>::value,
+		"The empty constructor cannot be called for intrusive sprites"
 	);
 }
 
 template<
 	typename Choices
 >
-sge::sprite::object<Choices>::object(
+sge::sprite::object<
+	Choices
+>::object(
 	element_type const &_elements
 )
 :
@@ -83,7 +87,9 @@ sge::sprite::object<Choices>::object(
 template<
 	typename Choices
 >
-sge::sprite::object<Choices>::object(
+sge::sprite::object<
+	Choices
+>::object(
 	parameters_type const &_parameters
 )
 :
@@ -108,7 +114,9 @@ sge::sprite::object<Choices>::object(
 template<
 	typename Choices
 >
-sge::sprite::object<Choices>::object(
+sge::sprite::object<
+	Choices
+>::object(
 	object const &_other
 )
 :
@@ -124,8 +132,12 @@ sge::sprite::object<Choices>::object(
 template<
 	typename Choices
 >
-sge::sprite::object<Choices> &
-sge::sprite::object<Choices>::operator=(
+sge::sprite::object<
+	Choices
+> &
+sge::sprite::object<
+	Choices
+>::operator=(
 	object const &_other
 )
 {
@@ -146,7 +158,9 @@ sge::sprite::object<Choices>::operator=(
 template<
 	typename Choices
 >
-sge::sprite::object<Choices>::~object()
+sge::sprite::object<
+	Choices
+>::~object()
 {
 	sge::sprite::detail::destroy(
 		*this
@@ -156,8 +170,12 @@ sge::sprite::object<Choices>::~object()
 template<
 	typename Choices
 >
-typename sge::sprite::object<Choices>::unit
-sge::sprite::object<Choices>::x() const
+typename sge::sprite::object<
+	Choices
+>::unit
+sge::sprite::object<
+	Choices
+>::x() const
 {
 	return pos().x();
 }
@@ -165,8 +183,12 @@ sge::sprite::object<Choices>::x() const
 template<
 	typename Choices
 >
-typename sge::sprite::object<Choices>::unit
-sge::sprite::object<Choices>::y() const
+typename sge::sprite::object<
+	Choices
+>::unit
+sge::sprite::object<
+	Choices
+>::y() const
 {
 	return pos().y();
 }
@@ -174,8 +196,12 @@ sge::sprite::object<Choices>::y() const
 template<
 	typename Choices
 >
-typename sge::sprite::object<Choices>::vector const
-sge::sprite::object<Choices>::pos() const
+typename sge::sprite::object<
+	Choices
+>::vector const
+sge::sprite::object<
+	Choices
+>::pos() const
 {
 	return
 		elements_. template get<
@@ -186,8 +212,12 @@ sge::sprite::object<Choices>::pos() const
 template<
 	typename Choices
 >
-typename sge::sprite::object<Choices>::unit
-sge::sprite::object<Choices>::w() const
+typename sge::sprite::object<
+	Choices
+>::unit
+sge::sprite::object<
+	Choices
+>::w() const
 {
 	return size().w();
 }
@@ -195,8 +225,12 @@ sge::sprite::object<Choices>::w() const
 template<
 	typename Choices
 >
-typename sge::sprite::object<Choices>::unit
-sge::sprite::object<Choices>::h() const
+typename sge::sprite::object<
+	Choices
+>::unit
+sge::sprite::object<
+	Choices
+>::h() const
 {
 	return size().h();
 }
@@ -204,8 +238,12 @@ sge::sprite::object<Choices>::h() const
 template<
 	typename Choices
 >
-typename sge::sprite::object<Choices>::dim const
-sge::sprite::object<Choices>::size() const
+typename sge::sprite::object<
+	Choices
+>::dim const
+sge::sprite::object<
+	Choices
+>::size() const
 {
 	return
 		elements_. template get<
@@ -216,8 +254,12 @@ sge::sprite::object<Choices>::size() const
 template<
 	typename Choices
 >
-typename sge::sprite::object<Choices>::point_size_type
-sge::sprite::object<Choices>::point_size() const
+typename sge::sprite::object<
+	Choices
+>::point_size_type
+sge::sprite::object<
+	Choices
+>::point_size() const
 {
 	return
 		elements_. template get<
@@ -228,8 +270,12 @@ sge::sprite::object<Choices>::point_size() const
 template<
 	typename Choices
 >
-typename sge::sprite::object<Choices>::texture_point_pos_type
-sge::sprite::object<Choices>::texture_point_pos() const
+typename sge::sprite::object<
+	Choices
+>::texture_point_pos_type
+sge::sprite::object<
+	Choices
+>::texture_point_pos() const
 {
 	return
 		this->texture_point_pos_level<
@@ -243,8 +289,12 @@ template<
 template<
 	sge::sprite::texture_level Level
 >
-typename sge::sprite::object<Choices>::texture_point_pos_type
-sge::sprite::object<Choices>::texture_point_pos_level() const
+typename sge::sprite::object<
+	Choices
+>::texture_point_pos_type
+sge::sprite::object<
+	Choices
+>::texture_point_pos_level() const
 {
 	return
 		elements_. template get<
@@ -257,8 +307,12 @@ sge::sprite::object<Choices>::texture_point_pos_level() const
 template<
 	typename Choices
 >
-typename sge::sprite::object<Choices>::texture_point_size_type
-sge::sprite::object<Choices>::texture_point_size() const
+typename sge::sprite::object<
+	Choices
+>::texture_point_size_type
+sge::sprite::object<
+	Choices
+>::texture_point_size() const
 {
 	return
 		this->texture_point_size_level<
@@ -272,8 +326,12 @@ template<
 template<
 	sge::sprite::texture_level Level
 >
-typename sge::sprite::object<Choices>::texture_point_size_type
-sge::sprite::object<Choices>::texture_point_size_level() const
+typename sge::sprite::object<
+	Choices
+>::texture_point_size_type
+sge::sprite::object<
+	Choices
+>::texture_point_size_level() const
 {
 	return
 		elements_. template get<
@@ -286,8 +344,12 @@ sge::sprite::object<Choices>::texture_point_size_level() const
 template<
 	typename Choices
 >
-typename sge::sprite::object<Choices>::depth_type
-sge::sprite::object<Choices>::z() const
+typename sge::sprite::object<
+	Choices
+>::depth_type
+sge::sprite::object<
+	Choices
+>::z() const
 {
 	return
 		elements_. template get<
@@ -298,8 +360,12 @@ sge::sprite::object<Choices>::z() const
 template<
 	typename Choices
 >
-typename sge::sprite::object<Choices>::rotation_type
-sge::sprite::object<Choices>::rotation() const
+typename sge::sprite::object<
+	Choices
+>::rotation_type
+sge::sprite::object<
+	Choices
+>::rotation() const
 {
 	return
 		elements_. template get<
@@ -310,8 +376,12 @@ sge::sprite::object<Choices>::rotation() const
 template<
 	typename Choices
 >
-typename sge::sprite::object<Choices>::rotation_center_type const
-sge::sprite::object<Choices>::rotation_center() const
+typename sge::sprite::object<
+	Choices
+>::rotation_center_type const
+sge::sprite::object<
+	Choices
+>::rotation_center() const
 {
 	return
 		sge::sprite::detail::rotation_center(
@@ -322,8 +392,12 @@ sge::sprite::object<Choices>::rotation_center() const
 template<
 	typename Choices
 >
-typename sge::sprite::object<Choices>::repetition_type
-sge::sprite::object<Choices>::repetition() const
+typename sge::sprite::object<
+	Choices
+>::repetition_type
+sge::sprite::object<
+	Choices
+>::repetition() const
 {
 	return
 		elements_. template get<
@@ -334,8 +408,12 @@ sge::sprite::object<Choices>::repetition() const
 template<
 	typename Choices
 >
-typename sge::sprite::object<Choices>::texture_coordinates_type const
-sge::sprite::object<Choices>::texture_coordinates() const
+typename sge::sprite::object<
+	Choices
+>::texture_coordinates_type const
+sge::sprite::object<
+	Choices
+>::texture_coordinates() const
 {
 	return
 		this->texture_coordinates_level<
@@ -349,8 +427,12 @@ template<
 template<
 	sge::sprite::texture_level Level
 >
-typename sge::sprite::object<Choices>::texture_coordinates_type const
-sge::sprite::object<Choices>::texture_coordinates_level() const
+typename sge::sprite::object<
+	Choices
+>::texture_coordinates_type const
+sge::sprite::object<
+	Choices
+>::texture_coordinates_level() const
 {
 	return
 		elements_. template get<
@@ -363,8 +445,12 @@ sge::sprite::object<Choices>::texture_coordinates_level() const
 template<
 	typename Choices
 >
-typename sge::sprite::object<Choices>::color_type  const
-sge::sprite::object<Choices>::color() const
+typename sge::sprite::object<
+	Choices
+>::color_type  const
+sge::sprite::object<
+	Choices
+>::color() const
 {
 	return
 		elements_. template get<
@@ -375,8 +461,12 @@ sge::sprite::object<Choices>::color() const
 template<
 	typename Choices
 >
-typename sge::sprite::object<Choices>::texture_type const
-sge::sprite::object<Choices>::texture() const
+typename sge::sprite::object<
+	Choices
+>::texture_type const
+sge::sprite::object<
+	Choices
+>::texture() const
 {
 	return
 		this->texture_level<
@@ -390,8 +480,12 @@ template<
 template<
 	sge::sprite::texture_level Level
 >
-typename sge::sprite::object<Choices>::texture_type const
-sge::sprite::object<Choices>::texture_level() const
+typename sge::sprite::object<
+	Choices
+>::texture_type const
+sge::sprite::object<
+	Choices
+>::texture_level() const
 {
 	return
 		elements_. template get<
@@ -405,7 +499,9 @@ template<
 	typename Choices
 >
 void
-sge::sprite::object<Choices>::x(
+sge::sprite::object<
+	Choices
+>::x(
 	unit const _x
 )
 {
@@ -421,7 +517,9 @@ template<
 	typename Choices
 >
 void
-sge::sprite::object<Choices>::y(
+sge::sprite::object<
+	Choices
+>::y(
 	unit const _y
 )
 {
@@ -437,7 +535,9 @@ template<
 	typename Choices
 >
 void
-sge::sprite::object<Choices>::z(
+sge::sprite::object<
+	Choices
+>::z(
 	depth_type const _depth
 )
 {
@@ -452,7 +552,9 @@ template<
 	typename Choices
 >
 void
-sge::sprite::object<Choices>::pos(
+sge::sprite::object<
+	Choices
+>::pos(
 	vector const &_pos
 )
 {
@@ -467,7 +569,9 @@ template<
 	typename Choices
 >
 void
-sge::sprite::object<Choices>::w(
+sge::sprite::object<
+	Choices
+>::w(
 	unit const _w
 )
 {
@@ -483,7 +587,9 @@ template<
 	typename Choices
 >
 void
-sge::sprite::object<Choices>::h(
+sge::sprite::object<
+	Choices
+>::h(
 	unit const _h
 )
 {
@@ -499,7 +605,9 @@ template<
 	typename Choices
 >
 void
-sge::sprite::object<Choices>::size(
+sge::sprite::object<
+	Choices
+>::size(
 	dim const &_dim
 )
 {
@@ -514,7 +622,9 @@ template<
 	typename Choices
 >
 void
-sge::sprite::object<Choices>::point_size(
+sge::sprite::object<
+	Choices
+>::point_size(
 	point_size_type const _point_size
 )
 {
@@ -529,7 +639,9 @@ template<
 	typename Choices
 >
 void
-sge::sprite::object<Choices>::texture_point_pos(
+sge::sprite::object<
+	Choices
+>::texture_point_pos(
 	texture_point_pos_type const _point_pos
 )
 {
@@ -547,7 +659,9 @@ template<
 	sge::sprite::texture_level Level
 >
 void
-sge::sprite::object<Choices>::texture_point_pos_level(
+sge::sprite::object<
+	Choices
+>::texture_point_pos_level(
 	texture_point_pos_type const _point_pos
 )
 {
@@ -564,7 +678,9 @@ template<
 	typename Choices
 >
 void
-sge::sprite::object<Choices>::texture_point_size(
+sge::sprite::object<
+	Choices
+>::texture_point_size(
 	texture_point_size_type const _point_size
 )
 {
@@ -582,7 +698,9 @@ template<
 	sge::sprite::texture_level Level
 >
 void
-sge::sprite::object<Choices>::texture_point_size_level(
+sge::sprite::object<
+	Choices
+>::texture_point_size_level(
 	texture_point_size_type const _point_size
 )
 {
@@ -599,7 +717,9 @@ template<
 	typename Choices
 >
 void
-sge::sprite::object<Choices>::texture(
+sge::sprite::object<
+	Choices
+>::texture(
 	texture_type const _texture
 )
 {
@@ -617,7 +737,9 @@ template<
 	sge::sprite::texture_level Level
 >
 void
-sge::sprite::object<Choices>::texture_level(
+sge::sprite::object<
+	Choices
+>::texture_level(
 	texture_type const _texture
 )
 {
@@ -634,7 +756,9 @@ template<
 	typename Choices
 >
 void
-sge::sprite::object<Choices>::rotation(
+sge::sprite::object<
+	Choices
+>::rotation(
 	rotation_type const _rotation
 )
 {
@@ -649,7 +773,9 @@ template<
 	typename Choices
 >
 void
-sge::sprite::object<Choices>::rotate_around(
+sge::sprite::object<
+	Choices
+>::rotate_around(
 	rotation_center_type const &_rotate_around
 )
 {
@@ -670,7 +796,9 @@ template<
 	typename Choices
 >
 void
-sge::sprite::object<Choices>::reset_rotation()
+sge::sprite::object<
+	Choices
+>::reset_rotation()
 {
 	elements_. template set<
 		sge::sprite::roles::use_rotation
@@ -683,7 +811,9 @@ template<
 	typename Choices
 >
 void
-sge::sprite::object<Choices>::repeat(
+sge::sprite::object<
+	Choices
+>::repeat(
 	repetition_type const _repeat
 )
 {
@@ -698,7 +828,9 @@ template<
 	typename Choices
 >
 void
-sge::sprite::object<Choices>::texture_coordinates(
+sge::sprite::object<
+	Choices
+>::texture_coordinates(
 	texture_coordinates_type const &_coordinates
 )
 {
@@ -716,7 +848,9 @@ template<
 	sge::sprite::texture_level Level
 >
 void
-sge::sprite::object<Choices>::texture_coordinates_level(
+sge::sprite::object<
+	Choices
+>::texture_coordinates_level(
 	texture_coordinates_type const &_coordinates
 )
 {
@@ -733,7 +867,9 @@ template<
 	typename Choices
 >
 void
-sge::sprite::object<Choices>::color(
+sge::sprite::object<
+	Choices
+>::color(
 	color_type const &_color
 )
 {
@@ -748,7 +884,9 @@ template<
 	typename Choices
 >
 void
-sge::sprite::object<Choices>::transfer(
+sge::sprite::object<
+	Choices
+>::transfer(
 	connection_type &_connection
 )
 {
@@ -779,7 +917,9 @@ typename majutsu::role_return_type<
 	>::flattened_types,
 	Role
 >::type
-sge::sprite::object<Choices>::get() const
+sge::sprite::object<
+	Choices
+>::get() const
 {
 	return
 		elements_. template get<
@@ -794,7 +934,9 @@ template<
 	typename Role
 >
 void
-sge::sprite::object<Choices>::set(
+sge::sprite::object<
+	Choices
+>::set(
 	typename majutsu::role_return_type<
 		flattened_types,
 		Role

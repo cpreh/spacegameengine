@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/cg/parameter/object.hpp>
-#include <fcppt/null_ptr.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <Cg/cg.h>
@@ -37,7 +36,7 @@ sge::cg::parameter::object::object(
 	FCPPT_ASSERT_PRE(
 		parameter_
 		!=
-		fcppt::null_ptr()
+		nullptr
 	);
 }
 

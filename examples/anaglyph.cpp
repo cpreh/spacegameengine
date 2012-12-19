@@ -138,12 +138,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/exit_success.hpp>
 #include <awl/main/function_context.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/extract_from_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/io/cerr.hpp>
@@ -166,7 +164,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/random/generator/seed_from_chrono.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
@@ -543,8 +540,7 @@ random_model_collection::random_model_collection(
 		fcppt::container::ptr::push_back_unique_ptr(
 			models_,
 			fcppt::make_unique_ptr<model_instance>(
-				fcppt::cref(
-					backend_),
+				backend_,
 				// Concatenate translation and rotation. Slightly expensive,
 				// but we only need to do it once, so...
 				fcppt::math::matrix::rotation_x(

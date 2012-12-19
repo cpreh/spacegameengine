@@ -41,7 +41,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/deactivate_levels.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/log/location.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/split.hpp>
@@ -50,6 +49,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/xpressive/xpressive.hpp>
 #include <cstdlib>
 #include <exception>
+#include <functional>
 #include <iostream>
 #include <ostream>
 #include <string>
@@ -65,9 +65,9 @@ try
 	sge::log::global_context().apply(
 		fcppt::log::location(
 			FCPPT_TEXT("opencl")),
-		std::tr1::bind(
+		std::bind(
 			&fcppt::log::deactivate_levels,
-			std::tr1::placeholders::_1,
+			std::placeholders::_1,
 			fcppt::log::level::verbose));
 
 	if(argc < 2)

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/vf/actor.hpp>
 #include <sge/opengl/vf/actor_parameters.hpp>
-#include <sge/opengl/vf/actor_ptr.hpp>
+#include <sge/opengl/vf/actor_unique_ptr.hpp>
 #include <sge/opengl/vf/to_actor.hpp>
 #include <sge/opengl/vf/to_actor_visitor.hpp>
 #include <sge/renderer/vf/dynamic/ordered_element.hpp>
@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/variant/apply_unary.hpp>
 
 
-sge::opengl::vf::actor_ptr
+sge::opengl::vf::actor_unique_ptr
 sge::opengl::vf::to_actor(
 	sge::renderer::vf::dynamic::ordered_element const &_element,
 	sge::renderer::vf::dynamic::stride const _stride,

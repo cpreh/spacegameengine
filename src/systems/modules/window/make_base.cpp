@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/window.hpp>
 #include <sge/systems/wrapped_window_fwd.hpp>
 #include <sge/window/parameters_fwd.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/optional_impl.hpp>
@@ -103,12 +102,8 @@ visitor::operator()(
 			fcppt::make_unique_ptr<
 				sge::systems::modules::window::original
 			>(
-				fcppt::cref(
-					_parameters
-				),
-				fcppt::cref(
-					renderer_system_
-				)
+				_parameters,
+				renderer_system_
 			)
 		);
 }
@@ -123,9 +118,7 @@ visitor::operator()(
 			fcppt::make_unique_ptr<
 				sge::systems::modules::window::wrapped
 			>(
-				fcppt::cref(
-					_wrapped
-				)
+				_wrapped
 			)
 		);
 }

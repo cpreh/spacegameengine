@@ -93,62 +93,62 @@ public:
 private:
 	fcppt::signal::auto_connection
 	keyboard_discover_callback(
-		input::keyboard::discover_callback const &
+		sge::input::keyboard::discover_callback const &
 	);
 
 	fcppt::signal::auto_connection
 	keyboard_remove_callback(
-		input::keyboard::remove_callback const &
+		sge::input::keyboard::remove_callback const &
 	);
 
 	fcppt::signal::auto_connection
 	mouse_discover_callback(
-		input::mouse::discover_callback const &
+		sge::input::mouse::discover_callback const &
 	);
 
 	fcppt::signal::auto_connection
 	mouse_remove_callback(
-		input::mouse::remove_callback const &
+		sge::input::mouse::remove_callback const &
 	);
 
 	fcppt::signal::auto_connection
 	cursor_discover_callback(
-		input::cursor::discover_callback const &
+		sge::input::cursor::discover_callback const &
 	);
 
 	fcppt::signal::auto_connection
 	cursor_remove_callback(
-		input::cursor::remove_callback const &
+		sge::input::cursor::remove_callback const &
 	);
 
 	fcppt::signal::auto_connection
 	joypad_discover_callback(
-		input::joypad::discover_callback const &
+		sge::input::joypad::discover_callback const &
 	);
 
 	fcppt::signal::auto_connection
 	joypad_remove_callback(
-		input::joypad::remove_callback const &
+		sge::input::joypad::remove_callback const &
 	);
 
-	x11input::device::parameters const
+	sge::x11input::device::parameters const
 	device_parameters(
-		x11input::create_parameters const &
+		sge::x11input::create_parameters const &
 	);
 
-	x11input::keyboard::device_unique_ptr
+	sge::x11input::keyboard::device_unique_ptr
 	create_keyboard(
-		x11input::create_parameters const &
+		sge::x11input::create_parameters const &
 	);
 
-	x11input::mouse::device_unique_ptr
+	sge::x11input::mouse::device_unique_ptr
 	create_mouse(
-		x11input::create_parameters const &
+		sge::x11input::create_parameters const &
 	);
 
 	sge::x11input::cursor::object_unique_ptr
 	create_cursor(
-		x11input::create_parameters const &
+		sge::x11input::create_parameters const &
 	);
 
 	void

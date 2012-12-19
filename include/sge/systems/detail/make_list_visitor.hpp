@@ -33,7 +33,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/detail/renderer.hpp>
 #include <sge/systems/detail/renderer_caps.hpp>
 #include <fcppt/nonassignable.hpp>
-#include <fcppt/static_assert_expression.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/and.hpp>
 #include <boost/mpl/contains.hpp>
@@ -85,7 +84,7 @@ public:
 	{
 		// Check that the given parameter is actually part of the
 		// static subsystems
-		FCPPT_STATIC_ASSERT_EXPRESSION((
+		static_assert(
 			boost::mpl::contains<
 				boost::mpl::transform_view<
 					Choices,
@@ -94,8 +93,9 @@ public:
 					>
 				>,
 				Type
-			>::value
-		));
+			>::value,
+			"Parameter given to sge::systems::list is not part of the system choices"
+		);
 
 		return
 			this->add_impl(

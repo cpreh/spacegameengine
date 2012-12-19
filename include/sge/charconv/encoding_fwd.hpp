@@ -18,28 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CG_PROGRAM_REPLACE_EXTRA_CALLBACK_FWD_HPP_INCLUDED
-#define SGE_CG_PROGRAM_REPLACE_EXTRA_CALLBACK_FWD_HPP_INCLUDED
-
-#include <sge/cg/string.hpp>
-#include <sge/cg/program/extra_index.hpp>
-#include <fcppt/function/object_fwd.hpp>
+#ifndef SGE_CHARCONV_ENCODING_FWD_HPP_INCLUDED
+#define SGE_CHARCONV_ENCODING_FWD_HPP_INCLUDED
 
 
 namespace sge
 {
-namespace cg
-{
-namespace program
+namespace charconv
 {
 
-typedef fcppt::function::object<
-	sge::cg::string const (
-		sge::cg::program::extra_index
-	)
-> replace_extra_callback;
+enum class encoding;
 
-}
 }
 }
 

@@ -31,9 +31,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/fog/off_fwd.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/phoenix/bind.hpp>
+#include <functional>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -46,7 +46,7 @@ sge::opengl::state::ffp::fog::visitor::operator()(
 		fcppt::assign::make_container<
 			sge::opengl::state::ffp::fog::visitor::result_type
 		>(
-			std::tr1::bind(
+			std::bind(
 				sge::opengl::disable,
 				GL_FOG
 			)
@@ -62,7 +62,7 @@ sge::opengl::state::ffp::fog::visitor::operator()(
 		fcppt::assign::make_container<
 			sge::opengl::state::ffp::fog::visitor::result_type
 		>(
-			std::tr1::bind(
+			std::bind(
 				sge::opengl::enable,
 				GL_FOG
 			)

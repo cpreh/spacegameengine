@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/color_buffer/surface_fwd.hpp>
 #include <sge/renderer/texture/base.hpp>
 #include <sge/renderer/texture/cube_fwd.hpp>
-#include <sge/renderer/texture/cube_side.hpp>
+#include <sge/renderer/texture/cube_side_fwd.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <sge/renderer/texture/mipmap/level_count.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -42,7 +42,7 @@ namespace texture
 
 class SGE_CLASS_SYMBOL cube
 :
-	public renderer::texture::base
+	public sge::renderer::texture::base
 {
 	FCPPT_NONCOPYABLE(
 		cube
@@ -74,14 +74,14 @@ public:
 	virtual
 	color_buffer &
 	level(
-		sge::renderer::texture::cube_side::type,
+		sge::renderer::texture::cube_side,
 		sge::renderer::texture::mipmap::level
 	) = 0;
 
 	virtual
 	color_buffer const &
 	level(
-		sge::renderer::texture::cube_side::type,
+		sge::renderer::texture::cube_side,
 		sge::renderer::texture::mipmap::level
 	) const = 0;
 

@@ -28,12 +28,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/error.hpp>
 #include <fcppt/container/array_impl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <linux/limits.h>
 #include <sys/inotify.h>
 #include <cstddef>
+#include <functional>
 #include <string>
 #include <unistd.h>
 #include <fcppt/config/external_end.hpp>
@@ -54,10 +54,10 @@ sge::evdev::inotify::reader::reader(
 		_processor.register_fd_callback(
 			object_.fd(),
 			awl::backends::linux::fd::callback(
-				std::tr1::bind(
+				std::bind(
 					&sge::evdev::inotify::reader::on_read,
 					this,
-					std::tr1::placeholders::_1
+					std::placeholders::_1
 				)
 			)
 		)

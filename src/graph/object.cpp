@@ -56,7 +56,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <mizuiro/image/algorithm/bresenham.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/nonassignable.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/math/clamp.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/variant/apply_unary.hpp>
@@ -227,9 +226,7 @@ sge::graph::object::object(
 			fcppt::make_shared_ptr<
 				sge::texture::part_raw_ref
 			>(
-				fcppt::ref(
-					*texture_
-				)
+				*texture_
 			)
 		)
 		.texture_size()

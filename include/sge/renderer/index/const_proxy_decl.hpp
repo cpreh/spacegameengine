@@ -25,9 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/const_tag.hpp>
 #include <sge/renderer/index/format.hpp>
 #include <fcppt/nonassignable.hpp>
-#include <fcppt/static_assert_statement.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/type_traits/is_same.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -47,18 +46,20 @@ class const_proxy
 		const_proxy
 	);
 public:
-	FCPPT_STATIC_ASSERT_STATEMENT((
-		boost::is_same<
+	static_assert(
+		std::is_same<
 			typename Format::constness,
-			index::const_tag
-		>::value
-	));
+			sge::renderer::index::const_tag
+		>::value,
+		"const_proxy can only use const formats"
+	);
 
 	typedef typename Format::index_type value_type;
 
 	typedef typename Format::pointer pointer;
 
-	explicit const_proxy(
+	explicit
+	const_proxy(
 		pointer
 	);
 

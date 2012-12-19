@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/any/object.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/device/ffp.hpp>
+#include <sge/renderer/state/ffp/sampler/const_object_ref.hpp>
 #include <sge/renderer/state/ffp/sampler/const_object_ref_vector.hpp>
 #include <sge/renderer/state/ffp/sampler/object.hpp>
 #include <sge/renderer/state/ffp/sampler/scoped.hpp>
@@ -59,9 +60,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/font/draw/detail/static_text_impl.hpp>
 #include <sge/texture/const_optional_part_ref.hpp>
 #include <sge/texture/part.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
@@ -164,13 +163,11 @@ sge::font::draw::detail::static_text_impl::draw(
 			fcppt::make_unique_ptr<
 				sge::renderer::state::ffp::sampler::scoped
 			>(
-				fcppt::ref(
-					_context
-				),
+				_context,
 				fcppt::assign::make_container<
 					sge::renderer::state::ffp::sampler::const_object_ref_vector
 				>(
-					fcppt::cref(
+					sge::renderer::state::ffp::sampler::const_object_ref(
 						*sampler_state_
 					)
 				)

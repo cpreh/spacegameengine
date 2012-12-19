@@ -23,11 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/projectile/object_extrusion_depth.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assign/make_array.hpp>
-#include <fcppt/container/array.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <BulletCollision/CollisionShapes/btBvhTriangleMeshShape.h>
 #include <BulletCollision/CollisionShapes/btTriangleIndexVertexArray.h>
+#include <array>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -68,16 +67,15 @@ sge::projectile::shape::triangle_mesh::triangle_mesh(
 		++triangle_it
 	)
 	{
-		typedef fcppt::container::array<
+		typedef std::array<
 			btScalar,
 			2
 		> extrusion_array;
 
-		extrusion_array const extrusion_depth(
-			fcppt::assign::make_array
-				(static_cast<btScalar>(-object_extrusion_depth()/2))
-				(static_cast<btScalar>(object_extrusion_depth()/2))
-		);
+		extrusion_array const extrusion_depth{{
+			static_cast<btScalar>(-object_extrusion_depth()/2),
+			static_cast<btScalar>(object_extrusion_depth()/2)
+		}};
 
 		for(
 			extrusion_array::const_iterator current_z_it(

@@ -30,7 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #else
 #include <fcppt/from_std_string.hpp>
-#include <fcppt/null_ptr.hpp>
 #include <fcppt/to_std_string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstdlib>
@@ -95,7 +94,7 @@ sge::config::getenv(
 	return
 		ret
 		!=
-		fcppt::null_ptr()
+		nullptr
 		?
 			sge::config::optional_string(
 				fcppt::from_std_string(

@@ -35,7 +35,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/volume_parameters.hpp>
 #include <sge/renderer/texture/volume_unique_ptr.hpp>
 #include <sge/renderer/texture/mipmap/object_fwd.hpp>
-#include <fcppt/move.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::renderer::texture::volume_unique_ptr
@@ -78,7 +80,7 @@ sge::renderer::texture::create_volume_from_view(
 	);
 
 	return
-		fcppt::move(
+		std::move(
 			tex
 		);
 }

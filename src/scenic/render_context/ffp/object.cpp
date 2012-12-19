@@ -43,6 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/lighting/light/parameters.hpp>
 #include <sge/renderer/state/ffp/lighting/material/object.hpp>
 #include <sge/renderer/state/ffp/lighting/material/parameters.hpp>
+#include <sge/renderer/state/ffp/transform/mode.hpp>
 #include <sge/renderer/state/ffp/transform/object.hpp>
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
 #include <sge/renderer/texture/planar.hpp>
@@ -50,9 +51,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/render_context/ffp/manager.hpp>
 #include <sge/scenic/render_context/ffp/object.hpp>
 #include <sge/scenic/render_context/material/object.hpp>
-#include <fcppt/cref.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/assign/make_map.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
@@ -146,7 +146,7 @@ sge::scenic::render_context::ffp::object::object(
 		(
 			sge::renderer::texture::stage(
 				0u),
-			fcppt::cref(
+			fcppt::make_cref(
 				*diffuse_texture_sampler_))),
 	current_lighting_(
 		manager_.renderer_.create_lighting_state(
@@ -278,7 +278,7 @@ sge::scenic::render_context::ffp::object::lights(
 				transform_light(
 					*current_light)));
 		ffp_light_refs.push_back(
-			fcppt::cref(
+			fcppt::make_cref(
 				ffp_lights.back()));
 	}
 
@@ -294,10 +294,8 @@ sge::scenic::render_context::ffp::object::vertex_buffer(
 
 	current_vertex_buffer_.take(
 		fcppt::make_unique_ptr<sge::renderer::scoped_vertex_buffer>(
-			fcppt::ref(
-				context_),
-			fcppt::cref(
-				_vertex_buffer)));
+			context_,
+			_vertex_buffer));
 
 	current_vertex_buffer_size_ =
 		_vertex_buffer.size();

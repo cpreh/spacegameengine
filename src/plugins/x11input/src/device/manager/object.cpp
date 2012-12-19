@@ -28,28 +28,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/manager/object.hpp>
 #include <awl/backends/x11/discard.hpp>
 #include <awl/backends/x11/display.hpp>
-#include <fcppt/null_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/output.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
+#include <functional>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::x11input::device::manager::object::object(
 	awl::backends::x11::display &_display,
-	sge::x11input::device::manager::config_map const &_config
+	sge::x11input::device::manager::config_map &&_config
 )
 :
 	display_(
 		_display
 	),
 	config_(
-		_config
+		std::move(
+			_config
+		)
 	),
 	uses_()
 {
@@ -65,14 +66,14 @@ sge::x11input::device::manager::object::initial(
 )
 {
 	this->update(
-		x11input::device::use(
+		sge::x11input::device::use(
 			_info.use
 		),
-		std::tr1::bind(
-			&x11input::device::manager::config_base::initial,
-			std::tr1::placeholders::_1,
-			x11input::create_parameters(
-				x11input::device::id(
+		std::bind(
+			&sge::x11input::device::manager::config_base::initial,
+			std::placeholders::_1,
+			sge::x11input::create_parameters(
+				sge::x11input::device::id(
 					_info.deviceid
 				),
 				_info
@@ -86,7 +87,7 @@ sge::x11input::device::manager::object::change(
 	XIHierarchyInfo const &_info
 )
 {
-	x11input::device::id const device_id(
+	sge::x11input::device::id const device_id(
 		_info.deviceid
 	);
 
@@ -98,7 +99,7 @@ sge::x11input::device::manager::object::change(
 		)
 	)
 	{
-		x11input::device::use const device_use(
+		sge::x11input::device::use const device_use(
 			_info.use
 		);
 
@@ -111,7 +112,7 @@ sge::x11input::device::manager::object::change(
 				<< device_use
 		);
 
-		x11input::device::info::single const device_info(
+		sge::x11input::device::info::single const device_info(
 			display_,
 			device_id
 		);
@@ -119,7 +120,7 @@ sge::x11input::device::manager::object::change(
 		if(
 			device_info.get()
 			==
-			fcppt::null_ptr()
+			nullptr
 		)
 		{
 			FCPPT_LOG_DEBUG(
@@ -136,10 +137,10 @@ sge::x11input::device::manager::object::change(
 		if(
 			this->update(
 				device_use,
-				std::tr1::bind(
-					&x11input::device::manager::config_base::add,
-					std::tr1::placeholders::_1,
-					x11input::create_parameters(
+				std::bind(
+					&sge::x11input::device::manager::config_base::add,
+					std::placeholders::_1,
+					sge::x11input::create_parameters(
 						device_id,
 						*device_info.get()
 					)
@@ -184,9 +185,9 @@ sge::x11input::device::manager::object::change(
 
 		this->update(
 			it->second,
-			std::tr1::bind(
-				&x11input::device::manager::config_base::remove,
-				std::tr1::placeholders::_1,
+			std::bind(
+				&sge::x11input::device::manager::config_base::remove,
+				std::placeholders::_1,
 				device_id
 			)
 		);
@@ -207,13 +208,9 @@ void
 sge::x11input::device::manager::object::dispatch_initial()
 {
 	for(
-		device::manager::config_map::const_iterator it(
-			config_.begin()
-		);
-		it != config_.end();
-		++it
+		auto const &item : config_
 	)
-		it->second->dispatch_initial();
+		item.second->dispatch_initial();
 }
 
 template<
@@ -221,13 +218,13 @@ template<
 >
 bool
 sge::x11input::device::manager::object::update(
-	x11input::device::use const _use,
+	sge::x11input::device::use const _use,
 	Function const &_function
 )
 {
 	typedef std::pair<
-		device::manager::config_map::const_iterator,
-		device::manager::config_map::const_iterator
+		sge::x11input::device::manager::config_map::const_iterator,
+		sge::x11input::device::manager::config_map::const_iterator
 	> range_pair;
 
 	range_pair const range(
@@ -241,7 +238,7 @@ sge::x11input::device::manager::object::update(
 	);
 
 	for(
-		device::manager::config_map::const_iterator it(
+		sge::x11input::device::manager::config_map::const_iterator it(
 			range.first
 		);
 		it != range.second;

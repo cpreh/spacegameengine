@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/make_id.hpp>
 #include <sge/opengl/convert/from_gl_bool.hpp>
 #include <sge/opengl/vf/attribute_context.hpp>
-#include <fcppt/null_ptr.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -55,7 +54,7 @@ sge::opengl::vf::attribute_context::attribute_context()
 			?
 				glVertexAttribPointerARB
 			:
-				fcppt::null_ptr()
+				nullptr
 	),
 	enable_vertex_attrib_array_(
 		is_native_
@@ -66,7 +65,7 @@ sge::opengl::vf::attribute_context::attribute_context()
 			?
 				glEnableVertexAttribArrayARB
 			:
-				fcppt::null_ptr()
+				nullptr
 	),
 	disable_vertex_attrib_array_(
 		is_native_
@@ -77,7 +76,7 @@ sge::opengl::vf::attribute_context::attribute_context()
 			?
 				glDisableVertexAttribArrayARB
 			:
-				fcppt::null_ptr()
+				nullptr
 	)
 {
 }

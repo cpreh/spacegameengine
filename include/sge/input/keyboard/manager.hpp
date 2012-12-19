@@ -32,10 +32,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/remove_callback.hpp>
 #include <sge/input/keyboard/remove_event_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/function/object.hpp>
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/ptr_container/ptr_map.hpp>
+#include <functional>
+#include <unordered_map>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -52,32 +52,32 @@ class manager
 		manager
 	);
 public:
-	typedef fcppt::function::object<
+	typedef std::function<
 		void (
-			keyboard::device &,
-			keyboard::char_event const &
+			sge::input::keyboard::device &,
+			sge::input::keyboard::char_event const &
 		)
 	> char_callback;
 
-	typedef fcppt::function::object<
+	typedef std::function<
 		void (
-			keyboard::device &,
-			keyboard::key_event const &
+			sge::input::keyboard::device &,
+			sge::input::keyboard::key_event const &
 		)
 	> key_callback;
 
-	typedef fcppt::function::object<
+	typedef std::function<
 		void (
-			keyboard::device &,
-			keyboard::key_repeat_event const &
+			sge::input::keyboard::device &,
+			sge::input::keyboard::key_repeat_event const &
 		)
 	> key_repeat_callback;
 
 	SGE_INPUT_SYMBOL
 	manager(
-		input::processor &,
-		input::keyboard::discover_callback const &,
-		input::keyboard::remove_callback const &,
+		sge::input::processor &,
+		sge::input::keyboard::discover_callback const &,
+		sge::input::keyboard::remove_callback const &,
 		char_callback const &,
 		key_callback const &,
 		key_repeat_callback const &
@@ -86,8 +86,8 @@ public:
 	SGE_INPUT_SYMBOL
 	~manager();
 
-	typedef boost::ptr_map<
-		keyboard::device *,
+	typedef std::unordered_map<
+		sge::input::keyboard::device *,
 		fcppt::signal::connection_manager
 	> keyboard_map;
 
@@ -97,19 +97,19 @@ public:
 private:
 	void
 	discover(
-		input::keyboard::discover_event const &
+		sge::input::keyboard::discover_event const &
 	);
 
 	void
 	remove(
-		input::keyboard::remove_event const &
+		sge::input::keyboard::remove_event const &
 	);
 
 	keyboard_map devices_;
 
-	input::keyboard::discover_callback const discover_callback_;
+	sge::input::keyboard::discover_callback const discover_callback_;
 
-	input::keyboard::remove_callback const remove_callback_;
+	sge::input::keyboard::remove_callback const remove_callback_;
 
 	char_callback const char_callback_;
 

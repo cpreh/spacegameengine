@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/cg/exception.hpp>
 #include <sge/cg/context/object.hpp>
-#include <fcppt/null_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <Cg/cg.h>
@@ -36,7 +35,7 @@ sge::cg::context::object::object()
 	if(
 		context_
 		==
-		fcppt::null_ptr()
+		nullptr
 	)
 		throw sge::cg::exception(
 			FCPPT_TEXT("cgCreateContext failed")

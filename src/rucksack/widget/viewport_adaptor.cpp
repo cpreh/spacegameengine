@@ -32,7 +32,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
 
 FCPPT_PP_PUSH_WARNING
@@ -47,7 +49,7 @@ sge::rucksack::widget::viewport_adaptor::viewport_adaptor(
 		_renderer.onscreen_target()),
 	viewport_connection_(
 		_viewport.manage_callback(
-			std::tr1::bind(
+			std::bind(
 				&viewport_adaptor::manage_callback,
 				this))),
 	child_(

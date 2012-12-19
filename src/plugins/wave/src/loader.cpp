@@ -28,7 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/wave/loader.hpp>
 #include <sge/wave/stream_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/move.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
@@ -41,6 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/iostreams/stream.hpp>
 #include <fstream>
 #include <ios>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -88,7 +88,7 @@ sge::wave::loader::load(
 				fcppt::make_unique_ptr<
 					sge::wave::file
 				>(
-					fcppt::move(
+					std::move(
 						file_stream),
 					sge::audio::optional_path(
 						filename)));
@@ -132,7 +132,7 @@ sge::wave::loader::load_raw(
 				fcppt::make_unique_ptr<
 					sge::wave::file
 				>(
-					fcppt::move(
+					std::move(
 						raw_stream),
 					sge::audio::optional_path()));
 	}

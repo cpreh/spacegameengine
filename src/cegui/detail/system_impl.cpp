@@ -35,7 +35,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/viewport/manager.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
-#include <fcppt/function/object.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/math/box/output.hpp>
@@ -43,7 +42,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/Font.h>
 #include <CEGUI/FontManager.h>
@@ -53,6 +51,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <CEGUI/Scheme.h>
 #include <CEGUI/System.h>
 #include <CEGUI/falagard/WidgetLookManager.h>
+#include <functional>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -107,10 +106,10 @@ sge::cegui::detail::system_impl::system_impl(
 	),
 	viewport_change_connection_(
 		_viewport_manager.manage_callback(
-			std::tr1::bind(
+			std::bind(
 				&sge::cegui::detail::system_impl::viewport_change,
 				this,
-				std::tr1::placeholders::_1
+				std::placeholders::_1
 			)
 		)
 	),

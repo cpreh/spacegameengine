@@ -44,13 +44,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/system.hpp>
 #include <awl/backends/linux/fd/processor.hpp>
 #include <awl/system/event/processor.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_impl.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::evdev::processor::processor(
@@ -86,11 +86,9 @@ sge::evdev::processor::processor(
 		fcppt::make_unique_ptr<
 			sge::evdev::eventfd::object
 		>(
-			fcppt::ref(
-				processor_
-			),
+			processor_,
 			sge::evdev::eventfd::callback(
-				std::tr1::bind(
+				std::bind(
 					&sge::evdev::processor::dev_init,
 					this
 				)
@@ -203,17 +201,13 @@ sge::evdev::processor::dev_init()
 		fcppt::make_unique_ptr<
 			sge::evdev::inotify::reader
 		>(
-			fcppt::cref(
-				path_
-			),
-			fcppt::ref(
-				processor_
-			),
+			path_,
+			processor_,
 			sge::evdev::inotify::callback(
-				std::tr1::bind(
+				std::bind(
 					&sge::evdev::processor::dev_event,
 					this,
-					std::tr1::placeholders::_1
+					std::placeholders::_1
 				)
 			)
 		)

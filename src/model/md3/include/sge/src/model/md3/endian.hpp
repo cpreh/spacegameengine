@@ -31,7 +31,7 @@ namespace model
 namespace md3
 {
 
-inline fcppt::endianness::format::type
+inline fcppt::endianness::format
 endian()
 {
 	return

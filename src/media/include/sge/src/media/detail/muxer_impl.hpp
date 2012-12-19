@@ -33,10 +33,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/object.hpp>
 #include <sge/plugin/object_unique_ptr.hpp>
 #include <sge/src/media/detail/muxer.hpp>
-#include <fcppt/move.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/algorithm/contains.hpp>
 #include <fcppt/algorithm/set_intersection.hpp>
 #include <fcppt/algorithm/set_union.hpp>
@@ -47,7 +45,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/headers.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
+#include <memory>
 #include <typeinfo>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -93,7 +93,7 @@ sge::media::detail::muxer<
 			it->load()
 		);
 
-		typedef fcppt::unique_ptr<
+		typedef std::unique_ptr<
 			System
 		> system_unique_ptr;
 
@@ -129,14 +129,14 @@ sge::media::detail::muxer<
 
 			fcppt::container::ptr::push_back_unique_ptr(
 				plugins_,
-				fcppt::move(
+				std::move(
 					plugin
 				)
 			);
 
 			fcppt::container::ptr::push_back_unique_ptr(
 				systems_,
-				fcppt::move(
+				std::move(
 					system_instance
 				)
 			);
@@ -144,7 +144,7 @@ sge::media::detail::muxer<
 		else
 		{
 			FCPPT_LOG_DEBUG(
-				log::global(),
+				sge::log::global(),
 				fcppt::log::_
 					<< FCPPT_TEXT("system ")
 					<<

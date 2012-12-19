@@ -86,21 +86,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/exit_success.hpp>
 #include <awl/main/function_context.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/from_std_string.hpp>
-#include <fcppt/optional.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/io/cerr.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/matrix/output.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/program_options.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -108,6 +103,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <exception>
 #include <iostream>
 #include <ostream>
+#include <string>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -244,26 +240,24 @@ try
 	{
 		camera.take(
 			fcppt::make_unique_ptr<sge::camera::first_person::object>(
-				fcppt::cref(
-					sge::camera::first_person::parameters(
-						sys.keyboard_collector(),
-						sys.mouse_collector(),
-						sge::camera::is_active(
-							true),
-						sge::camera::first_person::movement_speed(
-							4.0f),
-						sge::camera::coordinate_system::identity()))));
+				sge::camera::first_person::parameters(
+					sys.keyboard_collector(),
+					sys.mouse_collector(),
+					sge::camera::is_active(
+						true),
+					sge::camera::first_person::movement_speed(
+						4.0f),
+					sge::camera::coordinate_system::identity())));
 	}
 	else
 	{
 		camera.take(
 			fcppt::make_unique_ptr<sge::camera::tracking::object>(
 				sge::camera::optional_projection_matrix(),
-				fcppt::cref(
-					sge::camera::tracking::json::keyframes_from_json(
-						sge::parse::json::parse_file_exn(
-							boost::filesystem::path(
-								track_from_file)).array())),
+				sge::camera::tracking::json::keyframes_from_json(
+					sge::parse::json::parse_file_exn(
+						boost::filesystem::path(
+							track_from_file)).array()),
 				sge::camera::tracking::is_looping(
 					true),
 				sge::camera::is_active(
@@ -274,8 +268,7 @@ try
 	{
 		exporter.take(
 			fcppt::make_unique_ptr<sge::camera::tracking::json::interval_exporter>(
-				fcppt::cref(
-					*camera),
+				*camera,
 				sge::camera::update_duration(
 					exporter_interval),
 				boost::filesystem::path(

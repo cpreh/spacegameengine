@@ -26,7 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/funcs/env_int_value.hpp>
 #include <sge/opengl/texture/funcs/env_target.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::opengl::state::ffp::sampler::actor const
@@ -36,9 +38,9 @@ sge::opengl::state::ffp::sampler::set_one(
 )
 {
 	return
-		std::tr1::bind(
+		std::bind(
 			sge::opengl::texture::funcs::env_int,
-			std::tr1::placeholders::_1,
+			std::placeholders::_1,
 			fcppt::strong_typedef_construct_cast<
 				sge::opengl::texture::funcs::env_target
 			>(

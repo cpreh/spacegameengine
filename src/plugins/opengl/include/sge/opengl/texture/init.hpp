@@ -43,7 +43,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <sge/renderer/texture/mipmap/level_count.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/null_ptr.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
@@ -137,7 +136,7 @@ init(
 			0u
 		),
 		size,
-		fcppt::null_ptr()
+		nullptr
 	);
 
 	sge::opengl::texture::mipmap::create<

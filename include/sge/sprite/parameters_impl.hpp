@@ -43,13 +43,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/roles/texture_coordinates.hpp>
 #include <sge/sprite/roles/use_rotation.hpp>
 #include <majutsu/role_return_type.hpp>
-#include <fcppt/static_assert_expression.hpp>
 
 
 template<
 	typename Choices
 >
-sge::sprite::parameters<Choices>::parameters()
+sge::sprite::parameters<
+	Choices
+>::parameters()
 :
 	elements_()
 {
@@ -58,18 +59,22 @@ sge::sprite::parameters<Choices>::parameters()
 template<
 	typename Choices
 >
-sge::sprite::parameters<Choices> &
-sge::sprite::parameters<Choices>::pos(
+sge::sprite::parameters<
+	Choices
+> &
+sge::sprite::parameters<
+	Choices
+>::pos(
 	typename majutsu::role_return_type<
 		flattened_types,
-		roles::pos
+		sge::sprite::roles::pos
 	>::type const &_pos
 )
 {
 	return
 		sge::sprite::detail::parameters::unset_use_center(
 			this->set<
-				roles::pos
+				sge::sprite::roles::pos
 			>(
 				_pos
 			)
@@ -79,11 +84,15 @@ sge::sprite::parameters<Choices>::pos(
 template<
 	typename Choices
 >
-sge::sprite::parameters<Choices> &
-sge::sprite::parameters<Choices>::center(
+sge::sprite::parameters<
+	Choices
+> &
+sge::sprite::parameters<
+	Choices
+>::center(
 	typename majutsu::role_return_type<
 		flattened_types,
-		roles::pos
+		sge::sprite::roles::pos
 	>::type const &_pos
 )
 {
@@ -95,12 +104,12 @@ sge::sprite::parameters<Choices>::center(
 
 	return
 		this->set<
-			roles::pos
+			sge::sprite::roles::pos
 		>(
 			_pos
 		)
 		. template set<
-			detail::roles::use_center
+			sge::sprite::detail::roles::use_center
 		>(
 			true
 		);
@@ -109,11 +118,15 @@ sge::sprite::parameters<Choices>::center(
 template<
 	typename Choices
 >
-sge::sprite::parameters<Choices> &
-sge::sprite::parameters<Choices>::texture(
+sge::sprite::parameters<
+	Choices
+> &
+sge::sprite::parameters<
+	Choices
+>::texture(
 	typename majutsu::role_return_type<
 		flattened_types,
-		roles::texture<
+		sge::sprite::roles::texture<
 			0
 		>
 	>::type const &_texture
@@ -121,7 +134,7 @@ sge::sprite::parameters<Choices>::texture(
 {
 	return
 		this->set<
-			roles::texture<
+			sge::sprite::roles::texture<
 				0
 			>
 		>(
@@ -135,11 +148,15 @@ template<
 template<
 	sge::sprite::texture_level Level
 >
-sge::sprite::parameters<Choices> &
-sge::sprite::parameters<Choices>::texture_level(
+sge::sprite::parameters<
+	Choices
+> &
+sge::sprite::parameters<
+	Choices
+>::texture_level(
 	typename majutsu::role_return_type<
 		flattened_types,
-		roles::texture<
+		sge::sprite::roles::texture<
 			Level
 		>
 	>::type const &_texture
@@ -147,7 +164,7 @@ sge::sprite::parameters<Choices>::texture_level(
 {
 	return
 		this->set<
-			roles::texture<
+			sge::sprite::roles::texture<
 				Level
 			>
 		>(
@@ -158,17 +175,21 @@ sge::sprite::parameters<Choices>::texture_level(
 template<
 	typename Choices
 >
-sge::sprite::parameters<Choices> &
-sge::sprite::parameters<Choices>::size(
+sge::sprite::parameters<
+	Choices
+> &
+sge::sprite::parameters<
+	Choices
+>::size(
 	typename majutsu::role_return_type<
 		flattened_types,
-		roles::size
+		sge::sprite::roles::size
 	>::type const &_size
 )
 {
 	return
 		this->set<
-			roles::size
+			sge::sprite::roles::size
 		>(
 			_size
 		);
@@ -177,17 +198,21 @@ sge::sprite::parameters<Choices>::size(
 template<
 	typename Choices
 >
-sge::sprite::parameters<Choices> &
-sge::sprite::parameters<Choices>::point_size(
+sge::sprite::parameters<
+	Choices
+> &
+sge::sprite::parameters<
+	Choices
+>::point_size(
 	typename majutsu::role_return_type<
 		flattened_types,
-		roles::point_size
+		sge::sprite::roles::point_size
 	>::type const &_point_size
 )
 {
 	return
 		this->set<
-			roles::point_size
+			sge::sprite::roles::point_size
 		>(
 			_point_size
 		);
@@ -196,12 +221,16 @@ sge::sprite::parameters<Choices>::point_size(
 template<
 	typename Choices
 >
-sge::sprite::parameters<Choices> &
-sge::sprite::parameters<Choices>::texture_size()
+sge::sprite::parameters<
+	Choices
+> &
+sge::sprite::parameters<
+	Choices
+>::texture_size()
 {
 	return
 		this->set<
-			detail::roles::use_texture_size
+			sge::sprite::detail::roles::use_texture_size
 		>(
 			true
 		);
@@ -210,17 +239,21 @@ sge::sprite::parameters<Choices>::texture_size()
 template<
 	typename Choices
 >
-sge::sprite::parameters<Choices> &
-sge::sprite::parameters<Choices>::color(
+sge::sprite::parameters<
+	Choices
+> &
+sge::sprite::parameters<
+	Choices
+>::color(
 	typename majutsu::role_return_type<
 		flattened_types,
-		roles::color
+		sge::sprite::roles::color
 	>::type const &_color
 )
 {
 	return
 		this->set<
-			roles::color
+			sge::sprite::roles::color
 		>(
 			_color
 		);
@@ -229,8 +262,12 @@ sge::sprite::parameters<Choices>::color(
 template<
 	typename Choices
 >
-sge::sprite::parameters<Choices> &
-sge::sprite::parameters<Choices>::any_color(
+sge::sprite::parameters<
+	Choices
+> &
+sge::sprite::parameters<
+	Choices
+>::any_color(
 	sge::image::color::any::object const &_color
 )
 {
@@ -249,14 +286,18 @@ sge::sprite::parameters<Choices>::any_color(
 template<
 	typename Choices
 >
-sge::sprite::parameters<Choices> &
-sge::sprite::parameters<Choices>::default_color()
+sge::sprite::parameters<
+	Choices
+> &
+sge::sprite::parameters<
+	Choices
+>::default_color()
 {
 	return
 		this->color(
-			sprite::defaults<
+			sge::sprite::defaults<
 				Choices,
-				roles::color
+				sge::sprite::roles::color
 			>::get()
 		);
 }
@@ -264,17 +305,21 @@ sge::sprite::parameters<Choices>::default_color()
 template<
 	typename Choices
 >
-sge::sprite::parameters<Choices> &
-sge::sprite::parameters<Choices>::depth(
+sge::sprite::parameters<
+	Choices
+> &
+sge::sprite::parameters<
+	Choices
+>::depth(
 	typename majutsu::role_return_type<
 		flattened_types,
-		roles::depth
+		sge::sprite::roles::depth
 	>::type const &_depth
 )
 {
 	return
 		this->set<
-			roles::depth
+			sge::sprite::roles::depth
 		>(
 			_depth
 		);
@@ -283,17 +328,21 @@ sge::sprite::parameters<Choices>::depth(
 template<
 	typename Choices
 >
-sge::sprite::parameters<Choices> &
-sge::sprite::parameters<Choices>::rotation(
+sge::sprite::parameters<
+	Choices
+> &
+sge::sprite::parameters<
+	Choices
+>::rotation(
 	typename majutsu::role_return_type<
 		flattened_types,
-		roles::rotation
+		sge::sprite::roles::rotation
 	>::type const &_rotation
 )
 {
 	return
 		this->set<
-			roles::rotation
+			sge::sprite::roles::rotation
 		>(
 			_rotation
 		);
@@ -302,12 +351,16 @@ sge::sprite::parameters<Choices>::rotation(
 template<
 	typename Choices
 >
-sge::sprite::parameters<Choices> &
-sge::sprite::parameters<Choices>::no_rotation_point()
+sge::sprite::parameters<
+	Choices
+> &
+sge::sprite::parameters<
+	Choices
+>::no_rotation_point()
 {
 	return
 		this->set<
-			roles::use_rotation
+			sge::sprite::roles::use_rotation
 		>(
 			false
 		);
@@ -316,17 +369,21 @@ sge::sprite::parameters<Choices>::no_rotation_point()
 template<
 	typename Choices
 >
-sge::sprite::parameters<Choices> &
-sge::sprite::parameters<Choices>::rotation_point(
+sge::sprite::parameters<
+	Choices
+> &
+sge::sprite::parameters<
+	Choices
+>::rotation_point(
 	typename majutsu::role_return_type<
 		flattened_types,
-		roles::rotate_around
+		sge::sprite::roles::rotate_around
 	>::type const &_rotation_point
 )
 {
 	return
 		this->set<
-			roles::rotate_around
+			sge::sprite::roles::rotate_around
 		>(
 			_rotation_point
 		);
@@ -335,17 +392,21 @@ sge::sprite::parameters<Choices>::rotation_point(
 template<
 	typename Choices
 >
-sge::sprite::parameters<Choices> &
-sge::sprite::parameters<Choices>::repetition(
+sge::sprite::parameters<
+	Choices
+> &
+sge::sprite::parameters<
+	Choices
+>::repetition(
 	typename majutsu::role_return_type<
 		flattened_types,
-		roles::repetition
+		sge::sprite::roles::repetition
 	>::type const &_repetition
 )
 {
 	return
 		this->set<
-			roles::repetition
+			sge::sprite::roles::repetition
 		>(
 			_repetition
 		);
@@ -354,11 +415,15 @@ sge::sprite::parameters<Choices>::repetition(
 template<
 	typename Choices
 >
-sge::sprite::parameters<Choices> &
-sge::sprite::parameters<Choices>::texture_coordinates(
+sge::sprite::parameters<
+	Choices
+> &
+sge::sprite::parameters<
+	Choices
+>::texture_coordinates(
 	typename majutsu::role_return_type<
 		flattened_types,
-		roles::texture_coordinates<
+		sge::sprite::roles::texture_coordinates<
 			0
 		>
 	>::type const &_texture_coordinates
@@ -366,7 +431,7 @@ sge::sprite::parameters<Choices>::texture_coordinates(
 {
 	return
 		this->set<
-			roles::texture_coordinates<
+			sge::sprite::roles::texture_coordinates<
 				0
 			>
 		>(
@@ -380,11 +445,15 @@ template<
 template<
 	sge::sprite::texture_level Level
 >
-sge::sprite::parameters<Choices> &
-sge::sprite::parameters<Choices>::texture_coordinates_level(
+sge::sprite::parameters<
+	Choices
+> &
+sge::sprite::parameters<
+	Choices
+>::texture_coordinates_level(
 	typename majutsu::role_return_type<
 		flattened_types,
-		roles::texture_coordinates<
+		sge::sprite::roles::texture_coordinates<
 			Level
 		>
 	>::type const &_texture_coordinates
@@ -392,7 +461,7 @@ sge::sprite::parameters<Choices>::texture_coordinates_level(
 {
 	return
 		this->set<
-			roles::texture_coordinates<
+			sge::sprite::roles::texture_coordinates<
 				Level
 			>
 		>(
@@ -403,17 +472,21 @@ sge::sprite::parameters<Choices>::texture_coordinates_level(
 template<
 	typename Choices
 >
-sge::sprite::parameters<Choices> &
-sge::sprite::parameters<Choices>::connection(
+sge::sprite::parameters<
+	Choices
+> &
+sge::sprite::parameters<
+	Choices
+>::connection(
 	typename majutsu::role_return_type<
 		flattened_types,
-		roles::connection
+		sge::sprite::roles::connection
 	>::type const &_connection
 )
 {
 	return
 		this->set<
-			roles::connection
+			sge::sprite::roles::connection
 		>(
 			_connection
 		);
@@ -425,8 +498,12 @@ template<
 template<
 	typename Role
 >
-sge::sprite::parameters<Choices> &
-sge::sprite::parameters<Choices>::set(
+sge::sprite::parameters<
+	Choices
+> &
+sge::sprite::parameters<
+	Choices
+>::set(
 	typename majutsu::role_return_type<
 		flattened_types,
 		Role
@@ -454,7 +531,9 @@ typename majutsu::role_return_type<
 	>::flattened_types,
 	Role
 >::type const
-sge::sprite::parameters<Choices>::get() const
+sge::sprite::parameters<
+	Choices
+>::get() const
 {
 	return
 		elements_. template get<
@@ -465,8 +544,12 @@ sge::sprite::parameters<Choices>::get() const
 template<
 	typename Choices
 >
-typename sge::sprite::parameters<Choices>::elements_type const &
-sge::sprite::parameters<Choices>::elements() const
+typename sge::sprite::parameters<
+	Choices
+>::elements_type const &
+sge::sprite::parameters<
+	Choices
+>::elements() const
 {
 	return elements_;
 }

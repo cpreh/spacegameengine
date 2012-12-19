@@ -18,48 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_TEXTURE_INIT_BASIC_PART_HPP_INCLUDED
-#define SGE_SRC_TEXTURE_INIT_BASIC_PART_HPP_INCLUDED
+#ifndef SGE_PROJECTILE_GROUP_OBJECT_REF_HPP_INCLUDED
+#define SGE_PROJECTILE_GROUP_OBJECT_REF_HPP_INCLUDED
 
-#include <fcppt/move.hpp>
-#include <fcppt/unique_ptr_fwd.hpp>
+#include <fcppt/reference_wrapper.hpp>
+#include <sge/projectile/group/object_fwd.hpp>
 
 
 namespace sge
 {
-namespace texture
+namespace projectile
+{
+namespace group
 {
 
-template<
-	typename T
+typedef
+fcppt::reference_wrapper<
+	sge::projectile::group::object
 >
-T &
-init_basic_part(
-	T &_ref
-)
-{
-	return
-		_ref;
+object_ref;
+
 }
-
-template<
-	typename T
->
-fcppt::unique_ptr<
-	T
->
-init_basic_part(
-	fcppt::unique_ptr<
-		T
-	> &_ptr
-)
-{
-	return
-		fcppt::move(
-			_ptr
-		);
-}
-
 }
 }
 

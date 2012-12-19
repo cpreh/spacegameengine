@@ -31,7 +31,7 @@ namespace texture
 {
 
 typedef sge::texture::basic_part_raw<
-	sge::renderer::texture::planar_unique_ptr
+	sge::renderer::texture::planar_unique_ptr &&
 > part_raw_ptr;
 
 }

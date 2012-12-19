@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/cegui/system.hpp>
 #include <sge/cegui/toolbox/scoped_gui_sheet.hpp>
-#include <fcppt/null_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/GUIContext.h>
 #include <fcppt/config/external_end.hpp>
@@ -43,6 +42,6 @@ sge::cegui::toolbox::scoped_gui_sheet::scoped_gui_sheet(
 sge::cegui::toolbox::scoped_gui_sheet::~scoped_gui_sheet()
 {
 	system_.gui_context().setRootWindow(
-		fcppt::null_ptr()
+		nullptr
 	);
 }

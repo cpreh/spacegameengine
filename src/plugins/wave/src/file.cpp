@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/global.hpp>
 #include <sge/wave/file.hpp>
 #include <fcppt/format.hpp>
-#include <fcppt/move.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
@@ -39,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <algorithm>
 #include <iosfwd>
 #include <string>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -51,7 +51,7 @@ sge::wave::file::file(
 	swap_(
 		boost::logic::indeterminate),
 	file_(
-		fcppt::move(
+		std::move(
 			_file)),
 	data_segment_(),
 	samples_(),
@@ -98,7 +98,7 @@ void sge::wave::file::reset()
 {
 	FCPPT_LOG_DEBUG(
 		log::global(),
-		fcppt::log::_ << "wave: resetting file");
+		fcppt::log::_ << FCPPT_TEXT("wave: resetting file"));
 
 	file_->seekg(
 		data_segment_);
@@ -204,8 +204,8 @@ void sge::wave::file::read_wave()
 	if (audio_format != static_cast<boost::uint16_t>(1))
 		throw audio::unsupported_format(
 			filename_,
-			(fcppt::format(FCPPT_TEXT("wave file \"%1%\" is not pcm encoded (format code is %2%)"))
-					 % filename_ % audio_format).str());
+			(fcppt::format(FCPPT_TEXT("wave file is not pcm encoded (format code is %2%)"))
+					 % audio_format).str());
 
 	channels_ = static_cast<audio::channel_type>(
 			extract_primitive<boost::uint16_t>(FCPPT_TEXT("channel count")));
@@ -239,9 +239,9 @@ void sge::wave::file::ignore_chunks_until(std::string const &desc)
 	{
 		FCPPT_LOG_INFO(
 			log::global(),
-			fcppt::log::_ << FCPPT_TEXT("detected unknown subchunk in wave file \"")
-			        << filename_
-			        << FCPPT_TEXT("\""));
+			fcppt::log::_
+				<< FCPPT_TEXT("detected unknown subchunk in wave")
+		);
 
 		file_->seekg(
 			static_cast<std::streamoff>(

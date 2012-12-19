@@ -55,7 +55,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/viewport/manager_fwd.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
-#include <fcppt/static_assert_expression.hpp>
 
 
 template<
@@ -111,10 +110,11 @@ sge::systems::instance<
 	Choices
 >::renderer_system() const
 {
-	FCPPT_STATIC_ASSERT_EXPRESSION(
+	static_assert(
 		sge::systems::detail::has_with_renderer<
 			Choices
-		>::value
+		>::value,
+		"configuration has no renderer"
 	);
 
 	return
@@ -129,18 +129,20 @@ sge::systems::instance<
 	Choices
 >::renderer_ffp() const
 {
-	FCPPT_STATIC_ASSERT_EXPRESSION(
+	static_assert(
 		sge::systems::detail::has_with_renderer<
 			Choices
-		>::value
+		>::value,
+		"configuration has no renderer"
 	);
 
-	FCPPT_STATIC_ASSERT_EXPRESSION(
+	static_assert(
 		sge::systems::detail::renderer_caps<
 			Choices
 		>::value
 		==
-		sge::systems::renderer_caps::ffp
+		sge::systems::renderer_caps::ffp,
+		"configuration has no ffp renderer"
 	);
 
 	return
@@ -155,10 +157,11 @@ sge::systems::instance<
 	Choices
 >::renderer_core() const
 {
-	FCPPT_STATIC_ASSERT_EXPRESSION(
+	static_assert(
 		sge::systems::detail::has_with_renderer<
 			Choices
-		>::value
+		>::value,
+		"configuration has no renderer"
 	);
 
 	return
@@ -173,10 +176,11 @@ sge::systems::instance<
 	Choices
 >::input_system() const
 {
-	FCPPT_STATIC_ASSERT_EXPRESSION(
+	static_assert(
 		sge::systems::detail::has_with_input<
 			Choices
-		>::value
+		>::value,
+		"configuration has no input"
 	);
 
 	return
@@ -191,10 +195,11 @@ sge::systems::instance<
 	Choices
 >::input_processor() const
 {
-	FCPPT_STATIC_ASSERT_EXPRESSION(
+	static_assert(
 		sge::systems::detail::has_with_input<
 			Choices
-		>::value
+		>::value,
+		"configuration has no input"
 	);
 
 	return
@@ -209,18 +214,20 @@ sge::systems::instance<
 	Choices
 >::cursor_demuxer() const
 {
-	FCPPT_STATIC_ASSERT_EXPRESSION(
+	static_assert(
 		sge::systems::detail::has_with_input<
 			Choices
-		>::value
+		>::value,
+		"configuration has no input"
 	);
 
-	FCPPT_STATIC_ASSERT_EXPRESSION((
+	static_assert(
 		sge::systems::detail::has_input_option<
 			Choices,
 			sge::systems::cursor_demuxer
-		>::value
-	));
+		>::value,
+		"configuration has no cursor demuxer"
+	);
 
 	return
 		instance_.cursor_demuxer();
@@ -234,18 +241,20 @@ sge::systems::instance<
 	Choices
 >::keyboard_collector() const
 {
-	FCPPT_STATIC_ASSERT_EXPRESSION(
+	static_assert(
 		sge::systems::detail::has_with_input<
 			Choices
-		>::value
+		>::value,
+		"configuration has no input"
 	);
 
-	FCPPT_STATIC_ASSERT_EXPRESSION((
+	static_assert(
 		sge::systems::detail::has_input_option<
 			Choices,
 			sge::systems::keyboard_collector
-		>::value
-	));
+		>::value,
+		"configuration has no keyboard collector"
+	);
 
 	return
 		instance_.keyboard_collector();
@@ -259,18 +268,20 @@ sge::systems::instance<
 	Choices
 >::mouse_collector() const
 {
-	FCPPT_STATIC_ASSERT_EXPRESSION(
+	static_assert(
 		sge::systems::detail::has_with_input<
 			Choices
-		>::value
+		>::value,
+		"configuration has no input"
 	);
 
-	FCPPT_STATIC_ASSERT_EXPRESSION((
+	static_assert(
 		sge::systems::detail::has_input_option<
 			Choices,
 			sge::systems::mouse_collector
-		>::value
-	));
+		>::value,
+		"configuration has no mouse collector"
+	);
 
 	return
 		instance_.mouse_collector();
@@ -284,10 +295,11 @@ sge::systems::instance<
 	Choices
 >::image_system() const
 {
-	FCPPT_STATIC_ASSERT_EXPRESSION(
+	static_assert(
 		sge::systems::detail::has_with_image2d<
 			Choices
-		>::value
+		>::value,
+		"configuration has no image2d system"
 	);
 
 	return
@@ -302,10 +314,11 @@ sge::systems::instance<
 	Choices
 >::audio_loader() const
 {
-	FCPPT_STATIC_ASSERT_EXPRESSION(
+	static_assert(
 		sge::systems::detail::has_with_audio_loader<
 			Choices
-		>::value
+		>::value,
+		"configuration has no audio loader"
 	);
 
 	return
@@ -320,10 +333,11 @@ sge::systems::instance<
 	Choices
 >::audio_player() const
 {
-	FCPPT_STATIC_ASSERT_EXPRESSION(
+	static_assert(
 		sge::systems::detail::has_with_audio_player<
 			Choices
-		>::value
+		>::value,
+		"configuration has no audio player"
 	);
 
 	return
@@ -338,10 +352,11 @@ sge::systems::instance<
 	Choices
 >::charconv_system() const
 {
-	FCPPT_STATIC_ASSERT_EXPRESSION(
+	static_assert(
 		sge::systems::detail::has_with_charconv<
 			Choices
-		>::value
+		>::value,
+		"configuration has no charconv system"
 	);
 
 	return
@@ -356,10 +371,11 @@ sge::systems::instance<
 	Choices
 >::font_system() const
 {
-	FCPPT_STATIC_ASSERT_EXPRESSION(
+	static_assert(
 		sge::systems::detail::has_with_font<
 			Choices
-		>::value
+		>::value,
+		"configuration has no font system"
 	);
 
 	return
@@ -374,10 +390,11 @@ sge::systems::instance<
 	Choices
 >::window_system() const
 {
-	FCPPT_STATIC_ASSERT_EXPRESSION(
+	static_assert(
 		sge::systems::detail::has_with_window<
 			Choices
-		>::value
+		>::value,
+		"configuration has no window"
 	);
 
 	return
@@ -392,10 +409,11 @@ sge::systems::instance<
 	Choices
 >::window() const
 {
-	FCPPT_STATIC_ASSERT_EXPRESSION(
+	static_assert(
 		sge::systems::detail::has_with_window<
 			Choices
-		>::value
+		>::value,
+		"configuration has no window"
 	);
 
 	return
@@ -410,10 +428,11 @@ sge::systems::instance<
 	Choices
 >::viewport_manager() const
 {
-	FCPPT_STATIC_ASSERT_EXPRESSION(
+	static_assert(
 		sge::systems::detail::has_with_renderer<
 			Choices
-		>::value
+		>::value,
+		"configuration has no renderer"
 	);
 
 	return

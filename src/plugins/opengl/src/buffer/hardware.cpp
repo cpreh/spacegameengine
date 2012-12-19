@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/buffer/type.hpp>
 #include <sge/opengl/convert/from_gl_bool.hpp>
 #include <sge/renderer/exception.hpp>
-#include <fcppt/null_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
@@ -271,7 +270,9 @@ bool
 sge::opengl::buffer::hardware::map_buffer_range_supported() const
 {
 	return
-		gl_map_buffer_range_ != fcppt::null_ptr();
+		gl_map_buffer_range_
+		!=
+		nullptr;
 }
 
 void

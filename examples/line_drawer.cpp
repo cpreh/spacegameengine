@@ -110,12 +110,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/exception.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/io/cerr.hpp>
-#include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
-#include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/construct.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
@@ -124,11 +120,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <example_main.hpp>
 #include <exception>
+#include <functional>
 #include <iostream>
 #include <ostream>
 #include <fcppt/config/external_end.hpp>
@@ -173,16 +169,16 @@ public:
 		// button callback
 		move_connection_(
 			_cursor.move_callback(
-				std::tr1::bind(
+				std::bind(
 					&follows_cursor::move_callback,
 					this,
-					std::tr1::placeholders::_1))),
+					std::placeholders::_1))),
 		click_connection_(
 			_cursor.button_callback(
-				std::tr1::bind(
+				std::bind(
 					&follows_cursor::click_callback,
 					this,
-					std::tr1::placeholders::_1)))
+					std::placeholders::_1)))
 	{
 
 	}

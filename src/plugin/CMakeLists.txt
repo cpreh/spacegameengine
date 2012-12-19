@@ -5,6 +5,7 @@ set(
 	include/sge/plugin/capabilities.hpp
 	include/sge/plugin/capabilities_field.hpp
 	include/sge/plugin/capabilities_field_fwd.hpp
+	include/sge/plugin/capabilities_fwd.hpp
 	include/sge/plugin/category_array.hpp
 	include/sge/plugin/collection.hpp
 	include/sge/plugin/collection_fwd.hpp

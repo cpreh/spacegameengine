@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_STATE_FFP_CLIP_PLANE_OBJECT_UNIQUE_PTR_HPP_INCLUDED
 
 #include <sge/renderer/state/ffp/clip_plane/object_fwd.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -36,7 +38,7 @@ namespace ffp
 namespace clip_plane
 {
 
-typedef fcppt::unique_ptr<
+typedef std::unique_ptr<
 	sge::renderer::state::ffp::clip_plane::object
 > object_unique_ptr;
 

@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/is_index.hpp>
 #include <sge/renderer/vf/texpos_fwd.hpp>
 #include <sge/renderer/vf/vector_base.hpp>
-#include <fcppt/static_assert_statement.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -54,21 +53,24 @@ sge::renderer::vf::vector_base<
 	NumSubElements
 >
 {
-	FCPPT_STATIC_ASSERT_STATEMENT(
+	static_assert(
 		fcppt::type_traits::is_float_or_double<
 			Format
-		>::value
+		>::value,
+		"Format must be float or double"
 	);
 
-	FCPPT_STATIC_ASSERT_STATEMENT(
+	static_assert(
 		NumSubElements >= 2
-		&& NumSubElements <= 3
+		&& NumSubElements <= 3,
+		"NumSubElements mut be between 2 and 3"
 	);
 
-	FCPPT_STATIC_ASSERT_STATEMENT(
+	static_assert(
 		sge::renderer::vf::is_index<
 			Index
-		>::value
+		>::value,
+		"Index must be a vf::index"
 	);
 
 	typedef Index index;

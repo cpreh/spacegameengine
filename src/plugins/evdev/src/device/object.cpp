@@ -27,14 +27,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/linux/fd/callback.hpp>
 #include <awl/backends/linux/fd/event_fwd.hpp>
 #include <awl/backends/linux/fd/processor.hpp>
-#include <fcppt/move.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <linux/input.h>
 #include <cerrno>
 #include <unistd.h>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -48,7 +47,7 @@ sge::evdev::device::object::object(
 		_focus_manager
 	),
 	fd_(
-		fcppt::move(
+		std::move(
 			_fd
 		)
 	),
@@ -56,10 +55,10 @@ sge::evdev::device::object::object(
 		_processor.register_fd_callback(
 			fd_->get(),
 			awl::backends::linux::fd::callback(
-				std::tr1::bind(
+				std::bind(
 					&sge::evdev::device::object::on_event,
 					this,
-					std::tr1::placeholders::_1
+					std::placeholders::_1
 				)
 			)
 		)

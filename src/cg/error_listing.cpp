@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cg/exception.hpp>
 #include <sge/cg/context/object.hpp>
 #include <fcppt/from_std_string.hpp>
-#include <fcppt/null_ptr.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -50,7 +49,7 @@ sge::cg::error_listing(
 	return
 		ret
 		==
-		fcppt::null_ptr()
+		nullptr
 		?
 			fcppt::string()
 		:

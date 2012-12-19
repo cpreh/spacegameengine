@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/convert/from_gl_bool.hpp>
 #include <sge/opengl/texture/multi_context.hpp>
 #include <sge/renderer/caps/texture_stages.hpp>
-#include <fcppt/null_ptr.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -61,7 +60,7 @@ sge::opengl::texture::multi_context::multi_context()
 			?
 				glActiveTextureARB
 			:
-				fcppt::null_ptr()
+				nullptr
 	),
 	client_active_texture_(
 		is_native_
@@ -72,7 +71,7 @@ sge::opengl::texture::multi_context::multi_context()
 			?
 				glClientActiveTextureARB
 			:
-				fcppt::null_ptr()
+				nullptr
 	),
 	max_level_(
 		fcppt::strong_typedef_construct_cast<

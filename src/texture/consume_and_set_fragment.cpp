@@ -18,14 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/image2d/dim.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/image2d/view/size.hpp>
 #include <sge/texture/consume_and_set_fragment.hpp>
 #include <sge/texture/fragmented.hpp>
 #include <sge/texture/part.hpp>
 #include <sge/texture/part_unique_ptr.hpp>
-#include <fcppt/move.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::texture::part_unique_ptr
@@ -36,7 +38,7 @@ sge::texture::consume_and_set_fragment(
 {
 	sge::texture::part_unique_ptr ret(
 		_fragment.consume_fragment(
-			image2d::view::size(
+			sge::image2d::view::size(
 				_view
 			)
 		)
@@ -47,7 +49,7 @@ sge::texture::consume_and_set_fragment(
 	);
 
 	return
-		fcppt::move(
+		std::move(
 			ret
 		);
 }

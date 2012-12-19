@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/offscreen.hpp>
 #include <sge/renderer/target/offscreen_unique_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 
 
 sge::renderer::target::offscreen_unique_ptr
@@ -39,12 +38,8 @@ sge::opengl::fbo::create_target(
 			fcppt::make_unique_ptr<
 				sge::opengl::fbo::target
 			>(
-				fcppt::ref(
-					_system_context
-				),
-				fcppt::ref(
-					_device_context
-				)
+				_system_context,
+				_device_context
 			)
 		);
 }

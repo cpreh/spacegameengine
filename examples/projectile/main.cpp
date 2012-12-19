@@ -102,9 +102,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/io/cerr.hpp>
@@ -122,11 +122,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <example_main.hpp>
 #include <exception>
+#include <functional>
 #include <ios>
 #include <iostream>
 #include <istream>
@@ -210,7 +210,7 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 			_world,
 			body_,
 			fcppt::assign::make_container<sge::projectile::group::sequence>(
-				fcppt::ref(
+				fcppt::make_ref(
 					_group)))
 	{
 	}
@@ -248,17 +248,17 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 			_body),
 		body_collision_connection_(
 			_world.body_collision(
-				std::tr1::bind(
+				std::bind(
 					&body_keyboard_mover::body_collision,
 					this,
-					std::tr1::placeholders::_1,
-					std::tr1::placeholders::_2))),
+					std::placeholders::_1,
+					std::placeholders::_2))),
 		key_callback_connection_(
 			_keyboard.key_callback(
-				std::tr1::bind(
+				std::bind(
 					&body_keyboard_mover::key_callback,
 					this,
-					std::tr1::placeholders::_1))),
+					std::placeholders::_1))),
 		velocity_(
 			sge::projectile::vector2::null())
 	{
@@ -367,22 +367,22 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 			_groups),
 		body_position_change_connection_(
 			_body.position_change(
-				std::tr1::bind(
+				std::bind(
 					&body_following_ghost::body_position_change,
 					this,
-					std::tr1::placeholders::_1))),
+					std::placeholders::_1))),
 		body_enter_connection_(
 			ghost_.body_enter(
-				std::tr1::bind(
+				std::bind(
 					&body_following_ghost::body_enter,
 					this,
-					std::tr1::placeholders::_1))),
+					std::placeholders::_1))),
 		body_exit_connection_(
 			ghost_.body_exit(
-				std::tr1::bind(
+				std::bind(
 					&body_following_ghost::body_exit,
 					this,
-					std::tr1::placeholders::_1)))
+					std::placeholders::_1)))
 	{
 	}
 FCPPT_PP_POP_WARNING
@@ -430,9 +430,9 @@ try
 {
 	sge::log::global_context().apply(
 		sge::projectile::log_location(),
-		std::tr1::bind(
+		std::bind(
 			&fcppt::log::activate_levels,
-			std::tr1::placeholders::_1,
+			std::placeholders::_1,
 			fcppt::log::level::debug));
 
 	sge::systems::instance<
@@ -537,7 +537,7 @@ try
 				100,
 				100)),
 		fcppt::assign::make_container<sge::projectile::group::sequence>(
-			fcppt::ref(
+			fcppt::make_ref(
 				first_group)));
 
 	body_keyboard_mover keyboard_mover(

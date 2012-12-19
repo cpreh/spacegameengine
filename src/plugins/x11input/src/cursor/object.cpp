@@ -37,17 +37,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/valuator_value.hpp>
 #include <sge/x11input/device/window_demuxer.hpp>
 #include <sge/x11input/device/window_event.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/vector/comparison.hpp>
 #include <fcppt/signal/object_impl.hpp>
-#include <fcppt/signal/shared_connection.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/Xlib.h>
 #include <X11/extensions/XInput2.h>
+#include <functional>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -71,50 +69,45 @@ sge::x11input::cursor::object::object(
 		fcppt::assign::make_container<
 			fcppt::signal::connection_manager::container
 		>(
-			fcppt::signal::shared_connection(
-				_param.window_demuxer().register_callback(
-					awl::backends::x11::system::event::type(
-						XI_Motion
-					),
-					_param.id(),
-					std::tr1::bind(
-						&sge::x11input::cursor::object::on_motion,
-						this,
-						std::tr1::placeholders::_1
-					)
+			_param.window_demuxer().register_callback(
+				awl::backends::x11::system::event::type(
+					XI_Motion
+				),
+				_param.id(),
+				std::bind(
+					&sge::x11input::cursor::object::on_motion,
+					this,
+					std::placeholders::_1
 				)
 			)
 		)
 		(
-			fcppt::signal::shared_connection(
-				_param.window_demuxer().register_callback(
-					awl::backends::x11::system::event::type(
-						XI_ButtonPress
-					),
-					_param.id(),
-					std::tr1::bind(
-						&sge::x11input::cursor::object::on_button_down,
-						this,
-						std::tr1::placeholders::_1
-					)
+			_param.window_demuxer().register_callback(
+				awl::backends::x11::system::event::type(
+					XI_ButtonPress
+				),
+				_param.id(),
+				std::bind(
+					&sge::x11input::cursor::object::on_button_down,
+					this,
+					std::placeholders::_1
 				)
 			)
 		)
 		(
-			fcppt::signal::shared_connection(
-				_param.window_demuxer().register_callback(
-					awl::backends::x11::system::event::type(
-						XI_ButtonRelease
-					),
-					_param.id(),
-					std::tr1::bind(
-						&sge::x11input::cursor::object::on_button_up,
-						this,
-						std::tr1::placeholders::_1
-					)
+			_param.window_demuxer().register_callback(
+				awl::backends::x11::system::event::type(
+					XI_ButtonRelease
+				),
+				_param.id(),
+				std::bind(
+					&sge::x11input::cursor::object::on_button_up,
+					this,
+					std::placeholders::_1
 				)
 			)
 		)
+		.move_container()
 	),
 	mode_(
 		sge::input::cursor::mode::normal
@@ -224,11 +217,11 @@ sge::x11input::cursor::object::on_motion(
 {
 	sge::x11input::device::foreach_valuator(
 		_event.get().valuators,
-		std::tr1::bind(
+		std::bind(
 			&sge::x11input::cursor::object::process_valuator,
 			this,
-			std::tr1::placeholders::_1,
-			std::tr1::placeholders::_2
+			std::placeholders::_1,
+			std::placeholders::_2
 		)
 	);
 
@@ -372,9 +365,7 @@ sge::x11input::cursor::object::check_grab()
 				fcppt::make_unique_ptr<
 					sge::x11input::cursor::grab
 				>(
-					fcppt::cref(
-						window_
-					),
+					window_,
 					this->id(),
 					invisible_image_
 				)

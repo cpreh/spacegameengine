@@ -59,6 +59,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/io/cin.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/log/activate_levels.hpp>
+#include <fcppt/log/level.hpp>
 #include <fcppt/math/pi.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>

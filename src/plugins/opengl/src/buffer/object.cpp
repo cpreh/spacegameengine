@@ -30,7 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/lock_flags/read.hpp>
-#include <fcppt/null_ptr.hpp>
 #include <fcppt/text.hpp>
 
 
@@ -59,7 +58,7 @@ sge::opengl::buffer::object::object(
 		_flags
 	),
 	dest_(
-		fcppt::null_ptr()
+		nullptr
 	),
 	holder_(
 		base_
@@ -215,7 +214,7 @@ sge::opengl::buffer::object::unlock()
 	if(
 		dest_
 		==
-		fcppt::null_ptr()
+		nullptr
 	)
 		throw sge::renderer::exception(
 			FCPPT_TEXT("ogl_buffer::unlock(), buffer is not locked! cannot unlock!")
@@ -227,7 +226,7 @@ sge::opengl::buffer::object::unlock()
 		type_
 	);
 
-	dest_ = fcppt::null_ptr();
+	dest_ = nullptr;
 
 	lock_offset_ = lock_size_ = 0;
 }
@@ -249,7 +248,7 @@ sge::opengl::buffer::object::sub_data(
 	if(
 		dest_
 		!=
-		fcppt::null_ptr()
+		nullptr
 	)
 		throw sge::renderer::exception(
 			FCPPT_TEXT("ogl_buffer::sub_data(), buffer must not be locked!")
@@ -297,7 +296,7 @@ sge::opengl::buffer::object::data()
 	if(
 		dest_
 		==
-		fcppt::null_ptr()
+		nullptr
 	)
 		throw sge::renderer::exception(
 			FCPPT_TEXT("ogl_buffer used but the buffer has not been locked!")

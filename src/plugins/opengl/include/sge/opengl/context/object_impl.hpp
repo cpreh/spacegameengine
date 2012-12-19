@@ -24,8 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/base_decl.hpp>
 #include <sge/opengl/context/id_decl.hpp>
 #include <sge/opengl/context/object_decl.hpp>
-#include <fcppt/move.hpp>
 #include <fcppt/assert/error.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 template<
@@ -82,7 +84,7 @@ sge::opengl::context::object<
 	base_type *const ret(
 		elements_.insert(
 			_id.get(),
-			fcppt::move(
+			std::move(
 				_ptr
 			)
 		)

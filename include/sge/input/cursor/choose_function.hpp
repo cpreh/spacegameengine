@@ -18,27 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_DEVICE_MANAGER_CONFIG_BASE_PTR_HPP_INCLUDED
-#define SGE_X11INPUT_DEVICE_MANAGER_CONFIG_BASE_PTR_HPP_INCLUDED
+#ifndef SGE_INPUT_CURSOR_CHOOSE_FUNCTION_HPP_INCLUDED
+#define SGE_INPUT_CURSOR_CHOOSE_FUNCTION_HPP_INCLUDED
 
-#include <sge/x11input/device/manager/config_base_fwd.hpp>
-#include <fcppt/shared_ptr_impl.hpp>
+#include <sge/input/cursor/object_set.hpp>
+#include <sge/input/cursor/optional_object_ref_fwd.hpp>
 
 
 namespace sge
 {
-namespace x11input
+namespace input
 {
-namespace device
-{
-namespace manager
+namespace cursor
 {
 
-typedef fcppt::shared_ptr<
-	device::manager::config_base
-> config_base_ptr;
+typedef
+sge::input::cursor::optional_object_ref const
+choose_function(
+	sge::input::cursor::object_set const &
+);
 
-}
 }
 }
 }

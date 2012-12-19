@@ -31,10 +31,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/remove_callback.hpp>
 #include <sge/input/mouse/remove_event_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/function/object.hpp>
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/ptr_container/ptr_map.hpp>
+#include <functional>
+#include <unordered_map>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -51,25 +51,25 @@ class manager
 		manager
 	);
 public:
-	typedef fcppt::function::object<
+	typedef std::function<
 		void (
-			mouse::device &,
-			mouse::axis_event const &
+			sge::input::mouse::device &,
+			sge::input::mouse::axis_event const &
 		)
 	> axis_callback;
 
-	typedef fcppt::function::object<
+	typedef std::function<
 		void (
-			mouse::device &,
-			mouse::button_event const &
+			sge::input::mouse::device &,
+			sge::input::mouse::button_event const &
 		)
 	> button_callback;
 
 	SGE_INPUT_SYMBOL
 	manager(
-		input::processor &,
-		input::mouse::discover_callback const &,
-		input::mouse::remove_callback const &,
+		sge::input::processor &,
+		sge::input::mouse::discover_callback const &,
+		sge::input::mouse::remove_callback const &,
 		axis_callback const &,
 		button_callback const &
 	);
@@ -79,24 +79,24 @@ public:
 private:
 	void
 	discover(
-		input::mouse::discover_event const &
+		sge::input::mouse::discover_event const &
 	);
 
 	void
 	remove(
-		input::mouse::remove_event const &
+		sge::input::mouse::remove_event const &
 	);
 
-	typedef boost::ptr_map<
-		mouse::device *,
+	typedef std::unordered_map<
+		sge::input::mouse::device *,
 		fcppt::signal::connection_manager
 	> mouse_map;
 
 	mouse_map devices_;
 
-	input::mouse::discover_callback const discover_callback_;
+	sge::input::mouse::discover_callback const discover_callback_;
 
-	input::mouse::remove_callback const remove_callback_;
+	sge::input::mouse::remove_callback const remove_callback_;
 
 	axis_callback const axis_callback_;
 

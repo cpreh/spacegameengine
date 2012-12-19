@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/box/extend_bounding_box.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/type_traits/remove_pointer.hpp>
+#include <iterator>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -47,7 +48,7 @@ bounding_box(
 
 	for(
 		typename Traits::leaf_wrapper_sequence::const_iterator it =
-			boost::next(
+			std::next(
 				_leaves.begin());
 		it != _leaves.end();
 		++it)

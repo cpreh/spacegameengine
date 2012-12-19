@@ -50,8 +50,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <functional>
 #include <locale>
 #include <fcppt/config/external_end.hpp>
 
@@ -86,46 +86,46 @@ sge::console::gfx::gfx(
 	),
 	key_connection_(
 		keyboard_.key_callback(
-			std::tr1::bind(
+			std::bind(
 				&gfx::key_callback,
 				this,
-				std::tr1::placeholders::_1
+				std::placeholders::_1
 			)
 		)
 	),
 	key_repeat_connection_(
 		keyboard_.key_repeat_callback(
-			std::tr1::bind(
+			std::bind(
 				&gfx::key_action,
 				this,
-				std::tr1::placeholders::_1
+				std::placeholders::_1
 			)
 		)
 	),
 	char_connection_(
 		_keyboard.char_callback(
-			std::tr1::bind(
+			std::bind(
 				&gfx::char_callback,
 				this,
-				std::tr1::placeholders::_1
+				std::placeholders::_1
 			)
 		)
 	),
 	error_conn_(
 		object_.register_error_callback(
-			std::tr1::bind(
+			std::bind(
 				&gfx::error,
 				this,
-				std::tr1::placeholders::_1
+				std::placeholders::_1
 			)
 		)
 	),
 	message_conn_(
 		object_.register_message_callback(
-			std::tr1::bind(
+			std::bind(
 				&gfx::print,
 				this,
-				std::tr1::placeholders::_1
+				std::placeholders::_1
 			)
 		)
 	),

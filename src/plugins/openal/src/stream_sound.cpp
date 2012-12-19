@@ -30,9 +30,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/error.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/log/headers.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
+#include <functional>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -219,10 +219,10 @@ sge::openal::stream_sound::do_play()
 	std::for_each(
 		al_buffers_.begin(),
 		al_buffers_.end(),
-		std::tr1::bind(
+		std::bind(
 			&stream_sound::fill_buffer,
 			this,
-			std::tr1::placeholders::_1));
+			std::placeholders::_1));
 
 	alSourceQueueBuffers(
 		source_id(),

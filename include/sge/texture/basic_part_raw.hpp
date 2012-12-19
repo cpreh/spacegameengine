@@ -53,12 +53,12 @@ public:
 	SGE_TEXTURE_SYMBOL
 	explicit
 	basic_part_raw(
-		Ref
+		ref_type
 	);
 
 	SGE_TEXTURE_SYMBOL
 	basic_part_raw(
-		Ref,
+		ref_type,
 		sge::renderer::lock_rect const &
 	);
 

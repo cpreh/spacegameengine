@@ -29,10 +29,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/optional_comparison.hpp>
 #include <fcppt/optional_impl.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
@@ -95,8 +94,7 @@ sge::libpng::system::load(
 				fcppt::make_unique_ptr<
 					libpng::file
 				>(
-					fcppt::ref(
-						file_stream),
+					file_stream,
 					sge::image::optional_path(
 						_path)
 				)
@@ -117,7 +115,8 @@ sge::libpng::system::load_raw(
 )
 {
 	if(
-		_extension &&
+		_extension
+		&&
 		_extension
 		!=
 		sge::media::optional_extension(
@@ -152,8 +151,7 @@ sge::libpng::system::load_raw(
 				fcppt::make_unique_ptr<
 					libpng::file
 				>(
-					fcppt::ref(
-						raw_stream),
+					raw_stream,
 					sge::image::optional_path()
 				)
 			);
@@ -188,8 +186,7 @@ sge::libpng::system::load_stream(
 				fcppt::make_unique_ptr<
 					libpng::file
 				>(
-					fcppt::ref(
-						_stream),
+					_stream,
 					sge::image::optional_path()
 				)
 			);
@@ -220,9 +217,7 @@ sge::libpng::system::create(
 				fcppt::make_unique_ptr<
 					file
 				>(
-					fcppt::cref(
-						_view
-					)
+					_view
 				)
 			)
 		;

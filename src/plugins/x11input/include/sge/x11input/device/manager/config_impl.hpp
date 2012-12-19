@@ -25,8 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/id.hpp>
 #include <sge/x11input/device/object.hpp>
 #include <sge/x11input/device/manager/config.hpp>
-#include <fcppt/null_ptr.hpp>
-#include <fcppt/unique_ptr.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
 #include <fcppt/signal/object.hpp>
@@ -225,7 +223,7 @@ sge::x11input::device::manager::config<
 	if(
 		!object
 	)
-		return fcppt::null_ptr();
+		return nullptr;
 
 	x11input::device::id const id(
 		object->id()
@@ -240,7 +238,7 @@ sge::x11input::device::manager::config<
 		fcppt::container::ptr::insert_unique_ptr_map(
 			_map,
 			id,
-			fcppt::move(
+			std::move(
 				object
 			)
 		)

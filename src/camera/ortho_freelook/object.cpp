@@ -37,7 +37,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace
@@ -61,16 +63,16 @@ sge::camera::ortho_freelook::object::object(
 :
 	mouse_axis_connection_(
 		_params.mouse().axis_callback(
-			std::tr1::bind(
+			std::bind(
 				&object::mouse_axis_callback,
 				this,
-				std::tr1::placeholders::_1))),
+				std::placeholders::_1))),
 	keyboard_key_connection_(
 		_params.keyboard().key_callback(
-			std::tr1::bind(
+			std::bind(
 				&object::key_callback,
 				this,
-				std::tr1::placeholders::_1))),
+				std::placeholders::_1))),
 	action_mapping_(
 		_params.action_mapping()),
 	current_projection_rectangle_(),

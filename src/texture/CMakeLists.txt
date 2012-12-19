@@ -27,6 +27,7 @@ set(
 	include/sge/texture/manager.hpp
 	include/sge/texture/manager_fwd.hpp
 	include/sge/texture/next_power_of_2.hpp
+	include/sge/texture/on_alloc_callback.hpp
 	include/sge/texture/on_alloc_function.hpp
 	include/sge/texture/part.hpp
 	include/sge/texture/part_fragmented.hpp
@@ -56,7 +57,6 @@ set(
 	src/texture/image_too_big.cpp
 	src/texture/include/sge/src/texture/basic_part_raw_impl.hpp
 	src/texture/include/sge/src/texture/dereference_basic_part.hpp
-	src/texture/include/sge/src/texture/init_basic_part.hpp
 	src/texture/include/sge/src/texture/instantiate_basic_part_raw.hpp
 	src/texture/manager.cpp
 	src/texture/next_power_of_2.cpp

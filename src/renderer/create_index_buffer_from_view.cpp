@@ -28,9 +28,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device/core.hpp>
 #include <sge/renderer/index/dynamic/const_view.hpp>
 #include <sge/renderer/index/dynamic/format_stride.hpp>
-#include <fcppt/move.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstring>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -67,7 +67,7 @@ sge::renderer::create_index_buffer_from_view(
 	);
 
 	return
-		fcppt::move(
+		std::move(
 			buffer
 		);
 }

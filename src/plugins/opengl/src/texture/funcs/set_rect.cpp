@@ -36,7 +36,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <fcppt/format.hpp>
-#include <fcppt/null_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/box/output.hpp>
 #include <fcppt/math/dim/output.hpp>
@@ -56,7 +55,7 @@ sge::opengl::texture::funcs::set_rect(
 )
 {
 	if(
-		_src == fcppt::null_ptr()
+		_src == nullptr
 		&&
 		!sge::opengl::context::use<
 			sge::opengl::buffer::pbo_context

@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/with_input_fwd.hpp>
 #include <sge/systems/with_window_fwd.hpp>
 #include <sge/systems/detail/input_option.hpp>
-#include <fcppt/static_assert_statement.hpp>
 #include <fcppt/mpl/all_of.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/bool.hpp>
@@ -46,21 +45,23 @@ template<
 >
 struct with_input
 {
-	FCPPT_STATIC_ASSERT_STATEMENT(
+	static_assert(
 		boost::mpl::is_sequence<
 			InputOptions
-		>::value
+		>::value,
+		"InputOptions must be an mpl sequence"
 	);
 
-	FCPPT_STATIC_ASSERT_STATEMENT((
+	static_assert(
 		fcppt::mpl::all_of<
 			InputOptions,
 			boost::is_base_of<
 				sge::systems::detail::input_option,
 				boost::mpl::_1
 			>
-		>::value
-	));
+		>::value,
+		"The contents of InputOptions must be valid"
+	);
 
 	typedef InputOptions options;
 

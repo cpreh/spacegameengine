@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/char_event.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/input/keyboard/key_repeat_event.hpp>
+#include <sge/input/keyboard/mod_state.hpp>
+#include <sge/input/keyboard/optional_modifier.hpp>
 #include <sge/input/keyboard/to_modifier.hpp>
 #include <sge/x11input/device/parameters.hpp>
 #include <sge/x11input/device/window_demuxer.hpp>
@@ -35,19 +37,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/system/event/processor.hpp>
 #include <awl/backends/x11/window/object.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/optional_impl.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <fcppt/container/bitfield/object_impl.hpp>
-#include <fcppt/signal/shared_connection.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
+#include <functional>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::x11input::keyboard::device::device(
-	x11input::device::parameters const &_param,
-	x11input::input_context const &_input_context
+	sge::x11input::device::parameters const &_param,
+	sge::x11input::input_context const &_input_context
 )
 :
 	sge::input::keyboard::device(),
@@ -62,35 +61,32 @@ sge::x11input::keyboard::device::device(
 		fcppt::assign::make_container<
 			fcppt::signal::connection_manager::container
 		>(
-			fcppt::signal::shared_connection(
-				_param.window_demuxer().register_callback(
-					awl::backends::x11::system::event::type(
-						XI_KeyPress
-					),
-					_param.id(),
-					std::tr1::bind(
-						&device::on_key_press,
-						this,
-						std::tr1::placeholders::_1
-					)
+			_param.window_demuxer().register_callback(
+				awl::backends::x11::system::event::type(
+				XI_KeyPress
+				),
+				_param.id(),
+				std::bind(
+					&sge::x11input::keyboard::device::on_key_press,
+					this,
+					std::placeholders::_1
 				)
 			)
 		)
 		(
-			fcppt::signal::shared_connection(
-				_param.window_demuxer().register_callback(
-					awl::backends::x11::system::event::type(
-						XI_KeyRelease
-					),
-					_param.id(),
-					std::tr1::bind(
-						&device::on_key_release,
-						this,
-						std::tr1::placeholders::_1
-					)
+			_param.window_demuxer().register_callback(
+				awl::backends::x11::system::event::type(
+					XI_KeyRelease
+				),
+				_param.id(),
+				std::bind(
+					&sge::x11input::keyboard::device::on_key_release,
+					this,
+					std::placeholders::_1
 				)
 			)
 		)
+		.move_container()
 	),
 	key_signal_(),
 	key_repeat_signal_(),
@@ -107,7 +103,7 @@ sge::x11input::keyboard::device::~device()
 
 fcppt::signal::auto_connection
 sge::x11input::keyboard::device::key_callback(
-	input::keyboard::key_callback const &_callback
+	sge::input::keyboard::key_callback const &_callback
 )
 {
 	return
@@ -118,7 +114,7 @@ sge::x11input::keyboard::device::key_callback(
 
 fcppt::signal::auto_connection
 sge::x11input::keyboard::device::key_repeat_callback(
-	input::keyboard::key_repeat_callback const &_callback
+	sge::input::keyboard::key_repeat_callback const &_callback
 )
 {
 	return
@@ -129,7 +125,7 @@ sge::x11input::keyboard::device::key_repeat_callback(
 
 fcppt::signal::auto_connection
 sge::x11input::keyboard::device::char_callback(
-	input::keyboard::char_callback const &_callback
+	sge::input::keyboard::char_callback const &_callback
 )
 {
 	return
@@ -146,16 +142,16 @@ sge::x11input::keyboard::device::mod_state() const
 
 void
 sge::x11input::keyboard::device::on_key_press(
-	x11input::device::window_event const &_event
+	sge::x11input::device::window_event const &_event
 )
 {
-	keyboard::fake_core_event(
+	sge::x11input::keyboard::fake_core_event(
 		window_,
 		_event
 	);
 
 	sge::x11input::keyboard::looked_up_string const lookup(
-		x11input::keyboard::lookup_string(
+		sge::x11input::keyboard::lookup_string(
 			input_context_,
 			_event.get()
 		)
@@ -169,7 +165,7 @@ sge::x11input::keyboard::device::on_key_press(
 		is_repeated
 	)
 		key_repeat_signal_(
-			input::keyboard::key_repeat_event(
+			sge::input::keyboard::key_repeat_event(
 				lookup.key_code()
 			)
 		);
@@ -181,27 +177,23 @@ sge::x11input::keyboard::device::on_key_press(
 		);
 
 		key_signal_(
-			input::keyboard::key_event(
+			sge::input::keyboard::key_event(
 				lookup.key_code(),
 				true
 			)
 		);
 	}
 
-	x11input::keyboard::char_vector const &char_codes(
+	sge::x11input::keyboard::char_vector const &char_codes(
 		lookup.char_codes()
 	);
 
 	for(
-		x11input::keyboard::char_vector::const_iterator element_it(
-			char_codes.begin()
-		);
-		element_it != char_codes.end();
-		++element_it
+		auto const &element : char_codes
 	)
 		char_signal_(
-			input::keyboard::char_event(
-				*element_it,
+			sge::input::keyboard::char_event(
+				element,
 				is_repeated
 			)
 		);
@@ -209,17 +201,17 @@ sge::x11input::keyboard::device::on_key_press(
 
 void
 sge::x11input::keyboard::device::on_key_release(
-	x11input::device::window_event const &_event
+	sge::x11input::device::window_event const &_event
 )
 {
-	keyboard::fake_core_event(
+	sge::x11input::keyboard::fake_core_event(
 		window_,
 		_event
 	);
 
 	sge::input::keyboard::key_code::type const key_code(
-		x11input::keyboard::translate_key_code(
-			x11input::keyboard::key_code_to_key_sym(
+		sge::x11input::keyboard::translate_key_code(
+			sge::x11input::keyboard::key_code_to_key_sym(
 				window_.display(),
 				_event.get().detail
 			)
@@ -232,7 +224,7 @@ sge::x11input::keyboard::device::on_key_release(
 	);
 
 	key_signal_(
-		input::keyboard::key_event(
+		sge::input::keyboard::key_event(
 			key_code,
 			false
 		)

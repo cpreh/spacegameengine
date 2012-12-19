@@ -34,7 +34,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/console/eval_grammar.hpp>
 #include <fcppt/insert_to_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assert/pre.hpp>
@@ -44,9 +43,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_impl.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/spirit/include/qi_parse.hpp>
+#include <functional>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -67,10 +66,10 @@ sge::console::object::object(
 	help_connection_(
 		this->insert(
 			callback::parameters(
-				std::tr1::bind(
+				std::bind(
 					&object::help_callback,
 					this,
-					std::tr1::placeholders::_1),
+					std::placeholders::_1),
 				callback::name(
 					SGE_FONT_LIT("help")))
 				.short_description(
@@ -78,10 +77,10 @@ sge::console::object::object(
 	man_connection_(
 		this->insert(
 			callback::parameters(
-				std::tr1::bind(
+				std::bind(
 					&object::man_callback,
 					this,
-					std::tr1::placeholders::_1),
+					std::placeholders::_1),
 				callback::name(
 					SGE_FONT_LIT("man")))
 				.short_description(
@@ -128,7 +127,7 @@ sge::console::object::insert(
 	return
 		i->second->signal().connect(
 			_params.function(),
-			std::tr1::bind(
+			std::bind(
 				&object::remove_function,
 				this,
 				_params.name()));
@@ -224,7 +223,8 @@ sge::console::object::eval(
 
 	it->second->signal()(
 		args,
-		fcppt::ref(*this));
+		*this
+	);
 }
 
 sge::console::function_map const &

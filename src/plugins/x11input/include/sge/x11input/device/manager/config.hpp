@@ -25,12 +25,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/id.hpp>
 #include <sge/x11input/device/manager/config_base.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/unique_ptr_fwd.hpp>
-#include <fcppt/function/object.hpp>
 #include <fcppt/signal/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
 #include <boost/ptr_container/ptr_map.hpp>
+#include <functional>
+#include <memory>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -64,11 +64,11 @@ public:
 		void (RemoveEvent const &)
 	> remove_signal;
 
-	typedef fcppt::unique_ptr<
+	typedef std::unique_ptr<
 		X11Object
 	> object_unique_ptr;
 
-	typedef fcppt::function::object<
+	typedef std::function<
 		object_unique_ptr (
 			x11input::create_parameters const &
 		)

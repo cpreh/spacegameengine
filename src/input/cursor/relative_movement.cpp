@@ -20,22 +20,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/cursor/move_event.hpp>
 #include <sge/input/cursor/object.hpp>
+#include <sge/input/cursor/relative_move_callback.hpp>
 #include <sge/input/cursor/relative_move_event.hpp>
 #include <sge/input/cursor/relative_movement.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_impl.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::input::cursor::relative_movement::relative_movement(
-	cursor::object &_cursor
+	sge::input::cursor::object &_cursor
 )
 :
 	cursor_(
@@ -47,10 +49,10 @@ sge::input::cursor::relative_movement::relative_movement(
 	relative_move_signal_(),
 	connection_(
 		cursor_.move_callback(
-			std::tr1::bind(
-				&cursor::relative_movement::move_callback_internal,
+			std::bind(
+				&sge::input::cursor::relative_movement::move_callback_internal,
 				this,
-				std::tr1::placeholders::_1
+				std::placeholders::_1
 			)
 		)
 	)
@@ -64,7 +66,7 @@ sge::input::cursor::relative_movement::~relative_movement()
 
 fcppt::signal::auto_connection
 sge::input::cursor::relative_movement::relative_move_callback(
-	cursor::relative_move_callback const &_callback
+	sge::input::cursor::relative_move_callback const &_callback
 )
 {
 	return
@@ -75,7 +77,7 @@ sge::input::cursor::relative_movement::relative_move_callback(
 
 void
 sge::input::cursor::relative_movement::move_callback_internal(
-	cursor::move_event const &_event
+	sge::input::cursor::move_event const &_event
 )
 {
 	if(
@@ -89,7 +91,7 @@ sge::input::cursor::relative_movement::move_callback_internal(
 	}
 
 	relative_move_signal_(
-		cursor::relative_move_event(
+		sge::input::cursor::relative_move_event(
 			*_event.position()
 			- *last_position_
 		)

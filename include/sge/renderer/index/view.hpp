@@ -30,9 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/to_nonconst_format.hpp>
 #include <sge/renderer/index/view_fwd.hpp>
 #include <sge/renderer/index/dynamic/basic_view_fwd.hpp>
-#include <fcppt/static_assert_statement.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/type_traits/is_same.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -49,10 +48,11 @@ template<
 class view
 {
 public:
-	FCPPT_STATIC_ASSERT_STATEMENT(
+	static_assert(
 		sge::renderer::index::is_format<
 			Format
-		>::value
+		>::value,
+		"sge::renderer::index::view only accepts index formats"
 	);
 
 	typedef Format format_type;
@@ -63,20 +63,20 @@ public:
 
 	typedef renderer::index::size_type size_type;
 
-	typedef index::iterator<
+	typedef sge::renderer::index::iterator<
 		Format
 	> iterator;
 
-	typedef index::view<
-		typename index::to_nonconst_format<
+	typedef sge::renderer::index::view<
+		typename sge::renderer::index::to_nonconst_format<
 			Format
 		>::type
 	> nonconst_type;
 
-	typedef dynamic::basic_view<
-		boost::is_same<
+	typedef sge::renderer::index::dynamic::basic_view<
+		std::is_same<
 			typename Format::constness,
-			index::const_tag
+			sge::renderer::index::const_tag
 		>::value
 	> dynamic_view_type;
 
@@ -92,7 +92,8 @@ public:
 	);
 
 	SGE_RENDERER_SYMBOL
-	explicit view(
+	explicit
+	view(
 		dynamic_view_type const &
 	);
 

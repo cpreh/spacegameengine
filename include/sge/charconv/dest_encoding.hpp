@@ -31,7 +31,7 @@ namespace charconv
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
-	sge::charconv::encoding::type,
+	sge::charconv::encoding,
 	dest_encoding
 );
 

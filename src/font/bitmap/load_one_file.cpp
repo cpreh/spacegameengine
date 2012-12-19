@@ -38,7 +38,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/font/bitmap/load_one_file.hpp>
 #include <sge/src/font/bitmap/load_rect.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/move.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
@@ -46,6 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/output.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -163,7 +163,7 @@ sge::font::bitmap::load_one_file(
 	}
 
 	return
-		fcppt::move(
+		std::move(
 			return_file
 		);
 }

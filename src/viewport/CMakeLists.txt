@@ -8,12 +8,10 @@ set(
 	include/sge/viewport/fractional_aspect_fwd.hpp
 	include/sge/viewport/maintain_aspect.hpp
 	include/sge/viewport/manage_callback.hpp
-	include/sge/viewport/manage_callback_fwd.hpp
 	include/sge/viewport/manage_function.hpp
 	include/sge/viewport/manager.hpp
 	include/sge/viewport/manager_fwd.hpp
 	include/sge/viewport/resize_callback.hpp
-	include/sge/viewport/resize_callback_fwd.hpp
 	include/sge/viewport/resize_function.hpp
 	src/viewport/center.cpp
 	src/viewport/center_on_resize.cpp

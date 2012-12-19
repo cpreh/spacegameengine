@@ -108,6 +108,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/chrono.hpp>
 #include <example_main.hpp>
 #include <exception>
+#include <functional>
 #include <iostream>
 #include <ostream>
 #include <vector>
@@ -212,10 +213,10 @@ public:
 			&tree_),
 		keyboard_connection_(
 			_keyboard.key_callback(
-				std::tr1::bind(
+				std::bind(
 					&bvh_traverser::keyboard_callback,
 					this,
-					std::tr1::placeholders::_1)))
+					std::placeholders::_1)))
 	{
 	}
 

@@ -29,10 +29,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/media/const_raw_range.hpp>
 #include <sge/media/optional_extension_fwd.hpp>
-#include <fcppt/function/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <IL/il.h>
 #include <boost/filesystem/path.hpp>
+#include <functional>
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
 
@@ -86,7 +86,7 @@ public:
 		sge::media::optional_extension const &
 	);
 private:
-	typedef fcppt::function::object<
+	typedef std::function<
 		devil::optional_error const ()
 	> load_function;
 

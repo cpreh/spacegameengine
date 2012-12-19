@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CONSOLE_ERROR_CALLBACK_HPP_INCLUDED
 
 #include <sge/console/error_callback_fn.hpp>
-#include <fcppt/function/object.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -30,9 +32,9 @@ namespace sge
 namespace console
 {
 typedef
-fcppt::function::object
+std::function
 <
-	error_callback_fn
+	sge::console::error_callback_fn
 >
 error_callback;
 }

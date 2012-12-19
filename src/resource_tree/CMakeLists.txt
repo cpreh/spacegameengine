@@ -18,7 +18,6 @@ set(
 	include/sge/resource_tree/path.hpp
 	include/sge/resource_tree/path_fwd.hpp
 	include/sge/resource_tree/path_to_resource_function.hpp
-	include/sge/resource_tree/path_to_resource_function_fwd.hpp
 	src/resource_tree/detail/strip_file_extension.cpp
 	src/resource_tree/detail/strip_path_prefix.cpp
 	src/resource_tree/exception.cpp

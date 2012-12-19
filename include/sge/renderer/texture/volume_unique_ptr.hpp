@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_TEXTURE_VOLUME_UNIQUE_PTR_HPP_INCLUDED
 
 #include <sge/renderer/texture/volume_fwd.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -32,8 +34,8 @@ namespace renderer
 namespace texture
 {
 
-typedef fcppt::unique_ptr<
-	texture::volume
+typedef std::unique_ptr<
+	sge::renderer::texture::volume
 > volume_unique_ptr;
 
 }

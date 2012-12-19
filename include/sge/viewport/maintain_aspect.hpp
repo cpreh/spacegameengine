@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_VIEWPORT_MAINTAIN_ASPECT_HPP_INCLUDED
 
 #include <sge/viewport/fractional_aspect_fwd.hpp>
-#include <sge/viewport/resize_callback_fwd.hpp>
+#include <sge/viewport/resize_callback.hpp>
 #include <sge/viewport/symbol.hpp>
 
 

@@ -23,8 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/viewport/fractional_aspect.hpp>
 #include <sge/viewport/maintain_aspect.hpp>
 #include <sge/viewport/resize_callback.hpp>
-#include <fcppt/function/object.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::viewport::resize_callback const
@@ -33,9 +34,9 @@ sge::viewport::maintain_aspect(
 )
 {
 	return
-		std::tr1::bind(
+		std::bind(
 			&viewport::maintain_aspect_function,
-			std::tr1::placeholders::_1,
+			std::placeholders::_1,
 			_aspect
 		);
 }

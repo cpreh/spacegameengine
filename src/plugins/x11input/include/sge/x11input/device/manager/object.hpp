@@ -49,7 +49,7 @@ class object
 public:
 	object(
 		awl::backends::x11::display &,
-		x11input::device::manager::config_map const &
+		sge::x11input::device::manager::config_map &&
 	);
 
 	~object();

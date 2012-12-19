@@ -23,8 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/unsupported_format.hpp>
 #include <sge/log/global.hpp>
 #include <sge/vorbis/file.hpp>
-#include <fcppt/move.hpp>
-#include <fcppt/null_ptr.hpp>
 #include <fcppt/safe_numeric_cast.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
@@ -36,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/filesystem/fstream.hpp>
 #include <algorithm>
 #include <iterator>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -72,7 +71,7 @@ sge::vorbis::file::file(
 	file_name_(
 		_file_name),
 	stdstream_(
-		fcppt::move(
+		std::move(
 			_stdstream)),
 	ogg_file_(),
 	channels_(),
@@ -93,7 +92,7 @@ sge::vorbis::file::file(
 			ov_open_callbacks(
 				this,
 				&ogg_file_,
-				fcppt::null_ptr(),
+				nullptr,
 				0l,
 				callbacks
 			)

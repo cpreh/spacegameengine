@@ -58,10 +58,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/viewport/manager_fwd.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/assert/pre.hpp>
 
 
@@ -102,17 +100,11 @@ sge::systems::detail::instance_impl::init_renderer_system(
 		fcppt::make_unique_ptr<
 			sge::systems::modules::renderer::system
 		>(
-			fcppt::cref(
-				plugin_manager_.collection<
-					sge::renderer::system
-				>()
-			),
-			fcppt::cref(
-				_param
-			),
-			fcppt::cref(
-				_config
-			)
+			plugin_manager_.collection<
+				sge::renderer::system
+			>(),
+			_param,
+			_config
 		)
 	);
 }
@@ -130,15 +122,9 @@ sge::systems::detail::instance_impl::init_renderer(
 		fcppt::make_unique_ptr<
 			sge::systems::modules::renderer::device
 		>(
-			fcppt::cref(
-				_param
-			),
-			fcppt::ref(
-				*renderer_system_
-			),
-			fcppt::ref(
-				*window_
-			)
+			_param,
+			*renderer_system_,
+			*window_
 		)
 	);
 }
@@ -152,9 +138,7 @@ sge::systems::detail::instance_impl::init_window(
 		fcppt::make_unique_ptr<
 			sge::systems::modules::window::object
 		>(
-			fcppt::cref(
-				_window_param
-			),
+			_window_param,
 			renderer_system_
 			?
 				sge::systems::modules::renderer::optional_system_ref(
@@ -179,17 +163,11 @@ sge::systems::detail::instance_impl::init_input(
 		fcppt::make_unique_ptr<
 			sge::systems::modules::input::object
 		>(
-			fcppt::cref(
-				plugin_manager_.collection<
-					sge::input::system
-				>()
-			),
-			fcppt::cref(
-				_parameters
-			),
-			fcppt::cref(
-				*window_
-			)
+			plugin_manager_.collection<
+				sge::input::system
+			>(),
+			_parameters,
+			*window_
 		)
 	);
 }
@@ -203,14 +181,10 @@ sge::systems::detail::instance_impl::init_image2d(
 		fcppt::make_unique_ptr<
 			sge::systems::modules::image2d::object
 		>(
-			fcppt::cref(
-				plugin_manager_.collection<
-					sge::image2d::system
-				>()
-			),
-			fcppt::cref(
-				_parameters
-			)
+			plugin_manager_.collection<
+				sge::image2d::system
+			>(),
+			_parameters
 		)
 	);
 }
@@ -224,14 +198,10 @@ sge::systems::detail::instance_impl::init_audio_loader(
 		fcppt::make_unique_ptr<
 			sge::systems::modules::audio::loader
 		>(
-			fcppt::cref(
-				plugin_manager_.collection<
-					sge::audio::loader
-				>()
-			),
-			fcppt::cref(
-				_parameters
-			)
+			plugin_manager_.collection<
+				sge::audio::loader
+			>(),
+			_parameters
 		)
 	);
 }
@@ -245,14 +215,10 @@ sge::systems::detail::instance_impl::init_audio_player(
 		fcppt::make_unique_ptr<
 			sge::systems::modules::audio::player
 		>(
-			fcppt::cref(
-				plugin_manager_.collection<
-					sge::audio::player
-				>()
-			),
-			fcppt::cref(
-				_parameters
-			)
+			plugin_manager_.collection<
+				sge::audio::player
+			>(),
+			_parameters
 		)
 	);
 }
@@ -270,17 +236,11 @@ sge::systems::detail::instance_impl::init_font(
 		fcppt::make_unique_ptr<
 			sge::systems::modules::font::object
 		>(
-			fcppt::cref(
-				plugin_manager_.collection<
-					sge::font::system
-				>()
-			),
-			fcppt::cref(
-				_parameters
-			),
-			fcppt::cref(
-				*charconv_
-			)
+			plugin_manager_.collection<
+				sge::font::system
+			>(),
+			_parameters,
+			*charconv_
 		)
 	);
 }
@@ -294,9 +254,7 @@ sge::systems::detail::instance_impl::init_charconv(
 		fcppt::make_unique_ptr<
 			sge::systems::modules::charconv::object
 		>(
-			fcppt::cref(
-				_charconv
-			)
+			_charconv
 		)
 	);
 }

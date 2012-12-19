@@ -86,18 +86,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/insert_to_string.hpp>
-#include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
+#include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <example_main.hpp>
 #include <exception>
+#include <functional>
 #include <iostream>
 #include <ostream>
 #include <fcppt/config/external_end.hpp>
@@ -232,9 +231,9 @@ try
 	fcppt::signal::scoped_connection const c0(
 		object.insert(
 			sge::console::callback::from_functor<void()>(
-				std::tr1::bind(
+				std::bind(
 					&quit,
-					fcppt::ref(
+					std::ref(
 						sys.window_system())),
 				sge::console::callback::name(
 					SGE_FONT_LIT("quit")),
@@ -250,11 +249,11 @@ try
 	fcppt::signal::scoped_connection const c2(
 		object.insert(
 			sge::console::callback::from_functor<void(float)>(
-				std::tr1::bind(
+				std::bind(
 					&increment,
-					fcppt::ref(
+					std::ref(
 						object),
-					std::tr1::placeholders::_1),
+					std::placeholders::_1),
 				sge::console::callback::name(
 					SGE_FONT_LIT("increment")),
 				sge::console::callback::short_description(
@@ -264,7 +263,7 @@ try
 
 	sge::texture::const_part_shared_ptr const
 		tex_bg(
-			fcppt::make_unique_ptr<
+			fcppt::make_shared_ptr<
 				sge::texture::part_raw_ptr
 			>(
 				sge::renderer::texture::create_planar_from_path(

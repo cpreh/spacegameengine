@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/exception.hpp>
 #include <sge/input/logger.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/move.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/error/strerrno.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
@@ -32,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/output.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -52,7 +52,7 @@ sge::evdev::device::create_fd(
 		ret->valid()
 	)
 		return
-			fcppt::move(
+			std::move(
 				ret
 			);
 

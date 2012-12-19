@@ -21,15 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CHARCONV_ENCODING_HPP_INCLUDED
 #define SGE_CHARCONV_ENCODING_HPP_INCLUDED
 
+#include <sge/charconv/encoding_fwd.hpp>
+
 
 namespace sge
 {
 namespace charconv
 {
 
-namespace encoding
-{
-enum type
+enum class encoding
 {
 	utf8,
 	utf16,
@@ -37,7 +37,6 @@ enum type
 	wchar,
 	size
 };
-}
 
 }
 }

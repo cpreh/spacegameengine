@@ -26,14 +26,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/fragmented.hpp>
 #include <sge/texture/image_too_big.hpp>
 #include <sge/texture/manager.hpp>
-#include <sge/texture/on_alloc_function.hpp>
+#include <sge/texture/on_alloc_callback.hpp>
 #include <sge/texture/part.hpp>
 #include <sge/texture/part_unique_ptr.hpp>
-#include <fcppt/move.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/ptr/insert_unique_ptr_multimap.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/range/iterator_range_core.hpp>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -49,7 +49,7 @@ init_texture(
 }
 
 sge::texture::manager::manager(
-	sge::texture::on_alloc_function const &_on_alloc
+	sge::texture::on_alloc_callback const &_on_alloc
 )
 :
 	on_alloc_(
@@ -100,7 +100,7 @@ sge::texture::manager::add(
 					)
 			)
 				return
-					fcppt::move(
+					std::move(
 						current_part
 					);
 	}
@@ -132,14 +132,14 @@ sge::texture::manager::add(
 		);
 
 	return
-		fcppt::move(
+		std::move(
 			new_part
 		);
 }
 
 void
 sge::texture::manager::on_alloc(
-	sge::texture::on_alloc_function const &_on_alloc
+	sge::texture::on_alloc_callback const &_on_alloc
 )
 {
 	on_alloc_ = _on_alloc;
@@ -195,7 +195,7 @@ init_texture(
 		);
 
 	return
-		fcppt::move(
+		std::move(
 			part
 		);
 }

@@ -21,6 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TEXTURE_CUBE_SIDE_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_CUBE_SIDE_HPP_INCLUDED
 
+#include <sge/renderer/texture/cube_side_fwd.hpp>
+
+
 namespace sge
 {
 namespace renderer
@@ -28,9 +31,7 @@ namespace renderer
 namespace texture
 {
 
-namespace cube_side
-{
-enum type
+enum class cube_side
 {
 	front,
 	back,
@@ -40,7 +41,6 @@ enum type
 	bottom,
 	size
 };
-}
 
 }
 }

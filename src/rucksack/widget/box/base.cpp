@@ -543,7 +543,7 @@ sge::rucksack::widget::box::base::relayout_minor_axis()
 			is_expanding =
 				widget_ptr_information_pair_it->first->axis_policy()[this->minor_axis()].is_expanding(),
 			has_preferred_size =
-				widget_ptr_information_pair_it->first->axis_policy()[this->minor_axis()].preferred_size();
+				widget_ptr_information_pair_it->first->axis_policy()[this->minor_axis()].preferred_size().has_value();
 
 		if(is_expanding && !has_preferred_size)
 		{

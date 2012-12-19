@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/mipmap/context.hpp>
 #include <sge/opengl/texture/mipmap/generate.hpp>
 #include <sge/renderer/unsupported.hpp>
-#include <fcppt/null_ptr.hpp>
 #include <fcppt/text.hpp>
 
 
@@ -47,7 +46,7 @@ sge::opengl::texture::mipmap::generate(
 	if(
 		function
 		==
-		fcppt::null_ptr()
+		nullptr
 	)
 		throw sge::renderer::unsupported(
 			FCPPT_TEXT("GenerateMipmaps"),

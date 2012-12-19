@@ -89,7 +89,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <mizuiro/color/channel/luminance.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/make_shared_ptr.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
@@ -327,9 +326,7 @@ try
 			fcppt::make_shared_ptr<
 				sge::texture::part_raw_ref
 			>(
-				fcppt::ref(
-					*noise_texture
-				)
+				*noise_texture
 			)
 		)
 	);

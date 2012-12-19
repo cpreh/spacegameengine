@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/volume.hpp>
 #include <sge/renderer/texture/volume_parameters_fwd.hpp>
 #include <sge/renderer/texture/volume_unique_ptr.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 
@@ -56,12 +55,8 @@ sge::opengl::texture::create_volume(
 			fcppt::make_unique_ptr<
 				sge::opengl::texture::volume
 			>(
-				fcppt::cref(
-					_basic_parameters
-				),
-				fcppt::cref(
-					_parameters
-				)
+				_basic_parameters,
+				_parameters
 			)
 		);
 }

@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_INPUT_CURSOR_SCROLL_CALLBACK_HPP_INCLUDED
 
 #include <sge/input/cursor/scroll_function.hpp>
-#include <fcppt/function/object.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -32,7 +34,7 @@ namespace input
 namespace cursor
 {
 
-typedef fcppt::function::object<
+typedef std::function<
 	sge::input::cursor::scroll_function
 > scroll_callback;
 

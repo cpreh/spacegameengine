@@ -110,8 +110,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/exception.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/io/cerr.hpp>
@@ -472,11 +472,11 @@ try
 		fcppt::assign::make_container<
 			sge::renderer::state::ffp::sampler::const_object_ref_vector
 		>(
-			fcppt::cref(
+			fcppt::make_cref(
 				*sampler0
 			)
 		)(
-			fcppt::cref(
+			fcppt::make_cref(
 				*sampler1
 			)
 		)

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CHARCONV_CONVERT_HPP_INCLUDED
 #define SGE_CHARCONV_CONVERT_HPP_INCLUDED
 
-#include <sge/charconv/encoding.hpp>
+#include <sge/charconv/encoding_fwd.hpp>
 #include <sge/charconv/string_type.hpp>
 #include <sge/charconv/symbol.hpp>
 #include <sge/charconv/system_fwd.hpp>
@@ -33,8 +33,8 @@ namespace charconv
 {
 
 template<
-	sge::charconv::encoding::type DestEncoding,
-	sge::charconv::encoding::type SourceEncoding
+	sge::charconv::encoding DestEncoding,
+	sge::charconv::encoding SourceEncoding
 >
 SGE_CHARCONV_SYMBOL
 typename sge::charconv::string_type<

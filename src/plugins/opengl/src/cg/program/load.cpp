@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/cg/loaded_program.hpp>
 #include <sge/renderer/cg/loaded_program_unique_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 
 
 sge::renderer::cg::loaded_program_unique_ptr
@@ -37,9 +36,7 @@ sge::opengl::cg::program::load(
 			fcppt::make_unique_ptr<
 				sge::opengl::cg::program::loaded_object
 			>(
-				fcppt::ref(
-					_program
-				)
+				_program
 			)
 		);
 }

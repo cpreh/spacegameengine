@@ -25,26 +25,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/manager.hpp>
 #include <sge/input/mouse/remove_callback.hpp>
 #include <sge/input/mouse/remove_event.hpp>
-#include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/connection_manager.hpp>
-#include <fcppt/signal/shared_connection.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::input::mouse::manager::manager(
-	input::processor &_processor,
-	input::mouse::discover_callback const &_discover_callback,
-	input::mouse::remove_callback const &_remove_callback,
+	sge::input::processor &_processor,
+	sge::input::mouse::discover_callback const &_discover_callback,
+	sge::input::mouse::remove_callback const &_remove_callback,
 	axis_callback const &_axis_callback,
 	button_callback const &_button_callback
 )
@@ -66,27 +65,24 @@ sge::input::mouse::manager::manager(
 		fcppt::assign::make_container<
 			fcppt::signal::connection_manager::container
 		>(
-			fcppt::signal::shared_connection(
-				_processor.mouse_discover_callback(
-					std::tr1::bind(
-						&mouse::manager::discover,
-						this,
-						std::tr1::placeholders::_1
-					)
+			_processor.mouse_discover_callback(
+				std::bind(
+					&mouse::manager::discover,
+					this,
+					std::placeholders::_1
 				)
 			)
 		)
 		(
-			fcppt::signal::shared_connection(
-				_processor.mouse_remove_callback(
-					std::tr1::bind(
-						&mouse::manager::remove,
-						this,
-						std::tr1::placeholders::_1
-					)
+			_processor.mouse_remove_callback(
+				std::bind(
+					&mouse::manager::remove,
+					this,
+					std::placeholders::_1
 				)
 			)
 		)
+		.move_container()
 	)
 {
 }
@@ -98,43 +94,39 @@ sge::input::mouse::manager::~manager()
 
 void
 sge::input::mouse::manager::discover(
-	input::mouse::discover_event const &_event
+	sge::input::mouse::discover_event const &_event
 )
 {
 	FCPPT_ASSERT_ERROR(
-		fcppt::container::ptr::insert_unique_ptr_map(
-			devices_,
-			&_event.get(),
-			fcppt::make_unique_ptr<
-				fcppt::signal::connection_manager
-			>(
-				fcppt::assign::make_container<
-					fcppt::signal::connection_manager::container
-				>(
-					fcppt::signal::shared_connection(
+		devices_.insert(
+			std::make_pair(
+				&_event.get(),
+				fcppt::signal::connection_manager(
+					fcppt::assign::make_container<
+						fcppt::signal::connection_manager::container
+					>(
 						_event.get().axis_callback(
-							std::tr1::bind(
+							std::bind(
 								axis_callback_,
-								fcppt::ref(
+								std::ref(
 									_event.get()
 								),
-								std::tr1::placeholders::_1
+								std::placeholders::_1
 							)
 						)
 					)
-				)
-				(
-					fcppt::signal::shared_connection(
+					(
 						_event.get().button_callback(
-							std::tr1::bind(
+							std::bind(
 								button_callback_,
-								fcppt::ref(
+								std::ref(
 									_event.get()
 								),
-								std::tr1::placeholders::_1
+								std::placeholders::_1
 							)
 						)
 					)
+					.move_container()
 				)
 			)
 		).second
@@ -151,7 +143,7 @@ sge::input::mouse::manager::discover(
 
 void
 sge::input::mouse::manager::remove(
-	input::mouse::remove_event const &_event
+	sge::input::mouse::remove_event const &_event
 )
 {
 	FCPPT_ASSERT_ERROR(

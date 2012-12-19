@@ -27,8 +27,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/blend/alpha_enabled.hpp>
 #include <sge/renderer/state/core/blend/alpha_off_fwd.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::opengl::state::core::blend::alpha_visitor::alpha_visitor(
@@ -50,7 +52,7 @@ sge::opengl::state::core::blend::alpha_visitor::operator()(
 		fcppt::assign::make_container<
 			sge::opengl::state::core::blend::alpha_visitor::result_type
 		>(
-			std::tr1::bind(
+			std::bind(
 				sge::opengl::disable,
 				GL_BLEND
 			)
@@ -66,7 +68,7 @@ sge::opengl::state::core::blend::alpha_visitor::operator()(
 		fcppt::assign::make_container<
 			sge::opengl::state::core::blend::alpha_visitor::result_type
 		>(
-			std::tr1::bind(
+			std::bind(
 				sge::opengl::enable,
 				GL_BLEND
 			)

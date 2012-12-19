@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/modules/charconv/wrapped.hpp>
 #include <sge/systems/charconv.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 
 
 sge::systems::modules::charconv::object::object(
@@ -39,9 +38,7 @@ sge::systems::modules::charconv::object::object(
 				fcppt::make_unique_ptr<
 					sge::systems::modules::charconv::wrapped
 				>(
-					fcppt::ref(
-						*_charconv.system()
-					)
+					*_charconv.system()
 				)
 			)
 		:

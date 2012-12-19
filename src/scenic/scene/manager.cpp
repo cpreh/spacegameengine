@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/scene/manager.hpp>
 #include <sge/scenic/vf/format.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 
 
 sge::scenic::scene::manager::manager(
@@ -52,18 +51,14 @@ sge::scenic::scene::manager::manager(
 		?
 			sge::scenic::render_context::manager_base_unique_ptr(
 				fcppt::make_unique_ptr<sge::scenic::render_context::cg::manager>(
-					fcppt::ref(
-						shader_context_),
-					fcppt::ref(
-					*mesh_vertex_declaration_)))
+					shader_context_,
+					*mesh_vertex_declaration_))
 		:
 			sge::scenic::render_context::manager_base_unique_ptr(
 				fcppt::make_unique_ptr<sge::scenic::render_context::ffp::manager>(
-					fcppt::ref(
-						dynamic_cast<sge::renderer::device::ffp &>(
-							_renderer)),
-					fcppt::ref(
-						*mesh_vertex_declaration_))))
+					dynamic_cast<sge::renderer::device::ffp &>(
+						_renderer),
+					*mesh_vertex_declaration_)))
 {
 }
 

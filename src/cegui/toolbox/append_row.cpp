@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/cegui/toolbox/append_row.hpp>
 #include <sge/cegui/toolbox/row.hpp>
-#include <fcppt/null_ptr.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/Base.h>
@@ -56,7 +55,7 @@ sge::cegui::toolbox::append_row(
 					0
 				],
 				0,
-				fcppt::null_ptr()
+				nullptr
 			),
 			0
 		)
@@ -75,7 +74,7 @@ sge::cegui::toolbox::append_row(
 					cur
 				],
 				0,
-				fcppt::null_ptr()
+				nullptr
 			),
 			static_cast<
 				CEGUI::uint

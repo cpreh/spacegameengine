@@ -25,7 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
 
 FCPPT_PP_PUSH_WARNING
@@ -38,22 +40,22 @@ sge::cegui::default_keyboard::default_keyboard(
 		_syringe),
 	key_callback_(
 		_keyboard.key_callback(
-			std::tr1::bind(
+			std::bind(
 				&default_keyboard::key_callback,
 				this,
-				std::tr1::placeholders::_1))),
+				std::placeholders::_1))),
 	key_repeat_callback_(
 		_keyboard.key_repeat_callback(
-			std::tr1::bind(
+			std::bind(
 				&default_keyboard::key_repeat_callback,
 				this,
-				std::tr1::placeholders::_1))),
+				std::placeholders::_1))),
 	char_callback_(
 		_keyboard.char_callback(
-			std::tr1::bind(
+			std::bind(
 				&default_keyboard::char_callback,
 				this,
-				std::tr1::placeholders::_1)))
+				std::placeholders::_1)))
 {
 }
 FCPPT_PP_POP_WARNING

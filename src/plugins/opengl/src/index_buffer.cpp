@@ -31,7 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/dynamic/view.hpp>
 #include <sge/renderer/lock_flags/from_mode.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
-#include <fcppt/null_ptr.hpp>
 
 
 sge::opengl::index_buffer::index_buffer(
@@ -67,7 +66,7 @@ sge::opengl::index_buffer::index_buffer(
 			_format
 		),
 		_flags,
-		fcppt::null_ptr()
+		nullptr
 	)
 {
 }

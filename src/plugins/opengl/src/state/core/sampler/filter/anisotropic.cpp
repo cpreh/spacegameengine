@@ -31,7 +31,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/sampler/filter/anisotropic/parameters.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::opengl::state::core::sampler::actor_vector const
@@ -61,16 +63,16 @@ sge::opengl::state::core::sampler::filter::anisotropic(
 		fcppt::assign::make_container<
 			sge::opengl::state::core::sampler::actor_vector
 		>(
-			std::tr1::bind(
+			std::bind(
 				sge::opengl::texture::funcs::parameter_int,
-				std::tr1::placeholders::_1,
+				std::placeholders::_1,
 				GL_TEXTURE_MAG_FILTER,
 				GL_NEAREST
 			)
 		)(
-			std::tr1::bind(
+			std::bind(
 				sge::opengl::texture::funcs::parameter_int,
-				std::tr1::placeholders::_1,
+				std::placeholders::_1,
 				GL_TEXTURE_MIN_FILTER,
 				static_cast<
 					GLint
@@ -81,9 +83,9 @@ sge::opengl::state::core::sampler::filter::anisotropic(
 				)
 			)
 		)(
-			std::tr1::bind(
+			std::bind(
 				sge::opengl::texture::funcs::parameter_int,
-				std::tr1::placeholders::_1,
+				std::placeholders::_1,
 				*anisotropy_flag,
 				static_cast<
 					GLint

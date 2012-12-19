@@ -90,8 +90,16 @@ struct texture_level_functor
 				Function<
 					bool
 				>()(
-					left_tex,
-					right_tex
+					static_cast<
+						bool
+					>(
+						left_tex
+					),
+					static_cast<
+						bool
+					>(
+						right_tex
+					)
 				)
 			;
 	}

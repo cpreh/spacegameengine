@@ -29,43 +29,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/key_repeat_callback.hpp>
 #include <sge/input/keyboard/key_repeat_event_fwd.hpp>
 #include <sge/input/keyboard/manager.hpp>
+#include <sge/input/keyboard/mod_state.hpp>
 #include <sge/input/keyboard/remove_callback.hpp>
-#include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_impl.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::input::keyboard::collector::collector(
-	input::processor &_processor
+	sge::input::processor &_processor
 )
 :
 	manager_(
 		_processor,
 		keyboard::discover_callback(),
 		keyboard::remove_callback(),
-		std::tr1::bind(
-			&keyboard::collector::char_callback_internal,
+		std::bind(
+			&sge::input::keyboard::collector::char_callback_internal,
 			this,
-			std::tr1::placeholders::_1,
-			std::tr1::placeholders::_2
+			std::placeholders::_1,
+			std::placeholders::_2
 		),
-		std::tr1::bind(
-			&keyboard::collector::key_callback_internal,
+		std::bind(
+			&sge::input::keyboard::collector::key_callback_internal,
 			this,
-			std::tr1::placeholders::_1,
-			std::tr1::placeholders::_2
+			std::placeholders::_1,
+			std::placeholders::_2
 		),
-		std::tr1::bind(
-			&keyboard::collector::key_repeat_callback_internal,
+		std::bind(
+			&sge::input::keyboard::collector::key_repeat_callback_internal,
 			this,
-			std::tr1::placeholders::_1,
-			std::tr1::placeholders::_2
+			std::placeholders::_1,
+			std::placeholders::_2
 		)
 	),
 	char_signal_(),
@@ -81,7 +83,7 @@ sge::input::keyboard::collector::~collector()
 
 fcppt::signal::auto_connection
 sge::input::keyboard::collector::char_callback(
-	keyboard::char_callback const &_callback
+	sge::input::keyboard::char_callback const &_callback
 )
 {
 	return
@@ -92,7 +94,7 @@ sge::input::keyboard::collector::char_callback(
 
 fcppt::signal::auto_connection
 sge::input::keyboard::collector::key_callback(
-	keyboard::key_callback const &_callback
+	sge::input::keyboard::key_callback const &_callback
 )
 {
 	return
@@ -103,7 +105,7 @@ sge::input::keyboard::collector::key_callback(
 
 fcppt::signal::auto_connection
 sge::input::keyboard::collector::key_repeat_callback(
-	keyboard::key_repeat_callback const &_callback
+	sge::input::keyboard::key_repeat_callback const &_callback
 )
 {
 	return
@@ -115,26 +117,22 @@ sge::input::keyboard::collector::key_repeat_callback(
 sge::input::keyboard::mod_state const
 sge::input::keyboard::collector::mod_state() const
 {
-	keyboard::mod_state ret(
-		keyboard::mod_state::null()
+	sge::input::keyboard::mod_state ret(
+		sge::input::keyboard::mod_state::null()
 	);
 
 	for(
-		manager::keyboard_map::const_iterator it(
-			manager_.devices().begin()
-		);
-		it != manager_.devices().end();
-		++it
+		auto const &keyboard : manager_.devices()
 	)
-		ret |= it->first->mod_state();
+		ret |= keyboard.first->mod_state();
 
 	return ret;
 }
 
 void
 sge::input::keyboard::collector::char_callback_internal(
-	keyboard::device &,
-	keyboard::char_event const &_event
+	sge::input::keyboard::device &,
+	sge::input::keyboard::char_event const &_event
 )
 {
 	char_signal_(
@@ -144,8 +142,8 @@ sge::input::keyboard::collector::char_callback_internal(
 
 void
 sge::input::keyboard::collector::key_callback_internal(
-	keyboard::device &,
-	keyboard::key_event const &_event
+	sge::input::keyboard::device &,
+	sge::input::keyboard::key_event const &_event
 )
 {
 	key_signal_(
@@ -155,8 +153,8 @@ sge::input::keyboard::collector::key_callback_internal(
 
 void
 sge::input::keyboard::collector::key_repeat_callback_internal(
-	keyboard::device &,
-	keyboard::key_repeat_event const &_event
+	sge::input::keyboard::device &,
+	sge::input::keyboard::key_repeat_event const &_event
 )
 {
 	key_repeat_signal_(

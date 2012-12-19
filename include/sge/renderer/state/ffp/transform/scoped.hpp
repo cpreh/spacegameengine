@@ -55,7 +55,7 @@ public:
 	SGE_RENDERER_SYMBOL
 	scoped(
 		sge::renderer::context::ffp &context,
-		sge::renderer::state::ffp::transform::mode::type,
+		sge::renderer::state::ffp::transform::mode,
 		sge::renderer::state::ffp::transform::object const &
 	);
 
@@ -64,7 +64,7 @@ public:
 private:
 	sge::renderer::context::ffp &context_;
 
-	sge::renderer::state::ffp::transform::mode::type const mode_;
+	sge::renderer::state::ffp::transform::mode const mode_;
 };
 
 }

@@ -19,10 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/model/md3/load_flags.hpp>
+#include <sge/model/md3/object_unique_ptr.hpp>
 #include <sge/src/model/md3/loader_impl.hpp>
 #include <sge/src/model/md3/object_impl.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <boost/filesystem/path.hpp>
@@ -41,7 +41,7 @@ sge::model::md3::loader_impl::~loader_impl()
 sge::model::md3::object_unique_ptr
 sge::model::md3::loader_impl::load(
 	boost::filesystem::path const &_path,
-	md3::load_flags::type const _flags
+	sge::model::md3::load_flags::type const _flags
 )
 {
 	boost::filesystem::ifstream file(
@@ -57,11 +57,9 @@ sge::model::md3::loader_impl::load(
 	return
 		sge::model::md3::object_unique_ptr(
 			fcppt::make_unique_ptr<
-				md3::object_impl
+				sge::model::md3::object_impl
 			>(
-				fcppt::ref(
-					file
-				),
+				file,
 				_flags
 			)
 		);
@@ -70,17 +68,15 @@ sge::model::md3::loader_impl::load(
 sge::model::md3::object_unique_ptr
 sge::model::md3::loader_impl::load_stream(
 	std::istream &_stream,
-	md3::load_flags::type const _flags
+	sge::model::md3::load_flags::type const _flags
 )
 {
 	return
 		sge::model::md3::object_unique_ptr(
 			fcppt::make_unique_ptr<
-				md3::object_impl
+				sge::model::md3::object_impl
 			>(
-				fcppt::ref(
-					_stream
-				),
+				_stream,
 				_flags
 			)
 		);

@@ -29,14 +29,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/evdev/joypad/object.hpp>
 #include <sge/evdev/joypad/optional_info.hpp>
 #include <sge/input/joypad/discover_event.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
+#include <functional>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -92,18 +91,12 @@ sge::evdev::joypad::add(
 			fcppt::make_unique_ptr<
 				sge::evdev::joypad::object
 			>(
-				fcppt::cref(
-					_parameters.focus_manager()
-				),
-				fcppt::ref(
-					_parameters.processor()
-				),
-				fcppt::move(
+				_parameters.focus_manager(),
+				_parameters.processor(),
+				std::move(
 					fd
 				),
-				fcppt::cref(
-					info_value
-				)
+				info_value
 			)
 		)
 	);

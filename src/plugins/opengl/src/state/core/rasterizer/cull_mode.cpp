@@ -29,9 +29,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/rasterizer/cull_mode.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/phoenix/bind.hpp>
+#include <functional>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -48,7 +48,7 @@ sge::opengl::state::core::rasterizer::cull_mode(
 			fcppt::assign::make_container<
 				sge::opengl::state::actor_vector
 			>(
-				std::tr1::bind(
+				std::bind(
 					sge::opengl::disable,
 					GL_CULL_FACE
 				)
@@ -57,7 +57,7 @@ sge::opengl::state::core::rasterizer::cull_mode(
 			fcppt::assign::make_container<
 				sge::opengl::state::actor_vector
 			>(
-				std::tr1::bind(
+				std::bind(
 					sge::opengl::enable,
 					GL_CULL_FACE
 				)

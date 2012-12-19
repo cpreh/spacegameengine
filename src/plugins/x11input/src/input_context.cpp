@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/input_context.hpp>
 #include <awl/backends/x11/window/class_hint.hpp>
 #include <awl/backends/x11/window/object.hpp>
-#include <fcppt/null_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/Xlib.h>
@@ -53,13 +52,13 @@ sge::x11input::input_context::input_context(
 				NULL
 			)
 		:
-			fcppt::null_ptr()
+			nullptr
 	)
 {
 	if(
 		_class_hint
 		==
-		fcppt::null_ptr()
+		nullptr
 	)
 		throw sge::input::exception(
 			FCPPT_TEXT("XCreateIC() called without a class hint!")
@@ -68,7 +67,7 @@ sge::x11input::input_context::input_context(
 	if(
 		xic_
 		==
-		fcppt::null_ptr()
+		nullptr
 	)
 		throw sge::input::exception(
 			FCPPT_TEXT("XCreateIC() failed!")

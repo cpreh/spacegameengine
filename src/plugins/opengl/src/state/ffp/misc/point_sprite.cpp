@@ -30,11 +30,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/state/ffp/misc/enable_point_sprites.hpp>
 #include <sge/renderer/texture/stage.hpp>
-#include <fcppt/cref.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::opengl::state::actor_vector const
@@ -72,13 +72,13 @@ sge::opengl::state::ffp::misc::point_sprite(
 		fcppt::assign::make_container<
 			sge::opengl::state::actor_vector
 		>(
-			std::tr1::bind(
+			std::bind(
 				sge::opengl::enable_bool,
 				*point_sprite_context.point_sprite_flag(),
 				_enable.get()
 			)
 		)(
-			std::tr1::bind(
+			std::bind(
 				sge::opengl::enable_bool,
 				*point_sprite_context.vertex_shader_size_flag(),
 				_enable.get()
@@ -102,12 +102,12 @@ sge::opengl::state::ffp::misc::point_sprite(
 		++stage
 	)
 		result.push_back(
-			std::tr1::bind(
+			std::bind(
 				sge::opengl::state::ffp::misc::point_sprite_texture,
-				fcppt::ref(
+				std::ref(
 					_system_context
 				),
-				fcppt::cref(
+				std::cref(
 					point_sprite_context
 				),
 				stage,

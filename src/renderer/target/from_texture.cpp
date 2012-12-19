@@ -31,9 +31,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
-#include <fcppt/move.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::renderer::target::offscreen_unique_ptr
@@ -85,7 +86,7 @@ sge::renderer::target::from_texture(
 	);
 
 	return
-		fcppt::move(
+		std::move(
 			target
 		);
 }

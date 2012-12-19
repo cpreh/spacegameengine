@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_SYSTEMS_MODULES_CHARCONV_BASE_UNIQUE_PTR_HPP_INCLUDED
 
 #include <sge/src/systems/modules/charconv/base_fwd.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -34,7 +36,7 @@ namespace modules
 namespace charconv
 {
 
-typedef fcppt::unique_ptr<
+typedef std::unique_ptr<
 	sge::systems::modules::charconv::base
 > base_unique_ptr;
 

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CG_PROGRAM_REPLACE_EXTRA_HPP_INCLUDED
 
 #include <sge/cg/symbol.hpp>
-#include <sge/cg/program/replace_extra_callback_fwd.hpp>
+#include <sge/cg/program/replace_extra_callback.hpp>
 #include <sge/cg/program/source.hpp>
 
 

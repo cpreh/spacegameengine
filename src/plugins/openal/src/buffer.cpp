@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/file.hpp>
 #include <sge/audio/sample_container.hpp>
 #include <sge/audio/sound/base.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
@@ -100,11 +99,9 @@ sge::openal::buffer::create_positional(
 	return
 		audio::sound::positional_unique_ptr(
 			fcppt::make_unique_ptr<
-				openal::source
+				sge::openal::source
 			>(
-				fcppt::cref(
-					_param
-				),
+				_param,
 				holder_.get()
 			)
 		);
@@ -117,10 +114,9 @@ sge::openal::buffer::create_nonpositional(
 	return
 		audio::sound::base_unique_ptr(
 			fcppt::make_unique_ptr<
-				openal::source
+				sge::openal::source
 			>(
-				fcppt::cref(
-					_param),
+				_param,
 				holder_.get()
 			)
 		);

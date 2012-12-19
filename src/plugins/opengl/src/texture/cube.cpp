@@ -120,13 +120,17 @@ sge::opengl::texture::cube::border_size() const
 
 sge::renderer::texture::cube::color_buffer &
 sge::opengl::texture::cube::level(
-	sge::renderer::texture::cube_side::type const _side,
+	sge::renderer::texture::cube_side const _side,
 	sge::renderer::texture::mipmap::level const _level
 )
 {
 	return
 		sides_[
-			_side
+			static_cast<
+				sge::opengl::texture::cube::side_vector::size_type
+			>(
+				_side
+			)
 		][
 			_level.get()
 		];
@@ -134,13 +138,17 @@ sge::opengl::texture::cube::level(
 
 sge::renderer::texture::cube::color_buffer const &
 sge::opengl::texture::cube::level(
-	sge::renderer::texture::cube_side::type const _side,
+	sge::renderer::texture::cube_side const _side,
 	sge::renderer::texture::mipmap::level const _level
 ) const
 {
 	return
 		sides_[
-			_side
+			static_cast<
+				sge::opengl::texture::cube::side_vector::size_type
+			>(
+				_side
+			)
 		][
 			_level.get()
 		];
@@ -154,7 +162,11 @@ sge::opengl::texture::cube::levels() const
 			sge::renderer::texture::mipmap::level_count
 		>(
 			sides_[
-				sge::renderer::texture::cube_side::front
+				static_cast<
+					sge::opengl::texture::cube::side_vector::size_type
+				>(
+					sge::renderer::texture::cube_side::front
+				)
 			].size()
 		);
 }

@@ -26,10 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/evdev/joypad/absolute_axis/make_info_container.hpp>
 #include <sge/input/joypad/absolute_axis_id.hpp>
 #include <sge/input/joypad/absolute_axis_info.hpp>
-#include <fcppt/cref.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <linux/input.h>
+#include <functional>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -50,12 +49,12 @@ sge::evdev::joypad::absolute_axis::make_info_container(
 				_fd,
 				EV_ABS
 			),
-			std::tr1::bind(
+			std::bind(
 				&sge::evdev::joypad::absolute_axis::make_info,
-				fcppt::cref(
+				std::cref(
 					_fd
 				),
-				std::tr1::placeholders::_1
+				std::placeholders::_1
 			)
 		);
 }

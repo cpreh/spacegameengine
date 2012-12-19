@@ -40,7 +40,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/font/bitmap/load_one_file.hpp>
 #include <sge/src/font/bitmap/object.hpp>
 #include <sge/src/font/bitmap/text.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
@@ -160,13 +159,9 @@ sge::font::bitmap::object::create_text(
 			fcppt::make_unique_ptr<
 				sge::font::bitmap::text
 			>(
-				fcppt::cref(
-					char_map_
-				),
+				char_map_,
 				_string,
-				fcppt::cref(
-					_text_parameters
-				),
+				_text_parameters,
 				line_height_
 			)
 		);

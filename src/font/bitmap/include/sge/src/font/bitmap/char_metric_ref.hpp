@@ -18,22 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_ACTOR_FWD_HPP_INCLUDED
-#define SGE_OPENGL_STATE_ACTOR_FWD_HPP_INCLUDED
+#ifndef SGE_SRC_FONT_BITMAP_CHAR_METRIC_REF_HPP_INCLUDED
+#define SGE_SRC_FONT_BITMAP_CHAR_METRIC_REF_HPP_INCLUDED
 
-#include <fcppt/function/object_fwd.hpp>
+#include <sge/src/font/bitmap/char_metric_fwd.hpp>
+#include <fcppt/reference_wrapper.hpp>
 
 
 namespace sge
 {
-namespace opengl
+namespace font
 {
-namespace state
+namespace bitmap
 {
 
-typedef fcppt::function::object<
-	void ()
-> actor;
+typedef fcppt::reference_wrapper<
+	sge::font::bitmap::char_metric const
+> char_metric_ref;
 
 }
 }

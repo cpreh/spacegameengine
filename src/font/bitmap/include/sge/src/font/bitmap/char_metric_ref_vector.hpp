@@ -21,8 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_FONT_BITMAP_CHAR_METRIC_REF_VECTOR_HPP_INCLUDED
 #define SGE_SRC_FONT_BITMAP_CHAR_METRIC_REF_VECTOR_HPP_INCLUDED
 
-#include <sge/src/font/bitmap/char_metric_fwd.hpp>
-#include <fcppt/reference_wrapper.hpp>
+#include <sge/src/font/bitmap/char_metric_ref.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
@@ -36,9 +35,7 @@ namespace bitmap
 {
 
 typedef std::vector<
-	fcppt::reference_wrapper<
-		sge::font::bitmap::char_metric const
-	>
+	sge::font::bitmap::char_metric_ref
 > char_metric_ref_vector;
 
 }

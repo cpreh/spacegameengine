@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <majutsu/role_return_type.hpp>
 #include <majutsu/memory/init_count.hpp>
-#include <fcppt/static_assert_expression.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/fusion/container/generation/make_vector.hpp>
 #include <boost/fusion/support/is_sequence.hpp>
@@ -58,7 +57,8 @@ struct class_
 	class_()
 	:
 		memory_()
-	{}
+	{
+	}
 
 	class_(
 		class_ const &_other
@@ -67,12 +67,14 @@ struct class_
 		memory_(
 			_other.memory_
 		)
-	{}
+	{
+	}
 
 	template<
 		typename Argument
 	>
-	explicit class_(
+	explicit
+	class_(
 		Argument const &_argument,
 		typename boost::disable_if<
 			boost::fusion::traits::is_sequence<
@@ -88,11 +90,12 @@ struct class_
 			)
 		)
 	{
-		FCPPT_STATIC_ASSERT_EXPRESSION(
+		static_assert(
 			majutsu::memory::init_count<
 				memory_type
 			>::value
-			== 1u
+			== 1u,
+			"This constructor can only be called for classes with one member"
 		);
 	}
 
@@ -103,7 +106,8 @@ template<\
                 n,\
                 typename T\
         )>\
-explicit class_(\
+explicit \
+class_(\
         BOOST_PP_ENUM_BINARY_PARAMS_Z(\
                 z,\
 		n,\
@@ -122,10 +126,11 @@ explicit class_(\
 		)\
 	)\
 {\
-	FCPPT_STATIC_ASSERT_EXPRESSION(\
-		memory::init_count<\
+	static_assert(\
+		majutsu::memory::init_count<\
 			memory_type\
-		>::value == n\
+		>::value == n,\
+		"You have to prodive the right amount of parameters for a class_ constructor"\
 	);\
 }
 
@@ -141,7 +146,8 @@ BOOST_PP_REPEAT_FROM_TO(
 	template<
 		typename Vector
 	>
-	explicit class_(
+	explicit
+	class_(
 		Vector const &_initializers,
 		typename boost::enable_if<
 			boost::fusion::traits::is_sequence<
@@ -155,13 +161,14 @@ BOOST_PP_REPEAT_FROM_TO(
 			_initializers
 		)
 	{
-		FCPPT_STATIC_ASSERT_EXPRESSION(
+		static_assert(
 			majutsu::memory::init_count<
 				memory_type
 			>::value
 			== boost::mpl::size<
 				Vector
-			>::value
+			>::value,
+			"You have to prodive the right amount of parameters for a class_ constructor"\
 		);
 	}
 
@@ -184,7 +191,7 @@ BOOST_PP_REPEAT_FROM_TO(
 	template<
 		typename Role
 	>
-	typename role_return_type<
+	typename majutsu::role_return_type<
 		typename memory_type::types,
 		Role
 	>::type

@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/sprite/vertex_format.hpp>
 #include <sge/sprite/config/is_choices.hpp>
-#include <fcppt/static_assert_expression.hpp>
 
 
 namespace sge
@@ -39,10 +38,11 @@ template<
 sge::renderer::vf::dynamic::format const
 make_vertex_format()
 {
-	FCPPT_STATIC_ASSERT_EXPRESSION(
+	static_assert(
 		sge::sprite::config::is_choices<
 			Choices
-		>::value
+		>::value,
+		"Choices must be a sprite choice"
 	);
 
 	return

@@ -30,12 +30,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/system/event/type.hpp>
 #include <awl/backends/x11/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/function/object.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_decl.hpp>
 #include <fcppt/signal/unregister/base_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/ptr_container/ptr_map.hpp>
+#include <functional>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -70,7 +70,7 @@ public:
 
 	~event_demuxer();
 
-	typedef fcppt::function::object<
+	typedef std::function<
 		signature
 	> callback;
 

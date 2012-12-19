@@ -31,10 +31,10 @@ namespace renderer
 {
 
 /**
- * \brief A reference wrapper to const vertex buffer references
+\brief A reference wrapper to const vertex buffer references
 */
 typedef fcppt::reference_wrapper<
-	renderer::vertex_buffer const
+	sge::renderer::vertex_buffer const
 > const_vertex_buffer_ref;
 
 }

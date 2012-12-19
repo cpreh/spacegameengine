@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/core/depth_stencil/object.hpp>
 #include <sge/opengl/state/core/depth_stencil/set.hpp>
 #include <sge/renderer/state/core/depth_stencil/const_optional_object_ref.hpp>
-#include <fcppt/ref.hpp>
 
 
 void
@@ -41,9 +40,7 @@ sge::opengl::state::core::depth_stencil::set(
 			sge::opengl::state::core::depth_stencil::default_context
 		>(
 			_system_context,
-			fcppt::ref(
-				_system_context
-			)
+			_system_context
 		),
 		_state
 	);

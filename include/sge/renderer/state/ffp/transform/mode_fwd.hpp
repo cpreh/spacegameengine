@@ -18,29 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_FFP_SAMPLER_ACTOR_FWD_HPP_INCLUDED
-#define SGE_OPENGL_STATE_FFP_SAMPLER_ACTOR_FWD_HPP_INCLUDED
-
-#include <sge/opengl/texture/active_level_fwd.hpp>
-#include <fcppt/function/object_fwd.hpp>
+#ifndef SGE_RENDERER_STATE_FFP_TRANSFORM_MODE_FWD_HPP_INCLUDED
+#define SGE_RENDERER_STATE_FFP_TRANSFORM_MODE_FWD_HPP_INCLUDED
 
 
 namespace sge
 {
-namespace opengl
+namespace renderer
 {
 namespace state
 {
 namespace ffp
 {
-namespace sampler
+namespace transform
 {
 
-typedef fcppt::function::object<
-	void(
-		sge::opengl::texture::active_level const &
-	)
-> actor;
+enum class mode;
 
 }
 }

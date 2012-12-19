@@ -34,7 +34,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/pango/ink_rect.hpp>
 #include <sge/pango/text.hpp>
 #include <sge/pango/freetype/make_bitmap.hpp>
-#include <fcppt/null_ptr.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <pango/pango-layout.h>
@@ -116,7 +115,7 @@ sge::pango::text::render(
 		);
 
 		if(
-			line == fcppt::null_ptr()
+			line == nullptr
 		)
 			return;
 

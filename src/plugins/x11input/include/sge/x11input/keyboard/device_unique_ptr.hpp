@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_KEYBOARD_DEVICE_UNIQUE_PTR_HPP_INCLUDED
 
 #include <sge/x11input/keyboard/device_fwd.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -32,8 +34,8 @@ namespace x11input
 namespace keyboard
 {
 
-typedef fcppt::unique_ptr<
-	keyboard::device
+typedef std::unique_ptr<
+	sge::x11input::keyboard::device
 > device_unique_ptr;
 
 }

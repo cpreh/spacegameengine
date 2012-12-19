@@ -26,8 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/callback/detail/conversion_visitor.hpp>
 #include <sge/font/lit.hpp>
 #include <sge/font/string.hpp>
-#include <fcppt/ref.hpp>
-#include <fcppt/function/object.hpp>
 #include <fcppt/mpl/for_each.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/function_types/function_arity.hpp>
@@ -37,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/fusion/functional/invocation/invoke.hpp>
 #include <boost/fusion/include/mpl.hpp>
 #include <boost/mpl/range_c.hpp>
+#include <functional>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -116,7 +115,7 @@ public:
 			parameter_tuple);
 	}
 private:
-	fcppt::function::object<function_type> functor_;
+	std::function<function_type> functor_;
 	sge::font::string short_description_;
 };
 }

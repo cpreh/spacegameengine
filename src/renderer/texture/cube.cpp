@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/texture/cube.hpp>
-#include <sge/renderer/texture/cube_side.hpp>
 
 
 sge::renderer::texture::cube::cube()

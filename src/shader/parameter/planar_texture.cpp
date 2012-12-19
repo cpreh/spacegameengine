@@ -26,9 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/shader/pair.hpp>
 #include <sge/shader/parameter/planar_texture.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/assert/pre.hpp>
 
 
@@ -78,10 +76,8 @@ sge::shader::parameter::planar_texture::set(
 
 			scoped_texture_.take(
 				fcppt::make_unique_ptr<sge::renderer::cg::scoped_texture>(
-					fcppt::ref(
-						*optional_render_context_),
-					fcppt::cref(
-						*loaded_texture_)));
+					*optional_render_context_,
+					*loaded_texture_));
 		}
 	}
 }

@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_FFP_TRANSFORM_MODE_HPP_INCLUDED
 #define SGE_RENDERER_STATE_FFP_TRANSFORM_MODE_HPP_INCLUDED
 
+#include <sge/renderer/state/ffp/transform/mode_fwd.hpp>
+
 
 namespace sge
 {
@@ -33,9 +35,7 @@ namespace ffp
 namespace transform
 {
 
-namespace mode
-{
-enum type
+enum class mode
 {
 	/**
 	\brief The world matrix
@@ -61,7 +61,6 @@ enum type
 	*/
 	size
 };
-}
 
 }
 }

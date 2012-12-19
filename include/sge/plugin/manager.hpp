@@ -71,7 +71,7 @@ private:
 	> context_base_vector;
 
 	typedef std::map<
-		sge::plugin::capabilities::type,
+		sge::plugin::capabilities,
 		sge::plugin::category_array
 	> plugin_map;
 

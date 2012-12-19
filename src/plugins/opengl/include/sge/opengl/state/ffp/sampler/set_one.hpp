@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_STATE_FFP_SAMPLER_SET_ONE_HPP_INCLUDED
 #define SGE_OPENGL_STATE_FFP_SAMPLER_SET_ONE_HPP_INCLUDED
 
-#include <sge/opengl/state/ffp/sampler/actor_fwd.hpp>
+#include <sge/opengl/state/ffp/sampler/actor.hpp>
 #include <sge/opengl/texture/funcs/env_arg.hpp>
 #include <sge/opengl/texture/funcs/env_int_value.hpp>
 

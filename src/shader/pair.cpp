@@ -27,21 +27,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/shader/load_edited_string.hpp>
 #include <sge/shader/pair.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/move.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/unique_ptr.hpp>
 #include <fcppt/algorithm/ptr_container_erase.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/fstream.hpp>
+#include <memory>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
 namespace
 {
 typedef
-fcppt::unique_ptr<std::istream>
+std::unique_ptr<std::istream>
 istream_unique_ptr;
 
 istream_unique_ptr
@@ -49,7 +49,7 @@ open_istream_exn(
 	boost::filesystem::path const &_path)
 {
 	typedef
-	fcppt::unique_ptr<boost::filesystem::ifstream>
+	std::unique_ptr<boost::filesystem::ifstream>
 	boost_filesystem_ifstream_unique_ptr;
 
 	boost_filesystem_ifstream_unique_ptr result(
@@ -66,7 +66,7 @@ open_istream_exn(
 
 	return
 		istream_unique_ptr(
-			fcppt::move(
+			std::move(
 				result));
 }
 }

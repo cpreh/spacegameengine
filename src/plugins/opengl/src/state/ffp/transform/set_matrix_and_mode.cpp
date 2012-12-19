@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 void
 sge::opengl::state::ffp::transform::set_matrix_and_mode(
 	sge::opengl::context::system::object &_context,
-	sge::renderer::state::ffp::transform::mode::type const _mode,
+	sge::renderer::state::ffp::transform::mode const _mode,
 	sge::renderer::matrix4 const &_matrix
 )
 {

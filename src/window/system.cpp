@@ -28,7 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/window/object_fwd.hpp>
 #include <awl/window/event/processor_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 
 
 sge::window::system::system(
@@ -82,15 +81,9 @@ sge::window::system::create(
 			fcppt::make_unique_ptr<
 				sge::window::object
 			>(
-				fcppt::ref(
-					_awl_window
-				),
-				fcppt::ref(
-					_awl_window_event_processor
-				),
-				fcppt::ref(
-					awl_event_processor_
-				)
+				_awl_window,
+				_awl_window_event_processor,
+				awl_event_processor_
 			)
 		);
 }

@@ -26,10 +26,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/ffp/transform/make_actors.hpp>
 #include <sge/opengl/state/ffp/transform/set_matrix_and_mode.hpp>
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/matrix/transpose.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::opengl::state::ffp::transform::actor_vector const
@@ -42,12 +43,12 @@ sge::opengl::state::ffp::transform::make_actors(
 		fcppt::assign::make_container<
 			sge::opengl::state::ffp::transform::actor_vector
 		>(
-			std::tr1::bind(
+			std::bind(
 				&sge::opengl::state::ffp::transform::set_matrix_and_mode,
-				fcppt::ref(
+				std::ref(
 					_system_context
 				),
-				std::tr1::placeholders::_1,
+				std::placeholders::_1,
 				sge::opengl::context::use<
 					sge::opengl::matrix_context
 				>(

@@ -36,7 +36,7 @@ sge::plugin::detail::traits<
 		);
 }
 
-sge::plugin::capabilities::type
+sge::plugin::capabilities
 sge::plugin::detail::traits<
 	sge::audio::player
 >::plugin_type()

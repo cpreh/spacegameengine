@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENCL_CONTEXT_ERROR_CALLBACK_HPP_INCLUDED
 
 #include <sge/opencl/context/error_callback_type.hpp>
-#include <fcppt/function/object.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -32,7 +34,7 @@ namespace opencl
 namespace context
 {
 typedef
-fcppt::function::object<context::error_callback_type>
+std::function<context::error_callback_type>
 error_callback;
 }
 }

@@ -32,12 +32,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/optional_cache_ref.hpp>
 #include <sge/renderer/system.hpp>
+#include <fcppt/exception.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/log/activate_levels.hpp>
+#include <fcppt/log/level.hpp>
 #include <fcppt/mpl/for_each.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>

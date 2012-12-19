@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/base_fwd.hpp>
 #include <sge/opengl/context/make_object.hpp>
 #include <sge/opengl/context/object_decl.hpp>
-#include <fcppt/null_ptr.hpp>
 
 
 namespace sge
@@ -44,7 +43,7 @@ use_impl(
 	sge::opengl::context::object<
 		Domain
 	> &_object,
-	Parameter const &_parameter
+	Parameter &&_parameter
 )
 {
 	typedef sge::opengl::context::base<
@@ -60,7 +59,7 @@ use_impl(
 	return
 		ptr
 		!=
-		fcppt::null_ptr()
+		nullptr
 		?
 			static_cast<
 				Type &

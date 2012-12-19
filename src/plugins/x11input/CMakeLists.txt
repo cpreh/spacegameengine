@@ -51,7 +51,7 @@ set(
 	src/plugins/x11input/include/sge/x11input/device/manager/config.hpp
 	src/plugins/x11input/include/sge/x11input/device/manager/config_base.hpp
 	src/plugins/x11input/include/sge/x11input/device/manager/config_base_fwd.hpp
-	src/plugins/x11input/include/sge/x11input/device/manager/config_base_ptr.hpp
+	src/plugins/x11input/include/sge/x11input/device/manager/config_base_unique_ptr.hpp
 	src/plugins/x11input/include/sge/x11input/device/manager/config_impl.hpp
 	src/plugins/x11input/include/sge/x11input/device/manager/config_map.hpp
 	src/plugins/x11input/include/sge/x11input/device/manager/make_config.hpp
@@ -68,7 +68,6 @@ set(
 	src/plugins/x11input/include/sge/x11input/device/select_events.hpp
 	src/plugins/x11input/include/sge/x11input/device/use.hpp
 	src/plugins/x11input/include/sge/x11input/device/valuator_callback.hpp
-	src/plugins/x11input/include/sge/x11input/device/valuator_callback_fwd.hpp
 	src/plugins/x11input/include/sge/x11input/device/valuator_index.hpp
 	src/plugins/x11input/include/sge/x11input/device/valuator_value.hpp
 	src/plugins/x11input/include/sge/x11input/device/window_demuxer.hpp

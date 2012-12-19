@@ -30,11 +30,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/vf/disable_vertex_attrib_array.hpp>
 #include <sge/opengl/vf/enable_texcoords.hpp>
 #include <sge/opengl/vf/enable_vertex_attrib_array.hpp>
-#include <fcppt/ref.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/bind.hpp>
 #include <algorithm>
+#include <functional>
 #include <iterator>
 #include <fcppt/config/external_end.hpp>
 
@@ -160,44 +158,38 @@ sge::opengl::vf::client_state_combiner::~client_state_combiner()
 	apply_difference(
 		old_states_.texture_states(),
 		new_states_.texture_states(),
-	//	std::tr1::bind(
-		boost::bind(
-			vf::enable_texcoords,
-			//fcppt::ref(
-			boost::ref(
+		std::bind(
+			sge::opengl::vf::enable_texcoords,
+			std::ref(
 				system_context_
 			),
-			//std::tr1::placeholders::_1
-			_1
+			std::placeholders::_1
 		),
-		//std::tr1::bind(
-		boost::bind(
-			vf::disable_texcoords,
-			//fcppt::ref(
-			boost::ref(
+		std::bind(
+			sge::opengl::vf::disable_texcoords,
+			std::ref(
 				system_context_
 			),
-			//std::tr1::placeholders::_1
-			_1
+			std::placeholders::_1
 		)
 	);
 
 	apply_difference(
 		old_states_.attribute_states(),
 		new_states_.attribute_states(),
-		std::tr1::bind(
-			vf::enable_vertex_attrib_array,
-			fcppt::ref(
+		std::bind(
+			sge::opengl::vf::enable_vertex_attrib_array,
+			std::ref(
 				attribute_context_
 			),
-			std::tr1::placeholders::_1
+			std::placeholders::_1
 		),
-		std::tr1::bind(
-			vf::disable_vertex_attrib_array,
-			fcppt::ref(
+		std::bind(
+			sge::opengl::vf::disable_vertex_attrib_array,
+			std::ref(
 				attribute_context_
 			),
-			std::tr1::placeholders::_1
+			std::placeholders::_1
 		)
 	);
 

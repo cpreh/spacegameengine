@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/visual/object.hpp>
 #include <awl/backends/x11/window/object.hpp>
-#include <fcppt/null_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <GL/glx.h>
@@ -48,7 +47,7 @@ sge::opengl::glx::context::context(
 			>(
 				&window_.visual().info()
 			),
-			fcppt::null_ptr(),
+			nullptr,
 			True
 		)
 	)
@@ -56,7 +55,7 @@ sge::opengl::glx::context::context(
 	if(
 		context_
 		==
-		fcppt::null_ptr()
+		nullptr
 	)
 		throw sge::renderer::exception(
 			FCPPT_TEXT("glXCreateContext() failed!")
@@ -87,7 +86,7 @@ sge::opengl::glx::context::deactivate()
 	sge::opengl::glx::make_current(
 		window_.display().get(),
 		None,
-		fcppt::null_ptr()
+		nullptr
 	);
 }
 

@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PROJECTILE_BODY_POSITION_CHANGE_HPP_INCLUDED
 
 #include <sge/projectile/body/position_change_fn.hpp>
-#include <fcppt/function/object.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -32,7 +34,7 @@ namespace projectile
 namespace body
 {
 typedef
-fcppt::function::object<position_change_fn>
+std::function<position_change_fn>
 position_change;
 }
 }

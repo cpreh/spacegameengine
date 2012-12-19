@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_STATE_BIND_DATA_GETTER_HPP_INCLUDED
 #define SGE_OPENGL_STATE_BIND_DATA_GETTER_HPP_INCLUDED
 
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/phoenix/bind/bind_member_function.hpp>
 #include <boost/phoenix/core/value.hpp>
+#include <functional>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -38,7 +38,7 @@ namespace state
 template<
 	typename Type
 >
-std::tr1::function<
+std::function<
 	typename Type::const_pointer ()
 > const
 bind_data_getter(

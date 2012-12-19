@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PROJECTILE_GHOST_BODY_EXIT_HPP_INCLUDED
 
 #include <sge/projectile/ghost/body_exit_fn.hpp>
-#include <fcppt/function/object.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -32,7 +34,7 @@ namespace projectile
 namespace ghost
 {
 typedef
-fcppt::function::object<body_exit_fn>
+std::function<body_exit_fn>
 body_exit;
 }
 }

@@ -138,12 +138,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/exception.hpp>
-#include <fcppt/ref.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/array_map.hpp>
-#include <fcppt/assign/make_array.hpp>
 #include <fcppt/assign/make_map.hpp>
 #include <fcppt/container/array.hpp>
 #include <fcppt/io/cerr.hpp>
@@ -154,7 +152,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/chrono/duration.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -228,179 +225,128 @@ fill_geometry(
 	sge::renderer::vertex_buffer &_vertex_buffer
 )
 {
-	pos_array const positions(
-		fcppt::assign::make_array<
-			pos_vector
-		>
+	pos_array const positions{{
 		// bottom 1
-		(
-			pos_vector(
-				-1,-1,-1
-			)
-		)(
-			pos_vector(
-				-1,-1,1
-			)
-		)(
-			pos_vector(
-				1,-1,1
-			)
-		)
+		pos_vector(
+			-1,-1,-1
+		),
+		pos_vector(
+			-1,-1,1
+		),
+		pos_vector(
+			1,-1,1
+		),
 		// bottom 2
-		(
-			pos_vector(
-				1,-1,1
-			)
-		)(
-			pos_vector(
-				1,-1,-1
-			)
-		)(
-			pos_vector(
-				-1,-1,-1
-			)
-		)
+		pos_vector(
+			1,-1,1
+		),
+		pos_vector(
+			1,-1,-1
+		),
+		pos_vector(
+			-1,-1,-1
+		),
 		// top 1
-		(
-			pos_vector(
-				-1,1,-1
-			)
-		)(
-			pos_vector(
-				1,1,-1
-			)
-		)(
-			pos_vector(
-				1,1,1
-			)
-		)
+		pos_vector(
+			-1,1,-1
+		),
+		pos_vector(
+			1,1,-1
+		),
+		pos_vector(
+			1,1,1
+		),
 		// top 2
-		(
-			pos_vector(
-				1,1,1
-			)
-		)(
-			pos_vector(
-				-1,1,1
-			)
-		)(
-			pos_vector(
-				-1,1,-1
-			)
-		)
+		pos_vector(
+			1,1,1
+		),
+		pos_vector(
+			-1,1,1
+		),
+		pos_vector(
+			-1,1,-1
+		),
 		// left 1
-		(
-			pos_vector(
-				-1,-1,-1
-			)
-		)(
-			pos_vector(
-				-1,1,-1
-			)
-		)(
-			pos_vector(
-				-1,1,1
-			)
-		)
+		pos_vector(
+			-1,-1,-1
+		),
+		pos_vector(
+			-1,1,-1
+		),
+		pos_vector(
+			-1,1,1
+		),
 		// left 2
-		(
-			pos_vector(
-				-1,1,1
-			)
-		)(
-			pos_vector(
-				-1,-1,1
-			)
-		)(
-			pos_vector(
-				-1,-1,-1
-			)
-		)
+		pos_vector(
+			-1,1,1
+		),
+		pos_vector(
+			-1,-1,1
+		),
+		pos_vector(
+			-1,-1,-1
+		),
 		// right 1
-		(
-			pos_vector(
-				1,-1,-1
-			)
-		)(
-			pos_vector(
-				1,-1,1
-			)
-		)(
-			pos_vector(
-				1,1,1
-			)
-		)
+		pos_vector(
+			1,-1,-1
+		),
+		pos_vector(
+			1,-1,1
+		),
+		pos_vector(
+			1,1,1
+		),
 		// right 2
-		(
-			pos_vector(
-				1,1,1
-			)
-		)(
-			pos_vector(
-				1,1,-1
-			)
-		)(
-			pos_vector(
-				1,-1,-1
-			)
-		)
+		pos_vector(
+			1,1,1
+		),
+		pos_vector(
+			1,1,-1
+		),
+		pos_vector(
+			1,-1,-1
+		),
 		// front 1
-		(
-			pos_vector(
-				-1,-1,1
-			)
-		)(
-			pos_vector(
-				-1,1,1
-			)
-		)(
-			pos_vector(
-				1,1,1
-			)
-		)
+		pos_vector(
+			-1,-1,1
+		),
+		pos_vector(
+			-1,1,1
+		),
+		pos_vector(
+			1,1,1
+		),
 		// front 2
-		(
-			pos_vector(
-				1,1,1
-			)
-		)(
-			pos_vector(
-				1,-1,1
-			)
-		)(
-			pos_vector(
-				-1,-1,1
-			)
-		)
+		pos_vector(
+			1,1,1
+		),
+		pos_vector(
+			1,-1,1
+		),
+		pos_vector(
+			-1,-1,1
+		),
 		// back 1
-		(
-			pos_vector(
-				-1,-1,-1
-			)
-		)(
-			pos_vector(
-				1,-1,-1
-			)
-		)(
-			pos_vector(
-				1,1,-1
-			)
-		)
+		pos_vector(
+			-1,-1,-1
+		),
+		pos_vector(
+			1,-1,-1
+		),
+		pos_vector(
+			1,1,-1
+		),
 		// back 2
-		(
-			pos_vector(
-				1,1,-1
-			)
-		)(
-			pos_vector(
-				-1,1,-1
-			)
-		)(
-			pos_vector(
-				-1,-1,-1
-			)
+		pos_vector(
+			1,1,-1
+		),
+		pos_vector(
+			-1,1,-1
+		),
+		pos_vector(
+			-1,-1,-1
 		)
-	);
+	}};
 
 	sge::renderer::scoped_vertex_lock const vb_lock(
 		_vertex_buffer,
@@ -819,14 +765,14 @@ try
 			sge::renderer::texture::stage(
 				0u
 			),
-			fcppt::cref(
+			fcppt::make_cref(
 				*sampler_state
 			)
 		)(
 			sge::renderer::texture::stage(
 				1u
 			),
-			fcppt::cref(
+			fcppt::make_cref(
 				*sampler_state
 			)
 		)

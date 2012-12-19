@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/opencl/event/flatten_sequence.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/move.hpp>
 #include <fcppt/optional.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre.hpp>
@@ -36,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -134,7 +134,7 @@ enqueue_kernel_internal(
 		FCPPT_TEXT("clEnqueueNDRangeKernel(work)"));
 
 	return
-		fcppt::move(
+		std::move(
 			result);
 }
 

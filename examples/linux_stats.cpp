@@ -76,8 +76,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/exception.hpp>
 #include <fcppt/extract_from_string_exn.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/move.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assert/pre.hpp>
@@ -97,8 +95,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fstream>
 #include <ios>
 #include <iostream>
+#include <memory>
 #include <numeric>
 #include <string>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -230,13 +230,13 @@ graph_with_label
 {
 
 	graph_with_label(
-		fcppt::unique_ptr<sge::graph::object> _graph,
-		fcppt::unique_ptr<sge::font::draw::static_text> _label)
+		std::unique_ptr<sge::graph::object> _graph,
+		std::unique_ptr<sge::font::draw::static_text> _label)
 	:
 	graph_(
-		fcppt::move(_graph)),
+		std::move(_graph)),
 	label_(
-		fcppt::move(_label))
+		std::move(_label))
 	{}
 
 	sge::graph::object &
@@ -251,8 +251,8 @@ graph_with_label
 		return *label_;
 	}
 
-	fcppt::unique_ptr<sge::graph::object> graph_;
-	fcppt::unique_ptr<sge::font::draw::static_text> label_;
+	std::unique_ptr<sge::graph::object> graph_;
+	std::unique_ptr<sge::font::draw::static_text> label_;
 };
 
 double
@@ -563,7 +563,7 @@ try
 							)),
 					fcppt::math::dim::structure_cast<sge::image2d::dim>(
 						graph_dim),
-					fcppt::ref(sys.renderer_ffp()),
+					sys.renderer_ffp(),
 					sge::graph::baseline(
 						0.0),
 					sge::graph::optional_axis_constraint(),
@@ -572,8 +572,8 @@ try
 				fcppt::make_unique_ptr<
 					sge::font::draw::static_text
 				>(
-					fcppt::ref(sys.renderer_ffp()),
-					fcppt::ref(*font),
+					sys.renderer_ffp(),
+					*font,
 					sge::font::from_fcppt_string(
 						fcppt::from_std_string(
 							*it

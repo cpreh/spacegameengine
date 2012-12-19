@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CONSOLE_CALLBACK_FUNCTION_HPP_INCLUDED
 
 #include <sge/console/callback/function_type.hpp>
-#include <fcppt/function/object.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -33,9 +35,9 @@ namespace callback
 {
 
 typedef
-fcppt::function::object
+std::function
 <
-	callback::function_type
+	sge::console::callback::function_type
 >
 function;
 

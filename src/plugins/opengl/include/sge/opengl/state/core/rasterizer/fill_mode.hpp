@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_STATE_CORE_RASTERIZER_FILL_MODE_HPP_INCLUDED
 #define SGE_OPENGL_STATE_CORE_RASTERIZER_FILL_MODE_HPP_INCLUDED
 
-#include <sge/opengl/state/actor_fwd.hpp>
+#include <sge/opengl/state/actor.hpp>
 #include <sge/renderer/state/core/rasterizer/fill_mode.hpp>
 
 

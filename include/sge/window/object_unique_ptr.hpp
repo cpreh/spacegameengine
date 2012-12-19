@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_WINDOW_OBJECT_UNIQUE_PTR_HPP_INCLUDED
 
 #include <sge/window/object_fwd.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -30,8 +32,8 @@ namespace sge
 namespace window
 {
 
-typedef fcppt::unique_ptr<
-	window::object
+typedef std::unique_ptr<
+	sge::window::object
 > object_unique_ptr;
 
 }

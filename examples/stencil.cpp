@@ -113,7 +113,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/make_shared_ptr.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/io/cerr.hpp>
@@ -334,9 +333,7 @@ try
 			fcppt::make_shared_ptr<
 				sge::texture::part_raw_ref
 			>(
-				fcppt::ref(
-					*texture_grass
-				)
+				*texture_grass
 			)
 		)
 		// The sprite will get the texture's size.
@@ -356,9 +353,7 @@ try
 			fcppt::make_shared_ptr<
 				sge::texture::part_raw_ref
 			>(
-				fcppt::ref(
-					*texture_cloudsquare
-				)
+				*texture_cloudsquare
 			)
 		)
 		.texture_size()

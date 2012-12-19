@@ -27,9 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/object.hpp>
 #include <sge/src/input/multi_processor.hpp>
 #include <sge/src/input/multi_system.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 
 
@@ -82,15 +80,9 @@ sge::input::multi_system::create_processor(
 			fcppt::make_unique_ptr<
 				sge::input::multi_processor
 			>(
-				fcppt::cref(
-					_window
-				),
-				fcppt::cref(
-					_window_system
-				),
-				fcppt::ref(
-					systems_
-				)
+				_window,
+				_window_system,
+				systems_
 			)
 		);
 }

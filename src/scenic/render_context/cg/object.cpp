@@ -20,6 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/context/core.hpp>
+#include <sge/renderer/state/core/sampler/const_object_ref.hpp>
+#include <sge/renderer/state/core/sampler/const_object_ref_map.hpp>
 #include <sge/scenic/index_buffer_range.hpp>
 #include <sge/scenic/render_context/cg/manager.hpp>
 #include <sge/scenic/render_context/cg/object.hpp>
@@ -28,7 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/render_context/fog/properties.hpp>
 #include <sge/scenic/render_context/material/object.hpp>
 #include <sge/src/scenic/render_context/cg/any_color_to_vector4.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/assign/make_map.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/matrix/inverse.hpp>
@@ -69,14 +70,14 @@ sge::scenic::render_context::cg::object::object(
 				//manager_.diffuse_texture_.stage(),
 				sge::renderer::texture::stage(
 					0u),
-				fcppt::cref(
+				sge::renderer::state::core::sampler::const_object_ref(
 					*manager_.mipmap_sampler_state_))
 			(
 				// I'd love to write this, but for this, the texture would have to be scoped, which it isn't yet
 				//manager_.specular_texture_.stage(),
 				sge::renderer::texture::stage(
 					1u),
-				fcppt::cref(
+				sge::renderer::state::core::sampler::const_object_ref(
 					*manager_.mipmap_sampler_state_))),
 	current_world_(),
 	current_projection_(),

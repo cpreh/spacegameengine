@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/muxer.hpp>
 #include <sge/media/optional_extension.hpp>
 #include <sge/src/media/detail/muxer_impl.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -48,9 +47,7 @@ sge::media::muxer<
 		fcppt::make_unique_ptr<
 			muxer_impl
 		>(
-			fcppt::cref(
-				_parameters
-			)
+			_parameters
 		)
 	)
 {

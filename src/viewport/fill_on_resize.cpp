@@ -23,15 +23,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/viewport/fill_on_resize.hpp>
 #include <sge/viewport/resize_callback.hpp>
 #include <sge/window/dim.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::viewport::resize_callback const
 sge::viewport::fill_on_resize()
 {
 	return
-		std::tr1::bind(
+		std::bind(
 			&viewport::fill_on_resize_function,
-			std::tr1::placeholders::_1
+			std::placeholders::_1
 		);
 }

@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/logger.hpp>
 #include <awl/backends/x11/display.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/log/info.hpp>
@@ -45,12 +44,10 @@ sge::opengl::glx::vsync(
 			sge::opengl::glx::swap_context
 		>(
 			_system_context,
-			fcppt::cref(
-				sge::opengl::context::use<
-					sge::opengl::glx::proc_context
-				>(
-					_system_context
-				)
+			sge::opengl::context::use<
+				sge::opengl::glx::proc_context
+			>(
+				_system_context
 			)
 		)
 	);

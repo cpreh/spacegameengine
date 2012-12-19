@@ -29,15 +29,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/path.hpp>
 #include <sge/parse/json/path_to_string.hpp>
 #include <sge/parse/json/value.hpp>
-#include <fcppt/optional.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name.hpp>
 #include <fcppt/assert/error.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/variant/holds_type.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <functional>
 #include <numeric>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -121,9 +121,9 @@ sge::parse::json::make_recursive_objects(
 			_input_path.begin(),
 			_input_path.end(),
 			&_input_object,
-			std::tr1::bind(
+			std::bind(
 				&create_or_navigate_path,
 				_input_path,
-				std::tr1::placeholders::_1,
-				std::tr1::placeholders::_2));
+				std::placeholders::_1,
+				std::placeholders::_2));
 }

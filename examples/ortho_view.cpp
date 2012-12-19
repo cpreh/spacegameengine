@@ -109,17 +109,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/log/activate_levels.hpp>
+#include <fcppt/log/level.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <example_main.hpp>
 #include <exception>
+#include <functional>
 #include <iostream>
 #include <ostream>
 #include <fcppt/config/external_end.hpp>
@@ -332,10 +332,10 @@ try
 
 	fcppt::signal::scoped_connection const grab_connection(
 		sys.keyboard_collector().key_callback(
-			std::tr1::bind(
+			std::bind(
 				&g_key_callback,
-				std::tr1::placeholders::_1,
-				fcppt::ref(
+				std::placeholders::_1,
+				std::ref(
 					sys.cursor_demuxer()))));
 
 	sge::timer::basic<sge::timer::clocks::standard> camera_timer(

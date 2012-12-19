@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/symbol.hpp>
 #include <sge/input/system_fwd.hpp>
 #include <sge/input/system_unique_ptr.hpp>
-#include <sge/plugin/capabilities.hpp>
+#include <sge/plugin/capabilities_fwd.hpp>
 #include <sge/plugin/detail/address_name.hpp>
 #include <sge/plugin/detail/traits.hpp>
 
@@ -48,7 +48,7 @@ struct traits<
 
 	SGE_INPUT_SYMBOL
 	static
-	sge::plugin::capabilities::type
+	sge::plugin::capabilities
 	plugin_type();
 
 	typedef sge::input::system_unique_ptr(

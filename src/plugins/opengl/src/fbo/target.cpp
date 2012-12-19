@@ -50,15 +50,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/offscreen.hpp>
 #include <sge/renderer/target/surface_index.hpp>
 #include <sge/renderer/target/viewport.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/format.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/move.hpp>
 #include <fcppt/optional_impl.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::opengl::fbo::target::target(
@@ -300,12 +299,8 @@ sge::opengl::fbo::target::create_texture_binding(
 		fcppt::make_unique_ptr<
 			sge::opengl::fbo::texture_binding
 		>(
-			fcppt::ref(
-				context_
-			),
-			fcppt::ref(
-				_surface
-			),
+			context_,
+			_surface,
 			_attachment
 		)
 	);
@@ -313,7 +308,7 @@ sge::opengl::fbo::target::create_texture_binding(
 	this->check();
 
 	return
-		fcppt::move(
+		std::move(
 			ret
 		);
 }
@@ -326,14 +321,10 @@ sge::opengl::fbo::target::create_buffer_binding(
 {
 	attachment_unique_ptr ret(
 		fcppt::make_unique_ptr<
-			fbo::render_buffer_binding
+			sge::opengl::fbo::render_buffer_binding
 		>(
-			fcppt::ref(
-				context_
-			),
-			fcppt::cref(
-				_buffer
-			),
+			context_,
+			_buffer,
 			_attachment
 		)
 	);
@@ -341,7 +332,7 @@ sge::opengl::fbo::target::create_buffer_binding(
 	this->check();
 
 	return
-		fcppt::move(
+		std::move(
 			ret
 		);
 }

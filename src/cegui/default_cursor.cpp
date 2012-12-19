@@ -26,7 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
 
 FCPPT_PP_PUSH_WARNING
@@ -39,22 +41,22 @@ sge::cegui::default_cursor::default_cursor(
 		_syringe),
 	button_connection_(
 		_cursor.button_callback(
-			std::tr1::bind(
+			std::bind(
 				&default_cursor::button_callback,
 				this,
-				std::tr1::placeholders::_1))),
+				std::placeholders::_1))),
 	move_connection_(
 		_cursor.move_callback(
-			std::tr1::bind(
+			std::bind(
 				&default_cursor::move_callback,
 				this,
-				std::tr1::placeholders::_1))),
+				std::placeholders::_1))),
 	scroll_connection_(
 		_cursor.scroll_callback(
-			std::tr1::bind(
+			std::bind(
 				&default_cursor::scroll_callback,
 				this,
-				std::tr1::placeholders::_1)))
+				std::placeholders::_1)))
 {
 	sge::input::cursor::optional_position const pos(
 		_cursor.position());

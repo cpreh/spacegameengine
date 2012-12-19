@@ -21,8 +21,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_VIEWPORT_RESIZE_CALLBACK_HPP_INCLUDED
 #define SGE_VIEWPORT_RESIZE_CALLBACK_HPP_INCLUDED
 
-#include <sge/viewport/resize_callback_fwd.hpp>
-#include <fcppt/function/object.hpp>
+#include <sge/viewport/resize_function.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
+
+namespace sge
+{
+namespace viewport
+{
+
+typedef std::function<
+	sge::viewport::resize_function
+> resize_callback;
+
+}
+}
 
 #endif

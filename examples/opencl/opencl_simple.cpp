@@ -80,7 +80,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/dynamic_pointer_cast.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/from_std_string.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
@@ -94,7 +93,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/math/vector/output.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/algorithm/string/join.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -105,6 +103,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <cstddef>
 #include <cstdlib>
 #include <cstring>
+#include <functional>
 #include <iostream>
 #include <limits>
 #include <ostream>
@@ -183,9 +182,9 @@ try
 	sge::log::global_context().apply(
 		fcppt::log::location(
 			FCPPT_TEXT("opencl")),
-		std::tr1::bind(
+		std::bind(
 			&fcppt::log::activate_levels,
-			std::tr1::placeholders::_1,
+			std::placeholders::_1,
 			fcppt::log::level::verbose));
 
 	sge::opencl::system opencl_system;
@@ -439,9 +438,9 @@ try
 	main_program.build(
 		sge::opencl::program::build_parameters()
 			.notification_callback(
-				std::tr1::bind(
+				std::bind(
 					&program_build_finished,
-					fcppt::ref(
+					std::ref(
 						build_finished))));
 
 	std::cout << "Waiting for build completion\n";

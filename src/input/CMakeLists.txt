@@ -9,6 +9,7 @@ set(
 	include/sge/input/cursor/button_function.hpp
 	include/sge/input/cursor/button_signal.hpp
 	include/sge/input/cursor/choose_callback.hpp
+	include/sge/input/cursor/choose_function.hpp
 	include/sge/input/cursor/default_choose.hpp
 	include/sge/input/cursor/demuxer.hpp
 	include/sge/input/cursor/demuxer_fwd.hpp

@@ -71,10 +71,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/cegui/vf/position.hpp>
 #include <sge/src/cegui/vf/texcoord.hpp>
 #include <sge/src/cegui/vf/vertex_view.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/null_ptr.hpp>
-#include <fcppt/ref.hpp>
+#include <fcppt/optional_ref_compare.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assert/pre.hpp>
@@ -117,7 +115,7 @@ sge::cegui::geometry_buffer::geometry_buffer(
 		_vertex_declaration
 	),
 	active_texture_(
-		fcppt::null_ptr()
+		nullptr
 	),
 	translation_(
 		sge::renderer::vector3::null()
@@ -141,7 +139,7 @@ sge::cegui::geometry_buffer::geometry_buffer(
 		true
 	),
 	render_effect_(
-		fcppt::null_ptr()
+		nullptr
 	),
 	rasterizer_scissor_on_(
 		renderer_.create_rasterizer_state(
@@ -308,9 +306,10 @@ sge::cegui::geometry_buffer::draw() const
 				);
 
 				if(
-					new_state
-					!=
-					prev_rasterizer
+					!fcppt::optional_ref_compare(
+						new_state,
+						prev_rasterizer
+					)
 				)
 				{
 					prev_rasterizer = new_state;
@@ -437,15 +436,9 @@ sge::cegui::geometry_buffer::appendGeometry(
 		fcppt::make_unique_ptr<
 			sge::cegui::batch
 		>(
-			fcppt::ref(
-				renderer_
-			),
-			fcppt::cref(
-				vertex_declaration_
-			),
-			fcppt::ref(
-				active_texture_->impl()
-			),
+			renderer_,
+			vertex_declaration_,
+			active_texture_->impl(),
 			sge::renderer::vertex_count(
 				_vertex_count
 			),
@@ -548,7 +541,7 @@ sge::cegui::geometry_buffer::reset()
 {
 	batches_.clear();
 
-	active_texture_ = fcppt::null_ptr();
+	active_texture_ = nullptr;
 }
 
 CEGUI::Texture *

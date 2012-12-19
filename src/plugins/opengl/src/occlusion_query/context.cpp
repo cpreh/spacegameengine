@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/make_id.hpp>
 #include <sge/opengl/convert/from_gl_bool.hpp>
 #include <sge/opengl/occlusion_query/context.hpp>
-#include <fcppt/null_ptr.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -49,42 +48,42 @@ sge::opengl::occlusion_query::context::context()
 		?
 			glGenQueries
 		:
-			fcppt::null_ptr()
+			nullptr
 	),
 	delete_queries_(
 		has_native_
 		?
 			glDeleteQueries
 		:
-			fcppt::null_ptr()
+			nullptr
 	),
 	begin_query_(
 		has_native_
 		?
 			glBeginQuery
 		:
-			fcppt::null_ptr()
+			nullptr
 	),
 	end_query_(
 		has_native_
 		?
 			glEndQuery
 		:
-			fcppt::null_ptr()
+			nullptr
 	),
 	get_query_object_iv_(
 		has_native_
 		?
 			glGetQueryObjectiv
 		:
-			fcppt::null_ptr()
+			nullptr
 	),
 	get_query_object_uiv_(
 		has_native_
 		?
 			glGetQueryObjectuiv
 		:
-			fcppt::null_ptr()
+			nullptr
 	),
 	samples_target_(
 		has_native_

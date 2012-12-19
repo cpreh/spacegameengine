@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MODEL_MD3_LOADER_UNIQUE_PTR_HPP_INCLUDED
 
 #include <sge/model/md3/loader_fwd.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -33,7 +35,7 @@ namespace md3
 {
 
 typedef
-fcppt::unique_ptr<
+std::unique_ptr<
 	sge::model::md3::loader
 >
 loader_unique_ptr;

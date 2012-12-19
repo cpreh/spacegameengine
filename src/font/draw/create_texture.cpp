@@ -35,8 +35,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/part.hpp>
 #include <sge/texture/part_unique_ptr.hpp>
 #include <sge/texture/wrap_npot.hpp>
-#include <fcppt/move.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::texture::part_unique_ptr
@@ -91,7 +93,7 @@ sge::font::draw::create_texture(
 	}
 
 	return
-		fcppt::move(
+		std::move(
 			result
 		);
 }

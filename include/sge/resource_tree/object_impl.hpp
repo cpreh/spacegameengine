@@ -32,7 +32,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/resource_tree/detail/strip_path_prefix.hpp>
 #include <sge/resource_tree/detail/sub_path.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/copy_if.hpp>
 #include <fcppt/assert/pre.hpp>
@@ -151,8 +150,7 @@ sge::resource_tree::object<
 				_base_path,
 				_sub_path),
 			resources,
-			fcppt::ref(
-				_random_generator)));
+			_random_generator));
 }
 
 template<

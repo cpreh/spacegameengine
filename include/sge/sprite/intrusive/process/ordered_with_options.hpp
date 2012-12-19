@@ -31,11 +31,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/options_impl.hpp>
 #include <sge/sprite/state/render_context.hpp>
 #include <sge/sprite/state/scoped_impl.hpp>
-#include <fcppt/cref.hpp>
-#include <fcppt/ref.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
+#include <functional>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -104,7 +102,7 @@ ordered_with_options(
 	);
 
 	_collection.for_each(
-		std::tr1::bind(
+		std::bind(
 			sge::sprite::intrusive::detail::render_one<
 				Options,
 				typename sge::sprite::state::render_context<
@@ -114,16 +112,16 @@ ordered_with_options(
 				Compare,
 				typename collection::range_type
 			>,
-			fcppt::ref(
+			std::ref(
 				_render_context
 			),
-			fcppt::ref(
+			std::ref(
 				_buffers
 			),
-			fcppt::cref(
+			std::cref(
 				_compare
 			),
-			std::tr1::placeholders::_1
+			std::placeholders::_1
 		)
 	);
 }

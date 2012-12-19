@@ -32,10 +32,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/joypad/remove_callback.hpp>
 #include <sge/input/joypad/remove_event_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/function/object.hpp>
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/ptr_container/ptr_map.hpp>
+#include <functional>
+#include <unordered_map>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -52,32 +52,32 @@ class manager
 		manager
 	);
 public:
-	typedef fcppt::function::object<
+	typedef std::function<
 		void (
-			joypad::device &,
-			joypad::absolute_axis_event const &
+			sge::input::joypad::device &,
+			sge::input::joypad::absolute_axis_event const &
 		)
 	> absolute_axis_callback;
 
-	typedef fcppt::function::object<
+	typedef std::function<
 		void (
-			joypad::device &,
-			joypad::button_event const &
+			sge::input::joypad::device &,
+			sge::input::joypad::button_event const &
 		)
 	> button_callback;
 
-	typedef fcppt::function::object<
+	typedef std::function<
 		void (
-			joypad::device &,
-			joypad::relative_axis_event const &
+			sge::input::joypad::device &,
+			sge::input::joypad::relative_axis_event const &
 		)
 	> relative_axis_callback;
 
 	SGE_INPUT_SYMBOL
 	manager(
-		input::processor &,
-		input::joypad::discover_callback const &,
-		input::joypad::remove_callback const &,
+		sge::input::processor &,
+		sge::input::joypad::discover_callback const &,
+		sge::input::joypad::remove_callback const &,
 		absolute_axis_callback const &,
 		button_callback const &,
 		relative_axis_callback const &
@@ -88,24 +88,24 @@ public:
 private:
 	void
 	discover(
-		input::joypad::discover_event const &
+		sge::input::joypad::discover_event const &
 	);
 
 	void
 	remove(
-		input::joypad::remove_event const &
+		sge::input::joypad::remove_event const &
 	);
 
-	typedef boost::ptr_map<
-		joypad::device *,
+	typedef std::unordered_map<
+		sge::input::joypad::device *,
 		fcppt::signal::connection_manager
 	> joypad_map;
 
 	joypad_map devices_;
 
-	input::joypad::discover_callback const discover_callback_;
+	sge::input::joypad::discover_callback const discover_callback_;
 
-	input::joypad::remove_callback const remove_callback_;
+	sge::input::joypad::remove_callback const remove_callback_;
 
 	absolute_axis_callback const absolute_axis_callback_;
 

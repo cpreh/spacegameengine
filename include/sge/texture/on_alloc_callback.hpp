@@ -18,32 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RESOURCE_TREE_PATH_TO_RESOURCE_FUNCTION_FWD_HPP_INCLUDED
-#define SGE_RESOURCE_TREE_PATH_TO_RESOURCE_FUNCTION_FWD_HPP_INCLUDED
+#ifndef SGE_TEXTURE_ON_ALLOC_CALLBACK_HPP_INCLUDED
+#define SGE_TEXTURE_ON_ALLOC_CALLBACK_HPP_INCLUDED
 
-#include <fcppt/function/object_fwd.hpp>
+#include <sge/texture/on_alloc_function.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <functional>
 #include <fcppt/config/external_end.hpp>
 
 
 namespace sge
 {
-namespace resource_tree
+namespace texture
 {
-template<
-	typename T
->
-struct path_to_resource_function
-{
-	typedef
-	fcppt::function::object<
-		T (
-			boost::filesystem::path const &
-		)
-	>
-	type;
-};
+
+typedef std::function<
+	sge::texture::on_alloc_function
+> on_alloc_callback;
+
 }
 }
 

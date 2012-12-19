@@ -36,7 +36,7 @@ sge::plugin::detail::traits<
 		);
 }
 
-sge::plugin::capabilities::type
+sge::plugin::capabilities
 sge::plugin::detail::traits<
 	sge::image2d::system
 >::plugin_type()

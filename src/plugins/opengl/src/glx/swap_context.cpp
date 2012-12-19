@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/make_id.hpp>
 #include <sge/opengl/glx/proc_address.hpp>
 #include <sge/opengl/glx/swap_context.hpp>
-#include <fcppt/null_ptr.hpp>
 
 
 sge::opengl::glx::swap_context::swap_context(
@@ -65,11 +64,11 @@ sge::opengl::glx::swap_context::swap_interval_supported() const
 	return
 		swap_interval_sgi_
 		!=
-		fcppt::null_ptr()
+		nullptr
 		||
 		swap_interval_ext_
 		!=
-		fcppt::null_ptr()
+		nullptr
 		;
 }
 

@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cg/program/compile_options.hpp>
 #include <sge/opengl/cg/program/optimal_options.hpp>
 #include <sge/renderer/exception.hpp>
-#include <fcppt/null_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -61,7 +60,7 @@ sge::opengl::cg::program::optimal_options(
 	FCPPT_ASSERT_ERROR(
 		ret
 		!=
-		fcppt::null_ptr()
+		nullptr
 	);
 
 	return

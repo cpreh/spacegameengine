@@ -27,7 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
 
 FCPPT_PP_PUSH_WARNING
@@ -41,10 +43,10 @@ sge::camera::ortho_freelook::projection_rectangle_from_viewport::projection_rect
 		_camera),
 	viewport_callback_connection_(
 		_viewport_manager.manage_callback(
-			std::tr1::bind(
+			std::bind(
 				&projection_rectangle_from_viewport::viewport_callback,
 				this,
-				std::tr1::placeholders::_1)))
+				std::placeholders::_1)))
 {
 }
 

@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/config/is_choices.hpp>
 #include <sge/sprite/intrusive/collection_fwd.hpp>
-#include <fcppt/static_assert_statement.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/ptr_container/ptr_map.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -44,10 +43,11 @@ template<
 >
 struct ordered_map
 {
-	FCPPT_STATIC_ASSERT_STATEMENT(
+	static_assert(
 		sge::sprite::config::is_choices<
 			Choices
-		>::value
+		>::value,
+		"Choices must be a sprite choices type"
 	);
 
 	typedef boost::ptr_map<

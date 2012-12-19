@@ -43,7 +43,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/static_assert_statement.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/is_sequence.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -63,16 +62,18 @@ class instance
 		instance
 	);
 
-	FCPPT_STATIC_ASSERT_STATEMENT(
+	static_assert(
 		boost::mpl::is_sequence<
 			Choices
-		>::value
+		>::value,
+		"Choices must be an mpl sequence"
 	);
 
-	FCPPT_STATIC_ASSERT_STATEMENT(
+	static_assert(
 		sge::systems::detail::assert_dependencies<
 			Choices
-		>::value
+		>::value,
+		"systems::instance dependencies are not met"
 	);
 public:
 	template<

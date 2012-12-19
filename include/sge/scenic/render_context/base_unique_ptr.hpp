@@ -22,7 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SCENIC_RENDER_CONTEXT_BASE_UNIQUE_PTR_HPP_INCLUDED
 
 #include <sge/scenic/render_context/base_fwd.hpp>
-#include <fcppt/unique_ptr.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {
@@ -31,7 +34,7 @@ namespace scenic
 namespace render_context
 {
 typedef
-fcppt::unique_ptr
+std::unique_ptr
 <
 	sge::scenic::render_context::base
 >

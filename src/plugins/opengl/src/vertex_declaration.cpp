@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <sge/renderer/vf/dynamic/part_list.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 
 
@@ -58,12 +57,8 @@ sge::opengl::vertex_declaration::vertex_declaration(
 			fcppt::make_unique_ptr<
 				sge::opengl::vf::part
 			>(
-				fcppt::ref(
-					_system_context
-				),
-				fcppt::ref(
-					_device_context
-				),
+				_system_context,
+				_device_context,
 				*it
 			)
 		);

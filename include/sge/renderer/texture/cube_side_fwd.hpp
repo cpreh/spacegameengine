@@ -18,27 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_DEVICE_VALUATOR_CALLBACK_FWD_HPP_INCLUDED
-#define SGE_X11INPUT_DEVICE_VALUATOR_CALLBACK_FWD_HPP_INCLUDED
-
-#include <sge/x11input/device/valuator_index.hpp>
-#include <sge/x11input/device/valuator_value.hpp>
-#include <fcppt/function/object_fwd.hpp>
+#ifndef SGE_RENDERER_TEXTURE_CUBE_SIDE_FWD_HPP_INCLUDED
+#define SGE_RENDERER_TEXTURE_CUBE_SIDE_FWD_HPP_INCLUDED
 
 
 namespace sge
 {
-namespace x11input
+namespace renderer
 {
-namespace device
+namespace texture
 {
 
-typedef fcppt::function::object<
-	void (
-		sge::x11input::device::valuator_index,
-		sge::x11input::device::valuator_value
-	)
-> valuator_callback;
+enum class cube_side;
 
 }
 }

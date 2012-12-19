@@ -42,6 +42,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/state/core/sampler/const_object_ref.hpp>
+#include <sge/renderer/state/core/sampler/const_object_ref_map.hpp>
 #include <sge/renderer/state/core/sampler/parameters.hpp>
 #include <sge/renderer/state/core/sampler/address/default.hpp>
 #include <sge/renderer/state/core/sampler/scoped.hpp>
@@ -55,10 +57,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/shader/scoped_pair.hpp>
 #include <sge/viewport/manager.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/move.hpp>
 #include <fcppt/optional_impl.hpp>
-#include <fcppt/ref.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/assign/make_map.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
@@ -68,7 +67,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/connection.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 FCPPT_PP_PUSH_WARNING
@@ -110,7 +112,7 @@ sge::postprocessing::context::context(
 		sge::shader::parameter::planar_texture::optional_value()),
 	viewport_connection_(
 		_viewport_manager.manage_callback(
-			std::tr1::bind(
+			std::bind(
 				&sge::postprocessing::context::viewport_callback,
 				this))),
 	rendering_result_texture_(),
@@ -138,10 +140,8 @@ sge::postprocessing::context::create_render_context()
 
 	return
 		fcppt::make_unique_ptr<sge::renderer::context::scoped_core>(
-			fcppt::ref(
-				renderer_),
-			fcppt::ref(
-				*offscreen_target_));
+			renderer_,
+			*offscreen_target_);
 }
 
 void
@@ -394,10 +394,8 @@ sge::postprocessing::context::finalize()
 {
 	sge::renderer::context::scoped_core_unique_ptr result(
 		fcppt::make_unique_ptr<sge::renderer::context::scoped_core>(
-			fcppt::ref(
-				renderer_),
-			fcppt::ref(
-				renderer_.onscreen_target())));
+			renderer_,
+			renderer_.onscreen_target()));
 
 	sge::shader::scoped_pair scoped_shader(
 		result->get(),
@@ -408,7 +406,7 @@ sge::postprocessing::context::finalize()
 		fcppt::assign::make_map<sge::renderer::state::core::sampler::const_object_ref_map>
 			(
 				finalize_input_texture_parameter_.stage(),
-				fcppt::cref(
+				sge::renderer::state::core::sampler::const_object_ref(
 					*point_sampler_)));
 
 	/*
@@ -422,7 +420,7 @@ sge::postprocessing::context::finalize()
 		result->get());
 
 	return
-		fcppt::move(
+		std::move(
 			result);
 }
 

@@ -28,5 +28,5 @@ template
 class
 sge::opengl::state::unary_object<
 	sge::renderer::state::ffp::transform::object,
-	sge::renderer::state::ffp::transform::mode::type
+	sge::renderer::state::ffp::transform::mode
 >;

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_DEVICE_MANAGER_CONFIG_MAP_HPP_INCLUDED
 
 #include <sge/x11input/device/use.hpp>
-#include <sge/x11input/device/manager/config_base_ptr.hpp>
+#include <sge/x11input/device/manager/config_base_unique_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <map>
 #include <fcppt/config/external_end.hpp>
@@ -38,8 +38,8 @@ namespace manager
 {
 
 typedef std::multimap<
-	x11input::device::use,
-	x11input::device::manager::config_base_ptr
+	sge::x11input::device::use,
+	sge::x11input::device::manager::config_base_unique_ptr
 > config_map;
 
 }

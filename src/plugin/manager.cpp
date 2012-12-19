@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/optional_cache_ref_fwd.hpp>
 #include <sge/plugin/library/symbol_not_found.hpp>
 #include <sge/src/plugin/context_base.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/foreach_enumerator.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -101,9 +100,7 @@ sge::plugin::manager::manager(
 				fcppt::make_unique_ptr<
 					sge::plugin::context_base
 				>(
-					fcppt::cref(
-						_cache
-					),
+					_cache,
 					it->path()
 				)
 			);

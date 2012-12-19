@@ -22,7 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_TEXTURE_LOCK_BASE_UNIQUE_PTR_HPP_INCLUDED
 
 #include <sge/opengl/texture/lock_base_fwd.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {
@@ -31,8 +34,8 @@ namespace opengl
 namespace texture
 {
 
-typedef fcppt::unique_ptr<
-	texture::lock_base
+typedef std::unique_ptr<
+	sge::opengl::texture::lock_base
 > lock_base_unique_ptr;
 
 }

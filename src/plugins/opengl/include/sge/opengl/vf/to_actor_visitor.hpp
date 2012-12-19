@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_VF_TO_ACTOR_VISITOR_HPP_INCLUDED
 
 #include <sge/opengl/vf/actor_parameters.hpp>
-#include <sge/opengl/vf/actor_ptr.hpp>
+#include <sge/opengl/vf/actor_unique_ptr.hpp>
 #include <sge/renderer/vf/dynamic/color_fwd.hpp>
 #include <sge/renderer/vf/dynamic/extra_fwd.hpp>
 #include <sge/renderer/vf/dynamic/normal_fwd.hpp>
@@ -49,7 +49,7 @@ public:
 		sge::opengl::vf::actor_parameters const &
 	);
 
-	typedef sge::opengl::vf::actor_ptr result_type;
+	typedef sge::opengl::vf::actor_unique_ptr result_type;
 
 	result_type
 	operator()(

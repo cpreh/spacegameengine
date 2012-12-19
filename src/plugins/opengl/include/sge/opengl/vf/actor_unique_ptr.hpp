@@ -18,32 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_FFP_TRANSFORM_ACTOR_FWD_HPP_INCLUDED
-#define SGE_OPENGL_STATE_FFP_TRANSFORM_ACTOR_FWD_HPP_INCLUDED
+#ifndef SGE_OPENGL_VF_ACTOR_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_OPENGL_VF_ACTOR_UNIQUE_PTR_HPP_INCLUDED
 
-#include <sge/renderer/state/ffp/transform/mode.hpp>
-#include <fcppt/function/object_fwd.hpp>
+#include <sge/opengl/vf/actor_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
 {
 namespace opengl
 {
-namespace state
-{
-namespace ffp
-{
-namespace transform
+namespace vf
 {
 
-typedef fcppt::function::object<
-	void(
-		sge::renderer::state::ffp::transform::mode::type const &
-	)
-> actor;
+typedef std::unique_ptr<
+	sge::opengl::vf::actor
+> actor_unique_ptr;
 
-}
-}
 }
 }
 }

@@ -39,11 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/scene/material/from_obj_material.hpp>
 #include <sge/scenic/scene/mesh/object.hpp>
 #include <sge/scenic/vf/format.hpp>
-#include <fcppt/cref.hpp>
-#include <fcppt/move.hpp>
-#include <fcppt/ref.hpp>
-#include <fcppt/scoped_ptr.hpp>
-#include <fcppt/string.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
@@ -70,7 +66,7 @@ sge::scenic::scene::object::object(
 	charconv_system_(
 		_charconv_system),
 	prototype_(
-		fcppt::move(
+		std::move(
 			_prototype)),
 	camera_viewport_connection_(
 		dynamic_cast<sge::camera::has_mutable_projection &>(
@@ -184,12 +180,9 @@ sge::scenic::scene::object::load_entities()
 			mesh_name_to_instance_,
 			current_entity->mesh_path(),
 			fcppt::make_unique_ptr<sge::scenic::scene::mesh::object>(
-				fcppt::ref(
-					scene_manager_.renderer()),
-				fcppt::ref(
-					scene_manager_.vertex_declaration()),
-				fcppt::cref(
-					new_prototype)));
+				scene_manager_.renderer(),
+				scene_manager_.vertex_declaration(),
+				new_prototype));
 	}
 }
 

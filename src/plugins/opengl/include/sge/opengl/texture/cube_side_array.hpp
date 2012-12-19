@@ -23,7 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/texture/buffer_type.hpp>
 #include <sge/renderer/texture/cube_side.hpp>
-#include <fcppt/container/array.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <array>
+#include <cstddef>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -33,9 +36,13 @@ namespace opengl
 namespace texture
 {
 
-typedef fcppt::container::array<
+typedef std::array<
 	sge::opengl::texture::buffer_type,
-	sge::renderer::texture::cube_side::size
+	static_cast<
+		std::size_t
+	>(
+		sge::renderer::texture::cube_side::size
+	)
 > cube_side_array;
 
 }

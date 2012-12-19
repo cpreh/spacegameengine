@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_parameters_fwd.hpp>
 #include <sge/renderer/texture/planar_unique_ptr.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 
 
@@ -39,12 +38,8 @@ sge::opengl::texture::create_planar(
 			fcppt::make_unique_ptr<
 				sge::opengl::texture::planar
 			>(
-				fcppt::cref(
-					_basic_parameters
-				),
-				fcppt::cref(
-					_parameters
-				)
+				_basic_parameters,
+				_parameters
 			)
 		);
 }

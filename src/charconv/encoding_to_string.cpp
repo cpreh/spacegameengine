@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 fcppt::string const
 sge::charconv::encoding_to_string(
-	sge::charconv::encoding::type const _encoding
+	sge::charconv::encoding const _encoding
 )
 {
 #define SGE_CHARCONV_ENCODING_CASE(\

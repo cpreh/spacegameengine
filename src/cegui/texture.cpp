@@ -407,7 +407,5 @@ sge::cegui::texture::isPixelFormatSupported(
 	return
 		sge::cegui::convert_pixel_format(
 			_format
-		)
-		!=
-		sge::image::color::optional_format();
+		).has_value();
 }

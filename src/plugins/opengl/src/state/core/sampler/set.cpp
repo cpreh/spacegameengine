@@ -31,7 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/set_samplers.hpp>
 #include <sge/renderer/state/core/sampler/const_optional_object_ref_map.hpp>
 #include <sge/renderer/texture/stage.hpp>
-#include <fcppt/ref.hpp>
 
 
 void
@@ -46,9 +45,7 @@ sge::opengl::state::core::sampler::set(
 		sge::opengl::state::core::sampler::context
 	>(
 		_device_context,
-		fcppt::ref(
-			_system_context
-		)
+		_system_context
 	).set(
 		_objects
 	);

@@ -24,12 +24,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/string_type.hpp>
 #include <sge/charconv/system_fwd.hpp>
 #include <fcppt/from_std_wstring.hpp>
-#include <fcppt/static_assert_expression.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/Base.h>
 #include <CEGUI/String.h>
-#include <boost/type_traits/is_same.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -46,13 +45,14 @@ sge::cegui::from_cegui_string(
 	>::type
 	source_string;
 
-	FCPPT_STATIC_ASSERT_EXPRESSION((
-		boost::is_same
+	static_assert(
+		std::is_same
 		<
 			source_string::value_type,
 			CEGUI::utf32
-		>::value
-	));
+		>::value,
+		"CEGUI's string must use utf32"
+	);
 
 	typedef
 	sge::charconv::string_type

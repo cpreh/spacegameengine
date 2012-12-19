@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/cegui/renderer.hpp>
 #include <sge/src/cegui/resource_provider.hpp>
 #include <sge/src/cegui/scoped_system.hpp>
-#include <fcppt/null_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/System.h>
 #include <fcppt/config/external_end.hpp>
@@ -39,10 +38,10 @@ sge::cegui::scoped_system::scoped_system(
 		// Resource provider
 		&_resource_provider,
 		// XML parser
-		fcppt::null_ptr(),
+		nullptr,
 		&_image_codec,
 		// Script module,
-		fcppt::null_ptr(),
+		nullptr,
 		// config file
 		"",
 		// log file

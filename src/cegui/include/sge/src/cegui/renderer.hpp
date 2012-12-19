@@ -30,7 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/cegui/texture_parameters.hpp>
 #include <sge/src/cegui/texture_target_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/unique_ptr_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/Base.h>
 #include <CEGUI/Renderer.h>
@@ -39,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <CEGUI/Vector.h>
 #include <boost/ptr_container/ptr_map.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
+#include <memory>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -167,7 +167,7 @@ private:
 	CEGUI::String const &
 	getIdentifierString() const;
 
-	typedef fcppt::unique_ptr<
+	typedef std::unique_ptr<
 		sge::cegui::texture
 	> texture_unique_ptr;
 

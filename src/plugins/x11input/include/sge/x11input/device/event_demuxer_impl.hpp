@@ -33,9 +33,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/signal/unregister/base_impl.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
+#include <functional>
 #include <limits>
 #include <fcppt/config/external_end.hpp>
 
@@ -103,10 +103,10 @@ sge::x11input::device::event_demuxer<Event>::register_callback(
 			system_processor_.register_callback(
 				opcode_,
 				_type,
-				std::tr1::bind(
+				std::bind(
 					&event_demuxer::on_event,
 					this,
-					std::tr1::placeholders::_1
+					std::placeholders::_1
 				)
 			)
 		);
@@ -146,7 +146,7 @@ sge::x11input::device::event_demuxer<Event>::register_callback(
 	return
 		it->second->connect(
 			_callback,
-			std::tr1::bind(
+			std::bind(
 				&event_demuxer::unregister,
 				this,
 				_id,

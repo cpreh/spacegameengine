@@ -31,10 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/xi_opcode.hpp>
 #include <sge/x11input/xi_version.hpp>
 #include <awl/backends/x11/window/object.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/null_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/output.hpp>
@@ -118,7 +116,7 @@ sge::x11input::system::create_processor(
 				"" // XMODIFIERS are appended automatically
 			)
 			==
-			fcppt::null_ptr()
+			nullptr
 		)
 			throw sge::input::exception(
 				FCPPT_TEXT("XSetLocaleModifiers() failed!")
@@ -139,12 +137,8 @@ sge::x11input::system::create_processor(
 			fcppt::make_unique_ptr<
 				x11input::processor
 			>(
-				fcppt::cref(
-					_window
-				),
-				fcppt::cref(
-					_window_system
-				),
+				_window,
+				_window_system,
 				*opcode
 			)
 		);

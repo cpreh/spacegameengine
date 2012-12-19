@@ -589,6 +589,7 @@ set(
 	include/sge/renderer/state/ffp/transform/const_optional_object_ref_fwd.hpp
 	include/sge/renderer/state/ffp/transform/default.hpp
 	include/sge/renderer/state/ffp/transform/mode.hpp
+	include/sge/renderer/state/ffp/transform/mode_fwd.hpp
 	include/sge/renderer/state/ffp/transform/object.hpp
 	include/sge/renderer/state/ffp/transform/object_fwd.hpp
 	include/sge/renderer/state/ffp/transform/object_scoped_ptr.hpp
@@ -655,6 +656,7 @@ set(
 	include/sge/renderer/texture/cube_scoped_ptr.hpp
 	include/sge/renderer/texture/cube_shared_ptr.hpp
 	include/sge/renderer/texture/cube_side.hpp
+	include/sge/renderer/texture/cube_side_fwd.hpp
 	include/sge/renderer/texture/cube_unique_ptr.hpp
 	include/sge/renderer/texture/depth_stencil.hpp
 	include/sge/renderer/texture/depth_stencil_fwd.hpp

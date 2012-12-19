@@ -197,7 +197,6 @@ set(
 	src/plugins/opengl/include/sge/opengl/srgb_context.hpp
 	src/plugins/opengl/include/sge/opengl/srgb_context_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/state/actor.hpp
-	src/plugins/opengl/include/sge/opengl/state/actor_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/state/actor_vector.hpp
 	src/plugins/opengl/include/sge/opengl/state/bind_data_getter.hpp
 	src/plugins/opengl/include/sge/opengl/state/check_error.hpp
@@ -257,7 +256,6 @@ set(
 	src/plugins/opengl/include/sge/opengl/state/core/rasterizer/object_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/rasterizer/set.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/sampler/actor.hpp
-	src/plugins/opengl/include/sge/opengl/state/core/sampler/actor_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/sampler/actor_vector.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/sampler/address/default.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/sampler/address/make_actors.hpp
@@ -339,7 +337,6 @@ set(
 	src/plugins/opengl/include/sge/opengl/state/ffp/misc/point_sprite_texture.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/misc/set.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/sampler/actor.hpp
-	src/plugins/opengl/include/sge/opengl/state/ffp/sampler/actor_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/sampler/actor_vector.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/sampler/context.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/sampler/create.hpp
@@ -357,7 +354,6 @@ set(
 	src/plugins/opengl/include/sge/opengl/state/ffp/sampler/set_one_op.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/set_defaults.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/transform/actor.hpp
-	src/plugins/opengl/include/sge/opengl/state/ffp/transform/actor_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/transform/actor_vector.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/transform/create.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/transform/default_context.hpp
@@ -370,7 +366,6 @@ set(
 	src/plugins/opengl/include/sge/opengl/state/ffp/transform/set_matrix.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/transform/set_matrix_and_mode.hpp
 	src/plugins/opengl/include/sge/opengl/state/index_actor.hpp
-	src/plugins/opengl/include/sge/opengl/state/index_actor_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/state/index_actor_vector.hpp
 	src/plugins/opengl/include/sge/opengl/state/object.hpp
 	src/plugins/opengl/include/sge/opengl/state/object_fwd.hpp
@@ -551,7 +546,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/vf/actor_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/vf/actor_parameters.hpp
 	src/plugins/opengl/include/sge/opengl/vf/actor_parameters_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/vf/actor_ptr.hpp
+	src/plugins/opengl/include/sge/opengl/vf/actor_unique_ptr.hpp
 	src/plugins/opengl/include/sge/opengl/vf/attribute_actor.hpp
 	src/plugins/opengl/include/sge/opengl/vf/attribute_context.hpp
 	src/plugins/opengl/include/sge/opengl/vf/attribute_context_fwd.hpp

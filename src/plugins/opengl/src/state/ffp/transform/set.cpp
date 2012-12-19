@@ -25,13 +25,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/ffp/transform/set.hpp>
 #include <sge/renderer/state/ffp/transform/const_optional_object_ref.hpp>
 #include <sge/renderer/state/ffp/transform/mode.hpp>
-#include <fcppt/ref.hpp>
 
 
 void
 sge::opengl::state::ffp::transform::set(
 	sge::opengl::context::system::object &_system_context,
-	sge::renderer::state::ffp::transform::mode::type const _mode,
+	sge::renderer::state::ffp::transform::mode const _mode,
 	sge::renderer::state::ffp::transform::const_optional_object_ref const &_object
 )
 {
@@ -49,9 +48,7 @@ sge::opengl::state::ffp::transform::set(
 				sge::opengl::state::ffp::transform::default_context
 			>(
 				_system_context,
-				fcppt::ref(
-					_system_context
-				)
+				_system_context
 			).default_state()
 	).set(
 		_mode

@@ -77,7 +77,7 @@ use(
 	sge::opengl::context::object<
 		Domain
 	> &_object,
-	Parameter const &_parameter
+	Parameter &&_parameter
 )
 {
 	return

@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_FORMAT_STATIC_HPP_INCLUDED
 #define SGE_IMAGE_FORMAT_STATIC_HPP_INCLUDED
 
-#include <fcppt/static_assert_statement.hpp>
 #include <fcppt/mpl/index_of.hpp>
 #include <fcppt/mpl/integral_cast.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
@@ -56,12 +55,13 @@ fcppt::mpl::integral_cast<
 	>
 >
 {
-	FCPPT_STATIC_ASSERT_STATEMENT(
+	static_assert(
 		boost::mpl::size<
 			Elements
 		>::value
 		==
-		Size
+		Size,
+		"image format mpl::vectors must have the same size as the enum"
 	);
 };
 

@@ -22,13 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_DEVICE_MANAGER_MAKE_CONFIG_HPP_INCLUDED
 
 #include <sge/x11input/device/manager/config.hpp>
-#include <sge/x11input/device/manager/config_base_ptr.hpp>
-#include <fcppt/make_shared_ptr.hpp>
-#include <fcppt/ref.hpp>
+#include <sge/x11input/device/manager/config_base_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/signal/object_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <vector>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -46,7 +42,7 @@ template<
 	typename RemoveEvent,
 	typename CreateFunction
 >
-device::manager::config_base_ptr const
+device::manager::config_base_unique_ptr
 make_config(
 	fcppt::signal::object<
 		void (DiscoverEvent const &)
@@ -57,22 +53,18 @@ make_config(
 	CreateFunction const &_create
 )
 {
-	typedef device::manager::config<
+	typedef sge::x11input::device::manager::config<
 		X11Object,
 		DiscoverEvent,
 		RemoveEvent
 	> result_type;
 
 	return
-		fcppt::make_shared_ptr<
+		fcppt::make_unique_ptr<
 			result_type
 		>(
-			fcppt::ref(
-				_discover
-			),
-			fcppt::ref(
-				_remove
-			),
+			_discover,
+			_remove,
 			typename result_type::create_function(
 				_create
 			)

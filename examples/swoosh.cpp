@@ -117,23 +117,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/exception.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/nonassignable.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/raw_vector.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/log/activate_levels.hpp>
+#include <fcppt/log/level.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/math/vector/length.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <boost/filesystem/path.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <example_main.hpp>
 #include <exception>
+#include <functional>
 #include <ios>
 #include <iostream>
 #include <ostream>
@@ -222,7 +222,7 @@ public:
 	scalar;
 
 	typedef
-	fcppt::function::object<scalar(scalar)>
+	std::function<scalar(scalar)>
 	modifier;
 
 	cursor_speed_tracker(
@@ -254,7 +254,6 @@ private:
 }
 
 #include <sge/input/cursor/object.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/math/vector/length.hpp>
 #include <fcppt/math/vector/static.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
@@ -280,10 +279,10 @@ cursor_speed_tracker::cursor_speed_tracker(
 		_cursor),
 	relative_movement_connection_(
 		relative_cursor_movement_.relative_move_callback(
-			std::tr1::bind(
+			std::bind(
 				&cursor_speed_tracker::move_callback,
 				this,
-				std::tr1::placeholders::_1))),
+				std::placeholders::_1))),
 	speed_values_(
 		static_cast<speed_ring_buffer::capacity_type>(
 			10u)),
@@ -640,10 +639,10 @@ try
 	#if 0
 	fcppt::signal::scoped_connection const normal_connection(
 		cursor.move_callback(
-			std::tr1::bind(
+			std::bind(
 				&::sprite_functor::normal_movement,
 				&functor,
-				std::tr1::placeholders::_1
+				std::placeholders::_1
 			)
 		)
 	);

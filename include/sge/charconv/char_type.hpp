@@ -33,7 +33,7 @@ namespace charconv
 {
 
 template<
-	sge::charconv::encoding::type
+	sge::charconv::encoding
 >
 struct char_type;
 

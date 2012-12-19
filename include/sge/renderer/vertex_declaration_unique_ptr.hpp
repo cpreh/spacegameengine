@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VERTEX_DECLARATION_UNIQUE_PTR_HPP_INCLUDED
 
 #include <sge/renderer/vertex_declaration_fwd.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -31,10 +33,10 @@ namespace renderer
 {
 
 /**
- * \brief A unique pointer to a renderer::vertex_declaration
+\brief A unique pointer to an sge::renderer::vertex_declaration
 */
-typedef fcppt::unique_ptr<
-	renderer::vertex_declaration
+typedef std::unique_ptr<
+	sge::renderer::vertex_declaration
 > vertex_declaration_unique_ptr;
 
 }

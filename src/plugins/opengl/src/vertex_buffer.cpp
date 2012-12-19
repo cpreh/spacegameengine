@@ -31,7 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/const_view.hpp>
 #include <sge/renderer/vf/dynamic/locked_part.hpp>
 #include <sge/renderer/vf/dynamic/view.hpp>
-#include <fcppt/null_ptr.hpp>
 #include <fcppt/assign/make_container.hpp>
 
 
@@ -76,7 +75,7 @@ sge::opengl::vertex_buffer::vertex_buffer(
 		_size.get(),
 		_format_part.stride().get(),
 		_flags,
-		fcppt::null_ptr()
+		nullptr
 	)
 {
 }

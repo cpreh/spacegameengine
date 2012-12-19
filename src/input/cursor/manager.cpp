@@ -25,18 +25,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/remove_callback.hpp>
 #include <sge/input/cursor/remove_event.hpp>
-#include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/connection_manager.hpp>
-#include <fcppt/signal/shared_connection.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 FCPPT_PP_PUSH_WARNING
@@ -71,27 +70,24 @@ sge::input::cursor::manager::manager(
 		fcppt::assign::make_container<
 			fcppt::signal::connection_manager::container
 		>(
-			fcppt::signal::shared_connection(
-				_processor.cursor_discover_callback(
-					std::tr1::bind(
-						&sge::input::cursor::manager::discover,
-						this,
-						std::tr1::placeholders::_1
-					)
+			_processor.cursor_discover_callback(
+				std::bind(
+					&sge::input::cursor::manager::discover,
+					this,
+					std::placeholders::_1
 				)
 			)
 		)
 		(
-			fcppt::signal::shared_connection(
-				_processor.cursor_remove_callback(
-					std::tr1::bind(
-						&sge::input::cursor::manager::remove,
-						this,
-						std::tr1::placeholders::_1
-					)
+			_processor.cursor_remove_callback(
+				std::bind(
+					&sge::input::cursor::manager::remove,
+					this,
+					std::placeholders::_1
 				)
 			)
 		)
+		.move_container()
 	)
 {
 }
@@ -114,52 +110,46 @@ sge::input::cursor::manager::discover(
 )
 {
 	FCPPT_ASSERT_ERROR(
-		fcppt::container::ptr::insert_unique_ptr_map(
-			objects_,
-			&_event.get(),
-			fcppt::make_unique_ptr<
-				fcppt::signal::connection_manager
-			>(
-				fcppt::assign::make_container<
-					fcppt::signal::connection_manager::container
-				>(
-					fcppt::signal::shared_connection(
+		objects_.insert(
+			std::make_pair(
+				&_event.get(),
+				fcppt::signal::connection_manager(
+					fcppt::assign::make_container<
+						fcppt::signal::connection_manager::container
+					>(
 						_event.get().button_callback(
-							std::tr1::bind(
+							std::bind(
 								button_callback_,
-								fcppt::ref(
+								std::ref(
 									_event.get()
 								),
-								std::tr1::placeholders::_1
+								std::placeholders::_1
 							)
 						)
 					)
-				)
-				(
-					fcppt::signal::shared_connection(
+					(
 						_event.get().move_callback(
-							std::tr1::bind(
+							std::bind(
 								move_callback_,
-								fcppt::ref(
+								std::ref(
 									_event.get()
 								),
-								std::tr1::placeholders::_1
+								std::placeholders::_1
 							)
 						)
 					)
-				)
-				(
-					fcppt::signal::shared_connection(
+					(
 						_event.get().scroll_callback(
-							std::tr1::bind(
+							std::bind(
 								scroll_callback_,
-								fcppt::ref(
+								std::ref(
 									_event.get()
 								),
-								std::tr1::placeholders::_1
+								std::placeholders::_1
 							)
 						)
 					)
+					.move_container()
 				)
 			)
 		).second

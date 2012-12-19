@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/ffp/misc/object.hpp>
 #include <sge/opengl/state/ffp/misc/set.hpp>
 #include <sge/renderer/state/ffp/misc/const_optional_object_ref.hpp>
-#include <fcppt/ref.hpp>
 
 
 void
@@ -41,9 +40,7 @@ sge::opengl::state::ffp::misc::set(
 			sge::opengl::state::ffp::misc::default_context
 		>(
 			_system_context,
-			fcppt::ref(
-				_system_context
-			)
+			_system_context
 		),
 		_state
 	);

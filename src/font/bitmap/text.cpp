@@ -42,11 +42,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/global.hpp>
 #include <sge/src/font/bitmap/char_map.hpp>
 #include <sge/src/font/bitmap/char_metric.hpp>
+#include <sge/src/font/bitmap/char_metric_ref.hpp>
 #include <sge/src/font/bitmap/char_metric_ref_vector.hpp>
 #include <sge/src/font/bitmap/const_view.hpp>
 #include <sge/src/font/bitmap/line.hpp>
 #include <sge/src/font/bitmap/text.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
@@ -54,8 +54,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/output.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/next_prior.hpp>
 #include <algorithm>
+#include <iterator>
 #include <locale>
 #include <fcppt/config/external_end.hpp>
 
@@ -142,7 +142,7 @@ sge::font::bitmap::text::text(
 		);
 
 		current_line.push_back(
-			fcppt::cref(
+			sge::font::bitmap::char_metric_ref(
 				metric
 			)
 		);
@@ -160,7 +160,7 @@ sge::font::bitmap::text::text(
 		bool const new_line(
 			space_exceeded
 			||
-			boost::next(
+			std::next(
 				it
 			)
 			==
@@ -366,7 +366,7 @@ sge::font::bitmap::text::render(
 		)
 		{
 			sge::font::bitmap::char_metric const &char_metric(
-				*char_it
+				char_it->get()
 			);
 
 			sge::font::bitmap::const_view const source_view(

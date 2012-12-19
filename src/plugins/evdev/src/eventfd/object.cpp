@@ -22,13 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/evdev/eventfd/object.hpp>
 #include <awl/backends/linux/fd/processor.hpp>
 #include <fcppt/assert/error.hpp>
-#include <fcppt/function/object.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/cstdint.hpp>
+#include <functional>
 #include <unistd.h>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace
 {
@@ -50,7 +50,7 @@ sge::evdev::eventfd::object::object(
 	fd_connection_(
 		_processor.register_fd_callback(
 			fd_.get(),
-			std::tr1::bind(
+			std::bind(
 				_callback
 			)
 		)

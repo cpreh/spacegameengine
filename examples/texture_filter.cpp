@@ -157,26 +157,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/insert_to_string.hpp>
-#include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/optional_impl.hpp>
-#include <fcppt/ref.hpp>
-#include <fcppt/reference_wrapper.hpp>
+#include <fcppt/make_cref.hpp>
+#include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_map.hpp>
-#include <fcppt/container/array.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <example_main.hpp>
+#include <array>
 #include <exception>
 #include <iostream>
 #include <ostream>
@@ -192,7 +188,7 @@ typedef std::pair<
 	sge::renderer::state::core::sampler::const_object_ref
 > string_filter_pair;
 
-typedef fcppt::container::array<
+typedef std::array<
 	string_filter_pair,
 	7u
 > filter_array;
@@ -538,25 +534,25 @@ try
 	{{
 		std::make_pair(
 			SGE_FONT_LIT("point"),
-			fcppt::cref(
+			fcppt::make_cref(
 				*point_sampler
 			)
 		),
 		std::make_pair(
 			SGE_FONT_LIT("linear"),
-			fcppt::cref(
+			fcppt::make_cref(
 				*linear_sampler
 			)
 		),
 		std::make_pair(
 			SGE_FONT_LIT("mipmap"),
-			fcppt::cref(
+			fcppt::make_cref(
 				*mipmap_sampler
 			)
 		),
 		std::make_pair(
 			SGE_FONT_LIT("trilinear"),
-			fcppt::cref(
+			fcppt::make_cref(
 				*trilinear_sampler
 			)
 		),
@@ -564,7 +560,7 @@ try
 			SGE_FONT_LIT("anisotropic")
 			+
 			anisotropy_string,
-			fcppt::cref(
+			fcppt::make_cref(
 				*anisotropic_sampler
 			)
 		),
@@ -574,7 +570,7 @@ try
 			anisotropy_string
 			+
 			SGE_FONT_LIT(" + mipmap"),
-			fcppt::cref(
+			fcppt::make_cref(
 				*anisotropic_mipmap_sampler
 			)
 		),
@@ -584,7 +580,7 @@ try
 			anisotropy_string
 			+
 			SGE_FONT_LIT(" + trilinear"),
-			fcppt::cref(
+			fcppt::make_cref(
 				*anisotropic_trilinear_sampler
 			)
 		)
@@ -681,7 +677,7 @@ try
 		)
 		.texture(
 			sge::texture::const_part_shared_ptr(
-				fcppt::make_unique_ptr<
+				fcppt::make_shared_ptr<
 					sge::texture::part_raw_ptr
 				>(
 					sge::renderer::texture::create_planar_from_view(

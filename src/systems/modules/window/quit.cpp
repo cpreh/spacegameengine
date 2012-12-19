@@ -29,7 +29,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
 
 FCPPT_PP_PUSH_WARNING
@@ -44,10 +46,10 @@ sge::systems::modules::window::quit::quit(
 	),
 	destroy_connection_(
 		_window.awl_window_event_processor().destroy_callback(
-			std::tr1::bind(
+			std::bind(
 				&sge::systems::modules::window::quit::on_destroy,
 				this,
-				std::tr1::placeholders::_1
+				std::placeholders::_1
 			)
 		)
 	)

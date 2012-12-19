@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/state/ffp/transform/object_fwd.hpp>
 #include <sge/d3d9/state/ffp/transform/state.hpp>
-#include <sge/renderer/state/ffp/transform/mode.hpp>
+#include <sge/renderer/state/ffp/transform/mode_fwd.hpp>
 #include <sge/renderer/state/ffp/transform/object.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -57,7 +57,7 @@ public:
 
 	void
 	set(
-		sge::renderer::state::ffp::transform::mode::type
+		sge::renderer::state::ffp::transform::mode
 	) const;
 private:
 	IDirect3DDevice9 &device_;

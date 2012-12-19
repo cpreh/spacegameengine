@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/cube.hpp>
 #include <sge/renderer/texture/cube_parameters_fwd.hpp>
 #include <sge/renderer/texture/cube_unique_ptr.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 
@@ -56,12 +55,8 @@ sge::opengl::texture::create_cube(
 			fcppt::make_unique_ptr<
 				sge::opengl::texture::cube
 			>(
-				fcppt::cref(
-					_basic_parameters
-				),
-				fcppt::cref(
-					_parameters
-				)
+				_basic_parameters,
+				_parameters
 			)
 		);
 }

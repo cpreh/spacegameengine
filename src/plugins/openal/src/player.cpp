@@ -28,9 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/sample_container.hpp>
 #include <sge/audio/sound/base.hpp>
 #include <sge/audio/sound/positional.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
@@ -114,9 +112,7 @@ sge::openal::player::create_buffer(
 			fcppt::make_unique_ptr<
 				openal::buffer
 			>(
-				fcppt::ref(
-					_file
-				)
+				_file
 			)
 		);
 }
@@ -132,12 +128,8 @@ sge::openal::player::create_positional_stream(
 			fcppt::make_unique_ptr<
 				openal::stream_sound
 			>(
-				fcppt::cref(
-					_parameters
-				),
-				fcppt::ref(
-					_file
-				)
+				_parameters,
+				_file
 			)
 		);
 }
@@ -153,11 +145,8 @@ sge::openal::player::create_nonpositional_stream(
 			fcppt::make_unique_ptr<
 				openal::stream_sound
 			>(
-				fcppt::cref(
-					_parameters),
-				fcppt::ref(
-					_file
-				)
+				_parameters,
+				_file
 			)
 		);
 }

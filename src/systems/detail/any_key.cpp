@@ -20,16 +20,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/systems/detail/any_key.hpp>
 #include <sge/systems/detail/any_types_fwd.hpp>
-#include <fcppt/static_assert_statement.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/size.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
-FCPPT_STATIC_ASSERT_STATEMENT(
+static_assert(
 	boost::mpl::size<
 		sge::systems::detail::any_types
 	>::value
 	==
-	sge::systems::detail::any_key::size
+	sge::systems::detail::any_key::size,
+	"any_types and any_key must match in the number of elements"
 );

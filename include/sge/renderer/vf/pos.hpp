@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/element_count_type.hpp>
 #include <sge/renderer/vf/pos_fwd.hpp>
 #include <sge/renderer/vf/vector_base.hpp>
-#include <fcppt/static_assert_statement.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -52,14 +51,16 @@ sge::renderer::vf::vector_base<
 	NumSubElements
 >
 {
-	FCPPT_STATIC_ASSERT_STATEMENT(
+	static_assert(
 		fcppt::type_traits::is_float_or_double<
 			Format
-		>::value
+		>::value,
+		"A vertex format pos can only be float or double"
 	);
 
-	FCPPT_STATIC_ASSERT_STATEMENT(
-		NumSubElements >= 2 && NumSubElements <= 4
+	static_assert(
+		NumSubElements >= 2 && NumSubElements <= 4,
+		"A vertex format pos must have between 2 and 4 elements"
 	);
 };
 

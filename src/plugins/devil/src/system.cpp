@@ -29,13 +29,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/const_raw_range.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/move.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
+#include <iosfwd>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -71,7 +71,7 @@ sge::devil::system::load(
 			sge::image2d::file_unique_ptr()
 		:
 			sge::image2d::file_unique_ptr(
-				fcppt::move(
+				std::move(
 					ret
 				)
 			);
@@ -98,7 +98,7 @@ sge::devil::system::load_raw(
 			sge::image2d::file_unique_ptr()
 		:
 			sge::image2d::file_unique_ptr(
-				fcppt::move(
+				std::move(
 					ret
 				)
 			);
@@ -112,7 +112,7 @@ sge::devil::system::load_stream(
 {
 	sge::devil::file_unique_ptr ret(
 		fcppt::make_unique_ptr<
-			devil::file
+			sge::devil::file
 		>()
 	);
 
@@ -125,7 +125,7 @@ sge::devil::system::load_stream(
 			sge::image2d::file_unique_ptr()
 		:
 			sge::image2d::file_unique_ptr(
-				fcppt::move(
+				std::move(
 					ret
 				)
 			);
@@ -151,9 +151,7 @@ sge::devil::system::create(
 				fcppt::make_unique_ptr<
 					devil::file
 				>(
-					fcppt::cref(
-						_src
-					)
+					_src
 				)
 			)
 		;

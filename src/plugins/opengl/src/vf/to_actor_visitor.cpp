@@ -31,7 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/normal_fwd.hpp>
 #include <sge/renderer/vf/dynamic/pos_fwd.hpp>
 #include <sge/renderer/vf/dynamic/texpos_fwd.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 
 
@@ -51,15 +50,11 @@ sge::opengl::vf::to_actor_visitor::operator()(
 ) const
 {
 	return
-		sge::opengl::vf::actor_ptr(
-			fcppt::make_unique_ptr<
-				sge::opengl::vf::pos_actor
-			>(
-				parameters_,
-				fcppt::cref(
-					_pos
-				)
-			)
+		fcppt::make_unique_ptr<
+			sge::opengl::vf::pos_actor
+		>(
+			parameters_,
+			_pos
 		);
 }
 
@@ -69,15 +64,11 @@ sge::opengl::vf::to_actor_visitor::operator()(
 ) const
 {
 	return
-		sge::opengl::vf::actor_ptr(
-			fcppt::make_unique_ptr<
-				sge::opengl::vf::normal_actor
-			>(
-				parameters_,
-				fcppt::cref(
-					_normal
-				)
-			)
+		fcppt::make_unique_ptr<
+			sge::opengl::vf::normal_actor
+		>(
+			parameters_,
+			_normal
 		);
 }
 
@@ -87,15 +78,11 @@ sge::opengl::vf::to_actor_visitor::operator()(
 ) const
 {
 	return
-		sge::opengl::vf::actor_ptr(
-			fcppt::make_unique_ptr<
-				sge::opengl::vf::color_actor
-			>(
-				parameters_,
-				fcppt::cref(
-					_color
-				)
-			)
+		fcppt::make_unique_ptr<
+			sge::opengl::vf::color_actor
+		>(
+			parameters_,
+			_color
 		);
 }
 
@@ -105,15 +92,11 @@ sge::opengl::vf::to_actor_visitor::operator()(
 ) const
 {
 	return
-		sge::opengl::vf::actor_ptr(
-			fcppt::make_unique_ptr<
-				sge::opengl::vf::texpos_actor
-			>(
-				parameters_,
-				fcppt::cref(
-					_texpos
-				)
-			)
+		fcppt::make_unique_ptr<
+			sge::opengl::vf::texpos_actor
+		>(
+			parameters_,
+			_texpos
 		);
 }
 
@@ -123,14 +106,10 @@ sge::opengl::vf::to_actor_visitor::operator()(
 ) const
 {
 	return
-		sge::opengl::vf::actor_ptr(
-			fcppt::make_unique_ptr<
-				sge::opengl::vf::attribute_actor
-			>(
-				parameters_,
-				fcppt::cref(
-					_extra
-				)
-			)
+		fcppt::make_unique_ptr<
+			sge::opengl::vf::attribute_actor
+		>(
+			parameters_,
+			_extra
 		);
 }

@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/projectile/declare_local_logger.hpp>
 #include <sge/src/projectile/ghost/detail/pair_callback.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/static_assert_statement.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/assert/pre_message.hpp>
@@ -42,16 +41,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h>
 #include <LinearMath/btScalar.h>
 #include <LinearMath/btVector3.h>
-#include <boost/type_traits/is_same.hpp>
 #include <limits>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
 SGE_PROJECTILE_DECLARE_LOCAL_LOGGER(
 	FCPPT_TEXT("world"))
 
-FCPPT_STATIC_ASSERT_STATEMENT((
-	boost::is_same<btScalar,float>::value));
+static_assert(
+	std::is_same<btScalar,float>::value,
+	"btScalar is expected to be float");
 
 namespace
 {

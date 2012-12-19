@@ -21,8 +21,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11INPUT_DEVICE_VALUATOR_CALLBACK_HPP_INCLUDED
 #define SGE_X11INPUT_DEVICE_VALUATOR_CALLBACK_HPP_INCLUDED
 
-#include <sge/x11input/device/valuator_callback_fwd.hpp>
-#include <fcppt/function/object.hpp>
+#include <sge/x11input/device/valuator_index.hpp>
+#include <sge/x11input/device/valuator_value.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
+
+namespace sge
+{
+namespace x11input
+{
+namespace device
+{
+
+typedef std::function<
+	void (
+		sge::x11input::device::valuator_index,
+		sge::x11input::device::valuator_value
+	)
+> valuator_callback;
+
+}
+}
+}
 
 #endif

@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/loader_plugin/collection_fwd.hpp>
 #include <sge/src/systems/modules/audio/loader.hpp>
 #include <sge/systems/audio_loader.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 
 
@@ -38,9 +37,7 @@ sge::systems::modules::audio::loader::loader(
 			sge::audio::multi_loader
 		>(
 			sge::audio::multi_loader_parameters(
-				fcppt::cref(
-					_collection
-				),
+				_collection,
 				_parameters.extensions(),
 				_parameters.capabilities()
 			)

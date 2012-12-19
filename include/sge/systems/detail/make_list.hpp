@@ -28,7 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/detail/extract_parameter_type.hpp>
 #include <sge/systems/detail/list.hpp>
 #include <sge/systems/detail/make_list_visitor.hpp>
-#include <fcppt/static_assert_expression.hpp>
 #include <fcppt/mpl/all_of.hpp>
 #include <fcppt/mpl/for_each.hpp>
 #include <fcppt/mpl/for_each.hpp>
@@ -100,7 +99,7 @@ make_list(
 	);
 
 	// Check that every subsystem that needs initialization is initialized
-	FCPPT_STATIC_ASSERT_EXPRESSION((
+	static_assert(
 		fcppt::mpl::all_of<
 			boost::mpl::filter_view<
 				Choices,
@@ -114,8 +113,9 @@ make_list(
 					boost::mpl::_1
 				>
 			>
-		>::type::value
-	));
+		>::type::value,
+		"A subsystem has not been initialized"
+	);
 
 	return
 		result;

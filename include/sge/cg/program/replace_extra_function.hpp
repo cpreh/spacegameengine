@@ -18,32 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_CORE_SAMPLER_ACTOR_FWD_HPP_INCLUDED
-#define SGE_OPENGL_STATE_CORE_SAMPLER_ACTOR_FWD_HPP_INCLUDED
+#ifndef SGE_CG_PROGRAM_REPLACE_EXTRA_FUNCTION_HPP_INCLUDED
+#define SGE_CG_PROGRAM_REPLACE_EXTRA_FUNCTION_HPP_INCLUDED
 
-#include <sge/opengl/texture/binding_fwd.hpp>
-#include <fcppt/function/object_fwd.hpp>
+#include <sge/cg/string.hpp>
+#include <sge/cg/program/extra_index.hpp>
 
 
 namespace sge
 {
-namespace opengl
+namespace cg
 {
-namespace state
-{
-namespace core
-{
-namespace sampler
+namespace program
 {
 
-typedef fcppt::function::object<
-	void(
-		sge::opengl::texture::binding const &
-	)
-> actor;
+typedef
+sge::cg::string const
+replace_extra_function(
+	sge::cg::program::extra_index
+);
 
-}
-}
 }
 }
 }

@@ -41,16 +41,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/system/event/processor.hpp>
 #include <awl/backends/x11/window/object.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <fcppt/signal/shared_connection.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XI2.h>
 #include <X11/extensions/XInput2.h>
+#include <functional>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::x11input::mouse::device::device(
-	x11input::device::parameters const &_param
+	sge::x11input::device::parameters const &_param
 )
 :
 	sge::input::mouse::device(),
@@ -61,50 +60,45 @@ sge::x11input::mouse::device::device(
 		fcppt::assign::make_container<
 			fcppt::signal::connection_manager::container
 		>(
-			fcppt::signal::shared_connection(
-				_param.raw_demuxer().register_callback(
-					awl::backends::x11::system::event::type(
-						XI_RawMotion
-					),
-					_param.id(),
-					std::tr1::bind(
-						&device::on_motion,
-						this,
-						std::tr1::placeholders::_1
-					)
+			_param.raw_demuxer().register_callback(
+				awl::backends::x11::system::event::type(
+					XI_RawMotion
+				),
+				_param.id(),
+				std::bind(
+					&sge::x11input::mouse::device::on_motion,
+					this,
+					std::placeholders::_1
 				)
 			)
 		)
 		(
-			fcppt::signal::shared_connection(
-				_param.window_demuxer().register_callback(
-					awl::backends::x11::system::event::type(
-						XI_ButtonPress
-					),
-					_param.id(),
-					std::tr1::bind(
-						&device::on_button_down,
-						this,
-						std::tr1::placeholders::_1
-					)
+			_param.window_demuxer().register_callback(
+				awl::backends::x11::system::event::type(
+					XI_ButtonPress
+				),
+				_param.id(),
+				std::bind(
+					&sge::x11input::mouse::device::on_button_down,
+					this,
+					std::placeholders::_1
 				)
 			)
 		)
 		(
-			fcppt::signal::shared_connection(
-				_param.window_demuxer().register_callback(
-					awl::backends::x11::system::event::type(
-						XI_ButtonRelease
-					),
-					_param.id(),
-					std::tr1::bind(
-						&device::on_button_up,
-						this,
-						std::tr1::placeholders::_1
-					)
+			_param.window_demuxer().register_callback(
+				awl::backends::x11::system::event::type(
+					XI_ButtonRelease
+				),
+				_param.id(),
+				std::bind(
+					&sge::x11input::mouse::device::on_button_up,
+					this,
+					std::placeholders::_1
 				)
 			)
 		)
+		.move_container()
 	),
 	info_(
 		sge::x11input::mouse::info(
@@ -156,11 +150,11 @@ sge::x11input::mouse::device::on_motion(
 {
 	sge::x11input::device::foreach_valuator(
 		_event.get().valuators,
-		std::tr1::bind(
+		std::bind(
 			&sge::x11input::mouse::device::process_valuator,
 			this,
-			std::tr1::placeholders::_1,
-			std::tr1::placeholders::_2
+			std::placeholders::_1,
+			std::placeholders::_2
 		)
 	);
 }

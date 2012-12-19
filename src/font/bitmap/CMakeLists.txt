@@ -6,6 +6,7 @@ set(
 	src/font/bitmap/include/sge/src/font/bitmap/char_map.hpp
 	src/font/bitmap/include/sge/src/font/bitmap/char_metric.hpp
 	src/font/bitmap/include/sge/src/font/bitmap/char_metric_fwd.hpp
+	src/font/bitmap/include/sge/src/font/bitmap/char_metric_ref.hpp
 	src/font/bitmap/include/sge/src/font/bitmap/char_metric_ref_vector.hpp
 	src/font/bitmap/include/sge/src/font/bitmap/const_view.hpp
 	src/font/bitmap/include/sge/src/font/bitmap/line.hpp

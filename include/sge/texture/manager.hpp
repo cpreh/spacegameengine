@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/texture/fragmented_fwd.hpp>
 #include <sge/texture/manager_fwd.hpp>
-#include <sge/texture/on_alloc_function.hpp>
+#include <sge/texture/on_alloc_callback.hpp>
 #include <sge/texture/part_unique_ptr.hpp>
 #include <sge/texture/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -48,7 +48,7 @@ public:
 	SGE_TEXTURE_SYMBOL
 	explicit
 	manager(
-		sge::texture::on_alloc_function const &
+		sge::texture::on_alloc_callback const &
 	);
 
 	SGE_TEXTURE_SYMBOL
@@ -63,14 +63,14 @@ public:
 	SGE_TEXTURE_SYMBOL
 	void
 	on_alloc(
-		sge::texture::on_alloc_function const &
+		sge::texture::on_alloc_callback const &
 	);
 
 	SGE_TEXTURE_SYMBOL
 	void
 	free_empty_textures();
 private:
-	sge::texture::on_alloc_function on_alloc_;
+	sge::texture::on_alloc_callback on_alloc_;
 
 	typedef boost::ptr_multimap<
 		sge::image::color::format::type,

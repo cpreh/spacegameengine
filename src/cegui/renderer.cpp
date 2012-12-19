@@ -39,13 +39,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/cegui/to_cegui_rect.hpp>
 #include <sge/src/cegui/to_cegui_vector2.hpp>
 #include <sge/src/cegui/vf/format.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/move.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/algorithm/ptr_container_erase.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assert/error_message.hpp>
@@ -154,15 +150,9 @@ sge::cegui::renderer::createGeometryBuffer()
 		fcppt::make_unique_ptr<
 			sge::cegui::geometry_buffer
 		>(
-			fcppt::ref(
-				renderer_
-			),
-			fcppt::cref(
-				*vertex_declaration_
-			),
-			fcppt::cref(
-				render_context_
-			)
+			renderer_,
+			*vertex_declaration_,
+			render_context_
 		)
 	);
 
@@ -220,12 +210,8 @@ sge::cegui::renderer::createTextureTarget()
 		fcppt::make_unique_ptr<
 			sge::cegui::texture_target
 		>(
-			fcppt::cref(
-				texture_parameters_
-			),
-			fcppt::cref(
-				render_context_
-			)
+			texture_parameters_,
+			render_context_
 		)
 	);
 
@@ -292,9 +278,7 @@ sge::cegui::renderer::createTexture(
 			fcppt::make_unique_ptr<
 				sge::cegui::texture
 			>(
-				fcppt::ref(
-					texture_parameters_
-				),
+				texture_parameters_,
 				_name
 			)
 		);
@@ -329,9 +313,7 @@ sge::cegui::renderer::createTexture(
 			fcppt::make_unique_ptr<
 				sge::cegui::texture
 			>(
-				fcppt::ref(
-					texture_parameters_
-				),
+				texture_parameters_,
 				_name
 			)
 		)
@@ -370,9 +352,7 @@ sge::cegui::renderer::createTexture(
 			fcppt::make_unique_ptr<
 				sge::cegui::texture
 			>(
-				fcppt::ref(
-					texture_parameters_
-				),
+				texture_parameters_,
 				_name,
 				_size,
 				sge::renderer::texture::capabilities_field::null()
@@ -618,7 +598,7 @@ sge::cegui::renderer::insert_texture(
 		fcppt::container::ptr::insert_unique_ptr_map(
 			textures_,
 			_name,
-			fcppt::move(
+			std::move(
 				_ptr
 			)
 		)

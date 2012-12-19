@@ -55,19 +55,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/window/event/object.hpp>
 #include <awl/backends/x11/window/event/processor.hpp>
 #include <awl/backends/x11/window/event/type.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/object_impl.hpp>
-#include <fcppt/signal/shared_connection.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
+#include <functional>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -106,7 +103,7 @@ sge::x11input::processor::processor(
 		system_event_processor_,
 		opcode_,
 		x11_window_,
-		device::demuxer_enabled(
+		sge::x11input::device::demuxer_enabled(
 			true
 		)
 	),
@@ -120,7 +117,7 @@ sge::x11input::processor::processor(
 		system_event_processor_,
 		opcode_,
 		*root_window_,
-		device::demuxer_enabled(
+		sge::x11input::device::demuxer_enabled(
 			false
 		)
 	),
@@ -128,7 +125,7 @@ sge::x11input::processor::processor(
 		system_event_processor_,
 		opcode_,
 		x11_window_,
-		device::demuxer_enabled(
+		sge::x11input::device::demuxer_enabled(
 			true
 		)
 	),
@@ -141,11 +138,9 @@ sge::x11input::processor::processor(
 	),
 	input_method_(
 		fcppt::make_unique_ptr<
-			x11input::input_method
+			sge::x11input::input_method
 		>(
-			fcppt::ref(
-				x11_window_.display()
-			),
+			x11_window_.display(),
 			x11_window_.class_hint()
 		)
 	),
@@ -155,9 +150,7 @@ sge::x11input::processor::processor(
 		>(
 			input_method_->get(),
 			input_method_->class_hint(),
-			fcppt::cref(
-				x11_window_
-			)
+			x11_window_
 		)
 	),
 	keyboard_discover_(),
@@ -171,21 +164,21 @@ sge::x11input::processor::processor(
 	device_manager_(
 		x11_window_.display(),
 		fcppt::assign::make_container<
-			device::manager::config_map
+			sge::x11input::device::manager::config_map
 		>(
 			std::make_pair(
-				x11input::device::use(
+				sge::x11input::device::use(
 					XIMasterKeyboard
 				),
-				device::manager::make_config<
+				sge::x11input::device::manager::make_config<
 					sge::x11input::keyboard::device
 				>(
 					keyboard_discover_,
 					keyboard_remove_,
-					std::tr1::bind(
+					std::bind(
 						&x11input::processor::create_keyboard,
 						this,
-						std::tr1::placeholders::_1
+						std::placeholders::_1
 					)
 				)
 			)
@@ -200,10 +193,10 @@ sge::x11input::processor::processor(
 				>(
 					cursor_discover_,
 					cursor_remove_,
-					std::tr1::bind(
+					std::bind(
 						&x11input::processor::create_cursor,
 						this,
-						std::tr1::placeholders::_1
+						std::placeholders::_1
 					)
 				)
 			)
@@ -218,14 +211,15 @@ sge::x11input::processor::processor(
 				>(
 					mouse_discover_,
 					mouse_remove_,
-					std::tr1::bind(
+					std::bind(
 						&x11input::processor::create_mouse,
 						this,
-						std::tr1::placeholders::_1
+						std::placeholders::_1
 					)
 				)
 			)
 		)
+		.move_container()
 	),
 	cursor_manager_(),
 	init_atom_(
@@ -238,103 +232,90 @@ sge::x11input::processor::processor(
 		fcppt::assign::make_container<
 			fcppt::signal::connection_manager::container
 		>(
-			fcppt::signal::shared_connection(
-				hierarchy_demuxer_.register_callback(
-					awl::backends::x11::system::event::type(
-						XI_HierarchyChanged
-					),
-					sge::x11input::device::id(
-						XIAllDevices
-					),
-					std::tr1::bind(
-						&processor::on_hierarchy_changed,
-						this,
-						std::tr1::placeholders::_1
-					)
+			hierarchy_demuxer_.register_callback(
+				awl::backends::x11::system::event::type(
+					XI_HierarchyChanged
+				),
+				sge::x11input::device::id(
+					XIAllDevices
+				),
+				std::bind(
+					&sge::x11input::processor::on_hierarchy_changed,
+					this,
+					std::placeholders::_1
 				)
 			)
 		)
 		(
-			fcppt::signal::shared_connection(
-				window_event_processor_.register_callback(
-					awl::backends::x11::window::event::type(
-						FocusIn
-					),
-					std::tr1::bind(
-						&processor::on_focus_in,
-						this,
-						std::tr1::placeholders::_1
-					)
+			window_event_processor_.register_callback(
+				awl::backends::x11::window::event::type(
+					FocusIn
+				),
+				std::bind(
+					&sge::x11input::processor::on_focus_in,
+					this,
+					std::placeholders::_1
 				)
 			)
 		)
 		(
-			fcppt::signal::shared_connection(
-				window_event_processor_.register_callback(
-					awl::backends::x11::window::event::type(
-						FocusOut
-					),
-					std::tr1::bind(
-						&processor::on_focus_out,
-						this,
-						std::tr1::placeholders::_1
-					)
+			window_event_processor_.register_callback(
+				awl::backends::x11::window::event::type(
+					FocusOut
+				),
+				std::bind(
+					&sge::x11input::processor::on_focus_out,
+					this,
+					std::placeholders::_1
 				)
 			)
 		)
 		(
-			fcppt::signal::shared_connection(
-				window_event_processor_.register_callback(
-					awl::backends::x11::window::event::type(
-						LeaveNotify
-					),
-					std::tr1::bind(
-						&processor::on_leave,
-						this,
-						std::tr1::placeholders::_1
-					)
+			window_event_processor_.register_callback(
+				awl::backends::x11::window::event::type(
+					LeaveNotify
+				),
+				std::bind(
+					&sge::x11input::processor::on_leave,
+					this,
+					std::placeholders::_1
 				)
 			)
 		)
 		(
-			fcppt::signal::shared_connection(
-				window_event_processor_.register_callback(
-					awl::backends::x11::window::event::type(
-						ClientMessage
-					),
-					std::tr1::bind(
-						&processor::on_client_message,
-						this,
-						std::tr1::placeholders::_1
-					)
+			window_event_processor_.register_callback(
+				awl::backends::x11::window::event::type(
+					ClientMessage
+				),
+				std::bind(
+					&sge::x11input::processor::on_client_message,
+					this,
+					std::placeholders::_1
 				)
 			)
 		)
 		(
-			fcppt::signal::shared_connection(
-				cursor_discover_.connect(
-					std::tr1::bind(
-						&x11input::cursor::manager::discover,
-						&cursor_manager_,
-						std::tr1::placeholders::_1
-					)
+			cursor_discover_.connect(
+				std::bind(
+					&sge::x11input::cursor::manager::discover,
+					&cursor_manager_,
+					std::placeholders::_1
 				)
 			)
 		)
 		(
-			fcppt::signal::shared_connection(
-				cursor_remove_.connect(
-					std::tr1::bind(
-						&x11input::cursor::manager::remove,
-						&cursor_manager_,
-						std::tr1::placeholders::_1
-					)
+			cursor_remove_.connect(
+				std::bind(
+					&sge::x11input::cursor::manager::remove,
+					&cursor_manager_,
+					std::placeholders::_1
 				)
 			)
 		)
+		.move_container()
 	)
 {
-	x11input::device::info::multi const current_devices(
+	sge::x11input::device::info::multi const current_devices(
 		x11_window_.display()
 	);
 
@@ -361,7 +342,7 @@ sge::x11input::processor::~processor()
 
 fcppt::signal::auto_connection
 sge::x11input::processor::keyboard_discover_callback(
-	input::keyboard::discover_callback const &_callback
+	sge::input::keyboard::discover_callback const &_callback
 )
 {
 	return
@@ -372,7 +353,7 @@ sge::x11input::processor::keyboard_discover_callback(
 
 fcppt::signal::auto_connection
 sge::x11input::processor::keyboard_remove_callback(
-	input::keyboard::remove_callback const &_callback
+	sge::input::keyboard::remove_callback const &_callback
 )
 {
 	return
@@ -383,7 +364,7 @@ sge::x11input::processor::keyboard_remove_callback(
 
 fcppt::signal::auto_connection
 sge::x11input::processor::mouse_discover_callback(
-	input::mouse::discover_callback const &_callback
+	sge::input::mouse::discover_callback const &_callback
 )
 {
 	return
@@ -394,7 +375,7 @@ sge::x11input::processor::mouse_discover_callback(
 
 fcppt::signal::auto_connection
 sge::x11input::processor::mouse_remove_callback(
-	input::mouse::remove_callback const &_callback
+	sge::input::mouse::remove_callback const &_callback
 )
 {
 	return
@@ -405,7 +386,7 @@ sge::x11input::processor::mouse_remove_callback(
 
 fcppt::signal::auto_connection
 sge::x11input::processor::cursor_discover_callback(
-	input::cursor::discover_callback const &_callback
+	sge::input::cursor::discover_callback const &_callback
 )
 {
 	return
@@ -416,7 +397,7 @@ sge::x11input::processor::cursor_discover_callback(
 
 fcppt::signal::auto_connection
 sge::x11input::processor::cursor_remove_callback(
-	input::cursor::remove_callback const &_callback
+	sge::input::cursor::remove_callback const &_callback
 )
 {
 	return
@@ -427,7 +408,7 @@ sge::x11input::processor::cursor_remove_callback(
 
 fcppt::signal::auto_connection
 sge::x11input::processor::joypad_discover_callback(
-	input::joypad::discover_callback const &_callback
+	sge::input::joypad::discover_callback const &_callback
 )
 {
 	return
@@ -438,7 +419,7 @@ sge::x11input::processor::joypad_discover_callback(
 
 fcppt::signal::auto_connection
 sge::x11input::processor::joypad_remove_callback(
-	input::joypad::remove_callback const &_callback
+	sge::input::joypad::remove_callback const &_callback
 )
 {
 	return
@@ -449,11 +430,11 @@ sge::x11input::processor::joypad_remove_callback(
 
 sge::x11input::device::parameters const
 sge::x11input::processor::device_parameters(
-	x11input::create_parameters const &_param
+	sge::x11input::create_parameters const &_param
 )
 {
 	return
-		x11input::device::parameters(
+		sge::x11input::device::parameters(
 			_param,
 			opcode_,
 			x11_window_,
@@ -464,30 +445,28 @@ sge::x11input::processor::device_parameters(
 
 sge::x11input::keyboard::device_unique_ptr
 sge::x11input::processor::create_keyboard(
-	x11input::create_parameters const &_param
+	sge::x11input::create_parameters const &_param
 )
 {
 	return
 		fcppt::make_unique_ptr<
-			x11input::keyboard::device
+			sge::x11input::keyboard::device
 		>(
 			this->device_parameters(
 				_param
 			),
-			fcppt::ref(
-				*input_context_
-			)
+			*input_context_
 		);
 }
 
 sge::x11input::mouse::device_unique_ptr
 sge::x11input::processor::create_mouse(
-	x11input::create_parameters const &_param
+	sge::x11input::create_parameters const &_param
 )
 {
 	return
 		fcppt::make_unique_ptr<
-			x11input::mouse::device
+			sge::x11input::mouse::device
 		>(
 			this->device_parameters(
 				_param
@@ -497,12 +476,12 @@ sge::x11input::processor::create_mouse(
 
 sge::x11input::cursor::object_unique_ptr
 sge::x11input::processor::create_cursor(
-	x11input::create_parameters const &_param
+	sge::x11input::create_parameters const &_param
 )
 {
 	return
 		fcppt::make_unique_ptr<
-			x11input::cursor::object
+			sge::x11input::cursor::object
 		>(
 			this->device_parameters(
 				_param

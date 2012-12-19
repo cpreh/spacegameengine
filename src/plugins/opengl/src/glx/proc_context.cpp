@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/id.hpp>
 #include <sge/opengl/context/system/make_id.hpp>
 #include <sge/opengl/glx/proc_context.hpp>
-#include <fcppt/null_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <GL/glx.h>
 #include <fcppt/config/external_end.hpp>
@@ -37,7 +36,7 @@ sge::opengl::glx::proc_context::proc_context()
 #elif defined(GLX_ARB_get_proc_address)
 		::glXGetProcAddressARB
 #else
-		fcppt::null_ptr()
+		nullptr
 #endif
 	)
 {
@@ -53,7 +52,7 @@ sge::opengl::glx::proc_context::get_proc_address_supported() const
 	return
 		get_proc_address_
 		!=
-		fcppt::null_ptr()
+		nullptr
 		;
 }
 

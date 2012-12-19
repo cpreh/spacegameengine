@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/state/core/sampler/context.hpp>
 #include <sge/opengl/state/core/sampler/set_defaults.hpp>
-#include <fcppt/ref.hpp>
 
 
 void
@@ -36,8 +35,6 @@ sge::opengl::state::core::sampler::set_defaults(
 		sge::opengl::state::core::sampler::context
 	>(
 		_device_context,
-		fcppt::ref(
-			_system_context
-		)
+		_system_context
 	).reset();
 }

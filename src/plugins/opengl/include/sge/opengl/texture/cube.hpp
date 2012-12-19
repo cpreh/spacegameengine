@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/cube_types.hpp>
 #include <sge/renderer/texture/cube.hpp>
 #include <sge/renderer/texture/cube_parameters_fwd.hpp>
-#include <sge/renderer/texture/cube_side.hpp>
+#include <sge/renderer/texture/cube_side_fwd.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <sge/renderer/texture/mipmap/level_count.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -63,13 +63,13 @@ private:
 
 	sge::renderer::texture::cube::color_buffer &
 	level(
-		sge::renderer::texture::cube_side::type,
+		sge::renderer::texture::cube_side,
 		sge::renderer::texture::mipmap::level
 	);
 
 	sge::renderer::texture::cube::color_buffer const &
 	level(
-		sge::renderer::texture::cube_side::type,
+		sge::renderer::texture::cube_side,
 		sge::renderer::texture::mipmap::level
 	) const;
 

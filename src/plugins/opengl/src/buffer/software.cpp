@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/const_raw_pointer.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/raw_value.hpp>
-#include <fcppt/null_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/copy_n.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -57,7 +56,7 @@ sge::opengl::buffer::software::gen_buffer()
 	buffers_.insert(
 		std::make_pair(
 			nextid_,
-			fcppt::null_ptr()
+			nullptr
 		)
 	);
 

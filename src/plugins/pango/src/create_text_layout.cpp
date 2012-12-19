@@ -30,9 +30,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/pango/pango_layout_unique_ptr.hpp>
 #include <sge/pango/convert/alignment.hpp>
 #include <sge/pango/convert/to_unit.hpp>
-#include <fcppt/move.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <pango/pango-layout.h>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -117,7 +117,7 @@ sge::pango::create_text_layout(
 	);
 
 	return
-		fcppt::move(
+		std::move(
 			layout
 		);
 }

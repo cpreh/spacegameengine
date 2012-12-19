@@ -55,7 +55,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/post.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
-#include <fcppt/function/object.hpp>
 #include <fcppt/io/stream_to_string.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/log/warning.hpp>
@@ -63,6 +62,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <IL/il.h>
 #include <boost/filesystem/path.hpp>
+#include <functional>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -273,7 +273,7 @@ sge::devil::file::load(
 {
 	return
 		this->load_impl(
-			std::tr1::bind(
+			std::bind(
 				devil::load_image,
 				_file
 			)
@@ -288,7 +288,7 @@ sge::devil::file::load(
 {
 	return
 		this->load_impl(
-			std::tr1::bind(
+			std::bind(
 				devil::load_memory,
 				_range,
 				_extension
@@ -309,7 +309,7 @@ sge::devil::file::load(
 
 	return
 		this->load_impl(
-			std::tr1::bind(
+			std::bind(
 				devil::load_memory,
 				boost::make_iterator_range(
 					reinterpret_cast<sge::media::const_raw_pointer>(

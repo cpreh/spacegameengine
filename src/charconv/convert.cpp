@@ -40,8 +40,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 template<
-	sge::charconv::encoding::type DestEncoding,
-	sge::charconv::encoding::type SourceEncoding
+	sge::charconv::encoding DestEncoding,
+	sge::charconv::encoding SourceEncoding
 >
 typename sge::charconv::string_type<
 	DestEncoding

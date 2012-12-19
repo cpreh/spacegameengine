@@ -18,21 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_VIEWPORT_RESIZE_CALLBACK_FWD_HPP_INCLUDED
-#define SGE_VIEWPORT_RESIZE_CALLBACK_FWD_HPP_INCLUDED
-
-#include <sge/viewport/resize_function.hpp>
-#include <fcppt/function/object_fwd.hpp>
+#ifndef SGE_PLUGIN_CAPABILITIES_FWD_HPP_INCLUDED
+#define SGE_PLUGIN_CAPABILITIES_FWD_HPP_INCLUDED
 
 
 namespace sge
 {
-namespace viewport
+namespace plugin
 {
 
-typedef fcppt::function::object<
-	sge::viewport::resize_function
-> resize_callback;
+enum class capabilities;
 
 }
 }

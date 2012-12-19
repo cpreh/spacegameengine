@@ -32,7 +32,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cg/program/from_string_parameters.hpp>
 #include <sge/cg/program/object.hpp>
 #include <sge/src/cg/program/convert_source_type.hpp>
-#include <fcppt/null_ptr.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
@@ -169,7 +168,7 @@ sge::cg::program::object::parameter_opt(
 	return
 		ret
 		==
-		fcppt::null_ptr()
+		nullptr
 		?
 			sge::cg::parameter::optional_named()
 		:
@@ -209,7 +208,7 @@ assert_program(
 	FCPPT_ASSERT_ERROR(
 		_program
 		!=
-		fcppt::null_ptr()
+		nullptr
 	);
 }
 

@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/choices_fwd.hpp>
 #include <sge/sprite/config/is_size_choice.hpp>
 #include <sge/sprite/config/is_type_choices.hpp>
-#include <fcppt/static_assert_statement.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/is_sequence.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -50,22 +49,25 @@ struct choices
 
 	typedef OptionalElements optional_elements;
 
-	FCPPT_STATIC_ASSERT_STATEMENT(
+	static_assert(
 		sge::sprite::config::is_type_choices<
 			TypeChoices
-		>::value
+		>::value,
+		"TypeChoices must be a sprite type_choices struct"
 	);
 
-	FCPPT_STATIC_ASSERT_STATEMENT(
+	static_assert(
 		sge::sprite::config::is_size_choice<
 			SizeChoice
-		>::value
+		>::value,
+		"SizeChoice must be one of sprite's size choices"
 	);
 
-	FCPPT_STATIC_ASSERT_STATEMENT(
+	static_assert(
 		boost::mpl::is_sequence<
 			OptionalElements
-		>::value
+		>::value,
+		"OptionalElements must be an mpl sequence"
 	);
 };
 

@@ -22,11 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/system.hpp>
 #include <sge/opencl/platform/object.hpp>
 #include <sge/src/opencl/handle_error.hpp>
-#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/container/raw_vector.hpp>
-#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 
 
 sge::opencl::system::system()

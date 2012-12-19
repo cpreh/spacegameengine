@@ -30,7 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/vorbis/loader.hpp>
 #include <sge/vorbis/stream_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/move.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
@@ -41,6 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/filesystem/fstream.hpp>
 #include <boost/filesystem/path.hpp>
 #include <boost/iostreams/stream.hpp>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -82,7 +82,7 @@ sge::vorbis::loader::load(
 				fcppt::make_unique_ptr<
 					sge::vorbis::file
 				>(
-					fcppt::move(
+					std::move(
 						file_stream),
 					sge::audio::optional_path(
 						filename)));
@@ -126,7 +126,7 @@ sge::vorbis::loader::load_raw(
 				fcppt::make_unique_ptr<
 					sge::vorbis::file
 				>(
-					fcppt::move(
+					std::move(
 						raw_stream),
 					sge::audio::optional_path()));
 	}

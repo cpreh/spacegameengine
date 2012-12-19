@@ -75,9 +75,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/optional_offscreen_ref.hpp>
 #include <sge/renderer/texture/const_optional_base_ref_fwd.hpp>
 #include <sge/renderer/texture/stage.hpp>
-#include <fcppt/assert/pre.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
+#include <fcppt/assert/pre.hpp>
 
 #if defined(SGE_RENDERER_HAVE_CG)
 #include <sge/opengl/cg/program/activate.hpp>
@@ -166,12 +165,10 @@ sge::opengl::render_context::object::offscreen_target(
 			fcppt::make_unique_ptr<
 				sge::opengl::scoped_target
 			>(
-				fcppt::ref(
-					dynamic_cast<
-						sge::opengl::target_base &
-					>(
-						*_new_target
-					)
+				dynamic_cast<
+					sge::opengl::target_base &
+				>(
+					*_new_target
 				)
 			)
 		);
@@ -406,7 +403,7 @@ sge::opengl::render_context::object::sampler_ffp_state(
 
 void
 sge::opengl::render_context::object::transform(
-	sge::renderer::state::ffp::transform::mode::type const _mode,
+	sge::renderer::state::ffp::transform::mode const _mode,
 	sge::renderer::state::ffp::transform::const_optional_object_ref const &_state
 )
 {

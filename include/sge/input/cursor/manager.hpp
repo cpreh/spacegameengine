@@ -32,10 +32,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/remove_event_fwd.hpp>
 #include <sge/input/cursor/scroll_event_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/function/object.hpp>
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/ptr_container/ptr_map.hpp>
+#include <functional>
+#include <unordered_map>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -52,21 +52,21 @@ class manager
 		manager
 	);
 public:
-	typedef fcppt::function::object<
+	typedef std::function<
 		void (
 			sge::input::cursor::object &,
 			sge::input::cursor::button_event const &
 		)
 	> button_callback;
 
-	typedef fcppt::function::object<
+	typedef std::function<
 		void (
 			sge::input::cursor::object &,
 			sge::input::cursor::move_event const &
 		)
 	> move_callback;
 
-	typedef fcppt::function::object<
+	typedef std::function<
 		void (
 			sge::input::cursor::object &,
 			sge::input::cursor::scroll_event const &
@@ -86,7 +86,7 @@ public:
 	SGE_INPUT_SYMBOL
 	~manager();
 
-	typedef boost::ptr_map<
+	typedef std::unordered_map<
 		sge::input::cursor::object *,
 		fcppt::signal::connection_manager
 	> object_map;

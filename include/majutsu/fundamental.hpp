@@ -28,12 +28,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <majutsu/concepts/static_size.hpp>
 #include <majutsu/concepts/static_memory/tag.hpp>
 #include <majutsu/detail/copy_n.hpp>
-#include <fcppt/static_assert_statement.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/type_traits/is_fundamental.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -48,8 +47,11 @@ struct fundamental
 	typedef T type;
 
 
-	FCPPT_STATIC_ASSERT_STATEMENT(
-		boost::is_fundamental<T>::value
+	static_assert(
+		std::is_fundamental<
+			T
+		>::value,
+		"T must be fundamental"
 	);
 };
 
@@ -68,10 +70,11 @@ struct static_size<
 	>
 >
 :
-integral_size<
+majutsu::integral_size<
 	sizeof(T)
 >
-{};
+{
+};
 
 FCPPT_PP_POP_WARNING
 
@@ -82,22 +85,22 @@ template<
 >
 void
 place(
-	concepts::static_memory::tag const *,
-	fundamental<
+	majutsu::concepts::static_memory::tag const *,
+	majutsu::fundamental<
 		Type
 	> const *,
 	Type const &_value,
-	raw_pointer const _memory
+	majutsu::raw_pointer const _memory
 )
 {
-	detail::copy_n(
+	majutsu::detail::copy_n(
 		reinterpret_cast<
-			const_raw_pointer
+			majutsu::const_raw_pointer
 		>(
 			&_value
 		),
-		concepts::static_size<
-			fundamental<
+		majutsu::concepts::static_size<
+			majutsu::fundamental<
 				Type
 			>
 		>::value,
@@ -110,24 +113,24 @@ template<
 >
 Type
 make(
-	concepts::static_memory::tag const *,
-	fundamental<
+	majutsu::concepts::static_memory::tag const *,
+	majutsu::fundamental<
 		Type
 	> const *,
-	const_raw_pointer const _memory
+	majutsu::const_raw_pointer const _memory
 )
 {
 	Type ret;
 
-	detail::copy_n(
+	majutsu::detail::copy_n(
 		_memory,
-		concepts::static_size<
-			fundamental<
+		majutsu::concepts::static_size<
+			majutsu::fundamental<
 				Type
 			>
 		>::value,
 		reinterpret_cast<
-			raw_pointer
+			majutsu::raw_pointer
 		>(
 			&ret
 		)

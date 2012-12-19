@@ -97,10 +97,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/exception.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/make_shared_ptr.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/io/cerr.hpp>
@@ -284,18 +283,14 @@ try
 			fcppt::make_shared_ptr<
 				sge::texture::part_raw_ref
 			>(
-				fcppt::ref(
-					*texture1
-				)
+				*texture1
 			)
 		)
 		.texture_level<1>(
 			fcppt::make_shared_ptr<
 				sge::texture::part_raw_ref
 			>(
-				fcppt::ref(
-					*texture2
-				)
+				*texture2
 			)
 		)
 		.texture_size()
@@ -344,11 +339,11 @@ try
 		fcppt::assign::make_container<
 			sge::renderer::state::ffp::sampler::const_object_ref_vector
 		>(
-			fcppt::cref(
+			fcppt::make_cref(
 				*sampler0
 			)
 		)(
-			fcppt::cref(
+			fcppt::make_cref(
 				*sampler1
 			)
 		)

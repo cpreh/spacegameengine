@@ -27,7 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/window/event/focus_out_fwd.hpp>
 #include <awl/window/event/processor.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::evdev::focus_manager::focus_manager(
@@ -44,10 +46,10 @@ sge::evdev::focus_manager::focus_manager(
 	focus_in_connection_(
 		_window.awl_window_event_processor().focus_in_callback(
 			awl::window::event::focus_in_callback(
-				std::tr1::bind(
+				std::bind(
 					&sge::evdev::focus_manager::on_focus_in,
 					this,
-					std::tr1::placeholders::_1
+					std::placeholders::_1
 				)
 			)
 		)
@@ -55,10 +57,10 @@ sge::evdev::focus_manager::focus_manager(
 	focus_out_connection_(
 		_window.awl_window_event_processor().focus_out_callback(
 			awl::window::event::focus_out_callback(
-				std::tr1::bind(
+				std::bind(
 					&sge::evdev::focus_manager::on_focus_out,
 					this,
-					std::tr1::placeholders::_1
+					std::placeholders::_1
 				)
 			)
 		)

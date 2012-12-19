@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/pango/glib_deleter.hpp>
-#include <fcppt/null_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <glib-object.h>
 #include <glib.h>
@@ -32,7 +31,7 @@ sge::pango::glib_deleter::operator()(
 )
 {
 	if(
-		_ptr != fcppt::null_ptr()
+		_ptr != nullptr
 	)
 		::g_object_unref(
 			_ptr

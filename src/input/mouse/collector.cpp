@@ -37,38 +37,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_impl.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::input::mouse::collector::collector(
-	input::processor &_processor
+	sge::input::processor &_processor
 )
 :
 	manager_(
 		_processor,
 		mouse::discover_callback(),
 		mouse::remove_callback(),
-		std::tr1::bind(
-			&mouse::collector::axis_callback_internal,
+		std::bind(
+			&sge::input::mouse::collector::axis_callback_internal,
 			this,
-			std::tr1::placeholders::_1,
-			std::tr1::placeholders::_2
+			std::placeholders::_1,
+			std::placeholders::_2
 		),
-		std::tr1::bind(
-			&mouse::collector::button_callback_internal,
+		std::bind(
+			&sge::input::mouse::collector::button_callback_internal,
 			this,
-			std::tr1::placeholders::_1,
-			std::tr1::placeholders::_2
+			std::placeholders::_1,
+			std::placeholders::_2
 		)
 	),
 	info_(
-		mouse::axis_info_container(
-			mouse::axis_info_container::vector()
+		sge::input::mouse::axis_info_container(
+			sge::input::mouse::axis_info_container::vector()
 		),
-		mouse::button_info_container(
-			mouse::button_info_container::vector()
+		sge::input::mouse::button_info_container(
+			sge::input::mouse::button_info_container::vector()
 		),
 		sge::input::info::name(
 			FCPPT_TEXT("mouse collector")
@@ -86,7 +88,7 @@ sge::input::mouse::collector::~collector()
 
 fcppt::signal::auto_connection
 sge::input::mouse::collector::axis_callback(
-	mouse::axis_callback const &_callback
+	sge::input::mouse::axis_callback const &_callback
 )
 {
 	return
@@ -97,7 +99,7 @@ sge::input::mouse::collector::axis_callback(
 
 fcppt::signal::auto_connection
 sge::input::mouse::collector::button_callback(
-	mouse::button_callback const &_callback
+	sge::input::mouse::button_callback const &_callback
 )
 {
 	return
@@ -115,8 +117,8 @@ sge::input::mouse::collector::info() const
 
 void
 sge::input::mouse::collector::axis_callback_internal(
-	mouse::device &,
-	mouse::axis_event const &_event
+	sge::input::mouse::device &,
+	sge::input::mouse::axis_event const &_event
 )
 {
 	axis_signal_(
@@ -126,8 +128,8 @@ sge::input::mouse::collector::axis_callback_internal(
 
 void
 sge::input::mouse::collector::button_callback_internal(
-	mouse::device &,
-	mouse::button_event const &_event
+	sge::input::mouse::device &,
+	sge::input::mouse::button_event const &_event
 )
 {
 	button_signal_(

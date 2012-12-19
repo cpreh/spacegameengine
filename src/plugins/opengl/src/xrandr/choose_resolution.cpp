@@ -28,9 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/screen_unit.hpp>
 #include <sge/renderer/display_mode/object.hpp>
 #include <awl/backends/x11/window/object.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/Xrandr.h>
@@ -86,12 +84,8 @@ sge::opengl::xrandr::choose_resolution(
 					fcppt::make_unique_ptr<
 						sge::opengl::xrandr::resolution
 					>(
-						fcppt::ref(
-							_window
-						),
-						fcppt::cref(
-							_config
-						),
+						_window,
+						_config,
 						sge::opengl::xrandr::mode(
 							static_cast<
 								SizeID

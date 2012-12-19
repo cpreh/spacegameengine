@@ -18,26 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_INDEX_ACTOR_FWD_HPP_INCLUDED
-#define SGE_OPENGL_STATE_INDEX_ACTOR_FWD_HPP_INCLUDED
+#ifndef SGE_X11INPUT_DEVICE_MANAGER_CONFIG_BASE_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_X11INPUT_DEVICE_MANAGER_CONFIG_BASE_UNIQUE_PTR_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
-#include <fcppt/function/object_fwd.hpp>
+#include <sge/x11input/device/manager/config_base_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
 {
-namespace opengl
+namespace x11input
 {
-namespace state
+namespace device
+{
+namespace manager
 {
 
-typedef fcppt::function::object<
-	void (
-		GLenum const &
-	)
-> index_actor;
+typedef std::unique_ptr<
+	sge::x11input::device::manager::config_base
+> config_base_unique_ptr;
 
+}
 }
 }
 }

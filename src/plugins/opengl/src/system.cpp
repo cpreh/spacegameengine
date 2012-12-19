@@ -37,9 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/system/object_fwd.hpp>
 #include <awl/visual/object.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/assert/pre.hpp>
 
 
@@ -93,21 +91,11 @@ sge::opengl::system::create_ffp_renderer(
 			fcppt::make_unique_ptr<
 				sge::opengl::device
 			>(
-				fcppt::cref(
-					_parameters.params()
-				),
-				fcppt::ref(
-					_parameters.window()
-				),
-				fcppt::ref(
-					*device_system_
-				),
-				fcppt::ref(
-					system_context_
-				),
-				fcppt::cref(
-					*caps_
-				)
+				_parameters.params(),
+				_parameters.window(),
+				*device_system_,
+				system_context_,
+				*caps_
 			)
 		);
 }

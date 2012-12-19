@@ -21,10 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_NOISE_SIMPLEX_OBJECT_DECL_HPP_INCLUDED
 #define SGE_NOISE_SIMPLEX_OBJECT_DECL_HPP_INCLUDED
 
-
 #include <sge/noise/simplex/object_fwd.hpp>
 #include <sge/noise/simplex/width.hpp>
-#include <fcppt/static_assert_statement.hpp>
 #include <fcppt/container/array.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/matrix/static.hpp>
@@ -49,10 +47,11 @@ template<
 >
 class object
 {
-	FCPPT_STATIC_ASSERT_STATEMENT(
+	static_assert(
 		boost::is_floating_point<
 			Float
-		>::value
+		>::value,
+		"Float must be a floating-point type"
 	);
 public:
 	typedef

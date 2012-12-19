@@ -132,9 +132,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/format_fwd.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <awl/window/object_fwd.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 
 #if defined(SGE_RENDERER_HAVE_CG)
 #include <sge/cg/context/object_fwd.hpp>
@@ -190,15 +188,9 @@ sge::opengl::device::device(
 		fcppt::make_unique_ptr<
 			sge::opengl::onscreen_target
 		>(
-			fcppt::ref(
-				device_context_
-			),
-			fcppt::ref(
-				*context_
-			),
-			fcppt::ref(
-				_window
-			)
+			device_context_,
+			*context_,
+			_window
 		)
 	)
 {
@@ -328,15 +320,9 @@ sge::opengl::device::create_vertex_declaration(
 			fcppt::make_unique_ptr<
 				sge::opengl::vertex_declaration
 			>(
-				fcppt::ref(
-					system_context_
-				),
-				fcppt::ref(
-					device_context_
-				),
-				fcppt::cref(
-					_format
-				)
+				system_context_,
+				device_context_,
+				_format
 			)
 		);
 }
@@ -354,9 +340,7 @@ sge::opengl::device::create_vertex_buffer(
 			fcppt::make_unique_ptr<
 				sge::opengl::vertex_buffer
 			>(
-				fcppt::ref(
-					system_context_
-				),
+				system_context_,
 				_part,
 				dynamic_cast<
 					sge::opengl::vertex_declaration const &
@@ -383,9 +367,7 @@ sge::opengl::device::create_index_buffer(
 			fcppt::make_unique_ptr<
 				sge::opengl::index_buffer
 			>(
-				fcppt::ref(
-					system_context_
-				),
+				system_context_,
 				_format,
 				_size,
 				_flags

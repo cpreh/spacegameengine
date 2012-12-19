@@ -28,20 +28,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/single_device_system/object.hpp>
 #include <sge/opencl/single_device_system/parameters.hpp>
 #include <sge/src/opencl/declare_local_logger.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/unique_ptr.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/algorithm/string/trim.hpp>
 #include <boost/thread/locks.hpp>
+#include <functional>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -116,18 +113,16 @@ sge::opencl::single_device_system::object::object(
 			::construct_context_parameters(
 				*platform_,
 				*device_,
-				std::tr1::bind(
+				std::bind(
 					&object::error_callback,
 					this,
-					std::tr1::placeholders::_1,
-					std::tr1::placeholders::_2),
+					std::placeholders::_1,
+					std::placeholders::_2),
 				_params.renderer()))),
 	queue_(
 		fcppt::make_unique_ptr<command_queue::object>(
-			fcppt::ref(
-				*device_),
-			fcppt::ref(
-				*context_),
+			*device_,
+			*context_,
 			command_queue::execution_mode::in_order,
 			_params.profiling())),
 	error_mutex_(),

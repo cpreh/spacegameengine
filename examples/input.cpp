@@ -134,7 +134,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/exception.hpp>
 #include <fcppt/from_std_wstring.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/io/cerr.hpp>
@@ -146,10 +145,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <example_main.hpp>
+#include <functional>
 #include <ostream>
 #include <string>
 #include <fcppt/config/external_end.hpp>
@@ -463,12 +462,12 @@ try
 
 	fcppt::signal::scoped_connection const console_resize_con(
 		sys.viewport_manager().manage_callback(
-			std::tr1::bind(
+			std::bind(
 				manage_console_size,
-				fcppt::ref(
+				std::ref(
 					console_gfx.background_sprite()
 				),
-				std::tr1::placeholders::_1
+				std::placeholders::_1
 			)
 		)
 	);

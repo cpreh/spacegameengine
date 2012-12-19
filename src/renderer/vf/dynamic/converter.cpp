@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/renderer/vf/dynamic/detail/converter_impl.hpp>
 #include <sge/src/renderer/vf/dynamic/detail/lock_interval.hpp>
 #include <sge/src/renderer/vf/dynamic/detail/locked_part_interval.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
@@ -96,9 +95,7 @@ sge::renderer::vf::dynamic::converter::unlock()
 			fcppt::make_unique_ptr<
 				sge::renderer::vf::dynamic::detail::converter_impl
 			>(
-				fcppt::cref(
-					part_
-				),
+				part_,
 				accepted_formats_
 			)
 		);

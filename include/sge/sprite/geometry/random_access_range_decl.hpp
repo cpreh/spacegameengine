@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/count.hpp>
 #include <sge/sprite/geometry/random_access_range_fwd.hpp>
 #include <fcppt/nonassignable.hpp>
-#include <fcppt/static_assert_statement.hpp>
 #include <fcppt/type_traits/is_random_access_iterator.hpp>
 
 
@@ -44,10 +43,11 @@ class random_access_range
 		random_access_range
 	);
 public:
-	FCPPT_STATIC_ASSERT_STATEMENT(
+	static_assert(
 		fcppt::type_traits::is_random_access_iterator<
 			Iterator
-		>::value
+		>::value,
+		"Iterator must be a random access iterator"
 	);
 
 	typedef Iterator iterator;

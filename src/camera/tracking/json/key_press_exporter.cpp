@@ -28,14 +28,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/output/to_file.hpp>
 #include <sge/src/camera/logger.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/unique_ptr.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/log/info.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
 
 FCPPT_PP_PUSH_WARNING
@@ -61,10 +62,10 @@ sge::camera::tracking::json::key_press_exporter::key_press_exporter(
 		_export_keypress),
 	key_press_connection_(
 		_keyboard.key_callback(
-			std::tr1::bind(
+			std::bind(
 				&key_press_exporter::key_callback,
 				this,
-				std::tr1::placeholders::_1))),
+				std::placeholders::_1))),
 	keyframes_()
 {
 }

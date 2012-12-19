@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/color/format.hpp>
 #include <sge/texture/fragmented_unique_ptr.hpp>
-#include <fcppt/function/object.hpp>
 
 
 namespace sge
@@ -31,11 +30,11 @@ namespace sge
 namespace texture
 {
 
-typedef fcppt::function::object<
-	sge::texture::fragmented_unique_ptr (
-		sge::image::color::format::type
-	)
-> on_alloc_function;
+typedef
+sge::texture::fragmented_unique_ptr
+on_alloc_function(
+	sge::image::color::format::type
+);
 
 }
 }

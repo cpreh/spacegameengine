@@ -29,11 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/optional_name_fwd.hpp>
 #include <sge/systems/renderer_caps.hpp>
 #include <fcppt/container/bitfield/is_subset_eq.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/spirit/home/phoenix/bind/bind_function.hpp>
-#include <boost/spirit/home/phoenix/bind/bind_member_function.hpp>
-#include <boost/spirit/home/phoenix/core/argument.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 
@@ -51,26 +46,27 @@ sge::systems::modules::renderer::find_plugin(
 		>(
 			_collection,
 			_name,
-			boost::phoenix::bind(
-				&fcppt::container::bitfield::is_subset_eq<
-					sge::renderer::caps::system_field::enum_type,
-					sge::renderer::caps::system_field::static_size::value,
-					sge::renderer::caps::system_field::internal_type
-				>,
-				_renderer_caps
-				==
-				sge::systems::renderer_caps::ffp
-				?
-					_caps
-					|
-					sge::renderer::caps::system::ffp
-				:
-					_caps
-				,
-				boost::phoenix::bind(
-					&sge::renderer::system::caps,
-					boost::phoenix::arg_names::arg1
-				)
+			[
+				_renderer_caps,
+				&_caps
+			](
+				sge::renderer::system const &_system
 			)
+			{
+				return
+					fcppt::container::bitfield::is_subset_eq(
+						_renderer_caps
+						==
+						sge::systems::renderer_caps::ffp
+						?
+							_caps
+							|
+							sge::renderer::caps::system::ffp
+						:
+							_caps
+						,
+						_system.caps()
+					);
+			}
 		);
 }

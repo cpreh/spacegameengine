@@ -25,9 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/viewport/manager.hpp>
 #include <sge/viewport/resize_callback.hpp>
 #include <sge/window/object_fwd.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 
 
@@ -41,15 +39,9 @@ sge::viewport::manager::manager(
 		fcppt::make_unique_ptr<
 			sge::viewport::detail::manager_impl
 		>(
-			fcppt::ref(
-				_device
-			),
-			fcppt::ref(
-				_window
-			),
-			fcppt::cref(
-				_resize_callback
-			)
+			_device,
+			_window,
+			_resize_callback
 		)
 	)
 {

@@ -40,8 +40,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_impl.hpp>
-#include <fcppt/signal/shared_connection.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
 
 FCPPT_PP_PUSH_WARNING
@@ -59,27 +60,24 @@ sge::input::cursor::demuxer::demuxer(
 		fcppt::assign::make_container<
 			fcppt::signal::connection_manager::container
 		>(
-			fcppt::signal::shared_connection(
-				_processor.cursor_discover_callback(
-					std::tr1::bind(
-						&sge::input::cursor::demuxer::discover_callback,
-						this,
-						std::tr1::placeholders::_1
-					)
+			_processor.cursor_discover_callback(
+				std::bind(
+					&sge::input::cursor::demuxer::discover_callback,
+					this,
+					std::placeholders::_1
 				)
 			)
 		)
 		(
-			fcppt::signal::shared_connection(
-				_processor.cursor_remove_callback(
-					std::tr1::bind(
-						&sge::input::cursor::demuxer::remove_callback,
-						this,
-						std::tr1::placeholders::_1
-					)
+			_processor.cursor_remove_callback(
+				std::bind(
+					&sge::input::cursor::demuxer::remove_callback,
+					this,
+					std::placeholders::_1
 				)
 			)
 		)
+		.move_container()
 	),
 	button_signal_(),
 	move_signal_(),
@@ -237,37 +235,32 @@ sge::input::cursor::demuxer::assign_cursor()
 		fcppt::assign::make_container<
 			fcppt::signal::connection_manager::container
 		>(
-			fcppt::signal::shared_connection(
-				current_cursor_->button_callback(
-					std::tr1::bind(
-						&sge::input::cursor::demuxer::button_callback_internal,
-						this,
-						std::tr1::placeholders::_1
-					)
+			current_cursor_->button_callback(
+				std::bind(
+					&sge::input::cursor::demuxer::button_callback_internal,
+					this,
+					std::placeholders::_1
 				)
 			)
 		)
 		(
-			fcppt::signal::shared_connection(
-				current_cursor_->move_callback(
-					std::tr1::bind(
-						&sge::input::cursor::demuxer::move_callback_internal,
-						this,
-						std::tr1::placeholders::_1
-					)
+			current_cursor_->move_callback(
+				std::bind(
+					&sge::input::cursor::demuxer::move_callback_internal,
+					this,
+					std::placeholders::_1
 				)
 			)
 		)
 		(
-			fcppt::signal::shared_connection(
-				current_cursor_->scroll_callback(
-					std::tr1::bind(
-						&sge::input::cursor::demuxer::scroll_callback_internal,
-						this,
-						std::tr1::placeholders::_1
-					)
+			current_cursor_->scroll_callback(
+				std::bind(
+					&sge::input::cursor::demuxer::scroll_callback_internal,
+					this,
+					std::placeholders::_1
 				)
 			)
 		)
+		.move_container()
 	);
 }

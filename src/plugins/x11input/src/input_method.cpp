@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/input_method.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/window/class_hint.hpp>
-#include <fcppt/null_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/Xlib.h>
@@ -40,7 +39,7 @@ sge::x11input::input_method::input_method(
 	xim_(
 		::XOpenIM(
 			_display.get(),
-			fcppt::null_ptr(),
+			nullptr,
 			_class_hint
 			?
 				const_cast<
@@ -49,7 +48,7 @@ sge::x11input::input_method::input_method(
 					_class_hint->res_name().c_str()
 				)
 			:
-				fcppt::null_ptr()
+				nullptr
 			,
 			_class_hint
 			?
@@ -59,14 +58,14 @@ sge::x11input::input_method::input_method(
 					_class_hint->res_class().c_str()
 				)
 			:
-				fcppt::null_ptr()
+				nullptr
 		)
 	)
 {
 	if(
 		xim_
 		==
-		fcppt::null_ptr()
+		nullptr
 	)
 		throw sge::input::exception(
 			FCPPT_TEXT("XOpenIM() failed!")

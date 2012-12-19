@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/evdev/inotify/watch.hpp>
 #include <awl/backends/linux/fd/event_fwd.hpp>
 #include <awl/backends/linux/fd/processor_fwd.hpp>
-#include <fcppt/function/object.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>

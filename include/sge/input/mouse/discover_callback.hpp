@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_INPUT_MOUSE_DISCOVER_CALLBACK_HPP_INCLUDED
 
 #include <sge/input/mouse/discover_function.hpp>
-#include <fcppt/function/object.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -32,8 +34,8 @@ namespace input
 namespace mouse
 {
 
-typedef fcppt::function::object<
-	mouse::discover_function
+typedef std::function<
+	sge::input::mouse::discover_function
 > discover_callback;
 
 }

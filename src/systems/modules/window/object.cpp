@@ -28,10 +28,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/system.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
-#include <fcppt/ref.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
-#include <fcppt/function/object.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::systems::modules::window::object::object(
@@ -54,15 +53,11 @@ sge::systems::modules::window::object::object(
 			fcppt::make_unique_ptr<
 				sge::systems::modules::window::quit
 			>(
-				fcppt::ref(
-					base_->system()
-				),
-				fcppt::ref(
-					base_->window()
-				)
+				base_->system(),
+				base_->window()
 			)
 		:
-			fcppt::unique_ptr<
+			std::unique_ptr<
 				sge::systems::modules::window::quit
 			>()
 	)

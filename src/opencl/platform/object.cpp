@@ -22,11 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/context/object.hpp>
 #include <sge/opencl/platform/object.hpp>
 #include <sge/src/opencl/handle_error.hpp>
-#include <fcppt/cref.hpp>
-#include <fcppt/make_shared_ptr.hpp>
-#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/algorithm/contains.hpp>
 #include <fcppt/assert/pre_message.hpp>
 #include <fcppt/container/raw_vector.hpp>
@@ -62,7 +58,7 @@ platform_info_string(
 		static_cast<fcppt::container::raw_vector<char>::size_type>(
 			param_value_size));
 
-  error_code =
+	error_code =
 		clGetPlatformInfo(
 			p,
 			info,
@@ -158,8 +154,10 @@ sge::opencl::platform::object::supports_memory_sharing_with(
 bool
 sge::opencl::platform::object::has_gpu() const
 {
-	for(opencl::device::object_sequence::const_iterator it = devices_.begin(); it != devices_.end(); ++it)
-		if (it->is_gpu())
+	for(
+		auto const &device : devices_
+	)
+		if (device.is_gpu())
 			return true;
 
 	return false;
@@ -225,18 +223,12 @@ sge::opencl::platform::object::object(
 		FCPPT_TEXT("clGetDeviceIDs"));
 
 	for(
-		device_id_sequence::const_iterator device_it =
-			device_ids.begin();
-		device_it != device_ids.end();
-		++device_it)
+		auto const &id : device_ids
+	)
+		// No make_unique_ptr here because this class is a friend ob device::object
 		devices_.push_back(
-			new opencl::device::object(
-				*device_it));
-		/*
-		fcppt::container::ptr::push_back_unique_ptr(
-			devices_,
-			fcppt::make_unique_ptr<opencl::device>(
-				*device_it));*/
+			new sge::opencl::device::object(
+				id));
 }
 
 /*

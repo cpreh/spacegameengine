@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/renderer/state/ffp/transform/const_optional_object_ref_fwd.hpp>
-#include <sge/renderer/state/ffp/transform/mode.hpp>
+#include <sge/renderer/state/ffp/transform/mode_fwd.hpp>
 
 
 namespace sge
@@ -40,7 +40,7 @@ namespace transform
 void
 set(
 	sge::opengl::context::system::object &,
-	sge::renderer::state::ffp::transform::mode::type,
+	sge::renderer::state::ffp::transform::mode,
 	sge::renderer::state::ffp::transform::const_optional_object_ref const &
 );
 

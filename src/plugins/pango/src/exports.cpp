@@ -31,7 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/version.hpp>
 #include <sge/plugin/library/make_interface.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
 
 
@@ -63,9 +62,7 @@ create_font_system(
 			fcppt::make_unique_ptr<
 				sge::pango::system
 			>(
-				fcppt::ref(
-					_charconv_system
-				)
+				_charconv_system
 			)
 		);
 }
