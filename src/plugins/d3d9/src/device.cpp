@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/device.hpp>
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/index_buffer.hpp>
-#include <sge/d3d9/multi_sample_quality.hpp>	
+#include <sge/d3d9/multi_sample_quality.hpp>
 #include <sge/d3d9/needs_reset.hpp>
 #include <sge/d3d9/resource_manager.hpp>
 #include <sge/d3d9/vertex_buffer.hpp>
@@ -566,7 +566,7 @@ sge::d3d9::device::create_sampler_state(
 #if defined(SGE_RENDERER_HAVE_CG)
 sge::cg::profile::object const
 sge::d3d9::device::create_cg_profile(
-	sge::cg::profile::shader_type::type const _shader_type
+	sge::cg::profile::shader_type const _shader_type
 )
 {
 	return

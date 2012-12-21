@@ -21,22 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_PLAYER_CAPABILITIES_FIELD_HPP_INCLUDED
 #define SGE_AUDIO_PLAYER_CAPABILITIES_FIELD_HPP_INCLUDED
 
-#include <sge/audio/player_capabilities.hpp>
-#include <fcppt/container/bitfield/object_fwd.hpp>
+#include <sge/audio/player_capabilities_field_fwd.hpp>
+#include <fcppt/container/bitfield/object_impl.hpp>
 
-
-namespace sge
-{
-namespace audio
-{
-
-/// Holds player capabilities (if it's the null plugin or not, for example), see sge::audio::player_capabilities
-typedef fcppt::container::bitfield::object<
-	player_capabilities::type,
-	player_capabilities::size
-> player_capabilities_field;
-
-}
-}
 
 #endif

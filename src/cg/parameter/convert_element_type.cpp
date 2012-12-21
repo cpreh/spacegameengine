@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 CGtype
 sge::cg::parameter::convert_element_type(
-	sge::cg::parameter::element_type::type const _type
+	sge::cg::parameter::element_type const _type
 )
 {
 	switch(

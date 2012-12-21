@@ -53,7 +53,7 @@ class color
 public:
 	color(
 		IDirect3DDevice9 &,
-		sge::image::color::format::type,
+		sge::image::color::format,
 		sge::d3d9::surface::color_create_unique_ptr
 	);
 
@@ -99,7 +99,7 @@ private:
 
 	color_create_scoped_ptr const create_;
 
-	sge::image::color::format::type const format_;
+	sge::image::color::format const format_;
 
 	typedef fcppt::scoped_ptr<
 		sge::d3d9::surface::color_holder

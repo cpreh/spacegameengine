@@ -28,35 +28,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 ILenum
 sge::devil::to_il_format(
-	image::color::format::type const _format
+	sge::image::color::format const _format
 )
 {
 	switch(
 		_format
 	)
 	{
-	case image::color::format::a8:
+	case sge::image::color::format::a8:
 		return IL_ALPHA;
-	case image::color::format::l8:
+	case sge::image::color::format::l8:
 		return IL_LUMINANCE;
-	case image::color::format::la8:
+	case sge::image::color::format::la8:
 		return IL_LUMINANCE_ALPHA;
-	case image::color::format::rgb8:
-	case image::color::format::rgb32f:
+	case sge::image::color::format::rgb8:
+	case sge::image::color::format::rgb32f:
 		return IL_RGB;
-	case image::color::format::rgba8:
-	case image::color::format::rgba32f:
+	case sge::image::color::format::rgba8:
+	case sge::image::color::format::rgba32f:
 		return IL_RGBA;
-	case image::color::format::bgr8:
-	case image::color::format::bgr32f:
+	case sge::image::color::format::bgr8:
+	case sge::image::color::format::bgr32f:
 		return IL_BGR;
-	case image::color::format::bgra8:
-	case image::color::format::bgra32f:
+	case sge::image::color::format::bgra8:
+	case sge::image::color::format::bgra32f:
 		return IL_BGRA;
-	case image::color::format::r32f:
-	case image::color::format::rgbx8:
-	case image::color::format::bgrx8:
-	case image::color::format::size:
+	case sge::image::color::format::r32f:
+	case sge::image::color::format::rgbx8:
+	case sge::image::color::format::bgrx8:
+	case sge::image::color::format::size:
 		break;
 	}
 

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_LIBPNG_LOAD_CONTEXT_HPP_INCLUDED
 #define SGE_LIBPNG_LOAD_CONTEXT_HPP_INCLUDED
 
-#include <sge/image/optional_path.hpp>
+#include <sge/image/optional_path_fwd.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/libpng/byte_vector.hpp>
@@ -71,7 +71,7 @@ public:
 	byte_vector const &
 	bytes() const;
 
-	image::color::format::type
+	image::color::format
 	format() const;
 private:
 	std::istream &stream_;
@@ -84,7 +84,7 @@ private:
 
 	byte_vector bytes_;
 
-	image::color::format::type format_;
+	image::color::format format_;
 
 	static void
 	handle_read(
@@ -99,7 +99,7 @@ private:
 		png_size_t length
 	);
 
-	sge::image::color::format::type
+	sge::image::color::format
 	convert_format() const;
 };
 

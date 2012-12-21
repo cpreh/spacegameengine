@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_COLOR_VOLUME_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_COLOR_VOLUME_HPP_INCLUDED
 
-#include <sge/image/color/traits/format.hpp>
+#include <sge/image/color/traits/format_fwd.hpp>
 #include <sge/image3d/traits/color_tag.hpp>
 #include <sge/image3d/traits/pitch_fwd.hpp>
 #include <sge/opengl/texture/basic_buffer.hpp>

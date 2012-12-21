@@ -31,7 +31,7 @@ namespace image
 {
 
 typedef fcppt::container::bitfield::object<
-	sge::image::capabilities::type,
+	sge::image::capabilities,
 	sge::image::capabilities::size
 > capabilities_field;
 

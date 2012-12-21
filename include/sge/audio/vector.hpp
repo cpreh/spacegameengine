@@ -21,23 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_VECTOR_HPP_INCLUDED
 #define SGE_AUDIO_VECTOR_HPP_INCLUDED
 
-#include <sge/audio/scalar.hpp>
-#include <fcppt/math/vector/static.hpp>
+#include <sge/audio/vector_fwd.hpp>
+#include <fcppt/math/vector/object_impl.hpp>
 
-
-namespace sge
-{
-namespace audio
-{
-
-typedef
-fcppt::math::vector::static_
-<
-	scalar,
-	3
->::type vector;
-
-}
-}
 
 #endif

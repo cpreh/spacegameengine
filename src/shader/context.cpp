@@ -18,6 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/cg/context/object_fwd.hpp>
+#include <sge/cg/profile/object_fwd.hpp>
+#include <sge/cg/profile/shader_type.hpp>
+#include <sge/cg/program/compile_options.hpp>
 #include <sge/renderer/device/core.hpp>
 #include <sge/shader/context.hpp>
 

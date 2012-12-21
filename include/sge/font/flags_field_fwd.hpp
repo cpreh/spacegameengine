@@ -31,7 +31,7 @@ namespace font
 {
 
 typedef fcppt::container::bitfield::object<
-	sge::font::flags::type,
+	sge::font::flags,
 	sge::font::flags::size
 > flags_field;
 

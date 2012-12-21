@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_COLOR_OPTIONAL_FORMAT_FWD_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_OPTIONAL_FORMAT_FWD_HPP_INCLUDED
 
-#include <sge/image/color/format.hpp>
+#include <sge/image/color/format_fwd.hpp>
 #include <fcppt/optional_fwd.hpp>
 
 
@@ -33,7 +33,7 @@ namespace color
 {
 
 typedef fcppt::optional<
-	sge::image::color::format::type
+	sge::image::color::format
 > optional_format;
 
 }

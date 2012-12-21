@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/image/capabilities.hpp>
 #include <sge/image/capabilities_field.hpp>
 #include <sge/image/file_exception.hpp>
 #include <sge/image/optional_path.hpp>
@@ -242,7 +243,7 @@ sge::image::capabilities_field const
 sge::libpng::system::capabilities() const
 {
 	return
-		image::capabilities_field(
+		sge::image::capabilities_field(
 			image::capabilities::threadsafe
 		);
 }

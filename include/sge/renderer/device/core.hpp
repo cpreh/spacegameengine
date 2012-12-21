@@ -71,7 +71,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cg/program/object_fwd.hpp>
 #include <sge/cg/program/source.hpp>
 #include <sge/cg/profile/object_fwd.hpp>
-#include <sge/cg/profile/shader_type.hpp>
+#include <sge/cg/profile/shader_type_fwd.hpp>
 #include <sge/renderer/cg/loaded_program_unique_ptr.hpp>
 #include <sge/renderer/cg/loaded_texture_unique_ptr.hpp>
 #include <sge/renderer/texture/base_fwd.hpp>
@@ -156,7 +156,7 @@ public:
 	 *
 	 * \param parameters The parameters class for the planar texture, using
 	 * sge::renderer::dim2 as its dimensions and
-	 * sge::image::color::format::type as its format
+	 * sge::image::color::format as its format
 	 *
 	 * \return A unique pointer to the created planar texture
 	 *
@@ -178,7 +178,7 @@ public:
 	 *
 	 * \param parameters The parameters class for the depth stencil
 	 * texture, using sge::renderer::dim2 as its dimensions and
-	 * sge::renderer::depth_stencil_format::type as its format
+	 * sge::renderer::depth_stencil_format as its format
 	 *
 	 * \return A unique pointer to the created depth stencil texture
 	 *
@@ -219,7 +219,7 @@ public:
 	 *
 	 * \param parameters The parameters class for the depth stencil
 	 * texture, using sge::renderer::dim3 as its dimensions and
-	 * sge::image::color::format::type as its format
+	 * sge::image::color::format as its format
 	 *
 	 * \return A unique pointer to the created volume texture
 	 *
@@ -241,7 +241,7 @@ public:
 	 *
 	 * \param parameters The parameters class for the depth stencil
 	 * texture, using sge::renderer::size_type as its dimensions and
-	 * sge::image::color::format::type as its format
+	 * sge::image::color::format as its format
 	 *
 	 * \return A unique pointer to the created cube texture
 	 *
@@ -357,7 +357,7 @@ public:
 	virtual
 	sge::cg::profile::object const
 	create_cg_profile(
-		sge::cg::profile::shader_type::type
+		sge::cg::profile::shader_type
 	) = 0;
 
 	virtual

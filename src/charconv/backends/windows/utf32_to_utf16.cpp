@@ -42,7 +42,7 @@ sge::charconv::backends::windows::utf32_to_utf16::~utf32_to_utf16()
 {
 }
 
-sge::charconv::conversion_status::type
+sge::charconv::conversion_status
 sge::charconv::backends::windows::utf32_to_utf16::convert(
 	sge::charconv::input_range &_input,
 	sge::charconv::output_range &_output

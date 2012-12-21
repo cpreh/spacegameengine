@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/surface/d3d_unique_ptr.hpp>
-#include <sge/image/color/format.hpp>
+#include <sge/image/color/format_fwd.hpp>
 #include <sge/renderer/dim2_fwd.hpp>
 
 
@@ -38,7 +38,7 @@ d3d9::surface::d3d_unique_ptr
 create_offscreen_plain_surface(
 	IDirect3DDevice9 &,
 	sge::renderer::dim2 const &,
-	sge::image::color::format::type,
+	sge::image::color::format,
 	D3DPOOL
 );
 

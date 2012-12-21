@@ -9,6 +9,7 @@ add_definitions(
 set(
 	SGE_CEGUI_FILES
 	include/sge/cegui/cursor_visibility.hpp
+	include/sge/cegui/cursor_visibility_fwd.hpp
 	include/sge/cegui/default_cursor.hpp
 	include/sge/cegui/default_font.hpp
 	include/sge/cegui/default_keyboard.hpp

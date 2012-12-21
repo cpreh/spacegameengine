@@ -19,7 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/file_exception.hpp>
+#include <sge/image/optional_path_fwd.hpp>
 #include <sge/image/unsupported_format.hpp>
+#include <sge/image/color/format.hpp>
+#include <sge/image2d/dim.hpp>
 #include <sge/libpng/gamma_value.hpp>
 #include <sge/libpng/header_bytes.hpp>
 #include <sge/libpng/load_context.hpp>
@@ -30,8 +33,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/log/headers.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
+#include <fcppt/log/debug.hpp>
+#include <fcppt/log/output.hpp>
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -39,6 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <climits>
 #include <cstddef>
+#include <istream>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -244,7 +248,7 @@ sge::libpng::load_context::bytes() const
 	return bytes_;
 }
 
-sge::image::color::format::type
+sge::image::color::format
 sge::libpng::load_context::format() const
 {
 	return format_;
@@ -285,7 +289,7 @@ sge::libpng::load_context::handle_read_impl(
 				FCPPT_TEXT("reading failed"));
 }
 
-sge::image::color::format::type
+sge::image::color::format
 sge::libpng::load_context::convert_format() const
 {
 	png_byte const depth(
@@ -313,7 +317,7 @@ sge::libpng::load_context::convert_format() const
 				gamma_raw);
 
 
-	sge::image::color::format::type const ret(
+	sge::image::color::format const ret(
 		libpng::to_sge_format(
 			png_get_color_type(
 				read_ptr_.ptr(),

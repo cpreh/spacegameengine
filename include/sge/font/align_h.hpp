@@ -21,21 +21,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FONT_ALIGN_H_HPP_INCLUDED
 #define SGE_FONT_ALIGN_H_HPP_INCLUDED
 
+#include <sge/font/align_h_fwd.hpp>
+
 
 namespace sge
 {
 namespace font
 {
 
-namespace align_h
-{
-enum type
+enum class align_h
 {
 	left,
 	right,
 	center
 };
-}
 
 }
 }

@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 CGenum
 sge::cg::program::convert_source_type(
-	sge::cg::program::source_type::type const _type
+	sge::cg::program::source_type const _type
 )
 {
 	switch(

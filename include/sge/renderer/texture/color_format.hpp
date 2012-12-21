@@ -39,19 +39,19 @@ class color_format
 public:
 	SGE_RENDERER_SYMBOL
 	color_format(
-		sge::image::color::format::type,
+		sge::image::color::format,
 		sge::renderer::texture::emulate_srgb::type
 	);
 
 	SGE_RENDERER_SYMBOL
-	sge::image::color::format::type
+	sge::image::color::format
 	format() const;
 
 	SGE_RENDERER_SYMBOL
 	sge::renderer::texture::emulate_srgb::type
 	emulate_srgb() const;
 private:
-	sge::image::color::format::type format_;
+	sge::image::color::format format_;
 
 	sge::renderer::texture::emulate_srgb::type emulate_srgb_;
 };

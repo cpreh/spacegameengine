@@ -51,7 +51,7 @@ sge::console::muxing_streambuf<
 >::muxing_streambuf(
 	std::basic_ostream<Char,Traits> &_stream,
 	sge::console::object &_object,
-	sge::console::muxing::type const _does_muxing
+	sge::console::muxing const _does_muxing
 )
 :
 	streambuf_base(),

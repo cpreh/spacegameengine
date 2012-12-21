@@ -19,7 +19,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/audio_null/positional.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
+#include <sge/audio/scalar.hpp>
+#include <sge/audio/vector_fwd.hpp>
+#include <sge/audio/sound/optional_direction_fwd.hpp>
+#include <sge/audio/sound/play_status.hpp>
+#include <sge/audio/sound/repeat.hpp>
+
 
 sge::audio_null::positional::positional()
 {
@@ -31,12 +36,12 @@ sge::audio_null::positional::~positional()
 
 void
 sge::audio_null::positional::play(
-	sge::audio::sound::repeat::type
+	sge::audio::sound::repeat
 )
 {
 }
 
-sge::audio::sound::repeat::type
+sge::audio::sound::repeat
 sge::audio_null::positional::repeat() const
 {
 	return sge::audio::sound::repeat::once;
@@ -47,7 +52,7 @@ sge::audio_null::positional::toggle_pause()
 {
 }
 
-sge::audio::sound::play_status::type
+sge::audio::sound::play_status
 sge::audio_null::positional::status() const
 {
 	return audio::sound::play_status::stopped;
@@ -65,77 +70,77 @@ sge::audio_null::positional::update()
 
 void
 sge::audio_null::positional::position(
-	audio::vector const &
+	sge::audio::vector const &
 )
 {
 }
 
 void
 sge::audio_null::positional::linear_velocity(
-	audio::vector const &
+	sge::audio::vector const &
 )
 {
 }
 
 void
 sge::audio_null::positional::gain(
-	audio::scalar
+	sge::audio::scalar
 )
 {
 }
 
 void
 sge::audio_null::positional::pitch(
-	audio::scalar
+	sge::audio::scalar
 )
 {
 }
 
 void
 sge::audio_null::positional::rolloff_factor(
-	audio::scalar
+	sge::audio::scalar
 )
 {
 }
 
 void
 sge::audio_null::positional::reference_distance(
-	audio::scalar
+	sge::audio::scalar
 )
 {
 }
 
 void
 sge::audio_null::positional::max_distance(
-	audio::scalar
+	sge::audio::scalar
 )
 {
 }
 
 void
 sge::audio_null::positional::direction(
-	audio::sound::optional_direction const &
+	sge::audio::sound::optional_direction const &
 )
 {
 }
 
 void
 sge::audio_null::positional::inner_cone_angle(
-	audio::scalar
+	sge::audio::scalar
 )
 {
 }
 
 void
 sge::audio_null::positional::outer_cone_angle(
-	audio::scalar
+	sge::audio::scalar
 )
 {
 }
 
 void
 sge::audio_null::positional::outer_cone_gain(
-	audio::scalar
+	sge::audio::scalar
 )
 {
 }

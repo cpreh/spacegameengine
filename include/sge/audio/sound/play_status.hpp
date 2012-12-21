@@ -21,22 +21,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_SOUND_PLAY_STATUS_HPP_INCLUDED
 #define SGE_AUDIO_SOUND_PLAY_STATUS_HPP_INCLUDED
 
+#include <sge/audio/sound/play_status_fwd.hpp>
+
+
 namespace sge
 {
 namespace audio
 {
 namespace sound
 {
-/** \enum_policy{play_status,sge::audio::sound::play_status::type} */
-namespace play_status
-{
-enum type
+
+enum class play_status
 {
 	stopped,
 	playing,
 	paused
 };
-}
+
 }
 }
 }

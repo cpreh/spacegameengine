@@ -41,14 +41,14 @@ public:
 	SGE_RENDERER_SYMBOL
 	explicit
 	color(
-		sge::image::color::format::type
+		sge::image::color::format
 	);
 
 	SGE_RENDERER_SYMBOL
-	sge::image::color::format::type
+	sge::image::color::format
 	color_format() const;
 private:
-	sge::image::color::format::type color_format_;
+	sge::image::color::format color_format_;
 };
 
 }

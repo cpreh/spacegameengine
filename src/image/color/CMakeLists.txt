@@ -30,6 +30,7 @@ set(
 	include/sge/image/color/element_count.hpp
 	include/sge/image/color/elements.hpp
 	include/sge/image/color/format.hpp
+	include/sge/image/color/format_fwd.hpp
 	include/sge/image/color/format_is_srgb.hpp
 	include/sge/image/color/format_static.hpp
 	include/sge/image/color/format_stride.hpp
@@ -76,7 +77,7 @@ set(
 	include/sge/image/color/srgba8_fwd.hpp
 	include/sge/image/color/tag.hpp
 	include/sge/image/color/traits/any_object_fwd.hpp
-	include/sge/image/color/traits/format.hpp
+	include/sge/image/color/traits/format_fwd.hpp
 	include/sge/image/color/traits/format_static.hpp
 	include/sge/image/color/traits/format_stride.hpp
 	include/sge/image/color/traits/format_to_string.hpp

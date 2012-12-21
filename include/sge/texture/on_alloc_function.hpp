@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXTURE_ON_ALLOC_FUNCTION_HPP_INCLUDED
 #define SGE_TEXTURE_ON_ALLOC_FUNCTION_HPP_INCLUDED
 
-#include <sge/image/color/format.hpp>
+#include <sge/image/color/format_fwd.hpp>
 #include <sge/texture/fragmented_unique_ptr.hpp>
 
 
@@ -33,7 +33,7 @@ namespace texture
 typedef
 sge::texture::fragmented_unique_ptr
 on_alloc_function(
-	sge::image::color::format::type
+	sge::image::color::format
 );
 
 }

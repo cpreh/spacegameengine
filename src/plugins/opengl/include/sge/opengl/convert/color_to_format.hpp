@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_CONVERT_COLOR_TO_FORMAT_HPP_INCLUDED
 #define SGE_OPENGL_CONVERT_COLOR_TO_FORMAT_HPP_INCLUDED
 
-#include <sge/image/color/format.hpp>
+#include <sge/image/color/format_fwd.hpp>
 #include <sge/opengl/color_format.hpp>
 
 
@@ -32,9 +32,9 @@ namespace opengl
 namespace convert
 {
 
-opengl::color_format const
+sge::opengl::color_format const
 color_to_format(
-	image::color::format::type
+	sge::image::color::format
 );
 
 }

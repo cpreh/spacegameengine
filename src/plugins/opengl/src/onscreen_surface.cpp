@@ -141,7 +141,7 @@ sge::opengl::onscreen_surface::size() const
 // Currently, 16bit and 32bit framebuffers are supported. rgba8 is enough to
 // read both.
 
-sge::image::color::format::type
+sge::image::color::format
 sge::opengl::onscreen_surface::format() const
 {
 	return

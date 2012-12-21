@@ -26,5 +26,5 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 SGE_RENDERER_TEXTURE_INSTANTIATE_BASIC_PARAMETERS(
 	sge::renderer::dim2,
-	sge::image::ds::format::type
+	sge::image::ds::format
 );

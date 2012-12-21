@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/ds/format.hpp>
-#include <sge/image/ds/traits/format.hpp>
+#include <sge/image/ds/traits/format_fwd.hpp>
 #include <sge/image/ds/traits/format_static.hpp>
 #include <sge/imageds2d/tag.hpp>
 #include <sge/imageds2d/traits/color_tag.hpp>
@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/image/view/instantiate_format.hpp>
 
 
-sge::image::ds::format::type
+sge::image::ds::format
 sge::imageds2d::view::format(
 	sge::imageds2d::view::object const &_view
 )
@@ -45,7 +45,7 @@ sge::imageds2d::view::format(
 		);
 }
 
-sge::image::ds::format::type
+sge::image::ds::format
 sge::imageds2d::view::format(
 	sge::imageds2d::view::const_object const &_view
 )

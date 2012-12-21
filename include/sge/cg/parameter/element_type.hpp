@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CG_PARAMETER_ELEMENT_TYPE_HPP_INCLUDED
 #define SGE_CG_PARAMETER_ELEMENT_TYPE_HPP_INCLUDED
 
+#include <sge/cg/parameter/element_type_fwd.hpp>
+
 
 namespace sge
 {
@@ -29,9 +31,7 @@ namespace cg
 namespace parameter
 {
 
-namespace element_type
-{
-enum type
+enum class element_type
 {
 	double_,
 	double1,
@@ -97,7 +97,6 @@ enum type
 	int4x3,
 	int4x4
 };
-}
 
 }
 }

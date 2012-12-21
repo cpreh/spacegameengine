@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::image::color::any::object const
 sge::image::color::any::clear(
-	sge::image::color::format::type const _format
+	sge::image::color::format const _format
 )
 {
 	// TODO: Make this more generic

@@ -18,15 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/cegui/cursor_visibility.hpp>
+#include <sge/cegui/duration.hpp>
 #include <sge/cegui/from_cegui_string.hpp>
 #include <sge/cegui/load_context.hpp>
 #include <sge/cegui/system.hpp>
 #include <sge/cegui/to_cegui_string.hpp>
+#include <sge/charconv/system_fwd.hpp>
+#include <sge/image2d/system_fwd.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/renderer/target/viewport_is_null.hpp>
+#include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/src/cegui/declare_local_logger.hpp>
 #include <sge/src/cegui/scoped_render_context.hpp>
 #include <sge/src/cegui/texture_parameters.hpp>
@@ -68,7 +73,7 @@ sge::cegui::detail::system_impl::system_impl(
 	sge::image2d::system &_image_system,
 	sge::charconv::system &_charconv_system,
 	sge::viewport::manager &_viewport_manager,
-	sge::cegui::cursor_visibility::type const _cursor_visibility,
+	sge::cegui::cursor_visibility const _cursor_visibility,
 	sge::renderer::texture::emulate_srgb::type const _emulate_srgb
 )
 :

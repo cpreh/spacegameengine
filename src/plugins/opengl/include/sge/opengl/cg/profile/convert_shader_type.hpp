@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_CG_PROFILE_CONVERT_SHADER_TYPE_HPP_INCLUDED
 #define SGE_OPENGL_CG_PROFILE_CONVERT_SHADER_TYPE_HPP_INCLUDED
 
-#include <sge/cg/profile/shader_type.hpp>
+#include <sge/cg/profile/shader_type_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <Cg/cgGL.h>
 #include <fcppt/config/external_end.hpp>
@@ -38,7 +38,7 @@ namespace profile
 
 CGGLenum
 convert_shader_type(
-	sge::cg::profile::shader_type::type
+	sge::cg::profile::shader_type
 );
 
 }

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE3D_VIEW_FORMAT_HPP_INCLUDED
 #define SGE_IMAGE3D_VIEW_FORMAT_HPP_INCLUDED
 
-#include <sge/image/color/format.hpp>
+#include <sge/image/color/format_fwd.hpp>
 #include <sge/image3d/symbol.hpp>
 #include <sge/image3d/view/const_object_fwd.hpp>
 #include <sge/image3d/view/object_fwd.hpp>
@@ -35,13 +35,13 @@ namespace view
 {
 
 SGE_IMAGE3D_SYMBOL
-image::color::format::type
+image::color::format
 format(
 	view::object const &
 );
 
 SGE_IMAGE3D_SYMBOL
-image::color::format::type
+image::color::format
 format(
 	view::const_object const &
 );

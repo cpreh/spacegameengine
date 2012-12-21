@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_CONVERT_DEPTH_STENCIL_FORMAT_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/image/ds/format.hpp>
+#include <sge/image/ds/format_fwd.hpp>
 
 
 namespace sge
@@ -34,7 +34,7 @@ namespace convert
 
 D3DFORMAT
 depth_stencil_format(
-	sge::image::ds::format::type
+	sge::image::ds::format
 );
 
 }

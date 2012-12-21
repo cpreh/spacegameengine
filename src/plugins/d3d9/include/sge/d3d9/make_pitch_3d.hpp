@@ -22,9 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_MAKE_PITCH_3D_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/image/color/format.hpp>
+#include <sge/image/color/format_fwd.hpp>
 #include <sge/image3d/dim_fwd.hpp>
 #include <sge/image3d/pitch_fwd.hpp>
+
 
 namespace sge
 {
@@ -35,7 +36,7 @@ sge::image3d::pitch const
 make_pitch_3d(
 	D3DLOCKED_BOX const &,
 	sge::image3d::dim const &,
-	sge::image::color::format::type
+	sge::image::color::format
 );
 
 }

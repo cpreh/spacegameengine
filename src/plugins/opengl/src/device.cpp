@@ -434,7 +434,7 @@ sge::opengl::device::create_sampler_state(
 #if defined(SGE_RENDERER_HAVE_CG)
 sge::cg::profile::object const
 sge::opengl::device::create_cg_profile(
-	sge::cg::profile::shader_type::type const _shader_type
+	sge::cg::profile::shader_type const _shader_type
 )
 {
 	return

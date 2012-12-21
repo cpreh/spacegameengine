@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CEGUI_SYSTEM_HPP_INCLUDED
 #define SGE_CEGUI_SYSTEM_HPP_INCLUDED
 
-#include <sge/cegui/cursor_visibility.hpp>
+#include <sge/cegui/cursor_visibility_fwd.hpp>
 #include <sge/cegui/duration.hpp>
 #include <sge/cegui/load_context_fwd.hpp>
 #include <sge/cegui/symbol.hpp>
@@ -60,7 +60,7 @@ public:
 		sge::image2d::system &,
 		sge::charconv::system &,
 		sge::viewport::manager &,
-		sge::cegui::cursor_visibility::type,
+		sge::cegui::cursor_visibility,
 		sge::renderer::texture::emulate_srgb::type
 	);
 

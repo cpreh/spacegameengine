@@ -68,7 +68,7 @@ public:
 
 	basic_buffer(
 		d3d_buffer_create_function const &,
-		sge::image::color::format::type,
+		sge::image::color::format,
 		sge::renderer::resource_flags_field const &
 	);
 
@@ -119,7 +119,7 @@ private:
 
 	d3d_buffer_create_function const buffer_create_;
 
-	sge::image::color::format::type const color_format_;
+	sge::image::color::format const color_format_;
 
 	sge::renderer::resource_flags_field const resource_flags_;
 

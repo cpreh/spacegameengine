@@ -75,7 +75,7 @@ sge::charconv::convert_raw(
 		;;
 	)
 	{
-		sge::charconv::conversion_status::type const status(
+		sge::charconv::conversion_status const status(
 			converter->convert(
 				source_range,
 				dest_range

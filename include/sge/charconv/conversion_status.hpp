@@ -21,22 +21,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CHARCONV_CONVERSION_STATUS_HPP_INCLUDED
 #define SGE_CHARCONV_CONVERSION_STATUS_HPP_INCLUDED
 
+#include <sge/charconv/conversion_status_fwd.hpp>
+
 
 namespace sge
 {
 namespace charconv
 {
 
-namespace conversion_status
-{
-enum type
+enum class conversion_status
 {
 	ok,
 	output_too_small,
 	invalid_input,
 	incomplete_input
 };
-}
 
 }
 }

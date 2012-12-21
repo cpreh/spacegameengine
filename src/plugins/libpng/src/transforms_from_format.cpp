@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 int
 sge::libpng::transforms_from_format(
 	boost::filesystem::path const &_path,
-	sge::image::color::format::type const _format
+	sge::image::color::format const _format
 )
 {
 	switch(

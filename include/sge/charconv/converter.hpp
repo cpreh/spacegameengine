@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CHARCONV_CONVERTER_HPP_INCLUDED
 
 #include <sge/class_symbol.hpp>
-#include <sge/charconv/conversion_status.hpp>
+#include <sge/charconv/conversion_status_fwd.hpp>
 #include <sge/charconv/converter_fwd.hpp>
 #include <sge/charconv/input_range.hpp>
 #include <sge/charconv/output_range.hpp>
@@ -49,7 +49,7 @@ public:
 	~converter() = 0;
 
 	virtual
-	sge::charconv::conversion_status::type
+	sge::charconv::conversion_status
 	convert(
 		sge::charconv::input_range &,
 		sge::charconv::output_range &

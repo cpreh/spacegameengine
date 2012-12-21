@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_CONVERT_COLOR_FORMAT_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/image/color/format.hpp>
+#include <sge/image/color/format_fwd.hpp>
 
 namespace sge
 {
@@ -33,7 +33,7 @@ namespace convert
 
 D3DFORMAT
 color_format(
-	sge::image::color::format::type
+	sge::image::color::format
 );
 
 }

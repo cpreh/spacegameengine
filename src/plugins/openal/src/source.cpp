@@ -24,14 +24,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/scalar.hpp>
 #include <sge/audio/vector.hpp>
 #include <sge/audio/sound/base.hpp>
+#include <sge/audio/sound/nonpositional_parameters.hpp>
+#include <sge/audio/sound/optional_direction.hpp>
 #include <sge/audio/sound/play_status.hpp>
 #include <sge/audio/sound/positional_parameters.hpp>
-#include <sge/audio/sound/nonpositional_parameters.hpp>
 #include <sge/audio/sound/repeat.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/math/rad_to_deg.hpp>
 #include <fcppt/assert/unreachable.hpp>
+
 
 sge::openal::source::source(
 	sge::audio::sound::nonpositional_parameters const &p,
@@ -104,7 +105,7 @@ sge::openal::source::~source()
 
 void
 sge::openal::source::play(
-	audio::sound::repeat::type const _repeat)
+	audio::sound::repeat const _repeat)
 {
 	repeat_ =
 		_repeat;
@@ -151,7 +152,7 @@ sge::openal::source::toggle_pause()
 	}
 }
 
-sge::audio::sound::play_status::type
+sge::audio::sound::play_status
 sge::openal::source::status() const
 {
 	ALint play_mode;
@@ -428,7 +429,7 @@ sge::openal::source::source_id() const
 	return source_.value_;
 }
 
-sge::audio::sound::repeat::type
+sge::audio::sound::repeat
 sge::openal::source::repeat() const
 {
 	return repeat_;

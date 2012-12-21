@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_AUDIO_NULL_LISTENER_HPP_INCLUDED
 
 #include <sge/audio/listener.hpp>
-#include <sge/audio/vector.hpp>
+#include <sge/audio/vector_fwd.hpp>
 #include <sge/audio/direction/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 

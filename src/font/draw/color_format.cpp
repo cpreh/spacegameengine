@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/font/draw/color_format.hpp>
 
 
-sge::image::color::format::type
+sge::image::color::format
 sge::font::draw::color_format(
 	sge::image::color::optional_format const &_color_format
 )

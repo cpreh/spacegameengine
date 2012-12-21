@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_DEPTH_STENCIL_BUFFER_SURFACE_HPP_INCLUDED
 
 #include <sge/class_symbol.hpp>
-#include <sge/image/ds/format.hpp>
+#include <sge/image/ds/format_fwd.hpp>
 #include <sge/imageds2d/tag.hpp>
 #include <sge/imageds2d/view/const_object_fwd.hpp>
 #include <sge/imageds2d/view/object_fwd.hpp>
@@ -100,7 +100,7 @@ public:
 	\brief The format of the buffer
 	*/
 	virtual
-	sge::image::ds::format::type
+	sge::image::ds::format
 	format() const = 0;
 
 	// TODO!

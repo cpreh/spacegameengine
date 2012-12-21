@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::renderer::state::ffp::sampler::object_unique_ptr
 sge::font::draw::create_ffp_sampler(
 	sge::renderer::device::ffp &_device,
-	sge::image::color::format::type const _color_format
+	sge::image::color::format const _color_format
 )
 {
 	return

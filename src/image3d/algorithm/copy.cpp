@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/algorithm/may_overlap.hpp>
-#include <sge/image/color/traits/format.hpp>
+#include <sge/image/color/traits/format_fwd.hpp>
 #include <sge/image3d/tag.hpp>
 #include <sge/image3d/algorithm/copy.hpp>
 #include <sge/image3d/traits/color_tag.hpp>

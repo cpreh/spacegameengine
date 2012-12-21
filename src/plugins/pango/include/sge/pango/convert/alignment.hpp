@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PANGO_CONVERT_ALIGNMENT_HPP_INCLUDED
 #define SGE_PANGO_CONVERT_ALIGNMENT_HPP_INCLUDED
 
-#include <sge/font/align_h.hpp>
+#include <sge/font/align_h_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <pango/pango-layout.h>
 #include <fcppt/config/external_end.hpp>
@@ -36,7 +36,7 @@ namespace convert
 
 PangoAlignment
 alignment(
-	sge::font::align_h::type
+	sge::font::align_h
 );
 
 }

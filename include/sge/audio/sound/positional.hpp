@@ -24,9 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/class_symbol.hpp>
 #include <sge/audio/scalar.hpp>
 #include <sge/audio/symbol.hpp>
-#include <sge/audio/vector.hpp>
+#include <sge/audio/vector_fwd.hpp>
 #include <sge/audio/sound/base.hpp>
-#include <sge/audio/sound/optional_direction.hpp>
+#include <sge/audio/sound/optional_direction_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -45,7 +45,7 @@ namespace sound
  */
 class SGE_CLASS_SYMBOL positional
 :
-	public base
+	public sge::audio::sound::base
 {
 	FCPPT_NONCOPYABLE(
 		positional

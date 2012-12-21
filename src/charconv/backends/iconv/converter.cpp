@@ -74,7 +74,7 @@ sge::charconv::backends::iconv::converter::~converter()
 	);
 }
 
-sge::charconv::conversion_status::type
+sge::charconv::conversion_status
 sge::charconv::backends::iconv::converter::convert(
 	sge::charconv::input_range &_input,
 	sge::charconv::output_range &_output

@@ -42,7 +42,7 @@ public:
 	SGE_FONT_SYMBOL
 	explicit
 	text_parameters(
-		sge::font::align_h::type
+		sge::font::align_h
 	);
 
 	SGE_FONT_SYMBOL
@@ -58,7 +58,7 @@ public:
 	);
 
 	SGE_FONT_SYMBOL
-	sge::font::align_h::type
+	sge::font::align_h
 	align_h() const;
 
 	SGE_FONT_SYMBOL
@@ -69,7 +69,7 @@ public:
 	sge::font::optional_unit const &
 	max_width() const;
 private:
-	sge::font::align_h::type align_h_;
+	sge::font::align_h align_h_;
 
 	sge::font::flags_field flags_;
 

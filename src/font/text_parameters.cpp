@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::font::text_parameters::text_parameters(
-	sge::font::align_h::type const _align_h
+	sge::font::align_h const _align_h
 )
 :
 	align_h_(
@@ -59,7 +59,7 @@ sge::font::text_parameters::max_width(
 	return *this;
 }
 
-sge::font::align_h::type
+sge::font::align_h
 sge::font::text_parameters::align_h() const
 {
 	return align_h_;

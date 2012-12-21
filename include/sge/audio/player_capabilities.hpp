@@ -21,20 +21,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_PLAYER_CAPABILITIES_HPP_INCLUDED
 #define SGE_AUDIO_PLAYER_CAPABILITIES_HPP_INCLUDED
 
+#include <sge/audio/player_capabilities_fwd.hpp>
+
+
 namespace sge
 {
 namespace audio
 {
 
-/// Holds the capabilities of a player (see sge::audio::player::capabilities)
-namespace player_capabilities
-{
-enum type
+enum class player_capabilities
 {
 	null,
 	size
 };
-}
 
 }
 }

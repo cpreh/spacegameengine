@@ -21,6 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CG_PROGRAM_SOURCE_TYPE_HPP_INCLUDED
 #define SGE_CG_PROGRAM_SOURCE_TYPE_HPP_INCLUDED
 
+#include <sge/cg/program/source_type_fwd.hpp>
+
+
 namespace sge
 {
 namespace cg
@@ -28,14 +31,11 @@ namespace cg
 namespace program
 {
 
-namespace source_type
-{
-enum type
+enum class source_type
 {
 	text,
 	binary
 };
-}
 
 }
 }

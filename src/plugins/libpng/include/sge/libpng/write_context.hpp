@@ -58,7 +58,7 @@ public:
 		boost::filesystem::path const &,
 		image2d::dim const &,
 		byte_vector const &,
-		image::color::format::type
+		image::color::format
 	);
 
 	~write_context();
@@ -67,7 +67,7 @@ private:
 
 	byte_vector const &bytes_;
 
-	image::color::format::type const format_;
+	image::color::format const format_;
 
 	libpng::write_ptr const write_ptr_;
 

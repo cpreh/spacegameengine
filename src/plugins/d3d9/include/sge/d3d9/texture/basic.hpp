@@ -94,7 +94,7 @@ public:
 	d3d_type &
 	get() const;
 
-	sge::image::color::format::type
+	sge::image::color::format
 	color_format() const;
 protected:
 	parameters_type const &
@@ -121,7 +121,7 @@ private:
 
 	parameters_type const parameters_;
 
-	sge::image::color::format::type const color_format_;
+	sge::image::color::format const color_format_;
 
 	D3DFORMAT const d3d_color_format_;
 

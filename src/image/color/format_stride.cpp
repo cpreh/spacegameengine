@@ -20,10 +20,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/size_type.hpp>
 #include <sge/image/color/element_count.hpp>
+#include <sge/image/color/format.hpp>
 #include <sge/image/color/format_stride.hpp>
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/cstdint.hpp>
+#include <cstdint>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -32,34 +33,32 @@ namespace
 
 sge::image::size_type
 base_size(
-	sge::image::color::format::type const _format
+	sge::image::color::format const _format
 )
 {
-	namespace format = sge::image::color::format;
-
 	switch(
 		_format
 	)
 	{
-	case format::a8:
-	case format::l8:
-	case format::la8:
-	case format::rgb8:
-	case format::bgr8:
-	case format::rgba8:
-	case format::rgbx8:
-	case format::bgra8:
-	case format::bgrx8:
-	case format::srgb8:
-	case format::srgba8:
-		return sizeof(boost::uint8_t);
-	case format::r32f:
-	case format::bgr32f:
-	case format::rgb32f:
-	case format::rgba32f:
-	case format::bgra32f:
+	case sge::image::color::format::a8:
+	case sge::image::color::format::l8:
+	case sge::image::color::format::la8:
+	case sge::image::color::format::rgb8:
+	case sge::image::color::format::bgr8:
+	case sge::image::color::format::rgba8:
+	case sge::image::color::format::rgbx8:
+	case sge::image::color::format::bgra8:
+	case sge::image::color::format::bgrx8:
+	case sge::image::color::format::srgb8:
+	case sge::image::color::format::srgba8:
+		return sizeof(std::uint8_t);
+	case sge::image::color::format::r32f:
+	case sge::image::color::format::bgr32f:
+	case sge::image::color::format::rgb32f:
+	case sge::image::color::format::rgba32f:
+	case sge::image::color::format::bgra32f:
 		return sizeof(float);
-	case format::size:
+	case sge::image::color::format::size:
 		break;
 	}
 
@@ -70,7 +69,7 @@ base_size(
 
 sge::image::size_type
 sge::image::color::format_stride(
-	sge::image::color::format::type const _format
+	sge::image::color::format const _format
 )
 {
 	return

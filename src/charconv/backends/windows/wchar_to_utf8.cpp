@@ -40,7 +40,7 @@ sge::charconv::backends::windows::wchar_to_utf8::~wchar_to_utf8()
 }
 
 
-sge::charconv::conversion_status::type
+sge::charconv::conversion_status
 sge::charconv::backends::windows::wchar_to_utf8::convert(
 	sge::charconv::input_range &_input,
 	sge::charconv::output_range &_output

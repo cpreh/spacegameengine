@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGEDS2D_VIEW_FORMAT_HPP_INCLUDED
 #define SGE_IMAGEDS2D_VIEW_FORMAT_HPP_INCLUDED
 
-#include <sge/image/ds/format.hpp>
+#include <sge/image/ds/format_fwd.hpp>
 #include <sge/imageds2d/symbol.hpp>
 #include <sge/imageds2d/view/const_object_fwd.hpp>
 #include <sge/imageds2d/view/object_fwd.hpp>
@@ -35,13 +35,13 @@ namespace view
 {
 
 SGE_IMAGEDS2D_SYMBOL
-sge::image::ds::format::type
+sge::image::ds::format
 format(
 	sge::imageds2d::view::object const &
 );
 
 SGE_IMAGEDS2D_SYMBOL
-sge::image::ds::format::type
+sge::image::ds::format
 format(
 	sge::imageds2d::view::const_object const &
 );

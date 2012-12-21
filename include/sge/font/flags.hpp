@@ -21,21 +21,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FONT_FLAGS_HPP_INCLUDED
 #define SGE_FONT_FLAGS_HPP_INCLUDED
 
+#include <sge/font/flags_fwd.hpp>
+
 
 namespace sge
 {
 namespace font
 {
 
-namespace flags
-{
-enum type
+enum class flags
 {
 	no_multi_line,
 	no_word_wrap,
 	size
 };
-}
 
 }
 }

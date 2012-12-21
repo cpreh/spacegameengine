@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_CG_PROFILE_CREATE_HPP_INCLUDED
 
 #include <sge/cg/profile/object_fwd.hpp>
-#include <sge/cg/profile/shader_type.hpp>
+#include <sge/cg/profile/shader_type_fwd.hpp>
 
 
 namespace sge
@@ -36,7 +36,7 @@ namespace profile
 
 sge::cg::profile::object const
 create(
-	sge::cg::profile::shader_type::type
+	sge::cg::profile::shader_type
 );
 
 }

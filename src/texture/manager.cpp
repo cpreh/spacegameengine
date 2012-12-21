@@ -68,7 +68,7 @@ sge::texture::manager::add(
 	sge::image2d::view::const_object const &_src
 )
 {
-	sge::image::color::format::type const color_format(
+	sge::image::color::format const color_format(
 		sge::image2d::view::format(
 			_src
 		)

@@ -69,7 +69,7 @@ public:
 
 	typedef sge::image::color::dynamic::available_layouts::type layout_enum;
 
-	typedef sge::image::color::format::type color_format_type;
+	typedef sge::image::color::format color_format_type;
 
 	format_object(
 		channel_array const &,

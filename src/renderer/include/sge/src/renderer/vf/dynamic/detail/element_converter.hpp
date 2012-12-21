@@ -49,8 +49,8 @@ class element_converter
 	);
 public:
 	element_converter(
-		sge::image::color::format::type original_color,
-		sge::image::color::format::type backend_color,
+		sge::image::color::format original_color,
+		sge::image::color::format backend_color,
 		sge::renderer::vf::dynamic::stride,
 		sge::renderer::vf::dynamic::offset
 	);
@@ -65,7 +65,7 @@ public:
 		bool unlock
 	);
 private:
-	sge::image::color::format::type const
+	sge::image::color::format const
 		original_color_,
 		backend_color_;
 

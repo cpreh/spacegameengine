@@ -82,7 +82,7 @@ public:
 	muxing_streambuf(
 		std::basic_ostream<Char,Traits> &,
 		sge::console::object &,
-		sge::console::muxing::type
+		sge::console::muxing
 	);
 
 	SGE_CONSOLE_SYMBOL
@@ -97,7 +97,7 @@ private:
 		std::basic_streambuf<Char,Traits>
 	> old_streambuf_;
 
-	sge::console::muxing::type const does_muxing_;
+	sge::console::muxing const does_muxing_;
 
 	std::basic_string<Char,Traits> buffer_;
 

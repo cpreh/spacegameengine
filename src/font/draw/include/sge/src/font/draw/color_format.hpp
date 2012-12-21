@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_FONT_DRAW_COLOR_FORMAT_HPP_INCLUDED
 #define SGE_SRC_FONT_DRAW_COLOR_FORMAT_HPP_INCLUDED
 
-#include <sge/image/color/format.hpp>
+#include <sge/image/color/format_fwd.hpp>
 #include <sge/image/color/optional_format_fwd.hpp>
 
 
@@ -32,7 +32,7 @@ namespace font
 namespace draw
 {
 
-sge::image::color::format::type
+sge::image::color::format
 color_format(
 	sge::image::color::optional_format const &
 );

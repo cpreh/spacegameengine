@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/audio/vector.hpp>
+#include <sge/audio/vector_fwd.hpp>
 #include <sge/audio/direction/object.hpp>
 #include <sge/audio_null/listener.hpp>
 
@@ -33,22 +33,21 @@ sge::audio_null::listener::~listener()
 
 void
 sge::audio_null::listener::position(
-	audio::vector const &
+	sge::audio::vector const &
 )
 {
 }
 
 void
 sge::audio_null::listener::linear_velocity(
-	audio::vector const &
+	sge::audio::vector const &
 )
 {
 }
 
 void
 sge::audio_null::listener::direction(
-	audio::direction::object const &
+	sge::audio::direction::object const &
 )
 {
 }
-

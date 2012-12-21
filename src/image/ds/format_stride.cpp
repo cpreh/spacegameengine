@@ -19,16 +19,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/size_type.hpp>
+#include <sge/image/ds/format.hpp>
 #include <sge/image/ds/format_stride.hpp>
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/cstdint.hpp>
+#include <cstdint>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::image::size_type
 sge::image::ds::format_stride(
-	sge::image::ds::format::type const _format
+	sge::image::ds::format const _format
 )
 {
 	switch(
@@ -36,10 +37,10 @@ sge::image::ds::format_stride(
 	)
 	{
 	case sge::image::ds::format::d16:
-		return sizeof(boost::uint16_t);
+		return sizeof(std::uint16_t);
 	case sge::image::ds::format::d32:
 	case sge::image::ds::format::d24s8:
-		return sizeof(boost::uint32_t);
+		return sizeof(std::uint32_t);
 	case sge::image::ds::format::size:
 		break;
 	}

@@ -66,7 +66,7 @@ sge::opengl::fbo::depth_stencil_surface::size() const
 	return dim_;
 }
 
-sge::image::ds::format::type
+sge::image::ds::format
 sge::opengl::fbo::depth_stencil_surface::format() const
 {
 	return format_;

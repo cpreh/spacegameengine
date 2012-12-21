@@ -30,6 +30,7 @@ set(
 	include/sge/console/message_callback_fn.hpp
 	include/sge/console/muxing.hpp
 	include/sge/console/muxing_fcppt_streambuf.hpp
+	include/sge/console/muxing_fwd.hpp
 	include/sge/console/muxing_narrow_streambuf.hpp
 	include/sge/console/muxing_streambuf.hpp
 	include/sge/console/muxing_streambuf_fwd.hpp

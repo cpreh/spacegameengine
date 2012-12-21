@@ -111,7 +111,7 @@ sge::font::bitmap::object::object(
 				)
 			);
 
-		sge::image::color::format::type const current_format(
+		sge::image::color::format const current_format(
 			sge::image2d::view::format(
 				images_.back().view()
 			)

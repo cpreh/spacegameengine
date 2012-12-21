@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_COLOR_FORMAT_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_FORMAT_HPP_INCLUDED
 
+#include <sge/image/color/format_fwd.hpp>
+
 
 namespace sge
 {
@@ -29,9 +31,7 @@ namespace image
 namespace color
 {
 
-namespace format
-{
-enum type
+enum class format
 {
 	a8,
 	l8,
@@ -51,7 +51,6 @@ enum type
 	srgba8,
 	size
 };
-}
 
 }
 }

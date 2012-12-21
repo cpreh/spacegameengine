@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/size_type.hpp>
 #include <sge/image/unsupported_format.hpp>
 #include <sge/image/color/element_count.hpp>
+#include <sge/image/color/format.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/libpng/bit_depth_from_format.hpp>
 #include <sge/libpng/color_type_from_format.hpp>
@@ -49,7 +50,7 @@ sge::libpng::write_context::write_context(
 	boost::filesystem::path const &_path,
 	image2d::dim const &_dim,
 	byte_vector const &_bytes,
-	image::color::format::type const _format
+	sge::image::color::format const _format
 )
 :
 	context_base(

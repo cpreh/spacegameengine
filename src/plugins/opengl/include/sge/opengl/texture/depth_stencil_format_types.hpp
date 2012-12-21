@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_DEPTH_STENCIL_FORMAT_TYPES_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_DEPTH_STENCIL_FORMAT_TYPES_HPP_INCLUDED
 
-#include <sge/image/ds/format.hpp>
+#include <sge/image/ds/format_fwd.hpp>
 #include <sge/opengl/texture/convert_format_function.hpp>
 #include <sge/opengl/texture/convert_format_type_function.hpp>
 #include <sge/opengl/texture/convert_internal_format_function.hpp>
@@ -37,7 +37,7 @@ namespace texture
 
 struct depth_stencil_format_types
 {
-	typedef sge::image::ds::format::type format;
+	typedef sge::image::ds::format format;
 
 	static
 	format

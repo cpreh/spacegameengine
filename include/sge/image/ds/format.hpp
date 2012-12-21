@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_DS_FORMAT_HPP_INCLUDED
 #define SGE_IMAGE_DS_FORMAT_HPP_INCLUDED
 
+#include <sge/image/ds/format_fwd.hpp>
+
 
 namespace sge
 {
@@ -29,16 +31,13 @@ namespace image
 namespace ds
 {
 
-namespace format
-{
-enum type
+enum class format
 {
 	d16,
 	d32,
 	d24s8,
 	size
 };
-}
 
 }
 }

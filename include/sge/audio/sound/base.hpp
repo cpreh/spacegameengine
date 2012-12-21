@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/class_symbol.hpp>
 #include <sge/audio/scalar.hpp>
 #include <sge/audio/symbol.hpp>
-#include <sge/audio/sound/play_status.hpp>
-#include <sge/audio/sound/repeat.hpp>
+#include <sge/audio/sound/play_status_fwd.hpp>
+#include <sge/audio/sound/repeat_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -60,7 +60,7 @@ public:
 	 */
 	virtual void
 	play(
-		sge::audio::sound::repeat::type) = 0;
+		sge::audio::sound::repeat) = 0;
 
 	/// Toggles between paused and unpaused
 	/**
@@ -78,7 +78,7 @@ public:
 	 * neccessary since the status of this variable changes without the
 	 * user interfering.
 	*/
-	virtual play_status::type
+	virtual sge::audio::sound::play_status
 	status() const = 0;
 
 	/// Changes the sound's gain ("volume")

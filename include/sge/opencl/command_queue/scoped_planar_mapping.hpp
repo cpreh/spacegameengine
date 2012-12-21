@@ -69,7 +69,7 @@ public:
 private:
 	command_queue::object &queue_;
 	opencl::memory_object::rect rect_;
-	sge::image::color::format::type sge_image_format_;
+	sge::image::color::format sge_image_format_;
 	cl_mem image_;
 	void *ptr_;
 	std::size_t pitch_;

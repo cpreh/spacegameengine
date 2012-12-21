@@ -40,7 +40,7 @@ format_to_string(
 
 }
 
-sge::image::color::format::type
+sge::image::color::format
 sge::devil::convert_format(
 	ILint const _bits_per_pixel,
 	ILenum const _format

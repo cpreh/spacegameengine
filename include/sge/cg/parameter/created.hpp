@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cg/symbol.hpp>
 #include <sge/cg/context/object_fwd.hpp>
 #include <sge/cg/parameter/created_fwd.hpp>
-#include <sge/cg/parameter/element_type.hpp>
+#include <sge/cg/parameter/element_type_fwd.hpp>
 #include <sge/cg/parameter/named_fwd.hpp>
 #include <sge/cg/parameter/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -49,7 +49,7 @@ public:
 	SGE_CG_SYMBOL
 	created(
 		sge::cg::context::object const &,
-		sge::cg::parameter::element_type::type
+		sge::cg::parameter::element_type
 	);
 
 	SGE_CG_SYMBOL

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_COLOR_FORMAT_TYPES_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_COLOR_FORMAT_TYPES_HPP_INCLUDED
 
-#include <sge/image/color/format.hpp>
+#include <sge/image/color/format_fwd.hpp>
 #include <sge/opengl/texture/color_format_types_fwd.hpp>
 #include <sge/opengl/texture/convert_format_function.hpp>
 #include <sge/opengl/texture/convert_format_type_function.hpp>
@@ -38,7 +38,7 @@ namespace texture
 
 struct color_format_types
 {
-	typedef sge::image::color::format::type format;
+	typedef sge::image::color::format format;
 
 	static
 	format

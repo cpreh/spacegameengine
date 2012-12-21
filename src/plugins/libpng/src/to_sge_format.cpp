@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/diff.hpp>
 
 
-sge::image::color::format::type
+sge::image::color::format
 sge::libpng::to_sge_format(
 	png_byte const _color_type,
 	png_byte const _bit_depth,

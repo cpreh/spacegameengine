@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::image::size_type
 sge::image::color::element_count(
-	sge::image::color::format::type const _format
+	sge::image::color::format const _format
 )
 {
 	switch(

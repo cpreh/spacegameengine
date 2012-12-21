@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/exception.hpp>
 #include <sge/audio/file.hpp>
 #include <sge/audio/sound/base.hpp>
+#include <sge/audio/sound/play_status.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
@@ -131,7 +132,7 @@ sge::openal::stream_sound::update()
 {
 	// We store this here to prevent multithreading issues (what if the
 	// source stops playing while we're processing suff further down?
-	audio::sound::play_status::type const current_play_status =
+	audio::sound::play_status const current_play_status =
 		stream_sound::status();
 
 	// TODO: split this!

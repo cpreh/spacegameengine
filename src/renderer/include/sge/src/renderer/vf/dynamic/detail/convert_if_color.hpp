@@ -66,7 +66,7 @@ convert_if_color(
 	)
 		return;
 
-	sge::image::color::format::type const format(
+	sge::image::color::format const format(
 		_variant. template get<
 			sge::renderer::vf::dynamic::color
 		>().color_format()

@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/surface/depth_stencil_create_fwd.hpp>
 #include <sge/d3d9/surface/depth_stencil_create_unique_ptr.hpp>
 #include <sge/d3d9/surface/depth_stencil_fwd.hpp>
-#include <sge/image/ds/format.hpp>
+#include <sge/image/ds/format_fwd.hpp>
 #include <sge/renderer/depth_stencil_buffer/surface.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
@@ -61,7 +61,7 @@ public:
 	dim const
 	size() const;
 
-	sge::image::ds::format::type
+	sge::image::ds::format
 	format() const;
 
 	IDirect3DSurface9 &

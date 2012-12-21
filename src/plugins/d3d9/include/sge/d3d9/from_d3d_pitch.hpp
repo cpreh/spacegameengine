@@ -48,7 +48,7 @@ from_d3d_pitch(
 	typename sge::image::dim<
 		Dim
 	>::type const &_dim,
-	sge::image::color::format::type const _format
+	sge::image::color::format const _format
 )
 {
 	typedef typename sge::image::pitch<

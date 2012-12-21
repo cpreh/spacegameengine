@@ -45,7 +45,7 @@ make_cl_image_format(
 
 cl_image_format const
 sge::opencl::memory_object::image::sge_color_format_to_opencl(
-	sge::image::color::format::type const f)
+	sge::image::color::format const f)
 {
 	switch(f)
 	{

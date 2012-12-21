@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::cg::parameter::created::created(
 	sge::cg::context::object const &_context,
-	sge::cg::parameter::element_type::type const _element_type
+	sge::cg::parameter::element_type const _element_type
 )
 :
 	parameter_(

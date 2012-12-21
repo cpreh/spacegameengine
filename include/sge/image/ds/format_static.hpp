@@ -45,7 +45,7 @@ template<
 struct format_static
 :
 sge::image::format_static<
-	sge::image::ds::format::type,
+	sge::image::ds::format,
 	sge::image::ds::format::size,
 	sge::image::ds::elements,
 	Format

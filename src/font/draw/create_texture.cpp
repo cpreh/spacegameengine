@@ -45,7 +45,7 @@ sge::texture::part_unique_ptr
 sge::font::draw::create_texture(
 	sge::renderer::device::core &_renderer,
 	sge::font::text &_text,
-	sge::image::color::format::type const _color_format,
+	sge::image::color::format const _color_format,
 	sge::renderer::texture::emulate_srgb::type const _emulate_srgb
 )
 {

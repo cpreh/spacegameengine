@@ -21,18 +21,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CONSOLE_MUXING_HPP_INCLUDED
 #define SGE_CONSOLE_MUXING_HPP_INCLUDED
 
+#include <sge/console/muxing_fwd.hpp>
+
+
 namespace sge
 {
 namespace console
 {
-namespace muxing
-{
-enum type
+
+enum class muxing
 {
 	enabled,
 	disabled
 };
-}
+
 }
 }
 

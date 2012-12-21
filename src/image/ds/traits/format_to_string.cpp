@@ -30,7 +30,7 @@ fcppt::string const
 sge::image::traits::format_to_string<
 	sge::image::ds::tag
 >::execute(
-	sge::image::ds::format::type const _format
+	sge::image::ds::format const _format
 )
 {
 	return

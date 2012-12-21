@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_CONVERT_COLOR_TO_INTERNAL_FORMAT_HPP_INCLUDED
 #define SGE_OPENGL_CONVERT_COLOR_TO_INTERNAL_FORMAT_HPP_INCLUDED
 
-#include <sge/image/color/format.hpp>
+#include <sge/image/color/format_fwd.hpp>
 #include <sge/opengl/internal_color_format.hpp>
 
 
@@ -34,7 +34,7 @@ namespace convert
 
 sge::opengl::internal_color_format const
 color_to_internal_format(
-	sge::image::color::format::type
+	sge::image::color::format
 );
 
 }

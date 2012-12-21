@@ -21,21 +21,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_SOUND_REPEAT_HPP_INCLUDED
 #define SGE_AUDIO_SOUND_REPEAT_HPP_INCLUDED
 
+#include <sge/audio/sound/repeat_fwd.hpp>
+
+
 namespace sge
 {
 namespace audio
 {
 namespace sound
 {
-/** \enum_policy{repeat,sge::audio::sound::repeat::type} */
-namespace repeat
-{
-enum type
+
+enum class repeat
 {
 	once,
 	loop
 };
-}
+
 }
 }
 }

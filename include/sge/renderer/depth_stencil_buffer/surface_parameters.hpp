@@ -40,7 +40,7 @@ public:
 	SGE_RENDERER_SYMBOL
 	surface_parameters(
 		sge::renderer::dim2 const &,
-		sge::image::ds::format::type
+		sge::image::ds::format
 	);
 
 	SGE_RENDERER_SYMBOL
@@ -48,12 +48,12 @@ public:
 	size() const;
 
 	SGE_RENDERER_SYMBOL
-	sge::image::ds::format::type
+	sge::image::ds::format
 	format() const;
 private:
 	sge::renderer::dim2 size_;
 
-	sge::image::ds::format::type format_;
+	sge::image::ds::format format_;
 };
 
 }

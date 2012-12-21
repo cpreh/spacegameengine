@@ -24,14 +24,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/openal/openal.hpp>
 #include <sge/openal/source_wrapper.hpp>
 #include <sge/audio/scalar.hpp>
-#include <sge/audio/vector.hpp>
-#include <sge/audio/sound/play_status.hpp>
+#include <sge/audio/vector_fwd.hpp>
+#include <sge/audio/sound/optional_direction_fwd.hpp>
+#include <sge/audio/sound/play_status_fwd.hpp>
 #include <sge/audio/sound/positional.hpp>
 #include <sge/audio/sound/positional_parameters_fwd.hpp>
 #include <sge/audio/sound/nonpositional_parameters_fwd.hpp>
 #include <sge/audio/sound/repeat.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/math/vector/object_decl.hpp>
 
 
 namespace sge
@@ -68,12 +68,12 @@ public:
 
 	void
 	play(
-		audio::sound::repeat::type);
+		audio::sound::repeat);
 
 	void
 	toggle_pause();
 
-	audio::sound::play_status::type
+	sge::audio::sound::play_status
 	status() const;
 
 	void
@@ -132,11 +132,11 @@ protected:
 	ALuint
 	source_id() const;
 
-	audio::sound::repeat::type
+	audio::sound::repeat
 	repeat() const;
 private:
 	source_wrapper source_;
-	audio::sound::repeat::type repeat_;
+	audio::sound::repeat repeat_;
 
 	void
 	init(

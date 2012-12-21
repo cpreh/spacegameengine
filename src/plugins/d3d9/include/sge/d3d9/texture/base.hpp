@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/texture/base_fwd.hpp>
-#include <sge/image/color/format.hpp>
+#include <sge/image/color/format_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -50,7 +50,7 @@ public:
 	get() const = 0;
 
 	virtual
-	sge::image::color::format::type
+	sge::image::color::format
 	color_format() const = 0;
 };
 

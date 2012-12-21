@@ -21,16 +21,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_DEVIL_BEST_IL_FORMAT_HPP_INCLUDED
 #define SGE_DEVIL_BEST_IL_FORMAT_HPP_INCLUDED
 
-#include <sge/image/color/format.hpp>
+#include <sge/image/color/format_fwd.hpp>
+
 
 namespace sge
 {
 namespace devil
 {
 
-image::color::format::type
+sge::image::color::format
 best_il_format(
-	image::color::format::type
+	sge::image::color::format
 );
 
 }

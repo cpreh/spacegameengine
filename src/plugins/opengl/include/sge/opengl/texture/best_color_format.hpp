@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_BEST_COLOR_FORMAT_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_BEST_COLOR_FORMAT_HPP_INCLUDED
 
-#include <sge/image/color/format.hpp>
+#include <sge/image/color/format_fwd.hpp>
 
 
 namespace sge
@@ -31,9 +31,9 @@ namespace opengl
 namespace texture
 {
 
-sge::image::color::format::type
+sge::image::color::format
 best_color_format(
-	sge::image::color::format::type
+	sge::image::color::format
 );
 
 }

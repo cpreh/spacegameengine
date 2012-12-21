@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_IMAGE_VIEW_INSTANTIATE_FORMAT_HPP_INCLUDED
 
 #include <sge/image/traits/color_tag.hpp>
-#include <sge/image/traits/format.hpp>
+#include <sge/image/traits/format_fwd.hpp>
 #include <sge/src/export_function_instantiation.hpp>
 #include <sge/src/image/view/format_impl.hpp>
 #include <sge/src/image/view/instantiate_const_nonconst.hpp>

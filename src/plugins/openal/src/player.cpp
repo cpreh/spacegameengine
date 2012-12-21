@@ -25,13 +25,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/openal/buffer.hpp>
 #include <sge/audio/exception.hpp>
 #include <sge/audio/file.hpp>
+#include <sge/audio/player_capabilities_field.hpp>
 #include <sge/audio/sample_container.hpp>
 #include <sge/audio/sound/base.hpp>
 #include <sge/audio/sound/positional.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
-#include <fcppt/container/bitfield/object_impl.hpp>
 
 
 sge::openal::player::player()

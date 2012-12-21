@@ -21,19 +21,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_CAPABILITIES_HPP_INCLUDED
 #define SGE_IMAGE_CAPABILITIES_HPP_INCLUDED
 
+#include <sge/image/capabilities_fwd.hpp>
+
+
 namespace sge
 {
 namespace image
 {
 
-namespace capabilities
-{
-enum type
+enum class capabilities
 {
 	threadsafe,
 	size
 };
-}
 
 }
 }

@@ -36,7 +36,7 @@ namespace dynamic
 {
 
 typedef std::vector<
-	sge::image::color::format::type
+	sge::image::color::format
 > color_format_vector;
 
 }

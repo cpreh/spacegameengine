@@ -48,7 +48,7 @@ class file
 		file
 	);
 public:
-	explicit file(
+	file(
 		std::istream &,
 		sge::image::optional_path const &
 	);
@@ -72,7 +72,7 @@ public:
 private:
 	image2d::dim dim_;
 
-	image::color::format::type format_;
+	image::color::format format_;
 
 	libpng::byte_vector bytes_;
 };

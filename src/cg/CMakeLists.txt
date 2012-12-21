@@ -14,6 +14,7 @@ set(
 	include/sge/cg/parameter/detail/check_type.hpp
 	include/sge/cg/parameter/detail/generate_types.hpp
 	include/sge/cg/parameter/element_type.hpp
+	include/sge/cg/parameter/element_type_fwd.hpp
 	include/sge/cg/parameter/is_int_float_double.hpp
 	include/sge/cg/parameter/matrix/detail/check_size.hpp
 	include/sge/cg/parameter/matrix/detail/set.hpp
@@ -41,6 +42,7 @@ set(
 	include/sge/cg/profile/object.hpp
 	include/sge/cg/profile/object_fwd.hpp
 	include/sge/cg/profile/shader_type.hpp
+	include/sge/cg/profile/shader_type_fwd.hpp
 	include/sge/cg/program/compile_options.hpp
 	include/sge/cg/program/extra_index.hpp
 	include/sge/cg/program/from_file_parameters.hpp
@@ -55,6 +57,7 @@ set(
 	include/sge/cg/program/replace_extra_function.hpp
 	include/sge/cg/program/source.hpp
 	include/sge/cg/program/source_type.hpp
+	include/sge/cg/program/source_type_fwd.hpp
 	include/sge/cg/string.hpp
 	include/sge/cg/to_fcppt_string.hpp
 	src/cg/context/object.cpp

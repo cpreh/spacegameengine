@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_DS_FORMAT_STRIDE_HPP_INCLUDED
 
 #include <sge/image/size_type.hpp>
-#include <sge/image/ds/format.hpp>
+#include <sge/image/ds/format_fwd.hpp>
 #include <sge/image/ds/symbol.hpp>
 
 
@@ -36,7 +36,7 @@ namespace ds
 SGE_IMAGE_DS_SYMBOL
 sge::image::size_type
 format_stride(
-	sge::image::ds::format::type
+	sge::image::ds::format
 );
 
 }

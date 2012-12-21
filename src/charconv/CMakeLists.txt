@@ -4,6 +4,7 @@ set(
 	include/sge/charconv/const_raw_pointer.hpp
 	include/sge/charconv/conversion_failed.hpp
 	include/sge/charconv/conversion_status.hpp
+	include/sge/charconv/conversion_status_fwd.hpp
 	include/sge/charconv/convert.hpp
 	include/sge/charconv/convert_raw.hpp
 	include/sge/charconv/converter.hpp

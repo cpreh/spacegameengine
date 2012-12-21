@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::cg::profile::object const
 sge::opengl::cg::profile::create(
-	sge::cg::profile::shader_type::type const _shader_type
+	sge::cg::profile::shader_type const _shader_type
 )
 {
 	return

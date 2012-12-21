@@ -48,7 +48,7 @@ public:
 	SGE_CG_SYMBOL
 	from_string_parameters(
 		sge::cg::context::object const &,
-		sge::cg::program::source_type::type,
+		sge::cg::program::source_type,
 		sge::cg::profile::object const &,
 		sge::cg::program::source const &,
 		sge::cg::program::main_function const &,
@@ -58,7 +58,7 @@ public:
 	sge::cg::context::object const &
 	context() const;
 
-	sge::cg::program::source_type::type
+	sge::cg::program::source_type
 	source_type() const;
 
 	sge::cg::profile::object const &
@@ -75,7 +75,7 @@ public:
 private:
 	sge::cg::context::object const &context_;
 
-	sge::cg::program::source_type::type const source_type_;
+	sge::cg::program::source_type const source_type_;
 
 	sge::cg::profile::object const &profile_;
 

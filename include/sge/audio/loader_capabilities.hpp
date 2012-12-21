@@ -21,19 +21,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_LOADER_CAPABILITIES_HPP_INCLUDED
 #define SGE_AUDIO_LOADER_CAPABILITIES_HPP_INCLUDED
 
+#include <sge/audio/loader_capabilities_fwd.hpp>
+
+
 namespace sge
 {
 namespace audio
 {
 
-/// Holds the capabilities of a loader (see sge::audio::loader::capabilities)
-namespace loader_capabilities
-{
-enum type
+enum class loader_capabilities
 {
 	size
 };
-}
 
 }
 }

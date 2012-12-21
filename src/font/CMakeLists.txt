@@ -1,6 +1,7 @@
 set(
 	SGE_FONT_FILES
 	include/sge/font/align_h.hpp
+	include/sge/font/align_h_fwd.hpp
 	include/sge/font/char_type.hpp
 	include/sge/font/dim.hpp
 	include/sge/font/dim_fwd.hpp
@@ -11,6 +12,7 @@ set(
 	include/sge/font/flags.hpp
 	include/sge/font/flags_field.hpp
 	include/sge/font/flags_field_fwd.hpp
+	include/sge/font/flags_fwd.hpp
 	include/sge/font/from_fcppt_string.hpp
 	include/sge/font/lit.hpp
 	include/sge/font/object.hpp

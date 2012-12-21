@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/sound/positional.hpp>
 #include <sge/audio/sound/positional_parameters.hpp>
 #include <sge/audio/sound/positional_scoped_ptr.hpp>
+#include <sge/audio/sound/repeat.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/image/color/predef.hpp>
 #include <sge/image2d/file.hpp>

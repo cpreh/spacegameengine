@@ -60,14 +60,14 @@ private:
 	dim const
 	size() const;
 
-	sge::image::ds::format::type
+	sge::image::ds::format
 	format() const;
 
 	sge::opengl::fbo::render_buffer const render_buffer_;
 
 	dim const dim_;
 
-	sge::image::ds::format::type const format_;
+	sge::image::ds::format const format_;
 };
 
 }

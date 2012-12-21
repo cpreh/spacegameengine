@@ -30,7 +30,7 @@ sge::image::size_type
 sge::image::traits::format_stride<
 	sge::image::ds::tag
 >::execute(
-	sge::image::ds::format::type const _format
+	sge::image::ds::format const _format
 )
 {
 	return

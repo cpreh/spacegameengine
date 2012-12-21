@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_RENDERER_VF_DYNAMIC_DETAIL_MATCHING_COLOR_FORMAT_HPP_INCLUDED
 #define SGE_SRC_RENDERER_VF_DYNAMIC_DETAIL_MATCHING_COLOR_FORMAT_HPP_INCLUDED
 
-#include <sge/image/color/format.hpp>
+#include <sge/image/color/format_fwd.hpp>
 #include <sge/renderer/vf/dynamic/color_format_vector.hpp>
 
 
@@ -36,9 +36,9 @@ namespace dynamic
 namespace detail
 {
 
-sge::image::color::format::type
+sge::image::color::format
 matching_color_format(
-	sge::image::color::format::type,
+	sge::image::color::format,
 	sge::renderer::vf::dynamic::color_format_vector const &
 );
 

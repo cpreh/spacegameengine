@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE2D_VIEW_MAKE_HPP_INCLUDED
 
 #include <sge/image/raw_pointer.hpp>
-#include <sge/image/color/format.hpp>
+#include <sge/image/color/format_fwd.hpp>
 #include <sge/image2d/dim_fwd.hpp>
 #include <sge/image2d/pitch_fwd.hpp>
 #include <sge/image2d/symbol.hpp>
@@ -41,7 +41,7 @@ sge::image2d::view::object const
 make(
 	sge::image::raw_pointer,
 	sge::image2d::dim const &,
-	sge::image::color::format::type,
+	sge::image::color::format,
 	sge::image2d::pitch const &
 );
 

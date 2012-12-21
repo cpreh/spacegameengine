@@ -18,21 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_TRAITS_FORMAT_HPP_INCLUDED
-#define SGE_IMAGE_TRAITS_FORMAT_HPP_INCLUDED
+#ifndef SGE_CG_PROFILE_SHADER_TYPE_FWD_HPP_INCLUDED
+#define SGE_CG_PROFILE_SHADER_TYPE_FWD_HPP_INCLUDED
 
 
 namespace sge
 {
-namespace image
+namespace cg
 {
-namespace traits
+namespace profile
 {
 
-template<
-	typename Tag
->
-struct format;
+enum class shader_type;
 
 }
 }

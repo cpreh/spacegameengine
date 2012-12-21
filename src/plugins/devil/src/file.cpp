@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/exception.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/color/element_count.hpp>
+#include <sge/image/color/format.hpp>
 #include <sge/image/color/format_stride.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/pitch.hpp>
@@ -73,7 +74,7 @@ sge::devil::file::file()
 }
 
 sge::devil::file::file(
-	image2d::view::const_object const &_src
+	sge::image2d::view::const_object const &_src
 )
 :
 	impl_()
@@ -84,32 +85,34 @@ sge::devil::file::file(
 		unsigned char
 	> raw_vector;
 
-	image2d::dim const src_dim(
-		image2d::view::size(
+	sge::image2d::dim const src_dim(
+		sge::image2d::view::size(
 			_src
 		)
 	);
 
-	image::color::format::type const fmt(
+	image::color::format const fmt(
 		image2d::view::format(
 			_src
 		)
 	);
 
 	raw_vector temp(
-		image::color::format_stride(fmt)
+		sge::image::color::format_stride(
+			fmt
+		)
 		* src_dim.content()
 	);
 
-	image::color::format::type const best_il_format(
+	sge::image::color::format const best_il_format(
 		devil::best_il_format(
 			fmt
 		)
 	);
 
-	image2d::algorithm::copy_and_convert(
+	sge::image2d::algorithm::copy_and_convert(
 		_src,
-		image2d::view::make(
+		sge::image2d::view::make(
 			temp.data(),
 			src_dim,
 			best_il_format,
@@ -118,8 +121,8 @@ sge::devil::file::file(
 		sge::image::algorithm::may_overlap::no
 	);
 
-	image2d::dim const cur_dim(
-		image2d::view::size(
+	sge::image2d::dim const cur_dim(
+		sge::image2d::view::size(
 			_src
 		)
 	);
@@ -143,10 +146,10 @@ sge::devil::file::file(
 				best_il_format
 			)
 		),
-		devil::to_il_format(
+		sge::devil::to_il_format(
 			best_il_format
 		),
-		devil::to_il_channel(
+		sge::devil::to_il_channel(
 			best_il_format
 		),
 		const_cast<
@@ -156,7 +159,7 @@ sge::devil::file::file(
 		)
 	);
 
-	devil::check_error_exn();
+	sge::devil::check_error_exn();
 }
 
 sge::devil::file::~file()
@@ -169,18 +172,18 @@ sge::devil::file::size() const
 	this->bind();
 
 	return
-		image2d::dim(
+		sge::image2d::dim(
 			static_cast<
-				image2d::dim::value_type
+				sge::image2d::dim::value_type
 			>(
-				devil::get_integer(
+				sge::devil::get_integer(
 					IL_IMAGE_WIDTH
 				)
 			),
 			static_cast<
-				image2d::dim::value_type
+				sge::image2d::dim::value_type
 			>(
-				devil::get_integer(
+				sge::devil::get_integer(
 					IL_IMAGE_HEIGHT
 				)
 			)
@@ -193,15 +196,15 @@ sge::devil::file::view() const
 	this->bind();
 
 	return
-		image2d::view::make_const(
+		sge::image2d::view::make_const(
 			const_cast<
-				image::const_raw_pointer
+				sge::image::const_raw_pointer
 			>(
 				devil::get_data()
 			),
 			this->size(),
-			devil::convert_format(
-				devil::get_integer(
+			sge::devil::convert_format(
+				sge::devil::get_integer(
 					IL_IMAGE_BITS_PER_PIXEL
 				),
 				this->format()
@@ -217,7 +220,7 @@ sge::devil::file::save(
 {
 	this->bind();
 
-	devil::enable(
+	sge::devil::enable(
 		IL_ORIGIN_SET
 	);
 
@@ -225,7 +228,7 @@ sge::devil::file::save(
 		IL_ORIGIN_UPPER_LEFT
 	);
 
-	devil::check_error_exn();
+	sge::devil::check_error_exn();
 
 	::ilSaveImage(
 #ifdef UNICODE
@@ -249,9 +252,9 @@ sge::devil::file::save(
 #endif
 	);
 
-	devil::check_error_exn();
+	sge::devil::check_error_exn();
 
-	devil::disable(
+	sge::devil::disable(
 		IL_ORIGIN_SET
 	);
 }
@@ -263,7 +266,7 @@ sge::devil::file::bind() const
 		impl_.id()
 	);
 
-	devil::check_error_exn();
+	sge::devil::check_error_exn();
 }
 
 sge::devil::optional_error const
@@ -274,7 +277,7 @@ sge::devil::file::load(
 	return
 		this->load_impl(
 			std::bind(
-				devil::load_image,
+				sge::devil::load_image,
 				_file
 			)
 		);
@@ -289,7 +292,7 @@ sge::devil::file::load(
 	return
 		this->load_impl(
 			std::bind(
-				devil::load_memory,
+				sge::devil::load_memory,
 				_range,
 				_extension
 			)
@@ -305,17 +308,23 @@ sge::devil::file::load(
 {
 	std::string const content(
 		fcppt::io::stream_to_string(
-			_stream));
+			_stream
+		)
+	);
 
 	return
 		this->load_impl(
 			std::bind(
-				devil::load_memory,
+				sge::devil::load_memory,
 				boost::make_iterator_range(
-					reinterpret_cast<sge::media::const_raw_pointer>(
+					reinterpret_cast<
+						sge::media::const_raw_pointer
+					>(
 						&(*content.begin())
 					),
-					reinterpret_cast<sge::media::const_raw_pointer>(
+					reinterpret_cast<
+						sge::media::const_raw_pointer
+					>(
 						&(*content.end())
 					)
 				),
@@ -327,17 +336,17 @@ sge::devil::file::load(
 
 sge::devil::optional_error const
 sge::devil::file::load_impl(
-	load_function const &_function
+	sge::devil::file::load_function const &_function
 )
 {
 	this->bind();
 
-	devil::disable(
+	sge::devil::disable(
 		IL_FORMAT_SET
 	);
 
 	{
-		devil::optional_error const error(
+		sge::devil::optional_error const error(
 			_function()
 		);
 
@@ -357,16 +366,16 @@ sge::devil::file::load_impl(
 			<< FCPPT_TEXT(" converting the file beforehand.")
 	);
 
-	devil::set_integer(
+	sge::devil::set_integer(
 		IL_FORMAT_MODE,
 		IL_RGBA
 	);
 
-	devil::enable(
+	sge::devil::enable(
 		IL_FORMAT_SET
 	);
 
-	devil::optional_error const error(
+	sge::devil::optional_error const error(
 		_function()
 	);
 
@@ -387,7 +396,7 @@ sge::devil::file::format() const
 		static_cast<
 			ILenum
 		>(
-			devil::get_integer(
+			sge::devil::get_integer(
 				IL_IMAGE_FORMAT
 			)
 		);

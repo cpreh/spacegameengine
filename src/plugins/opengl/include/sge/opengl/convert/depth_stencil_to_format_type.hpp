@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_CONVERT_DEPTH_STENCIL_TO_FORMAT_TYPE_HPP_INCLUDED
 #define SGE_OPENGL_CONVERT_DEPTH_STENCIL_TO_FORMAT_TYPE_HPP_INCLUDED
 
-#include <sge/image/ds/format.hpp>
+#include <sge/image/ds/format_fwd.hpp>
 #include <sge/opengl/color_format_type.hpp>
 
 
@@ -34,7 +34,7 @@ namespace convert
 
 sge::opengl::color_format_type const
 depth_stencil_to_format_type(
-	sge::image::ds::format::type
+	sge::image::ds::format
 );
 
 }

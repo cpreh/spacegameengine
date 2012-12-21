@@ -73,7 +73,7 @@ private:
 	sge::texture::on_alloc_callback on_alloc_;
 
 	typedef boost::ptr_multimap<
-		sge::image::color::format::type,
+		sge::image::color::format,
 		sge::texture::fragmented
 	> fragmented_map;
 

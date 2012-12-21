@@ -11,6 +11,7 @@ set(
 	include/sge/image/capabilities.hpp
 	include/sge/image/capabilities_field.hpp
 	include/sge/image/capabilities_field_fwd.hpp
+	include/sge/image/capabilities_fwd.hpp
 	include/sge/image/channel16.hpp
 	include/sge/image/channel32.hpp
 	include/sge/image/channel32f.hpp
@@ -44,7 +45,7 @@ set(
 	include/sge/image/traits/color_tag.hpp
 	include/sge/image/traits/const_view_fwd.hpp
 	include/sge/image/traits/dim_fwd.hpp
-	include/sge/image/traits/format.hpp
+	include/sge/image/traits/format_fwd.hpp
 	include/sge/image/traits/format_static.hpp
 	include/sge/image/traits/format_stride.hpp
 	include/sge/image/traits/format_to_string.hpp

@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::cg::program::from_string_parameters::from_string_parameters(
 	sge::cg::context::object const &_context,
-	sge::cg::program::source_type::type const _source_type,
+	sge::cg::program::source_type const _source_type,
 	sge::cg::profile::object const &_profile,
 	sge::cg::program::source const &_source,
 	sge::cg::program::main_function const &_main_function,
@@ -64,7 +64,7 @@ sge::cg::program::from_string_parameters::context() const
 		context_;
 }
 
-sge::cg::program::source_type::type
+sge::cg::program::source_type
 sge::cg::program::from_string_parameters::source_type() const
 {
 	return

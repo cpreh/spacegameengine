@@ -99,7 +99,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cg/program/object_fwd.hpp>
 #include <sge/cg/program/source.hpp>
 #include <sge/cg/profile/object_fwd.hpp>
-#include <sge/cg/profile/shader_type.hpp>
+#include <sge/cg/profile/shader_type_fwd.hpp>
 #include <sge/renderer/cg/loaded_program_unique_ptr.hpp>
 #include <sge/renderer/cg/loaded_texture_unique_ptr.hpp>
 #include <sge/renderer/texture/base_fwd.hpp>
@@ -210,7 +210,7 @@ private:
 #if defined(SGE_RENDERER_HAVE_CG)
 	sge::cg::profile::object const
 	create_cg_profile(
-		sge::cg::profile::shader_type::type
+		sge::cg::profile::shader_type
 	);
 
 	sge::cg::program::compile_options const

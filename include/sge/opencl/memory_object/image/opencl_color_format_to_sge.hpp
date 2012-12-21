@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENCL_MEMORY_OBJECT_IMAGE_OPENCL_COLOR_FORMAT_TO_SGE_HPP_INCLUDED
 #define SGE_OPENCL_MEMORY_OBJECT_IMAGE_OPENCL_COLOR_FORMAT_TO_SGE_HPP_INCLUDED
 
-#include <sge/image/color/format.hpp>
+#include <sge/image/color/format_fwd.hpp>
 #include <sge/opencl/clinclude.hpp>
 
 namespace sge
@@ -32,7 +32,7 @@ namespace memory_object
 {
 namespace image
 {
-sge::image::color::format::type
+sge::image::color::format
 opencl_color_format_to_sge(
 	cl_image_format const &);
 }

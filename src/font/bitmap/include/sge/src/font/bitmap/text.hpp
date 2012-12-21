@@ -78,7 +78,7 @@ private:
 
 	sge::font::unit const line_height_;
 
-	sge::font::align_h::type const align_h_;
+	sge::font::align_h const align_h_;
 };
 
 }

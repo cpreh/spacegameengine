@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_FONT_DRAW_CREATE_FFP_SAMPLER_HPP_INCLUDED
 #define SGE_SRC_FONT_DRAW_CREATE_FFP_SAMPLER_HPP_INCLUDED
 
-#include <sge/image/color/format.hpp>
+#include <sge/image/color/format_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/renderer/state/ffp/sampler/object_unique_ptr.hpp>
 
@@ -36,7 +36,7 @@ namespace draw
 sge::renderer::state::ffp::sampler::object_unique_ptr
 create_ffp_sampler(
 	sge::renderer::device::ffp &,
-	sge::image::color::format::type
+	sge::image::color::format
 );
 
 }

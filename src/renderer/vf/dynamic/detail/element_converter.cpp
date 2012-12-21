@@ -40,8 +40,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::renderer::vf::dynamic::detail::element_converter::element_converter(
-	sge::image::color::format::type const _original_color,
-	sge::image::color::format::type const _backend_color,
+	sge::image::color::format const _original_color,
+	sge::image::color::format const _backend_color,
 	sge::renderer::vf::dynamic::stride const _stride,
 	sge::renderer::vf::dynamic::offset const _offset
 )

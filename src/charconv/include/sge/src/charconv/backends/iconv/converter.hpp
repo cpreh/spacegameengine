@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_CHARCONV_BACKENDS_ICONV_CONVERTER_HPP_INCLUDED
 #define SGE_SRC_CHARCONV_BACKENDS_ICONV_CONVERTER_HPP_INCLUDED
 
-#include <sge/charconv/conversion_status.hpp>
+#include <sge/charconv/conversion_status_fwd.hpp>
 #include <sge/charconv/converter.hpp>
 #include <sge/charconv/dest_encoding.hpp>
 #include <sge/charconv/input_range.hpp>
@@ -57,7 +57,7 @@ public:
 
 	~converter();
 
-	sge::charconv::conversion_status::type
+	sge::charconv::conversion_status
 	convert(
 		sge::charconv::input_range &,
 		sge::charconv::output_range &

@@ -70,7 +70,7 @@ private:
 	dim const
 	size() const;
 
-	sge::image::color::format::type
+	sge::image::color::format
 	format() const;
 
 	sge::opengl::color_format const
