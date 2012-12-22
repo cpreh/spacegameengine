@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 
 
-sge::input::mouse::axis_code::type
+sge::input::mouse::axis_code
 sge::x11input::mouse::axis_code(
 	sge::input::info::optional_string const &_info
 )

@@ -22,17 +22,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/joypad/absolute_axis_id.hpp>
 #include <sge/input/joypad/axis_code.hpp>
 
+
 sge::input::joypad::absolute_axis::absolute_axis(
-	joypad::axis_code::type const _code,
-	joypad::absolute_axis_id const _id
+	sge::input::joypad::axis_code const _code,
+	sge::input::joypad::absolute_axis_id const _id
 )
 :
-	code_(_code),
-	id_(_id)
+	code_(
+		_code
+	),
+	id_(
+		_id
+	)
 {
 }
 
-sge::input::joypad::axis_code::type
+sge::input::joypad::axis_code
 sge::input::joypad::absolute_axis::code() const
 {
 	return code_;

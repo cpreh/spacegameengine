@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_INPUT_CURSOR_SCROLL_CODE_TO_STRING_HPP_INCLUDED
 
 #include <sge/input/symbol.hpp>
-#include <sge/input/cursor/scroll_code.hpp>
+#include <sge/input/cursor/scroll_code_fwd.hpp>
 #include <fcppt/string.hpp>
 
 
@@ -36,7 +36,7 @@ namespace cursor
 SGE_INPUT_SYMBOL
 fcppt::string const
 scroll_code_to_string(
-	sge::input::cursor::scroll_code::type
+	sge::input::cursor::scroll_code
 );
 
 }

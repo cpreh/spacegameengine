@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/dinput/cursor/exclusive_mode_fwd.hpp>
 #include <sge/dinput/cursor/object_fwd.hpp>
 #include <sge/input/cursor/button_callback.hpp>
-#include <sge/input/cursor/button_code.hpp>
+#include <sge/input/cursor/button_code_fwd.hpp>
 #include <sge/input/cursor/button_signal.hpp>
 #include <sge/input/cursor/mode.hpp>
 #include <sge/input/cursor/move_callback.hpp>
@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/scroll_callback.hpp>
-#include <sge/input/cursor/scroll_code.hpp>
+#include <sge/input/cursor/scroll_code_fwd.hpp>
 #include <sge/input/cursor/scroll_signal.hpp>
 #include <awl/backends/windows/event/type.hpp>
 #include <awl/backends/windows/window/object_fwd.hpp>
@@ -88,7 +88,7 @@ public:
 
 	void
 	mode(
-		sge::input::cursor::mode::type
+		sge::input::cursor::mode
 	);
 
 	void
@@ -111,14 +111,14 @@ private:
 	awl::backends::windows::window::event::return_type
 	on_button(
 		awl::backends::windows::window::event::object const &,
-		sge::input::cursor::button_code::type,
+		sge::input::cursor::button_code,
 		bool down
 	);
 
 	awl::backends::windows::window::event::return_type
 	on_scroll(
 		awl::backends::windows::window::event::object const &,
-		sge::input::cursor::scroll_code::type
+		sge::input::cursor::scroll_code
 	);
 
 	fcppt::signal::connection_manager::container const
@@ -129,14 +129,14 @@ private:
 		fcppt::signal::connection_manager::container &,
 		awl::backends::windows::event::type::value_type up_event,
 		awl::backends::windows::event::type::value_type down_event,
-		sge::input::cursor::button_code::type
+		sge::input::cursor::button_code
 	);
 
 	void
 	make_scroll_connection(
 		fcppt::signal::connection_manager::container &,
 		awl::backends::windows::event::type::value_type,
-		sge::input::cursor::scroll_code::type
+		sge::input::cursor::scroll_code
 	);
 
 	awl::backends::windows::window::event::processor &event_processor_;
@@ -153,7 +153,7 @@ private:
 		sge::dinput::cursor::exclusive_mode
 	> exclusive_mode_scoped_ptr;
 
-	sge::input::cursor::mode::type mode_;
+	sge::input::cursor::mode mode_;
 
 	bool has_focus_;
 

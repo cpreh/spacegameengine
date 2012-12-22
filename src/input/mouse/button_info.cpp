@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::input::mouse::button_info::button_info(
-	input::mouse::button_code::type const _code,
-	input::info::optional_string const &_name
+	sge::input::mouse::button_code const _code,
+	sge::input::info::optional_string const &_name
 )
 :
 	code_(
@@ -37,7 +37,7 @@ sge::input::mouse::button_info::button_info(
 {
 }
 
-sge::input::mouse::button_code::type
+sge::input::mouse::button_code
 sge::input::mouse::button_info::code() const
 {
 	return code_;

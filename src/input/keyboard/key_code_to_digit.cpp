@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::input::keyboard::optional_digit const
 sge::input::keyboard::key_code_to_digit(
-	sge::input::keyboard::key_code::type const _key_code
+	sge::input::keyboard::key_code const _key_code
 )
 {
 #define CONVERT_KEYCODE_TO_DIGIT(\

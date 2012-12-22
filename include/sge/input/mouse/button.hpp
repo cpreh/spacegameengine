@@ -39,21 +39,21 @@ class button
 public:
 	SGE_INPUT_SYMBOL
 	button(
-		mouse::button_code::type,
-		mouse::button_id
+		sge::input::mouse::button_code,
+		sge::input::mouse::button_id
 	);
 
 	SGE_INPUT_SYMBOL
-	mouse::button_code::type
+	sge::input::mouse::button_code
 	code() const;
 
 	SGE_INPUT_SYMBOL
-	mouse::button_id const
+	sge::input::mouse::button_id const
 	id() const;
 private:
-	mouse::button_code::type code_;
+	sge::input::mouse::button_code code_;
 
-	mouse::button_id id_;
+	sge::input::mouse::button_id id_;
 };
 
 }

@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 bool
 sge::input::keyboard::is_alt(
-	sge::input::keyboard::key_code::type const _key
+	sge::input::keyboard::key_code const _key
 )
 {
 	return

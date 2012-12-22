@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_CEGUI_CONVERT_KEY_HPP_INCLUDED
 #define SGE_SRC_CEGUI_CONVERT_KEY_HPP_INCLUDED
 
-#include <sge/input/keyboard/key_code.hpp>
+#include <sge/input/keyboard/key_code_fwd.hpp>
 #include <sge/src/cegui/optional_key_scan_fwd.hpp>
 
 
@@ -32,7 +32,7 @@ namespace cegui
 
 sge::cegui::optional_key_scan const
 convert_key(
-	sge::input::keyboard::key_code::type
+	sge::input::keyboard::key_code
 );
 
 }

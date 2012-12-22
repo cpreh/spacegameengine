@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11INPUT_CURSOR_SCROLL_CODE_HPP_INCLUDED
 #define SGE_X11INPUT_CURSOR_SCROLL_CODE_HPP_INCLUDED
 
-#include <sge/input/cursor/scroll_code.hpp>
+#include <sge/input/cursor/scroll_code_fwd.hpp>
 
 
 namespace sge
@@ -31,7 +31,7 @@ namespace x11input
 namespace cursor
 {
 
-sge::input::cursor::scroll_code::type
+sge::input::cursor::scroll_code
 scroll_code(
 	int
 );

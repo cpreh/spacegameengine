@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/symbol.hpp>
 #include <sge/input/mouse/axis.hpp>
-#include <sge/input/mouse/axis_code.hpp>
+#include <sge/input/mouse/axis_code_fwd.hpp>
 #include <sge/input/mouse/axis_event_fwd.hpp>
 #include <sge/input/mouse/axis_value.hpp>
 
@@ -49,7 +49,7 @@ public:
 	axis() const;
 
 	SGE_INPUT_SYMBOL
-	sge::input::mouse::axis_code::type
+	sge::input::mouse::axis_code
 	code() const;
 
 	SGE_INPUT_SYMBOL

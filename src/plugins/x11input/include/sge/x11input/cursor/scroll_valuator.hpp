@@ -38,13 +38,13 @@ class scroll_valuator
 public:
 	scroll_valuator(
 		sge::x11input::device::valuator_value,
-		sge::input::cursor::scroll_code::type
+		sge::input::cursor::scroll_code
 	);
 
 	sge::x11input::device::valuator_value const
 	last_value() const;
 
-	sge::input::cursor::scroll_code::type
+	sge::input::cursor::scroll_code
 	code() const;
 
 	void
@@ -54,7 +54,7 @@ public:
 private:
 	sge::x11input::device::valuator_value value_;
 
-	sge::input::cursor::scroll_code::type code_;
+	sge::input::cursor::scroll_code code_;
 };
 
 }

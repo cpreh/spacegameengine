@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/input/cursor/button_event.hpp>
+#include <sge/input/cursor/mode.hpp>
 #include <sge/input/cursor/move_event.hpp>
 #include <sge/input/cursor/optional_position.hpp>
 #include <sge/input/cursor/position.hpp>
@@ -202,7 +203,7 @@ sge::x11input::cursor::object::position() const
 
 void
 sge::x11input::cursor::object::mode(
-	input::cursor::mode::type const _mode
+	sge::input::cursor::mode const _mode
 )
 {
 	mode_ = _mode;
@@ -379,8 +380,6 @@ sge::x11input::cursor::object::check_grab()
 	case sge::input::cursor::mode::normal:
 		cursor_grab_.reset();
 		return;
-	case sge::input::cursor::mode::size:
-		break;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

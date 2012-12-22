@@ -54,7 +54,7 @@ namespace
 
 bool
 process_code(
-	sge::input::keyboard::key_code::type,
+	sge::input::keyboard::key_code,
 	sge::cegui::optional_key_scan const &
 );
 
@@ -269,7 +269,7 @@ namespace
 
 bool
 process_code(
-	sge::input::keyboard::key_code::type const _orig_code,
+	sge::input::keyboard::key_code const _orig_code,
 	sge::cegui::optional_key_scan const &_code
 )
 {

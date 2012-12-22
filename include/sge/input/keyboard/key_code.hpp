@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_KEYBOARD_KEY_CODE_HPP_INCLUDED
 #define SGE_INPUT_KEYBOARD_KEY_CODE_HPP_INCLUDED
 
+#include <sge/input/keyboard/key_code_fwd.hpp>
+
 
 namespace sge
 {
@@ -29,9 +31,7 @@ namespace input
 namespace keyboard
 {
 
-namespace key_code
-{
-enum type
+enum class key_code
 {
 	escape,
 	return_,
@@ -159,7 +159,6 @@ enum type
 	yen,
 	unknown
 };
-}
 
 }
 }

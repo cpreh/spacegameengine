@@ -39,21 +39,21 @@ class axis
 public:
 	SGE_INPUT_SYMBOL
 	axis(
-		mouse::axis_code::type,
-		mouse::axis_id
+		sge::input::mouse::axis_code,
+		sge::input::mouse::axis_id
 	);
 
 	SGE_INPUT_SYMBOL
-	mouse::axis_code::type
+	sge::input::mouse::axis_code
 	code() const;
 
 	SGE_INPUT_SYMBOL
-	mouse::axis_id const
+	sge::input::mouse::axis_id const
 	id() const;
 private:
-	mouse::axis_code::type code_;
+	sge::input::mouse::axis_code code_;
 
-	mouse::axis_id id_;
+	sge::input::mouse::axis_id id_;
 };
 
 }

@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/char_function.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_callback.hpp>
-#include <sge/input/keyboard/key_code.hpp>
+#include <sge/input/keyboard/key_code_fwd.hpp>
 #include <sge/input/keyboard/key_function.hpp>
 #include <sge/input/keyboard/key_repeat_callback.hpp>
 #include <sge/input/keyboard/key_repeat_function.hpp>
@@ -95,7 +95,7 @@ private:
 
 	void
 	update_modifiers(
-		sge::input::keyboard::key_code::type,
+		sge::input::keyboard::key_code,
 		bool pressed
 	);
 

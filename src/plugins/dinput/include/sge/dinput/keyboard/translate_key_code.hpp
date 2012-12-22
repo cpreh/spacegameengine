@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_DINPUT_KEYBOARD_TRANSLATE_KEY_CODE_HPP_INCLUDED
 
 #include <sge/dinput/di.hpp>
-#include <sge/input/keyboard/key_code.hpp>
+#include <sge/input/keyboard/key_code_fwd.hpp>
 
 
 namespace sge
@@ -32,7 +32,7 @@ namespace dinput
 namespace keyboard
 {
 
-sge::input::keyboard::key_code::type
+sge::input::keyboard::key_code
 translate_key_code(
 	DWORD ofs
 );

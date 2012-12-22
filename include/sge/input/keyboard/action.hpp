@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/nullary_function.hpp>
 #include <sge/input/symbol.hpp>
 #include <sge/input/keyboard/key_callback.hpp>
-#include <sge/input/keyboard/key_code.hpp>
+#include <sge/input/keyboard/key_code_fwd.hpp>
 
 
 namespace sge
@@ -35,10 +35,10 @@ namespace keyboard
 {
 
 SGE_INPUT_SYMBOL
-keyboard::key_callback const
+sge::input::keyboard::key_callback const
 action(
-	keyboard::key_code::type,
-	input::nullary_function const &
+	sge::input::keyboard::key_code,
+	sge::input::nullary_function const &
 );
 
 }

@@ -21,6 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_CURSOR_MODE_HPP_INCLUDED
 #define SGE_INPUT_CURSOR_MODE_HPP_INCLUDED
 
+#include <sge/input/cursor/mode_fwd.hpp>
+
+
 namespace sge
 {
 namespace input
@@ -28,15 +31,11 @@ namespace input
 namespace cursor
 {
 
-namespace mode
-{
-enum type
+enum class mode
 {
 	exclusive,
-	normal,
-	size
+	normal
 };
-}
 
 }
 }

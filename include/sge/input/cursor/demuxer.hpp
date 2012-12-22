@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/default_choose.hpp>
 #include <sge/input/cursor/demuxer_fwd.hpp>
 #include <sge/input/cursor/discover_event_fwd.hpp>
-#include <sge/input/cursor/mode.hpp>
+#include <sge/input/cursor/mode_fwd.hpp>
 #include <sge/input/cursor/move_callback.hpp>
 #include <sge/input/cursor/move_event_fwd.hpp>
 #include <sge/input/cursor/move_signal.hpp>
@@ -100,7 +100,7 @@ public:
 	SGE_INPUT_SYMBOL
 	void
 	mode(
-		sge::input::cursor::mode::type
+		sge::input::cursor::mode
 	);
 
 	SGE_INPUT_SYMBOL

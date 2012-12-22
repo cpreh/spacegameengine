@@ -37,15 +37,16 @@ class key_repeat_event
 {
 public:
 	SGE_INPUT_SYMBOL
-	explicit key_repeat_event(
-		keyboard::key_code::type
+	explicit
+	key_repeat_event(
+		sge::input::keyboard::key_code
 	);
 
 	SGE_INPUT_SYMBOL
-	keyboard::key_code::type
+	sge::input::keyboard::key_code
 	key_code() const;
 private:
-	keyboard::key_code::type key_code_;
+	sge::input::keyboard::key_code key_code_;
 };
 
 }

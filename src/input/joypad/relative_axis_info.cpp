@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::input::joypad::relative_axis_info::relative_axis_info(
-	joypad::axis_code::type const _code,
-	input::info::optional_string const &_name
+	sge::input::joypad::axis_code const _code,
+	sge::input::info::optional_string const &_name
 )
 :
 	code_(
@@ -37,7 +37,7 @@ sge::input::joypad::relative_axis_info::relative_axis_info(
 {
 }
 
-sge::input::joypad::axis_code::type
+sge::input::joypad::axis_code
 sge::input::joypad::relative_axis_info::code() const
 {
 	return code_;

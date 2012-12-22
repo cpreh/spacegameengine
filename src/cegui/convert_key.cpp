@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::cegui::optional_key_scan const
 sge::cegui::convert_key(
-	sge::input::keyboard::key_code::type const _code
+	sge::input::keyboard::key_code const _code
 )
 {
 	switch(

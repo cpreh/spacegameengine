@@ -22,17 +22,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/button_code.hpp>
 #include <sge/input/mouse/button_id.hpp>
 
+
 sge::input::mouse::button::button(
-	mouse::button_code::type const _code,
-	mouse::button_id const _id
+	sge::input::mouse::button_code const _code,
+	sge::input::mouse::button_id const _id
 )
 :
-	code_(_code),
-	id_(_id)
+	code_(
+		_code
+	),
+	id_(
+		_id
+	)
 {
 }
 
-sge::input::mouse::button_code::type
+sge::input::mouse::button_code
 sge::input::mouse::button::code() const
 {
 	return code_;

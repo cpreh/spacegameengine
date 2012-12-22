@@ -41,35 +41,35 @@ class absolute_axis_info
 public:
 	SGE_INPUT_SYMBOL
 	absolute_axis_info(
-		joypad::axis_code::type,
-		input::info::optional_string const &,
-		joypad::axis_min,
-		joypad::axis_max
+		sge::input::joypad::axis_code,
+		sge::input::info::optional_string const &,
+		sge::input::joypad::axis_min,
+		sge::input::joypad::axis_max
 	);
 
 	SGE_INPUT_SYMBOL
-	joypad::axis_code::type
+	sge::input::joypad::axis_code
 	code() const;
 
 	SGE_INPUT_SYMBOL
-	input::info::optional_string const &
+	sge::input::info::optional_string const &
 	name() const;
 
 	SGE_INPUT_SYMBOL
-	joypad::axis_min const
+	sge::input::joypad::axis_min const
 	min() const;
 
 	SGE_INPUT_SYMBOL
-	joypad::axis_max const
+	sge::input::joypad::axis_max const
 	max() const;
 private:
-	joypad::axis_code::type code_;
+	sge::input::joypad::axis_code code_;
 
-	input::info::optional_string name_;
+	sge::input::info::optional_string name_;
 
-	joypad::axis_min min_;
+	sge::input::joypad::axis_min min_;
 
-	joypad::axis_max max_;
+	sge::input::joypad::axis_max max_;
 };
 
 }

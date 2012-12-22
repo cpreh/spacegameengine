@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_CURSOR_SCROLL_CODE_HPP_INCLUDED
 #define SGE_INPUT_CURSOR_SCROLL_CODE_HPP_INCLUDED
 
+#include <sge/input/cursor/scroll_code_fwd.hpp>
+
 
 namespace sge
 {
@@ -29,14 +31,12 @@ namespace input
 namespace cursor
 {
 
-namespace scroll_code
-{
-enum type
+enum class scroll_code
 {
 	vertical,
 	horizontal
 };
-}
+
 }
 }
 }

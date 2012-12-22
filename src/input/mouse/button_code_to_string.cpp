@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 fcppt::string const
 sge::input::mouse::button_code_to_string(
-	mouse::button_code::type const _code
+	sge::input::mouse::button_code const _code
 )
 {
 #define MAKE_CASE(\

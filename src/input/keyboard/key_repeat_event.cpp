@@ -18,17 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/input/keyboard/key_code.hpp>
 #include <sge/input/keyboard/key_repeat_event.hpp>
 
+
 sge::input::keyboard::key_repeat_event::key_repeat_event(
-	keyboard::key_code::type const _key_code
+	sge::input::keyboard::key_code const _key_code
 )
 :
-	key_code_(_key_code)
+	key_code_(
+		_key_code
+	)
 {
 }
 
-sge::input::keyboard::key_code::type
+sge::input::keyboard::key_code
 sge::input::keyboard::key_repeat_event::key_code() const
 {
 	return key_code_;

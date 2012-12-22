@@ -3,6 +3,7 @@ set(
 	include/sge/input/create_multi_system.hpp
 	include/sge/input/cursor/button_callback.hpp
 	include/sge/input/cursor/button_code.hpp
+	include/sge/input/cursor/button_code_fwd.hpp
 	include/sge/input/cursor/button_code_to_string.hpp
 	include/sge/input/cursor/button_event.hpp
 	include/sge/input/cursor/button_event_fwd.hpp
@@ -20,6 +21,7 @@ set(
 	include/sge/input/cursor/discover_signal.hpp
 	include/sge/input/cursor/manager.hpp
 	include/sge/input/cursor/mode.hpp
+	include/sge/input/cursor/mode_fwd.hpp
 	include/sge/input/cursor/move_callback.hpp
 	include/sge/input/cursor/move_event.hpp
 	include/sge/input/cursor/move_event_fwd.hpp
@@ -51,6 +53,7 @@ set(
 	include/sge/input/cursor/remove_signal.hpp
 	include/sge/input/cursor/scroll_callback.hpp
 	include/sge/input/cursor/scroll_code.hpp
+	include/sge/input/cursor/scroll_code_fwd.hpp
 	include/sge/input/cursor/scroll_code_to_string.hpp
 	include/sge/input/cursor/scroll_event.hpp
 	include/sge/input/cursor/scroll_event_fwd.hpp
@@ -82,6 +85,7 @@ set(
 	include/sge/input/joypad/absolute_axis_info_fwd.hpp
 	include/sge/input/joypad/absolute_axis_signal.hpp
 	include/sge/input/joypad/axis_code.hpp
+	include/sge/input/joypad/axis_code_fwd.hpp
 	include/sge/input/joypad/axis_code_to_string.hpp
 	include/sge/input/joypad/axis_max.hpp
 	include/sge/input/joypad/axis_min.hpp
@@ -148,6 +152,7 @@ set(
 	include/sge/input/keyboard/is_shift.hpp
 	include/sge/input/keyboard/key_callback.hpp
 	include/sge/input/keyboard/key_code.hpp
+	include/sge/input/keyboard/key_code_fwd.hpp
 	include/sge/input/keyboard/key_code_to_digit.hpp
 	include/sge/input/keyboard/key_code_to_string.hpp
 	include/sge/input/keyboard/key_event.hpp
@@ -163,6 +168,7 @@ set(
 	include/sge/input/keyboard/mod_state.hpp
 	include/sge/input/keyboard/mod_state_fwd.hpp
 	include/sge/input/keyboard/modifier.hpp
+	include/sge/input/keyboard/modifier_fwd.hpp
 	include/sge/input/keyboard/optional_digit.hpp
 	include/sge/input/keyboard/optional_digit_fwd.hpp
 	include/sge/input/keyboard/optional_key_code.hpp
@@ -180,6 +186,7 @@ set(
 	include/sge/input/mouse/axis.hpp
 	include/sge/input/mouse/axis_callback.hpp
 	include/sge/input/mouse/axis_code.hpp
+	include/sge/input/mouse/axis_code_fwd.hpp
 	include/sge/input/mouse/axis_code_to_string.hpp
 	include/sge/input/mouse/axis_event.hpp
 	include/sge/input/mouse/axis_event_fwd.hpp
@@ -195,6 +202,7 @@ set(
 	include/sge/input/mouse/button.hpp
 	include/sge/input/mouse/button_callback.hpp
 	include/sge/input/mouse/button_code.hpp
+	include/sge/input/mouse/button_code_fwd.hpp
 	include/sge/input/mouse/button_code_to_string.hpp
 	include/sge/input/mouse/button_event.hpp
 	include/sge/input/mouse/button_event_fwd.hpp

@@ -22,13 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/is_control.hpp>
 #include <sge/input/keyboard/is_shift.hpp>
 #include <sge/input/keyboard/key_code.hpp>
+#include <sge/input/keyboard/modifier.hpp>
 #include <sge/input/keyboard/optional_modifier.hpp>
 #include <sge/input/keyboard/to_modifier.hpp>
 
 
 sge::input::keyboard::optional_modifier const
 sge::input::keyboard::to_modifier(
-	sge::input::keyboard::key_code::type const _code
+	sge::input::keyboard::key_code const _code
 )
 {
 	if(

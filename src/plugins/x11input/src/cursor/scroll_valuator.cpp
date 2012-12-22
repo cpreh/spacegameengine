@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::x11input::cursor::scroll_valuator::scroll_valuator(
 	sge::x11input::device::valuator_value const _value,
-	sge::input::cursor::scroll_code::type const _code
+	sge::input::cursor::scroll_code const _code
 )
 :
 	value_(
@@ -43,7 +43,7 @@ sge::x11input::cursor::scroll_valuator::last_value() const
 	return value_;
 }
 
-sge::input::cursor::scroll_code::type
+sge::input::cursor::scroll_code
 sge::x11input::cursor::scroll_valuator::code() const
 {
 	return code_;

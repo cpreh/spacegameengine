@@ -39,21 +39,21 @@ class absolute_axis
 public:
 	SGE_INPUT_SYMBOL
 	absolute_axis(
-		joypad::axis_code::type,
-		joypad::absolute_axis_id
+		sge::input::joypad::axis_code,
+		sge::input::joypad::absolute_axis_id
 	);
 
 	SGE_INPUT_SYMBOL
-	joypad::axis_code::type
+	sge::input::joypad::axis_code
 	code() const;
 
 	SGE_INPUT_SYMBOL
-	joypad::absolute_axis_id const
+	sge::input::joypad::absolute_axis_id const
 	id() const;
 private:
-	joypad::axis_code::type code_;
+	sge::input::joypad::axis_code code_;
 
-	joypad::absolute_axis_id id_;
+	sge::input::joypad::absolute_axis_id id_;
 };
 
 }

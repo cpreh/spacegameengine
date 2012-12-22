@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::cegui::optional_mouse_button const
 sge::cegui::convert_cursor_button(
-	sge::input::cursor::button_code::type const _code
+	sge::input::cursor::button_code const _code
 )
 {
 	switch(

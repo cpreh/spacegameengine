@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_DINPUT_MOUSE_BUTTON_CODE_HPP_INCLUDED
 
 #include <sge/dinput/di.hpp>
-#include <sge/input/mouse/button_code.hpp>
+#include <sge/input/mouse/button_code_fwd.hpp>
+
 
 namespace sge
 {
@@ -31,7 +32,7 @@ namespace dinput
 namespace mouse
 {
 
-sge::input::mouse::button_code::type
+sge::input::mouse::button_code
 button_code(
 	DWORD
 );

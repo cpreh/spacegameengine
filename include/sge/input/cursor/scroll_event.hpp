@@ -39,19 +39,19 @@ class scroll_event
 public:
 	SGE_INPUT_SYMBOL
 	scroll_event(
-		sge::input::cursor::scroll_code::type,
+		sge::input::cursor::scroll_code,
 		sge::input::cursor::scroll_value
 	);
 
 	SGE_INPUT_SYMBOL
-	sge::input::cursor::scroll_code::type
+	sge::input::cursor::scroll_code
 	code() const;
 
 	SGE_INPUT_SYMBOL
 	sge::input::cursor::scroll_value
 	value() const;
 private:
-	sge::input::cursor::scroll_code::type code_;
+	sge::input::cursor::scroll_code code_;
 
 	sge::input::cursor::scroll_value value_;
 };

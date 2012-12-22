@@ -139,7 +139,7 @@ sge::input::cursor::demuxer::position() const
 
 void
 sge::input::cursor::demuxer::mode(
-	sge::input::cursor::mode::type const _mode
+	sge::input::cursor::mode const _mode
 )
 {
 	if(

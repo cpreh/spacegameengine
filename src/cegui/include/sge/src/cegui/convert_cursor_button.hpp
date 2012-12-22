@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_CEGUI_CONVERT_CURSOR_BUTTON_HPP_INCLUDED
 #define SGE_SRC_CEGUI_CONVERT_CURSOR_BUTTON_HPP_INCLUDED
 
-#include <sge/input/cursor/button_code.hpp>
+#include <sge/input/cursor/button_code_fwd.hpp>
 #include <sge/src/cegui/optional_mouse_button_fwd.hpp>
 
 
@@ -32,7 +32,7 @@ namespace cegui
 
 sge::cegui::optional_mouse_button const
 convert_cursor_button(
-	sge::input::cursor::button_code::type
+	sge::input::cursor::button_code
 );
 
 }

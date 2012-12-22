@@ -42,19 +42,19 @@ class looked_up_string
 	);
 public:
 	looked_up_string(
-		x11input::keyboard::char_vector const &,
-		sge::input::keyboard::key_code::type
+		sge::x11input::keyboard::char_vector const &,
+		sge::input::keyboard::key_code
 	);
 
-	x11input::keyboard::char_vector const &
+	sge::x11input::keyboard::char_vector const &
 	char_codes() const;
 
-	sge::input::keyboard::key_code::type
+	sge::input::keyboard::key_code
 	key_code() const;
 private:
-	x11input::keyboard::char_vector const char_codes_;
+	sge::x11input::keyboard::char_vector const char_codes_;
 
-	sge::input::keyboard::key_code::type const key_code_;
+	sge::input::keyboard::key_code const key_code_;
 };
 
 }

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/symbol.hpp>
 #include <sge/input/mouse/button.hpp>
-#include <sge/input/mouse/button_code.hpp>
+#include <sge/input/mouse/button_code_fwd.hpp>
 #include <sge/input/mouse/button_event_fwd.hpp>
 
 
@@ -39,23 +39,23 @@ class button_event
 public:
 	SGE_INPUT_SYMBOL
 	button_event(
-		mouse::button const &,
+		sge::input::mouse::button const &,
 		bool pressed
 	);
 
 	SGE_INPUT_SYMBOL
-	mouse::button_code::type
+	sge::input::mouse::button_code
 	button_code() const;
 
 	SGE_INPUT_SYMBOL
-	mouse::button const &
+	sge::input::mouse::button const &
 	button() const;
 
 	SGE_INPUT_SYMBOL
 	bool
 	pressed() const;
 private:
-	mouse::button button_;
+	sge::input::mouse::button button_;
 
 	bool pressed_;
 };

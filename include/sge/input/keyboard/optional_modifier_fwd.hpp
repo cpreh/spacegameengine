@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_KEYBOARD_OPTIONAL_MODIFIER_FWD_HPP_INCLUDED
 #define SGE_INPUT_KEYBOARD_OPTIONAL_MODIFIER_FWD_HPP_INCLUDED
 
-#include <sge/input/keyboard/modifier.hpp>
+#include <sge/input/keyboard/modifier_fwd.hpp>
 #include <fcppt/optional_fwd.hpp>
 
 
@@ -33,7 +33,7 @@ namespace keyboard
 {
 
 typedef fcppt::optional<
-	sge::input::keyboard::modifier::type
+	sge::input::keyboard::modifier
 > optional_modifier;
 
 }

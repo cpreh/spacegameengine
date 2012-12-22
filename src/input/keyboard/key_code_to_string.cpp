@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 fcppt::string const
 sge::input::keyboard::key_code_to_string(
-	keyboard::key_code::type const _code
+	sge::input::keyboard::key_code const _code
 )
 {
 #define MAKE_CASE(\

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_DINPUT_JOYPAD_AXIS_CODE_HPP_INCLUDED
 
 #include <sge/dinput/di.hpp>
-#include <sge/input/joypad/axis_code.hpp>
+#include <sge/input/joypad/axis_code_fwd.hpp>
 
 
 namespace sge
@@ -32,7 +32,7 @@ namespace dinput
 namespace joypad
 {
 
-sge::input::joypad::axis_code::type
+sge::input::joypad::axis_code
 axis_code(
 	DWORD
 );

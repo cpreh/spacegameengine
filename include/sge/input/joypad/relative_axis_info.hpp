@@ -39,21 +39,21 @@ class relative_axis_info
 public:
 	SGE_INPUT_SYMBOL
 	relative_axis_info(
-		joypad::axis_code::type,
-		input::info::optional_string const &
+		sge::input::joypad::axis_code,
+		sge::input::info::optional_string const &
 	);
 
 	SGE_INPUT_SYMBOL
-	joypad::axis_code::type
+	sge::input::joypad::axis_code
 	code() const;
 
 	SGE_INPUT_SYMBOL
-	input::info::optional_string const &
+	sge::input::info::optional_string const &
 	name() const;
 private:
-	joypad::axis_code::type code_;
+	sge::input::joypad::axis_code code_;
 
-	input::info::optional_string name_;
+	sge::input::info::optional_string name_;
 };
 
 }

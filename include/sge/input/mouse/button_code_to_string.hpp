@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_INPUT_MOUSE_BUTTON_CODE_TO_STRING_HPP_INCLUDED
 
 #include <sge/input/symbol.hpp>
-#include <sge/input/mouse/button_code.hpp>
+#include <sge/input/mouse/button_code_fwd.hpp>
 #include <fcppt/string.hpp>
 
 
@@ -36,7 +36,7 @@ namespace mouse
 SGE_INPUT_SYMBOL
 fcppt::string const
 button_code_to_string(
-	mouse::button_code::type
+	sge::input::mouse::button_code
 );
 
 }

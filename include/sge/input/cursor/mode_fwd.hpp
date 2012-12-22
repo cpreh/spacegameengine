@@ -18,33 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/keyboard/key_code.hpp>
-#include <sge/x11input/keyboard/char_vector.hpp>
-#include <sge/x11input/keyboard/looked_up_string.hpp>
+#ifndef SGE_INPUT_CURSOR_MODE_FWD_HPP_INCLUDED
+#define SGE_INPUT_CURSOR_MODE_FWD_HPP_INCLUDED
 
 
-sge::x11input::keyboard::looked_up_string::looked_up_string(
-	sge::x11input::keyboard::char_vector const &_char_codes,
-	sge::input::keyboard::key_code const _key_code
-)
-:
-	char_codes_(
-		_char_codes
-	),
-	key_code_(
-		_key_code
-	)
+namespace sge
 {
+namespace input
+{
+namespace cursor
+{
+
+enum class mode;
+
+}
+}
 }
 
-sge::x11input::keyboard::char_vector const &
-sge::x11input::keyboard::looked_up_string::char_codes() const
-{
-	return char_codes_;
-}
-
-sge::input::keyboard::key_code
-sge::x11input::keyboard::looked_up_string::key_code() const
-{
-	return key_code_;
-}
+#endif

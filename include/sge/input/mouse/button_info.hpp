@@ -39,21 +39,21 @@ class button_info
 public:
 	SGE_INPUT_SYMBOL
 	button_info(
-		input::mouse::button_code::type,
-		input::info::optional_string const &
+		sge::input::mouse::button_code,
+		sge::input::info::optional_string const &
 	);
 
 	SGE_INPUT_SYMBOL
-	input::mouse::button_code::type
+	sge::input::mouse::button_code
 	code() const;
 
 	SGE_INPUT_SYMBOL
-	input::info::optional_string const &
+	sge::input::info::optional_string const &
 	name() const;
 private:
-	input::mouse::button_code::type code_;
+	sge::input::mouse::button_code code_;
 
-	input::info::optional_string name_;
+	sge::input::info::optional_string name_;
 };
 
 }

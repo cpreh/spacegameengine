@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_EVDEV_JOYPAD_RELATIVE_AXIS_MAKE_CODE_HPP_INCLUDED
 
 #include <sge/evdev/device/event_type.hpp>
-#include <sge/input/joypad/axis_code.hpp>
+#include <sge/input/joypad/axis_code_fwd.hpp>
 
 
 namespace sge
@@ -34,7 +34,7 @@ namespace joypad
 namespace relative_axis
 {
 
-sge::input::joypad::axis_code::type
+sge::input::joypad::axis_code
 make_code(
 	sge::evdev::device::event_type
 );

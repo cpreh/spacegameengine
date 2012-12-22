@@ -101,7 +101,7 @@ private:
 
 	void
 	mode(
-		sge::input::cursor::mode::type
+		sge::input::cursor::mode
 	);
 
 	void
@@ -143,7 +143,7 @@ private:
 
 	fcppt::signal::connection_manager const connections_;
 
-	sge::input::cursor::mode::type mode_;
+	sge::input::cursor::mode mode_;
 
 	bool entered_;
 

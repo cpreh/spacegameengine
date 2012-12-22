@@ -18,73 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/input/nullary_function.hpp>
 #include <sge/input/keyboard/action.hpp>
+#include <sge/input/keyboard/key_callback.hpp>
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/input/keyboard/key_event.hpp>
-#include <fcppt/nonassignable.hpp>
 
-
-namespace
-{
-
-class functor
-{
-	FCPPT_NONASSIGNABLE(
-		functor
-	);
-public:
-	functor(
-		sge::input::keyboard::key_code::type,
-		sge::input::nullary_function const &
-	);
-
-	void
-	operator()(
-		sge::input::keyboard::key_event const &
-	) const;
-private:
-	sge::input::keyboard::key_code::type const code_;
-
-	sge::input::nullary_function const fun_;
-};
-
-}
 
 sge::input::keyboard::key_callback const
 sge::input::keyboard::action(
-	keyboard::key_code::type const _code,
-	input::nullary_function const &_action
+	sge::input::keyboard::key_code const _code,
+	sge::input::nullary_function const &_action
 )
 {
 	return
-		::functor(
-			_code,
-			_action
+		sge::input::keyboard::key_callback(
+			[
+				_code,
+				_action
+			](
+				sge::input::keyboard::key_event const &_event
+			)
+			{
+				if(
+					_event.pressed()
+					&& _event.key_code() == _code
+				)
+					_action();
+			}
 		);
-}
-
-namespace
-{
-
-functor::functor(
-	sge::input::keyboard::key_code::type const _code,
-	sge::input::nullary_function const &_fun
-)
-:
-	code_(_code),
-	fun_(_fun)
-{}
-
-void
-functor::operator()(
-	sge::input::keyboard::key_event const &_event
-) const
-{
-	if(
-		_event.pressed()
-		&& _event.key_code() == code_
-	)
-		fun_();
-}
-
 }

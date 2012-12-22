@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/input/keyboard/char_event.hpp>
+#include <sge/input/keyboard/key_code.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/input/keyboard/key_repeat_event.hpp>
 #include <sge/input/keyboard/mod_state.hpp>
@@ -209,7 +210,7 @@ sge::x11input::keyboard::device::on_key_release(
 		_event
 	);
 
-	sge::input::keyboard::key_code::type const key_code(
+	sge::input::keyboard::key_code const key_code(
 		sge::x11input::keyboard::translate_key_code(
 			sge::x11input::keyboard::key_code_to_key_sym(
 				window_.display(),
@@ -233,7 +234,7 @@ sge::x11input::keyboard::device::on_key_release(
 
 void
 sge::x11input::keyboard::device::update_modifiers(
-	sge::input::keyboard::key_code::type const _key_code,
+	sge::input::keyboard::key_code const _key_code,
 	bool const _pressed
 )
 {

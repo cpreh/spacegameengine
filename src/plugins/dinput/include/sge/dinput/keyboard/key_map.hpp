@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/dinput/di.hpp>
 #include <sge/input/keyboard/key_code.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <map>
+#include <unordered_map>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -35,9 +35,9 @@ namespace dinput
 namespace keyboard
 {
 
-typedef std::map<
+typedef std::unordered_map<
 	DWORD,
-	sge::input::keyboard::key_code::type
+	sge::input::keyboard::key_code
 > key_map;
 
 }

@@ -18,9 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/input/cursor/button_code.hpp>
 #include <sge/x11input/cursor/button_code.hpp>
 
-sge::input::cursor::button_code::type
+
+sge::input::cursor::button_code
 sge::x11input::cursor::button_code(
 	int const _detail
 )

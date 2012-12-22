@@ -38,19 +38,19 @@ class key_event
 public:
 	SGE_INPUT_SYMBOL
 	key_event(
-		keyboard::key_code::type,
+		sge::input::keyboard::key_code,
 		bool pressed
 	);
 
 	SGE_INPUT_SYMBOL
-	keyboard::key_code::type
+	sge::input::keyboard::key_code
 	key_code() const;
 
 	SGE_INPUT_SYMBOL
 	bool
 	pressed() const;
 private:
-	keyboard::key_code::type key_code_;
+	sge::input::keyboard::key_code key_code_;
 
 	bool pressed_;
 };

@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/class_symbol.hpp>
 #include <sge/input/symbol.hpp>
 #include <sge/input/cursor/button_callback.hpp>
-#include <sge/input/cursor/mode.hpp>
+#include <sge/input/cursor/mode_fwd.hpp>
 #include <sge/input/cursor/move_callback.hpp>
 #include <sge/input/cursor/object_fwd.hpp>
 #include <sge/input/cursor/optional_position_fwd.hpp>
@@ -78,7 +78,7 @@ public:
 	virtual
 	void
 	mode(
-		sge::input::cursor::mode::type
+		sge::input::cursor::mode
 	) = 0;
 };
 
