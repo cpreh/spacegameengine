@@ -31,7 +31,7 @@ namespace plugin
 {
 
 typedef fcppt::container::bitfield::object<
-	sge::plugin::flags::type,
+	sge::plugin::flags,
 	sge::plugin::flags::size
 > flags_field;
 

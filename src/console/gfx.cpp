@@ -40,6 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/key_repeat_event.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/device/ffp.hpp>
+#include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/sprite/buffers/option.hpp>
 #include <sge/sprite/buffers/single_impl.hpp>
 #include <sge/sprite/buffers/with_declaration_impl.hpp>

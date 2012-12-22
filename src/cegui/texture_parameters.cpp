@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/system_fwd.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
+#include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/src/cegui/prefix.hpp>
 #include <sge/src/cegui/texture_parameters.hpp>
 
@@ -30,7 +31,7 @@ sge::cegui::texture_parameters::texture_parameters(
 	sge::charconv::system &_charconv_system,
 	sge::image2d::system &_image_system,
 	sge::renderer::device::ffp &_renderer,
-	sge::renderer::texture::emulate_srgb::type const _emulate_srgb
+	sge::renderer::texture::emulate_srgb const _emulate_srgb
 )
 :
 	prefix_(
@@ -79,7 +80,7 @@ sge::cegui::texture_parameters::renderer() const
 		renderer_;
 }
 
-sge::renderer::texture::emulate_srgb::type
+sge::renderer::texture::emulate_srgb
 sge::cegui::texture_parameters::emulate_srgb() const
 {
 	return

@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/global.hpp>
 #include <sge/model/md3/create.hpp>
 #include <sge/model/md3/index_sequence.hpp>
+#include <sge/model/md3/load_flags.hpp>
 #include <sge/model/md3/loader.hpp>
 #include <sge/model/md3/loader_scoped_ptr.hpp>
 #include <sge/model/md3/normal_sequence.hpp>
@@ -848,7 +849,8 @@ try
 		*md3_loader->load(
 			sge::config::media_path()
 				/ FCPPT_TEXT("md3s")
-				/ FCPPT_TEXT("arrow.md3")));
+				/ FCPPT_TEXT("arrow.md3"),
+			sge::model::md3::load_flags::none));
 
 	random_model_collection model_collection(
 		sys.renderer_ffp(),

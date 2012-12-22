@@ -21,22 +21,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_RESULT_CODE_HPP_INCLUDED
 #define SGE_PARSE_RESULT_CODE_HPP_INCLUDED
 
+#include <sge/parse/result_code_fwd.hpp>
+
 
 namespace sge
 {
 namespace parse
 {
 
-namespace result_code
-{
-enum type
+enum class result_code
 {
 	ok,
 	partial,
 	failure,
 	not_open
 };
-}
 
 }
 }

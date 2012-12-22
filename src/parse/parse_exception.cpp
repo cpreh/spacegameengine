@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::parse::parse_exception::parse_exception(
-	sge::parse::result_code::type const _result_code,
+	sge::parse::result_code const _result_code,
 	sge::parse::error_string const &_error_string
 )
 :
@@ -41,7 +41,7 @@ sge::parse::parse_exception::parse_exception(
 {
 }
 
-sge::parse::result_code::type
+sge::parse::result_code
 sge::parse::parse_exception::result_code() const
 {
 	return result_code_;

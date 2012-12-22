@@ -21,20 +21,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MODEL_MD3_LOAD_FLAGS_HPP_INCLUDED
 #define SGE_MODEL_MD3_LOAD_FLAGS_HPP_INCLUDED
 
+#include <sge/model/md3/load_flags_fwd.hpp>
+
+
 namespace sge
 {
 namespace model
 {
 namespace md3
 {
-namespace load_flags
-{
-enum type
+
+enum class load_flags
 {
 	none,
 	switch_yz
 };
-}
+
 }
 }
 }

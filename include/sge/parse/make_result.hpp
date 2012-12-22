@@ -46,7 +46,7 @@ make_result(
 	Grammar const &_grammar
 )
 {
-	sge::parse::result_code::type const result_code(
+	sge::parse::result_code const result_code(
 		_retval
 		?
 			_begin

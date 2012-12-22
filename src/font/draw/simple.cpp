@@ -39,7 +39,7 @@ sge::font::draw::simple(
 	sge::font::text_parameters const &_parameters,
 	sge::font::vector const &_pos,
 	sge::image::color::any::object const &_color,
-	sge::renderer::texture::emulate_srgb::type const _emulate_srgb
+	sge::renderer::texture::emulate_srgb const _emulate_srgb
 )
 {
 	sge::font::draw::static_text text(

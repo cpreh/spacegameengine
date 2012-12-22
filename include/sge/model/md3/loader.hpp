@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MODEL_MD3_LOADER_HPP_INCLUDED
 
 #include <sge/class_symbol.hpp>
-#include <sge/model/md3/load_flags.hpp>
+#include <sge/model/md3/load_flags_fwd.hpp>
 #include <sge/model/md3/loader_fwd.hpp>
 #include <sge/model/md3/object_unique_ptr.hpp>
 #include <sge/model/md3/symbol.hpp>
@@ -49,20 +49,23 @@ class SGE_CLASS_SYMBOL loader
 protected:
 	loader();
 public:
-	virtual md3::object_unique_ptr
+	virtual
+	sge::model::md3::object_unique_ptr
 	load(
 		boost::filesystem::path const &,
-		md3::load_flags::type = md3::load_flags::none
+		sge::model::md3::load_flags
 	) = 0;
 
-	virtual md3::object_unique_ptr
+	virtual
+	sge::model::md3::object_unique_ptr
 	load_stream(
 		std::istream &,
-		md3::load_flags::type = md3::load_flags::none
+		sge::model::md3::load_flags
 	) = 0;
 
 	SGE_MODEL_MD3_SYMBOL
-	virtual ~loader() = 0;
+	virtual
+	~loader() = 0;
 };
 
 }

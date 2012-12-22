@@ -74,7 +74,7 @@ sge::cegui::detail::system_impl::system_impl(
 	sge::charconv::system &_charconv_system,
 	sge::viewport::manager &_viewport_manager,
 	sge::cegui::cursor_visibility const _cursor_visibility,
-	sge::renderer::texture::emulate_srgb::type const _emulate_srgb
+	sge::renderer::texture::emulate_srgb const _emulate_srgb
 )
 :
 	charconv_system_(

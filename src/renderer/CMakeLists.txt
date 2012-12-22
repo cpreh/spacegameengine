@@ -30,6 +30,7 @@ set(
 	include/sge/renderer/caps/system.hpp
 	include/sge/renderer/caps/system_field.hpp
 	include/sge/renderer/caps/system_field_fwd.hpp
+	include/sge/renderer/caps/system_fwd.hpp
 	include/sge/renderer/caps/target_surface_indices.hpp
 	include/sge/renderer/caps/texture_stages.hpp
 	include/sge/renderer/clear/back_buffer_value.hpp
@@ -666,6 +667,7 @@ set(
 	include/sge/renderer/texture/depth_stencil_unique_ptr.hpp
 	include/sge/renderer/texture/emulate_srgb.hpp
 	include/sge/renderer/texture/emulate_srgb_from_caps.hpp
+	include/sge/renderer/texture/emulate_srgb_fwd.hpp
 	include/sge/renderer/texture/mipmap/all_levels.hpp
 	include/sge/renderer/texture/mipmap/all_levels_rep.hpp
 	include/sge/renderer/texture/mipmap/all_levels_rep_fwd.hpp

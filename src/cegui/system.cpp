@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
+#include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/src/cegui/detail/system_impl.hpp>
 #include <sge/viewport/manager_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -41,7 +42,7 @@ sge::cegui::system::system(
 	sge::charconv::system &_charconv_system,
 	sge::viewport::manager &_viewport_manager,
 	sge::cegui::cursor_visibility const _cursor_visibility,
-	sge::renderer::texture::emulate_srgb::type const _emulate_srgb
+	sge::renderer::texture::emulate_srgb const _emulate_srgb
 )
 :
 	impl_(

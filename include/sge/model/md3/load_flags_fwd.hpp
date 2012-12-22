@@ -18,24 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_CAPS_SYSTEM_FIELD_FWD_HPP_INCLUDED
-#define SGE_RENDERER_CAPS_SYSTEM_FIELD_FWD_HPP_INCLUDED
-
-#include <sge/renderer/caps/system.hpp>
-#include <fcppt/container/bitfield/object_fwd.hpp>
+#ifndef SGE_MODEL_MD3_LOAD_FLAGS_FWD_HPP_INCLUDED
+#define SGE_MODEL_MD3_LOAD_FLAGS_FWD_HPP_INCLUDED
 
 
 namespace sge
 {
-namespace renderer
+namespace model
 {
-namespace caps
+namespace md3
 {
 
-typedef fcppt::container::bitfield::object<
-	sge::renderer::caps::system,
-	sge::renderer::caps::system::size_
-> system_field;
+enum class load_flags;
 
 }
 }

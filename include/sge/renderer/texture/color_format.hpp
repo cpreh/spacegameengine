@@ -40,7 +40,7 @@ public:
 	SGE_RENDERER_SYMBOL
 	color_format(
 		sge::image::color::format,
-		sge::renderer::texture::emulate_srgb::type
+		sge::renderer::texture::emulate_srgb
 	);
 
 	SGE_RENDERER_SYMBOL
@@ -48,12 +48,12 @@ public:
 	format() const;
 
 	SGE_RENDERER_SYMBOL
-	sge::renderer::texture::emulate_srgb::type
+	sge::renderer::texture::emulate_srgb
 	emulate_srgb() const;
 private:
 	sge::image::color::format format_;
 
-	sge::renderer::texture::emulate_srgb::type emulate_srgb_;
+	sge::renderer::texture::emulate_srgb emulate_srgb_;
 };
 
 }

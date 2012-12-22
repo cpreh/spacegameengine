@@ -46,7 +46,7 @@ sge::renderer::texture::create_planar_from_view(
 	sge::image2d::view::const_object const &_view,
 	sge::renderer::texture::mipmap::object const &_mipmap,
 	sge::renderer::resource_flags_field const &_resource_flags,
-	sge::renderer::texture::emulate_srgb::type const _emulate_srgb
+	sge::renderer::texture::emulate_srgb const _emulate_srgb
 )
 {
 	sge::renderer::texture::planar_unique_ptr tex(

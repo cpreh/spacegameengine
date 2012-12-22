@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_MODEL_MD3_LOADER_IMPL_HPP_INCLUDED
 #define SGE_SRC_MODEL_MD3_LOADER_IMPL_HPP_INCLUDED
 
-#include <sge/model/md3/load_flags.hpp>
+#include <sge/model/md3/load_flags_fwd.hpp>
 #include <sge/model/md3/loader.hpp>
 #include <sge/model/md3/object_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -41,7 +41,7 @@ namespace md3
 
 class loader_impl
 :
-	public md3::loader
+	public sge::model::md3::loader
 {
 	FCPPT_NONCOPYABLE(
 		loader_impl
@@ -51,16 +51,16 @@ public:
 
 	~loader_impl();
 
-	md3::object_unique_ptr
+	sge::model::md3::object_unique_ptr
 	load(
 		boost::filesystem::path const &,
-		md3::load_flags::type
+		sge::model::md3::load_flags
 	);
 
-	md3::object_unique_ptr
+	sge::model::md3::object_unique_ptr
 	load_stream(
 		std::istream &,
-		md3::load_flags::type
+		sge::model::md3::load_flags
 	);
 };
 

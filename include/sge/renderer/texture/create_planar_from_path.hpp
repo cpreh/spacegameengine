@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/resource_flags_field_fwd.hpp>
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
-#include <sge/renderer/texture/emulate_srgb.hpp>
+#include <sge/renderer/texture/emulate_srgb_fwd.hpp>
 #include <sge/renderer/texture/planar_unique_ptr.hpp>
 #include <sge/renderer/texture/mipmap/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -49,7 +49,7 @@ create_planar_from_path(
 	sge::image2d::system &,
 	sge::renderer::texture::mipmap::object const &,
 	sge::renderer::resource_flags_field const &,
-	sge::renderer::texture::emulate_srgb::type
+	sge::renderer::texture::emulate_srgb
 );
 
 }

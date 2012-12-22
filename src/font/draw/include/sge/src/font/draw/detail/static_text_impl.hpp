@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/renderer/state/ffp/sampler/object_scoped_ptr.hpp>
-#include <sge/renderer/texture/emulate_srgb.hpp>
+#include <sge/renderer/texture/emulate_srgb_fwd.hpp>
 #include <sge/sprite/object_decl.hpp>
 #include <sge/sprite/parameters_fwd.hpp>
 #include <sge/sprite/vector.hpp>
@@ -86,7 +86,7 @@ public:
 		sge::font::text_parameters const &,
 		sge::font::vector const &,
 		sge::image::color::any::object const &,
-		sge::renderer::texture::emulate_srgb::type
+		sge::renderer::texture::emulate_srgb
 	);
 
 	~static_text_impl();

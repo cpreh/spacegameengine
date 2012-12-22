@@ -38,7 +38,7 @@ sge::renderer::texture::create_planar_from_stream(
 	sge::image2d::system &_system,
 	sge::renderer::texture::mipmap::object const &_mipmap,
 	sge::renderer::resource_flags_field const &_flags,
-	sge::renderer::texture::emulate_srgb::type const _emulate_srgb
+	sge::renderer::texture::emulate_srgb const _emulate_srgb
 )
 {
 	return

@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/any/object_fwd.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
-#include <sge/renderer/texture/emulate_srgb.hpp>
+#include <sge/renderer/texture/emulate_srgb_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr_decl.hpp>
 
@@ -60,7 +60,7 @@ public:
 		sge::font::text_parameters const &,
 		sge::font::vector const &,
 		sge::image::color::any::object const &,
-		sge::renderer::texture::emulate_srgb::type
+		sge::renderer::texture::emulate_srgb
 	);
 
 	SGE_FONT_DRAW_SYMBOL

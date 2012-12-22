@@ -37,19 +37,19 @@ class result
 public:
 	SGE_PARSE_SYMBOL
 	result(
-		sge::parse::result_code::type,
+		sge::parse::result_code,
 		sge::parse::optional_error_string const &
 	);
 
 	SGE_PARSE_SYMBOL
-	sge::parse::result_code::type
+	sge::parse::result_code
 	result_code() const;
 
 	SGE_PARSE_SYMBOL
 	sge::parse::optional_error_string const &
 	error_string() const;
 private:
-	sge::parse::result_code::type result_code_;
+	sge::parse::result_code result_code_;
 
 	sge::parse::optional_error_string error_string_;
 };

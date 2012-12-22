@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TEXTURE_EMULATE_SRGB_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_EMULATE_SRGB_HPP_INCLUDED
 
+#include <sge/renderer/texture/emulate_srgb_fwd.hpp>
+
 
 namespace sge
 {
@@ -29,9 +31,7 @@ namespace renderer
 namespace texture
 {
 
-namespace emulate_srgb
-{
-enum type
+enum class emulate_srgb
 {
 	/**
 	\brief srgb color formats will be created as srgb textures
@@ -49,7 +49,6 @@ enum type
 	*/
 	yes
 };
-}
 
 }
 }

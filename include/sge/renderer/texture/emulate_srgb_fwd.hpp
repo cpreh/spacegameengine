@@ -18,24 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_CAPS_SYSTEM_FIELD_FWD_HPP_INCLUDED
-#define SGE_RENDERER_CAPS_SYSTEM_FIELD_FWD_HPP_INCLUDED
-
-#include <sge/renderer/caps/system.hpp>
-#include <fcppt/container/bitfield/object_fwd.hpp>
+#ifndef SGE_RENDERER_TEXTURE_EMULATE_SRGB_FWD_HPP_INCLUDED
+#define SGE_RENDERER_TEXTURE_EMULATE_SRGB_FWD_HPP_INCLUDED
 
 
 namespace sge
 {
 namespace renderer
 {
-namespace caps
+namespace texture
 {
 
-typedef fcppt::container::bitfield::object<
-	sge::renderer::caps::system,
-	sge::renderer::caps::system::size_
-> system_field;
+enum class emulate_srgb;
 
 }
 }

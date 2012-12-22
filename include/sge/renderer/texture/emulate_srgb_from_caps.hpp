@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/caps/device_fwd.hpp>
-#include <sge/renderer/texture/emulate_srgb.hpp>
+#include <sge/renderer/texture/emulate_srgb_fwd.hpp>
 
 
 namespace sge
@@ -34,7 +34,7 @@ namespace texture
 {
 
 SGE_RENDERER_SYMBOL
-sge::renderer::texture::emulate_srgb::type
+sge::renderer::texture::emulate_srgb
 emulate_srgb_from_caps(
 	sge::renderer::caps::device const &
 );

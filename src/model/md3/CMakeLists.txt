@@ -5,6 +5,7 @@ set(
 	include/sge/model/md3/index.hpp
 	include/sge/model/md3/index_sequence.hpp
 	include/sge/model/md3/load_flags.hpp
+	include/sge/model/md3/load_flags_fwd.hpp
 	include/sge/model/md3/loader.hpp
 	include/sge/model/md3/loader_fwd.hpp
 	include/sge/model/md3/loader_scoped_ptr.hpp

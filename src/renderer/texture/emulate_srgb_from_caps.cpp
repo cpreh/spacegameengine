@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/emulate_srgb_from_caps.hpp>
 
 
-sge::renderer::texture::emulate_srgb::type
+sge::renderer::texture::emulate_srgb
 sge::renderer::texture::emulate_srgb_from_caps(
 	sge::renderer::caps::device const &_caps
 )

@@ -78,7 +78,7 @@ sge::font::draw::detail::static_text_impl::static_text_impl(
 	sge::font::text_parameters const &_text_parameters,
 	sge::font::vector const &_pos,
 	sge::image::color::any::object const &_color,
-	sge::renderer::texture::emulate_srgb::type const _emulate_srgb
+	sge::renderer::texture::emulate_srgb const _emulate_srgb
 )
 :
 	sampler_state_(

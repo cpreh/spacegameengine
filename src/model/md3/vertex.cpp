@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::model::md3::vertex::vertex(
 	std::istream &_stream,
-	md3::load_flags::type const _flags
+	md3::load_flags const _flags
 )
 :
 	x_(

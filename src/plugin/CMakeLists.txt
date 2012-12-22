@@ -21,6 +21,7 @@ set(
 	include/sge/plugin/flags.hpp
 	include/sge/plugin/flags_field.hpp
 	include/sge/plugin/flags_field_fwd.hpp
+	include/sge/plugin/flags_fwd.hpp
 	include/sge/plugin/info.hpp
 	include/sge/plugin/info_fwd.hpp
 	include/sge/plugin/iterator.hpp

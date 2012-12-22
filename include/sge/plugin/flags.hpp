@@ -21,15 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PLUGIN_FLAGS_HPP_INCLUDED
 #define SGE_PLUGIN_FLAGS_HPP_INCLUDED
 
+#include <sge/plugin/flags_fwd.hpp>
+
 
 namespace sge
 {
 namespace plugin
 {
 
-namespace flags
-{
-enum type
+enum class flags
 {
 	/**
 	\brief This plugin must be unloaded after everything else has been
@@ -42,7 +42,6 @@ enum type
 	delayed_unload,
 	size
 };
-}
 
 }
 }

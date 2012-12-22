@@ -144,6 +144,7 @@ set(
 	include/sge/parse/parse_exception_fwd.hpp
 	include/sge/parse/result.hpp
 	include/sge/parse/result_code.hpp
+	include/sge/parse/result_code_fwd.hpp
 	include/sge/parse/result_fwd.hpp
 	include/sge/parse/result_with_value.hpp
 	include/sge/parse/result_with_value_fwd.hpp

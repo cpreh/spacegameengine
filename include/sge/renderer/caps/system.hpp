@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_CAPS_SYSTEM_HPP_INCLUDED
 #define SGE_RENDERER_CAPS_SYSTEM_HPP_INCLUDED
 
+#include <sge/renderer/caps/system_fwd.hpp>
+
 
 namespace sge
 {
@@ -29,15 +31,12 @@ namespace renderer
 namespace caps
 {
 
-namespace system
-{
-enum type
+enum class system
 {
 	ffp,
 	opengl,
 	size_
 };
-}
 
 }
 }

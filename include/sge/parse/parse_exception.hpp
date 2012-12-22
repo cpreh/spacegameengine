@@ -41,12 +41,12 @@ class SGE_CLASS_SYMBOL parse_exception
 public:
 	SGE_PARSE_SYMBOL
 	parse_exception(
-		sge::parse::result_code::type,
+		sge::parse::result_code,
 		sge::parse::error_string const &
 	);
 
 	SGE_PARSE_SYMBOL
-	sge::parse::result_code::type
+	sge::parse::result_code
 	result_code() const;
 
 	SGE_PARSE_SYMBOL
@@ -57,7 +57,7 @@ public:
 	virtual
 	~parse_exception() throw();
 private:
-	sge::parse::result_code::type result_code_;
+	sge::parse::result_code result_code_;
 
 	sge::parse::error_string error_string_;
 };

@@ -46,7 +46,7 @@ public:
 		sge::charconv::system &,
 		sge::image2d::system &,
 		sge::renderer::device::ffp &,
-		sge::renderer::texture::emulate_srgb::type
+		sge::renderer::texture::emulate_srgb
 	);
 
 	sge::cegui::prefix const &
@@ -61,7 +61,7 @@ public:
 	sge::renderer::device::ffp &
 	renderer() const;
 
-	sge::renderer::texture::emulate_srgb::type
+	sge::renderer::texture::emulate_srgb
 	emulate_srgb() const;
 private:
 	sge::cegui::prefix const prefix_;
@@ -72,7 +72,7 @@ private:
 
 	sge::renderer::device::ffp &renderer_;
 
-	sge::renderer::texture::emulate_srgb::type const emulate_srgb_;
+	sge::renderer::texture::emulate_srgb const emulate_srgb_;
 };
 
 }

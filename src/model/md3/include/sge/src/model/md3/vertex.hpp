@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_MODEL_MD3_VERTEX_HPP_INCLUDED
 #define SGE_SRC_MODEL_MD3_VERTEX_HPP_INCLUDED
 
-#include <sge/model/md3/load_flags.hpp>
+#include <sge/model/md3/load_flags_fwd.hpp>
 #include <sge/src/model/md3/s16.hpp>
 #include <sge/src/model/md3/vertex_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -41,7 +41,7 @@ class vertex
 public:
 	vertex(
 		std::istream &,
-		md3::load_flags::type
+		md3::load_flags
 	);
 
 	md3::s16
