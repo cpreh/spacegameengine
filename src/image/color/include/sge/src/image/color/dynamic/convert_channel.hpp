@@ -43,7 +43,7 @@ namespace dynamic
 	channel_name\
 )\
 inline \
-sge::image::color::dynamic::available_channels::type \
+sge::image::color::dynamic::available_channels \
 convert_channel( \
 	mizuiro::color::channel::channel_name const &\
 )\

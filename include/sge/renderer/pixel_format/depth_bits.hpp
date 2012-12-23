@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_PIXEL_FORMAT_DEPTH_BITS_HPP_INCLUDED
 
 #include <sge/renderer/symbol.hpp>
-#include <sge/renderer/pixel_format/depth_stencil.hpp>
+#include <sge/renderer/pixel_format/depth_stencil_fwd.hpp>
 #include <sge/renderer/pixel_format/optional_bit_count_fwd.hpp>
 
 
@@ -36,7 +36,7 @@ namespace pixel_format
 SGE_RENDERER_SYMBOL
 sge::renderer::pixel_format::optional_bit_count const
 depth_bits(
-	sge::renderer::pixel_format::depth_stencil::type
+	sge::renderer::pixel_format::depth_stencil
 );
 
 }

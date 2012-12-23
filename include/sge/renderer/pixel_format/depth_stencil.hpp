@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_PIXEL_FORMAT_DEPTH_STENCIL_HPP_INCLUDED
 #define SGE_RENDERER_PIXEL_FORMAT_DEPTH_STENCIL_HPP_INCLUDED
 
+#include <sge/renderer/pixel_format/depth_stencil_fwd.hpp>
+
 
 namespace sge
 {
@@ -29,15 +31,7 @@ namespace renderer
 namespace pixel_format
 {
 
-/**
-\brief The namespace for the depth stencil enum
-*/
-namespace depth_stencil
-{
-/**
-The enum type for depth stencil types
-*/
-enum type
+enum class depth_stencil
 {
 	/**
 	\brief No depth buffer and no stencil buffer
@@ -60,7 +54,6 @@ enum type
 	*/
 	d24s8
 };
-}
 
 }
 }

@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <mizuiro/color/format_store.hpp>
 #include <mizuiro/color/access/dynamic_channel.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/type_traits/is_same.hpp>
 #include <boost/utility/enable_if.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -46,15 +46,15 @@ struct dynamic_channel<
 	Format,
 	Channel,
 	typename boost::enable_if<
-		boost::is_same<
+		std::is_same<
 			typename Format::available_channels,
-			sge::image::color::dynamic::available_channels::type
+			sge::image::color::dynamic::available_channels
 		>
 	>::type
 >
 {
 	static
-	sge::image::color::dynamic::available_channels::type
+	sge::image::color::dynamic::available_channels
 	execute(
 		mizuiro::color::format_store<Format> const &,
 		Channel const &

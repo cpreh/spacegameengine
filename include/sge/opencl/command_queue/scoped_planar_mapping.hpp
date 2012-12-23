@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/object.hpp>
 #include <sge/opencl/clinclude.hpp>
 #include <sge/opencl/symbol.hpp>
-#include <sge/opencl/command_queue/map_flags.hpp>
+#include <sge/opencl/command_queue/map_flags_fwd.hpp>
 #include <sge/opencl/command_queue/object_fwd.hpp>
 #include <sge/opencl/event/sequence.hpp>
 #include <sge/opencl/memory_object/rect.hpp>
@@ -52,7 +52,7 @@ public:
 	scoped_planar_mapping(
 		sge::opencl::command_queue::object &,
 		sge::opencl::memory_object::image::planar &,
-		sge::opencl::command_queue::map_flags::type,
+		sge::opencl::command_queue::map_flags,
 		sge::opencl::memory_object::rect const &,
 		sge::opencl::event::sequence const &);
 

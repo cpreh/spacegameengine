@@ -18,6 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/rucksack/alignment.hpp>
+#include <sge/rucksack/axis.hpp>
 #include <sge/rucksack/optional_scalar.hpp>
 #include <sge/rucksack/widget/box/base.hpp>
 #include <fcppt/text.hpp>
@@ -31,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::rucksack::widget::box::base::base(
-	sge::rucksack::axis::type const _axis,
+	sge::rucksack::axis const _axis,
 	sge::rucksack::aspect const &_aspect)
 :
 	widget::base(
@@ -272,7 +274,7 @@ sge::rucksack::widget::box::base::relayout()
 void
 sge::rucksack::widget::box::base::push_back_child(
 	widget::base &_new_child,
-	sge::rucksack::alignment::type const _alignment)
+	sge::rucksack::alignment const _alignment)
 {
 	children_.push_back(
 		std::make_pair(
@@ -289,7 +291,7 @@ sge::rucksack::widget::box::base::push_back_child(
 void
 sge::rucksack::widget::box::base::push_front_child(
 	widget::base &_new_child,
-	sge::rucksack::alignment::type const _alignment)
+	sge::rucksack::alignment const _alignment)
 {
 	children_.push_front(
 		std::make_pair(

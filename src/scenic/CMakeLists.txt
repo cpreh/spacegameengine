@@ -8,6 +8,7 @@ set(
 	include/sge/scenic/grid/object.hpp
 	include/sge/scenic/grid/object_fwd.hpp
 	include/sge/scenic/grid/orientation.hpp
+	include/sge/scenic/grid/orientation_fwd.hpp
 	include/sge/scenic/grid/rect.hpp
 	include/sge/scenic/grid/spacing.hpp
 	include/sge/scenic/index_buffer_range.hpp
@@ -68,6 +69,7 @@ set(
 	include/sge/scenic/render_context/optional_planar_texture.hpp
 	include/sge/scenic/render_context/specular_color.hpp
 	include/sge/scenic/render_context/transform_matrix_type.hpp
+	include/sge/scenic/render_context/transform_matrix_type_fwd.hpp
 	include/sge/scenic/render_queue/index_type.hpp
 	include/sge/scenic/render_queue/mesh.hpp
 	include/sge/scenic/render_queue/mesh_fwd.hpp

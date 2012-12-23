@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/symbol.hpp>
 #include <sge/scenic/grid/depth_test.hpp>
 #include <sge/scenic/grid/distance_to_origin.hpp>
-#include <sge/scenic/grid/orientation.hpp>
+#include <sge/scenic/grid/orientation_fwd.hpp>
 #include <sge/scenic/grid/rect.hpp>
 #include <sge/scenic/grid/spacing.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -50,7 +50,7 @@ public:
 	object(
 		sge::renderer::device::ffp &,
 		sge::camera::base const &,
-		sge::scenic::grid::orientation::type,
+		sge::scenic::grid::orientation,
 		sge::scenic::grid::rect const &,
 		sge::scenic::grid::spacing const &,
 		sge::scenic::grid::distance_to_origin const &,

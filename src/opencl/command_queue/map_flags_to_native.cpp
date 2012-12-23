@@ -18,12 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opencl/clinclude.hpp>
+#include <sge/opencl/command_queue/map_flags.hpp>
 #include <sge/opencl/command_queue/map_flags_to_native.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
+
 cl_map_flags
 sge::opencl::command_queue::map_flags_to_native(
-	sge::opencl::command_queue::map_flags::type const _flags)
+	sge::opencl::command_queue::map_flags const _flags)
 {
 	switch(
 		_flags)

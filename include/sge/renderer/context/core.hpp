@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/class_symbol.hpp>
 #include <sge/renderer/config.hpp>
-#include <sge/renderer/primitive_type.hpp>
+#include <sge/renderer/primitive_type_fwd.hpp>
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/clear/parameters_fwd.hpp>
 #include <sge/renderer/context/core_fwd.hpp>
@@ -142,7 +142,7 @@ public:
 		sge::renderer::index::buffer const &index_buffer,
 		sge::renderer::vertex::first first_vertex,
 		sge::renderer::vertex::count vertex_count,
-		sge::renderer::primitive_type::type primitive_type,
+		sge::renderer::primitive_type primitive_type,
 		sge::renderer::index::first first_index,
 		sge::renderer::index::count index_count
 	) = 0;
@@ -176,7 +176,7 @@ public:
 	render_nonindexed(
 		sge::renderer::vertex::first first_vertex,
 		sge::renderer::vertex::count vertex_count,
-		sge::renderer::primitive_type::type primitive_type
+		sge::renderer::primitive_type primitive_type
 	) = 0;
 
 	/**

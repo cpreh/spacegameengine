@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_GLX_VISUAL_CONVERT_COLOR_HPP_INCLUDED
 
 #include <sge/opengl/glx/visual/rgb_triple_fwd.hpp>
-#include <sge/renderer/pixel_format/color.hpp>
+#include <sge/renderer/pixel_format/color_fwd.hpp>
 
 
 namespace sge
@@ -36,7 +36,7 @@ namespace visual
 
 sge::opengl::glx::visual::rgb_triple const
 convert_color(
-	sge::renderer::pixel_format::color::type
+	sge::renderer::pixel_format::color
 );
 
 }

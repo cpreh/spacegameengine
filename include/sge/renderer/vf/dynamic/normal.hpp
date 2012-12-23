@@ -41,14 +41,14 @@ public:
 	SGE_RENDERER_SYMBOL
 	explicit
 	normal(
-		sge::renderer::vf::dynamic::element_type::type
+		sge::renderer::vf::dynamic::element_type
 	);
 
 	SGE_RENDERER_SYMBOL
-	sge::renderer::vf::dynamic::element_type::type
+	sge::renderer::vf::dynamic::element_type
 	element_type() const;
 private:
-	sge::renderer::vf::dynamic::element_type::type element_type_;
+	sge::renderer::vf::dynamic::element_type element_type_;
 };
 
 }

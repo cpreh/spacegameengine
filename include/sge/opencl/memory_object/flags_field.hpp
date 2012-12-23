@@ -34,7 +34,7 @@ namespace memory_object
 typedef
 fcppt::container::bitfield::object
 <
-	memory_object::flags::type,
+	memory_object::flags,
 	memory_object::flags::size
 >
 flags_field;

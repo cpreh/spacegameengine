@@ -93,7 +93,7 @@ void
 sge::opengl::glx::system::vsync(
 	sge::opengl::device_state::scoped_current const &,
 	awl::window::object &_awl_window,
-	sge::renderer::parameters::vsync::type const _vsync
+	sge::renderer::parameters::vsync const _vsync
 )
 {
 	if(

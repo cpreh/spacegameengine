@@ -28,7 +28,7 @@ sge::rucksack::widget::box::child_information::child_information()
 }
 
 sge::rucksack::widget::box::child_information::child_information(
-	sge::rucksack::alignment::type const _alignment,
+	sge::rucksack::alignment const _alignment,
 	sge::rucksack::dim const &_size)
 :
 	alignment_(
@@ -38,7 +38,7 @@ sge::rucksack::widget::box::child_information::child_information(
 {
 }
 
-sge::rucksack::alignment::type
+sge::rucksack::alignment
 sge::rucksack::widget::box::child_information::alignment() const
 {
 	return alignment_;

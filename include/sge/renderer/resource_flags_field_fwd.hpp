@@ -31,11 +31,11 @@ namespace renderer
 {
 
 /**
- * \brief A bitfield that can hold flags from renderer::resource_flags
+\brief A bitfield that can hold flags from sge::renderer::resource_flags
 */
 typedef fcppt::container::bitfield::object<
-	renderer::resource_flags::type,
-	renderer::resource_flags::size
+	sge::renderer::resource_flags,
+	sge::renderer::resource_flags::size
 > resource_flags_field;
 
 }

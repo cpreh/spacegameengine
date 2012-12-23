@@ -44,18 +44,18 @@ class event
 public:
 	event(
 		boost::filesystem::path const &,
-		sge::evdev::inotify::event_type::type
+		sge::evdev::inotify::event_type
 	);
 
 	boost::filesystem::path const &
 	filename() const;
 
-	sge::evdev::inotify::event_type::type
+	sge::evdev::inotify::event_type
 	event_type() const;
 private:
 	boost::filesystem::path const filename_;
 
-	sge::evdev::inotify::event_type::type const event_type_;
+	sge::evdev::inotify::event_type const event_type_;
 };
 
 }

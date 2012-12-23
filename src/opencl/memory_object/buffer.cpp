@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opencl/context/object.hpp>
 #include <sge/opencl/memory_object/buffer.hpp>
+#include <sge/opencl/memory_object/renderer_buffer_lock_mode.hpp>
 #include <sge/renderer/opengl/buffer/base.hpp>
 #include <sge/renderer/vertex/buffer.hpp>
 #include <sge/renderer/vf/dynamic/part.hpp>
@@ -56,7 +57,7 @@ sge::opencl::memory_object::buffer::buffer(
 sge::opencl::memory_object::buffer::buffer(
 	context::object &_context,
 	sge::renderer::vertex::buffer &_vb,
-	memory_object::renderer_buffer_lock_mode::type const _lock_mode)
+	memory_object::renderer_buffer_lock_mode const _lock_mode)
 :
 	impl_(0),
 	byte_size_(

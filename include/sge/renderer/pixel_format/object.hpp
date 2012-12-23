@@ -48,18 +48,18 @@ class object
 public:
 	SGE_RENDERER_SYMBOL
 	object(
-		sge::renderer::pixel_format::color::type,
-		sge::renderer::pixel_format::depth_stencil::type,
+		sge::renderer::pixel_format::color,
+		sge::renderer::pixel_format::depth_stencil,
 		sge::renderer::pixel_format::optional_multi_samples const &,
-		sge::renderer::pixel_format::srgb::type
+		sge::renderer::pixel_format::srgb
 	);
 
 	SGE_RENDERER_SYMBOL
-	sge::renderer::pixel_format::color::type
+	sge::renderer::pixel_format::color
 	color() const;
 
 	SGE_RENDERER_SYMBOL
-	sge::renderer::pixel_format::depth_stencil::type
+	sge::renderer::pixel_format::depth_stencil
 	depth_stencil() const;
 
 	SGE_RENDERER_SYMBOL
@@ -67,16 +67,16 @@ public:
 	multi_samples() const;
 
 	SGE_RENDERER_SYMBOL
-	sge::renderer::pixel_format::srgb::type
+	sge::renderer::pixel_format::srgb
 	srgb() const;
 private:
-	sge::renderer::pixel_format::color::type color_;
+	sge::renderer::pixel_format::color color_;
 
-	sge::renderer::pixel_format::depth_stencil::type depth_stencil_;
+	sge::renderer::pixel_format::depth_stencil depth_stencil_;
 
 	sge::renderer::pixel_format::optional_multi_samples multi_samples_;
 
-	sge::renderer::pixel_format::srgb::type srgb_;
+	sge::renderer::pixel_format::srgb srgb_;
 };
 
 }

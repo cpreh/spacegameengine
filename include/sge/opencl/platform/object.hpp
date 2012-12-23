@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/device/object.hpp>
 #include <sge/opencl/device/object_sequence.hpp>
 #include <sge/opencl/platform/extension_sequence.hpp>
-#include <sge/opencl/platform/profile_type.hpp>
+#include <sge/opencl/platform/profile_type_fwd.hpp>
 #include <sge/opencl/platform/version.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -55,7 +55,7 @@ public:
 	SGE_OPENCL_SYMBOL opencl::device::object_sequence const &
 	devices() const;
 
-	SGE_OPENCL_SYMBOL sge::opencl::platform::profile_type::type
+	SGE_OPENCL_SYMBOL sge::opencl::platform::profile_type
 	profile() const;
 
 	SGE_OPENCL_SYMBOL sge::opencl::platform::version const

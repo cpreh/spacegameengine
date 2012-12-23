@@ -21,19 +21,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_NEEDS_RESET_HPP_INCLUDED
 #define SGE_D3D9_NEEDS_RESET_HPP_INCLUDED
 
+#include <sge/d3d9/needs_reset_fwd.hpp>
+
+
 namespace sge
 {
 namespace d3d9
 {
 
-namespace needs_reset
-{
-enum type
+enum class needs_reset
 {
 	yes,
 	no
 };
-}
 
 }
 }

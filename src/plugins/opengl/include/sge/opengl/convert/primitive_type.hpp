@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_CONVERT_PRIMITIVE_TYPE_HPP_INCLUDED
 
 #include <sge/opengl/common.hpp>
-#include <sge/renderer/primitive_type.hpp>
+#include <sge/renderer/primitive_type_fwd.hpp>
 
 
 namespace sge
@@ -34,7 +34,7 @@ namespace convert
 
 GLenum
 primitive_type(
-	sge::renderer::primitive_type::type
+	sge::renderer::primitive_type
 );
 
 }

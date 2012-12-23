@@ -26,28 +26,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 GLenum
 sge::opengl::vf::convert_element_type(
-	sge::renderer::vf::dynamic::element_type::type const _type
+	sge::renderer::vf::dynamic::element_type const _type
 )
 {
 	switch(
 		_type
 	)
 	{
-	case renderer::vf::dynamic::element_type::float_:
+	case sge::renderer::vf::dynamic::element_type::float_:
 		return GL_FLOAT;
-	case renderer::vf::dynamic::element_type::double_:
+	case sge::renderer::vf::dynamic::element_type::double_:
 		return GL_DOUBLE;
-	case renderer::vf::dynamic::element_type::byte:
+	case sge::renderer::vf::dynamic::element_type::byte:
 		return GL_BYTE;
-	case renderer::vf::dynamic::element_type::ubyte:
+	case sge::renderer::vf::dynamic::element_type::ubyte:
 		return GL_UNSIGNED_BYTE;
-	case renderer::vf::dynamic::element_type::short_:
+	case sge::renderer::vf::dynamic::element_type::short_:
 		return GL_SHORT;
-	case renderer::vf::dynamic::element_type::ushort:
+	case sge::renderer::vf::dynamic::element_type::ushort:
 		return GL_UNSIGNED_SHORT;
-	case renderer::vf::dynamic::element_type::int_:
+	case sge::renderer::vf::dynamic::element_type::int_:
 		return GL_INT;
-	case renderer::vf::dynamic::element_type::uint:
+	case sge::renderer::vf::dynamic::element_type::uint:
 		return GL_UNSIGNED_INT;
 	}
 

@@ -21,20 +21,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENCL_PLATFORM_PROFILE_TYPE_HPP_INCLUDED
 #define SGE_OPENCL_PLATFORM_PROFILE_TYPE_HPP_INCLUDED
 
+#include <sge/opencl/platform/profile_type_fwd.hpp>
+
+
 namespace sge
 {
 namespace opencl
 {
 namespace platform
 {
-namespace profile_type
-{
-enum type
+
+enum class profile_type
 {
 	full,
 	embedded
 };
-}
+
 }
 }
 }

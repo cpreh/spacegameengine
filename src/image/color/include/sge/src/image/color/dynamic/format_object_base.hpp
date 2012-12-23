@@ -45,7 +45,7 @@ struct format_object_base
 {
 	typedef mizuiro::color::homogenous_dynamic<
 		BaseType,
-		sge::image::color::dynamic::available_channels::type,
+		sge::image::color::dynamic::available_channels,
 		sge::image::color::dynamic::available_channels::size,
 		NumChannels
 	> type;

@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_IMAGE_COLOR_DYNAMIC_AVAILABLE_CHANNELS_HPP_INCLUDED
 #define SGE_SRC_IMAGE_COLOR_DYNAMIC_AVAILABLE_CHANNELS_HPP_INCLUDED
 
+#include <sge/src/image/color/dynamic/available_channels_fwd.hpp>
+
 
 namespace sge
 {
@@ -31,9 +33,7 @@ namespace color
 namespace dynamic
 {
 
-namespace available_channels
-{
-enum type
+enum class available_channels
 {
 	alpha,
 	blue,
@@ -43,7 +43,6 @@ enum type
 	undefined,
 	size
 };
-}
 
 }
 }

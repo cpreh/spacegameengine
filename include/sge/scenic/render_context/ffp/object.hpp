@@ -68,7 +68,7 @@ public:
 	SGE_SCENIC_SYMBOL
 	void
 	transform(
-		sge::scenic::render_context::transform_matrix_type::type,
+		sge::scenic::render_context::transform_matrix_type,
 		sge::renderer::matrix4 const &);
 
 	SGE_SCENIC_SYMBOL

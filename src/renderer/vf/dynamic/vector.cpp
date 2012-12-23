@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::renderer::vf::dynamic::vector::vector(
-	sge::renderer::vf::dynamic::element_type::type const _element_type,
+	sge::renderer::vf::dynamic::element_type const _element_type,
 	sge::renderer::vf::dynamic::element_count const _element_count
 )
 :
@@ -37,7 +37,7 @@ sge::renderer::vf::dynamic::vector::vector(
 {
 }
 
-sge::renderer::vf::dynamic::element_type::type
+sge::renderer::vf::dynamic::element_type
 sge::renderer::vf::dynamic::vector::element_type() const
 {
 	return element_type_;

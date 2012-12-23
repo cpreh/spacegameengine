@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/clinclude.hpp>
 #include <sge/opencl/context/object.hpp>
 #include <sge/opencl/platform/object.hpp>
+#include <sge/opencl/platform/profile_type.hpp>
 #include <sge/src/opencl/handle_error.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/contains.hpp>
@@ -95,7 +96,7 @@ sge::opencl::platform::object::devices() const
 	return devices_;
 }
 
-sge::opencl::platform::profile_type::type
+sge::opencl::platform::profile_type
 sge::opencl::platform::object::profile() const
 {
 	return

@@ -21,21 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_PRIMITIVE_TYPE_HPP_INCLUDED
 #define SGE_RENDERER_PRIMITIVE_TYPE_HPP_INCLUDED
 
+#include <sge/renderer/primitive_type_fwd.hpp>
+
 
 namespace sge
 {
 namespace renderer
 {
 
-/**
- * \brief The namespace for the primitive type enum
-*/
-namespace primitive_type
-{
-/**
- * The enum type for indexed primitive types
-*/
-enum type
+enum class primitive_type
 {
 	/**
 	\brief Vertices describe points
@@ -80,7 +74,6 @@ enum type
 	triangle_fan
 
 };
-}
 
 }
 }

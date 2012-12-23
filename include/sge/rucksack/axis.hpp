@@ -21,18 +21,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RUCKSACK_AXIS_HPP_INCLUDED
 #define SGE_RUCKSACK_AXIS_HPP_INCLUDED
 
+#include <sge/rucksack/axis_fwd.hpp>
+
+
 namespace sge
 {
 namespace rucksack
 {
-namespace axis
-{
-enum type
+
+enum class axis
 {
 	x,
 	y
 };
-}
+
 }
 }
 

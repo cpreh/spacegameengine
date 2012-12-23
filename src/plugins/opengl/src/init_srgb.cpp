@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 void
 sge::opengl::init_srgb(
 	sge::opengl::context::system::object &_system_context,
-	sge::renderer::pixel_format::srgb::type const _srgb
+	sge::renderer::pixel_format::srgb const _srgb
 )
 {
 	if(

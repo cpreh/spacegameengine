@@ -31,6 +31,7 @@ set(
 	src/plugins/evdev/include/sge/evdev/inotify/event.hpp
 	src/plugins/evdev/include/sge/evdev/inotify/event_fwd.hpp
 	src/plugins/evdev/include/sge/evdev/inotify/event_type.hpp
+	src/plugins/evdev/include/sge/evdev/inotify/event_type_fwd.hpp
 	src/plugins/evdev/include/sge/evdev/inotify/object.hpp
 	src/plugins/evdev/include/sge/evdev/inotify/object_fwd.hpp
 	src/plugins/evdev/include/sge/evdev/inotify/reader.hpp

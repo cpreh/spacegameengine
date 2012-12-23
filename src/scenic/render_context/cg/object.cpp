@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/context/core.hpp>
 #include <sge/renderer/state/core/sampler/const_object_ref.hpp>
 #include <sge/renderer/state/core/sampler/const_object_ref_map.hpp>
@@ -25,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/first.hpp>
 #include <sge/scenic/index_buffer_range.hpp>
+#include <sge/scenic/render_context/transform_matrix_type.hpp>
 #include <sge/scenic/render_context/cg/manager.hpp>
 #include <sge/scenic/render_context/cg/object.hpp>
 #include <sge/scenic/render_context/cg/light/directional.hpp>
@@ -89,7 +91,7 @@ sge::scenic::render_context::cg::object::object(
 
 void
 sge::scenic::render_context::cg::object::transform(
-	sge::scenic::render_context::transform_matrix_type::type const _matrix_mode,
+	sge::scenic::render_context::transform_matrix_type const _matrix_mode,
 	sge::renderer::matrix4 const &_matrix)
 {
 	switch(_matrix_mode)

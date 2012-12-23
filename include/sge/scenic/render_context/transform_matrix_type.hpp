@@ -21,20 +21,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SCENIC_RENDER_CONTEXT_TRANSFORM_MATRIX_TYPE_HPP_INCLUDED
 #define SGE_SCENIC_RENDER_CONTEXT_TRANSFORM_MATRIX_TYPE_HPP_INCLUDED
 
+#include <sge/scenic/render_context/transform_matrix_type_fwd.hpp>
+
+
 namespace sge
 {
 namespace scenic
 {
 namespace render_context
 {
-namespace transform_matrix_type
-{
-enum type
+
+enum class transform_matrix_type
 {
 	projection,
 	world
 };
-}
+
 }
 }
 }

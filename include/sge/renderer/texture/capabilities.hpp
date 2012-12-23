@@ -21,6 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TEXTURE_CAPABILITIES_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_CAPABILITIES_HPP_INCLUDED
 
+#include <sge/renderer/texture/capabilities_fwd.hpp>
+
+
 namespace sge
 {
 namespace renderer
@@ -28,14 +31,11 @@ namespace renderer
 namespace texture
 {
 
-namespace capabilities
-{
-enum type
+enum class capabilities
 {
 	render_target,
 	size
 };
-}
 
 }
 }

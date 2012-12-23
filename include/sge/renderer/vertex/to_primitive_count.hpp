@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VERTEX_TO_PRIMITIVE_COUNT_HPP_INCLUDED
 
 #include <sge/renderer/primitive_count.hpp>
-#include <sge/renderer/primitive_type.hpp>
+#include <sge/renderer/primitive_type_fwd.hpp>
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/vertex/count.hpp>
 
@@ -51,7 +51,7 @@ SGE_RENDERER_SYMBOL
 sge::renderer::primitive_count const
 to_primitive_count(
 	sge::renderer::vertex::count vertices,
-	sge::renderer::primitive_type::type type
+	sge::renderer::primitive_type type
 );
 
 }

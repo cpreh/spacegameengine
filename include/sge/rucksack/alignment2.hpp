@@ -33,16 +33,16 @@ class alignment2
 public:
 	SGE_RUCKSACK_SYMBOL
 	alignment2(
-		sge::rucksack::alignment::type,
-		sge::rucksack::alignment::type);
+		sge::rucksack::alignment,
+		sge::rucksack::alignment);
 
-	SGE_RUCKSACK_SYMBOL sge::rucksack::alignment::type
+	SGE_RUCKSACK_SYMBOL sge::rucksack::alignment
 	x() const;
 
-	SGE_RUCKSACK_SYMBOL sge::rucksack::alignment::type
+	SGE_RUCKSACK_SYMBOL sge::rucksack::alignment
 	y() const;
 private:
-	sge::rucksack::alignment::type x_,y_;
+	sge::rucksack::alignment x_,y_;
 };
 }
 }

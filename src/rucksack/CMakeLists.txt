@@ -2,8 +2,10 @@ set(
 	SGE_RUCKSACK_FILES
 	include/sge/rucksack/alignment.hpp
 	include/sge/rucksack/alignment2.hpp
+	include/sge/rucksack/alignment_fwd.hpp
 	include/sge/rucksack/aspect.hpp
 	include/sge/rucksack/axis.hpp
+	include/sge/rucksack/axis_fwd.hpp
 	include/sge/rucksack/axis_policy.hpp
 	include/sge/rucksack/axis_policy2.hpp
 	include/sge/rucksack/dim.hpp

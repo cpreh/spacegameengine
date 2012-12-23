@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_PIXEL_FORMAT_SRGB_HPP_INCLUDED
 #define SGE_RENDERER_PIXEL_FORMAT_SRGB_HPP_INCLUDED
 
+#include <sge/renderer/pixel_format/srgb_fwd.hpp>
+
 
 namespace sge
 {
@@ -29,12 +31,7 @@ namespace renderer
 namespace pixel_format
 {
 
-namespace srgb
-{
-/**
-\brief Specifies if gamma correction should be performed
-*/
-enum type
+enum class srgb
 {
 	/**
 	\brief Don't do gamma correction
@@ -49,7 +46,6 @@ enum type
 	*/
 	try_
 };
-}
 
 }
 }

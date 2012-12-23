@@ -41,19 +41,19 @@ class vector
 public:
 	SGE_RENDERER_SYMBOL
 	vector(
-		sge::renderer::vf::dynamic::element_type::type,
+		sge::renderer::vf::dynamic::element_type,
 		sge::renderer::vf::dynamic::element_count
 	);
 
 	SGE_RENDERER_SYMBOL
-	sge::renderer::vf::dynamic::element_type::type
+	sge::renderer::vf::dynamic::element_type
 	element_type() const;
 
 	SGE_RENDERER_SYMBOL
 	sge::renderer::vf::dynamic::element_count const
 	element_count() const;
 private:
-	sge::renderer::vf::dynamic::element_type::type element_type_;
+	sge::renderer::vf::dynamic::element_type element_type_;
 
 	sge::renderer::vf::dynamic::element_count element_count_;
 };

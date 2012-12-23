@@ -21,24 +21,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENCL_COMMAND_QUEUE_MAP_FLAGS_HPP_INCLUDED
 #define SGE_OPENCL_COMMAND_QUEUE_MAP_FLAGS_HPP_INCLUDED
 
+#include <sge/opencl/command_queue/map_flags_fwd.hpp>
+
+
 namespace sge
 {
 namespace opencl
 {
 namespace command_queue
 {
-namespace map_flags
-{
-enum type
+
+enum class map_flags
 {
 	read,
 	write,
 	read_write
 };
-}
+
 }
 }
 }
 
 #endif
-

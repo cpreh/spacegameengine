@@ -21,20 +21,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RUCKSACK_ALIGNMENT_HPP_INCLUDED
 #define SGE_RUCKSACK_ALIGNMENT_HPP_INCLUDED
 
+#include <sge/rucksack/alignment_fwd.hpp>
+
+
 namespace sge
 {
 namespace rucksack
 {
-namespace alignment
+
+enum class alignment
 {
-enum type
-{
-	left_or_top = 0,
-	center = 1,
-	right_or_bottom = 2,
+	left_or_top,
+	center,
+	right_or_bottom,
 	size
 };
-}
+
 }
 }
 

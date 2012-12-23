@@ -67,7 +67,7 @@ public:
 
 	typedef typename base::channel_array channel_array;
 
-	typedef sge::image::color::dynamic::available_layouts::type layout_enum;
+	typedef sge::image::color::dynamic::available_layouts layout_enum;
 
 	typedef sge::image::color::format color_format_type;
 

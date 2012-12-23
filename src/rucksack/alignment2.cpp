@@ -18,11 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/rucksack/alignment.hpp>
 #include <sge/rucksack/alignment2.hpp>
 
 sge::rucksack::alignment2::alignment2(
-	alignment::type const _x,
-	alignment::type const _y)
+	sge::rucksack::alignment const _x,
+	sge::rucksack::alignment const _y)
 :
 	x_(
 		_x),
@@ -31,13 +32,13 @@ sge::rucksack::alignment2::alignment2(
 {
 }
 
-sge::rucksack::alignment::type
+sge::rucksack::alignment
 sge::rucksack::alignment2::x() const
 {
 	return x_;
 }
 
-sge::rucksack::alignment::type
+sge::rucksack::alignment
 sge::rucksack::alignment2::y() const
 {
 	return y_;

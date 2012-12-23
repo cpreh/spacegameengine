@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TEXTURE_MIPMAP_AUTO_GENERATE_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_MIPMAP_AUTO_GENERATE_HPP_INCLUDED
 
+#include <sge/renderer/texture/mipmap/auto_generate_fwd.hpp>
+
 
 namespace sge
 {
@@ -31,14 +33,11 @@ namespace texture
 namespace mipmap
 {
 
-namespace auto_generate
-{
-enum type
+enum class auto_generate
 {
 	yes,
 	no
 };
-}
 
 }
 }

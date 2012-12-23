@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opencl/command_queue/execution_mode.hpp>
 #include <sge/opencl/command_queue/object.hpp>
+#include <sge/opencl/command_queue/profiling_mode.hpp>
 #include <sge/opencl/context/object.hpp>
 #include <sge/opencl/device/object.hpp>
 #include <sge/src/opencl/handle_error.hpp>
@@ -29,8 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::opencl::command_queue::object::object(
 	opencl::device::object &_device,
 	opencl::context::object &_context,
-	command_queue::execution_mode::type const execution_mode,
-	command_queue::profiling_mode::type const profiling_mode)
+	command_queue::execution_mode const execution_mode,
+	command_queue::profiling_mode const profiling_mode)
 :
 	context_(
 		_context),

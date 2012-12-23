@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/scenic/exception.hpp>
 #include <sge/scenic/render_context/base.hpp>
+#include <sge/scenic/render_context/transform_matrix_type.hpp>
 #include <sge/scenic/render_context/fog/properties.hpp>
 #include <sge/scenic/render_queue/object.hpp>
 #include <sge/scenic/scene/manager.hpp>

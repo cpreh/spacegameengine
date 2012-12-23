@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/pixel_format/bit_count.hpp>
-#include <sge/renderer/pixel_format/color.hpp>
+#include <sge/renderer/pixel_format/color_fwd.hpp>
 
 
 namespace sge
@@ -43,7 +43,7 @@ Calculates how many bits are needed for a pixel from \a color
 SGE_RENDERER_SYMBOL
 sge::renderer::pixel_format::bit_count const
 color_bits(
-	sge::renderer::pixel_format::color::type color
+	sge::renderer::pixel_format::color color
 );
 
 }

@@ -46,7 +46,7 @@ sge::opengl::draw_elements(
 	sge::renderer::index::buffer const &_index_buffer,
 	sge::renderer::vertex::first const _first_vertex,
 	sge::renderer::vertex::count const _num_vertices,
-	sge::renderer::primitive_type::type const _primitive_type,
+	sge::renderer::primitive_type const _primitive_type,
 	sge::renderer::index::first const _first_index,
 	sge::renderer::index::count const _num_indices
 )

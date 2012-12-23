@@ -36,7 +36,7 @@ void
 sge::opengl::draw_arrays(
 	sge::renderer::vertex::first const _first_vertex,
 	sge::renderer::vertex::count const _num_vertices,
-	sge::renderer::primitive_type::type const _primitive_type
+	sge::renderer::primitive_type const _primitive_type
 )
 {
 	if(

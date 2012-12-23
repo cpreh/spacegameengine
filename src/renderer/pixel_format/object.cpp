@@ -26,10 +26,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::renderer::pixel_format::object::object(
-	sge::renderer::pixel_format::color::type const _color,
-	sge::renderer::pixel_format::depth_stencil::type const _depth_stencil,
+	sge::renderer::pixel_format::color const _color,
+	sge::renderer::pixel_format::depth_stencil const _depth_stencil,
 	sge::renderer::pixel_format::optional_multi_samples const &_multi_samples,
-	sge::renderer::pixel_format::srgb::type const _srgb
+	sge::renderer::pixel_format::srgb const _srgb
 )
 :
 	color_(
@@ -47,13 +47,13 @@ sge::renderer::pixel_format::object::object(
 {
 }
 
-sge::renderer::pixel_format::color::type
+sge::renderer::pixel_format::color
 sge::renderer::pixel_format::object::color() const
 {
 	return color_;
 }
 
-sge::renderer::pixel_format::depth_stencil::type
+sge::renderer::pixel_format::depth_stencil
 sge::renderer::pixel_format::object::depth_stencil() const
 {
 	return depth_stencil_;
@@ -65,7 +65,7 @@ sge::renderer::pixel_format::object::multi_samples() const
 	return multi_samples_;
 }
 
-sge::renderer::pixel_format::srgb::type
+sge::renderer::pixel_format::srgb
 sge::renderer::pixel_format::object::srgb() const
 {
 	return srgb_;

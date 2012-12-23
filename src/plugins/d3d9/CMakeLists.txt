@@ -70,6 +70,7 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/make_pitch_3d.hpp
 	src/plugins/d3d9/include/sge/d3d9/multi_sample_quality.hpp
 	src/plugins/d3d9/include/sge/d3d9/needs_reset.hpp
+	src/plugins/d3d9/include/sge/d3d9/needs_reset_fwd.hpp
 	src/plugins/d3d9/include/sge/d3d9/occlusion_query/create.hpp
 	src/plugins/d3d9/include/sge/d3d9/occlusion_query/object.hpp
 	src/plugins/d3d9/include/sge/d3d9/optional_lock_box.hpp

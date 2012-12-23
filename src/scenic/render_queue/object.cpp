@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex/buffer_fwd.hpp>
 #include <sge/scenic/texture_manager.hpp>
 #include <sge/scenic/render_context/base.hpp>
+#include <sge/scenic/render_context/transform_matrix_type.hpp>
 #include <sge/scenic/render_queue/object.hpp>
 #include <sge/scenic/scene/material/object.hpp>
 #include <fcppt/optional_impl.hpp>

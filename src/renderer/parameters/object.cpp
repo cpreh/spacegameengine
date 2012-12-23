@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer::parameters::object::object(
 	sge::renderer::pixel_format::object const &_pixel_format,
-	sge::renderer::parameters::vsync::type const _vsync,
+	sge::renderer::parameters::vsync const _vsync,
 	sge::renderer::display_mode::optional_object const &_display_mode
 )
 :
@@ -48,7 +48,7 @@ sge::renderer::parameters::object::pixel_format() const
 	return pixel_format_;
 }
 
-sge::renderer::parameters::vsync::type
+sge::renderer::parameters::vsync
 sge::renderer::parameters::object::vsync() const
 {
 	return vsync_;

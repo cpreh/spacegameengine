@@ -21,20 +21,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENCL_COMMAND_QUEUE_PROFILING_MODE_HPP_INCLUDED
 #define SGE_OPENCL_COMMAND_QUEUE_PROFILING_MODE_HPP_INCLUDED
 
+#include <sge/opencl/command_queue/profiling_mode_fwd.hpp>
+
+
 namespace sge
 {
 namespace opencl
 {
 namespace command_queue
 {
-namespace profiling_mode
-{
-enum type
+
+enum class profiling_mode
 {
 	enabled,
 	disabled
 };
-}
+
 }
 }
 }

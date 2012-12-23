@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer::pixel_format::optional_bit_count const
 sge::renderer::pixel_format::stencil_bits(
-	sge::renderer::pixel_format::depth_stencil::type const _type
+	sge::renderer::pixel_format::depth_stencil const _type
 )
 {
 	switch(

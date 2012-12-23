@@ -44,10 +44,10 @@ public:
 	child_information();
 
 	child_information(
-		sge::rucksack::alignment::type,
+		sge::rucksack::alignment,
 		sge::rucksack::dim const &);
 
-	sge::rucksack::alignment::type
+	sge::rucksack::alignment
 	alignment() const;
 
 	sge::rucksack::dim const &
@@ -57,7 +57,7 @@ public:
 	size(
 		sge::rucksack::dim const &);
 private:
-	sge::rucksack::alignment::type alignment_;
+	sge::rucksack::alignment alignment_;
 	sge::rucksack::dim size_;
 };
 }

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_DRAW_ELEMENTS_HPP_INCLUDED
 
 #include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/renderer/primitive_type.hpp>
+#include <sge/renderer/primitive_type_fwd.hpp>
 #include <sge/renderer/index/buffer_fwd.hpp>
 #include <sge/renderer/index/count.hpp>
 #include <sge/renderer/index/first.hpp>
@@ -41,7 +41,7 @@ draw_elements(
 	sge::renderer::index::buffer const &,
 	sge::renderer::vertex::first,
 	sge::renderer::vertex::count,
-	sge::renderer::primitive_type::type,
+	sge::renderer::primitive_type,
 	sge::renderer::index::first,
 	sge::renderer::index::count
 );

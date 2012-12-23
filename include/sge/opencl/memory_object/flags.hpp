@@ -21,22 +21,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENCL_MEMORY_OBJECT_FLAGS_HPP_INCLUDED
 #define SGE_OPENCL_MEMORY_OBJECT_FLAGS_HPP_INCLUDED
 
+#include <sge/opencl/memory_object/flags_fwd.hpp>
+
+
 namespace sge
 {
 namespace opencl
 {
 namespace memory_object
 {
-namespace flags
-{
-enum type
+
+enum class flags
 {
 	read,
 	write,
 	alloc_host_ptr,
 	size
 };
-}
+
 }
 }
 }

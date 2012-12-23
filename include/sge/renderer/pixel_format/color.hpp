@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_PIXEL_FORMAT_COLOR_HPP_INCLUDED
 #define SGE_RENDERER_PIXEL_FORMAT_COLOR_HPP_INCLUDED
 
+#include <sge/renderer/pixel_format/color_fwd.hpp>
+
 
 namespace sge
 {
@@ -29,31 +31,22 @@ namespace renderer
 namespace pixel_format
 {
 
-/**
-\brief The namespace for the color enum
-*/
-namespace color
-{
-/**
-\brief The enum type for bit depths
-*/
-enum type
+enum class color
 {
 	/**
 	\brief A bit depth of 16 bits
 
 	This means 5 bits for red and blue, and 5 or 6 bits for green.
 	*/
-	depth16 = 16,
+	depth16,
 	/**
 	\brief A bit depth of 32 bits
 
 	Red, blue and green have eigth bits with a possible unused channel for
 	padding.
 	*/
-	depth32 = 32
+	depth32
 };
-}
 
 }
 }

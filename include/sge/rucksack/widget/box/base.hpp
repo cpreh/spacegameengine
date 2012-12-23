@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RUCKSACK_WIDGET_BOX_BASE_HPP_INCLUDED
 
 #include <sge/class_symbol.hpp>
-#include <sge/rucksack/alignment.hpp>
+#include <sge/rucksack/alignment_fwd.hpp>
 #include <sge/rucksack/aspect.hpp>
-#include <sge/rucksack/axis.hpp>
+#include <sge/rucksack/axis_fwd.hpp>
 #include <sge/rucksack/symbol.hpp>
 #include <sge/rucksack/widget/base.hpp>
 #include <sge/rucksack/widget/optional_parent.hpp>
@@ -62,7 +62,7 @@ FCPPT_NONCOPYABLE(
 public:
 	SGE_RUCKSACK_SYMBOL
 	base(
-		sge::rucksack::axis::type,
+		sge::rucksack::axis,
 		sge::rucksack::aspect const &);
 
 	// Nothing fancy, just set the stored size (this should NOT cause a relayout
@@ -119,12 +119,12 @@ public:
 	SGE_RUCKSACK_SYMBOL void
 	push_back_child(
 		widget::base &,
-		sge::rucksack::alignment::type);
+		sge::rucksack::alignment);
 
 	SGE_RUCKSACK_SYMBOL void
 	push_front_child(
 		widget::base &,
-		sge::rucksack::alignment::type);
+		sge::rucksack::alignment);
 
 	SGE_RUCKSACK_SYMBOL void
 	pop_front_child();

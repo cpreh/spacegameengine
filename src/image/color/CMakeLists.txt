@@ -136,7 +136,9 @@ set(
 	src/image/color/include/sge/src/image/color/dynamic/algorithm/cac/visitor.hpp
 	src/image/color/include/sge/src/image/color/dynamic/algorithm/copy_and_convert.hpp
 	src/image/color/include/sge/src/image/color/dynamic/available_channels.hpp
+	src/image/color/include/sge/src/image/color/dynamic/available_channels_fwd.hpp
 	src/image/color/include/sge/src/image/color/dynamic/available_layouts.hpp
+	src/image/color/include/sge/src/image/color/dynamic/available_layouts_fwd.hpp
 	src/image/color/include/sge/src/image/color/dynamic/bgr32f_format.hpp
 	src/image/color/include/sge/src/image/color/dynamic/bgr8_format.hpp
 	src/image/color/include/sge/src/image/color/dynamic/bgra32f_format.hpp

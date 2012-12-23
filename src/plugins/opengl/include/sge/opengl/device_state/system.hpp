@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/device_state/context_unique_ptr.hpp>
 #include <sge/opengl/device_state/scoped_current_fwd.hpp>
 #include <sge/opengl/device_state/system_fwd.hpp>
-#include <sge/renderer/parameters/vsync.hpp>
+#include <sge/renderer/parameters/vsync_fwd.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <awl/system/object_fwd.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
@@ -68,7 +68,7 @@ public:
 	vsync(
 		sge::opengl::device_state::scoped_current const &,
 		awl::window::object &,
-		sge::renderer::parameters::vsync::type
+		sge::renderer::parameters::vsync
 	) = 0;
 };
 

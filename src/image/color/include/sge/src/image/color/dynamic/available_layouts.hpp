@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_IMAGE_COLOR_DYNAMIC_AVAILABLE_LAYOUTS_HPP_INCLUDED
 #define SGE_SRC_IMAGE_COLOR_DYNAMIC_AVAILABLE_LAYOUTS_HPP_INCLUDED
 
+#include <sge/src/image/color/dynamic/available_layouts_fwd.hpp>
+
 
 namespace sge
 {
@@ -31,16 +33,13 @@ namespace color
 namespace dynamic
 {
 
-namespace available_layouts
-{
-enum type
+enum class available_layouts
 {
 	alpha,
 	gray,
 	rgb,
 	srgb
 };
-}
 
 }
 }

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_EVDEV_INOTIFY_CONVERT_EVENT_TYPE_HPP_INCLUDED
 #define SGE_EVDEV_INOTIFY_CONVERT_EVENT_TYPE_HPP_INCLUDED
 
-#include <sge/evdev/inotify/event_type.hpp>
+#include <sge/evdev/inotify/event_type_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/cstdint.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -34,7 +34,7 @@ namespace evdev
 namespace inotify
 {
 
-sge::evdev::inotify::event_type::type
+sge::evdev::inotify::event_type
 convert_event_type(
 	boost::uint32_t mask
 );

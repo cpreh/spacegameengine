@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer::texture::mipmap::levels_rep::levels_rep(
 	sge::renderer::texture::mipmap::level_count const _value,
-	sge::renderer::texture::mipmap::auto_generate::type const _auto_generate
+	sge::renderer::texture::mipmap::auto_generate const _auto_generate
 )
 :
 	value_(
@@ -43,7 +43,7 @@ sge::renderer::texture::mipmap::levels_rep::value() const
 	return value_;
 }
 
-sge::renderer::texture::mipmap::auto_generate::type
+sge::renderer::texture::mipmap::auto_generate
 sge::renderer::texture::mipmap::levels_rep::auto_generate() const
 {
 	return auto_generate_;

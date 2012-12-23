@@ -71,7 +71,7 @@ sge::opencl::single_device_system::parameters::prefer_gpu(
 
 sge::opencl::single_device_system::parameters &
 sge::opencl::single_device_system::parameters::execution_mode(
-	sge::opencl::command_queue::execution_mode::type const _execution_mode)
+	sge::opencl::command_queue::execution_mode const _execution_mode)
 {
 	execution_mode_ =
 		_execution_mode;
@@ -91,13 +91,13 @@ sge::opencl::single_device_system::parameters::error_callback() const
 	return error_callback_;
 }
 
-sge::opencl::command_queue::profiling_mode::type
+sge::opencl::command_queue::profiling_mode
 sge::opencl::single_device_system::parameters::profiling() const
 {
 	return profiling_;
 }
 
-sge::opencl::command_queue::execution_mode::type
+sge::opencl::command_queue::execution_mode
 sge::opencl::single_device_system::parameters::execution_mode() const
 {
 	return execution_mode_;

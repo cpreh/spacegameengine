@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex/buffer_fwd.hpp>
 #include <sge/scenic/index_buffer_range_fwd.hpp>
 #include <sge/scenic/symbol.hpp>
-#include <sge/scenic/render_context/transform_matrix_type.hpp>
+#include <sge/scenic/render_context/transform_matrix_type_fwd.hpp>
 #include <sge/scenic/render_context/fog/optional_properties.hpp>
 #include <sge/scenic/render_context/light/sequence.hpp>
 #include <sge/scenic/render_context/material/object_fwd.hpp>
@@ -48,7 +48,7 @@ FCPPT_NONCOPYABLE(
 public:
 	virtual void
 	transform(
-		sge::scenic::render_context::transform_matrix_type::type,
+		sge::scenic::render_context::transform_matrix_type,
 		sge::renderer::matrix4 const &) = 0;
 
 	virtual void

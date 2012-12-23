@@ -21,21 +21,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENCL_MEMORY_OBJECT_RENDERER_BUFFER_LOCK_MODE_HPP_INCLUDED
 #define SGE_OPENCL_MEMORY_OBJECT_RENDERER_BUFFER_LOCK_MODE_HPP_INCLUDED
 
+#include <sge/opencl/memory_object/renderer_buffer_lock_mode_fwd.hpp>
+
+
 namespace sge
 {
 namespace opencl
 {
 namespace memory_object
 {
-namespace renderer_buffer_lock_mode
-{
-enum type
+
+enum class renderer_buffer_lock_mode
 {
 	read_only,
 	write_only,
 	read_write
 };
-}
+
 }
 }
 }

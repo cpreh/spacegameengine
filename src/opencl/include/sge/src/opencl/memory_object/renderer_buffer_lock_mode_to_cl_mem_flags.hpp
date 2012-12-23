@@ -34,7 +34,7 @@ namespace memory_object
 {
 inline cl_mem_flags
 renderer_buffer_lock_mode_to_cl_mem_flags(
-	memory_object::renderer_buffer_lock_mode::type const _lock_mode)
+	memory_object::renderer_buffer_lock_mode const _lock_mode)
 {
 	switch(_lock_mode)
 	{

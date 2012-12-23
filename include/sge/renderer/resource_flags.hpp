@@ -21,20 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_RESOURCE_FLAGS_HPP_INCLUDED
 #define SGE_RENDERER_RESOURCE_FLAGS_HPP_INCLUDED
 
+#include <sge/renderer/resource_flags_fwd.hpp>
+
+
 namespace sge
 {
 namespace renderer
 {
 
-/**
- * \brief The namespace for the resource_flags enum
-*/
-namespace resource_flags
-{
-/**
- * \brief The enum type for resource flags
-*/
-enum type
+enum class resource_flags
 {
 	/**
 	 * \brief Makes the resource dynamic
@@ -59,7 +54,6 @@ enum type
 	readable,
 	size
 };
-}
 
 }
 }

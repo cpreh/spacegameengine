@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/renderer/config.hpp>
 #include <sge/renderer/primitive_count.hpp>
-#include <sge/renderer/primitive_type.hpp>
+#include <sge/renderer/primitive_type_fwd.hpp>
 #include <sge/renderer/clear/parameters_fwd.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/index/buffer_fwd.hpp>
@@ -107,7 +107,7 @@ private:
 		sge::renderer::index::buffer const &,
 		sge::renderer::vertex::first,
 		sge::renderer::vertex::count,
-		sge::renderer::primitive_type::type,
+		sge::renderer::primitive_type,
 		sge::renderer::index::first,
 		sge::renderer::index::count
 	);
@@ -116,7 +116,7 @@ private:
 	render_nonindexed(
 		sge::renderer::vertex::first,
 		sge::renderer::vertex::count,
-		sge::renderer::primitive_type::type
+		sge::renderer::primitive_type
 	);
 
 	void

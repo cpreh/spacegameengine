@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/format_stride.hpp>
 #include <sge/image2d/pitch.hpp>
 #include <sge/image2d/view/make.hpp>
+#include <sge/opencl/command_queue/map_flags.hpp>
 #include <sge/opencl/command_queue/map_flags_to_native.hpp>
 #include <sge/opencl/command_queue/object.hpp>
 #include <sge/opencl/command_queue/scoped_planar_mapping.hpp>
@@ -37,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::opencl::command_queue::scoped_planar_mapping::scoped_planar_mapping(
 	sge::opencl::command_queue::object &_queue,
 	sge::opencl::memory_object::image::planar &_image,
-	sge::opencl::command_queue::map_flags::type const _flags,
+	sge::opencl::command_queue::map_flags const _flags,
 	sge::opencl::memory_object::rect const &_rect,
 	sge::opencl::event::sequence const &_events)
 :

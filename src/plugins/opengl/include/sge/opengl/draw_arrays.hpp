@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_DRAW_ARRAYS_HPP_INCLUDED
 #define SGE_OPENGL_DRAW_ARRAYS_HPP_INCLUDED
 
-#include <sge/renderer/primitive_type.hpp>
+#include <sge/renderer/primitive_type_fwd.hpp>
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/first.hpp>
 
@@ -35,7 +35,7 @@ void
 draw_arrays(
 	sge::renderer::vertex::first,
 	sge::renderer::vertex::count,
-	sge::renderer::primitive_type::type
+	sge::renderer::primitive_type
 );
 
 }

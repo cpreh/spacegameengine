@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_EVDEV_INOTIFY_EVENT_TYPE_HPP_INCLUDED
 #define SGE_EVDEV_INOTIFY_EVENT_TYPE_HPP_INCLUDED
 
+#include <sge/evdev/inotify/event_type_fwd.hpp>
+
 
 namespace sge
 {
@@ -29,15 +31,12 @@ namespace evdev
 namespace inotify
 {
 
-namespace event_type
-{
-enum type
+enum class event_type
 {
 	add,
 	remove,
 	attrib
 };
-}
 
 }
 }

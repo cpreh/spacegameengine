@@ -40,14 +40,14 @@ class all_levels_rep
 public:
 	explicit
 	all_levels_rep(
-		sge::renderer::texture::mipmap::auto_generate::type
+		sge::renderer::texture::mipmap::auto_generate
 	);
 
 	SGE_RENDERER_SYMBOL
-	sge::renderer::texture::mipmap::auto_generate::type
+	sge::renderer::texture::mipmap::auto_generate
 	auto_generate() const;
 private:
-	sge::renderer::texture::mipmap::auto_generate::type auto_generate_;
+	sge::renderer::texture::mipmap::auto_generate auto_generate_;
 };
 
 }

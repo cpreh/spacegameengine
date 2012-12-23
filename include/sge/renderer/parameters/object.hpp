@@ -57,7 +57,7 @@ public:
 	SGE_RENDERER_SYMBOL
 	object(
 		sge::renderer::pixel_format::object const &pixel_format,
-		sge::renderer::parameters::vsync::type vsync,
+		sge::renderer::parameters::vsync vsync,
 		sge::renderer::display_mode::optional_object const &display_mode
 	);
 
@@ -72,7 +72,7 @@ public:
 	\brief Returns whether vsync should be used
 	*/
 	SGE_RENDERER_SYMBOL
-	sge::renderer::parameters::vsync::type
+	sge::renderer::parameters::vsync
 	vsync() const;
 
 	/**
@@ -84,7 +84,7 @@ public:
 private:
 	sge::renderer::pixel_format::object pixel_format_;
 
-	sge::renderer::parameters::vsync::type vsync_;
+	sge::renderer::parameters::vsync vsync_;
 
 	sge::renderer::display_mode::optional_object display_mode_;
 };

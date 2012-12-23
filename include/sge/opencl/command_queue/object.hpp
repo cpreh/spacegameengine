@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opencl/clinclude.hpp>
 #include <sge/opencl/symbol.hpp>
-#include <sge/opencl/command_queue/execution_mode.hpp>
-#include <sge/opencl/command_queue/profiling_mode.hpp>
+#include <sge/opencl/command_queue/execution_mode_fwd.hpp>
+#include <sge/opencl/command_queue/profiling_mode_fwd.hpp>
 #include <sge/opencl/context/object_fwd.hpp>
 #include <sge/opencl/device/object_fwd.hpp>
 #include <sge/opencl/kernel/object_fwd.hpp>
@@ -46,8 +46,8 @@ public:
 	object(
 		opencl::device::object &,
 		opencl::context::object &,
-		command_queue::execution_mode::type,
-		command_queue::profiling_mode::type);
+		command_queue::execution_mode,
+		command_queue::profiling_mode);
 
 	SGE_OPENCL_SYMBOL opencl::context::object &
 	context() const;

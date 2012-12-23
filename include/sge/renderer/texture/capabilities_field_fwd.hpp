@@ -33,7 +33,7 @@ namespace texture
 {
 
 typedef fcppt::container::bitfield::object<
-	sge::renderer::texture::capabilities::type,
+	sge::renderer::texture::capabilities,
 	sge::renderer::texture::capabilities::size
 > capabilities_field;
 

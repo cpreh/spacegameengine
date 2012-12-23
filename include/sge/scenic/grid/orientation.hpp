@@ -21,21 +21,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SCENIC_GRID_ORIENTATION_HPP_INCLUDED
 #define SGE_SCENIC_GRID_ORIENTATION_HPP_INCLUDED
 
+#include <sge/scenic/grid/orientation_fwd.hpp>
+
+
 namespace sge
 {
 namespace scenic
 {
 namespace grid
 {
-namespace orientation
-{
-enum type
+
+enum class orientation
 {
 	xz,
 	xy,
 	yz
 };
-}
+
 }
 }
 }

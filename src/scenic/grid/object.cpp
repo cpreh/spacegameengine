@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/base.hpp>
 #include <sge/renderer/target/viewport_size.hpp>
 #include <sge/scenic/grid/object.hpp>
+#include <sge/scenic/grid/orientation.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstddef>
@@ -61,7 +62,7 @@ fcppt::math::size_type const axis_mappings[3][3] =
 
 sge::renderer::vector3
 permute_vector_according_to_orientation(
-	sge::scenic::grid::orientation::type const _orientation,
+	sge::scenic::grid::orientation const _orientation,
 	sge::renderer::vector3 const &_input)
 {
 	sge::renderer::vector3 result;
@@ -78,7 +79,7 @@ permute_vector_according_to_orientation(
 sge::scenic::grid::object::object(
 	sge::renderer::device::ffp &_renderer,
 	sge::camera::base const &_camera,
-	sge::scenic::grid::orientation::type const _orientation,
+	sge::scenic::grid::orientation const _orientation,
 	sge::scenic::grid::rect const &_rect,
 	sge::scenic::grid::spacing const &_spacing,
 	sge::scenic::grid::distance_to_origin const &_distance_to_origin,

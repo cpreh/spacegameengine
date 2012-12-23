@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_INIT_SRGB_HPP_INCLUDED
 
 #include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/renderer/pixel_format/srgb.hpp>
+#include <sge/renderer/pixel_format/srgb_fwd.hpp>
 
 
 namespace sge
@@ -33,7 +33,7 @@ namespace opengl
 void
 init_srgb(
 	sge::opengl::context::system::object &,
-	sge::renderer::pixel_format::srgb::type
+	sge::renderer::pixel_format::srgb
 );
 
 }

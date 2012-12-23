@@ -4,6 +4,7 @@ set(
 	include/sge/opencl/clinclude.hpp
 	include/sge/opencl/command_queue/enqueue_kernel.hpp
 	include/sge/opencl/command_queue/execution_mode.hpp
+	include/sge/opencl/command_queue/execution_mode_fwd.hpp
 	include/sge/opencl/command_queue/global_dim1.hpp
 	include/sge/opencl/command_queue/global_dim2.hpp
 	include/sge/opencl/command_queue/global_dim3.hpp
@@ -11,10 +12,12 @@ set(
 	include/sge/opencl/command_queue/local_dim2.hpp
 	include/sge/opencl/command_queue/local_dim3.hpp
 	include/sge/opencl/command_queue/map_flags.hpp
+	include/sge/opencl/command_queue/map_flags_fwd.hpp
 	include/sge/opencl/command_queue/map_flags_to_native.hpp
 	include/sge/opencl/command_queue/object.hpp
 	include/sge/opencl/command_queue/object_fwd.hpp
 	include/sge/opencl/command_queue/profiling_mode.hpp
+	include/sge/opencl/command_queue/profiling_mode_fwd.hpp
 	include/sge/opencl/command_queue/scoped.hpp
 	include/sge/opencl/command_queue/scoped_buffer_mapping.hpp
 	include/sge/opencl/command_queue/scoped_planar_mapping.hpp
@@ -54,6 +57,7 @@ set(
 	include/sge/opencl/memory_object/create_image_format.hpp
 	include/sge/opencl/memory_object/flags.hpp
 	include/sge/opencl/memory_object/flags_field.hpp
+	include/sge/opencl/memory_object/flags_fwd.hpp
 	include/sge/opencl/memory_object/image/format_output.hpp
 	include/sge/opencl/memory_object/image/format_sequence.hpp
 	include/sge/opencl/memory_object/image/opencl_color_format_to_sge.hpp
@@ -66,12 +70,14 @@ set(
 	include/sge/opencl/memory_object/image/volume_fwd.hpp
 	include/sge/opencl/memory_object/rect.hpp
 	include/sge/opencl/memory_object/renderer_buffer_lock_mode.hpp
+	include/sge/opencl/memory_object/renderer_buffer_lock_mode_fwd.hpp
 	include/sge/opencl/memory_object/scoped_objects.hpp
 	include/sge/opencl/platform/extension_sequence.hpp
 	include/sge/opencl/platform/object.hpp
 	include/sge/opencl/platform/object_fwd.hpp
 	include/sge/opencl/platform/object_sequence.hpp
 	include/sge/opencl/platform/profile_type.hpp
+	include/sge/opencl/platform/profile_type_fwd.hpp
 	include/sge/opencl/platform/version.hpp
 	include/sge/opencl/program/blob.hpp
 	include/sge/opencl/program/build_error.hpp

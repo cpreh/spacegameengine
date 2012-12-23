@@ -224,11 +224,14 @@ set(
 	include/sge/renderer/parameters/object.hpp
 	include/sge/renderer/parameters/object_fwd.hpp
 	include/sge/renderer/parameters/vsync.hpp
+	include/sge/renderer/parameters/vsync_fwd.hpp
 	include/sge/renderer/pixel_format/bit_count.hpp
 	include/sge/renderer/pixel_format/color.hpp
 	include/sge/renderer/pixel_format/color_bits.hpp
+	include/sge/renderer/pixel_format/color_fwd.hpp
 	include/sge/renderer/pixel_format/depth_bits.hpp
 	include/sge/renderer/pixel_format/depth_stencil.hpp
+	include/sge/renderer/pixel_format/depth_stencil_fwd.hpp
 	include/sge/renderer/pixel_format/multi_samples.hpp
 	include/sge/renderer/pixel_format/multi_samples_value.hpp
 	include/sge/renderer/pixel_format/object.hpp
@@ -238,6 +241,7 @@ set(
 	include/sge/renderer/pixel_format/optional_multi_samples.hpp
 	include/sge/renderer/pixel_format/optional_multi_samples_fwd.hpp
 	include/sge/renderer/pixel_format/srgb.hpp
+	include/sge/renderer/pixel_format/srgb_fwd.hpp
 	include/sge/renderer/pixel_format/stencil_bits.hpp
 	include/sge/renderer/pixel_rect.hpp
 	include/sge/renderer/pixel_rect_fwd.hpp
@@ -247,6 +251,7 @@ set(
 	include/sge/renderer/plugin/traits.hpp
 	include/sge/renderer/primitive_count.hpp
 	include/sge/renderer/primitive_type.hpp
+	include/sge/renderer/primitive_type_fwd.hpp
 	include/sge/renderer/projection/aspect.hpp
 	include/sge/renderer/projection/dim.hpp
 	include/sge/renderer/projection/dim_fwd.hpp
@@ -266,6 +271,7 @@ set(
 	include/sge/renderer/resource_flags.hpp
 	include/sge/renderer/resource_flags_field.hpp
 	include/sge/renderer/resource_flags_field_fwd.hpp
+	include/sge/renderer/resource_flags_fwd.hpp
 	include/sge/renderer/scalar.hpp
 	include/sge/renderer/screen_size.hpp
 	include/sge/renderer/screen_size_fwd.hpp
@@ -632,6 +638,7 @@ set(
 	include/sge/renderer/texture/capabilities.hpp
 	include/sge/renderer/texture/capabilities_field.hpp
 	include/sge/renderer/texture/capabilities_field_fwd.hpp
+	include/sge/renderer/texture/capabilities_fwd.hpp
 	include/sge/renderer/texture/color_format.hpp
 	include/sge/renderer/texture/color_format_fwd.hpp
 	include/sge/renderer/texture/const_basic_scoped_lock.hpp
@@ -667,6 +674,7 @@ set(
 	include/sge/renderer/texture/mipmap/all_levels_rep.hpp
 	include/sge/renderer/texture/mipmap/all_levels_rep_fwd.hpp
 	include/sge/renderer/texture/mipmap/auto_generate.hpp
+	include/sge/renderer/texture/mipmap/auto_generate_fwd.hpp
 	include/sge/renderer/texture/mipmap/level.hpp
 	include/sge/renderer/texture/mipmap/level_count.hpp
 	include/sge/renderer/texture/mipmap/level_type.hpp
@@ -772,6 +780,7 @@ set(
 	include/sge/renderer/vf/dynamic/element_fwd.hpp
 	include/sge/renderer/vf/dynamic/element_list.hpp
 	include/sge/renderer/vf/dynamic/element_type.hpp
+	include/sge/renderer/vf/dynamic/element_type_fwd.hpp
 	include/sge/renderer/vf/dynamic/extra.hpp
 	include/sge/renderer/vf/dynamic/extra_any.hpp
 	include/sge/renderer/vf/dynamic/extra_any_fwd.hpp

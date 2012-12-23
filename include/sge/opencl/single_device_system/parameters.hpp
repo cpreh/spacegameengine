@@ -63,7 +63,7 @@ public:
 	SGE_OPENCL_SYMBOL
 	parameters &
 	execution_mode(
-		sge::opencl::command_queue::execution_mode::type);
+		sge::opencl::command_queue::execution_mode);
 
 	SGE_OPENCL_SYMBOL
 	sge::opencl::single_device_system::optional_renderer const &
@@ -74,11 +74,11 @@ public:
 	error_callback() const;
 
 	SGE_OPENCL_SYMBOL
-	sge::opencl::command_queue::profiling_mode::type
+	sge::opencl::command_queue::profiling_mode
 	profiling() const;
 
 	SGE_OPENCL_SYMBOL
-	sge::opencl::command_queue::execution_mode::type
+	sge::opencl::command_queue::execution_mode
 	execution_mode() const;
 
 	SGE_OPENCL_SYMBOL
@@ -87,8 +87,8 @@ public:
 private:
 	sge::opencl::single_device_system::optional_renderer renderer_;
 	sge::opencl::context::optional_error_callback error_callback_;
-	sge::opencl::command_queue::profiling_mode::type profiling_;
-	sge::opencl::command_queue::execution_mode::type execution_mode_;
+	sge::opencl::command_queue::profiling_mode profiling_;
+	sge::opencl::command_queue::execution_mode execution_mode_;
 	bool prefers_gpu_;
 };
 }

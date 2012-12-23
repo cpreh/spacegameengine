@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opencl/command_queue/map_flags.hpp>
 #include <sge/opencl/command_queue/map_flags_to_native.hpp>
 #include <sge/opencl/command_queue/object.hpp>
 #include <sge/opencl/command_queue/scoped_buffer_mapping.hpp>
@@ -31,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::opencl::command_queue::scoped_buffer_mapping::scoped_buffer_mapping(
 	sge::opencl::command_queue::object &_queue,
 	sge::opencl::memory_object::buffer &_buffer,
-	sge::opencl::command_queue::map_flags::type const _flags,
+	sge::opencl::command_queue::map_flags const _flags,
 	sge::opencl::memory_object::byte_offset const &_offset,
 	sge::opencl::memory_object::byte_size const &_size,
 	sge::opencl::event::sequence const &_events)
