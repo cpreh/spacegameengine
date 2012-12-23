@@ -24,16 +24,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/class_symbol.hpp>
 #include <sge/renderer/config.hpp>
 #include <sge/renderer/const_optional_vertex_declaration_ref_fwd.hpp>
-#include <sge/renderer/first_index.hpp>
 #include <sge/renderer/first_vertex.hpp>
-#include <sge/renderer/index_buffer_fwd.hpp>
-#include <sge/renderer/index_count.hpp>
 #include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/vertex_buffer_fwd.hpp>
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/clear/parameters_fwd.hpp>
 #include <sge/renderer/context/core_fwd.hpp>
+#include <sge/renderer/index/buffer_fwd.hpp>
+#include <sge/renderer/index/count.hpp>
+#include <sge/renderer/index/first.hpp>
 #include <sge/renderer/state/core/blend/const_optional_object_ref_fwd.hpp>
 #include <sge/renderer/state/core/depth_stencil/const_optional_object_ref_fwd.hpp>
 #include <sge/renderer/state/core/rasterizer/const_optional_object_ref_fwd.hpp>
@@ -139,12 +139,12 @@ public:
 	virtual
 	void
 	render_indexed(
-		sge::renderer::index_buffer const &index_buffer,
+		sge::renderer::index::buffer const &index_buffer,
 		sge::renderer::first_vertex first_vertex,
 		sge::renderer::vertex_count vertex_count,
 		sge::renderer::primitive_type::type primitive_type,
-		sge::renderer::first_index first_index,
-		sge::renderer::index_count index_count
+		sge::renderer::index::first first_index,
+		sge::renderer::index::count index_count
 	) = 0;
 
 	/**

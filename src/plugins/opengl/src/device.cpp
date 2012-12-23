@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/create_index_buffer.hpp>
 #include <sge/opengl/device.hpp>
-#include <sge/opengl/index_buffer.hpp>
 #include <sge/opengl/init_multi_sampling.hpp>
 #include <sge/opengl/init_srgb.hpp>
 #include <sge/opengl/onscreen_target.hpp>
@@ -54,8 +54,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/create_planar.hpp>
 #include <sge/opengl/texture/create_volume.hpp>
 #include <sge/renderer/config.hpp>
-#include <sge/renderer/index_buffer_unique_ptr.hpp>
-#include <sge/renderer/index_count.hpp>
 #include <sge/renderer/parameters/object.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
 #include <sge/renderer/vertex_buffer_unique_ptr.hpp>
@@ -71,7 +69,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/depth_stencil_buffer/surface_parameters_fwd.hpp>
 #include <sge/renderer/depth_stencil_buffer/surface_unique_ptr.hpp>
 #include <sge/renderer/display_mode/object.hpp>
-#include <sge/renderer/index/dynamic/format.hpp>
+#include <sge/renderer/index/buffer.hpp>
+#include <sge/renderer/index/buffer_parameters_fwd.hpp>
+#include <sge/renderer/index/buffer_unique_ptr.hpp>
 #include <sge/renderer/occlusion_query/object.hpp>
 #include <sge/renderer/occlusion_query/object_unique_ptr.hpp>
 #include <sge/renderer/state/core/blend/object.hpp>
@@ -355,23 +355,15 @@ sge::opengl::device::create_vertex_buffer(
 		);
 }
 
-sge::renderer::index_buffer_unique_ptr
+sge::renderer::index::buffer_unique_ptr
 sge::opengl::device::create_index_buffer(
-	sge::renderer::index::dynamic::format const _format,
-	sge::renderer::index_count const _size,
-	sge::renderer::resource_flags_field const &_flags
+	sge::renderer::index::buffer_parameters const &_parameters
 )
 {
 	return
-		sge::renderer::index_buffer_unique_ptr(
-			fcppt::make_unique_ptr<
-				sge::opengl::index_buffer
-			>(
-				system_context_,
-				_format,
-				_size,
-				_flags
-			)
+		sge::opengl::create_index_buffer(
+			system_context_,
+			_parameters
 		);
 }
 

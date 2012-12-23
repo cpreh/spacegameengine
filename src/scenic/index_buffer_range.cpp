@@ -18,11 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/renderer/index/first.hpp>
+#include <sge/renderer/index/count.hpp>
 #include <sge/scenic/index_buffer_range.hpp>
 
+
 sge::scenic::index_buffer_range::index_buffer_range(
-	sge::renderer::first_index const &_first_index,
-	sge::renderer::index_count const &_index_count)
+	sge::renderer::index::first const &_first_index,
+	sge::renderer::index::count const &_index_count)
 :
 	first_index_(
 		_first_index),
@@ -31,14 +34,14 @@ sge::scenic::index_buffer_range::index_buffer_range(
 {
 }
 
-sge::renderer::first_index const &
+sge::renderer::index::first const &
 sge::scenic::index_buffer_range::first_index() const
 {
 	return
 		first_index_;
 }
 
-sge::renderer::index_count const &
+sge::renderer::index::count const &
 sge::scenic::index_buffer_range::index_count() const
 {
 	return

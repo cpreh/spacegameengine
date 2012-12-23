@@ -18,34 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_DRAW_ELEMENTS_HPP_INCLUDED
-#define SGE_OPENGL_DRAW_ELEMENTS_HPP_INCLUDED
-
-#include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/renderer/first_vertex.hpp>
-#include <sge/renderer/primitive_type.hpp>
-#include <sge/renderer/vertex_count.hpp>
-#include <sge/renderer/index/buffer_fwd.hpp>
-#include <sge/renderer/index/count.hpp>
-#include <sge/renderer/index/first.hpp>
+#ifndef SGE_RENDERER_INDEX_BUFFER_FWD_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_BUFFER_FWD_HPP_INCLUDED
 
 
 namespace sge
 {
-namespace opengl
+namespace renderer
+{
+namespace index
 {
 
-void
-draw_elements(
-	sge::opengl::context::system::object &,
-	sge::renderer::index::buffer const &,
-	sge::renderer::first_vertex,
-	sge::renderer::vertex_count,
-	sge::renderer::primitive_type::type,
-	sge::renderer::index::first,
-	sge::renderer::index::count
-);
+class buffer;
 
+}
 }
 }
 

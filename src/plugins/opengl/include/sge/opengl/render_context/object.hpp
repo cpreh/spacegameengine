@@ -26,16 +26,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/renderer/config.hpp>
 #include <sge/renderer/const_optional_vertex_declaration_ref_fwd.hpp>
-#include <sge/renderer/first_index.hpp>
 #include <sge/renderer/first_vertex.hpp>
-#include <sge/renderer/index_buffer_fwd.hpp>
-#include <sge/renderer/index_count.hpp>
 #include <sge/renderer/primitive_count.hpp>
 #include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/vertex_buffer_fwd.hpp>
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/clear/parameters_fwd.hpp>
 #include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/index/buffer_fwd.hpp>
+#include <sge/renderer/index/count.hpp>
+#include <sge/renderer/index/first.hpp>
 #include <sge/renderer/target/base_fwd.hpp>
 #include <sge/renderer/target/optional_offscreen_ref_fwd.hpp>
 #include <sge/renderer/state/core/blend/const_optional_object_ref_fwd.hpp>
@@ -104,12 +104,12 @@ private:
 
 	void
 	render_indexed(
-		sge::renderer::index_buffer const &,
+		sge::renderer::index::buffer const &,
 		sge::renderer::first_vertex,
 		sge::renderer::vertex_count,
 		sge::renderer::primitive_type::type,
-		sge::renderer::first_index,
-		sge::renderer::index_count
+		sge::renderer::index::first,
+		sge::renderer::index::count
 	);
 
 	void

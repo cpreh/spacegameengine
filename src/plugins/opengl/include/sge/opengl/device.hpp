@@ -30,8 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/basic_parameters_fwd.hpp>
 #include <sge/renderer/config.hpp>
-#include <sge/renderer/index_buffer_unique_ptr.hpp>
-#include <sge/renderer/index_count.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
 #include <sge/renderer/vertex_buffer_unique_ptr.hpp>
 #include <sge/renderer/vertex_count.hpp>
@@ -46,7 +44,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/depth_stencil_buffer/surface_unique_ptr.hpp>
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/display_mode/object_fwd.hpp>
-#include <sge/renderer/index/dynamic/format_fwd.hpp>
+#include <sge/renderer/index/buffer_parameters_fwd.hpp>
+#include <sge/renderer/index/buffer_unique_ptr.hpp>
 #include <sge/renderer/occlusion_query/object_unique_ptr.hpp>
 #include <sge/renderer/parameters/object_fwd.hpp>
 #include <sge/renderer/state/core/blend/object_unique_ptr.hpp>
@@ -180,11 +179,9 @@ private:
 		sge::renderer::resource_flags_field const &
 	);
 
-	sge::renderer::index_buffer_unique_ptr
+	sge::renderer::index::buffer_unique_ptr
 	create_index_buffer(
-		sge::renderer::index::dynamic::format,
-		sge::renderer::index_count,
-		sge::renderer::resource_flags_field const &
+		sge::renderer::index::buffer_parameters const &
 	);
 
 	sge::renderer::occlusion_query::object_unique_ptr

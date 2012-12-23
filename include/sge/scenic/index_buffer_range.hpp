@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SCENIC_INDEX_BUFFER_RANGE_HPP_INCLUDED
 #define SGE_SCENIC_INDEX_BUFFER_RANGE_HPP_INCLUDED
 
-#include <sge/renderer/first_index.hpp>
-#include <sge/renderer/index_count.hpp>
+#include <sge/renderer/index/first.hpp>
+#include <sge/renderer/index/count.hpp>
 #include <sge/scenic/symbol.hpp>
 
 
@@ -35,19 +35,19 @@ class index_buffer_range
 public:
 	SGE_SCENIC_SYMBOL
 	index_buffer_range(
-		sge::renderer::first_index const &,
-		sge::renderer::index_count const &);
+		sge::renderer::index::first const &,
+		sge::renderer::index::count const &);
 
 	SGE_SCENIC_SYMBOL
-	sge::renderer::first_index const &
+	sge::renderer::index::first const &
 	first_index() const;
 
 	SGE_SCENIC_SYMBOL
-	sge::renderer::index_count const &
+	sge::renderer::index::count const &
 	index_count() const;
 private:
-	sge::renderer::first_index first_index_;
-	sge::renderer::index_count index_count_;
+	sge::renderer::index::first first_index_;
+	sge::renderer::index::count index_count_;
 };
 }
 }

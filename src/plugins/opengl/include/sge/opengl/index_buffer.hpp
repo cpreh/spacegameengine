@@ -25,9 +25,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/buffer/object.hpp>
 #include <sge/opengl/buffer/wrapper.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/renderer/index_buffer.hpp>
 #include <sge/renderer/lock_mode_fwd.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
+#include <sge/renderer/index/buffer.hpp>
+#include <sge/renderer/index/buffer_parameters_fwd.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/lock_flags/method_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -40,7 +41,7 @@ namespace opengl
 
 class index_buffer
 :
-	public sge::renderer::index_buffer,
+	public sge::renderer::index::buffer,
 	public sge::opengl::buffer::wrapper
 {
 	FCPPT_NONCOPYABLE(
@@ -49,9 +50,7 @@ class index_buffer
 public:
 	index_buffer(
 		sge::opengl::context::system::object &,
-		sge::renderer::index::dynamic::format,
-		sge::renderer::index_buffer::count_type,
-		sge::renderer::resource_flags_field const &
+		sge::renderer::index::buffer_parameters const &
 	);
 
 	~index_buffer();
@@ -67,17 +66,17 @@ public:
 	void
 	bind() const;
 private:
-	sge::renderer::index_buffer::view_type const
+	sge::renderer::index::buffer::view_type const
 	lock(
 		sge::renderer::lock_mode,
-		sge::renderer::index_buffer::first_type,
-		sge::renderer::index_buffer::count_type
+		sge::renderer::index::buffer::first_type,
+		sge::renderer::index::buffer::count_type
 	);
 
-	sge::renderer::index_buffer::const_view_type const
+	sge::renderer::index::buffer::const_view_type const
 	lock(
-		sge::renderer::index_buffer::first_type,
-		sge::renderer::index_buffer::count_type
+		sge::renderer::index::buffer::first_type,
+		sge::renderer::index::buffer::count_type
 	) const;
 
 	template<
@@ -86,14 +85,14 @@ private:
 	View const
 	do_lock(
 		sge::renderer::lock_flags::method,
-		sge::renderer::index_buffer::first_type,
-		sge::renderer::index_buffer::count_type
+		sge::renderer::index::buffer::first_type,
+		sge::renderer::index::buffer::count_type
 	) const;
 
 	void
 	unlock() const;
 
-	sge::renderer::index_buffer::count_type const
+	sge::renderer::index::buffer::count_type const
 	size() const;
 
 	sge::renderer::resource_flags_field const

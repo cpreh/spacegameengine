@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_INDEX_BUFFER_SCOPED_PTR_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_BUFFER_SCOPED_PTR_HPP_INCLUDED
 
-#include <sge/renderer/index_buffer_fwd.hpp>
+#include <sge/renderer/index/buffer_fwd.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
 
 
@@ -29,14 +29,17 @@ namespace sge
 {
 namespace renderer
 {
+namespace index
+{
 
 /**
- * \brief A scoped pointer to a renderer::index_buffer
+\brief A scoped pointer to an sge::renderer::index::buffer
 */
 typedef fcppt::scoped_ptr<
-	renderer::index_buffer
-> index_buffer_scoped_ptr;
+	sge::renderer::index::buffer
+> buffer_scoped_ptr;
 
+}
 }
 }
 

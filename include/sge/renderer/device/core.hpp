@@ -23,9 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/class_symbol.hpp>
 #include <sge/renderer/config.hpp>
-#include <sge/renderer/dim2.hpp>
-#include <sge/renderer/index_buffer_unique_ptr.hpp>
-#include <sge/renderer/index_count.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
 #include <sge/renderer/vertex_buffer_unique_ptr.hpp>
 #include <sge/renderer/vertex_count.hpp>
@@ -39,7 +36,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/depth_stencil_buffer/surface_unique_ptr.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/display_mode/object_fwd.hpp>
-#include <sge/renderer/index/dynamic/format_fwd.hpp>
+#include <sge/renderer/index/buffer_parameters_fwd.hpp>
+#include <sge/renderer/index/buffer_unique_ptr.hpp>
 #include <sge/renderer/occlusion_query/object_unique_ptr.hpp>
 #include <sge/renderer/state/core/blend/object_unique_ptr.hpp>
 #include <sge/renderer/state/core/blend/parameters_fwd.hpp>
@@ -302,27 +300,19 @@ public:
 	) = 0;
 
 	/**
-	 * \brief Creates an index buffer
-	 *
-	 * Creates an index buffer that is going to hold data described by \a
-	 * format. It will be able to hold \a index_count indices. \a flags
-	 * describes the capabilities of the buffer. Initially, the contents
-	 * of the buffer are undefined.
-	 *
-	 * \param format The format of the indices
-	 * \param index_count The number of indices the buffer will hold
-	 * \param flags The capabilitiies of the buffer
-	 *
-	 * \return A unique pointer to the created index buffer
-	 *
-	 * \throw sge::renderer::exception if anything goes wrong
-	 */
+	\brief Creates an index buffer
+
+	Creates an index buffer describes by \a parameters Initially, the
+	contents of the buffer are undefined.
+
+	\return A unique pointer to the created index buffer
+
+	\throw sge::renderer::exception if anything goes wrong
+	*/
 	virtual
-	sge::renderer::index_buffer_unique_ptr
+	sge::renderer::index::buffer_unique_ptr
 	create_index_buffer(
-		sge::renderer::index::dynamic::format format,
-		sge::renderer::index_count index_count,
-		sge::renderer::resource_flags_field const &flags
+		sge::renderer::index::buffer_parameters const &
 	) = 0;
 
 	virtual

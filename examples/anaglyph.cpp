@@ -36,14 +36,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/md3/object.hpp>
 #include <sge/model/md3/vertex_sequence.hpp>
 #include <sge/renderer/first_vertex.hpp>
-#include <sge/renderer/index_buffer.hpp>
-#include <sge/renderer/index_buffer_scoped_ptr.hpp>
-#include <sge/renderer/index_count.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <sge/renderer/scoped_index_lock.hpp>
 #include <sge/renderer/scoped_vertex_buffer.hpp>
 #include <sge/renderer/scoped_vertex_declaration.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
@@ -60,8 +56,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device/core.hpp>
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
+#include <sge/renderer/index/buffer.hpp>
+#include <sge/renderer/index/buffer_parameters.hpp>
+#include <sge/renderer/index/buffer_scoped_ptr.hpp>
+#include <sge/renderer/index/count.hpp>
+#include <sge/renderer/index/first.hpp>
 #include <sge/renderer/index/i16.hpp>
 #include <sge/renderer/index/iterator.hpp>
+#include <sge/renderer/index/scoped_lock.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/index/dynamic/view.hpp>
 #include <sge/renderer/parameters/object.hpp>
@@ -262,7 +264,7 @@ public:
 private:
 	sge::renderer::device::core &renderer_;
 	sge::renderer::vertex_buffer_scoped_ptr const vb_;
-	sge::renderer::index_buffer_scoped_ptr const ib_;
+	sge::renderer::index::buffer_scoped_ptr const ib_;
 };
 
 compiled_model::compiled_model(
@@ -290,11 +292,12 @@ compiled_model::compiled_model(
 	// this later on.
 	ib_(
 		renderer_.create_index_buffer(
-			sge::renderer::index::dynamic::format::i16,
-			sge::renderer::index_count(
-				_model.indices(
-					_model.part_names().front()).size()),
-		sge::renderer::resource_flags_field::null()))
+			sge::renderer::index::buffer_parameters(
+				sge::renderer::index::dynamic::format::i16,
+				sge::renderer::index::count(
+					_model.indices(
+						_model.part_names().front()).size()),
+				sge::renderer::resource_flags_field::null())))
 {
 	// Fill the vertex buffer first (arbitrary choice)
 	{
@@ -337,7 +340,7 @@ compiled_model::compiled_model(
 
 	// Then fill the index buffer. The code is somewhat "dual" to the
 	// vertex buffer, but has some subtleties. First, we lock the buffer...
-	sge::renderer::scoped_index_lock const iblock(
+	sge::renderer::index::scoped_lock const iblock(
 		*ib_,
 		sge::renderer::lock_mode::writeonly);
 
@@ -388,9 +391,9 @@ compiled_model::render(
 		sge::renderer::vertex_count(
 			vb_->size()),
 		sge::renderer::primitive_type::triangle_list,
-		sge::renderer::first_index(
+		sge::renderer::index::first(
 			0u),
-		sge::renderer::index_count(
+		sge::renderer::index::count(
 			ib_->size().get()));
 }
 

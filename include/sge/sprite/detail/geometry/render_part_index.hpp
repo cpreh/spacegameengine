@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_GEOMETRY_RENDER_PART_INDEX_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_GEOMETRY_RENDER_PART_INDEX_HPP_INCLUDED
 
-#include <sge/renderer/first_index.hpp>
+#include <sge/renderer/index/first.hpp>
 #include <sge/sprite/count.hpp>
 #include <sge/sprite/buffers/index_count.hpp>
 #include <sge/sprite/buffers/slice_impl.hpp>
@@ -74,7 +74,7 @@ render_part_index(
 	_render_part. template set<
 		sge::sprite::buffers::roles::first_index
 	>(
-		sge::renderer::first_index(
+		sge::renderer::index::first(
 			_slice.first_index().get()
 			+
 			sge::sprite::buffers::index_count<

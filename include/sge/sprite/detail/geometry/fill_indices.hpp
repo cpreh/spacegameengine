@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_GEOMETRY_FILL_INDICES_HPP_INCLUDED
 
 #include <sge/renderer/lock_mode.hpp>
-#include <sge/renderer/scoped_index_lock.hpp>
+#include <sge/renderer/index/scoped_lock.hpp>
 #include <sge/renderer/index/any/generate.hpp>
 #include <sge/renderer/index/any/make_view.hpp>
 #include <sge/sprite/count.hpp>
@@ -51,7 +51,7 @@ fill_indices(
 	> const &_slice
 )
 {
-	sge::renderer::scoped_index_lock const lock(
+	sge::renderer::index::scoped_lock const lock(
 		_slice.index_buffer(),
 		sge::renderer::lock_mode::writeonly,
 		_slice.first_index(),

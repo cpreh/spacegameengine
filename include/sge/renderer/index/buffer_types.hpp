@@ -18,25 +18,53 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_BUFFER_SHARED_PTR_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_BUFFER_SHARED_PTR_HPP_INCLUDED
+#ifndef SGE_RENDERER_INDEX_BUFFER_TYPES_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_BUFFER_TYPES_HPP_INCLUDED
 
-#include <sge/renderer/index_buffer_fwd.hpp>
-#include <fcppt/shared_ptr_impl.hpp>
+#include <sge/renderer/index/first.hpp>
+#include <sge/renderer/index/count.hpp>
+#include <sge/renderer/index/dynamic/const_view_fwd.hpp>
+#include <sge/renderer/index/dynamic/view_fwd.hpp>
 
 
 namespace sge
 {
 namespace renderer
 {
+namespace index
+{
 
 /**
- * \brief A shared pointer to a renderer::index_buffer
+\brief Typedef helper for types used by an index buffer
 */
-typedef fcppt::shared_ptr<
-	renderer::index_buffer
-> index_buffer_shared_ptr;
+struct buffer_types
+{
+	/**
+	\brief The view type returned when locking the buffer readonly
+	*/
+	typedef sge::renderer::index::dynamic::const_view const_view_type;
 
+	/**
+	\brief The view type returned when locking the buffer
+	*/
+	typedef sge::renderer::index::dynamic::view view_type;
+
+	/**
+	\brief The offset type
+
+	Describes a starting position in the buffer
+	*/
+	typedef sge::renderer::index::first first_type;
+
+	/**
+	\brief The count type
+
+	Describes a number of indices
+	*/
+	typedef sge::renderer::index::count count_type;
+};
+
+}
 }
 }
 

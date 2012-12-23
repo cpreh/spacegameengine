@@ -18,49 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_BUFFER_TYPES_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_BUFFER_TYPES_HPP_INCLUDED
+#ifndef SGE_RENDERER_INDEX_CONST_SCOPED_LOCK_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_CONST_SCOPED_LOCK_HPP_INCLUDED
 
-#include <sge/renderer/first_index.hpp>
-#include <sge/renderer/index_count.hpp>
-#include <sge/renderer/index/dynamic/const_view_fwd.hpp>
-#include <sge/renderer/index/dynamic/view_fwd.hpp>
+#include <sge/renderer/const_basic_scoped_buffer_lock.hpp>
+#include <sge/renderer/index/buffer_fwd.hpp>
+#include <sge/renderer/index/buffer_types.hpp>
+#include <sge/renderer/index/dynamic/const_view.hpp>
+
 
 namespace sge
 {
 namespace renderer
 {
+namespace index
+{
 
 /**
- * \brief Typedef helper for types used by an index buffer
+\brief A scoped lock that locks a renderer::index_buffer readonly
+
+\see sge::renderer::const_basic_scoped_buffer_lock
 */
-struct index_buffer_types
-{
-	/**
-	 * \brief The view type returned when locking the buffer readonly
-	*/
-	typedef index::dynamic::const_view const_view_type;
+typedef sge::renderer::const_basic_scoped_buffer_lock<
+	sge::renderer::index::buffer,
+	sge::renderer::index::buffer_types
+> const_scoped_lock;
 
-	/**
-	 * \brief The view type returned when locking the buffer
-	*/
-	typedef index::dynamic::view view_type;
-
-	/**
-	 * \brief The offset type
-	 *
-	 * Describes a starting position in the buffer
-	*/
-	typedef renderer::first_index first_type;
-
-	/**
-	 * \brief The count type
-	 *
-	 * Describes a number of indices
-	*/
-	typedef renderer::index_count count_type;
-};
-
+}
 }
 }
 

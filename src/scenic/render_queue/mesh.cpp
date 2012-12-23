@@ -52,7 +52,7 @@ sge::scenic::render_queue::mesh::mesh(
 	sge::scenic::render_queue::index_type const _material,
 	sge::scenic::render_queue::index_type const _vertex_buffer,
 	sge::renderer::matrix4 const &_modelview,
-	sge::renderer::index_buffer &_index_buffer,
+	sge::renderer::index::buffer &_index_buffer,
 	sge::scenic::index_buffer_range const &_index_buffer_range)
 :
 	material_(
@@ -94,7 +94,7 @@ sge::scenic::render_queue::mesh::modelview() const
 		modelview_;
 }
 
-sge::renderer::index_buffer &
+sge::renderer::index::buffer &
 sge::scenic::render_queue::mesh::index_buffer() const
 {
 	return

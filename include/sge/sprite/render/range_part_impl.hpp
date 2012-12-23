@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_RENDER_RANGE_PART_IMPL_HPP_INCLUDED
 #define SGE_SPRITE_RENDER_RANGE_PART_IMPL_HPP_INCLUDED
 
-#include <sge/renderer/first_index.hpp>
 #include <sge/renderer/first_vertex.hpp>
-#include <sge/renderer/index_count.hpp>
 #include <sge/renderer/vertex_count.hpp>
+#include <sge/renderer/index/count.hpp>
+#include <sge/renderer/index/first.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/sprite/texture_level.hpp>
 #include <sge/sprite/buffers/roles/first_index.hpp>
@@ -53,7 +53,7 @@ sge::sprite::render::range_part<
 template<
 	typename Choices
 >
-sge::renderer::first_index const
+sge::renderer::index::first const
 sge::sprite::render::range_part<
 	Choices
 >::first_index() const
@@ -95,7 +95,7 @@ sge::sprite::render::range_part<
 template<
 	typename Choices
 >
-sge::renderer::index_count const
+sge::renderer::index::count const
 sge::sprite::render::range_part<
 	Choices
 >::index_count() const

@@ -18,14 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/create_index_buffer_from_view.hpp>
-#include <sge/renderer/index_buffer.hpp>
-#include <sge/renderer/index_buffer_unique_ptr.hpp>
-#include <sge/renderer/index_count.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
-#include <sge/renderer/scoped_index_lock.hpp>
 #include <sge/renderer/device/core.hpp>
+#include <sge/renderer/index/buffer.hpp>
+#include <sge/renderer/index/buffer_parameters.hpp>
+#include <sge/renderer/index/buffer_unique_ptr.hpp>
+#include <sge/renderer/index/count.hpp>
+#include <sge/renderer/index/create_buffer_from_view.hpp>
+#include <sge/renderer/index/scoped_lock.hpp>
 #include <sge/renderer/index/dynamic/const_view.hpp>
 #include <sge/renderer/index/dynamic/format_stride.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -34,24 +35,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::renderer::index_buffer_unique_ptr
-sge::renderer::create_index_buffer_from_view(
+sge::renderer::index::buffer_unique_ptr
+sge::renderer::index::create_buffer_from_view(
 	sge::renderer::device::core &_device,
 	sge::renderer::index::dynamic::const_view const &_view,
 	sge::renderer::resource_flags_field const &_resource_flags
 )
 {
-	sge::renderer::index_buffer_unique_ptr buffer(
+	sge::renderer::index::buffer_unique_ptr buffer(
 		_device.create_index_buffer(
-			_view.format(),
-			sge::renderer::index_count(
-				_view.size()
-			),
-			_resource_flags
+			sge::renderer::index::buffer_parameters(
+				_view.format(),
+				sge::renderer::index::count(
+					_view.size()
+				),
+				_resource_flags
+			)
 		)
 	);
 
-	sge::renderer::scoped_index_lock const lock(
+	sge::renderer::index::scoped_lock const lock(
 		*buffer,
 		sge::renderer::lock_mode::writeonly
 	);

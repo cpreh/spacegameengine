@@ -19,13 +19,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/model/obj/prototype.hpp>
-#include <sge/renderer/index_buffer.hpp>
 #include <sge/renderer/lock_mode.hpp>
-#include <sge/renderer/scoped_index_lock.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/device/core.hpp>
+#include <sge/renderer/index/buffer.hpp>
+#include <sge/renderer/index/buffer_parameters.hpp>
+#include <sge/renderer/index/count.hpp>
+#include <sge/renderer/index/first.hpp>
 #include <sge/renderer/index/iterator.hpp>
+#include <sge/renderer/index/scoped_lock.hpp>
 #include <sge/renderer/index/dynamic/view.hpp>
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/vertex.hpp>
@@ -63,10 +66,11 @@ sge::scenic::scene::mesh::object::object(
 			sge::renderer::resource_flags_field::null())),
 	index_buffer_(
 		_renderer.create_index_buffer(
-			sge::renderer::index::dynamic::format::i32,
-			sge::renderer::index_count(
-				_prototype.face_count() * 3u),
-			sge::renderer::resource_flags_field::null())),
+			sge::renderer::index::buffer_parameters(
+				sge::renderer::index::dynamic::format::i32,
+				sge::renderer::index::count(
+					_prototype.face_count() * 3u),
+				sge::renderer::resource_flags_field::null()))),
 	parts_(),
 	bounding_box_(
 		_prototype.bounding_box())
@@ -85,7 +89,7 @@ sge::scenic::scene::mesh::object::vertex_buffer()
 		*vertex_buffer_;
 }
 
-sge::renderer::index_buffer &
+sge::renderer::index::buffer &
 sge::scenic::scene::mesh::object::index_buffer()
 {
 	return
@@ -161,7 +165,7 @@ void
 sge::scenic::scene::mesh::object::fill_index_buffer(
 	sge::model::obj::prototype const &_prototype)
 {
-	sge::renderer::scoped_index_lock const iblock(
+	sge::renderer::index::scoped_lock const iblock(
 		*index_buffer_,
 		sge::renderer::lock_mode::writeonly);
 
@@ -213,9 +217,9 @@ sge::scenic::scene::mesh::object::fill_index_buffer(
 				sge::scenic::scene::identifier(
 					current_part->first.get()),
 				sge::scenic::index_buffer_range(
-					sge::renderer::first_index(
+					sge::renderer::index::first(
 						current_index_begin),
-					sge::renderer::index_count(
+					sge::renderer::index::count(
 						current_face_sequence.size()*3u))));
 
 		current_index_begin +=

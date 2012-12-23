@@ -18,28 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_BUFFER_UNIQUE_PTR_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_BUFFER_UNIQUE_PTR_HPP_INCLUDED
-
-#include <sge/renderer/index_buffer_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <memory>
-#include <fcppt/config/external_end.hpp>
+#include <sge/renderer/npos.hpp>
+#include <sge/renderer/index/buffer.hpp>
 
 
-namespace sge
+sge::renderer::index::buffer::buffer()
 {
-namespace renderer
-{
-
-/**
-\brief A unique pointer to an sge::renderer::index_buffer
-*/
-typedef std::unique_ptr<
-	sge::renderer::index_buffer
-> index_buffer_unique_ptr;
-
-}
 }
 
-#endif
+sge::renderer::index::buffer::count_type const
+sge::renderer::index::buffer::npos(
+	sge::renderer::npos()
+);
+
+sge::renderer::index::buffer::~buffer()
+{
+}

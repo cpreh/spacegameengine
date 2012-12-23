@@ -24,15 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_set.hpp>
 #include <sge/renderer/const_vertex_buffer_ref_container.hpp>
-#include <sge/renderer/first_index.hpp>
 #include <sge/renderer/first_vertex.hpp>
-#include <sge/renderer/index_buffer.hpp>
-#include <sge/renderer/index_buffer_scoped_ptr.hpp>
-#include <sge/renderer/index_count.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
-#include <sge/renderer/scoped_index_lock.hpp>
 #include <sge/renderer/scoped_vertex_declaration_and_buffers.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
@@ -44,8 +39,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/context/scoped_core.hpp>
 #include <sge/renderer/device/core.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
+#include <sge/renderer/index/buffer.hpp>
+#include <sge/renderer/index/buffer_parameters.hpp>
+#include <sge/renderer/index/buffer_scoped_ptr.hpp>
+#include <sge/renderer/index/count.hpp>
+#include <sge/renderer/index/first.hpp>
 #include <sge/renderer/index/format_16.hpp>
 #include <sge/renderer/index/iterator.hpp>
+#include <sge/renderer/index/scoped_lock.hpp>
 #include <sge/renderer/index/view.hpp>
 #include <sge/renderer/index/dynamic/make_format.hpp>
 #include <sge/renderer/parameters/object.hpp>
@@ -315,20 +316,22 @@ try
 
 	typedef sge::renderer::index::format_16 index_format;
 
-	sge::renderer::index_buffer_scoped_ptr const index_buffer(
+	sge::renderer::index::buffer_scoped_ptr const index_buffer(
 		sys.renderer_core().create_index_buffer(
-			sge::renderer::index::dynamic::make_format<
-				index_format
-			>(),
-			sge::renderer::index_count(
-				6u
-			),
-			sge::renderer::resource_flags_field::null()
+			sge::renderer::index::buffer_parameters(
+				sge::renderer::index::dynamic::make_format<
+					index_format
+				>(),
+				sge::renderer::index::count(
+					6u
+				),
+				sge::renderer::resource_flags_field::null()
+			)
 		)
 	);
 
 	{
-		sge::renderer::scoped_index_lock const iblock(
+		sge::renderer::index::scoped_lock const iblock(
 			*index_buffer,
 			sge::renderer::lock_mode::writeonly
 		);
@@ -416,10 +419,10 @@ try
 				4u
 			),
 			sge::renderer::primitive_type::triangle_list,
-			sge::renderer::first_index(
+			sge::renderer::index::first(
 				0u
 			),
-			sge::renderer::index_count(
+			sge::renderer::index::count(
 				6u
 			)
 		);

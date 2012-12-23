@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SCENIC_RENDER_QUEUE_MESH_HPP_INCLUDED
 #define SGE_SCENIC_RENDER_QUEUE_MESH_HPP_INCLUDED
 
-#include <sge/renderer/index_buffer_fwd.hpp>
 #include <sge/renderer/matrix4.hpp>
+#include <sge/renderer/index/buffer_fwd.hpp>
 #include <sge/scenic/index_buffer_range.hpp>
 #include <sge/scenic/render_queue/index_type.hpp>
 #include <sge/scenic/render_queue/sort_index.hpp>
@@ -48,7 +48,7 @@ public:
 		sge::scenic::render_queue::index_type material,
 		sge::scenic::render_queue::index_type vertex_buffer,
 		sge::renderer::matrix4 const &,
-		sge::renderer::index_buffer &,
+		sge::renderer::index::buffer &,
 		sge::scenic::index_buffer_range const &);
 
 	sge::scenic::render_queue::index_type
@@ -60,7 +60,7 @@ public:
 	sge::renderer::matrix4 const &
 	modelview() const;
 
-	sge::renderer::index_buffer &
+	sge::renderer::index::buffer &
 	index_buffer() const;
 
 	sge::scenic::index_buffer_range const &
@@ -78,7 +78,7 @@ private:
 	sge::scenic::render_queue::index_type vertex_buffer_;
 	sge::scenic::render_queue::sort_index sort_index_;
 	sge::renderer::matrix4 modelview_;
-	sge::renderer::index_buffer *index_buffer_;
+	sge::renderer::index::buffer *index_buffer_;
 	sge::scenic::index_buffer_range index_buffer_range_;
 };
 

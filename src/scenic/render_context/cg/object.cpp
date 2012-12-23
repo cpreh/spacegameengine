@@ -272,7 +272,7 @@ sge::scenic::render_context::cg::object::fog(
 
 void
 sge::scenic::render_context::cg::object::render(
-	sge::renderer::index_buffer const &_index_buffer,
+	sge::renderer::index::buffer const &_index_buffer,
 	sge::scenic::index_buffer_range const &_index_buffer_range)
 {
 	context_.render_indexed(

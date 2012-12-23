@@ -135,7 +135,7 @@ sge::scenic::render_queue::object::current_vertex_buffer(
 void
 sge::scenic::render_queue::object::add_mesh(
 	sge::renderer::matrix4 const &_modelview,
-	sge::renderer::index_buffer &_index_buffer,
+	sge::renderer::index::buffer &_index_buffer,
 	sge::scenic::index_buffer_range const &_index_buffer_range)
 {
 	meshes_.push_back(

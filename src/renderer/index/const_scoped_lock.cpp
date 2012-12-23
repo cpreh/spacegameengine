@@ -18,17 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_BUFFER_FWD_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_BUFFER_FWD_HPP_INCLUDED
+#include <sge/renderer/index/buffer.hpp>
+#include <sge/renderer/index/buffer_types.hpp>
+#include <sge/renderer/index/const_scoped_lock.hpp>
+#include <sge/src/renderer/instantiate_const_basic_scoped_buffer_lock.hpp>
 
-namespace sge
-{
-namespace renderer
-{
 
-class index_buffer;
-
-}
-}
-
-#endif
+SGE_RENDERER_INSTANTIATE_CONST_BASIC_SCOPED_BUFFER_LOCK(
+	sge::renderer::index::buffer,
+	sge::renderer::index::buffer_types
+);

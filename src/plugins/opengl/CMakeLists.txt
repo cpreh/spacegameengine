@@ -84,6 +84,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/convert/resource_flags.hpp
 	src/plugins/opengl/include/sge/opengl/convert/to_gl_bool.hpp
 	src/plugins/opengl/include/sge/opengl/create_device_caps.hpp
+	src/plugins/opengl/include/sge/opengl/create_index_buffer.hpp
 	src/plugins/opengl/include/sge/opengl/device.hpp
 	src/plugins/opengl/include/sge/opengl/device_state/context.hpp
 	src/plugins/opengl/include/sge/opengl/device_state/context_fwd.hpp
@@ -621,6 +622,7 @@ set(
 	src/plugins/opengl/src/convert/resource_flags.cpp
 	src/plugins/opengl/src/convert/to_gl_bool.cpp
 	src/plugins/opengl/src/create_device_caps.cpp
+	src/plugins/opengl/src/create_index_buffer.cpp
 	src/plugins/opengl/src/device.cpp
 	src/plugins/opengl/src/device_state/context.cpp
 	src/plugins/opengl/src/device_state/create.cpp

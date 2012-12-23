@@ -18,31 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_CONST_SCOPED_INDEX_LOCK_HPP_INCLUDED
-#define SGE_RENDERER_CONST_SCOPED_INDEX_LOCK_HPP_INCLUDED
+#ifndef SGE_RENDERER_INDEX_COUNT_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_COUNT_HPP_INCLUDED
 
-#include <sge/renderer/const_basic_scoped_buffer_lock.hpp>
-#include <sge/renderer/index_buffer_fwd.hpp>
-#include <sge/renderer/index_buffer_types.hpp>
-#include <sge/renderer/index/dynamic/const_view.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#include <sge/renderer/size_type.hpp>
+#include <fcppt/strong_typedef.hpp>
 
 
 namespace sge
 {
 namespace renderer
 {
+namespace index
+{
 
 /**
- * \brief A scoped lock that locks a renderer::index_buffer readonly
- *
- * \see renderer::const_basic_scoped_buffer_lock
+\brief A strong typedef used to describe the number of indices in an index
+buffer
 */
-typedef renderer::const_basic_scoped_buffer_lock<
-	renderer::index_buffer,
-	renderer::index_buffer_types
-> const_scoped_index_lock;
+FCPPT_MAKE_STRONG_TYPEDEF(
+	sge::renderer::size_type,
+	count
+);
 
+}
 }
 }
 

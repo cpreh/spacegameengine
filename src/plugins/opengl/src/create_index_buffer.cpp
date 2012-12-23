@@ -18,27 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_FIRST_INDEX_HPP_INCLUDED
-#define SGE_RENDERER_FIRST_INDEX_HPP_INCLUDED
+#include <sge/opengl/create_index_buffer.hpp>
+#include <sge/opengl/index_buffer.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/renderer/index/buffer_parameters_fwd.hpp>
+#include <sge/renderer/index/buffer_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 
-#include <sge/renderer/size_type.hpp>
-#include <fcppt/strong_typedef.hpp>
 
-
-namespace sge
+sge::renderer::index::buffer_unique_ptr
+sge::opengl::create_index_buffer(
+	sge::opengl::context::system::object &_system_context,
+	sge::renderer::index::buffer_parameters const &_parameters
+)
 {
-namespace renderer
-{
-
-/**
- * \brief A typedef used to describe the first index in an index buffer
-*/
-FCPPT_MAKE_STRONG_TYPEDEF(
-	renderer::size_type,
-	first_index
-);
-
+	return
+		fcppt::make_unique_ptr<
+			sge::opengl::index_buffer
+		>(
+			_system_context,
+			_parameters
+		);
 }
-}
-
-#endif

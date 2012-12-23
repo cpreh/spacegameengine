@@ -64,7 +64,6 @@ set(
 	include/sge/renderer/const_optional_vertex_declaration_ref.hpp
 	include/sge/renderer/const_optional_vertex_declaration_ref_fwd.hpp
 	include/sge/renderer/const_raw_pointer.hpp
-	include/sge/renderer/const_scoped_index_lock.hpp
 	include/sge/renderer/const_scoped_vertex_lock.hpp
 	include/sge/renderer/const_vertex_buffer_ref.hpp
 	include/sge/renderer/const_vertex_buffer_ref_container.hpp
@@ -86,7 +85,6 @@ set(
 	include/sge/renderer/context/scoped_ffp_unique_ptr.hpp
 	include/sge/renderer/context/scoped_offscreen_target.hpp
 	include/sge/renderer/context/scoped_offscreen_target_fwd.hpp
-	include/sge/renderer/create_index_buffer_from_view.hpp
 	include/sge/renderer/create_vertex_buffer_from_view.hpp
 	include/sge/renderer/depth_stencil_buffer/optional_surface_ref.hpp
 	include/sge/renderer/depth_stencil_buffer/optional_surface_ref_fwd.hpp
@@ -133,7 +131,6 @@ set(
 	include/sge/renderer/display_mode/to_dpi.hpp
 	include/sge/renderer/epsilon.hpp
 	include/sge/renderer/exception.hpp
-	include/sge/renderer/first_index.hpp
 	include/sge/renderer/first_vertex.hpp
 	include/sge/renderer/index/any/basic_view.hpp
 	include/sge/renderer/index/any/basic_view_fwd.hpp
@@ -144,13 +141,24 @@ set(
 	include/sge/renderer/index/any/make_view.hpp
 	include/sge/renderer/index/any/view.hpp
 	include/sge/renderer/index/any/view_fwd.hpp
+	include/sge/renderer/index/buffer.hpp
+	include/sge/renderer/index/buffer_fwd.hpp
+	include/sge/renderer/index/buffer_parameters.hpp
+	include/sge/renderer/index/buffer_parameters_fwd.hpp
+	include/sge/renderer/index/buffer_scoped_ptr.hpp
+	include/sge/renderer/index/buffer_shared_ptr.hpp
+	include/sge/renderer/index/buffer_types.hpp
+	include/sge/renderer/index/buffer_unique_ptr.hpp
 	include/sge/renderer/index/const_format_16.hpp
 	include/sge/renderer/index/const_format_32.hpp
 	include/sge/renderer/index/const_proxy.hpp
 	include/sge/renderer/index/const_proxy_decl.hpp
 	include/sge/renderer/index/const_proxy_fwd.hpp
 	include/sge/renderer/index/const_proxy_impl.hpp
+	include/sge/renderer/index/const_scoped_lock.hpp
 	include/sge/renderer/index/const_tag.hpp
+	include/sge/renderer/index/count.hpp
+	include/sge/renderer/index/create_buffer_from_view.hpp
 	include/sge/renderer/index/detail/iterator_base.hpp
 	include/sge/renderer/index/difference_type.hpp
 	include/sge/renderer/index/dynamic/basic_view.hpp
@@ -164,6 +172,7 @@ set(
 	include/sge/renderer/index/dynamic/make_format.hpp
 	include/sge/renderer/index/dynamic/view.hpp
 	include/sge/renderer/index/dynamic/view_fwd.hpp
+	include/sge/renderer/index/first.hpp
 	include/sge/renderer/index/format.hpp
 	include/sge/renderer/index/format_16.hpp
 	include/sge/renderer/index/format_32.hpp
@@ -182,18 +191,12 @@ set(
 	include/sge/renderer/index/proxy_decl.hpp
 	include/sge/renderer/index/proxy_fwd.hpp
 	include/sge/renderer/index/proxy_impl.hpp
+	include/sge/renderer/index/scoped_lock.hpp
 	include/sge/renderer/index/size_type.hpp
 	include/sge/renderer/index/to_const_format.hpp
 	include/sge/renderer/index/to_nonconst_format.hpp
 	include/sge/renderer/index/view.hpp
 	include/sge/renderer/index/view_fwd.hpp
-	include/sge/renderer/index_buffer.hpp
-	include/sge/renderer/index_buffer_fwd.hpp
-	include/sge/renderer/index_buffer_scoped_ptr.hpp
-	include/sge/renderer/index_buffer_shared_ptr.hpp
-	include/sge/renderer/index_buffer_types.hpp
-	include/sge/renderer/index_buffer_unique_ptr.hpp
-	include/sge/renderer/index_count.hpp
 	include/sge/renderer/is_epsilon_equal.hpp
 	include/sge/renderer/lock_box.hpp
 	include/sge/renderer/lock_box_fwd.hpp
@@ -271,7 +274,6 @@ set(
 	include/sge/renderer/resource_flags_field.hpp
 	include/sge/renderer/resource_flags_field_fwd.hpp
 	include/sge/renderer/scalar.hpp
-	include/sge/renderer/scoped_index_lock.hpp
 	include/sge/renderer/scoped_vertex_buffer.hpp
 	include/sge/renderer/scoped_vertex_buffer_fwd.hpp
 	include/sge/renderer/scoped_vertex_declaration.hpp
@@ -843,14 +845,12 @@ set(
 	src/renderer/color_buffer/scoped_volume_lock.cpp
 	src/renderer/color_buffer/surface.cpp
 	src/renderer/color_buffer/volume.cpp
-	src/renderer/const_scoped_index_lock.cpp
 	src/renderer/const_scoped_vertex_lock.cpp
 	src/renderer/context/core.cpp
 	src/renderer/context/ffp.cpp
 	src/renderer/context/scoped_core.cpp
 	src/renderer/context/scoped_ffp.cpp
 	src/renderer/context/scoped_offscreen_target.cpp
-	src/renderer/create_index_buffer_from_view.cpp
 	src/renderer/create_vertex_buffer_from_view.cpp
 	src/renderer/depth_stencil_buffer/surface.cpp
 	src/renderer/depth_stencil_buffer/surface_parameters.cpp
@@ -900,13 +900,17 @@ set(
 	src/renderer/include/sge/src/renderer/vf/dynamic/detail/matching_color_format.hpp
 	src/renderer/include/sge/src/renderer/vf/dynamic/instantiate_basic_view.hpp
 	src/renderer/index/any/make_view.cpp
+	src/renderer/index/buffer.cpp
+	src/renderer/index/buffer_parameters.cpp
+	src/renderer/index/const_scoped_lock.cpp
+	src/renderer/index/create_buffer_from_view.cpp
 	src/renderer/index/dynamic/const_view.cpp
 	src/renderer/index/dynamic/format_stride.cpp
 	src/renderer/index/dynamic/make_const_view.cpp
 	src/renderer/index/dynamic/make_format.cpp
 	src/renderer/index/dynamic/view.cpp
+	src/renderer/index/scoped_lock.cpp
 	src/renderer/index/view.cpp
-	src/renderer/index_buffer.cpp
 	src/renderer/lock_flags/from_mode.cpp
 	src/renderer/lock_flags/read.cpp
 	src/renderer/lock_flags/write.cpp
@@ -935,7 +939,6 @@ set(
 	src/renderer/projection/orthogonal_xy.cpp
 	src/renderer/projection/perspective_af.cpp
 	src/renderer/projection/perspective_wh.cpp
-	src/renderer/scoped_index_lock.cpp
 	src/renderer/scoped_vertex_buffer.cpp
 	src/renderer/scoped_vertex_declaration.cpp
 	src/renderer/scoped_vertex_declaration_and_buffers.cpp

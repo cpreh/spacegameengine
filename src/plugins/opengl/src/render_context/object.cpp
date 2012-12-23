@@ -46,16 +46,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/activate.hpp>
 #include <sge/renderer/config.hpp>
 #include <sge/renderer/const_optional_vertex_declaration_ref_fwd.hpp>
-#include <sge/renderer/first_index.hpp>
 #include <sge/renderer/first_vertex.hpp>
-#include <sge/renderer/index_buffer_fwd.hpp>
-#include <sge/renderer/index_count.hpp>
 #include <sge/renderer/primitive_count.hpp>
 #include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/vertex_buffer_fwd.hpp>
 #include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/clear/parameters_fwd.hpp>
 #include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/index/buffer_fwd.hpp>
+#include <sge/renderer/index/count.hpp>
+#include <sge/renderer/index/first.hpp>
 #include <sge/renderer/state/core/blend/const_optional_object_ref_fwd.hpp>
 #include <sge/renderer/state/core/depth_stencil/const_optional_object_ref_fwd.hpp>
 #include <sge/renderer/state/core/rasterizer/const_optional_object_ref_fwd.hpp>
@@ -187,12 +187,12 @@ sge::opengl::render_context::object::offscreen_target(
 
 void
 sge::opengl::render_context::object::render_indexed(
-	sge::renderer::index_buffer const &_index_buffer,
+	sge::renderer::index::buffer const &_index_buffer,
 	sge::renderer::first_vertex const _first_vertex,
 	sge::renderer::vertex_count const _num_vertices,
 	sge::renderer::primitive_type::type const _primitive_type,
-	sge::renderer::first_index const _first_index,
-	sge::renderer::index_count const _num_indices
+	sge::renderer::index::first const _first_index,
+	sge::renderer::index::count const _num_indices
 )
 {
 	sge::opengl::draw_elements(
