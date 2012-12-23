@@ -51,7 +51,7 @@ public:
 
 	Sets \a vertex_buffer for \a device
 
-	\param device The device to set the vertex buffer for
+	\param context The context to set the vertex buffer for
 
 	\param vertex_buffer The vertex buffer to set
 
@@ -62,7 +62,7 @@ public:
 	*/
 	SGE_RENDERER_SYMBOL
 	scoped_buffer(
-		sge::renderer::context::core &object,
+		sge::renderer::context::core &context,
 		sge::renderer::vertex::buffer const &vertex_buffer
 	);
 

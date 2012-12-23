@@ -61,10 +61,10 @@ constructor. The following tables lists all of the default values:
 <dd>0</dd>
 
 <dt>read_mask</dt>
-<dd>~0()</dt>
+<dd>~0()</dd>
 
 <dt>write_mask</dt>
-<dd>~0</dt>
+<dd>~0</dd>
 
 <dt>fail/dept_fail/pass op</dt>
 <dd>never</dd>

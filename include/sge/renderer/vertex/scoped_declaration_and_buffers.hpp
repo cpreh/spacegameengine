@@ -67,7 +67,7 @@ public:
 	*/
 	SGE_RENDERER_SYMBOL
 	scoped_declaration_and_buffers(
-		sge::renderer::context::core &object,
+		sge::renderer::context::core &context,
 		sge::renderer::vertex::declaration const &vertex_declaration,
 		sge::renderer::vertex::const_buffer_ref_container const &vertex_buffers
 	);

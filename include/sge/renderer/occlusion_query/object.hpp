@@ -87,7 +87,7 @@ public:
 	virtual
 	sge::renderer::occlusion_query::optional_pixel_count const
 	result(
-		sge::renderer::occlusion_query::blocking_wait
+		sge::renderer::occlusion_query::blocking_wait block
 	) const = 0;
 };
 

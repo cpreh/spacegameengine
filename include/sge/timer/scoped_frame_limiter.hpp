@@ -53,7 +53,8 @@ public:
 
 	/**
 	\brief Notes the current time for later comparison
-	\param f Denotes the targeted number of ticks per seconds
+
+	\param ticks Denotes the targeted number of ticks per seconds
 
 	Any frame that's shorter than 1/f will be stalled (by calling sleep, so
 	no CPU is consumed).
@@ -61,7 +62,7 @@ public:
 	SGE_TIMER_SYMBOL
 	explicit
 	scoped_frame_limiter(
-		ticks_per_second
+		ticks_per_second ticks
 	);
 
 	/**

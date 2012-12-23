@@ -40,10 +40,6 @@ Fills sprite geometry from the sprites in \a _range into a new slice obtained
 from \a _buffers. \a _compare is used to determine which sprites can be
 rendered together.
 
-\tparam Range \ref sprite_range_concept
-\tparam Compare \ref sprite_compare_concept
-\tparam Buffers \ref sprite_buffers_concept
-
 \param _range The sprite range to use
 
 \param _compare The compare function to determine which sprites can be rendered
