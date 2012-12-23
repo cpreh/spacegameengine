@@ -47,7 +47,7 @@ copy_and_convert_dynamic(
 	typename sge::image::traits::view<
 		Tag
 	>::type const &_dest,
-	sge::image::algorithm::may_overlap::type const _overlap
+	sge::image::algorithm::may_overlap const _overlap
 )
 {
 	sge::image::traits::dynamic_copy_and_convert<

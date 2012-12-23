@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_CONFIG_IS_WITH_TEXTURE_POINT_SIZE_HPP_INCLUDED
 #define SGE_SPRITE_CONFIG_IS_WITH_TEXTURE_POINT_SIZE_HPP_INCLUDED
 
-#include <sge/sprite/config/texture_ownership.hpp>
+#include <sge/sprite/config/texture_ownership_fwd.hpp>
 #include <sge/sprite/config/with_texture_point_size_fwd.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -54,7 +54,7 @@ template<
 	typename TextureLevels,
 	typename PosOptions,
 	typename SizeOptions,
-	sge::sprite::config::texture_ownership::type Ownership
+	sge::sprite::config::texture_ownership Ownership
 >
 struct is_with_texture_point_size<
 	sge::sprite::config::with_texture_point_size<

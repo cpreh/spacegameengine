@@ -54,7 +54,7 @@ class visitor
 public:
 	explicit
 	visitor(
-		sge::image::algorithm::may_overlap::type const _overlap
+		sge::image::algorithm::may_overlap const _overlap
 	)
 	:
 		overlap_(
@@ -125,7 +125,7 @@ public:
 		);
 	}
 private:
-	sge::image::algorithm::may_overlap::type const overlap_;
+	sge::image::algorithm::may_overlap const overlap_;
 };
 
 }

@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/lock_base_fwd.hpp>
 #include <sge/renderer/raw_value.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/renderer/lock_flags/method.hpp>
+#include <sge/renderer/lock_flags/method_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -43,41 +43,51 @@ class lock_base
 protected:
 	lock_base();
 public:
-	typedef renderer::size_type size_type;
+	typedef sge::renderer::size_type size_type;
 
-	typedef renderer::raw_value value_type;
+	typedef sge::renderer::raw_value value_type;
 
 	typedef value_type *pointer;
 
 	typedef value_type const *const_pointer;
 
-	virtual ~lock_base();
+	virtual
+	~lock_base();
 
-	virtual void
+	virtual
+	void
 	lock() = 0;
 
-	virtual void
+	virtual
+	void
 	unlock() = 0;
 
-	virtual void
+	virtual
+	void
 	pre_unlock() = 0;
 
-	virtual void
+	virtual
+	void
 	post_copy() = 0;
 
-	virtual pointer
+	virtual
+	pointer
 	read_pointer() = 0;
 
-	virtual pointer
+	virtual
+	pointer
 	write_pointer() = 0;
 
-	virtual pointer
+	virtual
+	pointer
 	read_view_pointer() = 0;
 
-	virtual pointer
+	virtual
+	pointer
 	write_view_pointer() = 0;
 
-	virtual renderer::lock_flags::method::type
+	virtual
+	sge::renderer::lock_flags::method
 	method() const = 0;
 };
 

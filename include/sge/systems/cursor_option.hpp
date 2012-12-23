@@ -21,19 +21,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SYSTEMS_CURSOR_OPTION_HPP_INCLUDED
 #define SGE_SYSTEMS_CURSOR_OPTION_HPP_INCLUDED
 
+#include <sge/systems/cursor_option_fwd.hpp>
+
+
 namespace sge
 {
 namespace systems
 {
 
-namespace cursor_option
-{
-enum type
+enum class cursor_option
 {
 	exclusive,
 	size
 };
-}
 
 }
 }

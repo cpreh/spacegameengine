@@ -23,9 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/mizuiro_color_traits.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
+#include <sge/src/image/algorithm/convert_may_overlap.hpp>
 #include <sge/src/image/color/dynamic/view/color_layout.hpp>
 #include <mizuiro/image/algorithm/copy_different_channel_order.hpp>
 #include <mizuiro/image/algorithm/copy_same_channel_order.hpp>
+#include <mizuiro/image/algorithm/may_overlap.hpp>
 #include <fcppt/container/array_comparison.hpp>
 
 
@@ -50,9 +52,15 @@ void
 copy(
 	Source const &_source,
 	Dest const &_dest,
-	sge::image::algorithm::may_overlap::type const _overlap
+	sge::image::algorithm::may_overlap const _overlap
 )
 {
+	mizuiro::image::algorithm::may_overlap::type const mizuiro_overlap(
+		sge::image::algorithm::convert_may_overlap(
+			_overlap
+		)
+	);
+
 	if(
 		sge::image::color::dynamic::view::color_layout(
 			_source
@@ -65,13 +73,13 @@ copy(
 		mizuiro::image::algorithm::copy_same_channel_order(
 			_source,
 			_dest,
-			_overlap
+			mizuiro_overlap
 		);
 	else
 		mizuiro::image::algorithm::copy_different_channel_order(
 			_source,
 			_dest,
-			_overlap
+			mizuiro_overlap
 		);
 }
 

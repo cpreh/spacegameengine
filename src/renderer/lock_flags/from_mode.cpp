@@ -24,19 +24,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/unreachable.hpp>
 
 
-sge::renderer::lock_flags::method::type
+sge::renderer::lock_flags::method
 sge::renderer::lock_flags::from_mode(
-	renderer::lock_mode::type const _mode
+	sge::renderer::lock_mode const _mode
 )
 {
 	switch(
 		_mode
 	)
 	{
-	case renderer::lock_mode::writeonly:
-		return lock_flags::method::write;
-	case renderer::lock_mode::readwrite:
-		return lock_flags::method::readwrite;
+	case sge::renderer::lock_mode::writeonly:
+		return sge::renderer::lock_flags::method::write;
+	case sge::renderer::lock_mode::readwrite:
+		return sge::renderer::lock_flags::method::readwrite;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

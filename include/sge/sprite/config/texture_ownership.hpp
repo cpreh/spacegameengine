@@ -21,6 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_CONFIG_TEXTURE_OWNERSHIP_HPP_INCLUDED
 #define SGE_SPRITE_CONFIG_TEXTURE_OWNERSHIP_HPP_INCLUDED
 
+#include <sge/sprite/config/texture_ownership_fwd.hpp>
+
+
 namespace sge
 {
 namespace sprite
@@ -28,15 +31,12 @@ namespace sprite
 namespace config
 {
 
-namespace texture_ownership
-{
-enum type
+enum class texture_ownership
 {
 	reference,
 	shared
 };
 
-}
 }
 }
 }

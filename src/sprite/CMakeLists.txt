@@ -10,6 +10,7 @@ set(
 	include/sge/sprite/buffers/object.hpp
 	include/sge/sprite/buffers/offset_object.hpp
 	include/sge/sprite/buffers/option.hpp
+	include/sge/sprite/buffers/option_fwd.hpp
 	include/sge/sprite/buffers/option_to_resource_flags.hpp
 	include/sge/sprite/buffers/parameters.hpp
 	include/sge/sprite/buffers/parameters_fwd.hpp
@@ -67,9 +68,11 @@ set(
 	include/sge/sprite/config/point_size_fwd.hpp
 	include/sge/sprite/config/size_choice.hpp
 	include/sge/sprite/config/texture_coordinates.hpp
+	include/sge/sprite/config/texture_coordinates_fwd.hpp
 	include/sge/sprite/config/texture_level_count.hpp
 	include/sge/sprite/config/texture_level_count_fwd.hpp
 	include/sge/sprite/config/texture_ownership.hpp
+	include/sge/sprite/config/texture_ownership_fwd.hpp
 	include/sge/sprite/config/type_choices.hpp
 	include/sge/sprite/config/type_choices_fwd.hpp
 	include/sge/sprite/config/unit_type.hpp
@@ -286,6 +289,7 @@ set(
 	include/sge/sprite/process/default_geometry_options.hpp
 	include/sge/sprite/process/default_options.hpp
 	include/sge/sprite/process/geometry_options.hpp
+	include/sge/sprite/process/geometry_options_fwd.hpp
 	include/sge/sprite/process/is_options.hpp
 	include/sge/sprite/process/one.hpp
 	include/sge/sprite/process/one_with_options.hpp
@@ -365,6 +369,7 @@ set(
 	include/sge/sprite/state/set.hpp
 	include/sge/sprite/state/unset.hpp
 	include/sge/sprite/state/vertex_options.hpp
+	include/sge/sprite/state/vertex_options_fwd.hpp
 	include/sge/sprite/state/with_blend.hpp
 	include/sge/sprite/state/with_blend_fwd.hpp
 	include/sge/sprite/state/with_rasterizer.hpp

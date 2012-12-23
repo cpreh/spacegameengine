@@ -5,6 +5,7 @@ set(
 	include/sge/image/algorithm/fill.hpp
 	include/sge/image/algorithm/invalid_copy.hpp
 	include/sge/image/algorithm/may_overlap.hpp
+	include/sge/image/algorithm/may_overlap_fwd.hpp
 	include/sge/image/algorithm/print.hpp
 	include/sge/image/box.hpp
 	include/sge/image/box_fwd.hpp
@@ -80,8 +81,10 @@ set(
 	include/sge/image/view/to_const.hpp
 	include/sge/image/view/wrap.hpp
 	include/sge/image/view/wrapped_type.hpp
+	src/image/algorithm/convert_may_overlap.cpp
 	src/image/exception.cpp
 	src/image/file_exception.cpp
+	src/image/include/sge/src/image/algorithm/convert_may_overlap.hpp
 	src/image/include/sge/src/image/algorithm/copy_and_convert_dynamic.hpp
 	src/image/include/sge/src/image/algorithm/copy_and_convert_impl.hpp
 	src/image/include/sge/src/image/algorithm/copy_and_convert_static.hpp

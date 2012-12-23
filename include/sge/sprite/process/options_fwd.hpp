@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_PROCESS_OPTIONS_FWD_HPP_INCLUDED
 #define SGE_SPRITE_PROCESS_OPTIONS_FWD_HPP_INCLUDED
 
-#include <sge/sprite/process/geometry_options.hpp>
+#include <sge/sprite/process/geometry_options_fwd.hpp>
 
 
 namespace sge
@@ -32,7 +32,7 @@ namespace process
 {
 
 template<
-	sge::sprite::process::geometry_options::type
+	sge::sprite::process::geometry_options
 >
 struct options;
 

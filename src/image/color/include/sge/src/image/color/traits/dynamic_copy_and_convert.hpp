@@ -53,7 +53,7 @@ struct dynamic_copy_and_convert<
 		typename sge::image::traits::view<
 			Tag
 		>::type const &_dest,
-		sge::image::algorithm::may_overlap::type const _overlap
+		sge::image::algorithm::may_overlap const _overlap
 	)
 	{
 		sge::image::color::dynamic::algorithm::copy_and_convert<

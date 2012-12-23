@@ -37,7 +37,7 @@ sge::sprite::buffers::with_declaration<
 	Buffers
 >::with_declaration(
 	sge::renderer::device::core &_device,
-	sge::sprite::buffers::option::type const _buffers_option
+	sge::sprite::buffers::option const _buffers_option
 )
 :
 	vertex_declaration_(

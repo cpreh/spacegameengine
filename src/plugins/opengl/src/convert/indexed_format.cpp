@@ -26,16 +26,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 GLenum
 sge::opengl::convert::index_format(
-	renderer::index::dynamic::format::type const _format
+	sge::renderer::index::dynamic::format const _format
 )
 {
 	switch(
 		_format
 	)
 	{
-	case renderer::index::dynamic::format::i16:
+	case sge::renderer::index::dynamic::format::i16:
 		return GL_UNSIGNED_SHORT;
-	case renderer::index::dynamic::format::i32:
+	case sge::renderer::index::dynamic::format::i32:
 		return GL_UNSIGNED_INT;
 	}
 

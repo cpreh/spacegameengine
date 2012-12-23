@@ -51,7 +51,7 @@ public:
 
 	single(
 		sge::sprite::buffers::parameters const &,
-		sge::sprite::buffers::option::type
+		sge::sprite::buffers::option
 	);
 
 	~single();
@@ -74,7 +74,7 @@ private:
 
 	sge::sprite::buffers::parameters const parameters_;
 
-	sge::sprite::buffers::option::type const buffers_option_;
+	sge::sprite::buffers::option const buffers_option_;
 
 	buffers_object buffers_object_;
 

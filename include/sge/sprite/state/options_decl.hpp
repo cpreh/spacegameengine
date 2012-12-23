@@ -46,7 +46,7 @@ public:
 
 	explicit
 	options(
-		sge::sprite::state::vertex_options::type
+		sge::sprite::state::vertex_options
 	);
 
 	options &
@@ -58,7 +58,7 @@ public:
 	options &
 	no_transform_state();
 
-	sge::sprite::state::vertex_options::type
+	sge::sprite::state::vertex_options
 	vertex_options() const;
 
 	template<
@@ -75,7 +75,7 @@ public:
 	elements_type const &
 	elements() const;
 private:
-	sge::sprite::state::vertex_options::type vertex_options_;
+	sge::sprite::state::vertex_options vertex_options_;
 
 	elements_type elements_;
 };

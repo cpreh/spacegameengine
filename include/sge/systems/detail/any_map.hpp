@@ -36,7 +36,7 @@ namespace detail
 {
 
 typedef std::map<
-	sge::systems::detail::any_key::type,
+	sge::systems::detail::any_key,
 	sge::systems::detail::any
 > any_map;
 

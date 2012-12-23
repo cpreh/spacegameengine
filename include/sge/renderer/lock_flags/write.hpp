@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_LOCK_FLAGS_WRITE_HPP_INCLUDED
 
 #include <sge/renderer/symbol.hpp>
-#include <sge/renderer/lock_flags/method.hpp>
+#include <sge/renderer/lock_flags/method_fwd.hpp>
 
 
 namespace sge
@@ -35,7 +35,7 @@ namespace lock_flags
 SGE_RENDERER_SYMBOL
 bool
 write(
-	lock_flags::method::type
+	sge::renderer::lock_flags::method
 );
 
 }

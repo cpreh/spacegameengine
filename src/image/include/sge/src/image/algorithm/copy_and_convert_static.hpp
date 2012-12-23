@@ -49,7 +49,7 @@ copy_and_convert_static(
 	typename sge::image::traits::view<
 		Tag
 	>::type const &_dest,
-	sge::image::algorithm::may_overlap::type const _overlap
+	sge::image::algorithm::may_overlap const _overlap
 )
 {
 	fcppt::variant::apply_binary(
@@ -60,7 +60,9 @@ copy_and_convert_static(
 				>::type
 			>::type
 		>(
-			_overlap
+			sge::image::convert_may_overlap(
+				_overlap
+			)
 		),
 		_src.get(),
 		_dest.get()

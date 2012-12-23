@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/src/systems/make_any_key.hpp>
 #include <sge/systems/detail/any.hpp>
-#include <sge/systems/detail/any_types.hpp>
+#include <sge/systems/detail/any_key.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 
 
@@ -29,7 +29,7 @@ namespace
 
 struct make_key_visitor
 {
-	typedef sge::systems::detail::any_key::type result_type;
+	typedef sge::systems::detail::any_key result_type;
 
 #define SGE_SYSTEMS_MAKE_KEY_CASE(\
 	type,\
@@ -92,7 +92,7 @@ struct make_key_visitor
 
 }
 
-sge::systems::detail::any_key::type
+sge::systems::detail::any_key
 sge::systems::make_any_key(
 	sge::systems::detail::any const &_any
 )

@@ -52,7 +52,7 @@ public:
 			StateChoices
 		> const &_parameters,
 		sge::renderer::vertex_buffer const &_vertex_buffer,
-		sge::sprite::state::vertex_options::type const &_options
+		sge::sprite::state::vertex_options const &_options
 	)
 	:
 		scoped_vertex_declaration_(

@@ -21,6 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_INDEX_DYNAMIC_FORMAT_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_DYNAMIC_FORMAT_HPP_INCLUDED
 
+#include <sge/renderer/index/dynamic/format_fwd.hpp>
+
+
 namespace sge
 {
 namespace renderer
@@ -30,14 +33,11 @@ namespace index
 namespace dynamic
 {
 
-namespace format
-{
-enum type
+enum class format
 {
 	i16,
 	i32
 };
-}
 
 }
 }

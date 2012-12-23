@@ -37,7 +37,7 @@ sge::systems::modules::renderer::find_plugin(
 	sge::renderer::plugin::collection const &_collection,
 	sge::systems::optional_name const &_name,
 	sge::renderer::caps::system_field const &_caps,
-	sge::systems::renderer_caps::type const _renderer_caps
+	sge::systems::renderer_caps const _renderer_caps
 )
 {
 	return

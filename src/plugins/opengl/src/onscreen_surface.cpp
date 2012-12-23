@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/convert/color_to_format.hpp>
 #include <sge/opengl/convert/color_to_format_type.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/pixel_unit.hpp>
 #include <sge/renderer/color_buffer/surface.hpp>
 #include <awl/window/object.hpp>
@@ -113,7 +114,7 @@ sge::opengl::onscreen_surface::lock(
 sge::renderer::color_buffer::surface::view const
 sge::opengl::onscreen_surface::lock(
 	sge::renderer::color_buffer::surface::lock_area const &,
-	sge::renderer::lock_mode::type
+	sge::renderer::lock_mode
 )
 {
 	FCPPT_ASSERT_UNIMPLEMENTED_MESSAGE(

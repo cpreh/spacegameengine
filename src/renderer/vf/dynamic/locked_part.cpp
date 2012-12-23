@@ -29,7 +29,7 @@ sge::renderer::vf::dynamic::locked_part::locked_part(
 	sge::renderer::raw_pointer const _data,
 	sge::renderer::first_vertex const _pos,
 	sge::renderer::vertex_count const _count,
-	sge::renderer::lock_flags::method::type const _lock_flags
+	sge::renderer::lock_flags::method const _lock_flags
 )
 :
 	data_(
@@ -65,7 +65,7 @@ sge::renderer::vf::dynamic::locked_part::count() const
 	return count_;
 }
 
-sge::renderer::lock_flags::method::type
+sge::renderer::lock_flags::method
 sge::renderer::vf::dynamic::locked_part::lock_flags() const
 {
 	return lock_flags_;

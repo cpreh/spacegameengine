@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/resource_flags_field_fwd.hpp>
 #include <sge/sprite/symbol.hpp>
-#include <sge/sprite/buffers/option.hpp>
+#include <sge/sprite/buffers/option_fwd.hpp>
 
 
 namespace sge
@@ -36,7 +36,7 @@ namespace buffers
 SGE_SPRITE_SYMBOL
 sge::renderer::resource_flags_field const
 option_to_resource_flags(
-	sge::sprite::buffers::option::type
+	sge::sprite::buffers::option
 );
 
 }

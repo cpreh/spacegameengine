@@ -42,6 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/mipmap/create.hpp>
 #include <sge/opengl/texture/mipmap/parameters.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/lock_flags/from_mode.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
 #include <sge/renderer/lock_flags/read.hpp>
@@ -175,7 +176,7 @@ sge::opengl::texture::basic_buffer<
 	Types
 >::lock(
 	lock_area const &_area,
-	sge::renderer::lock_mode::type const _mode
+	sge::renderer::lock_mode const _mode
 )
 {
 	this->lock_me(
@@ -304,7 +305,7 @@ sge::opengl::texture::basic_buffer<
 	Types
 >::lock_me(
 	lock_area const &_lock_area,
-	sge::renderer::lock_flags::method::type const _method
+	sge::renderer::lock_flags::method const _method
 ) const
 {
 	if(

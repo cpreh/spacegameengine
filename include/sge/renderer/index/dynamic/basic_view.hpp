@@ -49,17 +49,17 @@ class basic_view
 public:
 	typedef typename boost::mpl::if_c<
 		IsConst,
-		renderer::const_raw_pointer,
-		renderer::raw_pointer
+		sge::renderer::const_raw_pointer,
+		sge::renderer::raw_pointer
 	>::type pointer;
 
 	typedef renderer::size_type size_type;
 
 	SGE_RENDERER_SYMBOL
-	explicit basic_view(
+	basic_view(
 		pointer,
 		size_type,
-		dynamic::format::type
+		sge::renderer::index::dynamic::format
 	);
 
 	SGE_RENDERER_SYMBOL
@@ -71,14 +71,14 @@ public:
 	size() const;
 
 	SGE_RENDERER_SYMBOL
-	dynamic::format::type
+	sge::renderer::index::dynamic::format
 	format() const;
 private:
 	pointer data_;
 
 	size_type size_;
 
-	dynamic::format::type format_;
+	sge::renderer::index::dynamic::format format_;
 };
 
 }

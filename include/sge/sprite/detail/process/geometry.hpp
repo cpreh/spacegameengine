@@ -41,7 +41,7 @@ namespace process
 {
 
 template<
-	sge::sprite::process::geometry_options::type Options,
+	sge::sprite::process::geometry_options Options,
 	typename Choices,
 	typename Range,
 	typename Buffers,
@@ -71,7 +71,7 @@ geometry(
 }
 
 template<
-	sge::sprite::process::geometry_options::type Options,
+	sge::sprite::process::geometry_options Options,
 	typename Choices,
 	typename Range,
 	typename Buffers,

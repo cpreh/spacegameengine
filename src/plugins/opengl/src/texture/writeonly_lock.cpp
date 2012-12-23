@@ -30,17 +30,17 @@ sge::opengl::texture::writeonly_lock::writeonly_lock(
 	sge::opengl::context::system::object &_system_context,
 	size_type const _lock_size,
 	size_type const _stride,
-	renderer::resource_flags_field const &_flags
+	sge::renderer::resource_flags_field const &_flags
 )
 :
 	buffer_(
 		sge::opengl::context::use<
-			opengl::buffer::pbo_context
+			sge::opengl::buffer::pbo_context
 		>(
 			_system_context
 		).impl(),
 		sge::opengl::context::use<
-			opengl::buffer::pbo_context
+			sge::opengl::buffer::pbo_context
 		>(
 			_system_context
 		).pixel_unpack_buffer_type(),
@@ -89,7 +89,8 @@ sge::opengl::texture::writeonly_lock::read_pointer()
 sge::opengl::texture::writeonly_lock::pointer
 sge::opengl::texture::writeonly_lock::write_pointer()
 {
-	return buffer_.raw_buffer();
+	return
+		buffer_.raw_buffer();
 }
 
 sge::opengl::texture::writeonly_lock::pointer
@@ -101,11 +102,13 @@ sge::opengl::texture::writeonly_lock::read_view_pointer()
 sge::opengl::texture::writeonly_lock::pointer
 sge::opengl::texture::writeonly_lock::write_view_pointer()
 {
-	return buffer_.data();
+	return
+		buffer_.data();
 }
 
-sge::renderer::lock_flags::method::type
+sge::renderer::lock_flags::method
 sge::opengl::texture::writeonly_lock::method() const
 {
-	return renderer::lock_flags::method::write;
+	return
+		sge::renderer::lock_flags::method::write;
 }

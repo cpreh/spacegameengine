@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/readwrite_lock.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
-#include <fcppt/container/raw_vector_impl.hpp>
+#include <sge/renderer/lock_flags/method.hpp>
 
 
 sge::opengl::texture::readwrite_lock::readwrite_lock(
@@ -29,7 +29,7 @@ sge::opengl::texture::readwrite_lock::readwrite_lock(
 	size_type const _read_size,
 	size_type const _write_size,
 	size_type const _stride,
-	renderer::resource_flags_field const &_flags
+	sge::renderer::resource_flags_field const &_flags
 )
 :
 	read_lock_(
@@ -78,29 +78,34 @@ sge::opengl::texture::readwrite_lock::post_copy()
 sge::opengl::texture::readwrite_lock::pointer
 sge::opengl::texture::readwrite_lock::read_pointer()
 {
-	return read_lock_.read_pointer();
+	return
+		read_lock_.read_pointer();
 }
 
 sge::opengl::texture::readwrite_lock::pointer
 sge::opengl::texture::readwrite_lock::write_pointer()
 {
-	return write_lock_.write_pointer();
+	return
+		write_lock_.write_pointer();
 }
 
 sge::opengl::texture::readwrite_lock::pointer
 sge::opengl::texture::readwrite_lock::read_view_pointer()
 {
-	return read_lock_.read_view_pointer();
+	return
+		read_lock_.read_view_pointer();
 }
 
 sge::opengl::texture::readwrite_lock::pointer
 sge::opengl::texture::readwrite_lock::write_view_pointer()
 {
-	return write_lock_.write_view_pointer();
+	return
+		write_lock_.write_view_pointer();
 }
 
-sge::renderer::lock_flags::method::type
+sge::renderer::lock_flags::method
 sge::opengl::texture::readwrite_lock::method() const
 {
-	return renderer::lock_flags::method::readwrite;
+	return
+		renderer::lock_flags::method::readwrite;
 }

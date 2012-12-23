@@ -26,18 +26,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 GLenum
 sge::opengl::buffer::normal_lock_method(
-	sge::renderer::lock_flags::method::type const _method
+	sge::renderer::lock_flags::method const _method
 )
 {
 	switch(
 		_method
 	)
 	{
-	case renderer::lock_flags::method::read:
+	case sge::renderer::lock_flags::method::read:
 		return GL_READ_ONLY;
-	case renderer::lock_flags::method::write:
+	case sge::renderer::lock_flags::method::write:
 		return GL_WRITE_ONLY;
-	case renderer::lock_flags::method::readwrite:
+	case sge::renderer::lock_flags::method::readwrite:
 		return GL_READ_WRITE;
 	}
 

@@ -26,18 +26,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 GLenum
 sge::opengl::buffer::range_lock_method(
-	renderer::lock_flags::method::type const _method
+	sge::renderer::lock_flags::method const _method
 )
 {
 	switch(
 		_method
 	)
 	{
-	case renderer::lock_flags::method::read:
+	case sge::renderer::lock_flags::method::read:
 		return GL_MAP_READ_BIT;
-	case renderer::lock_flags::method::write:
+	case sge::renderer::lock_flags::method::write:
 		return GL_MAP_WRITE_BIT |GL_MAP_INVALIDATE_RANGE_BIT;
-	case renderer::lock_flags::method::readwrite:
+	case sge::renderer::lock_flags::method::readwrite:
 		return GL_MAP_READ_BIT | GL_MAP_WRITE_BIT;
 	}
 

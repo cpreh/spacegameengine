@@ -21,14 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SYSTEMS_WITH_RENDERER_HPP_INCLUDED
 #define SGE_SYSTEMS_WITH_RENDERER_HPP_INCLUDED
 
-#include <sge/systems/renderer_caps.hpp>
+#include <sge/systems/renderer_caps_fwd.hpp>
 #include <sge/systems/renderer_fwd.hpp>
 #include <sge/systems/with_renderer_fwd.hpp>
 #include <sge/systems/with_window_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/bool.hpp>
-#include <boost/mpl/integral_c.hpp>
 #include <boost/mpl/vector/vector10.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -38,12 +38,12 @@ namespace systems
 {
 
 template<
-	sge::systems::renderer_caps::type Caps
+	sge::systems::renderer_caps Caps
 >
 struct with_renderer
 {
-	typedef boost::mpl::integral_c<
-		sge::systems::renderer_caps::type,
+	typedef std::integral_constant<
+		sge::systems::renderer_caps,
 		Caps
 	> caps;
 

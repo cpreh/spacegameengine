@@ -36,7 +36,7 @@ sge::renderer::texture::basic_scoped_lock<
 	Texture
 >::basic_scoped_lock(
 	Texture &_texture,
-	sge::renderer::lock_mode::type const _mode
+	sge::renderer::lock_mode const _mode
 )
 :
 	lock_(
@@ -58,7 +58,7 @@ sge::renderer::texture::basic_scoped_lock<
 >::basic_scoped_lock(
 	Texture &_texture,
 	lock_area const &_area,
-	sge::renderer::lock_mode::type const _mode
+	sge::renderer::lock_mode const _mode
 )
 :
 	lock_(

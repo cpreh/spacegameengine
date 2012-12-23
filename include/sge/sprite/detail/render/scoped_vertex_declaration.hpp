@@ -50,7 +50,7 @@ public:
 		sge::sprite::render::parameters<
 			StateChoices
 		> const &_parameters,
-		sge::sprite::state::vertex_options::type const &_options
+		sge::sprite::state::vertex_options const &_options
 	)
 	:
 		render_context_(

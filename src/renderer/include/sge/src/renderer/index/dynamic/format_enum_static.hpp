@@ -23,16 +23,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/index/format_is_16.hpp>
 #include <sge/renderer/index/format_is_32.hpp>
-#include <sge/renderer/index/i16.hpp>
-#include <sge/renderer/index/i32.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/integral_c.hpp>
-#include <boost/type_traits/is_same.hpp>
 #include <boost/utility/enable_if.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -62,17 +59,18 @@ template<
 struct format_enum_static<
 	Format,
 	typename boost::enable_if<
-		index::format_is_16<
+		sge::renderer::index::format_is_16<
 			Format
 		>
 	>::type
 >
 :
-boost::mpl::integral_c<
-	format::type,
-	format::i16
+std::integral_constant<
+	sge::renderer::index::dynamic::format,
+	sge::renderer::index::dynamic::format::i16
 >
-{};
+{
+};
 
 template<
 	typename Format
@@ -80,17 +78,18 @@ template<
 struct format_enum_static<
 	Format,
 	typename boost::enable_if<
-		index::format_is_32<
+		sge::renderer::index::format_is_32<
 			Format
 		>
 	>::type
 >
 :
-boost::mpl::integral_c<
-	format::type,
-	format::i32
+std::integral_constant<
+	sge::renderer::index::dynamic::format,
+	sge::renderer::index::dynamic::format::i32
 >
-{};
+{
+};
 
 FCPPT_PP_POP_WARNING
 

@@ -21,13 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_INDEX_FORMAT_IS_16_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_FORMAT_IS_16_HPP_INCLUDED
 
-#include <sge/renderer/index/format.hpp>
 #include <sge/renderer/index/i16.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/type_traits/is_same.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -46,9 +45,9 @@ template<
 >
 struct format_is_16
 :
-boost::is_same<
+std::is_same<
 	typename Format::index_type,
-	index::i16
+	sge::renderer::index::i16
 >
 {
 };

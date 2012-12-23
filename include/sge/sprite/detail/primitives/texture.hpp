@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_PRIMITIVES_TEXTURE_HPP_INCLUDED
 
 #include <sge/sprite/config/texture_coordinates.hpp>
-#include <sge/sprite/config/texture_ownership.hpp>
+#include <sge/sprite/config/texture_ownership_fwd.hpp>
 #include <sge/sprite/detail/primitives/texture_coordinates.hpp>
 #include <sge/sprite/detail/primitives/texture_ptr.hpp>
 #include <sge/sprite/detail/primitives/texture_repetition.hpp>
@@ -42,15 +42,15 @@ namespace primitives
 template<
 	typename Choices,
 	typename TextureLevels,
-	sge::sprite::config::texture_coordinates::type,
-	sge::sprite::config::texture_ownership::type
+	sge::sprite::config::texture_coordinates,
+	sge::sprite::config::texture_ownership
 >
 struct texture;
 
 template<
 	typename Choices,
 	typename TextureLevels,
-	sge::sprite::config::texture_ownership::type Ownership
+	sge::sprite::config::texture_ownership Ownership
 >
 struct texture<
 	Choices,
@@ -77,7 +77,7 @@ struct texture<
 template<
 	typename Choices,
 	typename TextureLevels,
-	sge::sprite::config::texture_ownership::type Ownership
+	sge::sprite::config::texture_ownership Ownership
 >
 struct texture<
 	Choices,
@@ -103,7 +103,7 @@ struct texture<
 template<
 	typename Choices,
 	typename TextureLevels,
-	sge::sprite::config::texture_ownership::type Ownership
+	sge::sprite::config::texture_ownership Ownership
 >
 struct texture<
 	Choices,

@@ -32,13 +32,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 )\
 macro(\
 	sge::renderer::index::format_16\
-)\
+);\
 macro(\
 	sge::renderer::index::format_32\
-)\
+);\
 macro(\
 	sge::renderer::index::const_format_16\
-)\
+);\
 macro(\
 	sge::renderer::index::const_format_32\
 )

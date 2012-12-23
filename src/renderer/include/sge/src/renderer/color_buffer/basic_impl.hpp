@@ -73,7 +73,7 @@ typename sge::renderer::color_buffer::basic<
 sge::renderer::color_buffer::basic<
 	Dim
 >::lock(
-	sge::renderer::lock_mode::type const _mode
+	sge::renderer::lock_mode const _mode
 )
 {
 	return

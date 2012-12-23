@@ -25,17 +25,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 bool
 sge::renderer::lock_flags::write(
-	lock_flags::method::type const _method
+	sge::renderer::lock_flags::method const _method
 )
 {
 	switch(
 		_method
 	)
 	{
-	case lock_flags::method::write:
-	case lock_flags::method::readwrite:
+	case sge::renderer::lock_flags::method::write:
+	case sge::renderer::lock_flags::method::readwrite:
 		return true;
-	case lock_flags::method::read:
+	case sge::renderer::lock_flags::method::read:
 		return false;
 	}
 

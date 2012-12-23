@@ -35,7 +35,7 @@ void
 sge::imageds2d::algorithm::copy(
 	sge::imageds2d::view::const_object const &_src,
 	sge::imageds2d::view::object const &_dest,
-	sge::image::algorithm::may_overlap::type const _overlap
+	sge::image::algorithm::may_overlap const _overlap
 )
 {
 	sge::image::algorithm::copy<

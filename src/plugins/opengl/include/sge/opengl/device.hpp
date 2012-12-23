@@ -46,7 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/depth_stencil_buffer/surface_unique_ptr.hpp>
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/display_mode/object_fwd.hpp>
-#include <sge/renderer/index/dynamic/format.hpp>
+#include <sge/renderer/index/dynamic/format_fwd.hpp>
 #include <sge/renderer/occlusion_query/object_unique_ptr.hpp>
 #include <sge/renderer/parameters/object_fwd.hpp>
 #include <sge/renderer/state/core/blend/object_unique_ptr.hpp>
@@ -182,7 +182,7 @@ private:
 
 	sge::renderer::index_buffer_unique_ptr
 	create_index_buffer(
-		sge::renderer::index::dynamic::format::type,
+		sge::renderer::index::dynamic::format,
 		sge::renderer::index_count,
 		sge::renderer::resource_flags_field const &
 	);

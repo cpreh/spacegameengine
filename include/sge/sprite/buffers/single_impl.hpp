@@ -44,7 +44,7 @@ sge::sprite::buffers::single<
 	Choices
 >::single(
 	sge::sprite::buffers::parameters const &_parameters,
-	sge::sprite::buffers::option::type const _buffers_option
+	sge::sprite::buffers::option const _buffers_option
 )
 :
 	parameters_(

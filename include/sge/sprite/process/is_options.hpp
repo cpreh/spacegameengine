@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_PROCESS_IS_OPTIONS_HPP_INCLUDED
 #define SGE_SPRITE_PROCESS_IS_OPTIONS_HPP_INCLUDED
 
-#include <sge/sprite/process/geometry_options.hpp>
+#include <sge/sprite/process/geometry_options_fwd.hpp>
 #include <sge/sprite/process/options_fwd.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -51,7 +51,7 @@ boost::mpl::false_
 };
 
 template<
-	sge::sprite::process::geometry_options::type GeometryOptions
+	sge::sprite::process::geometry_options GeometryOptions
 >
 struct is_options<
 	sge::sprite::process::options<

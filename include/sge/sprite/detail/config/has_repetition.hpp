@@ -51,7 +51,7 @@ struct has_repetition
 boost::mpl::bool_<
 	sge::sprite::detail::config::find_with_texture<
 		Choices
-	>::type::coordinates
+	>::type::coordinates::value
 	==
 	sge::sprite::config::texture_coordinates::repetition
 >

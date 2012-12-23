@@ -18,24 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/renderer/index/format.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/index/dynamic/make_format.hpp>
 #include <sge/src/export_function_instantiation.hpp>
 #include <sge/src/renderer/index/instantiate_all.hpp>
 #include <sge/src/renderer/index/dynamic/format_enum_static.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/type_traits/remove_const.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 template<
 	typename Format
 >
-sge::renderer::index::dynamic::format::type
+sge::renderer::index::dynamic::format
 sge::renderer::index::dynamic::make_format()
 {
 	return
-		index::dynamic::format_enum_static<
+		sge::renderer::index::dynamic::format_enum_static<
 			Format
 		>::value;
 }
@@ -45,13 +43,13 @@ sge::renderer::index::dynamic::make_format()
 )\
 template \
 SGE_EXPORT_FUNCTION_INSTANTIATION \
-sge::renderer::index::dynamic::format::type \
+sge::renderer::index::dynamic::format \
 sge::renderer::index::dynamic::make_format<\
 	cur_format \
->();
+>()
 
 SGE_RENDERER_INDEX_INSTANTIATE_ALL(
 	SGE_RENDERER_INDEX_DYNAMIC_INSTANTIATE_MAKE_FORMAT
-)
+);
 
 #undef SGE_RENDERER_INDEX_DYNAMIC_INSTANTIATE_MAKE_FORMAT

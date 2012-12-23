@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/plugin/collection_fwd.hpp>
 #include <sge/src/systems/modules/renderer/system_pair_fwd.hpp>
 #include <sge/systems/optional_name_fwd.hpp>
-#include <sge/systems/renderer_caps.hpp>
+#include <sge/systems/renderer_caps_fwd.hpp>
 
 
 namespace sge
@@ -42,7 +42,7 @@ find_plugin(
 	sge::renderer::plugin::collection const &,
 	sge::systems::optional_name const &,
 	sge::renderer::caps::system_field const &,
-	sge::systems::renderer_caps::type
+	sge::systems::renderer_caps
 );
 
 }

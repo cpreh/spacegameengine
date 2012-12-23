@@ -36,7 +36,7 @@ namespace primitives
 {
 
 template<
-	sge::sprite::config::texture_ownership::type Ownership
+	sge::sprite::config::texture_ownership Ownership
 >
 struct texture_ref_type;
 

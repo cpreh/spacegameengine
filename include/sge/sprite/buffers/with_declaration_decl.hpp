@@ -48,7 +48,7 @@ class with_declaration
 public:
 	with_declaration(
 		sge::renderer::device::core &,
-		sge::sprite::buffers::option::type
+		sge::sprite::buffers::option
 	);
 
 	~with_declaration();

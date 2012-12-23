@@ -33,23 +33,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::texture::lock_base_unique_ptr
 sge::opengl::texture::create_lock(
-	opengl::context::system::object &_system_context,
-	renderer::lock_flags::method::type const _method,
-	texture::lock_base::size_type const _read_size,
-	texture::lock_base::size_type const _write_size,
-	texture::lock_base::size_type const _stride,
-	renderer::resource_flags_field const &_flags
+	sge::opengl::context::system::object &_system_context,
+	sge::renderer::lock_flags::method const _method,
+	sge::opengl::texture::lock_base::size_type const _read_size,
+	sge::opengl::texture::lock_base::size_type const _write_size,
+	sge::opengl::texture::lock_base::size_type const _stride,
+	sge::renderer::resource_flags_field const &_flags
 )
 {
 	switch(
 		_method
 	)
 	{
-	case renderer::lock_flags::method::read:
+	case sge::renderer::lock_flags::method::read:
 		return
-			texture::lock_base_unique_ptr(
+			sge::opengl::texture::lock_base_unique_ptr(
 				fcppt::make_unique_ptr<
-					opengl::texture::readonly_lock
+					sge::opengl::texture::readonly_lock
 				>(
 					_system_context,
 					_read_size,
@@ -57,11 +57,11 @@ sge::opengl::texture::create_lock(
 					_flags
 				)
 			);
-	case renderer::lock_flags::method::write:
+	case sge::renderer::lock_flags::method::write:
 		return
-			texture::lock_base_unique_ptr(
+			sge::opengl::texture::lock_base_unique_ptr(
 				fcppt::make_unique_ptr<
-					texture::writeonly_lock
+					sge::opengl::texture::writeonly_lock
 				>(
 					_system_context,
 					_write_size,
@@ -69,11 +69,11 @@ sge::opengl::texture::create_lock(
 					_flags
 				)
 			);
-	case renderer::lock_flags::method::readwrite:
+	case sge::renderer::lock_flags::method::readwrite:
 		return
-			texture::lock_base_unique_ptr(
+			sge::opengl::texture::lock_base_unique_ptr(
 				fcppt::make_unique_ptr<
-					texture::readwrite_lock
+					sge::opengl::texture::readwrite_lock
 				>(
 					_system_context,
 					_read_size,
@@ -86,4 +86,3 @@ sge::opengl::texture::create_lock(
 
 	FCPPT_ASSERT_UNREACHABLE;
 }
-

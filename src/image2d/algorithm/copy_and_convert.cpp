@@ -38,7 +38,7 @@ void
 sge::image2d::algorithm::copy_and_convert(
 	sge::image2d::view::const_object const &_src,
 	sge::image2d::view::object const &_dest,
-	sge::image::algorithm::may_overlap::type const _overlap
+	sge::image::algorithm::may_overlap const _overlap
 )
 {
 	sge::image::algorithm::copy_and_convert<

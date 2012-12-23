@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::systems::detail::renderer::renderer(
 	sge::systems::renderer const &_parameters,
-	sge::systems::renderer_caps::type const _caps
+	sge::systems::renderer_caps const _caps
 )
 :
 	parameters_(
@@ -43,7 +43,7 @@ sge::systems::detail::renderer::parameters() const
 	return parameters_;
 }
 
-sge::systems::renderer_caps::type
+sge::systems::renderer_caps
 sge::systems::detail::renderer::caps() const
 {
 	return caps_;

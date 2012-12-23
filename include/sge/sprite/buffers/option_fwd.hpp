@@ -18,18 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/systems/detail/any_key.hpp>
-#include <sge/systems/detail/any_types_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/size.hpp>
-#include <fcppt/config/external_end.hpp>
+#ifndef SGE_SPRITE_BUFFERS_OPTION_FWD_HPP_INCLUDED
+#define SGE_SPRITE_BUFFERS_OPTION_FWD_HPP_INCLUDED
 
 
-static_assert(
-	boost::mpl::size<
-		sge::systems::detail::any_types
-	>::value
-	==
-	sge::systems::detail::any_key::size,
-	"any_types and any_key must match in the number of elements"
-);
+namespace sge
+{
+namespace sprite
+{
+namespace buffers
+{
+
+enum class option;
+
+}
+}
+}
+
+#endif

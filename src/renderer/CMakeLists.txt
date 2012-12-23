@@ -158,6 +158,7 @@ set(
 	include/sge/renderer/index/dynamic/const_view.hpp
 	include/sge/renderer/index/dynamic/const_view_fwd.hpp
 	include/sge/renderer/index/dynamic/format.hpp
+	include/sge/renderer/index/dynamic/format_fwd.hpp
 	include/sge/renderer/index/dynamic/format_stride.hpp
 	include/sge/renderer/index/dynamic/make_const_view.hpp
 	include/sge/renderer/index/dynamic/make_format.hpp
@@ -198,9 +199,11 @@ set(
 	include/sge/renderer/lock_box_fwd.hpp
 	include/sge/renderer/lock_flags/from_mode.hpp
 	include/sge/renderer/lock_flags/method.hpp
+	include/sge/renderer/lock_flags/method_fwd.hpp
 	include/sge/renderer/lock_flags/read.hpp
 	include/sge/renderer/lock_flags/write.hpp
 	include/sge/renderer/lock_mode.hpp
+	include/sge/renderer/lock_mode_fwd.hpp
 	include/sge/renderer/lock_rect.hpp
 	include/sge/renderer/lock_rect_fwd.hpp
 	include/sge/renderer/lock_rect_to_coords.hpp

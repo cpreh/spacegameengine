@@ -46,7 +46,7 @@ public:
 		sge::renderer::raw_pointer,
 		sge::renderer::first_vertex,
 		sge::renderer::vertex_count,
-		sge::renderer::lock_flags::method::type
+		sge::renderer::lock_flags::method
 	);
 
 	SGE_RENDERER_SYMBOL
@@ -62,7 +62,7 @@ public:
 	count() const;
 
 	SGE_RENDERER_SYMBOL
-	sge::renderer::lock_flags::method::type
+	sge::renderer::lock_flags::method
 	lock_flags() const;
 private:
 	sge::renderer::raw_pointer data_;
@@ -71,7 +71,7 @@ private:
 
 	sge::renderer::vertex_count count_;
 
-	sge::renderer::lock_flags::method::type lock_flags_;
+	sge::renderer::lock_flags::method lock_flags_;
 };
 
 }

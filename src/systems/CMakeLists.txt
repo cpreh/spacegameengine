@@ -16,10 +16,12 @@ set(
 	include/sge/systems/cursor_option.hpp
 	include/sge/systems/cursor_option_field.hpp
 	include/sge/systems/cursor_option_field_fwd.hpp
+	include/sge/systems/cursor_option_fwd.hpp
 	include/sge/systems/detail/add_defaults.hpp
 	include/sge/systems/detail/any.hpp
 	include/sge/systems/detail/any_fwd.hpp
 	include/sge/systems/detail/any_key.hpp
+	include/sge/systems/detail/any_key_fwd.hpp
 	include/sge/systems/detail/any_map.hpp
 	include/sge/systems/detail/any_types.hpp
 	include/sge/systems/detail/any_types_fwd.hpp
@@ -80,6 +82,7 @@ set(
 	include/sge/systems/quit_on_escape.hpp
 	include/sge/systems/renderer.hpp
 	include/sge/systems/renderer_caps.hpp
+	include/sge/systems/renderer_caps_fwd.hpp
 	include/sge/systems/renderer_fwd.hpp
 	include/sge/systems/window.hpp
 	include/sge/systems/window_fwd.hpp
@@ -107,7 +110,6 @@ set(
 	src/systems/audio_player_default.cpp
 	src/systems/charconv.cpp
 	src/systems/config.cpp
-	src/systems/detail/any_key.cpp
 	src/systems/detail/input.cpp
 	src/systems/detail/instance.cpp
 	src/systems/detail/instance_impl.cpp

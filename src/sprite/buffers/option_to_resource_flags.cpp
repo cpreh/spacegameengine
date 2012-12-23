@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer::resource_flags_field const
 sge::sprite::buffers::option_to_resource_flags(
-	sge::sprite::buffers::option::type const _options
+	sge::sprite::buffers::option const _options
 )
 {
 	switch(

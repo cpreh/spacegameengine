@@ -357,7 +357,7 @@ sge::opengl::device::create_vertex_buffer(
 
 sge::renderer::index_buffer_unique_ptr
 sge::opengl::device::create_index_buffer(
-	sge::renderer::index::dynamic::format::type const _format,
+	sge::renderer::index::dynamic::format const _format,
 	sge::renderer::index_count const _size,
 	sge::renderer::resource_flags_field const &_flags
 )

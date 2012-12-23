@@ -33,7 +33,7 @@ sge::renderer::color_buffer::basic_scoped_lock<
 	Buffer
 >::basic_scoped_lock(
 	buffer_type &_buffer,
-	sge::renderer::lock_mode::type const _mode
+	sge::renderer::lock_mode const _mode
 )
 :
 	buffer_(
@@ -55,7 +55,7 @@ sge::renderer::color_buffer::basic_scoped_lock<
 >::basic_scoped_lock(
 	buffer_type &_buffer,
 	lock_area const &_area,
-	sge::renderer::lock_mode::type const _mode
+	sge::renderer::lock_mode const _mode
 )
 :
 	buffer_(

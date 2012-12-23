@@ -35,7 +35,7 @@ template<
 sge::sprite::state::options<
 	StateChoices
 >::options(
-	sge::sprite::state::vertex_options::type const _vertex_options
+	sge::sprite::state::vertex_options const _vertex_options
 )
 :
 	vertex_options_(
@@ -106,7 +106,7 @@ sge::sprite::state::options<
 template<
 	typename StateChoices
 >
-sge::sprite::state::vertex_options::type
+sge::sprite::state::vertex_options
 sge::sprite::state::options<
 	StateChoices
 >::vertex_options() const

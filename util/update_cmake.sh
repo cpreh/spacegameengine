@@ -147,6 +147,7 @@ update_sublibrary image \
 	"include/sge/image/traits" \
 	"include/sge/image/view" \
 	"src/image/include" \
+	"src/image/algorithm" \
 	"-n"
 
 update_sublibrary image2d

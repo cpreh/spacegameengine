@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SYSTEMS_DETAIL_ANY_KEY_HPP_INCLUDED
 #define SGE_SYSTEMS_DETAIL_ANY_KEY_HPP_INCLUDED
 
+#include <sge/systems/detail/any_key_fwd.hpp>
+
 
 namespace sge
 {
@@ -29,9 +31,7 @@ namespace systems
 namespace detail
 {
 
-namespace any_key
-{
-enum type
+enum class any_key
 {
 	config,
 	window,
@@ -45,7 +45,6 @@ enum type
 	size
 };
 
-}
 }
 }
 }

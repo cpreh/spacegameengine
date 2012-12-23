@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SYSTEMS_DETAIL_IS_WITH_RENDERER_HPP_INCLUDED
 #define SGE_SYSTEMS_DETAIL_IS_WITH_RENDERER_HPP_INCLUDED
 
-#include <sge/systems/renderer_caps.hpp>
+#include <sge/systems/renderer_caps_fwd.hpp>
 #include <sge/systems/with_renderer_fwd.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -51,7 +51,7 @@ boost::mpl::false_
 };
 
 template<
-	sge::systems::renderer_caps::type Caps
+	sge::systems::renderer_caps Caps
 >
 struct is_with_renderer<
 	sge::systems::with_renderer<

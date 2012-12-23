@@ -31,7 +31,7 @@ namespace systems
 {
 
 typedef fcppt::container::bitfield::object<
-	sge::systems::cursor_option::type,
+	sge::systems::cursor_option,
 	sge::systems::cursor_option::size
 > cursor_option_field;
 

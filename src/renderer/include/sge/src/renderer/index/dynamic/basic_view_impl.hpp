@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_RENDERER_INDEX_DYNAMIC_BASIC_VIEW_IMPL_HPP_INCLUDED
 #define SGE_SRC_RENDERER_INDEX_DYNAMIC_BASIC_VIEW_IMPL_HPP_INCLUDED
 
-
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/index/dynamic/basic_view.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
@@ -31,22 +30,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<
 	bool IsConst
 >
-sge::renderer::index::dynamic::basic_view<IsConst>::basic_view(
+sge::renderer::index::dynamic::basic_view<
+	IsConst
+>::basic_view(
 	pointer const _data,
 	size_type const _size,
-	dynamic::format::type const _format
+	sge::renderer::index::dynamic::format const _format
 )
 :
-	data_(_data),
-	size_(_size),
-	format_(_format)
-{}
+	data_(
+		_data
+	),
+	size_(
+		_size
+	),
+	format_(
+		_format
+	)
+{
+}
 
 template<
 	bool IsConst
 >
-typename sge::renderer::index::dynamic::basic_view<IsConst>::pointer
-sge::renderer::index::dynamic::basic_view<IsConst>::data() const
+typename sge::renderer::index::dynamic::basic_view<
+	IsConst
+>::pointer
+sge::renderer::index::dynamic::basic_view<
+	IsConst
+>::data() const
 {
 	return data_;
 }
@@ -55,7 +67,9 @@ template<
 	bool IsConst
 >
 sge::renderer::size_type
-sge::renderer::index::dynamic::basic_view<IsConst>::size() const
+sge::renderer::index::dynamic::basic_view<
+	IsConst
+>::size() const
 {
 	return size_;
 }
@@ -63,8 +77,10 @@ sge::renderer::index::dynamic::basic_view<IsConst>::size() const
 template<
 	bool IsConst
 >
-sge::renderer::index::dynamic::format::type
-sge::renderer::index::dynamic::basic_view<IsConst>::format() const
+sge::renderer::index::dynamic::format
+sge::renderer::index::dynamic::basic_view<
+	IsConst
+>::format() const
 {
 	return format_;
 }

@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_BUFFER_RANGE_LOCK_METHOD_HPP_INCLUDED
 
 #include <sge/opengl/common.hpp>
-#include <sge/renderer/lock_flags/method.hpp>
+#include <sge/renderer/lock_flags/method_fwd.hpp>
+
 
 namespace sge
 {
@@ -33,7 +34,7 @@ namespace buffer
 
 GLenum
 range_lock_method(
-	renderer::lock_flags::method::type
+	sge::renderer::lock_flags::method
 );
 
 }

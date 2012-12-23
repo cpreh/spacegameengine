@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/raw_value.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/renderer/lock_flags/method.hpp>
+#include <sge/renderer/lock_flags/method_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -55,7 +55,7 @@ public:
 
 	typedef value_type const *const_pointer;
 
-	typedef sge::renderer::lock_flags::method::type lock_flag_type;
+	typedef sge::renderer::lock_flags::method lock_flag_type;
 
 	object(
 		sge::opengl::buffer::base &,

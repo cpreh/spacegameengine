@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/texture_level.hpp>
 #include <sge/sprite/config/custom_texture_point_pos_fwd.hpp>
 #include <sge/sprite/config/texture_level_count_fwd.hpp>
-#include <sge/sprite/config/texture_ownership.hpp>
+#include <sge/sprite/config/texture_ownership_fwd.hpp>
 #include <sge/sprite/config/with_texture_point_size_fwd.hpp>
 #include <sge/sprite/detail/primitives/texture_point_pos.hpp>
 #include <sge/sprite/detail/primitives/texture_point_size.hpp>
@@ -32,6 +32,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <majutsu/composite.hpp>
 #include <fcppt/static_assert_statement.hpp>
 #include <fcppt/mpl/append.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <type_traits>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -45,7 +48,7 @@ template<
 	sge::sprite::texture_level TextureLevels,
 	bool CustomTexturePoint,
 	typename SizeOptions,
-	sge::sprite::config::texture_ownership::type Ownership
+	sge::sprite::config::texture_ownership Ownership
 >
 struct with_texture_point_size<
 	sge::sprite::config::texture_level_count<
@@ -76,8 +79,10 @@ struct with_texture_point_size<
 
 	typedef SizeOptions point_size;
 
-	static sge::sprite::config::texture_ownership::type const
-	ownership = Ownership;
+	typedef std::integral_constant<
+		sge::sprite::config::texture_ownership,
+		Ownership
+	> ownership;
 
 	template<
 		typename Choices

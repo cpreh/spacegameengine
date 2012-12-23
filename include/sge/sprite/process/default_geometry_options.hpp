@@ -27,8 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/integral_c.hpp>
 #include <boost/utility/enable_if.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -64,8 +64,8 @@ struct default_geometry_options<
 	>::type
 >
 :
-boost::mpl::integral_c<
-	sge::sprite::process::geometry_options::type,
+std::integral_constant<
+	sge::sprite::process::geometry_options,
 	sge::sprite::process::geometry_options::sort_and_update
 >
 {
@@ -86,8 +86,8 @@ struct default_geometry_options<
 	>::type
 >
 :
-boost::mpl::integral_c<
-	sge::sprite::process::geometry_options::type,
+std::integral_constant<
+	sge::sprite::process::geometry_options,
 	sge::sprite::process::geometry_options::update
 >
 {

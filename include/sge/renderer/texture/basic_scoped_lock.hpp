@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TEXTURE_BASIC_SCOPED_LOCK_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_BASIC_SCOPED_LOCK_HPP_INCLUDED
 
-#include <sge/renderer/lock_mode.hpp>
+#include <sge/renderer/lock_mode_fwd.hpp>
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/color_buffer/basic.hpp>
 #include <sge/renderer/color_buffer/basic_scoped_lock.hpp>
@@ -53,14 +53,14 @@ public:
 	SGE_RENDERER_SYMBOL
 	basic_scoped_lock(
 		Texture &,
-		sge::renderer::lock_mode::type
+		sge::renderer::lock_mode
 	);
 
 	SGE_RENDERER_SYMBOL
 	basic_scoped_lock(
 		Texture &,
 		lock_area const &,
-		sge::renderer::lock_mode::type
+		sge::renderer::lock_mode
 	);
 
 	SGE_RENDERER_SYMBOL

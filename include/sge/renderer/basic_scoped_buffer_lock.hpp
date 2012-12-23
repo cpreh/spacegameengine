@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_BASIC_SCOPED_BUFFER_LOCK_HPP_INCLUDED
 #define SGE_RENDERER_BASIC_SCOPED_BUFFER_LOCK_HPP_INCLUDED
 
-#include <sge/renderer/lock_mode.hpp>
+#include <sge/renderer/lock_mode_fwd.hpp>
 #include <sge/renderer/npos.hpp>
 #include <sge/renderer/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -96,12 +96,12 @@ public:
 	SGE_RENDERER_SYMBOL
 	basic_scoped_buffer_lock(
 		Buffer &buffer,
-		renderer::lock_mode::type method,
+		sge::renderer::lock_mode method,
 		first_type first =
 			first_type(0u),
 		count_type count =
 			count_type(
-				renderer::npos()
+				sge::renderer::npos()
 			)
 	);
 

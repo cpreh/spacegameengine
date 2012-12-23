@@ -35,9 +35,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/is_render_target.hpp>
 #include <sge/opengl/texture/lock_base.hpp>
 #include <sge/opengl/texture/type.hpp>
-#include <sge/renderer/lock_mode.hpp>
+#include <sge/renderer/lock_mode_fwd.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
-#include <sge/renderer/lock_flags/method.hpp>
+#include <sge/renderer/lock_flags/method_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_decl.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
@@ -109,7 +109,7 @@ private:
 	view const
 	lock(
 		lock_area const &,
-		sge::renderer::lock_mode::type
+		sge::renderer::lock_mode
 	);
 
 	const_view const
@@ -124,7 +124,7 @@ private:
 	void
 	lock_me(
 		lock_area const &,
-		sge::renderer::lock_flags::method::type
+		sge::renderer::lock_flags::method
 	) const;
 
 	view const

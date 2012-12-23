@@ -24,11 +24,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/class_symbol.hpp>
 #include <sge/renderer/index_buffer_fwd.hpp>
 #include <sge/renderer/index_buffer_types.hpp>
-#include <sge/renderer/lock_mode.hpp>
+#include <sge/renderer/lock_mode_fwd.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/symbol.hpp>
-#include <sge/renderer/index/dynamic/format.hpp>
+#include <sge/renderer/index/dynamic/format_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -69,27 +69,27 @@ public:
 	/**
 	 * \copydoc renderer::index_buffer_types::first_type
 	*/
-	typedef renderer::index_buffer_types::first_type first_type;
+	typedef sge::renderer::index_buffer_types::first_type first_type;
 
 	/**
 	 * \copydoc renderer::index_buffer_types::count_type
 	*/
-	typedef renderer::index_buffer_types::count_type count_type;
+	typedef sge::renderer::index_buffer_types::count_type count_type;
 
 	/**
 	 * \copydoc renderer::index_buffer_types::view_type
 	*/
-	typedef renderer::index_buffer_types::view_type view_type;
+	typedef sge::renderer::index_buffer_types::view_type view_type;
 
 	/**
 	 * \copydoc renderer::index_buffer_types::const_view_type
 	*/
-	typedef renderer::index_buffer_types::const_view_type const_view_type;
+	typedef sge::renderer::index_buffer_types::const_view_type const_view_type;
 
 	/**
 	 * \brief The size type used count bytes of the buffer
 	*/
-	typedef renderer::size_type size_type;
+	typedef sge::renderer::size_type size_type;
 
 	/**
 	 * \brief Specifies the end of the buffer
@@ -121,9 +121,10 @@ public:
 	 * \warning The behaviour is undefined if \a method is readwrite
 	 * and the buffer hasn't been created with resource_flags::readable
 	*/
-	virtual view_type const
+	virtual
+	view_type const
 	lock(
-		renderer::lock_mode::type method,
+		sge::renderer::lock_mode method,
 		first_type first =
 			first_type(0u),
 		count_type count
@@ -150,7 +151,8 @@ public:
 	 * \warning The behaviour is undefined if \a method is readwrite
 	 * and the buffer hasn't been created with resource_flags::readable
 	*/
-	virtual const_view_type const
+	virtual
+	const_view_type const
 	lock(
 		first_type first
 			= first_type(0u),
@@ -165,29 +167,34 @@ public:
 	 *
 	 * \warning The behaviour is undefined if the buffer has not been locked
 	*/
-	virtual void
+	virtual
+	void
 	unlock() const = 0;
 
 	/**
 	 * \brief Returns the number of indices the buffer can hold
 	*/
-	virtual count_type const
+	virtual
+	count_type const
 	size() const = 0;
 
 	/**
 	 * \brief Returns the resource flags the buffer has been created with
 	*/
-	virtual resource_flags_field const
+	virtual
+	sge::renderer::resource_flags_field const
 	resource_flags() const = 0;
 
 	/**
 	 * \brief Returns the format the buffer uses
 	*/
-	virtual index::dynamic::format::type
+	virtual
+	sge::renderer::index::dynamic::format
 	format() const = 0;
 
 	SGE_RENDERER_SYMBOL
-	virtual ~index_buffer() = 0;
+	virtual
+	~index_buffer() = 0;
 };
 
 }

@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/basic_scoped_buffer_lock.hpp>
 #include <sge/renderer/lock_mode.hpp>
 
+
 template<
 	typename Buffer,
 	typename Types
@@ -33,7 +34,7 @@ sge::renderer::basic_scoped_buffer_lock<
 	Types
 >::basic_scoped_buffer_lock(
 	Buffer &_buffer,
-	renderer::lock_mode::type const _flags,
+	sge::renderer::lock_mode const _flags,
 	first_type const _first,
 	count_type const _count
 )

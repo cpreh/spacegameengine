@@ -22,14 +22,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_CONFIG_WITH_TEXTURE_HPP_INCLUDED
 
 #include <sge/sprite/texture_level.hpp>
-#include <sge/sprite/config/texture_coordinates.hpp>
+#include <sge/sprite/config/texture_coordinates_fwd.hpp>
 #include <sge/sprite/config/texture_level_count_fwd.hpp>
-#include <sge/sprite/config/texture_ownership.hpp>
+#include <sge/sprite/config/texture_ownership_fwd.hpp>
 #include <sge/sprite/config/with_texture_fwd.hpp>
 #include <sge/sprite/detail/primitives/texture.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <type_traits>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -41,8 +44,8 @@ namespace config
 
 template<
 	sge::sprite::texture_level TextureLevels,
-	sge::sprite::config::texture_coordinates::type Coordinates,
-	sge::sprite::config::texture_ownership::type Ownership
+	sge::sprite::config::texture_coordinates Coordinates,
+	sge::sprite::config::texture_ownership Ownership
 >
 struct with_texture<
 	sge::sprite::config::texture_level_count<
@@ -61,11 +64,15 @@ struct with_texture<
 		TextureLevels
 	> texture_levels;
 
-	static sge::sprite::config::texture_coordinates::type const
-	coordinates = Coordinates;
+	typedef std::integral_constant<
+		sge::sprite::config::texture_coordinates,
+		Coordinates
+	> coordinates;
 
-	static sge::sprite::config::texture_ownership::type const
-	ownership = Ownership;
+	typedef std::integral_constant<
+		sge::sprite::config::texture_ownership,
+		Ownership
+	> ownership;
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)

@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/convert/index_format.hpp>
 #include <sge/renderer/index_buffer.hpp>
+#include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/index/dynamic/format_stride.hpp>
@@ -35,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::index_buffer::index_buffer(
 	sge::opengl::context::system::object &_system_context,
-	sge::renderer::index::dynamic::format::type const _format,
+	sge::renderer::index::dynamic::format const _format,
 	sge::renderer::index_buffer::count_type const _size,
 	sge::renderer::resource_flags_field const &_flags
 )
@@ -100,7 +101,7 @@ sge::opengl::index_buffer::bind() const
 
 sge::opengl::index_buffer::view_type const
 sge::opengl::index_buffer::lock(
-	renderer::lock_mode::type const _flags,
+	sge::renderer::lock_mode const _flags,
 	first_type const _offset,
 	count_type const _range
 )
@@ -109,7 +110,7 @@ sge::opengl::index_buffer::lock(
 		this->do_lock<
 			view_type
 		>(
-			renderer::lock_flags::from_mode(
+			sge::renderer::lock_flags::from_mode(
 				_flags
 			),
 			_offset,
@@ -138,7 +139,7 @@ template<
 >
 View const
 sge::opengl::index_buffer::do_lock(
-	renderer::lock_flags::method::type const _method,
+	sge::renderer::lock_flags::method const _method,
 	first_type const _offset,
 	count_type const _range
 ) const
@@ -154,7 +155,7 @@ sge::opengl::index_buffer::do_lock(
 			buffer_.data(),
 			buffer_.lock_size()
 			/
-			renderer::index::dynamic::format_stride(
+			sge::renderer::index::dynamic::format_stride(
 				format_
 			),
 			format_
@@ -182,7 +183,7 @@ sge::opengl::index_buffer::resource_flags() const
 	return buffer_.flags();
 }
 
-sge::renderer::index::dynamic::format::type
+sge::renderer::index::dynamic::format
 sge::opengl::index_buffer::format() const
 {
 	return format_;

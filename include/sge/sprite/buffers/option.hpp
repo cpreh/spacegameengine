@@ -21,6 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_BUFFERS_OPTION_HPP_INCLUDED
 #define SGE_SPRITE_BUFFERS_OPTION_HPP_INCLUDED
 
+#include <sge/sprite/buffers/option_fwd.hpp>
+
+
 namespace sge
 {
 namespace sprite
@@ -28,14 +31,11 @@ namespace sprite
 namespace buffers
 {
 
-namespace option
-{
-enum type
+enum class option
 {
 	dynamic,
 	static_
 };
-}
 
 }
 }

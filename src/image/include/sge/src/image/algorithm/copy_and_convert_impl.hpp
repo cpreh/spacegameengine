@@ -45,7 +45,7 @@ sge::image::algorithm::copy_and_convert(
 	typename sge::image::traits::view<
 		Tag
 	>::type const &_dest,
-	sge::image::algorithm::may_overlap::type const _overlap
+	sge::image::algorithm::may_overlap const _overlap
 )
 {
 	// TODO: automatically use the static version if the dynamic one is not specialized

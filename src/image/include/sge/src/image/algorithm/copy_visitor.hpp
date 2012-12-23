@@ -22,12 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_IMAGE_ALGORITHM_COPY_VISITOR_HPP_INCLUDED
 
 #include <sge/image/mizuiro_color.hpp>
-#include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/traits/view_fwd.hpp>
 #include <sge/image/view/mizuiro_type.hpp>
 #include <sge/image/view/object.hpp>
 #include <mizuiro/nonconst_tag.hpp>
 #include <mizuiro/image/algorithm/copy.hpp>
+#include <mizuiro/image/algorithm/may_overlap.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/variant/get.hpp>
 
@@ -54,7 +54,7 @@ public:
 
 	copy_visitor(
 		view const &_dest,
-		sge::image::algorithm::may_overlap::type const _overlap
+		mizuiro::image::algorithm::may_overlap::type const _overlap
 	)
 	:
 		dest_(
@@ -99,7 +99,7 @@ public:
 private:
 	view const &dest_;
 
-	sge::image::algorithm::may_overlap::type const overlap_;
+	mizuiro::image::algorithm::may_overlap::type const overlap_;
 };
 
 }

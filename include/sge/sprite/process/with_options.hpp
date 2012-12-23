@@ -76,7 +76,7 @@ with_options(
 			_buffers.parameters().vertex_declaration()
 		),
 		sge::sprite::detail::process::geometry<
-			Options::geometry_options,
+			Options::geometry_options::value,
 			typename Buffers::choices
 		>(
 			_range,

@@ -63,7 +63,7 @@ FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 	sge::sprite::detail::primitives::texture_ref_type<
 		boost::mpl::deref<
 			Iterator
-		>::type::ownership
+		>::type::ownership::value
 	>
 	{
 	};

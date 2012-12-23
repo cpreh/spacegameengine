@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VERTEX_BUFFER_HPP_INCLUDED
 
 #include <sge/class_symbol.hpp>
-#include <sge/renderer/lock_mode.hpp>
+#include <sge/renderer/lock_mode_fwd.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/symbol.hpp>
@@ -123,7 +123,7 @@ public:
 	*/
 	virtual view_type const
 	lock(
-		lock_mode::type method,
+		sge::renderer::lock_mode method,
 		first_type first =
 			first_type(0u),
 		count_type count

@@ -18,25 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/renderer/size_type.hpp>
 #include <sge/renderer/index/i16.hpp>
 #include <sge/renderer/index/i32.hpp>
+#include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/index/dynamic/format_stride.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 
 sge::renderer::size_type
 sge::renderer::index::dynamic::format_stride(
-	dynamic::format::type const _format
+	sge::renderer::index::dynamic::format const _format
 )
 {
 	switch(
 		_format
 	)
 	{
-	case format::i16:
-		return sizeof(index::i16);
-	case format::i32:
-		return sizeof(index::i32);
+	case sge::renderer::index::dynamic::format::i16:
+		return sizeof(sge::renderer::index::i16);
+	case sge::renderer::index::dynamic::format::i32:
+		return sizeof(sge::renderer::index::i32);
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

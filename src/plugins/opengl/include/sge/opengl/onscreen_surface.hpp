@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/format.hpp>
 #include <sge/opengl/color_format.hpp>
 #include <sge/opengl/color_format_type.hpp>
-#include <sge/renderer/lock_mode.hpp>
+#include <sge/renderer/lock_mode_fwd.hpp>
 #include <sge/renderer/raw_value.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/color_buffer/surface.hpp>
@@ -61,7 +61,7 @@ private:
 	sge::renderer::color_buffer::surface::view const
 	lock(
 		sge::renderer::color_buffer::surface::lock_area const &,
-		sge::renderer::lock_mode::type
+		sge::renderer::lock_mode
 	);
 
 	void

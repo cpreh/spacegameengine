@@ -26,9 +26,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/buffer/wrapper.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/renderer/index_buffer.hpp>
-#include <sge/renderer/lock_mode.hpp>
+#include <sge/renderer/lock_mode_fwd.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
+#include <sge/renderer/lock_flags/method_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -48,9 +49,9 @@ class index_buffer
 public:
 	index_buffer(
 		sge::opengl::context::system::object &,
-		sge::renderer::index::dynamic::format::type,
+		sge::renderer::index::dynamic::format,
 		sge::renderer::index_buffer::count_type,
-		renderer::resource_flags_field const &
+		sge::renderer::resource_flags_field const &
 	);
 
 	~index_buffer();
@@ -68,7 +69,7 @@ public:
 private:
 	sge::renderer::index_buffer::view_type const
 	lock(
-		sge::renderer::lock_mode::type,
+		sge::renderer::lock_mode,
 		sge::renderer::index_buffer::first_type,
 		sge::renderer::index_buffer::count_type
 	);
@@ -84,7 +85,7 @@ private:
 	>
 	View const
 	do_lock(
-		sge::renderer::lock_flags::method::type,
+		sge::renderer::lock_flags::method,
 		sge::renderer::index_buffer::first_type,
 		sge::renderer::index_buffer::count_type
 	) const;
@@ -98,13 +99,13 @@ private:
 	sge::renderer::resource_flags_field const
 	resource_flags() const;
 
-	sge::renderer::index::dynamic::format::type
+	sge::renderer::index::dynamic::format
 	format() const;
 
 	sge::opengl::buffer::object const &
 	buffer() const;
 
-	sge::renderer::index::dynamic::format::type const format_;
+	sge::renderer::index::dynamic::format const format_;
 
 	GLenum const gl_format_;
 

@@ -22,8 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_INDEX_I32_HPP_INCLUDED
 
 #include <fcppt/config/external_begin.hpp>
-#include <boost/cstdint.hpp>
+#include <cstdint>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {
@@ -32,7 +33,7 @@ namespace renderer
 namespace index
 {
 
-typedef boost::uint32_t i32;
+typedef std::uint32_t i32;
 
 }
 }

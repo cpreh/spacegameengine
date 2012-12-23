@@ -21,39 +21,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_LOCK_MODE_HPP_INCLUDED
 #define SGE_RENDERER_LOCK_MODE_HPP_INCLUDED
 
+#include <sge/renderer/lock_mode_fwd.hpp>
+
+
 namespace sge
 {
 namespace renderer
 {
 
-/**
-\brief The namespace for the lock mode enum
-*/
-namespace lock_mode
-{
-/**
-The enum type for lock modes
-*/
-enum type
+enum class lock_mode
 {
 	/**
 	\brief Locks a resource for writing only
 
 	This is always safe to use and is the most efficient way to update a
-	buffer.
+	resource.
 	*/
 	writeonly,
 	/**
 	\brief Locks a resource for reading and writing
 
-	The contents of the resource can be read and written at the same
-	time. This can only be used if the resource has been created with
-	renderer::resource_flags::readable. Reading a resource can slow
+	The contents of the resource can be read and written at the same time.
+	This can only be used if the resource has been created with
+	sge::renderer::resource_flags::readable. Reading a resource can slow
 	locking and unlocking down a lot.
 	*/
 	readwrite
 };
-}
 
 }
 }

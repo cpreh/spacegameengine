@@ -27,10 +27,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::opengl::texture::readonly_lock::readonly_lock(
-	opengl::context::system::object &_system_context,
+	sge::opengl::context::system::object &_system_context,
 	size_type const _whole_size,
 	size_type const _stride,
-	renderer::resource_flags_field const &_flags
+	sge::renderer::resource_flags_field const &_flags
 )
 :
 	buffer_(
@@ -39,8 +39,8 @@ sge::opengl::texture::readonly_lock::readonly_lock(
 		>(
 			_system_context
 		).impl(),
-		context::use<
-			buffer::pbo_context
+		sge::opengl::context::use<
+			sge::opengl::buffer::pbo_context
 		>(
 			_system_context
 		).pixel_pack_buffer_type(),
@@ -83,7 +83,8 @@ sge::opengl::texture::readonly_lock::post_copy()
 sge::opengl::texture::readonly_lock::pointer
 sge::opengl::texture::readonly_lock::read_pointer()
 {
-	return buffer_.raw_buffer();
+	return
+		buffer_.raw_buffer();
 }
 
 sge::opengl::texture::readonly_lock::pointer
@@ -95,7 +96,8 @@ sge::opengl::texture::readonly_lock::write_pointer()
 sge::opengl::texture::readonly_lock::pointer
 sge::opengl::texture::readonly_lock::read_view_pointer()
 {
-	return buffer_.data();
+	return
+		buffer_.data();
 }
 
 sge::opengl::texture::readonly_lock::pointer
@@ -104,8 +106,9 @@ sge::opengl::texture::readonly_lock::write_view_pointer()
 	FCPPT_ASSERT_UNREACHABLE;
 }
 
-sge::renderer::lock_flags::method::type
+sge::renderer::lock_flags::method
 sge::opengl::texture::readonly_lock::method() const
 {
-	return renderer::lock_flags::method::read;
+	return
+		sge::renderer::lock_flags::method::read;
 }

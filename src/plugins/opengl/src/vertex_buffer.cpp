@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/vf/part.hpp>
+#include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/lock_flags/from_mode.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
@@ -108,7 +109,7 @@ sge::opengl::vertex_buffer::unuse(
 
 sge::opengl::vertex_buffer::view_type const
 sge::opengl::vertex_buffer::lock(
-	renderer::lock_mode::type const _flags,
+	sge::renderer::lock_mode const _flags,
 	first_type const _offset,
 	count_type const _range
 )
@@ -146,7 +147,7 @@ template<
 >
 View const
 sge::opengl::vertex_buffer::do_lock(
-	renderer::lock_flags::method::type const _method,
+	renderer::lock_flags::method const _method,
 	first_type const _offset,
 	count_type const _range
 ) const

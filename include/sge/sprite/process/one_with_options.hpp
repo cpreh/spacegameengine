@@ -69,7 +69,7 @@ one_with_options(
 )
 {
 	static_assert(
-		Options::geometry_options
+		Options::geometry_options::value
 		!=
 		sge::sprite::process::geometry_options::sort_and_update,
 		"This function can't be used with geometry_options::sort_and_udpate"

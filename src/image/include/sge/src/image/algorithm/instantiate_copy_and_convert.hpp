@@ -43,7 +43,7 @@ sge::image::algorithm::copy_and_convert< \
 	sge::image::traits::view<\
 		tag\
 	>::type const &, \
-	sge::image::algorithm::may_overlap::type \
+	sge::image::algorithm::may_overlap \
 )
 
 #endif

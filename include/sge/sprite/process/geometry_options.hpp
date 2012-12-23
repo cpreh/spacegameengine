@@ -21,6 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_PROCESS_GEOMETRY_OPTIONS_HPP_INCLUDED
 #define SGE_SPRITE_PROCESS_GEOMETRY_OPTIONS_HPP_INCLUDED
 
+#include <sge/sprite/process/geometry_options_fwd.hpp>
+
+
 namespace sge
 {
 namespace sprite
@@ -28,15 +31,7 @@ namespace sprite
 namespace process
 {
 
-/**
-\brief The namespace for the geometry_options enum
-*/
-namespace geometry_options
-{
-/**
-\brief The enum type for geometry options
-*/
-enum type
+enum class geometry_options
 {
 	/**
 	\brief Use \link sge::sprite::geometry::update \endlink
@@ -47,7 +42,6 @@ enum type
 	*/
 	sort_and_update
 };
-}
 
 }
 }

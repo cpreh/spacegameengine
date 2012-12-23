@@ -44,18 +44,18 @@ public:
 	SGE_SYSTEMS_SYMBOL
 	renderer(
 		sge::systems::renderer const &,
-		sge::systems::renderer_caps::type
+		sge::systems::renderer_caps
 	);
 
 	sge::systems::renderer const &
 	parameters() const;
 
-	sge::systems::renderer_caps::type
+	sge::systems::renderer_caps
 	caps() const;
 private:
 	sge::systems::renderer const parameters_;
 
-	sge::systems::renderer_caps::type const caps_;
+	sge::systems::renderer_caps const caps_;
 };
 
 }

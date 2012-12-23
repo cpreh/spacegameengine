@@ -31,13 +31,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<
 	typename Format
 >
-sge::renderer::index::view<Format>::view(
+sge::renderer::index::view<
+	Format
+>::view(
 	pointer const _data,
 	size_type const _size
 )
 :
-	data_(_data),
-	size_(_size)
+	data_(
+		_data
+	),
+	size_(
+		_size
+		)
 {
 	FCPPT_ASSERT_PRE(
 		data_
@@ -47,19 +53,27 @@ sge::renderer::index::view<Format>::view(
 template<
 	typename Format
 >
-sge::renderer::index::view<Format>::view(
+sge::renderer::index::view<
+	Format
+>::view(
 	nonconst_type const &_other
 )
 :
-	data_(_other.data()),
-	size_(_other.size())
+	data_(
+		_other.data()
+	),
+	size_(
+		_other.size()
+	)
 {
 }
 
 template<
 	typename Format
 >
-sge::renderer::index::view<Format>::view(
+sge::renderer::index::view<
+	Format
+>::view(
 	dynamic_view_type const &_view
 )
 :
@@ -82,8 +96,12 @@ sge::renderer::index::view<Format>::view(
 template<
 	typename Format
 >
-typename sge::renderer::index::view<Format>::pointer
-sge::renderer::index::view<Format>::data() const
+typename sge::renderer::index::view<
+	Format
+>::pointer
+sge::renderer::index::view<
+	Format
+>::data() const
 {
 	return data_;
 }
@@ -92,7 +110,9 @@ template<
 	typename Format
 >
 sge::renderer::size_type
-sge::renderer::index::view<Format>::size() const
+sge::renderer::index::view<
+	Format
+>::size() const
 {
 	return size_;
 }
@@ -100,29 +120,37 @@ sge::renderer::index::view<Format>::size() const
 template<
 	typename Format
 >
-typename sge::renderer::index::view<Format>::iterator
-sge::renderer::index::view<Format>::begin() const
+typename sge::renderer::index::view<
+	Format
+>::iterator
+sge::renderer::index::view<
+	Format
+>::begin() const
 {
 	return
 		iterator(
-			data()
+			this->data()
 		);
 }
 
 template<
 	typename Format
 >
-typename sge::renderer::index::view<Format>::iterator
-sge::renderer::index::view<Format>::end() const
+typename sge::renderer::index::view<
+	Format
+>::iterator
+sge::renderer::index::view<
+	Format
+>::end() const
 {
 	return
 		iterator(
-			begin()
+			this->begin()
 			+
 			static_cast<
 				typename iterator::difference_type
 			>(
-				size()
+				this->size()
 			)
 		);
 }
@@ -135,10 +163,10 @@ class \
 SGE_EXPORT_CLASS_INSTANTIATION \
 sge::renderer::index::view<\
 	format \
->;
+>
 
 SGE_RENDERER_INDEX_INSTANTIATE_ALL(
 	SGE_RENDERER_INDEX_DEFINE_VIEW
-)
+);
 
 #undef SGE_RENDERER_INDEX_DEFINE_VIEW

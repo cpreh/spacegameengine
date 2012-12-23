@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_ALGORITHM_MAY_OVERLAP_HPP_INCLUDED
 #define SGE_IMAGE_ALGORITHM_MAY_OVERLAP_HPP_INCLUDED
 
-#include <mizuiro/image/algorithm/may_overlap.hpp>
+#include <sge/image/algorithm/may_overlap_fwd.hpp>
 
 
 namespace sge
@@ -31,7 +31,11 @@ namespace image
 namespace algorithm
 {
 
-namespace may_overlap = mizuiro::image::algorithm::may_overlap;
+enum class may_overlap
+{
+	no,
+	yes
+};
 
 }
 }

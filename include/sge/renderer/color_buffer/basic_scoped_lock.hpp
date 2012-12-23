@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_COLOR_BUFFER_BASIC_SCOPED_LOCK_HPP_INCLUDED
 
 #include <sge/image/view/object.hpp>
-#include <sge/renderer/lock_mode.hpp>
+#include <sge/renderer/lock_mode_fwd.hpp>
 #include <sge/renderer/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -68,7 +68,7 @@ public:
 	SGE_RENDERER_SYMBOL
 	basic_scoped_lock(
 		buffer_type &buffer,
-		sge::renderer::lock_mode::type mode
+		sge::renderer::lock_mode mode
 	);
 
 	/**
@@ -91,7 +91,7 @@ public:
 	basic_scoped_lock(
 		buffer_type &buffer,
 		lock_area const &area,
-		sge::renderer::lock_mode::type mode
+		sge::renderer::lock_mode mode
 	);
 
 	/**
