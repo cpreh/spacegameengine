@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_BUFFERS_SINGLE_IMPL_HPP_INCLUDED
 
 #include <sge/renderer/resource_flags_field.hpp>
-#include <sge/renderer/vertex_buffer.hpp>
+#include <sge/renderer/vertex/buffer.hpp>
 #include <sge/sprite/count.hpp>
 #include <sge/sprite/default_initialize_class.hpp>
 #include <sge/sprite/buffers/allocate.hpp>
@@ -83,7 +83,7 @@ sge::sprite::buffers::single<
 	sge::sprite::count const _num_sprites
 )
 {
-	sge::renderer::vertex_buffer *const vb(
+	sge::renderer::vertex::buffer *const vb(
 		buffers_object_. template get<
 			sge::sprite::buffers::roles::vertex_buffer
 		>().get()

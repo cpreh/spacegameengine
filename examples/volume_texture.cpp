@@ -41,19 +41,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/noise/sample.hpp>
 #include <sge/noise/sample_parameters.hpp>
 #include <sge/noise/simplex/object.hpp>
-#include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <sge/renderer/scoped_vertex_buffer.hpp>
-#include <sge/renderer/scoped_vertex_declaration.hpp>
-#include <sge/renderer/scoped_vertex_lock.hpp>
-#include <sge/renderer/vertex_buffer.hpp>
-#include <sge/renderer/vertex_buffer_scoped_ptr.hpp>
-#include <sge/renderer/vertex_count.hpp>
-#include <sge/renderer/vertex_declaration.hpp>
-#include <sge/renderer/vertex_declaration_scoped_ptr.hpp>
 #include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/context/scoped_ffp.hpp>
@@ -101,6 +92,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/volume_scoped_ptr.hpp>
 #include <sge/renderer/texture/volume_unique_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
+#include <sge/renderer/vertex/buffer.hpp>
+#include <sge/renderer/vertex/buffer_parameters.hpp>
+#include <sge/renderer/vertex/buffer_scoped_ptr.hpp>
+#include <sge/renderer/vertex/count.hpp>
+#include <sge/renderer/vertex/declaration.hpp>
+#include <sge/renderer/vertex/declaration_parameters.hpp>
+#include <sge/renderer/vertex/declaration_scoped_ptr.hpp>
+#include <sge/renderer/vertex/first.hpp>
+#include <sge/renderer/vertex/scoped_buffer.hpp>
+#include <sge/renderer/vertex/scoped_declaration.hpp>
+#include <sge/renderer/vertex/scoped_lock.hpp>
 #include <sge/renderer/vf/format.hpp>
 #include <sge/renderer/vf/index.hpp>
 #include <sge/renderer/vf/iterator.hpp>
@@ -222,7 +224,7 @@ coord_to_texcoord(
 
 void
 fill_geometry(
-	sge::renderer::vertex_buffer &_vertex_buffer
+	sge::renderer::vertex::buffer &_vertex_buffer
 )
 {
 	pos_array const positions{{
@@ -348,7 +350,7 @@ fill_geometry(
 		)
 	}};
 
-	sge::renderer::scoped_vertex_lock const vb_lock(
+	sge::renderer::vertex::scoped_lock const vb_lock(
 		_vertex_buffer,
 		sge::renderer::lock_mode::writeonly
 	);
@@ -659,25 +661,29 @@ try
 		)
 	);
 
-	sge::renderer::vertex_declaration_scoped_ptr const vertex_declaration(
+	sge::renderer::vertex::declaration_scoped_ptr const vertex_declaration(
 		sys.renderer_core().create_vertex_declaration(
-			sge::renderer::vf::dynamic::make_format<
-				vf_format
-			>()
+			sge::renderer::vertex::declaration_parameters(
+				sge::renderer::vf::dynamic::make_format<
+					vf_format
+				>()
+			)
 		)
 	);
 
-	sge::renderer::vertex_buffer_scoped_ptr const vertex_buffer(
+	sge::renderer::vertex::buffer_scoped_ptr const vertex_buffer(
 		sys.renderer_core().create_vertex_buffer(
-			*vertex_declaration,
-			sge::renderer::vf::dynamic::make_part_index<
-				vf_format,
-				vf_part
-			>(),
-			sge::renderer::vertex_count(
-				pos_array::dim_wrapper::value
-			),
-			sge::renderer::resource_flags_field::null()
+			sge::renderer::vertex::buffer_parameters(
+				*vertex_declaration,
+				sge::renderer::vf::dynamic::make_part_index<
+					vf_format,
+					vf_part
+				>(),
+				sge::renderer::vertex::count(
+					pos_array::dim_wrapper::value
+				),
+				sge::renderer::resource_flags_field::null()
+			)
 		)
 	);
 
@@ -795,12 +801,12 @@ try
 			sys.renderer_ffp().onscreen_target()
 		);
 
-		sge::renderer::scoped_vertex_declaration const scoped_vd(
+		sge::renderer::vertex::scoped_declaration const scoped_vd(
 			scoped_block.get(),
 			*vertex_declaration
 		);
 
-		sge::renderer::scoped_vertex_buffer const scoped_vb(
+		sge::renderer::vertex::scoped_buffer const scoped_vb(
 			scoped_block.get(),
 			*vertex_buffer
 		);
@@ -872,10 +878,10 @@ try
 		);
 
 		scoped_block.get().render_nonindexed(
-			sge::renderer::first_vertex(
+			sge::renderer::vertex::first(
 				0u
 			),
-			sge::renderer::vertex_count(
+			sge::renderer::vertex::count(
 				vertex_buffer->size()
 			),
 			sge::renderer::primitive_type::triangle_list

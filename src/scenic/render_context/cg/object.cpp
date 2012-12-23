@@ -18,10 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/context/core.hpp>
 #include <sge/renderer/state/core/sampler/const_object_ref.hpp>
 #include <sge/renderer/state/core/sampler/const_object_ref_map.hpp>
+#include <sge/renderer/vertex/buffer.hpp>
+#include <sge/renderer/vertex/count.hpp>
+#include <sge/renderer/vertex/first.hpp>
 #include <sge/scenic/index_buffer_range.hpp>
 #include <sge/scenic/render_context/cg/manager.hpp>
 #include <sge/scenic/render_context/cg/object.hpp>
@@ -238,7 +240,7 @@ sge::scenic::render_context::cg::object::lights(
 
 void
 sge::scenic::render_context::cg::object::vertex_buffer(
-	sge::renderer::vertex_buffer const &_vertex_buffer)
+	sge::renderer::vertex::buffer const &_vertex_buffer)
 {
 	if(current_vertex_buffer_)
 		context_.deactivate_vertex_buffer(
@@ -277,9 +279,9 @@ sge::scenic::render_context::cg::object::render(
 {
 	context_.render_indexed(
 		_index_buffer,
-		sge::renderer::first_vertex(
+		sge::renderer::vertex::first(
 			0u),
-		sge::renderer::vertex_count(
+		sge::renderer::vertex::count(
 			current_vertex_buffer_->size()),
 		sge::renderer::primitive_type::triangle_list,
 		_index_buffer_range.first_index(),

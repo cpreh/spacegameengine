@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_BUFFERS_VERTEX_COUNT_HPP_INCLUDED
 #define SGE_SPRITE_BUFFERS_VERTEX_COUNT_HPP_INCLUDED
 
-#include <sge/renderer/vertex_count.hpp>
+#include <sge/renderer/vertex/count.hpp>
 #include <sge/sprite/count.hpp>
 #include <sge/sprite/detail/geometry/vertices_per_sprite.hpp>
 
@@ -36,13 +36,13 @@ namespace buffers
 template<
 	typename Choices
 >
-sge::renderer::vertex_count const
+sge::renderer::vertex::count const
 vertex_count(
 	sge::sprite::count const _sprites
 )
 {
 	return
-		sge::renderer::vertex_count(
+		sge::renderer::vertex::count(
 			_sprites.get()
 			*
 			sge::sprite::detail::geometry::vertices_per_sprite<

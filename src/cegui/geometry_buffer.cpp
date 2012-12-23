@@ -21,18 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/exception.hpp>
 #include <sge/image/mizuiro_color.hpp>
 #include <sge/image/color/init.hpp>
-#include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <sge/renderer/scoped_vertex_buffer.hpp>
-#include <sge/renderer/scoped_vertex_declaration.hpp>
-#include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/vector3.hpp>
-#include <sge/renderer/vertex_buffer.hpp>
-#include <sge/renderer/vertex_buffer_shared_ptr.hpp>
-#include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/state/core/blend/const_optional_object_ref.hpp>
@@ -54,6 +47,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/scoped_scissor_area.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/scoped.hpp>
+#include <sge/renderer/vertex/buffer.hpp>
+#include <sge/renderer/vertex/count.hpp>
+#include <sge/renderer/vertex/first.hpp>
+#include <sge/renderer/vertex/scoped_buffer.hpp>
+#include <sge/renderer/vertex/scoped_declaration.hpp>
+#include <sge/renderer/vertex/scoped_lock.hpp>
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/src/cegui/batch.hpp>
@@ -103,7 +102,7 @@ SGE_CEGUI_DECLARE_LOCAL_LOGGER(
 
 sge::cegui::geometry_buffer::geometry_buffer(
 	sge::renderer::device::ffp &_renderer,
-	sge::renderer::vertex_declaration const &_vertex_declaration,
+	sge::renderer::vertex::declaration const &_vertex_declaration,
 	sge::cegui::optional_render_context_ref const &_render_context
 )
 :
@@ -245,7 +244,7 @@ sge::cegui::geometry_buffer::draw() const
 		scissor_area_
 	);
 
-	sge::renderer::scoped_vertex_declaration const scoped_vdecl(
+	sge::renderer::vertex::scoped_declaration const scoped_vdecl(
 		*render_context_,
 		vertex_declaration_
 	);
@@ -283,7 +282,7 @@ sge::cegui::geometry_buffer::draw() const
 			++it
 		)
 		{
-			sge::renderer::scoped_vertex_buffer const scoped_vb(
+			sge::renderer::vertex::scoped_buffer const scoped_vb(
 				*render_context_,
 				it->vertex_buffer()
 			);
@@ -321,10 +320,10 @@ sge::cegui::geometry_buffer::draw() const
 			}
 
 			render_context_->render_nonindexed(
-				sge::renderer::first_vertex(
+				sge::renderer::vertex::first(
 					0u
 				),
-				sge::renderer::vertex_count(
+				sge::renderer::vertex::count(
 					it->vertex_buffer().size()
 				),
 				sge::renderer::primitive_type::triangle_list
@@ -439,14 +438,14 @@ sge::cegui::geometry_buffer::appendGeometry(
 			renderer_,
 			vertex_declaration_,
 			active_texture_->impl(),
-			sge::renderer::vertex_count(
+			sge::renderer::vertex::count(
 				_vertex_count
 			),
 			clip_
 		)
 	);
 
-	sge::renderer::scoped_vertex_lock const vblock(
+	sge::renderer::vertex::scoped_lock const vblock(
 		batches_.back().vertex_buffer(),
 		sge::renderer::lock_mode::writeonly
 	);

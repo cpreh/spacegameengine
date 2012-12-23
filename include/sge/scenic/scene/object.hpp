@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/perspective_projection_from_viewport.hpp>
 #include <sge/charconv/system_fwd.hpp>
 #include <sge/image2d/system_fwd.hpp>
-#include <sge/renderer/vertex_declaration_scoped_ptr.hpp>
 #include <sge/scenic/symbol.hpp>
 #include <sge/scenic/render_context/base_fwd.hpp>
 #include <sge/scenic/render_queue/object_fwd.hpp>

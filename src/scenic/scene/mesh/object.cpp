@@ -20,8 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/model/obj/prototype.hpp>
 #include <sge/renderer/lock_mode.hpp>
-#include <sge/renderer/scoped_vertex_lock.hpp>
-#include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/device/core.hpp>
 #include <sge/renderer/index/buffer.hpp>
 #include <sge/renderer/index/buffer_parameters.hpp>
@@ -30,6 +28,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/iterator.hpp>
 #include <sge/renderer/index/scoped_lock.hpp>
 #include <sge/renderer/index/dynamic/view.hpp>
+#include <sge/renderer/vertex/buffer.hpp>
+#include <sge/renderer/vertex/buffer_parameters.hpp>
+#include <sge/renderer/vertex/count.hpp>
+#include <sge/renderer/vertex/declaration_fwd.hpp>
+#include <sge/renderer/vertex/scoped_lock.hpp>
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/vf/view.hpp>
@@ -49,21 +52,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::scenic::scene::mesh::object::object(
 	sge::renderer::device::core &_renderer,
-	sge::renderer::vertex_declaration &_vertex_declaration,
+	sge::renderer::vertex::declaration &_vertex_declaration,
 	sge::model::obj::prototype const &_prototype)
 :
 	vertex_buffer_(
 		_renderer.create_vertex_buffer(
-			_vertex_declaration,
-			sge::renderer::vf::dynamic::make_part_index
-			<
-				sge::scenic::vf::format,
-				sge::scenic::vf::format_part
-			>(),
-			sge::renderer::vertex_count(
-				static_cast<sge::renderer::size_type>(
-					_prototype.face_vertices().size())),
-			sge::renderer::resource_flags_field::null())),
+			sge::renderer::vertex::buffer_parameters(
+				_vertex_declaration,
+				sge::renderer::vf::dynamic::make_part_index
+				<
+					sge::scenic::vf::format,
+					sge::scenic::vf::format_part
+				>(),
+				sge::renderer::vertex::count(
+					static_cast<sge::renderer::size_type>(
+						_prototype.face_vertices().size())),
+				sge::renderer::resource_flags_field::null()))),
 	index_buffer_(
 		_renderer.create_index_buffer(
 			sge::renderer::index::buffer_parameters(
@@ -82,7 +86,7 @@ sge::scenic::scene::mesh::object::object(
 		_prototype);
 }
 
-sge::renderer::vertex_buffer &
+sge::renderer::vertex::buffer &
 sge::scenic::scene::mesh::object::vertex_buffer()
 {
 	return
@@ -118,7 +122,7 @@ void
 sge::scenic::scene::mesh::object::fill_vertex_buffer(
 	sge::model::obj::prototype const &_prototype)
 {
-	sge::renderer::scoped_vertex_lock const vblock(
+	sge::renderer::vertex::scoped_lock const vblock(
 		*vertex_buffer_,
 		sge::renderer::lock_mode::writeonly);
 
@@ -142,22 +146,20 @@ sge::scenic::scene::mesh::object::fill_vertex_buffer(
 		_prototype.normals());
 
 	for(
-		sge::model::obj::face_vertex_sequence::const_iterator current_face_vertex =
-			_prototype.face_vertices().begin();
-		current_face_vertex != _prototype.face_vertices().end();
-		++current_face_vertex)
+		auto const &vertex : _prototype.face_vertices()
+	)
 	{
 		(*current_vertex).set<sge::scenic::vf::position>(
 			vertex_coordinates[
-				current_face_vertex->vertex_coordinate_index().get()]);
+				vertex.vertex_coordinate_index().get()]);
 
 		(*current_vertex).set<sge::scenic::vf::texcoord>(
 			texture_coordinates[
-				current_face_vertex->texture_coordinate_index().get()]);
+				vertex.texture_coordinate_index().get()]);
 
 		(*current_vertex++).set<sge::scenic::vf::normal>(
 			normals[
-				current_face_vertex->normal_index().get()]);
+				vertex.normal_index().get()]);
 	}
 }
 

@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/cegui/from_cegui_string.hpp>
 #include <sge/renderer/dim2.hpp>
-#include <sge/renderer/vertex_declaration.hpp>
 #include <sge/renderer/caps/device.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/device/ffp.hpp>
@@ -29,6 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
+#include <sge/renderer/vertex/declaration.hpp>
+#include <sge/renderer/vertex/declaration_parameters.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/src/cegui/declare_local_logger.hpp>
 #include <sge/src/cegui/from_cegui_size.hpp>
@@ -74,9 +75,11 @@ sge::cegui::renderer::renderer(
 	render_context_(),
 	vertex_declaration_(
 		renderer_.create_vertex_declaration(
-			sge::renderer::vf::dynamic::make_format<
-				sge::cegui::vf::format
-			>()
+			sge::renderer::vertex::declaration_parameters(
+				sge::renderer::vf::dynamic::make_format<
+					sge::cegui::vf::format
+				>()
+			)
 		)
 	),
 	// We initialize that later

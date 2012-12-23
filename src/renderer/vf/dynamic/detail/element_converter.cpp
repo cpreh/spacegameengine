@@ -28,15 +28,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/make.hpp>
 #include <sge/image2d/view/make_const.hpp>
 #include <sge/image2d/view/object.hpp>
-#include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/raw_pointer.hpp>
+#include <sge/renderer/vertex/first.hpp>
 #include <sge/renderer/vf/dynamic/offset.hpp>
 #include <sge/renderer/vf/dynamic/stride.hpp>
 #include <sge/src/renderer/vf/dynamic/detail/element_converter.hpp>
 #include <sge/src/renderer/vf/dynamic/detail/lock_interval.hpp>
-#include <fcppt/optional_impl.hpp>
 #include <fcppt/assert/pre.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
 
 
 sge::renderer::vf::dynamic::detail::element_converter::element_converter(
@@ -78,7 +76,7 @@ void
 sge::renderer::vf::dynamic::detail::element_converter::convert(
 	sge::renderer::vf::dynamic::detail::lock_interval const &_interval,
 	sge::renderer::raw_pointer const _data,
-	sge::renderer::first_vertex const _pos,
+	sge::renderer::vertex::first const _pos,
 	bool const _unlock
 )
 {

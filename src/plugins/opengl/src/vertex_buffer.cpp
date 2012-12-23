@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/color/format.hpp>
 #include <sge/opengl/vertex_buffer.hpp>
+#include <sge/opengl/buffer/object.hpp>
 #include <sge/opengl/buffer/vbo_context.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
@@ -28,23 +29,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/lock_flags/from_mode.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
+#include <sge/renderer/vertex/buffer.hpp>
 #include <sge/renderer/vf/dynamic/color_format_vector.hpp>
 #include <sge/renderer/vf/dynamic/const_view.hpp>
 #include <sge/renderer/vf/dynamic/locked_part.hpp>
+#include <sge/renderer/vf/dynamic/part.hpp>
+#include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <sge/renderer/vf/dynamic/view.hpp>
 #include <fcppt/assign/make_container.hpp>
 
 
 sge::opengl::vertex_buffer::vertex_buffer(
 	sge::opengl::context::system::object &_system_context,
-	renderer::vf::dynamic::part_index const _part_index,
-	renderer::vf::dynamic::part const &_format_part,
+	sge::renderer::vf::dynamic::part_index const _part_index,
+	sge::renderer::vf::dynamic::part const &_format_part,
 	count_type const _size,
-	renderer::resource_flags_field const &_flags
+	sge::renderer::resource_flags_field const &_flags
 )
 :
-	sge::renderer::vertex_buffer(),
-	opengl::buffer::wrapper(),
+	sge::renderer::vertex::buffer(),
+	sge::opengl::buffer::wrapper(),
 	part_index_(
 		_part_index
 	),
@@ -63,13 +67,13 @@ sge::opengl::vertex_buffer::vertex_buffer(
 		)
 	),
 	buffer_(
-		context::use<
-			opengl::buffer::vbo_context
+		sge::opengl::context::use<
+			sge::opengl::buffer::vbo_context
 		>(
 			_system_context
 		).impl(),
-		context::use<
-			opengl::buffer::vbo_context
+		sge::opengl::context::use<
+			sge::opengl::buffer::vbo_context
 		>(
 			_system_context
 		).vertex_buffer_type(),
@@ -87,7 +91,7 @@ sge::opengl::vertex_buffer::~vertex_buffer()
 
 void
 sge::opengl::vertex_buffer::use(
-	opengl::vf::part const &_format_part
+	sge::opengl::vf::part const &_format_part
 ) const
 {
 	buffer_.bind();
@@ -101,7 +105,7 @@ sge::opengl::vertex_buffer::use(
 
 void
 sge::opengl::vertex_buffer::unuse(
-	opengl::vf::part const &_format_part
+	sge::opengl::vf::part const &_format_part
 ) const
 {
 	_format_part.unuse_me();
@@ -118,7 +122,7 @@ sge::opengl::vertex_buffer::lock(
 		this->do_lock<
 			view_type
 		>(
-			renderer::lock_flags::from_mode(
+			sge::renderer::lock_flags::from_mode(
 				_flags
 			),
 			_offset,
@@ -136,7 +140,7 @@ sge::opengl::vertex_buffer::lock(
 		this->do_lock<
 			const_view_type
 		>(
-			renderer::lock_flags::method::read,
+			sge::renderer::lock_flags::method::read,
 			_offset,
 			_range
 		);
@@ -147,7 +151,7 @@ template<
 >
 View const
 sge::opengl::vertex_buffer::do_lock(
-	renderer::lock_flags::method const _method,
+	sge::renderer::lock_flags::method const _method,
 	first_type const _offset,
 	count_type const _range
 ) const

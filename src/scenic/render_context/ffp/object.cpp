@@ -19,8 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/color/predef.hpp>
-#include <sge/renderer/scoped_vertex_buffer.hpp>
-#include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/caps/device.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/device/ffp.hpp>
@@ -47,6 +45,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/transform/object.hpp>
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
 #include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/vertex/buffer.hpp>
+#include <sge/renderer/vertex/first.hpp>
+#include <sge/renderer/vertex/scoped_buffer.hpp>
 #include <sge/scenic/index_buffer_range.hpp>
 #include <sge/scenic/render_context/ffp/manager.hpp>
 #include <sge/scenic/render_context/ffp/object.hpp>
@@ -288,12 +289,12 @@ sge::scenic::render_context::ffp::object::lights(
 
 void
 sge::scenic::render_context::ffp::object::vertex_buffer(
-	sge::renderer::vertex_buffer const &_vertex_buffer)
+	sge::renderer::vertex::buffer const &_vertex_buffer)
 {
 	current_vertex_buffer_.reset();
 
 	current_vertex_buffer_.take(
-		fcppt::make_unique_ptr<sge::renderer::scoped_vertex_buffer>(
+		fcppt::make_unique_ptr<sge::renderer::vertex::scoped_buffer>(
 			context_,
 			_vertex_buffer));
 
@@ -314,7 +315,7 @@ sge::scenic::render_context::ffp::object::render(
 {
 	context_.render_indexed(
 		_index_buffer,
-		sge::renderer::first_vertex(
+		sge::renderer::vertex::first(
 			0u),
 		current_vertex_buffer_size_,
 		sge::renderer::primitive_type::triangle_list,

@@ -23,12 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cg/program/source.hpp>
 #include <sge/opengl/cg/program/replace_index.hpp>
 #include <sge/opengl/cg/program/transform_vertex.hpp>
-#include <sge/renderer/vertex_declaration_fwd.hpp>
+#include <sge/renderer/vertex/declaration_fwd.hpp>
 
 
 sge::cg::program::source const
 sge::opengl::cg::program::transform_vertex(
-	sge::renderer::vertex_declaration const &,
+	sge::renderer::vertex::declaration const &,
 	sge::cg::program::source const &_source
 )
 {

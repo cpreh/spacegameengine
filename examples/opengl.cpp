@@ -21,11 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/format.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
-#include <sge/renderer/vertex_buffer.hpp>
-#include <sge/renderer/vertex_buffer_scoped_ptr.hpp>
-#include <sge/renderer/vertex_count.hpp>
-#include <sge/renderer/vertex_declaration.hpp>
-#include <sge/renderer/vertex_declaration_scoped_ptr.hpp>
+#include <sge/renderer/vertex/buffer.hpp>
+#include <sge/renderer/vertex/buffer_parameters.hpp>
+#include <sge/renderer/vertex/buffer_scoped_ptr.hpp>
+#include <sge/renderer/vertex/count.hpp>
+#include <sge/renderer/vertex/declaration.hpp>
+#include <sge/renderer/vertex/declaration_parameters.hpp>
+#include <sge/renderer/vertex/declaration_scoped_ptr.hpp>
 #include <sge/renderer/caps/system.hpp>
 #include <sge/renderer/caps/system_field.hpp>
 #include <sge/renderer/device/core.hpp>
@@ -170,25 +172,29 @@ try
 		>
 	> vf_format;
 
-	sge::renderer::vertex_declaration_scoped_ptr const vertex_declaration(
+	sge::renderer::vertex::declaration_scoped_ptr const vertex_declaration(
 		sys.renderer_core().create_vertex_declaration(
-			sge::renderer::vf::dynamic::make_format<
-				vf_format
-			>()
+			sge::renderer::vertex::declaration_parameters(
+				sge::renderer::vf::dynamic::make_format<
+					vf_format
+				>()
+			)
 		)
 	);
 
-	sge::renderer::vertex_buffer_scoped_ptr const vertex_buffer(
+	sge::renderer::vertex::buffer_scoped_ptr const vertex_buffer(
 		sys.renderer_core().create_vertex_buffer(
-			*vertex_declaration,
-			sge::renderer::vf::dynamic::make_part_index<
-				vf_format,
-				vf_part
-			>(),
-			sge::renderer::vertex_count(
-				3u
-			),
-			sge::renderer::resource_flags_field::null()
+			sge::renderer::vertex::buffer_parameters(
+				*vertex_declaration,
+				sge::renderer::vf::dynamic::make_part_index<
+					vf_format,
+					vf_part
+				>(),
+				sge::renderer::vertex::count(
+					3u
+				),
+				sge::renderer::resource_flags_field::null()
+			)
 		)
 	);
 

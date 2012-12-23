@@ -22,18 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/any/convert.hpp>
 #include <sge/image/color/any/object.hpp>
-#include <sge/renderer/const_vertex_buffer_ref_container.hpp>
-#include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
-#include <sge/renderer/scoped_vertex_declaration_and_buffers.hpp>
-#include <sge/renderer/scoped_vertex_lock.hpp>
-#include <sge/renderer/vertex_buffer.hpp>
-#include <sge/renderer/vertex_buffer_scoped_ptr.hpp>
-#include <sge/renderer/vertex_count.hpp>
-#include <sge/renderer/vertex_declaration.hpp>
-#include <sge/renderer/vertex_declaration_scoped_ptr.hpp>
 #include <sge/renderer/context/core.hpp>
 #include <sge/renderer/context/scoped_core.hpp>
 #include <sge/renderer/device/core.hpp>
@@ -55,6 +46,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/target/onscreen.hpp>
+#include <sge/renderer/vertex/buffer.hpp>
+#include <sge/renderer/vertex/buffer_parameters.hpp>
+#include <sge/renderer/vertex/buffer_scoped_ptr.hpp>
+#include <sge/renderer/vertex/const_buffer_ref_container.hpp>
+#include <sge/renderer/vertex/count.hpp>
+#include <sge/renderer/vertex/first.hpp>
+#include <sge/renderer/vertex/declaration.hpp>
+#include <sge/renderer/vertex/declaration_parameters.hpp>
+#include <sge/renderer/vertex/declaration_scoped_ptr.hpp>
+#include <sge/renderer/vertex/scoped_declaration_and_buffers.hpp>
+#include <sge/renderer/vertex/scoped_lock.hpp>
 #include <sge/renderer/vf/color.hpp>
 #include <sge/renderer/vf/format.hpp>
 #include <sge/renderer/vf/iterator.hpp>
@@ -180,30 +182,34 @@ try
 		>
 	> format;
 
-	sge::renderer::vertex_declaration_scoped_ptr const vertex_declaration(
+	sge::renderer::vertex::declaration_scoped_ptr const vertex_declaration(
 		sys.renderer_core().create_vertex_declaration(
-			sge::renderer::vf::dynamic::make_format<
-				format
-			>()
+			sge::renderer::vertex::declaration_parameters(
+				sge::renderer::vf::dynamic::make_format<
+					format
+				>()
+			)
 		)
 	);
 
-	sge::renderer::vertex_buffer_scoped_ptr const vertex_buffer(
+	sge::renderer::vertex::buffer_scoped_ptr const vertex_buffer(
 		sys.renderer_core().create_vertex_buffer(
-			*vertex_declaration,
-			sge::renderer::vf::dynamic::make_part_index<
-				format,
-				format_part
-			>(),
-			sge::renderer::vertex_count(
-				4u
-			),
-			sge::renderer::resource_flags_field::null()
+			sge::renderer::vertex::buffer_parameters(
+				*vertex_declaration,
+				sge::renderer::vf::dynamic::make_part_index<
+					format,
+					format_part
+				>(),
+				sge::renderer::vertex::count(
+					4u
+				),
+				sge::renderer::resource_flags_field::null()
+			)
 		)
 	);
 
 	{
-		sge::renderer::scoped_vertex_lock const vblock(
+		sge::renderer::vertex::scoped_lock const vblock(
 			*vertex_buffer,
 			sge::renderer::lock_mode::writeonly
 		);
@@ -359,11 +365,11 @@ try
 			sys.renderer_core().onscreen_target()
 		);
 
-		sge::renderer::scoped_vertex_declaration_and_buffers const vb_context(
+		sge::renderer::vertex::scoped_declaration_and_buffers const vb_context(
 			scoped_block.get(),
 			*vertex_declaration,
 			fcppt::assign::make_container<
-				sge::renderer::const_vertex_buffer_ref_container
+				sge::renderer::vertex::const_buffer_ref_container
 			>(
 				fcppt::make_cref(
 					*vertex_buffer
@@ -374,10 +380,10 @@ try
 //! [render_indexed]
 		scoped_block.get().render_indexed(
 			*index_buffer,
-			sge::renderer::first_vertex(
+			sge::renderer::vertex::first(
 				0u
 			),
-			sge::renderer::vertex_count(
+			sge::renderer::vertex::count(
 				4u
 			),
 			sge::renderer::primitive_type::triangle_list,

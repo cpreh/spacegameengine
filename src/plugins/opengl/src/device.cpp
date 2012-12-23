@@ -19,12 +19,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/create_index_buffer.hpp>
+#include <sge/opengl/create_onscreen_target.hpp>
+#include <sge/opengl/create_vertex_buffer.hpp>
+#include <sge/opengl/create_vertex_declaration.hpp>
 #include <sge/opengl/device.hpp>
 #include <sge/opengl/init_multi_sampling.hpp>
 #include <sge/opengl/init_srgb.hpp>
-#include <sge/opengl/onscreen_target.hpp>
-#include <sge/opengl/vertex_buffer.hpp>
-#include <sge/opengl/vertex_declaration.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/device_state/context.hpp>
 #include <sge/opengl/device_state/create.hpp>
@@ -55,11 +55,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/create_volume.hpp>
 #include <sge/renderer/config.hpp>
 #include <sge/renderer/parameters/object.hpp>
-#include <sge/renderer/resource_flags_field_fwd.hpp>
-#include <sge/renderer/vertex_buffer_unique_ptr.hpp>
-#include <sge/renderer/vertex_count.hpp>
-#include <sge/renderer/vertex_declaration_fwd.hpp>
-#include <sge/renderer/vertex_declaration_unique_ptr.hpp>
 #include <sge/renderer/caps/device_fwd.hpp>
 #include <sge/renderer/context/core.hpp>
 #include <sge/renderer/context/core_unique_ptr.hpp>
@@ -116,7 +111,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/base_fwd.hpp>
 #include <sge/renderer/target/offscreen.hpp>
 #include <sge/renderer/target/offscreen_unique_ptr.hpp>
-#include <sge/renderer/target/onscreen_fwd.hpp>
+#include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/texture/cube.hpp>
 #include <sge/renderer/texture/cube_parameters_fwd.hpp>
 #include <sge/renderer/texture/cube_unique_ptr.hpp>
@@ -129,10 +124,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/volume.hpp>
 #include <sge/renderer/texture/volume_parameters_fwd.hpp>
 #include <sge/renderer/texture/volume_unique_ptr.hpp>
-#include <sge/renderer/vf/dynamic/format_fwd.hpp>
-#include <sge/renderer/vf/dynamic/part_index.hpp>
+#include <sge/renderer/vertex/buffer.hpp>
+#include <sge/renderer/vertex/buffer_parameters_fwd.hpp>
+#include <sge/renderer/vertex/buffer_unique_ptr.hpp>
+#include <sge/renderer/vertex/declaration.hpp>
+#include <sge/renderer/vertex/declaration_parameters_fwd.hpp>
+#include <sge/renderer/vertex/declaration_unique_ptr.hpp>
 #include <awl/window/object_fwd.hpp>
-#include <fcppt/make_unique_ptr.hpp>
 
 #if defined(SGE_RENDERER_HAVE_CG)
 #include <sge/cg/context/object_fwd.hpp>
@@ -152,6 +150,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/cg/loaded_texture.hpp>
 #include <sge/renderer/cg/loaded_texture_unique_ptr.hpp>
 #include <sge/renderer/texture/base_fwd.hpp>
+#include <sge/renderer/vertex/declaration_fwd.hpp>
 #endif
 
 
@@ -185,9 +184,7 @@ sge::opengl::device::device(
 		*context_
 	),
 	onscreen_target_(
-		fcppt::make_unique_ptr<
-			sge::opengl::onscreen_target
-		>(
+		sge::opengl::create_onscreen_target(
 			device_context_,
 			*context_,
 			_window
@@ -310,48 +307,28 @@ sge::opengl::device::create_cube_texture(
 		);
 }
 
-sge::renderer::vertex_declaration_unique_ptr
+sge::renderer::vertex::declaration_unique_ptr
 sge::opengl::device::create_vertex_declaration(
-	sge::renderer::vf::dynamic::format const &_format
+	sge::renderer::vertex::declaration_parameters const &_parameters
 )
 {
 	return
-		sge::renderer::vertex_declaration_unique_ptr(
-			fcppt::make_unique_ptr<
-				sge::opengl::vertex_declaration
-			>(
-				system_context_,
-				device_context_,
-				_format
-			)
+		sge::opengl::create_vertex_declaration(
+			system_context_,
+			device_context_,
+			_parameters
 		);
 }
 
-sge::renderer::vertex_buffer_unique_ptr
+sge::renderer::vertex::buffer_unique_ptr
 sge::opengl::device::create_vertex_buffer(
-	sge::renderer::vertex_declaration const &_declaration,
-	sge::renderer::vf::dynamic::part_index const _part,
-	sge::renderer::vertex_count const _size,
-	sge::renderer::resource_flags_field const &_flags
+	sge::renderer::vertex::buffer_parameters const &_parameters
 )
 {
 	return
-		sge::renderer::vertex_buffer_unique_ptr(
-			fcppt::make_unique_ptr<
-				sge::opengl::vertex_buffer
-			>(
-				system_context_,
-				_part,
-				dynamic_cast<
-					sge::opengl::vertex_declaration const &
-				>(
-					_declaration
-				).format_part(
-					_part
-				),
-				_size,
-				_flags
-			)
+		sge::opengl::create_vertex_buffer(
+			system_context_,
+			_parameters
 		);
 }
 
@@ -476,7 +453,7 @@ sge::opengl::device::load_cg_texture(
 
 sge::cg::program::source const
 sge::opengl::device::transform_cg_vertex_program(
-	sge::renderer::vertex_declaration const &_vertex_declaration,
+	sge::renderer::vertex::declaration const &_vertex_declaration,
 	sge::cg::program::source const &_source
 )
 {

@@ -23,11 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/line_drawer/line_sequence.hpp>
 #include <sge/line_drawer/symbol.hpp>
-#include <sge/renderer/vertex_buffer_scoped_ptr.hpp>
-#include <sge/renderer/vertex_declaration_scoped_ptr.hpp>
 #include <sge/renderer/context/core_fwd.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/state/core/blend/object_scoped_ptr.hpp>
+#include <sge/renderer/vertex/buffer_scoped_ptr.hpp>
+#include <sge/renderer/vertex/declaration_scoped_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -53,9 +53,9 @@ private:
 	friend class scoped_lock;
 
 	sge::renderer::device::core &renderer_;
-	sge::renderer::vertex_declaration_scoped_ptr const vertex_declaration_;
+	sge::renderer::vertex::declaration_scoped_ptr const vertex_declaration_;
 	sge::renderer::state::core::blend::object_scoped_ptr const blend_state_;
-	sge::renderer::vertex_buffer_scoped_ptr vb_;
+	sge::renderer::vertex::buffer_scoped_ptr vb_;
 	line_sequence lines_;
 
 	void

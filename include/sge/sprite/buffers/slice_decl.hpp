@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_BUFFERS_SLICE_DECL_HPP_INCLUDED
 #define SGE_SPRITE_BUFFERS_SLICE_DECL_HPP_INCLUDED
 
-#include <sge/renderer/first_vertex.hpp>
-#include <sge/renderer/vertex_buffer_fwd.hpp>
 #include <sge/renderer/index/buffer_fwd.hpp>
 #include <sge/renderer/index/first.hpp>
+#include <sge/renderer/vertex/buffer_fwd.hpp>
+#include <sge/renderer/vertex/first.hpp>
 #include <sge/sprite/buffers/object.hpp>
 #include <sge/sprite/buffers/offset_object.hpp>
 #include <sge/sprite/buffers/slice_fwd.hpp>
@@ -68,13 +68,13 @@ public:
 
 	~slice();
 
-	sge::renderer::vertex_buffer &
+	sge::renderer::vertex::buffer &
 	vertex_buffer() const;
 
 	sge::renderer::index::buffer &
 	index_buffer() const;
 
-	sge::renderer::first_vertex const
+	sge::renderer::vertex::first const
 	first_vertex() const;
 
 	sge::renderer::index::first const

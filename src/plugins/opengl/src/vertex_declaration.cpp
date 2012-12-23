@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/device/object_fwd.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/vf/part.hpp>
-#include <sge/renderer/vf/dynamic/format.hpp>
+#include <sge/renderer/vertex/declaration.hpp>
+#include <sge/renderer/vertex/declaration_parameters.hpp>
 #include <sge/renderer/vf/dynamic/part_fwd.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <sge/renderer/vf/dynamic/part_list.hpp>
@@ -33,11 +34,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::opengl::vertex_declaration::vertex_declaration(
 	sge::opengl::context::system::object &_system_context,
 	sge::opengl::context::device::object &_device_context,
-	sge::renderer::vf::dynamic::format const &_format
+	sge::renderer::vertex::declaration_parameters const &_parameters
 )
 :
+	sge::renderer::vertex::declaration(),
 	format_(
-		_format
+		_parameters.format()
 	),
 	parts_()
 {

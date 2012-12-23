@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_BUFFERS_WITH_DECLARATION_DECL_HPP_INCLUDED
 #define SGE_SPRITE_BUFFERS_WITH_DECLARATION_DECL_HPP_INCLUDED
 
-#include <sge/renderer/vertex_declaration_scoped_ptr.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
+#include <sge/renderer/vertex/declaration_scoped_ptr.hpp>
 #include <sge/sprite/count.hpp>
 #include <sge/sprite/buffers/option.hpp>
 #include <sge/sprite/buffers/parameters_fwd.hpp>
@@ -73,7 +73,7 @@ public:
 	buffers_type const &
 	impl() const;
 private:
-	sge::renderer::vertex_declaration_scoped_ptr const vertex_declaration_;
+	sge::renderer::vertex::declaration_scoped_ptr const vertex_declaration_;
 
 	buffers_type buffers_;
 };

@@ -71,9 +71,10 @@ open_istream_exn(
 }
 }
 
+// TODO: Use a delegating constructor?
 sge::shader::pair::pair(
 	sge::shader::context &_context,
-	sge::renderer::vertex_declaration const &_vertex_declaration,
+	sge::renderer::vertex::declaration const &_vertex_declaration,
 	sge::shader::vertex_program_path const &_vertex_program_path,
 	sge::shader::pixel_program_path const &_pixel_program_path,
 	sge::shader::optional_cflags const &_optional_cflags)
@@ -122,7 +123,7 @@ sge::shader::pair::pair(
 
 sge::shader::pair::pair(
 	sge::shader::context &_context,
-	sge::renderer::vertex_declaration const &_vertex_declaration,
+	sge::renderer::vertex::declaration const &_vertex_declaration,
 	sge::shader::vertex_program_stream const &_vertex_program_stream,
 	sge::shader::pixel_program_stream const &_pixel_program_stream,
 	sge::shader::optional_cflags const &_optional_cflags)

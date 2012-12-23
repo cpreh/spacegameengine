@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_RENDER_PARAMETERS_DECL_HPP_INCLUDED
 #define SGE_SPRITE_RENDER_PARAMETERS_DECL_HPP_INCLUDED
 
-#include <sge/renderer/vertex_declaration_fwd.hpp>
+#include <sge/renderer/vertex/declaration_fwd.hpp>
 #include <sge/sprite/render/parameters_fwd.hpp>
 #include <sge/sprite/state/render_context.hpp>
 #include <fcppt/nonassignable.hpp>
@@ -49,18 +49,18 @@ public:
 
 	parameters(
 		render_context_type &,
-		sge::renderer::vertex_declaration const &
+		sge::renderer::vertex::declaration const &
 	);
 
 	render_context_type &
 	render_context() const;
 
-	sge::renderer::vertex_declaration const &
+	sge::renderer::vertex::declaration const &
 	vertex_declaration() const;
 private:
 	render_context_type &render_context_;
 
-	sge::renderer::vertex_declaration const &vertex_declaration_;
+	sge::renderer::vertex::declaration const &vertex_declaration_;
 };
 
 }

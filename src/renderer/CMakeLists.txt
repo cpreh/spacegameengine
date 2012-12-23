@@ -61,12 +61,7 @@ set(
 	include/sge/renderer/color_buffer/volume.hpp
 	include/sge/renderer/color_buffer/volume_fwd.hpp
 	include/sge/renderer/const_basic_scoped_buffer_lock.hpp
-	include/sge/renderer/const_optional_vertex_declaration_ref.hpp
-	include/sge/renderer/const_optional_vertex_declaration_ref_fwd.hpp
 	include/sge/renderer/const_raw_pointer.hpp
-	include/sge/renderer/const_scoped_vertex_lock.hpp
-	include/sge/renderer/const_vertex_buffer_ref.hpp
-	include/sge/renderer/const_vertex_buffer_ref_container.hpp
 	include/sge/renderer/context/core.hpp
 	include/sge/renderer/context/core_fwd.hpp
 	include/sge/renderer/context/core_scoped_ptr.hpp
@@ -85,7 +80,6 @@ set(
 	include/sge/renderer/context/scoped_ffp_unique_ptr.hpp
 	include/sge/renderer/context/scoped_offscreen_target.hpp
 	include/sge/renderer/context/scoped_offscreen_target_fwd.hpp
-	include/sge/renderer/create_vertex_buffer_from_view.hpp
 	include/sge/renderer/depth_stencil_buffer/optional_surface_ref.hpp
 	include/sge/renderer/depth_stencil_buffer/optional_surface_ref_fwd.hpp
 	include/sge/renderer/depth_stencil_buffer/surface.hpp
@@ -131,7 +125,6 @@ set(
 	include/sge/renderer/display_mode/to_dpi.hpp
 	include/sge/renderer/epsilon.hpp
 	include/sge/renderer/exception.hpp
-	include/sge/renderer/first_vertex.hpp
 	include/sge/renderer/index/any/basic_view.hpp
 	include/sge/renderer/index/any/basic_view_fwd.hpp
 	include/sge/renderer/index/any/detail/generate_visitor.hpp
@@ -274,11 +267,6 @@ set(
 	include/sge/renderer/resource_flags_field.hpp
 	include/sge/renderer/resource_flags_field_fwd.hpp
 	include/sge/renderer/scalar.hpp
-	include/sge/renderer/scoped_vertex_buffer.hpp
-	include/sge/renderer/scoped_vertex_buffer_fwd.hpp
-	include/sge/renderer/scoped_vertex_declaration.hpp
-	include/sge/renderer/scoped_vertex_declaration_and_buffers.hpp
-	include/sge/renderer/scoped_vertex_lock.hpp
 	include/sge/renderer/screen_size.hpp
 	include/sge/renderer/screen_size_fwd.hpp
 	include/sge/renderer/screen_unit.hpp
@@ -619,6 +607,8 @@ set(
 	include/sge/renderer/target/offscreen_unique_ptr.hpp
 	include/sge/renderer/target/onscreen.hpp
 	include/sge/renderer/target/onscreen_fwd.hpp
+	include/sge/renderer/target/onscreen_scoped_ptr.hpp
+	include/sge/renderer/target/onscreen_unique_ptr.hpp
 	include/sge/renderer/target/optional_offscreen_ref.hpp
 	include/sge/renderer/target/optional_offscreen_ref_fwd.hpp
 	include/sge/renderer/target/scissor_area.hpp
@@ -717,19 +707,35 @@ set(
 	include/sge/renderer/vector3_fwd.hpp
 	include/sge/renderer/vector4.hpp
 	include/sge/renderer/vector4_fwd.hpp
-	include/sge/renderer/vertex_buffer.hpp
-	include/sge/renderer/vertex_buffer_fwd.hpp
-	include/sge/renderer/vertex_buffer_scoped_ptr.hpp
-	include/sge/renderer/vertex_buffer_shared_ptr.hpp
-	include/sge/renderer/vertex_buffer_types.hpp
-	include/sge/renderer/vertex_buffer_unique_ptr.hpp
-	include/sge/renderer/vertex_count.hpp
-	include/sge/renderer/vertex_declaration.hpp
-	include/sge/renderer/vertex_declaration_fwd.hpp
-	include/sge/renderer/vertex_declaration_scoped_ptr.hpp
-	include/sge/renderer/vertex_declaration_shared_ptr.hpp
-	include/sge/renderer/vertex_declaration_unique_ptr.hpp
-	include/sge/renderer/vertex_to_primitive_count.hpp
+	include/sge/renderer/vertex/buffer.hpp
+	include/sge/renderer/vertex/buffer_fwd.hpp
+	include/sge/renderer/vertex/buffer_parameters.hpp
+	include/sge/renderer/vertex/buffer_parameters_fwd.hpp
+	include/sge/renderer/vertex/buffer_scoped_ptr.hpp
+	include/sge/renderer/vertex/buffer_shared_ptr.hpp
+	include/sge/renderer/vertex/buffer_types.hpp
+	include/sge/renderer/vertex/buffer_unique_ptr.hpp
+	include/sge/renderer/vertex/const_buffer_ref.hpp
+	include/sge/renderer/vertex/const_buffer_ref_container.hpp
+	include/sge/renderer/vertex/const_optional_declaration_ref.hpp
+	include/sge/renderer/vertex/const_optional_declaration_ref_fwd.hpp
+	include/sge/renderer/vertex/const_scoped_lock.hpp
+	include/sge/renderer/vertex/count.hpp
+	include/sge/renderer/vertex/create_buffer_from_view.hpp
+	include/sge/renderer/vertex/declaration.hpp
+	include/sge/renderer/vertex/declaration_fwd.hpp
+	include/sge/renderer/vertex/declaration_parameters.hpp
+	include/sge/renderer/vertex/declaration_parameters_fwd.hpp
+	include/sge/renderer/vertex/declaration_scoped_ptr.hpp
+	include/sge/renderer/vertex/declaration_shared_ptr.hpp
+	include/sge/renderer/vertex/declaration_unique_ptr.hpp
+	include/sge/renderer/vertex/first.hpp
+	include/sge/renderer/vertex/scoped_buffer.hpp
+	include/sge/renderer/vertex/scoped_buffer_fwd.hpp
+	include/sge/renderer/vertex/scoped_declaration.hpp
+	include/sge/renderer/vertex/scoped_declaration_and_buffers.hpp
+	include/sge/renderer/vertex/scoped_lock.hpp
+	include/sge/renderer/vertex/to_primitive_count.hpp
 	include/sge/renderer/vf/color.hpp
 	include/sge/renderer/vf/color_base.hpp
 	include/sge/renderer/vf/color_fwd.hpp
@@ -845,13 +851,11 @@ set(
 	src/renderer/color_buffer/scoped_volume_lock.cpp
 	src/renderer/color_buffer/surface.cpp
 	src/renderer/color_buffer/volume.cpp
-	src/renderer/const_scoped_vertex_lock.cpp
 	src/renderer/context/core.cpp
 	src/renderer/context/ffp.cpp
 	src/renderer/context/scoped_core.cpp
 	src/renderer/context/scoped_ffp.cpp
 	src/renderer/context/scoped_offscreen_target.cpp
-	src/renderer/create_vertex_buffer_from_view.cpp
 	src/renderer/depth_stencil_buffer/surface.cpp
 	src/renderer/depth_stencil_buffer/surface_parameters.cpp
 	src/renderer/device/core.cpp
@@ -939,10 +943,6 @@ set(
 	src/renderer/projection/orthogonal_xy.cpp
 	src/renderer/projection/perspective_af.cpp
 	src/renderer/projection/perspective_wh.cpp
-	src/renderer/scoped_vertex_buffer.cpp
-	src/renderer/scoped_vertex_declaration.cpp
-	src/renderer/scoped_vertex_declaration_and_buffers.cpp
-	src/renderer/scoped_vertex_lock.cpp
 	src/renderer/screenshot.cpp
 	src/renderer/state/core/blend/alpha_enabled.cpp
 	src/renderer/state/core/blend/combined.cpp
@@ -1077,9 +1077,17 @@ set(
 	src/renderer/texture/volume.cpp
 	src/renderer/texture/volume_parameters.cpp
 	src/renderer/unsupported.cpp
-	src/renderer/vertex_buffer.cpp
-	src/renderer/vertex_declaration.cpp
-	src/renderer/vertex_to_primitive_count.cpp
+	src/renderer/vertex/buffer.cpp
+	src/renderer/vertex/buffer_parameters.cpp
+	src/renderer/vertex/const_scoped_lock.cpp
+	src/renderer/vertex/create_buffer_from_view.cpp
+	src/renderer/vertex/declaration.cpp
+	src/renderer/vertex/declaration_parameters.cpp
+	src/renderer/vertex/scoped_buffer.cpp
+	src/renderer/vertex/scoped_declaration.cpp
+	src/renderer/vertex/scoped_declaration_and_buffers.cpp
+	src/renderer/vertex/scoped_lock.cpp
+	src/renderer/vertex/to_primitive_count.cpp
 	src/renderer/vf/dynamic/color.cpp
 	src/renderer/vf/dynamic/const_view.cpp
 	src/renderer/vf/dynamic/converter.cpp

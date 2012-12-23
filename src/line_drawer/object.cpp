@@ -19,17 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/line_drawer/object.hpp>
-#include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
-#include <sge/renderer/scoped_vertex_buffer.hpp>
-#include <sge/renderer/scoped_vertex_declaration.hpp>
-#include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/renderer/vertex_buffer.hpp>
-#include <sge/renderer/vertex_count.hpp>
-#include <sge/renderer/vertex_declaration.hpp>
 #include <sge/renderer/context/core.hpp>
 #include <sge/renderer/device/core.hpp>
 #include <sge/renderer/state/core/blend/alpha_enabled.hpp>
@@ -43,6 +36,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/const_optional_base_ref.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/stage.hpp>
+#include <sge/renderer/vertex/buffer.hpp>
+#include <sge/renderer/vertex/buffer_parameters.hpp>
+#include <sge/renderer/vertex/count.hpp>
+#include <sge/renderer/vertex/declaration.hpp>
+#include <sge/renderer/vertex/declaration_parameters.hpp>
+#include <sge/renderer/vertex/first.hpp>
+#include <sge/renderer/vertex/scoped_buffer.hpp>
+#include <sge/renderer/vertex/scoped_declaration.hpp>
+#include <sge/renderer/vertex/scoped_lock.hpp>
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
@@ -61,7 +63,8 @@ sge::line_drawer::object::object(
 		_renderer),
 	vertex_declaration_(
 		renderer_.create_vertex_declaration(
-			sge::renderer::vf::dynamic::make_format<vf::format>())),
+			sge::renderer::vertex::declaration_parameters(
+				sge::renderer::vf::dynamic::make_format<vf::format>()))),
 	blend_state_(
 		renderer_.create_blend_state(
 			sge::renderer::state::core::blend::parameters(
@@ -88,18 +91,18 @@ sge::line_drawer::object::render(
 		*blend_state_
 	);
 
-	sge::renderer::scoped_vertex_declaration const scoped_decl(
+	sge::renderer::vertex::scoped_declaration const scoped_decl(
 		_render_context,
 		*vertex_declaration_);
 
-	sge::renderer::scoped_vertex_buffer const scoped_vb(
+	sge::renderer::vertex::scoped_buffer const scoped_vb(
 		_render_context,
 		*vb_);
 
 	_render_context.render_nonindexed(
-		sge::renderer::first_vertex(
+		sge::renderer::vertex::first(
 			0u),
-		sge::renderer::vertex_count(
+		sge::renderer::vertex::count(
 			vb_->size()),
 		sge::renderer::primitive_type::line_list);
 }
@@ -122,14 +125,15 @@ sge::line_drawer::object::unlock()
 	if (!vb_ || vb_->size().get() < static_cast<sge::renderer::size_type>(lines_.size()*2))
 		vb_.take(
 			renderer_.create_vertex_buffer(
-				*vertex_declaration_,
-				sge::renderer::vf::dynamic::part_index(
-					0u),
-				sge::renderer::vertex_count(
-					lines_.size()*2),
-				sge::renderer::resource_flags_field::null()));
+				sge::renderer::vertex::buffer_parameters(
+					*vertex_declaration_,
+					sge::renderer::vf::dynamic::part_index(
+						0u),
+					sge::renderer::vertex::count(
+						lines_.size()*2),
+					sge::renderer::resource_flags_field::null())));
 
-	sge::renderer::scoped_vertex_lock const vblock(
+	sge::renderer::vertex::scoped_lock const vblock(
 		*vb_,
 		sge::renderer::lock_mode::writeonly);
 
@@ -140,22 +144,18 @@ sge::line_drawer::object::unlock()
 		vertices.begin());
 
 	for(
-		line_sequence::const_iterator it(
-			lines_.begin()
-		);
-		it != lines_.end();
-		++it
+		auto const &line : lines_
 	)
 	{
 		(vb_it)->set<vf::position>(
 			fcppt::math::vector::structure_cast<vf::position::packed_type>(
-				it->begin()));
+				line.begin()));
 		(vb_it++)->set<vf::color>(
-			it->begin_color());
+			line.begin_color());
 		(vb_it)->set<vf::position>(
 			fcppt::math::vector::structure_cast<vf::position::packed_type>(
-				it->end()));
+				line.end()));
 		(vb_it++)->set<vf::color>(
-			it->end_color());
+			line.end_color());
 	}
 }

@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_DYNAMIC_LOCKED_PART_HPP_INCLUDED
 #define SGE_RENDERER_VF_DYNAMIC_LOCKED_PART_HPP_INCLUDED
 
-#include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/raw_pointer.hpp>
 #include <sge/renderer/symbol.hpp>
-#include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
+#include <sge/renderer/vertex/count.hpp>
+#include <sge/renderer/vertex/first.hpp>
 #include <sge/renderer/vf/dynamic/locked_part_fwd.hpp>
 
 
@@ -44,8 +44,8 @@ public:
 	SGE_RENDERER_SYMBOL
 	locked_part(
 		sge::renderer::raw_pointer,
-		sge::renderer::first_vertex,
-		sge::renderer::vertex_count,
+		sge::renderer::vertex::first,
+		sge::renderer::vertex::count,
 		sge::renderer::lock_flags::method
 	);
 
@@ -54,11 +54,11 @@ public:
 	data() const;
 
 	SGE_RENDERER_SYMBOL
-	sge::renderer::first_vertex const
+	sge::renderer::vertex::first const
 	pos() const;
 
 	SGE_RENDERER_SYMBOL
-	sge::renderer::vertex_count const
+	sge::renderer::vertex::count const
 	count() const;
 
 	SGE_RENDERER_SYMBOL
@@ -67,9 +67,9 @@ public:
 private:
 	sge::renderer::raw_pointer data_;
 
-	sge::renderer::first_vertex pos_;
+	sge::renderer::vertex::first pos_;
 
-	sge::renderer::vertex_count count_;
+	sge::renderer::vertex::count count_;
 
 	sge::renderer::lock_flags::method lock_flags_;
 };

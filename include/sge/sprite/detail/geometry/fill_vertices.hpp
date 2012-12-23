@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_GEOMETRY_FILL_VERTICES_HPP_INCLUDED
 
 #include <sge/renderer/lock_mode.hpp>
-#include <sge/renderer/scoped_vertex_lock.hpp>
+#include <sge/renderer/vertex/scoped_lock.hpp>
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/vf/view.hpp>
@@ -90,7 +90,7 @@ fill_vertices(
 
 	typedef typename object_type::choices choices;
 
-	sge::renderer::scoped_vertex_lock const vblock(
+	sge::renderer::vertex::scoped_lock const vblock(
 		_slice.vertex_buffer(),
 		sge::renderer::lock_mode::writeonly,
 		_slice.first_vertex(),

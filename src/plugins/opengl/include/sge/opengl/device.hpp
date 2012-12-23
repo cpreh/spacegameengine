@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_DEVICE_HPP_INCLUDED
 #define SGE_OPENGL_DEVICE_HPP_INCLUDED
 
-#include <sge/opengl/onscreen_target_fwd.hpp>
 #include <sge/opengl/device_state/context_scoped_ptr.hpp>
 #include <sge/opengl/device_state/object_fwd.hpp>
 #include <sge/opengl/device_state/scoped_current.hpp>
@@ -30,11 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/basic_parameters_fwd.hpp>
 #include <sge/renderer/config.hpp>
-#include <sge/renderer/resource_flags_field_fwd.hpp>
-#include <sge/renderer/vertex_buffer_unique_ptr.hpp>
-#include <sge/renderer/vertex_count.hpp>
-#include <sge/renderer/vertex_declaration_fwd.hpp>
-#include <sge/renderer/vertex_declaration_unique_ptr.hpp>
 #include <sge/renderer/caps/device_fwd.hpp>
 #include <sge/renderer/context/core_fwd.hpp>
 #include <sge/renderer/context/core_unique_ptr.hpp>
@@ -77,6 +71,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/base_fwd.hpp>
 #include <sge/renderer/target/offscreen_unique_ptr.hpp>
 #include <sge/renderer/target/onscreen_fwd.hpp>
+#include <sge/renderer/target/onscreen_scoped_ptr.hpp>
 #include <sge/renderer/texture/cube_parameters_fwd.hpp>
 #include <sge/renderer/texture/cube_unique_ptr.hpp>
 #include <sge/renderer/texture/depth_stencil_parameters_fwd.hpp>
@@ -85,8 +80,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/planar_unique_ptr.hpp>
 #include <sge/renderer/texture/volume_parameters_fwd.hpp>
 #include <sge/renderer/texture/volume_unique_ptr.hpp>
-#include <sge/renderer/vf/dynamic/format_fwd.hpp>
-#include <sge/renderer/vf/dynamic/part_index.hpp>
+#include <sge/renderer/vertex/buffer_parameters_fwd.hpp>
+#include <sge/renderer/vertex/buffer_unique_ptr.hpp>
+#include <sge/renderer/vertex/declaration_parameters_fwd.hpp>
+#include <sge/renderer/vertex/declaration_unique_ptr.hpp>
 #include <awl/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
@@ -102,6 +99,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/cg/loaded_program_unique_ptr.hpp>
 #include <sge/renderer/cg/loaded_texture_unique_ptr.hpp>
 #include <sge/renderer/texture/base_fwd.hpp>
+#include <sge/renderer/vertex/declaration_fwd.hpp>
 #endif
 
 
@@ -166,17 +164,14 @@ private:
 		sge::renderer::texture::cube_parameters const &
 	);
 
-	sge::renderer::vertex_declaration_unique_ptr
+	sge::renderer::vertex::declaration_unique_ptr
 	create_vertex_declaration(
-		sge::renderer::vf::dynamic::format const &
+		sge::renderer::vertex::declaration_parameters const &
 	);
 
-	sge::renderer::vertex_buffer_unique_ptr
+	sge::renderer::vertex::buffer_unique_ptr
 	create_vertex_buffer(
-		sge::renderer::vertex_declaration const &,
-		sge::renderer::vf::dynamic::part_index,
-		sge::renderer::vertex_count,
-		sge::renderer::resource_flags_field const &
+		sge::renderer::vertex::buffer_parameters const &
 	);
 
 	sge::renderer::index::buffer_unique_ptr
@@ -232,7 +227,7 @@ private:
 
 	sge::cg::program::source const
 	transform_cg_vertex_program(
-		sge::renderer::vertex_declaration const &,
+		sge::renderer::vertex::declaration const &,
 		sge::cg::program::source const &
 	);
 #endif
@@ -319,11 +314,7 @@ private:
 
 	sge::opengl::device_state::scoped_current const scoped_current_;
 
-	typedef fcppt::scoped_ptr<
-		sge::opengl::onscreen_target
-	> onscreen_target_scoped_ptr;
-
-	onscreen_target_scoped_ptr const onscreen_target_;
+	sge::renderer::target::onscreen_scoped_ptr const onscreen_target_;
 };
 
 }

@@ -27,14 +27,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/convert/primitive_type.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/logger.hpp>
 #include <sge/renderer/primitive_count.hpp>
 #include <sge/renderer/primitive_type.hpp>
-#include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/index/buffer.hpp>
 #include <sge/renderer/index/count.hpp>
 #include <sge/renderer/index/first.hpp>
+#include <sge/renderer/vertex/count.hpp>
+#include <sge/renderer/vertex/first.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/log/warning.hpp>
@@ -44,8 +44,8 @@ void
 sge::opengl::draw_elements(
 	sge::opengl::context::system::object &_context,
 	sge::renderer::index::buffer const &_index_buffer,
-	sge::renderer::first_vertex const _first_vertex,
-	sge::renderer::vertex_count const _num_vertices,
+	sge::renderer::vertex::first const _first_vertex,
+	sge::renderer::vertex::count const _num_vertices,
 	sge::renderer::primitive_type::type const _primitive_type,
 	sge::renderer::index::first const _first_index,
 	sge::renderer::index::count const _num_indices

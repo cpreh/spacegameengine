@@ -23,11 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/class_symbol.hpp>
 #include <sge/renderer/config.hpp>
-#include <sge/renderer/resource_flags_field_fwd.hpp>
-#include <sge/renderer/vertex_buffer_unique_ptr.hpp>
-#include <sge/renderer/vertex_count.hpp>
-#include <sge/renderer/vertex_declaration_fwd.hpp>
-#include <sge/renderer/vertex_declaration_unique_ptr.hpp>
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/caps/device_fwd.hpp>
 #include <sge/renderer/context/core_fwd.hpp>
@@ -58,8 +53,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/planar_unique_ptr.hpp>
 #include <sge/renderer/texture/volume_parameters_fwd.hpp>
 #include <sge/renderer/texture/volume_unique_ptr.hpp>
-#include <sge/renderer/vf/dynamic/format_fwd.hpp>
-#include <sge/renderer/vf/dynamic/part_index.hpp>
+#include <sge/renderer/vertex/buffer_parameters_fwd.hpp>
+#include <sge/renderer/vertex/buffer_unique_ptr.hpp>
+#include <sge/renderer/vertex/declaration_parameters_fwd.hpp>
+#include <sge/renderer/vertex/declaration_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 
 #if defined(SGE_RENDERER_HAVE_CG)
@@ -73,6 +70,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/cg/loaded_program_unique_ptr.hpp>
 #include <sge/renderer/cg/loaded_texture_unique_ptr.hpp>
 #include <sge/renderer/texture/base_fwd.hpp>
+#include <sge/renderer/vertex/declaration_fwd.hpp>
 #endif
 
 
@@ -252,51 +250,38 @@ public:
 	) = 0;
 
 	/**
-	 * \brief Creates a vertex declaration
-	 *
-	 * Creates a vertex declaration from \a format
-	 *
-	 * \param format The dynamic vertex format to use
-	 *
-	 * \return A unique pointer to the created vertex declaration
-	 *
-	 * \throw sge::renderer::exception if anything goes wrong
-	 */
+	\brief Creates a vertex declaration
+
+	Creates a vertex declaration described by \a parameters
+
+	\param parameters Describes the vertex declaration
+
+	\return A unique pointer to the created vertex declaration
+
+	\throw sge::renderer::exception if anything goes wrong
+	*/
 	virtual
-	sge::renderer::vertex_declaration_unique_ptr
+	sge::renderer::vertex::declaration_unique_ptr
 	create_vertex_declaration(
-		sge::renderer::vf::dynamic::format const &format
+		sge::renderer::vertex::declaration_parameters const &parameters
 	) = 0;
 
 	/**
-	 * \brief Creates a vertex buffer
-	 *
-	 * Creates a vertex buffer that is going to hold data described by \a
-	 * part of \a vertex_declaration. It will be able to hold \a
-	 * vertex_count vertices. \a flags describes the capabilities of the
-	 * buffer. Initially, the contents of the buffer are undefined.
-	 *
-	 * \param vertex_declaration The vertex declaration the buffer belongs
-	 * to
-	 *
-	 * \param part The part of the vertex declaration the buffer will be
-	 * holding vertices for
-	 *
-	 * \param vertex_count The number of vertices the buffer will hold
-	 *
-	 * \param flags The capabilitiies of the buffer
-	 *
-	 * \return A unique pointer to the created vertex buffer
-	 *
-	 * \throw sge::renderer::exception if anything goes wrong
-	 */
+	\brief Creates a vertex buffer
+
+	Creates a vertex buffer that is going to hold data described by \a
+	parameters.
+
+	\param parameters Describes the vertex buffer
+
+	\return A unique pointer to the created vertex buffer
+
+	\throw sge::renderer::exception if anything goes wrong
+	*/
 	virtual
-	sge::renderer::vertex_buffer_unique_ptr
+	sge::renderer::vertex::buffer_unique_ptr
 	create_vertex_buffer(
-		sge::renderer::vertex_declaration const &vertex_declaration,
-		sge::renderer::vf::dynamic::part_index part,
-		sge::renderer::vertex_count vertex_count,
-		sge::renderer::resource_flags_field const &flags
+		sge::renderer::vertex::buffer_parameters const &parameters
 	) = 0;
 
 	/**
@@ -373,7 +358,7 @@ public:
 	virtual
 	sge::cg::program::source const
 	transform_cg_vertex_program(
-		sge::renderer::vertex_declaration const &,
+		sge::renderer::vertex::declaration const &,
 		sge::cg::program::source const &
 	) = 0;
 #endif

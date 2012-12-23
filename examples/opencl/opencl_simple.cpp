@@ -41,13 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/resource_flags.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/renderer/vertex_buffer.hpp>
-#include <sge/renderer/vertex_buffer_scoped_ptr.hpp>
-#include <sge/renderer/vertex_count.hpp>
-#include <sge/renderer/vertex_declaration.hpp>
-#include <sge/renderer/vertex_declaration_scoped_ptr.hpp>
 #include <sge/renderer/device/core.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/parameters/object.hpp>
@@ -56,6 +50,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_format/depth_stencil.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
+#include <sge/renderer/vertex/buffer.hpp>
+#include <sge/renderer/vertex/buffer_parameters.hpp>
+#include <sge/renderer/vertex/buffer_scoped_ptr.hpp>
+#include <sge/renderer/vertex/count.hpp>
+#include <sge/renderer/vertex/declaration.hpp>
+#include <sge/renderer/vertex/declaration_parameters.hpp>
+#include <sge/renderer/vertex/declaration_scoped_ptr.hpp>
+#include <sge/renderer/vertex/scoped_lock.hpp>
 #include <sge/renderer/vf/format.hpp>
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/part.hpp>
@@ -458,21 +460,23 @@ try
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Kernel created, now creating a vertex buffer...\n");
 
-	sge::renderer::vertex_declaration_scoped_ptr const vertex_declaration(
+	sge::renderer::vertex::declaration_scoped_ptr const vertex_declaration(
 		sys.renderer_core().create_vertex_declaration(
-			sge::renderer::vf::dynamic::make_format<vf::format>()));
+			sge::renderer::vertex::declaration_parameters(
+				sge::renderer::vf::dynamic::make_format<vf::format>())));
 
-	sge::renderer::vertex_buffer_scoped_ptr const vb(
+	sge::renderer::vertex::buffer_scoped_ptr const vb(
 		sys.renderer_core().create_vertex_buffer(
-			*vertex_declaration,
-			sge::renderer::vf::dynamic::make_part_index<
-				vf::format,
-				vf::part
-			>(),
-			sge::renderer::vertex_count(
-				6u),
-			sge::renderer::resource_flags_field(
-				sge::renderer::resource_flags::readable)));
+			sge::renderer::vertex::buffer_parameters(
+				*vertex_declaration,
+				sge::renderer::vf::dynamic::make_part_index<
+					vf::format,
+					vf::part
+				>(),
+				sge::renderer::vertex::count(
+					6u),
+				sge::renderer::resource_flags_field(
+					sge::renderer::resource_flags::readable))));
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Done, now creating OpenCL buffer from it\n");
@@ -527,7 +531,7 @@ try
 		<< FCPPT_TEXT("Now locking the vb for reading and printing the values\n");
 
 	{
-		sge::renderer::scoped_vertex_lock const scoped_vb(
+		sge::renderer::vertex::scoped_lock const scoped_vb(
 			*vb,
 			sge::renderer::lock_mode::readwrite);
 

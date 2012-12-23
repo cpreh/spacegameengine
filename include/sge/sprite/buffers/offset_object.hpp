@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_BUFFERS_OFFSET_OBJECT_HPP_INCLUDED
 
 #include <sge/renderer/index/first.hpp>
-#include <sge/renderer/first_vertex.hpp>
+#include <sge/renderer/vertex/first.hpp>
 #include <sge/sprite/buffers/roles/first_index.hpp>
 #include <sge/sprite/buffers/roles/first_vertex.hpp>
 #include <sge/sprite/detail/config/needs_index_buffer.hpp>
@@ -52,7 +52,7 @@ struct offset_object
 private:
 	typedef majutsu::role<
 		majutsu::simple<
-			sge::renderer::first_vertex
+			sge::renderer::vertex::first
 		>,
 		sge::sprite::buffers::roles::first_vertex
 	> first_vertex_role;

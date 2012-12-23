@@ -23,14 +23,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/postprocessing/fullscreen_quad.hpp>
 #include <sge/postprocessing/symbol.hpp>
-#include <sge/renderer/vertex_buffer_scoped_ptr.hpp>
-#include <sge/renderer/vertex_declaration_scoped_ptr.hpp>
 #include <sge/renderer/context/scoped_core_unique_ptr.hpp>
 #include <sge/renderer/depth_stencil_buffer/surface_scoped_ptr.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/state/core/sampler/object_scoped_ptr.hpp>
 #include <sge/renderer/target/offscreen_scoped_ptr.hpp>
 #include <sge/renderer/texture/planar_scoped_ptr.hpp>
+#include <sge/renderer/vertex/declaration_scoped_ptr.hpp>
 #include <sge/shader/context_fwd.hpp>
 #include <sge/shader/pair.hpp>
 #include <sge/shader/parameter/planar_texture.hpp>
@@ -71,7 +70,7 @@ public:
 	~context();
 private:
 	sge::renderer::device::core &renderer_;
-	sge::renderer::vertex_declaration_scoped_ptr const quad_vertex_declaration_;
+	sge::renderer::vertex::declaration_scoped_ptr const quad_vertex_declaration_;
 	sge::renderer::state::core::sampler::object_scoped_ptr const point_sampler_;
 	sge::postprocessing::fullscreen_quad fullscreen_quad_;
 		/*

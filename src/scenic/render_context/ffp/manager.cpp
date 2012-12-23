@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::scenic::render_context::ffp::manager::manager(
 	sge::renderer::device::ffp &_renderer,
-	sge::renderer::vertex_declaration &_vertex_declaration)
+	sge::renderer::vertex::declaration &_vertex_declaration)
 :
 	renderer_(
 		_renderer),

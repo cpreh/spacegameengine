@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/raw_pointer.hpp>
+#include <sge/renderer/vertex/first.hpp>
 #include <sge/renderer/vf/dynamic/color_format_vector.hpp>
 #include <sge/renderer/vf/dynamic/extra.hpp>
 #include <sge/renderer/vf/dynamic/part.hpp>
@@ -89,7 +89,7 @@ sge::renderer::vf::dynamic::detail::converter_impl::~converter_impl()
 void
 sge::renderer::vf::dynamic::detail::converter_impl::convert_lock(
 	sge::renderer::raw_pointer const _data,
-	sge::renderer::first_vertex const _pos,
+	sge::renderer::vertex::first const _pos,
 	sge::renderer::vf::dynamic::detail::lock_interval_set const &_intervals,
 	sge::renderer::vf::dynamic::detail::lock_interval const &_current_lock
 )
@@ -116,7 +116,7 @@ sge::renderer::vf::dynamic::detail::converter_impl::convert_lock(
 void
 sge::renderer::vf::dynamic::detail::converter_impl::convert_unlock(
 	sge::renderer::raw_pointer const _data,
-	sge::renderer::first_vertex const _pos,
+	sge::renderer::vertex::first const _pos,
 	sge::renderer::vf::dynamic::detail::lock_interval const &_current_lock
 )
 {
@@ -131,7 +131,7 @@ sge::renderer::vf::dynamic::detail::converter_impl::convert_unlock(
 void
 sge::renderer::vf::dynamic::detail::converter_impl::do_convert(
 	sge::renderer::raw_pointer const _data,
-	sge::renderer::first_vertex const _pos,
+	sge::renderer::vertex::first const _pos,
 	sge::renderer::vf::dynamic::detail::lock_interval const &_interval,
 	bool const _unlock
 )

@@ -26,9 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/depth_stencil_buffer/surface_parameters.hpp>
 #include <sge/renderer/device/core.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
-#include <sge/renderer/scoped_vertex_buffer.hpp>
-#include <sge/renderer/scoped_vertex_declaration.hpp>
-#include <sge/renderer/vertex_declaration.hpp>
 #include <sge/renderer/context/core.hpp>
 #include <sge/renderer/context/scoped_core.hpp>
 #include <sge/renderer/target/from_texture.hpp>
@@ -54,6 +51,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/set_address_mode2.hpp>
 	*/
 #include <sge/renderer/texture/mipmap/off.hpp>
+#include <sge/renderer/vertex/declaration.hpp>
+#include <sge/renderer/vertex/scoped_declaration.hpp>
 #include <sge/shader/scoped_pair.hpp>
 #include <sge/viewport/manager.hpp>
 #include <fcppt/make_unique_ptr.hpp>

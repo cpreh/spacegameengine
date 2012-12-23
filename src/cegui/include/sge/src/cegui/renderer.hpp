@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_CEGUI_RENDERER_HPP_INCLUDED
 #define SGE_SRC_CEGUI_RENDERER_HPP_INCLUDED
 
-#include <sge/renderer/vertex_declaration_scoped_ptr.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
+#include <sge/renderer/vertex/declaration_scoped_ptr.hpp>
 #include <sge/src/cegui/default_target.hpp>
 #include <sge/src/cegui/geometry_buffer_fwd.hpp>
 #include <sge/src/cegui/optional_render_context_ref.hpp>
@@ -199,7 +199,7 @@ private:
 
 	sge::cegui::optional_render_context_ref render_context_;
 
-	sge::renderer::vertex_declaration_scoped_ptr const vertex_declaration_;
+	sge::renderer::vertex::declaration_scoped_ptr const vertex_declaration_;
 
 	CEGUI::Sizef display_size_;
 

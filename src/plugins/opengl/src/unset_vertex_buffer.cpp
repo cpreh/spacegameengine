@@ -24,19 +24,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/vertex_declaration.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/device/object_fwd.hpp>
-#include <sge/renderer/vertex_buffer.hpp>
+#include <sge/renderer/vertex/buffer.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 
 
 void
 sge::opengl::unset_vertex_buffer(
 	sge::opengl::context::device::object &_context,
-	sge::renderer::vertex_buffer const &_buffer
+	sge::renderer::vertex::buffer const &_buffer
 )
 {
 	sge::opengl::vertex_context &context(
-		opengl::context::use<
-			opengl::vertex_context
+		sge::opengl::context::use<
+			sge::opengl::vertex_context
 		>(
 			_context
 		)

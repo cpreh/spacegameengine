@@ -24,10 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/vector3.hpp>
-#include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/renderer/state/core/rasterizer/object_scoped_ptr.hpp>
 #include <sge/renderer/target/scissor_area.hpp>
+#include <sge/renderer/vertex/declaration_fwd.hpp>
 #include <sge/src/cegui/batch_fwd.hpp>
 #include <sge/src/cegui/clip.hpp>
 #include <sge/src/cegui/geometry_buffer_fwd.hpp>
@@ -67,7 +67,7 @@ class geometry_buffer
 public:
 	geometry_buffer(
 		sge::renderer::device::ffp &,
-		sge::renderer::vertex_declaration const &,
+		sge::renderer::vertex::declaration const &,
 		sge::cegui::optional_render_context_ref const &
 	);
 
@@ -158,7 +158,7 @@ private:
 
 	sge::renderer::device::ffp &renderer_;
 
-	sge::renderer::vertex_declaration const &vertex_declaration_;
+	sge::renderer::vertex::declaration const &vertex_declaration_;
 
 	sge::cegui::texture *active_texture_;
 

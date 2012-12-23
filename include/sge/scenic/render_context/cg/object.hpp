@@ -22,8 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SCENIC_RENDER_CONTEXT_CG_OBJECT_HPP_INCLUDED
 
 #include <sge/renderer/matrix4.hpp>
-#include <sge/renderer/scoped_vertex_declaration.hpp>
-#include <sge/renderer/vertex_buffer_fwd.hpp>
 #include <sge/renderer/context/core_fwd.hpp>
 #include <sge/renderer/index/buffer_fwd.hpp>
 #include <sge/renderer/state/core/blend/scoped.hpp>
@@ -31,6 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/rasterizer/scoped.hpp>
 #include <sge/renderer/state/core/sampler/scoped.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
+#include <sge/renderer/vertex/buffer_fwd.hpp>
+#include <sge/renderer/vertex/scoped_declaration.hpp>
 #include <sge/scenic/index_buffer_range_fwd.hpp>
 #include <sge/scenic/symbol.hpp>
 #include <sge/scenic/render_context/base.hpp>
@@ -85,7 +85,7 @@ public:
 	SGE_SCENIC_SYMBOL
 	void
 	vertex_buffer(
-		sge::renderer::vertex_buffer const &);
+		sge::renderer::vertex::buffer const &);
 
 	SGE_SCENIC_SYMBOL
 	void
@@ -106,12 +106,12 @@ public:
 	~object();
 private:
 	typedef
-	fcppt::optional<sge::renderer::vertex_buffer const &>
+	fcppt::optional<sge::renderer::vertex::buffer const &>
 	optional_vertex_buffer;
 
 	sge::scenic::render_context::cg::manager &manager_;
 	sge::renderer::context::core &context_;
-	sge::renderer::scoped_vertex_declaration scoped_vd_;
+	sge::renderer::vertex::scoped_declaration scoped_vd_;
 	sge::renderer::state::core::depth_stencil::scoped depth_stencil_state_;
 	sge::renderer::state::core::blend::scoped blend_state_;
 	sge::renderer::state::core::rasterizer::scoped rasterizer_state_;

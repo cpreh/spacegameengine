@@ -23,10 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/draw_arrays.hpp>
 #include <sge/opengl/convert/primitive_type.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/logger.hpp>
 #include <sge/renderer/primitive_type.hpp>
-#include <sge/renderer/vertex_count.hpp>
+#include <sge/renderer/vertex/count.hpp>
+#include <sge/renderer/vertex/first.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/log/warning.hpp>
@@ -34,8 +34,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::draw_arrays(
-	sge::renderer::first_vertex const _first_vertex,
-	sge::renderer::vertex_count const _num_vertices,
+	sge::renderer::vertex::first const _first_vertex,
+	sge::renderer::vertex::count const _num_vertices,
 	sge::renderer::primitive_type::type const _primitive_type
 )
 {

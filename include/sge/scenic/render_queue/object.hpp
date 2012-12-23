@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SCENIC_RENDER_QUEUE_OBJECT_HPP_INCLUDED
 #define SGE_SCENIC_RENDER_QUEUE_OBJECT_HPP_INCLUDED
 
-#include <sge/renderer/vertex_buffer_fwd.hpp>
 #include <sge/renderer/index/buffer_fwd.hpp>
+#include <sge/renderer/vertex/buffer_fwd.hpp>
 #include <sge/scenic/texture_manager_fwd.hpp>
 #include <sge/scenic/render_context/base_fwd.hpp>
 #include <sge/scenic/render_context/material/object.hpp>
@@ -57,7 +57,7 @@ public:
 
 	void
 	current_vertex_buffer(
-		sge::renderer::vertex_buffer &);
+		sge::renderer::vertex::buffer &);
 
 	void
 	add_mesh(
@@ -76,7 +76,7 @@ private:
 	material_sequence;
 
 	typedef
-	std::vector<sge::renderer::vertex_buffer*>
+	std::vector<sge::renderer::vertex::buffer*>
 	vertex_buffer_sequence;
 
 	typedef

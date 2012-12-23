@@ -18,17 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/raw_pointer.hpp>
-#include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
+#include <sge/renderer/vertex/count.hpp>
+#include <sge/renderer/vertex/first.hpp>
 #include <sge/renderer/vf/dynamic/locked_part.hpp>
 
 
 sge::renderer::vf::dynamic::locked_part::locked_part(
 	sge::renderer::raw_pointer const _data,
-	sge::renderer::first_vertex const _pos,
-	sge::renderer::vertex_count const _count,
+	sge::renderer::vertex::first const _pos,
+	sge::renderer::vertex::count const _count,
 	sge::renderer::lock_flags::method const _lock_flags
 )
 :
@@ -53,13 +53,13 @@ sge::renderer::vf::dynamic::locked_part::data() const
 	return data_;
 }
 
-sge::renderer::first_vertex const
+sge::renderer::vertex::first const
 sge::renderer::vf::dynamic::locked_part::pos() const
 {
 	return pos_;
 }
 
-sge::renderer::vertex_count const
+sge::renderer::vertex::count const
 sge::renderer::vf::dynamic::locked_part::count() const
 {
 	return count_;

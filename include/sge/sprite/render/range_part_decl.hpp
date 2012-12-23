@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_RENDER_RANGE_PART_DECL_HPP_INCLUDED
 #define SGE_SPRITE_RENDER_RANGE_PART_DECL_HPP_INCLUDED
 
-#include <sge/renderer/first_vertex.hpp>
-#include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/index/count.hpp>
 #include <sge/renderer/index/first.hpp>
+#include <sge/renderer/vertex/count.hpp>
+#include <sge/renderer/vertex/first.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/sprite/texture_level.hpp>
 #include <sge/sprite/detail/render/range_part_object.hpp>
@@ -56,10 +56,10 @@ public:
 	sge::renderer::index::first const
 	first_index() const;
 
-	sge::renderer::first_vertex const
+	sge::renderer::vertex::first const
 	first_vertex() const;
 
-	sge::renderer::vertex_count const
+	sge::renderer::vertex::count const
 	vertex_count() const;
 
 	sge::renderer::index::count const

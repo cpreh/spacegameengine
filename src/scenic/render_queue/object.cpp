@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/context/core.hpp>
 #include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/vertex/buffer_fwd.hpp>
 #include <sge/scenic/texture_manager.hpp>
 #include <sge/scenic/render_context/base.hpp>
 #include <sge/scenic/render_queue/object.hpp>
@@ -124,7 +124,7 @@ sge::scenic::render_queue::object::current_material(
 
 void
 sge::scenic::render_queue::object::current_vertex_buffer(
-	sge::renderer::vertex_buffer &_vertex_buffer)
+	sge::renderer::vertex::buffer &_vertex_buffer)
 {
 	change_context_state(
 		vertex_buffers_,

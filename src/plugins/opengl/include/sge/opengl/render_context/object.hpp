@@ -25,12 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/device/object_fwd.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/renderer/config.hpp>
-#include <sge/renderer/const_optional_vertex_declaration_ref_fwd.hpp>
-#include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/primitive_count.hpp>
 #include <sge/renderer/primitive_type.hpp>
-#include <sge/renderer/vertex_buffer_fwd.hpp>
-#include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/clear/parameters_fwd.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/index/buffer_fwd.hpp>
@@ -54,6 +50,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/transform/const_optional_object_ref_fwd.hpp>
 #include <sge/renderer/texture/const_optional_base_ref_fwd.hpp>
 #include <sge/renderer/texture/stage.hpp>
+#include <sge/renderer/vertex/buffer_fwd.hpp>
+#include <sge/renderer/vertex/const_optional_declaration_ref_fwd.hpp>
+#include <sge/renderer/vertex/count.hpp>
+#include <sge/renderer/vertex/first.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
 
@@ -105,8 +105,8 @@ private:
 	void
 	render_indexed(
 		sge::renderer::index::buffer const &,
-		sge::renderer::first_vertex,
-		sge::renderer::vertex_count,
+		sge::renderer::vertex::first,
+		sge::renderer::vertex::count,
 		sge::renderer::primitive_type::type,
 		sge::renderer::index::first,
 		sge::renderer::index::count
@@ -114,24 +114,24 @@ private:
 
 	void
 	render_nonindexed(
-		sge::renderer::first_vertex,
-		sge::renderer::vertex_count,
+		sge::renderer::vertex::first,
+		sge::renderer::vertex::count,
 		sge::renderer::primitive_type::type
 	);
 
 	void
 	activate_vertex_buffer(
-		sge::renderer::vertex_buffer const &
+		sge::renderer::vertex::buffer const &
 	);
 
 	void
 	deactivate_vertex_buffer(
-		sge::renderer::vertex_buffer const &
+		sge::renderer::vertex::buffer const &
 	);
 
 	void
 	vertex_declaration(
-		sge::renderer::const_optional_vertex_declaration_ref const &
+		sge::renderer::vertex::const_optional_declaration_ref const &
 	);
 
 	void

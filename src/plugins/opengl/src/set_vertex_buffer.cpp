@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/vertex_declaration.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/device/object_fwd.hpp>
-#include <sge/renderer/vertex_buffer.hpp>
+#include <sge/renderer/vertex/buffer.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <fcppt/dynamic_pointer_cast.hpp>
 
@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 void
 sge::opengl::set_vertex_buffer(
 	sge::opengl::context::device::object &_context,
-	sge::renderer::vertex_buffer const &_buffer
+	sge::renderer::vertex::buffer const &_buffer
 )
 {
 	sge::opengl::vertex_context &context(

@@ -35,20 +35,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/md3/normal_sequence.hpp>
 #include <sge/model/md3/object.hpp>
 #include <sge/model/md3/vertex_sequence.hpp>
-#include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <sge/renderer/scoped_vertex_buffer.hpp>
-#include <sge/renderer/scoped_vertex_declaration.hpp>
-#include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/renderer/vertex_buffer.hpp>
-#include <sge/renderer/vertex_buffer_scoped_ptr.hpp>
-#include <sge/renderer/vertex_count.hpp>
-#include <sge/renderer/vertex_declaration.hpp>
-#include <sge/renderer/vertex_declaration_scoped_ptr.hpp>
 #include <sge/renderer/clear/depth_buffer_value.hpp>
 #include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/context/ffp.hpp>
@@ -102,6 +93,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/base.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/target/viewport_is_null.hpp>
+#include <sge/renderer/vertex/buffer.hpp>
+#include <sge/renderer/vertex/buffer_parameters.hpp>
+#include <sge/renderer/vertex/buffer_scoped_ptr.hpp>
+#include <sge/renderer/vertex/count.hpp>
+#include <sge/renderer/vertex/declaration.hpp>
+#include <sge/renderer/vertex/declaration_parameters.hpp>
+#include <sge/renderer/vertex/declaration_scoped_ptr.hpp>
+#include <sge/renderer/vertex/first.hpp>
+#include <sge/renderer/vertex/scoped_buffer.hpp>
+#include <sge/renderer/vertex/scoped_declaration.hpp>
+#include <sge/renderer/vertex/scoped_lock.hpp>
 #include <sge/renderer/vf/format.hpp>
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/normal.hpp>
@@ -250,10 +252,10 @@ FCPPT_NONCOPYABLE(
 public:
 	compiled_model(
 		sge::renderer::device::core &,
-		sge::renderer::vertex_declaration const &,
+		sge::renderer::vertex::declaration const &,
 		sge::model::md3::object const &);
 
-	sge::renderer::vertex_buffer const &
+	sge::renderer::vertex::buffer const &
 	vb() const;
 
 	void
@@ -263,13 +265,13 @@ public:
 	~compiled_model();
 private:
 	sge::renderer::device::core &renderer_;
-	sge::renderer::vertex_buffer_scoped_ptr const vb_;
+	sge::renderer::vertex::buffer_scoped_ptr const vb_;
 	sge::renderer::index::buffer_scoped_ptr const ib_;
 };
 
 compiled_model::compiled_model(
 	sge::renderer::device::core &_renderer,
-	sge::renderer::vertex_declaration const &_vd,
+	sge::renderer::vertex::declaration const &_vd,
 	sge::model::md3::object const &_model)
 :
 	renderer_(
@@ -277,15 +279,16 @@ compiled_model::compiled_model(
 	// Create the vertex buffer
 	vb_(
 		renderer_.create_vertex_buffer(
-			_vd,
-			sge::renderer::vf::dynamic::make_part_index<
-				vf::format,
-				vf::format_part
-			>(),
-			sge::renderer::vertex_count(
-				_model.vertices(
-					_model.part_names().front()).size()),
-			sge::renderer::resource_flags_field::null())),
+			sge::renderer::vertex::buffer_parameters(
+				_vd,
+				sge::renderer::vf::dynamic::make_part_index<
+					vf::format,
+					vf::format_part
+				>(),
+				sge::renderer::vertex::count(
+					_model.vertices(
+						_model.part_names().front()).size()),
+				sge::renderer::resource_flags_field::null()))),
 	// Create the index buffer. We have to decide which data type to
 	// use. Since our models have < 100 vertices, a 16 bit integer is
 	// enough, so we're using "format::i16" here. You'll see more of
@@ -301,7 +304,7 @@ compiled_model::compiled_model(
 {
 	// Fill the vertex buffer first (arbitrary choice)
 	{
-		sge::renderer::scoped_vertex_lock const vblock(
+		sge::renderer::vertex::scoped_lock const vblock(
 			*vb_,
 			sge::renderer::lock_mode::writeonly);
 
@@ -369,7 +372,7 @@ compiled_model::compiled_model(
 				*current_model_index));
 }
 
-sge::renderer::vertex_buffer const &
+sge::renderer::vertex::buffer const &
 compiled_model::vb() const
 {
 	return *vb_;
@@ -386,9 +389,9 @@ compiled_model::render(
 	// performance).
 	_context.render_indexed(
 		*ib_,
-		sge::renderer::first_vertex(
+		sge::renderer::vertex::first(
 			0u),
-		sge::renderer::vertex_count(
+		sge::renderer::vertex::count(
 			vb_->size()),
 		sge::renderer::primitive_type::triangle_list,
 		sge::renderer::index::first(
@@ -567,7 +570,7 @@ random_model_collection::render(
 {
 	// Finally, we activate the vertex buffer so we can render stuff
 	// with it. We only activate it once, however, not for every model.
-	sge::renderer::scoped_vertex_buffer const scoped_vb(
+	sge::renderer::vertex::scoped_buffer const scoped_vb(
 		_context,
 		backend_.vb());
 
@@ -837,9 +840,10 @@ try
 		)
 	);
 
-	sge::renderer::vertex_declaration_scoped_ptr const vertex_declaration(
+	sge::renderer::vertex::declaration_scoped_ptr const vertex_declaration(
 		sys.renderer_ffp().create_vertex_declaration(
-			sge::renderer::vf::dynamic::make_format<vf::format>()));
+			sge::renderer::vertex::declaration_parameters(
+				sge::renderer::vf::dynamic::make_format<vf::format>())));
 
 	// Create an md3 loader using the "create" function.
 	sge::model::md3::loader_scoped_ptr const md3_loader(
@@ -943,7 +947,7 @@ try
 			*projection_state);
 
 		// The vertex declaration can be set once in this case
-		sge::renderer::scoped_vertex_declaration const scoped_vd(
+		sge::renderer::vertex::scoped_declaration const scoped_vd(
 			context,
 			*vertex_declaration);
 

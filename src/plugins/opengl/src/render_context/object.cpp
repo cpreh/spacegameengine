@@ -45,12 +45,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/ffp/transform/set.hpp>
 #include <sge/opengl/texture/activate.hpp>
 #include <sge/renderer/config.hpp>
-#include <sge/renderer/const_optional_vertex_declaration_ref_fwd.hpp>
-#include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/primitive_count.hpp>
 #include <sge/renderer/primitive_type.hpp>
-#include <sge/renderer/vertex_buffer_fwd.hpp>
-#include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/clear/parameters_fwd.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/index/buffer_fwd.hpp>
@@ -75,6 +71,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/optional_offscreen_ref.hpp>
 #include <sge/renderer/texture/const_optional_base_ref_fwd.hpp>
 #include <sge/renderer/texture/stage.hpp>
+#include <sge/renderer/vertex/buffer_fwd.hpp>
+#include <sge/renderer/vertex/const_optional_declaration_ref_fwd.hpp>
+#include <sge/renderer/vertex/count.hpp>
+#include <sge/renderer/vertex/first.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/assert/pre.hpp>
 
@@ -188,8 +188,8 @@ sge::opengl::render_context::object::offscreen_target(
 void
 sge::opengl::render_context::object::render_indexed(
 	sge::renderer::index::buffer const &_index_buffer,
-	sge::renderer::first_vertex const _first_vertex,
-	sge::renderer::vertex_count const _num_vertices,
+	sge::renderer::vertex::first const _first_vertex,
+	sge::renderer::vertex::count const _num_vertices,
 	sge::renderer::primitive_type::type const _primitive_type,
 	sge::renderer::index::first const _first_index,
 	sge::renderer::index::count const _num_indices
@@ -208,8 +208,8 @@ sge::opengl::render_context::object::render_indexed(
 
 void
 sge::opengl::render_context::object::render_nonindexed(
-	sge::renderer::first_vertex const _first_vertex,
-	sge::renderer::vertex_count const _num_vertices,
+	sge::renderer::vertex::first const _first_vertex,
+	sge::renderer::vertex::count const _num_vertices,
 	sge::renderer::primitive_type::type const _primitive_type
 )
 {
@@ -222,7 +222,7 @@ sge::opengl::render_context::object::render_nonindexed(
 
 void
 sge::opengl::render_context::object::activate_vertex_buffer(
-	sge::renderer::vertex_buffer const &_vertex_buffer
+	sge::renderer::vertex::buffer const &_vertex_buffer
 )
 {
 	sge::opengl::set_vertex_buffer(
@@ -233,7 +233,7 @@ sge::opengl::render_context::object::activate_vertex_buffer(
 
 void
 sge::opengl::render_context::object::deactivate_vertex_buffer(
-	sge::renderer::vertex_buffer const &_vertex_buffer
+	sge::renderer::vertex::buffer const &_vertex_buffer
 )
 {
 	sge::opengl::unset_vertex_buffer(
@@ -244,7 +244,7 @@ sge::opengl::render_context::object::deactivate_vertex_buffer(
 
 void
 sge::opengl::render_context::object::vertex_declaration(
-	sge::renderer::const_optional_vertex_declaration_ref const &_vertex_declaration
+	sge::renderer::vertex::const_optional_declaration_ref const &_vertex_declaration
 )
 {
 	sge::opengl::set_vertex_declaration(

@@ -22,9 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SCENIC_SCENE_MANAGER_HPP_INCLUDED
 
 #include <sge/image2d/system_fwd.hpp>
-#include <sge/renderer/vertex_declaration_scoped_ptr.hpp>
 #include <sge/renderer/context/core_fwd.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
+#include <sge/renderer/vertex/declaration_fwd.hpp>
+#include <sge/renderer/vertex/declaration_scoped_ptr.hpp>
 #include <sge/scenic/symbol.hpp>
 #include <sge/scenic/texture_manager.hpp>
 #include <sge/scenic/render_context/base_unique_ptr.hpp>
@@ -60,7 +61,7 @@ public:
 	renderer() const;
 
 	SGE_SCENIC_SYMBOL
-	sge::renderer::vertex_declaration &
+	sge::renderer::vertex::declaration &
 	vertex_declaration();
 
 	SGE_SCENIC_SYMBOL
@@ -75,7 +76,7 @@ public:
 	~manager();
 private:
 	sge::renderer::device::core &renderer_;
-	sge::renderer::vertex_declaration_scoped_ptr const mesh_vertex_declaration_;
+	sge::renderer::vertex::declaration_scoped_ptr const mesh_vertex_declaration_;
 	sge::scenic::texture_manager texture_manager_;
 	sge::shader::context shader_context_;
 	sge::scenic::render_context::manager_base_scoped_ptr render_context_manager_;

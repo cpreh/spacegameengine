@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SHADER_PAIR_HPP_INCLUDED
 
 #include <sge/cg/program/object.hpp>
-#include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/cg/loaded_program_scoped_ptr.hpp>
+#include <sge/renderer/vertex/declaration_fwd.hpp>
 #include <sge/shader/context_fwd.hpp>
 #include <sge/shader/optional_cflags.hpp>
 #include <sge/shader/pixel_program_path.hpp>
@@ -52,7 +52,7 @@ public:
 	SGE_SHADER_SYMBOL
 	pair(
 		sge::shader::context &,
-		sge::renderer::vertex_declaration const &,
+		sge::renderer::vertex::declaration const &,
 		sge::shader::vertex_program_path const &,
 		sge::shader::pixel_program_path const &,
 		sge::shader::optional_cflags const &);
@@ -60,7 +60,7 @@ public:
 	SGE_SHADER_SYMBOL
 	pair(
 		sge::shader::context &,
-		sge::renderer::vertex_declaration const &,
+		sge::renderer::vertex::declaration const &,
 		sge::shader::vertex_program_stream const &,
 		sge::shader::pixel_program_stream const &,
 		sge::shader::optional_cflags const &);

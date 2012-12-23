@@ -18,9 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/vertex_declaration.hpp>
 #include <sge/renderer/device/core.hpp>
 #include <sge/renderer/device/ffp.hpp>
+#include <sge/renderer/vertex/declaration.hpp>
+#include <sge/renderer/vertex/declaration_parameters.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/scenic/render_context/base.hpp>
 #include <sge/scenic/render_context/manager_base_unique_ptr.hpp>
@@ -40,7 +41,8 @@ sge::scenic::scene::manager::manager(
 		_renderer),
 	mesh_vertex_declaration_(
 		renderer_.create_vertex_declaration(
-			sge::renderer::vf::dynamic::make_format<sge::scenic::vf::format>())),
+			sge::renderer::vertex::declaration_parameters(
+				sge::renderer::vf::dynamic::make_format<sge::scenic::vf::format>()))),
 	texture_manager_(
 		renderer_,
 		_image_loader),
@@ -78,7 +80,7 @@ sge::scenic::scene::manager::renderer() const
 		renderer_;
 }
 
-sge::renderer::vertex_declaration &
+sge::renderer::vertex::declaration &
 sge::scenic::scene::manager::vertex_declaration()
 {
 	return

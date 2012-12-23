@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_RENDER_RANGE_PART_OBJECT_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_RENDER_RANGE_PART_OBJECT_HPP_INCLUDED
 
-#include <sge/renderer/first_vertex.hpp>
-#include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/index/first.hpp>
 #include <sge/renderer/index/count.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
+#include <sge/renderer/vertex/count.hpp>
+#include <sge/renderer/vertex/first.hpp>
 #include <sge/sprite/buffers/roles/first_index.hpp>
 #include <sge/sprite/buffers/roles/first_vertex.hpp>
 #include <sge/sprite/detail/transform_texture_levels_static.hpp>
@@ -69,7 +69,7 @@ struct range_part_object
 private:
 	typedef majutsu::role<
 		majutsu::simple<
-			sge::renderer::first_vertex
+			sge::renderer::vertex::first
 		>,
 		sge::sprite::buffers::roles::first_vertex
 	> first_vertex_role;
@@ -83,7 +83,7 @@ private:
 
 	typedef majutsu::role<
 		majutsu::simple<
-			sge::renderer::vertex_count
+			sge::renderer::vertex::count
 		>,
 		sge::sprite::detail::roles::vertex_count
 	> vertex_count_role;

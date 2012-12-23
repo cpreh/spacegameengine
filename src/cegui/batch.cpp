@@ -19,11 +19,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/resource_flags_field.hpp>
-#include <sge/renderer/vertex_buffer.hpp>
-#include <sge/renderer/vertex_count.hpp>
-#include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/device/core.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
+#include <sge/renderer/vertex/buffer.hpp>
+#include <sge/renderer/vertex/buffer_parameters.hpp>
+#include <sge/renderer/vertex/count.hpp>
+#include <sge/renderer/vertex/declaration_fwd.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <sge/src/cegui/batch.hpp>
 #include <sge/src/cegui/clip.hpp>
@@ -31,9 +32,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::cegui::batch::batch(
 	sge::renderer::device::core &_renderer,
-	sge::renderer::vertex_declaration const &_vertex_declaration,
+	sge::renderer::vertex::declaration const &_vertex_declaration,
 	sge::renderer::texture::planar &_texture,
-	sge::renderer::vertex_count const _vertex_count,
+	sge::renderer::vertex::count const _vertex_count,
 	sge::cegui::clip const _clip
 )
 :
@@ -42,12 +43,14 @@ sge::cegui::batch::batch(
 	),
 	vertex_buffer_(
 		_renderer.create_vertex_buffer(
-			_vertex_declaration,
-			sge::renderer::vf::dynamic::part_index(
-				0u
-			),
-			_vertex_count,
-			sge::renderer::resource_flags_field::null()
+			sge::renderer::vertex::buffer_parameters(
+				_vertex_declaration,
+				sge::renderer::vf::dynamic::part_index(
+					0u
+				),
+				_vertex_count,
+				sge::renderer::resource_flags_field::null()
+			)
 		)
 	),
 	clip_(
@@ -66,7 +69,7 @@ sge::cegui::batch::texture() const
 	return texture_;
 }
 
-sge::renderer::vertex_buffer &
+sge::renderer::vertex::buffer &
 sge::cegui::batch::vertex_buffer() const
 {
 	return *vertex_buffer_;

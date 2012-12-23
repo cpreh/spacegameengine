@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SHADER_LOAD_EDITED_STRING_HPP_INCLUDED
 
 #include <sge/cg/program/source.hpp>
-#include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
+#include <sge/renderer/vertex/declaration_fwd.hpp>
 #include <sge/shader/symbol.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iosfwd>
@@ -38,7 +38,7 @@ SGE_SHADER_SYMBOL
 sge::cg::program::source const
 load_edited_string(
 	sge::renderer::device::core &,
-	sge::renderer::vertex_declaration const &,
+	sge::renderer::vertex::declaration const &,
 	std::istream &);
 }
 }

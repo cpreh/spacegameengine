@@ -22,15 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_VERTEX_BUFFER_HPP_INCLUDED
 
 #include <sge/opengl/vertex_buffer_fwd.hpp>
-#include <sge/opengl/vertex_declaration_fwd.hpp>
 #include <sge/opengl/buffer/object.hpp>
 #include <sge/opengl/buffer/wrapper.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/vf/part_fwd.hpp>
 #include <sge/renderer/lock_mode_fwd.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
-#include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/lock_flags/method_fwd.hpp>
+#include <sge/renderer/vertex/buffer.hpp>
 #include <sge/renderer/vf/dynamic/converter.hpp>
 #include <sge/renderer/vf/dynamic/part.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
@@ -44,7 +43,7 @@ namespace opengl
 
 class vertex_buffer
 :
-	public sge::renderer::vertex_buffer,
+	public sge::renderer::vertex::buffer,
 	public sge::opengl::buffer::wrapper
 {
 	FCPPT_NONCOPYABLE(

@@ -21,9 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SCENIC_RENDER_CONTEXT_FFP_OBJECT_HPP_INCLUDED
 #define SGE_SCENIC_RENDER_CONTEXT_FFP_OBJECT_HPP_INCLUDED
 
-#include <sge/renderer/scoped_vertex_buffer_fwd.hpp>
-#include <sge/renderer/scoped_vertex_declaration.hpp>
-#include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/state/core/blend/object_scoped_ptr.hpp>
 #include <sge/renderer/state/core/blend/scoped.hpp>
@@ -37,6 +34,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/lighting/light/parameters_fwd.hpp>
 #include <sge/renderer/state/ffp/lighting/material/object_scoped_ptr.hpp>
 #include <sge/renderer/state/ffp/transform/object_scoped_ptr.hpp>
+#include <sge/renderer/vertex/buffer_fwd.hpp>
+#include <sge/renderer/vertex/count.hpp>
+#include <sge/renderer/vertex/scoped_buffer_fwd.hpp>
+#include <sge/renderer/vertex/scoped_declaration.hpp>
 #include <sge/scenic/symbol.hpp>
 #include <sge/scenic/render_context/base.hpp>
 #include <sge/scenic/render_context/ffp/manager_fwd.hpp>
@@ -83,7 +84,7 @@ public:
 	SGE_SCENIC_SYMBOL
 	void
 	vertex_buffer(
-		sge::renderer::vertex_buffer const &);
+		sge::renderer::vertex::buffer const &);
 
 	SGE_SCENIC_SYMBOL
 	void
@@ -107,11 +108,11 @@ private:
 
 	sge::scenic::render_context::ffp::manager &manager_;
 	sge::renderer::context::ffp &context_;
-	sge::renderer::scoped_vertex_declaration scoped_vertex_declaration_;
+	sge::renderer::vertex::scoped_declaration scoped_vertex_declaration_;
 	sge::renderer::state::ffp::transform::object_scoped_ptr projection_transform_;
 	sge::renderer::state::ffp::transform::object_scoped_ptr world_transform_;
-	sge::renderer::vertex_count current_vertex_buffer_size_;
-	fcppt::scoped_ptr<sge::renderer::scoped_vertex_buffer> current_vertex_buffer_;
+	sge::renderer::vertex::count current_vertex_buffer_size_;
+	fcppt::scoped_ptr<sge::renderer::vertex::scoped_buffer> current_vertex_buffer_;
 	sge::renderer::state::ffp::lighting::material::object_scoped_ptr current_material_;
 	sge::renderer::state::core::sampler::object_scoped_ptr const diffuse_texture_sampler_;
 	sge::renderer::state::core::sampler::scoped scoped_sampler_;

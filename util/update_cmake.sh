@@ -211,6 +211,7 @@ update_cmake_file \
 	$(renderer_inc_src state) \
 	$(renderer_inc_src target) \
 	$(renderer_inc_src texture) \
+	$(renderer_inc_src vertex) \
 	$(renderer_inc_src vf)
 
 update_sublibrary renderer/cg

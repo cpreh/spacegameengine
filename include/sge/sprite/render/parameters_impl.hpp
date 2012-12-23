@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_RENDER_PARAMETERS_IMPL_HPP_INCLUDED
 #define SGE_SPRITE_RENDER_PARAMETERS_IMPL_HPP_INCLUDED
 
-#include <sge/renderer/vertex_declaration_fwd.hpp>
+#include <sge/renderer/vertex/declaration_fwd.hpp>
 #include <sge/sprite/render/parameters_decl.hpp>
 
 
@@ -32,7 +32,7 @@ sge::sprite::render::parameters<
 	StateOptions
 >::parameters(
 	render_context_type &_render_context,
-	sge::renderer::vertex_declaration const &_vertex_declaration
+	sge::renderer::vertex::declaration const &_vertex_declaration
 )
 :
 	render_context_(
@@ -61,7 +61,7 @@ sge::sprite::render::parameters<
 template<
 	typename StateOptions
 >
-sge::renderer::vertex_declaration const &
+sge::renderer::vertex::declaration const &
 sge::sprite::render::parameters<
 	StateOptions
 >::vertex_declaration() const

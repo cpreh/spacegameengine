@@ -29,25 +29,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<
 	typename Pointer
 >
-sge::renderer::vf::dynamic::basic_view<Pointer>::basic_view(
+sge::renderer::vf::dynamic::basic_view<
+	Pointer
+>::basic_view(
 	pointer const _data,
 	size_type const _size,
-	dynamic::part const &_part,
-	dynamic::part_index const _part_index
+	sge::renderer::vf::dynamic::part const &_part,
+	sge::renderer::vf::dynamic::part_index const _part_index
 )
 :
-	data_(_data),
-	size_(_size),
-	part_(_part),
-	part_index_(_part_index)
+	data_(
+		_data
+	),
+	size_(
+		_size
+	),
+	part_(
+		_part
+	),
+	part_index_(
+		_part_index
+	)
 {
 }
 
 template<
 	typename Pointer
 >
-typename sge::renderer::vf::dynamic::basic_view<Pointer>::pointer
-sge::renderer::vf::dynamic::basic_view<Pointer>::data() const
+typename sge::renderer::vf::dynamic::basic_view<
+	Pointer
+>::pointer
+sge::renderer::vf::dynamic::basic_view<
+	Pointer
+>::data() const
 {
 	return data_;
 }
@@ -55,8 +69,12 @@ sge::renderer::vf::dynamic::basic_view<Pointer>::data() const
 template<
 	typename Pointer
 >
-typename sge::renderer::vf::dynamic::basic_view<Pointer>::size_type
-sge::renderer::vf::dynamic::basic_view<Pointer>::size() const
+typename sge::renderer::vf::dynamic::basic_view<
+	Pointer
+>::size_type
+sge::renderer::vf::dynamic::basic_view<
+	Pointer
+>::size() const
 {
 	return size_;
 }
@@ -65,7 +83,9 @@ template<
 	typename Pointer
 >
 sge::renderer::vf::dynamic::part const &
-sge::renderer::vf::dynamic::basic_view<Pointer>::part() const
+sge::renderer::vf::dynamic::basic_view<
+	Pointer
+>::part() const
 {
 	return part_;
 }
@@ -74,7 +94,9 @@ template<
 	typename Pointer
 >
 sge::renderer::vf::dynamic::part_index const
-sge::renderer::vf::dynamic::basic_view<Pointer>::part_index() const
+sge::renderer::vf::dynamic::basic_view<
+	Pointer
+>::part_index() const
 {
 	return part_index_;
 }

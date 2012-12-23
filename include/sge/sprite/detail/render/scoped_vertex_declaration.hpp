@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_RENDER_SCOPED_VERTEX_DECLARATION_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_RENDER_SCOPED_VERTEX_DECLARATION_HPP_INCLUDED
 
-#include <sge/renderer/const_optional_vertex_declaration_ref.hpp>
 #include <sge/renderer/context/core.hpp>
+#include <sge/renderer/vertex/const_optional_declaration_ref.hpp>
 #include <sge/sprite/render/parameters.hpp>
 #include <sge/sprite/state/vertex_options.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -70,7 +70,7 @@ public:
 			set_declaration_
 		)
 			render_context_.vertex_declaration(
-				sge::renderer::const_optional_vertex_declaration_ref(
+				sge::renderer::vertex::const_optional_declaration_ref(
 					_parameters.vertex_declaration()
 				)
 			);
@@ -82,7 +82,7 @@ public:
 			set_declaration_
 		)
 			render_context_.vertex_declaration(
-				sge::renderer::const_optional_vertex_declaration_ref()
+				sge::renderer::vertex::const_optional_declaration_ref()
 			);
 	}
 private:

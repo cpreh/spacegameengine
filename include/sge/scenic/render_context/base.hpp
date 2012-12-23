@@ -23,9 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/class_symbol.hpp>
 #include <sge/renderer/matrix4.hpp>
-#include <sge/renderer/vertex_buffer_fwd.hpp>
 #include <sge/renderer/index/buffer_fwd.hpp>
 #include <sge/renderer/target/base_fwd.hpp>
+#include <sge/renderer/vertex/buffer_fwd.hpp>
 #include <sge/scenic/index_buffer_range_fwd.hpp>
 #include <sge/scenic/symbol.hpp>
 #include <sge/scenic/render_context/transform_matrix_type.hpp>
@@ -61,7 +61,7 @@ public:
 
 	virtual void
 	vertex_buffer(
-		sge::renderer::vertex_buffer const &) = 0;
+		sge::renderer::vertex::buffer const &) = 0;
 
 	virtual void
 	fog(

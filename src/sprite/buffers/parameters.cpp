@@ -18,14 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
+#include <sge/renderer/vertex/declaration_fwd.hpp>
 #include <sge/sprite/buffers/parameters.hpp>
 
 
 sge::sprite::buffers::parameters::parameters(
 	sge::renderer::device::core &_device,
-	sge::renderer::vertex_declaration const &_vertex_declaration
+	sge::renderer::vertex::declaration const &_vertex_declaration
 )
 :
 	device_(
@@ -43,7 +43,7 @@ sge::sprite::buffers::parameters::device() const
 	return device_;
 }
 
-sge::renderer::vertex_declaration const &
+sge::renderer::vertex::declaration const &
 sge::sprite::buffers::parameters::vertex_declaration() const
 {
 	return vertex_declaration_;

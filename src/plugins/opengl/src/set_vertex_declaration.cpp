@@ -23,13 +23,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/vertex_declaration.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/device/object_fwd.hpp>
-#include <sge/renderer/const_optional_vertex_declaration_ref.hpp>
+#include <sge/renderer/vertex/const_optional_declaration_ref.hpp>
 
 
 void
 sge::opengl::set_vertex_declaration(
 	sge::opengl::context::device::object &_context,
-	sge::renderer::const_optional_vertex_declaration_ref const &_declaration
+	sge::renderer::vertex::const_optional_declaration_ref const &_declaration
 )
 {
 	sge::opengl::context::use<

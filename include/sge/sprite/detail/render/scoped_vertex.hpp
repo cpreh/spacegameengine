@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_RENDER_SCOPED_VERTEX_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_RENDER_SCOPED_VERTEX_HPP_INCLUDED
 
-#include <sge/renderer/vertex_buffer_fwd.hpp>
 #include <sge/renderer/context/core.hpp>
+#include <sge/renderer/vertex/buffer_fwd.hpp>
 #include <sge/sprite/detail/render/scoped_vertex_declaration.hpp>
 #include <sge/sprite/render/parameters.hpp>
 #include <sge/sprite/state/vertex_options.hpp>
@@ -51,7 +51,7 @@ public:
 		sge::sprite::render::parameters<
 			StateChoices
 		> const &_parameters,
-		sge::renderer::vertex_buffer const &_vertex_buffer,
+		sge::renderer::vertex::buffer const &_vertex_buffer,
 		sge::sprite::state::vertex_options const &_options
 	)
 	:
@@ -97,7 +97,7 @@ private:
 
 	sge::renderer::context::core &render_context_;
 
-	sge::renderer::vertex_buffer const &vertex_buffer_;
+	sge::renderer::vertex::buffer const &vertex_buffer_;
 
 	bool const set_buffer_;
 };

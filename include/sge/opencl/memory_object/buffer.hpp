@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/memory_object/byte_size.hpp>
 #include <sge/opencl/memory_object/flags_field.hpp>
 #include <sge/opencl/memory_object/renderer_buffer_lock_mode.hpp>
-#include <sge/renderer/vertex_buffer_fwd.hpp>
+#include <sge/renderer/vertex/buffer_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -54,7 +54,7 @@ public:
 	SGE_OPENCL_SYMBOL explicit
 	buffer(
 		opencl::context::object &,
-		sge::renderer::vertex_buffer &,
+		sge::renderer::vertex::buffer &,
 		memory_object::renderer_buffer_lock_mode::type);
 
 	SGE_OPENCL_SYMBOL cl_mem

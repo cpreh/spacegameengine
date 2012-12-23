@@ -23,11 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <sge/renderer/vertex_declaration_fwd.hpp>
 #include <sge/renderer/state/core/blend/object_scoped_ptr.hpp>
 #include <sge/renderer/state/core/depth_stencil/object_scoped_ptr.hpp>
 #include <sge/renderer/state/core/rasterizer/object_scoped_ptr.hpp>
 #include <sge/renderer/state/core/sampler/object_scoped_ptr.hpp>
+#include <sge/renderer/vertex/declaration_fwd.hpp>
 #include <sge/scenic/symbol.hpp>
 #include <sge/scenic/render_context/manager_base.hpp>
 #include <sge/scenic/render_context/cg/object_fwd.hpp>
@@ -65,7 +65,7 @@ public:
 	SGE_SCENIC_SYMBOL
 	manager(
 		sge::shader::context &,
-		sge::renderer::vertex_declaration &);
+		sge::renderer::vertex::declaration &);
 
 	/* override */
 	sge::scenic::render_context::base_unique_ptr
@@ -109,7 +109,7 @@ private:
 	>
 	directional_light_array;
 
-	sge::renderer::vertex_declaration &vertex_declaration_;
+	sge::renderer::vertex::declaration &vertex_declaration_;
 	sge::shader::pair shader_;
 	sge::shader::parameter::matrix<sge::renderer::scalar,4,4> world_matrix_;
 	sge::shader::parameter::matrix<sge::renderer::scalar,4,4> world_projection_matrix_;

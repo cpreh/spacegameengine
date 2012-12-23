@@ -46,7 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::scenic::render_context::cg::manager::manager(
 	sge::shader::context &_shader_context,
-	sge::renderer::vertex_declaration &_vertex_declaration)
+	sge::renderer::vertex::declaration &_vertex_declaration)
 :
 	sge::scenic::render_context::manager_base(),
 	vertex_declaration_(

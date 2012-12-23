@@ -23,11 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/class_symbol.hpp>
 #include <sge/renderer/config.hpp>
-#include <sge/renderer/const_optional_vertex_declaration_ref_fwd.hpp>
-#include <sge/renderer/first_vertex.hpp>
 #include <sge/renderer/primitive_type.hpp>
-#include <sge/renderer/vertex_buffer_fwd.hpp>
-#include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/clear/parameters_fwd.hpp>
 #include <sge/renderer/context/core_fwd.hpp>
@@ -42,6 +38,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/optional_offscreen_ref_fwd.hpp>
 #include <sge/renderer/texture/const_optional_base_ref_fwd.hpp>
 #include <sge/renderer/texture/stage.hpp>
+#include <sge/renderer/vertex/buffer_fwd.hpp>
+#include <sge/renderer/vertex/const_optional_declaration_ref_fwd.hpp>
+#include <sge/renderer/vertex/count.hpp>
+#include <sge/renderer/vertex/first.hpp>
 #include <fcppt/noncopyable.hpp>
 
 #if defined(SGE_RENDERER_HAVE_CG)
@@ -140,8 +140,8 @@ public:
 	void
 	render_indexed(
 		sge::renderer::index::buffer const &index_buffer,
-		sge::renderer::first_vertex first_vertex,
-		sge::renderer::vertex_count vertex_count,
+		sge::renderer::vertex::first first_vertex,
+		sge::renderer::vertex::count vertex_count,
 		sge::renderer::primitive_type::type primitive_type,
 		sge::renderer::index::first first_index,
 		sge::renderer::index::count index_count
@@ -174,70 +174,70 @@ public:
 	virtual
 	void
 	render_nonindexed(
-		sge::renderer::first_vertex first_vertex,
-		sge::renderer::vertex_count vertex_count,
+		sge::renderer::vertex::first first_vertex,
+		sge::renderer::vertex::count vertex_count,
 		sge::renderer::primitive_type::type primitive_type
 	) = 0;
 
 	/**
-	 * \brief Activates a vertex buffer
-	 *
-	 * A vertex buffer is activated, which means that it will supply vertex
-	 * data for the renderer::vf::part it represents. It is important that
-	 * the corresponding vertex declaration is already set! Initially, no
-	 * vertex buffers are activated.
-	 *
-	 * \param vertex_buffer The vertex buffer to activate
-	 *
-	 * \see sge::renderer::device::vertex_declaration
-	 * \see sge::renderer::scoped_vertex_declaration
-	 *
-	 * \warning The behaviour is undefined if the vertex declaration of \a
-	 * vertex_buffer is not set.
+	\brief Activates a vertex buffer
+
+	A vertex buffer is activated, which means that it will supply vertex
+	data for the sge::renderer::vf::part it represents. It is important
+	that the corresponding vertex declaration is already set! Initially, no
+	vertex buffers are activated.
+
+	\param vertex_buffer The vertex buffer to activate
+
+	\see sge::renderer::device::vertex_declaration
+
+	\see sge::renderer::vertex::scoped_declaration
+
+	\warning The behaviour is undefined if the vertex declaration of \a
+	vertex_buffer is not set.
 	*/
 	virtual
 	void
 	activate_vertex_buffer(
-		sge::renderer::vertex_buffer const &vertex_buffer
+		sge::renderer::vertex::buffer const &vertex_buffer
 	) = 0;
 
 	/**
-	 * \brief Deactives a vertex buffer
-	 *
-	 * After activating a vertex buffer with device::activate_vertex_buffer,
-	 * it should be deactivated again when it is no longer needed.
-	 *
-	 * \param vertex_buffer The vertex buffer to deactivate
-	 *
-	 * \warning The behaviour is undefined if \a vertex_buffer isn't
-	 * activated.
+	\brief Deactives a vertex buffer
+
+	After activating a vertex buffer with
+	sge::renderer::context::core::activate_vertex_buffer, it should be
+	deactivated again when it is no longer needed.
+
+	\param vertex_buffer The vertex buffer to deactivate
+
+	\warning The behaviour is undefined if \a vertex_buffer isn't
+	activated.
 	*/
 	virtual
 	void
 	deactivate_vertex_buffer(
-		sge::renderer::vertex_buffer const &vertex_buffer
+		sge::renderer::vertex::buffer const &vertex_buffer
 	) = 0;
 
 	/**
-	 * \brief Sets or unsets the current vertex declaration
-	 *
-	 * Sets or unsets the current vertex declaration depending on whether
-	 * \a vertex_declaration is empty. Initially there is no vertex
-	 * declaration set.
-	 *
-	 * \param vertex_declaration The vertex declaration to set or
-	 * renderer::const_optional_vertex_declaration()
-	 *
-	 * \see sge::renderer::device::deactivate_vertex_buffer
-	 * \see sge::renderer::scoped_vertex_declaration
-	 *
-	 * \warning The behaviour is undefined if vertex buffers are still
-	 * active.
-	 */
+	\brief Sets or unsets the current vertex declaration
+
+	Sets or unsets the current vertex declaration depending on whether \a
+	vertex_declaration is empty. Initially there is no vertex declaration
+	set.
+
+	\param vertex_declaration The vertex declaration to set or
+	sge::renderer::vertex::const_optional_declaration()
+
+	\see sge::renderer::vertex::scoped_declaration
+
+	\warning The behaviour is undefined if vertex buffers are still active.
+	*/
 	virtual
 	void
 	vertex_declaration(
-		sge::renderer::const_optional_vertex_declaration_ref const &vertex_declaration
+		sge::renderer::vertex::const_optional_declaration_ref const &vertex_declaration
 	) = 0;
 
 	/**

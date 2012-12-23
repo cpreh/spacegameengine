@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_RENDER_RANGE_IMPL_HPP_INCLUDED
 #define SGE_SPRITE_RENDER_RANGE_IMPL_HPP_INCLUDED
 
-#include <sge/renderer/vertex_buffer_fwd.hpp>
 #include <sge/renderer/index/buffer_fwd.hpp>
+#include <sge/renderer/vertex/buffer_fwd.hpp>
 #include <sge/sprite/buffers/roles/index_buffer.hpp>
 #include <sge/sprite/buffers/roles/vertex_buffer.hpp>
 #include <sge/sprite/render/range_decl.hpp>
@@ -159,7 +159,7 @@ sge::sprite::render::range<
 template<
 	typename Choices
 >
-sge::renderer::vertex_buffer const &
+sge::renderer::vertex::buffer const &
 sge::sprite::render::range<
 	Choices
 >::vertex_buffer() const
