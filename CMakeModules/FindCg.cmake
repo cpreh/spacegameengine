@@ -24,20 +24,20 @@ if(
 	)
 		set(
 			CG_LIB_ENV
-			"CG_LIB64_PATH"
+			"$ENV{CG_LIB64_PATH}"
 		)
 	elseif(
 		CMAKE_SIZEOF_VOID_P EQUAL 4
 	)
 		set(
 			CG_LIB_ENV
-			"CG_LIB_PATH"
+			"$ENV{CG_LIB_PATH}"
 		)
 	endif()
 
 	set(
 		CG_HINTED_LIBRARY_DIR
-		"$ENV{${CG_LIB_ENV}}"
+		"${CG_LIB_ENV}"
 	)
 
 	set(
