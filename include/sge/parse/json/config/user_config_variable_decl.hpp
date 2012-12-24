@@ -25,8 +25,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/path.hpp>
 #include <sge/parse/json/config/user_config_variable_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/function/object.hpp>
-#include <fcppt/signal/object.hpp>
+#include <fcppt/signal/auto_connection_fwd.hpp>
+#include <fcppt/signal/object_decl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -49,7 +52,7 @@ public:
 		T const &);
 
 	typedef
-	fcppt::function::object<callback_fn>
+	std::function<callback_fn>
 	callback;
 
 	explicit

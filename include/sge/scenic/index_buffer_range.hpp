@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SCENIC_INDEX_BUFFER_RANGE_HPP_INCLUDED
 #define SGE_SCENIC_INDEX_BUFFER_RANGE_HPP_INCLUDED
 
-#include <sge/renderer/index/first.hpp>
 #include <sge/renderer/index/count.hpp>
+#include <sge/renderer/index/first.hpp>
 #include <sge/scenic/symbol.hpp>
 
 

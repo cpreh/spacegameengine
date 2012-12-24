@@ -41,10 +41,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex/buffer_scoped_ptr.hpp>
 #include <sge/renderer/vertex/const_buffer_ref_container.hpp>
 #include <sge/renderer/vertex/count.hpp>
-#include <sge/renderer/vertex/first.hpp>
 #include <sge/renderer/vertex/declaration.hpp>
 #include <sge/renderer/vertex/declaration_parameters.hpp>
 #include <sge/renderer/vertex/declaration_scoped_ptr.hpp>
+#include <sge/renderer/vertex/first.hpp>
 #include <sge/renderer/vertex/scoped_declaration_and_buffers.hpp>
 #include <sge/renderer/vertex/scoped_lock.hpp>
 #include <sge/renderer/vf/color.hpp>

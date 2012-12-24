@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PROJECTILE_BODY_OBJECT_UNIQUE_PTR_HPP_INCLUDED
 
 #include <sge/projectile/body/object_fwd.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -31,8 +33,8 @@ namespace projectile
 {
 namespace body
 {
-typedef fcppt::unique_ptr<
-	body::object
+typedef std::unique_ptr<
+	sge::projectile::body::object
 > object_unique_ptr;
 }
 }

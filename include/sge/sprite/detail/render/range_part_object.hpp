@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_RENDER_RANGE_PART_OBJECT_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_RENDER_RANGE_PART_OBJECT_HPP_INCLUDED
 
-#include <sge/renderer/index/first.hpp>
 #include <sge/renderer/index/count.hpp>
+#include <sge/renderer/index/first.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/first.hpp>

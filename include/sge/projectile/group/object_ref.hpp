@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PROJECTILE_GROUP_OBJECT_REF_HPP_INCLUDED
 #define SGE_PROJECTILE_GROUP_OBJECT_REF_HPP_INCLUDED
 
-#include <fcppt/reference_wrapper.hpp>
 #include <sge/projectile/group/object_fwd.hpp>
+#include <fcppt/reference_wrapper.hpp>
 
 
 namespace sge

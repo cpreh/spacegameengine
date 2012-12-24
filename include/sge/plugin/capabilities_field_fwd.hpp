@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PLUGIN_CAPABILITIES_FIELD_FWD_HPP_INCLUDED
 #define SGE_PLUGIN_CAPABILITIES_FIELD_FWD_HPP_INCLUDED
 
-#include <sge/plugin/capabilities_fwd.hpp>
+#include <sge/plugin/capabilities.hpp>
 #include <fcppt/container/bitfield/object_fwd.hpp>
 
 

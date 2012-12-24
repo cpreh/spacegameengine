@@ -33,7 +33,7 @@ namespace texture
 {
 
 typedef fcppt::scoped_ptr<
-	texture::base
+	sge::renderer::texture::base
 > base_scoped_ptr;
 
 }

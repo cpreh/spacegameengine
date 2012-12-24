@@ -68,6 +68,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/planar_scoped_ptr.hpp>
 #include <sge/renderer/texture/scoped.hpp>
 #include <sge/renderer/texture/stage.hpp>
+#include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/renderer/vertex/buffer.hpp>
 #include <sge/renderer/vertex/buffer_parameters.hpp>
 #include <sge/renderer/vertex/buffer_scoped_ptr.hpp>
@@ -79,7 +80,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex/scoped_buffer.hpp>
 #include <sge/renderer/vertex/scoped_declaration.hpp>
 #include <sge/renderer/vertex/scoped_lock.hpp>
-#include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/renderer/vf/format.hpp>
 #include <sge/renderer/vf/index.hpp>
 #include <sge/renderer/vf/iterator.hpp>

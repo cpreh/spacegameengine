@@ -23,7 +23,6 @@ set(
 	include/sge/imageds2d/traits/const_view_fwd.hpp
 	include/sge/imageds2d/traits/dim_fwd.hpp
 	include/sge/imageds2d/traits/pitch_fwd.hpp
-	include/sge/imageds2d/traits/sub_out_of_range.hpp
 	include/sge/imageds2d/traits/view_elements.hpp
 	include/sge/imageds2d/traits/view_fwd.hpp
 	include/sge/imageds2d/view/const_element.hpp

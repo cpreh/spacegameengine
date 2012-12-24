@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/audio_null/positional.hpp>
 #include <sge/audio/scalar.hpp>
 #include <sge/audio/vector_fwd.hpp>
 #include <sge/audio/sound/optional_direction_fwd.hpp>
 #include <sge/audio/sound/play_status.hpp>
 #include <sge/audio/sound/repeat.hpp>
+#include <sge/audio_null/positional.hpp>
 
 
 sge::audio_null::positional::positional()

@@ -96,10 +96,11 @@ sge::sprite::parameters<
 	>::type const &_pos
 )
 {
-	FCPPT_STATIC_ASSERT_EXPRESSION(
+	static_assert(
 		sge::sprite::detail::config::has_normal_size<
 			Choices
-		>::value
+		>::value,
+		"center only works on sge::sprite::config::normal_size"
 	);
 
 	return

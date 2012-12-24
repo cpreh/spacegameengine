@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <majutsu/composite.hpp>
 #include <majutsu/role.hpp>
 #include <majutsu/simple.hpp>
-#include <fcppt/static_assert_statement.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -56,10 +55,11 @@ struct point_size
 	sge::sprite::config::size_choice
 {
 private:
-	FCPPT_STATIC_ASSERT_STATEMENT(
+	static_assert(
 		sge::renderer::vf::is_index<
 			Index
-		>::value
+		>::value,
+		"Index must be a vf::index"
 	);
 public:
 	typedef Index attribute_index;

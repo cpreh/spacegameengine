@@ -33,7 +33,7 @@ namespace texture
 {
 
 typedef fcppt::shared_ptr<
-	texture::base
+	sge::renderer::texture::base
 > base_shared_ptr;
 
 }

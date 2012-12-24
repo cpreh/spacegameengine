@@ -30,7 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/primitives/texture_point_size.hpp>
 #include <sge/sprite/detail/primitives/texture_ptr.hpp>
 #include <majutsu/composite.hpp>
-#include <fcppt/static_assert_statement.hpp>
 #include <fcppt/mpl/append.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
@@ -61,12 +60,14 @@ struct with_texture_point_size<
 	Ownership
 >
 {
-	FCPPT_STATIC_ASSERT_STATEMENT(
-		TextureLevels >= 1u
+	static_assert(
+		TextureLevels >= 1u,
+		"TextureLevels must be at least 1"
 	);
 
-	FCPPT_STATIC_ASSERT_STATEMENT(
-		SizeOptions::is_texture_point_size::value
+	static_assert(
+		SizeOptions::is_texture_point_size::value,
+		"SizeOptions must be a texture point size option"
 	);
 
 	typedef sge::sprite::config::texture_level_count<
@@ -94,7 +95,7 @@ struct with_texture_point_size<
 				typename sge::sprite::detail::primitives::texture_ptr<
 					Choices,
 					texture_levels,
-					ownership
+					ownership::value
 				>::type,
 				typename fcppt::mpl::append<
 					typename sge::sprite::detail::primitives::texture_point_pos<

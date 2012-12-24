@@ -21,13 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/format.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
-#include <sge/renderer/vertex/buffer.hpp>
-#include <sge/renderer/vertex/buffer_parameters.hpp>
-#include <sge/renderer/vertex/buffer_scoped_ptr.hpp>
-#include <sge/renderer/vertex/count.hpp>
-#include <sge/renderer/vertex/declaration.hpp>
-#include <sge/renderer/vertex/declaration_parameters.hpp>
-#include <sge/renderer/vertex/declaration_scoped_ptr.hpp>
 #include <sge/renderer/caps/system.hpp>
 #include <sge/renderer/caps/system_field.hpp>
 #include <sge/renderer/device/core.hpp>
@@ -47,6 +40,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/texture/planar_scoped_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
+#include <sge/renderer/vertex/buffer.hpp>
+#include <sge/renderer/vertex/buffer_parameters.hpp>
+#include <sge/renderer/vertex/buffer_scoped_ptr.hpp>
+#include <sge/renderer/vertex/count.hpp>
+#include <sge/renderer/vertex/declaration.hpp>
+#include <sge/renderer/vertex/declaration_parameters.hpp>
+#include <sge/renderer/vertex/declaration_scoped_ptr.hpp>
 #include <sge/renderer/vf/format.hpp>
 #include <sge/renderer/vf/part.hpp>
 #include <sge/renderer/vf/pos.hpp>

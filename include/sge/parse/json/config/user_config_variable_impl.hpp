@@ -23,8 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/parse/json/convert_to.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
+#include <sge/parse/json/object.hpp>
+#include <sge/parse/json/path.hpp>
 #include <sge/parse/json/config/modify_user_value.hpp>
 #include <sge/parse/json/config/user_config_variable_decl.hpp>
+#include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/signal/object_impl.hpp>
 
 
 template<typename T>
