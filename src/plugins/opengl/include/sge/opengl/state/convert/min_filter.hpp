@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_STATE_CONVERT_MIN_FILTER_HPP_INCLUDED
 
 #include <sge/opengl/common.hpp>
-#include <sge/renderer/state/core/sampler/filter/normal/min.hpp>
-#include <sge/renderer/state/core/sampler/filter/normal/mip.hpp>
+#include <sge/renderer/state/core/sampler/filter/normal/min_fwd.hpp>
+#include <sge/renderer/state/core/sampler/filter/normal/mip_fwd.hpp>
 
 
 namespace sge
@@ -37,8 +37,8 @@ namespace convert
 
 GLenum
 min_filter(
-	sge::renderer::state::core::sampler::filter::normal::min::type,
-	sge::renderer::state::core::sampler::filter::normal::mip::type
+	sge::renderer::state::core::sampler::filter::normal::min,
+	sge::renderer::state::core::sampler::filter::normal::mip
 );
 
 }

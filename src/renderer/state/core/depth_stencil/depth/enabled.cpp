@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::renderer::state::core::depth_stencil::depth::enabled::enabled(
-	sge::renderer::state::core::depth_stencil::depth::func::type const _func,
+	sge::renderer::state::core::depth_stencil::depth::func const _func,
 	sge::renderer::state::core::depth_stencil::depth::write_enable const _write_enable
 )
 :
@@ -37,7 +37,7 @@ sge::renderer::state::core::depth_stencil::depth::enabled::enabled(
 {
 }
 
-sge::renderer::state::core::depth_stencil::depth::func::type
+sge::renderer::state::core::depth_stencil::depth::func
 sge::renderer::state::core::depth_stencil::depth::enabled::func() const
 {
 	return func_;

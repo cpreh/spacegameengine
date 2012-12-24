@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_FFP_SAMPLER_ARG_HPP_INCLUDED
 #define SGE_RENDERER_STATE_FFP_SAMPLER_ARG_HPP_INCLUDED
 
+#include <sge/renderer/state/ffp/sampler/arg_fwd.hpp>
+
 
 namespace sge
 {
@@ -33,15 +35,12 @@ namespace ffp
 namespace sampler
 {
 
-namespace arg
-{
-enum type
+enum class arg
 {
 	previous,
 	texture,
 	constant
 };
-}
 
 }
 }

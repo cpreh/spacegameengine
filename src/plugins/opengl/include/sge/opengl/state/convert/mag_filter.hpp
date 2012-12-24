@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_STATE_CONVERT_MAG_FILTER_HPP_INCLUDED
 
 #include <sge/opengl/common.hpp>
-#include <sge/renderer/state/core/sampler/filter/normal/mag.hpp>
+#include <sge/renderer/state/core/sampler/filter/normal/mag_fwd.hpp>
 
 
 namespace sge
@@ -36,7 +36,7 @@ namespace convert
 
 GLenum
 mag_filter(
-	sge::renderer::state::core::sampler::filter::normal::mag::type
+	sge::renderer::state::core::sampler::filter::normal::mag
 );
 
 }

@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_FFP_SAMPLER_UNARY_OP_TYPE_HPP_INCLUDED
 #define SGE_RENDERER_STATE_FFP_SAMPLER_UNARY_OP_TYPE_HPP_INCLUDED
 
+#include <sge/renderer/state/ffp/sampler/unary_op_type_fwd.hpp>
+
 
 namespace sge
 {
@@ -33,13 +35,10 @@ namespace ffp
 namespace sampler
 {
 
-namespace unary_op_type
-{
-enum type
+enum class unary_op_type
 {
 	arg
 };
-}
 
 }
 }

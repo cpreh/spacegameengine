@@ -48,28 +48,28 @@ class parameters
 public:
 	SGE_RENDERER_SYMBOL
 	parameters(
-		sge::renderer::state::core::sampler::filter::normal::mag::type,
-		sge::renderer::state::core::sampler::filter::normal::min::type,
-		sge::renderer::state::core::sampler::filter::normal::mip::type
+		sge::renderer::state::core::sampler::filter::normal::mag,
+		sge::renderer::state::core::sampler::filter::normal::min,
+		sge::renderer::state::core::sampler::filter::normal::mip
 	);
 
 	SGE_RENDERER_SYMBOL
-	sge::renderer::state::core::sampler::filter::normal::mag::type
+	sge::renderer::state::core::sampler::filter::normal::mag
 	mag() const;
 
 	SGE_RENDERER_SYMBOL
-	sge::renderer::state::core::sampler::filter::normal::min::type
+	sge::renderer::state::core::sampler::filter::normal::min
 	min() const;
 
 	SGE_RENDERER_SYMBOL
-	sge::renderer::state::core::sampler::filter::normal::mip::type
+	sge::renderer::state::core::sampler::filter::normal::mip
 	mip() const;
 private:
-	sge::renderer::state::core::sampler::filter::normal::mag::type mag_;
+	sge::renderer::state::core::sampler::filter::normal::mag mag_;
 
-	sge::renderer::state::core::sampler::filter::normal::min::type min_;
+	sge::renderer::state::core::sampler::filter::normal::min min_;
 
-	sge::renderer::state::core::sampler::filter::normal::mip::type mip_;
+	sge::renderer::state::core::sampler::filter::normal::mip mip_;
 };
 
 SGE_RENDERER_SYMBOL

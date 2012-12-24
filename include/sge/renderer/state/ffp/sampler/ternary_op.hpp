@@ -45,14 +45,14 @@ class ternary_op
 public:
 	SGE_RENDERER_SYMBOL
 	ternary_op(
-		sge::renderer::state::ffp::sampler::ternary_op_type::type,
+		sge::renderer::state::ffp::sampler::ternary_op_type,
 		sge::renderer::state::ffp::sampler::arg1,
 		sge::renderer::state::ffp::sampler::arg2,
 		sge::renderer::state::ffp::sampler::arg3
 	);
 
 	SGE_RENDERER_SYMBOL
-	sge::renderer::state::ffp::sampler::ternary_op_type::type
+	sge::renderer::state::ffp::sampler::ternary_op_type
 	type() const;
 
 	SGE_RENDERER_SYMBOL
@@ -67,7 +67,7 @@ public:
 	sge::renderer::state::ffp::sampler::arg3 const
 	arg3() const;
 private:
-	sge::renderer::state::ffp::sampler::ternary_op_type::type type_;
+	sge::renderer::state::ffp::sampler::ternary_op_type type_;
 
 	sge::renderer::state::ffp::sampler::arg1 arg1_;
 

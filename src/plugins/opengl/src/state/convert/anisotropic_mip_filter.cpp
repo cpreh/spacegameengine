@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 GLenum
 sge::opengl::state::convert::anisotropic_mip_filter(
-	sge::renderer::state::core::sampler::filter::anisotropic::mip::type const _filter
+	sge::renderer::state::core::sampler::filter::anisotropic::mip const _filter
 )
 {
 	switch(

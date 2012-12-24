@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_STATE_CONVERT_ALPHA_FUNC_HPP_INCLUDED
 
 #include <sge/opengl/common.hpp>
-#include <sge/renderer/state/ffp/alpha_test/func.hpp>
+#include <sge/renderer/state/ffp/alpha_test/func_fwd.hpp>
 
 
 namespace sge
@@ -36,7 +36,7 @@ namespace convert
 
 GLenum
 alpha_func(
-	sge::renderer::state::ffp::alpha_test::func::type
+	sge::renderer::state::ffp::alpha_test::func
 );
 
 }

@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::renderer::state::core::blend::combined::combined(
-	sge::renderer::state::core::blend::source::type const _source,
-	sge::renderer::state::core::blend::dest::type const _dest
+	sge::renderer::state::core::blend::source const _source,
+	sge::renderer::state::core::blend::dest const _dest
 )
 :
 	source_(
@@ -37,13 +37,13 @@ sge::renderer::state::core::blend::combined::combined(
 {
 }
 
-sge::renderer::state::core::blend::source::type
+sge::renderer::state::core::blend::source
 sge::renderer::state::core::blend::combined::source() const
 {
 	return source_;
 }
 
-sge::renderer::state::core::blend::dest::type
+sge::renderer::state::core::blend::dest
 sge::renderer::state::core::blend::combined::dest() const
 {
 	return dest_;

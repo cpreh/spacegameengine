@@ -44,13 +44,13 @@ class binary_op
 public:
 	SGE_RENDERER_SYMBOL
 	binary_op(
-		sge::renderer::state::ffp::sampler::binary_op_type::type,
+		sge::renderer::state::ffp::sampler::binary_op_type,
 		sge::renderer::state::ffp::sampler::arg1,
 		sge::renderer::state::ffp::sampler::arg2
 	);
 
 	SGE_RENDERER_SYMBOL
-	sge::renderer::state::ffp::sampler::binary_op_type::type
+	sge::renderer::state::ffp::sampler::binary_op_type
 	type() const;
 
 	SGE_RENDERER_SYMBOL
@@ -61,7 +61,7 @@ public:
 	sge::renderer::state::ffp::sampler::arg2 const
 	arg2() const;
 private:
-	sge::renderer::state::ffp::sampler::binary_op_type::type type_;
+	sge::renderer::state::ffp::sampler::binary_op_type type_;
 
 	sge::renderer::state::ffp::sampler::arg1 arg1_;
 

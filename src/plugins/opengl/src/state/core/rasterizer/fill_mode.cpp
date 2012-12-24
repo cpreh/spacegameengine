@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::state::actor const
 sge::opengl::state::core::rasterizer::fill_mode(
-	sge::renderer::state::core::rasterizer::fill_mode::type const _mode
+	sge::renderer::state::core::rasterizer::fill_mode const _mode
 )
 {
 	return

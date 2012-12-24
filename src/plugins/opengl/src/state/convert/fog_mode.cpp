@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 GLint
 sge::opengl::state::convert::fog_mode(
-	sge::renderer::state::ffp::fog::mode::type const _mode
+	sge::renderer::state::ffp::fog::mode const _mode
 )
 {
 	switch(

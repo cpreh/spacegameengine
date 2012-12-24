@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 GLenum
 sge::opengl::state::convert::sampler_op(
-	sge::renderer::state::ffp::sampler::unary_op_type::type const _unary_op
+	sge::renderer::state::ffp::sampler::unary_op_type const _unary_op
 )
 {
 	return
@@ -41,7 +41,7 @@ sge::opengl::state::convert::sampler_op(
 
 GLenum
 sge::opengl::state::convert::sampler_op(
-	sge::renderer::state::ffp::sampler::binary_op_type::type const _binary_op
+	sge::renderer::state::ffp::sampler::binary_op_type const _binary_op
 )
 {
 	return
@@ -52,7 +52,7 @@ sge::opengl::state::convert::sampler_op(
 
 GLenum
 sge::opengl::state::convert::sampler_op(
-	sge::renderer::state::ffp::sampler::ternary_op_type::type const _ternary_op
+	sge::renderer::state::ffp::sampler::ternary_op_type const _ternary_op
 )
 {
 	return

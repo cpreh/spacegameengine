@@ -44,26 +44,26 @@ class parameters
 public:
 	SGE_RENDERER_SYMBOL
 	parameters(
-		sge::renderer::state::core::rasterizer::cull_mode::type,
-		sge::renderer::state::core::rasterizer::fill_mode::type,
+		sge::renderer::state::core::rasterizer::cull_mode,
+		sge::renderer::state::core::rasterizer::fill_mode,
 		sge::renderer::state::core::rasterizer::enable_scissor_test
 	);
 
 	SGE_RENDERER_SYMBOL
-	sge::renderer::state::core::rasterizer::cull_mode::type
+	sge::renderer::state::core::rasterizer::cull_mode
 	cull_mode() const;
 
 	SGE_RENDERER_SYMBOL
-	sge::renderer::state::core::rasterizer::fill_mode::type
+	sge::renderer::state::core::rasterizer::fill_mode
 	fill_mode() const;
 
 	SGE_RENDERER_SYMBOL
 	sge::renderer::state::core::rasterizer::enable_scissor_test const
 	enable_scissor_test() const;
 private:
-	sge::renderer::state::core::rasterizer::cull_mode::type cull_mode_;
+	sge::renderer::state::core::rasterizer::cull_mode cull_mode_;
 
-	sge::renderer::state::core::rasterizer::fill_mode::type fill_mode_;
+	sge::renderer::state::core::rasterizer::fill_mode fill_mode_;
 
 	sge::renderer::state::core::rasterizer::enable_scissor_test enable_scissor_test_;
 };

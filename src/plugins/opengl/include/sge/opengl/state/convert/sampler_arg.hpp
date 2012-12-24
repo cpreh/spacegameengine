@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_STATE_CONVERT_SAMPLER_ARG_HPP_INCLUDED
 
 #include <sge/opengl/common.hpp>
-#include <sge/renderer/state/ffp/sampler/arg.hpp>
+#include <sge/renderer/state/ffp/sampler/arg_fwd.hpp>
 
 
 namespace sge
@@ -36,7 +36,7 @@ namespace convert
 
 GLenum
 sampler_arg(
-	sge::renderer::state::ffp::sampler::arg::type
+	sge::renderer::state::ffp::sampler::arg
 );
 
 }

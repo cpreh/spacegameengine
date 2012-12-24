@@ -37,7 +37,7 @@ namespace blend
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
-	sge::renderer::state::core::blend::dest::type,
+	sge::renderer::state::core::blend::dest,
 	color_dest
 );
 
@@ -46,6 +46,5 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 }
 }
 }
-
 
 #endif

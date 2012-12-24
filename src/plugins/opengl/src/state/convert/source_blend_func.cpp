@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 GLenum
 sge::opengl::state::convert::source_blend_func(
-	sge::renderer::state::core::blend::source::type const _func
+	sge::renderer::state::core::blend::source const _func
 )
 {
 	switch(

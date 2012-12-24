@@ -47,19 +47,19 @@ class parameters
 public:
 	SGE_RENDERER_SYMBOL
 	parameters(
-		sge::renderer::state::core::sampler::filter::anisotropic::mip::type,
+		sge::renderer::state::core::sampler::filter::anisotropic::mip,
 		sge::renderer::state::core::sampler::filter::anisotropic::level
 	);
 
 	SGE_RENDERER_SYMBOL
-	sge::renderer::state::core::sampler::filter::anisotropic::mip::type
+	sge::renderer::state::core::sampler::filter::anisotropic::mip
 	mip() const;
 
 	SGE_RENDERER_SYMBOL
 	sge::renderer::state::core::sampler::filter::anisotropic::level const
 	level() const;
 private:
-	sge::renderer::state::core::sampler::filter::anisotropic::mip::type mip_;
+	sge::renderer::state::core::sampler::filter::anisotropic::mip mip_;
 
 	sge::renderer::state::core::sampler::filter::anisotropic::level level_;
 };

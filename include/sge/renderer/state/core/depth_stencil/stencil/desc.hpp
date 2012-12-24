@@ -50,7 +50,7 @@ public:
 		sge::renderer::state::core::depth_stencil::stencil::fail_op,
 		sge::renderer::state::core::depth_stencil::stencil::depth_fail_op,
 		sge::renderer::state::core::depth_stencil::stencil::pass_op,
-		sge::renderer::state::core::depth_stencil::stencil::func::type
+		sge::renderer::state::core::depth_stencil::stencil::func
 	);
 
 	SGE_RENDERER_SYMBOL
@@ -66,7 +66,7 @@ public:
 	pass_op() const;
 
 	SGE_RENDERER_SYMBOL
-	sge::renderer::state::core::depth_stencil::stencil::func::type
+	sge::renderer::state::core::depth_stencil::stencil::func
 	func() const;
 private:
 	sge::renderer::state::core::depth_stencil::stencil::fail_op fail_op_;
@@ -75,7 +75,7 @@ private:
 
 	sge::renderer::state::core::depth_stencil::stencil::pass_op pass_op_;
 
-	sge::renderer::state::core::depth_stencil::stencil::func::type func_;
+	sge::renderer::state::core::depth_stencil::stencil::func func_;
 };
 
 }

@@ -39,7 +39,7 @@ namespace address
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
-	sge::renderer::state::core::sampler::address::mode::type,
+	sge::renderer::state::core::sampler::address::mode,
 	mode_u
 );
 

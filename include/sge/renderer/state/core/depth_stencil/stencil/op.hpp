@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_CORE_DEPTH_STENCIL_STENCIL_OP_HPP_INCLUDED
 #define SGE_RENDERER_STATE_CORE_DEPTH_STENCIL_STENCIL_OP_HPP_INCLUDED
 
+#include <sge/renderer/state/core/depth_stencil/stencil/op_fwd.hpp>
+
 
 namespace sge
 {
@@ -35,9 +37,7 @@ namespace depth_stencil
 namespace stencil
 {
 
-namespace op
-{
-enum type
+enum class op
 {
 	keep,
 	zero,
@@ -48,7 +48,6 @@ enum type
 	dec_wrap,
 	invert
 };
-}
 
 }
 }

@@ -46,7 +46,7 @@ class enabled
 public:
 	SGE_RENDERER_SYMBOL
 	enabled(
-		sge::renderer::state::ffp::fog::mode::type,
+		sge::renderer::state::ffp::fog::mode,
 		sge::renderer::state::ffp::fog::start,
 		sge::renderer::state::ffp::fog::end,
 		sge::renderer::state::ffp::fog::density,
@@ -54,7 +54,7 @@ public:
 	);
 
 	SGE_RENDERER_SYMBOL
-	sge::renderer::state::ffp::fog::mode::type
+	sge::renderer::state::ffp::fog::mode
 	mode() const;
 
 	SGE_RENDERER_SYMBOL
@@ -73,7 +73,7 @@ public:
 	sge::renderer::state::ffp::fog::color const
 	color() const;
 private:
-	sge::renderer::state::ffp::fog::mode::type mode_;
+	sge::renderer::state::ffp::fog::mode mode_;
 
 	sge::renderer::state::ffp::fog::start start_;
 

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/sampler/address/mode_default.hpp>
 
 
-sge::renderer::state::core::sampler::address::mode::type
+sge::renderer::state::core::sampler::address::mode
 sge::renderer::state::core::sampler::address::mode_default()
 {
 	return

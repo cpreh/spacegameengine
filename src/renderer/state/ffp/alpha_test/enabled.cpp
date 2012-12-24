@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::renderer::state::ffp::alpha_test::enabled::enabled(
-	sge::renderer::state::ffp::alpha_test::func::type const _func,
+	sge::renderer::state::ffp::alpha_test::func const _func,
 	sge::renderer::state::ffp::alpha_test::ref const _ref
 )
 :
@@ -37,7 +37,7 @@ sge::renderer::state::ffp::alpha_test::enabled::enabled(
 {
 }
 
-sge::renderer::state::ffp::alpha_test::func::type
+sge::renderer::state::ffp::alpha_test::func
 sge::renderer::state::ffp::alpha_test::enabled::func() const
 {
 	return func_;

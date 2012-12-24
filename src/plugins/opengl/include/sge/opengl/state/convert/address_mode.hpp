@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_STATE_CONVERT_ADDRESS_MODE_HPP_INCLUDED
 
 #include <sge/opengl/common.hpp>
-#include <sge/renderer/state/core/sampler/address/mode.hpp>
+#include <sge/renderer/state/core/sampler/address/mode_fwd.hpp>
 
 
 namespace sge
@@ -36,7 +36,7 @@ namespace convert
 
 GLenum
 address_mode(
-	sge::renderer::state::core::sampler::address::mode::type
+	sge::renderer::state::core::sampler::address::mode
 );
 
 }

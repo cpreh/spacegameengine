@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::renderer::state::core::depth_stencil::stencil::combined_simple::combined_simple(
-	sge::renderer::state::core::depth_stencil::stencil::func::type const _func
+	sge::renderer::state::core::depth_stencil::stencil::func const _func
 )
 :
 	func_(
@@ -123,7 +123,7 @@ sge::renderer::state::core::depth_stencil::stencil::combined_simple::write_mask(
 
 sge::renderer::state::core::depth_stencil::stencil::combined_simple &
 sge::renderer::state::core::depth_stencil::stencil::combined_simple::fail_op(
-	sge::renderer::state::core::depth_stencil::stencil::op::type const _op
+	sge::renderer::state::core::depth_stencil::stencil::op const _op
 )
 {
 	fail_op_ =
@@ -136,7 +136,7 @@ sge::renderer::state::core::depth_stencil::stencil::combined_simple::fail_op(
 
 sge::renderer::state::core::depth_stencil::stencil::combined_simple &
 sge::renderer::state::core::depth_stencil::stencil::combined_simple::depth_fail_op(
-	sge::renderer::state::core::depth_stencil::stencil::op::type const _op
+	sge::renderer::state::core::depth_stencil::stencil::op const _op
 )
 {
 	depth_fail_op_ =
@@ -149,7 +149,7 @@ sge::renderer::state::core::depth_stencil::stencil::combined_simple::depth_fail_
 
 sge::renderer::state::core::depth_stencil::stencil::combined_simple &
 sge::renderer::state::core::depth_stencil::stencil::combined_simple::pass_op(
-	sge::renderer::state::core::depth_stencil::stencil::op::type const _op
+	sge::renderer::state::core::depth_stencil::stencil::op const _op
 )
 {
 	pass_op_ =

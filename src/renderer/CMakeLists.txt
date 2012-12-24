@@ -296,6 +296,7 @@ set(
 	include/sge/renderer/state/core/blend/const_optional_object_ref_fwd.hpp
 	include/sge/renderer/state/core/blend/default.hpp
 	include/sge/renderer/state/core/blend/dest.hpp
+	include/sge/renderer/state/core/blend/dest_fwd.hpp
 	include/sge/renderer/state/core/blend/object.hpp
 	include/sge/renderer/state/core/blend/object_fwd.hpp
 	include/sge/renderer/state/core/blend/object_scoped_ptr.hpp
@@ -307,6 +308,7 @@ set(
 	include/sge/renderer/state/core/blend/separate.hpp
 	include/sge/renderer/state/core/blend/separate_fwd.hpp
 	include/sge/renderer/state/core/blend/source.hpp
+	include/sge/renderer/state/core/blend/source_fwd.hpp
 	include/sge/renderer/state/core/blend/write_alpha.hpp
 	include/sge/renderer/state/core/blend/write_blue.hpp
 	include/sge/renderer/state/core/blend/write_green.hpp
@@ -320,6 +322,7 @@ set(
 	include/sge/renderer/state/core/depth_stencil/depth/enabled.hpp
 	include/sge/renderer/state/core/depth_stencil/depth/enabled_fwd.hpp
 	include/sge/renderer/state/core/depth_stencil/depth/func.hpp
+	include/sge/renderer/state/core/depth_stencil/depth/func_fwd.hpp
 	include/sge/renderer/state/core/depth_stencil/depth/off.hpp
 	include/sge/renderer/state/core/depth_stencil/depth/off_fwd.hpp
 	include/sge/renderer/state/core/depth_stencil/depth/variant.hpp
@@ -348,9 +351,11 @@ set(
 	include/sge/renderer/state/core/depth_stencil/stencil/fail_op.hpp
 	include/sge/renderer/state/core/depth_stencil/stencil/front.hpp
 	include/sge/renderer/state/core/depth_stencil/stencil/func.hpp
+	include/sge/renderer/state/core/depth_stencil/stencil/func_fwd.hpp
 	include/sge/renderer/state/core/depth_stencil/stencil/off.hpp
 	include/sge/renderer/state/core/depth_stencil/stencil/off_fwd.hpp
 	include/sge/renderer/state/core/depth_stencil/stencil/op.hpp
+	include/sge/renderer/state/core/depth_stencil/stencil/op_fwd.hpp
 	include/sge/renderer/state/core/depth_stencil/stencil/pass_op.hpp
 	include/sge/renderer/state/core/depth_stencil/stencil/read_mask.hpp
 	include/sge/renderer/state/core/depth_stencil/stencil/read_mask_all.hpp
@@ -365,9 +370,11 @@ set(
 	include/sge/renderer/state/core/rasterizer/const_optional_object_ref.hpp
 	include/sge/renderer/state/core/rasterizer/const_optional_object_ref_fwd.hpp
 	include/sge/renderer/state/core/rasterizer/cull_mode.hpp
+	include/sge/renderer/state/core/rasterizer/cull_mode_fwd.hpp
 	include/sge/renderer/state/core/rasterizer/default.hpp
 	include/sge/renderer/state/core/rasterizer/enable_scissor_test.hpp
 	include/sge/renderer/state/core/rasterizer/fill_mode.hpp
+	include/sge/renderer/state/core/rasterizer/fill_mode_fwd.hpp
 	include/sge/renderer/state/core/rasterizer/object.hpp
 	include/sge/renderer/state/core/rasterizer/object_fwd.hpp
 	include/sge/renderer/state/core/rasterizer/object_scoped_ptr.hpp
@@ -380,6 +387,7 @@ set(
 	include/sge/renderer/state/core/sampler/address/mode.hpp
 	include/sge/renderer/state/core/sampler/address/mode_all.hpp
 	include/sge/renderer/state/core/sampler/address/mode_default.hpp
+	include/sge/renderer/state/core/sampler/address/mode_fwd.hpp
 	include/sge/renderer/state/core/sampler/address/mode_s.hpp
 	include/sge/renderer/state/core/sampler/address/mode_t.hpp
 	include/sge/renderer/state/core/sampler/address/mode_u.hpp
@@ -394,6 +402,7 @@ set(
 	include/sge/renderer/state/core/sampler/filter/anisotropic/level.hpp
 	include/sge/renderer/state/core/sampler/filter/anisotropic/level_value.hpp
 	include/sge/renderer/state/core/sampler/filter/anisotropic/mip.hpp
+	include/sge/renderer/state/core/sampler/filter/anisotropic/mip_fwd.hpp
 	include/sge/renderer/state/core/sampler/filter/anisotropic/parameters.hpp
 	include/sge/renderer/state/core/sampler/filter/anisotropic/parameters_fwd.hpp
 	include/sge/renderer/state/core/sampler/filter/default.hpp
@@ -401,8 +410,11 @@ set(
 	include/sge/renderer/state/core/sampler/filter/mipmap.hpp
 	include/sge/renderer/state/core/sampler/filter/need_mipmap.hpp
 	include/sge/renderer/state/core/sampler/filter/normal/mag.hpp
+	include/sge/renderer/state/core/sampler/filter/normal/mag_fwd.hpp
 	include/sge/renderer/state/core/sampler/filter/normal/min.hpp
+	include/sge/renderer/state/core/sampler/filter/normal/min_fwd.hpp
 	include/sge/renderer/state/core/sampler/filter/normal/mip.hpp
+	include/sge/renderer/state/core/sampler/filter/normal/mip_fwd.hpp
 	include/sge/renderer/state/core/sampler/filter/normal/parameters.hpp
 	include/sge/renderer/state/core/sampler/filter/normal/parameters_fwd.hpp
 	include/sge/renderer/state/core/sampler/filter/parameters.hpp
@@ -428,6 +440,7 @@ set(
 	include/sge/renderer/state/ffp/alpha_test/enabled.hpp
 	include/sge/renderer/state/ffp/alpha_test/enabled_fwd.hpp
 	include/sge/renderer/state/ffp/alpha_test/func.hpp
+	include/sge/renderer/state/ffp/alpha_test/func_fwd.hpp
 	include/sge/renderer/state/ffp/alpha_test/object.hpp
 	include/sge/renderer/state/ffp/alpha_test/object_fwd.hpp
 	include/sge/renderer/state/ffp/alpha_test/object_scoped_ptr.hpp
@@ -462,6 +475,7 @@ set(
 	include/sge/renderer/state/ffp/fog/enabled_fwd.hpp
 	include/sge/renderer/state/ffp/fog/end.hpp
 	include/sge/renderer/state/ffp/fog/mode.hpp
+	include/sge/renderer/state/ffp/fog/mode_fwd.hpp
 	include/sge/renderer/state/ffp/fog/object.hpp
 	include/sge/renderer/state/ffp/fog/object_fwd.hpp
 	include/sge/renderer/state/ffp/fog/object_scoped_ptr.hpp
@@ -556,9 +570,11 @@ set(
 	include/sge/renderer/state/ffp/sampler/arg1.hpp
 	include/sge/renderer/state/ffp/sampler/arg2.hpp
 	include/sge/renderer/state/ffp/sampler/arg3.hpp
+	include/sge/renderer/state/ffp/sampler/arg_fwd.hpp
 	include/sge/renderer/state/ffp/sampler/binary_op.hpp
 	include/sge/renderer/state/ffp/sampler/binary_op_fwd.hpp
 	include/sge/renderer/state/ffp/sampler/binary_op_type.hpp
+	include/sge/renderer/state/ffp/sampler/binary_op_type_fwd.hpp
 	include/sge/renderer/state/ffp/sampler/color_op.hpp
 	include/sge/renderer/state/ffp/sampler/color_op_fwd.hpp
 	include/sge/renderer/state/ffp/sampler/const_object_ref.hpp
@@ -582,9 +598,11 @@ set(
 	include/sge/renderer/state/ffp/sampler/ternary_op.hpp
 	include/sge/renderer/state/ffp/sampler/ternary_op_fwd.hpp
 	include/sge/renderer/state/ffp/sampler/ternary_op_type.hpp
+	include/sge/renderer/state/ffp/sampler/ternary_op_type_fwd.hpp
 	include/sge/renderer/state/ffp/sampler/unary_op.hpp
 	include/sge/renderer/state/ffp/sampler/unary_op_fwd.hpp
 	include/sge/renderer/state/ffp/sampler/unary_op_type.hpp
+	include/sge/renderer/state/ffp/sampler/unary_op_type_fwd.hpp
 	include/sge/renderer/state/ffp/transform/const_optional_object_ref.hpp
 	include/sge/renderer/state/ffp/transform/const_optional_object_ref_fwd.hpp
 	include/sge/renderer/state/ffp/transform/default.hpp

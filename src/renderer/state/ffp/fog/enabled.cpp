@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::renderer::state::ffp::fog::enabled::enabled(
-	sge::renderer::state::ffp::fog::mode::type const _mode,
+	sge::renderer::state::ffp::fog::mode const _mode,
 	sge::renderer::state::ffp::fog::start const _start,
 	sge::renderer::state::ffp::fog::end const _end,
 	sge::renderer::state::ffp::fog::density const _density,
@@ -52,7 +52,7 @@ sge::renderer::state::ffp::fog::enabled::enabled(
 {
 }
 
-sge::renderer::state::ffp::fog::mode::type
+sge::renderer::state::ffp::fog::mode
 sge::renderer::state::ffp::fog::enabled::mode() const
 {
 	return mode_;

@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 GLenum
 sge::opengl::state::convert::sampler_unary_op(
-	sge::renderer::state::ffp::sampler::unary_op_type::type const _op
+	sge::renderer::state::ffp::sampler::unary_op_type const _op
 )
 {
 	switch(

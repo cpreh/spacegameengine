@@ -27,8 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 GLenum
 sge::opengl::state::convert::min_filter(
-	sge::renderer::state::core::sampler::filter::normal::min::type const _min,
-	sge::renderer::state::core::sampler::filter::normal::mip::type const _mip
+	sge::renderer::state::core::sampler::filter::normal::min const _min,
+	sge::renderer::state::core::sampler::filter::normal::mip const _mip
 )
 {
 	switch(

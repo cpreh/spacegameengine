@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/depth_stencil/stencil/enabled_fwd.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/fail_op.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/func.hpp>
-#include <sge/renderer/state/core/depth_stencil/stencil/op.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/op_fwd.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/pass_op.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/read_mask.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/ref.hpp>
@@ -80,7 +80,7 @@ public:
 	SGE_RENDERER_SYMBOL
 	explicit
 	combined_simple(
-		sge::renderer::state::core::depth_stencil::stencil::func::type
+		sge::renderer::state::core::depth_stencil::stencil::func
 	);
 
 	SGE_RENDERER_SYMBOL
@@ -108,22 +108,22 @@ public:
 	SGE_RENDERER_SYMBOL
 	sge::renderer::state::core::depth_stencil::stencil::combined_simple &
 	fail_op(
-		sge::renderer::state::core::depth_stencil::stencil::op::type
+		sge::renderer::state::core::depth_stencil::stencil::op
 	);
 
 	SGE_RENDERER_SYMBOL
 	sge::renderer::state::core::depth_stencil::stencil::combined_simple &
 	depth_fail_op(
-		sge::renderer::state::core::depth_stencil::stencil::op::type
+		sge::renderer::state::core::depth_stencil::stencil::op
 	);
 
 	SGE_RENDERER_SYMBOL
 	sge::renderer::state::core::depth_stencil::stencil::combined_simple &
 	pass_op(
-		sge::renderer::state::core::depth_stencil::stencil::op::type
+		sge::renderer::state::core::depth_stencil::stencil::op
 	);
 private:
-	sge::renderer::state::core::depth_stencil::stencil::func::type const func_;
+	sge::renderer::state::core::depth_stencil::stencil::func const func_;
 
 	sge::renderer::state::core::depth_stencil::stencil::ref ref_;
 

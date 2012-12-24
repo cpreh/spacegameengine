@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_CORE_RASTERIZER_FILL_MODE_HPP_INCLUDED
 #define SGE_RENDERER_STATE_CORE_RASTERIZER_FILL_MODE_HPP_INCLUDED
 
+#include <sge/renderer/state/core/rasterizer/fill_mode_fwd.hpp>
+
 
 namespace sge
 {
@@ -33,14 +35,11 @@ namespace core
 namespace rasterizer
 {
 
-namespace fill_mode
-{
-enum type
+enum class fill_mode
 {
 	line,
 	solid
 };
-}
 
 }
 }

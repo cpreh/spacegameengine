@@ -37,7 +37,7 @@ namespace sampler
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
-	sge::renderer::state::ffp::sampler::arg::type,
+	sge::renderer::state::ffp::sampler::arg,
 	arg3
 );
 

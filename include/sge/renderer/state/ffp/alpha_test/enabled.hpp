@@ -43,19 +43,19 @@ class enabled
 public:
 	SGE_RENDERER_SYMBOL
 	enabled(
-		sge::renderer::state::ffp::alpha_test::func::type,
+		sge::renderer::state::ffp::alpha_test::func,
 		sge::renderer::state::ffp::alpha_test::ref
 	);
 
 	SGE_RENDERER_SYMBOL
-	sge::renderer::state::ffp::alpha_test::func::type
+	sge::renderer::state::ffp::alpha_test::func
 	func() const;
 
 	SGE_RENDERER_SYMBOL
 	sge::renderer::state::ffp::alpha_test::ref const
 	ref() const;
 private:
-	sge::renderer::state::ffp::alpha_test::func::type func_;
+	sge::renderer::state::ffp::alpha_test::func func_;
 
 	sge::renderer::state::ffp::alpha_test::ref ref_;
 };

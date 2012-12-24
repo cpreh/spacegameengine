@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_STATE_CONVERT_ANISOTROPIC_MIP_FILTER_HPP_INCLUDED
 
 #include <sge/opengl/common.hpp>
-#include <sge/renderer/state/core/sampler/filter/anisotropic/mip.hpp>
+#include <sge/renderer/state/core/sampler/filter/anisotropic/mip_fwd.hpp>
 
 
 namespace sge
@@ -36,7 +36,7 @@ namespace convert
 
 GLenum
 anisotropic_mip_filter(
-	sge::renderer::state::core::sampler::filter::anisotropic::mip::type
+	sge::renderer::state::core::sampler::filter::anisotropic::mip
 );
 
 }

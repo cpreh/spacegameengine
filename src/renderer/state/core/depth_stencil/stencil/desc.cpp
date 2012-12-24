@@ -29,7 +29,7 @@ sge::renderer::state::core::depth_stencil::stencil::desc::desc(
 	sge::renderer::state::core::depth_stencil::stencil::fail_op const _fail_op,
 	sge::renderer::state::core::depth_stencil::stencil::depth_fail_op const _depth_fail_op,
 	sge::renderer::state::core::depth_stencil::stencil::pass_op const _pass_op,
-	sge::renderer::state::core::depth_stencil::stencil::func::type const _func
+	sge::renderer::state::core::depth_stencil::stencil::func const _func
 )
 :
 	fail_op_(
@@ -65,7 +65,7 @@ sge::renderer::state::core::depth_stencil::stencil::desc::pass_op() const
 	return pass_op_;
 }
 
-sge::renderer::state::core::depth_stencil::stencil::func::type
+sge::renderer::state::core::depth_stencil::stencil::func
 sge::renderer::state::core::depth_stencil::stencil::desc::func() const
 {
 	return func_;

@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_CORE_SAMPLER_FILTER_NORMAL_MAG_HPP_INCLUDED
 #define SGE_RENDERER_STATE_CORE_SAMPLER_FILTER_NORMAL_MAG_HPP_INCLUDED
 
+#include <sge/renderer/state/core/sampler/filter/normal/mag_fwd.hpp>
+
 
 namespace sge
 {
@@ -37,14 +39,11 @@ namespace filter
 namespace normal
 {
 
-namespace mag
-{
-enum type
+enum class mag
 {
 	point,
 	linear
 };
-}
 
 }
 }

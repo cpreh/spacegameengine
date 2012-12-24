@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_FFP_ALPHA_TEST_FUNC_HPP_INCLUDED
 #define SGE_RENDERER_STATE_FFP_ALPHA_TEST_FUNC_HPP_INCLUDED
 
+#include <sge/renderer/state/ffp/alpha_test/func_fwd.hpp>
+
 
 namespace sge
 {
@@ -33,9 +35,7 @@ namespace ffp
 namespace alpha_test
 {
 
-namespace func
-{
-enum type
+enum class func
 {
 	never,
 	less,
@@ -46,7 +46,6 @@ enum type
 	greater_equal,
 	always
 };
-}
 
 }
 }

@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::renderer::state::core::rasterizer::parameters::parameters(
-	sge::renderer::state::core::rasterizer::cull_mode::type const _cull_mode,
-	sge::renderer::state::core::rasterizer::fill_mode::type const _fill_mode,
+	sge::renderer::state::core::rasterizer::cull_mode const _cull_mode,
+	sge::renderer::state::core::rasterizer::fill_mode const _fill_mode,
 	sge::renderer::state::core::rasterizer::enable_scissor_test const _enable_scissor_test
 )
 :
@@ -42,13 +42,13 @@ sge::renderer::state::core::rasterizer::parameters::parameters(
 {
 }
 
-sge::renderer::state::core::rasterizer::cull_mode::type
+sge::renderer::state::core::rasterizer::cull_mode
 sge::renderer::state::core::rasterizer::parameters::cull_mode() const
 {
 	return cull_mode_;
 }
 
-sge::renderer::state::core::rasterizer::fill_mode::type
+sge::renderer::state::core::rasterizer::fill_mode
 sge::renderer::state::core::rasterizer::parameters::fill_mode() const
 {
 	return fill_mode_;

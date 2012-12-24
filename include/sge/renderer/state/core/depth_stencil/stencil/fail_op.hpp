@@ -39,7 +39,7 @@ namespace stencil
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
-	sge::renderer::state::core::depth_stencil::stencil::op::type,
+	sge::renderer::state::core::depth_stencil::stencil::op,
 	fail_op
 );
 

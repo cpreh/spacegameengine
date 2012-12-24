@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_CORE_BLEND_DEST_HPP_INCLUDED
 #define SGE_RENDERER_STATE_CORE_BLEND_DEST_HPP_INCLUDED
 
+#include <sge/renderer/state/core/blend/dest_fwd.hpp>
+
 
 namespace sge
 {
@@ -33,9 +35,7 @@ namespace core
 namespace blend
 {
 
-namespace dest
-{
-enum type
+enum class dest
 {
 	zero,
 	one,
@@ -46,7 +46,6 @@ enum type
 	dest_alpha,
 	inv_dest_alpha
 };
-}
 
 }
 }

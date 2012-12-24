@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_STATE_CONVERT_SOURCE_BLEND_FUNC_HPP_INCLUDED
 
 #include <sge/opengl/common.hpp>
-#include <sge/renderer/state/core/blend/source.hpp>
+#include <sge/renderer/state/core/blend/source_fwd.hpp>
 
 
 namespace sge
@@ -36,7 +36,7 @@ namespace convert
 
 GLenum
 source_blend_func(
-	sge::renderer::state::core::blend::source::type
+	sge::renderer::state::core::blend::source
 );
 
 }

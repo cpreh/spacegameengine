@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_CORE_SAMPLER_FILTER_ANISOTROPIC_MIP_HPP_INCLUDED
 #define SGE_RENDERER_STATE_CORE_SAMPLER_FILTER_ANISOTROPIC_MIP_HPP_INCLUDED
 
+#include <sge/renderer/state/core/sampler/filter/anisotropic/mip_fwd.hpp>
+
 
 namespace sge
 {
@@ -37,15 +39,12 @@ namespace filter
 namespace anisotropic
 {
 
-namespace mip
-{
-enum type
+enum class mip
 {
 	off,
 	point,
 	linear
 };
-}
 
 }
 }

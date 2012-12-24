@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::renderer::state::ffp::sampler::binary_op::binary_op(
-	sge::renderer::state::ffp::sampler::binary_op_type::type const _type,
+	sge::renderer::state::ffp::sampler::binary_op_type const _type,
 	sge::renderer::state::ffp::sampler::arg1 const _arg1,
 	sge::renderer::state::ffp::sampler::arg2 const _arg2
 )
@@ -42,7 +42,7 @@ sge::renderer::state::ffp::sampler::binary_op::binary_op(
 {
 }
 
-sge::renderer::state::ffp::sampler::binary_op_type::type
+sge::renderer::state::ffp::sampler::binary_op_type
 sge::renderer::state::ffp::sampler::binary_op::type() const
 {
 	return type_;

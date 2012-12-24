@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_CORE_BLEND_SOURCE_HPP_INCLUDED
 #define SGE_RENDERER_STATE_CORE_BLEND_SOURCE_HPP_INCLUDED
 
+#include <sge/renderer/state/core/blend/source_fwd.hpp>
+
 
 namespace sge
 {
@@ -33,9 +35,7 @@ namespace core
 namespace blend
 {
 
-namespace source
-{
-enum type
+enum class source
 {
 	zero,
 	one,
@@ -47,7 +47,6 @@ enum type
 	inv_dest_alpha,
 	src_alpha_sat
 };
-}
 
 }
 }

@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 GLenum
 sge::opengl::state::convert::cull_mode(
-	sge::renderer::state::core::rasterizer::cull_mode::type const _mode
+	sge::renderer::state::core::rasterizer::cull_mode const _mode
 )
 {
 	switch(

@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 GLenum
 sge::opengl::state::convert::stencil_op(
-	sge::renderer::state::core::depth_stencil::stencil::op::type const _value
+	sge::renderer::state::core::depth_stencil::stencil::op const _value
 )
 {
 	switch(

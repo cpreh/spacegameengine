@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_FFP_SAMPLER_BINARY_OP_TYPE_HPP_INCLUDED
 #define SGE_RENDERER_STATE_FFP_SAMPLER_BINARY_OP_TYPE_HPP_INCLUDED
 
+#include <sge/renderer/state/ffp/sampler/binary_op_type_fwd.hpp>
+
 
 namespace sge
 {
@@ -33,16 +35,13 @@ namespace ffp
 namespace sampler
 {
 
-namespace binary_op_type
-{
-enum type
+enum class binary_op_type
 {
 	modulate,
 	add,
 	subtract,
 	add_signed
 };
-}
 
 }
 }

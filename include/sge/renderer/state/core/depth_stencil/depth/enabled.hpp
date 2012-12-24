@@ -45,19 +45,19 @@ class enabled
 public:
 	SGE_RENDERER_SYMBOL
 	enabled(
-		sge::renderer::state::core::depth_stencil::depth::func::type,
+		sge::renderer::state::core::depth_stencil::depth::func,
 		sge::renderer::state::core::depth_stencil::depth::write_enable
 	);
 
 	SGE_RENDERER_SYMBOL
-	sge::renderer::state::core::depth_stencil::depth::func::type
+	sge::renderer::state::core::depth_stencil::depth::func
 	func() const;
 
 	SGE_RENDERER_SYMBOL
 	sge::renderer::state::core::depth_stencil::depth::write_enable const
 	write_enable() const;
 private:
-	sge::renderer::state::core::depth_stencil::depth::func::type func_;
+	sge::renderer::state::core::depth_stencil::depth::func func_;
 
 	sge::renderer::state::core::depth_stencil::depth::write_enable write_enable_;
 };

@@ -283,7 +283,7 @@ make_sampler_parameters(
 
 sge::renderer::state::core::sampler::parameters const
 make_anisotropic_sampler_parameters(
-	sge::renderer::state::core::sampler::filter::anisotropic::mip::type const _mip,
+	sge::renderer::state::core::sampler::filter::anisotropic::mip const _mip,
 	sge::renderer::state::core::sampler::filter::anisotropic::level const _level
 )
 {

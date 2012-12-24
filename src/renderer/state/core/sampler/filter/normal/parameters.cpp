@@ -25,9 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::renderer::state::core::sampler::filter::normal::parameters::parameters(
-	sge::renderer::state::core::sampler::filter::normal::mag::type const _mag,
-	sge::renderer::state::core::sampler::filter::normal::min::type const _min,
-	sge::renderer::state::core::sampler::filter::normal::mip::type const _mip
+	sge::renderer::state::core::sampler::filter::normal::mag const _mag,
+	sge::renderer::state::core::sampler::filter::normal::min const _min,
+	sge::renderer::state::core::sampler::filter::normal::mip const _mip
 )
 :
 	mag_(
@@ -42,19 +42,19 @@ sge::renderer::state::core::sampler::filter::normal::parameters::parameters(
 {
 }
 
-sge::renderer::state::core::sampler::filter::normal::mag::type
+sge::renderer::state::core::sampler::filter::normal::mag
 sge::renderer::state::core::sampler::filter::normal::parameters::mag() const
 {
 	return mag_;
 }
 
-sge::renderer::state::core::sampler::filter::normal::min::type
+sge::renderer::state::core::sampler::filter::normal::min
 sge::renderer::state::core::sampler::filter::normal::parameters::min() const
 {
 	return min_;
 }
 
-sge::renderer::state::core::sampler::filter::normal::mip::type
+sge::renderer::state::core::sampler::filter::normal::mip
 sge::renderer::state::core::sampler::filter::normal::parameters::mip() const
 {
 	return mip_;

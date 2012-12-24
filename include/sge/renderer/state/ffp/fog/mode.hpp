@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_FFP_FOG_MODE_HPP_INCLUDED
 #define SGE_RENDERER_STATE_FFP_FOG_MODE_HPP_INCLUDED
 
+#include <sge/renderer/state/ffp/fog/mode_fwd.hpp>
+
 
 namespace sge
 {
@@ -33,15 +35,12 @@ namespace ffp
 namespace fog
 {
 
-namespace mode
-{
-enum type
+enum class mode
 {
 	linear,
 	exp,
 	exp2
 };
-}
 
 }
 }

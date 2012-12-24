@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_STATE_CORE_RASTERIZER_CULL_MODE_HPP_INCLUDED
 
 #include <sge/opengl/state/actor_vector.hpp>
-#include <sge/renderer/state/core/rasterizer/cull_mode.hpp>
+#include <sge/renderer/state/core/rasterizer/cull_mode_fwd.hpp>
 
 
 namespace sge
@@ -38,7 +38,7 @@ namespace rasterizer
 
 sge::opengl::state::actor_vector const
 cull_mode(
-	sge::renderer::state::core::rasterizer::cull_mode::type
+	sge::renderer::state::core::rasterizer::cull_mode
 );
 
 }

@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::renderer::state::core::sampler::filter::anisotropic::parameters::parameters(
-	sge::renderer::state::core::sampler::filter::anisotropic::mip::type const _mip,
+	sge::renderer::state::core::sampler::filter::anisotropic::mip const _mip,
 	sge::renderer::state::core::sampler::filter::anisotropic::level const _level
 )
 :
@@ -37,7 +37,7 @@ sge::renderer::state::core::sampler::filter::anisotropic::parameters::parameters
 {
 }
 
-sge::renderer::state::core::sampler::filter::anisotropic::mip::type
+sge::renderer::state::core::sampler::filter::anisotropic::mip
 sge::renderer::state::core::sampler::filter::anisotropic::parameters::mip() const
 {
 	return mip_;
