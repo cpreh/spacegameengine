@@ -45,7 +45,7 @@ class color_holder
 public:
 	explicit
 	color_holder(
-		sge::d3d9::surface::d3d_unique_ptr
+		sge::d3d9::surface::d3d_unique_ptr &&
 	);
 
 	~color_holder();

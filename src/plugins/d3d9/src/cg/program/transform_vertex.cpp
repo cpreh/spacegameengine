@@ -24,13 +24,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/vertex_declaration.hpp>
 #include <sge/d3d9/cg/program/replace_index.hpp>
 #include <sge/d3d9/cg/program/transform_vertex.hpp>
-#include <sge/renderer/vertex_declaration_fwd.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <sge/renderer/vertex/declaration_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::cg::program::source const
 sge::d3d9::cg::program::transform_vertex(
-	sge::renderer::vertex_declaration const &_vertex_declaration,
+	sge::renderer::vertex::declaration const &_vertex_declaration,
 	sge::cg::program::source const &_source
 )
 {
@@ -38,14 +40,14 @@ sge::d3d9::cg::program::transform_vertex(
 		sge::cg::program::replace_extra(
 			_source,
 			sge::cg::program::replace_extra_callback(
-				std::tr1::bind(
+				std::bind(
 					&sge::d3d9::cg::program::replace_index,
 					dynamic_cast<
 						sge::d3d9::vertex_declaration const &
 					>(
 						_vertex_declaration
 					).texture_coordinates(),
-					std::tr1::placeholders::_1
+					std::placeholders::_1
 				)
 			)
 		);

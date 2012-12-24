@@ -23,18 +23,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/gdifont/delete_object_deleter_fwd.hpp>
 #include <sge/gdifont/include_windows.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/type_traits/remove_pointer.hpp>
+#include <memory>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {
 namespace gdifont
 {
 
-typedef fcppt::unique_ptr<
-	boost::remove_pointer<
+typedef std::unique_ptr<
+	std::remove_pointer<
 		HBITMAP
 	>::type,
 	sge::gdifont::delete_object_deleter

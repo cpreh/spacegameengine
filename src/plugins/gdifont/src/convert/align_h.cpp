@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 UINT
 sge::gdifont::convert::align_h(
-	sge::font::align_h::type const _align
+	sge::font::align_h const _align
 )
 {
 	switch(

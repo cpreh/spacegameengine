@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/gdifont/delete_object_deleter.hpp>
 #include <sge/gdifont/include_windows.hpp>
-#include <fcppt/null_ptr.hpp>
 #include <fcppt/assert/error.hpp>
 
 
@@ -30,7 +29,7 @@ sge::gdifont::delete_object_deleter::operator()(
 ) const
 {
 	if(
-		_object != fcppt::null_ptr()
+		_object != nullptr
 	)
 		FCPPT_ASSERT_ERROR(
 			::DeleteObject(

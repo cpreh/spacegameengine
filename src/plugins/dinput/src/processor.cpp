@@ -52,7 +52,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/dynamic_pointer_cast.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/append.hpp>
@@ -64,9 +63,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/connection_manager.hpp>
-#include <fcppt/signal/shared_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
+#include <functional>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -109,12 +109,8 @@ sge::dinput::processor::processor(
 		fcppt::make_unique_ptr<
 			sge::dinput::cursor::object
 		>(
-			fcppt::ref(
-				event_processor_
-			),
-			fcppt::ref(
-				windows_window_
-			)
+			event_processor_,
+			windows_window_
 		)
 	),
 	event_handle_(
@@ -138,64 +134,55 @@ sge::dinput::processor::processor(
 		fcppt::assign::make_container<
 			fcppt::signal::connection_manager::container
 		>(
-			fcppt::signal::shared_connection(
-				event_processor_.focus_in_callback(
-					awl::window::event::focus_in_callback(
-						std::tr1::bind(
-							&dinput::processor::on_focus_in,
-							this,
-							std::tr1::placeholders::_1
-						)
-					)
-				)
-			)
-		)
-		(
-			fcppt::signal::shared_connection(
-				event_processor_.focus_out_callback(
-					awl::window::event::focus_out_callback(
-						std::tr1::bind(
-							&dinput::processor::on_focus_out,
-							this,
-							std::tr1::placeholders::_1
-						)
-					)
-				)
-			)
-		)
-		(
-			fcppt::signal::shared_connection(
-				event_processor_.register_callback(
-					init_message_.type(),
-					std::tr1::bind(
-						&dinput::processor::on_init,
+			event_processor_.focus_in_callback(
+				awl::window::event::focus_in_callback(
+					std::bind(
+						&sge::dinput::processor::on_focus_in,
 						this,
-						std::tr1::placeholders::_1
+						std::placeholders::_1
 					)
 				)
 			)
 		)
 		(
-			fcppt::signal::shared_connection(
-				system_processor_.register_handle_callback(
-					std::tr1::bind(
-						&dinput::processor::on_handle_ready,
-						this
-					)
-				)
-			)
-		)
-		(
-			fcppt::signal::shared_connection(
-				cursor_->button_callback(
-					std::tr1::bind(
-						&sge::dinput::processor::on_cursor_button,
+			event_processor_.focus_out_callback(
+				awl::window::event::focus_out_callback(
+					std::bind(
+						&sge::dinput::processor::on_focus_out,
 						this,
-						std::tr1::placeholders::_1
+						std::placeholders::_1
 					)
 				)
 			)
 		)
+		(
+			event_processor_.register_callback(
+				init_message_.type(),
+				std::bind(
+					&sge::dinput::processor::on_init,
+					this,
+					std::placeholders::_1
+				)
+			)
+		)
+		(
+			system_processor_.register_handle_callback(
+				std::bind(
+					&sge::dinput::processor::on_handle_ready,
+					this
+				)
+			)
+		)
+		(
+			cursor_->button_callback(
+				std::bind(
+					&sge::dinput::processor::on_cursor_button,
+					this,
+					std::placeholders::_1
+				)
+			)
+		)
+		.move_container()
 	)
 {
 	awl::backends::windows::event::post_message(
@@ -320,9 +307,9 @@ sge::dinput::processor::on_focus_in(
 		);
 
 	this->for_each_device(
-		std::tr1::bind(
+		std::bind(
 			&sge::dinput::device::object::acquire,
-			std::tr1::placeholders::_1,
+			std::placeholders::_1,
 			has_focus_,
 			this->cursor_active()
 		)
@@ -346,9 +333,9 @@ sge::dinput::processor::on_focus_out(
 		);
 
 	this->for_each_device(
-		std::tr1::bind(
+		std::bind(
 			&sge::dinput::device::object::unacquire,
-			std::tr1::placeholders::_1
+			std::placeholders::_1
 		)
 	);
 
@@ -359,9 +346,9 @@ void
 sge::dinput::processor::on_handle_ready()
 {
 	this->for_each_device(
-		std::tr1::bind(
+		std::bind(
 			&sge::dinput::device::object::dispatch,
-			std::tr1::placeholders::_1
+			std::placeholders::_1
 		)
 	);
 }
@@ -434,9 +421,9 @@ sge::dinput::processor::on_cursor_button(
 	cursor_->acquire();
 
 	this->for_each_device(
-		std::tr1::bind(
+		std::bind(
 			&sge::dinput::device::object::acquire,
-			std::tr1::placeholders::_1,
+			std::placeholders::_1,
 			has_focus_,
 			this->cursor_active()
 		)
@@ -489,7 +476,7 @@ sge::dinput::processor::add_device(
 
 	fcppt::container::ptr::push_back_unique_ptr(
 		devices_,
-		fcppt::move(
+		std::move(
 			_ptr
 		)
 	);

@@ -40,8 +40,8 @@ convert_optional_bit_count(
 
 PIXELFORMATDESCRIPTOR const
 sge::opengl::windows::visual::make_format(
-	sge::renderer::pixel_format::color::type const _color,
-	sge::renderer::pixel_format::depth_stencil::type const _depth_stencil
+	sge::renderer::pixel_format::color const _color,
+	sge::renderer::pixel_format::depth_stencil const _depth_stencil
 )
 {
 	PIXELFORMATDESCRIPTOR const ret = {

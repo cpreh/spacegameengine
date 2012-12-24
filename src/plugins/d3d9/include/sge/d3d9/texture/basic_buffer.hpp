@@ -24,15 +24,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/texture/basic_buffer_fwd.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/renderer/basic_dim.hpp>
-#include <sge/renderer/lock_mode.hpp>
+#include <sge/renderer/lock_mode_fwd.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
-#include <sge/renderer/lock_flags/method.hpp>
+#include <sge/renderer/lock_flags/method_fwd.hpp>
 #include <fcppt/com_deleter.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_decl.hpp>
 #include <fcppt/scoped_ptr_decl.hpp>
-#include <fcppt/unique_ptr_decl.hpp>
-#include <fcppt/function/object.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -57,12 +59,12 @@ class basic_buffer
 public:
 	typedef typename Types::d3d_buffer d3d_buffer;
 
-	typedef fcppt::unique_ptr<
+	typedef std::unique_ptr<
 		d3d_buffer,
 		fcppt::com_deleter
 	> d3d_buffer_unique_ptr;
 
-	typedef fcppt::function::object<
+	typedef std::function<
 		d3d_buffer_unique_ptr ()
 	> d3d_buffer_create_function;
 
@@ -92,7 +94,7 @@ private:
 	view const
 	lock(
 		lock_area const &,
-		sge::renderer::lock_mode::type
+		sge::renderer::lock_mode
 	);
 
 	void
@@ -109,7 +111,7 @@ private:
 	lock_impl(
 		MakeView const &,
 		lock_area const &,
-		sge::renderer::lock_flags::method::type
+		sge::renderer::lock_flags::method
 	) const;
 
 	typedef fcppt::scoped_ptr<

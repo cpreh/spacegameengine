@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/convert/lock_box.hpp>
 #include <sge/d3d9/volumefuncs/lock_box.hpp>
 #include <sge/renderer/exception.hpp>
-#include <fcppt/null_ptr.hpp>
 #include <fcppt/text.hpp>
 
 
@@ -53,7 +52,7 @@ sge::d3d9::volumefuncs::lock_box(
 			?
 				&in_box
 			:
-				fcppt::null_ptr()
+				nullptr
 			,
 			_flags.get()
 		)

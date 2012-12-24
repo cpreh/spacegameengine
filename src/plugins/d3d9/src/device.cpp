@@ -62,14 +62,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/texture/volume.hpp>
 #include <sge/renderer/adapter.hpp>
 #include <sge/renderer/config.hpp>
-#include <sge/renderer/index_buffer_unique_ptr.hpp>
-#include <sge/renderer/index_count.hpp>
 #include <sge/renderer/pixel_rect.hpp>
-#include <sge/renderer/resource_flags_field_fwd.hpp>
-#include <sge/renderer/vertex_buffer_unique_ptr.hpp>
-#include <sge/renderer/vertex_count.hpp>
-#include <sge/renderer/vertex_declaration_fwd.hpp>
-#include <sge/renderer/vertex_declaration_unique_ptr.hpp>
 #include <sge/renderer/caps/device.hpp>
 #include <sge/renderer/context/core.hpp>
 #include <sge/renderer/context/core_unique_ptr.hpp>
@@ -81,7 +74,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/device/parameters.hpp>
 #include <sge/renderer/display_mode/object.hpp>
-#include <sge/renderer/index/dynamic/format.hpp>
+#include <sge/renderer/index/buffer_parameters_fwd.hpp>
+#include <sge/renderer/index/buffer_unique_ptr.hpp>
 #include <sge/renderer/occlusion_query/object.hpp>
 #include <sge/renderer/occlusion_query/object_unique_ptr.hpp>
 #include <sge/renderer/parameters/object.hpp>
@@ -137,18 +131,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/planar_unique_ptr.hpp>
 #include <sge/renderer/texture/volume_parameters_fwd.hpp>
 #include <sge/renderer/texture/volume_unique_ptr.hpp>
-#include <sge/renderer/vf/dynamic/format_fwd.hpp>
-#include <sge/renderer/vf/dynamic/part_index.hpp>
+#include <sge/renderer/vertex/buffer_parameters.hpp>
+#include <sge/renderer/vertex/buffer_unique_ptr.hpp>
+#include <sge/renderer/vertex/declaration_parameters_fwd.hpp>
+#include <sge/renderer/vertex/declaration_unique_ptr.hpp>
 #include <awl/window/object.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/move.hpp>
-#include <fcppt/ref.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/time/sleep_any.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/chrono/duration.hpp>
+#include <memory>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -169,6 +163,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/cg/loaded_program_unique_ptr.hpp>
 #include <sge/renderer/cg/loaded_texture.hpp>
 #include <sge/renderer/cg/loaded_texture_unique_ptr.hpp>
+#include <sge/renderer/vertex/declaration_fwd.hpp>
 #endif
 
 
@@ -209,9 +204,7 @@ sge::d3d9::device::device(
 		fcppt::make_unique_ptr<
 			sge::d3d9::target::onscreen
 		>(
-			fcppt::ref(
-				*device_
-			),
+			*device_,
 			// TODO: this must be inferred from the present_parameters!
 			sge::image::color::format::bgrx8,
 			sge::renderer::target::viewport(
@@ -224,9 +217,7 @@ sge::d3d9::device::device(
 					)
 				)
 			),
-			fcppt::ref(
-				resources_
-			),
+			resources_,
 			caps_.target_surfaces()
 		)
 	),
@@ -234,18 +225,14 @@ sge::d3d9::device::device(
 		fcppt::make_unique_ptr<
 			sge::d3d9::state::core::defaults
 		>(
-			fcppt::ref(
-				*device_
-			)
+			*device_
 		)
 	),
 	ffp_defaults_(
 		fcppt::make_unique_ptr<
 			sge::d3d9::state::ffp::defaults
 		>(
-			fcppt::ref(
-				*device_
-			)
+			*device_
 		)
 	)
 {
@@ -299,9 +286,7 @@ sge::d3d9::device::create_target()
 			fcppt::make_unique_ptr<
 				sge::d3d9::target::offscreen
 			>(
-				fcppt::ref(
-					*device_
-				),
+				*device_,
 				caps_.target_surfaces()
 			)
 		);
@@ -320,9 +305,7 @@ sge::d3d9::device::create_planar_texture(
 				fcppt::make_unique_ptr<
 					sge::d3d9::texture::planar
 				>(
-					fcppt::ref(
-						*device_
-					),
+					*device_,
 					_param
 				)
 			)
@@ -367,12 +350,8 @@ sge::d3d9::device::create_depth_stencil_surface(
 					fcppt::make_unique_ptr<
 						sge::d3d9::surface::depth_stencil_native
 					>(
-						fcppt::ref(
-							*device_
-						),
-						fcppt::cref(
-							_parameters
-						),
+						*device_,
+						_parameters,
 						present_parameters_.MultiSampleType,
 						sge::d3d9::multi_sample_quality(
 							present_parameters_.MultiSampleQuality
@@ -397,9 +376,7 @@ sge::d3d9::device::create_volume_texture(
 				fcppt::make_unique_ptr<
 					sge::d3d9::texture::volume
 				>(
-					fcppt::ref(
-						*device_
-					),
+					*device_,
 					_param
 				)
 			)
@@ -419,89 +396,66 @@ sge::d3d9::device::create_cube_texture(
 				fcppt::make_unique_ptr<
 					sge::d3d9::texture::cube
 				>(
-					fcppt::ref(
-						*device_
-					),
+					*device_,
 					_param
 				)
 			)
 		);
 }
 
-sge::renderer::vertex_declaration_unique_ptr
+sge::renderer::vertex::declaration_unique_ptr
 sge::d3d9::device::create_vertex_declaration(
-	sge::renderer::vf::dynamic::format const &_format
+	sge::renderer::vertex::declaration_parameters const &_parameters
 )
 {
 	return
-		sge::renderer::vertex_declaration_unique_ptr(
-			fcppt::make_unique_ptr<
-				sge::d3d9::vertex_declaration
-			>(
-				fcppt::ref(
-					*device_
-				),
-				_format
-			)
+		fcppt::make_unique_ptr<
+			sge::d3d9::vertex_declaration
+		>(
+			*device_,
+			_parameters
 		);
 }
 
-sge::renderer::vertex_buffer_unique_ptr
+sge::renderer::vertex::buffer_unique_ptr
 sge::d3d9::device::create_vertex_buffer(
-	sge::renderer::vertex_declaration const &_declaration,
-	sge::renderer::vf::dynamic::part_index const _part,
-	sge::renderer::vertex_count const _size,
-	sge::renderer::resource_flags_field const &_resource_flags
+	sge::renderer::vertex::buffer_parameters const &_parameters
 )
 {
 	return
-		sge::renderer::vertex_buffer_unique_ptr(
-			this->add_resource<
+		this->add_resource<
+			sge::d3d9::vertex_buffer
+		>(
+			fcppt::make_unique_ptr<
 				sge::d3d9::vertex_buffer
 			>(
-				fcppt::make_unique_ptr<
-					sge::d3d9::vertex_buffer
+				*device_,
+				dynamic_cast<
+					sge::d3d9::vertex_declaration const &
 				>(
-					fcppt::ref(
-						*device_
-					),
-					dynamic_cast<
-						sge::d3d9::vertex_declaration const &
-					>(
-						_declaration
-					).format().parts().at(
-						_part.get()
-					),
-					_part,
-					_size,
-					_resource_flags
-				)
+					_parameters.declaration()
+				).format().parts().at(
+					_parameters.part().get()
+				),
+				_parameters
 			)
 		);
 }
 
-sge::renderer::index_buffer_unique_ptr
+sge::renderer::index::buffer_unique_ptr
 sge::d3d9::device::create_index_buffer(
-	sge::renderer::index::dynamic::format::type const _format,
-	sge::renderer::index_count const _size,
-	sge::renderer::resource_flags_field const &_resource_flags
+	sge::renderer::index::buffer_parameters const &_parameters
 )
 {
 	return
-		sge::renderer::index_buffer_unique_ptr(
-			this->add_resource<
+		this->add_resource<
+			sge::d3d9::index_buffer
+		>(
+			fcppt::make_unique_ptr<
 				sge::d3d9::index_buffer
 			>(
-				fcppt::make_unique_ptr<
-					sge::d3d9::index_buffer
-				>(
-					fcppt::ref(
-						*device_
-					),
-					_format,
-					_size,
-					_resource_flags
-				)
+				*device_,
+				_parameters
 			)
 		);
 }
@@ -618,7 +572,7 @@ sge::d3d9::device::load_cg_texture(
 
 sge::cg::program::source const
 sge::d3d9::device::transform_cg_vertex_program(
-	sge::renderer::vertex_declaration const &_vertex_declaration,
+	sge::renderer::vertex::declaration const &_vertex_declaration,
 	sge::cg::program::source const &_source
 )
 {
@@ -794,13 +748,13 @@ sge::d3d9::device::create_transform_state(
 template<
 	typename Ptr
 >
-fcppt::unique_ptr<
+std::unique_ptr<
 	Ptr
 >
 sge::d3d9::device::add_resource(
-	fcppt::unique_ptr<
+	std::unique_ptr<
 		Ptr
-	> _ptr
+	> &&_ptr
 )
 {
 	resources_.add(
@@ -808,7 +762,7 @@ sge::d3d9::device::add_resource(
 	);
 
 	return
-		fcppt::move(
+		std::move(
 			_ptr
 		);
 }

@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/occlusion_query/object.hpp>
 #include <sge/renderer/occlusion_query/object_unique_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 
 
 sge::renderer::occlusion_query::object_unique_ptr
@@ -37,9 +36,7 @@ sge::d3d9::occlusion_query::create(
 			fcppt::make_unique_ptr<
 				sge::d3d9::occlusion_query::object
 			>(
-				fcppt::ref(
-					_device
-				)
+				_device
 			)
 		);
 }

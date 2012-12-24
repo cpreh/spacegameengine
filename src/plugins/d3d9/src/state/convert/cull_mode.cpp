@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 D3DCULL
 sge::d3d9::state::convert::cull_mode(
-	sge::renderer::state::core::rasterizer::cull_mode::type const _type
+	sge::renderer::state::core::rasterizer::cull_mode const _type
 )
 {
 	switch(

@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/exception.hpp>
 #include <awl/backends/windows/windows.hpp>
 #include <awl/backends/windows/window/object.hpp>
-#include <fcppt/null_ptr.hpp>
 #include <fcppt/text.hpp>
 
 
@@ -43,7 +42,7 @@ sge::opengl::wgl::context::context(
 	)
 {
 	if(
-		!glrc_
+		glrc_ == nullptr
 	)
 		throw sge::renderer::exception(
 			FCPPT_TEXT("wglCreateContext() failed!")
@@ -70,8 +69,8 @@ void
 sge::opengl::wgl::context::deactivate()
 {
 	sge::opengl::wgl::make_current(
-		fcppt::null_ptr(),
-		fcppt::null_ptr()
+		nullptr,
+		nullptr
 	);
 }
 

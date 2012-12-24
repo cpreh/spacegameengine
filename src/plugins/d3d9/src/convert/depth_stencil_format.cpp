@@ -26,20 +26,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 D3DFORMAT
 sge::d3d9::convert::depth_stencil_format(
-	sge::image::ds::format::type const _format
+	sge::image::ds::format const _format
 )
 {
 	switch(
 		_format
 	)
 	{
-	case sge::image::ds::format::type::d16:
+	case sge::image::ds::format::d16:
 		return D3DFMT_D16;
-	case sge::image::ds::format::type::d24s8:
+	case sge::image::ds::format::d24s8:
 		return D3DFMT_D24S8;
-	case sge::image::ds::format::type::d32:
+	case sge::image::ds::format::d32:
 		return D3DFMT_D32;
-	case sge::image::ds::format::type::size:
+	case sge::image::ds::format::size:
 		break;
 	}
 

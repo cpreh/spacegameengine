@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 bool
 sge::charconv::backends::windows::is_utf16(
-	sge::charconv::encoding::type const _type
+	sge::charconv::encoding const _type
 )
 {
 	switch(

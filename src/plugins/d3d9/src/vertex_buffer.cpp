@@ -25,14 +25,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/convert/resource_flags_to_pool.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/lock_flags/from_mode.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
+#include <sge/renderer/vertex/buffer.hpp>
+#include <sge/renderer/vertex/buffer_parameters.hpp>
 #include <sge/renderer/vf/dynamic/color_format_vector.hpp>
 #include <sge/renderer/vf/dynamic/const_view.hpp>
+#include <sge/renderer/vf/dynamic/part.hpp>
+#include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <sge/renderer/vf/dynamic/stride.hpp>
 #include <sge/renderer/vf/dynamic/view.hpp>
-#include <fcppt/null_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 
@@ -40,15 +44,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::d3d9::vertex_buffer::vertex_buffer(
 	IDirect3DDevice9 &_device,
 	sge::renderer::vf::dynamic::part const &_format_part,
-	sge::renderer::vf::dynamic::part_index const _format_part_index,
-	count_type const _size,
-	sge::renderer::resource_flags_field const &_resource_flags
+	sge::renderer::vertex::buffer_parameters const &_parameters
 )
 :
-	sge::renderer::vertex_buffer(),
+	sge::renderer::vertex::buffer(),
 	sge::d3d9::resource(
 		sge::d3d9::convert::resource_flags_to_pool(
-			_resource_flags
+			_parameters.flags()
 		)
 	),
 	device_(
@@ -58,13 +60,13 @@ sge::d3d9::vertex_buffer::vertex_buffer(
 		_format_part
 	),
 	format_part_index_(
-		_format_part_index
+		_parameters.part()
 	),
 	size_(
-		_size
+		_parameters.count()
 	),
 	resource_flags_(
-		_resource_flags
+		_parameters.flags()
 	),
 	converter_(
 		format_part_,
@@ -76,7 +78,7 @@ sge::d3d9::vertex_buffer::vertex_buffer(
 	),
 	buffer_(),
 	lock_dest_(
-		fcppt::null_ptr()
+		nullptr
 	)
 {
 	this->init();
@@ -88,7 +90,7 @@ sge::d3d9::vertex_buffer::~vertex_buffer()
 
 sge::d3d9::vertex_buffer::view_type const
 sge::d3d9::vertex_buffer::lock(
-	renderer::lock_mode::type const _lock_mode,
+	sge::renderer::lock_mode const _lock_mode,
 	first_type const _first,
 	count_type const _count
 )
@@ -99,7 +101,7 @@ sge::d3d9::vertex_buffer::lock(
 		>(
 			_first,
 			_count,
-			renderer::lock_flags::from_mode(
+			sge::renderer::lock_flags::from_mode(
 				_lock_mode
 			)
 		);
@@ -117,7 +119,7 @@ sge::d3d9::vertex_buffer::lock(
 		>(
 			_first,
 			_count,
-			renderer::lock_flags::method::read
+			sge::renderer::lock_flags::method::read
 		);
 }
 
@@ -125,7 +127,7 @@ void
 sge::d3d9::vertex_buffer::unlock() const
 {
 	if(
-		!lock_dest_
+		lock_dest_ == nullptr
 	)
 		throw sge::renderer::exception(
 			FCPPT_TEXT("d3d9::vertex_buffer::unlock() you have to lock first!")
@@ -141,7 +143,7 @@ sge::d3d9::vertex_buffer::unlock() const
 			FCPPT_TEXT("Cannot unlock d3d vertex buffer!")
 		);
 
-	lock_dest_ = fcppt::null_ptr();
+	lock_dest_ = nullptr;
 }
 
 sge::d3d9::vertex_buffer::count_type const
@@ -199,7 +201,7 @@ sge::d3d9::vertex_buffer::init()
 			0, // no FVF
 			this->pool(),
 			&ret,
-			fcppt::null_ptr()
+			nullptr
 		)
 		!= D3D_OK
 	)
@@ -233,7 +235,7 @@ View const
 sge::d3d9::vertex_buffer::do_lock(
 	first_type const _first,
 	count_type const _count,
-	sge::renderer::lock_flags::method::type const _method
+	sge::renderer::lock_flags::method const _method
 ) const
 {
 	if(
@@ -244,7 +246,7 @@ sge::d3d9::vertex_buffer::do_lock(
 		);
 
 	void *data(
-		fcppt::null_ptr()
+		nullptr
 	);
 
 	count_type const lock_count(

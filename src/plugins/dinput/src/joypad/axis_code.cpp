@@ -24,21 +24,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/joypad/axis_code.hpp>
 
 
-sge::input::joypad::axis_code::type
+sge::input::joypad::axis_code
 sge::dinput::joypad::axis_code(
 	DWORD const _code
 )
 {
 	if(
-		_code == dinput::cast_key(DIMOFS_X)
+		_code == sge::dinput::cast_key(DIMOFS_X)
 	)
 		return sge::input::joypad::axis_code::x;
 	else if(
-		_code == dinput::cast_key(DIMOFS_Y)
+		_code == sge::dinput::cast_key(DIMOFS_Y)
 	)
 		return sge::input::joypad::axis_code::y;
 	else if(
-		_code == dinput::cast_key(DIMOFS_Z)
+		_code ==sge:: dinput::cast_key(DIMOFS_Z)
 	)
 		return sge::input::joypad::axis_code::z;
 

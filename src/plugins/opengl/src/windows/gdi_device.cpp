@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/windows/gdi_device.hpp>
 #include <sge/renderer/exception.hpp>
 #include <awl/backends/windows/windows.hpp>
-#include <fcppt/null_ptr.hpp>
 #include <fcppt/text.hpp>
 
 
@@ -42,7 +41,7 @@ sge::opengl::windows::gdi_device::gdi_device(
 	if(
 		dc_
 		==
-		fcppt::null_ptr()
+		nullptr
 	)
 		throw sge::renderer::exception(
 			FCPPT_TEXT("GetDC() failed!")

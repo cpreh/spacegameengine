@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/surface/d3d_unique_ptr.hpp>
-#include <sge/renderer/texture/cube_side.hpp>
+#include <sge/renderer/texture/cube_side_fwd.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
 
 
@@ -37,7 +37,7 @@ namespace texturefuncs
 sge::d3d9::surface::d3d_unique_ptr
 get_cube_map_surface(
 	IDirect3DCubeTexture9 &,
-	sge::renderer::texture::cube_side::type,
+	sge::renderer::texture::cube_side,
 	sge::renderer::texture::mipmap::level
 );
 

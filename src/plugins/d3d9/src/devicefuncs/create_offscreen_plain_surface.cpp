@@ -32,7 +32,7 @@ sge::d3d9::surface::d3d_unique_ptr
 sge::d3d9::devicefuncs::create_offscreen_plain_surface(
 	IDirect3DDevice9 &_device,
 	sge::renderer::dim2 const &_dim,
-	sge::image::color::format::type const _format,
+	sge::image::color::format const _format,
 	D3DPOOL const _pool
 )
 {
@@ -50,7 +50,7 @@ sge::d3d9::devicefuncs::create_offscreen_plain_surface(
 			>(
 				_dim.h()
 			),
-			d3d9::convert::color_format(
+			sge::d3d9::convert::color_format(
 				_format
 			),
 			_pool,
@@ -64,7 +64,7 @@ sge::d3d9::devicefuncs::create_offscreen_plain_surface(
 		);
 
 	return
-		d3d9::surface::d3d_unique_ptr(
+		sge::d3d9::surface::d3d_unique_ptr(
 			ret
 		);
 }

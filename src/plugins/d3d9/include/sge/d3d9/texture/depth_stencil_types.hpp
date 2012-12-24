@@ -30,7 +30,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/depth_stencil_fwd.hpp>
 #include <sge/renderer/texture/planar_parameters_fwd.hpp>
 #include <sge/renderer/texture/stage.hpp>
-#include <fcppt/function/object_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -48,35 +50,35 @@ struct depth_stencil_types
 
 	typedef IDirect3DTexture9 d3d_type;
 
-	typedef d3d9::optional_lock_rect lock_dest;
+	typedef sge::d3d9::optional_lock_rect lock_dest;
 
-	typedef texture::optional_locked_rect locked_dest;
+	typedef sge::d3d9::texture::optional_locked_rect locked_dest;
 
-	typedef texture::d3d_texture_unique_ptr unique_ptr;
+	typedef sge::d3d9::texture::d3d_texture_unique_ptr unique_ptr;
 
-	typedef fcppt::function::object<
+	typedef std::function<
 		D3DLOCKED_RECT(
 			d3d_type *,
 			sge::renderer::texture::stage,
 			lock_dest const &,
-			d3d9::lock_flags
+			sge::d3d9::lock_flags
 		)
 	> lock_function;
 
-	typedef fcppt::function::object<
+	typedef std::function<
 		void (
 			d3d_type *,
 			sge::renderer::texture::stage
 		)
 	> unlock_function;
 
-	typedef fcppt::function::object<
+	typedef std::function<
 		unique_ptr(
 			IDirect3DDevice9 *,
 			parameters const &,
 			D3DFORMAT,
 			D3DPOOL,
-			d3d9::usage
+			sge::d3d9::usage
 		)
 	> create_function;
 

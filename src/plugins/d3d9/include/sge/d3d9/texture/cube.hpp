@@ -74,7 +74,7 @@ private:
 
 	sge::d3d9::surface::d3d_unique_ptr
 	get_level(
-		sge::renderer::texture::cube_side::type,
+		sge::renderer::texture::cube_side,
 		sge::renderer::texture::mipmap::level
 	);
 

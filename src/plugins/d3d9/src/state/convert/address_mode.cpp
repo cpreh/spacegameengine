@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 D3DTEXTUREADDRESS
 sge::d3d9::state::convert::address_mode(
-	sge::renderer::state::core::sampler::address::mode::type const _mode
+	sge::renderer::state::core::sampler::address::mode const _mode
 )
 {
 	switch(

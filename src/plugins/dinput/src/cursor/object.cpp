@@ -42,15 +42,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/window/event/processor.hpp>
 #include <awl/backends/windows/window/event/return_type.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/object_impl.hpp>
-#include <fcppt/signal/shared_connection.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 FCPPT_PP_PUSH_WARNING
@@ -165,7 +166,7 @@ sge::dinput::cursor::object::position() const
 
 void
 sge::dinput::cursor::object::mode(
-	sge::input::cursor::mode::type const _mode
+	sge::input::cursor::mode const _mode
 )
 {
 	mode_ = _mode;
@@ -218,12 +219,8 @@ sge::dinput::cursor::object::make_grab()
 		fcppt::make_unique_ptr<
 			sge::dinput::cursor::exclusive_mode
 		>(
-			fcppt::ref(
-				event_processor_
-			),
-			fcppt::ref(
-				window_
-			)
+			event_processor_,
+			window_
 		)
 	);
 }
@@ -254,7 +251,7 @@ sge::dinput::cursor::object::on_move(
 awl::backends::windows::window::event::return_type
 sge::dinput::cursor::object::on_button(
 	awl::backends::windows::window::event::object const &,
-	sge::input::cursor::button_code::type const _code,
+	sge::input::cursor::button_code const _code,
 	bool const _down
 )
 {
@@ -271,7 +268,7 @@ sge::dinput::cursor::object::on_button(
 awl::backends::windows::window::event::return_type
 sge::dinput::cursor::object::on_scroll(
 	awl::backends::windows::window::event::object const &_event,
-	sge::input::cursor::scroll_code::type const _code
+	sge::input::cursor::scroll_code const _code
 )
 {
 	// TODO: How do we want to scale this?
@@ -288,24 +285,22 @@ sge::dinput::cursor::object::on_scroll(
 	return awl::backends::windows::window::event::return_type();
 }
 
-fcppt::signal::connection_manager::container const
+fcppt::signal::connection_manager::container
 sge::dinput::cursor::object::make_connections()
 {
 	fcppt::signal::connection_manager::container ret;
 
 	ret.push_back(
-		fcppt::signal::shared_connection(
-			event_processor_.register_callback(
-				fcppt::strong_typedef_construct_cast<
-					awl::backends::windows::event::type
-				>(
-					WM_MOUSEMOVE
-				),
-				std::tr1::bind(
-					&sge::dinput::cursor::object::on_move,
-					this,
-					std::tr1::placeholders::_1
-				)
+		event_processor_.register_callback(
+			fcppt::strong_typedef_construct_cast<
+				awl::backends::windows::event::type
+			>(
+				WM_MOUSEMOVE
+			),
+			std::bind(
+				&sge::dinput::cursor::object::on_move,
+				this,
+				std::placeholders::_1
 			)
 		)
 	);
@@ -343,7 +338,10 @@ sge::dinput::cursor::object::make_connections()
 		sge::input::cursor::scroll_code::horizontal
 	);
 
-	return ret;
+	return
+		std::move(
+			ret
+		);
 }
 
 void
@@ -351,43 +349,39 @@ sge::dinput::cursor::object::make_button_connections(
 	fcppt::signal::connection_manager::container &_container,
 	awl::backends::windows::event::type::value_type const _down_event,
 	awl::backends::windows::event::type::value_type const _up_event,
-	sge::input::cursor::button_code::type const _code
+	sge::input::cursor::button_code const _code
 )
 {
 	_container.push_back(
-		fcppt::signal::shared_connection(
-			event_processor_.register_callback(
-				fcppt::strong_typedef_construct_cast<
-					awl::backends::windows::event::type
-				>(
-					_down_event
-				),
-				std::tr1::bind(
-					&dinput::cursor::object::on_button,
-					this,
-					std::tr1::placeholders::_1,
-					_code,
-					true
-				)
+		event_processor_.register_callback(
+			fcppt::strong_typedef_construct_cast<
+				awl::backends::windows::event::type
+			>(
+				_down_event
+			),
+			std::bind(
+				&sge::dinput::cursor::object::on_button,
+				this,
+				std::placeholders::_1,
+				_code,
+				true
 			)
 		)
 	);
 
 	_container.push_back(
-		fcppt::signal::shared_connection(
-			event_processor_.register_callback(
-				fcppt::strong_typedef_construct_cast<
-					awl::backends::windows::event::type
-				>(
-					_up_event
-				),
-				std::tr1::bind(
-					&dinput::cursor::object::on_button,
-					this,
-					std::tr1::placeholders::_1,
-					_code,
-					false
-				)
+		event_processor_.register_callback(
+			fcppt::strong_typedef_construct_cast<
+				awl::backends::windows::event::type
+			>(
+				_up_event
+			),
+			std::bind(
+				&sge::dinput::cursor::object::on_button,
+				this,
+				std::placeholders::_1,
+				_code,
+				false
 			)
 		)
 	);
@@ -397,23 +391,21 @@ void
 sge::dinput::cursor::object::make_scroll_connection(
 	fcppt::signal::connection_manager::container &_container,
 	awl::backends::windows::event::type::value_type const _event,
-	sge::input::cursor::scroll_code::type const _code
+	sge::input::cursor::scroll_code const _code
 )
 {
 	_container.push_back(
-		fcppt::signal::shared_connection(
-			event_processor_.register_callback(
-				fcppt::strong_typedef_construct_cast<
-					awl::backends::windows::event::type
-				>(
-					_event
-				),
-				std::tr1::bind(
-					&dinput::cursor::object::on_scroll,
-					this,
-					std::tr1::placeholders::_1,
-					_code
-				)
+		event_processor_.register_callback(
+			fcppt::strong_typedef_construct_cast<
+				awl::backends::windows::event::type
+			>(
+				_event
+			),
+			std::bind(
+				&sge::dinput::cursor::object::on_scroll,
+				this,
+				std::placeholders::_1,
+				_code
 			)
 		)
 	);

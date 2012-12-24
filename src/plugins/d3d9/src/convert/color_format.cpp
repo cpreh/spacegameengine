@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 D3DFORMAT
 sge::d3d9::convert::color_format(
-	sge::image::color::format::type const _format
+	sge::image::color::format const _format
 )
 {
 	switch(

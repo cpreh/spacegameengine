@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_DEVICEFUNCS_DRAW_PRIMITIVE_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/renderer/first_vertex.hpp>
-#include <sge/renderer/primitive_type.hpp>
-#include <sge/renderer/vertex_count.hpp>
+#include <sge/renderer/primitive_type_fwd.hpp>
+#include <sge/renderer/vertex/count.hpp>
+#include <sge/renderer/vertex/first.hpp>
 
 
 namespace sge
@@ -37,9 +37,9 @@ namespace devicefuncs
 void
 draw_primitive(
 	IDirect3DDevice9 &,
-	sge::renderer::first_vertex,
-	sge::renderer::vertex_count,
-	sge::renderer::primitive_type::type
+	sge::renderer::vertex::first,
+	sge::renderer::vertex::count,
+	sge::renderer::primitive_type
 );
 
 }

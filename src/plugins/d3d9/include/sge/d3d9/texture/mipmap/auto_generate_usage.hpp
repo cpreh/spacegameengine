@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_TEXTURE_MIPMAP_AUTO_GENERATE_USAGE_HPP_INCLUDED
 
 #include <sge/d3d9/usage.hpp>
-#include <sge/renderer/texture/mipmap/auto_generate.hpp>
+#include <sge/renderer/texture/mipmap/auto_generate_fwd.hpp>
+
 
 namespace sge
 {
@@ -33,9 +34,9 @@ namespace texture
 namespace mipmap
 {
 
-d3d9::usage const
+sge::d3d9::usage const
 auto_generate_usage(
-	sge::renderer::texture::mipmap::auto_generate::type
+	sge::renderer::texture::mipmap::auto_generate
 );
 
 }

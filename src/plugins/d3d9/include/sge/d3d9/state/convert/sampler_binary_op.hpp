@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_STATE_CONVERT_SAMPLER_BINARY_OP_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/renderer/state/ffp/sampler/binary_op_type.hpp>
+#include <sge/renderer/state/ffp/sampler/binary_op_type_fwd.hpp>
 
 
 namespace sge
@@ -36,7 +36,7 @@ namespace convert
 
 D3DTEXTUREOP
 sampler_binary_op(
-	sge::renderer::state::ffp::sampler::binary_op_type::type
+	sge::renderer::state::ffp::sampler::binary_op_type
 );
 
 }

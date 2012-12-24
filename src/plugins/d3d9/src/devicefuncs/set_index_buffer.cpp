@@ -22,14 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/index_buffer.hpp>
 #include <sge/d3d9/devicefuncs/set_index_buffer.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/index_buffer.hpp>
+#include <sge/renderer/index/buffer.hpp>
 #include <fcppt/text.hpp>
 
 
 void
 sge::d3d9::devicefuncs::set_index_buffer(
 	IDirect3DDevice9 &_device,
-	sge::renderer::index_buffer const &_index_buffer
+	sge::renderer::index::buffer const &_index_buffer
 )
 {
 	if(

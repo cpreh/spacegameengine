@@ -27,19 +27,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/surfacefuncs/dim.hpp>
 #include <sge/image/ds/format.hpp>
 #include <sge/renderer/dim2.hpp>
-#include <fcppt/move.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::d3d9::surface::depth_stencil::depth_stencil(
-	sge::d3d9::surface::depth_stencil_create_unique_ptr _create,
-	sge::d3d9::needs_reset::type const _needs_reset
+	sge::d3d9::surface::depth_stencil_create_unique_ptr &&_create,
+	sge::d3d9::needs_reset const _needs_reset
 )
 :
 	resource(
 		_needs_reset
 	),
 	create_(
-		fcppt::move(
+		std::move(
 			_create
 		)
 	),
@@ -61,7 +63,7 @@ sge::d3d9::surface::depth_stencil::size() const
 		);
 }
 
-sge::image::ds::format::type
+sge::image::ds::format
 sge::d3d9::surface::depth_stencil::format() const
 {
 	return

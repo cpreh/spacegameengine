@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_CONVERT_INDEX_FORMAT_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/renderer/index/dynamic/format.hpp>
+#include <sge/renderer/index/dynamic/format_fwd.hpp>
+
 
 namespace sge
 {
@@ -33,7 +34,7 @@ namespace convert
 
 D3DFORMAT
 index_format(
-	sge::renderer::index::dynamic::format::type
+	sge::renderer::index::dynamic::format
 );
 
 }

@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/dinput/cursor/clip.hpp>
 #include <awl/backends/windows/optional_rect.hpp>
 #include <awl/backends/windows/windows.hpp>
-#include <fcppt/null_ptr.hpp>
 
 
 bool
@@ -35,7 +34,7 @@ sge::dinput::cursor::clip(
 			?
 				&*_area
 			:
-				fcppt::null_ptr()
+				nullptr
 		)
 		!= 0
 		;

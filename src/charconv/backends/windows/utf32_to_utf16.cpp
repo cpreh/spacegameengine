@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/charconv/backends/windows/utf32_to_utf16.hpp>
 #include <fcppt/container/array.hpp>
 #include <fcppt/endianness/convert.hpp>
+#include <fcppt/endianness/format.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/cstdint.hpp>
 #include <boost/next_prior.hpp>

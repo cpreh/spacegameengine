@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gdifont/device_context.hpp>
 #include <sge/gdifont/include_windows.hpp>
 #include <sge/gdifont/select_object.hpp>
-#include <fcppt/null_ptr.hpp>
 #include <fcppt/text.hpp>
 
 
@@ -40,7 +39,7 @@ sge::gdifont::select_object(
 	);
 
 	if(
-		result == fcppt::null_ptr()
+		result == nullptr
 		||
 		result == HGDI_ERROR
 	)

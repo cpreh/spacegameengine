@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 D3DBLEND
 sge::d3d9::state::convert::source_blend_func(
-	sge::renderer::state::core::blend::source::type const _type
+	sge::renderer::state::core::blend::source const _type
 )
 {
 	switch(

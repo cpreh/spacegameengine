@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 D3DCMPFUNC
 sge::d3d9::state::convert::depth_func(
-	sge::renderer::state::core::depth_stencil::depth::func::type const _type
+	sge::renderer::state::core::depth_stencil::depth::func const _type
 )
 {
 	switch(

@@ -20,16 +20,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/convert/lock_flags.hpp>
+#include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/assert/unreachable.hpp>
-#include <fcppt/container/bitfield/object_impl.hpp>
 
 
 sge::d3d9::lock_flags const
 sge::d3d9::convert::lock_flags(
-	renderer::lock_flags::method::type const _method,
-	renderer::resource_flags_field const &_flags
+	sge::renderer::lock_flags::method const _method,
+	sge::renderer::resource_flags_field const &_flags
 )
 {
 	switch(
@@ -39,24 +39,24 @@ sge::d3d9::convert::lock_flags(
 	case sge::renderer::lock_flags::method::read:
 		return
 			fcppt::strong_typedef_construct_cast<
-				d3d9::lock_flags
+				sge::d3d9::lock_flags
 			>(
 				D3DLOCK_READONLY
 			);
 	case sge::renderer::lock_flags::method::write:
 		if(
-			_flags & renderer::resource_flags::dynamic
+			_flags & sge::renderer::resource_flags::dynamic
 		)
 			return
 				fcppt::strong_typedef_construct_cast<
-					d3d9::lock_flags
+					sge::d3d9::lock_flags
 				>(
 					D3DLOCK_DISCARD
 				);
 		// fall through
 	case sge::renderer::lock_flags::method::readwrite:
 		return
-			d3d9::lock_flags(
+			sge::d3d9::lock_flags(
 				0u
 			);
 	}

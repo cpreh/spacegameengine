@@ -20,9 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/resource.hpp>
 #include <sge/d3d9/resource_manager.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
+#include <functional>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -52,9 +52,9 @@ sge::d3d9::resource_manager::release()
 	std::for_each(
 		resources_.begin(),
 		resources_.end(),
-		std::tr1::bind(
-			&resource::loss,
-			std::tr1::placeholders::_1
+		std::bind(
+			&sge::d3d9::resource::loss,
+			std::placeholders::_1
 		)
 	);
 }
@@ -65,9 +65,9 @@ sge::d3d9::resource_manager::reinit()
 	std::for_each(
 		resources_.begin(),
 		resources_.end(),
-		std::tr1::bind(
-			&resource::reset,
-			std::tr1::placeholders::_1
+		std::bind(
+			&sge::d3d9::resource::reset,
+			std::placeholders::_1
 		)
 	);
 }

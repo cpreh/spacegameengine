@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/key_code.hpp>
 
 
-sge::input::keyboard::key_code::type
+sge::input::keyboard::key_code
 sge::dinput::keyboard::translate_key_code(
 	DWORD const _ofs
 )

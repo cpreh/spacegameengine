@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/sampler/default.hpp>
 #include <sge/renderer/state/core/sampler/parameters.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 
 
 sge::d3d9::state::core::sampler::object_unique_ptr
@@ -38,9 +37,7 @@ sge::d3d9::state::core::sampler::create_default(
 		fcppt::make_unique_ptr<
 			sge::d3d9::state::core::sampler::object
 		>(
-			fcppt::ref(
-				_device
-			),
+			_device,
 			sge::d3d9::state::core::sampler::make_states(
 				sge::renderer::state::core::sampler::default_()
 			)

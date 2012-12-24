@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/lighting/material/default.hpp>
 #include <sge/renderer/state/ffp/lighting/material/parameters.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 
 
 sge::d3d9::state::ffp::lighting::material::object_unique_ptr
@@ -38,9 +37,7 @@ sge::d3d9::state::ffp::lighting::material::create_default(
 		fcppt::make_unique_ptr<
 			sge::d3d9::state::ffp::lighting::material::object
 		>(
-			fcppt::ref(
-				_device
-			),
+			_device,
 			sge::d3d9::state::ffp::lighting::material::make_states(
 				sge::renderer::state::ffp::lighting::material::default_()
 			)

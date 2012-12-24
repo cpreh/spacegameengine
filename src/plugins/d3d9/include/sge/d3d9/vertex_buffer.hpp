@@ -23,11 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/resource.hpp>
-#include <sge/renderer/lock_mode.hpp>
+#include <sge/renderer/lock_mode_fwd.hpp>
 #include <sge/renderer/raw_pointer.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
-#include <sge/renderer/vertex_buffer.hpp>
-#include <sge/renderer/lock_flags/method.hpp>
+#include <sge/renderer/lock_flags/method_fwd.hpp>
+#include <sge/renderer/vertex/buffer.hpp>
+#include <sge/renderer/vertex/buffer_parameters_fwd.hpp>
 #include <sge/renderer/vf/dynamic/converter.hpp>
 #include <sge/renderer/vf/dynamic/part.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
@@ -44,7 +45,7 @@ namespace d3d9
 
 class vertex_buffer
 :
-	public sge::renderer::vertex_buffer,
+	public sge::renderer::vertex::buffer,
 	public sge::d3d9::resource
 {
 	FCPPT_NONCOPYABLE(
@@ -54,16 +55,14 @@ public:
 	vertex_buffer(
 		IDirect3DDevice9 &,
 		sge::renderer::vf::dynamic::part const &,
-		sge::renderer::vf::dynamic::part_index,
-		count_type,
-		sge::renderer::resource_flags_field const &
+		sge::renderer::vertex::buffer_parameters const &
 	);
 
 	~vertex_buffer();
 
 	view_type const
 	lock(
-		sge::renderer::lock_mode::type,
+		sge::renderer::lock_mode,
 		first_type,
 		count_type
 	);
@@ -111,7 +110,7 @@ private:
 	do_lock(
 		first_type,
 		count_type,
-		sge::renderer::lock_flags::method::type
+		sge::renderer::lock_flags::method
 	) const;
 
 	IDirect3DDevice9 &device_;

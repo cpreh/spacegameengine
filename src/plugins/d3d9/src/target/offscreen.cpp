@@ -32,7 +32,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/surface_index.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <fcppt/dynamic_optional_cast.hpp>
-#include <fcppt/null_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/container/index_map_impl.hpp>
@@ -146,7 +145,7 @@ sge::d3d9::target::offscreen::change_surfaces(
 				?
 					&surface->surface()
 				:
-					fcppt::null_ptr()
+					nullptr
 			);
 	}
 
@@ -159,7 +158,7 @@ sge::d3d9::target::offscreen::change_surfaces(
 			?
 				&depth_stencil_surface_->surface()
 			:
-				fcppt::null_ptr()
+				nullptr
 		);
 }
 

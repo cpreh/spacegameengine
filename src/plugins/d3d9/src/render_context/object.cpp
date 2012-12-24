@@ -44,17 +44,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/target/base.hpp>
 #include <sge/d3d9/texture/set.hpp>
 #include <sge/renderer/config.hpp>
-#include <sge/renderer/const_optional_vertex_declaration_ref.hpp>
-#include <sge/renderer/first_index.hpp>
-#include <sge/renderer/first_vertex.hpp>
-#include <sge/renderer/index_buffer_fwd.hpp>
-#include <sge/renderer/index_count.hpp>
 #include <sge/renderer/primitive_count.hpp>
 #include <sge/renderer/primitive_type.hpp>
-#include <sge/renderer/vertex_buffer_fwd.hpp>
-#include <sge/renderer/vertex_count.hpp>
 #include <sge/renderer/clear/parameters_fwd.hpp>
 #include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/index/buffer_fwd.hpp>
+#include <sge/renderer/index/count.hpp>
+#include <sge/renderer/index/first.hpp>
 #include <sge/renderer/state/core/blend/const_optional_object_ref_fwd.hpp>
 #include <sge/renderer/state/core/depth_stencil/const_optional_object_ref_fwd.hpp>
 #include <sge/renderer/state/core/rasterizer/const_optional_object_ref_fwd.hpp>
@@ -74,6 +70,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/optional_offscreen_ref.hpp>
 #include <sge/renderer/texture/const_optional_base_ref_fwd.hpp>
 #include <sge/renderer/texture/stage.hpp>
+#include <sge/renderer/vertex/buffer_fwd.hpp>
+#include <sge/renderer/vertex/const_optional_declaration_ref.hpp>
+#include <sge/renderer/vertex/count.hpp>
+#include <sge/renderer/vertex/first.hpp>
 #include <fcppt/dynamic_optional_cast.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_impl.hpp>
@@ -199,12 +199,12 @@ sge::d3d9::render_context::object::offscreen_target(
 
 void
 sge::d3d9::render_context::object::render_indexed(
-	sge::renderer::index_buffer const &_index_buffer,
-	sge::renderer::first_vertex const _first_vertex,
-	sge::renderer::vertex_count const _num_vertices,
-	sge::renderer::primitive_type::type const _primitive_type,
-	sge::renderer::first_index const _first_index,
-	sge::renderer::index_count const _num_indices
+	sge::renderer::index::buffer const &_index_buffer,
+	sge::renderer::vertex::first const _first_vertex,
+	sge::renderer::vertex::count const _num_vertices,
+	sge::renderer::primitive_type const _primitive_type,
+	sge::renderer::index::first const _first_index,
+	sge::renderer::index::count const _num_indices
 )
 {
 	sge::d3d9::devicefuncs::set_index_buffer(
@@ -224,9 +224,9 @@ sge::d3d9::render_context::object::render_indexed(
 
 void
 sge::d3d9::render_context::object::render_nonindexed(
-	sge::renderer::first_vertex const _first_vertex,
-	sge::renderer::vertex_count const _num_vertices,
-	sge::renderer::primitive_type::type const _primitive_type
+	sge::renderer::vertex::first const _first_vertex,
+	sge::renderer::vertex::count const _num_vertices,
+	sge::renderer::primitive_type const _primitive_type
 )
 {
 	sge::d3d9::devicefuncs::draw_primitive(
@@ -239,7 +239,7 @@ sge::d3d9::render_context::object::render_nonindexed(
 
 void
 sge::d3d9::render_context::object::activate_vertex_buffer(
-	sge::renderer::vertex_buffer const &_buffer
+	sge::renderer::vertex::buffer const &_buffer
 )
 {
 	sge::d3d9::devicefuncs::set_stream_source(
@@ -250,14 +250,14 @@ sge::d3d9::render_context::object::activate_vertex_buffer(
 
 void
 sge::d3d9::render_context::object::deactivate_vertex_buffer(
-	sge::renderer::vertex_buffer const &_buffer
+	sge::renderer::vertex::buffer const &_buffer
 )
 {
 }
 
 void
 sge::d3d9::render_context::object::vertex_declaration(
-	sge::renderer::const_optional_vertex_declaration_ref const &_declaration
+	sge::renderer::vertex::const_optional_declaration_ref const &_declaration
 )
 {
 	if(
@@ -458,7 +458,7 @@ sge::d3d9::render_context::object::sampler_ffp_state(
 
 void
 sge::d3d9::render_context::object::transform(
-	sge::renderer::state::ffp::transform::mode::type const _mode,
+	sge::renderer::state::ffp::transform::mode const _mode,
 	sge::renderer::state::ffp::transform::const_optional_object_ref const &_state
 )
 {

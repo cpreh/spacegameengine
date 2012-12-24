@@ -47,7 +47,7 @@ sge::d3d9::state::ffp::transform::object::~object()
 
 void
 sge::d3d9::state::ffp::transform::object::set(
-	sge::renderer::state::ffp::transform::mode::type const _mode
+	sge::renderer::state::ffp::transform::mode const _mode
 ) const
 {
 	sge::d3d9::devicefuncs::set_transform(

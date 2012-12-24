@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gdifont/delete_object_deleter.hpp>
 #include <sge/gdifont/hfont_unique_ptr.hpp>
 #include <sge/gdifont/include_windows.hpp>
-#include <fcppt/null_ptr.hpp>
 #include <fcppt/text.hpp>
 
 
@@ -82,7 +81,7 @@ sge::gdifont::create_font(
 	if(
 		result
 		==
-		fcppt::null_ptr()
+		nullptr
 	)
 		throw sge::font::exception(
 			FCPPT_TEXT("Unable to load GDI font: ")

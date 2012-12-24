@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 D3DFORMAT
 sge::d3d9::parameters::convert::depth_stencil_buffer(
-	sge::renderer::pixel_format::depth_stencil::type const _type
+	sge::renderer::pixel_format::depth_stencil const _type
 )
 {
 	switch(

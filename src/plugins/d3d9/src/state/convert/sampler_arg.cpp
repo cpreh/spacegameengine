@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 DWORD
 sge::d3d9::state::convert::sampler_arg(
-	sge::renderer::state::ffp::sampler::arg::type const _arg
+	sge::renderer::state::ffp::sampler::arg const _arg
 )
 {
 	switch(

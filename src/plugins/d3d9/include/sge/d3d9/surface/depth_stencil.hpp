@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_SURFACE_DEPTH_STENCIL_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/needs_reset.hpp>
+#include <sge/d3d9/needs_reset_fwd.hpp>
 #include <sge/d3d9/resource.hpp>
 #include <sge/d3d9/surface/d3d_scoped_ptr.hpp>
 #include <sge/d3d9/surface/d3d_unique_ptr.hpp>
@@ -52,8 +52,8 @@ class depth_stencil
 	);
 public:
 	depth_stencil(
-		sge::d3d9::surface::depth_stencil_create_unique_ptr,
-		sge::d3d9::needs_reset::type
+		sge::d3d9::surface::depth_stencil_create_unique_ptr &&,
+		sge::d3d9::needs_reset
 	);
 
 	~depth_stencil();

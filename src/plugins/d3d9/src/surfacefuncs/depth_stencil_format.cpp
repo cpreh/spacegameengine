@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/ds/format.hpp>
 
 
-sge::image::ds::format::type
+sge::image::ds::format
 sge::d3d9::surfacefuncs::depth_stencil_format(
 	IDirect3DSurface9 &_surface
 )

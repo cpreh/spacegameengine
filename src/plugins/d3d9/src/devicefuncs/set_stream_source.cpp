@@ -22,14 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/vertex_buffer.hpp>
 #include <sge/d3d9/devicefuncs/set_stream_source.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/vertex_buffer.hpp>
+#include <sge/renderer/vertex/buffer.hpp>
 #include <fcppt/text.hpp>
 
 
 void
 sge::d3d9::devicefuncs::set_stream_source(
 	IDirect3DDevice9 &_device,
-	sge::renderer::vertex_buffer const &_vertex_buffer
+	sge::renderer::vertex::buffer const &_vertex_buffer
 )
 {
 	sge::d3d9::vertex_buffer const &d3d_buffer(

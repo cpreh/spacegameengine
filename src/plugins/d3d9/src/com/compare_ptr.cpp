@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/com/compare.hpp>
 #include <sge/d3d9/com/compare_ptr.hpp>
-#include <fcppt/null_ptr.hpp>
 
 
 bool
@@ -34,9 +33,9 @@ sge::d3d9::com::compare_ptr(
 		_ptr1 == _ptr2
 		||
 		(
-			_ptr1 == fcppt::null_ptr()
+			_ptr1 == nullptr
 			||
-			_ptr2 == fcppt::null_ptr()
+			_ptr2 == nullptr
 			?
 				_ptr1
 				==

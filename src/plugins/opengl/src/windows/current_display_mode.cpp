@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode/pixel_size.hpp>
 #include <sge/renderer/display_mode/refresh_rate.hpp>
 #include <awl/backends/windows/windows.hpp>
-#include <fcppt/null_ptr.hpp>
 
 
 sge::renderer::display_mode::object const
@@ -35,7 +34,7 @@ sge::opengl::windows::current_display_mode()
 {
 	DEVMODE const mode(
 		sge::opengl::windows::enum_display_settings(
-			fcppt::null_ptr(),
+			nullptr,
 			ENUM_CURRENT_SETTINGS
 		)
 	);

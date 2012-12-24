@@ -26,9 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/cg/loaded_texture.hpp>
 #include <sge/renderer/cg/loaded_texture_unique_ptr.hpp>
 #include <sge/renderer/texture/base_fwd.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 
 
 sge::renderer::cg::loaded_texture_unique_ptr
@@ -44,15 +42,9 @@ sge::d3d9::cg::texture::create_loaded(
 			fcppt::make_unique_ptr<
 				sge::d3d9::cg::texture::loaded_object
 			>(
-				fcppt::ref(
-					_device
-				),
-				fcppt::cref(
-					_parameter
-				),
-				fcppt::ref(
-					_texture
-				),
+				_device,
+				_parameter,
+				_texture,
 				_texture_stages
 			)
 		);

@@ -27,33 +27,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::d3d9::texture::mipmap::usage_visitor::result_type
 sge::d3d9::texture::mipmap::usage_visitor::operator()(
-	renderer::texture::mipmap::all_levels_rep const &_all_levels
+	sge::renderer::texture::mipmap::all_levels_rep const &_all_levels
 ) const
 {
 	return
-		mipmap::auto_generate_usage(
+		sge::d3d9::texture::mipmap::auto_generate_usage(
 			_all_levels.auto_generate()
 		);
 }
 
 sge::d3d9::texture::mipmap::usage_visitor::result_type
 sge::d3d9::texture::mipmap::usage_visitor::operator()(
-	renderer::texture::mipmap::levels_rep const &_levels
+	sge::renderer::texture::mipmap::levels_rep const &_levels
 ) const
 {
 	return
-		mipmap::auto_generate_usage(
+		sge::d3d9::texture::mipmap::auto_generate_usage(
 			_levels.auto_generate()
 		);
 }
 
 sge::d3d9::texture::mipmap::usage_visitor::result_type
 sge::d3d9::texture::mipmap::usage_visitor::operator()(
-	renderer::texture::mipmap::off_rep const &
+	sge::renderer::texture::mipmap::off_rep const &
 ) const
 {
 	return
-		d3d9::usage(
+		sge::d3d9::usage(
 			0u
 		);
 }

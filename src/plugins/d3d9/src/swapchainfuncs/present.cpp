@@ -22,23 +22,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/swapchainfuncs/present.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
-#include <fcppt/null_ptr.hpp>
 #include <fcppt/text.hpp>
 
 
 bool
 sge::d3d9::swapchainfuncs::present(
 	IDirect3DSwapChain9 &_swap_chain,
-	sge::renderer::pixel_format::srgb::type const _srgb
+	sge::renderer::pixel_format::srgb const _srgb
 )
 {
 	// TODO: Does this silently fail to do gamma correction if srgb is not supported?
 	switch(
 		_swap_chain.Present(
-			fcppt::null_ptr(),
-			fcppt::null_ptr(),
-			fcppt::null_ptr(),
-			fcppt::null_ptr(),
+			nullptr,
+			nullptr,
+			nullptr,
+			nullptr,
 			static_cast<
 				DWORD
 			>(

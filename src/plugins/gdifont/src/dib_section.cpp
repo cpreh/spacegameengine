@@ -32,7 +32,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/make.hpp>
 #include <sge/image2d/view/object.hpp>
 #include <sge/image2d/view/to_const.hpp>
-#include <fcppt/null_ptr.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
 
 
@@ -42,7 +41,7 @@ sge::gdifont::dib_section::dib_section(
 )
 :
 	data_(
-		fcppt::null_ptr()
+		nullptr
 	),
 	hbitmap_(
 		sge::gdifont::create_dib_section(

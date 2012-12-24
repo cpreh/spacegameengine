@@ -31,7 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <awl/backends/windows/windows.hpp>
-#include <fcppt/null_ptr.hpp>
 #include <fcppt/text.hpp>
 
 
@@ -78,7 +77,7 @@ sge::opengl::wgl::visual::choose_format(
 		pixel_format_types->choose_pixel_format()(
 			_device.hdc(),
 			attributes.data(),
-			fcppt::null_ptr(),
+			nullptr,
 			1u,
 			&result,
 			&num_results

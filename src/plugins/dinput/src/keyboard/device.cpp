@@ -196,7 +196,7 @@ sge::dinput::keyboard::device::on_dispatch(
 		)
 	);
 
-	sge::input::keyboard::key_code::type const key_code(
+	sge::input::keyboard::key_code const key_code(
 		it
 		==
 		info_.key_map().end()

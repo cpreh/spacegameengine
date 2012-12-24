@@ -24,15 +24,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/surfacefuncs/dim.hpp>
 #include <sge/d3d9/surfacefuncs/is_render_target.hpp>
 #include <sge/renderer/dim2.hpp>
-#include <fcppt/move.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::d3d9::surface::color_holder::color_holder(
-	sge::d3d9::surface::d3d_unique_ptr _surface
+	sge::d3d9::surface::d3d_unique_ptr &&_surface
 )
 :
 	surface_(
-		fcppt::move(
+		std::move(
 			_surface
 		)
 	),

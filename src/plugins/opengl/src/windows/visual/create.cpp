@@ -23,9 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/windows/visual/object.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 
 
 awl::visual::object_unique_ptr
@@ -39,12 +37,8 @@ sge::opengl::windows::visual::create(
 			fcppt::make_unique_ptr<
 				sge::opengl::windows::visual::object
 			>(
-				fcppt::ref(
-					_system_context
-				),
-				fcppt::cref(
-					_pixel_format
-				)
+				_system_context,
+				_pixel_format
 			)
 		);
 }

@@ -33,7 +33,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/visual/object_unique_ptr.hpp>
 #include <awl/window/object_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/ref.hpp>
 
 
 sge::opengl::wgl::system::system(
@@ -74,12 +73,10 @@ sge::opengl::wgl::system::create_context(
 		fcppt::make_unique_ptr<
 			sge::opengl::wgl::context
 		>(
-			fcppt::ref(
-				dynamic_cast<
-					awl::backends::windows::window::object &
-				>(
-					_window
-				)
+			dynamic_cast<
+				awl::backends::windows::window::object &
+			>(
+				_window
 			)
 		);
 }
@@ -88,7 +85,7 @@ void
 sge::opengl::wgl::system::vsync(
 	sge::opengl::device_state::scoped_current const &,
 	awl::window::object &_window,
-	sge::renderer::parameters::vsync::type const _vsync
+	sge::renderer::parameters::vsync const _vsync
 )
 {
 }

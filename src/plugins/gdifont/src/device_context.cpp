@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/exception.hpp>
 #include <sge/gdifont/device_context.hpp>
 #include <sge/gdifont/include_windows.hpp>
-#include <fcppt/null_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
 
@@ -30,12 +29,12 @@ sge::gdifont::device_context::device_context()
 :
 	hdc_(
 		::CreateCompatibleDC(
-			fcppt::null_ptr()
+			nullptr
 		)
 	)
 {
 	if(
-		hdc_ == fcppt::null_ptr()
+		hdc_ == nullptr
 	)
 		throw sge::font::exception(
 			FCPPT_TEXT("CreateCompatibleDC failed!")

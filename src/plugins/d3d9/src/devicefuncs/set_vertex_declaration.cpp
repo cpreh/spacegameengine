@@ -22,14 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/vertex_declaration.hpp>
 #include <sge/d3d9/devicefuncs/set_vertex_declaration.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/vertex_declaration.hpp>
+#include <sge/renderer/vertex/declaration.hpp>
 #include <fcppt/text.hpp>
 
 
 void
 sge::d3d9::devicefuncs::set_vertex_declaration(
 	IDirect3DDevice9 &_device,
-	sge::renderer::vertex_declaration const &_vertex_declaration
+	sge::renderer::vertex::declaration const &_vertex_declaration
 )
 {
 	if(

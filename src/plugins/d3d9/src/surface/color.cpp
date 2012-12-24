@@ -38,19 +38,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/const_raw_pointer.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/move.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/unimplemented_message.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::d3d9::surface::color::color(
 	IDirect3DDevice9 &_device,
-	sge::image::color::format::type const _format,
-	sge::d3d9::surface::color_create_unique_ptr _create
+	sge::image::color::format const _format,
+	sge::d3d9::surface::color_create_unique_ptr &&_create
 )
 :
 	resource(
@@ -60,7 +62,7 @@ sge::d3d9::surface::color::color(
 		_device
 	),
 	create_(
-		fcppt::move(
+		std::move(
 			_create
 		)
 	),
@@ -81,7 +83,7 @@ sge::d3d9::surface::color::~color()
 sge::d3d9::surface::color::view const
 sge::d3d9::surface::color::lock(
 	lock_area const &,
-	sge::renderer::lock_mode::type
+	sge::renderer::lock_mode
 )
 {
 	FCPPT_ASSERT_UNIMPLEMENTED_MESSAGE(
@@ -155,7 +157,7 @@ sge::d3d9::surface::color::lock(
 void
 sge::d3d9::surface::color::unlock() const
 {
-	d3d9::surfacefuncs::unlock_rect(
+	sge::d3d9::surfacefuncs::unlock_rect(
 		this->lock_surface()
 	);
 

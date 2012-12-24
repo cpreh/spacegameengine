@@ -28,13 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/state/core/defaults_fwd.hpp>
 #include <sge/d3d9/state/ffp/defaults_fwd.hpp>
 #include <sge/renderer/config.hpp>
-#include <sge/renderer/index_buffer_unique_ptr.hpp>
-#include <sge/renderer/index_count.hpp>
-#include <sge/renderer/resource_flags_field_fwd.hpp>
-#include <sge/renderer/vertex_buffer_unique_ptr.hpp>
-#include <sge/renderer/vertex_count.hpp>
-#include <sge/renderer/vertex_declaration_fwd.hpp>
-#include <sge/renderer/vertex_declaration_unique_ptr.hpp>
 #include <sge/renderer/caps/device_fwd.hpp>
 #include <sge/renderer/context/core_fwd.hpp>
 #include <sge/renderer/context/core_unique_ptr.hpp>
@@ -45,7 +38,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/device/parameters_fwd.hpp>
 #include <sge/renderer/display_mode/object_fwd.hpp>
-#include <sge/renderer/index/dynamic/format.hpp>
+#include <sge/renderer/index/buffer_parameters_fwd.hpp>
+#include <sge/renderer/index/buffer_unique_ptr.hpp>
 #include <sge/renderer/occlusion_query/object_unique_ptr.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/state/core/blend/object_unique_ptr.hpp>
@@ -85,12 +79,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/planar_unique_ptr.hpp>
 #include <sge/renderer/texture/volume_parameters_fwd.hpp>
 #include <sge/renderer/texture/volume_unique_ptr.hpp>
-#include <sge/renderer/vf/dynamic/format_fwd.hpp>
-#include <sge/renderer/vf/dynamic/part_index.hpp>
+#include <sge/renderer/vertex/buffer_parameters_fwd.hpp>
+#include <sge/renderer/vertex/buffer_unique_ptr.hpp>
+#include <sge/renderer/vertex/declaration_parameters_fwd.hpp>
+#include <sge/renderer/vertex/declaration_unique_ptr.hpp>
 #include <fcppt/com_deleter.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
-#include <fcppt/unique_ptr_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
 
 #if defined(SGE_RENDERER_HAVE_CG)
 #include <sge/cg/context/object_fwd.hpp>
@@ -103,6 +101,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/cg/loaded_program_unique_ptr.hpp>
 #include <sge/renderer/cg/loaded_texture_unique_ptr.hpp>
 #include <sge/renderer/texture/base_fwd.hpp>
+#include <sge/renderer/vertex/declaration_fwd.hpp>
 #endif
 
 
@@ -165,24 +164,19 @@ private:
 		sge::renderer::texture::cube_parameters const &
 	);
 
-	sge::renderer::vertex_declaration_unique_ptr
+	sge::renderer::vertex::declaration_unique_ptr
 	create_vertex_declaration(
-		sge::renderer::vf::dynamic::format const &
+		sge::renderer::vertex::declaration_parameters const &
 	);
 
-	sge::renderer::vertex_buffer_unique_ptr
+	sge::renderer::vertex::buffer_unique_ptr
 	create_vertex_buffer(
-		sge::renderer::vertex_declaration const &,
-		sge::renderer::vf::dynamic::part_index,
-		sge::renderer::vertex_count,
-		sge::renderer::resource_flags_field const &
+		sge::renderer::vertex::buffer_parameters const &
 	);
 
-	sge::renderer::index_buffer_unique_ptr
+	sge::renderer::index::buffer_unique_ptr
 	create_index_buffer(
-		sge::renderer::index::dynamic::format::type,
-		sge::renderer::index_count,
-		sge::renderer::resource_flags_field const &
+		sge::renderer::index::buffer_parameters const &
 	);
 
 	sge::renderer::occlusion_query::object_unique_ptr
@@ -232,7 +226,7 @@ private:
 
 	sge::cg::program::source const
 	transform_cg_vertex_program(
-		sge::renderer::vertex_declaration const &,
+		sge::renderer::vertex::declaration const &,
 		sge::cg::program::source const &
 	);
 #endif
@@ -304,13 +298,13 @@ private:
 	template<
 		typename Ptr
 	>
-	fcppt::unique_ptr<
+	std::unique_ptr<
 		Ptr
 	>
 	add_resource(
-		fcppt::unique_ptr<
+		std::unique_ptr<
 			Ptr
-		>
+		> &&
 	);
 
 	void
@@ -322,7 +316,7 @@ private:
 	void
 	release();
 
-	sge::renderer::pixel_format::srgb::type const srgb_;
+	sge::renderer::pixel_format::srgb const srgb_;
 
 	sge::renderer::caps::device const &caps_;
 

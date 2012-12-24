@@ -31,7 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gdifont/text.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image/color/optional_format.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
 
@@ -68,16 +67,10 @@ sge::gdifont::object::create_text(
 			fcppt::make_unique_ptr<
 				sge::gdifont::text
 			>(
-				fcppt::cref(
-					device_context_
-				),
+				device_context_,
 				font_.get(),
-				fcppt::cref(
-					_string
-				),
-				fcppt::cref(
-					_text_parameters
-				)
+				_string,
+				_text_parameters
 			)
 		);
 }

@@ -64,7 +64,7 @@ private:
 		awl::backends::windows::window::event::object const &
 	);
 
-	fcppt::signal::connection_manager::container const
+	fcppt::signal::connection_manager::container
 	make_connections(
 		awl::backends::windows::window::event::processor &
 	);

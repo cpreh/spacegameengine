@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::d3d9::surface::d3d_unique_ptr
 sge::d3d9::texturefuncs::get_cube_map_surface(
 	IDirect3DCubeTexture9 &_texture,
-	sge::renderer::texture::cube_side::type const _side,
+	sge::renderer::texture::cube_side const _side,
 	sge::renderer::texture::mipmap::level const _level
 )
 {

@@ -121,7 +121,7 @@ private:
 		sge::input::cursor::scroll_code
 	);
 
-	fcppt::signal::connection_manager::container const
+	fcppt::signal::connection_manager::container
 	make_connections();
 
 	void

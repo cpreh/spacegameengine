@@ -34,7 +34,7 @@ sge::image2d::pitch const
 sge::d3d9::make_pitch(
 	D3DLOCKED_RECT const &_rect,
 	sge::image2d::dim const &_dim,
-	sge::image::color::format::type const _format
+	sge::image::color::format const _format
 )
 {
 	return
@@ -49,7 +49,7 @@ sge::image3d::pitch const
 sge::d3d9::make_pitch(
 	D3DLOCKED_BOX const &_box,
 	sge::image3d::dim const &_dim,
-	sge::image::color::format::type const _format
+	sge::image::color::format const _format
 )
 {
 	return

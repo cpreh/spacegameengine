@@ -23,7 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/vf/texture_coordinate_count.hpp>
-#include <sge/renderer/vertex_declaration.hpp>
+#include <sge/renderer/vertex/declaration.hpp>
+#include <sge/renderer/vertex/declaration_parameters_fwd.hpp>
 #include <sge/renderer/vf/dynamic/format.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <sge/renderer/vf/dynamic/stride.hpp>
@@ -39,7 +40,7 @@ namespace d3d9
 
 class vertex_declaration
 :
-	public sge::renderer::vertex_declaration
+	public sge::renderer::vertex::declaration
 {
 	FCPPT_NONCOPYABLE(
 		vertex_declaration
@@ -47,7 +48,7 @@ class vertex_declaration
 public:
 	vertex_declaration(
 		IDirect3DDevice9 &,
-		sge::renderer::vf::dynamic::format const &
+		sge::renderer::vertex::declaration_parameters const &
 	);
 
 	~vertex_declaration();
@@ -60,7 +61,7 @@ public:
 
 	sge::renderer::vf::dynamic::stride const
 	stride(
-		renderer::vf::dynamic::part_index
+		sge::renderer::vf::dynamic::part_index
 	) const;
 
 	sge::d3d9::vf::texture_coordinate_count const

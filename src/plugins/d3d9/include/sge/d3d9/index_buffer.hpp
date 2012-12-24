@@ -23,12 +23,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/resource.hpp>
-#include <sge/renderer/index_buffer.hpp>
-#include <sge/renderer/lock_mode.hpp>
+#include <sge/renderer/lock_mode_fwd.hpp>
 #include <sge/renderer/raw_pointer.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
+#include <sge/renderer/index/buffer.hpp>
+#include <sge/renderer/index/buffer_parameters_fwd.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
-#include <sge/renderer/lock_flags/method.hpp>
+#include <sge/renderer/lock_flags/method_fwd.hpp>
 #include <fcppt/com_deleter.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
 
@@ -40,7 +41,7 @@ namespace d3d9
 
 class index_buffer
 :
-	public sge::renderer::index_buffer,
+	public sge::renderer::index::buffer,
 	public sge::d3d9::resource
 {
 	FCPPT_NONCOPYABLE(
@@ -49,16 +50,14 @@ class index_buffer
 public:
 	index_buffer(
 		IDirect3DDevice9 &,
-		sge::renderer::index::dynamic::format::type,
-		count_type,
-		sge::renderer::resource_flags_field const &
+		sge::renderer::index::buffer_parameters const &
 	);
 
 	~index_buffer();
 
 	view_type const
 	lock(
-		sge::renderer::lock_mode::type,
+		sge::renderer::lock_mode,
 		first_type,
 		count_type
 	);
@@ -78,7 +77,7 @@ public:
 	sge::renderer::resource_flags_field const
 	resource_flags() const;
 
-	sge::renderer::index::dynamic::format::type
+	sge::renderer::index::dynamic::format
 	format() const;
 
 	IDirect3DIndexBuffer9 *
@@ -100,7 +99,7 @@ private:
 	do_lock(
 		first_type,
 		count_type,
-		sge::renderer::lock_flags::method::type
+		sge::renderer::lock_flags::method
 	) const;
 
 	IDirect3DDevice9 &device_;
@@ -114,7 +113,7 @@ private:
 
 	sge::renderer::resource_flags_field const resource_flags_;
 
-	sge::renderer::index::dynamic::format::type const format_;
+	sge::renderer::index::dynamic::format const format_;
 
 	count_type const size_;
 

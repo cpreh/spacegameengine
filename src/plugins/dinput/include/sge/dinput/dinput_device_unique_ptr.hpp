@@ -23,14 +23,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/dinput/di.hpp>
 #include <fcppt/com_deleter.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {
 namespace dinput
 {
 
-typedef fcppt::unique_ptr<
+typedef std::unique_ptr<
 	IDirectInputDevice8,
 	fcppt::com_deleter
 > dinput_device_unique_ptr;

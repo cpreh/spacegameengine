@@ -35,7 +35,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/mipmap/level_count.hpp>
 #include <sge/renderer/texture/mipmap/object.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
-#include <fcppt/function/object.hpp>
 
 
 template<
@@ -171,7 +170,7 @@ sge::d3d9::texture::basic<
 template<
 	typename Types
 >
-sge::image::color::format::type
+sge::image::color::format
 sge::d3d9::texture::basic<
 	Types
 >::color_format() const

@@ -26,11 +26,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/image/color/dynamic/r32f_format.hpp>
 
 
+namespace
+{
+
+sge::image::color::dynamic::c32f_1_format::channel_array const channels
+{{
+	sge::image::color::dynamic::available_channels::red
+}};
+
+}
+
 sge::image::color::dynamic::c32f_1_format const
-sge::image::color::dynamic::r32f_format{
-	{{
-		sge::image::color::dynamic::available_channels::red
-	}},
+sge::image::color::dynamic::r32f_format(
+	channels,
 	sge::image::color::dynamic::available_layouts::rgb,
 	sge::image::color::format::r32f
-};
+);

@@ -23,17 +23,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/devicefuncs/clear.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/clear/parameters.hpp>
-#include <fcppt/null_ptr.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/container/bitfield/object_impl.hpp>
 
 
 namespace
 {
 
+template<
+	typename T
+>
 DWORD
 make_flag(
-	bool,
+	fcppt::optional<
+		T
+	>,
 	DWORD
 );
 
@@ -48,7 +52,7 @@ sge::d3d9::devicefuncs::clear(
 	if(
 		_device.Clear(
 			0u,
-			fcppt::null_ptr(),
+			nullptr,
 			::make_flag(
 				_parameters.back_buffer(),
 				D3DCLEAR_TARGET
@@ -98,14 +102,19 @@ sge::d3d9::devicefuncs::clear(
 namespace
 {
 
+template<
+	typename T
+>
 DWORD
 make_flag(
-	bool const _enabled,
+	fcppt::optional<
+		T
+	> const _enabled,
 	DWORD const _flag
 )
 {
 	return
-		_enabled
+		_enabled.has_value()
 		?
 			_flag
 		:

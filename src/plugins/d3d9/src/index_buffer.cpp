@@ -25,28 +25,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/convert/resource_flags.hpp>
 #include <sge/d3d9/convert/resource_flags_to_pool.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/lock_mode.hpp>
+#include <sge/renderer/lock_flags/method.hpp>
 #include <sge/renderer/raw_pointer.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
+#include <sge/renderer/index/buffer.hpp>
+#include <sge/renderer/index/buffer_parameters.hpp>
 #include <sge/renderer/index/dynamic/const_view.hpp>
+#include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/index/dynamic/format_stride.hpp>
 #include <sge/renderer/index/dynamic/view.hpp>
 #include <sge/renderer/lock_flags/from_mode.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
-#include <fcppt/null_ptr.hpp>
 #include <fcppt/text.hpp>
 
 
 sge::d3d9::index_buffer::index_buffer(
 	IDirect3DDevice9 &_device,
-	sge::renderer::index::dynamic::format::type const _format,
-	count_type const _size,
-	sge::renderer::resource_flags_field const &_resource_flags
+	sge::renderer::index::buffer_parameters const &_parameters
 )
 :
-	sge::renderer::index_buffer(),
+	sge::renderer::index::buffer(),
 	sge::d3d9::resource(
 		sge::d3d9::convert::resource_flags_to_pool(
-			_resource_flags
+			_parameters.flags()
 		)
 	),
 	device_(
@@ -54,13 +56,13 @@ sge::d3d9::index_buffer::index_buffer(
 	),
 	buffer_(),
 	resource_flags_(
-		_resource_flags
+		_parameters.flags()
 	),
 	format_(
-		_format
+		_parameters.format()
 	),
 	size_(
-		_size
+		_parameters.count()
 	),
 	stride_(
 		sge::renderer::index::dynamic::format_stride(
@@ -68,7 +70,7 @@ sge::d3d9::index_buffer::index_buffer(
 		)
 	),
 	lock_dest_(
-		fcppt::null_ptr()
+		nullptr
 	)
 {
 	this->init();
@@ -80,7 +82,7 @@ sge::d3d9::index_buffer::~index_buffer()
 
 sge::d3d9::index_buffer::view_type const
 sge::d3d9::index_buffer::lock(
-	renderer::lock_mode::type const _mode,
+	sge::renderer::lock_mode const _mode,
 	first_type const _first,
 	count_type const _count
 )
@@ -91,7 +93,7 @@ sge::d3d9::index_buffer::lock(
 		>(
 			_first,
 			_count,
-			renderer::lock_flags::from_mode(
+			sge::renderer::lock_flags::from_mode(
 				_mode
 			)
 		);
@@ -109,7 +111,7 @@ sge::d3d9::index_buffer::lock(
 		>(
 			_first,
 			_count,
-			renderer::lock_flags::method::read
+			sge::renderer::lock_flags::method::read
 		);
 }
 
@@ -117,7 +119,7 @@ void
 sge::d3d9::index_buffer::unlock() const
 {
 	if(
-		!lock_dest_
+		lock_dest_ == nullptr
 	)
 		throw sge::renderer::exception(
 			FCPPT_TEXT("d3d::index_buffer::unlock() you have to lock first!")
@@ -131,7 +133,7 @@ sge::d3d9::index_buffer::unlock() const
 			FCPPT_TEXT("Cannot unlock index buffer!")
 		);
 
-	lock_dest_ = fcppt::null_ptr();
+	lock_dest_ = nullptr;
 }
 
 sge::d3d9::index_buffer::count_type const
@@ -146,7 +148,7 @@ sge::d3d9::index_buffer::resource_flags() const
 	return resource_flags_;
 }
 
-sge::renderer::index::dynamic::format::type
+sge::renderer::index::dynamic::format
 sge::d3d9::index_buffer::format() const
 {
 	return format_;
@@ -172,15 +174,15 @@ sge::d3d9::index_buffer::init()
 				*
 				stride_
 			),
-			convert::resource_flags(
+			sge::d3d9::convert::resource_flags(
 				this->resource_flags()
 			).get(),
-			convert::index_format(
+			sge::d3d9::convert::index_format(
 				this->format()
 			),
 			this->pool(),
 			&ret,
-			fcppt::null_ptr()
+			nullptr
 		)
 		!= D3D_OK
 	)
@@ -212,7 +214,7 @@ View const
 sge::d3d9::index_buffer::do_lock(
 	first_type const _first,
 	count_type const _count,
-	sge::renderer::lock_flags::method::type const _method
+	sge::renderer::lock_flags::method const _method
 ) const
 {
 	if(
@@ -223,7 +225,7 @@ sge::d3d9::index_buffer::do_lock(
 		);
 
 	void *dest(
-		fcppt::null_ptr()
+		nullptr
 	);
 
 	if(

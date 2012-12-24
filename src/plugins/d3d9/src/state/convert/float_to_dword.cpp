@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/state/convert/float_to_dword.hpp>
-#include <fcppt/static_assert_expression.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstring>
 #include <fcppt/config/external_end.hpp>
@@ -31,9 +30,10 @@ sge::d3d9::state::convert::float_to_dword(
 	float const _value
 )
 {
-	FCPPT_STATIC_ASSERT_EXPRESSION(
+	static_assert(
 		sizeof(float)
-		== sizeof(DWORD)
+		== sizeof(DWORD),
+		"float and DWORD must be of the same size"
 	);
 
 	DWORD dest;

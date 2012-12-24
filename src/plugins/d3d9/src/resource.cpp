@@ -34,11 +34,11 @@ sge::d3d9::resource::resource(
 }
 
 sge::d3d9::resource::resource(
-	sge::d3d9::needs_reset::type const _needs_reset
+	sge::d3d9::needs_reset const _needs_reset
 )
 :
 	pool_(
-		_needs_reset == d3d9::needs_reset::yes
+		_needs_reset == sge::d3d9::needs_reset::yes
 		?
 			D3DPOOL_DEFAULT
 		:

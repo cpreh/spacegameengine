@@ -46,7 +46,7 @@ sge::d3d9::texture::basic_buffer<
 	Types
 >::basic_buffer(
 	d3d_buffer_create_function const &_buffer_create,
-	sge::image::color::format::type const _color_format,
+	sge::image::color::format const _color_format,
 	sge::renderer::resource_flags_field const &_resource_flags
 )
 :
@@ -88,7 +88,7 @@ sge::d3d9::texture::basic_buffer<
 	Types
 >::lock(
 	lock_area const &_area,
-	sge::renderer::lock_mode::type const _mode
+	sge::renderer::lock_mode const _mode
 )
 {
 	return
@@ -172,7 +172,7 @@ sge::d3d9::texture::basic_buffer<
 >::lock_impl(
 	MakeView const &_make_view,
 	lock_area const &_area,
-	sge::renderer::lock_flags::method::type const _method
+	sge::renderer::lock_flags::method const _method
 ) const
 {
 	buffer_.take(

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_RESOURCE_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/needs_reset.hpp>
+#include <sge/d3d9/needs_reset_fwd.hpp>
 #include <sge/d3d9/resource_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -47,12 +47,14 @@ class resource
 		resource
 	);
 public:
-	explicit resource(
+	explicit
+	resource(
 		D3DPOOL
 	);
 
-	explicit resource(
-		d3d9::needs_reset::type
+	explicit
+	resource(
+		sge::d3d9::needs_reset
 	);
 
 	virtual ~resource();

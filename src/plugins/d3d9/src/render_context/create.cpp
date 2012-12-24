@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/render_context/object.hpp>
 #include <sge/d3d9/render_context/parameters_fwd.hpp>
 #include <sge/renderer/context/ffp_unique_ptr.hpp>
-#include <fcppt/cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 
 
@@ -36,9 +35,7 @@ sge::d3d9::render_context::create(
 			fcppt::make_unique_ptr<
 				sge::d3d9::render_context::object
 			>(
-				fcppt::cref(
-					_parameters
-				)
+				_parameters
 			)
 		);
 }

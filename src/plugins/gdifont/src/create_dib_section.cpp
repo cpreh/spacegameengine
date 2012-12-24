@@ -89,7 +89,7 @@ sge::gdifont::create_dib_section(
 			&info,
 			DIB_RGB_COLORS,
 			&_bits_result,
-			fcppt::null_ptr(),
+			nullptr,
 			0u
 		)
 	);
@@ -97,7 +97,7 @@ sge::gdifont::create_dib_section(
 	if(
 		result
 		==
-		fcppt::null_ptr()
+		nullptr
 	)
 		throw sge::font::exception(
 			FCPPT_TEXT("CreateDIBSection failed!")

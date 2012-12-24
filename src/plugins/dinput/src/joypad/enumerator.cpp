@@ -36,9 +36,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/joypad/button_info_container.hpp>
 #include <sge/input/joypad/relative_axis_info.hpp>
 #include <sge/input/joypad/relative_axis_info_container.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/assert/unreachable.hpp>
-#include <fcppt/tr1/functional.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::dinput::joypad::enumerator::enumerator(
@@ -128,12 +129,12 @@ sge::dinput::joypad::enumerator::dispatch(
 				_data,
 				absolute_axis_map_,
 				absolute_axis_,
-				std::tr1::bind(
+				std::bind(
 					&sge::dinput::joypad::make_absolute_axis_info,
-					fcppt::ref(
+					std::ref(
 						device_
 					),
-					std::tr1::placeholders::_1
+					std::placeholders::_1
 				)
 			);
 			break;

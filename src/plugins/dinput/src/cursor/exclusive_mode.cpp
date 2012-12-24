@@ -28,17 +28,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/window/event/processor.hpp>
 #include <awl/backends/windows/window/event/return_type.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
-#include <fcppt/function/object.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/connection_manager.hpp>
-#include <fcppt/signal/shared_connection.hpp>
 #include <fcppt/time/sleep_any.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/chrono/duration.hpp>
+#include <functional>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -121,7 +120,7 @@ sge::dinput::cursor::exclusive_mode::on_temp_acquire(
 		);
 }
 
-fcppt::signal::connection_manager::container const
+fcppt::signal::connection_manager::container
 sge::dinput::cursor::exclusive_mode::make_connections(
 	awl::backends::windows::window::event::processor &_event_processor
 )
@@ -142,7 +141,10 @@ sge::dinput::cursor::exclusive_mode::make_connections(
 		WM_EXITMENULOOP
 	);
 
-	return ret;
+	return
+		std::move(
+			ret
+		);
 }
 
 void
@@ -162,33 +164,29 @@ sge::dinput::cursor::exclusive_mode::make_connection_pair(
 	);
 
 	_container.push_back(
-		fcppt::signal::shared_connection(
-			_event_processor.register_callback(
-				fcppt::strong_typedef_construct_cast<
-					awl::backends::windows::event::type
-				>(
-					_enter_event
-				),
-				std::tr1::bind(
-					&sge::dinput::cursor::exclusive_mode::on_temp_unacquire,
-					this,
-					exit_event,
-					std::tr1::placeholders::_1
-				)
+		_event_processor.register_callback(
+			fcppt::strong_typedef_construct_cast<
+				awl::backends::windows::event::type
+			>(
+				_enter_event
+			),
+			std::bind(
+				&sge::dinput::cursor::exclusive_mode::on_temp_unacquire,
+				this,
+				exit_event,
+				std::placeholders::_1
 			)
 		)
 	);
 
 	_container.push_back(
-		fcppt::signal::shared_connection(
-			_event_processor.register_callback(
+		_event_processor.register_callback(
+			exit_event,
+			std::bind(
+				&sge::dinput::cursor::exclusive_mode::on_temp_acquire,
+				this,
 				exit_event,
-				std::tr1::bind(
-					&sge::dinput::cursor::exclusive_mode::on_temp_acquire,
-					this,
-					exit_event,
-					std::tr1::placeholders::_1
-				)
+				std::placeholders::_1
 			)
 		)
 	);

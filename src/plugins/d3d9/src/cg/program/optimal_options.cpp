@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/cg/scoped_device.hpp>
 #include <sge/d3d9/cg/program/optimal_options.hpp>
 #include <sge/renderer/exception.hpp>
-#include <fcppt/null_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -56,7 +55,7 @@ sge::d3d9::cg::program::optimal_options(
 	FCPPT_ASSERT_ERROR(
 		ret
 		!=
-		fcppt::null_ptr()
+		nullptr
 	);
 
 	return

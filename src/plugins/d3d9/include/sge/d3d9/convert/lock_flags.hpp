@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/lock_flags.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
-#include <sge/renderer/lock_flags/method.hpp>
+#include <sge/renderer/lock_flags/method_fwd.hpp>
 
 
 namespace sge
@@ -33,10 +33,10 @@ namespace d3d9
 namespace convert
 {
 
-d3d9::lock_flags const
+sge::d3d9::lock_flags const
 lock_flags(
-	renderer::lock_flags::method::type,
-	renderer::resource_flags_field const &
+	sge::renderer::lock_flags::method,
+	sge::renderer::resource_flags_field const &
 );
 
 }

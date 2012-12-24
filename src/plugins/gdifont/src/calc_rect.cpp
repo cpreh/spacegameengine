@@ -37,7 +37,7 @@ sge::font::rect const
 sge::gdifont::calc_rect(
 	sge::gdifont::device_context const &_device_context,
 	sge::font::string const &_string,
-	sge::font::align_h::type const _align_h,
+	sge::font::align_h const _align_h,
 	sge::font::optional_unit const &_max_width,
 	sge::gdifont::format const _format
 )

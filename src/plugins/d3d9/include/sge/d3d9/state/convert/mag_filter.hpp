@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_STATE_CONVERT_MAG_FILTER_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/renderer/state/core/sampler/filter/normal/mag.hpp>
+#include <sge/renderer/state/core/sampler/filter/normal/mag_fwd.hpp>
 
 
 namespace sge
@@ -36,7 +36,7 @@ namespace convert
 
 DWORD
 mag_filter(
-	sge::renderer::state::core::sampler::filter::normal::mag::type
+	sge::renderer::state::core::sampler::filter::normal::mag
 );
 
 }

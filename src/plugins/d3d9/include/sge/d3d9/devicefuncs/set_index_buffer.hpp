@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_DEVICEFUNCS_SET_INDEX_BUFFER_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/renderer/index_buffer_fwd.hpp>
+#include <sge/renderer/index/buffer_fwd.hpp>
 
 
 namespace sge
@@ -35,7 +35,7 @@ namespace devicefuncs
 void
 set_index_buffer(
 	IDirect3DDevice9 &,
-	sge::renderer::index_buffer const &
+	sge::renderer::index::buffer const &
 );
 
 }

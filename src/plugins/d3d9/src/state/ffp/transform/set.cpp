@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::d3d9::state::ffp::transform::set(
-	sge::renderer::state::ffp::transform::mode::type const _mode,
+	sge::renderer::state::ffp::transform::mode const _mode,
 	sge::renderer::state::ffp::transform::const_optional_object_ref const &_state,
 	sge::d3d9::state::ffp::transform::object const &_default
 )

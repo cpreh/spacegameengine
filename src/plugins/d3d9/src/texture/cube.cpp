@@ -67,7 +67,11 @@ sge::d3d9::texture::cube::cube(
 		)
 			fcppt::container::ptr::push_back_unique_ptr(
 				sides_[
-					side
+					static_cast<
+						sge::d3d9::texture::cube::side_map::size_type
+					>(
+						side
+					)
 				],
 				fcppt::make_unique_ptr<
 					sge::d3d9::texture::cube_buffer
@@ -99,13 +103,17 @@ sge::d3d9::texture::cube::border_size() const
 
 sge::renderer::texture::cube::color_buffer &
 sge::d3d9::texture::cube::level(
-	sge::renderer::texture::cube_side::type const _side,
+	sge::renderer::texture::cube_side const _side,
 	sge::renderer::texture::mipmap::level const _level
 )
 {
 	return
 		sides_[
-			_side
+			static_cast<
+				sge::d3d9::texture::cube::side_map::size_type
+			>(
+				_side
+			)
 		][
 			_level.get()
 		];
@@ -114,13 +122,17 @@ sge::d3d9::texture::cube::level(
 
 sge::renderer::texture::cube::color_buffer const &
 sge::d3d9::texture::cube::level(
-	sge::renderer::texture::cube_side::type const _side,
+	sge::renderer::texture::cube_side const _side,
 	sge::renderer::texture::mipmap::level const _level
 ) const
 {
 	return
 		sides_[
-			_side
+			static_cast<
+				sge::d3d9::texture::cube::side_map::size_type
+			>(
+				_side
+			)
 		][
 			_level.get()
 		];
@@ -128,7 +140,7 @@ sge::d3d9::texture::cube::level(
 
 sge::d3d9::surface::d3d_unique_ptr
 sge::d3d9::texture::cube::get_level(
-	sge::renderer::texture::cube_side::type const _side,
+	sge::renderer::texture::cube_side const _side,
 	sge::renderer::texture::mipmap::level const _level
 )
 {

@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps/texture_stages.hpp>
 #include <sge/renderer/texture/base.hpp>
 #include <sge/renderer/texture/stage.hpp>
-#include <fcppt/null_ptr.hpp>
 
 
 sge::d3d9::cg::texture::loaded_object::loaded_object(
@@ -83,6 +82,6 @@ sge::d3d9::cg::texture::loaded_object::deactivate() const
 	sge::d3d9::cg::texture::set(
 		device_,
 		parameter_,
-		fcppt::null_ptr()
+		nullptr
 	);
 }

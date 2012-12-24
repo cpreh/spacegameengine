@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_CONVERT_PRIMITIVE_TYPE_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/renderer/primitive_type.hpp>
+#include <sge/renderer/primitive_type_fwd.hpp>
 
 
 namespace sge
@@ -34,7 +34,7 @@ namespace convert
 
 D3DPRIMITIVETYPE
 primitive_type(
-	sge::renderer::primitive_type::type
+	sge::renderer::primitive_type
 );
 
 }

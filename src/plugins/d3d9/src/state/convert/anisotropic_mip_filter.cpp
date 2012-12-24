@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 DWORD
 sge::d3d9::state::convert::anisotropic_mip_filter(
-	sge::renderer::state::core::sampler::filter::anisotropic::mip::type const _type
+	sge::renderer::state::core::sampler::filter::anisotropic::mip const _type
 )
 {
 	switch(
