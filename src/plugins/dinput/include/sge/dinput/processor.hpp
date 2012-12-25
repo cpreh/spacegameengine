@@ -56,8 +56,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/system/object_fwd.hpp>
 #include <awl/window/event/focus_in_fwd.hpp>
 #include <awl/window/event/focus_out_fwd.hpp>
+#include <fcppt/com_deleter.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
-#include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/signal/auto_connection_fwd.hpp>
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -87,42 +88,42 @@ public:
 
 	fcppt::signal::auto_connection
 	keyboard_discover_callback(
-		input::keyboard::discover_callback const &
+		sge::input::keyboard::discover_callback const &
 	);
 
 	fcppt::signal::auto_connection
 	keyboard_remove_callback(
-		input::keyboard::remove_callback const &
+		sge::input::keyboard::remove_callback const &
 	);
 
 	fcppt::signal::auto_connection
 	mouse_discover_callback(
-		input::mouse::discover_callback const &
+		sge::input::mouse::discover_callback const &
 	);
 
 	fcppt::signal::auto_connection
 	mouse_remove_callback(
-		input::mouse::remove_callback const &
+		sge::input::mouse::remove_callback const &
 	);
 
 	fcppt::signal::auto_connection
 	cursor_discover_callback(
-		input::cursor::discover_callback const &
+		sge::input::cursor::discover_callback const &
 	);
 
 	fcppt::signal::auto_connection
 	cursor_remove_callback(
-		input::cursor::remove_callback const &
+		sge::input::cursor::remove_callback const &
 	);
 
 	fcppt::signal::auto_connection
 	joypad_discover_callback(
-		input::joypad::discover_callback const &
+		sge::input::joypad::discover_callback const &
 	);
 
 	fcppt::signal::auto_connection
 	joypad_remove_callback(
-		input::joypad::remove_callback const &
+		sge::input::joypad::remove_callback const &
 	);
 private:
 	void
@@ -180,7 +181,7 @@ private:
 	);
 
 	typedef boost::ptr_vector<
-		dinput::device::object
+		sge::dinput::device::object
 	> device_vector;
 
 	typedef fcppt::scoped_ptr<
@@ -201,7 +202,7 @@ private:
 	device_vector devices_;
 
 	typedef fcppt::scoped_ptr<
-		dinput::cursor::object
+		sge::dinput::cursor::object
 	> cursor_scoped_ptr;
 
 	cursor_scoped_ptr const cursor_;

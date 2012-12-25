@@ -142,6 +142,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/make_cref.hpp>
+#include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/array_map.hpp>
 #include <fcppt/assign/make_map.hpp>
@@ -679,7 +680,9 @@ try
 					vf_format,
 					vf_part
 				>(),
-				sge::renderer::vertex::count(
+				fcppt::strong_typedef_construct_cast<
+					sge::renderer::vertex::count
+				>(
 					std::tuple_size<
 						pos_array
 					>::value

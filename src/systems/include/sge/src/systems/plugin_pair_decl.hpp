@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/plugin/object_shared_ptr.hpp>
 #include <sge/src/systems/plugin_pair_fwd.hpp>
-#include <fcppt/nonassignable.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <memory>
 #include <fcppt/config/external_end.hpp>
@@ -39,7 +39,7 @@ template<
 >
 class plugin_pair
 {
-	FCPPT_NONASSIGNABLE(
+	FCPPT_NONCOPYABLE(
 		plugin_pair
 	);
 public:
