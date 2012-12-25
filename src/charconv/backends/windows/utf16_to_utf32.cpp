@@ -24,10 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/raw_value.hpp>
 #include <sge/src/charconv/backends/windows/utf16_to_utf32.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/cstdint.hpp>
 #include <algorithm>
 #include <array>
 #include <cstddef>
+#include <cstdint>
 #include <iterator>
 #include <fcppt/config/external_end.hpp>
 
@@ -56,11 +56,11 @@ sge::charconv::backends::windows::utf16_to_utf32::convert(
 	while(_input.begin() != _input.end())
 	{
 		typedef
-		boost::uint16_t
+		std::uint16_t
 		utf16;
 
 		typedef
-		boost::uint32_t
+		std::uint32_t
 		utf32;
 
 		// Instead of operating on the ranges themselves, put everything

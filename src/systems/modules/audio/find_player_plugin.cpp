@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::systems::modules::audio::player_pair const
+sge::systems::modules::audio::player_pair
 sge::systems::modules::audio::find_player_plugin(
 	sge::audio::player_plugin::collection const &_collection,
 	sge::systems::audio_player const &_parameters

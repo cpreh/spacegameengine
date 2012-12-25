@@ -324,7 +324,7 @@ sge::d3d9::device::create_depth_stencil_texture(
 		this->add_resource<
 			d3d9::texture::depth_stencil
 		>(
-			fcppt::make_shared_ptr<
+			fcppt::make_unique_ptr<
 				d3d9::texture::depth_stencil
 			>(
 				device_.get(),

@@ -24,7 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/object_shared_ptr.hpp>
 #include <sge/src/systems/plugin_pair_fwd.hpp>
 #include <fcppt/nonassignable.hpp>
-#include <fcppt/shared_ptr_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -45,13 +47,17 @@ public:
 		System
 	>::type plugin_shared_ptr;
 
-	typedef fcppt::shared_ptr<
+	typedef std::unique_ptr<
 		System
-	> system_shared_ptr;
+	> system_unique_ptr;
 
 	plugin_pair(
 		plugin_shared_ptr,
-		system_shared_ptr
+		system_unique_ptr &&
+	);
+
+	plugin_pair(
+		plugin_pair &&
 	);
 
 	System &
@@ -59,7 +65,7 @@ public:
 private:
 	plugin_shared_ptr const plugin_;
 
-	system_shared_ptr const system_;
+	system_unique_ptr system_;
 };
 
 }

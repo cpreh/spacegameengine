@@ -22,6 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_SYSTEMS_PLUGIN_PAIR_IMPL_HPP_INCLUDED
 
 #include <sge/src/systems/plugin_pair_decl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 template<
@@ -31,14 +34,38 @@ sge::systems::plugin_pair<
 	System
 >::plugin_pair(
 	plugin_shared_ptr const _plugin,
-	system_shared_ptr const _system
+	system_unique_ptr &&_system
 )
 :
 	plugin_(
 		_plugin
 	),
 	system_(
-		_system
+		std::move(
+			_system
+		)
+	)
+{
+}
+
+template<
+	typename System
+>
+sge::systems::plugin_pair<
+	System
+>::plugin_pair(
+	plugin_pair &&_other
+)
+:
+	plugin_(
+		std::move(
+			_other.plugin_
+		)
+	),
+	system_(
+		std::move(
+			_other.system_
+		)
 	)
 {
 }

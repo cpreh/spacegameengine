@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_MODEL_MD3_S32_HPP_INCLUDED
 
 #include <fcppt/config/external_begin.hpp>
-#include <boost/cstdint.hpp>
+#include <cstdint>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -33,7 +33,7 @@ namespace model
 namespace md3
 {
 
-typedef boost::int32_t s32;
+typedef std::int32_t s32;
 
 }
 }

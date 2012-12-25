@@ -26,10 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/endianness/convert.hpp>
 #include <fcppt/endianness/format.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/cstdint.hpp>
-#include <boost/next_prior.hpp>
 #include <algorithm>
 #include <cstddef>
+#include <cstdint>
 #include <cstring>
 #include <fcppt/config/external_end.hpp>
 
@@ -58,11 +57,11 @@ sge::charconv::backends::windows::utf32_to_utf16::convert(
 	while(_input.begin() != _input.end())
 	{
 		typedef
-		boost::uint16_t
+		std::uint16_t
 		utf16;
 
 		typedef
-		boost::uint32_t
+		std::uint32_t
 		utf32;
 
 		utf32 const current_codepoint =

@@ -34,8 +34,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/io/ostringstream.hpp>
 #include <fcppt/log/headers.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/cstdint.hpp>
 #include <algorithm>
+#include <cstdint>
 #include <iosfwd>
 #include <string>
 #include <utility>
@@ -182,7 +182,7 @@ void sge::wave::file::read_riff()
 	swap_ = file_bigendian == (fcppt::endianness::is_little_endian());
 
 	// throw away riff size
-	extract_primitive<boost::uint32_t>(
+	extract_primitive<std::uint32_t>(
 		FCPPT_TEXT("riff chunk size"));
 }
 
@@ -196,34 +196,34 @@ void sge::wave::file::read_wave()
 	ignore_chunks_until("fmt ");
 
 	// ignore format chunk size
-	extract_primitive<boost::uint32_t>(FCPPT_TEXT("format chunk size"));
+	extract_primitive<std::uint32_t>(FCPPT_TEXT("format chunk size"));
 
-	boost::uint16_t const audio_format =
-		extract_primitive<boost::uint16_t>(FCPPT_TEXT("audio format"));
+	std::uint16_t const audio_format =
+		extract_primitive<std::uint16_t>(FCPPT_TEXT("audio format"));
 
-	if (audio_format != static_cast<boost::uint16_t>(1))
+	if (audio_format != static_cast<std::uint16_t>(1))
 		throw audio::unsupported_format(
 			filename_,
 			(fcppt::format(FCPPT_TEXT("wave file is not pcm encoded (format code is %2%)"))
 					 % audio_format).str());
 
 	channels_ = static_cast<audio::channel_type>(
-			extract_primitive<boost::uint16_t>(FCPPT_TEXT("channel count")));
+			extract_primitive<std::uint16_t>(FCPPT_TEXT("channel count")));
 
 	sample_rate_ = static_cast<audio::sample_count>(
-		extract_primitive<boost::uint32_t>(FCPPT_TEXT("sample rate")));
+		extract_primitive<std::uint32_t>(FCPPT_TEXT("sample rate")));
 
 	// this is not needed with pcm encoding
-	extract_primitive<boost::uint32_t>(FCPPT_TEXT("byte rate"));
-	extract_primitive<boost::uint16_t>(FCPPT_TEXT("block alignment"));
+	extract_primitive<std::uint32_t>(FCPPT_TEXT("byte rate"));
+	extract_primitive<std::uint16_t>(FCPPT_TEXT("block alignment"));
 
 	bits_per_sample_ = static_cast<audio::sample_count>(
-		extract_primitive<boost::uint16_t>(FCPPT_TEXT("bits per sample")));
+		extract_primitive<std::uint16_t>(FCPPT_TEXT("bits per sample")));
 
 	ignore_chunks_until("data");
 
-	boost::uint32_t const data_size =
-		extract_primitive<boost::uint32_t>(FCPPT_TEXT("data size"));
+	std::uint32_t const data_size =
+		extract_primitive<std::uint32_t>(FCPPT_TEXT("data size"));
 
 	samples_ = static_cast<audio::sample_count>(
 		data_size / channels() / bytes_per_sample());
@@ -245,7 +245,7 @@ void sge::wave::file::ignore_chunks_until(std::string const &desc)
 
 		file_->seekg(
 			static_cast<std::streamoff>(
-				extract_primitive<boost::uint32_t>(
+				extract_primitive<std::uint32_t>(
 					FCPPT_TEXT("subchunk size"))),
 			std::ios_base::cur);
 	}

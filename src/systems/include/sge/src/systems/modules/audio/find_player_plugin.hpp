@@ -35,7 +35,7 @@ namespace modules
 namespace audio
 {
 
-sge::systems::modules::audio::player_pair const
+sge::systems::modules::audio::player_pair
 find_player_plugin(
 	sge::audio::player_plugin::collection const &,
 	sge::systems::audio_player const &

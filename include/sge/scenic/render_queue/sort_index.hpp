@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SCENIC_RENDER_QUEUE_SORT_INDEX_HPP_INCLUDED
 
 #include <fcppt/config/external_begin.hpp>
-#include <boost/cstdint.hpp>
+#include <cstdint>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -33,7 +33,7 @@ namespace scenic
 namespace render_queue
 {
 typedef
-boost::uint64_t
+std::uint64_t
 sort_index;
 }
 }

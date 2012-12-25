@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/evdev/inotify/event_type_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/cstdint.hpp>
+#include <cstdint>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -36,7 +36,7 @@ namespace inotify
 
 sge::evdev::inotify::event_type
 convert_event_type(
-	boost::uint32_t mask
+	std::uint32_t mask
 );
 
 }

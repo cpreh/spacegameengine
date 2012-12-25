@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 
-sge::systems::modules::renderer::system_pair const
+sge::systems::modules::renderer::system_pair
 sge::systems::modules::renderer::find_plugin(
 	sge::renderer::plugin::collection const &_collection,
 	sge::systems::optional_name const &_name,

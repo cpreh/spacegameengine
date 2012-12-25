@@ -37,7 +37,7 @@ namespace modules
 namespace renderer
 {
 
-sge::systems::modules::renderer::system_pair const
+sge::systems::modules::renderer::system_pair
 find_plugin(
 	sge::renderer::plugin::collection const &,
 	sge::systems::optional_name const &,

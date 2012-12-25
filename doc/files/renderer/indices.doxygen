@@ -44,7 +44,7 @@ The index buffer is locked in way similar to the vertex buffer.
 
 Filling the indices into the buffer is also done via an iterator. Its value
 type is sge::renderer::index::proxy which has a set member function. For the 16
-bit format, the type accepted by the proxy is boost::uint16_t. In order to
+bit format, the type accepted by the proxy is std::uint16_t. In order to
 assure that no implicit type conversions are done, only objects of this type
 are accepted. In the example below, the static_cast is necessary to convert the
 literals (which are of type int) into the expected value type.

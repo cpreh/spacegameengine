@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/charconv/encoding.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/cstdint.hpp>
+#include <cstdint>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -42,7 +42,8 @@ struct char_type<
 	sge::charconv::encoding::utf8
 >
 {
-	typedef boost::uint8_t type;
+	// TODO: char?
+	typedef std::uint8_t type;
 };
 
 template<>
@@ -50,7 +51,8 @@ struct char_type<
 	sge::charconv::encoding::utf16
 >
 {
-	typedef boost::uint16_t type;
+	// TODO: char16_t?
+	typedef std::uint16_t type;
 };
 
 template<>
@@ -58,7 +60,8 @@ struct char_type<
 	sge::charconv::encoding::utf32
 >
 {
-	typedef boost::uint32_t type;
+	// TODO: char32_t?
+	typedef std::uint32_t type;
 };
 
 template<>

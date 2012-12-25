@@ -22,14 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/evdev/inotify/event_type.hpp>
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/cstdint.hpp>
 #include <sys/inotify.h>
+#include <cstdint>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::evdev::inotify::event_type
 sge::evdev::inotify::convert_event_type(
-	boost::uint32_t const _mask
+	std::uint32_t const _mask
 )
 {
 	if(
