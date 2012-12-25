@@ -90,12 +90,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <fcppt/container/array.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
+#include <array>
 #include <example_main.hpp>
 #include <exception>
 #include <iostream>
@@ -256,13 +256,12 @@ try
 	);
 
 //! [multi_objects]
-	typedef fcppt::container::array<
+	typedef std::array<
 		sprite_object,
 		2u
 	> sprite_array_2;
 
-	sprite_array_2 sprites =
-	{{
+	sprite_array_2 sprites{{
 		sprite_object(
 			sprite_parameters()
 			.pos(

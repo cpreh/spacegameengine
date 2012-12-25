@@ -28,7 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/geometry/rect_float.hpp>
 #include <sge/sprite/detail/geometry/vector_float.hpp>
 #include <sge/sprite/detail/geometry/vertices_per_sprite.hpp>
-#include <fcppt/container/array_impl.hpp>
 #include <fcppt/math/box/structure_cast.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
 #include <fcppt/math/matrix/static.hpp>
@@ -36,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <array>
 #include <cmath>
 #include <fcppt/config/external_end.hpp>
 
@@ -89,14 +89,14 @@ fill_position_rotated(
 		)
 	);
 
-	typedef fcppt::container::array<
+	typedef std::array<
 		pos2,
 		sge::sprite::detail::geometry::vertices_per_sprite<
 			Choices
 		>::value
 	> position_array;
 
-	position_array const positions = {{
+	position_array const positions{{
 		pos2(
 			rbs.left(),
 			rbs.top()

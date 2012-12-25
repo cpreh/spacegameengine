@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/dinput/di.hpp>
 #include <sge/input/exception.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/container/array_impl.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
 
 
@@ -30,7 +29,7 @@ sge::dinput::keyboard::char_vector const
 sge::dinput::keyboard::keycode_to_chars(
 	UINT const _virtual_code,
 	UINT const _di_code,
-	dinput::state_array const &_states,
+	sge::dinput::state_array const &_states,
 	HKL const _kblayout
 )
 {

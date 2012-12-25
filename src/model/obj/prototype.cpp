@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/container/array.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/log/headers.hpp>
 #include <fcppt/math/box/extend_bounding_box.hpp>
@@ -35,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/unordered_map.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <algorithm>
+#include <array>
 #include <map>
 #include <string>
 #include <fcppt/config/external_end.hpp>
@@ -279,23 +279,20 @@ sge::model::obj::prototype::prototype(
 				rest_of_line);
 
 			typedef
-			fcppt::container::array<sge::model::obj::face_vertex,3>
+			std::array<sge::model::obj::face_vertex,3>
 			face_vertex_array;
 
-			face_vertex_array const temporary_face_vertices =
-			{
-				{
-					parse_face_vertex(
-						line_counter,
-						line_rest),
-					parse_face_vertex(
-						line_counter,
-						line_rest),
-					parse_face_vertex(
-						line_counter,
-						line_rest)
-				}
-			};
+			face_vertex_array const temporary_face_vertices{{
+				parse_face_vertex(
+					line_counter,
+					line_rest),
+				parse_face_vertex(
+					line_counter,
+					line_rest),
+				parse_face_vertex(
+					line_counter,
+					line_rest)
+			}};
 
 			sge::model::obj::face face;
 

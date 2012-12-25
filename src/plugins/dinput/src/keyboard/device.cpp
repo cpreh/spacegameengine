@@ -37,7 +37,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/timer/reset_when_expired.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/container/array.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>

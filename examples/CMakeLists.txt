@@ -184,15 +184,6 @@ add_sge_example(
 	""
 )
 
-message("Fix the cube map example!")
-
-#add_sge_example(
-#	cube_map
-#	"sgecamera;sgeimage;sgeinput;sgerenderer;sgesystems;sgeviewport;sgewindow;sgeimage2d;sgeconfig;sgescenic"
-#	"${fcppt_core_TARGET};${Boost_CHRONO_LIBRARIES};${Boost_FILESYSTEM_LIBRARIES}"
-#	"${Cg_INCLUDE_DIRS}"
-#)
-
 add_sge_example(
 	display_mode
 	"sgerenderer;sgesystems;sgeviewport;sgewindow"

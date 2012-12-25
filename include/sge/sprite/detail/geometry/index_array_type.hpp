@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_GEOMETRY_INDEX_ARRAY_TYPE_HPP_INCLUDED
 
 #include <sge/sprite/detail/geometry/indices_per_sprite.hpp>
-#include <fcppt/container/array_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <array>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -39,7 +41,7 @@ template<
 >
 struct index_array_type
 {
-	typedef fcppt::container::array<
+	typedef std::array<
 		unsigned,
 		sge::sprite::detail::geometry::indices_per_sprite<
 			Choices

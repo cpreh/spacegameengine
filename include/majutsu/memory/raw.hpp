@@ -41,7 +41,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <majutsu/memory/detail/init_constants.hpp>
 #include <majutsu/memory/detail/init_raw_memory.hpp>
 #include <majutsu/memory/detail/store.hpp>
-#include <fcppt/container/array.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/fusion/adapted/mpl.hpp>
 #include <boost/fusion/algorithm/iteration/for_each.hpp>
@@ -54,6 +53,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/mpl/remove_if.hpp>
 #include <boost/mpl/size.hpp>
 #include <algorithm>
+#include <array>
 #include <numeric>
 #include <fcppt/config/external_end.hpp>
 
@@ -75,7 +75,7 @@ private:
 		Type
 	>::type flattened_types;
 
-	typedef fcppt::container::array<
+	typedef std::array<
 		size_type,
 		boost::mpl::size<
 			flattened_types

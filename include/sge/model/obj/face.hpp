@@ -21,7 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MODEL_OBJ_FACE_HPP_INCLUDED
 #define SGE_MODEL_OBJ_FACE_HPP_INCLUDED
 
-#include <fcppt/container/array_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <array>
+#include <cstddef>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {
@@ -30,7 +34,7 @@ namespace model
 namespace obj
 {
 typedef
-fcppt::container::array<std::size_t,3u>
+std::array<std::size_t,3u>
 face;
 }
 }

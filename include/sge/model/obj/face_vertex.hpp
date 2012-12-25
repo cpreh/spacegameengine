@@ -25,9 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/obj/symbol.hpp>
 #include <sge/model/obj/texture_coordinate_index.hpp>
 #include <sge/model/obj/vertex_coordinate_index.hpp>
-#include <fcppt/container/array.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/functional/hash.hpp>
+#include <array>
 #include <cstddef>
 #include <fcppt/config/external_end.hpp>
 
@@ -93,7 +93,7 @@ public:
 	}
 private:
 	typedef
-	fcppt::container::array<std::size_t,3>
+	std::array<std::size_t,3>
 	index_array;
 
 	index_array indices_;

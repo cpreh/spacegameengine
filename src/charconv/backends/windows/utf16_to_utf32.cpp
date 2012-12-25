@@ -23,12 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/output_range.hpp>
 #include <sge/charconv/raw_value.hpp>
 #include <sge/src/charconv/backends/windows/utf16_to_utf32.hpp>
-#include <fcppt/container/array.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/cstdint.hpp>
-#include <boost/next_prior.hpp>
 #include <algorithm>
+#include <array>
 #include <cstddef>
+#include <iterator>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -65,16 +65,14 @@ sge::charconv::backends::windows::utf16_to_utf32::convert(
 
 		// Instead of operating on the ranges themselves, put everything
 		// in small arrays, which are must prettier to handle
-		fcppt::container::array<charconv::raw_value,2> const lobytes =
-			{{
-				*_input.begin(),
-				(*boost::next(_input.begin()))
-			}};
+		std::array<charconv::raw_value,2> const lobytes{{
+			*_input.begin(),
+			(*std::next(_input.begin()))
+		}};
 
-		fcppt::container::array<charconv::raw_value,4> output_bytes =
-			{{
-				0,0,0,0
-			}};
+		std::array<charconv::raw_value,4> output_bytes{{
+			0,0,0,0
+		}};
 
 		_input.advance_begin(
 			static_cast<charconv::input_range::difference_type>(
@@ -99,11 +97,10 @@ sge::charconv::backends::windows::utf16_to_utf32::convert(
 			if (_input.size() < static_cast<charconv::input_range::difference_type>(2))
 				return charconv::conversion_status::invalid_input;
 
-			fcppt::container::array<charconv::raw_value,2> const hibytes =
-				{{
-					*_input.begin(),
-					(*boost::next(_input.begin()))
-				}};
+			std::array<charconv::raw_value,2> const hibytes{{
+				*_input.begin(),
+				(*std::next(_input.begin()))
+			}};
 
 			_input.advance_begin(
 				static_cast<charconv::input_range::difference_type>(

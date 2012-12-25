@@ -26,12 +26,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/linux/fd/event_fwd.hpp>
 #include <awl/backends/linux/fd/processor.hpp>
 #include <fcppt/assert/error.hpp>
-#include <fcppt/container/array_impl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <linux/limits.h>
 #include <sys/inotify.h>
+#include <array>
 #include <cstddef>
 #include <functional>
 #include <string>
@@ -78,7 +78,7 @@ sge::evdev::inotify::reader::on_read(
 )
 {
 	// The manpage says that this is enough to read at least one inotify event
-	typedef fcppt::container::array<
+	typedef std::array<
 		char,
 		sizeof(
 			inotify_event

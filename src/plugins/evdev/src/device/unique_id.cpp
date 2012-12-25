@@ -24,10 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/info/unique_id.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/container/array_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <linux/input.h>
 #include <sys/ioctl.h>
+#include <array>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -36,7 +36,7 @@ sge::evdev::device::unique_id(
 	sge::evdev::device::fd const &_fd
 )
 {
-	typedef fcppt::container::array<
+	typedef std::array<
 		char,
 		1024
 	> buffer_type;

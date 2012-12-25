@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/optional_element_vector.hpp>
 
+
 sge::parse::json::array::array()
 :
 	elements()
@@ -30,7 +31,7 @@ sge::parse::json::array::array()
 }
 
 sge::parse::json::array::array(
-	json::element_vector const &_elements
+	sge::parse::json::element_vector const &_elements
 )
 :
 	elements(
@@ -40,7 +41,7 @@ sge::parse::json::array::array(
 }
 
 sge::parse::json::array::array(
-	json::optional_element_vector const &_elements
+	sge::parse::json::optional_element_vector const &_elements
 )
 :
 	elements(
@@ -48,7 +49,7 @@ sge::parse::json::array::array(
 		?
 			*_elements
 		:
-			json::element_vector()
+			sge::parse::json::element_vector()
 	)
 {
 }

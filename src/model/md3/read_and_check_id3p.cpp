@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/md3/u8.hpp>
 #include <sge/src/model/md3/endian.hpp>
 #include <sge/src/model/md3/read_and_check_id3p.hpp>
-#include <fcppt/container/array.hpp>
 #include <fcppt/io/read_exn.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
+#include <array>
 #include <istream>
 #include <fcppt/config/external_end.hpp>
 
@@ -34,23 +34,21 @@ sge::model::md3::read_and_check_id3p(
 	std::istream &_stream
 )
 {
-	typedef fcppt::container::array<
+	typedef std::array<
 		md3::u8,
 		4
 	> id3p_array;
 
-	id3p_array const to_check = { { 0x49, 0x44, 0x50, 0x33 } };
+	id3p_array const to_check{{
+		0x49, 0x44, 0x50, 0x33
+	}};
 
 	id3p_array id3p;
 
 	for(
-		id3p_array::iterator it(
-			id3p.begin()
-		);
-		it != id3p.end();
-		++it
+		auto &elem : id3p
 	)
-		*it =
+		elem =
 			fcppt::io::read_exn<
 				md3::u8
 			>(

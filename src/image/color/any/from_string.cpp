@@ -20,16 +20,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/color/any/object.hpp>
 #include <sge/image/color/any/from_string.hpp>
+#include <sge/image/color/init.hpp>
+#include <sge/image/color/rgb32f.hpp>
+#include <sge/image/color/rgba32f.hpp>
 #include <sge/image/color/rgba8.hpp>
 #include <sge/image/color/rgb8.hpp>
-#include <string>
-#include <sstream>
-#include <ostream>
-#include <fcppt/container/array.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <sge/image/exception.hpp>
 #include <sge/image/color/init.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <array>
+#include <istream>
+#include <sstream>
+#include <string>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace
 {
@@ -50,7 +56,7 @@ rgb8_from_hex_string(
 	// iostreams. Also, store 4 channels, although we might only read
 	// 3 in case of rgb.
 	typedef
-	fcppt::container::array<unsigned,4u>
+	std::array<unsigned,4u>
 	channel_array;
 
 	channel_array channels;
@@ -116,17 +122,6 @@ rgb8_from_hex_string(
 }
 }
 
-#include <sge/image/color/any/object.hpp>
-#include <sge/image/color/rgb32f.hpp>
-#include <sge/image/color/rgba32f.hpp>
-#include <string>
-#include <sstream>
-#include <fcppt/assert/pre.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/container/array.hpp>
-#include <sge/image/exception.hpp>
-#include <sge/image/color/init.hpp>
-
 namespace
 {
 char
@@ -169,7 +164,7 @@ rgb32f_from_string(
 	scalar;
 
 	typedef
-	fcppt::container::array<scalar,4u>
+	std::array<scalar,4u>
 	channel_array;
 
 	channel_array channels;

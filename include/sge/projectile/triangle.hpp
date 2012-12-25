@@ -22,8 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PROJECTILE_TRIANGLE_HPP_INCLUDED
 
 #include <sge/projectile/vector2.hpp>
-#include <fcppt/container/array.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <array>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -31,9 +33,9 @@ namespace sge
 namespace projectile
 {
 typedef
-fcppt::container::array
+std::array
 <
-	vector2,
+	sge::projectile::vector2,
 	3
 >
 triangle;

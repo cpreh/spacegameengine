@@ -22,14 +22,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_DINPUT_STATE_ARRAY_HPP_INCLUDED
 
 #include <sge/dinput/di.hpp>
-#include <fcppt/container/array_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <array>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {
 namespace dinput
 {
 
-typedef fcppt::container::array<
+typedef std::array<
 	BYTE,
 	256
 > state_array;

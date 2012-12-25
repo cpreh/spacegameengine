@@ -23,13 +23,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/noise/simplex/object_fwd.hpp>
 #include <sge/noise/simplex/width.hpp>
-#include <fcppt/container/array.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/matrix/static.hpp>
 #include <fcppt/math/vector/static.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/type_traits/is_floating_point.hpp>
+#include <array>
 #include <cstddef>
+#include <type_traits>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -48,7 +48,7 @@ template<
 class object
 {
 	static_assert(
-		boost::is_floating_point<
+		std::is_floating_point<
 			Float
 		>::value,
 		"Float must be a floating-point type"
@@ -93,7 +93,7 @@ private:
 	matrix;
 
 	typedef
-	fcppt::container::array<vector_type,2u*N>
+	std::array<vector_type,2u*N>
 	gradient_array;
 
 	index_container perm_;
@@ -101,14 +101,14 @@ private:
 
 	std::size_t
 	mod(
-	long int const &a,
-	std::size_t const &b);
+		long int const &a,
+		std::size_t const &b);
 
 	std::size_t
 	index(
 		vector_type const &vec);
 
-	typedef fcppt::container::array<
+	typedef std::array<
 		vector_type,
 		N + 1
 	> corner_array;

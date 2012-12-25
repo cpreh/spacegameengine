@@ -33,7 +33,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/window/object.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/container/array_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <array>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace
@@ -66,7 +68,7 @@ sge::dinput::device::object::~object()
 void
 sge::dinput::device::object::dispatch()
 {
-	typedef fcppt::container::array<
+	typedef std::array<
 		DIDEVICEOBJECTDATA,
 		buffer_size
 	> input_buffer;

@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/rgb8.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre.hpp>
-#include <fcppt/container/array.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <array>
 #include <iomanip>
 #include <string>
 #include <fcppt/config/external_end.hpp>
@@ -58,7 +58,7 @@ rgb8_from_hex_string(
 	// might be interpreted as a character instead of a number by the
 	// iostreams
 	typedef
-	fcppt::container::array<unsigned,3u>
+	std::array<unsigned,3u>
 	channel_array;
 
 	channel_array channels;
@@ -74,10 +74,7 @@ rgb8_from_hex_string(
 	stringstream_type ss;
 
 	for(
-		channel_array::iterator it =
-			channels.begin();
-		it != channels.end();
-		++it)
+		auto &channel : channels)
 	{
 		ss.clear();
 		ss.str(
@@ -86,7 +83,7 @@ rgb8_from_hex_string(
 				2u));
 		// We cannot output the color string here without character
 		// conversion, sorry.
-		if(!(ss >> std::hex >> (*it)) || !ss.eof())
+		if(!(ss >> std::hex >> channel) || !ss.eof())
 			throw sge::image::exception(
 				FCPPT_TEXT("Invalid color component, cannot convert"));
 

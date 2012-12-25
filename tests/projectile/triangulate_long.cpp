@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/projectile/triangulation/default_tag.hpp>
 #include <sge/projectile/triangulation/triangulate.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <fcppt/container/array.hpp>
 #include <fcppt/math/vector/object.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/math/vector/static.hpp>
@@ -30,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/test/unit_test.hpp>
+#include <array>
 #include <iostream>
 #include <ostream>
 #include <vector>
@@ -46,7 +46,7 @@ typedef fcppt::math::vector::static_<
 	2
 >::type vector2;
 
-typedef fcppt::container::array<
+typedef std::array<
 	vector2,
 	3
 > triangle;

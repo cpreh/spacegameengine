@@ -21,12 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_JSON_DETAIL_IS_ARRAY_HPP_INCLUDED
 #define SGE_PARSE_JSON_DETAIL_IS_ARRAY_HPP_INCLUDED
 
-#include <mizuiro/image/dimension.hpp>
-#include <fcppt/container/array.hpp>
+#include <mizuiro/image/dimension_fwd.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/detail/static_storage.hpp>
 #include <fcppt/math/dim/static.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/math/vector/static.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -34,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <boost/array.hpp>
 #include <boost/mpl/bool.hpp>
+#include <array>
 #include <cstddef>
 #include <fcppt/config/external_end.hpp>
 
@@ -54,7 +53,7 @@ template<typename T>
 struct is_array : boost::false_type {};
 
 template<typename T,std::size_t N>
-struct is_array< fcppt::container::array<T,N> > : boost::true_type {};
+struct is_array< std::array<T,N> > : boost::true_type {};
 
 template<typename T,std::size_t N>
 struct is_array< boost::array<T,N> > : boost::true_type {};

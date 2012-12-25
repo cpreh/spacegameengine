@@ -80,7 +80,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/assert/unreachable.hpp>
-#include <fcppt/container/array.hpp>
 #include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/log/activate_levels.hpp>
@@ -90,6 +89,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/ptr_container/ptr_map.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
 #include <boost/utility/enable_if.hpp>
+#include <array>
 #include <example_main.hpp>
 #include <exception>
 #include <fstream>
@@ -198,17 +198,15 @@ count_jiffies()
 		first_word == "cpu");
 
 	typedef
-	fcppt::container::array<jiffies::value_type,7u>
+	std::array<jiffies::value_type,7u>
 	jiffies_array;
 
 	jiffies_array current_jiffies;
 
 	for(
-		jiffies_array::iterator it =
-			current_jiffies.begin();
-		it != current_jiffies.end();
-		++it)
-		if(!(cpuinfo >> (*it)))
+		auto &jiffie : current_jiffies
+	)
+		if(!(cpuinfo >> jiffie))
 			std::terminate();
 
 	return

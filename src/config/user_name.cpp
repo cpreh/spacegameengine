@@ -36,10 +36,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/config/exception.hpp>
 #include <sge/config/exception.hpp>
 #include <awl/backends/windows/format_message.hpp>
-#include <fcppt/container/array.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/char_type.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <array>
 #include <windows.h>
 #include <Lmcons.h>
 #include <fcppt/config/external_end.hpp>
@@ -50,7 +50,7 @@ sge::config::user_name()
 {
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 	typedef
-	fcppt::container::array<fcppt::char_type,UNLEN+1>
+	std::array<fcppt::char_type,UNLEN+1>
 	raw_character_sequence;
 
 	raw_character_sequence raw_characters;

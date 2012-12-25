@@ -145,7 +145,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/array_map.hpp>
 #include <fcppt/assign/make_map.hpp>
-#include <fcppt/container/array.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
 #include <fcppt/math/box/object_impl.hpp>
@@ -157,6 +156,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <boost/chrono/duration.hpp>
 #include <boost/mpl/vector/vector10.hpp>
+#include <array>
 #include <example_main.hpp>
 #include <exception>
 #include <iostream>
@@ -204,7 +204,7 @@ typedef sge::renderer::vf::format<
 
 typedef vf_pos::packed_type pos_vector;
 
-typedef fcppt::container::array<
+typedef std::array<
 	pos_vector,
 	2 * 3 * 6
 > pos_array;
@@ -680,7 +680,9 @@ try
 					vf_part
 				>(),
 				sge::renderer::vertex::count(
-					pos_array::dim_wrapper::value
+					std::tuple_size<
+						pos_array
+					>::value
 				),
 				sge::renderer::resource_flags_field::null()
 			)

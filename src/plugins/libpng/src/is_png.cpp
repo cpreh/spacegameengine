@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/libpng/header_bytes.hpp>
 #include <sge/libpng/is_png.hpp>
 #include <sge/libpng/png.hpp>
-#include <fcppt/container/array.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <array>
 #include <iosfwd>
 #include <istream>
 #include <fcppt/config/external_end.hpp>
@@ -33,7 +33,7 @@ sge::libpng::is_png(
 	std::istream &_stream
 )
 {
-	fcppt::container::array<
+	std::array<
 		char,
 		libpng::header_bytes::value
 	> buf;

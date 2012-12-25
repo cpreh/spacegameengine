@@ -26,10 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/opencl/event/flatten_sequence.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/optional.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre.hpp>
-#include <fcppt/container/array.hpp>
 #include <fcppt/container/raw_vector.hpp>
 #include <fcppt/io/ostringstream.hpp>
 #include <fcppt/math/dim/object_impl.hpp>

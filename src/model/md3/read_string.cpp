@@ -23,9 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/model/md3/max_qpath.hpp>
 #include <sge/src/model/md3/read_string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/container/array.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
+#include <array>
 #include <istream>
 #include <fcppt/config/external_end.hpp>
 
@@ -38,7 +38,7 @@ sge::model::md3::read_string(
 	std::istream &_stream
 )
 {
-	fcppt::container::array<
+	std::array<
 		md3::string::value_type,
 		Max
 	> tmp_name;
