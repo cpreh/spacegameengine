@@ -33,6 +33,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/foreach_enumerator.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::d3d9::texture::cube::cube(
@@ -77,7 +80,7 @@ sge::d3d9::texture::cube::cube(
 					sge::d3d9::texture::cube_buffer
 				>(
 					sge::d3d9::texture::cube_buffer::d3d_buffer_create_function(
-						std::tr1::bind(
+						std::bind(
 							&sge::d3d9::texture::cube::get_level,
 							this,
 							side,

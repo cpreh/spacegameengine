@@ -184,13 +184,6 @@ add_sge_example(
 	""
 )
 
-#add_sge_example(
-#	control_scheme
-#	"sgeconfig;sgefont;sgefontdraw;sgeimage;sgeinput;sgerenderer;sgesystems;sgeviewport;sgewindow"
-#	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
-#	""
-#)
-
 message("Fix the cube map example!")
 
 #add_sge_example(

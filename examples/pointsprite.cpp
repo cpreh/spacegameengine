@@ -124,6 +124,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/ptr_container/ptr_list.hpp>
 #include <cmath>
 #include <example_main.hpp>
+#include <functional>
 #include <iostream>
 #include <ostream>
 #include <string>
@@ -388,10 +389,10 @@ particle::manager::manager(
 :
 	viewport_connection_(
 		_viewport_manager.manage_callback(
-			std::tr1::bind(
+			std::bind(
 				&particle::manager::viewport_callback,
 				this,
-				std::tr1::placeholders::_1))),
+				std::placeholders::_1))),
 	particle_count_(
 		_particle_count),
 	sprite_buffers_(

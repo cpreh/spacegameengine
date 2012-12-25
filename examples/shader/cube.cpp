@@ -178,13 +178,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/matrix/object_impl.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
-#include <fcppt/tr1/functional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/chrono/duration.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <cmath>
 #include <example_main.hpp>
 #include <exception>
+#include <functional>
 #include <iostream>
 #include <ostream>
 #include <fcppt/config/external_end.hpp>
@@ -1006,11 +1006,11 @@ try
 		sys.keyboard_collector().key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::e,
-				std::tr1::bind(
+				std::bind(
 					&toggle_bumpmapping,
-					fcppt::ref(
+					std::ref(
 						shader),
-					fcppt::ref(
+					std::ref(
 						enabled)))));
 
 	sge::renderer::vertex_buffer_scoped_ptr const vb(
