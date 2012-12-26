@@ -27,8 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/value.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/type_traits/is_enum.hpp>
 #include <boost/utility/enable_if.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -45,7 +45,7 @@ template<
 	typename Enum
 >
 typename boost::enable_if<
-	boost::is_enum<
+	std::is_enum<
 		Enum
 	>,
 	Enum

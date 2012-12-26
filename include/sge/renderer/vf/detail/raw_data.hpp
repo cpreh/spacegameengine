@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/const_raw_pointer.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/type_traits/is_fundamental.hpp>
 #include <boost/utility/enable_if.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -41,7 +41,7 @@ template<
 	typename T
 >
 typename boost::disable_if<
-	boost::is_fundamental<
+	std::is_fundamental<
 		T
 	>,
 	sge::renderer::const_raw_pointer
@@ -62,7 +62,7 @@ template<
 	typename T
 >
 typename boost::enable_if<
-	boost::is_fundamental<
+	std::is_fundamental<
 		T
 	>,
 	sge::renderer::const_raw_pointer

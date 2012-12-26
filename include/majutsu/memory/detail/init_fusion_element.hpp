@@ -31,9 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/mpl/find.hpp>
 #include <boost/mpl/or.hpp>
 #include <boost/mpl/placeholders.hpp>
-#include <boost/type_traits/remove_const.hpp>
-#include <boost/type_traits/remove_reference.hpp>
 #include <boost/utility/enable_if.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -68,8 +67,8 @@ public:
 		)
 	>
 	{
-		typedef typename boost::remove_const<
-			typename boost::remove_reference<
+		typedef typename std::remove_const<
+			typename std::remove_reference<
 				Elem
 			>::type
 		>::type::type type;

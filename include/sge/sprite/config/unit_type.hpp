@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/config/unit_type_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/type_traits/is_arithmetic.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -42,7 +42,7 @@ struct unit_type
 	typedef Type type;
 
 	static_assert(
-		boost::is_arithmetic<
+		std::is_arithmetic<
 			typename unit_type::type
 		>::value,
 		"The unit_type must be arithmetic"

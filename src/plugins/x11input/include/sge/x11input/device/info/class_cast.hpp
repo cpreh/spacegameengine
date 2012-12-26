@@ -28,9 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <X11/extensions/XInput2.h>
 #include <boost/mpl/contains.hpp>
 #include <boost/mpl/vector/vector10.hpp>
-#include <boost/type_traits/remove_const.hpp>
-#include <boost/type_traits/remove_reference.hpp>
 #include <boost/utility/enable_if.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -54,8 +53,8 @@ typename boost::enable_if<
 			XIKeyClassInfo,
 			XIScrollClassInfo
 		>,
-		typename boost::remove_const<
-			typename boost::remove_reference<
+		typename std::remove_const<
+			typename std::remove_reference<
 				Result
 			>::type
 		>::type

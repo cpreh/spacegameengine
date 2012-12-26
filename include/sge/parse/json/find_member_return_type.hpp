@@ -24,9 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/if.hpp>
-#include <boost/type_traits/add_const.hpp>
-#include <boost/type_traits/add_reference.hpp>
-#include <boost/type_traits/is_const.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -45,12 +43,12 @@ struct find_member_return_type
 {
 	typedef
 	fcppt::optional<
-		typename boost::add_reference<
+		typename std::add_lvalue_reference<
 			typename boost::mpl::if_<
-				boost::is_const<
+				std::is_const<
 					Arg
 				>,
-				typename boost::add_const<
+				typename std::add_const<
 					T
 				>::type,
 				T

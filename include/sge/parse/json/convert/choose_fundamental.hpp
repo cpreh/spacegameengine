@@ -25,10 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/int_type.hpp>
 #include <sge/parse/json/string.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/type_traits/is_floating_point.hpp>
-#include <boost/type_traits/is_integral.hpp>
-#include <boost/type_traits/is_same.hpp>
 #include <boost/utility/enable_if.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -53,7 +51,7 @@ template<
 struct choose_fundamental<
 	Type,
 	typename boost::enable_if<
-		boost::is_integral<
+		std::is_integral<
 			Type
 		>
 	>::type
@@ -68,7 +66,7 @@ template<
 struct choose_fundamental<
 	Type,
 	typename boost::enable_if<
-		boost::is_floating_point<
+		std::is_floating_point<
 			Type
 		>
 	>::type
@@ -83,7 +81,7 @@ template<
 struct choose_fundamental<
 	Type,
 	typename boost::enable_if<
-		boost::is_same<
+		std::is_same<
 			Type,
 			json::string
 		>

@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/type_traits/remove_pointer.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -64,7 +64,7 @@ private:
 	VOID *data_;
 
 	typedef fcppt::scoped_ptr<
-		boost::remove_pointer<
+		std::remove_pointer<
 			HBITMAP
 		>::type,
 		sge::gdifont::delete_object_deleter

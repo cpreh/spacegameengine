@@ -27,9 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <boost/chrono/system_clocks.hpp>
 #include <boost/mpl/or.hpp>
-#include <boost/type_traits/integral_constant.hpp>
-#include <boost/type_traits/is_same.hpp>
 #include <boost/utility/enable_if.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -49,7 +48,7 @@ template<
 >
 struct is_stateful
 :
-boost::true_type
+std::true_type
 {
 };
 
@@ -60,15 +59,15 @@ struct is_stateful<
 	Clock,
 	typename boost::enable_if<
 		boost::mpl::or_<
-			boost::is_same<
+			std::is_same<
 				boost::chrono::high_resolution_clock,
 				Clock
 			>,
-			boost::is_same<
+			std::is_same<
 				boost::chrono::steady_clock,
 				Clock
 			>,
-			boost::is_same<
+			std::is_same<
 				boost::chrono::system_clock,
 				Clock
 			>
@@ -76,7 +75,7 @@ struct is_stateful<
 	>::type
 >
 :
-boost::false_type
+std::false_type
 {
 };
 

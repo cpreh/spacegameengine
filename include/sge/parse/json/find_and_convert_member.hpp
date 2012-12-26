@@ -37,10 +37,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/mpl/if.hpp>
 #include <boost/mpl/or.hpp>
 #include <boost/range/algorithm/find_if.hpp>
-#include <boost/type_traits/is_same.hpp>
-#include <boost/type_traits/remove_const.hpp>
-#include <boost/type_traits/remove_reference.hpp>
 #include <iterator>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -56,23 +54,23 @@ boost::mpl::if_
 <
 	boost::mpl::or_
 	<
-		boost::is_same
+		std::is_same
 		<
-			typename boost::remove_const<T>::type,
+			typename std::remove_const<T>::type,
 			sge::parse::json::value
 		>,
 		boost::mpl::or_
 		<
-			boost::is_same
+			std::is_same
 			<
-				typename boost::remove_const<T>::type,
+				typename std::remove_const<T>::type,
 				sge::parse::json::object
 			>,
 			boost::mpl::or_
 			<
-				boost::is_same
+				std::is_same
 				<
-					typename boost::remove_const<T>::type,
+					typename std::remove_const<T>::type,
 					sge::parse::json::array
 				>
 			>

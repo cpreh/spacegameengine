@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/symbol.hpp>
 #include <sge/scenic/render_context/manager_base.hpp>
 #include <sge/scenic/render_context/cg/object_fwd.hpp>
+#include <sge/scenic/render_context/cg/light/count.hpp>
 #include <sge/scenic/render_context/cg/light/directional_fwd.hpp>
 #include <sge/scenic/render_context/cg/light/point_fwd.hpp>
 #include <sge/shader/context_fwd.hpp>
@@ -41,9 +42,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/shader/parameter/vector.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/integral_c.hpp>
 #include <boost/ptr_container/ptr_array.hpp>
-#include <cstddef>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -78,17 +78,17 @@ private:
 	friend class sge::scenic::render_context::cg::object;
 
 	typedef
-	boost::mpl::integral_c
+	std::integral_constant
 	<
-		std::size_t,
+		sge::scenic::render_context::cg::light::count,
 		8u
 	>
 	max_point_lights;
 
 	typedef
-	boost::mpl::integral_c
+	std::integral_constant
 	<
-		std::size_t,
+		sge::scenic::render_context::cg::light::count,
 		4u
 	>
 	max_directional_lights;
@@ -123,8 +123,8 @@ private:
 	sge::shader::parameter::planar_texture diffuse_texture_;
 	sge::shader::parameter::scalar<bool> use_specular_texture_;
 	sge::shader::parameter::planar_texture specular_texture_;
-	sge::shader::parameter::scalar<std::size_t> point_light_count_;
-	sge::shader::parameter::scalar<std::size_t> directional_light_count_;
+	sge::shader::parameter::scalar<sge::scenic::render_context::cg::light::count> point_light_count_;
+	sge::shader::parameter::scalar<sge::scenic::render_context::cg::light::count> directional_light_count_;
 	sge::shader::parameter::scalar<bool> use_fog_;
 	sge::shader::parameter::scalar<sge::renderer::scalar> fog_start_;
 	sge::shader::parameter::scalar<sge::renderer::scalar> fog_end_;

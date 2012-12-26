@@ -28,8 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/dim/static.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/type_traits/is_float_or_double.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/type_traits/is_floating_point.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
 
@@ -38,7 +38,7 @@ template<
 	typename Ret
 >
 typename boost::enable_if<
-	boost::is_floating_point<
+	fcppt::type_traits::is_float_or_double<
 		Ret
 	>,
 	typename fcppt::math::box::rect<
@@ -91,7 +91,7 @@ sge::renderer::lock_rect_to_coords(
 template \
 SGE_EXPORT_FUNCTION_INSTANTIATION \
 boost::enable_if< \
-	boost::is_floating_point< \
+	fcppt::type_traits::is_float_or_double< \
 		floattype \
 	>, \
 	fcppt::math::box::rect< \

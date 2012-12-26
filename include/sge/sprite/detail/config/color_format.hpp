@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/mpl/end.hpp>
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/identity.hpp>
-#include <boost/type_traits/is_same.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -64,7 +64,7 @@ private:
 	};
 public:
 	typedef typename boost::mpl::eval_if<
-		boost::is_same<
+		std::is_same<
 			iterator,
 			typename boost::mpl::end<
 				typename Choices::optional_elements

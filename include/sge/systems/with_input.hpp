@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/mpl/is_sequence.hpp>
 #include <boost/mpl/placeholders.hpp>
 #include <boost/mpl/vector/vector10.hpp>
-#include <boost/type_traits/is_base_of.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -55,7 +55,7 @@ struct with_input
 	static_assert(
 		fcppt::mpl::all_of<
 			InputOptions,
-			boost::is_base_of<
+			std::is_base_of<
 				sge::systems::detail::input_option,
 				boost::mpl::_1
 			>

@@ -30,10 +30,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/string.hpp>
 #include <fcppt/type_traits/is_iterable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/type_traits/is_floating_point.hpp>
-#include <boost/type_traits/is_integral.hpp>
-#include <boost/type_traits/is_same.hpp>
+#include <boost/mpl/and.hpp>
+#include <boost/mpl/not.hpp>
+#include <boost/mpl/or.hpp>
 #include <boost/utility/enable_if.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -45,13 +46,16 @@ namespace json
 {
 template<typename T>
 typename
-boost::enable_if_c
+boost::enable_if
 <
-	boost::is_same<T,sge::parse::json::object>::value ||
-	boost::is_same<T,sge::parse::json::array>::value ||
-	boost::is_same<T,sge::parse::json::null>::value ||
-	boost::is_same<T,fcppt::string>::value ||
-	boost::is_same<T,bool>::value,
+	boost::mpl::or_
+	<
+		std::is_same<T,sge::parse::json::object>,
+		std::is_same<T,sge::parse::json::array>,
+		std::is_same<T,sge::parse::json::null>,
+		std::is_same<T,fcppt::string>,
+		std::is_same<T,bool>
+	>,
 	sge::parse::json::value
 >::type
 convert_to(
@@ -63,10 +67,16 @@ convert_to(
 
 template<typename T>
 typename
-boost::enable_if_c
+boost::enable_if
 <
-	boost::is_integral<T>::value &&
-	!boost::is_same<T,bool>::value,
+	boost::mpl::and_
+	<
+		std::is_integral<T>
+		boost::mpl::not_
+		<
+			std::is_same<T,bool>
+		>
+	>,
 	sge::parse::json::value
 >::type
 convert_to(
@@ -79,9 +89,9 @@ convert_to(
 
 template<typename T>
 typename
-boost::enable_if_c
+boost::enable_if
 <
-	boost::is_floating_point<T>::value,
+	std::is_floating_point<T>,
 	sge::parse::json::value
 >::type
 convert_to(
@@ -96,10 +106,16 @@ convert_to(
 // (heterogenous) array
 template<typename T>
 typename
-boost::enable_if_c
+boost::enable_if
 <
-	fcppt::type_traits::is_iterable<T>::value &&
-	!boost::is_same<T,fcppt::string>::value,
+	boost::mpl::and_
+	<
+		fcppt::type_traits::is_iterable<T>,
+		boost::mpl::not_
+		<
+			std::is_same<T,fcppt::string>
+		>
+	>,
 	sge::parse::json::value
 >::type
 convert_to(

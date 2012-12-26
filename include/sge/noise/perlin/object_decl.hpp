@@ -26,7 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/static.hpp>
 #include <fcppt/preprocessor/pure.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/type_traits/is_floating_point.hpp>
+#include <cstddef>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -45,7 +46,7 @@ template
 class object
 {
 	static_assert(
-		boost::is_floating_point<
+		std::is_floating_point<
 			Float
 		>::value,
 		"Float must be a floating-point type"

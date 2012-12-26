@@ -47,12 +47,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/static.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/iterator/iterator_facade.hpp>
-#include <boost/type_traits/integral_constant.hpp>
 #include <cstring>
 #include <example_main.hpp>
 #include <iostream>
 #include <iterator>
 #include <ostream>
+#include <type_traits>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -366,7 +366,7 @@ struct is_static_storage
 	mylib::vector::raw_view<T>
 >
 :
-	boost::true_type
+	std::true_type
 {
 };
 }
@@ -433,7 +433,7 @@ struct format_is_static
 	>
 >
 :
-	boost::true_type
+	std::true_type
 {
 };
 

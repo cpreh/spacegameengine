@@ -87,7 +87,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/ptr_container/ptr_map.hpp>
-#include <boost/type_traits/is_floating_point.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <array>
 #include <example_main.hpp>
@@ -98,6 +97,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <memory>
 #include <numeric>
 #include <string>
+#include <type_traits>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -158,7 +158,7 @@ public:
 	typename
 	boost::enable_if
 	<
-		boost::is_floating_point<Float>,
+		std::is_floating_point<Float>,
 		Float
 	>::type
 	work_percentage() const

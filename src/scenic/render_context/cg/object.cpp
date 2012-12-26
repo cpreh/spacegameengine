@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/render_context/transform_matrix_type.hpp>
 #include <sge/scenic/render_context/cg/manager.hpp>
 #include <sge/scenic/render_context/cg/object.hpp>
+#include <sge/scenic/render_context/cg/light/count.hpp>
 #include <sge/scenic/render_context/cg/light/directional.hpp>
 #include <sge/scenic/render_context/cg/light/point.hpp>
 #include <sge/scenic/render_context/fog/properties.hpp>
@@ -40,6 +41,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/matrix/transform_point.hpp>
 #include <fcppt/math/matrix/transpose.hpp>
 #include <fcppt/variant/holds_type.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <cstddef>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::scenic::render_context::cg::object::object(
@@ -171,8 +175,8 @@ void
 sge::scenic::render_context::cg::object::lights(
 	sge::scenic::render_context::light::sequence const &_lights)
 {
-	std::size_t point_light_count = 0;
-	std::size_t directional_light_count = 0;
+	sge::scenic::render_context::cg::light::count point_light_count = 0;
+	sge::scenic::render_context::cg::light::count directional_light_count = 0;
 
 	for(
 		sge::scenic::render_context::light::sequence::const_iterator l =

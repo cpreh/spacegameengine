@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/type_traits/is_float_or_double.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/or.hpp>
-#include <boost/type_traits/is_same.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -47,7 +47,7 @@ template<
 struct is_int_float_double
 :
 boost::mpl::or_<
-	boost::is_same<
+	std::is_same<
 		Type,
 		int
 	>,

@@ -18,44 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CONTEXT_HAS_PARAMETER_HPP_INCLUDED
-#define SGE_OPENGL_CONTEXT_HAS_PARAMETER_HPP_INCLUDED
-
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/not.hpp>
-#include <type_traits>
-#include <fcppt/config/external_end.hpp>
+#ifndef SGE_SCENIC_RENDER_CONTEXT_CG_LIGHT_COUNT_HPP_INCLUDED
+#define SGE_SCENIC_RENDER_CONTEXT_CG_LIGHT_COUNT_HPP_INCLUDED
 
 
 namespace sge
 {
-namespace opengl
+namespace scenic
 {
-namespace context
+namespace render_context
+{
+namespace cg
+{
+namespace light
 {
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
+typedef int count;
 
-template<
-	typename Type
->
-struct has_parameter
-:
-boost::mpl::not_<
-	std::is_same<
-		typename Type::parameter,
-		void
-	>
->
-{
-};
-
-FCPPT_PP_POP_WARNING
-
+}
+}
 }
 }
 }

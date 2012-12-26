@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/type_traits/is_same.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -47,7 +47,7 @@ template<
 >
 struct has_normal_size
 :
-boost::is_same<
+std::is_same<
 	typename Choices::size_choice,
 	sge::sprite::config::normal_size
 >

@@ -26,8 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/if.hpp>
-#include <boost/type_traits/is_const.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {
@@ -46,7 +47,7 @@ template<
 	typename Arg
 >
 typename boost::mpl::if_<
-	boost::is_const<
+	std::is_const<
 		Arg
 	>,
 	T const &,

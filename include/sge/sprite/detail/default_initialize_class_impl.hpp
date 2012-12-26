@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/mpl/deref.hpp>
 #include <boost/mpl/empty.hpp>
 #include <boost/mpl/next.hpp>
-#include <boost/type_traits/is_same.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -92,7 +92,7 @@ FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 	struct result_type
 	:
 		sge::sprite::detail::default_initialize_class_impl<
-			boost::is_same<
+			std::is_same<
 				typename boost::mpl::next<
 					Iterator
 				>::type,
@@ -136,7 +136,7 @@ FCPPT_PP_POP_WARNING
 
 		return
 			sge::sprite::detail::default_initialize_class_impl<
-				boost::is_same<
+				std::is_same<
 					next_iterator,
 					EndIterator
 				>::value

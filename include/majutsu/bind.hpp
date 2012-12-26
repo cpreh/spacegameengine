@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/mpl/if.hpp>
 #include <boost/mpl/placeholders.hpp>
 #include <boost/mpl/transform.hpp>
-#include <boost/type_traits/is_same.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -43,7 +43,7 @@ struct bind
 		typename Base::type,
 		typename Binders::type,
 		boost::mpl::if_<
-			boost::is_same<
+			std::is_same<
 				boost::mpl::_2,
 				placeholder
 			>,

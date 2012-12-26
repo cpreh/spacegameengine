@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/math/box/extend_bounding_box.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/type_traits/remove_pointer.hpp>
 #include <iterator>
 #include <fcppt/config/external_end.hpp>
 

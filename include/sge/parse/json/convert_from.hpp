@@ -40,10 +40,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/and.hpp>
 #include <boost/mpl/not.hpp>
-#include <boost/type_traits/is_floating_point.hpp>
-#include <boost/type_traits/is_integral.hpp>
-#include <boost/type_traits/is_same.hpp>
 #include <boost/utility/enable_if.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -58,7 +56,7 @@ template<typename T>
 typename
 boost::enable_if_c
 <
-	boost::is_floating_point<T>::value,
+	std::is_floating_point<T>::value,
 	T
 >::type
 convert_from(
@@ -68,7 +66,7 @@ template<typename T>
 typename
 boost::enable_if_c
 <
-	boost::is_same<T,bool>::value,
+	std::is_same<T,bool>::value,
 	bool
 >::type
 convert_from(
@@ -80,10 +78,10 @@ boost::enable_if
 <
 	boost::mpl::and_
 	<
-		boost::is_integral<T>,
+		std::is_integral<T>,
 		boost::mpl::not_
 		<
-			boost::is_same<T,bool>
+			std::is_same<T,bool>
 		>
 	>,
 	T
@@ -114,7 +112,7 @@ boost::enable_if
 		>,
 		boost::mpl::not_
 		<
-			boost::is_same<T,fcppt::string>
+			std::is_same<T,fcppt::string>
 		>,
 		boost::mpl::not_
 		<
@@ -140,7 +138,7 @@ template<typename T>
 typename
 boost::enable_if_c
 <
-	boost::is_same<T,fcppt::string>::value,
+	std::is_same<T,fcppt::string>::value,
 	T const
 >::type
 convert_from(
@@ -150,9 +148,9 @@ template<typename T>
 typename
 boost::enable_if_c
 <
-	boost::is_same
+	std::is_same
 	<
-		typename boost::remove_const<T>::type,
+		typename std::remove_const<T>::type,
 		sge::parse::json::value
 	>::value,
 	T const &
@@ -168,11 +166,11 @@ boost::enable_if
 	<
 		boost::mpl::not_
 		<
-			boost::is_floating_point<T>
+			std::is_floating_point<T>
 		>,
 		boost::mpl::not_
 		<
-			boost::is_integral<T>
+			std::is_integral<T>
 		>,
 		boost::mpl::not_
 		<
@@ -180,9 +178,9 @@ boost::enable_if
 		>,
 		boost::mpl::not_
 		<
-			boost::is_same
+			std::is_same
 			<
-				typename boost::remove_const<T>::type,
+				typename std::remove_const<T>::type,
 				sge::parse::json::value
 			>
 		>
@@ -201,7 +199,7 @@ template<typename T>
 typename
 boost::enable_if_c
 <
-	boost::is_floating_point<T>::value,
+	std::is_floating_point<T>::value,
 	T
 >::type
 sge::parse::json::convert_from(
@@ -218,7 +216,7 @@ template<typename T>
 typename
 boost::enable_if_c
 <
-	boost::is_same<T,bool>::value,
+	std::is_same<T,bool>::value,
 	bool
 >::type
 sge::parse::json::convert_from(
@@ -235,10 +233,10 @@ boost::enable_if
 <
 	boost::mpl::and_
 	<
-		boost::is_integral<T>,
+		std::is_integral<T>,
 		boost::mpl::not_
 		<
-			boost::is_same<T,bool>
+			std::is_same<T,bool>
 		>
 	>,
 	T
@@ -325,7 +323,7 @@ boost::enable_if
 		>,
 		boost::mpl::not_
 		<
-			boost::is_same<T,fcppt::string>
+			std::is_same<T,fcppt::string>
 		>,
 		boost::mpl::not_
 		<
@@ -414,7 +412,7 @@ template<typename T>
 typename
 boost::enable_if_c
 <
-	boost::is_same<T,fcppt::string>::value,
+	std::is_same<T,fcppt::string>::value,
 	T const
 >::type
 sge::parse::json::convert_from(
@@ -431,9 +429,9 @@ template<typename T>
 typename
 boost::enable_if_c
 <
-	boost::is_same
+	std::is_same
 	<
-		typename boost::remove_const<T>::type,
+		typename std::remove_const<T>::type,
 		sge::parse::json::value
 	>::value,
 	T const &
@@ -453,11 +451,11 @@ boost::enable_if
 	<
 		boost::mpl::not_
 		<
-			boost::is_floating_point<T>
+			std::is_floating_point<T>
 		>,
 		boost::mpl::not_
 		<
-			boost::is_integral<T>
+			std::is_integral<T>
 		>,
 		boost::mpl::not_
 		<
@@ -465,9 +463,9 @@ boost::enable_if
 		>,
 		boost::mpl::not_
 		<
-			boost::is_same
+			std::is_same
 			<
-				typename boost::remove_const<T>::type,
+				typename std::remove_const<T>::type,
 				sge::parse::json::value
 			>
 		>

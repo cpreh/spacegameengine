@@ -17,6 +17,7 @@ set(
 	include/sge/scenic/render_context/base.hpp
 	include/sge/scenic/render_context/base_fwd.hpp
 	include/sge/scenic/render_context/base_unique_ptr.hpp
+	include/sge/scenic/render_context/cg/light/count.hpp
 	include/sge/scenic/render_context/cg/light/directional.hpp
 	include/sge/scenic/render_context/cg/light/directional_fwd.hpp
 	include/sge/scenic/render_context/cg/light/index.hpp

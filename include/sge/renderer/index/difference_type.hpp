@@ -23,8 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/index/size_type.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/type_traits/make_signed.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {
@@ -33,8 +34,8 @@ namespace renderer
 namespace index
 {
 
-typedef boost::make_signed<
-	index::size_type
+typedef std::make_signed<
+	sge::renderer::index::size_type
 >::type difference_type;
 
 }

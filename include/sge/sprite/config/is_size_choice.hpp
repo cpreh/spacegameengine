@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/type_traits/is_base_of.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -45,7 +45,7 @@ template<
 >
 struct is_size_choice
 :
-boost::is_base_of<
+std::is_base_of<
 	sge::sprite::config::size_choice,
 	T
 >

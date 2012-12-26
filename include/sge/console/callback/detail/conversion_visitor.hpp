@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <boost/fusion/sequence/intrinsic/at.hpp>
 #include <boost/fusion/sequence/intrinsic/at_c.hpp>
-#include <boost/type_traits/remove_reference.hpp>
+#include <type_traits>
 #include <typeinfo>
 #include <fcppt/config/external_end.hpp>
 
@@ -77,7 +77,7 @@ public:
 	operator()() const
 	{
 		typedef typename
-		boost::remove_reference
+		std::remove_reference
 		<
 			typename boost::fusion::result_of::at_c
 			<

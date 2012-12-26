@@ -28,8 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/image/color/dynamic/view/color_layout.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/type_traits/is_same.hpp>
 #include <boost/utility/enable_if.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -70,7 +70,7 @@ public:
 		typename Dest
 	>
 	typename boost::enable_if<
-		boost::is_same<
+		std::is_same<
 			typename Source::format,
 			typename Dest::format
 		>,
@@ -108,7 +108,7 @@ public:
 		typename Dest
 	>
 	typename boost::disable_if<
-		boost::is_same<
+		std::is_same<
 			typename Source::format,
 			typename Dest::format
 		>,

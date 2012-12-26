@@ -21,11 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SHADER_PARAMETER_SCALAR_DECL_HPP_INCLUDED
 #define SGE_SHADER_PARAMETER_SCALAR_DECL_HPP_INCLUDED
 
+#include <sge/cg/parameter/is_int_float_double.hpp>
 #include <sge/cg/parameter/named.hpp>
 #include <sge/cg/program/object_fwd.hpp>
 #include <sge/shader/parameter/name.hpp>
 #include <sge/shader/parameter/scalar_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/or.hpp>
+#include <type_traits>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -40,6 +45,19 @@ class scalar
 FCPPT_NONCOPYABLE(
 	scalar);
 public:
+	static_assert(
+		boost::mpl::or_<
+			std::is_same<
+				ValueType,
+				bool
+			>,
+			sge::cg::parameter::is_int_float_double<
+				ValueType
+			>
+		>::value,
+		"Shader parameters must be either bool, int, float or double"
+	);
+
 	typedef
 	ValueType
 	value_type;

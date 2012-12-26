@@ -27,8 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/shader/parameter/scalar_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/if.hpp>
-#include <boost/type_traits/is_integral.hpp>
-#include <boost/type_traits/is_same.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -54,15 +53,9 @@ sge::shader::parameter::scalar<ValueType>::set(
 	typedef typename
 	boost::mpl::if_
 	<
-		boost::is_same<value_type,bool>,
+		std::is_same<value_type,bool>,
 		int,
-		typename
-		boost::mpl::if_
-		<
-			boost::is_integral<value_type>,
-			int,
-			value_type
-		>::type
+		value_type
 	>::type
 	promoted_type;
 

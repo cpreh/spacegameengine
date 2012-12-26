@@ -29,9 +29,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/mpl/if.hpp>
-#include <boost/type_traits/is_same.hpp>
 #include <iterator>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {
@@ -54,7 +55,7 @@ struct iterator_base
 		typename Format::index_type,
 		std::random_access_iterator_tag,
 		typename boost::mpl::if_<
-			boost::is_same<
+			std::is_same<
 				typename Format::constness,
 				index::nonconst_tag
 			>,

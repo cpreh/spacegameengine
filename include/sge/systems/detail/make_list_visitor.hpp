@@ -39,8 +39,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/mpl/not.hpp>
 #include <boost/mpl/placeholders.hpp>
 #include <boost/mpl/transform_view.hpp>
-#include <boost/type_traits/is_same.hpp>
 #include <boost/utility/enable_if.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -109,13 +109,13 @@ private:
 	typename boost::enable_if<
 		boost::mpl::and_<
 			boost::mpl::not_<
-				boost::is_same<
+				std::is_same<
 					Type,
 					sge::systems::renderer
 				>
 			>,
 			boost::mpl::not_<
-				boost::is_same<
+				std::is_same<
 					Type,
 					sge::systems::input
 				>
@@ -138,7 +138,7 @@ private:
 		typename Type
 	>
 	typename boost::enable_if<
-		boost::is_same<
+		std::is_same<
 			sge::systems::renderer,
 			Type
 		>,
@@ -164,7 +164,7 @@ private:
 		typename Type
 	>
 	typename boost::enable_if<
-		boost::is_same<
+		std::is_same<
 			sge::systems::input,
 			Type
 		>,

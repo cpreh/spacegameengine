@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/lock_rect_fwd.hpp>
 #include <sge/renderer/symbol.hpp>
 #include <fcppt/math/box/rect.hpp>
+#include <fcppt/type_traits/is_float_or_double.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/type_traits/is_floating_point.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
 
@@ -57,7 +57,7 @@ template<
 >
 SGE_RENDERER_SYMBOL
 typename boost::enable_if<
-	boost::is_floating_point<
+	fcppt::type_traits::is_float_or_double<
 		Ret
 	>,
 	typename fcppt::math::box::rect<

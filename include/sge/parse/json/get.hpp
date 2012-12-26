@@ -28,8 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/variant/holds_type.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/type_traits/remove_const.hpp>
 #include <typeinfo>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -52,7 +52,7 @@ get(
 	Arg &_val
 )
 {
-	typedef typename boost::remove_const<
+	typedef typename std::remove_const<
 		T
 	>::type real_type;
 
