@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/detail/pointed_history.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/next_prior.hpp>
+#include <iterator>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -105,9 +105,15 @@ sge::console::detail::pointed_history::const_iterator const
 sge::console::detail::pointed_history::point() const
 {
 	return
-		boost::next(
+		std::next(
 			container_.begin(),
-			point_
+			static_cast<
+				std::iterator_traits<
+					const_iterator
+				>::difference_type
+			>(
+				point_
+			)
 		);
 }
 

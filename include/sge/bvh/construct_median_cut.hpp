@@ -28,7 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/box/center.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/next_prior.hpp>
 #include <boost/range/algorithm/max_element.hpp>
 #include <boost/range/algorithm/sort.hpp>
 #include <algorithm>
@@ -156,7 +155,7 @@ construct_median_cut(
 
 	std::nth_element(
 		_leaves.begin(),
-		boost::next(
+		std::next(
 			_leaves.begin(),
 			static_cast<typename Traits::leaf_wrapper_sequence::difference_type>(
 				_leaves.size()/2u)),
@@ -164,7 +163,7 @@ construct_median_cut(
 		comparator);
 
 	typename Traits::leaf_wrapper const &median(
-		*boost::next(
+		*std::next(
 			_leaves.begin(),
 			static_cast<typename Traits::leaf_wrapper_sequence::difference_type>(
 				_leaves.size()/2u)));
@@ -246,7 +245,7 @@ construct_median_cut(
 	sge::bvh::construct_median_cut<Traits>(
 		typename Traits::leaf_wrapper_sequence(
 			_leaves.begin(),
-			boost::next(
+			std::next(
 				_leaves.begin(),
 				static_cast<typename Traits::leaf_wrapper_sequence::difference_type>(
 					_leaves.size()/2u))),
@@ -254,12 +253,12 @@ construct_median_cut(
 
 	sge::bvh::construct_median_cut<Traits>(
 		typename Traits::leaf_wrapper_sequence(
-			boost::next(
+			std::next(
 				_leaves.begin(),
 				static_cast<typename Traits::leaf_wrapper_sequence::difference_type>(
 					_leaves.size()/2u)),
 			_leaves.end()),
-		*boost::next(
+		*std::next(
 			_tree.begin()));
 }
 }

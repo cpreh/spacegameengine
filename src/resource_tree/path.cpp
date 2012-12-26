@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/next_prior.hpp>
 #include <algorithm>
+#include <iterator>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -95,7 +95,7 @@ sge::resource_tree::path::string() const
 		it != elements_.end();
 		++it)
 	{
-		if(it != boost::prior(elements_.end()))
+		if(it != std::prev(elements_.end()))
 			result += (*it)+FCPPT_TEXT("/");
 		else
 			result += (*it);

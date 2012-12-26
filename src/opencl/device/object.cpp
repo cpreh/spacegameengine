@@ -26,11 +26,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/container/raw_vector.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/next_prior.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <algorithm>
 #include <cstddef>
 #include <cstring>
+#include <iterator>
+#include <string>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -296,7 +297,7 @@ max_work_item_sizes_to_string(
 			fcppt::insert_to_std_string(
 				*it);
 
-		if(it != boost::prior(sizes.end()))
+		if(it != std::prev(sizes.end()))
 			result += ", ";
 	}
 	result += ')';

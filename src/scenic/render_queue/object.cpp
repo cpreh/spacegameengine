@@ -28,7 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/scene/material/object.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/next_prior.hpp>
 #include <algorithm>
 #include <iterator>
 #include <fcppt/config/external_end.hpp>
@@ -55,7 +54,7 @@ change_context_state(
 			_state);
 
 		it =
-			boost::prior(
+			std::prev(
 				_states.end());
 	}
 

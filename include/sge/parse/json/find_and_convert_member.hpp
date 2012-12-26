@@ -34,13 +34,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/next_prior.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/mpl/or.hpp>
 #include <boost/range/algorithm/find_if.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/type_traits/remove_const.hpp>
 #include <boost/type_traits/remove_reference.hpp>
+#include <iterator>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -91,7 +91,7 @@ find_and_convert_member(
 	sge::parse::json::path const shortened_path =
 		sge::parse::json::path(
 			input_path.begin(),
-			boost::prior(
+			std::prev(
 				input_path.end()));
 
 	sge::parse::json::object const &found_object =

@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/io/ostream.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/next_prior.hpp>
+#include <iterator>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -112,7 +112,7 @@ public:
 			);
 
 			if(
-				boost::next(it)
+				std::next(it)
 				!=
 				_object.members.end()
 			)
@@ -158,7 +158,7 @@ public:
 			);
 
 			if(
-				boost::next(it)
+				std::next(it)
 				!=
 				_array.elements.end()
 			)

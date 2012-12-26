@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/matrix/structure_cast.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/next_prior.hpp>
+#include <iterator>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -180,7 +180,7 @@ sge::camera::tracking::object::update(
 				current_keyframe_->coordinate_system())),
 		right(
 			sge::camera::matrix_conversion::world(
-				boost::next(
+				std::next(
 					current_keyframe_)->coordinate_system()));
 
 	coordinate_system_ =

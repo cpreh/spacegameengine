@@ -31,7 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/next_prior.hpp>
 #include <iterator>
 #include <fcppt/config/external_end.hpp>
 
@@ -73,7 +72,7 @@ sge::parse::json::config::modify_user_value(
 				user_json,
 				json::path(
 					input_path.begin(),
-					boost::prior(input_path.end())))
+					std::prev(input_path.end())))
 		:
 			user_json;
 

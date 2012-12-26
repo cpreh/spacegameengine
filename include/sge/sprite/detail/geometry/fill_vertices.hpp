@@ -38,7 +38,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/vf/format_part_from_object.hpp>
 #include <sge/sprite/render/range_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/next_prior.hpp>
 #include <exception>
 #include <iterator>
 #include <fcppt/config/external_end.hpp>
@@ -141,7 +140,7 @@ fill_vertices(
 	)
 	{
 		iterator const next(
-			boost::next(
+			std::next(
 				cur
 			)
 		);
