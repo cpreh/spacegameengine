@@ -39,6 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/algorithm/string/trim.hpp>
 #include <boost/thread/locks.hpp>
 #include <functional>
+#include <mutex>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -79,12 +80,9 @@ choose_platform(
 			objects.front();
 
 	for(
-		sge::opencl::platform::object_sequence::iterator it =
-			objects.begin();
-		it != objects.end();
-		++it)
-		if(it->has_gpu())
-			return *it;
+		auto &platform : objects)
+		if(platform.has_gpu())
+			return platform;
 
 	FCPPT_LOG_WARNING(
 		local_log,
@@ -139,7 +137,7 @@ FCPPT_PP_POP_WARNING
 SGE_OPENCL_SYMBOL void
 sge::opencl::single_device_system::object::update()
 {
-	boost::lock_guard<boost::mutex> l(
+	std::lock_guard<std::mutex> l(
 		error_mutex_);
 
 	if(!error_occured_)
@@ -225,7 +223,7 @@ sge::opencl::single_device_system::object::~object()
 	// triggers an exception. This causes single_device_system to be
 	// destroyed. But the mutex might still be locked in thread B! So we
 	// have to wait here.
-	boost::lock_guard<boost::mutex> l(
+	std::lock_guard<std::mutex> l(
 		error_mutex_);
 }
 
@@ -234,7 +232,7 @@ sge::opencl::single_device_system::object::error_callback(
 	opencl::error_information_string const &_error_information,
 	opencl::binary_error_data const &_error_data)
 {
-	boost::lock_guard<boost::mutex> l(
+	std::lock_guard<std::mutex> l(
 		error_mutex_);
 
 	error_information_ =
