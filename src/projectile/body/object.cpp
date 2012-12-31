@@ -147,6 +147,8 @@ sge::projectile::body::object::object(
 			<<
 				p.angular_velocity().get());
 
+	body_->forceActivationState(DISABLE_DEACTIVATION);
+
 	body_->setUserPointer(
 		this);
 
