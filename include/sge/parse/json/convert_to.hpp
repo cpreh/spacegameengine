@@ -71,7 +71,7 @@ boost::enable_if
 <
 	boost::mpl::and_
 	<
-		std::is_integral<T>
+		std::is_integral<T>,
 		boost::mpl::not_
 		<
 			std::is_same<T,bool>
