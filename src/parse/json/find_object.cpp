@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/type_name.hpp>
 #include <fcppt/variant/object_impl.hpp>
+#include <fcppt/variant/type_info.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <typeinfo>
 #include <fcppt/config/external_end.hpp>
@@ -73,7 +74,11 @@ find_object_impl(
 		if(!val)
 			return Ret();
 
-		if(val->type() != typeid(sge::parse::json::object))
+		if(
+			fcppt::variant::type_info(
+				*val
+			)
+			!= typeid(sge::parse::json::object))
 			throw
 				sge::parse::exception(
 					FCPPT_TEXT("Couldn't navigate to \"")+
@@ -83,7 +88,8 @@ find_object_impl(
 					(*current_member)+
 					FCPPT_TEXT("\" because this member has type \"")+
 					fcppt::type_name(
-						val->type())+
+						fcppt::variant::type_info(
+							*val))+
 					FCPPT_TEXT("\" instead of type sge::parse::json::object!"));
 
 		current_object =

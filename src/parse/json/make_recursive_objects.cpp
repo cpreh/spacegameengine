@@ -36,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/error.hpp>
 #include <fcppt/variant/holds_type.hpp>
 #include <fcppt/variant/object_impl.hpp>
+#include <fcppt/variant/type_info.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
 #include <numeric>
@@ -102,7 +103,8 @@ create_or_navigate_path(
 				_new_member+
 				FCPPT_TEXT("\" because this member has type \"")+
 				fcppt::type_name(
-					ref->type())+
+					fcppt::variant::type_info(
+						*ref))+
 				FCPPT_TEXT("\" instead of type sge::parse::json::object!"));
 
 	return

@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/type_name.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/variant/object_impl.hpp>
+#include <fcppt/variant/type_info.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iterator>
 #include <fcppt/config/external_end.hpp>
@@ -57,9 +58,13 @@ sge::parse::json::config::modify_user_value(
 				json::path_to_string(
 					input_path)+
 				FCPPT_TEXT("\", the types of the old and new value didn't match. The old type was \"")+
-				fcppt::type_name(old_value.type())+
+				fcppt::type_name(
+					fcppt::variant::type_info(
+						old_value))+
 				FCPPT_TEXT("\", the new type was \"")+
-				fcppt::type_name(new_value.type()));
+				fcppt::type_name(
+					fcppt::variant::type_info(
+						new_value)));
 
 	sge::parse::json::object &target =
 		// 0 is not permitted, 1 would mean: just take a value from

@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/type_name.hpp>
 #include <fcppt/variant/holds_type.hpp>
 #include <fcppt/variant/object_impl.hpp>
+#include <fcppt/variant/type_info.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <typeinfo>
 #include <type_traits>
@@ -70,7 +71,9 @@ get(
 			)
 			+ FCPPT_TEXT("> failed! Type is \"")
 			+ fcppt::type_name(
-				_val.type()
+				fcppt::variant::type_info(
+					_val
+				)
 			)
 			+ FCPPT_TEXT("\" instead!")
 		);
