@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/string.hpp>
 #include <sge/font/system.hpp>
 #include <sge/font/text_parameters.hpp>
+#include <sge/font/unit.hpp>
 #include <sge/font/vector.hpp>
 #include <sge/font/draw/static_text.hpp>
 #include <sge/graph/axis_constraint.hpp>
@@ -41,6 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/predef.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/log/global.hpp>
+#include <sge/renderer/scalar.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/context/scoped_ffp.hpp>
 #include <sge/renderer/device/ffp.hpp>
@@ -544,7 +546,20 @@ try
 		++it
 	)
 	{
-		int y = static_cast<int>((2 + (it - devices.begin())) * graph_dim.h());
+		sge::font::unit y(
+			static_cast<
+				sge::font::unit
+			>(
+				2 + it - devices.begin()
+			)
+			*
+			static_cast<
+				sge::font::unit
+			>(
+				graph_dim.h()
+			)
+		);
+
 		fcppt::container::ptr::insert_unique_ptr_map(
 			device_map,
 			*it,
@@ -557,7 +572,7 @@ try
 					sge::graph::position(
 						sge::renderer::vector2(
 							0.0f,
-							static_cast<float>(y)
+							static_cast<sge::renderer::scalar>(y)
 							)),
 					fcppt::math::dim::structure_cast<sge::image2d::dim>(
 						graph_dim),
