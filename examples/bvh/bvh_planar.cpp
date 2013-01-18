@@ -210,7 +210,7 @@ public:
 		tree_(
 			_tree),
 		current_tree_(
-			&tree_),
+			tree_),
 		keyboard_connection_(
 			_keyboard.key_callback(
 				std::bind(
@@ -280,7 +280,7 @@ public:
 	}
 private:
 	bvh_tree_traits::tree_representation const &tree_;
-	bvh_tree_traits::tree_representation const *current_tree_;
+	bvh_tree_traits::tree_representation::const_optional_ref current_tree_;
 	fcppt::signal::scoped_connection keyboard_connection_;
 
 	void
@@ -293,26 +293,35 @@ private:
 		if(!_event.pressed())
 			return;
 
-		bvh_tree_traits::tree_representation const *new_tree =
-			0;
+		bvh_tree_traits::tree_representation::const_optional_ref new_tree;
 
 		switch(_event.key_code())
 		{
 			case sge::input::keyboard::key_code::left:
-				new_tree = &(current_tree_->front());
+				new_tree =
+					bvh_tree_traits::tree_representation::const_optional_ref(
+						current_tree_->front());
 				break;
 			case sge::input::keyboard::key_code::right:
-				new_tree = &(current_tree_->back());
+				new_tree =
+					bvh_tree_traits::tree_representation::const_optional_ref(
+						 current_tree_->back());
 				break;
 			case sge::input::keyboard::key_code::up:
-				new_tree = &(current_tree_->front());
+				new_tree =
+					bvh_tree_traits::tree_representation::const_optional_ref(
+						current_tree_->front());
 				break;
 			case sge::input::keyboard::key_code::down:
-				new_tree = &(current_tree_->back());
+				new_tree =
+					bvh_tree_traits::tree_representation::const_optional_ref(
+						current_tree_->back());
 				break;
 			case sge::input::keyboard::key_code::p:
 				if(current_tree_->has_parent())
-					new_tree = &(current_tree_->parent());
+					new_tree =
+						bvh_tree_traits::tree_representation::const_optional_ref(
+							current_tree_->parent());
 				break;
 			default:
 				break;
@@ -334,13 +343,11 @@ private:
 		if(!_tree.empty())
 		{
 			for(
-				bvh_tree_traits::tree_representation::child_list::const_iterator it =
-					_tree.begin();
-				it != _tree.end();
-				++it)
+				auto const &child : _tree
+			)
 				this->add_children(
 					_sprites,
-					*it,
+					child,
 					_color);
 		}
 		else
