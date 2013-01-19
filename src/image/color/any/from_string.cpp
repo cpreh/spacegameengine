@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2012 Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2013 Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,17 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/color/any/object.hpp>
-#include <sge/image/color/any/from_string.hpp>
-#include <sge/image/color/init.hpp>
-#include <sge/image/color/rgb32f.hpp>
-#include <sge/image/color/rgba32f.hpp>
-#include <sge/image/color/rgba8.hpp>
-#include <sge/image/color/rgb8.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/assert/pre.hpp>
 #include <sge/image/exception.hpp>
 #include <sge/image/color/init.hpp>
+#include <sge/image/color/rgb32f.hpp>
+#include <sge/image/color/rgb8.hpp>
+#include <sge/image/color/rgba32f.hpp>
+#include <sge/image/color/rgba8.hpp>
+#include <sge/image/color/any/from_string.hpp>
+#include <sge/image/color/any/object.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/assert/pre.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <array>
 #include <istream>
