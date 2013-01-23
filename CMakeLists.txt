@@ -141,11 +141,6 @@ include_directories(
 	${awl_INCLUDE_DIRS}
 )
 
-# TODO: Check if this is needed (or move it to fcppt/awl)
-if(MSVC)
-	add_definitions(-DUNICODE=1 -D_UNICODE=1)
-endif()
-
 set(
 	MEDIA_INSTALL_DIR
 	"${INSTALL_DATA_DIR}/media"
