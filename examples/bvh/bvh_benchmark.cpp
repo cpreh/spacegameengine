@@ -32,7 +32,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/random/generator/minstd_rand.hpp>
 #include <fcppt/random/generator/seed_from_chrono.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/chrono.hpp>
+#include <boost/chrono/duration.hpp>
+#include <boost/chrono/process_cpu_clocks.hpp>
 #include <cstddef>
 #include <exception>
 #include <iostream>
