@@ -77,10 +77,6 @@ public:
 
 	SGE_TEXTURE_SYMBOL
 	sge::renderer::texture::planar &
-	texture();
-
-	SGE_TEXTURE_SYMBOL
-	sge::renderer::texture::planar const &
 	texture() const;
 
 	SGE_TEXTURE_SYMBOL

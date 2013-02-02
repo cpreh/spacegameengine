@@ -85,12 +85,6 @@ sge::texture::part_fragmented::area() const
 }
 
 sge::renderer::texture::planar &
-sge::texture::part_fragmented::texture()
-{
-	return fragment_.texture();
-}
-
-sge::renderer::texture::planar const &
 sge::texture::part_fragmented::texture() const
 {
 	return fragment_.texture();

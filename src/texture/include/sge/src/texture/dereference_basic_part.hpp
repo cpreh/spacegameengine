@@ -48,20 +48,6 @@ T &
 dereference_basic_part(
 	fcppt::scoped_ptr<
 		T
-	> &_ptr
-)
-{
-	return
-		*_ptr;
-}
-
-template<
-	typename T
->
-T const &
-dereference_basic_part(
-	fcppt::scoped_ptr<
-		T
 	> const &_ptr
 )
 {

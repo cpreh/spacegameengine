@@ -130,20 +130,6 @@ template<
 sge::renderer::texture::planar &
 sge::texture::basic_part_raw<
 	Ref
->::texture()
-{
-	return
-		sge::texture::dereference_basic_part(
-			texture_
-		);
-}
-
-template<
-	typename Ref
->
-sge::renderer::texture::planar const &
-sge::texture::basic_part_raw<
-	Ref
 >::texture() const
 {
 	return

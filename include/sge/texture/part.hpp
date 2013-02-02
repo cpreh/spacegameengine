@@ -65,10 +65,6 @@ public:
 
 	virtual
 	sge::renderer::texture::planar &
-	texture() = 0;
-
-	virtual
-	sge::renderer::texture::planar const &
 	texture() const = 0;
 
 	virtual
