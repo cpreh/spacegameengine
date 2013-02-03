@@ -18,11 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PROJECTILE_DIM2_HPP_INCLUDED
-#define SGE_PROJECTILE_DIM2_HPP_INCLUDED
+#ifndef SGE_PROJECTILE_BODY_SOLIDITY_STATIC_FWD_HPP_INCLUDED
+#define SGE_PROJECTILE_BODY_SOLIDITY_STATIC_FWD_HPP_INCLUDED
 
-#include <sge/projectile/dim2_fwd.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
 
+namespace sge
+{
+namespace projectile
+{
+namespace body
+{
+namespace solidity
+{
+
+class static_;
+
+}
+}
+}
+}
 
 #endif

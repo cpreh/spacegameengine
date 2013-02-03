@@ -20,14 +20,19 @@ set(
 	include/sge/projectile/body/scoped.hpp
 	include/sge/projectile/body/scoped_fwd.hpp
 	include/sge/projectile/body/solidity/nonsolid.hpp
+	include/sge/projectile/body/solidity/nonsolid_fwd.hpp
 	include/sge/projectile/body/solidity/solid.hpp
+	include/sge/projectile/body/solidity/solid_fwd.hpp
 	include/sge/projectile/body/solidity/static.hpp
+	include/sge/projectile/body/solidity/static_fwd.hpp
 	include/sge/projectile/body/solidity/variant.hpp
+	include/sge/projectile/body/solidity/variant_fwd.hpp
 	include/sge/projectile/body/user_data.hpp
 	include/sge/projectile/debug_drawer.hpp
 	include/sge/projectile/debug_drawer_fwd.hpp
 	include/sge/projectile/detail/debug_drawer_impl_fwd.hpp
 	include/sge/projectile/dim2.hpp
+	include/sge/projectile/dim2_fwd.hpp
 	include/sge/projectile/duration.hpp
 	include/sge/projectile/fixed_timestep.hpp
 	include/sge/projectile/ghost/body_enter.hpp
@@ -51,6 +56,7 @@ set(
 	include/sge/projectile/log_location.hpp
 	include/sge/projectile/maximum_substeps.hpp
 	include/sge/projectile/rect.hpp
+	include/sge/projectile/rect_fwd.hpp
 	include/sge/projectile/scalar.hpp
 	include/sge/projectile/shape/base.hpp
 	include/sge/projectile/shape/base_fwd.hpp
@@ -72,7 +78,9 @@ set(
 	include/sge/projectile/triangulation/traits/scalar_fwd.hpp
 	include/sge/projectile/triangulation/triangulate.hpp
 	include/sge/projectile/vector2.hpp
+	include/sge/projectile/vector2_fwd.hpp
 	include/sge/projectile/vector3.hpp
+	include/sge/projectile/vector3_fwd.hpp
 	include/sge/projectile/world.hpp
 	include/sge/projectile/world_fwd.hpp
 	src/projectile/body/detail/motion_state.cpp

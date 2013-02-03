@@ -21,6 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PROJECTILE_BODY_SOLIDITY_NONSOLID_HPP_INCLUDED
 #define SGE_PROJECTILE_BODY_SOLIDITY_NONSOLID_HPP_INCLUDED
 
+#include <sge/projectile/body/solidity/nonsolid_fwd.hpp>
+
+
 namespace sge
 {
 namespace projectile
@@ -29,7 +32,11 @@ namespace body
 {
 namespace solidity
 {
-class nonsolid {};
+
+class nonsolid
+{
+};
+
 }
 }
 }

@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/projectile/symbol.hpp>
 #include <sge/projectile/body/mass.hpp>
+#include <sge/projectile/body/solidity/solid_fwd.hpp>
 
 
 namespace sge
@@ -33,18 +34,23 @@ namespace body
 {
 namespace solidity
 {
+
 class solid
 {
 public:
-	SGE_PROJECTILE_SYMBOL explicit
+	SGE_PROJECTILE_SYMBOL
+	explicit
 	solid(
-		sge::projectile::body::mass const &);
+		sge::projectile::body::mass const &
+	);
 
-	SGE_PROJECTILE_SYMBOL sge::projectile::body::mass const &
+	SGE_PROJECTILE_SYMBOL
+	sge::projectile::body::mass const &
 	mass() const;
 private:
 	sge::projectile::body::mass mass_;
 };
+
 }
 }
 }

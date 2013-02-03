@@ -24,34 +24,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/projectile/body/solidity/nonsolid.hpp>
 #include <sge/projectile/body/solidity/solid.hpp>
 #include <sge/projectile/body/solidity/static.hpp>
-#include <fcppt/variant/object.hpp>
+#include <sge/projectile/body/solidity/variant_fwd.hpp>
+#include <fcppt/variant/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>
 
-
-namespace sge
-{
-namespace projectile
-{
-namespace body
-{
-namespace solidity
-{
-typedef
-fcppt::variant::object
-<
-	boost::mpl::vector3
-	<
-		static_,
-		solid,
-		nonsolid
-	>
->
-variant;
-}
-}
-}
-}
 
 #endif

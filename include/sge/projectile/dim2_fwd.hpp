@@ -18,11 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PROJECTILE_DIM2_HPP_INCLUDED
-#define SGE_PROJECTILE_DIM2_HPP_INCLUDED
+#ifndef SGE_PROJECTILE_DIM2_FWD_HPP_INCLUDED
+#define SGE_PROJECTILE_DIM2_FWD_HPP_INCLUDED
 
-#include <sge/projectile/dim2_fwd.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
+#include <sge/projectile/scalar.hpp>
+#include <fcppt/math/dim/static.hpp>
 
+
+namespace sge
+{
+namespace projectile
+{
+
+typedef
+fcppt::math::dim::static_
+<
+	sge::projectile::scalar,
+	2
+>::type
+dim2;
+
+}
+}
 
 #endif

@@ -21,22 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PROJECTILE_VECTOR2_HPP_INCLUDED
 #define SGE_PROJECTILE_VECTOR2_HPP_INCLUDED
 
-#include <sge/projectile/scalar.hpp>
-#include <fcppt/math/vector/static.hpp>
+#include <sge/projectile/vector2_fwd.hpp>
+#include <fcppt/math/vector/object_impl.hpp>
 
-
-namespace sge
-{
-namespace projectile
-{
-typedef
-fcppt::math::vector::static_
-<
-	scalar,
-	2
->::type
-vector2;
-}
-}
 
 #endif

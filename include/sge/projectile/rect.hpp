@@ -21,18 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PROJECTILE_RECT_HPP_INCLUDED
 #define SGE_PROJECTILE_RECT_HPP_INCLUDED
 
-#include <sge/projectile/scalar.hpp>
-#include <fcppt/math/box/rect.hpp>
+#include <sge/projectile/rect_fwd.hpp>
+#include <fcppt/math/box/object_impl.hpp>
 
-
-namespace sge
-{
-namespace projectile
-{
-typedef
-fcppt::math::box::rect<scalar>::type
-rect;
-}
-}
 
 #endif
