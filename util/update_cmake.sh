@@ -346,3 +346,11 @@ update_example_library rucksack/testbed
 
 
 update_tool control_config
+
+
+update_cmake \
+	doc/CMakeLists.txt \
+	SGE_DOC_FILES \
+	include \
+	-e ".*" \
+	doc
