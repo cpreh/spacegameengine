@@ -89,14 +89,14 @@ configure_file(
 add_sge_test(
 	charconv/main
 	"sgecharconv"
-	"${fcppt_core_TARGET}"
+	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
 	"${CMAKE_CURRENT_BINARY_DIR}/include"
 )
 
 add_sge_test(
 	charconv/flake_config
 	"sgecharconv"
-	"${fcppt_core_TARGET}"
+	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
 	"${CMAKE_CURRENT_BINARY_DIR}/include"
 )
 
