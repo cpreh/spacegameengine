@@ -1,25 +1,8 @@
 #!/bin/bash
 
-function die()
-{
-	exit -1
-}
+set -e -u
 
-function update_cmake_file()
-{
-	local cmakefile="$1"
-
-	update_cmake \
-		"${cmakefile}" \
-		"${@:2}" \
-		|| die
-
-	mv "${cmakefile}".new "${cmakefile}" || die
-
-	chmod -x "${cmakefile}" || die
-}
-
-update_cmake_file \
+update_cmake \
 	src/CMakeLists.txt \
 	SGE_CORE_INCLUDE_FILES \
 	-n \
@@ -28,7 +11,7 @@ update_cmake_file \
 	include/sge/error \
 	src/include
 
-update_cmake_file \
+update_cmake \
 	src/CMakeLists.txt \
 	SGE_CORE_SRC_FILES \
 	-n \
@@ -45,7 +28,7 @@ function update_sublibrary()
 
 	local upperpath=$(toupper "${sublibrary}")
 
-	update_cmake_file \
+	update_cmake \
 		src/"${sublibrary}"/CMakeLists.txt \
 		SGE_"${upperpath////}"_FILES \
 		"${@:2}" \
@@ -58,7 +41,7 @@ function update_plugin()
 	local plugin="$1"
 	local upperplugin=$(toupper "${plugin}")
 
-	update_cmake_file \
+	update_cmake \
 		src/plugins/"${plugin}"/CMakeLists.txt \
 		SGE_"${upperplugin}"_FILES \
 		src/plugins/"${plugin}"
@@ -72,7 +55,7 @@ function update_example_library()
 
 	local prefix=examples/"${examplelibrary}"
 
-	update_cmake_file \
+	update_cmake \
 		"${prefix}"/CMakeLists.txt \
 		SGE_"${upperpath////}"_FILES \
 		"${@:2}" \
@@ -86,7 +69,7 @@ function update_tool()
 	local tooldir="tools/${tool}"
 	local uppertool="$(toupper "${tool}")"
 
-	update_cmake_file \
+	update_cmake \
 		"${tooldir}/CMakeLists.txt" \
 		"SGE_TOOL_${uppertool}_FILES" \
 		"${tooldir}/include" \
@@ -101,7 +84,7 @@ update_sublibrary camera
 update_sublibrary cegui
 
 # charconv
-update_cmake_file \
+update_cmake \
 	src/charconv/CMakeLists.txt \
 	SGE_CHARCONV_BASE_FILES \
 	include/sge/charconv \
@@ -109,13 +92,13 @@ update_cmake_file \
 	src/charconv \
 	src/charconv/include/sge/src/charconv
 
-update_cmake_file \
+update_cmake \
 	src/charconv/CMakeLists.txt \
 	SGE_CHARCONV_ICONV_FILES \
 	src/charconv/include/sge/src/charconv/backends/iconv \
 	src/charconv/backends/iconv
 
-update_cmake_file \
+update_cmake \
 	src/charconv/CMakeLists.txt \
 	SGE_CHARCONV_WINDOWS_FILES \
 	src/charconv/include/sge/src/charconv/backends/windows \
@@ -186,7 +169,7 @@ function renderer_inc_src() {
 	echo "include/sge/renderer/$1" "src/renderer/$1"
 }
 
-update_cmake_file \
+update_cmake \
 	src/renderer/CMakeLists.txt \
 	SGE_RENDERER_FILES \
 	-n \
@@ -247,7 +230,7 @@ function opengl_inc_src() {
 }
 
 # plugins
-update_cmake_file \
+update_cmake \
 	src/plugins/opengl/CMakeLists.txt \
 	SGE_OPENGL_BASE_FILES \
 	-n \
@@ -267,35 +250,35 @@ update_cmake_file \
 	$(opengl_inc_src texture) \
 	$(opengl_inc_src vf)
 
-update_cmake_file \
+update_cmake \
 	src/plugins/opengl/CMakeLists.txt \
 	SGE_OPENGL_WIN32_FILES \
 	$(opengl_inc_src wgl) \
 	$(opengl_inc_src windows)
 
-update_cmake_file \
+update_cmake \
 	src/plugins/opengl/CMakeLists.txt \
 	SGE_OPENGL_COCOA_FILES \
 	-e '.*\.(mm|cpp)?' \
 	$(opengl_inc_src cocoa)
 
-update_cmake_file \
+update_cmake \
 	src/plugins/opengl/CMakeLists.txt \
 	SGE_OPENGL_X11_FILES \
 	$(opengl_inc_src glx) \
 	$(opengl_inc_src x11)
 
-update_cmake_file \
+update_cmake \
 	src/plugins/opengl/CMakeLists.txt \
 	SGE_OPENGL_XRANDR_FILES \
 	$(opengl_inc_src xrandr)
 
-#update_cmake_file \
+#update_cmake \
 #	src/plugins/opengl/CMakeLists.txt \
 #	SGE_OPENGL_EGL_FILES \
 #	$(opengl_inc_src egl)
 
-update_cmake_file \
+update_cmake \
 	src/plugins/opengl/CMakeLists.txt \
 	SGE_OPENGL_CG_FILES \
 	$(opengl_inc_src cg)
@@ -308,7 +291,7 @@ function d3d9_inc_src() {
 	plugin_inc_src d3d9 "$1"
 }
 
-update_cmake_file \
+update_cmake \
 	src/plugins/d3d9/CMakeLists.txt \
 	SGE_D3D9_BASE_FILES \
 	-n \
@@ -336,7 +319,7 @@ update_cmake_file \
 	$(d3d9_inc_src vf) \
 	$(d3d9_inc_src volumefuncs)
 
-update_cmake_file \
+update_cmake \
 	src/plugins/d3d9/CMakeLists.txt \
 	SGE_D3D9_CG_FILES \
 	$(d3d9_inc_src cg)
