@@ -175,6 +175,13 @@ function(
 		${SGE_LIB_FILES}
 	)
 
+	set_target_properties(
+		${SGE_LIB_NAME}
+		PROPERTIES
+		VERSION
+		${SGE_USED_SO_VERSION}
+	)
+
 	if(
 		${VARIANT} STREQUAL "STATIC"
 	)

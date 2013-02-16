@@ -21,6 +21,12 @@ include(
 	FcpptSymbol
 )
 
+fcppt_utils_handle_so_version(
+	SGE_SO_VERSION
+	SGE_USED_SO_VERSION
+	"0.1"
+)
+
 include(
 	SGEFunctions
 )
