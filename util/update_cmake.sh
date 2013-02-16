@@ -8,12 +8,12 @@ update_cmake \
 	-n \
 	include/sge \
 	-r \
-	include/sge/error \
-	src/include
+	include/sge/error
 
 update_cmake \
 	src/CMakeLists.txt \
 	SGE_CORE_SRC_FILES \
+	src/include \
 	-n \
 	src
 
