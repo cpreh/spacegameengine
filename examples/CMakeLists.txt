@@ -2,6 +2,20 @@ include(
 	AwlMainGenerator
 )
 
+option(
+	INSTALL_EXAMPLES
+	"Install the examples"
+	OFF
+)
+
+set(
+	INSTALL_EXAMPLE_DIR
+	"${INSTALL_BINARY_DIR}"
+	CACHE
+	STRING
+	"Custom example installation directory"
+)
+
 function(
 	add_sge_example_base
 	EXAMPLE_NAME
@@ -76,12 +90,16 @@ function(
 		${SGELIBS_TARGETS_RESULT}
 	)
 
-	install(
-		TARGETS
-		${FULL_NAME}
-		DESTINATION
-		${INSTALL_BINARY_DIR}
+	if(
+		INSTALL_EXAMPLES
 	)
+		install(
+			TARGETS
+			${FULL_NAME}
+			DESTINATION
+			"${INSTALL_EXAMPLE_DIR}"
+		)
+	endif()
 endfunction()
 
 function(
