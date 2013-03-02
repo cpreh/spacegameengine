@@ -19,58 +19,50 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/openal/context.hpp>
-#include <sge/openal/device.hpp>
+#include <sge/openal/current_context.hpp>
 #include <sge/openal/logger.hpp>
-#include <sge/openal/openal.hpp>
-#include <sge/openal/funcs/alc_create_context.hpp>
-#include <sge/openal/funcs/alc_destroy_context.hpp>
+#include <sge/openal/funcs/alc_make_context_current.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/output.hpp>
 
 
-sge::openal::context::context(
-	sge::openal::device &_device
+sge::openal::current_context::current_context(
+	sge::openal::context &_context
 )
 :
-	device_(
-		_device
-	),
 	context_(
-		sge::openal::funcs::alc_create_context(
-			device_.aldevice()
-		)
+		_context
 	)
 {
 	FCPPT_LOG_DEBUG(
 		sge::openal::logger(),
 		fcppt::log::_
-			<< FCPPT_TEXT("created audio context")
-	)
-}
+			<< FCPPT_TEXT("making audio context the current context")
+	);
 
-ALCcontext &
-sge::openal::context::alcontext()
-{
-	return *context_;
-}
-
-ALCdevice &
-sge::openal::context::aldevice()
-{
-	return device_.aldevice();
-}
-
-sge::openal::context::~context()
-{
-	sge::openal::funcs::alc_destroy_context(
-		this->aldevice(),
-		this->alcontext()
+	sge::openal::funcs::alc_make_context_current(
+		context_.aldevice(),
+		&context_.alcontext()
 	);
 
 	FCPPT_LOG_DEBUG(
 		sge::openal::logger(),
 		fcppt::log::_
-			<< FCPPT_TEXT("destroyed audio context")
-	)
+			<< FCPPT_TEXT("made audio context the current context")
+	);
+}
+
+sge::openal::current_context::~current_context()
+{
+	FCPPT_LOG_DEBUG(
+		sge::openal::logger(),
+		fcppt::log::_
+			<< FCPPT_TEXT("resetting current context")
+	);
+
+	sge::openal::funcs::alc_make_context_current(
+		context_.aldevice(),
+		nullptr
+	);
 }

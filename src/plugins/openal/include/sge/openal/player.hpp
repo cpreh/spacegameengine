@@ -21,10 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENAL_PLAYER_HPP_INCLUDED
 #define SGE_OPENAL_PLAYER_HPP_INCLUDED
 
-#include <sge/openal/device.hpp>
-#include <sge/openal/context.hpp>
-#include <sge/openal/openal.hpp>
-#include <sge/openal/listener.hpp>
 #include <sge/audio/buffer_unique_ptr.hpp>
 #include <sge/audio/file_fwd.hpp>
 #include <sge/audio/listener_fwd.hpp>
@@ -33,6 +29,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/sound/base_unique_ptr.hpp>
 #include <sge/audio/sound/positional_parameters_fwd.hpp>
 #include <sge/audio/sound/positional_unique_ptr.hpp>
+#include <sge/openal/context.hpp>
+#include <sge/openal/current_context.hpp>
+#include <sge/openal/device.hpp>
+#include <sge/openal/listener.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -40,9 +40,10 @@ namespace sge
 {
 namespace openal
 {
+
 class player
 :
-	public audio::player
+	public sge::audio::player
 {
 	FCPPT_NONCOPYABLE(
 		player
@@ -52,41 +53,49 @@ public:
 
 	~player();
 
-	audio::listener &
+	sge::audio::listener &
 	listener();
 
 	void
 	speed_of_sound(
-		audio::scalar);
+		sge::audio::scalar
+	);
 
 	void
 	doppler_factor(
-		audio::scalar);
+		sge::audio::scalar);
 
 	void
 	gain(
-		audio::scalar);
+		sge::audio::scalar);
 
-	audio::buffer_unique_ptr
+	sge::audio::buffer_unique_ptr
 	create_buffer(
-		audio::file &);
+		sge::audio::file &
+	);
 
-	audio::sound::positional_unique_ptr
+	sge::audio::sound::positional_unique_ptr
 	create_positional_stream(
-		audio::file &,
-		audio::sound::positional_parameters const &);
+		sge::audio::file &,
+		sge::audio::sound::positional_parameters const &
+	);
 
-	audio::sound::base_unique_ptr
+	sge::audio::sound::base_unique_ptr
 	create_nonpositional_stream(
-		audio::file &,
-		audio::sound::nonpositional_parameters const &);
+		sge::audio::file &,
+		sge::audio::sound::nonpositional_parameters const &
+	);
 
-	audio::player_capabilities_field const
+	sge::audio::player_capabilities_field const
 	capabilities() const;
 private:
-	openal::device device_;
-	openal::context context_;
-	openal::listener listener_;
+	sge::openal::device device_;
+
+	sge::openal::context context_;
+
+	sge::openal::current_context current_context_;
+
+	sge::openal::listener listener_;
 };
 
 }

@@ -25,23 +25,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/openal/openal.hpp>
 #include <fcppt/noncopyable.hpp>
 
+
 namespace sge
 {
 namespace openal
 {
+
 class device
 {
 	FCPPT_NONCOPYABLE(
 		device
 	);
 public:
-	explicit device(ALCchar const * = 0);
-	ALCdevice *aldevice();
-	~device();
+	explicit
+	device(
+		ALCchar const * = nullptr
+	);
 
+	ALCdevice &
+	aldevice();
+
+	~device();
 private:
-	ALCdevice * const device_;
+	ALCdevice *const device_;
 };
+
 }
 }
 

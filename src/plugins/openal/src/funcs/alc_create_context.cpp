@@ -18,24 +18,46 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENAL_ALC_ERROR_STRING_HPP_INCLUDED
-#define SGE_OPENAL_ALC_ERROR_STRING_HPP_INCLUDED
-
+#include <sge/audio/exception.hpp>
+#include <sge/openal/check_alc_state.hpp>
 #include <sge/openal/openal.hpp>
-#include <fcppt/string.hpp>
+#include <sge/openal/funcs/alc_create_context.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/assert/post.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <array>
+#include <fcppt/config/external_end.hpp>
 
 
-namespace sge
+ALCcontext *
+sge::openal::funcs::alc_create_context(
+	ALCdevice &_device
+)
 {
-namespace openal
-{
+	std::array<
+		ALCint,
+		1u
+	> const attributes = {{
+		0
+	}};
 
-fcppt::string const
-alc_error_string(
-	ALenum error
-);
+	ALCcontext *const result(
+		::alcCreateContext(
+			&_device,
+			attributes.data()
+		)
+	);
 
+	SGE_OPENAL_CHECK_ALC_STATE(
+		_device,
+		FCPPT_TEXT("alcCreateContext failed"),
+		sge::audio::exception
+	)
+
+	FCPPT_ASSERT_POST(
+		result,
+		sge::audio::exception
+	);
+
+	return result;
 }
-}
-
-#endif

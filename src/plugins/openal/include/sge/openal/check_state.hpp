@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/openal/openal.hpp>
 #include <sge/error/check_state.hpp>
 
+
 #define SGE_OPENAL_CHECK_STATE(\
 	message,\
 	exception\

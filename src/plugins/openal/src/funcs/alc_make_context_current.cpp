@@ -18,24 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENAL_ALC_ERROR_STRING_HPP_INCLUDED
-#define SGE_OPENAL_ALC_ERROR_STRING_HPP_INCLUDED
-
+#include <sge/audio/exception.hpp>
+#include <sge/openal/check_alc_state.hpp>
 #include <sge/openal/openal.hpp>
-#include <fcppt/string.hpp>
+#include <sge/openal/funcs/alc_make_context_current.hpp>
+#include <fcppt/text.hpp>
 
 
-namespace sge
+void
+sge::openal::funcs::alc_make_context_current(
+	ALCdevice &_device,
+	ALCcontext *const _context
+)
 {
-namespace openal
-{
+	::alcMakeContextCurrent(
+		_context
+	);
 
-fcppt::string const
-alc_error_string(
-	ALenum error
-);
-
+	SGE_OPENAL_CHECK_ALC_STATE(
+		_device,
+		FCPPT_TEXT("alcMakeContextCurrent failed"),
+		sge::audio::exception
+	)
 }
-}
-
-#endif

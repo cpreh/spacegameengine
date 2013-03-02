@@ -21,13 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENAL_CONTEXT_HPP_INCLUDED
 #define SGE_OPENAL_CONTEXT_HPP_INCLUDED
 
-#include <sge/openal/openal.hpp>
+#include <sge/openal/context_fwd.hpp>
 #include <sge/openal/device_fwd.hpp>
+#include <sge/openal/openal.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <utility>
-#include <vector>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -41,29 +38,24 @@ class context
 		context
 	);
 public:
-	typedef
-	std::vector
-	<
-		std::pair<ALCint,ALCint>
-	>
-	attribute_container;
-
 	explicit
 	context(
-		openal::device &,
-		attribute_container const & = attribute_container());
+		sge::openal::device &
+	);
 
-	ALCcontext *
+	ALCcontext &
 	alcontext();
 
-	void
-	make_current();
+	ALCdevice &
+	aldevice();
 
 	~context();
 private:
-	ALCcontext *context_;
-	openal::device &device_;
+	sge::openal::device &device_;
+
+	ALCcontext *const context_;
 };
+
 }
 }
 

@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENAL_ALC_ERROR_STRING_HPP_INCLUDED
-#define SGE_OPENAL_ALC_ERROR_STRING_HPP_INCLUDED
+#ifndef SGE_OPENAL_CURRENT_CONTEXT_HPP_INCLUDED
+#define SGE_OPENAL_CURRENT_CONTEXT_HPP_INCLUDED
 
-#include <sge/openal/openal.hpp>
-#include <fcppt/string.hpp>
+#include <sge/openal/context_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
 
 
 namespace sge
@@ -30,10 +30,21 @@ namespace sge
 namespace openal
 {
 
-fcppt::string const
-alc_error_string(
-	ALenum error
-);
+class current_context
+{
+	FCPPT_NONCOPYABLE(
+		current_context
+	);
+public:
+	explicit
+	current_context(
+		sge::openal::context &
+	);
+
+	~current_context();
+private:
+	sge::openal::context &context_;
+};
 
 }
 }

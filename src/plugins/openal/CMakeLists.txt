@@ -9,10 +9,15 @@ set(
 	src/plugins/openal/include/sge/openal/check_alc_state.hpp
 	src/plugins/openal/include/sge/openal/check_state.hpp
 	src/plugins/openal/include/sge/openal/context.hpp
+	src/plugins/openal/include/sge/openal/context_fwd.hpp
+	src/plugins/openal/include/sge/openal/current_context.hpp
 	src/plugins/openal/include/sge/openal/device.hpp
 	src/plugins/openal/include/sge/openal/device_fwd.hpp
 	src/plugins/openal/include/sge/openal/error_string.hpp
 	src/plugins/openal/include/sge/openal/file_format.hpp
+	src/plugins/openal/include/sge/openal/funcs/alc_create_context.hpp
+	src/plugins/openal/include/sge/openal/funcs/alc_destroy_context.hpp
+	src/plugins/openal/include/sge/openal/funcs/alc_make_context_current.hpp
 	src/plugins/openal/include/sge/openal/funcs/buffer_data.hpp
 	src/plugins/openal/include/sge/openal/funcs/delete_buffer.hpp
 	src/plugins/openal/include/sge/openal/funcs/delete_buffers.hpp
@@ -46,10 +51,14 @@ set(
 	src/plugins/openal/src/buffer.cpp
 	src/plugins/openal/src/buffer_holder.cpp
 	src/plugins/openal/src/context.cpp
+	src/plugins/openal/src/current_context.cpp
 	src/plugins/openal/src/device.cpp
 	src/plugins/openal/src/error_string.cpp
 	src/plugins/openal/src/exports.cpp
 	src/plugins/openal/src/file_format.cpp
+	src/plugins/openal/src/funcs/alc_create_context.cpp
+	src/plugins/openal/src/funcs/alc_destroy_context.cpp
+	src/plugins/openal/src/funcs/alc_make_context_current.cpp
 	src/plugins/openal/src/funcs/buffer_data.cpp
 	src/plugins/openal/src/funcs/delete_buffer.cpp
 	src/plugins/openal/src/funcs/delete_buffers.cpp
