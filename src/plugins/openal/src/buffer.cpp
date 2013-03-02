@@ -18,29 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/openal/buffer.hpp>
-#include <sge/openal/source.hpp>
-#include <sge/openal/check_state.hpp>
-#include <sge/openal/file_format.hpp>
-#include <sge/openal/logger.hpp>
 #include <sge/audio/exception.hpp>
 #include <sge/audio/file.hpp>
 #include <sge/audio/sample_container.hpp>
 #include <sge/audio/sound/base.hpp>
+#include <sge/audio/sound/base_unique_ptr.hpp>
+#include <sge/audio/sound/nonpositional_parameters_fwd.hpp>
+#include <sge/audio/sound/positional_parameters_fwd.hpp>
+#include <sge/audio/sound/positional_unique_ptr.hpp>
+#include <sge/openal/buffer.hpp>
+#include <sge/openal/check_state.hpp>
+#include <sge/openal/file_format.hpp>
+#include <sge/openal/logger.hpp>
+#include <sge/openal/openal.hpp>
+#include <sge/openal/source.hpp>
+#include <sge/openal/funcs/buffer_data.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/output.hpp>
 
 
 sge::openal::buffer::buffer(
-	audio::file &_file
+	sge::audio::file &_file
 )
 :
 	holder_()
 {
-	audio::sample_container data;
+	sge::audio::sample_container data;
 
 	_file.read_all(
 		data
@@ -52,7 +57,7 @@ sge::openal::buffer::buffer(
 			<< FCPPT_TEXT("creating buffer of size ")
 			<< data.size()
 			<< FCPPT_TEXT(" and format ")
-			<< openal::file_format(
+			<< sge::openal::file_format(
 				_file
 			)
 			<< FCPPT_TEXT(" and sample rate ")
@@ -62,14 +67,13 @@ sge::openal::buffer::buffer(
 	if(
 		data.empty()
 	)
-		throw audio::exception(
+		throw sge::audio::exception(
 			FCPPT_TEXT("tried to create empty nonstreaming sound, that's not possible!")
 		);
 
-	// TODO: this function is called more than once!
-	::alBufferData(
+	sge::openal::funcs::buffer_data(
 		holder_.get(),
-		openal::file_format(
+		sge::openal::file_format(
 			_file
 		),
 		data.data(),
@@ -84,41 +88,33 @@ sge::openal::buffer::buffer(
 			_file.sample_rate()
 		)
 	);
-
-	SGE_OPENAL_CHECK_STATE(
-		FCPPT_TEXT("alBufferData failed"),
-		audio::exception
-	)
 }
 
 sge::audio::sound::positional_unique_ptr
 sge::openal::buffer::create_positional(
-	audio::sound::positional_parameters const &_param
+	sge::audio::sound::positional_parameters const &_param
 )
 {
 	return
-		audio::sound::positional_unique_ptr(
-			fcppt::make_unique_ptr<
-				sge::openal::source
-			>(
-				_param,
-				holder_.get()
-			)
+		fcppt::make_unique_ptr<
+			sge::openal::source
+		>(
+			_param,
+			holder_.get()
 		);
 }
 
 sge::audio::sound::base_unique_ptr
 sge::openal::buffer::create_nonpositional(
-	sge::audio::sound::nonpositional_parameters const &_param)
+	sge::audio::sound::nonpositional_parameters const &_param
+)
 {
 	return
-		audio::sound::base_unique_ptr(
-			fcppt::make_unique_ptr<
-				sge::openal::source
-			>(
-				_param,
-				holder_.get()
-			)
+		fcppt::make_unique_ptr<
+			sge::openal::source
+		>(
+			_param,
+			holder_.get()
 		);
 }
 

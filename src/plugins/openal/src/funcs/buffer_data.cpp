@@ -18,11 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_AUDIO_SAMPLE_CONTAINER_HPP_INCLUDED
-#define SGE_AUDIO_SAMPLE_CONTAINER_HPP_INCLUDED
+#include <sge/audio/exception.hpp>
+#include <sge/openal/check_state.hpp>
+#include <sge/openal/openal.hpp>
+#include <sge/openal/funcs/buffer_data.hpp>
+#include <fcppt/text.hpp>
 
-#include <sge/audio/sample_container_fwd.hpp>
-#include <fcppt/container/raw_vector_impl.hpp>
 
+void
+sge::openal::funcs::buffer_data(
+	ALuint const _buffer,
+	ALenum const _format,
+	ALvoid const *const _data,
+	ALsizei const _size,
+	ALsizei const _freq
+)
+{
+	::alBufferData(
+		_buffer,
+		_format,
+		_data,
+		_size,
+		_freq
+	);
 
-#endif
+	SGE_OPENAL_CHECK_STATE(
+		FCPPT_TEXT("alBufferData failed"),
+		sge::audio::exception
+	)
+}

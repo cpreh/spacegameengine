@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/class_symbol.hpp>
 #include <sge/audio/channel_type.hpp>
 #include <sge/audio/file_fwd.hpp>
-#include <sge/audio/sample_container.hpp>
+#include <sge/audio/sample_container_fwd.hpp>
 #include <sge/audio/sample_count.hpp>
 #include <sge/audio/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -49,7 +49,7 @@ class SGE_CLASS_SYMBOL file
 	);
 protected:
 	/** \protectedctor */
-	SGE_AUDIO_SYMBOL explicit
+	SGE_AUDIO_SYMBOL
 	file();
 public:
 	/// Read \a samples samples from the file, storing them in \a destination.
@@ -58,19 +58,23 @@ public:
 	 * \param destination The container to store the samples in. Samples will be \em appended to the container.
 	 * \returns The number of samples actually read. This might differ from \a samples because EOF was reached (or for some other reason)
 	 */
-	virtual audio::sample_count
+	virtual
+	sge::audio::sample_count
 	read(
-		audio::sample_count samples,
-		audio::sample_container &destination) = 0;
+		sge::audio::sample_count samples,
+		sge::audio::sample_container &destination
+	) = 0;
 
 	/// Read ALL the samples from the file, storing them in \a destination.
 	/**
 	 * \param destination The container to store the samples in. Samples will be \em appended to the container.
 	 * \returns The number of samples read.
 	 */
-	virtual audio::sample_count
+	virtual
+	sge::audio::sample_count
 	read_all(
-		audio::sample_container &destination) = 0;
+		sge::audio::sample_container &destination
+	) = 0;
 
 	/// How many samples will sge::audio::file::read probably return?
 	/**
@@ -84,33 +88,39 @@ public:
 	 * important for streaming sounds, as it is a great help for caching
 	 * stuff.
 	 */
-	virtual audio::sample_count
+	virtual
+	sge::audio::sample_count
 	expected_package_size() const = 0;
 
 	/// How many channels does this file hold
-	virtual audio::channel_type
+	virtual
+	sge::audio::channel_type
 	channels() const = 0;
 
 	/// What's the sample rate (in number of samples) of the file
-	virtual audio::sample_count
+	virtual
+	sge::audio::sample_count
 	sample_rate() const = 0;
 
 	/// How many bits per sample are there
-	virtual audio::sample_count
+	virtual
+	sge::audio::sample_count
 	bits_per_sample() const = 0;
 
 	/// Seek to the beginning of the file so you can read it again (good for looping streaming sounds)
-	virtual void
+	virtual
+	void
 	reset() = 0;
 
 	/// Calculate the bytes per sample
 	SGE_AUDIO_SYMBOL
-	audio::sample_count
+	sge::audio::sample_count
 	bytes_per_sample() const;
 
 	/** \virtualdtor */
 	SGE_AUDIO_SYMBOL
-	virtual ~file() = 0;
+	virtual
+	~file() = 0;
 };
 
 }

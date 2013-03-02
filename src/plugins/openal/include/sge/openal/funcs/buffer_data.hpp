@@ -18,11 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_AUDIO_SAMPLE_CONTAINER_HPP_INCLUDED
-#define SGE_AUDIO_SAMPLE_CONTAINER_HPP_INCLUDED
+#ifndef SGE_OPENAL_FUNCS_BUFFER_DATA_HPP_INCLUDED
+#define SGE_OPENAL_FUNCS_BUFFER_DATA_HPP_INCLUDED
 
-#include <sge/audio/sample_container_fwd.hpp>
-#include <fcppt/container/raw_vector_impl.hpp>
+#include <sge/openal/openal.hpp>
 
+
+namespace sge
+{
+namespace openal
+{
+namespace funcs
+{
+
+void
+buffer_data(
+	ALuint buffer,
+	ALenum format,
+	ALvoid const *data,
+	ALsizei size,
+	ALsizei freq
+);
+
+}
+}
+}
 
 #endif

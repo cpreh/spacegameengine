@@ -21,13 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENAL_BUFFER_HPP_INCLUDED
 #define SGE_OPENAL_BUFFER_HPP_INCLUDED
 
-#include <sge/openal/buffer_holder.hpp>
 #include <sge/audio/buffer.hpp>
 #include <sge/audio/file_fwd.hpp>
 #include <sge/audio/sound/base_unique_ptr.hpp>
-#include <sge/audio/sound/positional_parameters_fwd.hpp>
 #include <sge/audio/sound/nonpositional_parameters_fwd.hpp>
+#include <sge/audio/sound/positional_parameters_fwd.hpp>
 #include <sge/audio/sound/positional_unique_ptr.hpp>
+#include <sge/openal/buffer_holder.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -35,9 +35,10 @@ namespace sge
 {
 namespace openal
 {
+
 class buffer
 :
-	public audio::buffer
+	public sge::audio::buffer
 {
 	FCPPT_NONCOPYABLE(
 		buffer
@@ -45,22 +46,24 @@ class buffer
 public:
 	explicit
 	buffer(
-		audio::file &
+		sge::audio::file &
 	);
 
-	audio::sound::positional_unique_ptr
+	sge::audio::sound::positional_unique_ptr
 	create_positional(
-		audio::sound::positional_parameters const &
+		sge::audio::sound::positional_parameters const &
 	);
 
-	audio::sound::base_unique_ptr
+	sge::audio::sound::base_unique_ptr
 	create_nonpositional(
-		audio::sound::nonpositional_parameters const &);
+		sge::audio::sound::nonpositional_parameters const &
+	);
 
 	~buffer();
 private:
-	buffer_holder const holder_;
+	sge::openal::buffer_holder const holder_;
 };
+
 }
 }
 

@@ -49,6 +49,7 @@ set(
 	include/sge/audio/player_shared_ptr.hpp
 	include/sge/audio/player_unique_ptr.hpp
 	include/sge/audio/sample_container.hpp
+	include/sge/audio/sample_container_fwd.hpp
 	include/sge/audio/sample_count.hpp
 	include/sge/audio/scalar.hpp
 	include/sge/audio/sound/base.hpp
