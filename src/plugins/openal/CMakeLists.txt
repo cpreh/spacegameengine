@@ -3,7 +3,6 @@ set(
 	src/plugins/openal/include/sge/openal/alc_error_string.hpp
 	src/plugins/openal/include/sge/openal/buffer.hpp
 	src/plugins/openal/include/sge/openal/buffer_holder.hpp
-	src/plugins/openal/include/sge/openal/buffer_wrapper.hpp
 	src/plugins/openal/include/sge/openal/check_alc_state.hpp
 	src/plugins/openal/include/sge/openal/check_state.hpp
 	src/plugins/openal/include/sge/openal/context.hpp
@@ -24,7 +23,6 @@ set(
 	src/plugins/openal/src/alc_error_string.cpp
 	src/plugins/openal/src/buffer.cpp
 	src/plugins/openal/src/buffer_holder.cpp
-	src/plugins/openal/src/buffer_wrapper.cpp
 	src/plugins/openal/src/context.cpp
 	src/plugins/openal/src/delete_buffer.cpp
 	src/plugins/openal/src/device.cpp
