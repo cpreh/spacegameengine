@@ -56,5 +56,5 @@ endif()
 
 set(
 	sge_INCLUDE_DIRS
-	"@Boost_INCLUDE_DIRS@;@awl_INCLUDE_DIRS@;@mizuiro_INCLUDE_DIRS@;@sge_INCLUDE_DIR@"
+	"@Boost_INCLUDE_DIRS@;@awl_INCLUDE_DIRS@;@mizuiro_INCLUDE_DIRS@;@majutsu_INCLUDE_DIRS@;@sge_INCLUDE_DIR@"
 )
