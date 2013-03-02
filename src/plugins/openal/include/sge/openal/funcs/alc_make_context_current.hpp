@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENAL_FUNCS_ALC_MAKE_CONTEXT_CURRENT_HPP_INCLUDED
 #define SGE_OPENAL_FUNCS_ALC_MAKE_CONTEXT_CURRENT_HPP_INCLUDED
 
-#include <sge/openal/openal.hpp>
+#include <sge/openal/alc.hpp>
 
 
 namespace sge

@@ -25,11 +25,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/sound/nonpositional_parameters_fwd.hpp>
 #include <sge/audio/sound/play_status.hpp>
 #include <sge/audio/sound/positional_parameters_fwd.hpp>
+#include <sge/openal/al.hpp>
 #include <sge/openal/buffer_id.hpp>
 #include <sge/openal/file_format.hpp>
 #include <sge/openal/logger.hpp>
 #include <sge/openal/multi_buffer_holder.hpp>
-#include <sge/openal/openal.hpp>
 #include <sge/openal/stream_sound.hpp>
 #include <sge/openal/funcs/buffer_data.hpp>
 #include <sge/openal/funcs/get_source_int.hpp>

@@ -25,9 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/sample_count.hpp>
 #include <sge/audio/sound/nonpositional_parameters_fwd.hpp>
 #include <sge/audio/sound/positional_parameters_fwd.hpp>
+#include <sge/openal/al.hpp>
 #include <sge/openal/buffer_id.hpp>
 #include <sge/openal/multi_buffer_holder.hpp>
-#include <sge/openal/openal.hpp>
 #include <sge/openal/source.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>

@@ -18,18 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENAL_OPENAL_HPP_INCLUDED
-#define SGE_OPENAL_OPENAL_HPP_INCLUDED
+#ifndef SGE_OPENAL_ALC_HPP_INCLUDED
+#define SGE_OPENAL_ALC_HPP_INCLUDED
 
-//#include <sge/config.h>
-//#if defined(SGE_DARWIN_PLATFORM)
-//#include <al.h>
-//#include <alc.h>
-//#else
 #include <fcppt/config/external_begin.hpp>
-#include <AL/al.h>
 #include <AL/alc.h>
 #include <fcppt/config/external_end.hpp>
-//#endif
+
 
 #endif

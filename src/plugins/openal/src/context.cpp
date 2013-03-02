@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/openal/alc.hpp>
 #include <sge/openal/context.hpp>
 #include <sge/openal/device.hpp>
 #include <sge/openal/logger.hpp>
-#include <sge/openal/openal.hpp>
 #include <sge/openal/funcs/alc_create_context.hpp>
 #include <sge/openal/funcs/alc_destroy_context.hpp>
 #include <fcppt/text.hpp>

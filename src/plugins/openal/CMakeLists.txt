@@ -1,5 +1,7 @@
 set(
 	SGE_OPENAL_FILES
+	src/plugins/openal/include/sge/openal/al.hpp
+	src/plugins/openal/include/sge/openal/alc.hpp
 	src/plugins/openal/include/sge/openal/alc_error_string.hpp
 	src/plugins/openal/include/sge/openal/buffer.hpp
 	src/plugins/openal/include/sge/openal/buffer_holder.hpp
@@ -41,7 +43,6 @@ set(
 	src/plugins/openal/include/sge/openal/listener.hpp
 	src/plugins/openal/include/sge/openal/logger.hpp
 	src/plugins/openal/include/sge/openal/multi_buffer_holder.hpp
-	src/plugins/openal/include/sge/openal/openal.hpp
 	src/plugins/openal/include/sge/openal/player.hpp
 	src/plugins/openal/include/sge/openal/source.hpp
 	src/plugins/openal/include/sge/openal/source_holder.hpp

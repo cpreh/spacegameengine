@@ -26,11 +26,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/sound/nonpositional_parameters_fwd.hpp>
 #include <sge/audio/sound/positional_parameters_fwd.hpp>
 #include <sge/audio/sound/positional_unique_ptr.hpp>
+#include <sge/openal/al.hpp>
 #include <sge/openal/buffer.hpp>
 #include <sge/openal/check_state.hpp>
 #include <sge/openal/file_format.hpp>
 #include <sge/openal/logger.hpp>
-#include <sge/openal/openal.hpp>
 #include <sge/openal/source.hpp>
 #include <sge/openal/funcs/buffer_data.hpp>
 #include <fcppt/make_unique_ptr.hpp>

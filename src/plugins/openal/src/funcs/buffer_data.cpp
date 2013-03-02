@@ -19,9 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/audio/exception.hpp>
+#include <sge/openal/al.hpp>
 #include <sge/openal/buffer_id.hpp>
 #include <sge/openal/check_state.hpp>
-#include <sge/openal/openal.hpp>
 #include <sge/openal/funcs/buffer_data.hpp>
 #include <fcppt/text.hpp>
 
