@@ -21,16 +21,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENAL_LISTENER_HPP_INCLUDED
 #define SGE_OPENAL_LISTENER_HPP_INCLUDED
 
-#include <sge/audio/direction/object.hpp>
 #include <sge/audio/listener.hpp>
+#include <sge/audio/vector.hpp>
+#include <sge/audio/direction/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
 
 
 namespace sge
 {
 namespace openal
 {
+
 class listener
 :
 	public sge::audio::listener
@@ -39,26 +40,30 @@ class listener
 		listener
 	);
 public:
-	explicit
 	listener();
 
 	~listener();
 
 	void
 	position(
-		audio::vector const &);
+		sge::audio::vector const &
+	);
 
 	void
 	linear_velocity(
-		audio::vector const &);
+		sge::audio::vector const &
+	);
 
 	void
 	direction(
-		audio::direction::object const &);
+		sge::audio::direction::object const &
+	);
 private:
-	audio::vector position_;
-	audio::vector linear_velocity_;
+	sge::audio::vector position_;
+
+	sge::audio::vector linear_velocity_;
 };
+
 }
 }
 

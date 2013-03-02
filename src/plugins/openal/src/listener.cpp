@@ -18,11 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/audio/exception.hpp>
+#include <sge/audio/direction/object.hpp>
 #include <sge/openal/listener.hpp>
 #include <sge/openal/check_state.hpp>
 //#include <sge/openal/logger.hpp>
 #include <sge/openal/openal.hpp>
-#include <sge/audio/exception.hpp>
 #include <fcppt/text.hpp>
 //#include <fcppt/log/headers.hpp>
 //#include <fcppt/math/vector/output.hpp>
@@ -61,7 +62,7 @@ sge::openal::listener::~listener()
 
 void
 sge::openal::listener::linear_velocity(
-	audio::vector const &n)
+	sge::audio::vector const &n)
 {
 /*
 	FCPPT_LOG_DEBUG(

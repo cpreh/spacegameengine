@@ -22,9 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_AUDIO_DIRECTION_OBJECT_HPP_INCLUDED
 
 #include <sge/audio/symbol.hpp>
+#include <sge/audio/vector.hpp>
 #include <sge/audio/direction/forward.hpp>
 #include <sge/audio/direction/up.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
+
 
 namespace sge
 {
@@ -32,6 +33,7 @@ namespace audio
 {
 namespace direction
 {
+
 class object
 {
 public:
@@ -40,34 +42,35 @@ public:
 
 	SGE_AUDIO_SYMBOL
 	object(
-		direction::forward const &,
-		direction::up const &up
+		sge::audio::direction::forward const &,
+		sge::audio::direction::up const &
 	);
 
 	SGE_AUDIO_SYMBOL
-	audio::vector const &
+	sge::audio::vector const &
 	forward() const;
 
 	SGE_AUDIO_SYMBOL
 	void
 	forward(
-		audio::vector const &
+		sge::audio::vector const &
 	);
 
 	SGE_AUDIO_SYMBOL
-	audio::vector const
+	sge::audio::vector const
 	up() const;
 
 	SGE_AUDIO_SYMBOL
 	void
 	up(
-		audio::vector const &
+		sge::audio::vector const &
 	);
 private:
-	audio::vector
+	sge::audio::vector
 		forward_,
 		up_;
 };
+
 }
 }
 }

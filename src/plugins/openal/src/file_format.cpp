@@ -18,33 +18,58 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/openal/file_format.hpp>
-#include <sge/openal/openal.hpp>
 #include <sge/audio/channel_type.hpp>
 #include <sge/audio/exception.hpp>
 #include <sge/audio/file.hpp>
 #include <sge/audio/sample_count.hpp>
+#include <sge/openal/file_format.hpp>
+#include <sge/openal/openal.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/text.hpp>
 
 
 ALenum
 sge::openal::file_format(
-	audio::file const &file)
+	sge::audio::file const &_file
+)
 {
-	if (file.bits_per_sample() == static_cast<audio::sample_count>(8) && file.channels() == static_cast<audio::channel_type>(1))
+	if(
+		_file.bits_per_sample() == static_cast<sge::audio::sample_count>(8)
+		&&
+		_file.channels() == static_cast<sge::audio::channel_type>(1)
+	)
 		return AL_FORMAT_MONO8;
-	if (file.bits_per_sample() == static_cast<audio::sample_count>(8) && file.channels() == static_cast<audio::channel_type>(2))
+
+	if(
+		_file.bits_per_sample() == static_cast<sge::audio::sample_count>(8)
+		&&
+		_file.channels() == static_cast<sge::audio::channel_type>(2)
+	)
 		return AL_FORMAT_STEREO8;
-	if (file.bits_per_sample() == static_cast<audio::sample_count>(16) && file.channels() == static_cast<audio::channel_type>(1))
+
+	if(
+		_file.bits_per_sample() == static_cast<sge::audio::sample_count>(16)
+		&&
+		_file.channels() == static_cast<sge::audio::channel_type>(1)
+	)
 		return AL_FORMAT_MONO16;
-	if (file.bits_per_sample() == static_cast<audio::sample_count>(16) && file.channels() == static_cast<audio::channel_type>(2))
+
+	if(
+		_file.bits_per_sample() == static_cast<sge::audio::sample_count>(16)
+		&&
+		_file.channels() == static_cast<sge::audio::channel_type>(2)
+	)
 		return AL_FORMAT_STEREO16;
 
-	throw audio::exception(
+	throw sge::audio::exception(
 		FCPPT_TEXT("OpenAL error: Format not supported: ")
-		+ fcppt::insert_to_fcppt_string(file.bits_per_sample())
+		+ fcppt::insert_to_fcppt_string(
+			_file.bits_per_sample()
+		)
 		+ FCPPT_TEXT(" bps, ")
-		+ fcppt::insert_to_fcppt_string(file.channels())
-		+ FCPPT_TEXT(" channels"));
+		+ fcppt::insert_to_fcppt_string(
+			_file.channels()
+		)
+		+ FCPPT_TEXT(" channels")
+	);
 }
