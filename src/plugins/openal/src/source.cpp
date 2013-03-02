@@ -38,20 +38,10 @@ sge::openal::source::source(
 	sge::audio::sound::nonpositional_parameters const &p,
 	ALuint const _buffer)
 :
-	source_(),
-	repeat_(
-		sge::audio::sound::repeat::once)
+	sge::openal::source::source(
+		_buffer
+	)
 {
-	alSourcei(
-		source_id(),
-		AL_BUFFER,
-		static_cast<ALint>(
-			_buffer));
-
-	SGE_OPENAL_CHECK_STATE(
-		FCPPT_TEXT("alSourcei failed"),
-		audio::exception)
-
 	this->init(
 		p);
 }
@@ -60,23 +50,10 @@ sge::openal::source::source(
 	audio::sound::positional_parameters const &p,
 	ALuint const _buffer)
 :
-	source_()
-{
-	alSourcei(
-		source_id(),
-		AL_BUFFER,
-		static_cast<
-			ALint
-		>(
-			_buffer
-		)
-	);
-
-	SGE_OPENAL_CHECK_STATE(
-		FCPPT_TEXT("alSourcei failed"),
-		audio::exception
+	sge::openal::source::source(
+		_buffer
 	)
-
+{
 	this->init(
 		p);
 }
@@ -84,7 +61,7 @@ sge::openal::source::source(
 sge::openal::source::source(
 	sge::audio::sound::nonpositional_parameters const &p)
 :
-	source_()
+	sge::openal::source::source()
 {
 	this->init(
 		p);
@@ -93,7 +70,7 @@ sge::openal::source::source(
 sge::openal::source::source(
 	audio::sound::positional_parameters const &p)
 :
-	source_()
+	sge::openal::source::source()
 {
 	this->init(
 		p);
@@ -433,6 +410,32 @@ sge::audio::sound::repeat
 sge::openal::source::repeat() const
 {
 	return repeat_;
+}
+
+sge::openal::source::source()
+:
+	source_(),
+	repeat_(
+		sge::audio::sound::repeat::once
+	)
+{
+}
+
+sge::openal::source::source(
+	ALuint const _buffer
+)
+:
+	sge::openal::source()
+{
+	alSourcei(
+		source_id(),
+		AL_BUFFER,
+		static_cast<ALint>(
+			_buffer));
+
+	SGE_OPENAL_CHECK_STATE(
+		FCPPT_TEXT("alSourcei failed"),
+		audio::exception)
 }
 
 // that's a hack because we have two constructors

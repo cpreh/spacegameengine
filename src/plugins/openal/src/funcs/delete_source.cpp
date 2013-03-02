@@ -30,7 +30,7 @@ sge::openal::funcs::delete_source(
 	ALuint const _source
 )
 {
-	::alDeleteBuffers(
+	::alDeleteSources(
 		static_cast<
 			ALsizei
 		>(

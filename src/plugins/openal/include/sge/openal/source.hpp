@@ -25,11 +25,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/openal/source_holder.hpp>
 #include <sge/audio/scalar.hpp>
 #include <sge/audio/vector_fwd.hpp>
+#include <sge/audio/sound/nonpositional_parameters_fwd.hpp>
 #include <sge/audio/sound/optional_direction_fwd.hpp>
 #include <sge/audio/sound/play_status_fwd.hpp>
 #include <sge/audio/sound/positional.hpp>
 #include <sge/audio/sound/positional_parameters_fwd.hpp>
-#include <sge/audio/sound/nonpositional_parameters_fwd.hpp>
 #include <sge/audio/sound/repeat.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -38,37 +38,41 @@ namespace sge
 {
 namespace openal
 {
+
 class source
 :
-	public audio::sound::positional
+	public sge::audio::sound::positional
 {
 	FCPPT_NONCOPYABLE(
 		source
 	);
 public:
-	explicit
 	source(
-		audio::sound::nonpositional_parameters const &,
-		ALuint buffer);
+		sge::audio::sound::nonpositional_parameters const &,
+		ALuint buffer
+	);
+
+	source(
+		sge::audio::sound::positional_parameters const &,
+		ALuint buffer
+	);
 
 	explicit
 	source(
-		audio::sound::positional_parameters const &,
-		ALuint buffer);
+		sge::audio::sound::nonpositional_parameters const &
+	);
 
 	explicit
 	source(
-		audio::sound::nonpositional_parameters const &);
-
-	explicit
-	source(
-		audio::sound::positional_parameters const &);
+		sge::audio::sound::positional_parameters const &
+	);
 
 	~source();
 
 	void
 	play(
-		audio::sound::repeat);
+		sge::audio::sound::repeat
+	);
 
 	void
 	toggle_pause();
@@ -84,69 +88,91 @@ public:
 
 	void
 	position(
-		audio::vector const &);
+		sge::audio::vector const &
+	);
 
 	void
 	linear_velocity(
-		audio::vector const &);
+		sge::audio::vector const &
+	);
 
 	void
 	gain(
-		audio::scalar);
+		sge::audio::scalar
+	);
 
 	void
 	pitch(
-		audio::scalar);
+		sge::audio::scalar
+	);
 
 	void
 	rolloff_factor(
-		audio::scalar);
+		sge::audio::scalar
+	);
 
 	void
 	reference_distance(
-		audio::scalar);
+		sge::audio::scalar
+	);
 
 	void
 	max_distance(
-		audio::scalar);
+		sge::audio::scalar
+	);
 
 	void
 	direction(
-		audio::sound::optional_direction const &);
+		sge::audio::sound::optional_direction const &
+	);
 
 	void
 	inner_cone_angle(
-		audio::scalar);
+		sge::audio::scalar
+	);
 
 	void
 	outer_cone_angle(
-		audio::scalar);
+		sge::audio::scalar
+	);
 
 	void
 	outer_cone_gain(
-		audio::scalar);
+		sge::audio::scalar
+	);
 protected:
-	virtual void
+	virtual
+	void
 	do_play();
 
 	ALuint
 	source_id() const;
 
-	audio::sound::repeat
+	sge::audio::sound::repeat
 	repeat() const;
 private:
+	source();
+
+	explicit
+	source(
+		ALuint buffer
+	);
+
 	sge::openal::source_holder const source_;
 
 	sge::audio::sound::repeat repeat_;
 
 	void
 	init(
-		audio::sound::positional_parameters const &);
+		sge::audio::sound::positional_parameters const &
+	);
 
 	void
 	init(
-		audio::sound::nonpositional_parameters const &);
+		sge::audio::sound::nonpositional_parameters const &
+	);
 };
+
 }
 }
 
