@@ -18,35 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENAL_BUFFER_HOLDER_HPP_INCLUDED
-#define SGE_OPENAL_BUFFER_HOLDER_HPP_INCLUDED
-
+#include <sge/audio/exception.hpp>
+#include <sge/openal/check_state.hpp>
 #include <sge/openal/openal.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/openal/funcs/delete_buffer.hpp>
+#include <fcppt/text.hpp>
 
 
-namespace sge
+void
+sge::openal::funcs::delete_buffer(
+	ALuint const _buffer
+)
 {
-namespace openal
-{
-
-class buffer_holder
-{
-	FCPPT_NONCOPYABLE(
-		buffer_holder
+	::alDeleteBuffers(
+		static_cast<
+			ALsizei
+		>(
+			1
+		),
+		&_buffer
 	);
-public:
-	buffer_holder();
 
-	~buffer_holder();
-
-	ALuint
-	get() const;
-private:
-	ALuint buffer_;
-};
-
+	SGE_OPENAL_CHECK_STATE(
+		FCPPT_TEXT("alDeleteBuffers failed"),
+		sge::audio::exception
+	)
 }
-}
-
-#endif

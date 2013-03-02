@@ -12,6 +12,8 @@ set(
 	src/plugins/openal/include/sge/openal/error_string.hpp
 	src/plugins/openal/include/sge/openal/file_format.hpp
 	src/plugins/openal/include/sge/openal/funcs/buffer_data.hpp
+	src/plugins/openal/include/sge/openal/funcs/delete_buffer.hpp
+	src/plugins/openal/include/sge/openal/funcs/gen_buffer.hpp
 	src/plugins/openal/include/sge/openal/listener.hpp
 	src/plugins/openal/include/sge/openal/logger.hpp
 	src/plugins/openal/include/sge/openal/openal.hpp
@@ -24,11 +26,13 @@ set(
 	src/plugins/openal/src/buffer_holder.cpp
 	src/plugins/openal/src/buffer_wrapper.cpp
 	src/plugins/openal/src/context.cpp
+	src/plugins/openal/src/delete_buffer.cpp
 	src/plugins/openal/src/device.cpp
 	src/plugins/openal/src/error_string.cpp
 	src/plugins/openal/src/exports.cpp
 	src/plugins/openal/src/file_format.cpp
 	src/plugins/openal/src/funcs/buffer_data.cpp
+	src/plugins/openal/src/gen_buffer.cpp
 	src/plugins/openal/src/listener.cpp
 	src/plugins/openal/src/logger.cpp
 	src/plugins/openal/src/player.cpp

@@ -19,55 +19,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/openal/buffer_holder.hpp>
-#include <sge/openal/check_state.hpp>
 #include <sge/openal/logger.hpp>
 #include <sge/openal/openal.hpp>
-#include <sge/audio/exception.hpp>
+#include <sge/openal/funcs/delete_buffer.hpp>
+#include <sge/openal/funcs/gen_buffer.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/output.hpp>
 
 
 sge::openal::buffer_holder::buffer_holder()
-{
-
-	::alGenBuffers(
-		static_cast<
-			ALsizei
-		>(
-			1
-		),
-		&buffer_
-	);
-
-	SGE_OPENAL_CHECK_STATE(
-		FCPPT_TEXT("alGenBuffers failed"),
-		audio::exception
+:
+	buffer_(
+		sge::openal::funcs::gen_buffer()
 	)
-}
-
-sge::openal::buffer_holder::~buffer_holder()
 {
 	FCPPT_LOG_DEBUG(
 		sge::openal::logger(),
 		fcppt::log::_
-			<< FCPPT_TEXT("Deleting a buffer")
+			<< FCPPT_TEXT("Created a buffer")
+	);
+}
+
+sge::openal::buffer_holder::~buffer_holder()
+{
+	sge::openal::funcs::delete_buffer(
+		buffer_
 	);
 
-
-	::alDeleteBuffers(
-		static_cast<
-			ALsizei
-		>(
-			1
-		),
-		&buffer_
+	FCPPT_LOG_DEBUG(
+		sge::openal::logger(),
+		fcppt::log::_
+			<< FCPPT_TEXT("Deleted a buffer")
 	);
-
-	SGE_OPENAL_CHECK_STATE(
-		FCPPT_TEXT("alDeleteBuffers failed"),
-		audio::exception
-	)
 }
 
 ALuint

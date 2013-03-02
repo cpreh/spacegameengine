@@ -18,34 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENAL_BUFFER_HOLDER_HPP_INCLUDED
-#define SGE_OPENAL_BUFFER_HOLDER_HPP_INCLUDED
+#ifndef SGE_OPENAL_FUNCS_GEN_BUFFER_HPP_INCLUDED
+#define SGE_OPENAL_FUNCS_GEN_BUFFER_HPP_INCLUDED
 
 #include <sge/openal/openal.hpp>
-#include <fcppt/noncopyable.hpp>
 
 
 namespace sge
 {
 namespace openal
 {
-
-class buffer_holder
+namespace funcs
 {
-	FCPPT_NONCOPYABLE(
-		buffer_holder
-	);
-public:
-	buffer_holder();
 
-	~buffer_holder();
+ALuint
+gen_buffer();
 
-	ALuint
-	get() const;
-private:
-	ALuint buffer_;
-};
-
+}
 }
 }
 
