@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENAL_SOURCE_HPP_INCLUDED
 
 #include <sge/openal/openal.hpp>
-#include <sge/openal/source_wrapper.hpp>
+#include <sge/openal/source_holder.hpp>
 #include <sge/audio/scalar.hpp>
 #include <sge/audio/vector_fwd.hpp>
 #include <sge/audio/sound/optional_direction_fwd.hpp>
@@ -135,8 +135,9 @@ protected:
 	audio::sound::repeat
 	repeat() const;
 private:
-	source_wrapper source_;
-	audio::sound::repeat repeat_;
+	sge::openal::source_holder const source_;
+
+	sge::audio::sound::repeat repeat_;
 
 	void
 	init(

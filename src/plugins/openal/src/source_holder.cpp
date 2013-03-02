@@ -18,39 +18,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/openal/buffer_holder.hpp>
 #include <sge/openal/logger.hpp>
 #include <sge/openal/openal.hpp>
-#include <sge/openal/funcs/delete_buffer.hpp>
-#include <sge/openal/funcs/gen_buffer.hpp>
+#include <sge/openal/source_holder.hpp>
+#include <sge/openal/funcs/delete_source.hpp>
+#include <sge/openal/funcs/gen_source.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/output.hpp>
 
 
-sge::openal::buffer_holder::buffer_holder()
+sge::openal::source_holder::source_holder()
 :
-	buffer_(
-		sge::openal::funcs::gen_buffer()
+	value_(
+		sge::openal::funcs::gen_source()
 	)
 {
 }
 
-sge::openal::buffer_holder::~buffer_holder()
+sge::openal::source_holder::~source_holder()
 {
 	FCPPT_LOG_DEBUG(
 		sge::openal::logger(),
 		fcppt::log::_
-			<< FCPPT_TEXT("Deleting a buffer")
+			<< FCPPT_TEXT("Deleting a source")
 	);
 
-	sge::openal::funcs::delete_buffer(
-		buffer_
+	sge::openal::funcs::delete_source(
+		value_
 	);
 }
 
 ALuint
-sge::openal::buffer_holder::get() const
+sge::openal::source_holder::get() const
 {
-	return buffer_;
+	return value_;
 }

@@ -18,28 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENAL_SOURCE_WRAPPER_HPP_INCLUDED
-#define SGE_OPENAL_SOURCE_WRAPPER_HPP_INCLUDED
+#ifndef SGE_OPENAL_SOURCE_HOLDER_HPP_INCLUDED
+#define SGE_OPENAL_SOURCE_HOLDER_HPP_INCLUDED
 
 #include <sge/openal/openal.hpp>
 #include <fcppt/noncopyable.hpp>
+
 
 namespace sge
 {
 namespace openal
 {
-class source_wrapper
+
+class source_holder
 {
 	FCPPT_NONCOPYABLE(
-		source_wrapper
+		source_holder
 	);
 public:
-	source_wrapper();
+	source_holder();
 
-	~source_wrapper();
+	~source_holder();
 
+	ALuint
+	get() const;
+private:
 	ALuint value_;
 };
+
 }
 }
 

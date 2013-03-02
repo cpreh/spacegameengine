@@ -12,30 +12,34 @@ set(
 	src/plugins/openal/include/sge/openal/file_format.hpp
 	src/plugins/openal/include/sge/openal/funcs/buffer_data.hpp
 	src/plugins/openal/include/sge/openal/funcs/delete_buffer.hpp
+	src/plugins/openal/include/sge/openal/funcs/delete_source.hpp
 	src/plugins/openal/include/sge/openal/funcs/gen_buffer.hpp
+	src/plugins/openal/include/sge/openal/funcs/gen_source.hpp
 	src/plugins/openal/include/sge/openal/listener.hpp
 	src/plugins/openal/include/sge/openal/logger.hpp
 	src/plugins/openal/include/sge/openal/openal.hpp
 	src/plugins/openal/include/sge/openal/player.hpp
 	src/plugins/openal/include/sge/openal/source.hpp
-	src/plugins/openal/include/sge/openal/source_wrapper.hpp
+	src/plugins/openal/include/sge/openal/source_holder.hpp
 	src/plugins/openal/include/sge/openal/stream_sound.hpp
 	src/plugins/openal/src/alc_error_string.cpp
 	src/plugins/openal/src/buffer.cpp
 	src/plugins/openal/src/buffer_holder.cpp
 	src/plugins/openal/src/context.cpp
-	src/plugins/openal/src/delete_buffer.cpp
 	src/plugins/openal/src/device.cpp
 	src/plugins/openal/src/error_string.cpp
 	src/plugins/openal/src/exports.cpp
 	src/plugins/openal/src/file_format.cpp
 	src/plugins/openal/src/funcs/buffer_data.cpp
-	src/plugins/openal/src/gen_buffer.cpp
+	src/plugins/openal/src/funcs/delete_buffer.cpp
+	src/plugins/openal/src/funcs/delete_source.cpp
+	src/plugins/openal/src/funcs/gen_buffer.cpp
+	src/plugins/openal/src/funcs/gen_source.cpp
 	src/plugins/openal/src/listener.cpp
 	src/plugins/openal/src/logger.cpp
 	src/plugins/openal/src/player.cpp
 	src/plugins/openal/src/source.cpp
-	src/plugins/openal/src/source_wrapper.cpp
+	src/plugins/openal/src/source_holder.cpp
 	src/plugins/openal/src/stream_sound.cpp
 )
 

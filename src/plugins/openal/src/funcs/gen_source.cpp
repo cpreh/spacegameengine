@@ -18,42 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/openal/source_wrapper.hpp>
-#include <sge/openal/check_state.hpp>
-#include <sge/openal/logger.hpp>
 #include <sge/audio/bad_sound_alloc.hpp>
-#include <sge/audio/exception.hpp>
+#include <sge/openal/check_state.hpp>
+#include <sge/openal/openal.hpp>
+#include <sge/openal/funcs/gen_source.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/log/headers.hpp>
 
 
-sge::openal::source_wrapper::source_wrapper()
+ALuint
+sge::openal::funcs::gen_source()
 {
-	alGenSources(
-		static_cast<ALsizei>(1),
-		&value_
+	ALuint result;
+
+	::alGenSources(
+		static_cast<
+			ALsizei
+		>(
+			1
+		),
+		&result
 	);
 
 	SGE_OPENAL_CHECK_STATE(
 		FCPPT_TEXT("alGenSources failed"),
-		audio::bad_sound_alloc
+		sge::audio::bad_sound_alloc
 	)
-}
 
-sge::openal::source_wrapper::~source_wrapper()
-{
-	FCPPT_LOG_DEBUG(
-		sge::openal::logger(),
-		fcppt::log::_
-			<< FCPPT_TEXT("Deleting a source"));
-
-	alDeleteSources(
-		static_cast<ALsizei>(1),
-		&value_
-	);
-
-	SGE_OPENAL_CHECK_STATE(
-		FCPPT_TEXT("alDeleteSources failed"),
-		audio::exception
-	)
+	return result;
 }

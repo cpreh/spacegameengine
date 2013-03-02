@@ -426,7 +426,7 @@ sge::openal::source::do_play()
 ALuint
 sge::openal::source::source_id() const
 {
-	return source_.value_;
+	return source_.get();
 }
 
 sge::audio::sound::repeat
