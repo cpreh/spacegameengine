@@ -18,29 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/audio/exception.hpp>
-#include <sge/openal/check_state.hpp>
+#include <sge/openal/buffer_id.hpp>
 #include <sge/openal/openal.hpp>
 #include <sge/openal/funcs/delete_buffer.hpp>
-#include <fcppt/text.hpp>
+#include <sge/openal/funcs/delete_buffers.hpp>
 
 
 void
 sge::openal::funcs::delete_buffer(
-	ALuint const _buffer
+	sge::openal::buffer_id const _buffer
 )
 {
-	::alDeleteBuffers(
+	sge::openal::funcs::delete_buffers(
+		&_buffer.get(),
 		static_cast<
 			ALsizei
 		>(
 			1
-		),
-		&_buffer
+		)
 	);
 
-	SGE_OPENAL_CHECK_STATE(
-		FCPPT_TEXT("alDeleteBuffers failed"),
-		sge::audio::exception
-	)
 }

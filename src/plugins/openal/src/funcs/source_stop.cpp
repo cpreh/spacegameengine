@@ -18,35 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENAL_BUFFER_HOLDER_HPP_INCLUDED
-#define SGE_OPENAL_BUFFER_HOLDER_HPP_INCLUDED
+#include <sge/audio/exception.hpp>
+#include <sge/openal/check_state.hpp>
+#include <sge/openal/source_id.hpp>
+#include <sge/openal/funcs/source_stop.hpp>
+#include <fcppt/text.hpp>
 
-#include <sge/openal/buffer_id.hpp>
-#include <fcppt/noncopyable.hpp>
 
-
-namespace sge
+void
+sge::openal::funcs::source_stop(
+	sge::openal::source_id const _id
+)
 {
-namespace openal
-{
-
-class buffer_holder
-{
-	FCPPT_NONCOPYABLE(
-		buffer_holder
+	::alSourceStop(
+		_id.get()
 	);
-public:
-	buffer_holder();
 
-	~buffer_holder();
-
-	sge::openal::buffer_id const
-	get() const;
-private:
-	sge::openal::buffer_id const buffer_;
-};
-
+	SGE_OPENAL_CHECK_STATE(
+		FCPPT_TEXT("alSourceStop failed"),
+		sge::audio::exception
+	)
 }
-}
-
-#endif

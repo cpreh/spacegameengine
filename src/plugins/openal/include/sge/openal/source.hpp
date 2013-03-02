@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENAL_SOURCE_HPP_INCLUDED
 #define SGE_OPENAL_SOURCE_HPP_INCLUDED
 
-#include <sge/openal/openal.hpp>
+#include <sge/openal/buffer_id.hpp>
 #include <sge/openal/source_holder.hpp>
+#include <sge/openal/source_id.hpp>
 #include <sge/audio/scalar.hpp>
 #include <sge/audio/vector_fwd.hpp>
 #include <sge/audio/sound/nonpositional_parameters_fwd.hpp>
@@ -49,12 +50,12 @@ class source
 public:
 	source(
 		sge::audio::sound::nonpositional_parameters const &,
-		ALuint buffer
+		sge::openal::buffer_id
 	);
 
 	source(
 		sge::audio::sound::positional_parameters const &,
-		ALuint buffer
+		sge::openal::buffer_id
 	);
 
 	explicit
@@ -145,7 +146,7 @@ protected:
 	void
 	do_play();
 
-	ALuint
+	sge::openal::source_id const
 	source_id() const;
 
 	sge::audio::sound::repeat
@@ -155,7 +156,7 @@ private:
 
 	explicit
 	source(
-		ALuint buffer
+		sge::openal::buffer_id
 	);
 
 	sge::openal::source_holder const source_;

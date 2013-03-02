@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENAL_SOURCE_HOLDER_HPP_INCLUDED
 #define SGE_OPENAL_SOURCE_HOLDER_HPP_INCLUDED
 
-#include <sge/openal/openal.hpp>
+#include <sge/openal/source_id.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -40,10 +40,10 @@ public:
 
 	~source_holder();
 
-	ALuint
+	sge::openal::source_id const
 	get() const;
 private:
-	ALuint value_;
+	sge::openal::source_id const value_;
 };
 
 }

@@ -18,31 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/audio/exception.hpp>
-#include <sge/openal/check_state.hpp>
+#include <sge/openal/buffer_id.hpp>
 #include <sge/openal/openal.hpp>
 #include <sge/openal/funcs/gen_buffer.hpp>
-#include <fcppt/text.hpp>
+#include <sge/openal/funcs/gen_buffers.hpp>
 
 
-ALuint
+sge::openal::buffer_id const
 sge::openal::funcs::gen_buffer()
 {
 	ALuint result;
 
-	::alGenBuffers(
+	sge::openal::funcs::gen_buffers(
+		&result,
 		static_cast<
 			ALsizei
 		>(
 			1
-		),
-		&result
+		)
 	);
 
-	SGE_OPENAL_CHECK_STATE(
-		FCPPT_TEXT("alGenBuffers failed"),
-		sge::audio::exception
-	)
-
-	return result;
+	return
+		sge::openal::buffer_id(
+			result
+		);
 }

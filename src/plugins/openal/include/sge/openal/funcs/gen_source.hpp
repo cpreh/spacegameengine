@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENAL_FUNCS_GEN_SOURCE_HPP_INCLUDED
 #define SGE_OPENAL_FUNCS_GEN_SOURCE_HPP_INCLUDED
 
-#include <sge/openal/openal.hpp>
+#include <sge/openal/source_id.hpp>
 
 
 namespace sge
@@ -31,7 +31,7 @@ namespace openal
 namespace funcs
 {
 
-ALuint
+sge::openal::source_id const
 gen_source();
 
 }

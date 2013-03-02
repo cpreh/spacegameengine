@@ -18,35 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENAL_BUFFER_HOLDER_HPP_INCLUDED
-#define SGE_OPENAL_BUFFER_HOLDER_HPP_INCLUDED
+#include <sge/audio/exception.hpp>
+#include <sge/openal/check_state.hpp>
+#include <sge/openal/openal.hpp>
+#include <sge/openal/funcs/gen_buffers.hpp>
+#include <fcppt/text.hpp>
 
-#include <sge/openal/buffer_id.hpp>
-#include <fcppt/noncopyable.hpp>
 
-
-namespace sge
+void
+sge::openal::funcs::gen_buffers(
+	ALuint *const _result,
+	ALsizei const _count
+)
 {
-namespace openal
-{
-
-class buffer_holder
-{
-	FCPPT_NONCOPYABLE(
-		buffer_holder
+	::alGenBuffers(
+		_count,
+		_result
 	);
-public:
-	buffer_holder();
 
-	~buffer_holder();
-
-	sge::openal::buffer_id const
-	get() const;
-private:
-	sge::openal::buffer_id const buffer_;
-};
-
+	SGE_OPENAL_CHECK_STATE(
+		FCPPT_TEXT("alGenBuffers failed"),
+		sge::audio::exception
+	)
 }
-}
-
-#endif

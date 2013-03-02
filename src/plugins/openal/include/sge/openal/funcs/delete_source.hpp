@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENAL_FUNCS_DELETE_SOURCE_HPP_INCLUDED
 #define SGE_OPENAL_FUNCS_DELETE_SOURCE_HPP_INCLUDED
 
-#include <sge/openal/openal.hpp>
+#include <sge/openal/source_id.hpp>
 
 
 namespace sge
@@ -33,7 +33,7 @@ namespace funcs
 
 void
 delete_source(
-	ALuint
+	sge::openal::source_id
 );
 
 }

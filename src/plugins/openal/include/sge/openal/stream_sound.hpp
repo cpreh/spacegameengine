@@ -21,9 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENAL_STREAM_SOUND_HPP_INCLUDED
 #define SGE_OPENAL_STREAM_SOUND_HPP_INCLUDED
 
-#include <sge/openal/source.hpp>
 #include <sge/audio/file_fwd.hpp>
 #include <sge/audio/sample_count.hpp>
+#include <sge/audio/sound/nonpositional_parameters_fwd.hpp>
+#include <sge/audio/sound/positional_parameters_fwd.hpp>
+#include <sge/openal/buffer_id.hpp>
+#include <sge/openal/multi_buffer_holder.hpp>
+#include <sge/openal/openal.hpp>
+#include <sge/openal/source.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <vector>
@@ -34,21 +39,24 @@ namespace sge
 {
 namespace openal
 {
+
 class stream_sound
 :
-	public source
+	public sge::openal::source
 {
 	FCPPT_NONCOPYABLE(
 		stream_sound
 	);
 public:
 	stream_sound(
-		audio::sound::nonpositional_parameters const &,
-		audio::file &);
+		sge::audio::sound::nonpositional_parameters const &,
+		sge::audio::file &
+	);
 
 	stream_sound(
-		audio::sound::positional_parameters const &,
-		audio::file &);
+		sge::audio::sound::positional_parameters const &,
+		sge::audio::file &
+	);
 
 	~stream_sound();
 
@@ -58,19 +66,33 @@ public:
 	void
 	do_play();
 private:
-	typedef
-	std::vector<ALuint>
-	buffer_sequence;
+	sge::audio::file &audio_file_;
 
-	audio::file &audio_file_;
-	audio::sample_count const buffer_samples_;
+	sge::audio::sample_count const buffer_samples_;
+
 	ALenum const format_;
-	buffer_sequence al_buffers_;
+
+	sge::openal::multi_buffer_holder buffers_;
 
 	bool
 	fill_buffer(
-		ALuint);
+		sge::openal::buffer_id
+	);
+
+	struct unified_ctor
+	{
+	};
+
+	template<
+		typename Parameters
+	>
+	stream_sound(
+		Parameters const &,
+		sge::audio::file &,
+		sge::openal::stream_sound::unified_ctor
+	);
 };
+
 }
 }
 

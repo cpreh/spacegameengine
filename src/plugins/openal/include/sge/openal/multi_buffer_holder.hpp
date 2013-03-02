@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENAL_BUFFER_HOLDER_HPP_INCLUDED
-#define SGE_OPENAL_BUFFER_HOLDER_HPP_INCLUDED
+#ifndef SGE_OPENAL_MULTI_BUFFER_HOLDER_HPP_INCLUDED
+#define SGE_OPENAL_MULTI_BUFFER_HOLDER_HPP_INCLUDED
 
-#include <sge/openal/buffer_id.hpp>
+#include <sge/openal/buffer_id_container.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -30,20 +30,25 @@ namespace sge
 namespace openal
 {
 
-class buffer_holder
+class multi_buffer_holder
 {
 	FCPPT_NONCOPYABLE(
-		buffer_holder
+		multi_buffer_holder
 	);
 public:
-	buffer_holder();
+	typedef sge::openal::buffer_id_container::size_type size_type;
 
-	~buffer_holder();
+	explicit
+	multi_buffer_holder(
+		size_type
+	);
 
-	sge::openal::buffer_id const
-	get() const;
+	~multi_buffer_holder();
+
+	sge::openal::buffer_id_container const &
+	container() const;
 private:
-	sge::openal::buffer_id const buffer_;
+	sge::openal::buffer_id_container const container_;
 };
 
 }

@@ -18,109 +18,55 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/openal/stream_sound.hpp>
-#include <sge/openal/openal.hpp>
-#include <sge/openal/logger.hpp>
-#include <sge/openal/check_state.hpp>
-#include <sge/openal/file_format.hpp>
-#include <sge/audio/exception.hpp>
 #include <sge/audio/file.hpp>
+#include <sge/audio/sample_container.hpp>
+#include <sge/audio/sample_count.hpp>
 #include <sge/audio/sound/base.hpp>
+#include <sge/audio/sound/nonpositional_parameters_fwd.hpp>
 #include <sge/audio/sound/play_status.hpp>
+#include <sge/audio/sound/positional_parameters_fwd.hpp>
+#include <sge/openal/buffer_id.hpp>
+#include <sge/openal/file_format.hpp>
+#include <sge/openal/logger.hpp>
+#include <sge/openal/multi_buffer_holder.hpp>
+#include <sge/openal/openal.hpp>
+#include <sge/openal/stream_sound.hpp>
+#include <sge/openal/funcs/buffer_data.hpp>
+#include <sge/openal/funcs/get_source_int.hpp>
+#include <sge/openal/funcs/source_play.hpp>
+#include <sge/openal/funcs/source_queue_buffer.hpp>
+#include <sge/openal/funcs/source_queue_buffers.hpp>
+#include <sge/openal/funcs/source_unqueue_buffer.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
-#include <fcppt/container/raw_vector_impl.hpp>
-#include <fcppt/log/headers.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <algorithm>
-#include <functional>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/log/debug.hpp>
+#include <fcppt/log/output.hpp>
 
 
 sge::openal::stream_sound::stream_sound(
-	audio::sound::nonpositional_parameters const &p,
-	audio::file &_audio_file)
+	sge::audio::sound::nonpositional_parameters const &_parameters,
+	sge::audio::file &_audio_file
+)
 :
-	source(
-		p),
-	audio_file_(
-		_audio_file),
-	buffer_samples_(
-		static_cast<audio::sample_count>(
-			audio_file_.sample_rate())),
-	format_(
-		openal::file_format(
-			audio_file_)),
-	al_buffers_(
-		audio_file_.expected_package_size()
-		?
-			static_cast<buffer_sequence::size_type>(
-				audio_file_.sample_rate()/audio_file_.expected_package_size())
-		:
-			static_cast<buffer_sequence::size_type>(
-				2))
-{
-	FCPPT_LOG_DEBUG(
-		sge::openal::logger(),
-		fcppt::log::_
-			<< FCPPT_TEXT("Creating ")
-			<< al_buffers_.size()
-			<< FCPPT_TEXT(" buffers for this audio file (expected package size ")
-			<< audio_file_.expected_package_size()
-			<< FCPPT_TEXT(", sample rate ")
-			<< audio_file_.sample_rate()
-			<< FCPPT_TEXT(")"));
-
-	alGenBuffers(
-		static_cast<ALsizei>(
-			al_buffers_.size()),
-		&al_buffers_[0]);
-
-	SGE_OPENAL_CHECK_STATE(
-		FCPPT_TEXT("alGenBuffers failed"),
-		audio::exception
+	sge::openal::stream_sound(
+		_parameters,
+		_audio_file,
+		sge::openal::stream_sound::unified_ctor()
 	)
+{
 }
 
 sge::openal::stream_sound::stream_sound(
-	audio::sound::positional_parameters const &p,
-	audio::file &_audio_file)
+	sge::audio::sound::positional_parameters const &_parameters,
+	sge::audio::file &_audio_file
+)
 :
-	source(
-		p),
-	audio_file_(
-		_audio_file),
-	buffer_samples_(
-		static_cast<audio::sample_count>(
-			_audio_file.sample_rate())),
-	format_(
-		openal::file_format(
-			_audio_file)),
-	al_buffers_(
-		_audio_file.expected_package_size()
-		?
-			static_cast<buffer_sequence::size_type>(
-				_audio_file.sample_rate()/_audio_file.expected_package_size())
-		:
-			static_cast<buffer_sequence::size_type>(
-				2))
-{
-	FCPPT_LOG_DEBUG(
-		sge::openal::logger(),
-		fcppt::log::_
-			<< FCPPT_TEXT("Creating ")
-			<< al_buffers_.size()
-			<< FCPPT_TEXT(" buffers for this audio file"));
-
-	alGenBuffers(
-		static_cast<ALsizei>(
-			al_buffers_.size()),
-		&al_buffers_[0]);
-
-	SGE_OPENAL_CHECK_STATE(
-		FCPPT_TEXT("alGenBuffers failed"),
-		audio::exception
+	sge::openal::stream_sound(
+		_parameters,
+		_audio_file,
+		sge::openal::stream_sound::unified_ctor()
 	)
+{
 }
 
 sge::openal::stream_sound::~stream_sound()
@@ -132,34 +78,32 @@ sge::openal::stream_sound::update()
 {
 	// We store this here to prevent multithreading issues (what if the
 	// source stops playing while we're processing suff further down?
-	audio::sound::play_status const current_play_status =
-		stream_sound::status();
+	sge::audio::sound::play_status const current_play_status(
+		this->status()
+	);
 
-	// TODO: split this!
-	ALint processed;
-	alGetSourcei(
-		source_id(),
-		AL_BUFFERS_PROCESSED,
-		&processed);
+	ALint const processed(
+		sge::openal::funcs::get_source_int(
+			this->source_id(),
+			AL_BUFFERS_PROCESSED
+		)
+	);
 
-	SGE_OPENAL_CHECK_STATE(
-		FCPPT_TEXT("stream_sound::update failed"),
-		audio::exception
+	if(
+		processed == 0
 	)
-
-	if (processed)
-	{
-		FCPPT_LOG_DEBUG(
-			sge::openal::logger(),
-			fcppt::log::_ << processed << FCPPT_TEXT(" buffers processed"));
-	}
-	else
 	{
 		// If no buffers were processed, we can exit right now and don't
 		// need to refill any buffers.
 		return;
 	}
 
+	FCPPT_LOG_DEBUG(
+		sge::openal::logger(),
+		fcppt::log::_
+			<< processed
+			<< FCPPT_TEXT(" buffers processed")
+	);
 
 	// The description for this "hack" comes directly from a Creative Labs guy:
 	// http://opensource.creative.com/pipermail/openal/2010-June/012128.html
@@ -177,32 +121,45 @@ sge::openal::stream_sound::update()
 	// filled any more buffers. If we haven't, then the sound stopped
 	// because it's the stream's end.
 	bool new_data = false;
-	for(ALint i = 0; i < processed; ++i)
-	{
-		// TODO: how to handle those errors?
-		ALuint buffer;
-		// throw away one buffer from the top (the processed one)
-		alSourceUnqueueBuffers(
-			source_id(),
-			static_cast<ALsizei>(1),
-			&buffer);
 
-		if(!fill_buffer(buffer))
+	for(
+		ALint i = 0;
+		i < processed;
+		++i
+	)
+	{
+		// throw away one buffer from the top (the processed one)
+		sge::openal::buffer_id const buffer(
+			sge::openal::funcs::source_unqueue_buffer(
+				this->source_id()
+			)
+		);
+
+		if(
+			!this->fill_buffer(
+				buffer
+			)
+		)
 			break;
 
 		// ...and put the newly filled back in
-		alSourceQueueBuffers(
-			source_id(),
-			static_cast<ALsizei>(1),
-			&buffer);
+		sge::openal::funcs::source_queue_buffer(
+			this->source_id(),
+			buffer
+		);
+
 		new_data = true;
 	}
 
 	// Then we check if the source has really stopped (possible underrun)
-	if(current_play_status != audio::sound::play_status::playing && new_data)
+	if(
+		current_play_status != sge::audio::sound::play_status::playing
+		&& new_data
+	)
 		// And if an underrun occured, play (again)
-		alSourcePlay(
-			source_id());
+		sge::openal::funcs::source_play(
+			this->source_id()
+		);
 
 	// Note that this works for paused sources, too, since paused sounds
 	// don't consume any buffers. At least I think so.
@@ -212,84 +169,166 @@ void
 sge::openal::stream_sound::do_play()
 {
 	// reset file and fill buffers
-	if (status() == audio::sound::play_status::playing)
+	if(
+		this->status() == sge::audio::sound::play_status::playing
+	)
 		return;
 
 	audio_file_.reset();
 
-	std::for_each(
-		al_buffers_.begin(),
-		al_buffers_.end(),
-		std::bind(
-			&stream_sound::fill_buffer,
-			this,
-			std::placeholders::_1));
-
-	alSourceQueueBuffers(
-		source_id(),
-		static_cast<ALsizei>(
-			al_buffers_.size()),
-		&al_buffers_[0]
-	);
-
-	SGE_OPENAL_CHECK_STATE(
-		FCPPT_TEXT("alSourceQueueBuffers failed"),
-		audio::exception
+	for(
+		ALuint id : buffers_.container()
 	)
+		this->fill_buffer(
+			sge::openal::buffer_id(
+				id
+			)
+		);
+
+	sge::openal::funcs::source_queue_buffers(
+		this->source_id(),
+		buffers_.container().data(),
+		static_cast<
+			ALsizei
+		>(
+			buffers_.container().size()
+		)
+	);
 
 	FCPPT_LOG_DEBUG(
 		sge::openal::logger(),
-		fcppt::log::_ << FCPPT_TEXT("queued ") << al_buffers_.size() <<  FCPPT_TEXT(" buffers"));
+		fcppt::log::_
+			<< FCPPT_TEXT("queued ")
+			<< buffers_.container().size()
+			<<  FCPPT_TEXT(" buffers")
+	);
 }
 
 bool
 sge::openal::stream_sound::fill_buffer(
-	ALuint const buffer)
+	sge::openal::buffer_id const _buffer
+)
 {
-	audio::sample_container data;
-	audio::sample_count samples_read =
+	sge::audio::sample_container data;
+
+	sge::audio::sample_count samples_read(
 		audio_file_.read(
 			buffer_samples_,
-			data);
+			data
+		)
+	);
 
 	FCPPT_LOG_DEBUG(
 		sge::openal::logger(),
-		fcppt::log::_ << FCPPT_TEXT("read ") << samples_read << FCPPT_TEXT(" samples"));
+		fcppt::log::_
+			<< FCPPT_TEXT("read ")
+			<< samples_read
+			<< FCPPT_TEXT(" samples")
+	);
 
-	if (samples_read == static_cast<audio::sample_count>(0))
+	if(
+		samples_read == 0u
+	)
 	{
 		FCPPT_LOG_DEBUG(
 			sge::openal::logger(),
-			fcppt::log::_ << FCPPT_TEXT("at the end of last buffer"));
+			fcppt::log::_
+				<< FCPPT_TEXT("at the end of last buffer")
+		);
 
 		// there's nothing more to load, but the sound should be looped? then reset
 		// and start from the beginning
-		if (this->repeat() != audio::sound::repeat::loop)
+		if(
+			this->repeat() != sge::audio::sound::repeat::loop
+		)
 			return false;
 
 		audio_file_.reset();
+
 		samples_read =
 			audio_file_.read(
 				buffer_samples_,
-				data);
+				data
+			);
 	}
 
 	FCPPT_ASSERT_ERROR(
-		!data.empty());
+		!data.empty()
+	);
 
-	alBufferData(
-		buffer,
+	sge::openal::funcs::buffer_data(
+		_buffer,
 		format_,
 		data.data(),
-		static_cast<ALsizei>(
-			data.size()),
-		static_cast<ALsizei>(
-			audio_file_.sample_rate()));
-
-	SGE_OPENAL_CHECK_STATE(
-		FCPPT_TEXT("alBufferData failed"),
-		audio::exception
-	)
+		static_cast<
+			ALsizei
+		>(
+			data.size()
+		),
+		static_cast<
+			ALsizei
+		>(
+			audio_file_.sample_rate()
+		)
+	);
 
 	return true;
+}
+
+template<
+	typename Parameters
+>
+sge::openal::stream_sound::stream_sound(
+	Parameters const &_parameters,
+	sge::audio::file &_audio_file,
+	sge::openal::stream_sound::unified_ctor
+)
+:
+	sge::openal::source(
+		_parameters
+	),
+	audio_file_(
+		_audio_file
+	),
+	buffer_samples_(
+		static_cast<
+			sge::audio::sample_count
+		>(
+			audio_file_.sample_rate()
+		)
+	),
+	format_(
+		sge::openal::file_format(
+			audio_file_
+		)
+	),
+	buffers_(
+		audio_file_.expected_package_size()
+		?
+			static_cast<
+				sge::openal::multi_buffer_holder::size_type
+			>(
+				audio_file_.sample_rate()
+				/
+				audio_file_.expected_package_size()
+			)
+		:
+			static_cast<
+				sge::openal::multi_buffer_holder::size_type
+			>(
+				2
+			)
+	)
+{
+	FCPPT_LOG_DEBUG(
+		sge::openal::logger(),
+		fcppt::log::_
+			<< FCPPT_TEXT("Created ")
+			<< buffers_.container().size()
+			<< FCPPT_TEXT(" buffers for this audio file (expected package size ")
+			<< audio_file_.expected_package_size()
+			<< FCPPT_TEXT(", sample rate ")
+			<< audio_file_.sample_rate()
+			<< FCPPT_TEXT(")")
+	);
 }

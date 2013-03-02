@@ -21,13 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/exception.hpp>
 #include <sge/openal/check_state.hpp>
 #include <sge/openal/openal.hpp>
+#include <sge/openal/source_id.hpp>
 #include <sge/openal/funcs/delete_source.hpp>
 #include <fcppt/text.hpp>
 
 
 void
 sge::openal::funcs::delete_source(
-	ALuint const _source
+	sge::openal::source_id const _source
 )
 {
 	::alDeleteSources(
@@ -36,7 +37,7 @@ sge::openal::funcs::delete_source(
 		>(
 			1
 		),
-		&_source
+		&_source.get()
 	);
 
 	SGE_OPENAL_CHECK_STATE(

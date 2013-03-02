@@ -21,11 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/bad_sound_alloc.hpp>
 #include <sge/openal/check_state.hpp>
 #include <sge/openal/openal.hpp>
+#include <sge/openal/source_id.hpp>
 #include <sge/openal/funcs/gen_source.hpp>
 #include <fcppt/text.hpp>
 
 
-ALuint
+sge::openal::source_id const
 sge::openal::funcs::gen_source()
 {
 	ALuint result;
@@ -44,5 +45,8 @@ sge::openal::funcs::gen_source()
 		sge::audio::bad_sound_alloc
 	)
 
-	return result;
+	return
+		sge::openal::source_id(
+			result
+		);
 }

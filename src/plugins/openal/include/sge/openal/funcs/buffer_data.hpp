@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENAL_FUNCS_BUFFER_DATA_HPP_INCLUDED
 #define SGE_OPENAL_FUNCS_BUFFER_DATA_HPP_INCLUDED
 
+#include <sge/openal/buffer_id.hpp>
 #include <sge/openal/openal.hpp>
 
 
@@ -33,7 +34,7 @@ namespace funcs
 
 void
 buffer_data(
-	ALuint buffer,
+	sge::openal::buffer_id,
 	ALenum format,
 	ALvoid const *data,
 	ALsizei size,

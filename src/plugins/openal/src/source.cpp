@@ -18,9 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/openal/source.hpp>
-#include <sge/openal/check_state.hpp>
-#include <sge/audio/exception.hpp>
 #include <sge/audio/scalar.hpp>
 #include <sge/audio/vector.hpp>
 #include <sge/audio/sound/base.hpp>
@@ -29,51 +26,68 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/sound/play_status.hpp>
 #include <sge/audio/sound/positional_parameters.hpp>
 #include <sge/audio/sound/repeat.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/math/rad_to_deg.hpp>
+#include <sge/openal/buffer_id.hpp>
+#include <sge/openal/source.hpp>
+#include <sge/openal/source_id.hpp>
+#include <sge/openal/funcs/get_source_int.hpp>
+#include <sge/openal/funcs/source_float.hpp>
+#include <sge/openal/funcs/source_float_ptr.hpp>
+#include <sge/openal/funcs/source_int.hpp>
+#include <sge/openal/funcs/source_pause.hpp>
+#include <sge/openal/funcs/source_play.hpp>
+#include <sge/openal/funcs/source_stop.hpp>
 #include <fcppt/assert/unreachable.hpp>
+#include <fcppt/math/rad_to_deg.hpp>
 
 
 sge::openal::source::source(
-	sge::audio::sound::nonpositional_parameters const &p,
-	ALuint const _buffer)
+	sge::audio::sound::nonpositional_parameters const &_parameters,
+	sge::openal::buffer_id const _buffer
+)
 :
 	sge::openal::source::source(
 		_buffer
 	)
 {
 	this->init(
-		p);
+		_parameters
+	);
 }
 
 sge::openal::source::source(
-	audio::sound::positional_parameters const &p,
-	ALuint const _buffer)
+	sge::audio::sound::positional_parameters const &_parameters,
+	sge::openal::buffer_id const _buffer
+)
 :
 	sge::openal::source::source(
 		_buffer
 	)
 {
 	this->init(
-		p);
+		_parameters
+	);
 }
 
 sge::openal::source::source(
-	sge::audio::sound::nonpositional_parameters const &p)
+	sge::audio::sound::nonpositional_parameters const &_parameters
+)
 :
 	sge::openal::source::source()
 {
 	this->init(
-		p);
+		_parameters
+	);
 }
 
 sge::openal::source::source(
-	audio::sound::positional_parameters const &p)
+	sge::audio::sound::positional_parameters const &_parameters
+)
 :
 	sge::openal::source::source()
 {
 	this->init(
-		p);
+		_parameters
+	);
 }
 
 sge::openal::source::~source()
@@ -82,78 +96,63 @@ sge::openal::source::~source()
 
 void
 sge::openal::source::play(
-	audio::sound::repeat const _repeat)
+	sge::audio::sound::repeat const _repeat
+)
 {
 	repeat_ =
 		_repeat;
 
 	this->do_play();
 
-	if (this->status() != audio::sound::play_status::playing)
-	{
-		alSourcePlay(
-			source_id());
-
-		SGE_OPENAL_CHECK_STATE(
-			FCPPT_TEXT("alSourcePlay failed"),
-			audio::exception
-		)
-	}
+	if(
+		this->status() != sge::audio::sound::play_status::playing
+	)
+		sge::openal::funcs::source_play(
+			this->source_id()
+		);
 }
 
 void
 sge::openal::source::toggle_pause()
 {
-	switch (this->status())
+	switch(
+		this->status()
+	)
 	{
-		case audio::sound::play_status::stopped:
-			return;
-		case audio::sound::play_status::paused:
-			alSourcePlay(
-				this->source_id());
-
-			SGE_OPENAL_CHECK_STATE(
-				FCPPT_TEXT("alSourcePlay failed"),
-				audio::exception
-			)
-		break;
-		case audio::sound::play_status::playing:
-			alSourcePause(
-				this->source_id());
-
-			SGE_OPENAL_CHECK_STATE(
-				FCPPT_TEXT("alSourcePause failed"),
-				audio::exception
-			)
-		break;
+	case sge::audio::sound::play_status::stopped:
+		return;
+	case sge::audio::sound::play_status::paused:
+		sge::openal::funcs::source_play(
+			this->source_id()
+		);
+		return;
+	case sge::audio::sound::play_status::playing:
+		sge::openal::funcs::source_pause(
+			this->source_id()
+		);
+		return;
 	}
+
+	FCPPT_ASSERT_UNREACHABLE;
 }
 
 sge::audio::sound::play_status
 sge::openal::source::status() const
 {
-	ALint play_mode;
-
-	alGetSourcei(
-		this->source_id(),
-		AL_SOURCE_STATE,
-		&play_mode
-	);
-
-	SGE_OPENAL_CHECK_STATE(
-		FCPPT_TEXT("alGetSourcei failed"),
-		audio::exception
+	switch(
+		sge::openal::funcs::get_source_int(
+			this->source_id(),
+			AL_SOURCE_STATE
+		)
 	)
-
-	switch (play_mode)
 	{
 		case AL_STOPPED:
 		case AL_INITIAL:
-			return audio::sound::play_status::stopped;
+			return sge::audio::sound::play_status::stopped;
 		case AL_PAUSED:
-			return audio::sound::play_status::paused;
+			return sge::audio::sound::play_status::paused;
 		case AL_PLAYING:
-			return audio::sound::play_status::playing;
+			return sge::audio::sound::play_status::playing;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;
@@ -162,16 +161,14 @@ sge::openal::source::status() const
 void
 sge::openal::source::stop()
 {
-	if (this->status() == audio::sound::play_status::stopped)
+	if(
+		this->status() == audio::sound::play_status::stopped
+	)
 		return;
 
-	alSourceStop(
-		source_id());
-
-	SGE_OPENAL_CHECK_STATE(
-		FCPPT_TEXT("alSourceStop failed"),
-		audio::exception
-	)
+	sge::openal::funcs::source_stop(
+		this->source_id()
+	);
 }
 
 void
@@ -183,6 +180,7 @@ void
 sge::openal::source::position(
 	audio::vector const &n)
 {
+	// TODO: Write a conversion function for this!
 	ALfloat const vec[3] =
 		{
 			static_cast<ALfloat>(n.x()),
@@ -190,16 +188,11 @@ sge::openal::source::position(
 			static_cast<ALfloat>(n.z())
 		};
 
-	alSourcefv(
+	sge::openal::funcs::source_float_ptr(
 		this->source_id(),
 		AL_POSITION,
 		vec
 	);
-
-	SGE_OPENAL_CHECK_STATE(
-		FCPPT_TEXT("alSourcefv failed"),
-		audio::exception
-	)
 }
 
 void
@@ -213,106 +206,98 @@ sge::openal::source::linear_velocity(
 			static_cast<ALfloat>(n.z())
 		};
 
-	alSourcefv(
+	sge::openal::funcs::source_float_ptr(
 		this->source_id(),
 		AL_VELOCITY,
 		vec
 	);
-
-	SGE_OPENAL_CHECK_STATE(
-		FCPPT_TEXT("alSourcefv failed"),
-		audio::exception
-	)
 }
 
 void
 sge::openal::source::gain(
-	audio::scalar const n)
+	sge::audio::scalar const _value
+)
 {
-	alSourcef(
+	sge::openal::funcs::source_float(
 		this->source_id(),
 		AL_GAIN,
-		static_cast<ALfloat>(
-			n));
-
-	SGE_OPENAL_CHECK_STATE(
-		FCPPT_TEXT("alSourcef failed"),
-		audio::exception
-	)
+		static_cast<
+			ALfloat
+		>(
+			_value
+		)
+	);
 }
 
 void
 sge::openal::source::pitch(
-	audio::scalar const n)
+	sge::audio::scalar const _value
+)
 {
-	alSourcef(
+	sge::openal::funcs::source_float(
 		this->source_id(),
 		AL_PITCH,
-		static_cast<ALfloat>(
-			n));
-
-	SGE_OPENAL_CHECK_STATE(
-		FCPPT_TEXT("alSourcef failed"),
-		audio::exception
-	)
+		static_cast<
+			ALfloat
+		>(
+			_value
+		)
+	);
 }
 
 void
 sge::openal::source::rolloff_factor(
-	audio::scalar const n)
+	sge::audio::scalar const _value
+)
 {
-	alSourcef(
+	sge::openal::funcs::source_float(
 		this->source_id(),
 		AL_ROLLOFF_FACTOR,
-		static_cast<ALfloat>(
-			n)
+		static_cast<
+			ALfloat
+		>(
+			_value
+		)
 	);
-
-	SGE_OPENAL_CHECK_STATE(
-		FCPPT_TEXT("alSourcef failed"),
-		audio::exception
-	)
 }
 
 void
 sge::openal::source::reference_distance(
-	audio::scalar const n)
+	sge::audio::scalar const _value
+)
 {
-	alSourcef(
+	sge::openal::funcs::source_float(
 		this->source_id(),
 		AL_REFERENCE_DISTANCE,
-		static_cast<ALfloat>(
-			n)
+		static_cast<
+			ALfloat
+		>(
+			_value
+		)
 	);
-
-	SGE_OPENAL_CHECK_STATE(
-		FCPPT_TEXT("alSourcef failed"),
-		audio::exception
-	)
 }
 
 void
 sge::openal::source::max_distance(
-	audio::scalar const n)
+	sge::audio::scalar const _value
+)
 {
-	alSourcef(
+	sge::openal::funcs::source_float(
 		this->source_id(),
 		AL_MAX_DISTANCE,
-		static_cast<ALfloat>(
-			n)
+		static_cast<
+			ALfloat
+		>(
+			_value
+		)
 	);
-
-	SGE_OPENAL_CHECK_STATE(
-		FCPPT_TEXT("alSourcef failed"),
-		audio::exception
-	)
 }
 
 void
 sge::openal::source::direction(
 	audio::sound::optional_direction const &_n)
 {
-	audio::vector const n =
+	sge::audio::vector const n =
 		_n
 		?
 			*_n
@@ -326,81 +311,82 @@ sge::openal::source::direction(
 			static_cast<ALfloat>(n.z())
 		};
 
-	alSourcefv(
+	sge::openal::funcs::source_float_ptr(
 		this->source_id(),
 		AL_DIRECTION,
 		vec
 	);
-
-	SGE_OPENAL_CHECK_STATE(
-		FCPPT_TEXT("alSourcefv failed"),
-		audio::exception
-	)
 }
 
 void
 sge::openal::source::inner_cone_angle(
-	audio::scalar const n)
+	sge::audio::scalar const _value
+)
 {
-	alSourcef(
+	sge::openal::funcs::source_float(
 		this->source_id(),
 		AL_CONE_INNER_ANGLE,
-		static_cast<ALfloat>(
+		static_cast<
+			ALfloat
+		>(
 			fcppt::math::rad_to_deg(
-				n))
+				_value
+			)
+		)
 	);
-
-	SGE_OPENAL_CHECK_STATE(
-		FCPPT_TEXT("alSourcef failed"),
-		audio::exception
-	)
 }
 
 void
 sge::openal::source::outer_cone_angle(
-	audio::scalar const n)
+	sge::audio::scalar const _value
+)
 {
-	alSourcef(
+	sge::openal::funcs::source_float(
 		this->source_id(),
 		AL_CONE_OUTER_ANGLE,
-		static_cast<ALfloat>(
+		static_cast<
+			ALfloat
+		>(
 			fcppt::math::rad_to_deg(
-				n))
+				_value
+			)
+		)
 	);
-
-	SGE_OPENAL_CHECK_STATE(
-		FCPPT_TEXT("alSourcef failed"),
-		audio::exception
-	)
 }
 
 void
 sge::openal::source::outer_cone_gain(
-	audio::scalar const n)
+	sge::audio::scalar const _value
+)
 {
-	alSourcef(
+	sge::openal::funcs::source_float(
 		this->source_id(),
 		AL_CONE_OUTER_GAIN,
-		static_cast<ALfloat>(
-			n)
+		static_cast<
+			ALfloat
+		>(
+			_value
+		)
 	);
-
-	SGE_OPENAL_CHECK_STATE(
-		FCPPT_TEXT("alSourcef failed"),
-		audio::exception
-	)
 }
 
 void
 sge::openal::source::do_play()
 {
-	alSourcei(
+	sge::openal::funcs::source_int(
 		this->source_id(),
 		AL_LOOPING,
-		repeat_ == audio::sound::repeat::loop ? AL_TRUE : AL_FALSE);
+		repeat_
+		==
+		sge::audio::sound::repeat::loop
+		?
+			AL_TRUE
+		:
+			AL_FALSE
+	);
 }
 
-ALuint
+sge::openal::source_id const
 sge::openal::source::source_id() const
 {
 	return source_.get();
@@ -422,74 +408,91 @@ sge::openal::source::source()
 }
 
 sge::openal::source::source(
-	ALuint const _buffer
+	sge::openal::buffer_id const _buffer
 )
 :
 	sge::openal::source()
 {
-	alSourcei(
-		source_id(),
+	sge::openal::funcs::source_int(
+		this->source_id(),
 		AL_BUFFER,
-		static_cast<ALint>(
-			_buffer));
-
-	SGE_OPENAL_CHECK_STATE(
-		FCPPT_TEXT("alSourcei failed"),
-		audio::exception)
+		static_cast<
+			ALint
+		>(
+			_buffer.get()
+		)
+	);
 }
 
 // that's a hack because we have two constructors
 void
 sge::openal::source::init(
-	audio::sound::positional_parameters const &p)
+	sge::audio::sound::positional_parameters const &_parameters
+)
 {
 	this->pitch(
-		p.pitch());
+		_parameters.pitch()
+	);
 
 	this->position(
-		p.position());
+		_parameters.position()
+	);
 
 	this->linear_velocity(
-		p.linear_velocity());
+		_parameters.linear_velocity()
+	);
 
 	this->pitch(
-		p.pitch());
+		_parameters.pitch()
+	);
 
 	this->gain(
-		p.gain());
+		_parameters.gain()
+	);
 
 	this->rolloff_factor(
-		p.rolloff_factor());
+		_parameters.rolloff_factor()
+	);
 
 	this->reference_distance(
-		p.reference_distance());
+		_parameters.reference_distance()
+	);
 
 	this->max_distance(
-		p.max_distance());
+		_parameters.max_distance()
+	);
 
 	this->inner_cone_angle(
-		p.inner_cone_angle());
+		_parameters.inner_cone_angle()
+	);
 
 	this->outer_cone_angle(
-		p.outer_cone_angle());
+		_parameters.outer_cone_angle()
+	);
 
 	this->direction(
-		p.direction());
+		_parameters.direction()
+	);
 }
 
 void
 sge::openal::source::init(
-	audio::sound::nonpositional_parameters const &p)
+	sge::audio::sound::nonpositional_parameters const &_parameters
+)
 {
 	this->init(
-		audio::sound::positional_parameters()
+		sge::audio::sound::positional_parameters()
 			.gain(
-				p.gain())
+				_parameters.gain()
+			)
 			.pitch(
-				p.pitch())
+				_parameters.pitch()
+			)
 			// The special value 0 for the rolloff factor means
 			// that the source is nonpositional (as indicated
 			// directly by the OpenAL spec)
 			.rolloff_factor(
-				0.0f));
+				0.0f
+			)
+	);
 }

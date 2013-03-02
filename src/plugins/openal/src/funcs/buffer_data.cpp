@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/audio/exception.hpp>
+#include <sge/openal/buffer_id.hpp>
 #include <sge/openal/check_state.hpp>
 #include <sge/openal/openal.hpp>
 #include <sge/openal/funcs/buffer_data.hpp>
@@ -27,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::openal::funcs::buffer_data(
-	ALuint const _buffer,
+	sge::openal::buffer_id const _buffer,
 	ALenum const _format,
 	ALvoid const *const _data,
 	ALsizei const _size,
@@ -35,7 +36,7 @@ sge::openal::funcs::buffer_data(
 )
 {
 	::alBufferData(
-		_buffer,
+		_buffer.get(),
 		_format,
 		_data,
 		_size,

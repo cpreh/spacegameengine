@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/openal/logger.hpp>
-#include <sge/openal/openal.hpp>
 #include <sge/openal/source_holder.hpp>
+#include <sge/openal/source_id.hpp>
 #include <sge/openal/funcs/delete_source.hpp>
 #include <sge/openal/funcs/gen_source.hpp>
 #include <fcppt/text.hpp>
@@ -49,7 +49,7 @@ sge::openal::source_holder::~source_holder()
 	);
 }
 
-ALuint
+sge::openal::source_id const
 sge::openal::source_holder::get() const
 {
 	return value_;

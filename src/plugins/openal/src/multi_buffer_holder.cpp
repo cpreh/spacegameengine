@@ -18,35 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENAL_BUFFER_HOLDER_HPP_INCLUDED
-#define SGE_OPENAL_BUFFER_HOLDER_HPP_INCLUDED
-
-#include <sge/openal/buffer_id.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/openal/multi_buffer_holder.hpp>
+#include <sge/openal/funcs/delete_multi_buffers.hpp>
+#include <sge/openal/funcs/gen_multi_buffers.hpp>
 
 
-namespace sge
+sge::openal::multi_buffer_holder::multi_buffer_holder(
+	size_type const _size
+)
+:
+	container_(
+		sge::openal::funcs::gen_multi_buffers(
+			_size
+		)
+	)
 {
-namespace openal
-{
-
-class buffer_holder
-{
-	FCPPT_NONCOPYABLE(
-		buffer_holder
-	);
-public:
-	buffer_holder();
-
-	~buffer_holder();
-
-	sge::openal::buffer_id const
-	get() const;
-private:
-	sge::openal::buffer_id const buffer_;
-};
-
-}
 }
 
-#endif
+sge::openal::multi_buffer_holder::~multi_buffer_holder()
+{
+/*
+	sge::openal::funcs::delete_multi_buffers(
+		container_
+	);*/
+}
+
+sge::openal::buffer_id_container const &
+sge::openal::multi_buffer_holder::container() const
+{
+	return container_;
+}

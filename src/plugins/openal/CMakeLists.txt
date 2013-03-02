@@ -3,6 +3,9 @@ set(
 	src/plugins/openal/include/sge/openal/alc_error_string.hpp
 	src/plugins/openal/include/sge/openal/buffer.hpp
 	src/plugins/openal/include/sge/openal/buffer_holder.hpp
+	src/plugins/openal/include/sge/openal/buffer_id.hpp
+	src/plugins/openal/include/sge/openal/buffer_id_container.hpp
+	src/plugins/openal/include/sge/openal/buffer_id_container_fwd.hpp
 	src/plugins/openal/include/sge/openal/check_alc_state.hpp
 	src/plugins/openal/include/sge/openal/check_state.hpp
 	src/plugins/openal/include/sge/openal/context.hpp
@@ -12,15 +15,32 @@ set(
 	src/plugins/openal/include/sge/openal/file_format.hpp
 	src/plugins/openal/include/sge/openal/funcs/buffer_data.hpp
 	src/plugins/openal/include/sge/openal/funcs/delete_buffer.hpp
+	src/plugins/openal/include/sge/openal/funcs/delete_buffers.hpp
+	src/plugins/openal/include/sge/openal/funcs/delete_multi_buffers.hpp
 	src/plugins/openal/include/sge/openal/funcs/delete_source.hpp
 	src/plugins/openal/include/sge/openal/funcs/gen_buffer.hpp
+	src/plugins/openal/include/sge/openal/funcs/gen_buffers.hpp
+	src/plugins/openal/include/sge/openal/funcs/gen_multi_buffers.hpp
 	src/plugins/openal/include/sge/openal/funcs/gen_source.hpp
+	src/plugins/openal/include/sge/openal/funcs/get_source_int.hpp
+	src/plugins/openal/include/sge/openal/funcs/source_float.hpp
+	src/plugins/openal/include/sge/openal/funcs/source_float_ptr.hpp
+	src/plugins/openal/include/sge/openal/funcs/source_int.hpp
+	src/plugins/openal/include/sge/openal/funcs/source_pause.hpp
+	src/plugins/openal/include/sge/openal/funcs/source_play.hpp
+	src/plugins/openal/include/sge/openal/funcs/source_queue_buffer.hpp
+	src/plugins/openal/include/sge/openal/funcs/source_queue_buffers.hpp
+	src/plugins/openal/include/sge/openal/funcs/source_stop.hpp
+	src/plugins/openal/include/sge/openal/funcs/source_unqueue_buffer.hpp
+	src/plugins/openal/include/sge/openal/funcs/source_unqueue_buffers.hpp
 	src/plugins/openal/include/sge/openal/listener.hpp
 	src/plugins/openal/include/sge/openal/logger.hpp
+	src/plugins/openal/include/sge/openal/multi_buffer_holder.hpp
 	src/plugins/openal/include/sge/openal/openal.hpp
 	src/plugins/openal/include/sge/openal/player.hpp
 	src/plugins/openal/include/sge/openal/source.hpp
 	src/plugins/openal/include/sge/openal/source_holder.hpp
+	src/plugins/openal/include/sge/openal/source_id.hpp
 	src/plugins/openal/include/sge/openal/stream_sound.hpp
 	src/plugins/openal/src/alc_error_string.cpp
 	src/plugins/openal/src/buffer.cpp
@@ -32,11 +52,27 @@ set(
 	src/plugins/openal/src/file_format.cpp
 	src/plugins/openal/src/funcs/buffer_data.cpp
 	src/plugins/openal/src/funcs/delete_buffer.cpp
+	src/plugins/openal/src/funcs/delete_buffers.cpp
+	src/plugins/openal/src/funcs/delete_multi_buffers.cpp
 	src/plugins/openal/src/funcs/delete_source.cpp
 	src/plugins/openal/src/funcs/gen_buffer.cpp
+	src/plugins/openal/src/funcs/gen_buffers.cpp
+	src/plugins/openal/src/funcs/gen_multi_buffers.cpp
 	src/plugins/openal/src/funcs/gen_source.cpp
+	src/plugins/openal/src/funcs/get_source_int.cpp
+	src/plugins/openal/src/funcs/source_float.cpp
+	src/plugins/openal/src/funcs/source_float_ptr.cpp
+	src/plugins/openal/src/funcs/source_int.cpp
+	src/plugins/openal/src/funcs/source_pause.cpp
+	src/plugins/openal/src/funcs/source_play.cpp
+	src/plugins/openal/src/funcs/source_queue_buffer.cpp
+	src/plugins/openal/src/funcs/source_queue_buffers.cpp
+	src/plugins/openal/src/funcs/source_stop.cpp
+	src/plugins/openal/src/funcs/source_unqueue_buffer.cpp
+	src/plugins/openal/src/funcs/source_unqueue_buffers.cpp
 	src/plugins/openal/src/listener.cpp
 	src/plugins/openal/src/logger.cpp
+	src/plugins/openal/src/multi_buffer_holder.cpp
 	src/plugins/openal/src/player.cpp
 	src/plugins/openal/src/source.cpp
 	src/plugins/openal/src/source_holder.cpp
