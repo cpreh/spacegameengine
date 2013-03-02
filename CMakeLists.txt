@@ -147,6 +147,16 @@ include_directories(
 	${awl_INCLUDE_DIRS}
 )
 
+# Find majutsu
+find_package(
+	majutsu
+	REQUIRED
+)
+
+include_directories(
+	${majutsu_INCLUDE_DIRS}
+)
+
 set(
 	MEDIA_INSTALL_DIR
 	"${INSTALL_DATA_DIR}/media"

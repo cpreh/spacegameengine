@@ -40,13 +40,6 @@ foreach(
 endforeach()
 
 install(
-	DIRECTORY
-	${CMAKE_SOURCE_DIR}/include/majutsu
-	DESTINATION
-	${INSTALL_INCLUDE_DIR}
-)
-
-install(
 	FILES
 	${CMAKE_BINARY_DIR}/include/sge/symbol.hpp
 	DESTINATION
