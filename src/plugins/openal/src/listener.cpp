@@ -123,7 +123,7 @@ sge::openal::listener::direction(
 		};
 
 	listener_fv(
-		AL_POSITION,
+		AL_ORIENTATION,
 		vec
 	);
 }
