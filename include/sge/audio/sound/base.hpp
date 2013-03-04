@@ -35,6 +35,7 @@ namespace audio
 {
 namespace sound
 {
+
 /// The base class for sounds (nonpositional, positional, streaming, nonstreaming)
 /**
  * This class is an interface class, you cannot instantiate it. Audio plugins
@@ -45,9 +46,9 @@ namespace sound
  */
 class SGE_CLASS_SYMBOL base
 {
-FCPPT_NONCOPYABLE(
-	base
-);
+	FCPPT_NONCOPYABLE(
+		base
+	);
 public:
 	/// Plays a sound using the specified repeat behavior.
 	/**
@@ -58,9 +59,11 @@ public:
 	 *
 	 * \see sge::audio::sound::base::toggle_pause
 	 */
-	virtual void
+	virtual
+	void
 	play(
-		sge::audio::sound::repeat) = 0;
+		sge::audio::sound::repeat
+	) = 0;
 
 	/// Toggles between paused and unpaused
 	/**
@@ -69,7 +72,8 @@ public:
 	 * (default is once). If the sound is playing, it will be paused (and
 	 * the repeat mode is saved).
 	 */
-	virtual void
+	virtual
+	void
 	toggle_pause() = 0;
 
 	/// Returns the momentary plating status of the sound
@@ -78,7 +82,8 @@ public:
 	 * neccessary since the status of this variable changes without the
 	 * user interfering.
 	*/
-	virtual sge::audio::sound::play_status
+	virtual
+	sge::audio::sound::play_status
 	status() const = 0;
 
 	/// Changes the sound's gain ("volume")
@@ -87,9 +92,11 @@ public:
 	 * implementation-defined (or plugin-defined) if you pass anything out
 	 * of this range.
 	 */
-	virtual void
+	virtual
+	void
 	gain(
-		scalar) = 0;
+		sge::audio::scalar
+	) = 0;
 
 	/// Changes the sound's pitch
 	/**
@@ -97,15 +104,18 @@ public:
 	 * implementation-defined (or plugin-defined) if you pass anything out
 	 * of this range.
 	 */
-	virtual void
+	virtual
+	void
 	pitch(
-		scalar) = 0;
+		sge::audio::scalar
+	) = 0;
 
 	/// Stops the sound
 	/**
 	 * If the sound is already stopped, nothing happens.
 	 */
-	virtual void
+	virtual
+	void
 	stop() = 0;
 
 	/// Update the sound
@@ -114,17 +124,20 @@ public:
 	 * advised to call this regularly, especially with streaming sounds.
 	 * Backends might need this to reload more data.
 	 */
-	virtual void
+	virtual
+	void
 	update() = 0;
 
 	/** \virtualdtor */
-	SGE_AUDIO_SYMBOL virtual
+	SGE_AUDIO_SYMBOL
+	virtual
 	~base() = 0;
 protected:
 	/** \protectedctor */
-	SGE_AUDIO_SYMBOL explicit
+	SGE_AUDIO_SYMBOL
 	base();
 };
+
 }
 }
 }

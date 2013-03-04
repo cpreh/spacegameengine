@@ -18,32 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/openal/multi_buffer_holder.hpp>
-#include <sge/openal/funcs/delete_multi_buffers.hpp>
-#include <sge/openal/funcs/gen_multi_buffers.hpp>
+#ifndef SGE_OPENAL_FUNCS_LISTENER_FLOAT_PTR_HPP_INCLUDED
+#define SGE_OPENAL_FUNCS_LISTENER_FLOAT_PTR_HPP_INCLUDED
+
+#include <sge/openal/al.hpp>
 
 
-sge::openal::multi_buffer_holder::multi_buffer_holder(
-	size_type const _size
-)
-:
-	container_(
-		sge::openal::funcs::gen_multi_buffers(
-			_size
-		)
-	)
+namespace sge
 {
+namespace openal
+{
+namespace funcs
+{
+
+void
+listener_float_ptr(
+	ALenum what,
+	ALfloat const *values
+);
+
+}
+}
 }
 
-sge::openal::multi_buffer_holder::~multi_buffer_holder()
-{
-	sge::openal::funcs::delete_multi_buffers(
-		container_
-	);
-}
-
-sge::openal::buffer_id_container const &
-sge::openal::multi_buffer_holder::container() const
-{
-	return container_;
-}
+#endif

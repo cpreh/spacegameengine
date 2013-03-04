@@ -18,32 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/openal/multi_buffer_holder.hpp>
-#include <sge/openal/funcs/delete_multi_buffers.hpp>
-#include <sge/openal/funcs/gen_multi_buffers.hpp>
+#include <sge/audio/exception.hpp>
+#include <sge/openal/al.hpp>
+#include <sge/openal/check_state.hpp>
+#include <sge/openal/funcs/listener_float_ptr.hpp>
+#include <fcppt/text.hpp>
 
 
-sge::openal::multi_buffer_holder::multi_buffer_holder(
-	size_type const _size
+void
+sge::openal::funcs::listener_float_ptr(
+	ALenum const _what,
+	ALfloat const *const _values
 )
-:
-	container_(
-		sge::openal::funcs::gen_multi_buffers(
-			_size
-		)
-	)
 {
-}
-
-sge::openal::multi_buffer_holder::~multi_buffer_holder()
-{
-	sge::openal::funcs::delete_multi_buffers(
-		container_
+	::alListenerfv(
+		_what,
+		_values
 	);
-}
 
-sge::openal::buffer_id_container const &
-sge::openal::multi_buffer_holder::container() const
-{
-	return container_;
+	SGE_OPENAL_CHECK_STATE(
+		FCPPT_TEXT("alListenerfv failed"),
+		sge::audio::exception
+	)
 }

@@ -30,6 +30,7 @@ set(
 	src/plugins/openal/include/sge/openal/funcs/gen_multi_buffers.hpp
 	src/plugins/openal/include/sge/openal/funcs/gen_source.hpp
 	src/plugins/openal/include/sge/openal/funcs/get_source_int.hpp
+	src/plugins/openal/include/sge/openal/funcs/listener_float_ptr.hpp
 	src/plugins/openal/include/sge/openal/funcs/source_float.hpp
 	src/plugins/openal/include/sge/openal/funcs/source_float_ptr.hpp
 	src/plugins/openal/include/sge/openal/funcs/source_int.hpp
@@ -70,6 +71,7 @@ set(
 	src/plugins/openal/src/funcs/gen_multi_buffers.cpp
 	src/plugins/openal/src/funcs/gen_source.cpp
 	src/plugins/openal/src/funcs/get_source_int.cpp
+	src/plugins/openal/src/funcs/listener_float_ptr.cpp
 	src/plugins/openal/src/funcs/source_float.cpp
 	src/plugins/openal/src/funcs/source_float_ptr.cpp
 	src/plugins/openal/src/funcs/source_int.cpp

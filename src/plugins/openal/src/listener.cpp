@@ -5,7 +5,7 @@ Copyright (C) 2006-2013 Carl Philipp Reh (sefi@s-e-f-i.de)
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
 as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
+of the License, or (at your option) any later versio_vector.
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -19,35 +19,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/audio/exception.hpp>
+#include <sge/audio/vector.hpp>
 #include <sge/audio/direction/object.hpp>
-#include <sge/openal/listener.hpp>
-#include <sge/openal/check_state.hpp>
-//#include <sge/openal/logger.hpp>
 #include <sge/openal/al.hpp>
-#include <fcppt/text.hpp>
-//#include <fcppt/log/headers.hpp>
-//#include <fcppt/math/vector/output.hpp>
+#include <sge/openal/listener.hpp>
+#include <sge/openal/funcs/listener_float_ptr.hpp>
 
-
-namespace
-{
-
-void listener_fv(
-	ALenum const type,
-	ALfloat const *const value)
-{
-	alListenerfv(
-		type,
-		value
-	);
-
-	SGE_OPENAL_CHECK_STATE(
-		FCPPT_TEXT("alListenerfv failed"),
-		sge::audio::exception
-	)
-}
-
-}
 
 sge::openal::listener::listener()
 :
@@ -62,47 +39,41 @@ sge::openal::listener::~listener()
 
 void
 sge::openal::listener::linear_velocity(
-	sge::audio::vector const &n)
+	sge::audio::vector const &_vector
+)
 {
-/*
-	FCPPT_LOG_DEBUG(
-		sge::openal::logger(),
-		fcppt::log::_ << FCPPT_TEXT("setting listener velocity to ") << n);*/
-
 	linear_velocity_ =
-		n;
+		_vector;
 
 	// TODO: use sge::fcppt::math::vector!
 	ALfloat const vec[3] =
 		{
-			static_cast<ALfloat>(n.x()),
-			static_cast<ALfloat>(n.y()),
-			static_cast<ALfloat>(n.z())
+			static_cast<ALfloat>(_vector.x()),
+			static_cast<ALfloat>(_vector.y()),
+			static_cast<ALfloat>(_vector.z())
 		};
 
-	listener_fv(
+	sge::openal::funcs::listener_float_ptr(
 		AL_VELOCITY,
-		vec);
+		vec
+	);
 }
 
 void
 sge::openal::listener::position(
-	audio::vector const &n)
+	sge::audio::vector const &_vector
+)
 {
-	/*
-	FCPPT_LOG_DEBUG(
-		sge::openal::logger(),
-		fcppt::log::_ << FCPPT_TEXT("setting listener position to ") << n);
-*/
+	position_ = _vector;
 
-	position_ = n;
 	ALfloat const vec[3] =
 		{
-			static_cast<ALfloat>(n.x()),
-			static_cast<ALfloat>(n.y()),
-			static_cast<ALfloat>(n.z())
+			static_cast<ALfloat>(_vector.x()),
+			static_cast<ALfloat>(_vector.y()),
+			static_cast<ALfloat>(_vector.z())
 		};
-	listener_fv(
+
+	sge::openal::funcs::listener_float_ptr(
 		AL_POSITION,
 		vec
 	);
@@ -110,19 +81,20 @@ sge::openal::listener::position(
 
 void
 sge::openal::listener::direction(
-	audio::direction::object const &n)
+	sge::audio::direction::object const &_dir
+)
 {
 	ALfloat const vec[6] =
 		{
-			static_cast<ALfloat>(n.forward().x()),
-			static_cast<ALfloat>(n.forward().y()),
-			static_cast<ALfloat>(n.forward().z()),
-			static_cast<ALfloat>(n.up().x()),
-			static_cast<ALfloat>(n.up().y()),
-			static_cast<ALfloat>(n.up().z())
+			static_cast<ALfloat>(_dir.forward().x()),
+			static_cast<ALfloat>(_dir.forward().y()),
+			static_cast<ALfloat>(_dir.forward().z()),
+			static_cast<ALfloat>(_dir.up().x()),
+			static_cast<ALfloat>(_dir.up().y()),
+			static_cast<ALfloat>(_dir.up().z())
 		};
 
-	listener_fv(
+	sge::openal::funcs::listener_float_ptr(
 		AL_ORIENTATION,
 		vec
 	);

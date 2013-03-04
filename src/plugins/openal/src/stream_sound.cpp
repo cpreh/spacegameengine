@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/sound/positional_parameters_fwd.hpp>
 #include <sge/openal/al.hpp>
 #include <sge/openal/buffer_id.hpp>
+#include <sge/openal/buffer_id_container.hpp>
 #include <sge/openal/file_format.hpp>
 #include <sge/openal/logger.hpp>
 #include <sge/openal/multi_buffer_holder.hpp>
@@ -37,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/openal/funcs/source_queue_buffer.hpp>
 #include <sge/openal/funcs/source_queue_buffers.hpp>
 #include <sge/openal/funcs/source_unqueue_buffer.hpp>
+#include <sge/openal/funcs/source_unqueue_buffers.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/log/debug.hpp>
@@ -71,6 +73,28 @@ sge::openal::stream_sound::stream_sound(
 
 sge::openal::stream_sound::~stream_sound()
 {
+	this->stop();
+
+	sge::openal::buffer_id_container buffers(
+		static_cast<
+			sge::openal::buffer_id_container::size_type
+		>(
+			sge::openal::funcs::get_source_int(
+				this->source_id(),
+				AL_BUFFERS_QUEUED
+			)
+		)
+	);
+
+	sge::openal::funcs::source_unqueue_buffers(
+		this->source_id(),
+		buffers.data(),
+		static_cast<
+			ALsizei
+		>(
+			buffers.size()
+		)
+	);
 }
 
 void
