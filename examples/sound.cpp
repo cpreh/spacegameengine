@@ -37,10 +37,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/sound/repeat.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/log/global.hpp>
+#include <sge/media/const_raw_pointer.hpp>
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension.hpp>
 #include <sge/media/optional_extension_set.hpp>
+#include <sge/media/raw_value.hpp>
 #include <sge/systems/audio_loader.hpp>
 #include <sge/systems/audio_player_default.hpp>
 #include <sge/systems/instance.hpp>
@@ -84,33 +86,53 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace
 {
+
+// Test for raw loading
 sge::audio::file_unique_ptr
 load_raw(
-	boost::filesystem::path const &path,
-	sge::audio::loader &audio_loader)
+	boost::filesystem::path const &_path,
+	sge::audio::loader &_audio_loader
+)
 {
 	boost::filesystem::ifstream raw_stream(
-		path,
-		std::ios::binary);
+		_path,
+		std::ios::binary
+	);
 
 	typedef
-	fcppt::container::raw_vector<char>
-	raw_byte_container;
+	fcppt::container::raw_vector<
+		char
+	> raw_byte_container;
 
-	raw_byte_container raw_bytes(
-		(std::istreambuf_iterator<char>(
-			raw_stream)),
-		std::istreambuf_iterator<char>());
+	raw_byte_container raw_bytes{
+		std::istreambuf_iterator<
+			char
+		>(
+			raw_stream
+		),
+		std::istreambuf_iterator<
+			char
+		>()
+	};
 
 	return
-		audio_loader.load_raw(
-			boost::make_iterator_range(
-				reinterpret_cast<unsigned char const *>(
-					&(*raw_bytes.cbegin())),
-				reinterpret_cast<unsigned char const *>(
-					&(*raw_bytes.cend()))),
-			sge::media::optional_extension());
+		_audio_loader.load_raw(
+			sge::media::const_raw_range(
+				reinterpret_cast<
+					sge::media::const_raw_pointer
+				>(
+					raw_bytes.data()
+				),
+				reinterpret_cast<
+					sge::media::const_raw_pointer
+				>(
+					raw_bytes.data_end()
+				)
+			),
+			sge::media::optional_extension()
+		);
 }
+
 }
 
 namespace
@@ -118,12 +140,13 @@ namespace
 void
 wait_for_input()
 {
+/*
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Please press enter to continue...\n");
 	fcppt::string input;
 	std::getline(
 		fcppt::io::cin(),
-		input);
+		input);*/
 }
 
 void

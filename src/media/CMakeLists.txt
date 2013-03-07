@@ -16,6 +16,7 @@ set(
 	include/sge/media/optional_extension_set.hpp
 	include/sge/media/optional_extension_set_fwd.hpp
 	include/sge/media/path_to_extension.hpp
+	include/sge/media/raw_value.hpp
 	src/media/all_extensions.cpp
 	src/media/include/sge/src/media/detail/muxer.hpp
 	src/media/include/sge/src/media/detail/muxer_impl.hpp

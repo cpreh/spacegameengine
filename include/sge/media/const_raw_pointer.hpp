@@ -21,12 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MEDIA_CONST_RAW_POINTER_HPP_INCLUDED
 #define SGE_MEDIA_CONST_RAW_POINTER_HPP_INCLUDED
 
+#include <sge/media/raw_value.hpp>
+
+
 namespace sge
 {
 namespace media
 {
 
-typedef unsigned char const *const_raw_pointer;
+typedef sge::media::raw_value const *const_raw_pointer;
 
 }
 }

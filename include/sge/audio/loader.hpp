@@ -56,11 +56,12 @@ class SGE_CLASS_SYMBOL loader
 	);
 protected:
 	/** \protectedctor */
-	SGE_AUDIO_SYMBOL explicit
+	SGE_AUDIO_SYMBOL
 	loader();
 public:
 	/// Load a file
-	virtual audio::file_unique_ptr
+	virtual
+	sge::audio::file_unique_ptr
 	load(
 		boost::filesystem::path const &
 	) = 0;
@@ -70,29 +71,34 @@ public:
 	 * \param range A range of bytes (can be discarded after this function completes)
 	 * \param extension An optional extension indicating what (sub) type of file is inside
 	 */
-	virtual audio::file_unique_ptr
+	virtual
+	sge::audio::file_unique_ptr
 	load_raw(
 		sge::media::const_raw_range const &range,
 		sge::media::optional_extension const &extension
 	) = 0;
 
-	virtual audio::file_unique_ptr
+	virtual
+	sge::audio::file_unique_ptr
 	load_stream(
 		std::istream &,
 		sge::media::optional_extension const &extension
 	) = 0;
 
 	/// What capabilities this loader has. Is used in the sge::audio::multi_loader and in sge::systems to select a loader.
-	virtual audio::loader_capabilities_field const
+	virtual
+	sge::audio::loader_capabilities_field const
 	capabilities() const = 0;
 
 	/// What extensions this loader supports. Is used in the sge::audio::multi_loader and in sge::systems to select a loader.
-	virtual sge::media::extension_set const
+	virtual
+	sge::media::extension_set const
 	extensions() const = 0;
 
 	/** \virtualdtor */
 	SGE_AUDIO_SYMBOL
-	virtual ~loader() = 0;
+	virtual
+	~loader() = 0;
 };
 
 }

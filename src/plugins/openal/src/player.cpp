@@ -89,7 +89,8 @@ sge::openal::player::player()
 }
 
 sge::openal::player::~player()
-{}
+{
+}
 
 sge::audio::listener &
 sge::openal::player::listener()

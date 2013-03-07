@@ -1217,6 +1217,7 @@ set(
 	include/sge/media/optional_extension_set.hpp
 	include/sge/media/optional_extension_set_fwd.hpp
 	include/sge/media/path_to_extension.hpp
+	include/sge/media/raw_value.hpp
 	include/sge/model/md3/create.hpp
 	include/sge/model/md3/exception.hpp
 	include/sge/model/md3/index.hpp

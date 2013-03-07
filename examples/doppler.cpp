@@ -549,7 +549,6 @@ try
 		)
 	);
 
-
 	while(
 		sys.window_system().poll()
 	)

@@ -18,45 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/audio/exception.hpp>
+#ifndef SGE_OPENAL_FUNCS_ALC_CLOSE_DEVICE_HPP_INCLUDED
+#define SGE_OPENAL_FUNCS_ALC_CLOSE_DEVICE_HPP_INCLUDED
+
 #include <sge/openal/alc.hpp>
-#include <sge/openal/device.hpp>
-#include <sge/openal/funcs/alc_close_device.hpp>
-#include <sge/openal/funcs/alc_open_device.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <exception>
-#include <fcppt/config/external_end.hpp>
 
 
-sge::openal::device::device(
-	ALCchar const * const _specifier
-)
-:
-	device_(
-		sge::openal::funcs::alc_open_device(
-			_specifier
-		)
-	)
+namespace sge
 {
+namespace openal
+{
+namespace funcs
+{
+
+bool
+alc_close_device(
+	ALCdevice &
+);
+
+}
+}
 }
 
-ALCdevice &
-sge::openal::device::aldevice()
-{
-	return *device_;
-}
-
-sge::openal::device::~device()
-{
-	if(
-		!sge::openal::funcs::alc_close_device(
-			this->aldevice()
-		)
-		&&
-		!std::uncaught_exception()
-	)
-		throw sge::audio::exception(
-			FCPPT_TEXT("Error closing audio device. This means you tried to close the device before unloading all contexts and buffers.")
-		);
-}
+#endif

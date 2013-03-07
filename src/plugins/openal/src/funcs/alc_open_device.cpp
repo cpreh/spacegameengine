@@ -20,43 +20,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/audio/exception.hpp>
 #include <sge/openal/alc.hpp>
-#include <sge/openal/device.hpp>
-#include <sge/openal/funcs/alc_close_device.hpp>
+#include <sge/openal/check_alc_state.hpp>
 #include <sge/openal/funcs/alc_open_device.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <exception>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/assert/post.hpp>
 
 
-sge::openal::device::device(
-	ALCchar const * const _specifier
+ALCdevice *
+sge::openal::funcs::alc_open_device(
+	ALCchar const *const _specifier
 )
-:
-	device_(
-		sge::openal::funcs::alc_open_device(
+{
+
+	ALCdevice *const result(
+		::alcOpenDevice(
 			_specifier
 		)
-	)
-{
-}
+	);
 
-ALCdevice &
-sge::openal::device::aldevice()
-{
-	return *device_;
-}
-
-sge::openal::device::~device()
-{
-	if(
-		!sge::openal::funcs::alc_close_device(
-			this->aldevice()
-		)
-		&&
-		!std::uncaught_exception()
+	SGE_OPENAL_CHECK_ALC_STATE(
+		*result,
+		FCPPT_TEXT("alcOpenDevice failed"),
+		sge::audio::exception
 	)
-		throw sge::audio::exception(
-			FCPPT_TEXT("Error closing audio device. This means you tried to close the device before unloading all contexts and buffers.")
-		);
+
+	FCPPT_ASSERT_POST(
+		result != nullptr,
+		sge::audio::exception
+	);
+
+	return result;
 }
