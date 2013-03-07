@@ -18,13 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_PLUGIN_PATH_HPP_INCLUDED
-#define SGE_SYSTEMS_PLUGIN_PATH_HPP_INCLUDED
-
-#include <fcppt/strong_typedef.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
-#include <fcppt/config/external_end.hpp>
+#ifndef SGE_SYSTEMS_LOG_SETTINGS_FWD_HPP_INCLUDED
+#define SGE_SYSTEMS_LOG_SETTINGS_FWD_HPP_INCLUDED
 
 
 namespace sge
@@ -32,10 +27,7 @@ namespace sge
 namespace systems
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
-	boost::filesystem::path,
-	plugin_path
-);
+class log_settings;
 
 }
 }

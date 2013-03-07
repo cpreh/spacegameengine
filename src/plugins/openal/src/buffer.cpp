@@ -47,6 +47,12 @@ sge::openal::buffer::buffer(
 {
 	sge::audio::sample_container data;
 
+	FCPPT_LOG_DEBUG(
+		sge::openal::logger(),
+		fcppt::log::_
+			<< FCPPT_TEXT("Reading a whole file into a buffer\n")
+	);
+
 	_file.read_all(
 		data
 	);

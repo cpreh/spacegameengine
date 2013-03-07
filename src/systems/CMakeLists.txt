@@ -72,13 +72,14 @@ set(
 	include/sge/systems/list_decl.hpp
 	include/sge/systems/list_fwd.hpp
 	include/sge/systems/list_impl.hpp
+	include/sge/systems/log_settings.hpp
+	include/sge/systems/log_settings_fwd.hpp
 	include/sge/systems/make_empty_list.hpp
 	include/sge/systems/make_list.hpp
 	include/sge/systems/mouse_collector.hpp
 	include/sge/systems/mouse_collector_fwd.hpp
 	include/sge/systems/optional_name.hpp
 	include/sge/systems/optional_name_fwd.hpp
-	include/sge/systems/plugin_path.hpp
 	include/sge/systems/quit_on_escape.hpp
 	include/sge/systems/renderer.hpp
 	include/sge/systems/renderer_caps.hpp
@@ -117,12 +118,14 @@ set(
 	src/systems/detail/quit_on_escape.cpp
 	src/systems/detail/renderer.cpp
 	src/systems/exception.cpp
+	src/systems/extract_config.cpp
 	src/systems/extract_plugin_path.cpp
 	src/systems/font.cpp
 	src/systems/image2d.cpp
 	src/systems/include/sge/src/systems/any_visitor.hpp
 	src/systems/include/sge/src/systems/basic_loader_impl.hpp
 	src/systems/include/sge/src/systems/detail/instance_impl.hpp
+	src/systems/include/sge/src/systems/extract_config.hpp
 	src/systems/include/sge/src/systems/extract_plugin_path.hpp
 	src/systems/include/sge/src/systems/find_plugin.hpp
 	src/systems/include/sge/src/systems/ini_section_name.hpp
@@ -186,8 +189,10 @@ set(
 	src/systems/include/sge/src/systems/plugin_pair_decl.hpp
 	src/systems/include/sge/src/systems/plugin_pair_fwd.hpp
 	src/systems/include/sge/src/systems/plugin_pair_impl.hpp
+	src/systems/include/sge/src/systems/plugin_path.hpp
 	src/systems/ini_section_name.cpp
 	src/systems/input.cpp
+	src/systems/log_settings.cpp
 	src/systems/make_any_key.cpp
 	src/systems/make_empty_list.cpp
 	src/systems/merge_config_strings.cpp

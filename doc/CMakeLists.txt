@@ -3238,13 +3238,14 @@ set(
 	include/sge/systems/list_decl.hpp
 	include/sge/systems/list_fwd.hpp
 	include/sge/systems/list_impl.hpp
+	include/sge/systems/log_settings.hpp
+	include/sge/systems/log_settings_fwd.hpp
 	include/sge/systems/make_empty_list.hpp
 	include/sge/systems/make_list.hpp
 	include/sge/systems/mouse_collector.hpp
 	include/sge/systems/mouse_collector_fwd.hpp
 	include/sge/systems/optional_name.hpp
 	include/sge/systems/optional_name_fwd.hpp
-	include/sge/systems/plugin_path.hpp
 	include/sge/systems/quit_on_escape.hpp
 	include/sge/systems/renderer.hpp
 	include/sge/systems/renderer_caps.hpp

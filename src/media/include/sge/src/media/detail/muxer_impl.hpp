@@ -153,9 +153,9 @@ sge::media::detail::muxer<
 							system
 						)
 					)
-					<< FCPPT_TEXT(" didn't find plugin \"")
+					<< FCPPT_TEXT(" didn't find plugin ")
 					<< it->path()
-					<< FCPPT_TEXT("\" to be useful.")
+					<< FCPPT_TEXT(" to be useful.")
 			)
 		}
 	}
@@ -210,6 +210,8 @@ sge::media::detail::muxer<
 	}
 }
 
+#include <iostream>
+
 template<
 	typename System,
 	typename Capabilities
@@ -225,23 +227,21 @@ sge::media::detail::muxer<
 	sge::media::optional_extension const &_extension
 ) const
 {
+	std::cout << "mux extension\n";
+
 	for(
-		typename system_container::iterator it(
-			systems_.begin()
-		);
-		it != systems_.end();
-		++it
+		auto &cur_system : systems_
 	)
 	{
 		if(
 			!_extension
 			||
 			fcppt::algorithm::contains(
-				it->extensions(),
+				cur_system.extensions(),
 				*_extension
 			)
 		)
-			return *it;
+			return cur_system;
 	}
 
 	throw sge::media::loaders_exhausted(

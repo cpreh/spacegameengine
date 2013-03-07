@@ -18,11 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_SYSTEMS_EXTRACT_PLUGIN_PATH_HPP_INCLUDED
-#define SGE_SRC_SYSTEMS_EXTRACT_PLUGIN_PATH_HPP_INCLUDED
+#ifndef SGE_SYSTEMS_LOG_SETTINGS_HPP_INCLUDED
+#define SGE_SYSTEMS_LOG_SETTINGS_HPP_INCLUDED
 
-#include <sge/systems/detail/any_map.hpp>
-#include <sge/src/systems/plugin_path.hpp>
+#include <sge/systems/log_settings_fwd.hpp>
+#include <sge/systems/symbol.hpp>
+#include <fcppt/log/level.hpp>
+#include <fcppt/log/location.hpp>
 
 
 namespace sge
@@ -30,10 +32,25 @@ namespace sge
 namespace systems
 {
 
-sge::systems::plugin_path const
-extract_plugin_path(
-	sge::systems::detail::any_map const &
-);
+class log_settings
+{
+public:
+	SGE_SYSTEMS_SYMBOL
+	log_settings(
+		fcppt::log::location const &,
+		fcppt::log::level
+	);
+
+	fcppt::log::location const &
+	location() const;
+
+	fcppt::log::level
+	level() const;
+private:
+	fcppt::log::location location_;
+
+	fcppt::log::level level_;
+};
 
 }
 }

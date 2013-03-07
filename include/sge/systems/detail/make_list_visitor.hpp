@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SYSTEMS_DETAIL_MAKE_LIST_VISITOR_HPP_INCLUDED
 #define SGE_SYSTEMS_DETAIL_MAKE_LIST_VISITOR_HPP_INCLUDED
 
+#include <sge/systems/config_fwd.hpp>
 #include <sge/systems/cursor_demuxer_fwd.hpp>
 #include <sge/systems/keyboard_collector_fwd.hpp>
 #include <sge/systems/mouse_collector_fwd.hpp>
@@ -85,14 +86,20 @@ public:
 		// Check that the given parameter is actually part of the
 		// static subsystems
 		static_assert(
-			boost::mpl::contains<
-				boost::mpl::transform_view<
-					Choices,
-					sge::systems::detail::extract_parameter_type<
-						boost::mpl::_
-					>
+			boost::mpl::or_<
+				std::is_same<
+					Type,
+					sge::systems::config
 				>,
-				Type
+				boost::mpl::contains<
+					boost::mpl::transform_view<
+						Choices,
+						sge::systems::detail::extract_parameter_type<
+							boost::mpl::_
+						>
+					>,
+					Type
+				>
 			>::value,
 			"Parameter given to sge::systems::list is not part of the system choices"
 		);

@@ -18,24 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_SYSTEMS_EXTRACT_PLUGIN_PATH_HPP_INCLUDED
-#define SGE_SRC_SYSTEMS_EXTRACT_PLUGIN_PATH_HPP_INCLUDED
-
+#include <sge/src/systems/extract_config.hpp>
+#include <sge/systems/config.hpp>
+#include <sge/systems/detail/any_key.hpp>
 #include <sge/systems/detail/any_map.hpp>
-#include <sge/src/systems/plugin_path.hpp>
 
 
-namespace sge
+sge::systems::config const
+sge::systems::extract_config(
+	sge::systems::detail::any_map const &_param
+)
 {
-namespace systems
-{
+	sge::systems::detail::any_map::const_iterator const it(
+		_param.find(
+			sge::systems::detail::any_key::config
+		)
+	);
 
-sge::systems::plugin_path const
-extract_plugin_path(
-	sge::systems::detail::any_map const &
-);
-
+	return
+		it != _param.end()
+		?
+			it->second.get<
+				sge::systems::config
+			>()
+		:
+			sge::systems::config()
+		;
 }
-}
-
-#endif

@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/system_fwd.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
+#include <sge/src/systems/plugin_path.hpp>
 #include <sge/src/systems/detail/instance_impl.hpp>
 #include <sge/src/systems/modules/audio/loader.hpp>
 #include <sge/src/systems/modules/audio/player.hpp>
@@ -51,7 +52,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/charconv_fwd.hpp>
 #include <sge/systems/font_fwd.hpp>
 #include <sge/systems/image2d_fwd.hpp>
-#include <sge/systems/plugin_path.hpp>
 #include <sge/systems/window_fwd.hpp>
 #include <sge/systems/detail/input_fwd.hpp>
 #include <sge/systems/detail/renderer_fwd.hpp>

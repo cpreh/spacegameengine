@@ -22,9 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SYSTEMS_CONFIG_HPP_INCLUDED
 
 #include <sge/systems/config_fwd.hpp>
-#include <sge/systems/plugin_path.hpp>
+#include <sge/systems/log_settings.hpp>
 #include <sge/systems/symbol.hpp>
-#include <fcppt/nonassignable.hpp>
+#include <fcppt/optional_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -34,28 +37,39 @@ namespace systems
 
 class config
 {
-	FCPPT_NONASSIGNABLE(
-		config
-	);
 public:
 	SGE_SYSTEMS_SYMBOL
-	explicit
-	config(
-		sge::systems::plugin_path const &
+	config();
+
+	SGE_SYSTEMS_SYMBOL
+	sge::systems::config &
+	plugin_path(
+		boost::filesystem::path const &
 	);
 
 	SGE_SYSTEMS_SYMBOL
-	config(
-		sge::systems::config const &
+	sge::systems::config &
+	log_settings(
+		sge::systems::log_settings const &
 	);
 
-	SGE_SYSTEMS_SYMBOL
-	~config();
+	typedef fcppt::optional<
+		boost::filesystem::path
+	> optional_path;
 
-	sge::systems::plugin_path const &
+	typedef fcppt::optional<
+		sge::systems::log_settings
+	> optional_log_settings;
+
+	optional_path const &
 	plugin_path() const;
+
+	optional_log_settings const &
+	log_settings() const;
 private:
-	sge::systems::plugin_path const plugin_path_;
+	optional_path plugin_path_;
+
+	optional_log_settings log_settings_;
 };
 
 }

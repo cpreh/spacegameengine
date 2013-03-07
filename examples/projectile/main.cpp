@@ -77,11 +77,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/renderer/target/viewport_is_null.hpp>
+#include <sge/systems/config.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/keyboard_collector.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/systems/log_settings.hpp>
 #include <sge/systems/make_list.hpp>
 #include <sge/systems/quit_on_escape.hpp>
 #include <sge/systems/renderer.hpp>
@@ -108,10 +110,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/io/cerr.hpp>
-#include <fcppt/log/activate_levels.hpp>
-#include <fcppt/log/context.hpp>
 #include <fcppt/log/level.hpp>
-#include <fcppt/log/object.hpp>
+#include <fcppt/log/location.hpp>
 #include <fcppt/math/box/center.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
@@ -181,7 +181,6 @@ FCPPT_NONCOPYABLE(
 public:
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
-	explicit
 	body(
 		sge::projectile::world &_world,
 		sge::projectile::group::object &_group,
@@ -238,7 +237,6 @@ class body_keyboard_mover
 public:
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
-	explicit
 	body_keyboard_mover(
 		sge::projectile::world &_world,
 		sge::projectile::body::object &_body,
@@ -349,7 +347,6 @@ class body_following_ghost
 public:
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
-	explicit
 	body_following_ghost(
 		sge::projectile::world &_world,
 		sge::projectile::body::object &_body,
@@ -428,13 +425,6 @@ example_main(
 )
 try
 {
-	sge::log::global_context().apply(
-		sge::projectile::log_location(),
-		std::bind(
-			&fcppt::log::activate_levels,
-			std::placeholders::_1,
-			fcppt::log::level::debug));
-
 	sge::systems::instance<
 		boost::mpl::vector3<
 			sge::systems::with_window,
@@ -449,12 +439,15 @@ try
 		>
 	> const sys(
 		sge::systems::make_list
-		(sge::systems::window(
+		(
+			sge::systems::window(
 				sge::window::parameters(
 					sge::window::title(
 						FCPPT_TEXT("projectile")),
-					sge::window::dim(1024,768))))
-		(sge::systems::renderer(
+					sge::window::dim(1024,768)))
+		)
+		(
+			sge::systems::renderer(
 				sge::renderer::parameters::object(
 					sge::renderer::pixel_format::object(
 						sge::renderer::pixel_format::color::depth32,
@@ -466,9 +459,23 @@ try
 					sge::renderer::display_mode::optional_object()
 				),
 				sge::viewport::center_on_resize(
-					sge::window::dim(1024,768))))
-		(sge::systems::input(
-				sge::systems::cursor_option_field::null())));
+					sge::window::dim(1024,768)))
+		)
+		(
+			sge::systems::input(
+				sge::systems::cursor_option_field::null()
+			)
+		)
+		(
+			sge::systems::config()
+			.log_settings(
+				sge::systems::log_settings(
+					sge::projectile::log_location(),
+					fcppt::log::level::debug
+				)
+			)
+		)
+	);
 
 	sge::projectile::world world;
 

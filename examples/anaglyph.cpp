@@ -26,7 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/config/media_path.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image/color/predef.hpp>
-#include <sge/log/global.hpp>
+#include <sge/log/location.hpp>
+#include <sge/log/global_context.hpp>
 #include <sge/model/md3/create.hpp>
 #include <sge/model/md3/index_sequence.hpp>
 #include <sge/model/md3/load_flags.hpp>
@@ -114,12 +115,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/renderer/vf/dynamic/make_part_index.hpp>
+#include <sge/systems/config.hpp>
 #include <sge/systems/cursor_option.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/keyboard_collector.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/systems/log_settings.hpp>
 #include <sge/systems/make_list.hpp>
 #include <sge/systems/mouse_collector.hpp>
 #include <sge/systems/quit_on_escape.hpp>
@@ -151,8 +154,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/io/cerr.hpp>
-#include <fcppt/log/activate_levels.hpp>
 #include <fcppt/log/level.hpp>
+#include <fcppt/log/location.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
 #include <fcppt/math/twopi.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
@@ -767,10 +770,6 @@ try
 		}
 	}
 
-	fcppt::log::activate_levels(
-		sge::log::global(),
-		fcppt::log::level::debug);
-
 	sge::systems::instance<
 		boost::mpl::vector3<
 			sge::systems::with_renderer<
@@ -786,12 +785,18 @@ try
 		>
 	> const sys(
 		sge::systems::make_list
-			(sge::systems::window(
+		(
+			sge::systems::window(
 				sge::window::parameters(
 					sge::window::title(
-						FCPPT_TEXT("sge test for anaglyph 3D")),
-					sge::window::dim(1024,768))))
-			(sge::systems::renderer(
+						FCPPT_TEXT("sge test for anaglyph 3D")
+					),
+					sge::window::dim(1024,768)
+				)
+			)
+		)
+		(
+			sge::systems::renderer(
 				sge::renderer::parameters::object(
 					sge::renderer::pixel_format::object(
 						sge::renderer::pixel_format::color::depth32,
@@ -802,10 +807,26 @@ try
 					sge::renderer::parameters::vsync::on,
 					sge::renderer::display_mode::optional_object()
 				),
-				sge::viewport::fill_on_resize()))
-			(sge::systems::input(
+				sge::viewport::fill_on_resize()
+			)
+		)
+		(
+			sge::systems::input(
 				sge::systems::cursor_option_field(
-					sge::systems::cursor_option::exclusive))));
+					sge::systems::cursor_option::exclusive
+				)
+			)
+		)
+		(
+			sge::systems::config()
+			.log_settings(
+				sge::systems::log_settings(
+					sge::log::location(),
+					fcppt::log::level::debug
+				)
+			)
+		)
+	);
 
 	fcppt::signal::scoped_connection const escape_callback(
 		sge::systems::quit_on_escape(

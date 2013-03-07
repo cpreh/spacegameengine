@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/input/mouse/device_fwd.hpp>
 #include <sge/log/global.hpp>
+#include <sge/log/global_context.hpp>
 #include <sge/parse/result.hpp>
 #include <sge/parse/result_code.hpp>
 #include <sge/parse/ini/parse_file_opt.hpp>
@@ -41,8 +42,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/src/systems/any_visitor.hpp>
+#include <sge/src/systems/extract_config.hpp>
 #include <sge/src/systems/extract_plugin_path.hpp>
 #include <sge/src/systems/detail/instance_impl.hpp>
+#include <sge/systems/config.hpp>
 #include <sge/systems/detail/any_key.hpp>
 #include <sge/systems/detail/any_map.hpp>
 #include <sge/systems/detail/instance.hpp>
@@ -52,6 +55,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/log/activate_levels_recursive.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/variant/apply_unary.hpp>
@@ -138,18 +142,32 @@ sge::systems::detail::instance::instance(
 	}
 
 	for(
-		sge::systems::detail::any_map::const_iterator it(
-			map.begin()
-		);
-		it != map.end();
-		++it
+		auto const &item : map
 	)
 		fcppt::variant::apply_unary(
 			sge::systems::any_visitor(
 				*impl_
 			),
-			it->second
+			item.second
 		);
+
+	{
+		sge::systems::config::optional_log_settings const log_settings(
+			sge::systems::extract_config(
+				_list.get()
+			)
+			.log_settings()
+		);
+
+		if(
+			log_settings
+		)
+			fcppt::log::activate_levels_recursive(
+				sge::log::global_context(),
+				log_settings->location(),
+				log_settings->level()
+			);
+	}
 
 	impl_->post_init();
 }

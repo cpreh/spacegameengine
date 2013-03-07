@@ -19,12 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/config/plugin_path.hpp>
+#include <sge/src/systems/extract_config.hpp>
 #include <sge/src/systems/extract_plugin_path.hpp>
+#include <sge/src/systems/plugin_path.hpp>
 #include <sge/systems/config.hpp>
-#include <sge/systems/plugin_path.hpp>
-#include <sge/systems/detail/any_key.hpp>
 #include <sge/systems/detail/any_map.hpp>
-#include <fcppt/text.hpp>
 
 
 sge::systems::plugin_path const
@@ -32,21 +31,18 @@ sge::systems::extract_plugin_path(
 	sge::systems::detail::any_map const &_param
 )
 {
-	sge::systems::detail::any_map::const_iterator const it(
-		_param.find(
-			sge::systems::detail::any_key::config
+	sge::systems::config const config(
+		sge::systems::extract_config(
+			_param
 		)
 	);
 
 	return
-		it != _param.end()
-		?
-			it->second.get<
-				sge::systems::config
-			>()
-			.plugin_path()
-		:
-			sge::systems::plugin_path(
+		sge::systems::plugin_path(
+			config.plugin_path()
+			?
+				*config.plugin_path()
+			:
 				sge::config::plugin_path()
-			);
+		);
 }
