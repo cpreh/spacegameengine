@@ -36,13 +36,12 @@ sge::image2d::save_from_view(
 	boost::filesystem::path const &_path
 )
 {
-	_system.save(
-		*_system.create(
-			_view,
-			sge::media::path_to_extension(
-				_path
-			)
-		),
+	_system.create(
+		_view,
+		sge::media::path_to_extension(
+			_path
+		)
+	)->save(
 		_path
 	);
 }

@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/devil/library.hpp>
 #include <sge/image/capabilities_field.hpp>
-#include <sge/image2d/file_fwd.hpp>
 #include <sge/image2d/file_unique_ptr.hpp>
 #include <sge/image2d/system.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
@@ -33,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
+#include <iosfwd>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -53,42 +53,36 @@ public:
 
 	~system();
 
-	image2d::file_unique_ptr
+	sge::image2d::file_unique_ptr
 	load(
 		boost::filesystem::path const &
 	);
 
-	image2d::file_unique_ptr
+	sge::image2d::file_unique_ptr
 	load_raw(
 		sge::media::const_raw_range const &,
 		sge::media::optional_extension const &
 	);
 
-	image2d::file_unique_ptr
+	sge::image2d::file_unique_ptr
 	load_stream(
 		std::istream &,
 		sge::media::optional_extension const &
 	);
 
-	image2d::file_unique_ptr
+	sge::image2d::file_unique_ptr
 	create(
-		image2d::view::const_object const &,
+		sge::image2d::view::const_object const &,
 		sge::media::optional_extension const &
 	);
 
-	void
-	save(
-		image2d::file const &,
-		boost::filesystem::path const &
-	);
-
-	image::capabilities_field const
+	sge::image::capabilities_field const
 	capabilities() const;
 
 	sge::media::extension_set const
 	extensions() const;
 private:
-	devil::library lib_;
+	sge::devil::library lib_;
 };
 
 }

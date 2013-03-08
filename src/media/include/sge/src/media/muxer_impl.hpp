@@ -34,10 +34,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 template<
 	typename System,
+	typename File,
 	typename Capabilities
 >
 sge::media::muxer<
 	System,
+	File,
 	Capabilities
 >::muxer(
 	parameters const &_parameters
@@ -55,10 +57,12 @@ sge::media::muxer<
 
 template<
 	typename System,
+	typename File,
 	typename Capabilities
 >
 sge::media::muxer<
 	System,
+	File,
 	Capabilities
 >::~muxer()
 {
@@ -66,56 +70,69 @@ sge::media::muxer<
 
 template<
 	typename System,
+	typename File,
 	typename Capabilities
 >
 typename sge::media::muxer<
 	System,
+	File,
 	Capabilities
->::system &
+>::file_unique_ptr
 sge::media::muxer<
 	System,
+	File,
 	Capabilities
 >::mux_path(
-	boost::filesystem::path const &_file
+	boost::filesystem::path const &_file,
+	load_function const &_function
 ) const
 {
 	return
 		impl_->mux_path(
-			_file
+			_file,
+			_function
 		);
 }
 
 template<
 	typename System,
+	typename File,
 	typename Capabilities
 >
 typename sge::media::muxer<
 	System,
+	File,
 	Capabilities
->::system &
+>::file_unique_ptr
 sge::media::muxer<
 	System,
+	File,
 	Capabilities
 >::mux_extension(
-	sge::media::optional_extension const &_extension
+	sge::media::optional_extension const &_extension,
+	load_function const &_function
 ) const
 {
 	return
 		impl_->mux_extension(
-			_extension
+			_extension,
+			_function
 		);
 }
 
 template<
 	typename System,
+	typename File,
 	typename Capabilities
 >
 typename sge::media::muxer<
 	System,
+	File,
 	Capabilities
 >::capabilities_field const
 sge::media::muxer<
 	System,
+	File,
 	Capabilities
 >::capabilities() const
 {
@@ -125,11 +142,13 @@ sge::media::muxer<
 
 template<
 	typename System,
+	typename File,
 	typename Capabilities
 >
 sge::media::extension_set const
 sge::media::muxer<
 	System,
+	File,
 	Capabilities
 >::extensions() const
 {

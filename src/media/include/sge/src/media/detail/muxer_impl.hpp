@@ -53,10 +53,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 template<
 	typename System,
+	typename File,
 	typename Capabilities
 >
 sge::media::detail::muxer<
 	System,
+	File,
 	Capabilities
 >::muxer(
 	parameters const &_parameters
@@ -163,10 +165,12 @@ sge::media::detail::muxer<
 
 template<
 	typename System,
+	typename File,
 	typename Capabilities
 >
 sge::media::detail::muxer<
 	System,
+	File,
 	Capabilities
 >::~muxer()
 {
@@ -174,17 +178,21 @@ sge::media::detail::muxer<
 
 template<
 	typename System,
+	typename File,
 	typename Capabilities
 >
 typename sge::media::detail::muxer<
 	System,
+	File,
 	Capabilities
->::system &
+>::file_unique_ptr
 sge::media::detail::muxer<
 	System,
+	File,
 	Capabilities
 >::mux_path(
-	boost::filesystem::path const &_file
+	boost::filesystem::path const &_file,
+	load_function const &_function
 ) const
 {
 	try
@@ -193,7 +201,8 @@ sge::media::detail::muxer<
 			this->mux_extension(
 				sge::media::path_to_extension(
 					_file
-				)
+				),
+				_function
 			);
 	}
 	catch(
@@ -210,38 +219,52 @@ sge::media::detail::muxer<
 	}
 }
 
-#include <iostream>
-
 template<
 	typename System,
+	typename File,
 	typename Capabilities
 >
 typename sge::media::detail::muxer<
 	System,
+	File,
 	Capabilities
->::system &
+>::file_unique_ptr
 sge::media::detail::muxer<
 	System,
+	File,
 	Capabilities
 >::mux_extension(
-	sge::media::optional_extension const &_extension
+	sge::media::optional_extension const &_extension,
+	load_function const &_function
 ) const
 {
-	std::cout << "mux extension\n";
-
 	for(
 		auto &cur_system : systems_
 	)
 	{
 		if(
-			!_extension
-			||
-			fcppt::algorithm::contains(
+			_extension
+			&&
+			!fcppt::algorithm::contains(
 				cur_system.extensions(),
 				*_extension
 			)
 		)
-			return cur_system;
+			continue;
+
+		file_unique_ptr result(
+			_function(
+				cur_system
+			)
+		);
+
+		if(
+			result
+		)
+			return
+				std::move(
+					result
+				);
 	}
 
 	throw sge::media::loaders_exhausted(
@@ -261,14 +284,17 @@ sge::media::detail::muxer<
 
 template<
 	typename System,
+	typename File,
 	typename Capabilities
 >
 typename sge::media::detail::muxer<
 	System,
+	File,
 	Capabilities
 >::capabilities_field const
 sge::media::detail::muxer<
 	System,
+	File,
 	Capabilities
 >::capabilities() const
 {
@@ -278,11 +304,13 @@ sge::media::detail::muxer<
 
 template<
 	typename System,
+	typename File,
 	typename Capabilities
 >
 sge::media::extension_set const
 sge::media::detail::muxer<
 	System,
+	File,
 	Capabilities
 >::extensions() const
 {

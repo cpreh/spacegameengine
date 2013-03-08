@@ -33,12 +33,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
+#include <functional>
+#include <iosfwd>
 #include <fcppt/config/external_end.hpp>
 
 
 
 sge::image2d::multi_system::multi_system(
-	image2d::multi_system_parameters const &_params
+	sge::image2d::multi_system_parameters const &_params
 )
 :
 	sge::image2d::system(),
@@ -59,9 +61,12 @@ sge::image2d::multi_system::load(
 {
 	return
 		muxer_.mux_path(
-			_path
-		).load(
-			_path
+			_path,
+			std::bind(
+				&sge::image2d::system::load,
+				std::placeholders::_1,
+				_path
+			)
 		);
 }
 
@@ -73,10 +78,13 @@ sge::image2d::multi_system::load_raw(
 {
 	return
 		muxer_.mux_extension(
-			_extension
-		).load_raw(
-			_range,
-			_extension
+			_extension,
+			std::bind(
+				&sge::image2d::system::load_raw,
+				std::placeholders::_1,
+				_range,
+				_extension
+			)
 		);
 }
 
@@ -88,40 +96,35 @@ sge::image2d::multi_system::load_stream(
 {
 	return
 		muxer_.mux_extension(
-			_extension
-		).load_stream(
-			_stream,
-			_extension
+			_extension,
+			std::bind(
+				&sge::image2d::system::load_stream,
+				std::placeholders::_1,
+				std::ref(
+					_stream
+				),
+				_extension
+			)
 		);
 }
 
 sge::image2d::file_unique_ptr
 sge::image2d::multi_system::create(
-	image2d::view::const_object const &_object,
+	sge::image2d::view::const_object const &_object,
 	sge::media::optional_extension const &_extension
 )
 {
 	return
 		muxer_.mux_extension(
-			_extension
-		).create(
-			_object,
-			_extension
-		);
-}
-
-void
-sge::image2d::multi_system::save(
-	image2d::file const &_file,
-	boost::filesystem::path const &_path
-)
-{
-	return
-		muxer_.mux_path(
-			_path
-		).save(
-			_file,
-			_path
+			_extension,
+			std::bind(
+				&sge::image2d::system::create,
+				std::placeholders::_1,
+				std::cref(
+					_object
+				),
+				_extension
+			)
 		);
 }
 

@@ -157,21 +157,6 @@ sge::devil::system::create(
 		;
 }
 
-void
-sge::devil::system::save(
-	image2d::file const &_file,
-	boost::filesystem::path const &_path
-)
-{
-	dynamic_cast<
-		devil::file const &
-	>(
-		_file
-	).save(
-		_path
-	);
-}
-
 sge::image::capabilities_field const
 sge::devil::system::capabilities() const
 {

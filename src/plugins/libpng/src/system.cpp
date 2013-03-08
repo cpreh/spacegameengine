@@ -224,21 +224,6 @@ sge::libpng::system::create(
 		;
 }
 
-void
-sge::libpng::system::save(
-	image2d::file const &_file,
-	boost::filesystem::path const &_path
-)
-{
-	dynamic_cast<
-		libpng::file const &
-	>(
-		_file
-	).save(
-		_path
-	);
-}
-
 sge::image::capabilities_field const
 sge::libpng::system::capabilities() const
 {

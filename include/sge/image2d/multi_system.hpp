@@ -54,49 +54,43 @@ class multi_system
 	);
 public:
 	SGE_IMAGE2D_SYMBOL
-	explicit multi_system(
-		image2d::multi_system_parameters const &
+	explicit
+	multi_system(
+		sge::image2d::multi_system_parameters const &
 	);
 
 	SGE_IMAGE2D_SYMBOL
 	~multi_system();
 
 	SGE_IMAGE2D_SYMBOL
-	image2d::file_unique_ptr
+	sge::image2d::file_unique_ptr
 	load(
 		boost::filesystem::path const &
 	);
 
 	SGE_IMAGE2D_SYMBOL
-	image2d::file_unique_ptr
+	sge::image2d::file_unique_ptr
 	load_raw(
 		sge::media::const_raw_range const &,
 		sge::media::optional_extension const &
 	);
 
 	SGE_IMAGE2D_SYMBOL
-	image2d::file_unique_ptr
+	sge::image2d::file_unique_ptr
 	load_stream(
 		std::istream &,
 		sge::media::optional_extension const &
 	);
 
 	SGE_IMAGE2D_SYMBOL
-	image2d::file_unique_ptr
+	sge::image2d::file_unique_ptr
 	create(
-		image2d::view::const_object const &,
+		sge::image2d::view::const_object const &,
 		sge::media::optional_extension const &
 	);
 
 	SGE_IMAGE2D_SYMBOL
-	void
-	save(
-		image2d::file const &,
-		boost::filesystem::path const &
-	);
-
-	SGE_IMAGE2D_SYMBOL
-	image::capabilities_field const
+	sge::image::capabilities_field const
 	capabilities() const;
 
 	SGE_IMAGE2D_SYMBOL
@@ -104,8 +98,9 @@ public:
 	extensions() const;
 private:
 	typedef sge::media::muxer<
-		image2d::system,
-		image::capabilities_field
+		sge::image2d::system,
+		sge::image2d::file,
+		sge::image::capabilities_field
 	> muxer;
 
 	muxer muxer_;

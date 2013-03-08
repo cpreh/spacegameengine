@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE2D_MULTI_SYSTEM_PARAMETERS_HPP_INCLUDED
 #define SGE_IMAGE2D_MULTI_SYSTEM_PARAMETERS_HPP_INCLUDED
 
+#include <sge/image/capabilities_field.hpp>
 #include <sge/image2d/multi_system_parameters_fwd.hpp>
 #include <sge/media/muxer_parameters.hpp>
 

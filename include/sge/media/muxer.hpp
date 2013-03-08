@@ -30,6 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/scoped_ptr_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
+#include <functional>
+#include <memory>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -40,6 +42,7 @@ namespace media
 
 template<
 	typename System,
+	typename File,
 	typename Capabilities
 >
 class muxer
@@ -50,12 +53,24 @@ class muxer
 public:
 	typedef System system;
 
+	typedef File file;
+
 	typedef Capabilities capabilities_field;
 
 	typedef sge::media::muxer_parameters<
 		system,
 		capabilities_field
 	> parameters;
+
+	typedef std::unique_ptr<
+		file
+	> file_unique_ptr;
+
+	typedef std::function<
+		file_unique_ptr (
+			system &
+		)
+	> load_function;
 
 	explicit
 	muxer(
@@ -64,14 +79,16 @@ public:
 
 	~muxer();
 
-	system &
+	file_unique_ptr
 	mux_path(
-		boost::filesystem::path const &
+		boost::filesystem::path const &,
+		load_function const &
 	) const;
 
-	system &
+	file_unique_ptr
 	mux_extension(
-		media::optional_extension const &
+		media::optional_extension const &,
+		load_function const &
 	) const;
 
 	capabilities_field const
@@ -82,6 +99,7 @@ public:
 private:
 	typedef sge::media::detail::muxer<
 		System,
+		File,
 		Capabilities
 	> muxer_impl;
 

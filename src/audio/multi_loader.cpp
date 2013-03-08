@@ -31,6 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/media/muxer_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
+#include <functional>
+#include <iosfwd>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -53,9 +55,12 @@ sge::audio::multi_loader::load(
 {
 	return
 		muxer_.mux_path(
-			_path
-		).load(
-			_path
+			_path,
+			std::bind(
+				&sge::audio::loader::load,
+				std::placeholders::_1,
+				_path
+			)
 		);
 }
 
@@ -67,10 +72,13 @@ sge::audio::multi_loader::load_raw(
 {
 	return
 		muxer_.mux_extension(
-			_extension
-		).load_raw(
-			_range,
-			_extension
+			_extension,
+			std::bind(
+				&sge::audio::loader::load_raw,
+				std::placeholders::_1,
+				_range,
+				_extension
+			)
 		);
 }
 
@@ -82,10 +90,15 @@ sge::audio::multi_loader::load_stream(
 {
 	return
 		muxer_.mux_extension(
-			_extension
-		).load_stream(
-			_stream,
-			_extension
+			_extension,
+			std::bind(
+				&sge::audio::loader::load_stream,
+				std::placeholders::_1,
+				std::ref(
+					_stream
+				),
+				_extension
+			)
 		);
 }
 
