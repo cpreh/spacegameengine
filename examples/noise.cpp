@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/l8.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/object.hpp>
-#include <sge/log/global.hpp>
+#include <sge/log/location.hpp>
 #include <sge/noise/sample.hpp>
 #include <sge/noise/sample_parameters.hpp>
 #include <sge/noise/perlin/object.hpp>
@@ -68,8 +68,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/all_choices.hpp>
 #include <sge/sprite/state/object.hpp>
 #include <sge/sprite/state/parameters.hpp>
+#include <sge/systems/config.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/systems/log_settings.hpp>
 #include <sge/systems/make_list.hpp>
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/renderer_caps.hpp>
@@ -92,8 +94,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
-#include <fcppt/log/activate_levels.hpp>
 #include <fcppt/log/level.hpp>
+#include <fcppt/log/location.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/interpolation/perlin_fifth_degree_functor.hpp>
 #include <fcppt/math/interpolation/trigonometric_functor.hpp>
@@ -201,11 +203,6 @@ try
 					42.0))
 		<< FCPPT_TEXT('\n');
 
-	fcppt::log::activate_levels(
-		sge::log::global(),
-		fcppt::log::level::debug
-	);
-
 	sge::window::dim const window_dim(
 		1024,
 		1024
@@ -220,13 +217,18 @@ try
 		>
 	> const sys(
 		sge::systems::make_list
-		(sge::systems::window(
+		(
+			sge::systems::window(
 				sge::window::parameters(
 					sge::window::title(
 						FCPPT_TEXT("noisetest")
 					),
-					window_dim)))
-		(sge::systems::renderer(
+					window_dim
+				)
+			)
+		)
+		(
+			sge::systems::renderer(
 				sge::renderer::parameters::object(
 					sge::renderer::pixel_format::object(
 						sge::renderer::pixel_format::color::depth32,
@@ -237,7 +239,18 @@ try
 					sge::renderer::parameters::vsync::on,
 					sge::renderer::display_mode::optional_object()
 				),
-				sge::viewport::fill_on_resize()))
+				sge::viewport::fill_on_resize()
+			)
+		)
+		(
+			sge::systems::config()
+			.log_settings(
+				sge::systems::log_settings(
+					sge::log::location(),
+					fcppt::log::level::debug
+				)
+			)
+		)
 	);
 
 	typedef sge::sprite::config::choices<

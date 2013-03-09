@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/global_context.hpp>
 #include <sge/opencl/clinclude.hpp>
 #include <sge/opencl/dim1.hpp>
+#include <sge/opencl/log_location.hpp>
 #include <sge/opencl/system.hpp>
 #include <sge/opencl/command_queue/enqueue_kernel.hpp>
 #include <sge/opencl/command_queue/execution_mode.hpp>
@@ -92,24 +93,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cin.hpp>
 #include <fcppt/io/cout.hpp>
-#include <fcppt/log/activate_levels.hpp>
-#include <fcppt/log/context.hpp>
+#include <fcppt/log/activate_levels_recursive.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/log/location.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/algorithm/string/join.hpp>
 #include <boost/mpl/vector/vector10.hpp>
-#include <boost/spirit/home/phoenix/core.hpp>
-#include <boost/spirit/home/phoenix/operator.hpp>
-#include <boost/spirit/home/phoenix/statement.hpp>
-#include <boost/spirit/home/phoenix/statement/sequence.hpp>
-#include <cstddef>
 #include <cstdlib>
-#include <cstring>
 #include <functional>
+#include <istream>
 #include <iostream>
 #include <limits>
 #include <ostream>
@@ -185,13 +178,10 @@ int
 main()
 try
 {
-	sge::log::global_context().apply(
-		fcppt::log::location(
-			FCPPT_TEXT("opencl")),
-		std::bind(
-			&fcppt::log::activate_levels,
-			std::placeholders::_1,
-			fcppt::log::level::verbose));
+	fcppt::log::activate_levels_recursive(
+		sge::log::global_context(),
+		sge::opencl::log_location(),
+		fcppt::log::level::verbose);
 
 	sge::opencl::system opencl_system;
 

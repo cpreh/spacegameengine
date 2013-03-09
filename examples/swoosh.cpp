@@ -28,7 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/exception.hpp>
 #include <sge/audio/file.hpp>
 #include <sge/audio/file_scoped_ptr.hpp>
-#include <fcppt/math/step.hpp>
 #include <sge/audio/file_unique_ptr.hpp>
 #include <sge/audio/listener.hpp>
 #include <sge/audio/buffer_scoped_ptr.hpp>
@@ -47,7 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/relative_move_event.hpp>
 #include <sge/input/cursor/relative_movement.hpp>
-#include <sge/log/global.hpp>
+#include <sge/log/location.hpp>
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension.hpp>
@@ -88,6 +87,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/object.hpp>
 #include <sge/sprite/state/parameters.hpp>
 #include <sge/systems/audio_player_default.hpp>
+#include <sge/systems/config.hpp>
 #include <sge/systems/cursor_demuxer.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/image2d.hpp>
@@ -95,6 +95,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/instance.hpp>
 #include <sge/systems/keyboard_collector.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/systems/log_settings.hpp>
 #include <sge/systems/make_list.hpp>
 #include <sge/systems/quit_on_escape.hpp>
 #include <sge/systems/renderer.hpp>
@@ -122,8 +123,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/raw_vector.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/io/cerr.hpp>
-#include <fcppt/log/activate_levels.hpp>
 #include <fcppt/log/level.hpp>
+#include <fcppt/log/location.hpp>
+#include <fcppt/math/step.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/math/vector/length.hpp>
@@ -377,11 +379,6 @@ example_main(
 )
 try
 {
-	fcppt::log::activate_levels(
-		sge::log::global(),
-		fcppt::log::level::debug
-	);
-
 	sge::window::dim const window_dim(
 		1024,
 		768
@@ -465,6 +462,15 @@ try
 							FCPPT_TEXT("wav")
 						)
 					)
+				)
+			)
+		)
+		(
+			sge::systems::config()
+			.log_settings(
+				sge::systems::log_settings(
+					sge::log::location(),
+					fcppt::log::level::debug
 				)
 			)
 		)

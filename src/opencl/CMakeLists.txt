@@ -47,6 +47,7 @@ set(
 	include/sge/opencl/kernel/numeric_type.hpp
 	include/sge/opencl/kernel/object.hpp
 	include/sge/opencl/kernel/object_fwd.hpp
+	include/sge/opencl/log_location.hpp
 	include/sge/opencl/memory_object/base.hpp
 	include/sge/opencl/memory_object/base_fwd.hpp
 	include/sge/opencl/memory_object/base_ref_sequence.hpp
@@ -119,7 +120,6 @@ set(
 	src/opencl/include/sge/src/opencl/declare_local_logger.hpp
 	src/opencl/include/sge/src/opencl/event/flatten_sequence.hpp
 	src/opencl/include/sge/src/opencl/handle_error.hpp
-	src/opencl/include/sge/src/opencl/log_location.hpp
 	src/opencl/include/sge/src/opencl/logger.hpp
 	src/opencl/include/sge/src/opencl/memory_object/renderer_buffer_lock_mode_to_cl_mem_flags.hpp
 	src/opencl/include/sge/src/opencl/memory_object/to_opencl_mem_flags.hpp

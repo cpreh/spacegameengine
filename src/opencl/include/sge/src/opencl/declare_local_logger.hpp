@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_OPENCL_DECLARE_LOCAL_LOGGER_HPP_INCLUDED
 
 #include <sge/log/declare_local.hpp>
-#include <sge/src/opencl/log_location.hpp>
+#include <sge/opencl/log_location.hpp>
 
 
 #define SGE_OPENCL_DECLARE_LOCAL_LOGGER(\

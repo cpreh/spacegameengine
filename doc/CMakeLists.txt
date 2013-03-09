@@ -1341,6 +1341,7 @@ set(
 	include/sge/opencl/kernel/numeric_type.hpp
 	include/sge/opencl/kernel/object.hpp
 	include/sge/opencl/kernel/object_fwd.hpp
+	include/sge/opencl/log_location.hpp
 	include/sge/opencl/memory_object/base.hpp
 	include/sge/opencl/memory_object/base_fwd.hpp
 	include/sge/opencl/memory_object/base_ref_sequence.hpp

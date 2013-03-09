@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/log/declare_lib.hpp>
-#include <sge/src/opencl/log_location.hpp>
+#include <sge/opencl/log_location.hpp>
 #include <sge/src/opencl/logger.hpp>
 
 

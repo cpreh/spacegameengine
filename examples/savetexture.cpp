@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/format.hpp>
 #include <sge/image/color/predef.hpp>
 #include <sge/image2d/save_from_view.hpp>
-#include <sge/log/global.hpp>
+#include <sge/log/location.hpp>
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_set.hpp>
@@ -78,9 +78,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/shader/variable_sequence.hpp>
 #include <sge/shader/variable_type.hpp>
 #include <sge/shader/vf_to_string.hpp>
+#include <sge/systems/config.hpp>
 #include <sge/systems/image2d.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/systems/log_settings.hpp>
 #include <sge/systems/quit_on_escape.hpp>
 #include <sge/viewport/center_on_resize.hpp>
 #include <sge/window/dim.hpp>
@@ -96,8 +98,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/io/cerr.hpp>
-#include <fcppt/log/activate_levels.hpp>
 #include <fcppt/log/level.hpp>
+#include <fcppt/log/location.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
@@ -246,10 +248,6 @@ try
 		return awl::main::exit_failure();
 	}
 
-	fcppt::log::activate_levels(
-		sge::log::global(),
-		fcppt::log::level::debug);
-
 	sge::window::dim const window_dim(
 		1024,
 		768);
@@ -298,6 +296,15 @@ try
 							FCPPT_TEXT("png")
 						)
 					)
+				)
+			)
+		)
+		(
+			sge::systems::config()
+			.log_settings(
+				sge::systems::log_settings(
+					sge::log::location(),
+					fcppt::log::level::debug
 				)
 			)
 		)

@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/rgba8_format.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/system.hpp>
-#include <sge/log/global.hpp>
+#include <sge/log/location.hpp>
 #include <sge/media/all_extensions.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/vector2.hpp>
@@ -63,12 +63,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/all_choices.hpp>
 #include <sge/sprite/state/object.hpp>
 #include <sge/sprite/state/parameters.hpp>
+#include <sge/systems/config.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/image2d.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/keyboard_collector.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/systems/log_settings.hpp>
 #include <sge/systems/make_list.hpp>
 #include <sge/systems/quit_on_escape.hpp>
 #include <sge/systems/renderer.hpp>
@@ -106,8 +108,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/stream_to_string.hpp>
-#include <fcppt/log/activate_levels.hpp>
 #include <fcppt/log/level.hpp>
+#include <fcppt/log/location.hpp>
 #include <fcppt/math/twopi.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
@@ -628,10 +630,6 @@ try
 	boost::program_options::notify(
 		compiled_options);
 
-	fcppt::log::activate_levels(
-		sge::log::global(),
-		fcppt::log::level::debug);
-
 	typedef
 	sge::systems::instance
 	<
@@ -653,31 +651,63 @@ try
 
 	systems_instance const sys(
 		sge::systems::make_list
-			(sge::systems::window(
-					sge::window::parameters(
-						sge::window::title(
-							FCPPT_TEXT("sge point sprite test")),
-						sge::window::dim(
-							1024,
-							768))))
-			(sge::systems::renderer(
+		(
+			sge::systems::window(
+				sge::window::parameters(
+					sge::window::title(
+						FCPPT_TEXT("sge point sprite test")
+					),
+					sge::window::dim(
+						1024,
+						768
+					)
+				)
+			)
+		)
+		(
+			sge::systems::renderer(
 				sge::renderer::parameters::object(
 					sge::renderer::pixel_format::object(
 						sge::renderer::pixel_format::color::depth32,
 						sge::renderer::pixel_format::depth_stencil::off,
 						sge::renderer::pixel_format::optional_multi_samples(),
-						sge::renderer::pixel_format::srgb::no),
+						sge::renderer::pixel_format::srgb::no
+					),
 					sge::renderer::parameters::vsync::on,
-					sge::renderer::display_mode::optional_object()),
-				sge::viewport::fill_on_resize()))
-			(sge::systems::input(
-					sge::systems::cursor_option_field::null()))
-			(sge::systems::image2d(
+					sge::renderer::display_mode::optional_object()
+				),
+				sge::viewport::fill_on_resize()
+			)
+		)
+		(
+			sge::systems::input(
+				sge::systems::cursor_option_field::null()
+			)
+		)
+		(
+			sge::systems::image2d(
 				sge::image::capabilities_field::null(),
 				sge::media::optional_extension_set(
-					fcppt::assign::make_container<sge::media::extension_set>
-						(sge::media::extension(
-							FCPPT_TEXT("png")))))));
+					fcppt::assign::make_container<
+						sge::media::extension_set
+					>(
+						sge::media::extension(
+							FCPPT_TEXT("png")
+						)
+					)
+				)
+			)
+		)
+		(
+			sge::systems::config()
+			.log_settings(
+				sge::systems::log_settings(
+					sge::log::location(),
+					fcppt::log::level::debug
+				)
+			)
+		)
+	);
 
 	particle::manager particle_system(
 		particle::count(

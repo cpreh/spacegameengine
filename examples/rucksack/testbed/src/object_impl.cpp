@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/log/global.hpp>
+#include <sge/log/location.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/context/scoped_ffp.hpp>
 #include <sge/renderer/device/ffp.hpp>
@@ -39,9 +39,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/object_impl.hpp>
 #include <sge/sprite/state/parameters_impl.hpp>
 #include <sge/src/rucksack/testbed/object_impl.hpp>
+#include <sge/systems/config.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/systems/log_settings.hpp>
 #include <sge/systems/make_list.hpp>
 #include <sge/systems/quit_on_escape.hpp>
 #include <sge/systems/renderer.hpp>
@@ -51,8 +53,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/system.hpp>
 #include <awl/main/exit_code.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/log/activate_levels.hpp>
 #include <fcppt/log/level.hpp>
+#include <fcppt/log/location.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 
 
@@ -61,24 +63,47 @@ sge::rucksack::testbed::object_impl::object_impl(
 :
 	systems_(
 		sge::systems::make_list
-		(sge::systems::window(
+		(
+			sge::systems::window(
 				sge::window::parameters(
 					_window_title,
 					sge::window::dim(
 						1024,
-						768))))
-		(sge::systems::renderer(
+						768
+					)
+				)
+			)
+		)
+		(
+			sge::systems::renderer(
 				sge::renderer::parameters::object(
 					sge::renderer::pixel_format::object(
 						sge::renderer::pixel_format::color::depth32,
 						sge::renderer::pixel_format::depth_stencil::off,
 						sge::renderer::pixel_format::optional_multi_samples(),
-						sge::renderer::pixel_format::srgb::no),
+						sge::renderer::pixel_format::srgb::no
+					),
 					sge::renderer::parameters::vsync::on,
-					sge::renderer::display_mode::optional_object()),
-				sge::viewport::fill_on_resize()))
-		(sge::systems::input(
-				sge::systems::cursor_option_field::null()))),
+					sge::renderer::display_mode::optional_object()
+				),
+				sge::viewport::fill_on_resize()
+			)
+		)
+		(
+			sge::systems::input(
+				sge::systems::cursor_option_field::null()
+			)
+		)
+		(
+			sge::systems::config()
+			.log_settings(
+				sge::systems::log_settings(
+					sge::log::location(),
+					fcppt::log::level::debug
+				)
+			)
+		)
+	),
 	buffers_(
 		systems_.renderer_ffp(),
 		sge::sprite::buffers::option::dynamic),
@@ -90,9 +115,6 @@ sge::rucksack::testbed::object_impl::object_impl(
 		sge::systems::quit_on_escape(
 			systems_))
 {
-	fcppt::log::activate_levels(
-		sge::log::global(),
-		fcppt::log::level::debug);
 }
 
 void

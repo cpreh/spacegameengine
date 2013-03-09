@@ -50,7 +50,7 @@ sge::openal::buffer::buffer(
 	FCPPT_LOG_DEBUG(
 		sge::openal::logger(),
 		fcppt::log::_
-			<< FCPPT_TEXT("Reading a whole file into a buffer\n")
+			<< FCPPT_TEXT("Reading a whole file into a buffer")
 	);
 
 	_file.read_all(

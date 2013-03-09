@@ -18,9 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_OPENCL_LOG_LOCATION_HPP_INCLUDED
-#define SGE_SRC_OPENCL_LOG_LOCATION_HPP_INCLUDED
+#ifndef SGE_OPENCL_LOG_LOCATION_HPP_INCLUDED
+#define SGE_OPENCL_LOG_LOCATION_HPP_INCLUDED
 
+#include <sge/opencl/symbol.hpp>
 #include <fcppt/log/location.hpp>
 
 
@@ -29,6 +30,7 @@ namespace sge
 namespace opencl
 {
 
+SGE_OPENCL_SYMBOL
 fcppt::log::location const
 log_location();
 

@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/log/global_context.hpp>
+#include <sge/opencl/log_location.hpp>
 #include <sge/opencl/kernel/object.hpp>
 #include <sge/opencl/program/build_error.hpp>
 #include <sge/opencl/program/build_parameters.hpp>
@@ -37,8 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/io/stream_to_string.hpp>
-#include <fcppt/log/context.hpp>
-#include <fcppt/log/deactivate_levels.hpp>
+#include <fcppt/log/deactivate_levels_recursive.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/log/location.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -62,13 +62,11 @@ main(
 	char *argv[])
 try
 {
-	sge::log::global_context().apply(
-		fcppt::log::location(
-			FCPPT_TEXT("opencl")),
-		std::bind(
-			&fcppt::log::deactivate_levels,
-			std::placeholders::_1,
-			fcppt::log::level::verbose));
+	fcppt::log::deactivate_levels_recursive(
+		sge::log::global_context(),
+		sge::opencl::log_location(),
+		fcppt::log::level::verbose
+	);
 
 	if(argc < 2)
 	{

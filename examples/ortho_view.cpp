@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/mode.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_event.hpp>
-#include <sge/log/global.hpp>
+#include <sge/log/location.hpp>
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_set.hpp>
@@ -79,11 +79,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/object.hpp>
 #include <sge/sprite/state/parameters.hpp>
 #include <sge/sprite/state/scoped.hpp>
+#include <sge/systems/config.hpp>
 #include <sge/systems/cursor_demuxer.hpp>
 #include <sge/systems/image2d.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/keyboard_collector.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/systems/log_settings.hpp>
 #include <sge/systems/make_list.hpp>
 #include <sge/systems/mouse_collector.hpp>
 #include <sge/systems/quit_on_escape.hpp>
@@ -112,8 +114,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/io/cerr.hpp>
-#include <fcppt/log/activate_levels.hpp>
 #include <fcppt/log/level.hpp>
+#include <fcppt/log/location.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -151,10 +153,6 @@ example_main(
 )
 try
 {
-	fcppt::log::activate_levels(
-		sge::log::global(),
-		fcppt::log::level::debug);
-
 	sge::window::dim const window_dim(
 		1024,
 		768);
@@ -176,12 +174,18 @@ try
 		>
 	> const sys(
 		sge::systems::make_list
-		(sge::systems::window(
+		(
+			sge::systems::window(
 				sge::window::parameters(
 					sge::window::title(
-						FCPPT_TEXT("sge orthographic camera test")),
-					window_dim)))
-		(sge::systems::renderer(
+						FCPPT_TEXT("sge orthographic camera test")
+					),
+					window_dim
+				)
+			)
+		)
+		(
+			sge::systems::renderer(
 				sge::renderer::parameters::object(
 					sge::renderer::pixel_format::object(
 						sge::renderer::pixel_format::color::depth32,
@@ -192,15 +196,38 @@ try
 					sge::renderer::parameters::vsync::on,
 					sge::renderer::display_mode::optional_object()
 				),
-				sge::viewport::fill_on_resize()))
-		(sge::systems::input(
-				sge::systems::cursor_option_field()))
-		(sge::systems::image2d(
+				sge::viewport::fill_on_resize()
+			)
+		)
+		(
+			sge::systems::input(
+				sge::systems::cursor_option_field()
+			)
+		)
+		(
+			sge::systems::image2d(
 				sge::image::capabilities_field::null(),
 				sge::media::optional_extension_set(
-					fcppt::assign::make_container<sge::media::extension_set>(
+					fcppt::assign::make_container<
+						sge::media::extension_set
+					>(
 						sge::media::extension(
-							FCPPT_TEXT("png")))))));
+							FCPPT_TEXT("png")
+						)
+					)
+				)
+			)
+		)
+		(
+			sge::systems::config()
+			.log_settings(
+				sge::systems::log_settings(
+					sge::log::location(),
+					fcppt::log::level::debug
+				)
+			)
+		)
+	);
 
 	sge::camera::ortho_freelook::object camera(
 		sge::camera::ortho_freelook::parameters(
