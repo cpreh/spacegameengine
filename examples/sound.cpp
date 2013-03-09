@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/sound/positional_scoped_ptr.hpp>
 #include <sge/audio/sound/repeat.hpp>
 #include <sge/config/media_path.hpp>
-#include <sge/log/global.hpp>
+#include <sge/log/location.hpp>
 #include <sge/media/const_raw_pointer.hpp>
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
@@ -45,8 +45,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/raw_value.hpp>
 #include <sge/systems/audio_loader.hpp>
 #include <sge/systems/audio_player_default.hpp>
+#include <sge/systems/config.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/systems/log_settings.hpp>
 #include <sge/systems/make_list.hpp>
 #include <sge/systems/with_audio_loader.hpp>
 #include <sge/systems/with_audio_player.hpp>
@@ -62,8 +64,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cin.hpp>
 #include <fcppt/io/cout.hpp>
-#include <fcppt/log/activate_levels.hpp>
 #include <fcppt/log/level.hpp>
+#include <fcppt/log/location.hpp>
 #include <fcppt/math/pi.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -79,6 +81,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <ios>
 #include <iostream>
 #include <iterator>
+#include <limits>
 #include <ostream>
 #include <string>
 #include <fcppt/config/external_end.hpp>
@@ -140,13 +143,13 @@ namespace
 void
 wait_for_input()
 {
-/*
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Please press enter to continue...\n");
-	fcppt::string input;
-	std::getline(
-		fcppt::io::cin(),
-		input);*/
+
+	fcppt::io::cin().ignore(
+		std::numeric_limits<std::streamsize>::max(),
+		FCPPT_TEXT('\n')
+	);
 }
 
 void
@@ -162,11 +165,6 @@ int
 main()
 try
 {
-	fcppt::log::activate_levels(
-		sge::log::global(),
-		fcppt::log::level::debug
-	);
-
 	boost::filesystem::path const
 		file_name =
 			sge::config::media_path() /
@@ -199,6 +197,15 @@ try
 					fcppt::assign::make_container<sge::media::extension_set>
 						(sge::media::extension(FCPPT_TEXT("wav")))
 						(sge::media::extension(FCPPT_TEXT("ogg")))
+				)
+			)
+		)
+		(
+			sge::systems::config()
+			.log_settings(
+				sge::systems::log_settings(
+					sge::log::location(),
+					fcppt::log::level::debug
 				)
 			)
 		)
@@ -373,10 +380,15 @@ try
 
 	wait_for_input();
 
+	sge::audio::file_scoped_ptr const streaming_file(
+		sys.audio_loader().load(
+			streaming_file_name
+		)
+	);
+
 	sge::audio::sound::positional_scoped_ptr const streaming_positional_sound(
 		sys.audio_player().create_positional_stream(
-			*sys.audio_loader().load(
-				streaming_file_name),
+			*streaming_file,
 			sge::audio::sound::positional_parameters()
 				.linear_velocity(
 					sge::audio::vector::null())
