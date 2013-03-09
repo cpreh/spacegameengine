@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/default_keyboard.hpp>
 #include <sge/cegui/duration.hpp>
 #include <sge/cegui/load_context.hpp>
+#include <sge/cegui/log_location.hpp>
 #include <sge/cegui/syringe.hpp>
 #include <sge/cegui/system.hpp>
 #include <sge/cegui/unit.hpp>
@@ -31,9 +32,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/config/media_path.hpp>
 #include <sge/image/capabilities_field.hpp>
 #include <sge/image/color/predef.hpp>
-#include <sge/log/global.hpp>
-#include <sge/log/global_context.hpp>
-#include <sge/log/location.hpp>
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_set.hpp>
@@ -50,6 +48,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
+#include <sge/systems/config.hpp>
 #include <sge/systems/cursor_demuxer.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/image2d.hpp>
@@ -57,6 +56,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/instance.hpp>
 #include <sge/systems/keyboard_collector.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/systems/log_settings.hpp>
 #include <sge/systems/make_list.hpp>
 #include <sge/systems/quit_on_escape.hpp>
 #include <sge/systems/renderer.hpp>
@@ -84,11 +84,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/io/cerr.hpp>
-#include <fcppt/log/activate_levels.hpp>
-#include <fcppt/log/context.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/log/location.hpp>
-#include <fcppt/log/object.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -107,21 +104,6 @@ example_main(
 	awl::main::function_context const &)
 try
 {
-	fcppt::log::activate_levels(
-		sge::log::global(),
-		fcppt::log::level::debug);
-
-	// Usually too verbose (maybe add a log switcher later?)
-	sge::log::global_context().apply(
-		fcppt::log::location(
-			sge::log::location()
-			/
-			FCPPT_TEXT("cegui")),
-		std::bind(
-			&fcppt::log::object::activate,
-			std::placeholders::_1,
-			fcppt::log::level::debug));
-
 	sge::systems::instance<
 		boost::mpl::vector5<
 			sge::systems::with_renderer<
@@ -139,31 +121,59 @@ try
 		>
 	> const sys(
 		sge::systems::make_list
-		(sge::systems::window(
-			sge::window::parameters(
-				sge::window::title(
-					FCPPT_TEXT("simple gui test")),
-				sge::window::dim(1024,768))))
-		(sge::systems::renderer(
-			sge::renderer::parameters::object(
-				sge::renderer::pixel_format::object(
-					sge::renderer::pixel_format::color::depth32,
-					sge::renderer::pixel_format::depth_stencil::off,
-					sge::renderer::pixel_format::optional_multi_samples(),
-					sge::renderer::pixel_format::srgb::no
+		(
+			sge::systems::window(
+				sge::window::parameters(
+					sge::window::title(
+						FCPPT_TEXT("simple gui test")
+					),
+					sge::window::dim(1024,768)
+				)
+			)
+		)
+		(
+			sge::systems::renderer(
+				sge::renderer::parameters::object(
+					sge::renderer::pixel_format::object(
+						sge::renderer::pixel_format::color::depth32,
+						sge::renderer::pixel_format::depth_stencil::off,
+						sge::renderer::pixel_format::optional_multi_samples(),
+						sge::renderer::pixel_format::srgb::no
+					),
+					sge::renderer::parameters::vsync::on,
+					sge::renderer::display_mode::optional_object()
 				),
-				sge::renderer::parameters::vsync::on,
-				sge::renderer::display_mode::optional_object()
-			),
-			sge::viewport::fill_on_resize()))
-		(sge::systems::image2d(
-			sge::image::capabilities_field::null(),
-			sge::media::optional_extension_set(
-				fcppt::assign::make_container<sge::media::extension_set>(
-					sge::media::extension(
-						FCPPT_TEXT("png"))))))
-		(sge::systems::input(
-			sge::systems::cursor_option_field())));
+				sge::viewport::fill_on_resize()
+			)
+		)
+		(
+			sge::systems::image2d(
+				sge::image::capabilities_field::null(),
+				sge::media::optional_extension_set(
+					fcppt::assign::make_container<
+						sge::media::extension_set
+					>(
+						sge::media::extension(
+							FCPPT_TEXT("png")
+						)
+					)
+				)
+			)
+		)
+		(
+			sge::systems::input(
+				sge::systems::cursor_option_field()
+			)
+		)(
+			sge::systems::config()
+			.log_settings(
+				sge::systems::log_settings(
+					sge::cegui::log_location(),
+					fcppt::log::level::debug
+				)
+			)
+		)
+	);
 
 	fcppt::signal::scoped_connection const escape_connection(
 		sge::systems::quit_on_escape(

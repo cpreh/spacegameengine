@@ -31,6 +31,8 @@ set(
 	include/sge/audio/loader_plugin/traits.hpp
 	include/sge/audio/loader_scoped_ptr.hpp
 	include/sge/audio/loader_unique_ptr.hpp
+	include/sge/audio/log_location.hpp
+	include/sge/audio/logger.hpp
 	include/sge/audio/multi_loader.hpp
 	include/sge/audio/multi_loader_fwd.hpp
 	include/sge/audio/multi_loader_parameters.hpp
@@ -89,6 +91,8 @@ set(
 	src/audio/loader_plugin/manager.cpp
 	src/audio/loader_plugin/object.cpp
 	src/audio/loader_plugin/traits.cpp
+	src/audio/log_location.cpp
+	src/audio/logger.cpp
 	src/audio/multi_loader.cpp
 	src/audio/multi_loader_parameters.cpp
 	src/audio/player.cpp

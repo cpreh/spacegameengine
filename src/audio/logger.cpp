@@ -18,16 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image2d/log_location.hpp>
-#include <sge/libpng/logger.hpp>
+#include <sge/audio/log_location.hpp>
+#include <sge/audio/logger.hpp>
 #include <sge/log/declare_lib.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/log/location.hpp>
 
 
 SGE_LOG_DECLARE_LIB(
-	sge::libpng::logger,
-	sge::image2d::log_location()
-	/
-	FCPPT_TEXT("libpng")
+	sge::audio::logger,
+	sge::audio::log_location()
 )

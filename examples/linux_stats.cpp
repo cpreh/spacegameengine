@@ -41,7 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/graph/scalar.hpp>
 #include <sge/image/color/predef.hpp>
 #include <sge/image2d/dim.hpp>
-#include <sge/log/global.hpp>
+#include <sge/log/location.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/context/scoped_ffp.hpp>
@@ -56,8 +56,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
+#include <sge/systems/config.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/systems/log_settings.hpp>
 #include <sge/systems/make_list.hpp>
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/renderer_caps.hpp>
@@ -84,8 +86,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
 #include <fcppt/io/cerr.hpp>
-#include <fcppt/log/activate_levels.hpp>
 #include <fcppt/log/level.hpp>
+#include <fcppt/log/location.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/ptr_container/ptr_map.hpp>
@@ -406,11 +408,6 @@ try
 			std::string(
 				_context.argv()[3])));
 
-	fcppt::log::activate_levels(
-		sge::log::global(),
-		fcppt::log::level::debug
-	);
-
 	std::vector<std::string> devices = ::network_devices();
 	std::size_t network_device_count = devices.size();
 
@@ -427,15 +424,25 @@ try
 		>
 	> const sys(
 		sge::systems::make_list
-		(sge::systems::window(
+		(
+			sge::systems::window(
 				sge::window::parameters(
 					sge::window::title(
 						FCPPT_TEXT("linux stats example")
 					),
 					sge::window::dim(
 						graph_dim.w(),
-						static_cast<sge::window::dim::value_type>(2u + network_device_count) * graph_dim.h()))))
-		(sge::systems::renderer(
+						static_cast<
+							sge::window::dim::value_type
+						>(
+							2u + network_device_count
+						) * graph_dim.h()
+					)
+				)
+			)
+		)
+		(
+			sge::systems::renderer(
 				sge::renderer::parameters::object(
 					sge::renderer::pixel_format::object(
 						sge::renderer::pixel_format::color::depth32,
@@ -446,7 +453,19 @@ try
 					sge::renderer::parameters::vsync::on,
 					sge::renderer::display_mode::optional_object()
 				),
-				sge::viewport::fill_on_resize())));
+				sge::viewport::fill_on_resize()
+			)
+		)
+		(
+			sge::systems::config()
+			.log_settings(
+				sge::systems::log_settings(
+					sge::log::location(),
+					fcppt::log::level::debug
+				)
+			)
+		)
+	);
 
 	sge::font::object_scoped_ptr const font(
 		sys.font_system().create_font(

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/parameters.hpp>
 #include <sge/font/system.hpp>
 #include <sge/image/color/predef.hpp>
-#include <sge/input/logger.hpp>
+#include <sge/input/log_location.hpp>
 #include <sge/input/cursor/button_code_to_string.hpp>
 #include <sge/input/cursor/button_event.hpp>
 #include <sge/input/cursor/discover_callback.hpp>
@@ -106,12 +106,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/parameters.hpp>
+#include <sge/systems/config.hpp>
 #include <sge/systems/cursor_option.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/keyboard_collector.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/systems/log_settings.hpp>
 #include <sge/systems/make_list.hpp>
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/renderer_caps.hpp>
@@ -139,9 +141,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/io/ostream.hpp>
-#include <fcppt/log/activate_levels.hpp>
 #include <fcppt/log/level.hpp>
-#include <fcppt/log/object.hpp>
+#include <fcppt/log/location.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
@@ -346,18 +347,6 @@ try
 		)
 	);
 
-	if(
-		silent
-	)
-		sge::input::logger().enable(
-			false
-		);
-	else
-		fcppt::log::activate_levels(
-			sge::input::logger(),
-			fcppt::log::level::debug
-		);
-
 	sge::systems::instance<
 		boost::mpl::vector5<
 			sge::systems::with_window,
@@ -406,6 +395,19 @@ try
 			sge::systems::input(
 				sge::systems::cursor_option_field(
 					sge::systems::cursor_option::exclusive
+				)
+			)
+		)
+		(
+			sge::systems::config()
+			.log_settings(
+				sge::systems::log_settings(
+					sge::input::log_location(),
+					silent
+					?
+						fcppt::log::level::error
+					:
+						fcppt::log::level::debug
 				)
 			)
 		)

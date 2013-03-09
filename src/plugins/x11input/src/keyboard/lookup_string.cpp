@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/input/exception.hpp>
-#include <sge/input/logger.hpp>
 #include <sge/x11input/input_context.hpp>
+#include <sge/x11input/logger.hpp>
 #include <sge/x11input/keyboard/char_vector.hpp>
 #include <sge/x11input/keyboard/looked_up_string.hpp>
 #include <sge/x11input/keyboard/lookup_string.hpp>
@@ -142,7 +142,7 @@ sge::x11input::keyboard::lookup_string(
 	)
 	{
 		FCPPT_LOG_ERROR(
-			sge::input::logger(),
+			sge::x11input::logger(),
 			fcppt::log::_
 				<< FCPPT_TEXT("XwcLookupString mismatch of lengths!")
 				FCPPT_TEXT(" This usually happens if your locale is not set.")

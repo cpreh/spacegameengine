@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/input/exception.hpp>
-#include <sge/input/logger.hpp>
+#include <sge/x11input/logger.hpp>
 #include <sge/x11input/cursor/grab.hpp>
 #include <sge/x11input/cursor/image.hpp>
 #include <sge/x11input/device/id.hpp>
@@ -86,7 +86,7 @@ sge::x11input::cursor::grab::grab(
 		case GrabNotViewable:
 		case GrabFrozen:
 			FCPPT_LOG_DEBUG(
-				sge::input::logger(),
+				sge::x11input::logger(),
 				fcppt::log::_
 					<< FCPPT_TEXT("XIGrabDevice failed with code ")
 					<< ret

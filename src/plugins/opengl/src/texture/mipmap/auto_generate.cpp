@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/logger.hpp>
 #include <sge/opengl/optional_enum.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
@@ -26,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/funcs/parameter_int.hpp>
 #include <sge/opengl/texture/mipmap/auto_generate.hpp>
 #include <sge/opengl/texture/mipmap/context.hpp>
-#include <sge/renderer/logger.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/log/output.hpp>
@@ -51,7 +51,7 @@ sge::opengl::texture::mipmap::auto_generate(
 	)
 	{
 		FCPPT_LOG_ERROR(
-			sge::renderer::logger(),
+			sge::opengl::logger(),
 			fcppt::log::_
 				<< FCPPT_TEXT("Building mipmaps is not supported.")
 				<< FCPPT_TEXT(" The mip_filter will not work correctly.")

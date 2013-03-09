@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/devil/get_integer.hpp>
 #include <sge/devil/load_image.hpp>
 #include <sge/devil/load_memory.hpp>
+#include <sge/devil/logger.hpp>
 #include <sge/devil/set_integer.hpp>
 #include <sge/devil/to_il_channel.hpp>
 #include <sge/devil/to_il_format.hpp>
@@ -46,7 +47,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/make_const.hpp>
 #include <sge/image2d/view/object.hpp>
 #include <sge/image2d/view/size.hpp>
-#include <sge/log/global.hpp>
 #include <sge/media/const_raw_range.hpp>
 #include <sge/media/optional_extension.hpp>
 #include <fcppt/optional_impl.hpp>
@@ -358,7 +358,7 @@ sge::devil::file::load_impl(
 	}
 
 	FCPPT_LOG_WARNING(
-		sge::log::global(),
+		sge::devil::logger(),
 		fcppt::log::_
 			<< FCPPT_TEXT("SGE won't handle files with color palettes.")
 			<< FCPPT_TEXT(" Instead, the file will be reloaded and converted.")

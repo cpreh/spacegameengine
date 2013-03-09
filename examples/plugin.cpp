@@ -24,7 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/system.hpp>
 #include <sge/image2d/system.hpp>
 #include <sge/input/system.hpp>
-#include <sge/log/global.hpp>
+#include <sge/log/global_context.hpp>
+#include <sge/log/location.hpp>
 #include <sge/plugin/collection.hpp>
 #include <sge/plugin/context.hpp>
 #include <sge/plugin/info.hpp>
@@ -38,8 +39,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/type_name.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
-#include <fcppt/log/activate_levels.hpp>
+#include <fcppt/log/activate_levels_recursive.hpp>
 #include <fcppt/log/level.hpp>
+#include <fcppt/log/location.hpp>
 #include <fcppt/mpl/for_each.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -82,8 +84,9 @@ int
 main()
 try
 {
-	fcppt::log::activate_levels(
-		sge::log::global(),
+	fcppt::log::activate_levels_recursive(
+		sge::log::global_context(),
+		sge::log::location(),
 		fcppt::log::level::debug
 	);
 

@@ -29,6 +29,8 @@ set(
 	include/sge/image2d/l8_format.hpp
 	include/sge/image2d/la8.hpp
 	include/sge/image2d/la8_format.hpp
+	include/sge/image2d/log_location.hpp
+	include/sge/image2d/logger.hpp
 	include/sge/image2d/multi_system.hpp
 	include/sge/image2d/multi_system_fwd.hpp
 	include/sge/image2d/multi_system_parameters.hpp
@@ -107,6 +109,8 @@ set(
 	src/image2d/include/sge/src/image2d/algorithm/bresenham_visitor.hpp
 	src/image2d/l8.cpp
 	src/image2d/la8.cpp
+	src/image2d/log_location.cpp
+	src/image2d/logger.cpp
 	src/image2d/multi_system.cpp
 	src/image2d/multi_system_parameters.cpp
 	src/image2d/plugin/collection.cpp
@@ -153,7 +157,7 @@ sge_implement_from_lib(
 
 add_sge_base_library(
 	image2d
-	"sgeimage;sgeimagecolor;sgemedia;sgeplugin"
+	"sgeimage;sgeimagecolor;sgelog;sgemedia;sgeplugin"
 	""
 	""
 	""

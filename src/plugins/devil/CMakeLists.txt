@@ -18,12 +18,14 @@ set(
 	src/plugins/devil/include/sge/devil/library.hpp
 	src/plugins/devil/include/sge/devil/load_image.hpp
 	src/plugins/devil/include/sge/devil/load_memory.hpp
+	src/plugins/devil/include/sge/devil/logger.hpp
 	src/plugins/devil/include/sge/devil/optional_error.hpp
 	src/plugins/devil/include/sge/devil/set_integer.hpp
 	src/plugins/devil/include/sge/devil/supported_extensions.hpp
 	src/plugins/devil/include/sge/devil/system.hpp
 	src/plugins/devil/include/sge/devil/to_il_channel.hpp
 	src/plugins/devil/include/sge/devil/to_il_format.hpp
+	src/plugins/devil/logger.cpp
 	src/plugins/devil/src/best_il_format.cpp
 	src/plugins/devil/src/check_error.cpp
 	src/plugins/devil/src/check_error_exn.cpp

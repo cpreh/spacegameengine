@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/logger.hpp>
 #include <sge/opengl/vf/client_state.hpp>
-#include <sge/renderer/logger.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/log/error.hpp>
 #include <fcppt/log/output.hpp>
-#include <fcppt/log/warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <ostream>
 #include <fcppt/config/external_end.hpp>
@@ -165,8 +165,8 @@ insert_checked(
 			_value
 		).second
 	)
-		FCPPT_LOG_WARNING(
-			sge::renderer::logger(),
+		FCPPT_LOG_ERROR(
+			sge::opengl::logger(),
 			fcppt::log::_
 				<< FCPPT_TEXT("Duplicate state inserted in opengl::vf!")
 				<< common_error
@@ -187,8 +187,8 @@ erase_checked(
 			_value
 		)
 	)
-		FCPPT_LOG_WARNING(
-			sge::renderer::logger(),
+		FCPPT_LOG_ERROR(
+			sge::opengl::logger(),
 			fcppt::log::_
 				<< FCPPT_TEXT("State erased in opengl::vf that was not there!")
 				<< common_error

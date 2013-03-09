@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/logger.hpp>
 #include <sge/input/processor.hpp>
 #include <sge/input/cursor/discover_callback.hpp>
 #include <sge/input/cursor/remove_callback.hpp>
@@ -33,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/create_parameters.hpp>
 #include <sge/x11input/input_context.hpp>
 #include <sge/x11input/input_method.hpp>
+#include <sge/x11input/logger.hpp>
 #include <sge/x11input/processor.hpp>
 #include <sge/x11input/send_init_event.hpp>
 #include <sge/x11input/cursor/object.hpp>
@@ -514,7 +514,7 @@ sge::x11input::processor::on_focus_in(
 )
 {
 	FCPPT_LOG_DEBUG(
-		sge::input::logger(),
+		sge::x11input::logger(),
 		fcppt::log::_
 			<< FCPPT_TEXT("x11input: FocusIn")
 	);
@@ -532,7 +532,7 @@ sge::x11input::processor::on_focus_out(
 )
 {
 	FCPPT_LOG_DEBUG(
-		sge::input::logger(),
+		sge::x11input::logger(),
 		fcppt::log::_
 			<< FCPPT_TEXT("x11input: FocusOut")
 	);
@@ -550,7 +550,7 @@ sge::x11input::processor::on_leave(
 )
 {
 	FCPPT_LOG_DEBUG(
-		sge::input::logger(),
+		sge::x11input::logger(),
 		fcppt::log::_
 			<< FCPPT_TEXT("x11input: LeaveNotify")
 	);
@@ -564,7 +564,7 @@ sge::x11input::processor::on_client_message(
 )
 {
 	FCPPT_LOG_DEBUG(
-		sge::input::logger(),
+		sge::x11input::logger(),
 		fcppt::log::_
 			<< FCPPT_TEXT("x11input: ClientMessage")
 	);

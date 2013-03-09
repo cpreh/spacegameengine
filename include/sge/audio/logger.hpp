@@ -18,16 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image2d/log_location.hpp>
-#include <sge/libpng/logger.hpp>
-#include <sge/log/declare_lib.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/log/location.hpp>
+#ifndef SGE_AUDIO_LOGGER_HPP_INCLUDED
+#define SGE_AUDIO_LOGGER_HPP_INCLUDED
+
+#include <sge/audio/symbol.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
-SGE_LOG_DECLARE_LIB(
-	sge::libpng::logger,
-	sge::image2d::log_location()
-	/
-	FCPPT_TEXT("libpng")
-)
+namespace sge
+{
+namespace audio
+{
+
+SGE_AUDIO_SYMBOL
+fcppt::log::object &
+logger();
+
+}
+}
+
+#endif

@@ -91,6 +91,7 @@ set(
 	src/plugins/x11input/include/sge/x11input/keyboard/translate_event.hpp
 	src/plugins/x11input/include/sge/x11input/keyboard/translate_key_code.hpp
 	src/plugins/x11input/include/sge/x11input/lc_ctype.hpp
+	src/plugins/x11input/include/sge/x11input/logger.hpp
 	src/plugins/x11input/include/sge/x11input/mask_is_set.hpp
 	src/plugins/x11input/include/sge/x11input/mouse/axis.hpp
 	src/plugins/x11input/include/sge/x11input/mouse/axis_code.hpp
@@ -159,6 +160,7 @@ set(
 	src/plugins/x11input/src/keyboard/translate_event.cpp
 	src/plugins/x11input/src/keyboard/translate_key_code.cpp
 	src/plugins/x11input/src/lc_ctype.cpp
+	src/plugins/x11input/src/logger.cpp
 	src/plugins/x11input/src/mask_is_set.cpp
 	src/plugins/x11input/src/mouse/axis.cpp
 	src/plugins/x11input/src/mouse/axis_code.cpp
@@ -186,7 +188,7 @@ add_definitions(
 
 add_sge_plugin(
 	x11input
-	"sgeinput;sgeplugin;sgewindow"
+	"sgeinput;sgelog;sgeplugin;sgewindow"
 	"${fcppt_core_TARGET};${awl_TARGET};${X11_X11_LIB};${X11_Xinput_LIB}"
 	"${X11_X11_INCLUDE_PATH};${X11_Xinput_INCLUDE_PATH}"
 )

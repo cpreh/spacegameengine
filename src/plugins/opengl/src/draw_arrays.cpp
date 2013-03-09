@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/draw_arrays.hpp>
+#include <sge/opengl/logger.hpp>
 #include <sge/opengl/convert/primitive_type.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/logger.hpp>
 #include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/first.hpp>
@@ -44,7 +44,7 @@ sge::opengl::draw_arrays(
 	)
 	{
 		FCPPT_LOG_WARNING(
-			sge::renderer::logger(),
+			sge::opengl::logger(),
 			fcppt::log::_
 				<< FCPPT_TEXT("Empty device::render() call. ")
 				<< FCPPT_TEXT("vertex_count was 0.")

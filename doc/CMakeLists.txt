@@ -104,6 +104,8 @@ set(
 	include/sge/audio/loader_plugin/traits.hpp
 	include/sge/audio/loader_scoped_ptr.hpp
 	include/sge/audio/loader_unique_ptr.hpp
+	include/sge/audio/log_location.hpp
+	include/sge/audio/logger.hpp
 	include/sge/audio/multi_loader.hpp
 	include/sge/audio/multi_loader_fwd.hpp
 	include/sge/audio/multi_loader_parameters.hpp
@@ -762,6 +764,8 @@ set(
 	include/sge/image2d/l8_format.hpp
 	include/sge/image2d/la8.hpp
 	include/sge/image2d/la8_format.hpp
+	include/sge/image2d/log_location.hpp
+	include/sge/image2d/logger.hpp
 	include/sge/image2d/multi_system.hpp
 	include/sge/image2d/multi_system_fwd.hpp
 	include/sge/image2d/multi_system_parameters.hpp

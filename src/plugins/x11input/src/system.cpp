@@ -19,11 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/input/exception.hpp>
-#include <sge/input/logger.hpp>
 #include <sge/input/processor_unique_ptr.hpp>
 #include <sge/window/object.hpp>
 #include <sge/window/system_fwd.hpp>
 #include <sge/x11input/lc_ctype.hpp>
+#include <sge/x11input/logger.hpp>
 #include <sge/x11input/optional_opcode.hpp>
 #include <sge/x11input/processor.hpp>
 #include <sge/x11input/scoped_locale.hpp>
@@ -125,7 +125,7 @@ sge::x11input::system::create_processor(
 	else
 	{
 		FCPPT_LOG_WARNING(
-			sge::input::logger(),
+			sge::x11input::logger(),
 			fcppt::log::_
 				<< FCPPT_TEXT("LC_CTYPE is not set.")
 				<< FCPPT_TEXT(" Character conversion of X11 will not work properly!")
