@@ -27,11 +27,13 @@ set(
 	src/plugins/openal/include/sge/openal/funcs/delete_buffers.hpp
 	src/plugins/openal/include/sge/openal/funcs/delete_multi_buffers.hpp
 	src/plugins/openal/include/sge/openal/funcs/delete_source.hpp
+	src/plugins/openal/include/sge/openal/funcs/doppler_factor.hpp
 	src/plugins/openal/include/sge/openal/funcs/gen_buffer.hpp
 	src/plugins/openal/include/sge/openal/funcs/gen_buffers.hpp
 	src/plugins/openal/include/sge/openal/funcs/gen_multi_buffers.hpp
 	src/plugins/openal/include/sge/openal/funcs/gen_source.hpp
 	src/plugins/openal/include/sge/openal/funcs/get_source_int.hpp
+	src/plugins/openal/include/sge/openal/funcs/listener_float.hpp
 	src/plugins/openal/include/sge/openal/funcs/listener_float_ptr.hpp
 	src/plugins/openal/include/sge/openal/funcs/source_float.hpp
 	src/plugins/openal/include/sge/openal/funcs/source_float_ptr.hpp
@@ -43,6 +45,7 @@ set(
 	src/plugins/openal/include/sge/openal/funcs/source_stop.hpp
 	src/plugins/openal/include/sge/openal/funcs/source_unqueue_buffer.hpp
 	src/plugins/openal/include/sge/openal/funcs/source_unqueue_buffers.hpp
+	src/plugins/openal/include/sge/openal/funcs/speed_of_sound.hpp
 	src/plugins/openal/include/sge/openal/listener.hpp
 	src/plugins/openal/include/sge/openal/logger.hpp
 	src/plugins/openal/include/sge/openal/multi_buffer_holder.hpp
@@ -70,11 +73,13 @@ set(
 	src/plugins/openal/src/funcs/delete_buffers.cpp
 	src/plugins/openal/src/funcs/delete_multi_buffers.cpp
 	src/plugins/openal/src/funcs/delete_source.cpp
+	src/plugins/openal/src/funcs/doppler_factor.cpp
 	src/plugins/openal/src/funcs/gen_buffer.cpp
 	src/plugins/openal/src/funcs/gen_buffers.cpp
 	src/plugins/openal/src/funcs/gen_multi_buffers.cpp
 	src/plugins/openal/src/funcs/gen_source.cpp
 	src/plugins/openal/src/funcs/get_source_int.cpp
+	src/plugins/openal/src/funcs/listener_float.cpp
 	src/plugins/openal/src/funcs/listener_float_ptr.cpp
 	src/plugins/openal/src/funcs/source_float.cpp
 	src/plugins/openal/src/funcs/source_float_ptr.cpp
@@ -86,6 +91,7 @@ set(
 	src/plugins/openal/src/funcs/source_stop.cpp
 	src/plugins/openal/src/funcs/source_unqueue_buffer.cpp
 	src/plugins/openal/src/funcs/source_unqueue_buffers.cpp
+	src/plugins/openal/src/funcs/speed_of_sound.cpp
 	src/plugins/openal/src/listener.cpp
 	src/plugins/openal/src/logger.cpp
 	src/plugins/openal/src/multi_buffer_holder.cpp

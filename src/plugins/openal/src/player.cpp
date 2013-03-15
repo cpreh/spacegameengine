@@ -33,10 +33,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/sound/positional.hpp>
 #include <sge/audio/sound/positional_parameters_fwd.hpp>
 #include <sge/audio/sound/positional_unique_ptr.hpp>
+#include <sge/openal/al.hpp>
 #include <sge/openal/buffer.hpp>
 #include <sge/openal/file_format.hpp>
 #include <sge/openal/player.hpp>
 #include <sge/openal/stream_sound.hpp>
+#include <sge/openal/funcs/doppler_factor.hpp>
+#include <sge/openal/funcs/listener_float.hpp>
+#include <sge/openal/funcs/speed_of_sound.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 
 
@@ -53,11 +57,7 @@ sge::openal::player::player()
 {
 	// set our own speed of sound standard rather than relying on OpenAL
 	this->speed_of_sound(
-		static_cast<
-			sge::audio::scalar
-		>(
-			343
-		)
+		343.f
 	);
 
 	this->listener().position(
@@ -72,16 +72,16 @@ sge::openal::player::player()
 		sge::audio::direction::object(
 			sge::audio::direction::forward(
 				sge::audio::vector(
-					static_cast<sge::audio::scalar>(0),
-					static_cast<sge::audio::scalar>(0),
-					static_cast<sge::audio::scalar>(1)
+					0.f,
+					0.f,
+					1.f
 				)
 			),
 			sge::audio::direction::up(
 				sge::audio::vector(
-					static_cast<sge::audio::scalar>(0),
-					static_cast<sge::audio::scalar>(1),
-					static_cast<sge::audio::scalar>(0)
+					0.f,
+					1.f,
+					0.f
 				)
 			)
 		)
@@ -100,30 +100,45 @@ sge::openal::player::listener()
 
 void
 sge::openal::player::speed_of_sound(
-	sge::audio::scalar const dest)
+	sge::audio::scalar const _value
+)
 {
-	// TODO: error checking!
-	alSpeedOfSound(
-		static_cast<ALfloat>(
-			dest));
+	sge::openal::funcs::speed_of_sound(
+		static_cast<
+			ALfloat
+		>(
+			_value
+		)
+	);
 }
 
 void
 sge::openal::player::doppler_factor(
-	sge::audio::scalar const dest)
+	sge::audio::scalar const _value
+)
 {
-	alDopplerFactor(
-		static_cast<ALfloat>(
-			dest));
+	sge::openal::funcs::doppler_factor(
+		static_cast<
+			ALfloat
+		>(
+			_value
+		)
+	);
 }
 
 void
 sge::openal::player::gain(
-	sge::audio::scalar const g)
+	sge::audio::scalar const _value
+)
 {
-	alListenerf(
+	sge::openal::funcs::listener_float(
 		AL_GAIN,
-		g);
+		static_cast<
+			ALfloat
+		>(
+			_value
+		)
+	);
 }
 
 sge::audio::buffer_unique_ptr
@@ -169,9 +184,9 @@ sge::openal::player::create_nonpositional_stream(
 		);
 }
 
-
 sge::audio::player_capabilities_field const
 sge::openal::player::capabilities() const
 {
-	return sge::audio::player_capabilities_field::null();
+	return
+		sge::audio::player_capabilities_field::null();
 }
