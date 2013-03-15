@@ -18,13 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENAL_LISTENER_HPP_INCLUDED
-#define SGE_OPENAL_LISTENER_HPP_INCLUDED
+#ifndef SGE_OPENAL_VECTOR3_FWD_HPP_INCLUDED
+#define SGE_OPENAL_VECTOR3_FWD_HPP_INCLUDED
 
-#include <sge/audio/listener.hpp>
-#include <sge/audio/vector_fwd.hpp>
-#include <sge/audio/direction/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/openal/al.hpp>
+#include <fcppt/math/vector/static.hpp>
 
 
 namespace sge
@@ -32,33 +30,10 @@ namespace sge
 namespace openal
 {
 
-class listener
-:
-	public sge::audio::listener
-{
-	FCPPT_NONCOPYABLE(
-		listener
-	);
-public:
-	listener();
-
-	~listener();
-private:
-	void
-	position(
-		sge::audio::vector const &
-	);
-
-	void
-	linear_velocity(
-		sge::audio::vector const &
-	);
-
-	void
-	direction(
-		sge::audio::direction::object const &
-	);
-};
+typedef fcppt::math::vector::static_<
+	ALfloat,
+	3
+>::type vector3;
 
 }
 }

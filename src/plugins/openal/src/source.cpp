@@ -29,6 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/openal/buffer_id.hpp>
 #include <sge/openal/source.hpp>
 #include <sge/openal/source_id.hpp>
+#include <sge/openal/to_vector3.hpp>
+#include <sge/openal/vector3.hpp>
 #include <sge/openal/funcs/get_source_int.hpp>
 #include <sge/openal/funcs/source_float.hpp>
 #include <sge/openal/funcs/source_float_ptr.hpp>
@@ -178,38 +180,29 @@ sge::openal::source::update()
 
 void
 sge::openal::source::position(
-	audio::vector const &n)
+	sge::audio::vector const &_vector
+)
 {
-	// TODO: Write a conversion function for this!
-	ALfloat const vec[3] =
-		{
-			static_cast<ALfloat>(n.x()),
-			static_cast<ALfloat>(n.y()),
-			static_cast<ALfloat>(n.z())
-		};
-
 	sge::openal::funcs::source_float_ptr(
 		this->source_id(),
 		AL_POSITION,
-		vec
+		sge::openal::to_vector3(
+			_vector
+		).data()
 	);
 }
 
 void
 sge::openal::source::linear_velocity(
-	audio::vector const &n)
+	sge::audio::vector const &_vector
+)
 {
-	ALfloat const vec[3] =
-		{
-			static_cast<ALfloat>(n.x()),
-			static_cast<ALfloat>(n.y()),
-			static_cast<ALfloat>(n.z())
-		};
-
 	sge::openal::funcs::source_float_ptr(
 		this->source_id(),
 		AL_VELOCITY,
-		vec
+		sge::openal::to_vector3(
+			_vector
+		).data()
 	);
 }
 
@@ -295,26 +288,19 @@ sge::openal::source::max_distance(
 
 void
 sge::openal::source::direction(
-	audio::sound::optional_direction const &_n)
+	sge::audio::sound::optional_direction const &_dir
+)
 {
-	sge::audio::vector const n =
-		_n
-		?
-			*_n
-		:
-			audio::vector::null();
-
-	ALfloat const vec[3] =
-		{
-			static_cast<ALfloat>(n.x()),
-			static_cast<ALfloat>(n.y()),
-			static_cast<ALfloat>(n.z())
-		};
-
 	sge::openal::funcs::source_float_ptr(
 		this->source_id(),
 		AL_DIRECTION,
-		vec
+		sge::openal::to_vector3(
+			_dir
+			?
+				*_dir
+			:
+				sge::audio::vector::null()
+		).data()
 	);
 }
 

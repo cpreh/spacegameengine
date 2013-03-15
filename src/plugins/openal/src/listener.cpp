@@ -19,17 +19,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/audio/exception.hpp>
-#include <sge/audio/vector.hpp>
+#include <sge/audio/vector_fwd.hpp>
 #include <sge/audio/direction/object.hpp>
 #include <sge/openal/al.hpp>
 #include <sge/openal/listener.hpp>
+#include <sge/openal/to_vector3.hpp>
+#include <sge/openal/vector3.hpp>
 #include <sge/openal/funcs/listener_float_ptr.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <array>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::openal::listener::listener()
-:
-	position_(),
-	linear_velocity_()
 {
 }
 
@@ -42,20 +44,11 @@ sge::openal::listener::linear_velocity(
 	sge::audio::vector const &_vector
 )
 {
-	linear_velocity_ =
-		_vector;
-
-	// TODO: use sge::fcppt::math::vector!
-	ALfloat const vec[3] =
-		{
-			static_cast<ALfloat>(_vector.x()),
-			static_cast<ALfloat>(_vector.y()),
-			static_cast<ALfloat>(_vector.z())
-		};
-
 	sge::openal::funcs::listener_float_ptr(
 		AL_VELOCITY,
-		vec
+		sge::openal::to_vector3(
+			_vector
+		).data()
 	);
 }
 
@@ -64,18 +57,11 @@ sge::openal::listener::position(
 	sge::audio::vector const &_vector
 )
 {
-	position_ = _vector;
-
-	ALfloat const vec[3] =
-		{
-			static_cast<ALfloat>(_vector.x()),
-			static_cast<ALfloat>(_vector.y()),
-			static_cast<ALfloat>(_vector.z())
-		};
-
 	sge::openal::funcs::listener_float_ptr(
 		AL_POSITION,
-		vec
+		sge::openal::to_vector3(
+			_vector
+		).data()
 	);
 }
 
@@ -84,18 +70,34 @@ sge::openal::listener::direction(
 	sge::audio::direction::object const &_dir
 )
 {
-	ALfloat const vec[6] =
-		{
-			static_cast<ALfloat>(_dir.forward().x()),
-			static_cast<ALfloat>(_dir.forward().y()),
-			static_cast<ALfloat>(_dir.forward().z()),
-			static_cast<ALfloat>(_dir.up().x()),
-			static_cast<ALfloat>(_dir.up().y()),
-			static_cast<ALfloat>(_dir.up().z())
-		};
+	sge::openal::vector3 const forward(
+		sge::openal::to_vector3(
+			_dir.forward()
+		)
+	);
+
+	sge::openal::vector3 const up(
+		sge::openal::to_vector3(
+			_dir.up()
+		)
+	);
+
+	typedef std::array<
+		ALfloat,
+		6
+	> float6_array;
+
+	float6_array const vec{{
+		forward.x(),
+		forward.y(),
+		forward.z(),
+		up.x(),
+		up.y(),
+		up.z()
+	}};
 
 	sge::openal::funcs::listener_float_ptr(
 		AL_ORIENTATION,
-		vec
+		vec.data()
 	);
 }

@@ -54,6 +54,9 @@ set(
 	src/plugins/openal/include/sge/openal/source_holder.hpp
 	src/plugins/openal/include/sge/openal/source_id.hpp
 	src/plugins/openal/include/sge/openal/stream_sound.hpp
+	src/plugins/openal/include/sge/openal/to_vector3.hpp
+	src/plugins/openal/include/sge/openal/vector3.hpp
+	src/plugins/openal/include/sge/openal/vector3_fwd.hpp
 	src/plugins/openal/src/alc_error_string.cpp
 	src/plugins/openal/src/buffer.cpp
 	src/plugins/openal/src/buffer_holder.cpp
@@ -99,6 +102,7 @@ set(
 	src/plugins/openal/src/source.cpp
 	src/plugins/openal/src/source_holder.cpp
 	src/plugins/openal/src/stream_sound.cpp
+	src/plugins/openal/src/to_vector3.cpp
 )
 
 add_sge_plugin(
