@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/texture/buffer_type.hpp>
 #include <sge/renderer/texture/cube_side.hpp>
+#include <fcppt/enum_size.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <array>
 #include <cstddef>
@@ -41,7 +42,9 @@ typedef std::array<
 	static_cast<
 		std::size_t
 	>(
-		sge::renderer::texture::cube_side::size
+		fcppt::enum_size<
+			sge::renderer::texture::cube_side
+		>::value
 	)
 > cube_side_array;
 

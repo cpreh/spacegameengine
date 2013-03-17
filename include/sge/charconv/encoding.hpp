@@ -35,7 +35,7 @@ enum class encoding
 	utf16,
 	utf32,
 	wchar,
-	size
+	fcppt_maximum = wchar
 };
 
 }

@@ -57,9 +57,9 @@ enum class mode
 	*/
 	texture,
 	/**
-	\brief The number of elements
+	\brief The maximum element
 	*/
-	size
+	fcppt_maximum = texture
 };
 
 }

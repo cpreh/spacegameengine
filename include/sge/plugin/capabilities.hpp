@@ -37,7 +37,7 @@ enum class capabilities
 	audio_player,
 	font,
 	audio_loader,
-	size
+	fcppt_maximum = audio_loader
 };
 
 }

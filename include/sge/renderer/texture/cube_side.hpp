@@ -39,7 +39,7 @@ enum class cube_side
 	right,
 	top,
 	bottom,
-	size
+	fcppt_maximum = bottom
 };
 
 }

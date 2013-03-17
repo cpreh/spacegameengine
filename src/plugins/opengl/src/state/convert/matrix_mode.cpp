@@ -39,8 +39,6 @@ sge::opengl::state::convert::matrix_mode(
 		return GL_PROJECTION;
 	case sge::renderer::state::ffp::transform::mode::texture:
 		return GL_TEXTURE;
-	case sge::renderer::state::ffp::transform::mode::size:
-		break;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;
