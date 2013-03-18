@@ -67,22 +67,6 @@ void_ptr_to_body(
 			co->getUserPointer());
 }
 
-// The btPersistentManifold stores a void* to the collision
-// object. This function makes a body out of it by following the
-// various user_ptrs and casts.
-sge::projectile::body::object const &
-void_ptr_to_body(
-	void const *a)
-{
-	FCPPT_ASSERT_PRE(
-		a);
-
-	return
-		void_ptr_to_body(
-			static_cast<btCollisionObject const *>(
-				a));
-}
-
 // Determines if the void* in the persistent manifold is a ghost (this
 // is the same that ghostobject::upcast does)
 bool
