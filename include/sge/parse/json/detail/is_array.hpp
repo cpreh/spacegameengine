@@ -31,9 +31,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/array.hpp>
-#include <boost/mpl/bool.hpp>
+#include <boost/mpl/integral_c.hpp>
 #include <array>
 #include <cstddef>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -50,13 +51,13 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<typename T>
-struct is_array : boost::false_type {};
+struct is_array : std::false_type {};
 
 template<typename T,std::size_t N>
-struct is_array< std::array<T,N> > : boost::true_type {};
+struct is_array< std::array<T,N> > : std::true_type {};
 
 template<typename T,std::size_t N>
-struct is_array< boost::array<T,N> > : boost::true_type {};
+struct is_array< boost::array<T,N> > : std::true_type {};
 
 template<typename T,fcppt::math::size_type N>
 struct is_array
@@ -76,7 +77,7 @@ struct is_array
 			N
 		>::type
 	>
-> : boost::true_type {};
+> : std::true_type {};
 
 template<typename T,fcppt::math::size_type N>
 struct is_array
@@ -96,7 +97,7 @@ struct is_array
 			N
 		>::type
 	>
-> : boost::true_type {};
+> : std::true_type {};
 
 template<typename T,mizuiro::size_type N>
 struct is_array
@@ -106,7 +107,7 @@ struct is_array
 		N,
 		T
 	>
-> : boost::true_type {};
+> : std::true_type {};
 
 FCPPT_PP_POP_WARNING
 
