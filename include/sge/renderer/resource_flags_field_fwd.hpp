@@ -22,8 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_RESOURCE_FLAGS_FIELD_FWD_HPP_INCLUDED
 
 #include <sge/renderer/resource_flags.hpp>
-#include <fcppt/enum_size.hpp>
-#include <fcppt/container/bitfield/object_fwd.hpp>
+#include <fcppt/container/bitfield/object_from_enum.hpp>
 
 
 namespace sge
@@ -34,12 +33,9 @@ namespace renderer
 /**
 \brief A bitfield that can hold flags from sge::renderer::resource_flags
 */
-typedef fcppt::container::bitfield::object<
-	sge::renderer::resource_flags,
-	fcppt::enum_size<
-		sge::renderer::resource_flags
-	>::value
-> resource_flags_field;
+typedef fcppt::container::bitfield::object_from_enum<
+	sge::renderer::resource_flags
+>::type resource_flags_field;
 
 }
 }

@@ -23,6 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/evdev/device/event_type_value.hpp>
 #include <fcppt/container/bitfield/object_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <type_traits>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -39,7 +42,10 @@ struct read_bits_result
 {
 	typedef fcppt::container::bitfield::object<
 		sge::evdev::device::event_type_value,
-		Count
+		std::integral_constant<
+			sge::evdev::device::event_type_value,
+			Count
+		>
 	> type;
 };
 

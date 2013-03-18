@@ -22,8 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_AUDIO_LOADER_CAPABILITIES_FIELD_FWD_HPP_INCLUDED
 
 #include <sge/audio/loader_capabilities.hpp>
-#include <fcppt/enum_size.hpp>
-#include <fcppt/container/bitfield/object_fwd.hpp>
+#include <fcppt/container/bitfield/object_from_enum.hpp>
 
 
 namespace sge
@@ -32,12 +31,9 @@ namespace audio
 {
 
 /// Holds loader capabilities (if it's threadsafe or not, for example), see sge::audio::loader_capabilities
-typedef fcppt::container::bitfield::object<
-	sge::audio::loader_capabilities,
-	fcppt::enum_size<
-		sge::audio::loader_capabilities
-	>::value
-> loader_capabilities_field;
+typedef fcppt::container::bitfield::object_from_enum<
+	sge::audio::loader_capabilities
+>::type loader_capabilities_field;
 
 }
 }

@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/format_static.hpp>
 #include <sge/image/ds/elements.hpp>
 #include <sge/image/ds/format.hpp>
-#include <fcppt/enum_size.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -47,9 +46,6 @@ struct format_static
 :
 sge::image::format_static<
 	sge::image::ds::format,
-	fcppt::enum_size<
-		sge::image::ds::format
-	>::value,
 	sge::image::ds::elements,
 	Format
 >

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_AUDIO_LOADER_CAPABILITIES_HPP_INCLUDED
 
 #include <sge/audio/loader_capabilities_fwd.hpp>
-#include <fcppt/enum_size_fwd.hpp>
+#include <fcppt/enum_is_empty_fwd.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -50,18 +50,11 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<>
-struct enum_size<
+struct enum_is_empty<
 	sge::audio::loader_capabilities
 >
 :
-std::integral_constant<
-	sge::audio::loader_capabilities,
-	static_cast<
-		sge::audio::loader_capabilities
-	>(
-		0u
-	)
->
+std::true_type
 {
 };
 

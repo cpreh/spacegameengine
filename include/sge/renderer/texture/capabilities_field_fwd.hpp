@@ -22,8 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_TEXTURE_CAPABILITIES_FIELD_FWD_HPP_INCLUDED
 
 #include <sge/renderer/texture/capabilities.hpp>
-#include <fcppt/enum_size.hpp>
-#include <fcppt/container/bitfield/object_fwd.hpp>
+#include <fcppt/container/bitfield/object_from_enum.hpp>
 
 
 namespace sge
@@ -33,12 +32,9 @@ namespace renderer
 namespace texture
 {
 
-typedef fcppt::container::bitfield::object<
-	sge::renderer::texture::capabilities,
-	fcppt::enum_size<
-		sge::renderer::texture::capabilities
-	>::value
-> capabilities_field;
+typedef fcppt::container::bitfield::object_from_enum<
+	sge::renderer::texture::capabilities
+>::type capabilities_field;
 
 }
 }

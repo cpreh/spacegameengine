@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_FORMAT_STATIC_HPP_INCLUDED
 
 #include <sge/image/size_type.hpp>
+#include <fcppt/enum_size.hpp>
 #include <fcppt/mpl/index_of.hpp>
 #include <fcppt/mpl/integral_cast.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
@@ -42,7 +43,6 @@ FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
 	typename Format,
-	Format Size,
 	typename Elements,
 	typename Type
 >
@@ -67,7 +67,9 @@ fcppt::mpl::integral_cast<
 		static_cast<
 			sge::image::size_type
 		>(
-			Size
+			fcppt::enum_size<
+				Format
+			>::value
 		),
 		"image format mpl::vectors must have the same size as the enum"
 	);
