@@ -73,8 +73,6 @@ sge::libpng::color_type_from_format(
 				),
 				FCPPT_TEXT("{r,g,b,a}32f")
 			);
-	case sge::image::color::format::size:
-		break;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

@@ -58,8 +58,6 @@ base_size(
 	case sge::image::color::format::rgba32f:
 	case sge::image::color::format::bgra32f:
 		return sizeof(float);
-	case sge::image::color::format::size:
-		break;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

@@ -93,8 +93,6 @@ sge::image::color::any::clear(
 					(sge::image::color::init::alpha() %= 0.)
 				)
 			);
-	case sge::image::color::format::size:
-		break;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

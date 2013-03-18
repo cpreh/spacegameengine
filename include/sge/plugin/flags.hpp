@@ -40,7 +40,7 @@ enum class flags
 	then closing the display will crash.
 	*/
 	delayed_unload,
-	size
+	fcppt_maximum = delayed_unload
 };
 
 }

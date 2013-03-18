@@ -34,7 +34,7 @@ enum class alignment
 	left_or_top,
 	center,
 	right_or_bottom,
-	size
+	fcppt_maximum = right_or_bottom
 };
 
 }

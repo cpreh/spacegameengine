@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_LIBPNG_TO_SGE_FORMAT_HPP_INCLUDED
 #define SGE_LIBPNG_TO_SGE_FORMAT_HPP_INCLUDED
 
-#include <sge/image/color/format_fwd.hpp>
+#include <sge/image/color/optional_format_fwd.hpp>
 #include <sge/libpng/gamma_value.hpp>
 #include <sge/libpng/png.hpp>
 
@@ -31,7 +31,7 @@ namespace sge
 namespace libpng
 {
 
-sge::image::color::format
+sge::image::color::optional_format const
 to_sge_format(
 	png_byte color_type,
 	png_byte bit_depth,

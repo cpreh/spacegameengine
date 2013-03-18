@@ -36,7 +36,7 @@ enum class modifier
 	control,
 	alt,
 	shift,
-	size
+	fcppt_maximum = shift
 };
 
 }

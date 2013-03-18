@@ -49,7 +49,7 @@ enum class format
 	bgra32f,
 	srgb8,
 	srgba8,
-	size
+	fcppt_maximum = srgba8
 };
 
 }

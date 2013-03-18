@@ -36,7 +36,7 @@ enum class flags
 	read,
 	write,
 	alloc_host_ptr,
-	size
+	fcppt_maximum = alloc_host_ptr
 };
 
 }

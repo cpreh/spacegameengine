@@ -49,8 +49,6 @@ sge::opengl::convert::depth_stencil_to_internal_format(
 			sge::opengl::internal_color_format(
 				GL_DEPTH_COMPONENT24
 			);
-	case sge::image::ds::format::size:
-		break;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

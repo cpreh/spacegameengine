@@ -33,7 +33,7 @@ enum class flags
 {
 	no_multi_line,
 	no_word_wrap,
-	size
+	fcppt_maximum = no_word_wrap
 };
 
 }

@@ -50,8 +50,6 @@ sge::devil::best_il_format(
 		return sge::image::color::format::bgr8;
 	case sge::image::color::format::r32f:
 		return sge::image::color::format::rgb32f;
-	case sge::image::color::format::size:
-		break;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

@@ -36,7 +36,7 @@ enum class format
 	d16,
 	d32,
 	d24s8,
-	size
+	fcppt_maximum = d24s8
 };
 
 }

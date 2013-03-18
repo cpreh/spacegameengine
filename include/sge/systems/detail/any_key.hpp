@@ -42,7 +42,7 @@ enum class any_key
 	input,
 	charconv,
 	font,
-	size
+	fcppt_maximum = font
 };
 
 }

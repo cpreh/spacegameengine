@@ -103,8 +103,6 @@ sge::opencl::memory_object::image::sge_color_format_to_opencl(
 				make_cl_image_format(
 					CL_RGBA,
 					CL_FLOAT);
-		case sge::image::color::format::size:
-			break;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

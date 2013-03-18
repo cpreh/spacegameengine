@@ -32,7 +32,7 @@ namespace audio
 enum class player_capabilities
 {
 	null,
-	size
+	fcppt_maximum = null
 };
 
 }

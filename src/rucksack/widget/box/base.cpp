@@ -256,8 +256,6 @@ sge::rucksack::widget::box::base::relayout()
 					this->size()[this->minor_axis()] -
 					widget_ptr_information_pair_it->second.size()[this->minor_axis()];
 				break;
-			case alignment::size:
-				FCPPT_ASSERT_UNREACHABLE;
 		}
 
 		widget_ptr_information_pair_it->first->position(

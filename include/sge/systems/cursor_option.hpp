@@ -32,7 +32,7 @@ namespace systems
 enum class cursor_option
 {
 	exclusive,
-	size
+	fcppt_maximum = exclusive
 };
 
 }

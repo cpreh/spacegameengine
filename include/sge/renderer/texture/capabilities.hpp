@@ -34,7 +34,7 @@ namespace texture
 enum class capabilities
 {
 	render_target,
-	size
+	fcppt_maximum = render_target
 };
 
 }

@@ -56,7 +56,6 @@ sge::devil::to_il_format(
 	case sge::image::color::format::r32f:
 	case sge::image::color::format::rgbx8:
 	case sge::image::color::format::bgrx8:
-	case sge::image::color::format::size:
 		break;
 	}
 

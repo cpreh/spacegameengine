@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENCL_MEMORY_OBJECT_FLAGS_FIELD_HPP_INCLUDED
 
 #include <sge/opencl/memory_object/flags.hpp>
+#include <fcppt/enum_size.hpp>
 #include <fcppt/container/bitfield/object_fwd.hpp>
 
 
@@ -35,7 +36,10 @@ typedef
 fcppt::container::bitfield::object
 <
 	memory_object::flags,
-	memory_object::flags::size
+	fcppt::enum_size
+	<
+		sge::opencl::memory_object::flags
+	>::value
 >
 flags_field;
 }

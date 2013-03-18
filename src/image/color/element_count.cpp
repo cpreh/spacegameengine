@@ -53,8 +53,6 @@ sge::image::color::element_count(
 	case sge::image::color::format::bgra32f:
 	case sge::image::color::format::srgba8:
 		return 4;
-	case sge::image::color::format::size:
-		break;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

@@ -59,7 +59,6 @@ sge::opengl::convert::color_to_format_type(
 			);
 	case sge::image::color::format::rgbx8:
 	case sge::image::color::format::bgrx8:
-	case sge::image::color::format::size:
 		break;
 	}
 

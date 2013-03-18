@@ -68,8 +68,6 @@ sge::renderer::texture::translate_srgb_emulation(
 	case sge::image::color::format::srgba8:
 		return
 			sge::image::color::format::rgba8;
-	case sge::image::color::format::size:
-		break;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

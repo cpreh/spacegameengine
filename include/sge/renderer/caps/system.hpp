@@ -35,7 +35,7 @@ enum class system
 {
 	ffp,
 	opengl,
-	size_
+	fcppt_maximum = opengl
 };
 
 }

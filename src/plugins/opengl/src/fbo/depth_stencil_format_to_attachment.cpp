@@ -45,8 +45,6 @@ sge::opengl::fbo::depth_stencil_format_to_attachment(
 	case sge::image::ds::format::d24s8:
 		return
 			_context.depth_stencil_attachment();
-	case sge::image::ds::format::size:
-		break;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

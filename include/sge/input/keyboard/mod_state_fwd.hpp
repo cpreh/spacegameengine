@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_INPUT_KEYBOARD_MOD_STATE_FWD_HPP_INCLUDED
 
 #include <sge/input/keyboard/modifier.hpp>
+#include <fcppt/enum_size.hpp>
 #include <fcppt/container/bitfield/object_fwd.hpp>
 
 
@@ -34,7 +35,9 @@ namespace keyboard
 
 typedef fcppt::container::bitfield::object<
 	sge::input::keyboard::modifier,
-	sge::input::keyboard::modifier::size
+	fcppt::enum_size<
+		sge::input::keyboard::modifier
+	>::value
 > mod_state;
 
 }

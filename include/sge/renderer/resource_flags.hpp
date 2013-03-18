@@ -52,7 +52,7 @@ enum class resource_flags
 	 * memory.
 	*/
 	readable,
-	size
+	fcppt_maximum = readable
 };
 
 }

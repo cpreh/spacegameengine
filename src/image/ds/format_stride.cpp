@@ -41,8 +41,6 @@ sge::image::ds::format_stride(
 	case sge::image::ds::format::d32:
 	case sge::image::ds::format::d24s8:
 		return sizeof(std::uint32_t);
-	case sge::image::ds::format::size:
-		break;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

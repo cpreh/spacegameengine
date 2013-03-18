@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SYSTEMS_CURSOR_OPTION_FIELD_FWD_HPP_INCLUDED
 
 #include <sge/systems/cursor_option.hpp>
+#include <fcppt/enum_size.hpp>
 #include <fcppt/container/bitfield/object_fwd.hpp>
 
 
@@ -32,7 +33,9 @@ namespace systems
 
 typedef fcppt::container::bitfield::object<
 	sge::systems::cursor_option,
-	sge::systems::cursor_option::size
+	fcppt::enum_size<
+		sge::systems::cursor_option
+	>::value
 > cursor_option_field;
 
 }

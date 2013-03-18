@@ -50,8 +50,6 @@ sge::image::color::format_is_srgb(
 	case sge::image::color::format::srgb8:
 	case sge::image::color::format::srgba8:
 		return true;
-	case sge::image::color::format::size:
-		break;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

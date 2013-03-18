@@ -51,8 +51,6 @@ sge::devil::to_il_channel(
 	case sge::image::color::format::rgba32f:
 	case sge::image::color::format::bgra32f:
 		return IL_FLOAT;
-	case sge::image::color::format::size:
-		break;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

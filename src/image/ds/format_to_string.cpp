@@ -43,8 +43,6 @@ case sge::image::ds::format::fmt: \
 	SGE_IMAGE_DS_FORMAT_TO_STRING_CASE(d16);
 	SGE_IMAGE_DS_FORMAT_TO_STRING_CASE(d32);
 	SGE_IMAGE_DS_FORMAT_TO_STRING_CASE(d24s8);
-	case sge::image::ds::format::size:
-		break;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

@@ -56,8 +56,6 @@ case sge::image::color::format::fmt: \
 	SGE_IMAGE_COLOR_FORMAT_TO_STRING_CASE(bgra32f);
 	SGE_IMAGE_COLOR_FORMAT_TO_STRING_CASE(srgb8);
 	SGE_IMAGE_COLOR_FORMAT_TO_STRING_CASE(srgba8);
-	case sge::image::color::format::size:
-		break;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

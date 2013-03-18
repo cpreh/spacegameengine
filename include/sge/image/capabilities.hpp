@@ -32,7 +32,7 @@ namespace image
 enum class capabilities
 {
 	threadsafe,
-	size
+	fcppt_maximum = threadsafe
 };
 
 }
