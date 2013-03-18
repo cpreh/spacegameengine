@@ -55,6 +55,17 @@ static_assert(
 
 namespace
 {
+sge::projectile::body::object const &
+void_ptr_to_body(
+	btCollisionObject const *co)
+{
+	FCPPT_ASSERT_PRE(
+		co->getUserPointer());
+
+	return
+		*static_cast<sge::projectile::body::object const *>(
+			co->getUserPointer());
+}
 
 // The btPersistentManifold stores a void* to the collision
 // object. This function makes a body out of it by following the
