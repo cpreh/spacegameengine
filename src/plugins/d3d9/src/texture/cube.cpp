@@ -83,7 +83,12 @@ sge::d3d9::texture::cube::cube(
 						std::bind(
 							&sge::d3d9::texture::cube::get_level,
 							this,
-							side,
+							// TODO: This is a hack to trigger the implicit conversion. See if we can fix this in a better way
+							static_cast<
+								sge::renderer::texture::cube_side
+							>(
+								side
+							),
 							index
 						)
 					),

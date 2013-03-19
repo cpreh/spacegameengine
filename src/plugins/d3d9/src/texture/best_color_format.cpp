@@ -52,8 +52,6 @@ sge::d3d9::texture::best_color_format(
 	case sge::image::color::format::bgr32f:
 	case sge::image::color::format::bgra32f:
 		return sge::image::color::format::rgba32f;
-	case sge::image::color::format::size:
-		break;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

@@ -47,7 +47,7 @@ sge::openal::source::source(
 	sge::openal::buffer_id const _buffer
 )
 :
-	sge::openal::source::source(
+	source(
 		_buffer
 	)
 {
@@ -61,7 +61,7 @@ sge::openal::source::source(
 	sge::openal::buffer_id const _buffer
 )
 :
-	sge::openal::source::source(
+	source(
 		_buffer
 	)
 {
@@ -74,7 +74,7 @@ sge::openal::source::source(
 	sge::audio::sound::nonpositional_parameters const &_parameters
 )
 :
-	sge::openal::source::source()
+	source()
 {
 	this->init(
 		_parameters
@@ -85,7 +85,7 @@ sge::openal::source::source(
 	sge::audio::sound::positional_parameters const &_parameters
 )
 :
-	sge::openal::source::source()
+	source()
 {
 	this->init(
 		_parameters
@@ -397,7 +397,7 @@ sge::openal::source::source(
 	sge::openal::buffer_id const _buffer
 )
 :
-	sge::openal::source()
+	source()
 {
 	sge::openal::funcs::source_int(
 		this->source_id(),

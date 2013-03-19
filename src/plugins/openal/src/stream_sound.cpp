@@ -50,7 +50,7 @@ sge::openal::stream_sound::stream_sound(
 	sge::audio::file &_audio_file
 )
 :
-	sge::openal::stream_sound(
+	stream_sound(
 		_parameters,
 		_audio_file,
 		sge::openal::stream_sound::unified_ctor()
@@ -63,7 +63,7 @@ sge::openal::stream_sound::stream_sound(
 	sge::audio::file &_audio_file
 )
 :
-	sge::openal::stream_sound(
+	stream_sound(
 		_parameters,
 		_audio_file,
 		sge::openal::stream_sound::unified_ctor()

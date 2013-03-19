@@ -130,6 +130,7 @@ sge::opengl::context::container<
 	for(
 		auto elem : elements_
 	)
+	{
 		try
 		{
 			delete elem;
@@ -142,6 +143,7 @@ sge::opengl::context::container<
 					<< FCPPT_TEXT("Destructor throwed in opengl::context::container")
 			);
 		}
+	}
 }
 
 #endif

@@ -45,8 +45,6 @@ sge::d3d9::convert::cube_side(
 		return D3DCUBEMAP_FACE_POSITIVE_Y;
 	case sge::renderer::texture::cube_side::bottom:
 		return D3DCUBEMAP_FACE_NEGATIVE_Y;
-	case sge::renderer::texture::cube_side::size:
-		break;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

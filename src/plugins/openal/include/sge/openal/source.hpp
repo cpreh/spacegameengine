@@ -154,7 +154,8 @@ protected:
 private:
 	source();
 
-	explicit
+	// TODO: Put explicit back when VC++ is less buggy
+	//explicit
 	source(
 		sge::openal::buffer_id
 	);

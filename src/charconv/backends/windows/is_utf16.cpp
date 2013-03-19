@@ -38,8 +38,6 @@ sge::charconv::backends::windows::is_utf16(
 	case sge::charconv::encoding::utf16:
 	case sge::charconv::encoding::wchar:
 		return true;
-	case sge::charconv::encoding::size:
-		break;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;
