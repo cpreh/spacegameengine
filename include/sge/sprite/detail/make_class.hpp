@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_MAKE_CLASS_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_MAKE_CLASS_HPP_INCLUDED
 
-#include <sge/sprite/vector.hpp>
 #include <sge/sprite/detail/application.hpp>
 #include <sge/sprite/roles/pos.hpp>
+#include <sge/sprite/types/vector_fwd.hpp>
 #include <majutsu/class.hpp>
 #include <majutsu/role.hpp>
 #include <majutsu/simple.hpp>
@@ -63,8 +63,8 @@ struct make_class
 				boost::mpl::vector2<
 					majutsu::role<
 						majutsu::simple<
-							typename sge::sprite::vector<
-								Choices
+							typename sge::sprite::types::vector<
+								typename Choices::type_choices
 							>::type
 						>,
 						sge::sprite::roles::pos

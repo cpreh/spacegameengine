@@ -39,7 +39,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/emulate_srgb_fwd.hpp>
 #include <sge/sprite/object_decl.hpp>
 #include <sge/sprite/parameters_fwd.hpp>
-#include <sge/sprite/vector.hpp>
 #include <sge/sprite/buffers/single_decl.hpp>
 #include <sge/sprite/buffers/with_declaration_decl.hpp>
 #include <sge/sprite/config/choices.hpp>
@@ -57,6 +56,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/object_decl.hpp>
 #include <sge/sprite/state/options_fwd.hpp>
 #include <sge/sprite/state/parameters_fwd.hpp>
+#include <sge/sprite/types/vector_fwd.hpp>
 #include <sge/texture/part_scoped_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -180,8 +180,8 @@ private:
 	sge::font::draw::detail::static_text_impl::sprite_range const
 	make_sprite_range();
 
-	typedef sge::sprite::vector<
-		sprite_choices
+	typedef sge::sprite::types::vector<
+		sprite_choices::type_choices
 	>::type sprite_pos_type;
 
 	sge::font::draw::detail::static_text_impl::sprite_pos_type const

@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_PRIMITIVES_TEXTURE_REPETITION_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_PRIMITIVES_TEXTURE_REPETITION_HPP_INCLUDED
 
-#include <sge/sprite/repetition.hpp>
 #include <sge/sprite/roles/repetition.hpp>
+#include <sge/sprite/types/repetition.hpp>
 #include <majutsu/role.hpp>
 #include <majutsu/simple.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -47,8 +47,8 @@ struct texture_repetition
 	typedef boost::mpl::vector1<
 		majutsu::role<
 			majutsu::simple<
-				typename sge::sprite::repetition<
-					Choices
+				typename sge::sprite::types::repetition<
+					typename Choices::type_choices
 				>::type
 			>,
 			sge::sprite::roles::repetition

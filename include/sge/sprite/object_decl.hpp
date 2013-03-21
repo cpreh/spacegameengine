@@ -22,25 +22,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_OBJECT_DECL_HPP_INCLUDED
 
 #include <sge/sprite/color_fwd.hpp>
-#include <sge/sprite/depth.hpp>
-#include <sge/sprite/dim_fwd.hpp>
 #include <sge/sprite/object_fwd.hpp>
 #include <sge/sprite/parameters_fwd.hpp>
-#include <sge/sprite/point_size.hpp>
-#include <sge/sprite/repetition_fwd.hpp>
-#include <sge/sprite/rotation.hpp>
-#include <sge/sprite/rotation_center_fwd.hpp>
 #include <sge/sprite/texture.hpp>
-#include <sge/sprite/texture_coordinates_fwd.hpp>
 #include <sge/sprite/texture_level.hpp>
-#include <sge/sprite/texture_point_pos_fwd.hpp>
-#include <sge/sprite/texture_point_size.hpp>
-#include <sge/sprite/vector_fwd.hpp>
 #include <sge/sprite/detail/make_class.hpp>
 #include <sge/sprite/detail/object_base.hpp>
 #include <sge/sprite/intrusive/connection_fwd.hpp>
-#include <sge/sprite/types/dim_decl.hpp>
-#include <sge/sprite/types/vector_decl.hpp>
+#include <sge/sprite/types/depth.hpp>
+#include <sge/sprite/types/dim_fwd.hpp>
+#include <sge/sprite/types/point_size.hpp>
+#include <sge/sprite/types/repetition_fwd.hpp>
+#include <sge/sprite/types/rotation.hpp>
+#include <sge/sprite/types/rotation_center_fwd.hpp>
+#include <sge/sprite/types/texture_coordinates_fwd.hpp>
+#include <sge/sprite/types/texture_point_pos_fwd.hpp>
+#include <sge/sprite/types/texture_point_size.hpp>
+#include <sge/sprite/types/vector_fwd.hpp>
+#include <sge/sprite/types/basic/dim_decl.hpp>
+#include <sge/sprite/types/basic/float.hpp>
+#include <sge/sprite/types/basic/homogenous_pair_decl.hpp>
+#include <sge/sprite/types/basic/unit.hpp>
+#include <sge/sprite/types/basic/vector_decl.hpp>
 #include <majutsu/role_return_type.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -79,48 +82,52 @@ public:
 
 	typedef typename Choices::type_choices type_choices;
 
-	typedef typename type_choices::unit_type unit;
+	typedef typename sge::sprite::types::basic::unit<
+		type_choices
+	>::type unit;
 
-	typedef typename type_choices::float_type float_type;
+	typedef typename sge::sprite::types::basic::float_<
+		type_choices
+	>::type float_type;
 
-	typedef typename sge::sprite::depth<
-		choices
+	typedef typename sge::sprite::types::depth<
+		type_choices
 	>::type depth_type;
 
-	typedef typename sge::sprite::rotation<
-		choices
+	typedef typename sge::sprite::types::rotation<
+		type_choices
 	>::type rotation_type;
 
-	typedef typename sge::sprite::rotation_center<
-		choices
+	typedef typename sge::sprite::types::rotation_center<
+		type_choices
 	>::type rotation_center_type;
 
-	typedef typename sge::sprite::repetition<
-		choices
+	typedef typename sge::sprite::types::repetition<
+		type_choices
 	>::type repetition_type;
 
-	typedef typename sge::sprite::texture_coordinates<
-		choices
+	typedef typename sge::sprite::types::texture_coordinates<
+		type_choices
 	>::type texture_coordinates_type;
 
-	typedef typename sge::sprite::vector<
-		choices
+	typedef typename sge::sprite::types::vector<
+		type_choices
 	>::type vector;
 
-	typedef typename sge::sprite::dim<
-		choices
+	typedef typename sge::sprite::types::dim<
+		type_choices
 	>::type dim;
 
-	typedef typename sge::sprite::point_size<
-		choices
+	typedef typename sge::sprite::types::point_size<
+		type_choices
 	>::type point_size_type;
 
-	typedef typename sge::sprite::texture_point_pos<
-		choices
+	typedef typename sge::sprite::types::texture_point_pos<
+		type_choices
 	>::type texture_point_pos_type;
 
-	typedef typename sge::sprite::texture_point_size<
-		choices
+	typedef typename sge::sprite::types::texture_point_size<
+		type_choices
 	>::type texture_point_size_type;
 
 	typedef typename sge::sprite::color<

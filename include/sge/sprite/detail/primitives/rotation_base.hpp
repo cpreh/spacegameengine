@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_PRIMITIVES_ROTATION_BASE_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_PRIMITIVES_ROTATION_BASE_HPP_INCLUDED
 
-#include <sge/sprite/rotation.hpp>
 #include <sge/sprite/roles/rotation.hpp>
+#include <sge/sprite/types/rotation.hpp>
 #include <majutsu/role.hpp>
 #include <majutsu/simple.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -47,8 +47,8 @@ struct rotation_base
 	typedef boost::mpl::vector1<
 		majutsu::role<
 			majutsu::simple<
-				typename sge::sprite::rotation<
-					Choices
+				typename sge::sprite::types::rotation<
+					typename Choices::type_choices
 				>::type
 			>,
 			sge::sprite::roles::rotation

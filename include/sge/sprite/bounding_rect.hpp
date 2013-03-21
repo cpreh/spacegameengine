@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_BOUNDING_RECT_HPP_INCLUDED
 #define SGE_SPRITE_BOUNDING_RECT_HPP_INCLUDED
 
-#include <sge/sprite/dim.hpp>
 #include <sge/sprite/object_fwd.hpp>
-#include <sge/sprite/rect_fwd.hpp>
-#include <sge/sprite/vector.hpp>
+#include <sge/sprite/types/dim.hpp>
+#include <sge/sprite/types/rect_fwd.hpp>
+#include <sge/sprite/types/vector.hpp>
 
 
 namespace sge
@@ -35,8 +35,8 @@ namespace sprite
 template<
 	typename Choices
 >
-typename sge::sprite::rect<
-	Choices
+typename sge::sprite::types::rect<
+	typename Choices::type_choices
 >::type const
 bounding_rect(
 	sge::sprite::object<
@@ -45,8 +45,8 @@ bounding_rect(
 )
 {
 	return
-		typename sge::sprite::rect<
-			Choices
+		typename sge::sprite::types::rect<
+			typename Choices::type_choices
 		>::type(
 			_sprite.pos(),
 			_sprite.size()

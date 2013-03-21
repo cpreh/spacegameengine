@@ -54,6 +54,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/roles/blend.hpp>
 #include <sge/sprite/state/roles/rasterizer.hpp>
 #include <sge/sprite/state/roles/transform.hpp>
+#include <sge/sprite/types/vector.hpp>
 #include <sge/src/font/draw/color_format.hpp>
 #include <sge/src/font/draw/create_ffp_sampler.hpp>
 #include <sge/src/font/draw/create_texture.hpp>

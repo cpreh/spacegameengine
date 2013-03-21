@@ -22,10 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_GEOMETRY_FILL_POSITION_UNROTATED_HPP_INCLUDED
 
 #include <sge/sprite/bounding_rect.hpp>
+#include <sge/sprite/detail/geometry/float_rect.hpp>
 #include <sge/sprite/detail/geometry/make_position.hpp>
-#include <sge/sprite/detail/geometry/rect_float.hpp>
-#include <sge/sprite/detail/geometry/vector_float.hpp>
 #include <sge/sprite/detail/vf/pos.hpp>
+#include <sge/sprite/types/basic/float_vector.hpp>
 #include <fcppt/math/box/structure_cast.hpp>
 
 
@@ -50,17 +50,19 @@ fill_position_unrotated(
 	> const &_sprite
 )
 {
+	typedef typename Choices::type_choices type_choices;
+
 	typedef typename sge::sprite::detail::vf::pos<
 		Choices
 	>::type vertex_pos;
 
-	typedef typename sge::sprite::detail::geometry::rect_float<
-		Choices
-	>::type rect_float;
+	typedef typename sge::sprite::detail::geometry::float_rect<
+		type_choices
+	>::type float_rect;
 
-	rect_float const rect(
+	float_rect const rect(
 		fcppt::math::box::structure_cast<
-			rect_float
+			float_rect
 		>(
 			sge::sprite::bounding_rect(
 				_sprite
@@ -68,9 +70,9 @@ fill_position_unrotated(
 		)
 	);
 
-	typedef typename sge::sprite::detail::geometry::vector_float<
-		Choices
-	>::type vector_float;
+	typedef typename sge::sprite::types::basic::float_vector<
+		type_choices
+	>::type float_vector;
 
 	(*_iterator++). template set<
 		vertex_pos
@@ -78,7 +80,7 @@ fill_position_unrotated(
 		sge::sprite::detail::geometry::make_position<
 			Choices
 		>(
-			vector_float(
+			float_vector(
 				rect.left(),
 				rect.top()
 			),
@@ -92,7 +94,7 @@ fill_position_unrotated(
 		sge::sprite::detail::geometry::make_position<
 			Choices
 		>(
-			vector_float(
+			float_vector(
 				rect.right(),
 				rect.top()
 			),
@@ -106,7 +108,7 @@ fill_position_unrotated(
 		sge::sprite::detail::geometry::make_position<
 			Choices
 		>(
-			vector_float(
+			float_vector(
 				rect.right(),
 				rect.bottom()
 			),
@@ -120,7 +122,7 @@ fill_position_unrotated(
 		sge::sprite::detail::geometry::make_position<
 			Choices
 		>(
-			vector_float(
+			float_vector(
 				rect.left(),
 				rect.bottom()
 			),

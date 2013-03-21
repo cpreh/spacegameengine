@@ -22,8 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_GEOMETRY_FILL_POSITION_POINTS_HPP_INCLUDED
 
 #include <sge/sprite/detail/geometry/make_position.hpp>
-#include <sge/sprite/detail/geometry/vector_float.hpp>
 #include <sge/sprite/detail/vf/pos.hpp>
+#include <sge/sprite/types/basic/float_vector.hpp>
+
 
 namespace sge
 {
@@ -46,7 +47,7 @@ fill_position_points(
 	> const &_sprite
 )
 {
-	typedef typename sge::sprite::detail::geometry::vector_float<
+	typedef typename sge::sprite::types::basic::float_vector<
 		Choices
 	>::type vector_float;
 

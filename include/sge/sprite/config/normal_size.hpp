@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_CONFIG_NORMAL_SIZE_HPP_INCLUDED
 #define SGE_SPRITE_CONFIG_NORMAL_SIZE_HPP_INCLUDED
 
-#include <sge/sprite/dim.hpp>
 #include <sge/sprite/config/normal_size_fwd.hpp>
 #include <sge/sprite/config/size_choice.hpp>
 #include <sge/sprite/roles/size.hpp>
+#include <sge/sprite/types/dim_fwd.hpp>
 #include <majutsu/composite.hpp>
 #include <majutsu/role.hpp>
 #include <majutsu/simple.hpp>
@@ -59,8 +59,8 @@ struct normal_size
 			boost::mpl::vector1<
 				majutsu::role<
 					majutsu::simple<
-						typename sge::sprite::dim<
-							Choices
+						typename sge::sprite::types::dim<
+							typename Choices::type_choices
 						>::type
 					>,
 					sge::sprite::roles::size

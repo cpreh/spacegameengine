@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_GEOMETRY_CONVERT_TEXTURE_RECT_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_GEOMETRY_CONVERT_TEXTURE_RECT_HPP_INCLUDED
 
-#include <sge/sprite/texture_coordinates.hpp>
+#include <sge/sprite/types/texture_coordinates.hpp>
 
 
 namespace sge
@@ -37,15 +37,15 @@ template<
 	typename Choices,
 	typename Rect
 >
-typename sge::sprite::texture_coordinates<
-	Choices
+typename sge::sprite::types::texture_coordinates<
+	typename Choices::type_choices
 >::type const
 convert_texture_rect(
 	Rect const &_rect
 )
 {
-	typedef typename sge::sprite::texture_coordinates<
-		Choices
+	typedef typename sge::sprite::types::texture_coordinates<
+		typename Choices::type_choices
 	>::type return_type;
 
 	typedef typename return_type::first_type element_type;

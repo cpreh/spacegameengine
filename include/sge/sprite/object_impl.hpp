@@ -45,9 +45,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/roles/texture_point_pos.hpp>
 #include <sge/sprite/roles/texture_point_size.hpp>
 #include <sge/sprite/roles/use_rotation.hpp>
-#include <sge/sprite/types/dim_impl.hpp>
-#include <sge/sprite/types/homogenous_pair_impl.hpp>
-#include <sge/sprite/types/vector_impl.hpp>
+#include <sge/sprite/types/basic/dim_impl.hpp>
+#include <sge/sprite/types/basic/homogenous_pair_impl.hpp>
+#include <sge/sprite/types/basic/vector_impl.hpp>
 #include <majutsu/subelements.hpp>
 
 

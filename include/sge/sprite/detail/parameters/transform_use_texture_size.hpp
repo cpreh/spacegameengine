@@ -21,14 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_PARAMETERS_TRANSFORM_USE_TEXTURE_SIZE_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_PARAMETERS_TRANSFORM_USE_TEXTURE_SIZE_HPP_INCLUDED
 
-#include <sge/sprite/dim.hpp>
+#include <sge/renderer/lock_rect.hpp>
 #include <sge/sprite/detail/config/needs_use_texture_size.hpp>
 #include <sge/sprite/detail/roles/use_texture_size.hpp>
 #include <sge/sprite/roles/size.hpp>
 #include <sge/sprite/roles/texture.hpp>
+#include <sge/sprite/types/dim.hpp>
 #include <sge/texture/part.hpp>
-#include <fcppt/math/box/object_impl.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
@@ -73,8 +72,8 @@ transform_use_texture_size(
 			sge::sprite::roles::size
 		>(
 			fcppt::math::dim::structure_cast<
-				typename sge::sprite::dim<
-					Choices
+				typename sge::sprite::types::dim<
+					typename Choices::type_choices
 				>::type
 			>(
 				_parameters. template get<

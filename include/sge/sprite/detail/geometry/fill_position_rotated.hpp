@@ -23,11 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/bounding_rect.hpp>
 #include <sge/sprite/object_impl.hpp>
-#include <sge/sprite/rotation.hpp>
 #include <sge/sprite/detail/geometry/make_position.hpp>
-#include <sge/sprite/detail/geometry/rect_float.hpp>
-#include <sge/sprite/detail/geometry/vector_float.hpp>
+#include <sge/sprite/detail/geometry/float_rect.hpp>
 #include <sge/sprite/detail/geometry/vertices_per_sprite.hpp>
+#include <sge/sprite/types/rotation.hpp>
+#include <sge/sprite/types/basic/float.hpp>
+#include <sge/sprite/types/basic/float_vector.hpp>
 #include <fcppt/math/box/structure_cast.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
 #include <fcppt/math/matrix/static.hpp>
@@ -61,10 +62,14 @@ fill_position_rotated(
 	> const &_sprite
 )
 {
-	typedef typename Choices::type_choices::float_type funit;
+	typedef typename Choices::type_choices type_choices;
 
-	typedef typename sge::sprite::detail::geometry::vector_float<
-		Choices
+	typedef typename sge::sprite::types::basic::float_<
+		type_choices
+	>::type funit;
+
+	typedef typename sge::sprite::types::basic::float_vector<
+		type_choices
 	>::type pos2;
 
 	pos2 const centerf(
@@ -75,8 +80,8 @@ fill_position_rotated(
 		)
 	);
 
-	typedef typename sge::sprite::detail::geometry::rect_float<
-		Choices
+	typedef typename sge::sprite::detail::geometry::float_rect<
+		type_choices
 	>::type float_rect;
 
 	float_rect const rbs(
@@ -115,8 +120,8 @@ fill_position_rotated(
 		) - centerf
 	}};
 
-	typedef typename sge::sprite::rotation<
-		Choices
+	typedef typename sge::sprite::types::rotation<
+		type_choices
 	>::type rotation_type;
 
 	rotation_type const rot(
@@ -151,11 +156,7 @@ fill_position_rotated(
 	>::type vertex_pos;
 
 	for(
-		typename position_array::const_iterator pos_it(
-			positions.begin()
-		);
-		pos_it != positions.end();
-		++pos_it
+		auto const &cur_pos : positions
 	)
 		(*_iterator++). template set<
 			vertex_pos
@@ -163,7 +164,7 @@ fill_position_rotated(
 			sge::sprite::detail::geometry::make_position<
 				Choices
 			>(
-				(mat_rot * *pos_it) + centerf,
+				(mat_rot * cur_pos) + centerf,
 				_sprite
 			)
 		);

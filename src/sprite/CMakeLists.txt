@@ -102,7 +102,6 @@ set(
 	include/sge/sprite/defaults/texture_coordinates.hpp
 	include/sge/sprite/defaults/use_center.hpp
 	include/sge/sprite/defaults/use_texture_size.hpp
-	include/sge/sprite/depth.hpp
 	include/sge/sprite/detail/application.hpp
 	include/sge/sprite/detail/apply_texture_levels.hpp
 	include/sge/sprite/detail/assign_post.hpp
@@ -159,6 +158,8 @@ set(
 	include/sge/sprite/detail/geometry/fill_texture_point_pos.hpp
 	include/sge/sprite/detail/geometry/fill_texture_point_size.hpp
 	include/sge/sprite/detail/geometry/fill_vertices.hpp
+	include/sge/sprite/detail/geometry/float_rect.hpp
+	include/sge/sprite/detail/geometry/float_rect_fwd.hpp
 	include/sge/sprite/detail/geometry/index_array.hpp
 	include/sge/sprite/detail/geometry/index_array_type.hpp
 	include/sge/sprite/detail/geometry/index_generator.hpp
@@ -166,12 +167,10 @@ set(
 	include/sge/sprite/detail/geometry/make_position.hpp
 	include/sge/sprite/detail/geometry/make_render_part.hpp
 	include/sge/sprite/detail/geometry/pos_packed_type.hpp
-	include/sge/sprite/detail/geometry/rect_float.hpp
 	include/sge/sprite/detail/geometry/render_part_common.hpp
 	include/sge/sprite/detail/geometry/render_part_index.hpp
 	include/sge/sprite/detail/geometry/render_part_texture_level.hpp
 	include/sge/sprite/detail/geometry/render_part_textures.hpp
-	include/sge/sprite/detail/geometry/vector_float.hpp
 	include/sge/sprite/detail/geometry/vertices_per_sprite.hpp
 	include/sge/sprite/detail/make_class.hpp
 	include/sge/sprite/detail/make_texture_levels.hpp
@@ -226,8 +225,6 @@ set(
 	include/sge/sprite/detail/vf/texture_point_pos.hpp
 	include/sge/sprite/detail/vf/texture_point_size.hpp
 	include/sge/sprite/detail/wrapped_connection.hpp
-	include/sge/sprite/dim.hpp
-	include/sge/sprite/dim_fwd.hpp
 	include/sge/sprite/geometry/fill.hpp
 	include/sge/sprite/geometry/is_random_access_range.hpp
 	include/sge/sprite/geometry/make_random_access_range.hpp
@@ -286,7 +283,6 @@ set(
 	include/sge/sprite/parameters_decl.hpp
 	include/sge/sprite/parameters_fwd.hpp
 	include/sge/sprite/parameters_impl.hpp
-	include/sge/sprite/point_size.hpp
 	include/sge/sprite/process/all.hpp
 	include/sge/sprite/process/default_geometry_options.hpp
 	include/sge/sprite/process/default_options.hpp
@@ -299,8 +295,6 @@ set(
 	include/sge/sprite/process/options_fwd.hpp
 	include/sge/sprite/process/with_options.hpp
 	include/sge/sprite/projection_matrix.hpp
-	include/sge/sprite/rect.hpp
-	include/sge/sprite/rect_fwd.hpp
 	include/sge/sprite/render/parameters.hpp
 	include/sge/sprite/render/parameters_decl.hpp
 	include/sge/sprite/render/parameters_fwd.hpp
@@ -313,8 +307,6 @@ set(
 	include/sge/sprite/render/range_part_impl.hpp
 	include/sge/sprite/render/range_part_vector.hpp
 	include/sge/sprite/render/range_with_options.hpp
-	include/sge/sprite/repetition.hpp
-	include/sge/sprite/repetition_fwd.hpp
 	include/sge/sprite/roles/color.hpp
 	include/sge/sprite/roles/connection.hpp
 	include/sge/sprite/roles/depth.hpp
@@ -329,9 +321,6 @@ set(
 	include/sge/sprite/roles/texture_point_pos.hpp
 	include/sge/sprite/roles/texture_point_size.hpp
 	include/sge/sprite/roles/use_rotation.hpp
-	include/sge/sprite/rotation.hpp
-	include/sge/sprite/rotation_center.hpp
-	include/sge/sprite/rotation_center_fwd.hpp
 	include/sge/sprite/state/all_choices.hpp
 	include/sge/sprite/state/choices.hpp
 	include/sge/sprite/state/choices_fwd.hpp
@@ -382,35 +371,46 @@ set(
 	include/sge/sprite/state/with_transform.hpp
 	include/sge/sprite/state/with_transform_fwd.hpp
 	include/sge/sprite/texture.hpp
-	include/sge/sprite/texture_coordinates.hpp
-	include/sge/sprite/texture_coordinates_fwd.hpp
 	include/sge/sprite/texture_level.hpp
-	include/sge/sprite/texture_point_pos.hpp
-	include/sge/sprite/texture_point_pos_fwd.hpp
-	include/sge/sprite/texture_point_size.hpp
-	include/sge/sprite/types/dim_decl.hpp
+	include/sge/sprite/types/basic/dim_decl.hpp
+	include/sge/sprite/types/basic/dim_fwd.hpp
+	include/sge/sprite/types/basic/dim_impl.hpp
+	include/sge/sprite/types/basic/float.hpp
+	include/sge/sprite/types/basic/float_vector.hpp
+	include/sge/sprite/types/basic/float_vector_fwd.hpp
+	include/sge/sprite/types/basic/homogenous_pair_decl.hpp
+	include/sge/sprite/types/basic/homogenous_pair_fwd.hpp
+	include/sge/sprite/types/basic/homogenous_pair_impl.hpp
+	include/sge/sprite/types/basic/rect.hpp
+	include/sge/sprite/types/basic/rect_fwd.hpp
+	include/sge/sprite/types/basic/unit.hpp
+	include/sge/sprite/types/basic/unit_dim.hpp
+	include/sge/sprite/types/basic/unit_dim_fwd.hpp
+	include/sge/sprite/types/basic/unit_rect.hpp
+	include/sge/sprite/types/basic/unit_rect_fwd.hpp
+	include/sge/sprite/types/basic/unit_vector.hpp
+	include/sge/sprite/types/basic/unit_vector_fwd.hpp
+	include/sge/sprite/types/basic/vector_decl.hpp
+	include/sge/sprite/types/basic/vector_fwd.hpp
+	include/sge/sprite/types/basic/vector_impl.hpp
+	include/sge/sprite/types/depth.hpp
+	include/sge/sprite/types/dim.hpp
 	include/sge/sprite/types/dim_fwd.hpp
-	include/sge/sprite/types/dim_impl.hpp
-	include/sge/sprite/types/float.hpp
-	include/sge/sprite/types/float_vector.hpp
-	include/sge/sprite/types/float_vector_fwd.hpp
-	include/sge/sprite/types/homogenous_pair_decl.hpp
-	include/sge/sprite/types/homogenous_pair_fwd.hpp
-	include/sge/sprite/types/homogenous_pair_impl.hpp
+	include/sge/sprite/types/point_size.hpp
 	include/sge/sprite/types/rect.hpp
 	include/sge/sprite/types/rect_fwd.hpp
-	include/sge/sprite/types/unit.hpp
-	include/sge/sprite/types/unit_dim.hpp
-	include/sge/sprite/types/unit_dim_fwd.hpp
-	include/sge/sprite/types/unit_rect.hpp
-	include/sge/sprite/types/unit_rect_fwd.hpp
-	include/sge/sprite/types/unit_vector.hpp
-	include/sge/sprite/types/unit_vector_fwd.hpp
-	include/sge/sprite/types/vector_decl.hpp
+	include/sge/sprite/types/repetition.hpp
+	include/sge/sprite/types/repetition_fwd.hpp
+	include/sge/sprite/types/rotation.hpp
+	include/sge/sprite/types/rotation_center.hpp
+	include/sge/sprite/types/rotation_center_fwd.hpp
+	include/sge/sprite/types/texture_coordinates.hpp
+	include/sge/sprite/types/texture_coordinates_fwd.hpp
+	include/sge/sprite/types/texture_point_pos.hpp
+	include/sge/sprite/types/texture_point_pos_fwd.hpp
+	include/sge/sprite/types/texture_point_size.hpp
+	include/sge/sprite/types/vector.hpp
 	include/sge/sprite/types/vector_fwd.hpp
-	include/sge/sprite/types/vector_impl.hpp
-	include/sge/sprite/vector.hpp
-	include/sge/sprite/vector_fwd.hpp
 	include/sge/sprite/vertex_format.hpp
 	src/sprite/buffers/option_to_resource_flags.cpp
 	src/sprite/buffers/parameters.cpp

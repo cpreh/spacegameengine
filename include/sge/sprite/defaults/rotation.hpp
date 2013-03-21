@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DEFAULTS_ROTATION_HPP_INCLUDED
 #define SGE_SPRITE_DEFAULTS_ROTATION_HPP_INCLUDED
 
-#include <sge/sprite/rotation.hpp>
 #include <sge/sprite/defaults/fwd.hpp>
 #include <sge/sprite/roles/rotation.hpp>
+#include <sge/sprite/types/rotation.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/bool.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -44,8 +44,8 @@ struct defaults<
 {
 	typedef boost::mpl::true_ use;
 
-	typedef typename sge::sprite::rotation<
-		Choices
+	typedef typename sge::sprite::types::rotation<
+		typename Choices::type_choices
 	>::type type;
 
 	static type

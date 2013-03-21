@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_CONFIG_WITH_DEPTH_HPP_INCLUDED
 #define SGE_SPRITE_CONFIG_WITH_DEPTH_HPP_INCLUDED
 
-#include <sge/sprite/depth.hpp>
 #include <sge/sprite/roles/depth.hpp>
+#include <sge/sprite/types/depth.hpp>
 #include <majutsu/composite.hpp>
 #include <majutsu/role.hpp>
 #include <majutsu/simple.hpp>
@@ -49,8 +49,8 @@ struct with_depth
 			boost::mpl::vector1<
 				majutsu::role<
 					majutsu::simple<
-						typename sge::sprite::depth<
-							Choices
+						typename sge::sprite::types::depth<
+							typename Choices::type_choices
 						>::type
 					>,
 					sge::sprite::roles::depth

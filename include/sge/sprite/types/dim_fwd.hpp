@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_TYPES_DIM_FWD_HPP_INCLUDED
 #define SGE_SPRITE_TYPES_DIM_FWD_HPP_INCLUDED
 
-#include <fcppt/math/dim/static.hpp>
+#include <sge/sprite/types/basic/unit_dim_fwd.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -38,13 +38,12 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
-	typename Type
+	typename TypeChoices
 >
 struct dim
 :
-fcppt::math::dim::static_<
-	typename Type::type,
-	2
+sge::sprite::types::basic::unit_dim<
+	TypeChoices
 >
 {
 };

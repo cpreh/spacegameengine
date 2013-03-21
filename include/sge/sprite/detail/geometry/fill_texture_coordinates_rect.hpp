@@ -21,11 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_GEOMETRY_FILL_TEXTURE_COORDINATES_RECT_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_GEOMETRY_FILL_TEXTURE_COORDINATES_RECT_HPP_INCLUDED
 
-#include <sge/sprite/texture_coordinates.hpp>
-#include <sge/sprite/detail/geometry/vector_float.hpp>
 #include <sge/sprite/detail/vf/texpos.hpp>
-#include <fcppt/math/box/object_impl.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
+#include <sge/sprite/types/texture_coordinates.hpp>
+#include <sge/sprite/types/basic/float_vector.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/at.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -48,13 +46,13 @@ template<
 void
 fill_texture_coordinates_rect(
 	Iterator _iterator,
-	typename sge::sprite::texture_coordinates<
-		Choices
+	typename sge::sprite::types::texture_coordinates<
+		typename Choices::type_choices
 	>::type const &_rt
 )
 {
-	typedef typename sge::sprite::detail::geometry::vector_float<
-		Choices
+	typedef typename sge::sprite::types::basic::float_vector<
+		typename Choices::type_choices
 	>::type tex_pos;
 
 	typedef typename boost::mpl::at<

@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DEFAULTS_POS_HPP_INCLUDED
 #define SGE_SPRITE_DEFAULTS_POS_HPP_INCLUDED
 
-#include <sge/sprite/vector.hpp>
 #include <sge/sprite/defaults/fwd.hpp>
 #include <sge/sprite/roles/pos.hpp>
+#include <sge/sprite/types/vector.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/bool.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -44,8 +44,8 @@ struct defaults<
 {
 	typedef boost::mpl::true_ use;
 
-	typedef typename sge::sprite::vector<
-		Choices
+	typedef typename sge::sprite::types::vector<
+		typename Choices::type_choices
 	>::type type;
 
 	static type const
