@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_TYPES_TEXTURE_POINT_POS_HPP_INCLUDED
-#define SGE_SPRITE_TYPES_TEXTURE_POINT_POS_HPP_INCLUDED
+#ifndef SGE_SPRITE_TYPES_FLOAT_VECTOR_FWD_HPP_INCLUDED
+#define SGE_SPRITE_TYPES_FLOAT_VECTOR_FWD_HPP_INCLUDED
 
 #include <sge/sprite/config/type_choices_fwd.hpp>
-#include <fcppt/math/vector/static.hpp>
+#include <sge/sprite/types/vector_fwd.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -38,7 +38,7 @@ namespace types
 template<
 	typename TypeChoices
 >
-struct texture_point_pos;
+struct float_vector;
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
@@ -47,16 +47,15 @@ template<
 	typename UnitType,
 	typename FloatType
 >
-struct texture_point_pos<
+struct float_vector<
 	sge::sprite::config::type_choices<
 		UnitType,
 		FloatType
 	>
 >
 :
-fcppt::math::vector::static_<
-	typename FloatType::type,
-	2
+sge::sprite::types::vector<
+	FloatType
 >
 {
 };

@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_TYPES_ROTATION_HPP_INCLUDED
-#define SGE_SPRITE_TYPES_ROTATION_HPP_INCLUDED
+#ifndef SGE_SPRITE_ROTATION_CENTER_FWD_HPP_INCLUDED
+#define SGE_SPRITE_ROTATION_CENTER_FWD_HPP_INCLUDED
 
-#include <sge/sprite/config/type_choices_fwd.hpp>
+#include <sge/sprite/types/unit_vector_fwd.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -31,35 +31,23 @@ namespace sge
 {
 namespace sprite
 {
-namespace types
-{
-
-template<
-	typename TypeChoices
->
-struct rotation;
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
-	typename UnitType,
-	typename FloatType
+	typename Choices
 >
-struct rotation<
-	sge::sprite::config::type_choices<
-		UnitType,
-		FloatType
-	>
->
+struct rotation_center
 :
-FloatType
+sge::sprite::types::unit_vector<
+	typename Choices::type_choices
+>
 {
 };
 
 FCPPT_PP_POP_WARNING
 
-}
 }
 }
 

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_POINT_SIZE_HPP_INCLUDED
 #define SGE_SPRITE_POINT_SIZE_HPP_INCLUDED
 
-#include <sge/sprite/types/point_size.hpp>
+#include <sge/sprite/types/unit.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -40,7 +40,7 @@ template<
 >
 struct point_size
 :
-sge::sprite::types::point_size<
+sge::sprite::types::unit<
 	typename Choices::type_choices
 >
 {

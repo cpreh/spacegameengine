@@ -21,34 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_ROTATION_CENTER_HPP_INCLUDED
 #define SGE_SPRITE_ROTATION_CENTER_HPP_INCLUDED
 
-#include <sge/sprite/vector.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
+#include <sge/sprite/rotation_center_fwd.hpp>
+#include <sge/sprite/types/unit_vector.hpp>
 
-
-namespace sge
-{
-namespace sprite
-{
-
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-template<
-	typename Choices
->
-struct rotation_center
-:
-sge::sprite::vector<
-	Choices
->
-{
-};
-
-FCPPT_PP_POP_WARNING
-
-}
-}
 
 #endif

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_ROTATION_HPP_INCLUDED
 #define SGE_SPRITE_ROTATION_HPP_INCLUDED
 
-#include <sge/sprite/types/rotation.hpp>
+#include <sge/sprite/types/float.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -40,7 +40,7 @@ template<
 >
 struct rotation
 :
-sge::sprite::types::rotation<
+sge::sprite::types::float_<
 	typename Choices::type_choices
 >
 {

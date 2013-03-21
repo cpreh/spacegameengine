@@ -18,11 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_TYPES_VECTOR_HPP_INCLUDED
-#define SGE_SPRITE_TYPES_VECTOR_HPP_INCLUDED
+#ifndef SGE_SPRITE_TYPES_DIM_FWD_HPP_INCLUDED
+#define SGE_SPRITE_TYPES_DIM_FWD_HPP_INCLUDED
 
-#include <sge/sprite/config/type_choices_fwd.hpp>
-#include <fcppt/math/vector/static.hpp>
+#include <fcppt/math/dim/static.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -35,27 +34,16 @@ namespace sprite
 namespace types
 {
 
-template<
-	typename TypeChoices
->
-struct vector;
-
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
-	typename UnitType,
-	typename FloatType
+	typename Type
 >
-struct vector<
-	sge::sprite::config::type_choices<
-		UnitType,
-		FloatType
-	>
->
+struct dim
 :
-fcppt::math::vector::static_<
-	typename UnitType::type,
+fcppt::math::dim::static_<
+	typename Type::type,
 	2
 >
 {

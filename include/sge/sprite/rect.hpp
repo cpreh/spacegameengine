@@ -21,34 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_RECT_HPP_INCLUDED
 #define SGE_SPRITE_RECT_HPP_INCLUDED
 
-#include <fcppt/math/box/rect.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
+#include <sge/sprite/rect_fwd.hpp>
+#include <sge/sprite/types/unit_rect.hpp>
 
-
-namespace sge
-{
-namespace sprite
-{
-
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-template<
-	typename Choices
->
-struct rect
-:
-fcppt::math::box::rect<
-	typename Choices::type_choices::unit_type
->
-{
-};
-
-FCPPT_PP_POP_WARNING
-
-}
-}
 
 #endif

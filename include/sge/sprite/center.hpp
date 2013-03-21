@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_CENTER_HPP_INCLUDED
 #define SGE_SPRITE_CENTER_HPP_INCLUDED
 
+#include <sge/sprite/dim.hpp>
 #include <sge/sprite/object_fwd.hpp>
+#include <sge/sprite/vector.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/vector/dim.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
 
 
 namespace sge
@@ -48,7 +48,8 @@ center(
 {
 	return
 		_spr.pos()
-		+ _spr.size()
+		+
+		_spr.size()
 		/
 		static_cast<
 			typename sge::sprite::object<
@@ -74,7 +75,8 @@ center(
 {
 	_spr.pos(
 		_center
-		- _spr.size()
+		-
+		_spr.size()
 		/
 		static_cast<
 			typename sge::sprite::object<

@@ -18,11 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_TYPES_REPETITION_HPP_INCLUDED
-#define SGE_SPRITE_TYPES_REPETITION_HPP_INCLUDED
+#ifndef SGE_SPRITE_TYPES_UNIT_HPP_INCLUDED
+#define SGE_SPRITE_TYPES_UNIT_HPP_INCLUDED
 
 #include <sge/sprite/config/type_choices_fwd.hpp>
-#include <fcppt/math/vector/static.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -38,7 +37,7 @@ namespace types
 template<
 	typename TypeChoices
 >
-struct repetition;
+struct unit;
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
@@ -47,17 +46,14 @@ template<
 	typename UnitType,
 	typename FloatType
 >
-struct repetition<
+struct unit<
 	sge::sprite::config::type_choices<
 		UnitType,
 		FloatType
 	>
 >
 :
-fcppt::math::vector::static_<
-	typename FloatType::type,
-	2
->
+UnitType
 {
 };
 

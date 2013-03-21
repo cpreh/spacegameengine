@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_OBJECT_IMPL_HPP_INCLUDED
 #define SGE_SPRITE_OBJECT_IMPL_HPP_INCLUDED
 
+#include <sge/sprite/color.hpp>
 #include <sge/sprite/object_decl.hpp>
 #include <sge/sprite/texture_level.hpp>
 #include <sge/sprite/detail/assign_post.hpp>
@@ -44,9 +45,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/roles/texture_point_pos.hpp>
 #include <sge/sprite/roles/texture_point_size.hpp>
 #include <sge/sprite/roles/use_rotation.hpp>
+#include <sge/sprite/types/dim_impl.hpp>
+#include <sge/sprite/types/homogenous_pair_impl.hpp>
+#include <sge/sprite/types/vector_impl.hpp>
 #include <majutsu/subelements.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
 
 
 template<

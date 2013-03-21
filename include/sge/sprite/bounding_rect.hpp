@@ -21,11 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_BOUNDING_RECT_HPP_INCLUDED
 #define SGE_SPRITE_BOUNDING_RECT_HPP_INCLUDED
 
-#include <sge/sprite/object_impl.hpp>
-#include <sge/sprite/rect.hpp>
-#include <fcppt/math/box/object_impl.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
+#include <sge/sprite/dim.hpp>
+#include <sge/sprite/object_fwd.hpp>
+#include <sge/sprite/rect_fwd.hpp>
+#include <sge/sprite/vector.hpp>
 
 
 namespace sge

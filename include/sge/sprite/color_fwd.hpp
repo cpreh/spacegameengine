@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_TYPES_DIM_HPP_INCLUDED
-#define SGE_SPRITE_TYPES_DIM_HPP_INCLUDED
+#ifndef SGE_SPRITE_COLOR_FWD_HPP_INCLUDED
+#define SGE_SPRITE_COLOR_FWD_HPP_INCLUDED
 
-#include <sge/sprite/config/type_choices_fwd.hpp>
-#include <fcppt/math/dim/static.hpp>
+#include <sge/image/mizuiro_color_fwd.hpp>
+#include <sge/sprite/detail/config/color_format.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -32,38 +32,25 @@ namespace sge
 {
 namespace sprite
 {
-namespace types
-{
-
-template<
-	typename TypeChoices
->
-struct dim;
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
-	typename UnitType,
-	typename FloatType
+	typename Choices
 >
-struct dim<
-	sge::sprite::config::type_choices<
-		UnitType,
-		FloatType
-	>
->
+struct color
 :
-fcppt::math::dim::static_<
-	typename UnitType::type,
-	2
+sge::image::mizuiro_color<
+	typename sge::sprite::detail::config::color_format<
+		Choices
+	>::type
 >
 {
 };
 
 FCPPT_PP_POP_WARNING
 
-}
 }
 }
 

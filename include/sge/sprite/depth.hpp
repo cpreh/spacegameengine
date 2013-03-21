@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DEPTH_HPP_INCLUDED
 #define SGE_SPRITE_DEPTH_HPP_INCLUDED
 
-#include <sge/sprite/types/depth.hpp>
+#include <sge/sprite/types/float.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -40,7 +40,7 @@ template<
 >
 struct depth
 :
-sge::sprite::types::depth<
+sge::sprite::types::float_<
 	typename Choices::type_choices
 >
 {

@@ -21,34 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_REPETITION_HPP_INCLUDED
 #define SGE_SPRITE_REPETITION_HPP_INCLUDED
 
-#include <sge/sprite/types/repetition.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
+#include <sge/sprite/repetition_fwd.hpp>
+#include <sge/sprite/types/float_vector.hpp>
 
-
-namespace sge
-{
-namespace sprite
-{
-
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-template<
-	typename Choices
->
-struct repetition
-:
-sge::sprite::types::repetition<
-	typename Choices::type_choices
->
-{
-};
-
-FCPPT_PP_POP_WARNING
-
-}
-}
 
 #endif

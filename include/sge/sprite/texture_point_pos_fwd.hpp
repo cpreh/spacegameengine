@@ -18,8 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_TEXTURE_LEVEL_HPP_INCLUDED
-#define SGE_SPRITE_TEXTURE_LEVEL_HPP_INCLUDED
+#ifndef SGE_SPRITE_TEXTURE_POINT_POS_FWD_HPP_INCLUDED
+#define SGE_SPRITE_TEXTURE_POINT_POS_FWD_HPP_INCLUDED
+
+#include <sge/sprite/types/float_vector_fwd.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 
 namespace sge
@@ -27,7 +32,21 @@ namespace sge
 namespace sprite
 {
 
-typedef unsigned texture_level;
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
+
+template<
+	typename Choices
+>
+struct texture_point_pos
+:
+sge::sprite::types::float_vector<
+	typename Choices::type_choices
+>
+{
+};
+
+FCPPT_PP_POP_WARNING
 
 }
 }

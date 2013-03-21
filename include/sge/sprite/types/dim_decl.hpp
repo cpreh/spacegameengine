@@ -18,18 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_TEXTURE_LEVEL_HPP_INCLUDED
-#define SGE_SPRITE_TEXTURE_LEVEL_HPP_INCLUDED
+#ifndef SGE_SPRITE_TYPES_DIM_DECL_HPP_INCLUDED
+#define SGE_SPRITE_TYPES_DIM_DECL_HPP_INCLUDED
 
+#include <sge/sprite/types/dim_fwd.hpp>
+#include <fcppt/math/dim/object_decl.hpp>
 
-namespace sge
-{
-namespace sprite
-{
-
-typedef unsigned texture_level;
-
-}
-}
 
 #endif

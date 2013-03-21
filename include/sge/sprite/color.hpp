@@ -21,37 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_COLOR_HPP_INCLUDED
 #define SGE_SPRITE_COLOR_HPP_INCLUDED
 
-#include <sge/image/mizuiro_color_fwd.hpp>
-#include <sge/sprite/detail/config/color_format.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
+#include <sge/image/mizuiro_color.hpp>
+#include <sge/sprite/color_fwd.hpp>
 
-
-namespace sge
-{
-namespace sprite
-{
-
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-template<
-	typename Choices
->
-struct color
-:
-sge::image::mizuiro_color<
-	typename sge::sprite::detail::config::color_format<
-		Choices
-	>::type
->
-{
-};
-
-FCPPT_PP_POP_WARNING
-
-}
-}
 
 #endif

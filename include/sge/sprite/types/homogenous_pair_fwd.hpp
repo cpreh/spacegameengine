@@ -18,13 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_TYPES_DEPTH_HPP_INCLUDED
-#define SGE_SPRITE_TYPES_DEPTH_HPP_INCLUDED
+#ifndef SGE_SPRITE_TYPES_HOMOGENOUS_PAIR_FWD_HPP_INCLUDED
+#define SGE_SPRITE_TYPES_HOMOGENOUS_PAIR_FWD_HPP_INCLUDED
 
-#include <sge/sprite/config/type_choices_fwd.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/homogenous_pair_fwd.hpp>
 
 
 namespace sge
@@ -35,29 +32,14 @@ namespace types
 {
 
 template<
-	typename TypeChoices
+	typename Type
 >
-struct depth;
-
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-template<
-	typename UnitType,
-	typename FloatType
->
-struct depth<
-	sge::sprite::config::type_choices<
-		UnitType,
-		FloatType
-	>
->
-:
-FloatType
+struct homogenous_pair
 {
+	typedef fcppt::homogenous_pair<
+		Type
+	> type;
 };
-
-FCPPT_PP_POP_WARNING
 
 }
 }
