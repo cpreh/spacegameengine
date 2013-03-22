@@ -51,6 +51,7 @@ set(
 	include/sge/sprite/config/float_type.hpp
 	include/sge/sprite/config/float_type_fwd.hpp
 	include/sge/sprite/config/intrusive.hpp
+	include/sge/sprite/config/intrusive_fwd.hpp
 	include/sge/sprite/config/is_choices.hpp
 	include/sge/sprite/config/is_custom_texture_point_size.hpp
 	include/sge/sprite/config/is_point_size.hpp

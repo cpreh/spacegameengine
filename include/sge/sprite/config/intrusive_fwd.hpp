@@ -18,45 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DETAIL_CONFIG_IS_INTRUSIVE_HPP_INCLUDED
-#define SGE_SPRITE_DETAIL_CONFIG_IS_INTRUSIVE_HPP_INCLUDED
-
-#include <sge/sprite/config/intrusive_fwd.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/contains.hpp>
-#include <fcppt/config/external_end.hpp>
+#ifndef SGE_SPRITE_CONFIG_INTRUSIVE_FWD_HPP_INCLUDED
+#define SGE_SPRITE_CONFIG_INTRUSIVE_FWD_HPP_INCLUDED
 
 
 namespace sge
 {
 namespace sprite
 {
-namespace detail
-{
 namespace config
 {
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
+struct intrusive;
 
-template<
-	typename Choices
->
-struct is_intrusive
-:
-boost::mpl::contains<
-	typename Choices::optional_elements,
-	sge::sprite::config::intrusive
->
-{
-};
-
-FCPPT_PP_POP_WARNING
-
-}
 }
 }
 }

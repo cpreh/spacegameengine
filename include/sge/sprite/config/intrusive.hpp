@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_CONFIG_INTRUSIVE_HPP_INCLUDED
 #define SGE_SPRITE_CONFIG_INTRUSIVE_HPP_INCLUDED
 
+#include <sge/sprite/config/intrusive_fwd.hpp>
 #include <sge/sprite/detail/wrapped_connection.hpp>
 #include <sge/sprite/roles/connection.hpp>
 #include <majutsu/composite.hpp>
@@ -29,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {

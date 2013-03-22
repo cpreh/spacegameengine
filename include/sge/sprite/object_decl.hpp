@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/make_class.hpp>
 #include <sge/sprite/detail/object_base.hpp>
 #include <sge/sprite/intrusive/connection_fwd.hpp>
+#include <sge/sprite/roles/connection.hpp>
 #include <sge/sprite/types/depth.hpp>
 #include <sge/sprite/types/dim_fwd.hpp>
 #include <sge/sprite/types/point_size.hpp>
