@@ -120,7 +120,7 @@ sge_implement_from_lib(
 add_sge_base_library(
 	audio
 	"sgecore;sgelog;sgemedia;sgeplugin"
-	"${Fcppt_filesystem_LIBRARIES}"
+	"${Boost_filesystem_LIBRARIES}"
 	"sgecore"
 	""
 	""

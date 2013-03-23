@@ -36,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/algorithm/copy_if.hpp>
 #include <fcppt/assert/throw_message.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
+#include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/operations.hpp>
 #include <boost/filesystem/path.hpp>
@@ -63,7 +64,9 @@ sge::resource_tree::object<
 			_path
 		),
 		sge::resource_tree::exception,
-		_path.string()
+		fcppt::filesystem::path_to_string(
+			_path
+		)
 		+
 		FCPPT_TEXT(" does not exist!")
 	);
@@ -73,7 +76,9 @@ sge::resource_tree::object<
 			_path
 		),
 		sge::resource_tree::exception,
-		_path.string()
+		fcppt::filesystem::path_to_string(
+			_path.string()
+		)
 		+
 		FCPPT_TEXT(" is not a directory!")
 	);

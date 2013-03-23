@@ -108,6 +108,6 @@ set(
 add_sge_plugin(
 	openal
 	"sgeaudio;sgelog;sgeplugin"
-	"${Fcppt_core_LIBRARIES};${OPENAL_LIBRARY}"
+	"${fcppt_core_TARGET};${OPENAL_LIBRARY}"
 	"${OPENAL_INCLUDE_DIR}"
 )

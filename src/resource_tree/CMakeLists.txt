@@ -29,6 +29,6 @@ add_sge_base_library(
 	"sgecore"
 	"${fcppt_filesystem_TARGET}"
 	""
-	""
+	"${fcppt_filesystem_TARGET}"
 	""
 )
