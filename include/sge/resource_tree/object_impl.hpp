@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/copy_if.hpp>
-#include <fcppt/assert/pre.hpp>
+#include <fcppt/assert/throw_message.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/operations.hpp>
@@ -58,15 +58,30 @@ sge::resource_tree::object<
 :
 	elements_()
 {
-	FCPPT_ASSERT_PRE(
+	FCPPT_ASSERT_THROW_MESSAGE(
 		boost::filesystem::exists(
-			_path));
+			_path
+		),
+		sge::resource_tree::exception,
+		_path.string()
+		+
+		FCPPT_TEXT(" does not exist!")
+	);
 
-	FCPPT_ASSERT_PRE(
+	FCPPT_ASSERT_THROW_MESSAGE(
 		boost::filesystem::is_directory(
-			_path));
+			_path
+		),
+		sge::resource_tree::exception,
+		_path.string()
+		+
+		FCPPT_TEXT(" is not a directory!")
+	);
+
 	typedef
-	std::vector<boost::filesystem::path>
+	std::vector<
+		boost::filesystem::path
+	>
 	path_vector;
 
 	path_vector directories;
@@ -78,17 +93,25 @@ sge::resource_tree::object<
 		boost::filesystem::recursive_directory_iterator(
 			_path),
 		boost::filesystem::recursive_directory_iterator(),
-		std::back_inserter<path_vector>(
-			directories),
-		static_cast<
-			bool (*)(boost::filesystem::path const &)
+		std::back_inserter<
+			path_vector
 		>(
-			&boost::filesystem::is_directory));
+			directories
+		),
+		[](
+			boost::filesystem::path const &path
+		)
+		{
+			return
+				boost::filesystem::is_directory(
+					path
+				);
+		}
+	);
 
 	for(
-		path_vector::const_iterator it = directories.begin();
-		it != directories.end();
-		++it)
+		auto const &cur_path : directories
+	)
 	{
 		path_vector files;
 
@@ -96,7 +119,7 @@ sge::resource_tree::object<
 			sge::resource_tree::detail::base_path(
 				_path),
 			sge::resource_tree::detail::sub_path(
-				*it),
+				cur_path),
 			_path_to_resource,
 			_random_generator);
 	}
@@ -166,7 +189,7 @@ sge::resource_tree::object<
 	T,
 	Rng
 >::get(
-	sge::resource_tree::path const &_p)
+	sge::resource_tree::path const &_path)
 {
 	// Two choices: Either the specified path is a _file_ or a _directory_.
 	//
@@ -176,22 +199,31 @@ sge::resource_tree::object<
 	// If it's a _file_, it will be contained inside an element with the
 	// according prefix.
 	for(
-		typename element_sequence::const_iterator it =
-			elements_.begin();
-		it != elements_.end();
-		++it)
+		auto const &elem : elements_
+	)
 	{
-		if(it->base_path() == _p)
+		if(
+			elem.base_path()
+			==
+			_path
+		)
 			return
-				it->get_random();
+				elem.get_random();
 
-		if(it->contains(_p))
-			return it->get(_p);
+		if(
+			elem.contains(
+				_path
+			)
+		)
+			return
+				elem.get(
+					_path
+				);
 	}
 
 	throw sge::resource_tree::exception(
 		FCPPT_TEXT("Tried to access the location \"")+
-		_p.string()+
+		_path.string()+
 		FCPPT_TEXT("\" which could not be found in the resource tree."));
 }
 template<

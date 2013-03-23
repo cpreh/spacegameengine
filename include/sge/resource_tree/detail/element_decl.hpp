@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/resource_tree/detail/element_fwd.hpp>
 #include <sge/resource_tree/detail/path_with_resource_decl.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/optional_fwd.hpp>
 #include <fcppt/random/variate_decl.hpp>
 #include <fcppt/random/distribution/uniform_int_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -100,8 +101,19 @@ public:
 
 	~element();
 private:
+	typedef fcppt::optional<
+		T const &
+	> optional_type;
+
+	optional_type const
+	get_opt(
+		sge::resource_tree::path const &
+	) const;
+
 	sge::resource_tree::path const base_path_;
+
 	resource_container resources_;
+
 	typedef fcppt::random::distribution::uniform_int<
 		typename resource_container::size_type
 	> container_distribution;

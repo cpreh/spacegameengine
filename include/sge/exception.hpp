@@ -37,17 +37,20 @@ class SGE_CLASS_SYMBOL exception
 {
 public:
 	SGE_SYMBOL
-	explicit exception(
+	explicit
+	exception(
 		fcppt::string const &
 	);
 
 	SGE_SYMBOL
-	explicit exception(
+	explicit
+	exception(
 		fcppt::assert_::information const &
 	);
 
 	SGE_SYMBOL
-	virtual ~exception() throw();
+	virtual
+	~exception() throw();
 };
 
 }

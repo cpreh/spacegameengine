@@ -21,11 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RESOURCE_TREE_DETAIL_ELEMENT_IMPL_HPP_INCLUDED
 #define SGE_RESOURCE_TREE_DETAIL_ELEMENT_IMPL_HPP_INCLUDED
 
+#include <sge/resource_tree/exception.hpp>
 #include <sge/resource_tree/path.hpp>
 #include <sge/resource_tree/detail/element_decl.hpp>
 #include <sge/resource_tree/detail/path_with_resource_impl.hpp>
-#include <fcppt/assert/pre.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/optional_impl.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/assert/throw.hpp>
 #include <fcppt/random/variate_impl.hpp>
 #include <fcppt/random/distribution/uniform_int_impl.hpp>
 
@@ -86,16 +88,13 @@ sge::resource_tree::detail::element<
 	T,
 	Rng
 >::contains(
-	resource_tree::path const &s) const
+	sge::resource_tree::path const &_path
+) const
 {
-	for(
-		typename resource_container::const_iterator it =
-			resources_.begin();
-		it != resources_.end();
-		++it)
-		if(base_path_ / it->path().string() == s)
-			return true;
-	return false;
+	return
+		this->get_opt(
+			_path
+		).has_value();
 }
 
 template<
@@ -107,21 +106,28 @@ sge::resource_tree::detail::element<
 	T,
 	Rng
 >::get(
-	resource_tree::path const &s) const
+	sge::resource_tree::path const &_path
+) const
 {
-	FCPPT_ASSERT_PRE(
-		this->contains(
-			s));
+	optional_type const result(
+		this->get_opt(
+			_path
+		)
+	);
 
-	for(
-		typename resource_container::const_iterator it =
-			resources_.begin();
-		it != resources_.end();
-		++it)
-		if(base_path_ / it->path().string() == s)
-			return it->resource();
+	if(
+		!result
+	)
+		throw sge::resource_tree::exception(
+			FCPPT_TEXT("Path ")
+			+
+			_path.string()
+			+
+			FCPPT_TEXT(" not found!")
+		);
 
-	FCPPT_ASSERT_UNREACHABLE;
+	return
+		*result;
 }
 
 template<
@@ -134,12 +140,15 @@ sge::resource_tree::detail::element<
 	Rng
 >::get_random() const
 {
-	FCPPT_ASSERT_PRE(
-		!resources_.empty());
+	FCPPT_ASSERT_THROW(
+		!resources_.empty(),
+		sge::resource_tree::exception
+	);
 
 	return
 		resources_[
-			rng_()].resource();
+			rng_()
+		].resource();
 }
 
 template<
@@ -151,6 +160,42 @@ sge::resource_tree::detail::element<
 	Rng
 >::~element()
 {
+}
+
+template<
+	typename T,
+	typename Rng
+>
+typename
+sge::resource_tree::detail::element<
+	T,
+	Rng
+>::optional_type const
+sge::resource_tree::detail::element<
+	T,
+	Rng
+>::get_opt(
+	sge::resource_tree::path const &_path
+) const
+{
+	for(
+		auto const &cur : resources_
+	)
+		if(
+			(
+				base_path_
+				/
+				cur.path().string()
+			)
+			==
+			_path
+		)
+			return
+				optional_type(
+					cur.resource()
+				);
+	return
+		optional_type();
 }
 
 #endif

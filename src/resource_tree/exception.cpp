@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/resource_tree/exception.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/assert/information_fwd.hpp>
 
 
 sge::resource_tree::exception::exception(
@@ -31,6 +32,16 @@ sge::resource_tree::exception::exception(
 	sge::exception(
 		FCPPT_TEXT("resource_tree: ")
 		+ _what
+	)
+{
+}
+
+sge::resource_tree::exception::exception(
+	fcppt::assert_::information const &_info
+)
+:
+	sge::exception(
+		_info
 	)
 {
 }
