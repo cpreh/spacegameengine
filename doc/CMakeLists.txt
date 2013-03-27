@@ -365,6 +365,7 @@ set(
 	include/sge/charconv/encoding_to_string.hpp
 	include/sge/charconv/exception.hpp
 	include/sge/charconv/fcppt_string_to_utf8.hpp
+	include/sge/charconv/fcppt_string_to_utf8_file.hpp
 	include/sge/charconv/input_range.hpp
 	include/sge/charconv/output_range.hpp
 	include/sge/charconv/raw_pointer.hpp

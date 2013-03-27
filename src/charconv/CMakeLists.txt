@@ -17,6 +17,7 @@ set(
 	include/sge/charconv/encoding_to_string.hpp
 	include/sge/charconv/exception.hpp
 	include/sge/charconv/fcppt_string_to_utf8.hpp
+	include/sge/charconv/fcppt_string_to_utf8_file.hpp
 	include/sge/charconv/input_range.hpp
 	include/sge/charconv/output_range.hpp
 	include/sge/charconv/raw_pointer.hpp
@@ -38,6 +39,7 @@ set(
 	src/charconv/encoding_to_string.cpp
 	src/charconv/exception.cpp
 	src/charconv/fcppt_string_to_utf8.cpp
+	src/charconv/fcppt_string_to_utf8_file.cpp
 	src/charconv/include/sge/src/charconv/fcppt_is_utf8.hpp
 	src/charconv/unsupported_conversion.cpp
 	src/charconv/utf8_file_to_fcppt_string.cpp
