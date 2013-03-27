@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/detail/instance_impl.hpp>
 #include <sge/systems/audio_loader_fwd.hpp>
 #include <sge/systems/audio_player_fwd.hpp>
-#include <sge/systems/charconv_fwd.hpp>
 #include <sge/systems/config_fwd.hpp>
 #include <sge/systems/font_fwd.hpp>
 #include <sge/systems/image2d_fwd.hpp>
@@ -104,16 +103,6 @@ sge::systems::any_visitor::operator()(
 ) const
 {
 	impl_.init_input(
-		_param
-	);
-}
-
-sge::systems::any_visitor::result_type
-sge::systems::any_visitor::operator()(
-	sge::systems::charconv const &_param
-) const
-{
-	impl_.init_charconv(
 		_param
 	);
 }

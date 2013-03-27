@@ -10,7 +10,7 @@ set(
 	include/sge/charconv/converter.hpp
 	include/sge/charconv/converter_fwd.hpp
 	include/sge/charconv/converter_unique_ptr.hpp
-	include/sge/charconv/create_system.hpp
+	include/sge/charconv/create_converter.hpp
 	include/sge/charconv/dest_encoding.hpp
 	include/sge/charconv/encoding.hpp
 	include/sge/charconv/encoding_fwd.hpp
@@ -25,10 +25,6 @@ set(
 	include/sge/charconv/raw_vector_fwd.hpp
 	include/sge/charconv/source_encoding.hpp
 	include/sge/charconv/string_type.hpp
-	include/sge/charconv/system.hpp
-	include/sge/charconv/system_fwd.hpp
-	include/sge/charconv/system_scoped_ptr.hpp
-	include/sge/charconv/system_unique_ptr.hpp
 	include/sge/charconv/traits_type.hpp
 	include/sge/charconv/unsupported_conversion.hpp
 	include/sge/charconv/utf8_file_to_fcppt_string.hpp
@@ -38,12 +34,11 @@ set(
 	src/charconv/convert.cpp
 	src/charconv/convert_raw.cpp
 	src/charconv/converter.cpp
-	src/charconv/create_system.cpp
+	src/charconv/create_converter.cpp
 	src/charconv/encoding_to_string.cpp
 	src/charconv/exception.cpp
 	src/charconv/fcppt_string_to_utf8.cpp
 	src/charconv/include/sge/src/charconv/fcppt_is_utf8.hpp
-	src/charconv/system.cpp
 	src/charconv/unsupported_conversion.cpp
 	src/charconv/utf8_file_to_fcppt_string.cpp
 	src/charconv/utf8_string_to_fcppt.cpp
@@ -52,24 +47,24 @@ set(
 set(
 	SGE_CHARCONV_ICONV_FILES
 	src/charconv/backends/iconv/converter.cpp
+	src/charconv/backends/iconv/create_converter.cpp
 	src/charconv/backends/iconv/encoding_to_string.cpp
-	src/charconv/backends/iconv/system.cpp
 	src/charconv/include/sge/src/charconv/backends/iconv/converter.hpp
+	src/charconv/include/sge/src/charconv/backends/iconv/create_converter.hpp
 	src/charconv/include/sge/src/charconv/backends/iconv/encoding_string.hpp
 	src/charconv/include/sge/src/charconv/backends/iconv/encoding_to_string.hpp
-	src/charconv/include/sge/src/charconv/backends/iconv/system.hpp
 )
 
 set(
 	SGE_CHARCONV_WINDOWS_FILES
+	src/charconv/backends/windows/create_converter.cpp
 	src/charconv/backends/windows/is_utf16.cpp
-	src/charconv/backends/windows/system.cpp
 	src/charconv/backends/windows/utf16_to_utf32.cpp
 	src/charconv/backends/windows/utf32_to_utf16.cpp
 	src/charconv/backends/windows/utf8_to_wchar.cpp
 	src/charconv/backends/windows/wchar_to_utf8.cpp
+	src/charconv/include/sge/src/charconv/backends/windows/create_converter.hpp
 	src/charconv/include/sge/src/charconv/backends/windows/is_utf16.hpp
-	src/charconv/include/sge/src/charconv/backends/windows/system.hpp
 	src/charconv/include/sge/src/charconv/backends/windows/utf16_to_utf32.hpp
 	src/charconv/include/sge/src/charconv/backends/windows/utf16_to_wchar.hpp
 	src/charconv/include/sge/src/charconv/backends/windows/utf32_to_utf16.hpp

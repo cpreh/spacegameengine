@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/symbol.hpp>
 #include <sge/cegui/syringe_fwd.hpp>
 #include <sge/cegui/system_fwd.hpp>
-#include <sge/charconv/system_fwd.hpp>
 #include <sge/input/cursor/button_event_fwd.hpp>
 #include <sge/input/cursor/move_event_fwd.hpp>
 #include <sge/input/cursor/position_fwd.hpp>
@@ -103,8 +102,6 @@ public:
 		sge::input::cursor::position const &
 	);
 private:
-	sge::charconv::system &charconv_system_;
-
 	CEGUI::GUIContext &gui_context_;
 };
 

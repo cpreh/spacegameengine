@@ -23,17 +23,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/convert_raw.hpp>
 #include <sge/charconv/converter.hpp>
 #include <sge/charconv/converter_unique_ptr.hpp>
+#include <sge/charconv/create_converter.hpp>
 #include <sge/charconv/dest_encoding.hpp>
 #include <sge/charconv/input_range.hpp>
 #include <sge/charconv/output_range.hpp>
 #include <sge/charconv/raw_vector.hpp>
 #include <sge/charconv/source_encoding.hpp>
-#include <sge/charconv/system.hpp>
 
 
 sge::charconv::raw_vector const
 sge::charconv::convert_raw(
-	sge::charconv::system &_system,
 	sge::charconv::source_encoding const _source,
 	sge::charconv::dest_encoding const _dest,
 	sge::charconv::input_range const &_input
@@ -47,7 +46,7 @@ sge::charconv::convert_raw(
 		return sge::charconv::raw_vector();
 
 	sge::charconv::converter_unique_ptr converter(
-		_system.create_converter(
+		sge::charconv::create_converter(
 			_source,
 			_dest
 		)

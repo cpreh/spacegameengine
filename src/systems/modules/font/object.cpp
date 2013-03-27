@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/plugin/collection_fwd.hpp>
 #include <sge/font/plugin/traits.hpp>
 #include <sge/plugin/object.hpp>
-#include <sge/src/systems/modules/charconv/object.hpp>
 #include <sge/src/systems/modules/font/find_plugin.hpp>
 #include <sge/src/systems/modules/font/object.hpp>
 #include <sge/systems/font_fwd.hpp>
@@ -30,8 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::systems::modules::font::object::object(
 	sge::font::plugin::collection const &_collection,
-	sge::systems::font const &_parameters,
-	sge::systems::modules::charconv::object const &_charconv
+	sge::systems::font const &_parameters
 )
 :
 	font_plugin_(
@@ -41,9 +39,7 @@ sge::systems::modules::font::object::object(
 		)
 	),
 	font_system_(
-		font_plugin_->get()(
-			_charconv.system()
-		)
+		font_plugin_->get()()
 	)
 {
 }

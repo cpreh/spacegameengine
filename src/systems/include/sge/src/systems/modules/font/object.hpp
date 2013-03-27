@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/system_scoped_ptr.hpp>
 #include <sge/font/plugin/collection_fwd.hpp>
 #include <sge/font/plugin/object_scoped_ptr.hpp>
-#include <sge/src/systems/modules/charconv/object_fwd.hpp>
 #include <sge/src/systems/modules/font/object_fwd.hpp>
 #include <sge/systems/font_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -48,8 +47,7 @@ class object
 public:
 	object(
 		sge::font::plugin::collection const &,
-		sge::systems::font const &,
-		sge::systems::modules::charconv::object const &
+		sge::systems::font const &
 	);
 
 	~object();

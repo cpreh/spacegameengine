@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SYSTEMS_WITH_FONT_HPP_INCLUDED
 
 #include <sge/systems/font_fwd.hpp>
-#include <sge/systems/with_charconv_fwd.hpp>
 #include <sge/systems/with_font_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/bool.hpp>
@@ -41,9 +40,7 @@ struct with_font
 
 	typedef sge::systems::font parameter_type;
 
-	typedef boost::mpl::vector1<
-		sge::systems::with_charconv
-	> needs_before;
+	typedef boost::mpl::vector0<> needs_before;
 };
 
 }

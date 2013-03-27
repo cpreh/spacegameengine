@@ -41,8 +41,7 @@ sge::cegui::toolbox::scoped_layout::scoped_layout(
 			sge::cegui::to_cegui_string(
 				fcppt::filesystem::path_to_string(
 					_path
-				),
-				system_.charconv_system()
+				)
 			),
 			"",
 			nullptr,

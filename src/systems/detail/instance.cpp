@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/audio/loader_fwd.hpp>
 #include <sge/audio/player_fwd.hpp>
-#include <sge/charconv/system_fwd.hpp>
 #include <sge/config/config_path.hpp>
 #include <sge/config/own_app_name.hpp>
 #include <sge/font/system_fwd.hpp>
@@ -246,12 +245,6 @@ sge::audio::player &
 sge::systems::detail::instance::audio_player() const
 {
 	return impl_->audio_player();
-}
-
-sge::charconv::system &
-sge::systems::detail::instance::charconv_system() const
-{
-	return impl_->charconv_system();
 }
 
 sge::font::system &

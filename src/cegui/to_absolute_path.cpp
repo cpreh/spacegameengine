@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/cegui/from_cegui_string.hpp>
-#include <sge/charconv/system_fwd.hpp>
 #include <sge/src/cegui/prefix.hpp>
 #include <sge/src/cegui/to_absolute_path.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -29,7 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 boost::filesystem::path const
 sge::cegui::to_absolute_path(
-	sge::charconv::system &_charconv_system,
 	sge::cegui::prefix const &_prefix,
 	CEGUI::String const &_filename
 )
@@ -38,7 +36,6 @@ sge::cegui::to_absolute_path(
 		_prefix.get()
 		/
 		sge::cegui::from_cegui_string(
-			_filename,
-			_charconv_system
+			_filename
 		);
 }

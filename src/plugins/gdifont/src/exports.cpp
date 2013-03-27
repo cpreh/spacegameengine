@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/charconv/system_fwd.hpp>
 #include <sge/font/system_unique_ptr.hpp>
 #include <sge/gdifont/system.hpp>
 #include <sge/plugin/capabilities.hpp>
@@ -53,16 +52,12 @@ sge::plugin::info const info(
 );
 
 sge::font::system_unique_ptr
-create_font_system(
-	sge::charconv::system &
-)
+create_font_system()
 {
 	return
-		sge::font::system_unique_ptr(
-			fcppt::make_unique_ptr<
-				sge::gdifont::system
-			>()
-		);
+		fcppt::make_unique_ptr<
+			sge::gdifont::system
+		>();
 }
 
 }

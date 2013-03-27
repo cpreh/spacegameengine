@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/systems/audio_loader_fwd.hpp>
 #include <sge/systems/audio_player_fwd.hpp>
-#include <sge/systems/charconv_fwd.hpp>
 #include <sge/systems/config_fwd.hpp>
 #include <sge/systems/font_fwd.hpp>
 #include <sge/systems/image2d_fwd.hpp>
@@ -42,7 +41,7 @@ namespace systems
 namespace detail
 {
 
-typedef boost::mpl::vector9<
+typedef boost::mpl::vector8<
 	sge::systems::config,
 	sge::systems::window,
 	sge::systems::detail::renderer,
@@ -50,7 +49,6 @@ typedef boost::mpl::vector9<
 	sge::systems::audio_loader,
 	sge::systems::audio_player,
 	sge::systems::detail::input,
-	sge::systems::charconv,
 	sge::systems::font
 > any_types;
 

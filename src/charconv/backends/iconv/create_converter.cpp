@@ -18,44 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_DETAIL_HAS_WITH_CHARCONV_HPP_INCLUDED
-#define SGE_SYSTEMS_DETAIL_HAS_WITH_CHARCONV_HPP_INCLUDED
-
-#include <sge/systems/with_charconv_fwd.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/contains.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <sge/charconv/converter_unique_ptr.hpp>
+#include <sge/charconv/dest_encoding.hpp>
+#include <sge/charconv/source_encoding.hpp>
+#include <sge/src/charconv/backends/iconv/converter.hpp>
+#include <sge/src/charconv/backends/iconv/create_converter.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 
 
-namespace sge
+sge::charconv::converter_unique_ptr
+sge::charconv::backends::iconv::create_converter(
+	sge::charconv::source_encoding const _source,
+	sge::charconv::dest_encoding const _dest
+)
 {
-namespace systems
-{
-namespace detail
-{
-
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-template<
-	typename Choices
->
-struct has_with_charconv
-:
-boost::mpl::contains<
-	Choices,
-	sge::systems::with_charconv
->
-{
-};
-
-FCPPT_PP_POP_WARNING
-
+	return
+		fcppt::make_unique_ptr<
+			sge::charconv::backends::iconv::converter
+		>(
+			_source,
+			_dest
+		);
 }
-}
-}
-
-#endif

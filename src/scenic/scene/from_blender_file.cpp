@@ -436,13 +436,11 @@ load_lights(
 
 sge::scenic::scene::prototype_unique_ptr
 sge::scenic::scene::from_blender_file(
-	boost::filesystem::path const &_path,
-	sge::charconv::system &_charconv_system)
+	boost::filesystem::path const &_path)
 {
 	sge::parse::json::object const json_file(
 		sge::parse::json::parse_string_exn(
 			sge::charconv::utf8_file_to_fcppt_string(
-				_charconv_system,
 				_path)).object());
 
 	// The prototype is created with the world properties in the

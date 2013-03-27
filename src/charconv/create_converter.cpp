@@ -18,35 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/charconv/backend.hpp>
+#include <sge/charconv/converter.hpp>
 #include <sge/charconv/converter_unique_ptr.hpp>
+#include <sge/charconv/create_converter.hpp>
 #include <sge/charconv/dest_encoding.hpp>
 #include <sge/charconv/source_encoding.hpp>
-#include <sge/src/charconv/backends/iconv/converter.hpp>
-#include <sge/src/charconv/backends/iconv/system.hpp>
-#include <fcppt/make_unique_ptr.hpp>
-
-
-sge::charconv::backends::iconv::system::system()
-{
-}
-
-sge::charconv::backends::iconv::system::~system()
-{
-}
+#if defined(SGE_CHARCONV_ICONV_BACKEND)
+#include <sge/src/charconv/backends/iconv/create_converter.hpp>
+#elif defined(SGE_CHARCONV_WINDOWS_BACKEND)
+#include <sge/src/charconv/backends/windows/create_converter.hpp>
+#else
+#error "No backend for charconv selected!"
+#endif
 
 sge::charconv::converter_unique_ptr
-sge::charconv::backends::iconv::system::create_converter(
-	sge::charconv::source_encoding const _source,
-	sge::charconv::dest_encoding const _dest
+sge::charconv::create_converter(
+	sge::charconv::source_encoding const _source_encoding,
+	sge::charconv::dest_encoding const _dest_encoding
 )
 {
 	return
-		sge::charconv::converter_unique_ptr(
-			fcppt::make_unique_ptr<
-				sge::charconv::backends::iconv::converter
-			>(
-				_source,
-				_dest
-			)
+#if defined(SGE_CHARCONV_ICONV_BACKEND)
+		sge::charconv::backends::iconv::create_converter(
+#elif defined(SGE_CHARCONV_WINDOWS_BACKEND)
+		sge::charconv::backends::windows::create_converter(
+#else
+#error "No backend for charconv selected!"
+#endif
+			_source_encoding,
+			_dest_encoding
 		);
 }

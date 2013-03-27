@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PANGO_SYSTEM_HPP_INCLUDED
 #define SGE_PANGO_SYSTEM_HPP_INCLUDED
 
-#include <sge/charconv/system_fwd.hpp>
 #include <sge/font/object_unique_ptr.hpp>
 #include <sge/font/parameters_fwd.hpp>
 #include <sge/font/system.hpp>
@@ -41,10 +40,7 @@ class system
 		system
 	);
 public:
-	explicit
-	system(
-		sge::charconv::system &
-	);
+	system();
 
 	~system();
 private:
@@ -52,8 +48,6 @@ private:
 	create_font(
 		sge::font::parameters const &
 	);
-
-	sge::charconv::system &charconv_system_;
 };
 
 }

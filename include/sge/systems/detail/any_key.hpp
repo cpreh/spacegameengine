@@ -40,7 +40,6 @@ enum class any_key
 	audio_loader,
 	audio_player,
 	input,
-	charconv,
 	font,
 	fcppt_maximum = font
 };

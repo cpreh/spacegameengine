@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/audio/loader_fwd.hpp>
 #include <sge/audio/player_fwd.hpp>
-#include <sge/charconv/system_fwd.hpp>
 #include <sge/font/system_fwd.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/input/processor_fwd.hpp>
@@ -40,7 +39,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/plugin_path.hpp>
 #include <sge/src/systems/modules/audio/loader_scoped_ptr.hpp>
 #include <sge/src/systems/modules/audio/player_scoped_ptr.hpp>
-#include <sge/src/systems/modules/charconv/object_scoped_ptr.hpp>
 #include <sge/src/systems/modules/font/object_scoped_ptr.hpp>
 #include <sge/src/systems/modules/image2d/object_scoped_ptr.hpp>
 #include <sge/src/systems/modules/input/object_scoped_ptr.hpp>
@@ -49,7 +47,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/modules/window/object_scoped_ptr.hpp>
 #include <sge/systems/audio_loader_fwd.hpp>
 #include <sge/systems/audio_player_fwd.hpp>
-#include <sge/systems/charconv_fwd.hpp>
 #include <sge/systems/font_fwd.hpp>
 #include <sge/systems/image2d_fwd.hpp>
 #include <sge/systems/window_fwd.hpp>
@@ -124,11 +121,6 @@ public:
 	);
 
 	void
-	init_charconv(
-		sge::systems::charconv const &
-	);
-
-	void
 	post_init();
 
 	sge::plugin::manager &
@@ -167,9 +159,6 @@ public:
 	sge::audio::player &
 	audio_player() const;
 
-	sge::charconv::system &
-	charconv_system() const;
-
 	sge::font::system &
 	font_system() const;
 
@@ -204,8 +193,6 @@ private:
 	sge::systems::modules::image2d::object_scoped_ptr image2d_;
 
 	sge::systems::modules::font::object_scoped_ptr font_;
-
-	sge::systems::modules::charconv::object_scoped_ptr charconv_;
 };
 
 }

@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_CEGUI_TO_ABSOLUTE_PATH_HPP_INCLUDED
 #define SGE_SRC_CEGUI_TO_ABSOLUTE_PATH_HPP_INCLUDED
 
-#include <sge/charconv/system_fwd.hpp>
 #include <sge/src/cegui/prefix.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
@@ -40,7 +39,6 @@ namespace cegui
 
 boost::filesystem::path const
 to_absolute_path(
-	sge::charconv::system &,
 	sge::cegui::prefix const &,
 	CEGUI::String const &filename
 );

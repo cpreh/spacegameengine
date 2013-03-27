@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MODEL_OBJ_PROTOTYPE_HPP_INCLUDED
 #define SGE_MODEL_OBJ_PROTOTYPE_HPP_INCLUDED
 
-#include <sge/charconv/system_fwd.hpp>
 #include <sge/model/obj/box.hpp>
 #include <sge/model/obj/face_vertex_sequence.hpp>
 #include <sge/model/obj/material_to_face_sequence.hpp>
@@ -50,9 +49,10 @@ FCPPT_NONCOPYABLE(
 	prototype);
 public:
 	SGE_MODEL_OBJ_SYMBOL
+	explicit
 	prototype(
-		boost::filesystem::path const &,
-		sge::charconv::system &);
+		boost::filesystem::path const &
+	);
 
 	SGE_MODEL_OBJ_SYMBOL
 	sge::model::obj::vertex_coordinate_sequence const &

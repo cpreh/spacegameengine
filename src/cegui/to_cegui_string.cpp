@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/convert.hpp>
 #include <sge/charconv/encoding.hpp>
 #include <sge/charconv/string_type.hpp>
-#include <sge/charconv/system_fwd.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/to_std_wstring.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -34,8 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 CEGUI::String const
 sge::cegui::to_cegui_string(
-	fcppt::string const &_string,
-	sge::charconv::system &_charconv
+	fcppt::string const &_string
 )
 {
 	// This is here so that the CEGUI::String constructor with a zero
@@ -69,7 +67,6 @@ sge::cegui::to_cegui_string(
 				sge::charconv::encoding::utf8,
 				sge::charconv::encoding::wchar
 			>(
-				_charconv,
 				fcppt::to_std_wstring(
 					_string
 				)

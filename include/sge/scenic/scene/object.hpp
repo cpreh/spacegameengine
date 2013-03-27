@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/camera/base_fwd.hpp>
 #include <sge/camera/perspective_projection_from_viewport.hpp>
-#include <sge/charconv/system_fwd.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/scenic/symbol.hpp>
 #include <sge/scenic/render_context/base_fwd.hpp>
@@ -58,7 +57,6 @@ public:
 	object(
 		sge::scenic::scene::manager &,
 		sge::viewport::manager &,
-		sge::charconv::system &,
 		sge::camera::base &,
 		sge::scenic::scene::prototype_unique_ptr);
 
@@ -88,7 +86,6 @@ private:
 
 	sge::scenic::scene::manager &scene_manager_;
 	sge::camera::base &camera_;
-	sge::charconv::system &charconv_system_;
 	sge::scenic::scene::prototype_scoped_ptr const prototype_;
 	sge::camera::perspective_projection_from_viewport camera_viewport_connection_;
 	mesh_map mesh_name_to_instance_;

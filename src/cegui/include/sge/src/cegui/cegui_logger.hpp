@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_CEGUI_CEGUI_LOGGER_HPP_INCLUDED
 #define SGE_SRC_CEGUI_CEGUI_LOGGER_HPP_INCLUDED
 
-#include <sge/charconv/system_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/Logger.h>
@@ -46,10 +45,7 @@ class cegui_logger
 		cegui_logger
 	);
 public:
-	explicit
-	cegui_logger(
-		sge::charconv::system &
-	);
+	cegui_logger();
 
 	~cegui_logger();
 private:
@@ -64,8 +60,6 @@ private:
 		CEGUI::String const &filename,
 		bool append
 	);
-
-	sge::charconv::system &charconv_system_;
 };
 
 }

@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/charconv/system_fwd.hpp>
 #include <sge/font/object.hpp>
 #include <sge/font/object_unique_ptr.hpp>
 #include <sge/font/parameters_fwd.hpp>
@@ -28,14 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr.hpp>
 
 
-sge::pango::system::system(
-	sge::charconv::system &_charconv_system
-)
+sge::pango::system::system()
 :
-	sge::font::system(),
-	charconv_system_(
-		_charconv_system
-	)
+	sge::font::system()
 {
 }
 
@@ -53,7 +47,6 @@ sge::pango::system::create_font(
 			fcppt::make_unique_ptr<
 				sge::pango::object
 			>(
-				charconv_system_,
 				_parameters
 			)
 		);

@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/cegui/declare_local_logger.hpp>
 #include <sge/src/cegui/resource_provider.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/unimplemented_message.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
@@ -32,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <cstddef>
 #include <fstream>
 #include <ios>
+#include <vector>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -39,13 +41,7 @@ SGE_CEGUI_DECLARE_LOCAL_LOGGER(
 	FCPPT_TEXT("resource_provider")
 )
 
-sge::cegui::resource_provider::resource_provider(
-	sge::charconv::system &_charconv_system
-)
-:
-	charconv_system_(
-		_charconv_system
-	)
+sge::cegui::resource_provider::resource_provider()
 {
 }
 
@@ -60,13 +56,13 @@ sge::cegui::resource_provider::loadRawDataContainer(
 {
 	fcppt::string const
 		converted_filename =
-			cegui::from_cegui_string(
-				filename,
-				charconv_system_),
+			sge::cegui::from_cegui_string(
+				filename
+			),
 		converted_resource_group =
-			cegui::from_cegui_string(
-				resource_group,
-				charconv_system_);
+			sge::cegui::from_cegui_string(
+				resource_group
+			);
 
 	FCPPT_LOG_DEBUG(
 		local_log,
@@ -91,7 +87,7 @@ sge::cegui::resource_provider::loadRawDataContainer(
 		std::ios::binary);
 
 	if(!file_stream.is_open())
-		throw cegui::exception(
+		throw sge::cegui::exception(
 			FCPPT_TEXT("Coudn't open file \"")+
 			fcppt::filesystem::path_to_string(
 				load_path)+
@@ -143,13 +139,13 @@ sge::cegui::resource_provider::getResourceGroupFileNames(
 {
 	fcppt::string const
 		converted_file_pattern =
-			from_cegui_string(
-				file_pattern,
-				charconv_system_),
+			sge::cegui::from_cegui_string(
+				file_pattern
+			),
 		converted_resource_group =
-			from_cegui_string(
-				resource_group,
-				charconv_system_);
+			sge::cegui::from_cegui_string(
+				resource_group
+			);
 
 	FCPPT_LOG_DEBUG(
 		local_log,

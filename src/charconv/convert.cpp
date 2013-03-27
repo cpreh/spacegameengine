@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/raw_vector.hpp>
 #include <sge/charconv/source_encoding.hpp>
 #include <sge/charconv/string_type.hpp>
-#include <sge/charconv/system_fwd.hpp>
 #include <sge/src/export_function_instantiation.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/container/data.hpp>
@@ -47,7 +46,6 @@ typename sge::charconv::string_type<
 	DestEncoding
 >::type
 sge::charconv::convert(
-	sge::charconv::system &_system,
 	typename sge::charconv::string_type<
 		SourceEncoding
 	>::type const &_source
@@ -55,7 +53,6 @@ sge::charconv::convert(
 {
 	sge::charconv::raw_vector const raw_result(
 		sge::charconv::convert_raw(
-			_system,
 			sge::charconv::source_encoding(
 				SourceEncoding
 			),
@@ -129,7 +126,6 @@ sge::charconv::convert<\
 	BOOST_PP_SEQ_ELEM(0, param),\
 	BOOST_PP_SEQ_ELEM(1, param)\
 >( \
-	sge::charconv::system &, \
 	sge::charconv::string_type< \
 		BOOST_PP_SEQ_ELEM(1, param) \
 	>::type const & \

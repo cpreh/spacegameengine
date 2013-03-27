@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FONT_PLUGIN_TRAITS_HPP_INCLUDED
 #define SGE_FONT_PLUGIN_TRAITS_HPP_INCLUDED
 
-#include <sge/charconv/system_fwd.hpp>
 #include <sge/font/symbol.hpp>
 #include <sge/font/system_fwd.hpp>
 #include <sge/font/system_unique_ptr.hpp>
@@ -53,9 +52,7 @@ struct traits<
 	plugin_type();
 
 	typedef sge::font::system_unique_ptr
-	(*loader_fun)(
-		sge::charconv::system &
-	);
+	(*loader_fun)();
 };
 
 }

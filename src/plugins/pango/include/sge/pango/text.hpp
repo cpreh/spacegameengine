@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PANGO_TEXT_HPP_INCLUDED
 #define SGE_PANGO_TEXT_HPP_INCLUDED
 
-#include <sge/charconv/system_fwd.hpp>
 #include <sge/font/rect.hpp>
 #include <sge/font/string.hpp>
 #include <sge/font/text.hpp>
@@ -50,7 +49,6 @@ class text
 	);
 public:
 	text(
-		sge::charconv::system &,
 		PangoLayout &,
 		sge::font::string const &,
 		sge::font::text_parameters const &

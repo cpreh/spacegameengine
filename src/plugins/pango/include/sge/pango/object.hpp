@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PANGO_OBJECT_HPP_INCLUDED
 #define SGE_PANGO_OBJECT_HPP_INCLUDED
 
-#include <sge/charconv/system_fwd.hpp>
 #include <sge/font/object.hpp>
 #include <sge/font/parameters_fwd.hpp>
 #include <sge/font/string.hpp>
@@ -52,8 +51,8 @@ class object
 		object
 	);
 public:
+	explicit
 	object(
-		sge::charconv::system &,
 		sge::font::parameters const &
 	);
 
@@ -67,8 +66,6 @@ private:
 
 	sge::image::color::optional_format const
 	color_format() const;
-
-	sge::charconv::system &charconv_system_;
 
 	typedef fcppt::scoped_ptr<
 		PangoFontMap,

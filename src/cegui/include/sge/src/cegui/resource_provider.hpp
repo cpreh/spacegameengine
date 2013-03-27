@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_CEGUI_RESOURCE_PROVIDER_HPP_INCLUDED
 #define SGE_SRC_CEGUI_RESOURCE_PROVIDER_HPP_INCLUDED
 
-#include <sge/charconv/system_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/ResourceProvider.h>
@@ -48,10 +47,7 @@ class resource_provider
 		resource_provider
 	);
 public:
-	explicit
-	resource_provider(
-		sge::charconv::system &
-	);
+	resource_provider();
 
 	~resource_provider();
 private:
@@ -73,8 +69,6 @@ private:
 		CEGUI::String const &file_pattern,
 		CEGUI::String const &resource_group
 	);
-
-	sge::charconv::system &charconv_system_;
 };
 
 }

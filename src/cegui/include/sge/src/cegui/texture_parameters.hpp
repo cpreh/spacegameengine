@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_CEGUI_TEXTURE_PARAMETERS_HPP_INCLUDED
 #define SGE_SRC_CEGUI_TEXTURE_PARAMETERS_HPP_INCLUDED
 
-#include <sge/charconv/system_fwd.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
@@ -43,7 +42,6 @@ class texture_parameters
 public:
 	texture_parameters(
 		sge::cegui::prefix const &,
-		sge::charconv::system &,
 		sge::image2d::system &,
 		sge::renderer::device::ffp &,
 		sge::renderer::texture::emulate_srgb
@@ -51,9 +49,6 @@ public:
 
 	sge::cegui::prefix const &
 	prefix() const;
-
-	sge::charconv::system &
-	charconv_system() const;
 
 	sge::image2d::system &
 	image_system() const;
@@ -65,8 +60,6 @@ public:
 	emulate_srgb() const;
 private:
 	sge::cegui::prefix const prefix_;
-
-	sge::charconv::system &charconv_system_;
 
 	sge::image2d::system &image_system_;
 

@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/charconv/system_fwd.hpp>
 #include <sge/charconv/utf8_string.hpp>
 #include <sge/charconv/utf8_string_to_fcppt.hpp>
 #include <sge/src/charconv/fcppt_is_utf8.hpp>
@@ -31,11 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 fcppt::string const
 sge::charconv::utf8_string_to_fcppt(
-#if !defined(SGE_CHARCONV_FCPPT_IS_UTF8)
-	sge::charconv::system &_system,
-#else
-	sge::charconv::system &,
-#endif
 	sge::charconv::utf8_string const &_string
 )
 {
@@ -52,7 +46,6 @@ sge::charconv::utf8_string_to_fcppt(
 				sge::charconv::encoding::wchar,
 				sge::charconv::encoding::utf8
 			>(
-				_system,
 				_string
 			)
 		);

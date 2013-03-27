@@ -7,8 +7,6 @@ set(
 	include/sge/systems/audio_player_fwd.hpp
 	include/sge/systems/basic_loader.hpp
 	include/sge/systems/basic_loader_fwd.hpp
-	include/sge/systems/charconv.hpp
-	include/sge/systems/charconv_fwd.hpp
 	include/sge/systems/config.hpp
 	include/sge/systems/config_fwd.hpp
 	include/sge/systems/cursor_demuxer.hpp
@@ -32,7 +30,6 @@ set(
 	include/sge/systems/detail/has_input_option.hpp
 	include/sge/systems/detail/has_with_audio_loader.hpp
 	include/sge/systems/detail/has_with_audio_player.hpp
-	include/sge/systems/detail/has_with_charconv.hpp
 	include/sge/systems/detail/has_with_font.hpp
 	include/sge/systems/detail/has_with_image2d.hpp
 	include/sge/systems/detail/has_with_input.hpp
@@ -91,8 +88,6 @@ set(
 	include/sge/systems/with_audio_loader_fwd.hpp
 	include/sge/systems/with_audio_player.hpp
 	include/sge/systems/with_audio_player_fwd.hpp
-	include/sge/systems/with_charconv.hpp
-	include/sge/systems/with_charconv_fwd.hpp
 	include/sge/systems/with_font.hpp
 	include/sge/systems/with_font_fwd.hpp
 	include/sge/systems/with_image2d.hpp
@@ -109,7 +104,6 @@ set(
 	src/systems/audio_loader.cpp
 	src/systems/audio_player.cpp
 	src/systems/audio_player_default.cpp
-	src/systems/charconv.cpp
 	src/systems/config.cpp
 	src/systems/detail/input.cpp
 	src/systems/detail/instance.cpp
@@ -141,15 +135,6 @@ set(
 	src/systems/include/sge/src/systems/modules/audio/player_pair.hpp
 	src/systems/include/sge/src/systems/modules/audio/player_pair_fwd.hpp
 	src/systems/include/sge/src/systems/modules/audio/player_scoped_ptr.hpp
-	src/systems/include/sge/src/systems/modules/charconv/base.hpp
-	src/systems/include/sge/src/systems/modules/charconv/base_fwd.hpp
-	src/systems/include/sge/src/systems/modules/charconv/base_scoped_ptr.hpp
-	src/systems/include/sge/src/systems/modules/charconv/base_unique_ptr.hpp
-	src/systems/include/sge/src/systems/modules/charconv/object.hpp
-	src/systems/include/sge/src/systems/modules/charconv/object_fwd.hpp
-	src/systems/include/sge/src/systems/modules/charconv/object_scoped_ptr.hpp
-	src/systems/include/sge/src/systems/modules/charconv/original.hpp
-	src/systems/include/sge/src/systems/modules/charconv/wrapped.hpp
 	src/systems/include/sge/src/systems/modules/font/find_plugin.hpp
 	src/systems/include/sge/src/systems/modules/font/object.hpp
 	src/systems/include/sge/src/systems/modules/font/object_fwd.hpp
@@ -200,10 +185,6 @@ set(
 	src/systems/modules/audio/loader.cpp
 	src/systems/modules/audio/player.cpp
 	src/systems/modules/audio/player_pair.cpp
-	src/systems/modules/charconv/base.cpp
-	src/systems/modules/charconv/object.cpp
-	src/systems/modules/charconv/original.cpp
-	src/systems/modules/charconv/wrapped.cpp
 	src/systems/modules/font/find_plugin.cpp
 	src/systems/modules/font/object.cpp
 	src/systems/modules/image2d/object.cpp
@@ -231,7 +212,7 @@ add_definitions(
 
 add_sge_base_library(
 	systems
-	"sgeaudio;sgecharconv;sgeconfig;sgecore;sgefont;sgeimage2d;sgeinput;sgelog;sgeparse;sgeplugin;sgerenderer;sgeviewport;sgewindow"
+	"sgeaudio;sgeconfig;sgecore;sgefont;sgeimage2d;sgeinput;sgelog;sgeparse;sgeplugin;sgerenderer;sgeviewport;sgewindow"
 	"${awl_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 	""

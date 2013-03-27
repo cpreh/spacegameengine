@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/audio/loader_fwd.hpp>
 #include <sge/audio/player_fwd.hpp>
-#include <sge/charconv/system_fwd.hpp>
 #include <sge/font/system_fwd.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/input/processor_fwd.hpp>
@@ -44,7 +43,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/detail/has_input_option.hpp>
 #include <sge/systems/detail/has_with_audio_loader.hpp>
 #include <sge/systems/detail/has_with_audio_player.hpp>
-#include <sge/systems/detail/has_with_charconv.hpp>
 #include <sge/systems/detail/has_with_font.hpp>
 #include <sge/systems/detail/has_with_image2d.hpp>
 #include <sge/systems/detail/has_with_input.hpp>
@@ -342,25 +340,6 @@ sge::systems::instance<
 
 	return
 		instance_.audio_player();
-}
-
-template<
-	typename Choices
->
-sge::charconv::system &
-sge::systems::instance<
-	Choices
->::charconv_system() const
-{
-	static_assert(
-		sge::systems::detail::has_with_charconv<
-			Choices
-		>::value,
-		"configuration has no charconv system"
-	);
-
-	return
-		instance_.charconv_system();
 }
 
 template<

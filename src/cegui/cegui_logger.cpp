@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/cegui/from_cegui_string.hpp>
-#include <sge/charconv/system_fwd.hpp>
 #include <sge/src/cegui/cegui_logger.hpp>
 #include <sge/src/cegui/declare_local_logger.hpp>
 #include <fcppt/string.hpp>
@@ -39,13 +38,7 @@ SGE_CEGUI_DECLARE_LOCAL_LOGGER(
 	FCPPT_TEXT("CEGUI")
 )
 
-sge::cegui::cegui_logger::cegui_logger(
-	sge::charconv::system &_charconv_system
-)
-:
-	charconv_system_(
-		_charconv_system
-	)
+sge::cegui::cegui_logger::cegui_logger()
 {
 }
 
@@ -61,8 +54,7 @@ sge::cegui::cegui_logger::logEvent(
 {
 	fcppt::string const converted(
 		sge::cegui::from_cegui_string(
-			_message,
-			charconv_system_
+			_message
 		)
 	);
 

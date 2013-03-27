@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/dest_encoding.hpp>
 #include <sge/charconv/source_encoding.hpp>
 #include <sge/charconv/unsupported_conversion.hpp>
+#include <sge/src/charconv/backends/windows/create_converter.hpp>
 #include <sge/src/charconv/backends/windows/is_utf16.hpp>
-#include <sge/src/charconv/backends/windows/system.hpp>
 #include <sge/src/charconv/backends/windows/utf16_to_utf32.hpp>
 #include <sge/src/charconv/backends/windows/utf32_to_utf16.hpp>
 #include <sge/src/charconv/backends/windows/utf8_to_wchar.hpp>
@@ -31,16 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr.hpp>
 
 
-sge::charconv::backends::windows::system::system()
-{
-}
-
-sge::charconv::backends::windows::system::~system()
-{
-}
-
 sge::charconv::converter_unique_ptr
-sge::charconv::backends::windows::system::create_converter(
+sge::charconv::backends::windows::create_converter(
 	sge::charconv::source_encoding const _source,
 	sge::charconv::dest_encoding const _dest
 )
@@ -55,11 +47,9 @@ sge::charconv::backends::windows::system::create_converter(
 		sge::charconv::encoding::utf32
 	)
 		return
-			sge::charconv::converter_unique_ptr(
-				fcppt::make_unique_ptr<
-					sge::charconv::backends::windows::utf16_to_utf32
-				>()
-			);
+			fcppt::make_unique_ptr<
+				sge::charconv::backends::windows::utf16_to_utf32
+			>();
 
 	if(
 		sge::charconv::backends::windows::is_utf16(
@@ -71,11 +61,9 @@ sge::charconv::backends::windows::system::create_converter(
 		sge::charconv::encoding::utf8
 	)
 		return
-			sge::charconv::converter_unique_ptr(
-				fcppt::make_unique_ptr<
-					sge::charconv::backends::windows::wchar_to_utf8
-				>()
-			);
+			fcppt::make_unique_ptr<
+				sge::charconv::backends::windows::wchar_to_utf8
+			>();
 
 	if(
 		sge::charconv::backends::windows::is_utf16(
@@ -87,11 +75,9 @@ sge::charconv::backends::windows::system::create_converter(
 		sge::charconv::encoding::utf32
 	)
 		return
-			sge::charconv::converter_unique_ptr(
-				fcppt::make_unique_ptr<
-					sge::charconv::backends::windows::utf32_to_utf16
-				>()
-			);
+			fcppt::make_unique_ptr<
+				sge::charconv::backends::windows::utf32_to_utf16
+			>();
 
 	if(
 		_source.get()
@@ -103,11 +89,9 @@ sge::charconv::backends::windows::system::create_converter(
 		)
 	)
 		return
-			sge::charconv::converter_unique_ptr(
-				fcppt::make_unique_ptr<
-					sge::charconv::backends::windows::utf8_to_wchar
-				>()
-			);
+			fcppt::make_unique_ptr<
+				sge::charconv::backends::windows::utf8_to_wchar
+			>();
 
 	throw
 		sge::charconv::unsupported_conversion(

@@ -96,8 +96,7 @@ sge::cegui::texture::texture(
 			<< this
 			<< FCPPT_TEXT(")::texture(")
 			<< sge::cegui::from_cegui_string(
-				_name,
-				texture_parameters_.charconv_system()
+				_name
 			)
 			<< FCPPT_TEXT(')')
 	);
@@ -150,8 +149,7 @@ sge::cegui::texture::texture(
 			<< this
 			<< FCPPT_TEXT(")::texture(")
 			<< sge::cegui::from_cegui_string(
-				_name,
-				texture_parameters_.charconv_system()
+				_name
 			)
 			<< FCPPT_TEXT(", ")
 			<< sge::cegui::from_cegui_size<
@@ -276,13 +274,11 @@ sge::cegui::texture::loadFromFile(
 			<< this
 			<< FCPPT_TEXT(")::loadFromFile(")
 			<< sge::cegui::from_cegui_string(
-				_filename,
-				texture_parameters_.charconv_system()
+				_filename
 			)
 			<< FCPPT_TEXT(", ")
 			<< sge::cegui::from_cegui_string(
-				_resource_group,
-				texture_parameters_.charconv_system()
+				_resource_group
 			)
 			<< FCPPT_TEXT(')')
 	);
@@ -290,7 +286,6 @@ sge::cegui::texture::loadFromFile(
 	this->create_from_view(
 		texture_parameters_.image_system().load(
 			sge::cegui::to_absolute_path(
-				texture_parameters_.charconv_system(),
 				texture_parameters_.prefix(),
 				_filename
 			)

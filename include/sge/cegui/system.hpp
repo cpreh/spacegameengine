@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/load_context_fwd.hpp>
 #include <sge/cegui/symbol.hpp>
 #include <sge/cegui/detail/system_impl_fwd.hpp>
-#include <sge/charconv/system_fwd.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
@@ -58,7 +57,6 @@ public:
 		sge::cegui::load_context const &,
 		sge::renderer::device::ffp &,
 		sge::image2d::system &,
-		sge::charconv::system &,
 		sge::viewport::manager &,
 		sge::cegui::cursor_visibility,
 		sge::renderer::texture::emulate_srgb
@@ -96,10 +94,6 @@ public:
 	SGE_CEGUI_SYMBOL
 	CEGUI::GUIContext const &
 	gui_context() const;
-
-	SGE_CEGUI_SYMBOL
-	sge::charconv::system &
-	charconv_system() const;
 private:
 	typedef fcppt::scoped_ptr<
 		sge::cegui::detail::system_impl

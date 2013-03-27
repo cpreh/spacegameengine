@@ -49,12 +49,11 @@ class parser
 FCPPT_NONASSIGNABLE(
 	parser);
 public:
+	explicit
 	parser(
-		boost::filesystem::path const &_filename,
-		sge::charconv::system &_charconv_system)
+		boost::filesystem::path const &_filename
+	)
 	:
-		charconv_system_(
-			_charconv_system),
 		parent_path_(
 			_filename.parent_path()),
 		result_(),
@@ -312,7 +311,6 @@ public:
 			current_material_ =
 				sge::model::obj::identifier(
 					sge::charconv::utf8_string_to_fcppt(
-						charconv_system_,
 						sge::charconv::utf8_string(
 							_rest_of_line.begin(),
 							_rest_of_line.end())));
@@ -373,7 +371,6 @@ public:
 							boost::filesystem::path()))));
 	}
 private:
-	sge::charconv::system &charconv_system_;
 	boost::filesystem::path const parent_path_;
 	sge::model::obj::material_map result_;
 	unsigned current_line_;
@@ -387,12 +384,12 @@ private:
 
 sge::model::obj::material_map const
 sge::model::obj::parse_mtllib(
-	boost::filesystem::path const &_filename,
-	sge::charconv::system &_charconv_system)
+	boost::filesystem::path const &_filename
+)
 {
 	parser p(
-		_filename,
-		_charconv_system);
+		_filename
+	);
 
 	return
 		p.result();

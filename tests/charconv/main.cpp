@@ -20,15 +20,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/charconv/const_raw_pointer.hpp>
 #include <sge/charconv/convert_raw.hpp>
-#include <sge/charconv/create_system.hpp>
 #include <sge/charconv/dest_encoding.hpp>
 #include <sge/charconv/encoding.hpp>
 #include <sge/charconv/encoding_to_string.hpp>
 #include <sge/charconv/raw_vector.hpp>
 #include <sge/charconv/source_encoding.hpp>
 #include <sge/charconv/string_type.hpp>
-#include <sge/charconv/system.hpp>
-#include <sge/charconv/system_scoped_ptr.hpp>
 #include <sge/charconv/unsupported_conversion.hpp>
 #include <sge/tests/charconv/test_data.hpp>
 #include <fcppt/exception.hpp>
@@ -57,7 +54,6 @@ namespace
 
 void
 test_convert_from_to(
-	sge::charconv::system &_system,
 	sge::charconv::source_encoding const _source,
 	sge::charconv::dest_encoding const _dest,
 	sge::charconv::input_range const &_raw_data
@@ -65,7 +61,6 @@ test_convert_from_to(
 {
 	sge::charconv::raw_vector const result(
 		sge::charconv::convert_raw(
-			_system,
 			_source,
 			_dest,
 			_raw_data
@@ -74,7 +69,6 @@ test_convert_from_to(
 
 	sge::charconv::raw_vector const result2(
 		sge::charconv::convert_raw(
-			_system,
 			sge::charconv::source_encoding(
 				_dest.get()
 			),
@@ -117,10 +111,6 @@ BOOST_AUTO_TEST_CASE(
 )
 {
 FCPPT_PP_POP_WARNING
-
-	sge::charconv::system_scoped_ptr const system(
-		sge::charconv::create_system()
-	);
 
 	boost::filesystem::path const test_data_path(
 		boost::filesystem::path(
@@ -169,7 +159,6 @@ FCPPT_PP_POP_WARNING
 	try
 	{
 		test_convert_from_to(
-			*system,
 			sge::charconv::source_encoding(
 				sge::charconv::encoding::utf8
 			),

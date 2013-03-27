@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/systems/audio_loader.hpp>
 #include <sge/systems/audio_player.hpp>
-#include <sge/systems/charconv.hpp>
 #include <sge/systems/config.hpp>
 #include <sge/systems/font.hpp>
 #include <sge/systems/image2d.hpp>

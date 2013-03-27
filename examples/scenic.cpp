@@ -69,7 +69,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/renderer_caps.hpp>
 #include <sge/systems/window.hpp>
-#include <sge/systems/with_charconv.hpp>
 #include <sge/systems/with_image2d.hpp>
 #include <sge/systems/with_input.hpp>
 #include <sge/systems/with_renderer.hpp>
@@ -185,7 +184,7 @@ try
 		768);
 
 	sge::systems::instance<
-		boost::mpl::vector5<
+		boost::mpl::vector4<
 			sge::systems::with_window,
 			sge::systems::with_renderer<
 				sge::systems::renderer_caps::ffp
@@ -196,7 +195,6 @@ try
 					sge::systems::mouse_collector
 				>
 			>,
-			sge::systems::with_charconv,
 			sge::systems::with_image2d
 		>
 	> const sys(
@@ -286,11 +284,11 @@ try
 	sge::scenic::scene::object test_scene(
 		scene_manager,
 		sys.viewport_manager(),
-		sys.charconv_system(),
 		*camera,
 		sge::scenic::scene::from_blender_file(
-			sge::config::media_path() / FCPPT_TEXT("scenes") / scene_name / FCPPT_TEXT("description.json"),
-			sys.charconv_system()));
+			sge::config::media_path() / FCPPT_TEXT("scenes") / scene_name / FCPPT_TEXT("description.json")
+		)
+	);
 
 	sge::timer::basic<sge::timer::clocks::standard> camera_timer(
 		sge::timer::parameters<sge::timer::clocks::standard>(

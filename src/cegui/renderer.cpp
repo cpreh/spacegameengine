@@ -299,13 +299,11 @@ sge::cegui::renderer::createTexture(
 		fcppt::log::_
 			<< FCPPT_TEXT("createTexture(")
 			<< sge::cegui::from_cegui_string(
-				_filename,
-				texture_parameters_.charconv_system()
+				_filename
 			)
 			<< FCPPT_TEXT(", ")
 			<< sge::cegui::from_cegui_string(
-				_resource_group,
-				texture_parameters_.charconv_system()
+				_resource_group
 			)
 			<< FCPPT_TEXT(')')
 	);
@@ -411,8 +409,7 @@ sge::cegui::renderer::destroyTexture(
 		fcppt::log::_
 			<< FCPPT_TEXT("destroyTexture(")
 			<< sge::cegui::from_cegui_string(
-				_name,
-				texture_parameters_.charconv_system()
+				_name
 			)
 			<< FCPPT_TEXT(')')
 	);

@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/audio/loader_fwd.hpp>
 #include <sge/audio/player_fwd.hpp>
-#include <sge/charconv/system_fwd.hpp>
 #include <sge/font/system_fwd.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/input/processor_fwd.hpp>
@@ -114,10 +113,6 @@ public:
 	SGE_SYSTEMS_SYMBOL
 	sge::audio::player &
 	audio_player() const;
-
-	SGE_SYSTEMS_SYMBOL
-	sge::charconv::system &
-	charconv_system() const;
 
 	SGE_SYSTEMS_SYMBOL
 	sge::font::system &

@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/raw_vector_fwd.hpp>
 #include <sge/charconv/source_encoding.hpp>
 #include <sge/charconv/symbol.hpp>
-#include <sge/charconv/system_fwd.hpp>
 
 
 namespace sge
@@ -37,7 +36,6 @@ namespace charconv
 SGE_CHARCONV_SYMBOL
 sge::charconv::raw_vector const
 convert_raw(
-	sge::charconv::system &,
 	sge::charconv::source_encoding,
 	sge::charconv::dest_encoding,
 	sge::charconv::input_range const &

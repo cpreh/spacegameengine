@@ -118,7 +118,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/renderer_caps.hpp>
 #include <sge/systems/window.hpp>
-#include <sge/systems/with_charconv.hpp>
 #include <sge/systems/with_font.hpp>
 #include <sge/systems/with_input.hpp>
 #include <sge/systems/with_renderer.hpp>
@@ -348,7 +347,7 @@ try
 	);
 
 	sge::systems::instance<
-		boost::mpl::vector5<
+		boost::mpl::vector4<
 			sge::systems::with_window,
 			sge::systems::with_renderer<
 				sge::systems::renderer_caps::ffp
@@ -358,8 +357,7 @@ try
 					sge::systems::keyboard_collector
 				>
 			>,
-			sge::systems::with_font,
-			sge::systems::with_charconv
+			sge::systems::with_font
 		>
 	> const sys(
 		sge::systems::make_list

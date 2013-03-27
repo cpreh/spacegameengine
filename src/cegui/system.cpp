@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/duration.hpp>
 #include <sge/cegui/load_context_fwd.hpp>
 #include <sge/cegui/system.hpp>
-#include <sge/charconv/system_fwd.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
@@ -39,7 +38,6 @@ sge::cegui::system::system(
 	sge::cegui::load_context const &_load_context,
 	sge::renderer::device::ffp &_renderer,
 	sge::image2d::system &_image_system,
-	sge::charconv::system &_charconv_system,
 	sge::viewport::manager &_viewport_manager,
 	sge::cegui::cursor_visibility const _cursor_visibility,
 	sge::renderer::texture::emulate_srgb const _emulate_srgb
@@ -52,7 +50,6 @@ sge::cegui::system::system(
 			_load_context,
 			_renderer,
 			_image_system,
-			_charconv_system,
 			_viewport_manager,
 			_cursor_visibility,
 			_emulate_srgb
@@ -111,11 +108,4 @@ sge::cegui::system::gui_context() const
 {
 	return
 		impl_->gui_context();
-}
-
-sge::charconv::system &
-sge::cegui::system::charconv_system() const
-{
-	return
-		impl_->charconv_system();
 }

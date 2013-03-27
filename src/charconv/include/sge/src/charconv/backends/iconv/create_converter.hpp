@@ -18,38 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_SYSTEMS_MODULES_CHARCONV_BASE_HPP_INCLUDED
-#define SGE_SRC_SYSTEMS_MODULES_CHARCONV_BASE_HPP_INCLUDED
+#ifndef SGE_SRC_CHARCONV_BACKENDS_ICONV_CREATE_CONVERTER_HPP_INCLUDED
+#define SGE_SRC_CHARCONV_BACKENDS_ICONV_CREATE_CONVERTER_HPP_INCLUDED
 
-#include <sge/charconv/system_fwd.hpp>
-#include <sge/src/systems/modules/charconv/base_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/charconv/converter_unique_ptr.hpp>
+#include <sge/charconv/dest_encoding.hpp>
+#include <sge/charconv/source_encoding.hpp>
 
 
 namespace sge
 {
-namespace systems
-{
-namespace modules
-{
 namespace charconv
 {
-
-class base
+namespace backends
 {
-	FCPPT_NONCOPYABLE(
-		base
-	);
-protected:
-	base();
-public:
-	virtual
-	~base() = 0;
+namespace iconv
+{
 
-	virtual
-	sge::charconv::system &
-	system() const = 0;
-};
+sge::charconv::converter_unique_ptr
+create_converter(
+	sge::charconv::source_encoding,
+	sge::charconv::dest_encoding
+);
 
 }
 }

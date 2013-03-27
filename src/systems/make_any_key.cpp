@@ -80,11 +80,6 @@ struct make_key_visitor
 	)
 
 	SGE_SYSTEMS_MAKE_KEY_CASE(
-		charconv,
-		charconv
-	)
-
-	SGE_SYSTEMS_MAKE_KEY_CASE(
 		font,
 		font
 	)

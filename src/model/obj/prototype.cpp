@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/charconv/system_fwd.hpp>
 #include <sge/charconv/utf8_string_to_fcppt.hpp>
 #include <sge/log/global.hpp>
 #include <sge/model/obj/exception.hpp>
@@ -117,8 +116,8 @@ parse_face_vertex(
 }
 
 sge::model::obj::prototype::prototype(
-	boost::filesystem::path const &_filename,
-	sge::charconv::system &_charconv_system)
+	boost::filesystem::path const &_filename
+)
 :
 	vertex_coordinates_(),
 	texture_coordinates_(),
@@ -197,7 +196,6 @@ sge::model::obj::prototype::prototype(
 			current_material =
 				sge::model::obj::identifier(
 					sge::charconv::utf8_string_to_fcppt(
-						_charconv_system,
 						sge::charconv::utf8_string(
 							rest_of_line.begin(),
 							rest_of_line.end())));

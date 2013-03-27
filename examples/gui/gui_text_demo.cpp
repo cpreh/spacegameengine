@@ -62,7 +62,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/renderer_caps.hpp>
 #include <sge/systems/window.hpp>
-#include <sge/systems/with_charconv.hpp>
 #include <sge/systems/with_image2d.hpp>
 #include <sge/systems/with_input.hpp>
 #include <sge/systems/with_renderer.hpp>
@@ -105,7 +104,7 @@ example_main(
 try
 {
 	sge::systems::instance<
-		boost::mpl::vector5<
+		boost::mpl::vector4<
 			sge::systems::with_renderer<
 				sge::systems::renderer_caps::ffp
 			>,
@@ -116,8 +115,7 @@ try
 					sge::systems::cursor_demuxer
 				>
 			>,
-			sge::systems::with_image2d,
-			sge::systems::with_charconv
+			sge::systems::with_image2d
 		>
 	> const sys(
 		sge::systems::make_list
@@ -186,7 +184,6 @@ try
 				sge::config::media_path()/FCPPT_TEXT("fonts")),
 		sys.renderer_ffp(),
 		sys.image_system(),
-		sys.charconv_system(),
 		sys.viewport_manager(),
 		sge::cegui::cursor_visibility::visible,
 		sge::renderer::texture::emulate_srgb::yes);

@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CEGUI_TO_CEGUI_STRING_HPP_INCLUDED
 
 #include <sge/cegui/symbol.hpp>
-#include <sge/charconv/system_fwd.hpp>
 #include <fcppt/string.hpp>
 
 
@@ -39,8 +38,7 @@ namespace cegui
 SGE_CEGUI_SYMBOL
 CEGUI::String const
 to_cegui_string(
-	fcppt::string const &,
-	sge::charconv::system &
+	fcppt::string const &
 );
 
 }

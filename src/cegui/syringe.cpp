@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/convert.hpp>
 #include <sge/charconv/encoding.hpp>
 #include <sge/charconv/string_type.hpp>
-#include <sge/charconv/system_fwd.hpp>
 #include <sge/input/cursor/button_code_to_string.hpp>
 #include <sge/input/cursor/button_event.hpp>
 #include <sge/input/cursor/move_event.hpp>
@@ -68,9 +67,6 @@ sge::cegui::syringe::syringe(
 	sge::cegui::system &_system
 )
 :
-	charconv_system_(
-		_system.charconv_system()
-	),
 	gui_context_(
 		_system.gui_context()
 	)
@@ -153,7 +149,6 @@ sge::cegui::syringe::inject(
 			sge::charconv::encoding::utf32,
 			sge::charconv::encoding::wchar
 		>(
-			charconv_system_,
 			std::basic_string<
 				sge::input::keyboard::char_type
 			>(

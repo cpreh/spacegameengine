@@ -358,7 +358,7 @@ set(
 	include/sge/charconv/converter.hpp
 	include/sge/charconv/converter_fwd.hpp
 	include/sge/charconv/converter_unique_ptr.hpp
-	include/sge/charconv/create_system.hpp
+	include/sge/charconv/create_converter.hpp
 	include/sge/charconv/dest_encoding.hpp
 	include/sge/charconv/encoding.hpp
 	include/sge/charconv/encoding_fwd.hpp
@@ -373,10 +373,6 @@ set(
 	include/sge/charconv/raw_vector_fwd.hpp
 	include/sge/charconv/source_encoding.hpp
 	include/sge/charconv/string_type.hpp
-	include/sge/charconv/system.hpp
-	include/sge/charconv/system_fwd.hpp
-	include/sge/charconv/system_scoped_ptr.hpp
-	include/sge/charconv/system_unique_ptr.hpp
 	include/sge/charconv/traits_type.hpp
 	include/sge/charconv/unsupported_conversion.hpp
 	include/sge/charconv/utf8_file_to_fcppt_string.hpp
@@ -3199,8 +3195,6 @@ set(
 	include/sge/systems/audio_player_fwd.hpp
 	include/sge/systems/basic_loader.hpp
 	include/sge/systems/basic_loader_fwd.hpp
-	include/sge/systems/charconv.hpp
-	include/sge/systems/charconv_fwd.hpp
 	include/sge/systems/config.hpp
 	include/sge/systems/config_fwd.hpp
 	include/sge/systems/cursor_demuxer.hpp
@@ -3224,7 +3218,6 @@ set(
 	include/sge/systems/detail/has_input_option.hpp
 	include/sge/systems/detail/has_with_audio_loader.hpp
 	include/sge/systems/detail/has_with_audio_player.hpp
-	include/sge/systems/detail/has_with_charconv.hpp
 	include/sge/systems/detail/has_with_font.hpp
 	include/sge/systems/detail/has_with_image2d.hpp
 	include/sge/systems/detail/has_with_input.hpp
@@ -3283,8 +3276,6 @@ set(
 	include/sge/systems/with_audio_loader_fwd.hpp
 	include/sge/systems/with_audio_player.hpp
 	include/sge/systems/with_audio_player_fwd.hpp
-	include/sge/systems/with_charconv.hpp
-	include/sge/systems/with_charconv_fwd.hpp
 	include/sge/systems/with_font.hpp
 	include/sge/systems/with_font_fwd.hpp
 	include/sge/systems/with_image2d.hpp

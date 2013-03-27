@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PANGO_CREATE_TEXT_LAYOUT_HPP_INCLUDED
 #define SGE_PANGO_CREATE_TEXT_LAYOUT_HPP_INCLUDED
 
-#include <sge/charconv/system_fwd.hpp>
 #include <sge/font/string.hpp>
 #include <sge/font/text_parameters_fwd.hpp>
 #include <sge/pango/pango_layout_unique_ptr.hpp>
@@ -37,7 +36,6 @@ namespace pango
 
 sge::pango::pango_layout_unique_ptr
 create_text_layout(
-	sge::charconv::system &,
 	PangoLayout &,
 	sge::font::string const &,
 	sge::font::text_parameters const &

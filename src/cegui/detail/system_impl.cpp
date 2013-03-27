@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/load_context.hpp>
 #include <sge/cegui/system.hpp>
 #include <sge/cegui/to_cegui_string.hpp>
-#include <sge/charconv/system_fwd.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
@@ -71,25 +70,18 @@ sge::cegui::detail::system_impl::system_impl(
 	sge::cegui::load_context const &_load_context,
 	sge::renderer::device::ffp &_renderer,
 	sge::image2d::system &_image_system,
-	sge::charconv::system &_charconv_system,
 	sge::viewport::manager &_viewport_manager,
 	sge::cegui::cursor_visibility const _cursor_visibility,
 	sge::renderer::texture::emulate_srgb const _emulate_srgb
 )
 :
-	charconv_system_(
-		_charconv_system
-	),
 	prefix_(
 		_load_context.scheme_file().parent_path()
 	),
-	cegui_logger_(
-		charconv_system_
-	),
+	cegui_logger_(),
 	renderer_(
 		sge::cegui::texture_parameters(
 			prefix_,
-			_charconv_system,
 			_image_system,
 			_renderer,
 			_emulate_srgb
@@ -98,9 +90,7 @@ sge::cegui::detail::system_impl::system_impl(
 	image_codec_(
 		_image_system
 	),
-	resource_provider_(
-		_charconv_system
-	),
+	resource_provider_(),
 	scoped_system_(
 		renderer_,
 		image_codec_,
@@ -130,8 +120,7 @@ sge::cegui::detail::system_impl::system_impl(
 					*_load_context.looknfeel_directory()
 				:
 					prefix_.get()
-			),
-			_charconv_system
+			)
 		)
 	);
 
@@ -143,8 +132,7 @@ sge::cegui::detail::system_impl::system_impl(
 					*_load_context.font_directory()
 				:
 					prefix_.get()
-			),
-			_charconv_system
+			)
 		)
 	);
 
@@ -156,8 +144,7 @@ sge::cegui::detail::system_impl::system_impl(
 					*_load_context.imageset_directory()
 				:
 					prefix_.get()
-			),
-			_charconv_system
+			)
 		)
 	);
 
@@ -165,8 +152,7 @@ sge::cegui::detail::system_impl::system_impl(
 		sge::cegui::to_cegui_string(
 			fcppt::filesystem::path_to_string(
 				prefix_.get()
-			),
-			_charconv_system
+			)
 		)
 	);
 
@@ -174,8 +160,7 @@ sge::cegui::detail::system_impl::system_impl(
 		sge::cegui::to_cegui_string(
 			fcppt::filesystem::path_to_string(
 				_load_context.scheme_file().filename()
-			),
-			_charconv_system
+			)
 		)
 	);
 
@@ -197,8 +182,7 @@ sge::cegui::detail::system_impl::system_impl(
 				cegui::to_cegui_string(
 					fcppt::filesystem::path_to_string(
 						_load_context.default_font()->path()
-					),
-					_charconv_system
+					)
 				)
 			)
 		);
@@ -241,13 +225,6 @@ sge::cegui::detail::system_impl::gui_context()
 {
 	return
 		gui_context_;
-}
-
-sge::charconv::system &
-sge::cegui::detail::system_impl::charconv_system() const
-{
-	return
-		charconv_system_;
 }
 
 void

@@ -54,7 +54,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::scenic::scene::object::object(
 	sge::scenic::scene::manager &_scene_manager,
 	sge::viewport::manager &_viewport_manager,
-	sge::charconv::system &_charconv_system,
 	sge::camera::base &_camera,
 	sge::scenic::scene::prototype_unique_ptr _prototype)
 :
@@ -62,8 +61,6 @@ sge::scenic::scene::object::object(
 		_scene_manager),
 	camera_(
 		_camera),
-	charconv_system_(
-		_charconv_system),
 	prototype_(
 		std::move(
 			_prototype)),
@@ -146,8 +143,7 @@ sge::scenic::scene::object::load_entities()
 			continue;
 
 		sge::model::obj::prototype const new_prototype(
-			current_entity->mesh_path().get(),
-			charconv_system_);
+			current_entity->mesh_path().get());
 
 		for(
 			sge::model::obj::material::file_sequence::const_iterator current_material_file =
@@ -157,8 +153,7 @@ sge::scenic::scene::object::load_entities()
 		{
 			sge::model::obj::material_map const new_materials(
 				sge::model::obj::parse_mtllib(
-					*current_material_file,
-					charconv_system_));
+					*current_material_file));
 
 			for(
 				sge::model::obj::material_map::const_iterator current_obj_material =

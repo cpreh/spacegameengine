@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/audio/loader_fwd.hpp>
 #include <sge/audio/player_fwd.hpp>
-#include <sge/charconv/system_fwd.hpp>
 #include <sge/font/system_fwd.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/input/processor_fwd.hpp>
@@ -39,7 +38,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/detail/instance_impl.hpp>
 #include <sge/src/systems/modules/audio/loader.hpp>
 #include <sge/src/systems/modules/audio/player.hpp>
-#include <sge/src/systems/modules/charconv/object.hpp>
 #include <sge/src/systems/modules/font/object.hpp>
 #include <sge/src/systems/modules/image2d/object.hpp>
 #include <sge/src/systems/modules/input/object.hpp>
@@ -49,7 +47,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/modules/window/object.hpp>
 #include <sge/systems/audio_loader_fwd.hpp>
 #include <sge/systems/audio_player_fwd.hpp>
-#include <sge/systems/charconv_fwd.hpp>
 #include <sge/systems/font_fwd.hpp>
 #include <sge/systems/image2d_fwd.hpp>
 #include <sge/systems/window_fwd.hpp>
@@ -81,8 +78,7 @@ sge::systems::detail::instance_impl::instance_impl(
 	audio_loader_(),
 	audio_player_(),
 	image2d_(),
-	font_(),
-	charconv_()
+	font_()
 {
 }
 
@@ -228,10 +224,6 @@ sge::systems::detail::instance_impl::init_font(
 	sge::systems::font const &_parameters
 )
 {
-	FCPPT_ASSERT_PRE(
-		charconv_
-	);
-
 	font_.take(
 		fcppt::make_unique_ptr<
 			sge::systems::modules::font::object
@@ -239,22 +231,7 @@ sge::systems::detail::instance_impl::init_font(
 			plugin_manager_.collection<
 				sge::font::system
 			>(),
-			_parameters,
-			*charconv_
-		)
-	);
-}
-
-void
-sge::systems::detail::instance_impl::init_charconv(
-	sge::systems::charconv const &_charconv
-)
-{
-	charconv_.take(
-		fcppt::make_unique_ptr<
-			sge::systems::modules::charconv::object
-		>(
-			_charconv
+			_parameters
 		)
 	);
 }
@@ -338,12 +315,6 @@ sge::audio::player &
 sge::systems::detail::instance_impl::audio_player() const
 {
 	return audio_player_->get();
-}
-
-sge::charconv::system &
-sge::systems::detail::instance_impl::charconv_system() const
-{
-	return charconv_->system();
 }
 
 sge::font::system &
