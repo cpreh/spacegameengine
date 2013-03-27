@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_INPUT_JOYPAD_BUTTON_INFO_HPP_INCLUDED
 
 #include <sge/input/symbol.hpp>
-#include <sge/input/info/optional_string.hpp>
 #include <sge/input/joypad/button_info_fwd.hpp>
+#include <fcppt/optional_string.hpp>
 
 
 namespace sge
@@ -37,15 +37,16 @@ class button_info
 {
 public:
 	SGE_INPUT_SYMBOL
-	explicit button_info(
-		input::info::optional_string const &
+	explicit
+	button_info(
+		fcppt::optional_string const &
 	);
 
 	SGE_INPUT_SYMBOL
-	input::info::optional_string const &
+	fcppt::optional_string const &
 	name() const;
 private:
-	input::info::optional_string name_;
+	fcppt::optional_string name_;
 };
 
 }

@@ -18,16 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/info/optional_string.hpp>
 #include <sge/input/joypad/absolute_axis_info.hpp>
 #include <sge/input/joypad/axis_code.hpp>
 #include <sge/input/joypad/axis_max.hpp>
 #include <sge/input/joypad/axis_min.hpp>
+#include <fcppt/optional_string.hpp>
 
 
 sge::input::joypad::absolute_axis_info::absolute_axis_info(
 	sge::input::joypad::axis_code const _code,
-	sge::input::info::optional_string const &_name,
+	fcppt::optional_string const &_name,
 	sge::input::joypad::axis_min const _min,
 	sge::input::joypad::axis_max const _max
 )
@@ -53,7 +53,7 @@ sge::input::joypad::absolute_axis_info::code() const
 	return code_;
 }
 
-sge::input::info::optional_string const &
+fcppt::optional_string const &
 sge::input::joypad::absolute_axis_info::name() const
 {
 	return name_;

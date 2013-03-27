@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_EVDEV_DEVICE_CODE_TO_STRING_CASE_HPP_INCLUDED
 #define SGE_EVDEV_DEVICE_CODE_TO_STRING_CASE_HPP_INCLUDED
 
-#include <sge/input/info/optional_string.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/optional_string.hpp>
 
 
 #define SGE_EVDEV_DEVICE_CODE_TO_STRING_CASE(\
@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 )\
 case value:\
 	return \
-		sge::input::info::optional_string(\
+		fcppt::optional_string(\
 			fcppt::from_std_string(\
 				#value\
 			)\

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_DINPUT_DEVICE_ELEMENT_NAME_HPP_INCLUDED
 
 #include <sge/dinput/di.hpp>
-#include <sge/input/info/optional_string_fwd.hpp>
+#include <fcppt/optional_string_fwd.hpp>
 
 
 namespace sge
@@ -32,7 +32,7 @@ namespace dinput
 namespace device
 {
 
-sge::input::info::optional_string const
+fcppt::optional_string const
 element_name(
 	DIDEVICEOBJECTINSTANCE const &
 );

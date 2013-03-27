@@ -29,6 +29,7 @@ set(
 	include/sge/charconv/traits_type.hpp
 	include/sge/charconv/unsupported_conversion.hpp
 	include/sge/charconv/utf8_file_to_fcppt_string.hpp
+	include/sge/charconv/utf8_file_to_fcppt_string_exn.hpp
 	include/sge/charconv/utf8_string.hpp
 	include/sge/charconv/utf8_string_to_fcppt.hpp
 	src/charconv/conversion_failed.cpp
@@ -43,6 +44,7 @@ set(
 	src/charconv/include/sge/src/charconv/fcppt_is_utf8.hpp
 	src/charconv/unsupported_conversion.cpp
 	src/charconv/utf8_file_to_fcppt_string.cpp
+	src/charconv/utf8_file_to_fcppt_string_exn.cpp
 	src/charconv/utf8_string_to_fcppt.cpp
 )
 

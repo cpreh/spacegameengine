@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/config/getenv.hpp>
-#include <sge/config/optional_string.hpp>
+#include <fcppt/optional_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/config/platform.hpp>
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #endif
 
 
-sge::config::optional_string const
+fcppt::optional_string const
 sge::config::getenv(
 	fcppt::string const &_name
 )
@@ -65,7 +65,7 @@ sge::config::getenv(
 	if(
 		ret == 0
 	)
-		return sge::config::optional_string();
+		return fcppt::optional_string();
 
 	FCPPT_ASSERT_ERROR(
 		ret <=
@@ -77,7 +77,7 @@ sge::config::getenv(
 	);
 
 	return
-		sge::config::optional_string(
+		fcppt::optional_string(
 			fcppt::string(
 				buffer.data()
 			)
@@ -96,12 +96,12 @@ sge::config::getenv(
 		!=
 		nullptr
 		?
-			sge::config::optional_string(
+			fcppt::optional_string(
 				fcppt::from_std_string(
 					ret
 				)
 			)
 		:
-			sge::config::optional_string();
+			fcppt::optional_string();
 #endif
 }

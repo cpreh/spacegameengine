@@ -18,22 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/charconv/exception.hpp>
 #include <sge/charconv/utf8_file_to_fcppt_string.hpp>
 #include <sge/charconv/utf8_string.hpp>
 #include <sge/charconv/utf8_string_to_fcppt.hpp>
+#include <fcppt/optional_string.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <boost/filesystem/path.hpp>
 #include <iterator>
-#include <string>
 #include <fcppt/config/external_end.hpp>
 
 
-fcppt::string const
+fcppt::optional_string const
 sge::charconv::utf8_file_to_fcppt_string(
 	boost::filesystem::path const &_path
 )
@@ -45,26 +42,22 @@ sge::charconv::utf8_file_to_fcppt_string(
 	if(
 		!file_stream.is_open()
 	)
-		throw
-			sge::charconv::exception(
-				FCPPT_TEXT("Couldn't open file \"")
-				+
-				fcppt::filesystem::path_to_string(
-					_path
-				)
-			);
+		return
+			fcppt::optional_string();
 
 	typedef std::istreambuf_iterator<
 		char
 	> iterator;
 
 	return
-		sge::charconv::utf8_string_to_fcppt(
-			sge::charconv::utf8_string(
-				iterator(
-					file_stream
-				),
-				iterator()
+		fcppt::optional_string(
+			sge::charconv::utf8_string_to_fcppt(
+				sge::charconv::utf8_string(
+					iterator(
+						file_stream
+					),
+					iterator()
+				)
 			)
 		);
 }

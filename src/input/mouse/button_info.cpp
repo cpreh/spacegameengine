@@ -18,14 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/info/optional_string.hpp>
 #include <sge/input/mouse/button_code.hpp>
 #include <sge/input/mouse/button_info.hpp>
+#include <fcppt/optional_string.hpp>
 
 
 sge::input::mouse::button_info::button_info(
 	sge::input::mouse::button_code const _code,
-	sge::input::info::optional_string const &_name
+	fcppt::optional_string const &_name
 )
 :
 	code_(
@@ -43,7 +43,7 @@ sge::input::mouse::button_info::code() const
 	return code_;
 }
 
-sge::input::info::optional_string const &
+fcppt::optional_string const &
 sge::input::mouse::button_info::name() const
 {
 	return name_;

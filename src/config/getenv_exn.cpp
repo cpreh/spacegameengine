@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/config/getenv.hpp>
 #include <sge/config/getenv_exn.hpp>
 #include <sge/config/no_such_env_var.hpp>
-#include <sge/config/optional_string.hpp>
+#include <fcppt/optional_string.hpp>
 #include <fcppt/string.hpp>
 
 
@@ -30,7 +30,7 @@ sge::config::getenv_exn(
 	fcppt::string const &_name
 )
 {
-	sge::config::optional_string const ret(
+	fcppt::optional_string const ret(
 		sge::config::getenv(
 			_name
 		)

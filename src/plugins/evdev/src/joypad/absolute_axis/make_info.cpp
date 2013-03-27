@@ -24,10 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/evdev/joypad/absolute_axis/make_info.hpp>
 #include <sge/evdev/joypad/absolute_axis/make_string.hpp>
 #include <sge/input/exception.hpp>
-#include <sge/input/info/optional_string.hpp>
 #include <sge/input/joypad/absolute_axis_info.hpp>
 #include <sge/input/joypad/axis_max.hpp>
 #include <sge/input/joypad/axis_min.hpp>
+#include <fcppt/optional_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <linux/input.h>

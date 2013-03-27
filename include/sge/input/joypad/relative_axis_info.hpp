@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_INPUT_JOYPAD_RELATIVE_AXIS_INFO_HPP_INCLUDED
 
 #include <sge/input/symbol.hpp>
-#include <sge/input/info/optional_string.hpp>
 #include <sge/input/joypad/axis_code.hpp>
 #include <sge/input/joypad/relative_axis_info_fwd.hpp>
+#include <fcppt/optional_string.hpp>
 
 
 namespace sge
@@ -40,7 +40,7 @@ public:
 	SGE_INPUT_SYMBOL
 	relative_axis_info(
 		sge::input::joypad::axis_code,
-		sge::input::info::optional_string const &
+		fcppt::optional_string const &
 	);
 
 	SGE_INPUT_SYMBOL
@@ -48,12 +48,12 @@ public:
 	code() const;
 
 	SGE_INPUT_SYMBOL
-	sge::input::info::optional_string const &
+	fcppt::optional_string const &
 	name() const;
 private:
 	sge::input::joypad::axis_code code_;
 
-	sge::input::info::optional_string name_;
+	fcppt::optional_string name_;
 };
 
 }

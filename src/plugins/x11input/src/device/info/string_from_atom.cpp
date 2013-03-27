@@ -18,17 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/info/optional_string.hpp>
 #include <sge/x11input/atom_name.hpp>
 #include <sge/x11input/device/info/string_from_atom.hpp>
 #include <awl/backends/x11/display_fwd.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/optional_string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/Xlib.h>
 #include <fcppt/config/external_end.hpp>
 
 
-sge::input::info::optional_string const
+fcppt::optional_string const
 sge::x11input::device::info::string_from_atom(
 	awl::backends::x11::display &_display,
 	Atom const _atom
@@ -37,9 +37,9 @@ sge::x11input::device::info::string_from_atom(
 	return
 		_atom == None
 		?
-			sge::input::info::optional_string()
+			fcppt::optional_string()
 		:
-			sge::input::info::optional_string(
+			fcppt::optional_string(
 				fcppt::from_std_string(
 					x11input::atom_name(
 						_display,

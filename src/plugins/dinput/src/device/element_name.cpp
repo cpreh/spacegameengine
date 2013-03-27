@@ -20,14 +20,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/dinput/di.hpp>
 #include <sge/dinput/device/element_name.hpp>
-#include <sge/input/info/optional_string.hpp>
+#include <fcppt/optional_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstddef>
 #include <fcppt/config/external_end.hpp>
 
 
-sge::input::info::optional_string const
+fcppt::optional_string const
 sge::dinput::device::element_name(
 	DIDEVICEOBJECTINSTANCE const &_data
 )
@@ -40,9 +40,9 @@ sge::dinput::device::element_name(
 			tszName
 		)
 		?
-			sge::input::info::optional_string()
+			fcppt::optional_string()
 		:
-			sge::input::info::optional_string(
+			fcppt::optional_string(
 				fcppt::string(
 					_data.tszName
 				)

@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #if defined(FCPPT_CONFIG_POSIX_PLATFORM)
 #include <sge/config/getenv.hpp>
 #include <sge/config/homedir.hpp>
-#include <sge/config/optional_string.hpp>
+#include <fcppt/optional_string.hpp>
 #elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 #include <sge/config/getenv_exn.hpp>
 #endif
@@ -53,7 +53,7 @@ sge::config::config_path(
 			_app_name.get()
 		);
 #elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
-	sge::config::optional_string const xdg_config_path(
+	fcppt::optional_string const xdg_config_path(
 		sge::config::getenv(
 			FCPPT_TEXT("XDG_CONFIG_HOME")
 		)

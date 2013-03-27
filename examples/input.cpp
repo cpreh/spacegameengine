@@ -45,7 +45,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/remove_event.hpp>
 #include <sge/input/cursor/scroll_code_to_string.hpp>
 #include <sge/input/cursor/scroll_event.hpp>
-#include <sge/input/info/optional_string.hpp>
 #include <sge/input/joypad/absolute_axis_event.hpp>
 #include <sge/input/joypad/absolute_axis_info.hpp>
 #include <sge/input/joypad/absolute_axis_info_container.hpp>
@@ -135,6 +134,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/exception.hpp>
 #include <fcppt/from_std_wstring.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
+#include <fcppt/optional_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/io/cerr.hpp>
@@ -159,7 +159,7 @@ namespace
 
 fcppt::string const
 output_optional_string(
-	sge::input::info::optional_string const &
+	fcppt::optional_string const &
 );
 
 fcppt::string const
@@ -628,7 +628,7 @@ namespace
 
 fcppt::string const
 output_optional_string(
-	sge::input::info::optional_string const &_name
+	fcppt::optional_string const &_name
 )
 {
 	return

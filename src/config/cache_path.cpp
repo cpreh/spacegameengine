@@ -20,10 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/config/app_name.hpp>
 #include <sge/config/cache_path.hpp>
-#include <sge/config/optional_string.hpp>
 #include <sge/src/config/try_create_path.hpp>
-#include <fcppt/config/platform.hpp>
+#include <fcppt/optional_string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/platform.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -54,7 +54,7 @@ sge::config::cache_path(
 			_app_name.get()
 		);
 #elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
-	sge::config::optional_string const xdg_cache_path(
+	fcppt::optional_string const xdg_cache_path(
 		sge::config::getenv(
 			FCPPT_TEXT("XDG_CACHE_HOME")
 		)

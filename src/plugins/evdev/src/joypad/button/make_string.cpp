@@ -21,14 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/evdev/device/code_to_string_case.hpp>
 #include <sge/evdev/device/event_type.hpp>
 #include <sge/evdev/joypad/button/make_string.hpp>
-#include <sge/input/info/optional_string.hpp>
+#include <fcppt/optional_string.hpp>
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <linux/input.h>
 #include <fcppt/config/external_end.hpp>
 
 
-sge::input::info::optional_string const
+fcppt::optional_string const
 sge::evdev::joypad::button::make_string(
 	sge::evdev::device::event_type const _event
 )
@@ -124,6 +124,6 @@ sge::evdev::joypad::button::make_string(
 		);
 		default:
 			return
-				sge::input::info::optional_string();
+				fcppt::optional_string();
 	}
 }

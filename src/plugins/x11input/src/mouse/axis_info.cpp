@@ -18,13 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/info/optional_string.hpp>
 #include <sge/input/mouse/axis_info.hpp>
 #include <sge/x11input/device/info/string_from_atom.hpp>
 #include <sge/x11input/mouse/axis_code.hpp>
 #include <sge/x11input/mouse/axis_info.hpp>
 #include <sge/x11input/mouse/axis_value.hpp>
 #include <awl/backends/x11/display_fwd.hpp>
+#include <fcppt/optional_string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
@@ -36,8 +36,8 @@ sge::x11input::mouse::axis_info(
 	awl::backends::x11::display &_display
 )
 {
-	sge::input::info::optional_string const name(
-		x11input::device::info::string_from_atom(
+	fcppt::optional_string const name(
+		sge::x11input::device::info::string_from_atom(
 			_display,
 			_info.label
 		)
@@ -45,7 +45,7 @@ sge::x11input::mouse::axis_info(
 
 	return
 		sge::input::mouse::axis_info(
-			mouse::axis_code(
+			sge::x11input::mouse::axis_code(
 				name
 			),
 			name

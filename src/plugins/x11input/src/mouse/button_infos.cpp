@@ -23,6 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/info/string_from_atom.hpp>
 #include <sge/x11input/mouse/button_code.hpp>
 #include <sge/x11input/mouse/button_infos.hpp>
+#include <awl/backends/x11/display_fwd.hpp>
+#include <fcppt/optional_string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
@@ -42,8 +44,8 @@ sge::x11input::mouse::button_infos(
 		++button_index
 	)
 	{
-		sge::input::info::optional_string const name(
-			x11input::device::info::string_from_atom(
+		fcppt::optional_string const name(
+			sge::x11input::device::info::string_from_atom(
 				_display,
 				_info.labels[
 					button_index
@@ -53,7 +55,7 @@ sge::x11input::mouse::button_infos(
 
 		ret.push_back(
 			sge::input::mouse::button_info(
-				x11input::mouse::button_code(
+				sge::x11input::mouse::button_code(
 					name
 				),
 				name

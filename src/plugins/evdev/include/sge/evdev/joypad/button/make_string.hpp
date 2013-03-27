@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_EVDEV_JOYPAD_BUTTON_MAKE_STRING_HPP_INCLUDED
 
 #include <sge/evdev/device/event_type.hpp>
-#include <sge/input/info/optional_string_fwd.hpp>
+#include <fcppt/optional_string_fwd.hpp>
 
 
 namespace sge
@@ -34,7 +34,7 @@ namespace joypad
 namespace button
 {
 
-sge::input::info::optional_string const
+fcppt::optional_string const
 make_string(
 	sge::evdev::device::event_type
 );

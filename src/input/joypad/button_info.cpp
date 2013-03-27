@@ -19,9 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/input/joypad/button_info.hpp>
+#include <fcppt/optional_string.hpp>
+
 
 sge::input::joypad::button_info::button_info(
-	input::info::optional_string const &_name
+	fcppt::optional_string const &_name
 )
 :
 	name_(
@@ -30,7 +32,7 @@ sge::input::joypad::button_info::button_info(
 {
 }
 
-sge::input::info::optional_string const &
+fcppt::optional_string const &
 sge::input::joypad::button_info::name() const
 {
 	return name_;

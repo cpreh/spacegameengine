@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/charconv/utf8_file_to_fcppt_string.hpp>
+#include <sge/charconv/utf8_file_to_fcppt_string_exn.hpp>
 #include <sge/tests/charconv/test_data.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/text.hpp>
@@ -41,7 +41,7 @@ BOOST_AUTO_TEST_CASE(
 FCPPT_PP_POP_WARNING
 
 	fcppt::string const result(
-		sge::charconv::utf8_file_to_fcppt_string(
+		sge::charconv::utf8_file_to_fcppt_string_exn(
 			boost::filesystem::path(
 				SGE_TESTS_CHARCONV_TEST_DATA
 			)

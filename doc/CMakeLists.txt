@@ -377,6 +377,7 @@ set(
 	include/sge/charconv/traits_type.hpp
 	include/sge/charconv/unsupported_conversion.hpp
 	include/sge/charconv/utf8_file_to_fcppt_string.hpp
+	include/sge/charconv/utf8_file_to_fcppt_string_exn.hpp
 	include/sge/charconv/utf8_string.hpp
 	include/sge/charconv/utf8_string_to_fcppt.hpp
 	include/sge/class_symbol.hpp
@@ -390,8 +391,6 @@ set(
 	include/sge/config/homedir.hpp
 	include/sge/config/media_path.hpp
 	include/sge/config/no_such_env_var.hpp
-	include/sge/config/optional_string.hpp
-	include/sge/config/optional_string_fwd.hpp
 	include/sge/config/own_app_name.hpp
 	include/sge/config/plugin_path.hpp
 	include/sge/config/user_name.hpp
@@ -1012,8 +1011,6 @@ set(
 	include/sge/input/info/container_fwd.hpp
 	include/sge/input/info/id.hpp
 	include/sge/input/info/name.hpp
-	include/sge/input/info/optional_string.hpp
-	include/sge/input/info/optional_string_fwd.hpp
 	include/sge/input/info/unique_id.hpp
 	include/sge/input/joypad/absolute_axis.hpp
 	include/sge/input/joypad/absolute_axis_callback.hpp

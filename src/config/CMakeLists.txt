@@ -32,8 +32,6 @@ set(
 	include/sge/config/homedir.hpp
 	include/sge/config/media_path.hpp
 	include/sge/config/no_such_env_var.hpp
-	include/sge/config/optional_string.hpp
-	include/sge/config/optional_string_fwd.hpp
 	include/sge/config/own_app_name.hpp
 	include/sge/config/plugin_path.hpp
 	include/sge/config/user_name.hpp

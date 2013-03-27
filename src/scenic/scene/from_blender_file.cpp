@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/camera/coordinate_system/object.hpp>
-#include <sge/charconv/utf8_file_to_fcppt_string.hpp>
+#include <sge/charconv/utf8_file_to_fcppt_string_exn.hpp>
 #include <sge/image/color/init.hpp>
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/rgb32f.hpp>
@@ -440,7 +440,7 @@ sge::scenic::scene::from_blender_file(
 {
 	sge::parse::json::object const json_file(
 		sge::parse::json::parse_string_exn(
-			sge::charconv::utf8_file_to_fcppt_string(
+			sge::charconv::utf8_file_to_fcppt_string_exn(
 				_path)).object());
 
 	// The prototype is created with the world properties in the

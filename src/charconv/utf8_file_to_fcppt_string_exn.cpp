@@ -18,23 +18,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CONFIG_OPTIONAL_STRING_FWD_HPP_INCLUDED
-#define SGE_CONFIG_OPTIONAL_STRING_FWD_HPP_INCLUDED
-
-#include <fcppt/optional_fwd.hpp>
+#include <sge/charconv/exception.hpp>
+#include <sge/charconv/utf8_file_to_fcppt_string.hpp>
+#include <sge/charconv/utf8_file_to_fcppt_string_exn.hpp>
+#include <fcppt/optional_string.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/filesystem/path_to_string.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
-namespace sge
+fcppt::string const
+sge::charconv::utf8_file_to_fcppt_string_exn(
+	boost::filesystem::path const &_path
+)
 {
-namespace config
-{
+	fcppt::optional_string const optional_content(
+		sge::charconv::utf8_file_to_fcppt_string(
+			_path
+		)
+	);
 
-typedef fcppt::optional<
-	fcppt::string
-> optional_string;
+	if(
+		!optional_content
+	)
+		throw
+			sge::charconv::exception(
+				FCPPT_TEXT("Couldn't open file ")
+				+
+				fcppt::filesystem::path_to_string(
+					_path
+				)
+			);
 
+	return
+		*optional_content;
 }
-}
-
-#endif
