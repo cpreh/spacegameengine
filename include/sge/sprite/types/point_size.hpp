@@ -38,12 +38,12 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
-	typename Choices
+	typename TypeChoices
 >
 struct point_size
 :
 sge::sprite::types::basic::unit<
-	typename Choices::type_choices
+	TypeChoices
 >
 {
 };

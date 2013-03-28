@@ -44,6 +44,7 @@ public:
 		fcppt::string const &
 	);
 
+	SGE_RESOURCE_TREE_SYMBOL
 	explicit
 	exception(
 		fcppt::assert_::information const &

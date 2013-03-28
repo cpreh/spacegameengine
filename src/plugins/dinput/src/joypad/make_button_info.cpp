@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/dinput/di.hpp>
 #include <sge/dinput/device/element_name.hpp>
 #include <sge/dinput/joypad/make_button_info.hpp>
-#include <sge/input/info/optional_string.hpp>
 #include <sge/input/joypad/button_info.hpp>
+#include <fcppt/optional_string.hpp>
 
 
 sge::input::joypad::button_info const
