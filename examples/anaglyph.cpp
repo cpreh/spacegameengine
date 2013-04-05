@@ -168,7 +168,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/random/variate.hpp>
-#include <fcppt/random/distribution/uniform_real.hpp>
+#include <fcppt/random/distribution/basic.hpp>
+#include <fcppt/random/distribution/parameters/uniform_real.hpp>
 #include <fcppt/random/generator/minstd_rand.hpp>
 #include <fcppt/random/generator/seed_from_chrono.hpp>
 #include <fcppt/signal/auto_connection.hpp>
@@ -513,8 +514,10 @@ random_model_collection::random_model_collection(
 			generator_type::seed
 		>());
 
-	typedef fcppt::random::distribution::uniform_real<
-		sge::renderer::scalar
+	typedef fcppt::random::distribution::basic<
+		fcppt::random::distribution::parameters::uniform_real<
+			sge::renderer::scalar
+		>
 	> distribution;
 
 	typedef fcppt::random::variate<
@@ -525,21 +528,28 @@ random_model_collection::random_model_collection(
 	variate position_rng(
 		generator,
 		distribution(
-			distribution::min(
+			distribution::param_type::min(
 				-position_range
 			),
-			distribution::sup(
-				position_range)));
+			distribution::param_type::sup(
+				position_range
+			)
+		)
+	);
 
 	variate angle_rng(
 		generator,
 		distribution(
-			distribution::min(
-				0.f),
-				distribution::sup(
-					fcppt::math::twopi<
-						sge::renderer::scalar
-					>())));
+			distribution::param_type::min(
+				0.f
+			),
+			distribution::param_type::sup(
+				fcppt::math::twopi<
+					sge::renderer::scalar
+				>()
+			)
+		)
+	);
 
 	model_sequence::size_type const number_of_models =
 		100;

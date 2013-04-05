@@ -33,7 +33,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/random/variate.hpp>
-#include <fcppt/random/distribution/uniform_int.hpp>
+#include <fcppt/random/distribution/basic.hpp>
+#include <fcppt/random/distribution/parameters/uniform_int.hpp>
 #include <fcppt/random/generator/minstd_rand.hpp>
 #include <fcppt/random/generator/seed_from_chrono.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -70,24 +71,26 @@ try
 			default_generator::seed
 		>());
 
-	typedef fcppt::random::distribution::uniform_int<
-		sge::rucksack::scalar
+	typedef fcppt::random::distribution::basic<
+		fcppt::random::distribution::parameters::uniform_int<
+			sge::rucksack::scalar
+		>
 	> scalar_distribution;
 
 	fcppt::random::variate<default_generator, scalar_distribution>
 		size_rng_w(
 			def_gen,
 			scalar_distribution(
-				scalar_distribution::min(
+				scalar_distribution::param_type::min(
 					10),
-				scalar_distribution::max(
+				scalar_distribution::param_type::max(
 					300))),
 		size_rng_h(
 			def_gen,
 			scalar_distribution(
-				scalar_distribution::min(
+				scalar_distribution::param_type::min(
 					10),
-				scalar_distribution::max(
+				scalar_distribution::param_type::max(
 					300)));
 
 	typedef

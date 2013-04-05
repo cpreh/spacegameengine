@@ -97,8 +97,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/random/variate.hpp>
-#include <fcppt/random/distribution/uniform_int.hpp>
-#include <fcppt/random/distribution/uniform_real.hpp>
+#include <fcppt/random/distribution/basic.hpp>
+#include <fcppt/random/distribution/parameters/uniform_real.hpp>
 #include <fcppt/random/generator/minstd_rand.hpp>
 #include <fcppt/random/generator/seed_from_chrono.hpp>
 #include <fcppt/signal/auto_connection.hpp>
@@ -457,7 +457,13 @@ try
 		fcppt::random::generator::seed_from_chrono<generator_type::seed>());
 
 	typedef
-	fcppt::random::distribution::uniform_real<sge::renderer::scalar>
+	fcppt::random::distribution::basic
+	<
+		fcppt::random::distribution::parameters::uniform_real
+		<
+			sge::renderer::scalar
+		>
+	>
 	real_distribution;
 
 	typedef
@@ -468,43 +474,20 @@ try
 	>
 	real_variate;
 
-	/*
-	typedef
-	fcppt::random::distribution::uniform_int<unsigned>
-	unsigned_distribution;
-
-	typedef
-	fcppt::random::variate
-	<
-		generator_type,
-		unsigned_distribution
-	>
-	unsigned_variate;
-
-	unsigned_variate
-		object_count_rng(
-			generator,
-			unsigned_distribution(
-				unsigned_distribution::min(
-					5u),
-				unsigned_distribution::max(
-					50u)));
-					*/
-
 	real_variate
 		screen_size_rng(
 			generator,
 			real_distribution(
-				real_distribution::min(
+				real_distribution::param_type::min(
 					static_cast<sge::renderer::scalar>(window_dim.h())/8.0f),
-				real_distribution::sup(
+				real_distribution::param_type::sup(
 					static_cast<sge::renderer::scalar>(window_dim.h()) - static_cast<sge::renderer::scalar>(window_dim.h())/8.0f))),
 		size_rng(
 			generator,
 			real_distribution(
-				real_distribution::min(
+				real_distribution::param_type::min(
 					static_cast<sge::renderer::scalar>(window_dim.h())/16.0f),
-				real_distribution::sup(
+				real_distribution::param_type::sup(
 					static_cast<sge::renderer::scalar>(window_dim.h())/4.0f)));
 
 

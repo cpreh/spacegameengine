@@ -65,7 +65,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/level.hpp>
 #include <fcppt/log/location.hpp>
 #include <fcppt/random/variate.hpp>
-#include <fcppt/random/distribution/uniform_real.hpp>
+#include <fcppt/random/distribution/basic.hpp>
+#include <fcppt/random/distribution/parameters/uniform_real.hpp>
 #include <fcppt/random/generator/minstd_rand.hpp>
 #include <fcppt/random/generator/seed_from_chrono.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -156,8 +157,10 @@ try
 		>()
 	);
 
-	typedef fcppt::random::distribution::uniform_real<
-		double
+	typedef fcppt::random::distribution::basic<
+		fcppt::random::distribution::parameters::uniform_real<
+			double
+		>
 	> uniform_real;
 
 	typedef fcppt::random::variate<
@@ -168,10 +171,10 @@ try
 	variate rng(
 		generator,
 		uniform_real(
-			uniform_real::min(
+			uniform_real::param_type::min(
 				-100.
 			),
-			uniform_real::sup(
+			uniform_real::param_type::sup(
 				100.
 			)
 		)

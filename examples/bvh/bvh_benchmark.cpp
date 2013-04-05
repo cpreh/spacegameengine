@@ -28,7 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/random/variate.hpp>
-#include <fcppt/random/distribution/uniform_real.hpp>
+#include <fcppt/random/distribution/basic.hpp>
+#include <fcppt/random/distribution/parameters/uniform_real.hpp>
 #include <fcppt/random/generator/minstd_rand.hpp>
 #include <fcppt/random/generator/seed_from_chrono.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -88,7 +89,13 @@ try
 		fcppt::random::generator::seed_from_chrono<generator_type::seed>());
 
 	typedef
-	fcppt::random::distribution::uniform_real<float>
+	fcppt::random::distribution::basic
+	<
+		fcppt::random::distribution::parameters::uniform_real
+		<
+			float
+		>
+	>
 	real_distribution;
 
 	typedef
@@ -103,16 +110,16 @@ try
 		screen_size_rng(
 			generator,
 			real_distribution(
-				real_distribution::min(
+				real_distribution::param_type::min(
 					total_bounding_box.h()/8.0f),
-				real_distribution::sup(
+				real_distribution::param_type::sup(
 					total_bounding_box.h() - total_bounding_box.h()/8.0f))),
 		size_rng(
 			generator,
 			real_distribution(
-				real_distribution::min(
-					total_bounding_box.h()/16.0f),
-				real_distribution::sup(
+				real_distribution::param_type::min(
+						total_bounding_box.h()/16.0f),
+				real_distribution::param_type::sup(
 					total_bounding_box.h()/4.0f)));
 
 

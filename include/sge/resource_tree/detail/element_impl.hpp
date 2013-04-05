@@ -29,7 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/assert/throw.hpp>
 #include <fcppt/random/variate_impl.hpp>
-#include <fcppt/random/distribution/uniform_int_impl.hpp>
+#include <fcppt/random/distribution/basic_impl.hpp>
+#include <fcppt/random/distribution/parameters/uniform_int_impl.hpp>
 
 
 template<
@@ -52,11 +53,11 @@ sge::resource_tree::detail::element<
 		_rng,
 		// TODO: Create something else for this!
 		container_distribution(
-			typename container_distribution::min(
+			typename container_distribution::param_type::min(
 				0u),
 			// Empty resource containers are allowed.
 			// In this case, rng_ should not be used.
-			typename container_distribution::max(
+			typename container_distribution::param_type::max(
 				resources_.empty()
 				?
 					0u

@@ -25,7 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/grid/interpolate.hpp>
 #include <fcppt/math/mod.hpp>
 #include <fcppt/random/variate.hpp>
-#include <fcppt/random/distribution/uniform_real.hpp>
+#include <fcppt/random/distribution/basic.hpp>
+#include <fcppt/random/distribution/parameters/uniform_real.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
 #include <fcppt/config/external_end.hpp>
@@ -49,29 +50,42 @@ sge::noise::perlin::object<Float,N,Interpolator>::object(
 		_size)
 {
 	typedef
-	fcppt::random::distribution::uniform_real<value_type>
+	fcppt::random::distribution::basic
+	<
+		fcppt::random::distribution::parameters::uniform_real
+		<
+			value_type
+		>
+	>
 	uniform_real_distribution;
 
 	typedef
-	fcppt::random::variate<Rng,uniform_real_distribution>
+	typename
+	uniform_real_distribution::param_type
+	distribution_parameters;
+
+	typedef
+	fcppt::random::variate
+	<
+		Rng,
+		uniform_real_distribution
+	>
 	variate;
 
 	variate v(
 		_random_generator,
 		uniform_real_distribution(
-			typename uniform_real_distribution::min(
+			typename distribution_parameters::min(
 				static_cast<value_type>(
 					-1)),
-			typename uniform_real_distribution::sup(
+			typename distribution_parameters::sup(
 				static_cast<value_type>(
 					1))));
 
 	for(
-		typename grid_type::iterator it =
-			gradients_.begin();
-		it != gradients_.end();
-		++it)
-		*it = v();
+		auto &elem : gradients_
+	)
+		elem = v();
 }
 
 template
