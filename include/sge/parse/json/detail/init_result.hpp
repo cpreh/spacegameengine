@@ -18,69 +18,71 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CG_PARAMETER_MATRIX_SET_HPP_INCLUDED
-#define SGE_CG_PARAMETER_MATRIX_SET_HPP_INCLUDED
+#ifndef SGE_PARSE_JSON_DETAIL_INIT_RESULT_HPP_INCLUDED
+#define SGE_PARSE_JSON_DETAIL_INIT_RESULT_HPP_INCLUDED
 
-#include <sge/cg/parameter/is_int_float_double.hpp>
-#include <sge/cg/parameter/object_fwd.hpp>
-#include <sge/cg/parameter/detail/check_base_type.hpp>
-#include <sge/cg/parameter/matrix/detail/check_size.hpp>
-#include <sge/cg/parameter/matrix/detail/set.hpp>
-#include <fcppt/math/matrix/object_impl.hpp>
-#include <fcppt/math/matrix/size.hpp>
+#include <fcppt/algorithm/array_init.hpp>
+#include <fcppt/math/dim/is_dim.hpp>
+#include <fcppt/math/matrix/is_matrix.hpp>
+#include <fcppt/math/vector/is_vector.hpp>
+#include <fcppt/type_traits/is_std_array.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/or.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
 namespace sge
 {
-namespace cg
+namespace parse
 {
-namespace parameter
+namespace json
 {
-namespace matrix
+namespace detail
 {
 
 template<
-	typename T,
-	typename N,
-	typename M,
-	typename S
+	typename T
 >
 typename boost::enable_if<
-	sge::cg::parameter::is_int_float_double<
+	boost::mpl::or_<
+		fcppt::math::matrix::is_matrix<
+			T
+		>,
+		fcppt::math::vector::is_vector<
+			T
+		>,
+		fcppt::math::dim::is_dim<
+			T
+		>
+	>,
+	T
+>::type
+init_result()
+{
+	return
+		T::null();
+}
+
+template<
+	typename T
+>
+typename boost::enable_if<
+	fcppt::type_traits::is_std_array<
 		T
 	>,
-	void
+	T
 >::type
-set(
-	sge::cg::parameter::object const &_parameter,
-	fcppt::math::matrix::object<
-		T,
-		N,
-		M,
-		S
-	> const &_matrix
-)
+init_result()
 {
-	sge::cg::parameter::matrix::detail::check_size(
-		_parameter,
-		fcppt::math::matrix::size(
-			_matrix
-		)
-	);
-
-	sge::cg::parameter::detail::check_base_type<
-		T
-	>(
-		_parameter
-	);
-
-	sge::cg::parameter::matrix::detail::set(
-		_parameter,
-		_matrix
-	);
+	return
+		fcppt::algorithm::array_init<
+			T
+		>(
+			sge::parse::json::detail::init_result<
+				typename T::value_type
+			>()
+		);
 }
 
 }

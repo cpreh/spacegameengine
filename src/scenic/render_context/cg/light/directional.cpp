@@ -53,25 +53,25 @@ sge::scenic::render_context::cg::light::directional::directional(
 		param_name(
 			_index,
 			"diffuse_color"),
-		sge::renderer::vector4()),
+		sge::renderer::vector4::null()),
 	specular_color_(
 		_program,
 		param_name(
 			_index,
 			"specular_color"),
-		sge::renderer::vector4()),
+		sge::renderer::vector4::null()),
 	ambient_color_(
 		_program,
 		param_name(
 			_index,
 			"ambient_color"),
-		sge::renderer::vector4()),
+		sge::renderer::vector4::null()),
 	camera_space_direction_(
 		_program,
 		param_name(
 			_index,
 			"camera_space_direction"),
-		sge::renderer::vector3())
+		sge::renderer::vector3::null())
 {
 }
 

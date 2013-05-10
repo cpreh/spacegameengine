@@ -18,76 +18,61 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_DETAIL_RAW_DATA_HPP_INCLUDED
-#define SGE_RENDERER_VF_DETAIL_RAW_DATA_HPP_INCLUDED
+#ifndef SGE_SPRITE_DETAIL_PARAMETERS_TO_ELEMENTS_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_PARAMETERS_TO_ELEMENTS_HPP_INCLUDED
 
-#include <sge/renderer/vf/detail/raw_data_type.hpp>
+#include <majutsu/is_role.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
-#include <type_traits>
+#include <boost/fusion/algorithm/transformation/filter_if.hpp>
+#include <boost/fusion/container/vector/convert.hpp>
+#include <boost/fusion/include/mpl.hpp>
+#include <boost/mpl/and.hpp>
+#include <boost/mpl/contains.hpp>
+#include <boost/mpl/lambda.hpp>
+#include <boost/mpl/not.hpp>
+#include <boost/mpl/placeholders.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
 namespace sge
 {
-namespace renderer
-{
-namespace vf
+namespace sprite
 {
 namespace detail
 {
+namespace parameters
+{
 
 template<
-	typename T
+	typename Dest,
+	typename Source
 >
-typename boost::disable_if<
-	std::is_fundamental<
-		T
-	>,
-	typename
-	sge::renderer::vf::detail::raw_data_type<
-		T
-	>::type
->::type
-raw_data(
-	T &_value
+Dest const
+to_elements(
+	Source const &_source
 )
 {
 	return
-		reinterpret_cast<
-			typename
-			sge::renderer::vf::detail::raw_data_type<
-				T
-			>::type
-		>(
-			_value.data()
-		);
-}
-
-template<
-	typename T
->
-typename boost::enable_if<
-	std::is_fundamental<
-		T
-	>,
-	typename
-	sge::renderer::vf::detail::raw_data_type<
-		T
-	>::type
->::type
-raw_data(
-	T &_value
-)
-{
-	return
-		reinterpret_cast<
-			typename
-			sge::renderer::vf::detail::raw_data_type<
-				T
-			>::type
-		>(
-			&_value
+		Dest(
+			boost::fusion::as_vector(
+				boost::fusion::filter_if<
+					typename boost::mpl::lambda<
+						boost::mpl::and_<
+							boost::mpl::contains<
+								typename Dest::memory_type::tuple,
+								boost::mpl::_1
+							>,
+							boost::mpl::not_<
+								majutsu::is_role<
+									boost::mpl::_1
+								>
+							>
+						>
+					>::type
+				>(
+					_source.memory().impl()
+				)
+			)
 		);
 }
 

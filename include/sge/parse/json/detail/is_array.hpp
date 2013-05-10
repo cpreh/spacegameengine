@@ -21,17 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_JSON_DETAIL_IS_ARRAY_HPP_INCLUDED
 #define SGE_PARSE_JSON_DETAIL_IS_ARRAY_HPP_INCLUDED
 
+#include <mizuiro/size_type.hpp>
 #include <mizuiro/image/dimension_fwd.hpp>
 #include <fcppt/math/size_type.hpp>
-#include <fcppt/math/detail/static_storage.hpp>
-#include <fcppt/math/dim/static.hpp>
-#include <fcppt/math/vector/static.hpp>
+#include <fcppt/math/dim/object_fwd.hpp>
+#include <fcppt/math/vector/object_fwd.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/array.hpp>
-#include <boost/mpl/integral_c.hpp>
 #include <array>
 #include <cstddef>
 #include <type_traits>
@@ -50,56 +49,97 @@ namespace detail
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
-template<typename T>
-struct is_array : std::false_type {};
+template
+<
+	typename T
+>
+struct is_array
+:
+std::false_type
+{
+};
 
-template<typename T,std::size_t N>
-struct is_array< std::array<T,N> > : std::true_type {};
+template
+<
+	typename T,
+	std::size_t N
+>
+struct is_array
+<
+	std::array
+	<
+		T,
+		N
+	>
+>
+:
+std::true_type
+{
+};
 
-template<typename T,std::size_t N>
-struct is_array< boost::array<T,N> > : std::true_type {};
+template
+<
+	typename T,
+	std::size_t N
+>
+struct is_array
+<
+	boost::array
+	<
+		T,
+		N
+	>
+>
+:
+std::true_type
+{
+};
 
-template<typename T,fcppt::math::size_type N>
+template
+<
+	typename T,
+	typename N,
+	typename S
+>
 struct is_array
 <
 	fcppt::math::vector::object
 	<
 		T,
-		boost::mpl::integral_c
-		<
-			fcppt::math::size_type,
-			N
-		>,
-		typename
-		fcppt::math::detail::static_storage
-		<
-			T,
-			N
-		>::type
+		N,
+		S
 	>
-> : std::true_type {};
+>
+:
+std::true_type
+{
+};
 
-template<typename T,fcppt::math::size_type N>
+template
+<
+	typename T,
+	typename N,
+	typename S
+>
 struct is_array
 <
 	fcppt::math::dim::object
 	<
 		T,
-		boost::mpl::integral_c
-		<
-			fcppt::math::size_type,
-			N
-		>,
-		typename
-		fcppt::math::detail::static_storage
-		<
-			T,
-			N
-		>::type
+		N,
+		S
 	>
-> : std::true_type {};
+>
+:
+std::true_type
+{
+};
 
-template<typename T,mizuiro::size_type N>
+template
+<
+	typename T,
+	mizuiro::size_type N
+>
 struct is_array
 <
 	mizuiro::image::dimension
@@ -107,7 +147,11 @@ struct is_array
 		N,
 		T
 	>
-> : std::true_type {};
+>
+:
+std::true_type
+{
+};
 
 FCPPT_PP_POP_WARNING
 

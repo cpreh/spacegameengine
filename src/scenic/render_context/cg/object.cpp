@@ -87,8 +87,10 @@ sge::scenic::render_context::cg::object::object(
 					1u),
 				sge::renderer::state::core::sampler::const_object_ref(
 					*manager_.mipmap_sampler_state_))),
-	current_world_(),
-	current_projection_(),
+	current_world_(
+		sge::renderer::matrix4::identity()),
+	current_projection_(
+		sge::renderer::matrix4::identity()),
 	current_vertex_buffer_()
 {
 }

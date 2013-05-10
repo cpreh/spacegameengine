@@ -26,8 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assert/error_message.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
-#include <fcppt/math/matrix/dim_type.hpp>
+#include <fcppt/math/matrix/dim.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <Cg/cg.h>
 #include <fcppt/config/external_end.hpp>
@@ -36,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 void
 sge::cg::parameter::matrix::detail::check_size(
 	sge::cg::parameter::object const &_parameter,
-	fcppt::math::matrix::dim_type const &_dim
+	fcppt::math::matrix::dim const &_dim
 )
 {
 	int
@@ -69,7 +68,7 @@ sge::cg::parameter::matrix::detail::check_size(
 
 	FCPPT_ASSERT_ERROR(
 		static_cast<
-			fcppt::math::matrix::dim_type::value_type
+			fcppt::math::matrix::dim::value_type
 		>(
 			rows
 		)
@@ -77,7 +76,7 @@ sge::cg::parameter::matrix::detail::check_size(
 		_dim.w()
 		&&
 		static_cast<
-			fcppt::math::matrix::dim_type::value_type
+			fcppt::math::matrix::dim::value_type
 		>(
 			columns
 		)

@@ -65,14 +65,15 @@ permute_vector_according_to_orientation(
 	sge::scenic::grid::orientation const _orientation,
 	sge::renderer::vector3 const &_input)
 {
-	sge::renderer::vector3 result;
 	std::size_t const orientation =
 		static_cast<std::size_t>(
 			_orientation);
-	result[0] = _input[axis_mappings[orientation][0]];
-	result[1] = _input[axis_mappings[orientation][1]];
-	result[2] = _input[axis_mappings[orientation][2]];
-	return result;
+
+	return
+		sge::renderer::vector3(
+			_input[axis_mappings[orientation][0]],
+			_input[axis_mappings[orientation][1]],
+			_input[axis_mappings[orientation][2]]);
 }
 }
 

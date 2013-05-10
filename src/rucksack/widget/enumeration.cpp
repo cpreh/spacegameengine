@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <algorithm>
 #include <fcppt/config/external_end.hpp>
 
+// TODO: Initialize position and size in the ctor?
 
 sge::rucksack::widget::enumeration::enumeration(
 	sge::rucksack::padding const &_padding,
@@ -36,8 +37,10 @@ sge::rucksack::widget::enumeration::enumeration(
 	aspect_(
 		_aspect),
 	children_(),
-	position_(),
-	size_()
+	position_(
+		sge::rucksack::vector::null()),
+	size_(
+		sge::rucksack::dim::null())
 {
 }
 

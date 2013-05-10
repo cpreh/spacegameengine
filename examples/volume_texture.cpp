@@ -210,19 +210,6 @@ typedef std::array<
 	2 * 3 * 6
 > pos_array;
 
-sge::renderer::scalar
-coord_to_texcoord(
-	sge::renderer::scalar const _value
-)
-{
-	return
-		static_cast<
-			sge::renderer::scalar
-		>(
-			(_value + 1.f) / 2.f
-		);
-}
-
 void
 fill_geometry(
 	sge::renderer::vertex::buffer &_vertex_buffer
@@ -371,23 +358,31 @@ fill_geometry(
 	);
 
 	for(
-		pos_array::const_iterator it(
-			positions.begin()
-		);
-		it != positions.end();
-		++it
+		auto const &position : positions
 	)
 	{
 		(*vb_it).set<
 			vf_pos
 		>(
-			*it
+			position
 		);
 
 		pos_vector const texpos(
-			fcppt::algorithm::array_map<pos_vector>(
-				*it,
-				coord_to_texcoord
+			fcppt::algorithm::array_map<
+				pos_vector::storage_type
+			>(
+				position.storage(),
+				[](
+					sge::renderer::scalar const _value
+				)
+				{
+					return
+						static_cast<
+							sge::renderer::scalar
+						>(
+							(_value + 1.f) / 2.f
+						);
+				}
 			)
 		);
 

@@ -353,28 +353,6 @@ private:
 }
 }
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-namespace fcppt
-{
-namespace math
-{
-template<typename T>
-struct is_static_storage
-<
-	mylib::vector::raw_view<T>
->
-:
-	std::true_type
-{
-};
-}
-}
-
-FCPPT_PP_POP_WARNING
-
-
 namespace mylib
 {
 

@@ -18,46 +18,73 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RUCKSACK_WIDGET_BOX_CHILD_INFORMATION_HPP_INCLUDED
-#define SGE_RUCKSACK_WIDGET_BOX_CHILD_INFORMATION_HPP_INCLUDED
+#ifndef SGE_RENDERER_VF_DETAIL_READ_WRAPPER_DECL_HPP_INCLUDED
+#define SGE_RENDERER_VF_DETAIL_READ_WRAPPER_DECL_HPP_INCLUDED
 
-#include <sge/rucksack/alignment.hpp>
-#include <sge/rucksack/dim.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/utility/enable_if.hpp>
+#include <type_traits>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {
-namespace rucksack
+namespace renderer
 {
-namespace widget
+namespace vf
 {
-namespace box
+namespace detail
 {
-/**
- * This is a utility class which holds all the information needed for a child.
- * It's intentionally not supplied with SYMBOLs because it's not part of the
- * interface the user sees.
- */
-class child_information
+
+template<
+	typename T,
+	typename Enable = void
+>
+class read_wrapper
 {
+	FCPPT_NONCOPYABLE(
+		read_wrapper
+	);
 public:
-	child_information(
-		sge::rucksack::alignment,
-		sge::rucksack::dim const &);
+	read_wrapper();
 
-	sge::rucksack::alignment
-	alignment() const;
+	~read_wrapper();
 
-	sge::rucksack::dim const &
-	size() const;
-
-	void
-	size(
-		sge::rucksack::dim const &);
+	T &
+	get();
 private:
-	sge::rucksack::alignment alignment_;
-	sge::rucksack::dim size_;
+	T value_;
 };
+
+template<
+	typename T
+>
+class read_wrapper<
+	T,
+	typename
+	boost::enable_if<
+		std::is_fundamental<
+			T
+		>
+	>::type
+>
+{
+	FCPPT_NONCOPYABLE(
+		read_wrapper
+	);
+public:
+	read_wrapper();
+
+	~read_wrapper();
+
+	T &
+	get();
+private:
+	T value_;
+
+};
+
 }
 }
 }

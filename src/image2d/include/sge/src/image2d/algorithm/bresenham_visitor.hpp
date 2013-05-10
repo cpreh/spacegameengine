@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/any/convert.hpp>
 #include <sge/image/color/any/object_fwd.hpp>
 #include <sge/image2d/vector.hpp>
-#include <sge/src/image/convert_dim.hpp>
+#include <sge/src/image/to_mizuiro_dim.hpp>
 #include <mizuiro/image/view_impl.hpp>
 #include <mizuiro/image/algorithm/bresenham.hpp>
 #include <fcppt/nonassignable.hpp>
@@ -78,12 +78,12 @@ public:
 	{
 		mizuiro::image::algorithm::bresenham(
 			_view,
-			sge::image::convert_dim<
+			sge::image::to_mizuiro_dim<
 				typename View::dim
 			>(
 				pos1_
 			),
-			sge::image::convert_dim<
+			sge::image::to_mizuiro_dim<
 				typename View::dim
 			>(
 				pos2_

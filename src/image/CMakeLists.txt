@@ -101,11 +101,12 @@ set(
 	src/image/include/sge/src/image/algorithm/invalid_copy_impl.hpp
 	src/image/include/sge/src/image/algorithm/print_impl.hpp
 	src/image/include/sge/src/image/algorithm/print_visitor.hpp
-	src/image/include/sge/src/image/convert_dim.hpp
+	src/image/include/sge/src/image/from_mizuiro_dim.hpp
 	src/image/include/sge/src/image/instantiate_invalid_convert.hpp
 	src/image/include/sge/src/image/instantiate_store.hpp
 	src/image/include/sge/src/image/invalid_convert_impl.hpp
 	src/image/include/sge/src/image/store_impl.hpp
+	src/image/include/sge/src/image/to_mizuiro_dim.hpp
 	src/image/include/sge/src/image/traits/dynamic_copy_and_convert.hpp
 	src/image/include/sge/src/image/traits/static_converter.hpp
 	src/image/include/sge/src/image/view/checked_sub_any.hpp

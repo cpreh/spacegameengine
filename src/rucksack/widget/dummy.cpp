@@ -18,7 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/rucksack/axis_policy2.hpp>
+#include <sge/rucksack/dim.hpp>
+#include <sge/rucksack/vector.hpp>
+#include <sge/rucksack/widget/base.hpp>
 #include <sge/rucksack/widget/dummy.hpp>
+
+// TODO: Initialize position and size in the ctor?
 
 sge::rucksack::widget::dummy::dummy(
 	sge::rucksack::axis_policy2 const &_axis_policy)
@@ -27,8 +33,10 @@ sge::rucksack::widget::dummy::dummy(
 		widget::optional_parent()),
 	axis_policy_(
 		_axis_policy),
-	position_(),
-	size_()
+	position_(
+		sge::rucksack::vector::null()),
+	size_(
+		sge::rucksack::dim::null())
 {
 }
 

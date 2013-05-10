@@ -433,7 +433,7 @@ try
 		)
 		(
 			sge::systems::input(
-				sge::systems::cursor_option_field()
+				sge::systems::cursor_option_field::null()
 			)
 		)
 	);

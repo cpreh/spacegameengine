@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/libpng/to_sge_format.hpp>
 #include <sge/log/global.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
+#include <fcppt/no_init.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/debug.hpp>
@@ -73,7 +74,9 @@ sge::libpng::load_context::load_context(
 	info_(
 		read_ptr_.ptr()
 	),
-	dim_(),
+	// FIXME!
+	dim_(
+		fcppt::no_init()),
 	bytes_(),
 	format_()
 {

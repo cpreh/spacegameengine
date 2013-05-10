@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/obj/parse_mtllib.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
+#include <fcppt/no_init.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/optional.hpp>
 #include <fcppt/string.hpp>
@@ -162,7 +163,9 @@ public:
 			std::istringstream ss(
 				_rest_of_line);
 
-			sge::renderer::vector3 new_ambient;
+			sge::renderer::vector3 new_ambient{
+				fcppt::no_init()
+			};
 
 			this->throw_error_if(
 				!(ss >> new_ambient[0] >> new_ambient[1] >> new_ambient[2]),
@@ -193,7 +196,9 @@ public:
 			std::istringstream ss(
 				_rest_of_line);
 
-			sge::renderer::vector3 new_diffuse;
+			sge::renderer::vector3 new_diffuse{
+				fcppt::no_init()
+			};
 
 			this->throw_error_if(
 				!(ss >> new_diffuse[0] >> new_diffuse[1] >> new_diffuse[2]),
@@ -207,7 +212,9 @@ public:
 			std::istringstream ss(
 				_rest_of_line);
 
-			sge::renderer::vector3 new_specular;
+			sge::renderer::vector3 new_specular{
+				fcppt::no_init()
+			};
 
 			this->throw_error_if(
 				!(ss >> new_specular[0] >> new_specular[1] >> new_specular[2]),

@@ -18,40 +18,53 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_IMAGE_CONVERT_DIM_HPP_INCLUDED
-#define SGE_SRC_IMAGE_CONVERT_DIM_HPP_INCLUDED
+#ifndef SGE_RENDERER_VF_DETAIL_RAW_DATA_TYPE_HPP_INCLUDED
+#define SGE_RENDERER_VF_DETAIL_RAW_DATA_TYPE_HPP_INCLUDED
 
+#include <sge/renderer/const_raw_pointer.hpp>
+#include <sge/renderer/raw_pointer.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <algorithm>
+#include <boost/mpl/if.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
 namespace sge
 {
-namespace image
+namespace renderer
 {
+namespace vf
+{
+namespace detail
+{
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
-	typename Dest,
-	typename Src
+	typename T
 >
-Dest const
-convert_dim(
-	Src const &_src
-)
+struct raw_data_type
+:
+boost::mpl::if_<
+	std::is_const<
+		T
+	>,
+	sge::renderer::const_raw_pointer,
+	sge::renderer::raw_pointer
+>
 {
-	Dest dest;
+};
 
-	std::copy(
-		_src.begin(),
-		_src.end(),
-		dest.begin()
-	);
+FCPPT_PP_POP_WARNING
 
-	return dest;
 }
-
+}
 }
 }
 
 #endif
+

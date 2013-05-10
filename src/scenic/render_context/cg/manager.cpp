@@ -69,7 +69,7 @@ sge::scenic::render_context::cg::manager::manager(
 		_shader_context.renderer(),
 		sge::shader::parameter::is_projection_matrix(
 			false),
-		sge::renderer::matrix4()),
+		sge::renderer::matrix4::identity()),
 	world_projection_matrix_(
 		shader_.vertex_program(),
 		sge::shader::parameter::name(
@@ -77,7 +77,7 @@ sge::scenic::render_context::cg::manager::manager(
 		_shader_context.renderer(),
 		sge::shader::parameter::is_projection_matrix(
 			true),
-		sge::renderer::matrix4()),
+		sge::renderer::matrix4::identity()),
 	world_inverse_transpose_matrix_(
 		shader_.vertex_program(),
 		sge::shader::parameter::name(
@@ -85,27 +85,27 @@ sge::scenic::render_context::cg::manager::manager(
 		_shader_context.renderer(),
 		sge::shader::parameter::is_projection_matrix(
 			false),
-		sge::renderer::matrix4()),
+		sge::renderer::matrix4::identity()),
 	material_diffuse_color_(
 		shader_.pixel_program(),
 		sge::shader::parameter::name(
 			"current_material.diffuse_color"),
-		sge::renderer::vector4()),
+		sge::renderer::vector4::null()),
 	material_specular_color_(
 		shader_.pixel_program(),
 		sge::shader::parameter::name(
 			"current_material.specular_color"),
-		sge::renderer::vector4()),
+		sge::renderer::vector4::null()),
 	material_ambient_color_(
 		shader_.pixel_program(),
 		sge::shader::parameter::name(
 			"current_material.ambient_color"),
-		sge::renderer::vector4()),
+		sge::renderer::vector4::null()),
 	material_emissive_color_(
 		shader_.pixel_program(),
 		sge::shader::parameter::name(
 			"current_material.emissive_color"),
-		sge::renderer::vector4()),
+		sge::renderer::vector4::null()),
 	material_shininess_(
 		shader_.pixel_program(),
 		sge::shader::parameter::name(
@@ -164,7 +164,7 @@ sge::scenic::render_context::cg::manager::manager(
 		shader_.pixel_program(),
 		sge::shader::parameter::name(
 			"fog_information.color"),
-		sge::renderer::vector4()),
+		sge::renderer::vector4::null()),
 	point_lights_(),
 	directional_lights_(),
 	depth_stencil_state_(

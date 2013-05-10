@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/io/clog.hpp>
 
+// TODO: Initialize position and size in the ctor?
 
 sge::rucksack::widget::master_and_slaves::master_and_slaves(
 	sge::rucksack::padding const &_padding)
@@ -41,8 +42,10 @@ sge::rucksack::widget::master_and_slaves::master_and_slaves(
 		sge::rucksack::aspect(
 			1,
 			1)),
-	position_(),
-	size_()
+	position_(
+		sge::rucksack::vector::null()),
+	size_(
+		sge::rucksack::dim::null())
 {
 	surrounding_box_.push_back_child(
 		enumeration_,

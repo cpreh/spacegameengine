@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/rucksack/axis.hpp>
 #include <sge/rucksack/optional_scalar.hpp>
 #include <sge/rucksack/widget/box/base.hpp>
+#include <fcppt/no_init.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/assert/unreachable.hpp>
@@ -47,8 +48,10 @@ sge::rucksack::widget::box::base::base(
 		_aspect),
 	// We cannot initialize position and size to something meaningful yet, so
 	// keep uninitialized
-	position_(),
-	size_()
+	position_(
+		fcppt::no_init()),
+	size_(
+		fcppt::no_init())
 {
 }
 
@@ -230,7 +233,10 @@ sge::rucksack::widget::box::base::relayout()
 		widget_ptr_information_pair_it->first->size(
 			widget_ptr_information_pair_it->second.size());
 
-		sge::rucksack::vector new_position;
+		// TODO: Make a function that returns new_position
+		sge::rucksack::vector new_position{
+			fcppt::no_init()};
+
 		// This time, the major axis is easy: Just set it to the "current" position.
 		new_position[this->major_axis()] =
 			current_major_position;
@@ -279,7 +285,7 @@ sge::rucksack::widget::box::base::push_back_child(
 			&_new_child,
 			box::child_information(
 				_alignment,
-				sge::rucksack::dim())));
+				sge::rucksack::dim::null())));
 
 	_new_child.parent(
 		widget::optional_parent(
@@ -296,7 +302,7 @@ sge::rucksack::widget::box::base::push_front_child(
 			&_new_child,
 			box::child_information(
 				_alignment,
-				sge::rucksack::dim())));
+				sge::rucksack::dim::null())));
 
 	_new_child.parent(
 		widget::optional_parent(
@@ -314,11 +320,9 @@ sge::rucksack::widget::box::base::pop_front_child()
 sge::rucksack::widget::box::base::~base()
 {
 	for(
-		child_information::iterator widget_ptr_information_pair_it =
-			children_.begin();
-		widget_ptr_information_pair_it != children_.end();
-		++widget_ptr_information_pair_it)
-		widget_ptr_information_pair_it->first->parent(
+		auto &child : children_
+	)
+		child.first->parent(
 			widget::optional_parent());
 }
 

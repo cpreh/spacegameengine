@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/destroy.hpp>
 #include <sge/sprite/detail/rotation_center.hpp>
 #include <sge/sprite/detail/unlink.hpp>
-#include <sge/sprite/detail/config/is_intrusive.hpp>
+#include <sge/sprite/detail/parameters/to_elements.hpp>
 #include <sge/sprite/detail/parameters/transform.hpp>
 #include <sge/sprite/roles/color.hpp>
 #include <sge/sprite/roles/connection.hpp>
@@ -48,25 +48,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/types/basic/dim_impl.hpp>
 #include <sge/sprite/types/basic/homogenous_pair_impl.hpp>
 #include <sge/sprite/types/basic/vector_impl.hpp>
-#include <majutsu/subelements.hpp>
 
-
-template<
-	typename Choices
->
-sge::sprite::object<
-	Choices
->::object()
-:
-	elements_()
-{
-	static_assert(
-		!sge::sprite::detail::config::is_intrusive<
-			Choices
-		>::value,
-		"The empty constructor cannot be called for intrusive sprites"
-	);
-}
 
 template<
 	typename Choices
@@ -96,7 +78,7 @@ sge::sprite::object<
 )
 :
 	elements_(
-		majutsu::subelements<
+		sge::sprite::detail::parameters::to_elements<
 			element_type
 		>(
 			sge::sprite::detail::parameters::transform<

@@ -26,20 +26,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 FCPPT_PP_TODO("Do we have to check the contents here as not every (forward, up) pair is right")
 
-sge::audio::direction::object::object()
-:
-	forward_(),
-	up_()
-{}
-
 sge::audio::direction::object::object(
-	direction::forward const &_forward,
-	direction::up const &_up
+	sge::audio::direction::forward const &_forward,
+	sge::audio::direction::up const &_up
 )
 :
-	forward_(_forward.get()),
-	up_(_up.get())
-{}
+	forward_(
+		_forward.get()
+	),
+	up_(
+		_up.get()
+	)
+{
+}
 
 sge::audio::vector const &
 sge::audio::direction::object::forward() const
@@ -49,7 +48,7 @@ sge::audio::direction::object::forward() const
 
 void
 sge::audio::direction::object::forward(
-	audio::vector const &_forward
+	sge::audio::vector const &_forward
 )
 {
 	forward_ = _forward;
@@ -63,7 +62,7 @@ sge::audio::direction::object::up() const
 
 void
 sge::audio::direction::object::up(
-	audio::vector const &_up
+	sge::audio::vector const &_up
 )
 {
 	up_ = _up;

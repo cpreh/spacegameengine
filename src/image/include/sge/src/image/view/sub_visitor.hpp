@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/box.hpp>
 #include <sge/image/mizuiro_color.hpp>
 #include <sge/image/view/wrap.hpp>
-#include <sge/src/image/convert_dim.hpp>
+#include <sge/src/image/to_mizuiro_dim.hpp>
 #include <mizuiro/image/sub_view.hpp>
 #include <fcppt/nonassignable.hpp>
 
@@ -73,12 +73,12 @@ public:
 					mizuiro::image::sub_view(
 						_view,
 						typename View::bound_type(
-							sge::image::convert_dim<
+							sge::image::to_mizuiro_dim<
 								typename View::bound_type::dim
 							>(
 								box_.pos()
 							),
-							sge::image::convert_dim<
+							sge::image::to_mizuiro_dim<
 								typename View::bound_type::dim
 							>(
 								box_.size()

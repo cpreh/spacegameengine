@@ -18,14 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/rucksack/alignment.hpp>
+#include <sge/rucksack/dim.hpp>
 #include <sge/rucksack/widget/box/child_information.hpp>
 
-sge::rucksack::widget::box::child_information::child_information()
-:
-	alignment_(),
-	size_()
-{
-}
 
 sge::rucksack::widget::box::child_information::child_information(
 	sge::rucksack::alignment const _alignment,

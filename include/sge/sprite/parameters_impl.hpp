@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/mizuiro_color.hpp>
 #include <sge/image/color/any/convert.hpp>
+#include <sge/sprite/default_initialize_class.hpp>
 #include <sge/sprite/parameters_decl.hpp>
 #include <sge/sprite/defaults/color.hpp>
 #include <sge/sprite/detail/config/color_format.hpp>
@@ -52,7 +53,11 @@ sge::sprite::parameters<
 	Choices
 >::parameters()
 :
-	elements_()
+	elements_(
+		sge::sprite::default_initialize_class<
+			elements_type
+		>()
+	)
 {
 }
 

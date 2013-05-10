@@ -147,8 +147,6 @@ public:
 		choices
 	> connection_type;
 
-	object();
-
 	explicit
 	object(
 		element_type const &

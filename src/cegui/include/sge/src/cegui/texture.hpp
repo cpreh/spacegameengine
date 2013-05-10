@@ -120,7 +120,7 @@ private:
 
 	void
 	blitFromMemory(
-		void *sourceData,
+		void const *sourceData,
 		CEGUI::Rectf const &
 	);
 

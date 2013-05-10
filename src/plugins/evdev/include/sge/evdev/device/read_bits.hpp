@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/evdev/device/fd.hpp>
 #include <sge/evdev/device/read_bits_result.hpp>
 #include <sge/input/exception.hpp>
+#include <fcppt/no_init.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -55,7 +56,9 @@ read_bits(
 		Count
 	>::type result_type;
 
-	result_type result;
+	result_type result{
+		fcppt::no_init()
+	};
 
 	if(
 		::ioctl(

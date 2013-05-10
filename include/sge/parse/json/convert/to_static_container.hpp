@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/get.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/convert/choose_fundamental.hpp>
+#include <fcppt/no_init.hpp>
 #include <fcppt/text.hpp>
 
 
@@ -47,30 +48,34 @@ to_static_container(
 	sge::parse::json::array const &_array
 )
 {
-	Container result;
+	if(
+		_array.elements.size()
+		>=
+		static_cast<
+			sge::parse::json::element_vector::size_type
+		>(
+			Container::dim_wrapper::value
+		)
+	)
+		throw sge::parse::exception(
+			FCPPT_TEXT("convert::to_static_container out of range!")
+		);
+
+	Container result{
+		fcppt::no_init()
+	};
 
 	for(
-		sge::parse::json::element_vector::size_type index(0u);
+		sge::parse::json::element_vector::size_type index(
+			0u
+		);
 		index < _array.elements.size();
 		++index
 	)
-	{
-		if(
-			index
-			>=
-			static_cast<
-				sge::parse::json::element_vector::size_type
-			>(
-				Container::dim_wrapper::value
-			)
-		)
-			throw sge::parse::exception(
-				FCPPT_TEXT("convert::to_static_container out of range!")
-			);
-
 		result[
 			static_cast<
-				typename Container::size_type
+				typename
+				Container::size_type
 			>(
 				index
 			)
@@ -78,9 +83,11 @@ to_static_container(
 			static_cast<
 				typename Container::value_type
 			>(
-				json::get<
-					typename convert::choose_fundamental<
-						typename Container::value_type
+				sge::parse::json::get<
+					typename
+					sge::parse::json::convert::choose_fundamental<
+						typename
+						Container::value_type
 					>::type
 				>(
 					_array.elements[
@@ -88,7 +95,6 @@ to_static_container(
 					]
 				)
 			);
-	}
 
 	return result;
 }

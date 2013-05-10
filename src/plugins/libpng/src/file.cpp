@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/libpng/load_context.hpp>
 #include <sge/libpng/png.hpp>
 #include <sge/libpng/write_context.hpp>
+#include <fcppt/no_init.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -47,7 +48,9 @@ sge::libpng::file::file(
 	sge::image::optional_path const &_path
 )
 :
-	dim_(),
+	dim_(
+		fcppt::no_init() // FIXME!
+	),
 	format_(),
 	bytes_()
 {

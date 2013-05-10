@@ -24,7 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/dim.hpp>
 #include <sge/image/store.hpp>
 #include <sge/image/view/wrap.hpp>
-#include <sge/src/image/convert_dim.hpp>
+#include <sge/src/image/from_mizuiro_dim.hpp>
+#include <sge/src/image/to_mizuiro_dim.hpp>
 #include <mizuiro/image/dimension_impl.hpp>
 #include <mizuiro/image/store_impl.hpp>
 
@@ -49,7 +50,7 @@ sge::image::store<
 )
 :
 	internal_(
-		convert_dim<
+		sge::image::to_mizuiro_dim<
 			typename internal_type::dim
 		>(
 			_size
@@ -208,7 +209,7 @@ sge::image::store<
 >::size() const
 {
 	return
-		sge::image::convert_dim<
+		sge::image::from_mizuiro_dim<
 			dim
 		>(
 			internal_.size()

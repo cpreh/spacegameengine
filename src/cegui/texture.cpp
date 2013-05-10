@@ -373,7 +373,7 @@ sge::cegui::texture::loadFromMemory(
 
 void
 sge::cegui::texture::blitFromMemory(
-	void *,
+	void const *,
 	CEGUI::Rectf const &
 )
 {

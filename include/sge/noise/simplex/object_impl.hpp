@@ -23,6 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/noise/simplex/object_decl.hpp>
 #include <sge/noise/simplex/detail/mod.hpp>
+#include <fcppt/no_init.hpp>
+#include <fcppt/algorithm/array_init.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/matrix/static.hpp>
 #include <fcppt/math/matrix/vector.hpp>
@@ -50,7 +52,14 @@ sge::noise::simplex::object<
 :
 	perm_(
 		_width.get()),
-	gradients_()
+	// TODO: Initialize this directly!
+	gradients_(
+		fcppt::algorithm::array_init<
+			gradient_array
+		>(
+			vector_type::null()
+		)
+	)
 {
 	boost::iota(
 		perm_,
@@ -126,7 +135,15 @@ typename sge::noise::simplex::object<Float,N>::corner_array
 sge::noise::simplex::object<Float,N>::corners(
 	vector_type point)
 {
-	corner_array res;
+	// TODO: Initialize this directly!
+	corner_array res(
+		fcppt::algorithm::array_init<
+			corner_array
+		>(
+			vector_type::null()
+		)
+	);
+
 	vector_type cur = vector_type::null();
 	Float max = static_cast<Float>(-1);
 	typename vector_type::size_type max_i = 0;
@@ -172,7 +189,9 @@ template<typename Float, std::size_t N>
 typename sge::noise::simplex::object<Float,N>::matrix
 sge::noise::simplex::object<Float,N>::stretch_m()
 {
-	matrix tmp;
+	matrix tmp{
+		fcppt::no_init()};
+
 	for (typename matrix::size_type i = 0; i < N; ++i)
 		for (typename matrix::size_type j = 0; j < N; ++j)
 			tmp[i][j] =
@@ -185,7 +204,9 @@ template<typename Float, std::size_t N>
 typename sge::noise::simplex::object<Float,N>::matrix
 sge::noise::simplex::object<Float,N>::inv_m()
 {
-	matrix tmp;
+	matrix tmp{
+		fcppt::no_init()};
+
 	for (typename matrix::size_type i = 0; i < N; ++i)
 		for (typename matrix::size_type j = 0; j < N; ++j)
 			tmp[i][j] =

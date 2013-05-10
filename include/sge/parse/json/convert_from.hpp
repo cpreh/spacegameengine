@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/get.hpp>
 #include <sge/parse/json/int_type.hpp>
 #include <sge/parse/json/value.hpp>
+#include <sge/parse/json/detail/init_result.hpp>
 #include <sge/parse/json/detail/is_array.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/string.hpp>
@@ -54,9 +55,9 @@ namespace json
 // Begin forward declarations
 template<typename T>
 typename
-boost::enable_if_c
+boost::enable_if
 <
-	std::is_floating_point<T>::value,
+	std::is_floating_point<T>,
 	T
 >::type
 convert_from(
@@ -64,9 +65,9 @@ convert_from(
 
 template<typename T>
 typename
-boost::enable_if_c
+boost::enable_if
 <
-	std::is_same<T,bool>::value,
+	std::is_same<T,bool>,
 	bool
 >::type
 convert_from(
@@ -91,9 +92,9 @@ convert_from(
 
 template<typename T>
 typename
-boost::enable_if_c
+boost::enable_if
 <
-	fcppt::math::matrix::is_matrix<T>::value,
+	fcppt::math::matrix::is_matrix<T>,
 	T const
 >::type
 convert_from(
@@ -126,9 +127,9 @@ convert_from(
 
 template<typename T>
 typename
-boost::enable_if_c
+boost::enable_if
 <
-	sge::parse::json::detail::is_array<T>::value,
+	sge::parse::json::detail::is_array<T>,
 	T const
 >::type
 convert_from(
@@ -136,9 +137,9 @@ convert_from(
 
 template<typename T>
 typename
-boost::enable_if_c
+boost::enable_if
 <
-	std::is_same<T,fcppt::string>::value,
+	std::is_same<T,fcppt::string>,
 	T const
 >::type
 convert_from(
@@ -146,13 +147,13 @@ convert_from(
 
 template<typename T>
 typename
-boost::enable_if_c
+boost::enable_if
 <
 	std::is_same
 	<
 		typename std::remove_const<T>::type,
 		sge::parse::json::value
-	>::value,
+	>,
 	T const &
 >::type
 convert_from(
@@ -197,9 +198,9 @@ convert_from(
 // Assume float_type
 template<typename T>
 typename
-boost::enable_if_c
+boost::enable_if
 <
-	std::is_floating_point<T>::value,
+	std::is_floating_point<T>,
 	T
 >::type
 sge::parse::json::convert_from(
@@ -214,9 +215,9 @@ sge::parse::json::convert_from(
 // Assume bool
 template<typename T>
 typename
-boost::enable_if_c
+boost::enable_if
 <
-	std::is_same<T,bool>::value,
+	std::is_same<T,bool>,
 	bool
 >::type
 sge::parse::json::convert_from(
@@ -253,9 +254,9 @@ sge::parse::json::convert_from(
 // Assume float_type
 template<typename T>
 typename
-boost::enable_if_c
+boost::enable_if
 <
-	fcppt::math::matrix::is_matrix<T>::value,
+	fcppt::math::matrix::is_matrix<T>,
 	T const
 >::type
 sge::parse::json::convert_from(
@@ -269,12 +270,9 @@ sge::parse::json::convert_from(
 			sge::parse::json::get<sge::parse::json::array>(
 				outer_array.front()).elements;
 
-	T result(
-		typename T::dim(
-			static_cast<typename T::size_type>(
-				outer_array.size()),
-			static_cast<typename T::size_type>(
-				first_outer_vector.size())));
+	T result{
+		fcppt::no_init()
+	};
 
 	for(
 		sge::parse::json::element_vector::size_type i = 0;
@@ -365,43 +363,68 @@ sge::parse::json::convert_from(
 }
 
 // Assume array
-template<typename T>
-typename
-boost::enable_if_c
+template
 <
-	sge::parse::json::detail::is_array<T>::value,
+	typename T
+>
+typename
+boost::enable_if
+<
+	sge::parse::json::detail::is_array
+	<
+		T
+	>,
 	T const
 >::type
 sge::parse::json::convert_from(
-	sge::parse::json::value const &v)
+	sge::parse::json::value const &_value
+)
 {
-	T result;
+	T result{
+		sge::parse::json::detail::init_result<
+			T
+		>()
+	};
 
-	sge::parse::json::array const &a =
-		sge::parse::json::get<sge::parse::json::array>(
-			v);
+	sge::parse::json::array const &array(
+		sge::parse::json::get<
+			sge::parse::json::array
+		>(
+			_value
+		)
+	);
 
-	if(result.size() != a.elements.size())
+	if(
+		result.size() != array.elements.size()
+	)
 		throw
 			sge::parse::exception(
-				FCPPT_TEXT("Tried to convert into an array, but the dimensions did not match. Target array has dimension ")+
+				FCPPT_TEXT("Tried to convert into an array, but the dimensions did not match. Target array has dimension ")
+				+
 				fcppt::insert_to_fcppt_string(
-					result.size())+
-				FCPPT_TEXT(", source array has dimension ")+
+					result.size()
+				)
+				+
+				FCPPT_TEXT(", source array has dimension ")
+				+
 				fcppt::insert_to_fcppt_string(
-					a.elements.size()));
+					array.elements.size()
+				)
+			);
 
-	typename T::iterator result_it =
-		result.begin();
+	typename T::iterator result_it(
+		result.begin()
+	);
 
 	for(
-		sge::parse::json::element_vector::const_iterator i =
-			a.elements.begin();
-		i != a.elements.end();
-		++i)
+		auto const &element : array.elements
+	)
 		*result_it++ =
-			json::convert_from<typename T::value_type>(
-				*i);
+			sge::parse::json::convert_from<
+				typename T::value_type
+			>(
+				element
+			);
 
 	return result;
 }
@@ -410,9 +433,9 @@ sge::parse::json::convert_from(
 // seen as an array
 template<typename T>
 typename
-boost::enable_if_c
+boost::enable_if
 <
-	std::is_same<T,fcppt::string>::value,
+	std::is_same<T,fcppt::string>,
 	T const
 >::type
 sge::parse::json::convert_from(
@@ -427,13 +450,13 @@ sge::parse::json::convert_from(
 // this special case
 template<typename T>
 typename
-boost::enable_if_c
+boost::enable_if
 <
 	std::is_same
 	<
 		typename std::remove_const<T>::type,
 		sge::parse::json::value
-	>::value,
+	>,
 	T const &
 >::type
 sge::parse::json::convert_from(

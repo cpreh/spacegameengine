@@ -23,37 +23,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/model/md3/read_string.hpp>
 #include <sge/src/model/md3/read_vec3.hpp>
 #include <sge/src/model/md3/tag.hpp>
+#include <sge/src/model/md3/vec3.hpp>
+#include <fcppt/algorithm/array_init.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
+
 
 sge::model::md3::tag::tag(
 	std::istream &_stream
 )
 :
 	name_(
-		md3::read_string<
-			md3::max_qpath::value
+		sge::model::md3::read_string<
+			sge::model::md3::max_qpath::value
 		>(
 			_stream
 		)
 	),
 	origin_(
-		md3::read_vec3(
+		sge::model::md3::read_vec3(
 			_stream
 		)
 	),
-	axis_()
-{
-	for(
-		md3::axis_array::iterator it(
-			axis_.begin()
-		);
-		it != axis_.end();
-		++it
+	axis_(
+		fcppt::algorithm::array_init<
+			sge::model::md3::axis_array
+		>(
+			sge::model::md3::vec3::null()
+		)
 	)
-		*it =
-			md3::read_vec3(
+{
+	// FIXME: Initialize the array directly!
+	for(
+		auto &elem : axis_
+	)
+		elem =
+			sge::model::md3::read_vec3(
 				_stream
 			);
 }

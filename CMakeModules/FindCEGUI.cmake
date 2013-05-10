@@ -1,6 +1,6 @@
 set(
-	CEGUI_VERSION
-	"9999.0"
+	CEGUI_API_VERSION
+	"0"
 )
 
 if(
@@ -26,17 +26,15 @@ endif()
 find_path(
 	CEGUI_INCLUDE_DIR
 	NAMES CEGUI/Element.h
-	PATHS /usr/include/CEGUI-${CEGUI_VERSION}
+	PATHS /usr/include/cegui-${CEGUI_API_VERSION}
 	HINTS ${CEGUI_INCLUDEDIR}
 	NO_DEFAULT_PATH
 )
 
 find_library(
 	CEGUI_LIBRARY
-	NAMES "${CEGUI_BASE_LIB_NAME}"
-	PATHS /usr/lib/CEGUI-${CEGUI_VERSION}
+	NAMES "${CEGUI_BASE_LIB_NAME}-${CEGUI_API_VERSION}"
 	HINTS ${CEGUI_LIBRARYDIR}
-	NO_DEFAULT_PATH
 )
 
 mark_as_advanced(

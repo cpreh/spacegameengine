@@ -106,6 +106,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/exception.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/no_init.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
@@ -160,7 +161,9 @@ container_from_stream(
 			c);
 		if(!s)
 			return Container();
-		typename Container::value_type new_value;
+		typename Container::value_type new_value{
+			fcppt::no_init()};
+
 		s >> new_value;
 		if(!s)
 			return Container();

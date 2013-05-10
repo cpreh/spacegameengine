@@ -21,8 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_DEFAULT_INITIALIZE_CLASS_ELEMENT_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_DEFAULT_INITIALIZE_CLASS_ELEMENT_HPP_INCLUDED
 
+#include <fcppt/homogenous_pair_fwd.hpp>
 #include <fcppt/is_strong_typedef.hpp>
+#include <fcppt/math/dim/is_dim.hpp>
+#include <fcppt/math/vector/is_vector.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/or.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
 
@@ -38,8 +42,16 @@ template<
 	typename Type,
 	typename Enable = void
 >
-struct default_initialize_class_element;
-
+struct default_initialize_class_element
+{
+	static
+	Type
+	execute()
+	{
+		return
+			Type();
+	}
+};
 
 template<
 	typename Type
@@ -69,9 +81,14 @@ template<
 >
 struct default_initialize_class_element<
 	Type,
-	typename boost::disable_if<
-		fcppt::is_strong_typedef<
-			Type
+	typename boost::enable_if<
+		boost::mpl::or_<
+			fcppt::math::vector::is_vector<
+				Type
+			>,
+			fcppt::math::dim::is_dim<
+				Type
+			>
 		>
 	>::type
 >
@@ -81,7 +98,39 @@ struct default_initialize_class_element<
 	execute()
 	{
 		return
-			Type();
+			Type::null();
+	}
+};
+
+template<
+	typename Type
+>
+struct default_initialize_class_element<
+	fcppt::homogenous_pair<
+		Type
+	>,
+	void
+>
+{
+	typedef fcppt::homogenous_pair<
+		Type
+	> result_type;
+
+	static
+	result_type
+	execute()
+	{
+		Type const element(
+			sge::sprite::detail::default_initialize_class_element<
+				Type
+			>::execute()
+		);
+
+		return
+			result_type(
+				element,
+				element
+			);
 	}
 };
 

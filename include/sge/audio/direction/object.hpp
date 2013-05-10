@@ -38,9 +38,6 @@ class object
 {
 public:
 	SGE_AUDIO_SYMBOL
-	object();
-
-	SGE_AUDIO_SYMBOL
 	object(
 		sge::audio::direction::forward const &,
 		sge::audio::direction::up const &

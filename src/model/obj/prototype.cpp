@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/obj/exception.hpp>
 #include <sge/model/obj/prototype.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/no_init.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
@@ -205,7 +206,9 @@ sge::model::obj::prototype::prototype(
 			std::istringstream line_rest(
 				rest_of_line);
 
-			sge::model::obj::vertex_coordinate coordinate;
+			sge::model::obj::vertex_coordinate coordinate{
+				fcppt::no_init()};
+
 			if(!(line_rest >> coordinate[0] >> coordinate[1] >> coordinate[2]))
 				throw
 					sge::model::obj::exception(
@@ -234,7 +237,9 @@ sge::model::obj::prototype::prototype(
 			std::istringstream line_rest(
 				rest_of_line);
 
-			sge::model::obj::normal normal;
+			sge::model::obj::normal normal{
+				fcppt::no_init()};
+
 			if(!(line_rest >> normal[0] >> normal[1] >> normal[2]))
 				throw
 					sge::model::obj::exception(
@@ -254,7 +259,9 @@ sge::model::obj::prototype::prototype(
 			std::istringstream line_rest(
 				rest_of_line);
 
-			sge::model::obj::texture_coordinate tex_coord;
+			sge::model::obj::texture_coordinate tex_coord{
+				fcppt::no_init()};
+
 			if(!(line_rest >> tex_coord[0] >> tex_coord[1]))
 				throw
 					sge::model::obj::exception(
@@ -394,11 +401,9 @@ sge::model::obj::prototype::face_count() const
 		0u;
 
 	for(
-		sge::model::obj::material_to_face_sequence::const_iterator it =
-			this->parts().begin();
-		it != this->parts().end();
-		++it)
-		result += it->second.size();
+		auto const &part : parts()
+	)
+		result += part.second.size();
 
 	return
 		result;

@@ -21,12 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_VERTEX_IMPL_HPP_INCLUDED
 #define SGE_RENDERER_VF_VERTEX_IMPL_HPP_INCLUDED
 
-#include <sge/renderer/raw_pointer.hpp>
 #include <sge/renderer/vf/vertex_decl.hpp>
 #include <sge/renderer/vf/detail/calc_offset.hpp>
 #include <sge/renderer/vf/detail/copy_n.hpp>
 #include <sge/renderer/vf/detail/element_stride.hpp>
 #include <sge/renderer/vf/detail/raw_data.hpp>
+#include <sge/renderer/vf/detail/read_wrapper_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/contains.hpp>
 #include <boost/mpl/deref.hpp>
@@ -145,7 +145,9 @@ sge::renderer::vf::vertex<
 
 	typedef typename element::packed_type packed_type;
 
-	packed_type ret;
+	sge::renderer::vf::detail::read_wrapper<
+		packed_type
+	> ret;
 
 	sge::renderer::vf::detail::copy_n(
 		data_
@@ -156,17 +158,13 @@ sge::renderer::vf::vertex<
 		sge::renderer::vf::detail::element_stride<
 			element
 		>::type::value,
-		// TODO: get rid of this const_cast!
-		const_cast<
-			sge::renderer::raw_pointer
-		>(
-			sge::renderer::vf::detail::raw_data(
-				ret
-			)
+		sge::renderer::vf::detail::raw_data(
+			ret.get()
 		)
 	);
 
-	return ret;
+	return
+		ret.get();
 }
 
 #endif

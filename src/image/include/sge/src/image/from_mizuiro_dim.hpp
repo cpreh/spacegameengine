@@ -18,48 +18,64 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RUCKSACK_WIDGET_BOX_CHILD_INFORMATION_HPP_INCLUDED
-#define SGE_RUCKSACK_WIDGET_BOX_CHILD_INFORMATION_HPP_INCLUDED
+#ifndef SGE_SRC_IMAGE_FROM_MIZUIRO_DIM_HPP_INCLUDED
+#define SGE_SRC_IMAGE_FROM_MIZUIRO_DIM_HPP_INCLUDED
 
-#include <sge/rucksack/alignment.hpp>
-#include <sge/rucksack/dim.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
+#include <mizuiro/size_type.hpp>
+#include <mizuiro/image/dimension.hpp>
+#include <fcppt/no_init.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <algorithm>
+#include <type_traits>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {
-namespace rucksack
+namespace image
 {
-namespace widget
-{
-namespace box
-{
-/**
- * This is a utility class which holds all the information needed for a child.
- * It's intentionally not supplied with SYMBOLs because it's not part of the
- * interface the user sees.
- */
-class child_information
-{
-public:
-	child_information(
-		sge::rucksack::alignment,
-		sge::rucksack::dim const &);
 
-	sge::rucksack::alignment
-	alignment() const;
+template<
+	typename Dest,
+	typename T,
+	mizuiro::size_type N
+>
+Dest const
+from_mizuiro_dim(
+	mizuiro::image::dimension<
+		N,
+		T
+	> const &_src
+)
+{
+	static_assert(
+		std::is_same<
+			typename Dest::value_type,
+			T
+		>::value,
+		"The value types must be the same"
+	);
 
-	sge::rucksack::dim const &
-	size() const;
+	static_assert(
+		Dest::dim_wrapper::value
+		==
+		N,
+		"The dimensions must be the same"
+	);
 
-	void
-	size(
-		sge::rucksack::dim const &);
-private:
-	sge::rucksack::alignment alignment_;
-	sge::rucksack::dim size_;
-};
+	Dest dest{
+		fcppt::no_init()
+	};
+
+	std::copy(
+		_src.begin(),
+		_src.end(),
+		dest.begin()
+	);
+
+	return dest;
 }
-}
+
 }
 }
 

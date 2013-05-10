@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/dim.hpp>
 #include <sge/image/pitch.hpp>
 #include <sge/image/raw_pointer.hpp>
-#include <sge/src/image/convert_dim.hpp>
+#include <sge/src/image/to_mizuiro_dim.hpp>
 #include <fcppt/nonassignable.hpp>
 
 
@@ -95,13 +95,13 @@ public:
 		return
 			result_type(
 				View(
-					sge::image::convert_dim<
+					sge::image::to_mizuiro_dim<
 						typename View::dim
 					>(
 						dim_
 					),
 					data_,
-					sge::image::convert_dim<
+					sge::image::to_mizuiro_dim<
 						typename View::pitch_type
 					>(
 						pitch_

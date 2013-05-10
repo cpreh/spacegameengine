@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_IMAGE_VIEW_SIZE_VISITOR_HPP_INCLUDED
 #define SGE_SRC_IMAGE_VIEW_SIZE_VISITOR_HPP_INCLUDED
 
-#include <sge/src/image/convert_dim.hpp>
+#include <sge/src/image/from_mizuiro_dim.hpp>
 
 
 namespace sge
@@ -47,7 +47,7 @@ struct size_visitor
 	) const
 	{
 		return
-			sge::image::convert_dim<
+			sge::image::from_mizuiro_dim<
 				result_type
 			>(
 				_view.size()
