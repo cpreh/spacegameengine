@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_PRIMITIVES_TEXTURE_POINT_SIZE_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_PRIMITIVES_TEXTURE_POINT_SIZE_HPP_INCLUDED
 
-#include <sge/sprite/texture_point_size.hpp>
 #include <sge/sprite/config/custom_texture_point_size_fwd.hpp>
 #include <sge/sprite/config/no_texture_point_size_fwd.hpp>
 #include <sge/sprite/detail/transform_texture_levels_static.hpp>
 #include <sge/sprite/roles/texture_point_size.hpp>
+#include <sge/sprite/types/texture_point_size.hpp>
 #include <majutsu/role.hpp>
 #include <majutsu/simple.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -86,8 +86,8 @@ private:
 	{
 		typedef majutsu::role<
 			majutsu::simple<
-				typename sge::sprite::texture_point_size<
-					Choices
+				typename sge::sprite::types::texture_point_size<
+					typename Choices::type_choices
 				>::type
 			>,
 			sge::sprite::roles::texture_point_size<

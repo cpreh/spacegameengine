@@ -22,10 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_CONFIG_POINT_SIZE_HPP_INCLUDED
 
 #include <sge/renderer/vf/is_index.hpp>
-#include <sge/sprite/point_size.hpp>
 #include <sge/sprite/config/point_size_fwd.hpp>
 #include <sge/sprite/config/size_choice.hpp>
 #include <sge/sprite/roles/point_size.hpp>
+#include <sge/sprite/types/point_size.hpp>
 #include <majutsu/composite.hpp>
 #include <majutsu/role.hpp>
 #include <majutsu/simple.hpp>
@@ -73,8 +73,8 @@ public:
 			boost::mpl::vector1<
 				majutsu::role<
 					majutsu::simple<
-						typename sge::sprite::point_size<
-							Choices
+						typename sge::sprite::types::point_size<
+							typename Choices::type_choices
 						>::type
 					>,
 					sge::sprite::roles::point_size
