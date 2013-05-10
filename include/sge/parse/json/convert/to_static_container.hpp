@@ -50,7 +50,7 @@ to_static_container(
 {
 	if(
 		_array.elements.size()
-		>=
+		!=
 		static_cast<
 			sge::parse::json::element_vector::size_type
 		>(
@@ -58,7 +58,7 @@ to_static_container(
 		)
 	)
 		throw sge::parse::exception(
-			FCPPT_TEXT("convert::to_static_container out of range!")
+			FCPPT_TEXT("convert::to_static_container: unequal amount of elements!")
 		);
 
 	Container result{
