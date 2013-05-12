@@ -21,29 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_IMAGE_COLOR_DYNAMIC_FROM_STATIC_FORMAT_TYPE_HPP_INCLUDED
 #define SGE_SRC_IMAGE_COLOR_DYNAMIC_FROM_STATIC_FORMAT_TYPE_HPP_INCLUDED
 
-#include <sge/image/color/a8_format.hpp>
-#include <sge/image/color/bgr32f_format.hpp>
-#include <sge/image/color/bgr8_format.hpp>
-#include <sge/image/color/bgra32f_format.hpp>
-#include <sge/image/color/bgra8_format.hpp>
-#include <sge/image/color/bgrx8_format.hpp>
-#include <sge/image/color/l8_format.hpp>
-#include <sge/image/color/la8_format.hpp>
-#include <sge/image/color/r32f_format.hpp>
-#include <sge/image/color/rgb32f_format.hpp>
-#include <sge/image/color/rgb8_format.hpp>
-#include <sge/image/color/rgba32f_format.hpp>
-#include <sge/image/color/rgba8_format.hpp>
-#include <sge/image/color/rgbx8_format.hpp>
-#include <sge/image/color/srgb8_format.hpp>
-#include <sge/image/color/srgba8_format.hpp>
-#include <sge/src/image/color/dynamic/c32f_1_format.hpp>
-#include <sge/src/image/color/dynamic/c32f_3_format.hpp>
-#include <sge/src/image/color/dynamic/c32f_4_format.hpp>
-#include <sge/src/image/color/dynamic/c8_1_format.hpp>
-#include <sge/src/image/color/dynamic/c8_2_format.hpp>
-#include <sge/src/image/color/dynamic/c8_3_format.hpp>
-#include <sge/src/image/color/dynamic/c8_4_format.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
+#include <sge/src/image/color/dynamic/from_static_format.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <type_traits>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -55,140 +39,29 @@ namespace color
 namespace dynamic
 {
 
-// Remove this when we can use decltype
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
 	typename Format
 >
-struct from_static_format_type;
-
-template<>
-struct from_static_format_type<
-	sge::image::color::a8_format
+struct from_static_format_type
+:
+std::remove_const<
+	typename std::remove_reference<
+		decltype(
+			sge::image::color::dynamic::from_static_format(
+				std::declval<
+					Format
+				>()
+			)
+		)
+	>::type
 >
 {
-	typedef sge::image::color::dynamic::c8_1_format type;
 };
 
-template<>
-struct from_static_format_type<
-	sge::image::color::l8_format
->
-{
-	typedef sge::image::color::dynamic::c8_1_format type;
-};
-
-template<>
-struct from_static_format_type<
-	sge::image::color::r32f_format
->
-{
-	typedef sge::image::color::dynamic::c32f_1_format type;
-};
-
-template<>
-struct from_static_format_type<
-	sge::image::color::la8_format
->
-{
-	typedef sge::image::color::dynamic::c8_2_format type;
-};
-
-template<>
-struct from_static_format_type<
-	sge::image::color::rgb8_format
->
-{
-	typedef sge::image::color::dynamic::c8_3_format type;
-};
-
-template<>
-struct from_static_format_type<
-	sge::image::color::bgr8_format
->
-{
-	typedef sge::image::color::dynamic::c8_3_format type;
-};
-
-template<>
-struct from_static_format_type<
-	sge::image::color::srgb8_format
->
-{
-	typedef sge::image::color::dynamic::c8_3_format type;
-};
-
-template<>
-struct from_static_format_type<
-	sge::image::color::srgba8_format
->
-{
-	typedef sge::image::color::dynamic::c8_4_format type;
-};
-
-template<>
-struct from_static_format_type<
-	sge::image::color::rgba8_format
->
-{
-	typedef sge::image::color::dynamic::c8_4_format type;
-};
-
-template<>
-struct from_static_format_type<
-	sge::image::color::rgbx8_format
->
-{
-	typedef sge::image::color::dynamic::c8_4_format type;
-};
-
-template<>
-struct from_static_format_type<
-	sge::image::color::bgra8_format
->
-{
-	typedef sge::image::color::dynamic::c8_4_format type;
-};
-
-template<>
-struct from_static_format_type<
-	sge::image::color::bgrx8_format
->
-{
-	typedef sge::image::color::dynamic::c8_4_format type;
-};
-
-template<>
-struct from_static_format_type<
-	sge::image::color::rgb32f_format
->
-{
-	typedef sge::image::color::dynamic::c32f_3_format type;
-};
-
-template<>
-struct from_static_format_type<
-	sge::image::color::bgr32f_format
->
-{
-	typedef sge::image::color::dynamic::c32f_3_format type;
-};
-
-template<>
-struct from_static_format_type<
-	sge::image::color::rgba32f_format
->
-{
-	typedef sge::image::color::dynamic::c32f_4_format type;
-};
-
-template<>
-struct from_static_format_type<
-	sge::image::color::bgra32f_format
->
-{
-	typedef sge::image::color::dynamic::c32f_4_format type;
-};
+FCPPT_PP_POP_WARNING
 
 }
 }
