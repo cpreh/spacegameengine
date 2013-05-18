@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/result_code.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/find_member_exn.hpp>
+#include <sge/parse/json/int_type.hpp>
 #include <sge/parse/json/null.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/parse_stream.hpp>
@@ -78,7 +79,7 @@ try
 
 	// assert that we have member foo
 	sge::parse::json::find_member_exn<
-		int
+		sge::parse::json::int_type
 	>(
 		result.object().members,
 		FCPPT_TEXT("foo")
@@ -91,7 +92,7 @@ try
 		);
 
 		sge::parse::json::find_member_exn<
-			int
+			sge::parse::json::int_type
 		>(
 			const_result.members,
 			FCPPT_TEXT("foo")

@@ -44,8 +44,9 @@ namespace json
 template<
 	typename Arg
 >
-typename json::find_member_return_type<
-	json::value,
+typename
+sge::parse::json::find_member_return_type<
+	sge::parse::json::value,
 	Arg
 >::type
 find_member_value(
@@ -57,8 +58,8 @@ find_member_value(
 		std::is_const<
 			Arg
 		>,
-		member_map::const_iterator,
-		member_map::iterator
+		sge::parse::json::member_map::const_iterator,
+		sge::parse::json::member_map::iterator
 	>::type iterator;
 
 	iterator const it(
@@ -67,8 +68,9 @@ find_member_value(
 		)
 	);
 
-	typedef typename json::find_member_return_type<
-		json::value,
+	typedef typename
+	sge::parse::json::find_member_return_type<
+		sge::parse::json::value,
 		Arg
 	>::type result_type;
 

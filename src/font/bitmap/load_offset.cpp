@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/font/exception.hpp>
+#include <sge/font/unit.hpp>
 #include <sge/font/vector.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/element_vector.hpp>
@@ -27,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/int_type.hpp>
 #include <sge/parse/json/member_map.hpp>
 #include <sge/parse/json/object.hpp>
+#include <sge/parse/json/convert/to_int.hpp>
 #include <sge/src/font/bitmap/load_offset.hpp>
 #include <fcppt/text.hpp>
 
@@ -54,15 +56,23 @@ sge::font::bitmap::load_offset(
 
 	return
 		sge::font::vector(
-			sge::parse::json::get<
-				sge::parse::json::int_type
+			sge::parse::json::convert::to_int<
+				sge::font::unit
 			>(
-				elements[0]
+				sge::parse::json::get<
+					sge::parse::json::int_type
+				>(
+					elements[0]
+				)
 			),
-			sge::parse::json::get<
-				sge::parse::json::int_type
+			sge::parse::json::convert::to_int<
+				sge::font::unit
 			>(
-				elements[1]
+				sge::parse::json::get<
+					sge::parse::json::int_type
+				>(
+					elements[1]
+				)
 			)
 		);
 }

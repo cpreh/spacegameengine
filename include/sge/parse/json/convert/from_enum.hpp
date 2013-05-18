@@ -47,7 +47,7 @@ typename boost::enable_if<
 	sge::parse::json::int_type
 >::type
 from_enum(
-	Enum const &_enum
+	Enum const _enum
 )
 {
 	return

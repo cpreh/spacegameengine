@@ -59,10 +59,10 @@ find_member_exn(
 )
 {
 	return
-		json::get<
+		sge::parse::json::get<
 			T
 		>(
-			json::find_member_value_exn(
+			sge::parse::json::find_member_value_exn(
 				_members,
 				_name
 			)

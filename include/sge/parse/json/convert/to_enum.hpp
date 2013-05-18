@@ -51,13 +51,13 @@ typename boost::enable_if<
 	Enum
 >::type
 to_enum(
-	json::value const &_value,
+	sge::parse::json::value const &_value,
 	Enum const _max_value
 )
 {
-	json::int_type const int_value(
-		json::get<
-			json::int_type
+	sge::parse::json::int_type const int_value(
+		sge::parse::json::get<
+			sge::parse::json::int_type
 		>(
 			_value
 		)
@@ -69,7 +69,7 @@ to_enum(
 		int_value
 		>=
 		static_cast<
-			json::int_type
+			sge::parse::json::int_type
 		>(
 			_max_value
 		)

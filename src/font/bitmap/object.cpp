@@ -31,11 +31,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/element_vector.hpp>
 #include <sge/parse/json/find_member_exn.hpp>
+#include <sge/parse/json/find_member_value_exn.hpp>
 #include <sge/parse/json/get.hpp>
 #include <sge/parse/json/member_map.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/parse_file_exn.hpp>
 #include <sge/parse/json/start.hpp>
+#include <sge/parse/json/convert/to_int.hpp>
 #include <sge/src/font/bitmap/char_metric.hpp>
 #include <sge/src/font/bitmap/load_one_file.hpp>
 #include <sge/src/font/bitmap/object.hpp>
@@ -69,79 +71,74 @@ sge::font::bitmap::object::object(
 	);
 
 	line_height_
-		= sge::parse::json::find_member_exn<
-			int
+		=
+		sge::parse::json::convert::to_int<
+			sge::font::unit
 		>(
-			top_members,
-			FCPPT_TEXT("line_height")
+			sge::parse::json::find_member_value_exn(
+				top_members,
+				FCPPT_TEXT("line_height")
+			)
 		);
 
 	boost::filesystem::path const parent_path(
 		_path.parent_path()
 	);
 
-	sge::parse::json::array const &textures_array(
+	for(
+		auto const &elem
+		:
 		sge::parse::json::find_member_exn<
 			sge::parse::json::array
 		>(
 			top_members,
 			FCPPT_TEXT("textures")
-		)
-	);
-
-	{
-		for(
-			sge::parse::json::element_vector::const_iterator elem_it(
-				textures_array.elements.begin()
-			);
-			elem_it != textures_array.elements.end();
-			++elem_it
-		)
-			fcppt::container::ptr::push_back_unique_ptr(
-				images_,
-				sge::font::bitmap::load_one_file(
-					parent_path,
-					sge::parse::json::get<
-						parse::json::object
-					>(
-						*elem_it
-					),
-					_image_system,
-					char_map_
-				)
-			);
-
-		sge::image::color::format const current_format(
-			sge::image2d::view::format(
-				images_.back().view()
+		).elements
+	)
+		fcppt::container::ptr::push_back_unique_ptr(
+			images_,
+			sge::font::bitmap::load_one_file(
+				parent_path,
+				sge::parse::json::get<
+					sge::parse::json::object
+				>(
+					elem
+				),
+				_image_system,
+				char_map_
 			)
 		);
 
-		if(
-			!color_format_
+	sge::image::color::format const current_format(
+		sge::image2d::view::format(
+			images_.back().view()
 		)
-			color_format_ =
-				sge::image::color::optional_format(
-					current_format
-				);
-		else if(
-			*color_format_ != current_format
-		)
-			throw sge::font::exception(
-				FCPPT_TEXT("Bitmapfont images can't differ in color formats! ")
-				FCPPT_TEXT(" The color formats are: ")
-				+
-				sge::image::color::format_to_string(
-					*color_format_
-				)
-				+
-				FCPPT_TEXT(" and ")
-				+
-				sge::image::color::format_to_string(
-					current_format
-				)
+	);
+
+	if(
+		!color_format_
+	)
+		color_format_ =
+			sge::image::color::optional_format(
+				current_format
 			);
-	}
+	else if(
+		*color_format_ != current_format
+	)
+		throw sge::font::exception(
+			FCPPT_TEXT("Bitmapfont images can't differ in color formats! ")
+			FCPPT_TEXT(" The color formats are: ")
+			+
+			sge::image::color::format_to_string(
+				*color_format_
+			)
+			+
+			FCPPT_TEXT(" and ")
+			+
+			sge::image::color::format_to_string(
+				current_format
+			)
+		);
 }
 
 sge::font::bitmap::object::~object()

@@ -18,8 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_JSON_INT_TYPE_HPP_INCLUDED
-#define SGE_PARSE_JSON_INT_TYPE_HPP_INCLUDED
+#ifndef SGE_PARSE_JSON_CONVERT_TO_INT_HPP_INCLUDED
+#define SGE_PARSE_JSON_CONVERT_TO_INT_HPP_INCLUDED
+
+#include <sge/parse/json/get.hpp>
+#include <sge/parse/json/int_type.hpp>
+#include <sge/parse/json/value.hpp>
+#include <fcppt/truncation_check_cast.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/utility/enable_if.hpp>
+#include <type_traits>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -28,9 +37,35 @@ namespace parse
 {
 namespace json
 {
+namespace convert
+{
 
-typedef long long int_type;
+template<
+	typename IntType
+>
+typename boost::enable_if<
+	std::is_integral<
+		IntType
+	>,
+	IntType
+>::type
+to_int(
+	sge::parse::json::value const &_value
+)
+{
+	return
+		fcppt::truncation_check_cast<
+			IntType
+		>(
+			sge::parse::json::get<
+				sge::parse::json::int_type
+			>(
+				_value
+			)
+		);
+}
 
+}
 }
 }
 }

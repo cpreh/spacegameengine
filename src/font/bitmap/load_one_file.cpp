@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/exception.hpp>
+#include <sge/font/unit.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/file_unique_ptr.hpp>
 #include <sge/image2d/rect.hpp>
@@ -28,10 +29,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/element_vector.hpp>
 #include <sge/parse/json/find_member_exn.hpp>
+#include <sge/parse/json/find_member_value_exn.hpp>
 #include <sge/parse/json/get.hpp>
 #include <sge/parse/json/int_type.hpp>
 #include <sge/parse/json/member_map.hpp>
 #include <sge/parse/json/object.hpp>
+#include <sge/parse/json/convert/to_int.hpp>
 #include <sge/src/font/bitmap/char_map.hpp>
 #include <sge/src/font/bitmap/char_metric.hpp>
 #include <sge/src/font/bitmap/load_offset.hpp>
@@ -74,21 +77,15 @@ sge::font::bitmap::load_one_file(
 		)
 	);
 
-	sge::parse::json::array const &glyph_array(
+	for(
+		auto const &elem
+		:
 		sge::parse::json::find_member_exn<
 			sge::parse::json::array
 		>(
 			top_members,
 			FCPPT_TEXT("glyphs")
-		)
-	);
-
-	for(
-		sge::parse::json::element_vector::const_iterator elem_it(
-			glyph_array.elements.begin()
-		);
-		elem_it != glyph_array.elements.end();
-		++elem_it
+		).elements
 	)
 	try
 	{
@@ -96,7 +93,7 @@ sge::font::bitmap::load_one_file(
 			sge::parse::json::get<
 				sge::parse::json::object
 			>(
-				*elem_it
+				elem
 			).members
 		);
 
@@ -140,11 +137,13 @@ sge::font::bitmap::load_one_file(
 				sge::font::bitmap::load_offset(
 					members
 				),
-				sge::parse::json::find_member_exn<
-					sge::parse::json::int_type
+				sge::parse::json::convert::to_int<
+					sge::font::unit
 				>(
-					members,
-					FCPPT_TEXT("x_advance")
+					sge::parse::json::find_member_value_exn(
+						members,
+						FCPPT_TEXT("x_advance")
+					)
 				)
 			)
 		);
