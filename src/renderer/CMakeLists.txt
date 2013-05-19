@@ -771,6 +771,9 @@ set(
 	include/sge/renderer/vf/detail/element_stride.hpp
 	include/sge/renderer/vf/detail/iterator_base.hpp
 	include/sge/renderer/vf/detail/raw_data.hpp
+	include/sge/renderer/vf/detail/raw_data_type.hpp
+	include/sge/renderer/vf/detail/read_wrapper_decl.hpp
+	include/sge/renderer/vf/detail/read_wrapper_impl.hpp
 	include/sge/renderer/vf/dynamic/any.hpp
 	include/sge/renderer/vf/dynamic/any_fwd.hpp
 	include/sge/renderer/vf/dynamic/basic_view.hpp

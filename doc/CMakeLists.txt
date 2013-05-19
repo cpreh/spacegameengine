@@ -1458,7 +1458,9 @@ set(
 	include/sge/parse/json/convert/choose_fundamental.hpp
 	include/sge/parse/json/convert/from_container.hpp
 	include/sge/parse/json/convert/from_enum.hpp
+	include/sge/parse/json/convert/from_int.hpp
 	include/sge/parse/json/convert/to_enum.hpp
+	include/sge/parse/json/convert/to_int.hpp
 	include/sge/parse/json/convert/to_static_container.hpp
 	include/sge/parse/json/convert_from.hpp
 	include/sge/parse/json/convert_to.hpp
@@ -1466,6 +1468,7 @@ set(
 	include/sge/parse/json/detail/adapt_object.hpp
 	include/sge/parse/json/detail/adapt_start.hpp
 	include/sge/parse/json/detail/get_return_type.hpp
+	include/sge/parse/json/detail/init_result.hpp
 	include/sge/parse/json/detail/insert_member.hpp
 	include/sge/parse/json/detail/is_array.hpp
 	include/sge/parse/json/detail/member_wrapper.hpp
@@ -1482,7 +1485,6 @@ set(
 	include/sge/parse/json/find_object_exn.hpp
 	include/sge/parse/json/float_type.hpp
 	include/sge/parse/json/get.hpp
-	include/sge/parse/json/get_unsigned.hpp
 	include/sge/parse/json/grammar.hpp
 	include/sge/parse/json/grammar_decl.hpp
 	include/sge/parse/json/grammar_fwd.hpp
@@ -2473,6 +2475,9 @@ set(
 	include/sge/renderer/vf/detail/element_stride.hpp
 	include/sge/renderer/vf/detail/iterator_base.hpp
 	include/sge/renderer/vf/detail/raw_data.hpp
+	include/sge/renderer/vf/detail/raw_data_type.hpp
+	include/sge/renderer/vf/detail/read_wrapper_decl.hpp
+	include/sge/renderer/vf/detail/read_wrapper_impl.hpp
 	include/sge/renderer/vf/dynamic/any.hpp
 	include/sge/renderer/vf/dynamic/any_fwd.hpp
 	include/sge/renderer/vf/dynamic/basic_view.hpp
@@ -2952,6 +2957,7 @@ set(
 	include/sge/sprite/detail/parameters/initialize_defaults.hpp
 	include/sge/sprite/detail/parameters/make_class.hpp
 	include/sge/sprite/detail/parameters/make_extra_elements.hpp
+	include/sge/sprite/detail/parameters/to_elements.hpp
 	include/sge/sprite/detail/parameters/transform.hpp
 	include/sge/sprite/detail/parameters/transform_use_center.hpp
 	include/sge/sprite/detail/parameters/transform_use_texture_size.hpp
@@ -3073,6 +3079,7 @@ set(
 	include/sge/sprite/render/parameters_decl.hpp
 	include/sge/sprite/render/parameters_fwd.hpp
 	include/sge/sprite/render/parameters_impl.hpp
+	include/sge/sprite/render/range.hpp
 	include/sge/sprite/render/range_decl.hpp
 	include/sge/sprite/render/range_fwd.hpp
 	include/sge/sprite/render/range_impl.hpp

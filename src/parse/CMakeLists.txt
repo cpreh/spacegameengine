@@ -65,7 +65,9 @@ set(
 	include/sge/parse/json/convert/choose_fundamental.hpp
 	include/sge/parse/json/convert/from_container.hpp
 	include/sge/parse/json/convert/from_enum.hpp
+	include/sge/parse/json/convert/from_int.hpp
 	include/sge/parse/json/convert/to_enum.hpp
+	include/sge/parse/json/convert/to_int.hpp
 	include/sge/parse/json/convert/to_static_container.hpp
 	include/sge/parse/json/convert_from.hpp
 	include/sge/parse/json/convert_to.hpp
@@ -73,6 +75,7 @@ set(
 	include/sge/parse/json/detail/adapt_object.hpp
 	include/sge/parse/json/detail/adapt_start.hpp
 	include/sge/parse/json/detail/get_return_type.hpp
+	include/sge/parse/json/detail/init_result.hpp
 	include/sge/parse/json/detail/insert_member.hpp
 	include/sge/parse/json/detail/is_array.hpp
 	include/sge/parse/json/detail/member_wrapper.hpp
@@ -89,7 +92,6 @@ set(
 	include/sge/parse/json/find_object_exn.hpp
 	include/sge/parse/json/float_type.hpp
 	include/sge/parse/json/get.hpp
-	include/sge/parse/json/get_unsigned.hpp
 	include/sge/parse/json/grammar.hpp
 	include/sge/parse/json/grammar_decl.hpp
 	include/sge/parse/json/grammar_fwd.hpp

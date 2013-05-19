@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/sprite/count.hpp>
+#include <sge/sprite/default_initialize_class.hpp>
 #include <sge/sprite/buffers/allocate.hpp>
 #include <sge/sprite/buffers/multi_decl.hpp>
 #include <sge/sprite/buffers/option.hpp>
@@ -99,7 +100,9 @@ sge::sprite::buffers::multi<
 			slice_type
 		>(
 			new_object,
-			typename slice_type::offset_object() // initialize offsets to zero
+			sge::sprite::default_initialize_class<
+				typename slice_type::offset_object
+			>()
 		)
 	);
 

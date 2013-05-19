@@ -179,6 +179,7 @@ set(
 	include/sge/sprite/detail/parameters/initialize_defaults.hpp
 	include/sge/sprite/detail/parameters/make_class.hpp
 	include/sge/sprite/detail/parameters/make_extra_elements.hpp
+	include/sge/sprite/detail/parameters/to_elements.hpp
 	include/sge/sprite/detail/parameters/transform.hpp
 	include/sge/sprite/detail/parameters/transform_use_center.hpp
 	include/sge/sprite/detail/parameters/transform_use_texture_size.hpp
@@ -300,6 +301,7 @@ set(
 	include/sge/sprite/render/parameters_decl.hpp
 	include/sge/sprite/render/parameters_fwd.hpp
 	include/sge/sprite/render/parameters_impl.hpp
+	include/sge/sprite/render/range.hpp
 	include/sge/sprite/render/range_decl.hpp
 	include/sge/sprite/render/range_fwd.hpp
 	include/sge/sprite/render/range_impl.hpp
