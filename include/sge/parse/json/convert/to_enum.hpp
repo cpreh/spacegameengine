@@ -67,7 +67,7 @@ to_enum(
 		int_value < 0
 		||
 		int_value
-		>=
+		>
 		static_cast<
 			sge::parse::json::int_type
 		>(
