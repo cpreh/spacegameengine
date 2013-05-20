@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_PRIMITIVES_TEXTURE_POINT_POS_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_PRIMITIVES_TEXTURE_POINT_POS_HPP_INCLUDED
 
-#include <sge/sprite/types/texture_point_pos.hpp>
 #include <sge/sprite/config/custom_texture_point_pos_fwd.hpp>
 #include <sge/sprite/detail/transform_texture_levels_static.hpp>
 #include <sge/sprite/roles/texture_point_pos.hpp>
+#include <sge/sprite/types/texture_point_pos.hpp>
 #include <majutsu/role.hpp>
 #include <majutsu/simple.hpp>
 #include <fcppt/config/external_begin.hpp>

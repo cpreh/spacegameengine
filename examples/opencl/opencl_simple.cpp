@@ -102,8 +102,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/mpl/vector/vector10.hpp>
 #include <cstdlib>
 #include <functional>
-#include <istream>
 #include <iostream>
+#include <istream>
 #include <limits>
 #include <ostream>
 #include <string>

@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_IMAGE_COLOR_DYNAMIC_FROM_STATIC_FORMAT_TYPE_HPP_INCLUDED
 #define SGE_SRC_IMAGE_COLOR_DYNAMIC_FROM_STATIC_FORMAT_TYPE_HPP_INCLUDED
 
+#include <sge/src/image/color/dynamic/from_static_format.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
-#include <sge/src/image/color/dynamic/from_static_format.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>

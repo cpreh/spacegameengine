@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/config/media_path.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image/color/predef.hpp>
-#include <sge/log/location.hpp>
 #include <sge/log/global_context.hpp>
+#include <sge/log/location.hpp>
 #include <sge/model/md3/create.hpp>
 #include <sge/model/md3/index_sequence.hpp>
 #include <sge/model/md3/load_flags.hpp>
