@@ -21,10 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_ENCODING_HPP_INCLUDED
 #define SGE_PARSE_ENCODING_HPP_INCLUDED
 
-#include <fcppt/config.hpp>
+#include <fcppt/public_config.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/spirit/home/support/common_terminals.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {
