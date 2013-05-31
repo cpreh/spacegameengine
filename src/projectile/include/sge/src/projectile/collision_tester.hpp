@@ -47,6 +47,11 @@ public:
 	bool
 	result() const;
 private:
+	bool
+	needsCollision(
+		btBroadphaseProxy *
+	) const;
+
 	btScalar
 	addSingleResult(
 		btManifoldPoint &,

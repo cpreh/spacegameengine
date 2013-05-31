@@ -43,6 +43,15 @@ sge::projectile::collision_tester::result() const
 		result_;
 }
 
+bool
+sge::projectile::collision_tester::needsCollision(
+	btBroadphaseProxy *
+) const
+{
+	return
+		true;
+}
+
 btScalar
 sge::projectile::collision_tester::addSingleResult(
 	btManifoldPoint &,
