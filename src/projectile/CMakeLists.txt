@@ -91,6 +91,7 @@ set(
 	src/projectile/body/solidity/is_solid.cpp
 	src/projectile/body/solidity/solid.cpp
 	src/projectile/bullet_to_vector2.cpp
+	src/projectile/collision_tester.cpp
 	src/projectile/debug_drawer.cpp
 	src/projectile/detail/debug_drawer_impl.cpp
 	src/projectile/ghost/detail/pair_callback.cpp
@@ -102,6 +103,7 @@ set(
 	src/projectile/include/sge/src/projectile/body/solidity/extract_mass.hpp
 	src/projectile/include/sge/src/projectile/body/solidity/is_solid.hpp
 	src/projectile/include/sge/src/projectile/bullet_to_vector2.hpp
+	src/projectile/include/sge/src/projectile/collision_tester.hpp
 	src/projectile/include/sge/src/projectile/declare_local_logger.hpp
 	src/projectile/include/sge/src/projectile/detail/debug_drawer_impl.hpp
 	src/projectile/include/sge/src/projectile/ghost/detail/pair_callback.hpp

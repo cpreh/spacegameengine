@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/projectile/ghost/object.hpp>
 #include <sge/projectile/group/id.hpp>
 #include <sge/projectile/group/object.hpp>
+#include <sge/src/projectile/collision_tester.hpp>
 #include <sge/src/projectile/declare_local_logger.hpp>
 #include <sge/src/projectile/ghost/detail/pair_callback.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -244,16 +245,13 @@ sge::projectile::world::add_ghost(
 		group = static_cast<group::id>(0),
 		mask = group;
 
+	// TODO: unify this with add_body
 	for(
-		group::sequence::const_iterator it(
-			_groups.begin()
-		);
-		it != _groups.end();
-		++it
+		auto const &cur_group : _groups
 	)
 	{
-		group = static_cast<group::id>(group | it->get().category_);
-		mask = static_cast<group::id>(mask | it->get().collides_);
+		group = static_cast<group::id>(group | cur_group.get().category_);
+		mask = static_cast<group::id>(mask | cur_group.get().collides_);
 	}
 
 	world_->addCollisionObject(
@@ -268,6 +266,24 @@ sge::projectile::world::remove_ghost(
 {
 	world_->removeCollisionObject(
 		_ghost.ghost_object_.get());
+}
+
+bool
+sge::projectile::world::collides(
+	sge::projectile::body::object const &_body_a,
+	sge::projectile::body::object const &_body_b
+) const
+{
+	sge::projectile::collision_tester tester;
+
+	world_->contactPairTest(
+		_body_a.body_.get(),
+		_body_b.body_.get(),
+		tester
+	);
+
+	return
+		tester.result();
 }
 
 sge::projectile::world::~world()

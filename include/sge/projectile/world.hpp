@@ -97,6 +97,13 @@ public:
 	remove_ghost(
 		ghost::object &);
 
+	SGE_PROJECTILE_SYMBOL
+	bool
+	collides(
+		sge::projectile::body::object const &,
+		sge::projectile::body::object const &
+	) const;
+
 	SGE_PROJECTILE_SYMBOL ~world();
 private:
 	friend class sge::projectile::group::object;
