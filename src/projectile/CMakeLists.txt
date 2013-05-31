@@ -3,6 +3,8 @@ set(
 	include/sge/projectile/body/angular_velocity.hpp
 	include/sge/projectile/body/collision.hpp
 	include/sge/projectile/body/collision_fn.hpp
+	include/sge/projectile/body/const_optional_object_ref.hpp
+	include/sge/projectile/body/const_optional_object_ref_fwd.hpp
 	include/sge/projectile/body/detail/motion_state_fwd.hpp
 	include/sge/projectile/body/linear_velocity.hpp
 	include/sge/projectile/body/mass.hpp
