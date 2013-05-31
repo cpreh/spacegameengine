@@ -72,7 +72,6 @@ sge::libpng::context_base::handle_warning_impl(
 	FCPPT_LOG_WARNING(
 		logger(),
 		fcppt::log::_
-			<< FCPPT_TEXT("libpng: ")
 			<< prelude
 			<< FCPPT_TEXT(": ")
 			<< fcppt::from_std_string(message)
