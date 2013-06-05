@@ -22,6 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_COLOR_FORMAT_HPP_INCLUDED
 
 #include <sge/image/color/format_fwd.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 
 namespace sge
@@ -30,6 +33,9 @@ namespace image
 {
 namespace color
 {
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Wshadow)
 
 enum class format
 {
@@ -51,6 +57,8 @@ enum class format
 	srgba8,
 	fcppt_maximum = srgba8
 };
+
+FCPPT_PP_POP_WARNING
 
 }
 }
