@@ -33,7 +33,7 @@ namespace window
 typedef fcppt::math::dim::static_<
 	sge::window::unit,
 	2
->::type dim;
+> dim;
 
 }
 }

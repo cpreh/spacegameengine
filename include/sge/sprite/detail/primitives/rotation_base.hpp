@@ -47,9 +47,9 @@ struct rotation_base
 	typedef boost::mpl::vector1<
 		majutsu::role<
 			majutsu::simple<
-				typename sge::sprite::types::rotation<
+				sge::sprite::types::rotation<
 					typename Choices::type_choices
-				>::type
+				>
 			>,
 			sge::sprite::roles::rotation
 		>

@@ -47,9 +47,9 @@ struct texture_repetition
 	typedef boost::mpl::vector1<
 		majutsu::role<
 			majutsu::simple<
-				typename sge::sprite::types::repetition<
+				sge::sprite::types::repetition<
 					typename Choices::type_choices
-				>::type
+				>
 			>,
 			sge::sprite::roles::repetition
 		>

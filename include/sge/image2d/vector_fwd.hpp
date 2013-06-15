@@ -31,7 +31,7 @@ namespace image2d
 
 typedef sge::image::vector<
 	2
->::type vector;
+> vector;
 
 }
 }

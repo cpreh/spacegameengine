@@ -72,9 +72,9 @@ transform_use_texture_size(
 			sge::sprite::roles::size
 		>(
 			fcppt::math::dim::structure_cast<
-				typename sge::sprite::types::dim<
+				sge::sprite::types::dim<
 					typename Choices::type_choices
-				>::type
+				>
 			>(
 				_parameters. template get<
 					sge::sprite::roles::texture<

@@ -59,9 +59,9 @@ struct normal_size
 			boost::mpl::vector1<
 				majutsu::role<
 					majutsu::simple<
-						typename sge::sprite::types::dim<
+						sge::sprite::types::dim<
 							typename Choices::type_choices
-						>::type
+						>
 					>,
 					sge::sprite::roles::size
 				>

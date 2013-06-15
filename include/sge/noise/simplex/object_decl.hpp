@@ -55,11 +55,10 @@ class object
 	);
 public:
 	typedef
-	typename
 	fcppt::math::vector::static_<
 		Float,
 		N
-	>::type
+	>
 	vector_type;
 
 	typedef
@@ -84,12 +83,11 @@ private:
 	> index_container;
 
 	typedef
-	typename
 	fcppt::math::matrix::static_<
 		Float,
 		N,
 		N
-	>::type
+	>
 	matrix;
 
 	typedef

@@ -55,12 +55,12 @@ struct sub_function
 		sge::opengl::color_format,
 		sge::opengl::color_format_type,
 		sge::renderer::texture::mipmap::level,
-		typename sge::renderer::basic_dim<
+		sge::renderer::basic_dim<
 			Size
-		>::type const &,
-		typename sge::renderer::basic_lock_box<
+		> const &,
+		sge::renderer::basic_lock_box<
 			Size
-		>::type const &,
+		> const &,
 		sge::renderer::const_raw_pointer
 	);
 };

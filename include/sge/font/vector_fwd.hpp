@@ -33,7 +33,7 @@ namespace font
 typedef fcppt::math::vector::static_<
 	sge::font::unit,
 	2
->::type vector;
+> vector;
 
 }
 }

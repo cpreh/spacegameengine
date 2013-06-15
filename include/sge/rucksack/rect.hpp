@@ -29,7 +29,7 @@ namespace sge
 namespace rucksack
 {
 typedef
-fcppt::math::box::rect<sge::rucksack::scalar>::type
+fcppt::math::box::rect<sge::rucksack::scalar>
 rect;
 }
 }

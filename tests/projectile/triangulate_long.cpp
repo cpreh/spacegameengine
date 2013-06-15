@@ -44,7 +44,7 @@ typedef long unit;
 typedef fcppt::math::vector::static_<
 	unit,
 	2
->::type vector2;
+> vector2;
 
 typedef std::array<
 	vector2,

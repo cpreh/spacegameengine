@@ -49,9 +49,9 @@ class parameters
 		parameters
 	);
 public:
-	typedef typename sge::renderer::basic_dim<
+	typedef sge::renderer::basic_dim<
 		Dim
-	>::type dim;
+	> dim;
 
 	typedef typename sge::opengl::texture::init_function<
 		Dim

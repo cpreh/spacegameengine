@@ -38,9 +38,9 @@ namespace texture
 template<
 	fcppt::math::size_type Size
 >
-typename sge::renderer::basic_dim<
+sge::renderer::basic_dim<
 	Size
->::type const
+> const
 get_level_size(
 	sge::opengl::texture::binding const &,
 	sge::opengl::texture::buffer_type,

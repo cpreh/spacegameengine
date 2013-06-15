@@ -69,18 +69,18 @@ public:
 
 	Specifies a size in pixels
 	*/
-	typedef typename sge::renderer::basic_dim<
+	typedef sge::renderer::basic_dim<
 		Dim
-	>::type dim;
+	> dim;
 
 	/**
 	\brief The lock area type
 
 	Specifies the lock area type in pixels
 	*/
-	typedef typename sge::renderer::basic_lock_box<
+	typedef sge::renderer::basic_lock_box<
 		Dim
-	>::type lock_area;
+	> lock_area;
 
 	/**
 	\brief The image tag

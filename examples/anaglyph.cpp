@@ -679,7 +679,7 @@ move_eye_position(
 		z = result.up().get().z();
 
 	typedef
-	fcppt::math::matrix::static_<sge::renderer::scalar,3,3>::type
+	fcppt::math::matrix::static_<sge::renderer::scalar,3,3>
 	matrix3;
 
 	matrix3 const rotation_matrix(

@@ -48,9 +48,9 @@ struct rotation_center
 	typedef boost::mpl::vector2<
 		majutsu::role<
 			majutsu::simple<
-				typename sge::sprite::types::rotation_center<
+				sge::sprite::types::rotation_center<
 					typename Choices::type_choices
-				>::type
+				>
 			>,
 			sge::sprite::roles::rotate_around
 		>,

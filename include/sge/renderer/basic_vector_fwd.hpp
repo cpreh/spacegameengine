@@ -24,18 +24,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scalar.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/vector/static.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 
 
 namespace sge
 {
 namespace renderer
 {
-
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 /**
 \brief Typedef helper for renderer::vector2, renderer::vector3 and
@@ -48,17 +42,13 @@ Creates a vector with value type renderer::scalar.
 template<
 	fcppt::math::size_type Size
 >
-struct basic_vector
-:
+using basic_vector
+=
 fcppt::math::vector::static_
 <
 	sge::renderer::scalar,
 	Size
->
-{
-};
-
-FCPPT_PP_POP_WARNING
+>;
 
 }
 }

@@ -307,7 +307,7 @@ cursor_speed_tracker::move_callback(
 	sge::input::cursor::relative_move_event const &_e)
 {
 	typedef
-	fcppt::math::vector::static_<scalar,2>::type
+	fcppt::math::vector::static_<scalar,2>
 	vector2;
 
 	current_speed_ =

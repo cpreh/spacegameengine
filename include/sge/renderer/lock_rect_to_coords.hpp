@@ -60,9 +60,9 @@ typename boost::enable_if<
 	fcppt::type_traits::is_float_or_double<
 		Ret
 	>,
-	typename fcppt::math::box::rect<
+	fcppt::math::box::rect<
 		Ret
-	>::type
+	>
 >::type const
 lock_rect_to_coords(
 	sge::renderer::lock_rect const &area,

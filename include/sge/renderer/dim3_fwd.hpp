@@ -36,7 +36,7 @@ typedef
 sge::renderer::basic_dim
 <
 	3
->::type
+>
 dim3;
 
 }

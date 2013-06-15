@@ -42,9 +42,9 @@ template<
 sge::renderer::texture::mipmap::level_count const
 get_levels(
 	sge::renderer::texture::mipmap::object const &,
-	typename sge::renderer::basic_dim<
+	sge::renderer::basic_dim<
 		Size
-	>::type const &
+	> const &
 );
 
 }

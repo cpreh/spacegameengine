@@ -35,7 +35,7 @@ namespace renderer
 */
 typedef fcppt::math::box::rect<
 	renderer::pixel_unit
->::type pixel_rect;
+> pixel_rect;
 
 }
 }

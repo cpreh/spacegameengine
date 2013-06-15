@@ -45,7 +45,7 @@ sge::opengl::state::ffp::clip_plane::make_actors(
 	typedef fcppt::math::vector::static_<
 		GLdouble,
 		4
-	>::type vector4d;
+	> vector4d;
 
 	return
 		fcppt::assign::make_container<

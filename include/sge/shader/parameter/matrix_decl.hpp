@@ -52,8 +52,8 @@ public:
 	ValueType
 	value_type;
 
-	typedef typename
-	fcppt::math::matrix::static_<value_type,M,N>::type
+	typedef
+	fcppt::math::matrix::static_<value_type,M,N>
 	matrix_type;
 
 	static fcppt::math::size_type const rows =

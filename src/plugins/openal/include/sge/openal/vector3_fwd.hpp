@@ -33,7 +33,7 @@ namespace openal
 typedef fcppt::math::vector::static_<
 	ALfloat,
 	3
->::type vector3;
+> vector3;
 
 }
 }

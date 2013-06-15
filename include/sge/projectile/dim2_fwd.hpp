@@ -35,7 +35,7 @@ fcppt::math::dim::static_
 <
 	sge::projectile::scalar,
 	2
->::type
+>
 dim2;
 
 }

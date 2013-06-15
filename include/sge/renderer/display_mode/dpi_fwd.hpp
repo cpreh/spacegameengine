@@ -35,7 +35,7 @@ namespace display_mode
 typedef fcppt::math::vector::static_<
 	sge::renderer::display_mode::dpi_unit,
 	2
->::type dpi;
+> dpi;
 
 }
 }

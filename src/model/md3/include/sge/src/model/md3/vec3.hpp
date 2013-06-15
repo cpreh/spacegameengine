@@ -35,7 +35,7 @@ namespace md3
 typedef fcppt::math::vector::static_<
 	md3::scalar,
 	3
->::type vec3;
+> vec3;
 
 }
 }

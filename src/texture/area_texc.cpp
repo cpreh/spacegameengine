@@ -51,22 +51,22 @@ typename boost::enable_if<
 	fcppt::type_traits::is_float_or_double<
 		T
 	>,
-	typename fcppt::math::box::rect<
+	fcppt::math::box::rect<
 		T
-	>::type
+	>
 >::type const
 sge::texture::area_texc(
 	sge::texture::part const &_part,
-	typename fcppt::math::vector::static_<
+	fcppt::math::vector::static_<
 		T,
 		2
-	>::type const &_repeat
+	> const &_repeat
 )
 {
-	typedef typename fcppt::math::vector::static_<
+	typedef fcppt::math::vector::static_<
 		T,
 		2
-	>::type vector_type;
+	> vector_type;
 
 	if(
 		!fcppt::math::vector::componentwise_equal(
@@ -89,9 +89,9 @@ sge::texture::area_texc(
 				<< FCPPT_TEXT('!')
 		);
 
-	typedef typename fcppt::math::box::rect<
+	typedef fcppt::math::box::rect<
 		T
-	>::type ret_type;
+	> ret_type;
 
 	ret_type ret(
 		sge::renderer::lock_rect_to_coords<
@@ -124,7 +124,7 @@ boost::enable_if< \
 	>, \
 	fcppt::math::box::rect<\
 		ftype\
-	>::type \
+	> \
 >::type const \
 sge::texture::area_texc<\
 	ftype\
@@ -133,7 +133,7 @@ sge::texture::area_texc<\
 	fcppt::math::vector::static_<\
 		ftype,\
 		2\
-	>::type const &\
+	> const &\
 )
 
 SGE_RENDERER_INSTANTIATE_FLOAT(

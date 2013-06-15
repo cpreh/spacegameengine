@@ -227,7 +227,7 @@ try
 		fcppt::math::vector::static_<
 			float,
 			4
-		>::type(
+		>(
 			0.5f,
 			0.f,
 			0.f,

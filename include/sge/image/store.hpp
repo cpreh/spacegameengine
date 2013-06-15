@@ -48,9 +48,9 @@ public:
 
 	typedef typename internal_type::const_pointer const_pointer;
 
-	typedef typename sge::image::dim<
+	typedef sge::image::dim<
 		Format::dim::static_size
-	>::type dim;
+	> dim;
 
 	typedef typename internal_type::view_type view_type;
 
@@ -68,7 +68,8 @@ public:
 	store();
 
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
-	explicit store(
+	explicit
+	store(
 		dim const &
 	);
 

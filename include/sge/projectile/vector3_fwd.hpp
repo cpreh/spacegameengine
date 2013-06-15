@@ -34,7 +34,7 @@ fcppt::math::vector::static_
 <
 	sge::projectile::scalar,
 	3
->::type
+>
 vector3;
 }
 }

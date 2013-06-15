@@ -37,7 +37,7 @@ fcppt::math::vector::static_
 <
 	scalar,
 	2
->::type
+>
 texcoord;
 
 }

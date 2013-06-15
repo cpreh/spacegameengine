@@ -54,9 +54,9 @@ private:
 	{
 		typedef majutsu::role<
 			majutsu::simple<
-				typename sge::sprite::types::texture_coordinates<
+				sge::sprite::types::texture_coordinates<
 					typename Choices::type_choices
-				>::type
+				>
 			>,
 			sge::sprite::roles::texture_coordinates<
 				Level::value

@@ -34,7 +34,7 @@ typedef
 fcppt::math::box::rect
 <
 	sge::projectile::scalar
->::type
+>
 rect;
 
 }

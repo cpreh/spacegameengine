@@ -21,11 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_GEOMETRY_FLOAT_RECT_FWD_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_GEOMETRY_FLOAT_RECT_FWD_HPP_INCLUDED
 
-#include <sge/sprite/config/type_choices_fwd.hpp>
 #include <sge/sprite/types/basic/rect_fwd.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 
 
 namespace sge
@@ -40,29 +36,11 @@ namespace geometry
 template<
 	typename TypeChoices
 >
-struct float_rect;
-
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-template<
-	typename UnitType,
-	typename FloatType
->
-struct float_rect<
-	sge::sprite::config::type_choices<
-		UnitType,
-		FloatType
-	>
->
-:
+using float_rect
+=
 sge::sprite::types::basic::rect<
-	FloatType
->
-{
-};
-
-FCPPT_PP_POP_WARNING
+	typename TypeChoices::float_type
+>;
 
 }
 }

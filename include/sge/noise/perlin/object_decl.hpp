@@ -60,12 +60,12 @@ public:
 	fcppt::container::grid::object<value_type,N>
 	grid_type;
 
-	typedef typename
+	typedef
 	fcppt::math::vector::static_
 	<
 		value_type,
 		N
-	>::type
+	>
 	vector_type;
 
 	typedef typename

@@ -182,7 +182,7 @@ private:
 
 	typedef sge::sprite::types::vector<
 		sprite_choices::type_choices
-	>::type sprite_pos_type;
+	> sprite_pos_type;
 
 	sge::font::draw::detail::static_text_impl::sprite_pos_type const
 	sprite_pos(

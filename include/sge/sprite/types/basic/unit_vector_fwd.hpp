@@ -21,11 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_TYPES_BASIC_UNIT_VECTOR_FWD_HPP_INCLUDED
 #define SGE_SPRITE_TYPES_BASIC_UNIT_VECTOR_FWD_HPP_INCLUDED
 
-#include <sge/sprite/config/type_choices_fwd.hpp>
 #include <sge/sprite/types/basic/vector_fwd.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 
 
 namespace sge
@@ -40,29 +36,11 @@ namespace basic
 template<
 	typename TypeChoices
 >
-struct unit_vector;
-
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-template<
-	typename UnitType,
-	typename FloatType
->
-struct unit_vector<
-	sge::sprite::config::type_choices<
-		UnitType,
-		FloatType
-	>
->
-:
+using unit_vector
+=
 sge::sprite::types::basic::vector<
-	UnitType
->
-{
-};
-
-FCPPT_PP_POP_WARNING
+	typename TypeChoices::unit_type
+>;
 
 }
 }

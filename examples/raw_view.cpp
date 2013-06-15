@@ -472,7 +472,7 @@ struct reference
 	fcppt::math::vector::object
 	<
 		ValueType,
-		typename fcppt::math::static_size<Size>::type,
+		fcppt::math::static_size<Size>,
 		mylib::vector::raw_view<ValueType>
 	>
 	type;
@@ -497,12 +497,12 @@ struct value_type
 	>
 >
 {
-	typedef typename
+	typedef
 	fcppt::math::vector::static_
 	<
 		ValueType,
 		Size
-	>::type
+	>
 	type;
 };
 

@@ -56,9 +56,9 @@ fill_position_unrotated(
 		Choices
 	>::type vertex_pos;
 
-	typedef typename sge::sprite::detail::geometry::float_rect<
+	typedef sge::sprite::detail::geometry::float_rect<
 		type_choices
-	>::type float_rect;
+	> float_rect;
 
 	float_rect const rect(
 		fcppt::math::box::structure_cast<
@@ -70,9 +70,9 @@ fill_position_unrotated(
 		)
 	);
 
-	typedef typename sge::sprite::types::basic::float_vector<
+	typedef sge::sprite::types::basic::float_vector<
 		type_choices
-	>::type float_vector;
+	> float_vector;
 
 	(*_iterator++). template set<
 		vertex_pos

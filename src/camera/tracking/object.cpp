@@ -48,7 +48,7 @@ lerp_double(
 	real;
 
 	typedef
-	fcppt::math::matrix::static_<real,4,4>::type
+	fcppt::math::matrix::static_<real,4,4>
 	real_matrix;
 
 	return

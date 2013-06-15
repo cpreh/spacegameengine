@@ -35,9 +35,9 @@ namespace sprite
 template<
 	typename Choices
 >
-typename sge::sprite::types::rect<
+sge::sprite::types::rect<
 	typename Choices::type_choices
->::type const
+> const
 bounding_rect(
 	sge::sprite::object<
 		Choices
@@ -45,9 +45,9 @@ bounding_rect(
 )
 {
 	return
-		typename sge::sprite::types::rect<
+		sge::sprite::types::rect<
 			typename Choices::type_choices
-		>::type(
+		>(
 			_sprite.pos(),
 			_sprite.size()
 		);

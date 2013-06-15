@@ -32,22 +32,21 @@ namespace renderer
 {
 
 /**
- * \brief Typedef helper for renderer::lock_rect and renderer::lock_box
- *
- * Creates a box with value type renderer::size_type.
- *
- * \tparam Size The dimension to use
+\brief Typedef helper for renderer::lock_rect and renderer::lock_box
+
+Creates a box with value type renderer::size_type.
+
+\tparam Size The dimension to use
 */
 template<
 	fcppt::math::size_type Size
 >
-struct basic_lock_box
-{
-	typedef fcppt::math::box::object<
-		sge::renderer::size_type,
-		Size
-	> type;
-};
+using basic_lock_box
+=
+fcppt::math::box::object<
+	sge::renderer::size_type,
+	Size
+>;
 
 }
 }

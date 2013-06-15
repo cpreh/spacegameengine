@@ -56,9 +56,9 @@ struct init_function
 		sge::opengl::color_format_type,
 		sge::opengl::internal_color_format,
 		sge::renderer::texture::mipmap::level,
-		typename sge::renderer::basic_dim<
+		sge::renderer::basic_dim<
 			Size
-		>::type const &,
+		> const &,
 		sge::renderer::const_raw_pointer
 	);
 };

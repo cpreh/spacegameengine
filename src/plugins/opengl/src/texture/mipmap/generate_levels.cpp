@@ -37,13 +37,13 @@ namespace
 template<
 	fcppt::math::size_type Size
 >
-typename sge::renderer::basic_dim<
+sge::renderer::basic_dim<
 	Size
->::type const
+> const
 reduce_dim(
-	typename sge::renderer::basic_dim<
+	sge::renderer::basic_dim<
 		Size
-	>::type const &
+	> const &
 );
 
 }
@@ -107,18 +107,18 @@ namespace
 template<
 	fcppt::math::size_type Size
 >
-typename sge::renderer::basic_dim<
+sge::renderer::basic_dim<
 	Size
->::type const
+> const
 reduce_dim(
-	typename sge::renderer::basic_dim<
+	sge::renderer::basic_dim<
 		Size
-	>::type const &_size
+	> const &_size
 )
 {
-	typedef typename sge::renderer::basic_dim<
+	typedef sge::renderer::basic_dim<
 		Size
-	>::type dim;
+	> dim;
 
 	dim ret{
 		fcppt::no_init()

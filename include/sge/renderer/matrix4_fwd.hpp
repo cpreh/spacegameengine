@@ -38,7 +38,7 @@ fcppt::math::matrix::static_<
 	sge::renderer::scalar,
 	4,
 	4
->::type
+>
 matrix4;
 
 }

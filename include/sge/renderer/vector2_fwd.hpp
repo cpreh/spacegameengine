@@ -36,7 +36,7 @@ namespace renderer
 typedef
 sge::renderer::basic_vector<
 	2
->::type
+>
 vector2;
 
 }

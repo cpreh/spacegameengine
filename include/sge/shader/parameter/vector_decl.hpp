@@ -50,8 +50,8 @@ public:
 	ValueType
 	value_type;
 
-	typedef typename
-	fcppt::math::vector::static_<ValueType,N>::type
+	typedef
+	fcppt::math::vector::static_<ValueType,N>
 	vector_type;
 
 	static fcppt::math::size_type const size =

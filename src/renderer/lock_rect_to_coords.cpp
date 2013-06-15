@@ -41,18 +41,18 @@ typename boost::enable_if<
 	fcppt::type_traits::is_float_or_double<
 		Ret
 	>,
-	typename fcppt::math::box::rect<
+	fcppt::math::box::rect<
 		Ret
-	>::type
+	>
 >::type const
 sge::renderer::lock_rect_to_coords(
-	renderer::lock_rect const &_rect,
-	renderer::dim2 const &_dim
+	sge::renderer::lock_rect const &_rect,
+	sge::renderer::dim2 const &_dim
 )
 {
-	typedef typename fcppt::math::box::rect<
+	typedef fcppt::math::box::rect<
 		Ret
-	>::type ret_type;
+	> ret_type;
 
 	ret_type const srect(
 		fcppt::math::box::structure_cast<
@@ -62,10 +62,10 @@ sge::renderer::lock_rect_to_coords(
 		)
 	);
 
-	typedef typename fcppt::math::dim::static_<
+	typedef fcppt::math::dim::static_<
 		Ret,
 		2
-	>::type sdim_type;
+	> sdim_type;
 
 	sdim_type const sdim(
 		fcppt::math::dim::structure_cast<
@@ -96,13 +96,13 @@ boost::enable_if< \
 	>, \
 	fcppt::math::box::rect< \
 		floattype \
-	>::type \
+	> \
 >::type const \
 sge::renderer::lock_rect_to_coords<\
 	floattype \
 >(\
-	renderer::lock_rect const &, \
-	renderer::dim2 const &\
+	sge::renderer::lock_rect const &, \
+	sge::renderer::dim2 const &\
 )
 
 SGE_RENDERER_INSTANTIATE_FLOAT(

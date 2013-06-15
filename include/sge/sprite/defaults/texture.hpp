@@ -48,9 +48,9 @@ struct defaults<
 {
 	typedef boost::mpl::true_ use;
 
-	typedef typename sge::sprite::texture<
+	typedef sge::sprite::texture<
 		Choices
-	>::type type;
+	> type;
 
 	static type
 	get()

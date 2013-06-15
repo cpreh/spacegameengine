@@ -36,7 +36,7 @@ namespace renderer
 typedef fcppt::math::dim::static_<
 	sge::renderer::screen_unit,
 	2
->::type screen_size;
+> screen_size;
 
 }
 }

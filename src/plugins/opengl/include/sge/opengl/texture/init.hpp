@@ -72,9 +72,9 @@ init(
 	sge::opengl::texture::id const _id
 )
 {
-	typedef typename sge::renderer::basic_dim<
+	typedef sge::renderer::basic_dim<
 		Types::buffer_types::dim_types::num_dims
-	>::type extended_dim;
+	> extended_dim;
 
 	typedef typename extended_dim::dim_wrapper dim_wrapper;
 

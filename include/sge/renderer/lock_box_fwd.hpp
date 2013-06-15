@@ -35,7 +35,7 @@ namespace renderer
 */
 typedef sge::renderer::basic_lock_box<
 	3
->::type lock_box;
+> lock_box;
 
 }
 }

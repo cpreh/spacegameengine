@@ -31,7 +31,7 @@ namespace image3d
 
 typedef sge::image::dim<
 	3
->::type dim;
+> dim;
 
 }
 }

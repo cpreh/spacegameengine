@@ -38,10 +38,10 @@ template<
 >
 void
 check_dim(
-	typename sge::renderer::basic_dim<
+	sge::renderer::basic_dim<
 		Size
-	>::type const &,
-	renderer::size_type min_value,
+	> const &,
+	sge::renderer::size_type min_value,
 	fcppt::string const &what
 );
 

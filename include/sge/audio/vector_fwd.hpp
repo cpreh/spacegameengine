@@ -35,7 +35,7 @@ fcppt::math::vector::static_
 <
 	sge::audio::scalar,
 	3
->::type vector;
+> vector;
 
 }
 }

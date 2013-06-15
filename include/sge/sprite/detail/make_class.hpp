@@ -63,9 +63,9 @@ struct make_class
 				boost::mpl::vector2<
 					majutsu::role<
 						majutsu::simple<
-							typename sge::sprite::types::vector<
+							sge::sprite::types::vector<
 								typename Choices::type_choices
-							>::type
+							>
 						>,
 						sge::sprite::roles::pos
 					>,

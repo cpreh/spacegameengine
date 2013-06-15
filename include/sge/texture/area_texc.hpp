@@ -44,16 +44,16 @@ typename boost::enable_if<
 	fcppt::type_traits::is_float_or_double<
 		T
 	>,
-	typename fcppt::math::box::rect<
+	fcppt::math::box::rect<
 		T
-	>::type
+	>
 >::type const
 area_texc(
 	sge::texture::part const &,
-	typename fcppt::math::vector::static_<
+	fcppt::math::vector::static_<
 		T,
 		2
-	>::type const &repeat
+	> const &repeat
 );
 
 }

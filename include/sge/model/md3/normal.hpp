@@ -37,7 +37,7 @@ fcppt::math::vector::static_
 <
 	scalar,
 	3
->::type
+>
 normal;
 
 }

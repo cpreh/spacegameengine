@@ -35,7 +35,7 @@ namespace projection
 typedef fcppt::math::dim::static_<
 	sge::renderer::scalar,
 	2
->::type dim;
+> dim;
 
 }
 }

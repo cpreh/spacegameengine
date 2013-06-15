@@ -36,12 +36,11 @@ namespace basic
 template<
 	typename Type
 >
-struct homogenous_pair
-{
-	typedef fcppt::homogenous_pair<
-		Type
-	> type;
-};
+using homogenous_pair
+=
+fcppt::homogenous_pair<
+	Type
+>;
 
 }
 }

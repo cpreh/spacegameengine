@@ -29,7 +29,7 @@ namespace sge
 namespace rucksack
 {
 typedef
-fcppt::math::vector::static_<sge::rucksack::scalar,2>::type
+fcppt::math::vector::static_<sge::rucksack::scalar,2>
 vector;
 }
 }

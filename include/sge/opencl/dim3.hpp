@@ -29,7 +29,7 @@ namespace sge
 namespace opencl
 {
 typedef
-fcppt::math::dim::static_<sge::opencl::size_type,3>::type
+fcppt::math::dim::static_<sge::opencl::size_type,3>
 dim3;
 }
 }

@@ -46,14 +46,14 @@ template<
 void
 fill_texture_coordinates_rect(
 	Iterator _iterator,
-	typename sge::sprite::types::texture_coordinates<
+	sge::sprite::types::texture_coordinates<
 		typename Choices::type_choices
-	>::type const &_rt
+	> const &_rt
 )
 {
-	typedef typename sge::sprite::types::basic::float_vector<
+	typedef sge::sprite::types::basic::float_vector<
 		typename Choices::type_choices
-	>::type tex_pos;
+	> tex_pos;
 
 	typedef typename boost::mpl::at<
 		typename sge::sprite::detail::vf::texpos<

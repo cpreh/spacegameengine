@@ -37,16 +37,16 @@ template<
 	typename Choices,
 	typename Rect
 >
-typename sge::sprite::types::texture_coordinates<
+sge::sprite::types::texture_coordinates<
 	typename Choices::type_choices
->::type const
+> const
 convert_texture_rect(
 	Rect const &_rect
 )
 {
-	typedef typename sge::sprite::types::texture_coordinates<
+	typedef sge::sprite::types::texture_coordinates<
 		typename Choices::type_choices
-	>::type return_type;
+	> return_type;
 
 	typedef typename return_type::first_type element_type;
 

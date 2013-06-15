@@ -33,7 +33,7 @@ namespace texture
 typedef fcppt::math::vector::static_<
 	sge::renderer::size_type,
 	2u
->::type pos_type;
+> pos_type;
 
 }
 }

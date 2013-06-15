@@ -44,9 +44,9 @@ struct defaults<
 {
 	typedef boost::mpl::true_ use;
 
-	typedef typename sge::sprite::types::repetition<
+	typedef sge::sprite::types::repetition<
 		typename Choices::type_choices
-	>::type type;
+	> type;
 
 	static type
 	get()

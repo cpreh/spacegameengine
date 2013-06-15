@@ -83,61 +83,61 @@ public:
 
 	typedef typename Choices::type_choices type_choices;
 
-	typedef typename sge::sprite::types::basic::unit<
+	typedef sge::sprite::types::basic::unit<
 		type_choices
-	>::type unit;
+	> unit;
 
-	typedef typename sge::sprite::types::basic::float_<
+	typedef sge::sprite::types::basic::float_<
 		type_choices
-	>::type float_type;
+	> float_type;
 
-	typedef typename sge::sprite::types::depth<
+	typedef sge::sprite::types::depth<
 		type_choices
-	>::type depth_type;
+	> depth_type;
 
-	typedef typename sge::sprite::types::rotation<
+	typedef sge::sprite::types::rotation<
 		type_choices
-	>::type rotation_type;
+	> rotation_type;
 
-	typedef typename sge::sprite::types::rotation_center<
+	typedef sge::sprite::types::rotation_center<
 		type_choices
-	>::type rotation_center_type;
+	> rotation_center_type;
 
-	typedef typename sge::sprite::types::repetition<
+	typedef sge::sprite::types::repetition<
 		type_choices
-	>::type repetition_type;
+	> repetition_type;
 
-	typedef typename sge::sprite::types::texture_coordinates<
+	typedef sge::sprite::types::texture_coordinates<
 		type_choices
-	>::type texture_coordinates_type;
+	> texture_coordinates_type;
 
-	typedef typename sge::sprite::types::vector<
+	typedef sge::sprite::types::vector<
 		type_choices
-	>::type vector;
+	> vector;
 
-	typedef typename sge::sprite::types::dim<
+	typedef sge::sprite::types::dim<
 		type_choices
-	>::type dim;
+	> dim;
 
-	typedef typename sge::sprite::types::point_size<
+	typedef sge::sprite::types::point_size<
 		type_choices
-	>::type point_size_type;
+	> point_size_type;
 
-	typedef typename sge::sprite::types::texture_point_pos<
+	typedef sge::sprite::types::texture_point_pos<
 		type_choices
-	>::type texture_point_pos_type;
+	> texture_point_pos_type;
 
-	typedef typename sge::sprite::types::texture_point_size<
+	typedef sge::sprite::types::texture_point_size<
 		type_choices
-	>::type texture_point_size_type;
+	> texture_point_size_type;
 
-	typedef typename sge::sprite::color<
+	typedef sge::sprite::color<
 		choices
-	>::type color_type;
+	> color_type;
 
-	typedef typename sge::sprite::texture<
+	typedef sge::sprite::texture<
 		choices
-	>::type texture_type;
+	> texture_type;
 
 	typedef sge::sprite::parameters<
 		choices

@@ -33,7 +33,7 @@ namespace font
 typedef fcppt::math::vector::static_<
 	sge::font::dpi_unit,
 	2
->::type dpi;
+> dpi;
 
 }
 }

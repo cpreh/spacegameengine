@@ -31,7 +31,7 @@ namespace image3d
 
 typedef sge::image::pitch<
 	3
->::type pitch;
+> pitch;
 
 }
 }

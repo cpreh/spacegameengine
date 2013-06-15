@@ -121,9 +121,9 @@ struct get_level_size_impl<
 template<
 	fcppt::math::size_type Size
 >
-typename sge::renderer::basic_dim<
+sge::renderer::basic_dim<
 	Size
->::type const
+> const
 sge::opengl::texture::get_level_size(
 	sge::opengl::texture::binding const &_binding,
 	sge::opengl::texture::buffer_type const _buffer_type,
@@ -146,7 +146,7 @@ sge::opengl::texture::get_level_size(
 template \
 sge::renderer::basic_dim<\
 	dimension\
->::type const \
+> const \
 sge::opengl::texture::get_level_size<\
 	dimension\
 >(\

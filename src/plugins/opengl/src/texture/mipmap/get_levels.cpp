@@ -49,9 +49,9 @@ class visitor
 		visitor
 	);
 public:
-	typedef typename sge::renderer::basic_dim<
+	typedef sge::renderer::basic_dim<
 		Size
-	>::type dim_type;
+	> dim_type;
 
 	explicit
 	visitor(
@@ -86,9 +86,9 @@ template<
 sge::renderer::texture::mipmap::level_count const
 sge::opengl::texture::mipmap::get_levels(
 	sge::renderer::texture::mipmap::object const &_mipmap,
-	typename sge::renderer::basic_dim<
+	sge::renderer::basic_dim<
 		Size
-	>::type const &_dim
+	> const &_dim
 )
 {
 	return
@@ -193,7 +193,7 @@ sge::opengl::texture::mipmap::get_levels<\
 	sge::renderer::texture::mipmap::object const &,\
 	sge::renderer::basic_dim<\
 		dimension\
-	>::type const &\
+	> const &\
 );
 
 SGE_OPENGL_TEXTURE_INSTANTIATE_DIM(
