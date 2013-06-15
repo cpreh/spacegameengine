@@ -33,7 +33,7 @@ namespace font
 typedef fcppt::math::dim::static_<
 	sge::font::unit,
 	2
->::type dim;
+> dim;
 
 }
 }
