@@ -8,7 +8,7 @@ project(
 
 set(
 	CMAKE_MODULE_PATH
-	"${CMAKE_SOURCE_DIR}/CMakeModules;${CMAKE_MODULE_PATH}"
+	"${CMAKE_CURRENT_SOURCE_DIR}/CMakeModules;${CMAKE_MODULE_PATH}"
 )
 
 include(
@@ -74,7 +74,7 @@ if(
 endif()
 
 include_directories(
-	${CMAKE_SOURCE_DIR}/include
+	${FCPPT_UTILS_PROJECT_SOURCE_DIR}/include
 )
 
 option(
@@ -176,7 +176,7 @@ set(
 )
 
 include_directories(
-	"${CMAKE_BINARY_DIR}/include"
+	"${FCPPT_UTILS_PROJECT_BINARY_DIR}/include"
 )
 
 add_subdirectory(
@@ -280,9 +280,9 @@ install(
 
 install(
 	FILES
-	${CMAKE_SOURCE_DIR}/CMakeModules/FindCg.cmake
-	${CMAKE_SOURCE_DIR}/CMakeModules/FindCEGUI.cmake
-	${CMAKE_SOURCE_DIR}/CMakeModules/SGECustomPath.cmake
+	${FCPPT_UTILS_PROJECT_SOURCE_DIR}/CMakeModules/FindCg.cmake
+	${FCPPT_UTILS_PROJECT_SOURCE_DIR}/CMakeModules/FindCEGUI.cmake
+	${FCPPT_UTILS_PROJECT_SOURCE_DIR}/CMakeModules/SGECustomPath.cmake
 	DESTINATION
 	${INSTALL_CMAKEMODULES_DIR}
 )

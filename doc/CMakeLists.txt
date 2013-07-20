@@ -5,7 +5,7 @@ find_package(
 
 set(
 	DOC_OUTPUT
-	"${CMAKE_BINARY_DIR}/doc_generated"
+	"${FCPPT_UTILS_PROJECT_BINARY_DIR}/doc_generated"
 )
 
 configure_file(

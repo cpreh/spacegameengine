@@ -395,7 +395,7 @@ function(
 
 		set(
 			SGE_INSTALL_INCLUDE_DIRS
-			"${CMAKE_SOURCE_DIR}/include/sge/${RELATIVE_PATH}"
+			"${FCPPT_UTILS_PROJECT_SOURCE_DIR}/include/sge/${RELATIVE_PATH}"
 		)
 
 		if(
@@ -404,7 +404,7 @@ function(
 			list(
 				APPEND
 				SGE_INSTALL_INCLUDE_DIRS
-				"${CMAKE_BINARY_DIR}/include/sge/${RELATIVE_PATH}"
+				"${FCPPT_UTILS_PROJECT_BINARY_DIR}/include/sge/${RELATIVE_PATH}"
 			)
 		endif()
 
@@ -556,7 +556,7 @@ macro(
 	)
 
 	include_directories(
-		${CMAKE_SOURCE_DIR}/src/${LIB_NAME}/include
+		${FCPPT_UTILS_PROJECT_SOURCE_DIR}/src/${LIB_NAME}/include
 	)
 endmacro()
 

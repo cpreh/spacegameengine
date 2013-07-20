@@ -33,7 +33,7 @@ foreach(
 
 	install(
 		FILES
-		${CMAKE_SOURCE_DIR}/${CUR_FILE}
+		${FCPPT_UTILS_PROJECT_SOURCE_DIR}/${CUR_FILE}
 		DESTINATION
 		${INSTALL_INCLUDE_DIR}/${TRIMMED_PATH}
 	)
@@ -41,7 +41,7 @@ endforeach()
 
 install(
 	FILES
-	${CMAKE_BINARY_DIR}/include/sge/symbol.hpp
+	${FCPPT_UTILS_PROJECT_BINARY_DIR}/include/sge/symbol.hpp
 	DESTINATION
 	${INSTALL_INCLUDE_DIR}/sge
 )
@@ -59,7 +59,7 @@ set(
 
 set(
 	SGE_MEDIA_BUILD_PATH
-	"${CMAKE_SOURCE_DIR}/media"
+	"${FCPPT_UTILS_PROJECT_SOURCE_DIR}/media"
 )
 
 set(

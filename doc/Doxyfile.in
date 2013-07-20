@@ -16,8 +16,6 @@ REPEAT_BRIEF           = YES
 ABBREVIATE_BRIEF       =
 ALWAYS_DETAILED_SEC    = NO
 INLINE_INHERITED_MEMB  = NO
-#FULL_PATH_NAMES        = YES
-#STRIP_FROM_PATH        = @CMAKE_SOURCE_DIR@
 STRIP_FROM_INC_PATH    =
 SHORT_NAMES            = NO
 JAVADOC_AUTOBRIEF      = NO
@@ -93,7 +91,7 @@ WARN_LOGFILE           =
 #---------------------------------------------------------------------------
 # configuration options related to the input files
 #---------------------------------------------------------------------------
-INPUT                  = @CMAKE_SOURCE_DIR@/include/sge @CMAKE_SOURCE_DIR@/doc/files
+INPUT                  = @CMAKE_CURRENT_SOURCE_DIR@/include/sge @CMAKE_CURRENT_SOURCE_DIR@/doc/files
 INPUT_ENCODING         = UTF-8
 FILE_PATTERNS          = *.hpp *.doxygen
 RECURSIVE              = YES
@@ -101,10 +99,10 @@ EXCLUDE                =
 EXCLUDE_SYMLINKS       = NO
 EXCLUDE_PATTERNS       = */detail/* */impl/*
 EXCLUDE_SYMBOLS        =
-EXAMPLE_PATH           = @CMAKE_SOURCE_DIR@/examples
+EXAMPLE_PATH           = @CMAKE_CURRENT_SOURCE_DIR@/examples
 EXAMPLE_PATTERNS       = *.cpp
 EXAMPLE_RECURSIVE      = YES
-IMAGE_PATH             = @CMAKE_SOURCE_DIR@/doc/images
+IMAGE_PATH             = @CMAKE_CURRENT_SOURCE_DIR@/doc/images
 INPUT_FILTER           =
 FILTER_PATTERNS        =
 FILTER_SOURCE_FILES    = NO

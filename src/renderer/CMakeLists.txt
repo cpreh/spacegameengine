@@ -1158,7 +1158,7 @@ set(
 
 configure_file(
 	${CMAKE_CURRENT_SOURCE_DIR}/config.hpp.in
-	${CMAKE_BINARY_DIR}/include/sge/renderer/config.hpp
+	${FCPPT_UTILS_PROJECT_BINARY_DIR}/include/sge/renderer/config.hpp
 )
 
 find_package(

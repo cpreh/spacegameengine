@@ -96,7 +96,7 @@ function(
 )
 	set(
 		SGE_CONFIG_INCLUDE_DIR
-		${CMAKE_BINARY_DIR}/sgeconfig/include
+		${FCPPT_UTILS_PROJECT_BINARY_DIR}/sgeconfig/include
 	)
 
 	configure_file(

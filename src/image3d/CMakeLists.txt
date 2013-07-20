@@ -117,5 +117,5 @@ add_sge_base_library(
 	""
 	""
 	""
-	"${CMAKE_SOURCE_DIR}/src/image/color/include;${CMAKE_BINARY_DIR}/src/image/include"
+	"${FCPPT_UTILS_PROJECT_SOURCE_DIR}/src/image/color/include;${FCPPT_UTILS_PROJECT_BINARY_DIR}/src/image/include"
 )
