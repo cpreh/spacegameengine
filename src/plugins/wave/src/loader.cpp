@@ -30,7 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/raw_vector.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/io/raw_container_source.hpp>
@@ -47,15 +46,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-sge::media::extension_set const extensions_(
-	fcppt::assign::make_container<
-		sge::media::extension_set
-	>(
-		sge::media::extension(
-			FCPPT_TEXT("wav")
-		)
+sge::media::extension_set const extensions_{
+	sge::media::extension(
+		FCPPT_TEXT("wav")
 	)
-);
+};
 
 }
 

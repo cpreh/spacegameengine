@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/ffp/lighting/material/float.hpp>
 #include <sge/opengl/state/ffp/lighting/material/make_actors.hpp>
 #include <sge/renderer/state/ffp/lighting/material/parameters.hpp>
-#include <fcppt/assign/make_container.hpp>
 
 
 sge::opengl::state::actor_vector const
@@ -37,33 +36,27 @@ sge::opengl::state::ffp::lighting::material::make_actors(
 	);
 
 	return
-		fcppt::assign::make_container<
-			sge::opengl::state::actor_vector
-		>(
+		sge::opengl::state::actor_vector{
 			sge::opengl::state::ffp::lighting::material::color(
 				face,
 				GL_AMBIENT,
 				_parameters.ambient().get()
-			)
-		)(
+			),
 			sge::opengl::state::ffp::lighting::material::color(
 				face,
 				GL_DIFFUSE,
 				_parameters.diffuse().get()
-			)
-		)(
+			),
 			sge::opengl::state::ffp::lighting::material::color(
 				face,
 				GL_SPECULAR,
 				_parameters.specular().get()
-			)
-		)(
+			),
 			sge::opengl::state::ffp::lighting::material::color(
 				face,
 				GL_EMISSION,
 				_parameters.emissive().get()
-			)
-		)(
+			),
 			sge::opengl::state::ffp::lighting::material::float_(
 				face,
 				GL_SHININESS,
@@ -73,5 +66,5 @@ sge::opengl::state::ffp::lighting::material::make_actors(
 					_parameters.shininess().get()
 				)
 			)
-		);
+		};
 }

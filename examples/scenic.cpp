@@ -90,7 +90,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assign/make_container.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/math/matrix/output.hpp>
 #include <fcppt/math/vector/output.hpp>
@@ -222,9 +221,15 @@ try
 			(sge::systems::image2d(
 				sge::image::capabilities_field::null(),
 				sge::media::optional_extension_set(
-					fcppt::assign::make_container<sge::media::extension_set>(
+					sge::media::extension_set{
 						sge::media::extension(
-							FCPPT_TEXT("png")))))));
+							FCPPT_TEXT("png")
+						)
+					}
+				)
+			)
+		)
+	);
 
 	fcppt::signal::scoped_connection const escape_connection(
 		sge::systems::quit_on_escape(

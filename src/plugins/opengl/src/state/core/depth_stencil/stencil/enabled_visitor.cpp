@@ -34,7 +34,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/depth_stencil/stencil/separate.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/write_mask.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assign/make_container.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/phoenix/bind.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -64,9 +63,7 @@ sge::opengl::state::core::depth_stencil::stencil::enabled_visitor::operator()(
 ) const
 {
 	return
-		fcppt::assign::make_container<
-			sge::opengl::state::core::depth_stencil::stencil::enabled_visitor::result_type
-		>(
+		sge::opengl::state::core::depth_stencil::stencil::enabled_visitor::result_type{
 			sge::opengl::state::wrap_error_handler<
 				sge::opengl::state::actor
 			>(
@@ -83,8 +80,7 @@ sge::opengl::state::core::depth_stencil::stencil::enabled_visitor::operator()(
 					read_mask_.get()
 				),
 				FCPPT_TEXT("glStencilFunc")
-			)
-		)(
+			),
 			sge::opengl::state::wrap_error_handler<
 				sge::opengl::state::actor
 			>(
@@ -101,12 +97,11 @@ sge::opengl::state::core::depth_stencil::stencil::enabled_visitor::operator()(
 					)
 				),
 				FCPPT_TEXT("glStencilOp")
-			)
-		)(
+			),
 			sge::opengl::state::core::depth_stencil::stencil::write_mask(
 				write_mask_
 			)
-		);
+		};
 }
 
 sge::opengl::state::core::depth_stencil::stencil::enabled_visitor::result_type const
@@ -117,39 +112,33 @@ sge::opengl::state::core::depth_stencil::stencil::enabled_visitor::operator()(
 	// TODO: Check if this is supported
 
 	return
-		fcppt::assign::make_container<
-			sge::opengl::state::core::depth_stencil::stencil::enabled_visitor::result_type
-		>(
+		sge::opengl::state::core::depth_stencil::stencil::enabled_visitor::result_type{
 			sge::opengl::state::core::depth_stencil::stencil::func_separate(
 				GL_FRONT,
 				_separate.front().get().func(),
 				ref_,
 				read_mask_
-			)
-		)(
+			),
 			sge::opengl::state::core::depth_stencil::stencil::func_separate(
 				GL_BACK,
 				_separate.back().get().func(),
 				ref_,
 				read_mask_
-			)
-		)(
+			),
 			sge::opengl::state::core::depth_stencil::stencil::op_separate(
 				GL_FRONT,
 				_separate.front().get().fail_op(),
 				_separate.front().get().depth_fail_op(),
 				_separate.front().get().pass_op()
-			)
-		)(
+			),
 			sge::opengl::state::core::depth_stencil::stencil::op_separate(
 				GL_BACK,
 				_separate.back().get().fail_op(),
 				_separate.back().get().depth_fail_op(),
 				_separate.back().get().pass_op()
-			)
-		)(
+			),
 			sge::opengl::state::core::depth_stencil::stencil::write_mask(
 				write_mask_
 			)
-		);
+		};
 }

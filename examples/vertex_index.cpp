@@ -90,7 +90,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/exception.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assign/make_container.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
@@ -368,13 +367,11 @@ try
 		sge::renderer::vertex::scoped_declaration_and_buffers const vb_context(
 			scoped_block.get(),
 			*vertex_declaration,
-			fcppt::assign::make_container<
-				sge::renderer::vertex::const_buffer_ref_container
-			>(
+			sge::renderer::vertex::const_buffer_ref_container{
 				fcppt::make_cref(
 					*vertex_buffer
 				)
-			)
+			}
 		);
 
 //! [render_indexed]

@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/state/ffp/lighting/visitor.hpp>
 #include <sge/renderer/state/ffp/lighting/enabled.hpp>
 #include <sge/renderer/state/ffp/lighting/off_fwd.hpp>
-#include <fcppt/assign/make_container.hpp>
 
 
 sge::d3d9::state::ffp::lighting::visitor::result_type
@@ -34,14 +33,12 @@ sge::d3d9::state::ffp::lighting::visitor::operator()(
 ) const
 {
 	return
-		fcppt::assign::make_container<
-			sge::d3d9::state::render_vector
-		>(
+		sge::d3d9::state::render_vector{
 			sge::d3d9::state::render(
 				D3DRS_LIGHTING,
 				FALSE
 			)
-		);
+		};
 }
 
 sge::d3d9::state::ffp::lighting::visitor::result_type
@@ -50,19 +47,16 @@ sge::d3d9::state::ffp::lighting::visitor::operator()(
 ) const
 {
 	return
-		fcppt::assign::make_container<
-			sge::d3d9::state::render_vector
-		>(
+		sge::d3d9::state::render_vector{
 			sge::d3d9::state::render(
 				D3DRS_LIGHTING,
 				TRUE
-			)
-		)(
+			),
 			sge::d3d9::state::render(
 				D3DRS_AMBIENT,
 				sge::d3d9::convert::to_color(
 					_enabled.ambient_color().get()
 				)
 			)
-		);
+		};
 }

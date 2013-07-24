@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/misc/parameters.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/join.hpp>
-#include <fcppt/assign/make_container.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/phoenix/bind.hpp>
 #include <functional>
@@ -44,15 +43,12 @@ sge::opengl::state::ffp::misc::make_actors(
 {
 	return
 		fcppt::algorithm::join(
-			fcppt::assign::make_container<
-				sge::opengl::state::actor_vector
-			>(
+			sge::opengl::state::actor_vector{
 				std::bind(
 					sge::opengl::enable_bool,
 					GL_NORMALIZE,
 					_parameters.normalize_normals().get()
-				)
-			)(
+				),
 				sge::opengl::state::wrap_error_handler<
 					sge::opengl::state::actor
 				>(
@@ -67,8 +63,7 @@ sge::opengl::state::ffp::misc::make_actors(
 					),
 					FCPPT_TEXT("glLightModeli failed")
 				)
-			)
-			.container(),
+			},
 			sge::opengl::state::ffp::misc::point_sprite(
 				_system_context,
 				_parameters.enable_point_sprites()

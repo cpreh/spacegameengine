@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/sampler/binary_op.hpp>
 #include <sge/renderer/state/ffp/sampler/ternary_op.hpp>
 #include <sge/renderer/state/ffp/sampler/unary_op.hpp>
-#include <fcppt/assign/make_container.hpp>
 
 
 template<
@@ -42,21 +41,18 @@ sge::d3d9::state::ffp::sampler::op_visitor<
 ) const
 {
 	return
-		fcppt::assign::make_container<
-			sge::d3d9::state::ffp::sampler::state_vector
-		>(
+		sge::d3d9::state::ffp::sampler::state_vector{
 			sge::d3d9::state::ffp::sampler::make_one_op<
 				OpType
 			>(
 				_unary_op.type()
-			)
-		)(
+			),
 			sge::d3d9::state::ffp::sampler::make_one_arg<
 				OpType
 			>(
 				_unary_op.arg1()
 			)
-		);
+		};
 }
 
 template<
@@ -72,27 +68,23 @@ sge::d3d9::state::ffp::sampler::op_visitor<
 ) const
 {
 	return
-		fcppt::assign::make_container<
-			sge::d3d9::state::ffp::sampler::state_vector
-		>(
+		sge::d3d9::state::ffp::sampler::state_vector
 			sge::d3d9::state::ffp::sampler::make_one_op<
 				OpType
 			>(
 				_binary_op.type()
-			)
-		)(
+			),
 			sge::d3d9::state::ffp::sampler::make_one_arg<
 				OpType
 			>(
 				_binary_op.arg1()
-			)
-		)(
+			),
 			sge::d3d9::state::ffp::sampler::make_one_arg<
 				OpType
 			>(
 				_binary_op.arg2()
 			)
-		);
+		};
 }
 
 template<
@@ -108,33 +100,28 @@ sge::d3d9::state::ffp::sampler::op_visitor<
 ) const
 {
 	return
-		fcppt::assign::make_container<
-			sge::d3d9::state::ffp::sampler::state_vector
-		>(
+		sge::d3d9::state::ffp::sampler::state_vector{
 			sge::d3d9::state::ffp::sampler::make_one_op<
 				OpType
 			>(
 				_ternary_op.type()
-			)
-		)(
+			),
 			sge::d3d9::state::ffp::sampler::make_one_arg<
 				OpType
 			>(
 				_ternary_op.arg1()
-			)
-		)(
+			),
 			sge::d3d9::state::ffp::sampler::make_one_arg<
 				OpType
 			>(
 				_ternary_op.arg2()
-			)
-		)(
+			),
 			sge::d3d9::state::ffp::sampler::make_one_arg<
 				OpType
 			>(
 				_ternary_op.arg3()
 			)
-		);
+		};
 }
 
 #define SGE_D3D9_STATE_FFP_SAMPLER_INSTANTIATE_OP_VISITOR(\

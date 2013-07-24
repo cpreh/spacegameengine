@@ -40,7 +40,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/insert_to_std_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/ptr/replace_unique_ptr.hpp>
 
 
@@ -59,9 +58,12 @@ sge::scenic::render_context::cg::manager::manager(
 		sge::shader::pixel_program_path(
 			sge::config::media_path() / FCPPT_TEXT("shaders") / FCPPT_TEXT("ffp.cg")),
 		sge::shader::optional_cflags(
-			fcppt::assign::make_container<sge::shader::optional_cflags::string_sequence>
-				("-DMAX_POINT_LIGHTS="+fcppt::insert_to_std_string(max_point_lights::value))
-				("-DMAX_DIRECTIONAL_LIGHTS="+fcppt::insert_to_std_string(max_directional_lights::value)))),
+			sge::shader::optional_cflags::string_sequence{
+				"-DMAX_POINT_LIGHTS="+fcppt::insert_to_std_string(max_point_lights::value),
+				"-DMAX_DIRECTIONAL_LIGHTS="+fcppt::insert_to_std_string(max_directional_lights::value)
+			}
+		)
+	),
 	world_matrix_(
 		shader_.vertex_program(),
 		sge::shader::parameter::name(

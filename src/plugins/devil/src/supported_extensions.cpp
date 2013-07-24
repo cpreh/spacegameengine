@@ -22,43 +22,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assign/make_container.hpp>
 
 
 namespace
 {
 
 // FIXME: add more extensions, see: http://openil.sourceforge.net/features.php
-sge::media::extension_set const extensions(
-	fcppt::assign::make_container<
-		sge::media::extension_set
-	>
-	(
-		sge::media::extension(
-			FCPPT_TEXT("bmp")
-		)
+sge::media::extension_set const extensions{
+	sge::media::extension(
+		FCPPT_TEXT("bmp")
+	),
+	sge::media::extension(
+		FCPPT_TEXT("png")
+	),
+	sge::media::extension(
+		FCPPT_TEXT("jpg")
+	),
+	sge::media::extension(
+		FCPPT_TEXT("jpeg")
+	),
+	sge::media::extension(
+		FCPPT_TEXT("tga")
 	)
-	(
-		sge::media::extension(
-			FCPPT_TEXT("png")
-		)
-	)
-	(
-		sge::media::extension(
-			FCPPT_TEXT("jpg")
-		)
-	)
-	(
-		sge::media::extension(
-			FCPPT_TEXT("jpeg")
-		)
-	)
-	(
-		sge::media::extension(
-			FCPPT_TEXT("tga")
-		)
-	)
-);
+};
 
 }
 

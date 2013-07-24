@@ -49,7 +49,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/with_image2d.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assign/make_container.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/operations.hpp>
@@ -171,13 +170,11 @@ try
 			sge::systems::image2d(
 				sge::image::capabilities_field::null(),
 				sge::media::optional_extension_set(
-					fcppt::assign::make_container<
-						sge::media::extension_set
-					>(
+					sge::media::extension_set{
 						sge::media::extension(
 							FCPPT_TEXT("png")
 						)
-					)
+					}
 				)
 			)
 		)

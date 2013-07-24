@@ -28,7 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/alpha_test/enabled.hpp>
 #include <sge/renderer/state/ffp/alpha_test/off_fwd.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assign/make_container.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/phoenix/bind.hpp>
 #include <functional>
@@ -41,14 +40,12 @@ sge::opengl::state::ffp::alpha_test::visitor::operator()(
 ) const
 {
 	return
-		fcppt::assign::make_container<
-			sge::opengl::state::ffp::alpha_test::visitor::result_type
-		>(
+		sge::opengl::state::ffp::alpha_test::visitor::result_type{
 			std::bind(
 				sge::opengl::disable,
 				GL_ALPHA_TEST
 			)
-		);
+		};
 }
 
 sge::opengl::state::ffp::alpha_test::visitor::result_type const
@@ -57,14 +54,11 @@ sge::opengl::state::ffp::alpha_test::visitor::operator()(
 ) const
 {
 	return
-		fcppt::assign::make_container<
-			sge::opengl::state::ffp::alpha_test::visitor::result_type
-		>(
+		sge::opengl::state::ffp::alpha_test::visitor::result_type{
 			std::bind(
 				sge::opengl::enable,
 				GL_ALPHA_TEST
-			)
-		)(
+			),
 			sge::opengl::state::wrap_error_handler<
 				sge::opengl::state::actor
 			>(
@@ -77,5 +71,5 @@ sge::opengl::state::ffp::alpha_test::visitor::operator()(
 				),
 				FCPPT_TEXT("glAlphaFunc")
 			)
-		);
+		};
 }

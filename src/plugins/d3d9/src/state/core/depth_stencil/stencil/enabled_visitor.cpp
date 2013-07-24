@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/depth_stencil/stencil/desc.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/separate.hpp>
 #include <fcppt/algorithm/join.hpp>
-#include <fcppt/assign/make_container.hpp>
 
 
 sge::d3d9::state::core::depth_stencil::stencil::enabled_visitor::result_type const
@@ -39,15 +38,12 @@ sge::d3d9::state::core::depth_stencil::stencil::enabled_visitor::operator()(
 {
 	return
 		fcppt::algorithm::join(
-			fcppt::assign::make_container<
-				sge::d3d9::state::render_vector
-			>(
+			sge::d3d9::state::render_vector{
 				sge::d3d9::state::render(
 					D3DRS_TWOSIDEDSTENCILMODE,
 					FALSE
 				)
-			)
-			.container(),
+			},
 			sge::d3d9::state::core::depth_stencil::stencil::one_side(
 				_combined.desc()
 			)
@@ -66,43 +62,36 @@ sge::d3d9::state::core::depth_stencil::stencil::enabled_visitor::operator()(
 
 	return
 		fcppt::algorithm::join(
-			fcppt::assign::make_container<
-				sge::d3d9::state::render_vector
-			>(
+			sge::d3d9::state::render_vector{
 				sge::d3d9::state::render(
 					D3DRS_TWOSIDEDSTENCILMODE,
 					TRUE
-				)
-			)(
+				),
 				sge::d3d9::state::render(
 					D3DRS_CCW_STENCILFAIL,
 					sge::d3d9::state::convert::stencil_op(
 						ccw.fail_op().get()
 					)
-				)
-			)(
+				),
 				sge::d3d9::state::render(
 					D3DRS_CCW_STENCILZFAIL,
 					sge::d3d9::state::convert::stencil_op(
 						ccw.depth_fail_op().get()
 					)
-				)
-			)(
+				),
 				sge::d3d9::state::render(
 					D3DRS_CCW_STENCILPASS,
 					sge::d3d9::state::convert::stencil_op(
 						ccw.pass_op().get()
 					)
-				)
-			)(
+				),
 				sge::d3d9::state::render(
 					D3DRS_CCW_STENCILFUNC,
 					sge::d3d9::state::convert::stencil_func(
 						ccw.func()
 					)
 				)
-			)
-			.container(),
+			},
 			sge::d3d9::state::core::depth_stencil::stencil::one_side(
 				_separate.back().get()
 			)

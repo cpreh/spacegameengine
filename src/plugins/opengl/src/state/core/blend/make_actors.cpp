@@ -28,7 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/blend/parameters.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/join.hpp>
-#include <fcppt/assign/make_container.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/phoenix/bind.hpp>
@@ -49,9 +48,7 @@ sge::opengl::state::core::blend::make_actors(
 				),
 				_parameters.alpha_variant()
 			),
-			fcppt::assign::make_container<
-				sge::opengl::state::actor_vector
-			>(
+			sge::opengl::state::actor_vector{
 				sge::opengl::state::wrap_error_handler<
 					sge::opengl::state::actor
 				>(
@@ -64,7 +61,6 @@ sge::opengl::state::core::blend::make_actors(
 					),
 					FCPPT_TEXT("glColorMask")
 				)
-			)
-			.container()
+			}
 		);
 }

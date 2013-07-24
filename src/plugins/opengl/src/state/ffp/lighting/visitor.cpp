@@ -32,7 +32,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/lighting/enabled.hpp>
 #include <sge/renderer/state/ffp/lighting/off_fwd.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assign/make_container.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/phoenix/bind/bind_function.hpp>
 #include <boost/phoenix/bind/bind_function_object.hpp>
@@ -46,14 +45,12 @@ sge::opengl::state::ffp::lighting::visitor::operator()(
 ) const
 {
 	return
-		fcppt::assign::make_container<
-			sge::opengl::state::ffp::lighting::visitor::result_type
-		>(
+		sge::opengl::state::ffp::lighting::visitor::result_type{
 			std::bind(
 				sge::opengl::disable,
 				GL_LIGHTING
 			)
-		);
+		};
 }
 
 sge::opengl::state::ffp::lighting::visitor::result_type const
@@ -62,14 +59,11 @@ sge::opengl::state::ffp::lighting::visitor::operator()(
 ) const
 {
 	return
-		fcppt::assign::make_container<
-			sge::opengl::state::ffp::lighting::visitor::result_type
-		>(
+		sge::opengl::state::ffp::lighting::visitor::result_type{
 			std::bind(
 				sge::opengl::enable,
 				GL_LIGHTING
-			)
-		)(
+			),
 			sge::opengl::state::wrap_error_handler<
 				sge::opengl::state::actor
 			>(
@@ -88,5 +82,5 @@ sge::opengl::state::ffp::lighting::visitor::operator()(
 				),
 				FCPPT_TEXT("glLightModelfv")
 			)
-		);
+		};
 }

@@ -30,7 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/fog/enabled.hpp>
 #include <sge/renderer/state/ffp/fog/off_fwd.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assign/make_container.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/phoenix/bind.hpp>
 #include <functional>
@@ -43,14 +42,12 @@ sge::opengl::state::ffp::fog::visitor::operator()(
 ) const
 {
 	return
-		fcppt::assign::make_container<
-			sge::opengl::state::ffp::fog::visitor::result_type
-		>(
+		sge::opengl::state::ffp::fog::visitor::result_type{
 			std::bind(
 				sge::opengl::disable,
 				GL_FOG
 			)
-		);
+		};
 }
 
 sge::opengl::state::ffp::fog::visitor::result_type const
@@ -59,14 +56,11 @@ sge::opengl::state::ffp::fog::visitor::operator()(
 ) const
 {
 	return
-		fcppt::assign::make_container<
-			sge::opengl::state::ffp::fog::visitor::result_type
-		>(
+		sge::opengl::state::ffp::fog::visitor::result_type{
 			std::bind(
 				sge::opengl::enable,
 				GL_FOG
-			)
-		)(
+			),
 			sge::opengl::state::wrap_error_handler<
 				sge::opengl::state::actor
 			>(
@@ -78,25 +72,21 @@ sge::opengl::state::ffp::fog::visitor::operator()(
 					)
 				),
 				FCPPT_TEXT("glFogi")
-			)
-		)(
+			),
 			sge::opengl::state::ffp::fog::float_(
 				GL_FOG_START,
 				_enabled.start().get()
-			)
-		)(
+			),
 			sge::opengl::state::ffp::fog::float_(
 				GL_FOG_END,
 				_enabled.end().get()
-			)
-		)(
+			),
 			sge::opengl::state::ffp::fog::float_(
 				GL_FOG_DENSITY,
 				_enabled.density().get()
-			)
-		)(
+			),
 			sge::opengl::state::ffp::fog::color(
 				_enabled.color()
 			)
-		);
+		};
 }

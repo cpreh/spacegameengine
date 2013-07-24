@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/state/convert/stencil_op.hpp>
 #include <sge/d3d9/state/core/depth_stencil/stencil/one_side.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/desc.hpp>
-#include <fcppt/assign/make_container.hpp>
 
 
 sge::d3d9::state::render_vector const
@@ -34,35 +33,30 @@ sge::d3d9::state::core::depth_stencil::stencil::one_side(
 )
 {
 	return
-		fcppt::assign::make_container<
-			sge::d3d9::state::render_vector
-		>(
+		sge::d3d9::state::render_vector{
 			sge::d3d9::state::render(
 				D3DRS_STENCILFAIL,
 				sge::d3d9::state::convert::stencil_op(
 					_desc.fail_op().get()
 				)
-			)
-		)(
+			),
 			sge::d3d9::state::render(
 				D3DRS_STENCILZFAIL,
 				sge::d3d9::state::convert::stencil_op(
 					_desc.depth_fail_op().get()
 				)
-			)
-		)(
+			),
 			sge::d3d9::state::render(
 				D3DRS_STENCILPASS,
 				sge::d3d9::state::convert::stencil_op(
 					_desc.pass_op().get()
 				)
-			)
-		)(
+			),
 			sge::d3d9::state::render(
 				D3DRS_STENCILFUNC,
 				sge::d3d9::state::convert::stencil_func(
 					_desc.func()
 				)
 			)
-		);
+		};
 }

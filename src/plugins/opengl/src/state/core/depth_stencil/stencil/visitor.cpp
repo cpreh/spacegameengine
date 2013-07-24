@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/depth_stencil/stencil/off_fwd.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/write_mask_all.hpp>
 #include <fcppt/algorithm/join.hpp>
-#include <fcppt/assign/make_container.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
@@ -42,18 +41,15 @@ sge::opengl::state::core::depth_stencil::stencil::visitor::operator()(
 ) const
 {
 	return
-		fcppt::assign::make_container<
-			sge::opengl::state::core::depth_stencil::stencil::visitor::result_type
-		>(
+		sge::opengl::state::core::depth_stencil::stencil::visitor::result_type{
 			std::bind(
 				sge::opengl::disable,
 				GL_STENCIL_TEST
-			)
-		)(
+			),
 			sge::opengl::state::core::depth_stencil::stencil::write_mask(
 				sge::renderer::state::core::depth_stencil::stencil::write_mask_all()
 			)
-		);
+		};
 }
 
 sge::opengl::state::core::depth_stencil::stencil::visitor::result_type const
@@ -63,15 +59,12 @@ sge::opengl::state::core::depth_stencil::stencil::visitor::operator()(
 {
 	return
 		fcppt::algorithm::join(
-			fcppt::assign::make_container<
-				sge::opengl::state::core::depth_stencil::stencil::visitor::result_type
-			>(
+			sge::opengl::state::core::depth_stencil::stencil::visitor::result_type{
 				std::bind(
 					sge::opengl::enable,
 					GL_STENCIL_TEST
 				)
-			)
-			.container(),
+			},
 			fcppt::variant::apply_unary(
 				sge::opengl::state::core::depth_stencil::stencil::enabled_visitor(
 					_enabled.ref(),

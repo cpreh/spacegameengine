@@ -89,7 +89,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assign/make_container.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cin.hpp>
 #include <fcppt/io/cout.hpp>
@@ -413,7 +412,7 @@ try
 
 	sge::opencl::program::object main_program(
 		main_context,
-		fcppt::assign::make_container<sge::opencl::program::source_string_sequence>(
+		sge::opencl::program::source_string_sequence{
 			std::string(
 				"__kernel void hello_kernel("
 				"float const multiplier,"
@@ -422,7 +421,9 @@ try
 				"int gid = get_global_id(0);"
 				"int lid = get_local_id(0);"
 				"input[gid] = lid * multiplier;"
-				"}")),
+				"}"
+			)
+		},
 		sge::opencl::program::optional_build_parameters());
 
 	fcppt::io::cout()
@@ -506,8 +507,10 @@ try
 	{
 		sge::opencl::memory_object::scoped_objects scoped_vb(
 			main_queue,
-			fcppt::assign::make_container<sge::opencl::memory_object::base_ref_sequence>
-				(&cl_vb));
+			sge::opencl::memory_object::base_ref_sequence{
+				(&cl_vb)
+			}
+		);
 
 		sge::opencl::command_queue::enqueue_kernel(
 			main_queue,

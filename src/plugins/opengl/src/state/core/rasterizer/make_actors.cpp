@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/core/rasterizer/make_actors.hpp>
 #include <sge/renderer/state/core/rasterizer/parameters.hpp>
 #include <fcppt/algorithm/join.hpp>
-#include <fcppt/assign/make_container.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
 #include <fcppt/config/external_end.hpp>
@@ -42,19 +41,15 @@ sge::opengl::state::core::rasterizer::make_actors(
 			sge::opengl::state::core::rasterizer::cull_mode(
 				_parameters.cull_mode()
 			),
-			fcppt::assign::make_container<
-				sge::opengl::state::actor_vector
-			>(
+			sge::opengl::state::actor_vector{
 				sge::opengl::state::core::rasterizer::fill_mode(
 					_parameters.fill_mode()
-				)
-			)(
+				),
 				std::bind(
 					sge::opengl::enable_bool,
 					GL_SCISSOR_TEST,
 					_parameters.enable_scissor_test().get()
 				)
-			)
-			.container()
+			}
 		);
 }

@@ -33,7 +33,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/to_std_string.hpp>
-#include <fcppt/assign/make_container.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
@@ -92,10 +91,13 @@ try
 
 	sge::opencl::program::object main_program(
 		opencl_system.context(),
-		fcppt::assign::make_container<sge::opencl::program::source_string_sequence>(
+		sge::opencl::program::source_string_sequence{
 			fcppt::io::stream_to_string(
 				*fcppt::make_unique_ptr<boost::filesystem::ifstream>(
-					target_file_name))),
+					target_file_name
+				)
+			)
+		},
 		sge::opencl::program::optional_build_parameters());
 
 	try

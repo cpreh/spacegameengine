@@ -109,7 +109,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/no_init.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assign/make_container.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/log/location.hpp>
@@ -211,9 +210,12 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 		body_scope_(
 			_world,
 			body_,
-			fcppt::assign::make_container<sge::projectile::group::sequence>(
+			sge::projectile::group::sequence{
 				fcppt::make_ref(
-					_group)))
+					_group
+				)
+			}
+		)
 	{
 	}
 FCPPT_PP_POP_WARNING
@@ -546,9 +548,12 @@ try
 			sge::projectile::dim2(
 				100,
 				100)),
-		fcppt::assign::make_container<sge::projectile::group::sequence>(
+		sge::projectile::group::sequence{
 			fcppt::make_ref(
-				first_group)));
+				first_group
+			)
+		}
+	);
 
 	body_keyboard_mover keyboard_mover(
 		world,

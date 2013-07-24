@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/core/sampler/address/make_actors.hpp>
 #include <sge/opengl/texture/funcs/parameter_int.hpp>
 #include <sge/renderer/state/core/sampler/address/parameters.hpp>
-#include <fcppt/assign/make_container.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
 #include <fcppt/config/external_end.hpp>
@@ -49,21 +48,17 @@ sge::opengl::state::core::sampler::address::make_actors(
 )
 {
 	return
-		fcppt::assign::make_container<
-			sge::opengl::state::core::sampler::actor_vector
-		>(
+		sge::opengl::state::core::sampler::actor_vector{
 			set_one(
 				_parameters.mode_s()
-			)
-		)(
+			),
+			set_one(
+				_parameters.mode_t()
+			),
 			set_one(
 				_parameters.mode_t()
 			)
-		)(
-			set_one(
-				_parameters.mode_t()
-			)
-		);
+		};
 }
 
 namespace

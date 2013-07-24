@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/ffp/lighting/light/attenuation.hpp>
 #include <sge/opengl/state/ffp/lighting/light/float.hpp>
 #include <sge/renderer/state/ffp/lighting/light/attenuation.hpp>
-#include <fcppt/assign/make_container.hpp>
 
 
 sge::opengl::state::index_actor_vector const
@@ -32,22 +31,18 @@ sge::opengl::state::ffp::lighting::light::attenuation(
 )
 {
 	return
-		fcppt::assign::make_container<
-			sge::opengl::state::index_actor_vector
-		>(
+		sge::opengl::state::index_actor_vector{
 			sge::opengl::state::ffp::lighting::light::float_(
 				GL_CONSTANT_ATTENUATION,
 				_attenuation.constant().get()
-			)
-		)(
+			),
 			sge::opengl::state::ffp::lighting::light::float_(
 				GL_LINEAR_ATTENUATION,
 				_attenuation.linear().get()
-			)
-		)(
+			),
 			sge::opengl::state::ffp::lighting::light::float_(
 				GL_QUADRATIC_ATTENUATION,
 				_attenuation.quadratic().get()
 			)
-		);
+		};
 }

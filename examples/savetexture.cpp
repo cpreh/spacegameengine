@@ -95,7 +95,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/exception.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/nonassignable.hpp>
-#include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/log/level.hpp>
@@ -289,13 +288,11 @@ try
 			sge::systems::image2d(
 				sge::image::capabilities_field::null(),
 				sge::media::optional_extension_set(
-					fcppt::assign::make_container<
-						sge::media::extension_set
-					>(
+					sge::media::extension_set{
 						sge::media::extension(
 							FCPPT_TEXT("png")
 						)
-					)
+					}
 				)
 			)
 		)
@@ -357,26 +354,34 @@ try
 			sys.renderer(),
 			*vertex_declaration,
 			sge::shader::vf_to_string<screen_vf::format>(),
-			fcppt::assign::make_container<sge::shader::variable_sequence>(
+			sge::shader::variable_sequence{
 				sge::shader::variable(
 					"target_size",
 					sge::shader::variable_type::constant,
 					fcppt::math::dim::structure_cast<sge::renderer::vector2>(
-						window_dim))),
-			fcppt::assign::make_container<sge::shader::sampler_sequence>(
+						window_dim
+					)
+				)
+			},
+			sge::shader::sampler_sequence{
 				sge::shader::sampler(
 					"tex",
-					sge::renderer::texture::planar_shared_ptr())))
-			.vertex_shader(
-				sge::config::media_path()
-					/ FCPPT_TEXT("shaders")
-					/ FCPPT_TEXT("copy")
-					/ FCPPT_TEXT("vertex.glsl"))
-			.fragment_shader(
-				sge::config::media_path()
-					/ FCPPT_TEXT("shaders")
-					/ FCPPT_TEXT("copy")
-					/ FCPPT_TEXT("fragment.glsl")));
+					sge::renderer::texture::planar_shared_ptr()
+				)
+			}
+		)
+		.vertex_shader(
+			sge::config::media_path()
+				/ FCPPT_TEXT("shaders")
+				/ FCPPT_TEXT("copy")
+				/ FCPPT_TEXT("vertex.glsl"))
+		.fragment_shader(
+			sge::config::media_path()
+				/ FCPPT_TEXT("shaders")
+				/ FCPPT_TEXT("copy")
+				/ FCPPT_TEXT("fragment.glsl")
+		)
+	);
 
 	{
 		sge::renderer::scoped_target const scoped_target(

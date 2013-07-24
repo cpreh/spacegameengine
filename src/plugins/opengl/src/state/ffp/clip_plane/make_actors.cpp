@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/ffp/clip_plane/make_actors.hpp>
 #include <sge/renderer/state/ffp/clip_plane/parameters.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/math/vector/static.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
@@ -48,9 +47,7 @@ sge::opengl::state::ffp::clip_plane::make_actors(
 	> vector4d;
 
 	return
-		fcppt::assign::make_container<
-			sge::opengl::state::index_actor_vector
-		>(
+		sge::opengl::state::index_actor_vector{
 			sge::opengl::state::wrap_error_handler<
 				sge::opengl::state::index_actor
 			>(
@@ -75,5 +72,5 @@ sge::opengl::state::ffp::clip_plane::make_actors(
 				),
 				FCPPT_TEXT("glClipPlane")
 			)
-		);
+		};
 }

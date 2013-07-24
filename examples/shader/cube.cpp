@@ -165,8 +165,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/exception.hpp>
 #include <fcppt/ref.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assign/make_container.hpp>
-#include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/log/activate_levels.hpp>
 #include <fcppt/log/level.hpp>
@@ -865,9 +863,13 @@ try
 			(sge::systems::image2d(
 				sge::image::capabilities_field::null(),
 				sge::media::optional_extension_set(
-					fcppt::assign::make_container<sge::media::extension_set>(
+					sge::media::extension_set{
 						sge::media::extension(
-							FCPPT_TEXT("png"))))))
+							FCPPT_TEXT("png")
+						)
+					}
+				)
+			))
 			(sge::systems::input(
 				sge::systems::input_helper_field(
 					sge::systems::input_helper::keyboard_collector)
@@ -949,41 +951,52 @@ try
 			// contains the uniform variables and constants as well as the
 			// sampler declarations)
 			sge::shader::vf_to_string<vf::format>(),
-			fcppt::assign::make_container<sge::shader::variable_sequence>
-				(sge::shader::variable(
+			sge::shader::variable_sequence{
+				sge::shader::variable(
 					"mvp",
 					sge::shader::variable_type::uniform,
 					sge::shader::matrix(
 						sge::renderer::matrix4::identity(),
-						sge::shader::matrix_flags::projection)))
-				(sge::shader::variable(
+						sge::shader::matrix_flags::projection
+					)
+				),
+				sge::shader::variable(
 					"radius",
 					sge::shader::variable_type::constant,
 					static_cast<sge::renderer::scalar>(
-						4)))
+						4
+					)
+				),
 				// There's no "bool" support for shader variables, so we use an
 				// integer here
-				(sge::shader::variable(
+				sge::shader::variable(
 					"enabled",
 					sge::shader::variable_type::uniform,
-					1))
-				(sge::shader::variable(
+					1
+				),
+				sge::shader::variable(
 					"camera",
 					sge::shader::variable_type::uniform,
-					sge::renderer::vector3()))
-				(sge::shader::variable(
+					sge::renderer::vector3()
+				),
+				sge::shader::variable(
 					"light_position",
 					sge::shader::variable_type::uniform,
-					sge::renderer::vector3::null())),
+					sge::renderer::vector3::null()
+				)
+			},
 			// Two textures. They'll be assigned to a uniform variable index
 			// automatically.
-			fcppt::assign::make_container<sge::shader::sampler_sequence>
-				(sge::shader::sampler(
+			sge::shader::sampler_sequence{
+				sge::shader::sampler(
 					"normal_texture",
-					normal_texture))
-				(sge::shader::sampler(
+					normal_texture
+				),
+				sge::shader::sampler(
 					"color_texture",
-					color_texture)))
+					color_texture
+				)
+			}
 			// We can specify more than one fragment and vertex shader here
 			.vertex_shader(
 				sge::config::media_path()

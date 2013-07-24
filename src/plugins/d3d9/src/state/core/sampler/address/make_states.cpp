@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/state/core/sampler/state_vector.hpp>
 #include <sge/d3d9/state/core/sampler/address/make_states.hpp>
 #include <sge/renderer/state/core/sampler/address/parameters.hpp>
-#include <fcppt/assign/make_container.hpp>
 
 
 sge::d3d9::state::core::sampler::state_vector const
@@ -33,28 +32,24 @@ sge::d3d9::state::core::sampler::address::make_states(
 )
 {
 	return
-		fcppt::assign::make_container<
-			sge::d3d9::state::core::sampler::state_vector
-		>(
+		sge::d3d9::state::core::sampler::state_vector{
 			sge::d3d9::state::core::sampler::state(
 				D3DSAMP_ADDRESSU,
 				sge::d3d9::state::convert::address_mode(
 					_parameters.mode_s().get()
 				)
-			)
-		)(
+			),
 			sge::d3d9::state::core::sampler::state(
 				D3DSAMP_ADDRESSV,
 				sge::d3d9::state::convert::address_mode(
 					_parameters.mode_t().get()
 				)
-			)
-		)(
+			),
 			sge::d3d9::state::core::sampler::state(
 				D3DSAMP_ADDRESSW,
 				sge::d3d9::state::convert::address_mode(
 					_parameters.mode_u().get()
 				)
 			)
-		);
+		};
 }

@@ -30,7 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/state/core/sampler/filter/anisotropic/parameters.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assign/make_container.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
 #include <fcppt/config/external_end.hpp>
@@ -60,16 +59,13 @@ sge::opengl::state::core::sampler::filter::anisotropic(
 		);
 
 	return
-		fcppt::assign::make_container<
-			sge::opengl::state::core::sampler::actor_vector
-		>(
+		sge::opengl::state::core::sampler::actor_vector{
 			std::bind(
 				sge::opengl::texture::funcs::parameter_int,
 				std::placeholders::_1,
 				GL_TEXTURE_MAG_FILTER,
 				GL_NEAREST
-			)
-		)(
+			),
 			std::bind(
 				sge::opengl::texture::funcs::parameter_int,
 				std::placeholders::_1,
@@ -81,8 +77,7 @@ sge::opengl::state::core::sampler::filter::anisotropic(
 						_filter.mip()
 					)
 				)
-			)
-		)(
+			),
 			std::bind(
 				sge::opengl::texture::funcs::parameter_int,
 				std::placeholders::_1,
@@ -93,5 +88,5 @@ sge::opengl::state::core::sampler::filter::anisotropic(
 					_filter.level().get()
 				)
 			)
-		);
+		};
 }

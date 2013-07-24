@@ -31,7 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/depth_stencil/depth/off_fwd.hpp>
 #include <sge/renderer/state/core/depth_stencil/depth/write_enable.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assign/make_container.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/phoenix/bind.hpp>
 #include <functional>
@@ -44,20 +43,17 @@ sge::opengl::state::core::depth_stencil::depth::visitor::operator()(
 ) const
 {
 	return
-		fcppt::assign::make_container<
-			sge::opengl::state::core::depth_stencil::depth::visitor::result_type
-		>(
+		sge::opengl::state::core::depth_stencil::depth::visitor::result_type{
 			std::bind(
 				sge::opengl::disable,
 				GL_DEPTH_TEST
-			)
-		)(
+			),
 			sge::opengl::state::core::depth_stencil::depth::write_enable(
 				sge::renderer::state::core::depth_stencil::depth::write_enable(
 					true
 				)
 			)
-		);
+		};
 }
 
 sge::opengl::state::core::depth_stencil::depth::visitor::result_type const
@@ -66,14 +62,11 @@ sge::opengl::state::core::depth_stencil::depth::visitor::operator()(
 ) const
 {
 	return
-		fcppt::assign::make_container<
-			sge::opengl::state::core::depth_stencil::depth::visitor::result_type
-		>(
+		sge::opengl::state::core::depth_stencil::depth::visitor::result_type{
 			std::bind(
 				sge::opengl::enable,
 				GL_DEPTH_TEST
-			)
-		)(
+			),
 			sge::opengl::state::wrap_error_handler<
 				sge::opengl::state::actor
 			>(
@@ -84,10 +77,9 @@ sge::opengl::state::core::depth_stencil::depth::visitor::operator()(
 					)
 				),
 				FCPPT_TEXT("glDepthFunc")
-			)
-		)(
+			),
 			sge::opengl::state::core::depth_stencil::depth::write_enable(
 				_enabled.write_enable()
 			)
-		);
+		};
 }

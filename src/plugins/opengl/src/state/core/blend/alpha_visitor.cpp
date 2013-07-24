@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/core/blend/alpha_visitor.hpp>
 #include <sge/renderer/state/core/blend/alpha_enabled.hpp>
 #include <sge/renderer/state/core/blend/alpha_off_fwd.hpp>
-#include <fcppt/assign/make_container.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
@@ -49,14 +48,12 @@ sge::opengl::state::core::blend::alpha_visitor::operator()(
 ) const
 {
 	return
-		fcppt::assign::make_container<
-			sge::opengl::state::core::blend::alpha_visitor::result_type
-		>(
+		sge::opengl::state::core::blend::alpha_visitor::result_type{
 			std::bind(
 				sge::opengl::disable,
 				GL_BLEND
 			)
-		);
+		};
 }
 
 sge::opengl::state::core::blend::alpha_visitor::result_type const
@@ -65,19 +62,16 @@ sge::opengl::state::core::blend::alpha_visitor::operator()(
 ) const
 {
 	return
-		fcppt::assign::make_container<
-			sge::opengl::state::core::blend::alpha_visitor::result_type
-		>(
+		sge::opengl::state::core::blend::alpha_visitor::result_type{
 			std::bind(
 				sge::opengl::enable,
 				GL_BLEND
-			)
-		)(
+			),
 			fcppt::variant::apply_unary(
 				sge::opengl::state::core::blend::alpha_enabled_visitor(
 					system_context_
 				),
 				_enabled.variant()
 			)
-		);
+		};
 }

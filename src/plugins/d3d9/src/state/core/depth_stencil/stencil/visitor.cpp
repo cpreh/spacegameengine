@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/depth_stencil/stencil/enabled.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/off_fwd.hpp>
 #include <fcppt/algorithm/join.hpp>
-#include <fcppt/assign/make_container.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 
 
@@ -36,14 +35,12 @@ sge::d3d9::state::core::depth_stencil::stencil::visitor::operator()(
 ) const
 {
 	return
-		fcppt::assign::make_container<
-			sge::d3d9::state::render_vector
-		>(
+		sge::d3d9::state::render_vector{
 			sge::d3d9::state::render(
 				D3DRS_STENCILENABLE,
 				FALSE
 			)
-		);
+		};
 }
 
 sge::d3d9::state::core::depth_stencil::stencil::visitor::result_type const
@@ -53,30 +50,24 @@ sge::d3d9::state::core::depth_stencil::stencil::visitor::operator()(
 {
 	return
 		fcppt::algorithm::join(
-			fcppt::assign::make_container<
-				sge::d3d9::state::render_vector
-			>(
+			sge::d3d9::state::render_vector{
 				sge::d3d9::state::render(
 					D3DRS_STENCILENABLE,
 					TRUE
-				)
-			)(
+				),
 				sge::d3d9::state::render(
 					D3DRS_STENCILREF,
 					_enabled.ref().get()
-				)
-			)(
+				),
 				sge::d3d9::state::render(
 					D3DRS_STENCILMASK,
 					_enabled.read_mask().get()
-				)
-			)(
+				),
 				sge::d3d9::state::render(
 					D3DRS_STENCILWRITEMASK,
 					_enabled.write_mask().get()
 				)
-			)
-			.container(),
+			},
 			fcppt::variant::apply_unary(
 				sge::d3d9::state::core::depth_stencil::stencil::enabled_visitor(),
 				_enabled.enabled_variant()

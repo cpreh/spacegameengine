@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/ffp/lighting/light/spot.hpp>
 #include <sge/renderer/state/ffp/lighting/light/spot.hpp>
 #include <fcppt/algorithm/join.hpp>
-#include <fcppt/assign/make_container.hpp>
 
 
 sge::opengl::state::index_actor_vector const
@@ -36,22 +35,17 @@ sge::opengl::state::ffp::lighting::light::spot(
 {
 	return
 		fcppt::algorithm::join(
-			fcppt::assign::make_container<
-				sge::opengl::state::index_actor_vector
-			>(
+			sge::opengl::state::index_actor_vector{
 				sge::opengl::state::ffp::lighting::light::position(
 					_spot.position()
-				)
-			)(
+				),
 				sge::opengl::state::ffp::lighting::light::direction(
 					_spot.direction()
-				)
-			)(
+				),
 				sge::opengl::state::ffp::lighting::light::cutoff_angle(
 					_spot.cutoff_angle()
 				)
-			)
-			.container(),
+			},
 			sge::opengl::state::ffp::lighting::light::attenuation(
 				_spot.attenuation()
 			)

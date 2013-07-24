@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/state/convert/fill_mode.hpp>
 #include <sge/d3d9/state/core/rasterizer/make_states.hpp>
 #include <sge/renderer/state/core/rasterizer/parameters.hpp>
-#include <fcppt/assign/make_container.hpp>
 
 
 sge::d3d9::state::render_vector const
@@ -35,28 +34,24 @@ sge::d3d9::state::core::rasterizer::make_states(
 )
 {
 	return
-		fcppt::assign::make_container<
-			sge::d3d9::state::render_vector
-		>(
+		sge::d3d9::state::render_vector{
 			sge::d3d9::state::render(
 				D3DRS_CULLMODE,
 				sge::d3d9::state::convert::cull_mode(
 					_parameters.cull_mode()
 				)
-			)
-		)(
+			),
 			sge::d3d9::state::render(
 				D3DRS_FILLMODE,
 				sge::d3d9::state::convert::fill_mode(
 					_parameters.fill_mode()
 				)
-			)
-		)(
+			),
 			sge::d3d9::state::render(
 				D3DRS_SCISSORTESTENABLE,
 				sge::d3d9::state::convert::bool_to_dword(
 					_parameters.enable_scissor_test().get()
 				)
 			)
-		);
+		};
 }

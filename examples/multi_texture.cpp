@@ -116,7 +116,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/exception.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assign/make_container.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
@@ -188,14 +187,11 @@ try
 			sge::systems::image2d(
 				sge::image::capabilities_field::null(),
 				sge::media::optional_extension_set(
-					fcppt::assign::make_container<
-						sge::media::extension_set
-					>
-					(
+					sge::media::extension_set{
 						sge::media::extension(
 							FCPPT_TEXT("png")
 						)
-					)
+					}
 				)
 			)
 		)
@@ -477,19 +473,14 @@ try
 		)
 	);
 
-	sge::renderer::state::ffp::sampler::const_object_ref_vector const samplers(
-		fcppt::assign::make_container<
-			sge::renderer::state::ffp::sampler::const_object_ref_vector
-		>(
-			fcppt::make_cref(
-				*sampler0
-			)
-		)(
-			fcppt::make_cref(
-				*sampler1
-			)
+	sge::renderer::state::ffp::sampler::const_object_ref_vector const samplers{
+		fcppt::make_cref(
+			*sampler0
+		),
+		fcppt::make_cref(
+			*sampler1
 		)
-	);
+	};
 
 	while(
 		sys.window_system().poll()

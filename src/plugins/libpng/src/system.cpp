@@ -34,8 +34,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional_comparison.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assign/make_container.hpp>
-#include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <boost/filesystem/path.hpp>
@@ -52,14 +50,9 @@ sge::media::extension const supported_extension(
 	FCPPT_TEXT("png")
 );
 
-sge::media::extension_set const const_extensions((
-	fcppt::assign::make_container<
-		sge::media::extension_set
-	>
-	(
-		supported_extension
-	)
-));
+sge::media::extension_set const const_extensions{
+	supported_extension
+};
 
 }
 

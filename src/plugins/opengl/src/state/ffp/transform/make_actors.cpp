@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/ffp/transform/make_actors.hpp>
 #include <sge/opengl/state/ffp/transform/set_matrix_and_mode.hpp>
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
-#include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/matrix/transpose.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
@@ -40,9 +39,7 @@ sge::opengl::state::ffp::transform::make_actors(
 )
 {
 	return
-		fcppt::assign::make_container<
-			sge::opengl::state::ffp::transform::actor_vector
-		>(
+		sge::opengl::state::ffp::transform::actor_vector{
 			std::bind(
 				&sge::opengl::state::ffp::transform::set_matrix_and_mode,
 				std::ref(
@@ -61,5 +58,5 @@ sge::opengl::state::ffp::transform::make_actors(
 						_parameters.matrix()
 					)
 			)
-		);
+		};
 }

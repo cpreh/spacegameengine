@@ -36,7 +36,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/part.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <sge/renderer/vf/dynamic/view.hpp>
-#include <fcppt/assign/make_container.hpp>
 
 
 sge::opengl::vertex_buffer::vertex_buffer(
@@ -57,14 +56,10 @@ sge::opengl::vertex_buffer::vertex_buffer(
 	),
 	converter_(
 		format_part_,
-		fcppt::assign::make_container<
-			sge::renderer::vf::dynamic::color_format_vector
-		>(
-			sge::image::color::format::rgba8
-		)
-		(
+		sge::renderer::vf::dynamic::color_format_vector{
+			sge::image::color::format::rgba8,
 			sge::image::color::format::rgba32f
-		)
+		}
 	),
 	buffer_(
 		sge::opengl::context::use<

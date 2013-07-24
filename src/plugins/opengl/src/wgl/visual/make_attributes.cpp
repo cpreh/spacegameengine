@@ -33,7 +33,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/pixel_format/stencil_bits.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assign/make_container.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <GL/wglew.h>
 #include <fcppt/config/external_end.hpp>
@@ -67,34 +66,21 @@ sge::opengl::wgl::visual::make_attributes(
 		);
 
 	sge::opengl::wgl::visual::attribute_container ret(
-		fcppt::assign::make_container<
-			sge::opengl::wgl::visual::attribute_container
+		pixel_format_types->draw_to_window().get(),
+		GL_TRUE,
+		pixel_format_types->support_opengl().get(),
+		GL_TRUE,
+		pixel_format_types->double_buffer().get(),
+		GL_TRUE,
+		pixel_format_types->pixel_type().get(),
+		pixel_format_types->pixel_type_rgba().get()<
+		pixel_format_types->color_bits().get(),
+		static_cast<
+			int
 		>(
-			pixel_format_types->draw_to_window().get()
-		)(
-			GL_TRUE
-		)(
-			pixel_format_types->support_opengl().get()
-		)(
-			GL_TRUE
-		)(
-			pixel_format_types->double_buffer().get()
-		)(
-			GL_TRUE
-		)(
-			pixel_format_types->pixel_type().get()
-		)(
-			pixel_format_types->pixel_type_rgba().get()
-		)(
-			pixel_format_types->color_bits().get()
-		)(
-			static_cast<
-				int
-			>(
-				sge::renderer::pixel_format::color_bits(
-					_format.color()
-				).get()
-			)
+			sge::renderer::pixel_format::color_bits(
+				_format.color()
+			).get()
 		)
 	);
 

@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/state/ffp/alpha_test/visitor.hpp>
 #include <sge/renderer/state/ffp/alpha_test/enabled.hpp>
 #include <sge/renderer/state/ffp/alpha_test/off_fwd.hpp>
-#include <fcppt/assign/make_container.hpp>
 
 
 sge::d3d9::state::ffp::alpha_test::visitor::result_type
@@ -34,14 +33,12 @@ sge::d3d9::state::ffp::alpha_test::visitor::operator()(
 ) const
 {
 	return
-		fcppt::assign::make_container<
-			sge::d3d9::state::render_vector
-		>(
+		sge::d3d9::state::render_vector{
 			sge::d3d9::state::render(
 				D3DRS_ALPHATESTENABLE,
 				FALSE
 			)
-		);
+		};
 }
 
 sge::d3d9::state::ffp::alpha_test::visitor::result_type
@@ -50,21 +47,17 @@ sge::d3d9::state::ffp::alpha_test::visitor::operator()(
 ) const
 {
 	return
-		fcppt::assign::make_container<
-			sge::d3d9::state::render_vector
-		>(
+		sge::d3d9::state::render_vector{
 			sge::d3d9::state::render(
 				D3DRS_ALPHATESTENABLE,
 				TRUE
-			)
-		)(
+			),
 			sge::d3d9::state::render(
 				D3DRS_ALPHAFUNC,
 				sge::d3d9::state::convert::alpha_func(
 					_enabled.func()
 				)
-			)
-		)(
+			),
 			// TODO: should we change the API for this?
 			sge::d3d9::state::render(
 				D3DRS_ALPHAREF,
@@ -76,5 +69,5 @@ sge::d3d9::state::ffp::alpha_test::visitor::operator()(
 					256.f
 				)
 			)
-		);
+		};
 }

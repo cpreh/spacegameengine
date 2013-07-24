@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/projectile/triangulation/default_tag.hpp>
 #include <sge/projectile/triangulation/triangulate.hpp>
-#include <fcppt/assign/make_container.hpp>
 #include <fcppt/math/vector/object.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/math/vector/static.hpp>
@@ -142,59 +141,48 @@ BOOST_AUTO_TEST_CASE(
 FCPPT_PP_POP_WARNING
 
 	test_long(
-		fcppt::assign::make_container<
-			point_sequence
-		>(
+		point_sequence{
 			vector2(
 				0,
 				0
-			)
-		)(
+			),
 			vector2(
 				100,
 				0
-			)
-		)(
+			),
 			vector2(
 				100,
 				100
-			)
-		)(
+			),
 			vector2(
 				0,
 				100
 			)
-		)
+		}
 		,
 		0l
 	);
 
 	test_long(
-		fcppt::assign::make_container<
-			point_sequence
-		>(
+		point_sequence{
 			vector2(
 				0,
 				0
-			)
-		)(
+			),
 			vector2(
 				0,
 				1000
-			)
-		)(
+			),
 			vector2(
 				2000,
 				2000
-			)
-		)(
+			),
 			vector2(
 				1000,
 				500
 			)
-		)
+		}
 		,
 		0l
 	);
-
 }

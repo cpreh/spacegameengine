@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/state/core/depth_stencil/depth/visitor.hpp>
 #include <sge/renderer/state/core/depth_stencil/depth/enabled.hpp>
 #include <sge/renderer/state/core/depth_stencil/depth/off_fwd.hpp>
-#include <fcppt/assign/make_container.hpp>
 
 
 sge::d3d9::state::core::depth_stencil::depth::visitor::result_type const
@@ -35,14 +34,12 @@ sge::d3d9::state::core::depth_stencil::depth::visitor::operator()(
 ) const
 {
 	return
-		fcppt::assign::make_container<
-			sge::d3d9::state::render_vector
-		>(
+		sge::d3d9::state::render_vector{
 			sge::d3d9::state::render(
 				D3DRS_ZENABLE,
 				D3DZB_FALSE
 			)
-		);
+		};
 }
 
 sge::d3d9::state::core::depth_stencil::depth::visitor::result_type const
@@ -51,26 +48,22 @@ sge::d3d9::state::core::depth_stencil::depth::visitor::operator()(
 ) const
 {
 	return
-		fcppt::assign::make_container<
-			sge::d3d9::state::render_vector
-		>(
+		sge::d3d9::state::render_vector{
 			sge::d3d9::state::render(
 				D3DRS_ZENABLE,
 				D3DZB_TRUE
-			)
-		)(
+			),
 			sge::d3d9::state::render(
 				D3DRS_ZFUNC,
 				sge::d3d9::state::convert::depth_func(
 					_enabled.func()
 				)
-			)
-		)(
+			),
 			sge::d3d9::state::render(
 				D3DRS_ZWRITEENABLE,
 				sge::d3d9::state::convert::bool_to_dword(
 					_enabled.write_enable().get()
 				)
 			)
-		);
+		};
 }

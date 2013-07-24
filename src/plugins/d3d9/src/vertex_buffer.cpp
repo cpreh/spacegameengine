@@ -38,7 +38,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/stride.hpp>
 #include <sge/renderer/vf/dynamic/view.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assign/make_container.hpp>
 
 
 sge::d3d9::vertex_buffer::vertex_buffer(
@@ -70,11 +69,9 @@ sge::d3d9::vertex_buffer::vertex_buffer(
 	),
 	converter_(
 		format_part_,
-		fcppt::assign::make_container<
-			sge::renderer::vf::dynamic::color_format_vector
-		>(
+		sge::renderer::vf::dynamic::color_format_vector{
 			sge::image::color::format::bgra8
-		)
+		}
 	),
 	buffer_(),
 	lock_dest_(

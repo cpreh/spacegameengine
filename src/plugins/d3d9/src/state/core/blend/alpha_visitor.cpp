@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/blend/alpha_enabled.hpp>
 #include <sge/renderer/state/core/blend/alpha_off_fwd.hpp>
 #include <fcppt/algorithm/join.hpp>
-#include <fcppt/assign/make_container.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 
 
@@ -36,14 +35,12 @@ sge::d3d9::state::core::blend::alpha_visitor::operator()(
 ) const
 {
 	return
-		fcppt::assign::make_container<
-			sge::d3d9::state::render_vector
-		>(
+		sge::d3d9::state::render_vector{
 			sge::d3d9::state::render(
 				D3DRS_ALPHABLENDENABLE,
 				FALSE
 			)
-		);
+		};
 }
 
 sge::d3d9::state::core::blend::alpha_visitor::result_type
@@ -53,15 +50,12 @@ sge::d3d9::state::core::blend::alpha_visitor::operator()(
 {
 	return
 		fcppt::algorithm::join(
-			fcppt::assign::make_container<
-				sge::d3d9::state::render_vector
-			>(
+			sge::d3d9::state::render_vector{
 				sge::d3d9::state::render(
 					D3DRS_ALPHABLENDENABLE,
 					TRUE
 				)
-			)
-			.container(),
+			},
 			fcppt::variant::apply_unary(
 				sge::d3d9::state::core::blend::alpha_enabled_visitor(),
 				_enabled.variant()
