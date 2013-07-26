@@ -1,22 +1,4 @@
 if(
-	Cg_FIND_QUIETLY
-)
-	set(
-		CG_FIND_OPTIONS
-		"QUIET"
-	)
-endif()
-
-if(
-	Cg_FIND_REQUIRED
-)
-	set(
-		CG_FIND_OPTIONS
-		"REQUIRED"
-	)
-endif()
-
-if(
 	WIN32
 )
 	if(

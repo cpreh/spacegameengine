@@ -521,17 +521,29 @@ add_subdirectory(
 	bvh
 )
 
-add_subdirectory(
-	gui
+if(
+	ENABLE_CEGUI
 )
+	add_subdirectory(
+		gui
+	)
+endif()
 
-add_subdirectory(
-	cg
+if(
+	ENABLE_CG
 )
+	add_subdirectory(
+		cg
+	)
+endif()
 
-add_subdirectory(
-	opencl
+if(
+	ENABLE_OPENCL
 )
+	add_subdirectory(
+		opencl
+	)
+endif()
 
 add_subdirectory(
 	rucksack

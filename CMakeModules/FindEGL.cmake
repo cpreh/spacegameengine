@@ -1,21 +1,3 @@
-if(
-	EGL_FIND_QUIETLY
-)
-	set(
-		EGL_FIND_OPTIONS
-		"QUIET"
-	)
-endif()
-
-if(
-	EGL_FIND_REQUIRED
-)
-	set(
-		EGL_FIND_OPTIONS
-		"REQUIRED"
-	)
-endif()
-
 find_path(
 	EGL_INCLUDE_DIR
 	NAMES EGL/egl.h
