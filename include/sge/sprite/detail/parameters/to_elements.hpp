@@ -21,16 +21,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_PARAMETERS_TO_ELEMENTS_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_PARAMETERS_TO_ELEMENTS_HPP_INCLUDED
 
-#include <majutsu/is_role.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/fusion/algorithm/transformation/filter_if.hpp>
+#include <boost/fusion/algorithm/transformation/transform.hpp>
+#include <boost/fusion/algorithm/transformation/zip.hpp>
 #include <boost/fusion/container/vector/convert.hpp>
+#include <boost/fusion/sequence/intrinsic/at_c.hpp>
 #include <boost/fusion/include/mpl.hpp>
-#include <boost/mpl/and.hpp>
+#include <boost/mpl/at.hpp>
 #include <boost/mpl/contains.hpp>
-#include <boost/mpl/lambda.hpp>
-#include <boost/mpl/not.hpp>
-#include <boost/mpl/placeholders.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -43,6 +46,85 @@ namespace detail
 namespace parameters
 {
 
+// TODO: Clean this up!
+struct at_impl
+{
+	template<
+		typename
+	>
+	struct result;
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
+	template<
+		typename Container
+	>
+	struct result<
+		at_impl(
+			Container
+		)
+	>
+	:
+	std::remove_reference<
+		typename boost::fusion::result_of::at_c<
+			typename std::remove_const<
+				typename std::remove_reference<
+					Container
+				>::type
+			>::type,
+			1u
+		>::type
+	>
+	{
+	};
+FCPPT_PP_POP_WARNING
+
+	template<
+		typename Container
+	>
+	typename
+	result<
+		at_impl(
+			Container
+		)
+	>::type
+	operator()(
+		Container const &_container
+	) const
+	{
+		return
+			boost::fusion::at_c<
+				1u
+			>(
+				_container
+			);
+	}
+};
+
+template<
+	typename Dest
+>
+struct my_contains
+{
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
+        template<
+                typename Elem
+        >
+        struct apply
+        :
+        boost::mpl::contains<
+                Dest,
+                typename boost::mpl::at_c<
+			Elem,
+			0
+		>::type
+	>
+	{
+	};
+FCPPT_PP_POP_WARNING
+};
+
 template<
 	typename Dest,
 	typename Source
@@ -53,24 +135,25 @@ to_elements(
 )
 {
 	return
+
 		Dest(
 			boost::fusion::as_vector(
-				boost::fusion::filter_if<
-					typename boost::mpl::lambda<
-						boost::mpl::and_<
-							boost::mpl::contains<
-								typename Dest::memory_type::tuple,
-								boost::mpl::_1
-							>,
-							boost::mpl::not_<
-								majutsu::is_role<
-									boost::mpl::_1
-								>
-							>
+				boost::fusion::transform(
+					boost::fusion::filter_if<
+						my_contains<
+							typename Dest::memory_type::types
 						>
-					>::type
-				>(
-					_source.memory().impl()
+					>(
+						boost::fusion::as_vector(
+							boost::fusion::zip(
+								boost::fusion::as_vector(
+									typename Source::memory_type::types()
+								),
+								_source.memory().impl()
+							)
+						)
+					),
+					at_impl()
 				)
 			)
 		);
