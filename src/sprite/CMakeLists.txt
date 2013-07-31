@@ -176,6 +176,7 @@ set(
 	include/sge/sprite/detail/make_class.hpp
 	include/sge/sprite/detail/make_texture_levels.hpp
 	include/sge/sprite/detail/object_base.hpp
+	include/sge/sprite/detail/parameters/contains_element.hpp
 	include/sge/sprite/detail/parameters/initialize_defaults.hpp
 	include/sge/sprite/detail/parameters/make_class.hpp
 	include/sge/sprite/detail/parameters/make_extra_elements.hpp
