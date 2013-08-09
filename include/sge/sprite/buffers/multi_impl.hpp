@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/buffers/parameters.hpp>
 #include <sge/sprite/buffers/slice_impl.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/no_init.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 
@@ -77,7 +78,9 @@ sge::sprite::buffers::multi<
 	sge::sprite::count const _num_sprites
 )
 {
-	buffer_object new_object;
+	buffer_object new_object{
+		fcppt::no_init()
+	};
 
 	sge::sprite::buffers::allocate<
 		Choices

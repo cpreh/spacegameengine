@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/state/detail/one_option_to_true.hpp>
 #include <sge/sprite/state/detail/options_class.hpp>
+#include <fcppt/no_init.hpp>
 #include <fcppt/mpl/for_each.hpp>
 
 
@@ -45,7 +46,9 @@ options_to_true()
 {
 	typename sge::sprite::state::detail::options_class<
 		StateChoices
-	>::type result;
+	>::type result{
+		fcppt::no_init()
+	};
 
 	fcppt::mpl::for_each<
 		typename StateChoices::optional_elements

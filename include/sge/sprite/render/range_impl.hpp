@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/buffers/roles/vertex_buffer.hpp>
 #include <sge/sprite/render/range_decl.hpp>
 #include <sge/sprite/render/range_part_impl.hpp>
+#include <fcppt/no_init.hpp>
 
 
 template<
@@ -39,7 +40,9 @@ sge::sprite::render::range<
 	range_parts_(
 		nullptr
 	),
-	object_()
+	object_(
+		fcppt::no_init()
+	)
 {
 }
 
