@@ -33,13 +33,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/resource_tree/detail/sub_path.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/algorithm/copy_if.hpp>
 #include <fcppt/assert/throw_message.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/operations.hpp>
 #include <boost/filesystem/path.hpp>
+#include <algorithm>
 #include <iterator>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
@@ -94,7 +94,7 @@ sge::resource_tree::object<
 	directories.push_back(
 		_path);
 
-	fcppt::algorithm::copy_if(
+	std::copy_if(
 		boost::filesystem::recursive_directory_iterator(
 			_path),
 		boost::filesystem::recursive_directory_iterator(),

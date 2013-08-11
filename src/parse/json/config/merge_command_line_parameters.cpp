@@ -128,8 +128,12 @@ process_option(
 					target->members,
 					boost::phoenix::bind(
 						&sge::parse::json::member_map::value_type::first,
-						boost::phoenix::arg_names::arg1)),
-				element));
+						boost::phoenix::arg_names::arg1
+					)
+				),
+				element
+			)
+		);
 
 	*pos =
 		sge::parse::json::string_to_value(
