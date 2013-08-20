@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/time/sleep_any.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/chrono/duration.hpp>
+#include <chrono>
 #include <functional>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -65,7 +65,7 @@ sge::dinput::cursor::exclusive_mode::exclusive_mode(
 		)
 	)
 		fcppt::time::sleep_any(
-			boost::chrono::milliseconds(
+			std::chrono::milliseconds(
 				1
 			)
 		);

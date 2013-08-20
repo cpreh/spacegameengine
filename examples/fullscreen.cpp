@@ -66,9 +66,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/location.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/chrono/duration.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <example_main.hpp>
+#include <chrono>
 #include <exception>
 #include <ostream>
 #include <fcppt/config/external_end.hpp>
@@ -147,7 +147,7 @@ try
 		sge::timer::parameters<
 			sge::timer::clocks::standard
 		>(
-			boost::chrono::seconds(
+			std::chrono::seconds(
 				5
 			)
 		)

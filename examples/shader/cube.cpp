@@ -177,8 +177,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/chrono/duration.hpp>
 #include <boost/mpl/vector/vector10.hpp>
+#include <chrono>
 #include <cmath>
 #include <example_main.hpp>
 #include <exception>
@@ -1050,7 +1050,7 @@ try
 
 	sge::timer::basic<sge::timer::clocks::standard> revolve_timer(
 		sge::timer::parameters<sge::timer::clocks::standard>(
-			boost::chrono::seconds(
+			std::chrono::seconds(
 				10)));
 
 	sge::font::text::drawer_3d font_drawer(

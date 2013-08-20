@@ -85,7 +85,7 @@ option(
 
 set(
 	NEEDED_BOOST_LIBS
-	"chrono;filesystem;program_options;system"
+	"filesystem;program_options;system"
 )
 
 if(

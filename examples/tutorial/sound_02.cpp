@@ -47,8 +47,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/math/twopi.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/chrono/duration.hpp>
 #include <boost/mpl/vector/vector10.hpp>
+#include <chrono>
 #include <cmath>
 #include <cstdlib>
 #include <exception>
@@ -105,7 +105,7 @@ try
 
 	sge::timer::basic<sge::timer::clocks::standard> frame_timer(
 		sge::timer::parameters<sge::timer::clocks::standard>(
-			boost::chrono::seconds(
+			std::chrono::seconds(
 				1)));
 
 	sge::audio::scalar const rpm(

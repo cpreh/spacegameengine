@@ -35,11 +35,11 @@ add_sge_rucksack_example(
 add_sge_rucksack_example(
 	enumeration
 	"sgeimagecolor;sgerucksack;sgesystems"
-	"${Boost_CHRONO_LIBRARIES}"
+	""
 )
 
 add_sge_rucksack_example(
 	master_and_slaves
 	"sgeimagecolor;sgerucksack;sgesystems"
-	"${Boost_CHRONO_LIBRARIES}"
+	""
 )

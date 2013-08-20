@@ -120,9 +120,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/program_options.hpp>
-#include <boost/chrono/duration.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/ptr_container/ptr_list.hpp>
+#include <chrono>
 #include <cmath>
 #include <example_main.hpp>
 #include <functional>
@@ -136,7 +136,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 typedef
-boost::chrono::duration<sge::renderer::scalar>
+std::chrono::duration<sge::renderer::scalar>
 float_duration;
 
 namespace sprite_types

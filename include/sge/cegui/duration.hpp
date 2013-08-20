@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/cegui/unit.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/chrono/duration.hpp>
+#include <chrono>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -33,7 +33,7 @@ namespace cegui
 {
 
 typedef
-boost::chrono::duration
+std::chrono::duration
 <
 	sge::cegui::unit
 >

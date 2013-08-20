@@ -33,8 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/random/generator/minstd_rand.hpp>
 #include <fcppt/random/generator/seed_from_chrono.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/chrono/duration.hpp>
-#include <boost/chrono/process_cpu_clocks.hpp>
+#include <chrono>
 #include <cstddef>
 #include <exception>
 #include <iostream>
@@ -142,7 +141,7 @@ try
 	}
 
 	typedef
-	boost::chrono::process_real_cpu_clock
+	std::chrono::steady_clock
 	clock_type;
 
 	clock_type::time_point const before =
@@ -154,7 +153,7 @@ try
 	std::cout
 		<< "Construction time: "
 		<<
-			boost::chrono::duration_cast<boost::chrono::milliseconds>(
+			std::chrono::duration_cast<std::chrono::milliseconds>(
 				clock_type::now() - before).count()
 		<< "\n";
 

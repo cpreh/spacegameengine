@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/scalar.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/chrono/duration.hpp>
+#include <chrono>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -31,9 +31,14 @@ namespace sge
 {
 namespace camera
 {
+
 typedef
-boost::chrono::duration<sge::renderer::scalar>
+std::chrono::duration
+<
+	sge::renderer::scalar
+>
 update_duration;
+
 }
 }
 

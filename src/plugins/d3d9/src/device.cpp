@@ -140,7 +140,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/time/sleep_any.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/chrono/duration.hpp>
+#include <chrono>
 #include <memory>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -794,7 +794,7 @@ sge::d3d9::device::reset()
 		)
 	)
 		fcppt::time::sleep_any(
-			boost::chrono::milliseconds(
+			std::chrono::milliseconds(
 				1
 			)
 		);

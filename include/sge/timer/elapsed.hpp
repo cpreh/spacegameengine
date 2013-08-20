@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/timer/basic.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/chrono/duration.hpp>
+#include <chrono>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -45,7 +45,7 @@ elapsed(
 			t.template interval<Duration>();
 
 	return
-		boost::chrono::duration_cast<Duration>(
+		std::chrono::duration_cast<Duration>(
 			t.now() -
 			t.last_time());
 }

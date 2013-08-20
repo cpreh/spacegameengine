@@ -155,9 +155,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/chrono/duration.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <array>
+#include <chrono>
 #include <example_main.hpp>
 #include <exception>
 #include <iostream>
@@ -733,7 +733,7 @@ try
 
 	timer frame_timer(
 		timer::parameters(
-			boost::chrono::seconds(
+			std::chrono::seconds(
 				1
 			)
 		)

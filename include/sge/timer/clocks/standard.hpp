@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TIMER_CLOCKS_STANDARD_HPP_INCLUDED
 
 #include <fcppt/config/external_begin.hpp>
-#include <boost/chrono/system_clocks.hpp>
-#include <boost/mpl/if.hpp>
+#include <chrono>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -34,11 +34,11 @@ namespace timer
 namespace clocks
 {
 typedef
-boost::mpl::if_c
+std::conditional
 <
-	boost::chrono::high_resolution_clock::is_steady,
-	boost::chrono::high_resolution_clock,
-	boost::chrono::steady_clock
+	std::chrono::high_resolution_clock::is_steady,
+	std::chrono::high_resolution_clock,
+	std::chrono::steady_clock
 >::type
 standard;
 }
