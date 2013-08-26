@@ -79,7 +79,7 @@ private:
 	);
 
 	typedef std::set<
-		x11input::cursor::object *
+		sge::x11input::cursor::object *
 	> object_set;
 
 	object_set objects_;

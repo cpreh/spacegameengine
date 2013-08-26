@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/rational.hpp>
 #include <fcppt/config/external_end.hpp>
 
+
 namespace
 {
 
@@ -51,7 +52,6 @@ truncate_rational(
 
 }
 
-
 sge::renderer::target::viewport const
 sge::viewport::maintain_aspect_function(
 	awl::window::event::resize const &_event,
@@ -65,18 +65,10 @@ sge::viewport::maintain_aspect_function(
 
 	rational::int_type const
 		width(
-			static_cast<
-				rational::int_type
-			>(
-				_event.dim().w()
-			)
+			_event.dim().w()
 		),
 		height(
-			static_cast<
-				rational::int_type
-			>(
-				_event.dim().h()
-			)
+			_event.dim().h()
 		);
 
 	rational const actual(

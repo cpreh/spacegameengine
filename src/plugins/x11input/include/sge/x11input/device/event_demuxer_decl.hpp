@@ -56,7 +56,8 @@ class event_demuxer
 		event_demuxer
 	);
 
-	typedef void
+	typedef
+	void
 	signature(
 		Event const &
 	);
@@ -65,7 +66,7 @@ public:
 		awl::backends::x11::system::event::processor &,
 		awl::backends::x11::system::event::opcode const &,
 		awl::backends::x11::window::object const &,
-		device::demuxer_enabled
+		sge::x11input::device::demuxer_enabled
 	);
 
 	~event_demuxer();
@@ -77,7 +78,7 @@ public:
 	fcppt::signal::auto_connection
 	register_callback(
 		awl::backends::x11::system::event::type const &,
-		x11input::device::id const &,
+		sge::x11input::device::id const &,
 		callback const &
 	);
 

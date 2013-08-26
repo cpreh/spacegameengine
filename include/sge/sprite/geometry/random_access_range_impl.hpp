@@ -23,6 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/count.hpp>
 #include <sge/sprite/geometry/random_access_range_decl.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
 #include <iterator>
@@ -58,7 +60,8 @@ sge::sprite::geometry::random_access_range<
 	Iterator
 >::begin() const
 {
-	return begin_;
+	return
+		begin_;
 }
 
 template<
@@ -71,7 +74,8 @@ sge::sprite::geometry::random_access_range<
 	Iterator
 >::end() const
 {
-	return end_;
+	return
+		end_;
 }
 
 template<
@@ -84,12 +88,14 @@ sge::sprite::geometry::random_access_range<
 {
 	return
 		sge::sprite::count(
-			static_cast<
+			fcppt::cast::size<
 				sge::sprite::count::value_type
 			>(
-				std::distance(
-					begin_,
-					end_
+				fcppt::cast::to_unsigned(
+					std::distance(
+						begin_,
+						end_
+					)
 				)
 			)
 		);

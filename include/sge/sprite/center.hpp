@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/object_fwd.hpp>
 #include <sge/sprite/types/dim.hpp>
 #include <sge/sprite/types/vector.hpp>
+#include <fcppt/literal.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/vector/dim.hpp>
 
@@ -51,8 +52,9 @@ center(
 		+
 		_spr.size()
 		/
-		static_cast<
-			typename sge::sprite::object<
+		fcppt::literal<
+			typename
+			sge::sprite::object<
 				Choices
 			>::unit
 		>(
@@ -68,7 +70,8 @@ center(
 	sge::sprite::object<
 		Choices
 	> &_spr,
-	typename sge::sprite::object<
+	typename
+	sge::sprite::object<
 		Choices
 	>::vector const &_center
 )
@@ -78,8 +81,9 @@ center(
 		-
 		_spr.size()
 		/
-		static_cast<
-			typename sge::sprite::object<
+		fcppt::literal<
+			typename
+			sge::sprite::object<
 				Choices
 			>::unit
 		>(

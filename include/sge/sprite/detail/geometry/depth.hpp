@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/detail/config/has_depth.hpp>
+#include <fcppt/literal.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -71,7 +72,7 @@ depth(
 )
 {
 	return
-		static_cast<
+		fcppt::literal<
 			typename Choices::type_choices::float_type
 		>(
 			0

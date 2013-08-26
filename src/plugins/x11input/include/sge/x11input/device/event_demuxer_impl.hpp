@@ -21,16 +21,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11INPUT_DEVICE_EVENT_DEMUXER_IMPL_HPP_INCLUDED
 #define SGE_X11INPUT_DEVICE_EVENT_DEMUXER_IMPL_HPP_INCLUDED
 
+#include <sge/x11input/device/demuxer_enabled.hpp>
 #include <sge/x11input/device/event_data.hpp>
 #include <sge/x11input/device/event_demuxer_decl.hpp>
 #include <sge/x11input/device/event_deviceid.hpp>
 #include <sge/x11input/device/id.hpp>
 #include <sge/x11input/device/select_events.hpp>
+#include <awl/backends/x11/system/event/opcode.hpp>
 #include <awl/backends/x11/system/event/processor.hpp>
 #include <awl/backends/x11/window/object.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/assert/error.hpp>
+#include <fcppt/cast/from_void_ptr.hpp>
 #include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/signal/unregister/base_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -43,11 +47,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<
 	typename Event
 >
-sge::x11input::device::event_demuxer<Event>::event_demuxer(
+sge::x11input::device::event_demuxer<
+	Event
+>::event_demuxer(
 	awl::backends::x11::system::event::processor &_system_processor,
 	awl::backends::x11::system::event::opcode const &_opcode,
 	awl::backends::x11::window::object const &_window,
-	x11input::device::demuxer_enabled const _enabled
+	sge::x11input::device::demuxer_enabled const _enabled
 )
 :
 	system_processor_(
@@ -70,7 +76,9 @@ sge::x11input::device::event_demuxer<Event>::event_demuxer(
 template<
 	typename Event
 >
-sge::x11input::device::event_demuxer<Event>::~event_demuxer()
+sge::x11input::device::event_demuxer<
+	Event
+>::~event_demuxer()
 {
 	FCPPT_ASSERT_ERROR(
 		signals_.empty()
@@ -85,9 +93,11 @@ template<
 	typename Event
 >
 fcppt::signal::auto_connection
-sge::x11input::device::event_demuxer<Event>::register_callback(
+sge::x11input::device::event_demuxer<
+	Event
+>::register_callback(
 	awl::backends::x11::system::event::type const &_type,
-	x11input::device::id const &_id,
+	sge::x11input::device::id const &_id,
 	callback const &_callback
 )
 {
@@ -135,7 +145,7 @@ sge::x11input::device::event_demuxer<Event>::register_callback(
 				>()
 			).first;
 
-		x11input::device::select_events(
+		sge::x11input::device::select_events(
 			window_,
 			_id,
 			_type,
@@ -159,7 +169,9 @@ template<
 	typename Event
 >
 void
-sge::x11input::device::event_demuxer<Event>::active(
+sge::x11input::device::event_demuxer<
+	Event
+>::active(
 	bool const _active
 )
 {
@@ -170,7 +182,9 @@ template<
 	typename Event
 >
 void
-sge::x11input::device::event_demuxer<Event>::on_event(
+sge::x11input::device::event_demuxer<
+	Event
+>::on_event(
 	awl::backends::x11::system::event::object const &_event
 )
 {
@@ -180,7 +194,7 @@ sge::x11input::device::event_demuxer<Event>::on_event(
 	)
 		return;
 
-	x11input::device::event_data const cookie(
+	sge::x11input::device::event_data const cookie(
 		window_.display(),
 		_event
 	);
@@ -188,7 +202,7 @@ sge::x11input::device::event_demuxer<Event>::on_event(
 	typedef typename Event::value_type xi_event;
 
 	xi_event const &device_event(
-		*static_cast<
+		*fcppt::cast::from_void_ptr<
 			xi_event const *
 		>(
 			cookie.data()
@@ -215,8 +229,10 @@ template<
 	typename Event
 >
 void
-sge::x11input::device::event_demuxer<Event>::unregister(
-	device::id const &_id,
+sge::x11input::device::event_demuxer<
+	Event
+>::unregister(
+	sge::x11input::device::id const &_id,
 	awl::backends::x11::system::event::type const _type
 )
 {
@@ -242,7 +258,7 @@ sge::x11input::device::event_demuxer<Event>::unregister(
 			it
 		);
 
-		x11input::device::select_events(
+		sge::x11input::device::select_events(
 			window_,
 			_id,
 			_type,
@@ -267,7 +283,9 @@ template<
 	typename Event
 >
 bool
-sge::x11input::device::event_demuxer<Event>::signal_remains(
+sge::x11input::device::event_demuxer<
+	Event
+>::signal_remains(
 	awl::backends::x11::system::event::type const _type
 ) const
 {
@@ -275,7 +293,7 @@ sge::x11input::device::event_demuxer<Event>::signal_remains(
 		signals_.lower_bound(
 			event_pair(
 				_type,
-				x11input::device::id(
+				sge::x11input::device::id(
 					std::numeric_limits<
 						x11input::device::id::value_type
 					>::min()
@@ -285,7 +303,7 @@ sge::x11input::device::event_demuxer<Event>::signal_remains(
 		!= signals_.upper_bound(
 			event_pair(
 				_type,
-				x11input::device::id(
+				sge::x11input::device::id(
 					std::numeric_limits<
 						x11input::device::id::value_type
 					>::max()

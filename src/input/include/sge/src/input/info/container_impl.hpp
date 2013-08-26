@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_INPUT_INFO_CONTAINER_IMPL_HPP_INCLUDED
 
 #include <sge/input/info/container.hpp>
+#include <fcppt/cast/size.hpp>
+
 
 template<
 	typename Id,
@@ -70,7 +72,7 @@ sge::input::info::container<
 {
 	return
 		Id(
-			static_cast<
+			fcppt::cast::size<
 				typename Id::value_type
 			>(
 				vector_.size()

@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_IS_EPSILON_EQUAL_HPP_INCLUDED
 
 #include <sge/renderer/epsilon.hpp>
+#include <sge/renderer/scalar.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cmath>
 #include <fcppt/config/external_end.hpp>
@@ -31,13 +32,22 @@ namespace sge
 {
 namespace renderer
 {
-inline bool
+
+inline
+bool
 is_epsilon_equal(
-	renderer::scalar const a,
-	renderer::scalar const b)
+	sge::renderer::scalar const _a,
+	sge::renderer::scalar const _b
+)
 {
-	return std::abs(a-b) < renderer::epsilon();
+	return
+		std::abs(
+			_a - _b
+		)
+		<
+		sge::renderer::epsilon();
 }
+
 }
 }
 

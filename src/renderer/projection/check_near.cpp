@@ -22,18 +22,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/is_epsilon_equal.hpp>
 #include <sge/renderer/projection/near.hpp>
 #include <sge/src/renderer/projection/check_near.hpp>
+#include <fcppt/literal.hpp>
 #include <fcppt/text.hpp>
 
 
 void
 sge::renderer::projection::check_near(
-	projection::near const _near
+	sge::renderer::projection::near const _near
 )
 {
 	if(
 		sge::renderer::is_epsilon_equal(
 			_near.get(),
-			static_cast<sge::renderer::scalar>(0))
+			fcppt::literal<
+				sge::renderer::scalar
+			>(
+				0
+			)
+		)
 	)
 		throw sge::renderer::exception(
 			FCPPT_TEXT("projection: near must not be 0!")

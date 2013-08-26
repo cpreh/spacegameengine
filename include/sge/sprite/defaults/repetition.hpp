@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/defaults/fwd.hpp>
 #include <sge/sprite/roles/repetition.hpp>
 #include <sge/sprite/types/repetition.hpp>
+#include <fcppt/literal.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/bool.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -52,7 +53,7 @@ struct defaults<
 	get()
 	{
 		typename type::value_type const elem(
-			static_cast<
+			fcppt::literal<
 				typename type::value_type
 			>(
 				1

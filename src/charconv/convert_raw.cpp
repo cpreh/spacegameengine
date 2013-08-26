@@ -29,6 +29,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/output_range.hpp>
 #include <sge/charconv/raw_vector.hpp>
 #include <sge/charconv/source_encoding.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/range/empty.hpp>
+#include <boost/range/size.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::charconv::raw_vector const
@@ -39,9 +43,9 @@ sge::charconv::convert_raw(
 )
 {
 	if(
-		_input.size()
-		==
-		0
+		boost::empty(
+			_input
+		)
 	)
 		return sge::charconv::raw_vector();
 
@@ -54,10 +58,8 @@ sge::charconv::convert_raw(
 
 	// some guess
 	sge::charconv::raw_vector dest_buffer(
-		static_cast<
-			sge::charconv::raw_vector::size_type
-		>(
-			_input.size()
+		boost::size(
+			_input
 		)
 	);
 
@@ -86,10 +88,8 @@ sge::charconv::convert_raw(
 		dest_size_type const elements_converted(
 			dest_buffer.size()
 			-
-			static_cast<
-				dest_size_type
-			>(
-				dest_range.size()
+			boost::size(
+				dest_range
 			)
 		);
 
@@ -109,7 +109,7 @@ sge::charconv::convert_raw(
 				dest_buffer;
 		case sge::charconv::conversion_status::output_too_small:
 			dest_buffer.resize(
-				dest_buffer.size() * 2
+				dest_buffer.size() * 2u
 			);
 
 			dest_range =

@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/size_type.hpp>
 #include <fcppt/enum_size.hpp>
+#include <fcppt/cast/size.hpp>
 #include <fcppt/mpl/index_of.hpp>
 #include <fcppt/mpl/integral_cast.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
@@ -64,7 +65,7 @@ fcppt::mpl::integral_cast<
 			>::type
 		>::value
 		==
-		static_cast<
+		fcppt::cast::size<
 			sge::image::size_type
 		>(
 			fcppt::enum_size<

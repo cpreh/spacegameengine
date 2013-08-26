@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VF_ITERATOR_IMPL_HPP_INCLUDED
 
 #include <sge/renderer/vf/iterator_decl.hpp>
+#include <fcppt/cast/to_signed.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/back.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -41,9 +42,7 @@ sge::renderer::vf::iterator<
 >::stride()
 {
 	return
-		static_cast<
-			difference_type
-		>(
+		fcppt::cast::to_signed(
 			boost::mpl::back<
 				typename Part::offsets
 			>::type::value
@@ -79,7 +78,8 @@ sge::renderer::vf::iterator<
 	difference_type const _diff
 )
 {
-	data_ += stride() * _diff;
+	data_ +=
+		this->stride() * _diff;
 }
 
 template<
@@ -92,7 +92,8 @@ sge::renderer::vf::iterator<
 	Constness
 >::increment()
 {
-	data_ += stride();
+	data_ +=
+		this->stride();
 }
 
 template<
@@ -105,7 +106,8 @@ sge::renderer::vf::iterator<
 	Constness
 >::decrement()
 {
-	data_ -= stride();
+	data_ -=
+		this->stride();
 }
 
 template<
@@ -120,14 +122,16 @@ sge::renderer::vf::iterator<
 	iterator const &_other
 ) const
 {
-	return data_ == _other.data_;
+	return
+		data_ == _other.data_;
 }
 
 template<
 	typename Part,
 	typename Constness
 >
-typename sge::renderer::vf::iterator<
+typename
+sge::renderer::vf::iterator<
 	Part,
 	Constness
 >::difference_type
@@ -148,7 +152,8 @@ template<
 	typename Part,
 	typename Constness
 >
-typename sge::renderer::vf::iterator<
+typename
+sge::renderer::vf::iterator<
 	Part,
 	Constness
 >::vertex_type

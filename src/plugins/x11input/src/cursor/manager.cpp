@@ -23,10 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/cursor/manager.hpp>
 #include <sge/x11input/cursor/object.hpp>
 #include <fcppt/assert/error.hpp>
+#include <fcppt/cast/static_downcast_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/phoenix/bind/bind_member_function.hpp>
-#include <boost/phoenix/core/argument.hpp>
-#include <boost/phoenix/operator/self.hpp>
 #include <algorithm>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -57,7 +55,7 @@ sge::x11input::cursor::manager::discover(
 
 	insert_return_type const ret(
 		objects_.insert(
-			static_cast<
+			fcppt::cast::static_downcast_ptr<
 				sge::x11input::cursor::object *
 			>(
 				&_discover.get()
@@ -82,13 +80,14 @@ sge::x11input::cursor::manager::remove(
 {
 	FCPPT_ASSERT_ERROR(
 		objects_.erase(
-			static_cast<
+			fcppt::cast::static_downcast_ptr<
 				sge::x11input::cursor::object *
 			>(
 				&_remove.get()
 			)
 		)
-		== 1u
+		==
+		1u
 	);
 }
 
@@ -98,7 +97,7 @@ sge::x11input::cursor::manager::focus_in()
 	entered_ = true;
 
 	this->for_each_cursor(
-		&x11input::cursor::object::on_focus_in
+		&sge::x11input::cursor::object::on_focus_in
 	);
 }
 
@@ -108,7 +107,7 @@ sge::x11input::cursor::manager::focus_out()
 	entered_ = false;
 
 	this->for_each_cursor(
-		&x11input::cursor::object::on_focus_out
+		&sge::x11input::cursor::object::on_focus_out
 	);
 }
 
@@ -116,7 +115,7 @@ void
 sge::x11input::cursor::manager::leave()
 {
 	this->for_each_cursor(
-		&x11input::cursor::object::on_leave
+		&sge::x11input::cursor::object::on_leave
 	);
 }
 
@@ -137,9 +136,13 @@ sge::x11input::cursor::manager::for_each_cursor(
 	std::for_each(
 		objects_.begin(),
 		objects_.end(),
-		boost::phoenix::bind(
-			_function,
-			*boost::phoenix::arg_names::_1
+		[
+			&_function
+		](
+			sge::x11input::cursor::object *const _obj
 		)
+		{
+			(_obj->*_function)();
+		}
 	);
 }

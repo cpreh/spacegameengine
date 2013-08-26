@@ -41,6 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/assign/make_container.hpp>
+#include <fcppt/cast/float_to_int.hpp>
 #include <fcppt/math/vector/comparison.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -227,12 +228,12 @@ sge::x11input::cursor::object::on_motion(
 	);
 
 	sge::input::cursor::position const new_position(
-		static_cast<
+		fcppt::cast::float_to_int<
 			sge::input::cursor::position_unit
 		>(
 			_event.get().event_x
 		),
-		static_cast<
+		fcppt::cast::float_to_int<
 			sge::input::cursor::position_unit
 		>(
 			_event.get().event_y

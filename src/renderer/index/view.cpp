@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/export_class_instantiation.hpp>
 #include <sge/src/renderer/index/instantiate_all.hpp>
 #include <fcppt/assert/pre.hpp>
+#include <fcppt/cast/to_signed.hpp>
 
 
 template<
@@ -43,7 +44,7 @@ sge::renderer::index::view<
 	),
 	size_(
 		_size
-		)
+	)
 {
 	FCPPT_ASSERT_PRE(
 		data_
@@ -147,9 +148,7 @@ sge::renderer::index::view<
 		iterator(
 			this->begin()
 			+
-			static_cast<
-				typename iterator::difference_type
-			>(
+			fcppt::cast::to_signed(
 				this->size()
 			)
 		);

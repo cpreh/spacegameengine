@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode/dpi_unit.hpp>
 #include <sge/renderer/display_mode/object.hpp>
 #include <sge/renderer/display_mode/to_dpi.hpp>
+#include <fcppt/literal.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 
@@ -47,15 +48,23 @@ sge::renderer::display_mode::to_dpi(
 				_mode.dimensions()->get()
 			)
 			*
-			static_cast<
+			fcppt::literal<
 				sge::renderer::display_mode::dpi_unit
 			>(
 				25.4
 			)
 		:
 			sge::renderer::display_mode::dpi(
-				96.f,
-				96.f
+				fcppt::literal<
+					sge::renderer::display_mode::dpi_unit
+				>(
+					96.f
+				),
+				fcppt::literal<
+					sge::renderer::display_mode::dpi_unit
+				>(
+					96.f
+				)
 			)
 		;
 }

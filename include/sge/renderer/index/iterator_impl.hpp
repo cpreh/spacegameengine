@@ -24,12 +24,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/const_proxy_impl.hpp>
 #include <sge/renderer/index/iterator_decl.hpp>
 #include <sge/renderer/index/proxy_impl.hpp>
+#include <fcppt/cast/to_signed.hpp>
 
 
 template<
 	typename Format
 >
-sge::renderer::index::iterator<Format>::iterator(
+sge::renderer::index::iterator<
+	Format
+>::iterator(
 	pointer const _data
 )
 :
@@ -40,36 +43,46 @@ sge::renderer::index::iterator<Format>::iterator(
 template<
 	typename Format
 >
-sge::renderer::index::iterator<Format>::iterator(
+sge::renderer::index::iterator<
+	Format
+>::iterator(
 	nonconst_iterator const &_other
 )
 :
-	data_(_other.data())
+	data_(
+		_other.data()
+	)
 {
 }
 
 template<
 	typename Format
 >
-typename sge::renderer::index::iterator<Format>::pointer
-sge::renderer::index::iterator<Format>::data() const
+typename sge::renderer::index::iterator<
+	Format
+>::pointer
+sge::renderer::index::iterator<
+	Format
+>::data() const
 {
-	return data_;
+	return
+		data_;
 }
 
 template<
 	typename Format
 >
 void
-sge::renderer::index::iterator<Format>::advance(
+sge::renderer::index::iterator<
+	Format
+>::advance(
 	difference_type const _diff
 )
 {
 	data_ +=
 		_diff
-		* static_cast<
-			difference_type
-		>(
+		*
+		fcppt::cast::to_signed(
 			sizeof(
 				value_type
 			)
@@ -80,7 +93,9 @@ template<
 	typename Format
 >
 void
-sge::renderer::index::iterator<Format>::increment()
+sge::renderer::index::iterator<
+	Format
+>::increment()
 {
 	this->advance(
 		1
@@ -91,7 +106,9 @@ template<
 	typename Format
 >
 void
-sge::renderer::index::iterator<Format>::decrement()
+sge::renderer::index::iterator<
+	Format
+>::decrement()
 {
 	this->advance(
 		-1
@@ -102,20 +119,28 @@ template<
 	typename Format
 >
 bool
-sge::renderer::index::iterator<Format>::equal(
+sge::renderer::index::iterator<
+	Format
+>::equal(
 	iterator const &_other
 ) const
 {
 	return
 		data_
-		== _other.data_;
+		==
+		_other.data_;
 }
 
 template<
 	typename Format
 >
-typename sge::renderer::index::iterator<Format>::difference_type
-sge::renderer::index::iterator<Format>::distance_to(
+typename
+sge::renderer::index::iterator<
+	Format
+>::difference_type
+sge::renderer::index::iterator<
+	Format
+>::distance_to(
 	iterator const &_other
 ) const
 {
@@ -125,9 +150,7 @@ sge::renderer::index::iterator<Format>::distance_to(
 			- data_
 		)
 		/
-		static_cast<
-			difference_type
-		>(
+		fcppt::cast::to_signed(
 			sizeof(value_type)
 		);
 }
@@ -135,8 +158,13 @@ sge::renderer::index::iterator<Format>::distance_to(
 template<
 	typename Format
 >
-typename sge::renderer::index::iterator<Format>::reference
-sge::renderer::index::iterator<Format>::dereference() const
+typename
+sge::renderer::index::iterator<
+	Format
+>::reference
+sge::renderer::index::iterator<
+	Format
+>::dereference() const
 {
 	return
 		reference(

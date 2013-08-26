@@ -149,9 +149,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/function_context.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/extract_from_string.hpp>
+#include <fcppt/literal.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/size.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/log/level.hpp>
@@ -368,13 +370,15 @@ compiled_model::compiled_model(
 
 	// Fill the buffer. _Again_, the format type appears.
 	for(
-		sge::model::md3::index_sequence::const_iterator current_model_index =
-			model_indices.begin();
-		current_model_index != model_indices.end();
-		++current_model_index)
+		auto const index : model_indices
+	)
 		(*current_index++).set(
-			static_cast<sge::renderer::index::i16>(
-				*current_model_index));
+			fcppt::cast::size<
+				sge::renderer::index::i16
+			>(
+				index
+			)
+		);
 }
 
 sge::renderer::vertex::buffer const &
@@ -502,7 +506,7 @@ random_model_collection::random_model_collection(
 {
 	// Create objects in the cube with side length 10
 	sge::renderer::scalar const position_range =
-		static_cast<sge::renderer::scalar>(
+		fcppt::literal<sge::renderer::scalar>(
 			10);
 
 	// See the fcppt documentation on how this really works. It's not
@@ -717,10 +721,10 @@ try
 
 	sge::renderer::scalar
 		eye_distance =
-			static_cast<sge::renderer::scalar>(
+			fcppt::literal<sge::renderer::scalar>(
 				0.01),
 		focal_length =
-			static_cast<sge::renderer::scalar>(
+			fcppt::literal<sge::renderer::scalar>(
 				1);
 
 	if(_main_function_context.argc() >= 2)

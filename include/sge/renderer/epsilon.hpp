@@ -22,16 +22,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_EPSILON_HPP_INCLUDED
 
 #include <sge/renderer/scalar.hpp>
+#include <fcppt/literal.hpp>
+
 
 namespace sge
 {
 namespace renderer
 {
-inline renderer::scalar
+
+inline
+constexpr
+sge::renderer::scalar
 epsilon()
 {
-	return static_cast<renderer::scalar>(0.001f);
+	return
+		fcppt::literal<
+			sge::renderer::scalar
+		>(
+			0.001
+		);
 }
+
 }
 }
 

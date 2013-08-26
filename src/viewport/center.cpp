@@ -19,15 +19,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/dim2.hpp>
+#include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/pixel_unit.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/src/viewport/center.hpp>
 #include <sge/window/dim.hpp>
 #include <fcppt/assert/pre.hpp>
-#include <fcppt/math/box/object_impl.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/cast/to_signed.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
 
 
 namespace
@@ -100,16 +100,17 @@ center_position(
 	);
 
 	return
-		static_cast<
+		fcppt::cast::size<
 			sge::renderer::pixel_unit
-		>
-		(
-			(
-				_window_size
-				-
-				_target_size
+		>(
+			fcppt::cast::to_signed(
+				(
+					_window_size
+					-
+					_target_size
+				)
+				/ 2u
 			)
-			/ 2u
 		);
 }
 

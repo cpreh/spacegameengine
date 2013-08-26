@@ -36,7 +36,9 @@ sge::timer::scoped_frame_limiter::scoped_frame_limiter(
 		std::chrono::duration_cast<
 			clock_type::duration
 		>(
-			std::chrono::seconds(1)
+			std::chrono::seconds(
+				1
+			)
 		)
 		/
 		static_cast<

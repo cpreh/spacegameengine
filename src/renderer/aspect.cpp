@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/screen_size.hpp>
 #include <fcppt/export_symbol.hpp>
 #include <fcppt/assert/pre.hpp>
+#include <fcppt/cast/int_to_float.hpp>
 
 
 sge::renderer::scalar
@@ -36,14 +37,14 @@ sge::renderer::aspect(
 
 	sge::renderer::scalar const
 		width(
-			static_cast<
+			fcppt::cast::int_to_float<
 				sge::renderer::scalar
 			>(
 				_size.w()
 			)
 		),
 		height(
-			static_cast<
+			fcppt::cast::int_to_float<
 				sge::renderer::scalar
 			>(
 				_size.h()
