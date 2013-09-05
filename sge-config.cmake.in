@@ -21,6 +21,7 @@ foreach(
 	)
 
 	if(
+		TARGET
 		"${${CURRENT_TARGET}}"
 	)
 		list(
