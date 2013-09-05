@@ -105,4 +105,6 @@ add_sge_base_library(
 	"sgecore"
 	""
 	""
+	""
+	""
 )

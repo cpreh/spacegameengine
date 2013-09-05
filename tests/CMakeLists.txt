@@ -49,6 +49,11 @@ function(
 		"${INCLUDE_DIRS}"
 	)
 
+	sge_add_transitive_include_dirs(
+		"${TESTNAME}"
+		"${SGE_LIBRARIES}"
+	)
+
 	transform_sge_link_targets(
 		"${SGE_LIBRARIES}"
 	)

@@ -84,6 +84,11 @@ function(
 		"${INCLUDE_DIRS}"
 	)
 
+	sge_add_transitive_include_dirs(
+		"${FULL_NAME}"
+		"${SGE_LIBRARIES}"
+	)
+
 	target_link_libraries(
 		${FULL_NAME}
 		${ADDITIONAL_LIBRARIES}
@@ -140,10 +145,6 @@ include_directories(
 
 add_definitions(
 	${awl_DEFINITIONS}
-)
-
-find_package(
-	Cg
 )
 
 add_sge_example(
@@ -337,8 +338,6 @@ add_sge_console_example(
 	""
 )
 
-message("Fix the point sprite example!")
-
 #add_sge_example(
 #	pointsprite
 #	"sgeconfig;sgeinput;sgelog;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
@@ -379,7 +378,7 @@ add_sge_example(
 	scenic
 	"sgeconfig;sgeimagecolor;sgeinput;sgerenderer;sgesystems;sgeviewport;sgewindow;sgescenic;sgecamera;sgegraph;sgeparse"
 	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES};${Boost_PROGRAM_OPTIONS_LIBRARIES}"
-	"${Cg_INCLUDE_DIRS}"
+	""
 )
 
 add_sge_example(
@@ -521,29 +520,16 @@ add_subdirectory(
 	bvh
 )
 
-if(
-	ENABLE_CEGUI
+add_subdirectory(
+	gui
 )
-	add_subdirectory(
-		gui
-	)
-endif()
+add_subdirectory(
+	cg
+)
 
-if(
-	ENABLE_CG
+add_subdirectory(
+	opencl
 )
-	add_subdirectory(
-		cg
-	)
-endif()
-
-if(
-	ENABLE_OPENCL
-)
-	add_subdirectory(
-		opencl
-	)
-endif()
 
 add_subdirectory(
 	rucksack

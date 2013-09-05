@@ -56,9 +56,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/multi_loader.hpp>
 #include <sge/audio/multi_loader_parameters.hpp>
 #include <fcppt/exception.hpp>
+#include <fcppt/literal.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
-#include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstddef>
@@ -160,9 +159,21 @@ try
 		buf->create_nonpositional(
 			sge::audio::sound::nonpositional_parameters()
 				.gain(
-					static_cast<sge::audio::scalar>(1.0f))
+					fcppt::literal<
+						sge::audio::scalar
+					>(
+						1
+					)
+				)
 				.pitch(
-					static_cast<sge::audio::scalar>(1.0f))));
+					fcppt::literal<
+						sge::audio::scalar
+					>(
+						1
+					)
+				)
+			)
+		);
 //! [create_file_buffer_and_sound]
 
 //! [play]

@@ -31,4 +31,6 @@ add_sge_base_library(
 	""
 	"${fcppt_filesystem_TARGET}"
 	""
+	""
+	""
 )

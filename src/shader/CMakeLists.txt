@@ -47,5 +47,7 @@ add_sge_base_library(
 	"${fcppt_core_TARGET};${fcppt_filesystem_TARGET}"
 	""
 	""
-	"${Cg_INCLUDE_DIRS}"
+	""
+	""
+	"sgecg"
 )

@@ -38,4 +38,6 @@ add_sge_base_library(
 	"sgelog"
 	"${fcppt_filesystem_TARGET}"
 	"${CMAKE_CURRENT_SOURCE_DIR}/include"
+	""
+	""
 )

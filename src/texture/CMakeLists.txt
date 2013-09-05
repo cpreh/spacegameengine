@@ -77,4 +77,6 @@ add_sge_base_library(
 	""
 	# TODO!
 	"${FCPPT_UTILS_PROJECT_SOURCE_DIR}/src/renderer/include;${CMAKE_CURRENT_SOURCE_DIR}/include"
+	""
+	""
 )

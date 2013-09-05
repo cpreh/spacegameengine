@@ -153,8 +153,13 @@ sge::sprite::config::choices
 	<
 		sge::renderer::vf::index
 		<
-			static_cast<sge::renderer::vf::vertex_size>(
-				0u)
+			fcppt::literal
+			<
+				sge::renderer::vf::vertex_size
+			>
+			(
+				0u
+			)
 		>
 	>,
 	boost::mpl::vector2
@@ -746,7 +751,6 @@ try
 		sys.renderer_core(),
 		);
 
-	/*
 	while(
 		sys.window_system().poll())
 	{
@@ -774,7 +778,6 @@ try
 		particle_system.render(
 			scoped_block.get());
 	}
-	*/
 
 	return
 		sys.window_system().exit_code();

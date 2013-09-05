@@ -23,4 +23,6 @@ add_sge_base_library(
 	""
 	""
 	"${OPENGL_INCLUDE_DIR}"
+	"${OPENGL_INCLUDE_DIR}"
+	""
 )

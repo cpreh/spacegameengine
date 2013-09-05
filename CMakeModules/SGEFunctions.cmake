@@ -149,6 +149,57 @@ function(
 endfunction()
 
 function(
+	sge_add_transitive_include_dirs
+	TARGET_NAME
+	SGE_DEPS
+)
+	foreach(
+		CUR_DEP
+		${SGE_DEPS}
+	)
+		get_target_property(
+			CUR_INCLUDES
+			"${CUR_DEP}"
+			SGE_TRANSITIVE_INCLUDES
+		)
+
+		if(
+			"${CUR_INCLUDES}"
+			STREQUAL
+			"CUR_INCLUDES-NOTFOUND"
+		)
+			message(
+				FATAL_ERROR
+				"${CUR_DEP} needs to be added before ${SGE_LIB_NAME}"
+			)
+		endif()
+
+		if(
+			NOT
+			"${CUR_INCLUDES}"
+			STREQUAL
+			""
+		)
+			sge_add_include_dirs(
+				${TARGET_NAME}
+				"${CUR_INCLUDES}"
+			)
+		endif()
+
+		get_target_property(
+			CUR_TRANS_LIBS
+			"${CUR_DEP}"
+			SGE_TRANSITIVE_INCLUDE_LIBS
+		)
+
+		sge_add_transitive_include_dirs(
+			${TARGET_NAME}
+			"${CUR_TRANS_LIBS}"
+		)
+	endforeach()
+endfunction()
+
+function(
 	add_sge_base_library_variant
 	SGE_LIB_NAME
 	SGE_LIB_FILES
@@ -157,6 +208,8 @@ function(
 	TRANSITIVE_SGE_DEPS
 	TRANSITIVE_ADDITIONAL_DEPS
 	INCLUDE_DIRS
+	TRANSITIVE_INCLUDE_DIRS
+	TRANSITIVE_INCLUDE_SGE_DEPS
 	VARIANT
 	BASE_VARIANT
 )
@@ -216,6 +269,20 @@ function(
 		"${INCLUDE_DIRS}"
 	)
 
+	set_target_properties(
+		${SGE_LIB_NAME}
+		PROPERTIES
+		SGE_TRANSITIVE_INCLUDES
+		"${TRANSITIVE_INCLUDE_DIRS}"
+		SGE_TRANSITIVE_INCLUDE_LIBS
+		"${TRANSITIVE_INCLUDE_SGE_DEPS}"
+	)
+
+	sge_add_transitive_include_dirs(
+		${SGE_LIB_NAME}
+		"${SGE_DEPS}"
+	)
+
 	target_link_libraries(
 		${SGE_LIB_NAME}
 		LINK_INTERFACE_LIBRARIES
@@ -256,6 +323,8 @@ function(
 	TRANSITIVE_SGE_DEPS
 	TRANSITIVE_ADDITIONAL_DEPS
 	INCLUDE_DIRS
+	TRANSITIVE_INCLUDE_DIRS
+	TRANSITIVE_INCLUDE_SGE_DEPS
 	BASE_VARIANT
 )
 	string(
@@ -340,6 +409,16 @@ function(
 		)
 	endif()
 
+	check_library_deps(
+		"${LIB_NAME}"
+		"${SGE_DEPS}"
+	)
+
+	check_library_deps(
+		"${LIB_NAME}"
+		"${TRANSITIVE_SGE_DEPS}"
+	)
+
 	if(
 		ENABLE_SHARED
 	)
@@ -351,6 +430,8 @@ function(
 			"${TRANSITIVE_SGE_DEPS}"
 			"${TRANSITIVE_ADDITIONAL_DEPS}"
 			"${INCLUDE_DIRS}"
+			"${TRANSITIVE_INCLUDE_DIRS}"
+			"${TRANSITIVE_INCLUDE_SGE_DEPS}"
 			SHARED
 			"${BASE_VARIANT}"
 		)
@@ -369,20 +450,12 @@ function(
 			"${TRANSITIVE_SGE_DEPS}"
 			"${TRANSITIVE_ADDITIONAL_DEPS}"
 			"${INCLUDE_DIRS}"
+			"${TRANSITIVE_INCLUDE_DIRS}"
+			"${TRANSITIVE_INCLUDE_SGE_DEPS}"
 			STATIC
 			"${BASE_VARIANT}"
 		)
 	endif()
-
-	check_library_deps(
-		"${LIB_NAME}"
-		"${SGE_DEPS}"
-	)
-
-	check_library_deps(
-		"${LIB_NAME}"
-		"${TRANSITIVE_SGE_DEPS}"
-	)
 
 	if(
 		NOT "${BASE_VARIANT}" STREQUAL "EXAMPLE"
@@ -445,7 +518,15 @@ endfunction()
 #	this library depend on.
 #
 # INCLUDE_DIRS:
-#	A list of include directories for this library.
+#	A list of include directories the library needs to be built.
+#
+# TRANSITIVE_INCLUDE_DIRS:
+#	A list of include directories a consumer of the library needs to be
+#	built.
+#
+# TRANSITIVE_INCLUDE_SGE_DEPS:
+#	A list of sge libraries that provide transitive include directories for
+#	this library.
 macro(
 	add_sge_base_library
 	RELATIVE_PATH
@@ -454,6 +535,8 @@ macro(
 	TRANSITIVE_SGE_DEPS
 	TRANSITIVE_ADDITIONAL_DEPS
 	INCLUDE_DIRS
+	TRANSITIVE_INCLUDE_DIRS
+	TRANSITIVE_INCLUDE_SGE_DEPS
 )
 	string(
 		REPLACE
@@ -498,6 +581,8 @@ macro(
 		"${TRANSITIVE_SGE_DEPS}"
 		"${TRANSITIVE_ADDITIONAL_DEPS}"
 		"${INCLUDE_DIRS}"
+		"${TRANSITIVE_INCLUDE_DIRS}"
+		"${TRANSITIVE_INCLUDE_SGE_DEPS}"
 		""
 	)
 endmacro()
@@ -516,6 +601,8 @@ function(
 		"${ADDITIONAL_DEPS}"
 		"${TRANSITIVE_SGE_DEPS}"
 		"${TRANSITIVE_ADDITIONAL_DEPS}"
+		""
+		""
 		""
 		"DUMMY"
 	)
@@ -537,6 +624,8 @@ function(
 		"${TRANSITIVE_SGE_DEPS}"
 		"${TRANSITIVE_ADDITIONAL_DEPS}"
 		"${INCLUDE_DIRS}"
+		""
+		""
 		"EXAMPLE"
 	)
 endfunction()
@@ -574,6 +663,8 @@ function(
 		"${SGE_CORE_FILES}"
 		""
 		"${Fcppt_core_LIBRARIES}"
+		""
+		""
 		""
 		""
 		""

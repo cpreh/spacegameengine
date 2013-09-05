@@ -31,4 +31,6 @@ add_sge_base_library(
 	""
 	""
 	"${CMAKE_CURRENT_SOURCE_DIR}/include"
+	""
+	""
 )

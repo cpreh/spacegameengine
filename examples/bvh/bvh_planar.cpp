@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_set.hpp>
+#include <sge/renderer/scalar.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/context/ffp.hpp>
@@ -84,14 +85,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/extract_from_string_exn.hpp>
+#include <fcppt/literal.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/container/bitfield/object_impl.hpp>
+#include <fcppt/cast/int_to_float.hpp>
 #include <fcppt/container/tree/depth.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/math/box/output.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -477,16 +477,70 @@ try
 			generator,
 			real_distribution(
 				real_distribution::param_type::min(
-					static_cast<sge::renderer::scalar>(window_dim.h())/8.0f),
+					fcppt::cast::int_to_float<
+						sge::renderer::scalar
+					>(
+						window_dim.h()
+					)
+					/
+					fcppt::literal<
+						sge::renderer::scalar
+					>(
+						8
+					)
+				),
 				real_distribution::param_type::sup(
-					static_cast<sge::renderer::scalar>(window_dim.h()) - static_cast<sge::renderer::scalar>(window_dim.h())/8.0f))),
+					fcppt::cast::int_to_float<
+						sge::renderer::scalar
+					>(
+						window_dim.h()
+					)
+					-
+					fcppt::cast::int_to_float<
+						sge::renderer::scalar
+					>(
+						window_dim.h()
+					)
+					/
+					fcppt::literal<
+						sge::renderer::scalar
+					>(
+						8
+					)
+				)
+			)
+		),
 		size_rng(
 			generator,
 			real_distribution(
 				real_distribution::param_type::min(
-					static_cast<sge::renderer::scalar>(window_dim.h())/16.0f),
+					fcppt::cast::int_to_float<
+						sge::renderer::scalar
+					>(
+						window_dim.h()
+					)
+					/
+					fcppt::literal<
+						sge::renderer::scalar
+					>(
+						16
+					)
+				),
 				real_distribution::param_type::sup(
-					static_cast<sge::renderer::scalar>(window_dim.h())/4.0f)));
+					fcppt::cast::int_to_float<
+						sge::renderer::scalar
+					>(
+						window_dim.h()
+					)
+					/
+					fcppt::literal<
+						sge::renderer::scalar
+					>(
+						4
+					)
+				)
+			)
+		);
 
 
 	sge::bvh::object<bvh_tree_traits> bounding_hierarchy;
