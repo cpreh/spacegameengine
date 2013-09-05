@@ -153,9 +153,13 @@ function(
 	TARGET_NAME
 	SGE_DEPS
 )
+	transform_sge_link_targets(
+		"${SGE_DEPS}"
+	)
+
 	foreach(
 		CUR_DEP
-		${SGE_DEPS}
+		${SGELIBS_TARGETS_RESULT}
 	)
 		get_target_property(
 			CUR_INCLUDES
