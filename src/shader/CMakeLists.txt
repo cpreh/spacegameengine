@@ -45,7 +45,7 @@ add_sge_base_library(
 	"shader"
 	"sgecg;sgerenderer;sgerenderercg"
 	"${fcppt_core_TARGET};${fcppt_filesystem_TARGET}"
-	""
+	"sgecg"
 	""
 	""
 	""

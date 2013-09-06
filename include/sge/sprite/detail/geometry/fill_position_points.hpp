@@ -47,9 +47,12 @@ fill_position_points(
 	> const &_sprite
 )
 {
-	typedef typename sge::sprite::types::basic::float_vector<
-		Choices
-	>::type vector_float;
+	typedef
+	sge::sprite::types::basic::float_vector<
+		typename
+		Choices::type_choices
+	>
+	vector_float;
 
 	(*_iterator). template set<
 		typename sge::sprite::detail::vf::pos<

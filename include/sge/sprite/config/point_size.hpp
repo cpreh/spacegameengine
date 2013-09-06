@@ -73,9 +73,10 @@ public:
 			boost::mpl::vector1<
 				majutsu::role<
 					majutsu::simple<
-						typename sge::sprite::types::point_size<
-							typename Choices::type_choices
-						>::type
+						sge::sprite::types::point_size<
+							typename
+							Choices::type_choices
+						>
 					>,
 					sge::sprite::roles::point_size
 				>

@@ -90,20 +90,26 @@ struct with_texture_point_size<
 	>
 	struct apply
 	{
-		typedef majutsu::composite<
-			typename fcppt::mpl::append<
-				typename sge::sprite::detail::primitives::texture_ptr<
+		typedef
+		majutsu::composite<
+			typename
+			fcppt::mpl::append<
+				typename
+				sge::sprite::detail::primitives::texture_ptr<
 					Choices,
 					texture_levels,
 					ownership::value
 				>::type,
-				typename fcppt::mpl::append<
-					typename sge::sprite::detail::primitives::texture_point_pos<
+				typename
+				fcppt::mpl::append<
+					typename
+					sge::sprite::detail::primitives::texture_point_pos<
 						Choices,
 						texture_levels,
 						point_pos
 					>::type,
-					typename sge::sprite::detail::primitives::texture_point_size<
+					typename
+					sge::sprite::detail::primitives::texture_point_size<
 						Choices,
 						texture_levels,
 						point_size

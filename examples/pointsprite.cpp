@@ -33,12 +33,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
+#include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_scoped_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
+#include <sge/renderer/vertex/declaration_fwd.hpp>
 #include <sge/renderer/vf/index.hpp>
 #include <sge/shader/context.hpp>
 #include <sge/shader/pair.hpp>
+#include <sge/shader/pixel_program_path.hpp>
+#include <sge/shader/optional_cflags.hpp>
+#include <sge/shader/vertex_program_path.hpp>
+#include <sge/shader/parameter/is_projection_matrix.hpp>
+#include <sge/shader/parameter/matrix.hpp>
+#include <sge/shader/parameter/name.hpp>
+#include <sge/shader/parameter/planar_texture.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/parameters.hpp>
 #include <sge/sprite/buffers/option.hpp>
@@ -101,9 +110,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/extract_from_string_exn.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/ref.hpp>
 #include <fcppt/strong_typedef.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/int_to_float.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/stream_to_string.hpp>
@@ -113,7 +122,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/random/variate.hpp>
-#include <fcppt/random/distribution/uniform_real.hpp>
+#include <fcppt/random/distribution/basic.hpp>
+#include <fcppt/random/distribution/parameters/uniform_real.hpp>
 #include <fcppt/random/generator/minstd_rand.hpp>
 #include <fcppt/random/generator/seed_from_chrono.hpp>
 #include <fcppt/signal/auto_connection.hpp>
@@ -146,8 +156,14 @@ sge::sprite::config::choices
 <
 	sge::sprite::config::type_choices
 	<
-		sge::sprite::config::unit_type<sge::renderer::scalar>,
-		sge::sprite::config::float_type<sge::renderer::scalar>
+		sge::sprite::config::unit_type
+		<
+			sge::renderer::scalar
+		>,
+		sge::sprite::config::float_type
+		<
+			sge::renderer::scalar
+		>
 	>,
 	sge::sprite::config::point_size
 	<
@@ -193,11 +209,17 @@ sge::sprite::buffers::with_declaration
 buffers_type;
 
 typedef
-sge::sprite::object<sprite_types::choices>
+sge::sprite::object
+<
+	sprite_types::choices
+>
 object;
 
 typedef
-sge::sprite::parameters<sprite_types::choices>
+sge::sprite::parameters
+<
+	sprite_types::choices
+>
 parameters;
 
 typedef
@@ -205,12 +227,19 @@ sge::sprite::state::all_choices
 state_choices;
 
 typedef
-sge::sprite::state::object<sprite_types::state_choices>
+sge::sprite::state::object
+<
+	sprite_types::state_choices
+>
 state_object;
 
 typedef
-sge::sprite::state::parameters<sprite_types::state_choices>
+sge::sprite::state::parameters
+<
+	sprite_types::state_choices
+>
 state_parameters;
+
 }
 
 namespace particle
@@ -325,7 +354,7 @@ public:
 	render(
 		sge::renderer::context::ffp &);
 
-	sge::renderer::vertex_declaration const &
+	sge::renderer::vertex::declaration const &
 	vertex_declaration() const;
 private:
 	typedef
@@ -337,11 +366,23 @@ private:
 	generator_type;
 
 	typedef
-	fcppt::random::distribution::uniform_real<float_duration::rep>
+	fcppt::random::distribution::basic
+	<
+		fcppt::random::distribution::parameters::uniform_real
+		<
+			float_duration::rep
+		>
+	>
 	duration_distribution;
 
 	typedef
-	fcppt::random::distribution::uniform_real<sge::renderer::scalar>
+	fcppt::random::distribution::basic
+	<
+		fcppt::random::distribution::parameters::uniform_real
+		<
+			sge::renderer::scalar
+		>
+	>
 	scalar_distribution;
 
 	typedef
@@ -391,78 +432,138 @@ particle::manager::manager(
 	particle::count const &_particle_count,
 	sge::renderer::device::ffp &_renderer,
 	sge::image2d::system &_image_system,
-	sge::viewport::manager &_viewport_manager)
+	sge::viewport::manager &_viewport_manager
+)
 :
 	viewport_connection_(
 		_viewport_manager.manage_callback(
 			std::bind(
 				&particle::manager::viewport_callback,
 				this,
-				std::placeholders::_1))),
+				std::placeholders::_1
+			)
+		)
+	),
 	particle_count_(
-		_particle_count),
+		_particle_count
+	),
 	sprite_buffers_(
 		_renderer,
-		sge::sprite::buffers::option::dynamic),
+		sge::sprite::buffers::option::dynamic
+	),
 	sprite_states_(
 		_renderer,
-		sprite_types::state_parameters()),
+		sprite_types::state_parameters()
+	),
 	sprites_(),
 	particles_(),
 	generator_(
-		fcppt::random::generator::seed_from_chrono<generator_type::seed>()),
+		fcppt::random::generator::seed_from_chrono
+		<
+			generator_type::seed
+		>()
+	),
 	explosion_rng_(
 		generator_,
 		duration_distribution(
-			duration_distribution::min(
-				0.5f),
-			duration_distribution::sup(
-				2.0f))),
+			duration_distribution::param_type(
+				duration_distribution::param_type::min(
+					0.5f
+				),
+				duration_distribution::param_type::sup(
+					2.0f
+				)
+			)
+		)
+	),
 	lifetime_rng_(
 		generator_,
 		duration_distribution(
-			duration_distribution::min(
-				0.5f),
-			duration_distribution::sup(
-				2.f))),
+			duration_distribution::param_type(
+				duration_distribution::param_type::min(
+					0.5f
+				),
+				duration_distribution::param_type::sup(
+					2.f
+				)
+			)
+		)
+	),
 	velocity_radius_rng_(
 		generator_,
 		scalar_distribution(
-			scalar_distribution::min(
-				0.f),
-			scalar_distribution::sup(
-				1000.f))),
+			scalar_distribution::param_type(
+				scalar_distribution::param_type::min(
+					0.f
+				),
+				scalar_distribution::param_type::sup(
+					1000.f
+				)
+			)
+		)
+	),
 	velocity_angle_rng_(
 		generator_,
 		scalar_distribution(
-			scalar_distribution::min(
-				0.f),
-			scalar_distribution::sup(
-				fcppt::math::twopi<sge::renderer::scalar>()))),
+			scalar_distribution::param_type(
+				scalar_distribution::param_type::min(
+					0.f
+				),
+				scalar_distribution::param_type::sup(
+					fcppt::math::twopi
+					<
+						sge::renderer::scalar
+					>()
+				)
+			)
+		)
+	),
 	position_x_rng_(),
 	position_y_rng_(),
 	size_rng_(
 		generator_,
 		scalar_distribution(
-			scalar_distribution::min(
-				10.f),
-			scalar_distribution::sup(
-				100.f))),
+			scalar_distribution::param_type(
+				scalar_distribution::param_type::min(
+					10.f
+				),
+				scalar_distribution::param_type::sup(
+					100.f
+				)
+			)
+		)
+	),
 	color_rng_(
 		generator_,
 		scalar_distribution(
-			scalar_distribution::min(
-				0.f),
-			scalar_distribution::sup(
-				1.f))),
+			scalar_distribution::param_type(
+				scalar_distribution::param_type::min(
+					0.f
+				),
+				scalar_distribution::param_type::sup(
+					1.f
+				)
+			)
+		)
+	),
 	explosion_timer_(
-		sge::timer::parameters<sge::timer::clocks::standard>(
+		sge::timer::parameters
+		<
+			sge::timer::clocks::standard
+		>(
 			float_duration(
-				explosion_rng_()))
-				.active(
-					false)),
+				explosion_rng_()
+			)
+		)
+		.active(
+			false
+		)
+	),
 	texture_part_(
-		fcppt::make_unique_ptr<sge::texture::part_raw_ptr>(
+		fcppt::make_unique_ptr
+		<
+			sge::texture::part_raw_ptr
+		>(
 			sge::renderer::texture::create_planar_from_path(
 				sge::config::media_path()
 					/ FCPPT_TEXT("images")
@@ -470,7 +571,11 @@ particle::manager::manager(
 				_renderer,
 				_image_system,
 				sge::renderer::texture::mipmap::off(),
-				sge::renderer::resource_flags_field::null())))
+				sge::renderer::resource_flags_field::null(),
+				sge::renderer::texture::emulate_srgb::yes
+			)
+		)
+	)
 {
 }
 
@@ -563,7 +668,7 @@ particle::manager::render(
 		sprite_states_);
 }
 
-sge::renderer::vertex_declaration const &
+sge::renderer::vertex::declaration const &
 particle::manager::vertex_declaration() const
 {
 	return
@@ -572,30 +677,54 @@ particle::manager::vertex_declaration() const
 
 void
 particle::manager::viewport_callback(
-	sge::renderer::target::viewport const &_viewport)
+	sge::renderer::target::viewport const &_viewport
+)
 {
 	position_x_rng_.take(
-		fcppt::make_unique_ptr<scalar_rng>(
-			fcppt::ref(
-				generator_),
+		fcppt::make_unique_ptr<
+			scalar_rng
+		>(
+			generator_,
 			scalar_distribution(
-				scalar_distribution::min(
-					0.f),
-				scalar_distribution::sup(
-					static_cast<sge::renderer::scalar>(
-						_viewport.get().w())))));
+				scalar_distribution::param_type(
+					scalar_distribution::param_type::min(
+						0.f
+					),
+					scalar_distribution::param_type::sup(
+						fcppt::cast::int_to_float<
+							sge::renderer::scalar
+						>(
+							_viewport.get().w()
+						)
+					)
+				)
+			)
+		)
+	);
 
 	position_y_rng_.take(
-		fcppt::make_unique_ptr<scalar_rng>(
-			fcppt::ref(
-				generator_),
+		fcppt::make_unique_ptr<
+			scalar_rng
+		>(
+			generator_,
 			scalar_distribution(
-				scalar_distribution::min(
-					0.f),
-				scalar_distribution::sup(
-					static_cast<sge::renderer::scalar>(
-						_viewport.get().h())))));
+				scalar_distribution::param_type(
+					scalar_distribution::param_type::min(
+						0.f
+					),
+					scalar_distribution::param_type::sup(
+						fcppt::cast::int_to_float<
+							sge::renderer::scalar
+						>(
+							_viewport.get().h()
+						)
+					)
+				)
+			)
+		)
+	);
 }
+
 }
 }
 
@@ -729,27 +858,52 @@ try
 		shader_context,
 		particle_system.vertex_declaration(),
 		sge::shader::vertex_program_path(
-			sge::config::media_path() / FCPPT_TEXT("shaders") / FCPPT_TEXT("point_sprite.cg")),
+			sge::config::media_path()
+			/
+			FCPPT_TEXT("shaders")
+			/
+			FCPPT_TEXT("point_sprite.cg")
+		),
 		sge::shader::pixel_program_path(
-			sge::config::media_path() / FCPPT_TEXT("shaders") / FCPPT_TEXT("point_sprite.cg")),
-		sge::shader::optional_cflags()),
+			sge::config::media_path()
+			/
+			FCPPT_TEXT("shaders")
+			/
+			FCPPT_TEXT("point_sprite.cg")
+		),
+		sge::shader::optional_cflags()
+	);
 
-	sge::shader::parameter::matrix<sge::renderer::scalar,4,4> mvp_parameter(
+	typedef
+	sge::shader::parameter::matrix
+	<
+		sge::renderer::scalar,
+		4,
+		4
+	>
+	matrix;
+
+	matrix const mpv_parameter(
 		shader.vertex_program(),
 		sge::shader::parameter::name(
-			"mvp_matrix"),
+			"mvp_matrix"
+		),
 		sys.renderer_core(),
 		sge::shader::parameter::is_projection_matrix(
-			true),
-		sge::renderer::matrix4());
+			true
+		),
+		matrix::matrix_type::identity()
+	);
 
+	/*
 	sge::shader::parameter::planar_texture input_texture_parameter(
 		shader.pixel_program(),
 		sge::shader::parameter::name(
-			"input_texture"),
+			"input_texture"
+		),
 		shader,
-		sys.renderer_core(),
-		);
+		sys.renderer_core()
+	);*/
 
 	while(
 		sys.window_system().poll())
@@ -759,19 +913,22 @@ try
 			sys.renderer_ffp().onscreen_target()
 		);
 
+		/*
 		sge::renderer::state::scoped const scoped_state(
 			scoped_block.get(),
 			sge::renderer::state::list(
 				sge::renderer::state::bool_::enable_point_sprite = true
 			)
-		);
+		);*/
 
+		/*
 		sge::renderer::glsl::uniform::variable_scoped_ptr const tex_var(
 			program->uniform("tex"));
 
 		sge::renderer::glsl::uniform::single_value(
 			*tex_var,
-			static_cast<int>(0));
+			0
+		);*/
 
 		particle_system.update();
 
