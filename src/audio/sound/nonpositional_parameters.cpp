@@ -18,43 +18,62 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/audio/scalar.hpp>
 #include <sge/audio/sound/nonpositional_parameters.hpp>
+#include <fcppt/literal.hpp>
+
 
 sge::audio::sound::nonpositional_parameters::nonpositional_parameters()
 :
 	gain_(
-		static_cast<audio::scalar>(
-			1)),
+		fcppt::literal<
+			sge::audio::scalar
+		>(
+			1
+		)
+	),
 	pitch_(
-		static_cast<audio::scalar>(
-			1))
+		fcppt::literal<
+			sge::audio::scalar
+		>(
+			1
+		)
+	)
 {
 }
 
 sge::audio::scalar const &
 sge::audio::sound::nonpositional_parameters::pitch() const
 {
-	return pitch_;
+	return
+		pitch_;
 }
 
 sge::audio::sound::nonpositional_parameters &
 sge::audio::sound::nonpositional_parameters::pitch(
-	sge::audio::scalar const &_pitch)
+	sge::audio::scalar const &_pitch
+)
 {
 	pitch_ = _pitch;
-	return *this;
+
+	return
+		*this;
 }
 
 sge::audio::scalar const &
 sge::audio::sound::nonpositional_parameters::gain() const
 {
-	return gain_;
+	return
+		gain_;
 }
 
 sge::audio::sound::nonpositional_parameters &
 sge::audio::sound::nonpositional_parameters::gain(
-	sge::audio::scalar const &_gain)
+	sge::audio::scalar const &_gain
+)
 {
 	gain_ = _gain;
-	return *this;
+
+	return
+		*this;
 }

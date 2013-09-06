@@ -102,20 +102,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/const_part_scoped_ptr.hpp>
 #include <sge/texture/part_raw_ptr.hpp>
 #include <sge/viewport/center_on_resize.hpp>
+#include <sge/window/dim.hpp>
 #include <sge/window/parameters.hpp>
 #include <sge/window/system.hpp>
+#include <sge/window/unit.hpp>
 #include <sge/window/title.hpp>
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
+#include <fcppt/literal.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <fcppt/cast/int_to_float.hpp>
 #include <fcppt/container/raw_vector.hpp>
-#include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/log/location.hpp>
+#include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -198,12 +202,16 @@ class sprite_functor
 		sprite_functor
 	);
 public:
-	explicit sprite_functor(
+	explicit
+	sprite_functor(
 		sge::audio::sound::positional &_sound
 	)
 	:
-		sound_(_sound)
-	{}
+		sound_(
+			_sound
+		)
+	{
+	}
 
 	void
 	normal_movement(
@@ -217,13 +225,17 @@ public:
 
 		sound_.position(
 			sge::audio::vector(
-				static_cast<
+				fcppt::cast::int_to_float<
 					sge::audio::scalar
 				>(
 					_event.position()->x()
 				),
-				static_cast<sge::audio::scalar>(0),
-				static_cast<
+				fcppt::literal<
+					sge::audio::scalar
+				>(
+					0
+				),
+				fcppt::cast::int_to_float<
 					sge::audio::scalar
 				>(
 					_event.position()->y()
@@ -239,13 +251,17 @@ public:
 	{
 		sound_.linear_velocity(
 			sge::audio::vector(
-				static_cast<
+				fcppt::cast::int_to_float<
 					sge::audio::scalar
 				>(
 					_event.position().x()
 				),
-				0.0f,
-				static_cast<
+				fcppt::literal<
+					sge::audio::scalar
+				>(
+					0
+				),
+				fcppt::cast::int_to_float<
 					sge::audio::scalar
 				>(
 					_event.position().y()
@@ -450,23 +466,16 @@ try
 
 	sprite_object const tux(
 		sprite_parameters()
-		.pos(
-			sprite_object::vector(
-				static_cast<
-					sprite_object::unit
+		.center(
+			fcppt::math::dim::structure_cast<
+				sprite_object::vector
+			>(
+				window_dim
+				/
+				fcppt::literal<
+					sge::window::unit
 				>(
-					window_dim.w()
-					/
 					2
-					-16u
-				),
-				static_cast<
-					sprite_object::unit
-				>(
-					window_dim.h()
-					/
-					2
-					-16u
 				)
 			)
 		)
@@ -476,7 +485,10 @@ try
 			)
 		)
 		.size(
-			sprite_object::dim(32,32)
+			sprite_object::dim(
+				32,
+				32
+			)
 		)
 	);
 
@@ -494,22 +506,60 @@ try
 			*af_siren,
 			sge::audio::sound::positional_parameters()
 			.rolloff_factor(
-				static_cast<sge::audio::scalar>(1)
-				/ static_cast<sge::audio::scalar>(window_dim.h())
+				fcppt::literal<
+					sge::audio::scalar
+				>(
+					1
+				)
+				/
+				fcppt::cast::int_to_float<
+					sge::audio::scalar
+				>(
+					window_dim.h()
+				)
 			)
 		)
 	);
 
 	sys.audio_player().listener().position(
 		sge::audio::vector(
-			static_cast<sge::audio::scalar>(window_dim.w()/2),
-			static_cast<sge::audio::scalar>(0),
-			static_cast<sge::audio::scalar>(window_dim.h()/2)
+			// TODO: We should probably have a utility function for this!
+			fcppt::cast::int_to_float<
+				sge::audio::scalar
+			>(
+				window_dim.w()
+				/
+				fcppt::literal<
+					sge::window::unit
+				>(
+					2
+				)
+			),
+			fcppt::literal<
+				sge::audio::scalar
+			>(
+				0
+			),
+			fcppt::cast::int_to_float<
+				sge::audio::scalar
+			>(
+				window_dim.h()
+				/
+				fcppt::literal<
+					sge::window::unit
+				>(
+					2
+				)
+			)
 		)
 	);
 
 	sys.audio_player().speed_of_sound(
-		static_cast<sge::audio::scalar>(500)
+		fcppt::literal<
+			sge::audio::scalar
+		>(
+			500
+		)
 	);
 
 	sound_siren->play(

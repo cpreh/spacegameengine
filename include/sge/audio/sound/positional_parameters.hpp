@@ -168,18 +168,29 @@ public:
 	outer_cone_gain(
 		audio::scalar const &);
 private:
-	audio::vector position_;
-	audio::vector linear_velocity_;
-	audio::scalar gain_;
-	audio::scalar pitch_;
-	audio::scalar rolloff_factor_;
-	audio::scalar reference_distance_;
-	audio::scalar max_distance_;
-	sound::optional_direction direction_;
-	audio::scalar inner_cone_angle_;
-	audio::scalar outer_cone_angle_;
-	audio::scalar outer_cone_gain_;
+	sge::audio::vector position_;
+
+	sge::audio::vector linear_velocity_;
+
+	sge::audio::scalar gain_;
+
+	sge::audio::scalar pitch_;
+
+	sge::audio::scalar rolloff_factor_;
+
+	sge::audio::scalar reference_distance_;
+
+	sge::audio::scalar max_distance_;
+
+	sge::audio::sound::optional_direction direction_;
+
+	sge::audio::scalar inner_cone_angle_;
+
+	sge::audio::scalar outer_cone_angle_;
+
+	sge::audio::scalar outer_cone_gain_;
 };
+
 }
 }
 }

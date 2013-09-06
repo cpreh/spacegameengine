@@ -18,7 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/audio/scalar.hpp>
+#include <sge/audio/vector.hpp>
 #include <sge/audio/sound/positional_parameters.hpp>
+#include <fcppt/literal.hpp>
 #include <fcppt/math/twopi.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <limits>
@@ -28,32 +31,63 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::audio::sound::positional_parameters::positional_parameters()
 :
 	position_(
-		audio::vector::null()),
+		sge::audio::vector::null()
+	),
 	linear_velocity_(
-		audio::vector::null()),
+		sge::audio::vector::null()
+	),
 	gain_(
-		static_cast<audio::scalar>(
-			1)),
+		fcppt::literal<
+			sge::audio::scalar
+		>(
+			1
+		)
+	),
 	pitch_(
-		static_cast<audio::scalar>(
-			1)),
+		fcppt::literal<
+			sge::audio::scalar
+		>(
+			1
+		)
+	),
 	rolloff_factor_(
-		static_cast<audio::scalar>(
-			1)),
+		fcppt::literal<
+			sge::audio::scalar
+		>(
+			1
+		)
+	),
 	reference_distance_(
-		static_cast<audio::scalar>(
-			1)),
+		fcppt::literal<
+			sge::audio::scalar
+		>(
+			1
+		)
+	),
 	max_distance_(
-		std::numeric_limits<audio::scalar>::max()),
+		std::numeric_limits<
+			sge::audio::scalar
+		>::max()
+	),
 	direction_(),
 	// These values have been taken from the OpenAL spec's defaults
 	inner_cone_angle_(
-		fcppt::math::twopi<audio::scalar>()),
+		fcppt::math::twopi<
+			sge::audio::scalar
+		>()
+	),
 	outer_cone_angle_(
-		fcppt::math::twopi<audio::scalar>()),
+		fcppt::math::twopi<
+			sge::audio::scalar
+		>()
+	),
 	outer_cone_gain_(
-		static_cast<audio::scalar>(
-			0))
+		fcppt::literal<
+			sge::audio::scalar
+		>(
+			0
+		)
+	)
 {
 }
 
@@ -68,6 +102,7 @@ sge::audio::sound::positional_parameters::position(
 	sge::audio::vector const &_position)
 {
 	position_ = _position;
+
 	return *this;
 }
 
@@ -82,6 +117,7 @@ sge::audio::sound::positional_parameters::linear_velocity(
 	sge::audio::vector const &_linear_velocity)
 {
 	linear_velocity_ = _linear_velocity;
+
 	return *this;
 }
 
@@ -96,6 +132,7 @@ sge::audio::sound::positional_parameters::pitch(
 	sge::audio::scalar const &_pitch)
 {
 	pitch_ = _pitch;
+
 	return *this;
 }
 
@@ -110,6 +147,7 @@ sge::audio::sound::positional_parameters::gain(
 	sge::audio::scalar const &_gain)
 {
 	gain_ = _gain;
+
 	return *this;
 }
 
@@ -124,6 +162,7 @@ sge::audio::sound::positional_parameters::rolloff_factor(
 	sge::audio::scalar const &_rolloff_factor)
 {
 	rolloff_factor_ = _rolloff_factor;
+
 	return *this;
 }
 
@@ -138,6 +177,7 @@ sge::audio::sound::positional_parameters::reference_distance(
 	sge::audio::scalar const &_reference_distance)
 {
 	reference_distance_ = _reference_distance;
+
 	return *this;
 }
 
@@ -152,6 +192,7 @@ sge::audio::sound::positional_parameters::max_distance(
 	sge::audio::scalar const &_max_distance)
 {
 	max_distance_ = _max_distance;
+
 	return *this;
 }
 
@@ -166,6 +207,7 @@ sge::audio::sound::positional_parameters::direction(
 	sge::audio::vector const &_direction)
 {
 	direction_ = _direction;
+
 	return *this;
 }
 
@@ -180,6 +222,7 @@ sge::audio::sound::positional_parameters::inner_cone_angle(
 	sge::audio::scalar const &_inner_cone_angle)
 {
 	inner_cone_angle_ = _inner_cone_angle;
+
 	return *this;
 }
 
@@ -194,6 +237,7 @@ sge::audio::sound::positional_parameters::outer_cone_angle(
 	sge::audio::scalar const &_outer_cone_angle)
 {
 	outer_cone_angle_ = _outer_cone_angle;
+
 	return *this;
 }
 
@@ -208,5 +252,6 @@ sge::audio::sound::positional_parameters::outer_cone_gain(
 	sge::audio::scalar const &_outer_cone_gain)
 {
 	outer_cone_gain_ = _outer_cone_gain;
+
 	return *this;
 }
