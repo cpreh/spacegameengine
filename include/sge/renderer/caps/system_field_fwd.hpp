@@ -34,7 +34,7 @@ namespace caps
 
 typedef fcppt::container::bitfield::object_from_enum<
 	sge::renderer::caps::system
->::type system_field;
+> system_field;
 
 }
 }

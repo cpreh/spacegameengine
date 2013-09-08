@@ -32,7 +32,7 @@ namespace image
 
 typedef fcppt::container::bitfield::object_from_enum<
 	sge::image::capabilities
->::type capabilities_field;
+> capabilities_field;
 
 }
 }
