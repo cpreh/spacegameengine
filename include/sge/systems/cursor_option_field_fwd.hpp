@@ -32,7 +32,7 @@ namespace systems
 
 typedef fcppt::container::bitfield::object_from_enum<
 	sge::systems::cursor_option
->::type cursor_option_field;
+> cursor_option_field;
 
 }
 }

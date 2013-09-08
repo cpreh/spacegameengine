@@ -33,7 +33,7 @@ namespace audio
 /// Holds player capabilities (if it's the null plugin or not, for example)
 typedef fcppt::container::bitfield::object_from_enum<
 	sge::audio::player_capabilities
->::type player_capabilities_field;
+> player_capabilities_field;
 
 }
 }

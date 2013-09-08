@@ -34,7 +34,7 @@ namespace keyboard
 
 typedef fcppt::container::bitfield::object_from_enum<
 	sge::input::keyboard::modifier
->::type mod_state;
+> mod_state;
 
 }
 }

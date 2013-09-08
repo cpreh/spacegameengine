@@ -35,7 +35,7 @@ typedef
 fcppt::container::bitfield::object_from_enum
 <
 	memory_object::flags
->::type
+>
 flags_field;
 }
 }

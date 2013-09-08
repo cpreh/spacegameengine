@@ -33,7 +33,7 @@ namespace audio
 /// Holds loader capabilities (if it's threadsafe or not, for example), see sge::audio::loader_capabilities
 typedef fcppt::container::bitfield::object_from_enum<
 	sge::audio::loader_capabilities
->::type loader_capabilities_field;
+> loader_capabilities_field;
 
 }
 }

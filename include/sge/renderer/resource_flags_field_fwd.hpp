@@ -35,7 +35,7 @@ namespace renderer
 */
 typedef fcppt::container::bitfield::object_from_enum<
 	sge::renderer::resource_flags
->::type resource_flags_field;
+> resource_flags_field;
 
 }
 }

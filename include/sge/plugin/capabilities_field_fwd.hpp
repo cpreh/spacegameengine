@@ -32,7 +32,7 @@ namespace plugin
 
 typedef fcppt::container::bitfield::object_from_enum<
 	sge::plugin::capabilities
->::type capabilities_field;
+> capabilities_field;
 
 }
 }

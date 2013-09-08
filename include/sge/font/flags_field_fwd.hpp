@@ -32,7 +32,7 @@ namespace font
 
 typedef fcppt::container::bitfield::object_from_enum<
 	sge::font::flags
->::type flags_field;
+> flags_field;
 
 }
 }

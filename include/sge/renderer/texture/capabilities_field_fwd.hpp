@@ -34,7 +34,7 @@ namespace texture
 
 typedef fcppt::container::bitfield::object_from_enum<
 	sge::renderer::texture::capabilities
->::type capabilities_field;
+> capabilities_field;
 
 }
 }
