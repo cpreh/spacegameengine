@@ -47,6 +47,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/list.hpp>
 #include <sge/systems/make_list.hpp>
 #include <sge/systems/with_image2d.hpp>
+#include <fcppt/exception.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/io/cerr.hpp>
@@ -309,6 +310,16 @@ try
 		),
 		FCPPT_TEXT("out.png")
 	);
+}
+catch(
+	fcppt::exception const &_exception
+)
+{
+	fcppt::io::cerr()
+		<< _exception.string()
+		<< FCPPT_TEXT('\n');
+
+	return EXIT_FAILURE;
 }
 catch(
 	std::exception const &_exception
