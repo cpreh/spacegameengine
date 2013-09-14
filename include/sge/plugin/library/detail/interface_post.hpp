@@ -41,6 +41,9 @@ extern "C" \
 { \
 FCPPT_EXPORT_SYMBOL \
 sge::plugin::library::function_map const * \
+sge_plugin_functions(); \
+\
+sge::plugin::library::function_map const * \
 sge_plugin_functions() \
 {\
 	return &sge_plugin_functions_global;\

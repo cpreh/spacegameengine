@@ -26,6 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gdifont/include_windows.hpp>
 #include <sge/image2d/dim.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/cast/to_signed.hpp>
 
 
 sge::gdifont::hbitmap_unique_ptr
@@ -48,22 +50,32 @@ sge::gdifont::create_dib_section(
 		info.bmiHeader
 	);
 
-	header.biSize = sizeof(BITMAPINFOHEADER);
+	header.biSize =
+		fcppt::cast::size<
+			DWORD
+		>(
+			sizeof(BITMAPINFOHEADER)
+		);
 
 	header.biWidth
-		= static_cast<
+		=
+		fcppt::cast::size<
 			LONG
 		>(
-			_dim.w()
+			fcppt::cast::to_signed(
+				_dim.w()
+			)
 		);
 
 	// negative values indicate topdown bitmaps
 	header.biHeight
 		=
-		-static_cast<
+		-fcppt::cast::size<
 			LONG
 		>(
-			_dim.h()
+			fcppt::cast::to_signed(
+				_dim.h()
+			)
 		);
 
 	header.biPlanes = 1;
