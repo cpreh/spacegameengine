@@ -666,7 +666,7 @@ function(
 		sgecore
 		"${SGE_CORE_FILES}"
 		""
-		"${Fcppt_core_LIBRARIES}"
+		"${fcppt_core_TARGET}"
 		""
 		""
 		""
