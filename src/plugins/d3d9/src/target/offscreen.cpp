@@ -48,7 +48,9 @@ sge::d3d9::target::offscreen::offscreen(
 			sge::renderer::pixel_rect::null()
 		),
 		_max_surfaces
-	)
+	),
+	color_surfaces_(),
+	depth_stencil_surface_()
 {
 }
 

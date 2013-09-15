@@ -21,14 +21,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_DINPUT_DI_HPP_INCLUDED
 #define SGE_DINPUT_DI_HPP_INCLUDED
 
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Wpedantic)
+#if !defined(NOMINMAX)
+#define NOMINMAX
+#endif
+#if !defined(WIN32_LEAN_AND_MEAN)
 #define WIN32_LEAN_AND_MEAN
+#endif
 #define DIRECTINPUT_VERSION 0x0800
 #include <fcppt/config/external_begin.hpp>
 #include <dinput.h>
 #include <fcppt/config/external_end.hpp>
+FCPPT_PP_POP_WARNING
 
-
-#undef min
-#undef max
 
 #endif

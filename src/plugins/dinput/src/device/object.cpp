@@ -31,8 +31,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/exception.hpp>
 #include <awl/backends/windows/system/event/handle.hpp>
 #include <awl/backends/windows/window/object.hpp>
-#include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <array>
 #include <fcppt/config/external_end.hpp>
@@ -51,8 +54,16 @@ DWORD const buffer_size(
 
 DIPROPDWORD const buffer_settings = {
 	{
-		sizeof(DIPROPDWORD),
-		sizeof(DIPROPHEADER),
+		fcppt::cast::size<
+			DWORD
+		>(
+			sizeof(DIPROPDWORD)
+		),
+		fcppt::cast::size<
+			DWORD
+		>(
+			sizeof(DIPROPHEADER)
+		),
 		0,
 		DIPH_DEVICE,
 	},
@@ -85,8 +96,12 @@ sge::dinput::device::object::dispatch()
 	{
 		HRESULT const result(
 			device_->GetDeviceData(
-				sizeof(
-					DIDEVICEOBJECTDATA
+				fcppt::cast::size<
+					DWORD
+				>(
+					sizeof(
+						DIDEVICEOBJECTDATA
+					)
 				),
 				buffer.data(),
 				&elements,
@@ -182,10 +197,13 @@ sge::dinput::device::object::object(
 		coop_level
 	);
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
 	this->set_property(
 		DIPROP_BUFFERSIZE,
 		&buffer_settings.diph
 	);
+FCPPT_PP_POP_WARNING
 
 	this->set_event_handle(
 		_param.event_handle().get()
@@ -253,7 +271,10 @@ sge::dinput::device::object::set_event_handle(
 	)
 	{
 	case DI_OK:
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
 	case DI_POLLEDDEVICE:
+FCPPT_PP_POP_WARNING
 		return;
 	default:
 		throw sge::input::exception(

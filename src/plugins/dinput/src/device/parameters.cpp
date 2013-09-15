@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::dinput::device::parameters::parameters(
-	IDirectInput8 *const _instance,
+	IDirectInput8 &_instance,
 	fcppt::string const &_name,
 	GUID const _guid,
 	awl::backends::windows::window::object &_window,
@@ -51,7 +51,7 @@ sge::dinput::device::parameters::parameters(
 {
 }
 
-IDirectInput8 *
+IDirectInput8 &
 sge::dinput::device::parameters::instance() const
 {
 	return instance_;

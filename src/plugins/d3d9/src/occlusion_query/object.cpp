@@ -71,7 +71,7 @@ sge::d3d9::occlusion_query::object::result(
 	sge::renderer::occlusion_query::blocking_wait const _block
 ) const
 {
-	sge::d3d9::queryfuncs::optional_dword const result(
+	sge::d3d9::queryfuncs::optional_dword const ret(
 		sge::d3d9::queryfuncs::get_dword(
 			*query_,
 			_block.get()
@@ -83,11 +83,11 @@ sge::d3d9::occlusion_query::object::result(
 	);
 
 	return
-		result
+		ret
 		?
 			sge::renderer::occlusion_query::optional_pixel_count(
 				sge::renderer::occlusion_query::pixel_count(
-					*result
+					*ret
 				)
 			)
 		:

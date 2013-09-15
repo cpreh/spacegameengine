@@ -25,6 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/needs_reset_fwd.hpp>
 #include <sge/d3d9/resource_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/intrusive/list_hook.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -34,6 +37,9 @@ namespace sge
 {
 namespace d3d9
 {
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 class resource
 :
@@ -79,6 +85,8 @@ private:
 
 	D3DPOOL const pool_;
 };
+
+FCPPT_PP_POP_WARNING
 
 }
 }

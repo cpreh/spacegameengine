@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/devicefuncs/clear.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/clear/parameters.hpp>
+#include <fcppt/literal.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 
@@ -73,10 +74,10 @@ sge::d3d9::devicefuncs::clear(
 					*_parameters.back_buffer()
 				)
 			:
-				static_cast<
+				fcppt::literal<
 					D3DCOLOR
 				>(
-					0u
+					0
 				)
 			,
 			_parameters.depth_buffer()

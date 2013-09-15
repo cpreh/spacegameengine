@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/dinput/di.hpp>
 #include <sge/dinput/cursor/exclusive_mode.hpp>
 #include <sge/dinput/cursor/get_pos.hpp>
 #include <sge/dinput/cursor/object.hpp>
@@ -71,13 +72,13 @@ sge::dinput::cursor::object::object(
 	button_signal_(),
 	move_signal_(),
 	scroll_signal_(),
-	exclusive_mode_(),
 	mode_(
 		sge::input::cursor::mode::normal
 	),
 	has_focus_(
 		false
 	),
+	exclusive_mode_(),
 	connections_(
 		this->make_connections()
 	)
@@ -332,11 +333,13 @@ sge::dinput::cursor::object::make_connections()
 		sge::input::cursor::scroll_code::vertical
 	);
 
+	// FIXME: Why is there no WM_MOUSEHWHEEL?
+	/*
 	this->make_scroll_connection(
 		ret,
 		WM_MOUSEHWHEEL,
 		sge::input::cursor::scroll_code::horizontal
-	);
+	);*/
 
 	return
 		std::move(

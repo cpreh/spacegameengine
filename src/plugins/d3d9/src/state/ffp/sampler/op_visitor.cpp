@@ -68,7 +68,7 @@ sge::d3d9::state::ffp::sampler::op_visitor<
 ) const
 {
 	return
-		sge::d3d9::state::ffp::sampler::state_vector
+		sge::d3d9::state::ffp::sampler::state_vector{
 			sge::d3d9::state::ffp::sampler::make_one_op<
 				OpType
 			>(

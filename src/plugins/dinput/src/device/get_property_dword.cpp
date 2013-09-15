@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/dinput/di.hpp>
 #include <sge/dinput/device/get_property.hpp>
 #include <sge/dinput/device/get_property_dword.hpp>
+#include <fcppt/cast/size.hpp>
 
 
 DWORD
@@ -32,7 +33,12 @@ sge::dinput::device::get_property_dword(
 {
 	DIPROPDWORD result;
 
-	result.diph.dwSize = sizeof(DIPROPDWORD);
+	result.diph.dwSize =
+		fcppt::cast::size<
+			DWORD
+		>(
+			sizeof(DIPROPDWORD)
+		);
 
 	sge::dinput::device::get_property(
 		_device,

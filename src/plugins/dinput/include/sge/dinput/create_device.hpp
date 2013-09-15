@@ -24,14 +24,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/dinput/dinput_device_unique_ptr.hpp>
 #include <sge/dinput/di.hpp>
 
+
 namespace sge
 {
 namespace dinput
 {
 
-dinput::dinput_device_unique_ptr
+sge::dinput::dinput_device_unique_ptr
 create_device(
-	IDirectInput8 *,
+	IDirectInput8 &,
 	GUID
 );
 
