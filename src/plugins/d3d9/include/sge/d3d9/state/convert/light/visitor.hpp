@@ -52,17 +52,17 @@ public:
 
 	typedef void result_type;
 
-	result_type const
+	result_type
 	operator()(
 		sge::renderer::state::ffp::lighting::light::directional const &
 	) const;
 
-	result_type const
+	result_type
 	operator()(
 		sge::renderer::state::ffp::lighting::light::point const &
 	) const;
 
-	result_type const
+	result_type
 	operator()(
 		sge::renderer::state::ffp::lighting::light::spot const &
 	) const;

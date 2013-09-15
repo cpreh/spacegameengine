@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/dinput/create_device.hpp>
+#include <sge/dinput/di.hpp>
 #include <sge/dinput/dinput_device_unique_ptr.hpp>
 #include <sge/input/exception.hpp>
 #include <fcppt/text.hpp>
@@ -26,14 +27,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::dinput::dinput_device_unique_ptr
 sge::dinput::create_device(
-	IDirectInput8 *const _dinput,
+	IDirectInput8 &_dinput,
 	GUID const _guid
 )
 {
 	IDirectInputDevice8 *ret;
 
 	if(
-		_dinput->CreateDevice(
+		_dinput.CreateDevice(
 			_guid,
 			&ret,
 			NULL
@@ -45,7 +46,7 @@ sge::dinput::create_device(
 		);
 
 	return
-		dinput::dinput_device_unique_ptr(
+		sge::dinput::dinput_device_unique_ptr(
 			ret
 		);
 }

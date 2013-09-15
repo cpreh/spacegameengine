@@ -22,8 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_D3DINCLUDE_HPP_INCLUDED
 
 #include <awl/backends/windows/windows.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Wpedantic)
 #include <fcppt/config/external_begin.hpp>
 #include <d3d9.h>
 #include <fcppt/config/external_end.hpp>
+FCPPT_PP_POP_WARNING
 
 #endif

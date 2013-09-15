@@ -27,6 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/joypad/absolute_axis_info.hpp>
 #include <sge/input/joypad/axis_max.hpp>
 #include <sge/input/joypad/axis_min.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 
 sge::input::joypad::absolute_axis_info const
@@ -35,6 +38,8 @@ sge::dinput::joypad::make_absolute_axis_info(
 	DIDEVICEOBJECTINSTANCE const &_data
 )
 {
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
 	sge::dinput::device::range const range(
 		sge::dinput::device::get_property_range(
 			_device,
@@ -42,6 +47,7 @@ sge::dinput::joypad::make_absolute_axis_info(
 			DIPROP_RANGE
 		)
 	);
+FCPPT_PP_POP_WARNING
 
 	return
 		sge::input::joypad::absolute_axis_info(

@@ -43,14 +43,14 @@ class parameters
 	);
 public:
 	parameters(
-		IDirectInput8 *,
+		IDirectInput8 &,
 		fcppt::string const &name,
 		GUID,
 		awl::backends::windows::window::object &,
 		awl::backends::windows::system::event::handle &
 	);
 
-	IDirectInput8 *
+	IDirectInput8 &
 	instance() const;
 
 	fcppt::string const
@@ -65,7 +65,7 @@ public:
 	awl::backends::windows::system::event::handle &
 	event_handle() const;
 private:
-	IDirectInput8 *const instance_;
+	IDirectInput8 &instance_;
 
 	fcppt::string const name_;
 

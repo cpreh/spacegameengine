@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/dinput/device/get_property.hpp>
 #include <sge/dinput/device/get_property_range.hpp>
 #include <sge/dinput/device/range.hpp>
+#include <fcppt/cast/size.hpp>
 
 
 sge::dinput::device::range const
@@ -33,7 +34,12 @@ sge::dinput::device::get_property_range(
 {
 	DIPROPRANGE result;
 
-	result.diph.dwSize = sizeof(DIPROPRANGE);
+	result.diph.dwSize =
+		fcppt::cast::size<
+			DWORD
+		>(
+			sizeof(DIPROPRANGE)
+		);
 
 	sge::dinput::device::get_property(
 		_device,

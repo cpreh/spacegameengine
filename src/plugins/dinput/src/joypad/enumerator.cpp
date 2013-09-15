@@ -37,6 +37,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/joypad/relative_axis_info.hpp>
 #include <sge/input/joypad/relative_axis_info_container.hpp>
 #include <fcppt/assert/unreachable.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
 #include <fcppt/config/external_end.hpp>
@@ -116,6 +119,8 @@ sge::dinput::joypad::enumerator::dispatch(
 		)
 	)
 	{
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
 		switch(
 			sge::dinput::device::get_property_dword(
 				device_,
@@ -149,6 +154,7 @@ sge::dinput::joypad::enumerator::dispatch(
 		default:
 			FCPPT_ASSERT_UNREACHABLE;
 		}
+FCPPT_PP_POP_WARNING
 	}
 	else if(
 		_data.guidType == GUID_Button

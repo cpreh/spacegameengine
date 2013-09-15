@@ -251,15 +251,11 @@ sge::dinput::keyboard::device::on_dispatch(
 		);
 
 		for(
-			sge::dinput::keyboard::char_vector::const_iterator it(
-				chars.begin()
-			);
-			it != chars.end();
-			++it
+			auto const elem : chars
 		)
 			char_signal_(
 				sge::input::keyboard::char_event(
-					*it,
+					elem,
 					false
 				)
 			);

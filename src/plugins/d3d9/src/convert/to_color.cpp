@@ -27,6 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <mizuiro/color/channel/blue.hpp>
 #include <mizuiro/color/channel/green.hpp>
 #include <mizuiro/color/channel/red.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 
 D3DCOLOR
@@ -42,6 +45,8 @@ sge::d3d9::convert::to_color(
 		)
 	);
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
 	return
 		D3DCOLOR_ARGB(
 			conv.get(
@@ -57,4 +62,5 @@ sge::d3d9::convert::to_color(
 				mizuiro::color::channel::blue()
 			)
 		);
+FCPPT_PP_POP_WARNING
 }

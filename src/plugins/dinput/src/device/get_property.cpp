@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/dinput/device/get_property.hpp>
 #include <sge/input/exception.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/size.hpp>
 
 
 void
@@ -32,7 +33,12 @@ sge::dinput::device::get_property(
 	DIPROPHEADER &_result
 )
 {
-	_result.dwHeaderSize = sizeof(DIPROPHEADER);
+	_result.dwHeaderSize =
+		fcppt::cast::size<
+			DWORD
+		>(
+			sizeof(DIPROPHEADER)
+		);
 
 	_result.dwHow = DIPH_BYOFFSET;
 

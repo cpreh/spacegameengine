@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/queryfuncs/get_dword.hpp>
 #include <sge/d3d9/queryfuncs/optional_dword.hpp>
 #include <fcppt/assert/pre.hpp>
+#include <fcppt/cast/size.hpp>
 
 
 sge::d3d9::queryfuncs::optional_dword const
@@ -34,8 +35,12 @@ sge::d3d9::queryfuncs::get_dword(
 	DWORD result;
 
 	DWORD const size(
-		sizeof(
+		fcppt::cast::size<
 			DWORD
+		>(
+			sizeof(
+				DWORD
+			)
 		)
 	);
 

@@ -511,7 +511,7 @@ sge::dinput::processor::enum_devices_callback(
 	);
 
 	sge::dinput::device::parameters const parameters(
-		instance.dinput_.get(),
+		*instance.dinput_,
 		product_name,
 		_ddi->guidInstance,
 		instance.windows_window_,

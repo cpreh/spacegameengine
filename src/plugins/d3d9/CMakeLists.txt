@@ -726,6 +726,20 @@ add_definitions(
 	${awl_DEFINITIONS}
 )
 
+# For some reason, it's not possible to ignore these warnings in gcc via
+# push/pop
+if(
+	CMAKE_COMPILER_IS_GNUCXX
+	AND
+	NOT
+	FCPPT_UTILS_COMPILER_IS_CLANGPP
+)
+	add_definitions(
+		"-Wno-comment"
+		"-Wno-unknown-pragmas"
+	)
+endif()
+
 if(
 	ENABLE_CG
 )

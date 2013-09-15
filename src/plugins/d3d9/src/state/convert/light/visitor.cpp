@@ -32,11 +32,13 @@ sge::d3d9::state::convert::light::visitor::visitor(
 	D3DLIGHT9 &_object
 )
 :
-	object_(_object)
+	object_(
+		_object
+	)
 {
 }
 
-sge::d3d9::state::convert::light::visitor::result_type const
+sge::d3d9::state::convert::light::visitor::result_type
 sge::d3d9::state::convert::light::visitor::operator()(
 	sge::renderer::state::ffp::lighting::light::directional const &_directional
 ) const
@@ -47,7 +49,7 @@ sge::d3d9::state::convert::light::visitor::operator()(
 	);
 }
 
-sge::d3d9::state::convert::light::visitor::result_type const
+sge::d3d9::state::convert::light::visitor::result_type
 sge::d3d9::state::convert::light::visitor::operator()(
 	sge::renderer::state::ffp::lighting::light::point const &_point
 ) const
@@ -58,7 +60,7 @@ sge::d3d9::state::convert::light::visitor::operator()(
 	);
 }
 
-sge::d3d9::state::convert::light::visitor::result_type const
+sge::d3d9::state::convert::light::visitor::result_type
 sge::d3d9::state::convert::light::visitor::operator()(
 	sge::renderer::state::ffp::lighting::light::spot const &_spot
 ) const
