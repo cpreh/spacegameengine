@@ -8,7 +8,7 @@ if(
 )
 	set(
 		CEGUI_BASE_LIB_NAME
-		"CEGUIBase_Static"
+		"CEGUIBase-${CEGUI_API_VERSION}_Static"
 	)
 
 	set(
@@ -18,7 +18,7 @@ if(
 else()
 	set(
 		CEGUI_BASE_LIB_NAME
-		"CEGUIBase"
+		"CEGUIBase-${CEGUI_API_VERSION}"
 	)
 endif()
 
@@ -33,7 +33,7 @@ find_path(
 
 find_library(
 	CEGUI_LIBRARY
-	NAMES "${CEGUI_BASE_LIB_NAME}-${CEGUI_API_VERSION}"
+	NAMES "${CEGUI_BASE_LIB_NAME}"
 	HINTS ${CEGUI_LIBRARYDIR}
 )
 
