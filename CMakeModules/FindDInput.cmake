@@ -2,50 +2,57 @@
 # This module defines the following variables
 #
 #	DINPUT_FOUND - True when Direct Input was found
-#	DINPUT_INCLUDE_DIR - Include directory for Direct Input
+#	DINPUT_INCLUDE_DIRS - Include directory for Direct Input
 #	DINPUT_LIBRARIES - Libraries to link to
-#	DINPUT_LIBRARY_DIR - Library path for all Direct Input libraries
-# Note that only the x86 version will be searched for right now
 
-FIND_PATH(
+find_path(
 	DINPUT_INCLUDE_DIR
 	dinput.h
+	HINTS
 	"$ENV{DXSDK_DIR}/Include"
+	PATHS
+	"${DINPUT_INCLUDEDIR}"
 )
 
-IF(
-	NOT DINPUT_LIBRARY_DIR
+if(
+	CMAKE_SIZEOF_VOID_P EQUAL 8
 )
-	IF(
-		CMAKE_SIZEOF_VOID_P EQUAL 8
+	set(
+		DINPUT_LIBRARY_ENV_DIR
+		"$ENV{DXSDK_DIR}/Lib/x64"
 	)
-		SET(DINPUT_LIBRARY_DIR "$ENV{DXSDK_DIR}/Lib/x64")
-	ELSEIF(
-		CMAKE_SIZEOF_VOID_P EQUAL 4
+elseif(
+	CMAKE_SIZEOF_VOID_P EQUAL 4
+)
+	set(
+		DINPUT_LIBRARY_ENV_DIR
+		"$ENV{DXSDK_DIR}/Lib/x86"
 	)
-		SET(DINPUT_LIBRARY_DIR "$ENV{DXSDK_DIR}/Lib/x86")
-	ENDIF()
-ENDIF()
+endif()
 
-FIND_LIBRARY(
+find_library(
 	DINPUT_LIBRARY
-	NAMES dinput dinput8
+	NAMES dinput8
+	HINTS
+	"${DINPUT_LIBRARY_ENV_DIR}"
 	PATHS
 	"${DINPUT_LIBRARY_DIR}"
 )
 
-FIND_LIBRARY(
+find_library(
 	DXGUID_LIBRARY
 	NAMES dxguid
+	HINTS
+	"${DINPUT_LIBRARY_ENV_DIR}"
 	PATHS
 	"${DINPUT_LIBRARY_DIR}"
 )
 
-INCLUDE(
+include(
 	FindPackageHandleStandardArgs
 )
 
-FIND_PACKAGE_HANDLE_STANDARD_ARGS(
+find_package_handle_standard_args(
 	DINPUT
 	DEFAULT_MSG
 	DINPUT_INCLUDE_DIR
@@ -53,13 +60,22 @@ FIND_PACKAGE_HANDLE_STANDARD_ARGS(
 	DXGUID_LIBRARY
 )
 
-IF(
+if(
 	DINPUT_FOUND
 )
-	SET(DINPUT_LIBRARIES "${DXGUID_LIBRARY}" "${DINPUT_LIBRARY}")
-ENDIF()
+	set(
+		DINPUT_LIBRARIES
+		"${DXGUID_LIBRARY}"
+		"${DINPUT_LIBRARY}"
+	)
 
-MARK_AS_ADVANCED(
+	set(
+		DINPUT_INCLUDE_DIRS
+		"${DINPUT_INCLUDE_DIR}"
+	)
+endif()
+
+mark_as_advanced(
 	DINPUT_INCLUDE_DIR
 	DINPUT_LIBRARY
 	DXGUID_LIBRARY

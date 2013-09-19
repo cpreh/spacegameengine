@@ -15,22 +15,26 @@ find_path(
 )
 
 if(
-	NOT D3D9_LIBRARYDIR
+	CMAKE_SIZEOF_VOID_P EQUAL 8
 )
-	if(
-		CMAKE_SIZEOF_VOID_P EQUAL 8
+	set(
+		D3D9_ENV_LIBRARYDIR
+		"$ENV{DXSDK_DIR}/Lib/x64"
 	)
-		set(D3D9_LIBRARYDIR "$ENV{DXSDK_DIR}/Lib/x64")
-	elseif(
-		CMAKE_SIZEOF_VOID_P EQUAL 4
+elseif(
+	CMAKE_SIZEOF_VOID_P EQUAL 4
+)
+	set(
+		D3D9_ENV_LIBRARYDIR
+		"$ENV{DXSDK_DIR}/Lib/x86"
 	)
-		set(D3D9_LIBRARYDIR "$ENV{DXSDK_DIR}/Lib/x86")
-	endif()
 endif()
 
 find_library(
 	D3D9_LIBRARY
 	NAMES d3d9
+	HINTS
+	"${D3D9_ENV_LIBRARYDIR}"
 	PATHS
 	"${D3D9_LIBRARYDIR}"
 )
@@ -49,9 +53,15 @@ find_package_handle_standard_args(
 if(
 	D3D9_FOUND
 )
-	set(D3D9_LIBRARIES "${D3D9_LIBRARY}")
+	set(
+		D3D9_LIBRARIES
+		"${D3D9_LIBRARY}"
+	)
 
-	set(D3D9_INCLUDE_DIRS "${D3D9_INCLUDE_DIR}")
+	set(
+		D3D9_INCLUDE_DIRS
+		"${D3D9_INCLUDE_DIR}"
+	)
 endif()
 
 mark_as_advanced(
