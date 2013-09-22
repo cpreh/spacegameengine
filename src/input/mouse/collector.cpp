@@ -50,8 +50,8 @@ sge::input::mouse::collector::collector(
 :
 	manager_(
 		_processor,
-		mouse::discover_callback(),
-		mouse::remove_callback(),
+		sge::input::mouse::discover_callback(),
+		sge::input::mouse::remove_callback(),
 		std::bind(
 			&sge::input::mouse::collector::axis_callback_internal,
 			this,

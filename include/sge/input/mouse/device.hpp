@@ -48,19 +48,23 @@ protected:
 	device();
 public:
 	SGE_INPUT_SYMBOL
-	virtual ~device() = 0;
+	virtual
+	~device() = 0;
 
-	virtual fcppt::signal::auto_connection
+	virtual
+	fcppt::signal::auto_connection
 	axis_callback(
-		input::mouse::axis_callback const &
+		sge::input::mouse::axis_callback const &
 	) = 0;
 
-	virtual fcppt::signal::auto_connection
+	virtual
+	fcppt::signal::auto_connection
 	button_callback(
-		input::mouse::button_callback const &
+		sge::input::mouse::button_callback const &
 	) = 0;
 
-	virtual input::mouse::info const &
+	virtual
+	sge::input::mouse::info const &
 	info() const = 0;
 };
 

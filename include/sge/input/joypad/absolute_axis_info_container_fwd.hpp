@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/joypad/absolute_axis_id.hpp>
 #include <sge/input/joypad/absolute_axis_info_fwd.hpp>
 
+
 namespace sge
 {
 namespace input
@@ -32,9 +33,9 @@ namespace input
 namespace joypad
 {
 
-typedef input::info::container<
-	joypad::absolute_axis_id,
-	joypad::absolute_axis_info
+typedef sge::input::info::container<
+	sge::input::joypad::absolute_axis_id,
+	sge::input::joypad::absolute_axis_info
 > absolute_axis_info_container;
 
 }

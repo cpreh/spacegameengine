@@ -29,13 +29,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 void
 sge::x11input::keyboard::fake_core_event(
 	awl::backends::x11::window::object const &_window,
-	x11input::device::window_event const &_event
+	sge::x11input::device::window_event const &_event
 )
 {
 	awl::backends::x11::window::event::filter(
 		awl::backends::x11::window::event::object(
-			keyboard::to_base_event(
-				keyboard::translate_event(
+			sge::x11input::keyboard::to_base_event(
+				sge::x11input::keyboard::translate_event(
 					_event.get()
 				)
 			)

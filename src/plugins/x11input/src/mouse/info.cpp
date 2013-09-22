@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::input::mouse::info const
+sge::input::mouse::info
 sge::x11input::mouse::info(
 	awl::backends::x11::display &_display,
 	XIDeviceInfo const &_info

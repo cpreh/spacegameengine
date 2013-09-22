@@ -23,21 +23,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/deleter.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/window/object.hpp>
+#include <fcppt/literal.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/cast/to_signed.hpp>
+#include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/container/data.hpp>
-#include <fcppt/container/raw_vector.hpp>
+#include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/math/ceil_div.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
-#include <boost/spirit/home/phoenix/bind/bind_member_variable.hpp>
-#include <boost/spirit/home/phoenix/core/argument.hpp>
-#include <boost/spirit/home/phoenix/operator/comparison.hpp>
-#include <boost/spirit/home/phoenix/operator/self.hpp>
 #include <algorithm>
+#include <cstddef>
 #include <limits>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
@@ -56,10 +57,12 @@ make_mask(
 	XIEventMask const ret =
 	{
 		_id.get(),
-		static_cast<
+		fcppt::cast::size<
 			int
 		>(
-			_size
+			fcppt::cast::to_signed(
+				_size
+			)
 		),
 		_data
 	};
@@ -72,7 +75,7 @@ make_mask(
 void
 sge::x11input::device::select_events(
 	awl::backends::x11::window::object const &_window,
-	x11input::device::id const _device,
+	sge::x11input::device::id const _device,
 	awl::backends::x11::system::event::type const _type,
 	bool const _add
 )
@@ -130,11 +133,17 @@ sge::x11input::device::select_events(
 		std::find_if(
 			event_masks.begin(),
 			event_masks.end(),
-			boost::phoenix::bind(
-				&XIEventMask::deviceid,
-				boost::phoenix::arg_names::arg1
+			[
+				_device
+			](
+				XIEventMask const &_mask
 			)
-			== _device.get()
+			{
+				return
+					_device.get()
+					==
+					_mask.deviceid;
+			}
 		)
 	);
 
@@ -149,17 +158,21 @@ sge::x11input::device::select_events(
 	// The event corresponds to the nth bit that will be set.
 	raw_container::size_type const least_size(
 		fcppt::math::ceil_div(
-			static_cast<
+			fcppt::cast::size<
 				raw_container::size_type
 			>(
-				_type.get()
+				fcppt::cast::to_unsigned(
+					_type.get()
+				)
 			),
-			static_cast<
+			fcppt::cast::size<
 				raw_container::size_type
 			>(
-				std::numeric_limits<
-					bit_type
-				>::digits
+				fcppt::cast::to_unsigned(
+					std::numeric_limits<
+						bit_type
+					>::digits
+				)
 			)
 		)
 	);
@@ -178,9 +191,11 @@ sge::x11input::device::select_events(
 			)
 		:
 			least_size,
-		static_cast<
+		fcppt::literal<
 			bit_type
-		>(0)
+		>(
+			0
+		)
 	);
 
 	// If there is no previous mask,
@@ -209,10 +224,12 @@ sge::x11input::device::select_events(
 		prev_mask->mask = store.data();
 
 		prev_mask->mask_len =
-			static_cast<
+			fcppt::cast::size<
 				int
 			>(
-				store.size()
+				fcppt::cast::to_signed(
+					store.size()
+				)
 			);
 	}
 
@@ -240,10 +257,12 @@ FCPPT_PP_POP_WARNING
 			fcppt::container::data(
 				event_masks
 			),
-			static_cast<
+			fcppt::cast::size<
 				int
 			>(
-				event_masks.size()
+				fcppt::cast::to_signed(
+					event_masks.size()
+				)
 			)
 		)
 		!= Success

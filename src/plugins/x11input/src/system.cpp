@@ -33,8 +33,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/window/object.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/static_downcast.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/log/warning.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -57,7 +57,7 @@ sge::x11input::system::create_processor(
 )
 {
 	awl::backends::x11::window::object const &x11_window(
-		dynamic_cast<
+		fcppt::cast::static_downcast<
 			awl::backends::x11::window::object const &
 		>(
 			_window.awl_object()
@@ -135,7 +135,7 @@ sge::x11input::system::create_processor(
 	return
 		sge::input::processor_unique_ptr(
 			fcppt::make_unique_ptr<
-				x11input::processor
+				sge::x11input::processor
 			>(
 				_window,
 				_window_system,

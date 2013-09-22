@@ -49,24 +49,29 @@ protected:
 	device();
 public:
 	SGE_INPUT_SYMBOL
-	virtual ~device() = 0;
+	virtual
+	~device() = 0;
 
-	virtual fcppt::signal::auto_connection
+	virtual
+	fcppt::signal::auto_connection
 	char_callback(
-		keyboard::char_callback const &
+		sge::input::keyboard::char_callback const &
 	) = 0;
 
-	virtual fcppt::signal::auto_connection
+	virtual
+	fcppt::signal::auto_connection
 	key_callback(
-		keyboard::key_callback const &
+		sge::input::keyboard::key_callback const &
 	) = 0;
 
-	virtual fcppt::signal::auto_connection
+	virtual
+	fcppt::signal::auto_connection
 	key_repeat_callback(
-		keyboard::key_repeat_callback const &
+		sge::input::keyboard::key_repeat_callback const &
 	) = 0;
 
-	virtual keyboard::mod_state const
+	virtual
+	sge::input::keyboard::mod_state const
 	mod_state() const = 0;
 };
 

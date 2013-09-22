@@ -33,7 +33,7 @@ namespace cursor
 {
 
 typedef fcppt::signal::object<
-	cursor::remove_function
+	sge::input::cursor::remove_function
 > remove_signal;
 
 }

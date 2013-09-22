@@ -19,14 +19,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/input/keyboard/char_event.hpp>
+#include <sge/input/keyboard/char_type.hpp>
+
 
 sge::input::keyboard::char_event::char_event(
-	keyboard::char_type const _character,
+	sge::input::keyboard::char_type const _character,
 	bool const _repeated
 )
 :
-	character_(_character),
-	repeated_(_repeated)
+	character_(
+		_character
+	),
+	repeated_(
+		_repeated
+	)
 {
 }
 

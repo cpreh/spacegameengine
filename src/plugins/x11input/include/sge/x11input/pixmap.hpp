@@ -41,7 +41,8 @@ class pixmap
 		pixmap
 	);
 public:
-	explicit pixmap(
+	explicit
+	pixmap(
 		awl::backends::x11::window::object const &
 	);
 

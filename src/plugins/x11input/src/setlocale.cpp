@@ -24,10 +24,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <clocale>
+#include <string>
 #include <fcppt/config/external_end.hpp>
 
 
-std::string const
+std::string
 sge::x11input::setlocale(
 	std::string const &_what
 )

@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/exception.hpp>
 #include <sge/x11input/pixmap.hpp>
+#include <sge/x11input/cursor/image.hpp>
 #include <sge/x11input/cursor/pixmap.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <fcppt/text.hpp>
@@ -37,10 +38,12 @@ XColor black = { 0, 0, 0, 0, 0, 0 };
 
 sge::x11input::cursor::pixmap::pixmap(
 	awl::backends::x11::display &_display,
-	x11input::pixmap const &_pixmap
+	sge::x11input::pixmap const &_pixmap
 )
 :
- 	display_(_display),
+ 	display_(
+		_display
+	),
 	cursor_(
 		cursor::image(
 			::XCreatePixmapCursor(

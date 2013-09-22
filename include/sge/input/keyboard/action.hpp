@@ -35,7 +35,7 @@ namespace keyboard
 {
 
 SGE_INPUT_SYMBOL
-sge::input::keyboard::key_callback const
+sge::input::keyboard::key_callback
 action(
 	sge::input::keyboard::key_code,
 	sge::input::nullary_function const &

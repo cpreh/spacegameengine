@@ -51,7 +51,8 @@ public:
 	> vector;
 
 	SGE_INPUT_SYMBOL
-	explicit container(
+	explicit
+	container(
 		vector const &
 	);
 

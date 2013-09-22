@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/joypad/relative_axis_id.hpp>
 #include <sge/input/joypad/relative_axis_info_fwd.hpp>
 
+
 namespace sge
 {
 namespace input
@@ -33,8 +34,8 @@ namespace joypad
 {
 
 typedef input::info::container<
-	joypad::relative_axis_id,
-	joypad::relative_axis_info
+	sge::input::joypad::relative_axis_id,
+	sge::input::joypad::relative_axis_info
 > relative_axis_info_container;
 
 }

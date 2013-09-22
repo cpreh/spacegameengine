@@ -24,12 +24,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::input::joypad::relative_axis_event::relative_axis_event(
-	joypad::relative_axis const &_axis,
-	joypad::axis_value const _axis_value
+	sge::input::joypad::relative_axis const &_axis,
+	sge::input::joypad::axis_value const _axis_value
 )
 :
-	axis_(_axis),
-	axis_value_(_axis_value)
+	axis_(
+		_axis
+	),
+	axis_value_(
+		_axis_value
+	)
 {
 }
 

@@ -33,7 +33,7 @@ namespace joypad
 {
 
 typedef fcppt::signal::object<
-	joypad::relative_axis_function
+	sge::input::joypad::relative_axis_function
 > relative_axis_signal;
 
 }

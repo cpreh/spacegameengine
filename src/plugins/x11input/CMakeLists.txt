@@ -59,6 +59,7 @@ set(
 	src/plugins/x11input/include/sge/x11input/device/object.hpp
 	src/plugins/x11input/include/sge/x11input/device/object_fwd.hpp
 	src/plugins/x11input/include/sge/x11input/device/optional_id.hpp
+	src/plugins/x11input/include/sge/x11input/device/optional_id_fwd.hpp
 	src/plugins/x11input/include/sge/x11input/device/parameters.hpp
 	src/plugins/x11input/include/sge/x11input/device/parameters_fwd.hpp
 	src/plugins/x11input/include/sge/x11input/device/raw_demuxer.hpp
@@ -79,6 +80,7 @@ set(
 	src/plugins/x11input/include/sge/x11input/input_method.hpp
 	src/plugins/x11input/include/sge/x11input/input_method_fwd.hpp
 	src/plugins/x11input/include/sge/x11input/keyboard/char_vector.hpp
+	src/plugins/x11input/include/sge/x11input/keyboard/char_vector_fwd.hpp
 	src/plugins/x11input/include/sge/x11input/keyboard/device.hpp
 	src/plugins/x11input/include/sge/x11input/keyboard/device_fwd.hpp
 	src/plugins/x11input/include/sge/x11input/keyboard/device_unique_ptr.hpp
@@ -105,6 +107,7 @@ set(
 	src/plugins/x11input/include/sge/x11input/mouse/device_unique_ptr.hpp
 	src/plugins/x11input/include/sge/x11input/mouse/info.hpp
 	src/plugins/x11input/include/sge/x11input/optional_opcode.hpp
+	src/plugins/x11input/include/sge/x11input/optional_opcode_fwd.hpp
 	src/plugins/x11input/include/sge/x11input/pixmap.hpp
 	src/plugins/x11input/include/sge/x11input/pixmap_fwd.hpp
 	src/plugins/x11input/include/sge/x11input/processor.hpp

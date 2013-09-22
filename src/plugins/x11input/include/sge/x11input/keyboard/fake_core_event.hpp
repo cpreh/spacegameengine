@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/window_event_fwd.hpp>
 #include <awl/backends/x11/window/object_fwd.hpp>
 
+
 namespace sge
 {
 namespace x11input
@@ -34,7 +35,7 @@ namespace keyboard
 void
 fake_core_event(
 	awl::backends::x11::window::object const &,
-	x11input::device::window_event const &
+	sge::x11input::device::window_event const &
 );
 
 }

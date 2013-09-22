@@ -28,7 +28,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/keyboard/translate_key_code.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
-#include <fcppt/container/raw_vector_impl.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/cast/to_signed.hpp>
+#include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -63,7 +65,7 @@ do_lookup(
 
 }
 
-sge::x11input::keyboard::looked_up_string const
+sge::x11input::keyboard::looked_up_string
 sge::x11input::keyboard::lookup_string(
 	sge::x11input::input_context const &_input_context,
 	XIDeviceEvent const &_event
@@ -102,10 +104,12 @@ sge::x11input::keyboard::lookup_string(
 	);
 
 	sge::x11input::keyboard::char_vector buffer(
-		static_cast<
+		fcppt::cast::size<
 			sge::x11input::keyboard::char_vector::size_type
 		>(
-			needed_chars
+			fcppt::cast::to_unsigned(
+				needed_chars
+			)
 		)
 	);
 
@@ -114,10 +118,12 @@ sge::x11input::keyboard::lookup_string(
 			_input_context,
 			xev,
 			buffer.data(),
-			static_cast<
+			fcppt::cast::size<
 				int
 			>(
-				buffer.size()
+				fcppt::cast::to_signed(
+					buffer.size()
+				)
 			),
 			key_sym,
 			status
@@ -130,10 +136,12 @@ sge::x11input::keyboard::lookup_string(
 
 	// less chars might be returned here if the locale doesn't support it
 	buffer.resize_uninitialized(
-		static_cast<
+		fcppt::cast::size<
 			sge::x11input::keyboard::char_vector::size_type
 		>(
-			chars_return
+			fcppt::cast::to_unsigned(
+				chars_return
+			)
 		)
 	);
 

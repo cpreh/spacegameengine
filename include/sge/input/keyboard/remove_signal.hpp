@@ -33,7 +33,7 @@ namespace keyboard
 {
 
 typedef fcppt::signal::object<
-	keyboard::remove_function
+	sge::input::keyboard::remove_function
 > remove_signal;
 
 }

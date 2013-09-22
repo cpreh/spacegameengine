@@ -38,19 +38,19 @@ class char_event
 public:
 	SGE_INPUT_SYMBOL
 	char_event(
-		keyboard::char_type,
+		sge::input::keyboard::char_type,
 		bool repeated
 	);
 
 	SGE_INPUT_SYMBOL
-	keyboard::char_type
+	sge::input::keyboard::char_type
 	character() const;
 
 	SGE_INPUT_SYMBOL
 	bool
 	repeated() const;
 private:
-	keyboard::char_type character_;
+	sge::input::keyboard::char_type character_;
 
 	bool repeated_;
 };

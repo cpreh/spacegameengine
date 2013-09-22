@@ -34,7 +34,7 @@ namespace keyboard
 {
 
 SGE_INPUT_SYMBOL
-fcppt::string const
+fcppt::string
 key_code_to_string(
 	sge::input::keyboard::key_code
 );

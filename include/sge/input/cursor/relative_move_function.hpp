@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/cursor/relative_move_event_fwd.hpp>
 
+
 namespace sge
 {
 namespace input
@@ -33,7 +34,7 @@ namespace cursor
 typedef
 void
 relative_move_function(
-	cursor::relative_move_event const &
+	sge::input::cursor::relative_move_event const &
 );
 
 }

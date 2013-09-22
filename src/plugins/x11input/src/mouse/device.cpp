@@ -117,7 +117,7 @@ sge::x11input::mouse::device::~device()
 
 fcppt::signal::auto_connection
 sge::x11input::mouse::device::axis_callback(
-	input::mouse::axis_callback const &_callback
+	sge::input::mouse::axis_callback const &_callback
 )
 {
 	return
@@ -128,7 +128,7 @@ sge::x11input::mouse::device::axis_callback(
 
 fcppt::signal::auto_connection
 sge::x11input::mouse::device::button_callback(
-	input::mouse::button_callback const &_callback
+	sge::input::mouse::button_callback const &_callback
 )
 {
 	return
@@ -145,7 +145,7 @@ sge::x11input::mouse::device::info() const
 
 void
 sge::x11input::mouse::device::on_motion(
-	x11input::device::raw_event const &_event
+	sge::x11input::device::raw_event const &_event
 )
 {
 	sge::x11input::device::foreach_valuator(

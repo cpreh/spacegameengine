@@ -40,7 +40,7 @@ search_info(
 
 sge::x11input::device::info::single::single(
 	awl::backends::x11::display &_display,
-	x11input::device::id const _id
+	sge::x11input::device::id const _id
 )
 :
 	info_base_(

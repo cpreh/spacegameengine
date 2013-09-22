@@ -49,8 +49,9 @@ class relative_movement
 	);
 public:
 	SGE_INPUT_SYMBOL
-	explicit relative_movement(
-		cursor::object &
+	explicit
+	relative_movement(
+		sge::input::cursor::object &
 	);
 
 	SGE_INPUT_SYMBOL
@@ -59,21 +60,21 @@ public:
 	SGE_INPUT_SYMBOL
 	fcppt::signal::auto_connection
 	relative_move_callback(
-		cursor::relative_move_callback const &
+		sge::input::cursor::relative_move_callback const &
 	);
 private:
 	void
 	move_callback_internal(
-		cursor::move_event const &
+		sge::input::cursor::move_event const &
 	);
 
 	typedef fcppt::signal::object<
-		cursor::relative_move_function
+		sge::input::cursor::relative_move_function
 	> relative_move_signal;
 
-	cursor::object &cursor_;
+	sge::input::cursor::object &cursor_;
 
-	cursor::optional_position last_position_;
+	sge::input::cursor::optional_position last_position_;
 
 	relative_move_signal relative_move_signal_;
 

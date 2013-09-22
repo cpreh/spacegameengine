@@ -24,8 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
 
+
 sge::x11input::create_parameters::create_parameters(
-	device::id const _id,
+	sge::x11input::device::id const _id,
 	XIDeviceInfo const &_info
 )
 :

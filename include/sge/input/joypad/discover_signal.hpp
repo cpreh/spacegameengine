@@ -33,7 +33,7 @@ namespace joypad
 {
 
 typedef fcppt::signal::object<
-	joypad::discover_function
+	sge::input::joypad::discover_function
 > discover_signal;
 
 }

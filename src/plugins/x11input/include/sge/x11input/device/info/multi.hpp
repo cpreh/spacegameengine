@@ -44,7 +44,7 @@ class multi
 		multi
 	);
 public:
-	typedef info::base::size_type size_type;
+	typedef sge::x11input::device::info::base::size_type size_type;
 
 	explicit
 	multi(

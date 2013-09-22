@@ -34,7 +34,7 @@ namespace cursor
 {
 
 SGE_INPUT_SYMBOL
-fcppt::string const
+fcppt::string
 scroll_code_to_string(
 	sge::input::cursor::scroll_code
 );

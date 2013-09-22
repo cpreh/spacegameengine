@@ -33,7 +33,7 @@ namespace joypad
 {
 
 typedef fcppt::signal::object<
-	joypad::button_function
+	sge::input::joypad::button_function
 > button_signal;
 
 }

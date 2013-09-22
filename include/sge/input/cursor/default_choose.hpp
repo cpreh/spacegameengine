@@ -33,7 +33,7 @@ namespace cursor
 {
 
 SGE_INPUT_SYMBOL
-sge::input::cursor::choose_callback const
+sge::input::cursor::choose_callback
 default_choose();
 
 }

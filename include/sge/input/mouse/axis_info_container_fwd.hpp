@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/axis_id.hpp>
 #include <sge/input/mouse/axis_info_fwd.hpp>
 
+
 namespace sge
 {
 namespace input
@@ -32,9 +33,9 @@ namespace input
 namespace mouse
 {
 
-typedef input::info::container<
-	mouse::axis_id,
-	mouse::axis_info
+typedef sge::input::info::container<
+	sge::input::mouse::axis_id,
+	sge::input::mouse::axis_info
 > axis_info_container;
 
 }

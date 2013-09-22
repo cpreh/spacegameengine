@@ -39,17 +39,18 @@ class object
 		object
 	);
 protected:
-	explicit object(
-		device::id
+	explicit
+	object(
+		sge::x11input::device::id
 	);
 public:
 	virtual
 	~object() = 0;
 
-	device::id const
+	sge::x11input::device::id const
 	id() const;
 private:
-	device::id const id_;
+	sge::x11input::device::id const id_;
 };
 
 }

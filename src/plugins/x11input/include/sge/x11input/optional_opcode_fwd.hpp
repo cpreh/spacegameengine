@@ -18,26 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_KEYBOARD_KEY_FUNCTION_HPP_INCLUDED
-#define SGE_INPUT_KEYBOARD_KEY_FUNCTION_HPP_INCLUDED
+#ifndef SGE_X11INPUT_OPTIONAL_OPCODE_FWD_HPP_INCLUDED
+#define SGE_X11INPUT_OPTIONAL_OPCODE_FWD_HPP_INCLUDED
 
-#include <sge/input/keyboard/key_event_fwd.hpp>
+#include <awl/backends/x11/system/event/opcode.hpp>
+#include <fcppt/optional_fwd.hpp>
 
 
 namespace sge
 {
-namespace input
-{
-namespace keyboard
+namespace x11input
 {
 
 typedef
-void
-key_function(
-	sge::input::keyboard::key_event const &
-);
+fcppt::optional<
+	awl::backends::x11::system::event::opcode
+> optional_opcode;
 
-}
 }
 }
 

@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/x11input/device/event_fwd.hpp>
 
+
 namespace sge
 {
 namespace x11input
@@ -38,7 +39,8 @@ class event
 public:
 	typedef ValueType value_type;
 
-	explicit event(
+	explicit
+	event(
 		value_type const &
 	);
 

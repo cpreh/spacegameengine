@@ -33,7 +33,7 @@ namespace joypad
 {
 
 typedef fcppt::signal::object<
-	joypad::remove_function
+	sge::input::joypad::remove_function
 > remove_signal;
 
 }

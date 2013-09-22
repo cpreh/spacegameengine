@@ -41,17 +41,17 @@ class create_parameters
 	);
 public:
 	create_parameters(
-		device::id,
+		sge::x11input::device::id,
 		XIDeviceInfo const &
 	);
 
-	device::id const
+	sge::x11input::device::id const
 	id() const;
 
 	XIDeviceInfo const &
 	info() const;
 private:
-	device::id const id_;
+	sge::x11input::device::id const id_;
 
 	XIDeviceInfo const &info_;
 };

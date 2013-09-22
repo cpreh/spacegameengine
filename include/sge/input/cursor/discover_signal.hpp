@@ -33,7 +33,7 @@ namespace cursor
 {
 
 typedef fcppt::signal::object<
-	cursor::discover_function
+	sge::input::cursor::discover_function
 > discover_signal;
 
 }

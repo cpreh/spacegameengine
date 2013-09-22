@@ -50,15 +50,16 @@ namespace keyboard
 
 class collector
 :
-	public keyboard::device
+	public sge::input::keyboard::device
 {
 	FCPPT_NONCOPYABLE(
 		collector
 	);
 public:
 	SGE_INPUT_SYMBOL
-	explicit collector(
-		input::processor &
+	explicit
+	collector(
+		sge::input::processor &
 	);
 
 	SGE_INPUT_SYMBOL
@@ -67,50 +68,50 @@ public:
 	SGE_INPUT_SYMBOL
 	fcppt::signal::auto_connection
 	char_callback(
-		keyboard::char_callback const &
+		sge::input::keyboard::char_callback const &
 	);
 
 	SGE_INPUT_SYMBOL
 	fcppt::signal::auto_connection
 	key_callback(
-		keyboard::key_callback const &
+		sge::input::keyboard::key_callback const &
 	);
 
 	SGE_INPUT_SYMBOL
 	fcppt::signal::auto_connection
 	key_repeat_callback(
-		keyboard::key_repeat_callback const &
+		sge::input::keyboard::key_repeat_callback const &
 	);
 
 	SGE_INPUT_SYMBOL
-	keyboard::mod_state const
+	sge::input::keyboard::mod_state const
 	mod_state() const;
 private:
 	void
 	char_callback_internal(
-		keyboard::device &,
-		keyboard::char_event const &
+		sge::input::keyboard::device &,
+		sge::input::keyboard::char_event const &
 	);
 
 	void
 	key_callback_internal(
-		keyboard::device &,
-		keyboard::key_event const &
+		sge::input::keyboard::device &,
+		sge::input::keyboard::key_event const &
 	);
 
 	void
 	key_repeat_callback_internal(
-		keyboard::device &,
-		keyboard::key_repeat_event const &
+		sge::input::keyboard::device &,
+		sge::input::keyboard::key_repeat_event const &
 	);
 
-	keyboard::manager manager_;
+	sge::input::keyboard::manager manager_;
 
-	keyboard::char_signal char_signal_;
+	sge::input::keyboard::char_signal char_signal_;
 
-	keyboard::key_signal key_signal_;
+	sge::input::keyboard::key_signal key_signal_;
 
-	keyboard::key_repeat_signal key_repeat_signal_;
+	sge::input::keyboard::key_repeat_signal key_repeat_signal_;
 };
 
 }

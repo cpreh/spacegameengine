@@ -59,25 +59,25 @@ class device
 	);
 public:
 	device(
-		x11input::device::parameters const &,
-		x11input::input_context const &
+		sge::x11input::device::parameters const &,
+		sge::x11input::input_context const &
 	);
 
 	~device();
 private:
 	fcppt::signal::auto_connection
 	key_callback(
-		input::keyboard::key_callback const &
+		sge::input::keyboard::key_callback const &
 	);
 
 	fcppt::signal::auto_connection
 	key_repeat_callback(
-		input::keyboard::key_repeat_callback const &
+		sge::input::keyboard::key_repeat_callback const &
 	);
 
 	fcppt::signal::auto_connection
 	char_callback(
-		input::keyboard::char_callback const &
+		sge::input::keyboard::char_callback const &
 	);
 
 	sge::input::keyboard::mod_state const
@@ -85,12 +85,12 @@ private:
 
 	void
 	on_key_press(
-		x11input::device::window_event const &
+		sge::x11input::device::window_event const &
 	);
 
 	void
 	on_key_release(
-		x11input::device::window_event const &
+		sge::x11input::device::window_event const &
 	);
 
 	void
@@ -101,20 +101,20 @@ private:
 
 	awl::backends::x11::window::object const &window_;
 
-	x11input::input_context const &input_context_;
+	sge::x11input::input_context const &input_context_;
 
 	fcppt::signal::connection_manager const connections_;
 
 	fcppt::signal::object<
-		input::keyboard::key_function
+		sge::input::keyboard::key_function
 	> key_signal_;
 
 	fcppt::signal::object<
-		input::keyboard::key_repeat_function
+		sge::input::keyboard::key_repeat_function
 	> key_repeat_signal_;
 
 	fcppt::signal::object<
-		input::keyboard::char_function
+		sge::input::keyboard::char_function
 	> char_signal_;
 
 	sge::input::keyboard::mod_state modifiers_;

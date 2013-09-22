@@ -33,7 +33,7 @@ namespace cursor
 {
 
 typedef fcppt::signal::object<
-	cursor::move_function
+	sge::input::cursor::move_function
 > move_signal;
 
 }

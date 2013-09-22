@@ -67,7 +67,7 @@ sge::input::mouse::manager::manager(
 		>(
 			_processor.mouse_discover_callback(
 				std::bind(
-					&mouse::manager::discover,
+					&sge::input::mouse::manager::discover,
 					this,
 					std::placeholders::_1
 				)
@@ -76,7 +76,7 @@ sge::input::mouse::manager::manager(
 		(
 			_processor.mouse_remove_callback(
 				std::bind(
-					&mouse::manager::remove,
+					&sge::input::mouse::manager::remove,
 					this,
 					std::placeholders::_1
 				)

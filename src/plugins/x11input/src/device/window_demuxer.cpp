@@ -23,7 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/window_event.hpp>
 
 
-template class
+template
+class
 sge::x11input::device::event_demuxer<
 	sge::x11input::device::window_event
 >;

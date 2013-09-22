@@ -23,10 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::input::cursor::move_event::move_event(
-	cursor::optional_position const &_position
+	sge::input::cursor::optional_position const &_position
 )
 :
-	position_(_position)
+	position_(
+		_position
+	)
 {
 }
 

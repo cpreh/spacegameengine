@@ -35,7 +35,7 @@ namespace x11input
 namespace mouse
 {
 
-sge::input::mouse::info const
+sge::input::mouse::info
 info(
 	awl::backends::x11::display &,
 	XIDeviceInfo const &

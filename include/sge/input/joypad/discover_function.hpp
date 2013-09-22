@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/joypad/discover_event_fwd.hpp>
 
+
 namespace sge
 {
 namespace input
@@ -33,7 +34,7 @@ namespace joypad
 typedef
 void
 discover_function(
-	joypad::discover_event const &
+	sge::input::joypad::discover_event const &
 );
 
 }

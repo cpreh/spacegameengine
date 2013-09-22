@@ -18,13 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/x11input/device/id.hpp>
 #include <sge/x11input/device/object.hpp>
 
+
 sge::x11input::device::object::object(
-	device::id const _id
+	sge::x11input::device::id const _id
 )
 :
-	id_(_id)
+	id_(
+		_id
+	)
 {
 }
 

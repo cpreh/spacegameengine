@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/joypad/button_id.hpp>
 #include <sge/input/joypad/button_info_fwd.hpp>
 
+
 namespace sge
 {
 namespace input
@@ -33,8 +34,8 @@ namespace joypad
 {
 
 typedef input::info::container<
-	joypad::button_id,
-	joypad::button_info
+	sge::input::joypad::button_id,
+	sge::input::joypad::button_info
 > button_info_container;
 
 }

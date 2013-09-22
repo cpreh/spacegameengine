@@ -21,23 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11INPUT_KEYBOARD_CHAR_VECTOR_HPP_INCLUDED
 #define SGE_X11INPUT_KEYBOARD_CHAR_VECTOR_HPP_INCLUDED
 
-#include <sge/input/keyboard/char_type.hpp>
-#include <fcppt/container/raw_vector_fwd.hpp>
+#include <sge/x11input/keyboard/char_vector_fwd.hpp>
+#include <fcppt/container/raw_vector_impl.hpp>
 
-
-namespace sge
-{
-namespace x11input
-{
-namespace keyboard
-{
-
-typedef fcppt::container::raw_vector<
-	sge::input::keyboard::char_type
-> char_vector;
-
-}
-}
-}
 
 #endif

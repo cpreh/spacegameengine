@@ -33,7 +33,7 @@ namespace mouse
 {
 
 typedef fcppt::signal::object<
-	mouse::remove_function
+	sge::input::mouse::remove_function
 > remove_signal;
 
 }

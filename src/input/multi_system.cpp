@@ -39,23 +39,15 @@ sge::input::multi_system::multi_system(
 	plugins_(),
 	systems_()
 {
-	typedef sge::plugin::iterator<
-		sge::input::system
-	> plugin_iterator;
-
 	for(
-		plugin_iterator it(
-			_collection.begin()
-		);
-		it
-		!=
-		_collection.end();
-		++it
+		auto const plugin
+		:
+		_collection
 	)
 	{
 		fcppt::container::ptr::push_back_unique_ptr(
 			plugins_,
-			it->load()
+			plugin.load()
 		);
 
 		fcppt::container::ptr::push_back_unique_ptr(

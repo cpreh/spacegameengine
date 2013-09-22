@@ -40,28 +40,28 @@ class info
 public:
 	SGE_INPUT_SYMBOL
 	info(
-		input::mouse::axis_info_container const &,
-		input::mouse::button_info_container const &,
-		input::info::name const &
+		sge::input::mouse::axis_info_container const &,
+		sge::input::mouse::button_info_container const &,
+		sge::input::info::name const &
 	);
 
 	SGE_INPUT_SYMBOL
-	input::mouse::axis_info_container const &
+	sge::input::mouse::axis_info_container const &
 	axes() const;
 
 	SGE_INPUT_SYMBOL
-	input::mouse::button_info_container const &
+	sge::input::mouse::button_info_container const &
 	buttons() const;
 
 	SGE_INPUT_SYMBOL
-	input::info::name const &
+	sge::input::info::name const &
 	name() const;
 private:
-	input::mouse::axis_info_container axes_;
+	sge::input::mouse::axis_info_container axes_;
 
-	input::mouse::button_info_container buttons_;
+	sge::input::mouse::button_info_container buttons_;
 
-	input::info::name name_;
+	sge::input::info::name name_;
 };
 
 }

@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::input::mouse::button_info_container::vector const
+sge::input::mouse::button_info_container::vector
 sge::x11input::mouse::button_infos(
 	XIButtonClassInfo const &_info,
 	awl::backends::x11::display &_display

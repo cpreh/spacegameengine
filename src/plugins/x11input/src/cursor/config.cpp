@@ -24,7 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/manager/config_impl.hpp>
 
 
-template class
+template
+class
 sge::x11input::device::manager::config<
 	sge::x11input::cursor::object,
 	sge::input::cursor::discover_event,

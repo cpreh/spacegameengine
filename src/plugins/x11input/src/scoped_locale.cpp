@@ -20,13 +20,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/x11input/scoped_locale.hpp>
 #include <sge/x11input/setlocale.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <string>
+#include <fcppt/config/external_end.hpp>
+
 
 sge::x11input::scoped_locale::scoped_locale(
 	std::string const &_name
 )
 :
 	old_locale_(
-		x11input::setlocale(
+		sge::x11input::setlocale(
 			_name
 		)
 	)
@@ -35,7 +39,7 @@ sge::x11input::scoped_locale::scoped_locale(
 
 sge::x11input::scoped_locale::~scoped_locale()
 {
-	x11input::setlocale(
+	sge::x11input::setlocale(
 		old_locale_
 	);
 }

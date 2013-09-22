@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/window/object.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
+#include <fcppt/cast/float_to_int.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
@@ -34,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::input::cursor::optional_position const
 sge::x11input::cursor::query_pointer(
 	awl::backends::x11::window::object const &_window,
-	device::id const &_id
+	sge::x11input::device::id const &_id
 )
 {
 	Window
@@ -83,14 +84,14 @@ sge::x11input::cursor::query_pointer(
 
 	return
 		sge::input::cursor::optional_position(
-			input::cursor::position(
-				static_cast<
-					input::cursor::position_unit
+			sge::input::cursor::position(
+				fcppt::cast::float_to_int<
+					sge::input::cursor::position_unit
 				>(
 					win_x_return
 				),
-				static_cast<
-					input::cursor::position_unit
+				fcppt::cast::float_to_int<
+					sge::input::cursor::position_unit
 				>(
 					win_y_return
 				)

@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/key_event.hpp>
 
 
-sge::input::keyboard::key_callback const
+sge::input::keyboard::key_callback
 sge::input::keyboard::action(
 	sge::input::keyboard::key_code const _code,
 	sge::input::nullary_function const &_action

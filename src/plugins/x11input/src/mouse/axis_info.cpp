@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::input::mouse::axis_info const
+sge::input::mouse::axis_info
 sge::x11input::mouse::axis_info(
 	XIValuatorClassInfo const &_info,
 	awl::backends::x11::display &_display

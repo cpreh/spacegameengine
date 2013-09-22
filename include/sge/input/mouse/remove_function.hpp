@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/mouse/remove_event_fwd.hpp>
 
+
 namespace sge
 {
 namespace input
@@ -33,7 +34,7 @@ namespace mouse
 typedef
 void
 remove_function(
-	mouse::remove_event const &
+	sge::input::mouse::remove_event const &
 );
 
 }

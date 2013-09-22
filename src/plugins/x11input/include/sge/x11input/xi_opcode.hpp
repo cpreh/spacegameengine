@@ -24,12 +24,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/optional_opcode.hpp>
 #include <awl/backends/x11/display_fwd.hpp>
 
+
 namespace sge
 {
 namespace x11input
 {
 
-optional_opcode const
+sge::x11input::optional_opcode const
 xi_opcode(
 	awl::backends::x11::display &
 );

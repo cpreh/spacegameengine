@@ -33,10 +33,10 @@ namespace x11input
 namespace mouse
 {
 
-input::mouse::button const
+sge::input::mouse::button const
 button(
-	x11input::device::window_event const &,
-	input::mouse::button_info_container const &
+	sge::x11input::device::window_event const &,
+	sge::input::mouse::button_info_container const &
 );
 
 }

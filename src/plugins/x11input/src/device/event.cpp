@@ -23,22 +23,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
 
+
 template<
 	typename ValueType
 >
-sge::x11input::device::event<ValueType>::event(
+sge::x11input::device::event<
+	ValueType
+>::event(
 	value_type const &_event
 )
 :
-	event_(_event)
+	event_(
+		_event
+	)
 {
 }
 
 template<
 	typename ValueType
 >
-typename sge::x11input::device::event<ValueType>::value_type const &
-sge::x11input::device::event<ValueType>::get() const
+typename
+sge::x11input::device::event<
+	ValueType
+>::value_type const &
+sge::x11input::device::event<
+	ValueType
+>::get() const
 {
 	return event_;
 }

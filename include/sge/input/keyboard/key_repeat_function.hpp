@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/keyboard/key_repeat_event_fwd.hpp>
 
+
 namespace sge
 {
 namespace input
@@ -33,7 +34,7 @@ namespace keyboard
 typedef
 void
 key_repeat_function(
-	keyboard::key_repeat_event const &
+	sge::input::keyboard::key_repeat_event const &
 );
 
 }

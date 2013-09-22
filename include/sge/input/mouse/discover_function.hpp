@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/mouse/discover_event_fwd.hpp>
 
+
 namespace sge
 {
 namespace input
@@ -33,7 +34,7 @@ namespace mouse
 typedef
 void
 discover_function(
-	mouse::discover_event const &
+	sge::input::mouse::discover_event const &
 );
 
 }

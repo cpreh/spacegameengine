@@ -35,7 +35,7 @@ namespace x11input
 namespace mouse
 {
 
-sge::input::mouse::axis_info const
+sge::input::mouse::axis_info
 axis_info(
 	XIValuatorClassInfo const &,
 	awl::backends::x11::display &

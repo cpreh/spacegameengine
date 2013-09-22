@@ -31,7 +31,7 @@ namespace log
 {
 
 SGE_LOG_SYMBOL
-fcppt::log::location const
+fcppt::log::location
 location();
 
 }

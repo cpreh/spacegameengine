@@ -33,7 +33,7 @@ namespace keyboard
 {
 
 typedef fcppt::signal::object<
-	keyboard::key_function
+	sge::input::keyboard::key_function
 > key_signal;
 
 }

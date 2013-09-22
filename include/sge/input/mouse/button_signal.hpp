@@ -33,7 +33,7 @@ namespace mouse
 {
 
 typedef fcppt::signal::object<
-	mouse::button_function
+	sge::input::mouse::button_function
 > button_signal;
 
 }

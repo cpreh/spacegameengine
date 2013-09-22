@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/exception.hpp>
 #include <sge/x11input/color.hpp>
 #include <awl/backends/x11/display.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/to_std_string.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -34,8 +35,12 @@ sge::x11input::color::color(
 	fcppt::string const &_name
 )
 :
-	display_(_display),
-	colormap_(_colormap),
+	display_(
+		_display
+	),
+	colormap_(
+		_colormap
+	),
 	color_()
 {
 	XColor dummy;

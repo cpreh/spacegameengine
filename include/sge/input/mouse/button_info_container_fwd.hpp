@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/button_id.hpp>
 #include <sge/input/mouse/button_info_fwd.hpp>
 
+
 namespace sge
 {
 namespace input
@@ -33,8 +34,8 @@ namespace mouse
 {
 
 typedef input::info::container<
-	mouse::button_id,
-	mouse::button_info
+	sge::input::mouse::button_id,
+	sge::input::mouse::button_info
 > button_info_container;
 
 }

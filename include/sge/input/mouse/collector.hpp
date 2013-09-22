@@ -47,15 +47,16 @@ namespace mouse
 
 class collector
 :
-	public mouse::device
+	public sge::input::mouse::device
 {
 	FCPPT_NONCOPYABLE(
 		collector
 	);
 public:
 	SGE_INPUT_SYMBOL
-	explicit collector(
-		input::processor &
+	explicit
+	collector(
+		sge::input::processor &
 	);
 
 	SGE_INPUT_SYMBOL
@@ -64,38 +65,38 @@ public:
 	SGE_INPUT_SYMBOL
 	fcppt::signal::auto_connection
 	axis_callback(
-		mouse::axis_callback const &
+		sge::input::mouse::axis_callback const &
 	);
 
 	SGE_INPUT_SYMBOL
 	fcppt::signal::auto_connection
 	button_callback(
-		mouse::button_callback const &
+		sge::input::mouse::button_callback const &
 	);
 
 	SGE_INPUT_SYMBOL
-	input::mouse::info const &
+	sge::input::mouse::info const &
 	info() const;
 private:
 	void
 	axis_callback_internal(
-		mouse::device &,
-		mouse::axis_event const &
+		sge::input::mouse::device &,
+		sge::input::mouse::axis_event const &
 	);
 
 	void
 	button_callback_internal(
-		mouse::device &,
-		mouse::button_event const &
+		sge::input::mouse::device &,
+		sge::input::mouse::button_event const &
 	);
 
-	mouse::manager manager_;
+	sge::input::mouse::manager manager_;
 
-	mouse::info info_;
+	sge::input::mouse::info info_;
 
-	mouse::axis_signal axis_signal_;
+	sge::input::mouse::axis_signal axis_signal_;
 
-	mouse::button_signal button_signal_;
+	sge::input::mouse::button_signal button_signal_;
 };
 
 }

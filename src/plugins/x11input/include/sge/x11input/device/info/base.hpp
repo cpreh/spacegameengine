@@ -48,7 +48,7 @@ public:
 
 	base(
 		awl::backends::x11::display &,
-		x11input::device::id
+		sge::x11input::device::id
 	);
 
 	~base();

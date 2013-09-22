@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_CURSOR_RELATIVE_MOVE_EVENT_FWD_HPP_INCLUDED
 #define SGE_INPUT_CURSOR_RELATIVE_MOVE_EVENT_FWD_HPP_INCLUDED
 
+
 namespace sge
 {
 namespace input

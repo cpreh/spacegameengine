@@ -18,14 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/input/info/name.hpp>
+#include <sge/input/mouse/axis_info_container.hpp>
+#include <sge/input/mouse/button_info_container.hpp>
 #include <sge/input/mouse/info.hpp>
 #include <fcppt/string.hpp>
 
 
 sge::input::mouse::info::info(
-	input::mouse::axis_info_container const &_axes,
-	input::mouse::button_info_container const &_buttons,
-	input::info::name const &_name
+	sge::input::mouse::axis_info_container const &_axes,
+	sge::input::mouse::button_info_container const &_buttons,
+	sge::input::info::name const &_name
 )
 :
 	axes_(

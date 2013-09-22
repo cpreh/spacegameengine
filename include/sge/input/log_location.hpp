@@ -31,7 +31,7 @@ namespace input
 {
 
 SGE_INPUT_SYMBOL
-fcppt::log::location const
+fcppt::log::location
 log_location();
 
 }

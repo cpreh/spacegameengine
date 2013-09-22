@@ -33,7 +33,7 @@ namespace keyboard
 {
 
 typedef fcppt::signal::object<
-	keyboard::discover_function
+	sge::input::keyboard::discover_function
 > discover_signal;
 
 }

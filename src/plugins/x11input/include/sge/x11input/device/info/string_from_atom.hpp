@@ -37,7 +37,7 @@ namespace device
 namespace info
 {
 
-fcppt::optional_string const
+fcppt::optional_string
 string_from_atom(
 	awl::backends::x11::display &,
 	Atom

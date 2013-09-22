@@ -38,19 +38,19 @@ class button_event
 public:
 	SGE_INPUT_SYMBOL
 	button_event(
-		joypad::button_id,
+		sge::input::joypad::button_id,
 		bool pressed
 	);
 
 	SGE_INPUT_SYMBOL
-	joypad::button_id const
+	sge::input::joypad::button_id const
 	button_id() const;
 
 	SGE_INPUT_SYMBOL
 	bool
 	pressed() const;
 private:
-	joypad::button_id button_id_;
+	sge::input::joypad::button_id button_id_;
 
 	bool pressed_;
 };

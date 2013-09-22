@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/unreachable.hpp>
 
 
-fcppt::string const
+fcppt::string
 sge::input::keyboard::key_code_to_string(
 	sge::input::keyboard::key_code const _code
 )

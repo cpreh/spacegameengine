@@ -35,9 +35,9 @@ namespace x11input
 namespace keyboard
 {
 
-x11input::keyboard::looked_up_string const
+sge::x11input::keyboard::looked_up_string
 lookup_string(
-	x11input::input_context const &,
+	sge::x11input::input_context const &,
 	XIDeviceEvent const &
 );
 

@@ -35,7 +35,7 @@ namespace cursor
 {
 
 typedef std::set<
-	cursor::object *
+	sge::input::cursor::object *
 > object_set;
 
 }

@@ -21,23 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11INPUT_DEVICE_OPTIONAL_ID_HPP_INCLUDED
 #define SGE_X11INPUT_DEVICE_OPTIONAL_ID_HPP_INCLUDED
 
-#include <sge/x11input/device/id.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <sge/x11input/device/optional_id_fwd.hpp>
+#include <fcppt/optional_impl.hpp>
 
-
-namespace sge
-{
-namespace x11input
-{
-namespace device
-{
-
-typedef fcppt::optional<
-	device::id
-> optional_id;
-
-}
-}
-}
 
 #endif

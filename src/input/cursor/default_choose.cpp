@@ -45,7 +45,7 @@ function(
 
 }
 
-sge::input::cursor::choose_callback const
+sge::input::cursor::choose_callback
 sge::input::cursor::default_choose()
 {
 	return

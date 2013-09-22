@@ -34,7 +34,7 @@ namespace mouse
 {
 
 SGE_INPUT_SYMBOL
-fcppt::string const
+fcppt::string
 button_code_to_string(
 	sge::input::mouse::button_code
 );

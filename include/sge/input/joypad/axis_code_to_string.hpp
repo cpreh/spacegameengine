@@ -34,7 +34,7 @@ namespace joypad
 {
 
 SGE_INPUT_SYMBOL
-fcppt::string const
+fcppt::string
 axis_code_to_string(
 	sge::input::joypad::axis_code
 );

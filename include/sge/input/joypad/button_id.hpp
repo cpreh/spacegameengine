@@ -33,7 +33,7 @@ namespace joypad
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
-	input::info::id,
+	sge::input::info::id,
 	button_id
 );
 

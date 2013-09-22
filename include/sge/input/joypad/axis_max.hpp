@@ -33,7 +33,7 @@ namespace joypad
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
-	joypad::axis_value,
+	sge::input::joypad::axis_value,
 	axis_max
 );
 

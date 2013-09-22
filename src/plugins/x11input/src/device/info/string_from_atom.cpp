@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-fcppt::optional_string const
+fcppt::optional_string
 sge::x11input::device::info::string_from_atom(
 	awl::backends::x11::display &_display,
 	Atom const _atom
@@ -41,7 +41,7 @@ sge::x11input::device::info::string_from_atom(
 		:
 			fcppt::optional_string(
 				fcppt::from_std_string(
-					x11input::atom_name(
+					sge::x11input::atom_name(
 						_display,
 						_atom
 					).get()
