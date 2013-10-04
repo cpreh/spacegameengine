@@ -273,6 +273,13 @@ add_sge_example(
 	""
 )
 
+add_sge_example(
+	line_of_sight
+	"sgeimagecolor;sgeinput;sgerenderer;sgesprite;sgesystems;sgeviewport;sgewindow"
+	"${fcppt_core_TARGET}"
+	""
+)
+
 if(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
 	add_sge_example(
 		linux_stats
