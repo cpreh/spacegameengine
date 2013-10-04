@@ -162,10 +162,6 @@ try
 	);
 
 	typedef
-	int
-	sprite_unit;
-
-	typedef
 	sge::image::color::rgba8_format
 	color_format;
 
@@ -173,7 +169,7 @@ try
 	sge::sprite::config::choices<
 		sge::sprite::config::type_choices<
 			sge::sprite::config::unit_type<
-				sprite_unit
+				int
 			>,
 			sge::sprite::config::float_type<
 				float
@@ -403,7 +399,6 @@ try
 					return;
 				}
 
-
 				if(
 					!cur_position
 				)
@@ -413,7 +408,7 @@ try
 					fcppt::math::dim::structure_cast<
 						sprite_grid::dim
 					>(
-						cell_size_dim
+						cell_size
 					)
 				);
 
