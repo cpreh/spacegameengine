@@ -409,6 +409,14 @@ try
 				)
 					return;
 
+				sprite_grid::dim const cell_size_dim(
+					fcppt::math::dim::structure_cast<
+						sprite_grid::dim
+					>(
+						cell_size_dim
+					)
+				);
+
 				sprite_grid::pos const pos1(
 					fcppt::math::vector::structure_cast<
 						sprite_grid::pos
@@ -416,7 +424,7 @@ try
 						*last_position
 					)
 					/
-					cell_size
+					cell_size_dim
 				);
 
 				sprite_grid::pos const pos2(
@@ -426,7 +434,7 @@ try
 						*cur_position
 					)
 					/
-					cell_size
+					cell_size_dim
 				);
 
 				if(
