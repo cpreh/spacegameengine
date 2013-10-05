@@ -89,6 +89,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/grid/pos.hpp>
 #include <fcppt/container/grid/resize_preserve_init.hpp>
 #include <fcppt/io/cerr.hpp>
+#include <fcppt/math/bresenham.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/dim.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
@@ -101,8 +102,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <ostream>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
-
-#include <fcppt/math/bresenham.hpp>
 
 
 awl::main::exit_code const
@@ -390,16 +389,6 @@ try
 				);
 
 				if(
-					!last_position
-				)
-				{
-					last_position
-						= cur_position;
-
-					return;
-				}
-
-				if(
 					!cur_position
 				)
 					return;
@@ -412,17 +401,7 @@ try
 					)
 				);
 
-				sprite_grid::pos const pos1(
-					fcppt::math::vector::structure_cast<
-						sprite_grid::pos
-					>(
-						*last_position
-					)
-					/
-					cell_size_dim
-				);
-
-				sprite_grid::pos const pos2(
+				sprite_grid::pos const cur_grid_position(
 					fcppt::math::vector::structure_cast<
 						sprite_grid::pos
 					>(
@@ -435,26 +414,41 @@ try
 				if(
 					!fcppt::container::grid::in_range(
 						sprites,
-						pos1
-					)
-					||
-					!fcppt::container::grid::in_range(
-						sprites,
-						pos2
+						cur_grid_position
 					)
 				)
 					return;
+
+				if(
+					!last_position
+				)
+				{
+					last_position
+						= cur_position;
+
+					return;
+				}
+
+				sprite_grid::pos const last_grid_position(
+					fcppt::math::vector::structure_cast<
+						sprite_grid::pos
+					>(
+						*last_position
+					)
+					/
+					cell_size_dim
+				);
 
 				fcppt::math::bresenham(
 					fcppt::math::vector::structure_cast<
 						signed_pos
 					>(
-						pos1
+						cur_grid_position
 					),
 					fcppt::math::vector::structure_cast<
 						signed_pos
 					>(
-						pos2
+						last_grid_position
 					),
 					[
 						&sprites
