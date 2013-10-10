@@ -112,19 +112,21 @@ sge::plugin::library::object::object(
 	boost::filesystem::path const &_name
 )
 :
-	name_(_name),
-#if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
-	destroyer_(
-		fcppt::make_unique_ptr<
-			destroyer
-		>()
+	name_(
+		_name
 	),
+#if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 	handle_(
 		::LoadLibrary(
 			fcppt::filesystem::path_to_string(
 				_name
 			).c_str()
 		)
+	),
+	destroyer_(
+		fcppt::make_unique_ptr<
+			destroyer
+		>()
 	)
 #elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
 	handle_(
