@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/insert_to_string.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/optional_impl.hpp>
-#include <fcppt/type_name.hpp>
+#include <fcppt/type_name_from_info.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/fusion/sequence/intrinsic/at.hpp>
 #include <boost/fusion/sequence/intrinsic/at_c.hpp>
@@ -105,7 +105,7 @@ public:
 					Index::value)+
 				SGE_FONT_LIT(" to type ")+
 				sge::font::from_fcppt_string(
-					fcppt::type_name(
+					fcppt::type_name_from_info(
 						typeid(
 							result_type))));
 	}

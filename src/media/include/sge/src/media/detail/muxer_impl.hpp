@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/object_unique_ptr.hpp>
 #include <sge/src/media/detail/muxer.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/type_name.hpp>
+#include <fcppt/type_name_from_info.hpp>
 #include <fcppt/algorithm/contains.hpp>
 #include <fcppt/algorithm/set_intersection.hpp>
 #include <fcppt/algorithm/set_union.hpp>
@@ -150,7 +150,7 @@ sge::media::detail::muxer<
 				fcppt::log::_
 					<< FCPPT_TEXT("system ")
 					<<
-					fcppt::type_name(
+					fcppt::type_name_from_info(
 						typeid(
 							system
 						)

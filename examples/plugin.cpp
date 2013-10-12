@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/exception.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/type_name.hpp>
+#include <fcppt/type_name_from_info.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/log/activate_levels_recursive.hpp>
@@ -153,7 +153,7 @@ void
 print_plugins::operator()() const
 {
 	fcppt::io::cout()
-		<< fcppt::type_name(
+		<< fcppt::type_name_from_info(
 			typeid(
 				Type
 			)

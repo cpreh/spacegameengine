@@ -24,9 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/invalid_get.hpp>
 #include <sge/parse/json/detail/get_return_type.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/type_name.hpp>
+#include <fcppt/type_name_from_info.hpp>
 #include <fcppt/variant/holds_type.hpp>
-#include <fcppt/variant/object_impl.hpp>
 #include <fcppt/variant/type_info.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
@@ -45,7 +44,8 @@ template<
 	typename T,
 	typename Arg
 >
-typename detail::get_return_type<
+typename
+sge::parse::json::detail::get_return_type<
 	T,
 	Arg
 >::type
@@ -66,11 +66,11 @@ get(
 	)
 		throw json::invalid_get(
 			FCPPT_TEXT("json::get<")
-			+ fcppt::type_name(
+			+ fcppt::type_name_from_info(
 				typeid(T)
 			)
 			+ FCPPT_TEXT("> failed! Type is \"")
-			+ fcppt::type_name(
+			+ fcppt::type_name_from_info(
 				fcppt::variant::type_info(
 					_val
 				)

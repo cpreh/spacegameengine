@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/type_name.hpp>
+#include <fcppt/type_name_from_info.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/variant/holds_type.hpp>
 #include <fcppt/variant/object_impl.hpp>
@@ -102,7 +102,7 @@ create_or_navigate_path(
 				FCPPT_TEXT("\", stopped at \"")+
 				_new_member+
 				FCPPT_TEXT("\" because this member has type \"")+
-				fcppt::type_name(
+				fcppt::type_name_from_info(
 					fcppt::variant::type_info(
 						*ref))+
 				FCPPT_TEXT("\" instead of type sge::parse::json::object!"));

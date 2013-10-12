@@ -29,10 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/optional_object_ref.hpp>
 #include <sge/parse/json/path.hpp>
 #include <sge/parse/json/path_to_string.hpp>
-#include <fcppt/optional.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/type_name.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#include <fcppt/type_name_from_info.hpp>
 #include <fcppt/variant/type_info.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <typeinfo>
@@ -87,7 +85,7 @@ find_object_impl(
 					FCPPT_TEXT("\", stopped at \"")+
 					(*current_member)+
 					FCPPT_TEXT("\" because this member has type \"")+
-					fcppt::type_name(
+					fcppt::type_name_from_info(
 						fcppt::variant::type_info(
 							*val))+
 					FCPPT_TEXT("\" instead of type sge::parse::json::object!"));
