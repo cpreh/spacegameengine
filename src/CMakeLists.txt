@@ -228,6 +228,12 @@ add_sge_lib(
 )
 
 add_sge_lib(
+	cg
+	"Build the Cg library"
+	${CG_FOUND}
+)
+
+add_sge_lib(
 	renderer
 	"Build the renderer library"
 	ON
@@ -282,12 +288,6 @@ if(
 		font/draw
 	)
 endif()
-
-add_sge_lib(
-	cg
-	"Build the Cg library"
-	${CG_FOUND}
-)
 
 add_sge_lib(
 	shader
