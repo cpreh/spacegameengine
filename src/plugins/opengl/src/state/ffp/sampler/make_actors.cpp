@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/algorithm/join.hpp>
 
 
-sge::opengl::state::ffp::sampler::actor_vector const
+sge::opengl::state::ffp::sampler::actor_vector
 sge::opengl::state::ffp::sampler::make_actors(
 	sge::renderer::state::ffp::sampler::parameters const &_parameters
 )

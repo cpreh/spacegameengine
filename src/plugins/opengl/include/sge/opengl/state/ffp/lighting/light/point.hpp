@@ -38,7 +38,7 @@ namespace lighting
 namespace light
 {
 
-sge::opengl::state::index_actor_vector const
+sge::opengl::state::index_actor_vector
 point(
 	sge::renderer::state::ffp::lighting::light::point const &
 );

@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/variant/apply_unary.hpp>
 
 
-sge::opengl::state::core::sampler::actor_vector const
+sge::opengl::state::core::sampler::actor_vector
 sge::opengl::state::core::sampler::filter::make_actors(
 	sge::opengl::context::system::object &_system_context,
 	sge::renderer::state::core::sampler::filter::parameters const &_parameters

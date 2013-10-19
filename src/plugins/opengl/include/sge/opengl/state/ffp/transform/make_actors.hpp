@@ -37,7 +37,7 @@ namespace ffp
 namespace transform
 {
 
-sge::opengl::state::ffp::transform::actor_vector const
+sge::opengl::state::ffp::transform::actor_vector
 make_actors(
 	sge::opengl::context::system::object &,
 	sge::renderer::state::ffp::transform::parameters const &

@@ -38,7 +38,7 @@ namespace lighting
 namespace light
 {
 
-sge::opengl::state::index_actor const
+sge::opengl::state::index_actor
 cutoff_angle(
 	sge::renderer::state::ffp::lighting::light::cutoff_angle
 );

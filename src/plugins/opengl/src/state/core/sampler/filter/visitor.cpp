@@ -36,7 +36,7 @@ sge::opengl::state::core::sampler::filter::visitor::visitor(
 {
 }
 
-sge::opengl::state::core::sampler::filter::visitor::result_type const
+sge::opengl::state::core::sampler::filter::visitor::result_type
 sge::opengl::state::core::sampler::filter::visitor::operator()(
 	sge::renderer::state::core::sampler::filter::anisotropic::parameters const &_filter
 ) const
@@ -48,7 +48,7 @@ sge::opengl::state::core::sampler::filter::visitor::operator()(
 		);
 }
 
-sge::opengl::state::core::sampler::filter::visitor::result_type const
+sge::opengl::state::core::sampler::filter::visitor::result_type
 sge::opengl::state::core::sampler::filter::visitor::operator()(
 	sge::renderer::state::core::sampler::filter::normal::parameters const &_filter
 ) const

@@ -39,7 +39,7 @@ namespace lighting
 namespace material
 {
 
-sge::opengl::state::actor const
+sge::opengl::state::actor
 color(
 	GLenum face,
 	GLenum what,

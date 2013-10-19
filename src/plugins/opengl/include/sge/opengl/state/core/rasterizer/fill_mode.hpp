@@ -36,7 +36,7 @@ namespace core
 namespace rasterizer
 {
 
-sge::opengl::state::actor const
+sge::opengl::state::actor
 fill_mode(
 	sge::renderer::state::core::rasterizer::fill_mode
 );

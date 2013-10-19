@@ -57,7 +57,7 @@ sge::opengl::state::core::depth_stencil::stencil::enabled_visitor::enabled_visit
 {
 }
 
-sge::opengl::state::core::depth_stencil::stencil::enabled_visitor::result_type const
+sge::opengl::state::core::depth_stencil::stencil::enabled_visitor::result_type
 sge::opengl::state::core::depth_stencil::stencil::enabled_visitor::operator()(
 	sge::renderer::state::core::depth_stencil::stencil::combined const &_combined
 ) const
@@ -104,7 +104,7 @@ sge::opengl::state::core::depth_stencil::stencil::enabled_visitor::operator()(
 		};
 }
 
-sge::opengl::state::core::depth_stencil::stencil::enabled_visitor::result_type const
+sge::opengl::state::core::depth_stencil::stencil::enabled_visitor::result_type
 sge::opengl::state::core::depth_stencil::stencil::enabled_visitor::operator()(
 	sge::renderer::state::core::depth_stencil::stencil::separate const &_separate
 ) const

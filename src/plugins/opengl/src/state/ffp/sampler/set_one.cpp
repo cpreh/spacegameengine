@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::opengl::state::ffp::sampler::actor const
+sge::opengl::state::ffp::sampler::actor
 sge::opengl::state::ffp::sampler::set_one(
 	sge::opengl::texture::funcs::env_arg const _arg,
 	sge::opengl::texture::funcs::env_int_value const _value

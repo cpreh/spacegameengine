@@ -36,7 +36,7 @@ namespace ffp
 namespace fog
 {
 
-sge::opengl::state::actor const
+sge::opengl::state::actor
 color(
 	sge::renderer::state::ffp::fog::color const &
 );

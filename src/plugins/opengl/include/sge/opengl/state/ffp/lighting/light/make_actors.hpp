@@ -38,7 +38,7 @@ namespace lighting
 namespace light
 {
 
-sge::opengl::state::index_actor_vector const
+sge::opengl::state::index_actor_vector
 make_actors(
 	sge::renderer::state::ffp::lighting::light::parameters const &
 );

@@ -52,15 +52,13 @@ sge::opengl::state::core::sampler::set(
 
 	// Update all samplers for currently bound textures
 	for(
-		sge::renderer::state::core::sampler::const_optional_object_ref_map::const_iterator it(
-			_objects.begin()
-		);
-		it != _objects.end();
-		++it
+		auto const &sampler
+		:
+		_objects
 	)
 	{
 		sge::renderer::texture::stage stage(
-			it->first
+			sampler.first
 		);
 
 		sge::opengl::texture::optional_type const bound_type(

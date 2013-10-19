@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/lighting/light/direction.hpp>
 
 
-sge::opengl::state::index_actor const
+sge::opengl::state::index_actor
 sge::opengl::state::ffp::lighting::light::direction(
 	sge::renderer::state::ffp::lighting::light::direction const &_direction
 )

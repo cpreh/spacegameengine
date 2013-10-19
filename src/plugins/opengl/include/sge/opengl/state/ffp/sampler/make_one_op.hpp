@@ -38,7 +38,7 @@ namespace sampler
 template<
 	typename OpType
 >
-sge::opengl::state::ffp::sampler::actor_vector const
+sge::opengl::state::ffp::sampler::actor_vector
 make_one_op(
 	OpType const &
 );

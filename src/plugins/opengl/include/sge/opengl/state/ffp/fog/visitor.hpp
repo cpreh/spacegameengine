@@ -42,12 +42,12 @@ class visitor
 public:
 	typedef sge::opengl::state::actor_vector result_type;
 
-	result_type const
+	result_type
 	operator()(
 		sge::renderer::state::ffp::fog::off const &
 	) const;
 
-	result_type const
+	result_type
 	operator()(
 		sge::renderer::state::ffp::fog::enabled const &
 	) const;

@@ -37,7 +37,7 @@ namespace ffp
 namespace sampler
 {
 
-sge::opengl::state::ffp::sampler::actor const
+sge::opengl::state::ffp::sampler::actor
 set_one(
 	sge::opengl::texture::funcs::env_arg,
 	sge::opengl::texture::funcs::env_int_value

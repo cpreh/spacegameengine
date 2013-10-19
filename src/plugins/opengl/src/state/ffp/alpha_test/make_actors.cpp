@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/variant/apply_unary.hpp>
 
 
-sge::opengl::state::actor_vector const
+sge::opengl::state::actor_vector
 sge::opengl::state::ffp::alpha_test::make_actors(
 	sge::renderer::state::ffp::alpha_test::parameters const &_parameters
 )

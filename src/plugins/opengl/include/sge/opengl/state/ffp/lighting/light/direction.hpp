@@ -38,7 +38,7 @@ namespace lighting
 namespace light
 {
 
-sge::opengl::state::index_actor const
+sge::opengl::state::index_actor
 direction(
 	sge::renderer::state::ffp::lighting::light::direction const &
 );

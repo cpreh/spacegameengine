@@ -52,12 +52,12 @@ public:
 
 	typedef sge::opengl::state::actor_vector result_type;
 
-	result_type const
+	result_type
 	operator()(
 		sge::renderer::state::core::blend::alpha_off const &
 	) const;
 
-	result_type const
+	result_type
 	operator()(
 		sge::renderer::state::core::blend::alpha_enabled const &
 	) const;

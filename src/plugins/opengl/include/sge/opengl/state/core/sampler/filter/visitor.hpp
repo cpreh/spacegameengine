@@ -54,12 +54,12 @@ public:
 
 	typedef sge::opengl::state::core::sampler::actor_vector result_type;
 
-	result_type const
+	result_type
 	operator()(
 		sge::renderer::state::core::sampler::filter::anisotropic::parameters const &
 	) const;
 
-	result_type const
+	result_type
 	operator()(
 		sge::renderer::state::core::sampler::filter::normal::parameters const &
 	) const;

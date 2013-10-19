@@ -37,7 +37,7 @@ namespace ffp
 namespace misc
 {
 
-sge::opengl::state::actor_vector const
+sge::opengl::state::actor_vector
 make_actors(
 	sge::opengl::context::system::object &,
 	sge::renderer::state::ffp::misc::parameters const &

@@ -45,7 +45,7 @@ template<
 	typename OpType,
 	typename Op
 >
-sge::opengl::state::ffp::sampler::actor const
+sge::opengl::state::ffp::sampler::actor
 set_one_op(
 	Op const _op
 )

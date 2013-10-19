@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::opengl::state::actor const
+sge::opengl::state::actor
 sge::opengl::state::ffp::fog::color(
 	sge::renderer::state::ffp::fog::color const &_color
 )

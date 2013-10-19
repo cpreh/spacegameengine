@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::opengl::state::index_actor const
+sge::opengl::state::index_actor
 sge::opengl::state::ffp::lighting::light::float_(
 	GLenum const _name,
 	GLfloat const _value

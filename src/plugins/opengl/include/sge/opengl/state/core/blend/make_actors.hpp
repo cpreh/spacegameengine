@@ -37,7 +37,7 @@ namespace core
 namespace blend
 {
 
-sge::opengl::state::actor_vector const
+sge::opengl::state::actor_vector
 make_actors(
 	sge::opengl::context::system::object &,
 	sge::renderer::state::core::blend::parameters const &

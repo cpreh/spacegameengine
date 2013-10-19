@@ -36,7 +36,7 @@ namespace core
 namespace rasterizer
 {
 
-sge::opengl::state::actor_vector const
+sge::opengl::state::actor_vector
 make_actors(
 	sge::renderer::state::core::rasterizer::parameters const &
 );

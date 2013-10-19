@@ -36,7 +36,7 @@ namespace ffp
 namespace clip_plane
 {
 
-sge::opengl::state::index_actor_vector const
+sge::opengl::state::index_actor_vector
 make_actors(
 	sge::renderer::state::ffp::clip_plane::parameters const &
 );

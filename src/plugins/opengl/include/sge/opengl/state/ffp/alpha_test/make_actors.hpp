@@ -36,7 +36,7 @@ namespace ffp
 namespace alpha_test
 {
 
-sge::opengl::state::actor_vector const
+sge::opengl::state::actor_vector
 make_actors(
 	sge::renderer::state::ffp::alpha_test::parameters const &
 );

@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/construct.hpp>
 
 
-sge::opengl::state::index_actor const
+sge::opengl::state::index_actor
 sge::opengl::state::ffp::lighting::light::position(
 	sge::renderer::state::ffp::lighting::light::position const &_position
 )

@@ -36,7 +36,7 @@ namespace ffp
 namespace sampler
 {
 
-sge::opengl::state::ffp::sampler::actor_vector const
+sge::opengl::state::ffp::sampler::actor_vector
 make_actors(
 	sge::renderer::state::ffp::sampler::parameters const &
 );

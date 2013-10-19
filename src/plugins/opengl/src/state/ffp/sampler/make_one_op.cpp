@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<
 	typename OpType
 >
-sge::opengl::state::ffp::sampler::actor_vector const
+sge::opengl::state::ffp::sampler::actor_vector
 sge::opengl::state::ffp::sampler::make_one_op(
 	OpType const &_op
 )
@@ -48,7 +48,7 @@ sge::opengl::state::ffp::sampler::make_one_op(
 	op_type\
 )\
 template \
-sge::opengl::state::ffp::sampler::actor_vector const \
+sge::opengl::state::ffp::sampler::actor_vector \
 sge::opengl::state::ffp::sampler::make_one_op<\
 	op_type\
 >(\

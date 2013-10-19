@@ -38,7 +38,7 @@ namespace sampler
 namespace address
 {
 
-sge::opengl::state::core::sampler::actor_vector const
+sge::opengl::state::core::sampler::actor_vector
 make_actors(
 	sge::renderer::state::core::sampler::address::parameters const &
 );

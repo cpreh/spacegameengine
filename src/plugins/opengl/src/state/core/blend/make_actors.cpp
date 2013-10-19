@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::opengl::state::actor_vector const
+sge::opengl::state::actor_vector
 sge::opengl::state::core::blend::make_actors(
 	sge::opengl::context::system::object &_system_context,
 	sge::renderer::state::core::blend::parameters const &_parameters

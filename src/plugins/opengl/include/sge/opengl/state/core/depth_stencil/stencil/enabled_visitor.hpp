@@ -57,12 +57,12 @@ public:
 
 	typedef sge::opengl::state::actor_vector result_type;
 
-	result_type const
+	result_type
 	operator()(
 		sge::renderer::state::core::depth_stencil::stencil::combined const &
 	) const;
 
-	result_type const
+	result_type
 	operator()(
 		sge::renderer::state::core::depth_stencil::stencil::separate const &
 	) const;

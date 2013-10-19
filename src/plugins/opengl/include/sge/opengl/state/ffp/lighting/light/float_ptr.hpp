@@ -48,7 +48,7 @@ namespace light
 template<
 	typename Vector
 >
-sge::opengl::state::index_actor const
+sge::opengl::state::index_actor
 float_ptr(
 	GLenum const _name,
 	Vector const &_vector

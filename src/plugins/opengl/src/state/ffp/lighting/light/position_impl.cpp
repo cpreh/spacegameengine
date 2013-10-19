@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/ffp/lighting/light/position_impl.hpp>
 
 
-sge::opengl::state::index_actor const
+sge::opengl::state::index_actor
 sge::opengl::state::ffp::lighting::light::position_impl(
 	sge::opengl::vector4f const &_pos4
 )

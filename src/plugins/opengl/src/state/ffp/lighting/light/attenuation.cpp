@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/lighting/light/attenuation.hpp>
 
 
-sge::opengl::state::index_actor_vector const
+sge::opengl::state::index_actor_vector
 sge::opengl::state::ffp::lighting::light::attenuation(
 	sge::renderer::state::ffp::lighting::light::attenuation const &_attenuation
 )

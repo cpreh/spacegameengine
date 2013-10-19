@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::opengl::state::actor const
+sge::opengl::state::actor
 sge::opengl::state::core::depth_stencil::depth::write_enable(
 	sge::renderer::state::core::depth_stencil::depth::write_enable const _write_enable
 )

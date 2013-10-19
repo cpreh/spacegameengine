@@ -38,7 +38,7 @@ namespace lighting
 namespace material
 {
 
-sge::opengl::state::actor const
+sge::opengl::state::actor
 float_(
 	GLenum face,
 	GLenum what,

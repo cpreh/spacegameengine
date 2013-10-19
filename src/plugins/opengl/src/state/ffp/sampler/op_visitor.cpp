@@ -32,7 +32,7 @@ template<
 >
 typename sge::opengl::state::ffp::sampler::op_visitor<
 	OpType
->::result_type const
+>::result_type
 sge::opengl::state::ffp::sampler::op_visitor<
 	OpType
 >::operator()(
@@ -61,7 +61,7 @@ template<
 >
 typename sge::opengl::state::ffp::sampler::op_visitor<
 	OpType
->::result_type const
+>::result_type
 sge::opengl::state::ffp::sampler::op_visitor<
 	OpType
 >::operator()(
@@ -95,7 +95,7 @@ template<
 >
 typename sge::opengl::state::ffp::sampler::op_visitor<
 	OpType
->::result_type const
+>::result_type
 sge::opengl::state::ffp::sampler::op_visitor<
 	OpType
 >::operator()(

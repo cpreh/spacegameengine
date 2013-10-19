@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/lighting/material/parameters.hpp>
 
 
-sge::opengl::state::actor_vector const
+sge::opengl::state::actor_vector
 sge::opengl::state::ffp::lighting::material::make_actors(
 	sge::renderer::state::ffp::lighting::material::parameters const &_parameters
 )

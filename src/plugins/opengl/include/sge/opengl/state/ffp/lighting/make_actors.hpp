@@ -36,7 +36,7 @@ namespace ffp
 namespace lighting
 {
 
-sge::opengl::state::actor_vector const
+sge::opengl::state::actor_vector
 make_actors(
 	sge::renderer::state::ffp::lighting::parameters const &
 );

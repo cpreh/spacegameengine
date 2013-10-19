@@ -45,7 +45,7 @@ sge::opengl::state::core::blend::alpha_enabled_visitor::alpha_enabled_visitor(
 
 // TODO: check what is supported here!
 
-sge::opengl::state::core::blend::alpha_enabled_visitor::result_type const
+sge::opengl::state::core::blend::alpha_enabled_visitor::result_type
 sge::opengl::state::core::blend::alpha_enabled_visitor::operator()(
 	sge::renderer::state::core::blend::combined const &_combined
 ) const
@@ -67,7 +67,7 @@ sge::opengl::state::core::blend::alpha_enabled_visitor::operator()(
 		);
 }
 
-sge::opengl::state::core::blend::alpha_enabled_visitor::result_type const
+sge::opengl::state::core::blend::alpha_enabled_visitor::result_type
 sge::opengl::state::core::blend::alpha_enabled_visitor::operator()(
 	sge::renderer::state::core::blend::separate const &_separate
 ) const

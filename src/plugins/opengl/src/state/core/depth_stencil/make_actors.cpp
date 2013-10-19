@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/variant/apply_unary.hpp>
 
 
-sge::opengl::state::actor_vector const
+sge::opengl::state::actor_vector
 sge::opengl::state::core::depth_stencil::make_actors(
 	sge::opengl::context::system::object &_system_context,
 	sge::renderer::state::core::depth_stencil::parameters const &_parameters

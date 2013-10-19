@@ -35,14 +35,14 @@ namespace
 template<
 	typename Mode
 >
-sge::opengl::state::core::sampler::actor const
+sge::opengl::state::core::sampler::actor
 set_one(
 	Mode
 );
 
 }
 
-sge::opengl::state::core::sampler::actor_vector const
+sge::opengl::state::core::sampler::actor_vector
 sge::opengl::state::core::sampler::address::make_actors(
 	sge::renderer::state::core::sampler::address::parameters const &_parameters
 )
@@ -67,7 +67,7 @@ namespace
 template<
 	typename Mode
 >
-sge::opengl::state::core::sampler::actor const
+sge::opengl::state::core::sampler::actor
 set_one(
 	Mode const _mode
 )

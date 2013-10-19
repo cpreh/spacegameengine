@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::opengl::state::index_actor_vector const
+sge::opengl::state::index_actor_vector
 sge::opengl::state::ffp::clip_plane::make_actors(
 	sge::renderer::state::ffp::clip_plane::parameters const &_parameters
 )

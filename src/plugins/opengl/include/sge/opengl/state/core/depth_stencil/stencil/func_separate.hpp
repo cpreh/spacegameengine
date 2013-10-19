@@ -41,7 +41,7 @@ namespace depth_stencil
 namespace stencil
 {
 
-sge::opengl::state::actor const
+sge::opengl::state::actor
 func_separate(
 	GLenum side,
 	sge::renderer::state::core::depth_stencil::stencil::func,

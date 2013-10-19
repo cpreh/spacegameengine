@@ -64,20 +64,18 @@ sge::opengl::state::core::sampler::context::set(
 )
 {
 	for(
-		sge::renderer::state::core::sampler::const_optional_object_ref_map::const_iterator it(
-			_samplers.begin()
-		);
-		it != _samplers.end();
-		++it
+		auto const &sampler
+		:
+		_samplers
 	)
 	{
 		objects_[
-			it->first
+			sampler.first
 		] =
 			fcppt::static_optional_cast<
 				sge::opengl::state::core::sampler::object const
 			>(
-				it->second
+				sampler.second
 			);
 	}
 }

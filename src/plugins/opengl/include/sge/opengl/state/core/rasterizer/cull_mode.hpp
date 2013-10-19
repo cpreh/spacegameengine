@@ -36,7 +36,7 @@ namespace core
 namespace rasterizer
 {
 
-sge::opengl::state::actor_vector const
+sge::opengl::state::actor_vector
 cull_mode(
 	sge::renderer::state::core::rasterizer::cull_mode
 );

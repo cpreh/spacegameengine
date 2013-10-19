@@ -39,7 +39,7 @@ namespace lighting
 namespace light
 {
 
-sge::opengl::state::index_actor const
+sge::opengl::state::index_actor
 color(
 	GLenum name,
 	sge::image::color::any::object const &

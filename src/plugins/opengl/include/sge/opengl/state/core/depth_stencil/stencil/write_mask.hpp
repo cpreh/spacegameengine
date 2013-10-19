@@ -38,7 +38,7 @@ namespace depth_stencil
 namespace stencil
 {
 
-sge::opengl::state::actor const
+sge::opengl::state::actor
 write_mask(
 	sge::renderer::state::core::depth_stencil::stencil::write_mask
 );

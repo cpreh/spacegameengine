@@ -39,7 +39,7 @@ namespace sampler
 namespace filter
 {
 
-sge::opengl::state::core::sampler::actor_vector const
+sge::opengl::state::core::sampler::actor_vector
 make_actors(
 	sge::opengl::context::system::object &,
 	sge::renderer::state::core::sampler::filter::parameters const &

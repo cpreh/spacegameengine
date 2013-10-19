@@ -45,7 +45,7 @@ template<
 	typename OpType,
 	typename Arg
 >
-sge::opengl::state::ffp::sampler::actor const
+sge::opengl::state::ffp::sampler::actor
 set_one_arg(
 	Arg const _arg
 )

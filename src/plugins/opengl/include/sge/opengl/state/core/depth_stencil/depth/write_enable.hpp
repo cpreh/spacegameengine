@@ -38,7 +38,7 @@ namespace depth_stencil
 namespace depth
 {
 
-sge::opengl::state::actor const
+sge::opengl::state::actor
 write_enable(
 	sge::renderer::state::core::depth_stencil::depth::write_enable
 );

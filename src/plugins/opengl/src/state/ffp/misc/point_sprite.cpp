@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::opengl::state::actor_vector const
+sge::opengl::state::actor_vector
 sge::opengl::state::ffp::misc::point_sprite(
 	sge::opengl::context::system::object &_system_context,
 	sge::renderer::state::ffp::misc::enable_point_sprites const _enable

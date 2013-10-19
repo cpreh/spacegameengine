@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::opengl::state::ffp::lighting::visitor::result_type const
+sge::opengl::state::ffp::lighting::visitor::result_type
 sge::opengl::state::ffp::lighting::visitor::operator()(
 	sge::renderer::state::ffp::lighting::off const &
 ) const
@@ -54,7 +54,7 @@ sge::opengl::state::ffp::lighting::visitor::operator()(
 		};
 }
 
-sge::opengl::state::ffp::lighting::visitor::result_type const
+sge::opengl::state::ffp::lighting::visitor::result_type
 sge::opengl::state::ffp::lighting::visitor::operator()(
 	sge::renderer::state::ffp::lighting::enabled const &_enabled
 ) const

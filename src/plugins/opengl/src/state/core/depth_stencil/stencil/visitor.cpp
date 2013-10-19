@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::opengl::state::core::depth_stencil::stencil::visitor::result_type const
+sge::opengl::state::core::depth_stencil::stencil::visitor::result_type
 sge::opengl::state::core::depth_stencil::stencil::visitor::operator()(
 	sge::renderer::state::core::depth_stencil::stencil::off const &
 ) const
@@ -52,7 +52,7 @@ sge::opengl::state::core::depth_stencil::stencil::visitor::operator()(
 		};
 }
 
-sge::opengl::state::core::depth_stencil::stencil::visitor::result_type const
+sge::opengl::state::core::depth_stencil::stencil::visitor::result_type
 sge::opengl::state::core::depth_stencil::stencil::visitor::operator()(
 	sge::renderer::state::core::depth_stencil::stencil::enabled const &_enabled
 ) const
