@@ -18,6 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/audio/buffer.hpp>
+#include <sge/audio/buffer_scoped_ptr.hpp>
 #include <sge/audio/file.hpp>
 #include <sge/audio/file_scoped_ptr.hpp>
 #include <sge/audio/loader.hpp>
@@ -86,9 +88,14 @@ try
 		)
 	);
 
+	sge::audio::buffer_scoped_ptr const buffer(
+		sys.audio_player().create_buffer(
+			*file
+		)
+	);
+
 	sge::audio::sound::base_scoped_ptr const sound(
-		sys.audio_player().create_nonpositional_stream(
-			*file,
+		buffer->create_nonpositional(
 			sge::audio::sound::nonpositional_parameters()
 		)
 	);
