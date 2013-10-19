@@ -57,6 +57,10 @@ sge::d3d9::state::ffp::lighting::visitor::operator()(
 				sge::d3d9::convert::to_color(
 					_enabled.ambient_color().get()
 				)
+			),
+			sge::d3d9::state::render(
+				D3DRS_COLORVERTEX,
+				_enabled.diffuse_from_vertex().get()
 			)
 		};
 }

@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/disable.hpp>
 #include <sge/opengl/enable.hpp>
+#include <sge/opengl/enable_bool.hpp>
 #include <sge/opengl/state/actor.hpp>
 #include <sge/opengl/state/actor_vector.hpp>
 #include <sge/opengl/state/bind_data_getter.hpp>
@@ -81,6 +82,11 @@ sge::opengl::state::ffp::lighting::visitor::operator()(
 					)
 				),
 				FCPPT_TEXT("glLightModelfv")
+			),
+			std::bind(
+				sge::opengl::enable_bool,
+				GL_COLOR_MATERIAL,
+				_enabled.diffuse_from_vertex().get()
 			)
 		};
 }

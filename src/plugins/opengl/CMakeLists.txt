@@ -32,6 +32,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/clear/stencil_buffer.hpp
 	src/plugins/opengl/include/sge/opengl/color_format.hpp
 	src/plugins/opengl/include/sge/opengl/color_format_type.hpp
+	src/plugins/opengl/include/sge/opengl/color_material.hpp
 	src/plugins/opengl/include/sge/opengl/common.hpp
 	src/plugins/opengl/include/sge/opengl/context/base_decl.hpp
 	src/plugins/opengl/include/sge/opengl/context/base_fwd.hpp
@@ -599,6 +600,7 @@ set(
 	src/plugins/opengl/src/clear/depth_buffer.cpp
 	src/plugins/opengl/src/clear/set.cpp
 	src/plugins/opengl/src/clear/stencil_buffer.cpp
+	src/plugins/opengl/src/color_material.cpp
 	src/plugins/opengl/src/context/device/base.cpp
 	src/plugins/opengl/src/context/device/container.cpp
 	src/plugins/opengl/src/context/device/id.cpp

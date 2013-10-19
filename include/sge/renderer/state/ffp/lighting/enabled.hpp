@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/state/ffp/lighting/ambient_color.hpp>
+#include <sge/renderer/state/ffp/lighting/diffuse_from_vertex.hpp>
 #include <sge/renderer/state/ffp/lighting/enabled_fwd.hpp>
 
 
@@ -41,16 +42,22 @@ class enabled
 {
 public:
 	SGE_RENDERER_SYMBOL
-	explicit
 	enabled(
-		sge::renderer::state::ffp::lighting::ambient_color const &
+		sge::renderer::state::ffp::lighting::ambient_color const &,
+		sge::renderer::state::ffp::lighting::diffuse_from_vertex
 	);
 
 	SGE_RENDERER_SYMBOL
 	sge::renderer::state::ffp::lighting::ambient_color const &
 	ambient_color() const;
+
+	SGE_RENDERER_SYMBOL
+	sge::renderer::state::ffp::lighting::diffuse_from_vertex const
+	diffuse_from_vertex() const;
 private:
 	sge::renderer::state::ffp::lighting::ambient_color ambient_color_;
+
+	sge::renderer::state::ffp::lighting::diffuse_from_vertex diffuse_from_vertex_;
 };
 
 }

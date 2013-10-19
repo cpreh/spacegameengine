@@ -18,33 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/state/ffp/lighting/ambient_color.hpp>
-#include <sge/renderer/state/ffp/lighting/diffuse_from_vertex.hpp>
-#include <sge/renderer/state/ffp/lighting/enabled.hpp>
+#include <sge/opengl/color_material.hpp>
+#include <sge/opengl/common.hpp>
+#include <sge/opengl/check_state.hpp>
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
 
-sge::renderer::state::ffp::lighting::enabled::enabled(
-	sge::renderer::state::ffp::lighting::ambient_color const &_ambient_color,
-	sge::renderer::state::ffp::lighting::diffuse_from_vertex const _diffuse_from_vertex
+void
+sge::opengl::color_material(
+	GLenum const _face,
+	GLenum const _value
 )
-:
-	ambient_color_(
-		_ambient_color
-	),
-	diffuse_from_vertex_(
-		_diffuse_from_vertex
+{
+	::glColorMaterial(
+		_face,
+		_value
+	);
+
+	SGE_OPENGL_CHECK_STATE(
+		FCPPT_TEXT("glColorMaterial failed"),
+		sge::renderer::exception
 	)
-{
-}
-
-sge::renderer::state::ffp::lighting::ambient_color const &
-sge::renderer::state::ffp::lighting::enabled::ambient_color() const
-{
-	return ambient_color_;
-}
-
-sge::renderer::state::ffp::lighting::diffuse_from_vertex const
-sge::renderer::state::ffp::lighting::enabled::diffuse_from_vertex() const
-{
-	return diffuse_from_vertex_;
 }

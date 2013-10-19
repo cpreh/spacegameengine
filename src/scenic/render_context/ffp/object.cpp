@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/sampler/address/mode_all.hpp>
 #include <sge/renderer/state/core/sampler/address/parameters.hpp>
 #include <sge/renderer/state/core/sampler/filter/trilinear.hpp>
+#include <sge/renderer/state/ffp/lighting/diffuse_from_vertex.hpp>
 #include <sge/renderer/state/ffp/lighting/enabled.hpp>
 #include <sge/renderer/state/ffp/lighting/object.hpp>
 #include <sge/renderer/state/ffp/lighting/parameters.hpp>
@@ -156,7 +157,15 @@ sge::scenic::render_context::ffp::object::object(
 			sge::renderer::state::ffp::lighting::parameters(
 				sge::renderer::state::ffp::lighting::enabled(
 					sge::renderer::state::ffp::lighting::ambient_color(
-						sge::image::color::predef::black()))))),
+						sge::image::color::predef::black()
+					),
+					sge::renderer::state::ffp::lighting::diffuse_from_vertex(
+						false
+					)
+				)
+			)
+		)
+	),
 	depth_stencil_state_(
 		manager_.renderer_.create_depth_stencil_state(
 			sge::renderer::state::core::depth_stencil::parameters(

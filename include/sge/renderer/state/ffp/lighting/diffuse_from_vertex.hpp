@@ -18,33 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/state/ffp/lighting/ambient_color.hpp>
-#include <sge/renderer/state/ffp/lighting/diffuse_from_vertex.hpp>
-#include <sge/renderer/state/ffp/lighting/enabled.hpp>
+#ifndef SGE_RENDERER_STATE_FFP_LIGHTING_DIFFUSE_FROM_VERTEX_HPP_INCLUDED
+#define SGE_RENDERER_STATE_FFP_LIGHTING_DIFFUSE_FROM_VERTEX_HPP_INCLUDED
+
+#include <fcppt/strong_typedef.hpp>
 
 
-sge::renderer::state::ffp::lighting::enabled::enabled(
-	sge::renderer::state::ffp::lighting::ambient_color const &_ambient_color,
-	sge::renderer::state::ffp::lighting::diffuse_from_vertex const _diffuse_from_vertex
-)
-:
-	ambient_color_(
-		_ambient_color
-	),
-	diffuse_from_vertex_(
-		_diffuse_from_vertex
-	)
+namespace sge
 {
+namespace renderer
+{
+namespace state
+{
+namespace ffp
+{
+namespace lighting
+{
+
+FCPPT_MAKE_STRONG_TYPEDEF(
+	bool,
+	diffuse_from_vertex
+);
+
+}
+}
+}
+}
 }
 
-sge::renderer::state::ffp::lighting::ambient_color const &
-sge::renderer::state::ffp::lighting::enabled::ambient_color() const
-{
-	return ambient_color_;
-}
-
-sge::renderer::state::ffp::lighting::diffuse_from_vertex const
-sge::renderer::state::ffp::lighting::enabled::diffuse_from_vertex() const
-{
-	return diffuse_from_vertex_;
-}
+#endif

@@ -2200,6 +2200,7 @@ set(
 	include/sge/renderer/state/ffp/lighting/const_optional_object_ref_fwd.hpp
 	include/sge/renderer/state/ffp/lighting/default.hpp
 	include/sge/renderer/state/ffp/lighting/diffuse_color.hpp
+	include/sge/renderer/state/ffp/lighting/diffuse_from_vertex.hpp
 	include/sge/renderer/state/ffp/lighting/enabled.hpp
 	include/sge/renderer/state/ffp/lighting/enabled_fwd.hpp
 	include/sge/renderer/state/ffp/lighting/light/attenuation.hpp
