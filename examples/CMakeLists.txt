@@ -419,8 +419,15 @@ add_sge_console_example(
 )
 
 add_sge_example(
-	spritecolor
+	sprite_color
 	"sgeimagecolor;sgeinput;sgelog;sgerenderer;sgesprite;sgesystems;sgeviewport;sgewindow"
+	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
+	""
+)
+
+add_sge_example(
+	sprite_color_texture
+	"sgeconfig;sgeimagecolor;sgeinput;sgelog;sgerenderer;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
 	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 )
