@@ -2286,6 +2286,7 @@ set(
 	include/sge/renderer/state/ffp/sampler/const_object_ref.hpp
 	include/sge/renderer/state/ffp/sampler/const_object_ref_vector.hpp
 	include/sge/renderer/state/ffp/sampler/default.hpp
+	include/sge/renderer/state/ffp/sampler/default_op.hpp
 	include/sge/renderer/state/ffp/sampler/object.hpp
 	include/sge/renderer/state/ffp/sampler/object_fwd.hpp
 	include/sge/renderer/state/ffp/sampler/object_scoped_ptr.hpp

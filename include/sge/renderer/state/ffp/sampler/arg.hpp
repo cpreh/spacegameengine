@@ -39,7 +39,8 @@ enum class arg
 {
 	previous,
 	texture,
-	constant
+	constant,
+	vertex_color
 };
 
 }

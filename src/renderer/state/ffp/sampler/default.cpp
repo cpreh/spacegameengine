@@ -19,13 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/state/ffp/sampler/alpha_op.hpp>
-#include <sge/renderer/state/ffp/sampler/arg.hpp>
-#include <sge/renderer/state/ffp/sampler/arg1.hpp>
-#include <sge/renderer/state/ffp/sampler/arg2.hpp>
-#include <sge/renderer/state/ffp/sampler/binary_op.hpp>
-#include <sge/renderer/state/ffp/sampler/binary_op_type.hpp>
 #include <sge/renderer/state/ffp/sampler/color_op.hpp>
 #include <sge/renderer/state/ffp/sampler/default.hpp>
+#include <sge/renderer/state/ffp/sampler/default_op.hpp>
 #include <sge/renderer/state/ffp/sampler/op.hpp>
 #include <sge/renderer/state/ffp/sampler/parameters.hpp>
 
@@ -34,15 +30,7 @@ sge::renderer::state::ffp::sampler::parameters const
 sge::renderer::state::ffp::sampler::default_()
 {
 	sge::renderer::state::ffp::sampler::op const op(
-		sge::renderer::state::ffp::sampler::binary_op(
-			sge::renderer::state::ffp::sampler::binary_op_type::modulate,
-			sge::renderer::state::ffp::sampler::arg1(
-				sge::renderer::state::ffp::sampler::arg::texture
-			),
-			sge::renderer::state::ffp::sampler::arg2(
-				sge::renderer::state::ffp::sampler::arg::previous
-			)
-		)
+		sge::renderer::state::ffp::sampler::default_op()
 	);
 
 	return

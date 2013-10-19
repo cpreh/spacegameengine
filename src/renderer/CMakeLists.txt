@@ -580,6 +580,7 @@ set(
 	include/sge/renderer/state/ffp/sampler/const_object_ref.hpp
 	include/sge/renderer/state/ffp/sampler/const_object_ref_vector.hpp
 	include/sge/renderer/state/ffp/sampler/default.hpp
+	include/sge/renderer/state/ffp/sampler/default_op.hpp
 	include/sge/renderer/state/ffp/sampler/object.hpp
 	include/sge/renderer/state/ffp/sampler/object_fwd.hpp
 	include/sge/renderer/state/ffp/sampler/object_scoped_ptr.hpp
@@ -1056,6 +1057,7 @@ set(
 	src/renderer/state/ffp/misc/scoped.cpp
 	src/renderer/state/ffp/sampler/binary_op.cpp
 	src/renderer/state/ffp/sampler/default.cpp
+	src/renderer/state/ffp/sampler/default_op.cpp
 	src/renderer/state/ffp/sampler/object.cpp
 	src/renderer/state/ffp/sampler/op.cpp
 	src/renderer/state/ffp/sampler/parameters.cpp

@@ -39,6 +39,9 @@ sge::opengl::state::convert::sampler_arg(
 		return GL_TEXTURE;
 	case sge::renderer::state::ffp::sampler::arg::constant:
 		return GL_CONSTANT;
+	// TODO: Which extensions do we have to check here?
+	case sge::renderer::state::ffp::sampler::arg::vertex_color:
+		return GL_PRIMARY_COLOR;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

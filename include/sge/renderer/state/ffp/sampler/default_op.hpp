@@ -18,33 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/state/convert/sampler_arg.hpp>
-#include <sge/renderer/state/ffp/sampler/arg.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#ifndef SGE_RENDERER_STATE_FFP_SAMPLER_DEFAULT_OP_HPP_INCLUDED
+#define SGE_RENDERER_STATE_FFP_SAMPLER_DEFAULT_OP_HPP_INCLUDED
+
+#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/state/ffp/sampler/op_fwd.hpp>
 
 
-DWORD
-sge::d3d9::state::convert::sampler_arg(
-	sge::renderer::state::ffp::sampler::arg const _arg
-)
+namespace sge
 {
-	switch(
-		_arg
-	)
-	{
-	case sge::renderer::state::ffp::sampler::arg::constant:
-		return D3DTA_CONSTANT;
-	case sge::renderer::state::ffp::sampler::arg::previous:
-		return D3DTA_CURRENT;
-//		return D3DTA_SPECULAR;
-//		return D3DTA_TEMP;
-	case sge::renderer::state::ffp::sampler::arg::texture:
-		return D3DTA_TEXTURE;
-	case sge::renderer::state::ffp::sampler::arg::vertex_color:
-		// TODO: Is this correct?
-		return D3DTA_DIFFUSE;
-	}
+namespace renderer
+{
+namespace state
+{
+namespace ffp
+{
+namespace sampler
+{
 
-	FCPPT_ASSERT_UNREACHABLE;
+SGE_RENDERER_SYMBOL
+sge::renderer::state::ffp::sampler::op const
+default_op();
+
 }
+}
+}
+}
+}
+
+#endif
