@@ -15,13 +15,13 @@
 FIND_PATH(
 	VORBIS_INCLUDE_DIR
 	NAMES vorbis/vorbisfile.h
-	HINTS "${VORBIS_ROOT}"/include
+	HINTS "${VORBIS_ROOT}/include"
 )
 
 FIND_PATH(
 	OGG_INCLUDE_DIR
 	NAMES ogg/ogg.h
-	HINTS "${OGG_ROOT}"/include
+	HINTS "${OGG_ROOT}/include"
 )
 
 FIND_LIBRARY(
