@@ -106,6 +106,13 @@ add_sge_test(
 )
 
 add_sge_test(
+	charconv/various
+	"sgecharconv"
+	"${fcppt_core_TARGET}"
+	""
+)
+
+add_sge_test(
 	console/cursor
 	"sgeconsole"
 	""
