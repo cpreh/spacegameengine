@@ -39,19 +39,22 @@ namespace detail
 template<
 	typename StateChoices
 >
-typename sge::sprite::state::detail::options_class<
+typename
+sge::sprite::state::detail::options_class<
 	StateChoices
->::type const
+>::type
 options_to_true()
 {
-	typename sge::sprite::state::detail::options_class<
+	typename
+	sge::sprite::state::detail::options_class<
 		StateChoices
 	>::type result{
 		fcppt::no_init()
 	};
 
 	fcppt::mpl::for_each<
-		typename StateChoices::optional_elements
+		typename
+		StateChoices::optional_elements
 	>(
 		sge::sprite::state::detail::one_option_to_true<
 			StateChoices

@@ -181,6 +181,7 @@ set(
 	include/sge/sprite/detail/parameters/make_class.hpp
 	include/sge/sprite/detail/parameters/make_extra_elements.hpp
 	include/sge/sprite/detail/parameters/to_elements.hpp
+	include/sge/sprite/detail/parameters/to_elements_impl.hpp
 	include/sge/sprite/detail/parameters/transform.hpp
 	include/sge/sprite/detail/parameters/transform_use_center.hpp
 	include/sge/sprite/detail/parameters/transform_use_texture_size.hpp

@@ -21,16 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_PARAMETERS_TO_ELEMENTS_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_PARAMETERS_TO_ELEMENTS_HPP_INCLUDED
 
-#include <sge/sprite/detail/parameters/contains_element.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/fusion/algorithm/transformation/filter_if.hpp>
-#include <boost/fusion/algorithm/transformation/transform.hpp>
-#include <boost/fusion/algorithm/transformation/zip.hpp>
-#include <boost/fusion/container/vector/convert.hpp>
-#include <boost/fusion/include/mpl.hpp>
-#include <boost/phoenix/core/argument.hpp>
-#include <boost/phoenix/fusion/at.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <sge/sprite/detail/parameters/to_elements_impl.hpp>
 
 
 namespace sge
@@ -44,40 +35,20 @@ namespace parameters
 
 template<
 	typename Dest,
-	typename Source
+	typename Parameters
 >
-Dest const
+inline
+Dest
 to_elements(
-	Source const &_source
+	Parameters const &_parameters
 )
 {
 	return
-		Dest(
-			boost::fusion::as_vector(
-				boost::fusion::transform(
-					boost::fusion::filter_if<
-						sge::sprite::detail::parameters::contains_element<
-							typename Dest::memory_type::types
-						>
-					>(
-						boost::fusion::as_vector(
-							boost::fusion::zip(
-								boost::fusion::as_vector(
-									typename Source::memory_type::types()
-								),
-								_source.memory().impl()
-							)
-						)
-					),
-					boost::phoenix::at_c<
-						1
-					>(
-						boost::phoenix::argument<
-							1
-						>()
-					)
-				)
-			)
+		sge::sprite::detail::parameters::to_elements_impl<
+			Dest,
+			typename Dest::memory_type::types
+		>(
+			_parameters
 		);
 }
 

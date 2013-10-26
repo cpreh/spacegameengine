@@ -25,10 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/parameters/transform_use_texture_size.hpp>
 #include <sge/sprite/detail/roles/use_center.hpp>
 #include <sge/sprite/roles/pos.hpp>
+#include <fcppt/literal.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/vector/dim.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -81,7 +80,7 @@ transform_use_center(
 				sge::sprite::roles::size
 			>()
 			/
-			static_cast<
+			fcppt::literal<
 				typename Choices::type_choices::unit_type
 			>(
 				2u

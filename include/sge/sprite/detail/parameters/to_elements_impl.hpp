@@ -1,3 +1,4 @@
+
 /*
 spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2013 Carl Philipp Reh (sefi@s-e-f-i.de)
@@ -18,10 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DETAIL_DEFAULT_INITIALIZE_CLASS_IMPL_HPP_INCLUDED
-#define SGE_SPRITE_DETAIL_DEFAULT_INITIALIZE_CLASS_IMPL_HPP_INCLUDED
+#ifndef SGE_SPRITE_DETAIL_PARAMETERS_TO_ELEMENTS_IMPL_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_PARAMETERS_TO_ELEMENTS_IMPL_HPP_INCLUDED
 
-#include <sge/sprite/detail/default_initialize_class_element.hpp>
+#include <sge/sprite/detail/parameters/contains_element.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/empty.hpp>
 #include <boost/mpl/front.hpp>
@@ -37,10 +38,13 @@ namespace sprite
 {
 namespace detail
 {
+namespace parameters
+{
 
 template<
-	typename Class,
+	typename Dest,
 	typename Types,
+	typename Source,
 	typename... Args
 >
 inline
@@ -49,14 +53,15 @@ boost::enable_if<
 	boost::mpl::empty<
 		Types
 	>,
-	Class
+	Dest
 >::type
-default_initialize_class_impl(
-	Args && ..._args
+to_elements_impl(
+	Source const &,
+	Args &&..._args
 )
 {
 	return
-		Class(
+		Dest(
 			std::forward<
 				Args
 			>(
@@ -66,8 +71,9 @@ default_initialize_class_impl(
 }
 
 template<
-	typename Class,
+	typename Dest,
 	typename Types,
+	typename Source,
 	typename... Args
 >
 inline
@@ -76,34 +82,37 @@ boost::disable_if<
 	boost::mpl::empty<
 		Types
 	>,
-	Class
+	Dest
 >::type
-default_initialize_class_impl(
-	Args && ..._args
+to_elements_impl(
+	Source const &_source,
+	Args &&..._args
 )
 {
 	return
-		sge::sprite::detail::default_initialize_class_impl<
-			Class,
+		sge::sprite::detail::parameters::to_elements_impl<
+			Dest,
 			typename
 			boost::mpl::pop_front<
 				Types
 			>::type
 		>(
+			_source,
 			std::forward<
 				Args
 			>(
 				_args
 			)...,
-			sge::sprite::detail::default_initialize_class_element<
+			_source. template get<
 				typename
 				boost::mpl::front<
 					Types
-				>::type::wrapped::type
-			>::execute()
+				>::type::alias
+			>()
 		);
 }
 
+}
 }
 }
 }
