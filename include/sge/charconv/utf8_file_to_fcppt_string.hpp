@@ -34,7 +34,7 @@ namespace charconv
 {
 
 SGE_CHARCONV_SYMBOL
-fcppt::optional_string const
+fcppt::optional_string
 utf8_file_to_fcppt_string(
 	boost::filesystem::path const &
 );

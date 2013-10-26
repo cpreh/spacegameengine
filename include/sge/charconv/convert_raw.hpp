@@ -34,7 +34,7 @@ namespace charconv
 {
 
 SGE_CHARCONV_SYMBOL
-sge::charconv::raw_vector const
+sge::charconv::raw_vector
 convert_raw(
 	sge::charconv::source_encoding,
 	sge::charconv::dest_encoding,

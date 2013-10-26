@@ -27,15 +27,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
-fcppt::string const
+fcppt::string
 sge::charconv::utf8_file_to_fcppt_string_exn(
 	boost::filesystem::path const &_path
 )
 {
-	fcppt::optional_string const optional_content(
+	fcppt::optional_string optional_content(
 		sge::charconv::utf8_file_to_fcppt_string(
 			_path
 		)
@@ -54,5 +55,7 @@ sge::charconv::utf8_file_to_fcppt_string_exn(
 			);
 
 	return
-		*optional_content;
+		std::move(
+			*optional_content
+		);
 }

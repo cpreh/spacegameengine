@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/endianness/is_little_endian.hpp>
 
 
-sge::charconv::backends::iconv::encoding_string const
+sge::charconv::backends::iconv::encoding_string
 sge::charconv::backends::iconv::encoding_to_string(
 	sge::charconv::encoding const _encoding
 )

@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-fcppt::optional_string const
+fcppt::optional_string
 sge::charconv::utf8_file_to_fcppt_string(
 	boost::filesystem::path const &_path
 )

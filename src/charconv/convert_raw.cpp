@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::charconv::raw_vector const
+sge::charconv::raw_vector
 sge::charconv::convert_raw(
 	sge::charconv::source_encoding const _source,
 	sge::charconv::dest_encoding const _dest,

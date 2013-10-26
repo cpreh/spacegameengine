@@ -32,7 +32,7 @@ namespace charconv
 {
 
 SGE_CHARCONV_SYMBOL
-sge::charconv::utf8_string const
+sge::charconv::utf8_string
 fcppt_string_to_utf8(
 	fcppt::string const &
 );

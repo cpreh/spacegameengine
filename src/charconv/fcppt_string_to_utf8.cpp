@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #endif
 
 
-sge::charconv::utf8_string const
+sge::charconv::utf8_string
 sge::charconv::fcppt_string_to_utf8(
 	fcppt::string const &_string
 )

@@ -34,7 +34,7 @@ namespace backends
 namespace iconv
 {
 
-sge::charconv::backends::iconv::encoding_string const
+sge::charconv::backends::iconv::encoding_string
 encoding_to_string(
 	sge::charconv::encoding
 );
