@@ -59,10 +59,13 @@ set(
 	include/sge/audio/sound/base_scoped_ptr.hpp
 	include/sge/audio/sound/base_shared_ptr.hpp
 	include/sge/audio/sound/base_unique_ptr.hpp
+	include/sge/audio/sound/do_pause.hpp
 	include/sge/audio/sound/nonpositional_parameters.hpp
 	include/sge/audio/sound/nonpositional_parameters_fwd.hpp
 	include/sge/audio/sound/optional_direction.hpp
 	include/sge/audio/sound/optional_direction_fwd.hpp
+	include/sge/audio/sound/pause.hpp
+	include/sge/audio/sound/pause_or_resume.hpp
 	include/sge/audio/sound/play_status.hpp
 	include/sge/audio/sound/play_status_fwd.hpp
 	include/sge/audio/sound/positional.hpp
@@ -74,6 +77,7 @@ set(
 	include/sge/audio/sound/positional_unique_ptr.hpp
 	include/sge/audio/sound/repeat.hpp
 	include/sge/audio/sound/repeat_fwd.hpp
+	include/sge/audio/sound/resume.hpp
 	include/sge/audio/unsupported_format.hpp
 	include/sge/audio/vector.hpp
 	include/sge/audio/vector_fwd.hpp
@@ -104,8 +108,11 @@ set(
 	src/audio/player_plugin/traits.cpp
 	src/audio/sound/base.cpp
 	src/audio/sound/nonpositional_parameters.cpp
+	src/audio/sound/pause.cpp
+	src/audio/sound/pause_or_resume.cpp
 	src/audio/sound/positional.cpp
 	src/audio/sound/positional_parameters.cpp
+	src/audio/sound/resume.cpp
 	src/audio/unsupported_format.cpp
 )
 
