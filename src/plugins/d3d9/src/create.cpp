@@ -18,37 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/font/exception.hpp>
-#include <sge/font/string.hpp>
-#include <sge/gdifont/device_context.hpp>
-#include <sge/gdifont/draw_text.hpp>
-#include <sge/gdifont/include_windows.hpp>
+#include <sge/d3d9/create.hpp>
+#include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/d3d_unique_ptr.hpp>
+#include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
-
-void
-sge::gdifont::draw_text(
-	sge::gdifont::device_context const &_device_context,
-	sge::font::string const &_string,
-	RECT &_rect,
-	UINT const _format
-)
+sge::d3d9::d3d_unique_ptr
+sge::d3d9::create()
 {
-	if(
-		DrawTextW(
-			_device_context.get(),
-			_string.data(),
-			static_cast<
-				int
-			>(
-				_string.size()
-			),
-			&_rect,
-			_format
+	sge::d3d9::d3d_unique_ptr ret(
+		::Direct3DCreate9(
+			D3D_SDK_VERSION
 		)
-		== 0
+	);
+
+	if(
+		!ret
 	)
-		throw sge::font::exception(
-			FCPPT_TEXT("DrawText failed!")
+		throw sge::renderer::exception(
+			FCPPT_TEXT("Initialization of d3d failed!")
+		);
+
+	return
+		std::move(
+			ret
 		);
 }

@@ -56,6 +56,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/append.hpp>
 #include <fcppt/assign/make_container.hpp>
+#include <fcppt/cast/static_downcast.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/output.hpp>
@@ -84,21 +85,21 @@ sge::dinput::processor::processor(
 		_window_system.awl_system()
 	),
 	windows_window_(
-		dynamic_cast<
+		fcppt::cast::static_downcast<
 			awl::backends::windows::window::object &
 		>(
 			_window.awl_object()
 		)
 	),
 	event_processor_(
-		dynamic_cast<
+		fcppt::cast::static_downcast<
 			awl::backends::windows::window::event::processor &
 		>(
 			_window.awl_window_event_processor()
 		)
 	),
 	system_processor_(
-		dynamic_cast<
+		fcppt::cast::static_downcast<
 			awl::backends::windows::system::event::processor &
 		>(
 			_window_system.awl_system_event_processor()

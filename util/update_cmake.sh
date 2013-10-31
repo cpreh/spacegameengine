@@ -30,7 +30,7 @@ function update_sublibrary()
 
 	update_cmake \
 		src/"${sublibrary}"/CMakeLists.txt \
-		SGE_"${upperpath////}"_FILES \
+		SGE_"${upperpath/\//}"_FILES \
 		"${@:2}" \
 		include/sge/"${sublibrary}" \
 		src/"${sublibrary}"
@@ -57,7 +57,7 @@ function update_example_library()
 
 	update_cmake \
 		"${prefix}"/CMakeLists.txt \
-		SGE_"${upperpath////}"_FILES \
+		SGE_"${upperpath/\//}"_FILES \
 		"${@:2}" \
 		"${prefix}"/include/sge/"${examplelibrary}" \
 		"${prefix}"/src
@@ -352,5 +352,5 @@ update_cmake \
 	doc/CMakeLists.txt \
 	SGE_DOC_FILES \
 	include \
-	-e ".*" \
+	-e '.*' \
 	doc

@@ -24,29 +24,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/exception.hpp>
 #include <awl/backends/windows/module_handle.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/from_void_ptr.hpp>
 
 
 sge::dinput::dinput_unique_ptr
 sge::dinput::create_dinput()
 {
-	IDirectInput8 *instance;
+	LPVOID ret(
+		nullptr
+	);
 
 	if(
 		::DirectInput8Create(
 			awl::backends::windows::module_handle(),
 			DIRECTINPUT_VERSION,
-			IID_IDirectInput8A,
-			reinterpret_cast<LPVOID *>(&instance), // this is undefined but Direct Input wants us to do it
-			0
+			IID_IDirectInput8,
+			&ret,
+			nullptr
 		)
 		!= DI_OK
 	)
 		throw sge::input::exception(
-			FCPPT_TEXT("Cannot create direct input!")
+			FCPPT_TEXT("Cannot create DirectInput!")
 		);
 
 	return
-		dinput::dinput_unique_ptr(
-			instance
+		sge::dinput::dinput_unique_ptr(
+			fcppt::cast::from_void_ptr<
+				IDirectInput8 *
+			>(
+				ret
+			)
 		);
 }

@@ -18,37 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/font/exception.hpp>
-#include <sge/font/string.hpp>
-#include <sge/gdifont/device_context.hpp>
-#include <sge/gdifont/draw_text.hpp>
-#include <sge/gdifont/include_windows.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_D3D9_D3D_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_D3D9_D3D_UNIQUE_PTR_HPP_INCLUDED
+
+#include <sge/d3d9/d3dinclude.hpp>
+#include <fcppt/com_deleter.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
 
 
-void
-sge::gdifont::draw_text(
-	sge::gdifont::device_context const &_device_context,
-	sge::font::string const &_string,
-	RECT &_rect,
-	UINT const _format
-)
+namespace sge
 {
-	if(
-		DrawTextW(
-			_device_context.get(),
-			_string.data(),
-			static_cast<
-				int
-			>(
-				_string.size()
-			),
-			&_rect,
-			_format
-		)
-		== 0
-	)
-		throw sge::font::exception(
-			FCPPT_TEXT("DrawText failed!")
-		);
+namespace d3d9
+{
+
+typedef std::unique_ptr<
+	IDirect3D9,
+	fcppt::com_deleter
+> d3d_unique_ptr;
+
 }
+}
+
+#endif
