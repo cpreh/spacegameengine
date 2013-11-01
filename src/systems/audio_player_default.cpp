@@ -18,16 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/audio/player_capabilities_field.hpp>
 #include <sge/systems/audio_player.hpp>
 #include <sge/systems/audio_player_default.hpp>
 
 
-sge::systems::audio_player const
+sge::systems::audio_player
 sge::systems::audio_player_default()
 {
 	return
-		systems::audio_player(
-			sge::audio::player_capabilities_field::null()
-		);
+		sge::systems::audio_player();
 }

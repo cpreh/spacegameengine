@@ -30,7 +30,7 @@ namespace sge
 namespace systems
 {
 
-sge::systems::plugin_path const
+sge::systems::plugin_path
 extract_plugin_path(
 	sge::systems::detail::any_map const &
 );

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 
 
-sge::parse::ini::section_name const
+sge::parse::ini::section_name
 sge::systems::ini_section_name()
 {
 	return

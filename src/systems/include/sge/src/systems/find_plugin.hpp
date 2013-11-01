@@ -60,20 +60,14 @@ find_plugin(
 	TestFunction const &_test_function
 )
 {
-	typedef sge::plugin::iterator<
-		System
-	> iterator;
-
 	typedef sge::systems::plugin_pair<
 		System
 	> return_type;
 
 	for(
-		iterator it(
-			_collection.begin()
-		);
-		it != _collection.end();
-		++it
+		auto element
+		:
+		_collection
 	)
 	{
 		bool const name_is_same(
@@ -81,7 +75,7 @@ find_plugin(
 			&&
 			*_name
 			==
-			it->info().name()
+			element.info().name()
 		);
 
 		if(
@@ -96,7 +90,7 @@ find_plugin(
 		>::type plugin_shared_ptr;
 
 		plugin_shared_ptr const plugin(
-			it->load()
+			element.load()
 		);
 
 		typedef std::unique_ptr<

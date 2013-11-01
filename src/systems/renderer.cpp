@@ -83,7 +83,7 @@ sge::systems::renderer::caps() const
 	return caps_;
 }
 
-sge::systems::optional_name const
+sge::systems::optional_name const &
 sge::systems::renderer::name() const
 {
 	return name_;

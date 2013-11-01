@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/detail/any_map.hpp>
 
 
-sge::systems::config const
+sge::systems::config
 sge::systems::extract_config(
 	sge::systems::detail::any_map const &_param
 )

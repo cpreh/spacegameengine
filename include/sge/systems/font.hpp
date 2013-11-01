@@ -44,7 +44,7 @@ public:
 		sge::plugin::name const &
 	);
 
-	sge::systems::optional_name const
+	sge::systems::optional_name const &
 	name() const;
 private:
 	sge::systems::optional_name name_;

@@ -70,7 +70,7 @@ public:
 	sge::renderer::caps::system_field const &
 	caps() const;
 
-	sge::systems::optional_name const
+	sge::systems::optional_name const &
 	name() const;
 private:
 	sge::renderer::parameters::object const parameters_;

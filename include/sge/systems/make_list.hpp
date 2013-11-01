@@ -39,7 +39,7 @@ sge::systems::list<
 	boost::fusion::vector1<
 		Param
 	>
-> const
+>
 make_list(
 	Param const &_param
 )

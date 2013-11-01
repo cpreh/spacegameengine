@@ -58,7 +58,7 @@ public:
 				Param
 			>::type
 		>::type
-	> const
+	>
 	operator()(
 		Param const &
 	) const;
@@ -66,7 +66,7 @@ public:
 	Inits const &
 	get() const;
 private:
-	Inits const inits_;
+	Inits inits_;
 };
 
 }

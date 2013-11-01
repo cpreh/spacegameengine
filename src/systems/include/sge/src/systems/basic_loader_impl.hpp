@@ -28,13 +28,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<
 	typename Capabilities
 >
-sge::systems::basic_loader<Capabilities>::basic_loader(
+sge::systems::basic_loader<
+	Capabilities
+>::basic_loader(
 	capabilities_type const &_capabilities,
 	sge::media::optional_extension_set const &_extensions
 )
 :
-	extensions_(_extensions),
-	capabilities_(_capabilities)
+	extensions_(
+		_extensions
+	),
+	capabilities_(
+		_capabilities
+	)
 {
 }
 
@@ -42,7 +48,9 @@ template<
 	typename Capabilities
 >
 sge::media::optional_extension_set const &
-sge::systems::basic_loader<Capabilities>::extensions() const
+sge::systems::basic_loader<
+	Capabilities
+>::extensions() const
 {
 	return extensions_;
 }
@@ -50,8 +58,12 @@ sge::systems::basic_loader<Capabilities>::extensions() const
 template<
 	typename Capabilities
 >
-typename sge::systems::basic_loader<Capabilities>::capabilities_type const &
-sge::systems::basic_loader<Capabilities>::capabilities() const
+typename sge::systems::basic_loader<
+	Capabilities
+>::capabilities_type const &
+sge::systems::basic_loader<
+	Capabilities
+>::capabilities() const
 {
 	return capabilities_;
 }

@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/buffer_unique_ptr.hpp>
 #include <sge/audio/file_fwd.hpp>
 #include <sge/audio/listener_fwd.hpp>
-#include <sge/audio/player_capabilities_field_fwd.hpp>
 #include <sge/audio/player_fwd.hpp>
 #include <sge/audio/scalar.hpp>
 #include <sge/audio/symbol.hpp>
@@ -56,11 +55,12 @@ public:
 	);
 protected:
 	/** \protectedctor */
-	SGE_AUDIO_SYMBOL explicit
+	SGE_AUDIO_SYMBOL
 	player();
 public:
 	/// The listener object
-	virtual audio::listener &
+	virtual
+	sge::audio::listener &
 	listener() = 0;
 
 	/// Set the speed of sound
@@ -71,18 +71,20 @@ public:
 	 * This is used in Doppler calculations. For an introduction to the
 	 * Doppler effect, see \ref audio_positional.
 	 */
-	virtual void
+	virtual
+	void
 	speed_of_sound(
-		audio::scalar
+		sge::audio::scalar
 	) = 0;
 
 	/// Set the doppler factor
 	/**
 	 * The default is 1.0. For an introduction to the Doppler effect, see \ref audio_positional.
 	 */
-	virtual void
+	virtual
+	void
 	doppler_factor(
-		audio::scalar
+		sge::audio::scalar
 	) = 0;
 
 	/// Set the global gain (volume)
@@ -90,38 +92,43 @@ public:
 	 * The default is 1.0. This will (immediately) affect all sources
 	 * created by this player.
 	 */
-	virtual void
+	virtual
+	void
 	gain(
-		audio::scalar
+		sge::audio::scalar
 	) = 0;
 
 	/// Create a buffer from a file
-	virtual audio::buffer_unique_ptr
+	virtual
+	sge::audio::buffer_unique_ptr
 	create_buffer(
-		audio::file &
+		sge::audio::file &
 	) = 0;
 
 	/// Create a positional stream from a file
-	virtual sound::positional_unique_ptr
+	virtual
+	sge::audio::sound::positional_unique_ptr
 	create_positional_stream(
-		audio::file &,
-		sound::positional_parameters const &
+		sge::audio::file &,
+		sge::audio::sound::positional_parameters const &
 	) = 0;
 
 	/// Create a nonpositional stream from a file
-	virtual sound::base_unique_ptr
+	virtual
+	sge::audio::sound::base_unique_ptr
 	create_nonpositional_stream(
-		audio::file &,
-		sound::nonpositional_parameters const &
+		sge::audio::file &,
+		sge::audio::sound::nonpositional_parameters const &
 	) = 0;
 
-	/// What capabilities this player has. Is used in sge::systems to select a player.
-	virtual audio::player_capabilities_field const
-	capabilities() const = 0;
+	virtual
+	bool
+	is_null() const = 0;
 
 	/** \virtualdtor */
 	SGE_AUDIO_SYMBOL
-	virtual ~player() = 0;
+	virtual
+	~player() = 0;
 };
 
 }

@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/file_fwd.hpp>
 #include <sge/audio/listener_fwd.hpp>
 #include <sge/audio/player.hpp>
-#include <sge/audio/player_capabilities_field_fwd.hpp>
 #include <sge/audio/scalar.hpp>
 #include <sge/audio/sound/base_unique_ptr.hpp>
 #include <sge/audio/sound/nonpositional_parameters_fwd.hpp>
@@ -42,7 +41,7 @@ namespace audio_null
 
 class player
 :
-	public audio::player
+	public sge::audio::player
 {
 	FCPPT_NONCOPYABLE(
 		player
@@ -50,47 +49,56 @@ class player
 public:
 	player();
 
-	~player();
+	~player()
+	override;
 
-	audio::listener &
-	listener();
+	sge::audio::listener &
+	listener()
+	override;
 
 	void
 	speed_of_sound(
-		audio::scalar
-	);
+		sge::audio::scalar
+	)
+	override;
 
 	void
 	doppler_factor(
-		audio::scalar
-	);
+		sge::audio::scalar
+	)
+	override;
 
 	void
 	gain(
-		audio::scalar
-	);
+		sge::audio::scalar
+	)
+	override;
 
-	audio::buffer_unique_ptr
+	sge::audio::buffer_unique_ptr
 	create_buffer(
-		audio::file &
-	);
+		sge::audio::file &
+	)
+	override;
 
-	audio::sound::positional_unique_ptr
+	sge::audio::sound::positional_unique_ptr
 	create_positional_stream(
-		audio::file &,
-		audio::sound::positional_parameters const &
-	);
+		sge::audio::file &,
+		sge::audio::sound::positional_parameters const &
+	)
+	override;
 
-	audio::sound::base_unique_ptr
+	sge::audio::sound::base_unique_ptr
 	create_nonpositional_stream(
-		audio::file &,
-		audio::sound::nonpositional_parameters const &
-	);
+		sge::audio::file &,
+		sge::audio::sound::nonpositional_parameters const &
+	)
+	override;
 
-	audio::player_capabilities_field const
-	capabilities() const;
+	bool
+	is_null() const
+	override;
 private:
-	audio_null::listener listener_;
+	sge::audio_null::listener listener_;
 };
 
 }

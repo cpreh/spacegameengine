@@ -31,7 +31,7 @@ namespace systems
 {
 
 SGE_SYSTEMS_SYMBOL
-sge::systems::audio_player const
+sge::systems::audio_player
 audio_player_default();
 
 }

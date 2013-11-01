@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/optional_name.hpp>
 
 
-sge::systems::optional_name const
+sge::systems::optional_name
 sge::systems::merge_config_strings(
 	sge::systems::optional_name const &_parameter_name,
 	sge::parse::ini::start const &_ini_config,

@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/buffer_unique_ptr.hpp>
 #include <sge/audio/file_fwd.hpp>
 #include <sge/audio/listener.hpp>
-#include <sge/audio/player_capabilities_field.hpp>
 #include <sge/audio/scalar.hpp>
 #include <sge/audio/vector.hpp>
 #include <sge/audio/direction/forward.hpp>
@@ -184,9 +183,9 @@ sge::openal::player::create_nonpositional_stream(
 		);
 }
 
-sge::audio::player_capabilities_field const
-sge::openal::player::capabilities() const
+bool
+sge::openal::player::is_null() const
 {
 	return
-		sge::audio::player_capabilities_field::null();
+		false;
 }

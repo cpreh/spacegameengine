@@ -39,10 +39,6 @@ set(
 	include/sge/audio/multi_loader_parameters_fwd.hpp
 	include/sge/audio/optional_path.hpp
 	include/sge/audio/player.hpp
-	include/sge/audio/player_capabilities.hpp
-	include/sge/audio/player_capabilities_field.hpp
-	include/sge/audio/player_capabilities_field_fwd.hpp
-	include/sge/audio/player_capabilities_fwd.hpp
 	include/sge/audio/player_fwd.hpp
 	include/sge/audio/player_plugin/collection_fwd.hpp
 	include/sge/audio/player_plugin/object_scoped_ptr.hpp

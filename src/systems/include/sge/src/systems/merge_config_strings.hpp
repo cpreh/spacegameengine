@@ -31,7 +31,7 @@ namespace sge
 namespace systems
 {
 
-sge::systems::optional_name const
+sge::systems::optional_name
 merge_config_strings(
 	sge::systems::optional_name const &,
 	sge::parse::ini::start const &,

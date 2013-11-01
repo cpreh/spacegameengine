@@ -39,7 +39,7 @@ sge::systems::font::name(
 	return *this;
 }
 
-sge::systems::optional_name const
+sge::systems::optional_name const &
 sge::systems::font::name() const
 {
 	return name_;

@@ -51,43 +51,54 @@ class player
 public:
 	player();
 
-	~player();
+	~player()
+	override;
 
 	sge::audio::listener &
-	listener();
+	listener()
+	override;
 
 	void
 	speed_of_sound(
 		sge::audio::scalar
-	);
+	)
+	override;
 
 	void
 	doppler_factor(
-		sge::audio::scalar);
+		sge::audio::scalar
+	)
+	override;
 
 	void
 	gain(
-		sge::audio::scalar);
+		sge::audio::scalar
+	)
+	override;
 
 	sge::audio::buffer_unique_ptr
 	create_buffer(
 		sge::audio::file &
-	);
+	)
+	override;
 
 	sge::audio::sound::positional_unique_ptr
 	create_positional_stream(
 		sge::audio::file &,
 		sge::audio::sound::positional_parameters const &
-	);
+	)
+	override;
 
 	sge::audio::sound::base_unique_ptr
 	create_nonpositional_stream(
 		sge::audio::file &,
 		sge::audio::sound::nonpositional_parameters const &
-	);
+	)
+	override;
 
-	sge::audio::player_capabilities_field const
-	capabilities() const;
+	bool
+	is_null() const
+	override;
 private:
 	sge::openal::device device_;
 

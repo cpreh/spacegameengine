@@ -30,7 +30,7 @@ namespace sge
 namespace systems
 {
 
-sge::systems::config const
+sge::systems::config
 extract_config(
 	sge::systems::detail::any_map const &
 );

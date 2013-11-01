@@ -31,7 +31,7 @@ namespace systems
 {
 
 SGE_SYSTEMS_SYMBOL
-sge::systems::empty_list const
+sge::systems::empty_list
 make_empty_list();
 
 }

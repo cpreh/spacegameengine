@@ -56,7 +56,7 @@ sge::systems::list<
 			Param
 		>::type
 	>::type
-> const
+>
 sge::systems::list<
 	Inits
 >::operator()(

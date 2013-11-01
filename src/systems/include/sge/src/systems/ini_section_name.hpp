@@ -29,7 +29,7 @@ namespace sge
 namespace systems
 {
 
-sge::parse::ini::section_name const
+sge::parse::ini::section_name
 ini_section_name();
 
 }

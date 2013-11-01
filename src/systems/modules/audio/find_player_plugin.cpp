@@ -21,16 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/player.hpp>
 #include <sge/audio/player_plugin/collection_fwd.hpp>
 #include <sge/audio/player_plugin/traits.hpp>
+#include <sge/log/global.hpp>
 #include <sge/plugin/manager_fwd.hpp>
 #include <sge/src/systems/find_plugin.hpp>
 #include <sge/src/systems/modules/audio/find_player_plugin.hpp>
 #include <sge/src/systems/modules/audio/player_pair.hpp>
 #include <sge/systems/audio_player.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/spirit/home/phoenix/bind/bind_member_function.hpp>
-#include <boost/spirit/home/phoenix/core/argument.hpp>
-#include <boost/spirit/home/phoenix/operator/comparison.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <sge/systems/exception.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/log/output.hpp>
+#include <fcppt/log/warning.hpp>
 
 
 sge::systems::modules::audio::player_pair
@@ -39,17 +39,65 @@ sge::systems::modules::audio::find_player_plugin(
 	sge::systems::audio_player const &_parameters
 )
 {
-	return
-		sge::systems::find_plugin<
-			sge::audio::player
-		>(
-			_collection,
-			_parameters.name(),
-			boost::phoenix::bind(
-				&sge::audio::player::capabilities,
-				boost::phoenix::arg_names::arg1
-			)
-			==
-			_parameters.capabilities()
+	if(
+		_parameters.name()
+	)
+		return
+			sge::systems::find_plugin<
+				sge::audio::player
+			>(
+				_collection,
+				_parameters.name(),
+				[](
+					sge::audio::player const &
+				)
+				{
+					return
+						true;
+				}
+			);
+
+	try
+	{
+		return
+			sge::systems::find_plugin<
+				sge::audio::player
+			>(
+				_collection,
+				_parameters.name(),
+				[](
+					sge::audio::player const &_player
+				)
+				{
+					return
+						!_player.is_null();
+				}
+			);
+	}
+	catch(
+		sge::systems::exception const &_error
+	)
+	{
+		FCPPT_LOG_WARNING(
+			sge::log::global(),
+			fcppt::log::_
+				<< _error.string()
+				<< FCPPT_TEXT(" Trying to load a null audio player instead.")
 		);
+
+		return
+			sge::systems::find_plugin<
+				sge::audio::player
+			>(
+				_collection,
+				_parameters.name(),
+				[](
+					sge::audio::player const &_player
+				)
+				{
+					return
+						_player.is_null();
+				}
+			);
+	}
 }
