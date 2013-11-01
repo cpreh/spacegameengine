@@ -122,6 +122,7 @@ set(
 	src/systems/include/sge/src/systems/extract_config.hpp
 	src/systems/include/sge/src/systems/extract_plugin_path.hpp
 	src/systems/include/sge/src/systems/find_plugin.hpp
+	src/systems/include/sge/src/systems/find_plugin_opt.hpp
 	src/systems/include/sge/src/systems/ini_section_name.hpp
 	src/systems/include/sge/src/systems/instantiate_basic_loader.hpp
 	src/systems/include/sge/src/systems/make_any_key.hpp

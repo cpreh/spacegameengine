@@ -51,6 +51,8 @@ public:
 		System
 	> system_unique_ptr;
 
+	plugin_pair();
+
 	plugin_pair(
 		plugin_shared_ptr,
 		system_unique_ptr &&
@@ -62,6 +64,10 @@ public:
 
 	System &
 	system() const;
+
+	explicit
+	operator
+	bool() const;
 private:
 	plugin_shared_ptr const plugin_;
 

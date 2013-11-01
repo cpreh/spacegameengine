@@ -24,10 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/global.hpp>
 #include <sge/plugin/manager_fwd.hpp>
 #include <sge/src/systems/find_plugin.hpp>
+#include <sge/src/systems/find_plugin_opt.hpp>
 #include <sge/src/systems/modules/audio/find_player_plugin.hpp>
 #include <sge/src/systems/modules/audio/player_pair.hpp>
 #include <sge/systems/audio_player.hpp>
-#include <sge/systems/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/log/warning.hpp>
@@ -57,47 +57,48 @@ sge::systems::modules::audio::find_player_plugin(
 				}
 			);
 
-	try
-	{
-		return
-			sge::systems::find_plugin<
-				sge::audio::player
-			>(
-				_collection,
-				_parameters.name(),
-				[](
-					sge::audio::player const &_player
-				)
-				{
-					return
-						!_player.is_null();
-				}
-			);
-	}
-	catch(
-		sge::systems::exception const &_error
-	)
-	{
-		FCPPT_LOG_WARNING(
-			sge::log::global(),
-			fcppt::log::_
-				<< _error.string()
-				<< FCPPT_TEXT(" Trying to load a null audio player instead.")
-		);
+	sge::systems::modules::audio::player_pair result(
+		sge::systems::find_plugin_opt<
+			sge::audio::player
+		>(
+			_collection,
+			[](
+				sge::audio::player const &_player
+			)
+			{
+				return
+					!_player.is_null();
+			}
+		)
+	);
 
+	if(
+		result
+	)
 		return
-			sge::systems::find_plugin<
-				sge::audio::player
-			>(
-				_collection,
-				_parameters.name(),
-				[](
-					sge::audio::player const &_player
-				)
-				{
-					return
-						_player.is_null();
-				}
+			std::move(
+				result
 			);
-	}
+
+	FCPPT_LOG_WARNING(
+		sge::log::global(),
+		fcppt::log::_
+			<< FCPPT_TEXT("Unable to load an audio player that is not null.")
+			<< FCPPT_TEXT(" Trying to load a null audio player instead.")
+	);
+
+	return
+		sge::systems::find_plugin<
+			sge::audio::player
+		>(
+			_collection,
+			_parameters.name(),
+			[](
+				sge::audio::player const &_player
+			)
+			{
+				return
+					_player.is_null();
+			}
+		);
 }
