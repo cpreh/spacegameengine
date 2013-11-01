@@ -145,7 +145,7 @@ template<
 	typename File,
 	typename Capabilities
 >
-sge::media::extension_set const
+sge::media::extension_set
 sge::media::muxer<
 	System,
 	File,

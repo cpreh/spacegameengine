@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/file_scoped_ptr.hpp>
 #include <sge/audio/file_unique_ptr.hpp>
 #include <sge/audio/listener.hpp>
+#include <sge/audio/load_exn.hpp>
 #include <sge/audio/loader.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/sound/base.hpp>
@@ -222,6 +223,12 @@ try
 			file_name,
 			sys.audio_loader()));
 
+	if(
+		!soundfile
+	)
+		return
+			EXIT_FAILURE;
+
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Sound file loaded\n")
 		<< FCPPT_TEXT("We will now try to create a nonstreaming buffer from it.\n");
@@ -381,7 +388,8 @@ try
 	wait_for_input();
 
 	sge::audio::file_scoped_ptr const streaming_file(
-		sys.audio_loader().load(
+		sge::audio::load_exn(
+			sys.audio_loader(),
 			streaming_file_name
 		)
 	);

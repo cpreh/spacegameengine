@@ -163,7 +163,7 @@ sge::devil::system::capabilities() const
 	return image::capabilities_field::null();
 }
 
-sge::media::extension_set const
+sge::media::extension_set
 sge::devil::system::extensions() const
 {
 	return devil::supported_extensions();

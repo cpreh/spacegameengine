@@ -51,36 +51,43 @@ class system
 public:
 	system();
 
-	~system();
+	~system()
+	override;
 
 	sge::image2d::file_unique_ptr
 	load(
 		boost::filesystem::path const &
-	);
+	)
+	override;
 
 	sge::image2d::file_unique_ptr
 	load_raw(
 		sge::media::const_raw_range const &,
 		sge::media::optional_extension const &
-	);
+	)
+	override;
 
 	sge::image2d::file_unique_ptr
 	load_stream(
 		std::istream &,
 		sge::media::optional_extension const &
-	);
+	)
+	override;
 
 	sge::image2d::file_unique_ptr
 	create(
 		sge::image2d::view::const_object const &,
 		sge::media::optional_extension const &
-	);
+	)
+	override;
 
 	sge::image::capabilities_field const
-	capabilities() const;
+	capabilities() const
+	override;
 
-	sge::media::extension_set const
-	extensions() const;
+	sge::media::extension_set
+	extensions() const
+	override;
 private:
 	sge::devil::library lib_;
 };

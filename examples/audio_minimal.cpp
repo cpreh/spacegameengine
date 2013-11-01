@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/buffer_scoped_ptr.hpp>
 #include <sge/audio/file.hpp>
 #include <sge/audio/file_scoped_ptr.hpp>
+#include <sge/audio/load_exn.hpp>
 #include <sge/audio/loader.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/listener.hpp>
@@ -146,7 +147,8 @@ try
 
 //! [create_file_buffer_and_sound]
 	sge::audio::file_scoped_ptr const soundfile(
-		loader.load(
+		sge::audio::load_exn(
+			loader,
 			sge::config::media_path()
 				/ FCPPT_TEXT("sounds")
 				/ FCPPT_TEXT("ding.wav")));

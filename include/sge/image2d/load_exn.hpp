@@ -18,17 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/exception.hpp>
-#include <sge/media/loaders_exhausted.hpp>
-#include <fcppt/string.hpp>
+#ifndef SGE_IMAGE2D_LOAD_EXN_HPP_INCLUDED
+#define SGE_IMAGE2D_LOAD_EXN_HPP_INCLUDED
+
+#include <sge/image2d/file_unique_ptr.hpp>
+#include <sge/image2d/symbol.hpp>
+#include <sge/image2d/system_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
-sge::media::loaders_exhausted::loaders_exhausted(
-	fcppt::string const &_reason
-)
-:
-	sge::exception(
-		_reason
-	)
+namespace sge
 {
+namespace image2d
+{
+
+SGE_IMAGE2D_SYMBOL
+sge::image2d::file_unique_ptr
+load_exn(
+	sge::image2d::system &,
+	boost::filesystem::path const &
+);
+
 }
+}
+
+#endif

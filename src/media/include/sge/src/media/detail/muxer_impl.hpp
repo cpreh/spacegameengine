@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/log/global.hpp>
 #include <sge/media/extension_set.hpp>
-#include <sge/media/loaders_exhausted.hpp>
 #include <sge/media/muxer_parameters.hpp>
 #include <sge/media/optional_extension.hpp>
 #include <sge/media/path_to_extension.hpp>
@@ -78,13 +77,9 @@ sge::media::detail::muxer<
 	);
 
 	for(
-		sge::plugin::iterator<
-			system
-		> it(
-			collection.begin()
-		);
-		it != collection.end();
-		++it
+		auto element
+		:
+		collection
 	)
 	{
 		typedef typename sge::plugin::object_unique_ptr<
@@ -92,7 +87,7 @@ sge::media::detail::muxer<
 		>::type plugin_unique_ptr;
 
 		plugin_unique_ptr plugin(
-			it->load()
+			element.load()
 		);
 
 		typedef std::unique_ptr<
@@ -156,7 +151,7 @@ sge::media::detail::muxer<
 						)
 					)
 					<< FCPPT_TEXT(" didn't find plugin ")
-					<< it->path()
+					<< element.path()
 					<< FCPPT_TEXT(" to be useful.")
 			)
 		}
@@ -195,28 +190,13 @@ sge::media::detail::muxer<
 	load_function const &_function
 ) const
 {
-	try
-	{
-		return
-			this->mux_extension(
-				sge::media::path_to_extension(
-					_file
-				),
-				_function
-			);
-	}
-	catch(
-		sge::media::loaders_exhausted const &
-	)
-	{
-		throw sge::media::loaders_exhausted(
-			FCPPT_TEXT("Tried all loaders for ")
-			+ fcppt::filesystem::path_to_string(
+	return
+		this->mux_extension(
+			sge::media::path_to_extension(
 				_file
-			)
-			+ FCPPT_TEXT(" but none matched!")
+			),
+			_function
 		);
-	}
 }
 
 template<
@@ -239,7 +219,9 @@ sge::media::detail::muxer<
 ) const
 {
 	for(
-		auto &cur_system : systems_
+		auto &cur_system
+		:
+		systems_
 	)
 	{
 		if(
@@ -267,19 +249,8 @@ sge::media::detail::muxer<
 				);
 	}
 
-	throw sge::media::loaders_exhausted(
-		FCPPT_TEXT("Tried all loaders for ")
-		+
-		(
-			_extension
-			?
-				_extension->get()
-			:
-				FCPPT_TEXT("any extension")
-		)
-		+
-		FCPPT_TEXT(" but none matched!")
-	);
+	return
+		file_unique_ptr();
 }
 
 template<
@@ -307,7 +278,7 @@ template<
 	typename File,
 	typename Capabilities
 >
-sge::media::extension_set const
+sge::media::extension_set
 sge::media::detail::muxer<
 	System,
 	File,

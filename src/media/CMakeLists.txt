@@ -6,7 +6,6 @@ set(
 	include/sge/media/detail/muxer_fwd.hpp
 	include/sge/media/extension.hpp
 	include/sge/media/extension_set.hpp
-	include/sge/media/loaders_exhausted.hpp
 	include/sge/media/muxer.hpp
 	include/sge/media/muxer_fwd.hpp
 	include/sge/media/muxer_parameters.hpp
@@ -21,9 +20,9 @@ set(
 	src/media/include/sge/src/media/detail/muxer.hpp
 	src/media/include/sge/src/media/detail/muxer_impl.hpp
 	src/media/include/sge/src/media/instantiate_muxer_parameters.hpp
+	src/media/include/sge/src/media/load_exn.hpp
 	src/media/include/sge/src/media/muxer_impl.hpp
 	src/media/include/sge/src/media/muxer_parameters_impl.hpp
-	src/media/loaders_exhausted.cpp
 	src/media/path_to_extension.cpp
 )
 

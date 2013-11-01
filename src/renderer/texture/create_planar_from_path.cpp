@@ -19,7 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image2d/file.hpp>
-#include <sge/image2d/system.hpp>
+#include <sge/image2d/load_exn.hpp>
+#include <sge/image2d/system_fwd.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/texture/create_planar_from_file.hpp>
@@ -47,7 +48,8 @@ sge::renderer::texture::create_planar_from_path(
 	return
 		sge::renderer::texture::create_planar_from_file(
 			_renderer,
-			*_system.load(
+			*sge::image2d::load_exn(
+				_system,
 				_file
 			),
 			_mipmap,

@@ -22,8 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/unit.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/file_unique_ptr.hpp>
+#include <sge/image2d/load_exn.hpp>
 #include <sge/image2d/rect.hpp>
-#include <sge/image2d/system.hpp>
+#include <sge/image2d/system_fwd.hpp>
 #include <sge/image2d/view/checked_sub.hpp>
 #include <sge/log/global.hpp>
 #include <sge/parse/json/array.hpp>
@@ -65,7 +66,8 @@ sge::font::bitmap::load_one_file(
 	);
 
 	sge::image2d::file_unique_ptr return_file(
-		_image_system.load(
+		sge::image2d::load_exn(
+			_image_system,
 			_stem
 			/
 			sge::parse::json::find_member_exn<

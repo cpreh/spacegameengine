@@ -40,7 +40,7 @@ namespace wave
 
 class loader
 :
-	public audio::loader
+	public sge::audio::loader
 {
 	FCPPT_NONCOPYABLE(
 		loader
@@ -48,30 +48,36 @@ class loader
 public:
 	loader();
 
-	~loader();
+	~loader()
+	override;
 
-	audio::file_unique_ptr
+	sge::audio::file_unique_ptr
 	load(
 		boost::filesystem::path const &
-	);
+	)
+	override;
 
-	audio::file_unique_ptr
+	sge::audio::file_unique_ptr
 	load_raw(
 		sge::media::const_raw_range const &,
 		sge::media::optional_extension const &
-	);
+	)
+	override;
 
-	audio::file_unique_ptr
+	sge::audio::file_unique_ptr
 	load_stream(
 		std::istream &,
 		sge::media::optional_extension const &
-	);
+	)
+	override;
 
-	audio::loader_capabilities_field const
-	capabilities() const;
+	sge::audio::loader_capabilities_field const
+	capabilities() const
+	override;
 
-	sge::media::extension_set const
-	extensions() const;
+	sge::media::extension_set
+	extensions() const
+	override;
 };
 
 }

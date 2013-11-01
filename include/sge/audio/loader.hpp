@@ -59,7 +59,11 @@ protected:
 	SGE_AUDIO_SYMBOL
 	loader();
 public:
-	/// Load a file
+	/**
+	\brief Tries to load a file
+
+	\return An empty file_unique_ptr on failure
+	*/
 	virtual
 	sge::audio::file_unique_ptr
 	load(
@@ -92,7 +96,7 @@ public:
 
 	/// What extensions this loader supports. Is used in the sge::audio::multi_loader and in sge::systems to select a loader.
 	virtual
-	sge::media::extension_set const
+	sge::media::extension_set
 	extensions() const = 0;
 
 	/** \virtualdtor */

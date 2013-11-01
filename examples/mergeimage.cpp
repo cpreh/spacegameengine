@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/file_scoped_ptr.hpp>
+#include <sge/image2d/load_exn.hpp>
 #include <sge/image2d/rgba8.hpp>
 #include <sge/image2d/save_from_view.hpp>
 #include <sge/image2d/system.hpp>
@@ -108,7 +109,8 @@ first_dim(
 	);
 
 	return
-		_system.load(
+		sge::image2d::load_exn(
+			_system,
 			*it
 		)->size();
 }
@@ -265,7 +267,8 @@ try
 	)
 	{
 		sge::image2d::file_scoped_ptr const img(
-			il.load(
+			sge::image2d::load_exn(
+				il,
 				*cur_path_it
 			)
 		);

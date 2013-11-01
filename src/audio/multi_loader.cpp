@@ -105,13 +105,15 @@ sge::audio::multi_loader::load_stream(
 sge::audio::loader_capabilities_field const
 sge::audio::multi_loader::capabilities() const
 {
-	return muxer_.capabilities();
+	return
+		muxer_.capabilities();
 }
 
-sge::media::extension_set const
+sge::media::extension_set
 sge::audio::multi_loader::extensions() const
 {
-	return muxer_.extensions();
+	return
+		muxer_.extensions();
 }
 
 sge::audio::multi_loader::~multi_loader()

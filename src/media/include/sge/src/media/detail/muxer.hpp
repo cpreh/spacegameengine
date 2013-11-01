@@ -97,7 +97,7 @@ public:
 	capabilities_field const
 	capabilities() const;
 
-	sge::media::extension_set const
+	sge::media::extension_set
 	extensions() const;
 private:
 	typedef sge::plugin::object<

@@ -63,32 +63,38 @@ public:
 	sge::audio::file_unique_ptr
 	load(
 		boost::filesystem::path const &
-	);
+	)
+	override;
 
 	SGE_AUDIO_SYMBOL
 	sge::audio::file_unique_ptr
 	load_raw(
 		sge::media::const_raw_range const &,
 		sge::media::optional_extension const &
-	);
+	)
+	override;
 
 	SGE_AUDIO_SYMBOL
 	sge::audio::file_unique_ptr
 	load_stream(
 		std::istream &,
 		sge::media::optional_extension const &
-	);
+	)
+	override;
 
 	SGE_AUDIO_SYMBOL
 	sge::audio::loader_capabilities_field const
-	capabilities() const;
+	capabilities() const
+	override;
 
 	SGE_AUDIO_SYMBOL
-	sge::media::extension_set const
-	extensions() const;
+	sge::media::extension_set
+	extensions() const
+	override;
 
 	SGE_AUDIO_SYMBOL
-	~multi_loader();
+	~multi_loader()
+	override;
 private:
 	typedef sge::media::muxer<
 		sge::audio::loader,

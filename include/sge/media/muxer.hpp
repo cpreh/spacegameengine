@@ -86,7 +86,19 @@ public:
 	) const;
 
 	file_unique_ptr
+	mux_path_opt(
+		boost::filesystem::path const &,
+		load_function const &
+	) const;
+
+	file_unique_ptr
 	mux_extension(
+		media::optional_extension const &,
+		load_function const &
+	) const;
+
+	file_unique_ptr
+	mux_extension_opt(
 		media::optional_extension const &,
 		load_function const &
 	) const;
@@ -94,7 +106,7 @@ public:
 	capabilities_field const
 	capabilities() const;
 
-	sge::media::extension_set const
+	sge::media::extension_set
 	extensions() const;
 private:
 	typedef sge::media::detail::muxer<

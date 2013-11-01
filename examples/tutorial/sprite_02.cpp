@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/predef.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/file_scoped_ptr.hpp>
-#include <sge/image2d/system.hpp>
+#include <sge/image2d/load_exn.hpp>
+#include <sge/image2d/system_fwd.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/input/mouse/axis_code.hpp>
 #include <sge/input/mouse/axis_event.hpp>
@@ -281,7 +282,8 @@ try
 	);
 
 	sge::image2d::file_scoped_ptr const image(
-		sys.image_system().load(
+		sge::image2d::load_exn(
+			sys.image_system(),
 			sge::config::media_path()
 			/ FCPPT_TEXT("images")
 			/ FCPPT_TEXT("tux.png")

@@ -226,7 +226,7 @@ sge::libpng::system::capabilities() const
 		);
 }
 
-sge::media::extension_set const
+sge::media::extension_set
 sge::libpng::system::extensions() const
 {
 	return const_extensions;

@@ -83,7 +83,7 @@ public:
 	capabilities() const = 0;
 
 	virtual
-	sge::media::extension_set const
+	sge::media::extension_set
 	extensions() const = 0;
 
 	SGE_IMAGE2D_SYMBOL

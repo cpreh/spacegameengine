@@ -174,7 +174,7 @@ sge::wave::loader::capabilities() const
 	return audio::loader_capabilities_field::null();
 }
 
-sge::media::extension_set const
+sge::media::extension_set
 sge::wave::loader::extensions() const
 {
 	return extensions_;

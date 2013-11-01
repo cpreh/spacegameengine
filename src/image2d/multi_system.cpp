@@ -131,11 +131,13 @@ sge::image2d::multi_system::create(
 sge::image::capabilities_field const
 sge::image2d::multi_system::capabilities() const
 {
-	return muxer_.capabilities();
+	return
+		muxer_.capabilities();
 }
 
-sge::media::extension_set const
+sge::media::extension_set
 sge::image2d::multi_system::extensions() const
 {
-	return muxer_.extensions();
+	return
+		muxer_.extensions();
 }

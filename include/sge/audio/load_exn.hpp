@@ -18,30 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MEDIA_LOADERS_EXHAUSTED_HPP_INCLUDED
-#define SGE_MEDIA_LOADERS_EXHAUSTED_HPP_INCLUDED
+#ifndef SGE_AUDIO_LOAD_EXN_HPP_INCLUDED
+#define SGE_AUDIO_LOAD_EXN_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
-#include <sge/exception.hpp>
-#include <sge/media/symbol.hpp>
-#include <fcppt/string.hpp>
+#include <sge/audio/file_unique_ptr.hpp>
+#include <sge/audio/loader_fwd.hpp>
+#include <sge/audio/symbol.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
 {
-namespace media
+namespace audio
 {
 
-class SGE_CLASS_SYMBOL loaders_exhausted
-:
-	public sge::exception
-{
-public:
-	SGE_MEDIA_SYMBOL
-	explicit loaders_exhausted(
-		fcppt::string const &reason
-	);
-};
+SGE_AUDIO_SYMBOL
+sge::audio::file_unique_ptr
+load_exn(
+	sge::audio::loader &,
+	boost::filesystem::path const &
+);
 
 }
 }

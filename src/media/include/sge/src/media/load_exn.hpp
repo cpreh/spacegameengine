@@ -18,66 +18,55 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_VORBIS_LOADER_HPP_INCLUDED
-#define SGE_VORBIS_LOADER_HPP_INCLUDED
+#ifndef SGE_SRC_MEDIA_LOAD_EXN_HPP_INCLUDED
+#define SGE_SRC_MEDIA_LOAD_EXN_HPP_INCLUDED
 
-#include <sge/audio/file_unique_ptr.hpp>
-#include <sge/audio/loader.hpp>
-#include <sge/audio/loader_capabilities_field.hpp>
-#include <sge/media/const_raw_range.hpp>
-#include <sge/media/extension_set.hpp>
-#include <sge/media/optional_extension_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
 namespace sge
 {
-namespace vorbis
+namespace media
 {
 
-class loader
-:
-	public sge::audio::loader
+template<
+	typename Result,
+	typename Exception,
+	typename System
+>
+Result
+load_exn(
+	System &_system,
+	boost::filesystem::path const &_path
+)
 {
-	FCPPT_NONCOPYABLE(
-		loader
+	Result result(
+		_system.load(
+			_path
+		)
 	);
-public:
-	loader();
 
-	~loader();
-
-	sge::audio::file_unique_ptr
-	load(
-		boost::filesystem::path const &
+	if(
+		!result
 	)
-	override;
+		throw Exception(
+			FCPPT_TEXT("Unable to load ")
+			+
+			fcppt::filesystem::path_to_string(
+				_path
+			)
+		);
 
-	sge::audio::file_unique_ptr
-	load_raw(
-		sge::media::const_raw_range const &,
-		sge::media::optional_extension const &
-	)
-	override;
-
-	sge::audio::file_unique_ptr
-	load_stream(
-		std::istream &,
-		sge::media::optional_extension const &
-	)
-	override;
-
-	audio::loader_capabilities_field const
-	capabilities() const
-	override;
-
-	sge::media::extension_set
-	extensions() const
-	override;
-};
+	return
+		std::move(
+			result
+		);
+}
 
 }
 }

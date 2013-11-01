@@ -94,6 +94,7 @@ set(
 	include/sge/audio/file_unique_ptr.hpp
 	include/sge/audio/listener.hpp
 	include/sge/audio/listener_fwd.hpp
+	include/sge/audio/load_exn.hpp
 	include/sge/audio/loader.hpp
 	include/sge/audio/loader_capabilities.hpp
 	include/sge/audio/loader_capabilities_field.hpp
@@ -760,6 +761,7 @@ set(
 	include/sge/image2d/l8_format.hpp
 	include/sge/image2d/la8.hpp
 	include/sge/image2d/la8_format.hpp
+	include/sge/image2d/load_exn.hpp
 	include/sge/image2d/log_location.hpp
 	include/sge/image2d/logger.hpp
 	include/sge/image2d/multi_system.hpp
@@ -1205,7 +1207,6 @@ set(
 	include/sge/media/detail/muxer_fwd.hpp
 	include/sge/media/extension.hpp
 	include/sge/media/extension_set.hpp
-	include/sge/media/loaders_exhausted.hpp
 	include/sge/media/muxer.hpp
 	include/sge/media/muxer_fwd.hpp
 	include/sge/media/muxer_parameters.hpp

@@ -21,6 +21,7 @@ set(
 	include/sge/audio/file_unique_ptr.hpp
 	include/sge/audio/listener.hpp
 	include/sge/audio/listener_fwd.hpp
+	include/sge/audio/load_exn.hpp
 	include/sge/audio/loader.hpp
 	include/sge/audio/loader_capabilities.hpp
 	include/sge/audio/loader_capabilities_field.hpp
@@ -84,6 +85,7 @@ set(
 	src/audio/file.cpp
 	src/audio/file_exception.cpp
 	src/audio/listener.cpp
+	src/audio/load_exn.cpp
 	src/audio/loader.cpp
 	src/audio/loader_plugin/collection.cpp
 	src/audio/loader_plugin/context.cpp
