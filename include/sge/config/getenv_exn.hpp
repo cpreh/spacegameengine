@@ -31,7 +31,7 @@ namespace config
 {
 
 SGE_CONFIG_SYMBOL
-fcppt::string const
+fcppt::string
 getenv_exn(
 	fcppt::string const &
 );

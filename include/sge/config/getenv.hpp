@@ -32,7 +32,7 @@ namespace config
 {
 
 SGE_CONFIG_SYMBOL
-fcppt::optional_string const
+fcppt::optional_string
 getenv(
 	fcppt::string const &
 );

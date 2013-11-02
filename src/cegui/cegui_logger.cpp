@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/io/color/reset.hpp>
 #include <fcppt/io/color/set.hpp>
+#include <fcppt/log/debug.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/log/verbose.hpp>
@@ -84,6 +85,12 @@ sge::cegui::cegui_logger::logEvent(
 			break;
 		case CEGUI::Standard:
 		case CEGUI::Informative:
+			FCPPT_LOG_DEBUG(
+				local_log,
+				fcppt::log::_
+					<< converted
+			);
+			break;
 		case CEGUI::Insane:
 			FCPPT_LOG_VERBOSE(
 				local_log,

@@ -18,43 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/config/exception.hpp>
-#include <sge/src/config/try_create_path.hpp>
+#include <sge/config/app_name.hpp>
+#include <sge/config/company_name.hpp>
+#include <sge/config/log_path.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/filesystem/create_directories_recursive_exn.hpp>
-#include <fcppt/filesystem/path_to_string.hpp>
+#include <fcppt/io/cout.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/operations.hpp>
-#include <boost/filesystem/path.hpp>
+#include <iostream>
+#include <ostream>
 #include <fcppt/config/external_end.hpp>
 
 
-
-boost::filesystem::path
-sge::config::try_create_path(
-	boost::filesystem::path const &_path
-)
+int
+main()
 {
-	if(
-		!boost::filesystem::exists(
-			_path
-		)
-	)
-		fcppt::filesystem::create_directories_recursive_exn(
-			_path
-		);
-
-	if(
-		!boost::filesystem::is_directory(
-			_path
-		)
-	)
-		throw sge::config::exception(
-			fcppt::filesystem::path_to_string(
-				_path
+	fcppt::io::cout()
+		<<
+		sge::config::log_path(
+			sge::config::company_name(
+				FCPPT_TEXT("spacegameengine")
+			),
+			sge::config::app_name(
+				FCPPT_TEXT("log_path")
 			)
-			+ FCPPT_TEXT(" is not a directory!")
-		);
-
-	return _path;
+		)
+		<< FCPPT_TEXT('\n');
 }

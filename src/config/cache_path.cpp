@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #endif
 
 
-boost::filesystem::path const
+boost::filesystem::path
 sge::config::cache_path(
 	sge::config::app_name const &_app_name
 )

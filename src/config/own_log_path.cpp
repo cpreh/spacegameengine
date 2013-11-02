@@ -19,61 +19,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/config/app_name.hpp>
-#include <sge/config/config_path.hpp>
-#include <sge/src/config/try_create_path.hpp>
-#include <fcppt/config/platform.hpp>
-#include <fcppt/text.hpp>
+#include <sge/config/log_path.hpp>
+#include <sge/config/own_company_name.hpp>
+#include <sge/config/own_log_path.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
 
-#if defined(FCPPT_CONFIG_POSIX_PLATFORM)
-#include <sge/config/getenv.hpp>
-#include <sge/config/homedir.hpp>
-#include <fcppt/optional_string.hpp>
-#elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
-#include <sge/config/getenv_exn.hpp>
-#endif
-
 
 boost::filesystem::path
-sge::config::config_path(
+sge::config::own_log_path(
 	sge::config::app_name const &_app_name
 )
 {
-#if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 	return
-		sge::config::try_create_path(
-			boost::filesystem::path(
-				sge::config::getenv_exn(
-					FCPPT_TEXT("APPDATA")
-				)
-			)
-			/
-			_app_name.get()
+		sge::config::log_path(
+			sge::config::own_company_name(),
+			_app_name
 		);
-#elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
-	fcppt::optional_string const xdg_config_path(
-		sge::config::getenv(
-			FCPPT_TEXT("XDG_CONFIG_HOME")
-		)
-	);
-
-	boost::filesystem::path const path(
-		xdg_config_path
-		?
-			*xdg_config_path
-		:
-			sge::config::homedir() / FCPPT_TEXT(".config")
-	);
-
-	return
-		sge::config::try_create_path(
-			path
-			/
-			_app_name.get()
-		);
-#else
-#error "don't know how to find a config path"
-#endif
 }

@@ -280,6 +280,13 @@ add_sge_example(
 	""
 )
 
+add_sge_console_example(
+	log_path
+	"sgeconfig"
+	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
+	""
+)
+
 if(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
 	add_sge_example(
 		linux_stats

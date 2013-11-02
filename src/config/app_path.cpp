@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #endif
 
 
-boost::filesystem::path const
+boost::filesystem::path
 sge::config::app_path()
 {
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)

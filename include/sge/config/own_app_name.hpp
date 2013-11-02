@@ -31,7 +31,7 @@ namespace config
 {
 
 SGE_CONFIG_SYMBOL
-sge::config::app_name const
+sge::config::app_name
 own_app_name();
 
 }

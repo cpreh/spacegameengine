@@ -33,7 +33,7 @@ namespace config
 {
 
 SGE_CONFIG_SYMBOL
-boost::filesystem::path const
+boost::filesystem::path
 plugin_path();
 
 }

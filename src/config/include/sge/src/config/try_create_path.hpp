@@ -31,7 +31,7 @@ namespace sge
 namespace config
 {
 
-boost::filesystem::path const
+boost::filesystem::path
 try_create_path(
 	boost::filesystem::path const &
 );

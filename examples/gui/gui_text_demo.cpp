@@ -29,7 +29,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/unit.hpp>
 #include <sge/cegui/toolbox/scoped_gui_sheet.hpp>
 #include <sge/cegui/toolbox/scoped_layout.hpp>
+#include <sge/config/app_name.hpp>
 #include <sge/config/media_path.hpp>
+#include <sge/config/own_log_path.hpp>
 #include <sge/image/capabilities_field.hpp>
 #include <sge/image/color/predef.hpp>
 #include <sge/media/extension.hpp>
@@ -75,13 +77,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/parameters.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
+#include <awl/show_error.hpp>
+#include <awl/show_error_narrow.hpp>
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>
+#include <awl/main/scoped_output.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/io/cerr.hpp>
+#include <fcppt/io/clog.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/log/location.hpp>
 #include <fcppt/signal/auto_connection.hpp>
@@ -91,17 +97,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <example_main.hpp>
 #include <exception>
 #include <functional>
-#include <iostream>
-#include <ostream>
 #include <set>
 #include <fcppt/config/external_end.hpp>
 
 
 awl::main::exit_code const
 example_main(
-	awl::main::function_context const &)
+	awl::main::function_context const &
+)
 try
 {
+	fcppt::string const app_name(
+		FCPPT_TEXT("simple gui test")
+	);
+
+	awl::main::scoped_output const output(
+		fcppt::io::clog(),
+		sge::config::own_log_path(
+			sge::config::app_name(
+				app_name
+			)
+		)
+	);
+
 	sge::systems::instance<
 		boost::mpl::vector4<
 			sge::systems::with_renderer<
@@ -122,7 +140,7 @@ try
 			sge::systems::window(
 				sge::window::parameters(
 					sge::window::title(
-						FCPPT_TEXT("simple gui test")
+						app_name
 					),
 					sge::window::dim(1024,768)
 				)
@@ -164,7 +182,7 @@ try
 			.log_settings(
 				sge::systems::log_settings(
 					sge::cegui::log_location(),
-					fcppt::log::level::debug
+					fcppt::log::level::verbose
 				)
 			)
 		)
@@ -204,7 +222,12 @@ try
 
 	sge::cegui::toolbox::scoped_layout scoped_layout(
 		gui_sys,
-		sge::config::media_path()/FCPPT_TEXT("gui")/FCPPT_TEXT("text_demo.layout"));
+		sge::config::media_path()
+		/
+		FCPPT_TEXT("gui")
+		/
+		FCPPT_TEXT("text_demo.layout")
+	);
 
 	sge::cegui::toolbox::scoped_gui_sheet const scoped_gui_sheet(
 		gui_sys,
@@ -244,19 +267,21 @@ catch(
 	fcppt::exception const &_error
 )
 {
-	fcppt::io::cerr()
-		<< _error.string()
-		<< FCPPT_TEXT('\n');
+	awl::show_error(
+		_error.string()
+	);
 
-	return awl::main::exit_failure();
+	return
+		awl::main::exit_failure();
 }
 catch(
 	std::exception const &_error
 )
 {
-	std::cerr
-		<< _error.what()
-		<< '\n';
+	awl::show_error_narrow(
+		_error.what()
+	);
 
-	return awl::main::exit_failure();
+	return
+		awl::main::exit_failure();
 }

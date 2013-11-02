@@ -178,7 +178,7 @@ sge::cegui::renderer::destroyGeometryBuffer(
 		fcppt::algorithm::ptr_container_erase(
 			geometry_buffers_,
 			dynamic_cast<
-				geometry_buffer const *
+				sge::cegui::geometry_buffer const *
 			>(
 				&_buffer
 			)

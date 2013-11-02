@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 
 
-sge::config::app_name const
+sge::config::app_name
 sge::config::own_app_name()
 {
 	return

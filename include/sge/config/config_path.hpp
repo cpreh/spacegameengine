@@ -34,7 +34,7 @@ namespace config
 {
 
 SGE_CONFIG_SYMBOL
-boost::filesystem::path const
+boost::filesystem::path
 config_path(
 	sge::config::app_name const &
 );

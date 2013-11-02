@@ -29,9 +29,11 @@ namespace sge
 {
 namespace config
 {
+
 SGE_CONFIG_SYMBOL
-fcppt::string const
+fcppt::string
 user_name();
+
 }
 }
 
