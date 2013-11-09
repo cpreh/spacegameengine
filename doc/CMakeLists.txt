@@ -385,14 +385,18 @@ set(
 	include/sge/config/app_name.hpp
 	include/sge/config/app_path.hpp
 	include/sge/config/cache_path.hpp
+	include/sge/config/company_name.hpp
 	include/sge/config/config_path.hpp
 	include/sge/config/exception.hpp
 	include/sge/config/getenv.hpp
 	include/sge/config/getenv_exn.hpp
 	include/sge/config/homedir.hpp
+	include/sge/config/log_path.hpp
 	include/sge/config/media_path.hpp
 	include/sge/config/no_such_env_var.hpp
 	include/sge/config/own_app_name.hpp
+	include/sge/config/own_company_name.hpp
+	include/sge/config/own_log_path.hpp
 	include/sge/config/plugin_path.hpp
 	include/sge/config/user_name.hpp
 	include/sge/console/arg_list.hpp
