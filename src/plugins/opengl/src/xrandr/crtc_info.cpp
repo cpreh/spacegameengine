@@ -18,41 +18,70 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/xrandr/extension_fwd.hpp>
-#include <sge/opengl/xrandr/get_version.hpp>
-#include <sge/opengl/xrandr/version.hpp>
+#include <sge/opengl/xrandr/crtc_info.hpp>
+#include <sge/opengl/xrandr/screen_resources.hpp>
 #include <sge/renderer/exception.hpp>
 #include <awl/backends/x11/display.hpp>
-#include <fcppt/text.hpp>
+#include <awl/window/rect.hpp>
+#include <fcppt/assert/throw.hpp>
+#include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/Xrandr.h>
 #include <fcppt/config/external_end.hpp>
 
 
-sge::opengl::xrandr::version const
-sge::opengl::xrandr::get_version(
-	sge::opengl::xrandr::extension const &,
-	awl::backends::x11::display &_display
+sge::opengl::xrandr::crtc_info::crtc_info(
+	awl::backends::x11::display &_display,
+	sge::opengl::xrandr::screen_resources const &_screen_resources,
+	RRCrtc const _crtc
 )
-{
-	int major, minor;
-
-	if(
-		::XRRQueryVersion(
+:
+	info_(
+		::XRRGetCrtcInfo(
 			_display.get(),
-			&major,
-			&minor
+			_screen_resources.get(),
+			_crtc
 		)
-		!=
-		1
 	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("Querying the xrandr version failed!")
-		);
+{
+	FCPPT_ASSERT_THROW(
+		info_
+		!=
+		nullptr,
+		sge::renderer::exception
+	);
+}
 
+sge::opengl::xrandr::crtc_info::~crtc_info()
+{
+	::XRRFreeCrtcInfo(
+		info_
+	);
+}
+
+awl::window::rect const
+sge::opengl::xrandr::crtc_info::rect() const
+{
 	return
-		sge::opengl::xrandr::version(
-			major,
-			minor
+		awl::window::rect(
+			awl::window::rect::vector(
+				info_->x,
+				info_->y
+			),
+			awl::window::rect::dim(
+				fcppt::cast::to_signed(
+					info_->width
+				),
+				fcppt::cast::to_signed(
+					info_->height
+				)
+			)
 		);
+}
+
+RRMode
+sge::opengl::xrandr::crtc_info::mode() const
+{
+	return
+		info_->mode;
 }

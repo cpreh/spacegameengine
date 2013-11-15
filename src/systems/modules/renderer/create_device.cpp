@@ -45,7 +45,8 @@ sge::systems::modules::renderer::create_device(
 			0u
 		),
 		_parameters.parameters().parameters(),
-		_window.window().awl_object()
+		_window.window().awl_object(),
+		_window.window().awl_window_event_processor()
 	);
 
 	return

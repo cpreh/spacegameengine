@@ -93,6 +93,7 @@ sge::opengl::system::create_ffp_renderer(
 			>(
 				_parameters.params(),
 				_parameters.window(),
+				_parameters.window_processor(),
 				*device_system_,
 				system_context_,
 				*caps_

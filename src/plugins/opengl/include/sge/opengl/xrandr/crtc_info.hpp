@@ -18,11 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_XRANDR_VERSION_HPP_INCLUDED
-#define SGE_OPENGL_XRANDR_VERSION_HPP_INCLUDED
+#ifndef SGE_OPENGL_XRANDR_CRTC_INFO_HPP_INCLUDED
+#define SGE_OPENGL_XRANDR_CRTC_INFO_HPP_INCLUDED
 
-#include <sge/opengl/xrandr/version_fwd.hpp>
-#include <fcppt/io/ostream.hpp>
+#include <sge/opengl/xrandr/screen_resources_fwd.hpp>
+#include <awl/backends/x11/display_fwd.hpp>
+#include <awl/window/rect_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <X11/extensions/Xrandr.h>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -32,39 +37,32 @@ namespace opengl
 namespace xrandr
 {
 
-class version
+class crtc_info
 {
+	FCPPT_NONCOPYABLE(
+		crtc_info
+	);
 public:
-	version(
-		int major,
-		int minor
+	crtc_info(
+		awl::backends::x11::display &,
+		sge::opengl::xrandr::screen_resources const &,
+		RRCrtc
 	);
 
-	int
-	major() const;
+	~crtc_info();
 
-	int
-	minor() const;
+	awl::window::rect const
+	rect() const;
+
+	RRMode
+	mode() const;
 private:
-	int major_;
-
-	int minor_;
+	XRRCrtcInfo *const info_;
 };
 
-bool
-operator<(
-	sge::opengl::xrandr::version const &,
-	sge::opengl::xrandr::version const &
-);
+}
+}
+}
 
-fcppt::io::ostream &
-operator<<(
-	fcppt::io::ostream &,
-	sge::opengl::xrandr::version const &
-);
-
-}
-}
-}
 
 #endif

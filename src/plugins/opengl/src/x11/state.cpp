@@ -20,22 +20,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/device_state/object.hpp>
 #include <sge/opengl/x11/state.hpp>
+#include <sge/opengl/xrandr/create_state.hpp>
+#include <sge/opengl/xrandr/state.hpp>
 #include <sge/renderer/display_mode/object.hpp>
 #include <sge/renderer/display_mode/optional_object_fwd.hpp>
 #include <awl/backends/x11/window/object_fwd.hpp>
+#include <awl/backends/x11/window/event/processor_fwd.hpp>
+#include <fcppt/assert/error.hpp>
 
 
 sge::opengl::x11::state::state(
 	sge::renderer::display_mode::optional_object const &_display_mode,
-	awl::backends::x11::window::object &_window
+	awl::backends::x11::window::object &_window,
+	awl::backends::x11::window::event::processor &_event_processor
 )
 :
 	sge::opengl::device_state::object(),
 	xrandr_state_(
-		_window,
-		_display_mode
+		sge::opengl::xrandr::create_state(
+			_window,
+			_event_processor,
+			_display_mode
+		)
 	)
 {
+	// TODO: Make this optional!
+	FCPPT_ASSERT_ERROR(
+		xrandr_state_
+	);
 }
 
 sge::opengl::x11::state::~state()
@@ -46,5 +58,5 @@ sge::renderer::display_mode::object const
 sge::opengl::x11::state::display_mode() const
 {
 	return
-		xrandr_state_.display_mode();
+		xrandr_state_->display_mode();
 }

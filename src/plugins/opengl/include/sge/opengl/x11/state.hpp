@@ -22,11 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_X11_STATE_HPP_INCLUDED
 
 #include <sge/opengl/device_state/object.hpp>
-#include <sge/opengl/xrandr/state.hpp>
+#include <sge/opengl/xrandr/state_fwd.hpp>
 #include <sge/renderer/display_mode/object_fwd.hpp>
 #include <sge/renderer/display_mode/optional_object_fwd.hpp>
 #include <awl/backends/x11/window/object_fwd.hpp>
+#include <awl/backends/x11/window/event/processor_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/scoped_ptr_impl.hpp>
 
 
 namespace sge
@@ -46,7 +48,8 @@ class state
 public:
 	state(
 		sge::renderer::display_mode::optional_object const &,
-		awl::backends::x11::window::object &
+		awl::backends::x11::window::object &,
+		awl::backends::x11::window::event::processor &
 	);
 
 	~state();
@@ -54,7 +57,13 @@ private:
 	sge::renderer::display_mode::object const
 	display_mode() const;
 
-	sge::opengl::xrandr::state const xrandr_state_;
+	typedef
+	fcppt::scoped_ptr<
+		sge::opengl::xrandr::state
+	>
+	xrandr_scoped_ptr;
+
+	xrandr_scoped_ptr const xrandr_state_;
 };
 
 }

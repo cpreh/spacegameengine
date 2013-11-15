@@ -18,11 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_XRANDR_VERSION_HPP_INCLUDED
-#define SGE_OPENGL_XRANDR_VERSION_HPP_INCLUDED
+#ifndef SGE_OPENGL_XRANDR_CRTCS_VIEW_HPP_INCLUDED
+#define SGE_OPENGL_XRANDR_CRTCS_VIEW_HPP_INCLUDED
 
-#include <sge/opengl/xrandr/version_fwd.hpp>
-#include <fcppt/io/ostream.hpp>
+#include <sge/opengl/xrandr/screen_resources_fwd.hpp>
+#include <fcppt/nonassignable.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <X11/extensions/Xrandr.h>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -32,36 +35,29 @@ namespace opengl
 namespace xrandr
 {
 
-class version
+class crtcs_view
 {
+	FCPPT_NONASSIGNABLE(
+		crtcs_view
+	);
 public:
-	version(
-		int major,
-		int minor
+	explicit
+	crtcs_view(
+		sge::opengl::xrandr::screen_resources const &
 	);
 
-	int
-	major() const;
+	typedef
+	RRCrtc const *
+	const_iterator;
 
-	int
-	minor() const;
+	const_iterator
+	begin() const;
+
+	const_iterator
+	end() const;
 private:
-	int major_;
-
-	int minor_;
+	sge::opengl::xrandr::screen_resources const &resources_;
 };
-
-bool
-operator<(
-	sge::opengl::xrandr::version const &,
-	sge::opengl::xrandr::version const &
-);
-
-fcppt::io::ostream &
-operator<<(
-	fcppt::io::ostream &,
-	sge::opengl::xrandr::version const &
-);
 
 }
 }

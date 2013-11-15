@@ -18,53 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_XRANDR_VERSION_HPP_INCLUDED
-#define SGE_OPENGL_XRANDR_VERSION_HPP_INCLUDED
+#include <sge/opengl/xrandr/extension.hpp>
+#include <sge/opengl/xrandr/get_extension.hpp>
+#include <sge/opengl/xrandr/optional_extension.hpp>
+#include <awl/backends/x11/display.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <X11/extensions/Xrandr.h>
+#include <fcppt/config/external_end.hpp>
 
-#include <sge/opengl/xrandr/version_fwd.hpp>
-#include <fcppt/io/ostream.hpp>
 
-
-namespace sge
+sge::opengl::xrandr::optional_extension const
+sge::opengl::xrandr::get_extension(
+	awl::backends::x11::display &_display
+)
 {
-namespace opengl
-{
-namespace xrandr
-{
+	int event_base_return, error_base_return;
 
-class version
-{
-public:
-	version(
-		int major,
-		int minor
-	);
-
-	int
-	major() const;
-
-	int
-	minor() const;
-private:
-	int major_;
-
-	int minor_;
-};
-
-bool
-operator<(
-	sge::opengl::xrandr::version const &,
-	sge::opengl::xrandr::version const &
-);
-
-fcppt::io::ostream &
-operator<<(
-	fcppt::io::ostream &,
-	sge::opengl::xrandr::version const &
-);
-
+	return
+		::XRRQueryExtension(
+			_display.get(),
+			&event_base_return,
+			&error_base_return
+		)
+		== False
+		?
+			sge::opengl::xrandr::optional_extension()
+		:
+			sge::opengl::xrandr::optional_extension(
+				sge::opengl::xrandr::extension(
+					sge::opengl::xrandr::extension::event_base_type(
+						event_base_return
+					)
+				)
+			)
+		;
 }
-}
-}
-
-#endif

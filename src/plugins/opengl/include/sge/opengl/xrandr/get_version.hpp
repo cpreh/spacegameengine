@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_XRANDR_GET_VERSION_HPP_INCLUDED
 #define SGE_OPENGL_XRANDR_GET_VERSION_HPP_INCLUDED
 
+#include <sge/opengl/xrandr/extension_fwd.hpp>
 #include <sge/opengl/xrandr/version_fwd.hpp>
 #include <awl/backends/x11/display_fwd.hpp>
 
@@ -34,6 +35,7 @@ namespace xrandr
 
 sge::opengl::xrandr::version const
 get_version(
+	sge::opengl::xrandr::extension const &,
 	awl::backends::x11::display &
 );
 

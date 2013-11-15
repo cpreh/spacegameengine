@@ -131,6 +131,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex/declaration_parameters_fwd.hpp>
 #include <sge/renderer/vertex/declaration_unique_ptr.hpp>
 #include <awl/window/object_fwd.hpp>
+#include <awl/window/event/processor_fwd.hpp>
 
 #if defined(SGE_RENDERER_HAVE_CG)
 #include <sge/cg/context/object_fwd.hpp>
@@ -157,6 +158,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::opengl::device::device(
 	sge::renderer::parameters::object const &_parameters,
 	awl::window::object &_window,
+	awl::window::event::processor &_event_processor,
 	sge::opengl::device_state::system &_device_system,
 	sge::opengl::context::system::object &_system_context,
 	sge::renderer::caps::device const &_caps
@@ -172,7 +174,8 @@ sge::opengl::device::device(
 	device_state_(
 		sge::opengl::device_state::create(
 			_parameters.display_mode(),
-			_window
+			_window,
+			_event_processor
 		)
 	),
 	context_(

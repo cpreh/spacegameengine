@@ -18,10 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_XRANDR_CHECK_EXTENSION_HPP_INCLUDED
-#define SGE_OPENGL_XRANDR_CHECK_EXTENSION_HPP_INCLUDED
+#ifndef SGE_OPENGL_XRANDR_MODES_VIEW_HPP_INCLUDED
+#define SGE_OPENGL_XRANDR_MODES_VIEW_HPP_INCLUDED
 
-#include <awl/backends/x11/display_fwd.hpp>
+#include <sge/opengl/xrandr/screen_resources_fwd.hpp>
+#include <fcppt/nonassignable.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <X11/extensions/Xrandr.h>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {
@@ -30,10 +35,29 @@ namespace opengl
 namespace xrandr
 {
 
-void
-check_extension(
-	awl::backends::x11::display &
-);
+class modes_view
+{
+	FCPPT_NONASSIGNABLE(
+		modes_view
+	);
+public:
+	explicit
+	modes_view(
+		sge::opengl::xrandr::screen_resources const &
+	);
+
+	typedef
+	XRRModeInfo const *
+	const_iterator;
+
+	const_iterator
+	begin() const;
+
+	const_iterator
+	end() const;
+private:
+	sge::opengl::xrandr::screen_resources const &resources_;
+};
 
 }
 }

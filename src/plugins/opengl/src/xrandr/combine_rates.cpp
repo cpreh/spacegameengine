@@ -18,31 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/xrandr/check_extension.hpp>
-#include <sge/renderer/exception.hpp>
-#include <awl/backends/x11/display.hpp>
-#include <fcppt/text.hpp>
+#include <sge/opengl/xrandr/combine_rates.hpp>
+#include <sge/renderer/display_mode/optional_refresh_rate.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <X11/extensions/Xrandr.h>
+#include <algorithm>
 #include <fcppt/config/external_end.hpp>
 
 
-void
-sge::opengl::xrandr::check_extension(
-	awl::backends::x11::display &_display
+sge::renderer::display_mode::optional_refresh_rate const
+sge::opengl::xrandr::combine_rates(
+	sge::renderer::display_mode::optional_refresh_rate const _rate_a,
+	sge::renderer::display_mode::optional_refresh_rate const _rate_b
 )
 {
-	int event_base_return, error_base_return;
+	if(
+		!_rate_a
+	)
+		return
+			_rate_b;
 
 	if(
-		::XRRQueryExtension(
-			_display.get(),
-			&event_base_return,
-			&error_base_return
-		)
-		== False
+		!_rate_b
 	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("xrandr extension not present!")
+		return
+			_rate_a;
+
+	return
+		sge::renderer::display_mode::optional_refresh_rate(
+			std::max(
+				*_rate_a,
+				*_rate_b
+			)
 		);
 }

@@ -18,53 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_XRANDR_VERSION_HPP_INCLUDED
-#define SGE_OPENGL_XRANDR_VERSION_HPP_INCLUDED
-
-#include <sge/opengl/xrandr/version_fwd.hpp>
-#include <fcppt/io/ostream.hpp>
+#include <sge/opengl/xrandr/extension.hpp>
 
 
-namespace sge
+sge::opengl::xrandr::extension::extension(
+	event_base_type const _event_base
+)
+:
+	event_base_(
+		_event_base
+	)
 {
-namespace opengl
-{
-namespace xrandr
-{
-
-class version
-{
-public:
-	version(
-		int major,
-		int minor
-	);
-
-	int
-	major() const;
-
-	int
-	minor() const;
-private:
-	int major_;
-
-	int minor_;
-};
-
-bool
-operator<(
-	sge::opengl::xrandr::version const &,
-	sge::opengl::xrandr::version const &
-);
-
-fcppt::io::ostream &
-operator<<(
-	fcppt::io::ostream &,
-	sge::opengl::xrandr::version const &
-);
-
-}
-}
 }
 
-#endif
+sge::opengl::xrandr::extension::event_base_type
+sge::opengl::xrandr::extension::event_base() const
+{
+	return
+		event_base_;
+}

@@ -18,11 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_XRANDR_VERSION_HPP_INCLUDED
-#define SGE_OPENGL_XRANDR_VERSION_HPP_INCLUDED
+#ifndef SGE_OPENGL_XRANDR_REFRESH_RATE_FROM_MODE_HPP_INCLUDED
+#define SGE_OPENGL_XRANDR_REFRESH_RATE_FROM_MODE_HPP_INCLUDED
 
-#include <sge/opengl/xrandr/version_fwd.hpp>
-#include <fcppt/io/ostream.hpp>
+#include <sge/renderer/display_mode/optional_refresh_rate_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <X11/extensions/Xrandr.h>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -32,35 +34,9 @@ namespace opengl
 namespace xrandr
 {
 
-class version
-{
-public:
-	version(
-		int major,
-		int minor
-	);
-
-	int
-	major() const;
-
-	int
-	minor() const;
-private:
-	int major_;
-
-	int minor_;
-};
-
-bool
-operator<(
-	sge::opengl::xrandr::version const &,
-	sge::opengl::xrandr::version const &
-);
-
-fcppt::io::ostream &
-operator<<(
-	fcppt::io::ostream &,
-	sge::opengl::xrandr::version const &
+sge::renderer::display_mode::optional_refresh_rate const
+refresh_rate_from_mode(
+	XRRModeInfo const &
 );
 
 }

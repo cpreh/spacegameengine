@@ -22,12 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device/parameters.hpp>
 #include <sge/renderer/parameters/object.hpp>
 #include <awl/window/object_fwd.hpp>
+#include <awl/window/event/processor_fwd.hpp>
 
 
 sge::renderer::device::parameters::parameters(
 	sge::renderer::adapter const _adapter,
 	sge::renderer::parameters::object const &_params,
-	awl::window::object &_window
+	awl::window::object &_window,
+	awl::window::event::processor &_window_processor
 )
 :
 	adapter_(
@@ -38,6 +40,9 @@ sge::renderer::device::parameters::parameters(
 	),
 	window_(
 		_window
+	),
+	window_processor_(
+		_window_processor
 	)
 {
 }
@@ -45,17 +50,27 @@ sge::renderer::device::parameters::parameters(
 sge::renderer::adapter const
 sge::renderer::device::parameters::adapter() const
 {
-	return adapter_;
+	return
+		adapter_;
 }
 
 sge::renderer::parameters::object const &
 sge::renderer::device::parameters::params() const
 {
-	return params_;
+	return
+		params_;
 }
 
 awl::window::object &
 sge::renderer::device::parameters::window() const
 {
-	return window_;
+	return
+		window_;
+}
+
+awl::window::event::processor &
+sge::renderer::device::parameters::window_processor() const
+{
+	return
+		window_processor_;
 }

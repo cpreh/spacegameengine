@@ -18,53 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_XRANDR_VERSION_HPP_INCLUDED
-#define SGE_OPENGL_XRANDR_VERSION_HPP_INCLUDED
+#include <sge/opengl/xrandr/input_mask.hpp>
+#include <sge/opengl/xrandr/select_input.hpp>
+#include <awl/backends/x11/display.hpp>
+#include <awl/backends/x11/window/object.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <X11/extensions/Xrandr.h>
+#include <fcppt/config/external_end.hpp>
 
-#include <sge/opengl/xrandr/version_fwd.hpp>
-#include <fcppt/io/ostream.hpp>
 
-
-namespace sge
+void
+sge::opengl::xrandr::select_input(
+	awl::backends::x11::display &_display,
+	awl::backends::x11::window::object &_window,
+	sge::opengl::xrandr::input_mask const _mask
+)
 {
-namespace opengl
-{
-namespace xrandr
-{
-
-class version
-{
-public:
-	version(
-		int major,
-		int minor
+	::XRRSelectInput(
+		_display.get(),
+		_window.get(),
+		_mask.get()
 	);
-
-	int
-	major() const;
-
-	int
-	minor() const;
-private:
-	int major_;
-
-	int minor_;
-};
-
-bool
-operator<(
-	sge::opengl::xrandr::version const &,
-	sge::opengl::xrandr::version const &
-);
-
-fcppt::io::ostream &
-operator<<(
-	fcppt::io::ostream &,
-	sge::opengl::xrandr::version const &
-);
-
 }
-}
-}
-
-#endif

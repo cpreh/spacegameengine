@@ -18,41 +18,54 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/xrandr/extension_fwd.hpp>
-#include <sge/opengl/xrandr/get_version.hpp>
-#include <sge/opengl/xrandr/version.hpp>
+#include <sge/opengl/xrandr/screen_resources.hpp>
 #include <sge/renderer/exception.hpp>
 #include <awl/backends/x11/display.hpp>
-#include <fcppt/text.hpp>
+#include <awl/backends/x11/window/object.hpp>
+#include <fcppt/assert/throw.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/Xrandr.h>
 #include <fcppt/config/external_end.hpp>
 
 
-sge::opengl::xrandr::version const
-sge::opengl::xrandr::get_version(
-	sge::opengl::xrandr::extension const &,
-	awl::backends::x11::display &_display
+sge::opengl::xrandr::screen_resources::screen_resources(
+	awl::backends::x11::display &_display,
+	awl::backends::x11::window::object &_window
 )
-{
-	int major, minor;
-
-	if(
-		::XRRQueryVersion(
+:
+	resources_(
+		::XRRGetScreenResources(
 			_display.get(),
-			&major,
-			&minor
+			_window.get()
 		)
-		!=
-		1
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("Querying the xrandr version failed!")
-		);
 
+	)
+{
+	FCPPT_ASSERT_THROW(
+		resources_
+		!=
+		nullptr,
+		sge::renderer::exception
+	);
+}
+
+sge::opengl::xrandr::screen_resources::~screen_resources()
+{
+	::XRRFreeScreenResources(
+		resources_
+	);
+}
+
+XRRScreenResources *
+sge::opengl::xrandr::screen_resources::get() const
+{
 	return
-		sge::opengl::xrandr::version(
-			major,
-			minor
-		);
+		resources_;
+}
+
+XRRScreenResources const &
+sge::opengl::xrandr::screen_resources::get_ref() const
+{
+	return
+		*resources_;
 }

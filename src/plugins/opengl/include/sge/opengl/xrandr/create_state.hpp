@@ -18,11 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_XRANDR_VERSION_HPP_INCLUDED
-#define SGE_OPENGL_XRANDR_VERSION_HPP_INCLUDED
+#ifndef SGE_OPENGL_XRANDR_CREATE_STATE_HPP_INCLUDED
+#define SGE_OPENGL_XRANDR_CREATE_STATE_HPP_INCLUDED
 
-#include <sge/opengl/xrandr/version_fwd.hpp>
-#include <fcppt/io/ostream.hpp>
+#include <sge/renderer/display_mode/optional_object_fwd.hpp>
+#include <sge/opengl/xrandr/state_unique_ptr.hpp>
+#include <awl/backends/x11/window/object_fwd.hpp>
+#include <awl/backends/x11/window/event/processor_fwd.hpp>
 
 
 namespace sge
@@ -32,35 +34,11 @@ namespace opengl
 namespace xrandr
 {
 
-class version
-{
-public:
-	version(
-		int major,
-		int minor
-	);
-
-	int
-	major() const;
-
-	int
-	minor() const;
-private:
-	int major_;
-
-	int minor_;
-};
-
-bool
-operator<(
-	sge::opengl::xrandr::version const &,
-	sge::opengl::xrandr::version const &
-);
-
-fcppt::io::ostream &
-operator<<(
-	fcppt::io::ostream &,
-	sge::opengl::xrandr::version const &
+sge::opengl::xrandr::state_unique_ptr
+create_state(
+	awl::backends::x11::window::object &,
+	awl::backends::x11::window::event::processor &,
+	sge::renderer::display_mode::optional_object const &
 );
 
 }

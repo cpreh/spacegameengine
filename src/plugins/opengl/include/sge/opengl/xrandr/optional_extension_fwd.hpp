@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_XRANDR_VERSION_HPP_INCLUDED
-#define SGE_OPENGL_XRANDR_VERSION_HPP_INCLUDED
+#ifndef SGE_OPENGL_XRANDR_OPTIONAL_EXTENSION_FWD_HPP_INCLUDED
+#define SGE_OPENGL_XRANDR_OPTIONAL_EXTENSION_FWD_HPP_INCLUDED
 
-#include <sge/opengl/xrandr/version_fwd.hpp>
-#include <fcppt/io/ostream.hpp>
+#include <sge/opengl/xrandr/extension_fwd.hpp>
+#include <fcppt/optional_fwd.hpp>
 
 
 namespace sge
@@ -32,36 +32,11 @@ namespace opengl
 namespace xrandr
 {
 
-class version
-{
-public:
-	version(
-		int major,
-		int minor
-	);
-
-	int
-	major() const;
-
-	int
-	minor() const;
-private:
-	int major_;
-
-	int minor_;
-};
-
-bool
-operator<(
-	sge::opengl::xrandr::version const &,
-	sge::opengl::xrandr::version const &
-);
-
-fcppt::io::ostream &
-operator<<(
-	fcppt::io::ostream &,
-	sge::opengl::xrandr::version const &
-);
+typedef
+fcppt::optional<
+	sge::opengl::xrandr::extension
+>
+optional_extension;
 
 }
 }

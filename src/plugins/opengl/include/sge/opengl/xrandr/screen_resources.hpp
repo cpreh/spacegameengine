@@ -18,11 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_XRANDR_VERSION_HPP_INCLUDED
-#define SGE_OPENGL_XRANDR_VERSION_HPP_INCLUDED
+#ifndef SGE_OPENGL_XRANDR_SCREEN_RESOURCES_HPP_INCLUDED
+#define SGE_OPENGL_XRANDR_SCREEN_RESOURCES_HPP_INCLUDED
 
-#include <sge/opengl/xrandr/version_fwd.hpp>
-#include <fcppt/io/ostream.hpp>
+#include <sge/opengl/xrandr/screen_resources_fwd.hpp>
+#include <awl/backends/x11/display_fwd.hpp>
+#include <awl/backends/x11/window/object_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <X11/extensions/Xrandr.h>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -32,36 +37,27 @@ namespace opengl
 namespace xrandr
 {
 
-class version
+class screen_resources
 {
+	FCPPT_NONCOPYABLE(
+		screen_resources
+	);
 public:
-	version(
-		int major,
-		int minor
+	screen_resources(
+		awl::backends::x11::display &,
+		awl::backends::x11::window::object &
 	);
 
-	int
-	major() const;
+	~screen_resources();
 
-	int
-	minor() const;
+	XRRScreenResources *
+	get() const;
+
+	XRRScreenResources const &
+	get_ref() const;
 private:
-	int major_;
-
-	int minor_;
+	XRRScreenResources *const resources_;
 };
-
-bool
-operator<(
-	sge::opengl::xrandr::version const &,
-	sge::opengl::xrandr::version const &
-);
-
-fcppt::io::ostream &
-operator<<(
-	fcppt::io::ostream &,
-	sge::opengl::xrandr::version const &
-);
 
 }
 }

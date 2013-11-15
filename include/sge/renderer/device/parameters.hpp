@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device/parameters_fwd.hpp>
 #include <sge/renderer/parameters/object.hpp>
 #include <awl/window/object_fwd.hpp>
+#include <awl/window/event/processor_fwd.hpp>
 #include <fcppt/nonassignable.hpp>
 
 
@@ -46,7 +47,8 @@ public:
 	parameters(
 		sge::renderer::adapter adapter,
 		sge::renderer::parameters::object const &params,
-		awl::window::object &window
+		awl::window::object &window,
+		awl::window::event::processor &
 	);
 
 	SGE_RENDERER_SYMBOL
@@ -60,12 +62,18 @@ public:
 	SGE_RENDERER_SYMBOL
 	awl::window::object &
 	window() const;
+
+	SGE_RENDERER_SYMBOL
+	awl::window::event::processor &
+	window_processor() const;
 private:
 	sge::renderer::adapter adapter_;
 
 	sge::renderer::parameters::object const params_;
 
 	awl::window::object &window_;
+
+	awl::window::event::processor &window_processor_;
 };
 
 }

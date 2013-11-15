@@ -18,53 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_XRANDR_VERSION_HPP_INCLUDED
-#define SGE_OPENGL_XRANDR_VERSION_HPP_INCLUDED
-
-#include <sge/opengl/xrandr/version_fwd.hpp>
-#include <fcppt/io/ostream.hpp>
+#include <sge/opengl/xrandr/modes_view.hpp>
+#include <sge/opengl/xrandr/screen_resources.hpp>
 
 
-namespace sge
+sge::opengl::xrandr::modes_view::modes_view(
+	sge::opengl::xrandr::screen_resources const &_resources
+)
+:
+	resources_(
+		_resources
+	)
 {
-namespace opengl
-{
-namespace xrandr
-{
-
-class version
-{
-public:
-	version(
-		int major,
-		int minor
-	);
-
-	int
-	major() const;
-
-	int
-	minor() const;
-private:
-	int major_;
-
-	int minor_;
-};
-
-bool
-operator<(
-	sge::opengl::xrandr::version const &,
-	sge::opengl::xrandr::version const &
-);
-
-fcppt::io::ostream &
-operator<<(
-	fcppt::io::ostream &,
-	sge::opengl::xrandr::version const &
-);
-
-}
-}
 }
 
-#endif
+sge::opengl::xrandr::modes_view::const_iterator
+sge::opengl::xrandr::modes_view::begin() const
+{
+	return
+		resources_.get_ref().modes;
+}
+
+sge::opengl::xrandr::modes_view::const_iterator
+sge::opengl::xrandr::modes_view::end() const
+{
+	return
+		this->begin()
+		+
+		resources_.get_ref().nmode;
+}

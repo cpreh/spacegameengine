@@ -23,12 +23,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/device_state/object_unique_ptr.hpp>
 #include <sge/renderer/display_mode/optional_object_fwd.hpp>
 #include <awl/window/object_fwd.hpp>
+#include <awl/window/event/processor_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/config/platform.hpp>
 #if defined(SGE_OPENGL_HAVE_X11)
 #include <sge/opengl/x11/state.hpp>
 #include <awl/backends/x11/window/object.hpp>
+#include <awl/backends/x11/window/event/processor.hpp>
 #include <awl/window/object.hpp>
+#include <fcppt/cast/static_downcast.hpp>
 #elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 #include <sge/opengl/windows/state.hpp>
 #include <awl/backends/windows/window/object.hpp>
@@ -43,7 +46,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::opengl::device_state::object_unique_ptr
 sge::opengl::device_state::create(
 	sge::renderer::display_mode::optional_object const &_display_mode,
-	awl::window::object &_window
+	awl::window::object &_window,
+	awl::window::event::processor &_event_processor
 )
 {
 #if defined(SGE_OPENGL_HAVE_X11)
@@ -53,10 +57,15 @@ sge::opengl::device_state::create(
 				sge::opengl::x11::state
 			>(
 				_display_mode,
-				dynamic_cast<
+				fcppt::cast::static_downcast<
 					awl::backends::x11::window::object &
 				>(
 					_window
+				),
+				fcppt::cast::static_downcast<
+					awl::backends::x11::window::event::processor &
+				>(
+					_event_processor
 				)
 			)
 		);

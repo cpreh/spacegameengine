@@ -1069,30 +1069,57 @@ set(
 
 set(
 	SGE_OPENGL_XRANDR_FILES
-	src/plugins/opengl/include/sge/opengl/xrandr/check_extension.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/choose_resolution.hpp
+	src/plugins/opengl/include/sge/opengl/xrandr/combine_rates.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/configuration.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/configuration_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/xrandr/create_state.hpp
+	src/plugins/opengl/include/sge/opengl/xrandr/crtc_info.hpp
+	src/plugins/opengl/include/sge/opengl/xrandr/crtcs_view.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/current_display_mode.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/current_mode.hpp
+	src/plugins/opengl/include/sge/opengl/xrandr/extension.hpp
+	src/plugins/opengl/include/sge/opengl/xrandr/extension_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/xrandr/get_extension.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/get_version.hpp
+	src/plugins/opengl/include/sge/opengl/xrandr/input_mask.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/mode.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/mode_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/xrandr/modes_view.hpp
+	src/plugins/opengl/include/sge/opengl/xrandr/optional_extension.hpp
+	src/plugins/opengl/include/sge/opengl/xrandr/optional_extension_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/xrandr/refresh_rate.hpp
+	src/plugins/opengl/include/sge/opengl/xrandr/refresh_rate_from_mode.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/resolution.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/resolution_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/resolution_unique_ptr.hpp
+	src/plugins/opengl/include/sge/opengl/xrandr/screen_resources.hpp
+	src/plugins/opengl/include/sge/opengl/xrandr/screen_resources_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/xrandr/select_input.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/set_resolution.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/state.hpp
+	src/plugins/opengl/include/sge/opengl/xrandr/state_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/xrandr/state_unique_ptr.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/version.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/version_fwd.hpp
-	src/plugins/opengl/src/xrandr/check_extension.cpp
 	src/plugins/opengl/src/xrandr/choose_resolution.cpp
+	src/plugins/opengl/src/xrandr/combine_rates.cpp
 	src/plugins/opengl/src/xrandr/configuration.cpp
+	src/plugins/opengl/src/xrandr/create_state.cpp
+	src/plugins/opengl/src/xrandr/crtc_info.cpp
+	src/plugins/opengl/src/xrandr/crtcs_view.cpp
 	src/plugins/opengl/src/xrandr/current_display_mode.cpp
 	src/plugins/opengl/src/xrandr/current_mode.cpp
+	src/plugins/opengl/src/xrandr/extension.cpp
+	src/plugins/opengl/src/xrandr/get_extension.cpp
 	src/plugins/opengl/src/xrandr/get_version.cpp
 	src/plugins/opengl/src/xrandr/mode.cpp
+	src/plugins/opengl/src/xrandr/modes_view.cpp
+	src/plugins/opengl/src/xrandr/refresh_rate.cpp
+	src/plugins/opengl/src/xrandr/refresh_rate_from_mode.cpp
 	src/plugins/opengl/src/xrandr/resolution.cpp
+	src/plugins/opengl/src/xrandr/screen_resources.cpp
+	src/plugins/opengl/src/xrandr/select_input.cpp
 	src/plugins/opengl/src/xrandr/set_resolution.cpp
 	src/plugins/opengl/src/xrandr/state.cpp
 	src/plugins/opengl/src/xrandr/version.cpp

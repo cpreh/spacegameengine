@@ -18,41 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/xrandr/extension_fwd.hpp>
-#include <sge/opengl/xrandr/get_version.hpp>
-#include <sge/opengl/xrandr/version.hpp>
-#include <sge/renderer/exception.hpp>
-#include <awl/backends/x11/display.hpp>
-#include <fcppt/text.hpp>
+#include <sge/opengl/xrandr/refresh_rate_from_mode.hpp>
+#include <sge/renderer/display_mode/optional_refresh_rate.hpp>
+#include <sge/renderer/display_mode/refresh_rate.hpp>
+#include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/Xrandr.h>
 #include <fcppt/config/external_end.hpp>
 
 
-sge::opengl::xrandr::version const
-sge::opengl::xrandr::get_version(
-	sge::opengl::xrandr::extension const &,
-	awl::backends::x11::display &_display
+sge::renderer::display_mode::optional_refresh_rate const
+sge::opengl::xrandr::refresh_rate_from_mode(
+	XRRModeInfo const &_info
 )
 {
-	int major, minor;
-
-	if(
-		::XRRQueryVersion(
-			_display.get(),
-			&major,
-			&minor
-		)
-		!=
-		1
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("Querying the xrandr version failed!")
-		);
+	unsigned int const denom(
+		_info.hTotal
+		*
+		_info.vTotal
+	);
 
 	return
-		sge::opengl::xrandr::version(
-			major,
-			minor
-		);
+		denom
+		==
+		0u
+		?
+			sge::renderer::display_mode::optional_refresh_rate()
+		:
+			sge::renderer::display_mode::optional_refresh_rate(
+				fcppt::strong_typedef_construct_cast<
+					sge::renderer::display_mode::refresh_rate
+				>(
+					// TODO: We should round this somehow!
+					_info.dotClock
+					/
+					denom
+				)
+			)
+		;
 }

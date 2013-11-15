@@ -19,6 +19,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/xrandr/version.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/io/ostream.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <ostream>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
+
+#undef major
+#undef minor
 
 
 sge::opengl::xrandr::version::version(
@@ -38,11 +47,58 @@ sge::opengl::xrandr::version::version(
 int
 sge::opengl::xrandr::version::major() const
 {
-	return major_;
+	return
+		major_;
 }
 
 int
 sge::opengl::xrandr::version::minor() const
 {
-	return minor_;
+	return
+		minor_;
+}
+
+bool
+sge::opengl::xrandr::operator<(
+	sge::opengl::xrandr::version const &_left,
+	sge::opengl::xrandr::version const &_right
+)
+{
+	auto const to_pair(
+		[](
+			sge::opengl::xrandr::version const &_version
+		)
+		{
+			return
+				std::make_pair(
+					_version.major(),
+					_version.minor()
+				);
+		}
+	);
+
+	return
+		to_pair(
+			_left
+		)
+		<
+		to_pair(
+			_right
+		);
+}
+
+fcppt::io::ostream &
+sge::opengl::xrandr::operator<<(
+	fcppt::io::ostream &_stream,
+	sge::opengl::xrandr::version const &_version
+)
+{
+	return
+		_stream
+		<<
+		_version.major()
+		<<
+		FCPPT_TEXT('.')
+		<<
+		_version.minor();
 }
