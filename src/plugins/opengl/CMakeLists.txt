@@ -1078,7 +1078,6 @@ set(
 	src/plugins/opengl/include/sge/opengl/xrandr/create_state.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/crtc_info.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/crtcs_view.hpp
-	src/plugins/opengl/include/sge/opengl/xrandr/current_display_mode.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/current_mode.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/display_mode.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/extension.hpp
@@ -1114,7 +1113,6 @@ set(
 	src/plugins/opengl/src/xrandr/create_state.cpp
 	src/plugins/opengl/src/xrandr/crtc_info.cpp
 	src/plugins/opengl/src/xrandr/crtcs_view.cpp
-	src/plugins/opengl/src/xrandr/current_display_mode.cpp
 	src/plugins/opengl/src/xrandr/current_mode.cpp
 	src/plugins/opengl/src/xrandr/display_mode.cpp
 	src/plugins/opengl/src/xrandr/extension.cpp
