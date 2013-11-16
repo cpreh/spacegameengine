@@ -63,7 +63,7 @@ add_sge_base_library(
 	"sgecore"
 	"${fcppt_core_TARGET};${fcppt_filesystem_TARGET};${awl_TARGET}"
 	"sgecore"
-	""
+	"${Boost_FILESYSTEM_LIBRARIES};${Boost_SYSTEM_LIBRARIES}"
 	"${CMAKE_CURRENT_SOURCE_DIR}/include"
 	""
 	""

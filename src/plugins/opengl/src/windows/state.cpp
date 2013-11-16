@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/windows/change_display_settings.hpp>
 #include <sge/opengl/windows/current_display_mode.hpp>
 #include <sge/opengl/windows/state.hpp>
-#include <sge/renderer/display_mode/object.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 
 
@@ -44,10 +43,11 @@ sge::opengl::windows::state::~state()
 {
 }
 
-sge::renderer::display_mode::object const
+sge::renderer::display_mode::optional_object const
 sge::opengl::windows::state::display_mode() const
 {
-	// TODO!
 	return
-		sge::opengl::windows::current_display_mode();
+		sge::renderer::display_mode::optional_object(
+			sge::opengl::windows::current_display_mode()
+		);
 }

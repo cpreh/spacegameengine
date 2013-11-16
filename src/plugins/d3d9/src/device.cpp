@@ -73,7 +73,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/depth_stencil_buffer/surface_unique_ptr.hpp>
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/device/parameters.hpp>
-#include <sge/renderer/display_mode/object.hpp>
+#include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/index/buffer_parameters_fwd.hpp>
 #include <sge/renderer/index/buffer_unique_ptr.hpp>
 #include <sge/renderer/occlusion_query/object.hpp>
@@ -596,12 +596,14 @@ sge::d3d9::device::caps() const
 	return caps_;
 }
 
-sge::renderer::display_mode::object const
+sge::renderer::display_mode::optional_object const
 sge::d3d9::device::display_mode() const
 {
 	return
-		sge::d3d9::current_display_mode(
-			*device_
+		sge::renderer::display_mode::optional_object(
+			sge::d3d9::current_display_mode(
+				*device_
+			)
 		);
 }
 

@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/device_state/context_fwd.hpp>
 #include <sge/opengl/device_state/object.hpp>
-#include <sge/renderer/display_mode/object_fwd.hpp>
 #include <sge/renderer/display_mode/optional_object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -50,7 +49,7 @@ public:
 
 	~state();
 private:
-	sge::renderer::display_mode::object const
+	sge::renderer::display_mode::optional_object const
 	display_mode() const;
 };
 
