@@ -69,6 +69,7 @@ function(
 
 	transform_sge_link_targets(
 		"${SGE_LIBRARIES}"
+		SGE_LIBRARIES_RESULT
 	)
 
 	if(
@@ -92,7 +93,7 @@ function(
 	target_link_libraries(
 		${FULL_NAME}
 		${ADDITIONAL_LIBRARIES}
-		${SGELIBS_TARGETS_RESULT}
+		${SGE_LIBRARIES_RESULT}
 	)
 
 	if(

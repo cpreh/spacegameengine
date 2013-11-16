@@ -32,9 +32,10 @@ endmacro()
 macro(
 	transform_sge_link_targets
 	SGELIBS
+	RESULT_VAR
 )
 	unset(
-		SGELIBS_TARGETS_RESULT
+		${RESULT_VAR}
 	)
 
 	foreach(
@@ -45,9 +46,10 @@ macro(
 			${CURLIB}
 		)
 
-		set(
-			SGELIBS_TARGETS_RESULT
-			"${SGELIBS_TARGETS_RESULT};${${CURLIB}_TARGET}"
+		list(
+			APPEND
+			${RESULT_VAR}
+			"${${CURLIB}_TARGET}"
 		)
 	endforeach()
 endmacro()
@@ -155,11 +157,12 @@ function(
 )
 	transform_sge_link_targets(
 		"${SGE_DEPS}"
+		SGE_DEPS_RESULT
 	)
 
 	foreach(
 		CUR_DEP
-		${SGELIBS_TARGETS_RESULT}
+		${SGE_DEPS_RESULT}
 	)
 		get_target_property(
 			CUR_INCLUDES
@@ -249,15 +252,21 @@ function(
 
 	transform_sge_link_targets(
 		"${SGE_DEPS}"
+		SGE_DEPS_RESULT
+	)
+
+	transform_sge_link_targets(
+		"${TRANSITIVE_SGE_DEPS}"
+		TRANSITIVE_SGE_DEPS_RESULT
 	)
 
 	target_link_libraries(
 		${SGE_LIB_NAME}
 		PRIVATE
 		${ADDITIONAL_DEPS}
-		${SGELIBS_TARGETS_RESULT}
+		${SGE_DEPS_RESULT}
 		INTERFACE
-		${TRANSITIVE_SGE_DEPS}
+		${TRANSITIVE_SGE_DEPS_RESULT}
 		${TRANSITIVE_ADDITIONAL_DEPS}
 	)
 
@@ -694,6 +703,7 @@ function(
 
 	transform_sge_link_targets(
 		"${SGE_DEPS}"
+		SGE_DEPS_RESULT
 	)
 
 	if(
@@ -718,7 +728,7 @@ function(
 		${SGE_PLUGIN_NAME}
 		PRIVATE
 		${ADDITONAL_DEPS}
-		${SGELIBS_TARGETS_RESULT}
+		${SGE_DEPS_RESULT}
 	)
 
 	install(

@@ -56,6 +56,7 @@ function(
 
 	transform_sge_link_targets(
 		"${SGE_LIBRARIES}"
+		SGE_LIBRARIES_RESULT
 	)
 
 	if(
@@ -69,7 +70,7 @@ function(
 	target_link_libraries(
 		${TESTNAME}
 		${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
-		${SGELIBS_TARGETS_RESULT}
+		${SGE_LIBRARIES_RESULT}
 		${ADDITIONAL_LIBRARIES}
 	)
 
