@@ -253,20 +253,13 @@ function(
 
 	target_link_libraries(
 		${SGE_LIB_NAME}
+		PRIVATE
 		${ADDITIONAL_DEPS}
 		${SGELIBS_TARGETS_RESULT}
+		INTERFACE
+		${TRANSITIVE_SGE_DEPS}
+		${TRANSITIVE_ADDITIONAL_DEPS}
 	)
-
-	if(
-		NOT "${VARIANT}" STREQUAL "STATIC"
-	)
-		set_target_properties(
-			${SGE_LIB_NAME}
-			PROPERTIES
-			LINK_INTERFACE_LIBRARIES
-			""
-		)
-	endif()
 
 	sge_add_include_dirs(
 		${SGE_LIB_NAME}
@@ -285,13 +278,6 @@ function(
 	sge_add_transitive_include_dirs(
 		${SGE_LIB_NAME}
 		"${SGE_DEPS}"
-	)
-
-	target_link_libraries(
-		${SGE_LIB_NAME}
-		LINK_INTERFACE_LIBRARIES
-		${TRANSITIVE_SGE_DEPS}
-		${TRANSITIVE_ADDITIONAL_DEPS}
 	)
 
 	#Dummy and example libs should not be exported
@@ -730,6 +716,7 @@ function(
 
 	target_link_libraries(
 		${SGE_PLUGIN_NAME}
+		PRIVATE
 		${ADDITONAL_DEPS}
 		${SGELIBS_TARGETS_RESULT}
 	)
