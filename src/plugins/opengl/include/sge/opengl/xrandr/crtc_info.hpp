@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_XRANDR_CRTC_INFO_HPP_INCLUDED
 
 #include <sge/opengl/xrandr/screen_resources_fwd.hpp>
+#include <sge/renderer/display_mode/pixel_size_fwd.hpp>
 #include <awl/backends/x11/display_fwd.hpp>
 #include <awl/window/rect_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -53,6 +54,9 @@ public:
 
 	awl::window::rect const
 	rect() const;
+
+	sge::renderer::display_mode::pixel_size const
+	pixel_size() const;
 
 	RRMode
 	mode() const;

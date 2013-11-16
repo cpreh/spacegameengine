@@ -18,31 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/xrandr/crtc_info.hpp>
+#include <sge/opengl/xrandr/output_info.hpp>
 #include <sge/opengl/xrandr/screen_resources.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/screen_size.hpp>
-#include <sge/renderer/display_mode/pixel_size.hpp>
+#include <sge/renderer/screen_unit.hpp>
+#include <sge/renderer/display_mode/dimensions.hpp>
 #include <awl/backends/x11/display.hpp>
-#include <awl/window/rect.hpp>
 #include <fcppt/assert/throw.hpp>
-#include <fcppt/cast/to_unsigned.hpp>
+#include <fcppt/cast/size.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/Xrandr.h>
 #include <fcppt/config/external_end.hpp>
 
 
-sge::opengl::xrandr::crtc_info::crtc_info(
+sge::opengl::xrandr::output_info::output_info(
 	awl::backends::x11::display &_display,
-	sge::opengl::xrandr::screen_resources const &_screen_resources,
-	RRCrtc const _crtc
+	sge::opengl::xrandr::screen_resources const &_resources,
+	RROutput const _output
 )
 :
 	info_(
-		::XRRGetCrtcInfo(
+		::XRRGetOutputInfo(
 			_display.get(),
-			_screen_resources.get(),
-			_crtc
+			_resources.get(),
+			_output
 		)
 	)
 {
@@ -54,48 +54,29 @@ sge::opengl::xrandr::crtc_info::crtc_info(
 	);
 }
 
-sge::opengl::xrandr::crtc_info::~crtc_info()
+sge::opengl::xrandr::output_info::~output_info()
 {
-	::XRRFreeCrtcInfo(
+	::XRRFreeOutputInfo(
 		info_
 	);
 }
 
-awl::window::rect const
-sge::opengl::xrandr::crtc_info::rect() const
+sge::renderer::display_mode::dimensions const
+sge::opengl::xrandr::output_info::dimensions() const
 {
 	return
-		awl::window::rect(
-			awl::window::rect::vector(
-				info_->x,
-				info_->y
-			),
-			awl::window::rect::dim(
-				fcppt::cast::to_signed(
-					info_->width
+		sge::renderer::display_mode::dimensions(
+			sge::renderer::screen_size(
+				fcppt::cast::size<
+					sge::renderer::screen_unit
+				>(
+					info_->mm_width
 				),
-				fcppt::cast::to_signed(
-					info_->height
+				fcppt::cast::size<
+					sge::renderer::screen_unit
+				>(
+					info_->mm_height
 				)
 			)
 		);
-}
-
-sge::renderer::display_mode::pixel_size const
-sge::opengl::xrandr::crtc_info::pixel_size() const
-{
-	return
-		sge::renderer::display_mode::pixel_size(
-			sge::renderer::screen_size(
-				info_->width,
-				info_->height
-			)
-		);
-}
-
-RRMode
-sge::opengl::xrandr::crtc_info::mode() const
-{
-	return
-		info_->mode;
 }

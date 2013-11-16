@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_DEVICE_STATE_OBJECT_HPP_INCLUDED
 
 #include <sge/opengl/device_state/object_fwd.hpp>
-#include <sge/renderer/display_mode/object_fwd.hpp>
+#include <sge/renderer/display_mode/optional_object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -42,7 +42,7 @@ protected:
 	object();
 public:
 	virtual
-	sge::renderer::display_mode::object const
+	sge::renderer::display_mode::optional_object const
 	display_mode() const = 0;
 
 	virtual

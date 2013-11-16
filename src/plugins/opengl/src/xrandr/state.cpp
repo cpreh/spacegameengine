@@ -20,14 +20,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/xrandr/choose_resolution.hpp>
 #include <sge/opengl/xrandr/current_display_mode.hpp>
+#include <sge/opengl/xrandr/display_mode.hpp>
 #include <sge/opengl/xrandr/extension.hpp>
 #include <sge/opengl/xrandr/input_mask.hpp>
-#include <sge/opengl/xrandr/refresh_rate.hpp>
 #include <sge/opengl/xrandr/resolution.hpp>
 #include <sge/opengl/xrandr/resolution_unique_ptr.hpp>
 #include <sge/opengl/xrandr/select_input.hpp>
 #include <sge/opengl/xrandr/state.hpp>
-#include <sge/renderer/display_mode/object.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <awl/backends/x11/default_screen.hpp>
 #include <awl/backends/x11/window/object.hpp>
@@ -70,7 +69,7 @@ sge::opengl::xrandr::state::state(
 		:
 			sge::opengl::xrandr::resolution_unique_ptr()
 	),
-	refresh_rate_(),
+	display_mode_(),
 	change_connection_(
 		_event_processor.register_callback(
 			awl::backends::x11::window::event::type(
@@ -126,13 +125,11 @@ sge::opengl::xrandr::state::~state()
 {
 }
 
-sge::renderer::display_mode::object const
+sge::renderer::display_mode::optional_object const
 sge::opengl::xrandr::state::display_mode() const
 {
 	return
-		sge::opengl::xrandr::current_display_mode(
-			config_
-		);
+		display_mode_;
 }
 
 void
@@ -154,10 +151,9 @@ sge::opengl::xrandr::state::configure_callback(
 void
 sge::opengl::xrandr::state::update()
 {
-	/*
-	refresh_rate_ =
-		sge::opengl::xrandr::refresh_rate(
+	display_mode_ =
+		sge::opengl::xrandr::display_mode(
 			display_,
 			window_
-		);*/
+		);
 }

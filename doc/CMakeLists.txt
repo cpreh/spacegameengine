@@ -1818,6 +1818,8 @@ set(
 	include/sge/renderer/display_mode/optional_dimensions_fwd.hpp
 	include/sge/renderer/display_mode/optional_object.hpp
 	include/sge/renderer/display_mode/optional_object_fwd.hpp
+	include/sge/renderer/display_mode/optional_pixel_size.hpp
+	include/sge/renderer/display_mode/optional_pixel_size_fwd.hpp
 	include/sge/renderer/display_mode/optional_refresh_rate.hpp
 	include/sge/renderer/display_mode/optional_refresh_rate_fwd.hpp
 	include/sge/renderer/display_mode/output.hpp

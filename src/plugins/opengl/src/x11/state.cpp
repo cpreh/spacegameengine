@@ -22,11 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/x11/state.hpp>
 #include <sge/opengl/xrandr/create_state.hpp>
 #include <sge/opengl/xrandr/state.hpp>
-#include <sge/renderer/display_mode/object.hpp>
-#include <sge/renderer/display_mode/optional_object_fwd.hpp>
+#include <sge/renderer/display_mode/optional_object.hpp>
 #include <awl/backends/x11/window/object_fwd.hpp>
 #include <awl/backends/x11/window/event/processor_fwd.hpp>
-#include <fcppt/assert/error.hpp>
 
 
 sge::opengl::x11::state::state(
@@ -44,19 +42,20 @@ sge::opengl::x11::state::state(
 		)
 	)
 {
-	// TODO: Make this optional!
-	FCPPT_ASSERT_ERROR(
-		xrandr_state_
-	);
 }
 
 sge::opengl::x11::state::~state()
 {
 }
 
-sge::renderer::display_mode::object const
+sge::renderer::display_mode::optional_object const
 sge::opengl::x11::state::display_mode() const
 {
 	return
-		xrandr_state_->display_mode();
+		xrandr_state_
+		?
+			xrandr_state_->display_mode()
+		:
+			sge::renderer::display_mode::optional_object()
+		;
 }

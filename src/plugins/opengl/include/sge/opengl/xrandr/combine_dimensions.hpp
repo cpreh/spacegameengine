@@ -18,23 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/display_mode/desired_fps.hpp>
-#include <sge/renderer/display_mode/optional_object.hpp>
-#include <sge/renderer/display_mode/refresh_rate_value.hpp>
+#ifndef SGE_OPENGL_XRANDR_COMBINE_DIMENSIONS_HPP_INCLUDED
+#define SGE_OPENGL_XRANDR_COMBINE_DIMENSIONS_HPP_INCLUDED
+
+#include <sge/renderer/display_mode/dimensions_fwd.hpp>
+#include <sge/renderer/display_mode/optional_dimensions_fwd.hpp>
 
 
-sge::renderer::display_mode::refresh_rate_value
-sge::renderer::display_mode::desired_fps(
-	sge::renderer::display_mode::optional_object const &_display_mode
-)
+namespace sge
 {
-	return
-		_display_mode
-		&&
-		_display_mode->refresh_rate()
-		?
-			_display_mode->refresh_rate()->get()
-		:
-			60u
-		;
+namespace opengl
+{
+namespace xrandr
+{
+
+sge::renderer::display_mode::optional_dimensions const
+combine_dimensions(
+	sge::renderer::display_mode::optional_dimensions,
+	sge::renderer::display_mode::dimensions
+);
+
 }
+}
+}
+
+#endif

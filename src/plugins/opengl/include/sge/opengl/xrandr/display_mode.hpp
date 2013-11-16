@@ -18,23 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/display_mode/desired_fps.hpp>
-#include <sge/renderer/display_mode/optional_object.hpp>
-#include <sge/renderer/display_mode/refresh_rate_value.hpp>
+#ifndef SGE_OPENGL_XRANDR_DISPLAY_MODE_HPP_INCLUDED
+#define SGE_OPENGL_XRANDR_DISPLAY_MODE_HPP_INCLUDED
+
+#include <sge/renderer/display_mode/optional_object_fwd.hpp>
+#include <awl/backends/x11/display_fwd.hpp>
+#include <awl/backends/x11/window/object_fwd.hpp>
 
 
-sge::renderer::display_mode::refresh_rate_value
-sge::renderer::display_mode::desired_fps(
-	sge::renderer::display_mode::optional_object const &_display_mode
-)
+namespace sge
 {
-	return
-		_display_mode
-		&&
-		_display_mode->refresh_rate()
-		?
-			_display_mode->refresh_rate()->get()
-		:
-			60u
-		;
+namespace opengl
+{
+namespace xrandr
+{
+
+sge::renderer::display_mode::optional_object const
+display_mode(
+	awl::backends::x11::display &,
+	awl::backends::x11::window::object &
+);
+
 }
+}
+}
+
+#endif

@@ -63,7 +63,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/depth_stencil_buffer/surface.hpp>
 #include <sge/renderer/depth_stencil_buffer/surface_parameters_fwd.hpp>
 #include <sge/renderer/depth_stencil_buffer/surface_unique_ptr.hpp>
-#include <sge/renderer/display_mode/object.hpp>
+#include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/index/buffer.hpp>
 #include <sge/renderer/index/buffer_parameters_fwd.hpp>
 #include <sge/renderer/index/buffer_unique_ptr.hpp>
@@ -606,7 +606,7 @@ sge::opengl::device::create_transform_state(
 		);
 }
 
-sge::renderer::display_mode::object const
+sge::renderer::display_mode::optional_object const
 sge::opengl::device::display_mode() const
 {
 	return

@@ -22,8 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode/optional_refresh_rate.hpp>
 #include <sge/renderer/display_mode/refresh_rate.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
+#include <fcppt/cast/int_to_float.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/Xrandr.h>
+#include <cmath>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -32,11 +34,15 @@ sge::opengl::xrandr::refresh_rate_from_mode(
 	XRRModeInfo const &_info
 )
 {
-	unsigned int const denom(
+	unsigned long long const denom(
 		_info.hTotal
 		*
 		_info.vTotal
 	);
+
+	typedef
+	double
+	float_type;
 
 	return
 		denom
@@ -49,10 +55,19 @@ sge::opengl::xrandr::refresh_rate_from_mode(
 				fcppt::strong_typedef_construct_cast<
 					sge::renderer::display_mode::refresh_rate
 				>(
-					// TODO: We should round this somehow!
-					_info.dotClock
-					/
-					denom
+					std::round(
+						fcppt::cast::int_to_float<
+							float_type
+						>(
+							_info.dotClock
+						)
+						/
+						fcppt::cast::int_to_float<
+							float_type
+						>(
+							denom
+						)
+					)
 				)
 			)
 		;

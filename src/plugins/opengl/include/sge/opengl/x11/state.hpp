@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/device_state/object.hpp>
 #include <sge/opengl/xrandr/state_fwd.hpp>
-#include <sge/renderer/display_mode/object_fwd.hpp>
 #include <sge/renderer/display_mode/optional_object_fwd.hpp>
 #include <awl/backends/x11/window/object_fwd.hpp>
 #include <awl/backends/x11/window/event/processor_fwd.hpp>
@@ -54,7 +53,7 @@ public:
 
 	~state();
 private:
-	sge::renderer::display_mode::object const
+	sge::renderer::display_mode::optional_object const
 	display_mode() const;
 
 	typedef

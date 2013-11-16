@@ -587,7 +587,7 @@ try
 	{
 		sge::timer::scoped_frame_limiter const limiter(
 			sge::renderer::display_mode::desired_fps(
-				sys.renderer_ffp().display_mode().refresh_rate()
+				sys.renderer_ffp().display_mode()
 			)
 		);
 

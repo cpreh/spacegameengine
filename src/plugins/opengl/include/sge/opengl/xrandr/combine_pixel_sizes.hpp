@@ -1,3 +1,4 @@
+
 /*
 spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2013 Carl Philipp Reh (sefi@s-e-f-i.de)
@@ -18,23 +19,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/display_mode/desired_fps.hpp>
-#include <sge/renderer/display_mode/optional_object.hpp>
-#include <sge/renderer/display_mode/refresh_rate_value.hpp>
+#ifndef SGE_OPENGL_XRANDR_COMBINE_PIXEL_SIZES_HPP_INCLUDED
+#define SGE_OPENGL_XRANDR_COMBINE_PIXEL_SIZES_HPP_INCLUDED
+
+#include <sge/renderer/display_mode/pixel_size_fwd.hpp>
+#include <sge/renderer/display_mode/optional_pixel_size_fwd.hpp>
 
 
-sge::renderer::display_mode::refresh_rate_value
-sge::renderer::display_mode::desired_fps(
-	sge::renderer::display_mode::optional_object const &_display_mode
-)
+namespace sge
 {
-	return
-		_display_mode
-		&&
-		_display_mode->refresh_rate()
-		?
-			_display_mode->refresh_rate()->get()
-		:
-			60u
-		;
+namespace opengl
+{
+namespace xrandr
+{
+
+sge::renderer::display_mode::optional_pixel_size const
+combine_pixel_sizes(
+	sge::renderer::display_mode::optional_pixel_size,
+	sge::renderer::display_mode::pixel_size
+);
+
 }
+}
+}
+
+#endif

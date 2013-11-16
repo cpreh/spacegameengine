@@ -1070,6 +1070,8 @@ set(
 set(
 	SGE_OPENGL_XRANDR_FILES
 	src/plugins/opengl/include/sge/opengl/xrandr/choose_resolution.hpp
+	src/plugins/opengl/include/sge/opengl/xrandr/combine_dimensions.hpp
+	src/plugins/opengl/include/sge/opengl/xrandr/combine_pixel_sizes.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/combine_rates.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/configuration.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/configuration_fwd.hpp
@@ -1078,6 +1080,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/xrandr/crtcs_view.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/current_display_mode.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/current_mode.hpp
+	src/plugins/opengl/include/sge/opengl/xrandr/display_mode.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/extension.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/extension_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/get_extension.hpp
@@ -1088,7 +1091,8 @@ set(
 	src/plugins/opengl/include/sge/opengl/xrandr/modes_view.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/optional_extension.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/optional_extension_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/xrandr/refresh_rate.hpp
+	src/plugins/opengl/include/sge/opengl/xrandr/output_info.hpp
+	src/plugins/opengl/include/sge/opengl/xrandr/outputs_view.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/refresh_rate_from_mode.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/resolution.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/resolution_fwd.hpp
@@ -1103,6 +1107,8 @@ set(
 	src/plugins/opengl/include/sge/opengl/xrandr/version.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/version_fwd.hpp
 	src/plugins/opengl/src/xrandr/choose_resolution.cpp
+	src/plugins/opengl/src/xrandr/combine_dimensions.cpp
+	src/plugins/opengl/src/xrandr/combine_pixel_sizes.cpp
 	src/plugins/opengl/src/xrandr/combine_rates.cpp
 	src/plugins/opengl/src/xrandr/configuration.cpp
 	src/plugins/opengl/src/xrandr/create_state.cpp
@@ -1110,12 +1116,14 @@ set(
 	src/plugins/opengl/src/xrandr/crtcs_view.cpp
 	src/plugins/opengl/src/xrandr/current_display_mode.cpp
 	src/plugins/opengl/src/xrandr/current_mode.cpp
+	src/plugins/opengl/src/xrandr/display_mode.cpp
 	src/plugins/opengl/src/xrandr/extension.cpp
 	src/plugins/opengl/src/xrandr/get_extension.cpp
 	src/plugins/opengl/src/xrandr/get_version.cpp
 	src/plugins/opengl/src/xrandr/mode.cpp
 	src/plugins/opengl/src/xrandr/modes_view.cpp
-	src/plugins/opengl/src/xrandr/refresh_rate.cpp
+	src/plugins/opengl/src/xrandr/output_info.cpp
+	src/plugins/opengl/src/xrandr/outputs_view.cpp
 	src/plugins/opengl/src/xrandr/refresh_rate_from_mode.cpp
 	src/plugins/opengl/src/xrandr/resolution.cpp
 	src/plugins/opengl/src/xrandr/screen_resources.cpp

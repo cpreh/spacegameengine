@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/display_mode/dpi_fwd.hpp>
-#include <sge/renderer/display_mode/object_fwd.hpp>
+#include <sge/renderer/display_mode/optional_object_fwd.hpp>
 
 
 namespace sge
@@ -36,7 +36,7 @@ namespace display_mode
 SGE_RENDERER_SYMBOL
 sge::renderer::display_mode::dpi const
 to_dpi(
-	sge::renderer::display_mode::object const &
+	sge::renderer::display_mode::optional_object const &
 );
 
 }

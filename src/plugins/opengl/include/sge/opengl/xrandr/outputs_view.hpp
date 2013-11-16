@@ -18,12 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_XRANDR_REFRESH_RATE_HPP_INCLUDED
-#define SGE_OPENGL_XRANDR_REFRESH_RATE_HPP_INCLUDED
+#ifndef SGE_OPENGL_XRANDR_OUTPUTS_VIEW_HPP_INCLUDED
+#define SGE_OPENGL_XRANDR_OUTPUTS_VIEW_HPP_INCLUDED
 
-#include <sge/renderer/display_mode/optional_refresh_rate_fwd.hpp>
-#include <awl/backends/x11/display_fwd.hpp>
-#include <awl/backends/x11/window/object_fwd.hpp>
+#include <sge/opengl/xrandr/screen_resources_fwd.hpp>
+#include <fcppt/nonassignable.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <X11/extensions/Xrandr.h>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -33,11 +35,29 @@ namespace opengl
 namespace xrandr
 {
 
-sge::renderer::display_mode::optional_refresh_rate const
-refresh_rate(
-	awl::backends::x11::display &,
-	awl::backends::x11::window::object &
-);
+class outputs_view
+{
+	FCPPT_NONASSIGNABLE(
+		outputs_view
+	);
+public:
+	explicit
+	outputs_view(
+		sge::opengl::xrandr::screen_resources const &
+	);
+
+	typedef
+	RROutput const *
+	const_iterator;
+
+	const_iterator
+	begin() const;
+
+	const_iterator
+	end() const;
+private:
+	sge::opengl::xrandr::screen_resources const &resources_;
+};
 
 }
 }

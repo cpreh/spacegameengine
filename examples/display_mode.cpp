@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/device/core.hpp>
-#include <sge/renderer/display_mode/object.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/display_mode/output.hpp>
 #include <sge/renderer/display_mode/to_dpi.hpp>
@@ -41,17 +40,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/viewport/dont_manage.hpp>
 #include <sge/window/dim.hpp>
 #include <sge/window/parameters.hpp>
+#include <sge/window/object.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/exit_success.hpp>
 #include <awl/main/function_context_fwd.hpp>
+#include <awl/window/event/processor.hpp>
+#include <awl/window/event/show_fwd.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/math/vector/output.hpp>
+#include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <example_main.hpp>
@@ -88,7 +92,6 @@ try
 					)
 				)
 			)
-			.dont_show()
 		)
 		(
 			sge::systems::renderer(
@@ -107,26 +110,44 @@ try
 		)
 	);
 
-	sge::renderer::display_mode::object const mode(
-		sys.renderer_core().display_mode()
-	);
+	fcppt::signal::scoped_connection const con(
+		sys.window().awl_window_event_processor().show_callback(
+			[
+				&sys
+			](
+				awl::window::event::show const &
+			)
+			{
+				sge::renderer::display_mode::optional_object const mode(
+					sys.renderer_core().display_mode()
+				);
 
-	fcppt::io::cout()
-		<<
-		FCPPT_TEXT("Display mode:\n\t")
-		<<
-		mode
-		<<
-		FCPPT_TEXT("\nDPI:\n\t")
-		<<
-		sge::renderer::display_mode::to_dpi(
-			mode
+				if(
+					mode
+				)
+					fcppt::io::cout()
+						<<
+						FCPPT_TEXT("Display mode:\n\t")
+						<<
+						*mode
+						<<
+						FCPPT_TEXT("\nDPI:\n\t")
+						<<
+						sge::renderer::display_mode::to_dpi(
+							mode
+						)
+						<<
+						FCPPT_TEXT('\n');
+				else
+					fcppt::io::cout()
+						<<
+						FCPPT_TEXT("Mode not set.\n");
+
+				sys.window_system().quit(
+					awl::main::exit_success()
+				);
+			}
 		)
-		<<
-		FCPPT_TEXT('\n');
-
-	sys.window_system().quit(
-		awl::main::exit_success()
 	);
 
 	while(
@@ -145,7 +166,8 @@ catch(
 		<< _error.string()
 		<< FCPPT_TEXT('\n');
 
-	return awl::main::exit_failure();
+	return
+		awl::main::exit_failure();
 }
 catch(
 	std::exception const &_error
@@ -155,5 +177,6 @@ catch(
 		<< _error.what()
 		<< '\n';
 
-	return awl::main::exit_failure();
+	return
+		awl::main::exit_failure();
 }

@@ -57,7 +57,7 @@ public:
 
 	~state();
 
-	sge::renderer::display_mode::object const
+	sge::renderer::display_mode::optional_object const
 	display_mode() const;
 private:
 	void
@@ -87,7 +87,7 @@ private:
 
 	resolution_scoped_ptr const resolution_;
 
-	sge::renderer::display_mode::optional_object refresh_rate_;
+	sge::renderer::display_mode::optional_object display_mode_;
 
 	fcppt::signal::scoped_connection const change_connection_;
 

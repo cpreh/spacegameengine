@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/screen_unit.hpp>
 #include <sge/renderer/display_mode/dpi.hpp>
 #include <sge/renderer/display_mode/dpi_unit.hpp>
-#include <sge/renderer/display_mode/object.hpp>
+#include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/display_mode/to_dpi.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
@@ -30,22 +30,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer::display_mode::dpi const
 sge::renderer::display_mode::to_dpi(
-	sge::renderer::display_mode::object const &_mode
+	sge::renderer::display_mode::optional_object const &_mode
 )
 {
 	return
-		_mode.dimensions()
+		_mode
+		&&
+		_mode->dimensions()
 		?
 			fcppt::math::dim::structure_cast<
 				sge::renderer::display_mode::dpi
 			>(
-				_mode.pixel_size().get()
+				_mode->pixel_size().get()
 			)
 			/
 			fcppt::math::dim::structure_cast<
 				sge::renderer::display_mode::dpi
 			>(
-				_mode.dimensions()->get()
+				_mode->dimensions()->get()
 			)
 			*
 			fcppt::literal<
