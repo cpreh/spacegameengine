@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_XRANDR_CREATE_STATE_HPP_INCLUDED
 #define SGE_OPENGL_XRANDR_CREATE_STATE_HPP_INCLUDED
 
-#include <sge/renderer/display_mode/optional_object_fwd.hpp>
 #include <sge/opengl/xrandr/state_unique_ptr.hpp>
+#include <sge/renderer/display_mode/optional_object_fwd.hpp>
 #include <awl/backends/x11/window/object_fwd.hpp>
 #include <awl/backends/x11/window/event/processor_fwd.hpp>
 

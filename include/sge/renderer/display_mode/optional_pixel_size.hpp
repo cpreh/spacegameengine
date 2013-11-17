@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_DISPLAY_MODE_OPTIONAL_PIXEL_SIZE_HPP_INCLUDED
 #define SGE_RENDERER_DISPLAY_MODE_OPTIONAL_PIXEL_SIZE_HPP_INCLUDED
 
-#include <sge/renderer/display_mode/pixel_size.hpp>
 #include <sge/renderer/display_mode/optional_pixel_size_fwd.hpp>
+#include <sge/renderer/display_mode/pixel_size.hpp>
 #include <fcppt/optional_impl.hpp>
 
 

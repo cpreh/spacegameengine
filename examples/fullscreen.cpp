@@ -67,8 +67,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
-#include <example_main.hpp>
 #include <chrono>
+#include <example_main.hpp>
 #include <exception>
 #include <ostream>
 #include <fcppt/config/external_end.hpp>

@@ -105,8 +105,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/dim.hpp>
 #include <sge/window/parameters.hpp>
 #include <sge/window/system.hpp>
-#include <sge/window/unit.hpp>
 #include <sge/window/title.hpp>
+#include <sge/window/unit.hpp>
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>

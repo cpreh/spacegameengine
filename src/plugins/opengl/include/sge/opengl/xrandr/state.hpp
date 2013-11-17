@@ -28,8 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <awl/backends/x11/display_fwd.hpp>
 #include <awl/backends/x11/window/object_fwd.hpp>
-#include <awl/backends/x11/window/event/processor_fwd.hpp>
 #include <awl/backends/x11/window/event/object_fwd.hpp>
+#include <awl/backends/x11/window/event/processor_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
 #include <fcppt/signal/scoped_connection.hpp>

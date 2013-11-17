@@ -51,8 +51,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/choices.hpp>
 #include <sge/sprite/config/float_type.hpp>
 #include <sge/sprite/config/normal_size.hpp>
-#include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/config/type_choices.hpp>
+#include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/config/with_color.hpp>
 #include <sge/sprite/geometry/make_random_access_range.hpp>
 #include <sge/sprite/process/all.hpp>
@@ -74,8 +74,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/viewport/fill_on_resize.hpp>
 #include <sge/viewport/manager.hpp>
 #include <sge/window/dim.hpp>
-#include <sge/window/parameters.hpp>
 #include <sge/window/object.hpp>
+#include <sge/window/parameters.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
 #include <awl/main/exit_code.hpp>

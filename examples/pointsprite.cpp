@@ -40,9 +40,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex/declaration_fwd.hpp>
 #include <sge/renderer/vf/index.hpp>
 #include <sge/shader/context.hpp>
+#include <sge/shader/optional_cflags.hpp>
 #include <sge/shader/pair.hpp>
 #include <sge/shader/pixel_program_path.hpp>
-#include <sge/shader/optional_cflags.hpp>
 #include <sge/shader/vertex_program_path.hpp>
 #include <sge/shader/parameter/is_projection_matrix.hpp>
 #include <sge/shader/parameter/matrix.hpp>
