@@ -18,14 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/device/core.hpp>
 #include <sge/renderer/target/onscreen.hpp>
+#include <sge/renderer/target/viewport.hpp>
+#include <sge/rucksack/axis_policy.hpp>
+#include <sge/rucksack/axis_policy2.hpp>
+#include <sge/rucksack/dim.hpp>
+#include <sge/rucksack/is_expanding.hpp>
+#include <sge/rucksack/minimum_size.hpp>
+#include <sge/rucksack/optional_scalar.hpp>
+#include <sge/rucksack/preferred_size.hpp>
+#include <sge/rucksack/scalar.hpp>
+#include <sge/rucksack/vector.hpp>
+#include <sge/rucksack/widget/optional_parent.hpp>
 #include <sge/rucksack/widget/viewport_adaptor.hpp>
 #include <sge/viewport/manager.hpp>
-#include <fcppt/exception.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/assert/pre.hpp>
-#include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
@@ -39,23 +48,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
+
 sge::rucksack::widget::viewport_adaptor::viewport_adaptor(
 	sge::viewport::manager &_viewport,
 	sge::renderer::device::core &_renderer)
 :
-	widget::base(
-		widget::optional_parent()),
+	sge::rucksack::widget::base(
+		sge::rucksack::widget::optional_parent()
+	),
 	target_(
-		_renderer.onscreen_target()),
+		_renderer.onscreen_target()
+	),
+	child_(
+		nullptr
+	),
 	viewport_connection_(
 		_viewport.manage_callback(
 			std::bind(
-				&viewport_adaptor::manage_callback,
-				this))),
-	child_(
-		0)
+				&sge::rucksack::widget::viewport_adaptor::manage_callback,
+				this
+			)
+		)
+	)
 {
 }
+
 FCPPT_PP_POP_WARNING
 
 void
@@ -66,8 +83,14 @@ sge::rucksack::widget::viewport_adaptor::size(
 		sge::renderer::target::viewport(
 			sge::renderer::pixel_rect(
 				target_.viewport().get().pos(),
-				fcppt::math::dim::structure_cast<sge::renderer::pixel_rect::dim>(
-					_size))));
+				fcppt::math::dim::structure_cast<
+					sge::renderer::pixel_rect::dim
+				>(
+					_size
+				)
+			)
+		)
+	);
 }
 
 void
@@ -77,25 +100,37 @@ sge::rucksack::widget::viewport_adaptor::position(
 	target_.viewport(
 		sge::renderer::target::viewport(
 			sge::renderer::pixel_rect(
-				fcppt::math::vector::structure_cast<sge::renderer::pixel_rect::vector>(
-					_pos),
-				target_.viewport().get().size())));
+				fcppt::math::vector::structure_cast<
+					sge::renderer::pixel_rect::vector
+				>(
+					_pos
+				),
+				target_.viewport().get().size()
+			)
+		)
+	);
 }
 
 sge::rucksack::dim const
 sge::rucksack::widget::viewport_adaptor::size() const
 {
 	return
-		fcppt::math::dim::structure_cast<sge::rucksack::dim>(
-			target_.viewport().get().size());
+		fcppt::math::dim::structure_cast<
+			sge::rucksack::dim
+		>(
+			target_.viewport().get().size()
+		);
 }
 
 sge::rucksack::vector const
 sge::rucksack::widget::viewport_adaptor::position() const
 {
 	return
-		fcppt::math::vector::structure_cast<sge::rucksack::vector>(
-			target_.viewport().get().pos());
+		fcppt::math::vector::structure_cast<
+			sge::rucksack::vector
+		>(
+			target_.viewport().get().pos()
+		);
 }
 
 sge::rucksack::axis_policy2 const
@@ -132,15 +167,15 @@ sge::rucksack::widget::viewport_adaptor::relayout()
 
 void
 sge::rucksack::widget::viewport_adaptor::child(
-	widget::base &_child)
+	sge::rucksack::widget::base &_child)
 {
 	if(child_)
 		child_->parent(
-			widget::optional_parent());
+			sge::rucksack::widget::optional_parent());
 
 	child_ = &_child;
 	child_->parent(
-		widget::optional_parent(
+		sge::rucksack::widget::optional_parent(
 			*this));
 }
 
@@ -149,7 +184,7 @@ sge::rucksack::widget::viewport_adaptor::~viewport_adaptor()
 {
 	if(child_)
 		child_->parent(
-			widget::optional_parent());
+			sge::rucksack::widget::optional_parent());
 }
 
 void
@@ -170,11 +205,11 @@ sge::rucksack::widget::viewport_adaptor::manage_callback()
 
 void
 sge::rucksack::widget::viewport_adaptor::child_destroyed(
-	widget::base &_child)
+	sge::rucksack::widget::base &_child)
 {
 	FCPPT_ASSERT_PRE(
 		&_child == child_);
 
 	child_ =
-		0;
+		nullptr;
 }

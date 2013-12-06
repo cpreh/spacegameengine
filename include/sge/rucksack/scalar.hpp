@@ -21,13 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RUCKSACK_SCALAR_HPP_INCLUDED
 #define SGE_RUCKSACK_SCALAR_HPP_INCLUDED
 
+
 namespace sge
 {
 namespace rucksack
 {
+
 typedef
 int
 scalar;
+
 }
 }
 

@@ -2606,21 +2606,33 @@ set(
 	include/sge/resource_tree/path_to_resource_function.hpp
 	include/sge/rucksack/alignment.hpp
 	include/sge/rucksack/alignment2.hpp
+	include/sge/rucksack/alignment2_fwd.hpp
 	include/sge/rucksack/alignment_fwd.hpp
 	include/sge/rucksack/aspect.hpp
+	include/sge/rucksack/aspect_fwd.hpp
 	include/sge/rucksack/axis.hpp
 	include/sge/rucksack/axis_fwd.hpp
 	include/sge/rucksack/axis_policy.hpp
 	include/sge/rucksack/axis_policy2.hpp
+	include/sge/rucksack/axis_policy2_fwd.hpp
+	include/sge/rucksack/axis_policy_fwd.hpp
 	include/sge/rucksack/dim.hpp
+	include/sge/rucksack/dim_fwd.hpp
 	include/sge/rucksack/is_expanding.hpp
+	include/sge/rucksack/is_expanding_fwd.hpp
 	include/sge/rucksack/minimum_size.hpp
+	include/sge/rucksack/minimum_size_fwd.hpp
 	include/sge/rucksack/optional_scalar.hpp
+	include/sge/rucksack/optional_scalar_fwd.hpp
 	include/sge/rucksack/padding.hpp
+	include/sge/rucksack/padding_fwd.hpp
 	include/sge/rucksack/preferred_size.hpp
+	include/sge/rucksack/preferred_size_fwd.hpp
 	include/sge/rucksack/rect.hpp
+	include/sge/rucksack/rect_fwd.hpp
 	include/sge/rucksack/scalar.hpp
 	include/sge/rucksack/vector.hpp
+	include/sge/rucksack/vector_fwd.hpp
 	include/sge/rucksack/widget/base.hpp
 	include/sge/rucksack/widget/base_fwd.hpp
 	include/sge/rucksack/widget/box/base.hpp
@@ -2633,6 +2645,7 @@ set(
 	include/sge/rucksack/widget/master_and_slaves.hpp
 	include/sge/rucksack/widget/master_and_slaves_fwd.hpp
 	include/sge/rucksack/widget/optional_parent.hpp
+	include/sge/rucksack/widget/optional_parent_fwd.hpp
 	include/sge/rucksack/widget/viewport_adaptor.hpp
 	include/sge/rucksack/widget/viewport_adaptor_fwd.hpp
 	include/sge/scenic/box.hpp

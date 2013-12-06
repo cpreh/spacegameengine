@@ -21,17 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RUCKSACK_DIM_HPP_INCLUDED
 #define SGE_RUCKSACK_DIM_HPP_INCLUDED
 
-#include <sge/rucksack/scalar.hpp>
-#include <fcppt/math/dim/static.hpp>
+#include <sge/rucksack/dim_fwd.hpp>
+#include <fcppt/math/dim/object_impl.hpp>
 
-namespace sge
-{
-namespace rucksack
-{
-typedef
-fcppt::math::dim::static_<sge::rucksack::scalar,2>
-dim;
-}
-}
 
 #endif

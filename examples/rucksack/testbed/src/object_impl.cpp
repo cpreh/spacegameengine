@@ -56,6 +56,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/level.hpp>
 #include <fcppt/log/location.hpp>
 #include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <vector>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::rucksack::testbed::object_impl::object_impl(
@@ -155,15 +159,15 @@ void
 sge::rucksack::testbed::object_impl::update()
 {
 	for(
-		sprite_list::iterator it =
-			sprites_.begin();
-		it != sprites_.end();
-		++it)
+		auto &entry
+		:
+		sprites_
+	)
 	{
-		it->second.pos(
-			it->first->position());
-		it->second.size(
-			it->first->size());
+		entry.second.pos(
+			entry.first->position());
+		entry.second.size(
+			entry.first->size());
 	}
 }
 
@@ -185,13 +189,18 @@ sge::rucksack::testbed::object_impl::render(
 
 	sprite_sequence raw_sprites;
 
+	raw_sprites.reserve(
+		sprites_.size()
+	);
+
 	for(
-		sprite_list::const_iterator it =
-			sprites_.begin();
-		it != sprites_.end();
-		++it)
+		auto const &entry
+		:
+		sprites_
+	)
 		raw_sprites.push_back(
-			it->second);
+			entry.second
+		);
 
 	sge::sprite::process::all(
 		_render_context,

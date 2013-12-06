@@ -19,18 +19,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/rucksack/axis_policy.hpp>
+#include <sge/rucksack/is_expanding.hpp>
+#include <sge/rucksack/minimum_size.hpp>
+#include <sge/rucksack/preferred_size.hpp>
+#include <sge/rucksack/optional_scalar.hpp>
+#include <sge/rucksack/scalar.hpp>
+
 
 sge::rucksack::axis_policy::axis_policy(
 	sge::rucksack::minimum_size const &_minimum_size,
 	sge::rucksack::preferred_size const &_preferred_size,
-	sge::rucksack::is_expanding const &_is_expanding)
+	sge::rucksack::is_expanding const &_is_expanding
+)
 :
 	minimum_size_(
-		_minimum_size.get()),
+		_minimum_size.get()
+	),
 	preferred_size_(
-		_preferred_size.get()),
+		_preferred_size.get()
+	),
 	is_expanding_(
-		_is_expanding.get())
+		_is_expanding.get()
+	)
 {
 }
 

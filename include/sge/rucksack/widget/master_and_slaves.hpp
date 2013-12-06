@@ -22,13 +22,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RUCKSACK_WIDGET_MASTER_AND_SLAVES_HPP_INCLUDED
 
 #include <sge/class_symbol.hpp>
-#include <sge/rucksack/padding.hpp>
+#include <sge/rucksack/axis_policy2_fwd.hpp>
+#include <sge/rucksack/dim.hpp>
+#include <sge/rucksack/padding_fwd.hpp>
+#include <sge/rucksack/symbol.hpp>
+#include <sge/rucksack/vector.hpp>
 #include <sge/rucksack/widget/base.hpp>
 #include <sge/rucksack/widget/enumeration.hpp>
 #include <sge/rucksack/widget/box/base.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <vector>
 #include <fcppt/config/external_end.hpp>

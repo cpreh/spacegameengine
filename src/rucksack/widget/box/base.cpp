@@ -19,17 +19,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/rucksack/alignment.hpp>
+#include <sge/rucksack/aspect.hpp>
 #include <sge/rucksack/axis.hpp>
+#include <sge/rucksack/axis_policy.hpp>
+#include <sge/rucksack/axis_policy2.hpp>
+#include <sge/rucksack/dim.hpp>
+#include <sge/rucksack/is_expanding.hpp>
+#include <sge/rucksack/minimum_size.hpp>
 #include <sge/rucksack/optional_scalar.hpp>
+#include <sge/rucksack/preferred_size.hpp>
+#include <sge/rucksack/scalar.hpp>
+#include <sge/rucksack/vector.hpp>
+#include <sge/rucksack/widget/base.hpp>
+#include <sge/rucksack/widget/optional_parent.hpp>
 #include <sge/rucksack/widget/box/base.hpp>
+#include <sge/rucksack/widget/box/child_information.hpp>
 #include <fcppt/no_init.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/assert/unreachable.hpp>
-#include <fcppt/io/clog.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
 #include <vector>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -37,8 +48,8 @@ sge::rucksack::widget::box::base::base(
 	sge::rucksack::axis const _axis,
 	sge::rucksack::aspect const &_aspect)
 :
-	widget::base(
-		widget::optional_parent()),
+	sge::rucksack::widget::base(
+		sge::rucksack::widget::optional_parent()),
 	children_(),
 	axis_(
 		// For an explanation, see the header
@@ -105,14 +116,14 @@ sge::rucksack::widget::box::base::axis_policy() const
 			false;
 
 	for(
-		child_information::const_iterator child_and_information_pair_it =
-			children_.begin();
-		child_and_information_pair_it != children_.end();
-		++child_and_information_pair_it)
+		auto const &child_and_information_pair
+		:
+		children_
+	)
 	{
 		// Less to type with these three variables :)
 		sge::rucksack::axis_policy2 const this_axis_policy =
-			child_and_information_pair_it->first->axis_policy();
+			child_and_information_pair.first->axis_policy();
 
 		sge::rucksack::axis_policy const
 			minor_policy =
@@ -202,12 +213,13 @@ sge::rucksack::widget::box::base::relayout()
 	// position, too.
 	// For the position, we first see how much space we have left in the widget
 	sge::rucksack::scalar remaining = this->size()[this->major_axis()];
+
 	for(
-		child_information::const_iterator widget_ptr_information_pair_it =
-			children_.begin();
-		widget_ptr_information_pair_it != children_.end();
-		++widget_ptr_information_pair_it)
-		remaining -= widget_ptr_information_pair_it->second.size()[this->major_axis()];
+		auto const &widget_ptr_information_pair
+		:
+		children_
+	)
+		remaining -= widget_ptr_information_pair.second.size()[this->major_axis()];
 
 	// We have
 	//
@@ -225,13 +237,13 @@ sge::rucksack::widget::box::base::relayout()
 		this->position()[this->major_axis()] + hole_size;
 
 	for(
-		child_information::const_iterator widget_ptr_information_pair_it =
-			children_.begin();
-		widget_ptr_information_pair_it != children_.end();
-		++widget_ptr_information_pair_it)
+		auto const &widget_ptr_information_pair
+		:
+		children_
+	)
 	{
-		widget_ptr_information_pair_it->first->size(
-			widget_ptr_information_pair_it->second.size());
+		widget_ptr_information_pair.first->size(
+			widget_ptr_information_pair.second.size());
 
 		// TODO: Make a function that returns new_position
 		sge::rucksack::vector new_position{
@@ -242,70 +254,70 @@ sge::rucksack::widget::box::base::relayout()
 			current_major_position;
 
 		// The minor axis is determined by the alignment parameter.
-		switch(widget_ptr_information_pair_it->second.alignment())
+		switch(widget_ptr_information_pair.second.alignment())
 		{
-			case alignment::left_or_top:
+			case sge::rucksack::alignment::left_or_top:
 				new_position[this->minor_axis()] =
 					this->position()[this->minor_axis()];
 				break;
-			case alignment::center:
+			case sge::rucksack::alignment::center:
 				// outer rectangle's left + outer rectangle's size/2 - inner rectangle's size/2 => center alignment
 				new_position[this->minor_axis()] =
 					this->position()[this->minor_axis()] +
 					this->size()[this->minor_axis()]/2 -
-					widget_ptr_information_pair_it->second.size()[this->minor_axis()]/2;
+					widget_ptr_information_pair.second.size()[this->minor_axis()]/2;
 				break;
-			case alignment::right_or_bottom:
+			case sge::rucksack::alignment::right_or_bottom:
 				new_position[this->minor_axis()] =
 					// outer rectangle's right - widget's size => right alignment
 					this->position()[this->minor_axis()] +
 					this->size()[this->minor_axis()] -
-					widget_ptr_information_pair_it->second.size()[this->minor_axis()];
+					widget_ptr_information_pair.second.size()[this->minor_axis()];
 				break;
 		}
 
-		widget_ptr_information_pair_it->first->position(
+		widget_ptr_information_pair.first->position(
 			new_position);
 
-		widget_ptr_information_pair_it->first->relayout();
+		widget_ptr_information_pair.first->relayout();
 
 		current_major_position +=
 			hole_size +
-			widget_ptr_information_pair_it->second.size()[this->major_axis()];
+			widget_ptr_information_pair.second.size()[this->major_axis()];
 	}
 }
 
 void
 sge::rucksack::widget::box::base::push_back_child(
-	widget::base &_new_child,
+	sge::rucksack::widget::base &_new_child,
 	sge::rucksack::alignment const _alignment)
 {
 	children_.push_back(
 		std::make_pair(
 			&_new_child,
-			box::child_information(
+			sge::rucksack::widget::box::child_information(
 				_alignment,
 				sge::rucksack::dim::null())));
 
 	_new_child.parent(
-		widget::optional_parent(
+		sge::rucksack::widget::optional_parent(
 			*this));
 }
 
 void
 sge::rucksack::widget::box::base::push_front_child(
-	widget::base &_new_child,
+	sge::rucksack::widget::base &_new_child,
 	sge::rucksack::alignment const _alignment)
 {
 	children_.push_front(
 		std::make_pair(
 			&_new_child,
-			box::child_information(
+			sge::rucksack::widget::box::child_information(
 				_alignment,
 				sge::rucksack::dim::null())));
 
 	_new_child.parent(
-		widget::optional_parent(
+		sge::rucksack::widget::optional_parent(
 			*this));
 }
 
@@ -313,7 +325,7 @@ void
 sge::rucksack::widget::box::base::pop_front_child()
 {
 	children_.front().first->parent(
-		widget::optional_parent());
+		sge::rucksack::widget::optional_parent());
 	children_.pop_front();
 }
 
@@ -323,7 +335,7 @@ sge::rucksack::widget::box::base::~base()
 		auto &child : children_
 	)
 		child.first->parent(
-			widget::optional_parent());
+			sge::rucksack::widget::optional_parent());
 }
 
 sge::rucksack::dim::size_type
@@ -351,27 +363,27 @@ sge::rucksack::widget::box::base::relayout_major_axis()
 			0;
 
 	for(
-		child_information::iterator widget_ptr_information_pair_it =
-			children_.begin();
-		widget_ptr_information_pair_it != children_.end();
-		++widget_ptr_information_pair_it)
+		auto &widget_ptr_information_pair
+		:
+		children_
+	)
 	{
 		// FIXME: Recognize aspect here!
-		widget_ptr_information_pair_it->second.size(
+		widget_ptr_information_pair.second.size(
 			sge::rucksack::dim(
 				axis_ == 0
 				?
-					widget_ptr_information_pair_it->first->axis_policy()[this->major_axis()].minimum_size()
+					widget_ptr_information_pair.first->axis_policy()[this->major_axis()].minimum_size()
 				:
-					widget_ptr_information_pair_it->first->axis_policy()[this->minor_axis()].minimum_size(),
+					widget_ptr_information_pair.first->axis_policy()[this->minor_axis()].minimum_size(),
 				axis_ == 0
 				?
-					widget_ptr_information_pair_it->first->axis_policy()[this->minor_axis()].minimum_size()
+					widget_ptr_information_pair.first->axis_policy()[this->minor_axis()].minimum_size()
 				:
-					widget_ptr_information_pair_it->first->axis_policy()[this->major_axis()].minimum_size()));
+					widget_ptr_information_pair.first->axis_policy()[this->major_axis()].minimum_size()));
 
 		allocated_major_size +=
-			widget_ptr_information_pair_it->first->axis_policy()[this->major_axis()].minimum_size();
+			widget_ptr_information_pair.first->axis_policy()[this->major_axis()].minimum_size();
 	}
 
 	// How much space do we have remaining on the major axis?
@@ -379,14 +391,13 @@ sge::rucksack::widget::box::base::relayout_major_axis()
 		this->size()[this->major_axis()] - allocated_major_size;
 
 	if(remaining < 0)
-	{
-//		fcppt::io::clog() << FCPPT_TEXT("The minimum size of all widgets together is ") << remaining << FCPPT_TEXT(" pixels too large!\n");
 		return;
-	}
 
 	// We need the widgets which have a preferred size on the major axis
 	typedef
-	std::vector<widget::base *>
+	std::vector<
+		sge::rucksack::widget::base *
+	>
 	widget_ptr_container;
 
 	widget_ptr_container widgets_with_preferred_size;
@@ -401,19 +412,19 @@ sge::rucksack::widget::box::base::relayout_major_axis()
 	// 2. How much more pixels are needed to push each widget to the preferred
 	//    size.
 	for(
-		child_information::const_iterator widget_ptr_information_pair_it =
-			children_.begin();
-		widget_ptr_information_pair_it != children_.end();
-		++widget_ptr_information_pair_it)
+		auto const &widget_ptr_information_pair
+		:
+		children_
+	)
 	{
 		// FIXME: Check if this widget has a preferered size and _CAN_ be resized
 		// considering its height and aspect
-		if(!widget_ptr_information_pair_it->first->axis_policy()[this->major_axis()].preferred_size())
+		if(!widget_ptr_information_pair.first->axis_policy()[this->major_axis()].preferred_size())
 			continue;
 
 		sge::rucksack::scalar const size_difference =
-			(*widget_ptr_information_pair_it->first->axis_policy()[this->major_axis()].preferred_size()) -
-			widget_ptr_information_pair_it->first->axis_policy()[this->major_axis()].minimum_size();
+			(*widget_ptr_information_pair.first->axis_policy()[this->major_axis()].preferred_size()) -
+			widget_ptr_information_pair.first->axis_policy()[this->major_axis()].minimum_size();
 
 		FCPPT_ASSERT_PRE(
 			size_difference >= 0);
@@ -422,7 +433,7 @@ sge::rucksack::widget::box::base::relayout_major_axis()
 			continue;
 
 		widgets_with_preferred_size.push_back(
-			widget_ptr_information_pair_it->first);
+			widget_ptr_information_pair.first);
 
 		additional_pixels +=
 			size_difference;
@@ -434,18 +445,18 @@ sge::rucksack::widget::box::base::relayout_major_axis()
 		if(remaining >= additional_pixels)
 		{
 			for(
-				widget_ptr_container::const_iterator child_ptr =
-					widgets_with_preferred_size.begin();
-				child_ptr != widgets_with_preferred_size.end();
-				++child_ptr)
+				auto const &child_ptr
+				:
+				widgets_with_preferred_size
+			)
 			{
 				sge::rucksack::dim current_size =
-					this->information_for_ptr(*child_ptr).size();
+					this->information_for_ptr(child_ptr).size();
 
 				current_size[axis_] =
-					*((*child_ptr)->axis_policy()[this->major_axis()].preferred_size());
+					*child_ptr->axis_policy()[this->major_axis()].preferred_size();
 
-				this->information_for_ptr(*child_ptr).size(
+				this->information_for_ptr(child_ptr).size(
 					current_size);
 			}
 
@@ -458,16 +469,16 @@ sge::rucksack::widget::box::base::relayout_major_axis()
 			// which widget is farthest away from its preferred size, but that's
 			// overkill.
 			for(
-				widget_ptr_container::const_iterator child_ptr =
-					widgets_with_preferred_size.begin();
-				child_ptr != widgets_with_preferred_size.end();
-				++child_ptr)
+				auto const &child_ptr
+				:
+				widgets_with_preferred_size
+			)
 			{
 				sge::rucksack::dim current_size =
-					this->information_for_ptr(*child_ptr).size();
+					this->information_for_ptr(child_ptr).size();
 
 				sge::rucksack::scalar const preferred_size =
-					*((*child_ptr)->axis_policy()[this->major_axis()].preferred_size());
+					*child_ptr->axis_policy()[this->major_axis()].preferred_size();
 
 				// Don't make it bigger than the preferred size
 				current_size[axis_] =
@@ -476,9 +487,9 @@ sge::rucksack::widget::box::base::relayout_major_axis()
 						preferred_size);
 
 				remaining -=
-					current_size[axis_] - (*child_ptr)->axis_policy()[this->major_axis()].minimum_size();
+					current_size[axis_] - child_ptr->axis_policy()[this->major_axis()].minimum_size();
 
-				this->information_for_ptr(*child_ptr).size(
+				this->information_for_ptr(child_ptr).size(
 					current_size);
 			}
 		}
@@ -493,31 +504,31 @@ sge::rucksack::widget::box::base::relayout_major_axis()
 	widget_ptr_container widgets_which_expand;
 
 	for(
-		child_information::const_iterator widget_ptr_information_pair_it =
-			children_.begin();
-		widget_ptr_information_pair_it != children_.end();
-		++widget_ptr_information_pair_it)
+		auto const &widget_ptr_information_pair
+		:
+		children_
+	)
 		// FIXME: Check if this widget has is expandable and _CAN_ be expanded
 		// considering its height and aspect
-		if(widget_ptr_information_pair_it->first->axis_policy()[this->major_axis()].is_expanding())
+		if(widget_ptr_information_pair.first->axis_policy()[this->major_axis()].is_expanding())
 			widgets_which_expand.push_back(
-				widget_ptr_information_pair_it->first);
+				widget_ptr_information_pair.first);
 
 	if(!widgets_which_expand.empty())
 	{
 		for(
-			widget_ptr_container::const_iterator child_ptr =
-				widgets_which_expand.begin();
-			child_ptr != widgets_which_expand.end();
-			++child_ptr)
+			auto const &child_ptr
+			:
+			widgets_which_expand
+		)
 		{
 			sge::rucksack::dim current_size =
-				this->information_for_ptr(*child_ptr).size();
+				this->information_for_ptr(child_ptr).size();
 
 			current_size[axis_] +=
 				remaining / static_cast<sge::rucksack::scalar>(widgets_which_expand.size());
 
-			this->information_for_ptr(*child_ptr).size(
+			this->information_for_ptr(child_ptr).size(
 				current_size);
 		}
 	}
@@ -535,19 +546,19 @@ sge::rucksack::widget::box::base::relayout_minor_axis()
 	//
 	// FIXME: ASPECT!
 	for(
-		child_information::iterator widget_ptr_information_pair_it =
-			children_.begin();
-		widget_ptr_information_pair_it != children_.end();
-		++widget_ptr_information_pair_it)
+		auto &widget_ptr_information_pair
+		:
+		children_
+	)
 	{
 		sge::rucksack::dim current_size =
-			widget_ptr_information_pair_it->second.size();
+			widget_ptr_information_pair.second.size();
 
 		bool const
 			is_expanding =
-				widget_ptr_information_pair_it->first->axis_policy()[this->minor_axis()].is_expanding(),
+				widget_ptr_information_pair.first->axis_policy()[this->minor_axis()].is_expanding(),
 			has_preferred_size =
-				widget_ptr_information_pair_it->first->axis_policy()[this->minor_axis()].preferred_size().has_value();
+				widget_ptr_information_pair.first->axis_policy()[this->minor_axis()].preferred_size().has_value();
 
 		if(is_expanding && !has_preferred_size)
 		{
@@ -559,23 +570,24 @@ sge::rucksack::widget::box::base::relayout_minor_axis()
 			current_size[this->minor_axis()] =
 				std::min(
 					this->size()[this->minor_axis()],
-					*widget_ptr_information_pair_it->first->axis_policy()[this->minor_axis()].preferred_size());
+					*widget_ptr_information_pair.first->axis_policy()[this->minor_axis()].preferred_size());
 		}
 
-		widget_ptr_information_pair_it->second.size(
+		widget_ptr_information_pair.second.size(
 			current_size);
 	}
 }
 
 void
 sge::rucksack::widget::box::base::child_destroyed(
-	widget::base &_child)
+	sge::rucksack::widget::base &_child)
 {
 	for(
 		child_information::iterator widget_ptr_information_pair_it =
 			children_.begin();
 		widget_ptr_information_pair_it != children_.end();
-		++widget_ptr_information_pair_it)
+		++widget_ptr_information_pair_it
+	)
 	{
 		if(widget_ptr_information_pair_it->first == &_child)
 		{
@@ -590,16 +602,16 @@ sge::rucksack::widget::box::base::child_destroyed(
 
 sge::rucksack::widget::box::child_information &
 sge::rucksack::widget::box::base::information_for_ptr(
-	widget::base const * const ptr)
+	sge::rucksack::widget::base const * const ptr)
 {
 	for(
-		child_information::iterator widget_ptr_information_pair_it =
-			children_.begin();
-		widget_ptr_information_pair_it != children_.end();
-		++widget_ptr_information_pair_it)
+		auto &widget_ptr_information_pair
+		:
+		children_
+	)
 	{
-		if(widget_ptr_information_pair_it->first == ptr)
-			return widget_ptr_information_pair_it->second;
+		if(widget_ptr_information_pair.first == ptr)
+			return widget_ptr_information_pair.second;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

@@ -24,9 +24,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/class_symbol.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/target/base_fwd.hpp>
+#include <sge/rucksack/axis_policy2_fwd.hpp>
+#include <sge/rucksack/dim_fwd.hpp>
 #include <sge/rucksack/symbol.hpp>
+#include <sge/rucksack/vector_fwd.hpp>
 #include <sge/rucksack/widget/base.hpp>
-#include <sge/rucksack/widget/optional_parent.hpp>
 #include <sge/viewport/manager_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
@@ -39,7 +41,7 @@ namespace rucksack
 namespace widget
 {
 /**
- * The viewport adaptor has juts one single child. It synchronizes the size and
+ * The viewport adaptor has just one single child. It synchronizes the size and
  * position of this child with the given viewport. So in a hierarchy, this
  * manager is supposed to be near the top.
  *
@@ -92,8 +94,10 @@ public:
 	SGE_RUCKSACK_SYMBOL ~viewport_adaptor();
 private:
 	sge::renderer::target::base &target_;
-	fcppt::signal::scoped_connection viewport_connection_;
+
 	sge::rucksack::widget::base *child_;
+
+	fcppt::signal::scoped_connection const viewport_connection_;
 
 	void
 	manage_callback();

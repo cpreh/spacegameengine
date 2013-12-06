@@ -21,17 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RUCKSACK_OPTIONAL_SCALAR_HPP_INCLUDED
 #define SGE_RUCKSACK_OPTIONAL_SCALAR_HPP_INCLUDED
 
-#include <sge/rucksack/scalar.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <sge/rucksack/optional_scalar_fwd.hpp>
+#include <fcppt/optional_impl.hpp>
 
-namespace sge
-{
-namespace rucksack
-{
-typedef
-fcppt::optional<sge::rucksack::scalar>
-optional_scalar;
-}
-}
 
 #endif

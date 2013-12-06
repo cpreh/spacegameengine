@@ -18,9 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/rucksack/rect.hpp>
 #include <sge/rucksack/widget/base.hpp>
-#include <fcppt/optional_impl.hpp>
-#include <fcppt/math/box/object_impl.hpp>
+#include <sge/rucksack/widget/optional_parent.hpp>
+
 
 sge::rucksack::widget::base::~base()
 {

@@ -19,15 +19,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/rucksack/aspect.hpp>
+#include <sge/rucksack/scalar.hpp>
+
 
 sge::rucksack::aspect::aspect(
 	sge::rucksack::scalar const _x,
-	sge::rucksack::scalar const _y)
+	sge::rucksack::scalar const _y
+)
 :
 	x_(
-		_x),
+		_x
+	),
 	y_(
-		_y)
+		_y
+	)
 {
 }
 

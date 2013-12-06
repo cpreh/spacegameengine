@@ -18,7 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/rucksack/aspect.hpp>
+#include <sge/rucksack/axis_policy.hpp>
+#include <sge/rucksack/axis_policy2.hpp>
+#include <sge/rucksack/dim.hpp>
+#include <sge/rucksack/is_expanding.hpp>
+#include <sge/rucksack/minimum_size.hpp>
+#include <sge/rucksack/padding.hpp>
+#include <sge/rucksack/optional_scalar.hpp>
+#include <sge/rucksack/preferred_size.hpp>
+#include <sge/rucksack/scalar.hpp>
+#include <sge/rucksack/vector.hpp>
 #include <sge/rucksack/widget/enumeration.hpp>
+#include <sge/rucksack/widget/optional_parent.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
@@ -30,8 +42,8 @@ sge::rucksack::widget::enumeration::enumeration(
 	sge::rucksack::padding const &_padding,
 	sge::rucksack::aspect const &_aspect)
 :
-	widget::base(
-		widget::optional_parent()),
+	sge::rucksack::widget::base(
+		sge::rucksack::widget::optional_parent()),
 	padding_(
 		_padding.get()),
 	aspect_(
@@ -107,22 +119,22 @@ sge::rucksack::widget::enumeration::relayout()
 		0;
 
 	for(
-		child_information::iterator child_ptr =
-			children_.begin();
-		child_ptr != children_.end();
-		child_ptr++)
+		auto const &child_ptr
+		:
+		children_
+	)
 	{
 		sge::rucksack::dim const preferred_or_minimum(
-			(*child_ptr)->axis_policy().x().preferred_size()
+			child_ptr->axis_policy().x().preferred_size()
 			?
-				*(*child_ptr)->axis_policy().x().preferred_size()
+				*child_ptr->axis_policy().x().preferred_size()
 			:
-				(*child_ptr)->axis_policy().x().minimum_size(),
-			(*child_ptr)->axis_policy().y().preferred_size()
+				child_ptr->axis_policy().x().minimum_size(),
+			child_ptr->axis_policy().y().preferred_size()
 			?
-				*(*child_ptr)->axis_policy().y().preferred_size()
+				*child_ptr->axis_policy().y().preferred_size()
 			:
-				(*child_ptr)->axis_policy().y().minimum_size());
+				child_ptr->axis_policy().y().minimum_size());
 
 		// Next line
 		if(current_pos.x() + padding_ + preferred_or_minimum.w() > this->position().x() + this->size().w())
@@ -142,15 +154,15 @@ sge::rucksack::widget::enumeration::relayout()
 				0;
 		}
 
-		(*child_ptr)->position(
+		child_ptr->position(
 			sge::rucksack::vector(
 				current_pos.x() + padding_,
 				current_pos.y()));
 
-		(*child_ptr)->size(
+		child_ptr->size(
 			preferred_or_minimum);
 
-		(*child_ptr)->relayout();
+		child_ptr->relayout();
 
 		current_pos.x() +=
 			preferred_or_minimum.w() + padding_;
@@ -164,35 +176,38 @@ sge::rucksack::widget::enumeration::relayout()
 
 void
 sge::rucksack::widget::enumeration::push_back_child(
-	widget::base &_child)
+	sge::rucksack::widget::base &_child)
 {
 	children_.push_back(
 		&_child);
 	_child.parent(
-		widget::optional_parent(
+		sge::rucksack::widget::optional_parent(
 			*this));
 }
 
 sge::rucksack::widget::enumeration::~enumeration()
 {
 	for(
-		child_information::iterator child_ptr =
-			children_.begin();
-		child_ptr != children_.end();
-		child_ptr++)
-		(*child_ptr)->parent(
-			widget::optional_parent());
+		auto const &child_ptr
+		:
+		children_
+	)
+		child_ptr->parent(
+			sge::rucksack::widget::optional_parent()
+		);
 }
 
 void
 sge::rucksack::widget::enumeration::child_destroyed(
-	widget::base &_child)
+	sge::rucksack::widget::base &_child)
 {
-	child_information::iterator it =
+	child_information::iterator it(
 		std::find(
 			children_.begin(),
 			children_.end(),
-			&_child);
+			&_child
+		)
+	);
 
 	FCPPT_ASSERT_PRE(
 		it != children_.end());

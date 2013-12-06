@@ -22,11 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RUCKSACK_WIDGET_BASE_HPP_INCLUDED
 
 #include <sge/class_symbol.hpp>
-#include <sge/rucksack/axis_policy2.hpp>
-#include <sge/rucksack/dim.hpp>
-#include <sge/rucksack/rect.hpp>
+#include <sge/rucksack/axis_policy2_fwd.hpp>
+#include <sge/rucksack/dim_fwd.hpp>
+#include <sge/rucksack/rect_fwd.hpp>
 #include <sge/rucksack/symbol.hpp>
-#include <sge/rucksack/vector.hpp>
+#include <sge/rucksack/vector_fwd.hpp>
 #include <sge/rucksack/widget/optional_parent.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
@@ -52,56 +52,76 @@ class SGE_CLASS_SYMBOL base
 	public
 		boost::intrusive::list_base_hook
 		<
-			boost::intrusive::link_mode<boost::intrusive::auto_unlink>
+			boost::intrusive::link_mode
+			<
+				boost::intrusive::auto_unlink
+			>
 		>
 {
 FCPPT_PP_POP_WARNING
 
-FCPPT_NONCOPYABLE(
-	base);
+	FCPPT_NONCOPYABLE(
+		base
+	);
 public:
-	virtual void
+	virtual
+	void
 	size(
-		sge::rucksack::dim const &) = 0;
+		sge::rucksack::dim const &
+	) = 0;
 
-	virtual void
+	virtual
+	void
 	position(
-		sge::rucksack::vector const &) = 0;
+		sge::rucksack::vector const &
+	) = 0;
 
-	virtual sge::rucksack::dim const
+	virtual
+	sge::rucksack::dim const
 	size() const = 0;
 
 	SGE_RUCKSACK_SYMBOL
 	sge::rucksack::rect const
 	area() const;
 
-	virtual sge::rucksack::vector const
+	virtual
+	sge::rucksack::vector const
 	position() const = 0;
 
-	virtual sge::rucksack::axis_policy2 const
+	virtual
+	sge::rucksack::axis_policy2 const
 	axis_policy() const = 0;
 
-	virtual void
+	virtual
+	void
 	relayout() = 0;
 
-	SGE_RUCKSACK_SYMBOL void
+	SGE_RUCKSACK_SYMBOL
+	void
 	parent(
-		sge::rucksack::widget::optional_parent const &);
+		sge::rucksack::widget::optional_parent const &
+	);
 
-	SGE_RUCKSACK_SYMBOL sge::rucksack::widget::optional_parent const &
+	SGE_RUCKSACK_SYMBOL
+	sge::rucksack::widget::optional_parent const &
 	parent() const;
 
 	SGE_RUCKSACK_SYMBOL
-	virtual ~base() = 0;
+	virtual
+	~base() = 0;
 protected:
 	SGE_RUCKSACK_SYMBOL
 	explicit
 	base(
-		sge::rucksack::widget::optional_parent const &);
+		sge::rucksack::widget::optional_parent const &
+	);
 
-	SGE_RUCKSACK_SYMBOL virtual void
+	SGE_RUCKSACK_SYMBOL
+	virtual
+	void
 	child_destroyed(
-		base &);
+		base &
+	);
 private:
 	sge::rucksack::widget::optional_parent parent_;
 };

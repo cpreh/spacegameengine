@@ -18,18 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/rucksack/alignment.hpp>
+#include <sge/rucksack/aspect.hpp>
 #include <sge/rucksack/axis.hpp>
+#include <sge/rucksack/axis_policy.hpp>
+#include <sge/rucksack/axis_policy2.hpp>
+#include <sge/rucksack/dim.hpp>
+#include <sge/rucksack/is_expanding.hpp>
+#include <sge/rucksack/minimum_size.hpp>
+#include <sge/rucksack/padding_fwd.hpp>
+#include <sge/rucksack/preferred_size.hpp>
+#include <sge/rucksack/optional_scalar.hpp>
+#include <sge/rucksack/vector.hpp>
+#include <sge/rucksack/widget/base.hpp>
 #include <sge/rucksack/widget/master_and_slaves.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/io/clog.hpp>
+#include <sge/rucksack/widget/optional_parent.hpp>
+
 
 // TODO: Initialize position and size in the ctor?
 
 sge::rucksack::widget::master_and_slaves::master_and_slaves(
 	sge::rucksack::padding const &_padding)
 :
-	widget::base(
-		widget::optional_parent()),
+	sge::rucksack::widget::base(
+		sge::rucksack::widget::optional_parent()),
 	surrounding_box_(
 		sge::rucksack::axis::x,
 		sge::rucksack::aspect(
@@ -126,7 +138,7 @@ sge::rucksack::widget::master_and_slaves::relayout()
 
 void
 sge::rucksack::widget::master_and_slaves::master_pane(
-	widget::base &_master_pane)
+	sge::rucksack::widget::base &_master_pane)
 {
 	if(master_pane_)
 		surrounding_box_.pop_front_child();
@@ -139,7 +151,7 @@ sge::rucksack::widget::master_and_slaves::master_pane(
 
 void
 sge::rucksack::widget::master_and_slaves::push_back_child(
-	widget::base &_child)
+	sge::rucksack::widget::base &_child)
 {
 	enumeration_.push_back_child(
 		_child);

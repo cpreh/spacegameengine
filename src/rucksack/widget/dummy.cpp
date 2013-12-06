@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::rucksack::widget::dummy::dummy(
 	sge::rucksack::axis_policy2 const &_axis_policy)
 :
-	widget::base(
+	sge::rucksack::widget::base(
 		widget::optional_parent()),
 	axis_policy_(
 		_axis_policy),

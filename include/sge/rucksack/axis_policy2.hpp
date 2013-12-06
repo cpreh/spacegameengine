@@ -23,15 +23,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/rucksack/aspect.hpp>
 #include <sge/rucksack/axis_policy.hpp>
+#include <sge/rucksack/axis_policy2_fwd.hpp>
 #include <sge/rucksack/dim.hpp>
 #include <sge/rucksack/symbol.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
 
 
 namespace sge
 {
 namespace rucksack
 {
+
 class axis_policy2
 {
 public:
@@ -39,24 +40,33 @@ public:
 	axis_policy2(
 		sge::rucksack::axis_policy const &,
 		sge::rucksack::axis_policy const &,
-		sge::rucksack::aspect const &);
+		sge::rucksack::aspect const &
+	);
 
-	SGE_RUCKSACK_SYMBOL sge::rucksack::axis_policy const &
+	SGE_RUCKSACK_SYMBOL
+	sge::rucksack::axis_policy const &
 	x() const;
 
-	SGE_RUCKSACK_SYMBOL sge::rucksack::axis_policy const &
+	SGE_RUCKSACK_SYMBOL
+	sge::rucksack::axis_policy const &
 	y() const;
 
 	SGE_RUCKSACK_SYMBOL sge::rucksack::axis_policy const &
 	operator[](
-		sge::rucksack::dim::size_type) const;
+		sge::rucksack::dim::size_type
+	) const;
 
-	SGE_RUCKSACK_SYMBOL sge::rucksack::aspect const &
+	SGE_RUCKSACK_SYMBOL
+	sge::rucksack::aspect const &
 	aspect() const;
 private:
-	sge::rucksack::axis_policy x_,y_;
+	sge::rucksack::axis_policy
+		x_,
+		y_;
+
 	sge::rucksack::aspect aspect_;
 };
+
 }
 }
 

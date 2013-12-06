@@ -22,11 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RUCKSACK_WIDGET_ENUMERATION_HPP_INCLUDED
 
 #include <sge/rucksack/aspect.hpp>
-#include <sge/rucksack/padding.hpp>
+#include <sge/rucksack/axis_policy2_fwd.hpp>
+#include <sge/rucksack/dim.hpp>
+#include <sge/rucksack/padding_fwd.hpp>
+#include <sge/rucksack/scalar.hpp>
+#include <sge/rucksack/vector.hpp>
 #include <sge/rucksack/widget/base.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
@@ -51,7 +53,6 @@ FCPPT_NONCOPYABLE(
 	enumeration);
 public:
 	SGE_RUCKSACK_SYMBOL
-	explicit
 	enumeration(
 		sge::rucksack::padding const &,
 		sge::rucksack::aspect const &);

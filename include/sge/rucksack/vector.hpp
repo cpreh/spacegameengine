@@ -21,17 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RUCKSACK_VECTOR_HPP_INCLUDED
 #define SGE_RUCKSACK_VECTOR_HPP_INCLUDED
 
-#include <sge/rucksack/scalar.hpp>
-#include <fcppt/math/vector/static.hpp>
+#include <sge/rucksack/vector_fwd.hpp>
+#include <fcppt/math/vector/object_impl.hpp>
 
-namespace sge
-{
-namespace rucksack
-{
-typedef
-fcppt::math::vector::static_<sge::rucksack::scalar,2>
-vector;
-}
-}
 
 #endif
