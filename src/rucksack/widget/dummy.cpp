@@ -30,7 +30,7 @@ sge::rucksack::widget::dummy::dummy(
 	sge::rucksack::axis_policy2 const &_axis_policy)
 :
 	sge::rucksack::widget::base(
-		widget::optional_parent()),
+		sge::rucksack::widget::optional_parent()),
 	axis_policy_(
 		_axis_policy),
 	position_(

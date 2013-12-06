@@ -62,7 +62,7 @@ public:
 	// We need the renderer object for the size() and position() getters/setters.
 	// The viewport manager ironically doesn't give us access to the viewport
 	// directly.
-	SGE_RUCKSACK_SYMBOL explicit
+	SGE_RUCKSACK_SYMBOL
 	viewport_adaptor(
 		sge::viewport::manager &,
 		sge::renderer::device::core &);
