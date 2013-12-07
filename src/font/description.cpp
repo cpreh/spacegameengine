@@ -18,29 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PANGO_PANGO_LAYOUT_UNIQUE_PTR_HPP_INCLUDED
-#define SGE_PANGO_PANGO_LAYOUT_UNIQUE_PTR_HPP_INCLUDED
-
-#include <sge/pango/glib_deleter_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <pango/pango-layout.h>
-#include <memory>
-#include <fcppt/config/external_end.hpp>
+#include <sge/font/ascent.hpp>
+#include <sge/font/descent.hpp>
+#include <sge/font/description.hpp>
 
 
-namespace sge
+sge::font::description::description(
+	sge::font::ascent const _ascent,
+	sge::font::descent const _descent
+)
+:
+	ascent_(
+		_ascent
+	),
+	descent_(
+		_descent
+	)
 {
-namespace pango
-{
-
-typedef
-std::unique_ptr<
-	PangoLayout,
-	sge::pango::glib_deleter
->
-pango_layout_unique_ptr;
-
-}
 }
 
-#endif
+sge::font::ascent const
+sge::font::description::ascent() const
+{
+	return
+		ascent_;
+}
+
+sge::font::descent const
+sge::font::description::descent() const
+{
+	return
+		descent_;
+}

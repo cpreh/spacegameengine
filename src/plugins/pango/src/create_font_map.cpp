@@ -18,29 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PANGO_PANGO_LAYOUT_UNIQUE_PTR_HPP_INCLUDED
-#define SGE_PANGO_PANGO_LAYOUT_UNIQUE_PTR_HPP_INCLUDED
-
-#include <sge/pango/glib_deleter_fwd.hpp>
+#include <sge/font/parameters.hpp>
+#include <sge/pango/create_font_map.hpp>
+#include <sge/pango/glib_deleter.hpp>
+#include <sge/pango/pango_font_map_unique_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <pango/pango-layout.h>
-#include <memory>
+#include <pango/pangoft2.h>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
+sge::pango::pango_font_map_unique_ptr
+sge::pango::create_font_map(
+	sge::font::parameters const &_parameters
+)
 {
-namespace pango
-{
+	sge::pango::pango_font_map_unique_ptr result(
+		::pango_ft2_font_map_new()
+	);
 
-typedef
-std::unique_ptr<
-	PangoLayout,
-	sge::pango::glib_deleter
->
-pango_layout_unique_ptr;
+	if(
+		_parameters.dpi()
+	)
+		::pango_ft2_font_map_set_resolution(
+			reinterpret_cast<
+				PangoFT2FontMap *
+			>(
+				result.get()
+			),
+			_parameters.dpi()->x(),
+			_parameters.dpi()->y()
+		);
 
+	return
+		std::move(
+			result
+		);
 }
-}
-
-#endif

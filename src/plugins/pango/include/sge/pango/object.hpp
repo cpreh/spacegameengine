@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PANGO_OBJECT_HPP_INCLUDED
 #define SGE_PANGO_OBJECT_HPP_INCLUDED
 
+#include <sge/font/description.hpp>
 #include <sge/font/object.hpp>
 #include <sge/font/parameters_fwd.hpp>
 #include <sge/font/string.hpp>
@@ -56,32 +57,45 @@ public:
 		sge::font::parameters const &
 	);
 
-	~object();
+	~object()
+	override;
 private:
 	sge::font::text_unique_ptr
 	create_text(
 		sge::font::string const &,
 		sge::font::text_parameters const &
-	);
+	)
+	override;
 
 	sge::image::color::optional_format const
-	color_format() const;
+	color_format() const
+	override;
 
-	typedef fcppt::scoped_ptr<
+	sge::font::description const
+	description() const
+	override;
+
+	typedef
+	fcppt::scoped_ptr<
 		PangoFontMap,
 		sge::pango::glib_deleter
-	> font_map_scoped_ptr;
+	>
+	font_map_scoped_ptr;
 
 	font_map_scoped_ptr const font_map_;
 
-	typedef fcppt::scoped_ptr<
+	typedef
+	fcppt::scoped_ptr<
 		PangoContext,
 		sge::pango::glib_deleter
-	> context_scoped_ptr;
+	>
+	context_scoped_ptr;
 
 	context_scoped_ptr const context_;
 
 	sge::pango::pango_layout_scoped_ptr const layout_;
+
+	sge::font::description const description_;
 };
 
 }

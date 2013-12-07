@@ -19,6 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/font/align_h.hpp>
+#include <sge/font/description.hpp>
+#include <sge/font/description_output.hpp>
+#include <sge/font/from_fcppt_string.hpp>
 #include <sge/font/lit.hpp>
 #include <sge/font/object.hpp>
 #include <sge/font/object_scoped_ptr.hpp>
@@ -68,6 +71,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/io/cerr.hpp>
+#include <fcppt/io/ostringstream.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -149,11 +153,20 @@ try
 		)
 	);
 
+	fcppt::io::ostringstream output_stream;
+
+	output_stream
+		<< font->description();
+
 	sge::font::draw::static_text static_text(
 		sys.renderer_ffp(),
 		*font,
 		SGE_FONT_LIT(
-			"日本語は書ける"
+			"日本語は書ける, "
+		)
+		+
+		sge::font::from_fcppt_string(
+			output_stream.str()
 		),
 		sge::font::text_parameters(
 			sge::font::align_h::left

@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/font/description.hpp>
 #include <sge/font/object.hpp>
 #include <sge/font/parameters.hpp>
 #include <sge/font/string.hpp>
@@ -26,8 +27,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text_unique_ptr.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image/color/optional_format.hpp>
+#include <sge/pango/create_font_map.hpp>
 #include <sge/pango/create_layout.hpp>
 #include <sge/pango/glib_deleter.hpp>
+#include <sge/pango/make_description.hpp>
 #include <sge/pango/object.hpp>
 #include <sge/pango/text.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -35,7 +38,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <pango/pango-fontmap.h>
 #include <pango/pango-types.h>
-#include <pango/pangoft2.h>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -45,7 +47,9 @@ sge::pango::object::object(
 :
 	sge::font::object(),
 	font_map_(
-		::pango_ft2_font_map_new()
+		sge::pango::create_font_map(
+			_parameters
+		)
 	),
 	context_(
 		::pango_font_map_create_context(
@@ -57,20 +61,14 @@ sge::pango::object::object(
 			*context_,
 			_parameters
 		)
+	),
+	description_(
+		sge::pango::make_description(
+			*context_,
+			*layout_
+		)
 	)
 {
-	if(
-		_parameters.dpi()
-	)
-		::pango_ft2_font_map_set_resolution(
-			reinterpret_cast<
-				PangoFT2FontMap *
-			>(
-				font_map_.get()
-			),
-			_parameters.dpi()->x(),
-			_parameters.dpi()->y()
-		);
 }
 
 sge::pango::object::~object()
@@ -103,4 +101,11 @@ sge::pango::object::color_format() const
 		sge::image::color::optional_format(
 			sge::image::color::format::a8
 		);
+}
+
+sge::font::description const
+sge::pango::object::description() const
+{
+	return
+		description_;
 }

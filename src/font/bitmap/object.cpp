@@ -18,6 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/font/ascent.hpp>
+#include <sge/font/descent.hpp>
+#include <sge/font/description.hpp>
 #include <sge/font/exception.hpp>
 #include <sge/font/string.hpp>
 #include <sge/font/text_parameters_fwd.hpp>
@@ -167,5 +170,21 @@ sge::font::bitmap::object::create_text(
 sge::image::color::optional_format const
 sge::font::bitmap::object::color_format() const
 {
-	return color_format_;
+	return
+		color_format_;
+}
+
+sge::font::description const
+sge::font::bitmap::object::description() const
+{
+	return
+		// FIXME!
+		sge::font::description(
+			sge::font::ascent(
+				0
+			),
+			sge::font::descent(
+				0
+			)
+		);
 }

@@ -448,8 +448,13 @@ set(
 	include/sge/exception.hpp
 	include/sge/font/align_h.hpp
 	include/sge/font/align_h_fwd.hpp
+	include/sge/font/ascent.hpp
 	include/sge/font/bitmap/create.hpp
 	include/sge/font/char_type.hpp
+	include/sge/font/descent.hpp
+	include/sge/font/description.hpp
+	include/sge/font/description_fwd.hpp
+	include/sge/font/description_output.hpp
 	include/sge/font/dim.hpp
 	include/sge/font/dim_fwd.hpp
 	include/sge/font/dpi.hpp

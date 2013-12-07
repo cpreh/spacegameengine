@@ -2,7 +2,12 @@ set(
 	SGE_FONT_FILES
 	include/sge/font/align_h.hpp
 	include/sge/font/align_h_fwd.hpp
+	include/sge/font/ascent.hpp
 	include/sge/font/char_type.hpp
+	include/sge/font/descent.hpp
+	include/sge/font/description.hpp
+	include/sge/font/description_fwd.hpp
+	include/sge/font/description_output.hpp
 	include/sge/font/dim.hpp
 	include/sge/font/dim_fwd.hpp
 	include/sge/font/dpi.hpp
@@ -67,6 +72,8 @@ set(
 	include/sge/font/weight/ultra_heavy.hpp
 	include/sge/font/weight/ultra_light.hpp
 	include/sge/font/weight/unit.hpp
+	src/font/description.cpp
+	src/font/description_output.cpp
 	src/font/exception.cpp
 	src/font/from_fcppt_string.cpp
 	src/font/object.cpp

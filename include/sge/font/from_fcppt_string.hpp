@@ -32,7 +32,7 @@ namespace font
 {
 
 SGE_FONT_SYMBOL
-sge::font::string const
+sge::font::string
 from_fcppt_string(
 	fcppt::string const &
 );
