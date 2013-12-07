@@ -34,7 +34,7 @@ namespace cg
 namespace program
 {
 
-sge::cg::string const
+sge::cg::string
 replace_index(
 	sge::cg::program::extra_index
 );

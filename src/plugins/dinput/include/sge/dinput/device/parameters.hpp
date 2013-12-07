@@ -53,7 +53,7 @@ public:
 	IDirectInput8 &
 	instance() const;
 
-	fcppt::string const
+	fcppt::string const &
 	name() const;
 
 	GUID

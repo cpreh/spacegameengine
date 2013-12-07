@@ -32,7 +32,7 @@ namespace cg
 {
 
 SGE_CG_SYMBOL
-fcppt::string const
+fcppt::string
 error_listing(
 	sge::cg::context::object const &
 );

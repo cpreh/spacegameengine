@@ -48,7 +48,7 @@ typedef
 fcppt::optional<size_vector>
 optional_size_vector;
 
-fcppt::string const
+fcppt::string
 output_dimension(
 	size_vector const &a)
 {

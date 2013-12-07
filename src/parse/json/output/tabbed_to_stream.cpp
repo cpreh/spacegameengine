@@ -260,7 +260,7 @@ private:
 
 	tab_count const tabs_;
 
-	fcppt::string const
+	fcppt::string
 	make_tabs() const
 	{
 		return
@@ -270,7 +270,7 @@ private:
 			);
 	}
 
-	fcppt::string const
+	fcppt::string
 	make_more_tabs() const
 	{
 		return

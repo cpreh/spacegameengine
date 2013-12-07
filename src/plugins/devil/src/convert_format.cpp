@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-fcppt::string const
+fcppt::string
 format_to_string(
 	ILenum
 );
@@ -132,7 +132,7 @@ sge::devil::convert_format(
 namespace
 {
 
-fcppt::string const
+fcppt::string
 format_to_string(
 	ILenum const _format
 )

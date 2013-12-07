@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-fcppt::optional_string const
+fcppt::optional_string
 sge::dinput::device::element_name(
 	DIDEVICEOBJECTINSTANCE const &_data
 )

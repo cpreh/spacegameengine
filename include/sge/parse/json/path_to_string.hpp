@@ -32,9 +32,13 @@ namespace parse
 {
 namespace json
 {
-SGE_PARSE_SYMBOL fcppt::string const
+
+SGE_PARSE_SYMBOL
+fcppt::string
 path_to_string(
-	json::path const &);
+	sge::parse::json::path const &
+);
+
 }
 }
 }

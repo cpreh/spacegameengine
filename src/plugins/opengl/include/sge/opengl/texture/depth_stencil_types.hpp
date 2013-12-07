@@ -44,7 +44,7 @@ struct depth_stencil_types
 	typedef sge::opengl::texture::depth_stencil_surface_types buffer_types;
 
 	static
-	fcppt::string const
+	fcppt::string
 	name();
 };
 

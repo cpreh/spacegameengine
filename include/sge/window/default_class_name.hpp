@@ -31,7 +31,7 @@ namespace window
 {
 
 SGE_WINDOW_SYMBOL
-fcppt::string const
+fcppt::string
 default_class_name();
 
 }

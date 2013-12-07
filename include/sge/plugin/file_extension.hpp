@@ -31,7 +31,7 @@ namespace plugin
 {
 
 SGE_PLUGIN_SYMBOL
-fcppt::string const
+fcppt::string
 file_extension();
 
 }

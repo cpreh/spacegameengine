@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/color_format.hpp>
 #include <fcppt/string.hpp>
 
+
 namespace sge
 {
 namespace opengl
@@ -31,9 +32,9 @@ namespace opengl
 namespace convert
 {
 
-fcppt::string const
+fcppt::string
 format_to_string(
-	opengl::color_format
+	sge::opengl::color_format
 );
 
 }

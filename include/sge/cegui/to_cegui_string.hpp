@@ -36,7 +36,7 @@ namespace cegui
 {
 
 SGE_CEGUI_SYMBOL
-CEGUI::String const
+CEGUI::String
 to_cegui_string(
 	fcppt::string const &
 );

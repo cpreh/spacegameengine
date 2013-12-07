@@ -42,7 +42,7 @@ struct format_to_string<
 {
 	SGE_IMAGE_COLOR_SYMBOL
 	static
-	fcppt::string const
+	fcppt::string
 	execute(
 		sge::image::color::format
 	);

@@ -40,7 +40,7 @@ sge::console::cursor::~cursor()
 {
 }
 
-sge::font::string const
+sge::font::string
 sge::console::cursor::edited(
 	bool const _active
 ) const
@@ -55,7 +55,7 @@ sge::console::cursor::edited(
 		l;
 }
 
-sge::font::string const
+sge::font::string
 sge::console::cursor::string() const
 {
 	// skip last space

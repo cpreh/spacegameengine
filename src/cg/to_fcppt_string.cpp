@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/string.hpp>
 
 
-fcppt::string const
+fcppt::string
 sge::cg::to_fcppt_string(
 	sge::cg::string const &_string
 )

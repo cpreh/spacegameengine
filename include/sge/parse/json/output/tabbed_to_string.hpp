@@ -36,7 +36,7 @@ namespace output
 {
 
 SGE_PARSE_SYMBOL
-fcppt::string const
+fcppt::string
 tabbed_to_string(
 	sge::parse::json::start const &);
 

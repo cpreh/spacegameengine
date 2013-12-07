@@ -32,7 +32,7 @@ namespace cg
 {
 
 SGE_CG_SYMBOL
-fcppt::string const
+fcppt::string
 to_fcppt_string(
 	sge::cg::string const &
 );

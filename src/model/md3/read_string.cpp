@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<
 	sge::model::md3::string::size_type Max
 >
-sge::model::md3::string const
+sge::model::md3::string
 sge::model::md3::read_string(
 	std::istream &_stream
 )
@@ -79,7 +79,7 @@ sge::model::md3::read_string(
 	maxc\
 )\
 template \
-sge::model::md3::string const \
+sge::model::md3::string \
 sge::model::md3::read_string< \
 	maxc\
 >( \

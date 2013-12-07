@@ -18,13 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/common.hpp>
 #include <sge/opengl/get_string.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 
 
-fcppt::string const
+fcppt::string
 sge::opengl::get_string(
 	GLenum const _what
 )

@@ -44,7 +44,7 @@ struct cube_types
 	typedef sge::opengl::texture::color_surface_types buffer_types;
 
 	static
-	fcppt::string const
+	fcppt::string
 	name();
 };
 

@@ -34,7 +34,7 @@ namespace ds
 {
 
 SGE_IMAGE_DS_SYMBOL
-fcppt::string const
+fcppt::string
 format_to_string(
 	sge::image::ds::format
 );

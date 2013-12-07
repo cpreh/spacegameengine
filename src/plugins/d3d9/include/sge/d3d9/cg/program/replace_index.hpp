@@ -35,7 +35,7 @@ namespace cg
 namespace program
 {
 
-sge::cg::string const
+sge::cg::string
 replace_index(
 	sge::d3d9::vf::texture_coordinate_count,
 	sge::cg::program::extra_index

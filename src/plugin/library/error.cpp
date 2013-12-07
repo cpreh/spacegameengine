@@ -33,7 +33,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #error "Implement me!"
 #endif
 
-fcppt::string const
+
+fcppt::string
 sge::plugin::library::error()
 {
 #if defined(FCPPT_CONFIG_POSIX_PLATFORM)

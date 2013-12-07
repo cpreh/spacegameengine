@@ -34,7 +34,7 @@ namespace opencl
 {
 namespace program
 {
-SGE_OPENCL_SYMBOL program::source_string_sequence const
+SGE_OPENCL_SYMBOL program::source_string_sequence
 file_to_source_string_sequence(
 	boost::filesystem::path const &);
 }

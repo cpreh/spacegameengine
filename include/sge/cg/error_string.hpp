@@ -34,7 +34,7 @@ namespace cg
 {
 
 SGE_CG_SYMBOL
-fcppt::string const
+fcppt::string
 error_string(
 	CGerror
 );

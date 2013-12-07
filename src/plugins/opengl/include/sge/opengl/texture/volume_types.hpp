@@ -44,7 +44,7 @@ struct volume_types
 	typedef sge::opengl::texture::color_volume_types buffer_types;
 
 	static
-	fcppt::string const
+	fcppt::string
 	name();
 };
 

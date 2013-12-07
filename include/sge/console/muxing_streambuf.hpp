@@ -108,13 +108,13 @@ private:
 
 	// TODO: This should be in src/
 	static
-	fcppt::string const
+	fcppt::string
 	from_string(
 		std::string const &
 	);
 
 	static
-	fcppt::string const
+	fcppt::string
 	from_string(
 		std::wstring const &
 	);

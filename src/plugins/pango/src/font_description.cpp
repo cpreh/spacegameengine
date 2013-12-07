@@ -70,7 +70,6 @@ sge::pango::font_description::family(
 			_family
 		).c_str()
 	);
-
 }
 
 void

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 
 
-fcppt::string const
+fcppt::string
 sge::opengl::texture::depth_stencil_types::name()
 {
 	return FCPPT_TEXT("depth stencil texture");

@@ -57,7 +57,7 @@ sge::dinput::device::parameters::instance() const
 	return instance_;
 }
 
-fcppt::string const
+fcppt::string const &
 sge::dinput::device::parameters::name() const
 {
 	return name_;

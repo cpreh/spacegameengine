@@ -32,7 +32,7 @@ namespace dinput
 namespace device
 {
 
-fcppt::optional_string const
+fcppt::optional_string
 element_name(
 	DIDEVICEOBJECTINSTANCE const &
 );

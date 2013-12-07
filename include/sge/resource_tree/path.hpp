@@ -89,14 +89,14 @@ public:
 	\brief Return the last element of the path
 	*/
 	SGE_RESOURCE_TREE_SYMBOL
-	fcppt::string const
+	fcppt::string
 	back() const;
 
 	/**
 	\brief Output the path as a string for display in error messages
 	*/
 	SGE_RESOURCE_TREE_SYMBOL
-	fcppt::string const
+	fcppt::string
 	string() const;
 private:
 	element_sequence elements_;

@@ -58,16 +58,16 @@ public:
 	SGE_OPENCL_SYMBOL sge::opencl::platform::profile_type
 	profile() const;
 
-	SGE_OPENCL_SYMBOL sge::opencl::platform::version const
+	SGE_OPENCL_SYMBOL sge::opencl::platform::version
 	version() const;
 
-	SGE_OPENCL_SYMBOL std::string const
+	SGE_OPENCL_SYMBOL std::string
 	name() const;
 
-	SGE_OPENCL_SYMBOL std::string const
+	SGE_OPENCL_SYMBOL std::string
 	vendor() const;
 
-	SGE_OPENCL_SYMBOL sge::opencl::platform::extension_sequence const
+	SGE_OPENCL_SYMBOL sge::opencl::platform::extension_sequence
 	extensions() const;
 
 	SGE_OPENCL_SYMBOL bool

@@ -51,13 +51,13 @@ public:
 	~cursor();
 
 	SGE_CONSOLE_SYMBOL
-	sge::font::string const
+	sge::font::string
 	edited(
 		bool
 	) const;
 
 	SGE_CONSOLE_SYMBOL
-	sge::font::string const
+	sge::font::string
 	string() const;
 
 	SGE_CONSOLE_SYMBOL

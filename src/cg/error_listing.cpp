@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-fcppt::string const
+fcppt::string
 sge::cg::error_listing(
 	sge::cg::context::object const &_context
 )

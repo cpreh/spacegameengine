@@ -30,7 +30,7 @@ namespace sge
 namespace dinput
 {
 
-fcppt::string const
+fcppt::string
 guid_to_string(
 	GUID const &
 );

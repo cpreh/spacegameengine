@@ -60,7 +60,7 @@ public:
 	frames() const;
 
 	SGE_TIMER_SYMBOL
-	fcppt::string const
+	fcppt::string
 	frames_str() const;
 
 	SGE_TIMER_SYMBOL

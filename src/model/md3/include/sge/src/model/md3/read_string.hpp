@@ -35,9 +35,9 @@ namespace md3
 {
 
 template<
-	md3::string::size_type Max
+	sge::model::md3::string::size_type Max
 >
-md3::string const
+sge::model::md3::string
 read_string(
 	std::istream &
 );

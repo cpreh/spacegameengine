@@ -33,7 +33,7 @@ namespace program
 {
 
 typedef
-sge::cg::string const
+sge::cg::string
 replace_extra_function(
 	sge::cg::program::extra_index
 );

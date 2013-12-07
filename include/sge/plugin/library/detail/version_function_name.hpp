@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/plugin/library/symbol_string.hpp>
 
+
 namespace sge
 {
 namespace plugin
@@ -32,7 +33,7 @@ namespace library
 namespace detail
 {
 
-library::symbol_string const
+sge::plugin::library::symbol_string const
 version_function_name
 	= "sge_plugin_version_info";
 

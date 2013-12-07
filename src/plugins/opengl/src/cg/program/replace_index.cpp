@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/insert_to_string.hpp>
 
 
-sge::cg::string const
+sge::cg::string
 sge::opengl::cg::program::replace_index(
 	sge::cg::program::extra_index const _index
 )

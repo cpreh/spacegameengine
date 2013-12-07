@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-fcppt::optional_string const
+fcppt::optional_string
 sge::evdev::joypad::relative_axis::make_string(
 	sge::evdev::device::event_type const _event
 )

@@ -24,12 +24,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/common.hpp>
 #include <fcppt/string.hpp>
 
+
 namespace sge
 {
 namespace opengl
 {
 
-fcppt::string const
+fcppt::string
 error_string(
 	GLenum
 );

@@ -73,7 +73,7 @@ sge::timer::frames_counter::frames() const
 		display_frames_;
 }
 
-fcppt::string const
+fcppt::string
 sge::timer::frames_counter::frames_str() const
 {
 	return

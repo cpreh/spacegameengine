@@ -34,7 +34,7 @@ namespace parse
 {
 
 SGE_PARSE_SYMBOL
-fcppt::string const
+fcppt::string
 info_to_string(
 	boost::spirit::info const &
 );

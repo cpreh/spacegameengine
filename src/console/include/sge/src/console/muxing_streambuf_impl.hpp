@@ -152,7 +152,7 @@ template<
 	typename Char,
 	typename Traits
 >
-fcppt::string const
+fcppt::string
 sge::console::muxing_streambuf<
 	Char,
 	Traits
@@ -170,7 +170,7 @@ template<
 	typename Char,
 	typename Traits
 >
-fcppt::string const
+fcppt::string
 sge::console::muxing_streambuf<
 	Char,
 	Traits

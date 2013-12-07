@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::opencl::program::source_string_sequence const
+sge::opencl::program::source_string_sequence
 sge::opencl::program::file_to_source_string_sequence(
 	boost::filesystem::path const &_path
 )

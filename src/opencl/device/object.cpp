@@ -86,7 +86,7 @@ copy_to_result(
 }
 
 template<typename Result>
-Result const
+Result
 device_info(
 	cl_device_id const &current_device,
 	cl_device_info const &info)
@@ -134,7 +134,7 @@ device_info(
 
 #define SGE_OPENCL_DEVICE_OUTPUT_CONSTANT(constant) case constant: return #constant
 
-std::string const
+std::string
 device_type_to_string(
 	cl_device_type const dt)
 {
@@ -155,7 +155,7 @@ device_type_to_string(
 	FCPPT_ASSERT_UNREACHABLE;
 }
 
-std::string const
+std::string
 device_fp_config_to_string(
 	cl_device_fp_config const dt)
 {
@@ -191,7 +191,7 @@ device_fp_config_to_string(
 	return result;
 }
 
-std::string const
+std::string
 device_exec_capabilities_to_string(
 	cl_device_exec_capabilities const dt)
 {
@@ -209,7 +209,7 @@ device_exec_capabilities_to_string(
 	return result;
 }
 
-std::string const
+std::string
 device_mem_cache_type_to_string(
 	cl_device_mem_cache_type const dt)
 {
@@ -226,7 +226,7 @@ device_mem_cache_type_to_string(
 	FCPPT_ASSERT_UNREACHABLE;
 }
 
-std::string const
+std::string
 device_local_mem_type_to_string(
 	cl_device_local_mem_type const dt)
 {
@@ -241,7 +241,7 @@ device_local_mem_type_to_string(
 	FCPPT_ASSERT_UNREACHABLE;
 }
 
-std::string const
+std::string
 command_queue_properties_to_string(
 	cl_command_queue_properties const dt)
 {

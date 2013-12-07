@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <fcppt/string.hpp>
 
+
 namespace sge
 {
 namespace plugin
@@ -30,7 +31,7 @@ namespace plugin
 namespace library
 {
 
-fcppt::string const
+fcppt::string
 error();
 
 }

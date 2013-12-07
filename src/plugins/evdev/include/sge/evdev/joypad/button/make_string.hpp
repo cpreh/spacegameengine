@@ -34,7 +34,7 @@ namespace joypad
 namespace button
 {
 
-fcppt::optional_string const
+fcppt::optional_string
 make_string(
 	sge::evdev::device::event_type
 );

@@ -78,13 +78,13 @@ sge::resource_tree::path::operator==(
 			_p.elements_.begin());
 }
 
-fcppt::string const
+fcppt::string
 sge::resource_tree::path::back() const
 {
 	return elements_.back();
 }
 
-fcppt::string const
+fcppt::string
 sge::resource_tree::path::string() const
 {
 	fcppt::string result;

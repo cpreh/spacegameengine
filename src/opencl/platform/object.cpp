@@ -31,12 +31,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/split.hpp>
+#include <string>
 #include <fcppt/config/external_end.hpp>
 
 
 namespace
 {
-std::string const
+std::string
 platform_info_string(
 	cl_platform_id const &p,
 	cl_platform_info const &info)
@@ -109,7 +110,7 @@ sge::opencl::platform::object::profile() const
 			sge::opencl::platform::profile_type::embedded;
 }
 
-sge::opencl::platform::version const
+sge::opencl::platform::version
 sge::opencl::platform::object::version() const
 {
 	return
@@ -119,7 +120,7 @@ sge::opencl::platform::object::version() const
 				CL_PLATFORM_VERSION));
 }
 
-std::string const
+std::string
 sge::opencl::platform::object::name() const
 {
 	return
@@ -128,15 +129,19 @@ sge::opencl::platform::object::name() const
 			CL_PLATFORM_NAME);
 }
 
-sge::opencl::platform::extension_sequence const
+sge::opencl::platform::extension_sequence
 sge::opencl::platform::object::extensions() const
 {
 	sge::opencl::platform::extension_sequence result;
-	boost::algorithm::split(
-		result,
+
+	std::string const info_string(
 		platform_info_string(
 			platform_id_,
-			CL_PLATFORM_EXTENSIONS),
+			CL_PLATFORM_EXTENSIONS));
+
+	boost::algorithm::split(
+		result,
+		info_string,
 		boost::algorithm::is_any_of(
 			" "));
 	return result;
@@ -164,7 +169,7 @@ sge::opencl::platform::object::has_gpu() const
 	return false;
 }
 
-std::string const
+std::string
 sge::opencl::platform::object::vendor() const
 {
 	return
