@@ -48,6 +48,9 @@ sge::pango::create_text_layout(
 		)
 	);
 
+	if(
+		!_string.empty()
+	)
 	{
 		sge::charconv::utf8_string const converted_string(
 			sge::charconv::convert<

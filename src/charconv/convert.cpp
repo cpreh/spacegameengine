@@ -51,6 +51,20 @@ sge::charconv::convert(
 	>::type const &_source
 )
 {
+	typedef
+	typename
+	sge::charconv::string_type<
+		DestEncoding
+	>::type
+	dest_type;
+
+
+	if(
+		_source.empty()
+	)
+		return
+			dest_type();
+
 	sge::charconv::raw_vector const raw_result(
 		sge::charconv::convert_raw(
 			sge::charconv::source_encoding(
@@ -79,10 +93,6 @@ sge::charconv::convert(
 			)
 		)
 	);
-
-	typedef typename sge::charconv::string_type<
-		DestEncoding
-	>::type dest_type;
 
 	// Copy the result over to avoid strict-aliasing problems
 	dest_type dest;
