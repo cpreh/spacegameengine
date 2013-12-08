@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/font/ascent.hpp>
 #include <sge/font/descent.hpp>
+#include <sge/font/height.hpp>
 #include <sge/font/metrics.hpp>
 #include <sge/pango/make_metrics.hpp>
 #include <sge/pango/convert/from_unit.hpp>
@@ -71,8 +72,18 @@ sge::pango::make_metrics(
 		)
 	);
 
+	// TODO: Own function!
+	int height;
+
+	::pango_layout_get_pixel_size(
+		&_layout,
+		nullptr,
+		&height
+	);
+
 	return
 		sge::font::metrics(
+			// TODO: Convert ascent/descent into pixels!
 			sge::font::ascent(
 				sge::pango::convert::from_unit(
 					::pango_font_metrics_get_ascent(
@@ -86,6 +97,9 @@ sge::pango::make_metrics(
 						metrics.get()
 					)
 				)
+			),
+			sge::font::height(
+				height
 			)
 		);
 }

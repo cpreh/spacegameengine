@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/font/ascent.hpp>
 #include <sge/font/descent.hpp>
+#include <sge/font/height.hpp>
 #include <sge/font/metrics_fwd.hpp>
 #include <sge/font/symbol.hpp>
 
@@ -38,7 +39,8 @@ public:
 	SGE_FONT_SYMBOL
 	metrics(
 		sge::font::ascent,
-		sge::font::descent
+		sge::font::descent,
+		sge::font::height
 	);
 
 	SGE_FONT_SYMBOL
@@ -48,10 +50,16 @@ public:
 	SGE_FONT_SYMBOL
 	sge::font::descent const
 	descent() const;
+
+	SGE_FONT_SYMBOL
+	sge::font::height const
+	height() const;
 private:
 	sge::font::ascent ascent_;
 
 	sge::font::descent descent_;
+
+	sge::font::height height_;
 };
 
 }

@@ -150,9 +150,6 @@ try
 					sys.renderer_ffp().display_mode()
 				)
 			)
-			.family(
-				FCPPT_TEXT("helvetica")
-			)
 		)
 	);
 
@@ -164,10 +161,10 @@ try
 	sge::font::draw::static_text static_text(
 		sys.renderer_ffp(),
 		*font,
-		/*SGE_FONT_LIT(
+		SGE_FONT_LIT(
 			"日本語は書ける, "
 		)
-		+*/
+		+
 		sge::font::from_fcppt_string(
 			output_stream.str()
 		),

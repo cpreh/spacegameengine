@@ -44,5 +44,9 @@ sge::font::operator<<(
 		<<
 		_metrics.descent()
 		<<
+		FCPPT_TEXT(", height: ")
+		<<
+		_metrics.height()
+		<<
 		FCPPT_TEXT(')');
 }

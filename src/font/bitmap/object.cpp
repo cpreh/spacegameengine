@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/ascent.hpp>
 #include <sge/font/descent.hpp>
 #include <sge/font/exception.hpp>
+#include <sge/font/height.hpp>
 #include <sge/font/metrics.hpp>
 #include <sge/font/string.hpp>
 #include <sge/font/text_parameters_fwd.hpp>
@@ -185,6 +186,9 @@ sge::font::bitmap::object::metrics() const
 			),
 			sge::font::descent(
 				0
+			),
+			sge::font::height(
+				line_height_
 			)
 		);
 }

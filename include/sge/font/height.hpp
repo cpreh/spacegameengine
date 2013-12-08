@@ -18,47 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/font/ascent.hpp>
-#include <sge/font/descent.hpp>
-#include <sge/font/height.hpp>
-#include <sge/font/metrics.hpp>
+#ifndef SGE_FONT_HEIGHT_HPP_INCLUDED
+#define SGE_FONT_HEIGHT_HPP_INCLUDED
+
+#include <sge/font/unit.hpp>
+#include <fcppt/strong_typedef.hpp>
 
 
-sge::font::metrics::metrics(
-	sge::font::ascent const _ascent,
-	sge::font::descent const _descent,
-	sge::font::height const _height
-)
-:
-	ascent_(
-		_ascent
-	),
-	descent_(
-		_descent
-	),
-	height_(
-		_height
-	)
+namespace sge
 {
+namespace font
+{
+
+FCPPT_MAKE_STRONG_TYPEDEF(
+	sge::font::unit,
+	height
+);
+
+}
 }
 
-sge::font::ascent const
-sge::font::metrics::ascent() const
-{
-	return
-		ascent_;
-}
-
-sge::font::descent const
-sge::font::metrics::descent() const
-{
-	return
-		descent_;
-}
-
-sge::font::height const
-sge::font::metrics::height() const
-{
-	return
-		height_;
-}
+#endif
