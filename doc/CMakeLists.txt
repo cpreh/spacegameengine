@@ -452,9 +452,6 @@ set(
 	include/sge/font/bitmap/create.hpp
 	include/sge/font/char_type.hpp
 	include/sge/font/descent.hpp
-	include/sge/font/description.hpp
-	include/sge/font/description_fwd.hpp
-	include/sge/font/description_output.hpp
 	include/sge/font/dim.hpp
 	include/sge/font/dim_fwd.hpp
 	include/sge/font/dpi.hpp
@@ -475,6 +472,9 @@ set(
 	include/sge/font/flags_fwd.hpp
 	include/sge/font/from_fcppt_string.hpp
 	include/sge/font/lit.hpp
+	include/sge/font/metrics.hpp
+	include/sge/font/metrics_fwd.hpp
+	include/sge/font/metrics_output.hpp
 	include/sge/font/object.hpp
 	include/sge/font/object_fwd.hpp
 	include/sge/font/object_scoped_ptr.hpp

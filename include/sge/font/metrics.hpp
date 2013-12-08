@@ -18,12 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_DESCRIPTION_OUTPUT_HPP_INCLUDED
-#define SGE_FONT_DESCRIPTION_OUTPUT_HPP_INCLUDED
+#ifndef SGE_FONT_METRICS_HPP_INCLUDED
+#define SGE_FONT_METRICS_HPP_INCLUDED
 
-#include <sge/font/description_fwd.hpp>
+#include <sge/font/ascent.hpp>
+#include <sge/font/descent.hpp>
+#include <sge/font/metrics_fwd.hpp>
 #include <sge/font/symbol.hpp>
-#include <fcppt/io/ostream.hpp>
 
 
 namespace sge
@@ -31,12 +32,27 @@ namespace sge
 namespace font
 {
 
-SGE_FONT_SYMBOL
-fcppt::io::ostream &
-operator<<(
-	fcppt::io::ostream &,
-	sge::font::description const &
-);
+class metrics
+{
+public:
+	SGE_FONT_SYMBOL
+	metrics(
+		sge::font::ascent,
+		sge::font::descent
+	);
+
+	SGE_FONT_SYMBOL
+	sge::font::ascent const
+	ascent() const;
+
+	SGE_FONT_SYMBOL
+	sge::font::descent const
+	descent() const;
+private:
+	sge::font::ascent ascent_;
+
+	sge::font::descent descent_;
+};
 
 }
 }

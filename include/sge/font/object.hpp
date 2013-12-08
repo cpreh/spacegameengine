@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_FONT_OBJECT_HPP_INCLUDED
 
 #include <sge/class_symbol.hpp>
-#include <sge/font/description_fwd.hpp>
+#include <sge/font/metrics_fwd.hpp>
 #include <sge/font/object_fwd.hpp>
 #include <sge/font/string.hpp>
 #include <sge/font/symbol.hpp>
@@ -69,8 +69,8 @@ public:
 	color_format() const = 0;
 
 	virtual
-	sge::font::description const
-	description() const = 0;
+	sge::font::metrics const
+	metrics() const = 0;
 };
 
 }

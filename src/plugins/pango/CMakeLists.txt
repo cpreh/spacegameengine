@@ -12,7 +12,7 @@ set(
 	src/plugins/pango/include/sge/pango/glib_deleter.hpp
 	src/plugins/pango/include/sge/pango/glib_deleter_fwd.hpp
 	src/plugins/pango/include/sge/pango/ink_rect.hpp
-	src/plugins/pango/include/sge/pango/make_description.hpp
+	src/plugins/pango/include/sge/pango/make_metrics.hpp
 	src/plugins/pango/include/sge/pango/no_multi_line.hpp
 	src/plugins/pango/include/sge/pango/object.hpp
 	src/plugins/pango/include/sge/pango/pango_font_map_unique_ptr.hpp
@@ -32,7 +32,7 @@ set(
 	src/plugins/pango/src/freetype/make_bitmap.cpp
 	src/plugins/pango/src/glib_deleter.cpp
 	src/plugins/pango/src/ink_rect.cpp
-	src/plugins/pango/src/make_description.cpp
+	src/plugins/pango/src/make_metrics.cpp
 	src/plugins/pango/src/object.cpp
 	src/plugins/pango/src/system.cpp
 	src/plugins/pango/src/text.cpp

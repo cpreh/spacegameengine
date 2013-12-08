@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_FONT_BITMAP_OBJECT_HPP_INCLUDED
 #define SGE_SRC_FONT_BITMAP_OBJECT_HPP_INCLUDED
 
-#include <sge/font/description_fwd.hpp>
+#include <sge/font/metrics_fwd.hpp>
 #include <sge/font/object.hpp>
 #include <sge/font/string.hpp>
 #include <sge/font/text_parameters_fwd.hpp>
@@ -72,8 +72,8 @@ private:
 	color_format() const
 	override;
 
-	sge::font::description const
-	description() const
+	sge::font::metrics const
+	metrics() const
 	override;
 
 	typedef

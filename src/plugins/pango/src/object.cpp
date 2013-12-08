@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/font/description.hpp>
+#include <sge/font/metrics.hpp>
 #include <sge/font/object.hpp>
 #include <sge/font/parameters.hpp>
 #include <sge/font/string.hpp>
@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/pango/create_font_map.hpp>
 #include <sge/pango/create_layout.hpp>
 #include <sge/pango/glib_deleter.hpp>
-#include <sge/pango/make_description.hpp>
+#include <sge/pango/make_metrics.hpp>
 #include <sge/pango/object.hpp>
 #include <sge/pango/text.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -62,8 +62,8 @@ sge::pango::object::object(
 			_parameters
 		)
 	),
-	description_(
-		sge::pango::make_description(
+	metrics_(
+		sge::pango::make_metrics(
 			*context_,
 			*layout_
 		)
@@ -103,9 +103,9 @@ sge::pango::object::color_format() const
 		);
 }
 
-sge::font::description const
-sge::pango::object::description() const
+sge::font::metrics const
+sge::pango::object::metrics() const
 {
 	return
-		description_;
+		metrics_;
 }

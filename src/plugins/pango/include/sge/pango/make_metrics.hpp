@@ -18,35 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/font/ascent.hpp>
-#include <sge/font/descent.hpp>
-#include <sge/font/description.hpp>
+#ifndef SGE_PANGO_MAKE_METRICS_HPP_INCLUDED
+#define SGE_PANGO_MAKE_METRICS_HPP_INCLUDED
+
+#include <sge/font/metrics_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <pango/pango-fontmap.h>
+#include <pango/pango-layout.h>
+#include <fcppt/config/external_end.hpp>
 
 
-sge::font::description::description(
-	sge::font::ascent const _ascent,
-	sge::font::descent const _descent
-)
-:
-	ascent_(
-		_ascent
-	),
-	descent_(
-		_descent
-	)
+namespace sge
 {
+namespace pango
+{
+
+sge::font::metrics const
+make_metrics(
+	PangoContext &,
+	PangoLayout &
+);
+
+}
 }
 
-sge::font::ascent const
-sge::font::description::ascent() const
-{
-	return
-		ascent_;
-}
-
-sge::font::descent const
-sge::font::description::descent() const
-{
-	return
-		descent_;
-}
+#endif

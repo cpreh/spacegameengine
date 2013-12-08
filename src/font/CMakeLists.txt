@@ -5,9 +5,6 @@ set(
 	include/sge/font/ascent.hpp
 	include/sge/font/char_type.hpp
 	include/sge/font/descent.hpp
-	include/sge/font/description.hpp
-	include/sge/font/description_fwd.hpp
-	include/sge/font/description_output.hpp
 	include/sge/font/dim.hpp
 	include/sge/font/dim_fwd.hpp
 	include/sge/font/dpi.hpp
@@ -20,6 +17,9 @@ set(
 	include/sge/font/flags_fwd.hpp
 	include/sge/font/from_fcppt_string.hpp
 	include/sge/font/lit.hpp
+	include/sge/font/metrics.hpp
+	include/sge/font/metrics_fwd.hpp
+	include/sge/font/metrics_output.hpp
 	include/sge/font/object.hpp
 	include/sge/font/object_fwd.hpp
 	include/sge/font/object_scoped_ptr.hpp
@@ -72,10 +72,10 @@ set(
 	include/sge/font/weight/ultra_heavy.hpp
 	include/sge/font/weight/ultra_light.hpp
 	include/sge/font/weight/unit.hpp
-	src/font/description.cpp
-	src/font/description_output.cpp
 	src/font/exception.cpp
 	src/font/from_fcppt_string.cpp
+	src/font/metrics.cpp
+	src/font/metrics_output.cpp
 	src/font/object.cpp
 	src/font/parameters.cpp
 	src/font/parameters_to_string.cpp

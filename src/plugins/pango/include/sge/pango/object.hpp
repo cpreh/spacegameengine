@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PANGO_OBJECT_HPP_INCLUDED
 #define SGE_PANGO_OBJECT_HPP_INCLUDED
 
-#include <sge/font/description.hpp>
+#include <sge/font/metrics.hpp>
 #include <sge/font/object.hpp>
 #include <sge/font/parameters_fwd.hpp>
 #include <sge/font/string.hpp>
@@ -71,8 +71,8 @@ private:
 	color_format() const
 	override;
 
-	sge::font::description const
-	description() const
+	sge::font::metrics const
+	metrics() const
 	override;
 
 	typedef
@@ -95,7 +95,7 @@ private:
 
 	sge::pango::pango_layout_scoped_ptr const layout_;
 
-	sge::font::description const description_;
+	sge::font::metrics const metrics_;
 };
 
 }

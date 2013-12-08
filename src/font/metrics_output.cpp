@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/font/description.hpp>
-#include <sge/font/description_output.hpp>
+#include <sge/font/metrics.hpp>
+#include <sge/font/metrics_output.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/io/ostream.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 fcppt::io::ostream &
 sge::font::operator<<(
 	fcppt::io::ostream &_stream,
-	sge::font::description const &_description
+	sge::font::metrics const &_metrics
 )
 {
 	return
@@ -38,11 +38,11 @@ sge::font::operator<<(
 		<<
 		FCPPT_TEXT("(ascent: ")
 		<<
-		_description.ascent()
+		_metrics.ascent()
 		<<
 		FCPPT_TEXT(", descent: ")
 		<<
-		_description.descent()
+		_metrics.descent()
 		<<
 		FCPPT_TEXT(')');
 }

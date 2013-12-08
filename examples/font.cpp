@@ -19,10 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/font/align_h.hpp>
-#include <sge/font/description.hpp>
-#include <sge/font/description_output.hpp>
 #include <sge/font/from_fcppt_string.hpp>
 #include <sge/font/lit.hpp>
+#include <sge/font/metrics.hpp>
+#include <sge/font/metrics_output.hpp>
 #include <sge/font/object.hpp>
 #include <sge/font/object_scoped_ptr.hpp>
 #include <sge/font/parameters.hpp>
@@ -150,21 +150,24 @@ try
 					sys.renderer_ffp().display_mode()
 				)
 			)
+			.family(
+				FCPPT_TEXT("helvetica")
+			)
 		)
 	);
 
 	fcppt::io::ostringstream output_stream;
 
 	output_stream
-		<< font->description();
+		<< font->metrics();
 
 	sge::font::draw::static_text static_text(
 		sys.renderer_ffp(),
 		*font,
-		SGE_FONT_LIT(
+		/*SGE_FONT_LIT(
 			"日本語は書ける, "
 		)
-		+
+		+*/
 		sge::font::from_fcppt_string(
 			output_stream.str()
 		),
