@@ -16,6 +16,7 @@ set(
 	include/sge/font/flags_field_fwd.hpp
 	include/sge/font/flags_fwd.hpp
 	include/sge/font/from_fcppt_string.hpp
+	include/sge/font/height.hpp
 	include/sge/font/lit.hpp
 	include/sge/font/metrics.hpp
 	include/sge/font/metrics_fwd.hpp
@@ -55,6 +56,7 @@ set(
 	include/sge/font/to_fcppt_string.hpp
 	include/sge/font/ttf_size.hpp
 	include/sge/font/unit.hpp
+	include/sge/font/v_center.hpp
 	include/sge/font/vector.hpp
 	include/sge/font/vector_fwd.hpp
 	include/sge/font/view.hpp
@@ -89,6 +91,7 @@ set(
 	src/font/text.cpp
 	src/font/text_parameters.cpp
 	src/font/to_fcppt_string.cpp
+	src/font/v_center.cpp
 	src/font/weight/bold.cpp
 	src/font/weight/heavy.cpp
 	src/font/weight/light.cpp
