@@ -127,6 +127,9 @@ public:
 		sge::rucksack::alignment);
 
 	SGE_RUCKSACK_SYMBOL void
+	pop_back_child();
+
+	SGE_RUCKSACK_SYMBOL void
 	pop_front_child();
 
 

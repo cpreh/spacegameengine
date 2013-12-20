@@ -322,6 +322,14 @@ sge::rucksack::widget::box::base::push_front_child(
 }
 
 void
+sge::rucksack::widget::box::base::pop_back_child()
+{
+	children_.back().first->parent(
+		sge::rucksack::widget::optional_parent());
+	children_.pop_back();
+}
+
+void
 sge::rucksack::widget::box::base::pop_front_child()
 {
 	children_.front().first->parent(
