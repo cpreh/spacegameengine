@@ -103,6 +103,9 @@ private:
 	manage_callback();
 
 	void
+	resize_child();
+
+	void
 	child_destroyed(
 		sge::rucksack::widget::base &);
 };

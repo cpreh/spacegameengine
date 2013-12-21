@@ -177,6 +177,8 @@ sge::rucksack::widget::viewport_adaptor::child(
 	child_->parent(
 		sge::rucksack::widget::optional_parent(
 			*this));
+
+	this->resize_child();
 }
 
 
@@ -190,16 +192,21 @@ sge::rucksack::widget::viewport_adaptor::~viewport_adaptor()
 void
 sge::rucksack::widget::viewport_adaptor::manage_callback()
 {
-	sge::rucksack::dim const this_size =
-		this->size();
+	if(child_)
+		this->resize_child();
+}
 
-	if(!child_)
-		return;
+void
+sge::rucksack::widget::viewport_adaptor::resize_child()
+{
+	FCPPT_ASSERT_PRE(
+		child_
+	);
 
 	child_->position(
 		sge::rucksack::vector::null());
 	child_->size(
-		this_size);
+		this->size());
 	child_->relayout();
 }
 
