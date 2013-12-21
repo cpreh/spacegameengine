@@ -140,22 +140,21 @@ sge::rucksack::widget::box::base::axis_policy() const
 				minimum_size_minor,
 				minor_policy.minimum_size());
 
-		// Preferred size (forward to minimum size if preferred not available)
-		preferred_size_major +=
+		// Preferred size
+		if(
 			major_policy.preferred_size()
-			?
-				*(major_policy.preferred_size())
-			:
-				major_policy.minimum_size();
+		)
+			preferred_size_major +=
+				*(major_policy.preferred_size());
 
-		preferred_size_minor =
-			std::max(
-				preferred_size_minor,
-				minor_policy.preferred_size()
-				?
+		if(
+			minor_policy.preferred_size()
+		)
+			preferred_size_minor =
+				std::max(
+					preferred_size_minor,
 					*(minor_policy.preferred_size())
-				:
-					minor_policy.minimum_size());
+				);
 
 		// Is expanding.
 		is_expanding_minor |=
@@ -170,16 +169,31 @@ sge::rucksack::widget::box::base::axis_policy() const
 			(sge::rucksack::minimum_size(
 				minimum_size_minor)),
 			sge::rucksack::preferred_size(
-				sge::rucksack::optional_scalar(
-					preferred_size_minor)),
+				preferred_size_minor != 0
+				?
+					sge::rucksack::optional_scalar(
+						preferred_size_minor
+					)
+				:
+					sge::rucksack::optional_scalar()
+			),
 			sge::rucksack::is_expanding(
 				is_expanding_minor)),
 		major_policy(
 			(sge::rucksack::minimum_size(
 				minimum_size_major)),
 			sge::rucksack::preferred_size(
-				sge::rucksack::optional_scalar(
-					preferred_size_major)),
+				// Expanding wins against preferred size on the major axis
+				preferred_size_major != 0
+				&&
+				!is_expanding_major
+				?
+					sge::rucksack::optional_scalar(
+						preferred_size_major
+					)
+				:
+					sge::rucksack::optional_scalar()
+			),
 			sge::rucksack::is_expanding(
 				is_expanding_major));
 
@@ -191,7 +205,7 @@ sge::rucksack::widget::box::base::axis_policy() const
 			?
 				major_policy
 			:
-			minor_policy,
+				minor_policy,
 			axis_ == 0
 			?
 				minor_policy
@@ -379,16 +393,10 @@ sge::rucksack::widget::box::base::relayout_major_axis()
 		// FIXME: Recognize aspect here!
 		widget_ptr_information_pair.second.size(
 			sge::rucksack::dim(
-				axis_ == 0
-				?
-					widget_ptr_information_pair.first->axis_policy()[this->major_axis()].minimum_size()
-				:
-					widget_ptr_information_pair.first->axis_policy()[this->minor_axis()].minimum_size(),
-				axis_ == 0
-				?
-					widget_ptr_information_pair.first->axis_policy()[this->minor_axis()].minimum_size()
-				:
-					widget_ptr_information_pair.first->axis_policy()[this->major_axis()].minimum_size()));
+				widget_ptr_information_pair.first->axis_policy().x().minimum_size(),
+				widget_ptr_information_pair.first->axis_policy().y().minimum_size()
+			)
+		);
 
 		allocated_major_size +=
 			widget_ptr_information_pair.first->axis_policy()[this->major_axis()].minimum_size();
