@@ -29,7 +29,7 @@ namespace input
 namespace cursor
 {
 
-class object;
+class activatable;
 
 }
 }
