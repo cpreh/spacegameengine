@@ -1,6 +1,8 @@
 set(
 	SGE_INPUT_FILES
 	include/sge/input/create_multi_system.hpp
+	include/sge/input/cursor/activatable.hpp
+	include/sge/input/cursor/activatable_fwd.hpp
 	include/sge/input/cursor/button_callback.hpp
 	include/sge/input/cursor/button_code.hpp
 	include/sge/input/cursor/button_code_fwd.hpp
@@ -51,6 +53,8 @@ set(
 	include/sge/input/cursor/remove_event_fwd.hpp
 	include/sge/input/cursor/remove_function.hpp
 	include/sge/input/cursor/remove_signal.hpp
+	include/sge/input/cursor/scoped_activation.hpp
+	include/sge/input/cursor/scoped_activation_fwd.hpp
 	include/sge/input/cursor/scroll_callback.hpp
 	include/sge/input/cursor/scroll_code.hpp
 	include/sge/input/cursor/scroll_code_fwd.hpp
@@ -244,6 +248,7 @@ set(
 	include/sge/input/system_scoped_ptr.hpp
 	include/sge/input/system_unique_ptr.hpp
 	src/input/create_multi_system.cpp
+	src/input/cursor/activatable.cpp
 	src/input/cursor/button_code_to_string.cpp
 	src/input/cursor/button_event.cpp
 	src/input/cursor/default_choose.cpp
@@ -256,6 +261,7 @@ set(
 	src/input/cursor/relative_move_event.cpp
 	src/input/cursor/relative_movement.cpp
 	src/input/cursor/remove_event.cpp
+	src/input/cursor/scoped_activation.cpp
 	src/input/cursor/scroll_code_to_string.cpp
 	src/input/cursor/scroll_event.cpp
 	src/input/exception.cpp

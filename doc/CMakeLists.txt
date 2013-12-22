@@ -956,6 +956,8 @@ set(
 	include/sge/imageds2d/view/sub.hpp
 	include/sge/imageds2d/view/to_const.hpp
 	include/sge/input/create_multi_system.hpp
+	include/sge/input/cursor/activatable.hpp
+	include/sge/input/cursor/activatable_fwd.hpp
 	include/sge/input/cursor/button_callback.hpp
 	include/sge/input/cursor/button_code.hpp
 	include/sge/input/cursor/button_code_fwd.hpp
@@ -1006,6 +1008,8 @@ set(
 	include/sge/input/cursor/remove_event_fwd.hpp
 	include/sge/input/cursor/remove_function.hpp
 	include/sge/input/cursor/remove_signal.hpp
+	include/sge/input/cursor/scoped_activation.hpp
+	include/sge/input/cursor/scoped_activation_fwd.hpp
 	include/sge/input/cursor/scroll_callback.hpp
 	include/sge/input/cursor/scroll_code.hpp
 	include/sge/input/cursor/scroll_code_fwd.hpp
