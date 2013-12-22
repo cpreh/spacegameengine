@@ -242,7 +242,7 @@ sge::rucksack::widget::box::base::relayout()
 	// holes between the widgets. We distribute the extra space in "remaining"
 	// uniformly to these holes.
 	sge::rucksack::scalar const hole_size =
-			remaining / static_cast<sge::rucksack::scalar>(children_.size()+1u);
+			std::max(0, remaining) / static_cast<sge::rucksack::scalar>(children_.size()+1u);
 
 	// This variable keeps track of the current "running" position on the major
 	// axis. Note that the rectangles have absolute positioning, so we have to
