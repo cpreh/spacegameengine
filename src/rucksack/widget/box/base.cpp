@@ -170,6 +170,8 @@ sge::rucksack::widget::box::base::axis_policy() const
 				minimum_size_minor)),
 			sge::rucksack::preferred_size(
 				preferred_size_minor != 0
+				&&
+				!is_expanding_minor
 				?
 					sge::rucksack::optional_scalar(
 						preferred_size_minor
