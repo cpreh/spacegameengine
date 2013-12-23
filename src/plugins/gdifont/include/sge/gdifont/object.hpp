@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GDIFONT_OBJECT_HPP_INCLUDED
 #define SGE_GDIFONT_OBJECT_HPP_INCLUDED
 
+#include <sge/font/metrics.hpp>
 #include <sge/font/object.hpp>
 #include <sge/font/parameters_fwd.hpp>
 #include <sge/font/string.hpp>
@@ -55,16 +56,23 @@ public:
 		sge::font::parameters const &
 	);
 
-	~object();
+	~object()
+	override;
 private:
 	sge::font::text_unique_ptr
 	create_text(
 		sge::font::string const &,
 		sge::font::text_parameters const &
-	);
+	)
+	override;
 
 	sge::image::color::optional_format const
-	color_format() const;
+	color_format() const
+	override;
+
+	sge::font::metrics const
+	metrics() const
+	override;
 
 	sge::gdifont::device_context const &device_context_;
 
@@ -76,6 +84,8 @@ private:
 	> hfont_scoped_ptr;
 
 	hfont_scoped_ptr const font_;
+
+	sge::font::metrics const metrics_;
 };
 
 }

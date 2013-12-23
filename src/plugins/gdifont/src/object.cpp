@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gdifont/create_font.hpp>
 #include <sge/gdifont/delete_object_deleter.hpp>
 #include <sge/gdifont/device_context_fwd.hpp>
+#include <sge/gdifont/make_metrics.hpp>
 #include <sge/gdifont/object.hpp>
 #include <sge/gdifont/text.hpp>
 #include <sge/image/color/format.hpp>
@@ -47,6 +48,12 @@ sge::gdifont::object::object(
 	font_(
 		sge::gdifont::create_font(
 			_parameters
+		)
+	),
+	metrics_(
+		sge::gdifont::make_metrics(
+			device_context_,
+			font_.get()
 		)
 	)
 {
@@ -83,4 +90,11 @@ sge::gdifont::object::color_format() const
 		sge::image::color::optional_format(
 			sge::image::color::format::a8
 		);
+}
+
+sge::font::metrics const
+sge::gdifont::object::metrics() const
+{
+	return
+		metrics_;
 }

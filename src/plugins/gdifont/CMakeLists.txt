@@ -18,10 +18,12 @@ set(
 	src/plugins/gdifont/include/sge/gdifont/format.hpp
 	src/plugins/gdifont/include/sge/gdifont/get_bitmap.hpp
 	src/plugins/gdifont/include/sge/gdifont/get_object.hpp
+	src/plugins/gdifont/include/sge/gdifont/get_text_metrics.hpp
 	src/plugins/gdifont/include/sge/gdifont/hbitmap_unique_ptr.hpp
 	src/plugins/gdifont/include/sge/gdifont/hfont_unique_ptr.hpp
 	src/plugins/gdifont/include/sge/gdifont/include_windows.hpp
 	src/plugins/gdifont/include/sge/gdifont/make_flags.hpp
+	src/plugins/gdifont/include/sge/gdifont/make_metrics.hpp
 	src/plugins/gdifont/include/sge/gdifont/object.hpp
 	src/plugins/gdifont/include/sge/gdifont/render.hpp
 	src/plugins/gdifont/include/sge/gdifont/scoped_select.hpp
@@ -43,7 +45,9 @@ set(
 	src/plugins/gdifont/src/exports.cpp
 	src/plugins/gdifont/src/get_bitmap.cpp
 	src/plugins/gdifont/src/get_object.cpp
+	src/plugins/gdifont/src/get_text_metrics.cpp
 	src/plugins/gdifont/src/make_flags.cpp
+	src/plugins/gdifont/src/make_metrics.cpp
 	src/plugins/gdifont/src/object.cpp
 	src/plugins/gdifont/src/render.cpp
 	src/plugins/gdifont/src/scoped_select.cpp
