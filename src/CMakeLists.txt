@@ -104,47 +104,40 @@ if(
 	)
 endif()
 
-# core libraries
-OPTION (ENABLE_AUDIO "Build the audio library" ON)
-OPTION (ENABLE_CHARCONV "Build the charconv library" ON)
-OPTION (ENABLE_IMAGEDS "Build the image depth stencil library" ON)
-OPTION (ENABLE_IMAGEDS2D "Build the image depth stencil 2d library" ON)
-OPTION (ENABLE_INPUT "Build the input library" ON)
-OPTION (ENABLE_MODELMD3 "Build the md3 model library" ON)
-OPTION (ENABLE_MODELOBJ "Build the md3 model library" ON)
-OPTION (ENABLE_TIMER "Build the timer library" ON)
-
-find_package(
-	Bullet
-)
-
-find_package(
-	CEGUI
-)
-
-find_package(
-	OpenCL
-)
-
-find_package(
-	Cg
-)
-
 macro(
+	path_to_enable_var
+	OUT
+	PATHVAR
+)
+	string(
+		TOUPPER
+		"${PATHVAR}"
+		UPPER_RESULT
+	)
+
+	string(
+		REPLACE
+		"/"
+		""
+		UPPER_RESULT
+		${UPPER_RESULT}
+	)
+
+	set(
+		${OUT}
+		ENABLE_${UPPER_RESULT}
+	)
+endmacro()
+
+function(
 	add_sge_lib
 	LIBNAME
 	DESCRIPTION
 	DEFAULT
 )
-	string(
-		TOUPPER
-		"${LIBNAME}"
-		UPPER_RESULT
-	)
-
-	set(
+	path_to_enable_var(
 		ENABLE_VAR
-		ENABLE_${UPPER_RESULT}
+		${LIBNAME}
 	)
 
 	option(
@@ -160,15 +153,57 @@ macro(
 			${LIBNAME}
 		)
 	endif()
+endfunction()
 
-	unset(
-		UPPER_RESULT
+function(
+	add_sge_lib_depends
+	LIBNAME
+	DESCRIPTION
+	DEFAULT
+	DEPENDS
+)
+	foreach(
+		DEP
+		${DEPENDS}
 	)
+		path_to_enable_var(
+			OUT_VAR
+			${DEP}
+		)
 
-	unset(
-		ENABLE_VAR
+		if(
+			NOT ${OUT_VAR}
+		)
+			set(
+				DEFAULT
+				FALSE
+			)
+
+			message(
+				"${LIBNAME} is not built because ${DEP} couldn't be found"
+			)
+		endif()
+	endforeach()
+
+	add_sge_lib(
+		${LIBNAME}
+		${DESCRIPTION}
+		${DEFAULT}
 	)
-endmacro()
+endfunction()
+
+
+add_subdirectory(
+	bvh
+)
+
+find_package(
+	Cg
+)
+
+##################################################
+# Core libraries
+##################################################
 
 add_sge_lib(
 	log
@@ -189,25 +224,46 @@ add_sge_lib(
 )
 
 add_sge_lib(
+	audio
+	"Build the audio library"
+	ON
+)
+
+add_sge_lib(
+	charconv
+	"Build the charconv library"
+	ON
+)
+
+add_sge_lib(
+	font
+	"Build the font library"
+	ON
+)
+
+add_sge_lib(
 	image
 	"Build the image library"
 	ON
 )
 
-# TODO: Fix the macro to include these!
-option(
-	ENABLE_IMAGECOLOR
-	"Build the imagecolor library"
+add_sge_lib(
+	image/ds
+	"Build the image depth stencil library"
 	ON
 )
 
-if(
-	ENABLE_IMAGECOLOR
+add_sge_lib(
+	imageds2d
+	"Build the image depth stencil 2d library"
+	ON
 )
-	add_subdirectory(
-		image/color
-	)
-endif()
+
+add_sge_lib(
+	image/color
+	"Build the imagecolor library"
+	ON
+)
 
 add_sge_lib(
 	image2d
@@ -228,6 +284,13 @@ add_sge_lib(
 )
 
 add_sge_lib(
+	input
+	"Build the input library"
+	ON
+)
+
+# Needs to be added before renderer
+add_sge_lib(
 	cg
 	"Build the Cg library"
 	${CG_FOUND}
@@ -238,6 +301,38 @@ add_sge_lib(
 	"Build the renderer library"
 	ON
 )
+
+##################################################
+# Support libraries with simple dependencies
+##################################################
+
+add_sge_lib(
+	config
+	"Build the config library"
+	ON
+)
+
+add_sge_lib(
+	parse
+	"Build the parse library"
+	ON
+)
+
+add_sge_lib(
+	timer
+	"Build the timer library"
+	ON
+)
+
+add_sge_lib(
+	resource_tree
+	"Build the resource tree library"
+	ON
+)
+
+##################################################
+# Support libraries with advanced dependencies
+##################################################
 
 add_sge_lib(
 	texture
@@ -252,157 +347,133 @@ add_sge_lib(
 )
 
 add_sge_lib(
-	viewport
-	"Build the viewport library"
-	ON
-)
-
-add_sge_lib(
 	graph
 	"Build the graph library"
 	ON
 )
 
 add_sge_lib(
-	parse
-	"Build the parse library"
+	model/md3
+	"Build the md3 model library"
 	ON
 )
 
 add_sge_lib(
-	font
-	"Build the font library"
+	model/obj
+	"Build the md3 model library"
 	ON
 )
 
-option(
-	ENABLE_FONTDRAW
+add_sge_lib(
+	viewport
+	"Build the viewport library"
+	ON
+)
+
+add_sge_lib(
+	line_drawer
+	"Build the line drawing library"
+	ON
+)
+
+add_sge_lib(
+	font/bitmap
+	"Build the bitmap font library"
+	ON
+)
+
+add_sge_lib(
+	font/draw
 	"Build the font drawing library"
 	ON
 )
 
-if(
-	ENABLE_FONTDRAW
-)
-	add_subdirectory(
-		font/draw
-	)
-endif()
-
 add_sge_lib(
-	shader
-	"Build the shader wrapper library"
-	ON
-)
-
-# more advanced libraries
-option(
-	ENABLE_CAMERA
+	camera
 	"Build the camera"
 	ON
 )
 
-OPTION (ENABLE_CEGUI "Build the cegui subsystem" ${CEGUI_FOUND})
-OPTION (ENABLE_CONFIG "Build the config library" ON)
-OPTION (ENABLE_CONSOLE "Build the console" ON)
-OPTION (ENABLE_FONTBITMAP "Build the bitmap font library" ON)
-OPTION (ENABLE_LINE_DRAWER "Build the line drawing library" ON)
-OPTION (ENABLE_OPENCL "Build the opencl library" ${OPENCL_FOUND})
-OPTION (ENABLE_POSTPROCESSING "Build the postprocessing library" ON)
-OPTION (ENABLE_PROJECTILE "Build the projectile library" ${BULLET_FOUND})
-OPTION (ENABLE_RESOURCE_TREE "Build the resource tree library" ON)
-OPTION (ENABLE_RUCKSACK "Build the rucksack library" ON)
-OPTION (ENABLE_SCENIC "Build the scenic library" ON)
-OPTION (ENABLE_SYSTEMS "Build the systems library" ON)
-
-add_subdirectory(
-	bvh
+add_sge_lib(
+	console
+	"Build the console"
+	ON
 )
 
-IF (ENABLE_AUDIO)
-	ADD_SUBDIRECTORY(audio)
-ENDIF ()
+add_sge_lib(
+	rucksack
+	"Build the rucksack library"
+	ON
+)
 
-IF (ENABLE_CHARCONV)
-	ADD_SUBDIRECTORY(charconv)
-ENDIF ()
+add_sge_lib(
+	systems
+	"Build the systems library"
+	ON
+)
 
-IF (ENABLE_IMAGEDS)
-	ADD_SUBDIRECTORY(image/ds)
-ENDIF ()
+##################################################
+# Libraries with Cg dependencies
+##################################################
 
-IF (ENABLE_IMAGE2D)
-	ADD_SUBDIRECTORY(imageds2d)
-ENDIF ()
+add_sge_lib_depends(
+	shader
+	"Build the shader wrapper library"
+	ON
+	"cg;renderer/cg"
+)
 
-IF (ENABLE_INPUT)
-	ADD_SUBDIRECTORY(input)
-ENDIF ()
+add_sge_lib_depends(
+	postprocessing
+	"Build the postprocessing library"
+	ON
+	"cg;renderer/cg;shader"
+)
 
-IF (ENABLE_MODELMD3)
-	ADD_SUBDIRECTORY(model/md3)
-ENDIF ()
+add_sge_lib_depends(
+	scenic
+	"Build the scenic library"
+	ON
+	"cg;renderer/cg;shader"
+)
 
-IF (ENABLE_MODELOBJ)
-	ADD_SUBDIRECTORY(model/obj)
-ENDIF ()
+##################################################
+# Libraries with external dependencies
+##################################################
 
-IF (ENABLE_RESOURCE_TREE)
-	ADD_SUBDIRECTORY(resource_tree)
-ENDIF ()
+find_package(
+	Bullet
+)
 
-IF (ENABLE_RUCKSACK)
-	ADD_SUBDIRECTORY(rucksack)
-ENDIF ()
+find_package(
+	CEGUI
+)
 
+find_package(
+	OpenCL
+)
 
-IF (ENABLE_TIMER)
-	ADD_SUBDIRECTORY(timer)
-ENDIF ()
+add_sge_lib(
+	cegui
+	"Build the cegui subsystem"
+	${CEGUI_FOUND}
+)
 
-IF (ENABLE_CEGUI)
-	ADD_SUBDIRECTORY(cegui)
-ENDIF ()
+add_sge_lib(
+	opencl
+	"Build the opencl library"
+	${OPENCL_FOUND}
+)
 
-IF (ENABLE_CAMERA)
-	ADD_SUBDIRECTORY(camera)
-ENDIF ()
+add_sge_lib(
+	projectile
+	"Build the projectile library"
+	${BULLET_FOUND}
+)
 
-IF (ENABLE_CONFIG)
-	ADD_SUBDIRECTORY (config)
-ENDIF ()
-
-IF (ENABLE_CONSOLE)
-	ADD_SUBDIRECTORY (console)
-ENDIF ()
-
-IF(ENABLE_FONTBITMAP)
-	ADD_SUBDIRECTORY (font/bitmap)
-ENDIF()
-
-IF (ENABLE_LINE_DRAWER)
-	ADD_SUBDIRECTORY(line_drawer)
-ENDIF ()
-
-IF (ENABLE_OPENCL)
-	ADD_SUBDIRECTORY (opencl)
-ENDIF ()
-
-IF (ENABLE_POSTPROCESSING)
-	ADD_SUBDIRECTORY(postprocessing)
-ENDIF ()
-
-IF (ENABLE_PROJECTILE)
-	ADD_SUBDIRECTORY (projectile)
-ENDIF ()
-
-IF (ENABLE_SCENIC)
-	ADD_SUBDIRECTORY(scenic)
-ENDIF ()
-
-IF (ENABLE_SYSTEMS)
-	ADD_SUBDIRECTORY(systems)
-ENDIF ()
+##################################################
+# Plugins
+##################################################
 
 add_subdirectory(
 	plugins
