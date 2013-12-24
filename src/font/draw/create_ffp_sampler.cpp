@@ -23,14 +23,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/sampler/alpha_op.hpp>
 #include <sge/renderer/state/ffp/sampler/arg.hpp>
 #include <sge/renderer/state/ffp/sampler/arg1.hpp>
-#include <sge/renderer/state/ffp/sampler/arg2.hpp>
-#include <sge/renderer/state/ffp/sampler/binary_op.hpp>
-#include <sge/renderer/state/ffp/sampler/binary_op_type.hpp>
 #include <sge/renderer/state/ffp/sampler/color_op.hpp>
 #include <sge/renderer/state/ffp/sampler/object.hpp>
 #include <sge/renderer/state/ffp/sampler/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/sampler/op.hpp>
 #include <sge/renderer/state/ffp/sampler/parameters.hpp>
+#include <sge/renderer/state/ffp/sampler/unary_op.hpp>
+#include <sge/renderer/state/ffp/sampler/unary_op_type.hpp>
 #include <sge/src/font/draw/create_ffp_sampler.hpp>
 
 
@@ -49,25 +48,19 @@ sge::font::draw::create_ffp_sampler(
 				sge::renderer::state::ffp::sampler::parameters(
 					sge::renderer::state::ffp::sampler::color_op(
 						sge::renderer::state::ffp::sampler::op(
-							sge::renderer::state::ffp::sampler::binary_op(
-								sge::renderer::state::ffp::sampler::binary_op_type::add,
+							sge::renderer::state::ffp::sampler::unary_op(
+								sge::renderer::state::ffp::sampler::unary_op_type::arg,
 								sge::renderer::state::ffp::sampler::arg1(
-									sge::renderer::state::ffp::sampler::arg::previous
-								),
-								sge::renderer::state::ffp::sampler::arg2(
-									sge::renderer::state::ffp::sampler::arg::texture
+									sge::renderer::state::ffp::sampler::arg::vertex_color
 								)
 							)
 						)
 					),
 					sge::renderer::state::ffp::sampler::alpha_op(
 						sge::renderer::state::ffp::sampler::op(
-							sge::renderer::state::ffp::sampler::binary_op(
-								sge::renderer::state::ffp::sampler::binary_op_type::modulate,
+							sge::renderer::state::ffp::sampler::unary_op(
+								sge::renderer::state::ffp::sampler::unary_op_type::arg,
 								sge::renderer::state::ffp::sampler::arg1(
-									sge::renderer::state::ffp::sampler::arg::previous
-								),
-								sge::renderer::state::ffp::sampler::arg2(
 									sge::renderer::state::ffp::sampler::arg::texture
 								)
 							)
