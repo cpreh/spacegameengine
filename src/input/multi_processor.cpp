@@ -69,7 +69,9 @@ sge::input::multi_processor::multi_processor(
 	connections_()
 {
 	for(
-		auto &system : _systems
+		auto &system
+		:
+		_systems
 	)
 	{
 		sge::input::processor_unique_ptr new_processor(

@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_DINPUT_SYSTEM_HPP_INCLUDED
 #define SGE_DINPUT_SYSTEM_HPP_INCLUDED
 
+#include <sge/input/capabilities_field_fwd.hpp>
 #include <sge/input/processor_unique_ptr.hpp>
 #include <sge/input/system.hpp>
 #include <sge/window/object_fwd.hpp>
@@ -35,7 +36,7 @@ namespace dinput
 
 class system
 :
-	public input::system
+	public sge::input::system
 {
 	FCPPT_NONCOPYABLE(
 		system
@@ -43,13 +44,19 @@ class system
 public:
 	system();
 
-	~system();
-
+	~system()
+	override;
+private:
 	sge::input::processor_unique_ptr
 	create_processor(
 		sge::window::object const &,
 		sge::window::system const &
-	);
+	)
+	override;
+
+	sge::input::capabilities_field const
+	capabilities() const
+	override;
 };
 
 }

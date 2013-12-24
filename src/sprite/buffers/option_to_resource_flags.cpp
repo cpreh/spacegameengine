@@ -39,9 +39,9 @@ sge::sprite::buffers::option_to_resource_flags(
 			sge::renderer::resource_flags_field::null();
 	case sge::sprite::buffers::option::dynamic:
 		return
-			sge::renderer::resource_flags_field(
+			sge::renderer::resource_flags_field{
 				sge::renderer::resource_flags::dynamic
-			);
+			};
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

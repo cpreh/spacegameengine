@@ -20,6 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/dinput/system.hpp>
 #include <sge/dinput/processor.hpp>
+#include <sge/input/capabilities.hpp>
+#include <sge/input/capabilities_field.hpp>
 #include <sge/input/processor_unique_ptr.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
@@ -49,4 +51,16 @@ sge::dinput::system::create_processor(
 				_window_system
 			)
 		);
+}
+
+sge::input::capabilities_field const
+sge::dinput::system::capabilities() const
+{
+	return
+		sge::input::capabilities_field{
+			sge::input::capabilities::cursor,
+			sge::input::capabilities::keyboard,
+			sge::input::capabilities::mouse,
+			sge::input::capabilities::joypad
+		};
 }

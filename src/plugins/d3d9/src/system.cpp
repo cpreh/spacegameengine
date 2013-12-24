@@ -117,9 +117,9 @@ sge::renderer::caps::system_field const
 sge::d3d9::system::caps() const
 {
 	return
-		sge::renderer::caps::system_field(
+		sge::renderer::caps::system_field{
 			sge::renderer::caps::system::ffp
-		);
+		};
 }
 
 sge::renderer::caps::device_count const

@@ -103,7 +103,10 @@ try
 
 	sge::opencl::memory_object::image::planar image(
 		opencl_system.context(),
-		sge::opencl::memory_object::flags_field(sge::opencl::memory_object::flags::read) | sge::opencl::memory_object::flags::write,
+		sge::opencl::memory_object::flags_field{
+			sge::opencl::memory_object::flags::read,
+			sge::opencl::memory_object::flags::write
+		},
 		image_format,
 		image_size,
 		sge::opencl::memory_object::image::planar_pitch(

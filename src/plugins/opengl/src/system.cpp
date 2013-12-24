@@ -118,11 +118,10 @@ sge::renderer::caps::system_field const
 sge::opengl::system::caps() const
 {
 	return
-		sge::renderer::caps::system_field(
-			sge::renderer::caps::system::opengl
-		)
-		|
-		sge::renderer::caps::system::ffp;
+		sge::renderer::caps::system_field{
+			sge::renderer::caps::system::opengl,
+			sge::renderer::caps::system::ffp
+		};
 }
 
 sge::renderer::caps::device_count const

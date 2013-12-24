@@ -46,9 +46,9 @@ sge::plugin::info const info(
 	),
 	sge::plugin::version(0x1u),
 	sge::plugin::min_core_version(0x1u),
-	sge::plugin::capabilities_field(
+	sge::plugin::capabilities_field{
 		sge::plugin::capabilities::renderer
-	),
+	},
 	sge::plugin::flags_field::null()
 );
 

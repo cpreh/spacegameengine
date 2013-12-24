@@ -200,9 +200,9 @@ try
 			sys.renderer_ffp(),
 			image->view(),
 			sge::renderer::texture::mipmap::off(),
-			sge::renderer::resource_flags_field(
+			sge::renderer::resource_flags_field{
 				sge::renderer::resource_flags::readable
-			),
+			},
 			sge::renderer::texture::emulate_srgb_from_caps(
 				sys.renderer_ffp().caps()
 			)
@@ -277,9 +277,9 @@ try
 				),
 				sge::renderer::texture::mipmap::off(),
 				sge::renderer::resource_flags_field::null(),
-				sge::renderer::texture::capabilities_field(
+				sge::renderer::texture::capabilities_field{
 					sge::renderer::texture::capabilities::render_target
-				)
+				}
 			)
 		)
 	);

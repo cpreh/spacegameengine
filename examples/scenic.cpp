@@ -216,8 +216,10 @@ try
 				sge::viewport::center_on_resize(
 					window_dim)))
 			(sge::systems::input(
-				sge::systems::cursor_option_field(
-					sge::systems::cursor_option::exclusive)))
+				sge::systems::cursor_option_field{
+					sge::systems::cursor_option::exclusive
+				}
+			))
 			(sge::systems::image2d(
 				sge::image::capabilities_field::null(),
 				sge::media::optional_extension_set(

@@ -122,7 +122,9 @@ sge::input::keyboard::collector::mod_state() const
 	);
 
 	for(
-		auto const &keyboard : manager_.devices()
+		auto const &keyboard
+		:
+		manager_.devices()
 	)
 		ret |= keyboard.first->mod_state();
 

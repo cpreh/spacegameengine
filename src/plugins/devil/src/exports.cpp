@@ -45,9 +45,9 @@ sge::plugin::info const info(
 	),
 	sge::plugin::version(0x1u),
 	sge::plugin::min_core_version(0x1u),
-	sge::plugin::capabilities_field(
+	sge::plugin::capabilities_field{
 		sge::plugin::capabilities::image2d_system
-	),
+	},
 	sge::plugin::flags_field::null()
 );
 

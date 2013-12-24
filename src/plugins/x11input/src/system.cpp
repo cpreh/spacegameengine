@@ -18,6 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/input/capabilities.hpp>
+#include <sge/input/capabilities_field.hpp>
 #include <sge/input/exception.hpp>
 #include <sge/input/processor_unique_ptr.hpp>
 #include <sge/window/object.hpp>
@@ -142,4 +144,15 @@ sge::x11input::system::create_processor(
 				*opcode
 			)
 		);
+}
+
+sge::input::capabilities_field const
+sge::x11input::system::capabilities() const
+{
+	return
+		sge::input::capabilities_field{
+			sge::input::capabilities::cursor,
+			sge::input::capabilities::keyboard,
+			sge::input::capabilities::mouse
+		};
 }

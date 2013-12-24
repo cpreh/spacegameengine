@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/input/capabilities_field.hpp>
 #include <sge/input/processor_unique_ptr.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/plugin/traits.hpp>
@@ -37,7 +38,10 @@ sge::input::multi_system::multi_system(
 :
 	sge::input::system(),
 	plugins_(),
-	systems_()
+	systems_(),
+	capabilities_(
+		sge::input::capabilities_field::null()
+	)
 {
 	for(
 		auto const plugin
@@ -54,6 +58,9 @@ sge::input::multi_system::multi_system(
 			systems_,
 			plugins_.back().get()()
 		);
+
+		capabilities_ |=
+			systems_.back().capabilities();
 	}
 }
 
@@ -77,4 +84,11 @@ sge::input::multi_system::create_processor(
 				systems_
 			)
 		);
+}
+
+sge::input::capabilities_field const
+sge::input::multi_system::capabilities() const
+{
+	return
+		capabilities_;
 }

@@ -18,49 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/evdev/processor.hpp>
-#include <sge/evdev/system.hpp>
+#ifndef SGE_INPUT_CAPABILITIES_FIELD_FWD_HPP_INCLUDED
+#define SGE_INPUT_CAPABILITIES_FIELD_FWD_HPP_INCLUDED
+
 #include <sge/input/capabilities.hpp>
-#include <sge/input/capabilities_field.hpp>
-#include <sge/input/processor_unique_ptr.hpp>
-#include <sge/input/system.hpp>
-#include <sge/window/object_fwd.hpp>
-#include <sge/window/system_fwd.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/container/bitfield/object_from_enum.hpp>
 
 
-sge::evdev::system::system()
-:
-	sge::input::system()
+namespace sge
 {
+namespace input
+{
+
+typedef
+fcppt::container::bitfield::object_from_enum<
+	sge::input::capabilities
+>
+capabilities_field;
+
+}
 }
 
-sge::evdev::system::~system()
-{
-}
-
-sge::input::processor_unique_ptr
-sge::evdev::system::create_processor(
-	sge::window::object const &_window,
-	sge::window::system const &_window_system
-)
-{
-	return
-		sge::input::processor_unique_ptr(
-			fcppt::make_unique_ptr<
-				sge::evdev::processor
-			>(
-				_window,
-				_window_system
-			)
-		);
-}
-
-sge::input::capabilities_field const
-sge::evdev::system::capabilities() const
-{
-	return
-		sge::input::capabilities_field{
-			sge::input::capabilities::joypad
-		};
-}
+#endif

@@ -119,9 +119,9 @@ try
 				sge::viewport::dont_manage()
 			)
 			.caps(
-				sge::renderer::caps::system_field(
+				sge::renderer::caps::system_field{
 					sge::renderer::caps::system::opengl
-				)
+				}
 			)
 		)
 	);

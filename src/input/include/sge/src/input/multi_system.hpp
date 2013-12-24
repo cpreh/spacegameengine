@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_INPUT_MULTI_SYSTEM_HPP_INCLUDED
 #define SGE_SRC_INPUT_MULTI_SYSTEM_HPP_INCLUDED
 
+#include <sge/input/capabilities_field.hpp>
 #include <sge/input/processor_unique_ptr.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/plugin/collection_fwd.hpp>
@@ -53,21 +54,31 @@ public:
 		sge::input::plugin::collection const &
 	);
 
-	~multi_system();
+	~multi_system()
+	override;
 private:
 	sge::input::processor_unique_ptr
 	create_processor(
 		sge::window::object const &,
 		sge::window::system const &
-	);
+	)
+	override;
 
-	typedef boost::ptr_vector<
+	sge::input::capabilities_field const
+	capabilities() const
+	override;
+
+	typedef
+	boost::ptr_vector<
 		sge::input::plugin::object
-	> plugin_vector;
+	>
+	plugin_vector;
 
 	plugin_vector plugins_;
 
 	sge::input::system_ptr_vector systems_;
+
+	sge::input::capabilities_field capabilities_;
 };
 
 }

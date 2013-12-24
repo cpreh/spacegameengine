@@ -207,8 +207,12 @@ sge::postprocessing::context::viewport_callback()
 					sge::renderer::texture::emulate_srgb::no),
 				sge::renderer::texture::mipmap::off(),
 				sge::renderer::resource_flags_field::null(),
-				sge::renderer::texture::capabilities_field(
-					sge::renderer::texture::capabilities::render_target))));
+				sge::renderer::texture::capabilities_field{
+					sge::renderer::texture::capabilities::render_target
+				}
+			)
+		)
+	);
 
 	finalize_input_texture_parameter_.set(
 		sge::shader::parameter::planar_texture::optional_value(

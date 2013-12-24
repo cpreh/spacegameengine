@@ -470,8 +470,8 @@ try
 				>(),
 				sge::renderer::vertex::count(
 					6u),
-				sge::renderer::resource_flags_field(
-					sge::renderer::resource_flags::readable))));
+				sge::renderer::resource_flags_field{
+					sge::renderer::resource_flags::readable})));
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Done, now creating OpenCL buffer from it\n");

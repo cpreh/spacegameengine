@@ -418,9 +418,9 @@ sge::cegui::texture_target::declareRenderSize(
 				texture_parameters_,
 				texture_name,
 				_size,
-				sge::renderer::texture::capabilities_field(
+				sge::renderer::texture::capabilities_field{
 					sge::renderer::texture::capabilities::render_target
-				)
+				}
 			)
 	);
 

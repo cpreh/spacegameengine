@@ -955,6 +955,10 @@ set(
 	include/sge/imageds2d/view/object_fwd.hpp
 	include/sge/imageds2d/view/sub.hpp
 	include/sge/imageds2d/view/to_const.hpp
+	include/sge/input/capabilities.hpp
+	include/sge/input/capabilities_field.hpp
+	include/sge/input/capabilities_field_fwd.hpp
+	include/sge/input/capabilities_fwd.hpp
 	include/sge/input/create_multi_system.hpp
 	include/sge/input/cursor/activatable.hpp
 	include/sge/input/cursor/activatable_fwd.hpp
