@@ -21,13 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/player.hpp>
 #include <sge/audio/player_plugin/collection_fwd.hpp>
 #include <sge/audio/player_plugin/traits.hpp>
-#include <sge/log/global.hpp>
 #include <sge/plugin/manager_fwd.hpp>
 #include <sge/src/systems/find_plugin.hpp>
 #include <sge/src/systems/find_plugin_opt.hpp>
 #include <sge/src/systems/modules/audio/find_player_plugin.hpp>
 #include <sge/src/systems/modules/audio/player_pair.hpp>
 #include <sge/systems/audio_player.hpp>
+#include <sge/systems/logger.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/output.hpp>
 #include <fcppt/log/warning.hpp>
@@ -81,7 +81,7 @@ sge::systems::modules::audio::find_player_plugin(
 			);
 
 	FCPPT_LOG_WARNING(
-		sge::log::global(),
+		sge::systems::logger(),
 		fcppt::log::_
 			<< FCPPT_TEXT("Unable to load an audio player that is not null.")
 			<< FCPPT_TEXT(" Trying to load a null audio player instead.")

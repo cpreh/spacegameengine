@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/object_fwd.hpp>
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/input/mouse/device_fwd.hpp>
-#include <sge/log/global.hpp>
 #include <sge/log/global_context.hpp>
 #include <sge/parse/result.hpp>
 #include <sge/parse/result_code.hpp>
@@ -45,6 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/extract_plugin_path.hpp>
 #include <sge/src/systems/detail/instance_impl.hpp>
 #include <sge/systems/config.hpp>
+#include <sge/systems/logger.hpp>
 #include <sge/systems/detail/any_key.hpp>
 #include <sge/systems/detail/any_map.hpp>
 #include <sge/systems/detail/instance.hpp>
@@ -95,7 +95,7 @@ sge::systems::detail::instance::instance(
 	case sge::parse::result_code::failure:
 	case sge::parse::result_code::partial:
 		FCPPT_LOG_ERROR(
-			sge::log::global(),
+			sge::systems::logger(),
 			fcppt::log::_
 				<< ini_result.error_string()->get()
 		);
@@ -141,7 +141,9 @@ sge::systems::detail::instance::instance(
 	}
 
 	for(
-		auto const &item : map
+		auto const &item
+		:
+		map
 	)
 		fcppt::variant::apply_unary(
 			sge::systems::any_visitor(

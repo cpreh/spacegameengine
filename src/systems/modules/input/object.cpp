@@ -18,6 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/input/capabilities.hpp>
+#include <sge/input/capabilities_field.hpp>
+#include <sge/input/capabilities_to_string.hpp>
 #include <sge/input/create_multi_system.hpp>
 #include <sge/input/processor.hpp>
 #include <sge/input/system.hpp>
@@ -35,8 +38,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/modules/input/cursor_modifier_unique_ptr.hpp>
 #include <sge/src/systems/modules/input/object.hpp>
 #include <sge/src/systems/modules/window/object.hpp>
+#include <sge/systems/logger.hpp>
 #include <sge/systems/detail/input.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/log/output.hpp>
+#include <fcppt/log/warning.hpp>
 
 
 sge::systems::modules::input::object::object(
@@ -108,6 +115,34 @@ sge::systems::modules::input::object::object(
 			sge::systems::modules::input::cursor_modifier_unique_ptr()
 	)
 {
+	for(
+		sge::input::capabilities const element
+		:
+		{
+			sge::input::capabilities::cursor,
+			sge::input::capabilities::keyboard,
+			sge::input::capabilities::mouse
+		}
+	)
+		if(
+			!(
+				input_system_->capabilities()
+				&
+				element
+			)
+		)
+		{
+			FCPPT_LOG_WARNING(
+				sge::systems::logger(),
+				fcppt::log::_
+					<<
+					FCPPT_TEXT("Your input plugins can't handle capability ")
+					<<
+					sge::input::capabilities_to_string(
+						element
+					)
+			);
+		}
 }
 
 sge::systems::modules::input::object::~object()

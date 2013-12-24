@@ -69,8 +69,10 @@ set(
 	include/sge/systems/list_decl.hpp
 	include/sge/systems/list_fwd.hpp
 	include/sge/systems/list_impl.hpp
+	include/sge/systems/log_location.hpp
 	include/sge/systems/log_settings.hpp
 	include/sge/systems/log_settings_fwd.hpp
+	include/sge/systems/logger.hpp
 	include/sge/systems/make_empty_list.hpp
 	include/sge/systems/make_list.hpp
 	include/sge/systems/mouse_collector.hpp
@@ -178,7 +180,9 @@ set(
 	src/systems/include/sge/src/systems/plugin_path.hpp
 	src/systems/ini_section_name.cpp
 	src/systems/input.cpp
+	src/systems/log_location.cpp
 	src/systems/log_settings.cpp
+	src/systems/logger.cpp
 	src/systems/make_any_key.cpp
 	src/systems/make_empty_list.cpp
 	src/systems/merge_config_strings.cpp

@@ -959,6 +959,7 @@ set(
 	include/sge/input/capabilities_field.hpp
 	include/sge/input/capabilities_field_fwd.hpp
 	include/sge/input/capabilities_fwd.hpp
+	include/sge/input/capabilities_to_string.hpp
 	include/sge/input/create_multi_system.hpp
 	include/sge/input/cursor/activatable.hpp
 	include/sge/input/cursor/activatable_fwd.hpp
@@ -3303,8 +3304,10 @@ set(
 	include/sge/systems/list_decl.hpp
 	include/sge/systems/list_fwd.hpp
 	include/sge/systems/list_impl.hpp
+	include/sge/systems/log_location.hpp
 	include/sge/systems/log_settings.hpp
 	include/sge/systems/log_settings_fwd.hpp
+	include/sge/systems/logger.hpp
 	include/sge/systems/make_empty_list.hpp
 	include/sge/systems/make_list.hpp
 	include/sge/systems/mouse_collector.hpp

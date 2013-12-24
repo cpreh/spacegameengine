@@ -4,6 +4,7 @@ set(
 	include/sge/input/capabilities_field.hpp
 	include/sge/input/capabilities_field_fwd.hpp
 	include/sge/input/capabilities_fwd.hpp
+	include/sge/input/capabilities_to_string.hpp
 	include/sge/input/create_multi_system.hpp
 	include/sge/input/cursor/activatable.hpp
 	include/sge/input/cursor/activatable_fwd.hpp
@@ -251,6 +252,7 @@ set(
 	include/sge/input/system_fwd.hpp
 	include/sge/input/system_scoped_ptr.hpp
 	include/sge/input/system_unique_ptr.hpp
+	src/input/capabilities_to_string.cpp
 	src/input/create_multi_system.cpp
 	src/input/cursor/activatable.cpp
 	src/input/cursor/button_code_to_string.cpp
