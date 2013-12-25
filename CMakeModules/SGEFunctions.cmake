@@ -235,10 +235,8 @@ function(
 		${SGE_LIB_FILES}
 	)
 
-	set_target_properties(
+	fcppt_utils_set_so_version(
 		${SGE_LIB_NAME}
-		PROPERTIES
-		VERSION
 		${SGE_USED_SO_VERSION}
 	)
 
