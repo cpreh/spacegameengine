@@ -45,6 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/detail/instance_impl.hpp>
 #include <sge/systems/config.hpp>
 #include <sge/systems/logger.hpp>
+#include <sge/systems/optional_log_settings.hpp>
 #include <sge/systems/detail/any_key.hpp>
 #include <sge/systems/detail/any_map.hpp>
 #include <sge/systems/detail/instance.hpp>
@@ -70,7 +71,11 @@ sge::systems::detail::instance::instance(
 		>(
 			sge::systems::extract_plugin_path(
 				_list.get()
+			),
+			sge::systems::extract_config(
+				_list.get()
 			)
+			.log_settings()
 		)
 	)
 {
@@ -153,7 +158,7 @@ sge::systems::detail::instance::instance(
 		);
 
 	{
-		sge::systems::config::optional_log_settings const log_settings(
+		sge::systems::optional_log_settings const log_settings(
 			sge::systems::extract_config(
 				_list.get()
 			)

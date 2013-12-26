@@ -1221,6 +1221,7 @@ set(
 	include/sge/log/global.hpp
 	include/sge/log/global_context.hpp
 	include/sge/log/location.hpp
+	include/sge/log/stream.hpp
 	include/sge/media/all_extensions.hpp
 	include/sge/media/const_raw_pointer.hpp
 	include/sge/media/const_raw_range.hpp
@@ -3312,8 +3313,12 @@ set(
 	include/sge/systems/make_list.hpp
 	include/sge/systems/mouse_collector.hpp
 	include/sge/systems/mouse_collector_fwd.hpp
+	include/sge/systems/optional_log_settings.hpp
+	include/sge/systems/optional_log_settings_fwd.hpp
 	include/sge/systems/optional_name.hpp
 	include/sge/systems/optional_name_fwd.hpp
+	include/sge/systems/optional_path.hpp
+	include/sge/systems/optional_path_fwd.hpp
 	include/sge/systems/quit_on_escape.hpp
 	include/sge/systems/renderer.hpp
 	include/sge/systems/renderer_caps.hpp

@@ -77,8 +77,12 @@ set(
 	include/sge/systems/make_list.hpp
 	include/sge/systems/mouse_collector.hpp
 	include/sge/systems/mouse_collector_fwd.hpp
+	include/sge/systems/optional_log_settings.hpp
+	include/sge/systems/optional_log_settings_fwd.hpp
 	include/sge/systems/optional_name.hpp
 	include/sge/systems/optional_name_fwd.hpp
+	include/sge/systems/optional_path.hpp
+	include/sge/systems/optional_path_fwd.hpp
 	include/sge/systems/quit_on_escape.hpp
 	include/sge/systems/renderer.hpp
 	include/sge/systems/renderer_caps.hpp
@@ -128,6 +132,7 @@ set(
 	src/systems/include/sge/src/systems/ini_section_name.hpp
 	src/systems/include/sge/src/systems/instantiate_basic_loader.hpp
 	src/systems/include/sge/src/systems/make_any_key.hpp
+	src/systems/include/sge/src/systems/make_scoped_output.hpp
 	src/systems/include/sge/src/systems/merge_config_strings.hpp
 	src/systems/include/sge/src/systems/modules/audio/find_player_plugin.hpp
 	src/systems/include/sge/src/systems/modules/audio/loader.hpp
@@ -185,6 +190,7 @@ set(
 	src/systems/logger.cpp
 	src/systems/make_any_key.cpp
 	src/systems/make_empty_list.cpp
+	src/systems/make_scoped_output.cpp
 	src/systems/merge_config_strings.cpp
 	src/systems/modules/audio/find_player_plugin.cpp
 	src/systems/modules/audio/loader.cpp

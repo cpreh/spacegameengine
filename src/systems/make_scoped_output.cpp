@@ -18,50 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/systems/config.hpp>
-#include <sge/systems/log_settings.hpp>
+#include <sge/log/stream.hpp>
+#include <sge/src/systems/make_scoped_output.hpp>
 #include <sge/systems/optional_log_settings.hpp>
 #include <sge/systems/optional_path.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <awl/main/scoped_output.hpp>
+#include <awl/main/scoped_output_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 
 
-sge::systems::config::config()
-:
-	plugin_path_(),
-	log_settings_()
-{
-}
-
-sge::systems::config &
-sge::systems::config::plugin_path(
-	boost::filesystem::path const &_plugin_path
+awl::main::scoped_output_unique_ptr
+sge::systems::make_scoped_output(
+	sge::systems::optional_log_settings const &_log_settings
 )
 {
-	plugin_path_ = _plugin_path;
+	if(
+		!_log_settings
+	)
+		return
+			awl::main::scoped_output_unique_ptr();
 
-	return *this;
-}
+	sge::systems::optional_path const &path(
+		_log_settings->redirect()
+	);
 
-sge::systems::config &
-sge::systems::config::log_settings(
-	sge::systems::log_settings const &_log_settings
-)
-{
-	log_settings_ = _log_settings;
-
-	return *this;
-}
-
-sge::systems::optional_path const &
-sge::systems::config::plugin_path() const
-{
-	return plugin_path_;
-}
-
-sge::systems::optional_log_settings const &
-sge::systems::config::log_settings() const
-{
-	return log_settings_;
+	return
+		path
+		?
+			fcppt::make_unique_ptr<
+				awl::main::scoped_output
+			>(
+				sge::log::stream(),
+				*path
+			)
+		:
+			awl::main::scoped_output_unique_ptr()
+		;
 }

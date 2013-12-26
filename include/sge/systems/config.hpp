@@ -23,8 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/systems/config_fwd.hpp>
 #include <sge/systems/log_settings.hpp>
+#include <sge/systems/optional_log_settings.hpp>
+#include <sge/systems/optional_path.hpp>
 #include <sge/systems/symbol.hpp>
-#include <fcppt/optional_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -53,23 +54,15 @@ public:
 		sge::systems::log_settings const &
 	);
 
-	typedef fcppt::optional<
-		boost::filesystem::path
-	> optional_path;
-
-	typedef fcppt::optional<
-		sge::systems::log_settings
-	> optional_log_settings;
-
-	optional_path const &
+	sge::systems::optional_path const &
 	plugin_path() const;
 
-	optional_log_settings const &
+	sge::systems::optional_log_settings const &
 	log_settings() const;
 private:
-	optional_path plugin_path_;
+	sge::systems::optional_path plugin_path_;
 
-	optional_log_settings log_settings_;
+	sge::systems::optional_log_settings log_settings_;
 };
 
 }

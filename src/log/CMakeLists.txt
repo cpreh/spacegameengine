@@ -6,10 +6,12 @@ set(
 	include/sge/log/global.hpp
 	include/sge/log/global_context.hpp
 	include/sge/log/location.hpp
+	include/sge/log/stream.hpp
 	src/log/default_parameters.cpp
 	src/log/global.cpp
 	src/log/global_context.cpp
 	src/log/location.cpp
+	src/log/stream.cpp
 )
 
 add_sge_base_library(

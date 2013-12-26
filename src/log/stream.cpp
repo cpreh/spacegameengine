@@ -18,50 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/systems/config.hpp>
-#include <sge/systems/log_settings.hpp>
-#include <sge/systems/optional_log_settings.hpp>
-#include <sge/systems/optional_path.hpp>
+#include <sge/log/stream.hpp>
+#include <fcppt/io/clog.hpp>
+#include <fcppt/io/ostream.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <ostream>
 #include <fcppt/config/external_end.hpp>
 
 
-sge::systems::config::config()
-:
-	plugin_path_(),
-	log_settings_()
+fcppt::io::ostream &
+sge::log::stream()
 {
-}
+	static
+	fcppt::io::ostream stream(
+		fcppt::io::clog().rdbuf()
+	);
 
-sge::systems::config &
-sge::systems::config::plugin_path(
-	boost::filesystem::path const &_plugin_path
-)
-{
-	plugin_path_ = _plugin_path;
-
-	return *this;
-}
-
-sge::systems::config &
-sge::systems::config::log_settings(
-	sge::systems::log_settings const &_log_settings
-)
-{
-	log_settings_ = _log_settings;
-
-	return *this;
-}
-
-sge::systems::optional_path const &
-sge::systems::config::plugin_path() const
-{
-	return plugin_path_;
-}
-
-sge::systems::optional_log_settings const &
-sge::systems::config::log_settings() const
-{
-	return log_settings_;
+	return
+		stream;
 }

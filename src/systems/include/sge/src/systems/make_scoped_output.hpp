@@ -18,31 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/log/default_parameters.hpp>
-#include <sge/log/global_context.hpp>
-#include <sge/log/stream.hpp>
-#include <fcppt/io/clog.hpp>
-#include <fcppt/log/level.hpp>
-#include <fcppt/log/location_fwd.hpp>
-#include <fcppt/log/parameters/object.hpp>
-#include <fcppt/log/parameters/with_context.hpp>
+#ifndef SGE_SRC_SYSTEMS_MAKE_SCOPED_OUTPUT_HPP_INCLUDED
+#define SGE_SRC_SYSTEMS_MAKE_SCOPED_OUTPUT_HPP_INCLUDED
+
+#include <sge/systems/optional_log_settings_fwd.hpp>
+#include <awl/main/scoped_output_unique_ptr.hpp>
 
 
-fcppt::log::parameters::object const
-sge::log::default_parameters(
-	fcppt::log::location const &_location
-)
+namespace sge
 {
-	return
-		fcppt::log::parameters::with_context(
-			sge::log::global_context(),
-			_location
-		)
-		.level_defaults(
-			sge::log::stream(),
-			fcppt::log::level::info
-		)
-		.enabled(
-			true
-		);
+namespace systems
+{
+
+awl::main::scoped_output_unique_ptr
+make_scoped_output(
+	sge::systems::optional_log_settings const &
+);
+
 }
+}
+
+#endif

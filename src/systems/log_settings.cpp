@@ -19,8 +19,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/systems/log_settings.hpp>
+#include <sge/systems/optional_path.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/log/location.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::systems::log_settings::log_settings(
@@ -33,18 +37,40 @@ sge::systems::log_settings::log_settings(
 	),
 	level_(
 		_level
-	)
+	),
+	redirect_()
 {
+}
+
+sge::systems::log_settings &
+sge::systems::log_settings::redirect(
+	boost::filesystem::path const &_path
+)
+{
+	redirect_ =
+		_path;
+
+	return
+		*this;
 }
 
 fcppt::log::location const &
 sge::systems::log_settings::location() const
 {
-	return location_;
+	return
+		location_;
 }
 
 fcppt::log::level
 sge::systems::log_settings::level() const
 {
-	return level_;
+	return
+		level_;
+}
+
+sge::systems::optional_path const &
+sge::systems::log_settings::redirect() const
+{
+	return
+		redirect_;
 }

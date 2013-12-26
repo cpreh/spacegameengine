@@ -49,6 +49,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/audio_player_fwd.hpp>
 #include <sge/systems/font_fwd.hpp>
 #include <sge/systems/image2d_fwd.hpp>
+#include <sge/systems/optional_log_settings_fwd.hpp>
 #include <sge/systems/window_fwd.hpp>
 #include <sge/systems/detail/input_fwd.hpp>
 #include <sge/systems/detail/instance_impl_fwd.hpp>
@@ -56,6 +57,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/viewport/manager_fwd.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
+#include <awl/main/scoped_output_scoped_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -72,9 +74,9 @@ class instance_impl
 		instance_impl
 	);
 public:
-	explicit
 	instance_impl(
-		sge::systems::plugin_path const &
+		sge::systems::plugin_path const &,
+		sge::systems::optional_log_settings const &
 	);
 
 	~instance_impl();
@@ -171,6 +173,7 @@ public:
 	sge::viewport::manager &
 	viewport_manager() const;
 private:
+	awl::main::scoped_output_scoped_ptr const scoped_output_;
 	// Almost all plugins need to be unloaded last. If, for example,
 	// libGL.so is unloaded before the X window will be destroyed, then the
 	// unloading will crash.

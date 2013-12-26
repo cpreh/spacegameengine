@@ -18,31 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/log/default_parameters.hpp>
-#include <sge/log/global_context.hpp>
-#include <sge/log/stream.hpp>
-#include <fcppt/io/clog.hpp>
-#include <fcppt/log/level.hpp>
-#include <fcppt/log/location_fwd.hpp>
-#include <fcppt/log/parameters/object.hpp>
-#include <fcppt/log/parameters/with_context.hpp>
+#ifndef SGE_LOG_STREAM_HPP_INCLUDED
+#define SGE_LOG_STREAM_HPP_INCLUDED
+
+#include <sge/log/symbol.hpp>
+#include <fcppt/io/ostream.hpp>
 
 
-fcppt::log::parameters::object const
-sge::log::default_parameters(
-	fcppt::log::location const &_location
-)
+namespace sge
 {
-	return
-		fcppt::log::parameters::with_context(
-			sge::log::global_context(),
-			_location
-		)
-		.level_defaults(
-			sge::log::stream(),
-			fcppt::log::level::info
-		)
-		.enabled(
-			true
-		);
+namespace log
+{
+
+SGE_LOG_SYMBOL
+fcppt::io::ostream &
+stream();
+
 }
+}
+
+#endif
