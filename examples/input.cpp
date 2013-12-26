@@ -128,6 +128,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/parameters.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
+#include <awl/show_error.hpp>
+#include <awl/show_error_narrow.hpp>
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context.hpp>
@@ -137,7 +139,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/io/ostream.hpp>
 #include <fcppt/log/level.hpp>
@@ -148,6 +149,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <example_main.hpp>
+#include <exception>
 #include <functional>
 #include <ostream>
 #include <string>
@@ -157,12 +159,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-fcppt::string const
+fcppt::string
 output_optional_string(
 	fcppt::optional_string const &
 );
 
-fcppt::string const
+fcppt::string
 output_optional_position(
 	sge::input::cursor::optional_position const &
 );
@@ -333,8 +335,9 @@ try
 		)
 	)
 	{
-		fcppt::io::cerr()
-			<< FCPPT_TEXT("You can pass no arguments or -silent to suppress input.\n");
+		awl::show_error(
+			FCPPT_TEXT("You can pass no arguments or -silent to suppress input.")
+		);
 
 		return
 			awl::main::exit_failure();
@@ -615,9 +618,20 @@ catch(
 	fcppt::exception const &_exception
 )
 {
-	fcppt::io::cerr()
-		<< _exception.string()
-		<< FCPPT_TEXT('\n');
+	awl::show_error(
+		_exception.string()
+	);
+
+	return
+		awl::main::exit_failure();
+}
+catch(
+	std::exception const &_exception
+)
+{
+	awl::show_error_narrow(
+		_exception.what()
+	);
 
 	return
 		awl::main::exit_failure();
@@ -626,7 +640,7 @@ catch(
 namespace
 {
 
-fcppt::string const
+fcppt::string
 output_optional_string(
 	fcppt::optional_string const &_name
 )
@@ -642,7 +656,7 @@ output_optional_string(
 		;
 }
 
-fcppt::string const
+fcppt::string
 output_optional_position(
 	sge::input::cursor::optional_position const &_position
 )
@@ -763,17 +777,10 @@ joypad_discover(
 			<< FCPPT_TEXT('\n');
 
 		for(
-			sge::input::joypad::absolute_axis_info_container::vector::const_iterator it(
-				absolute_axes.begin()
-			);
-			it != absolute_axes.end();
-			++it
+			sge::input::joypad::absolute_axis_info const &axis_info
+			:
+			absolute_axes
 		)
-		{
-			sge::input::joypad::absolute_axis_info const &axis_info(
-				*it
-			);
-
 			fcppt::io::cout()
 				<< FCPPT_TEXT("\t\tname: ")
 				<< output_optional_string(
@@ -788,7 +795,6 @@ joypad_discover(
 				<< FCPPT_TEXT("\n\t\tmax: ")
 				<< axis_info.max()
 				<< FCPPT_TEXT('\n');
-		}
 	}
 
 	{
@@ -802,17 +808,10 @@ joypad_discover(
 			<< FCPPT_TEXT('\n');
 
 		for(
-			sge::input::joypad::relative_axis_info_container::vector::const_iterator it(
-				relative_axes.begin()
-			);
-			it != relative_axes.end();
-			++it
+			sge::input::joypad::relative_axis_info const &axis_info
+			:
+			relative_axes
 		)
-		{
-			sge::input::joypad::relative_axis_info const &axis_info(
-				*it
-			);
-
 			fcppt::io::cout()
 				<< FCPPT_TEXT("\t\tname: ")
 				<< output_optional_string(
@@ -823,7 +822,6 @@ joypad_discover(
 					axis_info.code()
 				)
 				<< FCPPT_TEXT('\n');
-		}
 	}
 
 	{
@@ -837,24 +835,16 @@ joypad_discover(
 			<< FCPPT_TEXT('\n');
 
 		for(
-			sge::input::joypad::button_info_container::vector::const_iterator it(
-				buttons.begin()
-			);
-			it != buttons.end();
-			++it
+			sge::input::joypad::button_info const &button_info
+			:
+			buttons
 		)
-		{
-			sge::input::joypad::button_info const &button_info(
-				*it
-			);
-
 			fcppt::io::cout()
 				<< FCPPT_TEXT("\t\tname: ")
 				<< output_optional_string(
 					button_info.name()
 				)
 				<< FCPPT_TEXT('\n');
-		}
 	}
 
 }
@@ -1036,17 +1026,10 @@ mouse_discover(
 			<< FCPPT_TEXT('\n');
 
 		for(
-			sge::input::mouse::axis_info_container::vector::const_iterator it(
-				axes.begin()
-			);
-			it != axes.end();
-			++it
+			sge::input::mouse::axis_info const &axis_info
+			:
+			axes
 		)
-		{
-			sge::input::mouse::axis_info const &axis_info(
-				*it
-			);
-
 			fcppt::io::cout()
 				<< FCPPT_TEXT("\t\tname: ")
 				<< output_optional_string(
@@ -1057,7 +1040,6 @@ mouse_discover(
 					axis_info.code()
 				)
 				<< FCPPT_TEXT('\n');
-		}
 	}
 
 	{
@@ -1071,17 +1053,10 @@ mouse_discover(
 			<< FCPPT_TEXT('\n');
 
 		for(
-			sge::input::mouse::button_info_container::vector::const_iterator it(
-				buttons.begin()
-			);
-			it != buttons.end();
-			++it
+			sge::input::mouse::button_info const &button_info
+			:
+			buttons
 		)
-		{
-			sge::input::mouse::button_info const &button_info(
-				*it
-			);
-
 			fcppt::io::cout()
 				<< FCPPT_TEXT("\t\tname: ")
 				<< output_optional_string(
@@ -1092,7 +1067,6 @@ mouse_discover(
 					button_info.code()
 				)
 				<< FCPPT_TEXT('\n');
-		}
 	}
 }
 

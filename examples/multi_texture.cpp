@@ -18,9 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/config/app_name.hpp>
 #include <sge/config/media_path.hpp>
+#include <sge/config/log_path.hpp>
+#include <sge/config/own_company_name.hpp>
 #include <sge/image/capabilities_field.hpp>
 #include <sge/image/color/predef.hpp>
+#include <sge/log/location.hpp>
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_set.hpp>
@@ -90,12 +94,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/renderer/vf/dynamic/make_part_index.hpp>
+#include <sge/systems/config.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/image2d.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/keyboard_collector.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/systems/log_settings.hpp>
 #include <sge/systems/make_list.hpp>
 #include <sge/systems/quit_on_escape.hpp>
 #include <sge/systems/renderer.hpp>
@@ -110,23 +116,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/parameters.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
+#include <awl/show_error.hpp>
+#include <awl/show_error_narrow.hpp>
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/io/cerr.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
+#include <fcppt/log/level.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <example_main.hpp>
 #include <exception>
-#include <iostream>
-#include <ostream>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -156,6 +160,23 @@ try
 		>
 	> const sys(
 		sge::systems::make_list
+		(
+			sge::systems::config()
+			.log_settings(
+				sge::systems::log_settings(
+					sge::log::location(),
+					fcppt::log::level::debug
+				)
+				.redirect(
+					sge::config::log_path(
+						sge::config::own_company_name(),
+						sge::config::app_name(
+							FCPPT_TEXT("example_multi_texture")
+						)
+					)
+				)
+			)
+		)
 		(
 			sge::systems::window(
 				sge::window::parameters(
@@ -549,19 +570,21 @@ catch(
 	fcppt::exception const &_error
 )
 {
-	fcppt::io::cerr()
-		<< _error.string()
-		<< FCPPT_TEXT('\n');
+	awl::show_error(
+		_error.string()
+	);
 
-	return awl::main::exit_failure();
+	return
+		awl::main::exit_failure();
 }
 catch(
 	std::exception const &_error
 )
 {
-	std::cerr
-		<< _error.what()
-		<< '\n';
+	awl::show_error_narrow(
+		_error.what()
+	);
 
-	return awl::main::exit_failure();
+	return
+		awl::main::exit_failure();
 }
