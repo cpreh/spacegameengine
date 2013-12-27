@@ -18,25 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/json/start_fwd.hpp>
-#include <sge/parse/json/output/to_file.hpp>
-#include <sge/parse/json/output/to_stream.hpp>
-#include <sge/src/parse/output/to_file.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
-#include <fcppt/config/external_end.hpp>
+#ifndef SGE_SRC_PARSE_INI_OUTPUT_TO_RANGE_FUNCTOR_HPP_INCLUDED
+#define SGE_SRC_PARSE_INI_OUTPUT_TO_RANGE_FUNCTOR_HPP_INCLUDED
+
+#include <sge/parse/ini/output/to_range.hpp>
 
 
-bool
-sge::parse::json::output::to_file(
-	boost::filesystem::path const &_path,
-	sge::parse::json::start const &_data
-)
+namespace sge
 {
-	return
-		sge::parse::output::to_file(
-			&sge::parse::json::output::to_stream,
-			_path,
-			_data
-		);
+namespace parse
+{
+namespace ini
+{
+namespace output
+{
+
+struct to_range_functor
+{
+	template<
+		typename Out,
+		typename Data
+	>
+	bool
+	operator()(
+		Out &_out,
+		Data const &_data
+	) const
+	{
+		return
+			sge::parse::ini::output::to_range(
+				_out,
+				_data
+			);
+	}
+};
+
 }
+}
+}
+}
+
+#endif

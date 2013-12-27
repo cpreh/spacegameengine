@@ -35,29 +35,32 @@ namespace output
 {
 
 template<
+	typename ToRange,
 	typename Data
 >
 bool
 to_stream(
-	fcppt::io::ostream &ofs,
-	Data const &data
+	ToRange const &_to_range,
+	fcppt::io::ostream &_ofs,
+	Data const &_data
 )
 {
-	typedef std::ostream_iterator<
+	typedef
+	std::ostream_iterator<
 		fcppt::io::ostream::char_type,
 		fcppt::io::ostream::char_type
-	> ostream_iterator;
+	>
+	ostream_iterator;
 
 	ostream_iterator sink(
-		ofs
+		_ofs
 	);
 
 	return
-		SGE_PARSE_DETAIL_TO_RANGE_NAMESPACE :: to_range(
+		_to_range(
 			sink,
-			data
+			_data
 		);
-#undef SGE_PARSE_DETAIL_TO_RANGE_NAMESPACE
 }
 
 }

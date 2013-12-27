@@ -21,12 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/ini/start.hpp>
 #include <sge/parse/ini/output/to_file.hpp>
 #include <sge/parse/ini/output/to_stream.hpp>
+#include <sge/src/parse/output/to_file.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
-
-#define SGE_PARSE_DETAIL_TO_STREAM_NAMESPACE ::sge::parse::ini::output
-#include <sge/src/parse/output/to_file.hpp>
 
 
 bool
@@ -37,6 +35,7 @@ sge::parse::ini::output::to_file(
 {
 	return
 		sge::parse::output::to_file(
+			&sge::parse::ini::output::to_stream,
 			_path,
 			_data
 		);

@@ -151,7 +151,9 @@ set(
 	include/sge/parse/result_with_value.hpp
 	include/sge/parse/result_with_value_fwd.hpp
 	src/parse/exception.cpp
+	src/parse/include/sge/src/parse/ini/output/to_range_functor.hpp
 	src/parse/include/sge/src/parse/instantiate_result_with_value.hpp
+	src/parse/include/sge/src/parse/json/output/to_range_functor.hpp
 	src/parse/include/sge/src/parse/output/to_file.hpp
 	src/parse/include/sge/src/parse/output/to_stream.hpp
 	src/parse/include/sge/src/parse/parse_file.hpp

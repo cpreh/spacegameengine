@@ -39,38 +39,40 @@ namespace output
 {
 
 template<
+	typename ToStream,
 	typename Data
 >
 bool
 to_file(
-	boost::filesystem::path const &path,
-	Data const &data
+	ToStream const &_to_stream,
+	boost::filesystem::path const &_path,
+	Data const &_data
 )
 {
 	fcppt::io::ofstream ofs(
-		path,
+		_path,
 		std::ios_base::binary
 	);
 
 	if(
 		!ofs.is_open()
 	)
-		throw parse::exception(
-			FCPPT_TEXT("Opening ")
-			+
-			fcppt::filesystem::path_to_string(
-				path
-			)
-			+
-			FCPPT_TEXT(" failed!")
-		);
+		throw
+			sge::parse::exception(
+				FCPPT_TEXT("Opening ")
+				+
+				fcppt::filesystem::path_to_string(
+					_path
+				)
+				+
+				FCPPT_TEXT(" failed!")
+			);
 
 	return
-		SGE_PARSE_DETAIL_TO_STREAM_NAMESPACE :: to_stream(
+		_to_stream(
 			ofs,
-			data
+			_data
 		);
-#undef SGE_PARSE_DETAIL_TO_STREAM_NAMESPACE
 }
 
 }
