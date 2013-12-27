@@ -18,14 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/log/global_context.hpp>
 #include <sge/plugin/cache.hpp>
 #include <sge/plugin/flags.hpp>
 #include <sge/plugin/optional_cache_ref.hpp>
 #include <sge/plugin/library/object_shared_ptr.hpp>
+#include <sge/plugin/library/detail/log_context_function_name.hpp>
 #include <sge/src/plugin/context_base.hpp>
 #include <sge/src/plugin/load_info.hpp>
+#include <sge/src/plugin/library/load_function.hpp>
 #include <sge/src/plugin/library/object.hpp>
 #include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/log/context_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -69,7 +73,7 @@ sge::plugin::context_base::info() const
 		info_;
 }
 
-sge::plugin::library::object_shared_ptr const
+sge::plugin::library::object_shared_ptr
 sge::plugin::context_base::load()
 {
 	{
@@ -92,6 +96,17 @@ sge::plugin::context_base::load()
 	);
 
 	library_ptr_ = ret;
+
+	sge::plugin::library::load_function<
+		void (*)(
+			fcppt::log::context &
+		)
+	>(
+		*ret,
+		sge::plugin::library::detail::log_context_function_name
+	)(
+		sge::log::global_context()
+	);
 
 	if(
 		cache_

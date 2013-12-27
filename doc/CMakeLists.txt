@@ -1215,9 +1215,11 @@ set(
 	include/sge/line_drawer/object_fwd.hpp
 	include/sge/line_drawer/render_to_screen.hpp
 	include/sge/line_drawer/scoped_lock.hpp
-	include/sge/log/declare_lib.hpp
-	include/sge/log/declare_local.hpp
 	include/sge/log/default_parameters.hpp
+	include/sge/log/default_parameters_lib.hpp
+	include/sge/log/define_lib.hpp
+	include/sge/log/define_local_lib.hpp
+	include/sge/log/define_plugin.hpp
 	include/sge/log/global.hpp
 	include/sge/log/global_context.hpp
 	include/sge/log/location.hpp
@@ -1594,6 +1596,7 @@ set(
 	include/sge/plugin/library/detail/interface_post.hpp
 	include/sge/plugin/library/detail/interface_pre.hpp
 	include/sge/plugin/library/detail/iterate_functions.hpp
+	include/sge/plugin/library/detail/log_context_function_name.hpp
 	include/sge/plugin/library/detail/version_function_name.hpp
 	include/sge/plugin/library/exception.hpp
 	include/sge/plugin/library/function_base.hpp

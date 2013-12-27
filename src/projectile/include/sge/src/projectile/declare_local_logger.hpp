@@ -21,14 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_PROJECTILE_DECLARE_LOCAL_LOGGER_HPP_INCLUDED
 #define SGE_SRC_PROJECTILE_DECLARE_LOCAL_LOGGER_HPP_INCLUDED
 
-#include <sge/log/declare_local.hpp>
+#include <sge/log/define_local_lib.hpp>
 #include <sge/projectile/log_location.hpp>
 
 
 #define SGE_PROJECTILE_DECLARE_LOCAL_LOGGER(\
 	name\
 )\
-SGE_LOG_DECLARE_LOCAL(\
+SGE_LOG_DEFINE_LOCAL_LIB(\
 	name,\
 	sge::projectile::log_location() \
 )

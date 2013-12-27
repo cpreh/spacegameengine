@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/location.hpp>
 
 
-fcppt::log::location const
+fcppt::log::location
 sge::camera::log_location()
 {
 	return

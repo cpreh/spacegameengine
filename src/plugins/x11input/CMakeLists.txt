@@ -94,6 +94,7 @@ set(
 	src/plugins/x11input/include/sge/x11input/keyboard/translate_key_code.hpp
 	src/plugins/x11input/include/sge/x11input/lc_ctype.hpp
 	src/plugins/x11input/include/sge/x11input/logger.hpp
+	src/plugins/x11input/include/sge/x11input/logger_context.hpp
 	src/plugins/x11input/include/sge/x11input/mask_is_set.hpp
 	src/plugins/x11input/include/sge/x11input/mouse/axis.hpp
 	src/plugins/x11input/include/sge/x11input/mouse/axis_code.hpp
@@ -164,6 +165,7 @@ set(
 	src/plugins/x11input/src/keyboard/translate_key_code.cpp
 	src/plugins/x11input/src/lc_ctype.cpp
 	src/plugins/x11input/src/logger.cpp
+	src/plugins/x11input/src/logger_context.cpp
 	src/plugins/x11input/src/mask_is_set.cpp
 	src/plugins/x11input/src/mouse/axis.cpp
 	src/plugins/x11input/src/mouse/axis_code.cpp

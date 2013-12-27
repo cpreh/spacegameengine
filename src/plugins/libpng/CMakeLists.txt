@@ -11,6 +11,7 @@ set(
 	src/plugins/libpng/include/sge/libpng/is_png.hpp
 	src/plugins/libpng/include/sge/libpng/load_context.hpp
 	src/plugins/libpng/include/sge/libpng/logger.hpp
+	src/plugins/libpng/include/sge/libpng/logger_context.hpp
 	src/plugins/libpng/include/sge/libpng/png.hpp
 	src/plugins/libpng/include/sge/libpng/read_ptr.hpp
 	src/plugins/libpng/include/sge/libpng/system.hpp
@@ -27,6 +28,7 @@ set(
 	src/plugins/libpng/src/is_png.cpp
 	src/plugins/libpng/src/load_context.cpp
 	src/plugins/libpng/src/logger.cpp
+	src/plugins/libpng/src/logger_context.cpp
 	src/plugins/libpng/src/read_ptr.cpp
 	src/plugins/libpng/src/system.cpp
 	src/plugins/libpng/src/to_sge_format.cpp

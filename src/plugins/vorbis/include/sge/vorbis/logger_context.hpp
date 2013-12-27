@@ -18,32 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_LOG_DECLARE_LOCAL_HPP_INCLUDED
-#define SGE_LOG_DECLARE_LOCAL_HPP_INCLUDED
+#ifndef SGE_VORBIS_LOGGER_CONTEXT_HPP_INCLUDED
+#define SGE_VORBIS_LOGGER_CONTEXT_HPP_INCLUDED
 
-#include <sge/log/default_parameters.hpp>
-#include <fcppt/log/headers.hpp>
-#include <fcppt/log/location.hpp>
-#include <fcppt/log/object.hpp>
-#include <fcppt/log/parameters/object.hpp>
+#include <fcppt/log/context_fwd.hpp>
 
 
-#define SGE_LOG_DECLARE_LOCAL(\
-	name,\
-	location\
-)\
-namespace \
-{ \
-\
-fcppt::log::object \
-local_log(\
-	sge::log::default_parameters(\
-		location \
-		/ \
-		name\
-	)\
-); \
+namespace sge
+{
+namespace vorbis
+{
+
+fcppt::log::context &
+logger_context();
+
 }
-
+}
 
 #endif

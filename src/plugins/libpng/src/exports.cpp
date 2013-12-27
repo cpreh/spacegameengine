@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image2d/system_unique_ptr.hpp>
+#include <sge/libpng/logger_context.hpp>
 #include <sge/libpng/system.hpp>
 #include <sge/plugin/capabilities.hpp>
 #include <sge/plugin/capabilities_field.hpp>
@@ -66,5 +67,6 @@ create_image2d_system()
 
 SGE_PLUGIN_LIBRARY_MAKE_INTERFACE(
 	info,
+	sge::libpng::logger_context(),
 	(create_image2d_system)
 )

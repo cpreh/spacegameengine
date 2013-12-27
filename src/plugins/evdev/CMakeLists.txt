@@ -74,6 +74,8 @@ set(
 	src/plugins/evdev/include/sge/evdev/joypad/relative_axis/make_info_container.hpp
 	src/plugins/evdev/include/sge/evdev/joypad/relative_axis/make_string.hpp
 	src/plugins/evdev/include/sge/evdev/joypad/remove.hpp
+	src/plugins/evdev/include/sge/evdev/logger.hpp
+	src/plugins/evdev/include/sge/evdev/logger_context.hpp
 	src/plugins/evdev/include/sge/evdev/processor.hpp
 	src/plugins/evdev/include/sge/evdev/system.hpp
 	src/plugins/evdev/src/device/create_fd.cpp
@@ -118,13 +120,15 @@ set(
 	src/plugins/evdev/src/joypad/relative_axis/make_info_container.cpp
 	src/plugins/evdev/src/joypad/relative_axis/make_string.cpp
 	src/plugins/evdev/src/joypad/remove.cpp
+	src/plugins/evdev/src/logger.cpp
+	src/plugins/evdev/src/logger_context.cpp
 	src/plugins/evdev/src/processor.cpp
 	src/plugins/evdev/src/system.cpp
 )
 
 add_sge_plugin(
 	evdev
-	"sgeinput;sgeplugin;sgewindow"
+	"sgeinput;sgelog;sgeplugin;sgewindow"
 	"${awl_TARGET};${fcppt_filesystem_TARGET}"
 	""
 )

@@ -27,8 +27,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/library/detail/interface_post.hpp>
 #include <sge/plugin/library/detail/interface_pre.hpp>
 #include <sge/plugin/library/detail/iterate_functions.hpp>
+#include <sge/plugin/library/detail/log_context_function_name.hpp>
 #include <sge/plugin/library/detail/version_function_name.hpp>
 #include <fcppt/assign/make_container.hpp>
+#include <fcppt/log/context.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -40,6 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #define SGE_PLUGIN_LIBRARY_MAKE_INTERFACE(\
 	plugin_info,\
+	plugin_log_context,\
 	plugin_functions\
 )\
 namespace\
@@ -51,6 +54,15 @@ sge_info_function() \
 	return plugin_info;\
 }\
 \
+void \
+sge_log_context_function(\
+	fcppt::log::context &_context\
+)\
+{\
+	plugin_log_context.transfer_to(\
+		_context\
+	);\
+}\
 }\
 \
 FCPPT_PP_PUSH_WARNING \
@@ -65,6 +77,15 @@ SGE_PLUGIN_LIBRARY_DETAIL_INTERFACE_PRE \
 				sge::plugin::library::function_base\
 			>(\
 				&sge_info_function\
+			)\
+		)\
+	)(\
+		std::make_pair(\
+			sge::plugin::library::detail::log_context_function_name,\
+			reinterpret_cast<\
+				sge::plugin::library::function_base\
+			>(\
+				&sge_log_context_function\
 			)\
 		)\
 	)\

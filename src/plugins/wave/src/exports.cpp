@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/version.hpp>
 #include <sge/plugin/library/make_interface.hpp>
 #include <sge/wave/loader.hpp>
+#include <sge/wave/logger_context.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 
@@ -67,5 +68,6 @@ create_audio_loader()
 
 SGE_PLUGIN_LIBRARY_MAKE_INTERFACE(
 	info,
+	sge::wave::logger_context(),
 	(create_audio_loader)
 )

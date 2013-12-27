@@ -18,27 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/log/default_parameters.hpp>
+#include <sge/log/define_lib.hpp>
 #include <sge/log/global.hpp>
 #include <sge/log/location.hpp>
-#include <fcppt/log/location.hpp>
-#include <fcppt/log/object.hpp>
-#include <fcppt/log/parameters/object.hpp>
 
 
-namespace
-{
-
-fcppt::log::object global_logger(
-	sge::log::default_parameters(
-		sge::log::location()
-	)
-);
-
-}
-
-fcppt::log::object &
-sge::log::global()
-{
-	return global_logger;
-}
+SGE_LOG_DEFINE_LIB(
+	sge::log::global,
+	sge::log::location()
+)

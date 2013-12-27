@@ -18,15 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/log/declare_lib.hpp>
+#include <sge/log/define_plugin.hpp>
 #include <sge/opengl/logger.hpp>
+#include <sge/opengl/logger_context.hpp>
 #include <sge/renderer/log_location.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/location.hpp>
 
 
-SGE_LOG_DECLARE_LIB(
+SGE_LOG_DEFINE_PLUGIN(
 	sge::opengl::logger,
+	sge::opengl::logger_context(),
 	sge::renderer::log_location()
 	/
 	FCPPT_TEXT("opengl")

@@ -141,23 +141,23 @@ sge::plugin::manager::manager(
 	}
 
 	for(
-		sge::plugin::manager::context_base_vector::iterator it(
-			plugins_.begin()
-		);
-		it != plugins_.end();
-		++it
+		sge::plugin::context_base &context
+		:
+		plugins_
 	)
 		FCPPT_FOREACH_ENUMERATOR(
 			index,
 			sge::plugin::capabilities
 		)
 			if(
-				it->info().capabilities() & index
+				context.info().capabilities()
+				&
+				index
 			)
 				categories_[
 					index
 				].push_back(
-					&*it
+					&context
 				);
 }
 

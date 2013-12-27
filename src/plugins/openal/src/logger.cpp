@@ -19,14 +19,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/audio/log_location.hpp>
-#include <sge/log/declare_lib.hpp>
+#include <sge/log/define_plugin.hpp>
 #include <sge/openal/logger.hpp>
+#include <sge/openal/logger_context.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/location.hpp>
 
 
-SGE_LOG_DECLARE_LIB(
+SGE_LOG_DEFINE_PLUGIN(
 	sge::openal::logger,
+	sge::openal::logger_context(),
 	sge::audio::log_location()
 	/
 	FCPPT_TEXT("openal")

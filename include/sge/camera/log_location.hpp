@@ -31,7 +31,7 @@ namespace camera
 {
 
 SGE_CAMERA_SYMBOL
-fcppt::log::location const
+fcppt::log::location
 log_location();
 
 }

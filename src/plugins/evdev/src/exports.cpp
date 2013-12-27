@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/evdev/logger_context.hpp>
 #include <sge/evdev/system.hpp>
 #include <sge/input/system_unique_ptr.hpp>
 #include <sge/plugin/capabilities.hpp>
@@ -66,5 +67,6 @@ create_input_system()
 
 SGE_PLUGIN_LIBRARY_MAKE_INTERFACE(
 	info,
+	sge::evdev::logger_context(),
 	(create_input_system)
 )

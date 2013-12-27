@@ -22,13 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_CEGUI_DECLARE_LOCAL_LOGGER_HPP_INCLUDED
 
 #include <sge/cegui/log_location.hpp>
-#include <sge/log/declare_local.hpp>
+#include <sge/log/define_local_lib.hpp>
 
 
 #define SGE_CEGUI_DECLARE_LOCAL_LOGGER(\
 	name\
 )\
-SGE_LOG_DECLARE_LOCAL(\
+SGE_LOG_DEFINE_LOCAL_LIB(\
 	name,\
 	sge::cegui::log_location() \
 )

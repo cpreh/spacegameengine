@@ -41,8 +41,8 @@ template<
 >
 Function
 load_function(
-	library::object &_object,
-	library::symbol_string const &_symbol
+	sge::plugin::library::object &_object,
+	sge::plugin::library::symbol_string const &_symbol
 )
 {
 FCPPT_PP_PUSH_WARNING
@@ -51,7 +51,7 @@ FCPPT_PP_DISABLE_VC_WARNING(4191)
 		reinterpret_cast<
 			Function
 		>(
-			library::load_function_base(
+			sge::plugin::library::load_function_base(
 				_object,
 				_symbol
 			)

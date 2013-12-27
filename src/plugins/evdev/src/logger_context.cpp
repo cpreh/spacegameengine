@@ -18,16 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/devil/logger.hpp>
-#include <sge/image2d/log_location.hpp>
-#include <sge/log/declare_lib.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/log/location.hpp>
+#include <sge/evdev/logger_context.hpp>
+#include <fcppt/log/define_context.hpp>
 
 
-SGE_LOG_DECLARE_LIB(
-	sge::devil::logger,
-	sge::image2d::log_location()
-	/
-	FCPPT_TEXT("devil")
+FCPPT_LOG_DEFINE_CONTEXT(
+	sge::evdev::logger_context
 )

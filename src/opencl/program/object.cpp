@@ -32,6 +32,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/post.hpp>
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/container/raw_vector.hpp>
+#include <fcppt/log/output.hpp>
+#include <fcppt/log/verbose.hpp>
 
 
 SGE_OPENCL_DECLARE_LOCAL_LOGGER(

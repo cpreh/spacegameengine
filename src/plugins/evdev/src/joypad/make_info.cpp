@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/evdev/logger.hpp>
 #include <sge/evdev/device/fd_fwd.hpp>
 #include <sge/evdev/device/name.hpp>
 #include <sge/evdev/device/unique_id.hpp>
@@ -32,7 +33,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/evdev/joypad/relative_axis/info_container.hpp>
 #include <sge/evdev/joypad/relative_axis/make_info_container.hpp>
 #include <sge/input/exception.hpp>
-#include <sge/input/logger.hpp>
 #include <sge/input/joypad/info.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/error.hpp>
@@ -90,7 +90,7 @@ catch(
 )
 {
 	FCPPT_LOG_ERROR(
-		sge::input::logger(),
+		sge::evdev::logger(),
 		fcppt::log::_
 			<< _exception.string()
 	);

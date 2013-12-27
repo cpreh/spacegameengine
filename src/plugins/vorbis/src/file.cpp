@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/exception.hpp>
 #include <sge/audio/file_exception.hpp>
 #include <sge/audio/unsupported_format.hpp>
-#include <sge/log/global.hpp>
 #include <sge/vorbis/file.hpp>
+#include <sge/vorbis/logger.hpp>
 #include <fcppt/safe_numeric_cast.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
@@ -134,7 +134,6 @@ sge::vorbis::file::read(
 	/*
 	if (stdstream_->eof())
 	{
-		FCPPT_LOG_DEBUG(log::global(),fcppt::log::_ << FCPPT_TEXT("vorbis: we're at the end, returning"));
 		return 0;
 	}
 	*/
@@ -178,7 +177,7 @@ sge::vorbis::file::read(
 			case OV_HOLE:
 				hit_a_hole = true;
 				FCPPT_LOG_WARNING(
-					log::global(),
+					sge::vorbis::logger(),
 					fcppt::log::_
 						<< FCPPT_TEXT("Encountered corrupt vorbis data")
 						<<
@@ -203,7 +202,7 @@ sge::vorbis::file::read(
 		if(result == 0)
 		{
 			FCPPT_LOG_DEBUG(
-				log::global(),
+				sge::vorbis::logger(),
 				fcppt::log::_ << FCPPT_TEXT("vorbis: read until the end"));
 		}
 

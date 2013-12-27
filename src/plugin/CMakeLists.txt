@@ -29,6 +29,7 @@ set(
 	include/sge/plugin/library/detail/interface_post.hpp
 	include/sge/plugin/library/detail/interface_pre.hpp
 	include/sge/plugin/library/detail/iterate_functions.hpp
+	include/sge/plugin/library/detail/log_context_function_name.hpp
 	include/sge/plugin/library/detail/version_function_name.hpp
 	include/sge/plugin/library/exception.hpp
 	include/sge/plugin/library/function_base.hpp

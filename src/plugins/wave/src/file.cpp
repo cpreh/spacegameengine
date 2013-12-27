@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/exception.hpp>
 #include <sge/audio/file_exception.hpp>
 #include <sge/audio/unsupported_format.hpp>
-#include <sge/log/global.hpp>
 #include <sge/wave/file.hpp>
+#include <sge/wave/logger.hpp>
 #include <fcppt/format.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
@@ -97,7 +97,7 @@ sge::wave::file::expected_package_size() const
 void sge::wave::file::reset()
 {
 	FCPPT_LOG_DEBUG(
-		log::global(),
+		sge::wave::logger(),
 		fcppt::log::_ << FCPPT_TEXT("wave: resetting file"));
 
 	file_->seekg(
@@ -238,7 +238,7 @@ void sge::wave::file::ignore_chunks_until(std::string const &desc)
 	while (extract_header(FCPPT_TEXT("subchunk header")) != desc)
 	{
 		FCPPT_LOG_INFO(
-			log::global(),
+			sge::wave::logger(),
 			fcppt::log::_
 				<< FCPPT_TEXT("detected unknown subchunk in wave")
 		);

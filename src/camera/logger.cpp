@@ -19,11 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/camera/log_location.hpp>
-#include <sge/log/declare_lib.hpp>
+#include <sge/log/define_lib.hpp>
 #include <sge/src/camera/logger.hpp>
 
 
-SGE_LOG_DECLARE_LIB(
+SGE_LOG_DEFINE_LIB(
 	sge::camera::logger,
 	sge::camera::log_location()
 )

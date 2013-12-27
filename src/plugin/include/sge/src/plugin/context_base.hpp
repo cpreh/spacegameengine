@@ -61,7 +61,7 @@ public:
 	info() const;
 
 	SGE_PLUGIN_SYMBOL
-	sge::plugin::library::object_shared_ptr const
+	sge::plugin::library::object_shared_ptr
 	load();
 private:
 	sge::plugin::optional_cache_ref const cache_;
@@ -70,9 +70,11 @@ private:
 
 	sge::plugin::info const info_;
 
-	typedef fcppt::weak_ptr<
+	typedef
+	fcppt::weak_ptr<
 		sge::plugin::library::object
-	> library_weak_ptr;
+	>
+	library_weak_ptr;
 
 	library_weak_ptr library_ptr_;
 };

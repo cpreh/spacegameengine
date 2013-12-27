@@ -18,24 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_LOG_DECLARE_LIB_HPP_INCLUDED
-#define SGE_LOG_DECLARE_LIB_HPP_INCLUDED
+#ifndef SGE_WAVE_LOGGER_HPP_INCLUDED
+#define SGE_WAVE_LOGGER_HPP_INCLUDED
 
-#include <sge/log/default_parameters.hpp>
-#include <fcppt/log/define_object.hpp>
-#include <fcppt/log/location.hpp>
-#include <fcppt/log/parameters/object.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
-#define SGE_LOG_DECLARE_LIB(\
-	function,\
-	location\
-)\
-FCPPT_LOG_DEFINE_OBJECT(\
-	function, \
-	sge::log::default_parameters(\
-		location\
-	)\
-)
+namespace sge
+{
+namespace wave
+{
+
+fcppt::log::object &
+logger();
+
+}
+}
 
 #endif

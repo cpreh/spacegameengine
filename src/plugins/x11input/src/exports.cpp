@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/name.hpp>
 #include <sge/plugin/version.hpp>
 #include <sge/plugin/library/make_interface.hpp>
+#include <sge/x11input/logger_context.hpp>
 #include <sge/x11input/system.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
@@ -69,5 +70,6 @@ create_input_system()
 
 SGE_PLUGIN_LIBRARY_MAKE_INTERFACE(
 	info,
+	sge::x11input::logger_context(),
 	(create_input_system)
 )

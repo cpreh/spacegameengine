@@ -25,6 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/projectile/object_extrusion_depth.hpp>
 #include <sge/src/projectile/vector2_to_bullet.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/log/debug.hpp>
+#include <fcppt/log/output.hpp>
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/signal/auto_connection.hpp>

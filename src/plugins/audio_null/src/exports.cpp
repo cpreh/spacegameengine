@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/audio/player_unique_ptr.hpp>
+#include <sge/audio_null/logger_context.hpp>
 #include <sge/audio_null/player.hpp>
 #include <sge/plugin/capabilities.hpp>
 #include <sge/plugin/capabilities_field.hpp>
@@ -66,5 +67,6 @@ create_audio_player()
 
 SGE_PLUGIN_LIBRARY_MAKE_INTERFACE(
 	info,
+	sge::audio_null::logger_context(),
 	(create_audio_player)
 )

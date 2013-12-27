@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/libpng/context_base.hpp>
 #include <sge/libpng/logger.hpp>
 #include <sge/libpng/png.hpp>
-#include <sge/log/global.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
@@ -70,7 +69,7 @@ sge::libpng::context_base::handle_warning_impl(
 			FCPPT_TEXT("stream");
 
 	FCPPT_LOG_WARNING(
-		logger(),
+		sge::libpng::logger(),
 		fcppt::log::_
 			<< prelude
 			<< FCPPT_TEXT(": ")
