@@ -30,8 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/projectile/body/solidity/extract_mass.hpp>
 #include <sge/src/projectile/body/solidity/is_solid.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
-#include <fcppt/log/output.hpp>
 #include <fcppt/log/verbose.hpp>
 #include <fcppt/math/vector/construct.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
