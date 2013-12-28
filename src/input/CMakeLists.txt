@@ -189,7 +189,6 @@ set(
 	include/sge/input/keyboard/remove_signal.hpp
 	include/sge/input/keyboard/to_modifier.hpp
 	include/sge/input/log_location.hpp
-	include/sge/input/logger.hpp
 	include/sge/input/mouse/axis.hpp
 	include/sge/input/mouse/axis_callback.hpp
 	include/sge/input/mouse/axis_code.hpp
@@ -277,6 +276,7 @@ set(
 	src/input/include/sge/src/input/event/remove_impl.hpp
 	src/input/include/sge/src/input/info/container_impl.hpp
 	src/input/include/sge/src/input/info/instantiate_container.hpp
+	src/input/include/sge/src/input/logger.hpp
 	src/input/include/sge/src/input/multi_processor.hpp
 	src/input/include/sge/src/input/multi_system.hpp
 	src/input/include/sge/src/input/system_ptr_vector.hpp

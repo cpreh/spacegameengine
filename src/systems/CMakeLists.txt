@@ -72,7 +72,6 @@ set(
 	include/sge/systems/log_location.hpp
 	include/sge/systems/log_settings.hpp
 	include/sge/systems/log_settings_fwd.hpp
-	include/sge/systems/logger.hpp
 	include/sge/systems/make_empty_list.hpp
 	include/sge/systems/make_list.hpp
 	include/sge/systems/mouse_collector.hpp
@@ -131,6 +130,7 @@ set(
 	src/systems/include/sge/src/systems/find_plugin_opt.hpp
 	src/systems/include/sge/src/systems/ini_section_name.hpp
 	src/systems/include/sge/src/systems/instantiate_basic_loader.hpp
+	src/systems/include/sge/src/systems/logger.hpp
 	src/systems/include/sge/src/systems/make_any_key.hpp
 	src/systems/include/sge/src/systems/make_scoped_output.hpp
 	src/systems/include/sge/src/systems/merge_config_strings.hpp

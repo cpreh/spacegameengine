@@ -106,7 +106,6 @@ set(
 	include/sge/audio/loader_scoped_ptr.hpp
 	include/sge/audio/loader_unique_ptr.hpp
 	include/sge/audio/log_location.hpp
-	include/sge/audio/logger.hpp
 	include/sge/audio/multi_loader.hpp
 	include/sge/audio/multi_loader_fwd.hpp
 	include/sge/audio/multi_loader_parameters.hpp
@@ -473,6 +472,7 @@ set(
 	include/sge/font/from_fcppt_string.hpp
 	include/sge/font/height.hpp
 	include/sge/font/lit.hpp
+	include/sge/font/log_location.hpp
 	include/sge/font/metrics.hpp
 	include/sge/font/metrics_fwd.hpp
 	include/sge/font/metrics_output.hpp
@@ -774,7 +774,6 @@ set(
 	include/sge/image2d/la8_format.hpp
 	include/sge/image2d/load_exn.hpp
 	include/sge/image2d/log_location.hpp
-	include/sge/image2d/logger.hpp
 	include/sge/image2d/multi_system.hpp
 	include/sge/image2d/multi_system_fwd.hpp
 	include/sge/image2d/multi_system_parameters.hpp
@@ -1144,7 +1143,6 @@ set(
 	include/sge/input/keyboard/remove_signal.hpp
 	include/sge/input/keyboard/to_modifier.hpp
 	include/sge/input/log_location.hpp
-	include/sge/input/logger.hpp
 	include/sge/input/mouse/axis.hpp
 	include/sge/input/mouse/axis_callback.hpp
 	include/sge/input/mouse/axis_code.hpp
@@ -1930,7 +1928,6 @@ set(
 	include/sge/renderer/lock_rect_fwd.hpp
 	include/sge/renderer/lock_rect_to_coords.hpp
 	include/sge/renderer/log_location.hpp
-	include/sge/renderer/logger.hpp
 	include/sge/renderer/matrix4.hpp
 	include/sge/renderer/matrix4_fwd.hpp
 	include/sge/renderer/npos.hpp
@@ -3312,7 +3309,6 @@ set(
 	include/sge/systems/log_location.hpp
 	include/sge/systems/log_settings.hpp
 	include/sge/systems/log_settings_fwd.hpp
-	include/sge/systems/logger.hpp
 	include/sge/systems/make_empty_list.hpp
 	include/sge/systems/make_list.hpp
 	include/sge/systems/mouse_collector.hpp

@@ -33,7 +33,6 @@ set(
 	include/sge/audio/loader_scoped_ptr.hpp
 	include/sge/audio/loader_unique_ptr.hpp
 	include/sge/audio/log_location.hpp
-	include/sge/audio/logger.hpp
 	include/sge/audio/multi_loader.hpp
 	include/sge/audio/multi_loader_fwd.hpp
 	include/sge/audio/multi_loader_parameters.hpp
@@ -84,6 +83,7 @@ set(
 	src/audio/exception.cpp
 	src/audio/file.cpp
 	src/audio/file_exception.cpp
+	src/audio/include/sge/src/audio/logger.hpp
 	src/audio/listener.cpp
 	src/audio/load_exn.cpp
 	src/audio/loader.cpp
@@ -128,7 +128,7 @@ add_sge_base_library(
 	"${Boost_filesystem_LIBRARIES}"
 	"sgecore"
 	""
-	""
+	"${CMAKE_CURRENT_SOURCE_DIR}/include"
 	""
 	""
 )

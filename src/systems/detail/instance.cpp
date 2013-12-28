@@ -42,9 +42,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/any_visitor.hpp>
 #include <sge/src/systems/extract_config.hpp>
 #include <sge/src/systems/extract_plugin_path.hpp>
+#include <sge/src/systems/logger.hpp>
 #include <sge/src/systems/detail/instance_impl.hpp>
 #include <sge/systems/config.hpp>
-#include <sge/systems/logger.hpp>
 #include <sge/systems/optional_log_settings.hpp>
 #include <sge/systems/detail/any_key.hpp>
 #include <sge/systems/detail/any_map.hpp>

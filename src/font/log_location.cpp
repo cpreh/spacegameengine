@@ -18,23 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_LOGGER_HPP_INCLUDED
-#define SGE_INPUT_LOGGER_HPP_INCLUDED
+#include <sge/font/log_location.hpp>
+#include <sge/log/location.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/log/location.hpp>
 
-#include <sge/input/symbol.hpp>
-#include <fcppt/log/object_fwd.hpp>
 
-
-namespace sge
+fcppt::log::location
+sge::font::log_location()
 {
-namespace input
-{
-
-SGE_INPUT_SYMBOL
-fcppt::log::object &
-logger();
-
+	return
+		sge::log::location()
+		/
+		FCPPT_TEXT("font");
 }
-}
-
-#endif

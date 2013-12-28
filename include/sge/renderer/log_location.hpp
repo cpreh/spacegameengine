@@ -31,7 +31,7 @@ namespace renderer
 {
 
 SGE_RENDERER_SYMBOL
-fcppt::log::location const
+fcppt::log::location
 log_location();
 
 }

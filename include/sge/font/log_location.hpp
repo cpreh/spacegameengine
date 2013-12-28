@@ -18,21 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_LOGGER_HPP_INCLUDED
-#define SGE_RENDERER_LOGGER_HPP_INCLUDED
+#ifndef SGE_FONT_LOG_LOCATION_HPP_INCLUDED
+#define SGE_FONT_LOG_LOCATION_HPP_INCLUDED
 
-#include <sge/renderer/symbol.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <sge/font/symbol.hpp>
+#include <fcppt/log/location.hpp>
 
 
 namespace sge
 {
-namespace renderer
+namespace font
 {
 
-SGE_RENDERER_SYMBOL
-fcppt::log::object &
-logger();
+SGE_FONT_SYMBOL
+fcppt::log::location
+log_location();
 
 }
 }

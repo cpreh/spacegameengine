@@ -18,6 +18,7 @@ set(
 	include/sge/font/from_fcppt_string.hpp
 	include/sge/font/height.hpp
 	include/sge/font/lit.hpp
+	include/sge/font/log_location.hpp
 	include/sge/font/metrics.hpp
 	include/sge/font/metrics_fwd.hpp
 	include/sge/font/metrics_output.hpp
@@ -76,6 +77,7 @@ set(
 	include/sge/font/weight/unit.hpp
 	src/font/exception.cpp
 	src/font/from_fcppt_string.cpp
+	src/font/log_location.cpp
 	src/font/metrics.cpp
 	src/font/metrics_output.cpp
 	src/font/object.cpp
@@ -110,7 +112,7 @@ sge_implement_from_lib(
 
 add_sge_base_library(
 	font
-	"sgecore;sgeplugin"
+	"sgecore;sgelog;sgeplugin"
 	""
 	"sgecore"
 	""

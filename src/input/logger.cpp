@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/input/log_location.hpp>
-#include <sge/input/logger.hpp>
 #include <sge/log/define_lib.hpp>
+#include <sge/src/input/logger.hpp>
 
 
 SGE_LOG_DEFINE_LIB(

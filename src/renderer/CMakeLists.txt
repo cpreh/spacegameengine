@@ -206,7 +206,6 @@ set(
 	include/sge/renderer/lock_rect_fwd.hpp
 	include/sge/renderer/lock_rect_to_coords.hpp
 	include/sge/renderer/log_location.hpp
-	include/sge/renderer/logger.hpp
 	include/sge/renderer/matrix4.hpp
 	include/sge/renderer/matrix4_fwd.hpp
 	include/sge/renderer/npos.hpp
@@ -916,6 +915,7 @@ set(
 	src/renderer/include/sge/src/renderer/instantiate_basic_scoped_buffer_lock.hpp
 	src/renderer/include/sge/src/renderer/instantiate_const_basic_scoped_buffer_lock.hpp
 	src/renderer/include/sge/src/renderer/instantiate_float.hpp
+	src/renderer/include/sge/src/renderer/logger.hpp
 	src/renderer/include/sge/src/renderer/projection/check_near.hpp
 	src/renderer/include/sge/src/renderer/projection/check_near_far.hpp
 	src/renderer/include/sge/src/renderer/state/core/sampler/filter/need_mipmap_visitor.hpp

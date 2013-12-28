@@ -18,19 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE2D_LOGGER_HPP_INCLUDED
-#define SGE_IMAGE2D_LOGGER_HPP_INCLUDED
+#ifndef SGE_SRC_INPUT_LOGGER_HPP_INCLUDED
+#define SGE_SRC_INPUT_LOGGER_HPP_INCLUDED
 
-#include <sge/image2d/symbol.hpp>
 #include <fcppt/log/object_fwd.hpp>
 
 
 namespace sge
 {
-namespace image2d
+namespace input
 {
 
-SGE_IMAGE2D_SYMBOL
 fcppt::log::object &
 logger();
 

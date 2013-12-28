@@ -18,12 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image2d/log_location.hpp>
-#include <sge/log/define_lib.hpp>
-#include <sge/src/image2d/logger.hpp>
+#ifndef SGE_SRC_RENDERER_LOGGER_HPP_INCLUDED
+#define SGE_SRC_RENDERER_LOGGER_HPP_INCLUDED
+
+#include <fcppt/log/object_fwd.hpp>
 
 
-SGE_LOG_DEFINE_LIB(
-	sge::image2d::logger,
-	sge::image2d::log_location()
-)
+namespace sge
+{
+namespace renderer
+{
+
+fcppt::log::object &
+logger();
+
+}
+}
+
+#endif

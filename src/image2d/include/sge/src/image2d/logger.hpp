@@ -18,19 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_AUDIO_LOGGER_HPP_INCLUDED
-#define SGE_AUDIO_LOGGER_HPP_INCLUDED
+#ifndef SGE_SRC_IMAGE2D_LOGGER_HPP_INCLUDED
+#define SGE_SRC_IMAGE2D_LOGGER_HPP_INCLUDED
 
-#include <sge/audio/symbol.hpp>
 #include <fcppt/log/object_fwd.hpp>
 
 
 namespace sge
 {
-namespace audio
+namespace image2d
 {
 
-SGE_AUDIO_SYMBOL
 fcppt::log::object &
 logger();
 
