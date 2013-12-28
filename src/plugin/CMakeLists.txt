@@ -15,6 +15,7 @@ set(
 	include/sge/plugin/description.hpp
 	include/sge/plugin/detail/address_name.hpp
 	include/sge/plugin/detail/iterator_base_type.hpp
+	include/sge/plugin/detail/setup_loggers.hpp
 	include/sge/plugin/detail/traits.hpp
 	include/sge/plugin/exception.hpp
 	include/sge/plugin/file_extension.hpp
@@ -53,6 +54,7 @@ set(
 	include/sge/plugin/version.hpp
 	src/plugin/cache.cpp
 	src/plugin/context_base.cpp
+	src/plugin/detail/setup_loggers.cpp
 	src/plugin/exception.cpp
 	src/plugin/file_extension.cpp
 	src/plugin/include/sge/src/plugin/address_name.hpp

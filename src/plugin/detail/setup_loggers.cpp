@@ -18,23 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_LOG_LOCATION_HPP_INCLUDED
-#define SGE_LOG_LOCATION_HPP_INCLUDED
+#include <sge/plugin/detail/setup_loggers.hpp>
+#include <fcppt/io/ostream.hpp>
+#include <fcppt/log/context.hpp>
+#include <fcppt/log/new_sink.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
-#include <sge/log/symbol.hpp>
-#include <fcppt/log/location.hpp>
 
-
-namespace sge
+void
+sge::plugin::detail::setup_loggers(
+	fcppt::io::ostream &_stream,
+	fcppt::log::context &_old_context,
+	fcppt::log::context &_new_context
+)
 {
-namespace log
-{
+	_old_context.apply_all(
+		[
+			&_stream
+		](
+			fcppt::log::object &_logger
+		)
+		{
+			fcppt::log::new_sink(
+				_logger,
+				_stream
+			);
+		}
+	);
 
-SGE_LOG_SYMBOL
-fcppt::log::location
-location();
-
+	_old_context.transfer_to(
+		_new_context
+	);
 }
-}
-
-#endif
