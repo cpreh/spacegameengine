@@ -113,6 +113,8 @@ update_sublibrary config
 update_sublibrary console
 
 update_sublibrary font \
+	"include/sge/font/align_h" \
+	"src/font/align_h" \
 	"include/sge/font/plugin" \
 	"src/font/plugin" \
 	"include/sge/font/weight" \

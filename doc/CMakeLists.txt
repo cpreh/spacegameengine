@@ -445,8 +445,19 @@ set(
 	include/sge/console/sprite_type_choices.hpp
 	include/sge/error/check_state.hpp
 	include/sge/exception.hpp
-	include/sge/font/align_h.hpp
-	include/sge/font/align_h_fwd.hpp
+	include/sge/font/align_h/center.hpp
+	include/sge/font/align_h/center_fwd.hpp
+	include/sge/font/align_h/extract_max_width.hpp
+	include/sge/font/align_h/left.hpp
+	include/sge/font/align_h/left_fwd.hpp
+	include/sge/font/align_h/max_width.hpp
+	include/sge/font/align_h/max_width_fwd.hpp
+	include/sge/font/align_h/optional_max_width.hpp
+	include/sge/font/align_h/optional_max_width_fwd.hpp
+	include/sge/font/align_h/right.hpp
+	include/sge/font/align_h/right_fwd.hpp
+	include/sge/font/align_h/variant.hpp
+	include/sge/font/align_h/variant_fwd.hpp
 	include/sge/font/ascent.hpp
 	include/sge/font/bitmap/create.hpp
 	include/sge/font/char_type.hpp
@@ -486,8 +497,6 @@ set(
 	include/sge/font/optional_family_fwd.hpp
 	include/sge/font/optional_ttf_size.hpp
 	include/sge/font/optional_ttf_size_fwd.hpp
-	include/sge/font/optional_unit.hpp
-	include/sge/font/optional_unit_fwd.hpp
 	include/sge/font/parameters.hpp
 	include/sge/font/parameters_fwd.hpp
 	include/sge/font/parameters_to_string.hpp

@@ -18,59 +18,61 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/font/align_h/center_fwd.hpp>
-#include <sge/font/align_h/left_fwd.hpp>
-#include <sge/font/align_h/right_fwd.hpp>
+#include <sge/font/align_h/center.hpp>
+#include <sge/font/align_h/extract_max_width.hpp>
+#include <sge/font/align_h/left.hpp>
+#include <sge/font/align_h/optional_max_width.hpp>
+#include <sge/font/align_h/right.hpp>
 #include <sge/font/align_h/variant.hpp>
-#include <sge/pango/convert/alignment.hpp>
 #include <fcppt/variant/apply_unary.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <pango/pango-layout.h>
-#include <fcppt/config/external_end.hpp>
 
 
-PangoAlignment
-sge::pango::convert::alignment(
-	sge::font::align_h::variant const &_alignment
+sge::font::align_h::optional_max_width const
+sge::font::align_h::extract_max_width(
+	sge::font::align_h::variant const &_variant
 )
 {
 	struct visitor
 	{
 		typedef
-		PangoAlignment
+		sge::font::align_h::optional_max_width
 		result_type;
 
 		result_type
 		operator()(
-			sge::font::align_h::left const &
+			sge::font::align_h::left const &_left
 		) const
 		{
 			return
-				PANGO_ALIGN_LEFT;
+				_left.max_width();
 		}
 
 		result_type
 		operator()(
-			sge::font::align_h::center const &
+			sge::font::align_h::center const &_center
 		) const
 		{
 			return
-				PANGO_ALIGN_CENTER;
+				sge::font::align_h::optional_max_width(
+					_center.max_width()
+				);
 		}
 
 		result_type
 		operator()(
-			sge::font::align_h::right const &
+			sge::font::align_h::right const &_right
 		) const
 		{
 			return
-				PANGO_ALIGN_RIGHT;
+				sge::font::align_h::optional_max_width(
+					_right.max_width()
+				);
 		}
 	};
 
 	return
 		fcppt::variant::apply_unary(
 			visitor(),
-			_alignment
+			_variant
 		);
 }

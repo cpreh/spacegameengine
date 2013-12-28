@@ -18,22 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_OPTIONAL_UNIT_FWD_HPP_INCLUDED
-#define SGE_FONT_OPTIONAL_UNIT_FWD_HPP_INCLUDED
+#ifndef SGE_FONT_ALIGN_H_VARIANT_FWD_HPP_INCLUDED
+#define SGE_FONT_ALIGN_H_VARIANT_FWD_HPP_INCLUDED
 
-#include <sge/font/unit.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <sge/font/align_h/center_fwd.hpp>
+#include <sge/font/align_h/left_fwd.hpp>
+#include <sge/font/align_h/right_fwd.hpp>
+#include <fcppt/variant/object_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/vector/vector10.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
 {
 namespace font
 {
+namespace align_h
+{
 
-typedef fcppt::optional<
-	sge::font::unit
-> optional_unit;
+typedef
+fcppt::variant::object<
+	boost::mpl::vector3<
+		sge::font::align_h::left,
+		sge::font::align_h::center,
+		sge::font::align_h::right
+	>
+>
+variant;
 
+}
 }
 }
 

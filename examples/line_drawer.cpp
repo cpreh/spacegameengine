@@ -43,7 +43,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	- Usage of sge::input::cursor
  */
 
-#include <sge/font/align_h.hpp>
 #include <sge/font/from_fcppt_string.hpp>
 #include <sge/font/lit.hpp>
 #include <sge/font/object.hpp>
@@ -54,6 +53,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text_parameters.hpp>
 #include <sge/font/unit.hpp>
 #include <sge/font/vector.hpp>
+#include <sge/font/align_h/left.hpp>
+#include <sge/font/align_h/max_width.hpp>
+#include <sge/font/align_h/right.hpp>
 #include <sge/font/draw/simple.hpp>
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/any/object.hpp>
@@ -109,6 +111,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/exception.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/cast/to_signed.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/vector/construct.hpp>
@@ -357,13 +361,17 @@ try
 		sge::font::vector const font_pos(
 			sge::font::vector::null());
 
-		sge::font::unit const font_width(
-			static_cast<
+		sge::font::align_h::max_width const font_width(
+			fcppt::cast::size<
 				sge::font::unit
 			>(
-				sge::renderer::target::viewport_size(
-					sys.renderer_ffp().onscreen_target()
-				).w()));
+				fcppt::cast::to_signed(
+					sge::renderer::target::viewport_size(
+						sys.renderer_ffp().onscreen_target()
+					).w()
+				)
+			)
+		);
 
 		sge::font::draw::simple(
 			sys.renderer_ffp(),
@@ -371,10 +379,9 @@ try
 			*font,
 			SGE_FONT_LIT("Press the left mouse button to set a point"),
 			sge::font::text_parameters(
-				sge::font::align_h::left
-			)
-			.max_width(
-				font_width
+				sge::font::align_h::left(
+					font_width
+				)
 			),
 			font_pos,
 			sge::image::color::predef::red(),
@@ -388,10 +395,9 @@ try
 				frames_counter.frames_str())
 			+ SGE_FONT_LIT(" fps"),
 			sge::font::text_parameters(
-				sge::font::align_h::right
-			)
-			.max_width(
-				font_width
+				sge::font::align_h::right(
+					font_width
+				)
 			),
 			font_pos,
 			sge::image::color::predef::red(),

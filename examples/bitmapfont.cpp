@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/config/media_path.hpp>
-#include <sge/font/align_h.hpp>
 #include <sge/font/from_fcppt_string.hpp>
 #include <sge/font/lit.hpp>
 #include <sge/font/object.hpp>
@@ -27,6 +26,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/string.hpp>
 #include <sge/font/text_parameters.hpp>
 #include <sge/font/vector.hpp>
+#include <sge/font/align_h/center.hpp>
+#include <sge/font/align_h/left.hpp>
+#include <sge/font/align_h/max_width.hpp>
+#include <sge/font/align_h/right.hpp>
 #include <sge/font/bitmap/create.hpp>
 #include <sge/font/draw/static_text.hpp>
 #include <sge/image/capabilities_field.hpp>
@@ -201,10 +204,11 @@ try
 		*font_object,
 		string,
 		sge::font::text_parameters(
-			sge::font::align_h::left
-		)
-		.max_width(
-			300
+			sge::font::align_h::left(
+				sge::font::align_h::max_width(
+					300
+				)
+			)
 		),
 		sge::font::vector(
 			100,
@@ -219,10 +223,11 @@ try
 		*font_object,
 		string,
 		sge::font::text_parameters(
-			sge::font::align_h::center
-		)
-		.max_width(
-			300
+			sge::font::align_h::center(
+				sge::font::align_h::max_width(
+					300
+				)
+			)
 		),
 		sge::font::vector(
 			400,
@@ -237,10 +242,11 @@ try
 		*font_object,
 		string,
 		sge::font::text_parameters(
-			sge::font::align_h::right
-		)
-		.max_width(
-			300
+			sge::font::align_h::right(
+				sge::font::align_h::max_width(
+					300
+				)
+			)
 		),
 		sge::font::vector(
 			700,

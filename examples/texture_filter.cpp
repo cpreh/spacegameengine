@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/first_person/object.hpp>
 #include <sge/camera/first_person/parameters.hpp>
 #include <sge/camera/matrix_conversion/world.hpp>
-#include <sge/font/align_h.hpp>
 #include <sge/font/from_fcppt_string.hpp>
 #include <sge/font/lit.hpp>
 #include <sge/font/object.hpp>
@@ -34,6 +33,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text_parameters.hpp>
 #include <sge/font/unit.hpp>
 #include <sge/font/vector.hpp>
+#include <sge/font/align_h/left.hpp>
+#include <sge/font/align_h/max_width.hpp>
+#include <sge/font/align_h/right.hpp>
 #include <sge/font/draw/simple.hpp>
 #include <sge/image/size_type.hpp>
 #include <sge/image/store.hpp>
@@ -162,6 +164,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_map.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/cast/to_signed.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
@@ -867,13 +871,15 @@ try
 			sge::font::vector::null()
 		);
 
-		sge::font::unit const font_width(
-			static_cast<
+		sge::font::align_h::max_width const font_width(
+			fcppt::cast::size<
 				sge::font::unit
 			>(
-				sge::renderer::target::viewport_size(
-					sys.renderer_core().onscreen_target()
-				).w()
+				fcppt::cast::to_signed(
+					sge::renderer::target::viewport_size(
+						sys.renderer_core().onscreen_target()
+					).w()
+				)
 			)
 		);
 
@@ -885,10 +891,9 @@ try
 			+
 			text_appendix,
 			sge::font::text_parameters(
-				sge::font::align_h::left
-			)
-			.max_width(
-				font_width
+				sge::font::align_h::left(
+					font_width
+				)
 			),
 			font_pos,
 			sge::image::color::predef::red(),
@@ -904,10 +909,9 @@ try
 			)
 			+ SGE_FONT_LIT(" fps"),
 			sge::font::text_parameters(
-				sge::font::align_h::right
-			)
-			.max_width(
-				font_width
+				sge::font::align_h::right(
+					font_width
+				)
 			),
 			font_pos,
 			sge::image::color::predef::red(),

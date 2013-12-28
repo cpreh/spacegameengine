@@ -18,26 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PANGO_CONVERT_ALIGNMENT_HPP_INCLUDED
-#define SGE_PANGO_CONVERT_ALIGNMENT_HPP_INCLUDED
+#ifndef SGE_FONT_ALIGN_H_CENTER_HPP_INCLUDED
+#define SGE_FONT_ALIGN_H_CENTER_HPP_INCLUDED
 
-#include <sge/font/align_h/variant_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <pango/pango-layout.h>
-#include <fcppt/config/external_end.hpp>
+#include <sge/font/symbol.hpp>
+#include <sge/font/align_h/center_fwd.hpp>
+#include <sge/font/align_h/max_width.hpp>
 
 
 namespace sge
 {
-namespace pango
+namespace font
 {
-namespace convert
+namespace align_h
 {
 
-PangoAlignment
-alignment(
-	sge::font::align_h::variant const &
-);
+class center
+{
+public:
+	SGE_FONT_SYMBOL
+	explicit
+	center(
+		sge::font::align_h::max_width
+	);
+
+	SGE_FONT_SYMBOL
+	sge::font::align_h::max_width const
+	max_width() const;
+private:
+	sge::font::align_h::max_width max_width_;
+};
 
 }
 }

@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/font/align_h.hpp>
 #include <sge/font/from_fcppt_string.hpp>
 #include <sge/font/lit.hpp>
 #include <sge/font/object.hpp>
@@ -29,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text_parameters.hpp>
 #include <sge/font/unit.hpp>
 #include <sge/font/vector.hpp>
+#include <sge/font/align_h/left.hpp>
 #include <sge/font/draw/static_text.hpp>
 #include <sge/graph/axis_constraint.hpp>
 #include <sge/graph/background_color.hpp>
@@ -481,7 +481,7 @@ try
 			"cpu"
 		),
 		sge::font::text_parameters(
-			sge::font::align_h::left
+			sge::font::align_h::left()
 		),
 		sge::font::vector(
 			0,
@@ -498,7 +498,7 @@ try
 			"mem"
 		),
 		sge::font::text_parameters(
-			sge::font::align_h::left
+			sge::font::align_h::left()
 		),
 		sge::font::vector(
 			0,
@@ -610,7 +610,7 @@ try
 						)
 					),
 					sge::font::text_parameters(
-						sge::font::align_h::left
+						sge::font::align_h::left()
 					),
 					sge::font::vector(
 						0,

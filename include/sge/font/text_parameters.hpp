@@ -21,12 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FONT_TEXT_PARAMETERS_HPP_INCLUDED
 #define SGE_FONT_TEXT_PARAMETERS_HPP_INCLUDED
 
-#include <sge/font/align_h.hpp>
 #include <sge/font/flags_field.hpp>
-#include <sge/font/optional_unit.hpp>
 #include <sge/font/symbol.hpp>
 #include <sge/font/text_parameters_fwd.hpp>
 #include <sge/font/unit.hpp>
+#include <sge/font/align_h/variant.hpp>
 
 
 namespace sge
@@ -42,7 +41,7 @@ public:
 	SGE_FONT_SYMBOL
 	explicit
 	text_parameters(
-		sge::font::align_h
+		sge::font::align_h::variant const &
 	);
 
 	SGE_FONT_SYMBOL
@@ -52,28 +51,16 @@ public:
 	);
 
 	SGE_FONT_SYMBOL
-	sge::font::text_parameters &
-	max_width(
-		sge::font::unit
-	);
-
-	SGE_FONT_SYMBOL
-	sge::font::align_h
+	sge::font::align_h::variant const &
 	align_h() const;
 
 	SGE_FONT_SYMBOL
 	sge::font::flags_field const &
 	flags() const;
-
-	SGE_FONT_SYMBOL
-	sge::font::optional_unit const &
-	max_width() const;
 private:
-	sge::font::align_h align_h_;
+	sge::font::align_h::variant align_h_;
 
 	sge::font::flags_field flags_;
-
-	sge::font::optional_unit max_width_;
 };
 
 }

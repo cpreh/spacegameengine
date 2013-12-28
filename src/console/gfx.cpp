@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/output_line_limit.hpp>
 #include <sge/console/sprite_object.hpp>
 #include <sge/console/detail/pointed_history.hpp>
-#include <sge/font/align_h.hpp>
 #include <sge/font/lit.hpp>
 #include <sge/font/object_fwd.hpp>
 #include <sge/font/rect.hpp>
@@ -33,6 +32,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text_parameters.hpp>
 #include <sge/font/unit.hpp>
 #include <sge/font/vector.hpp>
+#include <sge/font/align_h/left.hpp>
+#include <sge/font/align_h/max_width.hpp>
 #include <sge/font/draw/static_text.hpp>
 #include <sge/input/keyboard/char_event.hpp>
 #include <sge/input/keyboard/device.hpp>
@@ -308,10 +309,11 @@ sge::console::gfx::render_line(
 		font_object_,
 		_line,
 		sge::font::text_parameters(
-			sge::font::align_h::left
-		)
-		.max_width(
-			background_.w()
+			sge::font::align_h::left(
+				sge::font::align_h::max_width(
+					background_.w()
+				)
+			)
 		),
 		sge::font::vector::null(),
 		font_color_.get(),

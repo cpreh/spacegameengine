@@ -18,10 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/font/align_h.hpp>
 #include <sge/font/flags.hpp>
 #include <sge/font/flags_field.hpp>
-#include <sge/font/optional_unit.hpp>
 #include <sge/font/rect.hpp>
 #include <sge/font/string.hpp>
 #include <sge/font/text.hpp>
@@ -29,6 +27,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/to_fcppt_string.hpp>
 #include <sge/font/unit.hpp>
 #include <sge/font/view.hpp>
+#include <sge/font/align_h/center.hpp>
+#include <sge/font/align_h/extract_max_width.hpp>
+#include <sge/font/align_h/left.hpp>
+#include <sge/font/align_h/optional_max_width.hpp>
+#include <sge/font/align_h/right.hpp>
 #include <sge/image/size_type.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/color/any/clear.hpp>
@@ -48,11 +51,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/font/bitmap/line.hpp>
 #include <sge/src/font/bitmap/text.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/nonassignable.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
 #include <iterator>
@@ -90,8 +95,10 @@ sge::font::bitmap::text::text(
 		_text_parameters.flags()
 	);
 
-	sge::font::optional_unit const max_width(
-		_text_parameters.max_width()
+	sge::font::align_h::optional_max_width const max_width(
+		sge::font::align_h::extract_max_width(
+			align_h_
+		)
 	);
 
 	sge::font::bitmap::char_metric_ref_vector current_line;
@@ -154,7 +161,7 @@ sge::font::bitmap::text::text(
 			&&
 			current_x
 			>
-			*max_width
+			max_width->get()
 		);
 
 		bool const new_line(
@@ -276,23 +283,63 @@ sge::font::bitmap::text::text(
 		)
 	);
 
-	switch(
-		align_h_
-	)
+	class align_visitor
 	{
-	case sge::font::align_h::left:
-		break;
-	case sge::font::align_h::right:
-		rect_.left(
-			*max_width - rect_.w()
+		FCPPT_NONASSIGNABLE(
+			align_visitor
 		);
-		break;
-	case sge::font::align_h::center:
-		rect_.left(
-			(*max_width - rect_.w()) / 2
-		);
-		break;
-	}
+	public:
+		explicit
+		align_visitor(
+			sge::font::rect &_rect
+		)
+		:
+			rect_(
+				_rect
+			)
+		{
+		}
+
+		typedef
+		void
+		result_type;
+
+		result_type
+		operator()(
+			sge::font::align_h::left const &
+		) const
+		{
+		}
+
+		result_type
+		operator()(
+			sge::font::align_h::center const &_center
+		) const
+		{
+			rect_.left(
+				(_center.max_width().get() - rect_.w()) / 2
+			);
+		}
+
+		result_type
+		operator()(
+			sge::font::align_h::right const &_right
+		) const
+		{
+			rect_.left(
+				_right.max_width().get() - rect_.w()
+			);
+		}
+	private:
+		sge::font::rect &rect_;
+	};
+
+	fcppt::variant::apply_unary(
+		align_visitor(
+			rect_
+		),
+		align_h_
+	);
 }
 
 sge::font::bitmap::text::~text()
@@ -328,45 +375,89 @@ sge::font::bitmap::text::render(
 	);
 
 	for(
-		sge::font::bitmap::text::line_vector::const_iterator it(
-			lines_.begin()
-		);
-		it != lines_.end();
-		++it
+		sge::font::bitmap::line const &line
+		:
+		lines_
 	)
 	{
-		sge::font::bitmap::line const &line(
-			*it
-		);
+		class align_visitor
+		{
+			FCPPT_NONASSIGNABLE(
+				align_visitor
+			);
+		public:
+			align_visitor(
+				sge::font::rect const &_rect,
+				sge::font::bitmap::line const &_line
+			)
+			:
+				rect_(
+					_rect
+				),
+				line_(
+					_line
+				)
+			{
+			}
 
-		// TODO!
+			typedef
+			sge::font::unit
+			result_type;
+
+			result_type
+			operator()(
+				sge::font::align_h::left const &
+			) const
+			{
+				return
+					0;
+			}
+
+			result_type
+			operator()(
+				sge::font::align_h::center const &
+			) const
+			{
+				return
+					(rect_.w() - line_.width()) / 2;
+			}
+
+			result_type
+			operator()(
+				sge::font::align_h::right const &
+			) const
+			{
+				return
+					rect_.w() - line_.width();
+			}
+		private:
+			sge::font::rect const rect_;
+
+			sge::font::bitmap::line const &line_;
+		};
+
 		sge::font::unit left(
-			0u
+			fcppt::variant::apply_unary(
+				align_visitor(
+					rect_,
+					line
+				),
+				align_h_
+			)
 		);
-
-		if(
-			align_h_ == sge::font::align_h::right
-		)
-			left = rect_.w() - line.width();
-		else if(
-			align_h_ == sge::font::align_h::center
-		)
-			left = (rect_.w() - line.width()) / 2;
 
 		sge::font::bitmap::char_metric_ref_vector const &metrics(
 			line.char_metrics()
 		);
 
 		for(
-			sge::font::bitmap::char_metric_ref_vector::const_iterator char_it(
-				metrics.begin()
-			);
-			char_it != metrics.end();
-			++char_it
+			auto const &metric
+			:
+			metrics
 		)
 		{
 			sge::font::bitmap::char_metric const &char_metric(
-				char_it->get()
+				metric.get()
 			);
 
 			sge::font::bitmap::const_view const source_view(

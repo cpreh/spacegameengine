@@ -18,18 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_ALIGN_H_FWD_HPP_INCLUDED
-#define SGE_FONT_ALIGN_H_FWD_HPP_INCLUDED
+#include <sge/font/align_h/left.hpp>
+#include <sge/font/align_h/max_width.hpp>
+#include <sge/font/align_h/optional_max_width.hpp>
 
 
-namespace sge
+sge::font::align_h::left::left()
+:
+	max_width_()
 {
-namespace font
-{
-
-enum class align_h;
-
-}
 }
 
-#endif
+sge::font::align_h::left::left(
+	sge::font::align_h::max_width const _max_width
+)
+:
+	max_width_(
+		_max_width
+	)
+{
+}
+
+sge::font::align_h::optional_max_width const
+sge::font::align_h::left::max_width() const
+{
+	return
+		max_width_;
+}
+

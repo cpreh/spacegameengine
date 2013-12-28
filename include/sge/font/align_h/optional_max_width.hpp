@@ -18,25 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_ALIGN_H_HPP_INCLUDED
-#define SGE_FONT_ALIGN_H_HPP_INCLUDED
+#ifndef SGE_FONT_ALIGN_H_OPTIONAL_MAX_WIDTH_HPP_INCLUDED
+#define SGE_FONT_ALIGN_H_OPTIONAL_MAX_WIDTH_HPP_INCLUDED
 
-#include <sge/font/align_h_fwd.hpp>
+#include <sge/font/align_h/optional_max_width_fwd.hpp>
+#include <fcppt/optional_impl.hpp>
 
-
-namespace sge
-{
-namespace font
-{
-
-enum class align_h
-{
-	left,
-	right,
-	center
-};
-
-}
-}
 
 #endif
