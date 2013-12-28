@@ -67,6 +67,8 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/from_d3d_pitch.hpp
 	src/plugins/d3d9/include/sge/d3d9/index_buffer.hpp
 	src/plugins/d3d9/include/sge/d3d9/lock_flags.hpp
+	src/plugins/d3d9/include/sge/d3d9/logger.hpp
+	src/plugins/d3d9/include/sge/d3d9/logger_context.hpp
 	src/plugins/d3d9/include/sge/d3d9/make_pitch.hpp
 	src/plugins/d3d9/include/sge/d3d9/make_pitch_2d.hpp
 	src/plugins/d3d9/include/sge/d3d9/make_pitch_3d.hpp
@@ -447,6 +449,8 @@ SET(
 	src/plugins/d3d9/src/devicefuncs/set_viewport.cpp
 	src/plugins/d3d9/src/exports.cpp
 	src/plugins/d3d9/src/index_buffer.cpp
+	src/plugins/d3d9/src/logger.cpp
+	src/plugins/d3d9/src/logger_context.cpp
 	src/plugins/d3d9/src/make_pitch.cpp
 	src/plugins/d3d9/src/make_pitch_2d.cpp
 	src/plugins/d3d9/src/make_pitch_3d.cpp

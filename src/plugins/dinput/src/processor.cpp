@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/dinput/has_cursor.hpp>
+#include <sge/dinput/logger.hpp>
 #include <sge/dinput/processor.hpp>
 #include <sge/dinput/cursor/object.hpp>
 #include <sge/dinput/device/parameters.hpp>
@@ -29,7 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/dinput/create_dinput.hpp>
 #include <sge/dinput/di.hpp>
 #include <sge/input/exception.hpp>
-#include <sge/input/logger.hpp>
 #include <sge/input/cursor/button_code.hpp>
 #include <sge/input/cursor/button_event.hpp>
 #include <sge/input/cursor/discover_event.hpp>
@@ -58,8 +58,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/cast/static_downcast.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
+#include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
-#include <fcppt/log/output.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -297,7 +297,7 @@ sge::dinput::processor::on_focus_in(
 )
 {
 	FCPPT_LOG_DEBUG(
-		sge::input::logger(),
+		sge::dinput::logger(),
 		fcppt::log::_
 			<< FCPPT_TEXT("DirectInput: focus in")
 	);
@@ -323,7 +323,7 @@ sge::dinput::processor::on_focus_out(
 )
 {
 	FCPPT_LOG_DEBUG(
-		sge::input::logger(),
+		sge::dinput::logger(),
 		fcppt::log::_
 			<< FCPPT_TEXT("DirectInput: focus out")
 	);
@@ -414,7 +414,7 @@ sge::dinput::processor::on_cursor_button(
 		return;
 
 	FCPPT_LOG_DEBUG(
-		sge::input::logger(),
+		sge::dinput::logger(),
 		fcppt::log::_
 			<< FCPPT_TEXT("DirectInput: cursor grab")
 	);

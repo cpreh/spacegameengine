@@ -71,6 +71,8 @@ SET(
 	src/plugins/dinput/include/sge/dinput/keyboard/repeat.hpp
 	src/plugins/dinput/include/sge/dinput/keyboard/repeat_duration.hpp
 	src/plugins/dinput/include/sge/dinput/keyboard/translate_key_code.hpp
+	src/plugins/dinput/include/sge/dinput/logger.hpp
+	src/plugins/dinput/include/sge/dinput/logger_context.hpp
 	src/plugins/dinput/include/sge/dinput/mouse/axis_code.hpp
 	src/plugins/dinput/include/sge/dinput/mouse/axis_map.hpp
 	src/plugins/dinput/include/sge/dinput/mouse/button_code.hpp
@@ -134,6 +136,8 @@ SET(
 	src/plugins/dinput/src/keyboard/map_virtual_key.cpp
 	src/plugins/dinput/src/keyboard/repeat.cpp
 	src/plugins/dinput/src/keyboard/translate_key_code.cpp
+	src/plugins/dinput/src/logger.cpp
+	src/plugins/dinput/src/logger_context.cpp
 	src/plugins/dinput/src/mouse/axis_code.cpp
 	src/plugins/dinput/src/mouse/button_code.cpp
 	src/plugins/dinput/src/mouse/device.cpp
