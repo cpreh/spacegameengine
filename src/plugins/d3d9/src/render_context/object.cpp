@@ -40,6 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/state/ffp/lighting/light/set.hpp>
 #include <sge/d3d9/state/ffp/lighting/material/set.hpp>
 #include <sge/d3d9/state/ffp/misc/set.hpp>
+#include <sge/d3d9/state/ffp/sampler/set.hpp>
 #include <sge/d3d9/state/ffp/transform/set.hpp>
 #include <sge/d3d9/target/base.hpp>
 #include <sge/d3d9/texture/set.hpp>
@@ -454,6 +455,11 @@ sge::d3d9::render_context::object::sampler_ffp_state(
 	sge::renderer::state::ffp::sampler::const_object_ref_vector const &_states
 )
 {
+	sge::d3d9::state::ffp::sampler::set(
+		parameters_.device(),
+		_states,
+		parameters_.texture_stages()
+	);
 }
 
 void

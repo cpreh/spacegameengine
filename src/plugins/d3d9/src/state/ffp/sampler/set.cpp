@@ -19,16 +19,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/logger.hpp>
 #include <sge/d3d9/state/ffp/sampler/disable.hpp>
 #include <sge/d3d9/state/ffp/sampler/object.hpp>
 #include <sge/d3d9/state/ffp/sampler/set.hpp>
 #include <sge/renderer/caps/texture_stages.hpp>
 #include <sge/renderer/state/ffp/sampler/const_object_ref_vector.hpp>
 #include <sge/renderer/texture/stage.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/log/_.hpp>
-#include <fcppt/log/debug.hpp>
 
 
 void
@@ -38,17 +34,6 @@ sge::d3d9::state::ffp::sampler::set(
 	sge::renderer::caps::texture_stages const _stages
 )
 {
-	FCPPT_LOG_DEBUG(
-		sge::d3d9::logger(),
-		fcppt::log::_
-			<<
-			FCPPT_TEXT("Setting ")
-			<<
-			_states.size()
-			<<
-			FCPPT_TEXT(" ffp samplers.")
-	);
-
 	sge::renderer::texture::stage stage(
 		0u
 	);
