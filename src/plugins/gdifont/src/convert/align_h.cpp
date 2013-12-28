@@ -18,28 +18,57 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/font/align_h.hpp>
+#include <sge/font/align_h/left_fwd.hpp>
+#include <sge/font/align_h/center_fwd.hpp>
+#include <sge/font/align_h/right_fwd.hpp>
+#include <sge/font/align_h/variant.hpp>
 #include <sge/gdifont/include_windows.hpp>
 #include <sge/gdifont/convert/align_h.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/variant/apply_unary.hpp>
 
 
 UINT
 sge::gdifont::convert::align_h(
-	sge::font::align_h const _align
+	sge::font::align_h::variant const &_align_h
 )
 {
-	switch(
-		_align
-	)
+	struct visitor
 	{
-	case sge::font::align_h::left:
-		return DT_LEFT;
-	case sge::font::align_h::center:
-		return DT_CENTER;
-	case sge::font::align_h::right:
-		return DT_RIGHT;
-	}
+		typedef
+		UINT
+		result_type;
 
-	FCPPT_ASSERT_UNREACHABLE;
+		result_type
+		operator()(
+			sge::font::align_h::left const &
+		) const
+		{
+			return
+				DT_LEFT;
+		}
+
+		result_type
+		operator()(
+			sge::font::align_h::center const &
+		) const
+		{
+			return
+				DT_CENTER;
+		}
+
+		result_type
+		operator()(
+			sge::font::align_h::right const &
+		) const
+		{
+			return
+				DT_RIGHT;
+		}
+	};
+
+	return
+		fcppt::variant::apply_unary(
+			visitor(),
+			_align_h
+		);
 }

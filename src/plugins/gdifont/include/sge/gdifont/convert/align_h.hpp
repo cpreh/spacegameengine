@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GDIFONT_CONVERT_ALIGN_H_HPP_INCLUDED
 #define SGE_GDIFONT_CONVERT_ALIGN_H_HPP_INCLUDED
 
-#include <sge/font/align_h_fwd.hpp>
+#include <sge/font/align_h/variant_fwd.hpp>
 #include <sge/gdifont/include_windows.hpp>
 
 
@@ -34,7 +34,7 @@ namespace convert
 
 UINT
 align_h(
-	sge::font::align_h
+	sge::font::align_h::variant const &
 );
 
 }

@@ -72,7 +72,6 @@ sge::gdifont::text::text(
 			device_context_,
 			string_,
 			_text_parameters.align_h(),
-			_text_parameters.max_width(),
 			render_flags_
 		)
 	)

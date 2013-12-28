@@ -18,15 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/font/align_h.hpp>
-#include <sge/font/optional_unit.hpp>
 #include <sge/font/rect.hpp>
 #include <sge/font/string.hpp>
+#include <sge/font/align_h/center.hpp>
+#include <sge/font/align_h/extract_max_width.hpp>
+#include <sge/font/align_h/left_fwd.hpp>
+#include <sge/font/align_h/optional_max_width.hpp>
+#include <sge/font/align_h/right.hpp>
+#include <sge/font/align_h/variant.hpp>
 #include <sge/gdifont/calc_rect.hpp>
 #include <sge/gdifont/device_context_fwd.hpp>
 #include <sge/gdifont/draw_text.hpp>
 #include <sge/gdifont/format.hpp>
 #include <sge/gdifont/include_windows.hpp>
+#include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <limits>
@@ -37,8 +42,7 @@ sge::font::rect const
 sge::gdifont::calc_rect(
 	sge::gdifont::device_context const &_device_context,
 	sge::font::string const &_string,
-	sge::font::align_h const _align_h,
-	sge::font::optional_unit const &_max_width,
+	sge::font::align_h::variant const &_align_h,
 	sge::gdifont::format const _format
 )
 {
@@ -48,16 +52,22 @@ sge::gdifont::calc_rect(
 		>::max()
 	);
 
+	sge::font::align_h::optional_max_width const max_width(
+		sge::font::align_h::extract_max_width(
+			_align_h
+		)
+	);
+
 	RECT result =
 	{
 		0,
 		0,
-		_max_width
+		max_width
 		?
 			static_cast<
 				LONG
 			>(
-				*_max_width
+				max_width->get()
 			)
 		:
 			max_unit
@@ -80,25 +90,65 @@ sge::gdifont::calc_rect(
 		result.top == 0
 	);
 
-	switch(
-		_align_h
-	)
+	// TODO: Do this in a functional style!
+
+	class align_visitor
 	{
-	case sge::font::align_h::left:
-		break;
-	case sge::font::align_h::right:
-		result.left = *_max_width - result.right;
+		FCPPT_NONASSIGNABLE(
+			align_visitor
+		);
+	public:
+		explicit
+		align_visitor(
+			RECT &_result
+		)
+		:
+			result_(
+				_result
+			)
+		{
+		}
 
-		result.right = *_max_width;
+		typedef
+		void
+		result_type;
 
-		break;
-	case sge::font::align_h::center:
-		result.left = (*_max_width - result.right) / 2;
+		result_type
+		operator()(
+			sge::font::align_h::left const &
+		) const
+		{
+		}
 
-		result.right = (*_max_width + result.right) / 2;
+		result_type
+		operator()(
+			sge::font::align_h::center const &_center
+		) const
+		{
+			result_.left = (_center.max_width().get() - result_.right) / 2;
 
-		break;
-	}
+			result_.right = (_center.max_width().get() + result_.right) / 2;
+		}
+
+		result_type
+		operator()(
+			sge::font::align_h::right const &_right
+		) const
+		{
+			result_.left = _right.max_width().get() - result_.right;
+
+			result_.right = _right.max_width().get();
+		}
+	private:
+		RECT &result_;
+	};
+
+	fcppt::variant::apply_unary(
+		align_visitor(
+			result
+		),
+		_align_h
+	);
 
 	return
 		sge::font::rect(
