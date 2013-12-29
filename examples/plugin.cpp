@@ -120,7 +120,8 @@ catch(
 		<< _exception.string()
 		<< FCPPT_TEXT('\n');
 
-	return EXIT_FAILURE;
+	return
+		EXIT_FAILURE;
 }
 catch(
 	std::exception const &_exception
@@ -130,7 +131,8 @@ catch(
 		<< _exception.what()
 		<< '\n';
 
-	return EXIT_FAILURE;
+	return
+		EXIT_FAILURE;
 }
 
 namespace
@@ -160,30 +162,16 @@ print_plugins::operator()() const
 		)
 		<< FCPPT_TEXT('\n');
 
-	typedef sge::plugin::collection<
-		Type
-	> collection_type;
-
-	collection_type const collection(
+	for(
+		auto const &plugin
+		:
 		manager_.collection<
 			Type
 		>()
-	);
-
-	typedef sge::plugin::iterator<
-		Type
-	> iterator_type;
-
-	for(
-		iterator_type it(
-			collection.begin()
-		);
-		it != collection.end();
-		++it
 	)
 	{
 		sge::plugin::info const &info(
-			it->info()
+			plugin.info()
 		);
 
 		fcppt::io::cout()

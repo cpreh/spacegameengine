@@ -21,23 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MODEL_MD3_OPTIONAL_TEXCOORD_SEQUENCE_HPP_INCLUDED
 #define SGE_MODEL_MD3_OPTIONAL_TEXCOORD_SEQUENCE_HPP_INCLUDED
 
-#include <sge/model/md3/texcoord_sequence.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <sge/model/md3/optional_texcoord_sequence_fwd.hpp>
+#include <fcppt/optional_impl.hpp>
 
-
-namespace sge
-{
-namespace model
-{
-namespace md3
-{
-
-typedef fcppt::optional<
-	md3::texcoord_sequence
-> optional_texcoord_sequence;
-
-}
-}
-}
 
 #endif

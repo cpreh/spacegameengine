@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/md3/index_sequence.hpp>
 #include <sge/model/md3/load_flags_fwd.hpp>
 #include <sge/model/md3/object.hpp>
-#include <sge/model/md3/optional_normal_sequence.hpp>
-#include <sge/model/md3/optional_texcoord_sequence.hpp>
+#include <sge/model/md3/optional_normal_sequence_fwd.hpp>
+#include <sge/model/md3/optional_texcoord_sequence_fwd.hpp>
 #include <sge/model/md3/part_name_sequence.hpp>
 #include <sge/model/md3/string.hpp>
 #include <sge/model/md3/vertex_sequence.hpp>
@@ -48,7 +48,7 @@ namespace md3
 
 class object_impl
 :
-	public md3::object
+	public sge::model::md3::object
 {
 	FCPPT_NONCOPYABLE(
 		object_impl
@@ -56,49 +56,55 @@ class object_impl
 public:
 	object_impl(
 		std::istream &,
-		md3::load_flags
+		sge::model::md3::load_flags
 	);
 
-	~object_impl();
-
-	md3::index_sequence const
-	indices(
-		md3::string const &
-	) const;
-
-	md3::vertex_sequence const
-	vertices(
-		md3::string const &
-	) const;
-
-	md3::optional_texcoord_sequence const
-	texcoords(
-		md3::string const &
-	) const;
-
-	md3::optional_normal_sequence const
-	normals(
-		md3::string const &
-	) const;
-
-	md3::part_name_sequence const
-	part_names() const;
+	~object_impl()
+	override;
 private:
+	sge::model::md3::index_sequence
+	indices(
+		sge::model::md3::string const &
+	) const
+	override;
+
+	sge::model::md3::vertex_sequence
+	vertices(
+		sge::model::md3::string const &
+	) const
+	override;
+
+	sge::model::md3::optional_texcoord_sequence
+	texcoords(
+		sge::model::md3::string const &
+	) const
+	override;
+
+	sge::model::md3::optional_normal_sequence
+	normals(
+		sge::model::md3::string const &
+	) const
+	override;
+
+	sge::model::md3::part_name_sequence
+	part_names() const
+	override;
+
 	std::size_t
 		vertices_,
 		indices_;
 
-	md3::string name_;
+	sge::model::md3::string name_;
 
-	md3::frame_vector frames_;
+	sge::model::md3::frame_vector frames_;
 
-	md3::tag_vector tags_;
+	sge::model::md3::tag_vector tags_;
 
-	md3::surface_vector surfaces_;
+	sge::model::md3::surface_vector surfaces_;
 
-	md3::surface_vector::const_reference
+	sge::model::md3::surface_vector::const_reference
 	surface_by_name(
-		md3::string const &
+		sge::model::md3::string const &
 	) const;
 };
 

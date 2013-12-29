@@ -460,6 +460,7 @@ set(
 	include/sge/font/align_h/variant_fwd.hpp
 	include/sge/font/ascent.hpp
 	include/sge/font/bitmap/create.hpp
+	include/sge/font/bitmap/log_location.hpp
 	include/sge/font/char_type.hpp
 	include/sge/font/descent.hpp
 	include/sge/font/dim.hpp
@@ -1227,7 +1228,6 @@ set(
 	include/sge/log/define_lib.hpp
 	include/sge/log/define_local_lib.hpp
 	include/sge/log/define_plugin.hpp
-	include/sge/log/global.hpp
 	include/sge/log/global_context.hpp
 	include/sge/log/location.hpp
 	include/sge/log/stream.hpp
@@ -1237,6 +1237,7 @@ set(
 	include/sge/media/detail/muxer_fwd.hpp
 	include/sge/media/extension.hpp
 	include/sge/media/extension_set.hpp
+	include/sge/media/log_location.hpp
 	include/sge/media/muxer.hpp
 	include/sge/media/muxer_fwd.hpp
 	include/sge/media/muxer_parameters.hpp
@@ -1257,6 +1258,7 @@ set(
 	include/sge/model/md3/loader_fwd.hpp
 	include/sge/model/md3/loader_scoped_ptr.hpp
 	include/sge/model/md3/loader_unique_ptr.hpp
+	include/sge/model/md3/log_location.hpp
 	include/sge/model/md3/normal.hpp
 	include/sge/model/md3/normal_sequence.hpp
 	include/sge/model/md3/object.hpp
@@ -1264,7 +1266,9 @@ set(
 	include/sge/model/md3/object_scoped_ptr.hpp
 	include/sge/model/md3/object_unique_ptr.hpp
 	include/sge/model/md3/optional_normal_sequence.hpp
+	include/sge/model/md3/optional_normal_sequence_fwd.hpp
 	include/sge/model/md3/optional_texcoord_sequence.hpp
+	include/sge/model/md3/optional_texcoord_sequence_fwd.hpp
 	include/sge/model/md3/part_name_sequence.hpp
 	include/sge/model/md3/position.hpp
 	include/sge/model/md3/scalar.hpp
@@ -1280,6 +1284,7 @@ set(
 	include/sge/model/obj/face_vertex.hpp
 	include/sge/model/obj/face_vertex_sequence.hpp
 	include/sge/model/obj/identifier.hpp
+	include/sge/model/obj/log_location.hpp
 	include/sge/model/obj/material/ambient_color.hpp
 	include/sge/model/obj/material/diffuse_color.hpp
 	include/sge/model/obj/material/diffuse_texture_path.hpp
@@ -1614,6 +1619,7 @@ set(
 	include/sge/plugin/library/object_shared_ptr.hpp
 	include/sge/plugin/library/symbol_not_found.hpp
 	include/sge/plugin/library/symbol_string.hpp
+	include/sge/plugin/log_location.hpp
 	include/sge/plugin/manager.hpp
 	include/sge/plugin/manager_fwd.hpp
 	include/sge/plugin/min_core_version.hpp
@@ -3375,6 +3381,7 @@ set(
 	include/sge/texture/fragmented_fwd.hpp
 	include/sge/texture/fragmented_unique_ptr.hpp
 	include/sge/texture/image_too_big.hpp
+	include/sge/texture/log_location.hpp
 	include/sge/texture/manager.hpp
 	include/sge/texture/manager_fwd.hpp
 	include/sge/texture/next_power_of_2.hpp

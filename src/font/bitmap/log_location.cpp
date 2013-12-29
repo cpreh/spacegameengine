@@ -18,12 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/log/define_lib.hpp>
-#include <sge/log/global.hpp>
-#include <sge/log/location.hpp>
+#include <sge/font/log_location.hpp>
+#include <sge/font/bitmap/log_location.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/log/location.hpp>
 
 
-SGE_LOG_DEFINE_LIB(
-	sge::log::global,
-	sge::log::location()
-)
+fcppt::log::location
+sge::font::bitmap::log_location()
+{
+	return
+		sge::font::log_location()
+		/
+		FCPPT_TEXT("bitmap");
+}

@@ -7,6 +7,7 @@ set(
 	include/sge/model/obj/face_vertex.hpp
 	include/sge/model/obj/face_vertex_sequence.hpp
 	include/sge/model/obj/identifier.hpp
+	include/sge/model/obj/log_location.hpp
 	include/sge/model/obj/material/ambient_color.hpp
 	include/sge/model/obj/material/diffuse_color.hpp
 	include/sge/model/obj/material/diffuse_texture_path.hpp
@@ -33,6 +34,9 @@ set(
 	include/sge/model/obj/vertex_coordinate_sequence.hpp
 	src/model/obj/exception.cpp
 	src/model/obj/face_vertex.cpp
+	src/model/obj/include/sge/src/model/obj/logger.hpp
+	src/model/obj/log_location.cpp
+	src/model/obj/logger.cpp
 	src/model/obj/material/object.cpp
 	src/model/obj/parse_mtllib.cpp
 	src/model/obj/prototype.cpp
@@ -45,7 +49,7 @@ add_sge_base_library(
 	"${fcppt_core_TARGET};${fcppt_filesystem_TARGET}"
 	""
 	""
-	""
+	"${CMAKE_CURRENT_SOURCE_DIR}/include"
 	""
 	""
 )

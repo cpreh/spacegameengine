@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_MEDIA_DETAIL_MUXER_IMPL_HPP_INCLUDED
 #define SGE_SRC_MEDIA_DETAIL_MUXER_IMPL_HPP_INCLUDED
 
-#include <sge/log/global.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/muxer_parameters.hpp>
 #include <sge/media/optional_extension.hpp>
@@ -31,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/iterator.hpp>
 #include <sge/plugin/object.hpp>
 #include <sge/plugin/object_unique_ptr.hpp>
+#include <sge/src/media/logger.hpp>
 #include <sge/src/media/detail/muxer.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name_from_info.hpp>
@@ -142,7 +142,7 @@ sge::media::detail::muxer<
 		else
 		{
 			FCPPT_LOG_DEBUG(
-				sge::log::global(),
+				sge::media::logger(),
 				fcppt::log::_
 					<< FCPPT_TEXT("system ")
 					<<

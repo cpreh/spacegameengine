@@ -24,6 +24,7 @@ set(
 	include/sge/texture/fragmented_fwd.hpp
 	include/sge/texture/fragmented_unique_ptr.hpp
 	include/sge/texture/image_too_big.hpp
+	include/sge/texture/log_location.hpp
 	include/sge/texture/manager.hpp
 	include/sge/texture/manager_fwd.hpp
 	include/sge/texture/next_power_of_2.hpp
@@ -58,6 +59,9 @@ set(
 	src/texture/include/sge/src/texture/basic_part_raw_impl.hpp
 	src/texture/include/sge/src/texture/dereference_basic_part.hpp
 	src/texture/include/sge/src/texture/instantiate_basic_part_raw.hpp
+	src/texture/include/sge/src/texture/logger.hpp
+	src/texture/log_location.cpp
+	src/texture/logger.cpp
 	src/texture/manager.cpp
 	src/texture/next_power_of_2.cpp
 	src/texture/part.cpp

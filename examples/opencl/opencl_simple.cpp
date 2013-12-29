@@ -204,43 +204,43 @@ try
 
 	sge::opencl::platform::object_sequence::size_type platform_index = 0;
 	for(
-		sge::opencl::platform::object_sequence::const_iterator current_platform =
-			platforms.begin();
-		current_platform != platforms.end();
-		++current_platform)
+		sge::opencl::platform::object const &current_platform
+		:
+		platforms
+	)
 	{
 		fcppt::io::cout()
 			<< FCPPT_TEXT("\tPlatform ")
-			<< platform_index
+			<< platform_index++
 			<< FCPPT_TEXT(":\n")
 			<< FCPPT_TEXT("\tName: ")
 			<< fcppt::from_std_string(
-				current_platform->name()
+				current_platform.name()
 			)
 			<< FCPPT_TEXT("\n")
 			<< FCPPT_TEXT("\tVendor: ")
 			<< fcppt::from_std_string(
-				current_platform->vendor()
+				current_platform.vendor()
 			)
 			<< FCPPT_TEXT("\n")
 			<< FCPPT_TEXT("Profile type: ")
 			<<
-				(current_platform->profile() == sge::opencl::platform::profile_type::full
+				(current_platform.profile() == sge::opencl::platform::profile_type::full
 				?
 					fcppt::string(FCPPT_TEXT("full"))
 				:
 					fcppt::string(FCPPT_TEXT("embedded")))
 			<< FCPPT_TEXT("\n")
 			<< FCPPT_TEXT("\tVersion: ")
-			<< current_platform->version().major_part()
+			<< current_platform.version().major_part()
 			<< FCPPT_TEXT(".")
-			<< current_platform->version().minor_part()
+			<< current_platform.version().minor_part()
 			<< FCPPT_TEXT("\n");
 
-		if(!current_platform->version().platform_specific().empty())
+		if(!current_platform.version().platform_specific().empty())
 			fcppt::io::cout()
 				<< FCPPT_TEXT("\tPlatform specific version info: ")
-				<< fcppt::from_std_string(current_platform->version().platform_specific())
+				<< fcppt::from_std_string(current_platform.version().platform_specific())
 				<< FCPPT_TEXT("\n");
 
 		fcppt::io::cout()
@@ -250,7 +250,7 @@ try
 			<<
 				fcppt::from_std_string(
 					boost::algorithm::join(
-						current_platform->extensions(),
+						current_platform.extensions(),
 						std::string("\n\t\t")))
 			<< FCPPT_TEXT("\r\t*********************\n")
 			<< FCPPT_TEXT("-----------------------\n");
@@ -298,12 +298,12 @@ try
 			<< FCPPT_TEXT("-----------------------\n");
 
 		for(
-			sge::opencl::device::object_sequence::const_iterator current_device =
-				chosen_platform.devices().begin();
-			current_device != chosen_platform.devices().end();
-			++current_device)
+			sge::opencl::device::object const &current_device
+			:
+			chosen_platform.devices()
+		)
 		{
-			current_device->output_info(
+			current_device.output_info(
 				std::cout);
 			fcppt::io::cout()
 				<< FCPPT_TEXT("-----------------------\n");
@@ -352,12 +352,12 @@ try
 
 	sge::opencl::device::object_ref_sequence device_refs;
 	for(
-		sge::opencl::device::object_sequence::iterator current_device =
-			chosen_platform.devices().begin();
-		current_device != chosen_platform.devices().end();
-		++current_device)
+		sge::opencl::device::object &current_device
+		:
+		chosen_platform.devices()
+	)
 		device_refs.push_back(
-			&(*current_device));
+			&current_device);
 
 	sge::opencl::context::object main_context(
 		sge::opencl::context::parameters(
@@ -376,14 +376,15 @@ try
 			CL_MEM_READ_WRITE);
 
 	for(
-		sge::opencl::memory_object::image::format_sequence::const_iterator it =
-			planar_image_formats.begin();
-		it != planar_image_formats.end();
-		++it)
+		auto const format
+		:
+		planar_image_formats
+	)
 	{
 		sge::opencl::memory_object::image::format_output(
 			std::cout,
-			*it);
+			format
+		);
 
 		std::cout << '\n';
 	}
@@ -396,14 +397,16 @@ try
 			CL_MEM_READ_WRITE);
 
 	for(
-		sge::opencl::memory_object::image::format_sequence::const_iterator it =
-			volume_image_formats.begin();
-		it != volume_image_formats.end();
-		++it)
+		auto const format
+		:
+		volume_image_formats
+	)
 	{
 		sge::opencl::memory_object::image::format_output(
 			std::cout,
-			*it);
+			format
+		);
+
 		std::cout << '\n';
 	}
 
@@ -540,13 +543,13 @@ try
 			scoped_vb.value());
 
 		for(
-			vertex_view::iterator vb_it(
-				vertices.begin());
-			vb_it != vertices.end();
-			vb_it++)
+			auto const &vertex
+			:
+			vertices
+		)
 		{
 			fcppt::io::cout()
-				<< vb_it->get<vf::scalar_quantity>()
+				<< vertex.get<vf::scalar_quantity>()
 				<< FCPPT_TEXT('\n');
 		}
 	}

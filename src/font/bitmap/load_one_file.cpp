@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/rect.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/image2d/view/checked_sub.hpp>
-#include <sge/log/global.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/element_vector.hpp>
 #include <sge/parse/json/find_member_exn.hpp>
@@ -41,6 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/font/bitmap/load_offset.hpp>
 #include <sge/src/font/bitmap/load_one_file.hpp>
 #include <sge/src/font/bitmap/load_rect.hpp>
+#include <sge/src/font/bitmap/logger.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
@@ -114,7 +114,7 @@ sge::font::bitmap::load_one_file(
 		)
 		{
 			FCPPT_LOG_ERROR(
-				sge::log::global(),
+				sge::font::bitmap::logger(),
 				fcppt::log::_
 					<< FCPPT_TEXT("Invalid character in bitmap font: \"")
 					<< name
@@ -155,7 +155,7 @@ sge::font::bitmap::load_one_file(
 	)
 	{
 		FCPPT_LOG_ERROR(
-			sge::log::global(),
+			sge::font::bitmap::logger(),
 			fcppt::log::_
 				<< FCPPT_TEXT("Skipping character in bitmap font because \"")
 				<< _exception.string()

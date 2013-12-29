@@ -5,13 +5,11 @@ set(
 	include/sge/log/define_lib.hpp
 	include/sge/log/define_local_lib.hpp
 	include/sge/log/define_plugin.hpp
-	include/sge/log/global.hpp
 	include/sge/log/global_context.hpp
 	include/sge/log/location.hpp
 	include/sge/log/stream.hpp
 	src/log/default_parameters.cpp
 	src/log/default_parameters_lib.cpp
-	src/log/global.cpp
 	src/log/global_context.cpp
 	src/log/location.cpp
 	src/log/stream.cpp

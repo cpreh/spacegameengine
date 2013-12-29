@@ -19,13 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/exception.hpp>
-#include <sge/log/global.hpp>
 #include <sge/plugin/file_extension.hpp>
 #include <sge/plugin/info.hpp>
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/optional_cache_ref_fwd.hpp>
 #include <sge/plugin/library/symbol_not_found.hpp>
 #include <sge/src/plugin/context_base.hpp>
+#include <sge/src/plugin/logger.hpp>
 #include <fcppt/foreach_enumerator.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -51,7 +51,7 @@ sge::plugin::manager::manager(
 	categories_()
 {
 	FCPPT_LOG_DEBUG(
-		sge::log::global(),
+		sge::plugin::logger(),
 		fcppt::log::_
 			<< FCPPT_TEXT("Scanning for plugins in ")
 			<< fcppt::filesystem::path_to_string(
@@ -82,7 +82,7 @@ sge::plugin::manager::manager(
 		)
 		{
 			FCPPT_LOG_WARNING(
-				sge::log::global(),
+				sge::plugin::logger(),
 				fcppt::log::_
 					<< fcppt::filesystem::path_to_string(
 						it->path()
@@ -112,7 +112,7 @@ sge::plugin::manager::manager(
 		)
 		{
 			FCPPT_LOG_WARNING(
-				sge::log::global(),
+				sge::plugin::logger(),
 				fcppt::log::_
 					<< fcppt::filesystem::path_to_string(
 						it->path()
@@ -130,7 +130,7 @@ sge::plugin::manager::manager(
 		)
 		{
 			FCPPT_LOG_WARNING(
-				sge::log::global(),
+				sge::plugin::logger(),
 				fcppt::log::_
 					<< fcppt::filesystem::path_to_string(
 						it->path()

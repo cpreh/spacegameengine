@@ -33,7 +33,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/md3/texcoord_sequence.hpp>
 #include <sge/model/md3/vertex_sequence.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional.hpp>
 
 
 namespace sge
@@ -52,31 +51,37 @@ protected:
 	SGE_MODEL_MD3_SYMBOL
 	object();
 public:
-	virtual index_sequence const
+	virtual
+	sge::model::md3::index_sequence
 	indices(
-		md3::string const &name
+		sge::model::md3::string const &name
 	) const = 0;
 
-	virtual vertex_sequence const
+	virtual
+	sge::model::md3::vertex_sequence
 	vertices(
-		md3::string const &name
+		sge::model::md3::string const &name
 	) const = 0;
 
-	virtual md3::optional_texcoord_sequence const
+	virtual
+	sge::model::md3::optional_texcoord_sequence
 	texcoords(
-		md3::string const &name
+		sge::model::md3::string const &name
 	) const = 0;
 
-	virtual md3::optional_normal_sequence const
+	virtual
+	sge::model::md3::optional_normal_sequence
 	normals(
-		md3::string const &name
+		sge::model::md3::string const &name
 	) const = 0;
 
-	virtual part_name_sequence const
+	virtual
+	sge::model::md3::part_name_sequence
 	part_names() const = 0;
 
 	SGE_MODEL_MD3_SYMBOL
-	virtual ~object() = 0;
+	virtual
+	~object() = 0;
 };
 
 }

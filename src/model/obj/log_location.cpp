@@ -18,23 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_LOG_GLOBAL_HPP_INCLUDED
-#define SGE_LOG_GLOBAL_HPP_INCLUDED
+#include <sge/log/location.hpp>
+#include <sge/model/obj/log_location.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/log/location.hpp>
 
-#include <sge/log/symbol.hpp>
-#include <fcppt/log/object_fwd.hpp>
 
-
-namespace sge
+fcppt::log::location
+sge::model::obj::log_location()
 {
-namespace log
-{
-
-SGE_LOG_SYMBOL
-fcppt::log::object &
-global();
-
+	return
+		sge::log::location()
+		/
+		FCPPT_TEXT("modelobj");
 }
-}
-
-#endif

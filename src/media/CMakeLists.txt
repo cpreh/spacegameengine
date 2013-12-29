@@ -6,6 +6,7 @@ set(
 	include/sge/media/detail/muxer_fwd.hpp
 	include/sge/media/extension.hpp
 	include/sge/media/extension_set.hpp
+	include/sge/media/log_location.hpp
 	include/sge/media/muxer.hpp
 	include/sge/media/muxer_fwd.hpp
 	include/sge/media/muxer_parameters.hpp
@@ -21,8 +22,11 @@ set(
 	src/media/include/sge/src/media/detail/muxer_impl.hpp
 	src/media/include/sge/src/media/instantiate_muxer_parameters.hpp
 	src/media/include/sge/src/media/load_exn.hpp
+	src/media/include/sge/src/media/logger.hpp
 	src/media/include/sge/src/media/muxer_impl.hpp
 	src/media/include/sge/src/media/muxer_parameters_impl.hpp
+	src/media/log_location.cpp
+	src/media/logger.cpp
 	src/media/path_to_extension.cpp
 )
 
@@ -32,8 +36,8 @@ sge_generate_instantiate_symbol_header(
 
 add_sge_base_library(
 	media
-	"sgecore"
-	"${fcppt_filesystem_TARGET}"
+	"sgecore;sgelog"
+	"${fcppt_core_TARGET};${fcppt_filesystem_TARGET}"
 	"sgelog"
 	"${fcppt_filesystem_TARGET}"
 	"${CMAKE_CURRENT_SOURCE_DIR}/include"

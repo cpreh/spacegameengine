@@ -40,6 +40,7 @@ set(
 	include/sge/plugin/library/object_shared_ptr.hpp
 	include/sge/plugin/library/symbol_not_found.hpp
 	include/sge/plugin/library/symbol_string.hpp
+	include/sge/plugin/log_location.hpp
 	include/sge/plugin/manager.hpp
 	include/sge/plugin/manager_fwd.hpp
 	include/sge/plugin/min_core_version.hpp
@@ -73,6 +74,7 @@ set(
 	src/plugin/include/sge/src/plugin/library/loaded_symbol.hpp
 	src/plugin/include/sge/src/plugin/library/object.hpp
 	src/plugin/include/sge/src/plugin/load_info.hpp
+	src/plugin/include/sge/src/plugin/logger.hpp
 	src/plugin/include/sge/src/plugin/manager_impl.hpp
 	src/plugin/include/sge/src/plugin/object_impl.hpp
 	src/plugin/info.cpp
@@ -83,6 +85,8 @@ set(
 	src/plugin/library/object.cpp
 	src/plugin/library/symbol_not_found.cpp
 	src/plugin/load_info.cpp
+	src/plugin/log_location.cpp
+	src/plugin/logger.cpp
 	src/plugin/manager.cpp
 )
 

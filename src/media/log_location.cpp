@@ -18,28 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MEDIA_PATH_TO_EXTENSION_HPP_INCLUDED
-#define SGE_MEDIA_PATH_TO_EXTENSION_HPP_INCLUDED
-
-#include <sge/media/optional_extension.hpp>
-#include <sge/media/symbol.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <sge/media/log_location.hpp>
+#include <sge/log/location.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/log/location.hpp>
 
 
-namespace sge
+fcppt::log::location
+sge::media::log_location()
 {
-namespace media
-{
-
-SGE_MEDIA_SYMBOL
-sge::media::optional_extension
-path_to_extension(
-	boost::filesystem::path const &
-);
-
+	return
+		sge::log::location()
+		/
+		FCPPT_TEXT("media");
 }
-}
-
-#endif

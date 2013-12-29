@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 
-sge::media::optional_extension const
+sge::media::optional_extension
 sge::media::path_to_extension(
 	boost::filesystem::path const &_path
 )

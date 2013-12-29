@@ -1,6 +1,7 @@
 set(
 	SGE_FONTBITMAP_FILES
 	include/sge/font/bitmap/create.hpp
+	include/sge/font/bitmap/log_location.hpp
 	src/font/bitmap/char_metric.cpp
 	src/font/bitmap/create.cpp
 	src/font/bitmap/include/sge/src/font/bitmap/char_map.hpp
@@ -14,12 +15,15 @@ set(
 	src/font/bitmap/include/sge/src/font/bitmap/load_offset.hpp
 	src/font/bitmap/include/sge/src/font/bitmap/load_one_file.hpp
 	src/font/bitmap/include/sge/src/font/bitmap/load_rect.hpp
+	src/font/bitmap/include/sge/src/font/bitmap/logger.hpp
 	src/font/bitmap/include/sge/src/font/bitmap/object.hpp
 	src/font/bitmap/include/sge/src/font/bitmap/text.hpp
 	src/font/bitmap/line.cpp
 	src/font/bitmap/load_offset.cpp
 	src/font/bitmap/load_one_file.cpp
 	src/font/bitmap/load_rect.cpp
+	src/font/bitmap/log_location.cpp
+	src/font/bitmap/logger.cpp
 	src/font/bitmap/object.cpp
 	src/font/bitmap/text.cpp
 )

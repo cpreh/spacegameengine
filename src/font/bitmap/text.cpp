@@ -42,13 +42,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/format.hpp>
 #include <sge/image2d/view/size.hpp>
 #include <sge/image2d/view/sub.hpp>
-#include <sge/log/global.hpp>
 #include <sge/src/font/bitmap/char_map.hpp>
 #include <sge/src/font/bitmap/char_metric.hpp>
 #include <sge/src/font/bitmap/char_metric_ref.hpp>
 #include <sge/src/font/bitmap/char_metric_ref_vector.hpp>
 #include <sge/src/font/bitmap/const_view.hpp>
 #include <sge/src/font/bitmap/line.hpp>
+#include <sge/src/font/bitmap/logger.hpp>
 #include <sge/src/font/bitmap/text.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/nonassignable.hpp>
@@ -126,7 +126,7 @@ sge::font::bitmap::text::text(
 		)
 		{
 			FCPPT_LOG_ERROR(
-				sge::log::global(),
+				sge::font::bitmap::logger(),
 				fcppt::log::_
 					<<
 					FCPPT_TEXT("Bitmapfont character '")

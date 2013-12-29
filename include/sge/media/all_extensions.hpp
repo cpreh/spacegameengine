@@ -31,7 +31,8 @@ namespace media
 {
 
 SGE_MEDIA_SYMBOL
-extern sge::media::optional_extension_set const
+extern
+sge::media::optional_extension_set const
 all_extensions;
 
 }

@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/log/global.hpp>
 #include <sge/model/md3/exception.hpp>
 #include <sge/model/md3/index_sequence.hpp>
 #include <sge/model/md3/load_flags.hpp>
@@ -29,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/md3/vertex_sequence.hpp>
 #include <sge/src/model/md3/endian.hpp>
 #include <sge/src/model/md3/frame.hpp>
+#include <sge/src/model/md3/logger.hpp>
 #include <sge/src/model/md3/max_qpath.hpp>
 #include <sge/src/model/md3/object_impl.hpp>
 #include <sge/src/model/md3/read_and_check_id3p.hpp>
@@ -49,7 +49,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::model::md3::object_impl::object_impl(
 	std::istream &_stream,
-	md3::load_flags const _flags
+	sge::model::md3::load_flags const _flags
 )
 :
 	vertices_(0),
@@ -64,7 +64,7 @@ sge::model::md3::object_impl::object_impl(
 	);
 
 	if(
-		!md3::read_and_check_id3p(
+		!sge::model::md3::read_and_check_id3p(
 			_stream
 		)
 	)
@@ -72,7 +72,7 @@ sge::model::md3::object_impl::object_impl(
 			FCPPT_TEXT("Invalid md3 format!")
 		);
 
-	md3::s32 const version(
+	sge::model::md3::s32 const version(
 		md3::read_s32(
 			_stream
 		)
@@ -83,67 +83,67 @@ sge::model::md3::object_impl::object_impl(
 	)
 	{
 		FCPPT_LOG_WARNING(
-			log::global(),
+			sge::model::md3::logger(),
 			fcppt::log::_
 				<< FCPPT_TEXT("md3 version is not 15 but continuing anyway.")
 		);
 	}
 
 	name_ =
-		md3::read_string<
-			md3::max_qpath::value
+		sge::model::md3::read_string<
+			sge::model::md3::max_qpath::value
 		>(
 			_stream
 		);
 
 	// flags
-	md3::read_s32(
+	sge::model::md3::read_s32(
 		_stream
 	);
 
-	md3::s32 const
+	sge::model::md3::s32 const
 		num_frames(
-			md3::read_s32(
+			sge::model::md3::read_s32(
 				_stream
 			)
 		),
 		num_tags(
-			md3::read_s32(
+			sge::model::md3::read_s32(
 				_stream
 			)
 		),
 		num_surfaces(
-			md3::read_s32(
+			sge::model::md3::read_s32(
 				_stream
 			)
 		);
 
 	// num_skins
 	fcppt::io::read<
-		md3::s32
+		sge::model::md3::s32
 	>(
 		_stream,
-		md3::endian()
+		sge::model::md3::endian()
 	);
 
 	s32 const
 		ofs_frames(
-			md3::read_s32(
+			sge::model::md3::read_s32(
 				_stream
 			)
 		),
 		ofs_tags(
-			md3::read_s32(
+			sge::model::md3::read_s32(
 				_stream
 			)
 		),
 		ofs_surfaces(
-			md3::read_s32(
+			sge::model::md3::read_s32(
 				_stream
 			)
 		),
 		ofs_eof(
-			md3::read_s32(
+			sge::model::md3::read_s32(
 				_stream
 			)
 		);
@@ -157,12 +157,12 @@ sge::model::md3::object_impl::object_impl(
 	);
 
 	for(
-		md3::s32 i = 0;
+		sge::model::md3::s32 i = 0;
 		i < num_frames;
 		++i
 	)
 		frames_.push_back(
-			md3::frame(
+			sge::model::md3::frame(
 				_stream
 			)
 		);
@@ -176,12 +176,12 @@ sge::model::md3::object_impl::object_impl(
 	);
 
 	for(
-		md3::s32 i = 0;
+		sge::model::md3::s32 i = 0;
 		i < num_tags;
 		++i
 	)
 		tags_.push_back(
-			md3::tag(
+			sge::model::md3::tag(
 				_stream
 			)
 		);
@@ -195,20 +195,20 @@ sge::model::md3::object_impl::object_impl(
 	);
 
 	for(
-		md3::s32 i = 0;
+		sge::model::md3::s32 i = 0;
 		i < num_surfaces;
 		++i
 	)
 	{
 		surfaces_.push_back(
-			md3::surface(
+			sge::model::md3::surface(
 				_stream,
 				_flags,
 				num_frames
 			)
 		);
 
-		md3::surface const &last_surface(
+		sge::model::md3::surface const &last_surface(
 			surfaces_.back()
 		);
 
@@ -230,14 +230,14 @@ sge::model::md3::object_impl::~object_impl()
 {
 }
 
-sge::model::md3::index_sequence const
+sge::model::md3::index_sequence
 sge::model::md3::object_impl::indices(
-	md3::string const &_name
+	sge::model::md3::string const &_name
 ) const
 {
-	md3::index_sequence result;
+	sge::model::md3::index_sequence result;
 
-	md3::index ib_offset(0);
+	sge::model::md3::index ib_offset(0);
 
 	sge::model::md3::surface_vector::const_reference surf(
 		this->surface_by_name(
@@ -250,24 +250,20 @@ sge::model::md3::object_impl::indices(
 	);
 
 	for(
-		sge::model::md3::triangle_vector::const_iterator triangle_it(
-			triangles.begin()
-		);
-		triangle_it != triangles.end();
-		++triangle_it
+		auto const &triangle
+		:
+		triangles
 	)
 		for(
-			sge::model::md3::index_array::const_iterator index_it(
-				triangle_it->indices().begin()
-			);
-			index_it != triangle_it->indices().end();
-			++index_it
+			auto const &index
+			:
+			triangle.indices()
 		)
 			result.push_back(
 				static_cast<
-					md3::index
+					sge::model::md3::index
 				>(
-					*index_it
+					index
 				)
 				+ ib_offset
 			);
@@ -275,9 +271,9 @@ sge::model::md3::object_impl::indices(
 	return result;
 }
 
-sge::model::md3::vertex_sequence const
+sge::model::md3::vertex_sequence
 sge::model::md3::object_impl::vertices(
-	md3::string const &_name
+	sge::model::md3::string const &_name
 ) const
 {
 	md3::vertex_sequence result;
@@ -289,29 +285,27 @@ sge::model::md3::object_impl::vertices(
 	);
 
 	for(
-		md3::transformed_vertex_vector::const_iterator it(
-			surf.transformed_vertices().begin()
-		);
-		it != surf.transformed_vertices().end();
-		++it
+		auto const &vertex
+		:
+		surf.transformed_vertices()
 	)
 		result.push_back(
 			fcppt::math::vector::structure_cast<
-				md3::position
+				sge::model::md3::position
 			>(
-				it->pos()
+				vertex.pos()
 			)
 		);
 
 	return result;
 }
 
-sge::model::md3::optional_texcoord_sequence const
+sge::model::md3::optional_texcoord_sequence
 sge::model::md3::object_impl::texcoords(
-	md3::string const &_name
+	sge::model::md3::string const &_name
 ) const
 {
-	md3::texcoord_sequence result;
+	sge::model::md3::texcoord_sequence result;
 
 	sge::model::md3::surface_vector::const_reference surf(
 		this->surface_by_name(
@@ -336,12 +330,12 @@ sge::model::md3::object_impl::texcoords(
 		);
 }
 
-sge::model::md3::optional_normal_sequence const
+sge::model::md3::optional_normal_sequence
 sge::model::md3::object_impl::normals(
-	md3::string const &_name
+	sge::model::md3::string const &_name
 ) const
 {
-	md3::normal_sequence result;
+	sge::model::md3::normal_sequence result;
 
 	sge::model::md3::surface_vector::const_reference surf(
 		this->surface_by_name(
@@ -350,14 +344,12 @@ sge::model::md3::object_impl::normals(
 	);
 
 	for(
-		md3::transformed_vertex_vector::const_iterator it(
-			surf.transformed_vertices().begin()
-		);
-		it != surf.transformed_vertices().end();
-		++it
+		auto const &vertex
+		:
+		surf.transformed_vertices()
 	)
 		result.push_back(
-			it->normal()
+			vertex.normal()
 		);
 
 	return
@@ -366,20 +358,18 @@ sge::model::md3::object_impl::normals(
 		);
 }
 
-sge::model::md3::part_name_sequence const
+sge::model::md3::part_name_sequence
 sge::model::md3::object_impl::part_names() const
 {
-	md3::part_name_sequence result;
+	sge::model::md3::part_name_sequence result;
 
 	for(
-		md3::surface_vector::const_iterator surface_it(
-			surfaces_.begin()
-		);
-		surface_it != surfaces_.end();
-		++surface_it
+		auto const &surface
+		:
+		surfaces_
 	)
 		result.push_back(
-			surface_it->name()
+			surface.name()
 		);
 
 	return result;
@@ -388,20 +378,19 @@ sge::model::md3::object_impl::part_names() const
 
 sge::model::md3::surface_vector::const_reference
 sge::model::md3::object_impl::surface_by_name(
-	md3::string const &_name
+	sge::model::md3::string const &_name
 ) const
 {
 	for(
-		surface_vector::const_iterator surface_it(
-			surfaces_.begin()
-		);
-		surface_it != surfaces_.end();
-		++surface_it
+		auto const &surface
+		:
+		surfaces_
 	)
 		if(
-			surface_it->name() == _name
+			surface.name() == _name
 		)
-			return *surface_it;
+			return
+				surface;
 
 	throw sge::model::md3::exception(
 		FCPPT_TEXT("Couldn't find md3 surface!")

@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/utf8_string_to_fcppt.hpp>
 #include <sge/image/color/init.hpp>
 #include <sge/image/color/rgb32f.hpp>
-#include <sge/log/global.hpp>
 #include <sge/model/obj/exception.hpp>
 #include <sge/model/obj/identifier.hpp>
 #include <sge/model/obj/parse_mtllib.hpp>
 #include <sge/renderer/vector3.hpp>
+#include <sge/src/model/obj/logger.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/no_init.hpp>
 #include <fcppt/nonassignable.hpp>
@@ -243,7 +243,7 @@ public:
 				diffuse_);
 
 			FCPPT_LOG_WARNING(
-				sge::log::global(),
+				sge::model::obj::logger(),
 				fcppt::log::_ << FCPPT_TEXT("obj (mtl): dissolve currently not supported"));
 			/*
 			(*diffuse_)[3] =
@@ -281,7 +281,7 @@ public:
 				break;
 			default:
 				FCPPT_LOG_WARNING(
-					sge::log::global(),
+					sge::model::obj::logger(),
 					fcppt::log::_ << FCPPT_TEXT("obj (mtl): invalid light model: ") << light_model);
 				break;
 			}
@@ -326,7 +326,7 @@ public:
 		else
 		{
 			FCPPT_LOG_WARNING(
-				sge::log::global(),
+				sge::model::obj::logger(),
 				fcppt::log::_ << FCPPT_TEXT("obj (mtl): invalid prefix"));
 		}
 	}

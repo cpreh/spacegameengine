@@ -10,6 +10,7 @@ set(
 	include/sge/model/md3/loader_fwd.hpp
 	include/sge/model/md3/loader_scoped_ptr.hpp
 	include/sge/model/md3/loader_unique_ptr.hpp
+	include/sge/model/md3/log_location.hpp
 	include/sge/model/md3/normal.hpp
 	include/sge/model/md3/normal_sequence.hpp
 	include/sge/model/md3/object.hpp
@@ -17,7 +18,9 @@ set(
 	include/sge/model/md3/object_scoped_ptr.hpp
 	include/sge/model/md3/object_unique_ptr.hpp
 	include/sge/model/md3/optional_normal_sequence.hpp
+	include/sge/model/md3/optional_normal_sequence_fwd.hpp
 	include/sge/model/md3/optional_texcoord_sequence.hpp
+	include/sge/model/md3/optional_texcoord_sequence_fwd.hpp
 	include/sge/model/md3/part_name_sequence.hpp
 	include/sge/model/md3/position.hpp
 	include/sge/model/md3/scalar.hpp
@@ -37,6 +40,7 @@ set(
 	src/model/md3/include/sge/src/model/md3/frame_vector.hpp
 	src/model/md3/include/sge/src/model/md3/index_array.hpp
 	src/model/md3/include/sge/src/model/md3/loader_impl.hpp
+	src/model/md3/include/sge/src/model/md3/logger.hpp
 	src/model/md3/include/sge/src/model/md3/max_qpath.hpp
 	src/model/md3/include/sge/src/model/md3/object_impl.hpp
 	src/model/md3/include/sge/src/model/md3/read_and_check_id3p.hpp
@@ -65,6 +69,8 @@ set(
 	src/model/md3/include/sge/src/model/md3/xyz_scale.hpp
 	src/model/md3/loader.cpp
 	src/model/md3/loader_impl.cpp
+	src/model/md3/log_location.cpp
+	src/model/md3/logger.cpp
 	src/model/md3/object.cpp
 	src/model/md3/object_impl.cpp
 	src/model/md3/read_and_check_id3p.cpp

@@ -19,9 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/charconv/utf8_string_to_fcppt.hpp>
-#include <sge/log/global.hpp>
 #include <sge/model/obj/exception.hpp>
 #include <sge/model/obj/prototype.hpp>
+#include <sge/src/model/obj/logger.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/no_init.hpp>
 #include <fcppt/string.hpp>
@@ -31,7 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/warning.hpp>
 #include <fcppt/math/box/extend_bounding_box.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/unordered_map.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <algorithm>
 #include <array>
@@ -346,7 +345,7 @@ sge::model::obj::prototype::prototype(
 		else
 		{
 			FCPPT_LOG_WARNING(
-				sge::log::global(),
+				sge::model::obj::logger(),
 				fcppt::log::_
 					<< FCPPT_TEXT("Invalid obj prefix: ")
 					<< fcppt::from_std_string(
