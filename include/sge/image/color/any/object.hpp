@@ -71,20 +71,6 @@ private:
 	variant variant_;
 };
 
-SGE_IMAGE_COLOR_SYMBOL
-bool
-operator==(
-	sge::image::color::any::object const &,
-	sge::image::color::any::object const &
-);
-
-SGE_IMAGE_COLOR_SYMBOL
-bool
-operator!=(
-	sge::image::color::any::object const &,
-	sge::image::color::any::object const &
-);
-
 }
 }
 }

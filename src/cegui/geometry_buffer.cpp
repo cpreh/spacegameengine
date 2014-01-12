@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/exception.hpp>
 #include <sge/image/mizuiro_color.hpp>
 #include <sge/image/color/init.hpp>
+#include <sge/image/color/rgba8.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/primitive_type.hpp>
@@ -510,10 +511,12 @@ sge::cegui::geometry_buffer::appendGeometry(
 		vb_it->set<
 			sge::cegui::vf::color
 		>(
-			(sge::image::color::init::red() %= it->colour_val.getRed())
-			(sge::image::color::init::green() %= it->colour_val.getGreen())
-			(sge::image::color::init::blue() %= it->colour_val.getBlue())
-			(sge::image::color::init::alpha() %= it->colour_val.getAlpha())
+			sge::image::color::rgba8(
+				(sge::image::color::init::red() %= it->colour_val.getRed())
+				(sge::image::color::init::green() %= it->colour_val.getGreen())
+				(sge::image::color::init::blue() %= it->colour_val.getBlue())
+				(sge::image::color::init::alpha() %= it->colour_val.getAlpha())
+			)
 		);
 
 		vb_it++;

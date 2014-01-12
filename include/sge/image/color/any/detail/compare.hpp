@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_IMAGE_COLOR_DYNAMIC_AVAILABLE_CHANNELS_HPP_INCLUDED
-#define SGE_SRC_IMAGE_COLOR_DYNAMIC_AVAILABLE_CHANNELS_HPP_INCLUDED
+#ifndef SGE_IMAGE_COLOR_ANY_DETAIL_COMPARE_HPP_INCLUDED
+#define SGE_IMAGE_COLOR_ANY_DETAIL_COMPARE_HPP_INCLUDED
 
-#include <sge/src/image/color/dynamic/available_channels_fwd.hpp>
+#include <mizuiro/color/compare.hpp>
+#include <fcppt/nonassignable.hpp>
 
 
 namespace sge
@@ -30,20 +31,52 @@ namespace image
 {
 namespace color
 {
-namespace dynamic
+namespace any
+{
+namespace detail
 {
 
-enum class available_channels
+template<
+	typename CompareChannels
+>
+class compare
 {
-	alpha,
-	blue,
-	green,
-	luminance,
-	red,
-	undefined,
-	mizuiro_enum_maximum = undefined
+	FCPPT_NONASSIGNABLE(
+		compare
+	);
+public:
+	explicit
+	compare(
+		CompareChannels const &_compare_channels
+	)
+	:
+		compare_channels_(
+			_compare_channels
+		)
+	{
+	}
+
+	template<
+		typename T
+	>
+	bool
+	operator()(
+		T const &_a,
+		T const &_b
+	) const
+	{
+		return
+			mizuiro::color::compare(
+				_a,
+				_b,
+				compare_channels_
+			);
+	}
+private:
+	CompareChannels const compare_channels_;
 };
 
+}
 }
 }
 }

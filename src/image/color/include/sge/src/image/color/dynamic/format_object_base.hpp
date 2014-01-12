@@ -22,10 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_IMAGE_COLOR_DYNAMIC_FORMAT_OBJECT_BASE_HPP_INCLUDED
 
 #include <sge/src/image/color/dynamic/available_channels.hpp>
-#include <mizuiro/color/homogenous_dynamic_fwd.hpp>
-#include <mizuiro/color/access/homogenous_dynamic.hpp>
-#include <mizuiro/color/types/homogenous.hpp>
-#include <mizuiro/color/types/homogenous_dynamic.hpp>
+#include <mizuiro/color/format/homogenous_dynamic.hpp>
+#include <mizuiro/color/format/include/homogenous_dynamic.hpp>
 
 
 namespace sge
@@ -43,10 +41,9 @@ template<
 >
 struct format_object_base
 {
-	typedef mizuiro::color::homogenous_dynamic<
+	typedef mizuiro::color::format::homogenous_dynamic<
 		BaseType,
 		sge::image::color::dynamic::available_channels,
-		sge::image::color::dynamic::available_channels::size,
 		NumChannels
 	> type;
 };

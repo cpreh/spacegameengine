@@ -39,30 +39,40 @@ template<
 >
 class store
 {
-	typedef mizuiro::image::store<
+	typedef
+	mizuiro::image::store<
 		Format,
 		sge::image::view::mizuiro_access
-	> internal_type;
+	>
+	internal_type;
 public:
 	typedef typename internal_type::pointer pointer;
 
 	typedef typename internal_type::const_pointer const_pointer;
 
-	typedef sge::image::dim<
+	typedef
+	sge::image::dim<
 		Format::dim::static_size
-	> dim;
+	>
+	dim;
 
 	typedef typename internal_type::view_type view_type;
 
 	typedef typename internal_type::const_view_type const_view_type;
 
-	typedef typename sge::image::view::wrapped_type<
+	typedef
+	typename
+	sge::image::view::wrapped_type<
 		view_type
-	>::type wrapped_view_type;
+	>::type
+	wrapped_view_type;
 
-	typedef typename sge::image::view::wrapped_type<
+	typedef
+	typename
+	sge::image::view::wrapped_type<
 		const_view_type
-	>::type const_wrapped_view_type;
+	>::type
+	const_wrapped_view_type;
 
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	store();

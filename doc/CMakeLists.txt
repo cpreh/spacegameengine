@@ -577,6 +577,7 @@ set(
 	include/sge/image/color/a8_format.hpp
 	include/sge/image/color/a8_fwd.hpp
 	include/sge/image/color/any/clear.hpp
+	include/sge/image/color/any/compare.hpp
 	include/sge/image/color/any/convert.hpp
 	include/sge/image/color/any/detail/make_object.hpp
 	include/sge/image/color/any/elements.hpp

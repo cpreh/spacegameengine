@@ -21,16 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_VIEW_MAKE_MIZUIRO_TYPE_HPP_INCLUDED
 #define SGE_IMAGE_VIEW_MAKE_MIZUIRO_TYPE_HPP_INCLUDED
 
+#include <sge/image/mizuiro_color_traits.hpp>
 #include <sge/image/view/basic_format.hpp>
 #include <sge/image/view/mizuiro_type.hpp>
-#include <mizuiro/color/access/heterogenous_raw.hpp>
-#include <mizuiro/color/access/homogenous_raw.hpp>
-#include <mizuiro/color/types/heterogenous_raw.hpp>
-#include <mizuiro/color/types/homogenous_raw.hpp>
 #include <mizuiro/image/view_impl.hpp>
-#include <mizuiro/image/access/interleaved.hpp>
-#include <mizuiro/image/types/interleaved.hpp>
-#include <mizuiro/image/types/interleaved_raw.hpp>
+#include <mizuiro/image/format/include/interleaved.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>

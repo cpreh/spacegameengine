@@ -25,17 +25,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/traits/const_view_fwd.hpp>
 #include <sge/image/traits/dim_fwd.hpp>
 #include <sge/image/traits/view_fwd.hpp>
-#include <sge/src/image/color/dynamic/access.hpp>
 #include <sge/src/image/color/dynamic/format_object_decl.hpp>
 #include <sge/src/image/color/dynamic/format_object_traits.hpp>
+#include <sge/src/image/color/dynamic/static_to_dynamic_channel.hpp>
 #include <sge/src/image/color/dynamic/algorithm/cac/visitor.hpp>
 #include <sge/src/image/color/dynamic/view/from_static_visitor.hpp>
 #include <mizuiro/const_tag.hpp>
 #include <mizuiro/nonconst_tag.hpp>
-#include <mizuiro/color/homogenous_dynamic.hpp>
-#include <mizuiro/color/access/homogenous_dynamic.hpp>
-#include <mizuiro/color/types/homogenous.hpp>
-#include <mizuiro/color/types/homogenous_dynamic.hpp>
 #include <fcppt/variant/apply_binary.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 

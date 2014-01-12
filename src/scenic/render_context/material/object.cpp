@@ -18,14 +18,90 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/image/color/any/compare.hpp>
+#include <sge/image/color/any/object_fwd.hpp>
+#include <sge/scenic/render_context/ambient_color.hpp>
+#include <sge/scenic/render_context/diffuse_color.hpp>
+#include <sge/scenic/render_context/emissive_color.hpp>
+#include <sge/scenic/render_context/specular_color.hpp>
 #include <sge/scenic/render_context/material/object.hpp>
+#include <sge/scenic/render_context/material/diffuse_texture.hpp>
+#include <sge/scenic/render_context/material/shininess.hpp>
+#include <sge/scenic/render_context/material/specular_texture.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/utility/enable_if.hpp>
 #include <cmath>
 #include <fcppt/config/external_end.hpp>
 
 
 namespace
 {
+
+bool
+compare_floats(
+	float const _a,
+	float const _b
+)
+{
+	return
+		std::abs(_a - _b) < 0.001f;
+}
+
+struct compare_channels
+{
+	template<
+		typename T
+	>
+	typename
+	boost::enable_if<
+		std::is_integral<
+			T
+		>,
+		bool
+	>::type
+	operator()(
+		T const _a,
+		T const _b
+	) const
+	{
+		return
+			_a
+			==
+			_b;
+	}
+
+	bool
+	operator()(
+		float const _a,
+		float const _b
+	) const
+	{
+		return
+			compare_floats(
+				_a,
+				_b
+			);
+	}
+};
+
+template<
+	typename T
+>
+bool
+compare_colors(
+	T const &_a,
+	T const &_b
+)
+{
+	return
+		sge::image::color::any::compare(
+			_a.get(),
+			_b.get(),
+			compare_channels()
+		);
+}
+
 template<typename T>
 bool
 compare_optional_ref_identity(
@@ -121,15 +197,38 @@ sge::scenic::render_context::material::object::operator==(
 	sge::scenic::render_context::material::object const &_right) const
 {
 	return
-		diffuse_color_ == _right.diffuse_color_ &&
-		ambient_color_ == _right.ambient_color_ &&
-		specular_color_ == _right.specular_color_ &&
-		emissive_color_ == _right.emissive_color_ &&
-		(std::abs(shininess_.get() - _right.shininess_.get()) < 0.001f) &&
+		compare_colors(
+			diffuse_color_,
+			_right.diffuse_color_
+		)
+		&&
+		compare_colors(
+			ambient_color_,
+			_right.ambient_color_
+		)
+		&&
+		compare_colors(
+			specular_color_,
+			_right.specular_color_
+		)
+		&&
+		compare_colors(
+			emissive_color_,
+			_right.emissive_color_
+		)
+		&&
+		compare_floats(
+			shininess_.get(),
+			_right.shininess_.get()
+		)
+		&&
 		compare_optional_ref_identity(
 			diffuse_texture_,
-			_right.diffuse_texture_) &&
+			_right.diffuse_texture_
+		)
+		&&
 		compare_optional_ref_identity(
 			specular_texture_,
-			_right.specular_texture_);
+			_right.specular_texture_
+		);
 }

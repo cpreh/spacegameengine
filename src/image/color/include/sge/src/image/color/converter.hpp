@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/format_static.hpp>
 #include <sge/image/color/invalid_convert.hpp>
 #include <sge/image/color/is_convertible.hpp>
-#include <mizuiro/color/format_argument.hpp>
 #include <mizuiro/color/object.hpp>
+#include <mizuiro/color/format/argument.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -61,7 +61,7 @@ struct converter
 		typename mizuiro::color::object<
 			DestFormat
 		>::format_store_type const & =
-			mizuiro::color::format_argument<
+			mizuiro::color::format::argument<
 				DestFormat
 			>::get()
 	)
@@ -93,7 +93,7 @@ struct converter
 		typename mizuiro::color::object<
 			DestFormat
 		>::format_store_type const & =
-			mizuiro::color::format_argument<
+			mizuiro::color::format::argument<
 				DestFormat
 			>::get()
 	)

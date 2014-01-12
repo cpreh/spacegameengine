@@ -21,15 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_MIZUIRO_COLOR_TRAITS_HPP_INCLUDED
 #define SGE_IMAGE_MIZUIRO_COLOR_TRAITS_HPP_INCLUDED
 
-#include <mizuiro/color/access/heterogenous.hpp>
-#include <mizuiro/color/access/homogenous.hpp>
-#include <mizuiro/color/access/homogenous_normal.hpp>
-#include <mizuiro/color/access/static.hpp>
-#include <mizuiro/color/types/heterogenous.hpp>
-#include <mizuiro/color/types/heterogenous_normal.hpp>
-#include <mizuiro/color/types/homogenous.hpp>
-#include <mizuiro/color/types/homogenous_normal.hpp>
-#include <mizuiro/color/types/static.hpp>
+#include <mizuiro/color/format/include/heterogenous_static.hpp>
+#include <mizuiro/color/format/include/homogenous_static.hpp>
 
 
 #endif

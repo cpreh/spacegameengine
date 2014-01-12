@@ -18,46 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_IMAGE_COLOR_DYNAMIC_ACCESS_HPP_INCLUDED
-#define SGE_SRC_IMAGE_COLOR_DYNAMIC_ACCESS_HPP_INCLUDED
+#ifndef SGE_SRC_IMAGE_COLOR_DYNAMIC_STATIC_TO_DYNAMIC_CHANNEL_HPP_INCLUDED
+#define SGE_SRC_IMAGE_COLOR_DYNAMIC_STATIC_TO_DYNAMIC_CHANNEL_HPP_INCLUDED
 
 #include <sge/src/image/color/dynamic/available_channels.hpp>
 #include <sge/src/image/color/dynamic/convert_channel.hpp>
-#include <mizuiro/color/format_store.hpp>
-#include <mizuiro/color/access/dynamic_channel.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
-#include <type_traits>
-#include <fcppt/config/external_end.hpp>
+#include <mizuiro/color/channel/tag.hpp>
+#include <mizuiro/color/format/dynamic_ns/static_to_dynamic_channel_fwd.hpp>
 
 
 namespace mizuiro
 {
 namespace color
 {
-namespace access
+namespace format
+{
+namespace dynamic_ns
 {
 
-template<
-	typename Format,
-	typename Channel
->
-struct dynamic_channel<
-	Format,
-	Channel,
-	typename boost::enable_if<
-		std::is_same<
-			typename Format::available_channels,
-			sge::image::color::dynamic::available_channels
-		>
-	>::type
+template<>
+struct static_to_dynamic_channel<
+	sge::image::color::dynamic::available_channels
 >
 {
+	template<
+		typename Channel
+	>
 	static
 	sge::image::color::dynamic::available_channels
 	execute(
-		mizuiro::color::format_store<Format> const &,
-		Channel const &
+		mizuiro::color::channel::tag<
+			Channel
+		>
 	)
 	{
 		return
@@ -67,6 +59,7 @@ struct dynamic_channel<
 	}
 };
 
+}
 }
 }
 }

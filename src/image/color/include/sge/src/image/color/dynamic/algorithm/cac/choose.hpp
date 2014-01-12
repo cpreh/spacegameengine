@@ -44,10 +44,10 @@ template<
 	typename SourceFormat,
 	typename DestFormat
 >
-typename sge::image::color::dynamic::algorithm::cac::function<
+sge::image::color::dynamic::algorithm::cac::function<
 	SourceFormat,
 	DestFormat
->::type
+>
 choose(
 	SourceFormat const &_source,
 	DestFormat const &_dest
@@ -74,9 +74,9 @@ choose(
 	return
 		&mizuiro::color::conversion::same_to_same<
 			typename DestFormat::color_format,
-			typename sge::image::color::dynamic::algorithm::cac::source<
+			sge::image::color::dynamic::algorithm::cac::source<
 				SourceFormat
-			>::type
+			>
 		>;
 }
 

@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_IMAGE_COLOR_DYNAMIC_FORMAT_OBJECT_IMPL_HPP_INCLUDED
 
 #include <sge/src/image/color/dynamic/format_object_decl.hpp>
-#include <mizuiro/color/homogenous_dynamic_impl.hpp>
 
 
 template<

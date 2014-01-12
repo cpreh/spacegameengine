@@ -19,8 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/color/any/object.hpp>
-#include <mizuiro/color/operators/equal.hpp>
-#include <fcppt/variant/equal.hpp>
 
 
 sge::image::color::any::object::object(
@@ -48,12 +46,11 @@ sge::image::color::any::object::operator=(
 	sge::image::color::any::object const &_other
 )
 {
-	if(
-		this != &_other
-	)
-		variant_ = _other.variant_;
+	variant_ =
+		_other.variant_;
 
-	return *this;
+	return
+		*this;
 }
 
 sge::image::color::any::object::~object()
@@ -63,25 +60,6 @@ sge::image::color::any::object::~object()
 sge::image::color::any::object::variant const &
 sge::image::color::any::object::get() const
 {
-	return variant_;
-}
-
-bool
-sge::image::color::any::operator==(
-	sge::image::color::any::object const &_left,
-	sge::image::color::any::object const &_right
-)
-{
 	return
-		_left.get() == _right.get();
-}
-
-bool
-sge::image::color::any::operator!=(
-	sge::image::color::any::object const &_left,
-	sge::image::color::any::object const &_right
-)
-{
-	return
-		!(_left == _right);
+		variant_;
 }

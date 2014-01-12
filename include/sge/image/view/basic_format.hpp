@@ -23,7 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/size_type.hpp>
 #include <mizuiro/image/dimension_impl.hpp>
-#include <mizuiro/image/interleaved.hpp>
+#include <mizuiro/image/format/interleaved.hpp>
+#include <mizuiro/image/format/include/interleaved.hpp>
 
 
 namespace sge
@@ -39,7 +40,7 @@ template<
 >
 struct basic_format
 {
-	typedef mizuiro::image::interleaved<
+	typedef mizuiro::image::format::interleaved<
 		mizuiro::image::dimension<
 			Dim
 		>,

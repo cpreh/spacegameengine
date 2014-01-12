@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/vector.hpp>
 #include <sge/renderer/vf/dynamic/detail/make_color.hpp>
 #include <sge/renderer/vf/dynamic/detail/make_vector.hpp>
-#include <mizuiro/color/homogenous_static_fwd.hpp>
+#include <mizuiro/color/format/homogenous_static_fwd.hpp>
 
 
 namespace sge
@@ -64,7 +64,7 @@ template<
 >
 sge::renderer::vf::dynamic::color const
 make_extra_element(
-	mizuiro::color::homogenous_static<
+	mizuiro::color::format::homogenous_static<
 		ColorChannel,
 		ColorLayout
 	> const  &
@@ -72,7 +72,7 @@ make_extra_element(
 {
 	return
 		sge::renderer::vf::dynamic::detail::make_color<
-			mizuiro::color::homogenous_static<
+			mizuiro::color::format::homogenous_static<
 				ColorChannel,
 				ColorLayout
 			>

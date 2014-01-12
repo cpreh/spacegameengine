@@ -22,40 +22,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_IMAGE_COLOR_DYNAMIC_FORMAT_OBJECT_TRAITS_HPP_INCLUDED
 
 #include <sge/src/image/color/dynamic/format_object_fwd.hpp>
-#include <mizuiro/color/is_homogenous_dynamic.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <type_traits>
-#include <fcppt/config/external_end.hpp>
+#include <mizuiro/color/format/tag_of_fwd.hpp>
+#include <mizuiro/color/format/homogenous_dynamic_ns/tag.hpp>
 
 
 namespace mizuiro
 {
 namespace color
 {
-
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
+namespace format
+{
 
 template<
 	typename BaseType,
 	unsigned NumChannels
 >
-struct is_homogenous_dynamic<
+struct tag_of<
 	sge::image::color::dynamic::format_object<
 		BaseType,
 		NumChannels
 	>
 >
-:
-std::true_type
 {
+	typedef
+	mizuiro::color::format::homogenous_dynamic_ns::tag<
+		sge::image::color::dynamic::format_object<
+			BaseType,
+			NumChannels
+		>
+	>
+	type;
 };
 
-FCPPT_PP_POP_WARNING
-
+}
 }
 }
 

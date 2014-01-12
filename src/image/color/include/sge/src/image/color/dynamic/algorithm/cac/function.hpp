@@ -42,23 +42,22 @@ template<
 	typename SourceFormat,
 	typename DestFormat
 >
-struct function
-{
-	typedef
-		mizuiro::color::object<
-			typename DestFormat::color_format
-		> const
-		(
-			*type
-		)(
-			typename sge::image::color::dynamic::algorithm::cac::source<
-				SourceFormat
-			>::type const &,
-			typename mizuiro::color::object<
-				typename DestFormat::color_format
-			>::format_store_type const &
-		);
-};
+using function
+=
+mizuiro::color::object<
+	typename
+	DestFormat::color_format
+> const
+(*)(
+	sge::image::color::dynamic::algorithm::cac::source<
+		SourceFormat
+	> const &,
+	typename
+	mizuiro::color::object<
+		typename
+		DestFormat::color_format
+	>::format_store_type const &
+);
 
 }
 }

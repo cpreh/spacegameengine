@@ -4,6 +4,7 @@ set(
 	include/sge/image/color/a8_format.hpp
 	include/sge/image/color/a8_fwd.hpp
 	include/sge/image/color/any/clear.hpp
+	include/sge/image/color/any/compare.hpp
 	include/sge/image/color/any/convert.hpp
 	include/sge/image/color/any/detail/make_object.hpp
 	include/sge/image/color/any/elements.hpp
@@ -125,7 +126,6 @@ set(
 	src/image/color/include/sge/src/image/color/any/convert_visitor.hpp
 	src/image/color/include/sge/src/image/color/converter.hpp
 	src/image/color/include/sge/src/image/color/dynamic/a8_format.hpp
-	src/image/color/include/sge/src/image/color/dynamic/access.hpp
 	src/image/color/include/sge/src/image/color/dynamic/algorithm/cac/choose.hpp
 	src/image/color/include/sge/src/image/color/dynamic/algorithm/cac/convert.hpp
 	src/image/color/include/sge/src/image/color/dynamic/algorithm/cac/convert_visitor.hpp
@@ -170,6 +170,7 @@ set(
 	src/image/color/include/sge/src/image/color/dynamic/rgbx8_format.hpp
 	src/image/color/include/sge/src/image/color/dynamic/srgb8_format.hpp
 	src/image/color/include/sge/src/image/color/dynamic/srgba8_format.hpp
+	src/image/color/include/sge/src/image/color/dynamic/static_to_dynamic_channel.hpp
 	src/image/color/include/sge/src/image/color/dynamic/view/basic_elements.hpp
 	src/image/color/include/sge/src/image/color/dynamic/view/basic_variant.hpp
 	src/image/color/include/sge/src/image/color/dynamic/view/color_format.hpp

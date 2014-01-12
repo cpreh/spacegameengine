@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/channel8.hpp>
+#include <sge/image/dim.hpp>
 #include <sge/image/mizuiro_color.hpp>
 #include <sge/image/store.hpp>
 #include <sge/image/color/init.hpp>
@@ -29,15 +30,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/object.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
+#include <mizuiro/color/compare.hpp>
 #include <mizuiro/image/view.hpp>
-#include <mizuiro/color/operators/equal.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/test/unit_test.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace
 {
@@ -123,17 +124,28 @@ test_conversion(
 	);
 
 	BOOST_REQUIRE(
-		dest_view[
-			typename dest_view_type::dim(
-				0,
-				0
+		mizuiro::color::compare(
+			dest_view[
+				typename dest_view_type::dim(
+					0,
+					0
+				)
+			],
+			typename sge::image::mizuiro_color<
+				typename Dest::color_format
+			>::type(
+				_dest
+			),
+			[](
+				sge::image::channel8 const _a,
+				sge::image::channel8 const _b
 			)
-		]
-		==
-		typename sge::image::mizuiro_color<
-			typename Dest::color_format
-		>::type(
-			_dest
+			{
+				return
+					_a
+					==
+					_b;
+			}
 		)
 	);
 }

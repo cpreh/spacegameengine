@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <mizuiro/apply_const.hpp>
+#include <mizuiro/apply_const_result.hpp>
 #include <mizuiro/nonconst_tag.hpp>
 #include <mizuiro/raw_pointer.hpp>
 #include <mizuiro/raw_value.hpp>
@@ -28,16 +28,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <mizuiro/detail/nonassignable.hpp>
 #include <mizuiro/detail/pop_warning.hpp>
 #include <mizuiro/image/dimension.hpp>
-#include <mizuiro/image/format_is_static.hpp>
-#include <mizuiro/image/format_store_fwd.hpp>
 #include <mizuiro/image/linear_view.hpp>
 #include <mizuiro/image/pitch_type.hpp>
-#include <mizuiro/image/access/dereference.hpp>
-#include <mizuiro/image/access/stride.hpp>
+#include <mizuiro/image/access/dereference_ns/tag.hpp>
+#include <mizuiro/image/access/stride_ns/tag.hpp>
 #include <mizuiro/image/algorithm/print.hpp>
+#include <mizuiro/image/format/store_fwd.hpp>
+#include <mizuiro/image/format/tag_of_fwd.hpp>
 #include <mizuiro/image/types/pointer.hpp>
 #include <mizuiro/image/types/reference.hpp>
-#include <mizuiro/image/types/value_type.hpp>
+#include <mizuiro/image/types/needs_store_ns/tag.hpp>
+#include <mizuiro/image/types/pointer_ns/tag.hpp>
+#include <mizuiro/image/types/reference_ns/tag.hpp>
+#include <mizuiro/image/types/value_type_ns/tag.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/math/difference_type.hpp>
 #include <fcppt/math/static_size.hpp>
@@ -351,10 +354,6 @@ private:
 };
 
 }
-}
-
-namespace mylib
-{
 
 template
 <
@@ -384,16 +383,22 @@ struct native_format
 	static fcppt::math::size_type const static_size = Size;
 };
 
-
+template
+<
+	typename T
+>
+struct tag
+{
+};
 
 }
-
-MIZUIRO_DETAIL_IGNORE_EFFCPP
 
 namespace mizuiro
 {
 namespace image
 {
+namespace format
+{
 
 template
 <
@@ -401,7 +406,7 @@ template
 	typename ValueType,
 	fcppt::math::size_type Size
 >
-struct format_is_static
+struct tag_of
 <
 	mylib::native_format
 	<
@@ -410,45 +415,51 @@ struct format_is_static
 		Size
 	>
 >
-:
-	std::true_type
 {
+	typedef
+	mylib::tag
+	<
+		mylib::native_format
+		<
+			Dim,
+			ValueType,
+			Size
+		>
+	>
+	type;
 };
+
+}
 
 namespace types
 {
 
-// Kann so bleiben, der Pointer ist einfach nur der rohe Datenspeicher (kommt von dem void* her)
+namespace needs_store_ns
+{
 template
 <
 	typename Dim,
 	typename ValueType,
-	fcppt::math::size_type Size,
-	typename Constness
+	fcppt::math::size_type Size
 >
-struct pointer
-<
-	mizuiro::access::raw,
-	mylib::native_format
+std::false_type
+needs_store_adl(
+	mizuiro::image::types::needs_store_ns::tag,
+	mylib::tag
 	<
-		Dim,
-		ValueType,
-		Size
-	>,
-	Constness
->
-:
-	mizuiro::apply_const
-	<
-		mizuiro::raw_pointer,
-		Constness
+		mylib::native_format
+		<
+			Dim,
+			ValueType,
+			Size
+		>
 	>
+);
+
+}
+
+namespace pointer_ns
 {
-};
-
-MIZUIRO_DETAIL_POP_WARNING
-
-// < Freundlich> reference ist das, was operator* vom Iterator liefert.
 
 template
 <
@@ -456,56 +467,92 @@ template
 	typename ValueType,
 	fcppt::math::size_type Size
 >
-struct reference
-<
-	mizuiro::access::raw,
-	mylib::native_format
-	<
-		Dim,
-		ValueType,
-		Size
-	>,
+mizuiro::apply_const_result<
+	mizuiro::raw_pointer,
 	mizuiro::nonconst_tag
 >
-{
-	typedef
-	fcppt::math::vector::object
+pointer_adl(
+	mizuiro::image::types::pointer_ns::tag,
+	mizuiro::access::raw,
+	mylib::tag
 	<
-		ValueType,
-		fcppt::math::static_size<Size>,
-		mylib::vector::raw_view<ValueType>
-	>
-	type;
-};
+		mylib::native_format
+		<
+			Dim,
+			ValueType,
+			Size
+		>
+	>,
+	mizuiro::nonconst_tag
+);
+
+}
+
+// < Freundlich> reference ist das, was operator* vom Iterator liefert.
+
+namespace reference_ns
+{
+
+template
+<
+	typename Dim,
+	typename ValueType,
+	fcppt::math::size_type Size
+>
+fcppt::math::vector::object
+<
+	ValueType,
+	fcppt::math::static_size<Size>,
+	mylib::vector::raw_view<ValueType>
+>
+reference_adl(
+	mizuiro::image::types::reference_ns::tag,
+	mizuiro::access::raw,
+	mylib::tag
+	<
+		mylib::native_format
+		<
+			Dim,
+			ValueType,
+			Size
+		>
+	>,
+	mizuiro::nonconst_tag
+);
+
+}
 
 // < Freundlich> value_type ist etwas, das kopierbar ist, und worin man einen Wert eines operator* abspeichern kann, hier T
 // Bei Farben wäre value_type halt color::object, und reference wäre color::proxy
 
+namespace value_type_ns
+{
+
 template
 <
 	typename Dim,
 	typename ValueType,
 	fcppt::math::size_type Size
 >
-struct value_type
+fcppt::math::vector::static_
 <
-	mylib::native_format
-	<
-		Dim,
-		ValueType,
-		Size
-	>
+	ValueType,
+	Size
 >
-{
-	typedef
-	fcppt::math::vector::static_
+value_type_adl(
+	mizuiro::image::types::value_type_ns::tag,
+	mylib::tag
 	<
-		ValueType,
-		Size
+		mylib::native_format
+		<
+			Dim,
+			ValueType,
+			Size
+		>
 	>
-	type;
-};
+);
 
+}
 }
 
 namespace access
@@ -514,55 +561,61 @@ namespace access
 // stride ist eine Funktion, die dem Iterator sagt, wie viele Einheiten er Pointer weiterschieben
 // muss, um zum nächsten Element zu kommen.
 
+namespace stride_ns
+{
+
 template
 <
 	typename Dim,
 	typename ValueType,
 	fcppt::math::size_type Size
 >
-struct stride
-<
-	mizuiro::access::raw,
-	mylib::native_format
+mizuiro::size_type
+stride_adl(
+	mizuiro::image::access::stride_ns::tag,
+	mizuiro::access::raw const &,
+	mylib::tag
 	<
-		Dim,
-		ValueType,
-		Size
-	>
->
-{
-	static
-	mizuiro::size_type
-	execute(
-		mizuiro::access::raw const &,
-		mizuiro::image::format_store
+		mylib::native_format
 		<
-			mylib::native_format
-			<
-				Dim,
-				ValueType,
-				Size
-			>
-		> const &)
-	{
-		return
+			Dim,
+			ValueType,
 			Size
-			*
-			sizeof(
-				ValueType);
-	}
-};
+		>
+	>,
+	mizuiro::image::format::store
+	<
+		mylib::native_format
+		<
+			Dim,
+			ValueType,
+			Size
+		>
+	> const &
+)
+{
+	return
+		Size
+		*
+		sizeof(
+			ValueType);
+}
+
+}
 
 // dereference ist eine Funktion, die pointer -> reference macht.
 // 12:25 < Freundlich> Also z.B.: Wie mache ich aus unsigned char (const) * einen proxy<T (const)> oder so.
 
+namespace dereference_ns
+{
+
 template
 <
 	typename Dim,
 	typename ValueType,
 	fcppt::math::size_type Size
 >
-struct dereference
+mizuiro::image::types::reference
 <
 	mizuiro::access::raw,
 	mylib::native_format
@@ -573,59 +626,66 @@ struct dereference
 	>,
 	mizuiro::nonconst_tag
 >
-{
-	typedef
-	mizuiro::access::raw
-	access;
-
-	typedef
-	mylib::native_format
+dereference_adl(
+	mizuiro::image::access::dereference_ns::tag,
+	mizuiro::access::raw const &,
+	mylib::tag
 	<
-		Dim,
-		ValueType,
-		Size
-	>
-	image_format;
-
-	typedef
-	mizuiro::nonconst_tag
-	constness;
-
-	typedef typename
-	mizuiro::image::types::reference
+		mylib::native_format
+		<
+			Dim,
+			ValueType,
+			Size
+		>
+	>,
+	mizuiro::nonconst_tag,
+	mizuiro::image::format::store
 	<
-		access,
-		image_format,
-		constness
-	>::type
-	result_type;
-
-	typedef typename
+		mylib::native_format
+		<
+			Dim,
+			ValueType,
+			Size
+		>
+	> const &,
 	mizuiro::image::types::pointer
 	<
-		access,
-		image_format,
-		constness
-	>::type
-	pointer;
+		mizuiro::access::raw,
+		mylib::native_format
+		<
+			Dim,
+			ValueType,
+			Size
+		>,
+		mizuiro::nonconst_tag
+	> const _data
+)
+{
+	typedef
+	mizuiro::image::types::reference
+	<
+		mizuiro::access::raw,
+		mylib::native_format
+		<
+			Dim,
+			ValueType,
+			Size
+		>,
+		mizuiro::nonconst_tag
+	>
+	result_type;
 
-	static
-	result_type
-	execute(
-		mizuiro::access::raw const &,
-		pointer const _data,
-		mizuiro::image::format_store<image_format> const &)
-	{
-		return
-			result_type(
-				typename result_type::storage_type(
-					_data,
-					Size));
-	}
-};
-
+	return
+		result_type(
+			typename result_type::storage_type(
+				_data,
+				Size
+			)
+		);
 }
 
+}
+}
 }
 }
 
@@ -644,7 +704,7 @@ main()
 	typedef
 	mizuiro::image::linear_view
 	<
-		::mizuiro::access::raw,
+		mizuiro::access::raw,
 		mylib::native_format
 		<
 			dim2,

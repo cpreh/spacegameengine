@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/extra_fwd.hpp>
 #include <sge/renderer/vf/vector_base.hpp>
 #include <sge/renderer/vf/vector_fwd.hpp>
-#include <mizuiro/color/homogenous_static_fwd.hpp>
+#include <mizuiro/color/format/homogenous_static_fwd.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -88,7 +88,7 @@ template<
 	typename Index
 >
 struct extra<
-	mizuiro::color::homogenous_static<
+	mizuiro::color::format::homogenous_static<
 		ColorChannel,
 		ColorLayout
 	>,
@@ -97,7 +97,7 @@ struct extra<
 :
 sge::renderer::vf::extra_base<
 	sge::renderer::vf::color_base<
-		mizuiro::color::homogenous_static<
+		mizuiro::color::format::homogenous_static<
 			ColorChannel,
 			ColorLayout
 		>

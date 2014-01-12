@@ -53,10 +53,10 @@ convert(
 {
 	mizuiro::image::algorithm::binary_iteration(
 		sge::image::color::dynamic::algorithm::cac::convert_visitor<
-			typename sge::image::color::dynamic::algorithm::cac::function<
+			sge::image::color::dynamic::algorithm::cac::function<
 				typename Source::format,
 				typename Dest::format
-			>::type
+			>
 		>(
 			sge::image::color::dynamic::algorithm::cac::choose(
 				sge::image::color::dynamic::view::image_format(

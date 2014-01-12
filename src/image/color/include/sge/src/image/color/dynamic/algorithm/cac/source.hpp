@@ -24,9 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/view/mizuiro_access.hpp>
 #include <mizuiro/const_tag.hpp>
 #include <mizuiro/image/types/reference.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 
 
 namespace sge
@@ -42,23 +39,16 @@ namespace algorithm
 namespace cac
 {
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
 template<
 	typename ImageFormat
 >
-struct source
-:
+using source
+=
 mizuiro::image::types::reference<
 	sge::image::view::mizuiro_access,
 	ImageFormat,
 	mizuiro::const_tag
->
-{
-};
-
-FCPPT_PP_POP_WARNING
+>;
 
 }
 }
