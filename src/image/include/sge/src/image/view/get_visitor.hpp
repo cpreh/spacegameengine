@@ -67,9 +67,9 @@ public:
 	{
 		return
 			Result(
-				typename sge::image::mizuiro_color<
+				sge::image::mizuiro_color<
 					typename Src::format::color_format
-				>::type(
+				>(
 					_src[
 						sge::image::to_mizuiro_dim<
 							typename Src::dim

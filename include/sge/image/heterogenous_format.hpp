@@ -33,13 +33,13 @@ template<
 	typename Sizes,
 	typename Layout
 >
-struct heterogenous_format
-{
-	typedef mizuiro::color::format::heterogenous_static<
-		Sizes,
-		Layout
-	> type;
-};
+using
+heterogenous_format
+=
+mizuiro::color::format::heterogenous_static<
+	Sizes,
+	Layout
+>;
 
 }
 }

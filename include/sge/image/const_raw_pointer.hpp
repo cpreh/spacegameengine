@@ -23,12 +23,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/raw_value.hpp>
 
+
 namespace sge
 {
 namespace image
 {
 
-typedef raw_value const *const_raw_pointer;
+typedef sge::image::raw_value const *const_raw_pointer;
 
 }
 }

@@ -33,10 +33,12 @@ namespace image
 namespace ds
 {
 
-typedef sge::image::homogenous_format<
+typedef
+sge::image::homogenous_format<
 	sge::image::channel32,
 	mizuiro::color::layout::depth
->::type d32_format;
+>
+d32_format;
 
 }
 }

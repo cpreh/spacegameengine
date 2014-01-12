@@ -38,9 +38,11 @@ namespace color
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Wshadow)
 
-typedef sge::image::mizuiro_color<
+typedef
+sge::image::mizuiro_color<
 	sge::image::color::bgr8_format
->::type bgr8;
+>
+bgr8;
 
 FCPPT_PP_POP_WARNING
 

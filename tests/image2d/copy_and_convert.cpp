@@ -91,9 +91,9 @@ test_conversion(
 			0
 		)
 	] =
-		typename sge::image::mizuiro_color<
+		sge::image::mizuiro_color<
 			typename Source::color_format
-		>::type(
+		>(
 			_source
 		);
 
@@ -131,9 +131,9 @@ test_conversion(
 					0
 				)
 			],
-			typename sge::image::mizuiro_color<
+			sge::image::mizuiro_color<
 				typename Dest::color_format
-			>::type(
+			>(
 				_dest
 			),
 			[](

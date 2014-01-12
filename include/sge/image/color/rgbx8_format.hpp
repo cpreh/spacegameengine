@@ -33,10 +33,12 @@ namespace image
 namespace color
 {
 
-typedef sge::image::homogenous_format<
+typedef
+sge::image::homogenous_format<
 	sge::image::channel8,
 	mizuiro::color::layout::rgbx
->::type rgbx8_format;
+>
+rgbx8_format;
 
 }
 }

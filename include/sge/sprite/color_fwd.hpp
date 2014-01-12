@@ -35,12 +35,12 @@ template<
 >
 using color
 =
-typename
 sge::image::mizuiro_color<
-	typename sge::sprite::detail::config::color_format<
+	typename
+	sge::sprite::detail::config::color_format<
 		Choices
 	>::type
->::type;
+>;
 
 }
 }

@@ -32,12 +32,12 @@ namespace image
 template<
 	typename Format
 >
-struct mizuiro_color
-{
-	typedef mizuiro::color::object<
-		Format
-	> type;
-};
+using
+mizuiro_color
+=
+mizuiro::color::object<
+	Format
+>;
 
 }
 }

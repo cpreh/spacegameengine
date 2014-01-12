@@ -45,9 +45,9 @@ typename boost::enable_if<
 		typename Src::format,
 		DestFormat
 	>,
-	typename sge::image::mizuiro_color<
+	sge::image::mizuiro_color<
 		DestFormat
-	>::type
+	>
 >::type const
 convert(
 	Src const &_src

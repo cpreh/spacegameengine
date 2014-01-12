@@ -55,9 +55,9 @@ struct with_color
 			boost::mpl::vector1<
 				majutsu::role<
 					majutsu::simple<
-						typename sge::image::mizuiro_color<
+						sge::image::mizuiro_color<
 							color_format
-						>::type
+						>
 					>,
 					sge::sprite::roles::color
 				>

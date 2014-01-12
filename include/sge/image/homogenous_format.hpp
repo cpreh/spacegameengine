@@ -33,13 +33,13 @@ template<
 	typename Channel,
 	typename Layout
 >
-struct homogenous_format
-{
-	typedef mizuiro::color::format::homogenous_static<
-		Channel,
-		Layout
-	> type;
-};
+using
+homogenous_format
+=
+mizuiro::color::format::homogenous_static<
+	Channel,
+	Layout
+>;
 
 }
 }

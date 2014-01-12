@@ -33,13 +33,13 @@ namespace image
 template<
 	sge::image::size_type Dim
 >
-struct box
-{
-	typedef fcppt::math::box::object<
-		sge::image::size_type,
-		Dim
-	> type;
-};
+using
+box
+=
+fcppt::math::box::object<
+	sge::image::size_type,
+	Dim
+>;
 
 }
 }

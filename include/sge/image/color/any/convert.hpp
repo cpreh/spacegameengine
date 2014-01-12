@@ -39,9 +39,9 @@ template<
 	typename Dest
 >
 SGE_IMAGE_COLOR_SYMBOL
-typename sge::image::mizuiro_color<
+sge::image::mizuiro_color<
 	Dest
->::type const
+> const
 convert(
 	sge::image::color::any::object const &
 );

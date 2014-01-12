@@ -36,14 +36,16 @@ namespace image
 namespace ds
 {
 
-typedef sge::image::heterogenous_format<
+typedef
+sge::image::heterogenous_format<
 	boost::mpl::vector2_c<
 		mizuiro::size_type,
 		24u,
 		8u
 	>,
 	mizuiro::color::layout::depth_stencil
->::type d24s8_format;
+>
+d24s8_format;
 
 }
 }

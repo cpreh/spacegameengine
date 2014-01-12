@@ -46,9 +46,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<
 	typename Dest
 >
-typename sge::image::mizuiro_color<
+sge::image::mizuiro_color<
 	Dest
->::type const
+> const
 sge::image::color::any::convert(
 	sge::image::color::any::object const &_color
 )
@@ -69,7 +69,7 @@ template \
 SGE_EXPORT_FUNCTION_INSTANTIATION \
 sge::image::mizuiro_color<\
 	sge::image::color::format\
->::type const \
+> const \
 sge::image::color::any::convert<\
 	sge::image::color::format\
 >(\

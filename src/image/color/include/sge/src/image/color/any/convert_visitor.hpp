@@ -40,9 +40,11 @@ template<
 class convert_visitor
 {
 public:
-	typedef typename sge::image::mizuiro_color<
+	typedef
+	sge::image::mizuiro_color<
 		Dest
-	>::type result_type;
+	>
+	result_type;
 
 	template<
 		typename Source

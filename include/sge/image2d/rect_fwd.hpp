@@ -29,9 +29,11 @@ namespace sge
 namespace image2d
 {
 
-typedef sge::image::box<
+typedef
+sge::image::box<
 	2
->::type rect;
+>
+rect;
 
 }
 }

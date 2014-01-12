@@ -29,9 +29,11 @@ namespace sge
 namespace image3d
 {
 
-typedef sge::image::box<
+typedef
+sge::image::box<
 	3
->::type box;
+>
+box;
 
 }
 }

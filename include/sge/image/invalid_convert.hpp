@@ -40,9 +40,12 @@ class SGE_CLASS_SYMBOL invalid_convert
 	public sge::image::exception
 {
 public:
-	typedef typename sge::image::traits::format<
+	typedef
+	typename
+	sge::image::traits::format<
 		Tag
-	>::type format;
+	>::type
+	format;
 
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	invalid_convert(

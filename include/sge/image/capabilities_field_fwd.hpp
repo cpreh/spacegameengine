@@ -30,9 +30,11 @@ namespace sge
 namespace image
 {
 
-typedef fcppt::container::bitfield::object_from_enum<
+typedef
+fcppt::container::bitfield::object_from_enum<
 	sge::image::capabilities
-> capabilities_field;
+>
+capabilities_field;
 
 }
 }

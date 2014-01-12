@@ -52,9 +52,9 @@ struct converter
 			typename Source::format,
 			DestFormat
 		>,
-		typename sge::image::mizuiro_color<
+		sge::image::mizuiro_color<
 			DestFormat
-		>::type
+		>
 	>::type const
 	execute(
 		Source const &_source,
@@ -84,9 +84,9 @@ struct converter
 			typename Source::format,
 			DestFormat
 		>,
-		typename sge::image::mizuiro_color<
+		sge::image::mizuiro_color<
 			DestFormat
-		>::type
+		>
 	>::type const
 	execute(
 		Source const &,
