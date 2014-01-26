@@ -40,6 +40,7 @@ set(
 	include/sge/rucksack/widget/enumeration_fwd.hpp
 	include/sge/rucksack/widget/master_and_slaves.hpp
 	include/sge/rucksack/widget/master_and_slaves_fwd.hpp
+	include/sge/rucksack/widget/minimum_size.hpp
 	include/sge/rucksack/widget/optional_parent.hpp
 	include/sge/rucksack/widget/optional_parent_fwd.hpp
 	include/sge/rucksack/widget/viewport_adaptor.hpp
@@ -54,6 +55,7 @@ set(
 	src/rucksack/widget/dummy.cpp
 	src/rucksack/widget/enumeration.cpp
 	src/rucksack/widget/master_and_slaves.cpp
+	src/rucksack/widget/minimum_size.cpp
 	src/rucksack/widget/viewport_adaptor.cpp
 )
 

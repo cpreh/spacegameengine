@@ -579,6 +579,7 @@ set(
 	include/sge/image/color/any/clear.hpp
 	include/sge/image/color/any/compare.hpp
 	include/sge/image/color/any/convert.hpp
+	include/sge/image/color/any/detail/compare.hpp
 	include/sge/image/color/any/detail/make_object.hpp
 	include/sge/image/color/any/elements.hpp
 	include/sge/image/color/any/from_string.hpp
@@ -2678,6 +2679,7 @@ set(
 	include/sge/rucksack/widget/enumeration_fwd.hpp
 	include/sge/rucksack/widget/master_and_slaves.hpp
 	include/sge/rucksack/widget/master_and_slaves_fwd.hpp
+	include/sge/rucksack/widget/minimum_size.hpp
 	include/sge/rucksack/widget/optional_parent.hpp
 	include/sge/rucksack/widget/optional_parent_fwd.hpp
 	include/sge/rucksack/widget/viewport_adaptor.hpp
