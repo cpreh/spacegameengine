@@ -113,6 +113,9 @@ public:
 
 	sge::font::rect const
 	rect() const;
+
+	sge::font::text const &
+	text() const;
 private:
 	void
 	rebuild_sprite_range();

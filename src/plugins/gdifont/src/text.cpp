@@ -19,10 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/font/exception.hpp>
+#include <sge/font/index.hpp>
+#include <sge/font/optional_index.hpp>
 #include <sge/font/rect.hpp>
 #include <sge/font/string.hpp>
 #include <sge/font/text.hpp>
 #include <sge/font/text_parameters.hpp>
+#include <sge/font/vector.hpp>
 #include <sge/font/view.hpp>
 #include <sge/gdifont/a8_view.hpp>
 #include <sge/gdifont/calc_rect.hpp>
@@ -148,7 +151,31 @@ sge::gdifont::text::render(
 }
 
 sge::font::rect const
-sge::gdifont::text::rect()
+sge::gdifont::text::rect() const
 {
-	return rect_;
+	return
+		rect_;
+}
+
+sge::font::rect const
+sge::gdifont::text::cursor_rect(
+	sge::font::index const _index
+) const
+{
+	// FIXME
+	return
+		sge::font::rect(
+			sge::font::rect::vector::null(),
+			sge::font::rect::dim::null()
+		);
+}
+
+sge::font::optional_index const
+sge::gdifont::text::pos_to_index(
+	sge::font::vector const _pos
+) const
+{
+	// FIXME
+	return
+		sge::font::optional_index();
 }

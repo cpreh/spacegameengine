@@ -61,6 +61,15 @@ sge::font::draw::static_text::static_text(
 {
 }
 
+sge::font::draw::static_text::static_text(
+	static_text &&
+) = default;
+
+sge::font::draw::static_text &
+sge::font::draw::static_text::operator=(
+	static_text &&
+) = default;
+
 sge::font::draw::static_text::~static_text()
 {
 }
@@ -128,4 +137,11 @@ sge::font::draw::static_text::rect() const
 {
 	return
 		impl_->rect();
+}
+
+sge::font::text const &
+sge::font::draw::static_text::text() const
+{
+	return
+		impl_->text();
 }

@@ -21,10 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GDIFONT_TEXT_HPP_INCLUDED
 #define SGE_GDIFONT_TEXT_HPP_INCLUDED
 
+#include <sge/font/index.hpp>
+#include <sge/font/optional_index_fwd.hpp>
 #include <sge/font/rect.hpp>
 #include <sge/font/string.hpp>
 #include <sge/font/text.hpp>
 #include <sge/font/text_parameters_fwd.hpp>
+#include <sge/font/vector_fwd.hpp>
 #include <sge/font/view_fwd.hpp>
 #include <sge/gdifont/device_context_fwd.hpp>
 #include <sge/gdifont/format.hpp>
@@ -52,15 +55,30 @@ public:
 		sge::font::text_parameters const &
 	);
 
-	~text();
+	~text()
+	override;
 private:
 	void
 	render(
 		sge::font::view const &
-	);
+	)
+	override;
 
 	sge::font::rect const
-	rect();
+	rect() const
+	override;
+
+	sge::font::rect const
+	cursor_rect(
+		sge::font::index
+	) const
+	override;
+
+	sge::font::optional_index const
+	pos_to_index(
+		sge::font::vector
+	) const
+	override;
 
 	sge::gdifont::device_context const &device_context_;
 

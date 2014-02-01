@@ -28,6 +28,7 @@ set(
 	include/sge/font/flags_fwd.hpp
 	include/sge/font/from_fcppt_string.hpp
 	include/sge/font/height.hpp
+	include/sge/font/index.hpp
 	include/sge/font/lit.hpp
 	include/sge/font/log_location.hpp
 	include/sge/font/metrics.hpp
@@ -41,6 +42,8 @@ set(
 	include/sge/font/optional_dpi_fwd.hpp
 	include/sge/font/optional_family.hpp
 	include/sge/font/optional_family_fwd.hpp
+	include/sge/font/optional_index.hpp
+	include/sge/font/optional_index_fwd.hpp
 	include/sge/font/optional_ttf_size.hpp
 	include/sge/font/optional_ttf_size_fwd.hpp
 	include/sge/font/parameters.hpp

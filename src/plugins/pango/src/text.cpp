@@ -19,10 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/font/flags.hpp>
+#include <sge/font/index.hpp>
+#include <sge/font/optional_index.hpp>
 #include <sge/font/rect.hpp>
 #include <sge/font/string.hpp>
 #include <sge/font/text.hpp>
 #include <sge/font/text_parameters.hpp>
+#include <sge/font/vector.hpp>
 #include <sge/font/view_fwd.hpp>
 #include <sge/image/color/a8.hpp>
 #include <sge/image/color/init.hpp>
@@ -32,8 +35,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/pango/glib_deleter.hpp>
 #include <sge/pango/ink_rect.hpp>
 #include <sge/pango/text.hpp>
+#include <sge/pango/convert/from_rect_scale.hpp>
+#include <sge/pango/convert/to_unit.hpp>
 #include <sge/pango/freetype/make_bitmap.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/cast/to_signed.hpp>
+#include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <pango/pango-layout.h>
 #include <pango/pangoft2.h>
@@ -133,7 +141,72 @@ sge::pango::text::render(
 }
 
 sge::font::rect const
-sge::pango::text::rect()
+sge::pango::text::rect() const
 {
-	return ink_rect_;
+	return
+		ink_rect_;
+}
+
+sge::font::rect const
+sge::pango::text::cursor_rect(
+	sge::font::index const _index
+) const
+{
+	PangoRectangle
+		strong_pos,
+		weak_pos;
+
+	::pango_layout_get_cursor_pos(
+		layout_.get(),
+		fcppt::cast::size<
+			int
+		>(
+			fcppt::cast::to_signed(
+				_index
+			)
+		),
+		&strong_pos,
+		&weak_pos
+	);
+
+	return
+		sge::pango::convert::from_rect_scale(
+			strong_pos
+		);
+}
+
+sge::font::optional_index const
+sge::pango::text::pos_to_index(
+	sge::font::vector const _pos
+) const
+{
+	int result;
+
+	int trailing;
+
+	return
+		::pango_layout_xy_to_index(
+			layout_.get(),
+			sge::pango::convert::to_unit(
+				_pos.x()
+			),
+			sge::pango::convert::to_unit(
+				_pos.y()
+			),
+			&result,
+			&trailing
+		)
+		==
+		TRUE
+		?
+			sge::font::optional_index(
+				fcppt::cast::to_unsigned(
+					trailing
+					+
+					result
+				)
+			)
+		:
+			sge::font::optional_index()
+		;
 }

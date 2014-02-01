@@ -250,6 +250,14 @@ sge::font::draw::detail::static_text_impl::rect() const
 		text_->rect();
 }
 
+
+sge::font::text const &
+sge::font::draw::detail::static_text_impl::text() const
+{
+	return
+		*text_;
+}
+
 void
 sge::font::draw::detail::static_text_impl::rebuild_sprite_range()
 {

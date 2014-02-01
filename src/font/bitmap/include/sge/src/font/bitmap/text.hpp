@@ -21,11 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_FONT_BITMAP_TEXT_HPP_INCLUDED
 #define SGE_SRC_FONT_BITMAP_TEXT_HPP_INCLUDED
 
+#include <sge/font/index.hpp>
+#include <sge/font/optional_index_fwd.hpp>
 #include <sge/font/rect.hpp>
 #include <sge/font/string.hpp>
 #include <sge/font/text.hpp>
 #include <sge/font/text_parameters_fwd.hpp>
 #include <sge/font/unit.hpp>
+#include <sge/font/vector_fwd.hpp>
 #include <sge/font/view_fwd.hpp>
 #include <sge/font/align_h/variant.hpp>
 #include <sge/src/font/bitmap/char_map.hpp>
@@ -58,19 +61,36 @@ public:
 		sge::font::unit line_height
 	);
 
-	~text();
+	~text()
+	override;
 private:
 	void
 	render(
 		sge::font::view const &
-	);
+	)
+	override;
 
 	sge::font::rect const
-	rect();
+	rect() const
+	override;
 
-	typedef boost::ptr_vector<
+	sge::font::rect const
+	cursor_rect(
+		sge::font::index
+	) const
+	override;
+
+	sge::font::optional_index const
+	pos_to_index(
+		sge::font::vector
+	) const
+	override;
+
+	typedef
+	boost::ptr_vector<
 		sge::font::bitmap::line
-	> line_vector;
+	>
+	line_vector;
 
 	line_vector lines_;
 

@@ -2,6 +2,7 @@ set(
 	SGE_PANGO_FILES
 	src/plugins/pango/include/sge/pango/convert/alignment.hpp
 	src/plugins/pango/include/sge/pango/convert/from_rect.hpp
+	src/plugins/pango/include/sge/pango/convert/from_rect_scale.hpp
 	src/plugins/pango/include/sge/pango/convert/from_unit.hpp
 	src/plugins/pango/include/sge/pango/convert/to_unit.hpp
 	src/plugins/pango/include/sge/pango/create_font_map.hpp
@@ -23,6 +24,7 @@ set(
 	src/plugins/pango/include/sge/pango/text.hpp
 	src/plugins/pango/src/convert/alignment.cpp
 	src/plugins/pango/src/convert/from_rect.cpp
+	src/plugins/pango/src/convert/from_rect_scale.cpp
 	src/plugins/pango/src/convert/from_unit.cpp
 	src/plugins/pango/src/convert/to_unit.cpp
 	src/plugins/pango/src/create_font_map.cpp

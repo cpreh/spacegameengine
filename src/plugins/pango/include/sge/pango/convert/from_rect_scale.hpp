@@ -18,61 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_TEXT_HPP_INCLUDED
-#define SGE_FONT_TEXT_HPP_INCLUDED
+#ifndef SGE_PANGO_CONVERT_FROM_RECT_SCALE_HPP_INCLUDED
+#define SGE_PANGO_CONVERT_FROM_RECT_SCALE_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
-#include <sge/font/index.hpp>
-#include <sge/font/optional_index_fwd.hpp>
 #include <sge/font/rect_fwd.hpp>
-#include <sge/font/symbol.hpp>
-#include <sge/font/text_fwd.hpp>
-#include <sge/font/vector_fwd.hpp>
-#include <sge/font/view_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <pango/pango-types.h>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
 {
-namespace font
+namespace pango
+{
+namespace convert
 {
 
-class SGE_CLASS_SYMBOL text
-{
-	FCPPT_NONCOPYABLE(
-		text
-	);
-protected:
-	SGE_FONT_SYMBOL
-	text();
-public:
-	SGE_FONT_SYMBOL
-	virtual
-	~text() = 0;
+sge::font::rect const
+from_rect_scale(
+	PangoRectangle const &
+);
 
-	virtual
-	void
-	render(
-		sge::font::view const &
-	) = 0;
-
-	virtual
-	sge::font::rect const
-	rect() const = 0;
-
-	virtual
-	sge::font::rect const
-	cursor_rect(
-		sge::font::index
-	) const = 0;
-
-	virtual
-	sge::font::optional_index const
-	pos_to_index(
-		sge::font::vector
-	) const = 0;
-};
-
+}
 }
 }
 

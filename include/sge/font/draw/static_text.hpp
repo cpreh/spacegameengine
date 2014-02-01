@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/object_fwd.hpp>
 #include <sge/font/rect_fwd.hpp>
 #include <sge/font/string.hpp>
+#include <sge/font/text_fwd.hpp>
 #include <sge/font/text_parameters_fwd.hpp>
 #include <sge/font/vector_fwd.hpp>
 #include <sge/font/draw/set_matrices_fwd.hpp>
@@ -36,7 +37,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/renderer/texture/emulate_srgb_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr_decl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -61,6 +64,17 @@ public:
 		sge::font::vector const &,
 		sge::image::color::any::object const &,
 		sge::renderer::texture::emulate_srgb
+	);
+
+	SGE_FONT_DRAW_SYMBOL
+	static_text(
+		static_text &&
+	);
+
+	SGE_FONT_DRAW_SYMBOL
+	static_text  &
+	operator=(
+		static_text &&
 	);
 
 	SGE_FONT_DRAW_SYMBOL
@@ -99,13 +113,18 @@ public:
 	SGE_FONT_DRAW_SYMBOL
 	sge::font::rect const
 	rect() const;
+
+	SGE_FONT_DRAW_SYMBOL
+	sge::font::text const &
+	text() const;
 private:
 	typedef
-	fcppt::scoped_ptr<
+	std::unique_ptr<
 		sge::font::draw::detail::static_text_impl
-	> impl_ptr;
+	>
+	impl_ptr;
 
-	impl_ptr const impl_;
+	impl_ptr impl_;
 };
 
 }

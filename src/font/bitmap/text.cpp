@@ -20,12 +20,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/font/flags.hpp>
 #include <sge/font/flags_field.hpp>
+#include <sge/font/index.hpp>
+#include <sge/font/optional_index.hpp>
 #include <sge/font/rect.hpp>
 #include <sge/font/string.hpp>
 #include <sge/font/text.hpp>
 #include <sge/font/text_parameters.hpp>
 #include <sge/font/to_fcppt_string.hpp>
 #include <sge/font/unit.hpp>
+#include <sge/font/vector.hpp>
 #include <sge/font/view.hpp>
 #include <sge/font/align_h/center.hpp>
 #include <sge/font/align_h/extract_max_width.hpp>
@@ -497,7 +500,31 @@ sge::font::bitmap::text::render(
 }
 
 sge::font::rect const
-sge::font::bitmap::text::rect()
+sge::font::bitmap::text::rect() const
 {
-	return rect_;
+	return
+		rect_;
+}
+
+sge::font::rect const
+sge::font::bitmap::text::cursor_rect(
+	sge::font::index const _index
+) const
+{
+	// FIXME
+	return
+		sge::font::rect(
+			sge::font::rect::vector::null(),
+			sge::font::rect::dim::null()
+		);
+}
+
+sge::font::optional_index const
+sge::font::bitmap::text::pos_to_index(
+	sge::font::vector const _pos
+) const
+{
+	// FIXME
+	return
+		sge::font::optional_index();
 }
