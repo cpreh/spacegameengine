@@ -36,13 +36,13 @@ template<
 	sge::charconv::encoding SourceEncoding
 >
 SGE_CHARCONV_SYMBOL
-typename sge::charconv::string_type<
+sge::charconv::string_type<
 	DestEncoding
->::type
+>
 convert(
-	typename sge::charconv::string_type<
+	sge::charconv::string_type<
 		SourceEncoding
-	>::type const &
+	> const &
 );
 
 }

@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/charconv/char_type.hpp>
 #include <sge/charconv/encoding.hpp>
-#include <sge/charconv/traits_type.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <string>
 #include <fcppt/config/external_end.hpp>
@@ -37,28 +36,15 @@ namespace charconv
 template<
 	sge::charconv::encoding Encoding
 >
-struct string_type
-{
-private:
-	typedef typename sge::charconv::char_type<
+using
+string_type
+=
+std::basic_string<
+	typename
+	sge::charconv::char_type<
 		Encoding
-	>::type char_type;
-public:
-	typedef std::basic_string<
-		char_type,
-		sge::charconv::traits_type<
-			char_type
-		>
-	> type;
-};
-
-template<>
-struct string_type<
-	sge::charconv::encoding::wchar
->
-{
-	typedef std::wstring type;
-};
+	>::type
+>;
 
 }
 }

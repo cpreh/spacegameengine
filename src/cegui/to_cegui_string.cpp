@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/to_cegui_string.hpp>
 #include <sge/charconv/convert.hpp>
 #include <sge/charconv/encoding.hpp>
-#include <sge/charconv/string_type.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/to_std_wstring.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -36,29 +35,11 @@ sge::cegui::to_cegui_string(
 	fcppt::string const &_string
 )
 {
-	// This is here so that the CEGUI::String constructor with a zero
-	// length null terminated utf8 string doesn't get used, because it
-	// crashes under gcc-4.7
 	if(
 		_string.empty()
 	)
-		return CEGUI::String();
-
-	typedef
-	sge::charconv::string_type
-	<
-		sge::charconv::encoding::utf8
-	>::type
-	utf8_string;
-
-	static_assert(
-		std::is_same
-		<
-			utf8_string::value_type,
-			CEGUI::utf8
-		>::value,
-		"CEGUI's string must use utf32"
-	);
+		return
+			CEGUI::String();
 
 	return
 		CEGUI::String(

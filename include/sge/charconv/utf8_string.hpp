@@ -30,9 +30,11 @@ namespace sge
 namespace charconv
 {
 
-typedef sge::charconv::string_type<
+typedef
+sge::charconv::string_type<
 	sge::charconv::encoding::utf8
->::type utf8_string;
+>
+utf8_string;
 
 }
 }

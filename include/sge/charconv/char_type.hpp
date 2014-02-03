@@ -43,7 +43,8 @@ struct char_type<
 >
 {
 	// TODO: char?
-	typedef std::uint8_t type;
+	//typedef std::uint8_t type;
+	typedef char type;
 };
 
 template<>

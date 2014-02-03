@@ -42,20 +42,19 @@ template<
 	sge::charconv::encoding DestEncoding,
 	sge::charconv::encoding SourceEncoding
 >
-typename sge::charconv::string_type<
+sge::charconv::string_type<
 	DestEncoding
->::type
+>
 sge::charconv::convert(
-	typename sge::charconv::string_type<
+	sge::charconv::string_type<
 		SourceEncoding
-	>::type const &_source
+	> const &_source
 )
 {
 	typedef
-	typename
 	sge::charconv::string_type<
 		DestEncoding
-	>::type
+	>
 	dest_type;
 
 
@@ -131,14 +130,14 @@ template \
 SGE_EXPORT_FUNCTION_INSTANTIATION \
 sge::charconv::string_type< \
 	BOOST_PP_SEQ_ELEM(0, param) \
->::type \
+> \
 sge::charconv::convert<\
 	BOOST_PP_SEQ_ELEM(0, param),\
 	BOOST_PP_SEQ_ELEM(1, param)\
 >( \
 	sge::charconv::string_type< \
 		BOOST_PP_SEQ_ELEM(1, param) \
-	>::type const & \
+	> const & \
 );
 
 #define SGE_CHARCONV_ENCODINGS \

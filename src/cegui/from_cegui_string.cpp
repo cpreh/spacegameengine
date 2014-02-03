@@ -40,7 +40,7 @@ sge::cegui::from_cegui_string(
 	sge::charconv::string_type
 	<
 		sge::charconv::encoding::utf32
-	>::type
+	>
 	source_string;
 
 	static_assert(
@@ -56,7 +56,7 @@ sge::cegui::from_cegui_string(
 	sge::charconv::string_type
 	<
 		sge::charconv::encoding::wchar
-	>::type
+	>
 	dest_string;
 
 	dest_string const dest(

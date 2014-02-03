@@ -142,7 +142,7 @@ sge::cegui::syringe::inject(
 	typedef
 	sge::charconv::string_type<
 		sge::charconv::encoding::utf32
-	>::type
+	>
 	utf32_string;
 
 	utf32_string const converted_string(
