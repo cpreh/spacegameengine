@@ -55,7 +55,7 @@ sge::parse::ini::output::grammar<
 
 	entry_ %=
 		*char_
-		<< lit(FCPPT_TEXT(" = "))
+		<< lit(FCPPT_TEXT('='))
 		<< *char_;
 
 	header_ %=

@@ -64,8 +64,11 @@ sge::parse::ini::grammar<
 		!char_(FCPPT_TEXT('['))
 		>> +~char_(FCPPT_TEXT('='))
 		>> lit(FCPPT_TEXT('='))
-		>> +(char_ - eol)
-		>> eol;
+		>>
+		lexeme[
+			*(char_ - eol)
+		]
+		>> +eol;
 
 	header_ %=
 		lexeme[
@@ -77,7 +80,7 @@ sge::parse::ini::grammar<
 			)
 			>> lit(FCPPT_TEXT(']'))
 		]
-		>> eol;
+		>> +eol;
 
 	section_ %=
 		header_

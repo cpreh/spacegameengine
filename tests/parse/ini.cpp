@@ -86,6 +86,8 @@ FCPPT_PP_POP_WARNING
 		FCPPT_TEXT("[sectionfoo]\n")
 			FCPPT_TEXT("foo3 =	 bar3\n")
 			FCPPT_TEXT("foo4=bar4\n")
+			FCPPT_TEXT("\n")
+			FCPPT_TEXT("empty=\n")
 	);
 
 	fcppt::io::istringstream stream(
@@ -112,9 +114,6 @@ FCPPT_PP_POP_WARNING
 		result
 	);
 
-	fcppt::io::cout()
-		<< FCPPT_TEXT('\n');
-
 	BOOST_REQUIRE(
 		stream.eof()
 	);
@@ -128,7 +127,7 @@ FCPPT_PP_POP_WARNING
 	);
 
 	BOOST_REQUIRE(
-		result.sections[1].entries.size() == 2u
+		result.sections[1].entries.size() == 3u
 	);
 
 	BOOST_CHECK(
@@ -147,6 +146,12 @@ FCPPT_PP_POP_WARNING
 		result.sections[1].entries[1].name == FCPPT_TEXT("foo4")
 		&&
 		result.sections[1].entries[1].value == FCPPT_TEXT("bar4")
+	);
+
+	BOOST_CHECK(
+		result.sections[1].entries[2].name == FCPPT_TEXT("empty")
+		&&
+		result.sections[1].entries[2].value == FCPPT_TEXT("")
 	);
 }
 
@@ -169,5 +174,10 @@ FCPPT_PP_POP_WARNING
 	check_failure(
 		FCPPT_TEXT("[foo]")
 		FCPPT_TEXT("missing_newline")
+	);
+
+	check_failure(
+		FCPPT_TEXT("[foo]")
+		FCPPT_TEXT("invalid name=foo")
 	);
 }
