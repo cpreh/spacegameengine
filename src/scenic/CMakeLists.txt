@@ -156,7 +156,7 @@ set(
 
 add_sge_base_library(
 	"scenic"
-	"sgecamera;sgecg;sgecharconv;sgeconfig;sgeimagecolor;sgeline_drawer;sgemodelobj;sgeparse;sgerenderer;sgerenderercg;sgeshader;sgeviewport"
+	"sgecamera;sgecg;sgecharconv;sgeconfig;sgeimagecolor;sgeline_drawer;sgemodelobj;sgeparsejson;sgerenderer;sgerenderercg;sgeshader;sgeviewport"
 	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 	""

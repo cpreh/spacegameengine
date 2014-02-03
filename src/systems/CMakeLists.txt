@@ -223,7 +223,7 @@ add_definitions(
 
 add_sge_base_library(
 	systems
-	"sgeaudio;sgeconfig;sgecore;sgefont;sgeimage2d;sgeinput;sgelog;sgeparseini;sgeplugin;sgerenderer;sgeviewport;sgewindow"
+	"sgeaudio;sgeconfig;sgecore;sgefont;sgeimage2d;sgeinput;sgelog;sgeparse;sgeparseini;sgeplugin;sgerenderer;sgeviewport;sgewindow"
 	"${awl_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 	""

@@ -34,7 +34,7 @@ set(
 add_sge_base_library(
 	parse
 	"sgecore"
-	""
+	"${fcppt_core_TARGET}"
 	"sgecore"
 	"${fcppt_filesystem_TARGET}"
 	"${CMAKE_CURRENT_SOURCE_DIR}/include"
