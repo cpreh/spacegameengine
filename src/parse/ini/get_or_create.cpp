@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/ini/value.hpp>
 
 
-sge::parse::ini::value const
+sge::parse::ini::value
 sge::parse::ini::get_or_create(
 	sge::parse::ini::start &_start,
 	sge::parse::ini::section_name const &_section_name,

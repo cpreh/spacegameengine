@@ -152,7 +152,7 @@ set(
 
 add_sge_base_library(
 	camera
-	"sgeinput;sgelog;sgeparse;sgerenderer;sgeviewport"
+	"sgeinput;sgelog;sgeparsejson;sgerenderer;sgeviewport"
 	"${fcppt_core_TARGET};${fcppt_filesystem_TARGET}"
 	""
 	""

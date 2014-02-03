@@ -43,7 +43,7 @@ namespace convert
 template<
 	typename Container
 >
-Container const
+Container
 to_static_container(
 	sge::parse::json::array const &_array
 )

@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_JSON_CONFIG_MODIFY_USER_VALUE_HPP_INCLUDED
 #define SGE_PARSE_JSON_CONFIG_MODIFY_USER_VALUE_HPP_INCLUDED
 
-#include <sge/parse/symbol.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/parse/json/path_fwd.hpp>
+#include <sge/parse/json/symbol.hpp>
 #include <sge/parse/json/value.hpp>
 
 
@@ -46,12 +46,15 @@ namespace config
 	- a path to a specific option
 	- the option's new value
  */
-SGE_PARSE_SYMBOL void
+SGE_PARSE_JSON_SYMBOL
+void
 modify_user_value(
-	json::object const &structure_json,
-	json::object &user_json,
-	json::path const &path,
-	json::value const &new_value);
+	sge::parse::json::object const &structure_json,
+	sge::parse::json::object &user_json,
+	sge::parse::json::path const &path,
+	sge::parse::json::value const &new_value
+);
+
 }
 }
 }

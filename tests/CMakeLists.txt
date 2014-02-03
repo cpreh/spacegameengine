@@ -136,14 +136,14 @@ add_sge_test(
 
 add_sge_test(
 	parse/json
-	"sgeparse"
+	"sgeparse;sgeparsejson"
 	"${fcppt_core_TARGET}"
 	""
 )
 
 add_sge_test(
 	parse/ini
-	"sgeparse"
+	"sgeparse;sgeparseini"
 	"${fcppt_core_TARGET}"
 	""
 )

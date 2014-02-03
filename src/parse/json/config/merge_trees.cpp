@@ -65,7 +65,7 @@ public:
 };
 }
 
-sge::parse::json::object const
+sge::parse::json::object
 sge::parse::json::config::merge_trees(
 	sge::parse::json::object const &original,
 	sge::parse::json::object const &update)

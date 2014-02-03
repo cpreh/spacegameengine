@@ -319,6 +319,18 @@ add_sge_lib(
 )
 
 add_sge_lib(
+	parse/ini
+	"Build the ini parse library"
+	ON
+)
+
+add_sge_lib(
+	parse/json
+	"Build the json parse library"
+	ON
+)
+
+add_sge_lib(
 	timer
 	"Build the timer library"
 	ON

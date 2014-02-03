@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_INI_PARSE_FILE_OPT_HPP_INCLUDED
 #define SGE_PARSE_INI_PARSE_FILE_OPT_HPP_INCLUDED
 
-#include <sge/parse/symbol.hpp>
 #include <sge/parse/ini/result_with_value_fwd.hpp>
+#include <sge/parse/ini/symbol.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -35,8 +35,8 @@ namespace parse
 namespace ini
 {
 
-SGE_PARSE_SYMBOL
-sge::parse::ini::result_with_value const
+SGE_PARSE_INI_SYMBOL
+sge::parse::ini::result_with_value
 parse_file_opt(
 	boost::filesystem::path const &
 );

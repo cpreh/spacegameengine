@@ -36,8 +36,8 @@ namespace json
 {
 
 typedef std::pair<
-	json::string,
-	json::value
+	sge::parse::json::string,
+	sge::parse::json::value
 > member;
 
 }

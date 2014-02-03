@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_INI_ENTRY_NAME_EQUAL_HPP_INCLUDED
 #define SGE_PARSE_INI_ENTRY_NAME_EQUAL_HPP_INCLUDED
 
-#include <sge/parse/symbol.hpp>
 #include <sge/parse/ini/entry_fwd.hpp>
 #include <sge/parse/ini/entry_name.hpp>
+#include <sge/parse/ini/symbol.hpp>
 
 
 namespace sge
@@ -38,13 +38,13 @@ class entry_name_equal
 public:
 	typedef bool result_type;
 
-	SGE_PARSE_SYMBOL
+	SGE_PARSE_INI_SYMBOL
 	explicit
 	entry_name_equal(
 		sge::parse::ini::entry_name const &
 	);
 
-	SGE_PARSE_SYMBOL
+	SGE_PARSE_INI_SYMBOL
 	bool
 	operator()(
 		sge::parse::ini::entry const &

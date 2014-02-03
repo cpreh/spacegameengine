@@ -32,9 +32,11 @@ namespace parse
 namespace json
 {
 
-typedef sge::parse::result_with_value<
+typedef
+sge::parse::result_with_value<
 	sge::parse::json::start
-> result_with_value;
+>
+result_with_value;
 
 }
 }

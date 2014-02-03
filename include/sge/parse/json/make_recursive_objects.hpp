@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_JSON_MAKE_RECURSIVE_OBJECTS_HPP_INCLUDED
 #define SGE_PARSE_JSON_MAKE_RECURSIVE_OBJECTS_HPP_INCLUDED
 
-#include <sge/parse/symbol.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/parse/json/path_fwd.hpp>
+#include <sge/parse/json/symbol.hpp>
 
 
 namespace sge
@@ -32,10 +32,14 @@ namespace parse
 {
 namespace json
 {
-SGE_PARSE_SYMBOL sge::parse::json::object &
+
+SGE_PARSE_JSON_SYMBOL
+sge::parse::json::object &
 make_recursive_objects(
 	sge::parse::json::object &,
-	json::path const &);
+	sge::parse::json::path const &
+);
+
 }
 }
 }

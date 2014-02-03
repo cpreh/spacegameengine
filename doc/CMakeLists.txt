@@ -374,7 +374,6 @@ set(
 	include/sge/charconv/raw_vector_fwd.hpp
 	include/sge/charconv/source_encoding.hpp
 	include/sge/charconv/string_type.hpp
-	include/sge/charconv/traits_type.hpp
 	include/sge/charconv/unsupported_conversion.hpp
 	include/sge/charconv/utf8_file_to_fcppt_string.hpp
 	include/sge/charconv/utf8_file_to_fcppt_string_exn.hpp
@@ -1542,6 +1541,7 @@ set(
 	include/sge/parse/json/object.hpp
 	include/sge/parse/json/object_fwd.hpp
 	include/sge/parse/json/optional_element_vector.hpp
+	include/sge/parse/json/optional_element_vector_fwd.hpp
 	include/sge/parse/json/optional_object_ref.hpp
 	include/sge/parse/json/optional_object_ref_fwd.hpp
 	include/sge/parse/json/output/grammar.hpp

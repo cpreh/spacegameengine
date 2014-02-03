@@ -33,7 +33,7 @@ namespace json
 {
 
 typedef fcppt::optional<
-	json::object const &
+	sge::parse::json::object const &
 > const_optional_object_ref;
 
 }

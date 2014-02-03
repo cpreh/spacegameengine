@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/string.hpp>
 
 
-sge::parse::json::start const
+sge::parse::json::start
 sge::parse::json::parse_string_exn(
 	fcppt::string const &_string
 )

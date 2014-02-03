@@ -142,7 +142,7 @@ process_option(
 }
 }
 
-sge::parse::json::object const
+sge::parse::json::object
 sge::parse::json::config::merge_command_line_parameters(
 	json::object input,
 	config::command_line_parameters const &parameters)

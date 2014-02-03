@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_JSON_PATH_HPP_INCLUDED
 #define SGE_PARSE_JSON_PATH_HPP_INCLUDED
 
-#include <sge/parse/symbol.hpp>
+#include <sge/parse/json/symbol.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <vector>
@@ -34,11 +34,14 @@ namespace parse
 {
 namespace json
 {
+
 class path
 {
 public:
 	typedef
-	std::vector<fcppt::string>
+	std::vector<
+		fcppt::string
+	>
 	sequence_type;
 
 	typedef
@@ -53,36 +56,47 @@ public:
 	sequence_type::size_type
 	size_type;
 
-	SGE_PARSE_SYMBOL explicit
+	SGE_PARSE_JSON_SYMBOL
 	path(
 		const_iterator,
-		const_iterator);
+		const_iterator
+	);
 
-	SGE_PARSE_SYMBOL explicit
+	SGE_PARSE_JSON_SYMBOL
+	explicit
 	path(
-		fcppt::string const &);
+		fcppt::string const &
+	);
 
-	SGE_PARSE_SYMBOL const_iterator
+	SGE_PARSE_JSON_SYMBOL
+	const_iterator
 	begin() const;
 
-	SGE_PARSE_SYMBOL const_iterator
+	SGE_PARSE_JSON_SYMBOL
+	const_iterator
 	end() const;
 
-	SGE_PARSE_SYMBOL size_type
+	SGE_PARSE_JSON_SYMBOL
+	size_type
 	size() const;
 
-	SGE_PARSE_SYMBOL const_reference
+	SGE_PARSE_JSON_SYMBOL
+	const_reference
 	back() const;
 
-	SGE_PARSE_SYMBOL bool
+	SGE_PARSE_JSON_SYMBOL
+	bool
 	empty() const;
 
-	SGE_PARSE_SYMBOL path
+	SGE_PARSE_JSON_SYMBOL
+	path
 	operator/(
-		fcppt::string const &) const;
+		fcppt::string const &
+	) const;
 private:
 	sequence_type sequence_;
 };
+
 }
 }
 }

@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_INI_GET_OR_CREATE_ENTRY_HPP_INCLUDED
 #define SGE_PARSE_INI_GET_OR_CREATE_ENTRY_HPP_INCLUDED
 
-#include <sge/parse/symbol.hpp>
 #include <sge/parse/ini/entry_fwd.hpp>
 #include <sge/parse/ini/entry_name.hpp>
 #include <sge/parse/ini/section_fwd.hpp>
+#include <sge/parse/ini/symbol.hpp>
 #include <sge/parse/ini/value.hpp>
 
 
@@ -35,7 +35,7 @@ namespace parse
 namespace ini
 {
 
-SGE_PARSE_SYMBOL
+SGE_PARSE_INI_SYMBOL
 sge::parse::ini::entry &
 get_or_create_entry(
 	sge::parse::ini::section &,

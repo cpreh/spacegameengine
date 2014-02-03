@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::parse::result const
+sge::parse::result
 sge::parse::ini::parse_file(
 	boost::filesystem::path const &_path,
 	sge::parse::ini::start &_result

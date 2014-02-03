@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::parse::ini::optional_value const
+sge::parse::ini::optional_value
 sge::parse::ini::find_value(
 	sge::parse::ini::start const &_start,
 	sge::parse::ini::section_name const _section_name,

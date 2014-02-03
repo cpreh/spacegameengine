@@ -21,22 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_JSON_OPTIONAL_ELEMENT_VECTOR_HPP_INCLUDED
 #define SGE_PARSE_JSON_OPTIONAL_ELEMENT_VECTOR_HPP_INCLUDED
 
-#include <sge/parse/json/element_vector.hpp>
+#include <sge/parse/json/optional_element_vector_fwd.hpp>
 #include <fcppt/optional_impl.hpp>
 
-namespace sge
-{
-namespace parse
-{
-namespace json
-{
-
-typedef fcppt::optional<
-	json::element_vector
-> optional_element_vector;
-
-}
-}
-}
 
 #endif

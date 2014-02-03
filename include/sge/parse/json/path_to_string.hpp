@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_JSON_PATH_TO_STRING_HPP_INCLUDED
 #define SGE_PARSE_JSON_PATH_TO_STRING_HPP_INCLUDED
 
-#include <sge/parse/symbol.hpp>
 #include <sge/parse/json/path_fwd.hpp>
+#include <sge/parse/json/symbol.hpp>
 #include <fcppt/string.hpp>
 
 
@@ -33,7 +33,7 @@ namespace parse
 namespace json
 {
 
-SGE_PARSE_SYMBOL
+SGE_PARSE_JSON_SYMBOL
 fcppt::string
 path_to_string(
 	sge::parse::json::path const &

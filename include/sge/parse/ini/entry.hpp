@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_INI_ENTRY_HPP_INCLUDED
 #define SGE_PARSE_INI_ENTRY_HPP_INCLUDED
 
-#include <sge/parse/symbol.hpp>
 #include <sge/parse/ini/entry_fwd.hpp>
 #include <sge/parse/ini/entry_name.hpp>
 #include <sge/parse/ini/string.hpp>
+#include <sge/parse/ini/symbol.hpp>
 #include <sge/parse/ini/value.hpp>
 
 
@@ -37,10 +37,10 @@ namespace ini
 
 struct entry
 {
-	SGE_PARSE_SYMBOL
+	SGE_PARSE_INI_SYMBOL
 	entry();
 
-	SGE_PARSE_SYMBOL
+	SGE_PARSE_INI_SYMBOL
 	entry(
 		sge::parse::ini::entry_name const &,
 		sge::parse::ini::value const &

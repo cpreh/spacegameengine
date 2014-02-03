@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_JSON_CONFIG_MERGE_COMMAND_LINE_PARAMETERS_HPP_INCLUDED
 #define SGE_PARSE_JSON_CONFIG_MERGE_COMMAND_LINE_PARAMETERS_HPP_INCLUDED
 
-#include <sge/parse/symbol.hpp>
 #include <sge/parse/json/object.hpp>
+#include <sge/parse/json/symbol.hpp>
 #include <sge/parse/json/config/command_line_parameters.hpp>
 
 
@@ -34,10 +34,14 @@ namespace json
 {
 namespace config
 {
-SGE_PARSE_SYMBOL json::object const
+
+SGE_PARSE_JSON_SYMBOL
+sge::parse::json::object
 merge_command_line_parameters(
-	json::object,
-	config::command_line_parameters const &);
+	sge::parse::json::object,
+	sge::parse::json::config::command_line_parameters const &
+);
+
 }
 }
 }

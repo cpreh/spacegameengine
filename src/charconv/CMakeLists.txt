@@ -26,7 +26,6 @@ set(
 	include/sge/charconv/raw_vector_fwd.hpp
 	include/sge/charconv/source_encoding.hpp
 	include/sge/charconv/string_type.hpp
-	include/sge/charconv/traits_type.hpp
 	include/sge/charconv/unsupported_conversion.hpp
 	include/sge/charconv/utf8_file_to_fcppt_string.hpp
 	include/sge/charconv/utf8_file_to_fcppt_string_exn.hpp

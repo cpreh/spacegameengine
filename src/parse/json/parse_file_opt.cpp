@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::parse::json::result_with_value const
+sge::parse::json::result_with_value
 sge::parse::json::parse_file_opt(
 	boost::filesystem::path const &_path
 )

@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_INI_SECTION_HPP_INCLUDED
 #define SGE_PARSE_INI_SECTION_HPP_INCLUDED
 
-#include <sge/parse/symbol.hpp>
 #include <sge/parse/ini/entry_vector.hpp>
 #include <sge/parse/ini/section_fwd.hpp>
 #include <sge/parse/ini/section_name.hpp>
 #include <sge/parse/ini/string.hpp>
+#include <sge/parse/ini/symbol.hpp>
 
 
 namespace sge
@@ -37,10 +37,10 @@ namespace ini
 
 struct section
 {
-	SGE_PARSE_SYMBOL
+	SGE_PARSE_INI_SYMBOL
 	section();
 
-	SGE_PARSE_SYMBOL
+	SGE_PARSE_INI_SYMBOL
 	explicit
 	section(
 		sge::parse::ini::section_name const &

@@ -32,11 +32,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/detail/init_result.hpp>
 #include <sge/parse/json/detail/is_array.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
+#include <fcppt/no_init.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/matrix/is_matrix.hpp>
-#include <fcppt/math/matrix/object_impl.hpp>
 #include <fcppt/type_traits/is_iterable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/and.hpp>

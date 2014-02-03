@@ -41,7 +41,7 @@ namespace ini
 template<
 	typename In
 >
-sge::parse::result const
+sge::parse::result
 parse_range(
 	In &_beg,
 	In const _end,

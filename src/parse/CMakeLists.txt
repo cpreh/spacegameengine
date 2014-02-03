@@ -5,140 +5,7 @@ set(
 	include/sge/parse/exception.hpp
 	include/sge/parse/exception_fwd.hpp
 	include/sge/parse/info_to_string.hpp
-	include/sge/parse/ini/detail/adapt_entry.hpp
-	include/sge/parse/ini/detail/adapt_section.hpp
-	include/sge/parse/ini/detail/adapt_start.hpp
-	include/sge/parse/ini/entry.hpp
-	include/sge/parse/ini/entry_fwd.hpp
-	include/sge/parse/ini/entry_name.hpp
-	include/sge/parse/ini/entry_name_equal.hpp
-	include/sge/parse/ini/entry_vector.hpp
-	include/sge/parse/ini/find_value.hpp
-	include/sge/parse/ini/get_or_create.hpp
-	include/sge/parse/ini/get_or_create_entry.hpp
-	include/sge/parse/ini/get_or_create_section.hpp
-	include/sge/parse/ini/grammar.hpp
-	include/sge/parse/ini/grammar_decl.hpp
-	include/sge/parse/ini/grammar_fwd.hpp
-	include/sge/parse/ini/grammar_impl.hpp
-	include/sge/parse/ini/optional_value.hpp
-	include/sge/parse/ini/optional_value_fwd.hpp
-	include/sge/parse/ini/output/grammar.hpp
-	include/sge/parse/ini/output/grammar_decl.hpp
-	include/sge/parse/ini/output/grammar_fwd.hpp
-	include/sge/parse/ini/output/grammar_impl.hpp
-	include/sge/parse/ini/output/to_file.hpp
-	include/sge/parse/ini/output/to_range.hpp
-	include/sge/parse/ini/output/to_stream.hpp
-	include/sge/parse/ini/parse_file.hpp
-	include/sge/parse/ini/parse_file_exn.hpp
-	include/sge/parse/ini/parse_file_opt.hpp
-	include/sge/parse/ini/parse_range.hpp
-	include/sge/parse/ini/parse_stream.hpp
-	include/sge/parse/ini/result_with_value.hpp
-	include/sge/parse/ini/result_with_value_fwd.hpp
-	include/sge/parse/ini/section.hpp
-	include/sge/parse/ini/section_fwd.hpp
-	include/sge/parse/ini/section_name.hpp
-	include/sge/parse/ini/section_name_equal.hpp
-	include/sge/parse/ini/section_vector.hpp
-	include/sge/parse/ini/set_or_create.hpp
-	include/sge/parse/ini/start.hpp
-	include/sge/parse/ini/start_fwd.hpp
-	include/sge/parse/ini/string.hpp
-	include/sge/parse/ini/value.hpp
 	include/sge/parse/install_error_handler.hpp
-	include/sge/parse/json/array.hpp
-	include/sge/parse/json/array_fwd.hpp
-	include/sge/parse/json/config/command_line_parameters.hpp
-	include/sge/parse/json/config/create_command_line_parameters.hpp
-	include/sge/parse/json/config/help_needed_exception.hpp
-	include/sge/parse/json/config/merge_command_line_parameters.hpp
-	include/sge/parse/json/config/merge_trees.hpp
-	include/sge/parse/json/config/modify_user_value.hpp
-	include/sge/parse/json/config/user_config_variable.hpp
-	include/sge/parse/json/config/user_config_variable_decl.hpp
-	include/sge/parse/json/config/user_config_variable_fwd.hpp
-	include/sge/parse/json/config/user_config_variable_impl.hpp
-	include/sge/parse/json/const_optional_object_ref.hpp
-	include/sge/parse/json/const_optional_object_ref_fwd.hpp
-	include/sge/parse/json/convert/choose_fundamental.hpp
-	include/sge/parse/json/convert/from_container.hpp
-	include/sge/parse/json/convert/from_enum.hpp
-	include/sge/parse/json/convert/from_int.hpp
-	include/sge/parse/json/convert/to_enum.hpp
-	include/sge/parse/json/convert/to_int.hpp
-	include/sge/parse/json/convert/to_static_container.hpp
-	include/sge/parse/json/convert_from.hpp
-	include/sge/parse/json/convert_to.hpp
-	include/sge/parse/json/detail/adapt_array.hpp
-	include/sge/parse/json/detail/adapt_object.hpp
-	include/sge/parse/json/detail/adapt_start.hpp
-	include/sge/parse/json/detail/get_return_type.hpp
-	include/sge/parse/json/detail/init_result.hpp
-	include/sge/parse/json/detail/insert_member.hpp
-	include/sge/parse/json/detail/is_array.hpp
-	include/sge/parse/json/detail/member_wrapper.hpp
-	include/sge/parse/json/detail/value_wrapper.hpp
-	include/sge/parse/json/detail/value_wrapper_fwd.hpp
-	include/sge/parse/json/element_vector.hpp
-	include/sge/parse/json/find_and_convert_member.hpp
-	include/sge/parse/json/find_member.hpp
-	include/sge/parse/json/find_member_exn.hpp
-	include/sge/parse/json/find_member_return_type.hpp
-	include/sge/parse/json/find_member_value.hpp
-	include/sge/parse/json/find_member_value_exn.hpp
-	include/sge/parse/json/find_object.hpp
-	include/sge/parse/json/find_object_exn.hpp
-	include/sge/parse/json/float_type.hpp
-	include/sge/parse/json/get.hpp
-	include/sge/parse/json/grammar.hpp
-	include/sge/parse/json/grammar_decl.hpp
-	include/sge/parse/json/grammar_fwd.hpp
-	include/sge/parse/json/grammar_impl.hpp
-	include/sge/parse/json/int_type.hpp
-	include/sge/parse/json/invalid_get.hpp
-	include/sge/parse/json/is_null.hpp
-	include/sge/parse/json/make_recursive_objects.hpp
-	include/sge/parse/json/member.hpp
-	include/sge/parse/json/member_map.hpp
-	include/sge/parse/json/member_not_found.hpp
-	include/sge/parse/json/null.hpp
-	include/sge/parse/json/null_fwd.hpp
-	include/sge/parse/json/object.hpp
-	include/sge/parse/json/object_fwd.hpp
-	include/sge/parse/json/optional_element_vector.hpp
-	include/sge/parse/json/optional_object_ref.hpp
-	include/sge/parse/json/optional_object_ref_fwd.hpp
-	include/sge/parse/json/output/grammar.hpp
-	include/sge/parse/json/output/grammar_decl.hpp
-	include/sge/parse/json/output/grammar_fwd.hpp
-	include/sge/parse/json/output/grammar_impl.hpp
-	include/sge/parse/json/output/tabbed_to_stream.hpp
-	include/sge/parse/json/output/tabbed_to_string.hpp
-	include/sge/parse/json/output/to_file.hpp
-	include/sge/parse/json/output/to_range.hpp
-	include/sge/parse/json/output/to_stream.hpp
-	include/sge/parse/json/parse_file.hpp
-	include/sge/parse/json/parse_file_exn.hpp
-	include/sge/parse/json/parse_file_opt.hpp
-	include/sge/parse/json/parse_range.hpp
-	include/sge/parse/json/parse_stream.hpp
-	include/sge/parse/json/parse_string_exn.hpp
-	include/sge/parse/json/path.hpp
-	include/sge/parse/json/path_fwd.hpp
-	include/sge/parse/json/path_to_string.hpp
-	include/sge/parse/json/result_with_value.hpp
-	include/sge/parse/json/result_with_value_fwd.hpp
-	include/sge/parse/json/start.hpp
-	include/sge/parse/json/start_fwd.hpp
-	include/sge/parse/json/start_variant.hpp
-	include/sge/parse/json/start_variant_fwd.hpp
-	include/sge/parse/json/string.hpp
-	include/sge/parse/json/string_to_path.hpp
-	include/sge/parse/json/string_to_value.hpp
-	include/sge/parse/json/value.hpp
-	include/sge/parse/json/value_fwd.hpp
 	include/sge/parse/make_result.hpp
 	include/sge/parse/optional_error_string.hpp
 	include/sge/parse/optional_error_string_fwd.hpp
@@ -151,9 +18,7 @@ set(
 	include/sge/parse/result_with_value.hpp
 	include/sge/parse/result_with_value_fwd.hpp
 	src/parse/exception.cpp
-	src/parse/include/sge/src/parse/ini/output/to_range_functor.hpp
 	src/parse/include/sge/src/parse/instantiate_result_with_value.hpp
-	src/parse/include/sge/src/parse/json/output/to_range_functor.hpp
 	src/parse/include/sge/src/parse/output/to_file.hpp
 	src/parse/include/sge/src/parse/output/to_stream.hpp
 	src/parse/include/sge/src/parse/parse_file.hpp
@@ -162,51 +27,6 @@ set(
 	src/parse/include/sge/src/parse/parse_stream.hpp
 	src/parse/include/sge/src/parse/result_with_value_impl.hpp
 	src/parse/info_to_string.cpp
-	src/parse/ini/entry.cpp
-	src/parse/ini/entry_name_equal.cpp
-	src/parse/ini/find_value.cpp
-	src/parse/ini/get_or_create.cpp
-	src/parse/ini/get_or_create_entry.cpp
-	src/parse/ini/get_or_create_section.cpp
-	src/parse/ini/output/to_file.cpp
-	src/parse/ini/output/to_stream.cpp
-	src/parse/ini/parse_file.cpp
-	src/parse/ini/parse_file_exn.cpp
-	src/parse/ini/parse_file_opt.cpp
-	src/parse/ini/parse_stream.cpp
-	src/parse/ini/result_with_value.cpp
-	src/parse/ini/section.cpp
-	src/parse/ini/section_name_equal.cpp
-	src/parse/ini/set_or_create.cpp
-	src/parse/ini/start.cpp
-	src/parse/json/array.cpp
-	src/parse/json/config/create_command_line_parameters.cpp
-	src/parse/json/config/help_needed_exception.cpp
-	src/parse/json/config/merge_command_line_parameters.cpp
-	src/parse/json/config/merge_trees.cpp
-	src/parse/json/config/modify_user_value.cpp
-	src/parse/json/find_object.cpp
-	src/parse/json/find_object_exn.cpp
-	src/parse/json/invalid_get.cpp
-	src/parse/json/is_null.cpp
-	src/parse/json/make_recursive_objects.cpp
-	src/parse/json/member_not_found.cpp
-	src/parse/json/object.cpp
-	src/parse/json/output/tabbed_to_stream.cpp
-	src/parse/json/output/tabbed_to_string.cpp
-	src/parse/json/output/to_file.cpp
-	src/parse/json/output/to_stream.cpp
-	src/parse/json/parse_file.cpp
-	src/parse/json/parse_file_exn.cpp
-	src/parse/json/parse_file_opt.cpp
-	src/parse/json/parse_stream.cpp
-	src/parse/json/parse_string_exn.cpp
-	src/parse/json/path.cpp
-	src/parse/json/path_to_string.cpp
-	src/parse/json/result_with_value.cpp
-	src/parse/json/start.cpp
-	src/parse/json/string_to_path.cpp
-	src/parse/json/string_to_value.cpp
 	src/parse/parse_exception.cpp
 	src/parse/result.cpp
 )
@@ -214,9 +34,9 @@ set(
 add_sge_base_library(
 	parse
 	"sgecore"
-	"${fcppt_core_TARGET};${fcppt_filesystem_TARGET}"
-	"sgecore"
 	""
+	"sgecore"
+	"${fcppt_filesystem_TARGET}"
 	"${CMAKE_CURRENT_SOURCE_DIR}/include"
 	""
 	""

@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/io/istream.hpp>
 
 
-sge::parse::result const
+sge::parse::result
 sge::parse::json::parse_stream(
 	fcppt::io::istream &_stream,
 	sge::parse::json::start &_result

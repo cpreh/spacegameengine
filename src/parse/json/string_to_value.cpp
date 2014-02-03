@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/io/istringstream.hpp>
 
 
-sge::parse::json::value const
+sge::parse::json::value
 sge::parse::json::string_to_value(
 	fcppt::string const &_string
 )

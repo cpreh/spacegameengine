@@ -28,20 +28,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::parse::json::path const
+sge::parse::json::path
 sge::parse::json::string_to_path(
-	fcppt::string const &input_path)
+	fcppt::string const &_input_path
+)
 {
-	json::path::sequence_type parts;
+	sge::parse::json::path::sequence_type parts;
 
 	boost::algorithm::split(
 		parts,
-		input_path,
+		_input_path,
 		boost::algorithm::is_any_of(
-			FCPPT_TEXT("/")));
+			FCPPT_TEXT("/")
+		)
+	);
 
 	return
-		json::path(
+		sge::parse::json::path(
 			parts.begin(),
-			parts.end());
+			parts.end()
+		);
 }

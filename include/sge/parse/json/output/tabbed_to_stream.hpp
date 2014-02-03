@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_JSON_OUTPUT_TABBED_TO_STREAM_HPP_INCLUDED
 #define SGE_PARSE_JSON_OUTPUT_TABBED_TO_STREAM_HPP_INCLUDED
 
-#include <sge/parse/symbol.hpp>
 #include <sge/parse/json/start_fwd.hpp>
+#include <sge/parse/json/symbol.hpp>
 #include <fcppt/io/ostream.hpp>
 
 
@@ -35,7 +35,7 @@ namespace json
 namespace output
 {
 
-SGE_PARSE_SYMBOL
+SGE_PARSE_JSON_SYMBOL
 void
 tabbed_to_stream(
 	fcppt::io::ostream &,

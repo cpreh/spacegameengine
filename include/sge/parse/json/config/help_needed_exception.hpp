@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/class_symbol.hpp>
 #include <sge/parse/exception.hpp>
-#include <sge/parse/symbol.hpp>
+#include <sge/parse/json/symbol.hpp>
 #include <fcppt/string.hpp>
 
 
@@ -40,7 +40,7 @@ class SGE_CLASS_SYMBOL help_needed_exception
 	public sge::parse::exception
 {
 public:
-	SGE_PARSE_SYMBOL
+	SGE_PARSE_JSON_SYMBOL
 	explicit
 	help_needed_exception(
 		fcppt::string const &

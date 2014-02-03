@@ -241,7 +241,7 @@ add_sge_example(
 
 add_sge_console_example(
 	ini
-	"sgeparse"
+	"sgeparse;sgeparseini"
 	"${fcppt_core_TARGET}"
 	""
 )
@@ -262,7 +262,7 @@ add_sge_example(
 
 add_sge_console_example(
 	json
-	"sgeparse"
+	"sgeparse;sgeparsejson"
 	"${fcppt_core_TARGET}"
 	""
 )
@@ -391,7 +391,7 @@ add_sge_console_example(
 
 add_sge_example(
 	scenic
-	"sgeconfig;sgeimagecolor;sgeinput;sgerenderer;sgesystems;sgeviewport;sgewindow;sgescenic;sgecamera;sgegraph;sgeparse"
+	"sgeconfig;sgeimagecolor;sgeinput;sgerenderer;sgesystems;sgeviewport;sgewindow;sgescenic;sgecamera;sgegraph;sgeparsejson"
 	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES};${Boost_PROGRAM_OPTIONS_LIBRARIES}"
 	""
 )

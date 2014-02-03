@@ -44,7 +44,7 @@ namespace convert
 template<
 	typename Container
 >
-sge::parse::json::array const
+sge::parse::json::array
 from_container(
 	Container const &_container
 )

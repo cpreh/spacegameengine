@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_INI_SECTION_NAME_EQUAL_HPP_INCLUDED
 #define SGE_PARSE_INI_SECTION_NAME_EQUAL_HPP_INCLUDED
 
-#include <sge/parse/symbol.hpp>
 #include <sge/parse/ini/section_fwd.hpp>
 #include <sge/parse/ini/section_name.hpp>
+#include <sge/parse/ini/symbol.hpp>
 
 
 namespace sge
@@ -38,13 +38,13 @@ class section_name_equal
 public:
 	typedef bool result_type;
 
-	SGE_PARSE_SYMBOL
+	SGE_PARSE_INI_SYMBOL
 	explicit
 	section_name_equal(
 		sge::parse::ini::section_name const &
 	);
 
-	SGE_PARSE_SYMBOL
+	SGE_PARSE_INI_SYMBOL
 	result_type
 	operator()(
 		sge::parse::ini::section const &

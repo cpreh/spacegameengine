@@ -159,7 +159,13 @@ update_sublibrary model/obj
 
 update_sublibrary opencl
 
-update_sublibrary parse
+update_sublibrary parse \
+	"src/parse/include" \
+	"-n"
+
+update_sublibrary parse/ini
+
+update_sublibrary parse/json
 
 update_sublibrary postprocessing
 
