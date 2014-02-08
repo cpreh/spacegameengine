@@ -164,6 +164,13 @@ sge::rucksack::widget::box::base::axis_policy() const
 			major_policy.is_expanding();
 	}
 
+	if(
+		preferred_size_minor
+		<
+		minimum_size_minor
+	)
+		preferred_size_minor = 0;
+
 	sge::rucksack::axis_policy const
 		minor_policy(
 			(sge::rucksack::minimum_size(
