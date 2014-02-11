@@ -18,18 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_EGL_SYSTEM_HPP_INCLUDED
-#define SGE_OPENGL_EGL_SYSTEM_HPP_INCLUDED
+#ifndef SGE_OPENGL_EGL_VISUAL_CREATE_HPP_INCLUDED
+#define SGE_OPENGL_EGL_VISUAL_CREATE_HPP_INCLUDED
 
-#include <sge/opengl/device_state/context_unique_ptr.hpp>
-#include <sge/opengl/device_state/scoped_current_fwd.hpp>
-#include <sge/opengl/device_state/system.hpp>
-#include <sge/renderer/parameters/vsync_fwd.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <awl/system/object_fwd.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
-#include <awl/window/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
 
 
 namespace sge
@@ -38,42 +32,16 @@ namespace opengl
 {
 namespace egl
 {
-
-class system
-:
-	public sge::opengl::device_state::system
+namespace visual
 {
-	FCPPT_NONCOPYABLE(
-		system
-	);
-public:
-	system();
 
-	~system()
-	override;
-private:
-	awl::visual::object_unique_ptr
-	create_visual(
-		awl::system::object &,
-		sge::renderer::pixel_format::object const &
-	)
-	override;
+awl::visual::object_unique_ptr
+create(
+	awl::system::object &,
+	sge::renderer::pixel_format::object const &
+);
 
-	sge::opengl::device_state::context_unique_ptr
-	create_context(
-		awl::window::object &
-	)
-	override;
-
-	void
-	vsync(
-		sge::opengl::device_state::scoped_current const &,
-		awl::window::object &,
-		sge::renderer::parameters::vsync
-	)
-	override;
-};
-
+}
 }
 }
 }

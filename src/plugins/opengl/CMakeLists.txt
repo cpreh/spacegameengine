@@ -1029,6 +1029,12 @@ set(
 
 set(
 	SGE_OPENGL_X11_FILES
+	src/plugins/opengl/include/sge/opengl/x11/state.hpp
+	src/plugins/opengl/src/x11/state.cpp
+)
+
+set(
+	SGE_OPENGL_GLX_FILES
 	src/plugins/opengl/include/sge/opengl/glx/context.hpp
 	src/plugins/opengl/include/sge/opengl/glx/context_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/glx/context_scoped_ptr.hpp
@@ -1051,7 +1057,6 @@ set(
 	src/plugins/opengl/include/sge/opengl/glx/visual/rgb_triple.hpp
 	src/plugins/opengl/include/sge/opengl/glx/visual/rgb_triple_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/glx/vsync.hpp
-	src/plugins/opengl/include/sge/opengl/x11/state.hpp
 	src/plugins/opengl/src/glx/context.cpp
 	src/plugins/opengl/src/glx/current_drawable.cpp
 	src/plugins/opengl/src/glx/make_current.cpp
@@ -1066,7 +1071,6 @@ set(
 	src/plugins/opengl/src/glx/visual/make_attributes.cpp
 	src/plugins/opengl/src/glx/visual/rgb_triple.cpp
 	src/plugins/opengl/src/glx/vsync.cpp
-	src/plugins/opengl/src/x11/state.cpp
 )
 
 set(
@@ -1175,7 +1179,62 @@ set(
 
 set(
 	SGE_OPENGL_EGL_FILES
+	src/plugins/opengl/include/sge/opengl/egl/attribute_vector.hpp
+	src/plugins/opengl/include/sge/opengl/egl/choose_config.hpp
+	src/plugins/opengl/include/sge/opengl/egl/context.hpp
+	src/plugins/opengl/include/sge/opengl/egl/context_impl.hpp
+	src/plugins/opengl/include/sge/opengl/egl/create_native_display.hpp
+	src/plugins/opengl/include/sge/opengl/egl/get_display.hpp
+	src/plugins/opengl/include/sge/opengl/egl/init.hpp
+	src/plugins/opengl/include/sge/opengl/egl/make_current.hpp
+	src/plugins/opengl/include/sge/opengl/egl/native_display.hpp
+	src/plugins/opengl/include/sge/opengl/egl/native_display_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/egl/native_display_scoped_ptr.hpp
+	src/plugins/opengl/include/sge/opengl/egl/native_display_unique_ptr.hpp
+	src/plugins/opengl/include/sge/opengl/egl/native_window.hpp
+	src/plugins/opengl/include/sge/opengl/egl/no_context.hpp
+	src/plugins/opengl/include/sge/opengl/egl/no_display.hpp
+	src/plugins/opengl/include/sge/opengl/egl/no_surface.hpp
+	src/plugins/opengl/include/sge/opengl/egl/swap_buffers.hpp
 	src/plugins/opengl/include/sge/opengl/egl/system.hpp
+	src/plugins/opengl/include/sge/opengl/egl/visual/base.hpp
+	src/plugins/opengl/include/sge/opengl/egl/visual/base_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/egl/visual/choose_config.hpp
+	src/plugins/opengl/include/sge/opengl/egl/visual/create.hpp
+	src/plugins/opengl/include/sge/opengl/egl/visual/make_attributes.hpp
+	src/plugins/opengl/include/sge/opengl/egl/window_surface.hpp
+	src/plugins/opengl/src/egl/choose_config.cpp
+	src/plugins/opengl/src/egl/context.cpp
+	src/plugins/opengl/src/egl/context_impl.cpp
+	src/plugins/opengl/src/egl/create_native_display.cpp
+	src/plugins/opengl/src/egl/get_display.cpp
+	src/plugins/opengl/src/egl/init.cpp
+	src/plugins/opengl/src/egl/make_current.cpp
+	src/plugins/opengl/src/egl/native_display.cpp
+	src/plugins/opengl/src/egl/native_window.cpp
+	src/plugins/opengl/src/egl/no_context.cpp
+	src/plugins/opengl/src/egl/no_display.cpp
+	src/plugins/opengl/src/egl/no_surface.cpp
+	src/plugins/opengl/src/egl/swap_buffers.cpp
+	src/plugins/opengl/src/egl/system.cpp
+	src/plugins/opengl/src/egl/visual/base.cpp
+	src/plugins/opengl/src/egl/visual/choose_config.cpp
+	src/plugins/opengl/src/egl/visual/create.cpp
+	src/plugins/opengl/src/egl/visual/make_attributes.cpp
+	src/plugins/opengl/src/egl/window_surface.cpp
+)
+
+set(
+	SGE_OPENGL_EGL_X11_FILES
+	src/plugins/opengl/include/sge/opengl/egl/x11/native_display.hpp
+	src/plugins/opengl/include/sge/opengl/egl/x11/visual.hpp
+	src/plugins/opengl/src/egl/x11/native_display.cpp
+	src/plugins/opengl/src/egl/x11/visual.cpp
+)
+
+
+find_package(
+	EGL
 )
 
 option(
@@ -1183,25 +1242,7 @@ option(
 	"Use EGL in OpenGL"
 	OFF
 )
-
-if(
-	ENABLE_EGL
-)
-	set(
-		SGE_FIND_EGL_REQUIRED
-		"REQUIRED"
-	)
-endif()
-
-find_package(
-	EGL
-	${SGE_FIND_EGL_REQUIRED}
-)
-
-set(
-	SGE_OPENGL_HAVE_EGL
-	${ENABLE_EGL}
-)
+#${EGL_FOUND}
 
 set(
 	SGE_OPENGL_FILES
@@ -1239,29 +1280,49 @@ if(
 	list(
 		APPEND
 		SGE_OPENGL_INCLUDE_DIRS
-		"${X11_X11_INCLUDE}"
+		${X11_X11_INCLUDE}
 	)
 
-	set(
+	list(
+		APPEND
 		SGE_OPENGL_FILES
-		"${SGE_OPENGL_FILES};${SGE_OPENGL_X11_FILES}"
+		${SGE_OPENGL_X11_FILES}
+	)
+
+	list(
+		APPEND
+		SGE_OPENGL_FILES
+		${SGE_OPENGL_XRANDR_FILES}
 	)
 
 	list(
 		APPEND
 		SGE_OPENGL_INCLUDE_DIRS
-		"${X11_Xrandr_INCLUDE_PATH}"
+		${X11_Xrandr_INCLUDE_PATH}
 	)
 
-	set(
-		SGE_OPENGL_FILES
-		"${SGE_OPENGL_FILES};${SGE_OPENGL_XRANDR_FILES}"
-	)
-
-	set(
+	list(
+		APPEND
 		SGE_OPENGL_ADDITIONAL_DEPS
-		"${SGE_OPENGL_ADDITIONAL_DEPS};${X11_Xrandr_LIB}"
+		${SGE_OPENGL_ADDITIONAL_DEPS}
+		${X11_Xrandr_LIB}
 	)
+
+	if(
+		ENABLE_EGL
+	)
+		list(
+			APPEND
+			SGE_OPENGL_FILES
+			${SGE_OPENGL_EGL_X11_FILES}
+		)
+	else()
+		list(
+			APPEND
+			SGE_OPENGL_FILES
+			${SGE_OPENGL_GLX_FILES}
+		)
+	endif()
 elseif(
 	WIN32
 )
@@ -1290,23 +1351,55 @@ if(
 )
 	list(
 		APPEND
+		SGE_OPENGL_FILES
+		${SGE_OPENGL_CG_FILES}
+	)
+
+	list(
+		APPEND
 		SGE_OPENGL_INCLUDE_DIRS
 		${Cg_INCLUDE_DIRS}
 	)
 
-	set(
-		SGE_OPENGL_FILES
-		"${SGE_OPENGL_FILES};${SGE_OPENGL_CG_FILES}"
-	)
-
-	set(
+	list(
+		APPEND
 		SGE_OPENGL_ADDITIONAL_DEPS
-		"${SGE_OPENGL_ADDITIONAL_DEPS};${Cg_LIBRARIES};${Cg_GL_LIBRARIES}"
+		${Cg_LIBRARIES}
+		${Cg_GL_LIBRARIES}
 	)
 
-	set(
+	list(
+		APPEND
 		SGE_OPENGL_SGE_DEPS
-		"${SGE_OPENGL_SGE_DEPS};sgecg;sgerenderercg"
+		sgecg
+		sgerenderercg
+	)
+endif()
+
+if(
+	ENABLE_EGL
+)
+	set(
+		SGE_OPENGL_HAVE_EGL
+		TRUE
+	)
+
+	list(
+		APPEND
+		SGE_OPENGL_FILES
+		${SGE_OPENGL_EGL_FILES}
+	)
+
+	list(
+		APPEND
+		SGE_OPENGL_INCLUDE_DIRS
+		${EGL_INCLUDE_DIRS}
+	)
+
+	list(
+		APPEND
+		SGE_OPENGL_ADDITIONAL_DEPS
+		${EGL_LIBRARIES}
 	)
 endif()
 

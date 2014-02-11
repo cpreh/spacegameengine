@@ -53,25 +53,29 @@ public:
 		sge::opengl::context::system::object &
 	);
 
-	~system();
+	~system()
+	override;
 private:
 	awl::visual::object_unique_ptr
 	create_visual(
 		awl::system::object &,
 		sge::renderer::pixel_format::object const &
-	);
+	)
+	override;
 
 	sge::opengl::device_state::context_unique_ptr
 	create_context(
 		awl::window::object &
-	);
+	)
+	override;
 
 	void
 	vsync(
 		sge::opengl::device_state::scoped_current const &,
 		awl::window::object &,
 		sge::renderer::parameters::vsync
-	);
+	)
+	override;
 
 	sge::opengl::context::system::object &system_context_;
 };

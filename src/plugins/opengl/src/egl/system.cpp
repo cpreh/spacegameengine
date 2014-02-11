@@ -18,96 +18,71 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/opengl/device_state/context.hpp>
 #include <sge/opengl/device_state/context_unique_ptr.hpp>
 #include <sge/opengl/device_state/scoped_current_fwd.hpp>
 #include <sge/opengl/device_state/system.hpp>
-#include <sge/opengl/glx/context.hpp>
-#include <sge/opengl/glx/system.hpp>
-#include <sge/opengl/glx/vsync.hpp>
-#include <sge/opengl/glx/visual/create.hpp>
+#include <sge/opengl/egl/context.hpp>
+#include <sge/opengl/egl/create_native_display.hpp>
+#include <sge/opengl/egl/native_display.hpp>
+#include <sge/opengl/egl/native_window.hpp>
+#include <sge/opengl/egl/system.hpp>
+#include <sge/opengl/egl/visual/create.hpp>
 #include <sge/renderer/parameters/vsync.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
-#include <awl/backends/x11/system/object.hpp>
-#include <awl/backends/x11/window/object.hpp>
 #include <awl/system/object_fwd.hpp>
 #include <awl/visual/object.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
-#include <awl/window/object_fwd.hpp>
+#include <awl/window/object.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/cast/static_downcast.hpp>
 
 
-sge::opengl::glx::system::system(
-	sge::opengl::context::system::object &_system_context
-)
+sge::opengl::egl::system::system()
 :
-	system_context_(
-		_system_context
-	)
+	sge::opengl::device_state::system()
 {
 }
 
-sge::opengl::glx::system::~system()
+sge::opengl::egl::system::~system()
 {
 }
 
 awl::visual::object_unique_ptr
-sge::opengl::glx::system::create_visual(
+sge::opengl::egl::system::create_visual(
 	awl::system::object &_awl_system,
 	sge::renderer::pixel_format::object const &_pixel_format
 )
 {
 	return
-		sge::opengl::glx::visual::create(
-			system_context_,
-			fcppt::cast::static_downcast<
-				awl::backends::x11::system::object &
-			>(
-				_awl_system
-			),
+		sge::opengl::egl::visual::create(
+			_awl_system,
 			_pixel_format
 		);
 }
 
 sge::opengl::device_state::context_unique_ptr
-sge::opengl::glx::system::create_context(
+sge::opengl::egl::system::create_context(
 	awl::window::object &_window
 )
 {
 	return
-		sge::opengl::device_state::context_unique_ptr(
-			fcppt::make_unique_ptr<
-				sge::opengl::glx::context
-			>(
-				fcppt::cast::static_downcast<
-					awl::backends::x11::window::object &
-				>(
-					_window
-				)
-			)
+		fcppt::make_unique_ptr<
+			sge::opengl::egl::context
+		>(
+			sge::opengl::egl::create_native_display(
+				_window
+			),
+			sge::opengl::egl::native_window(
+				_window
+			),
+			_window.visual()
 		);
 }
 
 void
-sge::opengl::glx::system::vsync(
+sge::opengl::egl::system::vsync(
 	sge::opengl::device_state::scoped_current const &,
-	awl::window::object &_awl_window,
-	sge::renderer::parameters::vsync const _vsync
+	awl::window::object &,
+	sge::renderer::parameters::vsync
 )
 {
-	if(
-		_vsync
-		==
-		sge::renderer::parameters::vsync::on
-	)
-		sge::opengl::glx::vsync(
-			system_context_,
-			fcppt::cast::static_downcast<
-				awl::backends::x11::window::object &
-			>(
-				_awl_window
-			).display()
-		);
 }

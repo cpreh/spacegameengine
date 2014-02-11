@@ -45,7 +45,7 @@ sge::opengl::glx::context::context(
 			const_cast<
 				XVisualInfo *
 			>(
-				&window_.visual().info()
+				window_.visual().info()
 			),
 			nullptr,
 			True

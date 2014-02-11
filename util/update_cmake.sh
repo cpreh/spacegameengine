@@ -229,6 +229,8 @@ update_sublibrary viewport
 
 update_sublibrary window
 
+# plugins
+
 function plugin_inc_src() {
 	echo "src/plugins/$1/include/sge/$1/$2" "src/plugins/$1/src/$2"
 }
@@ -237,7 +239,12 @@ function opengl_inc_src() {
 	plugin_inc_src opengl "$1"
 }
 
-# plugins
+function update_opengl() {
+	update_cmake \
+		src/plugins/opengl/CMakeLists.txt \
+		"$@"
+}
+
 update_cmake \
 	src/plugins/opengl/CMakeLists.txt \
 	SGE_OPENGL_BASE_FILES \
@@ -258,38 +265,41 @@ update_cmake \
 	$(opengl_inc_src texture) \
 	$(opengl_inc_src vf)
 
-update_cmake \
-	src/plugins/opengl/CMakeLists.txt \
+update_opengl \
 	SGE_OPENGL_WIN32_FILES \
 	$(opengl_inc_src wgl) \
 	$(opengl_inc_src windows)
 
-update_cmake \
-	src/plugins/opengl/CMakeLists.txt \
+update_opengl \
 	SGE_OPENGL_COCOA_FILES \
 	-e '.*\.(mm|cpp)?' \
 	$(opengl_inc_src cocoa)
 
-update_cmake \
-	src/plugins/opengl/CMakeLists.txt \
+update_opengl \
 	SGE_OPENGL_X11_FILES \
-	$(opengl_inc_src glx) \
 	$(opengl_inc_src x11)
 
-update_cmake \
-	src/plugins/opengl/CMakeLists.txt \
+update_opengl \
+	SGE_OPENGL_GLX_FILES \
+	$(opengl_inc_src glx) \
+
+update_opengl \
 	SGE_OPENGL_XRANDR_FILES \
 	$(opengl_inc_src xrandr)
 
-#update_cmake \
-#	src/plugins/opengl/CMakeLists.txt \
-#	SGE_OPENGL_EGL_FILES \
-#	$(opengl_inc_src egl)
-
-update_cmake \
-	src/plugins/opengl/CMakeLists.txt \
+update_opengl \
 	SGE_OPENGL_CG_FILES \
 	$(opengl_inc_src cg)
+
+update_opengl \
+	SGE_OPENGL_EGL_FILES \
+	-n \
+	$(opengl_inc_src egl) \
+	$(opengl_inc_src egl/visual) \
+
+update_opengl \
+	SGE_OPENGL_EGL_X11_FILES \
+	$(opengl_inc_src egl/x11)
 
 update_plugin audio_null
 
