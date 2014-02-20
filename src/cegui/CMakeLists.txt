@@ -131,5 +131,4 @@ add_sge_base_library(
 	"${CEGUI_LIBRARIES}"
 	"${CEGUI_INCLUDE_DIRS};${CMAKE_CURRENT_SOURCE_DIR}/include"
 	"${CEGUI_INCLUDE_DIRS}"
-	""
 )

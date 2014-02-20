@@ -10,75 +10,15 @@ function(
 		"${SGE_LIBRARIES}"
 	)
 
-	string(
-		REPLACE
-		"/"
-		"_"
-		TESTNAME
-		${PATHNAME}
-	)
-
-	set(
-		TESTNAME
-		test_${TESTNAME}
-	)
-
-	add_executable(
-		${TESTNAME}
-		${PATHNAME}.cpp
-	)
-
-	if(
-		Boost_USE_STATIC_LIBS
-	)
-		set_property(
-			TARGET ${TESTNAME}
-			PROPERTY COMPILE_FLAGS
-			"-DBOOST_TEST_NO_LIB -DBOOST_TEST_MODULE=${TESTNAME}"
-		)
-	else()
-		set_property(
-			TARGET ${TESTNAME}
-			PROPERTY COMPILE_FLAGS
-			"-DBOOST_TEST_DYN_LINK -DBOOST_TEST_MODULE=${TESTNAME}"
-		)
-	endif()
-
-	sge_add_include_dirs(
-		"${TESTNAME}"
-		"${INCLUDE_DIRS}"
-	)
-
-	sge_add_transitive_include_dirs(
-		"${TESTNAME}"
-		"${SGE_LIBRARIES}"
-	)
-
 	transform_sge_link_targets(
 		"${SGE_LIBRARIES}"
 		SGE_LIBRARIES_RESULT
 	)
 
-	if(
-		SGE_DEFAULT_LINK_STATIC
-	)
-		sge_set_static_flags(
-			${TESTNAME}
-		)
-	endif()
-
-	target_link_libraries(
-		${TESTNAME}
-		${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
-		${SGE_LIBRARIES_RESULT}
-		${ADDITIONAL_LIBRARIES}
-	)
-
-	add_test(
-		NAME
-		${TESTNAME}
-		COMMAND
-		${TESTNAME}
+	fcppt_utils_add_test(
+		"${PATHNAME}"
+		"${SGE_LIBRARIES_RESULT};${ADDITIONAL_LIBRARIES}"
+		"${INCLUDE_DIRS}"
 	)
 endfunction()
 

@@ -2,10 +2,6 @@ include(
 	SGECustomPath
 )
 
-add_definitions(
-	${awl_DEFINITIONS}
-)
-
 sge_config_add_custom_path(
 	sge
 	media
@@ -65,6 +61,5 @@ add_sge_base_library(
 	"sgecore"
 	"${Boost_FILESYSTEM_LIBRARIES};${Boost_SYSTEM_LIBRARIES}"
 	"${CMAKE_CURRENT_SOURCE_DIR}/include"
-	""
 	""
 )

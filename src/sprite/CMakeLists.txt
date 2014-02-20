@@ -432,6 +432,5 @@ add_sge_base_library(
 	""
 	""
 	""
-	""
-	""
+	"${majutsu_INCLUDE_DIRS}"
 )

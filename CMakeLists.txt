@@ -1,5 +1,6 @@
 cmake_minimum_required(
-	VERSION 2.8.12
+	VERSION
+	2.8.12
 )
 
 project(
@@ -119,22 +120,10 @@ find_package(
 	REQUIRED
 )
 
-add_definitions(
-	${fcppt_DEFINITIONS}
-)
-
-include_directories(
-	${fcppt_INCLUDE_DIRS}
-)
-
 # FIND MIZUIRO
 find_package(
 	mizuiro
 	REQUIRED
-)
-
-include_directories(
-	${mizuiro_INCLUDE_DIRS}
 )
 
 # FIND AWL
@@ -143,18 +132,10 @@ find_package(
 	REQUIRED
 )
 
-include_directories(
-	${awl_INCLUDE_DIRS}
-)
-
 # Find majutsu
 find_package(
 	majutsu
 	REQUIRED
-)
-
-include_directories(
-	${majutsu_INCLUDE_DIRS}
 )
 
 set(
@@ -269,7 +250,9 @@ get_property(
 	SGE_LIBRARIES_GLOBAL
 )
 
-fcppt_utils_generate_config()
+fcppt_utils_generate_config(
+	TRUE
+)
 
 install(
 	DIRECTORY

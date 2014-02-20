@@ -129,7 +129,6 @@ add_sge_base_library(
 	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
 	"sgeparse"
 	""
-	"${CMAKE_CURRENT_SOURCE_DIR}/include;${FCPPT_UTILS_PROJECT_SOURCE_DIR}/src/parse/include"
-	""
-	""
+	"${CMAKE_CURRENT_SOURCE_DIR}/include;${FCPPT_UTILS_PROJECT_SOURCE_DIR}/src/parse/include;${mizuiro_INCLUDE_DIRS}"
+	"${mizuiro_INCLUDE_DIRS}"
 )

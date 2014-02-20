@@ -1,16 +1,4 @@
 function(
-	sge_set_static_flags
-	TARGETNAME
-)
-	set_target_properties(
-		${TARGETNAME}
-		PROPERTIES
-		COMPILE_DEFINITIONS
-		"SGE_STATIC_LINK"
-	)
-endfunction()
-
-macro(
 	sge_link_target
 	LIBNAME
 )
@@ -20,14 +8,16 @@ macro(
 		set(
 			${LIBNAME}_TARGET
 			${LIBNAME}_static
+			PARENT_SCOPE
 		)
 	else()
 		set(
 			${LIBNAME}_TARGET
 			${LIBNAME}
+			PARENT_SCOPE
 		)
 	endif()
-endmacro()
+endfunction()
 
 macro(
 	transform_sge_link_targets
@@ -126,87 +116,6 @@ function(
 endfunction()
 
 function(
-	sge_add_include_dirs
-	TARGET_NAME
-	INCLUDE_DIRS
-)
-	get_target_property(
-		NEW_INCLUDE_DIRS
-		"${TARGET_NAME}"
-		INCLUDE_DIRECTORIES
-	)
-
-	list(
-		APPEND
-		NEW_INCLUDE_DIRS
-		"${INCLUDE_DIRS}"
-	)
-
-	set_target_properties(
-		"${TARGET_NAME}"
-		PROPERTIES
-		INCLUDE_DIRECTORIES
-		"${NEW_INCLUDE_DIRS}"
-	)
-endfunction()
-
-function(
-	sge_add_transitive_include_dirs
-	TARGET_NAME
-	SGE_DEPS
-)
-	transform_sge_link_targets(
-		"${SGE_DEPS}"
-		SGE_DEPS_RESULT
-	)
-
-	foreach(
-		CUR_DEP
-		${SGE_DEPS_RESULT}
-	)
-		get_target_property(
-			CUR_INCLUDES
-			"${CUR_DEP}"
-			SGE_TRANSITIVE_INCLUDES
-		)
-
-		if(
-			"${CUR_INCLUDES}"
-			STREQUAL
-			"CUR_INCLUDES-NOTFOUND"
-		)
-			message(
-				FATAL_ERROR
-				"${CUR_DEP} needs to be added before ${SGE_LIB_NAME}"
-			)
-		endif()
-
-		if(
-			NOT
-			"${CUR_INCLUDES}"
-			STREQUAL
-			""
-		)
-			sge_add_include_dirs(
-				${TARGET_NAME}
-				"${CUR_INCLUDES}"
-			)
-		endif()
-
-		get_target_property(
-			CUR_TRANS_LIBS
-			"${CUR_DEP}"
-			SGE_TRANSITIVE_INCLUDE_LIBS
-		)
-
-		sge_add_transitive_include_dirs(
-			${TARGET_NAME}
-			"${CUR_TRANS_LIBS}"
-		)
-	endforeach()
-endfunction()
-
-function(
 	add_sge_base_library_variant
 	SGE_LIB_NAME
 	SGE_LIB_FILES
@@ -216,7 +125,6 @@ function(
 	TRANSITIVE_ADDITIONAL_DEPS
 	INCLUDE_DIRS
 	TRANSITIVE_INCLUDE_DIRS
-	TRANSITIVE_INCLUDE_SGE_DEPS
 	VARIANT
 	BASE_VARIANT
 )
@@ -240,13 +148,15 @@ function(
 		${SGE_USED_SO_VERSION}
 	)
 
-	if(
-		${VARIANT} STREQUAL "STATIC"
+	fcppt_utils_set_target_compiler_flags(
+		${SGE_LIB_NAME}
 	)
-		sge_set_static_flags(
-			${SGE_LIB_NAME}
-		)
-	endif()
+
+	fcppt_utils_interface_static_link(
+		${SGE_LIB_NAME}
+		${VARIANT}
+		"SGE_STATIC_LINK"
+	)
 
 	transform_sge_link_targets(
 		"${SGE_DEPS}"
@@ -268,23 +178,17 @@ function(
 		${TRANSITIVE_ADDITIONAL_DEPS}
 	)
 
-	sge_add_include_dirs(
+	target_include_directories(
 		${SGE_LIB_NAME}
-		"${INCLUDE_DIRS}"
+		PRIVATE
+		${INCLUDE_DIRS}
+		INTERFACE
+		${TRANSITIVE_INCLUDE_DIRS}
 	)
 
-	set_target_properties(
+	fcppt_utils_add_target_include_dir(
 		${SGE_LIB_NAME}
-		PROPERTIES
-		SGE_TRANSITIVE_INCLUDES
-		"${TRANSITIVE_INCLUDE_DIRS}"
-		SGE_TRANSITIVE_INCLUDE_LIBS
-		"${TRANSITIVE_INCLUDE_SGE_DEPS}"
-	)
-
-	sge_add_transitive_include_dirs(
-		${SGE_LIB_NAME}
-		"${SGE_DEPS}"
+		TRUE
 	)
 
 	#Dummy and example libs should not be exported
@@ -321,7 +225,6 @@ function(
 	TRANSITIVE_ADDITIONAL_DEPS
 	INCLUDE_DIRS
 	TRANSITIVE_INCLUDE_DIRS
-	TRANSITIVE_INCLUDE_SGE_DEPS
 	BASE_VARIANT
 )
 	string(
@@ -428,7 +331,6 @@ function(
 			"${TRANSITIVE_ADDITIONAL_DEPS}"
 			"${INCLUDE_DIRS}"
 			"${TRANSITIVE_INCLUDE_DIRS}"
-			"${TRANSITIVE_INCLUDE_SGE_DEPS}"
 			SHARED
 			"${BASE_VARIANT}"
 		)
@@ -448,7 +350,6 @@ function(
 			"${TRANSITIVE_ADDITIONAL_DEPS}"
 			"${INCLUDE_DIRS}"
 			"${TRANSITIVE_INCLUDE_DIRS}"
-			"${TRANSITIVE_INCLUDE_SGE_DEPS}"
 			STATIC
 			"${BASE_VARIANT}"
 		)
@@ -521,9 +422,6 @@ endfunction()
 #	A list of include directories a consumer of the library needs to be
 #	built.
 #
-# TRANSITIVE_INCLUDE_SGE_DEPS:
-#	A list of sge libraries that provide transitive include directories for
-#	this library.
 macro(
 	add_sge_base_library
 	RELATIVE_PATH
@@ -533,7 +431,6 @@ macro(
 	TRANSITIVE_ADDITIONAL_DEPS
 	INCLUDE_DIRS
 	TRANSITIVE_INCLUDE_DIRS
-	TRANSITIVE_INCLUDE_SGE_DEPS
 )
 	string(
 		REPLACE
@@ -579,7 +476,6 @@ macro(
 		"${TRANSITIVE_ADDITIONAL_DEPS}"
 		"${INCLUDE_DIRS}"
 		"${TRANSITIVE_INCLUDE_DIRS}"
-		"${TRANSITIVE_INCLUDE_SGE_DEPS}"
 		""
 	)
 endmacro()
@@ -598,7 +494,6 @@ function(
 		"${ADDITIONAL_DEPS}"
 		"${TRANSITIVE_SGE_DEPS}"
 		"${TRANSITIVE_ADDITIONAL_DEPS}"
-		""
 		""
 		""
 		"DUMMY"
@@ -622,11 +517,11 @@ function(
 		"${TRANSITIVE_ADDITIONAL_DEPS}"
 		"${INCLUDE_DIRS}"
 		""
-		""
 		"EXAMPLE"
 	)
 endfunction()
 
+# TODO: Replace this!
 macro(
 	sge_implement_from_lib
 	LIB_NAME
@@ -660,7 +555,6 @@ function(
 		"${SGE_CORE_FILES}"
 		""
 		"${fcppt_core_TARGET}"
-		""
 		""
 		""
 		""
@@ -704,22 +598,20 @@ function(
 		SGE_DEPS_RESULT
 	)
 
-	if(
-		SGE_DEFAULT_LINK_STATIC
-	)
-		sge_set_static_flags(
-			${SGE_PLUGIN_NAME}
-		)
-	endif()
-
 	check_library_deps(
 		"${PLUGIN_NAME}"
 		"${SGE_DEPS}"
 	)
 
-	sge_add_include_dirs(
+	fcppt_utils_set_target_compiler_flags(
 		${SGE_PLUGIN_NAME}
-		"${CMAKE_CURRENT_SOURCE_DIR}/include;${INCLUDE_DIRS}"
+	)
+
+	target_include_directories(
+		${SGE_PLUGIN_NAME}
+		PRIVATE
+		${CMAKE_CURRENT_SOURCE_DIR}/include
+		${INCLUDE_DIRS}
 	)
 
 	target_link_libraries(

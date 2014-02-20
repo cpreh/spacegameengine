@@ -18,6 +18,4 @@ add_sge_dummy_library(
 	""
 	""
 	""
-	""
-	""
 )

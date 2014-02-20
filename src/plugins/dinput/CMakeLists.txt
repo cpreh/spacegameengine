@@ -151,10 +151,6 @@ SET(
 	src/plugins/dinput/src/system.cpp
 )
 
-add_definitions(
-	${awl_DEFINITIONS}
-)
-
 add_sge_plugin(
 	"dinput"
 	"sgeinput;sgeplugin;sgewindow"

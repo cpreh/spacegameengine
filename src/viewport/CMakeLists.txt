@@ -31,17 +31,12 @@ set(
 	src/viewport/manager.cpp
 )
 
-add_definitions(
-	${awl_DEFINITIONS}
-)
-
 add_sge_base_library(
 	viewport
 	"sgerenderer;sgewindow"
 	"${awl_TARGET}"
 	""
 	""
-	"${CMAKE_CURRENT_SOURCE_DIR}/include"
-	""
-	""
+	"${CMAKE_CURRENT_SOURCE_DIR}/include;${awl_INCLUDE_DIRS}"
+	"${awl_INCLUDE_DIRS}"
 )

@@ -217,10 +217,6 @@ set(
 	src/systems/wrapped_window.cpp
 )
 
-add_definitions(
-	${awl_DEFINITIONS}
-)
-
 add_sge_base_library(
 	systems
 	"sgeaudio;sgeconfig;sgecore;sgefont;sgeimage2d;sgeinput;sgelog;sgeparse;sgeparseini;sgeplugin;sgerenderer;sgeviewport;sgewindow"
@@ -228,6 +224,5 @@ add_sge_base_library(
 	""
 	""
 	"${CMAKE_CURRENT_SOURCE_DIR}/include"
-	""
-	""
+	"${awl_INCLUDE_DIRS}"
 )

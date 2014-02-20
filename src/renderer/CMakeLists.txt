@@ -1153,9 +1153,8 @@ add_sge_base_library(
 	""
 	"sgecore"
 	""
-	"${CMAKE_CURRENT_SOURCE_DIR}/include"
-	""
-	""
+	"${CMAKE_CURRENT_SOURCE_DIR}/include;${awl_INCLUDE_DIRS}"
+	"${awl_INCLUDE_DIRS};${mizuiro_INCLUDE_DIRS}"
 )
 
 set(

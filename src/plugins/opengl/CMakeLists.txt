@@ -1440,10 +1440,6 @@ add_definitions(
 	"-D GLEW_NO_GLU"
 )
 
-add_definitions(
-	${awl_DEFINITIONS}
-)
-
 add_sge_plugin(
 	opengl
 	"${SGE_OPENGL_SGE_DEPS}"

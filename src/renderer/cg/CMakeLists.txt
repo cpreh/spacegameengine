@@ -28,7 +28,6 @@ add_sge_base_library(
 	""
 	""
 	""
-	""
-	""
-	"sgecg"
+	"${fcppt_INCLUDE_DIRS}"
+	"${fcppt_INCLUDE_DIRS}"
 )

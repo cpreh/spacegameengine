@@ -22,7 +22,6 @@ add_sge_base_library(
 	"${OPENGL_gl_LIBRARY}"
 	""
 	""
-	"${OPENGL_INCLUDE_DIR}"
-	"${OPENGL_INCLUDE_DIR}"
-	""
+	"${fcppt_INCLUDE_DIRS};${OPENGL_INCLUDE_DIR}"
+	"${fcppt_INCLUDE_DIRS};${OPENGL_INCLUDE_DIR}"
 )

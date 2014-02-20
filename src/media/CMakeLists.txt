@@ -42,5 +42,4 @@ add_sge_base_library(
 	"${fcppt_filesystem_TARGET}"
 	"${CMAKE_CURRENT_SOURCE_DIR}/include"
 	""
-	""
 )

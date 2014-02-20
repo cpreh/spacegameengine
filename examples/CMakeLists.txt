@@ -51,7 +51,7 @@ function(
 		CONSOLE_EXAMPLE
 	)
 		add_executable(
-			"${FULL_NAME}"
+			${FULL_NAME}
 			${SOURCE_FILE}
 		)
 	else()
@@ -67,27 +67,19 @@ function(
 		)
 	endif()
 
+	fcppt_utils_set_target_compiler_flags(
+		${FULL_NAME}
+	)
+
 	transform_sge_link_targets(
 		"${SGE_LIBRARIES}"
 		SGE_LIBRARIES_RESULT
 	)
 
-	if(
-		SGE_DEFAULT_LINK_STATIC
-	)
-		sge_set_static_flags(
-			${FULL_NAME}
-		)
-	endif()
-
-	sge_add_include_dirs(
+	target_include_directories(
 		"${FULL_NAME}"
+		PRIVATE
 		"${INCLUDE_DIRS}"
-	)
-
-	sge_add_transitive_include_dirs(
-		"${FULL_NAME}"
-		"${SGE_LIBRARIES}"
 	)
 
 	target_link_libraries(
@@ -144,10 +136,6 @@ include_directories(
 	"include"
 )
 
-add_definitions(
-	${awl_DEFINITIONS}
-)
-
 add_sge_example(
 	anaglyph
 	"sgecamera;sgeconfig;sgeimagecolor;sgeinput;sgelog;sgemodelmd3;sgerenderer;sgesystems;sgeviewport;sgewindow"
@@ -185,7 +173,7 @@ add_sge_console_example(
 
 add_sge_console_example(
 	color_string_convert
-	"sgecore;sgeimagecolor"
+	"sgecore;sgeimage;sgeimagecolor"
 	"${fcppt_core_TARGET}"
 	""
 )
@@ -379,7 +367,7 @@ add_sge_console_example(
 	raw_view
 	""
 	"${fcppt_core_TARGET}"
-	""
+	"${mizuiro_INCLUDE_DIRS}"
 )
 
 add_sge_console_example(

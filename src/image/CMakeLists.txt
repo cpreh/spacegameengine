@@ -189,7 +189,6 @@ add_sge_base_library(
 	"${fcppt_core_TARGET};${fcppt_filesystem_TARGET}"
 	"sgecore"
 	"${fcppt_filesystem_TARGET}"
-	"${CMAKE_CURRENT_SOURCE_DIR}/include;${CMAKE_CURRENT_BINARY_DIR}/include"
-	""
-	""
+	"${CMAKE_CURRENT_SOURCE_DIR}/include;${CMAKE_CURRENT_BINARY_DIR}/include;${mizuiro_INCLUDE_DIRS}"
+	"${mizuiro_INCLUDE_DIRS}"
 )

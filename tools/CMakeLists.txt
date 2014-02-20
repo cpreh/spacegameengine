@@ -41,6 +41,10 @@ function(
 		"${SGE_TOOL_${UPPER_TOOL_NAME}_FILES_ABS}"
 	)
 
+	fcppt_utils_set_target_compiler_flags(
+		${FULL_NAME}
+	)
+
 	target_link_libraries(
 		"${FULL_NAME}"
 		${awl_TARGET}
@@ -51,23 +55,16 @@ function(
 		SGE_LIBRARIES_RESULT
 	)
 
-	if(
-		SGE_DEFAULT_LINK_STATIC
-	)
-		sge_set_static_flags(
-			"${FULL_NAME}"
-		)
-	endif()
-
 	list(
 		APPEND
 		INCLUDE_DIRS
 		"${CMAKE_CURRENT_SOURCE_DIR}/include"
 	)
 
-	sge_add_include_dirs(
+	target_include_directories(
 		"${FULL_NAME}"
-		"${INCLUDE_DIRS}"
+		PRIVATE
+		${INCLUDE_DIRS}
 	)
 
 	target_link_libraries(
@@ -92,10 +89,6 @@ option(
 	ENABLE_CONTROL_CONFIG
 	"Build the control config tool"
 	ON
-)
-
-add_definitions(
-	${awl_DEFINITIONS}
 )
 
 if(

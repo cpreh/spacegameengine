@@ -729,10 +729,6 @@ set(
 	"${awl_TARGET};${D3D9_LIBRARIES}"
 )
 
-add_definitions(
-	${awl_DEFINITIONS}
-)
-
 # For some reason, it's not possible to ignore these warnings in gcc via
 # push/pop
 if(

@@ -187,10 +187,6 @@ set(
 	src/plugins/x11input/src/xi_version.cpp
 )
 
-add_definitions(
-	"${awl_DEFINITIONS}"
-)
-
 add_sge_plugin(
 	x11input
 	"sgeinput;sgelog;sgeplugin;sgewindow"

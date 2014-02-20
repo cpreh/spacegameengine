@@ -48,6 +48,5 @@ add_sge_base_library(
 	"sgecg"
 	""
 	""
-	""
-	"sgecg"
+	"${Cg_INCLUDE_DIRS}"
 )

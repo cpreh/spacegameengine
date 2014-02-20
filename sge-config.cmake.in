@@ -45,16 +45,7 @@ unset(
 	CURRENT_TARGET
 )
 
-if(
-	sge_USE_STATIC_LIBS
-)
-	set(
-		sge_DEFINITIONS
-		"-D SGE_STATIC_LINK"
-	)
-endif()
-
 set(
-	sge_INCLUDE_DIRS
-	"@Boost_INCLUDE_DIRS@;@awl_INCLUDE_DIRS@;@mizuiro_INCLUDE_DIRS@;@majutsu_INCLUDE_DIRS@;@sge_INCLUDE_DIR@"
+	sge_BVH_INCLUDE_DIRS
+	"@Boost_INCLUDE_DIRS@;@fcppt_INCLUDE_DIRS@;@sge_INCLUDE_DIR@"
 )

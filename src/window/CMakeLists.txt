@@ -30,15 +30,10 @@ set(
 	src/window/to_awl_parameters.cpp
 )
 
-add_definitions(
-	"${awl_DEFINITIONS}"
-)
-
 add_sge_base_library(
 	window
 	""
 	"${awl_TARGET}"
-	""
 	""
 	""
 	""
