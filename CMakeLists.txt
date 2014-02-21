@@ -138,6 +138,10 @@ find_package(
 	REQUIRED
 )
 
+fcppt_utils_install_data_dir(
+	INSTALL_DATA_DIR
+)
+
 set(
 	MEDIA_INSTALL_DIR
 	"${INSTALL_DATA_DIR}/media"
