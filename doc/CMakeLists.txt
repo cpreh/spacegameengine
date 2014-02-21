@@ -3504,6 +3504,10 @@ add_custom_target(
 	${HTML_INDEX_OUTPUT}
 )
 
+fcppt_utils_install_doc_dir(
+	INSTALL_DOC_DIR
+)
+
 install(
 	DIRECTORY
 	"${DOC_OUTPUT}/html"
