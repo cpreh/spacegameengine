@@ -33,10 +33,12 @@ namespace image2d
 namespace view
 {
 
-typedef sge::image::view::const_object<
-	image2d::view::const_elements_wrapper,
-	image2d::view::elements_wrapper
-> const_object;
+typedef
+sge::image::view::const_object<
+	sge::image2d::view::const_elements_wrapper,
+	sge::image2d::view::elements_wrapper
+>
+const_object;
 
 }
 }

@@ -78,9 +78,7 @@ sge::charconv::convert(
 				reinterpret_cast<
 					sge::charconv::const_raw_pointer
 				>(
-					fcppt::container::data(
-						_source
-					)
+					_source.data()
 				),
 				reinterpret_cast<
 					sge::charconv::const_raw_pointer

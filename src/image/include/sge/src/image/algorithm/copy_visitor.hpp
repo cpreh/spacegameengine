@@ -54,7 +54,7 @@ public:
 
 	copy_visitor(
 		view const &_dest,
-		mizuiro::image::algorithm::may_overlap::type const _overlap
+		mizuiro::image::algorithm::may_overlap const _overlap
 	)
 	:
 		dest_(
@@ -99,7 +99,7 @@ public:
 private:
 	view const &dest_;
 
-	mizuiro::image::algorithm::may_overlap::type const overlap_;
+	mizuiro::image::algorithm::may_overlap const overlap_;
 };
 
 }

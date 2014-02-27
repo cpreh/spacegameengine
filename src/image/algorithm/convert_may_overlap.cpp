@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/unreachable.hpp>
 
 
-mizuiro::image::algorithm::may_overlap::type
+mizuiro::image::algorithm::may_overlap
 sge::image::algorithm::convert_may_overlap(
 	sge::image::algorithm::may_overlap const _may_overlap
 )

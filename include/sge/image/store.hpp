@@ -89,9 +89,20 @@ public:
 	);
 
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
+	store(
+		store &&
+	);
+
+	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	store &
 	operator=(
 		store const &
+	);
+
+	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
+	store &
+	operator=(
+		store &&
 	);
 
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL

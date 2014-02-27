@@ -35,9 +35,9 @@ namespace view
 
 struct const_elements_wrapper
 {
-	typedef image2d::view::const_elements type;
+	typedef sge::image2d::view::const_elements type;
 
-	typedef image2d::tag tag;
+	typedef sge::image2d::tag tag;
 };
 
 }

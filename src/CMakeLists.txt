@@ -104,7 +104,7 @@ if(
 	)
 endif()
 
-macro(
+function(
 	path_to_enable_var
 	OUT
 	PATHVAR
@@ -126,8 +126,9 @@ macro(
 	set(
 		${OUT}
 		ENABLE_${UPPER_RESULT}
+		PARENT_SCOPE
 	)
-endmacro()
+endfunction()
 
 function(
 	add_sge_lib

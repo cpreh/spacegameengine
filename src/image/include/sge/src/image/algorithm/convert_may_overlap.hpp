@@ -34,7 +34,7 @@ namespace algorithm
 {
 
 SGE_IMAGE_SYMBOL
-mizuiro::image::algorithm::may_overlap::type
+mizuiro::image::algorithm::may_overlap
 convert_may_overlap(
 	sge::image::algorithm::may_overlap
 );

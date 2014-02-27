@@ -34,7 +34,7 @@ namespace view
 
 struct elements_wrapper
 {
-	typedef image2d::view::elements type;
+	typedef sge::image2d::view::elements type;
 };
 
 }

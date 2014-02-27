@@ -65,14 +65,8 @@ template<
 sge::image::store<
 	Format
 >::store(
-	store const &_other
-)
-:
-	internal_(
-		_other.internal_
-	)
-{
-}
+	store const &
+) = default;
 
 template<
 	typename Format
@@ -83,13 +77,29 @@ sge::image::store<
 sge::image::store<
 	Format
 >::operator=(
-	store const &_other
-)
-{
-	internal_ = _other.internal_;
+	store const &
+) = default;
 
-	return *this;
-}
+template<
+	typename Format
+>
+sge::image::store<
+	Format
+>::store(
+	store &&
+) = default;
+
+template<
+	typename Format
+>
+sge::image::store<
+	Format
+> &
+sge::image::store<
+	Format
+>::operator=(
+	store &&
+) = default;
 
 template<
 	typename Format
@@ -110,7 +120,8 @@ sge::image::store<
 	Format
 >::data()
 {
-	return internal_.data();
+	return
+		internal_.data();
 }
 
 template<
@@ -123,7 +134,8 @@ sge::image::store<
 	Format
 >::data() const
 {
-	return internal_.data();
+	return
+		internal_.data();
 }
 
 template<
@@ -136,7 +148,8 @@ sge::image::store<
 	Format
 >::view()
 {
-	return internal_.view();
+	return
+		internal_.view();
 }
 
 template<
@@ -149,7 +162,8 @@ sge::image::store<
 	Format
 >::view() const
 {
-	return internal_.view();
+	return
+		internal_.view();
 }
 
 template<
