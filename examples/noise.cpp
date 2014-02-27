@@ -19,10 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/channel8.hpp>
-#include <sge/image/store.hpp>
 #include <sge/image/color/predef.hpp>
 #include <sge/image2d/dim.hpp>
-#include <sge/image2d/l8.hpp>
+#include <sge/image2d/store/l8.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/object.hpp>
 #include <sge/log/location.hpp>
@@ -114,9 +113,9 @@ namespace
 
 void
 fill_texture(
-	sge::image2d::l8::view_type _view)
+	sge::image2d::store::l8::view_type _view)
 {
-	typedef sge::image2d::l8::view_type::dim dim_type;
+	typedef sge::image2d::store::l8::view_type::dim dim_type;
 	typedef dim_type::value_type dim_value_type;
 
 	/*
@@ -151,7 +150,7 @@ fill_texture(
 		for (dim_value_type x = 0; x < _view.size()[0]; ++x)
 		{
 			_view[
-				sge::image2d::l8::view_type::dim(
+				sge::image2d::store::l8::view_type::dim(
 					x,
 					y
 				)
@@ -303,7 +302,7 @@ try
 		sprite_state_parameters()
 	);
 
-	sge::image2d::l8 store(
+	sge::image2d::store::l8 store(
 		fcppt::math::dim::structure_cast<
 			sge::image2d::dim
 		>(

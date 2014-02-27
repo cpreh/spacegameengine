@@ -29,9 +29,11 @@ namespace sge
 namespace image2d
 {
 
-typedef sge::image::color::view::bgra32f_format<
+typedef
+sge::image::color::view::bgra32f_format<
 	2
->::type bgra32f_format;
+>
+bgra32f_format;
 
 }
 }

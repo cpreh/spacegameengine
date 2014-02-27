@@ -1,5 +1,6 @@
 set(
 	SGE_IMAGE_FILES
+	include/sge/image/algorithm/clone.hpp
 	include/sge/image/algorithm/copy.hpp
 	include/sge/image/algorithm/copy_and_convert.hpp
 	include/sge/image/algorithm/fill.hpp
@@ -39,8 +40,6 @@ set(
 	include/sge/image/raw_pointer.hpp
 	include/sge/image/raw_value.hpp
 	include/sge/image/size_type.hpp
-	include/sge/image/store.hpp
-	include/sge/image/store_fwd.hpp
 	include/sge/image/traits/any_object_fwd.hpp
 	include/sge/image/traits/box_fwd.hpp
 	include/sge/image/traits/color_tag.hpp
@@ -51,9 +50,11 @@ set(
 	include/sge/image/traits/format_stride.hpp
 	include/sge/image/traits/format_to_string.hpp
 	include/sge/image/traits/pitch_fwd.hpp
+	include/sge/image/traits/store_fwd.hpp
 	include/sge/image/traits/sub_out_of_range.hpp
 	include/sge/image/traits/view_elements.hpp
 	include/sge/image/traits/view_fwd.hpp
+	include/sge/image/transform_elements.hpp
 	include/sge/image/unsupported_format.hpp
 	include/sge/image/vector.hpp
 	include/sge/image/vector_fwd.hpp
@@ -63,7 +64,6 @@ set(
 	include/sge/image/view/const_object_fwd.hpp
 	include/sge/image/view/data.hpp
 	include/sge/image/view/element_base.hpp
-	include/sge/image/view/elements_base.hpp
 	include/sge/image/view/flipped.hpp
 	include/sge/image/view/format.hpp
 	include/sge/image/view/get.hpp
@@ -84,6 +84,8 @@ set(
 	src/image/algorithm/convert_may_overlap.cpp
 	src/image/exception.cpp
 	src/image/file_exception.cpp
+	src/image/include/sge/src/image/algorithm/clone_impl.hpp
+	src/image/include/sge/src/image/algorithm/clone_visitor.hpp
 	src/image/include/sge/src/image/algorithm/convert_may_overlap.hpp
 	src/image/include/sge/src/image/algorithm/copy_and_convert_dynamic.hpp
 	src/image/include/sge/src/image/algorithm/copy_and_convert_impl.hpp
@@ -93,6 +95,7 @@ set(
 	src/image/include/sge/src/image/algorithm/copy_visitor.hpp
 	src/image/include/sge/src/image/algorithm/fill_impl.hpp
 	src/image/include/sge/src/image/algorithm/fill_visitor.hpp
+	src/image/include/sge/src/image/algorithm/instantiate_clone.hpp
 	src/image/include/sge/src/image/algorithm/instantiate_copy.hpp
 	src/image/include/sge/src/image/algorithm/instantiate_copy_and_convert.hpp
 	src/image/include/sge/src/image/algorithm/instantiate_fill.hpp
@@ -103,9 +106,15 @@ set(
 	src/image/include/sge/src/image/algorithm/print_visitor.hpp
 	src/image/include/sge/src/image/from_mizuiro_dim.hpp
 	src/image/include/sge/src/image/instantiate_invalid_convert.hpp
-	src/image/include/sge/src/image/instantiate_store.hpp
 	src/image/include/sge/src/image/invalid_convert_impl.hpp
-	src/image/include/sge/src/image/store_impl.hpp
+	src/image/include/sge/src/image/store/basic_impl.hpp
+	src/image/include/sge/src/image/store/instantiate_basic.hpp
+	src/image/include/sge/src/image/store/instantiate_object.hpp
+	src/image/include/sge/src/image/store/instantiate_view.hpp
+	src/image/include/sge/src/image/store/object_impl.hpp
+	src/image/include/sge/src/image/store/view_any.hpp
+	src/image/include/sge/src/image/store/view_impl.hpp
+	src/image/include/sge/src/image/store/view_visitor.hpp
 	src/image/include/sge/src/image/to_mizuiro_dim.hpp
 	src/image/include/sge/src/image/traits/dynamic_copy_and_convert.hpp
 	src/image/include/sge/src/image/traits/static_converter.hpp

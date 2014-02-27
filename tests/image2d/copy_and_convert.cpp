@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/channel8.hpp>
 #include <sge/image/dim.hpp>
 #include <sge/image/mizuiro_color.hpp>
-#include <sge/image/store.hpp>
 #include <sge/image/color/init.hpp>
+#include <sge/image/store/basic.hpp>
 #include <sge/image2d/bgra8_format.hpp>
 #include <sge/image2d/rgb8_format.hpp>
 #include <sge/image2d/rgba8_format.hpp>
@@ -68,7 +68,7 @@ test_conversion(
 	ColorInitDest const &_dest
 )
 {
-	typedef sge::image::store<
+	typedef sge::image::store::basic<
 		Source
 	> source_store;
 
@@ -97,7 +97,7 @@ test_conversion(
 			_source
 		);
 
-	typedef sge::image::store<
+	typedef sge::image::store::basic<
 		Dest
 	> dest_store;
 

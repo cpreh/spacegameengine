@@ -38,17 +38,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/align_h/right.hpp>
 #include <sge/font/draw/simple.hpp>
 #include <sge/image/size_type.hpp>
-#include <sge/image/store.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/color/init.hpp>
 #include <sge/image/color/l8.hpp>
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/image2d/dim.hpp>
-#include <sge/image2d/l8.hpp>
 #include <sge/image2d/rect.hpp>
 #include <sge/image2d/algorithm/copy.hpp>
 #include <sge/image2d/algorithm/fill.hpp>
+#include <sge/image2d/store/l8.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/object.hpp>
 #include <sge/image2d/view/sub.hpp>
@@ -389,7 +388,7 @@ try
 		2u
 	);
 
-	typedef sge::image2d::l8 store_type;
+	typedef sge::image2d::store::l8 store_type;
 
 	store_type whole_store(
 		block_size * num_blocks

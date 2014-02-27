@@ -2,21 +2,21 @@ set(
 	SGE_IMAGEDS2D_FILES
 	include/sge/imageds2d/algorithm/copy.hpp
 	include/sge/imageds2d/algorithm/invalid_copy.hpp
-	include/sge/imageds2d/d16.hpp
 	include/sge/imageds2d/d16_format.hpp
-	include/sge/imageds2d/d16_fwd.hpp
-	include/sge/imageds2d/d24s8.hpp
 	include/sge/imageds2d/d24s8_format.hpp
-	include/sge/imageds2d/d24s8_fwd.hpp
-	include/sge/imageds2d/d32.hpp
 	include/sge/imageds2d/d32_format.hpp
-	include/sge/imageds2d/d32_fwd.hpp
 	include/sge/imageds2d/dim.hpp
 	include/sge/imageds2d/dim_fwd.hpp
 	include/sge/imageds2d/pitch.hpp
 	include/sge/imageds2d/pitch_fwd.hpp
 	include/sge/imageds2d/rect.hpp
 	include/sge/imageds2d/rect_fwd.hpp
+	include/sge/imageds2d/store/d16.hpp
+	include/sge/imageds2d/store/d16_fwd.hpp
+	include/sge/imageds2d/store/d24s8.hpp
+	include/sge/imageds2d/store/d24s8_fwd.hpp
+	include/sge/imageds2d/store/d32.hpp
+	include/sge/imageds2d/store/d32_fwd.hpp
 	include/sge/imageds2d/tag.hpp
 	include/sge/imageds2d/traits/box_fwd.hpp
 	include/sge/imageds2d/traits/color_tag.hpp
@@ -25,6 +25,7 @@ set(
 	include/sge/imageds2d/traits/pitch_fwd.hpp
 	include/sge/imageds2d/traits/view_elements.hpp
 	include/sge/imageds2d/traits/view_fwd.hpp
+	include/sge/imageds2d/transform_elements.hpp
 	include/sge/imageds2d/view/const_element.hpp
 	include/sge/imageds2d/view/const_elements.hpp
 	include/sge/imageds2d/view/const_elements_wrapper.hpp
@@ -45,9 +46,9 @@ set(
 	include/sge/imageds2d/view/sub.hpp
 	include/sge/imageds2d/view/to_const.hpp
 	src/imageds2d/algorithm/copy.cpp
-	src/imageds2d/d16.cpp
-	src/imageds2d/d24s8.cpp
-	src/imageds2d/d32.cpp
+	src/imageds2d/store/d16.cpp
+	src/imageds2d/store/d24s8.cpp
+	src/imageds2d/store/d32.cpp
 	src/imageds2d/view/const_object.cpp
 	src/imageds2d/view/flipped.cpp
 	src/imageds2d/view/format.cpp

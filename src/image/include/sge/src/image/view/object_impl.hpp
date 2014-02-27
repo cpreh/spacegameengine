@@ -46,14 +46,8 @@ template<
 sge::image::view::object<
 	ElementsWrapper
 >::object(
-	object const &_other
-)
-:
-	variant_(
-		_other.variant_
-	)
-{
-}
+	object const &
+) = default;
 
 template<
 	typename ElementsWrapper
@@ -64,16 +58,8 @@ sge::image::view::object<
 sge::image::view::object<
 	ElementsWrapper
 >::operator=(
-	object const &_other
-)
-{
-	if(
-		this != &_other
-	)
-		variant_ = _other.variant_;
-
-	return *this;
-}
+	object const &
+) = default;
 
 template<
 	typename ElementsWrapper
@@ -94,7 +80,8 @@ sge::image::view::object<
 	ElementsWrapper
 >::get() const
 {
-	return variant_;
+	return
+		variant_;
 }
 
 #endif

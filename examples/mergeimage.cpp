@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/exception.hpp>
 #include <sge/image/capabilities_field.hpp>
-#include <sge/image/store.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/any/object.hpp>
@@ -28,11 +27,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/file_scoped_ptr.hpp>
 #include <sge/image2d/load_exn.hpp>
-#include <sge/image2d/rgba8.hpp>
 #include <sge/image2d/save_from_view.hpp>
 #include <sge/image2d/system.hpp>
 #include <sge/image2d/algorithm/copy_and_convert.hpp>
 #include <sge/image2d/algorithm/fill.hpp>
+#include <sge/image2d/store/rgba8.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/object.hpp>
 #include <sge/image2d/view/sub.hpp>
@@ -230,7 +229,7 @@ try
 		)
 	);
 
-	typedef sge::image2d::rgba8 image_type;
+	typedef sge::image2d::store::rgba8 image_type;
 
 	image_type dest(
 		image_type::dim(

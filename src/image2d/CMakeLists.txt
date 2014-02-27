@@ -1,22 +1,17 @@
 set(
 	SGE_IMAGE2D_FILES
-	include/sge/image2d/a8.hpp
 	include/sge/image2d/a8_format.hpp
 	include/sge/image2d/algorithm/bresenham.hpp
+	include/sge/image2d/algorithm/clone.hpp
 	include/sge/image2d/algorithm/copy.hpp
 	include/sge/image2d/algorithm/copy_and_convert.hpp
 	include/sge/image2d/algorithm/fill.hpp
 	include/sge/image2d/algorithm/invalid_copy.hpp
 	include/sge/image2d/algorithm/print.hpp
-	include/sge/image2d/bgr32f.hpp
 	include/sge/image2d/bgr32f_format.hpp
-	include/sge/image2d/bgr8.hpp
 	include/sge/image2d/bgr8_format.hpp
-	include/sge/image2d/bgra32f.hpp
 	include/sge/image2d/bgra32f_format.hpp
-	include/sge/image2d/bgra8.hpp
 	include/sge/image2d/bgra8_format.hpp
-	include/sge/image2d/bgrx8.hpp
 	include/sge/image2d/bgrx8_format.hpp
 	include/sge/image2d/dim.hpp
 	include/sge/image2d/dim_fwd.hpp
@@ -25,9 +20,7 @@ set(
 	include/sge/image2d/file_scoped_ptr.hpp
 	include/sge/image2d/file_shared_ptr.hpp
 	include/sge/image2d/file_unique_ptr.hpp
-	include/sge/image2d/l8.hpp
 	include/sge/image2d/l8_format.hpp
-	include/sge/image2d/la8.hpp
 	include/sge/image2d/la8_format.hpp
 	include/sge/image2d/load_exn.hpp
 	include/sge/image2d/log_location.hpp
@@ -39,21 +32,56 @@ set(
 	include/sge/image2d/pitch_fwd.hpp
 	include/sge/image2d/plugin/collection_fwd.hpp
 	include/sge/image2d/plugin/traits.hpp
-	include/sge/image2d/r32f.hpp
 	include/sge/image2d/r32f_format.hpp
 	include/sge/image2d/rect.hpp
 	include/sge/image2d/rect_fwd.hpp
-	include/sge/image2d/rgb32f.hpp
 	include/sge/image2d/rgb32f_format.hpp
-	include/sge/image2d/rgb8.hpp
 	include/sge/image2d/rgb8_format.hpp
-	include/sge/image2d/rgba32f.hpp
 	include/sge/image2d/rgba32f_format.hpp
-	include/sge/image2d/rgba8.hpp
 	include/sge/image2d/rgba8_format.hpp
-	include/sge/image2d/rgbx8.hpp
 	include/sge/image2d/rgbx8_format.hpp
 	include/sge/image2d/save_from_view.hpp
+	include/sge/image2d/srgb8_format.hpp
+	include/sge/image2d/srgba8_format.hpp
+	include/sge/image2d/store/a8.hpp
+	include/sge/image2d/store/a8_fwd.hpp
+	include/sge/image2d/store/bgr32f.hpp
+	include/sge/image2d/store/bgr32f_fwd.hpp
+	include/sge/image2d/store/bgr8.hpp
+	include/sge/image2d/store/bgr8_fwd.hpp
+	include/sge/image2d/store/bgra32f.hpp
+	include/sge/image2d/store/bgra32f_fwd.hpp
+	include/sge/image2d/store/bgra8.hpp
+	include/sge/image2d/store/bgra8_fwd.hpp
+	include/sge/image2d/store/bgrx8.hpp
+	include/sge/image2d/store/bgrx8_fwd.hpp
+	include/sge/image2d/store/element.hpp
+	include/sge/image2d/store/elements.hpp
+	include/sge/image2d/store/elements_wrapper.hpp
+	include/sge/image2d/store/elements_wrapper_fwd.hpp
+	include/sge/image2d/store/l8.hpp
+	include/sge/image2d/store/l8_fwd.hpp
+	include/sge/image2d/store/la8.hpp
+	include/sge/image2d/store/la8_fwd.hpp
+	include/sge/image2d/store/object.hpp
+	include/sge/image2d/store/object_fwd.hpp
+	include/sge/image2d/store/r32f.hpp
+	include/sge/image2d/store/r32f_fwd.hpp
+	include/sge/image2d/store/rgb32f.hpp
+	include/sge/image2d/store/rgb32f_fwd.hpp
+	include/sge/image2d/store/rgb8.hpp
+	include/sge/image2d/store/rgb8_fwd.hpp
+	include/sge/image2d/store/rgba32f.hpp
+	include/sge/image2d/store/rgba32f_fwd.hpp
+	include/sge/image2d/store/rgba8.hpp
+	include/sge/image2d/store/rgba8_fwd.hpp
+	include/sge/image2d/store/rgbx8.hpp
+	include/sge/image2d/store/rgbx8_fwd.hpp
+	include/sge/image2d/store/srgb8.hpp
+	include/sge/image2d/store/srgb8_fwd.hpp
+	include/sge/image2d/store/srgba8.hpp
+	include/sge/image2d/store/srgba8_fwd.hpp
+	include/sge/image2d/store/view.hpp
 	include/sge/image2d/system.hpp
 	include/sge/image2d/system_fwd.hpp
 	include/sge/image2d/system_scoped_ptr.hpp
@@ -64,9 +92,11 @@ set(
 	include/sge/image2d/traits/const_view_fwd.hpp
 	include/sge/image2d/traits/dim_fwd.hpp
 	include/sge/image2d/traits/pitch_fwd.hpp
+	include/sge/image2d/traits/store_fwd.hpp
 	include/sge/image2d/traits/sub_out_of_range.hpp
 	include/sge/image2d/traits/view_elements.hpp
 	include/sge/image2d/traits/view_fwd.hpp
+	include/sge/image2d/transform_elements.hpp
 	include/sge/image2d/vector.hpp
 	include/sge/image2d/vector_fwd.hpp
 	include/sge/image2d/view/checked_sub.hpp
@@ -94,22 +124,15 @@ set(
 	include/sge/image2d/view/sub.hpp
 	include/sge/image2d/view/sub_out_of_range.hpp
 	include/sge/image2d/view/to_const.hpp
-	src/image2d/a8.cpp
 	src/image2d/algorithm/bresenham.cpp
+	src/image2d/algorithm/clone.cpp
 	src/image2d/algorithm/copy.cpp
 	src/image2d/algorithm/copy_and_convert.cpp
 	src/image2d/algorithm/fill.cpp
 	src/image2d/algorithm/print.cpp
-	src/image2d/bgr32f.cpp
-	src/image2d/bgr8.cpp
-	src/image2d/bgra32f.cpp
-	src/image2d/bgra8.cpp
-	src/image2d/bgrx8.cpp
 	src/image2d/file.cpp
 	src/image2d/include/sge/src/image2d/algorithm/bresenham_visitor.hpp
 	src/image2d/include/sge/src/image2d/logger.hpp
-	src/image2d/l8.cpp
-	src/image2d/la8.cpp
 	src/image2d/load_exn.cpp
 	src/image2d/log_location.cpp
 	src/image2d/logger.cpp
@@ -121,13 +144,25 @@ set(
 	src/image2d/plugin/manager.cpp
 	src/image2d/plugin/object.cpp
 	src/image2d/plugin/traits.cpp
-	src/image2d/r32f.cpp
-	src/image2d/rgb32.cpp
-	src/image2d/rgb8.cpp
-	src/image2d/rgba32f.cpp
-	src/image2d/rgba8.cpp
-	src/image2d/rgbx8.cpp
 	src/image2d/save_from_view.cpp
+	src/image2d/store/a8.cpp
+	src/image2d/store/bgr32f.cpp
+	src/image2d/store/bgr8.cpp
+	src/image2d/store/bgra32f.cpp
+	src/image2d/store/bgra8.cpp
+	src/image2d/store/bgrx8.cpp
+	src/image2d/store/l8.cpp
+	src/image2d/store/la8.cpp
+	src/image2d/store/object.cpp
+	src/image2d/store/r32f.cpp
+	src/image2d/store/rgb32.cpp
+	src/image2d/store/rgb8.cpp
+	src/image2d/store/rgba32f.cpp
+	src/image2d/store/rgba8.cpp
+	src/image2d/store/rgbx8.cpp
+	src/image2d/store/srgb8.cpp
+	src/image2d/store/srgba8.cpp
+	src/image2d/store/view.cpp
 	src/image2d/system.cpp
 	src/image2d/view/checked_sub.cpp
 	src/image2d/view/const_object.cpp

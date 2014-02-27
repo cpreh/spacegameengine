@@ -29,9 +29,11 @@ namespace sge
 namespace image2d
 {
 
-typedef sge::image::color::view::rgba8_format<
+typedef
+sge::image::color::view::rgba8_format<
 	2
->::type rgba8_format;
+>
+rgba8_format;
 
 }
 }

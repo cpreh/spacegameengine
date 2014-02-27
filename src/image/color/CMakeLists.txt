@@ -83,13 +83,13 @@ set(
 	include/sge/image/color/traits/format_static.hpp
 	include/sge/image/color/traits/format_stride.hpp
 	include/sge/image/color/traits/format_to_string.hpp
+	include/sge/image/color/transform_elements.hpp
 	include/sge/image/color/view/a8_format.hpp
 	include/sge/image/color/view/bgr32f_format.hpp
 	include/sge/image/color/view/bgr8_format.hpp
 	include/sge/image/color/view/bgra32f_format.hpp
 	include/sge/image/color/view/bgra8_format.hpp
 	include/sge/image/color/view/bgrx8_format.hpp
-	include/sge/image/color/view/elements_base.hpp
 	include/sge/image/color/view/l8_format.hpp
 	include/sge/image/color/view/la8_format.hpp
 	include/sge/image/color/view/r32f_format.hpp
@@ -98,6 +98,8 @@ set(
 	include/sge/image/color/view/rgba32f_format.hpp
 	include/sge/image/color/view/rgba8_format.hpp
 	include/sge/image/color/view/rgbx8_format.hpp
+	include/sge/image/color/view/srgb8_format.hpp
+	include/sge/image/color/view/srgba8_format.hpp
 	src/image/color/any/clear.cpp
 	src/image/color/any/convert.cpp
 	src/image/color/any/from_string.cpp

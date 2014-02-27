@@ -38,15 +38,14 @@ template<
 	sge::image::size_type Dim,
 	typename ColorFormat
 >
-struct basic_format
-{
-	typedef mizuiro::image::format::interleaved<
-		mizuiro::image::dimension<
-			Dim
-		>,
-		ColorFormat
-	> type;
-};
+using basic_format
+=
+mizuiro::image::format::interleaved<
+	mizuiro::image::dimension<
+		Dim
+	>,
+	ColorFormat
+>;
 
 }
 }

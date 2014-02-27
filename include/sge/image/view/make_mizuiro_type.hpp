@@ -49,10 +49,10 @@ template<
 struct make_mizuiro_type
 :
 sge::image::view::mizuiro_type<
-	typename sge::image::view::basic_format<
+	sge::image::view::basic_format<
 		Dim::value,
 		ColorFormat
-	>::type,
+	>,
 	Constness
 >
 {

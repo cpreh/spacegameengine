@@ -25,15 +25,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/matrix_conversion/world.hpp>
 #include <sge/image/channel8.hpp>
 #include <sge/image/size_type.hpp>
-#include <sge/image/store.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/image3d/box.hpp>
 #include <sge/image3d/dim.hpp>
-#include <sge/image3d/l8.hpp>
 #include <sge/image3d/algorithm/copy.hpp>
 #include <sge/image3d/algorithm/fill.hpp>
+#include <sge/image3d/store/l8.hpp>
 #include <sge/image3d/view/const_object.hpp>
 #include <sge/image3d/view/object.hpp>
 #include <sge/image3d/view/sub.hpp>
@@ -405,7 +404,7 @@ create_noise_texture(
 	sge::renderer::device::core &_device)
 {
 	typedef
-	sge::image3d::l8
+	sge::image3d::store::l8
 	store_type;
 
 	typedef
@@ -494,7 +493,7 @@ create_checkers_texture(
 	sge::renderer::device::core &_device
 )
 {
-	typedef sge::image3d::l8 store_type;
+	typedef sge::image3d::store::l8 store_type;
 
 	sge::image::size_type const block_element_size(
 		4u

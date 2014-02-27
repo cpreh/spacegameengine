@@ -24,9 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/size_type.hpp>
 #include <sge/image/color/rgb8_format.hpp>
 #include <sge/image/view/basic_format.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 
 
 namespace sge
@@ -38,22 +35,15 @@ namespace color
 namespace view
 {
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
 template<
 	sge::image::size_type Dim
 >
-struct rgb8_format
-:
+using rgb8_format
+=
 sge::image::view::basic_format<
 	Dim,
 	sge::image::color::rgb8_format
->
-{
-};
-
-FCPPT_PP_POP_WARNING
+>;
 
 }
 }

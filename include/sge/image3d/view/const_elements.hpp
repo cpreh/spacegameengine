@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE3D_VIEW_CONST_ELEMENTS_HPP_INCLUDED
 #define SGE_IMAGE3D_VIEW_CONST_ELEMENTS_HPP_INCLUDED
 
-#include <sge/image/color/view/elements_base.hpp>
+#include <sge/image3d/transform_elements.hpp>
 #include <sge/image3d/view/const_element.hpp>
 
 
@@ -32,9 +32,11 @@ namespace image3d
 namespace view
 {
 
-typedef sge::image::color::view::elements_base<
+typedef
+sge::image3d::transform_elements<
 	sge::image3d::view::const_element
->::type const_elements;
+>::type
+const_elements;
 
 }
 }

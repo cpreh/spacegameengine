@@ -29,9 +29,11 @@ namespace sge
 namespace imageds2d
 {
 
-typedef sge::image::ds::view::d16_format<
+typedef
+sge::image::ds::view::d16_format<
 	2
->::type d16_format;
+>
+d16_format;
 
 }
 }

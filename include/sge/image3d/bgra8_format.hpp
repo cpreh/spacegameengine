@@ -29,9 +29,11 @@ namespace sge
 namespace image3d
 {
 
-typedef sge::image::color::view::bgra8_format<
+typedef
+sge::image::color::view::bgra8_format<
 	3
->::type bgra8_format;
+>
+bgra8_format;
 
 }
 }

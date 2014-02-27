@@ -54,7 +54,7 @@ copy(
 	sge::image::algorithm::may_overlap const _overlap
 )
 {
-	mizuiro::image::algorithm::may_overlap::type const mizuiro_overlap(
+	mizuiro::image::algorithm::may_overlap const mizuiro_overlap(
 		sge::image::algorithm::convert_may_overlap(
 			_overlap
 		)

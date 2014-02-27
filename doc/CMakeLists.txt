@@ -558,6 +558,7 @@ set(
 	include/sge/graph/optional_axis_constraint_fwd.hpp
 	include/sge/graph/position.hpp
 	include/sge/graph/scalar.hpp
+	include/sge/image/algorithm/clone.hpp
 	include/sge/image/algorithm/copy.hpp
 	include/sge/image/algorithm/copy_and_convert.hpp
 	include/sge/image/algorithm/fill.hpp
@@ -658,13 +659,13 @@ set(
 	include/sge/image/color/traits/format_static.hpp
 	include/sge/image/color/traits/format_stride.hpp
 	include/sge/image/color/traits/format_to_string.hpp
+	include/sge/image/color/transform_elements.hpp
 	include/sge/image/color/view/a8_format.hpp
 	include/sge/image/color/view/bgr32f_format.hpp
 	include/sge/image/color/view/bgr8_format.hpp
 	include/sge/image/color/view/bgra32f_format.hpp
 	include/sge/image/color/view/bgra8_format.hpp
 	include/sge/image/color/view/bgrx8_format.hpp
-	include/sge/image/color/view/elements_base.hpp
 	include/sge/image/color/view/l8_format.hpp
 	include/sge/image/color/view/la8_format.hpp
 	include/sge/image/color/view/r32f_format.hpp
@@ -673,6 +674,8 @@ set(
 	include/sge/image/color/view/rgba32f_format.hpp
 	include/sge/image/color/view/rgba8_format.hpp
 	include/sge/image/color/view/rgbx8_format.hpp
+	include/sge/image/color/view/srgb8_format.hpp
+	include/sge/image/color/view/srgba8_format.hpp
 	include/sge/image/const_raw_pointer.hpp
 	include/sge/image/difference_type.hpp
 	include/sge/image/dim.hpp
@@ -693,10 +696,10 @@ set(
 	include/sge/image/ds/traits/format_static.hpp
 	include/sge/image/ds/traits/format_stride.hpp
 	include/sge/image/ds/traits/format_to_string.hpp
+	include/sge/image/ds/transform_elements.hpp
 	include/sge/image/ds/view/d16_format.hpp
 	include/sge/image/ds/view/d24s8_format.hpp
 	include/sge/image/ds/view/d32_format.hpp
-	include/sge/image/ds/view/elements_base.hpp
 	include/sge/image/exception.hpp
 	include/sge/image/exception_fwd.hpp
 	include/sge/image/file_exception.hpp
@@ -715,8 +718,12 @@ set(
 	include/sge/image/raw_pointer.hpp
 	include/sge/image/raw_value.hpp
 	include/sge/image/size_type.hpp
-	include/sge/image/store.hpp
-	include/sge/image/store_fwd.hpp
+	include/sge/image/store/basic.hpp
+	include/sge/image/store/basic_fwd.hpp
+	include/sge/image/store/element.hpp
+	include/sge/image/store/object.hpp
+	include/sge/image/store/object_fwd.hpp
+	include/sge/image/store/view.hpp
 	include/sge/image/traits/any_object_fwd.hpp
 	include/sge/image/traits/box_fwd.hpp
 	include/sge/image/traits/color_tag.hpp
@@ -727,9 +734,11 @@ set(
 	include/sge/image/traits/format_stride.hpp
 	include/sge/image/traits/format_to_string.hpp
 	include/sge/image/traits/pitch_fwd.hpp
+	include/sge/image/traits/store_fwd.hpp
 	include/sge/image/traits/sub_out_of_range.hpp
 	include/sge/image/traits/view_elements.hpp
 	include/sge/image/traits/view_fwd.hpp
+	include/sge/image/transform_elements.hpp
 	include/sge/image/unsupported_format.hpp
 	include/sge/image/vector.hpp
 	include/sge/image/vector_fwd.hpp
@@ -739,7 +748,6 @@ set(
 	include/sge/image/view/const_object_fwd.hpp
 	include/sge/image/view/data.hpp
 	include/sge/image/view/element_base.hpp
-	include/sge/image/view/elements_base.hpp
 	include/sge/image/view/flipped.hpp
 	include/sge/image/view/format.hpp
 	include/sge/image/view/get.hpp
@@ -757,23 +765,18 @@ set(
 	include/sge/image/view/to_const.hpp
 	include/sge/image/view/wrap.hpp
 	include/sge/image/view/wrapped_type.hpp
-	include/sge/image2d/a8.hpp
 	include/sge/image2d/a8_format.hpp
 	include/sge/image2d/algorithm/bresenham.hpp
+	include/sge/image2d/algorithm/clone.hpp
 	include/sge/image2d/algorithm/copy.hpp
 	include/sge/image2d/algorithm/copy_and_convert.hpp
 	include/sge/image2d/algorithm/fill.hpp
 	include/sge/image2d/algorithm/invalid_copy.hpp
 	include/sge/image2d/algorithm/print.hpp
-	include/sge/image2d/bgr32f.hpp
 	include/sge/image2d/bgr32f_format.hpp
-	include/sge/image2d/bgr8.hpp
 	include/sge/image2d/bgr8_format.hpp
-	include/sge/image2d/bgra32f.hpp
 	include/sge/image2d/bgra32f_format.hpp
-	include/sge/image2d/bgra8.hpp
 	include/sge/image2d/bgra8_format.hpp
-	include/sge/image2d/bgrx8.hpp
 	include/sge/image2d/bgrx8_format.hpp
 	include/sge/image2d/dim.hpp
 	include/sge/image2d/dim_fwd.hpp
@@ -782,9 +785,7 @@ set(
 	include/sge/image2d/file_scoped_ptr.hpp
 	include/sge/image2d/file_shared_ptr.hpp
 	include/sge/image2d/file_unique_ptr.hpp
-	include/sge/image2d/l8.hpp
 	include/sge/image2d/l8_format.hpp
-	include/sge/image2d/la8.hpp
 	include/sge/image2d/la8_format.hpp
 	include/sge/image2d/load_exn.hpp
 	include/sge/image2d/log_location.hpp
@@ -796,21 +797,56 @@ set(
 	include/sge/image2d/pitch_fwd.hpp
 	include/sge/image2d/plugin/collection_fwd.hpp
 	include/sge/image2d/plugin/traits.hpp
-	include/sge/image2d/r32f.hpp
 	include/sge/image2d/r32f_format.hpp
 	include/sge/image2d/rect.hpp
 	include/sge/image2d/rect_fwd.hpp
-	include/sge/image2d/rgb32f.hpp
 	include/sge/image2d/rgb32f_format.hpp
-	include/sge/image2d/rgb8.hpp
 	include/sge/image2d/rgb8_format.hpp
-	include/sge/image2d/rgba32f.hpp
 	include/sge/image2d/rgba32f_format.hpp
-	include/sge/image2d/rgba8.hpp
 	include/sge/image2d/rgba8_format.hpp
-	include/sge/image2d/rgbx8.hpp
 	include/sge/image2d/rgbx8_format.hpp
 	include/sge/image2d/save_from_view.hpp
+	include/sge/image2d/srgb8_format.hpp
+	include/sge/image2d/srgba8_format.hpp
+	include/sge/image2d/store/a8.hpp
+	include/sge/image2d/store/a8_fwd.hpp
+	include/sge/image2d/store/bgr32f.hpp
+	include/sge/image2d/store/bgr32f_fwd.hpp
+	include/sge/image2d/store/bgr8.hpp
+	include/sge/image2d/store/bgr8_fwd.hpp
+	include/sge/image2d/store/bgra32f.hpp
+	include/sge/image2d/store/bgra32f_fwd.hpp
+	include/sge/image2d/store/bgra8.hpp
+	include/sge/image2d/store/bgra8_fwd.hpp
+	include/sge/image2d/store/bgrx8.hpp
+	include/sge/image2d/store/bgrx8_fwd.hpp
+	include/sge/image2d/store/element.hpp
+	include/sge/image2d/store/elements.hpp
+	include/sge/image2d/store/elements_wrapper.hpp
+	include/sge/image2d/store/elements_wrapper_fwd.hpp
+	include/sge/image2d/store/l8.hpp
+	include/sge/image2d/store/l8_fwd.hpp
+	include/sge/image2d/store/la8.hpp
+	include/sge/image2d/store/la8_fwd.hpp
+	include/sge/image2d/store/object.hpp
+	include/sge/image2d/store/object_fwd.hpp
+	include/sge/image2d/store/r32f.hpp
+	include/sge/image2d/store/r32f_fwd.hpp
+	include/sge/image2d/store/rgb32f.hpp
+	include/sge/image2d/store/rgb32f_fwd.hpp
+	include/sge/image2d/store/rgb8.hpp
+	include/sge/image2d/store/rgb8_fwd.hpp
+	include/sge/image2d/store/rgba32f.hpp
+	include/sge/image2d/store/rgba32f_fwd.hpp
+	include/sge/image2d/store/rgba8.hpp
+	include/sge/image2d/store/rgba8_fwd.hpp
+	include/sge/image2d/store/rgbx8.hpp
+	include/sge/image2d/store/rgbx8_fwd.hpp
+	include/sge/image2d/store/srgb8.hpp
+	include/sge/image2d/store/srgb8_fwd.hpp
+	include/sge/image2d/store/srgba8.hpp
+	include/sge/image2d/store/srgba8_fwd.hpp
+	include/sge/image2d/store/view.hpp
 	include/sge/image2d/system.hpp
 	include/sge/image2d/system_fwd.hpp
 	include/sge/image2d/system_scoped_ptr.hpp
@@ -821,9 +857,11 @@ set(
 	include/sge/image2d/traits/const_view_fwd.hpp
 	include/sge/image2d/traits/dim_fwd.hpp
 	include/sge/image2d/traits/pitch_fwd.hpp
+	include/sge/image2d/traits/store_fwd.hpp
 	include/sge/image2d/traits/sub_out_of_range.hpp
 	include/sge/image2d/traits/view_elements.hpp
 	include/sge/image2d/traits/view_fwd.hpp
+	include/sge/image2d/transform_elements.hpp
 	include/sge/image2d/vector.hpp
 	include/sge/image2d/vector_fwd.hpp
 	include/sge/image2d/view/checked_sub.hpp
@@ -851,54 +889,84 @@ set(
 	include/sge/image2d/view/sub.hpp
 	include/sge/image2d/view/sub_out_of_range.hpp
 	include/sge/image2d/view/to_const.hpp
-	include/sge/image3d/a8.hpp
 	include/sge/image3d/a8_format.hpp
+	include/sge/image3d/algorithm/clone.hpp
 	include/sge/image3d/algorithm/copy.hpp
 	include/sge/image3d/algorithm/copy_and_convert.hpp
 	include/sge/image3d/algorithm/fill.hpp
 	include/sge/image3d/algorithm/invalid_copy.hpp
 	include/sge/image3d/algorithm/print.hpp
-	include/sge/image3d/bgr32f.hpp
 	include/sge/image3d/bgr32f_format.hpp
-	include/sge/image3d/bgr8.hpp
 	include/sge/image3d/bgr8_format.hpp
-	include/sge/image3d/bgra32f.hpp
 	include/sge/image3d/bgra32f_format.hpp
-	include/sge/image3d/bgra8.hpp
 	include/sge/image3d/bgra8_format.hpp
-	include/sge/image3d/bgrx8.hpp
 	include/sge/image3d/bgrx8_format.hpp
 	include/sge/image3d/box.hpp
 	include/sge/image3d/box_fwd.hpp
 	include/sge/image3d/dim.hpp
 	include/sge/image3d/dim_fwd.hpp
-	include/sge/image3d/l8.hpp
 	include/sge/image3d/l8_format.hpp
-	include/sge/image3d/la8.hpp
 	include/sge/image3d/la8_format.hpp
 	include/sge/image3d/pitch.hpp
 	include/sge/image3d/pitch_fwd.hpp
-	include/sge/image3d/r32f.hpp
 	include/sge/image3d/r32f_format.hpp
-	include/sge/image3d/rgb32f.hpp
 	include/sge/image3d/rgb32f_format.hpp
-	include/sge/image3d/rgb8.hpp
 	include/sge/image3d/rgb8_format.hpp
-	include/sge/image3d/rgba32f.hpp
 	include/sge/image3d/rgba32f_format.hpp
-	include/sge/image3d/rgba8.hpp
 	include/sge/image3d/rgba8_format.hpp
-	include/sge/image3d/rgbx8.hpp
 	include/sge/image3d/rgbx8_format.hpp
+	include/sge/image3d/srgb8_format.hpp
+	include/sge/image3d/srgba8_format.hpp
+	include/sge/image3d/store/a8.hpp
+	include/sge/image3d/store/a8_fwd.hpp
+	include/sge/image3d/store/bgr32f.hpp
+	include/sge/image3d/store/bgr32f_fwd.hpp
+	include/sge/image3d/store/bgr8.hpp
+	include/sge/image3d/store/bgr8_fwd.hpp
+	include/sge/image3d/store/bgra32f.hpp
+	include/sge/image3d/store/bgra32f_fwd.hpp
+	include/sge/image3d/store/bgra8.hpp
+	include/sge/image3d/store/bgra8_fwd.hpp
+	include/sge/image3d/store/bgrx8.hpp
+	include/sge/image3d/store/bgrx8_fwd.hpp
+	include/sge/image3d/store/element.hpp
+	include/sge/image3d/store/elements.hpp
+	include/sge/image3d/store/elements_wrapper.hpp
+	include/sge/image3d/store/elements_wrapper_fwd.hpp
+	include/sge/image3d/store/l8.hpp
+	include/sge/image3d/store/l8_fwd.hpp
+	include/sge/image3d/store/la8.hpp
+	include/sge/image3d/store/la8_fwd.hpp
+	include/sge/image3d/store/object.hpp
+	include/sge/image3d/store/object_fwd.hpp
+	include/sge/image3d/store/r32f.hpp
+	include/sge/image3d/store/r32f_fwd.hpp
+	include/sge/image3d/store/rgb32f.hpp
+	include/sge/image3d/store/rgb32f_fwd.hpp
+	include/sge/image3d/store/rgb8.hpp
+	include/sge/image3d/store/rgb8_fwd.hpp
+	include/sge/image3d/store/rgba32f.hpp
+	include/sge/image3d/store/rgba32f_fwd.hpp
+	include/sge/image3d/store/rgba8.hpp
+	include/sge/image3d/store/rgba8_fwd.hpp
+	include/sge/image3d/store/rgbx8.hpp
+	include/sge/image3d/store/rgbx8_fwd.hpp
+	include/sge/image3d/store/srgb8.hpp
+	include/sge/image3d/store/srgb8_fwd.hpp
+	include/sge/image3d/store/srgba8.hpp
+	include/sge/image3d/store/srgba8_fwd.hpp
+	include/sge/image3d/store/view.hpp
 	include/sge/image3d/tag.hpp
 	include/sge/image3d/traits/box_fwd.hpp
 	include/sge/image3d/traits/color_tag.hpp
 	include/sge/image3d/traits/const_view_fwd.hpp
 	include/sge/image3d/traits/dim_fwd.hpp
 	include/sge/image3d/traits/pitch_fwd.hpp
+	include/sge/image3d/traits/store_fwd.hpp
 	include/sge/image3d/traits/sub_out_of_range.hpp
 	include/sge/image3d/traits/view_elements.hpp
 	include/sge/image3d/traits/view_fwd.hpp
+	include/sge/image3d/transform_elements.hpp
 	include/sge/image3d/view/checked_sub.hpp
 	include/sge/image3d/view/const_element.hpp
 	include/sge/image3d/view/const_elements.hpp
@@ -926,21 +994,21 @@ set(
 	include/sge/image3d/view/to_const.hpp
 	include/sge/imageds2d/algorithm/copy.hpp
 	include/sge/imageds2d/algorithm/invalid_copy.hpp
-	include/sge/imageds2d/d16.hpp
 	include/sge/imageds2d/d16_format.hpp
-	include/sge/imageds2d/d16_fwd.hpp
-	include/sge/imageds2d/d24s8.hpp
 	include/sge/imageds2d/d24s8_format.hpp
-	include/sge/imageds2d/d24s8_fwd.hpp
-	include/sge/imageds2d/d32.hpp
 	include/sge/imageds2d/d32_format.hpp
-	include/sge/imageds2d/d32_fwd.hpp
 	include/sge/imageds2d/dim.hpp
 	include/sge/imageds2d/dim_fwd.hpp
 	include/sge/imageds2d/pitch.hpp
 	include/sge/imageds2d/pitch_fwd.hpp
 	include/sge/imageds2d/rect.hpp
 	include/sge/imageds2d/rect_fwd.hpp
+	include/sge/imageds2d/store/d16.hpp
+	include/sge/imageds2d/store/d16_fwd.hpp
+	include/sge/imageds2d/store/d24s8.hpp
+	include/sge/imageds2d/store/d24s8_fwd.hpp
+	include/sge/imageds2d/store/d32.hpp
+	include/sge/imageds2d/store/d32_fwd.hpp
 	include/sge/imageds2d/tag.hpp
 	include/sge/imageds2d/traits/box_fwd.hpp
 	include/sge/imageds2d/traits/color_tag.hpp
@@ -949,6 +1017,7 @@ set(
 	include/sge/imageds2d/traits/pitch_fwd.hpp
 	include/sge/imageds2d/traits/view_elements.hpp
 	include/sge/imageds2d/traits/view_fwd.hpp
+	include/sge/imageds2d/transform_elements.hpp
 	include/sge/imageds2d/view/const_element.hpp
 	include/sge/imageds2d/view/const_elements.hpp
 	include/sge/imageds2d/view/const_elements_wrapper.hpp
