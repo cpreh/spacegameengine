@@ -45,7 +45,7 @@ class copy_and_convert_visitor
 public:
 	explicit
 	copy_and_convert_visitor(
-		mizuiro::image::algorithm::may_overlap::type const _overlap
+		mizuiro::image::algorithm::may_overlap const _overlap
 	)
 	:
 		overlap_(
@@ -76,7 +76,7 @@ public:
 			);
 	}
 private:
-	mizuiro::image::algorithm::may_overlap::type const overlap_;
+	mizuiro::image::algorithm::may_overlap const overlap_;
 };
 
 }
