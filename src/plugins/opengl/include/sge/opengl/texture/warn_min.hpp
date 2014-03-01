@@ -54,17 +54,13 @@ warn_min(
 	fcppt::string const &_what
 )
 {
-	typedef fcppt::math::dim::object<T, N, S> dim_type;
-
 	for(
-		typename dim_type::const_iterator it(
-			_dim.begin()
-		);
-		it != _dim.end();
-		++it
+		auto const element
+		:
+		_dim
 	)
 		if(
-			*it < _min
+			element < _min
 		)
 		{
 			FCPPT_LOG_DEBUG(

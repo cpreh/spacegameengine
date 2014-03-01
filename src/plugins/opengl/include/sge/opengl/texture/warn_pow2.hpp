@@ -53,18 +53,14 @@ warn_pow2(
 	fcppt::string const &_what
 )
 {
-	typedef fcppt::math::dim::object<T, N, S> dim_type;
-
 	for(
-		typename dim_type::const_iterator it(
-			_dim.begin()
-		);
-		it != _dim.end();
-		++it
+		auto const element
+		:
+		_dim
 	)
 		if(
 			!fcppt::math::is_power_of_2(
-				*it
+				element
 			)
 		)
 		{

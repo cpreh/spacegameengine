@@ -157,6 +157,7 @@ sge::systems::detail::instance::instance(
 			item.second
 		);
 
+	// FIXME: This needs to be done right after a plugin has been loaded
 	{
 		sge::systems::optional_log_settings const log_settings(
 			sge::systems::extract_config(
