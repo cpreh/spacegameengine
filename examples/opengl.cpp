@@ -127,7 +127,7 @@ try
 	);
 
 	sge::renderer::texture::planar_scoped_ptr const texture(
-		sys.renderer_core().create_planar_texture(
+		sys.renderer_device_core().create_planar_texture(
 			sge::renderer::texture::planar_parameters(
 				sge::renderer::dim2(
 					256,
@@ -173,7 +173,7 @@ try
 	> vf_format;
 
 	sge::renderer::vertex::declaration_scoped_ptr const vertex_declaration(
-		sys.renderer_core().create_vertex_declaration(
+		sys.renderer_device_core().create_vertex_declaration(
 			sge::renderer::vertex::declaration_parameters(
 				sge::renderer::vf::dynamic::make_format<
 					vf_format
@@ -183,7 +183,7 @@ try
 	);
 
 	sge::renderer::vertex::buffer_scoped_ptr const vertex_buffer(
-		sys.renderer_core().create_vertex_buffer(
+		sys.renderer_device_core().create_vertex_buffer(
 			sge::renderer::vertex::buffer_parameters(
 				*vertex_declaration,
 				sge::renderer::vf::dynamic::make_part_index<

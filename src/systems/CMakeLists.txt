@@ -162,27 +162,39 @@ set(
 	src/systems/include/sge/src/systems/modules/renderer/device_scoped_ptr.hpp
 	src/systems/include/sge/src/systems/modules/renderer/find_plugin.hpp
 	src/systems/include/sge/src/systems/modules/renderer/optional_system_ref.hpp
+	src/systems/include/sge/src/systems/modules/renderer/optional_system_ref_fwd.hpp
+	src/systems/include/sge/src/systems/modules/renderer/plugin_core_pair.hpp
+	src/systems/include/sge/src/systems/modules/renderer/plugin_core_pair_fwd.hpp
 	src/systems/include/sge/src/systems/modules/renderer/system.hpp
 	src/systems/include/sge/src/systems/modules/renderer/system_fwd.hpp
-	src/systems/include/sge/src/systems/modules/renderer/system_pair.hpp
-	src/systems/include/sge/src/systems/modules/renderer/system_pair_fwd.hpp
 	src/systems/include/sge/src/systems/modules/renderer/system_scoped_ptr.hpp
 	src/systems/include/sge/src/systems/modules/window/base.hpp
 	src/systems/include/sge/src/systems/modules/window/base_fwd.hpp
 	src/systems/include/sge/src/systems/modules/window/base_scoped_ptr.hpp
 	src/systems/include/sge/src/systems/modules/window/base_unique_ptr.hpp
 	src/systems/include/sge/src/systems/modules/window/make_base.hpp
+	src/systems/include/sge/src/systems/modules/window/make_system_base.hpp
 	src/systems/include/sge/src/systems/modules/window/object.hpp
 	src/systems/include/sge/src/systems/modules/window/object_fwd.hpp
 	src/systems/include/sge/src/systems/modules/window/object_scoped_ptr.hpp
 	src/systems/include/sge/src/systems/modules/window/original.hpp
+	src/systems/include/sge/src/systems/modules/window/original_system.hpp
 	src/systems/include/sge/src/systems/modules/window/quit.hpp
 	src/systems/include/sge/src/systems/modules/window/quit_fwd.hpp
+	src/systems/include/sge/src/systems/modules/window/system.hpp
+	src/systems/include/sge/src/systems/modules/window/system_base.hpp
+	src/systems/include/sge/src/systems/modules/window/system_base_fwd.hpp
+	src/systems/include/sge/src/systems/modules/window/system_base_scoped_ptr.hpp
+	src/systems/include/sge/src/systems/modules/window/system_base_unique_ptr.hpp
+	src/systems/include/sge/src/systems/modules/window/system_fwd.hpp
+	src/systems/include/sge/src/systems/modules/window/system_scoped_ptr.hpp
 	src/systems/include/sge/src/systems/modules/window/wrapped.hpp
+	src/systems/include/sge/src/systems/modules/window/wrapped_system.hpp
 	src/systems/include/sge/src/systems/plugin_pair_decl.hpp
 	src/systems/include/sge/src/systems/plugin_pair_fwd.hpp
 	src/systems/include/sge/src/systems/plugin_pair_impl.hpp
 	src/systems/include/sge/src/systems/plugin_path.hpp
+	src/systems/include/sge/src/systems/unpack_if_present.hpp
 	src/systems/ini_section_name.cpp
 	src/systems/input.cpp
 	src/systems/log_location.cpp
@@ -204,14 +216,19 @@ set(
 	src/systems/modules/renderer/create_device.cpp
 	src/systems/modules/renderer/device.cpp
 	src/systems/modules/renderer/find_plugin.cpp
+	src/systems/modules/renderer/plugin_core_pair.cpp
 	src/systems/modules/renderer/system.cpp
-	src/systems/modules/renderer/system_pair.cpp
 	src/systems/modules/window/base.cpp
 	src/systems/modules/window/make_base.cpp
+	src/systems/modules/window/make_system_base.cpp
 	src/systems/modules/window/object.cpp
 	src/systems/modules/window/original.cpp
+	src/systems/modules/window/original_system.cpp
 	src/systems/modules/window/quit.cpp
+	src/systems/modules/window/system.cpp
+	src/systems/modules/window/system_base.cpp
 	src/systems/modules/window/wrapped.cpp
+	src/systems/modules/window/wrapped_system.cpp
 	src/systems/renderer.cpp
 	src/systems/window.cpp
 	src/systems/wrapped_window.cpp

@@ -490,7 +490,7 @@ try
 
 	sge::projectile::debug_drawer debug_drawer(
 		world,
-		sys.renderer_ffp());
+		sys.renderer_device_ffp());
 	sge::projectile::group::object
 		first_group(
 			world),
@@ -582,8 +582,8 @@ try
 		debug_drawer.update();
 
 		sge::renderer::context::scoped_ffp const scoped_block(
-			sys.renderer_ffp(),
-			sys.renderer_ffp().onscreen_target()
+			sys.renderer_device_ffp(),
+			sys.renderer_device_ffp().onscreen_target()
 		);
 
 		if(
@@ -597,7 +597,7 @@ try
 				sge::image::color::predef::black()));
 
 		sge::renderer::state::ffp::transform::object_scoped_ptr const transform_state(
-			sys.renderer_ffp().create_transform_state(
+			sys.renderer_device_ffp().create_transform_state(
 				sge::renderer::state::ffp::transform::parameters(
 					*sge::renderer::projection::orthogonal_viewport(
 						scoped_block.get().target().viewport()))));

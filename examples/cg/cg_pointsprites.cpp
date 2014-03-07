@@ -236,7 +236,7 @@ try
 	> format;
 
 	sge::renderer::vertex::declaration_scoped_ptr const vertex_declaration(
-		sys.renderer_core().create_vertex_declaration(
+		sys.renderer_device_core().create_vertex_declaration(
 			sge::renderer::vertex::declaration_parameters(
 				sge::renderer::vf::dynamic::make_format<
 					format
@@ -248,7 +248,7 @@ try
 	sge::cg::context::object const cg_context;
 
 	sge::cg::profile::object const vertex_profile(
-		sys.renderer_core().create_cg_profile(
+		sys.renderer_device_core().create_cg_profile(
 			sge::cg::profile::shader_type::vertex
 		)
 	);
@@ -292,7 +292,7 @@ try
 			cg_context,
 			sge::cg::program::source_type::text,
 			vertex_profile,
-			sys.renderer_core().transform_cg_vertex_program(
+			sys.renderer_device_core().transform_cg_vertex_program(
 				*vertex_declaration,
 				sge::cg::program::source(
 					vertex_shader_source
@@ -301,7 +301,7 @@ try
 			sge::cg::program::main_function(
 				"vertex_main"
 			),
-			sys.renderer_core().cg_compile_options(
+			sys.renderer_device_core().cg_compile_options(
 				cg_context,
 				vertex_profile
 			)
@@ -309,13 +309,13 @@ try
 	);
 
 	sge::renderer::cg::loaded_program_scoped_ptr const loaded_vertex_program(
-		sys.renderer_core().load_cg_program(
+		sys.renderer_device_core().load_cg_program(
 			vertex_program
 		)
 	);
 
 	sge::cg::profile::object const pixel_profile(
-		sys.renderer_core().create_cg_profile(
+		sys.renderer_device_core().create_cg_profile(
 			sge::cg::profile::shader_type::pixel
 		)
 	);
@@ -331,7 +331,7 @@ try
 			sge::cg::program::main_function(
 				"pixel_main"
 			),
-			sys.renderer_core().cg_compile_options(
+			sys.renderer_device_core().cg_compile_options(
 				cg_context,
 				pixel_profile
 			)
@@ -339,13 +339,13 @@ try
 	);
 
 	sge::renderer::cg::loaded_program_scoped_ptr const loaded_pixel_program(
-		sys.renderer_core().load_cg_program(
+		sys.renderer_device_core().load_cg_program(
 			pixel_program
 		)
 	);
 
 	sge::renderer::vertex::buffer_scoped_ptr const vertex_buffer(
-		sys.renderer_core().create_vertex_buffer(
+		sys.renderer_device_core().create_vertex_buffer(
 			sge::renderer::vertex::buffer_parameters(
 				*vertex_declaration,
 				sge::renderer::vf::dynamic::make_part_index<
@@ -416,18 +416,18 @@ try
 			sge::config::media_path()
 			/ FCPPT_TEXT("images")
 			/ FCPPT_TEXT("uvtestgrid.png"),
-			sys.renderer_core(),
+			sys.renderer_device_core(),
 			sys.image_system(),
 			sge::renderer::texture::mipmap::off(),
 			sge::renderer::resource_flags_field::null(),
 			sge::renderer::texture::emulate_srgb_from_caps(
-				sys.renderer_ffp().caps()
+				sys.renderer_device_ffp().caps()
 			)
 		)
 	);
 
 	sge::renderer::cg::loaded_texture_scoped_ptr const loaded_texture(
-		sys.renderer_core().load_cg_texture(
+		sys.renderer_device_core().load_cg_texture(
 			pixel_program.parameter(
 				"decal"
 			).object(),
@@ -442,7 +442,7 @@ try
 	);
 
 	sge::renderer::state::ffp::misc::object_scoped_ptr const misc_state(
-		sys.renderer_ffp().create_misc_state(
+		sys.renderer_device_ffp().create_misc_state(
 			sge::renderer::state::ffp::misc::parameters(
 				sge::renderer::state::ffp::misc::enable_point_sprites(
 					true
@@ -462,8 +462,8 @@ try
 	)
 	{
 		sge::renderer::context::scoped_ffp const scoped_block(
-			sys.renderer_ffp(),
-			sys.renderer_ffp().onscreen_target()
+			sys.renderer_device_ffp(),
+			sys.renderer_device_ffp().onscreen_target()
 		);
 
 		scoped_block.get().clear(

@@ -200,7 +200,7 @@ try
 	);
 
 	sge::font::draw::static_text static_text_left(
-		sys.renderer_ffp(),
+		sys.renderer_device_ffp(),
 		*font_object,
 		string,
 		sge::font::text_parameters(
@@ -219,7 +219,7 @@ try
 	);
 
 	sge::font::draw::static_text static_text_center(
-		sys.renderer_ffp(),
+		sys.renderer_device_ffp(),
 		*font_object,
 		string,
 		sge::font::text_parameters(
@@ -238,7 +238,7 @@ try
 	);
 
 	sge::font::draw::static_text static_text_right(
-		sys.renderer_ffp(),
+		sys.renderer_device_ffp(),
 		*font_object,
 		string,
 		sge::font::text_parameters(
@@ -261,8 +261,8 @@ try
 	)
 	{
 		sge::renderer::context::scoped_ffp const scoped_block(
-			sys.renderer_ffp(),
-			sys.renderer_ffp().onscreen_target()
+			sys.renderer_device_ffp(),
+			sys.renderer_device_ffp().onscreen_target()
 		);
 
 		scoped_block.get().clear(

@@ -171,8 +171,8 @@ try
 		}
 
 		sge::renderer::context::scoped_core const scoped_block(
-			sys.renderer_core(),
-			sys.renderer_core().onscreen_target()
+			sys.renderer_device_core(),
+			sys.renderer_device_core().onscreen_target()
 		);
 
 		scoped_block.get().clear(

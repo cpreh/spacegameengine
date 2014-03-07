@@ -36,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/ini/result_with_value.hpp>
 #include <sge/parse/ini/start.hpp>
 #include <sge/plugin/manager_fwd.hpp>
+#include <sge/renderer/core_fwd.hpp>
 #include <sge/renderer/system_fwd.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
@@ -43,6 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/extract_config.hpp>
 #include <sge/src/systems/extract_plugin_path.hpp>
 #include <sge/src/systems/logger.hpp>
+#include <sge/src/systems/unpack_if_present.hpp>
 #include <sge/src/systems/detail/instance_impl.hpp>
 #include <sge/systems/config.hpp>
 #include <sge/systems/optional_log_settings.hpp>
@@ -125,25 +127,44 @@ sge::systems::detail::instance::instance(
 	);
 
 	// Special case:
-	// The renderer system must be initialized before the window,
-	// but the window must be initialized before a renderer device
-	{
-		sge::systems::detail::any_map::const_iterator const it(
-			map.find(
-				sge::systems::detail::any_key::renderer
-			)
-		);
-
-		if(
-			it != map.end()
+	// The window system must be initialized before the renderer system.
+	sge::systems::unpack_if_present<
+		sge::systems::window
+	>(
+		map,
+		sge::systems::detail::any_key::window,
+		[
+			this
+		](
+			sge::systems::window const &_window
 		)
+		{
+			impl_->init_window_system(
+				_window
+			);
+		}
+	);
+
+	// Special case:
+	// The renderer system must be initialized before the window.
+	sge::systems::unpack_if_present<
+		sge::systems::detail::renderer
+	>(
+		map,
+		sge::systems::detail::any_key::renderer,
+		[
+			this,
+			&ini_config
+		](
+			sge::systems::detail::renderer const &_param
+		)
+		{
 			impl_->init_renderer_system(
-				it->second.get<
-					sge::systems::detail::renderer
-				>(),
+				_param,
 				ini_config
 			);
-	}
+		}
+	);
 
 	for(
 		auto const &item
@@ -189,6 +210,12 @@ sge::systems::detail::instance::plugin_manager()
 	return impl_->plugin_manager();
 }
 
+sge::renderer::core &
+sge::systems::detail::instance::renderer_core() const
+{
+	return impl_->renderer_core();
+}
+
 sge::renderer::system &
 sge::systems::detail::instance::renderer_system() const
 {
@@ -196,13 +223,13 @@ sge::systems::detail::instance::renderer_system() const
 }
 
 sge::renderer::device::ffp &
-sge::systems::detail::instance::renderer_ffp() const
+sge::systems::detail::instance::renderer_device_ffp() const
 {
 	return impl_->renderer_device_ffp();
 }
 
 sge::renderer::device::core &
-sge::systems::detail::instance::renderer_core() const
+sge::systems::detail::instance::renderer_device_core() const
 {
 	return impl_->renderer_device_core();
 }

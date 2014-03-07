@@ -23,9 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/modules/window/make_base.hpp>
 #include <sge/src/systems/modules/window/object.hpp>
 #include <sge/src/systems/modules/window/quit.hpp>
+#include <sge/src/systems/modules/window/system.hpp>
 #include <sge/systems/window.hpp>
 #include <sge/window/object.hpp>
-#include <sge/window/system.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -35,12 +35,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::systems::modules::window::object::object(
 	sge::systems::window const &_parameters,
+	sge::systems::modules::window::system const &_window_system,
 	sge::systems::modules::renderer::optional_system_ref const &_renderer_system
 )
 :
 	base_(
 		sge::systems::modules::window::make_base(
 			_parameters,
+			_window_system.get(),
 			_renderer_system
 		)
 	),
@@ -53,8 +55,8 @@ sge::systems::modules::window::object::object(
 			fcppt::make_unique_ptr<
 				sge::systems::modules::window::quit
 			>(
-				base_->system(),
-				base_->window()
+				_window_system.get(),
+				base_->get()
 			)
 		:
 			std::unique_ptr<
@@ -68,16 +70,11 @@ sge::systems::modules::window::object::~object()
 {
 }
 
-sge::window::system &
-sge::systems::modules::window::object::system() const
-{
-	return base_->system();
-}
-
 sge::window::object &
-sge::systems::modules::window::object::window() const
+sge::systems::modules::window::object::get() const
 {
-	return base_->window();
+	return
+		base_->get();
 }
 
 void
@@ -86,5 +83,5 @@ sge::systems::modules::window::object::post_init()
 	if(
 		show_on_post_
 	)
-		this->window().show();
+		this->get().show();
 }

@@ -23,15 +23,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/xrandr/configuration.hpp>
 #include <sge/opengl/xrandr/extension_fwd.hpp>
-#include <sge/opengl/xrandr/resolution_fwd.hpp>
+#include <sge/opengl/xrandr/resolution_unique_ptr.hpp>
 #include <sge/opengl/xrandr/state_fwd.hpp>
+#include <sge/renderer/display_mode/object_fwd.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <awl/backends/x11/display_fwd.hpp>
 #include <awl/backends/x11/window/object_fwd.hpp>
 #include <awl/backends/x11/window/event/object_fwd.hpp>
 #include <awl/backends/x11/window/event/processor_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 
 
@@ -51,14 +51,18 @@ public:
 	state(
 		sge::opengl::xrandr::extension const &,
 		awl::backends::x11::window::object &,
-		awl::backends::x11::window::event::processor &,
-		sge::renderer::display_mode::optional_object const &
+		awl::backends::x11::window::event::processor &
 	);
 
 	~state();
 
 	sge::renderer::display_mode::optional_object const
 	display_mode() const;
+
+	sge::opengl::xrandr::resolution_unique_ptr
+	choose_resolution(
+		sge::renderer::display_mode::object const &
+	);
 private:
 	void
 	change_callback(
@@ -78,14 +82,6 @@ private:
 	awl::backends::x11::window::object &window_;
 
 	sge::opengl::xrandr::configuration const config_;
-
-	typedef
-	fcppt::scoped_ptr<
-		sge::opengl::xrandr::resolution
-	>
-	resolution_scoped_ptr;
-
-	resolution_scoped_ptr const resolution_;
 
 	sge::renderer::display_mode::optional_object display_mode_;
 

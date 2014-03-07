@@ -46,7 +46,7 @@ sge::opengl::draw_arrays(
 		FCPPT_LOG_WARNING(
 			sge::opengl::logger(),
 			fcppt::log::_
-				<< FCPPT_TEXT("Empty device::render() call. ")
+				<< FCPPT_TEXT("Empty render() call. ")
 				<< FCPPT_TEXT("vertex_count was 0.")
 		);
 

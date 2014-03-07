@@ -119,7 +119,7 @@ try
 			)
 			{
 				sge::renderer::display_mode::optional_object const mode(
-					sys.renderer_core().display_mode()
+					sys.renderer_device_core().display_mode()
 				);
 
 				if(

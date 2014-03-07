@@ -1889,6 +1889,10 @@ set(
 	include/sge/renderer/context/scoped_ffp_unique_ptr.hpp
 	include/sge/renderer/context/scoped_offscreen_target.hpp
 	include/sge/renderer/context/scoped_offscreen_target_fwd.hpp
+	include/sge/renderer/core.hpp
+	include/sge/renderer/core_fwd.hpp
+	include/sge/renderer/core_scoped_ptr.hpp
+	include/sge/renderer/core_unique_ptr.hpp
 	include/sge/renderer/depth_stencil_buffer/optional_surface_ref.hpp
 	include/sge/renderer/depth_stencil_buffer/optional_surface_ref_fwd.hpp
 	include/sge/renderer/depth_stencil_buffer/surface.hpp

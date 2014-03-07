@@ -46,6 +46,12 @@ public:
 	display_mode() const = 0;
 
 	virtual
+	void
+	display_mode(
+		sge::renderer::display_mode::optional_object const &
+	) = 0;
+
+	virtual
 	~object() = 0;
 };
 

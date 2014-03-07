@@ -32,7 +32,7 @@ sge::opengl::get_string(
 )
 {
 	GLubyte const *const ret(
-		glGetString(
+		::glGetString(
 			_what
 		)
 	);
@@ -40,7 +40,7 @@ sge::opengl::get_string(
 	if(
 		!ret
 	)
-		throw renderer::exception(
+		throw sge::renderer::exception(
 			FCPPT_TEXT("glGetString() failed!")
 		);
 

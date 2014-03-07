@@ -21,15 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_SYSTEMS_MODULES_WINDOW_ORIGINAL_HPP_INCLUDED
 #define SGE_SRC_SYSTEMS_MODULES_WINDOW_ORIGINAL_HPP_INCLUDED
 
-#include <sge/src/systems/modules/renderer/optional_system_ref.hpp>
+#include <sge/src/systems/modules/renderer/optional_system_ref_fwd.hpp>
 #include <sge/src/systems/modules/window/base.hpp>
 #include <sge/window/object_scoped_ptr.hpp>
 #include <sge/window/parameters_fwd.hpp>
-#include <sge/window/system.hpp>
+#include <sge/window/system_fwd.hpp>
 #include <awl/cursor/object_scoped_ptr.hpp>
-#include <awl/event/processor_scoped_ptr.hpp>
-#include <awl/system/object_scoped_ptr.hpp>
-#include <awl/system/event/processor_scoped_ptr.hpp>
 #include <awl/visual/object_scoped_ptr.hpp>
 #include <awl/window/object_scoped_ptr.hpp>
 #include <awl/window/event/processor_scoped_ptr.hpp>
@@ -55,22 +52,16 @@ class original
 public:
 	original(
 		sge::window::parameters const &,
+		sge::window::system &,
 		sge::systems::modules::renderer::optional_system_ref const &
 	);
 
-	~original();
-
-	sge::window::system &
-	system();
-
-	sge::window::object &
-	window() const;
+	~original()
+	override;
 private:
-	awl::system::object_scoped_ptr awl_system_;
-
-	awl::system::event::processor_scoped_ptr const awl_system_event_processor_;
-
-	awl::event::processor_scoped_ptr const awl_event_processor_;
+	sge::window::object &
+	get() const
+	override;
 
 	awl::visual::object_scoped_ptr const awl_visual_;
 
@@ -79,8 +70,6 @@ private:
 	awl::window::object_scoped_ptr const awl_window_;
 
 	awl::window::event::processor_scoped_ptr const awl_window_event_processor_;
-
-	sge::window::system system_;
 
 	sge::window::object_scoped_ptr const window_;
 };

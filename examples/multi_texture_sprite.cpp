@@ -190,12 +190,12 @@ try
 			sge::config::media_path()
 			/ FCPPT_TEXT("images")
 			/ FCPPT_TEXT("color_map.png"),
-			sys.renderer_core(),
+			sys.renderer_device_core(),
 			sys.image_system(),
 			sge::renderer::texture::mipmap::off(),
 			sge::renderer::resource_flags_field::null(),
 			sge::renderer::texture::emulate_srgb_from_caps(
-				sys.renderer_ffp().caps()
+				sys.renderer_device_ffp().caps()
 			)
 		)
 	);
@@ -205,12 +205,12 @@ try
 			sge::config::media_path()
 			/ FCPPT_TEXT("images")
 			/ FCPPT_TEXT("grass.png"),
-			sys.renderer_core(),
+			sys.renderer_device_core(),
 			sys.image_system(),
 			sge::renderer::texture::mipmap::off(),
 			sge::renderer::resource_flags_field::null(),
 			sge::renderer::texture::emulate_srgb_from_caps(
-				sys.renderer_ffp().caps()
+				sys.renderer_device_ffp().caps()
 			)
 		)
 	);
@@ -261,12 +261,12 @@ try
 	> sprite_state_parameters;
 
 	sprite_buffers_type sprite_buffers(
-		sys.renderer_ffp(),
+		sys.renderer_device_ffp(),
 		sge::sprite::buffers::option::dynamic
 	);
 
 	sprite_state_object sprite_states(
-		sys.renderer_ffp(),
+		sys.renderer_device_ffp(),
 		sprite_state_parameters()
 	);
 
@@ -299,7 +299,7 @@ try
 	);
 
 	sge::renderer::state::ffp::sampler::object_scoped_ptr const sampler0(
-		sys.renderer_ffp().create_ffp_sampler_state(
+		sys.renderer_device_ffp().create_ffp_sampler_state(
 			sge::renderer::state::ffp::sampler::parameters_both(
 				sge::renderer::state::ffp::sampler::op(
 					sge::renderer::state::ffp::sampler::unary_op(
@@ -314,7 +314,7 @@ try
 	);
 
 	sge::renderer::state::ffp::sampler::object_scoped_ptr const sampler1(
-		sys.renderer_ffp().create_ffp_sampler_state(
+		sys.renderer_device_ffp().create_ffp_sampler_state(
 			sge::renderer::state::ffp::sampler::parameters_both(
 				sge::renderer::state::ffp::sampler::op(
 					sge::renderer::state::ffp::sampler::binary_op(
@@ -345,8 +345,8 @@ try
 	)
 	{
 		sge::renderer::context::scoped_ffp const scoped_block(
-			sys.renderer_ffp(),
-			sys.renderer_ffp().onscreen_target()
+			sys.renderer_device_ffp(),
+			sys.renderer_device_ffp().onscreen_target()
 		);
 
 		scoped_block.get().sampler_ffp_state(

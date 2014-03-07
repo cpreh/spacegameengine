@@ -282,7 +282,7 @@ try
 	}
 
 	sge::scenic::scene::manager scene_manager(
-		sys.renderer_core(),
+		sys.renderer_device_core(),
 		sys.image_system(),
 		sge::scenic::scene::prefer_cg_context(
 			!compiled_options.count(
@@ -303,7 +303,7 @@ try
 				1.0f)));
 
 	sge::scenic::grid::object simple_grid_xz(
-		sys.renderer_ffp(),
+		sys.renderer_device_ffp(),
 		*camera,
 		sge::scenic::grid::orientation::xz,
 		sge::scenic::grid::rect(
@@ -323,7 +323,7 @@ try
 
 	/*
 	sge::scenic::sky::dome::object skydome(
-		sys.renderer_core(),
+		sys.renderer_device_core(),
 		scene_manager.shader_context(),
 		scene_manager.texture_manager(),
 		sge::scenic::sky::dome::texture_path(
@@ -345,7 +345,7 @@ try
 		sge::renderer::dim2(
 			256u,
 			64u),
-		sys.renderer_ffp(),
+		sys.renderer_device_ffp(),
 		sge::graph::baseline(
 			1.0f/30.0f),
 		sge::graph::optional_axis_constraint(
@@ -377,8 +377,8 @@ try
 			exporter->update();
 
 		sge::renderer::context::scoped_ffp const scoped_block(
-			sys.renderer_ffp(),
-			sys.renderer_ffp().onscreen_target());
+			sys.renderer_device_ffp(),
+			sys.renderer_device_ffp().onscreen_target());
 
 		scoped_block.get().clear(
 			sge::renderer::clear::parameters()

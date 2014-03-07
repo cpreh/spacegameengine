@@ -55,7 +55,7 @@ try
 
 	sge::rucksack::widget::viewport_adaptor viewport_box(
 		testbed.systems().viewport_manager(),
-		testbed.systems().renderer_core());
+		testbed.systems().renderer_device_core());
 
 	sge::rucksack::widget::master_and_slaves mas_box(
 		sge::rucksack::padding(

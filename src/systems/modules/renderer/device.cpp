@@ -45,7 +45,7 @@ sge::systems::modules::renderer::device::device(
 	),
 	viewport_manager_(
 		*renderer_device_,
-		_window.window(),
+		_window.get(),
 		_parameters.parameters().resize_callback()
 	)
 {

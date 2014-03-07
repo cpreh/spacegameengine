@@ -182,7 +182,7 @@ try
 
 //! [vertex_declaration]
 	sge::renderer::vertex::declaration_scoped_ptr const vertex_declaration(
-		sys.renderer_core().create_vertex_declaration(
+		sys.renderer_device_core().create_vertex_declaration(
 			sge::renderer::vertex::declaration_parameters(
 				sge::renderer::vf::dynamic::make_format<
 					format
@@ -194,7 +194,7 @@ try
 
 //! [vertex_buffer]
 	sge::renderer::vertex::buffer_scoped_ptr const vertex_buffer(
-		sys.renderer_core().create_vertex_buffer(
+		sys.renderer_device_core().create_vertex_buffer(
 			sge::renderer::vertex::buffer_parameters(
 				*vertex_declaration,
 				sge::renderer::vf::dynamic::make_part_index<
@@ -308,8 +308,8 @@ try
 	{
 //! [running_block]
 		sge::renderer::context::scoped_core const scoped_block(
-			sys.renderer_core(),
-			sys.renderer_core().onscreen_target()
+			sys.renderer_device_core(),
+			sys.renderer_device_core().onscreen_target()
 		);
 
 		sge::renderer::context::core &context(

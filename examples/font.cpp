@@ -147,7 +147,7 @@ try
 			sge::font::parameters()
 			.dpi(
 				sge::renderer::display_mode::to_dpi(
-					sys.renderer_ffp().display_mode()
+					sys.renderer_device_ffp().display_mode()
 				)
 			)
 		)
@@ -159,7 +159,7 @@ try
 		<< font->metrics();
 
 	sge::font::draw::static_text static_text(
-		sys.renderer_ffp(),
+		sys.renderer_device_ffp(),
 		*font,
 		SGE_FONT_LIT(
 			"日本語は書ける, "
@@ -190,8 +190,8 @@ try
 	)
 	{
 		sge::renderer::context::scoped_ffp const scoped_block(
-			sys.renderer_ffp(),
-			sys.renderer_ffp().onscreen_target()
+			sys.renderer_device_ffp(),
+			sys.renderer_device_ffp().onscreen_target()
 		);
 
 		scoped_block.get().clear(

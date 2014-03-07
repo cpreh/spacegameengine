@@ -25,9 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/modules/window/base_scoped_ptr.hpp>
 #include <sge/src/systems/modules/window/object_fwd.hpp>
 #include <sge/src/systems/modules/window/quit_fwd.hpp>
+#include <sge/src/systems/modules/window/system_fwd.hpp>
 #include <sge/systems/window_fwd.hpp>
 #include <sge/window/object_fwd.hpp>
-#include <sge/window/system_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
 
@@ -49,16 +49,14 @@ class object
 public:
 	object(
 		sge::systems::window const &,
+		sge::systems::modules::window::system const &,
 		sge::systems::modules::renderer::optional_system_ref const &
 	);
 
 	~object();
 
-	sge::window::system &
-	system() const;
-
 	sge::window::object &
-	window() const;
+	get() const;
 
 	void
 	post_init();
@@ -67,9 +65,11 @@ private:
 
 	bool const show_on_post_;
 
-	typedef fcppt::scoped_ptr<
+	typedef
+	fcppt::scoped_ptr<
 		sge::systems::modules::window::quit
-	> quit_scoped_ptr;
+	>
+	quit_scoped_ptr;
 
 	quit_scoped_ptr const quit_;
 };

@@ -18,21 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/system.hpp>
+#include <sge/renderer/core.hpp>
 #include <sge/renderer/caps/system.hpp>
 #include <sge/renderer/caps/system_field.hpp>
 #include <sge/renderer/plugin/collection_fwd.hpp>
 #include <sge/renderer/plugin/traits.hpp>
 #include <sge/src/systems/find_plugin.hpp>
 #include <sge/src/systems/modules/renderer/find_plugin.hpp>
-#include <sge/src/systems/modules/renderer/system_pair.hpp>
+#include <sge/src/systems/modules/renderer/plugin_core_pair.hpp>
 #include <sge/systems/optional_name_fwd.hpp>
 #include <sge/systems/renderer_caps.hpp>
 #include <fcppt/container/bitfield/is_subset_eq.hpp>
 
 
 
-sge::systems::modules::renderer::system_pair
+sge::systems::modules::renderer::plugin_core_pair
 sge::systems::modules::renderer::find_plugin(
 	sge::renderer::plugin::collection const &_collection,
 	sge::systems::optional_name const &_name,
@@ -42,7 +42,7 @@ sge::systems::modules::renderer::find_plugin(
 {
 	return
 		sge::systems::find_plugin<
-			sge::renderer::system
+			sge::renderer::core
 		>(
 			_collection,
 			_name,
@@ -50,7 +50,7 @@ sge::systems::modules::renderer::find_plugin(
 				_renderer_caps,
 				&_caps
 			](
-				sge::renderer::system const &_system
+				sge::renderer::core const &_core
 			)
 			{
 				return
@@ -65,7 +65,7 @@ sge::systems::modules::renderer::find_plugin(
 						:
 							_caps
 						,
-						_system.caps()
+						_core.caps()
 					);
 			}
 		);

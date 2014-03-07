@@ -20,25 +20,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/plugin/capabilities.hpp>
 #include <sge/plugin/detail/address_name.hpp>
-#include <sge/renderer/system_fwd.hpp>
+#include <sge/renderer/core_fwd.hpp>
 #include <sge/renderer/plugin/traits.hpp>
 #include <sge/src/plugin/address_name.hpp>
 
 
 sge::plugin::detail::address_name
 sge::plugin::detail::traits<
-	sge::renderer::system
+	sge::renderer::core
 >::plugin_loader_name()
 {
 	return
 		SGE_PLUGIN_ADDRESS_NAME(
-			"create_renderer_system"
+			"create_renderer_core"
 		);
 }
 
 sge::plugin::capabilities
 sge::plugin::detail::traits<
-	sge::renderer::system
+	sge::renderer::core
 >::plugin_type()
 {
 	return

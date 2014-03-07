@@ -62,7 +62,7 @@ sge::systems::any_visitor::operator()(
 	sge::systems::window const &_param
 ) const
 {
-	impl_.init_window(
+	impl_.init_window_object(
 		_param
 	);
 }

@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/area_function.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/set_flipped_area.hpp>
 #include <sge/renderer/pixel_rect.hpp>
@@ -27,9 +28,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::set_flipped_area(
-	opengl::area_function const _function,
-	renderer::pixel_rect const &_area,
-	renderer::screen_unit const _height
+	sge::opengl::area_function const _function,
+	sge::renderer::pixel_rect const &_area,
+	sge::renderer::screen_unit const _height
 )
 {
 	_function(
@@ -42,7 +43,7 @@ sge::opengl::set_flipped_area(
 			GLint
 		>(
 			static_cast<
-				renderer::pixel_unit
+				sge::renderer::pixel_unit
 			>(
 				_height
 			)

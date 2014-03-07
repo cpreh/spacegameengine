@@ -475,7 +475,7 @@ try
 	);
 
 	sge::font::draw::static_text cpu_label(
-		sys.renderer_ffp(),
+		sys.renderer_device_ffp(),
 		*font,
 		SGE_FONT_LIT(
 			"cpu"
@@ -492,7 +492,7 @@ try
 	);
 
 	sge::font::draw::static_text mem_label(
-		sys.renderer_ffp(),
+		sys.renderer_device_ffp(),
 		*font,
 		SGE_FONT_LIT(
 			"mem"
@@ -515,7 +515,7 @@ try
 				0.0f)),
 		fcppt::math::dim::structure_cast<sge::image2d::dim>(
 			graph_dim),
-		sys.renderer_ffp(),
+		sys.renderer_device_ffp(),
 		sge::graph::baseline(
 			50.0),
 		sge::graph::optional_axis_constraint(
@@ -532,7 +532,7 @@ try
 				static_cast<sge::renderer::vector2::value_type>(graph_dim.h()))),
 		fcppt::math::dim::structure_cast<sge::image2d::dim>(
 			graph_dim),
-		sys.renderer_ffp(),
+		sys.renderer_device_ffp(),
 		sge::graph::baseline(
 			50.0),
 		sge::graph::optional_axis_constraint(
@@ -593,7 +593,7 @@ try
 							)),
 					fcppt::math::dim::structure_cast<sge::image2d::dim>(
 						graph_dim),
-					sys.renderer_ffp(),
+					sys.renderer_device_ffp(),
 					sge::graph::baseline(
 						0.0),
 					sge::graph::optional_axis_constraint(),
@@ -602,7 +602,7 @@ try
 				fcppt::make_unique_ptr<
 					sge::font::draw::static_text
 				>(
-					sys.renderer_ffp(),
+					sys.renderer_device_ffp(),
 					*font,
 					sge::font::from_fcppt_string(
 						fcppt::from_std_string(
@@ -631,8 +631,8 @@ try
 			desired_fps);
 
 		sge::renderer::context::scoped_ffp const scoped_block(
-			sys.renderer_ffp(),
-			sys.renderer_ffp().onscreen_target()
+			sys.renderer_device_ffp(),
+			sys.renderer_device_ffp().onscreen_target()
 		);
 
 		jiffies const current_jiffies =

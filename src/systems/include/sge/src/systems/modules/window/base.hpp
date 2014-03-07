@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/src/systems/modules/window/base_fwd.hpp>
 #include <sge/window/object_fwd.hpp>
-#include <sge/window/system_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -41,22 +40,15 @@ class base
 	FCPPT_NONCOPYABLE(
 		base
 	);
-public:
+protected:
 	base();
-
+public:
 	virtual
 	~base() = 0;
 
 	virtual
-	sge::window::system &
-	system() = 0;
-
-	virtual
 	sge::window::object &
-	window() const = 0;
-
-	void
-	post_init();
+	get() const = 0;
 };
 
 }

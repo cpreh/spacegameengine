@@ -39,6 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/modules/input/cursor_modifier_unique_ptr.hpp>
 #include <sge/src/systems/modules/input/object.hpp>
 #include <sge/src/systems/modules/window/object.hpp>
+#include <sge/src/systems/modules/window/system.hpp>
 #include <sge/systems/detail/input.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
@@ -49,7 +50,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::systems::modules::input::object::object(
 	sge::input::plugin::collection const &_collection,
 	sge::systems::detail::input const &_parameters,
-	sge::systems::modules::window::object const &_window
+	sge::systems::modules::window::system const &_window_system,
+	sge::systems::modules::window::object const &_window_object
 )
 :
 	input_system_(
@@ -59,8 +61,8 @@ sge::systems::modules::input::object::object(
 	),
 	input_processor_(
 		input_system_->create_processor(
-			_window.window(),
-			_window.system()
+			_window_object.get(),
+			_window_system.get()
 		)
 	),
 	cursor_demuxer_(

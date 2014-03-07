@@ -18,28 +18,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_SYSTEMS_MODULES_RENDERER_SYSTEM_PAIR_FWD_HPP_INCLUDED
-#define SGE_SRC_SYSTEMS_MODULES_RENDERER_SYSTEM_PAIR_FWD_HPP_INCLUDED
+#ifndef SGE_SRC_SYSTEMS_UNPACK_IF_PRESENT_HPP_INCLUDED
+#define SGE_SRC_SYSTEMS_UNPACK_IF_PRESENT_HPP_INCLUDED
 
-#include <sge/renderer/system_fwd.hpp>
-#include <sge/src/systems/plugin_pair_fwd.hpp>
+#include <sge/systems/detail/any_key.hpp>
+#include <sge/systems/detail/any_map.hpp>
 
 
 namespace sge
 {
 namespace systems
 {
-namespace modules
-{
-namespace renderer
-{
 
-typedef sge::systems::plugin_pair<
-	sge::renderer::system
-> system_pair;
+template<
+	typename Parameter,
+	typename Function
+>
+void
+unpack_if_present(
+	sge::systems::detail::any_map const &_map,
+	sge::systems::detail::any_key const _key,
+	Function const _function
+)
+{
+	sge::systems::detail::any_map::const_iterator const it(
+		_map.find(
+			_key
+		)
+	);
 
+	if(
+		it
+		!=
+		_map.end()
+	)
+		_function(
+			it->second.get<
+				Parameter
+			>()
+		);
 }
-}
+
 }
 }
 

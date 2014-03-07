@@ -32,9 +32,11 @@ namespace font
 namespace plugin
 {
 
-typedef sge::plugin::object_scoped_ptr<
+typedef
+sge::plugin::object_scoped_ptr<
 	sge::font::system
->::type object_scoped_ptr;
+>
+object_scoped_ptr;
 
 }
 }

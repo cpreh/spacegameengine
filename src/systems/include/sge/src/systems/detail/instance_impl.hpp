@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/ini/start_fwd.hpp>
 #include <sge/plugin/cache.hpp>
 #include <sge/plugin/manager.hpp>
+#include <sge/renderer/core_fwd.hpp>
 #include <sge/renderer/system_fwd.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
@@ -45,6 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/modules/renderer/device_scoped_ptr.hpp>
 #include <sge/src/systems/modules/renderer/system_scoped_ptr.hpp>
 #include <sge/src/systems/modules/window/object_scoped_ptr.hpp>
+#include <sge/src/systems/modules/window/system_scoped_ptr.hpp>
 #include <sge/systems/audio_loader_fwd.hpp>
 #include <sge/systems/audio_player_fwd.hpp>
 #include <sge/systems/font_fwd.hpp>
@@ -82,19 +84,24 @@ public:
 	~instance_impl();
 
 	void
+	init_window_system(
+		sge::systems::window const &
+	);
+
+	void
 	init_renderer_system(
 		sge::systems::detail::renderer const &,
 		sge::parse::ini::start const &
 	);
 
 	void
-	init_renderer(
-		sge::systems::detail::renderer const &
+	init_window_object(
+		sge::systems::window const &
 	);
 
 	void
-	init_window(
-		sge::systems::window const &
+	init_renderer(
+		sge::systems::detail::renderer const &
 	);
 
 	void
@@ -127,6 +134,9 @@ public:
 
 	sge::plugin::manager &
 	plugin_manager();
+
+	sge::renderer::core &
+	renderer_core() const;
 
 	sge::renderer::system &
 	renderer_system() const;
@@ -181,9 +191,11 @@ private:
 
 	sge::plugin::manager plugin_manager_;
 
-	sge::systems::modules::window::object_scoped_ptr window_;
+	sge::systems::modules::window::system_scoped_ptr window_system_;
 
 	sge::systems::modules::renderer::system_scoped_ptr renderer_system_;
+
+	sge::systems::modules::window::object_scoped_ptr window_object_;
 
 	sge::systems::modules::renderer::device_scoped_ptr renderer_device_;
 

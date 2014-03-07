@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/detail/address_name.hpp>
 #include <sge/plugin/detail/traits.hpp>
 #include <sge/renderer/symbol.hpp>
-#include <sge/renderer/system_fwd.hpp>
-#include <sge/renderer/system_unique_ptr.hpp>
+#include <sge/renderer/core_fwd.hpp>
+#include <sge/renderer/core_unique_ptr.hpp>
 
 
 namespace sge
@@ -38,7 +38,7 @@ namespace detail
 
 template<>
 struct traits<
-	sge::renderer::system
+	sge::renderer::core
 >
 {
 	SGE_RENDERER_SYMBOL
@@ -51,9 +51,11 @@ struct traits<
 	sge::plugin::capabilities
 	plugin_type();
 
-	typedef sge::renderer::system_unique_ptr(
-		*loader_fun
-	)();
+	using
+	loader_fun
+	=
+	sge::renderer::core_unique_ptr
+	(*)();
 };
 
 }

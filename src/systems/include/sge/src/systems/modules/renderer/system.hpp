@@ -22,11 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_SYSTEMS_MODULES_RENDERER_SYSTEM_HPP_INCLUDED
 
 #include <sge/parse/ini/start_fwd.hpp>
+#include <sge/renderer/core_fwd.hpp>
 #include <sge/renderer/system_fwd.hpp>
+#include <sge/renderer/system_scoped_ptr.hpp>
 #include <sge/renderer/pixel_format/object.hpp>
 #include <sge/renderer/plugin/collection_fwd.hpp>
+#include <sge/src/systems/modules/renderer/plugin_core_pair.hpp>
 #include <sge/src/systems/modules/renderer/system_fwd.hpp>
-#include <sge/src/systems/modules/renderer/system_pair.hpp>
+#include <sge/src/systems/modules/window/system_fwd.hpp>
 #include <sge/systems/detail/renderer_fwd.hpp>
 #include <awl/system/object_fwd.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
@@ -51,22 +54,26 @@ public:
 	system(
 		sge::renderer::plugin::collection const &,
 		sge::systems::detail::renderer const &,
-		sge::parse::ini::start const &
+		sge::parse::ini::start const &,
+		sge::systems::modules::window::system const &
 	);
 
 	~system();
 
 	awl::visual::object_unique_ptr
-	create_visual(
-		awl::system::object &
-	);
+	create_visual();
+
+	sge::renderer::core &
+	core() const;
 
 	sge::renderer::system &
 	get() const;
 private:
 	sge::renderer::pixel_format::object const pixel_format_;
 
-	sge::systems::modules::renderer::system_pair const system_pair_;
+	sge::systems::modules::renderer::plugin_core_pair const plugin_core_pair_;
+
+	sge::renderer::system_scoped_ptr const renderer_system_;
 };
 
 }

@@ -190,12 +190,12 @@ try
 				sge::config::media_path()
 				/ FCPPT_TEXT("images")
 				/ FCPPT_TEXT("tux.png"),
-				sys.renderer_ffp(),
+				sys.renderer_device_ffp(),
 				sys.image_system(),
 				sge::renderer::texture::mipmap::off(),
 				sge::renderer::resource_flags_field::null(),
 				sge::renderer::texture::emulate_srgb_from_caps(
-					sys.renderer_ffp().caps()
+					sys.renderer_device_ffp().caps()
 				)
 			)
 		)
@@ -237,7 +237,7 @@ try
 	> sprite_parameters;
 
 	sprite_buffers_type sprite_buffers(
-		sys.renderer_ffp(),
+		sys.renderer_device_ffp(),
 		sge::sprite::buffers::option::dynamic
 	);
 
@@ -252,7 +252,7 @@ try
 	> sprite_state_parameters;
 
 	sprite_state_object sprite_state(
-		sys.renderer_ffp(),
+		sys.renderer_device_ffp(),
 		sprite_state_parameters()
 	);
 
@@ -282,7 +282,7 @@ try
 				std::bind(
 					sge::renderer::screenshot,
 					std::ref(
-						sys.renderer_ffp()
+						sys.renderer_device_ffp()
 					),
 					std::ref(
 						sys.image_system()
@@ -300,8 +300,8 @@ try
 	)
 	{
 		sge::renderer::context::scoped_ffp const scoped_block(
-			sys.renderer_ffp(),
-			sys.renderer_ffp().onscreen_target()
+			sys.renderer_device_ffp(),
+			sys.renderer_device_ffp().onscreen_target()
 		);
 
 		scoped_block.get().clear(

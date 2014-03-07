@@ -182,7 +182,7 @@ try
 	> format;
 
 	sge::renderer::vertex::declaration_scoped_ptr const vertex_declaration(
-		sys.renderer_core().create_vertex_declaration(
+		sys.renderer_device_core().create_vertex_declaration(
 			sge::renderer::vertex::declaration_parameters(
 				sge::renderer::vf::dynamic::make_format<
 					format
@@ -192,7 +192,7 @@ try
 	);
 
 	sge::renderer::vertex::buffer_scoped_ptr const vertex_buffer(
-		sys.renderer_core().create_vertex_buffer(
+		sys.renderer_device_core().create_vertex_buffer(
 			sge::renderer::vertex::buffer_parameters(
 				*vertex_declaration,
 				sge::renderer::vf::dynamic::make_part_index<
@@ -304,7 +304,7 @@ try
 
 //! [index_buffer_declaration]
 	sge::renderer::index::buffer_scoped_ptr const index_buffer(
-		sys.renderer_core().create_index_buffer(
+		sys.renderer_device_core().create_index_buffer(
 			sge::renderer::index::buffer_parameters(
 				sge::renderer::index::dynamic::make_format<
 					index_format
@@ -360,8 +360,8 @@ try
 	)
 	{
 		sge::renderer::context::scoped_core const scoped_block(
-			sys.renderer_core(),
-			sys.renderer_core().onscreen_target()
+			sys.renderer_device_core(),
+			sys.renderer_device_core().onscreen_target()
 		);
 
 		sge::renderer::vertex::scoped_declaration_and_buffers const vb_context(

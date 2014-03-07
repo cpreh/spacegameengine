@@ -20,13 +20,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/parse/ini/entry_name.hpp>
 #include <sge/parse/ini/start_fwd.hpp>
+#include <sge/renderer/core.hpp>
 #include <sge/renderer/system.hpp>
 #include <sge/renderer/plugin/collection_fwd.hpp>
 #include <sge/src/systems/merge_config_strings.hpp>
 #include <sge/src/systems/modules/renderer/find_plugin.hpp>
 #include <sge/src/systems/modules/renderer/system.hpp>
+#include <sge/src/systems/modules/window/system.hpp>
 #include <sge/systems/detail/renderer.hpp>
-#include <awl/system/object_fwd.hpp>
+#include <sge/window/system.hpp>
 #include <awl/visual/object.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
 #include <fcppt/text.hpp>
@@ -35,13 +37,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::systems::modules::renderer::system::system(
 	sge::renderer::plugin::collection const &_collection,
 	sge::systems::detail::renderer const &_parameters,
-	sge::parse::ini::start const &_config
+	sge::parse::ini::start const &_config,
+	sge::systems::modules::window::system const &_window_system
 )
 :
 	pixel_format_(
 		_parameters.parameters().pixel_format()
 	),
-	system_pair_(
+	plugin_core_pair_(
 		sge::systems::modules::renderer::find_plugin(
 			_collection,
 			sge::systems::merge_config_strings(
@@ -54,6 +57,11 @@ sge::systems::modules::renderer::system::system(
 			_parameters.parameters().caps(),
 			_parameters.caps()
 		)
+	),
+	renderer_system_(
+		plugin_core_pair_.system().create_system(
+			_window_system.get().awl_system()
+		)
 	)
 {
 }
@@ -63,20 +71,24 @@ sge::systems::modules::renderer::system::~system()
 }
 
 awl::visual::object_unique_ptr
-sge::systems::modules::renderer::system::create_visual(
-	awl::system::object &_awl_system
-)
+sge::systems::modules::renderer::system::create_visual()
 {
 	return
 		this->get().create_visual(
-			_awl_system,
 			pixel_format_
 		);
+}
+
+sge::renderer::core &
+sge::systems::modules::renderer::system::core() const
+{
+	return
+		plugin_core_pair_.system();
 }
 
 sge::renderer::system &
 sge::systems::modules::renderer::system::get() const
 {
 	return
-		system_pair_.system();
+		*renderer_system_;
 }

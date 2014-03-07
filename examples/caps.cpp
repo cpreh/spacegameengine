@@ -24,6 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/object.hpp>
 #include <sge/plugin/optional_cache_ref.hpp>
+#include <sge/renderer/core.hpp>
+#include <sge/renderer/core_scoped_ptr.hpp>
 #include <sge/renderer/system.hpp>
 #include <sge/renderer/system_scoped_ptr.hpp>
 #include <sge/renderer/caps/device_output.hpp>
@@ -54,14 +56,24 @@ try
 
 	sge::renderer::plugin::object_scoped_ptr const plugin(
 		manager.collection<
-			sge::renderer::system
+			sge::renderer::core
 		>().get(
 			0u
 		).load()
 	);
 
-	sge::renderer::system_scoped_ptr const render_sys(
+	sge::renderer::core_scoped_ptr const render_core(
 		plugin->get()()
+	);
+
+	awl::system::object_scoped_ptr const awl_system(
+		awl::system::create()
+	);
+
+	sge::renderer::system_scoped_ptr const render_sys(
+		render_core->create_system(
+			*awl_system
+		)
 	);
 
 	for(

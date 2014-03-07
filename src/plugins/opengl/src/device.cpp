@@ -630,7 +630,9 @@ sge::opengl::device::display_mode(
 	sge::renderer::display_mode::optional_object const &_display_mode
 )
 {
-	// TODO
+	device_state_->display_mode(
+		_display_mode
+	);
 }
 
 sge::opengl::texture::basic_parameters const

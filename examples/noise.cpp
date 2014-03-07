@@ -284,7 +284,7 @@ try
 	> sprite_object;
 
 	sprite_buffers_type sprite_buffers(
-		sys.renderer_ffp(),
+		sys.renderer_device_ffp(),
 		sge::sprite::buffers::option::dynamic);
 
 	typedef sge::sprite::state::all_choices sprite_state_choices;
@@ -298,7 +298,7 @@ try
 	> sprite_state_parameters;
 
 	sprite_state_object sprite_state(
-		sys.renderer_ffp(),
+		sys.renderer_device_ffp(),
 		sprite_state_parameters()
 	);
 
@@ -313,7 +313,7 @@ try
 
 	sge::renderer::texture::planar_scoped_ptr const noise_texture(
 		sge::renderer::texture::create_planar_from_view(
-			sys.renderer_ffp(),
+			sys.renderer_device_ffp(),
 			sge::image2d::view::const_object(
 				sge::image2d::view::object(
 					store.wrapped_view())),
@@ -348,8 +348,8 @@ try
 	)
 	{
 		sge::renderer::context::scoped_ffp const scoped_block(
-			sys.renderer_ffp(),
-			sys.renderer_ffp().onscreen_target()
+			sys.renderer_device_ffp(),
+			sys.renderer_device_ffp().onscreen_target()
 		);
 
 		scoped_block.get().clear(

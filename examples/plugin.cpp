@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/iterator.hpp>
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/optional_cache_ref.hpp>
-#include <sge/renderer/system.hpp>
+#include <sge/renderer/core.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/text.hpp>
@@ -101,7 +101,7 @@ try
 		sge::font::system,
 		sge::image2d::system,
 		sge::input::system,
-		sge::renderer::system
+		sge::renderer::core
 	> plugins;
 
 	fcppt::mpl::for_each<

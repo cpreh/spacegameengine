@@ -36,9 +36,11 @@ namespace modules
 namespace window
 {
 
-typedef std::unique_ptr<
+typedef
+std::unique_ptr<
 	sge::systems::modules::window::base
-> base_unique_ptr;
+>
+base_unique_ptr;
 
 }
 }

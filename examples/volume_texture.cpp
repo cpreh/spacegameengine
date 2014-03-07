@@ -652,12 +652,12 @@ try
 
 	sge::renderer::texture::volume_scoped_ptr const texture(
 		create_noise_texture(
-			sys.renderer_core()
+			sys.renderer_device_core()
 		)
 	);
 
 	sge::renderer::vertex::declaration_scoped_ptr const vertex_declaration(
-		sys.renderer_core().create_vertex_declaration(
+		sys.renderer_device_core().create_vertex_declaration(
 			sge::renderer::vertex::declaration_parameters(
 				sge::renderer::vf::dynamic::make_format<
 					vf_format
@@ -667,7 +667,7 @@ try
 	);
 
 	sge::renderer::vertex::buffer_scoped_ptr const vertex_buffer(
-		sys.renderer_core().create_vertex_buffer(
+		sys.renderer_device_core().create_vertex_buffer(
 			sge::renderer::vertex::buffer_parameters(
 				*vertex_declaration,
 				sge::renderer::vf::dynamic::make_part_index<
@@ -739,7 +739,7 @@ try
 	);
 
 	sge::renderer::state::core::depth_stencil::object_scoped_ptr const depth_stencil_state(
-		sys.renderer_core().create_depth_stencil_state(
+		sys.renderer_device_core().create_depth_stencil_state(
 			sge::renderer::state::core::depth_stencil::parameters(
 				sge::renderer::state::core::depth_stencil::depth::enabled(
 					sge::renderer::state::core::depth_stencil::depth::func::less,
@@ -753,7 +753,7 @@ try
 	);
 
 	sge::renderer::state::core::sampler::object_scoped_ptr const sampler_state(
-		sys.renderer_core().create_sampler_state(
+		sys.renderer_device_core().create_sampler_state(
 			sge::renderer::state::core::sampler::parameters(
 				sge::renderer::state::core::sampler::address::mode_all(
 					sge::renderer::state::core::sampler::address::mode::clamp
@@ -796,8 +796,8 @@ try
 		);
 
 		sge::renderer::context::scoped_ffp const scoped_block(
-			sys.renderer_ffp(),
-			sys.renderer_ffp().onscreen_target()
+			sys.renderer_device_ffp(),
+			sys.renderer_device_ffp().onscreen_target()
 		);
 
 		sge::renderer::vertex::scoped_declaration const scoped_vd(
@@ -847,7 +847,7 @@ try
 		);
 
 		sge::renderer::state::ffp::transform::object_scoped_ptr const projection_state(
-			sys.renderer_ffp().create_transform_state(
+			sys.renderer_device_ffp().create_transform_state(
 				sge::renderer::state::ffp::transform::parameters(
 					camera.projection_matrix().get()
 				)
@@ -855,7 +855,7 @@ try
 		);
 
 		sge::renderer::state::ffp::transform::object_scoped_ptr const world_state(
-			sys.renderer_ffp().create_transform_state(
+			sys.renderer_device_ffp().create_transform_state(
 				sge::renderer::state::ffp::transform::parameters(
 					sge::camera::matrix_conversion::world(
 						camera.coordinate_system()

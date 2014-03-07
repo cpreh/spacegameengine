@@ -18,13 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/system.hpp>
-#include <sge/src/systems/plugin_pair_impl.hpp>
-#include <sge/src/systems/modules/renderer/system_pair.hpp>
+#include <sge/src/systems/modules/window/make_system_base.hpp>
+#include <sge/src/systems/modules/window/system.hpp>
+#include <sge/src/systems/modules/window/system_base.hpp>
+#include <sge/systems/window_fwd.hpp>
+#include <sge/window/system_fwd.hpp>
 
 
-template
-class
-sge::systems::plugin_pair<
-	sge::renderer::system
->;
+sge::systems::modules::window::system::system(
+	sge::systems::window const &_parameters
+)
+:
+	base_(
+		sge::systems::modules::window::make_system_base(
+			_parameters
+		)
+	)
+{
+}
+
+sge::systems::modules::window::system::~system()
+{
+}
+
+sge::window::system &
+sge::systems::modules::window::system::get() const
+{
+	return
+		base_->get();
+}

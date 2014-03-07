@@ -435,7 +435,7 @@ try
 
 	sge::console::gfx console_gfx(
 		console,
-		sys.renderer_ffp(),
+		sys.renderer_device_ffp(),
 		sge::console::font_color(
 			sge::image::color::predef::white()
 		),
@@ -590,13 +590,13 @@ try
 	{
 		sge::timer::scoped_frame_limiter const limiter(
 			sge::renderer::display_mode::desired_fps(
-				sys.renderer_ffp().display_mode()
+				sys.renderer_device_ffp().display_mode()
 			)
 		);
 
 		sge::renderer::context::scoped_ffp const scoped_ffp(
-			sys.renderer_ffp(),
-			sys.renderer_ffp().onscreen_target()
+			sys.renderer_device_ffp(),
+			sys.renderer_device_ffp().onscreen_target()
 		);
 
 		scoped_ffp.get().clear(

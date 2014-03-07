@@ -33,14 +33,14 @@ namespace plugin
 template<
 	typename Type
 >
-struct object_scoped_ptr
-{
-	typedef fcppt::scoped_ptr<
-		sge::plugin::object<
-			Type
-		>
-	> type;
-};
+using
+object_scoped_ptr
+=
+fcppt::scoped_ptr<
+	sge::plugin::object<
+		Type
+	>
+>;
 
 }
 }

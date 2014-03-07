@@ -197,7 +197,7 @@ try
 			sge::config::media_path()/FCPPT_TEXT("gui")/FCPPT_TEXT("TaharezLook.scheme"))
 			.font_directory(
 				sge::config::media_path()/FCPPT_TEXT("fonts")),
-		sys.renderer_ffp(),
+		sys.renderer_device_ffp(),
 		sys.image_system(),
 		sys.viewport_manager(),
 		sge::cegui::cursor_visibility::visible,
@@ -244,8 +244,8 @@ try
 		frame_timer.reset();
 
 		sge::renderer::context::scoped_ffp const scoped_block(
-			sys.renderer_ffp(),
-			sys.renderer_ffp().onscreen_target()
+			sys.renderer_device_ffp(),
+			sys.renderer_device_ffp().onscreen_target()
 		);
 
 		scoped_block.get().clear(

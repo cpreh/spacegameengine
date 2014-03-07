@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_SYSTEMS_MODULES_WINDOW_MAKE_BASE_HPP_INCLUDED
 #define SGE_SRC_SYSTEMS_MODULES_WINDOW_MAKE_BASE_HPP_INCLUDED
 
-#include <sge/src/systems/modules/renderer/optional_system_ref.hpp>
+#include <sge/src/systems/modules/renderer/optional_system_ref_fwd.hpp>
 #include <sge/src/systems/modules/window/base_unique_ptr.hpp>
 #include <sge/systems/window_fwd.hpp>
+#include <sge/window/system_fwd.hpp>
 
 
 namespace sge
@@ -38,6 +39,7 @@ namespace window
 sge::systems::modules::window::base_unique_ptr
 make_base(
 	sge::systems::window const &,
+	sge::window::system &,
 	sge::systems::modules::renderer::optional_system_ref const &
 );
 

@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/system.hpp>
 #include <sge/renderer/caps/device_count.hpp>
 #include <sge/renderer/caps/device_fwd.hpp>
-#include <sge/renderer/caps/system_field_fwd.hpp>
 #include <sge/renderer/device/core_unique_ptr.hpp>
 #include <sge/renderer/device/ffp_unique_ptr.hpp>
 #include <sge/renderer/device/index.hpp>
@@ -52,7 +51,10 @@ class system
 		system
 	);
 public:
-	system();
+	explicit
+	system(
+		awl::system::object &
+	);
 
 	~system()
 	override;
@@ -71,13 +73,8 @@ private:
 
 	awl::visual::object_unique_ptr
 	create_visual(
-		awl::system::object &,
 		sge::renderer::pixel_format::object const &
 	)
-	override;
-
-	sge::renderer::caps::system_field const
-	caps() const
 	override;
 
 	sge::renderer::caps::device_count const
@@ -95,6 +92,8 @@ private:
 		sge::renderer::device::index
 	) const
 	override;
+
+	awl::system::object &awl_system_;
 
 	sge::opengl::context::system::object system_context_;
 

@@ -265,12 +265,12 @@ try
 					sge::config::media_path()
 					/ FCPPT_TEXT("images")
 					/ FCPPT_TEXT("grass.png"),
-					sys.renderer_ffp(),
+					sys.renderer_device_ffp(),
 					sys.image_system(),
 					sge::renderer::texture::mipmap::off(),
 					sge::renderer::resource_flags_field::null(),
 					sge::renderer::texture::emulate_srgb_from_caps(
-						sys.renderer_ffp().caps()
+						sys.renderer_device_ffp().caps()
 					)
 				)
 			)
@@ -284,7 +284,7 @@ try
 
 	sge::console::gfx gfx(
 		object,
-		sys.renderer_ffp(),
+		sys.renderer_device_ffp(),
 		sge::console::font_color(
 			sge::image::color::predef::white()
 		),
@@ -335,8 +335,8 @@ try
 	)
 	{
 		sge::renderer::context::scoped_ffp const scoped_block(
-			sys.renderer_ffp(),
-			sys.renderer_ffp().onscreen_target()
+			sys.renderer_device_ffp(),
+			sys.renderer_device_ffp().onscreen_target()
 		);
 
 		scoped_block.get().clear(

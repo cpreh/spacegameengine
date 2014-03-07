@@ -26,11 +26,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/window.hpp>
 #include <sge/systems/wrapped_window_fwd.hpp>
 #include <sge/window/parameters_fwd.hpp>
+#include <sge/window/system_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/nonassignable.hpp>
-#include <fcppt/optional_impl.hpp>
 #include <fcppt/variant/apply_unary.hpp>
-#include <fcppt/variant/object_impl.hpp>
 
 
 namespace
@@ -42,8 +41,8 @@ class visitor
 		visitor
 	);
 public:
-	explicit
 	visitor(
+		sge::window::system &,
 		sge::systems::modules::renderer::optional_system_ref const &
 	);
 
@@ -59,6 +58,8 @@ public:
 		sge::systems::wrapped_window const &
 	) const;
 private:
+	sge::window::system &system_;
+
 	sge::systems::modules::renderer::optional_system_ref const renderer_system_;
 };
 
@@ -67,12 +68,14 @@ private:
 sge::systems::modules::window::base_unique_ptr
 sge::systems::modules::window::make_base(
 	sge::systems::window const &_parameters,
+	sge::window::system &_system,
 	sge::systems::modules::renderer::optional_system_ref const &_renderer_system
 )
 {
 	return
 		fcppt::variant::apply_unary(
 			::visitor(
+				_system,
 				_renderer_system
 			),
 			_parameters.parameter()
@@ -83,9 +86,13 @@ namespace
 {
 
 visitor::visitor(
+	sge::window::system &_system,
 	sge::systems::modules::renderer::optional_system_ref const &_renderer_system
 )
 :
+	system_(
+		_system
+	),
 	renderer_system_(
 		_renderer_system
 	)
@@ -103,6 +110,7 @@ visitor::operator()(
 				sge::systems::modules::window::original
 			>(
 				_parameters,
+				system_,
 				renderer_system_
 			)
 		);
@@ -118,7 +126,8 @@ visitor::operator()(
 			fcppt::make_unique_ptr<
 				sge::systems::modules::window::wrapped
 			>(
-				_wrapped
+				_wrapped,
+				system_
 			)
 		);
 }

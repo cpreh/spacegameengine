@@ -18,11 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_SYSTEMS_MODULES_RENDERER_SYSTEM_PAIR_HPP_INCLUDED
-#define SGE_SRC_SYSTEMS_MODULES_RENDERER_SYSTEM_PAIR_HPP_INCLUDED
+#ifndef SGE_SRC_SYSTEMS_MODULES_WINDOW_SYSTEM_BASE_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_SRC_SYSTEMS_MODULES_WINDOW_SYSTEM_BASE_UNIQUE_PTR_HPP_INCLUDED
 
-#include <sge/src/systems/plugin_pair_decl.hpp>
-#include <sge/src/systems/modules/renderer/system_pair_fwd.hpp>
+#include <sge/src/systems/modules/window/system_base_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
 
+
+namespace sge
+{
+namespace systems
+{
+namespace modules
+{
+namespace window
+{
+
+typedef
+std::unique_ptr<
+	sge::systems::modules::window::system_base
+>
+system_base_unique_ptr;
+
+}
+}
+}
+}
 
 #endif

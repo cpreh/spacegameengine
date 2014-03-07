@@ -18,8 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/common.hpp>
 #include <sge/opengl/get_int.hpp>
 #include <sge/opengl/get_ints.hpp>
+
 
 GLint
 sge::opengl::get_int(
@@ -28,10 +30,11 @@ sge::opengl::get_int(
 {
 	GLint ret;
 
-	opengl::get_ints(
+	sge::opengl::get_ints(
 		_what,
 		&ret
 	);
 
-	return ret;
+	return
+		ret;
 }

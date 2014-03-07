@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/common.hpp>
 #include <sge/opengl/disable.hpp>
 #include <sge/opengl/enable.hpp>
 #include <sge/opengl/enable_bool.hpp>
@@ -32,11 +33,11 @@ sge::opengl::enable_bool(
 	if(
 		_enable
 	)
-		opengl::enable(
+		sge::opengl::enable(
 			_what
 		);
 	else
-		opengl::disable(
+		sge::opengl::disable(
 			_what
 		);
 }

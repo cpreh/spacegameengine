@@ -341,7 +341,7 @@ try
 	sge::timer::frames_counter frames_counter;
 
 	sge::line_drawer::object line_drawer(
-		sys.renderer_ffp());
+		sys.renderer_device_ffp());
 
 	::follows_cursor follows_cursor(
 		line_drawer,
@@ -354,8 +354,8 @@ try
 		frames_counter.update();
 
 		sge::renderer::context::scoped_ffp const scoped_block(
-			sys.renderer_ffp(),
-			sys.renderer_ffp().onscreen_target());
+			sys.renderer_device_ffp(),
+			sys.renderer_device_ffp().onscreen_target());
 
 		scoped_block.get().clear(
 			sge::renderer::clear::parameters()
@@ -365,7 +365,7 @@ try
 		// This function sets up an orthographic projection and calls
 		// render. It's just a wrapper.
 		sge::line_drawer::render_to_screen(
-			sys.renderer_ffp(),
+			sys.renderer_device_ffp(),
 			scoped_block.get(),
 			line_drawer);
 
@@ -378,14 +378,14 @@ try
 			>(
 				fcppt::cast::to_signed(
 					sge::renderer::target::viewport_size(
-						sys.renderer_ffp().onscreen_target()
+						sys.renderer_device_ffp().onscreen_target()
 					).w()
 				)
 			)
 		);
 
 		sge::font::draw::simple(
-			sys.renderer_ffp(),
+			sys.renderer_device_ffp(),
 			scoped_block.get(),
 			*font,
 			SGE_FONT_LIT("Press the left mouse button to set a point"),
@@ -399,7 +399,7 @@ try
 			sge::renderer::texture::emulate_srgb::yes);
 
 		sge::font::draw::simple(
-			sys.renderer_ffp(),
+			sys.renderer_device_ffp(),
 			scoped_block.get(),
 			*font,
 			sge::font::from_fcppt_string(

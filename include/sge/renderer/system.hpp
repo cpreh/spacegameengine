@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/system_fwd.hpp>
 #include <sge/renderer/caps/device_count.hpp>
 #include <sge/renderer/caps/device_fwd.hpp>
-#include <sge/renderer/caps/system_field_fwd.hpp>
 #include <sge/renderer/device/core_unique_ptr.hpp>
 #include <sge/renderer/device/ffp_unique_ptr.hpp>
 #include <sge/renderer/device/index.hpp>
@@ -74,12 +73,11 @@ public:
 	) = 0;
 
 	/**
-	\brief Creates a renderable visual that satisfies the requirements of \a params
+	\brief Creates a renderable visual that satisfies the requirements of
+	\a params
 
 	Creates a renderable visual that satisfies the requirements of \a
 	params and can be used with sge::renderer::system::create_renderer.
-
-	\param awl_system The awl system that is used to create windows
 
 	\param pixel_format The pixel format to use
 
@@ -90,16 +88,8 @@ public:
 	virtual
 	awl::visual::object_unique_ptr
 	create_visual(
-		awl::system::object &awl_system,
 		sge::renderer::pixel_format::object const &pixel_format
 	) = 0;
-
-	/**
-	\brief Returns the system's capabilities
-	*/
-	virtual
-	sge::renderer::caps::system_field const
-	caps() const = 0;
 
 	/**
 	\brief Returns the number of devices

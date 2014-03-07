@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/modules/input/cursor_modifier_fwd.hpp>
 #include <sge/src/systems/modules/input/object_fwd.hpp>
 #include <sge/src/systems/modules/window/object_fwd.hpp>
+#include <sge/src/systems/modules/window/system_fwd.hpp>
 #include <sge/systems/detail/input_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/scoped_ptr_impl.hpp>
@@ -58,6 +59,7 @@ public:
 	object(
 		sge::input::plugin::collection const &,
 		sge::systems::detail::input const &,
+		sge::systems::modules::window::system const &,
 		sge::systems::modules::window::object const &
 	);
 

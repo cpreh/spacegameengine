@@ -228,7 +228,7 @@ try
 			sge::config::media_path()
 			/ FCPPT_TEXT("images")
 			/ FCPPT_TEXT("cloudsquare.png"),
-			sys.renderer_ffp(),
+			sys.renderer_device_ffp(),
 			sys.image_system(),
 			sge::renderer::texture::mipmap::off(),
 			sge::renderer::resource_flags_field::null(),
@@ -241,7 +241,7 @@ try
 			sge::config::media_path()
 			/ FCPPT_TEXT("images")
 			/ FCPPT_TEXT("grass.png"),
-			sys.renderer_ffp(),
+			sys.renderer_device_ffp(),
 			sys.image_system(),
 			sge::renderer::texture::mipmap::off(),
 			sge::renderer::resource_flags_field::null(),
@@ -285,7 +285,7 @@ try
 	> vf_format;
 
 	sge::renderer::vertex::declaration_scoped_ptr const vertex_declaration(
-		sys.renderer_ffp().create_vertex_declaration(
+		sys.renderer_device_ffp().create_vertex_declaration(
 			sge::renderer::vertex::declaration_parameters(
 				sge::renderer::vf::dynamic::make_format<
 					vf_format
@@ -295,7 +295,7 @@ try
 	);
 
 	sge::renderer::vertex::buffer_scoped_ptr const vertex_buffer(
-		sys.renderer_ffp().create_vertex_buffer(
+		sys.renderer_device_ffp().create_vertex_buffer(
 			sge::renderer::vertex::buffer_parameters(
 				*vertex_declaration,
 				sge::renderer::vf::dynamic::make_part_index<
@@ -414,7 +414,7 @@ try
 	typedef sge::renderer::index::format_16 index_format;
 
 	sge::renderer::index::buffer_scoped_ptr const index_buffer(
-		sys.renderer_ffp().create_index_buffer(
+		sys.renderer_device_ffp().create_index_buffer(
 			sge::renderer::index::buffer_parameters(
 				sge::renderer::index::dynamic::make_format<
 					index_format
@@ -462,7 +462,7 @@ try
 	);
 
 	sge::renderer::state::ffp::sampler::object_scoped_ptr const sampler0(
-		sys.renderer_ffp().create_ffp_sampler_state(
+		sys.renderer_device_ffp().create_ffp_sampler_state(
 			sge::renderer::state::ffp::sampler::parameters_both(
 				sge::renderer::state::ffp::sampler::op(
 					sge::renderer::state::ffp::sampler::unary_op(
@@ -477,7 +477,7 @@ try
 	);
 
 	sge::renderer::state::ffp::sampler::object_scoped_ptr const sampler1(
-		sys.renderer_ffp().create_ffp_sampler_state(
+		sys.renderer_device_ffp().create_ffp_sampler_state(
 			sge::renderer::state::ffp::sampler::parameters_both(
 				sge::renderer::state::ffp::sampler::op(
 					sge::renderer::state::ffp::sampler::binary_op(
@@ -508,8 +508,8 @@ try
 	)
 	{
 		sge::renderer::context::scoped_ffp const scoped_block(
-			sys.renderer_ffp(),
-			sys.renderer_ffp().onscreen_target()
+			sys.renderer_device_ffp(),
+			sys.renderer_device_ffp().onscreen_target()
 		);
 
 		sge::renderer::vertex::scoped_declaration const vb_declaration_context(

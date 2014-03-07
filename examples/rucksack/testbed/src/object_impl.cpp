@@ -118,10 +118,10 @@ sge::rucksack::testbed::object_impl::object_impl(
 		)
 	),
 	buffers_(
-		systems_.renderer_ffp(),
+		systems_.renderer_device_ffp(),
 		sge::sprite::buffers::option::dynamic),
 	sprite_states_(
-		systems_.renderer_ffp(),
+		systems_.renderer_device_ffp(),
 		sge::rucksack::testbed::object_impl::sprite_state_parameters()),
 	sprites_(),
 	quit_connection_(
@@ -153,8 +153,8 @@ sge::rucksack::testbed::object_impl::run()
 		this->update();
 
 		sge::renderer::context::scoped_ffp const scoped_block(
-			systems_.renderer_ffp(),
-			systems_.renderer_ffp().onscreen_target());
+			systems_.renderer_device_ffp(),
+			systems_.renderer_device_ffp().onscreen_target());
 
 		this->render(
 			scoped_block.get());

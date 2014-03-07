@@ -877,7 +877,7 @@ try
 	);
 
 	sge::renderer::vertex::declaration_scoped_ptr const vertex_declaration(
-		sys.renderer_ffp().create_vertex_declaration(
+		sys.renderer_device_ffp().create_vertex_declaration(
 			sge::renderer::vertex::declaration_parameters(
 				sge::renderer::vf::dynamic::make_format<vf::format>())));
 
@@ -887,7 +887,7 @@ try
 
 	// Create a model and a model collection
 	compiled_model main_model(
-		sys.renderer_ffp(),
+		sys.renderer_device_ffp(),
 		*vertex_declaration,
 		*md3_loader->load(
 			sge::config::media_path()
@@ -896,7 +896,7 @@ try
 			sge::model::md3::load_flags::none));
 
 	random_model_collection model_collection(
-		sys.renderer_ffp(),
+		sys.renderer_device_ffp(),
 		main_model);
 
 	sge::timer::basic<sge::timer::clocks::standard> camera_timer(
@@ -905,7 +905,7 @@ try
 				1.0f)));
 
 	sge::renderer::state::core::depth_stencil::object_scoped_ptr const depth_stencil_state(
-		sys.renderer_core().create_depth_stencil_state(
+		sys.renderer_device_core().create_depth_stencil_state(
 			sge::renderer::state::core::depth_stencil::parameters(
 				sge::renderer::state::core::depth_stencil::depth::enabled(
 					sge::renderer::state::core::depth_stencil::depth::func::less,
@@ -914,7 +914,7 @@ try
 				sge::renderer::state::core::depth_stencil::stencil::off())));
 
 	sge::renderer::state::core::rasterizer::object_scoped_ptr const rasterizer_state(
-		sys.renderer_core().create_rasterizer_state(
+		sys.renderer_device_core().create_rasterizer_state(
 			sge::renderer::state::core::rasterizer::parameters(
 				sge::renderer::state::core::rasterizer::cull_mode::counter_clockwise,
 				sge::renderer::state::core::rasterizer::fill_mode::solid,
@@ -922,7 +922,7 @@ try
 					false))));
 
 	sge::renderer::state::core::blend::object_scoped_ptr const blend_red_state(
-		sys.renderer_core().create_blend_state(
+		sys.renderer_device_core().create_blend_state(
 			sge::renderer::state::core::blend::parameters(
 				sge::renderer::state::core::blend::alpha_off(),
 				sge::renderer::state::core::blend::write_mask(
@@ -936,7 +936,7 @@ try
 						true)))));
 
 	sge::renderer::state::core::blend::object_scoped_ptr const blend_cyan_state(
-		sys.renderer_core().create_blend_state(
+		sys.renderer_device_core().create_blend_state(
 			sge::renderer::state::core::blend::parameters(
 				sge::renderer::state::core::blend::alpha_off(),
 				sge::renderer::state::core::blend::write_mask(
@@ -957,7 +957,7 @@ try
 		// precaution, we _might_ divide by zero somewhere below, otherwise)
 		if(
 			sge::renderer::target::viewport_is_null(
-				sys.renderer_ffp().onscreen_target().viewport()))
+				sys.renderer_device_ffp().onscreen_target().viewport()))
 			continue;
 
 		// This moves the camera around
@@ -966,14 +966,14 @@ try
 				camera_timer));
 
 		sge::renderer::context::scoped_ffp const scoped_block(
-			sys.renderer_ffp(),
-			sys.renderer_ffp().onscreen_target());
+			sys.renderer_device_ffp(),
+			sys.renderer_device_ffp().onscreen_target());
 
 		sge::renderer::context::ffp &context(
 			scoped_block.get());
 
 		sge::renderer::state::ffp::transform::object_scoped_ptr const projection_state(
-			sys.renderer_ffp().create_transform_state(
+			sys.renderer_device_ffp().create_transform_state(
 				sge::renderer::state::ffp::transform::parameters(
 					camera.projection_matrix().get())));
 

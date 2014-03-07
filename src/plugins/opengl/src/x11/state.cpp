@@ -18,13 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/logger.hpp>
 #include <sge/opengl/device_state/object.hpp>
 #include <sge/opengl/x11/state.hpp>
 #include <sge/opengl/xrandr/create_state.hpp>
+#include <sge/opengl/xrandr/resolution.hpp>
 #include <sge/opengl/xrandr/state.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <awl/backends/x11/window/object_fwd.hpp>
 #include <awl/backends/x11/window/event/processor_fwd.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/log/_.hpp>
+#include <fcppt/log/error.hpp>
 
 
 sge::opengl::x11::state::state(
@@ -37,11 +42,17 @@ sge::opengl::x11::state::state(
 	xrandr_state_(
 		sge::opengl::xrandr::create_state(
 			_window,
-			_event_processor,
-			_display_mode
+			_event_processor
 		)
-	)
+	),
+	resolution_()
 {
+	if(
+		_display_mode
+	)
+		this->display_mode(
+			_display_mode
+		);
 }
 
 sge::opengl::x11::state::~state()
@@ -58,4 +69,41 @@ sge::opengl::x11::state::display_mode() const
 		:
 			sge::renderer::display_mode::optional_object()
 		;
+}
+
+void
+sge::opengl::x11::state::display_mode(
+	sge::renderer::display_mode::optional_object const &_display_mode
+)
+{
+	if(
+		!_display_mode
+	)
+	{
+		resolution_.reset();
+
+		return;
+	}
+
+	if(
+		!xrandr_state_
+	)
+	{
+		FCPPT_LOG_ERROR(
+			sge::opengl::logger(),
+			fcppt::log::_
+				<< FCPPT_TEXT("Xrandr was not found. Can't change display mode.")
+		);
+
+		return;
+	}
+
+	// TODO: Optimize this
+	resolution_.reset();
+
+	resolution_.take(
+		xrandr_state_->choose_resolution(
+			*_display_mode
+		)
+	);
 }

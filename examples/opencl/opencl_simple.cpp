@@ -364,7 +364,7 @@ try
 			chosen_platform,
 			device_refs)
 			.share_with(
-				sys.renderer_core())
+				sys.renderer_device_core())
 			.error_callback(
 				&opencl_error_callback));
 
@@ -459,12 +459,12 @@ try
 		<< FCPPT_TEXT("Kernel created, now creating a vertex buffer...\n");
 
 	sge::renderer::vertex::declaration_scoped_ptr const vertex_declaration(
-		sys.renderer_core().create_vertex_declaration(
+		sys.renderer_device_core().create_vertex_declaration(
 			sge::renderer::vertex::declaration_parameters(
 				sge::renderer::vf::dynamic::make_format<vf::format>())));
 
 	sge::renderer::vertex::buffer_scoped_ptr const vb(
-		sys.renderer_core().create_vertex_buffer(
+		sys.renderer_device_core().create_vertex_buffer(
 			sge::renderer::vertex::buffer_parameters(
 				*vertex_declaration,
 				sge::renderer::vf::dynamic::make_part_index<

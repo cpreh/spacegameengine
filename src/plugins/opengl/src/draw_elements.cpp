@@ -71,7 +71,7 @@ sge::opengl::draw_elements(
 		FCPPT_LOG_WARNING(
 			sge::opengl::logger(),
 			fcppt::log::_
-				<< FCPPT_TEXT("Empty device::render() call with index_buffer. ")
+				<< FCPPT_TEXT("Empty render() call with index_buffer. ")
 				<< FCPPT_TEXT("vertex_count was 0.")
 		);
 

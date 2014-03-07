@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/collection.hpp>
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/optional_cache_ref.hpp>
+#include <sge/renderer/core_fwd.hpp>
 #include <sge/renderer/system_fwd.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
@@ -46,6 +47,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/modules/renderer/optional_system_ref.hpp>
 #include <sge/src/systems/modules/renderer/system.hpp>
 #include <sge/src/systems/modules/window/object.hpp>
+#include <sge/src/systems/modules/window/system.hpp>
 #include <sge/systems/audio_loader_fwd.hpp>
 #include <sge/systems/audio_player_fwd.hpp>
 #include <sge/systems/font_fwd.hpp>
@@ -79,8 +81,9 @@ sge::systems::detail::instance_impl::instance_impl(
 			plugin_cache_
 		)
 	),
-	window_(),
+	window_system_(),
 	renderer_system_(),
+	window_object_(),
 	renderer_device_(),
 	input_(),
 	audio_loader_(),
@@ -95,54 +98,58 @@ sge::systems::detail::instance_impl::~instance_impl()
 }
 
 void
+sge::systems::detail::instance_impl::init_window_system(
+	sge::systems::window const &_parameters
+)
+{
+	window_system_.take(
+		fcppt::make_unique_ptr<
+			sge::systems::modules::window::system
+		>(
+			_parameters
+		)
+	);
+}
+
+void
 sge::systems::detail::instance_impl::init_renderer_system(
-	sge::systems::detail::renderer const &_param,
+	sge::systems::detail::renderer const &_parameters,
 	sge::parse::ini::start const &_config
 )
 {
+	FCPPT_ASSERT_PRE(
+		window_system_
+	);
+
 	renderer_system_.take(
 		fcppt::make_unique_ptr<
 			sge::systems::modules::renderer::system
 		>(
 			plugin_manager_.collection<
-				sge::renderer::system
+				sge::renderer::core
 			>(),
-			_param,
-			_config
+			_parameters,
+			_config,
+			*window_system_
 		)
 	);
 }
 
 void
-sge::systems::detail::instance_impl::init_renderer(
-	sge::systems::detail::renderer const &_param
+sge::systems::detail::instance_impl::init_window_object(
+	sge::systems::window const &_parameters
 )
 {
 	FCPPT_ASSERT_PRE(
-		window_
+		window_system_
 	);
 
-	renderer_device_.take(
-		fcppt::make_unique_ptr<
-			sge::systems::modules::renderer::device
-		>(
-			_param,
-			*renderer_system_,
-			*window_
-		)
-	);
-}
-
-void
-sge::systems::detail::instance_impl::init_window(
-	sge::systems::window const &_window_param
-)
-{
-	window_.take(
+	window_object_.take(
 		fcppt::make_unique_ptr<
 			sge::systems::modules::window::object
 		>(
-			_window_param,
+			_parameters,
+			*window_system_,
 			renderer_system_
 			?
 				sge::systems::modules::renderer::optional_system_ref(
@@ -155,12 +162,40 @@ sge::systems::detail::instance_impl::init_window(
 }
 
 void
+sge::systems::detail::instance_impl::init_renderer(
+	sge::systems::detail::renderer const &_param
+)
+{
+	FCPPT_ASSERT_PRE(
+		window_object_
+	);
+
+	FCPPT_ASSERT_PRE(
+		renderer_system_
+	);
+
+	renderer_device_.take(
+		fcppt::make_unique_ptr<
+			sge::systems::modules::renderer::device
+		>(
+			_param,
+			*renderer_system_,
+			*window_object_
+		)
+	);
+}
+
+void
 sge::systems::detail::instance_impl::init_input(
 	sge::systems::detail::input const &_parameters
 )
 {
 	FCPPT_ASSERT_PRE(
-		window_
+		window_system_
+	);
+
+	FCPPT_ASSERT_PRE(
+		window_object_
 	);
 
 	input_.take(
@@ -171,7 +206,8 @@ sge::systems::detail::instance_impl::init_input(
 				sge::input::system
 			>(),
 			_parameters,
-			*window_
+			*window_system_,
+			*window_object_
 		)
 	);
 }
@@ -248,103 +284,126 @@ void
 sge::systems::detail::instance_impl::post_init()
 {
 	if(
-		window_
+		window_object_
 	)
-		window_->post_init();
+		window_object_->post_init();
 }
 
 sge::plugin::manager &
 sge::systems::detail::instance_impl::plugin_manager()
 {
-	return plugin_manager_;
+	return
+		plugin_manager_;
+}
+
+sge::renderer::core &
+sge::systems::detail::instance_impl::renderer_core() const
+{
+	return
+		renderer_system_->core();
 }
 
 sge::renderer::system &
 sge::systems::detail::instance_impl::renderer_system() const
 {
-	return renderer_system_->get();
+	return
+		renderer_system_->get();
 }
 
 sge::renderer::device::ffp &
 sge::systems::detail::instance_impl::renderer_device_ffp() const
 {
-	return renderer_device_->get_ffp();
+	return
+		renderer_device_->get_ffp();
 }
 
 sge::renderer::device::core &
 sge::systems::detail::instance_impl::renderer_device_core() const
 {
-	return renderer_device_->get_core();
+	return
+		renderer_device_->get_core();
 }
 
 sge::input::system &
 sge::systems::detail::instance_impl::input_system() const
 {
-	return input_->system();
+	return
+		input_->system();
 }
 
 sge::input::processor &
 sge::systems::detail::instance_impl::input_processor() const
 {
-	return input_->processor();
+	return
+		input_->processor();
 }
 
 sge::input::cursor::object &
 sge::systems::detail::instance_impl::cursor_demuxer() const
 {
-	return input_->cursor_demuxer();
+	return
+		input_->cursor_demuxer();
 }
 
 sge::input::keyboard::device &
 sge::systems::detail::instance_impl::keyboard_collector() const
 {
-	return input_->keyboard_collector();
+	return
+		input_->keyboard_collector();
 }
 
 sge::input::mouse::device &
 sge::systems::detail::instance_impl::mouse_collector() const
 {
-	return input_->mouse_collector();
+	return
+		input_->mouse_collector();
 }
 
 sge::image2d::system &
 sge::systems::detail::instance_impl::image_system() const
 {
-	return image2d_->system();
+	return
+		image2d_->system();
 }
 
 sge::audio::loader &
 sge::systems::detail::instance_impl::audio_loader() const
 {
-	return audio_loader_->get();
+	return
+		audio_loader_->get();
 }
 
 sge::audio::player &
 sge::systems::detail::instance_impl::audio_player() const
 {
-	return audio_player_->get();
+	return
+		audio_player_->get();
 }
 
 sge::font::system &
 sge::systems::detail::instance_impl::font_system() const
 {
-	return font_->system();
+	return
+		font_->system();
 }
 
 sge::window::system &
 sge::systems::detail::instance_impl::window_system() const
 {
-	return window_->system();
+	return
+		window_system_->get();
 }
 
 sge::window::object &
 sge::systems::detail::instance_impl::window() const
 {
-	return window_->window();
+	return
+		window_object_->get();
 }
 
 sge::viewport::manager &
 sge::systems::detail::instance_impl::viewport_manager() const
 {
-	return renderer_device_->viewport_manager();
+	return
+		renderer_device_->viewport_manager();
 }

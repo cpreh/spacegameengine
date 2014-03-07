@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/input/mouse/device_fwd.hpp>
 #include <sge/plugin/manager_fwd.hpp>
+#include <sge/renderer/core_fwd.hpp>
 #include <sge/renderer/system_fwd.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
@@ -103,6 +104,25 @@ sge::systems::instance<
 template<
 	typename Choices
 >
+sge::renderer::core &
+sge::systems::instance<
+	Choices
+>::renderer_core() const
+{
+	static_assert(
+		sge::systems::detail::has_with_renderer<
+			Choices
+		>::value,
+		"configuration has no renderer"
+	);
+
+	return
+		instance_.renderer_core();
+}
+
+template<
+	typename Choices
+>
 sge::renderer::system &
 sge::systems::instance<
 	Choices
@@ -125,7 +145,7 @@ template<
 sge::renderer::device::ffp &
 sge::systems::instance<
 	Choices
->::renderer_ffp() const
+>::renderer_device_ffp() const
 {
 	static_assert(
 		sge::systems::detail::has_with_renderer<
@@ -144,7 +164,7 @@ sge::systems::instance<
 	);
 
 	return
-		instance_.renderer_ffp();
+		instance_.renderer_device_ffp();
 }
 
 template<
@@ -153,7 +173,7 @@ template<
 sge::renderer::device::core &
 sge::systems::instance<
 	Choices
->::renderer_core() const
+>::renderer_device_core() const
 {
 	static_assert(
 		sge::systems::detail::has_with_renderer<
@@ -163,7 +183,7 @@ sge::systems::instance<
 	);
 
 	return
-		instance_.renderer_core();
+		instance_.renderer_device_core();
 }
 
 template<

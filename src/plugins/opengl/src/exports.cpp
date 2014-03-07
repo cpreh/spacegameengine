@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/core.hpp>
 #include <sge/opengl/logger_context.hpp>
-#include <sge/opengl/system.hpp>
 #include <sge/plugin/capabilities.hpp>
 #include <sge/plugin/capabilities_field.hpp>
 #include <sge/plugin/description.hpp>
@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/name.hpp>
 #include <sge/plugin/version.hpp>
 #include <sge/plugin/library/make_interface.hpp>
-#include <sge/renderer/system_unique_ptr.hpp>
+#include <sge/renderer/core_unique_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 
@@ -55,15 +55,13 @@ sge::plugin::info const info(
 	}
 );
 
-sge::renderer::system_unique_ptr
-create_renderer_system()
+sge::renderer::core_unique_ptr
+create_renderer_core()
 {
 	return
-		sge::renderer::system_unique_ptr(
-			fcppt::make_unique_ptr<
-				sge::opengl::system
-			>()
-		);
+		fcppt::make_unique_ptr<
+			sge::opengl::core
+		>();
 }
 
 }
@@ -71,5 +69,5 @@ create_renderer_system()
 SGE_PLUGIN_LIBRARY_MAKE_INTERFACE(
 	info,
 	sge::opengl::logger_context(),
-	(create_renderer_system)
+	(create_renderer_core)
 )

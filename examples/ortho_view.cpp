@@ -249,12 +249,12 @@ try
 					sge::config::media_path()
 					/ FCPPT_TEXT("images")
 					/ FCPPT_TEXT("grass.png"),
-					sys.renderer_ffp(),
+					sys.renderer_device_ffp(),
 					sys.image_system(),
 					sge::renderer::texture::mipmap::off(),
 					sge::renderer::resource_flags_field::null(),
 					sge::renderer::texture::emulate_srgb_from_caps(
-						sys.renderer_ffp().caps())))),
+						sys.renderer_device_ffp().caps())))),
 		tex_tux(
 			fcppt::make_unique_ptr<
 				sge::texture::part_raw_ptr>(
@@ -262,12 +262,12 @@ try
 					sge::config::media_path()
 					/ FCPPT_TEXT("images")
 					/ FCPPT_TEXT("tux.png"),
-					sys.renderer_ffp(),
+					sys.renderer_device_ffp(),
 					sys.image_system(),
 					sge::renderer::texture::mipmap::off(),
 					sge::renderer::resource_flags_field::null(),
 					sge::renderer::texture::emulate_srgb_from_caps(
-						sys.renderer_ffp().caps()))));
+						sys.renderer_device_ffp().caps()))));
 
 	typedef sge::sprite::config::choices<
 		sge::sprite::config::type_choices<
@@ -305,7 +305,7 @@ try
 	> sprite_parameters;
 
 	sprite_buffers_type sprite_buffers(
-		sys.renderer_ffp(),
+		sys.renderer_device_ffp(),
 		sge::sprite::buffers::option::dynamic
 	);
 
@@ -320,7 +320,7 @@ try
 	> sprite_state_parameters;
 
 	sprite_state_object sprite_states(
-		sys.renderer_ffp(),
+		sys.renderer_device_ffp(),
 		sprite_state_parameters()
 	);
 
@@ -373,7 +373,7 @@ try
 	{
 		if(
 			sge::renderer::target::viewport_is_null(
-				sys.renderer_ffp().onscreen_target().viewport()))
+				sys.renderer_device_ffp().onscreen_target().viewport()))
 			continue;
 
 		camera.update(
@@ -381,8 +381,8 @@ try
 				camera_timer));
 
 		sge::renderer::context::scoped_ffp const scoped_block(
-			sys.renderer_ffp(),
-			sys.renderer_ffp().onscreen_target());
+			sys.renderer_device_ffp(),
+			sys.renderer_device_ffp().onscreen_target());
 
 		scoped_block.get().clear(
 			sge::renderer::clear::parameters()
@@ -390,12 +390,12 @@ try
 				sge::image::color::predef::black()));
 
 		sge::renderer::state::ffp::transform::object_scoped_ptr const projection_state(
-			sys.renderer_ffp().create_transform_state(
+			sys.renderer_device_ffp().create_transform_state(
 				sge::renderer::state::ffp::transform::parameters(
 					camera.projection_matrix().get())));
 
 		sge::renderer::state::ffp::transform::object_scoped_ptr const world_state(
-			sys.renderer_ffp().create_transform_state(
+			sys.renderer_device_ffp().create_transform_state(
 				sge::renderer::state::ffp::transform::parameters(
 					sge::camera::matrix_conversion::world(
 						camera.coordinate_system()))));
@@ -413,7 +413,7 @@ try
 		sge::sprite::state::scoped<
 			sprite_state_choices
 		> const scoped_state(
-			sys.renderer_ffp(),
+			sys.renderer_device_ffp(),
 			scoped_block.get(),
 			sge::sprite::state::default_options<
 				sprite_state_choices

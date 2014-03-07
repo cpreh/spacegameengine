@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/system_fwd.hpp>
+#include <sge/renderer/core_fwd.hpp>
 #include <sge/renderer/plugin/traits.hpp>
 #include <sge/src/plugin/instantiate_manager.hpp>
 
 
 SGE_PLUGIN_INSTANTIATE_MANAGER(
-	sge::renderer::system
+	sge::renderer::core
 );

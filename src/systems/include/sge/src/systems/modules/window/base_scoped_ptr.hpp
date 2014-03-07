@@ -34,9 +34,11 @@ namespace modules
 namespace window
 {
 
-typedef fcppt::scoped_ptr<
+typedef
+fcppt::scoped_ptr<
 	sge::systems::modules::window::base
-> base_scoped_ptr;
+>
+base_scoped_ptr;
 
 }
 }

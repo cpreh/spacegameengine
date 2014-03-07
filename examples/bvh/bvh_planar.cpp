@@ -438,12 +438,12 @@ try
 
 
 	sprite_buffers_type sprite_buffers(
-		sys.renderer_ffp(),
+		sys.renderer_device_ffp(),
 		sge::sprite::buffers::option::dynamic
 	);
 
 	sprite_state_object sprite_state(
-		sys.renderer_ffp(),
+		sys.renderer_device_ffp(),
 		sprite_state_parameters()
 	);
 
@@ -600,8 +600,8 @@ try
 	{
 		// Declare a render block, using the renderer's onscreen target.
 		sge::renderer::context::scoped_ffp const scoped_block(
-			sys.renderer_ffp(),
-			sys.renderer_ffp().onscreen_target()
+			sys.renderer_device_ffp(),
+			sys.renderer_device_ffp().onscreen_target()
 		);
 
 		// Here, we clear the back buffer with the clear color black() on each frame.

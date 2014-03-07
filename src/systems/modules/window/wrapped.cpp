@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/src/systems/modules/window/base.hpp>
 #include <sge/src/systems/modules/window/wrapped.hpp>
 #include <sge/systems/wrapped_window.hpp>
 #include <sge/window/object.hpp>
@@ -25,16 +26,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::systems::modules::window::wrapped::wrapped(
-	sge::systems::wrapped_window const &_parameters
+	sge::systems::wrapped_window const &_parameters,
+	sge::window::system &_system
 )
 :
-	system_(
-		_parameters.awl_system(),
-		_parameters.awl_system_event_processor(),
-		_parameters.awl_event_processor()
-	),
+	sge::systems::modules::window::base(),
 	window_(
-		system_.create(
+		_system.create(
 			_parameters.awl_window(),
 			_parameters.awl_window_event_processor()
 		)
@@ -46,14 +44,9 @@ sge::systems::modules::window::wrapped::~wrapped()
 {
 }
 
-sge::window::system &
-sge::systems::modules::window::wrapped::system()
-{
-	return system_;
-}
-
 sge::window::object &
-sge::systems::modules::window::wrapped::window() const
+sge::systems::modules::window::wrapped::get() const
 {
-	return *window_;
+	return
+		*window_;
 }

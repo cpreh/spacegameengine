@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_X11_STATE_HPP_INCLUDED
 
 #include <sge/opengl/device_state/object.hpp>
+#include <sge/opengl/xrandr/resolution_fwd.hpp>
 #include <sge/opengl/xrandr/state_fwd.hpp>
 #include <sge/renderer/display_mode/optional_object_fwd.hpp>
 #include <awl/backends/x11/window/object_fwd.hpp>
@@ -51,10 +52,18 @@ public:
 		awl::backends::x11::window::event::processor &
 	);
 
-	~state();
+	~state()
+	override;
 private:
 	sge::renderer::display_mode::optional_object const
-	display_mode() const;
+	display_mode() const
+	override;
+
+	void
+	display_mode(
+		sge::renderer::display_mode::optional_object const &
+	)
+	override;
 
 	typedef
 	fcppt::scoped_ptr<
@@ -62,7 +71,15 @@ private:
 	>
 	xrandr_scoped_ptr;
 
+	typedef
+	fcppt::scoped_ptr<
+		sge::opengl::xrandr::resolution
+	>
+	resolution_scoped_ptr;
+
 	xrandr_scoped_ptr const xrandr_state_;
+
+	resolution_scoped_ptr resolution_;
 };
 
 }

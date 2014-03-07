@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_PLUGIN_OBJECT_SCOPED_PTR_HPP_INCLUDED
 
 #include <sge/plugin/object_scoped_ptr.hpp>
-#include <sge/renderer/system_fwd.hpp>
+#include <sge/renderer/core_fwd.hpp>
 
 
 namespace sge
@@ -32,9 +32,11 @@ namespace renderer
 namespace plugin
 {
 
-typedef sge::plugin::object_scoped_ptr<
-	sge::renderer::system
->::type object_scoped_ptr;
+typedef
+sge::plugin::object_scoped_ptr<
+	sge::renderer::core
+>
+object_scoped_ptr;
 
 }
 }

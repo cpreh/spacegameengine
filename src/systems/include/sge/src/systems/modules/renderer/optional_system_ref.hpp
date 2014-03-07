@@ -21,26 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_SYSTEMS_MODULES_RENDERER_OPTIONAL_SYSTEM_REF_HPP_INCLUDED
 #define SGE_SRC_SYSTEMS_MODULES_RENDERER_OPTIONAL_SYSTEM_REF_HPP_INCLUDED
 
-#include <sge/src/systems/modules/renderer/system_fwd.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <sge/src/systems/modules/renderer/optional_system_ref_fwd.hpp>
+#include <fcppt/optional_impl.hpp>
 
-
-namespace sge
-{
-namespace systems
-{
-namespace modules
-{
-namespace renderer
-{
-
-typedef fcppt::optional<
-	sge::systems::modules::renderer::system &
-> optional_system_ref;
-
-}
-}
-}
-}
 
 #endif

@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/src/systems/modules/renderer/optional_system_ref.hpp>
 #include <sge/src/systems/modules/renderer/system.hpp>
+#include <sge/src/systems/modules/window/base.hpp>
 #include <sge/src/systems/modules/window/original.hpp>
 #include <sge/window/create_from_awl.hpp>
 #include <sge/window/object.hpp>
@@ -28,49 +29,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/cursor/create_predefined.hpp>
 #include <awl/cursor/object.hpp>
 #include <awl/cursor/predefined.hpp>
-#include <awl/event/create_processor.hpp>
-#include <awl/event/processor.hpp>
-#include <awl/system/create.hpp>
 #include <awl/system/object.hpp>
-#include <awl/system/event/create_processor.hpp>
-#include <awl/system/event/optional_processor_ref.hpp>
-#include <awl/system/event/processor.hpp>
 #include <awl/visual/object.hpp>
 #include <awl/window/object.hpp>
 #include <awl/window/event/create_processor.hpp>
 #include <awl/window/event/processor.hpp>
-#include <fcppt/optional_impl.hpp>
 
 
 sge::systems::modules::window::original::original(
 	sge::window::parameters const &_parameters,
+	sge::window::system &_system,
 	sge::systems::modules::renderer::optional_system_ref const &_renderer_system
 )
 :
-	awl_system_(
-		awl::system::create()
-	),
-	awl_system_event_processor_(
-		awl::system::event::create_processor(
-			*awl_system_
-		)
-	),
-	awl_event_processor_(
-		awl::event::create_processor(
-			*awl_system_,
-			awl::system::event::optional_processor_ref(
-				*awl_system_event_processor_
-			)
-		)
-	),
+	sge::systems::modules::window::base(),
 	awl_visual_(
 		_renderer_system
 		?
-			_renderer_system->create_visual(
-				*awl_system_
-			)
+			_renderer_system->create_visual()
 		:
-			awl_system_->default_visual()
+			_system.awl_system().default_visual()
 	),
 	awl_cursor_(
 		_parameters.cursor()
@@ -78,13 +56,13 @@ sge::systems::modules::window::original::original(
 			awl::cursor::object_unique_ptr()
 		:
 			awl::cursor::create_predefined(
-				*awl_system_,
+				_system.awl_system(),
 				awl::cursor::predefined::arrow
 			)
 	),
 	awl_window_(
 		sge::window::create_from_awl(
-			*awl_system_,
+			_system.awl_system(),
 			*awl_visual_,
 			awl_cursor_
 			?
@@ -103,13 +81,8 @@ sge::systems::modules::window::original::original(
 			*awl_window_
 		)
 	),
-	system_(
-		*awl_system_,
-		*awl_system_event_processor_,
-		*awl_event_processor_
-	),
 	window_(
-		system_.create(
+		_system.create(
 			*awl_window_,
 			*awl_window_event_processor_
 		)
@@ -121,14 +94,9 @@ sge::systems::modules::window::original::~original()
 {
 }
 
-sge::window::system &
-sge::systems::modules::window::original::system()
-{
-	return system_;
-}
-
 sge::window::object &
-sge::systems::modules::window::original::window() const
+sge::systems::modules::window::original::get() const
 {
-	return *window_;
+	return
+		*window_;
 }

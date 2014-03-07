@@ -376,7 +376,7 @@ try
 	}
 
 	sge::renderer::state::core::sampler::filter::anisotropic::level const anisotropy(
-		sys.renderer_core().caps().max_anisotropy().get()
+		sys.renderer_device_core().caps().max_anisotropy().get()
 	);
 
 	sge::font::string const anisotropy_string(
@@ -393,35 +393,35 @@ try
 
 	sge::renderer::state::core::sampler::object_scoped_ptr const
 		point_sampler(
-			sys.renderer_core().create_sampler_state(
+			sys.renderer_device_core().create_sampler_state(
 				make_sampler_parameters(
 					sge::renderer::state::core::sampler::filter::point()
 				)
 			)
 		),
 		linear_sampler(
-			sys.renderer_core().create_sampler_state(
+			sys.renderer_device_core().create_sampler_state(
 				make_sampler_parameters(
 					sge::renderer::state::core::sampler::filter::linear()
 				)
 			)
 		),
 		mipmap_sampler(
-			sys.renderer_core().create_sampler_state(
+			sys.renderer_device_core().create_sampler_state(
 				make_sampler_parameters(
 					sge::renderer::state::core::sampler::filter::mipmap()
 				)
 			)
 		),
 		trilinear_sampler(
-			sys.renderer_core().create_sampler_state(
+			sys.renderer_device_core().create_sampler_state(
 				make_sampler_parameters(
 					sge::renderer::state::core::sampler::filter::trilinear()
 				)
 			)
 		),
 		anisotropic_sampler(
-			sys.renderer_core().create_sampler_state(
+			sys.renderer_device_core().create_sampler_state(
 				make_anisotropic_sampler_parameters(
 					sge::renderer::state::core::sampler::filter::anisotropic::mip::off,
 					anisotropy
@@ -429,7 +429,7 @@ try
 			)
 		),
 		anisotropic_mipmap_sampler(
-			sys.renderer_core().create_sampler_state(
+			sys.renderer_device_core().create_sampler_state(
 				make_anisotropic_sampler_parameters(
 					sge::renderer::state::core::sampler::filter::anisotropic::mip::point,
 					anisotropy
@@ -437,7 +437,7 @@ try
 			)
 		),
 		anisotropic_trilinear_sampler(
-			sys.renderer_core().create_sampler_state(
+			sys.renderer_device_core().create_sampler_state(
 				make_anisotropic_sampler_parameters(
 					sge::renderer::state::core::sampler::filter::anisotropic::mip::linear,
 					anisotropy
@@ -559,12 +559,12 @@ try
 	> sprite_state_parameters;
 
 	sprite_buffers_type sprite_buffers(
-		sys.renderer_core(),
+		sys.renderer_device_core(),
 		sge::sprite::buffers::option::static_
 	);
 
 	sprite_state_object sprite_states(
-		sys.renderer_ffp(),
+		sys.renderer_device_ffp(),
 		sprite_state_parameters()
 	);
 
@@ -606,7 +606,7 @@ try
 					sge::texture::part_raw_ptr
 				>(
 					sge::renderer::texture::create_planar_from_view(
-						sys.renderer_core(),
+						sys.renderer_device_core(),
 						sge::image2d::view::to_const(
 							sge::image2d::view::object(
 								whole_store.wrapped_view()
@@ -744,7 +744,7 @@ try
 	{
 		if(
 			sge::renderer::target::viewport_is_null(
-				sys.renderer_core().onscreen_target().viewport()
+				sys.renderer_device_core().onscreen_target().viewport()
 			)
 		)
 			continue;
@@ -760,8 +760,8 @@ try
 		frames_counter.update();
 
 		sge::renderer::context::scoped_ffp const scoped_block(
-			sys.renderer_ffp(),
-			sys.renderer_ffp().onscreen_target()
+			sys.renderer_device_ffp(),
+			sys.renderer_device_ffp().onscreen_target()
 		);
 
 		scoped_block.get().clear(
@@ -772,7 +772,7 @@ try
 		);
 
 		sge::renderer::state::ffp::transform::object_scoped_ptr const projection_state(
-			sys.renderer_ffp().create_transform_state(
+			sys.renderer_device_ffp().create_transform_state(
 				sge::renderer::state::ffp::transform::parameters(
 					camera.projection_matrix().get()
 				)
@@ -780,7 +780,7 @@ try
 		);
 
 		sge::renderer::state::ffp::transform::object_scoped_ptr const world_state(
-			sys.renderer_ffp().create_transform_state(
+			sys.renderer_device_ffp().create_transform_state(
 				sge::renderer::state::ffp::transform::parameters(
 					sge::camera::matrix_conversion::world(
 						camera.coordinate_system()
@@ -835,14 +835,14 @@ try
 			>(
 				fcppt::cast::to_signed(
 					sge::renderer::target::viewport_size(
-						sys.renderer_core().onscreen_target()
+						sys.renderer_device_core().onscreen_target()
 					).w()
 				)
 			)
 		);
 
 		sge::font::draw::simple(
-			sys.renderer_ffp(),
+			sys.renderer_device_ffp(),
 			scoped_block.get(),
 			*font,
 			current_filter->first
@@ -859,7 +859,7 @@ try
 		);
 
 		sge::font::draw::simple(
-			sys.renderer_ffp(),
+			sys.renderer_device_ffp(),
 			scoped_block.get(),
 			*font,
 			sge::font::from_fcppt_string(

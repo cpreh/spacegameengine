@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/xrandr/resolution_unique_ptr.hpp>
 #include <sge/opengl/xrandr/select_input.hpp>
 #include <sge/opengl/xrandr/state.hpp>
+#include <sge/renderer/display_mode/object_fwd.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <awl/backends/x11/default_screen.hpp>
 #include <awl/backends/x11/window/object.hpp>
@@ -44,8 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::opengl::xrandr::state::state(
 	sge::opengl::xrandr::extension const &_extension,
 	awl::backends::x11::window::object &_window,
-	awl::backends::x11::window::event::processor &_event_processor,
-	sge::renderer::display_mode::optional_object const &_display_mode
+	awl::backends::x11::window::event::processor &_event_processor
 )
 :
 	display_(
@@ -56,17 +56,6 @@ sge::opengl::xrandr::state::state(
 	),
 	config_(
 		_window
-	),
-	resolution_(
-		_display_mode
-		?
-			sge::opengl::xrandr::choose_resolution(
-				config_,
-				_window,
-				*_display_mode
-			)
-		:
-			sge::opengl::xrandr::resolution_unique_ptr()
 	),
 	display_mode_(),
 	change_connection_(
@@ -129,6 +118,19 @@ sge::opengl::xrandr::state::display_mode() const
 {
 	return
 		display_mode_;
+}
+
+sge::opengl::xrandr::resolution_unique_ptr
+sge::opengl::xrandr::state::choose_resolution(
+	sge::renderer::display_mode::object const &_display_mode
+)
+{
+	return
+		sge::opengl::xrandr::choose_resolution(
+			config_,
+			window_,
+			_display_mode
+		);
 }
 
 void
