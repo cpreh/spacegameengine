@@ -18,4 +18,5 @@ add_sge_dummy_library(
 	""
 	""
 	""
+	"${fcppt_INCLUDE_DIRS}"
 )

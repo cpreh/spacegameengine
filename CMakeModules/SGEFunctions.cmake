@@ -487,6 +487,7 @@ function(
 	ADDITIONAL_DEPS
 	TRANSITIVE_SGE_DEPS
 	TRANSITIVE_ADDITIONAL_DEPS
+	INCLUDE_DIRS
 )
 	add_sge_base_library_base(
 		"${RELATIVE_PATH}"
@@ -494,8 +495,8 @@ function(
 		"${ADDITIONAL_DEPS}"
 		"${TRANSITIVE_SGE_DEPS}"
 		"${TRANSITIVE_ADDITIONAL_DEPS}"
-		""
-		""
+		"${INCLUDE_DIRS}"
+		"${INCLUDE_DIRS}"
 		"DUMMY"
 	)
 endfunction()

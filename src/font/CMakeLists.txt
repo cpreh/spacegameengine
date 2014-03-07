@@ -132,6 +132,6 @@ add_sge_base_library(
 	""
 	"sgecore"
 	""
-	""
-	""
+	"${mizuiro_INCLUDE_DIRS}"
+	"${mizuiro_INCLUDE_DIRS}"
 )

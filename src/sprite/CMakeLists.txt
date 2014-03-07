@@ -431,6 +431,6 @@ add_sge_base_library(
 	"${fcppt_core_TARGET}"
 	""
 	""
-	""
+	"${majutsu_INCLUDE_DIRS}"
 	"${majutsu_INCLUDE_DIRS}"
 )
