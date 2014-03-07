@@ -34,7 +34,7 @@ namespace program
 {
 
 SGE_CG_SYMBOL
-sge::cg::program::source const
+sge::cg::program::source
 replace_extra(
 	sge::cg::program::source const &,
 	sge::cg::program::replace_extra_callback const &

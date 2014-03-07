@@ -18,27 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_ADAPTER_HPP_INCLUDED
-#define SGE_RENDERER_ADAPTER_HPP_INCLUDED
-
-#include <sge/renderer/adapter_value.hpp>
-#include <fcppt/strong_typedef.hpp>
+#include <sge/renderer/display_mode/optional_object.hpp>
+#include <sge/renderer/display_mode/parameters.hpp>
+#include <sge/renderer/display_mode/vsync.hpp>
 
 
-namespace sge
+sge::renderer::display_mode::parameters::parameters(
+	sge::renderer::display_mode::vsync const _vsync,
+	sge::renderer::display_mode::optional_object const &_display_mode
+)
+:
+	vsync_(
+		_vsync
+	),
+	display_mode_(
+		_display_mode
+	)
 {
-namespace renderer
-{
-
-/**
-\brief Identifies an sge::renderer::device
-*/
-FCPPT_MAKE_STRONG_TYPEDEF(
-	sge::renderer::adapter_value,
-	adapter
-);
-
-}
 }
 
-#endif
+sge::renderer::display_mode::vsync
+sge::renderer::display_mode::parameters::vsync() const
+{
+	return vsync_;
+}
+
+sge::renderer::display_mode::optional_object const
+sge::renderer::display_mode::parameters::display_mode() const
+{
+	return display_mode_;
+}

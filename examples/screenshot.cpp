@@ -33,6 +33,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/context/scoped_ffp.hpp>
 #include <sge/renderer/device/ffp.hpp>
+#include <sge/renderer/display_mode/optional_object.hpp>
+#include <sge/renderer/display_mode/parameters.hpp>
+#include <sge/renderer/display_mode/vsync.hpp>
+#include <sge/renderer/pixel_format/color.hpp>
+#include <sge/renderer/pixel_format/depth_stencil.hpp>
+#include <sge/renderer/pixel_format/optional_multi_samples.hpp>
+#include <sge/renderer/pixel_format/object.hpp>
+#include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/emulate_srgb_from_caps.hpp>
@@ -140,14 +148,14 @@ try
 		)
 		(
 			sge::systems::renderer(
-				sge::renderer::parameters::object(
-					sge::renderer::pixel_format::object(
-						sge::renderer::pixel_format::color::depth32,
-						sge::renderer::pixel_format::depth_stencil::off,
-						sge::renderer::pixel_format::optional_multi_samples(),
-						sge::renderer::pixel_format::srgb::no
-					),
-					sge::renderer::parameters::vsync::on,
+				sge::renderer::pixel_format::object(
+					sge::renderer::pixel_format::color::depth32,
+					sge::renderer::pixel_format::depth_stencil::off,
+					sge::renderer::pixel_format::optional_multi_samples(),
+					sge::renderer::pixel_format::srgb::no
+				),
+				sge::renderer::display_mode::parameters(
+					sge::renderer::display_mode::vsync::on,
 					sge::renderer::display_mode::optional_object()
 				),
 				sge::viewport::center_on_resize(
@@ -322,7 +330,8 @@ catch(
 		<< _exception.string()
 		<< FCPPT_TEXT('\n');
 
-	return awl::main::exit_failure();
+	return
+		awl::main::exit_failure();
 }
 catch(
 	std::exception const &_exception
@@ -332,5 +341,6 @@ catch(
 		<< _exception.what()
 		<< '\n';
 
-	return awl::main::exit_failure();
+	return
+		awl::main::exit_failure();
 }

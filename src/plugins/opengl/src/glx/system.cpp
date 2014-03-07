@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/glx/system.hpp>
 #include <sge/opengl/glx/vsync.hpp>
 #include <sge/opengl/glx/visual/create.hpp>
-#include <sge/renderer/parameters/vsync.hpp>
+#include <sge/renderer/display_mode/vsync.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <awl/backends/x11/system/object.hpp>
 #include <awl/backends/x11/window/object.hpp>
@@ -94,13 +94,13 @@ void
 sge::opengl::glx::system::vsync(
 	sge::opengl::device_state::scoped_current const &,
 	awl::window::object &_awl_window,
-	sge::renderer::parameters::vsync const _vsync
+	sge::renderer::display_mode::vsync const _vsync
 )
 {
 	if(
 		_vsync
 		==
-		sge::renderer::parameters::vsync::on
+		sge::renderer::display_mode::vsync::on
 	)
 		sge::opengl::glx::vsync(
 			system_context_,

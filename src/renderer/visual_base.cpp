@@ -18,32 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CG_PROGRAM_OPTIMAL_OPTIONS_HPP_INCLUDED
-#define SGE_OPENGL_CG_PROGRAM_OPTIMAL_OPTIONS_HPP_INCLUDED
-
-#include <sge/cg/context/object_fwd.hpp>
-#include <sge/cg/profile/object_fwd.hpp>
-#include <sge/cg/program/compile_options.hpp>
+#include <sge/renderer/visual_base.hpp>
+#include <sge/renderer/pixel_format/object.hpp>
 
 
-namespace sge
+sge::renderer::visual_base::visual_base(
+	sge::renderer::pixel_format::object const &_pixel_format
+)
+:
+	pixel_format_(
+		_pixel_format
+	)
 {
-namespace opengl
-{
-namespace cg
-{
-namespace program
-{
-
-sge::cg::program::compile_options
-optimal_options(
-	sge::cg::context::object const &,
-	sge::cg::profile::object const &
-);
-
-}
-}
-}
 }
 
-#endif
+sge::renderer::visual_base::~visual_base()
+{
+}
+
+sge::renderer::pixel_format::object const &
+sge::renderer::visual_base::pixel_format() const
+{
+	return
+		pixel_format_;
+}

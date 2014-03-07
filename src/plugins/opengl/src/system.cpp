@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/system.hpp>
 #include <sge/opengl/device_state/create_system.hpp>
 #include <sge/opengl/device_state/system.hpp>
-#include <sge/renderer/adapter.hpp>
 #include <sge/renderer/caps/device.hpp>
 #include <sge/renderer/caps/device_count.hpp>
 #include <sge/renderer/caps/system.hpp>
@@ -32,7 +31,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device/core_unique_ptr.hpp>
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/device/ffp_unique_ptr.hpp>
+#include <sge/renderer/device/index.hpp>
 #include <sge/renderer/device/parameters.hpp>
+#include <sge/renderer/display_mode/container.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <awl/system/object_fwd.hpp>
 #include <awl/visual/object.hpp>
@@ -81,7 +82,7 @@ sge::opengl::system::create_ffp_renderer(
 )
 {
 	FCPPT_ASSERT_PRE(
-		_parameters.adapter().get()
+		_parameters.index().get()
 		<
 		this->device_count().get()
 	);
@@ -91,7 +92,7 @@ sge::opengl::system::create_ffp_renderer(
 			fcppt::make_unique_ptr<
 				sge::opengl::device
 			>(
-				_parameters.params(),
+				_parameters.display_mode(),
 				_parameters.window(),
 				_parameters.window_processor(),
 				*device_system_,
@@ -135,15 +136,25 @@ sge::opengl::system::device_count() const
 
 sge::renderer::caps::device const &
 sge::opengl::system::device_caps(
-	sge::renderer::adapter const _adapter
+	sge::renderer::device::index const _index
 ) const
 {
 	FCPPT_ASSERT_PRE(
-		_adapter.get()
+		_index.get()
 		<
 		this->device_count().get()
 	);
 
 	return
 		*caps_;
+}
+
+sge::renderer::display_mode::container
+sge::opengl::system::display_modes(
+	sge::renderer::device::index const _index
+) const
+{
+	// TODO:
+	return
+		sge::renderer::display_mode::container();
 }

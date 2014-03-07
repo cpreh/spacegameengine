@@ -18,21 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_ADAPTER_VALUE_HPP_INCLUDED
-#define SGE_RENDERER_ADAPTER_VALUE_HPP_INCLUDED
+#include <sge/opengl/glx/visual/object.hpp>
+#include <sge/renderer/visual_base.hpp>
+#include <sge/renderer/pixel_format/object_fwd.hpp>
+#include <awl/backends/x11/visual/info_unique_ptr.hpp>
+#include <awl/backends/x11/visual/wrapped.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
-namespace sge
+sge::opengl::glx::visual::object::object(
+	awl::backends::x11::visual::info_unique_ptr &&_info,
+	sge::renderer::pixel_format::object const &_pixel_format
+)
+:
+	awl::backends::x11::visual::wrapped(
+		std::move(
+			_info
+		)
+	),
+	sge::renderer::visual_base(
+		_pixel_format
+	)
 {
-namespace renderer
+}
+
+sge::opengl::glx::visual::object::~object()
 {
-
-/**
-\brief The int type used for adapters
-*/
-typedef unsigned adapter_value;
-
 }
-}
-
-#endif

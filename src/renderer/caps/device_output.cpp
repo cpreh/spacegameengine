@@ -36,9 +36,7 @@ sge::renderer::caps::operator<<(
 {
 	return
 		_stream
-		<< FCPPT_TEXT("caps: adapter = ")
-		<< _caps.adapter()
-		<< FCPPT_TEXT(", driver_name = \"")
+		<< FCPPT_TEXT("caps: driver_name = \"")
 		<< _caps.driver_name()
 		<< FCPPT_TEXT("\", description = \"")
 		<< _caps.description()

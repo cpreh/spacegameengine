@@ -1,7 +1,5 @@
 set(
 	SGE_RENDERER_FILES
-	include/sge/renderer/adapter.hpp
-	include/sge/renderer/adapter_value.hpp
 	include/sge/renderer/aspect.hpp
 	include/sge/renderer/basic_dim.hpp
 	include/sge/renderer/basic_dim_fwd.hpp
@@ -96,6 +94,8 @@ set(
 	include/sge/renderer/device/ffp_fwd.hpp
 	include/sge/renderer/device/ffp_scoped_ptr.hpp
 	include/sge/renderer/device/ffp_unique_ptr.hpp
+	include/sge/renderer/device/index.hpp
+	include/sge/renderer/device/index_value.hpp
 	include/sge/renderer/device/parameters.hpp
 	include/sge/renderer/device/parameters_fwd.hpp
 	include/sge/renderer/dim2.hpp
@@ -103,6 +103,7 @@ set(
 	include/sge/renderer/dim3.hpp
 	include/sge/renderer/dim3_fwd.hpp
 	include/sge/renderer/display_mode/comparison.hpp
+	include/sge/renderer/display_mode/container.hpp
 	include/sge/renderer/display_mode/desired_fps.hpp
 	include/sge/renderer/display_mode/dimensions.hpp
 	include/sge/renderer/display_mode/dimensions_fwd.hpp
@@ -120,11 +121,15 @@ set(
 	include/sge/renderer/display_mode/optional_refresh_rate.hpp
 	include/sge/renderer/display_mode/optional_refresh_rate_fwd.hpp
 	include/sge/renderer/display_mode/output.hpp
+	include/sge/renderer/display_mode/parameters.hpp
+	include/sge/renderer/display_mode/parameters_fwd.hpp
 	include/sge/renderer/display_mode/pixel_size.hpp
 	include/sge/renderer/display_mode/pixel_size_fwd.hpp
 	include/sge/renderer/display_mode/refresh_rate.hpp
 	include/sge/renderer/display_mode/refresh_rate_value.hpp
 	include/sge/renderer/display_mode/to_dpi.hpp
+	include/sge/renderer/display_mode/vsync.hpp
+	include/sge/renderer/display_mode/vsync_fwd.hpp
 	include/sge/renderer/epsilon.hpp
 	include/sge/renderer/exception.hpp
 	include/sge/renderer/index/any/basic_view.hpp
@@ -222,10 +227,6 @@ set(
 	include/sge/renderer/occlusion_query/scoped_fwd.hpp
 	include/sge/renderer/optional_matrix4.hpp
 	include/sge/renderer/optional_matrix4_fwd.hpp
-	include/sge/renderer/parameters/object.hpp
-	include/sge/renderer/parameters/object_fwd.hpp
-	include/sge/renderer/parameters/vsync.hpp
-	include/sge/renderer/parameters/vsync_fwd.hpp
 	include/sge/renderer/pixel_format/bit_count.hpp
 	include/sge/renderer/pixel_format/color.hpp
 	include/sge/renderer/pixel_format/color_bits.hpp
@@ -874,6 +875,8 @@ set(
 	include/sge/renderer/vf/view_decl.hpp
 	include/sge/renderer/vf/view_fwd.hpp
 	include/sge/renderer/vf/view_impl.hpp
+	include/sge/renderer/visual_base.hpp
+	include/sge/renderer/visual_base_fwd.hpp
 	src/renderer/aspect.cpp
 	src/renderer/caps/device.cpp
 	src/renderer/caps/device_output.cpp
@@ -898,6 +901,7 @@ set(
 	src/renderer/display_mode/desired_fps.cpp
 	src/renderer/display_mode/object.cpp
 	src/renderer/display_mode/output.cpp
+	src/renderer/display_mode/parameters.cpp
 	src/renderer/display_mode/to_dpi.cpp
 	src/renderer/exception.cpp
 	src/renderer/include/sge/src/renderer/basic_scoped_buffer_lock_impl.hpp
@@ -958,7 +962,6 @@ set(
 	src/renderer/npos.cpp
 	src/renderer/occlusion_query/object.cpp
 	src/renderer/occlusion_query/scoped.cpp
-	src/renderer/parameters/object.cpp
 	src/renderer/pixel_format/color_bits.cpp
 	src/renderer/pixel_format/depth_bits.cpp
 	src/renderer/pixel_format/object.cpp
@@ -1141,6 +1144,7 @@ set(
 	src/renderer/vf/dynamic/texpos.cpp
 	src/renderer/vf/dynamic/vector.cpp
 	src/renderer/vf/dynamic/view.cpp
+	src/renderer/visual_base.cpp
 )
 
 sge_implement_from_lib(

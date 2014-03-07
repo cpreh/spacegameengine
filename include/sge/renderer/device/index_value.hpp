@@ -18,30 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CG_PROGRAM_OPTIMAL_OPTIONS_HPP_INCLUDED
-#define SGE_OPENGL_CG_PROGRAM_OPTIMAL_OPTIONS_HPP_INCLUDED
-
-#include <sge/cg/context/object_fwd.hpp>
-#include <sge/cg/profile/object_fwd.hpp>
-#include <sge/cg/program/compile_options.hpp>
+#ifndef SGE_RENDERER_DEVICE_INDEX_VALUE_HPP_INCLUDED
+#define SGE_RENDERER_DEVICE_INDEX_VALUE_HPP_INCLUDED
 
 
 namespace sge
 {
-namespace opengl
+namespace renderer
 {
-namespace cg
-{
-namespace program
+namespace device
 {
 
-sge::cg::program::compile_options
-optimal_options(
-	sge::cg::context::object const &,
-	sge::cg::profile::object const &
-);
+/**
+\brief The int type used for device indices
+*/
+typedef unsigned index_value;
 
-}
 }
 }
 }

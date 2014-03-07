@@ -23,14 +23,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/context/system/object.hpp>
 #include <sge/opengl/device_state/system_fwd.hpp>
-#include <sge/renderer/adapter.hpp>
 #include <sge/renderer/system.hpp>
 #include <sge/renderer/caps/device_count.hpp>
 #include <sge/renderer/caps/device_fwd.hpp>
 #include <sge/renderer/caps/system_field_fwd.hpp>
 #include <sge/renderer/device/core_unique_ptr.hpp>
 #include <sge/renderer/device/ffp_unique_ptr.hpp>
+#include <sge/renderer/device/index.hpp>
 #include <sge/renderer/device/parameters_fwd.hpp>
+#include <sge/renderer/display_mode/container.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <awl/system/object_fwd.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
@@ -53,46 +54,63 @@ class system
 public:
 	system();
 
-	~system();
+	~system()
+	override;
 private:
 	sge::renderer::device::core_unique_ptr
 	create_core_renderer(
 		sge::renderer::device::parameters const &
-	);
+	)
+	override;
 
 	sge::renderer::device::ffp_unique_ptr
 	create_ffp_renderer(
 		sge::renderer::device::parameters const &
-	);
+	)
+	override;
 
 	awl::visual::object_unique_ptr
 	create_visual(
 		awl::system::object &,
 		sge::renderer::pixel_format::object const &
-	);
+	)
+	override;
 
 	sge::renderer::caps::system_field const
-	caps() const;
+	caps() const
+	override;
 
 	sge::renderer::caps::device_count const
-	device_count() const;
+	device_count() const
+	override;
 
 	sge::renderer::caps::device const &
 	device_caps(
-		sge::renderer::adapter
-	) const;
+		sge::renderer::device::index
+	) const
+	override;
+
+	sge::renderer::display_mode::container
+	display_modes(
+		sge::renderer::device::index
+	) const
+	override;
 
 	sge::opengl::context::system::object system_context_;
 
-	typedef fcppt::scoped_ptr<
+	typedef
+	fcppt::scoped_ptr<
 		sge::opengl::device_state::system
-	> device_system_scoped_ptr;
+	>
+	device_system_scoped_ptr;
 
 	device_system_scoped_ptr const device_system_;
 
-	typedef fcppt::scoped_ptr<
+	typedef
+	fcppt::scoped_ptr<
 		sge::renderer::caps::device
-	> device_caps_scoped_ptr;
+	>
+	device_caps_scoped_ptr;
 
 	device_caps_scoped_ptr const caps_;
 };

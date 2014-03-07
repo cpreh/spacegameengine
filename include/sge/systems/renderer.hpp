@@ -23,7 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/plugin/name.hpp>
 #include <sge/renderer/caps/system_field.hpp>
-#include <sge/renderer/parameters/object.hpp>
+#include <sge/renderer/device/index.hpp>
+#include <sge/renderer/display_mode/parameters.hpp>
+#include <sge/renderer/pixel_format/object.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/systems/optional_name.hpp>
 #include <sge/systems/renderer_fwd.hpp>
@@ -45,7 +47,8 @@ class renderer
 public:
 	SGE_SYSTEMS_SYMBOL
 	renderer(
-		sge::renderer::parameters::object const &,
+		sge::renderer::pixel_format::object const &,
+		sge::renderer::display_mode::parameters const &,
 		sge::viewport::resize_callback const &
 	);
 
@@ -61,8 +64,17 @@ public:
 		sge::plugin::name const &
 	);
 
-	sge::renderer::parameters::object const &
-	parameters() const;
+	SGE_SYSTEMS_SYMBOL
+	sge::systems::renderer &
+	device_index(
+		sge::renderer::device::index
+	);
+
+	sge::renderer::pixel_format::object const &
+	pixel_format() const;
+
+	sge::renderer::display_mode::parameters const &
+	display_mode() const;
 
 	sge::viewport::resize_callback const &
 	resize_callback() const;
@@ -72,14 +84,21 @@ public:
 
 	sge::systems::optional_name const &
 	name() const;
+
+	sge::renderer::device::index const
+	device_index() const;
 private:
-	sge::renderer::parameters::object const parameters_;
+	sge::renderer::pixel_format::object const pixel_format_;
+
+	sge::renderer::display_mode::parameters const display_mode_;
 
 	sge::viewport::resize_callback const resize_callback_;
 
 	sge::renderer::caps::system_field caps_;
 
 	sge::systems::optional_name name_;
+
+	sge::renderer::device::index device_index_;
 };
 
 }

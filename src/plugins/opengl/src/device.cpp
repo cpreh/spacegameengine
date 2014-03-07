@@ -54,7 +54,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/create_planar.hpp>
 #include <sge/opengl/texture/create_volume.hpp>
 #include <sge/renderer/config.hpp>
-#include <sge/renderer/parameters/object.hpp>
+#include <sge/renderer/visual_base.hpp>
 #include <sge/renderer/caps/device_fwd.hpp>
 #include <sge/renderer/context/core.hpp>
 #include <sge/renderer/context/core_unique_ptr.hpp>
@@ -64,6 +64,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/depth_stencil_buffer/surface_parameters_fwd.hpp>
 #include <sge/renderer/depth_stencil_buffer/surface_unique_ptr.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
+#include <sge/renderer/display_mode/parameters.hpp>
 #include <sge/renderer/index/buffer.hpp>
 #include <sge/renderer/index/buffer_parameters_fwd.hpp>
 #include <sge/renderer/index/buffer_unique_ptr.hpp>
@@ -130,8 +131,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex/declaration.hpp>
 #include <sge/renderer/vertex/declaration_parameters_fwd.hpp>
 #include <sge/renderer/vertex/declaration_unique_ptr.hpp>
-#include <awl/window/object_fwd.hpp>
+#include <awl/visual/object.hpp>
+#include <awl/window/object.hpp>
 #include <awl/window/event/processor_fwd.hpp>
+#include <fcppt/try_dynamic_cast.hpp>
 
 #if defined(SGE_RENDERER_HAVE_CG)
 #include <sge/cg/context/object_fwd.hpp>
@@ -156,7 +159,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::opengl::device::device(
-	sge::renderer::parameters::object const &_parameters,
+	sge::renderer::display_mode::parameters const &_display_mode,
 	awl::window::object &_window,
 	awl::window::event::processor &_event_processor,
 	sge::opengl::device_state::system &_device_system,
@@ -173,7 +176,7 @@ sge::opengl::device::device(
 	),
 	device_state_(
 		sge::opengl::device_state::create(
-			_parameters.display_mode(),
+			_display_mode.display_mode(),
 			_window,
 			_event_processor
 		)
@@ -197,18 +200,25 @@ sge::opengl::device::device(
 	_device_system.vsync(
 		scoped_current_,
 		_window,
-		_parameters.vsync()
+		_display_mode.vsync()
 	);
 
-	sge::opengl::init_multi_sampling(
-		system_context_,
-		_parameters.pixel_format().multi_samples()
-	);
+	FCPPT_TRY_DYNAMIC_CAST(
+		sge::renderer::visual_base const *,
+		visual,
+		&_window.visual()
+	)
+	{
+		sge::opengl::init_multi_sampling(
+			system_context_,
+			visual->pixel_format().multi_samples()
+		);
 
-	sge::opengl::init_srgb(
-		system_context_,
-		_parameters.pixel_format().srgb()
-	);
+		sge::opengl::init_srgb(
+			system_context_,
+			visual->pixel_format().srgb()
+		);
+	}
 }
 
 sge::opengl::device::~device()
@@ -404,7 +414,7 @@ sge::opengl::device::create_sampler_state(
 }
 
 #if defined(SGE_RENDERER_HAVE_CG)
-sge::cg::profile::object const
+sge::cg::profile::object
 sge::opengl::device::create_cg_profile(
 	sge::cg::profile::shader_type const _shader_type
 )
@@ -415,7 +425,7 @@ sge::opengl::device::create_cg_profile(
 		);
 }
 
-sge::cg::program::compile_options const
+sge::cg::program::compile_options
 sge::opengl::device::cg_compile_options(
 	sge::cg::context::object const &_context,
 	sge::cg::profile::object const &_profile
@@ -454,7 +464,7 @@ sge::opengl::device::load_cg_texture(
 		);
 }
 
-sge::cg::program::source const
+sge::cg::program::source
 sge::opengl::device::transform_cg_vertex_program(
 	sge::renderer::vertex::declaration const &_vertex_declaration,
 	sge::cg::program::source const &_source
@@ -471,13 +481,15 @@ sge::opengl::device::transform_cg_vertex_program(
 sge::renderer::target::onscreen &
 sge::opengl::device::onscreen_target() const
 {
-	return *onscreen_target_;
+	return
+		*onscreen_target_;
 }
 
 sge::renderer::caps::device const &
 sge::opengl::device::caps() const
 {
-	return caps_;
+	return
+		caps_;
 }
 
 sge::renderer::context::ffp_unique_ptr
@@ -606,11 +618,19 @@ sge::opengl::device::create_transform_state(
 		);
 }
 
-sge::renderer::display_mode::optional_object const
+sge::renderer::display_mode::optional_object
 sge::opengl::device::display_mode() const
 {
 	return
 		device_state_->display_mode();
+}
+
+void
+sge::opengl::device::display_mode(
+	sge::renderer::display_mode::optional_object const &_display_mode
+)
+{
+	// TODO
 }
 
 sge::opengl::texture::basic_parameters const

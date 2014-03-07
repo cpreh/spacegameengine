@@ -18,61 +18,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_PARAMETERS_OBJECT_HPP_INCLUDED
-#define SGE_RENDERER_PARAMETERS_OBJECT_HPP_INCLUDED
+#ifndef SGE_RENDERER_DISPLAY_MODE_PARAMETERS_HPP_INCLUDED
+#define SGE_RENDERER_DISPLAY_MODE_PARAMETERS_HPP_INCLUDED
 
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
-#include <sge/renderer/parameters/object_fwd.hpp>
-#include <sge/renderer/parameters/vsync.hpp>
-#include <sge/renderer/pixel_format/object.hpp>
+#include <sge/renderer/display_mode/parameters_fwd.hpp>
+#include <sge/renderer/display_mode/vsync.hpp>
 
 
 namespace sge
 {
 namespace renderer
 {
-namespace parameters
+namespace display_mode
 {
 
 /**
-\brief General parameters for a renderer::device
-
-Used to create an sge::renderer::device.
+\brief Parameters used to set a display mode
 
 \see sge::renderer::system::create_device
 */
-class object
+class parameters
 {
 public:
 	/**
-	\brief Constructs renderer parameters
-
-	\param pixel_format The pixel format to use
+	\brief Constructs display mode parameters
 
 	\param vsync Switches vsync on or off
 
 	\param display_mode An optional display mode to switch to
 	*/
 	SGE_RENDERER_SYMBOL
-	object(
-		sge::renderer::pixel_format::object const &pixel_format,
-		sge::renderer::parameters::vsync vsync,
+	parameters(
+		sge::renderer::display_mode::vsync vsync,
 		sge::renderer::display_mode::optional_object const &display_mode
 	);
-
-	/**
-	\brief Returns the pixel_format
-	*/
-	SGE_RENDERER_SYMBOL
-	sge::renderer::pixel_format::object const &
-	pixel_format() const;
 
 	/**
 	\brief Returns whether vsync should be used
 	*/
 	SGE_RENDERER_SYMBOL
-	sge::renderer::parameters::vsync
+	sge::renderer::display_mode::vsync
 	vsync() const;
 
 	/**
@@ -82,9 +69,7 @@ public:
 	sge::renderer::display_mode::optional_object const
 	display_mode() const;
 private:
-	sge::renderer::pixel_format::object pixel_format_;
-
-	sge::renderer::parameters::vsync vsync_;
+	sge::renderer::display_mode::vsync vsync_;
 
 	sge::renderer::display_mode::optional_object display_mode_;
 };

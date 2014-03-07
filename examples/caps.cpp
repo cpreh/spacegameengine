@@ -24,10 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/object.hpp>
 #include <sge/plugin/optional_cache_ref.hpp>
-#include <sge/renderer/adapter.hpp>
 #include <sge/renderer/system.hpp>
 #include <sge/renderer/system_scoped_ptr.hpp>
 #include <sge/renderer/caps/device_output.hpp>
+#include <sge/renderer/device/index.hpp>
 #include <sge/renderer/plugin/object_scoped_ptr.hpp>
 #include <sge/renderer/plugin/traits.hpp>
 #include <awl/system/create.hpp>
@@ -65,28 +65,29 @@ try
 	);
 
 	for(
-		sge::renderer::adapter adapter(
+		sge::renderer::device::index index(
 			0u
 		);
-		adapter.get() < render_sys->device_count().get();
-		++adapter
+		index.get() < render_sys->device_count().get();
+		++index
 	)
 		fcppt::io::cout()
 			<<
 			std::boolalpha
 			<<
-			FCPPT_TEXT("Adapter ")
+			FCPPT_TEXT("Device ")
 			<<
-			adapter
+			index
 			<<
 			FCPPT_TEXT(": ")
 			<<
 			render_sys->device_caps(
-				adapter
+				index
 			)
 			<< FCPPT_TEXT('\n');
 
-	return EXIT_SUCCESS;
+	return
+		EXIT_SUCCESS;
 }
 catch(
 	fcppt::exception const &_error
@@ -96,5 +97,6 @@ catch(
 		<< _error.string()
 		<< FCPPT_TEXT('\n');
 
-	return EXIT_FAILURE;
+	return
+		EXIT_FAILURE;
 }

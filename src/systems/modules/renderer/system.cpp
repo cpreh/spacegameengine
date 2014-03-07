@@ -38,8 +38,8 @@ sge::systems::modules::renderer::system::system(
 	sge::parse::ini::start const &_config
 )
 :
-	renderer_parameters_(
-		_parameters.parameters().parameters()
+	pixel_format_(
+		_parameters.parameters().pixel_format()
 	),
 	system_pair_(
 		sge::systems::modules::renderer::find_plugin(
@@ -70,7 +70,7 @@ sge::systems::modules::renderer::system::create_visual(
 	return
 		this->get().create_visual(
 			_awl_system,
-			renderer_parameters_.pixel_format()
+			pixel_format_
 		);
 }
 

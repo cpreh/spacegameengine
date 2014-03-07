@@ -23,9 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/glx/visual/choose.hpp>
 #include <sge/opengl/glx/visual/create.hpp>
 #include <sge/opengl/glx/visual/make_attributes.hpp>
+#include <sge/opengl/glx/visual/object.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <awl/backends/x11/system/object.hpp>
-#include <awl/backends/x11/visual/wrapped.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 
@@ -38,18 +38,17 @@ sge::opengl::glx::visual::create(
 )
 {
 	return
-		awl::visual::object_unique_ptr(
-			fcppt::make_unique_ptr<
-				awl::backends::x11::visual::wrapped
-			>(
-				sge::opengl::glx::visual::choose(
-					_awl_system.display(),
-					_awl_system.screen(),
-					sge::opengl::glx::visual::make_attributes(
-						_system_context,
-						_format
-					)
+		fcppt::make_unique_ptr<
+			sge::opengl::glx::visual::object
+		>(
+			sge::opengl::glx::visual::choose(
+				_awl_system.display(),
+				_awl_system.screen(),
+				sge::opengl::glx::visual::make_attributes(
+					_system_context,
+					_format
 				)
-			)
+			),
+			_format
 		);
 }

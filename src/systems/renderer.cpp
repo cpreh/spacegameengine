@@ -20,7 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/plugin/name.hpp>
 #include <sge/renderer/caps/system_field.hpp>
-#include <sge/renderer/parameters/object.hpp>
+#include <sge/renderer/device/index.hpp>
+#include <sge/renderer/display_mode/parameters.hpp>
+#include <sge/renderer/pixel_format/object.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/systems/optional_name.hpp>
 #include <sge/systems/renderer.hpp>
@@ -28,12 +30,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::systems::renderer::renderer(
-	sge::renderer::parameters::object const &_parameters,
+	sge::renderer::pixel_format::object const &_pixel_format,
+	sge::renderer::display_mode::parameters const &_display_mode,
 	sge::viewport::resize_callback const &_resize_callback
 )
 :
-	parameters_(
-		_parameters
+	pixel_format_(
+		_pixel_format
+	),
+	display_mode_(
+		_display_mode
 	),
 	resize_callback_(
 		_resize_callback
@@ -41,7 +47,10 @@ sge::systems::renderer::renderer(
 	caps_(
 		sge::renderer::caps::system_field::null()
 	),
-	name_()
+	name_(),
+	device_index_(
+		0u
+	)
 {
 }
 
@@ -50,9 +59,11 @@ sge::systems::renderer::caps(
 	sge::renderer::caps::system_field const &_caps
 )
 {
-	caps_ = _caps;
+	caps_ =
+		_caps;
 
-	return *this;
+	return
+		*this;
 }
 
 sge::systems::renderer &
@@ -60,31 +71,51 @@ sge::systems::renderer::name(
 	sge::plugin::name const &_name
 )
 {
-	name_ = _name;
+	name_ =
+		_name;
 
-	return *this;
+	return
+		*this;
 }
 
-sge::renderer::parameters::object const &
-sge::systems::renderer::parameters() const
+sge::renderer::pixel_format::object const &
+sge::systems::renderer::pixel_format() const
 {
-	return parameters_;
+	return
+		pixel_format_;
+}
+
+sge::renderer::display_mode::parameters const &
+sge::systems::renderer::display_mode() const
+{
+	return
+		display_mode_;
 }
 
 sge::viewport::resize_callback const &
 sge::systems::renderer::resize_callback() const
 {
-	return resize_callback_;
+	return
+		resize_callback_;
 }
 
 sge::renderer::caps::system_field const &
 sge::systems::renderer::caps() const
 {
-	return caps_;
+	return
+		caps_;
 }
 
 sge::systems::optional_name const &
 sge::systems::renderer::name() const
 {
-	return name_;
+	return
+		name_;
+}
+
+sge::renderer::device::index const
+sge::systems::renderer::device_index() const
+{
+	return
+		device_index_;
 }

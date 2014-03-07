@@ -66,8 +66,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/context/scoped_ffp.hpp>
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
-#include <sge/renderer/parameters/object.hpp>
-#include <sge/renderer/parameters/vsync.hpp>
+#include <sge/renderer/display_mode/parameters.hpp>
+#include <sge/renderer/display_mode/vsync.hpp>
 #include <sge/renderer/pixel_format/color.hpp>
 #include <sge/renderer/pixel_format/depth_stencil.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
@@ -185,92 +185,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-typedef std::pair<
-	sge::font::string,
-	sge::renderer::state::core::sampler::const_object_ref
-> string_filter_pair;
-
-typedef std::array<
-	string_filter_pair,
-	7u
-> filter_array;
-
-void
-change_filter(
-	sge::input::keyboard::key_event const &_event,
-	filter_array const &_filters,
-	filter_array::const_pointer &_result
-)
-{
-	if(
-		!_event.pressed()
-	)
-		return;
-
-	sge::input::keyboard::optional_digit const digit(
-		sge::input::keyboard::key_code_to_digit(
-			_event.key_code()
-		)
-	);
-
-	if(
-		!digit
-	)
-		return;
-
-	filter_array::size_type const index(
-		digit->get() - 1u
-	);
-
-	if(
-		index
-		>= _filters.size()
-	)
-		return;
-
-	_result =
-		&_filters[
-			index
-		];
-}
-
-class change_filter_functor
-{
-	FCPPT_NONASSIGNABLE(
-		change_filter_functor
-	);
-public:
-	change_filter_functor(
-		filter_array const &_filters,
-		filter_array::const_pointer &_result
-	)
-	:
-		filters_(
-			_filters
-		),
-		result_(
-			_result
-		)
-	{
-	}
-
-	void
-	operator()(
-		sge::input::keyboard::key_event const &_event
-	) const
-	{
-		change_filter(
-			_event,
-			filters_,
-			result_
-		);
-	}
-private:
-	filter_array const &filters_;
-
-	filter_array::const_pointer &result_;
-};
-
 sge::renderer::state::core::sampler::parameters const
 make_sampler_parameters(
 	sge::renderer::state::core::sampler::filter::parameters const &_filter
@@ -339,14 +253,14 @@ try
 		)
 		(
 			sge::systems::renderer(
-				sge::renderer::parameters::object(
-					sge::renderer::pixel_format::object(
-						sge::renderer::pixel_format::color::depth32,
-						sge::renderer::pixel_format::depth_stencil::off,
-						sge::renderer::pixel_format::optional_multi_samples(),
-						sge::renderer::pixel_format::srgb::no
-					),
-					sge::renderer::parameters::vsync::on,
+				sge::renderer::pixel_format::object(
+					sge::renderer::pixel_format::color::depth32,
+					sge::renderer::pixel_format::depth_stencil::off,
+					sge::renderer::pixel_format::optional_multi_samples(),
+					sge::renderer::pixel_format::srgb::no
+				),
+				sge::renderer::display_mode::parameters(
+					sge::renderer::display_mode::vsync::on,
 					sge::renderer::display_mode::optional_object()
 				),
 				sge::viewport::fill_on_resize()
@@ -530,6 +444,16 @@ try
 				)
 			)
 		);
+
+	typedef std::pair<
+		sge::font::string,
+		sge::renderer::state::core::sampler::const_object_ref
+	> string_filter_pair;
+
+	typedef std::array<
+		string_filter_pair,
+		7u
+	> filter_array;
 
 	filter_array const filters =
 	{{
@@ -722,10 +646,45 @@ try
 
 	fcppt::signal::scoped_connection const texture_connection(
 		sys.keyboard_collector().key_callback(
-			change_filter_functor(
-				filters,
-				current_filter
+			[
+				&filters,
+				&current_filter
+			](
+				sge::input::keyboard::key_event const &_event
 			)
+			{
+				if(
+					!_event.pressed()
+				)
+					return;
+
+				sge::input::keyboard::optional_digit const digit(
+					sge::input::keyboard::key_code_to_digit(
+						_event.key_code()
+					)
+				);
+
+				if(
+					!digit
+				)
+					return;
+
+				filter_array::size_type const index(
+					digit->get() - 1u
+				);
+
+				if(
+					index
+					>=
+					filters.size()
+				)
+					return;
+
+				current_filter =
+					&filters[
+						index
+					];
+			}
 		)
 	);
 

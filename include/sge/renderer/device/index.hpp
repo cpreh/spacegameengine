@@ -18,30 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CG_PROGRAM_OPTIMAL_OPTIONS_HPP_INCLUDED
-#define SGE_OPENGL_CG_PROGRAM_OPTIMAL_OPTIONS_HPP_INCLUDED
+#ifndef SGE_RENDERER_DEVICE_INDEX_HPP_INCLUDED
+#define SGE_RENDERER_DEVICE_INDEX_HPP_INCLUDED
 
-#include <sge/cg/context/object_fwd.hpp>
-#include <sge/cg/profile/object_fwd.hpp>
-#include <sge/cg/program/compile_options.hpp>
+#include <sge/renderer/device/index_value.hpp>
+#include <fcppt/strong_typedef.hpp>
 
 
 namespace sge
 {
-namespace opengl
+namespace renderer
 {
-namespace cg
-{
-namespace program
+namespace device
 {
 
-sge::cg::program::compile_options
-optimal_options(
-	sge::cg::context::object const &,
-	sge::cg::profile::object const &
+/**
+\brief Identifies an sge::renderer::device::core
+*/
+FCPPT_MAKE_STRONG_TYPEDEF(
+	sge::renderer::device::index_value,
+	index
 );
 
-}
 }
 }
 }

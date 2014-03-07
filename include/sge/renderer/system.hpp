@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_SYSTEM_HPP_INCLUDED
 
 #include <sge/class_symbol.hpp>
-#include <sge/renderer/adapter.hpp>
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/system_fwd.hpp>
 #include <sge/renderer/caps/device_count.hpp>
@@ -30,7 +29,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps/system_field_fwd.hpp>
 #include <sge/renderer/device/core_unique_ptr.hpp>
 #include <sge/renderer/device/ffp_unique_ptr.hpp>
+#include <sge/renderer/device/index.hpp>
 #include <sge/renderer/device/parameters_fwd.hpp>
+#include <sge/renderer/display_mode/container.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <awl/system/object_fwd.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
@@ -73,18 +74,18 @@ public:
 	) = 0;
 
 	/**
-	 \brief Creates a renderable visual that satisfies the requirements of \a params
+	\brief Creates a renderable visual that satisfies the requirements of \a params
 
-	 Creates a renderable visual that satisfies the requirements of \a
-	 params and can be used with sge::renderer::system::create_renderer.
+	Creates a renderable visual that satisfies the requirements of \a
+	params and can be used with sge::renderer::system::create_renderer.
 
-	 \param awl_system The awl system that is used to create windows
+	\param awl_system The awl system that is used to create windows
 
-	 \param pixel_format The pixel format to use
+	\param pixel_format The pixel format to use
 
-	 \throw sge::renderer::exception if anything goes wrong
+	\throw sge::renderer::exception if anything goes wrong
 
-	 \return An awl::visual::object_unique_ptr that may not be null
+	\return An awl::visual::object_unique_ptr that may not be null
 	*/
 	virtual
 	awl::visual::object_unique_ptr
@@ -110,17 +111,23 @@ public:
 	/**
 	\brief Queries the capabilities of a device
 
-	Returns the capabilities of the device identified by \a adapter.
+	Returns the capabilities of the device identified by \a index.
 
-	\param adapter The device to query the capabilities for
+	\param index The device to query the capabilities for
 
-	\warning The behavior is undefined if adapter is equal to or greater
+	\warning The behavior is undefined if index is equal to or greater
 	than the device count.
 	*/
 	virtual
 	sge::renderer::caps::device const &
 	device_caps(
-		sge::renderer::adapter adapter
+		sge::renderer::device::index index
+	) const = 0;
+
+	virtual
+	sge::renderer::display_mode::container
+	display_modes(
+		sge::renderer::device::index index
 	) const = 0;
 
 	SGE_RENDERER_SYMBOL

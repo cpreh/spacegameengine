@@ -57,7 +57,7 @@ private:
 
 }
 
-sge::cg::program::source const
+sge::cg::program::source
 sge::cg::program::replace_extra(
 	sge::cg::program::source const &_source,
 	sge::cg::program::replace_extra_callback const &_callback

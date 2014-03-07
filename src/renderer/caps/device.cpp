@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/adapter.hpp>
 #include <sge/renderer/caps/clip_plane_indices.hpp>
 #include <sge/renderer/caps/description.hpp>
 #include <sge/renderer/caps/device.hpp>
@@ -37,7 +36,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::renderer::caps::device::device(
-	sge::renderer::adapter const _adapter,
 	sge::renderer::caps::driver_name const &_driver_name,
 	sge::renderer::caps::description const &_description,
 	sge::renderer::caps::normalized_cvv const &_normalized_cvv,
@@ -54,9 +52,6 @@ sge::renderer::caps::device::device(
 	sge::renderer::caps::srgb_framebuffer const _srgb_framebuffer
 )
 :
-	adapter_(
-		_adapter
-	),
 	driver_name_(
 		_driver_name
 	),
@@ -104,12 +99,6 @@ sge::renderer::caps::device::device(
 
 sge::renderer::caps::device::~device()
 {
-}
-
-sge::renderer::adapter const
-sge::renderer::caps::device::adapter() const
-{
-	return adapter_;
 }
 
 sge::renderer::caps::driver_name const &

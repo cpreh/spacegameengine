@@ -1799,8 +1799,6 @@ set(
 	include/sge/projectile/vector3_fwd.hpp
 	include/sge/projectile/world.hpp
 	include/sge/projectile/world_fwd.hpp
-	include/sge/renderer/adapter.hpp
-	include/sge/renderer/adapter_value.hpp
 	include/sge/renderer/aspect.hpp
 	include/sge/renderer/basic_dim.hpp
 	include/sge/renderer/basic_dim_fwd.hpp
@@ -1907,6 +1905,8 @@ set(
 	include/sge/renderer/device/ffp_fwd.hpp
 	include/sge/renderer/device/ffp_scoped_ptr.hpp
 	include/sge/renderer/device/ffp_unique_ptr.hpp
+	include/sge/renderer/device/index.hpp
+	include/sge/renderer/device/index_value.hpp
 	include/sge/renderer/device/parameters.hpp
 	include/sge/renderer/device/parameters_fwd.hpp
 	include/sge/renderer/dim2.hpp
@@ -1914,6 +1914,7 @@ set(
 	include/sge/renderer/dim3.hpp
 	include/sge/renderer/dim3_fwd.hpp
 	include/sge/renderer/display_mode/comparison.hpp
+	include/sge/renderer/display_mode/container.hpp
 	include/sge/renderer/display_mode/desired_fps.hpp
 	include/sge/renderer/display_mode/dimensions.hpp
 	include/sge/renderer/display_mode/dimensions_fwd.hpp
@@ -1931,11 +1932,15 @@ set(
 	include/sge/renderer/display_mode/optional_refresh_rate.hpp
 	include/sge/renderer/display_mode/optional_refresh_rate_fwd.hpp
 	include/sge/renderer/display_mode/output.hpp
+	include/sge/renderer/display_mode/parameters.hpp
+	include/sge/renderer/display_mode/parameters_fwd.hpp
 	include/sge/renderer/display_mode/pixel_size.hpp
 	include/sge/renderer/display_mode/pixel_size_fwd.hpp
 	include/sge/renderer/display_mode/refresh_rate.hpp
 	include/sge/renderer/display_mode/refresh_rate_value.hpp
 	include/sge/renderer/display_mode/to_dpi.hpp
+	include/sge/renderer/display_mode/vsync.hpp
+	include/sge/renderer/display_mode/vsync_fwd.hpp
 	include/sge/renderer/epsilon.hpp
 	include/sge/renderer/exception.hpp
 	include/sge/renderer/index/any/basic_view.hpp
@@ -2041,10 +2046,6 @@ set(
 	include/sge/renderer/opengl/texture/type.hpp
 	include/sge/renderer/optional_matrix4.hpp
 	include/sge/renderer/optional_matrix4_fwd.hpp
-	include/sge/renderer/parameters/object.hpp
-	include/sge/renderer/parameters/object_fwd.hpp
-	include/sge/renderer/parameters/vsync.hpp
-	include/sge/renderer/parameters/vsync_fwd.hpp
 	include/sge/renderer/pixel_format/bit_count.hpp
 	include/sge/renderer/pixel_format/color.hpp
 	include/sge/renderer/pixel_format/color_bits.hpp
@@ -2693,6 +2694,8 @@ set(
 	include/sge/renderer/vf/view_decl.hpp
 	include/sge/renderer/vf/view_fwd.hpp
 	include/sge/renderer/vf/view_impl.hpp
+	include/sge/renderer/visual_base.hpp
+	include/sge/renderer/visual_base_fwd.hpp
 	include/sge/resource_tree/detail/base_path.hpp
 	include/sge/resource_tree/detail/element_decl.hpp
 	include/sge/resource_tree/detail/element_fwd.hpp

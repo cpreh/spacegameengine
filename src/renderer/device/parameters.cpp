@@ -18,25 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/adapter.hpp>
+#include <sge/renderer/device/index.hpp>
 #include <sge/renderer/device/parameters.hpp>
-#include <sge/renderer/parameters/object.hpp>
+#include <sge/renderer/display_mode/parameters.hpp>
 #include <awl/window/object_fwd.hpp>
 #include <awl/window/event/processor_fwd.hpp>
 
 
 sge::renderer::device::parameters::parameters(
-	sge::renderer::adapter const _adapter,
-	sge::renderer::parameters::object const &_params,
+	sge::renderer::device::index const _index,
+	sge::renderer::display_mode::parameters const &_display_mode,
 	awl::window::object &_window,
 	awl::window::event::processor &_window_processor
 )
 :
-	adapter_(
-		_adapter
+	index_(
+		_index
 	),
-	params_(
-		_params
+	display_mode_(
+		_display_mode
 	),
 	window_(
 		_window
@@ -47,18 +47,18 @@ sge::renderer::device::parameters::parameters(
 {
 }
 
-sge::renderer::adapter const
-sge::renderer::device::parameters::adapter() const
+sge::renderer::device::index const
+sge::renderer::device::parameters::index() const
 {
 	return
-		adapter_;
+		index_;
 }
 
-sge::renderer::parameters::object const &
-sge::renderer::device::parameters::params() const
+sge::renderer::display_mode::parameters const &
+sge::renderer::device::parameters::display_mode() const
 {
 	return
-		params_;
+		display_mode_;
 }
 
 awl::window::object &

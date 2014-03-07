@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::cg::program::compile_options const
+sge::cg::program::compile_options
 sge::opengl::cg::program::optimal_options(
 	sge::cg::context::object const &_context,
 	sge::cg::profile::object const &_profile

@@ -18,19 +18,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_PARAMETERS_VSYNC_FWD_HPP_INCLUDED
-#define SGE_RENDERER_PARAMETERS_VSYNC_FWD_HPP_INCLUDED
+#ifndef SGE_OPENGL_GLX_VISUAL_OBJECT_HPP_INCLUDED
+#define SGE_OPENGL_GLX_VISUAL_OBJECT_HPP_INCLUDED
+
+#include <sge/renderer/visual_base.hpp>
+#include <sge/renderer/pixel_format/object_fwd.hpp>
+#include <awl/backends/x11/visual/info_unique_ptr.hpp>
+#include <awl/backends/x11/visual/wrapped.hpp>
+#include <fcppt/noncopyable.hpp>
 
 
 namespace sge
 {
-namespace renderer
+namespace opengl
 {
-namespace parameters
+namespace glx
+{
+namespace visual
 {
 
-enum class vsync;
+class object
+:
+	public awl::backends::x11::visual::wrapped,
+	public sge::renderer::visual_base
+{
+	FCPPT_NONCOPYABLE(
+		object
+	);
+public:
+	object(
+		awl::backends::x11::visual::info_unique_ptr &&,
+		sge::renderer::pixel_format::object const &
+	);
 
+	~object();
+};
+
+}
 }
 }
 }

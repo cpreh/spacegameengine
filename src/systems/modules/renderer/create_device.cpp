@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/adapter.hpp>
 #include <sge/renderer/system.hpp>
 #include <sge/renderer/caps/system.hpp>
 #include <sge/renderer/device/core.hpp>
@@ -41,10 +40,8 @@ sge::systems::modules::renderer::create_device(
 )
 {
 	sge::renderer::device::parameters const parameters(
-		sge::renderer::adapter(
-			0u
-		),
-		_parameters.parameters().parameters(),
+		_parameters.parameters().device_index(),
+		_parameters.parameters().display_mode(),
 		_window.window().awl_object(),
 		_window.window().awl_window_event_processor()
 	);

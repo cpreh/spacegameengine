@@ -1054,6 +1054,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/glx/visual/convert_color.hpp
 	src/plugins/opengl/include/sge/opengl/glx/visual/create.hpp
 	src/plugins/opengl/include/sge/opengl/glx/visual/make_attributes.hpp
+	src/plugins/opengl/include/sge/opengl/glx/visual/object.hpp
 	src/plugins/opengl/include/sge/opengl/glx/visual/rgb_triple.hpp
 	src/plugins/opengl/include/sge/opengl/glx/visual/rgb_triple_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/glx/vsync.hpp
@@ -1069,6 +1070,7 @@ set(
 	src/plugins/opengl/src/glx/visual/convert_color.cpp
 	src/plugins/opengl/src/glx/visual/create.cpp
 	src/plugins/opengl/src/glx/visual/make_attributes.cpp
+	src/plugins/opengl/src/glx/visual/object.cpp
 	src/plugins/opengl/src/glx/visual/rgb_triple.cpp
 	src/plugins/opengl/src/glx/vsync.cpp
 )
@@ -1197,8 +1199,6 @@ set(
 	src/plugins/opengl/include/sge/opengl/egl/no_surface.hpp
 	src/plugins/opengl/include/sge/opengl/egl/swap_buffers.hpp
 	src/plugins/opengl/include/sge/opengl/egl/system.hpp
-	src/plugins/opengl/include/sge/opengl/egl/visual/base.hpp
-	src/plugins/opengl/include/sge/opengl/egl/visual/base_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/egl/visual/choose_config.hpp
 	src/plugins/opengl/include/sge/opengl/egl/visual/create.hpp
 	src/plugins/opengl/include/sge/opengl/egl/visual/make_attributes.hpp
@@ -1217,7 +1217,6 @@ set(
 	src/plugins/opengl/src/egl/no_surface.cpp
 	src/plugins/opengl/src/egl/swap_buffers.cpp
 	src/plugins/opengl/src/egl/system.cpp
-	src/plugins/opengl/src/egl/visual/base.cpp
 	src/plugins/opengl/src/egl/visual/choose_config.cpp
 	src/plugins/opengl/src/egl/visual/create.cpp
 	src/plugins/opengl/src/egl/visual/make_attributes.cpp

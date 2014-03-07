@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_DEVICE_PARAMETERS_HPP_INCLUDED
 #define SGE_RENDERER_DEVICE_PARAMETERS_HPP_INCLUDED
 
-#include <sge/renderer/adapter.hpp>
 #include <sge/renderer/symbol.hpp>
+#include <sge/renderer/device/index.hpp>
 #include <sge/renderer/device/parameters_fwd.hpp>
-#include <sge/renderer/parameters/object.hpp>
+#include <sge/renderer/display_mode/parameters.hpp>
 #include <awl/window/object_fwd.hpp>
 #include <awl/window/event/processor_fwd.hpp>
 #include <fcppt/nonassignable.hpp>
@@ -45,19 +45,19 @@ class parameters
 public:
 	SGE_RENDERER_SYMBOL
 	parameters(
-		sge::renderer::adapter adapter,
-		sge::renderer::parameters::object const &params,
-		awl::window::object &window,
+		sge::renderer::device::index,
+		sge::renderer::display_mode::parameters const &,
+		awl::window::object &,
 		awl::window::event::processor &
 	);
 
 	SGE_RENDERER_SYMBOL
-	sge::renderer::adapter const
-	adapter() const;
+	sge::renderer::device::index const
+	index() const;
 
 	SGE_RENDERER_SYMBOL
-	sge::renderer::parameters::object const &
-	params() const;
+	sge::renderer::display_mode::parameters const &
+	display_mode() const;
 
 	SGE_RENDERER_SYMBOL
 	awl::window::object &
@@ -67,9 +67,9 @@ public:
 	awl::window::event::processor &
 	window_processor() const;
 private:
-	sge::renderer::adapter adapter_;
+	sge::renderer::device::index index_;
 
-	sge::renderer::parameters::object const params_;
+	sge::renderer::display_mode::parameters const display_mode_;
 
 	awl::window::object &window_;
 

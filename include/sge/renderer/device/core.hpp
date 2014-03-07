@@ -97,49 +97,54 @@ protected:
 	core();
 public:
 	/**
-	 * \brief Begins the rendering operation
-	 *
-	 * To be able to call device::render_indexed or
-	 * device::render_nonindexed, this function must be called first. To
-	 * end the rendering process and present it, use device::end_rendering.
-	 *
-	 * \see sge::renderer::scoped_block
-	 *
-	 * \warning The behaviour is undefined if this function is called more
-	 * than once without a call to device::end_rendering
+	\brief Begins the rendering operation
+
+	To be able to call device::render_indexed or device::render_nonindexed,
+	this function must be called first. To end the rendering process and
+	present it, use device::end_rendering.
+
+	\param target The render target to use, which can either be
+	device::onscreen_target or an offscreen target.
+
+	\see sge::renderer::scoped_block
+
+	\warning The behavior is undefined if this function is called more than
+	once before a call to device::end_rendering
 	*/
 	virtual
 	sge::renderer::context::core_unique_ptr
 	begin_rendering(
-		sge::renderer::target::base &
+		sge::renderer::target::base &target
 	) = 0;
 
 	/**
-	 * \brief Ends the rendering operation
-	 *
-	 * After a call to device::begin_rendering this function must
-	 * be called to present the rendered things in between.
-	 *
-	 * \warning The behaviour is undefined if begin_rendering wasn't called
+	\brief Ends the rendering operation
+
+	Use this function to present the rendered scene which has been rendered
+	using \a context.
+
+	\param context The render context obtained from device::begin_rendering
+
+	\warning The behavior is undefined if begin_rendering wasn't called
 	*/
 	virtual
 	void
 	end_rendering(
-		sge::renderer::context::core &
+		sge::renderer::context::core &context
 	) = 0;
 
 	/**
-	 * \brief Creates a render target
-	 *
-	 * Creates an empty render target.
-	 *
-	 * \return A unique pointer to the created target
-	 *
-	 * \see sge::renderer::caps::object::render_target_supported
-	 *
-	 * \warning The behaviour is undefined if
-	 * sge::renderer::caps::object::render_target_supported is false
-	 */
+	\brief Creates a render target
+
+	Creates an empty render target.
+
+	\return A unique pointer to the created target
+
+	\see sge::renderer::caps::object::render_target_supported
+
+	\warning The behavior is undefined if
+	sge::renderer::caps::object::render_target_supported is false
+	*/
 	virtual
 	sge::renderer::target::offscreen_unique_ptr
 	create_target() = 0;
@@ -330,13 +335,13 @@ public:
 
 #if defined(SGE_RENDERER_HAVE_CG)
 	virtual
-	sge::cg::profile::object const
+	sge::cg::profile::object
 	create_cg_profile(
 		sge::cg::profile::shader_type
 	) = 0;
 
 	virtual
-	sge::cg::program::compile_options const
+	sge::cg::program::compile_options
 	cg_compile_options(
 		sge::cg::context::object const &,
 		sge::cg::profile::object const &
@@ -356,7 +361,7 @@ public:
 	) = 0;
 
 	virtual
-	sge::cg::program::source const
+	sge::cg::program::source
 	transform_cg_vertex_program(
 		sge::renderer::vertex::declaration const &,
 		sge::cg::program::source const &
@@ -364,21 +369,17 @@ public:
 #endif
 
 	/**
-	 * \brief Returns the onscreen target
-	 *
-	 * A device always has an onscreen target even though another render
-	 * target has been set.
-	 *
-	 * \return The onscreen target
+	\brief Returns the onscreen target
+
+	A device always has an onscreen target even though another render
+	target has been set.
 	*/
 	virtual
 	sge::renderer::target::onscreen &
 	onscreen_target() const = 0;
 
 	/**
-	 * \brief Returns the capabilities of the device
-	 *
-	 * \return The capabilities
+	\brief Returns the capabilities of the device
 	*/
 	virtual
 	sge::renderer::caps::device const &
@@ -393,8 +394,25 @@ public:
 	(e.g. if the window is invisible).
 	*/
 	virtual
-	sge::renderer::display_mode::optional_object const
+	sge::renderer::display_mode::optional_object
 	display_mode() const = 0;
+
+	/**
+	\brief Tries to set a new display mode
+
+	Tries to set the display mode of the monitor the window is on to \a
+	mode. Passing a mode returned by sge::renderer::system::display_modes
+	should be safe.
+
+	\param mode The display mode to use
+
+	\throw sge::renderer::exception If the display mode cannot be set.
+	*/
+	virtual
+	void
+	display_mode(
+		sge::renderer::display_mode::optional_object const &mode
+	) = 0;
 
 	SGE_RENDERER_SYMBOL
 	virtual

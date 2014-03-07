@@ -18,44 +18,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/display_mode/optional_object.hpp>
-#include <sge/renderer/parameters/object.hpp>
-#include <sge/renderer/parameters/vsync.hpp>
+#ifndef SGE_RENDERER_VISUAL_BASE_HPP_INCLUDED
+#define SGE_RENDERER_VISUAL_BASE_HPP_INCLUDED
+
+#include <sge/class_symbol.hpp>
+#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/visual_base_fwd.hpp>
 #include <sge/renderer/pixel_format/object.hpp>
+#include <fcppt/noncopyable.hpp>
 
 
-sge::renderer::parameters::object::object(
-	sge::renderer::pixel_format::object const &_pixel_format,
-	sge::renderer::parameters::vsync const _vsync,
-	sge::renderer::display_mode::optional_object const &_display_mode
-)
-:
-	pixel_format_(
-		_pixel_format
-	),
-	vsync_(
-		_vsync
-	),
-	display_mode_(
-		_display_mode
-	)
+namespace sge
 {
+namespace renderer
+{
+
+class SGE_CLASS_SYMBOL visual_base
+{
+	FCPPT_NONCOPYABLE(
+		visual_base
+	);
+public:
+	SGE_RENDERER_SYMBOL
+	explicit
+	visual_base(
+		sge::renderer::pixel_format::object const &
+	);
+
+	SGE_RENDERER_SYMBOL
+	virtual
+	~visual_base() = 0;
+
+	SGE_RENDERER_SYMBOL
+	sge::renderer::pixel_format::object const &
+	pixel_format() const;
+private:
+	sge::renderer::pixel_format::object const pixel_format_;
+};
+
+}
 }
 
-sge::renderer::pixel_format::object const &
-sge::renderer::parameters::object::pixel_format() const
-{
-	return pixel_format_;
-}
-
-sge::renderer::parameters::vsync
-sge::renderer::parameters::object::vsync() const
-{
-	return vsync_;
-}
-
-sge::renderer::display_mode::optional_object const
-sge::renderer::parameters::object::display_mode() const
-{
-	return display_mode_;
-}
+#endif

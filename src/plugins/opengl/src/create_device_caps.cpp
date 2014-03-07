@@ -32,7 +32,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/multi_context.hpp>
 #include <sge/opengl/texture/npot_context.hpp>
 #include <sge/opengl/texture/volume_context.hpp>
-#include <sge/renderer/adapter.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/caps/clip_plane_indices.hpp>
 #include <sge/renderer/caps/description.hpp>
@@ -110,9 +109,6 @@ sge::opengl::create_device_caps(
 		fcppt::make_unique_ptr<
 			sge::renderer::caps::device
 		>(
-			sge::renderer::adapter(
-				0u
-			),
 			sge::renderer::caps::driver_name(
 				sge::opengl::get_string(
 					GL_VENDOR

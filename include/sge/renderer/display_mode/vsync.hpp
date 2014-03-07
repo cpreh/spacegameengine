@@ -18,17 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_PARAMETERS_VSYNC_HPP_INCLUDED
-#define SGE_RENDERER_PARAMETERS_VSYNC_HPP_INCLUDED
+#ifndef SGE_RENDERER_DISPLAY_MODE_VSYNC_HPP_INCLUDED
+#define SGE_RENDERER_DISPLAY_MODE_VSYNC_HPP_INCLUDED
 
-#include <sge/renderer/parameters/vsync_fwd.hpp>
+#include <sge/renderer/display_mode/vsync_fwd.hpp>
 
 
 namespace sge
 {
 namespace renderer
 {
-namespace parameters
+namespace display_mode
 {
 
 enum class vsync

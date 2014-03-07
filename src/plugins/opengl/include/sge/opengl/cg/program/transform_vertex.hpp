@@ -34,7 +34,7 @@ namespace cg
 namespace program
 {
 
-sge::cg::program::source const
+sge::cg::program::source
 transform_vertex(
 	sge::renderer::vertex::declaration const &,
 	sge::cg::program::source const &

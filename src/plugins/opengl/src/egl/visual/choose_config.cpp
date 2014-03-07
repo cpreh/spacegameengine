@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/logger.hpp>
 #include <sge/opengl/egl/attribute_vector.hpp>
 #include <sge/opengl/egl/choose_config.hpp>
-#include <sge/opengl/egl/visual/base.hpp>
 #include <sge/opengl/egl/visual/choose_config.hpp>
 #include <sge/opengl/egl/visual/make_attributes.hpp>
+#include <sge/renderer/visual_base.hpp>
 #include <awl/visual/object.hpp>
 #include <fcppt/try_dynamic_cast.hpp>
 #include <fcppt/log/_.hpp>
@@ -40,7 +40,7 @@ sge::opengl::egl::visual::choose_config(
 )
 {
 	FCPPT_TRY_DYNAMIC_CAST(
-		sge::opengl::egl::visual::base const *,
+		sge::renderer::visual_base const *,
 		egl_visual,
 		&_visual
 	)

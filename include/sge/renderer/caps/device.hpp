@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_CAPS_DEVICE_HPP_INCLUDED
 #define SGE_RENDERER_CAPS_DEVICE_HPP_INCLUDED
 
-#include <sge/renderer/adapter.hpp>
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/caps/clip_plane_indices.hpp>
 #include <sge/renderer/caps/description.hpp>
@@ -69,7 +68,6 @@ public:
 	*/
 	SGE_RENDERER_SYMBOL
 	device(
-		sge::renderer::adapter,
 		sge::renderer::caps::driver_name const &,
 		sge::renderer::caps::description const &,
 		sge::renderer::caps::normalized_cvv const &,
@@ -88,16 +86,6 @@ public:
 
 	SGE_RENDERER_SYMBOL
 	~device();
-
-	/**
-	\brief Returns the adapter the renderer::device represents
-
-	This value is the same as has been specified in
-	sge::renderer::device::parameters when creating the device.
-	*/
-	SGE_RENDERER_SYMBOL
-	sge::renderer::adapter const
-	adapter() const;
 
 	/**
 	\brief Returns the driver's name
@@ -250,8 +238,6 @@ public:
 	sge::renderer::caps::srgb_framebuffer const
 	srgb_framebuffer() const;
 private:
-	sge::renderer::adapter const adapter_;
-
 	sge::renderer::caps::driver_name const driver_name_;
 
 	sge::renderer::caps::description const description_;

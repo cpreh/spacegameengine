@@ -18,27 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/egl/visual/base.hpp>
-#include <sge/renderer/pixel_format/object.hpp>
+#ifndef SGE_RENDERER_VISUAL_BASE_FWD_HPP_INCLUDED
+#define SGE_RENDERER_VISUAL_BASE_FWD_HPP_INCLUDED
 
 
-sge::opengl::egl::visual::base::base(
-	sge::renderer::pixel_format::object const &_pixel_format
-)
-:
-	pixel_format_(
-		_pixel_format
-	)
+namespace sge
 {
+namespace renderer
+{
+
+class visual_base;
+
+}
 }
 
-sge::opengl::egl::visual::base::~base()
-{
-}
-
-sge::renderer::pixel_format::object const &
-sge::opengl::egl::visual::base::pixel_format() const
-{
-	return
-		pixel_format_;
-}
+#endif
