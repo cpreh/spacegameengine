@@ -18,28 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_SYSTEMFUNCS_GET_CAPS_HPP_INCLUDED
-#define SGE_D3D9_SYSTEMFUNCS_GET_CAPS_HPP_INCLUDED
+#include <sge/d3d9/core.hpp>
+#include <sge/d3d9/system.hpp>
+#include <sge/renderer/core.hpp>
+#include <sge/renderer/system_unique_ptr.hpp>
+#include <sge/renderer/caps/system.hpp>
+#include <sge/renderer/caps/system_field.hpp>
+#include <awl/system/object_fwd.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 
-#include <sge/d3d9/d3dinclude.hpp>
-#include <sge/renderer/device/index.hpp>
 
-
-namespace sge
+sge::d3d9::core::core()
+:
+	sge::renderer::core()
 {
-namespace d3d9
-{
-namespace systemfuncs
-{
-
-D3DCAPS9 const
-get_caps(
-	IDirect3D9 &,
-	sge::renderer::device::index
-);
-
-}
-}
 }
 
-#endif
+sge::d3d9::core::~core()
+{
+}
+
+sge::renderer::system_unique_ptr
+sge::d3d9::core::create_system(
+	awl::system::object &
+)
+{
+	return
+		fcppt::make_unique_ptr<
+			sge::d3d9::system
+		>();
+}
+
+sge::renderer::caps::system_field const
+sge::d3d9::core::caps() const
+{
+	return
+		sge::renderer::caps::system_field{
+			sge::renderer::caps::system::ffp
+		};
+}

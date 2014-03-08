@@ -18,28 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_SYSTEMFUNCS_GET_CAPS_HPP_INCLUDED
-#define SGE_D3D9_SYSTEMFUNCS_GET_CAPS_HPP_INCLUDED
+#include <sge/d3d9/visual.hpp>
+#include <sge/d3d9/parameters/extract_pixel_format.hpp>
+#include <sge/renderer/pixel_format/object.hpp>
+#include <awl/visual/object.hpp>
 
-#include <sge/d3d9/d3dinclude.hpp>
-#include <sge/renderer/device/index.hpp>
 
-
-namespace sge
+sge::renderer::pixel_format::object
+sge::d3d9::parameters::extract_pixel_format(
+	awl::visual::object const &_visual
+)
 {
-namespace d3d9
-{
-namespace systemfuncs
-{
-
-D3DCAPS9 const
-get_caps(
-	IDirect3D9 &,
-	sge::renderer::device::index
-);
-
+	// TODO: Is there a sane default if this fails?
+	return
+		dynamic_cast<
+			sge::d3d9::visual const &
+		>(
+			_visual
+		).pixel_format();
 }
-}
-}
-
-#endif

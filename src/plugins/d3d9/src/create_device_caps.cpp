@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/create_device_caps.hpp>
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/systemfuncs/get_caps.hpp>
-#include <sge/renderer/adapter.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/caps/clip_plane_indices.hpp>
 #include <sge/renderer/caps/description.hpp>
@@ -39,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps/srgb_framebuffer.hpp>
 #include <sge/renderer/caps/target_surface_indices.hpp>
 #include <sge/renderer/caps/texture_stages.hpp>
+#include <sge/renderer/device/index.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
@@ -50,7 +50,7 @@ namespace
 	/*
 void
 add_display_modes(
-				  display_mode_array& v,
+	display_mode_array& v,
 	sge::renderer::adapter_type const adapter,
 	sge::renderer::bit_depth::type const depth,
 	D3DFORMAT const format,
@@ -86,13 +86,13 @@ add_display_modes(
 sge::renderer::caps::device_unique_ptr
 sge::d3d9::create_device_caps(
 	IDirect3D9 &_system,
-	sge::renderer::adapter const _adapter
+	sge::renderer::device::index const _index
 )
 {
 	D3DCAPS9 const caps(
 		sge::d3d9::systemfuncs::get_caps(
 			_system,
-			_adapter
+			_index
 		)
 	);
 
@@ -100,7 +100,7 @@ sge::d3d9::create_device_caps(
 
 	if(
 		_system.GetAdapterIdentifier(
-			_adapter.get(),
+			_index.get(),
 			0,
 			&identifier
 		)
@@ -121,7 +121,6 @@ sge::d3d9::create_device_caps(
 		fcppt::make_unique_ptr<
 			sge::renderer::caps::device
 		>(
-			_adapter,
 			sge::renderer::caps::driver_name(
 				fcppt::from_std_string(
 					identifier.Driver

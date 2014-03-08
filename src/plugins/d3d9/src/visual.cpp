@@ -18,28 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_SYSTEMFUNCS_GET_CAPS_HPP_INCLUDED
-#define SGE_D3D9_SYSTEMFUNCS_GET_CAPS_HPP_INCLUDED
+#include <sge/d3d9/visual.hpp>
+#include <sge/renderer/visual_base.hpp>
+#include <sge/renderer/pixel_format/object_fwd.hpp>
+#include <awl/backends/windows/visual/null_object.hpp>
 
-#include <sge/d3d9/d3dinclude.hpp>
-#include <sge/renderer/device/index.hpp>
 
-
-namespace sge
+sge::d3d9::visual::visual(
+	sge::renderer::pixel_format::object const &_pixel_format
+)
+:
+	awl::backends::windows::visual::null_object(),
+	sge::renderer::visual_base(
+		_pixel_format
+	)
 {
-namespace d3d9
-{
-namespace systemfuncs
-{
-
-D3DCAPS9 const
-get_caps(
-	IDirect3D9 &,
-	sge::renderer::device::index
-);
-
-}
-}
 }
 
-#endif
+sge::d3d9::visual::~visual()
+{
+}

@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_PARAMETERS_CREATE_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/renderer/parameters/object_fwd.hpp>
+#include <sge/renderer/display_mode/parameters_fwd.hpp>
+#include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <awl/window/object_fwd.hpp>
 
 
@@ -35,7 +36,8 @@ namespace parameters
 
 D3DPRESENT_PARAMETERS const
 create(
-	sge::renderer::parameters::object const &,
+	sge::renderer::pixel_format::object const &,
+	sge::renderer::display_mode::parameters const &,
 	awl::window::object &
 );
 

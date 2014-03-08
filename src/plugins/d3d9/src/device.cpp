@@ -34,6 +34,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/devicefuncs/reset.hpp>
 #include <sge/d3d9/occlusion_query/create.hpp>
 #include <sge/d3d9/parameters/create.hpp>
+#include <sge/d3d9/parameters/extract_pixel_format.hpp>
+#include <sge/d3d9/parameters/extract_srgb.hpp>
 #include <sge/d3d9/render_context/create.hpp>
 #include <sge/d3d9/render_context/needs_present.hpp>
 #include <sge/d3d9/render_context/parameters.hpp>
@@ -60,7 +62,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/texture/cube.hpp>
 #include <sge/d3d9/texture/planar.hpp>
 #include <sge/d3d9/texture/volume.hpp>
-#include <sge/renderer/adapter.hpp>
 #include <sge/renderer/config.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/caps/device.hpp>
@@ -78,7 +79,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/buffer_unique_ptr.hpp>
 #include <sge/renderer/occlusion_query/object.hpp>
 #include <sge/renderer/occlusion_query/object_unique_ptr.hpp>
-#include <sge/renderer/parameters/object.hpp>
 #include <sge/renderer/state/core/blend/object.hpp>
 #include <sge/renderer/state/core/blend/object_unique_ptr.hpp>
 #include <sge/renderer/state/core/blend/parameters_fwd.hpp>
@@ -175,21 +175,26 @@ sge::d3d9::device::device(
 :
 	sge::renderer::device::ffp(),
 	srgb_(
-		_parameters.params().pixel_format().srgb()
+		sge::d3d9::parameters::extract_srgb(
+			_parameters.window().visual()
+		)
 	),
 	caps_(
 		_caps
 	),
 	present_parameters_(
 		sge::d3d9::parameters::create(
-			_parameters.params(),
+			sge::d3d9::parameters::extract_pixel_format(
+				_parameters.window().visual()
+			),
+			_parameters.display_mode(),
 			_parameters.window()
 		)
 	),
 	device_(
 		sge::d3d9::create_device(
 			_system,
-			_parameters.adapter(),
+			_parameters.index(),
 			present_parameters_
 		)
 	),
@@ -518,7 +523,7 @@ sge::d3d9::device::create_sampler_state(
 }
 
 #if defined(SGE_RENDERER_HAVE_CG)
-sge::cg::profile::object const
+sge::cg::profile::object
 sge::d3d9::device::create_cg_profile(
 	sge::cg::profile::shader_type const _shader_type
 )
@@ -530,7 +535,7 @@ sge::d3d9::device::create_cg_profile(
 		);
 }
 
-sge::cg::program::compile_options const
+sge::cg::program::compile_options
 sge::d3d9::device::cg_compile_options(
 	sge::cg::context::object const &,
 	sge::cg::profile::object const &_profile
@@ -570,7 +575,7 @@ sge::d3d9::device::load_cg_texture(
 		);
 }
 
-sge::cg::program::source const
+sge::cg::program::source
 sge::d3d9::device::transform_cg_vertex_program(
 	sge::renderer::vertex::declaration const &_vertex_declaration,
 	sge::cg::program::source const &_source
@@ -596,7 +601,7 @@ sge::d3d9::device::caps() const
 	return caps_;
 }
 
-sge::renderer::display_mode::optional_object const
+sge::renderer::display_mode::optional_object
 sge::d3d9::device::display_mode() const
 {
 	return
@@ -605,6 +610,14 @@ sge::d3d9::device::display_mode() const
 				*device_
 			)
 		);
+}
+
+void
+sge::d3d9::device::display_mode(
+	sge::renderer::display_mode::optional_object const &_display_mode
+)
+{
+	// TODO
 }
 
 sge::renderer::context::ffp_unique_ptr

@@ -22,6 +22,7 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/convert/to_depth_stencil_format.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/vector3.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/viewport.hpp
+	src/plugins/d3d9/include/sge/d3d9/core.hpp
 	src/plugins/d3d9/include/sge/d3d9/create.hpp
 	src/plugins/d3d9/include/sge/d3d9/create_device.hpp
 	src/plugins/d3d9/include/sge/d3d9/create_device_caps.hpp
@@ -86,7 +87,9 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/parameters/convert/multi_sample.hpp
 	src/plugins/d3d9/include/sge/d3d9/parameters/convert/multi_sample_quality.hpp
 	src/plugins/d3d9/include/sge/d3d9/parameters/create.hpp
+	src/plugins/d3d9/include/sge/d3d9/parameters/extract_pixel_format.hpp
 	src/plugins/d3d9/include/sge/d3d9/parameters/extract_size.hpp
+	src/plugins/d3d9/include/sge/d3d9/parameters/extract_srgb.hpp
 	src/plugins/d3d9/include/sge/d3d9/parameters/tnl_caps.hpp
 	src/plugins/d3d9/include/sge/d3d9/query/d3d_scoped_ptr.hpp
 	src/plugins/d3d9/include/sge/d3d9/query/d3d_unique_ptr.hpp
@@ -382,6 +385,7 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/vf/element_vector.hpp
 	src/plugins/d3d9/include/sge/d3d9/vf/texture_coordinate_count.hpp
 	src/plugins/d3d9/include/sge/d3d9/vf/texture_coordinates.hpp
+	src/plugins/d3d9/include/sge/d3d9/visual.hpp
 	src/plugins/d3d9/include/sge/d3d9/volume/d3d_unique_ptr.hpp
 	src/plugins/d3d9/include/sge/d3d9/volumefuncs/dim.hpp
 	src/plugins/d3d9/include/sge/d3d9/volumefuncs/get_desc.hpp
@@ -408,6 +412,7 @@ SET(
 	src/plugins/d3d9/src/convert/to_depth_stencil_format.cpp
 	src/plugins/d3d9/src/convert/vector3.cpp
 	src/plugins/d3d9/src/convert/viewport.cpp
+	src/plugins/d3d9/src/core.cpp
 	src/plugins/d3d9/src/create.cpp
 	src/plugins/d3d9/src/create_device.cpp
 	src/plugins/d3d9/src/create_device_caps.cpp
@@ -461,7 +466,9 @@ SET(
 	src/plugins/d3d9/src/parameters/convert/multi_sample.cpp
 	src/plugins/d3d9/src/parameters/convert/multi_sample_quality.cpp
 	src/plugins/d3d9/src/parameters/create.cpp
+	src/plugins/d3d9/src/parameters/extract_pixel_format.cpp
 	src/plugins/d3d9/src/parameters/extract_size.cpp
+	src/plugins/d3d9/src/parameters/extract_srgb.cpp
 	src/plugins/d3d9/src/parameters/tnl_caps.cpp
 	src/plugins/d3d9/src/queryfuncs/get_data.cpp
 	src/plugins/d3d9/src/queryfuncs/get_dword.cpp
@@ -665,6 +672,7 @@ SET(
 	src/plugins/d3d9/src/vf/convert/vector_type.cpp
 	src/plugins/d3d9/src/vf/create.cpp
 	src/plugins/d3d9/src/vf/texture_coordinates.cpp
+	src/plugins/d3d9/src/visual.cpp
 	src/plugins/d3d9/src/volumefuncs/dim.cpp
 	src/plugins/d3d9/src/volumefuncs/get_desc.cpp
 	src/plugins/d3d9/src/volumefuncs/lock_box.cpp
@@ -729,20 +737,6 @@ set(
 	"${awl_TARGET};${D3D9_LIBRARIES}"
 )
 
-# For some reason, it's not possible to ignore these warnings in gcc via
-# push/pop
-if(
-	CMAKE_COMPILER_IS_GNUCXX
-	AND
-	NOT
-	FCPPT_UTILS_COMPILER_IS_CLANGPP
-)
-	add_definitions(
-		"-Wno-comment"
-		"-Wno-unknown-pragmas"
-	)
-endif()
-
 if(
 	ENABLE_CG
 )
@@ -773,3 +767,20 @@ add_sge_plugin(
 	"${SGE_D3D9_ADDITIONAL_DEPS}"
 	"${D3D9_INCLUDE_DIRS};${SGE_D3D9_ADDITIONAL_INCLUDE_DIRS}"
 )
+
+# For some reason, it's not possible to ignore these warnings in gcc via
+# push/pop
+if(
+	CMAKE_COMPILER_IS_GNUCXX
+	AND
+	NOT
+	FCPPT_UTILS_COMPILER_IS_CLANGPP
+)
+	# TODO: Make it possible to add this to the add_sge_plugin macro
+	target_compile_options(
+		sged3d9
+		PRIVATE
+		"-Wno-comment"
+		"-Wno-unknown-pragmas"
+	)
+endif()

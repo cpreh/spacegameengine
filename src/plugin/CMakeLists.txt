@@ -124,6 +124,6 @@ add_sge_base_library(
 	""
 	"${fcppt_core_TARGET};${Boost_SYSTEM_LIBRARIES}"
 	"${CMAKE_CURRENT_SOURCE_DIR}/include"
-	""
+	"${awl_INCLUDE_DIRS}"
 	""
 )

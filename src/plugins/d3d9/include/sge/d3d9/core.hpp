@@ -18,27 +18,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_SYSTEMFUNCS_GET_CAPS_HPP_INCLUDED
-#define SGE_D3D9_SYSTEMFUNCS_GET_CAPS_HPP_INCLUDED
+#ifndef SGE_D3D9_CORE_HPP_INCLUDED
+#define SGE_D3D9_CORE_HPP_INCLUDED
 
-#include <sge/d3d9/d3dinclude.hpp>
-#include <sge/renderer/device/index.hpp>
+#include <sge/renderer/core.hpp>
+#include <sge/renderer/system_unique_ptr.hpp>
+#include <sge/renderer/caps/system_field_fwd.hpp>
+#include <awl/system/object_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
 
 
 namespace sge
 {
 namespace d3d9
 {
-namespace systemfuncs
+
+class core
+:
+	public sge::renderer::core
 {
+	FCPPT_NONCOPYABLE(
+		core
+	);
+public:
+	core();
 
-D3DCAPS9 const
-get_caps(
-	IDirect3D9 &,
-	sge::renderer::device::index
-);
+	~core()
+	override;
+private:
+	sge::renderer::system_unique_ptr
+	create_system(
+		awl::system::object &
+	)
+	override;
 
-}
+	sge::renderer::caps::system_field const
+	caps() const
+	override;
+};
+
 }
 }
 

@@ -22,16 +22,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_SYSTEM_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/renderer/adapter.hpp>
 #include <sge/renderer/system.hpp>
 #include <sge/renderer/caps/device_count.hpp>
 #include <sge/renderer/caps/device_fwd.hpp>
-#include <sge/renderer/caps/system_field_fwd.hpp>
 #include <sge/renderer/device/core_unique_ptr.hpp>
 #include <sge/renderer/device/ffp_unique_ptr.hpp>
+#include <sge/renderer/device/index.hpp>
 #include <sge/renderer/device/parameters_fwd.hpp>
+#include <sge/renderer/display_mode/container.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
-#include <awl/system/object_fwd.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
 #include <fcppt/com_deleter.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -70,20 +69,25 @@ private:
 
 	awl::visual::object_unique_ptr
 	create_visual(
-		awl::system::object &,
 		sge::renderer::pixel_format::object const &
-	);
-
-	sge::renderer::caps::system_field const
-	caps() const;
+	)
+	override;
 
 	sge::renderer::caps::device_count const
-	device_count() const;
+	device_count() const
+	override;
 
 	sge::renderer::caps::device const &
 	device_caps(
-		sge::renderer::adapter
-	) const;
+		sge::renderer::device::index
+	) const
+	override;
+
+	sge::renderer::display_mode::container
+	display_modes(
+		sge::renderer::device::index
+	) const
+	override;
 
 	typedef fcppt::scoped_ptr<
 		IDirect3D9,
