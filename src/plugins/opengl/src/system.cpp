@@ -21,8 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/create_device_caps.hpp>
 #include <sge/opengl/device.hpp>
 #include <sge/opengl/system.hpp>
-#include <sge/opengl/device_state/create_system.hpp>
-#include <sge/opengl/device_state/system.hpp>
+#include <sge/opengl/backend/create_system.hpp>
+#include <sge/opengl/backend/system.hpp>
+#include <sge/opengl/platform/create_system.hpp>
+#include <sge/opengl/platform/system.hpp>
 #include <sge/renderer/caps/device.hpp>
 #include <sge/renderer/caps/device_count.hpp>
 #include <sge/renderer/device/core.hpp>
@@ -48,15 +50,21 @@ sge::opengl::system::system(
 		_awl_system
 	),
 	system_context_(),
-	device_system_(
-		sge::opengl::device_state::create_system(
+	platform_system_(
+		sge::opengl::platform::create_system(
+			awl_system_
+		)
+	),
+	backend_system_(
+		sge::opengl::backend::create_system(
 			system_context_
 		)
 	),
 	caps_(
 		sge::opengl::create_device_caps(
+			awl_system_,
 			system_context_,
-			*device_system_
+			*backend_system_
 		)
 	)
 {
@@ -98,7 +106,8 @@ sge::opengl::system::create_ffp_renderer(
 				_parameters.display_mode(),
 				_parameters.window(),
 				_parameters.window_processor(),
-				*device_system_,
+				*platform_system_,
+				*backend_system_,
 				system_context_,
 				*caps_
 			)
@@ -111,7 +120,7 @@ sge::opengl::system::create_visual(
 )
 {
 	return
-		device_system_->create_visual(
+		backend_system_->create_visual(
 			awl_system_,
 			_pixel_format
 		);
@@ -121,9 +130,7 @@ sge::renderer::caps::device_count const
 sge::opengl::system::device_count() const
 {
 	return
-		sge::renderer::caps::device_count(
-			1u
-		);
+		platform_system_->device_count();
 }
 
 sge::renderer::caps::device const &
@@ -146,7 +153,8 @@ sge::opengl::system::display_modes(
 	sge::renderer::device::index const _index
 ) const
 {
-	// TODO:
 	return
-		sge::renderer::display_mode::container();
+		platform_system_->display_modes(
+			_index
+		);
 }

@@ -21,12 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_DEVICE_HPP_INCLUDED
 #define SGE_OPENGL_DEVICE_HPP_INCLUDED
 
-#include <sge/opengl/device_state/context_scoped_ptr.hpp>
-#include <sge/opengl/device_state/object_fwd.hpp>
-#include <sge/opengl/device_state/scoped_current.hpp>
-#include <sge/opengl/device_state/system_fwd.hpp>
+#include <sge/opengl/backend/context_scoped_ptr.hpp>
+#include <sge/opengl/backend/scoped_current.hpp>
+#include <sge/opengl/backend/system_fwd.hpp>
 #include <sge/opengl/context/device/object.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/platform/device_state_fwd.hpp>
+#include <sge/opengl/platform/system_fwd.hpp>
 #include <sge/opengl/texture/basic_parameters_fwd.hpp>
 #include <sge/renderer/config.hpp>
 #include <sge/renderer/caps/device_fwd.hpp>
@@ -121,7 +122,8 @@ public:
 		sge::renderer::display_mode::parameters const &,
 		awl::window::object &,
 		awl::window::event::processor &,
-		sge::opengl::device_state::system &,
+		sge::opengl::platform::system &,
+		sge::opengl::backend::system &,
 		sge::opengl::context::system::object &,
 		sge::renderer::caps::device const &
 	);
@@ -349,15 +351,15 @@ private:
 
 	typedef
 	fcppt::scoped_ptr<
-		sge::opengl::device_state::object
+		sge::opengl::platform::device_state
 	>
-	device_state_scoped_ptr;
+	platform_device_state_scoped_ptr;
 
-	device_state_scoped_ptr const device_state_;
+	platform_device_state_scoped_ptr const device_state_;
 
-	sge::opengl::device_state::context_scoped_ptr const context_;
+	sge::opengl::backend::context_scoped_ptr const context_;
 
-	sge::opengl::device_state::scoped_current const scoped_current_;
+	sge::opengl::backend::scoped_current const scoped_current_;
 
 	sge::renderer::target::onscreen_scoped_ptr const onscreen_target_;
 };

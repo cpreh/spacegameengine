@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/device_state/context_unique_ptr.hpp>
-#include <sge/opengl/device_state/scoped_current_fwd.hpp>
-#include <sge/opengl/device_state/system.hpp>
+#include <sge/opengl/backend/context_unique_ptr.hpp>
+#include <sge/opengl/backend/scoped_current_fwd.hpp>
+#include <sge/opengl/backend/system.hpp>
 #include <sge/opengl/egl/context.hpp>
 #include <sge/opengl/egl/create_native_display.hpp>
 #include <sge/opengl/egl/native_display.hpp>
@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::egl::system::system()
 :
-	sge::opengl::device_state::system()
+	sge::opengl::backend::system()
 {
 }
 
@@ -59,7 +59,7 @@ sge::opengl::egl::system::create_visual(
 		);
 }
 
-sge::opengl::device_state::context_unique_ptr
+sge::opengl::backend::context_unique_ptr
 sge::opengl::egl::system::create_context(
 	awl::window::object &_window
 )
@@ -80,7 +80,7 @@ sge::opengl::egl::system::create_context(
 
 void
 sge::opengl::egl::system::vsync(
-	sge::opengl::device_state::scoped_current const &,
+	sge::opengl::backend::scoped_current const &,
 	awl::window::object &,
 	sge::renderer::display_mode::vsync const _vsync
 )

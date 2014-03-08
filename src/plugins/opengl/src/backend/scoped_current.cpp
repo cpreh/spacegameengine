@@ -18,28 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CREATE_ONSCREEN_TARGET_HPP_INCLUDED
-#define SGE_OPENGL_CREATE_ONSCREEN_TARGET_HPP_INCLUDED
-
-#include <sge/opengl/backend/context_fwd.hpp>
-#include <sge/opengl/context/device/object_fwd.hpp>
-#include <sge/renderer/target/onscreen_unique_ptr.hpp>
-#include <awl/window/object_fwd.hpp>
+#include <sge/opengl/backend/context.hpp>
+#include <sge/opengl/backend/scoped_current.hpp>
 
 
-namespace sge
+sge::opengl::backend::scoped_current::scoped_current(
+	sge::opengl::backend::context &_context
+)
+:
+	context_(
+		_context
+	)
 {
-namespace opengl
-{
-
-sge::renderer::target::onscreen_unique_ptr
-create_onscreen_target(
-	sge::opengl::context::device::object &,
-	sge::opengl::backend::context &,
-	awl::window::object &
-);
-
-}
+	context_.activate();
 }
 
-#endif
+sge::opengl::backend::scoped_current::~scoped_current()
+{
+	context_.deactivate();
+}

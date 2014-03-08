@@ -18,27 +18,50 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CREATE_ONSCREEN_TARGET_HPP_INCLUDED
-#define SGE_OPENGL_CREATE_ONSCREEN_TARGET_HPP_INCLUDED
+#ifndef SGE_OPENGL_XRANDR_SYSTEM_HPP_INCLUDED
+#define SGE_OPENGL_XRANDR_SYSTEM_HPP_INCLUDED
 
-#include <sge/opengl/backend/context_fwd.hpp>
-#include <sge/opengl/context/device/object_fwd.hpp>
-#include <sge/renderer/target/onscreen_unique_ptr.hpp>
-#include <awl/window/object_fwd.hpp>
+#include <sge/opengl/xrandr/extension.hpp>
+#include <sge/opengl/xrandr/state_unique_ptr.hpp>
+#include <sge/opengl/xrandr/system_fwd.hpp>
+#include <awl/backends/x11/display_fwd.hpp>
+#include <awl/backends/x11/window/object_fwd.hpp>
+#include <awl/backends/x11/window/event/processor_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
 
 
 namespace sge
 {
 namespace opengl
 {
+namespace xrandr
+{
 
-sge::renderer::target::onscreen_unique_ptr
-create_onscreen_target(
-	sge::opengl::context::device::object &,
-	sge::opengl::backend::context &,
-	awl::window::object &
-);
+class system
+{
+	FCPPT_NONCOPYABLE(
+		system
+	);
+public:
+	system(
+		sge::opengl::xrandr::extension const &,
+		awl::backends::x11::display &
+	);
 
+	~system();
+
+	sge::opengl::xrandr::state_unique_ptr
+	create_state(
+		awl::backends::x11::window::object &,
+		awl::backends::x11::window::event::processor &
+	);
+private:
+	sge::opengl::xrandr::extension const extension_;
+
+	awl::backends::x11::display &display_;
+};
+
+}
 }
 }
 

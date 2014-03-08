@@ -25,14 +25,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/device.hpp>
 #include <sge/opengl/init_multi_sampling.hpp>
 #include <sge/opengl/init_srgb.hpp>
+#include <sge/opengl/backend/context.hpp>
+#include <sge/opengl/backend/system.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/opengl/device_state/context.hpp>
-#include <sge/opengl/device_state/create.hpp>
-#include <sge/opengl/device_state/object.hpp>
-#include <sge/opengl/device_state/system.hpp>
 #include <sge/opengl/fbo/create_depth_stencil_surface.hpp>
 #include <sge/opengl/fbo/create_target.hpp>
 #include <sge/opengl/occlusion_query/create.hpp>
+#include <sge/opengl/platform/device_state.hpp>
+#include <sge/opengl/platform/system.hpp>
 #include <sge/opengl/render_context/create.hpp>
 #include <sge/opengl/render_context/end.hpp>
 #include <sge/opengl/state/core/blend/create.hpp>
@@ -162,7 +162,8 @@ sge::opengl::device::device(
 	sge::renderer::display_mode::parameters const &_display_mode,
 	awl::window::object &_window,
 	awl::window::event::processor &_event_processor,
-	sge::opengl::device_state::system &_device_system,
+	sge::opengl::platform::system &_platform_system,
+	sge::opengl::backend::system &_backend_system,
 	sge::opengl::context::system::object &_system_context,
 	sge::renderer::caps::device const &_caps
 )
@@ -175,14 +176,14 @@ sge::opengl::device::device(
 		_caps
 	),
 	device_state_(
-		sge::opengl::device_state::create(
+		_platform_system.create_device_state(
 			_display_mode.display_mode(),
 			_window,
 			_event_processor
 		)
 	),
 	context_(
-		_device_system.create_context(
+		_backend_system.create_context(
 			_window
 		)
 	),
@@ -197,7 +198,7 @@ sge::opengl::device::device(
 		)
 	)
 {
-	_device_system.vsync(
+	_backend_system.vsync(
 		scoped_current_,
 		_window,
 		_display_mode.vsync()

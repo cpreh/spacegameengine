@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_EGL_SYSTEM_HPP_INCLUDED
 #define SGE_OPENGL_EGL_SYSTEM_HPP_INCLUDED
 
-#include <sge/opengl/device_state/context_unique_ptr.hpp>
-#include <sge/opengl/device_state/scoped_current_fwd.hpp>
-#include <sge/opengl/device_state/system.hpp>
+#include <sge/opengl/backend/context_unique_ptr.hpp>
+#include <sge/opengl/backend/scoped_current_fwd.hpp>
+#include <sge/opengl/backend/system.hpp>
 #include <sge/renderer/display_mode/vsync_fwd.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <awl/system/object_fwd.hpp>
@@ -41,7 +41,7 @@ namespace egl
 
 class system
 :
-	public sge::opengl::device_state::system
+	public sge::opengl::backend::system
 {
 	FCPPT_NONCOPYABLE(
 		system
@@ -59,7 +59,7 @@ private:
 	)
 	override;
 
-	sge::opengl::device_state::context_unique_ptr
+	sge::opengl::backend::context_unique_ptr
 	create_context(
 		awl::window::object &
 	)
@@ -67,7 +67,7 @@ private:
 
 	void
 	vsync(
-		sge::opengl::device_state::scoped_current const &,
+		sge::opengl::backend::scoped_current const &,
 		awl::window::object &,
 		sge::renderer::display_mode::vsync
 	)

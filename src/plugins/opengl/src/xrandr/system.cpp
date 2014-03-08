@@ -18,28 +18,46 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/create_onscreen_target.hpp>
-#include <sge/opengl/onscreen_target.hpp>
-#include <sge/opengl/backend/context_fwd.hpp>
-#include <sge/opengl/context/device/object_fwd.hpp>
-#include <sge/renderer/target/onscreen_unique_ptr.hpp>
-#include <awl/window/object_fwd.hpp>
+#include <sge/opengl/xrandr/extension_fwd.hpp>
+#include <sge/opengl/xrandr/state.hpp>
+#include <sge/opengl/xrandr/state_unique_ptr.hpp>
+#include <sge/opengl/xrandr/system.hpp>
+#include <awl/backends/x11/display_fwd.hpp>
+#include <awl/backends/x11/window/object_fwd.hpp>
+#include <awl/backends/x11/window/event/processor_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 
 
-sge::renderer::target::onscreen_unique_ptr
-sge::opengl::create_onscreen_target(
-	sge::opengl::context::device::object &_device_context,
-	sge::opengl::backend::context &_context,
-	awl::window::object &_window
+sge::opengl::xrandr::system::system(
+	sge::opengl::xrandr::extension const &_extension,
+	awl::backends::x11::display &_display
+)
+:
+	extension_(
+		_extension
+	),
+	display_(
+		_display
+	)
+{
+}
+
+sge::opengl::xrandr::system::~system()
+{
+}
+
+sge::opengl::xrandr::state_unique_ptr
+sge::opengl::xrandr::system::create_state(
+	awl::backends::x11::window::object &_window,
+	awl::backends::x11::window::event::processor &_processor
 )
 {
 	return
 		fcppt::make_unique_ptr<
-			sge::opengl::onscreen_target
+			sge::opengl::xrandr::state
 		>(
-			_device_context,
-			_context,
-			_window
+			extension_,
+			_window,
+			_processor
 		);
 }

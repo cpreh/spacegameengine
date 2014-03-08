@@ -23,10 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/get_int.hpp>
 #include <sge/opengl/get_string.hpp>
 #include <sge/opengl/srgb_context.hpp>
+#include <sge/opengl/backend/dummy.hpp>
+#include <sge/opengl/backend/system_fwd.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/opengl/device_state/dummy.hpp>
-#include <sge/opengl/device_state/system_fwd.hpp>
 #include <sge/opengl/fbo/context.hpp>
 #include <sge/opengl/state/core/sampler/filter/anisotropy_context.hpp>
 #include <sge/opengl/texture/multi_context.hpp>
@@ -48,6 +48,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps/render_target_supported.hpp>
 #include <sge/renderer/caps/srgb_framebuffer.hpp>
 #include <sge/renderer/caps/target_surface_indices.hpp>
+#include <awl/system/object_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/text.hpp>
@@ -55,11 +56,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer::caps::device_unique_ptr
 sge::opengl::create_device_caps(
+	awl::system::object &_awl_system,
 	sge::opengl::context::system::object &_context,
-	sge::opengl::device_state::system &_device_system
+	sge::opengl::backend::system &_device_system
 )
 {
-	sge::opengl::device_state::dummy dummy_state(
+	sge::opengl::backend::dummy dummy_state(
+		_awl_system,
 		_device_system
 	);
 

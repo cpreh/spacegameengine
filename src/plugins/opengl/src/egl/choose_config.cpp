@@ -58,6 +58,16 @@ sge::opengl::egl::choose_config(
 
 	if(
 		num_config
+		<=
+		0
+	)
+		throw
+			sge::renderer::exception(
+				FCPPT_TEXT("No matching EGL configs")
+			);
+
+	if(
+		num_config
 		!=
 		1
 	)

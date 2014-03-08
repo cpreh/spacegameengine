@@ -2,6 +2,17 @@ set(
 	SGE_OPENGL_BASE_FILES
 	src/plugins/opengl/include/sge/opengl/apientry.hpp
 	src/plugins/opengl/include/sge/opengl/area_function.hpp
+	src/plugins/opengl/include/sge/opengl/backend/context.hpp
+	src/plugins/opengl/include/sge/opengl/backend/context_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/backend/context_scoped_ptr.hpp
+	src/plugins/opengl/include/sge/opengl/backend/context_unique_ptr.hpp
+	src/plugins/opengl/include/sge/opengl/backend/create_system.hpp
+	src/plugins/opengl/include/sge/opengl/backend/dummy.hpp
+	src/plugins/opengl/include/sge/opengl/backend/scoped_current.hpp
+	src/plugins/opengl/include/sge/opengl/backend/scoped_current_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/backend/system.hpp
+	src/plugins/opengl/include/sge/opengl/backend/system_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/backend/system_unique_ptr.hpp
 	src/plugins/opengl/include/sge/opengl/basic_target.hpp
 	src/plugins/opengl/include/sge/opengl/basic_target_impl.hpp
 	src/plugins/opengl/include/sge/opengl/buffer/base.hpp
@@ -91,21 +102,6 @@ set(
 	src/plugins/opengl/include/sge/opengl/create_vertex_buffer.hpp
 	src/plugins/opengl/include/sge/opengl/create_vertex_declaration.hpp
 	src/plugins/opengl/include/sge/opengl/device.hpp
-	src/plugins/opengl/include/sge/opengl/device_state/context.hpp
-	src/plugins/opengl/include/sge/opengl/device_state/context_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/device_state/context_scoped_ptr.hpp
-	src/plugins/opengl/include/sge/opengl/device_state/context_unique_ptr.hpp
-	src/plugins/opengl/include/sge/opengl/device_state/create.hpp
-	src/plugins/opengl/include/sge/opengl/device_state/create_system.hpp
-	src/plugins/opengl/include/sge/opengl/device_state/dummy.hpp
-	src/plugins/opengl/include/sge/opengl/device_state/object.hpp
-	src/plugins/opengl/include/sge/opengl/device_state/object_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/device_state/object_unique_ptr.hpp
-	src/plugins/opengl/include/sge/opengl/device_state/scoped_current.hpp
-	src/plugins/opengl/include/sge/opengl/device_state/scoped_current_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/device_state/system.hpp
-	src/plugins/opengl/include/sge/opengl/device_state/system_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/device_state/system_unique_ptr.hpp
 	src/plugins/opengl/include/sge/opengl/disable.hpp
 	src/plugins/opengl/include/sge/opengl/disable_client_state.hpp
 	src/plugins/opengl/include/sge/opengl/draw_arrays.hpp
@@ -189,6 +185,13 @@ set(
 	src/plugins/opengl/include/sge/opengl/pixel_store_context.hpp
 	src/plugins/opengl/include/sge/opengl/pixel_store_context_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/pixel_store_int.hpp
+	src/plugins/opengl/include/sge/opengl/platform/create_system.hpp
+	src/plugins/opengl/include/sge/opengl/platform/device_state.hpp
+	src/plugins/opengl/include/sge/opengl/platform/device_state_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/platform/device_state_unique_ptr.hpp
+	src/plugins/opengl/include/sge/opengl/platform/system.hpp
+	src/plugins/opengl/include/sge/opengl/platform/system_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/platform/system_unique_ptr.hpp
 	src/plugins/opengl/include/sge/opengl/point_sprite_context.hpp
 	src/plugins/opengl/include/sge/opengl/point_sprite_context_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/range_check.hpp
@@ -586,6 +589,11 @@ set(
 	src/plugins/opengl/include/sge/opengl/vf/to_actor_visitor.hpp
 	src/plugins/opengl/include/sge/opengl/vf/vertex_attrib_pointer.hpp
 	src/plugins/opengl/include/sge/opengl/viewport.hpp
+	src/plugins/opengl/src/backend/context.cpp
+	src/plugins/opengl/src/backend/create_system.cpp
+	src/plugins/opengl/src/backend/dummy.cpp
+	src/plugins/opengl/src/backend/scoped_current.cpp
+	src/plugins/opengl/src/backend/system.cpp
 	src/plugins/opengl/src/buffer/base.cpp
 	src/plugins/opengl/src/buffer/create.cpp
 	src/plugins/opengl/src/buffer/hardware.cpp
@@ -636,13 +644,6 @@ set(
 	src/plugins/opengl/src/create_vertex_buffer.cpp
 	src/plugins/opengl/src/create_vertex_declaration.cpp
 	src/plugins/opengl/src/device.cpp
-	src/plugins/opengl/src/device_state/context.cpp
-	src/plugins/opengl/src/device_state/create.cpp
-	src/plugins/opengl/src/device_state/create_system.cpp
-	src/plugins/opengl/src/device_state/dummy.cpp
-	src/plugins/opengl/src/device_state/object.cpp
-	src/plugins/opengl/src/device_state/scoped_current.cpp
-	src/plugins/opengl/src/device_state/system.cpp
 	src/plugins/opengl/src/disable.cpp
 	src/plugins/opengl/src/disable_client_state.cpp
 	src/plugins/opengl/src/draw_arrays.cpp
@@ -700,6 +701,9 @@ set(
 	src/plugins/opengl/src/onscreen_target.cpp
 	src/plugins/opengl/src/pixel_store_context.cpp
 	src/plugins/opengl/src/pixel_store_int.cpp
+	src/plugins/opengl/src/platform/create_system.cpp
+	src/plugins/opengl/src/platform/device_state.cpp
+	src/plugins/opengl/src/platform/system.cpp
 	src/plugins/opengl/src/point_sprite_context.cpp
 	src/plugins/opengl/src/read_pixels.cpp
 	src/plugins/opengl/src/render_context/create.cpp
@@ -1031,8 +1035,10 @@ set(
 
 set(
 	SGE_OPENGL_X11_FILES
-	src/plugins/opengl/include/sge/opengl/x11/state.hpp
-	src/plugins/opengl/src/x11/state.cpp
+	src/plugins/opengl/include/sge/opengl/x11/device_state.hpp
+	src/plugins/opengl/include/sge/opengl/x11/system.hpp
+	src/plugins/opengl/src/x11/device_state.cpp
+	src/plugins/opengl/src/x11/system.cpp
 )
 
 set(
@@ -1085,7 +1091,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/xrandr/combine_rates.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/configuration.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/configuration_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/xrandr/create_state.hpp
+	src/plugins/opengl/include/sge/opengl/xrandr/create_system.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/crtc_info.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/crtcs_view.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/current_mode.hpp
@@ -1100,6 +1106,8 @@ set(
 	src/plugins/opengl/include/sge/opengl/xrandr/modes_view.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/optional_extension.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/optional_extension_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/xrandr/optional_system_ref.hpp
+	src/plugins/opengl/include/sge/opengl/xrandr/optional_system_ref_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/output_info.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/outputs_view.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/refresh_rate_from_mode.hpp
@@ -1113,6 +1121,9 @@ set(
 	src/plugins/opengl/include/sge/opengl/xrandr/state.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/state_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/state_unique_ptr.hpp
+	src/plugins/opengl/include/sge/opengl/xrandr/system.hpp
+	src/plugins/opengl/include/sge/opengl/xrandr/system_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/xrandr/system_unique_ptr.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/version.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/version_fwd.hpp
 	src/plugins/opengl/src/xrandr/choose_resolution.cpp
@@ -1120,7 +1131,7 @@ set(
 	src/plugins/opengl/src/xrandr/combine_pixel_sizes.cpp
 	src/plugins/opengl/src/xrandr/combine_rates.cpp
 	src/plugins/opengl/src/xrandr/configuration.cpp
-	src/plugins/opengl/src/xrandr/create_state.cpp
+	src/plugins/opengl/src/xrandr/create_system.cpp
 	src/plugins/opengl/src/xrandr/crtc_info.cpp
 	src/plugins/opengl/src/xrandr/crtcs_view.cpp
 	src/plugins/opengl/src/xrandr/current_mode.cpp
@@ -1138,6 +1149,7 @@ set(
 	src/plugins/opengl/src/xrandr/select_input.cpp
 	src/plugins/opengl/src/xrandr/set_resolution.cpp
 	src/plugins/opengl/src/xrandr/state.cpp
+	src/plugins/opengl/src/xrandr/system.cpp
 	src/plugins/opengl/src/xrandr/version.cpp
 )
 

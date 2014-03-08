@@ -18,28 +18,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/create_onscreen_target.hpp>
-#include <sge/opengl/onscreen_target.hpp>
-#include <sge/opengl/backend/context_fwd.hpp>
-#include <sge/opengl/context/device/object_fwd.hpp>
-#include <sge/renderer/target/onscreen_unique_ptr.hpp>
-#include <awl/window/object_fwd.hpp>
+#include <sge/opengl/config.hpp>
+#include <sge/opengl/platform/create_system.hpp>
+#include <sge/opengl/platform/system_unique_ptr.hpp>
+#include <awl/system/object.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/config/platform.hpp>
+#if defined(SGE_OPENGL_HAVE_X11)
+#include <sge/opengl/x11/system.hpp>
+#include <awl/backends/x11/system/object.hpp>
+#include <fcppt/cast/static_downcast.hpp>
+#elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
+#include <sge/opengl/windows/system.hpp>
+#else
+#error "Implement me!"
+#endif
 
 
-sge::renderer::target::onscreen_unique_ptr
-sge::opengl::create_onscreen_target(
-	sge::opengl::context::device::object &_device_context,
-	sge::opengl::backend::context &_context,
-	awl::window::object &_window
+sge::opengl::platform::system_unique_ptr
+sge::opengl::platform::create_system(
+	awl::system::object &_awl_system
 )
 {
+#if defined(SGE_OPENGL_HAVE_X11)
 	return
 		fcppt::make_unique_ptr<
-			sge::opengl::onscreen_target
+			sge::opengl::x11::system
 		>(
-			_device_context,
-			_context,
-			_window
+			fcppt::cast::static_downcast<
+				awl::backends::x11::system::object &
+			>(
+				_awl_system
+			)
 		);
+#elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
+	return
+		fcppt::make_unique_ptr<
+			sge::opengl::windows::system
+		>();
+#else
+#error "Implement me!"
+#endif
 }

@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/basic_target.hpp>
 #include <sge/opengl/onscreen_target_fwd.hpp>
+#include <sge/opengl/backend/context_fwd.hpp>
 #include <sge/opengl/context/device/object_fwd.hpp>
-#include <sge/opengl/device_state/context_fwd.hpp>
 #include <sge/renderer/screen_unit.hpp>
 #include <sge/renderer/color_buffer/surface_fwd.hpp>
 #include <sge/renderer/target/onscreen.hpp>
@@ -40,7 +40,7 @@ namespace opengl
 
 class onscreen_target
 :
-	public opengl::basic_target<
+	public sge::opengl::basic_target<
 		sge::renderer::target::onscreen
 	>
 {
@@ -54,7 +54,7 @@ public:
 
 	onscreen_target(
 		sge::opengl::context::device::object &,
-		sge::opengl::device_state::context &,
+		sge::opengl::backend::context &,
 		awl::window::object &
 	);
 
@@ -79,7 +79,7 @@ private:
 		sge::renderer::color_buffer::surface
 	> color_surface_scoped_ptr;
 
-	sge::opengl::device_state::context &context_;
+	sge::opengl::backend::context &context_;
 
 	color_surface_scoped_ptr const main_surface_;
 };

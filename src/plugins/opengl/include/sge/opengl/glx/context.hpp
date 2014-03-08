@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_GLX_CONTEXT_HPP_INCLUDED
 #define SGE_OPENGL_GLX_CONTEXT_HPP_INCLUDED
 
-#include <sge/opengl/device_state/context.hpp>
+#include <sge/opengl/backend/context.hpp>
 #include <sge/opengl/glx/context_fwd.hpp>
 #include <awl/backends/x11/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -39,7 +39,7 @@ namespace glx
 
 class context
 :
-	public sge::opengl::device_state::context
+	public sge::opengl::backend::context
 {
 	FCPPT_NONCOPYABLE(
 		context

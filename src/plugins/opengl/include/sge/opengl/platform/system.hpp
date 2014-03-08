@@ -18,18 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLX_SYSTEM_HPP_INCLUDED
-#define SGE_OPENGL_GLX_SYSTEM_HPP_INCLUDED
+#ifndef SGE_OPENGL_PLATFORM_SYSTEM_HPP_INCLUDED
+#define SGE_OPENGL_PLATFORM_SYSTEM_HPP_INCLUDED
 
-#include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/opengl/backend/context_unique_ptr.hpp>
-#include <sge/opengl/backend/scoped_current_fwd.hpp>
-#include <sge/opengl/backend/system.hpp>
-#include <sge/renderer/display_mode/vsync_fwd.hpp>
-#include <sge/renderer/pixel_format/object_fwd.hpp>
-#include <awl/system/object_fwd.hpp>
-#include <awl/visual/object_unique_ptr.hpp>
+#include <sge/opengl/platform/device_state_unique_ptr.hpp>
+#include <sge/opengl/platform/system_fwd.hpp>
+#include <sge/renderer/caps/device_count.hpp>
+#include <sge/renderer/display_mode/container.hpp>
+#include <sge/renderer/display_mode/optional_object_fwd.hpp>
+#include <sge/renderer/device/index.hpp>
 #include <awl/window/object_fwd.hpp>
+#include <awl/window/event/processor_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -37,47 +36,37 @@ namespace sge
 {
 namespace opengl
 {
-namespace glx
+namespace platform
 {
 
 class system
-:
-	public sge::opengl::backend::system
 {
 	FCPPT_NONCOPYABLE(
 		system
 	);
+protected:
+	system();
 public:
-	explicit
-	system(
-		sge::opengl::context::system::object &
-	);
+	virtual
+	~system() = 0;
 
-	~system()
-	override;
-private:
-	awl::visual::object_unique_ptr
-	create_visual(
-		awl::system::object &,
-		sge::renderer::pixel_format::object const &
-	)
-	override;
+	virtual
+	sge::renderer::caps::device_count const
+	device_count() const = 0;
 
-	sge::opengl::backend::context_unique_ptr
-	create_context(
-		awl::window::object &
-	)
-	override;
+	virtual
+	sge::renderer::display_mode::container
+	display_modes(
+		sge::renderer::device::index
+	) const = 0;
 
-	void
-	vsync(
-		sge::opengl::backend::scoped_current const &,
+	virtual
+	sge::opengl::platform::device_state_unique_ptr
+	create_device_state(
+		sge::renderer::display_mode::optional_object const &,
 		awl::window::object &,
-		sge::renderer::display_mode::vsync
-	)
-	override;
-
-	sge::opengl::context::system::object &system_context_;
+		awl::window::event::processor &
+	) = 0;
 };
 
 }

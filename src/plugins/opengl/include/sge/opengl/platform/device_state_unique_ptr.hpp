@@ -18,27 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CREATE_ONSCREEN_TARGET_HPP_INCLUDED
-#define SGE_OPENGL_CREATE_ONSCREEN_TARGET_HPP_INCLUDED
+#ifndef SGE_OPENGL_PLATFORM_DEVICE_STATE_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_OPENGL_PLATFORM_DEVICE_STATE_UNIQUE_PTR_HPP_INCLUDED
 
-#include <sge/opengl/backend/context_fwd.hpp>
-#include <sge/opengl/context/device/object_fwd.hpp>
-#include <sge/renderer/target/onscreen_unique_ptr.hpp>
-#include <awl/window/object_fwd.hpp>
+#include <sge/opengl/platform/device_state_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
 {
 namespace opengl
 {
+namespace platform
+{
 
-sge::renderer::target::onscreen_unique_ptr
-create_onscreen_target(
-	sge::opengl::context::device::object &,
-	sge::opengl::backend::context &,
-	awl::window::object &
-);
+typedef
+std::unique_ptr<
+	sge::opengl::platform::device_state
+>
+device_state_unique_ptr;
 
+}
 }
 }
 

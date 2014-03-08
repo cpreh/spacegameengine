@@ -18,31 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLX_SYSTEM_HPP_INCLUDED
-#define SGE_OPENGL_GLX_SYSTEM_HPP_INCLUDED
+#ifndef SGE_OPENGL_X11_SYSTEM_HPP_INCLUDED
+#define SGE_OPENGL_X11_SYSTEM_HPP_INCLUDED
 
-#include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/opengl/backend/context_unique_ptr.hpp>
-#include <sge/opengl/backend/scoped_current_fwd.hpp>
-#include <sge/opengl/backend/system.hpp>
-#include <sge/renderer/display_mode/vsync_fwd.hpp>
-#include <sge/renderer/pixel_format/object_fwd.hpp>
-#include <awl/system/object_fwd.hpp>
-#include <awl/visual/object_unique_ptr.hpp>
+#include <sge/opengl/platform/device_state_unique_ptr.hpp>
+#include <sge/opengl/platform/system.hpp>
+#include <sge/opengl/xrandr/system_fwd.hpp>
+#include <sge/renderer/caps/device_count.hpp>
+#include <sge/renderer/display_mode/container.hpp>
+#include <sge/renderer/display_mode/optional_object_fwd.hpp>
+#include <sge/renderer/device/index.hpp>
+#include <awl/backends/x11/system/object_fwd.hpp>
 #include <awl/window/object_fwd.hpp>
+#include <awl/window/event/processor_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/scoped_ptr_impl.hpp>
 
 
 namespace sge
 {
 namespace opengl
 {
-namespace glx
+namespace x11
 {
 
 class system
 :
-	public sge::opengl::backend::system
+	public sge::opengl::platform::system
 {
 	FCPPT_NONCOPYABLE(
 		system
@@ -50,34 +52,37 @@ class system
 public:
 	explicit
 	system(
-		sge::opengl::context::system::object &
+		awl::backends::x11::system::object &
 	);
 
 	~system()
 	override;
 private:
-	awl::visual::object_unique_ptr
-	create_visual(
-		awl::system::object &,
-		sge::renderer::pixel_format::object const &
-	)
+	sge::renderer::caps::device_count const
+	device_count() const
 	override;
 
-	sge::opengl::backend::context_unique_ptr
-	create_context(
-		awl::window::object &
-	)
+	sge::renderer::display_mode::container
+	display_modes(
+		sge::renderer::device::index
+	) const
 	override;
 
-	void
-	vsync(
-		sge::opengl::backend::scoped_current const &,
+	sge::opengl::platform::device_state_unique_ptr
+	create_device_state(
+		sge::renderer::display_mode::optional_object const &,
 		awl::window::object &,
-		sge::renderer::display_mode::vsync
+		awl::window::event::processor &
 	)
 	override;
 
-	sge::opengl::context::system::object &system_context_;
+	typedef
+	fcppt::scoped_ptr<
+		sge::opengl::xrandr::system
+	>
+	xrandr_scoped_ptr;
+
+	xrandr_scoped_ptr const xrandr_system_;
 };
 
 }

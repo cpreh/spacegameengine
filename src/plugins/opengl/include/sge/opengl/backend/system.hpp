@@ -18,13 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLX_SYSTEM_HPP_INCLUDED
-#define SGE_OPENGL_GLX_SYSTEM_HPP_INCLUDED
+#ifndef SGE_OPENGL_BACKEND_SYSTEM_HPP_INCLUDED
+#define SGE_OPENGL_BACKEND_SYSTEM_HPP_INCLUDED
 
-#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/backend/context_unique_ptr.hpp>
 #include <sge/opengl/backend/scoped_current_fwd.hpp>
-#include <sge/opengl/backend/system.hpp>
+#include <sge/opengl/backend/system_fwd.hpp>
 #include <sge/renderer/display_mode/vsync_fwd.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <awl/system/object_fwd.hpp>
@@ -37,47 +36,40 @@ namespace sge
 {
 namespace opengl
 {
-namespace glx
+namespace backend
 {
 
 class system
-:
-	public sge::opengl::backend::system
 {
 	FCPPT_NONCOPYABLE(
 		system
 	);
+protected:
+	system();
 public:
-	explicit
-	system(
-		sge::opengl::context::system::object &
-	);
+	virtual
+	~system() = 0;
 
-	~system()
-	override;
-private:
+	virtual
 	awl::visual::object_unique_ptr
 	create_visual(
 		awl::system::object &,
 		sge::renderer::pixel_format::object const &
-	)
-	override;
+	) = 0;
 
+	virtual
 	sge::opengl::backend::context_unique_ptr
 	create_context(
 		awl::window::object &
-	)
-	override;
+	) = 0;
 
+	virtual
 	void
 	vsync(
 		sge::opengl::backend::scoped_current const &,
 		awl::window::object &,
 		sge::renderer::display_mode::vsync
-	)
-	override;
-
-	sge::opengl::context::system::object &system_context_;
+	) = 0;
 };
 
 }

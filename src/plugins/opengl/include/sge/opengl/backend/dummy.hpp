@@ -18,27 +18,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CREATE_ONSCREEN_TARGET_HPP_INCLUDED
-#define SGE_OPENGL_CREATE_ONSCREEN_TARGET_HPP_INCLUDED
+#ifndef SGE_OPENGL_BACKEND_DUMMY_HPP_INCLUDED
+#define SGE_OPENGL_BACKEND_DUMMY_HPP_INCLUDED
 
-#include <sge/opengl/backend/context_fwd.hpp>
-#include <sge/opengl/context/device/object_fwd.hpp>
-#include <sge/renderer/target/onscreen_unique_ptr.hpp>
-#include <awl/window/object_fwd.hpp>
+#include <sge/opengl/backend/context_scoped_ptr.hpp>
+#include <sge/opengl/backend/scoped_current.hpp>
+#include <sge/opengl/backend/system_fwd.hpp>
+#include <awl/system/object_fwd.hpp>
+#include <awl/visual/object_scoped_ptr.hpp>
+#include <awl/window/object_scoped_ptr.hpp>
+#include <fcppt/noncopyable.hpp>
 
 
 namespace sge
 {
 namespace opengl
 {
+namespace backend
+{
 
-sge::renderer::target::onscreen_unique_ptr
-create_onscreen_target(
-	sge::opengl::context::device::object &,
-	sge::opengl::backend::context &,
-	awl::window::object &
-);
+class dummy
+{
+	FCPPT_NONCOPYABLE(
+		dummy
+	);
+public:
+	dummy(
+		awl::system::object &,
+		sge::opengl::backend::system &
+	);
 
+	~dummy();
+private:
+	awl::visual::object_scoped_ptr const awl_visual_;
+
+	awl::window::object_scoped_ptr const awl_window_;
+
+	sge::opengl::backend::context_scoped_ptr const context_;
+
+	sge::opengl::backend::scoped_current const scoped_current_;
+};
+
+}
 }
 }
 

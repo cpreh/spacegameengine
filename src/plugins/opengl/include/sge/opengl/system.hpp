@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_SYSTEM_HPP_INCLUDED
 #define SGE_OPENGL_SYSTEM_HPP_INCLUDED
 
+#include <sge/opengl/backend/system_fwd.hpp>
 #include <sge/opengl/context/system/object.hpp>
-#include <sge/opengl/device_state/system_fwd.hpp>
+#include <sge/opengl/platform/system_fwd.hpp>
 #include <sge/renderer/system.hpp>
 #include <sge/renderer/caps/device_count.hpp>
 #include <sge/renderer/caps/device_fwd.hpp>
@@ -99,11 +100,19 @@ private:
 
 	typedef
 	fcppt::scoped_ptr<
-		sge::opengl::device_state::system
+		sge::opengl::platform::system
 	>
-	device_system_scoped_ptr;
+	platform_system_scoped_ptr;
 
-	device_system_scoped_ptr const device_system_;
+	platform_system_scoped_ptr const platform_system_;
+
+	typedef
+	fcppt::scoped_ptr<
+		sge::opengl::backend::system
+	>
+	backend_system_scoped_ptr;
+
+	backend_system_scoped_ptr const backend_system_;
 
 	typedef
 	fcppt::scoped_ptr<
