@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/egl/native_window.hpp>
 #include <sge/opengl/egl/system.hpp>
 #include <sge/opengl/egl/visual/create.hpp>
-#include <sge/renderer/parameters/vsync.hpp>
+#include <sge/renderer/display_mode/vsync.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <awl/system/object_fwd.hpp>
 #include <awl/visual/object.hpp>
@@ -82,7 +82,8 @@ void
 sge::opengl::egl::system::vsync(
 	sge::opengl::device_state::scoped_current const &,
 	awl::window::object &,
-	sge::renderer::parameters::vsync
+	sge::renderer::display_mode::vsync const _vsync
 )
 {
+	// TODO
 }
