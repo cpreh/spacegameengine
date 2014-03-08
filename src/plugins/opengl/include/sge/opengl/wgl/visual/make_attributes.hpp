@@ -35,7 +35,7 @@ namespace wgl
 namespace visual
 {
 
-sge::opengl::wgl::visual::attribute_container const
+sge::opengl::wgl::visual::attribute_container
 make_attributes(
 	sge::opengl::context::system::object &,
 	sge::renderer::pixel_format::object const &

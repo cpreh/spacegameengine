@@ -24,14 +24,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/platform.hpp>
 #include <fcppt/config/external_begin.hpp>
 #if defined(FCPPT_CONFIG_DARWIN_PLATFORM)
-#include <OpenGL/gl.h>
+#	include <OpenGL/gl.h>
 #else
-#if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
-	#define WIN32_LEAN_AND_MEAN
-	#define NOMINMAX
-	#include <windows.h>
-#endif
-#include <GL/gl.h>
+#	if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
+#		if !defined(WIN32_LEAN_AND_MEAN)
+#			define WIN32_LEAN_AND_MEAN
+#		endif
+#		if !defined(NOMINMAX)
+#			define NOMINMAX
+#		endif
+#		include <windows.h>
+#	endif
+#	include <GL/gl.h>
 #endif
 #include <fcppt/config/external_end.hpp>
 

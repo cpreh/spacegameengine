@@ -18,18 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/device_state/object.hpp>
+#include <sge/opengl/platform/device_state.hpp>
 #include <sge/opengl/windows/change_display_settings.hpp>
 #include <sge/opengl/windows/current_display_mode.hpp>
-#include <sge/opengl/windows/state.hpp>
+#include <sge/opengl/windows/device_state.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 
 
-sge::opengl::windows::state::state(
+sge::opengl::windows::device_state::device_state(
 	sge::renderer::display_mode::optional_object const &_display_mode
 )
 :
-	sge::opengl::device_state::object()
+	sge::opengl::platform::device_state()
 {
 	if(
 		_display_mode
@@ -39,15 +39,23 @@ sge::opengl::windows::state::state(
 		);
 }
 
-sge::opengl::windows::state::~state()
+sge::opengl::windows::device_state::~device_state()
 {
 }
 
 sge::renderer::display_mode::optional_object const
-sge::opengl::windows::state::display_mode() const
+sge::opengl::windows::device_state::display_mode() const
 {
 	return
 		sge::renderer::display_mode::optional_object(
 			sge::opengl::windows::current_display_mode()
 		);
+}
+
+void
+sge::opengl::windows::device_state::display_mode(
+	sge::renderer::display_mode::optional_object const &_display_mode
+)
+{
+	// TODO!
 }

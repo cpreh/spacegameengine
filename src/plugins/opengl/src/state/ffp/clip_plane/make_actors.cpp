@@ -19,21 +19,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/state/check_error.hpp>
 #include <sge/opengl/state/index_actor.hpp>
 #include <sge/opengl/state/index_actor_vector.hpp>
-#include <sge/opengl/state/wrap_error_handler.hpp>
 #include <sge/opengl/state/ffp/clip_plane/make_actors.hpp>
+#include <sge/renderer/state/ffp/clip_plane/area.hpp>
 #include <sge/renderer/state/ffp/clip_plane/parameters.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/math/vector/static.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/phoenix/bind/bind_function.hpp>
-#include <boost/phoenix/bind/bind_member_function.hpp>
-#include <boost/phoenix/core/argument.hpp>
-#include <boost/phoenix/core/value.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::opengl::state::index_actor_vector
@@ -46,31 +41,32 @@ sge::opengl::state::ffp::clip_plane::make_actors(
 		4
 	> vector4d;
 
+	sge::renderer::state::ffp::clip_plane::area const area(
+		_parameters.area()
+	);
+
 	return
 		sge::opengl::state::index_actor_vector{
-			sge::opengl::state::wrap_error_handler<
-				sge::opengl::state::index_actor
-			>(
-				boost::phoenix::bind(
-					::glClipPlane,
-					boost::phoenix::arg_names::arg1,
-					boost::phoenix::bind(
-						static_cast<
-							vector4d::const_pointer
-							(vector4d::*)() const
+			sge::opengl::state::index_actor(
+				[
+					area
+				](
+					GLenum const _index
+				)
+				{
+					::glClipPlane(
+						_index,
+						fcppt::math::vector::structure_cast<
+							vector4d
 						>(
-							&vector4d::data
-						),
-						boost::phoenix::val(
-							fcppt::math::vector::structure_cast<
-								vector4d
-							>(
-								_parameters.area().get()
-							)
-						)
-					)
-				),
-				FCPPT_TEXT("glClipPlane")
+							area.get()
+						).data()
+					);
+
+					sge::opengl::state::check_error(
+						FCPPT_TEXT("glClipPlane")
+					);
+				}
 			)
 		};
 }

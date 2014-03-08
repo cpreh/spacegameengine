@@ -18,12 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_WINDOWS_STATE_HPP_INCLUDED
-#define SGE_OPENGL_WINDOWS_STATE_HPP_INCLUDED
+#ifndef SGE_OPENGL_WINDOWS_SYSTEM_HPP_INCLUDED
+#define SGE_OPENGL_WINDOWS_SYSTEM_HPP_INCLUDED
 
-#include <sge/opengl/device_state/context_fwd.hpp>
-#include <sge/opengl/device_state/object.hpp>
+#include <sge/opengl/platform/device_state_unique_ptr.hpp>
+#include <sge/opengl/platform/system.hpp>
+#include <sge/renderer/caps/device_count.hpp>
+#include <sge/renderer/display_mode/container.hpp>
 #include <sge/renderer/display_mode/optional_object_fwd.hpp>
+#include <sge/renderer/device/index.hpp>
+#include <awl/window/object_fwd.hpp>
+#include <awl/window/event/processor_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -34,23 +39,36 @@ namespace opengl
 namespace windows
 {
 
-class state
+class system
 :
-	public sge::opengl::device_state::object
+	public sge::opengl::platform::system
 {
 	FCPPT_NONCOPYABLE(
-		state
+		system
 	);
 public:
-	explicit
-	state(
-		sge::renderer::display_mode::optional_object const &
-	);
+	system();
 
-	~state();
+	~system()
+	override;
 private:
-	sge::renderer::display_mode::optional_object const
-	display_mode() const;
+	sge::renderer::caps::device_count const
+	device_count() const
+	override;
+
+	sge::renderer::display_mode::container
+	display_modes(
+		sge::renderer::device::index
+	) const
+	override;
+
+	sge::opengl::platform::device_state_unique_ptr
+	create_device_state(
+		sge::renderer::display_mode::optional_object const &,
+		awl::window::object &,
+		awl::window::event::processor &
+	)
+	override;
 };
 
 }

@@ -18,14 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_WGL_CONTEXT_HPP_INCLUDED
-#define SGE_OPENGL_WGL_CONTEXT_HPP_INCLUDED
+#ifndef SGE_OPENGL_WINDOWS_DEVICE_STATE_HPP_INCLUDED
+#define SGE_OPENGL_WINDOWS_DEVICE_STATE_HPP_INCLUDED
 
-#include <sge/opengl/backend/context.hpp>
-#include <sge/opengl/wgl/context_fwd.hpp>
-#include <sge/opengl/windows/gdi_device.hpp>
-#include <awl/backends/windows/windows.hpp>
-#include <awl/backends/windows/window/object_fwd.hpp>
+#include <sge/opengl/platform/device_state.hpp>
+#include <sge/renderer/display_mode/optional_object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -33,39 +30,34 @@ namespace sge
 {
 namespace opengl
 {
-namespace wgl
+namespace windows
 {
 
-class context
+class device_state
 :
-	public sge::opengl::backend::context
+	public sge::opengl::platform::device_state
 {
 	FCPPT_NONCOPYABLE(
-		context
+		device_state
 	);
 public:
 	explicit
-	context(
-		awl::backends::windows::window::object &
+	device_state(
+		sge::renderer::display_mode::optional_object const &
 	);
 
-	~context();
+	~device_state()
+	override;
 private:
-	void
-	activate();
+	sge::renderer::display_mode::optional_object const
+	display_mode() const
+	override;
 
 	void
-	deactivate();
-
-	void
-	begin_rendering();
-
-	void
-	end_rendering();
-
-	sge::opengl::windows::gdi_device const gdi_device_;
-
-	HGLRC const glrc_;
+	display_mode(
+		sge::renderer::display_mode::optional_object const &
+	)
+	override;
 };
 
 }

@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::opengl::wgl::visual::attribute_container const
+sge::opengl::wgl::visual::attribute_container
 sge::opengl::wgl::visual::make_attributes(
 	sge::opengl::context::system::object &_system_context,
 	sge::renderer::pixel_format::object const &_format
@@ -65,7 +65,7 @@ sge::opengl::wgl::visual::make_attributes(
 			FCPPT_TEXT("WGLEW_EXT_pixel_format, WGLEW_ARB_pixel_format")
 		);
 
-	sge::opengl::wgl::visual::attribute_container ret(
+	sge::opengl::wgl::visual::attribute_container ret{
 		pixel_format_types->draw_to_window().get(),
 		GL_TRUE,
 		pixel_format_types->support_opengl().get(),
@@ -82,7 +82,7 @@ sge::opengl::wgl::visual::make_attributes(
 				_format.color()
 			).get()
 		)
-	);
+	};
 
 	{
 		sge::renderer::pixel_format::optional_bit_count const depth_bits(

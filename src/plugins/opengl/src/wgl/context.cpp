@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/backend/context.hpp>
 #include <sge/opengl/wgl/context.hpp>
 #include <sge/opengl/wgl/make_current.hpp>
 #include <sge/opengl/windows/gdi_device.hpp>
@@ -31,6 +32,7 @@ sge::opengl::wgl::context::context(
 	awl::backends::windows::window::object &_window
 )
 :
+	sge::opengl::backend::context(),
 	gdi_device_(
 		_window.hwnd(),
 		sge::opengl::windows::gdi_device::get_tag()
