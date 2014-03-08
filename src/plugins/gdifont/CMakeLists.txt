@@ -62,9 +62,12 @@ set(
 	src/plugins/gdifont/src/text.cpp
 )
 
+# TODO: Change this
+# Link to AWL so we get the unicode definitions
+
 add_sge_plugin(
 	gdifont
 	"sgefont;sgeimage2d;sgeplugin"
-	""
+	"${awl_TARGET}"
 	""
 )

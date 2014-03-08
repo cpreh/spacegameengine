@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/gdifont/a8_view.hpp>
 #include <sge/image/mizuiro_color.hpp>
-#include <mizuiro/color/channel_max.hpp>
+#include <mizuiro/color/access/channel_max.hpp>
 #include <mizuiro/color/channel/alpha.hpp>
 
 
@@ -47,7 +47,7 @@ struct alpha_to_max
 		)
 			_color.set(
 				mizuiro::color::channel::alpha(),
-				mizuiro::color::channel_max(
+				mizuiro::color::access::channel_max(
 					_color.format_store(),
 					mizuiro::color::channel::alpha()
 				)
