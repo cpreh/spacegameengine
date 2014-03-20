@@ -1611,6 +1611,8 @@ set(
 	include/sge/parse/json/object_fwd.hpp
 	include/sge/parse/json/optional_element_vector.hpp
 	include/sge/parse/json/optional_element_vector_fwd.hpp
+	include/sge/parse/json/optional_member.hpp
+	include/sge/parse/json/optional_member_fwd.hpp
 	include/sge/parse/json/optional_object_ref.hpp
 	include/sge/parse/json/optional_object_ref_fwd.hpp
 	include/sge/parse/json/output/grammar.hpp
