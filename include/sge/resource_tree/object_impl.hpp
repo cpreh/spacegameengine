@@ -115,11 +115,10 @@ sge::resource_tree::object<
 	);
 
 	for(
-		auto const &cur_path : directories
+		auto const &cur_path
+		:
+		directories
 	)
-	{
-		path_vector files;
-
 		this->add_directory(
 			sge::resource_tree::detail::base_path(
 				_path),
@@ -127,7 +126,6 @@ sge::resource_tree::object<
 				cur_path),
 			_path_to_resource,
 			_random_generator);
-	}
 }
 
 template<

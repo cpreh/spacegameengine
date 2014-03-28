@@ -35,7 +35,7 @@ namespace detail
 {
 
 SGE_RESOURCE_TREE_SYMBOL
-sge::resource_tree::path const
+sge::resource_tree::path
 strip_path_prefix(
 	sge::resource_tree::detail::base_path const &,
 	sge::resource_tree::detail::sub_path const &);

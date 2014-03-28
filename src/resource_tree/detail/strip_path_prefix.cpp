@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::resource_tree::path const
+sge::resource_tree::path
 sge::resource_tree::detail::strip_path_prefix(
 	sge::resource_tree::detail::base_path const &_base_path,
 	sge::resource_tree::detail::sub_path const &_sub_path)
