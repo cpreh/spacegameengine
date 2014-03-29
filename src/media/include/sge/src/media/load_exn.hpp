@@ -44,6 +44,7 @@ load_exn(
 	System &_system,
 	boost::filesystem::path const &_path
 )
+try
 {
 	Result result(
 		_system.load(
@@ -66,6 +67,20 @@ load_exn(
 		std::move(
 			result
 		);
+}
+catch(
+	sge::exception const &_error
+)
+{
+	throw Exception(
+		fcppt::filesystem::path_to_string(
+			_path
+		)
+		+
+		FCPPT_TEXT(": ")
+		+
+		_error.string()
+	);
 }
 
 }
