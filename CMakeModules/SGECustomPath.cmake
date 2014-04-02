@@ -5,7 +5,6 @@ file(
 #define SGE_BUILD_CONFIG_PATH_HPP_INCLUDED
 
 #cmakedefine SGE_CONFIG_LOCAL_BUILD
-#cmakedefine SGE_CONFIG_INSTALL_BUILD
 #cmakedefine SGE_CONFIG_WINDOWS_LOCAL_PACKAGE
 
 #if defined(SGE_CONFIG_WINDOWS_LOCAL_PACKAGE)
@@ -42,12 +41,10 @@ build_@SGE_CONFIG_PATH_NAME@_path()
 		SGE_CONFIG_TEXT_WRAPPER(
 			\"@SGE_CONFIG_BUILD_PATH@\"
 		)
-#elif defined(SGE_CONFIG_INSTALL_BUILD)
+#else
 		SGE_CONFIG_TEXT_WRAPPER(
 			\"@SGE_CONFIG_INSTALL_PATH@\"
 		)
-#else
-#error \"Invalid path configuration, how did this happen?\"
 #endif
 		;
 }
@@ -70,21 +67,22 @@ if(
 	)
 endif()
 
-# Fallback if optional setting is off
-if(
-	NOT SGE_CONFIG_WINDOWS_LOCAL_PACKAGE
+option(
+	SGE_CONFIG_LOCAL_BUILD
+	"Create a local build (with local paths for resources)"
+	OFF
 )
-	if(
-		CMAKE_INSTALL_PREFIX STREQUAL ""
+
+# compatibility for old config
+if(
+	"${CMAKE_INSTALL_PREFIX}"
+	STREQUAL
+	""
+)
+	set(
+		SGE_CONFIG_LOCAL_BUILD
+		ON
 	)
-		set(
-			SGE_CONFIG_LOCAL_BUILD TRUE
-		)
-	else()
-		set(
-			SGE_CONFIG_INSTALL_BUILD TRUE
-		)
-	endif()
 endif()
 
 function(
