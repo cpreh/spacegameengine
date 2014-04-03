@@ -59,6 +59,17 @@ class SGE_CLASS_SYMBOL base
 {
 FCPPT_NONCOPYABLE(
 	base);
+
+	typedef
+	std::list
+	<
+		std::pair
+		<
+			sge::rucksack::widget::base *,
+			sge::rucksack::widget::box::child_information
+		>
+	>
+	child_information;
 public:
 	SGE_RUCKSACK_SYMBOL
 	base(
@@ -118,12 +129,12 @@ public:
 
 	SGE_RUCKSACK_SYMBOL void
 	push_back_child(
-		widget::base &,
+		sge::rucksack::widget::base &,
 		sge::rucksack::alignment);
 
 	SGE_RUCKSACK_SYMBOL void
 	push_front_child(
-		widget::base &,
+		sge::rucksack::widget::base &,
 		sge::rucksack::alignment);
 
 	SGE_RUCKSACK_SYMBOL void
@@ -132,15 +143,46 @@ public:
 	SGE_RUCKSACK_SYMBOL void
 	pop_front_child();
 
-
-	SGE_RUCKSACK_SYMBOL ~base();
-private:
 	typedef
-	std::list
-	<
-		std::pair<widget::base*,box::child_information>
-	>
-	child_information;
+	child_information::iterator
+	iterator;
+
+	typedef
+	child_information::size_type
+	size_type;
+
+	SGE_RUCKSACK_SYMBOL
+	iterator
+	child_position(
+		size_type
+	);
+
+	SGE_RUCKSACK_SYMBOL
+	size_type
+	children_size() const;
+
+	SGE_RUCKSACK_SYMBOL
+	void
+	replace_children(
+		iterator,
+		sge::rucksack::widget::base &,
+		sge::rucksack::alignment
+	);
+
+	SGE_RUCKSACK_SYMBOL
+	~base();
+private:
+	void
+	insert_child(
+		iterator,
+		sge::rucksack::widget::base &,
+		sge::rucksack::alignment
+	);
+
+	iterator
+	erase_child(
+		iterator
+	);
 
 	child_information children_;
 	// We use the axis_ to access the components of either a dim or a vector:

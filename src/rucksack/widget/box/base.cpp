@@ -37,8 +37,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/no_init.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/assert/unreachable.hpp>
+#include <fcppt/cast/to_signed.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
+#include <iterator>
 #include <vector>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -315,16 +317,11 @@ sge::rucksack::widget::box::base::push_back_child(
 	sge::rucksack::widget::base &_new_child,
 	sge::rucksack::alignment const _alignment)
 {
-	children_.push_back(
-		std::make_pair(
-			&_new_child,
-			sge::rucksack::widget::box::child_information(
-				_alignment,
-				sge::rucksack::dim::null())));
-
-	_new_child.parent(
-		sge::rucksack::widget::optional_parent(
-			*this));
+	this->insert_child(
+		children_.end(),
+		_new_child,
+		_alignment
+	);
 }
 
 void
@@ -332,41 +329,118 @@ sge::rucksack::widget::box::base::push_front_child(
 	sge::rucksack::widget::base &_new_child,
 	sge::rucksack::alignment const _alignment)
 {
-	children_.push_front(
-		std::make_pair(
-			&_new_child,
-			sge::rucksack::widget::box::child_information(
-				_alignment,
-				sge::rucksack::dim::null())));
-
-	_new_child.parent(
-		sge::rucksack::widget::optional_parent(
-			*this));
+	this->insert_child(
+		children_.begin(),
+		_new_child,
+		_alignment
+	);
 }
 
 void
 sge::rucksack::widget::box::base::pop_back_child()
 {
-	children_.back().first->parent(
-		sge::rucksack::widget::optional_parent());
-	children_.pop_back();
+	this->erase_child(
+		std::prev(
+			children_.end()
+		)
+	);
 }
 
 void
 sge::rucksack::widget::box::base::pop_front_child()
 {
-	children_.front().first->parent(
-		sge::rucksack::widget::optional_parent());
-	children_.pop_front();
+	this->erase_child(
+		children_.begin()
+	);
+}
+
+sge::rucksack::widget::box::base::iterator
+sge::rucksack::widget::box::base::child_position(
+	size_type const _pos
+)
+{
+	return
+		std::next(
+			children_.begin(),
+			fcppt::cast::to_signed(
+				_pos
+			)
+		);
+}
+
+sge::rucksack::widget::box::base::size_type
+sge::rucksack::widget::box::base::children_size() const
+{
+	return
+		children_.size();
+}
+
+void
+sge::rucksack::widget::box::base::replace_children(
+	iterator const _pos,
+	sge::rucksack::widget::base &_widget,
+	sge::rucksack::alignment const _alignment
+)
+{
+	this->insert_child(
+		this->erase_child(
+			_pos
+		),
+		_widget,
+		_alignment
+	);
 }
 
 sge::rucksack::widget::box::base::~base()
 {
 	for(
-		auto &child : children_
+		auto &child
+		:
+		children_
 	)
 		child.first->parent(
-			sge::rucksack::widget::optional_parent());
+			sge::rucksack::widget::optional_parent()
+		);
+}
+
+void
+sge::rucksack::widget::box::base::insert_child(
+	iterator const _pos,
+	sge::rucksack::widget::base &_widget,
+	sge::rucksack::alignment const _alignment
+)
+{
+	children_.insert(
+		_pos,
+		std::make_pair(
+			&_widget,
+			sge::rucksack::widget::box::child_information(
+				_alignment,
+				sge::rucksack::dim::null()
+			)
+		)
+	);
+
+	_widget.parent(
+		sge::rucksack::widget::optional_parent(
+			*this
+		)
+	);
+}
+
+sge::rucksack::widget::box::base::iterator
+sge::rucksack::widget::box::base::erase_child(
+	iterator const _pos
+)
+{
+	_pos->first->parent(
+		sge::rucksack::widget::optional_parent()
+	);
+
+	return
+		children_.erase(
+			_pos
+		);
 }
 
 sge::rucksack::dim::size_type
