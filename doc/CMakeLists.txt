@@ -407,24 +407,38 @@ set(
 	include/sge/console/callback/parameters.hpp
 	include/sge/console/callback/parameters_fwd.hpp
 	include/sge/console/callback/short_description.hpp
-	include/sge/console/cursor.hpp
-	include/sge/console/cursor_fwd.hpp
-	include/sge/console/detail/pointed_history.hpp
 	include/sge/console/error_callback.hpp
-	include/sge/console/error_callback_fn.hpp
+	include/sge/console/error_function.hpp
 	include/sge/console/exception.hpp
 	include/sge/console/fallback.hpp
+	include/sge/console/fallback_function.hpp
 	include/sge/console/fallback_signal.hpp
-	include/sge/console/fallback_type.hpp
-	include/sge/console/font_color.hpp
-	include/sge/console/font_color_fwd.hpp
 	include/sge/console/function.hpp
 	include/sge/console/function_fwd.hpp
 	include/sge/console/function_map.hpp
-	include/sge/console/gfx.hpp
-	include/sge/console/gfx_fwd.hpp
+	include/sge/console/gfx/cursor.hpp
+	include/sge/console/gfx/cursor_fwd.hpp
+	include/sge/console/gfx/detail/pointed_history.hpp
+	include/sge/console/gfx/font_color.hpp
+	include/sge/console/gfx/font_color_fwd.hpp
+	include/sge/console/gfx/object.hpp
+	include/sge/console/gfx/object_fwd.hpp
+	include/sge/console/gfx/output_line_limit.hpp
+	include/sge/console/gfx/output_line_limit_fwd.hpp
+	include/sge/console/gfx/sprite_choices.hpp
+	include/sge/console/gfx/sprite_choices_fwd.hpp
+	include/sge/console/gfx/sprite_elements.hpp
+	include/sge/console/gfx/sprite_elements_fwd.hpp
+	include/sge/console/gfx/sprite_object.hpp
+	include/sge/console/gfx/sprite_object_fwd.hpp
+	include/sge/console/gfx/sprite_parameters.hpp
+	include/sge/console/gfx/sprite_parameters_fwd.hpp
+	include/sge/console/gfx/sprite_type_choices.hpp
+	include/sge/console/gfx/sprite_type_choices_fwd.hpp
+	include/sge/console/long_description.hpp
+	include/sge/console/long_description_fwd.hpp
 	include/sge/console/message_callback.hpp
-	include/sge/console/message_callback_fn.hpp
+	include/sge/console/message_function.hpp
 	include/sge/console/muxing.hpp
 	include/sge/console/muxing_fcppt_streambuf.hpp
 	include/sge/console/muxing_fwd.hpp
@@ -434,14 +448,12 @@ set(
 	include/sge/console/muxing_wide_streambuf.hpp
 	include/sge/console/object.hpp
 	include/sge/console/object_fwd.hpp
-	include/sge/console/output_line_limit.hpp
+	include/sge/console/prefix.hpp
+	include/sge/console/prefix_fwd.hpp
+	include/sge/console/short_description.hpp
+	include/sge/console/short_description_fwd.hpp
 	include/sge/console/signal.hpp
 	include/sge/console/signal_fwd.hpp
-	include/sge/console/sprite_choices.hpp
-	include/sge/console/sprite_elements.hpp
-	include/sge/console/sprite_object.hpp
-	include/sge/console/sprite_parameters.hpp
-	include/sge/console/sprite_type_choices.hpp
 	include/sge/error/check_state.hpp
 	include/sge/exception.hpp
 	include/sge/font/align_h/center.hpp

@@ -18,103 +18,89 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CONSOLE_CURSOR_HPP_INCLUDED
-#define SGE_CONSOLE_CURSOR_HPP_INCLUDED
+#ifndef SGE_CONSOLE_GFX_DETAIL_POINTED_HISTORY_HPP_INCLUDED
+#define SGE_CONSOLE_GFX_DETAIL_POINTED_HISTORY_HPP_INCLUDED
 
-#include <sge/console/cursor_fwd.hpp>
-#include <sge/console/function_map.hpp>
-#include <sge/console/symbol.hpp>
-#include <sge/font/char_type.hpp>
 #include <sge/font/string.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <deque>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
 {
 namespace console
 {
+namespace gfx
+{
+namespace detail
+{
 
-class cursor
+class pointed_history
 {
 	FCPPT_NONCOPYABLE(
-		cursor
+		pointed_history
 	);
 public:
 	typedef
-	sge::font::string::size_type
+	sge::font::string
+	value_type;
+
+	typedef
+	std::deque
+	<
+		value_type
+	>
+	container;
+
+	typedef
+	container::size_type
 	size_type;
 
-	SGE_CONSOLE_SYMBOL
-	cursor();
+	typedef
+	container::const_iterator
+	const_iterator;
 
-	SGE_CONSOLE_SYMBOL
-	~cursor();
-
-	SGE_CONSOLE_SYMBOL
-	sge::font::string
-	edited(
-		bool
-	) const;
-
-	SGE_CONSOLE_SYMBOL
-	sge::font::string
-	string() const;
-
-	SGE_CONSOLE_SYMBOL
-	void
-	string(
-		sge::font::string const &
+	explicit
+	pointed_history(
+		size_type limit
 	);
 
-	SGE_CONSOLE_SYMBOL
-	void
-	erase_word();
+	~pointed_history();
 
-	SGE_CONSOLE_SYMBOL
 	void
-	erase_char();
+	push_front(
+		value_type const &
+	);
 
-	SGE_CONSOLE_SYMBOL
 	void
-	left();
+	up();
 
-	SGE_CONSOLE_SYMBOL
 	void
-	right();
+	down();
 
-	SGE_CONSOLE_SYMBOL
 	void
-	to_start();
+	to_begin();
 
-	SGE_CONSOLE_SYMBOL
 	void
 	to_end();
 
-	SGE_CONSOLE_SYMBOL
-	bool
-	empty() const;
+	const_iterator const
+	point() const;
 
-	SGE_CONSOLE_SYMBOL
-	void
-	insert(
-		sge::font::char_type
-	);
-
-	SGE_CONSOLE_SYMBOL
-	bool
-	at_start() const;
-
-	SGE_CONSOLE_SYMBOL
-	void
-	complete_word(
-		sge::console::function_map const &
-	);
+	const_iterator const
+	end() const;
 private:
-	sge::font::string line_;
+	container container_;
 
-	size_type pos_;
+	size_type limit_;
+
+	size_type point_;
 };
 
+}
+}
 }
 }
 

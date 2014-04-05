@@ -23,13 +23,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/console/muxing_streambuf.hpp>
 
+
 namespace sge
 {
 namespace console
 {
+
 typedef
-sge::console::muxing_streambuf<char>
+sge::console::muxing_streambuf<
+	char
+>
 muxing_narrow_streambuf;
+
 }
 }
 

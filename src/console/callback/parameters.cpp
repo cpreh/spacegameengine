@@ -18,6 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/console/long_description.hpp>
+#include <sge/console/short_description.hpp>
 #include <sge/console/callback/function.hpp>
 #include <sge/console/callback/name.hpp>
 #include <sge/console/callback/parameters.hpp>
@@ -35,8 +37,12 @@ sge::console::callback::parameters::parameters(
 	name_(
 		_name.get()
 	),
-	short_description_(),
-	long_description_()
+	short_description_(
+		sge::font::string()
+	),
+	long_description_(
+		sge::font::string()
+	)
 {
 }
 
@@ -46,7 +52,9 @@ sge::console::callback::parameters::short_description(
 )
 {
 	short_description_ =
-		_short_description;
+		sge::console::short_description(
+			_short_description
+		);
 
 	return *this;
 }
@@ -57,7 +65,9 @@ sge::console::callback::parameters::long_description(
 )
 {
 	long_description_ =
-		_long_description;
+		sge::console::long_description(
+			_long_description
+		);
 
 	return *this;
 }
@@ -74,13 +84,13 @@ sge::console::callback::parameters::name() const
 	return name_;
 }
 
-sge::font::string const &
+sge::console::short_description const &
 sge::console::callback::parameters::short_description() const
 {
 	return short_description_;
 }
 
-sge::font::string const &
+sge::console::long_description const &
 sge::console::callback::parameters::long_description() const
 {
 	return long_description_;

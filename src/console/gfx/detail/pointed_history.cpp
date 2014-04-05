@@ -18,14 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/console/detail/pointed_history.hpp>
+#include <sge/console/gfx/detail/pointed_history.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iterator>
 #include <fcppt/config/external_end.hpp>
 
 
-sge::console::detail::pointed_history::pointed_history(
+sge::console::gfx::detail::pointed_history::pointed_history(
 	size_type const _limit
 )
 :
@@ -44,12 +44,12 @@ sge::console::detail::pointed_history::pointed_history(
 	);
 }
 
-sge::console::detail::pointed_history::~pointed_history()
+sge::console::gfx::detail::pointed_history::~pointed_history()
 {
 }
 
 void
-sge::console::detail::pointed_history::push_front(
+sge::console::gfx::detail::pointed_history::push_front(
 	value_type const &_value
 )
 {
@@ -66,7 +66,7 @@ sge::console::detail::pointed_history::push_front(
 }
 
 void
-sge::console::detail::pointed_history::up()
+sge::console::gfx::detail::pointed_history::up()
 {
 	if(
 		point_
@@ -77,7 +77,7 @@ sge::console::detail::pointed_history::up()
 }
 
 void
-sge::console::detail::pointed_history::down()
+sge::console::gfx::detail::pointed_history::down()
 {
 	if(
 		point_
@@ -88,21 +88,21 @@ sge::console::detail::pointed_history::down()
 }
 
 void
-sge::console::detail::pointed_history::to_begin()
+sge::console::gfx::detail::pointed_history::to_begin()
 {
 	point_ =
 		0u;
 }
 
 void
-sge::console::detail::pointed_history::to_end()
+sge::console::gfx::detail::pointed_history::to_end()
 {
 	point_ =
 		container_.size() - 1u;
 }
 
-sge::console::detail::pointed_history::const_iterator const
-sge::console::detail::pointed_history::point() const
+sge::console::gfx::detail::pointed_history::const_iterator const
+sge::console::gfx::detail::pointed_history::point() const
 {
 	return
 		std::next(
@@ -117,8 +117,8 @@ sge::console::detail::pointed_history::point() const
 		);
 }
 
-sge::console::detail::pointed_history::const_iterator const
-sge::console::detail::pointed_history::end() const
+sge::console::gfx::detail::pointed_history::const_iterator const
+sge::console::gfx::detail::pointed_history::end() const
 {
 	return
 		container_.end();

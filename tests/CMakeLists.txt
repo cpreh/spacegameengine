@@ -55,7 +55,7 @@ add_sge_test(
 
 add_sge_test(
 	console/cursor
-	"sgeconsole"
+	"sgeconsolegfx"
 	""
 	""
 )

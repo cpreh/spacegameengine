@@ -74,7 +74,8 @@ public:
 	>
 	streambuf_base;
 
-	typedef typename
+	typedef
+	typename
 	streambuf_base::int_type
 	int_type;
 
@@ -89,6 +90,7 @@ public:
 	~muxing_streambuf();
 private:
 	bool in_progress_;
+
 	sge::console::object &object_;
 
 	std::basic_ostream<Char,Traits> &stream_;

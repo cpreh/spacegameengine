@@ -18,24 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CONSOLE_FALLBACK_TYPE_HPP_INCLUDED
-#define SGE_CONSOLE_FALLBACK_TYPE_HPP_INCLUDED
+#ifndef SGE_CONSOLE_GFX_SPRITE_OBJECT_HPP_INCLUDED
+#define SGE_CONSOLE_GFX_SPRITE_OBJECT_HPP_INCLUDED
 
-#include <sge/font/string.hpp>
+#include <sge/console/gfx/sprite_choices.hpp>
+#include <sge/console/gfx/sprite_object_fwd.hpp>
+#include <sge/sprite/object_impl.hpp>
 
-
-namespace sge
-{
-namespace console
-{
-
-typedef
-void
-fallback_type(
-	sge::font::string const &
-);
-
-}
-}
 
 #endif

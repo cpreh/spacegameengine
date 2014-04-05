@@ -18,14 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/console/font_color.hpp>
-#include <sge/console/gfx.hpp>
 #include <sge/console/muxing.hpp>
 #include <sge/console/muxing_streambuf.hpp>
 #include <sge/console/object.hpp>
-#include <sge/console/output_line_limit.hpp>
-#include <sge/console/sprite_object.hpp>
-#include <sge/console/sprite_parameters.hpp>
+#include <sge/console/prefix.hpp>
+#include <sge/console/gfx/font_color.hpp>
+#include <sge/console/gfx/object.hpp>
+#include <sge/console/gfx/output_line_limit.hpp>
+#include <sge/console/gfx/sprite_object.hpp>
+#include <sge/console/gfx/sprite_parameters.hpp>
 #include <sge/font/lit.hpp>
 #include <sge/font/object.hpp>
 #include <sge/font/object_scoped_ptr.hpp>
@@ -103,8 +104,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/target/viewport.hpp>
-#include <sge/sprite/object.hpp>
-#include <sge/sprite/parameters.hpp>
 #include <sge/systems/config.hpp>
 #include <sge/systems/cursor_option.hpp>
 #include <sge/systems/cursor_option_field.hpp>
@@ -311,7 +310,7 @@ wrap_silent(
 
 void
 manage_console_size(
-	sge::console::sprite_object &,
+	sge::console::gfx::sprite_object &,
 	sge::renderer::target::viewport const &
 );
 
@@ -415,7 +414,9 @@ try
 	);
 
 	sge::console::object console(
-		SGE_FONT_LIT('/')
+		sge::console::prefix(
+			SGE_FONT_LIT('/')
+		)
 	);
 
 	sge::console::muxing_streambuf<
@@ -433,24 +434,24 @@ try
 		)
 	);
 
-	sge::console::gfx console_gfx(
+	sge::console::gfx::object console_gfx(
 		console,
 		sys.renderer_device_ffp(),
-		sge::console::font_color(
+		sge::console::gfx::font_color(
 			sge::image::color::predef::white()
 		),
 		*font,
 		sys.keyboard_collector(),
-		sge::console::sprite_object(
-			sge::console::sprite_parameters()
+		sge::console::gfx::sprite_object(
+			sge::console::gfx::sprite_parameters()
 			.pos(
-				sge::console::sprite_object::vector::null()
+				sge::console::gfx::sprite_object::vector::null()
 			)
 			.size(
-				sge::console::sprite_object::dim::null()
+				sge::console::gfx::sprite_object::dim::null()
 			)
 		),
-		sge::console::output_line_limit(
+		sge::console::gfx::output_line_limit(
 			200u
 		)
 	);
@@ -1172,13 +1173,13 @@ wrap_silent(
 
 void
 manage_console_size(
-	sge::console::sprite_object &_sprite,
+	sge::console::gfx::sprite_object &_sprite,
 	sge::renderer::target::viewport const &_viewport
 )
 {
 	_sprite.size(
 		fcppt::math::dim::structure_cast<
-			sge::console::sprite_object::dim
+			sge::console::gfx::sprite_object::dim
 		>(
 			_viewport.get().size()
 		)

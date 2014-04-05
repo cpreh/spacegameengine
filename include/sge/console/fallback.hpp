@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CONSOLE_FALLBACK_HPP_INCLUDED
 #define SGE_CONSOLE_FALLBACK_HPP_INCLUDED
 
-#include <sge/console/fallback_type.hpp>
+#include <sge/console/fallback_function.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
 #include <fcppt/config/external_end.hpp>
@@ -32,9 +32,11 @@ namespace sge
 namespace console
 {
 
-typedef std::function<
-	sge::console::fallback_type
-> fallback;
+typedef
+std::function<
+	sge::console::fallback_function
+>
+fallback;
 
 }
 }

@@ -18,25 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CONSOLE_MUXING_FCPPT_STREAMBUF_HPP_INCLUDED
-#define SGE_CONSOLE_MUXING_FCPPT_STREAMBUF_HPP_INCLUDED
+#ifndef SGE_CONSOLE_GFX_SPRITE_TYPE_CHOICES_HPP_INCLUDED
+#define SGE_CONSOLE_GFX_SPRITE_TYPE_CHOICES_HPP_INCLUDED
 
-#include <sge/console/muxing_streambuf.hpp>
-#include <fcppt/char_type.hpp>
+#include <sge/console/gfx/sprite_type_choices_fwd.hpp>
+#include <sge/sprite/config/float_type.hpp>
+#include <sge/sprite/config/type_choices.hpp>
+#include <sge/sprite/config/unit_type.hpp>
 
-
-namespace sge
-{
-namespace console
-{
-
-typedef
-sge::console::muxing_streambuf<
-	fcppt::char_type
->
-muxing_fcppt_streambuf;
-
-}
-}
 
 #endif

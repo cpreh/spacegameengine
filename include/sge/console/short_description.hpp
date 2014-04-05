@@ -18,24 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CONSOLE_FONT_COLOR_FWD_HPP_INCLUDED
-#define SGE_CONSOLE_FONT_COLOR_FWD_HPP_INCLUDED
+#ifndef SGE_CONSOLE_SHORT_DESCRIPTION_HPP_INCLUDED
+#define SGE_CONSOLE_SHORT_DESCRIPTION_HPP_INCLUDED
 
-#include <sge/image/color/any/object_fwd.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <sge/console/short_description_fwd.hpp>
+#include <fcppt/strong_typedef.hpp>
 
-
-namespace sge
-{
-namespace console
-{
-
-FCPPT_MAKE_STRONG_TYPEDEF(
-	sge::image::color::any::object,
-	font_color
-);
-
-}
-}
 
 #endif

@@ -18,12 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CONSOLE_FONT_COLOR_HPP_INCLUDED
-#define SGE_CONSOLE_FONT_COLOR_HPP_INCLUDED
+#ifndef SGE_CONSOLE_GFX_CURSOR_FWD_HPP_INCLUDED
+#define SGE_CONSOLE_GFX_CURSOR_FWD_HPP_INCLUDED
 
-#include <sge/console/font_color_fwd.hpp>
-#include <sge/image/color/any/object.hpp>
-#include <fcppt/strong_typedef.hpp>
 
+namespace sge
+{
+namespace console
+{
+namespace gfx
+{
+
+class cursor;
+
+}
+}
+}
 
 #endif

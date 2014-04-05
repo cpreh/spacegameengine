@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/function_map.hpp>
 #include <sge/console/message_callback.hpp>
 #include <sge/console/object.hpp>
+#include <sge/console/prefix.hpp>
 #include <sge/console/signal.hpp>
 #include <sge/console/callback/parameters.hpp>
 #include <sge/font/char_type.hpp>
@@ -54,37 +55,50 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::console::object::object(
-	sge::font::char_type const _prefix
+	sge::console::prefix const _prefix
 )
 :
 	error_(),
 	message_(),
 	prefix_(
-		_prefix),
+		_prefix.get()
+	),
 	funcs_(),
 	fallback_(),
 	help_connection_(
 		this->insert(
-			callback::parameters(
+			sge::console::callback::parameters(
 				std::bind(
-					&object::help_callback,
+					&sge::console::object::help_callback,
 					this,
-					std::placeholders::_1),
-				callback::name(
-					SGE_FONT_LIT("help")))
-				.short_description(
-					SGE_FONT_LIT("Display help message")))),
+					std::placeholders::_1
+				),
+				sge::console::callback::name(
+					SGE_FONT_LIT("help")
+				)
+			)
+			.short_description(
+				SGE_FONT_LIT("Display help message")
+			)
+		)
+	),
 	man_connection_(
 		this->insert(
-			callback::parameters(
+			sge::console::callback::parameters(
 				std::bind(
-					&object::man_callback,
+					&sge::console::object::man_callback,
 					this,
-					std::placeholders::_1),
-				callback::name(
-					SGE_FONT_LIT("man")))
-				.short_description(
-					SGE_FONT_LIT("Display information for a specific function"))))
+					std::placeholders::_1
+				),
+				sge::console::callback::name(
+					SGE_FONT_LIT("man")
+				)
+			)
+			.short_description(
+				SGE_FONT_LIT("Display information for a specific function")
+			)
+		)
+	)
 {
 }
 FCPPT_PP_POP_WARNING
@@ -98,12 +112,20 @@ sge::console::object::insert(
 	sge::console::callback::parameters const &_params
 )
 {
-	function_map::iterator i = funcs_.find(_params.name());
+	sge::console::function_map::iterator it(
+		funcs_.find(
+			_params.name()
+		)
+	);
 
-	if (i == funcs_.end())
+	if(
+		it
+		==
+		funcs_.end()
+	)
 	{
 		typedef std::pair<
-			function_map::iterator,
+			sge::console::function_map::iterator,
 			bool
 		> ret_type;
 
@@ -112,7 +134,7 @@ sge::console::object::insert(
 				funcs_,
 				_params.name(),
 				fcppt::make_unique_ptr<
-					function
+					sge::console::function
 				>(
 					_params.short_description(),
 					_params.long_description()
@@ -120,41 +142,54 @@ sge::console::object::insert(
 			)
 		);
 
-		i = ret.first;
+		it = ret.first;
 
-		FCPPT_ASSERT_ERROR(ret.second);
+		FCPPT_ASSERT_ERROR(
+			ret.second
+		);
 	}
 	return
-		i->second->signal().connect(
+		it->second->signal().connect(
 			_params.function(),
 			std::bind(
-				&object::remove_function,
+				&sge::console::object::remove_function,
 				this,
-				_params.name()));
+				_params.name()
+			)
+		);
 }
 
 fcppt::signal::auto_connection
 sge::console::object::register_fallback(
-	sge::console::fallback const &c
+	sge::console::fallback const &_callback
 )
 {
-	return fallback_.connect(c);
+	return
+		fallback_.connect(
+			_callback
+		);
 }
 
 fcppt::signal::auto_connection
 sge::console::object::register_error_callback(
-	sge::console::error_callback const &c
+	sge::console::error_callback const &_callback
 )
 {
-	return error_.connect(c);
+	return
+		error_.connect(
+			_callback
+		);
 }
 
 fcppt::signal::auto_connection
 sge::console::object::register_message_callback(
-	sge::console::message_callback const &c
+	sge::console::message_callback const &_callback
 )
 {
-	return message_.connect(c);
+	return
+		message_.connect(
+			_callback
+		);
 }
 
 void
@@ -188,7 +223,7 @@ sge::console::object::eval(
 		args
 	);
 
-	object::eval(
+	this->eval(
 		args
 	);
 }
@@ -213,7 +248,7 @@ sge::console::object::eval(
 	if (
 		it == funcs_.end()
 	)
-		throw console::exception(
+		throw sge::console::exception(
 			SGE_FONT_LIT("couldn't find command \"")
 			+
 			args[0]
@@ -241,42 +276,50 @@ sge::console::object::prefix() const
 
 void
 sge::console::object::emit_error(
-	sge::font::string const &s)
+	sge::font::string const &_string
+)
 {
 	error_(
-		s);
+		_string
+	);
 }
 
 void
 sge::console::object::emit_message(
-	sge::font::string const &s)
+	sge::font::string const &_string
+)
 {
 	message_(
-		s);
+		_string
+	);
 }
 
 void
 sge::console::object::help_callback(
-	sge::console::arg_list const &)
+	sge::console::arg_list const &
+)
 {
 	emit_message(
-		fcppt::insert_to_string<sge::font::string>(
-			funcs_.size())
-		+ SGE_FONT_LIT(" available functions:"));
+		fcppt::insert_to_string<
+			sge::font::string
+		>(
+			funcs_.size()
+		)
+		+
+		SGE_FONT_LIT(" available functions:")
+	);
 
 	for(
-		function_map::const_iterator it(
-			funcs_.begin()
-		);
-		it != funcs_.end();
-		++it
+		auto const &element
+		:
+		funcs_
 	)
 		this->emit_message(
-			((*it)->first)
+			element.first
 			+
 			SGE_FONT_LIT(": ")
 			+
-			(it->second)->short_description()
+			element.second->short_description().get()
 		);
 }
 
@@ -286,7 +329,7 @@ sge::console::object::man_callback(
 {
 	if (v.size() < 2)
 	{
-		emit_error(
+		this->emit_error(
 			SGE_FONT_LIT("no function given"));
 		return;
 	}
@@ -300,7 +343,7 @@ sge::console::object::man_callback(
 
 	if (i == fns.end())
 	{
-		emit_error(
+		this->emit_error(
 			SGE_FONT_LIT("function \"")
 			+ v[1]
 			+ SGE_FONT_LIT("\" not found")
@@ -309,27 +352,37 @@ sge::console::object::man_callback(
 		return;
 	}
 
-	if (i->second->long_description().empty())
-		emit_message(
+	if(
+		i->second->long_description().get().empty()
+	)
+		this->emit_message(
 			SGE_FONT_LIT("No manpage available")
 		);
 	else
-		emit_message(
-			i->second->long_description());
+		this->emit_message(
+			i->second->long_description().get()
+		);
 }
 
 void
 sge::console::object::remove_function(
-	sge::font::string const &_name)
+	sge::font::string const &_name
+)
 {
 	function_map::iterator const it(
 		funcs_.find(
-			_name));
+			_name
+		)
+	);
 
 	FCPPT_ASSERT_PRE(
-		it != funcs_.end());
+		it != funcs_.end()
+	);
 
-	if(it->second->signal().empty())
+	if(
+		it->second->signal().empty()
+	)
 		funcs_.erase(
-			it);
+			it
+		);
 }

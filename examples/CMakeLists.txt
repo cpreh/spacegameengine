@@ -187,7 +187,7 @@ add_sge_console_example(
 
 add_sge_example(
 	console
-	"sgeconfig;sgeconsole;sgefont;sgeimagecolor;sgeinput;sgerenderer;sgesystems;sgetexture;sgeviewport;sgewindow"
+	"sgeconfig;sgeconsole;sgeconsolegfx;sgefont;sgeimagecolor;sgeinput;sgerenderer;sgesystems;sgetexture;sgeviewport;sgewindow"
 	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 )
@@ -236,7 +236,7 @@ add_sge_console_example(
 
 add_sge_example(
 	input
-	"sgeconfig;sgeconsole;sgefont;sgeimagecolor;sgeinput;sgelog;sgerenderer;sgesystems;sgetexture;sgetimer;sgeviewport;sgewindow"
+	"sgeconfig;sgeconsole;sgeconsolegfx;sgefont;sgeimagecolor;sgeinput;sgelog;sgerenderer;sgesystems;sgetexture;sgetimer;sgeviewport;sgewindow"
 	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 )

@@ -32,9 +32,8 @@ namespace console
 {
 
 typedef
-fcppt::signal::object
-<
-	callback::function_type,
+fcppt::signal::object<
+	sge::console::callback::function_type,
 	fcppt::signal::unregister::base
 >
 signal;

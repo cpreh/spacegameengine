@@ -18,14 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/console/cursor.hpp>
 #include <sge/console/function_map.hpp>
+#include <sge/console/gfx/cursor.hpp>
 #include <sge/font/char_type.hpp>
 #include <sge/font/lit.hpp>
 #include <sge/font/string.hpp>
 
 
-sge::console::cursor::cursor()
+sge::console::gfx::cursor::cursor()
 :
 	line_(
 		SGE_FONT_LIT(" ")
@@ -36,12 +36,12 @@ sge::console::cursor::cursor()
 {
 }
 
-sge::console::cursor::~cursor()
+sge::console::gfx::cursor::~cursor()
 {
 }
 
 sge::font::string
-sge::console::cursor::edited(
+sge::console::gfx::cursor::edited(
 	bool const _active
 ) const
 {
@@ -56,7 +56,7 @@ sge::console::cursor::edited(
 }
 
 sge::font::string
-sge::console::cursor::string() const
+sge::console::gfx::cursor::string() const
 {
 	// skip last space
 	return
@@ -67,7 +67,7 @@ sge::console::cursor::string() const
 }
 
 void
-sge::console::cursor::string(
+sge::console::gfx::cursor::string(
 	sge::font::string const &_line
 )
 {
@@ -78,7 +78,7 @@ sge::console::cursor::string(
 }
 
 void
-sge::console::cursor::erase_word()
+sge::console::gfx::cursor::erase_word()
 {
 	if(
 		this->empty()
@@ -108,7 +108,7 @@ sge::console::cursor::erase_word()
 }
 
 void
-sge::console::cursor::erase_char()
+sge::console::gfx::cursor::erase_char()
 {
 	if (pos_ == static_cast<size_type>(line_.length()-1))
 		return;
@@ -120,7 +120,7 @@ sge::console::cursor::erase_char()
 }
 
 void
-sge::console::cursor::left()
+sge::console::gfx::cursor::left()
 {
 	if (pos_ == static_cast<size_type>(0))
 		return;
@@ -130,7 +130,7 @@ sge::console::cursor::left()
 }
 
 void
-sge::console::cursor::right()
+sge::console::gfx::cursor::right()
 {
 	if (pos_ == static_cast<size_type>(line_.length()-1))
 		return;
@@ -138,7 +138,7 @@ sge::console::cursor::right()
 }
 
 void
-sge::console::cursor::to_start()
+sge::console::gfx::cursor::to_start()
 {
 	pos_ =
 		static_cast<size_type>(
@@ -146,7 +146,7 @@ sge::console::cursor::to_start()
 }
 
 void
-sge::console::cursor::to_end()
+sge::console::gfx::cursor::to_end()
 {
 	pos_ =
 		static_cast<size_type>(
@@ -154,14 +154,14 @@ sge::console::cursor::to_end()
 }
 
 bool
-sge::console::cursor::empty() const
+sge::console::gfx::cursor::empty() const
 {
 	return
 		line_.length() == 1u;
 }
 
 void
-sge::console::cursor::insert(
+sge::console::gfx::cursor::insert(
 	sge::font::char_type const _char
 )
 {
@@ -173,14 +173,14 @@ sge::console::cursor::insert(
 }
 
 bool
-sge::console::cursor::at_start() const
+sge::console::gfx::cursor::at_start() const
 {
 	return
 		pos_ == 0u;
 }
 
 void
-sge::console::cursor::complete_word(
+sge::console::gfx::cursor::complete_word(
 	sge::console::function_map const &_map
 )
 {

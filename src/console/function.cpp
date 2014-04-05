@@ -19,13 +19,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/console/function.hpp>
+#include <sge/console/long_description.hpp>
 #include <sge/console/signal.hpp>
-#include <sge/font/string.hpp>
+#include <sge/console/short_description.hpp>
 
 
 sge::console::function::function(
-	sge::font::string const &_short_description,
-	sge::font::string const &_long_description
+	sge::console::short_description const &_short_description,
+	sge::console::long_description const &_long_description
 )
 :
 	signal_(),
@@ -45,17 +46,20 @@ sge::console::function::~function()
 sge::console::signal &
 sge::console::function::signal()
 {
-	return signal_;
+	return
+		signal_;
 }
 
-sge::font::string const &
+sge::console::short_description const &
 sge::console::function::short_description() const
 {
-	return short_description_;
+	return
+		short_description_;
 }
 
-sge::font::string const &
+sge::console::long_description const &
 sge::console::function::long_description() const
 {
-	return long_description_;
+	return
+		long_description_;
 }

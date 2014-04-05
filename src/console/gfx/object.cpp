@@ -19,12 +19,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/console/exception.hpp>
-#include <sge/console/font_color.hpp>
-#include <sge/console/gfx.hpp>
 #include <sge/console/object.hpp>
-#include <sge/console/output_line_limit.hpp>
-#include <sge/console/sprite_object.hpp>
-#include <sge/console/detail/pointed_history.hpp>
+#include <sge/console/gfx/font_color.hpp>
+#include <sge/console/gfx/object.hpp>
+#include <sge/console/gfx/output_line_limit.hpp>
+#include <sge/console/gfx/sprite_object.hpp>
+#include <sge/console/gfx/detail/pointed_history.hpp>
 #include <sge/font/lit.hpp>
 #include <sge/font/object_fwd.hpp>
 #include <sge/font/rect.hpp>
@@ -61,14 +61,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 
-sge::console::gfx::gfx(
+sge::console::gfx::object::object(
 	sge::console::object &_object,
 	sge::renderer::device::ffp &_renderer,
-	sge::console::font_color const &_font_color,
+	sge::console::gfx::font_color const &_font_color,
 	sge::font::object &_font_object,
 	sge::input::keyboard::device &_keyboard,
-	sge::console::sprite_object const &_background,
-	sge::console::output_line_limit const _line_limit
+	sge::console::gfx::sprite_object const &_background,
+	sge::console::gfx::output_line_limit const _line_limit
 )
 :
 	object_(
@@ -89,7 +89,7 @@ sge::console::gfx::gfx(
 	key_connection_(
 		keyboard_.key_callback(
 			std::bind(
-				&gfx::key_callback,
+				&sge::console::gfx::object::key_callback,
 				this,
 				std::placeholders::_1
 			)
@@ -98,7 +98,7 @@ sge::console::gfx::gfx(
 	key_repeat_connection_(
 		keyboard_.key_repeat_callback(
 			std::bind(
-				&gfx::key_action,
+				&sge::console::gfx::object::key_action,
 				this,
 				std::placeholders::_1
 			)
@@ -107,7 +107,7 @@ sge::console::gfx::gfx(
 	char_connection_(
 		_keyboard.char_callback(
 			std::bind(
-				&gfx::char_callback,
+				&sge::console::gfx::object::char_callback,
 				this,
 				std::placeholders::_1
 			)
@@ -116,7 +116,7 @@ sge::console::gfx::gfx(
 	error_conn_(
 		object_.register_error_callback(
 			std::bind(
-				&gfx::error,
+				&sge::console::gfx::object::error,
 				this,
 				std::placeholders::_1
 			)
@@ -125,7 +125,7 @@ sge::console::gfx::gfx(
 	message_conn_(
 		object_.register_message_callback(
 			std::bind(
-				&gfx::print,
+				&sge::console::gfx::object::print,
 				this,
 				std::placeholders::_1
 			)
@@ -155,7 +155,7 @@ sge::console::gfx::gfx(
 	),
 	output_lines_(
 		static_cast<
-			sge::console::detail::pointed_history::size_type
+			sge::console::gfx::detail::pointed_history::size_type
 		>(
 			_line_limit.get()
 		)
@@ -165,12 +165,12 @@ sge::console::gfx::gfx(
 
 FCPPT_PP_POP_WARNING
 
-sge::console::gfx::~gfx()
+sge::console::gfx::object::~object()
 {
 }
 
 void
-sge::console::gfx::render(
+sge::console::gfx::object::render(
 	sge::renderer::context::ffp &_render_context
 )
 {
@@ -204,7 +204,7 @@ sge::console::gfx::render(
 			);
 
 	for(
-		sge::console::detail::pointed_history::const_iterator
+		sge::console::gfx::detail::pointed_history::const_iterator
 			iter(
 				output_lines_.point()
 			),
@@ -230,14 +230,14 @@ sge::console::gfx::render(
 }
 
 bool
-sge::console::gfx::active() const
+sge::console::gfx::object::active() const
 {
 	return
 		active_;
 }
 
 void
-sge::console::gfx::active(
+sge::console::gfx::object::active(
 	bool const _active
 )
 {
@@ -246,14 +246,14 @@ sge::console::gfx::active(
 }
 
 bool
-sge::console::gfx::input_active() const
+sge::console::gfx::object::input_active() const
 {
 	return
 		input_active_;
 }
 
 void
-sge::console::gfx::input_active(
+sge::console::gfx::object::input_active(
 	bool const _input_active
 )
 {
@@ -262,7 +262,7 @@ sge::console::gfx::input_active(
 }
 
 void
-sge::console::gfx::print(
+sge::console::gfx::object::print(
 	sge::font::string const &_string
 )
 {
@@ -272,33 +272,35 @@ sge::console::gfx::print(
 }
 
 sge::console::object &
-sge::console::gfx::object()
+sge::console::gfx::object::console_object()
 {
 	return
 		object_;
 }
 
 sge::console::object const &
-sge::console::gfx::object() const
+sge::console::gfx::object::console_object() const
 {
 	return
 		object_;
 }
 
-sge::console::sprite_object &
-sge::console::gfx::background_sprite()
+sge::console::gfx::sprite_object &
+sge::console::gfx::object::background_sprite()
 {
-	return background_;
+	return
+		background_;
 }
 
-sge::console::sprite_object const &
-sge::console::gfx::background_sprite() const
+sge::console::gfx::sprite_object const &
+sge::console::gfx::object::background_sprite() const
 {
-	return background_;
+	return
+		background_;
 }
 
 sge::font::unit
-sge::console::gfx::render_line(
+sge::console::gfx::object::render_line(
 	sge::renderer::context::ffp &_render_context,
 	sge::font::string const &_line,
 	sge::font::unit const _current_y
@@ -343,7 +345,7 @@ sge::console::gfx::render_line(
 }
 
 void
-sge::console::gfx::key_callback(
+sge::console::gfx::object::key_callback(
 	sge::input::keyboard::key_event const &_key
 )
 {
@@ -360,7 +362,7 @@ sge::console::gfx::key_callback(
 }
 
 void
-sge::console::gfx::char_callback(
+sge::console::gfx::object::char_callback(
 	sge::input::keyboard::char_event const &_event
 )
 {
@@ -388,7 +390,7 @@ sge::console::gfx::char_callback(
 }
 
 void
-sge::console::gfx::key_action(
+sge::console::gfx::object::key_action(
 	sge::input::keyboard::key_repeat_event const &_event
 )
 {
@@ -415,44 +417,47 @@ sge::console::gfx::key_action(
 		_event.key_code()
 	)
 	{
-		case input::keyboard::key_code::w:
+		case sge::input::keyboard::key_code::w:
 			if(
 				keyboard_.mod_state()
-				& input::keyboard::modifier::control
+				&
+				sge::input::keyboard::modifier::control
 			)
 				input_line_.erase_word();
 		break;
-		case input::keyboard::key_code::delete_:
+		case sge::input::keyboard::key_code::delete_:
 			input_line_.erase_char();
 		break;
-		case input::keyboard::key_code::backspace:
+		case sge::input::keyboard::key_code::backspace:
 			if (input_line_.at_start())
 				return;
 			input_line_.left();
 			input_line_.erase_char();
 		break;
-		case input::keyboard::key_code::tab:
+		case sge::input::keyboard::key_code::tab:
 			input_line_.complete_word(object_.functions());
 		break;
-		case input::keyboard::key_code::pageup:
+		case sge::input::keyboard::key_code::pageup:
 			if(
 				keyboard_.mod_state()
-				& input::keyboard::modifier::shift
+				&
+				sge::input::keyboard::modifier::shift
 			)
 				output_lines_.to_end();
 			else
 				output_lines_.up();
 		break;
-		case input::keyboard::key_code::pagedown:
+		case sge::input::keyboard::key_code::pagedown:
 			if(
 				keyboard_.mod_state()
-				& input::keyboard::modifier::shift
+				&
+				sge::input::keyboard::modifier::shift
 			)
 				output_lines_.to_begin();
 			else
 				output_lines_.down();
 		break;
-		case input::keyboard::key_code::up:
+		case sge::input::keyboard::key_code::up:
 			if (input_history_.empty())
 				return;
 			input_line_.string(
@@ -460,7 +465,7 @@ sge::console::gfx::key_action(
 			if (current_input_ != --input_history_.end())
 				++current_input_;
 		break;
-		case input::keyboard::key_code::down:
+		case sge::input::keyboard::key_code::down:
 			if (current_input_ != input_history_.begin())
 			{
 				--current_input_;
@@ -468,19 +473,19 @@ sge::console::gfx::key_action(
 					*current_input_);
 			}
 		break;
-		case input::keyboard::key_code::left:
+		case sge::input::keyboard::key_code::left:
 			input_line_.left();
 		break;
-		case input::keyboard::key_code::right:
+		case sge::input::keyboard::key_code::right:
 			input_line_.right();
 		break;
-		case input::keyboard::key_code::home:
+		case sge::input::keyboard::key_code::home:
 			input_line_.to_start();
 		break;
-		case input::keyboard::key_code::end:
+		case sge::input::keyboard::key_code::end:
 			input_line_.to_end();
 		break;
-		case input::keyboard::key_code::return_:
+		case sge::input::keyboard::key_code::return_:
 			if (input_line_.empty())
 				return;
 
@@ -518,7 +523,7 @@ sge::console::gfx::key_action(
 }
 
 void
-sge::console::gfx::error(
+sge::console::gfx::object::error(
 	sge::font::string const &_string
 )
 {

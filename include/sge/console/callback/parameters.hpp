@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CONSOLE_CALLBACK_PARAMETERS_HPP_INCLUDED
 #define SGE_CONSOLE_CALLBACK_PARAMETERS_HPP_INCLUDED
 
+#include <sge/console/long_description.hpp>
+#include <sge/console/short_description.hpp>
 #include <sge/console/symbol.hpp>
 #include <sge/console/callback/function.hpp>
 #include <sge/console/callback/name.hpp>
@@ -68,20 +70,20 @@ public:
 	name() const;
 
 	SGE_CONSOLE_SYMBOL
-	sge::font::string const &
+	sge::console::short_description const &
 	short_description() const;
 
 	SGE_CONSOLE_SYMBOL
-	sge::font::string const &
+	sge::console::long_description const &
 	long_description() const;
 private:
 	sge::console::callback::function const function_;
 
 	sge::font::string const name_;
 
-	sge::font::string short_description_;
+	sge::console::short_description short_description_;
 
-	sge::font::string long_description_;
+	sge::console::long_description long_description_;
 };
 
 }

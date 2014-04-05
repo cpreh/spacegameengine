@@ -18,13 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CONSOLE_OUTPUT_LINE_LIMIT_HPP_INCLUDED
-#define SGE_CONSOLE_OUTPUT_LINE_LIMIT_HPP_INCLUDED
+#ifndef SGE_CONSOLE_LONG_DESCRIPTION_FWD_HPP_INCLUDED
+#define SGE_CONSOLE_LONG_DESCRIPTION_FWD_HPP_INCLUDED
 
-#include <fcppt/strong_typedef.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <cstddef>
-#include <fcppt/config/external_end.hpp>
+#include <sge/font/string.hpp>
+#include <fcppt/make_strong_typedef.hpp>
 
 
 namespace sge
@@ -33,8 +31,8 @@ namespace console
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
-	std::size_t,
-	output_line_limit
+	sge::font::string,
+	long_description
 );
 
 }

@@ -18,22 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CONSOLE_SPRITE_OBJECT_HPP_INCLUDED
-#define SGE_CONSOLE_SPRITE_OBJECT_HPP_INCLUDED
+#ifndef SGE_CONSOLE_GFX_SPRITE_CHOICES_FWD_HPP_INCLUDED
+#define SGE_CONSOLE_GFX_SPRITE_CHOICES_FWD_HPP_INCLUDED
 
-#include <sge/console/sprite_choices.hpp>
-#include <sge/sprite/object_fwd.hpp>
+#include <sge/console/gfx/sprite_elements_fwd.hpp>
+#include <sge/console/gfx/sprite_type_choices_fwd.hpp>
+#include <sge/sprite/config/choices_fwd.hpp>
+#include <sge/sprite/config/normal_size_fwd.hpp>
 
 
 namespace sge
 {
 namespace console
 {
+namespace gfx
+{
 
-typedef sprite::object<
-	sge::console::sprite_choices
-> sprite_object;
+typedef
+sge::sprite::config::choices<
+	sge::console::gfx::sprite_type_choices,
+	sge::sprite::config::normal_size,
+	sge::console::gfx::sprite_elements
+>
+sprite_choices;
 
+}
 }
 }
 

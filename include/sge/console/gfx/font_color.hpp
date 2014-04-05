@@ -18,25 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CONSOLE_MUXING_FCPPT_STREAMBUF_HPP_INCLUDED
-#define SGE_CONSOLE_MUXING_FCPPT_STREAMBUF_HPP_INCLUDED
+#ifndef SGE_CONSOLE_GFX_FONT_COLOR_HPP_INCLUDED
+#define SGE_CONSOLE_GFX_FONT_COLOR_HPP_INCLUDED
 
-#include <sge/console/muxing_streambuf.hpp>
-#include <fcppt/char_type.hpp>
+#include <sge/console/gfx/font_color_fwd.hpp>
+#include <sge/image/color/any/object.hpp>
+#include <fcppt/strong_typedef.hpp>
 
-
-namespace sge
-{
-namespace console
-{
-
-typedef
-sge::console::muxing_streambuf<
-	fcppt::char_type
->
-muxing_fcppt_streambuf;
-
-}
-}
 
 #endif

@@ -18,16 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CONSOLE_GFX_HPP_INCLUDED
-#define SGE_CONSOLE_GFX_HPP_INCLUDED
+#ifndef SGE_CONSOLE_GFX_OBJECT_HPP_INCLUDED
+#define SGE_CONSOLE_GFX_OBJECT_HPP_INCLUDED
 
-#include <sge/console/cursor.hpp>
-#include <sge/console/font_color.hpp>
 #include <sge/console/object_fwd.hpp>
-#include <sge/console/output_line_limit.hpp>
-#include <sge/console/sprite_object.hpp>
-#include <sge/console/symbol.hpp>
-#include <sge/console/detail/pointed_history.hpp>
+#include <sge/console/gfx/cursor.hpp>
+#include <sge/console/gfx/font_color.hpp>
+#include <sge/console/gfx/output_line_limit_fwd.hpp>
+#include <sge/console/gfx/sprite_object.hpp>
+#include <sge/console/gfx/symbol.hpp>
+#include <sge/console/gfx/detail/pointed_history.hpp>
 #include <sge/font/object_fwd.hpp>
 #include <sge/font/string.hpp>
 #include <sge/font/unit.hpp>
@@ -54,48 +54,50 @@ namespace sge
 {
 namespace console
 {
+namespace gfx
+{
 
-class gfx
+class object
 {
 	FCPPT_NONCOPYABLE(
-		gfx
+		object
 	);
 public:
-	SGE_CONSOLE_SYMBOL
-	gfx(
+	SGE_CONSOLE_GFX_SYMBOL
+	object(
 		sge::console::object &,
 		sge::renderer::device::ffp &,
-		sge::console::font_color const &,
+		sge::console::gfx::font_color const &,
 		sge::font::object &,
 		sge::input::keyboard::device &,
-		sge::console::sprite_object const &,
-		sge::console::output_line_limit
+		sge::console::gfx::sprite_object const &,
+		sge::console::gfx::output_line_limit
 	);
 
-	SGE_CONSOLE_SYMBOL
-	~gfx();
+	SGE_CONSOLE_GFX_SYMBOL
+	~object();
 
-	SGE_CONSOLE_SYMBOL
+	SGE_CONSOLE_GFX_SYMBOL
 	void
 	render(
 		sge::renderer::context::ffp &
 	);
 
-	SGE_CONSOLE_SYMBOL
+	SGE_CONSOLE_GFX_SYMBOL
 	bool
 	active() const;
 
-	SGE_CONSOLE_SYMBOL
+	SGE_CONSOLE_GFX_SYMBOL
 	void
 	active(
 		bool
 	);
 
-	SGE_CONSOLE_SYMBOL
+	SGE_CONSOLE_GFX_SYMBOL
 	bool
 	input_active() const;
 
-	SGE_CONSOLE_SYMBOL
+	SGE_CONSOLE_GFX_SYMBOL
 	void
 	input_active(
 		bool
@@ -106,20 +108,20 @@ public:
 		sge::font::string const &
 	);
 
-	SGE_CONSOLE_SYMBOL
+	SGE_CONSOLE_GFX_SYMBOL
 	sge::console::object &
-	object();
+	console_object();
 
-	SGE_CONSOLE_SYMBOL
+	SGE_CONSOLE_GFX_SYMBOL
 	sge::console::object const &
-	object() const;
+	console_object() const;
 
-	SGE_CONSOLE_SYMBOL
-	sge::console::sprite_object &
+	SGE_CONSOLE_GFX_SYMBOL
+	sge::console::gfx::sprite_object &
 	background_sprite();
 
-	SGE_CONSOLE_SYMBOL
-	sge::console::sprite_object const &
+	SGE_CONSOLE_GFX_SYMBOL
+	sge::console::gfx::sprite_object const &
 	background_sprite() const;
 private:
 	typedef
@@ -132,7 +134,7 @@ private:
 
 	sge::renderer::device::ffp &renderer_;
 
-	sge::console::font_color const font_color_;
+	sge::console::gfx::font_color const font_color_;
 
 	sge::font::object &font_object_;
 
@@ -165,19 +167,19 @@ private:
 
 	sprite_state sprite_state_;
 
-	sge::console::sprite_object background_;
+	sge::console::gfx::sprite_object background_;
 
 	bool active_;
 
 	bool input_active_;
 
-	sge::console::cursor input_line_;
+	sge::console::gfx::cursor input_line_;
 
-	sge::console::gfx::input_history_sequence input_history_;
+	sge::console::gfx::object::input_history_sequence input_history_;
 
-	sge::console::gfx::input_history_sequence::iterator current_input_;
+	sge::console::gfx::object::input_history_sequence::iterator current_input_;
 
-	sge::console::detail::pointed_history output_lines_;
+	sge::console::gfx::detail::pointed_history output_lines_;
 
 	sge::font::unit
 	render_line(
@@ -212,6 +214,7 @@ private:
 	);
 };
 
+}
 }
 }
 

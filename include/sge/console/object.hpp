@@ -24,10 +24,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/class_symbol.hpp>
 #include <sge/console/arg_list.hpp>
 #include <sge/console/error_callback.hpp>
+#include <sge/console/error_function.hpp>
 #include <sge/console/fallback.hpp>
 #include <sge/console/fallback_signal.hpp>
 #include <sge/console/function_map.hpp>
 #include <sge/console/message_callback.hpp>
+#include <sge/console/message_function.hpp>
+#include <sge/console/prefix_fwd.hpp>
 #include <sge/console/symbol.hpp>
 #include <sge/console/callback/parameters_fwd.hpp>
 #include <sge/font/char_type.hpp>
@@ -52,7 +55,7 @@ public:
 	SGE_CONSOLE_SYMBOL
 	explicit
 	object(
-		sge::font::char_type prefix
+		sge::console::prefix
 	);
 
 	SGE_CONSOLE_SYMBOL
@@ -115,11 +118,11 @@ public:
 	);
 private:
 	fcppt::signal::object<
-		sge::console::error_callback_fn
+		sge::console::error_function
 	> error_;
 
 	fcppt::signal::object<
-		sge::console::message_callback_fn
+		sge::console::message_function
 	> message_;
 
 	sge::font::char_type const prefix_;

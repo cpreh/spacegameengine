@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CONSOLE_ERROR_CALLBACK_FN_HPP_INCLUDED
-#define SGE_CONSOLE_ERROR_CALLBACK_FN_HPP_INCLUDED
+#ifndef SGE_CONSOLE_PREFIX_FWD_HPP_INCLUDED
+#define SGE_CONSOLE_PREFIX_FWD_HPP_INCLUDED
 
-#include <sge/font/string.hpp>
+#include <sge/font/char_type.hpp>
+#include <fcppt/make_strong_typedef.hpp>
 
 
 namespace sge
@@ -29,10 +30,9 @@ namespace sge
 namespace console
 {
 
-typedef
-void
-error_callback_fn(
-	sge::font::string const &
+FCPPT_MAKE_STRONG_TYPEDEF(
+	sge::font::char_type,
+	prefix
 );
 
 }

@@ -1,0 +1,35 @@
+set(
+	SGE_CONSOLEGFX_FILES
+	include/sge/console/gfx/cursor.hpp
+	include/sge/console/gfx/cursor_fwd.hpp
+	include/sge/console/gfx/detail/pointed_history.hpp
+	include/sge/console/gfx/font_color.hpp
+	include/sge/console/gfx/font_color_fwd.hpp
+	include/sge/console/gfx/object.hpp
+	include/sge/console/gfx/object_fwd.hpp
+	include/sge/console/gfx/output_line_limit.hpp
+	include/sge/console/gfx/output_line_limit_fwd.hpp
+	include/sge/console/gfx/sprite_choices.hpp
+	include/sge/console/gfx/sprite_choices_fwd.hpp
+	include/sge/console/gfx/sprite_elements.hpp
+	include/sge/console/gfx/sprite_elements_fwd.hpp
+	include/sge/console/gfx/sprite_object.hpp
+	include/sge/console/gfx/sprite_object_fwd.hpp
+	include/sge/console/gfx/sprite_parameters.hpp
+	include/sge/console/gfx/sprite_parameters_fwd.hpp
+	include/sge/console/gfx/sprite_type_choices.hpp
+	include/sge/console/gfx/sprite_type_choices_fwd.hpp
+	src/console/gfx/cursor.cpp
+	src/console/gfx/detail/pointed_history.cpp
+	src/console/gfx/object.cpp
+)
+
+add_sge_base_library(
+	"console/gfx"
+	"sgeconsole;sgecore;sgefont;sgefontdraw;sgeimagecolor;sgeinput;sgerenderer;sgesprite"
+	"${fcppt_core_TARGET}"
+	""
+	""
+	""
+	"${majutsu_INCLUDE_DIRS}"
+)

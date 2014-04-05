@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/console/cursor.hpp>
+#include <sge/console/gfx/cursor.hpp>
 #include <sge/font/lit.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -34,7 +34,7 @@ BOOST_AUTO_TEST_CASE(cursor)
 {
 FCPPT_PP_POP_WARNING
 
-	sge::console::cursor c;
+	sge::console::gfx::cursor c;
 
 	BOOST_REQUIRE(
 		c.edited(true) ==

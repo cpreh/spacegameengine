@@ -403,13 +403,19 @@ add_sge_lib(
 
 add_sge_lib(
 	camera
-	"Build the camera"
+	"Build the camera library"
 	ON
 )
 
 add_sge_lib(
 	console
-	"Build the console"
+	"Build the console library"
+	ON
+)
+
+add_sge_lib(
+	console/gfx
+	"Build the console gfx library"
 	ON
 )
 

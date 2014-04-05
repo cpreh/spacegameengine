@@ -18,17 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CONSOLE_CURSOR_FWD_HPP_INCLUDED
-#define SGE_CONSOLE_CURSOR_FWD_HPP_INCLUDED
+#ifndef SGE_CONSOLE_GFX_OBJECT_FWD_HPP_INCLUDED
+#define SGE_CONSOLE_GFX_OBJECT_FWD_HPP_INCLUDED
 
 
 namespace sge
 {
 namespace console
 {
+namespace gfx
+{
 
-class cursor;
+class object;
 
+}
 }
 }
 

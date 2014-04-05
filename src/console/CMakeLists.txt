@@ -10,24 +10,19 @@ set(
 	include/sge/console/callback/parameters.hpp
 	include/sge/console/callback/parameters_fwd.hpp
 	include/sge/console/callback/short_description.hpp
-	include/sge/console/cursor.hpp
-	include/sge/console/cursor_fwd.hpp
-	include/sge/console/detail/pointed_history.hpp
 	include/sge/console/error_callback.hpp
-	include/sge/console/error_callback_fn.hpp
+	include/sge/console/error_function.hpp
 	include/sge/console/exception.hpp
 	include/sge/console/fallback.hpp
+	include/sge/console/fallback_function.hpp
 	include/sge/console/fallback_signal.hpp
-	include/sge/console/fallback_type.hpp
-	include/sge/console/font_color.hpp
-	include/sge/console/font_color_fwd.hpp
 	include/sge/console/function.hpp
 	include/sge/console/function_fwd.hpp
 	include/sge/console/function_map.hpp
-	include/sge/console/gfx.hpp
-	include/sge/console/gfx_fwd.hpp
+	include/sge/console/long_description.hpp
+	include/sge/console/long_description_fwd.hpp
 	include/sge/console/message_callback.hpp
-	include/sge/console/message_callback_fn.hpp
+	include/sge/console/message_function.hpp
 	include/sge/console/muxing.hpp
 	include/sge/console/muxing_fcppt_streambuf.hpp
 	include/sge/console/muxing_fwd.hpp
@@ -37,26 +32,15 @@ set(
 	include/sge/console/muxing_wide_streambuf.hpp
 	include/sge/console/object.hpp
 	include/sge/console/object_fwd.hpp
-	include/sge/console/output_line_limit.hpp
+	include/sge/console/prefix.hpp
+	include/sge/console/prefix_fwd.hpp
+	include/sge/console/short_description.hpp
+	include/sge/console/short_description_fwd.hpp
 	include/sge/console/signal.hpp
 	include/sge/console/signal_fwd.hpp
-	include/sge/console/sprite_choices.hpp
-	include/sge/console/sprite_elements.hpp
-	include/sge/console/sprite_object.hpp
-	include/sge/console/sprite_parameters.hpp
-	include/sge/console/sprite_type_choices.hpp
 	src/console/callback/parameters.cpp
-	src/console/cursor.cpp
-	src/console/detail/pointed_history.cpp
 	src/console/exception.cpp
 	src/console/function.cpp
-	src/console/gfx.cpp
-	src/console/include/sge/src/console/eval_grammar.hpp
-	src/console/include/sge/src/console/eval_grammar_decl.hpp
-	src/console/include/sge/src/console/eval_grammar_fwd.hpp
-	src/console/include/sge/src/console/eval_grammar_impl.hpp
-	src/console/include/sge/src/console/instantiate_muxing_streambuf.hpp
-	src/console/include/sge/src/console/muxing_streambuf_impl.hpp
 	src/console/muxing_narrow_streambuf.cpp
 	src/console/muxing_wide_streambuf.cpp
 	src/console/object.cpp
@@ -64,10 +48,10 @@ set(
 
 add_sge_base_library(
 	console
-	"sgecore;sgefont;sgefontdraw;sgeimagecolor;sgeinput;sgerenderer;sgesprite"
+	"sgecore;sgefont"
 	"${fcppt_core_TARGET}"
 	""
 	""
 	"${CMAKE_CURRENT_SOURCE_DIR}/include"
-	"${majutsu_INCLUDE_DIRS}"
+	""
 )

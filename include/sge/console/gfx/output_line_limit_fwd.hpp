@@ -18,24 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CONSOLE_MUXING_FCPPT_STREAMBUF_HPP_INCLUDED
-#define SGE_CONSOLE_MUXING_FCPPT_STREAMBUF_HPP_INCLUDED
+#ifndef SGE_CONSOLE_GFX_OUTPUT_LINE_LIMIT_FWD_HPP_INCLUDED
+#define SGE_CONSOLE_GFX_OUTPUT_LINE_LIMIT_FWD_HPP_INCLUDED
 
-#include <sge/console/muxing_streambuf.hpp>
-#include <fcppt/char_type.hpp>
+#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <cstddef>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
 {
 namespace console
 {
+namespace gfx
+{
 
-typedef
-sge::console::muxing_streambuf<
-	fcppt::char_type
->
-muxing_fcppt_streambuf;
+FCPPT_MAKE_STRONG_TYPEDEF(
+	std::size_t,
+	output_line_limit
+);
 
+}
 }
 }
 

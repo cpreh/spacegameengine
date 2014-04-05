@@ -30,8 +30,16 @@ namespace sge
 {
 namespace console
 {
-template<typename Char,typename Traits = std::char_traits<Char> >
+
+template<
+	typename Char,
+	typename Traits =
+		std::char_traits<
+			Char
+		>
+>
 class muxing_streambuf;
+
 }
 }
 

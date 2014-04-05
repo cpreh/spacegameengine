@@ -33,10 +33,12 @@ namespace sge
 namespace console
 {
 
-typedef boost::ptr_map<
+typedef
+boost::ptr_map<
 	sge::font::string,
 	sge::console::function
-> function_map;
+>
+function_map;
 
 }
 }

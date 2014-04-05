@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CONSOLE_FALLBACK_SIGNAL_HPP_INCLUDED
 #define SGE_CONSOLE_FALLBACK_SIGNAL_HPP_INCLUDED
 
-#include <sge/console/fallback_type.hpp>
+#include <sge/console/fallback_function.hpp>
 #include <fcppt/signal/object_fwd.hpp>
 
 
@@ -30,9 +30,11 @@ namespace sge
 namespace console
 {
 
-typedef fcppt::signal::object<
-	sge::console::fallback_type
-> fallback_signal;
+typedef
+fcppt::signal::object<
+	sge::console::fallback_function
+>
+fallback_signal;
 
 }
 }

@@ -110,7 +110,12 @@ update_sublibrary cg
 
 update_sublibrary config
 
-update_sublibrary console
+update_sublibrary console \
+	"include/sge/console/callback" \
+	"src/console/callback" \
+	"-n"
+
+update_sublibrary console/gfx
 
 update_sublibrary font \
 	"include/sge/font/align_h" \

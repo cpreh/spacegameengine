@@ -18,84 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CONSOLE_DETAIL_POINTED_HISTORY_HPP_INCLUDED
-#define SGE_CONSOLE_DETAIL_POINTED_HISTORY_HPP_INCLUDED
+#ifndef SGE_CONSOLE_GFX_SPRITE_OBJECT_FWD_HPP_INCLUDED
+#define SGE_CONSOLE_GFX_SPRITE_OBJECT_FWD_HPP_INCLUDED
 
-#include <sge/font/string.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <deque>
-#include <fcppt/config/external_end.hpp>
+#include <sge/console/gfx/sprite_choices_fwd.hpp>
+#include <sge/sprite/object_fwd.hpp>
 
 
 namespace sge
 {
 namespace console
 {
-namespace detail
+namespace gfx
 {
 
-class pointed_history
-{
-	FCPPT_NONCOPYABLE(
-		pointed_history
-	);
-public:
-	typedef
-	sge::font::string
-	value_type;
-
-	typedef
-	std::deque
-	<
-		value_type
-	>
-	container;
-
-	typedef
-	container::size_type
-	size_type;
-
-	typedef
-	container::const_iterator
-	const_iterator;
-
-	explicit
-	pointed_history(
-		size_type limit
-	);
-
-	~pointed_history();
-
-	void
-	push_front(
-		value_type const &
-	);
-
-	void
-	up();
-
-	void
-	down();
-
-	void
-	to_begin();
-
-	void
-	to_end();
-
-	const_iterator const
-	point() const;
-
-	const_iterator const
-	end() const;
-private:
-	container container_;
-
-	size_type limit_;
-
-	size_type point_;
-};
+typedef
+sge::sprite::object<
+	sge::console::gfx::sprite_choices
+>
+sprite_object;
 
 }
 }

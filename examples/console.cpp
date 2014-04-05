@@ -20,13 +20,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/config/media_path.hpp>
 #include <sge/console/arg_list.hpp>
-#include <sge/console/font_color.hpp>
-#include <sge/console/gfx.hpp>
 #include <sge/console/muxing_narrow_streambuf.hpp>
 #include <sge/console/object.hpp>
-#include <sge/console/sprite_object.hpp>
-#include <sge/console/sprite_parameters.hpp>
+#include <sge/console/prefix.hpp>
 #include <sge/console/callback/from_functor.hpp>
+#include <sge/console/gfx/font_color.hpp>
+#include <sge/console/gfx/object.hpp>
+#include <sge/console/gfx/sprite_object.hpp>
+#include <sge/console/gfx/sprite_parameters.hpp>
 #include <sge/font/lit.hpp>
 #include <sge/font/object.hpp>
 #include <sge/font/object_scoped_ptr.hpp>
@@ -56,8 +57,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/emulate_srgb_from_caps.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
-#include <sge/sprite/object_impl.hpp>
-#include <sge/sprite/parameters_impl.hpp>
 #include <sge/systems/image2d.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/instance.hpp>
@@ -220,7 +219,9 @@ try
 	);
 
 	sge::console::object object(
-		SGE_FONT_LIT('/')
+		sge::console::prefix(
+			SGE_FONT_LIT('/')
+		)
 	);
 
 	fcppt::signal::scoped_connection const c0(
@@ -282,30 +283,30 @@ try
 		)
 	);
 
-	sge::console::gfx gfx(
+	sge::console::gfx::object gfx(
 		object,
 		sys.renderer_device_ffp(),
-		sge::console::font_color(
+		sge::console::gfx::font_color(
 			sge::image::color::predef::white()
 		),
 		*font_object,
 		sys.keyboard_collector(),
-		sge::console::sprite_object(
-			sge::console::sprite_parameters()
+		sge::console::gfx::sprite_object(
+			sge::console::gfx::sprite_parameters()
 			.pos(
-				sge::console::sprite_object::vector::null()
+				sge::console::gfx::sprite_object::vector::null()
 			)
 			.texture(
 				tex_bg
 			)
 			.size(
-				sge::console::sprite_object::dim(
+				sge::console::gfx::sprite_object::dim(
 					400,
 					300
 				)
 			)
 		),
-		sge::console::output_line_limit(
+		sge::console::gfx::output_line_limit(
 			100u
 		)
 	);

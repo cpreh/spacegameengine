@@ -32,9 +32,11 @@ namespace sge
 namespace console
 {
 
-typedef std::vector<
+typedef
+std::vector<
 	sge::font::string
-> arg_list;
+>
+arg_list;
 
 }
 }
