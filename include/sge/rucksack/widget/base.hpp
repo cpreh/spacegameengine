@@ -29,12 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/rucksack/vector_fwd.hpp>
 #include <sge/rucksack/widget/optional_parent.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/intrusive/list.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -44,22 +38,8 @@ namespace rucksack
 namespace widget
 {
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
 class SGE_CLASS_SYMBOL base
-:
-	public
-		boost::intrusive::list_base_hook
-		<
-			boost::intrusive::link_mode
-			<
-				boost::intrusive::auto_unlink
-			>
-		>
 {
-FCPPT_PP_POP_WARNING
-
 	FCPPT_NONCOPYABLE(
 		base
 	);
