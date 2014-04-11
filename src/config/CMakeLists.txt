@@ -54,10 +54,20 @@ set(
 	src/config/user_name.cpp
 )
 
+# TODO: Remove awl dependency here
+if(
+	WIN32
+)
+	set(
+		SGE_CONFIG_ADDITIONAL_LIBS
+		"${awl_TARGET}"
+	)
+endif()
+
 add_sge_base_library(
 	config
 	"sgecore"
-	"${fcppt_core_TARGET};${fcppt_filesystem_TARGET};${awl_TARGET}"
+	"${fcppt_core_TARGET};${fcppt_filesystem_TARGET};${SGE_CONFIG_ADDITIONAL_LIBS}"
 	"sgecore"
 	"${Boost_FILESYSTEM_LIBRARIES};${Boost_SYSTEM_LIBRARIES}"
 	"${CMAKE_CURRENT_SOURCE_DIR}/include"

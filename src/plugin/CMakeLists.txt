@@ -94,13 +94,10 @@ sge_generate_instantiate_symbol_header(
 	plugin
 )
 
+# TODO: Remove awl dependency here
 if(
 	WIN32
 )
-	add_definitions(
-		${awl_DEFINITIONS}
-	)
-
 	set(
 		SGE_PLUGIN_ADDITIONAL_LIBS
 		"${awl_TARGET}"
