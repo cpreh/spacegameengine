@@ -1152,6 +1152,16 @@ set(
 	src/renderer/visual_base.cpp
 )
 
+find_package(
+	mizuiro
+	REQUIRED
+)
+
+find_package(
+	awl
+	REQUIRED
+)
+
 sge_implement_from_lib(
 	plugin
 )

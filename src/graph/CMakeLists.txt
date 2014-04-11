@@ -24,6 +24,11 @@ set(
 	src/graph/object.cpp
 )
 
+find_package(
+	majutsu
+	REQUIRED
+)
+
 add_sge_base_library(
 	"graph"
 	"sgeimage;sgeimagecolor;sgeimage2d;sgerenderer;sgesprite;sgetexture"

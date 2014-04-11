@@ -30,6 +30,11 @@ set(
 	src/window/to_awl_parameters.cpp
 )
 
+find_package(
+	awl
+	REQUIRED
+)
+
 add_sge_base_library(
 	window
 	""

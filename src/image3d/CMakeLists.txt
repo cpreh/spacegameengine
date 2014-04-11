@@ -142,6 +142,11 @@ set(
 	src/image3d/view/to_const.cpp
 )
 
+find_package(
+	mizuiro
+	REQUIRED
+)
+
 sge_implement_from_lib(
 	image
 )

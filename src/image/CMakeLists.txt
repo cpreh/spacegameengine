@@ -168,6 +168,11 @@ set(
 	src/image/unsupported_format.cpp
 )
 
+find_package(
+	mizuiro
+	REQUIRED
+)
+
 option(
 	ENABLE_STATIC_COPY_AND_CONVERT
 	"Use static copy and convert which will produce bigger but probably faster code"

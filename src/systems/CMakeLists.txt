@@ -234,6 +234,11 @@ set(
 	src/systems/wrapped_window.cpp
 )
 
+find_package(
+	awl
+	REQUIRED
+)
+
 add_sge_base_library(
 	systems
 	"sgeaudio;sgeconfig;sgecore;sgefont;sgeimage2d;sgeinput;sgelog;sgeparse;sgeparseini;sgeplugin;sgerenderer;sgeviewport;sgewindow"

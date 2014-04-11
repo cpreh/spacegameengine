@@ -126,6 +126,11 @@ set(
 	src/plugins/evdev/src/system.cpp
 )
 
+find_package(
+	awl
+	REQUIRED
+)
+
 add_sge_plugin(
 	evdev
 	"sgeinput;sgelog;sgeplugin;sgewindow"

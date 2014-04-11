@@ -1,3 +1,8 @@
+find_package(
+	awl
+	REQUIRED
+)
+
 include(
 	AwlMainGenerator
 )

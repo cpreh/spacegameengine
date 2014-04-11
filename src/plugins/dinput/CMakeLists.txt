@@ -151,6 +151,11 @@ SET(
 	src/plugins/dinput/src/system.cpp
 )
 
+find_package(
+	awl
+	REQUIRED
+)
+
 add_sge_plugin(
 	"dinput"
 	"sgeinput;sgeplugin;sgewindow"

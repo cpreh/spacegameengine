@@ -122,6 +122,11 @@ set(
 	src/font/weight/ultra_light.cpp
 )
 
+find_package(
+	mizuiro
+	REQUIRED
+)
+
 sge_implement_from_lib(
 	plugin
 )

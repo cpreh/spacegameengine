@@ -114,27 +114,8 @@ link_directories(
 )
 
 
-# FIND FCPPT
 find_package(
 	fcppt
-	REQUIRED
-)
-
-# FIND MIZUIRO
-find_package(
-	mizuiro
-	REQUIRED
-)
-
-# FIND AWL
-find_package(
-	awl
-	REQUIRED
-)
-
-# Find majutsu
-find_package(
-	majutsu
 	REQUIRED
 )
 

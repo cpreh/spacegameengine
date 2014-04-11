@@ -187,6 +187,11 @@ set(
 	src/plugins/x11input/src/xi_version.cpp
 )
 
+find_package(
+	awl
+	REQUIRED
+)
+
 add_sge_plugin(
 	x11input
 	"sgeinput;sgelog;sgeplugin;sgewindow"

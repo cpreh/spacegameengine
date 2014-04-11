@@ -24,6 +24,11 @@ set(
 	src/console/gfx/object.cpp
 )
 
+find_package(
+	majutsu
+	REQUIRED
+)
+
 add_sge_base_library(
 	"console/gfx"
 	"sgeconsole;sgecore;sgefont;sgefontdraw;sgeimagecolor;sgeinput;sgerenderer;sgesprite"

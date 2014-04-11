@@ -1,5 +1,15 @@
+find_package(
+	awl
+	REQUIRED
+)
+
 include(
 	AwlMainGenerator
+)
+
+find_package(
+	mizuiro
+	REQUIRED
 )
 
 option(

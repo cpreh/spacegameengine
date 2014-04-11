@@ -125,6 +125,12 @@ set(
 	src/parse/json/string_to_value.cpp
 )
 
+# TODO: Get rid of this?
+find_package(
+	mizuiro
+	REQUIRED
+)
+
 add_sge_base_library(
 	parse/json
 	"sgeparse"

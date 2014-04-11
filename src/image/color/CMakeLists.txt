@@ -191,6 +191,11 @@ set(
 	src/image/color/traits/format_to_string.cpp
 )
 
+find_package(
+	mizuiro
+	REQUIRED
+)
+
 sge_implement_from_lib(
 	image
 )

@@ -722,6 +722,11 @@ set(
 	src/plugins/d3d9/src/cg/texture/set.cpp
 )
 
+find_package(
+	awl
+	REQUIRED
+)
+
 set(
 	SGE_D3D9_FILES
 	"${SGE_D3D9_BASE_FILES}"

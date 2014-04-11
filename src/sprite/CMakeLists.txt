@@ -425,6 +425,11 @@ set(
 	src/sprite/state/with_transform.cpp
 )
 
+find_package(
+	majutsu
+	REQUIRED
+)
+
 add_sge_base_library(
 	sprite
 	"sgerenderer"

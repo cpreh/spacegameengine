@@ -98,6 +98,11 @@ sge_generate_instantiate_symbol_header(
 if(
 	WIN32
 )
+	find_package(
+		awl
+		REQUIRED
+	)
+
 	set(
 		SGE_PLUGIN_ADDITIONAL_LIBS
 		"${awl_TARGET}"

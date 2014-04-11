@@ -1247,6 +1247,10 @@ set(
 	src/plugins/opengl/src/egl/x11/visual.cpp
 )
 
+find_package(
+	awl
+	REQUIRED
+)
 
 find_package(
 	EGL

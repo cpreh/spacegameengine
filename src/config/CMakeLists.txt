@@ -58,6 +58,11 @@ set(
 if(
 	WIN32
 )
+	find_package(
+		awl
+		REQUIRED
+	)
+
 	set(
 		SGE_CONFIG_ADDITIONAL_LIBS
 		"${awl_TARGET}"

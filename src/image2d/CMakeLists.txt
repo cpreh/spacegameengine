@@ -180,6 +180,11 @@ set(
 	src/image2d/view/to_const.cpp
 )
 
+find_package(
+	mizuiro
+	REQUIRED
+)
+
 sge_implement_from_lib(
 	plugin
 )

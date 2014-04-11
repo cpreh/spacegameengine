@@ -31,6 +31,11 @@ set(
 	src/viewport/manager.cpp
 )
 
+find_package(
+	awl
+	REQUIRED
+)
+
 add_sge_base_library(
 	viewport
 	"sgerenderer;sgewindow"

@@ -62,6 +62,11 @@ set(
 	src/plugins/gdifont/src/text.cpp
 )
 
+find_package(
+	awl
+	REQUIRED
+)
+
 # TODO: Change this
 # Link to AWL so we get the unicode definitions
 
