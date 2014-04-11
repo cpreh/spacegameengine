@@ -21,8 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_JSON_DETAIL_IS_ARRAY_HPP_INCLUDED
 #define SGE_PARSE_JSON_DETAIL_IS_ARRAY_HPP_INCLUDED
 
-#include <mizuiro/size_type.hpp>
-#include <mizuiro/image/dimension_fwd.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/dim/object_fwd.hpp>
 #include <fcppt/math/vector/object_fwd.hpp>
@@ -128,24 +126,6 @@ struct is_array
 		T,
 		N,
 		S
-	>
->
-:
-std::true_type
-{
-};
-
-template
-<
-	typename T,
-	mizuiro::size_type N
->
-struct is_array
-<
-	mizuiro::image::dimension
-	<
-		N,
-		T
 	>
 >
 :

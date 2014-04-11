@@ -125,18 +125,12 @@ set(
 	src/parse/json/string_to_value.cpp
 )
 
-# TODO: Get rid of this?
-find_package(
-	mizuiro
-	REQUIRED
-)
-
 add_sge_base_library(
 	parse/json
 	"sgeparse"
 	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
 	"sgeparse"
 	""
-	"${CMAKE_CURRENT_SOURCE_DIR}/include;${FCPPT_UTILS_PROJECT_SOURCE_DIR}/src/parse/include;${mizuiro_INCLUDE_DIRS}"
-	"${mizuiro_INCLUDE_DIRS}"
+	"${CMAKE_CURRENT_SOURCE_DIR}/include;${FCPPT_UTILS_PROJECT_SOURCE_DIR}/src/parse/include"
+	""
 )
