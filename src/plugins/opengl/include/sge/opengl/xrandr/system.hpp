@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/xrandr/extension.hpp>
 #include <sge/opengl/xrandr/state_unique_ptr.hpp>
 #include <sge/opengl/xrandr/system_fwd.hpp>
-#include <awl/backends/x11/display_fwd.hpp>
 #include <awl/backends/x11/window/object_fwd.hpp>
 #include <awl/backends/x11/window/event/processor_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -43,9 +42,9 @@ class system
 		system
 	);
 public:
+	explicit
 	system(
-		sge::opengl::xrandr::extension const &,
-		awl::backends::x11::display &
+		sge::opengl::xrandr::extension const &
 	);
 
 	~system();
@@ -57,8 +56,6 @@ public:
 	);
 private:
 	sge::opengl::xrandr::extension const extension_;
-
-	awl::backends::x11::display &display_;
 };
 
 }

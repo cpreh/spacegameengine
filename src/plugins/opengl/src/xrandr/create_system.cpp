@@ -91,7 +91,6 @@ sge::opengl::xrandr::create_system(
 		fcppt::make_unique_ptr<
 			sge::opengl::xrandr::system
 		>(
-			*extension,
-			_display
+			*extension
 		);
 }

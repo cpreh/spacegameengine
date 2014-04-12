@@ -22,22 +22,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/xrandr/state.hpp>
 #include <sge/opengl/xrandr/state_unique_ptr.hpp>
 #include <sge/opengl/xrandr/system.hpp>
-#include <awl/backends/x11/display_fwd.hpp>
 #include <awl/backends/x11/window/object_fwd.hpp>
 #include <awl/backends/x11/window/event/processor_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 
 
 sge::opengl::xrandr::system::system(
-	sge::opengl::xrandr::extension const &_extension,
-	awl::backends::x11::display &_display
+	sge::opengl::xrandr::extension const &_extension
 )
 :
 	extension_(
 		_extension
-	),
-	display_(
-		_display
 	)
 {
 }
