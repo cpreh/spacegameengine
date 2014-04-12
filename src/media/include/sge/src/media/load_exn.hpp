@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_MEDIA_LOAD_EXN_HPP_INCLUDED
 #define SGE_SRC_MEDIA_LOAD_EXN_HPP_INCLUDED
 
+#include <sge/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/config/external_begin.hpp>

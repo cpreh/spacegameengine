@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/device/object_fwd.hpp>
 #include <sge/opencl/platform/object_fwd.hpp>
 #include <sge/opencl/single_device_system/parameters_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <memory>
 #include <mutex>
