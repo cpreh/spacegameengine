@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_DINPUT_DEVICE_OBJECT_HPP_INCLUDED
 
 #include <sge/dinput/di.hpp>
-#include <sge/dinput/dinput_device_scoped_ptr.hpp>
+#include <sge/dinput/dinput_device_unique_ptr.hpp>
 #include <sge/dinput/has_cursor.hpp>
 #include <sge/dinput/has_focus.hpp>
 #include <sge/dinput/device/object_fwd.hpp>
@@ -99,7 +99,7 @@ private:
 		DIDEVICEOBJECTDATA const &
 	) = 0;
 
-	sge::dinput::dinput_device_scoped_ptr const device_;
+	sge::dinput::dinput_device_unique_ptr const device_;
 };
 
 }

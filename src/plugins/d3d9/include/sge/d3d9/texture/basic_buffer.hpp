@@ -30,7 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/com_deleter.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_decl.hpp>
-#include <fcppt/scoped_ptr_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
 #include <memory>
@@ -114,11 +113,6 @@ private:
 		sge::renderer::lock_flags::method
 	) const;
 
-	typedef fcppt::scoped_ptr<
-		d3d_buffer,
-		fcppt::com_deleter
-	> d3d_buffer_scoped_ptr;
-
 	d3d_buffer_create_function const buffer_create_;
 
 	sge::image::color::format const color_format_;
@@ -127,7 +121,7 @@ private:
 
 	dim const size_;
 
-	mutable d3d_buffer_scoped_ptr buffer_;
+	mutable d3d_buffer_unique_ptr buffer_;
 
 	typedef typename Types::locked_dest locked_dest;
 

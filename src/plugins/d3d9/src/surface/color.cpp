@@ -100,14 +100,13 @@ sge::d3d9::surface::color::lock(
 		color_holder_->is_render_target()
 	)
 	{
-		temp_surface_.take(
+		temp_surface_ =
 			sge::d3d9::devicefuncs::create_offscreen_plain_surface(
 				device_,
 				color_holder_->size(),
 				format_,
 				D3DPOOL_SYSTEMMEM
-			)
-		);
+			);
 
 		sge::d3d9::devicefuncs::get_render_target_data(
 			device_,
@@ -194,13 +193,12 @@ sge::d3d9::surface::color::lock_surface() const
 void
 sge::d3d9::surface::color::init()
 {
-	color_holder_.take(
+	color_holder_ =
 		fcppt::make_unique_ptr<
 			surface::color_holder
 		>(
 			create_->create()
-		)
-	);
+		);
 }
 
 void

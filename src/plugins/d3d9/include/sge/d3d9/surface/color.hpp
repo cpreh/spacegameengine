@@ -27,12 +27,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/surface/color_create_unique_ptr.hpp>
 #include <sge/d3d9/surface/color_fwd.hpp>
 #include <sge/d3d9/surface/color_holder_fwd.hpp>
-#include <sge/d3d9/surface/d3d_scoped_ptr.hpp>
+#include <sge/d3d9/surface/d3d_unique_ptr.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/renderer/lock_mode_fwd.hpp>
 #include <sge/renderer/color_buffer/surface.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -93,21 +95,21 @@ private:
 
 	IDirect3DDevice9 &device_;
 
-	typedef fcppt::scoped_ptr<
+	typedef std::unique_ptr<
 		sge::d3d9::surface::color_create
-	> color_create_scoped_ptr;
+	> color_create_unique_ptr;
 
-	color_create_scoped_ptr const create_;
+	color_create_unique_ptr const create_;
 
 	sge::image::color::format const format_;
 
-	typedef fcppt::scoped_ptr<
+	typedef std::unique_ptr<
 		sge::d3d9::surface::color_holder
-	> color_holder_scoped_ptr;
+	> color_holder_unique_ptr;
 
-	color_holder_scoped_ptr color_holder_;
+	color_holder_unique_ptr color_holder_;
 
-	mutable sge::d3d9::surface::d3d_scoped_ptr temp_surface_;
+	mutable sge::d3d9::surface::d3d_unique_ptr temp_surface_;
 };
 
 }

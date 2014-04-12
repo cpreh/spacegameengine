@@ -27,13 +27,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/string.hpp>
 #include <sge/font/text_parameters_fwd.hpp>
 #include <sge/font/text_unique_ptr.hpp>
-#include <sge/gdifont/delete_object_deleter_fwd.hpp>
+#include <sge/gdifont/delete_object_deleter.hpp>
 #include <sge/gdifont/device_context_fwd.hpp>
 #include <sge/gdifont/include_windows.hpp>
 #include <sge/image/color/optional_format_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <memory>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -76,14 +76,14 @@ private:
 
 	sge::gdifont::device_context const &device_context_;
 
-	typedef fcppt::scoped_ptr<
+	typedef std::unique_ptr<
 		std::remove_pointer<
 			HFONT
 		>::type,
 		sge::gdifont::delete_object_deleter
-	> hfont_scoped_ptr;
+	> hfont_unique_ptr;
 
-	hfont_scoped_ptr const font_;
+	hfont_unique_ptr const font_;
 
 	sge::font::metrics const metrics_;
 };

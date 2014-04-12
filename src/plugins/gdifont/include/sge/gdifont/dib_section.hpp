@@ -21,15 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GDIFONT_DIB_SECTION_HPP_INCLUDED
 #define SGE_GDIFONT_DIB_SECTION_HPP_INCLUDED
 
-#include <sge/gdifont/delete_object_deleter_fwd.hpp>
+#include <sge/gdifont/delete_object_deleter.hpp>
 #include <sge/gdifont/device_context_fwd.hpp>
 #include <sge/gdifont/include_windows.hpp>
 #include <sge/image2d/dim_fwd.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/image2d/view/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <memory>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -63,14 +63,14 @@ public:
 private:
 	VOID *data_;
 
-	typedef fcppt::scoped_ptr<
+	typedef std::unique_ptr<
 		std::remove_pointer<
 			HBITMAP
 		>::type,
 		sge::gdifont::delete_object_deleter
-	> hbitmap_scoped_ptr;
+	> hbitmap_unique_ptr;
 
-	hbitmap_scoped_ptr const hbitmap_;
+	hbitmap_unique_ptr const hbitmap_;
 
 	BITMAP const bitmap_;
 };

@@ -23,13 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/devicefuncs/get_render_target.hpp>
 #include <sge/d3d9/devicefuncs/set_depth_stencil_surface.hpp>
 #include <sge/d3d9/devicefuncs/set_render_target.hpp>
-#include <sge/d3d9/surface/d3d_scoped_ptr.hpp>
+#include <sge/d3d9/surface/d3d_unique_ptr.hpp>
 #include <sge/d3d9/target/temporary.hpp>
 #include <sge/renderer/caps/target_surface_indices.hpp>
 #include <sge/renderer/target/surface_index.hpp>
-#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
-#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 
 
 sge::d3d9::target::temporary::temporary(
@@ -47,6 +45,10 @@ sge::d3d9::target::temporary::temporary(
 	),
 	color_surfaces_()
 {
+	color_surfaces_.reserve(
+		_surfaces.get()
+	);
+
 	for(
 		sge::renderer::target::surface_index index(
 			0u
@@ -54,15 +56,10 @@ sge::d3d9::target::temporary::temporary(
 		index.get() < _surfaces.get();
 		++index
 	)
-		fcppt::container::ptr::push_back_unique_ptr(
-			color_surfaces_,
-			fcppt::make_unique_ptr<
-				sge::d3d9::surface::d3d_scoped_ptr
-			>(
-				sge::d3d9::devicefuncs::get_render_target(
-					device_,
-					index
-				)
+		color_surfaces_.push_back(
+			sge::d3d9::devicefuncs::get_render_target(
+				device_,
+				index
 			)
 		);
 }
@@ -85,7 +82,7 @@ sge::d3d9::target::temporary::~temporary()
 		++index
 	)
 	{
-		sge::d3d9::surface::d3d_scoped_ptr &surface(
+		sge::d3d9::surface::d3d_unique_ptr const &surface(
 			color_surfaces_[
 				index
 			]

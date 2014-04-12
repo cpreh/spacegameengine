@@ -34,9 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/mipmap/level_count.hpp>
 #include <sge/renderer/texture/mipmap/object_fwd.hpp>
-#include <fcppt/com_deleter.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr_decl.hpp>
 
 
 namespace sge
@@ -127,12 +125,7 @@ private:
 
 	sge::d3d9::usage const usage_;
 
-	typedef fcppt::scoped_ptr<
-		d3d_type,
-		fcppt::com_deleter
-	> d3d_scoped_ptr;
-
-	d3d_scoped_ptr texture_;
+	d3d_unique_ptr texture_;
 };
 
 }

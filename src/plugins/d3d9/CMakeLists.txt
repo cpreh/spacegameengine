@@ -91,7 +91,6 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/parameters/extract_size.hpp
 	src/plugins/d3d9/include/sge/d3d9/parameters/extract_srgb.hpp
 	src/plugins/d3d9/include/sge/d3d9/parameters/tnl_caps.hpp
-	src/plugins/d3d9/include/sge/d3d9/query/d3d_scoped_ptr.hpp
 	src/plugins/d3d9/include/sge/d3d9/query/d3d_unique_ptr.hpp
 	src/plugins/d3d9/include/sge/d3d9/queryfuncs/get_data.hpp
 	src/plugins/d3d9/include/sge/d3d9/queryfuncs/get_dword.hpp
@@ -290,7 +289,6 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/surface/color_holder.hpp
 	src/plugins/d3d9/include/sge/d3d9/surface/color_holder_fwd.hpp
 	src/plugins/d3d9/include/sge/d3d9/surface/color_onscreen_target.hpp
-	src/plugins/d3d9/include/sge/d3d9/surface/d3d_scoped_ptr.hpp
 	src/plugins/d3d9/include/sge/d3d9/surface/d3d_unique_ptr.hpp
 	src/plugins/d3d9/include/sge/d3d9/surface/depth_stencil.hpp
 	src/plugins/d3d9/include/sge/d3d9/surface/depth_stencil_create.hpp
@@ -305,7 +303,6 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/surfacefuncs/is_render_target.hpp
 	src/plugins/d3d9/include/sge/d3d9/surfacefuncs/lock_rect.hpp
 	src/plugins/d3d9/include/sge/d3d9/surfacefuncs/unlock_rect.hpp
-	src/plugins/d3d9/include/sge/d3d9/swapchain/d3d_scoped_ptr.hpp
 	src/plugins/d3d9/include/sge/d3d9/swapchain/d3d_unique_ptr.hpp
 	src/plugins/d3d9/include/sge/d3d9/swapchainfuncs/present.hpp
 	src/plugins/d3d9/include/sge/d3d9/system.hpp

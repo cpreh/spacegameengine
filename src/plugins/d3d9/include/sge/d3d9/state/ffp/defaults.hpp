@@ -31,7 +31,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/state/ffp/sampler/object_fwd.hpp>
 #include <sge/d3d9/state/ffp/transform/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -77,47 +79,47 @@ public:
 	sge::d3d9::state::ffp::transform::object const &
 	transform() const;
 private:
-	typedef fcppt::scoped_ptr<
+	typedef std::unique_ptr<
 		sge::d3d9::state::ffp::alpha_test::object
-	> alpha_test_scoped_ptr;
+	> alpha_test_unique_ptr;
 
-	typedef fcppt::scoped_ptr<
+	typedef std::unique_ptr<
 		sge::d3d9::state::ffp::fog::object
-	> fog_scoped_ptr;
+	> fog_unique_ptr;
 
-	typedef fcppt::scoped_ptr<
+	typedef std::unique_ptr<
 		sge::d3d9::state::ffp::lighting::object
-	> lighting_scoped_ptr;
+	> lighting_unique_ptr;
 
-	typedef fcppt::scoped_ptr<
+	typedef std::unique_ptr<
 		sge::d3d9::state::ffp::lighting::material::object
-	> material_scoped_ptr;
+	> material_unique_ptr;
 
-	typedef fcppt::scoped_ptr<
+	typedef std::unique_ptr<
 		sge::d3d9::state::ffp::misc::object
-	> misc_scoped_ptr;
+	> misc_unique_ptr;
 
-	typedef fcppt::scoped_ptr<
+	typedef std::unique_ptr<
 		sge::d3d9::state::ffp::sampler::object
-	> sampler_scoped_ptr;
+	> sampler_unique_ptr;
 
-	typedef fcppt::scoped_ptr<
+	typedef std::unique_ptr<
 		sge::d3d9::state::ffp::transform::object
-	> transform_scoped_ptr;
+	> transform_unique_ptr;
 
-	alpha_test_scoped_ptr const alpha_test_;
+	alpha_test_unique_ptr const alpha_test_;
 
-	fog_scoped_ptr const fog_;
+	fog_unique_ptr const fog_;
 
-	lighting_scoped_ptr const lighting_;
+	lighting_unique_ptr const lighting_;
 
-	material_scoped_ptr const material_;
+	material_unique_ptr const material_;
 
-	misc_scoped_ptr const misc_;
+	misc_unique_ptr const misc_;
 
-	sampler_scoped_ptr const sampler_;
+	sampler_unique_ptr const sampler_;
 
-	transform_scoped_ptr const transform_;
+	transform_unique_ptr const transform_;
 };
 
 }

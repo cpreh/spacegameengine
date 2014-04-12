@@ -23,11 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/surface/color_holder_fwd.hpp>
-#include <sge/d3d9/surface/d3d_scoped_ptr.hpp>
 #include <sge/d3d9/surface/d3d_unique_ptr.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/math/dim/object_decl.hpp>
 
 
 namespace sge
@@ -59,7 +57,7 @@ public:
 	bool
 	is_render_target() const;
 private:
-	sge::d3d9::surface::d3d_scoped_ptr const surface_;
+	sge::d3d9::surface::d3d_unique_ptr const surface_;
 
 	sge::renderer::dim2 const size_;
 

@@ -81,9 +81,8 @@ sge::d3d9::surface::depth_stencil::surface() const
 void
 sge::d3d9::surface::depth_stencil::init()
 {
-	surface_.take(
-		create_->create()
-	);
+	surface_ =
+		create_->create();
 }
 
 void

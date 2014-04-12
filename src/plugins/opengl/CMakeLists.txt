@@ -1046,7 +1046,6 @@ set(
 	SGE_OPENGL_GLX_FILES
 	src/plugins/opengl/include/sge/opengl/glx/context.hpp
 	src/plugins/opengl/include/sge/opengl/glx/context_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/glx/context_scoped_ptr.hpp
 	src/plugins/opengl/include/sge/opengl/glx/current_drawable.hpp
 	src/plugins/opengl/include/sge/opengl/glx/make_current.hpp
 	src/plugins/opengl/include/sge/opengl/glx/proc_address.hpp

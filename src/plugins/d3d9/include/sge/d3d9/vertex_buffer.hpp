@@ -35,7 +35,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/stride.hpp>
 #include <fcppt/com_deleter.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -125,12 +127,12 @@ private:
 
 	mutable sge::renderer::vf::dynamic::converter converter_;
 
-	typedef fcppt::scoped_ptr<
+	typedef std::unique_ptr<
 		IDirect3DVertexBuffer9,
 		fcppt::com_deleter
-	> d3d_scoped_vertex_buffer_ptr;
+	> d3d_vertex_buffer_unique_ptr;
 
-	d3d_scoped_vertex_buffer_ptr buffer_;
+	d3d_vertex_buffer_unique_ptr buffer_;
 
 	mutable sge::renderer::raw_pointer lock_dest_;
 };

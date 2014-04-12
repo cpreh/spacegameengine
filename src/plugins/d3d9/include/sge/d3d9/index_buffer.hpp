@@ -31,7 +31,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/lock_flags/method_fwd.hpp>
 #include <fcppt/com_deleter.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -104,12 +106,14 @@ private:
 
 	IDirect3DDevice9 &device_;
 
-	typedef fcppt::scoped_ptr<
+	typedef
+	std::unique_ptr<
 		IDirect3DIndexBuffer9,
 		fcppt::com_deleter
-	> d3d_scoped_index_buffer_ptr;
+	>
+	d3d_index_buffer_unique_ptr;
 
-	d3d_scoped_index_buffer_ptr buffer_;
+	d3d_index_buffer_unique_ptr buffer_;
 
 	sge::renderer::resource_flags_field const resource_flags_;
 

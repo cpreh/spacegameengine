@@ -36,7 +36,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/lock_flags/from_mode.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
 #include <fcppt/optional_impl.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
 
 
 template<
@@ -175,9 +174,8 @@ sge::d3d9::texture::basic_buffer<
 	sge::renderer::lock_flags::method const _method
 ) const
 {
-	buffer_.take(
-		buffer_create_()
-	);
+	buffer_ =
+		buffer_create_();
 
 	typedef typename Types::lock_dest lock_dest;
 

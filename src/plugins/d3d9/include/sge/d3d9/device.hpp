@@ -22,8 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_DEVICE_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/d3d_device_unique_ptr.hpp>
 #include <sge/d3d9/resource_manager.hpp>
-#include <sge/d3d9/swapchain/d3d_scoped_ptr.hpp>
+#include <sge/d3d9/swapchain/d3d_unique_ptr.hpp>
 #include <sge/d3d9/target/onscreen_fwd.hpp>
 #include <sge/d3d9/state/core/defaults_fwd.hpp>
 #include <sge/d3d9/state/ffp/defaults_fwd.hpp>
@@ -83,9 +84,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex/buffer_unique_ptr.hpp>
 #include <sge/renderer/vertex/declaration_parameters_fwd.hpp>
 #include <sge/renderer/vertex/declaration_unique_ptr.hpp>
-#include <fcppt/com_deleter.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <memory>
 #include <fcppt/config/external_end.hpp>
@@ -365,34 +364,35 @@ private:
 
 	D3DPRESENT_PARAMETERS present_parameters_;
 
-	typedef fcppt::scoped_ptr<
-		IDirect3DDevice9,
-		fcppt::com_deleter
-	> d3d_device_scoped_ptr;
-
-	d3d_device_scoped_ptr const device_;
+	sge::d3d9::d3d_device_unique_ptr const device_;
 
 	sge::d3d9::resource_manager resources_;
 
-	sge::d3d9::swapchain::d3d_scoped_ptr const swap_chain_;
+	sge::d3d9::swapchain::d3d_unique_ptr const swap_chain_;
 
-	typedef fcppt::scoped_ptr<
+	typedef
+	std::unique_ptr<
 		sge::d3d9::target::onscreen
-	> onscreen_target_scoped_ptr;
+	>
+	onscreen_target_unique_ptr;
 
-	onscreen_target_scoped_ptr const onscreen_target_;
+	onscreen_target_unique_ptr const onscreen_target_;
 
-	typedef fcppt::scoped_ptr<
+	typedef
+	std::unique_ptr<
 		sge::d3d9::state::core::defaults
-	> core_defaults_scoped_ptr;
+	>
+	core_defaults_unique_ptr;
 
-	core_defaults_scoped_ptr const core_defaults_;
+	core_defaults_unique_ptr const core_defaults_;
 
-	typedef fcppt::scoped_ptr<
+	typedef
+	std::unique_ptr<
 		sge::d3d9::state::ffp::defaults
-	> ffp_defaults_scoped_ptr;
+	>
+	ffp_defaults_unique_ptr;
 
-	ffp_defaults_scoped_ptr const ffp_defaults_;
+	ffp_defaults_unique_ptr const ffp_defaults_;
 };
 
 }

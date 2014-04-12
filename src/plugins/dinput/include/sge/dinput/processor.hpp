@@ -57,12 +57,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/window/event/focus_in_fwd.hpp>
 #include <awl/window/event/focus_out_fwd.hpp>
 #include <fcppt/com_deleter.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
 #include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
+#include <memory>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -184,12 +184,12 @@ private:
 		sge::dinput::device::object
 	> device_vector;
 
-	typedef fcppt::scoped_ptr<
+	typedef std::unique_ptr<
 		IDirectInput8,
 		fcppt::com_deleter
-	> dinput_scoped_ptr;
+	> dinput_unique_ptr;
 
-	dinput_scoped_ptr const dinput_;
+	dinput_unique_ptr const dinput_;
 
 	awl::system::object &awl_system_;
 
@@ -201,17 +201,17 @@ private:
 
 	device_vector devices_;
 
-	typedef fcppt::scoped_ptr<
+	typedef std::unique_ptr<
 		sge::dinput::cursor::object
-	> cursor_scoped_ptr;
+	> cursor_unique_ptr;
 
-	cursor_scoped_ptr const cursor_;
+	cursor_unique_ptr const cursor_;
 
-	typedef fcppt::scoped_ptr<
+	typedef std::unique_ptr<
 		awl::backends::windows::system::event::handle
-	> event_handle_scoped_ptr;
+	> event_handle_unique_ptr;
 
-	event_handle_scoped_ptr const event_handle_;
+	event_handle_unique_ptr const event_handle_;
 
 	sge::dinput::has_focus has_focus_;
 

@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/gdifont/create_dib_section.hpp>
-#include <sge/gdifont/delete_object_deleter.hpp>
 #include <sge/gdifont/device_context_fwd.hpp>
 #include <sge/gdifont/dib_section.hpp>
 #include <sge/gdifont/get_bitmap.hpp>
@@ -32,7 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/make.hpp>
 #include <sge/image2d/view/object.hpp>
 #include <sge/image2d/view/to_const.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
 
 
 sge::gdifont::dib_section::dib_section(

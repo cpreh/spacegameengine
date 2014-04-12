@@ -216,14 +216,13 @@ sge::dinput::cursor::object::make_grab()
 	)
 		return;
 
-	exclusive_mode_.take(
+	exclusive_mode_ =
 		fcppt::make_unique_ptr<
 			sge::dinput::cursor::exclusive_mode
 		>(
 			event_processor_,
 			window_
-		)
-	);
+		);
 }
 
 awl::backends::windows::window::event::return_type

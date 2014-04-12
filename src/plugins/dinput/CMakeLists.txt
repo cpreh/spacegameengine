@@ -36,7 +36,6 @@ SET(
 	src/plugins/dinput/include/sge/dinput/device/range.hpp
 	src/plugins/dinput/include/sge/dinput/device/range_fwd.hpp
 	src/plugins/dinput/include/sge/dinput/di.hpp
-	src/plugins/dinput/include/sge/dinput/dinput_device_scoped_ptr.hpp
 	src/plugins/dinput/include/sge/dinput/dinput_device_unique_ptr.hpp
 	src/plugins/dinput/include/sge/dinput/dinput_unique_ptr.hpp
 	src/plugins/dinput/include/sge/dinput/guid_to_string.hpp

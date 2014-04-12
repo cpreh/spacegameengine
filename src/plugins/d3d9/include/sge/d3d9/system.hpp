@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_SYSTEM_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/d3d_unique_ptr.hpp>
 #include <sge/renderer/system.hpp>
 #include <sge/renderer/caps/device_count.hpp>
 #include <sge/renderer/caps/device_fwd.hpp>
@@ -32,9 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode/container.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
-#include <fcppt/com_deleter.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -89,12 +88,7 @@ private:
 	) const
 	override;
 
-	typedef fcppt::scoped_ptr<
-		IDirect3D9,
-		fcppt::com_deleter
-	> d3d_scoped_ptr;
-
-	d3d_scoped_ptr const system_;
+	sge::d3d9::d3d_unique_ptr const system_;
 
 	typedef boost::ptr_vector<
 		sge::renderer::caps::device

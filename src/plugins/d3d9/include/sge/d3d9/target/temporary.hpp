@@ -22,12 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_TARGET_TEMPORARY_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/surface/d3d_scoped_ptr.hpp>
+#include <sge/d3d9/surface/d3d_unique_ptr.hpp>
 #include <sge/renderer/caps/target_surface_indices.hpp>
 #include <sge/renderer/target/surface_index.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
+#include <vector>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -53,11 +53,13 @@ public:
 private:
 	IDirect3DDevice9 &device_;
 
-	sge::d3d9::surface::d3d_scoped_ptr const depth_stencil_surface_;
+	sge::d3d9::surface::d3d_unique_ptr const depth_stencil_surface_;
 
-	typedef boost::ptr_vector<
-		sge::d3d9::surface::d3d_scoped_ptr
-	> scoped_surface_vector;
+	typedef
+	std::vector<
+		sge::d3d9::surface::d3d_unique_ptr
+	>
+	scoped_surface_vector;
 
 	scoped_surface_vector color_surfaces_;
 };

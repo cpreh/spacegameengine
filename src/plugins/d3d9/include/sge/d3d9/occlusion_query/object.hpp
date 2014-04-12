@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_OCCLUSION_QUERY_OBJECT_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/query/d3d_scoped_ptr.hpp>
+#include <sge/d3d9/query/d3d_unique_ptr.hpp>
 #include <sge/renderer/occlusion_query/blocking_wait.hpp>
 #include <sge/renderer/occlusion_query/object.hpp>
 #include <sge/renderer/occlusion_query/optional_pixel_count_fwd.hpp>
@@ -62,7 +62,7 @@ private:
 		sge::renderer::occlusion_query::blocking_wait
 	) const;
 
-	sge::d3d9::query::d3d_scoped_ptr const query_;
+	sge::d3d9::query::d3d_unique_ptr const query_;
 };
 
 }
