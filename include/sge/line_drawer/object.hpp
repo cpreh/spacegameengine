@@ -22,12 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_LINE_DRAWER_OBJECT_HPP_INCLUDED
 
 #include <sge/line_drawer/line_sequence.hpp>
+#include <sge/line_drawer/scoped_lock_fwd.hpp>
 #include <sge/line_drawer/symbol.hpp>
 #include <sge/renderer/context/core_fwd.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
-#include <sge/renderer/state/core/blend/object_scoped_ptr.hpp>
-#include <sge/renderer/vertex/buffer_scoped_ptr.hpp>
-#include <sge/renderer/vertex/declaration_scoped_ptr.hpp>
+#include <sge/renderer/state/core/blend/object_unique_ptr.hpp>
+#include <sge/renderer/vertex/buffer_unique_ptr.hpp>
+#include <sge/renderer/vertex/declaration_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -50,12 +51,12 @@ public:
 
 	SGE_LINE_DRAWER_SYMBOL ~object();
 private:
-	friend class scoped_lock;
+	friend class sge::line_drawer::scoped_lock;
 
 	sge::renderer::device::core &renderer_;
-	sge::renderer::vertex::declaration_scoped_ptr const vertex_declaration_;
-	sge::renderer::state::core::blend::object_scoped_ptr const blend_state_;
-	sge::renderer::vertex::buffer_scoped_ptr vb_;
+	sge::renderer::vertex::declaration_unique_ptr const vertex_declaration_;
+	sge::renderer::state::core::blend::object_unique_ptr const blend_state_;
+	sge::renderer::vertex::buffer_unique_ptr vb_;
 	line_sequence lines_;
 
 	void

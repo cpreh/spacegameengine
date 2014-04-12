@@ -184,7 +184,7 @@ sge::cegui::texture_target::setArea(
 		return;
 	}
 
-	transform_state_.take(
+	transform_state_ =
 		texture_parameters_.renderer().create_transform_state(
 			sge::renderer::state::ffp::transform::parameters(
 				sge::renderer::projection::orthogonal(
@@ -201,8 +201,7 @@ sge::cegui::texture_target::setArea(
 					)
 				)
 			)
-		)
-	);
+		);
 }
 
 CEGUI::Rectf const &
@@ -398,7 +397,7 @@ sge::cegui::texture_target::declareRenderSize(
 	// The size here could be (0,0), for example if the viewport hasn't
 	// been initialized yet. If that's the case, create an empty texture.
 
-	texture_.take(
+	texture_ =
 		sge::cegui::from_cegui_size<
 			sge::renderer::dim2
 		>(
@@ -423,8 +422,7 @@ sge::cegui::texture_target::declareRenderSize(
 				sge::renderer::texture::capabilities_field{
 					sge::renderer::texture::capabilities::render_target
 				}
-			)
-	);
+			);
 
 	if(
 		texture_->empty()

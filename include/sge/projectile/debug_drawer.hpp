@@ -27,7 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/context/core_fwd.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -43,7 +45,7 @@ class debug_drawer
 FCPPT_NONCOPYABLE(
 	debug_drawer);
 public:
-	SGE_PROJECTILE_SYMBOL explicit
+	SGE_PROJECTILE_SYMBOL
 	debug_drawer(
 		sge::projectile::world &,
 		sge::renderer::device::core &);
@@ -66,7 +68,7 @@ public:
 
 	SGE_PROJECTILE_SYMBOL ~debug_drawer();
 private:
-	fcppt::scoped_ptr<detail::debug_drawer_impl> impl_;
+	std::unique_ptr<detail::debug_drawer_impl> const impl_;
 };
 }
 }

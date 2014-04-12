@@ -19,14 +19,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/audio/file.hpp>
-#include <sge/audio/file_scoped_ptr.hpp>
+#include <sge/audio/file_unique_ptr.hpp>
 #include <sge/audio/load_exn.hpp>
 #include <sge/audio/loader_capabilities_field.hpp>
 #include <sge/audio/loader_fwd.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/sound/positional.hpp>
 #include <sge/audio/sound/positional_parameters.hpp>
-#include <sge/audio/sound/positional_scoped_ptr.hpp>
+#include <sge/audio/sound/positional_unique_ptr.hpp>
 #include <sge/audio/sound/repeat.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/media/extension.hpp>
@@ -85,7 +85,7 @@ try
 		)
 	);
 
-	sge::audio::file_scoped_ptr const file(
+	sge::audio::file_unique_ptr const file(
 		sge::audio::load_exn(
 			sys.audio_loader(),
 			sge::config::media_path()
@@ -94,7 +94,7 @@ try
 		)
 	);
 
-	sge::audio::sound::positional_scoped_ptr const sound(
+	sge::audio::sound::positional_unique_ptr const sound(
 		sys.audio_player().create_positional_stream(
 			*file,
 			sge::audio::sound::positional_parameters()

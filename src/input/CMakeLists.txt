@@ -37,7 +37,6 @@ set(
 	include/sge/input/cursor/no_object.hpp
 	include/sge/input/cursor/object.hpp
 	include/sge/input/cursor/object_fwd.hpp
-	include/sge/input/cursor/object_scoped_ptr.hpp
 	include/sge/input/cursor/object_set.hpp
 	include/sge/input/cursor/object_unique_ptr.hpp
 	include/sge/input/cursor/optional_object_ref.hpp
@@ -146,7 +145,6 @@ set(
 	include/sge/input/keyboard/collector_fwd.hpp
 	include/sge/input/keyboard/device.hpp
 	include/sge/input/keyboard/device_fwd.hpp
-	include/sge/input/keyboard/device_scoped_ptr.hpp
 	include/sge/input/keyboard/device_unique_ptr.hpp
 	include/sge/input/keyboard/digit.hpp
 	include/sge/input/keyboard/discover_callback.hpp
@@ -224,7 +222,6 @@ set(
 	include/sge/input/mouse/collector_fwd.hpp
 	include/sge/input/mouse/device.hpp
 	include/sge/input/mouse/device_fwd.hpp
-	include/sge/input/mouse/device_scoped_ptr.hpp
 	include/sge/input/mouse/device_unique_ptr.hpp
 	include/sge/input/mouse/discover_callback.hpp
 	include/sge/input/mouse/discover_event.hpp
@@ -245,11 +242,9 @@ set(
 	include/sge/input/plugin/traits.hpp
 	include/sge/input/processor.hpp
 	include/sge/input/processor_fwd.hpp
-	include/sge/input/processor_scoped_ptr.hpp
 	include/sge/input/processor_unique_ptr.hpp
 	include/sge/input/system.hpp
 	include/sge/input/system_fwd.hpp
-	include/sge/input/system_scoped_ptr.hpp
 	include/sge/input/system_unique_ptr.hpp
 	src/input/capabilities_to_string.cpp
 	src/input/create_multi_system.cpp

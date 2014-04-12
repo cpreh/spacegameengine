@@ -102,13 +102,12 @@ sge::systems::detail::instance_impl::init_window_system(
 	sge::systems::window const &_parameters
 )
 {
-	window_system_.take(
+	window_system_ =
 		fcppt::make_unique_ptr<
 			sge::systems::modules::window::system
 		>(
 			_parameters
-		)
-	);
+		);
 }
 
 void
@@ -121,7 +120,7 @@ sge::systems::detail::instance_impl::init_renderer_system(
 		window_system_
 	);
 
-	renderer_system_.take(
+	renderer_system_ =
 		fcppt::make_unique_ptr<
 			sge::systems::modules::renderer::system
 		>(
@@ -131,8 +130,7 @@ sge::systems::detail::instance_impl::init_renderer_system(
 			_parameters,
 			_config,
 			*window_system_
-		)
-	);
+		);
 }
 
 void
@@ -144,7 +142,7 @@ sge::systems::detail::instance_impl::init_window_object(
 		window_system_
 	);
 
-	window_object_.take(
+	window_object_ =
 		fcppt::make_unique_ptr<
 			sge::systems::modules::window::object
 		>(
@@ -157,8 +155,7 @@ sge::systems::detail::instance_impl::init_window_object(
 				)
 			:
 				sge::systems::modules::renderer::optional_system_ref()
-		)
-	);
+		);
 }
 
 void
@@ -174,15 +171,14 @@ sge::systems::detail::instance_impl::init_renderer(
 		renderer_system_
 	);
 
-	renderer_device_.take(
+	renderer_device_ =
 		fcppt::make_unique_ptr<
 			sge::systems::modules::renderer::device
 		>(
 			_param,
 			*renderer_system_,
 			*window_object_
-		)
-	);
+		);
 }
 
 void
@@ -198,7 +194,7 @@ sge::systems::detail::instance_impl::init_input(
 		window_object_
 	);
 
-	input_.take(
+	input_ =
 		fcppt::make_unique_ptr<
 			sge::systems::modules::input::object
 		>(
@@ -208,8 +204,7 @@ sge::systems::detail::instance_impl::init_input(
 			_parameters,
 			*window_system_,
 			*window_object_
-		)
-	);
+		);
 }
 
 void
@@ -217,7 +212,7 @@ sge::systems::detail::instance_impl::init_image2d(
 	sge::systems::image2d const &_parameters
 )
 {
-	image2d_.take(
+	image2d_ =
 		fcppt::make_unique_ptr<
 			sge::systems::modules::image2d::object
 		>(
@@ -225,8 +220,7 @@ sge::systems::detail::instance_impl::init_image2d(
 				sge::image2d::system
 			>(),
 			_parameters
-		)
-	);
+		);
 }
 
 void
@@ -234,7 +228,7 @@ sge::systems::detail::instance_impl::init_audio_loader(
 	sge::systems::audio_loader const &_parameters
 )
 {
-	audio_loader_.take(
+	audio_loader_ =
 		fcppt::make_unique_ptr<
 			sge::systems::modules::audio::loader
 		>(
@@ -242,8 +236,7 @@ sge::systems::detail::instance_impl::init_audio_loader(
 				sge::audio::loader
 			>(),
 			_parameters
-		)
-	);
+		);
 }
 
 void
@@ -251,7 +244,7 @@ sge::systems::detail::instance_impl::init_audio_player(
 	sge::systems::audio_player const &_parameters
 )
 {
-	audio_player_.take(
+	audio_player_ =
 		fcppt::make_unique_ptr<
 			sge::systems::modules::audio::player
 		>(
@@ -259,8 +252,7 @@ sge::systems::detail::instance_impl::init_audio_player(
 				sge::audio::player
 			>(),
 			_parameters
-		)
-	);
+		);
 }
 
 void
@@ -268,7 +260,7 @@ sge::systems::detail::instance_impl::init_font(
 	sge::systems::font const &_parameters
 )
 {
-	font_.take(
+	font_ =
 		fcppt::make_unique_ptr<
 			sge::systems::modules::font::object
 		>(
@@ -276,8 +268,7 @@ sge::systems::detail::instance_impl::init_font(
 				sge::font::system
 			>(),
 			_parameters
-		)
-	);
+		);
 }
 
 void

@@ -35,7 +35,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/sampler/const_object_ref_vector.hpp>
 #include <sge/renderer/state/ffp/sampler/object.hpp>
 #include <sge/renderer/state/ffp/sampler/scoped.hpp>
-#include <sge/renderer/state/ffp/sampler/scoped_scoped_ptr.hpp>
 #include <sge/renderer/state/ffp/sampler/scoped_unique_ptr.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/sprite/object_impl.hpp>
@@ -157,7 +156,7 @@ sge::font::draw::detail::static_text_impl::draw(
 	)
 		return;
 
-	sge::renderer::state::ffp::sampler::scoped_scoped_ptr const scoepd_state(
+	sge::renderer::state::ffp::sampler::scoped_unique_ptr const scoepd_state(
 		sampler_state_
 		?
 			fcppt::make_unique_ptr<

@@ -29,7 +29,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/window/object_fwd.hpp>
 #include <awl/backends/x11/window/event/processor_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -68,20 +70,20 @@ private:
 	override;
 
 	typedef
-	fcppt::scoped_ptr<
+	std::unique_ptr<
 		sge::opengl::xrandr::state
 	>
-	xrandr_state_scoped_ptr;
+	xrandr_state_unique_ptr;
 
 	typedef
-	fcppt::scoped_ptr<
+	std::unique_ptr<
 		sge::opengl::xrandr::resolution
 	>
-	resolution_scoped_ptr;
+	resolution_unique_ptr;
 
-	xrandr_state_scoped_ptr const xrandr_state_;
+	xrandr_state_unique_ptr const xrandr_state_;
 
-	resolution_scoped_ptr resolution_;
+	resolution_unique_ptr resolution_;
 };
 
 }

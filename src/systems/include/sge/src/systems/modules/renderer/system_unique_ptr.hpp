@@ -18,11 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_SYSTEMS_MODULES_INPUT_OBJECT_SCOPED_PTR_HPP_INCLUDED
-#define SGE_SRC_SYSTEMS_MODULES_INPUT_OBJECT_SCOPED_PTR_HPP_INCLUDED
+#ifndef SGE_SRC_SYSTEMS_MODULES_RENDERER_SYSTEM_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_SRC_SYSTEMS_MODULES_RENDERER_SYSTEM_UNIQUE_PTR_HPP_INCLUDED
 
-#include <sge/src/systems/modules/input/object_fwd.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
+#include <sge/src/systems/modules/renderer/system_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -31,12 +33,14 @@ namespace systems
 {
 namespace modules
 {
-namespace input
+namespace renderer
 {
 
-typedef fcppt::scoped_ptr<
-	sge::systems::modules::input::object
-> object_scoped_ptr;
+typedef
+std::unique_ptr<
+	sge::systems::modules::renderer::system
+>
+system_unique_ptr;
 
 }
 }

@@ -197,7 +197,7 @@ sge::evdev::processor::dev_init()
 {
 	eventfd_->read();
 
-	dev_reader_.take(
+	dev_reader_ =
 		fcppt::make_unique_ptr<
 			sge::evdev::inotify::reader
 		>(
@@ -210,8 +210,7 @@ sge::evdev::processor::dev_init()
 					std::placeholders::_1
 				)
 			)
-		)
-	);
+		);
 
 	sge::evdev::joypad::init(
 		sge::evdev::joypad::add_parameters(

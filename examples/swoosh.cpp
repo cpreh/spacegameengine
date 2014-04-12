@@ -27,15 +27,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/graph/position.hpp>
 #include <sge/audio/exception.hpp>
 #include <sge/audio/file.hpp>
-#include <sge/audio/file_scoped_ptr.hpp>
+#include <sge/audio/file_unique_ptr.hpp>
 #include <sge/audio/file_unique_ptr.hpp>
 #include <sge/audio/listener.hpp>
-#include <sge/audio/buffer_scoped_ptr.hpp>
+#include <sge/audio/buffer_unique_ptr.hpp>
 #include <sge/audio/loader.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/sound/base.hpp>
 #include <sge/audio/buffer.hpp>
-#include <sge/audio/sound/base_scoped_ptr.hpp>
+#include <sge/audio/sound/base_unique_ptr.hpp>
 #include <sge/audio/sound/nonpositional_parameters.hpp>
 #include <sge/audio/sound/repeat.hpp>
 #include <sge/config/media_path.hpp>
@@ -107,7 +107,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/with_input.hpp>
 #include <sge/systems/with_renderer.hpp>
 #include <sge/systems/with_window.hpp>
-#include <sge/texture/const_part_scoped_ptr.hpp>
+#include <sge/texture/const_part_unique_ptr.hpp>
 #include <sge/texture/part_raw_ptr.hpp>
 #include <sge/viewport/center_on_resize.hpp>
 #include <sge/window/parameters.hpp>
@@ -491,7 +491,7 @@ try
 		sys.cursor_demuxer()
 	);
 
-	sge::texture::const_part_scoped_ptr const
+	sge::texture::const_part_unique_ptr const
 		tex_bg(
 			fcppt::make_unique_ptr<
 				sge::texture::part_raw_ptr
@@ -610,7 +610,7 @@ try
 		)
 	);
 
-	sge::audio::file_scoped_ptr const af_siren(
+	sge::audio::file_unique_ptr const af_siren(
 		load_raw(
 			sge::config::media_path()
 			/ FCPPT_TEXT("sounds")
@@ -619,11 +619,11 @@ try
 		)
 	);
 
-	sge::audio::buffer_scoped_ptr const sound_buffer(
+	sge::audio::buffer_unique_ptr const sound_buffer(
 		sys.audio_player().create_buffer(
 			*af_siren));
 
-	sge::audio::sound::base_scoped_ptr const sound_siren(
+	sge::audio::sound::base_unique_ptr const sound_siren(
 		sound_buffer->create_nonpositional(
 			sge::audio::sound::nonpositional_parameters()));
 

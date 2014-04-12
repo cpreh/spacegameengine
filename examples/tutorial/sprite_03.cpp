@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/emulate_srgb_from_caps.hpp>
 #include <sge/renderer/texture/planar.hpp>
-#include <sge/renderer/texture/planar_scoped_ptr.hpp>
+#include <sge/renderer/texture/planar_unique_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/parameters.hpp>
@@ -76,7 +76,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/with_input.hpp>
 #include <sge/systems/with_renderer.hpp>
 #include <sge/systems/with_window.hpp>
-#include <sge/texture/const_part_scoped_ptr.hpp>
+#include <sge/texture/const_part_unique_ptr.hpp>
 #include <sge/texture/part_raw_ref.hpp>
 #include <sge/viewport/center_on_resize.hpp>
 #include <sge/window/dim.hpp>
@@ -229,7 +229,7 @@ try
 		sys.renderer_device_ffp(),
 		sprite_state_parameters()
 	);
-	sge::renderer::texture::planar_scoped_ptr const image_texture(
+	sge::renderer::texture::planar_unique_ptr const image_texture(
 		sge::renderer::texture::create_planar_from_path(
 			sge::config::media_path()
 			/ FCPPT_TEXT("images")
@@ -244,7 +244,7 @@ try
 		)
 	);
 
-	sge::texture::const_part_scoped_ptr const image_texture_part(
+	sge::texture::const_part_unique_ptr const image_texture_part(
 		fcppt::make_unique_ptr<
 			sge::texture::part_raw_ref
 		>(

@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/title.hpp>
 #include <awl/main/exit_code.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
 
 
 sge::rucksack::testbed::object::object(

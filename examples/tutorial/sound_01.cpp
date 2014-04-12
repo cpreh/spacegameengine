@@ -19,15 +19,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/audio/buffer.hpp>
-#include <sge/audio/buffer_scoped_ptr.hpp>
+#include <sge/audio/buffer_unique_ptr.hpp>
 #include <sge/audio/file.hpp>
-#include <sge/audio/file_scoped_ptr.hpp>
+#include <sge/audio/file_unique_ptr.hpp>
 #include <sge/audio/load_exn.hpp>
 #include <sge/audio/loader_capabilities_field.hpp>
 #include <sge/audio/loader_fwd.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/sound/base.hpp>
-#include <sge/audio/sound/base_scoped_ptr.hpp>
+#include <sge/audio/sound/base_unique_ptr.hpp>
 #include <sge/audio/sound/nonpositional_parameters.hpp>
 #include <sge/audio/sound/repeat.hpp>
 #include <sge/config/media_path.hpp>
@@ -81,7 +81,7 @@ try
 		)
 	);
 
-	sge::audio::file_scoped_ptr const file(
+	sge::audio::file_unique_ptr const file(
 		sge::audio::load_exn(
 			sys.audio_loader(),
 			sge::config::media_path()
@@ -90,13 +90,13 @@ try
 		)
 	);
 
-	sge::audio::buffer_scoped_ptr const buffer(
+	sge::audio::buffer_unique_ptr const buffer(
 		sys.audio_player().create_buffer(
 			*file
 		)
 	);
 
-	sge::audio::sound::base_scoped_ptr const sound(
+	sge::audio::sound::base_unique_ptr const sound(
 		buffer->create_nonpositional(
 			sge::audio::sound::nonpositional_parameters()
 		)

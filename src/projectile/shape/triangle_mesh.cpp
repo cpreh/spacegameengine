@@ -18,11 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/projectile/triangle.hpp>
 #include <sge/projectile/shape/triangle_mesh.hpp>
 #include <sge/src/projectile/declare_local_logger.hpp>
 #include <sge/src/projectile/object_extrusion_depth.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/verbose.hpp>
@@ -63,11 +65,9 @@ sge::projectile::shape::triangle_mesh::triangle_mesh(
 		scalars_.begin();
 
 	for(
-		shape::triangle_sequence::const_iterator triangle_it(
-			_triangles.begin()
-		);
-		triangle_it != _triangles.end();
-		++triangle_it
+		sge::projectile::triangle const &triangle
+		:
+		_triangles
 	)
 	{
 		typedef std::array<
@@ -81,17 +81,11 @@ sge::projectile::shape::triangle_mesh::triangle_mesh(
 		}};
 
 		for(
-			extrusion_array::const_iterator current_z_it(
-				extrusion_depth.begin()
-			);
-			current_z_it != extrusion_depth.end();
-			++current_z_it
+			btScalar const current_z
+			:
+			extrusion_depth
 		)
 		{
-			btScalar const current_z(
-				*current_z_it
-			);
-
 			FCPPT_LOG_VERBOSE(
 				local_log,
 				fcppt::log::_
@@ -99,17 +93,11 @@ sge::projectile::shape::triangle_mesh::triangle_mesh(
 					<< FCPPT_TEXT(": triangle begin"));
 
 			for(
-				triangle::const_iterator triangle_point_it(
-					triangle_it->begin()
-				);
-				triangle_point_it != triangle_it->end();
-				++triangle_point_it
+				auto const &current_triangle_point
+				:
+				triangle
 			)
 			{
-				triangle::const_reference current_triangle_point(
-					*triangle_point_it
-				);
-
 				FCPPT_LOG_VERBOSE(
 					local_log,
 					fcppt::log::_
@@ -191,7 +179,7 @@ sge::projectile::shape::triangle_mesh::triangle_mesh(
 			<< this
 			<< FCPPT_TEXT(": filled index container (last index was ") << current_index << FCPPT_TEXT("), now creating bullet shape"));
 
-	mesh_.take(
+	mesh_ =
 		fcppt::make_unique_ptr<btTriangleIndexVertexArray>(
 			// number of triangles
 			static_cast<int>(
@@ -212,13 +200,13 @@ sge::projectile::shape::triangle_mesh::triangle_mesh(
 			static_cast<int>(
 				3u *
 				sizeof(
-					btScalar))));
+					btScalar)));
 
-	bullet_shape_.take(
+	bullet_shape_ =
 		fcppt::make_unique_ptr<btBvhTriangleMeshShape>(
 			mesh_.get(),
 			// use compression (is recommended)
-			true));
+			true);
 }
 
 btCollisionShape &

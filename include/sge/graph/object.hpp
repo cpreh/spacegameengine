@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
-#include <sge/renderer/texture/planar_scoped_ptr.hpp>
+#include <sge/renderer/texture/planar_unique_ptr.hpp>
 #include <sge/sprite/object_decl.hpp>
 #include <sge/sprite/parameters_fwd.hpp>
 #include <sge/sprite/buffers/single_decl.hpp>
@@ -142,7 +142,7 @@ private:
 	sge::renderer::dim2
 	dim_;
 
-	sge::renderer::texture::planar_scoped_ptr const
+	sge::renderer::texture::planar_unique_ptr const
 	texture_;
 
 	sprite_object const

@@ -39,12 +39,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/vertex/buffer.hpp>
 #include <sge/renderer/vertex/buffer_parameters.hpp>
-#include <sge/renderer/vertex/buffer_scoped_ptr.hpp>
+#include <sge/renderer/vertex/buffer_unique_ptr.hpp>
 #include <sge/renderer/vertex/const_buffer_ref_container.hpp>
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/declaration.hpp>
 #include <sge/renderer/vertex/declaration_parameters.hpp>
-#include <sge/renderer/vertex/declaration_scoped_ptr.hpp>
+#include <sge/renderer/vertex/declaration_unique_ptr.hpp>
 #include <sge/renderer/vertex/first.hpp>
 #include <sge/renderer/vertex/scoped_declaration_and_buffers.hpp>
 #include <sge/renderer/vertex/scoped_lock.hpp>
@@ -181,7 +181,7 @@ try
 //! [format_declaration]
 
 //! [vertex_declaration]
-	sge::renderer::vertex::declaration_scoped_ptr const vertex_declaration(
+	sge::renderer::vertex::declaration_unique_ptr const vertex_declaration(
 		sys.renderer_device_core().create_vertex_declaration(
 			sge::renderer::vertex::declaration_parameters(
 				sge::renderer::vf::dynamic::make_format<
@@ -193,7 +193,7 @@ try
 //! [vertex_declaration]
 
 //! [vertex_buffer]
-	sge::renderer::vertex::buffer_scoped_ptr const vertex_buffer(
+	sge::renderer::vertex::buffer_unique_ptr const vertex_buffer(
 		sys.renderer_device_core().create_vertex_buffer(
 			sge::renderer::vertex::buffer_parameters(
 				*vertex_declaration,

@@ -26,7 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/modules/audio/loader_fwd.hpp>
 #include <sge/systems/audio_loader_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -54,9 +56,11 @@ public:
 	sge::audio::loader &
 	get() const;
 private:
-	typedef fcppt::scoped_ptr<
+	typedef
+	std::unique_ptr<
 		sge::audio::multi_loader
-	> audio_multi_loader_ptr;
+	>
+	audio_multi_loader_ptr;
 
 	audio_multi_loader_ptr audio_multi_loader_;
 };

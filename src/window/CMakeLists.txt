@@ -7,7 +7,6 @@ set(
 	include/sge/window/dim_fwd.hpp
 	include/sge/window/object.hpp
 	include/sge/window/object_fwd.hpp
-	include/sge/window/object_scoped_ptr.hpp
 	include/sge/window/object_unique_ptr.hpp
 	include/sge/window/optional_dim.hpp
 	include/sge/window/optional_dim_fwd.hpp

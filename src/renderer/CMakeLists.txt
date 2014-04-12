@@ -62,25 +62,20 @@ set(
 	include/sge/renderer/const_raw_pointer.hpp
 	include/sge/renderer/context/core.hpp
 	include/sge/renderer/context/core_fwd.hpp
-	include/sge/renderer/context/core_scoped_ptr.hpp
 	include/sge/renderer/context/core_unique_ptr.hpp
 	include/sge/renderer/context/ffp.hpp
 	include/sge/renderer/context/ffp_fwd.hpp
-	include/sge/renderer/context/ffp_scoped_ptr.hpp
 	include/sge/renderer/context/ffp_unique_ptr.hpp
 	include/sge/renderer/context/scoped_core.hpp
 	include/sge/renderer/context/scoped_core_fwd.hpp
-	include/sge/renderer/context/scoped_core_scoped_ptr.hpp
 	include/sge/renderer/context/scoped_core_unique_ptr.hpp
 	include/sge/renderer/context/scoped_ffp.hpp
 	include/sge/renderer/context/scoped_ffp_fwd.hpp
-	include/sge/renderer/context/scoped_ffp_scoped_ptr.hpp
 	include/sge/renderer/context/scoped_ffp_unique_ptr.hpp
 	include/sge/renderer/context/scoped_offscreen_target.hpp
 	include/sge/renderer/context/scoped_offscreen_target_fwd.hpp
 	include/sge/renderer/core.hpp
 	include/sge/renderer/core_fwd.hpp
-	include/sge/renderer/core_scoped_ptr.hpp
 	include/sge/renderer/core_unique_ptr.hpp
 	include/sge/renderer/depth_stencil_buffer/optional_surface_ref.hpp
 	include/sge/renderer/depth_stencil_buffer/optional_surface_ref_fwd.hpp
@@ -88,15 +83,12 @@ set(
 	include/sge/renderer/depth_stencil_buffer/surface_fwd.hpp
 	include/sge/renderer/depth_stencil_buffer/surface_parameters.hpp
 	include/sge/renderer/depth_stencil_buffer/surface_parameters_fwd.hpp
-	include/sge/renderer/depth_stencil_buffer/surface_scoped_ptr.hpp
 	include/sge/renderer/depth_stencil_buffer/surface_unique_ptr.hpp
 	include/sge/renderer/device/core.hpp
 	include/sge/renderer/device/core_fwd.hpp
-	include/sge/renderer/device/core_scoped_ptr.hpp
 	include/sge/renderer/device/core_unique_ptr.hpp
 	include/sge/renderer/device/ffp.hpp
 	include/sge/renderer/device/ffp_fwd.hpp
-	include/sge/renderer/device/ffp_scoped_ptr.hpp
 	include/sge/renderer/device/ffp_unique_ptr.hpp
 	include/sge/renderer/device/index.hpp
 	include/sge/renderer/device/index_value.hpp
@@ -149,7 +141,6 @@ set(
 	include/sge/renderer/index/buffer_fwd.hpp
 	include/sge/renderer/index/buffer_parameters.hpp
 	include/sge/renderer/index/buffer_parameters_fwd.hpp
-	include/sge/renderer/index/buffer_scoped_ptr.hpp
 	include/sge/renderer/index/buffer_shared_ptr.hpp
 	include/sge/renderer/index/buffer_types.hpp
 	include/sge/renderer/index/buffer_unique_ptr.hpp
@@ -221,7 +212,6 @@ set(
 	include/sge/renderer/occlusion_query/blocking_wait.hpp
 	include/sge/renderer/occlusion_query/object.hpp
 	include/sge/renderer/occlusion_query/object_fwd.hpp
-	include/sge/renderer/occlusion_query/object_scoped_ptr.hpp
 	include/sge/renderer/occlusion_query/object_unique_ptr.hpp
 	include/sge/renderer/occlusion_query/optional_pixel_count.hpp
 	include/sge/renderer/occlusion_query/optional_pixel_count_fwd.hpp
@@ -253,7 +243,7 @@ set(
 	include/sge/renderer/pixel_rect_fwd.hpp
 	include/sge/renderer/pixel_unit.hpp
 	include/sge/renderer/plugin/collection_fwd.hpp
-	include/sge/renderer/plugin/object_scoped_ptr.hpp
+	include/sge/renderer/plugin/object_unique_ptr.hpp
 	include/sge/renderer/plugin/traits.hpp
 	include/sge/renderer/primitive_count.hpp
 	include/sge/renderer/primitive_type.hpp
@@ -305,7 +295,6 @@ set(
 	include/sge/renderer/state/core/blend/dest_fwd.hpp
 	include/sge/renderer/state/core/blend/object.hpp
 	include/sge/renderer/state/core/blend/object_fwd.hpp
-	include/sge/renderer/state/core/blend/object_scoped_ptr.hpp
 	include/sge/renderer/state/core/blend/object_unique_ptr.hpp
 	include/sge/renderer/state/core/blend/parameters.hpp
 	include/sge/renderer/state/core/blend/parameters_fwd.hpp
@@ -336,7 +325,6 @@ set(
 	include/sge/renderer/state/core/depth_stencil/depth/write_enable.hpp
 	include/sge/renderer/state/core/depth_stencil/object.hpp
 	include/sge/renderer/state/core/depth_stencil/object_fwd.hpp
-	include/sge/renderer/state/core/depth_stencil/object_scoped_ptr.hpp
 	include/sge/renderer/state/core/depth_stencil/object_unique_ptr.hpp
 	include/sge/renderer/state/core/depth_stencil/parameters.hpp
 	include/sge/renderer/state/core/depth_stencil/parameters_fwd.hpp
@@ -383,7 +371,6 @@ set(
 	include/sge/renderer/state/core/rasterizer/fill_mode_fwd.hpp
 	include/sge/renderer/state/core/rasterizer/object.hpp
 	include/sge/renderer/state/core/rasterizer/object_fwd.hpp
-	include/sge/renderer/state/core/rasterizer/object_scoped_ptr.hpp
 	include/sge/renderer/state/core/rasterizer/object_unique_ptr.hpp
 	include/sge/renderer/state/core/rasterizer/parameters.hpp
 	include/sge/renderer/state/core/rasterizer/parameters_fwd.hpp
@@ -431,7 +418,6 @@ set(
 	include/sge/renderer/state/core/sampler/filter/variant_fwd.hpp
 	include/sge/renderer/state/core/sampler/object.hpp
 	include/sge/renderer/state/core/sampler/object_fwd.hpp
-	include/sge/renderer/state/core/sampler/object_scoped_ptr.hpp
 	include/sge/renderer/state/core/sampler/object_unique_ptr.hpp
 	include/sge/renderer/state/core/sampler/parameters.hpp
 	include/sge/renderer/state/core/sampler/parameters_fwd.hpp
@@ -449,7 +435,6 @@ set(
 	include/sge/renderer/state/ffp/alpha_test/func_fwd.hpp
 	include/sge/renderer/state/ffp/alpha_test/object.hpp
 	include/sge/renderer/state/ffp/alpha_test/object_fwd.hpp
-	include/sge/renderer/state/ffp/alpha_test/object_scoped_ptr.hpp
 	include/sge/renderer/state/ffp/alpha_test/object_unique_ptr.hpp
 	include/sge/renderer/state/ffp/alpha_test/off.hpp
 	include/sge/renderer/state/ffp/alpha_test/off_fwd.hpp
@@ -466,7 +451,6 @@ set(
 	include/sge/renderer/state/ffp/clip_plane/const_object_ref_vector.hpp
 	include/sge/renderer/state/ffp/clip_plane/object.hpp
 	include/sge/renderer/state/ffp/clip_plane/object_fwd.hpp
-	include/sge/renderer/state/ffp/clip_plane/object_scoped_ptr.hpp
 	include/sge/renderer/state/ffp/clip_plane/object_unique_ptr.hpp
 	include/sge/renderer/state/ffp/clip_plane/parameters.hpp
 	include/sge/renderer/state/ffp/clip_plane/parameters_fwd.hpp
@@ -484,7 +468,6 @@ set(
 	include/sge/renderer/state/ffp/fog/mode_fwd.hpp
 	include/sge/renderer/state/ffp/fog/object.hpp
 	include/sge/renderer/state/ffp/fog/object_fwd.hpp
-	include/sge/renderer/state/ffp/fog/object_scoped_ptr.hpp
 	include/sge/renderer/state/ffp/fog/object_unique_ptr.hpp
 	include/sge/renderer/state/ffp/fog/off.hpp
 	include/sge/renderer/state/ffp/fog/off_fwd.hpp
@@ -516,7 +499,6 @@ set(
 	include/sge/renderer/state/ffp/lighting/light/linear_attenuation.hpp
 	include/sge/renderer/state/ffp/lighting/light/object.hpp
 	include/sge/renderer/state/ffp/lighting/light/object_fwd.hpp
-	include/sge/renderer/state/ffp/lighting/light/object_scoped_ptr.hpp
 	include/sge/renderer/state/ffp/lighting/light/object_unique_ptr.hpp
 	include/sge/renderer/state/ffp/lighting/light/parameters.hpp
 	include/sge/renderer/state/ffp/lighting/light/parameters_fwd.hpp
@@ -537,7 +519,6 @@ set(
 	include/sge/renderer/state/ffp/lighting/material/emissive_color.hpp
 	include/sge/renderer/state/ffp/lighting/material/object.hpp
 	include/sge/renderer/state/ffp/lighting/material/object_fwd.hpp
-	include/sge/renderer/state/ffp/lighting/material/object_scoped_ptr.hpp
 	include/sge/renderer/state/ffp/lighting/material/object_unique_ptr.hpp
 	include/sge/renderer/state/ffp/lighting/material/parameters.hpp
 	include/sge/renderer/state/ffp/lighting/material/parameters_fwd.hpp
@@ -546,7 +527,6 @@ set(
 	include/sge/renderer/state/ffp/lighting/material/shininess.hpp
 	include/sge/renderer/state/ffp/lighting/object.hpp
 	include/sge/renderer/state/ffp/lighting/object_fwd.hpp
-	include/sge/renderer/state/ffp/lighting/object_scoped_ptr.hpp
 	include/sge/renderer/state/ffp/lighting/object_unique_ptr.hpp
 	include/sge/renderer/state/ffp/lighting/off.hpp
 	include/sge/renderer/state/ffp/lighting/off_fwd.hpp
@@ -565,7 +545,6 @@ set(
 	include/sge/renderer/state/ffp/misc/normalize_normals.hpp
 	include/sge/renderer/state/ffp/misc/object.hpp
 	include/sge/renderer/state/ffp/misc/object_fwd.hpp
-	include/sge/renderer/state/ffp/misc/object_scoped_ptr.hpp
 	include/sge/renderer/state/ffp/misc/object_unique_ptr.hpp
 	include/sge/renderer/state/ffp/misc/parameters.hpp
 	include/sge/renderer/state/ffp/misc/parameters_fwd.hpp
@@ -590,7 +569,6 @@ set(
 	include/sge/renderer/state/ffp/sampler/default_op.hpp
 	include/sge/renderer/state/ffp/sampler/object.hpp
 	include/sge/renderer/state/ffp/sampler/object_fwd.hpp
-	include/sge/renderer/state/ffp/sampler/object_scoped_ptr.hpp
 	include/sge/renderer/state/ffp/sampler/object_unique_ptr.hpp
 	include/sge/renderer/state/ffp/sampler/op.hpp
 	include/sge/renderer/state/ffp/sampler/op_fwd.hpp
@@ -601,7 +579,6 @@ set(
 	include/sge/renderer/state/ffp/sampler/parameters_fwd.hpp
 	include/sge/renderer/state/ffp/sampler/scoped.hpp
 	include/sge/renderer/state/ffp/sampler/scoped_fwd.hpp
-	include/sge/renderer/state/ffp/sampler/scoped_scoped_ptr.hpp
 	include/sge/renderer/state/ffp/sampler/scoped_unique_ptr.hpp
 	include/sge/renderer/state/ffp/sampler/ternary_op.hpp
 	include/sge/renderer/state/ffp/sampler/ternary_op_fwd.hpp
@@ -618,7 +595,6 @@ set(
 	include/sge/renderer/state/ffp/transform/mode_fwd.hpp
 	include/sge/renderer/state/ffp/transform/object.hpp
 	include/sge/renderer/state/ffp/transform/object_fwd.hpp
-	include/sge/renderer/state/ffp/transform/object_scoped_ptr.hpp
 	include/sge/renderer/state/ffp/transform/object_unique_ptr.hpp
 	include/sge/renderer/state/ffp/transform/parameters.hpp
 	include/sge/renderer/state/ffp/transform/parameters_fwd.hpp
@@ -627,7 +603,6 @@ set(
 	include/sge/renderer/state/index_count.hpp
 	include/sge/renderer/system.hpp
 	include/sge/renderer/system_fwd.hpp
-	include/sge/renderer/system_scoped_ptr.hpp
 	include/sge/renderer/system_unique_ptr.hpp
 	include/sge/renderer/target/aspect_from_viewport.hpp
 	include/sge/renderer/target/base.hpp
@@ -635,11 +610,9 @@ set(
 	include/sge/renderer/target/from_texture.hpp
 	include/sge/renderer/target/offscreen.hpp
 	include/sge/renderer/target/offscreen_fwd.hpp
-	include/sge/renderer/target/offscreen_scoped_ptr.hpp
 	include/sge/renderer/target/offscreen_unique_ptr.hpp
 	include/sge/renderer/target/onscreen.hpp
 	include/sge/renderer/target/onscreen_fwd.hpp
-	include/sge/renderer/target/onscreen_scoped_ptr.hpp
 	include/sge/renderer/target/onscreen_unique_ptr.hpp
 	include/sge/renderer/target/optional_offscreen_ref.hpp
 	include/sge/renderer/target/optional_offscreen_ref_fwd.hpp
@@ -655,7 +628,6 @@ set(
 	include/sge/renderer/target/viewport_size.hpp
 	include/sge/renderer/texture/base.hpp
 	include/sge/renderer/texture/base_fwd.hpp
-	include/sge/renderer/texture/base_scoped_ptr.hpp
 	include/sge/renderer/texture/base_shared_ptr.hpp
 	include/sge/renderer/texture/base_unique_ptr.hpp
 	include/sge/renderer/texture/basic_parameters.hpp
@@ -682,7 +654,6 @@ set(
 	include/sge/renderer/texture/cube_fwd.hpp
 	include/sge/renderer/texture/cube_parameters.hpp
 	include/sge/renderer/texture/cube_parameters_fwd.hpp
-	include/sge/renderer/texture/cube_scoped_ptr.hpp
 	include/sge/renderer/texture/cube_shared_ptr.hpp
 	include/sge/renderer/texture/cube_side.hpp
 	include/sge/renderer/texture/cube_side_fwd.hpp
@@ -691,7 +662,6 @@ set(
 	include/sge/renderer/texture/depth_stencil_fwd.hpp
 	include/sge/renderer/texture/depth_stencil_parameters.hpp
 	include/sge/renderer/texture/depth_stencil_parameters_fwd.hpp
-	include/sge/renderer/texture/depth_stencil_scoped_ptr.hpp
 	include/sge/renderer/texture/depth_stencil_unique_ptr.hpp
 	include/sge/renderer/texture/emulate_srgb.hpp
 	include/sge/renderer/texture/emulate_srgb_from_caps.hpp
@@ -718,7 +688,6 @@ set(
 	include/sge/renderer/texture/planar_fwd.hpp
 	include/sge/renderer/texture/planar_parameters.hpp
 	include/sge/renderer/texture/planar_parameters_fwd.hpp
-	include/sge/renderer/texture/planar_scoped_ptr.hpp
 	include/sge/renderer/texture/planar_shared_ptr.hpp
 	include/sge/renderer/texture/planar_unique_ptr.hpp
 	include/sge/renderer/texture/scoped.hpp
@@ -731,7 +700,6 @@ set(
 	include/sge/renderer/texture/volume_fwd.hpp
 	include/sge/renderer/texture/volume_parameters.hpp
 	include/sge/renderer/texture/volume_parameters_fwd.hpp
-	include/sge/renderer/texture/volume_scoped_ptr.hpp
 	include/sge/renderer/texture/volume_shared_ptr.hpp
 	include/sge/renderer/texture/volume_unique_ptr.hpp
 	include/sge/renderer/unsupported.hpp
@@ -745,7 +713,6 @@ set(
 	include/sge/renderer/vertex/buffer_fwd.hpp
 	include/sge/renderer/vertex/buffer_parameters.hpp
 	include/sge/renderer/vertex/buffer_parameters_fwd.hpp
-	include/sge/renderer/vertex/buffer_scoped_ptr.hpp
 	include/sge/renderer/vertex/buffer_shared_ptr.hpp
 	include/sge/renderer/vertex/buffer_types.hpp
 	include/sge/renderer/vertex/buffer_unique_ptr.hpp
@@ -760,7 +727,6 @@ set(
 	include/sge/renderer/vertex/declaration_fwd.hpp
 	include/sge/renderer/vertex/declaration_parameters.hpp
 	include/sge/renderer/vertex/declaration_parameters_fwd.hpp
-	include/sge/renderer/vertex/declaration_scoped_ptr.hpp
 	include/sge/renderer/vertex/declaration_shared_ptr.hpp
 	include/sge/renderer/vertex/declaration_unique_ptr.hpp
 	include/sge/renderer/vertex/first.hpp

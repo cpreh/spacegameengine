@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/renderer/vf/dynamic/detail/locked_part_interval.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
 #include <fcppt/assert/pre.hpp>
 
 
@@ -91,14 +90,13 @@ sge::renderer::vf::dynamic::converter::unlock()
 	if(
 		!converter_
 	)
-		converter_.take(
+		converter_ =
 			fcppt::make_unique_ptr<
 				sge::renderer::vf::dynamic::detail::converter_impl
 			>(
 				part_,
 				accepted_formats_
-			)
-		);
+			);
 
 	if(
 		sge::renderer::lock_flags::write(

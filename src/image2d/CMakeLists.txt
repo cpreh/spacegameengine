@@ -17,7 +17,6 @@ set(
 	include/sge/image2d/dim_fwd.hpp
 	include/sge/image2d/file.hpp
 	include/sge/image2d/file_fwd.hpp
-	include/sge/image2d/file_scoped_ptr.hpp
 	include/sge/image2d/file_shared_ptr.hpp
 	include/sge/image2d/file_unique_ptr.hpp
 	include/sge/image2d/l8_format.hpp
@@ -84,7 +83,6 @@ set(
 	include/sge/image2d/store/view.hpp
 	include/sge/image2d/system.hpp
 	include/sge/image2d/system_fwd.hpp
-	include/sge/image2d/system_scoped_ptr.hpp
 	include/sge/image2d/system_unique_ptr.hpp
 	include/sge/image2d/tag.hpp
 	include/sge/image2d/traits/box_fwd.hpp

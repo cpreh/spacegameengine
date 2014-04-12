@@ -60,9 +60,11 @@ public:
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
 	~context();
 
-	typedef typename sge::plugin::object_unique_ptr<
+	typedef
+	sge::plugin::object_unique_ptr<
 		Type
-	>::type object_unique_ptr;
+	>
+	object_unique_ptr;
 
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
 	object_unique_ptr

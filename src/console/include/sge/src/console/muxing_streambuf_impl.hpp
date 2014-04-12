@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/from_fcppt_string.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/from_std_wstring.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -87,7 +86,7 @@ sge::console::muxing_streambuf<
 >::~muxing_streambuf()
 {
 	stream_.rdbuf(
-		old_streambuf_.release().release()
+		old_streambuf_.release()
 	);
 }
 

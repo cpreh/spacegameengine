@@ -23,13 +23,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/src/systems/modules/renderer/optional_system_ref_fwd.hpp>
 #include <sge/src/systems/modules/window/base.hpp>
-#include <sge/window/object_scoped_ptr.hpp>
+#include <sge/window/object_unique_ptr.hpp>
 #include <sge/window/parameters_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
-#include <awl/cursor/object_scoped_ptr.hpp>
-#include <awl/visual/object_scoped_ptr.hpp>
-#include <awl/window/object_scoped_ptr.hpp>
-#include <awl/window/event/processor_scoped_ptr.hpp>
+#include <awl/cursor/object_unique_ptr.hpp>
+#include <awl/visual/object_unique_ptr.hpp>
+#include <awl/window/object_unique_ptr.hpp>
+#include <awl/window/event/processor_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -63,15 +63,15 @@ private:
 	get() const
 	override;
 
-	awl::visual::object_scoped_ptr const awl_visual_;
+	awl::visual::object_unique_ptr const awl_visual_;
 
-	awl::cursor::object_scoped_ptr const awl_cursor_;
+	awl::cursor::object_unique_ptr const awl_cursor_;
 
-	awl::window::object_scoped_ptr const awl_window_;
+	awl::window::object_unique_ptr const awl_window_;
 
-	awl::window::event::processor_scoped_ptr const awl_window_event_processor_;
+	awl::window::event::processor_unique_ptr const awl_window_event_processor_;
 
-	sge::window::object_scoped_ptr const window_;
+	sge::window::object_unique_ptr const window_;
 };
 
 }

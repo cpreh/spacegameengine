@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/from_fcppt_string.hpp>
 #include <sge/font/lit.hpp>
 #include <sge/font/object.hpp>
-#include <sge/font/object_scoped_ptr.hpp>
+#include <sge/font/object_unique_ptr.hpp>
 #include <sge/font/parameters.hpp>
 #include <sge/font/string.hpp>
 #include <sge/font/system.hpp>
@@ -77,7 +77,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/projection/near.hpp>
 #include <sge/renderer/state/core/sampler/const_object_ref.hpp>
 #include <sge/renderer/state/core/sampler/object.hpp>
-#include <sge/renderer/state/core/sampler/object_scoped_ptr.hpp>
+#include <sge/renderer/state/core/sampler/object_unique_ptr.hpp>
 #include <sge/renderer/state/core/sampler/parameters.hpp>
 #include <sge/renderer/state/core/sampler/scoped_single.hpp>
 #include <sge/renderer/state/core/sampler/address/default.hpp>
@@ -92,7 +92,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/sampler/filter/anisotropic/parameters.hpp>
 #include <sge/renderer/state/ffp/transform/mode.hpp>
 #include <sge/renderer/state/ffp/transform/object.hpp>
-#include <sge/renderer/state/ffp/transform/object_scoped_ptr.hpp>
+#include <sge/renderer/state/ffp/transform/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
 #include <sge/renderer/state/ffp/transform/scoped.hpp>
 #include <sge/renderer/target/onscreen.hpp>
@@ -391,7 +391,7 @@ try
 		SGE_FONT_LIT('x')
 	);
 
-	sge::renderer::state::core::sampler::object_scoped_ptr const
+	sge::renderer::state::core::sampler::object_unique_ptr const
 		point_sampler(
 			sys.renderer_device_core().create_sampler_state(
 				make_sampler_parameters(
@@ -729,7 +729,7 @@ try
 		+ SGE_FONT_LIT(" to select a filter!)")
 	);
 
-	sge::font::object_scoped_ptr const font(
+	sge::font::object_unique_ptr const font(
 		sys.font_system().create_font(
 			sge::font::parameters()
 				.family(
@@ -771,7 +771,7 @@ try
 			)
 		);
 
-		sge::renderer::state::ffp::transform::object_scoped_ptr const projection_state(
+		sge::renderer::state::ffp::transform::object_unique_ptr const projection_state(
 			sys.renderer_device_ffp().create_transform_state(
 				sge::renderer::state::ffp::transform::parameters(
 					camera.projection_matrix().get()
@@ -779,7 +779,7 @@ try
 			)
 		);
 
-		sge::renderer::state::ffp::transform::object_scoped_ptr const world_state(
+		sge::renderer::state::ffp::transform::object_unique_ptr const world_state(
 			sys.renderer_device_ffp().create_transform_state(
 				sge::renderer::state::ffp::transform::parameters(
 					sge::camera::matrix_conversion::world(

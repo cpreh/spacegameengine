@@ -123,7 +123,7 @@ sge::line_drawer::object::unlock()
 		return;
 
 	if (!vb_ || vb_->size().get() < static_cast<sge::renderer::size_type>(lines_.size()*2))
-		vb_.take(
+		vb_ =
 			renderer_.create_vertex_buffer(
 				sge::renderer::vertex::buffer_parameters(
 					*vertex_declaration_,
@@ -131,7 +131,7 @@ sge::line_drawer::object::unlock()
 						0u),
 					sge::renderer::vertex::count(
 						lines_.size()*2),
-					sge::renderer::resource_flags_field::null())));
+					sge::renderer::resource_flags_field::null()));
 
 	sge::renderer::vertex::scoped_lock const vblock(
 		*vb_,

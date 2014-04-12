@@ -363,15 +363,14 @@ sge::x11input::cursor::object::check_grab()
 			!cursor_grab_
 			&& entered_
 		)
-			cursor_grab_.take(
+			cursor_grab_ =
 				fcppt::make_unique_ptr<
 					sge::x11input::cursor::grab
 				>(
 					window_,
 					this->id(),
 					invisible_image_
-				)
-			);
+				);
 		else if(
 			!entered_
 		)

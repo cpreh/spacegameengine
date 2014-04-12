@@ -8,6 +8,7 @@ set(
 	include/sge/line_drawer/object_fwd.hpp
 	include/sge/line_drawer/render_to_screen.hpp
 	include/sge/line_drawer/scoped_lock.hpp
+	include/sge/line_drawer/scoped_lock_fwd.hpp
 	src/line_drawer/include/sge/src/line_drawer/vf/color.hpp
 	src/line_drawer/include/sge/src/line_drawer/vf/format.hpp
 	src/line_drawer/include/sge/src/line_drawer/vf/part.hpp

@@ -101,6 +101,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <example_main.hpp>
 #include <exception>
 #include <iostream>
+#include <memory>
 #include <ostream>
 #include <string>
 #include <fcppt/config/external_end.hpp>
@@ -239,12 +240,12 @@ try
 
 //#define SGE_EXAMPLE_SCENIC_CAPTURE
 
-	fcppt::scoped_ptr<sge::camera::base> camera;
-	fcppt::scoped_ptr<sge::camera::tracking::json::interval_exporter> exporter;
+	std::unique_ptr<sge::camera::base> camera;
+	std::unique_ptr<sge::camera::tracking::json::interval_exporter> exporter;
 
 	if(!compiled_options.count("track-from-file"))
 	{
-		camera.take(
+		camera =
 			fcppt::make_unique_ptr<sge::camera::first_person::object>(
 				sge::camera::first_person::parameters(
 					sys.keyboard_collector(),
@@ -253,11 +254,11 @@ try
 						true),
 					sge::camera::first_person::movement_speed(
 						4.0f),
-					sge::camera::coordinate_system::identity())));
+					sge::camera::coordinate_system::identity()));
 	}
 	else
 	{
-		camera.take(
+		camera =
 			fcppt::make_unique_ptr<sge::camera::tracking::object>(
 				sge::camera::optional_projection_matrix(),
 				sge::camera::tracking::json::keyframes_from_json(
@@ -267,18 +268,18 @@ try
 				sge::camera::tracking::is_looping(
 					true),
 				sge::camera::is_active(
-					true)));
+					true));
 	}
 
 	if(compiled_options.count("record-to-file"))
 	{
-		exporter.take(
+		exporter =
 			fcppt::make_unique_ptr<sge::camera::tracking::json::interval_exporter>(
 				*camera,
 				sge::camera::update_duration(
 					exporter_interval),
 				boost::filesystem::path(
-					record_to_file)));
+					record_to_file));
 	}
 
 	sge::scenic::scene::manager scene_manager(

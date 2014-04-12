@@ -26,8 +26,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/projectile/shape/base.hpp>
 #include <sge/projectile/shape/triangle_sequence.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
-#include <fcppt/container/raw_vector.hpp>
+#include <fcppt/container/raw_vector_decl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
 
 
 class btCollisionShape;
@@ -70,8 +72,8 @@ private:
 
 	scalar_vector scalars_;
 	index_vector indices_;
-	fcppt::scoped_ptr<btTriangleIndexVertexArray> mesh_;
-	fcppt::scoped_ptr<btBvhTriangleMeshShape> bullet_shape_;
+	std::unique_ptr<btTriangleIndexVertexArray> mesh_;
+	std::unique_ptr<btBvhTriangleMeshShape> bullet_shape_;
 };
 }
 }

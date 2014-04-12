@@ -22,15 +22,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_SYSTEMS_MODULES_INPUT_OBJECT_HPP_INCLUDED
 
 #include <sge/input/processor_fwd.hpp>
-#include <sge/input/processor_scoped_ptr.hpp>
+#include <sge/input/processor_unique_ptr.hpp>
 #include <sge/input/system_fwd.hpp>
-#include <sge/input/system_scoped_ptr.hpp>
+#include <sge/input/system_unique_ptr.hpp>
 #include <sge/input/cursor/object_fwd.hpp>
-#include <sge/input/cursor/object_scoped_ptr.hpp>
+#include <sge/input/cursor/object_unique_ptr.hpp>
 #include <sge/input/keyboard/device_fwd.hpp>
-#include <sge/input/keyboard/device_scoped_ptr.hpp>
+#include <sge/input/keyboard/device_unique_ptr.hpp>
 #include <sge/input/mouse/device_fwd.hpp>
-#include <sge/input/mouse/device_scoped_ptr.hpp>
+#include <sge/input/mouse/device_unique_ptr.hpp>
 #include <sge/input/plugin/collection_fwd.hpp>
 #include <sge/src/systems/modules/input/cursor_modifier_fwd.hpp>
 #include <sge/src/systems/modules/input/object_fwd.hpp>
@@ -38,7 +38,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/modules/window/system_fwd.hpp>
 #include <sge/systems/detail/input_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -80,19 +82,21 @@ public:
 	sge::input::mouse::device &
 	mouse_collector() const;
 private:
-	sge::input::system_scoped_ptr const input_system_;
+	sge::input::system_unique_ptr const input_system_;
 
-	sge::input::processor_scoped_ptr const input_processor_;
+	sge::input::processor_unique_ptr const input_processor_;
 
-	sge::input::cursor::object_scoped_ptr const cursor_demuxer_;
+	sge::input::cursor::object_unique_ptr const cursor_demuxer_;
 
-	sge::input::keyboard::device_scoped_ptr const keyboard_collector_;
+	sge::input::keyboard::device_unique_ptr const keyboard_collector_;
 
-	sge::input::mouse::device_scoped_ptr const mouse_collector_;
+	sge::input::mouse::device_unique_ptr const mouse_collector_;
 
-	typedef fcppt::scoped_ptr<
+	typedef
+	std::unique_ptr<
 		sge::systems::modules::input::cursor_modifier
-	> cursor_modifier_ptr;
+	>
+	cursor_modifier_ptr;
 
 	cursor_modifier_ptr const cursor_modifier_;
 };

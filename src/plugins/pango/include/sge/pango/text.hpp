@@ -30,9 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/vector_fwd.hpp>
 #include <sge/font/view_fwd.hpp>
 #include <sge/pango/no_multi_line.hpp>
-#include <sge/pango/pango_layout_scoped_ptr.hpp>
+#include <sge/pango/pango_layout_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <pango/pango-layout.h>
 #include <fcppt/config/external_end.hpp>
@@ -82,7 +81,7 @@ private:
 	) const
 	override;
 
-	sge::pango::pango_layout_scoped_ptr const layout_;
+	sge::pango::pango_layout_unique_ptr const layout_;
 
 	sge::pango::no_multi_line const no_multi_line_;
 

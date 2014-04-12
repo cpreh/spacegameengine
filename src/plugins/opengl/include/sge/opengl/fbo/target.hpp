@@ -40,9 +40,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/surface_index.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_decl.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/ptr_container/ptr_map.hpp>
+#include <memory>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -131,9 +131,11 @@ private:
 
 	attachment_map color_attachments_;
 
-	typedef fcppt::scoped_ptr<
+	typedef
+	std::unique_ptr<
 		sge::opengl::fbo::attachment
-	> scoped_attachment;
+	>
+	scoped_attachment;
 
 	scoped_attachment depth_stencil_attachment_;
 };

@@ -83,9 +83,11 @@ sge::media::detail::muxer<
 		collection
 	)
 	{
-		typedef typename sge::plugin::object_unique_ptr<
+		typedef
+		sge::plugin::object_unique_ptr<
 			System
-		>::type plugin_unique_ptr;
+		>
+		plugin_unique_ptr;
 
 		plugin_unique_ptr plugin(
 			element.load()

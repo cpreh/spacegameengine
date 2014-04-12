@@ -18,22 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TEXTURE_CONST_PART_SCOPED_PTR_HPP_INCLUDED
-#define SGE_TEXTURE_CONST_PART_SCOPED_PTR_HPP_INCLUDED
+#ifndef SGE_AUDIO_PLAYER_PLUGIN_OBJECT_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_AUDIO_PLAYER_PLUGIN_OBJECT_UNIQUE_PTR_HPP_INCLUDED
 
-#include <sge/texture/part_fwd.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
+#include <sge/audio/player_fwd.hpp>
+#include <sge/plugin/object_unique_ptr.hpp>
 
 
 namespace sge
 {
-namespace texture
+namespace audio
+{
+namespace player_plugin
 {
 
-typedef fcppt::scoped_ptr<
-	sge::texture::part const
-> const_part_scoped_ptr;
+typedef
+sge::plugin::object_unique_ptr<
+	sge::audio::player
+>
+object_unique_ptr;
 
+}
 }
 }
 

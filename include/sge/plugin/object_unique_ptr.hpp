@@ -35,14 +35,14 @@ namespace plugin
 template<
 	typename Type
 >
-struct object_unique_ptr
-{
-	typedef std::unique_ptr<
-		sge::plugin::object<
-			Type
-		>
-	> type;
-};
+using
+object_unique_ptr
+=
+std::unique_ptr<
+	sge::plugin::object<
+		Type
+	>
+>;
 
 }
 }

@@ -29,9 +29,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_decl.hpp>
-#include <fcppt/scoped_ptr_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <map>
+#include <memory>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -81,9 +81,11 @@ public:
 	sge::opengl::context::device::id const
 	static_id;
 private:
-	typedef fcppt::scoped_ptr<
+	typedef
+	std::unique_ptr<
 		sge::opengl::state::core::sampler::object
-	> object_scoped_ptr;
+	>
+	object_unique_ptr;
 
 	typedef fcppt::optional<
 		sge::opengl::state::core::sampler::object const &
@@ -94,7 +96,7 @@ private:
 		optional_object_ref
 	> optional_object_ref_map;
 
-	object_scoped_ptr const defaults_;
+	object_unique_ptr const defaults_;
 
 	optional_object_ref_map objects_;
 };

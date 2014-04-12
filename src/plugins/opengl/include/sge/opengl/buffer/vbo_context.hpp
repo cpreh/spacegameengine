@@ -26,7 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/base.hpp>
 #include <sge/opengl/context/system/id.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -61,7 +63,7 @@ public:
 
 	static sge::opengl::context::system::id const static_id;
 private:
-	fcppt::scoped_ptr<
+	std::unique_ptr<
 		sge::opengl::buffer::base
 	> const impl_;
 

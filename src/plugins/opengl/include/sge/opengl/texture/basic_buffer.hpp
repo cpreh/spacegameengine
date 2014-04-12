@@ -40,8 +40,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/lock_flags/method_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_decl.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
 #include <fcppt/math/box/object_decl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -164,7 +166,7 @@ private:
 
 	size_type const stride_;
 
-	typedef fcppt::scoped_ptr<
+	typedef std::unique_ptr<
 		sge::opengl::texture::lock_base
 	> scoped_lock_ptr;
 

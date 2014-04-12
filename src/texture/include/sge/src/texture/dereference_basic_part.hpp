@@ -21,7 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_TEXTURE_DEREFERENCE_BASIC_PART_HPP_INCLUDED
 #define SGE_SRC_TEXTURE_DEREFERENCE_BASIC_PART_HPP_INCLUDED
 
-#include <fcppt/scoped_ptr_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -46,7 +48,7 @@ template<
 >
 T &
 dereference_basic_part(
-	fcppt::scoped_ptr<
+	std::unique_ptr<
 		T
 	> const &_ptr
 )

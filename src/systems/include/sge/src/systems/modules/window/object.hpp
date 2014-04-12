@@ -22,14 +22,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_SYSTEMS_MODULES_WINDOW_OBJECT_HPP_INCLUDED
 
 #include <sge/src/systems/modules/renderer/optional_system_ref.hpp>
-#include <sge/src/systems/modules/window/base_scoped_ptr.hpp>
+#include <sge/src/systems/modules/window/base_unique_ptr.hpp>
 #include <sge/src/systems/modules/window/object_fwd.hpp>
 #include <sge/src/systems/modules/window/quit_fwd.hpp>
 #include <sge/src/systems/modules/window/system_fwd.hpp>
 #include <sge/systems/window_fwd.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -61,17 +63,17 @@ public:
 	void
 	post_init();
 private:
-	sge::systems::modules::window::base_scoped_ptr const base_;
+	sge::systems::modules::window::base_unique_ptr const base_;
 
 	bool const show_on_post_;
 
 	typedef
-	fcppt::scoped_ptr<
+	std::unique_ptr<
 		sge::systems::modules::window::quit
 	>
-	quit_scoped_ptr;
+	quit_unique_ptr;
 
-	quit_scoped_ptr const quit_;
+	quit_unique_ptr const quit_;
 };
 
 }

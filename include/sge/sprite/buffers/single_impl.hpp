@@ -34,7 +34,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/buffers/vertex_count.hpp>
 #include <sge/sprite/buffers/roles/vertex_buffer.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
 
 
 template<
@@ -114,7 +113,7 @@ sge::sprite::buffers::single<
 	if(
 		!slice_
 	)
-		slice_.take(
+		slice_ =
 			fcppt::make_unique_ptr<
 				slice_type
 			>(
@@ -122,8 +121,7 @@ sge::sprite::buffers::single<
 				sge::sprite::default_initialize_class<
 					typename slice_type::offset_object
 				>()
-			)
-		);
+			);
 	else
 		slice_->reset(
 			buffers_object_,

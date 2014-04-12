@@ -19,22 +19,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/audio/buffer.hpp>
-#include <sge/audio/buffer_scoped_ptr.hpp>
+#include <sge/audio/buffer_unique_ptr.hpp>
 #include <sge/audio/exception.hpp>
 #include <sge/audio/file.hpp>
-#include <sge/audio/file_scoped_ptr.hpp>
+#include <sge/audio/file_unique_ptr.hpp>
 #include <sge/audio/file_unique_ptr.hpp>
 #include <sge/audio/listener.hpp>
 #include <sge/audio/load_exn.hpp>
 #include <sge/audio/loader.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/sound/base.hpp>
-#include <sge/audio/sound/base_scoped_ptr.hpp>
+#include <sge/audio/sound/base_unique_ptr.hpp>
 #include <sge/audio/sound/nonpositional_parameters.hpp>
 #include <sge/audio/sound/play_status.hpp>
 #include <sge/audio/sound/positional.hpp>
 #include <sge/audio/sound/positional_parameters.hpp>
-#include <sge/audio/sound/positional_scoped_ptr.hpp>
+#include <sge/audio/sound/positional_unique_ptr.hpp>
 #include <sge/audio/sound/repeat.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/log/location.hpp>
@@ -218,7 +218,7 @@ try
 
 	wait_for_input();
 
-	sge::audio::file_scoped_ptr const soundfile(
+	sge::audio::file_unique_ptr const soundfile(
 		load_raw(
 			file_name,
 			sys.audio_loader()));
@@ -235,7 +235,7 @@ try
 
 	wait_for_input();
 
-	sge::audio::buffer_scoped_ptr const buf(
+	sge::audio::buffer_unique_ptr const buf(
 		sys.audio_player().create_buffer(
 			*soundfile));
 
@@ -245,7 +245,7 @@ try
 
 	wait_for_input();
 
-	sge::audio::sound::base_scoped_ptr const sound(
+	sge::audio::sound::base_unique_ptr const sound(
 		buf->create_nonpositional(
 			sge::audio::sound::nonpositional_parameters()));
 
@@ -266,7 +266,7 @@ try
 
 	wait_for_input();
 
-	sge::audio::sound::positional_scoped_ptr const positional_sound(
+	sge::audio::sound::positional_unique_ptr const positional_sound(
 		buf->create_positional(
 			sge::audio::sound::positional_parameters()
 				.linear_velocity(
@@ -387,14 +387,14 @@ try
 
 	wait_for_input();
 
-	sge::audio::file_scoped_ptr const streaming_file(
+	sge::audio::file_unique_ptr const streaming_file(
 		sge::audio::load_exn(
 			sys.audio_loader(),
 			streaming_file_name
 		)
 	);
 
-	sge::audio::sound::positional_scoped_ptr const streaming_positional_sound(
+	sge::audio::sound::positional_unique_ptr const streaming_positional_sound(
 		sys.audio_player().create_positional_stream(
 			*streaming_file,
 			sge::audio::sound::positional_parameters()

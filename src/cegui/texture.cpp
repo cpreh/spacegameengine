@@ -207,15 +207,14 @@ sge::cegui::texture::create_from_view(
 			)
 		);
 
-	texture_.take(
+	texture_ =
 		sge::renderer::texture::create_planar_from_view(
 			texture_parameters_.renderer(),
 			_view,
 			sge::renderer::texture::mipmap::off(),
 			sge::renderer::resource_flags_field::null(),
 			texture_parameters_.emulate_srgb()
-		)
-	);
+		);
 }
 
 bool

@@ -15,8 +15,8 @@ set(
 	include/sge/texture/basic_part_raw_fwd.hpp
 	include/sge/texture/const_optional_part_ref.hpp
 	include/sge/texture/const_optional_part_ref_fwd.hpp
-	include/sge/texture/const_part_scoped_ptr.hpp
 	include/sge/texture/const_part_shared_ptr.hpp
+	include/sge/texture/const_part_unique_ptr.hpp
 	include/sge/texture/consume_and_set_fragment.hpp
 	include/sge/texture/detail/ref_store_type.hpp
 	include/sge/texture/exception.hpp
@@ -37,7 +37,6 @@ set(
 	include/sge/texture/part_raw_ptr_fwd.hpp
 	include/sge/texture/part_raw_ref.hpp
 	include/sge/texture/part_raw_ref_fwd.hpp
-	include/sge/texture/part_scoped_ptr.hpp
 	include/sge/texture/part_shared_ptr.hpp
 	include/sge/texture/part_unique_ptr.hpp
 	include/sge/texture/pos_type.hpp

@@ -82,7 +82,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/with_input.hpp>
 #include <sge/systems/with_renderer.hpp>
 #include <sge/systems/with_window.hpp>
-#include <sge/texture/const_part_scoped_ptr.hpp>
+#include <sge/texture/const_part_unique_ptr.hpp>
 #include <sge/texture/part_raw_ptr.hpp>
 #include <sge/viewport/center_on_resize.hpp>
 #include <sge/window/parameters.hpp>
@@ -177,7 +177,7 @@ try
 		)
 	);
 
-	sge::texture::const_part_scoped_ptr const
+	sge::texture::const_part_unique_ptr const
 		tex1(
 			fcppt::make_unique_ptr<
 				sge::texture::part_raw_ptr

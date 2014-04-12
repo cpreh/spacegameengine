@@ -40,7 +40,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
-#include <sge/renderer/texture/planar_scoped_ptr.hpp>
 #include <sge/renderer/texture/scoped_planar_lock.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/sprite/object_impl.hpp>

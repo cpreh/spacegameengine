@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_SYSTEMS_MODULES_WINDOW_SYSTEM_HPP_INCLUDED
 #define SGE_SRC_SYSTEMS_MODULES_WINDOW_SYSTEM_HPP_INCLUDED
 
-#include <sge/src/systems/modules/window/system_base_scoped_ptr.hpp>
+#include <sge/src/systems/modules/window/system_base_unique_ptr.hpp>
 #include <sge/src/systems/modules/window/system_fwd.hpp>
 #include <sge/systems/window_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
@@ -53,7 +53,7 @@ public:
 	sge::window::system &
 	get() const;
 private:
-	sge::systems::modules::window::system_base_scoped_ptr const base_;
+	sge::systems::modules::window::system_base_unique_ptr const base_;
 };
 
 }

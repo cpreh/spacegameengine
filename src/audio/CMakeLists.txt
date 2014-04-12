@@ -3,7 +3,6 @@ set(
 	include/sge/audio/bad_sound_alloc.hpp
 	include/sge/audio/buffer.hpp
 	include/sge/audio/buffer_fwd.hpp
-	include/sge/audio/buffer_scoped_ptr.hpp
 	include/sge/audio/buffer_shared_ptr.hpp
 	include/sge/audio/buffer_unique_ptr.hpp
 	include/sge/audio/channel_type.hpp
@@ -16,7 +15,6 @@ set(
 	include/sge/audio/file.hpp
 	include/sge/audio/file_exception.hpp
 	include/sge/audio/file_fwd.hpp
-	include/sge/audio/file_scoped_ptr.hpp
 	include/sge/audio/file_shared_ptr.hpp
 	include/sge/audio/file_unique_ptr.hpp
 	include/sge/audio/listener.hpp
@@ -30,7 +28,6 @@ set(
 	include/sge/audio/loader_fwd.hpp
 	include/sge/audio/loader_plugin/collection_fwd.hpp
 	include/sge/audio/loader_plugin/traits.hpp
-	include/sge/audio/loader_scoped_ptr.hpp
 	include/sge/audio/loader_unique_ptr.hpp
 	include/sge/audio/log_location.hpp
 	include/sge/audio/multi_loader.hpp
@@ -41,9 +38,8 @@ set(
 	include/sge/audio/player.hpp
 	include/sge/audio/player_fwd.hpp
 	include/sge/audio/player_plugin/collection_fwd.hpp
-	include/sge/audio/player_plugin/object_scoped_ptr.hpp
+	include/sge/audio/player_plugin/object_unique_ptr.hpp
 	include/sge/audio/player_plugin/traits.hpp
-	include/sge/audio/player_scoped_ptr.hpp
 	include/sge/audio/player_shared_ptr.hpp
 	include/sge/audio/player_unique_ptr.hpp
 	include/sge/audio/sample_container.hpp
@@ -52,7 +48,6 @@ set(
 	include/sge/audio/scalar.hpp
 	include/sge/audio/sound/base.hpp
 	include/sge/audio/sound/base_fwd.hpp
-	include/sge/audio/sound/base_scoped_ptr.hpp
 	include/sge/audio/sound/base_shared_ptr.hpp
 	include/sge/audio/sound/base_unique_ptr.hpp
 	include/sge/audio/sound/do_pause.hpp
@@ -68,7 +63,6 @@ set(
 	include/sge/audio/sound/positional_fwd.hpp
 	include/sge/audio/sound/positional_parameters.hpp
 	include/sge/audio/sound/positional_parameters_fwd.hpp
-	include/sge/audio/sound/positional_scoped_ptr.hpp
 	include/sge/audio/sound/positional_shared_ptr.hpp
 	include/sge/audio/sound/positional_unique_ptr.hpp
 	include/sge/audio/sound/repeat.hpp

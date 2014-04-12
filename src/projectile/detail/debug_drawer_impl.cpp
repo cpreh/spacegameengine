@@ -64,9 +64,9 @@ sge::projectile::detail::debug_drawer_impl::debug_drawer_impl(
 void
 sge::projectile::detail::debug_drawer_impl::update()
 {
-	scoped_lock_.take(
+	scoped_lock_ =
 		fcppt::make_unique_ptr<sge::line_drawer::scoped_lock>(
-			line_drawer_));
+			line_drawer_);
 
 	FCPPT_LOG_DEBUG(
 		local_log,

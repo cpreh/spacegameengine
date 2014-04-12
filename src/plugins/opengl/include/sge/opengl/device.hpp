@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_DEVICE_HPP_INCLUDED
 #define SGE_OPENGL_DEVICE_HPP_INCLUDED
 
-#include <sge/opengl/backend/context_scoped_ptr.hpp>
+#include <sge/opengl/backend/context_unique_ptr.hpp>
 #include <sge/opengl/backend/scoped_current.hpp>
 #include <sge/opengl/backend/system_fwd.hpp>
 #include <sge/opengl/context/device/object.hpp>
@@ -72,7 +72,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/base_fwd.hpp>
 #include <sge/renderer/target/offscreen_unique_ptr.hpp>
 #include <sge/renderer/target/onscreen_fwd.hpp>
-#include <sge/renderer/target/onscreen_scoped_ptr.hpp>
+#include <sge/renderer/target/onscreen_unique_ptr.hpp>
 #include <sge/renderer/texture/cube_parameters_fwd.hpp>
 #include <sge/renderer/texture/cube_unique_ptr.hpp>
 #include <sge/renderer/texture/depth_stencil_parameters_fwd.hpp>
@@ -88,7 +88,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/window/object_fwd.hpp>
 #include <awl/window/event/processor_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
 
 #if defined(SGE_RENDERER_HAVE_CG)
 #include <sge/cg/context/object_fwd.hpp>
@@ -350,18 +352,18 @@ private:
 	sge::renderer::caps::device const &caps_;
 
 	typedef
-	fcppt::scoped_ptr<
+	std::unique_ptr<
 		sge::opengl::platform::device_state
 	>
-	platform_device_state_scoped_ptr;
+	platform_device_state_unique_ptr;
 
-	platform_device_state_scoped_ptr const device_state_;
+	platform_device_state_unique_ptr const device_state_;
 
-	sge::opengl::backend::context_scoped_ptr const context_;
+	sge::opengl::backend::context_unique_ptr const context_;
 
 	sge::opengl::backend::scoped_current const scoped_current_;
 
-	sge::renderer::target::onscreen_scoped_ptr const onscreen_target_;
+	sge::renderer::target::onscreen_unique_ptr const onscreen_target_;
 };
 
 }

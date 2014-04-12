@@ -18,22 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_AUDIO_LOADER_SCOPED_PTR_HPP_INCLUDED
-#define SGE_AUDIO_LOADER_SCOPED_PTR_HPP_INCLUDED
+#ifndef SGE_RENDERER_PLUGIN_OBJECT_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_RENDERER_PLUGIN_OBJECT_UNIQUE_PTR_HPP_INCLUDED
 
-#include <sge/audio/loader_fwd.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
+#include <sge/plugin/object_unique_ptr.hpp>
+#include <sge/renderer/core_fwd.hpp>
 
 
 namespace sge
 {
-namespace audio
+namespace renderer
+{
+namespace plugin
 {
 
-typedef fcppt::scoped_ptr<
-	sge::audio::loader
-> loader_scoped_ptr;
+typedef
+sge::plugin::object_unique_ptr<
+	sge::renderer::core
+>
+object_unique_ptr;
 
+}
 }
 }
 

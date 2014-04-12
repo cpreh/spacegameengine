@@ -32,13 +32,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/any/object.hpp>
 #include <sge/image2d/algorithm/fill.hpp>
 #include <sge/pango/create_text_layout.hpp>
-#include <sge/pango/glib_deleter.hpp>
 #include <sge/pango/ink_rect.hpp>
 #include <sge/pango/text.hpp>
 #include <sge/pango/convert/from_rect_scale.hpp>
 #include <sge/pango/convert/to_unit.hpp>
 #include <sge/pango/freetype/make_bitmap.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/cast/to_unsigned.hpp>

@@ -39,9 +39,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/cg/loaded_program.hpp>
-#include <sge/renderer/cg/loaded_program_scoped_ptr.hpp>
+#include <sge/renderer/cg/loaded_program_unique_ptr.hpp>
 #include <sge/renderer/cg/loaded_texture.hpp>
-#include <sge/renderer/cg/loaded_texture_scoped_ptr.hpp>
+#include <sge/renderer/cg/loaded_texture_unique_ptr.hpp>
 #include <sge/renderer/cg/scoped_program.hpp>
 #include <sge/renderer/cg/scoped_texture.hpp>
 #include <sge/renderer/clear/parameters.hpp>
@@ -60,23 +60,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/misc/local_viewer.hpp>
 #include <sge/renderer/state/ffp/misc/normalize_normals.hpp>
 #include <sge/renderer/state/ffp/misc/object.hpp>
-#include <sge/renderer/state/ffp/misc/object_scoped_ptr.hpp>
+#include <sge/renderer/state/ffp/misc/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/misc/parameters.hpp>
 #include <sge/renderer/state/ffp/misc/scoped.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/emulate_srgb_from_caps.hpp>
 #include <sge/renderer/texture/planar.hpp>
-#include <sge/renderer/texture/planar_scoped_ptr.hpp>
+#include <sge/renderer/texture/planar_unique_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/renderer/vertex/buffer.hpp>
 #include <sge/renderer/vertex/buffer_parameters.hpp>
-#include <sge/renderer/vertex/buffer_scoped_ptr.hpp>
+#include <sge/renderer/vertex/buffer_unique_ptr.hpp>
 #include <sge/renderer/vertex/const_buffer_ref_container.hpp>
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/declaration.hpp>
 #include <sge/renderer/vertex/declaration_parameters.hpp>
-#include <sge/renderer/vertex/declaration_scoped_ptr.hpp>
+#include <sge/renderer/vertex/declaration_unique_ptr.hpp>
 #include <sge/renderer/vertex/first.hpp>
 #include <sge/renderer/vertex/scoped_declaration_and_buffers.hpp>
 #include <sge/renderer/vertex/scoped_lock.hpp>
@@ -235,7 +235,7 @@ try
 		>
 	> format;
 
-	sge::renderer::vertex::declaration_scoped_ptr const vertex_declaration(
+	sge::renderer::vertex::declaration_unique_ptr const vertex_declaration(
 		sys.renderer_device_core().create_vertex_declaration(
 			sge::renderer::vertex::declaration_parameters(
 				sge::renderer::vf::dynamic::make_format<
@@ -308,7 +308,7 @@ try
 		)
 	);
 
-	sge::renderer::cg::loaded_program_scoped_ptr const loaded_vertex_program(
+	sge::renderer::cg::loaded_program_unique_ptr const loaded_vertex_program(
 		sys.renderer_device_core().load_cg_program(
 			vertex_program
 		)
@@ -338,13 +338,13 @@ try
 		)
 	);
 
-	sge::renderer::cg::loaded_program_scoped_ptr const loaded_pixel_program(
+	sge::renderer::cg::loaded_program_unique_ptr const loaded_pixel_program(
 		sys.renderer_device_core().load_cg_program(
 			pixel_program
 		)
 	);
 
-	sge::renderer::vertex::buffer_scoped_ptr const vertex_buffer(
+	sge::renderer::vertex::buffer_unique_ptr const vertex_buffer(
 		sys.renderer_device_core().create_vertex_buffer(
 			sge::renderer::vertex::buffer_parameters(
 				*vertex_declaration,
@@ -411,7 +411,7 @@ try
 		);
 	}
 
-	sge::renderer::texture::planar_scoped_ptr const texture(
+	sge::renderer::texture::planar_unique_ptr const texture(
 		sge::renderer::texture::create_planar_from_path(
 			sge::config::media_path()
 			/ FCPPT_TEXT("images")
@@ -426,7 +426,7 @@ try
 		)
 	);
 
-	sge::renderer::cg::loaded_texture_scoped_ptr const loaded_texture(
+	sge::renderer::cg::loaded_texture_unique_ptr const loaded_texture(
 		sys.renderer_device_core().load_cg_texture(
 			pixel_program.parameter(
 				"decal"
@@ -441,7 +441,7 @@ try
 		)
 	);
 
-	sge::renderer::state::ffp::misc::object_scoped_ptr const misc_state(
+	sge::renderer::state::ffp::misc::object_unique_ptr const misc_state(
 		sys.renderer_device_ffp().create_misc_state(
 			sge::renderer::state::ffp::misc::parameters(
 				sge::renderer::state::ffp::misc::enable_point_sprites(

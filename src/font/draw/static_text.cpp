@@ -32,7 +32,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/src/font/draw/detail/static_text_impl.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
 
 
 sge::font::draw::static_text::static_text(

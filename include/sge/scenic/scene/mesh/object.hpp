@@ -24,9 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/obj/prototype_fwd.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/index/buffer_fwd.hpp>
-#include <sge/renderer/index/buffer_scoped_ptr.hpp>
+#include <sge/renderer/index/buffer_unique_ptr.hpp>
 #include <sge/renderer/vertex/buffer_fwd.hpp>
-#include <sge/renderer/vertex/buffer_scoped_ptr.hpp>
+#include <sge/renderer/vertex/buffer_unique_ptr.hpp>
 #include <sge/renderer/vertex/declaration_fwd.hpp>
 #include <sge/scenic/box.hpp>
 #include <sge/scenic/scene/mesh/material_to_index_buffer_range.hpp>
@@ -71,8 +71,8 @@ public:
 	SGE_SCENIC_SYMBOL
 	~object();
 private:
-	sge::renderer::vertex::buffer_scoped_ptr vertex_buffer_;
-	sge::renderer::index::buffer_scoped_ptr index_buffer_;
+	sge::renderer::vertex::buffer_unique_ptr const vertex_buffer_;
+	sge::renderer::index::buffer_unique_ptr const index_buffer_;
 	sge::scenic::scene::mesh::material_to_index_buffer_range parts_;
 	sge::scenic::box bounding_box_;
 

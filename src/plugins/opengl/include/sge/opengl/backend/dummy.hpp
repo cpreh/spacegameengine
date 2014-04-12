@@ -21,12 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_BACKEND_DUMMY_HPP_INCLUDED
 #define SGE_OPENGL_BACKEND_DUMMY_HPP_INCLUDED
 
-#include <sge/opengl/backend/context_scoped_ptr.hpp>
+#include <sge/opengl/backend/context_unique_ptr.hpp>
 #include <sge/opengl/backend/scoped_current.hpp>
 #include <sge/opengl/backend/system_fwd.hpp>
 #include <awl/system/object_fwd.hpp>
-#include <awl/visual/object_scoped_ptr.hpp>
-#include <awl/window/object_scoped_ptr.hpp>
+#include <awl/visual/object_unique_ptr.hpp>
+#include <awl/window/object_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -50,11 +50,11 @@ public:
 
 	~dummy();
 private:
-	awl::visual::object_scoped_ptr const awl_visual_;
+	awl::visual::object_unique_ptr const awl_visual_;
 
-	awl::window::object_scoped_ptr const awl_window_;
+	awl::window::object_unique_ptr const awl_window_;
 
-	sge::opengl::backend::context_scoped_ptr const context_;
+	sge::opengl::backend::context_unique_ptr const context_;
 
 	sge::opengl::backend::scoped_current const scoped_current_;
 };

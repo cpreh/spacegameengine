@@ -36,9 +36,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/projectile/group/object_fwd.hpp>
 #include <sge/projectile/group/sequence.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
 #include <fcppt/signal/object_decl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
 
 
 class btCollisionConfiguration;
@@ -57,7 +59,7 @@ class world
 FCPPT_NONCOPYABLE(
 	world);
 public:
-	SGE_PROJECTILE_SYMBOL explicit
+	SGE_PROJECTILE_SYMBOL
 	world();
 
 	SGE_PROJECTILE_SYMBOL void
@@ -110,14 +112,14 @@ private:
 	friend class sge::projectile::detail::debug_drawer_impl;
 
 	fcppt::signal::object<body::collision_fn> body_collision_;
-	fcppt::scoped_ptr<btCollisionConfiguration> configuration_;
-	fcppt::scoped_ptr<btCollisionDispatcher> dispatcher_;
-	fcppt::scoped_ptr<btBroadphaseInterface> broadphase_;
-	fcppt::scoped_ptr<btConstraintSolver> solver_;
+	std::unique_ptr<btCollisionConfiguration> const configuration_;
+	std::unique_ptr<btCollisionDispatcher> const dispatcher_;
+	std::unique_ptr<btBroadphaseInterface> const broadphase_;
+	std::unique_ptr<btConstraintSolver> const solver_;
 	// This is not a btDynamicsWorld because btDynamicsWorld doesn't
 	// have addRigidBody with group and mask parameter.
-	fcppt::scoped_ptr<btDiscreteDynamicsWorld> world_;
-	fcppt::scoped_ptr<ghost::detail::pair_callback> ghost_pair_callback_;
+	std::unique_ptr<btDiscreteDynamicsWorld> const world_;
+	std::unique_ptr<ghost::detail::pair_callback> const ghost_pair_callback_;
 	group::id next_group_id_;
 
 	// for group

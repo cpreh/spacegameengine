@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/symbol.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
-#include <sge/renderer/context/ffp_scoped_ptr.hpp>
+#include <sge/renderer/context/ffp_unique_ptr.hpp>
 #include <sge/renderer/context/scoped_ffp_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/renderer/target/base_fwd.hpp>
@@ -58,7 +58,7 @@ public:
 private:
 	sge::renderer::device::ffp &device_;
 
-	sge::renderer::context::ffp_scoped_ptr const context_;
+	sge::renderer::context::ffp_unique_ptr const context_;
 };
 
 }

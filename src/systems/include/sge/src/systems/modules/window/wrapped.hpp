@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/src/systems/modules/window/base.hpp>
 #include <sge/systems/wrapped_window_fwd.hpp>
-#include <sge/window/object_scoped_ptr.hpp>
+#include <sge/window/object_unique_ptr.hpp>
 #include <sge/window/system_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -57,7 +57,7 @@ private:
 	get() const
 	override;
 
-	sge::window::object_scoped_ptr const window_;
+	sge::window::object_unique_ptr const window_;
 };
 
 }

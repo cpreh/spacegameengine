@@ -45,7 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/texture/create_planar_from_view.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
-#include <sge/renderer/texture/planar_scoped_ptr.hpp>
+#include <sge/renderer/texture/planar_unique_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/sprite/default_parameters.hpp>
 #include <sge/sprite/object.hpp>
@@ -311,7 +311,7 @@ try
 	fill_texture(
 		store.view());
 
-	sge::renderer::texture::planar_scoped_ptr const noise_texture(
+	sge::renderer::texture::planar_unique_ptr const noise_texture(
 		sge::renderer::texture::create_planar_from_view(
 			sys.renderer_device_ffp(),
 			sge::image2d::view::const_object(

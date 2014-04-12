@@ -43,7 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/sampler/binary_op_type.hpp>
 #include <sge/renderer/state/ffp/sampler/const_object_ref_vector.hpp>
 #include <sge/renderer/state/ffp/sampler/object.hpp>
-#include <sge/renderer/state/ffp/sampler/object_scoped_ptr.hpp>
+#include <sge/renderer/state/ffp/sampler/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/sampler/op.hpp>
 #include <sge/renderer/state/ffp/sampler/parameters.hpp>
 #include <sge/renderer/state/ffp/sampler/parameters_both.hpp>
@@ -53,7 +53,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/emulate_srgb_from_caps.hpp>
 #include <sge/renderer/texture/planar.hpp>
-#include <sge/renderer/texture/planar_scoped_ptr.hpp>
+#include <sge/renderer/texture/planar_unique_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/parameters.hpp>
@@ -185,7 +185,7 @@ try
 		)
 	);
 
-	sge::renderer::texture::planar_scoped_ptr const texture1(
+	sge::renderer::texture::planar_unique_ptr const texture1(
 		sge::renderer::texture::create_planar_from_path(
 			sge::config::media_path()
 			/ FCPPT_TEXT("images")
@@ -200,7 +200,7 @@ try
 		)
 	);
 
-	sge::renderer::texture::planar_scoped_ptr const texture2(
+	sge::renderer::texture::planar_unique_ptr const texture2(
 		sge::renderer::texture::create_planar_from_path(
 			sge::config::media_path()
 			/ FCPPT_TEXT("images")
@@ -298,7 +298,7 @@ try
 		)
 	);
 
-	sge::renderer::state::ffp::sampler::object_scoped_ptr const sampler0(
+	sge::renderer::state::ffp::sampler::object_unique_ptr const sampler0(
 		sys.renderer_device_ffp().create_ffp_sampler_state(
 			sge::renderer::state::ffp::sampler::parameters_both(
 				sge::renderer::state::ffp::sampler::op(
@@ -313,7 +313,7 @@ try
 		)
 	);
 
-	sge::renderer::state::ffp::sampler::object_scoped_ptr const sampler1(
+	sge::renderer::state::ffp::sampler::object_unique_ptr const sampler1(
 		sys.renderer_device_ffp().create_ffp_sampler_state(
 			sge::renderer::state::ffp::sampler::parameters_both(
 				sge::renderer::state::ffp::sampler::op(

@@ -19,16 +19,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/audio/buffer.hpp>
-#include <sge/audio/buffer_scoped_ptr.hpp>
+#include <sge/audio/buffer_unique_ptr.hpp>
 #include <sge/audio/file.hpp>
-#include <sge/audio/file_scoped_ptr.hpp>
+#include <sge/audio/file_unique_ptr.hpp>
 #include <sge/audio/load_exn.hpp>
 #include <sge/audio/loader.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/listener.hpp>
 #include <sge/audio/direction/object.hpp>
 #include <sge/audio/sound/base.hpp>
-#include <sge/audio/sound/base_scoped_ptr.hpp>
+#include <sge/audio/sound/base_unique_ptr.hpp>
 #include <sge/audio/sound/nonpositional_parameters.hpp>
 #include <sge/audio/sound/play_status.hpp>
 #include <sge/audio/sound/repeat.hpp>
@@ -47,9 +47,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/iterator.hpp>
 #include <sge/plugin/object.hpp>
 #include <sge/plugin/optional_cache_ref.hpp>
-#include <sge/audio/player_scoped_ptr.hpp>
+#include <sge/audio/player_unique_ptr.hpp>
 #include <sge/audio/player_plugin/collection_fwd.hpp>
-#include <sge/audio/player_plugin/object_scoped_ptr.hpp>
+#include <sge/audio/player_plugin/object_unique_ptr.hpp>
 #include <sge/audio/player_plugin/traits.hpp>
 #include <sge/config/plugin_path.hpp>
 #endif // SGE_EXAMPLES_AUDIO_MINIMAL_USE_SYSTEMS_INIT
@@ -123,10 +123,10 @@ try
 	sge::audio::player_plugin::collection const audio_players(
 		plugin_manager.collection<sge::audio::player>());
 
-	sge::audio::player_plugin::object_scoped_ptr const player_plugin(
+	sge::audio::player_plugin::object_unique_ptr const player_plugin(
 		audio_players.get(0u).load());
 
-	sge::audio::player_scoped_ptr const _player(
+	sge::audio::player_unique_ptr const _player(
 		player_plugin->get()());
 
 	sge::audio::player &player =
@@ -146,18 +146,18 @@ try
 #endif
 
 //! [create_file_buffer_and_sound]
-	sge::audio::file_scoped_ptr const soundfile(
+	sge::audio::file_unique_ptr const soundfile(
 		sge::audio::load_exn(
 			loader,
 			sge::config::media_path()
 				/ FCPPT_TEXT("sounds")
 				/ FCPPT_TEXT("ding.wav")));
 
-	sge::audio::buffer_scoped_ptr const buf(
+	sge::audio::buffer_unique_ptr const buf(
 		player.create_buffer(
 			*soundfile));
 
-	sge::audio::sound::base_scoped_ptr const sound(
+	sge::audio::sound::base_unique_ptr const sound(
 		buf->create_nonpositional(
 			sge::audio::sound::nonpositional_parameters()
 				.gain(
@@ -214,7 +214,7 @@ try
 //! [listener_direction]
 
 //! [create_and_play_streaming]
-	sge::audio::sound::base_scoped_ptr const streaming(
+	sge::audio::sound::base_unique_ptr const streaming(
 		player.create_nonpositional_stream(
 			*soundfile,
 			sge::audio::sound::nonpositional_parameters()));

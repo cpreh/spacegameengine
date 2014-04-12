@@ -210,20 +210,20 @@ sge::scenic::render_context::ffp::object::transform(
 	switch(_type)
 	{
 	case sge::scenic::render_context::transform_matrix_type::projection:
-		projection_transform_.take(
+		projection_transform_ =
 			manager_.renderer_.create_transform_state(
 				sge::renderer::state::ffp::transform::parameters(
-					_matrix)));
+					_matrix));
 		context_.transform(
 			sge::renderer::state::ffp::transform::mode::projection,
 			sge::renderer::state::ffp::transform::const_optional_object_ref(
 				*projection_transform_));
 		break;
 	case sge::scenic::render_context::transform_matrix_type::world:
-		world_transform_.take(
+		world_transform_ =
 			manager_.renderer_.create_transform_state(
 				sge::renderer::state::ffp::transform::parameters(
-					_matrix)));
+					_matrix));
 		context_.transform(
 			sge::renderer::state::ffp::transform::mode::world,
 			sge::renderer::state::ffp::transform::const_optional_object_ref(
@@ -236,7 +236,7 @@ void
 sge::scenic::render_context::ffp::object::material(
 	sge::scenic::render_context::material::object const &_material)
 {
-	current_material_.take(
+	current_material_ =
 		manager_.renderer_.create_material_state(
 			sge::renderer::state::ffp::lighting::material::parameters(
 				sge::renderer::state::ffp::lighting::diffuse_color(
@@ -248,7 +248,7 @@ sge::scenic::render_context::ffp::object::material(
 				sge::renderer::state::ffp::lighting::material::emissive_color(
 					_material.emissive_color().get()),
 				sge::renderer::state::ffp::lighting::material::shininess(
-					_material.shininess().get()))));
+					_material.shininess().get())));
 
 	context_.material_state(
 		sge::renderer::state::ffp::lighting::material::const_optional_object_ref(
@@ -304,10 +304,10 @@ sge::scenic::render_context::ffp::object::vertex_buffer(
 {
 	current_vertex_buffer_.reset();
 
-	current_vertex_buffer_.take(
+	current_vertex_buffer_ =
 		fcppt::make_unique_ptr<sge::renderer::vertex::scoped_buffer>(
 			context_,
-			_vertex_buffer));
+			_vertex_buffer);
 
 	current_vertex_buffer_size_ =
 		_vertex_buffer.size();

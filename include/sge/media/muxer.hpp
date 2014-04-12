@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/optional_extension_fwd.hpp>
 #include <sge/media/detail/muxer_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <functional>
@@ -115,11 +114,11 @@ private:
 		Capabilities
 	> muxer_impl;
 
-	typedef fcppt::scoped_ptr<
+	typedef std::unique_ptr<
 		muxer_impl
-	> muxer_impl_scoped_ptr;
+	> muxer_impl_unique_ptr;
 
-	muxer_impl_scoped_ptr const impl_;
+	muxer_impl_unique_ptr const impl_;
 };
 
 }

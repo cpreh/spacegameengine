@@ -71,7 +71,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/projection/orthogonal_viewport.hpp>
 #include <sge/renderer/state/ffp/transform/mode.hpp>
 #include <sge/renderer/state/ffp/transform/object.hpp>
-#include <sge/renderer/state/ffp/transform/object_scoped_ptr.hpp>
+#include <sge/renderer/state/ffp/transform/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
 #include <sge/renderer/state/ffp/transform/scoped.hpp>
 #include <sge/renderer/target/onscreen.hpp>
@@ -596,7 +596,7 @@ try
 			.back_buffer(
 				sge::image::color::predef::black()));
 
-		sge::renderer::state::ffp::transform::object_scoped_ptr const transform_state(
+		sge::renderer::state::ffp::transform::object_unique_ptr const transform_state(
 			sys.renderer_device_ffp().create_transform_state(
 				sge::renderer::state::ffp::transform::parameters(
 					*sge::renderer::projection::orthogonal_viewport(

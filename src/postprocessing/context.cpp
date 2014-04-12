@@ -198,7 +198,7 @@ sge::postprocessing::context::viewport_callback()
 					sge::renderer::texture::capabilities::render_target))));
 	*/
 
-	rendering_result_texture_.take(
+	rendering_result_texture_ =
 		renderer_.create_planar_texture(
 			sge::renderer::texture::planar_parameters(
 				target_size,
@@ -211,8 +211,7 @@ sge::postprocessing::context::viewport_callback()
 					sge::renderer::texture::capabilities::render_target
 				}
 			)
-		)
-	);
+		);
 
 	finalize_input_texture_parameter_.set(
 		sge::shader::parameter::planar_texture::optional_value(
@@ -223,10 +222,10 @@ sge::postprocessing::context::viewport_callback()
 		*downsampled_texture_0_);
 		*/
 
-	offscreen_target_.take(
+	offscreen_target_ =
 		sge::renderer::target::from_texture(
 			renderer_,
-			*rendering_result_texture_));
+			*rendering_result_texture_);
 
 	/*
 	offscreen_downsampled_target_.take(
@@ -235,11 +234,11 @@ sge::postprocessing::context::viewport_callback()
 			*downsampled_texture_0_));
 			*/
 
-	depth_stencil_surface_.take(
+	depth_stencil_surface_ =
 		renderer_.create_depth_stencil_surface(
 			sge::renderer::depth_stencil_buffer::surface_parameters(
 				target_size,
-				sge::image::ds::format::d32)));
+				sge::image::ds::format::d32));
 
 	offscreen_target_->depth_stencil_surface(
 		sge::renderer::depth_stencil_buffer::optional_surface_ref(

@@ -56,7 +56,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/state/core/depth_stencil/object.hpp>
-#include <sge/renderer/state/core/depth_stencil/object_scoped_ptr.hpp>
+#include <sge/renderer/state/core/depth_stencil/object_unique_ptr.hpp>
 #include <sge/renderer/state/core/depth_stencil/parameters.hpp>
 #include <sge/renderer/state/core/depth_stencil/scoped.hpp>
 #include <sge/renderer/state/core/depth_stencil/depth/off.hpp>
@@ -67,7 +67,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/emulate_srgb_from_caps.hpp>
 #include <sge/renderer/texture/planar.hpp>
-#include <sge/renderer/texture/planar_scoped_ptr.hpp>
+#include <sge/renderer/texture/planar_unique_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/parameters.hpp>
@@ -278,7 +278,7 @@ try
 	);
 
 	// Create the two textures we are going to use
-	sge::renderer::texture::planar_scoped_ptr const
+	sge::renderer::texture::planar_unique_ptr const
 		// Create a texture from "grass.png",
 		// which uses no mipmapping
 		// and clamping at its corners.
@@ -366,7 +366,7 @@ try
 
 	// Create a stencil state which will always pass and increment the
 	// value stored in the stencil buffer for every pixel rendered.
-	sge::renderer::state::core::depth_stencil::object_scoped_ptr const inc_state(
+	sge::renderer::state::core::depth_stencil::object_unique_ptr const inc_state(
 		sys.renderer_device_ffp().create_depth_stencil_state(
 			sge::renderer::state::core::depth_stencil::parameters(
 				sge::renderer::state::core::depth_stencil::depth::off(),
@@ -383,7 +383,7 @@ try
 
 	// Create a stencil state which will only pass if the current stencil
 	// value is still 0.
-	sge::renderer::state::core::depth_stencil::object_scoped_ptr const compare_state(
+	sge::renderer::state::core::depth_stencil::object_unique_ptr const compare_state(
 		sys.renderer_device_ffp().create_depth_stencil_state(
 			sge::renderer::state::core::depth_stencil::parameters(
 				sge::renderer::state::core::depth_stencil::depth::off(),

@@ -135,13 +135,12 @@ sge::cegui::default_target::setArea(
 	if(
 		matrix
 	)
-		transform_.take(
+		transform_ =
 			renderer_.create_transform_state(
 				sge::renderer::state::ffp::transform::parameters(
 					*matrix
 				)
-			)
-		);
+			);
 	else
 		transform_.reset();
 

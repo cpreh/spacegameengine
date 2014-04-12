@@ -30,7 +30,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/onscreen.hpp>
 #include <awl/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -75,13 +77,15 @@ private:
 	sge::renderer::screen_unit
 	height() const;
 
-	typedef fcppt::scoped_ptr<
+	typedef
+	std::unique_ptr<
 		sge::renderer::color_buffer::surface
-	> color_surface_scoped_ptr;
+	>
+	color_surface_unique_ptr;
 
 	sge::opengl::backend::context &context_;
 
-	color_surface_scoped_ptr const main_surface_;
+	color_surface_unique_ptr const main_surface_;
 };
 
 }

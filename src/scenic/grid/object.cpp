@@ -25,11 +25,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/state/core/depth_stencil/object.hpp>
-#include <sge/renderer/state/core/depth_stencil/object_scoped_ptr.hpp>
+#include <sge/renderer/state/core/depth_stencil/object_unique_ptr.hpp>
 #include <sge/renderer/state/core/depth_stencil/parameters.hpp>
 #include <sge/renderer/state/core/depth_stencil/scoped.hpp>
 #include <sge/renderer/state/ffp/transform/object.hpp>
-#include <sge/renderer/state/ffp/transform/object_scoped_ptr.hpp>
+#include <sge/renderer/state/ffp/transform/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
 #include <sge/renderer/state/ffp/transform/scoped.hpp>
 #include <sge/renderer/target/base.hpp>
@@ -153,7 +153,7 @@ sge::scenic::grid::object::render(
 			_context.target()).content())
 		return;
 
-	sge::renderer::state::core::depth_stencil::object_scoped_ptr const depth_state(
+	sge::renderer::state::core::depth_stencil::object_unique_ptr const depth_state(
 		renderer_.create_depth_stencil_state(
 			sge::renderer::state::core::depth_stencil::parameters(
 				_depth_test.get()
@@ -172,12 +172,12 @@ sge::scenic::grid::object::render(
 		_context,
 		*depth_state);
 
-	sge::renderer::state::ffp::transform::object_scoped_ptr const projection_state(
+	sge::renderer::state::ffp::transform::object_unique_ptr const projection_state(
 		renderer_.create_transform_state(
 			sge::renderer::state::ffp::transform::parameters(
 				camera_.projection_matrix().get())));
 
-	sge::renderer::state::ffp::transform::object_scoped_ptr const world_state(
+	sge::renderer::state::ffp::transform::object_unique_ptr const world_state(
 		renderer_.create_transform_state(
 			sge::renderer::state::ffp::transform::parameters(
 				sge::camera::matrix_conversion::world(

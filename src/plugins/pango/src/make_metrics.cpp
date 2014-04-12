@@ -24,11 +24,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/metrics.hpp>
 #include <sge/pango/make_metrics.hpp>
 #include <sge/pango/convert/from_unit.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <pango/pango-font.h>
 #include <pango/pango-fontmap.h>
 #include <pango/pango-layout.h>
+#include <memory>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -58,13 +58,13 @@ sge::pango::make_metrics(
 	};
 
 	typedef
-	fcppt::scoped_ptr<
+	std::unique_ptr<
 		PangoFontMetrics,
 		unref_metrics
 	>
-	metrics_scoped_ptr;
+	metrics_unique_ptr;
 
-	metrics_scoped_ptr const metrics(
+	metrics_unique_ptr const metrics(
 		::pango_context_get_metrics(
 			&_context,
 			desc,

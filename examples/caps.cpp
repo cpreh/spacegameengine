@@ -25,16 +25,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/object.hpp>
 #include <sge/plugin/optional_cache_ref.hpp>
 #include <sge/renderer/core.hpp>
-#include <sge/renderer/core_scoped_ptr.hpp>
+#include <sge/renderer/core_unique_ptr.hpp>
 #include <sge/renderer/system.hpp>
-#include <sge/renderer/system_scoped_ptr.hpp>
+#include <sge/renderer/system_unique_ptr.hpp>
 #include <sge/renderer/caps/device_output.hpp>
 #include <sge/renderer/device/index.hpp>
-#include <sge/renderer/plugin/object_scoped_ptr.hpp>
+#include <sge/renderer/plugin/object_unique_ptr.hpp>
 #include <sge/renderer/plugin/traits.hpp>
 #include <awl/system/create.hpp>
 #include <awl/system/object.hpp>
-#include <awl/system/object_scoped_ptr.hpp>
+#include <awl/system/object_unique_ptr.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/io/cerr.hpp>
@@ -54,7 +54,7 @@ try
 		sge::plugin::optional_cache_ref()
 	);
 
-	sge::renderer::plugin::object_scoped_ptr const plugin(
+	sge::renderer::plugin::object_unique_ptr const plugin(
 		manager.collection<
 			sge::renderer::core
 		>().get(
@@ -62,15 +62,15 @@ try
 		).load()
 	);
 
-	sge::renderer::core_scoped_ptr const render_core(
+	sge::renderer::core_unique_ptr const render_core(
 		plugin->get()()
 	);
 
-	awl::system::object_scoped_ptr const awl_system(
+	awl::system::object_unique_ptr const awl_system(
 		awl::system::create()
 	);
 
-	sge::renderer::system_scoped_ptr const render_sys(
+	sge::renderer::system_unique_ptr const render_sys(
 		render_core->create_system(
 			*awl_system
 		)

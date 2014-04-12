@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_SYSTEMS_MODULES_WINDOW_ORIGINAL_SYSTEM_HPP_INCLUDED
 
 #include <sge/src/systems/modules/window/system_base.hpp>
-#include <awl/event/processor_scoped_ptr.hpp>
-#include <awl/system/object_scoped_ptr.hpp>
-#include <awl/system/event/processor_scoped_ptr.hpp>
+#include <awl/event/processor_unique_ptr.hpp>
+#include <awl/system/object_unique_ptr.hpp>
+#include <awl/system/event/processor_unique_ptr.hpp>
 #include <sge/window/system.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -55,11 +55,11 @@ private:
 	get()
 	override;
 
-	awl::system::object_scoped_ptr awl_system_;
+	awl::system::object_unique_ptr const awl_system_;
 
-	awl::system::event::processor_scoped_ptr const awl_system_event_processor_;
+	awl::system::event::processor_unique_ptr const awl_system_event_processor_;
 
-	awl::event::processor_scoped_ptr const awl_event_processor_;
+	awl::event::processor_unique_ptr const awl_event_processor_;
 
 	sge::window::system system_;
 };

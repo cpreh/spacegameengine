@@ -18,26 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_PLUGIN_OBJECT_SCOPED_PTR_HPP_INCLUDED
-#define SGE_FONT_PLUGIN_OBJECT_SCOPED_PTR_HPP_INCLUDED
+#ifndef SGE_SRC_SYSTEMS_MODULES_FONT_OBJECT_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_SRC_SYSTEMS_MODULES_FONT_OBJECT_UNIQUE_PTR_HPP_INCLUDED
 
-#include <sge/font/system_fwd.hpp>
-#include <sge/plugin/object_scoped_ptr.hpp>
+#include <sge/src/systems/modules/font/object_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
 {
-namespace font
+namespace systems
 {
-namespace plugin
+namespace modules
+{
+namespace font
 {
 
 typedef
-sge::plugin::object_scoped_ptr<
-	sge::font::system
+std::unique_ptr<
+	sge::systems::modules::font::object
 >
-object_scoped_ptr;
+object_unique_ptr;
 
+}
 }
 }
 }

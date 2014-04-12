@@ -244,12 +244,11 @@ sge::opengl::fbo::target::depth_stencil_surface(
 			)
 	)
 	{
-		depth_stencil_attachment_.take(
+		depth_stencil_attachment_ =
 			this->create_buffer_binding(
 				ptr->render_buffer(),
 				*attachment
-			)
-		);
+			);
 
 		return;
 	}
@@ -263,12 +262,11 @@ sge::opengl::fbo::target::depth_stencil_surface(
 			)
 	)
 	{
-		depth_stencil_attachment_.take(
+		depth_stencil_attachment_ =
 			this->create_texture_binding(
 				*ptr,
 				*attachment
-			)
-		);
+			);
 
 		return;
 	}

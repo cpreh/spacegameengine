@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode/vsync.hpp>
 #include <sge/renderer/index/buffer.hpp>
 #include <sge/renderer/index/buffer_parameters.hpp>
-#include <sge/renderer/index/buffer_scoped_ptr.hpp>
+#include <sge/renderer/index/buffer_unique_ptr.hpp>
 #include <sge/renderer/index/count.hpp>
 #include <sge/renderer/index/first.hpp>
 #include <sge/renderer/index/format_16.hpp>
@@ -59,7 +59,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/sampler/binary_op_type.hpp>
 #include <sge/renderer/state/ffp/sampler/const_object_ref_vector.hpp>
 #include <sge/renderer/state/ffp/sampler/object.hpp>
-#include <sge/renderer/state/ffp/sampler/object_scoped_ptr.hpp>
+#include <sge/renderer/state/ffp/sampler/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/sampler/op.hpp>
 #include <sge/renderer/state/ffp/sampler/parameters.hpp>
 #include <sge/renderer/state/ffp/sampler/parameters_both.hpp>
@@ -69,17 +69,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/renderer/texture/planar.hpp>
-#include <sge/renderer/texture/planar_scoped_ptr.hpp>
+#include <sge/renderer/texture/planar_unique_ptr.hpp>
 #include <sge/renderer/texture/scoped.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/renderer/vertex/buffer.hpp>
 #include <sge/renderer/vertex/buffer_parameters.hpp>
-#include <sge/renderer/vertex/buffer_scoped_ptr.hpp>
+#include <sge/renderer/vertex/buffer_unique_ptr.hpp>
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/declaration.hpp>
 #include <sge/renderer/vertex/declaration_parameters.hpp>
-#include <sge/renderer/vertex/declaration_scoped_ptr.hpp>
+#include <sge/renderer/vertex/declaration_unique_ptr.hpp>
 #include <sge/renderer/vertex/first.hpp>
 #include <sge/renderer/vertex/scoped_buffer.hpp>
 #include <sge/renderer/vertex/scoped_declaration.hpp>
@@ -223,7 +223,7 @@ try
 		)
 	);
 
-	sge::renderer::texture::planar_scoped_ptr const texture1(
+	sge::renderer::texture::planar_unique_ptr const texture1(
 		sge::renderer::texture::create_planar_from_path(
 			sge::config::media_path()
 			/ FCPPT_TEXT("images")
@@ -236,7 +236,7 @@ try
 		)
 	);
 
-	sge::renderer::texture::planar_scoped_ptr const texture2(
+	sge::renderer::texture::planar_unique_ptr const texture2(
 		sge::renderer::texture::create_planar_from_path(
 			sge::config::media_path()
 			/ FCPPT_TEXT("images")
@@ -284,7 +284,7 @@ try
 		>
 	> vf_format;
 
-	sge::renderer::vertex::declaration_scoped_ptr const vertex_declaration(
+	sge::renderer::vertex::declaration_unique_ptr const vertex_declaration(
 		sys.renderer_device_ffp().create_vertex_declaration(
 			sge::renderer::vertex::declaration_parameters(
 				sge::renderer::vf::dynamic::make_format<
@@ -294,7 +294,7 @@ try
 		)
 	);
 
-	sge::renderer::vertex::buffer_scoped_ptr const vertex_buffer(
+	sge::renderer::vertex::buffer_unique_ptr const vertex_buffer(
 		sys.renderer_device_ffp().create_vertex_buffer(
 			sge::renderer::vertex::buffer_parameters(
 				*vertex_declaration,
@@ -413,7 +413,7 @@ try
 
 	typedef sge::renderer::index::format_16 index_format;
 
-	sge::renderer::index::buffer_scoped_ptr const index_buffer(
+	sge::renderer::index::buffer_unique_ptr const index_buffer(
 		sys.renderer_device_ffp().create_index_buffer(
 			sge::renderer::index::buffer_parameters(
 				sge::renderer::index::dynamic::make_format<
@@ -461,7 +461,7 @@ try
 		)
 	);
 
-	sge::renderer::state::ffp::sampler::object_scoped_ptr const sampler0(
+	sge::renderer::state::ffp::sampler::object_unique_ptr const sampler0(
 		sys.renderer_device_ffp().create_ffp_sampler_state(
 			sge::renderer::state::ffp::sampler::parameters_both(
 				sge::renderer::state::ffp::sampler::op(
@@ -476,7 +476,7 @@ try
 		)
 	);
 
-	sge::renderer::state::ffp::sampler::object_scoped_ptr const sampler1(
+	sge::renderer::state::ffp::sampler::object_unique_ptr const sampler1(
 		sys.renderer_device_ffp().create_ffp_sampler_state(
 			sge::renderer::state::ffp::sampler::parameters_both(
 				sge::renderer::state::ffp::sampler::op(

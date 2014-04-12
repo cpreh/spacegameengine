@@ -55,7 +55,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/first.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
 
 #if defined(SGE_RENDERER_HAVE_CG)
 #include <sge/renderer/cg/loaded_program_fwd.hpp>
@@ -236,9 +238,11 @@ private:
 
 	sge::opengl::scoped_target const scoped_target_;
 
-	typedef fcppt::scoped_ptr<
+	typedef
+	std::unique_ptr<
 		sge::opengl::scoped_target
-	> scoped_offscreen_target_ptr;
+	>
+	scoped_offscreen_target_ptr;
 
 	scoped_offscreen_target_ptr scoped_offscreen_target_;
 };

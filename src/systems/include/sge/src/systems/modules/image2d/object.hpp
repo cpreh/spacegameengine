@@ -27,7 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/modules/image2d/object_fwd.hpp>
 #include <sge/systems/image2d_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -55,11 +57,13 @@ public:
 	sge::image2d::system &
 	system() const;
 private:
-	typedef fcppt::scoped_ptr<
+	typedef
+	std::unique_ptr<
 		sge::image2d::multi_system
-	> image_multi_system_ptr;
+	>
+	image_multi_unique_ptr;
 
-	image_multi_system_ptr image_multi_system_;
+	image_multi_unique_ptr const image_multi_system_;
 };
 
 }

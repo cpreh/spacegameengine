@@ -137,29 +137,29 @@ set(
 	src/systems/include/sge/src/systems/modules/audio/find_player_plugin.hpp
 	src/systems/include/sge/src/systems/modules/audio/loader.hpp
 	src/systems/include/sge/src/systems/modules/audio/loader_fwd.hpp
-	src/systems/include/sge/src/systems/modules/audio/loader_scoped_ptr.hpp
+	src/systems/include/sge/src/systems/modules/audio/loader_unique_ptr.hpp
 	src/systems/include/sge/src/systems/modules/audio/player.hpp
 	src/systems/include/sge/src/systems/modules/audio/player_fwd.hpp
 	src/systems/include/sge/src/systems/modules/audio/player_pair.hpp
 	src/systems/include/sge/src/systems/modules/audio/player_pair_fwd.hpp
-	src/systems/include/sge/src/systems/modules/audio/player_scoped_ptr.hpp
+	src/systems/include/sge/src/systems/modules/audio/player_unique_ptr.hpp
 	src/systems/include/sge/src/systems/modules/font/find_plugin.hpp
 	src/systems/include/sge/src/systems/modules/font/object.hpp
 	src/systems/include/sge/src/systems/modules/font/object_fwd.hpp
-	src/systems/include/sge/src/systems/modules/font/object_scoped_ptr.hpp
+	src/systems/include/sge/src/systems/modules/font/object_unique_ptr.hpp
 	src/systems/include/sge/src/systems/modules/image2d/object.hpp
 	src/systems/include/sge/src/systems/modules/image2d/object_fwd.hpp
-	src/systems/include/sge/src/systems/modules/image2d/object_scoped_ptr.hpp
+	src/systems/include/sge/src/systems/modules/image2d/object_unique_ptr.hpp
 	src/systems/include/sge/src/systems/modules/input/cursor_modifier.hpp
 	src/systems/include/sge/src/systems/modules/input/cursor_modifier_fwd.hpp
 	src/systems/include/sge/src/systems/modules/input/cursor_modifier_unique_ptr.hpp
 	src/systems/include/sge/src/systems/modules/input/object.hpp
 	src/systems/include/sge/src/systems/modules/input/object_fwd.hpp
-	src/systems/include/sge/src/systems/modules/input/object_scoped_ptr.hpp
+	src/systems/include/sge/src/systems/modules/input/object_unique_ptr.hpp
 	src/systems/include/sge/src/systems/modules/renderer/create_device.hpp
 	src/systems/include/sge/src/systems/modules/renderer/device.hpp
 	src/systems/include/sge/src/systems/modules/renderer/device_fwd.hpp
-	src/systems/include/sge/src/systems/modules/renderer/device_scoped_ptr.hpp
+	src/systems/include/sge/src/systems/modules/renderer/device_unique_ptr.hpp
 	src/systems/include/sge/src/systems/modules/renderer/find_plugin.hpp
 	src/systems/include/sge/src/systems/modules/renderer/optional_system_ref.hpp
 	src/systems/include/sge/src/systems/modules/renderer/optional_system_ref_fwd.hpp
@@ -167,16 +167,15 @@ set(
 	src/systems/include/sge/src/systems/modules/renderer/plugin_core_pair_fwd.hpp
 	src/systems/include/sge/src/systems/modules/renderer/system.hpp
 	src/systems/include/sge/src/systems/modules/renderer/system_fwd.hpp
-	src/systems/include/sge/src/systems/modules/renderer/system_scoped_ptr.hpp
+	src/systems/include/sge/src/systems/modules/renderer/system_unique_ptr.hpp
 	src/systems/include/sge/src/systems/modules/window/base.hpp
 	src/systems/include/sge/src/systems/modules/window/base_fwd.hpp
-	src/systems/include/sge/src/systems/modules/window/base_scoped_ptr.hpp
 	src/systems/include/sge/src/systems/modules/window/base_unique_ptr.hpp
 	src/systems/include/sge/src/systems/modules/window/make_base.hpp
 	src/systems/include/sge/src/systems/modules/window/make_system_base.hpp
 	src/systems/include/sge/src/systems/modules/window/object.hpp
 	src/systems/include/sge/src/systems/modules/window/object_fwd.hpp
-	src/systems/include/sge/src/systems/modules/window/object_scoped_ptr.hpp
+	src/systems/include/sge/src/systems/modules/window/object_unique_ptr.hpp
 	src/systems/include/sge/src/systems/modules/window/original.hpp
 	src/systems/include/sge/src/systems/modules/window/original_system.hpp
 	src/systems/include/sge/src/systems/modules/window/quit.hpp
@@ -184,10 +183,9 @@ set(
 	src/systems/include/sge/src/systems/modules/window/system.hpp
 	src/systems/include/sge/src/systems/modules/window/system_base.hpp
 	src/systems/include/sge/src/systems/modules/window/system_base_fwd.hpp
-	src/systems/include/sge/src/systems/modules/window/system_base_scoped_ptr.hpp
 	src/systems/include/sge/src/systems/modules/window/system_base_unique_ptr.hpp
 	src/systems/include/sge/src/systems/modules/window/system_fwd.hpp
-	src/systems/include/sge/src/systems/modules/window/system_scoped_ptr.hpp
+	src/systems/include/sge/src/systems/modules/window/system_unique_ptr.hpp
 	src/systems/include/sge/src/systems/modules/window/wrapped.hpp
 	src/systems/include/sge/src/systems/modules/window/wrapped_system.hpp
 	src/systems/include/sge/src/systems/plugin_pair_decl.hpp

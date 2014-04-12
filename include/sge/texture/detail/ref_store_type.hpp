@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXTURE_DETAIL_REF_STORE_TYPE_HPP_INCLUDED
 #define SGE_TEXTURE_DETAIL_REF_STORE_TYPE_HPP_INCLUDED
 
-#include <fcppt/scoped_ptr_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <memory>
 #include <fcppt/config/external_end.hpp>
@@ -58,9 +57,11 @@ struct ref_store_type<
 	> &&
 >
 {
-	typedef fcppt::scoped_ptr<
+	typedef
+	std::unique_ptr<
 		T
-	> type;
+	> const
+	type;
 };
 
 }

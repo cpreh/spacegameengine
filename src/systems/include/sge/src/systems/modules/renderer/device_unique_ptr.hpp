@@ -18,24 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_CG_LOADED_TEXTURE_SCOPED_PTR_HPP_INCLUDED
-#define SGE_RENDERER_CG_LOADED_TEXTURE_SCOPED_PTR_HPP_INCLUDED
+#ifndef SGE_SRC_SYSTEMS_MODULES_RENDERER_DEVICE_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_SRC_SYSTEMS_MODULES_RENDERER_DEVICE_UNIQUE_PTR_HPP_INCLUDED
 
-#include <sge/renderer/cg/loaded_texture_fwd.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
+#include <sge/src/systems/modules/renderer/device_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
 {
+namespace systems
+{
+namespace modules
+{
 namespace renderer
 {
-namespace cg
-{
 
-typedef fcppt::scoped_ptr<
-	sge::renderer::cg::loaded_texture
-> loaded_texture_scoped_ptr;
+typedef
+std::unique_ptr<
+	sge::systems::modules::renderer::device
+>
+device_unique_ptr;
 
+}
 }
 }
 }

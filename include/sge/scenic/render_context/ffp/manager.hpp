@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SCENIC_RENDER_CONTEXT_FFP_MANAGER_HPP_INCLUDED
 
 #include <sge/renderer/device/ffp_fwd.hpp>
-#include <sge/renderer/state/ffp/lighting/object_scoped_ptr.hpp>
 #include <sge/renderer/vertex/declaration_fwd.hpp>
 #include <sge/scenic/symbol.hpp>
 #include <sge/scenic/render_context/manager_base.hpp>

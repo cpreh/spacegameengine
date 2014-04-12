@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/md3/index_sequence.hpp>
 #include <sge/model/md3/load_flags.hpp>
 #include <sge/model/md3/loader.hpp>
-#include <sge/model/md3/loader_scoped_ptr.hpp>
+#include <sge/model/md3/loader_unique_ptr.hpp>
 #include <sge/model/md3/normal_sequence.hpp>
 #include <sge/model/md3/object.hpp>
 #include <sge/model/md3/vertex_sequence.hpp>
@@ -53,7 +53,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode/vsync.hpp>
 #include <sge/renderer/index/buffer.hpp>
 #include <sge/renderer/index/buffer_parameters.hpp>
-#include <sge/renderer/index/buffer_scoped_ptr.hpp>
+#include <sge/renderer/index/buffer_unique_ptr.hpp>
 #include <sge/renderer/index/count.hpp>
 #include <sge/renderer/index/first.hpp>
 #include <sge/renderer/index/i16.hpp>
@@ -67,7 +67,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/state/core/blend/alpha_off.hpp>
 #include <sge/renderer/state/core/blend/object.hpp>
-#include <sge/renderer/state/core/blend/object_scoped_ptr.hpp>
+#include <sge/renderer/state/core/blend/object_unique_ptr.hpp>
 #include <sge/renderer/state/core/blend/parameters.hpp>
 #include <sge/renderer/state/core/blend/scoped.hpp>
 #include <sge/renderer/state/core/blend/write_alpha.hpp>
@@ -76,7 +76,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/blend/write_mask.hpp>
 #include <sge/renderer/state/core/blend/write_red.hpp>
 #include <sge/renderer/state/core/depth_stencil/object.hpp>
-#include <sge/renderer/state/core/depth_stencil/object_scoped_ptr.hpp>
+#include <sge/renderer/state/core/depth_stencil/object_unique_ptr.hpp>
 #include <sge/renderer/state/core/depth_stencil/parameters.hpp>
 #include <sge/renderer/state/core/depth_stencil/depth/enabled.hpp>
 #include <sge/renderer/state/core/depth_stencil/depth/func.hpp>
@@ -85,11 +85,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/rasterizer/enable_scissor_test.hpp>
 #include <sge/renderer/state/core/rasterizer/fill_mode.hpp>
 #include <sge/renderer/state/core/rasterizer/object.hpp>
-#include <sge/renderer/state/core/rasterizer/object_scoped_ptr.hpp>
+#include <sge/renderer/state/core/rasterizer/object_unique_ptr.hpp>
 #include <sge/renderer/state/core/rasterizer/parameters.hpp>
 #include <sge/renderer/state/ffp/transform/mode.hpp>
 #include <sge/renderer/state/ffp/transform/object.hpp>
-#include <sge/renderer/state/ffp/transform/object_scoped_ptr.hpp>
+#include <sge/renderer/state/ffp/transform/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
 #include <sge/renderer/state/ffp/transform/scoped.hpp>
 #include <sge/renderer/target/base.hpp>
@@ -97,11 +97,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/viewport_is_null.hpp>
 #include <sge/renderer/vertex/buffer.hpp>
 #include <sge/renderer/vertex/buffer_parameters.hpp>
-#include <sge/renderer/vertex/buffer_scoped_ptr.hpp>
+#include <sge/renderer/vertex/buffer_unique_ptr.hpp>
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/declaration.hpp>
 #include <sge/renderer/vertex/declaration_parameters.hpp>
-#include <sge/renderer/vertex/declaration_scoped_ptr.hpp>
+#include <sge/renderer/vertex/declaration_unique_ptr.hpp>
 #include <sge/renderer/vertex/first.hpp>
 #include <sge/renderer/vertex/scoped_buffer.hpp>
 #include <sge/renderer/vertex/scoped_declaration.hpp>
@@ -272,8 +272,8 @@ public:
 	~compiled_model();
 private:
 	sge::renderer::device::core &renderer_;
-	sge::renderer::vertex::buffer_scoped_ptr const vb_;
-	sge::renderer::index::buffer_scoped_ptr const ib_;
+	sge::renderer::vertex::buffer_unique_ptr const vb_;
+	sge::renderer::index::buffer_unique_ptr const ib_;
 };
 
 compiled_model::compiled_model(
@@ -598,7 +598,7 @@ random_model_collection::render(
 		current_model != models_.end();
 		++current_model)
 	{
-		sge::renderer::state::ffp::transform::object_scoped_ptr const world_state(
+		sge::renderer::state::ffp::transform::object_unique_ptr const world_state(
 			renderer_.create_transform_state(
 				sge::renderer::state::ffp::transform::parameters(
 					mv * current_model->modelview())));
@@ -876,13 +876,13 @@ try
 		)
 	);
 
-	sge::renderer::vertex::declaration_scoped_ptr const vertex_declaration(
+	sge::renderer::vertex::declaration_unique_ptr const vertex_declaration(
 		sys.renderer_device_ffp().create_vertex_declaration(
 			sge::renderer::vertex::declaration_parameters(
 				sge::renderer::vf::dynamic::make_format<vf::format>())));
 
 	// Create an md3 loader using the "create" function.
-	sge::model::md3::loader_scoped_ptr const md3_loader(
+	sge::model::md3::loader_unique_ptr const md3_loader(
 		sge::model::md3::create());
 
 	// Create a model and a model collection
@@ -904,7 +904,7 @@ try
 			sge::camera::update_duration(
 				1.0f)));
 
-	sge::renderer::state::core::depth_stencil::object_scoped_ptr const depth_stencil_state(
+	sge::renderer::state::core::depth_stencil::object_unique_ptr const depth_stencil_state(
 		sys.renderer_device_core().create_depth_stencil_state(
 			sge::renderer::state::core::depth_stencil::parameters(
 				sge::renderer::state::core::depth_stencil::depth::enabled(
@@ -913,7 +913,7 @@ try
 						true)),
 				sge::renderer::state::core::depth_stencil::stencil::off())));
 
-	sge::renderer::state::core::rasterizer::object_scoped_ptr const rasterizer_state(
+	sge::renderer::state::core::rasterizer::object_unique_ptr const rasterizer_state(
 		sys.renderer_device_core().create_rasterizer_state(
 			sge::renderer::state::core::rasterizer::parameters(
 				sge::renderer::state::core::rasterizer::cull_mode::counter_clockwise,
@@ -921,7 +921,7 @@ try
 				sge::renderer::state::core::rasterizer::enable_scissor_test(
 					false))));
 
-	sge::renderer::state::core::blend::object_scoped_ptr const blend_red_state(
+	sge::renderer::state::core::blend::object_unique_ptr const blend_red_state(
 		sys.renderer_device_core().create_blend_state(
 			sge::renderer::state::core::blend::parameters(
 				sge::renderer::state::core::blend::alpha_off(),
@@ -935,7 +935,7 @@ try
 					sge::renderer::state::core::blend::write_alpha(
 						true)))));
 
-	sge::renderer::state::core::blend::object_scoped_ptr const blend_cyan_state(
+	sge::renderer::state::core::blend::object_unique_ptr const blend_cyan_state(
 		sys.renderer_device_core().create_blend_state(
 			sge::renderer::state::core::blend::parameters(
 				sge::renderer::state::core::blend::alpha_off(),
@@ -972,7 +972,7 @@ try
 		sge::renderer::context::ffp &context(
 			scoped_block.get());
 
-		sge::renderer::state::ffp::transform::object_scoped_ptr const projection_state(
+		sge::renderer::state::ffp::transform::object_unique_ptr const projection_state(
 			sys.renderer_device_ffp().create_transform_state(
 				sge::renderer::state::ffp::transform::parameters(
 					camera.projection_matrix().get())));

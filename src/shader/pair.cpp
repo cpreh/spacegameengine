@@ -121,6 +121,7 @@ sge::shader::pair::pair(
 {
 }
 
+// TODO: Use delegating constructors here
 sge::shader::pair::pair(
 	sge::shader::context &_context,
 	sge::renderer::vertex::declaration const &_vertex_declaration,

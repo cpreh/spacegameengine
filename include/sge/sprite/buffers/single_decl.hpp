@@ -28,7 +28,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/buffers/single_fwd.hpp>
 #include <sge/sprite/buffers/slice_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr_decl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -68,9 +70,12 @@ public:
 	sge::sprite::buffers::parameters const &
 	parameters() const;
 private:
-	typedef typename sge::sprite::buffers::object<
+	typedef
+	typename
+	sge::sprite::buffers::object<
 		Choices
-	>::type buffers_object;
+	>::type
+	buffers_object;
 
 	sge::sprite::buffers::parameters const parameters_;
 
@@ -78,9 +83,11 @@ private:
 
 	buffers_object buffers_object_;
 
-	typedef fcppt::scoped_ptr<
+	typedef
+	std::unique_ptr<
 		slice_type
-	> optional_slice;
+	>
+	optional_slice;
 
 	optional_slice slice_;
 };

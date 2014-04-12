@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/from_fcppt_string.hpp>
 #include <sge/font/lit.hpp>
 #include <sge/font/object.hpp>
-#include <sge/font/object_scoped_ptr.hpp>
+#include <sge/font/object_unique_ptr.hpp>
 #include <sge/font/parameters.hpp>
 #include <sge/font/string.hpp>
 #include <sge/font/system.hpp>
@@ -465,7 +465,7 @@ try
 		)
 	);
 
-	sge::font::object_scoped_ptr const font(
+	sge::font::object_unique_ptr const font(
 		sys.font_system().create_font(
 			sge::font::parameters()
 			.family(

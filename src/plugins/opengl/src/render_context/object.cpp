@@ -161,7 +161,7 @@ sge::opengl::render_context::object::offscreen_target(
 
 		scoped_target_.target().unbind();
 
-		scoped_offscreen_target_.take(
+		scoped_offscreen_target_ =
 			fcppt::make_unique_ptr<
 				sge::opengl::scoped_target
 			>(
@@ -170,8 +170,7 @@ sge::opengl::render_context::object::offscreen_target(
 				>(
 					*_new_target
 				)
-			)
-		);
+			);
 	}
 	else
 	{

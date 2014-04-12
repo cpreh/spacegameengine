@@ -30,7 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/scene/entity_sequence.hpp>
 #include <sge/scenic/scene/manager_fwd.hpp>
 #include <sge/scenic/scene/mesh_path.hpp>
-#include <sge/scenic/scene/prototype_scoped_ptr.hpp>
 #include <sge/scenic/scene/prototype_unique_ptr.hpp>
 #include <sge/scenic/scene/material/object.hpp>
 #include <sge/scenic/scene/mesh/object_fwd.hpp>
@@ -86,7 +85,7 @@ private:
 
 	sge::scenic::scene::manager &scene_manager_;
 	sge::camera::base &camera_;
-	sge::scenic::scene::prototype_scoped_ptr const prototype_;
+	sge::scenic::scene::prototype_unique_ptr const prototype_;
 	sge::camera::perspective_projection_from_viewport camera_viewport_connection_;
 	mesh_map mesh_name_to_instance_;
 	material_map materials_;

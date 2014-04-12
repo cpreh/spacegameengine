@@ -108,9 +108,8 @@ sge::opengl::x11::device_state::display_mode(
 	// TODO: Optimize this
 	resolution_.reset();
 
-	resolution_.take(
+	resolution_ =
 		xrandr_state_->choose_resolution(
 			*_display_mode
-		)
-	);
+		);
 }

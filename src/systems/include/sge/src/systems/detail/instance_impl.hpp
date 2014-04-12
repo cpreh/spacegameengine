@@ -38,15 +38,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/src/systems/plugin_path.hpp>
-#include <sge/src/systems/modules/audio/loader_scoped_ptr.hpp>
-#include <sge/src/systems/modules/audio/player_scoped_ptr.hpp>
-#include <sge/src/systems/modules/font/object_scoped_ptr.hpp>
-#include <sge/src/systems/modules/image2d/object_scoped_ptr.hpp>
-#include <sge/src/systems/modules/input/object_scoped_ptr.hpp>
-#include <sge/src/systems/modules/renderer/device_scoped_ptr.hpp>
-#include <sge/src/systems/modules/renderer/system_scoped_ptr.hpp>
-#include <sge/src/systems/modules/window/object_scoped_ptr.hpp>
-#include <sge/src/systems/modules/window/system_scoped_ptr.hpp>
+#include <sge/src/systems/modules/audio/loader_unique_ptr.hpp>
+#include <sge/src/systems/modules/audio/player_unique_ptr.hpp>
+#include <sge/src/systems/modules/font/object_unique_ptr.hpp>
+#include <sge/src/systems/modules/image2d/object_unique_ptr.hpp>
+#include <sge/src/systems/modules/input/object_unique_ptr.hpp>
+#include <sge/src/systems/modules/renderer/device_unique_ptr.hpp>
+#include <sge/src/systems/modules/renderer/system_unique_ptr.hpp>
+#include <sge/src/systems/modules/window/object_unique_ptr.hpp>
+#include <sge/src/systems/modules/window/system_unique_ptr.hpp>
 #include <sge/systems/audio_loader_fwd.hpp>
 #include <sge/systems/audio_player_fwd.hpp>
 #include <sge/systems/font_fwd.hpp>
@@ -59,7 +59,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/viewport/manager_fwd.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
-#include <awl/main/scoped_output_scoped_ptr.hpp>
+#include <awl/main/scoped_output_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -183,7 +183,7 @@ public:
 	sge::viewport::manager &
 	viewport_manager() const;
 private:
-	awl::main::scoped_output_scoped_ptr const scoped_output_;
+	awl::main::scoped_output_unique_ptr const scoped_output_;
 	// Almost all plugins need to be unloaded last. If, for example,
 	// libGL.so is unloaded before the X window will be destroyed, then the
 	// unloading will crash.
@@ -191,23 +191,23 @@ private:
 
 	sge::plugin::manager plugin_manager_;
 
-	sge::systems::modules::window::system_scoped_ptr window_system_;
+	sge::systems::modules::window::system_unique_ptr window_system_;
 
-	sge::systems::modules::renderer::system_scoped_ptr renderer_system_;
+	sge::systems::modules::renderer::system_unique_ptr renderer_system_;
 
-	sge::systems::modules::window::object_scoped_ptr window_object_;
+	sge::systems::modules::window::object_unique_ptr window_object_;
 
-	sge::systems::modules::renderer::device_scoped_ptr renderer_device_;
+	sge::systems::modules::renderer::device_unique_ptr renderer_device_;
 
-	sge::systems::modules::input::object_scoped_ptr input_;
+	sge::systems::modules::input::object_unique_ptr input_;
 
-	sge::systems::modules::audio::loader_scoped_ptr audio_loader_;
+	sge::systems::modules::audio::loader_unique_ptr audio_loader_;
 
-	sge::systems::modules::audio::player_scoped_ptr audio_player_;
+	sge::systems::modules::audio::player_unique_ptr audio_player_;
 
-	sge::systems::modules::image2d::object_scoped_ptr image2d_;
+	sge::systems::modules::image2d::object_unique_ptr image2d_;
 
-	sge::systems::modules::font::object_scoped_ptr font_;
+	sge::systems::modules::font::object_unique_ptr font_;
 };
 
 }

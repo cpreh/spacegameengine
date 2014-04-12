@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
-#include <sge/renderer/state/core/rasterizer/object_scoped_ptr.hpp>
+#include <sge/renderer/state/core/rasterizer/object_unique_ptr.hpp>
 #include <sge/renderer/target/scissor_area.hpp>
 #include <sge/renderer/vertex/declaration_fwd.hpp>
 #include <sge/src/cegui/batch_fwd.hpp>
@@ -176,9 +176,9 @@ private:
 
 	CEGUI::RenderEffect *render_effect_;
 
-	sge::renderer::state::core::rasterizer::object_scoped_ptr const rasterizer_scissor_on_;
+	sge::renderer::state::core::rasterizer::object_unique_ptr const rasterizer_scissor_on_;
 
-	sge::renderer::state::core::rasterizer::object_scoped_ptr const rasterizer_scissor_off_;
+	sge::renderer::state::core::rasterizer::object_unique_ptr const rasterizer_scissor_off_;
 };
 
 }

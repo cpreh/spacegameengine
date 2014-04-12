@@ -57,11 +57,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/vertex/buffer.hpp>
 #include <sge/renderer/vertex/buffer_parameters.hpp>
-#include <sge/renderer/vertex/buffer_scoped_ptr.hpp>
+#include <sge/renderer/vertex/buffer_unique_ptr.hpp>
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/declaration.hpp>
 #include <sge/renderer/vertex/declaration_parameters.hpp>
-#include <sge/renderer/vertex/declaration_scoped_ptr.hpp>
+#include <sge/renderer/vertex/declaration_unique_ptr.hpp>
 #include <sge/renderer/vertex/scoped_lock.hpp>
 #include <sge/renderer/vf/format.hpp>
 #include <sge/renderer/vf/iterator.hpp>
@@ -458,12 +458,12 @@ try
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Kernel created, now creating a vertex buffer...\n");
 
-	sge::renderer::vertex::declaration_scoped_ptr const vertex_declaration(
+	sge::renderer::vertex::declaration_unique_ptr const vertex_declaration(
 		sys.renderer_device_core().create_vertex_declaration(
 			sge::renderer::vertex::declaration_parameters(
 				sge::renderer::vf::dynamic::make_format<vf::format>())));
 
-	sge::renderer::vertex::buffer_scoped_ptr const vb(
+	sge::renderer::vertex::buffer_unique_ptr const vb(
 		sys.renderer_device_core().create_vertex_buffer(
 			sge::renderer::vertex::buffer_parameters(
 				*vertex_declaration,

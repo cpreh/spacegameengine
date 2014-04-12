@@ -36,7 +36,6 @@ set(
 	include/sge/font/metrics_output.hpp
 	include/sge/font/object.hpp
 	include/sge/font/object_fwd.hpp
-	include/sge/font/object_scoped_ptr.hpp
 	include/sge/font/object_unique_ptr.hpp
 	include/sge/font/optional_dpi.hpp
 	include/sge/font/optional_dpi_fwd.hpp
@@ -50,7 +49,6 @@ set(
 	include/sge/font/parameters_fwd.hpp
 	include/sge/font/parameters_to_string.hpp
 	include/sge/font/plugin/collection_fwd.hpp
-	include/sge/font/plugin/object_scoped_ptr.hpp
 	include/sge/font/plugin/object_unique_ptr.hpp
 	include/sge/font/plugin/traits.hpp
 	include/sge/font/rect.hpp
@@ -58,13 +56,11 @@ set(
 	include/sge/font/string.hpp
 	include/sge/font/system.hpp
 	include/sge/font/system_fwd.hpp
-	include/sge/font/system_scoped_ptr.hpp
 	include/sge/font/system_unique_ptr.hpp
 	include/sge/font/text.hpp
 	include/sge/font/text_fwd.hpp
 	include/sge/font/text_parameters.hpp
 	include/sge/font/text_parameters_fwd.hpp
-	include/sge/font/text_scoped_ptr.hpp
 	include/sge/font/text_unique_ptr.hpp
 	include/sge/font/to_fcppt_string.hpp
 	include/sge/font/ttf_size.hpp

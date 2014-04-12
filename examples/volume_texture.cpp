@@ -60,7 +60,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/projection/fov.hpp>
 #include <sge/renderer/projection/near.hpp>
 #include <sge/renderer/state/core/depth_stencil/object.hpp>
-#include <sge/renderer/state/core/depth_stencil/object_scoped_ptr.hpp>
+#include <sge/renderer/state/core/depth_stencil/object_unique_ptr.hpp>
 #include <sge/renderer/state/core/depth_stencil/parameters.hpp>
 #include <sge/renderer/state/core/depth_stencil/scoped.hpp>
 #include <sge/renderer/state/core/depth_stencil/depth/enabled.hpp>
@@ -69,7 +69,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/depth_stencil/stencil/off.hpp>
 #include <sge/renderer/state/core/sampler/const_object_ref_map.hpp>
 #include <sge/renderer/state/core/sampler/object.hpp>
-#include <sge/renderer/state/core/sampler/object_scoped_ptr.hpp>
+#include <sge/renderer/state/core/sampler/object_unique_ptr.hpp>
 #include <sge/renderer/state/core/sampler/parameters.hpp>
 #include <sge/renderer/state/core/sampler/scoped.hpp>
 #include <sge/renderer/state/core/sampler/address/mode.hpp>
@@ -79,7 +79,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/sampler/filter/parameters.hpp>
 #include <sge/renderer/state/ffp/transform/mode.hpp>
 #include <sge/renderer/state/ffp/transform/object.hpp>
-#include <sge/renderer/state/ffp/transform/object_scoped_ptr.hpp>
+#include <sge/renderer/state/ffp/transform/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
 #include <sge/renderer/state/ffp/transform/scoped.hpp>
 #include <sge/renderer/target/onscreen.hpp>
@@ -88,16 +88,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/scoped.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/texture/volume.hpp>
-#include <sge/renderer/texture/volume_scoped_ptr.hpp>
+#include <sge/renderer/texture/volume_unique_ptr.hpp>
 #include <sge/renderer/texture/volume_unique_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/renderer/vertex/buffer.hpp>
 #include <sge/renderer/vertex/buffer_parameters.hpp>
-#include <sge/renderer/vertex/buffer_scoped_ptr.hpp>
+#include <sge/renderer/vertex/buffer_unique_ptr.hpp>
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/declaration.hpp>
 #include <sge/renderer/vertex/declaration_parameters.hpp>
-#include <sge/renderer/vertex/declaration_scoped_ptr.hpp>
+#include <sge/renderer/vertex/declaration_unique_ptr.hpp>
 #include <sge/renderer/vertex/first.hpp>
 #include <sge/renderer/vertex/scoped_buffer.hpp>
 #include <sge/renderer/vertex/scoped_declaration.hpp>
@@ -650,13 +650,13 @@ try
 		)
 	);
 
-	sge::renderer::texture::volume_scoped_ptr const texture(
+	sge::renderer::texture::volume_unique_ptr const texture(
 		create_noise_texture(
 			sys.renderer_device_core()
 		)
 	);
 
-	sge::renderer::vertex::declaration_scoped_ptr const vertex_declaration(
+	sge::renderer::vertex::declaration_unique_ptr const vertex_declaration(
 		sys.renderer_device_core().create_vertex_declaration(
 			sge::renderer::vertex::declaration_parameters(
 				sge::renderer::vf::dynamic::make_format<
@@ -666,7 +666,7 @@ try
 		)
 	);
 
-	sge::renderer::vertex::buffer_scoped_ptr const vertex_buffer(
+	sge::renderer::vertex::buffer_unique_ptr const vertex_buffer(
 		sys.renderer_device_core().create_vertex_buffer(
 			sge::renderer::vertex::buffer_parameters(
 				*vertex_declaration,
@@ -738,7 +738,7 @@ try
 		)
 	);
 
-	sge::renderer::state::core::depth_stencil::object_scoped_ptr const depth_stencil_state(
+	sge::renderer::state::core::depth_stencil::object_unique_ptr const depth_stencil_state(
 		sys.renderer_device_core().create_depth_stencil_state(
 			sge::renderer::state::core::depth_stencil::parameters(
 				sge::renderer::state::core::depth_stencil::depth::enabled(
@@ -752,7 +752,7 @@ try
 		)
 	);
 
-	sge::renderer::state::core::sampler::object_scoped_ptr const sampler_state(
+	sge::renderer::state::core::sampler::object_unique_ptr const sampler_state(
 		sys.renderer_device_core().create_sampler_state(
 			sge::renderer::state::core::sampler::parameters(
 				sge::renderer::state::core::sampler::address::mode_all(
@@ -846,7 +846,7 @@ try
 			)
 		);
 
-		sge::renderer::state::ffp::transform::object_scoped_ptr const projection_state(
+		sge::renderer::state::ffp::transform::object_unique_ptr const projection_state(
 			sys.renderer_device_ffp().create_transform_state(
 				sge::renderer::state::ffp::transform::parameters(
 					camera.projection_matrix().get()
@@ -854,7 +854,7 @@ try
 			)
 		);
 
-		sge::renderer::state::ffp::transform::object_scoped_ptr const world_state(
+		sge::renderer::state::ffp::transform::object_unique_ptr const world_state(
 			sys.renderer_device_ffp().create_transform_state(
 				sge::renderer::state::ffp::transform::parameters(
 					sge::camera::matrix_conversion::world(

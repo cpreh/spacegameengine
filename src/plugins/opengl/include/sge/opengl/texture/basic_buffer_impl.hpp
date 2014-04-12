@@ -324,7 +324,7 @@ sge::opengl::texture::basic_buffer<
 			).str()
 		);
 
-	lock_.take(
+	lock_ =
 		sge::opengl::texture::create_lock(
 			system_context_,
 			_method,
@@ -332,8 +332,7 @@ sge::opengl::texture::basic_buffer<
 			_lock_area.content(),
 			stride_,
 			resource_flags_
-		)
-	);
+		);
 
 	if(
 		sge::renderer::lock_flags::read(

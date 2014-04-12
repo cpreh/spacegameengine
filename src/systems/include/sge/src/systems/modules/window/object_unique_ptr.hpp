@@ -18,23 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_CONTEXT_SCOPED_FFP_SCOPED_PTR_HPP_INCLUDED
-#define SGE_RENDERER_CONTEXT_SCOPED_FFP_SCOPED_PTR_HPP_INCLUDED
+#ifndef SGE_SRC_SYSTEMS_MODULES_WINDOW_OBJECT_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_SRC_SYSTEMS_MODULES_WINDOW_OBJECT_UNIQUE_PTR_HPP_INCLUDED
 
-#include <sge/renderer/context/scoped_ffp_fwd.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
+#include <sge/src/systems/modules/window/object_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {
-namespace renderer
+namespace systems
 {
-namespace context
+namespace modules
 {
+namespace window
+{
+
 typedef
-fcppt::scoped_ptr<
-	sge::renderer::context::scoped_ffp
+std::unique_ptr<
+	sge::systems::modules::window::object
 >
-scoped_ffp_scoped_ptr;
+object_unique_ptr;
+
+}
 }
 }
 }

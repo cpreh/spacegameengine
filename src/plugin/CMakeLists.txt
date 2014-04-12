@@ -47,7 +47,6 @@ set(
 	include/sge/plugin/name.hpp
 	include/sge/plugin/object.hpp
 	include/sge/plugin/object_fwd.hpp
-	include/sge/plugin/object_scoped_ptr.hpp
 	include/sge/plugin/object_shared_ptr.hpp
 	include/sge/plugin/object_unique_ptr.hpp
 	include/sge/plugin/optional_cache_ref.hpp

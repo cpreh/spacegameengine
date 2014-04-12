@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/backend/context.hpp>
 #include <sge/opengl/egl/context_impl.hpp>
 #include <sge/opengl/egl/init.hpp>
-#include <sge/opengl/egl/native_display_scoped_ptr.hpp>
 #include <sge/opengl/egl/native_display_unique_ptr.hpp>
 #include <sge/opengl/egl/window_surface.hpp>
 #include <awl/visual/object_fwd.hpp>
@@ -74,7 +73,7 @@ private:
 	end_rendering()
 	override;
 
-	sge::opengl::egl::native_display_scoped_ptr const native_display_;
+	sge::opengl::egl::native_display_unique_ptr const native_display_;
 
 	EGLDisplay const display_;
 

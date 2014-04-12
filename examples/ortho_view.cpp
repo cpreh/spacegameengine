@@ -48,7 +48,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/state/ffp/transform/mode.hpp>
 #include <sge/renderer/state/ffp/transform/object.hpp>
-#include <sge/renderer/state/ffp/transform/object_scoped_ptr.hpp>
+#include <sge/renderer/state/ffp/transform/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
 #include <sge/renderer/state/ffp/transform/scoped.hpp>
 #include <sge/renderer/target/onscreen.hpp>
@@ -96,7 +96,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/with_input.hpp>
 #include <sge/systems/with_renderer.hpp>
 #include <sge/systems/with_window.hpp>
-#include <sge/texture/const_part_scoped_ptr.hpp>
+#include <sge/texture/const_part_unique_ptr.hpp>
 #include <sge/texture/part_raw_ptr.hpp>
 #include <sge/timer/basic.hpp>
 #include <sge/timer/elapsed_and_reset.hpp>
@@ -241,7 +241,7 @@ try
 		camera,
 		sys.viewport_manager());
 
-	sge::texture::const_part_scoped_ptr const
+	sge::texture::const_part_unique_ptr const
 		tex_bg(
 			fcppt::make_unique_ptr<
 				sge::texture::part_raw_ptr>(
@@ -389,12 +389,12 @@ try
 			.back_buffer(
 				sge::image::color::predef::black()));
 
-		sge::renderer::state::ffp::transform::object_scoped_ptr const projection_state(
+		sge::renderer::state::ffp::transform::object_unique_ptr const projection_state(
 			sys.renderer_device_ffp().create_transform_state(
 				sge::renderer::state::ffp::transform::parameters(
 					camera.projection_matrix().get())));
 
-		sge::renderer::state::ffp::transform::object_scoped_ptr const world_state(
+		sge::renderer::state::ffp::transform::object_unique_ptr const world_state(
 			sys.renderer_device_ffp().create_transform_state(
 				sge::renderer::state::ffp::transform::parameters(
 					sge::camera::matrix_conversion::world(

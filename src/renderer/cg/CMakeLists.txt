@@ -6,11 +6,9 @@ set(
 	SGE_RENDERERCG_FILES
 	include/sge/renderer/cg/loaded_program.hpp
 	include/sge/renderer/cg/loaded_program_fwd.hpp
-	include/sge/renderer/cg/loaded_program_scoped_ptr.hpp
 	include/sge/renderer/cg/loaded_program_unique_ptr.hpp
 	include/sge/renderer/cg/loaded_texture.hpp
 	include/sge/renderer/cg/loaded_texture_fwd.hpp
-	include/sge/renderer/cg/loaded_texture_scoped_ptr.hpp
 	include/sge/renderer/cg/loaded_texture_unique_ptr.hpp
 	include/sge/renderer/cg/scoped_program.hpp
 	include/sge/renderer/cg/scoped_program_fwd.hpp

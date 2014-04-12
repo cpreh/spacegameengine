@@ -60,7 +60,6 @@ set(
 	include/sge/scenic/render_context/light/variant.hpp
 	include/sge/scenic/render_context/manager_base.hpp
 	include/sge/scenic/render_context/manager_base_fwd.hpp
-	include/sge/scenic/render_context/manager_base_scoped_ptr.hpp
 	include/sge/scenic/render_context/manager_base_unique_ptr.hpp
 	include/sge/scenic/render_context/material/diffuse_texture.hpp
 	include/sge/scenic/render_context/material/object.hpp
@@ -109,7 +108,6 @@ set(
 	include/sge/scenic/scene/prefer_cg_context.hpp
 	include/sge/scenic/scene/prototype.hpp
 	include/sge/scenic/scene/prototype_fwd.hpp
-	include/sge/scenic/scene/prototype_scoped_ptr.hpp
 	include/sge/scenic/scene/prototype_unique_ptr.hpp
 	include/sge/scenic/scene/rotation.hpp
 	include/sge/scenic/scene/scale.hpp

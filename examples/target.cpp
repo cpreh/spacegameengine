@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/capabilities_field.hpp>
 #include <sge/image/color/predef.hpp>
 #include <sge/image2d/file.hpp>
-#include <sge/image2d/file_scoped_ptr.hpp>
+#include <sge/image2d/file_unique_ptr.hpp>
 #include <sge/image2d/load_exn.hpp>
 #include <sge/image2d/system.hpp>
 #include <sge/image2d/view/const_object.hpp>
@@ -43,7 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/target/from_texture.hpp>
 #include <sge/renderer/target/offscreen.hpp>
-#include <sge/renderer/target/offscreen_scoped_ptr.hpp>
+#include <sge/renderer/target/offscreen_unique_ptr.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/texture/capabilities.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
@@ -54,7 +54,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/emulate_srgb_from_caps.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
-#include <sge/renderer/texture/planar_scoped_ptr.hpp>
+#include <sge/renderer/texture/planar_unique_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/parameters.hpp>
@@ -186,7 +186,7 @@ try
 		)
 	);
 
-	sge::image2d::file_scoped_ptr const image(
+	sge::image2d::file_unique_ptr const image(
 		sge::image2d::load_exn(
 			sys.image_system(),
 			sge::config::media_path()
@@ -195,7 +195,7 @@ try
 		)
 	);
 
-	sge::renderer::texture::planar_scoped_ptr const image_texture(
+	sge::renderer::texture::planar_unique_ptr const image_texture(
 		sge::renderer::texture::create_planar_from_view(
 			sys.renderer_device_ffp(),
 			image->view(),
@@ -264,7 +264,7 @@ try
 		sprite_state_parameters()
 	);
 
-	sge::renderer::texture::planar_scoped_ptr const target_texture(
+	sge::renderer::texture::planar_unique_ptr const target_texture(
 		sys.renderer_device_ffp().create_planar_texture(
 			sge::renderer::texture::planar_parameters(
 				sge::renderer::dim2(
@@ -284,7 +284,7 @@ try
 		)
 	);
 
-	sge::renderer::target::offscreen_scoped_ptr const target(
+	sge::renderer::target::offscreen_unique_ptr const target(
 		sge::renderer::target::from_texture(
 			sys.renderer_device_ffp(),
 			*target_texture

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/cg/parameter/named.hpp>
 #include <sge/cg/program/object_fwd.hpp>
-#include <sge/renderer/cg/loaded_texture_scoped_ptr.hpp>
+#include <sge/renderer/cg/loaded_texture_unique_ptr.hpp>
 #include <sge/renderer/cg/scoped_texture.hpp>
 #include <sge/renderer/context/core_fwd.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
@@ -32,9 +32,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/shader/symbol.hpp>
 #include <sge/shader/parameter/name.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional.hpp>
-#include <fcppt/optional_fwd.hpp>
-#include <fcppt/scoped_ptr.hpp>
+#include <fcppt/optional_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -96,8 +97,8 @@ private:
 	sge::shader::pair &parent_;
 	sge::renderer::device::core &renderer_;
 	sge::cg::parameter::named const parameter_;
-	sge::renderer::cg::loaded_texture_scoped_ptr loaded_texture_;
-	fcppt::scoped_ptr<sge::renderer::cg::scoped_texture> scoped_texture_;
+	sge::renderer::cg::loaded_texture_unique_ptr loaded_texture_;
+	std::unique_ptr<sge::renderer::cg::scoped_texture> scoped_texture_;
 	optional_render_context optional_render_context_;
 	optional_value value_;
 };

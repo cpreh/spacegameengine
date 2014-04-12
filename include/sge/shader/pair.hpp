@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SHADER_PAIR_HPP_INCLUDED
 
 #include <sge/cg/program/object.hpp>
-#include <sge/renderer/cg/loaded_program_scoped_ptr.hpp>
+#include <sge/renderer/cg/loaded_program_unique_ptr.hpp>
 #include <sge/renderer/vertex/declaration_fwd.hpp>
 #include <sge/shader/context_fwd.hpp>
 #include <sge/shader/optional_cflags.hpp>
@@ -102,8 +102,8 @@ private:
 	sge::shader::context &context_;
 	sge::cg::program::object vertex_program_;
 	sge::cg::program::object pixel_program_;
-	sge::renderer::cg::loaded_program_scoped_ptr loaded_vertex_program_;
-	sge::renderer::cg::loaded_program_scoped_ptr loaded_pixel_program_;
+	sge::renderer::cg::loaded_program_unique_ptr const loaded_vertex_program_;
+	sge::renderer::cg::loaded_program_unique_ptr const loaded_pixel_program_;
 	planar_texture_sequence planar_textures_;
 
 	void

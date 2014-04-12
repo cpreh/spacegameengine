@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_CEGUI_TEXTURE_TARGET_HPP_INCLUDED
 
 #include <sge/renderer/caps/render_target_inverted.hpp>
-#include <sge/renderer/state/ffp/transform/object_scoped_ptr.hpp>
-#include <sge/renderer/target/offscreen_scoped_ptr.hpp>
+#include <sge/renderer/state/ffp/transform/object_unique_ptr.hpp>
+#include <sge/renderer/target/offscreen_unique_ptr.hpp>
 #include <sge/src/cegui/optional_render_context_ref.hpp>
 #include <sge/src/cegui/texture_fwd.hpp>
 #include <sge/src/cegui/texture_parameters.hpp>
@@ -31,10 +31,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/cegui/fwds/sizef_fwd.hpp>
 #include <sge/src/cegui/fwds/vector2f_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/Rect.h>
 #include <CEGUI/TextureTarget.h>
+#include <memory>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -115,21 +115,23 @@ private:
 private:
 	sge::cegui::texture_parameters const texture_parameters_;
 
-	typedef fcppt::scoped_ptr<
+	typedef
+	std::unique_ptr<
 		sge::cegui::texture
-	> texture_scoped_ptr;
+	>
+	texture_unique_ptr;
 
-	sge::renderer::target::offscreen_scoped_ptr const target_;
+	sge::renderer::target::offscreen_unique_ptr const target_;
 
 	sge::cegui::optional_render_context_ref const &render_context_;
 
-	texture_scoped_ptr texture_;
+	texture_unique_ptr texture_;
 
 	CEGUI::Rectf area_;
 
 	sge::renderer::caps::render_target_inverted const is_inverted_;
 
-	sge::renderer::state::ffp::transform::object_scoped_ptr transform_state_;
+	sge::renderer::state::ffp::transform::object_unique_ptr transform_state_;
 };
 
 }

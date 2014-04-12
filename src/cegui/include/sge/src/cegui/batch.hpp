@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
-#include <sge/renderer/vertex/buffer_scoped_ptr.hpp>
+#include <sge/renderer/vertex/buffer_unique_ptr.hpp>
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/declaration_fwd.hpp>
 #include <sge/src/cegui/batch_fwd.hpp>
@@ -63,7 +63,7 @@ public:
 private:
 	sge::renderer::texture::planar &texture_;
 
-	sge::renderer::vertex::buffer_scoped_ptr const vertex_buffer_;
+	sge::renderer::vertex::buffer_unique_ptr const vertex_buffer_;
 
 	sge::cegui::clip clip_;
 };

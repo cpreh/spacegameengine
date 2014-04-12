@@ -18,7 +18,6 @@ set(
 	src/plugins/pango/include/sge/pango/no_multi_line.hpp
 	src/plugins/pango/include/sge/pango/object.hpp
 	src/plugins/pango/include/sge/pango/pango_font_map_unique_ptr.hpp
-	src/plugins/pango/include/sge/pango/pango_layout_scoped_ptr.hpp
 	src/plugins/pango/include/sge/pango/pango_layout_unique_ptr.hpp
 	src/plugins/pango/include/sge/pango/system.hpp
 	src/plugins/pango/include/sge/pango/text.hpp

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/capabilities_field.hpp>
 #include <sge/image/color/predef.hpp>
 #include <sge/image2d/file.hpp>
-#include <sge/image2d/file_scoped_ptr.hpp>
+#include <sge/image2d/file_unique_ptr.hpp>
 #include <sge/image2d/load_exn.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/image2d/view/const_object.hpp>
@@ -49,7 +49,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/create_planar_from_view.hpp>
 #include <sge/renderer/texture/emulate_srgb_from_caps.hpp>
 #include <sge/renderer/texture/planar.hpp>
-#include <sge/renderer/texture/planar_scoped_ptr.hpp>
+#include <sge/renderer/texture/planar_unique_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/parameters.hpp>
@@ -290,7 +290,7 @@ try
 		sprite_state_parameters()
 	);
 
-	sge::image2d::file_scoped_ptr const image(
+	sge::image2d::file_unique_ptr const image(
 		sge::image2d::load_exn(
 			sys.image_system(),
 			sge::config::media_path()
@@ -299,7 +299,7 @@ try
 		)
 	);
 
-	sge::renderer::texture::planar_scoped_ptr const image_texture(
+	sge::renderer::texture::planar_unique_ptr const image_texture(
 		sge::renderer::texture::create_planar_from_view(
 			sys.renderer_device_ffp(),
 			image->view(),

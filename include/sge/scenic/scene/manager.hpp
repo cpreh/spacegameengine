@@ -25,11 +25,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/context/core_fwd.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/vertex/declaration_fwd.hpp>
-#include <sge/renderer/vertex/declaration_scoped_ptr.hpp>
+#include <sge/renderer/vertex/declaration_unique_ptr.hpp>
 #include <sge/scenic/symbol.hpp>
 #include <sge/scenic/texture_manager.hpp>
 #include <sge/scenic/render_context/base_unique_ptr.hpp>
-#include <sge/scenic/render_context/manager_base_scoped_ptr.hpp>
+#include <sge/scenic/render_context/manager_base_unique_ptr.hpp>
 #include <sge/scenic/scene/prefer_cg_context.hpp>
 #include <sge/shader/context.hpp>
 
@@ -76,10 +76,10 @@ public:
 	~manager();
 private:
 	sge::renderer::device::core &renderer_;
-	sge::renderer::vertex::declaration_scoped_ptr const mesh_vertex_declaration_;
+	sge::renderer::vertex::declaration_unique_ptr const mesh_vertex_declaration_;
 	sge::scenic::texture_manager texture_manager_;
 	sge::shader::context shader_context_;
-	sge::scenic::render_context::manager_base_scoped_ptr render_context_manager_;
+	sge::scenic::render_context::manager_base_unique_ptr render_context_manager_;
 };
 }
 }

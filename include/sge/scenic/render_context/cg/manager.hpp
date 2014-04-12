@@ -23,10 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <sge/renderer/state/core/blend/object_scoped_ptr.hpp>
-#include <sge/renderer/state/core/depth_stencil/object_scoped_ptr.hpp>
-#include <sge/renderer/state/core/rasterizer/object_scoped_ptr.hpp>
-#include <sge/renderer/state/core/sampler/object_scoped_ptr.hpp>
+#include <sge/renderer/state/core/blend/object_unique_ptr.hpp>
+#include <sge/renderer/state/core/depth_stencil/object_unique_ptr.hpp>
+#include <sge/renderer/state/core/rasterizer/object_unique_ptr.hpp>
+#include <sge/renderer/state/core/sampler/object_unique_ptr.hpp>
 #include <sge/renderer/vertex/declaration_fwd.hpp>
 #include <sge/scenic/symbol.hpp>
 #include <sge/scenic/render_context/manager_base.hpp>
@@ -131,10 +131,10 @@ private:
 	sge::shader::parameter::vector<sge::renderer::scalar,4> fog_color_;
 	point_light_array point_lights_;
 	directional_light_array directional_lights_;
-	sge::renderer::state::core::depth_stencil::object_scoped_ptr const depth_stencil_state_;
-	sge::renderer::state::core::blend::object_scoped_ptr const blend_state_;
-	sge::renderer::state::core::rasterizer::object_scoped_ptr const rasterizer_state_;
-	sge::renderer::state::core::sampler::object_scoped_ptr const mipmap_sampler_state_;
+	sge::renderer::state::core::depth_stencil::object_unique_ptr const depth_stencil_state_;
+	sge::renderer::state::core::blend::object_unique_ptr const blend_state_;
+	sge::renderer::state::core::rasterizer::object_unique_ptr const rasterizer_state_;
+	sge::renderer::state::core::sampler::object_unique_ptr const mipmap_sampler_state_;
 };
 }
 }

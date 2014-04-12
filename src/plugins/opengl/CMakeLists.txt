@@ -4,7 +4,6 @@ set(
 	src/plugins/opengl/include/sge/opengl/area_function.hpp
 	src/plugins/opengl/include/sge/opengl/backend/context.hpp
 	src/plugins/opengl/include/sge/opengl/backend/context_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/backend/context_scoped_ptr.hpp
 	src/plugins/opengl/include/sge/opengl/backend/context_unique_ptr.hpp
 	src/plugins/opengl/include/sge/opengl/backend/create_system.hpp
 	src/plugins/opengl/include/sge/opengl/backend/dummy.hpp
@@ -1207,7 +1206,6 @@ set(
 	src/plugins/opengl/include/sge/opengl/egl/make_current.hpp
 	src/plugins/opengl/include/sge/opengl/egl/native_display.hpp
 	src/plugins/opengl/include/sge/opengl/egl/native_display_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/egl/native_display_scoped_ptr.hpp
 	src/plugins/opengl/include/sge/opengl/egl/native_display_unique_ptr.hpp
 	src/plugins/opengl/include/sge/opengl/egl/native_window.hpp
 	src/plugins/opengl/include/sge/opengl/egl/no_context.hpp

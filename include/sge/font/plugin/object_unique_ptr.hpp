@@ -32,9 +32,11 @@ namespace font
 namespace plugin
 {
 
-typedef sge::plugin::object_unique_ptr<
+typedef
+sge::plugin::object_unique_ptr<
 	sge::font::system
->::type object_unique_ptr;
+>
+object_unique_ptr;
 
 }
 }

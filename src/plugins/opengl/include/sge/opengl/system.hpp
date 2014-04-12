@@ -36,7 +36,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/system/object_fwd.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -99,28 +101,28 @@ private:
 	sge::opengl::context::system::object system_context_;
 
 	typedef
-	fcppt::scoped_ptr<
+	std::unique_ptr<
 		sge::opengl::platform::system
 	>
-	platform_system_scoped_ptr;
+	platform_system_unique_ptr;
 
-	platform_system_scoped_ptr const platform_system_;
+	platform_system_unique_ptr const platform_system_;
 
 	typedef
-	fcppt::scoped_ptr<
+	std::unique_ptr<
 		sge::opengl::backend::system
 	>
-	backend_system_scoped_ptr;
+	backend_system_unique_ptr;
 
-	backend_system_scoped_ptr const backend_system_;
+	backend_system_unique_ptr const backend_system_;
 
 	typedef
-	fcppt::scoped_ptr<
+	std::unique_ptr<
 		sge::renderer::caps::device
 	>
-	device_caps_scoped_ptr;
+	device_caps_unique_ptr;
 
-	device_caps_scoped_ptr const caps_;
+	device_caps_unique_ptr const caps_;
 };
 
 }

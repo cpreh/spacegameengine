@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/state/core/blend/const_optional_object_ref.hpp>
 #include <sge/renderer/state/core/blend/object.hpp>
-#include <sge/renderer/state/core/blend/object_scoped_ptr.hpp>
+#include <sge/renderer/state/core/blend/object_unique_ptr.hpp>
 #include <sge/renderer/state/core/blend/parameters.hpp>
 #include <sge/renderer/state/core/blend/scoped.hpp>
 #include <sge/renderer/state/core/blend/write_mask_all.hpp>
@@ -41,7 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/rasterizer/parameters.hpp>
 #include <sge/renderer/state/ffp/transform/mode.hpp>
 #include <sge/renderer/state/ffp/transform/object.hpp>
-#include <sge/renderer/state/ffp/transform/object_scoped_ptr.hpp>
+#include <sge/renderer/state/ffp/transform/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
 #include <sge/renderer/state/ffp/transform/scoped.hpp>
 #include <sge/renderer/target/base.hpp>
@@ -190,7 +190,7 @@ sge::cegui::geometry_buffer::draw() const
 			<< FCPPT_TEXT(")::draw()")
 	);
 
-	sge::renderer::state::ffp::transform::object_scoped_ptr const transform_state(
+	sge::renderer::state::ffp::transform::object_unique_ptr const transform_state(
 		renderer_.create_transform_state(
 			sge::renderer::state::ffp::transform::parameters(
 				fcppt::math::matrix::translation(
@@ -222,7 +222,7 @@ sge::cegui::geometry_buffer::draw() const
 		CEGUI::BM_INVALID
 	);
 
-	sge::renderer::state::core::blend::object_scoped_ptr const blend_state(
+	sge::renderer::state::core::blend::object_unique_ptr const blend_state(
 		renderer_.create_blend_state(
 			sge::renderer::state::core::blend::parameters(
 				sge::cegui::to_blend_parameters(

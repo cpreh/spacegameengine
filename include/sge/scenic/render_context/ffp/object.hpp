@@ -22,18 +22,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SCENIC_RENDER_CONTEXT_FFP_OBJECT_HPP_INCLUDED
 
 #include <sge/renderer/context/ffp_fwd.hpp>
-#include <sge/renderer/state/core/blend/object_scoped_ptr.hpp>
+#include <sge/renderer/state/core/blend/object_unique_ptr.hpp>
 #include <sge/renderer/state/core/blend/scoped.hpp>
-#include <sge/renderer/state/core/depth_stencil/object_scoped_ptr.hpp>
+#include <sge/renderer/state/core/depth_stencil/object_unique_ptr.hpp>
 #include <sge/renderer/state/core/depth_stencil/scoped.hpp>
-#include <sge/renderer/state/core/rasterizer/object_scoped_ptr.hpp>
+#include <sge/renderer/state/core/rasterizer/object_unique_ptr.hpp>
 #include <sge/renderer/state/core/rasterizer/scoped.hpp>
-#include <sge/renderer/state/core/sampler/object_scoped_ptr.hpp>
+#include <sge/renderer/state/core/sampler/object_unique_ptr.hpp>
 #include <sge/renderer/state/core/sampler/scoped.hpp>
-#include <sge/renderer/state/ffp/lighting/object_scoped_ptr.hpp>
+#include <sge/renderer/state/ffp/lighting/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/lighting/light/parameters_fwd.hpp>
-#include <sge/renderer/state/ffp/lighting/material/object_scoped_ptr.hpp>
-#include <sge/renderer/state/ffp/transform/object_scoped_ptr.hpp>
+#include <sge/renderer/state/ffp/lighting/material/object_unique_ptr.hpp>
+#include <sge/renderer/state/ffp/transform/object_unique_ptr.hpp>
 #include <sge/renderer/vertex/buffer_fwd.hpp>
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/scoped_buffer_fwd.hpp>
@@ -42,7 +42,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/render_context/base.hpp>
 #include <sge/scenic/render_context/ffp/manager_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/scoped_ptr.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -109,17 +111,17 @@ private:
 	sge::scenic::render_context::ffp::manager &manager_;
 	sge::renderer::context::ffp &context_;
 	sge::renderer::vertex::scoped_declaration scoped_vertex_declaration_;
-	sge::renderer::state::ffp::transform::object_scoped_ptr projection_transform_;
-	sge::renderer::state::ffp::transform::object_scoped_ptr world_transform_;
+	sge::renderer::state::ffp::transform::object_unique_ptr projection_transform_;
+	sge::renderer::state::ffp::transform::object_unique_ptr world_transform_;
 	sge::renderer::vertex::count current_vertex_buffer_size_;
-	fcppt::scoped_ptr<sge::renderer::vertex::scoped_buffer> current_vertex_buffer_;
-	sge::renderer::state::ffp::lighting::material::object_scoped_ptr current_material_;
-	sge::renderer::state::core::sampler::object_scoped_ptr const diffuse_texture_sampler_;
+	std::unique_ptr<sge::renderer::vertex::scoped_buffer> current_vertex_buffer_;
+	sge::renderer::state::ffp::lighting::material::object_unique_ptr current_material_;
+	sge::renderer::state::core::sampler::object_unique_ptr const diffuse_texture_sampler_;
 	sge::renderer::state::core::sampler::scoped scoped_sampler_;
-	sge::renderer::state::ffp::lighting::object_scoped_ptr const current_lighting_;
-	sge::renderer::state::core::depth_stencil::object_scoped_ptr const depth_stencil_state_;
-	sge::renderer::state::core::blend::object_scoped_ptr const blend_state_;
-	sge::renderer::state::core::rasterizer::object_scoped_ptr const rasterizer_state_;
+	sge::renderer::state::ffp::lighting::object_unique_ptr const current_lighting_;
+	sge::renderer::state::core::depth_stencil::object_unique_ptr const depth_stencil_state_;
+	sge::renderer::state::core::blend::object_unique_ptr const blend_state_;
+	sge::renderer::state::core::rasterizer::object_unique_ptr const rasterizer_state_;
 	sge::renderer::state::core::depth_stencil::scoped scoped_depth_stencil_state_;
 	sge::renderer::state::core::blend::scoped scoped_blend_state_;
 	sge::renderer::state::core::rasterizer::scoped scoped_rasterizer_state_;

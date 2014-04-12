@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/rect_fwd.hpp>
 #include <sge/font/string.hpp>
 #include <sge/font/text_parameters.hpp>
-#include <sge/font/text_scoped_ptr.hpp>
+#include <sge/font/text_unique_ptr.hpp>
 #include <sge/font/unit.hpp>
 #include <sge/font/vector_fwd.hpp>
 #include <sge/font/draw/set_matrices_fwd.hpp>
@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/any/object_fwd.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
-#include <sge/renderer/state/ffp/sampler/object_scoped_ptr.hpp>
+#include <sge/renderer/state/ffp/sampler/object_unique_ptr.hpp>
 #include <sge/renderer/texture/emulate_srgb_fwd.hpp>
 #include <sge/sprite/object_decl.hpp>
 #include <sge/sprite/parameters_fwd.hpp>
@@ -57,7 +57,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/options_fwd.hpp>
 #include <sge/sprite/state/parameters_fwd.hpp>
 #include <sge/sprite/types/vector_fwd.hpp>
-#include <sge/texture/part_scoped_ptr.hpp>
+#include <sge/texture/part_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -120,11 +120,11 @@ private:
 	void
 	rebuild_sprite_range();
 
-	sge::renderer::state::ffp::sampler::object_scoped_ptr const sampler_state_;
+	sge::renderer::state::ffp::sampler::object_unique_ptr const sampler_state_;
 
-	sge::font::text_scoped_ptr const text_;
+	sge::font::text_unique_ptr const text_;
 
-	sge::texture::part_scoped_ptr const texture_part_;
+	sge::texture::part_unique_ptr const texture_part_;
 
 	typedef sge::image::color::rgba8_format color_format;
 

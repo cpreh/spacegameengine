@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/renderer/texture/capabilities_field_fwd.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
-#include <sge/renderer/texture/planar_scoped_ptr.hpp>
+#include <sge/renderer/texture/planar_unique_ptr.hpp>
 #include <sge/src/cegui/texture_fwd.hpp>
 #include <sge/src/cegui/texture_parameters.hpp>
 #include <sge/src/cegui/fwds/rectf_fwd.hpp>
@@ -151,7 +151,7 @@ private:
 
 	sge::cegui::texture::optional_vector2f texel_scaling_;
 
-	sge::renderer::texture::planar_scoped_ptr texture_;
+	sge::renderer::texture::planar_unique_ptr texture_;
 
 };
 

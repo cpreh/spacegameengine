@@ -69,15 +69,15 @@ sge::shader::parameter::planar_texture::set(
 
 		if(value_)
 		{
-			loaded_texture_.take(
+			loaded_texture_ =
 				renderer_.load_cg_texture(
 					parameter_.object(),
-					*_value));
+					*_value);
 
-			scoped_texture_.take(
+			scoped_texture_ =
 				fcppt::make_unique_ptr<sge::renderer::cg::scoped_texture>(
 					*optional_render_context_,
-					*loaded_texture_));
+					*loaded_texture_);
 		}
 	}
 }
