@@ -28,6 +28,8 @@ sge::d3d9::texture::best_color_format(
 	sge::image::color::format const _format
 )
 {
+	// TODO: Convert d3d9 formats directly, because this is confusing.
+	// Also fix the srgb types.
 	switch(
 		_format
 	)
@@ -36,8 +38,6 @@ sge::d3d9::texture::best_color_format(
 	case sge::image::color::format::l8:
 	case sge::image::color::format::r32f:
 	case sge::image::color::format::la8:
-	case sge::image::color::format::rgba8:
-	case sge::image::color::format::srgba8:
 	case sge::image::color::format::bgra8:
 	case sge::image::color::format::rgbx8:
 	case sge::image::color::format::bgrx8:
@@ -46,8 +46,10 @@ sge::d3d9::texture::best_color_format(
 		return _format;
 	case sge::image::color::format::rgb8:
 		return sge::image::color::format::bgr8;
+	case sge::image::color::format::rgba8:
+	case sge::image::color::format::srgba8:
 	case sge::image::color::format::srgb8:
-		return sge::image::color::format::srgba8;
+		return sge::image::color::format::bgra8;
 	case sge::image::color::format::rgb32f:
 	case sge::image::color::format::bgr32f:
 	case sge::image::color::format::bgra32f:

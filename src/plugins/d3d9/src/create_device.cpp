@@ -38,7 +38,7 @@ sge::d3d9::create_device(
 	if(
 		_system.CreateDevice(
 			_index.get(),
-			D3DDEVTYPE_REF,
+			D3DDEVTYPE_HAL,
 			_parameters.hDeviceWindow,
 			sge::d3d9::parameters::tnl_caps(
 				_system,
