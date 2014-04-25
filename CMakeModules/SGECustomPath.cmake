@@ -27,7 +27,7 @@ namespace @SGE_CONFIG_LIBRARY_NAME@
 {
 
 inline
-boost::filesystem::path const
+boost::filesystem::path
 build_@SGE_CONFIG_PATH_NAME@_path()
 {
 	return
