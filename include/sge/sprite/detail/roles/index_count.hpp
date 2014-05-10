@@ -21,6 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_ROLES_INDEX_COUNT_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_ROLES_INDEX_COUNT_HPP_INCLUDED
 
+#include <majutsu/make_role_tag.hpp>
+
+
 namespace sge
 {
 namespace sprite
@@ -30,9 +33,9 @@ namespace detail
 namespace roles
 {
 
-struct index_count
-{
-};
+MAJUTSU_MAKE_ROLE_TAG(
+	index_count
+);
 
 }
 }

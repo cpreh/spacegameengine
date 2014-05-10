@@ -82,6 +82,13 @@ default_initialize_class_impl(
 	Args && ..._args
 )
 {
+	typedef
+	typename
+	boost::mpl::front<
+		Types
+	>::type
+	role;
+
 	return
 		sge::sprite::detail::default_initialize_class_impl<
 			Class,
@@ -95,12 +102,12 @@ default_initialize_class_impl(
 			>(
 				_args
 			)...,
-			sge::sprite::detail::default_initialize_class_element<
-				typename
-				boost::mpl::front<
-					Types
-				>::type::wrapped::type
-			>::execute()
+			typename
+			role::tag{} =
+				sge::sprite::detail::default_initialize_class_element<
+					typename
+					role::wrapped::type
+				>::execute()
 		);
 }
 

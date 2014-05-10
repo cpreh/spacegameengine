@@ -67,18 +67,18 @@ public:
 	typename boost::enable_if<
 		typename sge::sprite::defaults<
 			choices,
-			typename Role::alias
+			typename Role::tag
 		>::use,
 		result_type
 	>::type
 	operator()() const
 	{
 		parameters_. template set<
-			typename Role::alias
+			typename Role::tag
 		>(
 			sge::sprite::defaults<
 				choices,
-				typename Role::alias
+				typename Role::tag
 			>::get()
 		);
 	}
@@ -89,7 +89,7 @@ public:
 	typename boost::disable_if<
 		typename sge::sprite::defaults<
 			choices,
-			typename Role::alias
+			typename Role::tag
 		>::use,
 		result_type
 	>::type

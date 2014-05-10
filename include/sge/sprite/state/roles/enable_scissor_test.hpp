@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_STATE_ROLES_ENABLE_SCISSOR_TEST_HPP_INCLUDED
 #define SGE_SPRITE_STATE_ROLES_ENABLE_SCISSOR_TEST_HPP_INCLUDED
 
+#include <majutsu/make_role_tag.hpp>
+
 
 namespace sge
 {
@@ -31,9 +33,9 @@ namespace state
 namespace roles
 {
 
-struct enable_scissor_test
-{
-};
+MAJUTSU_MAKE_ROLE_TAG(
+	enable_scissor_test
+);
 
 }
 }

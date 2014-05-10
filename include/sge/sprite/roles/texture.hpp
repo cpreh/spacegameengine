@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_ROLES_TEXTURE_HPP_INCLUDED
 
 #include <sge/sprite/texture_level.hpp>
+#include <majutsu/make_role_tag_arg.hpp>
+
 
 namespace sge
 {
@@ -30,11 +32,10 @@ namespace sprite
 namespace roles
 {
 
-template<
-	sprite::texture_level
->
-struct texture
-{};
+MAJUTSU_MAKE_ROLE_TAG_ARG(
+	texture,
+	sge::sprite::texture_level
+);
 
 }
 }
