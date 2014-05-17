@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_FONT_BITMAP_TEXT_HPP_INCLUDED
 #define SGE_SRC_FONT_BITMAP_TEXT_HPP_INCLUDED
 
+#include <sge/font/dim_fwd.hpp>
 #include <sge/font/index.hpp>
 #include <sge/font/optional_index_fwd.hpp>
 #include <sge/font/rect.hpp>
@@ -72,6 +73,10 @@ private:
 
 	sge::font::rect const
 	rect() const
+	override;
+
+	sge::font::dim const
+	logical_size() const
 	override;
 
 	sge::font::rect const

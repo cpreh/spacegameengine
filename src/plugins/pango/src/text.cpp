@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/font/dim.hpp>
 #include <sge/font/flags.hpp>
 #include <sge/font/index.hpp>
 #include <sge/font/optional_index.hpp>
@@ -32,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/any/object.hpp>
 #include <sge/image2d/algorithm/fill.hpp>
 #include <sge/pango/create_text_layout.hpp>
-#include <sge/pango/ink_rect.hpp>
+#include <sge/pango/get_extents.hpp>
 #include <sge/pango/text.hpp>
 #include <sge/pango/convert/from_rect_scale.hpp>
 #include <sge/pango/convert/to_unit.hpp>
@@ -64,8 +65,8 @@ sge::pango::text::text(
 		&
 		sge::font::flags::no_multi_line
 	),
-	ink_rect_(
-		sge::pango::ink_rect(
+	extents_(
+		sge::pango::get_extents(
 			*layout_,
 			no_multi_line_
 		)
@@ -99,11 +100,19 @@ sge::pango::text::render(
 	);
 
 	int const pos_x(
-		- ink_rect_.left()
+		fcppt::cast::size<
+			int
+		>(
+			- extents_.ink_rect().get().left()
+		)
 	);
 
 	int const pos_y(
-		- ink_rect_.top()
+		fcppt::cast::size<
+			int
+		>(
+			- extents_.ink_rect().get().top()
+		)
 	);
 
 	if(
@@ -142,7 +151,14 @@ sge::font::rect const
 sge::pango::text::rect() const
 {
 	return
-		ink_rect_;
+		extents_.ink_rect().get();
+}
+
+sge::font::dim const
+sge::pango::text::logical_size() const
+{
+	return
+		extents_.logical_rect().get().size();
 }
 
 sge::font::rect const

@@ -18,12 +18,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PANGO_INK_RECT_HPP_INCLUDED
-#define SGE_PANGO_INK_RECT_HPP_INCLUDED
+#ifndef SGE_PANGO_EXTENTS_HPP_INCLUDED
+#define SGE_PANGO_EXTENTS_HPP_INCLUDED
 
-#include <sge/font/rect.hpp>
-#include <sge/pango/ink_rect_fwd.hpp>
-#include <fcppt/strong_typedef.hpp>
+#include <sge/pango/extents_fwd.hpp>
+#include <sge/pango/ink_rect.hpp>
+#include <sge/pango/logical_rect.hpp>
 
+
+namespace sge
+{
+namespace pango
+{
+
+class extents
+{
+public:
+	extents(
+		sge::pango::ink_rect,
+		sge::pango::logical_rect
+	);
+
+	sge::pango::ink_rect const
+	ink_rect() const;
+
+	sge::pango::logical_rect const
+	logical_rect() const;
+private:
+	sge::pango::ink_rect ink_rect_;
+
+	sge::pango::logical_rect logical_rect_;
+};
+
+}
+}
 
 #endif

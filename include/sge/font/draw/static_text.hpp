@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FONT_DRAW_STATIC_TEXT_HPP_INCLUDED
 #define SGE_FONT_DRAW_STATIC_TEXT_HPP_INCLUDED
 
+#include <sge/font/dim_fwd.hpp>
 #include <sge/font/object_fwd.hpp>
 #include <sge/font/rect_fwd.hpp>
 #include <sge/font/string.hpp>
@@ -113,6 +114,10 @@ public:
 	SGE_FONT_DRAW_SYMBOL
 	sge::font::rect const
 	rect() const;
+
+	SGE_FONT_DRAW_SYMBOL
+	sge::font::dim const
+	logical_size() const;
 
 	SGE_FONT_DRAW_SYMBOL
 	sge::font::text const &

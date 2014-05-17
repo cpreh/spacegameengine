@@ -18,54 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/font/rect.hpp>
-#include <sge/pango/ink_rect.hpp>
-#include <sge/pango/no_multi_line.hpp>
-#include <sge/pango/convert/from_rect.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <pango/pango-layout.h>
-#include <fcppt/config/external_end.hpp>
+#ifndef SGE_PANGO_LOGICAL_RECT_FWD_HPP_INCLUDED
+#define SGE_PANGO_LOGICAL_RECT_FWD_HPP_INCLUDED
+
+#include <sge/font/rect_fwd.hpp>
+#include <fcppt/make_strong_typedef.hpp>
 
 
-sge::font::rect const
-sge::pango::ink_rect(
-	PangoLayout &_layout,
-	sge::pango::no_multi_line const _no_multi_line
-)
+namespace sge
 {
-	PangoRectangle result;
+namespace pango
+{
 
-	if(
-		_no_multi_line.get()
-	)
-	{
-		PangoLayoutLine *const line(
-			::pango_layout_get_line(
-				&_layout,
-				0
-			)
-		);
+FCPPT_MAKE_STRONG_TYPEDEF(
+	sge::font::rect,
+	logical_rect
+);
 
-		if(
-			line == nullptr
-		)
-			return sge::font::rect::null();
-
-		::pango_layout_line_get_pixel_extents(
-			line,
-			&result,
-			nullptr
-		);
-	}
-	else
-		::pango_layout_get_pixel_extents(
-			&_layout,
-			&result,
-			nullptr
-		);
-
-	return
-		sge::pango::convert::from_rect(
-			result
-		);
 }
+}
+
+#endif

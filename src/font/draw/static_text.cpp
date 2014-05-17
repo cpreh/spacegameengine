@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/font/dim.hpp>
 #include <sge/font/object_fwd.hpp>
 #include <sge/font/rect.hpp>
 #include <sge/font/string.hpp>
@@ -136,6 +137,13 @@ sge::font::draw::static_text::rect() const
 {
 	return
 		impl_->rect();
+}
+
+sge::font::dim const
+sge::font::draw::static_text::logical_size() const
+{
+	return
+		impl_->logical_size();
 }
 
 sge::font::text const &

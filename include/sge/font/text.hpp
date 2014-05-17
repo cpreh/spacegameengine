@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_FONT_TEXT_HPP_INCLUDED
 
 #include <sge/class_symbol.hpp>
+#include <sge/font/dim_fwd.hpp>
 #include <sge/font/index.hpp>
 #include <sge/font/optional_index_fwd.hpp>
 #include <sge/font/rect_fwd.hpp>
@@ -59,6 +60,10 @@ public:
 	virtual
 	sge::font::rect const
 	rect() const = 0;
+
+	virtual
+	sge::font::dim const
+	logical_size() const = 0;
 
 	virtual
 	sge::font::rect const

@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/font/dim.hpp>
 #include <sge/font/flags.hpp>
 #include <sge/font/flags_field.hpp>
 #include <sge/font/index.hpp>
@@ -504,6 +505,13 @@ sge::font::bitmap::text::rect() const
 {
 	return
 		rect_;
+}
+
+sge::font::dim const
+sge::font::bitmap::text::logical_size() const
+{
+	return
+		rect_.size();
 }
 
 sge::font::rect const
