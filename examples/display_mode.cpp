@@ -18,7 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/renderer/system.hpp>
 #include <sge/renderer/device/core.hpp>
+#include <sge/renderer/display_mode/object.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/display_mode/parameters.hpp>
 #include <sge/renderer/display_mode/output.hpp>
@@ -110,6 +112,25 @@ try
 		)
 	);
 
+	fcppt::io::cout()
+		<< FCPPT_TEXT("Available modes:\n");
+
+	for(
+		sge::renderer::display_mode::object const &mode
+		:
+		sys.renderer_system().display_modes(
+			sys.renderer_device_index()
+		)
+	)
+		fcppt::io::cout()
+			<<
+			mode
+			<<
+			FCPPT_TEXT('\n');
+
+	fcppt::io::cout()
+		<< FCPPT_TEXT('\n');
+
 	fcppt::signal::scoped_connection const con(
 		sys.window().awl_window_event_processor().show_callback(
 			[
@@ -127,7 +148,7 @@ try
 				)
 					fcppt::io::cout()
 						<<
-						FCPPT_TEXT("Display mode:\n\t")
+						FCPPT_TEXT("Current display mode:\n\t")
 						<<
 						*mode
 						<<
@@ -141,7 +162,7 @@ try
 				else
 					fcppt::io::cout()
 						<<
-						FCPPT_TEXT("Mode not set.\n");
+						FCPPT_TEXT("No display mode set.\n");
 
 				sys.window_system().quit(
 					awl::main::exit_success()
