@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/system_fwd.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
+#include <sge/renderer/device/index_fwd.hpp>
 #include <sge/systems/instance_fwd.hpp>
 #include <sge/systems/list_fwd.hpp>
 #include <sge/systems/detail/assert_dependencies.hpp>
@@ -102,6 +103,9 @@ public:
 
 	sge::renderer::device::core &
 	renderer_device_core() const;
+
+	sge::renderer::device::index const
+	renderer_device_index() const;
 
 	sge::input::system &
 	input_system() const;

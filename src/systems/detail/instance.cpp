@@ -40,6 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/system_fwd.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
+#include <sge/renderer/device/index.hpp>
 #include <sge/src/systems/any_visitor.hpp>
 #include <sge/src/systems/extract_config.hpp>
 #include <sge/src/systems/extract_plugin_path.hpp>
@@ -207,101 +208,125 @@ sge::systems::detail::instance::~instance()
 sge::plugin::manager &
 sge::systems::detail::instance::plugin_manager()
 {
-	return impl_->plugin_manager();
+	return
+		impl_->plugin_manager();
 }
 
 sge::renderer::core &
 sge::systems::detail::instance::renderer_core() const
 {
-	return impl_->renderer_core();
+	return
+		impl_->renderer_core();
 }
 
 sge::renderer::system &
 sge::systems::detail::instance::renderer_system() const
 {
-	return impl_->renderer_system();
+	return
+		impl_->renderer_system();
 }
 
 sge::renderer::device::ffp &
 sge::systems::detail::instance::renderer_device_ffp() const
 {
-	return impl_->renderer_device_ffp();
+	return
+		impl_->renderer_device_ffp();
 }
 
 sge::renderer::device::core &
 sge::systems::detail::instance::renderer_device_core() const
 {
-	return impl_->renderer_device_core();
+	return
+		impl_->renderer_device_core();
+}
+
+sge::renderer::device::index const
+sge::systems::detail::instance::renderer_device_index() const
+{
+	return
+		impl_->renderer_device_index();
 }
 
 sge::input::system &
 sge::systems::detail::instance::input_system() const
 {
-	return impl_->input_system();
+	return
+		impl_->input_system();
 }
 
 sge::input::processor &
 sge::systems::detail::instance::input_processor() const
 {
-	return impl_->input_processor();
+	return
+		impl_->input_processor();
 }
 
 sge::input::cursor::object &
 sge::systems::detail::instance::cursor_demuxer() const
 {
-	return impl_->cursor_demuxer();
+	return
+		impl_->cursor_demuxer();
 }
 
 sge::input::keyboard::device &
 sge::systems::detail::instance::keyboard_collector() const
 {
-	return impl_->keyboard_collector();
+	return
+		impl_->keyboard_collector();
 }
 
 sge::input::mouse::device &
 sge::systems::detail::instance::mouse_collector() const
 {
-	return impl_->mouse_collector();
+	return
+		impl_->mouse_collector();
 }
 
 sge::image2d::system &
 sge::systems::detail::instance::image_system() const
 {
-	return impl_->image_system();
+	return
+		impl_->image_system();
 }
 
 sge::audio::loader &
 sge::systems::detail::instance::audio_loader() const
 {
-	return impl_->audio_loader();
+	return
+		impl_->audio_loader();
 }
 
 sge::audio::player &
 sge::systems::detail::instance::audio_player() const
 {
-	return impl_->audio_player();
+	return
+		impl_->audio_player();
 }
 
 sge::font::system &
 sge::systems::detail::instance::font_system() const
 {
-	return impl_->font_system();
+	return
+		impl_->font_system();
 }
 
 sge::window::object &
 sge::systems::detail::instance::window() const
 {
-	return impl_->window();
+	return
+		impl_->window();
 }
 
 sge::window::system &
 sge::systems::detail::instance::window_system() const
 {
-	return impl_->window_system();
+	return
+		impl_->window_system();
 }
 
 sge::viewport::manager &
 sge::systems::detail::instance::viewport_manager() const
 {
-	return impl_->viewport_manager();
+	return
+		impl_->viewport_manager();
 }

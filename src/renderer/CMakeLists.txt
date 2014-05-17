@@ -91,6 +91,7 @@ set(
 	include/sge/renderer/device/ffp_fwd.hpp
 	include/sge/renderer/device/ffp_unique_ptr.hpp
 	include/sge/renderer/device/index.hpp
+	include/sge/renderer/device/index_fwd.hpp
 	include/sge/renderer/device/index_value.hpp
 	include/sge/renderer/device/parameters.hpp
 	include/sge/renderer/device/parameters_fwd.hpp
