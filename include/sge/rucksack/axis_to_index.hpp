@@ -18,44 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/rucksack/axis_policy.hpp>
-#include <sge/rucksack/is_expanding.hpp>
-#include <sge/rucksack/minimum_size.hpp>
-#include <sge/rucksack/preferred_size.hpp>
+#ifndef SGE_RUCKSACK_AXIS_TO_INDEX_HPP_INCLUDED
+#define SGE_RUCKSACK_AXIS_TO_INDEX_HPP_INCLUDED
+
+#include <sge/rucksack/axis_fwd.hpp>
+#include <sge/rucksack/symbol.hpp>
+#include <fcppt/math/size_type.hpp>
 
 
-sge::rucksack::axis_policy::axis_policy(
-	sge::rucksack::minimum_size const &_minimum_size,
-	sge::rucksack::preferred_size const &_preferred_size,
-	sge::rucksack::is_expanding const &_is_expanding
-)
-:
-	minimum_size_(
-		_minimum_size
-	),
-	preferred_size_(
-		_preferred_size
-	),
-	is_expanding_(
-		_is_expanding
-	)
+namespace sge
 {
+namespace rucksack
+{
+
+SGE_RUCKSACK_SYMBOL
+fcppt::math::size_type
+axis_to_index(
+	sge::rucksack::axis
+);
+
+}
 }
 
-sge::rucksack::minimum_size const
-sge::rucksack::axis_policy::minimum_size() const
-{
-	return minimum_size_;
-}
-
-sge::rucksack::preferred_size const
-sge::rucksack::axis_policy::preferred_size() const
-{
-	return preferred_size_;
-}
-
-sge::rucksack::is_expanding const
-sge::rucksack::axis_policy::is_expanding() const
-{
-	return is_expanding_;
-}
+#endif

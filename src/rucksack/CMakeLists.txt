@@ -12,6 +12,7 @@ set(
 	include/sge/rucksack/axis_policy2.hpp
 	include/sge/rucksack/axis_policy2_fwd.hpp
 	include/sge/rucksack/axis_policy_fwd.hpp
+	include/sge/rucksack/axis_to_index.hpp
 	include/sge/rucksack/dim.hpp
 	include/sge/rucksack/dim_fwd.hpp
 	include/sge/rucksack/is_expanding.hpp
@@ -38,6 +39,7 @@ set(
 	include/sge/rucksack/widget/dummy_fwd.hpp
 	include/sge/rucksack/widget/enumeration.hpp
 	include/sge/rucksack/widget/enumeration_fwd.hpp
+	include/sge/rucksack/widget/frame.hpp
 	include/sge/rucksack/widget/master_and_slaves.hpp
 	include/sge/rucksack/widget/master_and_slaves_fwd.hpp
 	include/sge/rucksack/widget/minimum_size.hpp
@@ -49,11 +51,13 @@ set(
 	src/rucksack/aspect.cpp
 	src/rucksack/axis_policy.cpp
 	src/rucksack/axis_policy2.cpp
+	src/rucksack/axis_to_index.cpp
 	src/rucksack/widget/base.cpp
 	src/rucksack/widget/box/base.cpp
 	src/rucksack/widget/box/child_information.cpp
 	src/rucksack/widget/dummy.cpp
 	src/rucksack/widget/enumeration.cpp
+	src/rucksack/widget/frame.cpp
 	src/rucksack/widget/master_and_slaves.cpp
 	src/rucksack/widget/minimum_size.cpp
 	src/rucksack/widget/viewport_adaptor.cpp

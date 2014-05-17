@@ -99,11 +99,13 @@ sge::rucksack::widget::box::base::position() const
 sge::rucksack::axis_policy2 const
 sge::rucksack::widget::box::base::axis_policy() const
 {
-	sge::rucksack::scalar
-		minimum_size_minor =
-			0,
-		minimum_size_major =
-			0;
+	sge::rucksack::minimum_size
+		minimum_size_minor{
+			0
+		},
+		minimum_size_major{
+			0
+		};
 
 	sge::rucksack::scalar
 		preferred_size_minor =
@@ -111,11 +113,13 @@ sge::rucksack::widget::box::base::axis_policy() const
 		preferred_size_major =
 			0;
 
-	bool
-		is_expanding_minor =
-			false,
-		is_expanding_major =
-			false;
+	sge::rucksack::is_expanding
+		is_expanding_minor{
+			false
+		},
+		is_expanding_major{
+			false
+		};
 
 	for(
 		auto const &child_and_information_pair
@@ -144,18 +148,18 @@ sge::rucksack::widget::box::base::axis_policy() const
 
 		// Preferred size
 		if(
-			major_policy.preferred_size()
+			major_policy.preferred_size().get()
 		)
 			preferred_size_major +=
-				*(major_policy.preferred_size());
+				*(major_policy.preferred_size().get());
 
 		if(
-			minor_policy.preferred_size()
+			minor_policy.preferred_size().get()
 		)
 			preferred_size_minor =
 				std::max(
 					preferred_size_minor,
-					*(minor_policy.preferred_size())
+					*(minor_policy.preferred_size().get())
 				);
 
 		// Is expanding.
@@ -169,18 +173,17 @@ sge::rucksack::widget::box::base::axis_policy() const
 	if(
 		preferred_size_minor
 		<
-		minimum_size_minor
+		minimum_size_minor.get()
 	)
 		preferred_size_minor = 0;
 
 	sge::rucksack::axis_policy const
-		minor_policy(
-			(sge::rucksack::minimum_size(
-				minimum_size_minor)),
+		minor_policy{
+			minimum_size_minor,
 			sge::rucksack::preferred_size(
 				preferred_size_minor != 0
 				&&
-				!is_expanding_minor
+				!is_expanding_minor.get()
 				?
 					sge::rucksack::optional_scalar(
 						preferred_size_minor
@@ -188,16 +191,15 @@ sge::rucksack::widget::box::base::axis_policy() const
 				:
 					sge::rucksack::optional_scalar()
 			),
-			sge::rucksack::is_expanding(
-				is_expanding_minor)),
-		major_policy(
-			(sge::rucksack::minimum_size(
-				minimum_size_major)),
+			is_expanding_minor
+		},
+		major_policy{
+			minimum_size_major,
 			sge::rucksack::preferred_size(
 				// Expanding wins against preferred size on the major axis
 				preferred_size_major != 0
 				&&
-				!is_expanding_major
+				!is_expanding_major.get()
 				?
 					sge::rucksack::optional_scalar(
 						preferred_size_major
@@ -205,8 +207,8 @@ sge::rucksack::widget::box::base::axis_policy() const
 				:
 					sge::rucksack::optional_scalar()
 			),
-			sge::rucksack::is_expanding(
-				is_expanding_major));
+			is_expanding_major
+		};
 
 	// Note that the axis policy doesn't differentiate with "minor" and "major"
 	// but with "x" and "y", so we have to map it here.
@@ -476,13 +478,13 @@ sge::rucksack::widget::box::base::relayout_major_axis()
 		// FIXME: Recognize aspect here!
 		widget_ptr_information_pair.second.size(
 			sge::rucksack::dim(
-				widget_ptr_information_pair.first->axis_policy().x().minimum_size(),
-				widget_ptr_information_pair.first->axis_policy().y().minimum_size()
+				widget_ptr_information_pair.first->axis_policy().x().minimum_size().get(),
+				widget_ptr_information_pair.first->axis_policy().y().minimum_size().get()
 			)
 		);
 
 		allocated_major_size +=
-			widget_ptr_information_pair.first->axis_policy()[this->major_axis()].minimum_size();
+			widget_ptr_information_pair.first->axis_policy()[this->major_axis()].minimum_size().get();
 	}
 
 	// How much space do we have remaining on the major axis?
@@ -518,12 +520,12 @@ sge::rucksack::widget::box::base::relayout_major_axis()
 	{
 		// FIXME: Check if this widget has a preferered size and _CAN_ be resized
 		// considering its height and aspect
-		if(!widget_ptr_information_pair.first->axis_policy()[this->major_axis()].preferred_size())
+		if(!widget_ptr_information_pair.first->axis_policy()[this->major_axis()].preferred_size().get())
 			continue;
 
 		sge::rucksack::scalar const size_difference =
-			(*widget_ptr_information_pair.first->axis_policy()[this->major_axis()].preferred_size()) -
-			widget_ptr_information_pair.first->axis_policy()[this->major_axis()].minimum_size();
+			(*widget_ptr_information_pair.first->axis_policy()[this->major_axis()].preferred_size().get()) -
+			widget_ptr_information_pair.first->axis_policy()[this->major_axis()].minimum_size().get();
 
 		FCPPT_ASSERT_PRE(
 			size_difference >= 0);
@@ -553,7 +555,7 @@ sge::rucksack::widget::box::base::relayout_major_axis()
 					this->information_for_ptr(child_ptr).size();
 
 				current_size[axis_] =
-					*child_ptr->axis_policy()[this->major_axis()].preferred_size();
+					*child_ptr->axis_policy()[this->major_axis()].preferred_size().get();
 
 				this->information_for_ptr(child_ptr).size(
 					current_size);
@@ -577,7 +579,7 @@ sge::rucksack::widget::box::base::relayout_major_axis()
 					this->information_for_ptr(child_ptr).size();
 
 				sge::rucksack::scalar const preferred_size =
-					*child_ptr->axis_policy()[this->major_axis()].preferred_size();
+					*child_ptr->axis_policy()[this->major_axis()].preferred_size().get();
 
 				// Don't make it bigger than the preferred size
 				current_size[axis_] =
@@ -586,7 +588,7 @@ sge::rucksack::widget::box::base::relayout_major_axis()
 						preferred_size);
 
 				remaining -=
-					current_size[axis_] - child_ptr->axis_policy()[this->major_axis()].minimum_size();
+					current_size[axis_] - child_ptr->axis_policy()[this->major_axis()].minimum_size().get();
 
 				this->information_for_ptr(child_ptr).size(
 					current_size);
@@ -609,7 +611,7 @@ sge::rucksack::widget::box::base::relayout_major_axis()
 	)
 		// FIXME: Check if this widget has is expandable and _CAN_ be expanded
 		// considering its height and aspect
-		if(widget_ptr_information_pair.first->axis_policy()[this->major_axis()].is_expanding())
+		if(widget_ptr_information_pair.first->axis_policy()[this->major_axis()].is_expanding().get())
 			widgets_which_expand.push_back(
 				widget_ptr_information_pair.first);
 
@@ -655,9 +657,9 @@ sge::rucksack::widget::box::base::relayout_minor_axis()
 
 		bool const
 			is_expanding =
-				widget_ptr_information_pair.first->axis_policy()[this->minor_axis()].is_expanding(),
+				widget_ptr_information_pair.first->axis_policy()[this->minor_axis()].is_expanding().get(),
 			has_preferred_size =
-				widget_ptr_information_pair.first->axis_policy()[this->minor_axis()].preferred_size().has_value();
+				widget_ptr_information_pair.first->axis_policy()[this->minor_axis()].preferred_size().get().has_value();
 
 		if(is_expanding && !has_preferred_size)
 		{
@@ -669,7 +671,8 @@ sge::rucksack::widget::box::base::relayout_minor_axis()
 			current_size[this->minor_axis()] =
 				std::min(
 					this->size()[this->minor_axis()],
-					*widget_ptr_information_pair.first->axis_policy()[this->minor_axis()].preferred_size());
+					*widget_ptr_information_pair.first->axis_policy()[this->minor_axis()].preferred_size().get()
+				);
 		}
 
 		widget_ptr_information_pair.second.size(

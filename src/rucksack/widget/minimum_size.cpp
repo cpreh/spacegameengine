@@ -66,8 +66,8 @@ sge::rucksack::widget::minimum_size::relayout()
 
 	child_.size(
 		sge::rucksack::dim(
-			policy.x().minimum_size(),
-			policy.y().minimum_size()
+			policy.x().minimum_size().get(),
+			policy.y().minimum_size().get()
 		)
 	);
 

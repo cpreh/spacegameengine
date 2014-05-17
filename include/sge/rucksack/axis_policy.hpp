@@ -22,11 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RUCKSACK_AXIS_POLICY_HPP_INCLUDED
 
 #include <sge/rucksack/axis_policy_fwd.hpp>
-#include <sge/rucksack/is_expanding_fwd.hpp>
-#include <sge/rucksack/minimum_size_fwd.hpp>
-#include <sge/rucksack/optional_scalar.hpp>
-#include <sge/rucksack/preferred_size_fwd.hpp>
-#include <sge/rucksack/scalar.hpp>
+#include <sge/rucksack/is_expanding.hpp>
+#include <sge/rucksack/minimum_size.hpp>
+#include <sge/rucksack/preferred_size.hpp>
 #include <sge/rucksack/symbol.hpp>
 
 
@@ -46,22 +44,22 @@ public:
 	);
 
 	SGE_RUCKSACK_SYMBOL
-	sge::rucksack::scalar
+	sge::rucksack::minimum_size const
 	minimum_size() const;
 
 	SGE_RUCKSACK_SYMBOL
-	sge::rucksack::optional_scalar
+	sge::rucksack::preferred_size const
 	preferred_size() const;
 
 	SGE_RUCKSACK_SYMBOL
-	bool
+	sge::rucksack::is_expanding const
 	is_expanding() const;
 private:
-	sge::rucksack::scalar minimum_size_;
+	sge::rucksack::minimum_size minimum_size_;
 
-	sge::rucksack::optional_scalar preferred_size_;
+	sge::rucksack::preferred_size preferred_size_;
 
-	bool is_expanding_;
+	sge::rucksack::is_expanding is_expanding_;
 };
 
 }

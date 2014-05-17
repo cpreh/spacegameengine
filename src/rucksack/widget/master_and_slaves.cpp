@@ -100,30 +100,40 @@ sge::rucksack::widget::master_and_slaves::axis_policy() const
 	return
 		sge::rucksack::axis_policy2(
 			sge::rucksack::axis_policy(
-				sge::rucksack::minimum_size(
-					!master_pane_
-					?
+				!master_pane_
+				?
+					sge::rucksack::minimum_size(
 						0
-					:
-						master_pane_->axis_policy().x().minimum_size()),
+					)
+				:
+					master_pane_->axis_policy().x().minimum_size(),
 				sge::rucksack::preferred_size(
-					sge::rucksack::optional_scalar()),
+					sge::rucksack::optional_scalar()
+				),
 				sge::rucksack::is_expanding(
-					true)),
+					true
+				)
+			),
 			sge::rucksack::axis_policy(
-				sge::rucksack::minimum_size(
-					!master_pane_
-					?
+				!master_pane_
+				?
+					sge::rucksack::minimum_size(
 						0
-					:
-						master_pane_->axis_policy().y().minimum_size()),
+					)
+				:
+					master_pane_->axis_policy().y().minimum_size(),
 				sge::rucksack::preferred_size(
-					sge::rucksack::optional_scalar()),
+					sge::rucksack::optional_scalar()
+				),
 				sge::rucksack::is_expanding(
-					true)),
+					true
+				)
+			),
 			sge::rucksack::aspect(
 				1,
-				1));
+				1
+			)
+		);
 }
 
 void

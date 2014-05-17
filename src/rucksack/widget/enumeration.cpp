@@ -125,16 +125,16 @@ sge::rucksack::widget::enumeration::relayout()
 	)
 	{
 		sge::rucksack::dim const preferred_or_minimum(
-			child_ptr->axis_policy().x().preferred_size()
+			child_ptr->axis_policy().x().preferred_size().get()
 			?
-				*child_ptr->axis_policy().x().preferred_size()
+				*child_ptr->axis_policy().x().preferred_size().get()
 			:
-				child_ptr->axis_policy().x().minimum_size(),
-			child_ptr->axis_policy().y().preferred_size()
+				child_ptr->axis_policy().x().minimum_size().get(),
+			child_ptr->axis_policy().y().preferred_size().get()
 			?
-				*child_ptr->axis_policy().y().preferred_size()
+				*child_ptr->axis_policy().y().preferred_size().get()
 			:
-				child_ptr->axis_policy().y().minimum_size());
+				child_ptr->axis_policy().y().minimum_size().get());
 
 		// Next line
 		if(current_pos.x() + padding_ + preferred_or_minimum.w() > this->position().x() + this->size().w())

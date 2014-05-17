@@ -2689,6 +2689,7 @@ set(
 	include/sge/rucksack/axis_policy2.hpp
 	include/sge/rucksack/axis_policy2_fwd.hpp
 	include/sge/rucksack/axis_policy_fwd.hpp
+	include/sge/rucksack/axis_to_index.hpp
 	include/sge/rucksack/dim.hpp
 	include/sge/rucksack/dim_fwd.hpp
 	include/sge/rucksack/is_expanding.hpp
@@ -2715,6 +2716,7 @@ set(
 	include/sge/rucksack/widget/dummy_fwd.hpp
 	include/sge/rucksack/widget/enumeration.hpp
 	include/sge/rucksack/widget/enumeration_fwd.hpp
+	include/sge/rucksack/widget/frame.hpp
 	include/sge/rucksack/widget/master_and_slaves.hpp
 	include/sge/rucksack/widget/master_and_slaves_fwd.hpp
 	include/sge/rucksack/widget/minimum_size.hpp
