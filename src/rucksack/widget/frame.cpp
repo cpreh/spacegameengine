@@ -31,9 +31,9 @@ sge::rucksack::widget::frame::frame(
 			*this
 		)
 	},
-	child_{
+	child_(
 		_child
-	},
+	),
 	padding_{
 		_padding
 	}
