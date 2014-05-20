@@ -38,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/display_fwd.hpp>
 #include <awl/backends/x11/window/object.hpp>
 #include <awl/window/rect.hpp>
+#include <fcppt/assert/error.hpp>
 #include <fcppt/math/box/intersects.hpp>
 #include <fcppt/math/dim/comparison.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -148,6 +149,14 @@ sge::opengl::xrandr::display_mode(
 				);
 		}
 	}
+
+	FCPPT_ASSERT_ERROR(
+		!dimensions
+		||
+		dimensions->get().content()
+		!=
+		0u
+	);
 
 	return
 		pixel_size

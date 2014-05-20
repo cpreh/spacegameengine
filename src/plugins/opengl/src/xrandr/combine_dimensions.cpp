@@ -32,7 +32,7 @@ sge::opengl::xrandr::combine_dimensions(
 	return
 		_previous
 		?
-			sge::renderer::display_mode::optional_dimensions()
+			_previous
 		:
 			sge::renderer::display_mode::optional_dimensions(
 				_next
