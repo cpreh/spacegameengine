@@ -118,6 +118,13 @@ sge::opengl::xrandr::display_mode(
 				output
 			);
 
+			if(
+				output_info.dimensions().get().content()
+				==
+				0u
+			)
+				continue;
+
 			dimensions =
 				sge::opengl::xrandr::combine_dimensions(
 					dimensions,
