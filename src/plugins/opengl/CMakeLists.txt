@@ -151,6 +151,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/get_int.hpp
 	src/plugins/opengl/include/sge/opengl/get_ints.hpp
 	src/plugins/opengl/include/sge/opengl/get_string.hpp
+	src/plugins/opengl/include/sge/opengl/glew/error_to_string.hpp
 	src/plugins/opengl/include/sge/opengl/glew/initialize.hpp
 	src/plugins/opengl/include/sge/opengl/index_buffer.hpp
 	src/plugins/opengl/include/sge/opengl/init_multi_sampling.hpp
@@ -678,6 +679,7 @@ set(
 	src/plugins/opengl/src/get_int.cpp
 	src/plugins/opengl/src/get_ints.cpp
 	src/plugins/opengl/src/get_string.cpp
+	src/plugins/opengl/src/glew/error_to_string.cpp
 	src/plugins/opengl/src/glew/initialize.cpp
 	src/plugins/opengl/src/index_buffer.cpp
 	src/plugins/opengl/src/init_multi_sampling.cpp

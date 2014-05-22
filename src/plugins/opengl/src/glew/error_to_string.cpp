@@ -20,26 +20,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/glew/error_to_string.hpp>
-#include <sge/opengl/glew/initialize.hpp>
-#include <sge/renderer/exception.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 
 
-void
-sge::opengl::glew::initialize()
+fcppt::string
+sge::opengl::glew::error_to_string(
+	GLenum const _what
+)
 {
-	GLenum const result(
-		::glewInit()
-	);
-
-	if(
-		result != GLEW_OK
+	switch(
+		_what
 	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("glewInit() failed with ")
-			+
-			sge::opengl::glew::error_to_string(
-				result
-			)
-		);
+	{
+	case GLEW_ERROR_NO_GL_VERSION:
+		return
+			FCPPT_TEXT("Missing GL version");
+	case GLEW_ERROR_GL_VERSION_10_ONLY:
+		return
+			FCPPT_TEXT("Only GL version 1.0");
+	case GLEW_ERROR_GLX_VERSION_11_ONLY:
+		return
+			FCPPT_TEXT("Only GLX version 1.1");
+	}
+
+	return
+		FCPPT_TEXT("Unknown error");
 }

@@ -18,28 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_OPENGL_GLEW_ERROR_TO_STRING_HPP_INCLUDED
+#define SGE_OPENGL_GLEW_ERROR_TO_STRING_HPP_INCLUDED
+
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/glew/error_to_string.hpp>
-#include <sge/opengl/glew/initialize.hpp>
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include <fcppt/string.hpp>
 
 
-void
-sge::opengl::glew::initialize()
+namespace sge
 {
-	GLenum const result(
-		::glewInit()
-	);
+namespace opengl
+{
+namespace glew
+{
 
-	if(
-		result != GLEW_OK
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("glewInit() failed with ")
-			+
-			sge::opengl::glew::error_to_string(
-				result
-			)
-		);
+fcppt::string
+error_to_string(
+	GLenum
+);
+
 }
+}
+}
+
+#endif
