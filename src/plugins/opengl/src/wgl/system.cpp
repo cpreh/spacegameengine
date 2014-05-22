@@ -36,7 +36,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::opengl::wgl::system::system(
-	sge::opengl::context::system::object &_system_context
+	sge::opengl::context::system::object &_system_context,
+	awl::system::object &
 )
 :
 	sge::opengl::backend::system(),
@@ -52,7 +53,6 @@ sge::opengl::wgl::system::~system()
 
 awl::visual::object_unique_ptr
 sge::opengl::wgl::system::create_visual(
-	awl::system::object &,
 	sge::renderer::pixel_format::object const &_pixel_format
 )
 {

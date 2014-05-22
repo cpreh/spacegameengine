@@ -21,9 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_EGL_VISUAL_CREATE_HPP_INCLUDED
 #define SGE_OPENGL_EGL_VISUAL_CREATE_HPP_INCLUDED
 
+#include <sge/opengl/egl/init_fwd.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <awl/system/object_fwd.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <EGL/egl.h>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -37,7 +41,9 @@ namespace visual
 
 awl::visual::object_unique_ptr
 create(
+	sge::opengl::egl::init const &,
 	awl::system::object &,
+	EGLDisplay,
 	sge::renderer::pixel_format::object const &
 );
 

@@ -2,7 +2,7 @@
 #define SGE_OPENGL_EGL_X11_NATIVE_DISPLAY_HPP_INCLUDED
 
 #include <sge/opengl/egl/native_display.hpp>
-#include <awl/backends/x11/window/object_fwd.hpp>
+#include <awl/backends/x11/system/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
@@ -28,7 +28,7 @@ class native_display
 public:
 	explicit
 	native_display(
-		awl::backends::x11::window::object &
+		awl::backends::x11::system::object &
 	);
 
 	~native_display()

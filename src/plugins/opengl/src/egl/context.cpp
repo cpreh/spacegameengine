@@ -20,49 +20,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/egl/context.hpp>
 #include <sge/opengl/egl/get_display.hpp>
-#include <sge/opengl/egl/native_display.hpp>
-#include <sge/opengl/egl/native_display_unique_ptr.hpp>
 #include <sge/opengl/egl/swap_buffers.hpp>
-#include <sge/opengl/egl/visual/choose_config.hpp>
+#include <sge/opengl/egl/visual/to_config.hpp>
 #include <awl/visual/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
-#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::opengl::egl::context::context(
-	sge::opengl::egl::native_display_unique_ptr &&_native_display,
-	EGLNativeWindowType const _window,
+	EGLDisplay const _display,
+	EGLNativeWindowType const _native_window,
 	awl::visual::object const &_visual
 )
 :
-	native_display_(
-		std::move(
-			_native_display
-		)
-	),
 	display_(
-		sge::opengl::egl::get_display(
-			native_display_->get()
-		)
-	),
-	init_(
-		display_
+		_display
 	),
 	config_(
-		sge::opengl::egl::visual::choose_config(
+		sge::opengl::egl::visual::to_config(
 			display_,
 			_visual
 		)
 	),
 	surface_(
-		display_,
+		_display,
 		config_,
-		_window
+		_native_window
 	),
 	context_(
-		display_,
+		_display,
 		config_
 	)
 {

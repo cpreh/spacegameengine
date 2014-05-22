@@ -24,12 +24,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/backend/context_unique_ptr.hpp>
 #include <sge/opengl/backend/scoped_current_fwd.hpp>
 #include <sge/opengl/backend/system.hpp>
+#include <sge/opengl/egl/init.hpp>
+#include <sge/opengl/egl/native_display_unique_ptr.hpp>
 #include <sge/renderer/display_mode/vsync_fwd.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <awl/system/object_fwd.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
 #include <awl/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <EGL/egl.h>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -47,14 +52,16 @@ class system
 		system
 	);
 public:
-	system();
+	explicit
+	system(
+		awl::system::object &
+	);
 
 	~system()
 	override;
 private:
 	awl::visual::object_unique_ptr
 	create_visual(
-		awl::system::object &,
 		sge::renderer::pixel_format::object const &
 	)
 	override;
@@ -72,6 +79,14 @@ private:
 		sge::renderer::display_mode::vsync
 	)
 	override;
+
+	awl::system::object &awl_system_;
+
+	sge::opengl::egl::native_display_unique_ptr const egl_native_display_;
+
+	EGLDisplay const egl_display_;
+
+	sge::opengl::egl::init const init_;
 };
 
 }

@@ -1,10 +1,14 @@
 #ifndef SGE_OPENGL_EGL_X11_VISUAL_HPP_INCLUDED
 #define SGE_OPENGL_EGL_X11_VISUAL_HPP_INCLUDED
 
-#include <sge/renderer/visual_base.hpp>
+#include <sge/opengl/egl/visual/base.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
-#include <awl/backends/x11/visual/copy_from_parent.hpp>
+#include <awl/backends/x11/display_fwd.hpp>
+#include <awl/backends/x11/visual/wrapped.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <EGL/egl.h>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -18,19 +22,21 @@ namespace x11
 
 class visual
 :
-	public awl::backends::x11::visual::copy_from_parent,
-	public sge::renderer::visual_base
+	public sge::opengl::egl::visual::base,
+	public awl::backends::x11::visual::wrapped
 {
 	FCPPT_NONCOPYABLE(
 		visual
 	);
 public:
-	explicit
 	visual(
+		awl::backends::x11::display const &,
+		EGLDisplay,
 		sge::renderer::pixel_format::object const &
 	);
 
-	~visual();
+	~visual()
+	override;
 };
 
 }

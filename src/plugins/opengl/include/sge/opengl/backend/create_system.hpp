@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/backend/system_unique_ptr.hpp>
+#include <awl/system/object_fwd.hpp>
 
 
 namespace sge
@@ -34,7 +35,8 @@ namespace backend
 
 sge::opengl::backend::system_unique_ptr
 create_system(
-	sge::opengl::context::system::object &
+	sge::opengl::context::system::object &,
+	awl::system::object &
 );
 
 }

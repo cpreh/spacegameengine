@@ -20,12 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/logger.hpp>
 #include <sge/opengl/egl/attribute_vector.hpp>
-#include <sge/opengl/egl/choose_config.hpp>
 #include <sge/opengl/egl/visual/choose_config.hpp>
-#include <sge/opengl/egl/visual/make_attributes.hpp>
-#include <sge/renderer/visual_base.hpp>
-#include <awl/visual/object.hpp>
-#include <fcppt/try_dynamic_cast.hpp>
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/warning.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -36,35 +33,50 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 EGLConfig
 sge::opengl::egl::visual::choose_config(
 	EGLDisplay const _display,
-	awl::visual::object const &_visual
+	sge::opengl::egl::attribute_vector const &_attributes
 )
 {
-	FCPPT_TRY_DYNAMIC_CAST(
-		sge::renderer::visual_base const *,
-		egl_visual,
-		&_visual
-	)
-	{
-		return
-			sge::opengl::egl::choose_config(
-				_display,
-				sge::opengl::egl::visual::make_attributes(
-					egl_visual->pixel_format()
-				)
-			);
-	}
+	EGLConfig result;
 
-	FCPPT_LOG_WARNING(
-		sge::opengl::logger(),
-		fcppt::log::_
-			<< FCPPT_TEXT("Visual passed to opengl is not an egl visual!")
-	);
+	EGLint num_config;
+
+	if(
+		::eglChooseConfig(
+			_display,
+			_attributes.data(),
+			&result,
+			1,
+			&num_config
+		)
+		!=
+		EGL_TRUE
+	)
+		throw
+			sge::renderer::exception(
+				FCPPT_TEXT("eglChooseConfig failed")
+			);
+
+	if(
+		num_config
+		<=
+		0
+	)
+		throw
+			sge::renderer::exception(
+				FCPPT_TEXT("No matching EGL configs")
+			);
+
+	if(
+		num_config
+		!=
+		1
+	)
+		FCPPT_LOG_WARNING(
+			sge::opengl::logger(),
+			fcppt::log::_
+				<< FCPPT_TEXT("Multiple EGL configs are matching. Choosing the first one.")
+		);
 
 	return
-		sge::opengl::egl::choose_config(
-			_display,
-			sge::opengl::egl::attribute_vector{
-				EGL_NONE
-			}
-		);
+		result;
 }

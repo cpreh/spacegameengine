@@ -31,7 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <awl/backends/x11/system/object.hpp>
 #include <awl/backends/x11/window/object.hpp>
-#include <awl/system/object_fwd.hpp>
 #include <awl/visual/object.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
 #include <awl/window/object_fwd.hpp>
@@ -40,11 +39,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::opengl::glx::system::system(
-	sge::opengl::context::system::object &_system_context
+	sge::opengl::context::system::object &_system_context,
+	awl::backends::x11::system::object &_awl_system
 )
 :
 	system_context_(
 		_system_context
+	),
+	awl_system_(
+		_awl_system
 	)
 {
 }
@@ -55,18 +58,13 @@ sge::opengl::glx::system::~system()
 
 awl::visual::object_unique_ptr
 sge::opengl::glx::system::create_visual(
-	awl::system::object &_awl_system,
 	sge::renderer::pixel_format::object const &_pixel_format
 )
 {
 	return
 		sge::opengl::glx::visual::create(
 			system_context_,
-			fcppt::cast::static_downcast<
-				awl::backends::x11::system::object &
-			>(
-				_awl_system
-			),
+			awl_system_,
 			_pixel_format
 		);
 }

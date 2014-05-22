@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_EGL_INIT_HPP_INCLUDED
 #define SGE_OPENGL_EGL_INIT_HPP_INCLUDED
 
+#include <sge/opengl/egl/init_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>

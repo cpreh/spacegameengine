@@ -46,23 +46,21 @@ sge::opengl::system::system(
 	awl::system::object &_awl_system
 )
 :
-	awl_system_(
-		_awl_system
-	),
 	system_context_(),
 	platform_system_(
 		sge::opengl::platform::create_system(
-			awl_system_
+			_awl_system
 		)
 	),
 	backend_system_(
 		sge::opengl::backend::create_system(
-			system_context_
+			system_context_,
+			_awl_system
 		)
 	),
 	caps_(
 		sge::opengl::create_device_caps(
-			awl_system_,
+			_awl_system,
 			system_context_,
 			*backend_system_
 		)
@@ -121,7 +119,6 @@ sge::opengl::system::create_visual(
 {
 	return
 		backend_system_->create_visual(
-			awl_system_,
 			_pixel_format
 		);
 }

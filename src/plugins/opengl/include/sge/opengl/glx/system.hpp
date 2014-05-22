@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/backend/system.hpp>
 #include <sge/renderer/display_mode/vsync_fwd.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
-#include <awl/system/object_fwd.hpp>
+#include <awl/backends/x11/system/object_fwd.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
 #include <awl/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -48,9 +48,9 @@ class system
 		system
 	);
 public:
-	explicit
 	system(
-		sge::opengl::context::system::object &
+		sge::opengl::context::system::object &,
+		awl::backends::x11::system::object &
 	);
 
 	~system()
@@ -58,7 +58,6 @@ public:
 private:
 	awl::visual::object_unique_ptr
 	create_visual(
-		awl::system::object &,
 		sge::renderer::pixel_format::object const &
 	)
 	override;
@@ -78,6 +77,9 @@ private:
 	override;
 
 	sge::opengl::context::system::object &system_context_;
+
+	awl::backends::x11::system::object &awl_system_;
+
 };
 
 }

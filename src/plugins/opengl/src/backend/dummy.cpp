@@ -43,7 +43,6 @@ sge::opengl::backend::dummy::dummy(
 		// TODO: This is a hack for querying device caps, but is it
 		// wise? What if this visual isn't supported?
 		_device_system.create_visual(
-			_awl_system,
 			sge::renderer::pixel_format::object(
 				sge::renderer::pixel_format::color::depth32,
 				sge::renderer::pixel_format::depth_stencil::off,

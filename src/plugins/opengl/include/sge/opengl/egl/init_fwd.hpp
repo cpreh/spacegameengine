@@ -18,13 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_EGL_CHOOSE_CONFIG_HPP_INCLUDED
-#define SGE_OPENGL_EGL_CHOOSE_CONFIG_HPP_INCLUDED
-
-#include <sge/opengl/egl/attribute_vector.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <EGL/egl.h>
-#include <fcppt/config/external_end.hpp>
+#ifndef SGE_OPENGL_EGL_INIT_FWD_HPP_INCLUDED
+#define SGE_OPENGL_EGL_INIT_FWD_HPP_INCLUDED
 
 
 namespace sge
@@ -34,11 +29,7 @@ namespace opengl
 namespace egl
 {
 
-EGLConfig
-choose_config(
-	EGLDisplay,
-	sge::opengl::egl::attribute_vector const &
-);
+class init;
 
 }
 }

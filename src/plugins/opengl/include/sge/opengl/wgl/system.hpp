@@ -48,30 +48,33 @@ class system
 		system
 	);
 public:
-	explicit
 	system(
-		sge::opengl::context::system::object &
+		sge::opengl::context::system::object &,
+		awl::system::object &
 	);
 
-	~system();
+	~system()
+	override;
 private:
 	awl::visual::object_unique_ptr
 	create_visual(
-		awl::system::object &,
 		sge::renderer::pixel_format::object const &
-	);
+	)
+	override;
 
 	sge::opengl::backend::context_unique_ptr
 	create_context(
 		awl::window::object &
-	);
+	)
+	override;
 
 	void
 	vsync(
 		sge::opengl::backend::scoped_current const &,
 		awl::window::object &,
 		sge::renderer::display_mode::vsync
-	);
+	)
+	override;
 
 	sge::opengl::context::system::object &system_context_;
 };

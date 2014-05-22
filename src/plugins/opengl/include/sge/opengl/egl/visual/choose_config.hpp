@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_EGL_VISUAL_CHOOSE_CONFIG_HPP_INCLUDED
 #define SGE_OPENGL_EGL_VISUAL_CHOOSE_CONFIG_HPP_INCLUDED
 
-#include <awl/visual/object_fwd.hpp>
+#include <sge/opengl/egl/attribute_vector.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
 #include <fcppt/config/external_end.hpp>
@@ -39,7 +39,7 @@ namespace visual
 EGLConfig
 choose_config(
 	EGLDisplay,
-	awl::visual::object const &
+	sge::opengl::egl::attribute_vector const &
 );
 
 }

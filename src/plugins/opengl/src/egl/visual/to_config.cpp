@@ -18,70 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_EGL_CONTEXT_HPP_INCLUDED
-#define SGE_OPENGL_EGL_CONTEXT_HPP_INCLUDED
-
-#include <sge/opengl/backend/context.hpp>
-#include <sge/opengl/egl/context_impl.hpp>
-#include <sge/opengl/egl/window_surface.hpp>
-#include <awl/visual/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/opengl/egl/attribute_vector.hpp>
+#include <sge/opengl/egl/visual/base.hpp>
+#include <sge/opengl/egl/visual/choose_config.hpp>
+#include <sge/opengl/egl/visual/to_config.hpp>
+#include <awl/visual/object.hpp>
+#include <fcppt/try_dynamic_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
+EGLConfig
+sge::opengl::egl::visual::to_config(
+	EGLDisplay const _egl_display,
+	awl::visual::object const &_visual
+)
 {
-namespace opengl
-{
-namespace egl
-{
+	FCPPT_TRY_DYNAMIC_CAST(
+		sge::opengl::egl::visual::base const *,
+		sge_visual,
+		&_visual
+	)
+	{
+		return
+			sge_visual->config();
+	}
 
-class context
-:
-	public sge::opengl::backend::context
-{
-	FCPPT_NONCOPYABLE(
-		context
-	);
-public:
-	context(
-		EGLDisplay,
-		EGLNativeWindowType,
-		awl::visual::object const &
-	);
-
-	~context()
-	override;
-private:
-	void
-	activate()
-	override;
-
-	void
-	deactivate()
-	override;
-
-	void
-	begin_rendering()
-	override;
-
-	void
-	end_rendering()
-	override;
-
-	EGLDisplay const display_;
-
-	EGLConfig const config_;
-
-	sge::opengl::egl::window_surface const surface_;
-
-	sge::opengl::egl::context_impl context_;
-};
-
+	return
+		sge::opengl::egl::visual::choose_config(
+			_egl_display,
+			sge::opengl::egl::attribute_vector{
+            			EGL_NONE
+			}
+		);
 }
-}
-}
-
-#endif

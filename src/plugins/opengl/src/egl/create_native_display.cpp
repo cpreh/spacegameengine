@@ -21,15 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/config.hpp>
 #include <sge/opengl/egl/create_native_display.hpp>
 #include <sge/opengl/egl/native_display_unique_ptr.hpp>
-#include <awl/window/object.hpp>
+#include <awl/system/object.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/cast/static_downcast.hpp>
 #if defined(SGE_OPENGL_HAVE_X11)
 #include <sge/opengl/egl/x11/native_display.hpp>
-#include <awl/backends/x11/window/object.hpp>
+#include <awl/backends/x11/system/object.hpp>
 #elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 #include <sge/opengl/egl/windows/native_display.hpp>
-#include <awl/backends/windows/window/object.hpp>
+#include <awl/backends/windows/system/object.hpp>
 #else
 #error "Implement me!"
 #endif
@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::egl::native_display_unique_ptr
 sge::opengl::egl::create_native_display(
-	awl::window::object &_window
+	awl::system::object &_awl_system
 )
 {
 #if defined(SGE_OPENGL_HAVE_X11)
@@ -46,9 +46,9 @@ sge::opengl::egl::create_native_display(
 			sge::opengl::egl::x11::native_display
 		>(
 			fcppt::cast::static_downcast<
-				awl::backends::x11::window::object &
+				awl::backends::x11::system::object &
 			>(
-				_window
+				_awl_system
 			)
 		);
 #elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
@@ -57,9 +57,9 @@ sge::opengl::egl::create_native_display(
 			sge::opengl::egl::windows::native_display
 		>(
 			fcppt::cast::static_downcast<
-				awl::backends::windows::window::object &
+				awl::backends::windows::system::object &
 			>(
-				_window
+				_awl_system
 			)
 		);
 #else

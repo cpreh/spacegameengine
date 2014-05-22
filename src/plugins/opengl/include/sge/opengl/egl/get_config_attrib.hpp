@@ -18,14 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_EGL_CONTEXT_HPP_INCLUDED
-#define SGE_OPENGL_EGL_CONTEXT_HPP_INCLUDED
+#ifndef SGE_OPENGL_EGL_GET_CONFIG_ATTRIB_HPP_INCLUDED
+#define SGE_OPENGL_EGL_GET_CONFIG_ATTRIB_HPP_INCLUDED
 
-#include <sge/opengl/backend/context.hpp>
-#include <sge/opengl/egl/context_impl.hpp>
-#include <sge/opengl/egl/window_surface.hpp>
-#include <awl/visual/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
 #include <fcppt/config/external_end.hpp>
@@ -38,47 +33,12 @@ namespace opengl
 namespace egl
 {
 
-class context
-:
-	public sge::opengl::backend::context
-{
-	FCPPT_NONCOPYABLE(
-		context
-	);
-public:
-	context(
-		EGLDisplay,
-		EGLNativeWindowType,
-		awl::visual::object const &
-	);
-
-	~context()
-	override;
-private:
-	void
-	activate()
-	override;
-
-	void
-	deactivate()
-	override;
-
-	void
-	begin_rendering()
-	override;
-
-	void
-	end_rendering()
-	override;
-
-	EGLDisplay const display_;
-
-	EGLConfig const config_;
-
-	sge::opengl::egl::window_surface const surface_;
-
-	sge::opengl::egl::context_impl context_;
-};
+EGLint
+get_config_attrib(
+	EGLDisplay,
+	EGLConfig,
+	EGLint
+);
 
 }
 }

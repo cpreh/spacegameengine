@@ -96,8 +96,6 @@ private:
 	) const
 	override;
 
-	awl::system::object &awl_system_;
-
 	sge::opengl::context::system::object system_context_;
 
 	typedef

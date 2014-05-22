@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/backend/system.hpp>
 #include <sge/opengl/egl/context.hpp>
 #include <sge/opengl/egl/create_native_display.hpp>
+#include <sge/opengl/egl/get_display.hpp>
 #include <sge/opengl/egl/native_display.hpp>
 #include <sge/opengl/egl/native_window.hpp>
 #include <sge/opengl/egl/system.hpp>
@@ -36,9 +37,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr.hpp>
 
 
-sge::opengl::egl::system::system()
+sge::opengl::egl::system::system(
+	awl::system::object &_awl_system
+)
 :
-	sge::opengl::backend::system()
+	sge::opengl::backend::system(),
+	awl_system_(
+		_awl_system
+	),
+	egl_native_display_(
+		sge::opengl::egl::create_native_display(
+			_awl_system
+		)
+	),
+	egl_display_(
+		sge::opengl::egl::get_display(
+			egl_native_display_->get()
+		)
+	),
+	init_(
+		egl_display_
+	)
 {
 }
 
@@ -48,13 +67,14 @@ sge::opengl::egl::system::~system()
 
 awl::visual::object_unique_ptr
 sge::opengl::egl::system::create_visual(
-	awl::system::object &_awl_system,
 	sge::renderer::pixel_format::object const &_pixel_format
 )
 {
 	return
 		sge::opengl::egl::visual::create(
-			_awl_system,
+			init_,
+			awl_system_,
+			egl_display_,
 			_pixel_format
 		);
 }
@@ -68,9 +88,7 @@ sge::opengl::egl::system::create_context(
 		fcppt::make_unique_ptr<
 			sge::opengl::egl::context
 		>(
-			sge::opengl::egl::create_native_display(
-				_window
-			),
+			egl_display_,
 			sge::opengl::egl::native_window(
 				_window
 			),

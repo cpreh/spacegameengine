@@ -18,64 +18,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/logger.hpp>
-#include <sge/opengl/egl/attribute_vector.hpp>
-#include <sge/opengl/egl/choose_config.hpp>
+#include <sge/opengl/egl/get_config_attrib.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/log/_.hpp>
-#include <fcppt/log/warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
 #include <fcppt/config/external_end.hpp>
 
 
-EGLConfig
-sge::opengl::egl::choose_config(
-	EGLDisplay const _display,
-	sge::opengl::egl::attribute_vector const &_attributes
+EGLint
+sge::opengl::egl::get_config_attrib(
+	EGLDisplay const _egl_display,
+	EGLConfig const _egl_config,
+	EGLint const _attrib
 )
 {
-	EGLConfig result;
-
-	EGLint num_config;
+	EGLint result;
 
 	if(
-		::eglChooseConfig(
-			_display,
-			_attributes.data(),
-			&result,
-			1,
-			&num_config
+		::eglGetConfigAttrib(
+			_egl_display,
+			_egl_config,
+			_attrib,
+			&result
 		)
 		!=
 		EGL_TRUE
 	)
 		throw
 			sge::renderer::exception(
-				FCPPT_TEXT("eglChooseConfig failed")
+				FCPPT_TEXT("eglGetConfigAttrib failed")
 			);
-
-	if(
-		num_config
-		<=
-		0
-	)
-		throw
-			sge::renderer::exception(
-				FCPPT_TEXT("No matching EGL configs")
-			);
-
-	if(
-		num_config
-		!=
-		1
-	)
-		FCPPT_LOG_WARNING(
-			sge::opengl::logger(),
-			fcppt::log::_
-				<< FCPPT_TEXT("Multiple EGL configs are matching. Choosing the first one.")
-		);
 
 	return
 		result;
