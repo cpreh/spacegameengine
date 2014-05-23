@@ -18,31 +18,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_CAPS_DEVICE_UNIQUE_PTR_HPP_INCLUDED
-#define SGE_RENDERER_CAPS_DEVICE_UNIQUE_PTR_HPP_INCLUDED
+#include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/optional_display_mode.hpp>
+#include <sge/d3d9/systemfuncs/enum_adapter_modes.hpp>
+#include <sge/renderer/exception.hpp>
+#include <sge/renderer/device/index.hpp>
+#include <fcppt/text.hpp>
 
-#include <sge/renderer/caps/device_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <memory>
-#include <fcppt/config/external_end.hpp>
 
-
-namespace sge
+sge::d3d9::optional_display_mode
+sge::d3d9::systemfuncs::enum_adapter_modes(
+	IDirect3D9 &_d3d9,
+	sge::renderer::device::index const _adapter,
+	D3DFORMAT const _format,
+	UINT const _mode
+)
 {
-namespace renderer
-{
-namespace caps
-{
+	D3DDISPLAYMODE result;
 
-/**
-\brief A unique pointer to an sge::renderer::caps::device
-*/
-typedef std::unique_ptr<
-	sge::renderer::caps::device
-> device_unique_ptr;
-
+	switch(
+		_d3d9.EnumAdapterModes(
+			_adapter.get(),
+			_format,
+			_mode,
+			&result
+		)
+	)
+	{
+	case D3D_OK:
+		return
+			sge::d3d9::optional_display_mode(
+				result
+			);
+	case D3DERR_NOTAVAILABLE:
+		return
+			sge::d3d9::optional_display_mode();
+	default:
+		throw
+			sge::renderer::exception(
+				FCPPT_TEXT("EnumAdapterModes failed")
+			);
+	}
 }
-}
-}
-
-#endif

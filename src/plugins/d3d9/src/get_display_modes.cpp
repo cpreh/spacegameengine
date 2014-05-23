@@ -18,34 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/d3d9/create.hpp>
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/d3d_unique_ptr.hpp>
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <utility>
-#include <fcppt/config/external_end.hpp>
+#include <sge/d3d9/get_display_modes.hpp>
+#include <sge/d3d9/get_display_modes_for_format.hpp>
+#include <sge/renderer/device/index.hpp>
+#include <sge/renderer/display_mode/container.hpp>
 
 
-sge::d3d9::d3d_unique_ptr
-sge::d3d9::create()
+sge::renderer::display_mode::container
+sge::d3d9::get_display_modes(
+	IDirect3D9 &_d3d9,
+	sge::renderer::device::index const _index
+)
 {
-	sge::d3d9::d3d_unique_ptr ret(
-		::Direct3DCreate9(
-			D3D_SDK_VERSION
-		)
-	);
-
-	if(
-		!ret
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("Initialization of d3d failed!")
-		);
-
 	return
-		std::move(
-			ret
+		// TODO: Not every format might be supported for every resolution
+		sge::d3d9::get_display_modes_for_format(
+			_d3d9,
+			_index,
+			D3DFMT_X8R8G8B8
 		);
 }

@@ -19,9 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/d3d9/create.hpp>
-#include <sge/d3d9/create_device_caps.hpp>
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/device.hpp>
+#include <sge/d3d9/get_device_caps.hpp>
+#include <sge/d3d9/get_display_modes.hpp>
 #include <sge/d3d9/system.hpp>
 #include <sge/d3d9/visual.hpp>
 #include <sge/renderer/caps/device.hpp>
@@ -36,7 +37,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/visual/object_unique_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
-#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
+#include <fcppt/algorithm/map.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/range/irange.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::d3d9::system::system()
@@ -44,27 +48,49 @@ sge::d3d9::system::system()
 	system_(
 		sge::d3d9::create()
 	),
-	caps_()
-{
-	// TODO: Make a function for this
-	UINT const adapters(
-		system_->GetAdapterCount()
-	);
-
-	for(
-		sge::renderer::device::index adapter(
-			0u
-		);
-		adapter.get() < adapters;
-		++adapter
-	)
-		fcppt::container::ptr::push_back_unique_ptr(
-			caps_,
-			sge::d3d9::create_device_caps(
-				*system_,
-				adapter
+	caps_(
+		fcppt::algorithm::map<
+			sge::d3d9::system::caps_vector
+		>(
+			this->adapter_range(),
+			[
+				this
+			](
+				UINT const _index
 			)
-		);
+			{
+				return
+					sge::d3d9::get_device_caps(
+						*system_,
+						sge::renderer::device::index(
+							_index
+						)
+					);
+			}
+		)
+	),
+	display_modes_(
+		fcppt::algorithm::map<
+			sge::d3d9::system::display_mode_container_vector
+		>(
+			this->adapter_range(),
+			[
+				this
+			](
+				UINT const _index
+			)
+			{
+				return
+					sge::d3d9::get_display_modes(
+						*system_,
+						sge::renderer::device::index(
+							_index
+						)
+					);
+			}
+		)
+	)
+{
 }
 
 sge::d3d9::system::~system()
@@ -143,7 +169,18 @@ sge::d3d9::system::display_modes(
 	sge::renderer::device::index const _index
 ) const
 {
-	// TODO!
 	return
-		sge::renderer::display_mode::container();
+		display_modes_[
+			_index.get()
+		];
+}
+
+sge::d3d9::system::device_index_range const
+sge::d3d9::system::adapter_range() const
+{
+	return
+		boost::irange(
+			0u,
+			system_->GetAdapterCount()
+		);
 }

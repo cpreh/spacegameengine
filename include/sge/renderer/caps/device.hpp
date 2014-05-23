@@ -37,7 +37,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps/srgb_framebuffer.hpp>
 #include <sge/renderer/caps/target_surface_indices.hpp>
 #include <sge/renderer/caps/texture_stages.hpp>
-#include <fcppt/noncopyable.hpp>
 
 
 namespace sge
@@ -57,9 +56,6 @@ undefined behavior.
 */
 class device
 {
-	FCPPT_NONCOPYABLE(
-		device
-	);
 public:
 	/**
 	\brief Constructs a capabilities object
@@ -83,9 +79,6 @@ public:
 		sge::renderer::caps::target_surface_indices,
 		sge::renderer::caps::srgb_framebuffer
 	);
-
-	SGE_RENDERER_SYMBOL
-	~device();
 
 	/**
 	\brief Returns the driver's name
@@ -238,33 +231,33 @@ public:
 	sge::renderer::caps::srgb_framebuffer const
 	srgb_framebuffer() const;
 private:
-	sge::renderer::caps::driver_name const driver_name_;
+	sge::renderer::caps::driver_name driver_name_;
 
-	sge::renderer::caps::description const description_;
+	sge::renderer::caps::description description_;
 
-	sge::renderer::caps::normalized_cvv const normalized_cvv_;
+	sge::renderer::caps::normalized_cvv normalized_cvv_;
 
-	sge::renderer::caps::max_texture_size const max_texture_size_;
+	sge::renderer::caps::max_texture_size max_texture_size_;
 
-	sge::renderer::caps::max_volume_texture_extent const max_volume_texture_extent_;
+	sge::renderer::caps::max_volume_texture_extent max_volume_texture_extent_;
 
-	sge::renderer::caps::non_power_of_2_textures const non_power_of_2_textures_;
+	sge::renderer::caps::non_power_of_2_textures non_power_of_2_textures_;
 
-	sge::renderer::caps::max_anisotropy const max_anisotropy_;
+	sge::renderer::caps::max_anisotropy max_anisotropy_;
 
-	sge::renderer::caps::render_target_supported const render_target_supported_;
+	sge::renderer::caps::render_target_supported render_target_supported_;
 
-	sge::renderer::caps::render_target_inverted const render_target_inverted_;
+	sge::renderer::caps::render_target_inverted render_target_inverted_;
 
-	sge::renderer::caps::clip_plane_indices const clip_plane_indices_;
+	sge::renderer::caps::clip_plane_indices clip_plane_indices_;
 
-	sge::renderer::caps::light_indices const light_indices_;
+	sge::renderer::caps::light_indices light_indices_;
 
-	sge::renderer::caps::texture_stages const texture_stages_;
+	sge::renderer::caps::texture_stages texture_stages_;
 
-	sge::renderer::caps::target_surface_indices const target_surfaces_;
+	sge::renderer::caps::target_surface_indices target_surfaces_;
 
-	sge::renderer::caps::srgb_framebuffer const srgb_framebuffer_;
+	sge::renderer::caps::srgb_framebuffer srgb_framebuffer_;
 };
 
 }

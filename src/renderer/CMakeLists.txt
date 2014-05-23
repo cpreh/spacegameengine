@@ -14,7 +14,6 @@ set(
 	include/sge/renderer/caps/device_count.hpp
 	include/sge/renderer/caps/device_fwd.hpp
 	include/sge/renderer/caps/device_output.hpp
-	include/sge/renderer/caps/device_unique_ptr.hpp
 	include/sge/renderer/caps/driver_name.hpp
 	include/sge/renderer/caps/light_indices.hpp
 	include/sge/renderer/caps/max_anisotropy.hpp

@@ -18,27 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CREATE_DEVICE_CAPS_HPP_INCLUDED
-#define SGE_OPENGL_CREATE_DEVICE_CAPS_HPP_INCLUDED
+#ifndef SGE_D3D9_CONVERT_TO_DISPLAY_MODE_HPP_INCLUDED
+#define SGE_D3D9_CONVERT_TO_DISPLAY_MODE_HPP_INCLUDED
 
-#include <sge/opengl/backend/system_fwd.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/renderer/caps/device_unique_ptr.hpp>
-#include <awl/system/object_fwd.hpp>
+#include <sge/d3d9/d3dinclude.hpp>
+#include <sge/renderer/display_mode/object.hpp>
 
 
 namespace sge
 {
-namespace opengl
+namespace d3d9
+{
+namespace convert
 {
 
-sge::renderer::caps::device_unique_ptr
-create_device_caps(
-	awl::system::object &,
-	sge::opengl::context::system::object &,
-	sge::opengl::backend::system &
+sge::renderer::display_mode::object
+to_display_mode(
+	D3DDISPLAYMODE const &
 );
 
+}
 }
 }
 

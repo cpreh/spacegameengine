@@ -35,7 +35,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/visual/object_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
+#include <boost/range/irange.hpp>
+#include <vector>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -88,13 +89,32 @@ private:
 	) const
 	override;
 
+	typedef
+	boost::integer_range<
+		UINT
+	>
+	device_index_range;
+
+	device_index_range const
+	adapter_range() const;
+
 	sge::d3d9::d3d_unique_ptr const system_;
 
-	typedef boost::ptr_vector<
+	typedef
+	std::vector<
 		sge::renderer::caps::device
-	> caps_vector;
+	>
+	caps_vector;
 
-	caps_vector caps_;
+	caps_vector const caps_;
+
+	typedef
+	std::vector<
+		sge::renderer::display_mode::container
+	>
+	display_mode_container_vector;
+
+	display_mode_container_vector const display_modes_;
 };
 
 }

@@ -97,10 +97,6 @@ sge::renderer::caps::device::device(
 {
 }
 
-sge::renderer::caps::device::~device()
-{
-}
-
 sge::renderer::caps::driver_name const &
 sge::renderer::caps::device::driver_name() const
 {

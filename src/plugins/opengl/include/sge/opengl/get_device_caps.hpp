@@ -18,34 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/d3d9/create.hpp>
-#include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/d3d_unique_ptr.hpp>
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <utility>
-#include <fcppt/config/external_end.hpp>
+#ifndef SGE_OPENGL_GET_DEVICE_CAPS_HPP_INCLUDED
+#define SGE_OPENGL_GET_DEVICE_CAPS_HPP_INCLUDED
+
+#include <sge/opengl/backend/system_fwd.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/renderer/caps/device.hpp>
+#include <awl/system/object_fwd.hpp>
 
 
-sge::d3d9::d3d_unique_ptr
-sge::d3d9::create()
+namespace sge
 {
-	sge::d3d9::d3d_unique_ptr ret(
-		::Direct3DCreate9(
-			D3D_SDK_VERSION
-		)
-	);
+namespace opengl
+{
 
-	if(
-		!ret
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("Initialization of d3d failed!")
-		);
+sge::renderer::caps::device
+get_device_caps(
+	awl::system::object &,
+	sge::opengl::context::system::object &,
+	sge::opengl::backend::system &
+);
 
-	return
-		std::move(
-			ret
-		);
 }
+}
+
+#endif

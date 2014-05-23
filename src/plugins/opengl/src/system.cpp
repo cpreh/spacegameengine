@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/create_device_caps.hpp>
 #include <sge/opengl/device.hpp>
+#include <sge/opengl/get_device_caps.hpp>
 #include <sge/opengl/system.hpp>
 #include <sge/opengl/backend/create_system.hpp>
 #include <sge/opengl/backend/system.hpp>
@@ -59,7 +59,7 @@ sge::opengl::system::system(
 		)
 	),
 	caps_(
-		sge::opengl::create_device_caps(
+		sge::opengl::get_device_caps(
 			_awl_system,
 			system_context_,
 			*backend_system_
@@ -107,7 +107,7 @@ sge::opengl::system::create_ffp_renderer(
 				*platform_system_,
 				*backend_system_,
 				system_context_,
-				*caps_
+				caps_
 			)
 		);
 }
@@ -142,7 +142,7 @@ sge::opengl::system::device_caps(
 	);
 
 	return
-		*caps_;
+		caps_;
 }
 
 sge::renderer::display_mode::container

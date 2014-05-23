@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/object.hpp>
 #include <sge/opengl/platform/system_fwd.hpp>
 #include <sge/renderer/system.hpp>
+#include <sge/renderer/caps/device.hpp>
 #include <sge/renderer/caps/device_count.hpp>
-#include <sge/renderer/caps/device_fwd.hpp>
 #include <sge/renderer/device/core_unique_ptr.hpp>
 #include <sge/renderer/device/ffp_unique_ptr.hpp>
 #include <sge/renderer/device/index.hpp>
@@ -114,13 +114,7 @@ private:
 
 	backend_system_unique_ptr const backend_system_;
 
-	typedef
-	std::unique_ptr<
-		sge::renderer::caps::device
-	>
-	device_caps_unique_ptr;
-
-	device_caps_unique_ptr const caps_;
+	sge::renderer::caps::device const caps_;
 };
 
 }

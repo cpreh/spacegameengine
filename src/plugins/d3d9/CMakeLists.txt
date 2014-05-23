@@ -20,12 +20,12 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/convert/to_color.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/to_color_value.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/to_depth_stencil_format.hpp
+	src/plugins/d3d9/include/sge/d3d9/convert/to_display_mode.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/vector3.hpp
 	src/plugins/d3d9/include/sge/d3d9/convert/viewport.hpp
 	src/plugins/d3d9/include/sge/d3d9/core.hpp
 	src/plugins/d3d9/include/sge/d3d9/create.hpp
 	src/plugins/d3d9/include/sge/d3d9/create_device.hpp
-	src/plugins/d3d9/include/sge/d3d9/create_device_caps.hpp
 	src/plugins/d3d9/include/sge/d3d9/current_display_mode.hpp
 	src/plugins/d3d9/include/sge/d3d9/d3d_device_unique_ptr.hpp
 	src/plugins/d3d9/include/sge/d3d9/d3d_unique_ptr.hpp
@@ -66,6 +66,9 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/set_vertex_declaration.hpp
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/set_viewport.hpp
 	src/plugins/d3d9/include/sge/d3d9/from_d3d_pitch.hpp
+	src/plugins/d3d9/include/sge/d3d9/get_device_caps.hpp
+	src/plugins/d3d9/include/sge/d3d9/get_display_modes.hpp
+	src/plugins/d3d9/include/sge/d3d9/get_display_modes_for_format.hpp
 	src/plugins/d3d9/include/sge/d3d9/index_buffer.hpp
 	src/plugins/d3d9/include/sge/d3d9/lock_flags.hpp
 	src/plugins/d3d9/include/sge/d3d9/logger.hpp
@@ -78,6 +81,8 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/needs_reset_fwd.hpp
 	src/plugins/d3d9/include/sge/d3d9/occlusion_query/create.hpp
 	src/plugins/d3d9/include/sge/d3d9/occlusion_query/object.hpp
+	src/plugins/d3d9/include/sge/d3d9/optional_display_mode.hpp
+	src/plugins/d3d9/include/sge/d3d9/optional_display_mode_fwd.hpp
 	src/plugins/d3d9/include/sge/d3d9/optional_lock_box.hpp
 	src/plugins/d3d9/include/sge/d3d9/optional_lock_box_fwd.hpp
 	src/plugins/d3d9/include/sge/d3d9/optional_lock_rect.hpp
@@ -306,6 +311,7 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/swapchain/d3d_unique_ptr.hpp
 	src/plugins/d3d9/include/sge/d3d9/swapchainfuncs/present.hpp
 	src/plugins/d3d9/include/sge/d3d9/system.hpp
+	src/plugins/d3d9/include/sge/d3d9/systemfuncs/enum_adapter_modes.hpp
 	src/plugins/d3d9/include/sge/d3d9/systemfuncs/get_caps.hpp
 	src/plugins/d3d9/include/sge/d3d9/target/base.hpp
 	src/plugins/d3d9/include/sge/d3d9/target/base_fwd.hpp
@@ -407,12 +413,12 @@ SET(
 	src/plugins/d3d9/src/convert/to_color.cpp
 	src/plugins/d3d9/src/convert/to_color_value.cpp
 	src/plugins/d3d9/src/convert/to_depth_stencil_format.cpp
+	src/plugins/d3d9/src/convert/to_display_mode.cpp
 	src/plugins/d3d9/src/convert/vector3.cpp
 	src/plugins/d3d9/src/convert/viewport.cpp
 	src/plugins/d3d9/src/core.cpp
 	src/plugins/d3d9/src/create.cpp
 	src/plugins/d3d9/src/create_device.cpp
-	src/plugins/d3d9/src/create_device_caps.cpp
 	src/plugins/d3d9/src/current_display_mode.cpp
 	src/plugins/d3d9/src/device.cpp
 	src/plugins/d3d9/src/devicefuncs/begin_rendering.cpp
@@ -450,6 +456,9 @@ SET(
 	src/plugins/d3d9/src/devicefuncs/set_vertex_declaration.cpp
 	src/plugins/d3d9/src/devicefuncs/set_viewport.cpp
 	src/plugins/d3d9/src/exports.cpp
+	src/plugins/d3d9/src/get_device_caps.cpp
+	src/plugins/d3d9/src/get_display_modes.cpp
+	src/plugins/d3d9/src/get_display_modes_for_format.cpp
 	src/plugins/d3d9/src/index_buffer.cpp
 	src/plugins/d3d9/src/logger.cpp
 	src/plugins/d3d9/src/logger_context.cpp
@@ -623,6 +632,7 @@ SET(
 	src/plugins/d3d9/src/surfacefuncs/unlock_rect.cpp
 	src/plugins/d3d9/src/swapchainfuncs/present.cpp
 	src/plugins/d3d9/src/system.cpp
+	src/plugins/d3d9/src/systemfuncs/enum_adapter_modes.cpp
 	src/plugins/d3d9/src/systemfuncs/get_caps.cpp
 	src/plugins/d3d9/src/target/base.cpp
 	src/plugins/d3d9/src/target/offscreen.cpp

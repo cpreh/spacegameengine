@@ -18,34 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/d3d9/create.hpp>
+#ifndef SGE_D3D9_SYSTEMFUNCS_ENUM_ADAPTER_MODES_HPP_INCLUDED
+#define SGE_D3D9_SYSTEMFUNCS_ENUM_ADAPTER_MODES_HPP_INCLUDED
+
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/d3d_unique_ptr.hpp>
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <utility>
-#include <fcppt/config/external_end.hpp>
+#include <sge/d3d9/optional_display_mode.hpp>
+#include <sge/renderer/device/index.hpp>
 
 
-sge::d3d9::d3d_unique_ptr
-sge::d3d9::create()
+namespace sge
 {
-	sge::d3d9::d3d_unique_ptr ret(
-		::Direct3DCreate9(
-			D3D_SDK_VERSION
-		)
-	);
+namespace d3d9
+{
+namespace systemfuncs
+{
 
-	if(
-		!ret
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("Initialization of d3d failed!")
-		);
+sge::d3d9::optional_display_mode
+enum_adapter_modes(
+	IDirect3D9 &,
+	sge::renderer::device::index,
+	D3DFORMAT,
+	UINT
+);
 
-	return
-		std::move(
-			ret
-		);
 }
+}
+}
+
+#endif

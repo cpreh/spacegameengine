@@ -18,14 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/d3d9/create_device_caps.hpp>
 #include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/get_device_caps.hpp>
 #include <sge/d3d9/systemfuncs/get_caps.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/caps/clip_plane_indices.hpp>
 #include <sge/renderer/caps/description.hpp>
 #include <sge/renderer/caps/device.hpp>
-#include <sge/renderer/caps/device_unique_ptr.hpp>
 #include <sge/renderer/caps/driver_name.hpp>
 #include <sge/renderer/caps/light_indices.hpp>
 #include <sge/renderer/caps/max_anisotropy.hpp>
@@ -40,51 +39,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps/texture_stages.hpp>
 #include <sge/renderer/device/index.hpp>
 #include <fcppt/from_std_string.hpp>
-#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 
 
-namespace
-{
-
-	/*
-void
-add_display_modes(
-	display_mode_array& v,
-	sge::renderer::adapter_type const adapter,
-	sge::renderer::bit_depth::type const depth,
-	D3DFORMAT const format,
-	sge::d3d9::d3d_ptr const sys)
-{
-	unsigned const modes = sys->GetAdapterModeCount(adapter,format);
-
-	for(unsigned i = 0; i < modes; ++i)
-	{
-		D3DDISPLAYMODE mode;
-
-		sys->EnumAdapterModes(
-			adapter,
-			format,
-			i,
-			&mode
-		);
-
-		if(mode.Width >= 640 && mode.Height >= 480)
-			v.push_back(
-				sge::renderer::display_mode(
-					mode.Width,
-					mode.Height,
-					depth,
-					mode.RefreshRate
-				)
-			);
-	}
-}
-*/
-}
-
-sge::renderer::caps::device_unique_ptr
-sge::d3d9::create_device_caps(
+sge::renderer::caps::device
+sge::d3d9::get_device_caps(
 	IDirect3D9 &_system,
 	sge::renderer::device::index const _index
 )
@@ -110,17 +69,8 @@ sge::d3d9::create_device_caps(
 			FCPPT_TEXT("GetAdapterIdentifier failed")
 		);
 
-	/*display_mode_array display_modes;
-	add_display_modes(display_modes, adapter, bit_depth::depth16, D3DFMT_A1R5G5B5, sys);
-	add_display_modes(display_modes, adapter, bit_depth::depth16, D3DFMT_X1R5G5B5, sys);
-	add_display_modes(display_modes, adapter, bit_depth::depth16, D3DFMT_R5G6B5,   sys);
-	add_display_modes(display_modes, adapter, bit_depth::depth32, D3DFMT_A8R8G8B8, sys);
-	add_display_modes(display_modes, adapter, bit_depth::depth32, D3DFMT_X8R8G8B8, sys);*/
-
 	return
-		fcppt::make_unique_ptr<
-			sge::renderer::caps::device
-		>(
+		sge::renderer::caps::device(
 			sge::renderer::caps::driver_name(
 				fcppt::from_std_string(
 					identifier.Driver

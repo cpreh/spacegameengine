@@ -95,7 +95,6 @@ set(
 	src/plugins/opengl/include/sge/opengl/convert/resource_flags.hpp
 	src/plugins/opengl/include/sge/opengl/convert/to_gl_bool.hpp
 	src/plugins/opengl/include/sge/opengl/core.hpp
-	src/plugins/opengl/include/sge/opengl/create_device_caps.hpp
 	src/plugins/opengl/include/sge/opengl/create_index_buffer.hpp
 	src/plugins/opengl/include/sge/opengl/create_onscreen_target.hpp
 	src/plugins/opengl/include/sge/opengl/create_vertex_buffer.hpp
@@ -148,6 +147,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/fbo/texture_binding.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/texture_binding_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/unbind.hpp
+	src/plugins/opengl/include/sge/opengl/get_device_caps.hpp
 	src/plugins/opengl/include/sge/opengl/get_int.hpp
 	src/plugins/opengl/include/sge/opengl/get_ints.hpp
 	src/plugins/opengl/include/sge/opengl/get_string.hpp
@@ -638,7 +638,6 @@ set(
 	src/plugins/opengl/src/convert/resource_flags.cpp
 	src/plugins/opengl/src/convert/to_gl_bool.cpp
 	src/plugins/opengl/src/core.cpp
-	src/plugins/opengl/src/create_device_caps.cpp
 	src/plugins/opengl/src/create_index_buffer.cpp
 	src/plugins/opengl/src/create_onscreen_target.cpp
 	src/plugins/opengl/src/create_vertex_buffer.cpp
@@ -676,6 +675,7 @@ set(
 	src/plugins/opengl/src/fbo/temporary_bind.cpp
 	src/plugins/opengl/src/fbo/texture_binding.cpp
 	src/plugins/opengl/src/fbo/unbind.cpp
+	src/plugins/opengl/src/get_device_caps.cpp
 	src/plugins/opengl/src/get_int.cpp
 	src/plugins/opengl/src/get_ints.cpp
 	src/plugins/opengl/src/get_string.cpp

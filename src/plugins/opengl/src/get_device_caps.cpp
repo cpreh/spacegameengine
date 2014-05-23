@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/create_device_caps.hpp>
+#include <sge/opengl/get_device_caps.hpp>
 #include <sge/opengl/get_int.hpp>
 #include <sge/opengl/get_string.hpp>
 #include <sge/opengl/srgb_context.hpp>
@@ -36,7 +36,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps/clip_plane_indices.hpp>
 #include <sge/renderer/caps/description.hpp>
 #include <sge/renderer/caps/device.hpp>
-#include <sge/renderer/caps/device_unique_ptr.hpp>
 #include <sge/renderer/caps/driver_name.hpp>
 #include <sge/renderer/caps/light_indices.hpp>
 #include <sge/renderer/caps/max_anisotropy.hpp>
@@ -49,13 +48,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps/srgb_framebuffer.hpp>
 #include <sge/renderer/caps/target_surface_indices.hpp>
 #include <awl/system/object_fwd.hpp>
-#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/text.hpp>
 
 
-sge::renderer::caps::device_unique_ptr
-sge::opengl::create_device_caps(
+sge::renderer::caps::device
+sge::opengl::get_device_caps(
 	awl::system::object &_awl_system,
 	sge::opengl::context::system::object &_context,
 	sge::opengl::backend::system &_device_system
@@ -109,9 +107,7 @@ sge::opengl::create_device_caps(
 	);
 
 	return
-		fcppt::make_unique_ptr<
-			sge::renderer::caps::device
-		>(
+		sge::renderer::caps::device(
 			sge::renderer::caps::driver_name(
 				sge::opengl::get_string(
 					GL_VENDOR
