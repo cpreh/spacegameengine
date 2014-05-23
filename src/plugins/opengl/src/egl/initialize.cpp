@@ -18,47 +18,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_EGL_INIT_HPP_INCLUDED
-#define SGE_OPENGL_EGL_INIT_HPP_INCLUDED
-
-#include <sge/opengl/egl/init_fwd.hpp>
+#include <sge/opengl/egl/initialize.hpp>
+#include <sge/opengl/egl/major_version.hpp>
+#include <sge/opengl/egl/minor_version.hpp>
 #include <sge/opengl/egl/version.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
+sge::opengl::egl::version const
+sge::opengl::egl::initialize(
+	EGLDisplay const _display
+)
 {
-namespace opengl
-{
-namespace egl
-{
+	EGLint major;
 
-class init
-{
-	FCPPT_NONCOPYABLE(
-		init
-	);
-public:
-	explicit
-	init(
-		EGLDisplay
-	);
+	EGLint minor;
 
-	~init();
+	if(
+		::eglInitialize(
+			_display,
+			&major,
+			&minor
+		)
+		!=
+		EGL_TRUE
+	)
+		throw
+			sge::renderer::exception(
+				FCPPT_TEXT("Failed to initialize EGL")
+			);
 
-	sge::opengl::egl::version const
-	version() const;
-private:
-	EGLDisplay const display_;
-
-	sge::opengl::egl::version const version_;
-};
-
+	return
+		sge::opengl::egl::version(
+			sge::opengl::egl::major_version(
+				major
+			),
+			sge::opengl::egl::minor_version(
+				minor
+			)
+		);
 }
-}
-}
-
-#endif

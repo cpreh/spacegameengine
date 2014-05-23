@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/egl/init.hpp>
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include <sge/opengl/egl/initialize.hpp>
+#include <sge/opengl/egl/version.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
@@ -33,21 +33,13 @@ sge::opengl::egl::init::init(
 :
 	display_(
 		_display
+	),
+	version_(
+		sge::opengl::egl::initialize(
+			_display
+		)
 	)
 {
-	if(
-		::eglInitialize(
-			_display,
-			nullptr,
-			nullptr
-		)
-		!=
-		EGL_TRUE
-	)
-		throw
-			sge::renderer::exception(
-				FCPPT_TEXT("Failed to initialize EGL")
-			);
 }
 
 sge::opengl::egl::init::~init()
@@ -59,4 +51,11 @@ sge::opengl::egl::init::~init()
 		==
 		EGL_TRUE
 	);
+}
+
+sge::opengl::egl::version const
+sge::opengl::egl::init::version() const
+{
+	return
+		version_;
 }

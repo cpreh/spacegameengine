@@ -18,12 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/logger.hpp>
 #include <sge/opengl/egl/attribute_vector.hpp>
 #include <sge/opengl/egl/visual/base.hpp>
 #include <sge/opengl/egl/visual/choose_config.hpp>
 #include <sge/opengl/egl/visual/to_config.hpp>
 #include <awl/visual/object.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/try_dynamic_cast.hpp>
+#include <fcppt/log/_.hpp>
+#include <fcppt/log/warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
 #include <fcppt/config/external_end.hpp>
@@ -44,6 +48,12 @@ sge::opengl::egl::visual::to_config(
 		return
 			sge_visual->config();
 	}
+
+	FCPPT_LOG_WARNING(
+		sge::opengl::logger(),
+		fcppt::log::_
+			<< FCPPT_TEXT("Visual is not an EGL visual.")
+	);
 
 	return
 		sge::opengl::egl::visual::choose_config(

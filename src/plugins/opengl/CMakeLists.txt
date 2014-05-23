@@ -1198,6 +1198,7 @@ set(
 set(
 	SGE_OPENGL_EGL_FILES
 	src/plugins/opengl/include/sge/opengl/egl/attribute_vector.hpp
+	src/plugins/opengl/include/sge/opengl/egl/bind_api.hpp
 	src/plugins/opengl/include/sge/opengl/egl/context.hpp
 	src/plugins/opengl/include/sge/opengl/egl/context_impl.hpp
 	src/plugins/opengl/include/sge/opengl/egl/create_native_display.hpp
@@ -1205,7 +1206,10 @@ set(
 	src/plugins/opengl/include/sge/opengl/egl/get_display.hpp
 	src/plugins/opengl/include/sge/opengl/egl/init.hpp
 	src/plugins/opengl/include/sge/opengl/egl/init_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/egl/initialize.hpp
+	src/plugins/opengl/include/sge/opengl/egl/major_version.hpp
 	src/plugins/opengl/include/sge/opengl/egl/make_current.hpp
+	src/plugins/opengl/include/sge/opengl/egl/minor_version.hpp
 	src/plugins/opengl/include/sge/opengl/egl/native_display.hpp
 	src/plugins/opengl/include/sge/opengl/egl/native_display_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/egl/native_display_unique_ptr.hpp
@@ -1215,6 +1219,9 @@ set(
 	src/plugins/opengl/include/sge/opengl/egl/no_surface.hpp
 	src/plugins/opengl/include/sge/opengl/egl/swap_buffers.hpp
 	src/plugins/opengl/include/sge/opengl/egl/system.hpp
+	src/plugins/opengl/include/sge/opengl/egl/version.hpp
+	src/plugins/opengl/include/sge/opengl/egl/version_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/egl/version_output.hpp
 	src/plugins/opengl/include/sge/opengl/egl/visual/base.hpp
 	src/plugins/opengl/include/sge/opengl/egl/visual/base_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/egl/visual/choose_config.hpp
@@ -1222,12 +1229,14 @@ set(
 	src/plugins/opengl/include/sge/opengl/egl/visual/make_attributes.hpp
 	src/plugins/opengl/include/sge/opengl/egl/visual/to_config.hpp
 	src/plugins/opengl/include/sge/opengl/egl/window_surface.hpp
+	src/plugins/opengl/src/egl/bind_api.cpp
 	src/plugins/opengl/src/egl/context.cpp
 	src/plugins/opengl/src/egl/context_impl.cpp
 	src/plugins/opengl/src/egl/create_native_display.cpp
 	src/plugins/opengl/src/egl/get_config_attrib.cpp
 	src/plugins/opengl/src/egl/get_display.cpp
 	src/plugins/opengl/src/egl/init.cpp
+	src/plugins/opengl/src/egl/initialize.cpp
 	src/plugins/opengl/src/egl/make_current.cpp
 	src/plugins/opengl/src/egl/native_display.cpp
 	src/plugins/opengl/src/egl/native_window.cpp
@@ -1236,6 +1245,8 @@ set(
 	src/plugins/opengl/src/egl/no_surface.cpp
 	src/plugins/opengl/src/egl/swap_buffers.cpp
 	src/plugins/opengl/src/egl/system.cpp
+	src/plugins/opengl/src/egl/version.cpp
+	src/plugins/opengl/src/egl/version_output.cpp
 	src/plugins/opengl/src/egl/visual/base.cpp
 	src/plugins/opengl/src/egl/visual/choose_config.cpp
 	src/plugins/opengl/src/egl/visual/create.cpp

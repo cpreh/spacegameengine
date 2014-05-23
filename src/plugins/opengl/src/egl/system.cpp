@@ -18,15 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/logger.hpp>
 #include <sge/opengl/backend/context_unique_ptr.hpp>
 #include <sge/opengl/backend/scoped_current_fwd.hpp>
 #include <sge/opengl/backend/system.hpp>
+#include <sge/opengl/egl/bind_api.hpp>
 #include <sge/opengl/egl/context.hpp>
 #include <sge/opengl/egl/create_native_display.hpp>
 #include <sge/opengl/egl/get_display.hpp>
 #include <sge/opengl/egl/native_display.hpp>
 #include <sge/opengl/egl/native_window.hpp>
 #include <sge/opengl/egl/system.hpp>
+#include <sge/opengl/egl/version_output.hpp>
 #include <sge/opengl/egl/visual/create.hpp>
 #include <sge/renderer/display_mode/vsync.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
@@ -35,6 +38,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/visual/object_unique_ptr.hpp>
 #include <awl/window/object.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/log/_.hpp>
+#include <fcppt/log/info.hpp>
 
 
 sge::opengl::egl::system::system(
@@ -59,6 +65,16 @@ sge::opengl::egl::system::system(
 		egl_display_
 	)
 {
+	FCPPT_LOG_INFO(
+		sge::opengl::logger(),
+		fcppt::log::_
+			<< FCPPT_TEXT("EGL version is ")
+			<< init_.version()
+	);
+
+	sge::opengl::egl::bind_api(
+		EGL_OPENGL_API
+	);
 }
 
 sge::opengl::egl::system::~system()
