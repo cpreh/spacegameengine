@@ -32,7 +32,7 @@ namespace sge
 namespace plugin
 {
 
-sge::plugin::info const
+sge::plugin::info
 load_info(
 	boost::filesystem::path const &
 );

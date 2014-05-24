@@ -42,6 +42,37 @@ configure_file(
 
 set(
 	SGE_DOC_FILES
+	doc/CMakeLists.txt
+	doc/Doxyfile.in
+	doc/files/audio/first_example.doxygen
+	doc/files/audio/main.doxygen
+	doc/files/audio/namespaces.hpp
+	doc/files/audio/null.doxygen
+	doc/files/audio/overview.doxygen
+	doc/files/audio/positional.doxygen
+	doc/files/main.doxygen
+	doc/files/renderer/indices.doxygen
+	doc/files/renderer/main.doxygen
+	doc/files/renderer/textures.doxygen
+	doc/files/renderer/vertices.doxygen
+	doc/files/sprite/buffers.doxygen
+	doc/files/sprite/config.doxygen
+	doc/files/sprite/introduction.doxygen
+	doc/files/sprite/main.doxygen
+	doc/files/sprite/object.doxygen
+	doc/files/sprite/processing.doxygen
+	doc/files/sprite/processing_advanced.doxygen
+	doc/footer.html
+	doc/header.html
+	doc/images/audio_buffers.svg
+	doc/images/audio_coordinates.svg
+	doc/images/audio_distance_attenuation_model.png
+	doc/images/audio_pipeline.svg
+	doc/images/audio_plugins.svg
+	doc/images/audio_sound_cones.gif
+	doc/images/renderer_colored_triangle.png
+	doc/layout.xml
+	doc/stylesheet.css
 	include/sge/audio/bad_sound_alloc.hpp
 	include/sge/audio/buffer.hpp
 	include/sge/audio/buffer_fwd.hpp
@@ -1665,7 +1696,6 @@ set(
 	include/sge/plugin/name.hpp
 	include/sge/plugin/object.hpp
 	include/sge/plugin/object_fwd.hpp
-	include/sge/plugin/object_shared_ptr.hpp
 	include/sge/plugin/object_unique_ptr.hpp
 	include/sge/plugin/optional_cache_ref.hpp
 	include/sge/plugin/optional_cache_ref_fwd.hpp

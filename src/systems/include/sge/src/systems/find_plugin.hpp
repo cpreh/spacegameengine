@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/info.hpp>
 #include <sge/plugin/iterator.hpp>
 #include <sge/plugin/object.hpp>
-#include <sge/plugin/object_shared_ptr.hpp>
+#include <sge/plugin/object_unique_ptr.hpp>
 #include <sge/src/systems/plugin_pair_decl.hpp>
 #include <sge/systems/exception.hpp>
 #include <sge/systems/optional_name.hpp>
@@ -85,17 +85,21 @@ find_plugin(
 		)
 			continue;
 
-		typedef typename sge::plugin::object_shared_ptr<
+		typedef
+		sge::plugin::object_unique_ptr<
 			System
-		>::type plugin_shared_ptr;
+		>
+		plugin_unique_ptr;
 
-		plugin_shared_ptr const plugin(
+		plugin_unique_ptr plugin(
 			element.load()
 		);
 
-		typedef std::unique_ptr<
+		typedef
+		std::unique_ptr<
 			System
-		> system_unique_ptr;
+		>
+		system_unique_ptr;
 
 		system_unique_ptr system(
 			plugin->get()()
@@ -108,7 +112,9 @@ find_plugin(
 		)
 			return
 				return_type(
-					plugin,
+					std::move(
+						plugin
+					),
 					std::move(
 						system
 					)

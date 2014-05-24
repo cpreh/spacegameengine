@@ -45,12 +45,14 @@ template<
 sge::systems::plugin_pair<
 	System
 >::plugin_pair(
-	plugin_shared_ptr const _plugin,
+	plugin_unique_ptr &&_plugin,
 	system_unique_ptr &&_system
 )
 :
 	plugin_(
-		_plugin
+		std::move(
+			_plugin
+		)
 	),
 	system_(
 		std::move(
@@ -67,18 +69,26 @@ sge::systems::plugin_pair<
 	System
 >::plugin_pair(
 	plugin_pair &&_other
-)
-:
-	plugin_(
-		std::move(
-			_other.plugin_
-		)
-	),
-	system_(
-		std::move(
-			_other.system_
-		)
-	)
+) = default;
+
+template<
+	typename System
+>
+sge::systems::plugin_pair<
+	System
+> &
+sge::systems::plugin_pair<
+	System
+>::operator=(
+	plugin_pair &&_other
+) = default;
+
+template<
+	typename System
+>
+sge::systems::plugin_pair<
+	System
+>::~plugin_pair()
 {
 }
 
@@ -93,7 +103,6 @@ sge::systems::plugin_pair<
 	return
 		*system_;
 }
-
 
 template<
 	typename System

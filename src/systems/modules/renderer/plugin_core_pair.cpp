@@ -18,7 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/plugin/object.hpp>
 #include <sge/renderer/core.hpp>
+#include <sge/renderer/plugin/traits.hpp>
 #include <sge/src/systems/plugin_pair_impl.hpp>
 #include <sge/src/systems/modules/renderer/plugin_core_pair.hpp>
 
