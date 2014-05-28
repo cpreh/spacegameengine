@@ -21,11 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SYSTEMS_LOG_SETTINGS_HPP_INCLUDED
 #define SGE_SYSTEMS_LOG_SETTINGS_HPP_INCLUDED
 
+#include <sge/log/option_container.hpp>
 #include <sge/systems/log_settings_fwd.hpp>
-#include <sge/systems/optional_path.hpp>
+#include <sge/systems/optional_log_redirect_path.hpp>
 #include <sge/systems/symbol.hpp>
-#include <fcppt/log/level.hpp>
-#include <fcppt/log/location.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -40,12 +39,10 @@ class log_settings
 {
 public:
 	SGE_SYSTEMS_SYMBOL
+	explicit
 	log_settings(
-		fcppt::log::location const &,
-		fcppt::log::level
+		sge::log::option_container const &
 	);
-
-	// TODO: Add location container
 
 	SGE_SYSTEMS_SYMBOL
 	sge::systems::log_settings &
@@ -53,20 +50,15 @@ public:
 		boost::filesystem::path const &
 	);
 
-	fcppt::log::location const &
-	location() const;
+	sge::log::option_container const &
+	options() const;
 
-	fcppt::log::level
-	level() const;
-
-	sge::systems::optional_path const &
+	sge::systems::optional_log_redirect_path const &
 	redirect() const;
 private:
-	fcppt::log::location location_;
+	sge::log::option_container options_;
 
-	fcppt::log::level level_;
-
-	sge::systems::optional_path redirect_;
+	sge::systems::optional_log_redirect_path redirect_;
 };
 
 }

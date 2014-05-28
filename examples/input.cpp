@@ -402,12 +402,16 @@ try
 			sge::systems::config()
 			.log_settings(
 				sge::systems::log_settings(
-					sge::input::log_location(),
-					silent
-					?
-						fcppt::log::level::error
-					:
-						fcppt::log::level::debug
+					sge::log::option_container{
+						sge::log::option{
+							sge::input::log_location(),
+							silent
+							?
+								fcppt::log::level::error
+							:
+								fcppt::log::level::debug
+						}
+					}
 				)
 			)
 		)

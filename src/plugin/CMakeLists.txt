@@ -40,6 +40,7 @@ set(
 	include/sge/plugin/library/object_shared_ptr.hpp
 	include/sge/plugin/library/symbol_not_found.hpp
 	include/sge/plugin/library/symbol_string.hpp
+	include/sge/plugin/load_with_log_options.hpp
 	include/sge/plugin/log_location.hpp
 	include/sge/plugin/manager.hpp
 	include/sge/plugin/manager_fwd.hpp
@@ -72,6 +73,7 @@ set(
 	src/plugin/include/sge/src/plugin/library/loaded_symbol.hpp
 	src/plugin/include/sge/src/plugin/library/object.hpp
 	src/plugin/include/sge/src/plugin/load_info.hpp
+	src/plugin/include/sge/src/plugin/load_with_log_options_impl.hpp
 	src/plugin/include/sge/src/plugin/logger.hpp
 	src/plugin/include/sge/src/plugin/manager_impl.hpp
 	src/plugin/include/sge/src/plugin/object_impl.hpp

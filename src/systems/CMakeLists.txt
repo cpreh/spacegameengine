@@ -70,18 +70,22 @@ set(
 	include/sge/systems/list_fwd.hpp
 	include/sge/systems/list_impl.hpp
 	include/sge/systems/log_location.hpp
+	include/sge/systems/log_redirect_path.hpp
 	include/sge/systems/log_settings.hpp
 	include/sge/systems/log_settings_fwd.hpp
 	include/sge/systems/make_empty_list.hpp
 	include/sge/systems/make_list.hpp
 	include/sge/systems/mouse_collector.hpp
 	include/sge/systems/mouse_collector_fwd.hpp
+	include/sge/systems/optional_log_redirect_path.hpp
+	include/sge/systems/optional_log_redirect_path_fwd.hpp
 	include/sge/systems/optional_log_settings.hpp
 	include/sge/systems/optional_log_settings_fwd.hpp
 	include/sge/systems/optional_name.hpp
 	include/sge/systems/optional_name_fwd.hpp
-	include/sge/systems/optional_path.hpp
-	include/sge/systems/optional_path_fwd.hpp
+	include/sge/systems/optional_plugin_path.hpp
+	include/sge/systems/optional_plugin_path_fwd.hpp
+	include/sge/systems/plugin_path.hpp
 	include/sge/systems/quit_on_escape.hpp
 	include/sge/systems/renderer.hpp
 	include/sge/systems/renderer_caps.hpp
@@ -191,7 +195,6 @@ set(
 	src/systems/include/sge/src/systems/plugin_pair_decl.hpp
 	src/systems/include/sge/src/systems/plugin_pair_fwd.hpp
 	src/systems/include/sge/src/systems/plugin_pair_impl.hpp
-	src/systems/include/sge/src/systems/plugin_path.hpp
 	src/systems/include/sge/src/systems/unpack_if_present.hpp
 	src/systems/ini_section_name.cpp
 	src/systems/input.cpp

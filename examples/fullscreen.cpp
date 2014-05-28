@@ -20,6 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/color/predef.hpp>
 #include <sge/log/location.hpp>
+#include <sge/log/option.hpp>
+#include <sge/log/option_container.hpp>
 #include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/context/core.hpp>
@@ -134,8 +136,12 @@ try
 			sge::systems::config()
 			.log_settings(
 				sge::systems::log_settings(
-					sge::log::location(),
-					fcppt::log::level::debug
+					sge::log::option_container{
+						sge::log::option{
+							sge::log::location(),
+							fcppt::log::level::debug
+						}
+					}
 				)
 			)
 		)

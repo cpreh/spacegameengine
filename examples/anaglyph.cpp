@@ -28,6 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/predef.hpp>
 #include <sge/log/global_context.hpp>
 #include <sge/log/location.hpp>
+#include <sge/log/option.hpp>
+#include <sge/log/option_container.hpp>
 #include <sge/model/md3/create.hpp>
 #include <sge/model/md3/index_sequence.hpp>
 #include <sge/model/md3/load_flags.hpp>
@@ -834,10 +836,14 @@ try
 		(
 			sge::systems::config()
 			.log_settings(
-				sge::systems::log_settings(
-					sge::log::location(),
-					fcppt::log::level::debug
-				)
+				sge::systems::log_settings{
+					sge::log::option_container{
+						sge::log::option{
+							sge::log::location(),
+							fcppt::log::level::debug
+						}
+					}
+				}
 			)
 		)
 	);

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_SYSTEMS_EXTRACT_PLUGIN_PATH_HPP_INCLUDED
 #define SGE_SRC_SYSTEMS_EXTRACT_PLUGIN_PATH_HPP_INCLUDED
 
-#include <sge/src/systems/plugin_path.hpp>
+#include <sge/systems/plugin_path.hpp>
 #include <sge/systems/detail/any_map.hpp>
 
 

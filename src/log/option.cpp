@@ -18,11 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_OPTIONAL_PATH_HPP_INCLUDED
-#define SGE_SYSTEMS_OPTIONAL_PATH_HPP_INCLUDED
-
-#include <sge/systems/optional_path_fwd.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <sge/log/option.hpp>
+#include <fcppt/log/level.hpp>
+#include <fcppt/log/location.hpp>
 
 
-#endif
+sge::log::option::option(
+	fcppt::log::location const &_location,
+	fcppt::log::level const _level
+)
+:
+	location_(
+		_location
+	),
+	level_(
+		_level
+	)
+{
+}
+
+fcppt::log::location const &
+sge::log::option::location() const
+{
+	return
+		location_;
+}
+
+fcppt::log::level
+sge::log::option::level() const
+{
+	return
+		level_;
+}

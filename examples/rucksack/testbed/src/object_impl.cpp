@@ -19,6 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/log/location.hpp>
+#include <sge/log/option.hpp>
+#include <sge/log/option_container.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/context/scoped_ffp.hpp>
 #include <sge/renderer/device/ffp.hpp>
@@ -111,8 +113,12 @@ sge::rucksack::testbed::object_impl::object_impl(
 			sge::systems::config()
 			.log_settings(
 				sge::systems::log_settings(
-					sge::log::location(),
-					fcppt::log::level::debug
+					sge::log::option_container{
+						sge::log::option{
+							sge::log::location(),
+							fcppt::log::level::debug
+						}
+					}
 				)
 			)
 		)

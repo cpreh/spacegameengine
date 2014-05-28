@@ -18,61 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_PLUGIN_OBJECT_IMPL_HPP_INCLUDED
-#define SGE_SRC_PLUGIN_OBJECT_IMPL_HPP_INCLUDED
+#ifndef SGE_PLUGIN_LOAD_WITH_LOG_OPTIONS_HPP_INCLUDED
+#define SGE_PLUGIN_LOAD_WITH_LOG_OPTIONS_HPP_INCLUDED
 
-#include <sge/plugin/object.hpp>
-#include <sge/plugin/detail/traits.hpp>
-#include <sge/src/plugin/library/load_function.hpp>
-#include <sge/src/plugin/library/object.hpp>
+#include <sge/log/option_container.hpp>
+#include <sge/plugin/context_fwd.hpp>
+#include <sge/plugin/object_unique_ptr.hpp>
+#include <sge/plugin/detail/instantiate/symbol.hpp>
 
+
+namespace sge
+{
+namespace plugin
+{
 
 template<
 	typename Type
 >
-sge::plugin::object<
+SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
+sge::plugin::object_unique_ptr<
 	Type
->::object(
-	library_shared_ptr const &_lib
-)
-:
-	lib_(
-		_lib
-	),
-	loader_(
-		sge::plugin::library::load_function<
-			loader_fun
-		>(
-			*lib_,
-			sge::plugin::detail::traits<
-				Type
-			>::plugin_loader_name()
-		)
-	)
-{
+>
+load_with_log_options(
+	sge::plugin::context<
+		Type
+	> const &,
+	sge::log::option_container const &
+);
+
 }
-
-template<
-	typename Type
->
-sge::plugin::object<
-	Type
->::~object()
-{
-}
-
-template<
-	typename Type
->
-typename sge::plugin::object<
-	Type
->::loader_fun
-sge::plugin::object<
-	Type
->::get() const
-{
-	return
-		loader_;
 }
 
 #endif

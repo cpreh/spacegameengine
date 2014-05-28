@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_SYSTEMS_PLUGIN_PATH_HPP_INCLUDED
-#define SGE_SRC_SYSTEMS_PLUGIN_PATH_HPP_INCLUDED
+#ifndef SGE_SYSTEMS_LOG_REDIRECT_PATH_HPP_INCLUDED
+#define SGE_SYSTEMS_LOG_REDIRECT_PATH_HPP_INCLUDED
 
 #include <fcppt/strong_typedef.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -34,7 +34,7 @@ namespace systems
 
 FCPPT_MAKE_STRONG_TYPEDEF(
 	boost::filesystem::path,
-	plugin_path
+	log_redirect_path
 );
 
 }

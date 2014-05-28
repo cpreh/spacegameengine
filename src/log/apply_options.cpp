@@ -18,61 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_PLUGIN_OBJECT_IMPL_HPP_INCLUDED
-#define SGE_SRC_PLUGIN_OBJECT_IMPL_HPP_INCLUDED
-
-#include <sge/plugin/object.hpp>
-#include <sge/plugin/detail/traits.hpp>
-#include <sge/src/plugin/library/load_function.hpp>
-#include <sge/src/plugin/library/object.hpp>
+#include <sge/log/apply_options.hpp>
+#include <sge/log/global_context.hpp>
+#include <sge/log/option.hpp>
+#include <sge/log/option_container.hpp>
+#include <fcppt/log/activate_levels_recursive.hpp>
 
 
-template<
-	typename Type
->
-sge::plugin::object<
-	Type
->::object(
-	library_shared_ptr const &_lib
+void
+sge::log::apply_options(
+	sge::log::option_container const &_options
 )
-:
-	lib_(
-		_lib
-	),
-	loader_(
-		sge::plugin::library::load_function<
-			loader_fun
-		>(
-			*lib_,
-			sge::plugin::detail::traits<
-				Type
-			>::plugin_loader_name()
-		)
+{
+	for(
+		sge::log::option const &option
+		:
+		_options
 	)
-{
+		fcppt::log::activate_levels_recursive(
+			sge::log::global_context(),
+			option.location(),
+			option.level()
+		);
 }
-
-template<
-	typename Type
->
-sge::plugin::object<
-	Type
->::~object()
-{
-}
-
-template<
-	typename Type
->
-typename sge::plugin::object<
-	Type
->::loader_fun
-sge::plugin::object<
-	Type
->::get() const
-{
-	return
-		loader_;
-}
-
-#endif

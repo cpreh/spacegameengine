@@ -42,6 +42,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/predef.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/log/location.hpp>
+#include <sge/log/option.hpp>
+#include <sge/log/option_container.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/context/scoped_ffp.hpp>
@@ -458,8 +460,12 @@ try
 			sge::systems::config()
 			.log_settings(
 				sge::systems::log_settings(
-					sge::log::location(),
-					fcppt::log::level::debug
+					sge::log::option_container{
+						sge::log::option{
+							sge::log::location(),
+							fcppt::log::level::debug
+						}
+					}
 				)
 			)
 		)

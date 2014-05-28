@@ -25,6 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/object.hpp>
 #include <sge/log/location.hpp>
+#include <sge/log/option.hpp>
+#include <sge/log/option_container.hpp>
 #include <sge/noise/sample.hpp>
 #include <sge/noise/sample_parameters.hpp>
 #include <sge/noise/perlin/object.hpp>
@@ -245,8 +247,12 @@ try
 			sge::systems::config()
 			.log_settings(
 				sge::systems::log_settings(
-					sge::log::location(),
-					fcppt::log::level::debug
+					sge::log::option_container{
+						sge::log::option{
+							sge::log::location(),
+							fcppt::log::level::debug
+						}
+					}
 				)
 			)
 		)

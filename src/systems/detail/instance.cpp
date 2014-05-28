@@ -29,7 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/object_fwd.hpp>
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/input/mouse/device_fwd.hpp>
-#include <sge/log/global_context.hpp>
+#include <sge/log/apply_options.hpp>
+#include <sge/log/option_container.hpp>
 #include <sge/parse/result.hpp>
 #include <sge/parse/result_code.hpp>
 #include <sge/parse/ini/parse_file_opt.hpp>
@@ -48,6 +49,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/unpack_if_present.hpp>
 #include <sge/src/systems/detail/instance_impl.hpp>
 #include <sge/systems/config.hpp>
+#include <sge/systems/log_settings.hpp>
 #include <sge/systems/optional_log_settings.hpp>
 #include <sge/systems/detail/any_key.hpp>
 #include <sge/systems/detail/any_map.hpp>
@@ -58,8 +60,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/optional_bind.hpp>
 #include <fcppt/log/_.hpp>
-#include <fcppt/log/activate_levels_recursive.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 
@@ -75,13 +77,41 @@ sge::systems::detail::instance::instance(
 			sge::systems::extract_plugin_path(
 				_list.get()
 			),
-			sge::systems::extract_config(
-				_list.get()
+			fcppt::optional_bind(
+				sge::systems::extract_config(
+					_list.get()
+				)
+				.log_settings(),
+				[](
+					sge::systems::log_settings const &_settings
+				)
+				{
+					return
+						_settings.redirect();
+				}
 			)
-			.log_settings()
 		)
 	)
 {
+	sge::systems::optional_log_settings const log_settings(
+		sge::systems::extract_config(
+			_list.get()
+		)
+		.log_settings()
+	);
+
+	sge::log::option_container const &log_options(
+		log_settings
+		?
+			log_settings->options()
+		:
+			sge::log::option_container{}
+	);
+
+	sge::log::apply_options(
+		log_options
+	);
+
 	sge::parse::ini::result_with_value const ini_result_value(
 		sge::parse::ini::parse_file_opt(
 			sge::config::config_path(
@@ -155,14 +185,16 @@ sge::systems::detail::instance::instance(
 		sge::systems::detail::any_key::renderer,
 		[
 			this,
-			&ini_config
+			&ini_config,
+			&log_options
 		](
 			sge::systems::detail::renderer const &_param
 		)
 		{
 			impl_->init_renderer_system(
 				_param,
-				ini_config
+				ini_config//,
+				//log_settings
 			);
 		}
 	);
@@ -178,25 +210,6 @@ sge::systems::detail::instance::instance(
 			),
 			item.second
 		);
-
-	// FIXME: This needs to be done right after a plugin has been loaded
-	{
-		sge::systems::optional_log_settings const log_settings(
-			sge::systems::extract_config(
-				_list.get()
-			)
-			.log_settings()
-		);
-
-		if(
-			log_settings
-		)
-			fcppt::log::activate_levels_recursive(
-				sge::log::global_context(),
-				log_settings->location(),
-				log_settings->level()
-			);
-	}
 
 	impl_->post_init();
 }

@@ -34,6 +34,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/config/own_log_path.hpp>
 #include <sge/image/capabilities_field.hpp>
 #include <sge/image/color/predef.hpp>
+#include <sge/log/option.hpp>
+#include <sge/log/option_container.hpp>
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_set.hpp>
@@ -181,8 +183,12 @@ try
 			sge::systems::config()
 			.log_settings(
 				sge::systems::log_settings(
-					sge::cegui::log_location(),
-					fcppt::log::level::verbose
+					sge::log::option_container{
+						sge::log::option{
+							sge::cegui::log_location(),
+							fcppt::log::level::verbose
+						}
+					}
 				)
 			)
 		)

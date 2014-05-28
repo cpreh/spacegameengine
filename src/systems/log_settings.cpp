@@ -18,25 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/log/option_container.hpp>
+#include <sge/systems/log_redirect_path.hpp>
 #include <sge/systems/log_settings.hpp>
-#include <sge/systems/optional_path.hpp>
-#include <fcppt/log/level.hpp>
-#include <fcppt/log/location.hpp>
+#include <sge/systems/optional_log_redirect_path.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::systems::log_settings::log_settings(
-	fcppt::log::location const &_location,
-	fcppt::log::level const _level
+	sge::log::option_container const &_options
 )
 :
-	location_(
-		_location
-	),
-	level_(
-		_level
+	options_(
+		_options
 	),
 	redirect_()
 {
@@ -48,27 +44,22 @@ sge::systems::log_settings::redirect(
 )
 {
 	redirect_ =
-		_path;
+		sge::systems::log_redirect_path(
+			_path
+		);
 
 	return
 		*this;
 }
 
-fcppt::log::location const &
-sge::systems::log_settings::location() const
+sge::log::option_container const &
+sge::systems::log_settings::options() const
 {
 	return
-		location_;
+		options_;
 }
 
-fcppt::log::level
-sge::systems::log_settings::level() const
-{
-	return
-		level_;
-}
-
-sge::systems::optional_path const &
+sge::systems::optional_log_redirect_path const &
 sge::systems::log_settings::redirect() const
 {
 	return

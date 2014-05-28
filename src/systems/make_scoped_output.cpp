@@ -20,8 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/log/stream.hpp>
 #include <sge/src/systems/make_scoped_output.hpp>
-#include <sge/systems/optional_log_settings.hpp>
-#include <sge/systems/optional_path.hpp>
+#include <sge/systems/optional_log_redirect_path.hpp>
 #include <awl/main/scoped_output.hpp>
 #include <awl/main/scoped_output_unique_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -29,27 +28,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 awl::main::scoped_output_unique_ptr
 sge::systems::make_scoped_output(
-	sge::systems::optional_log_settings const &_log_settings
+	sge::systems::optional_log_redirect_path const &_log_redirect_path
 )
 {
-	if(
-		!_log_settings
-	)
-		return
-			awl::main::scoped_output_unique_ptr();
-
-	sge::systems::optional_path const &path(
-		_log_settings->redirect()
-	);
-
 	return
-		path
+		_log_redirect_path
 		?
 			fcppt::make_unique_ptr<
 				awl::main::scoped_output
 			>(
 				sge::log::stream(),
-				*path
+				_log_redirect_path->get()
 			)
 		:
 			awl::main::scoped_output_unique_ptr()

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_SYSTEMS_MAKE_SCOPED_OUTPUT_HPP_INCLUDED
 #define SGE_SRC_SYSTEMS_MAKE_SCOPED_OUTPUT_HPP_INCLUDED
 
-#include <sge/systems/optional_log_settings_fwd.hpp>
+#include <sge/systems/optional_log_redirect_path_fwd.hpp>
 #include <awl/main/scoped_output_unique_ptr.hpp>
 
 
@@ -32,7 +32,7 @@ namespace systems
 
 awl::main::scoped_output_unique_ptr
 make_scoped_output(
-	sge::systems::optional_log_settings const &
+	sge::systems::optional_log_redirect_path const &
 );
 
 }

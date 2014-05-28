@@ -37,7 +37,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/renderer/device/index.hpp>
 #include <sge/src/systems/make_scoped_output.hpp>
-#include <sge/src/systems/plugin_path.hpp>
 #include <sge/src/systems/detail/instance_impl.hpp>
 #include <sge/src/systems/modules/audio/loader.hpp>
 #include <sge/src/systems/modules/audio/player.hpp>
@@ -53,7 +52,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/audio_player_fwd.hpp>
 #include <sge/systems/font_fwd.hpp>
 #include <sge/systems/image2d_fwd.hpp>
-#include <sge/systems/optional_log_settings_fwd.hpp>
+#include <sge/systems/optional_log_redirect_path_fwd.hpp>
+#include <sge/systems/plugin_path.hpp>
 #include <sge/systems/window_fwd.hpp>
 #include <sge/systems/detail/input_fwd.hpp>
 #include <sge/systems/detail/renderer_fwd.hpp>
@@ -67,12 +67,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::systems::detail::instance_impl::instance_impl(
 	sge::systems::plugin_path const &_plugin_path,
-	sge::systems::optional_log_settings const &_log_settings
+	sge::systems::optional_log_redirect_path const &_log_redirect_path
 )
 :
 	scoped_output_(
 		sge::systems::make_scoped_output(
-			_log_settings
+			_log_redirect_path
 		)
 	),
 	plugin_cache_(),

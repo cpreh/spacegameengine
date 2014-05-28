@@ -18,61 +18,53 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_PLUGIN_OBJECT_IMPL_HPP_INCLUDED
-#define SGE_SRC_PLUGIN_OBJECT_IMPL_HPP_INCLUDED
+#ifndef SGE_SRC_PLUGIN_LOAD_WITH_LOG_OPTIONS_IMPL_HPP_INCLUDED
+#define SGE_SRC_PLUGIN_LOAD_WITH_LOG_OPTIONS_IMPL_HPP_INCLUDED
 
+#include <sge/log/apply_options.hpp>
+#include <sge/log/option_container.hpp>
+#include <sge/plugin/context.hpp>
+#include <sge/plugin/load_with_log_options.hpp>
 #include <sge/plugin/object.hpp>
-#include <sge/plugin/detail/traits.hpp>
-#include <sge/src/plugin/library/load_function.hpp>
-#include <sge/src/plugin/library/object.hpp>
+#include <sge/plugin/object_unique_ptr.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 template<
 	typename Type
 >
-sge::plugin::object<
+sge::plugin::object_unique_ptr<
 	Type
->::object(
-	library_shared_ptr const &_lib
+>
+sge::plugin::load_with_log_options(
+	sge::plugin::context<
+		Type
+	> const &_context,
+	sge::log::option_container const &_options
 )
-:
-	lib_(
-		_lib
-	),
-	loader_(
-		sge::plugin::library::load_function<
-			loader_fun
-		>(
-			*lib_,
-			sge::plugin::detail::traits<
-				Type
-			>::plugin_loader_name()
-		)
-	)
 {
-}
+	typedef
+	sge::plugin::object_unique_ptr<
+		Type
+	>
+	result_type;
 
-template<
-	typename Type
->
-sge::plugin::object<
-	Type
->::~object()
-{
-}
+	result_type result(
+		_context.load()
+	);
 
-template<
-	typename Type
->
-typename sge::plugin::object<
-	Type
->::loader_fun
-sge::plugin::object<
-	Type
->::get() const
-{
+	// TODO: This could be optimized by only applying the locations the
+	// plugin has
+	sge::log::apply_options(
+		_options
+	);
+
 	return
-		loader_;
+		std::move(
+			result
+		);
 }
 
 #endif

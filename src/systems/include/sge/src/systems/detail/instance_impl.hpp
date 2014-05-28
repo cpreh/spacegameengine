@@ -38,7 +38,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/renderer/device/index_fwd.hpp>
-#include <sge/src/systems/plugin_path.hpp>
 #include <sge/src/systems/modules/audio/loader_unique_ptr.hpp>
 #include <sge/src/systems/modules/audio/player_unique_ptr.hpp>
 #include <sge/src/systems/modules/font/object_unique_ptr.hpp>
@@ -52,7 +51,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/audio_player_fwd.hpp>
 #include <sge/systems/font_fwd.hpp>
 #include <sge/systems/image2d_fwd.hpp>
-#include <sge/systems/optional_log_settings_fwd.hpp>
+#include <sge/systems/optional_log_redirect_path_fwd.hpp>
+#include <sge/systems/plugin_path.hpp>
 #include <sge/systems/window_fwd.hpp>
 #include <sge/systems/detail/input_fwd.hpp>
 #include <sge/systems/detail/instance_impl_fwd.hpp>
@@ -79,7 +79,7 @@ class instance_impl
 public:
 	instance_impl(
 		sge::systems::plugin_path const &,
-		sge::systems::optional_log_settings const &
+		sge::systems::optional_log_redirect_path const &
 	);
 
 	~instance_impl();

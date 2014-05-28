@@ -1292,6 +1292,7 @@ set(
 	include/sge/line_drawer/render_to_screen.hpp
 	include/sge/line_drawer/scoped_lock.hpp
 	include/sge/line_drawer/scoped_lock_fwd.hpp
+	include/sge/log/apply_options.hpp
 	include/sge/log/default_parameters.hpp
 	include/sge/log/default_parameters_lib.hpp
 	include/sge/log/define_lib.hpp
@@ -1299,6 +1300,9 @@ set(
 	include/sge/log/define_plugin.hpp
 	include/sge/log/global_context.hpp
 	include/sge/log/location.hpp
+	include/sge/log/option.hpp
+	include/sge/log/option_container.hpp
+	include/sge/log/option_fwd.hpp
 	include/sge/log/stream.hpp
 	include/sge/media/all_extensions.hpp
 	include/sge/media/const_raw_pointer.hpp
@@ -1689,6 +1693,7 @@ set(
 	include/sge/plugin/library/object_shared_ptr.hpp
 	include/sge/plugin/library/symbol_not_found.hpp
 	include/sge/plugin/library/symbol_string.hpp
+	include/sge/plugin/load_with_log_options.hpp
 	include/sge/plugin/log_location.hpp
 	include/sge/plugin/manager.hpp
 	include/sge/plugin/manager_fwd.hpp
@@ -3362,18 +3367,22 @@ set(
 	include/sge/systems/list_fwd.hpp
 	include/sge/systems/list_impl.hpp
 	include/sge/systems/log_location.hpp
+	include/sge/systems/log_redirect_path.hpp
 	include/sge/systems/log_settings.hpp
 	include/sge/systems/log_settings_fwd.hpp
 	include/sge/systems/make_empty_list.hpp
 	include/sge/systems/make_list.hpp
 	include/sge/systems/mouse_collector.hpp
 	include/sge/systems/mouse_collector_fwd.hpp
+	include/sge/systems/optional_log_redirect_path.hpp
+	include/sge/systems/optional_log_redirect_path_fwd.hpp
 	include/sge/systems/optional_log_settings.hpp
 	include/sge/systems/optional_log_settings_fwd.hpp
 	include/sge/systems/optional_name.hpp
 	include/sge/systems/optional_name_fwd.hpp
-	include/sge/systems/optional_path.hpp
-	include/sge/systems/optional_path_fwd.hpp
+	include/sge/systems/optional_plugin_path.hpp
+	include/sge/systems/optional_plugin_path_fwd.hpp
+	include/sge/systems/plugin_path.hpp
 	include/sge/systems/quit_on_escape.hpp
 	include/sge/systems/renderer.hpp
 	include/sge/systems/renderer_caps.hpp

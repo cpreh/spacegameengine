@@ -18,25 +18,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_OPTIONAL_PATH_FWD_HPP_INCLUDED
-#define SGE_SYSTEMS_OPTIONAL_PATH_FWD_HPP_INCLUDED
+#ifndef SGE_LOG_OPTION_HPP_INCLUDED
+#define SGE_LOG_OPTION_HPP_INCLUDED
 
-#include <fcppt/optional_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <sge/log/option_fwd.hpp>
+#include <sge/log/symbol.hpp>
+#include <fcppt/log/level.hpp>
+#include <fcppt/log/location.hpp>
 
 
 namespace sge
 {
-namespace systems
+namespace log
 {
 
-typedef
-fcppt::optional<
-	boost::filesystem::path
->
-optional_path;
+class option
+{
+public:
+	SGE_LOG_SYMBOL
+	option(
+		fcppt::log::location const &,
+		fcppt::log::level
+	);
+
+	fcppt::log::location const &
+	location() const;
+
+	fcppt::log::level
+	level() const;
+private:
+	fcppt::log::location location_;
+
+	fcppt::log::level level_;
+};
 
 }
 }
