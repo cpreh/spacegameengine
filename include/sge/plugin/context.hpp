@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/context_base_fwd.hpp>
 #include <sge/plugin/context_fwd.hpp>
 #include <sge/plugin/info_fwd.hpp>
-#include <sge/plugin/object_unique_ptr.hpp>
+#include <sge/plugin/object_fwd.hpp>
 #include <sge/plugin/detail/instantiate/symbol.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -61,13 +61,13 @@ public:
 	~context();
 
 	typedef
-	sge::plugin::object_unique_ptr<
+	sge::plugin::object<
 		Type
 	>
-	object_unique_ptr;
+	object;
 
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
-	object_unique_ptr
+	object
 	load() const;
 
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL

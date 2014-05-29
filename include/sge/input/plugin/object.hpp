@@ -18,28 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_AUDIO_PLAYER_PLUGIN_OBJECT_UNIQUE_PTR_HPP_INCLUDED
-#define SGE_AUDIO_PLAYER_PLUGIN_OBJECT_UNIQUE_PTR_HPP_INCLUDED
+#ifndef SGE_INPUT_PLUGIN_OBJECT_HPP_INCLUDED
+#define SGE_INPUT_PLUGIN_OBJECT_HPP_INCLUDED
 
-#include <sge/audio/player_fwd.hpp>
-#include <sge/plugin/object_unique_ptr.hpp>
+#include <sge/input/plugin/object_fwd.hpp>
+#include <sge/input/plugin/traits.hpp>
+#include <sge/plugin/object.hpp>
 
-
-namespace sge
-{
-namespace audio
-{
-namespace player_plugin
-{
-
-typedef
-sge::plugin::object_unique_ptr<
-	sge::audio::player
->
-object_unique_ptr;
-
-}
-}
-}
 
 #endif

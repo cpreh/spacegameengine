@@ -74,7 +74,7 @@ public:
 	multi_processor(
 		sge::window::object const &,
 		sge::window::system const &,
-		sge::input::system_ptr_vector &
+		sge::input::system_ptr_vector const &
 	);
 
 	~multi_processor();

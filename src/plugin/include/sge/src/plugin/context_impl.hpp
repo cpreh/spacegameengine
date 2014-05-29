@@ -73,18 +73,17 @@ sge::plugin::context<
 template<
 	typename Type
 >
-typename sge::plugin::context<
+typename
+sge::plugin::context<
 	Type
->::object_unique_ptr
+>::object
 sge::plugin::context<
 	Type
 >::load() const
 {
 	return
-		fcppt::make_unique_ptr<
-			sge::plugin::object<
-				Type
-			>
+		sge::plugin::object<
+			Type
 		>(
 			context_base_.load()
 		);

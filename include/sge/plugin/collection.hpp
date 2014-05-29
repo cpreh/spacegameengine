@@ -43,15 +43,25 @@ class collection
 		collection
 	);
 public:
-	typedef sge::plugin::category_array::size_type size_type;
+	typedef
+	sge::plugin::category_array::size_type
+	size_type;
 
-	typedef sge::plugin::iterator<
+	typedef
+	sge::plugin::iterator<
 		Type
-	> iterator;
+	>
+	iterator;
 
-	typedef sge::plugin::context<
+	typedef
+	sge::plugin::context<
 		Type
-	> context;
+	>
+	context;
+
+	typedef
+	context
+	value_type;
 
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
 	explicit

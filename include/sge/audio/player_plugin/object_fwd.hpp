@@ -18,25 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_PLUGIN_OBJECT_UNIQUE_PTR_HPP_INCLUDED
-#define SGE_FONT_PLUGIN_OBJECT_UNIQUE_PTR_HPP_INCLUDED
+#ifndef SGE_AUDIO_PLAYER_PLUGIN_OBJECT_FWD_HPP_INCLUDED
+#define SGE_AUDIO_PLAYER_PLUGIN_OBJECT_FWD_HPP_INCLUDED
 
-#include <sge/font/system_fwd.hpp>
-#include <sge/plugin/object_unique_ptr.hpp>
+#include <sge/audio/player_fwd.hpp>
+#include <sge/plugin/object.hpp>
 
 
 namespace sge
 {
-namespace font
+namespace audio
 {
-namespace plugin
+namespace player_plugin
 {
 
 typedef
-sge::plugin::object_unique_ptr<
-	sge::font::system
+sge::plugin::object<
+	sge::audio::player
 >
-object_unique_ptr;
+object;
 
 }
 }

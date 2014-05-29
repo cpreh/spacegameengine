@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_SYSTEMS_PLUGIN_PAIR_DECL_HPP_INCLUDED
 #define SGE_SRC_SYSTEMS_PLUGIN_PAIR_DECL_HPP_INCLUDED
 
-#include <sge/plugin/object_unique_ptr.hpp>
+#include <sge/plugin/object.hpp>
 #include <sge/src/systems/plugin_pair_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -44,19 +44,19 @@ class plugin_pair
 	);
 public:
 	typedef
-	sge::plugin::object_unique_ptr<
+	sge::plugin::object<
 		System
 	>
-	plugin_unique_ptr;
+	plugin;
 
-	typedef std::unique_ptr<
+	typedef
+	std::unique_ptr<
 		System
-	> system_unique_ptr;
-
-	plugin_pair();
+	>
+	system_unique_ptr;
 
 	plugin_pair(
-		plugin_unique_ptr &&,
+		plugin &&,
 		system_unique_ptr &&
 	);
 
@@ -73,12 +73,8 @@ public:
 
 	System &
 	system() const;
-
-	explicit
-	operator
-	bool() const;
 private:
-	plugin_unique_ptr plugin_;
+	plugin plugin_;
 
 	system_unique_ptr system_;
 };

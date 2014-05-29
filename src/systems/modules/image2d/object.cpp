@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/multi_system_parameters.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/image2d/plugin/collection_fwd.hpp>
+#include <sge/log/option_container.hpp>
 #include <sge/src/systems/modules/image2d/object.hpp>
 #include <sge/systems/image2d.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -29,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::systems::modules::image2d::object::object(
 	sge::image2d::plugin::collection const &_collection,
+	sge::log::option_container const &_log_options,
 	sge::systems::image2d const &_parameters
 )
 :
@@ -40,6 +42,8 @@ sge::systems::modules::image2d::object::object(
 				_collection,
 				_parameters.extensions(),
 				_parameters.capabilities()
+			).log_options(
+				_log_options
 			)
 		)
 	)
@@ -53,5 +57,6 @@ sge::systems::modules::image2d::object::~object()
 sge::image2d::system &
 sge::systems::modules::image2d::object::system() const
 {
-	return *image_multi_system_;
+	return
+		*image_multi_system_;
 }

@@ -21,47 +21,78 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/capabilities_field.hpp>
 #include <sge/input/processor_unique_ptr.hpp>
 #include <sge/input/system.hpp>
+#include <sge/input/system_unique_ptr.hpp>
+#include <sge/input/plugin/context_fwd.hpp>
+#include <sge/input/plugin/object.hpp>
 #include <sge/input/plugin/traits.hpp>
 #include <sge/plugin/collection.hpp>
 #include <sge/plugin/context.hpp>
 #include <sge/plugin/iterator.hpp>
-#include <sge/plugin/object.hpp>
+#include <sge/plugin/load_with_log_options.hpp>
 #include <sge/src/input/multi_processor.hpp>
 #include <sge/src/input/multi_system.hpp>
+#include <sge/src/input/system_ptr_vector.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
+#include <fcppt/algorithm/fold.hpp>
+#include <fcppt/algorithm/map.hpp>
 
 
 sge::input::multi_system::multi_system(
-	sge::input::plugin::collection const &_collection
+	sge::input::plugin::collection const &_collection,
+	sge::log::option_container const &_log_options
 )
 :
 	sge::input::system(),
-	plugins_(),
-	systems_(),
+	plugins_(
+		fcppt::algorithm::map<
+			sge::input::multi_system::plugin_vector
+		>(
+			_collection,
+			[
+				&_log_options
+			](
+				sge::input::plugin::context const &_context
+			)
+			{
+				return
+					sge::plugin::load_with_log_options(
+						_context,
+						_log_options
+					);
+			}
+		)
+	),
+	systems_(
+		fcppt::algorithm::map<
+			sge::input::system_ptr_vector
+		>(
+			plugins_,
+			[](
+				sge::input::plugin::object const &_plugin
+			)
+			{
+				return
+					_plugin.get()();
+			}
+		)
+	),
 	capabilities_(
-		sge::input::capabilities_field::null()
+		fcppt::algorithm::fold(
+			systems_,
+			sge::input::capabilities_field::null(),
+			[](
+				sge::input::system_unique_ptr const &_system,
+				sge::input::capabilities_field const &_state
+			)
+			{
+				return
+					_state
+					|
+					_system->capabilities();
+			}
+		)
 	)
 {
-	for(
-		auto const plugin
-		:
-		_collection
-	)
-	{
-		fcppt::container::ptr::push_back_unique_ptr(
-			plugins_,
-			plugin.load()
-		);
-
-		fcppt::container::ptr::push_back_unique_ptr(
-			systems_,
-			plugins_.back().get()()
-		);
-
-		capabilities_ |=
-			systems_.back().capabilities();
-	}
 }
 
 sge::input::multi_system::~multi_system()

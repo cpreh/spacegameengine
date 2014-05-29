@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/log/option_container.hpp>
 #include <sge/src/systems/any_visitor.hpp>
 #include <sge/src/systems/detail/instance_impl.hpp>
 #include <sge/systems/audio_loader_fwd.hpp>
@@ -31,11 +32,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::systems::any_visitor::any_visitor(
-	sge::systems::detail::instance_impl &_impl
+	sge::systems::detail::instance_impl &_impl,
+	sge::log::option_container const &_log_options
 )
 :
 	impl_(
 		_impl
+	),
+	log_options_(
+		_log_options
 	)
 {
 }
@@ -73,7 +78,8 @@ sge::systems::any_visitor::operator()(
 ) const
 {
 	impl_.init_image2d(
-		_param
+		_param,
+		log_options_
 	);
 }
 
@@ -83,7 +89,8 @@ sge::systems::any_visitor::operator()(
 ) const
 {
 	impl_.init_audio_loader(
-		_param
+		_param,
+		log_options_
 	);
 }
 
@@ -93,7 +100,8 @@ sge::systems::any_visitor::operator()(
 ) const
 {
 	impl_.init_audio_player(
-		_param
+		_param,
+		log_options_
 	);
 }
 
@@ -103,7 +111,8 @@ sge::systems::any_visitor::operator()(
 ) const
 {
 	impl_.init_input(
-		_param
+		_param,
+		log_options_
 	);
 }
 
@@ -113,6 +122,7 @@ sge::systems::any_visitor::operator()(
 ) const
 {
 	impl_.init_font(
-		_param
+		_param,
+		log_options_
 	);
 }

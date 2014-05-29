@@ -49,8 +49,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/optional_cache_ref.hpp>
 #include <sge/audio/player_unique_ptr.hpp>
 #include <sge/audio/player_plugin/collection_fwd.hpp>
-#include <sge/audio/player_plugin/object_unique_ptr.hpp>
-#include <sge/audio/player_plugin/traits.hpp>
+#include <sge/audio/player_plugin/object.hpp>
 #include <sge/config/plugin_path.hpp>
 #endif // SGE_EXAMPLES_AUDIO_MINIMAL_USE_SYSTEMS_INIT
 #include <sge/audio/loader_capabilities_field.hpp>
@@ -123,11 +122,11 @@ try
 	sge::audio::player_plugin::collection const audio_players(
 		plugin_manager.collection<sge::audio::player>());
 
-	sge::audio::player_plugin::object_unique_ptr const player_plugin(
+	sge::audio::player_plugin::object const player_plugin(
 		audio_players.get(0u).load());
 
 	sge::audio::player_unique_ptr const _player(
-		player_plugin->get()());
+		player_plugin.get()());
 
 	sge::audio::player &player =
 		*_player;

@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_SYSTEMS_ANY_VISITOR_HPP_INCLUDED
 #define SGE_SRC_SYSTEMS_ANY_VISITOR_HPP_INCLUDED
 
+#include <sge/log/option_container.hpp>
 #include <sge/systems/audio_loader_fwd.hpp>
 #include <sge/systems/audio_player_fwd.hpp>
 #include <sge/systems/config_fwd.hpp>
@@ -46,9 +47,9 @@ class any_visitor
 public:
 	typedef void result_type;
 
-	explicit
 	any_visitor(
-		sge::systems::detail::instance_impl &
+		sge::systems::detail::instance_impl &,
+		sge::log::option_container const &
 	);
 
 	result_type
@@ -92,6 +93,8 @@ public:
 	) const;
 private:
 	sge::systems::detail::instance_impl &impl_;
+
+	sge::log::option_container const &log_options_;
 };
 
 }

@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/audio/player_fwd.hpp>
 #include <sge/audio/player_plugin/collection_fwd.hpp>
+#include <sge/log/option_container.hpp>
 #include <sge/src/systems/modules/audio/player_fwd.hpp>
 #include <sge/src/systems/modules/audio/player_pair.hpp>
 #include <sge/systems/audio_player_fwd.hpp>
@@ -46,6 +47,7 @@ class player
 public:
 	player(
 		sge::audio::player_plugin::collection const &,
+		sge::log::option_container const &,
 		sge::systems::audio_player const &
 	);
 

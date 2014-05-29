@@ -111,7 +111,8 @@ set(
 	include/sge/audio/player.hpp
 	include/sge/audio/player_fwd.hpp
 	include/sge/audio/player_plugin/collection_fwd.hpp
-	include/sge/audio/player_plugin/object_unique_ptr.hpp
+	include/sge/audio/player_plugin/object.hpp
+	include/sge/audio/player_plugin/object_fwd.hpp
 	include/sge/audio/player_plugin/traits.hpp
 	include/sge/audio/player_shared_ptr.hpp
 	include/sge/audio/player_unique_ptr.hpp
@@ -509,7 +510,8 @@ set(
 	include/sge/font/parameters_fwd.hpp
 	include/sge/font/parameters_to_string.hpp
 	include/sge/font/plugin/collection_fwd.hpp
-	include/sge/font/plugin/object_unique_ptr.hpp
+	include/sge/font/plugin/object.hpp
+	include/sge/font/plugin/object_fwd.hpp
 	include/sge/font/plugin/traits.hpp
 	include/sge/font/rect.hpp
 	include/sge/font/rect_fwd.hpp
@@ -1275,6 +1277,8 @@ set(
 	include/sge/input/mouse/remove_signal.hpp
 	include/sge/input/nullary_function.hpp
 	include/sge/input/plugin/collection_fwd.hpp
+	include/sge/input/plugin/context_fwd.hpp
+	include/sge/input/plugin/object.hpp
 	include/sge/input/plugin/object_fwd.hpp
 	include/sge/input/plugin/traits.hpp
 	include/sge/input/processor.hpp
@@ -1701,7 +1705,6 @@ set(
 	include/sge/plugin/name.hpp
 	include/sge/plugin/object.hpp
 	include/sge/plugin/object_fwd.hpp
-	include/sge/plugin/object_unique_ptr.hpp
 	include/sge/plugin/optional_cache_ref.hpp
 	include/sge/plugin/optional_cache_ref_fwd.hpp
 	include/sge/plugin/version.hpp
@@ -2059,7 +2062,8 @@ set(
 	include/sge/renderer/pixel_rect_fwd.hpp
 	include/sge/renderer/pixel_unit.hpp
 	include/sge/renderer/plugin/collection_fwd.hpp
-	include/sge/renderer/plugin/object_unique_ptr.hpp
+	include/sge/renderer/plugin/object.hpp
+	include/sge/renderer/plugin/object_fwd.hpp
 	include/sge/renderer/plugin/traits.hpp
 	include/sge/renderer/primitive_count.hpp
 	include/sge/renderer/primitive_type.hpp

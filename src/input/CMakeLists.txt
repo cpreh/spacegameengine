@@ -238,6 +238,8 @@ set(
 	include/sge/input/mouse/remove_signal.hpp
 	include/sge/input/nullary_function.hpp
 	include/sge/input/plugin/collection_fwd.hpp
+	include/sge/input/plugin/context_fwd.hpp
+	include/sge/input/plugin/object.hpp
 	include/sge/input/plugin/object_fwd.hpp
 	include/sge/input/plugin/traits.hpp
 	include/sge/input/processor.hpp

@@ -21,13 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_SYSTEMS_FIND_PLUGIN_HPP_INCLUDED
 #define SGE_SRC_SYSTEMS_FIND_PLUGIN_HPP_INCLUDED
 
+#include <sge/log/option_container.hpp>
 #include <sge/plugin/collection.hpp>
 #include <sge/plugin/context.hpp>
 #include <sge/plugin/flags.hpp>
 #include <sge/plugin/info.hpp>
 #include <sge/plugin/iterator.hpp>
+#include <sge/plugin/load_with_log_options.hpp>
 #include <sge/plugin/object.hpp>
-#include <sge/plugin/object_unique_ptr.hpp>
 #include <sge/src/systems/plugin_pair_decl.hpp>
 #include <sge/systems/exception.hpp>
 #include <sge/systems/optional_name.hpp>
@@ -56,6 +57,7 @@ find_plugin(
 	sge::plugin::collection<
 		System
 	> const &_collection,
+	sge::log::option_container const &_log_options,
 	sge::systems::optional_name const &_name,
 	TestFunction const &_test_function
 )
@@ -65,7 +67,7 @@ find_plugin(
 	> return_type;
 
 	for(
-		auto element
+		auto const &element
 		:
 		_collection
 	)
@@ -86,13 +88,16 @@ find_plugin(
 			continue;
 
 		typedef
-		sge::plugin::object_unique_ptr<
+		sge::plugin::object<
 			System
 		>
-		plugin_unique_ptr;
+		plugin_type;
 
-		plugin_unique_ptr plugin(
-			element.load()
+		plugin_type plugin(
+			sge::plugin::load_with_log_options(
+				element,
+				_log_options
+			)
 		);
 
 		typedef
@@ -102,7 +107,7 @@ find_plugin(
 		system_unique_ptr;
 
 		system_unique_ptr system(
-			plugin->get()()
+			plugin.get()()
 		);
 
 		if(

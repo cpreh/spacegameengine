@@ -25,14 +25,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/processor_unique_ptr.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/plugin/collection_fwd.hpp>
-#include <sge/input/plugin/object_fwd.hpp>
+#include <sge/input/plugin/object.hpp>
+#include <sge/log/option_container.hpp>
 #include <sge/plugin/manager_fwd.hpp>
 #include <sge/src/input/system_ptr_vector.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
+#include <vector>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -49,9 +50,9 @@ class multi_system
 		multi_system
 	);
 public:
-	explicit
 	multi_system(
-		sge::input::plugin::collection const &
+		sge::input::plugin::collection const &,
+		sge::log::option_container const &
 	);
 
 	~multi_system()
@@ -69,7 +70,7 @@ private:
 	override;
 
 	typedef
-	boost::ptr_vector<
+	std::vector<
 		sge::input::plugin::object
 	>
 	plugin_vector;

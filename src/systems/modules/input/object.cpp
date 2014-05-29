@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/device_fwd.hpp>
 #include <sge/input/mouse/device_unique_ptr.hpp>
 #include <sge/input/plugin/collection_fwd.hpp>
+#include <sge/log/option_container.hpp>
 #include <sge/src/systems/logger.hpp>
 #include <sge/src/systems/modules/input/cursor_modifier.hpp>
 #include <sge/src/systems/modules/input/cursor_modifier_unique_ptr.hpp>
@@ -49,6 +50,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::systems::modules::input::object::object(
 	sge::input::plugin::collection const &_collection,
+	sge::log::option_container const &_log_options,
 	sge::systems::detail::input const &_parameters,
 	sge::systems::modules::window::system const &_window_system,
 	sge::systems::modules::window::object const &_window_object
@@ -56,7 +58,8 @@ sge::systems::modules::input::object::object(
 :
 	input_system_(
 		sge::input::create_multi_system(
-			_collection
+			_collection,
+			_log_options
 		)
 	),
 	input_processor_(

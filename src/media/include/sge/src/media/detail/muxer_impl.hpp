@@ -28,26 +28,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/collection.hpp>
 #include <sge/plugin/context.hpp>
 #include <sge/plugin/iterator.hpp>
+#include <sge/plugin/load_with_log_options.hpp>
 #include <sge/plugin/object.hpp>
-#include <sge/plugin/object_unique_ptr.hpp>
 #include <sge/src/media/logger.hpp>
 #include <sge/src/media/detail/muxer.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name_from_info.hpp>
 #include <fcppt/algorithm/contains.hpp>
+#include <fcppt/algorithm/fold.hpp>
+#include <fcppt/algorithm/map_optional.hpp>
 #include <fcppt/algorithm/set_intersection.hpp>
 #include <fcppt/algorithm/set_union.hpp>
 #include <fcppt/container/bitfield/is_subset_eq.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
-#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <memory>
-#include <typeinfo>
 #include <utility>
+#include <typeinfo>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -64,101 +66,127 @@ sge::media::detail::muxer<
 	parameters const &_parameters
 )
 :
-	plugins_(),
-	systems_(),
-	capabilities_(
-		_parameters.capabilities()
-	),
-	extensions_()
-{
-	sge::plugin::collection<
-		system
-	> const &collection(
-		_parameters.collection()
-	);
-
-	for(
-		auto element
-		:
-		collection
-	)
-	{
-		typedef
-		sge::plugin::object_unique_ptr<
-			System
-		>
-		plugin_unique_ptr;
-
-		plugin_unique_ptr plugin(
-			element.load()
-		);
-
-		typedef std::unique_ptr<
-			System
-		> system_unique_ptr;
-
-		system_unique_ptr system_instance(
-			plugin->get()()
-		);
-
-		// check if this plugin might be useful
-		if(
-			fcppt::container::bitfield::is_subset_eq(
-				_parameters.capabilities(),
-				system_instance->capabilities()
+	plugins_(
+		fcppt::algorithm::map_optional<
+			plugin_system_pair_container
+		>(
+			_parameters.collection(),
+			[
+				&_parameters
+			](
+				sge::plugin::context<
+					System
+				> const &_context
 			)
-			&&
-			(
-				!_parameters.extensions().has_value()
-				||
-				!fcppt::algorithm::set_intersection(
-					*_parameters.extensions(),
-					system_instance->extensions()
-				).empty()
-			)
-		)
-		{
-			capabilities_ &=
-				system_instance->capabilities();
-
-			extensions_ =
-				fcppt::algorithm::set_union(
-					system_instance->extensions(),
-					extensions_
+			{
+				plugin_type plugin(
+					sge::plugin::load_with_log_options(
+						_context,
+						_parameters.log_options()
+					)
 				);
 
-			fcppt::container::ptr::push_back_unique_ptr(
-				plugins_,
-				std::move(
-					plugin
-				)
-			);
+				system_unique_ptr system_instance(
+					plugin.get()()
+				);
 
-			fcppt::container::ptr::push_back_unique_ptr(
-				systems_,
-				std::move(
-					system_instance
-				)
-			);
-		}
-		else
-		{
-			FCPPT_LOG_DEBUG(
-				sge::media::logger(),
-				fcppt::log::_
-					<< FCPPT_TEXT("system ")
-					<<
-					fcppt::type_name_from_info(
-						typeid(
-							system
-						)
+				typedef
+				fcppt::optional<
+					plugin_system_pair
+				>
+				optional_plugin_system_pair;
+
+				// check if this plugin might be useful
+				optional_plugin_system_pair result(
+					fcppt::container::bitfield::is_subset_eq(
+						_parameters.capabilities(),
+						system_instance->capabilities()
 					)
-					<< FCPPT_TEXT(" didn't find plugin ")
-					<< element.path()
-					<< FCPPT_TEXT(" to be useful.")
+					&&
+					(
+						!_parameters.extensions().has_value()
+						||
+						!fcppt::algorithm::set_intersection(
+							*_parameters.extensions(),
+							system_instance->extensions()
+						).empty()
+					)
+					?
+						optional_plugin_system_pair(
+							std::make_pair(
+								std::move(
+									plugin
+								),
+								std::move(
+									system_instance
+								)
+							)
+						)
+					:
+						optional_plugin_system_pair()
+				);
+
+				if(
+					!result
+				)
+					FCPPT_LOG_DEBUG(
+						sge::media::logger(),
+						fcppt::log::_
+							<< FCPPT_TEXT("System ")
+							<< fcppt::type_name_from_info(
+								typeid(
+									system
+								)
+							)
+							<< FCPPT_TEXT(" didn't find plugin ")
+							<< fcppt::filesystem::path_to_string(
+								_context.path()
+							)
+							<< FCPPT_TEXT(" to be useful.")
+					);
+
+				return
+					std::move(
+						result
+					);
+			}
+		)
+	),
+	capabilities_(
+		fcppt::algorithm::fold(
+			plugins_,
+			_parameters.capabilities(),
+			[](
+				plugin_system_pair const &_plugin,
+				capabilities_field const &_state
 			)
-		}
-	}
+			{
+				return
+					_state
+					&
+					_plugin.second->capabilities();
+			}
+		)
+	),
+	extensions_(
+		fcppt::algorithm::fold(
+			plugins_,
+			sge::media::extension_set(),
+			[](
+				plugin_system_pair const &_plugin,
+				sge::media::extension_set const &_state
+			)
+			{
+				return
+					fcppt::algorithm::set_union(
+						_plugin.second->extensions(),
+						_state
+					);
+
+			}
+		)
+	)
+{
 }
 
 template<
@@ -222,16 +250,20 @@ sge::media::detail::muxer<
 ) const
 {
 	for(
-		auto &cur_system
+		auto &cur_plugin
 		:
-		systems_
+		plugins_
 	)
 	{
+		auto &cur_system(
+			cur_plugin.second
+		);
+
 		if(
 			_extension
 			&&
 			!fcppt::algorithm::contains(
-				cur_system.extensions(),
+				cur_system->extensions(),
 				*_extension
 			)
 		)
@@ -239,7 +271,7 @@ sge::media::detail::muxer<
 
 		file_unique_ptr result(
 			_function(
-				cur_system
+				*cur_system
 			)
 		);
 

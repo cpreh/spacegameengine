@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/log/option_container.hpp>
 #include <sge/plugin/context_fwd.hpp>
-#include <sge/plugin/object_unique_ptr.hpp>
+#include <sge/plugin/object.hpp>
 #include <sge/plugin/detail/instantiate/symbol.hpp>
 
 
@@ -36,7 +36,7 @@ template<
 	typename Type
 >
 SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
-sge::plugin::object_unique_ptr<
+sge::plugin::object<
 	Type
 >
 load_with_log_options(

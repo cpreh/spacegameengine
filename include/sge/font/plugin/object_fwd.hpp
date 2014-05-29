@@ -18,25 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_PLUGIN_OBJECT_UNIQUE_PTR_HPP_INCLUDED
-#define SGE_RENDERER_PLUGIN_OBJECT_UNIQUE_PTR_HPP_INCLUDED
+#ifndef SGE_FONT_PLUGIN_OBJECT_FWD_HPP_INCLUDED
+#define SGE_FONT_PLUGIN_OBJECT_FWD_HPP_INCLUDED
 
-#include <sge/plugin/object_unique_ptr.hpp>
-#include <sge/renderer/core_fwd.hpp>
+#include <sge/font/system_fwd.hpp>
+#include <sge/plugin/object_fwd.hpp>
 
 
 namespace sge
 {
-namespace renderer
+namespace font
 {
 namespace plugin
 {
 
 typedef
-sge::plugin::object_unique_ptr<
-	sge::renderer::core
+sge::plugin::object<
+	sge::font::system
 >
-object_unique_ptr;
+object;
 
 }
 }

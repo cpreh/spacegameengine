@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/object_fwd.hpp>
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/input/mouse/device_fwd.hpp>
+#include <sge/log/option_container.hpp>
 #include <sge/parse/ini/start_fwd.hpp>
 #include <sge/plugin/collection.hpp>
 #include <sge/plugin/manager.hpp>
@@ -114,7 +115,8 @@ sge::systems::detail::instance_impl::init_window_system(
 void
 sge::systems::detail::instance_impl::init_renderer_system(
 	sge::systems::detail::renderer const &_parameters,
-	sge::parse::ini::start const &_config
+	sge::parse::ini::start const &_config,
+	sge::log::option_container const &_log_options
 )
 {
 	FCPPT_ASSERT_PRE(
@@ -128,6 +130,7 @@ sge::systems::detail::instance_impl::init_renderer_system(
 			plugin_manager_.collection<
 				sge::renderer::core
 			>(),
+			_log_options,
 			_parameters,
 			_config,
 			*window_system_
@@ -184,7 +187,8 @@ sge::systems::detail::instance_impl::init_renderer(
 
 void
 sge::systems::detail::instance_impl::init_input(
-	sge::systems::detail::input const &_parameters
+	sge::systems::detail::input const &_parameters,
+	sge::log::option_container const &_log_options
 )
 {
 	FCPPT_ASSERT_PRE(
@@ -202,6 +206,7 @@ sge::systems::detail::instance_impl::init_input(
 			plugin_manager_.collection<
 				sge::input::system
 			>(),
+			_log_options,
 			_parameters,
 			*window_system_,
 			*window_object_
@@ -210,7 +215,8 @@ sge::systems::detail::instance_impl::init_input(
 
 void
 sge::systems::detail::instance_impl::init_image2d(
-	sge::systems::image2d const &_parameters
+	sge::systems::image2d const &_parameters,
+	sge::log::option_container const &_log_options
 )
 {
 	image2d_ =
@@ -220,13 +226,15 @@ sge::systems::detail::instance_impl::init_image2d(
 			plugin_manager_.collection<
 				sge::image2d::system
 			>(),
+			_log_options,
 			_parameters
 		);
 }
 
 void
 sge::systems::detail::instance_impl::init_audio_loader(
-	sge::systems::audio_loader const &_parameters
+	sge::systems::audio_loader const &_parameters,
+	sge::log::option_container const &_log_options
 )
 {
 	audio_loader_ =
@@ -236,13 +244,15 @@ sge::systems::detail::instance_impl::init_audio_loader(
 			plugin_manager_.collection<
 				sge::audio::loader
 			>(),
+			_log_options,
 			_parameters
 		);
 }
 
 void
 sge::systems::detail::instance_impl::init_audio_player(
-	sge::systems::audio_player const &_parameters
+	sge::systems::audio_player const &_parameters,
+	sge::log::option_container const &_log_options
 )
 {
 	audio_player_ =
@@ -252,13 +262,15 @@ sge::systems::detail::instance_impl::init_audio_player(
 			plugin_manager_.collection<
 				sge::audio::player
 			>(),
+			_log_options,
 			_parameters
 		);
 }
 
 void
 sge::systems::detail::instance_impl::init_font(
-	sge::systems::font const &_parameters
+	sge::systems::font const &_parameters,
+	sge::log::option_container const &_log_options
 )
 {
 	font_ =
@@ -268,6 +280,7 @@ sge::systems::detail::instance_impl::init_font(
 			plugin_manager_.collection<
 				sge::font::system
 			>(),
+			_log_options,
 			_parameters
 		);
 }

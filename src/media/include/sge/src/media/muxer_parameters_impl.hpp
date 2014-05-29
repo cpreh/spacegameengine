@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_MEDIA_MUXER_PARAMETERS_IMPL_HPP_INCLUDED
 #define SGE_SRC_MEDIA_MUXER_PARAMETERS_IMPL_HPP_INCLUDED
 
+#include <sge/log/option_container.hpp>
 #include <sge/media/muxer_parameters.hpp>
 #include <sge/media/optional_extension_set.hpp>
 
@@ -46,8 +47,31 @@ sge::media::muxer_parameters<
 	),
 	capabilities_(
 		_capabilities
-	)
+	),
+	log_options_()
 {
+}
+
+template<
+	typename System,
+	typename Capabilities
+>
+sge::media::muxer_parameters<
+	System,
+	Capabilities
+> &
+sge::media::muxer_parameters<
+	System,
+	Capabilities
+>::log_options(
+	sge::log::option_container const &_log_options
+)
+{
+	log_options_ =
+		_log_options;
+
+	return
+		*this;
 }
 
 template<
@@ -96,6 +120,20 @@ sge::media::muxer_parameters<
 {
 	return
 		capabilities_;
+}
+
+template<
+	typename System,
+	typename Capabilities
+>
+sge::log::option_container const &
+sge::media::muxer_parameters<
+	System,
+	Capabilities
+>::log_options() const
+{
+	return
+		log_options_;
 }
 
 #endif

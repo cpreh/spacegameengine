@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_SYSTEMS_MODULES_RENDERER_FIND_PLUGIN_HPP_INCLUDED
 #define SGE_SRC_SYSTEMS_MODULES_RENDERER_FIND_PLUGIN_HPP_INCLUDED
 
+#include <sge/log/option_container.hpp>
 #include <sge/renderer/caps/system_field_fwd.hpp>
 #include <sge/renderer/plugin/collection_fwd.hpp>
 #include <sge/src/systems/modules/renderer/plugin_core_pair_fwd.hpp>
@@ -40,6 +41,7 @@ namespace renderer
 sge::systems::modules::renderer::plugin_core_pair
 find_plugin(
 	sge::renderer::plugin::collection const &,
+	sge::log::option_container const &,
 	sge::systems::optional_name const &,
 	sge::renderer::caps::system_field const &,
 	sge::systems::renderer_caps

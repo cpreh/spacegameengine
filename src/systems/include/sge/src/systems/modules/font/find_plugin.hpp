@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_SYSTEMS_MODULES_FONT_FIND_PLUGIN_HPP_INCLUDED
 
 #include <sge/font/plugin/collection_fwd.hpp>
-#include <sge/font/plugin/object_unique_ptr.hpp>
+#include <sge/font/plugin/object.hpp>
+#include <sge/log/option_container.hpp>
 #include <sge/systems/font_fwd.hpp>
 
 
@@ -35,9 +36,10 @@ namespace modules
 namespace font
 {
 
-sge::font::plugin::object_unique_ptr
+sge::font::plugin::object
 find_plugin(
 	sge::font::plugin::collection const &,
+	sge::log::option_container const &,
 	sge::systems::font const &
 );
 

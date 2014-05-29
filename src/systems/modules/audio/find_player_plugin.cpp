@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/player.hpp>
 #include <sge/audio/player_plugin/collection_fwd.hpp>
 #include <sge/audio/player_plugin/traits.hpp>
+#include <sge/log/option_container.hpp>
 #include <sge/plugin/manager_fwd.hpp>
 #include <sge/src/systems/find_plugin.hpp>
 #include <sge/src/systems/find_plugin_opt.hpp>
@@ -28,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/modules/audio/find_player_plugin.hpp>
 #include <sge/src/systems/modules/audio/player_pair.hpp>
 #include <sge/systems/audio_player.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/warning.hpp>
@@ -36,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::systems::modules::audio::player_pair
 sge::systems::modules::audio::find_player_plugin(
 	sge::audio::player_plugin::collection const &_collection,
+	sge::log::option_container const &_log_options,
 	sge::systems::audio_player const &_parameters
 )
 {
@@ -47,6 +50,7 @@ sge::systems::modules::audio::find_player_plugin(
 				sge::audio::player
 			>(
 				_collection,
+				_log_options,
 				_parameters.name(),
 				[](
 					sge::audio::player const &
@@ -57,11 +61,18 @@ sge::systems::modules::audio::find_player_plugin(
 				}
 			);
 
-	sge::systems::modules::audio::player_pair result(
+	typedef
+	fcppt::optional<
+		sge::systems::modules::audio::player_pair
+	>
+	optional_player_pair;
+
+	optional_player_pair result(
 		sge::systems::find_plugin_opt<
 			sge::audio::player
 		>(
 			_collection,
+			_log_options,
 			[](
 				sge::audio::player const &_player
 			)
@@ -77,7 +88,7 @@ sge::systems::modules::audio::find_player_plugin(
 	)
 		return
 			std::move(
-				result
+				*result
 			);
 
 	FCPPT_LOG_WARNING(
@@ -92,6 +103,7 @@ sge::systems::modules::audio::find_player_plugin(
 			sge::audio::player
 		>(
 			_collection,
+			_log_options,
 			_parameters.name(),
 			[](
 				sge::audio::player const &_player

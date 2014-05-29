@@ -18,14 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/font/system_fwd.hpp>
 #include <sge/font/plugin/collection_fwd.hpp>
-#include <sge/font/plugin/object_unique_ptr.hpp>
-#include <sge/font/plugin/traits.hpp>
+#include <sge/font/plugin/object.hpp>
+#include <sge/log/option_container.hpp>
 #include <sge/plugin/collection.hpp>
 #include <sge/plugin/context.hpp>
 #include <sge/plugin/info.hpp>
 #include <sge/plugin/iterator.hpp>
+#include <sge/plugin/load_with_log_options.hpp>
 #include <sge/plugin/object.hpp>
 #include <sge/src/systems/modules/font/find_plugin.hpp>
 #include <sge/systems/exception.hpp>
@@ -34,26 +34,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 
 
-sge::font::plugin::object_unique_ptr
+sge::font::plugin::object
 sge::systems::modules::font::find_plugin(
 	sge::font::plugin::collection const &_collection,
+	sge::log::option_container const &_log_options,
 	sge::systems::font const &_parameters
 )
 {
-	typedef sge::plugin::iterator<
-		sge::font::system
-	> iterator;
-
 	sge::systems::optional_name const name(
 		_parameters.name()
 	);
 
 	for(
-		iterator it(
-			_collection.begin()
-		);
-		it != _collection.end();
-		++it
+		auto element
+		:
+		_collection
 	)
 	{
 		if(
@@ -61,10 +56,13 @@ sge::systems::modules::font::find_plugin(
 			||
 			*name
 			==
-			it->info().name()
+			element.info().name()
 		)
 			return
-				it->load();
+				sge::plugin::load_with_log_options(
+					element,
+					_log_options
+				);
 	}
 
 	throw sge::systems::exception(

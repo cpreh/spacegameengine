@@ -27,7 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::input::system_unique_ptr
 sge::input::create_multi_system(
-	sge::input::plugin::collection const &_collection
+	sge::input::plugin::collection const &_collection,
+	sge::log::option_container const &_log_options
 )
 {
 	return
@@ -35,7 +36,8 @@ sge::input::create_multi_system(
 			fcppt::make_unique_ptr<
 				sge::input::multi_system
 			>(
-				_collection
+				_collection,
+				_log_options
 			)
 		);
 }

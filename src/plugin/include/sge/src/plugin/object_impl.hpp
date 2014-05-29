@@ -57,6 +57,27 @@ template<
 >
 sge::plugin::object<
 	Type
+>::object(
+	object &&
+) = default;
+
+template<
+	typename Type
+>
+sge::plugin::object<
+	Type
+> &
+sge::plugin::object<
+	Type
+>::operator=(
+	object &&
+) = default;
+
+template<
+	typename Type
+>
+sge::plugin::object<
+	Type
 >::~object()
 {
 }

@@ -53,7 +53,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::input::multi_processor::multi_processor(
 	sge::window::object const &_window,
 	sge::window::system const &_window_system,
-	sge::input::system_ptr_vector &_systems
+	sge::input::system_ptr_vector const &_systems
 )
 :
 	sge::input::processor(),
@@ -68,6 +68,7 @@ sge::input::multi_processor::multi_processor(
 	joypad_remove_(),
 	connections_()
 {
+	// TODO: Initialize directly
 	for(
 		auto &system
 		:
@@ -75,7 +76,7 @@ sge::input::multi_processor::multi_processor(
 	)
 	{
 		sge::input::processor_unique_ptr new_processor(
-			system.create_processor(
+			system->create_processor(
 				_window,
 				_window_system
 			)

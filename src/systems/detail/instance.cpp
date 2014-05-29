@@ -193,8 +193,8 @@ sge::systems::detail::instance::instance(
 		{
 			impl_->init_renderer_system(
 				_param,
-				ini_config//,
-				//log_settings
+				ini_config,
+				log_options
 			);
 		}
 	);
@@ -206,7 +206,8 @@ sge::systems::detail::instance::instance(
 	)
 		fcppt::variant::apply_unary(
 			sge::systems::any_visitor(
-				*impl_
+				*impl_,
+				log_options
 			),
 			item.second
 		);

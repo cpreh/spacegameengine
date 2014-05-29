@@ -18,33 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PLUGIN_OBJECT_UNIQUE_PTR_HPP_INCLUDED
-#define SGE_PLUGIN_OBJECT_UNIQUE_PTR_HPP_INCLUDED
+#ifndef SGE_RENDERER_PLUGIN_OBJECT_HPP_INCLUDED
+#define SGE_RENDERER_PLUGIN_OBJECT_HPP_INCLUDED
 
-#include <sge/plugin/object_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <memory>
-#include <fcppt/config/external_end.hpp>
+#include <sge/plugin/object.hpp>
+#include <sge/renderer/plugin/object_fwd.hpp>
+#include <sge/renderer/plugin/traits.hpp>
 
-
-namespace sge
-{
-namespace plugin
-{
-
-template<
-	typename Type
->
-using
-object_unique_ptr
-=
-std::unique_ptr<
-	sge::plugin::object<
-		Type
-	>
->;
-
-}
-}
 
 #endif

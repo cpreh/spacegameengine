@@ -36,12 +36,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-
 sge::audio::multi_loader::multi_loader(
 	sge::audio::multi_loader_parameters const &_param
 )
 :
-	sge::audio::loader(),
 	muxer_(
 		_param
 	)

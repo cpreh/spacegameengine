@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MEDIA_MUXER_PARAMETERS_HPP_INCLUDED
 #define SGE_MEDIA_MUXER_PARAMETERS_HPP_INCLUDED
 
+#include <sge/log/option_container.hpp>
 #include <sge/media/muxer_parameters_fwd.hpp>
 #include <sge/media/optional_extension_set.hpp>
 #include <sge/media/detail/instantiate/symbol.hpp>
@@ -43,17 +44,27 @@ class muxer_parameters
 		muxer_parameters
 	);
 public:
-	typedef Capabilities capabilities_type;
+	typedef
+	Capabilities
+	capabilities_type;
 
-	typedef sge::plugin::collection<
+	typedef
+	sge::plugin::collection<
 		System
-	> collection_type;
+	>
+	collection_type;
 
 	SGE_MEDIA_DETAIL_INSTANTIATE_SYMBOL
 	muxer_parameters(
 		collection_type const &,
 		sge::media::optional_extension_set const &,
 		capabilities_type const &
+	);
+
+	SGE_MEDIA_DETAIL_INSTANTIATE_SYMBOL
+	muxer_parameters &
+	log_options(
+		sge::log::option_container const &
 	);
 
 	SGE_MEDIA_DETAIL_INSTANTIATE_SYMBOL
@@ -67,12 +78,18 @@ public:
 	SGE_MEDIA_DETAIL_INSTANTIATE_SYMBOL
 	capabilities_type const &
 	capabilities() const;
+
+	SGE_MEDIA_DETAIL_INSTANTIATE_SYMBOL
+	sge::log::option_container const &
+	log_options() const;
 private:
 	collection_type const collection_;
 
 	sge::media::optional_extension_set const extensions_;
 
 	capabilities_type const capabilities_;
+
+	sge::log::option_container log_options_;
 };
 
 }

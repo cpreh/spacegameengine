@@ -32,9 +32,11 @@ namespace input
 namespace plugin
 {
 
-typedef sge::plugin::collection<
+typedef
+sge::plugin::collection<
 	sge::input::system
-> collection;
+>
+collection;
 
 }
 }

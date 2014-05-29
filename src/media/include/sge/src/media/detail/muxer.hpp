@@ -30,9 +30,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/bitfield/object_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
 #include <functional>
 #include <memory>
+#include <vector>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -100,25 +101,42 @@ public:
 	sge::media::extension_set
 	extensions() const;
 private:
-	typedef sge::plugin::object<
+	typedef
+	sge::plugin::object<
 		system
-	> plugin_type;
+	>
+	plugin_type;
 
-	typedef boost::ptr_vector<
+	typedef
+	std::vector<
 		plugin_type
-	> plugin_container;
+	>
+	plugin_container;
 
-	typedef boost::ptr_vector<
+	typedef
+	std::unique_ptr<
 		system
-	> system_container;
+	>
+	system_unique_ptr;
 
-	plugin_container plugins_;
+	typedef
+	std::pair<
+		plugin_type,
+		system_unique_ptr
+	>
+	plugin_system_pair;
 
-	mutable system_container systems_;
+	typedef
+	std::vector<
+		plugin_system_pair
+	>
+	plugin_system_pair_container;
 
-	capabilities_field capabilities_;
+	plugin_system_pair_container const plugins_;
 
-	sge::media::extension_set extensions_;
+	capabilities_field const capabilities_;
+
+	sge::media::extension_set const extensions_;
 };
 
 }

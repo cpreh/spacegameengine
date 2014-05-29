@@ -18,27 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_CREATE_MULTI_SYSTEM_HPP_INCLUDED
-#define SGE_INPUT_CREATE_MULTI_SYSTEM_HPP_INCLUDED
+#ifndef SGE_RENDERER_PLUGIN_OBJECT_FWD_HPP_INCLUDED
+#define SGE_RENDERER_PLUGIN_OBJECT_FWD_HPP_INCLUDED
 
-#include <sge/input/symbol.hpp>
-#include <sge/input/system_unique_ptr.hpp>
-#include <sge/input/plugin/collection_fwd.hpp>
-#include <sge/log/option_container.hpp>
+#include <sge/plugin/object_fwd.hpp>
+#include <sge/renderer/core_fwd.hpp>
 
 
 namespace sge
 {
-namespace input
+namespace renderer
+{
+namespace plugin
 {
 
-SGE_INPUT_SYMBOL
-sge::input::system_unique_ptr
-create_multi_system(
-	sge::input::plugin::collection const &,
-	sge::log::option_container const &
-);
+typedef
+sge::plugin::object<
+	sge::renderer::core
+>
+object;
 
+}
 }
 }
 

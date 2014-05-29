@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/object_fwd.hpp>
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/input/mouse/device_fwd.hpp>
+#include <sge/log/option_container.hpp>
 #include <sge/parse/ini/start_fwd.hpp>
 #include <sge/plugin/cache.hpp>
 #include <sge/plugin/manager.hpp>
@@ -92,7 +93,8 @@ public:
 	void
 	init_renderer_system(
 		sge::systems::detail::renderer const &,
-		sge::parse::ini::start const &
+		sge::parse::ini::start const &,
+		sge::log::option_container const &
 	);
 
 	void
@@ -107,27 +109,32 @@ public:
 
 	void
 	init_input(
-		sge::systems::detail::input const &
+		sge::systems::detail::input const &,
+		sge::log::option_container const &
 	);
 
 	void
 	init_image2d(
-		sge::systems::image2d const &
+		sge::systems::image2d const &,
+		sge::log::option_container const &
 	);
 
 	void
 	init_audio_loader(
-		sge::systems::audio_loader const &
+		sge::systems::audio_loader const &,
+		sge::log::option_container const &
 	);
 
 	void
 	init_audio_player(
-		sge::systems::audio_player const &
+		sge::systems::audio_player const &,
+		sge::log::option_container const &
 	);
 
 	void
 	init_font(
-		sge::systems::font const &
+		sge::systems::font const &,
+		sge::log::option_container const &
 	);
 
 	void

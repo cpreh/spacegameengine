@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_INPUT_SYSTEM_PTR_VECTOR_HPP_INCLUDED
 #define SGE_SRC_INPUT_SYSTEM_PTR_VECTOR_HPP_INCLUDED
 
-#include <sge/input/system_fwd.hpp>
+#include <sge/input/system_unique_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
+#include <vector>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -32,9 +32,11 @@ namespace sge
 namespace input
 {
 
-typedef boost::ptr_vector<
-	sge::input::system
-> system_ptr_vector;
+typedef
+std::vector<
+	sge::input::system_unique_ptr
+>
+system_ptr_vector;
 
 }
 }

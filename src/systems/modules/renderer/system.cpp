@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/log/option_container.hpp>
 #include <sge/parse/ini/entry_name.hpp>
 #include <sge/parse/ini/start_fwd.hpp>
 #include <sge/renderer/core.hpp>
@@ -36,6 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::systems::modules::renderer::system::system(
 	sge::renderer::plugin::collection const &_collection,
+	sge::log::option_container const &_log_options,
 	sge::systems::detail::renderer const &_parameters,
 	sge::parse::ini::start const &_config,
 	sge::systems::modules::window::system const &_window_system
@@ -47,6 +49,7 @@ sge::systems::modules::renderer::system::system(
 	plugin_core_pair_(
 		sge::systems::modules::renderer::find_plugin(
 			_collection,
+			_log_options,
 			sge::systems::merge_config_strings(
 				_parameters.parameters().name(),
 				_config,

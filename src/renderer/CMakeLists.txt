@@ -243,7 +243,8 @@ set(
 	include/sge/renderer/pixel_rect_fwd.hpp
 	include/sge/renderer/pixel_unit.hpp
 	include/sge/renderer/plugin/collection_fwd.hpp
-	include/sge/renderer/plugin/object_unique_ptr.hpp
+	include/sge/renderer/plugin/object.hpp
+	include/sge/renderer/plugin/object_fwd.hpp
 	include/sge/renderer/plugin/traits.hpp
 	include/sge/renderer/primitive_count.hpp
 	include/sge/renderer/primitive_type.hpp

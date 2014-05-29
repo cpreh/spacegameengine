@@ -21,14 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_SYSTEMS_FIND_PLUGIN_OPT_HPP_INCLUDED
 #define SGE_SRC_SYSTEMS_FIND_PLUGIN_OPT_HPP_INCLUDED
 
+#include <sge/log/option_container.hpp>
 #include <sge/plugin/collection.hpp>
 #include <sge/plugin/context.hpp>
 #include <sge/plugin/flags.hpp>
 #include <sge/plugin/info.hpp>
 #include <sge/plugin/iterator.hpp>
+#include <sge/plugin/load_with_log_options.hpp>
 #include <sge/plugin/object.hpp>
-#include <sge/plugin/object_unique_ptr.hpp>
 #include <sge/src/systems/plugin_pair_decl.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <memory>
 #include <utility>
@@ -44,42 +46,58 @@ template<
 	typename System,
 	typename TestFunction
 >
-sge::systems::plugin_pair<
-	System
+fcppt::optional<
+	sge::systems::plugin_pair<
+		System
+	>
 >
 find_plugin_opt(
 	sge::plugin::collection<
 		System
 	> const &_collection,
+	sge::log::option_container const &_log_options,
 	TestFunction const &_test_function
 )
 {
-	typedef sge::systems::plugin_pair<
+	typedef
+	sge::systems::plugin_pair<
 		System
-	> return_type;
+	>
+	pair_type;
+
+	typedef
+	fcppt::optional<
+		pair_type
+	>
+	return_type;
 
 	for(
-		auto element
+		auto const &element
 		:
 		_collection
 	)
 	{
 		typedef
-		sge::plugin::object_unique_ptr<
+		sge::plugin::object<
 			System
 		>
-		plugin_unique_ptr;
+		plugin_type;
 
-		plugin_unique_ptr plugin(
-			element.load()
+		plugin_type plugin(
+			sge::plugin::load_with_log_options(
+				element,
+				_log_options
+			)
 		);
 
-		typedef std::unique_ptr<
+		typedef
+		std::unique_ptr<
 			System
-		> system_unique_ptr;
+		>
+		system_unique_ptr;
 
 		system_unique_ptr system(
-			plugin->get()()
+			plugin.get()()
 		);
 
 		if(
@@ -89,11 +107,13 @@ find_plugin_opt(
 		)
 			return
 				return_type(
-					std::move(
-						plugin
-					),
-					std::move(
-						system
+					pair_type(
+						std::move(
+							plugin
+						),
+						std::move(
+							system
+						)
 					)
 				);
 	}

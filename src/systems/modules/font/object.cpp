@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/system.hpp>
 #include <sge/font/plugin/collection_fwd.hpp>
 #include <sge/font/plugin/traits.hpp>
+#include <sge/log/option_container.hpp>
 #include <sge/plugin/object.hpp>
 #include <sge/src/systems/modules/font/find_plugin.hpp>
 #include <sge/src/systems/modules/font/object.hpp>
@@ -29,17 +30,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::systems::modules::font::object::object(
 	sge::font::plugin::collection const &_collection,
+	sge::log::option_container const &_log_options,
 	sge::systems::font const &_parameters
 )
 :
 	font_plugin_(
 		sge::systems::modules::font::find_plugin(
 			_collection,
+			_log_options,
 			_parameters
 		)
 	),
 	font_system_(
-		font_plugin_->get()()
+		font_plugin_.get()()
 	)
 {
 }
@@ -51,5 +54,6 @@ sge::systems::modules::font::object::~object()
 sge::font::system &
 sge::systems::modules::font::object::system() const
 {
-	return *font_system_;
+	return
+		*font_system_;
 }

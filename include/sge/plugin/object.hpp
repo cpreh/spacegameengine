@@ -45,18 +45,34 @@ class object
 		object
 	);
 public:
-	typedef typename sge::plugin::detail::traits<
+	typedef
+	typename
+	sge::plugin::detail::traits<
 		Type
-	>::loader_fun loader_fun;
+	>::loader_fun
+	loader_fun;
 
-	typedef fcppt::shared_ptr<
+	typedef
+	fcppt::shared_ptr<
 		sge::plugin::library::object
-	> library_shared_ptr;
+	>
+	library_shared_ptr;
 
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
 	explicit
 	object(
 		library_shared_ptr const &
+	);
+
+	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
+	object(
+		object &&
+	);
+
+	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
+	object &
+	operator=(
+		object &&
 	);
 
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
@@ -66,9 +82,9 @@ public:
 	loader_fun
 	get() const;
 private:
-	library_shared_ptr const lib_;
+	library_shared_ptr lib_;
 
-	loader_fun const loader_;
+	loader_fun loader_;
 };
 
 }

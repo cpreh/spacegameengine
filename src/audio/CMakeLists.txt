@@ -38,7 +38,8 @@ set(
 	include/sge/audio/player.hpp
 	include/sge/audio/player_fwd.hpp
 	include/sge/audio/player_plugin/collection_fwd.hpp
-	include/sge/audio/player_plugin/object_unique_ptr.hpp
+	include/sge/audio/player_plugin/object.hpp
+	include/sge/audio/player_plugin/object_fwd.hpp
 	include/sge/audio/player_plugin/traits.hpp
 	include/sge/audio/player_shared_ptr.hpp
 	include/sge/audio/player_unique_ptr.hpp

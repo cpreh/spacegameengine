@@ -32,20 +32,8 @@ template<
 >
 sge::systems::plugin_pair<
 	System
->::plugin_pair()
-:
-	plugin_(),
-	system_()
-{
-}
-
-template<
-	typename System
->
-sge::systems::plugin_pair<
-	System
 >::plugin_pair(
-	plugin_unique_ptr &&_plugin,
+	plugin &&_plugin,
 	system_unique_ptr &&_system
 )
 :
@@ -102,20 +90,6 @@ sge::systems::plugin_pair<
 {
 	return
 		*system_;
-}
-
-template<
-	typename System
->
-sge::systems::plugin_pair<
-	System
->::operator
-bool() const
-{
-	return
-		plugin_.get()
-		!=
-		nullptr;
 }
 
 #endif
