@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/device.hpp>
 #include <sge/d3d9/get_device_caps.hpp>
 #include <sge/d3d9/get_display_modes.hpp>
+#include <sge/d3d9/logger.hpp>
 #include <sge/d3d9/system.hpp>
 #include <sge/d3d9/visual.hpp>
 #include <sge/renderer/caps/device.hpp>
@@ -32,12 +33,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device/index.hpp>
 #include <sge/renderer/device/parameters.hpp>
 #include <sge/renderer/display_mode/container.hpp>
+#include <sge/renderer/display_mode/object.hpp>
+#include <sge/renderer/display_mode/output.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <awl/visual/object.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/algorithm/map.hpp>
+#include <fcppt/log/_.hpp>
+#include <fcppt/log/debug.hpp>
+#include <fcppt/log/level.hpp>
+#include <fcppt/log/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/range/irange.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -91,6 +98,42 @@ sge::d3d9::system::system()
 		)
 	)
 {
+	if(
+		!sge::d3d9::logger().activated(
+			fcppt::log::level::debug
+		)
+	)
+		return;
+
+
+	sge::renderer::device::index index(
+		0u
+	);
+
+	for(
+		sge::renderer::display_mode::container const &modes
+		:
+		display_modes_
+	)
+	{
+		FCPPT_LOG_DEBUG(
+			sge::d3d9::logger(),
+			fcppt::log::_
+				<< FCPPT_TEXT("Display modes for device ")
+				<< index++
+		);
+
+		for(
+			sge::renderer::display_mode::object const &mode
+			:
+			modes
+		)
+			FCPPT_LOG_DEBUG(
+				sge::d3d9::logger(),
+				fcppt::log::_
+					<< mode
+			);
+	}
 }
 
 sge::d3d9::system::~system()

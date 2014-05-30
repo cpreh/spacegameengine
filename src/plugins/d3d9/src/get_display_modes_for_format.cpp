@@ -25,7 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/systemfuncs/enum_adapter_modes.hpp>
 #include <sge/renderer/device/index.hpp>
 #include <sge/renderer/display_mode/container.hpp>
-#include <fcppt/algorithm/fold.hpp>
+#include <fcppt/optional_bind_construct.hpp>
+#include <fcppt/algorithm/map_optional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/range/irange.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -39,7 +40,9 @@ sge::d3d9::get_display_modes_for_format(
 )
 {
 	return
-		fcppt::algorithm::fold(
+		fcppt::algorithm::map_optional<
+			sge::renderer::display_mode::container
+		>(
 			boost::irange(
 				0u,
 				_d3d9.GetAdapterModeCount(
@@ -47,36 +50,32 @@ sge::d3d9::get_display_modes_for_format(
 					_format
 				)
 			),
-			sge::renderer::display_mode::container(),
 			[
 				&_d3d9,
 				_index,
 				_format
 			](
-				UINT const _mode_index,
-				sge::renderer::display_mode::container &&_cur
+				UINT const _mode_index
 			)
 			{
-				sge::d3d9::optional_display_mode const mode(
-					sge::d3d9::systemfuncs::enum_adapter_modes(
-						_d3d9,
-						_index,
-						_format,
-						_mode_index
-					)
-				);
-
-				if(
-					mode
-				)
-					_cur.push_back(
-						sge::d3d9::convert::to_display_mode(
-							*mode
-						)
-					);
-
 				return
-					_cur;
+					fcppt::optional_bind_construct(
+						sge::d3d9::systemfuncs::enum_adapter_modes(
+							_d3d9,
+							_index,
+							_format,
+							_mode_index
+						),
+						[](
+							D3DDISPLAYMODE const _mode
+						)
+						{
+							return
+								sge::d3d9::convert::to_display_mode(
+									_mode
+								);
+						}
+					);
 			}
 		);
 }
