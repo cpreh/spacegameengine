@@ -56,7 +56,7 @@ template<
 sge::systems::plugin_pair<
 	System
 >::plugin_pair(
-	plugin_pair &&_other
+	plugin_pair &&
 ) = default;
 
 template<
@@ -68,7 +68,7 @@ sge::systems::plugin_pair<
 sge::systems::plugin_pair<
 	System
 >::operator=(
-	plugin_pair &&_other
+	plugin_pair &&
 ) = default;
 
 template<

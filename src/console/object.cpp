@@ -34,11 +34,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/string.hpp>
 #include <sge/src/console/eval_grammar.hpp>
 #include <fcppt/insert_to_string.hpp>
-#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assert/pre.hpp>
-#include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -130,14 +128,13 @@ sge::console::object::insert(
 		> ret_type;
 
 		ret_type const ret(
-			fcppt::container::ptr::insert_unique_ptr_map(
-				funcs_,
-				_params.name(),
-				fcppt::make_unique_ptr<
-					sge::console::function
-				>(
-					_params.short_description(),
-					_params.long_description()
+			funcs_.insert(
+				std::make_pair(
+					_params.name(),
+					sge::console::function(
+						_params.short_description(),
+						_params.long_description()
+					)
 				)
 			)
 		);
@@ -149,7 +146,7 @@ sge::console::object::insert(
 		);
 	}
 	return
-		it->second->signal().connect(
+		it->second.signal().connect(
 			_params.function(),
 			std::bind(
 				&sge::console::object::remove_function,
@@ -245,7 +242,7 @@ sge::console::object::eval(
 		)
 	);
 
-	if (
+	if(
 		it == funcs_.end()
 	)
 		throw sge::console::exception(
@@ -256,7 +253,7 @@ sge::console::object::eval(
 			SGE_FONT_LIT('"')
 		);
 
-	it->second->signal()(
+	it->second.signal()(
 		args,
 		*this
 	);
@@ -299,7 +296,7 @@ sge::console::object::help_callback(
 	sge::console::arg_list const &
 )
 {
-	emit_message(
+	this->emit_message(
 		fcppt::insert_to_string<
 			sge::font::string
 		>(
@@ -319,7 +316,7 @@ sge::console::object::help_callback(
 			+
 			SGE_FONT_LIT(": ")
 			+
-			element.second->short_description().get()
+			element.second.short_description().get()
 		);
 }
 
@@ -353,14 +350,14 @@ sge::console::object::man_callback(
 	}
 
 	if(
-		i->second->long_description().get().empty()
+		i->second.long_description().get().empty()
 	)
 		this->emit_message(
 			SGE_FONT_LIT("No manpage available")
 		);
 	else
 		this->emit_message(
-			i->second->long_description().get()
+			i->second.long_description().get()
 		);
 }
 
@@ -380,7 +377,7 @@ sge::console::object::remove_function(
 	);
 
 	if(
-		it->second->signal().empty()
+		it->second.signal().empty()
 	)
 		funcs_.erase(
 			it

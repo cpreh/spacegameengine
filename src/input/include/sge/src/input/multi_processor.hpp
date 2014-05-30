@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_INPUT_MULTI_PROCESSOR_HPP_INCLUDED
 
 #include <sge/input/processor.hpp>
+#include <sge/input/processor_unique_ptr.hpp>
 #include <sge/input/cursor/discover_callback.hpp>
 #include <sge/input/cursor/discover_event_fwd.hpp>
 #include <sge/input/cursor/discover_signal.hpp>
@@ -50,11 +51,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/signal/auto_connection_fwd.hpp>
-#include <fcppt/signal/connection_fwd.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
+#include <vector>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -159,11 +159,13 @@ private:
 		sge::input::joypad::remove_event const &
 	);
 
-	typedef boost::ptr_vector<
-		sge::input::processor
-	> processor_ptr_vector;
+	typedef
+	std::vector<
+		sge::input::processor_unique_ptr
+	>
+	processor_vector;
 
-	processor_ptr_vector processors_;
+	processor_vector const processors_;
 
 	sge::input::keyboard::discover_signal keyboard_discover_;
 
@@ -181,11 +183,13 @@ private:
 
 	sge::input::joypad::remove_signal joypad_remove_;
 
-	typedef boost::ptr_vector<
-		fcppt::signal::connection
-	> connection_ptr_vector;
+	typedef
+	std::vector<
+		fcppt::signal::auto_connection
+	>
+	connection_vector;
 
-	connection_ptr_vector connections_;
+	connection_vector const connections_;
 };
 
 }

@@ -39,6 +39,16 @@ sge::console::function::function(
 {
 }
 
+sge::console::function::function(
+	function &&
+) = default;
+
+
+sge::console::function &
+sge::console::function::operator=(
+	function &&
+) = default;
+
 sge::console::function::~function()
 {
 }

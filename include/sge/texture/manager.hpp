@@ -23,14 +23,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/color/format.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
-#include <sge/texture/fragmented_fwd.hpp>
+#include <sge/texture/fragmented_unique_ptr.hpp>
 #include <sge/texture/manager_fwd.hpp>
 #include <sge/texture/on_alloc_callback.hpp>
 #include <sge/texture/part_unique_ptr.hpp>
 #include <sge/texture/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/ptr_container/ptr_map.hpp>
+#include <map>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -72,10 +72,12 @@ public:
 private:
 	sge::texture::on_alloc_callback on_alloc_;
 
-	typedef boost::ptr_multimap<
+	typedef
+	std::multimap<
 		sge::image::color::format,
-		sge::texture::fragmented
-	> fragmented_map;
+		sge::texture::fragmented_unique_ptr
+	>
+	fragmented_map;
 
 	sge::texture::manager::fragmented_map textures_;
 };

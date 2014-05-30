@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/processor.hpp>
 #include <sge/input/processor_unique_ptr.hpp>
 #include <sge/input/system.hpp>
+#include <sge/input/system_unique_ptr.hpp>
 #include <sge/input/cursor/discover_callback.hpp>
 #include <sge/input/cursor/discover_event_fwd.hpp>
 #include <sge/input/cursor/remove_callback.hpp>
@@ -41,7 +42,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/input/system_ptr_vector.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
-#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
+#include <fcppt/algorithm/fold.hpp>
+#include <fcppt/algorithm/join_move.hpp>
+#include <fcppt/algorithm/map.hpp>
+#include <fcppt/assign/make_container.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -57,7 +61,26 @@ sge::input::multi_processor::multi_processor(
 )
 :
 	sge::input::processor(),
-	processors_(),
+	processors_(
+		fcppt::algorithm::map<
+			sge::input::multi_processor::processor_vector
+		>(
+			_systems,
+			[
+				&_window,
+				&_window_system
+			](
+				sge::input::system_unique_ptr const &_system
+			)
+			{
+				return
+					_system->create_processor(
+						_window,
+						_window_system
+					);
+			}
+		)
+	),
 	keyboard_discover_(),
 	keyboard_remove_(),
 	mouse_discover_(),
@@ -66,117 +89,94 @@ sge::input::multi_processor::multi_processor(
 	cursor_remove_(),
 	joypad_discover_(),
 	joypad_remove_(),
-	connections_()
-{
-	// TODO: Initialize directly
-	for(
-		auto &system
-		:
-		_systems
-	)
-	{
-		sge::input::processor_unique_ptr new_processor(
-			system->create_processor(
-				_window,
-				_window_system
-			)
-		);
-
-		fcppt::container::ptr::push_back_unique_ptr(
-			connections_,
-			new_processor->keyboard_discover_callback(
-				std::bind(
-					&sge::input::multi_processor::on_keyboard_discover,
-					this,
-					std::placeholders::_1
-				)
-			)
-		);
-
-		fcppt::container::ptr::push_back_unique_ptr(
-			connections_,
-			new_processor->keyboard_remove_callback(
-				std::bind(
-					&sge::input::multi_processor::on_keyboard_remove,
-					this,
-					std::placeholders::_1
-				)
-			)
-		);
-
-		fcppt::container::ptr::push_back_unique_ptr(
-			connections_,
-			new_processor->mouse_discover_callback(
-				std::bind(
-					&sge::input::multi_processor::on_mouse_discover,
-					this,
-					std::placeholders::_1
-				)
-			)
-		);
-
-		fcppt::container::ptr::push_back_unique_ptr(
-			connections_,
-			new_processor->mouse_remove_callback(
-				std::bind(
-					&sge::input::multi_processor::on_mouse_remove,
-					this,
-					std::placeholders::_1
-				)
-			)
-		);
-
-		fcppt::container::ptr::push_back_unique_ptr(
-			connections_,
-			new_processor->cursor_discover_callback(
-				std::bind(
-					&sge::input::multi_processor::on_cursor_discover,
-					this,
-					std::placeholders::_1
-				)
-			)
-		);
-
-		fcppt::container::ptr::push_back_unique_ptr(
-			connections_,
-			new_processor->cursor_remove_callback(
-				std::bind(
-					&sge::input::multi_processor::on_cursor_remove,
-					this,
-					std::placeholders::_1
-				)
-			)
-		);
-
-		fcppt::container::ptr::push_back_unique_ptr(
-			connections_,
-			new_processor->joypad_discover_callback(
-				std::bind(
-					&sge::input::multi_processor::on_joypad_discover,
-					this,
-					std::placeholders::_1
-				)
-			)
-		);
-
-		fcppt::container::ptr::push_back_unique_ptr(
-			connections_,
-			new_processor->joypad_remove_callback(
-				std::bind(
-					&sge::input::multi_processor::on_joypad_remove,
-					this,
-					std::placeholders::_1
-				)
-			)
-		);
-
-		fcppt::container::ptr::push_back_unique_ptr(
+	connections_(
+		fcppt::algorithm::fold(
 			processors_,
-			std::move(
-				new_processor
+			sge::input::multi_processor::connection_vector(),
+			[
+				this
+			](
+				sge::input::processor_unique_ptr const &_processor,
+				sge::input::multi_processor::connection_vector &&_state
 			)
-		);
-	}
+			{
+				return
+					fcppt::algorithm::join_move(
+						std::move(
+							_state
+						),
+						fcppt::assign::make_container<
+							sge::input::multi_processor::connection_vector
+						>(
+							_processor->keyboard_discover_callback(
+								std::bind(
+									&sge::input::multi_processor::on_keyboard_discover,
+									this,
+									std::placeholders::_1
+								)
+							)
+						)(
+							_processor->keyboard_remove_callback(
+								std::bind(
+									&sge::input::multi_processor::on_keyboard_remove,
+									this,
+									std::placeholders::_1
+								)
+							)
+						)(
+							_processor->mouse_discover_callback(
+								std::bind(
+									&sge::input::multi_processor::on_mouse_discover,
+									this,
+									std::placeholders::_1
+								)
+							)
+						)(
+							_processor->mouse_remove_callback(
+								std::bind(
+									&sge::input::multi_processor::on_mouse_remove,
+									this,
+									std::placeholders::_1
+								)
+							)
+						)(
+							_processor->cursor_discover_callback(
+								std::bind(
+									&sge::input::multi_processor::on_cursor_discover,
+									this,
+									std::placeholders::_1
+								)
+							)
+						)(
+							_processor->cursor_remove_callback(
+								std::bind(
+									&sge::input::multi_processor::on_cursor_remove,
+									this,
+									std::placeholders::_1
+								)
+							)
+						)(
+							_processor->joypad_discover_callback(
+								std::bind(
+									&sge::input::multi_processor::on_joypad_discover,
+									this,
+									std::placeholders::_1
+								)
+							)
+						)(
+							_processor->joypad_remove_callback(
+								std::bind(
+									&sge::input::multi_processor::on_joypad_remove,
+									this,
+									std::placeholders::_1
+								)
+							)
+						).move_container()
+					);
+			}
+		)
+	)
+{
 }
 
 sge::input::multi_processor::~multi_processor()

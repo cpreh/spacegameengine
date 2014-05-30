@@ -30,7 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/filesystem/extension_without_dot.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/log/_.hpp>
@@ -97,8 +96,7 @@ sge::plugin::manager::manager(
 
 		try
 		{
-			fcppt::container::ptr::push_back_unique_ptr(
-				plugins_,
+			plugins_.push_back(
 				fcppt::make_unique_ptr<
 					sge::plugin::context_base
 				>(
@@ -143,7 +141,7 @@ sge::plugin::manager::manager(
 	}
 
 	for(
-		sge::plugin::context_base &context
+		sge::plugin::context_base_unique_ptr const &context
 		:
 		plugins_
 	)
@@ -152,14 +150,14 @@ sge::plugin::manager::manager(
 			sge::plugin::capabilities
 		)
 			if(
-				context.info().capabilities()
+				context->info().capabilities()
 				&
 				index
 			)
 				categories_[
 					index
 				].push_back(
-					&context
+					context.get()
 				);
 }
 

@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/capabilities.hpp>
 #include <sge/plugin/category_array.hpp>
 #include <sge/plugin/collection_fwd.hpp>
-#include <sge/plugin/context_base_fwd.hpp>
+#include <sge/plugin/context_base_unique_ptr.hpp>
 #include <sge/plugin/manager_fwd.hpp>
 #include <sge/plugin/optional_cache_ref_fwd.hpp>
 #include <sge/plugin/symbol.hpp>
@@ -66,14 +66,18 @@ public:
 	> const
 	collection();
 private:
-	typedef boost::ptr_vector<
-		sge::plugin::context_base
-	> context_base_vector;
+	typedef
+	std::vector<
+		sge::plugin::context_base_unique_ptr
+	>
+	context_base_vector;
 
-	typedef std::map<
+	typedef
+	std::map<
 		sge::plugin::capabilities,
 		sge::plugin::category_array
-	> plugin_map;
+	>
+	plugin_map;
 
 	context_base_vector plugins_;
 

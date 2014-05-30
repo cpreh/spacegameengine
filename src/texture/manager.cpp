@@ -30,7 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/part.hpp>
 #include <sge/texture/part_unique_ptr.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/container/ptr/insert_unique_ptr_multimap.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/range/iterator_range_core.hpp>
 #include <utility>
@@ -39,12 +38,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace
 {
-
-sge::texture::part_unique_ptr
-init_texture(
-	sge::texture::fragmented &,
-	sge::image2d::view::const_object const &
-);
 
 }
 
@@ -74,51 +67,70 @@ sge::texture::manager::add(
 		)
 	);
 
-	typedef boost::iterator_range<
-		sge::texture::manager::fragmented_map::iterator
-	> equal_range_pair;
+	auto const init_texture(
+		[
+			&_src
+		](
+			sge::texture::fragmented &_tex
+		)
+		-> sge::texture::part_unique_ptr
+		{
+			sge::texture::part_unique_ptr part(
+				_tex.consume_fragment(
+					sge::image2d::view::size(
+						_src
+					)
+				)
+			);
 
-	{
-		equal_range_pair const range(
+			if(
+				part
+			)
+				part->data(
+					_src
+				);
+
+			return
+				std::move(
+					part
+				);
+		}
+	);
+
+	for(
+		auto const &element
+		:
+		boost::make_iterator_range(
 			textures_.equal_range(
 				color_format
 			)
-		);
-
-		for(
-			sge::texture::manager::fragmented_map::iterator it(
-				range.begin()
-			);
-			it != range.end();
-			++it
 		)
-			if(
-				sge::texture::part_unique_ptr current_part =
-					::init_texture(
-						*it->second,
-						_src
-					)
-			)
-				return
-					std::move(
-						current_part
-					);
-	}
+	)
+		if(
+			sge::texture::part_unique_ptr current_part =
+				init_texture(
+					*element.second
+				)
+		)
+			return
+				std::move(
+					current_part
+				);
 
 	sge::texture::fragmented &new_tex(
-		*fcppt::container::ptr::insert_unique_ptr_multimap(
-			textures_,
-			color_format,
-			on_alloc_(
-				color_format
+		*textures_.insert(
+			std::make_pair(
+				color_format,
+				on_alloc_(
+					color_format
+				)
 			)
 		)->second
 	);
 
 	sge::texture::part_unique_ptr new_part(
-		::init_texture(
-			new_tex,
-			_src
+		init_texture(
+			new_tex
 		)
 	);
 
@@ -142,7 +154,8 @@ sge::texture::manager::on_alloc(
 	sge::texture::on_alloc_callback const &_on_alloc
 )
 {
-	on_alloc_ = _on_alloc;
+	on_alloc_ =
+		_on_alloc;
 }
 
 void
@@ -168,36 +181,4 @@ sge::texture::manager::free_empty_textures()
 				it
 			);
 	}
-}
-
-namespace
-{
-
-sge::texture::part_unique_ptr
-init_texture(
-	sge::texture::fragmented &_tex,
-	sge::image2d::view::const_object const &_src
-)
-{
-	sge::texture::part_unique_ptr part(
-		_tex.consume_fragment(
-			sge::image2d::view::size(
-				_src
-			)
-		)
-	);
-
-	if(
-		part
-	)
-		part->data(
-			_src
-		);
-
-	return
-		std::move(
-			part
-		);
-}
-
 }

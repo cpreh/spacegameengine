@@ -11,6 +11,7 @@ set(
 	include/sge/plugin/collection_fwd.hpp
 	include/sge/plugin/context.hpp
 	include/sge/plugin/context_base_fwd.hpp
+	include/sge/plugin/context_base_unique_ptr.hpp
 	include/sge/plugin/context_fwd.hpp
 	include/sge/plugin/description.hpp
 	include/sge/plugin/detail/address_name.hpp

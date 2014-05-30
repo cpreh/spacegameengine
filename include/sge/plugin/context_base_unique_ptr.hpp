@@ -18,27 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CONSOLE_FUNCTION_MAP_HPP_INCLUDED
-#define SGE_CONSOLE_FUNCTION_MAP_HPP_INCLUDED
+#ifndef SGE_PLUGIN_CONTEXT_BASE_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_PLUGIN_CONTEXT_BASE_UNIQUE_PTR_HPP_INCLUDED
 
-#include <sge/console/function.hpp>
-#include <sge/font/string.hpp>
+#include <sge/plugin/context_base_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <map>
+#include <memory>
 #include <fcppt/config/external_end.hpp>
 
 
 namespace sge
 {
-namespace console
+namespace plugin
 {
 
 typedef
-std::map<
-	sge::font::string,
-	sge::console::function
+std::unique_ptr<
+	sge::plugin::context_base
 >
-function_map;
+context_base_unique_ptr;
 
 }
 }

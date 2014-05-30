@@ -49,6 +49,17 @@ public:
 	);
 
 	SGE_CONSOLE_SYMBOL
+	function(
+		function &&
+	);
+
+	SGE_CONSOLE_SYMBOL
+	function &
+	operator=(
+		function &&
+	);
+
+	SGE_CONSOLE_SYMBOL
 	~function();
 
 	SGE_CONSOLE_SYMBOL
