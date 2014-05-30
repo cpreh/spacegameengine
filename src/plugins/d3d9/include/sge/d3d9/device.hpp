@@ -84,7 +84,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex/buffer_unique_ptr.hpp>
 #include <sge/renderer/vertex/declaration_parameters_fwd.hpp>
 #include <sge/renderer/vertex/declaration_unique_ptr.hpp>
+#include <awl/window/event/resize_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <memory>
 #include <fcppt/config/external_end.hpp>
@@ -358,6 +360,11 @@ private:
 	void
 	release();
 
+	void
+	on_resize(
+		awl::window::event::resize const &
+	);
+
 	sge::renderer::pixel_format::srgb const srgb_;
 
 	sge::renderer::caps::device const &caps_;
@@ -393,6 +400,8 @@ private:
 	ffp_defaults_unique_ptr;
 
 	ffp_defaults_unique_ptr const ffp_defaults_;
+
+	fcppt::signal::scoped_connection const resize_connection_;
 };
 
 }

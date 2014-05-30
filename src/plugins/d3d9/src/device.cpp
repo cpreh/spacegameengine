@@ -136,11 +136,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex/declaration_parameters_fwd.hpp>
 #include <sge/renderer/vertex/declaration_unique_ptr.hpp>
 #include <awl/window/object.hpp>
+#include <awl/window/event/processor.hpp>
+#include <awl/window/event/resize.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/time/sleep_any.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <chrono>
+#include <functional>
 #include <memory>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -238,6 +242,15 @@ sge::d3d9::device::device(
 			sge::d3d9::state::ffp::defaults
 		>(
 			*device_
+		)
+	),
+	resize_connection_(
+		_parameters.window_processor().resize_callback(
+			std::bind(
+				&sge::d3d9::device::on_resize,
+				this,
+				std::placeholders::_1
+			)
 		)
 	)
 {
@@ -815,4 +828,25 @@ sge::d3d9::device::reset()
 		);
 
 	this->reinit();
+}
+
+void
+sge::d3d9::device::on_resize(
+	awl::window::event::resize const &_resize
+)
+{
+	if(
+		present_parameters_.Windowed
+		==
+		FALSE
+	)
+		return;
+
+	present_parameters_.BackBufferWidth =
+		_resize.dim().w();
+
+	present_parameters_.BackBufferHeight =
+		_resize.dim().h();
+
+	this->reset();
 }
