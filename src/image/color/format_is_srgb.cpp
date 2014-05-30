@@ -49,6 +49,8 @@ sge::image::color::format_is_srgb(
 		return false;
 	case sge::image::color::format::srgb8:
 	case sge::image::color::format::srgba8:
+	case sge::image::color::format::sbgr8:
+	case sge::image::color::format::sbgra8:
 		return true;
 	}
 

@@ -26,6 +26,8 @@ set(
 	include/sge/image3d/rgba32f_format.hpp
 	include/sge/image3d/rgba8_format.hpp
 	include/sge/image3d/rgbx8_format.hpp
+	include/sge/image3d/sbgr8_format.hpp
+	include/sge/image3d/sbgra8_format.hpp
 	include/sge/image3d/srgb8_format.hpp
 	include/sge/image3d/srgba8_format.hpp
 	include/sge/image3d/store/a8.hpp
@@ -62,6 +64,10 @@ set(
 	include/sge/image3d/store/rgba8_fwd.hpp
 	include/sge/image3d/store/rgbx8.hpp
 	include/sge/image3d/store/rgbx8_fwd.hpp
+	include/sge/image3d/store/sbgr8.hpp
+	include/sge/image3d/store/sbgr8_fwd.hpp
+	include/sge/image3d/store/sbgra8.hpp
+	include/sge/image3d/store/sbgra8_fwd.hpp
 	include/sge/image3d/store/srgb8.hpp
 	include/sge/image3d/store/srgb8_fwd.hpp
 	include/sge/image3d/store/srgba8.hpp
@@ -123,6 +129,8 @@ set(
 	src/image3d/store/rgba32f.cpp
 	src/image3d/store/rgba8.cpp
 	src/image3d/store/rgbx8.cpp
+	src/image3d/store/sbgr8.cpp
+	src/image3d/store/sbgra8.cpp
 	src/image3d/store/srgb8.cpp
 	src/image3d/store/srgba8.cpp
 	src/image3d/store/view.cpp

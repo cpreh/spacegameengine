@@ -55,7 +55,9 @@ enum class format
 	bgra32f,
 	srgb8,
 	srgba8,
-	fcppt_maximum = srgba8
+	sbgr8,
+	sbgra8,
+	fcppt_maximum = sbgra8
 };
 
 FCPPT_PP_POP_WARNING

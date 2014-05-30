@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/la8.hpp>
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/r32f.hpp>
+#include <sge/image/color/sbgra8.hpp>
 #include <sge/image/color/srgba8.hpp>
 #include <sge/image/color/any/clear.hpp>
 #include <sge/image/color/any/object.hpp>
@@ -87,6 +88,17 @@ sge::image::color::any::clear(
 		return
 			sge::image::color::any::object(
 				sge::image::color::srgba8(
+					(sge::image::color::init::red() %= 0.)
+					(sge::image::color::init::green() %= 0.)
+					(sge::image::color::init::blue() %= 0.)
+					(sge::image::color::init::alpha() %= 0.)
+				)
+			);
+	case sge::image::color::format::sbgr8:
+	case sge::image::color::format::sbgra8:
+		return
+			sge::image::color::any::object(
+				sge::image::color::sbgra8(
 					(sge::image::color::init::red() %= 0.)
 					(sge::image::color::init::green() %= 0.)
 					(sge::image::color::init::blue() %= 0.)

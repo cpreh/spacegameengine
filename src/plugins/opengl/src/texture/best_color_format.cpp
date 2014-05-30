@@ -46,11 +46,20 @@ sge::opengl::texture::best_color_format(
 	case sge::image::color::format::bgra32f:
 	case sge::image::color::format::srgb8:
 	case sge::image::color::format::srgba8:
-		return _format;
+		return
+			_format;
+	case sge::image::color::format::sbgr8:
+		return
+			sge::image::color::format::srgb8;
+	case sge::image::color::format::sbgra8:
+		return
+			sge::image::color::format::srgba8;
 	case sge::image::color::format::rgbx8:
-		return sge::image::color::format::rgb8;
+		return
+			sge::image::color::format::rgb8;
 	case sge::image::color::format::bgrx8:
-		return sge::image::color::format::bgr8;
+		return
+			sge::image::color::format::bgr8;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

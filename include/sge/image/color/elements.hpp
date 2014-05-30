@@ -35,6 +35,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/rgba32f_format.hpp>
 #include <sge/image/color/rgba8_format.hpp>
 #include <sge/image/color/rgbx8_format.hpp>
+#include <sge/image/color/sbgr8_format.hpp>
+#include <sge/image/color/sbgra8_format.hpp>
 #include <sge/image/color/srgb8_format.hpp>
 #include <sge/image/color/srgba8_format.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -49,7 +51,7 @@ namespace image
 namespace color
 {
 
-typedef boost::mpl::vector16<
+typedef boost::mpl::vector18<
 	sge::image::color::a8_format,
 	sge::image::color::l8_format,
 	sge::image::color::r32f_format,
@@ -65,7 +67,9 @@ typedef boost::mpl::vector16<
 	sge::image::color::rgba32f_format,
 	sge::image::color::bgra32f_format,
 	sge::image::color::srgb8_format,
-	sge::image::color::srgba8_format
+	sge::image::color::srgba8_format,
+	sge::image::color::sbgr8_format,
+	sge::image::color::sbgra8_format
 > elements;
 
 }

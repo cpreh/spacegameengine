@@ -83,11 +83,13 @@ sge::opengl::convert::color_to_internal_format(
 				GL_RGB32F
 			);
 	case sge::image::color::format::srgb8:
+	case sge::image::color::format::sbgr8:
 		return
 			sge::opengl::internal_color_format(
 				GL_SRGB8
 			);
 	case sge::image::color::format::srgba8:
+	case sge::image::color::format::sbgra8:
 		return
 			sge::opengl::internal_color_format(
 				GL_SRGB8_ALPHA8

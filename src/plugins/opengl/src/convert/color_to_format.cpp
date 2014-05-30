@@ -62,6 +62,7 @@ sge::opengl::convert::color_to_format(
 			sge::opengl::convert::make_color_format(
 				GL_RGB
 			);
+	case sge::image::color::format::sbgr8:
 	case sge::image::color::format::bgr8:
 	case sge::image::color::format::bgr32f:
 		return
@@ -75,6 +76,7 @@ sge::opengl::convert::color_to_format(
 			sge::opengl::convert::make_color_format(
 				GL_RGBA
 			);
+	case sge::image::color::format::sbgra8:
 	case sge::image::color::format::bgra8:
 	case sge::image::color::format::bgra32f:
 		return

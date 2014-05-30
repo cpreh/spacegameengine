@@ -40,6 +40,8 @@ set(
 	include/sge/image2d/rgba8_format.hpp
 	include/sge/image2d/rgbx8_format.hpp
 	include/sge/image2d/save_from_view.hpp
+	include/sge/image2d/sbgr8_format.hpp
+	include/sge/image2d/sbgra8_format.hpp
 	include/sge/image2d/srgb8_format.hpp
 	include/sge/image2d/srgba8_format.hpp
 	include/sge/image2d/store/a8.hpp
@@ -76,6 +78,10 @@ set(
 	include/sge/image2d/store/rgba8_fwd.hpp
 	include/sge/image2d/store/rgbx8.hpp
 	include/sge/image2d/store/rgbx8_fwd.hpp
+	include/sge/image2d/store/sbgr8.hpp
+	include/sge/image2d/store/sbgr8_fwd.hpp
+	include/sge/image2d/store/sbgra8.hpp
+	include/sge/image2d/store/sbgra8_fwd.hpp
 	include/sge/image2d/store/srgb8.hpp
 	include/sge/image2d/store/srgb8_fwd.hpp
 	include/sge/image2d/store/srgba8.hpp
@@ -158,6 +164,8 @@ set(
 	src/image2d/store/rgba32f.cpp
 	src/image2d/store/rgba8.cpp
 	src/image2d/store/rgbx8.cpp
+	src/image2d/store/sbgr8.cpp
+	src/image2d/store/sbgra8.cpp
 	src/image2d/store/srgb8.cpp
 	src/image2d/store/srgba8.cpp
 	src/image2d/store/view.cpp

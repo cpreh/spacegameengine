@@ -21,49 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/size_type.hpp>
 #include <sge/image/color/element_count.hpp>
 #include <sge/image/color/format.hpp>
+#include <sge/image/color/format_element_size.hpp>
 #include <sge/image/color/format_stride.hpp>
-#include <fcppt/assert/unreachable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <cstdint>
-#include <fcppt/config/external_end.hpp>
 
-
-namespace
-{
-
-sge::image::size_type
-base_size(
-	sge::image::color::format const _format
-)
-{
-	switch(
-		_format
-	)
-	{
-	case sge::image::color::format::a8:
-	case sge::image::color::format::l8:
-	case sge::image::color::format::la8:
-	case sge::image::color::format::rgb8:
-	case sge::image::color::format::bgr8:
-	case sge::image::color::format::rgba8:
-	case sge::image::color::format::rgbx8:
-	case sge::image::color::format::bgra8:
-	case sge::image::color::format::bgrx8:
-	case sge::image::color::format::srgb8:
-	case sge::image::color::format::srgba8:
-		return sizeof(std::uint8_t);
-	case sge::image::color::format::r32f:
-	case sge::image::color::format::bgr32f:
-	case sge::image::color::format::rgb32f:
-	case sge::image::color::format::rgba32f:
-	case sge::image::color::format::bgra32f:
-		return sizeof(float);
-	}
-
-	FCPPT_ASSERT_UNREACHABLE;
-}
-
-}
 
 sge::image::size_type
 sge::image::color::format_stride(
@@ -75,7 +35,7 @@ sge::image::color::format_stride(
 			_format
 		)
 		*
-		::base_size(
+		sge::image::color::format_element_size(
 			_format
 		);
 }

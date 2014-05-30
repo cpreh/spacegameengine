@@ -44,6 +44,8 @@ sge::opengl::convert::color_to_format_type(
 	case sge::image::color::format::bgra8:
 	case sge::image::color::format::srgb8:
 	case sge::image::color::format::srgba8:
+	case sge::image::color::format::sbgr8:
+	case sge::image::color::format::sbgra8:
 		return
 			sge::opengl::convert::make_color_format_type(
 				GL_UNSIGNED_BYTE

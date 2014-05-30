@@ -58,6 +58,8 @@ sge::libpng::transforms_from_format(
 		return PNG_TRANSFORM_IDENTITY;
 	case sge::image::color::format::bgr8:
 	case sge::image::color::format::bgra8:
+	case sge::image::color::format::sbgr8:
+	case sge::image::color::format::sbgra8:
 		return PNG_TRANSFORM_BGR;
 	case sge::image::color::format::rgbx8:
 		return PNG_TRANSFORM_STRIP_FILLER_AFTER;

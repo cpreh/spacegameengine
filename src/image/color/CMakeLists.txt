@@ -32,6 +32,7 @@ set(
 	include/sge/image/color/element_count.hpp
 	include/sge/image/color/elements.hpp
 	include/sge/image/color/format.hpp
+	include/sge/image/color/format_element_size.hpp
 	include/sge/image/color/format_fwd.hpp
 	include/sge/image/color/format_is_srgb.hpp
 	include/sge/image/color/format_static.hpp
@@ -71,6 +72,12 @@ set(
 	include/sge/image/color/rgbx8.hpp
 	include/sge/image/color/rgbx8_format.hpp
 	include/sge/image/color/rgbx8_fwd.hpp
+	include/sge/image/color/sbgr8.hpp
+	include/sge/image/color/sbgr8_format.hpp
+	include/sge/image/color/sbgr8_fwd.hpp
+	include/sge/image/color/sbgra8.hpp
+	include/sge/image/color/sbgra8_format.hpp
+	include/sge/image/color/sbgra8_fwd.hpp
 	include/sge/image/color/srgb8.hpp
 	include/sge/image/color/srgb8_format.hpp
 	include/sge/image/color/srgb8_fwd.hpp
@@ -98,6 +105,8 @@ set(
 	include/sge/image/color/view/rgba32f_format.hpp
 	include/sge/image/color/view/rgba8_format.hpp
 	include/sge/image/color/view/rgbx8_format.hpp
+	include/sge/image/color/view/sbgr8_format.hpp
+	include/sge/image/color/view/sbgra8_format.hpp
 	include/sge/image/color/view/srgb8_format.hpp
 	include/sge/image/color/view/srgba8_format.hpp
 	src/image/color/any/clear.cpp
@@ -120,9 +129,12 @@ set(
 	src/image/color/dynamic/rgba32f_format.cpp
 	src/image/color/dynamic/rgba8_format.cpp
 	src/image/color/dynamic/rgbx8_format.cpp
+	src/image/color/dynamic/sbgr8_format.cpp
+	src/image/color/dynamic/sbgra8_format.cpp
 	src/image/color/dynamic/srgb8_format.cpp
 	src/image/color/dynamic/srgba8_format.cpp
 	src/image/color/element_count.cpp
+	src/image/color/format_element_size.cpp
 	src/image/color/format_is_srgb.cpp
 	src/image/color/format_stride.cpp
 	src/image/color/format_to_string.cpp
@@ -171,6 +183,8 @@ set(
 	src/image/color/include/sge/src/image/color/dynamic/rgba32f_format.hpp
 	src/image/color/include/sge/src/image/color/dynamic/rgba8_format.hpp
 	src/image/color/include/sge/src/image/color/dynamic/rgbx8_format.hpp
+	src/image/color/include/sge/src/image/color/dynamic/sbgr8_format.hpp
+	src/image/color/include/sge/src/image/color/dynamic/sbgra8_format.hpp
 	src/image/color/include/sge/src/image/color/dynamic/srgb8_format.hpp
 	src/image/color/include/sge/src/image/color/dynamic/srgba8_format.hpp
 	src/image/color/include/sge/src/image/color/dynamic/static_to_dynamic_channel.hpp
