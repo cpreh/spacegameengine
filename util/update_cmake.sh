@@ -308,8 +308,6 @@ update_opengl \
 
 update_plugin audio_null
 
-update_plugin devil
-
 function d3d9_inc_src() {
 	plugin_inc_src d3d9 "$1"
 }

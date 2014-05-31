@@ -3,7 +3,6 @@ set(
 	${SGE_PLUGIN_BUILD_PATH}
 )
 
-find_package(DevIL)
 find_package(D3D9)
 find_package(DInput)
 find_package(EVDEV)
@@ -21,8 +20,6 @@ OPTION (ENABLE_WAVE "Build the wave loader plugin" ON)
 
 # These plugins have dependencies
 OPTION (ENABLE_D3D9 "Build the d3d9 render plugin" ${D3D9_FOUND})
-
-OPTION (ENABLE_DEVIL "Build the devil image loader plugin" ${IL_FOUND})
 
 OPTION (ENABLE_DINPUT "Build the direct input 8 plugin" ${DINPUT_FOUND})
 
@@ -62,10 +59,6 @@ ENDIF ()
 
 IF(ENABLE_D3D9)
 	ADD_SUBDIRECTORY (d3d9)
-ENDIF ()
-
-IF (ENABLE_DEVIL)
-	ADD_SUBDIRECTORY (devil)
 ENDIF ()
 
 IF (ENABLE_DINPUT)

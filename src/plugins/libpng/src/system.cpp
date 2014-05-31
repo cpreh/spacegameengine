@@ -221,13 +221,12 @@ sge::image::capabilities_field const
 sge::libpng::system::capabilities() const
 {
 	return
-		sge::image::capabilities_field{
-			image::capabilities::threadsafe
-		};
+		sge::image::capabilities_field::null();
 }
 
 sge::media::extension_set
 sge::libpng::system::extensions() const
 {
-	return const_extensions;
+	return
+		const_extensions;
 }

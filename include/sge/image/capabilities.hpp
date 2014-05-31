@@ -22,6 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_CAPABILITIES_HPP_INCLUDED
 
 #include <sge/image/capabilities_fwd.hpp>
+#include <fcppt/enum_is_empty_fwd.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <type_traits>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -31,11 +38,28 @@ namespace image
 
 enum class capabilities
 {
-	threadsafe,
-	fcppt_maximum = threadsafe
 };
 
 }
+}
+
+namespace fcppt
+{
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
+
+template<>
+struct enum_is_empty<
+	sge::image::capabilities
+>
+:
+std::true_type
+{
+};
+
+FCPPT_PP_POP_WARNING
+
 }
 
 #endif
