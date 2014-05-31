@@ -5,6 +5,7 @@ set(
 	include/sge/media/const_raw_range.hpp
 	include/sge/media/detail/muxer_fwd.hpp
 	include/sge/media/extension.hpp
+	include/sge/media/extension_fwd.hpp
 	include/sge/media/extension_set.hpp
 	include/sge/media/log_location.hpp
 	include/sge/media/muxer.hpp

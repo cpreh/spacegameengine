@@ -19,38 +19,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/exception.hpp>
+#include <sge/libpng/create_struct.hpp>
+#include <sge/libpng/error_context_fwd.hpp>
 #include <sge/libpng/png.hpp>
 #include <sge/libpng/write_ptr.hpp>
 #include <fcppt/text.hpp>
 
 
 sge::libpng::write_ptr::write_ptr(
-	png_const_charp const _user_png_ver,
-	png_voidp const _error_ptr,
-	png_error_ptr const _error_fn,
-	png_error_ptr const _warn_fn
+	sge::libpng::error_context &_error_context
 )
 :
-	ptr_(
-		png_create_write_struct(
-			_user_png_ver,
-			_error_ptr,
-			_error_fn,
-			_warn_fn
+	ptr_{
+		sge::libpng::create_struct(
+			&::png_create_write_struct,
+			_error_context
 		)
-	)
+	}
 {
 	if(
-		!ptr_
+		ptr_
+		==
+		nullptr
 	)
-		throw image::exception(
-			FCPPT_TEXT("couldn't allocate png write structure")
-		);
+		throw
+			sge::image::exception{
+				FCPPT_TEXT("couldn't allocate png write structure")
+			};
 }
 
 sge::libpng::write_ptr::~write_ptr()
 {
-	png_destroy_write_struct(
+	::png_destroy_write_struct(
 		&ptr_,
 		nullptr
 	);
@@ -59,5 +59,6 @@ sge::libpng::write_ptr::~write_ptr()
 png_structp
 sge::libpng::write_ptr::ptr() const
 {
-	return ptr_;
+	return
+		ptr_;
 }

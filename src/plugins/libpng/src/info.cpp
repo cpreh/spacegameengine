@@ -32,7 +32,7 @@ sge::libpng::info::info(
 		_ptr
 	),
 	info_(
-		png_create_info_struct(
+		::png_create_info_struct(
 			_ptr
 		)
 	)
@@ -40,14 +40,15 @@ sge::libpng::info::info(
 	if(
 		!info_
 	)
-		throw image::exception(
-			FCPPT_TEXT("couldn't generate png info structure")
-		);
+		throw
+			sge::image::exception{
+				FCPPT_TEXT("couldn't generate png info structure")
+			};
 }
 
 sge::libpng::info::~info()
 {
-	png_destroy_info_struct(
+	::png_destroy_info_struct(
 		ptr_,
 		&info_
 	);
@@ -56,5 +57,6 @@ sge::libpng::info::~info()
 png_infop
 sge::libpng::info::get() const
 {
-	return info_;
+	return
+		info_;
 }

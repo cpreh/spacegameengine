@@ -18,54 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/optional_path.hpp>
-#include <sge/image/unsupported_format.hpp>
-#include <sge/image/color/format.hpp>
 #include <sge/libpng/bit_depth_from_format.hpp>
-#include <fcppt/optional_impl.hpp>
-#include <fcppt/text.hpp>
+#include <sge/libpng/format.hpp>
 #include <fcppt/assert/unreachable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 int
 sge::libpng::bit_depth_from_format(
-	boost::filesystem::path const &_path,
-	sge::image::color::format const _format
+	sge::libpng::format const _format
 )
 {
 	switch(
 		_format
 	)
 	{
-	case sge::image::color::format::a8:
-	case sge::image::color::format::l8:
-	case sge::image::color::format::la8:
-	case sge::image::color::format::rgb8:
-	case sge::image::color::format::srgb8:
-	case sge::image::color::format::bgr8:
-	case sge::image::color::format::sbgr8:
-	case sge::image::color::format::rgba8:
-	case sge::image::color::format::srgba8:
-	case sge::image::color::format::rgbx8:
-	case sge::image::color::format::bgra8:
-	case sge::image::color::format::sbgra8:
-	case sge::image::color::format::bgrx8:
-		return 8;
-	case sge::image::color::format::r32f:
-	case sge::image::color::format::rgb32f:
-	case sge::image::color::format::bgr32f:
-	case sge::image::color::format::rgba32f:
-	case sge::image::color::format::bgra32f:
-		throw
-			sge::image::unsupported_format(
-				sge::image::optional_path(
-					_path
-				),
-				FCPPT_TEXT("{r,g,b,a}32f")
-			);
+	case sge::libpng::format::l8:
+	case sge::libpng::format::la8:
+	case sge::libpng::format::rgb8:
+	case sge::libpng::format::srgb8:
+	case sge::libpng::format::bgr8:
+	case sge::libpng::format::sbgr8:
+	case sge::libpng::format::rgba8:
+	case sge::libpng::format::srgba8:
+	case sge::libpng::format::rgbx8:
+	case sge::libpng::format::bgra8:
+	case sge::libpng::format::sbgra8:
+	case sge::libpng::format::bgrx8:
+		return
+			8;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

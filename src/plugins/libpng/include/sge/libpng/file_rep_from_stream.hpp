@@ -18,18 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_LIBPNG_GAMMA_VALUE_HPP_INCLUDED
-#define SGE_LIBPNG_GAMMA_VALUE_HPP_INCLUDED
+#ifndef SGE_LIBPNG_FILE_REP_FROM_STREAM_HPP_INCLUDED
+#define SGE_LIBPNG_FILE_REP_FROM_STREAM_HPP_INCLUDED
 
-#include <fcppt/strong_typedef.hpp>
+#include <sge/image/optional_path_fwd.hpp>
+#include <sge/libpng/file_rep.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <iosfwd>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {
 namespace libpng
 {
-FCPPT_MAKE_STRONG_TYPEDEF(
-	double,
-	gamma_value);
+
+sge::libpng::file_rep
+file_rep_from_stream(
+	std::istream &,
+	sge::image::optional_path const &
+);
+
 }
 }
 

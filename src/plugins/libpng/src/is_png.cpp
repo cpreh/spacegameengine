@@ -21,6 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/libpng/header_bytes.hpp>
 #include <sge/libpng/is_png.hpp>
 #include <sge/libpng/png.hpp>
+#include <fcppt/literal.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/cast/to_char_ptr.hpp>
+#include <fcppt/cast/to_signed.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <array>
 #include <iosfwd>
@@ -35,42 +39,43 @@ sge::libpng::is_png(
 {
 	std::array<
 		char,
-		libpng::header_bytes::value
-	> buf;
+		sge::libpng::header_bytes::value
+	>
+	buf;
 
-	_stream.read(
-		buf.data(),
-		static_cast<
-			std::streamsize
-		>(
+	std::streamsize const signed_size(
+		fcppt::cast::to_signed(
 			buf.size()
 		)
 	);
 
+	_stream.read(
+		buf.data(),
+		signed_size
+	);
+
 	return
 		_stream.gcount()
-		<
-		static_cast<
-			std::streamsize
-		>(
-			buf.size()
-		)
-		||
-		!png_sig_cmp(
-			reinterpret_cast<
+		>=
+		signed_size
+		&&
+		::png_sig_cmp(
+			fcppt::cast::to_char_ptr<
 				png_byte *
 			>(
 				buf.data()
 			),
-			static_cast<
+			fcppt::literal<
 				png_size_t
 			>(
 				0
 			),
-			static_cast<
+			fcppt::cast::size<
 				png_size_t
 			>(
 				buf.size()
 			)
-		);
+		)
+		==
+		0;
 }

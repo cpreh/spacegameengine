@@ -21,23 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_OPTIONAL_PATH_HPP_INCLUDED
 #define SGE_AUDIO_OPTIONAL_PATH_HPP_INCLUDED
 
-#include <fcppt/optional_decl.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <sge/audio/optional_path_fwd.hpp>
+#include <fcppt/optional_impl.hpp>
 
-
-namespace sge
-{
-namespace audio
-{
-typedef
-fcppt::optional
-<
-	boost::filesystem::path
->
-optional_path;
-}
-}
 
 #endif

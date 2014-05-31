@@ -33,6 +33,7 @@ set(
 	include/sge/audio/optional_file_unique_ptr.hpp
 	include/sge/audio/optional_file_unique_ptr_fwd.hpp
 	include/sge/audio/optional_path.hpp
+	include/sge/audio/optional_path_fwd.hpp
 	include/sge/audio/player.hpp
 	include/sge/audio/player_fwd.hpp
 	include/sge/audio/player_plugin/collection_fwd.hpp

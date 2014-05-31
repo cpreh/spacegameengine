@@ -18,158 +18,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/exception.hpp>
 #include <sge/image/file_exception.hpp>
 #include <sge/image/optional_path.hpp>
-#include <sge/image/size_type.hpp>
-#include <sge/image/unsupported_format.hpp>
-#include <sge/image/color/element_count.hpp>
-#include <sge/image/color/format.hpp>
-#include <sge/image2d/dim.hpp>
-#include <sge/libpng/bit_depth_from_format.hpp>
-#include <sge/libpng/color_type_from_format.hpp>
 #include <sge/libpng/png.hpp>
-#include <sge/libpng/transforms_from_format.hpp>
 #include <sge/libpng/write_context.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <sge/libpng/write_ptr.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
-#include <fcppt/preprocessor/disable_vc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/cast/from_void_ptr.hpp>
+#include <fcppt/cast/to_char_ptr.hpp>
+#include <fcppt/cast/to_signed.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
-#include <climits>
-#include <iosfwd>
+#include <ostream>
 #include <fcppt/config/external_end.hpp>
 
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::libpng::write_context::write_context(
 	boost::filesystem::path const &_path,
-	image2d::dim const &_dim,
-	byte_vector const &_bytes,
-	sge::image::color::format const _format
+	std::ostream &_stream,
+	sge::libpng::write_ptr const &_write_ptr
 )
 :
-	context_base(
-		sge::image::optional_path(
-			_path
-		)
-	),
-	file_(
+	path_(
 		_path
 	),
-	bytes_(
-		_bytes
-	),
-	format_(
-		_format
-	),
-	write_ptr_(
-		PNG_LIBPNG_VER_STRING,
-		static_cast<
-			png_voidp
-		>(
-			this
-		),
-		&write_context::handle_error,
-		&write_context::handle_warning
-	),
-	info_(
-		write_ptr_.ptr()
+	stream_(
+		_stream
 	)
 {
-	if(
-		!file_.is_open()
-	)
-		throw
-			image::file_exception(
-				image::optional_path(
-					_path
-				),
-				FCPPT_TEXT("couldn't open file")
-			);
-
-	png_set_write_fn(
-		write_ptr_.ptr(),
-		static_cast<png_voidp>(
-			this),
-		&write_context::handle_write,
-		&write_context::handle_flush);
-
-	png_set_IHDR(
-		write_ptr_.ptr(),
-		info_.get(),
-		static_cast<
-			png_uint_32
-		>(
-			_dim.w()
-		),
-		static_cast<
-			png_uint_32
-		>(
-			_dim.h()
-		),
-		libpng::bit_depth_from_format(
-			*path_,
-			_format
-		),
-		libpng::color_type_from_format(
-			*path_,
-			_format
-		),
-		PNG_INTERLACE_NONE,
-		PNG_COMPRESSION_TYPE_DEFAULT,
-		PNG_FILTER_TYPE_DEFAULT
+	::png_set_write_fn(
+		_write_ptr.ptr(),
+		this,
+		&sge::libpng::write_context::handle_write,
+		&sge::libpng::write_context::handle_flush
 	);
-
-	png_write_info(
-		write_ptr_.ptr(),
-		info_.get());
-
-	typedef fcppt::container::raw_vector<png_bytep> row_ptr_vector;
-
-	row_ptr_vector row_ptrs(
-		static_cast<row_ptr_vector::size_type>(
-			_dim.h()));
-
-	row_ptr_vector::size_type const stride(
-		sge::image::color::element_count(
-			_format
-		)
-		*
-		static_cast<
-			sge::image::size_type
-		>(
-			libpng::bit_depth_from_format(
-				*path_,
-				_format
-			)
-		)
-		/
-		CHAR_BIT
-		* _dim.w()
-	);
-
-	for (row_ptr_vector::size_type i = 0; i < row_ptrs.size(); ++i)
-		row_ptrs[i] =
-			const_cast<
-				png_bytep
-			>(
-				bytes_.data() + i * stride
-			);
-
-	png_write_image(
-		write_ptr_.ptr(),
-		row_ptrs.data());
-
-	png_write_end(
-		write_ptr_.ptr(),
-		info_.get());
 }
-FCPPT_PP_POP_WARNING
 
 sge::libpng::write_context::~write_context()
 {
@@ -178,16 +61,13 @@ sge::libpng::write_context::~write_context()
 void
 sge::libpng::write_context::handle_write(
 	png_structp const _ptr,
-	png_bytep _data,
-	png_size_t const _length)
+	png_bytep const _data,
+	png_size_t const _length
+)
 {
-	static_cast<
-		write_context *
-	>(
-		png_get_io_ptr(
-			_ptr
-		)
-	)->handle_write_impl(
+	sge::libpng::write_context::get_instance(
+		_ptr
+	).handle_write_impl(
 		_data,
 		_length
 	);
@@ -195,30 +75,31 @@ sge::libpng::write_context::handle_write(
 
 void
 sge::libpng::write_context::handle_write_impl(
-	png_bytep _data,
+	png_bytep const _data,
 	png_size_t const _length
 )
 {
-	file_.write(
-		reinterpret_cast<
+	stream_.write(
+		fcppt::cast::to_char_ptr<
 			char const *
 		>(
 			_data
 		),
-		static_cast<
-			std::streamsize
-		>(
+		fcppt::cast::to_signed(
 			_length
 		)
 	);
 
 	if(
-		!file_
+		!stream_
 	)
-		throw image::file_exception(
-			path_,
-			FCPPT_TEXT("error writing")
-		);
+		throw
+			sge::image::file_exception(
+				sge::image::optional_path(
+					path_
+				),
+				FCPPT_TEXT("error writing")
+			);
 }
 
 void
@@ -226,17 +107,28 @@ sge::libpng::write_context::handle_flush(
 	png_structp const _ptr
 )
 {
-	static_cast<
-		write_context *
-	>(
-		png_get_io_ptr(
-			_ptr
-		)
-	)->handle_flush_impl();
+	sge::libpng::write_context::get_instance(
+		_ptr
+	).handle_flush_impl();
 }
 
 void
 sge::libpng::write_context::handle_flush_impl()
 {
-	file_.flush();
+	stream_.flush();
+}
+
+sge::libpng::write_context &
+sge::libpng::write_context::get_instance(
+	png_structp const _ptr
+)
+{
+	return
+		*fcppt::cast::from_void_ptr<
+			sge::libpng::write_context *
+		>(
+			::png_get_io_ptr(
+				_ptr
+			)
+		);
 }

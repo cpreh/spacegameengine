@@ -21,21 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MEDIA_EXTENSION_HPP_INCLUDED
 #define SGE_MEDIA_EXTENSION_HPP_INCLUDED
 
-#include <fcppt/string.hpp>
+#include <sge/media/extension_fwd.hpp>
 #include <fcppt/strong_typedef.hpp>
 
-
-namespace sge
-{
-namespace media
-{
-
-FCPPT_MAKE_STRONG_TYPEDEF(
-	fcppt::string,
-	extension
-);
-
-}
-}
 
 #endif

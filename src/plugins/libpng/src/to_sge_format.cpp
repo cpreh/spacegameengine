@@ -18,80 +18,65 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/exception.hpp>
 #include <sge/image/color/format.hpp>
-#include <sge/image/color/optional_format.hpp>
-#include <sge/libpng/png.hpp>
+#include <sge/libpng/format.hpp>
 #include <sge/libpng/to_sge_format.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/assert/pre.hpp>
-#include <fcppt/math/diff.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 
-sge::image::color::optional_format const
+sge::image::color::format
 sge::libpng::to_sge_format(
-	png_byte const _color_type,
-	png_byte const _bit_depth,
-	sge::libpng::gamma_value const &_gamma_value
+	sge::libpng::format const _format
 )
 {
-	// For now, we assume that all png images have a gamma of 2.2 (or
-	// 0.45455 as a reciprocal), which indicates sRGB. If we have
-	// sRGB, we return the corresponding format. The gamma value,
-	// however, could be off, in which case we have to look further
-	// into it and maybe return a different color format.
-	FCPPT_ASSERT_PRE(
-		fcppt::math::diff(
-			_gamma_value.get(),
-			static_cast<sge::libpng::gamma_value::value_type>(
-				0.45455)) <
-		static_cast<sge::libpng::gamma_value::value_type>(
-			0.01));
+#define SGE_LIBPNG_CONVERT_CASE(\
+	cur_format\
+)\
+	case sge::libpng::format::cur_format:\
+		return \
+			sge::image::color::format::cur_format
 
 	switch(
-		_color_type
+		_format
 	)
 	{
-	case PNG_COLOR_TYPE_GRAY:
-		if(
-			_bit_depth == 8
-		)
-			return
-				sge::image::color::optional_format(
-					sge::image::color::format::l8
-				);
-		break;
-	case PNG_COLOR_TYPE_GRAY_ALPHA:
-		if(
-			_bit_depth == 8
-		)
-			return
-				sge::image::color::optional_format(
-					sge::image::color::format::la8
-				);
-		break;
-	case PNG_COLOR_TYPE_PALETTE:
-		break;
-	case PNG_COLOR_TYPE_RGB:
-		if(
-			_bit_depth == 8
-		)
-			return
-				sge::image::color::optional_format(
-					sge::image::color::format::srgb8
-				);
-		break;
-	case PNG_COLOR_TYPE_RGB_ALPHA:
-		if(
-			_bit_depth == 8
-		)
-			return
-				sge::image::color::optional_format(
-					sge::image::color::format::srgba8
-				);
-		break;
+		SGE_LIBPNG_CONVERT_CASE(
+			l8
+		);
+		SGE_LIBPNG_CONVERT_CASE(
+			la8
+		);
+		SGE_LIBPNG_CONVERT_CASE(
+			rgb8
+		);
+		SGE_LIBPNG_CONVERT_CASE(
+			rgbx8
+		);
+		SGE_LIBPNG_CONVERT_CASE(
+			srgb8
+		);
+		SGE_LIBPNG_CONVERT_CASE(
+			bgr8
+		);
+		SGE_LIBPNG_CONVERT_CASE(
+			bgrx8
+		);
+		SGE_LIBPNG_CONVERT_CASE(
+			sbgr8
+		);
+		SGE_LIBPNG_CONVERT_CASE(
+			rgba8
+		);
+		SGE_LIBPNG_CONVERT_CASE(
+			srgba8
+		);
+		SGE_LIBPNG_CONVERT_CASE(
+			bgra8
+		);
+		SGE_LIBPNG_CONVERT_CASE(
+			sbgra8
+		);
 	}
 
-	return
-		sge::image::color::optional_format();
+	FCPPT_ASSERT_UNREACHABLE;
 }

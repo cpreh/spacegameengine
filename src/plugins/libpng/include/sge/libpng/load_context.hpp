@@ -21,21 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_LIBPNG_LOAD_CONTEXT_HPP_INCLUDED
 #define SGE_LIBPNG_LOAD_CONTEXT_HPP_INCLUDED
 
-#include <sge/image/optional_path_fwd.hpp>
-#include <sge/image/color/format.hpp>
-#include <sge/image2d/dim.hpp>
-#include <sge/libpng/byte_vector.hpp>
-#include <sge/libpng/context_base.hpp>
-#include <sge/libpng/info.hpp>
+#include <sge/image/optional_path.hpp>
 #include <sge/libpng/png.hpp>
-#include <sge/libpng/read_ptr.hpp>
+#include <sge/libpng/read_ptr_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/math/dim/object_decl.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <istream>
+#include <iosfwd>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -44,12 +35,7 @@ namespace sge
 namespace libpng
 {
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
 class load_context
-:
-	public libpng::context_base
 {
 	FCPPT_NONCOPYABLE(
 		load_context
@@ -57,36 +43,18 @@ class load_context
 public:
 	load_context(
 		std::istream &,
-		sge::image::optional_path const &
+		sge::image::optional_path const &,
+		sge::libpng::read_ptr const &
 	);
 
 	~load_context();
-
-	image2d::dim const &
-	dim() const;
-
-	byte_vector &
-	bytes();
-
-	byte_vector const &
-	bytes() const;
-
-	image::color::format
-	format() const;
 private:
 	std::istream &stream_;
 
-	libpng::read_ptr const read_ptr_;
+	sge::image::optional_path const path_;
 
-	libpng::info const info_;
-
-	image2d::dim dim_;
-
-	byte_vector bytes_;
-
-	image::color::format format_;
-
-	static void
+	static
+	void
 	handle_read(
 		png_structp,
 		png_bytep data,
@@ -98,12 +66,7 @@ private:
 		png_bytep data,
 		png_size_t length
 	);
-
-	sge::image::color::format
-	convert_format() const;
 };
-
-FCPPT_PP_POP_WARNING
 
 }
 }

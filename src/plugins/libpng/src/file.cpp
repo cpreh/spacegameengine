@@ -19,27 +19,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/const_raw_pointer.hpp>
-#include <sge/image/unsupported_format.hpp>
-#include <sge/image/algorithm/may_overlap.hpp>
-#include <sge/image/color/format_stride.hpp>
+#include <sge/image/optional_path_fwd.hpp>
+#include <sge/image2d/dim.hpp>
 #include <sge/image2d/pitch.hpp>
-#include <sge/image2d/algorithm/copy_and_convert.hpp>
 #include <sge/image2d/view/const_object.hpp>
-#include <sge/image2d/view/format.hpp>
-#include <sge/image2d/view/make.hpp>
 #include <sge/image2d/view/make_const.hpp>
-#include <sge/image2d/view/object.hpp>
-#include <sge/image2d/view/size.hpp>
 #include <sge/libpng/file.hpp>
-#include <sge/libpng/is_png.hpp>
-#include <sge/libpng/load_context.hpp>
-#include <sge/libpng/png.hpp>
-#include <sge/libpng/write_context.hpp>
-#include <fcppt/no_init.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
+#include <sge/libpng/file_rep_from_stream.hpp>
+#include <sge/libpng/file_rep_from_view.hpp>
+#include <sge/libpng/to_sge_format.hpp>
+#include <sge/libpng/write.hpp>
+#include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
+#include <iosfwd>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -48,68 +41,25 @@ sge::libpng::file::file(
 	sge::image::optional_path const &_path
 )
 :
-	dim_(
-		fcppt::no_init() // FIXME!
-	),
-	format_(),
-	bytes_()
-{
-	if(
-		!libpng::is_png(
-			_stream
+	rep_(
+		sge::libpng::file_rep_from_stream(
+			_stream,
+			_path
 		)
 	)
-		throw
-			image::unsupported_format(
-				_path,
-				FCPPT_TEXT("not a png file")
-			);
-
-	libpng::load_context context(
-		_stream,
-		_path
-	);
-
-	dim_ = context.dim();
-
-	bytes_.swap(
-		context.bytes()
-	);
-
-	format_ = context.format();
+{
 }
 
 sge::libpng::file::file(
-	image2d::view::const_object const &_view
+	sge::image2d::view::const_object const &_view
 )
 :
-	dim_(
-		image2d::view::size(
+	rep_(
+		sge::libpng::file_rep_from_view(
 			_view
-		)
-	),
-	format_(
-		image2d::view::format(
-			_view
-		)
-	),
-	bytes_(
-		dim_.content() *
-		image::color::format_stride(
-			format_
 		)
 	)
 {
-	image2d::algorithm::copy_and_convert(
-		_view,
-		image2d::view::make(
-			bytes_.data(),
-			dim_,
-			format_,
-			sge::image2d::pitch::null()
-		),
-		sge::image::algorithm::may_overlap::no
-	);
 }
 
 sge::libpng::file::~file()
@@ -120,14 +70,16 @@ sge::image2d::view::const_object const
 sge::libpng::file::view() const
 {
 	return
-		image2d::view::make_const(
-			reinterpret_cast<
-				image::const_raw_pointer
+		sge::image2d::view::make_const(
+			fcppt::cast::to_char_ptr<
+				sge::image::const_raw_pointer
 			>(
-				bytes_.data()
+				rep_.bytes().data()
 			),
 			this->size(),
-			format_,
+			sge::libpng::to_sge_format(
+				rep_.format()
+			),
 			sge::image2d::pitch::null()
 		);
 }
@@ -135,7 +87,8 @@ sge::libpng::file::view() const
 sge::image2d::dim const
 sge::libpng::file::size() const
 {
-	return dim_;
+	return
+		rep_.size();
 }
 
 void
@@ -143,10 +96,8 @@ sge::libpng::file::save(
 	boost::filesystem::path const &_path
 ) const
 {
-	libpng::write_context context(
+	sge::libpng::write(
 		_path,
-		this->size(),
-		bytes_,
-		format_
+		rep_
 	);
 }

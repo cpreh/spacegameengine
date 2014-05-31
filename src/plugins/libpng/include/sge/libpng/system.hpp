@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_LIBPNG_SYSTEM_HPP_INCLUDED
 #define SGE_LIBPNG_SYSTEM_HPP_INCLUDED
 
+#include <sge/image/optional_path_fwd.hpp>
 #include <sge/image2d/optional_file_unique_ptr.hpp>
 #include <sge/image2d/system.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
@@ -82,6 +83,12 @@ public:
 	sge::media::extension_set
 	extensions() const
 	override;
+private:
+	sge::image2d::optional_file_unique_ptr
+	load_impl(
+		std::istream &,
+		sge::image::optional_path const &
+	);
 };
 
 }

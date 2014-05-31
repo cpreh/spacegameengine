@@ -21,14 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_LIBPNG_FILE_HPP_INCLUDED
 #define SGE_LIBPNG_FILE_HPP_INCLUDED
 
-#include <sge/image/optional_path.hpp>
-#include <sge/image/color/format.hpp>
-#include <sge/image2d/dim.hpp>
+#include <sge/image/optional_path_fwd.hpp>
+#include <sge/image2d/dim_fwd.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
-#include <sge/libpng/byte_vector.hpp>
+#include <sge/libpng/file_rep.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/math/dim/object_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <iosfwd>
@@ -53,28 +51,29 @@ public:
 		sge::image::optional_path const &
 	);
 
-	explicit file(
-		image2d::view::const_object const &
+	explicit
+	file(
+		sge::image2d::view::const_object const &
 	);
 
-	~file();
+	~file()
+	override;
+private:
+	sge::image2d::view::const_object const
+	view() const
+	override;
 
-	image2d::view::const_object const
-	view() const;
-
-	image2d::dim const
-	size() const;
+	sge::image2d::dim const
+	size() const
+	override;
 
 	void
 	save(
 		boost::filesystem::path const &
-	) const;
-private:
-	image2d::dim dim_;
+	) const
+	override;
 
-	image::color::format format_;
-
-	libpng::byte_vector bytes_;
+	sge::libpng::file_rep const rep_;
 };
 
 }

@@ -106,6 +106,7 @@ set(
 	include/sge/audio/optional_file_unique_ptr.hpp
 	include/sge/audio/optional_file_unique_ptr_fwd.hpp
 	include/sge/audio/optional_path.hpp
+	include/sge/audio/optional_path_fwd.hpp
 	include/sge/audio/player.hpp
 	include/sge/audio/player_fwd.hpp
 	include/sge/audio/player_plugin/collection_fwd.hpp
@@ -1331,6 +1332,7 @@ set(
 	include/sge/media/const_raw_range.hpp
 	include/sge/media/detail/muxer_fwd.hpp
 	include/sge/media/extension.hpp
+	include/sge/media/extension_fwd.hpp
 	include/sge/media/extension_set.hpp
 	include/sge/media/log_location.hpp
 	include/sge/media/muxer.hpp

@@ -2,37 +2,72 @@ set(
 	SGE_LIBPNG_FILES
 	src/plugins/libpng/include/sge/libpng/bit_depth_from_format.hpp
 	src/plugins/libpng/include/sge/libpng/byte_vector.hpp
+	src/plugins/libpng/include/sge/libpng/byte_vector_fwd.hpp
+	src/plugins/libpng/include/sge/libpng/bytes_per_pixel.hpp
+	src/plugins/libpng/include/sge/libpng/check_extension.hpp
 	src/plugins/libpng/include/sge/libpng/color_type_from_format.hpp
-	src/plugins/libpng/include/sge/libpng/context_base.hpp
+	src/plugins/libpng/include/sge/libpng/create_struct.hpp
+	src/plugins/libpng/include/sge/libpng/error_context.hpp
+	src/plugins/libpng/include/sge/libpng/error_context_fwd.hpp
+	src/plugins/libpng/include/sge/libpng/expected_gamma.hpp
+	src/plugins/libpng/include/sge/libpng/extension.hpp
 	src/plugins/libpng/include/sge/libpng/file.hpp
-	src/plugins/libpng/include/sge/libpng/gamma_value.hpp
+	src/plugins/libpng/include/sge/libpng/file_rep.hpp
+	src/plugins/libpng/include/sge/libpng/file_rep_from_stream.hpp
+	src/plugins/libpng/include/sge/libpng/file_rep_from_view.hpp
+	src/plugins/libpng/include/sge/libpng/file_rep_fwd.hpp
+	src/plugins/libpng/include/sge/libpng/format.hpp
+	src/plugins/libpng/include/sge/libpng/format_fwd.hpp
+	src/plugins/libpng/include/sge/libpng/from_sge_format_exn.hpp
+	src/plugins/libpng/include/sge/libpng/gamma.hpp
+	src/plugins/libpng/include/sge/libpng/get_gamma.hpp
 	src/plugins/libpng/include/sge/libpng/header_bytes.hpp
 	src/plugins/libpng/include/sge/libpng/info.hpp
+	src/plugins/libpng/include/sge/libpng/info_fwd.hpp
 	src/plugins/libpng/include/sge/libpng/is_png.hpp
 	src/plugins/libpng/include/sge/libpng/load_context.hpp
 	src/plugins/libpng/include/sge/libpng/logger.hpp
 	src/plugins/libpng/include/sge/libpng/logger_context.hpp
+	src/plugins/libpng/include/sge/libpng/make_format.hpp
+	src/plugins/libpng/include/sge/libpng/make_row_vector.hpp
+	src/plugins/libpng/include/sge/libpng/optional_format.hpp
+	src/plugins/libpng/include/sge/libpng/optional_format_fwd.hpp
 	src/plugins/libpng/include/sge/libpng/png.hpp
 	src/plugins/libpng/include/sge/libpng/read_ptr.hpp
+	src/plugins/libpng/include/sge/libpng/read_ptr_fwd.hpp
+	src/plugins/libpng/include/sge/libpng/row_vector.hpp
 	src/plugins/libpng/include/sge/libpng/system.hpp
 	src/plugins/libpng/include/sge/libpng/to_sge_format.hpp
 	src/plugins/libpng/include/sge/libpng/transforms_from_format.hpp
+	src/plugins/libpng/include/sge/libpng/write.hpp
 	src/plugins/libpng/include/sge/libpng/write_context.hpp
 	src/plugins/libpng/include/sge/libpng/write_ptr.hpp
+	src/plugins/libpng/include/sge/libpng/write_ptr_fwd.hpp
 	src/plugins/libpng/src/bit_depth_from_format.cpp
+	src/plugins/libpng/src/check_extension.cpp
 	src/plugins/libpng/src/color_type_from_format.cpp
-	src/plugins/libpng/src/context_base.cpp
+	src/plugins/libpng/src/error_context.cpp
+	src/plugins/libpng/src/expected_gamma.cpp
 	src/plugins/libpng/src/exports.cpp
+	src/plugins/libpng/src/extension.cpp
 	src/plugins/libpng/src/file.cpp
+	src/plugins/libpng/src/file_rep.cpp
+	src/plugins/libpng/src/file_rep_from_stream.cpp
+	src/plugins/libpng/src/file_rep_from_view.cpp
+	src/plugins/libpng/src/from_sge_format_exn.cpp
+	src/plugins/libpng/src/get_gamma.cpp
 	src/plugins/libpng/src/info.cpp
 	src/plugins/libpng/src/is_png.cpp
 	src/plugins/libpng/src/load_context.cpp
 	src/plugins/libpng/src/logger.cpp
 	src/plugins/libpng/src/logger_context.cpp
+	src/plugins/libpng/src/make_format.cpp
+	src/plugins/libpng/src/make_row_vector.cpp
 	src/plugins/libpng/src/read_ptr.cpp
 	src/plugins/libpng/src/system.cpp
 	src/plugins/libpng/src/to_sge_format.cpp
 	src/plugins/libpng/src/transforms_from_format.cpp
+	src/plugins/libpng/src/write.cpp
 	src/plugins/libpng/src/write_context.cpp
 	src/plugins/libpng/src/write_ptr.cpp
 )

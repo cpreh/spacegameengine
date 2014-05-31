@@ -22,19 +22,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_LIBPNG_HEADER_BYTES_HPP_INCLUDED
 
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/integral_c.hpp>
 #include <cstddef>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {
 namespace libpng
 {
 
-typedef boost::mpl::integral_c<
+typedef
+std::integral_constant<
 	std::size_t,
 	8u
-> header_bytes;
+>
+header_bytes;
 
 }
 }

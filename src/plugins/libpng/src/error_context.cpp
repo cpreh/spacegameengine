@@ -19,18 +19,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/file_exception.hpp>
-#include <sge/libpng/context_base.hpp>
+#include <sge/image/optional_path.hpp>
+#include <sge/libpng/error_context.hpp>
 #include <sge/libpng/logger.hpp>
 #include <sge/libpng/png.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/from_void_ptr.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/warning.hpp>
 
 
-sge::libpng::context_base::context_base(
+sge::libpng::error_context::error_context(
 	sge::image::optional_path const &_path
 )
 :
@@ -40,60 +42,89 @@ sge::libpng::context_base::context_base(
 {
 }
 
-sge::libpng::context_base::~context_base()
+sge::libpng::error_context::~error_context()
 {
 }
 
 void
-sge::libpng::context_base::handle_warning(
-	png_structp read_ptr,
-	png_const_charp data
+sge::libpng::error_context::handle_warning(
+	png_structp const _read_ptr,
+	png_const_charp const _data
 )
 {
-	static_cast<context_base *>(png_get_io_ptr(read_ptr))->handle_warning_impl(
-		data);
+	sge::libpng::error_context::get_instance(
+		_read_ptr
+	).handle_warning_impl(
+		_data
+	);
 }
 
 void
-sge::libpng::context_base::handle_warning_impl(
-	png_const_charp const message
+sge::libpng::error_context::handle_error(
+	png_structp const _read_ptr,
+	png_const_charp const _data
 )
 {
-	fcppt::string const prelude =
+	sge::libpng::error_context::get_instance(
+		_read_ptr
+	).handle_error_impl(
+		_data
+	);
+}
+
+void
+sge::libpng::error_context::handle_warning_impl(
+	png_const_charp const _message
+)
+{
+	fcppt::string const prelude{
 		path_
 		?
-			FCPPT_TEXT("file: ")+
+			FCPPT_TEXT("file: ")
+			+
 			fcppt::filesystem::path_to_string(
-				*path_)
+				*path_
+			)
 		:
-			FCPPT_TEXT("stream");
+			FCPPT_TEXT("stream")
+	};
 
 	FCPPT_LOG_WARNING(
 		sge::libpng::logger(),
 		fcppt::log::_
 			<< prelude
 			<< FCPPT_TEXT(": ")
-			<< fcppt::from_std_string(message)
+			<< fcppt::from_std_string(
+				_message
+			)
 	);
 }
 
-void sge::libpng::context_base::handle_error(
-	png_structp read_ptr,
-	png_const_charp data)
+void
+sge::libpng::error_context::handle_error_impl(
+	png_const_charp const _message
+)
 {
-	static_cast<context_base *>(png_get_io_ptr(read_ptr))->handle_error_impl(
-		data);
+	throw
+		sge::image::file_exception(
+			path_,
+			fcppt::from_std_string(
+				_message
+			)
+		);
 }
 
-void sge::libpng::context_base::handle_error_impl(
-	png_const_charp const message)
+sge::libpng::error_context &
+sge::libpng::error_context::get_instance(
+	png_structp const _read_ptr
+)
 {
-	if(path_)
-		throw
-			image::file_exception(
-				path_,
-				fcppt::from_std_string(
-					message
-				)
-			);
+	return
+		*fcppt::cast::from_void_ptr<
+			sge::libpng::error_context *
+		>(
+			::png_get_error_ptr(
+				_read_ptr
+			)
+		);
 }

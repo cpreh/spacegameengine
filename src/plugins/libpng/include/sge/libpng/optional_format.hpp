@@ -18,58 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_LIBPNG_CONTEXT_BASE_HPP_INCLUDED
-#define SGE_LIBPNG_CONTEXT_BASE_HPP_INCLUDED
+#ifndef SGE_LIBPNG_OPTIONAL_FORMAT_HPP_INCLUDED
+#define SGE_LIBPNG_OPTIONAL_FORMAT_HPP_INCLUDED
 
-#include <sge/image/optional_path.hpp>
-#include <sge/libpng/png.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/optional.hpp>
+#include <sge/libpng/format.hpp>
+#include <sge/libpng/optional_format_fwd.hpp>
+#include <fcppt/optional_impl.hpp>
 
-
-namespace sge
-{
-namespace libpng
-{
-
-class context_base
-{
-	FCPPT_NONCOPYABLE(
-		context_base
-	);
-protected:
-	explicit context_base(
-		sge::image::optional_path const &
-	);
-
-	~context_base();
-
-	sge::image::optional_path const path_;
-
-	static void
-	handle_warning(
-		png_structp,
-		png_const_charp
-	);
-
-	void
-	handle_warning_impl(
-		png_const_charp
-	);
-
-	static void
-	handle_error(
-		png_structp,
-		png_const_charp
-	);
-
-	void
-	handle_error_impl(
-		png_const_charp
-	);
-};
-
-}
-}
 
 #endif

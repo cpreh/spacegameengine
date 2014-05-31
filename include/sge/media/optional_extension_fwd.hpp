@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MEDIA_OPTIONAL_EXTENSION_FWD_HPP_INCLUDED
 #define SGE_MEDIA_OPTIONAL_EXTENSION_FWD_HPP_INCLUDED
 
-#include <sge/media/extension.hpp>
+#include <sge/media/extension_fwd.hpp>
 #include <fcppt/optional_fwd.hpp>
 
 
@@ -30,9 +30,11 @@ namespace sge
 namespace media
 {
 
-typedef fcppt::optional<
+typedef
+fcppt::optional<
 	sge::media::extension
-> optional_extension;
+>
+optional_extension;
 
 }
 }

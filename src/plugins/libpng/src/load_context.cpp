@@ -19,336 +19,98 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/file_exception.hpp>
-#include <sge/image/optional_path_fwd.hpp>
-#include <sge/image/unsupported_format.hpp>
-#include <sge/image/color/format.hpp>
-#include <sge/image/color/optional_format.hpp>
-#include <sge/image2d/dim.hpp>
-#include <sge/libpng/gamma_value.hpp>
-#include <sge/libpng/header_bytes.hpp>
+#include <sge/image/optional_path.hpp>
 #include <sge/libpng/load_context.hpp>
-#include <sge/libpng/logger.hpp>
 #include <sge/libpng/png.hpp>
-#include <sge/libpng/to_sge_format.hpp>
-#include <fcppt/insert_to_fcppt_string.hpp>
-#include <fcppt/no_init.hpp>
-#include <fcppt/string.hpp>
+#include <sge/libpng/read_ptr.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/log/_.hpp>
-#include <fcppt/log/debug.hpp>
-#include <fcppt/math/dim/output.hpp>
-#include <fcppt/preprocessor/disable_vc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/cast/from_void_ptr.hpp>
+#include <fcppt/cast/to_char_ptr.hpp>
+#include <fcppt/cast/to_signed.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <climits>
-#include <cstddef>
 #include <istream>
 #include <fcppt/config/external_end.hpp>
 
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::libpng::load_context::load_context(
 	std::istream &_stream,
-	sge::image::optional_path const &_path
+	sge::image::optional_path const &_path,
+	sge::libpng::read_ptr const &_read_ptr
 )
 :
-	context_base(
-		_path
-	),
 	stream_(
 		_stream
 	),
-	read_ptr_(
-		PNG_LIBPNG_VER_STRING,
-		static_cast<
-			png_voidp
-		>(
-			this
-		),
-		&load_context::handle_error,
-		&load_context::handle_warning
-	),
-	info_(
-		read_ptr_.ptr()
-	),
-	// FIXME!
-	dim_(
-		fcppt::no_init()),
-	bytes_(),
-	format_()
+	path_(
+		_path
+	)
 {
-	png_set_sig_bytes(
-		read_ptr_.ptr(),
-		static_cast<
-			png_size_t
-		>(
-			libpng::header_bytes::value
-		)
-	);
-
-	png_set_read_fn(
-		read_ptr_.ptr(),
+	::png_set_read_fn(
+		_read_ptr.ptr(),
 		this,
-		&load_context::handle_read);
-
-	png_read_info(
-		read_ptr_.ptr(),
-		info_.get()
+		&sge::libpng::load_context::handle_read
 	);
-
-	dim_ =
-		image2d::dim(
-			static_cast<
-				image2d::dim::value_type
-			>(
-				png_get_image_width(
-					read_ptr_.ptr(),
-					info_.get()
-				)
-			),
-			static_cast<
-				image2d::dim::value_type
-			>(
-				png_get_image_height(
-					read_ptr_.ptr(),
-					info_.get()
-				)
-			)
-		);
-
-	png_byte const cs(
-		png_get_channels(
-			read_ptr_.ptr(),
-			info_.get()
-		)
-	);
-
-	png_byte const bpp(
-		png_get_bit_depth(
-			read_ptr_.ptr(),
-			info_.get()
-		)
-	);
-
-	png_uint_32 const color_type(
-		png_get_color_type(
-			read_ptr_.ptr(),
-			info_.get()
-		)
-	);
-
-	if(
-		(bpp % CHAR_BIT) != 0
-	)
-		throw sge::image::file_exception(
-			path_,
-			FCPPT_TEXT("A png file has a bit depth that's not a multiple of a byte's size!")
-		);
-
-	FCPPT_LOG_DEBUG(
-		sge::libpng::logger(),
-		fcppt::log::_
-			<< FCPPT_TEXT("png: dimensions: ")
-			<< dim_
-			<< FCPPT_TEXT(", bit depth: ")
-			<< static_cast<unsigned>(bpp)
-			<< FCPPT_TEXT(", channels: ")
-			<< static_cast<unsigned>(cs)
-	);
-
-	if(
-		color_type == PNG_COLOR_TYPE_PALETTE
-	)
-		throw sge::image::exception(
-			FCPPT_TEXT("Palette images are not supported.")
-		);
-		// For some reason, this causes a crash, so this is disabled for now
-		//png_set_palette_to_rgb(
-		//	read_ptr_.ptr());
-	else if (color_type == PNG_COLOR_TYPE_GRAY)
-	{
-		if (bpp < 8)
-			png_set_expand_gray_1_2_4_to_8(
-				read_ptr_.ptr()
-			);
-	}
-
-	if (
-		png_get_valid(
-			read_ptr_.ptr(),
-			info_.get(),
-			PNG_INFO_tRNS
-		)
-	)
-		png_set_tRNS_to_alpha(
-			read_ptr_.ptr()
-		);
-
-	if(bpp == 16)
-		png_set_strip_16(
-			read_ptr_.ptr());
-
-	bytes_.resize_uninitialized(
-		static_cast<
-			byte_vector::size_type
-		>(
-			dim_.content()
-			*
-			(bpp / CHAR_BIT)
-			* cs
-		)
-	);
-
-	typedef fcppt::container::raw_vector<
-		png_bytep
-	> row_ptr_vector;
-
-	row_ptr_vector row_ptrs(
-		static_cast<row_ptr_vector::size_type>(
-			dim_.h()));
-
-	row_ptr_vector::size_type const stride(
-		static_cast<
-			row_ptr_vector::size_type
-		>(
-			cs * bpp/CHAR_BIT
-		)
-		* dim_.w()
-	);
-
-	for (row_ptr_vector::size_type i = 0; i < row_ptrs.size(); ++i)
-		row_ptrs[i] = bytes_.data() + i * stride;
-
-	png_read_image(
-		read_ptr_.ptr(),
-		row_ptrs.data());
-
-	format_ = this->convert_format();
 }
-FCPPT_PP_POP_WARNING
 
 sge::libpng::load_context::~load_context()
 {
 }
 
-sge::image2d::dim const &
-sge::libpng::load_context::dim() const
-{
-	return dim_;
-}
-
-sge::libpng::byte_vector &
-sge::libpng::load_context::bytes()
-{
-	return bytes_;
-}
-
-sge::libpng::byte_vector const &
-sge::libpng::load_context::bytes() const
-{
-	return bytes_;
-}
-
-sge::image::color::format
-sge::libpng::load_context::format() const
-{
-	return format_;
-}
-
 void
 sge::libpng::load_context::handle_read(
-	png_structp read_ptr,
-	png_bytep data,
-	png_size_t length
+	png_structp const _read_ptr,
+	png_bytep const _data,
+	png_size_t const _length
 )
 {
-	static_cast<load_context *>(png_get_io_ptr(read_ptr))->handle_read_impl(
-		data,
-		length);
+	fcppt::cast::from_void_ptr<
+		sge::libpng::load_context *
+	>(
+		::png_get_io_ptr(
+			_read_ptr
+		)
+	)->handle_read_impl(
+		_data,
+		_length
+	);
 }
 
 void
 sge::libpng::load_context::handle_read_impl(
-	png_bytep _data,
-	png_size_t _length
+	png_bytep const _data,
+	png_size_t const _length
 )
 {
-	stream_.read(
-		reinterpret_cast<char *>(
-			_data),
-		static_cast<std::streamsize>(
-			_length));
-	if (stream_.gcount() < static_cast<std::streamsize>(_length))
-		throw
-			image::file_exception(
-				path_,
-				FCPPT_TEXT("didn't read as many bytes as supposed to"));
-	if (!stream_)
-		throw
-			image::file_exception(
-				path_,
-				FCPPT_TEXT("reading failed"));
-}
-
-sge::image::color::format
-sge::libpng::load_context::convert_format() const
-{
-	png_byte const depth(
-		png_get_bit_depth(
-			read_ptr_.ptr(),
-			info_.get()
-		)
-	);
-
-	sge::libpng::gamma_value::value_type gamma_raw;
-	sge::libpng::gamma_value gamma(
-		-1.0);
-	if(
-		png_get_gAMA(read_ptr_.ptr(),info_.get(),&gamma_raw) == 0
-	)
-	{
-		gamma =
-			sge::libpng::gamma_value(
-				static_cast<sge::libpng::gamma_value::value_type>(
-					0.45455));
-	}
-	else
-		gamma =
-			sge::libpng::gamma_value(
-				gamma_raw);
-
-
-	sge::image::color::optional_format const ret(
-		sge::libpng::to_sge_format(
-			png_get_color_type(
-				read_ptr_.ptr(),
-				info_.get()
-			),
-			png_get_bit_depth(
-				read_ptr_.ptr(),
-				info_.get()
-			),
-			gamma
+	std::streamsize const signed_length(
+		fcppt::cast::to_signed(
+			_length
 		)
 	);
 
 	if(
-		!ret
+		!stream_.read(
+			fcppt::cast::to_char_ptr<
+				char *
+			>(
+				_data
+			),
+			signed_length
+		)
 	)
-		throw image::unsupported_format(
-			path_,
-			fcppt::insert_to_fcppt_string(
-				static_cast<
-					unsigned
-				>(
-					depth
-				)
-			)
-			+
-			FCPPT_TEXT(" bits per pixel")
-		);
+		throw
+			sge::image::file_exception(
+				path_,
+				FCPPT_TEXT("reading failed")
+			);
 
-	return *ret;
+	if(
+		stream_.gcount()
+		<
+		signed_length
+	)
+		throw
+			sge::image::file_exception(
+				path_,
+				FCPPT_TEXT("didn't read as many bytes as supposed to")
+			);
 }

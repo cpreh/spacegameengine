@@ -18,20 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/image/exception.hpp>
 #include <sge/image/file_exception.hpp>
 #include <sge/image/optional_path.hpp>
-#include <sge/image/unsupported_format.hpp>
 #include <sge/image2d/optional_file_unique_ptr.hpp>
+#include <sge/libpng/check_extension.hpp>
 #include <sge/libpng/file.hpp>
+#include <sge/libpng/extension.hpp>
+#include <sge/libpng/is_png.hpp>
 #include <sge/libpng/system.hpp>
 #include <sge/media/const_raw_range.hpp>
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/optional_comparison.hpp>
-#include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/to_char_ptr.hpp>
+#include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <boost/filesystem/path.hpp>
@@ -40,19 +43,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <ios>
 #include <fcppt/config/external_end.hpp>
 
-
-namespace
-{
-
-sge::media::extension const supported_extension(
-	FCPPT_TEXT("png")
-);
-
-sge::media::extension_set const const_extensions{
-	supported_extension
-};
-
-}
 
 sge::libpng::system::system()
 {
@@ -69,35 +59,28 @@ sge::libpng::system::load(
 {
 	boost::filesystem::ifstream file_stream(
 		_path,
-		std::ios_base::binary);
+		std::ios_base::binary
+	);
 
 	if(
 		!file_stream.is_open()
 	)
-		throw image::file_exception(
+		throw
+			sge::image::exception{
+				FCPPT_TEXT("Couldn't open ")
+				+
+				fcppt::filesystem::path_to_string(
+					_path
+				)
+			};
+
+	return
+		this->load_impl(
+			file_stream,
 			sge::image::optional_path(
 				_path
-			),
-			FCPPT_TEXT("couldn't open file"));
-	try
-	{
-		return
-			sge::image2d::optional_file_unique_ptr(
-				fcppt::make_unique_ptr<
-					libpng::file
-				>(
-					file_stream,
-					sge::image::optional_path(
-						_path)
-				)
-			);
-	}
-	catch(
-		sge::image::unsupported_format const &
-	)
-	{
-		return sge::image2d::optional_file_unique_ptr();
-	}
+			)
+		);
 }
 
 sge::image2d::optional_file_unique_ptr
@@ -107,15 +90,12 @@ sge::libpng::system::load_raw(
 )
 {
 	if(
-		_extension
-		&&
-		_extension
-		!=
-		sge::media::optional_extension(
-			supported_extension
+		!sge::libpng::check_extension(
+			_extension
 		)
 	)
-		return sge::image2d::optional_file_unique_ptr();
+		return
+			sge::image2d::optional_file_unique_ptr();
 
 	typedef
 	boost::iostreams::stream<
@@ -124,35 +104,23 @@ sge::libpng::system::load_raw(
 	stream_type;
 
 	stream_type raw_stream(
-		reinterpret_cast<
+		fcppt::cast::to_char_ptr<
 			boost::iostreams::array_source::char_type const *
 		>(
 			_range.begin()
 		),
-		reinterpret_cast<
+		fcppt::cast::to_char_ptr<
 			boost::iostreams::array_source::char_type const *
 		>(
 			_range.end()
 		)
 	);
 
-	try
-	{
-		return
-			sge::image2d::optional_file_unique_ptr(
-				fcppt::make_unique_ptr<
-					libpng::file
-				>(
-					raw_stream,
-					sge::image::optional_path()
-				)
-			);
-	}
-	catch (
-		sge::image::unsupported_format const &)
-	{
-		return sge::image2d::optional_file_unique_ptr();
-	}
+	return
+		this->load_impl(
+			raw_stream,
+			sge::image::optional_path()
+		);
 }
 
 sge::image2d::optional_file_unique_ptr
@@ -161,50 +129,31 @@ sge::libpng::system::load_stream(
 	sge::media::optional_extension const &_extension
 )
 {
-	if(
-		_extension &&
-		_extension
-		!=
-		sge::media::optional_extension(
-			supported_extension
+	return
+		sge::libpng::check_extension(
+			_extension
 		)
-	)
-		return sge::image2d::optional_file_unique_ptr();
-
-	try
-	{
-		return
-			sge::image2d::optional_file_unique_ptr(
-				fcppt::make_unique_ptr<
-					libpng::file
-				>(
-					_stream,
-					sge::image::optional_path()
-				)
-			);
-	}
-	catch (
-		sge::image::unsupported_format const &)
-	{
-		return sge::image2d::optional_file_unique_ptr();
-	}
+		?
+			this->load_impl(
+				_stream,
+				sge::image::optional_path()
+			)
+		:
+			sge::image2d::optional_file_unique_ptr()
+		;
 }
 
 sge::image2d::optional_file_unique_ptr
 sge::libpng::system::create(
-	image2d::view::const_object const &_view,
+	sge::image2d::view::const_object const &_view,
 	sge::media::optional_extension const &_extension
 )
 {
 	return
-		(
+		sge::libpng::check_extension(
 			_extension
-			&&
-			*_extension != supported_extension
 		)
 		?
-			sge::image2d::optional_file_unique_ptr()
-		:
 			sge::image2d::optional_file_unique_ptr(
 				fcppt::make_unique_ptr<
 					file
@@ -212,6 +161,8 @@ sge::libpng::system::create(
 					_view
 				)
 			)
+		:
+			sge::image2d::optional_file_unique_ptr()
 		;
 }
 
@@ -219,5 +170,32 @@ sge::media::extension_set
 sge::libpng::system::extensions() const
 {
 	return
-		const_extensions;
+		sge::media::extension_set{
+			sge::libpng::extension()
+		};
+}
+
+sge::image2d::optional_file_unique_ptr
+sge::libpng::system::load_impl(
+	std::istream &_stream,
+	sge::image::optional_path const &_path
+)
+{
+	// Handle the most common "error" without exceptions
+	return
+		sge::libpng::is_png(
+			_stream
+		)
+		?
+			sge::image2d::optional_file_unique_ptr(
+				fcppt::make_unique_ptr<
+					sge::libpng::file
+				>(
+					_stream,
+					_path
+				)
+			)
+		:
+			sge::image2d::optional_file_unique_ptr()
+		;
 }

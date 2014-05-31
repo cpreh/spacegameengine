@@ -21,8 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_LIBPNG_READ_PTR_HPP_INCLUDED
 #define SGE_LIBPNG_READ_PTR_HPP_INCLUDED
 
+#include <sge/libpng/error_context_fwd.hpp>
 #include <sge/libpng/png.hpp>
+#include <sge/libpng/read_ptr_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+
 
 namespace sge
 {
@@ -35,11 +38,9 @@ class read_ptr
 		read_ptr
 	);
 public:
+	explicit
 	read_ptr(
-		png_const_charp user_png_ver,
-		png_voidp error_ptr,
-		png_error_ptr error_fn,
-		png_error_ptr warn_fn
+		sge::libpng::error_context &
 	);
 
 	~read_ptr();
