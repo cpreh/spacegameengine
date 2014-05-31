@@ -18,48 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_CAPABILITIES_HPP_INCLUDED
-#define SGE_IMAGE_CAPABILITIES_HPP_INCLUDED
-
-#include <sge/image/capabilities_fwd.hpp>
-#include <fcppt/enum_is_empty_fwd.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
+#include <sge/image/exception.hpp>
+#include <sge/image2d/create_exn.hpp>
+#include <sge/image2d/file.hpp>
+#include <sge/image2d/file_unique_ptr.hpp>
+#include <sge/image2d/optional_file_unique_ptr.hpp>
+#include <sge/image2d/system.hpp>
+#include <sge/image2d/view/const_object_fwd.hpp>
+#include <sge/media/optional_extension_fwd.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <type_traits>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
+sge::image2d::file_unique_ptr
+sge::image2d::create_exn(
+	sge::image2d::system &_system,
+	sge::image2d::view::const_object const &_view,
+	sge::media::optional_extension const &_extension
+)
 {
-namespace image
-{
+	sge::image2d::optional_file_unique_ptr result(
+		_system.create(
+			_view,
+			_extension
+		)
+	);
 
-enum class capabilities
-{
-};
+	if(
+		!result
+	)
+		throw
+			sge::image::exception(
+				FCPPT_TEXT("create_exn failed")
+			);
 
+	return
+		std::move(
+			*result
+		);
 }
-}
-
-namespace fcppt
-{
-
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-template<>
-struct enum_is_empty<
-	sge::image::capabilities
->
-:
-std::true_type
-{
-};
-
-FCPPT_PP_POP_WARNING
-
-}
-
-#endif

@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/bvh/dummy_node.hpp>
 #include <sge/bvh/object_impl.hpp>
 #include <sge/config/media_path.hpp>
-#include <sge/image/capabilities_field.hpp>
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/rgba8_from_hex_string.hpp>
 #include <sge/input/keyboard/device.hpp>

@@ -21,8 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_LIBPNG_SYSTEM_HPP_INCLUDED
 #define SGE_LIBPNG_SYSTEM_HPP_INCLUDED
 
-#include <sge/image/capabilities_field_fwd.hpp>
-#include <sge/image2d/file_unique_ptr.hpp>
+#include <sge/image2d/optional_file_unique_ptr.hpp>
 #include <sge/image2d/system.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/media/const_raw_range.hpp>
@@ -53,35 +52,31 @@ public:
 	~system()
 	override;
 
-	sge::image2d::file_unique_ptr
+	sge::image2d::optional_file_unique_ptr
 	load(
 		boost::filesystem::path const &
 	)
 	override;
 
-	sge::image2d::file_unique_ptr
+	sge::image2d::optional_file_unique_ptr
 	load_raw(
 		sge::media::const_raw_range const &,
 		sge::media::optional_extension const &
 	)
 	override;
 
-	sge::image2d::file_unique_ptr
+	sge::image2d::optional_file_unique_ptr
 	load_stream(
 		std::istream &,
 		sge::media::optional_extension const &
 	)
 	override;
 
-	sge::image2d::file_unique_ptr
+	sge::image2d::optional_file_unique_ptr
 	create(
 		sge::image2d::view::const_object const &,
 		sge::media::optional_extension const &
 	)
-	override;
-
-	sge::image::capabilities_field const
-	capabilities() const
 	override;
 
 	sge::media::extension_set

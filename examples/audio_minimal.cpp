@@ -52,7 +52,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/player_plugin/object.hpp>
 #include <sge/config/plugin_path.hpp>
 #endif // SGE_EXAMPLES_AUDIO_MINIMAL_USE_SYSTEMS_INIT
-#include <sge/audio/loader_capabilities_field.hpp>
 #include <sge/audio/multi_loader.hpp>
 #include <sge/audio/multi_loader_parameters.hpp>
 #include <fcppt/exception.hpp>
@@ -86,7 +85,6 @@ try
 
 			// Loader initialization begin
 			(sge::systems::audio_loader(
-				sge::audio::loader_capabilities_field::null(),
 				extensions))
 			// Loader initialization end
 
@@ -107,7 +105,6 @@ try
 		sge::systems::list()
 			// Player initialization begin
 			(sge::systems::audio_player(
-				sge::audio::player_capabilities::null)));
 //! [systems_null_initialization]
 	*/
 #else
@@ -139,8 +136,10 @@ try
 				sge::audio::loader
 			>(),
 			sge::media::optional_extension_set(
-				extensions),
-			sge::audio::loader_capabilities_field::null()));
+				extensions
+			)
+		)
+	);
 //! [manual_initialization_loader]
 #endif
 

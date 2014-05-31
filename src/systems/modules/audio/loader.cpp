@@ -40,8 +40,7 @@ sge::systems::modules::audio::loader::loader(
 		>(
 			sge::audio::multi_loader_parameters(
 				_collection,
-				_parameters.extensions(),
-				_parameters.capabilities()
+				_parameters.extensions()
 			).log_options(
 				_log_options
 			)

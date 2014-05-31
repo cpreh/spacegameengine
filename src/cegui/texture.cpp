@@ -27,7 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/optional_format.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/file.hpp>
-#include <sge/image2d/system.hpp>
+#include <sge/image2d/load_exn.hpp>
+#include <sge/image2d/system_fwd.hpp>
 #include <sge/image2d/algorithm/copy_and_convert.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/make_const.hpp>
@@ -283,7 +284,8 @@ sge::cegui::texture::loadFromFile(
 	);
 
 	this->create_from_view(
-		texture_parameters_.image_system().load(
+		sge::image2d::load_exn(
+			texture_parameters_.image_system(),
 			sge::cegui::to_absolute_path(
 				texture_parameters_.prefix(),
 				_filename

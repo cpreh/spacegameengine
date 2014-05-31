@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/config/media_path.hpp>
-#include <sge/image/capabilities_field.hpp>
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_set.hpp>
@@ -158,7 +157,6 @@ try
 		)
 		(
 			sge::systems::image2d(
-				sge::image::capabilities_field::null(),
 				sge::media::optional_extension_set(
 					sge::media::extension_set{
 						sge::media::extension(

@@ -15,16 +15,12 @@ set(
 	include/sge/audio/file.hpp
 	include/sge/audio/file_exception.hpp
 	include/sge/audio/file_fwd.hpp
-	include/sge/audio/file_shared_ptr.hpp
 	include/sge/audio/file_unique_ptr.hpp
 	include/sge/audio/listener.hpp
 	include/sge/audio/listener_fwd.hpp
 	include/sge/audio/load_exn.hpp
+	include/sge/audio/load_raw_exn.hpp
 	include/sge/audio/loader.hpp
-	include/sge/audio/loader_capabilities.hpp
-	include/sge/audio/loader_capabilities_field.hpp
-	include/sge/audio/loader_capabilities_field_fwd.hpp
-	include/sge/audio/loader_capabilities_fwd.hpp
 	include/sge/audio/loader_fwd.hpp
 	include/sge/audio/loader_plugin/collection_fwd.hpp
 	include/sge/audio/loader_plugin/traits.hpp
@@ -34,6 +30,8 @@ set(
 	include/sge/audio/multi_loader_fwd.hpp
 	include/sge/audio/multi_loader_parameters.hpp
 	include/sge/audio/multi_loader_parameters_fwd.hpp
+	include/sge/audio/optional_file_unique_ptr.hpp
+	include/sge/audio/optional_file_unique_ptr_fwd.hpp
 	include/sge/audio/optional_path.hpp
 	include/sge/audio/player.hpp
 	include/sge/audio/player_fwd.hpp
@@ -81,6 +79,7 @@ set(
 	src/audio/include/sge/src/audio/logger.hpp
 	src/audio/listener.cpp
 	src/audio/load_exn.cpp
+	src/audio/load_raw_exn.cpp
 	src/audio/loader.cpp
 	src/audio/loader_plugin/collection.cpp
 	src/audio/loader_plugin/context.cpp

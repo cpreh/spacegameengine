@@ -32,9 +32,11 @@ namespace sge
 namespace image2d
 {
 
-typedef std::unique_ptr<
+typedef
+std::unique_ptr<
 	sge::image2d::file
-> file_unique_ptr;
+>
+file_unique_ptr;
 
 }
 }

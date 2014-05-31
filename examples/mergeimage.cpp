@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/exception.hpp>
-#include <sge/image/capabilities_field.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/any/object.hpp>
@@ -170,7 +169,6 @@ try
 		sge::systems::make_list
 		(
 			sge::systems::image2d(
-				sge::image::capabilities_field::null(),
 				sge::media::optional_extension_set(
 					sge::media::extension_set{
 						sge::media::extension(

@@ -19,7 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image2d/file.hpp>
-#include <sge/image2d/system.hpp>
+#include <sge/image2d/load_raw_exn.hpp>
+#include <sge/image2d/system_fwd.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/media/const_raw_range.hpp>
 #include <sge/media/optional_extension.hpp>
@@ -65,7 +66,8 @@ sge::cegui::image_codec::load(
 	>(
 		*_result_texture
 	).create_from_view(
-		image_system_.load_raw(
+		sge::image2d::load_raw_exn(
+			image_system_,
 			sge::media::const_raw_range(
 				_data.getDataPtr(),
 				_data.getDataPtr() + _data.getSize()

@@ -27,16 +27,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 template<
-	typename System,
-	typename Capabilities
+	typename System
 >
 sge::media::muxer_parameters<
-	System,
-	Capabilities
+	System
 >::muxer_parameters(
 	collection_type const &_collection,
-	sge::media::optional_extension_set const &_extensions,
-	capabilities_type const &_capabilities
+	sge::media::optional_extension_set const &_extensions
 )
 :
 	collection_(
@@ -45,24 +42,18 @@ sge::media::muxer_parameters<
 	extensions_(
 		_extensions
 	),
-	capabilities_(
-		_capabilities
-	),
 	log_options_()
 {
 }
 
 template<
-	typename System,
-	typename Capabilities
+	typename System
 >
 sge::media::muxer_parameters<
-	System,
-	Capabilities
+	System
 > &
 sge::media::muxer_parameters<
-	System,
-	Capabilities
+	System
 >::log_options(
 	sge::log::option_container const &_log_options
 )
@@ -75,16 +66,14 @@ sge::media::muxer_parameters<
 }
 
 template<
-	typename System,
-	typename Capabilities
+	typename System
 >
-typename sge::media::muxer_parameters<
-	System,
-	Capabilities
+typename
+sge::media::muxer_parameters<
+	System
 >::collection_type const &
 sge::media::muxer_parameters<
-	System,
-	Capabilities
+	System
 >::collection() const
 {
 	return
@@ -92,13 +81,11 @@ sge::media::muxer_parameters<
 }
 
 template<
-	typename System,
-	typename Capabilities
+	typename System
 >
 sge::media::optional_extension_set const &
 sge::media::muxer_parameters<
-	System,
-	Capabilities
+	System
 >::extensions() const
 {
 	return
@@ -106,30 +93,11 @@ sge::media::muxer_parameters<
 }
 
 template<
-	typename System,
-	typename Capabilities
->
-typename sge::media::muxer_parameters<
-	System,
-	Capabilities
->::capabilities_type const &
-sge::media::muxer_parameters<
-	System,
-	Capabilities
->::capabilities() const
-{
-	return
-		capabilities_;
-}
-
-template<
-	typename System,
-	typename Capabilities
+	typename System
 >
 sge::log::option_container const &
 sge::media::muxer_parameters<
-	System,
-	Capabilities
+	System
 >::log_options() const
 {
 	return

@@ -18,11 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_AUDIO_LOADER_CAPABILITIES_FIELD_FWD_HPP_INCLUDED
-#define SGE_AUDIO_LOADER_CAPABILITIES_FIELD_FWD_HPP_INCLUDED
+#ifndef SGE_AUDIO_LOAD_RAW_EXN_HPP_INCLUDED
+#define SGE_AUDIO_LOAD_RAW_EXN_HPP_INCLUDED
 
-#include <sge/audio/loader_capabilities.hpp>
-#include <fcppt/container/bitfield/object_from_enum.hpp>
+#include <sge/audio/file_unique_ptr.hpp>
+#include <sge/audio/loader_fwd.hpp>
+#include <sge/audio/symbol.hpp>
+#include <sge/media/const_raw_range.hpp>
+#include <sge/media/optional_extension_fwd.hpp>
 
 
 namespace sge
@@ -30,10 +33,13 @@ namespace sge
 namespace audio
 {
 
-/// Holds loader capabilities (if it's threadsafe or not, for example), see sge::audio::loader_capabilities
-typedef fcppt::container::bitfield::object_from_enum<
-	sge::audio::loader_capabilities
-> loader_capabilities_field;
+SGE_AUDIO_SYMBOL
+sge::audio::file_unique_ptr
+load_raw_exn(
+	sge::audio::loader &,
+	sge::media::const_raw_range const &,
+	sge::media::optional_extension const &
+);
 
 }
 }

@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_MULTI_LOADER_PARAMETERS_HPP_INCLUDED
 #define SGE_AUDIO_MULTI_LOADER_PARAMETERS_HPP_INCLUDED
 
-#include <sge/audio/loader_capabilities_field.hpp>
 #include <sge/audio/multi_loader_parameters_fwd.hpp>
 #include <sge/media/muxer_parameters.hpp>
 

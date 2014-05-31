@@ -18,40 +18,62 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_TEXTURE_CREATE_PLANAR_FROM_STREAM_HPP_INCLUDED
-#define SGE_RENDERER_TEXTURE_CREATE_PLANAR_FROM_STREAM_HPP_INCLUDED
+#ifndef SGE_SRC_MEDIA_LOAD_RAW_EXN_HPP_INCLUDED
+#define SGE_SRC_MEDIA_LOAD_RAW_EXN_HPP_INCLUDED
 
-#include <sge/image2d/system_fwd.hpp>
-#include <sge/renderer/resource_flags_field_fwd.hpp>
-#include <sge/renderer/symbol.hpp>
-#include <sge/renderer/device/core_fwd.hpp>
-#include <sge/renderer/texture/emulate_srgb_fwd.hpp>
-#include <sge/renderer/texture/planar_unique_ptr.hpp>
-#include <sge/renderer/texture/mipmap/object_fwd.hpp>
+#include <sge/media/const_raw_range.hpp>
+#include <sge/media/optional_extension_fwd.hpp>
+#include <fcppt/optional_impl.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <iosfwd>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
 namespace sge
 {
-namespace renderer
-{
-namespace texture
+namespace media
 {
 
-SGE_RENDERER_SYMBOL
-sge::renderer::texture::planar_unique_ptr
-create_planar_from_stream(
-	std::istream &,
-	sge::renderer::device::core &,
-	sge::image2d::system &,
-	sge::renderer::texture::mipmap::object const &,
-	sge::renderer::resource_flags_field const &,
-	sge::renderer::texture::emulate_srgb
-);
+template<
+	typename Result,
+	typename Exception,
+	typename System
+>
+Result
+load_raw_exn(
+	System &_system,
+	sge::media::const_raw_range const &_range,
+	sge::media::optional_extension const &_extension
+)
+{
+	typedef
+	fcppt::optional<
+		Result
+	>
+	optional_result;
 
+	optional_result result(
+		_system.load_raw(
+			_range,
+			_extension
+		)
+	);
+
+	if(
+		!result
+	)
+		throw
+			Exception(
+				FCPPT_TEXT("load_raw_exn failed")
+			);
+
+	return
+		std::move(
+			*result
+		);
 }
+
 }
 }
 

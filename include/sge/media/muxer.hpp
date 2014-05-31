@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/optional_extension_fwd.hpp>
 #include <sge/media/detail/muxer_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/optional_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <functional>
@@ -41,8 +42,7 @@ namespace media
 
 template<
 	typename System,
-	typename File,
-	typename Capabilities
+	typename File
 >
 class muxer
 {
@@ -50,26 +50,39 @@ class muxer
 		muxer
 	);
 public:
-	typedef System system;
+	typedef
+	System
+	system;
 
-	typedef File file;
+	typedef
+	File
+	file;
 
-	typedef Capabilities capabilities_field;
+	typedef
+	sge::media::muxer_parameters<
+		system
+	>
+	parameters;
 
-	typedef sge::media::muxer_parameters<
-		system,
-		capabilities_field
-	> parameters;
-
-	typedef std::unique_ptr<
+	typedef
+	std::unique_ptr<
 		file
-	> file_unique_ptr;
+	>
+	file_unique_ptr;
 
-	typedef std::function<
-		file_unique_ptr (
+	typedef
+	fcppt::optional<
+		file_unique_ptr
+	>
+	optional_file_unique_ptr;
+
+	typedef
+	std::function<
+		optional_file_unique_ptr (
 			system &
 		)
-	> load_function;
+	>
+	load_function;
 
 	explicit
 	muxer(
@@ -78,45 +91,33 @@ public:
 
 	~muxer();
 
-	file_unique_ptr
+	optional_file_unique_ptr
 	mux_path(
 		boost::filesystem::path const &,
 		load_function const &
 	) const;
 
-	file_unique_ptr
-	mux_path_opt(
-		boost::filesystem::path const &,
-		load_function const &
-	) const;
-
-	file_unique_ptr
+	optional_file_unique_ptr
 	mux_extension(
 		media::optional_extension const &,
 		load_function const &
 	) const;
 
-	file_unique_ptr
-	mux_extension_opt(
-		media::optional_extension const &,
-		load_function const &
-	) const;
-
-	capabilities_field const
-	capabilities() const;
-
 	sge::media::extension_set
 	extensions() const;
 private:
-	typedef sge::media::detail::muxer<
+	typedef
+	sge::media::detail::muxer<
 		System,
-		File,
-		Capabilities
-	> muxer_impl;
+		File
+	>
+	muxer_impl;
 
-	typedef std::unique_ptr<
+	typedef
+	std::unique_ptr<
 		muxer_impl
-	> muxer_impl_unique_ptr;
+	>
+	muxer_impl_unique_ptr;
 
 	muxer_impl_unique_ptr const impl_;
 };

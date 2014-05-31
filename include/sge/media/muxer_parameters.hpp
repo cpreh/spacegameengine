@@ -35,8 +35,7 @@ namespace media
 {
 
 template<
-	typename System,
-	typename Capabilities
+	typename System
 >
 class muxer_parameters
 {
@@ -44,10 +43,6 @@ class muxer_parameters
 		muxer_parameters
 	);
 public:
-	typedef
-	Capabilities
-	capabilities_type;
-
 	typedef
 	sge::plugin::collection<
 		System
@@ -57,8 +52,7 @@ public:
 	SGE_MEDIA_DETAIL_INSTANTIATE_SYMBOL
 	muxer_parameters(
 		collection_type const &,
-		sge::media::optional_extension_set const &,
-		capabilities_type const &
+		sge::media::optional_extension_set const &
 	);
 
 	SGE_MEDIA_DETAIL_INSTANTIATE_SYMBOL
@@ -76,18 +70,12 @@ public:
 	extensions() const;
 
 	SGE_MEDIA_DETAIL_INSTANTIATE_SYMBOL
-	capabilities_type const &
-	capabilities() const;
-
-	SGE_MEDIA_DETAIL_INSTANTIATE_SYMBOL
 	sge::log::option_container const &
 	log_options() const;
 private:
 	collection_type const collection_;
 
 	sge::media::optional_extension_set const extensions_;
-
-	capabilities_type const capabilities_;
 
 	sge::log::option_container log_options_;
 };

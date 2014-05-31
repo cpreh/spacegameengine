@@ -18,23 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_CAPABILITIES_FIELD_FWD_HPP_INCLUDED
-#define SGE_IMAGE_CAPABILITIES_FIELD_FWD_HPP_INCLUDED
+#ifndef SGE_IMAGE2D_OPTIONAL_FILE_UNIQUE_PTR_FWD_HPP_INCLUDED
+#define SGE_IMAGE2D_OPTIONAL_FILE_UNIQUE_PTR_FWD_HPP_INCLUDED
 
-#include <sge/image/capabilities.hpp>
-#include <fcppt/container/bitfield/object_from_enum.hpp>
+#include <sge/image2d/file_unique_ptr.hpp>
+#include <fcppt/optional_fwd.hpp>
 
 
 namespace sge
 {
-namespace image
+namespace image2d
 {
 
 typedef
-fcppt::container::bitfield::object_from_enum<
-	sge::image::capabilities
+fcppt::optional<
+	sge::image2d::file_unique_ptr
 >
-capabilities_field;
+optional_file_unique_ptr;
 
 }
 }

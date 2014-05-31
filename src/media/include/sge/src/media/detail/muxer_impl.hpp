@@ -40,8 +40,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/algorithm/map_optional.hpp>
 #include <fcppt/algorithm/set_intersection.hpp>
 #include <fcppt/algorithm/set_union.hpp>
-#include <fcppt/container/bitfield/is_subset_eq.hpp>
-#include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
@@ -55,13 +53,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 template<
 	typename System,
-	typename File,
-	typename Capabilities
+	typename File
 >
 sge::media::detail::muxer<
 	System,
-	File,
-	Capabilities
+	File
 >::muxer(
 	parameters const &_parameters
 )
@@ -96,13 +92,7 @@ sge::media::detail::muxer<
 				>
 				optional_plugin_system_pair;
 
-				// check if this plugin might be useful
 				optional_plugin_system_pair result(
-					fcppt::container::bitfield::is_subset_eq(
-						_parameters.capabilities(),
-						system_instance->capabilities()
-					)
-					&&
 					(
 						!_parameters.extensions().has_value()
 						||
@@ -152,22 +142,6 @@ sge::media::detail::muxer<
 			}
 		)
 	),
-	capabilities_(
-		fcppt::algorithm::fold(
-			plugins_,
-			_parameters.capabilities(),
-			[](
-				plugin_system_pair const &_plugin,
-				capabilities_field const &_state
-			)
-			{
-				return
-					_state
-					&
-					_plugin.second->capabilities();
-			}
-		)
-	),
 	extensions_(
 		fcppt::algorithm::fold(
 			plugins_,
@@ -191,31 +165,27 @@ sge::media::detail::muxer<
 
 template<
 	typename System,
-	typename File,
-	typename Capabilities
+	typename File
 >
 sge::media::detail::muxer<
 	System,
-	File,
-	Capabilities
+	File
 >::~muxer()
 {
 }
 
 template<
 	typename System,
-	typename File,
-	typename Capabilities
+	typename File
 >
-typename sge::media::detail::muxer<
-	System,
-	File,
-	Capabilities
->::file_unique_ptr
+typename
 sge::media::detail::muxer<
 	System,
-	File,
-	Capabilities
+	File
+>::optional_file_unique_ptr
+sge::media::detail::muxer<
+	System,
+	File
 >::mux_path(
 	boost::filesystem::path const &_file,
 	load_function const &_function
@@ -232,18 +202,16 @@ sge::media::detail::muxer<
 
 template<
 	typename System,
-	typename File,
-	typename Capabilities
+	typename File
 >
-typename sge::media::detail::muxer<
-	System,
-	File,
-	Capabilities
->::file_unique_ptr
+typename
 sge::media::detail::muxer<
 	System,
-	File,
-	Capabilities
+	File
+>::optional_file_unique_ptr
+sge::media::detail::muxer<
+	System,
+	File
 >::mux_extension(
 	sge::media::optional_extension const &_extension,
 	load_function const &_function
@@ -269,7 +237,7 @@ sge::media::detail::muxer<
 		)
 			continue;
 
-		file_unique_ptr result(
+		optional_file_unique_ptr result(
 			_function(
 				*cur_system
 			)
@@ -285,39 +253,17 @@ sge::media::detail::muxer<
 	}
 
 	return
-		file_unique_ptr();
+		optional_file_unique_ptr();
 }
 
 template<
 	typename System,
-	typename File,
-	typename Capabilities
->
-typename sge::media::detail::muxer<
-	System,
-	File,
-	Capabilities
->::capabilities_field const
-sge::media::detail::muxer<
-	System,
-	File,
-	Capabilities
->::capabilities() const
-{
-	return
-		capabilities_;
-}
-
-template<
-	typename System,
-	typename File,
-	typename Capabilities
+	typename File
 >
 sge::media::extension_set
 sge::media::detail::muxer<
 	System,
-	File,
-	Capabilities
+	File
 >::extensions() const
 {
 	return

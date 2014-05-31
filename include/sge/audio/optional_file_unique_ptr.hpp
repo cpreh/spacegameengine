@@ -18,18 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_CAPABILITIES_FWD_HPP_INCLUDED
-#define SGE_IMAGE_CAPABILITIES_FWD_HPP_INCLUDED
+#ifndef SGE_AUDIO_OPTIONAL_FILE_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_AUDIO_OPTIONAL_FILE_UNIQUE_PTR_HPP_INCLUDED
 
+#include <sge/audio/optional_file_unique_ptr_fwd.hpp>
+#include <fcppt/optional_impl.hpp>
 
-namespace sge
-{
-namespace image
-{
-
-enum class capabilities;
-
-}
-}
 
 #endif

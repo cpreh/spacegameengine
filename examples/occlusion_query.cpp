@@ -138,7 +138,6 @@ try
 		)
 		(
 			sge::systems::image2d(
-				sge::image::capabilities_field::null(),
 				sge::media::all_extensions
 			)
 		)

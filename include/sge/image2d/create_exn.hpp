@@ -18,48 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_AUDIO_LOADER_CAPABILITIES_HPP_INCLUDED
-#define SGE_AUDIO_LOADER_CAPABILITIES_HPP_INCLUDED
+#ifndef SGE_IMAGE2D_CREATE_EXN_HPP_INCLUDED
+#define SGE_IMAGE2D_CREATE_EXN_HPP_INCLUDED
 
-#include <sge/audio/loader_capabilities_fwd.hpp>
-#include <fcppt/enum_is_empty_fwd.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <type_traits>
-#include <fcppt/config/external_end.hpp>
+#include <sge/image2d/file_unique_ptr.hpp>
+#include <sge/image2d/symbol.hpp>
+#include <sge/image2d/system_fwd.hpp>
+#include <sge/image2d/view/const_object_fwd.hpp>
+#include <sge/media/optional_extension_fwd.hpp>
 
 
 namespace sge
 {
-namespace audio
+namespace image2d
 {
 
-enum class loader_capabilities
-{
-};
+SGE_IMAGE2D_SYMBOL
+sge::image2d::file_unique_ptr
+create_exn(
+	sge::image2d::system &,
+	sge::image2d::view::const_object const &,
+	sge::media::optional_extension const &
+);
 
 }
-}
-
-namespace fcppt
-{
-
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-template<>
-struct enum_is_empty<
-	sge::audio::loader_capabilities
->
-:
-std::true_type
-{
-};
-
-FCPPT_PP_POP_WARNING
-
 }
 
 #endif

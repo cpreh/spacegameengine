@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_MEDIA_LOAD_EXN_HPP_INCLUDED
 #define SGE_SRC_MEDIA_LOAD_EXN_HPP_INCLUDED
 
-#include <sge/exception.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -45,9 +45,14 @@ load_exn(
 	System &_system,
 	boost::filesystem::path const &_path
 )
-try
 {
-	Result result(
+	typedef
+	fcppt::optional<
+		Result
+	>
+	optional_result;
+
+	optional_result result(
 		_system.load(
 			_path
 		)
@@ -56,32 +61,19 @@ try
 	if(
 		!result
 	)
-		throw Exception(
-			FCPPT_TEXT("Unable to load ")
-			+
-			fcppt::filesystem::path_to_string(
-				_path
-			)
-		);
+		throw
+			Exception(
+				FCPPT_TEXT("Unable to load ")
+				+
+				fcppt::filesystem::path_to_string(
+					_path
+				)
+			);
 
 	return
 		std::move(
-			result
+			*result
 		);
-}
-catch(
-	sge::exception const &_error
-)
-{
-	throw Exception(
-		fcppt::filesystem::path_to_string(
-			_path
-		)
-		+
-		FCPPT_TEXT(": ")
-		+
-		_error.string()
-	);
 }
 
 }

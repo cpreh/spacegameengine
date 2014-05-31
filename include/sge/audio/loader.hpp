@@ -22,9 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_AUDIO_LOADER_HPP_INCLUDED
 
 #include <sge/class_symbol.hpp>
-#include <sge/audio/file_unique_ptr.hpp>
-#include <sge/audio/loader_capabilities_field.hpp>
 #include <sge/audio/loader_fwd.hpp>
+#include <sge/audio/optional_file_unique_ptr_fwd.hpp>
 #include <sge/audio/symbol.hpp>
 #include <sge/media/const_raw_range.hpp>
 #include <sge/media/extension_set.hpp>
@@ -65,7 +64,7 @@ public:
 	\return An empty file_unique_ptr on failure
 	*/
 	virtual
-	sge::audio::file_unique_ptr
+	sge::audio::optional_file_unique_ptr
 	load(
 		boost::filesystem::path const &
 	) = 0;
@@ -76,23 +75,18 @@ public:
 	 * \param extension An optional extension indicating what (sub) type of file is inside
 	 */
 	virtual
-	sge::audio::file_unique_ptr
+	sge::audio::optional_file_unique_ptr
 	load_raw(
 		sge::media::const_raw_range const &range,
 		sge::media::optional_extension const &extension
 	) = 0;
 
 	virtual
-	sge::audio::file_unique_ptr
+	sge::audio::optional_file_unique_ptr
 	load_stream(
 		std::istream &,
 		sge::media::optional_extension const &extension
 	) = 0;
-
-	/// What capabilities this loader has. Is used in the sge::audio::multi_loader and in sge::systems to select a loader.
-	virtual
-	sge::audio::loader_capabilities_field const
-	capabilities() const = 0;
 
 	/// What extensions this loader supports. Is used in the sge::audio::multi_loader and in sge::systems to select a loader.
 	virtual

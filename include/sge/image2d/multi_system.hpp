@@ -21,11 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE2D_MULTI_SYSTEM_HPP_INCLUDED
 #define SGE_IMAGE2D_MULTI_SYSTEM_HPP_INCLUDED
 
-#include <sge/image/capabilities_field.hpp>
 #include <sge/image2d/file_fwd.hpp>
-#include <sge/image2d/file_unique_ptr.hpp>
 #include <sge/image2d/multi_system_fwd.hpp>
 #include <sge/image2d/multi_system_parameters_fwd.hpp>
+#include <sge/image2d/optional_file_unique_ptr.hpp>
 #include <sge/image2d/symbol.hpp>
 #include <sge/image2d/system.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
@@ -64,14 +63,14 @@ public:
 	override;
 
 	SGE_IMAGE2D_SYMBOL
-	sge::image2d::file_unique_ptr
+	sge::image2d::optional_file_unique_ptr
 	load(
 		boost::filesystem::path const &
 	)
 	override;
 
 	SGE_IMAGE2D_SYMBOL
-	sge::image2d::file_unique_ptr
+	sge::image2d::optional_file_unique_ptr
 	load_raw(
 		sge::media::const_raw_range const &,
 		sge::media::optional_extension const &
@@ -79,7 +78,7 @@ public:
 	override;
 
 	SGE_IMAGE2D_SYMBOL
-	sge::image2d::file_unique_ptr
+	sge::image2d::optional_file_unique_ptr
 	load_stream(
 		std::istream &,
 		sge::media::optional_extension const &
@@ -87,7 +86,7 @@ public:
 	override;
 
 	SGE_IMAGE2D_SYMBOL
-	sge::image2d::file_unique_ptr
+	sge::image2d::optional_file_unique_ptr
 	create(
 		sge::image2d::view::const_object const &,
 		sge::media::optional_extension const &
@@ -95,20 +94,16 @@ public:
 	override;
 
 	SGE_IMAGE2D_SYMBOL
-	sge::image::capabilities_field const
-	capabilities() const
-	override;
-
-	SGE_IMAGE2D_SYMBOL
 	sge::media::extension_set
 	extensions() const
 	override;
 private:
-	typedef sge::media::muxer<
+	typedef
+	sge::media::muxer<
 		sge::image2d::system,
-		sge::image2d::file,
-		sge::image::capabilities_field
-	> muxer;
+		sge::image2d::file
+	>
+	muxer;
 
 	muxer muxer_;
 };

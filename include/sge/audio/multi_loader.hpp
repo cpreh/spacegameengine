@@ -23,11 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/class_symbol.hpp>
 #include <sge/audio/file_fwd.hpp>
-#include <sge/audio/file_unique_ptr.hpp>
 #include <sge/audio/loader.hpp>
-#include <sge/audio/loader_capabilities_field.hpp>
 #include <sge/audio/multi_loader_fwd.hpp>
 #include <sge/audio/multi_loader_parameters_fwd.hpp>
+#include <sge/audio/optional_file_unique_ptr_fwd.hpp>
 #include <sge/audio/symbol.hpp>
 #include <sge/media/const_raw_range.hpp>
 #include <sge/media/extension_set.hpp>
@@ -60,14 +59,14 @@ public:
 	);
 
 	SGE_AUDIO_SYMBOL
-	sge::audio::file_unique_ptr
+	sge::audio::optional_file_unique_ptr
 	load(
 		boost::filesystem::path const &
 	)
 	override;
 
 	SGE_AUDIO_SYMBOL
-	sge::audio::file_unique_ptr
+	sge::audio::optional_file_unique_ptr
 	load_raw(
 		sge::media::const_raw_range const &,
 		sge::media::optional_extension const &
@@ -75,16 +74,11 @@ public:
 	override;
 
 	SGE_AUDIO_SYMBOL
-	sge::audio::file_unique_ptr
+	sge::audio::optional_file_unique_ptr
 	load_stream(
 		std::istream &,
 		sge::media::optional_extension const &
 	)
-	override;
-
-	SGE_AUDIO_SYMBOL
-	sge::audio::loader_capabilities_field const
-	capabilities() const
 	override;
 
 	SGE_AUDIO_SYMBOL
@@ -96,11 +90,12 @@ public:
 	~multi_loader()
 	override;
 private:
-	typedef sge::media::muxer<
+	typedef
+	sge::media::muxer<
 		sge::audio::loader,
-		sge::audio::file,
-		sge::audio::loader_capabilities_field
-	> muxer;
+		sge::audio::file
+	>
+	muxer;
 
 	muxer muxer_;
 };

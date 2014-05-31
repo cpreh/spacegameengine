@@ -18,50 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_BASIC_LOADER_HPP_INCLUDED
-#define SGE_SYSTEMS_BASIC_LOADER_HPP_INCLUDED
+#include <sge/audio/exception.hpp>
+#include <sge/audio/file.hpp>
+#include <sge/audio/file_unique_ptr.hpp>
+#include <sge/audio/load_raw_exn.hpp>
+#include <sge/audio/loader.hpp>
+#include <sge/media/const_raw_range.hpp>
+#include <sge/media/optional_extension_fwd.hpp>
+#include <sge/src/media/load_raw_exn.hpp>
 
-#include <sge/media/optional_extension_set.hpp>
-#include <sge/systems/basic_loader_fwd.hpp>
-#include <sge/systems/symbol.hpp>
-#include <fcppt/nonassignable.hpp>
 
-
-namespace sge
+sge::audio::file_unique_ptr
+sge::audio::load_raw_exn(
+	sge::audio::loader &_loader,
+	sge::media::const_raw_range const &_range,
+	sge::media::optional_extension const &_extension
+)
 {
-namespace systems
-{
-
-template<
-	typename Capabilities
->
-class basic_loader
-{
-	FCPPT_NONASSIGNABLE(
-		basic_loader
-	);
-public:
-	typedef Capabilities capabilities_type;
-
-	SGE_SYSTEMS_SYMBOL
-	explicit
-	basic_loader(
-		capabilities_type const &,
-		sge::media::optional_extension_set const &
-	);
-
-	sge::media::optional_extension_set const &
-	extensions() const;
-
-	capabilities_type const &
-	capabilities() const;
-private:
-	sge::media::optional_extension_set const extensions_;
-
-	capabilities_type const capabilities_;
-};
-
+	return
+		sge::media::load_raw_exn<
+			sge::audio::file_unique_ptr,
+			sge::audio::exception
+		>(
+			_loader,
+			_range,
+			_extension
+		);
 }
-}
-
-#endif

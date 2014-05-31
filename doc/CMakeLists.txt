@@ -88,16 +88,12 @@ set(
 	include/sge/audio/file.hpp
 	include/sge/audio/file_exception.hpp
 	include/sge/audio/file_fwd.hpp
-	include/sge/audio/file_shared_ptr.hpp
 	include/sge/audio/file_unique_ptr.hpp
 	include/sge/audio/listener.hpp
 	include/sge/audio/listener_fwd.hpp
 	include/sge/audio/load_exn.hpp
+	include/sge/audio/load_raw_exn.hpp
 	include/sge/audio/loader.hpp
-	include/sge/audio/loader_capabilities.hpp
-	include/sge/audio/loader_capabilities_field.hpp
-	include/sge/audio/loader_capabilities_field_fwd.hpp
-	include/sge/audio/loader_capabilities_fwd.hpp
 	include/sge/audio/loader_fwd.hpp
 	include/sge/audio/loader_plugin/collection_fwd.hpp
 	include/sge/audio/loader_plugin/traits.hpp
@@ -107,6 +103,8 @@ set(
 	include/sge/audio/multi_loader_fwd.hpp
 	include/sge/audio/multi_loader_parameters.hpp
 	include/sge/audio/multi_loader_parameters_fwd.hpp
+	include/sge/audio/optional_file_unique_ptr.hpp
+	include/sge/audio/optional_file_unique_ptr_fwd.hpp
 	include/sge/audio/optional_path.hpp
 	include/sge/audio/player.hpp
 	include/sge/audio/player_fwd.hpp
@@ -572,10 +570,6 @@ set(
 	include/sge/image/algorithm/print.hpp
 	include/sge/image/box.hpp
 	include/sge/image/box_fwd.hpp
-	include/sge/image/capabilities.hpp
-	include/sge/image/capabilities_field.hpp
-	include/sge/image/capabilities_field_fwd.hpp
-	include/sge/image/capabilities_fwd.hpp
 	include/sge/image/channel16.hpp
 	include/sge/image/channel32.hpp
 	include/sge/image/channel32f.hpp
@@ -791,20 +785,23 @@ set(
 	include/sge/image2d/bgra32f_format.hpp
 	include/sge/image2d/bgra8_format.hpp
 	include/sge/image2d/bgrx8_format.hpp
+	include/sge/image2d/create_exn.hpp
 	include/sge/image2d/dim.hpp
 	include/sge/image2d/dim_fwd.hpp
 	include/sge/image2d/file.hpp
 	include/sge/image2d/file_fwd.hpp
-	include/sge/image2d/file_shared_ptr.hpp
 	include/sge/image2d/file_unique_ptr.hpp
 	include/sge/image2d/l8_format.hpp
 	include/sge/image2d/la8_format.hpp
 	include/sge/image2d/load_exn.hpp
+	include/sge/image2d/load_raw_exn.hpp
 	include/sge/image2d/log_location.hpp
 	include/sge/image2d/multi_system.hpp
 	include/sge/image2d/multi_system_fwd.hpp
 	include/sge/image2d/multi_system_parameters.hpp
 	include/sge/image2d/multi_system_parameters_fwd.hpp
+	include/sge/image2d/optional_file_unique_ptr.hpp
+	include/sge/image2d/optional_file_unique_ptr_fwd.hpp
 	include/sge/image2d/pitch.hpp
 	include/sge/image2d/pitch_fwd.hpp
 	include/sge/image2d/plugin/collection_fwd.hpp
@@ -2488,7 +2485,6 @@ set(
 	include/sge/renderer/texture/const_scoped_volume_lock.hpp
 	include/sge/renderer/texture/create_planar_from_file.hpp
 	include/sge/renderer/texture/create_planar_from_path.hpp
-	include/sge/renderer/texture/create_planar_from_stream.hpp
 	include/sge/renderer/texture/create_planar_from_view.hpp
 	include/sge/renderer/texture/create_volume_from_view.hpp
 	include/sge/renderer/texture/creation_failed.hpp
@@ -3328,8 +3324,6 @@ set(
 	include/sge/systems/audio_player.hpp
 	include/sge/systems/audio_player_default.hpp
 	include/sge/systems/audio_player_fwd.hpp
-	include/sge/systems/basic_loader.hpp
-	include/sge/systems/basic_loader_fwd.hpp
 	include/sge/systems/config.hpp
 	include/sge/systems/config_fwd.hpp
 	include/sge/systems/cursor_demuxer.hpp

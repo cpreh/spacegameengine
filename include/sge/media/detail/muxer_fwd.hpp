@@ -31,8 +31,7 @@ namespace detail
 
 template<
 	typename System,
-	typename File,
-	typename Capabilities
+	typename File
 >
 class muxer;
 

@@ -31,7 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/file_unique_ptr.hpp>
 #include <sge/audio/listener.hpp>
 #include <sge/audio/buffer_unique_ptr.hpp>
-#include <sge/audio/loader.hpp>
+#include <sge/audio/load_raw_exn.hpp>
+#include <sge/audio/loader_fwd.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/sound/base.hpp>
 #include <sge/audio/buffer.hpp>
@@ -167,7 +168,8 @@ load_raw(
 		std::istreambuf_iterator<char>());
 
 	return
-		audio_loader.load_raw(
+		sge::audio::load_raw_exn(
+			audio_loader,
 			boost::make_iterator_range(
 				reinterpret_cast<unsigned char const *>(
 					&(*raw_bytes.cbegin())),
@@ -440,7 +442,6 @@ try
 		)
 		(
 			sge::systems::image2d(
-				sge::image::capabilities_field::null(),
 				sge::media::optional_extension_set(
 					sge::media::extension_set{
 						sge::media::extension(
@@ -452,7 +453,6 @@ try
 		)
 		(
 			sge::systems::audio_loader(
-				sge::audio::loader_capabilities_field::null(),
 				sge::media::optional_extension_set(
 					sge::media::extension_set{
 						sge::media::extension(

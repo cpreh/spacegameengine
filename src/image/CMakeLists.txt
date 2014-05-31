@@ -10,10 +10,6 @@ set(
 	include/sge/image/algorithm/print.hpp
 	include/sge/image/box.hpp
 	include/sge/image/box_fwd.hpp
-	include/sge/image/capabilities.hpp
-	include/sge/image/capabilities_field.hpp
-	include/sge/image/capabilities_field_fwd.hpp
-	include/sge/image/capabilities_fwd.hpp
 	include/sge/image/channel16.hpp
 	include/sge/image/channel32.hpp
 	include/sge/image/channel32f.hpp

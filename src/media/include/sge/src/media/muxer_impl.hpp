@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/optional_extension.hpp>
 #include <sge/src/media/detail/muxer_impl.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
@@ -34,13 +35,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 template<
 	typename System,
-	typename File,
-	typename Capabilities
+	typename File
 >
 sge::media::muxer<
 	System,
-	File,
-	Capabilities
+	File
 >::muxer(
 	parameters const &_parameters
 )
@@ -57,31 +56,27 @@ sge::media::muxer<
 
 template<
 	typename System,
-	typename File,
-	typename Capabilities
+	typename File
 >
 sge::media::muxer<
 	System,
-	File,
-	Capabilities
+	File
 >::~muxer()
 {
 }
 
 template<
 	typename System,
-	typename File,
-	typename Capabilities
+	typename File
 >
-typename sge::media::muxer<
-	System,
-	File,
-	Capabilities
->::file_unique_ptr
+typename
 sge::media::muxer<
 	System,
-	File,
-	Capabilities
+	File
+>::optional_file_unique_ptr
+sge::media::muxer<
+	System,
+	File
 >::mux_path(
 	boost::filesystem::path const &_file,
 	load_function const &_function
@@ -96,18 +91,16 @@ sge::media::muxer<
 
 template<
 	typename System,
-	typename File,
-	typename Capabilities
+	typename File
 >
-typename sge::media::muxer<
-	System,
-	File,
-	Capabilities
->::file_unique_ptr
+typename
 sge::media::muxer<
 	System,
-	File,
-	Capabilities
+	File
+>::optional_file_unique_ptr
+sge::media::muxer<
+	System,
+	File
 >::mux_extension(
 	sge::media::optional_extension const &_extension,
 	load_function const &_function
@@ -122,34 +115,12 @@ sge::media::muxer<
 
 template<
 	typename System,
-	typename File,
-	typename Capabilities
->
-typename sge::media::muxer<
-	System,
-	File,
-	Capabilities
->::capabilities_field const
-sge::media::muxer<
-	System,
-	File,
-	Capabilities
->::capabilities() const
-{
-	return
-		impl_->capabilities();
-}
-
-template<
-	typename System,
-	typename File,
-	typename Capabilities
+	typename File
 >
 sge::media::extension_set
 sge::media::muxer<
 	System,
-	File,
-	Capabilities
+	File
 >::extensions() const
 {
 	return

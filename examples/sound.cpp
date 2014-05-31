@@ -26,7 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/file_unique_ptr.hpp>
 #include <sge/audio/listener.hpp>
 #include <sge/audio/load_exn.hpp>
-#include <sge/audio/loader.hpp>
+#include <sge/audio/load_raw_exn.hpp>
+#include <sge/audio/loader_fwd.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/sound/base.hpp>
 #include <sge/audio/sound/base_unique_ptr.hpp>
@@ -121,7 +122,8 @@ load_raw(
 	};
 
 	return
-		_audio_loader.load_raw(
+		sge::audio::load_raw_exn(
+			_audio_loader,
 			sge::media::const_raw_range(
 				reinterpret_cast<
 					sge::media::const_raw_pointer
@@ -194,7 +196,6 @@ try
 		)
 		(
 			sge::systems::audio_loader(
-				sge::audio::loader_capabilities_field::null(),
 				sge::media::optional_extension_set(
 					sge::media::extension_set{
 						sge::media::extension(FCPPT_TEXT("wav")),

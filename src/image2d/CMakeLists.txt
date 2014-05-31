@@ -13,20 +13,23 @@ set(
 	include/sge/image2d/bgra32f_format.hpp
 	include/sge/image2d/bgra8_format.hpp
 	include/sge/image2d/bgrx8_format.hpp
+	include/sge/image2d/create_exn.hpp
 	include/sge/image2d/dim.hpp
 	include/sge/image2d/dim_fwd.hpp
 	include/sge/image2d/file.hpp
 	include/sge/image2d/file_fwd.hpp
-	include/sge/image2d/file_shared_ptr.hpp
 	include/sge/image2d/file_unique_ptr.hpp
 	include/sge/image2d/l8_format.hpp
 	include/sge/image2d/la8_format.hpp
 	include/sge/image2d/load_exn.hpp
+	include/sge/image2d/load_raw_exn.hpp
 	include/sge/image2d/log_location.hpp
 	include/sge/image2d/multi_system.hpp
 	include/sge/image2d/multi_system_fwd.hpp
 	include/sge/image2d/multi_system_parameters.hpp
 	include/sge/image2d/multi_system_parameters_fwd.hpp
+	include/sge/image2d/optional_file_unique_ptr.hpp
+	include/sge/image2d/optional_file_unique_ptr_fwd.hpp
 	include/sge/image2d/pitch.hpp
 	include/sge/image2d/pitch_fwd.hpp
 	include/sge/image2d/plugin/collection_fwd.hpp
@@ -134,10 +137,12 @@ set(
 	src/image2d/algorithm/copy_and_convert.cpp
 	src/image2d/algorithm/fill.cpp
 	src/image2d/algorithm/print.cpp
+	src/image2d/create_exn.cpp
 	src/image2d/file.cpp
 	src/image2d/include/sge/src/image2d/algorithm/bresenham_visitor.hpp
 	src/image2d/include/sge/src/image2d/logger.hpp
 	src/image2d/load_exn.cpp
+	src/image2d/load_raw_exn.cpp
 	src/image2d/log_location.cpp
 	src/image2d/logger.cpp
 	src/image2d/multi_system.cpp

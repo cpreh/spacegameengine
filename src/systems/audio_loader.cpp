@@ -18,12 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/audio/loader_capabilities_field.hpp>
-#include <sge/src/systems/instantiate_basic_loader.hpp>
+#include <sge/media/optional_extension_set.hpp>
 #include <sge/systems/audio_loader.hpp>
-#include <fcppt/container/bitfield/object_impl.hpp>
 
 
-SGE_SYSTEMS_INSTANTIATE_BASIC_LOADER(
-	sge::audio::loader_capabilities_field
-);
+sge::systems::audio_loader::audio_loader(
+	sge::media::optional_extension_set const &_extensions
+)
+:
+	extensions_(
+		_extensions
+	)
+{
+}
+
+sge::media::optional_extension_set const &
+sge::systems::audio_loader::extensions() const
+{
+	return
+		extensions_;
+}

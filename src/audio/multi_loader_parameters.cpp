@@ -18,13 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/audio/loader_capabilities_field.hpp>
 #include <sge/audio/loader_fwd.hpp>
 #include <sge/audio/multi_loader_parameters.hpp>
 #include <sge/src/media/instantiate_muxer_parameters.hpp>
 
 
 SGE_MEDIA_INSTANTIATE_MUXER_PARAMETERS(
-	sge::audio::loader,
-	sge::audio::loader_capabilities_field
+	sge::audio::loader
 );

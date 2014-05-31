@@ -18,9 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/image2d/create_exn.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/save_from_view.hpp>
-#include <sge/image2d/system.hpp>
+#include <sge/image2d/system_fwd.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/media/path_to_extension.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -36,7 +37,8 @@ sge::image2d::save_from_view(
 	boost::filesystem::path const &_path
 )
 {
-	_system.create(
+	sge::image2d::create_exn(
+		_system,
 		_view,
 		sge::media::path_to_extension(
 			_path

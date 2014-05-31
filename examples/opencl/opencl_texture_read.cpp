@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/config/media_path.hpp>
-#include <sge/image/capabilities_field.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/save_from_view.hpp>
 #include <sge/image2d/view/const_object.hpp>
@@ -122,7 +121,6 @@ try
 	> const sys(
 		sge::systems::make_list
 			(sge::systems::image2d(
-				sge::image::capabilities_field::null(),
 				sge::media::all_extensions)));
 
 	fcppt::io::cout()

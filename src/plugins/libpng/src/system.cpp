@@ -18,12 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/capabilities.hpp>
-#include <sge/image/capabilities_field.hpp>
 #include <sge/image/file_exception.hpp>
 #include <sge/image/optional_path.hpp>
 #include <sge/image/unsupported_format.hpp>
-#include <sge/image2d/file_unique_ptr.hpp>
+#include <sge/image2d/optional_file_unique_ptr.hpp>
 #include <sge/libpng/file.hpp>
 #include <sge/libpng/system.hpp>
 #include <sge/media/const_raw_range.hpp>
@@ -64,7 +62,7 @@ sge::libpng::system::~system()
 {
 }
 
-sge::image2d::file_unique_ptr
+sge::image2d::optional_file_unique_ptr
 sge::libpng::system::load(
 	boost::filesystem::path const &_path
 )
@@ -84,7 +82,7 @@ sge::libpng::system::load(
 	try
 	{
 		return
-			sge::image2d::file_unique_ptr(
+			sge::image2d::optional_file_unique_ptr(
 				fcppt::make_unique_ptr<
 					libpng::file
 				>(
@@ -98,11 +96,11 @@ sge::libpng::system::load(
 		sge::image::unsupported_format const &
 	)
 	{
-		return sge::image2d::file_unique_ptr();
+		return sge::image2d::optional_file_unique_ptr();
 	}
 }
 
-sge::image2d::file_unique_ptr
+sge::image2d::optional_file_unique_ptr
 sge::libpng::system::load_raw(
 	sge::media::const_raw_range const &_range,
 	sge::media::optional_extension const &_extension
@@ -117,7 +115,7 @@ sge::libpng::system::load_raw(
 			supported_extension
 		)
 	)
-		return sge::image2d::file_unique_ptr();
+		return sge::image2d::optional_file_unique_ptr();
 
 	typedef
 	boost::iostreams::stream<
@@ -141,7 +139,7 @@ sge::libpng::system::load_raw(
 	try
 	{
 		return
-			sge::image2d::file_unique_ptr(
+			sge::image2d::optional_file_unique_ptr(
 				fcppt::make_unique_ptr<
 					libpng::file
 				>(
@@ -153,11 +151,11 @@ sge::libpng::system::load_raw(
 	catch (
 		sge::image::unsupported_format const &)
 	{
-		return sge::image2d::file_unique_ptr();
+		return sge::image2d::optional_file_unique_ptr();
 	}
 }
 
-sge::image2d::file_unique_ptr
+sge::image2d::optional_file_unique_ptr
 sge::libpng::system::load_stream(
 	std::istream &_stream,
 	sge::media::optional_extension const &_extension
@@ -171,12 +169,12 @@ sge::libpng::system::load_stream(
 			supported_extension
 		)
 	)
-		return sge::image2d::file_unique_ptr();
+		return sge::image2d::optional_file_unique_ptr();
 
 	try
 	{
 		return
-			sge::image2d::file_unique_ptr(
+			sge::image2d::optional_file_unique_ptr(
 				fcppt::make_unique_ptr<
 					libpng::file
 				>(
@@ -188,11 +186,11 @@ sge::libpng::system::load_stream(
 	catch (
 		sge::image::unsupported_format const &)
 	{
-		return sge::image2d::file_unique_ptr();
+		return sge::image2d::optional_file_unique_ptr();
 	}
 }
 
-sge::image2d::file_unique_ptr
+sge::image2d::optional_file_unique_ptr
 sge::libpng::system::create(
 	image2d::view::const_object const &_view,
 	sge::media::optional_extension const &_extension
@@ -205,9 +203,9 @@ sge::libpng::system::create(
 			*_extension != supported_extension
 		)
 		?
-			sge::image2d::file_unique_ptr()
+			sge::image2d::optional_file_unique_ptr()
 		:
-			sge::image2d::file_unique_ptr(
+			sge::image2d::optional_file_unique_ptr(
 				fcppt::make_unique_ptr<
 					file
 				>(
@@ -215,13 +213,6 @@ sge::libpng::system::create(
 				)
 			)
 		;
-}
-
-sge::image::capabilities_field const
-sge::libpng::system::capabilities() const
-{
-	return
-		sge::image::capabilities_field::null();
 }
 
 sge::media::extension_set

@@ -40,8 +40,7 @@ sge::systems::modules::image2d::object::object(
 		>(
 			sge::image2d::multi_system_parameters(
 				_collection,
-				_parameters.extensions(),
-				_parameters.capabilities()
+				_parameters.extensions()
 			).log_options(
 				_log_options
 			)

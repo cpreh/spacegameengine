@@ -18,11 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/capabilities_field.hpp>
-#include <sge/src/systems/instantiate_basic_loader.hpp>
+#include <sge/media/optional_extension_set.hpp>
 #include <sge/systems/image2d.hpp>
 
 
-SGE_SYSTEMS_INSTANTIATE_BASIC_LOADER(
-	sge::image::capabilities_field
-);
+sge::systems::image2d::image2d(
+	sge::media::optional_extension_set const &_extensions
+)
+:
+	extensions_(
+		_extensions
+	)
+{
+}
+
+sge::media::optional_extension_set const &
+sge::systems::image2d::extensions() const
+{
+	return
+		extensions_;
+}

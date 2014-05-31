@@ -22,8 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE2D_SYSTEM_HPP_INCLUDED
 
 #include <sge/class_symbol.hpp>
-#include <sge/image/capabilities_field.hpp>
-#include <sge/image2d/file_unique_ptr.hpp>
+#include <sge/image2d/optional_file_unique_ptr_fwd.hpp>
 #include <sge/image2d/symbol.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
@@ -52,35 +51,31 @@ protected:
 	system();
 public:
 	virtual
-	sge::image2d::file_unique_ptr
+	sge::image2d::optional_file_unique_ptr
 	load(
 		boost::filesystem::path const &
 	) = 0;
 
 	virtual
-	sge::image2d::file_unique_ptr
+	sge::image2d::optional_file_unique_ptr
 	load_raw(
 		sge::media::const_raw_range const &,
 		sge::media::optional_extension const &
 	) = 0;
 
 	virtual
-	sge::image2d::file_unique_ptr
+	sge::image2d::optional_file_unique_ptr
 	load_stream(
 		std::istream &,
 		sge::media::optional_extension const &
 	) = 0;
 
 	virtual
-	sge::image2d::file_unique_ptr
+	sge::image2d::optional_file_unique_ptr
 	create(
 		sge::image2d::view::const_object const &,
 		sge::media::optional_extension const &
 	) = 0;
-
-	virtual
-	sge::image::capabilities_field const
-	capabilities() const = 0;
 
 	virtual
 	sge::media::extension_set

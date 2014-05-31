@@ -5,8 +5,6 @@ set(
 	include/sge/systems/audio_player.hpp
 	include/sge/systems/audio_player_default.hpp
 	include/sge/systems/audio_player_fwd.hpp
-	include/sge/systems/basic_loader.hpp
-	include/sge/systems/basic_loader_fwd.hpp
 	include/sge/systems/config.hpp
 	include/sge/systems/config_fwd.hpp
 	include/sge/systems/cursor_demuxer.hpp
@@ -126,7 +124,6 @@ set(
 	src/systems/font.cpp
 	src/systems/image2d.cpp
 	src/systems/include/sge/src/systems/any_visitor.hpp
-	src/systems/include/sge/src/systems/basic_loader_impl.hpp
 	src/systems/include/sge/src/systems/detail/instance_impl.hpp
 	src/systems/include/sge/src/systems/extract_config.hpp
 	src/systems/include/sge/src/systems/extract_plugin_path.hpp

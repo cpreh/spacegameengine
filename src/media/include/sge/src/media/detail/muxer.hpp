@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/detail/muxer_fwd.hpp>
 #include <sge/plugin/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/optional_fwd.hpp>
 #include <fcppt/container/bitfield/object_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
@@ -46,8 +47,7 @@ namespace detail
 
 template<
 	typename System,
-	typename File,
-	typename Capabilities
+	typename File
 >
 class muxer
 {
@@ -55,26 +55,39 @@ class muxer
 		muxer
 	);
 public:
-	typedef System system;
+	typedef
+	System
+	system;
 
-	typedef File file;
+	typedef
+	File
+	file;
 
-	typedef Capabilities capabilities_field;
+	typedef
+	sge::media::muxer_parameters<
+		system
+	>
+	parameters;
 
-	typedef sge::media::muxer_parameters<
-		system,
-		capabilities_field
-	> parameters;
-
-	typedef std::unique_ptr<
+	typedef
+	std::unique_ptr<
 		file
-	> file_unique_ptr;
+	>
+	file_unique_ptr;
 
-	typedef std::function<
-		file_unique_ptr (
+	typedef
+	fcppt::optional<
+		file_unique_ptr
+	>
+	optional_file_unique_ptr;
+
+	typedef
+	std::function<
+		optional_file_unique_ptr (
 			system &
 		)
-	> load_function;
+	>
+	load_function;
 
 	explicit
 	muxer(
@@ -83,20 +96,17 @@ public:
 
 	~muxer();
 
-	file_unique_ptr
+	optional_file_unique_ptr
 	mux_path(
 		boost::filesystem::path const &,
 		load_function const &
 	) const;
 
-	file_unique_ptr
+	optional_file_unique_ptr
 	mux_extension(
 		sge::media::optional_extension const &,
 		load_function const &
 	) const;
-
-	capabilities_field const
-	capabilities() const;
 
 	sge::media::extension_set
 	extensions() const;
@@ -133,8 +143,6 @@ private:
 	plugin_system_pair_container;
 
 	plugin_system_pair_container const plugins_;
-
-	capabilities_field const capabilities_;
 
 	sge::media::extension_set const extensions_;
 };

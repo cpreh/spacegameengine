@@ -18,54 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_SYSTEMS_BASIC_LOADER_IMPL_HPP_INCLUDED
-#define SGE_SRC_SYSTEMS_BASIC_LOADER_IMPL_HPP_INCLUDED
+#ifndef SGE_IMAGE2D_OPTIONAL_FILE_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_IMAGE2D_OPTIONAL_FILE_UNIQUE_PTR_HPP_INCLUDED
 
-#include <sge/media/optional_extension_set.hpp>
-#include <sge/systems/basic_loader.hpp>
+#include <sge/image2d/optional_file_unique_ptr_fwd.hpp>
+#include <fcppt/optional_impl.hpp>
 
-
-template<
-	typename Capabilities
->
-sge::systems::basic_loader<
-	Capabilities
->::basic_loader(
-	capabilities_type const &_capabilities,
-	sge::media::optional_extension_set const &_extensions
-)
-:
-	extensions_(
-		_extensions
-	),
-	capabilities_(
-		_capabilities
-	)
-{
-}
-
-template<
-	typename Capabilities
->
-sge::media::optional_extension_set const &
-sge::systems::basic_loader<
-	Capabilities
->::extensions() const
-{
-	return extensions_;
-}
-
-template<
-	typename Capabilities
->
-typename sge::systems::basic_loader<
-	Capabilities
->::capabilities_type const &
-sge::systems::basic_loader<
-	Capabilities
->::capabilities() const
-{
-	return capabilities_;
-}
 
 #endif

@@ -18,23 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_AUDIO_FILE_SHARED_PTR_HPP_INCLUDED
-#define SGE_AUDIO_FILE_SHARED_PTR_HPP_INCLUDED
+#ifndef SGE_IMAGE2D_LOAD_RAW_EXN_HPP_INCLUDED
+#define SGE_IMAGE2D_LOAD_RAW_EXN_HPP_INCLUDED
 
-#include <sge/audio/file_fwd.hpp>
-#include <fcppt/shared_ptr_impl.hpp>
+#include <sge/image2d/file_unique_ptr.hpp>
+#include <sge/image2d/symbol.hpp>
+#include <sge/image2d/system_fwd.hpp>
+#include <sge/media/const_raw_range.hpp>
+#include <sge/media/optional_extension_fwd.hpp>
 
 
 namespace sge
 {
-namespace audio
+namespace image2d
 {
 
-typedef
-fcppt::shared_ptr<
-	sge::audio::file
->
-file_shared_ptr;
+SGE_IMAGE2D_SYMBOL
+sge::image2d::file_unique_ptr
+load_raw_exn(
+	sge::image2d::system &,
+	sge::media::const_raw_range const &,
+	sge::media::optional_extension const &
+);
 
 }
 }

@@ -647,7 +647,6 @@ set(
 	include/sge/renderer/texture/const_scoped_volume_lock.hpp
 	include/sge/renderer/texture/create_planar_from_file.hpp
 	include/sge/renderer/texture/create_planar_from_path.hpp
-	include/sge/renderer/texture/create_planar_from_stream.hpp
 	include/sge/renderer/texture/create_planar_from_view.hpp
 	include/sge/renderer/texture/create_volume_from_view.hpp
 	include/sge/renderer/texture/creation_failed.hpp
@@ -1062,7 +1061,6 @@ set(
 	src/renderer/texture/const_scoped_volume_lock.cpp
 	src/renderer/texture/create_planar_from_file.cpp
 	src/renderer/texture/create_planar_from_path.cpp
-	src/renderer/texture/create_planar_from_stream.cpp
 	src/renderer/texture/create_planar_from_view.cpp
 	src/renderer/texture/create_volume_from_view.cpp
 	src/renderer/texture/creation_failed.cpp

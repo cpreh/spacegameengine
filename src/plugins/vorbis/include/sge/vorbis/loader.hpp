@@ -21,9 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_VORBIS_LOADER_HPP_INCLUDED
 #define SGE_VORBIS_LOADER_HPP_INCLUDED
 
-#include <sge/audio/file_unique_ptr.hpp>
 #include <sge/audio/loader.hpp>
-#include <sge/audio/loader_capabilities_field.hpp>
+#include <sge/audio/optional_file_unique_ptr.hpp>
 #include <sge/media/const_raw_range.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_fwd.hpp>
@@ -50,28 +49,24 @@ public:
 
 	~loader();
 
-	sge::audio::file_unique_ptr
+	sge::audio::optional_file_unique_ptr
 	load(
 		boost::filesystem::path const &
 	)
 	override;
 
-	sge::audio::file_unique_ptr
+	sge::audio::optional_file_unique_ptr
 	load_raw(
 		sge::media::const_raw_range const &,
 		sge::media::optional_extension const &
 	)
 	override;
 
-	sge::audio::file_unique_ptr
+	sge::audio::optional_file_unique_ptr
 	load_stream(
 		std::istream &,
 		sge::media::optional_extension const &
 	)
-	override;
-
-	audio::loader_capabilities_field const
-	capabilities() const
 	override;
 
 	sge::media::extension_set

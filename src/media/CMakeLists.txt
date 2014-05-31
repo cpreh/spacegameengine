@@ -22,6 +22,7 @@ set(
 	src/media/include/sge/src/media/detail/muxer_impl.hpp
 	src/media/include/sge/src/media/instantiate_muxer_parameters.hpp
 	src/media/include/sge/src/media/load_exn.hpp
+	src/media/include/sge/src/media/load_raw_exn.hpp
 	src/media/include/sge/src/media/logger.hpp
 	src/media/include/sge/src/media/muxer_impl.hpp
 	src/media/include/sge/src/media/muxer_parameters_impl.hpp
