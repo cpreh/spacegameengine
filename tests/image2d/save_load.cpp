@@ -33,12 +33,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/plugin/object.hpp>
 #include <sge/image2d/store/rgba8.hpp>
 #include <sge/image2d/view/const_object.hpp>
+#include <sge/image2d/view/format.hpp>
+#include <sge/image2d/view/size.hpp>
 #include <sge/media/optional_extension.hpp>
 #include <sge/plugin/collection.hpp>
 #include <sge/plugin/context.hpp>
 #include <sge/plugin/iterator.hpp>
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/optional_cache_ref.hpp>
+#include <fcppt/math/dim/comparison.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -107,11 +110,15 @@ FCPPT_PP_POP_WARNING
 
 		std::stringstream stream;
 
+		sge::image2d::view::const_object const source_view(
+			sge::image2d::view::const_object(
+				store.const_wrapped_view()
+			)
+		);
+
 		sge::image2d::optional_file_unique_ptr const created(
 			system->create(
-				sge::image2d::view::const_object(
-					store.const_wrapped_view()
-				),
+				source_view,
 				sge::media::optional_extension()
 			)
 		);
@@ -135,12 +142,34 @@ FCPPT_PP_POP_WARNING
 			file
 		);
 
+		sge::image2d::view::const_object const dest_view(
+			(*file)->view()
+		);
+
+		BOOST_REQUIRE(
+			sge::image2d::view::size(
+				source_view
+			)
+			==
+			sge::image2d::view::size(
+				dest_view
+			)
+		);
+
+		BOOST_CHECK(
+			sge::image2d::view::format(
+				source_view
+			)
+			==
+			sge::image2d::view::format(
+				dest_view
+			)
+		);
+
 		BOOST_CHECK(
 			sge::image2d::algorithm::compare(
-				sge::image2d::view::const_object(
-					store.const_wrapped_view()
-				),
-				(*file)->view()
+				source_view,
+				dest_view
 			)
 		);
 	}
