@@ -73,6 +73,12 @@ private:
 	) const
 	override;
 
+	void
+	save_stream(
+		std::ostream &
+	) const
+	override;
+
 	sge::libpng::file_rep const rep_;
 };
 

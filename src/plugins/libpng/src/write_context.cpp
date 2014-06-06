@@ -28,13 +28,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
 #include <ostream>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::libpng::write_context::write_context(
-	boost::filesystem::path const &_path,
+	sge::image::optional_path const &_path,
 	std::ostream &_stream,
 	sge::libpng::write_ptr const &_write_ptr
 )
@@ -95,9 +94,7 @@ sge::libpng::write_context::handle_write_impl(
 	)
 		throw
 			sge::image::file_exception(
-				sge::image::optional_path(
-					path_
-				),
+				path_,
 				FCPPT_TEXT("error writing")
 			);
 }

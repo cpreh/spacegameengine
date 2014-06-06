@@ -18,8 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/file_exception.hpp>
-#include <sge/image/optional_path.hpp>
+#include <sge/image/optional_path_fwd.hpp>
 #include <sge/image/color/element_count.hpp>
 #include <sge/libpng/bit_depth_from_format.hpp>
 #include <sge/libpng/byte_vector.hpp>
@@ -35,42 +34,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/libpng/write.hpp>
 #include <sge/libpng/write_context.hpp>
 #include <sge/libpng/write_ptr.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/fstream.hpp>
-#include <boost/filesystem/path.hpp>
 #include <climits>
+#include <iosfwd>
 #include <fcppt/config/external_end.hpp>
 
 
 void
 sge::libpng::write(
-	boost::filesystem::path const &_path,
+	std::ostream &_stream,
+	sge::image::optional_path const &_path,
 	sge::libpng::file_rep const &_rep
 )
 {
 	sge::libpng::error_context error_context{
-		sge::image::optional_path(
-			_path
-		)
-	};
-
-	boost::filesystem::ofstream file(
 		_path
-	);
-
-	if(
-		!file.is_open()
-	)
-		throw
-			sge::image::file_exception(
-				sge::image::optional_path(
-					_path
-				),
-				FCPPT_TEXT("couldn't open file")
-			);
+	};
 
 	sge::libpng::write_ptr const write_ptr(
 		error_context
@@ -82,7 +63,7 @@ sge::libpng::write(
 
 	sge::libpng::write_context context(
 		_path,
-		file,
+		_stream,
 		write_ptr
 	);
 

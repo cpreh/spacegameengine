@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_LIBPNG_WRITE_HPP_INCLUDED
 #define SGE_LIBPNG_WRITE_HPP_INCLUDED
 
+#include <sge/image/optional_path_fwd.hpp>
 #include <sge/libpng/file_rep_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <iosfwd>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -34,7 +35,8 @@ namespace libpng
 
 void
 write(
-	boost::filesystem::path const &,
+	std::ostream &,
+	sge::image::optional_path const &,
 	sge::libpng::file_rep const &
 );
 

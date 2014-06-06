@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
+#include <iosfwd>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -58,6 +59,12 @@ public:
 	void
 	save(
 		boost::filesystem::path const &
+	) const = 0;
+
+	virtual
+	void
+	save_stream(
+		std::ostream &
 	) const = 0;
 
 	SGE_IMAGE2D_SYMBOL

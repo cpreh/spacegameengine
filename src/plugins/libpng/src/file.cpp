@@ -19,7 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/const_raw_pointer.hpp>
-#include <sge/image/optional_path_fwd.hpp>
+#include <sge/image/file_exception.hpp>
+#include <sge/image/optional_path.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/pitch.hpp>
 #include <sge/image2d/view/const_object.hpp>
@@ -29,10 +30,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/libpng/file_rep_from_view.hpp>
 #include <sge/libpng/to_sge_format.hpp>
 #include <sge/libpng/write.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/fstream.hpp>
 #include <boost/filesystem/path.hpp>
 #include <iosfwd>
+#include <ios>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -96,8 +100,39 @@ sge::libpng::file::save(
 	boost::filesystem::path const &_path
 ) const
 {
-	sge::libpng::write(
+	boost::filesystem::ofstream output(
 		_path,
+		std::ios_base::binary
+	);
+
+	if(
+		!output.is_open()
+	)
+		throw
+			sge::image::file_exception(
+				sge::image::optional_path(
+					_path
+				),
+				FCPPT_TEXT("couldn't open file")
+			);
+
+	sge::libpng::write(
+		output,
+		sge::image::optional_path(
+			_path
+		),
+		rep_
+	);
+}
+
+void
+sge::libpng::file::save_stream(
+	std::ostream &_stream
+) const
+{
+	sge::libpng::write(
+		_stream,
+		sge::image::optional_path(),
 		rep_
 	);
 }
