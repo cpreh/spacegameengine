@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/channel32.hpp>
 #include <sge/image/homogenous_format.hpp>
-#include <mizuiro/color/layout/depth.hpp>
+#include <sge/image/ds/layout/depth.hpp>
 
 
 namespace sge
@@ -36,7 +36,7 @@ namespace ds
 typedef
 sge::image::homogenous_format<
 	sge::image::channel32,
-	mizuiro::color::layout::depth
+	sge::image::ds::layout::depth
 >
 d32_format;
 

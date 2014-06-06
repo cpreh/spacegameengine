@@ -38,7 +38,11 @@ set(
 	include/sge/image/color/format_static.hpp
 	include/sge/image/color/format_stride.hpp
 	include/sge/image/color/format_to_string.hpp
-	include/sge/image/color/init.hpp
+	include/sge/image/color/init/alpha.hpp
+	include/sge/image/color/init/blue.hpp
+	include/sge/image/color/init/green.hpp
+	include/sge/image/color/init/luminance.hpp
+	include/sge/image/color/init/red.hpp
 	include/sge/image/color/invalid_convert.hpp
 	include/sge/image/color/invalid_copy.hpp
 	include/sge/image/color/is_convertible.hpp

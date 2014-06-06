@@ -1,5 +1,9 @@
 set(
 	SGE_IMAGEDS_FILES
+	include/sge/image/ds/channel/depth.hpp
+	include/sge/image/ds/channel/depth_fwd.hpp
+	include/sge/image/ds/channel/stencil.hpp
+	include/sge/image/ds/channel/stencil_fwd.hpp
 	include/sge/image/ds/d16_format.hpp
 	include/sge/image/ds/d24s8_format.hpp
 	include/sge/image/ds/d32_format.hpp
@@ -9,8 +13,15 @@ set(
 	include/sge/image/ds/format_static.hpp
 	include/sge/image/ds/format_stride.hpp
 	include/sge/image/ds/format_to_string.hpp
+	include/sge/image/ds/init/depth.hpp
+	include/sge/image/ds/init/detail/make.hpp
+	include/sge/image/ds/init/stencil.hpp
 	include/sge/image/ds/invalid_convert.hpp
 	include/sge/image/ds/invalid_copy.hpp
+	include/sge/image/ds/layout/depth.hpp
+	include/sge/image/ds/layout/depth_stencil.hpp
+	include/sge/image/ds/space/ds.hpp
+	include/sge/image/ds/space/ds_fwd.hpp
 	include/sge/image/ds/tag.hpp
 	include/sge/image/ds/traits/format_fwd.hpp
 	include/sge/image/ds/traits/format_static.hpp

@@ -20,10 +20,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/camera/coordinate_system/object.hpp>
 #include <sge/charconv/utf8_file_to_fcppt_string_exn.hpp>
-#include <sge/image/color/init.hpp>
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/rgb32f.hpp>
 #include <sge/image/color/any/object.hpp>
+#include <sge/image/color/init/blue.hpp>
+#include <sge/image/color/init/green.hpp>
+#include <sge/image/color/init/red.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/parse_string_exn.hpp>

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/channel8.hpp>
 #include <sge/image/homogenous_format.hpp>
-#include <mizuiro/color/layout/gray.hpp>
+#include <mizuiro/color/layout/l.hpp>
 
 
 namespace sge
@@ -36,7 +36,7 @@ namespace color
 typedef
 sge::image::homogenous_format<
 	sge::image::channel8,
-	mizuiro::color::layout::gray
+	mizuiro::color::layout::l
 >
 l8_format;
 

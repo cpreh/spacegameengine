@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_DS_D24S8_FORMAT_HPP_INCLUDED
 
 #include <sge/image/heterogenous_format.hpp>
+#include <sge/image/ds/layout/depth_stencil.hpp>
 #include <mizuiro/size_type.hpp>
-#include <mizuiro/color/layout/depth_stencil.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10_c.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -43,7 +43,7 @@ sge::image::heterogenous_format<
 		24u,
 		8u
 	>,
-	mizuiro::color::layout::depth_stencil
+	sge::image::ds::layout::depth_stencil
 >
 d24s8_format;
 

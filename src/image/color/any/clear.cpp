@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/color/a8.hpp>
 #include <sge/image/color/format.hpp>
-#include <sge/image/color/init.hpp>
 #include <sge/image/color/l8.hpp>
 #include <sge/image/color/la8.hpp>
 #include <sge/image/color/predef.hpp>
@@ -29,6 +28,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/srgba8.hpp>
 #include <sge/image/color/any/clear.hpp>
 #include <sge/image/color/any/object.hpp>
+#include <sge/image/color/init/alpha.hpp>
+#include <sge/image/color/init/blue.hpp>
+#include <sge/image/color/init/green.hpp>
+#include <sge/image/color/init/luminance.hpp>
+#include <sge/image/color/init/red.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 

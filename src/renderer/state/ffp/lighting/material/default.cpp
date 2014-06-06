@@ -18,9 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/color/init.hpp>
 #include <sge/image/color/rgba8.hpp>
 #include <sge/image/color/any/object.hpp>
+#include <sge/image/color/init/alpha.hpp>
+#include <sge/image/color/init/blue.hpp>
+#include <sge/image/color/init/green.hpp>
+#include <sge/image/color/init/red.hpp>
 #include <sge/renderer/state/ffp/lighting/ambient_color.hpp>
 #include <sge/renderer/state/ffp/lighting/diffuse_color.hpp>
 #include <sge/renderer/state/ffp/lighting/specular_color.hpp>

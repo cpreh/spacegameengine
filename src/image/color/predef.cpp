@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/rgba8.hpp>
 #include <sge/image/color/any/object.hpp>
-#include <mizuiro/color/init/alpha.hpp>
-#include <mizuiro/color/init/blue.hpp>
-#include <mizuiro/color/init/green.hpp>
-#include <mizuiro/color/init/red.hpp>
+#include <sge/image/color/init/alpha.hpp>
+#include <sge/image/color/init/green.hpp>
+#include <sge/image/color/init/blue.hpp>
+#include <sge/image/color/init/red.hpp>
 
 
 #define SGE_DEFINE_COLOR_A(name, r, g, b, a)\
@@ -37,10 +37,10 @@ sge::image::color::predef::name()\
 	return \
 		sge::image::color::any::object(\
 			sge::image::color::rgba8(\
-				(mizuiro::color::init::red() = static_cast<value_type>(r))\
-				(mizuiro::color::init::green() = static_cast<value_type>(g))\
-				(mizuiro::color::init::blue() = static_cast<value_type>(b))\
-				(mizuiro::color::init::alpha() = static_cast<value_type>(a))\
+				(sge::image::color::init::red() = static_cast<value_type>(r))\
+				(sge::image::color::init::green() = static_cast<value_type>(g))\
+				(sge::image::color::init::blue() = static_cast<value_type>(b))\
+				(sge::image::color::init::alpha() = static_cast<value_type>(a))\
 			)\
 		);\
 }

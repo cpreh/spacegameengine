@@ -18,28 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_COLOR_R32F_FORMAT_HPP_INCLUDED
-#define SGE_IMAGE_COLOR_R32F_FORMAT_HPP_INCLUDED
+#ifndef SGE_IMAGE_DS_LAYOUT_DEPTH_STENCIL_HPP_INCLUDED
+#define SGE_IMAGE_DS_LAYOUT_DEPTH_STENCIL_HPP_INCLUDED
 
-#include <sge/image/channel32f.hpp>
-#include <sge/image/homogenous_format.hpp>
-#include <mizuiro/color/layout/r.hpp>
+#include <sge/image/ds/channel/depth.hpp>
+#include <sge/image/ds/channel/stencil.hpp>
+#include <sge/image/ds/space/ds.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/vector/vector10.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
 {
 namespace image
 {
-namespace color
+namespace ds
+{
+namespace layout
 {
 
 typedef
-sge::image::homogenous_format<
-	sge::image::channel32f,
-	mizuiro::color::layout::r
+sge::image::ds::space::ds<
+	boost::mpl::vector2<
+		sge::image::ds::channel::depth,
+		sge::image::ds::channel::stencil
+	>
 >
-r32f_format;
+depth_stencil;
 
+}
 }
 }
 }
