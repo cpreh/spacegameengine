@@ -18,25 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE2D_PLUGIN_COLLECTION_FWD_HPP_INCLUDED
-#define SGE_IMAGE2D_PLUGIN_COLLECTION_FWD_HPP_INCLUDED
+#ifndef SGE_IMAGE_ALGORITHM_COMPARE_HPP_INCLUDED
+#define SGE_IMAGE_ALGORITHM_COMPARE_HPP_INCLUDED
 
-#include <sge/image2d/system_fwd.hpp>
-#include <sge/plugin/collection_fwd.hpp>
+#include <sge/image/detail/instantiate/symbol.hpp>
+#include <sge/image/traits/const_view_fwd.hpp>
 
 
 namespace sge
 {
-namespace image2d
+namespace image
 {
-namespace plugin
+namespace algorithm
 {
 
-typedef
-sge::plugin::collection<
-	sge::image2d::system
+template<
+	typename Tag
 >
-collection;
+SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
+bool
+compare(
+	typename sge::image::traits::const_view<
+		Tag
+	>::type const &,
+	typename sge::image::traits::const_view<
+		Tag
+	>::type const &
+);
 
 }
 }

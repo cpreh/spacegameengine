@@ -562,6 +562,7 @@ set(
 	include/sge/graph/position.hpp
 	include/sge/graph/scalar.hpp
 	include/sge/image/algorithm/clone.hpp
+	include/sge/image/algorithm/compare.hpp
 	include/sge/image/algorithm/copy.hpp
 	include/sge/image/algorithm/copy_and_convert.hpp
 	include/sge/image/algorithm/fill.hpp
@@ -791,6 +792,7 @@ set(
 	include/sge/image2d/a8_format.hpp
 	include/sge/image2d/algorithm/bresenham.hpp
 	include/sge/image2d/algorithm/clone.hpp
+	include/sge/image2d/algorithm/compare.hpp
 	include/sge/image2d/algorithm/copy.hpp
 	include/sge/image2d/algorithm/copy_and_convert.hpp
 	include/sge/image2d/algorithm/fill.hpp
@@ -821,6 +823,8 @@ set(
 	include/sge/image2d/pitch.hpp
 	include/sge/image2d/pitch_fwd.hpp
 	include/sge/image2d/plugin/collection_fwd.hpp
+	include/sge/image2d/plugin/object.hpp
+	include/sge/image2d/plugin/object_fwd.hpp
 	include/sge/image2d/plugin/traits.hpp
 	include/sge/image2d/r32f_format.hpp
 	include/sge/image2d/rect.hpp
@@ -921,6 +925,7 @@ set(
 	include/sge/image2d/view/to_const.hpp
 	include/sge/image3d/a8_format.hpp
 	include/sge/image3d/algorithm/clone.hpp
+	include/sge/image3d/algorithm/compare.hpp
 	include/sge/image3d/algorithm/copy.hpp
 	include/sge/image3d/algorithm/copy_and_convert.hpp
 	include/sge/image3d/algorithm/fill.hpp

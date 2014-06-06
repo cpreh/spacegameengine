@@ -68,6 +68,13 @@ add_sge_test(
 )
 
 add_sge_test(
+	image2d/save_load
+	"sgeconfig;sgeimage2d;sgeplugin"
+	""
+	""
+)
+
+add_sge_test(
 	projectile/triangulate_long
 	""
 	"${fcppt_core_TARGET}"

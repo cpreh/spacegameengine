@@ -18,28 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE2D_PLUGIN_COLLECTION_FWD_HPP_INCLUDED
-#define SGE_IMAGE2D_PLUGIN_COLLECTION_FWD_HPP_INCLUDED
+#ifndef SGE_IMAGE2D_PLUGIN_OBJECT_HPP_INCLUDED
+#define SGE_IMAGE2D_PLUGIN_OBJECT_HPP_INCLUDED
 
-#include <sge/image2d/system_fwd.hpp>
-#include <sge/plugin/collection_fwd.hpp>
+#include <sge/image2d/plugin/object_fwd.hpp>
+#include <sge/image2d/plugin/traits.hpp>
+#include <sge/plugin/object.hpp>
 
-
-namespace sge
-{
-namespace image2d
-{
-namespace plugin
-{
-
-typedef
-sge::plugin::collection<
-	sge::image2d::system
->
-collection;
-
-}
-}
-}
 
 #endif

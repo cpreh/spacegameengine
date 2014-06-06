@@ -18,28 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE2D_PLUGIN_COLLECTION_FWD_HPP_INCLUDED
-#define SGE_IMAGE2D_PLUGIN_COLLECTION_FWD_HPP_INCLUDED
+#ifndef SGE_SRC_IMAGE_ALGORITHM_INSTANTIATE_COMPARE_HPP_INCLUDED
+#define SGE_SRC_IMAGE_ALGORITHM_INSTANTIATE_COMPARE_HPP_INCLUDED
 
-#include <sge/image2d/system_fwd.hpp>
-#include <sge/plugin/collection_fwd.hpp>
+#include <sge/image/traits/const_view_fwd.hpp>
+#include <sge/src/export_function_instantiation.hpp>
+#include <sge/src/image/algorithm/compare_impl.hpp>
 
 
-namespace sge
-{
-namespace image2d
-{
-namespace plugin
-{
-
-typedef
-sge::plugin::collection<
-	sge::image2d::system
->
-collection;
-
-}
-}
-}
+#define SGE_SRC_IMAGE_ALGORITHM_INSTANTIATE_COMPARE(\
+	tag\
+)\
+template \
+SGE_EXPORT_FUNCTION_INSTANTIATION \
+bool \
+sge::image::algorithm::compare< \
+	tag \
+>( \
+	sge::image::traits::const_view<\
+		tag\
+	>::type const &, \
+	sge::image::traits::const_view<\
+		tag\
+	>::type const & \
+)
 
 #endif

@@ -1,6 +1,7 @@
 set(
 	SGE_IMAGE_FILES
 	include/sge/image/algorithm/clone.hpp
+	include/sge/image/algorithm/compare.hpp
 	include/sge/image/algorithm/copy.hpp
 	include/sge/image/algorithm/copy_and_convert.hpp
 	include/sge/image/algorithm/fill.hpp
@@ -82,6 +83,9 @@ set(
 	src/image/file_exception.cpp
 	src/image/include/sge/src/image/algorithm/clone_impl.hpp
 	src/image/include/sge/src/image/algorithm/clone_visitor.hpp
+	src/image/include/sge/src/image/algorithm/compare_element.hpp
+	src/image/include/sge/src/image/algorithm/compare_impl.hpp
+	src/image/include/sge/src/image/algorithm/compare_visitor.hpp
 	src/image/include/sge/src/image/algorithm/convert_may_overlap.hpp
 	src/image/include/sge/src/image/algorithm/copy_and_convert_dynamic.hpp
 	src/image/include/sge/src/image/algorithm/copy_and_convert_impl.hpp
@@ -92,6 +96,7 @@ set(
 	src/image/include/sge/src/image/algorithm/fill_impl.hpp
 	src/image/include/sge/src/image/algorithm/fill_visitor.hpp
 	src/image/include/sge/src/image/algorithm/instantiate_clone.hpp
+	src/image/include/sge/src/image/algorithm/instantiate_compare.hpp
 	src/image/include/sge/src/image/algorithm/instantiate_copy.hpp
 	src/image/include/sge/src/image/algorithm/instantiate_copy_and_convert.hpp
 	src/image/include/sge/src/image/algorithm/instantiate_fill.hpp

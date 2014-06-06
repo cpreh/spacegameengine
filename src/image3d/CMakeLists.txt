@@ -2,6 +2,7 @@ set(
 	SGE_IMAGE3D_FILES
 	include/sge/image3d/a8_format.hpp
 	include/sge/image3d/algorithm/clone.hpp
+	include/sge/image3d/algorithm/compare.hpp
 	include/sge/image3d/algorithm/copy.hpp
 	include/sge/image3d/algorithm/copy_and_convert.hpp
 	include/sge/image3d/algorithm/fill.hpp
@@ -110,6 +111,7 @@ set(
 	include/sge/image3d/view/sub_out_of_range.hpp
 	include/sge/image3d/view/to_const.hpp
 	src/image3d/algorithm/clone.cpp
+	src/image3d/algorithm/compare.cpp
 	src/image3d/algorithm/copy.cpp
 	src/image3d/algorithm/copy_and_convert.cpp
 	src/image3d/algorithm/fill.cpp

@@ -18,28 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE2D_PLUGIN_COLLECTION_FWD_HPP_INCLUDED
-#define SGE_IMAGE2D_PLUGIN_COLLECTION_FWD_HPP_INCLUDED
+#ifndef SGE_SRC_IMAGE_ALGORITHM_COMPARE_IMPL_HPP_INCLUDED
+#define SGE_SRC_IMAGE_ALGORITHM_COMPARE_IMPL_HPP_INCLUDED
 
-#include <sge/image2d/system_fwd.hpp>
-#include <sge/plugin/collection_fwd.hpp>
+#include <sge/image/algorithm/compare.hpp>
+#include <sge/image/traits/const_view_fwd.hpp>
+#include <sge/src/image/algorithm/compare_visitor.hpp>
+#include <fcppt/variant/apply_binary.hpp>
 
 
-namespace sge
-{
-namespace image2d
-{
-namespace plugin
-{
-
-typedef
-sge::plugin::collection<
-	sge::image2d::system
+template<
+	typename Tag
 >
-collection;
-
-}
-}
+bool
+sge::image::algorithm::compare(
+	typename sge::image::traits::const_view<
+		Tag
+	>::type const &_src1,
+	typename sge::image::traits::const_view<
+		Tag
+	>::type const &_src2
+)
+{
+	return
+		fcppt::variant::apply_binary(
+			sge::image::algorithm::compare_visitor(),
+			_src1.get(),
+			_src2.get()
+		);
 }
 
 #endif

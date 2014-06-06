@@ -18,25 +18,57 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE2D_PLUGIN_COLLECTION_FWD_HPP_INCLUDED
-#define SGE_IMAGE2D_PLUGIN_COLLECTION_FWD_HPP_INCLUDED
+#ifndef SGE_SRC_IMAGE_ALGORITHM_COMPARE_VISITOR_HPP_INCLUDED
+#define SGE_SRC_IMAGE_ALGORITHM_COMPARE_VISITOR_HPP_INCLUDED
 
-#include <sge/image2d/system_fwd.hpp>
-#include <sge/plugin/collection_fwd.hpp>
+#include <sge/src/image/algorithm/compare_element.hpp>
+#include <mizuiro/image/algorithm/compare.hpp>
 
 
 namespace sge
 {
-namespace image2d
+namespace image
 {
-namespace plugin
+namespace algorithm
 {
 
-typedef
-sge::plugin::collection<
-	sge::image2d::system
->
-collection;
+struct compare_visitor
+{
+	typedef
+	bool
+	result_type;
+
+	template<
+		typename View1,
+		typename View2
+	>
+	result_type
+	operator()(
+		View1 const &,
+		View2 const &
+	) const
+	{
+		return
+			false;
+	}
+
+	template<
+		typename View
+	>
+	result_type
+	operator()(
+		View const &_view1,
+		View const &_view2
+	) const
+	{
+		return
+			mizuiro::image::algorithm::compare(
+				_view1,
+				_view2,
+				sge::image::algorithm::compare_element()
+			);
+	}
+};
 
 }
 }
