@@ -22,9 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/direction/forward.hpp>
 #include <sge/audio/direction/object.hpp>
 #include <sge/audio/direction/up.hpp>
-#include <fcppt/preprocessor/todo.hpp>
 
-FCPPT_PP_TODO("Do we have to check the contents here as not every (forward, up) pair is right")
 
 sge::audio::direction::object::object(
 	sge::audio::direction::forward const &_forward,
