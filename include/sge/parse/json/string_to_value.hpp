@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2013 Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2014 Carl Philipp Reh (carlphilippreh <at> gmail.com)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_JSON_STRING_TO_VALUE_HPP_INCLUDED
 #define SGE_PARSE_JSON_STRING_TO_VALUE_HPP_INCLUDED
 
-#include <sge/parse/json/value.hpp>
 #include <sge/parse/json/symbol.hpp>
+#include <sge/parse/json/value.hpp>
 #include <fcppt/string.hpp>
 
 

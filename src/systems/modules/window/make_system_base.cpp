@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2013 Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2014 Carl Philipp Reh (carlphilippreh <at> gmail.com)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/src/systems/modules/window/system_base_unique_ptr.hpp>
 #include <sge/src/systems/modules/window/make_system_base.hpp>
 #include <sge/src/systems/modules/window/original_system.hpp>
+#include <sge/src/systems/modules/window/system_base_unique_ptr.hpp>
 #include <sge/src/systems/modules/window/wrapped_system.hpp>
 #include <sge/systems/window.hpp>
 #include <sge/systems/wrapped_window_fwd.hpp>

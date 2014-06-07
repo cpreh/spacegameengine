@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2013 Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2014 Carl Philipp Reh (carlphilippreh <at> gmail.com)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/render_context/diffuse_color.hpp>
 #include <sge/scenic/render_context/emissive_color.hpp>
 #include <sge/scenic/render_context/specular_color.hpp>
-#include <sge/scenic/render_context/material/object.hpp>
 #include <sge/scenic/render_context/material/diffuse_texture.hpp>
+#include <sge/scenic/render_context/material/object.hpp>
 #include <sge/scenic/render_context/material/shininess.hpp>
 #include <sge/scenic/render_context/material/specular_texture.hpp>
 #include <fcppt/optional_impl.hpp>

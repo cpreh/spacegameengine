@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2013 Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2006-2014 Carl Philipp Reh (carlphilippreh <at> gmail.com)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -26,9 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/rucksack/dim.hpp>
 #include <sge/rucksack/is_expanding.hpp>
 #include <sge/rucksack/minimum_size.hpp>
+#include <sge/rucksack/optional_scalar.hpp>
 #include <sge/rucksack/padding_fwd.hpp>
 #include <sge/rucksack/preferred_size.hpp>
-#include <sge/rucksack/optional_scalar.hpp>
 #include <sge/rucksack/vector.hpp>
 #include <sge/rucksack/widget/base.hpp>
 #include <sge/rucksack/widget/master_and_slaves.hpp>
