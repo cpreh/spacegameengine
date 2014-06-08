@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/remove_callback.hpp>
 #include <sge/input/mouse/remove_event_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/signal/connection_manager.hpp>
+#include <fcppt/signal/auto_connection_container.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
 #include <unordered_map>
@@ -89,7 +89,7 @@ private:
 
 	typedef std::unordered_map<
 		sge::input::mouse::device *,
-		fcppt::signal::connection_manager
+		fcppt::signal::auto_connection_container
 	> mouse_map;
 
 	mouse_map devices_;
@@ -102,7 +102,7 @@ private:
 
 	button_callback const button_callback_;
 
-	fcppt::signal::connection_manager const connections_;
+	fcppt::signal::auto_connection_container const connections_;
 };
 
 }

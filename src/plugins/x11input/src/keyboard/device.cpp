@@ -39,6 +39,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/window/object.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/assign/make_container.hpp>
+#include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/signal/auto_connection_container.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
 #include <functional>
@@ -60,7 +62,7 @@ sge::x11input::keyboard::device::device(
 	input_context_(_input_context),
 	connections_(
 		fcppt::assign::make_container<
-			fcppt::signal::connection_manager::container
+			fcppt::signal::auto_connection_container
 		>(
 			_param.window_demuxer().register_callback(
 				awl::backends::x11::system::event::type(

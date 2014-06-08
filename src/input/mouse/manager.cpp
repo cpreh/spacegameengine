@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/signal/connection_manager.hpp>
+#include <fcppt/signal/auto_connection_container.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
 #include <utility>
@@ -63,7 +63,7 @@ sge::input::mouse::manager::manager(
 	),
 	connections_(
 		fcppt::assign::make_container<
-			fcppt::signal::connection_manager::container
+			fcppt::signal::auto_connection_container
 		>(
 			_processor.mouse_discover_callback(
 				std::bind(
@@ -101,33 +101,31 @@ sge::input::mouse::manager::discover(
 		devices_.insert(
 			std::make_pair(
 				&_event.get(),
-				fcppt::signal::connection_manager(
-					fcppt::assign::make_container<
-						fcppt::signal::connection_manager::container
-					>(
-						_event.get().axis_callback(
-							std::bind(
-								axis_callback_,
-								std::ref(
-									_event.get()
-								),
-								std::placeholders::_1
-							)
+				fcppt::assign::make_container<
+					fcppt::signal::auto_connection_container
+				>(
+					_event.get().axis_callback(
+						std::bind(
+							axis_callback_,
+							std::ref(
+								_event.get()
+							),
+							std::placeholders::_1
 						)
 					)
-					(
-						_event.get().button_callback(
-							std::bind(
-								button_callback_,
-								std::ref(
-									_event.get()
-								),
-								std::placeholders::_1
-							)
-						)
-					)
-					.move_container()
 				)
+				(
+					_event.get().button_callback(
+						std::bind(
+							button_callback_,
+							std::ref(
+								_event.get()
+							),
+							std::placeholders::_1
+						)
+					)
+				)
+				.move_container()
 			)
 		).second
 		== true

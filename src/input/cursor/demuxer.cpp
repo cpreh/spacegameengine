@@ -39,6 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/signal/auto_connection_container.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
@@ -58,7 +59,7 @@ sge::input::cursor::demuxer::demuxer(
 	),
 	processor_connections_(
 		fcppt::assign::make_container<
-			fcppt::signal::connection_manager::container
+			fcppt::signal::auto_connection_container
 		>(
 			_processor.cursor_discover_callback(
 				std::bind(
@@ -231,9 +232,9 @@ sge::input::cursor::demuxer::assign_cursor()
 		return;
 	}
 
-	cursor_connections_.assign(
+	cursor_connections_ =
 		fcppt::assign::make_container<
-			fcppt::signal::connection_manager::container
+			fcppt::signal::auto_connection_container
 		>(
 			current_cursor_->button_callback(
 				std::bind(
@@ -261,6 +262,5 @@ sge::input::cursor::demuxer::assign_cursor()
 				)
 			)
 		)
-		.move_container()
-	);
+		.move_container();
 }

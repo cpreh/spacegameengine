@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/signal/connection_manager.hpp>
+#include <fcppt/signal/auto_connection_container.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
 #include <utility>
@@ -70,11 +70,11 @@ sge::input::keyboard::manager::manager(
 	),
 	connections_(
 		fcppt::assign::make_container<
-			fcppt::signal::connection_manager::container
+			fcppt::signal::auto_connection_container
 		>(
 			_processor.keyboard_discover_callback(
 				std::bind(
-					&keyboard::manager::discover,
+					&sge::input::keyboard::manager::discover,
 					this,
 					std::placeholders::_1
 				)
@@ -83,7 +83,7 @@ sge::input::keyboard::manager::manager(
 		(
 			_processor.keyboard_remove_callback(
 				std::bind(
-					&keyboard::manager::remove,
+					&sge::input::keyboard::manager::remove,
 					this,
 					std::placeholders::_1
 				)
@@ -114,44 +114,42 @@ sge::input::keyboard::manager::discover(
 		devices_.insert(
 			std::make_pair(
 				&_event.get(),
-				fcppt::signal::connection_manager(
-					fcppt::assign::make_container<
-						fcppt::signal::connection_manager::container
-					>(
-						_event.get().char_callback(
-							std::bind(
-								char_callback_,
-								std::ref(
-									_event.get()
-								),
-								std::placeholders::_1
-							)
+				fcppt::assign::make_container<
+					fcppt::signal::auto_connection_container
+				>(
+					_event.get().char_callback(
+						std::bind(
+							char_callback_,
+							std::ref(
+								_event.get()
+							),
+							std::placeholders::_1
 						)
 					)
-					(
-						_event.get().key_callback(
-							std::bind(
-								key_callback_,
-								std::ref(
-									_event.get()
-								),
-								std::placeholders::_1
-							)
-						)
-					)
-					(
-						_event.get().key_repeat_callback(
-							std::bind(
-								key_repeat_callback_,
-								std::ref(
-									_event.get()
-								),
-								std::placeholders::_1
-							)
-						)
-					)
-					.move_container()
 				)
+				(
+					_event.get().key_callback(
+						std::bind(
+							key_callback_,
+							std::ref(
+								_event.get()
+							),
+							std::placeholders::_1
+						)
+					)
+				)
+				(
+					_event.get().key_repeat_callback(
+						std::bind(
+							key_repeat_callback_,
+							std::ref(
+								_event.get()
+							),
+							std::placeholders::_1
+						)
+					)
+				)
+				.move_container()
 			)
 		).second
 		== true

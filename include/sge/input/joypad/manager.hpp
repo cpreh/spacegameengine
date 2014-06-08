@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/joypad/remove_callback.hpp>
 #include <sge/input/joypad/remove_event_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/signal/connection_manager.hpp>
+#include <fcppt/signal/auto_connection_container.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
 #include <unordered_map>
@@ -98,7 +98,7 @@ private:
 
 	typedef std::unordered_map<
 		sge::input::joypad::device *,
-		fcppt::signal::connection_manager
+		fcppt::signal::auto_connection_container
 	> joypad_map;
 
 	joypad_map devices_;
@@ -113,7 +113,7 @@ private:
 
 	relative_axis_callback const relative_axis_callback_;
 
-	fcppt::signal::connection_manager const connections_;
+	fcppt::signal::auto_connection_container const connections_;
 };
 
 }

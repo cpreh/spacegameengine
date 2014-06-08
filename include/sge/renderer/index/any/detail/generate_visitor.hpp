@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/iterator.hpp>
 #include <sge/renderer/index/proxy.hpp>
 #include <fcppt/nonassignable.hpp>
-#include <fcppt/workarounds.hpp>
 
 
 namespace sge
@@ -47,7 +46,9 @@ class generate_visitor
 		generate_visitor
 	);
 public:
-	typedef void result_type;
+	typedef
+	void
+	result_type;
 
 	explicit
 	generate_visitor(
@@ -69,21 +70,12 @@ public:
 	) const
 	{
 		for(
-			typename View::iterator
-				it(
-					_view.begin()
-				),
-				end(
-					_view.end()
-				);
-			it != end;
-			++it
+			auto item
+			:
+			_view
 		)
-			(*it).set(
-				gen_.
-#if !defined(FCPPT_MSVC_DEPENDANT_TEMPLATE_BUG)
-				template
-#endif
+			item.set(
+				gen_. template
 				operator()<
 					typename View::value_type
 				>()

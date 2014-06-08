@@ -35,8 +35,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/window_event_fwd.hpp>
 #include <sge/x11input/mouse/device_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/signal/connection_manager.hpp>
+#include <fcppt/signal/auto_connection_fwd.hpp>
+#include <fcppt/signal/auto_connection_container.hpp>
 #include <fcppt/signal/object.hpp>
 
 
@@ -103,7 +103,7 @@ private:
 		bool pressed
 	);
 
-	fcppt::signal::connection_manager const connections_;
+	fcppt::signal::auto_connection_container const connections_;
 
 	sge::input::mouse::info const info_;
 

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/remove_event_fwd.hpp>
 #include <sge/input/cursor/scroll_event_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/signal/connection_manager.hpp>
+#include <fcppt/signal/auto_connection_container.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
 #include <unordered_map>
@@ -88,7 +88,7 @@ public:
 
 	typedef std::unordered_map<
 		sge::input::cursor::object *,
-		fcppt::signal::connection_manager
+		fcppt::signal::auto_connection_container
 	> object_map;
 
 	SGE_INPUT_SYMBOL
@@ -117,7 +117,7 @@ private:
 
 	sge::input::cursor::manager::scroll_callback const scroll_callback_;
 
-	fcppt::signal::connection_manager const connections_;
+	fcppt::signal::auto_connection_container const connections_;
 };
 
 }

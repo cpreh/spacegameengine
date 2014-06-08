@@ -38,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/mpl/filter_view.hpp>
 #include <boost/mpl/placeholders.hpp>
 #include <boost/mpl/quote.hpp>
+#include <exception>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -95,7 +96,15 @@ sge::image::view::make(
 				_data,
 				_dim,
 				_pitch
-			)
+			),
+			[]()
+			->
+			typename sge::image::traits::view<
+				Tag
+			>::type const
+			{
+				std::terminate();
+			}
 		);
 }
 
