@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_INDEX_CONST_SCOPED_LOCK_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_CONST_SCOPED_LOCK_HPP_INCLUDED
 
-#include <sge/renderer/const_basic_scoped_buffer_lock.hpp>
+#include <sge/renderer/const_linear_buffer_scoped_lock.hpp>
 #include <sge/renderer/index/buffer_fwd.hpp>
 #include <sge/renderer/index/buffer_types.hpp>
 #include <sge/renderer/index/dynamic/const_view.hpp>
@@ -37,12 +37,14 @@ namespace index
 /**
 \brief A scoped lock that locks a renderer::index_buffer readonly
 
-\see sge::renderer::const_basic_scoped_buffer_lock
+\see sge::renderer::const_linear_buffer_scoped_lock
 */
-typedef sge::renderer::const_basic_scoped_buffer_lock<
+typedef
+sge::renderer::const_linear_buffer_scoped_lock<
 	sge::renderer::index::buffer,
 	sge::renderer::index::buffer_types
-> const_scoped_lock;
+>
+const_scoped_lock;
 
 }
 }

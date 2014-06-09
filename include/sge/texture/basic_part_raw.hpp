@@ -62,25 +62,30 @@ public:
 	);
 
 	SGE_TEXTURE_SYMBOL
-	~basic_part_raw();
+	~basic_part_raw()
+	override;
 
 	SGE_TEXTURE_SYMBOL
 	void
 	data(
 		sge::image2d::view::const_object const &
-	);
+	)
+	override;
 
 	SGE_TEXTURE_SYMBOL
 	sge::renderer::lock_rect const
-	area() const;
+	area() const
+	override;
 
 	SGE_TEXTURE_SYMBOL
 	sge::renderer::texture::planar &
-	texture() const;
+	texture() const
+	override;
 
 	SGE_TEXTURE_SYMBOL
 	bool
-	repeatable() const;
+	repeatable() const
+	override;
 private:
 	typedef typename sge::texture::detail::ref_store_type<
 		Ref

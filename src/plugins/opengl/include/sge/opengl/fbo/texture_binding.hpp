@@ -50,7 +50,8 @@ public:
 		sge::opengl::fbo::attachment_type
 	);
 
-	~texture_binding();
+	~texture_binding()
+	override;
 private:
 	sge::opengl::fbo::context const &context_;
 

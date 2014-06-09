@@ -21,9 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_SIZE_TYPE_HPP_INCLUDED
 #define SGE_RENDERER_SIZE_TYPE_HPP_INCLUDED
 
-#include <fcppt/config/external_begin.hpp>
-#include <cstddef>
-#include <fcppt/config/external_end.hpp>
+#include <sge/image/size_type.hpp>
+
 
 namespace sge
 {
@@ -31,9 +30,11 @@ namespace renderer
 {
 
 /**
- * \brief A type used to count bytes
+\brief A type used to count bytes
 */
-typedef std::size_t size_type;
+typedef
+sge::image::size_type
+size_type;
 
 }
 }

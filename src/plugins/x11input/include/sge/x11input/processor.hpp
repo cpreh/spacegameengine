@@ -91,47 +91,56 @@ public:
 		awl::backends::x11::system::event::opcode
 	);
 
-	~processor();
+	~processor()
+	override;
 private:
 	fcppt::signal::auto_connection
 	keyboard_discover_callback(
 		sge::input::keyboard::discover_callback const &
-	);
+	)
+	override;
 
 	fcppt::signal::auto_connection
 	keyboard_remove_callback(
 		sge::input::keyboard::remove_callback const &
-	);
+	)
+	override;
 
 	fcppt::signal::auto_connection
 	mouse_discover_callback(
 		sge::input::mouse::discover_callback const &
-	);
+	)
+	override;
 
 	fcppt::signal::auto_connection
 	mouse_remove_callback(
 		sge::input::mouse::remove_callback const &
-	);
+	)
+	override;
 
 	fcppt::signal::auto_connection
 	cursor_discover_callback(
 		sge::input::cursor::discover_callback const &
-	);
+	)
+	override;
 
 	fcppt::signal::auto_connection
 	cursor_remove_callback(
 		sge::input::cursor::remove_callback const &
-	);
+	)
+	override;
 
 	fcppt::signal::auto_connection
 	joypad_discover_callback(
 		sge::input::joypad::discover_callback const &
-	);
+	)
+	override;
 
 	fcppt::signal::auto_connection
 	joypad_remove_callback(
 		sge::input::joypad::remove_callback const &
-	);
+	)
+	override;
 
 	sge::x11input::device::parameters const
 	device_parameters(

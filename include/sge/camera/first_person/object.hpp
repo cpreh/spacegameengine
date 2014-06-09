@@ -66,46 +66,52 @@ public:
 	object(
 		sge::camera::first_person::parameters const &);
 
-	/* override */
 	SGE_CAMERA_SYMBOL
 	sge::camera::coordinate_system::object const
-	coordinate_system() const;
+	coordinate_system() const
+	override;
 
 	SGE_CAMERA_SYMBOL
 	void
 	update_coordinate_system(
-		sge::camera::coordinate_system::object const &);
+		sge::camera::coordinate_system::object const &
+	)
+	override;
 
-	/* override */
 	SGE_CAMERA_SYMBOL
 	sge::camera::projection_matrix const
-	projection_matrix() const;
+	projection_matrix() const
+	override;
 
-	/* override */
 	SGE_CAMERA_SYMBOL
 	void
 	update_projection_matrix(
-		sge::camera::projection_matrix const &);
+		sge::camera::projection_matrix const &
+	)
+	override;
 
-	/* override */
 	SGE_CAMERA_SYMBOL
 	sge::camera::is_active const
-	is_active() const;
+	is_active() const
+	override;
 
-	/* override */
 	SGE_CAMERA_SYMBOL
 	void
 	is_active(
-		sge::camera::is_active const &);
+		sge::camera::is_active const &
+	)
+	override;
 
-	/* override */
 	SGE_CAMERA_SYMBOL
 	void
 	update(
-		sge::camera::update_duration const &);
+		sge::camera::update_duration const &
+	)
+	override;
 
 	SGE_CAMERA_SYMBOL
-	~object();
+	~object()
+	override;
 private:
 	fcppt::signal::scoped_connection keyboard_connection_;
 	fcppt::signal::scoped_connection mouse_axis_connection_;

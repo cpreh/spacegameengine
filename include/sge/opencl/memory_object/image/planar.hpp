@@ -64,7 +64,8 @@ public:
 		sge::renderer::texture::planar &);
 
 	SGE_OPENCL_SYMBOL cl_mem
-	impl();
+	impl()
+	override;
 
 	SGE_OPENCL_SYMBOL cl_image_format const &
 	image_format() const;
@@ -72,7 +73,8 @@ public:
 	SGE_OPENCL_SYMBOL sge::opencl::dim2 const &
 	size() const;
 
-	SGE_OPENCL_SYMBOL ~planar();
+	SGE_OPENCL_SYMBOL ~planar()
+	override;
 private:
 	cl_mem impl_;
 	cl_image_format image_format_;

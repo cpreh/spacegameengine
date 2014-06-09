@@ -44,7 +44,7 @@ public:
 	> normal_state_set;
 
 	typedef std::set<
-		renderer::texture::stage
+		sge::renderer::texture::stage
 	> texture_state_set;
 
 	typedef std::set<

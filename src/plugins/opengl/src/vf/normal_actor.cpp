@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::vf::normal_actor::normal_actor(
 	sge::opengl::vf::actor_parameters const &_param,
-	renderer::vf::dynamic::normal const &_normal
+	sge::renderer::vf::dynamic::normal const &_normal
 )
 :
 	sge::opengl::vf::fp_actor(

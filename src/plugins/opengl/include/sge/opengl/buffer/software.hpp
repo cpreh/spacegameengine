@@ -50,27 +50,32 @@ class software
 public:
 	software();
 
-	~software();
+	~software()
+	override;
 private:
 	sge::opengl::buffer::id const
-	gen_buffer();
+	gen_buffer()
+	override;
 
 	void
 	delete_buffer(
 		sge::opengl::buffer::id
-	);
+	)
+	override;
 
 	void
 	bind_buffer(
 		sge::opengl::buffer::type,
 		sge::opengl::buffer::optional_id const &
-	);
+	)
+	override;
 
 	GLvoid *
 	map_buffer(
 		sge::opengl::buffer::type,
 		GLenum flags
-	);
+	)
+	override;
 
 	GLvoid *
 	map_buffer_range(
@@ -78,15 +83,18 @@ private:
 		GLenum flags,
 		GLsizei first,
 		GLsizei size
-	);
+	)
+	override;
 
 	bool
-	map_buffer_range_supported() const;
+	map_buffer_range_supported() const
+	override;
 
 	void
 	unmap_buffer(
 		sge::opengl::buffer::type
-	);
+	)
+	override;
 
 	void
 	buffer_data(
@@ -94,7 +102,8 @@ private:
 		GLsizei size,
 		GLvoid const *data,
 		GLenum flags
-	);
+	)
+	override;
 
 	void
 	buffer_sub_data(
@@ -102,16 +111,19 @@ private:
 		GLsizei first,
 		GLsizei size,
 		GLvoid const *data
-	);
+	)
+	override;
 
 	void *
 	buffer_offset(
 		sge::opengl::buffer::type,
 		GLsizei offset
-	) const;
+	) const
+	override;
 
 	bool
-	hardware_supported() const;
+	hardware_supported() const
+	override;
 
 	typedef std::map<
 		sge::opengl::buffer::id,

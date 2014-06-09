@@ -45,16 +45,20 @@ class wrapper
 protected:
 	wrapper();
 
-	virtual ~wrapper() = 0;
+	~wrapper()
+	override = 0;
 
-	virtual opengl::buffer::object const &
+	virtual
+	sge::opengl::buffer::object const &
 	buffer() const = 0;
 private:
 	sge::renderer::opengl::buffer::id const
-	id() const;
+	id() const
+	override;
 
 	bool
-	native() const;
+	native() const
+	override;
 };
 
 }

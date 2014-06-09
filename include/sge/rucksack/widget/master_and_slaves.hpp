@@ -56,39 +56,61 @@ class SGE_CLASS_SYMBOL master_and_slaves
 FCPPT_NONCOPYABLE(
 	master_and_slaves);
 public:
-	SGE_RUCKSACK_SYMBOL explicit
+	SGE_RUCKSACK_SYMBOL
+	explicit
 	master_and_slaves(
-		sge::rucksack::padding const &);
+		sge::rucksack::padding const &
+	);
 
-	SGE_RUCKSACK_SYMBOL void
+	SGE_RUCKSACK_SYMBOL
+	void
 	size(
-		sge::rucksack::dim const &);
+		sge::rucksack::dim const &
+	)
+	override;
 
-	SGE_RUCKSACK_SYMBOL void
+	SGE_RUCKSACK_SYMBOL
+	void
 	position(
-		sge::rucksack::vector const &);
+		sge::rucksack::vector const &
+	)
+	override;
 
-	SGE_RUCKSACK_SYMBOL sge::rucksack::dim const
-	size() const;
+	SGE_RUCKSACK_SYMBOL
+	sge::rucksack::dim const
+	size() const
+	override;
 
-	SGE_RUCKSACK_SYMBOL sge::rucksack::vector const
-	position() const;
+	SGE_RUCKSACK_SYMBOL
+	sge::rucksack::vector const
+	position() const
+	override;
 
-	SGE_RUCKSACK_SYMBOL sge::rucksack::axis_policy2 const
-	axis_policy() const;
+	SGE_RUCKSACK_SYMBOL
+	sge::rucksack::axis_policy2 const
+	axis_policy() const
+	override;
 
-	SGE_RUCKSACK_SYMBOL void
-	relayout();
+	SGE_RUCKSACK_SYMBOL
+	void
+	relayout()
+	override;
 
-	SGE_RUCKSACK_SYMBOL void
+	SGE_RUCKSACK_SYMBOL
+	void
 	master_pane(
-		sge::rucksack::widget::base &);
+		sge::rucksack::widget::base &
+	);
 
-	SGE_RUCKSACK_SYMBOL void
+	SGE_RUCKSACK_SYMBOL
+	void
 	push_back_child(
-		sge::rucksack::widget::base &);
+		sge::rucksack::widget::base &
+	);
 
-	SGE_RUCKSACK_SYMBOL ~master_and_slaves();
+	SGE_RUCKSACK_SYMBOL
+	~master_and_slaves()
+	override;
 private:
 	sge::rucksack::widget::box::base surrounding_box_;
 	sge::rucksack::widget::base *master_pane_;

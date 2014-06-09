@@ -43,7 +43,8 @@ class srgb_context
 public:
 	srgb_context();
 
-	~srgb_context();
+	~srgb_context()
+	override;
 
 	sge::opengl::optional_enum const
 	flag() const;

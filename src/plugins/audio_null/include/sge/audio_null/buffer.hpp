@@ -44,16 +44,20 @@ class buffer
 public:
 	buffer();
 
-	~buffer();
-
-	audio::sound::positional_unique_ptr
+	~buffer()
+	override;
+private:
+	sge::audio::sound::positional_unique_ptr
 	create_positional(
-		audio::sound::positional_parameters const &
-	);
+		sge::audio::sound::positional_parameters const &
+	)
+	override;
 
-	audio::sound::base_unique_ptr
+	sge::audio::sound::base_unique_ptr
 	create_nonpositional(
-		audio::sound::nonpositional_parameters const &);
+		sge::audio::sound::nonpositional_parameters const &
+	)
+	override;
 };
 
 }

@@ -78,23 +78,33 @@ public:
 
 	// Nothing fancy, just set the stored size (this should NOT cause a relayout
 	// immediately)
-	SGE_RUCKSACK_SYMBOL void
+	SGE_RUCKSACK_SYMBOL
+	void
 	size(
-		sge::rucksack::dim const &);
+		sge::rucksack::dim const &
+	)
+	override;
 
 	// Nothing fancy, just set the stored position (this should NOT cause a
 	// relayout immediately)
-	SGE_RUCKSACK_SYMBOL void
+	SGE_RUCKSACK_SYMBOL
+	void
 	position(
-		sge::rucksack::vector const &);
+		sge::rucksack::vector const &
+	)
+	override;
 
 	// Nothing fancy, just return the stored size
-	SGE_RUCKSACK_SYMBOL sge::rucksack::dim const
-	size() const;
+	SGE_RUCKSACK_SYMBOL
+	sge::rucksack::dim const
+	size() const
+	override;
 
 	// Nothing fancy, just return the stored position
-	SGE_RUCKSACK_SYMBOL sge::rucksack::vector const
-	position() const;
+	SGE_RUCKSACK_SYMBOL
+	sge::rucksack::vector const
+	position() const
+	override;
 
 	// We have to calculate/set:
 	//
@@ -120,27 +130,37 @@ public:
 	//
 	// Also note that currently, box widgets always have a preferred size (which
 	// might be equal to the minimum size).
-	SGE_RUCKSACK_SYMBOL sge::rucksack::axis_policy2 const
-	axis_policy() const;
+	SGE_RUCKSACK_SYMBOL
+	sge::rucksack::axis_policy2 const
+	axis_policy() const
+	override;
 
 	// This does a lot of stuff, see the code itself.
-	SGE_RUCKSACK_SYMBOL void
-	relayout();
+	SGE_RUCKSACK_SYMBOL
+	void
+	relayout()
+	override;
 
-	SGE_RUCKSACK_SYMBOL void
+	SGE_RUCKSACK_SYMBOL
+	void
 	push_back_child(
 		sge::rucksack::widget::base &,
-		sge::rucksack::alignment);
+		sge::rucksack::alignment
+	);
 
-	SGE_RUCKSACK_SYMBOL void
+	SGE_RUCKSACK_SYMBOL
+	void
 	push_front_child(
 		sge::rucksack::widget::base &,
-		sge::rucksack::alignment);
+		sge::rucksack::alignment
+	);
 
-	SGE_RUCKSACK_SYMBOL void
+	SGE_RUCKSACK_SYMBOL
+	void
 	pop_back_child();
 
-	SGE_RUCKSACK_SYMBOL void
+	SGE_RUCKSACK_SYMBOL
+	void
 	pop_front_child();
 
 	typedef
@@ -170,7 +190,8 @@ public:
 	);
 
 	SGE_RUCKSACK_SYMBOL
-	~base();
+	~base()
+	override;
 private:
 	void
 	insert_child(
@@ -211,11 +232,13 @@ private:
 
 	void
 	child_destroyed(
-		widget::base &);
+		sge::rucksack::widget::base &
+	)
+	override;
 
-	box::child_information &
+	sge::rucksack::widget::box::child_information &
 	information_for_ptr(
-		widget::base const *);
+		sge::rucksack::widget::base const *);
 };
 }
 }

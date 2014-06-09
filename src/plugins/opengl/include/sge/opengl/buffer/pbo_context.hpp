@@ -48,7 +48,8 @@ class pbo_context
 public:
 	pbo_context();
 
-	~pbo_context();
+	~pbo_context()
+	override;
 
 	sge::opengl::buffer::base &
 	impl();

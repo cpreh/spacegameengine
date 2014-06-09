@@ -49,26 +49,30 @@ class resource_provider
 public:
 	resource_provider();
 
-	~resource_provider();
+	~resource_provider()
+	override;
 private:
 	void
 	loadRawDataContainer(
 		CEGUI::String const &filename,
 		CEGUI::RawDataContainer &output,
 		CEGUI::String const &resourceGroup
-	);
+	)
+	override;
 
 	void
 	unloadRawDataContainer(
 		CEGUI::RawDataContainer &
-	);
+	)
+	override;
 
 	size_t
 	getResourceGroupFileNames(
 		std::vector<CEGUI::String>& out_vec,
 		CEGUI::String const &file_pattern,
 		CEGUI::String const &resource_group
-	);
+	)
+	override;
 };
 
 }

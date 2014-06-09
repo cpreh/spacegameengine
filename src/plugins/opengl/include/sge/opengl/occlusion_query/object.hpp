@@ -49,18 +49,22 @@ public:
 		sge::opengl::occlusion_query::context const &
 	);
 
-	~object();
+	~object()
+	override;
 private:
 	void
-	begin();
+	begin()
+	override;
 
 	void
-	end();
+	end()
+	override;
 
 	sge::renderer::occlusion_query::optional_pixel_count const
 	result(
 		sge::renderer::occlusion_query::blocking_wait block
-	) const;
+	) const
+	override;
 
 	sge::opengl::occlusion_query::context const &context_;
 

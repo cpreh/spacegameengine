@@ -57,36 +57,46 @@ public:
 	audio::sample_container
 	sample_container;
 
-	explicit
 	file(
 		stream_ptr,
-		sge::audio::optional_path const &);
+		sge::audio::optional_path const &
+	);
 
 	sample_count
 	read(
 		sample_count samples,
-		sample_container &);
+		sample_container &
+	)
+	override;
 
 	sample_count
 	read_all(
-		sample_container &);
+		sample_container &
+	)
+	override;
 
 	channel_type
-	channels() const;
+	channels() const
+	override;
 
 	sample_count
-	sample_rate() const;
+	sample_rate() const
+	override;
 
 	sample_count
-	bits_per_sample() const;
+	bits_per_sample() const
+	override;
 
 	sample_count
-	expected_package_size() const;
+	expected_package_size() const
+	override;
 
 	void
-	reset();
+	reset()
+	override;
 
-	~file();
+	~file()
+	override;
 private:
 	sge::audio::optional_path file_name_;
 	stream_ptr stdstream_;

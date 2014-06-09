@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/common.hpp>
 #include <sge/opengl/disable_client_state.hpp>
 #include <sge/opengl/enable_client_state.hpp>
 #include <sge/opengl/context/use.hpp>
@@ -30,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/vf/disable_vertex_attrib_array.hpp>
 #include <sge/opengl/vf/enable_texcoords.hpp>
 #include <sge/opengl/vf/enable_vertex_attrib_array.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
 #include <functional>
@@ -108,7 +110,7 @@ sge::opengl::vf::client_state_combiner::disable(
 
 void
 sge::opengl::vf::client_state_combiner::enable_texture(
-	renderer::texture::stage const _texture
+	sge::renderer::texture::stage const _texture
 )
 {
 	new_states_.enable_texture(
@@ -118,7 +120,7 @@ sge::opengl::vf::client_state_combiner::enable_texture(
 
 void
 sge::opengl::vf::client_state_combiner::disable_texture(
-	renderer::texture::stage const _texture
+	sge::renderer::texture::stage const _texture
 )
 {
 	new_states_.disable_texture(
@@ -228,14 +230,12 @@ apply_difference(
 	);
 
 	for(
-		typename Set::const_iterator it(
-			diff.begin()
-		);
-		it != diff.end();
-		++it
+		auto const &element
+		:
+		diff
 	)
 		_disable(
-			*it
+			element
 		);
 
 	diff.clear();
@@ -252,14 +252,12 @@ apply_difference(
 	);
 
 	for(
-		typename Set::const_iterator it(
-			diff.begin()
-		);
-		it != diff.end();
-		++it
+		auto const &element
+		:
+		diff
 	)
 		_enable(
-			*it
+			element
 		);
 }
 

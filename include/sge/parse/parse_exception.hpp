@@ -54,8 +54,8 @@ public:
 	error_string() const;
 
 	SGE_PARSE_SYMBOL
-	virtual
-	~parse_exception() throw();
+	~parse_exception() throw()
+	override;
 private:
 	sge::parse::result_code result_code_;
 

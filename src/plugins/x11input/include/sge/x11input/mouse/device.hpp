@@ -61,20 +61,24 @@ public:
 		sge::x11input::device::parameters const &
 	);
 
-	~device();
+	~device()
+	override;
 private:
 	fcppt::signal::auto_connection
 	axis_callback(
 		sge::input::mouse::axis_callback const &
-	);
+	)
+	override;
 
 	fcppt::signal::auto_connection
 	button_callback(
 		sge::input::mouse::button_callback const &
-	);
+	)
+	override;
 
 	sge::input::mouse::info const &
-	info() const;
+	info() const
+	override;
 
 	void
 	on_motion(

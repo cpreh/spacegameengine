@@ -34,21 +34,21 @@ namespace camera
 {
 class SGE_CLASS_SYMBOL is_dynamic
 :
-	public virtual camera::base
+	public virtual sge::camera::base
 {
 FCPPT_NONCOPYABLE(
 	is_dynamic);
 protected:
 	SGE_CAMERA_SYMBOL
-	explicit
 	is_dynamic();
 public:
 	virtual void
 	update(
-		camera::update_duration const &) = 0;
+		sge::camera::update_duration const &) = 0;
 
 	SGE_CAMERA_SYMBOL
-	virtual ~is_dynamic() = 0;
+	~is_dynamic()
+	override = 0;
 };
 }
 }

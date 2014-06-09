@@ -55,13 +55,15 @@ public:
 		sge::charconv::dest_encoding
 	);
 
-	~converter();
+	~converter()
+	override;
 
 	sge::charconv::conversion_status
 	convert(
 		sge::charconv::input_range &,
 		sge::charconv::output_range &
-	);
+	)
+	override;
 private:
 	::iconv_t iconv_;
 };

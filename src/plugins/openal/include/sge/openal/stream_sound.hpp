@@ -58,13 +58,16 @@ public:
 		sge::audio::file &
 	);
 
-	~stream_sound();
+	~stream_sound()
+	override;
 
 	void
-	update();
+	update()
+	override;
 
 	void
-	do_play();
+	do_play()
+	override;
 private:
 	sge::audio::file &audio_file_;
 

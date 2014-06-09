@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/vf/extra_elements.hpp>
 #include <sge/opengl/vf/extra_format.hpp>
 #include <sge/opengl/vf/extra_index.hpp>
+#include <sge/opengl/vf/pointer.hpp>
 #include <sge/opengl/vf/pointer_actor.hpp>
 #include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/vf/dynamic/extra.hpp>

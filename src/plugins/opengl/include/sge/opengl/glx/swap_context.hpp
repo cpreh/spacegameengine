@@ -53,7 +53,8 @@ public:
 		parameter
 	);
 
-	~swap_context();
+	~swap_context()
+	override;
 
 	bool
 	swap_interval_supported() const;

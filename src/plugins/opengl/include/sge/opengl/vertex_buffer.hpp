@@ -58,7 +58,8 @@ public:
 		sge::renderer::resource_flags_field const &
 	);
 
-	~vertex_buffer();
+	~vertex_buffer()
+	override;
 
 	void
 	use(
@@ -75,13 +76,15 @@ private:
 		sge::renderer::lock_mode,
 		first_type,
 		count_type
-	);
+	)
+	override;
 
 	const_view_type const
 	lock(
 		first_type,
 		count_type
-	) const;
+	) const
+	override;
 
 	template<
 		typename View
@@ -94,22 +97,28 @@ private:
 	) const;
 
 	void
-	unlock() const;
+	unlock() const
+	override;
 
 	count_type const
-	size() const;
+	size() const
+	override;
 
 	sge::renderer::resource_flags_field const
-	resource_flags() const;
+	resource_flags() const
+	override;
 
 	sge::renderer::vf::dynamic::part const
-	format_part() const;
+	format_part() const
+	override;
 
 	sge::renderer::vf::dynamic::part_index const
-	format_part_index() const;
+	format_part_index() const
+	override;
 
 	sge::opengl::buffer::object const &
-	buffer() const;
+	buffer() const
+	override;
 
 	sge::renderer::vf::dynamic::part_index const part_index_;
 

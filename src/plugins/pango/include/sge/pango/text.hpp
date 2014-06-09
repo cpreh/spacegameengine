@@ -72,7 +72,8 @@ private:
 	override;
 
 	sge::font::dim const
-	logical_size() const;
+	logical_size() const
+	override;
 
 	sge::font::rect const
 	cursor_rect(

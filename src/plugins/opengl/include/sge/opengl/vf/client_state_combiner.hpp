@@ -45,8 +45,8 @@ class client_state_combiner
 	);
 public:
 	client_state_combiner(
-		opengl::context::system::object &,
-		opengl::context::device::object &
+		sge::opengl::context::system::object &,
+		sge::opengl::context::device::object &
 	);
 
 	void
@@ -61,12 +61,12 @@ public:
 
 	void
 	enable_texture(
-		renderer::texture::stage
+		sge::renderer::texture::stage
 	);
 
 	void
 	disable_texture(
-		renderer::texture::stage
+		sge::renderer::texture::stage
 	);
 
 	void
@@ -81,15 +81,15 @@ public:
 
 	~client_state_combiner();
 private:
-	opengl::context::system::object &system_context_;
+	sge::opengl::context::system::object &system_context_;
 
-	vf::context &vf_context_;
+	sge::opengl::vf::context &vf_context_;
 
-	vf::attribute_context &attribute_context_;
+	sge::opengl::vf::attribute_context &attribute_context_;
 
-	vf::client_state const old_states_;
+	sge::opengl::vf::client_state const old_states_;
 
-	vf::client_state new_states_;
+	sge::opengl::vf::client_state new_states_;
 };
 
 }

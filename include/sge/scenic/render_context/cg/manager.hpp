@@ -70,10 +70,13 @@ public:
 	/* override */
 	sge::scenic::render_context::base_unique_ptr
 	create_context(
-		sge::renderer::context::core &);
+		sge::renderer::context::core &
+	)
+	override;
 
 	SGE_SCENIC_SYMBOL
-	~manager();
+	~manager()
+	override;
 private:
 	friend class sge::scenic::render_context::cg::object;
 

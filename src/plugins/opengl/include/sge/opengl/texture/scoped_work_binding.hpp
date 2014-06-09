@@ -56,13 +56,16 @@ public:
 		sge::opengl::texture::id
 	);
 
-	~scoped_work_binding();
+	~scoped_work_binding()
+	override;
 private:
 	sge::renderer::texture::stage const
-	stage() const;
+	stage() const
+	override;
 
 	sge::opengl::texture::type const
-	type() const;
+	type() const
+	override;
 
 	void
 	bind(

@@ -47,7 +47,8 @@ class context
 public:
 	context();
 
-	~context();
+	~context()
+	override;
 
 	sge::opengl::optional_int const
 	srgb_flag() const;

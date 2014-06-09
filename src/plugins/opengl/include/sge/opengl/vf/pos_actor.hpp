@@ -38,23 +38,25 @@ namespace vf
 
 class pos_actor
 :
-	public vf::fp_actor
+	public sge::opengl::vf::fp_actor
 {
 	FCPPT_NONCOPYABLE(
 		pos_actor
 	);
 public:
-	explicit pos_actor(
-		actor_parameters const &,
+	pos_actor(
+		sge::opengl::vf::actor_parameters const &,
 		sge::renderer::vf::dynamic::pos const &
 	);
 
-	~pos_actor();
+	~pos_actor()
+	override;
 private:
 	void
 	on_use(
-		vf::pointer
-	) const;
+		sge::opengl::vf::pointer
+	) const
+	override;
 
 	GLenum const format_;
 

@@ -63,25 +63,30 @@ public:
 		sge::x11input::input_context const &
 	);
 
-	~device();
+	~device()
+	override;
 private:
 	fcppt::signal::auto_connection
 	key_callback(
 		sge::input::keyboard::key_callback const &
-	);
+	)
+	override;
 
 	fcppt::signal::auto_connection
 	key_repeat_callback(
 		sge::input::keyboard::key_repeat_callback const &
-	);
+	)
+	override;
 
 	fcppt::signal::auto_connection
 	char_callback(
 		sge::input::keyboard::char_callback const &
-	);
+	)
+	override;
 
 	sge::input::keyboard::mod_state const
-	mod_state() const;
+	mod_state() const
+	override;
 
 	void
 	on_key_press(

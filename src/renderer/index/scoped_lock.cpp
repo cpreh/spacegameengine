@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/buffer.hpp>
 #include <sge/renderer/index/buffer_types.hpp>
 #include <sge/renderer/index/scoped_lock.hpp>
-#include <sge/src/renderer/instantiate_basic_scoped_buffer_lock.hpp>
+#include <sge/src/renderer/instantiate_linear_buffer_scoped_lock.hpp>
 
 
-SGE_RENDERER_INSTANTIATE_BASIC_SCOPED_BUFFER_LOCK(
+SGE_RENDERER_INSTANTIATE_LINEAR_BUFFER_SCOPED_LOCK(
 	sge::renderer::index::buffer,
 	sge::renderer::index::buffer_types
 );

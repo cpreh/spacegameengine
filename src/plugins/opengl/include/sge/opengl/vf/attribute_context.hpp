@@ -45,7 +45,8 @@ class attribute_context
 public:
 	attribute_context();
 
-	~attribute_context();
+	~attribute_context()
+	override;
 
 	bool
 	is_supported() const;

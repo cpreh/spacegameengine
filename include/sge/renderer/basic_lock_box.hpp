@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_BASIC_LOCK_BOX_HPP_INCLUDED
 #define SGE_RENDERER_BASIC_LOCK_BOX_HPP_INCLUDED
 
+#include <sge/image/box.hpp>
 #include <sge/renderer/basic_lock_box_fwd.hpp>
-#include <fcppt/math/box/object_impl.hpp>
 
 
 #endif

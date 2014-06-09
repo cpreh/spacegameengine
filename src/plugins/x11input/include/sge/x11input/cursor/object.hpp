@@ -71,7 +71,8 @@ public:
 		bool entered
 	);
 
-	~object();
+	~object()
+	override;
 
 	void
 	on_focus_in();
@@ -85,25 +86,30 @@ private:
 	fcppt::signal::auto_connection
 	button_callback(
 		sge::input::cursor::button_callback const &
-	);
+	)
+	override;
 
 	fcppt::signal::auto_connection
 	move_callback(
 		sge::input::cursor::move_callback const &
-	);
+	)
+	override;
 
 	fcppt::signal::auto_connection
 	scroll_callback(
 		sge::input::cursor::scroll_callback const &
-	);
+	)
+	override;
 
 	sge::input::cursor::optional_position const
-	position() const;
+	position() const
+	override;
 
 	void
 	mode(
 		sge::input::cursor::mode
-	);
+	)
+	override;
 
 	void
 	on_motion(

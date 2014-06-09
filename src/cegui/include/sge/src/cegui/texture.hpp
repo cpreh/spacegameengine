@@ -74,7 +74,8 @@ public:
 		sge::renderer::texture::capabilities_field const &
 	);
 
-	~texture();
+	~texture()
+	override;
 
 	// The geometry buffer needs this so it can scope the texture
 	// correctly.
@@ -94,45 +95,54 @@ public:
 	empty() const;
 private:
 	CEGUI::String const &
-	getName() const;
+	getName() const
+	override;
 
 	CEGUI::Sizef const &
-	getSize() const;
+	getSize() const
+	override;
 
 	CEGUI::Sizef const &
-	getOriginalDataSize() const;
+	getOriginalDataSize() const
+	override;
 
 	CEGUI::Vector2f const &
-	getTexelScaling() const;
+	getTexelScaling() const
+	override;
 public:
 	void
 	loadFromFile(
 		CEGUI::String const &filename,
 		CEGUI::String const &resourceGroup
-	);
+	)
+	override;
 private:
 	void
 	loadFromMemory(
 		void const *buffer,
 		CEGUI::Sizef const &buffer_size,
 		CEGUI::Texture::PixelFormat
-	);
+	)
+	override;
 
 	void
 	blitFromMemory(
 		void const *sourceData,
 		CEGUI::Rectf const &
-	);
+	)
+	override;
 
 	void
 	blitToMemory(
 		void *
-	);
+	)
+	override;
 
 	bool
 	isPixelFormatSupported(
 		CEGUI::Texture::PixelFormat
-	) const;
+	) const
+	override;
 private:
 	sge::cegui::texture_parameters const texture_parameters_;
 

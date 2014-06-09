@@ -42,12 +42,14 @@ class system
 public:
 	system();
 
-	~system();
+	~system()
+	override;
 private:
 	sge::font::object_unique_ptr
 	create_font(
 		sge::font::parameters const &
-	);
+	)
+	override;
 };
 
 }

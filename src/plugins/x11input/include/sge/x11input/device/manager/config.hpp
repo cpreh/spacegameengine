@@ -50,7 +50,7 @@ template<
 >
 class config
 :
-	public device::manager::config_base
+	public sge::x11input::device::manager::config_base
 {
 	FCPPT_NONCOPYABLE(
 		config
@@ -70,7 +70,7 @@ public:
 
 	typedef std::function<
 		object_unique_ptr (
-			x11input::create_parameters const &
+			sge::x11input::create_parameters const &
 		)
 	> create_function;
 
@@ -80,25 +80,30 @@ public:
 		create_function const &
 	);
 
-	~config();
+	~config()
+	override;
 
 	bool
 	initial(
-		x11input::create_parameters const &
-	);
+		sge::x11input::create_parameters const &
+	)
+	override;
 
 	bool
 	add(
-		x11input::create_parameters const &
-	);
+		sge::x11input::create_parameters const &
+	)
+	override;
 
 	bool
 	remove(
-		x11input::device::id
-	);
+		sge::x11input::device::id
+	)
+	override;
 
 	void
-	dispatch_initial();
+	dispatch_initial()
+	override;
 private:
 	typedef boost::ptr_map<
 		sge::x11input::device::id,
@@ -108,7 +113,7 @@ private:
 	X11Object *
 	insert_into_map(
 		object_map &,
-		x11input::create_parameters const &
+		sge::x11input::create_parameters const &
 	);
 
 	object_map objects_;

@@ -58,45 +58,49 @@ public:
 		sge::camera::tracking::is_looping const &,
 		sge::camera::is_active const &);
 
-	/* override */
 	SGE_CAMERA_SYMBOL
 	sge::camera::coordinate_system::object const
-	coordinate_system() const;
+	coordinate_system() const
+	override;
 
-	/* override */
 	SGE_CAMERA_SYMBOL
 	sge::camera::projection_matrix const
-	projection_matrix() const;
+	projection_matrix() const
+	override;
 
-	/* override */
 	SGE_CAMERA_SYMBOL
 	void
 	update_projection_matrix(
-		sge::camera::projection_matrix const &);
+		sge::camera::projection_matrix const &
+	)
+	override;
 
-	/* override */
 	SGE_CAMERA_SYMBOL
 	sge::camera::is_active const
-	is_active() const;
+	is_active() const
+	override;
 
-	/* override */
 	SGE_CAMERA_SYMBOL
 	void
 	is_active(
-		sge::camera::is_active const &);
+		sge::camera::is_active const &
+	)
+	override;
 
-	/* override */
 	SGE_CAMERA_SYMBOL
 	void
 	update(
-		sge::camera::update_duration const &);
+		sge::camera::update_duration const &
+	)
+	override;
 
 	SGE_CAMERA_SYMBOL
 	bool
 	finished() const;
 
 	SGE_CAMERA_SYMBOL
-	~object();
+	~object()
+	override;
 private:
 	typedef
 	fcppt::cyclic_iterator

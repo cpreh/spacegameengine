@@ -52,8 +52,8 @@ protected:
 	volume();
 public:
 	SGE_RENDERER_SYMBOL
-	virtual
-	~volume() = 0;
+	~volume()
+	override = 0;
 
 	typedef sge::renderer::dim3 dim;
 
@@ -87,7 +87,8 @@ public:
 
 	SGE_RENDERER_SYMBOL
 	sge::renderer::texture::base::size_type
-	content() const;
+	content() const
+	override;
 };
 
 }

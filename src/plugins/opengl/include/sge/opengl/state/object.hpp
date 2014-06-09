@@ -49,7 +49,8 @@ public:
 		sge::opengl::state::actor_vector const &
 	);
 
-	~object();
+	~object()
+	override;
 
 	void
 	set() const;

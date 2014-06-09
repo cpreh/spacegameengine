@@ -65,46 +65,61 @@ public:
 	SGE_SCENIC_SYMBOL
 	object(
 		sge::scenic::render_context::ffp::manager &_manager,
-		sge::renderer::context::ffp &);
+		sge::renderer::context::ffp &
+	);
 
 	SGE_SCENIC_SYMBOL
 	void
 	transform(
 		sge::scenic::render_context::transform_matrix_type,
-		sge::renderer::matrix4 const &);
+		sge::renderer::matrix4 const &
+	)
+	override;
 
 	SGE_SCENIC_SYMBOL
 	void
 	material(
-		sge::scenic::render_context::material::object const &);
+		sge::scenic::render_context::material::object const &
+	)
+	override;
 
 	SGE_SCENIC_SYMBOL
 	void
 	lights(
-		sge::scenic::render_context::light::sequence const &);
+		sge::scenic::render_context::light::sequence const &
+	)
+	override;
 
 	SGE_SCENIC_SYMBOL
 	void
 	vertex_buffer(
-		sge::renderer::vertex::buffer const &);
+		sge::renderer::vertex::buffer const &
+	)
+	override;
 
 	SGE_SCENIC_SYMBOL
 	void
 	fog(
-		sge::scenic::render_context::fog::optional_properties const &);
+		sge::scenic::render_context::fog::optional_properties const &
+	)
+	override;
 
 	SGE_SCENIC_SYMBOL
 	void
 	render(
 		sge::renderer::index::buffer const &,
-		sge::scenic::index_buffer_range const &);
+		sge::scenic::index_buffer_range const &
+	)
+	override;
 
 	SGE_SCENIC_SYMBOL
 	sge::renderer::target::base &
-	target();
+	target()
+	override;
 
 	SGE_SCENIC_SYMBOL
-	~object();
+	~object()
+	override;
 private:
 	friend class sge::scenic::render_context::ffp::manager;
 

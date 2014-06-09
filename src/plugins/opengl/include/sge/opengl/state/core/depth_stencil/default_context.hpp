@@ -57,7 +57,8 @@ public:
 		parameter
 	);
 
-	~default_context();
+	~default_context()
+	override;
 
 	sge::opengl::state::core::depth_stencil::object const &
 	default_state() const;

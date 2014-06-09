@@ -74,40 +74,44 @@ public:
 	zoom_speed(
 		ortho_freelook::zoom_speed const &);
 
-	/* override */
 	SGE_CAMERA_SYMBOL
 	coordinate_system::object const
-	coordinate_system() const;
+	coordinate_system() const
+	override;
 
-	/* override */
 	SGE_CAMERA_SYMBOL
 	camera::projection_matrix const
-	projection_matrix() const;
+	projection_matrix() const
+	override;
 
-	/* override */
 	SGE_CAMERA_SYMBOL
 	sge::camera::is_active const
-	is_active() const;
+	is_active() const
+	override;
 
-	/* override */
 	SGE_CAMERA_SYMBOL
 	void
 	is_active(
-		sge::camera::is_active const &);
+		sge::camera::is_active const &
+	)
+	override;
 
-	/* override */
 	SGE_CAMERA_SYMBOL
 	void
 	update(
-		camera::update_duration const &);
+		sge::camera::update_duration const &
+	)
+	override;
 
 	SGE_CAMERA_SYMBOL
 	void
 	projection_rectangle(
-		renderer::projection::rect const &);
+		sge::renderer::projection::rect const &
+	);
 
 	SGE_CAMERA_SYMBOL
-	~object();
+	~object()
+	override;
 private:
 	fcppt::signal::scoped_connection mouse_axis_connection_;
 	fcppt::signal::scoped_connection keyboard_key_connection_;

@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TEXTURE_BASIC_SCOPED_LOCK_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_BASIC_SCOPED_LOCK_HPP_INCLUDED
 
+#include <sge/renderer/basic_buffer.hpp>
+#include <sge/renderer/basic_buffer_scoped_lock.hpp>
 #include <sge/renderer/lock_mode_fwd.hpp>
 #include <sge/renderer/symbol.hpp>
-#include <sge/renderer/color_buffer/basic.hpp>
-#include <sge/renderer/color_buffer/basic_scoped_lock.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -70,9 +70,11 @@ public:
 	SGE_RENDERER_SYMBOL
 	~basic_scoped_lock();
 private:
-	typedef sge::renderer::color_buffer::basic_scoped_lock<
+	typedef
+	sge::renderer::basic_buffer_scoped_lock<
 		buffer
-	> buffer_lock;
+	>
+	buffer_lock;
 
 	buffer_lock const lock_;
 };

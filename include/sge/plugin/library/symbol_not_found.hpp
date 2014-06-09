@@ -37,7 +37,7 @@ namespace library
 
 class SGE_CLASS_SYMBOL symbol_not_found
 :
-	public library::exception
+	public sge::plugin::library::exception
 {
 public:
 	SGE_PLUGIN_SYMBOL
@@ -55,11 +55,12 @@ public:
 	symbol() const;
 
 	SGE_PLUGIN_SYMBOL
-	virtual ~symbol_not_found() throw();
+	~symbol_not_found() throw()
+	override;
 private:
 	fcppt::string library_name_;
 
-	library::symbol_string symbol_;
+	sge::plugin::library::symbol_string symbol_;
 };
 
 }

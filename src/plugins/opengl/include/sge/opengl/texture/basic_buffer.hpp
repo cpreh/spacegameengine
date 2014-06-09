@@ -82,7 +82,8 @@ public:
 		sge::opengl::texture::basic_buffer_parameters const &
 	);
 
-	~basic_buffer();
+	~basic_buffer()
+	override;
 
 	typedef sge::opengl::texture::lock_base::pointer pointer;
 
@@ -103,24 +104,29 @@ public:
 private:
 	// implementation for base class
 	dim const
-	size() const;
+	size() const
+	override;
 
 	format_type
-	format() const;
+	format() const
+	override;
 
 	view const
 	lock(
 		lock_area const &,
 		sge::renderer::lock_mode
-	);
+	)
+	override;
 
 	const_view const
 	lock(
 		lock_area const &
-	) const;
+	) const
+	override;
 
 	void
-	unlock() const;
+	unlock() const
+	override;
 
 	// helper functions
 	void

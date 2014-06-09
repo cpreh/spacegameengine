@@ -68,79 +68,96 @@ public:
 		sge::audio::sound::positional_parameters const &
 	);
 
-	~source();
+	~source()
+	override;
 
 	void
 	play(
 		sge::audio::sound::repeat
-	);
+	)
+	override;
 
 	void
-	toggle_pause();
+	toggle_pause()
+	override;
 
 	sge::audio::sound::play_status
-	status() const;
+	status() const
+	override;
 
 	void
-	stop();
+	stop()
+	override;
 
 	void
-	update();
+	update()
+	override;
 
 	void
 	position(
 		sge::audio::vector const &
-	);
+	)
+	override;
 
 	void
 	linear_velocity(
 		sge::audio::vector const &
-	);
+	)
+	override;
 
 	void
 	gain(
 		sge::audio::scalar
-	);
+	)
+	override;
 
 	void
 	pitch(
 		sge::audio::scalar
-	);
+	)
+	override;
 
 	void
 	rolloff_factor(
 		sge::audio::scalar
-	);
+	)
+	override;
 
 	void
 	reference_distance(
 		sge::audio::scalar
-	);
+	)
+	override;
 
 	void
 	max_distance(
 		sge::audio::scalar
-	);
+	)
+	override;
 
 	void
 	direction(
 		sge::audio::sound::optional_direction const &
-	);
+	)
+	override;
 
 	void
 	inner_cone_angle(
 		sge::audio::scalar
-	);
+	)
+	override;
 
 	void
 	outer_cone_angle(
 		sge::audio::scalar
-	);
+	)
+	override;
 
 	void
 	outer_cone_gain(
 		sge::audio::scalar
-	);
+	)
+	override;
 protected:
 	virtual
 	void

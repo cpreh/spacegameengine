@@ -45,13 +45,15 @@ class base
 	);
 public:
 	sge::opengl::texture::type const
-	type() const;
+	type() const
+	override;
 
 	sge::opengl::texture::id const
-	id() const;
+	id() const
+	override;
 
-	virtual
-	~base() = 0;
+	~base()
+	override = 0;
 protected:
 	explicit
 	base(

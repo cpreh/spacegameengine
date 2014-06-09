@@ -42,7 +42,8 @@ class draw_context
 public:
 	draw_context();
 
-	~draw_context();
+	~draw_context()
+	override;
 
 	bool
 	draw_range_elements_supported() const;

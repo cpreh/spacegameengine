@@ -65,7 +65,8 @@ public:
 		parameters_type const &
 	);
 
-	~basic_box();
+	~basic_box()
+	override;
 private:
 	typedef typename base_type::color_buffer color_buffer;
 
@@ -76,15 +77,18 @@ private:
 	color_buffer &
 	level(
 		sge::renderer::texture::mipmap::level
-	);
+	)
+	override;
 
 	color_buffer const &
 	level(
 		sge::renderer::texture::mipmap::level
-	) const;
+	) const
+	override;
 
 	sge::renderer::texture::mipmap::level_count const
-	levels() const;
+	levels() const
+	override;
 
 	typedef boost::ptr_vector<
 		color_buffer

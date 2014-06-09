@@ -41,7 +41,8 @@ class matrix_context
 public:
 	matrix_context();
 
-	~matrix_context();
+	~matrix_context()
+	override;
 
 	bool
 	have_transpose() const;

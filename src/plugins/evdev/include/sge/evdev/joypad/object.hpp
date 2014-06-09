@@ -64,30 +64,36 @@ public:
 		sge::evdev::joypad::info const &
 	);
 
-	~object();
+	~object()
+	override;
 private:
 	fcppt::signal::auto_connection
 	absolute_axis_callback(
 		sge::input::joypad::absolute_axis_callback const &
-	);
+	)
+	override;
 
 	fcppt::signal::auto_connection
 	button_callback(
 		sge::input::joypad::button_callback const &
-	);
+	)
+	override;
 
 	fcppt::signal::auto_connection
 	relative_axis_callback(
 		sge::input::joypad::relative_axis_callback const &
-	);
+	)
+	override;
 
 	sge::input::joypad::info const &
-	info() const;
+	info() const
+	override;
 
 	void
 	process_event(
 		sge::evdev::device::event const &
-	);
+	)
+	override;
 
 	sge::evdev::joypad::info const info_;
 

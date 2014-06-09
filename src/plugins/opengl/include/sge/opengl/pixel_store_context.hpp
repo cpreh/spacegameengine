@@ -43,7 +43,8 @@ class pixel_store_context
 public:
 	pixel_store_context();
 
-	~pixel_store_context();
+	~pixel_store_context()
+	override;
 
 	void
 	unpack_alignment(

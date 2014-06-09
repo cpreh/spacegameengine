@@ -67,56 +67,63 @@ public:
 	bool
 	active() const;
 
-	~debug_drawer_impl();
+	~debug_drawer_impl()
+	override;
 private:
 	btCollisionWorld &world_;
 	int debug_mode_;
 	sge::line_drawer::object line_drawer_;
 	std::unique_ptr<sge::line_drawer::scoped_lock> scoped_lock_;
 
-	// @override
 	void
 	drawLine(
 		btVector3 const &from,
 		btVector3 const &to,
-		btVector3 const &color);
+		btVector3 const &color
+	)
+	override;
 
-	// @override
 	void
 	drawLine(
 		btVector3 const &from,
 		btVector3 const &to,
 		btVector3 const &from_color,
-		btVector3 const &to_color);
+		btVector3 const &to_color
+	)
+	override;
 
-	// @override
 	void
 	drawContactPoint(
 		btVector3 const &PointOnB,
 		btVector3 const &normalOnB,
 		btScalar distance,
 		int lifeTime,
-		btVector3 const & color);
+		btVector3 const & color
+	)
+	override;
 
-	// @override
 	void
 	draw3dText(
 		btVector3 const&location,
-		char const*textString);
+		char const*textString
+	)
+	override;
 
-	// @override
 	void
 	reportErrorWarning(
-		char const* warningString);
+		char const* warningString
+	)
+	override;
 
-	// @override
 	void
 	setDebugMode(
-		int);
+		int
+	)
+	override;
 
-	// @override
 	int
-	getDebugMode() const;
+	getDebugMode() const
+	override;
 };
 }
 }

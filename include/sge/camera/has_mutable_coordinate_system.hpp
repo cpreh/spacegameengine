@@ -38,15 +38,17 @@ FCPPT_NONCOPYABLE(
 	has_mutable_coordinate_system);
 protected:
 	SGE_CAMERA_SYMBOL
-	explicit
 	has_mutable_coordinate_system();
 public:
-	virtual void
+	virtual
+	void
 	update_coordinate_system(
-		sge::camera::coordinate_system::object const &) = 0;
+		sge::camera::coordinate_system::object const &
+	) = 0;
 
 	SGE_CAMERA_SYMBOL
-	virtual ~has_mutable_coordinate_system() = 0;
+	~has_mutable_coordinate_system()
+	override = 0;
 };
 }
 }

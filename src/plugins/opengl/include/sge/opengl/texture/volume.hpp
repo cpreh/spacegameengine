@@ -50,7 +50,8 @@ public:
 		sge::renderer::texture::volume_parameters const &
 	);
 
-	~volume();
+	~volume()
+	override;
 };
 
 }

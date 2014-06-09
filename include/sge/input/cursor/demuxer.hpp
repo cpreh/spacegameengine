@@ -72,35 +72,41 @@ public:
 	);
 
 	SGE_INPUT_SYMBOL
-	~demuxer();
+	~demuxer()
+	override;
 
 	SGE_INPUT_SYMBOL
 	fcppt::signal::auto_connection
 	button_callback(
 		sge::input::cursor::button_callback const &
-	);
+	)
+	override;
 
 	SGE_INPUT_SYMBOL
 	fcppt::signal::auto_connection
 	move_callback(
 		sge::input::cursor::move_callback const &
-	);
+	)
+	override;
 
 	SGE_INPUT_SYMBOL
 	fcppt::signal::auto_connection
 	scroll_callback(
 		sge::input::cursor::scroll_callback const &
-	);
+	)
+	override;
 
 	SGE_INPUT_SYMBOL
 	sge::input::cursor::optional_position const
-	position() const;
+	position() const
+	override;
 
 	SGE_INPUT_SYMBOL
 	void
 	mode(
 		sge::input::cursor::mode
-	);
+	)
+	override;
 
 	SGE_INPUT_SYMBOL
 	sge::input::cursor::optional_object_ref const

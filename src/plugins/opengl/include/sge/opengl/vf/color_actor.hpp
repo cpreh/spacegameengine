@@ -39,27 +39,29 @@ namespace vf
 
 class color_actor
 :
-	public vf::fp_actor
+	public sge::opengl::vf::fp_actor
 {
 	FCPPT_NONCOPYABLE(
 		color_actor
 	);
 public:
-	explicit color_actor(
-		actor_parameters const &,
+	color_actor(
+		sge::opengl::vf::actor_parameters const &,
 		sge::renderer::vf::dynamic::color const &
 	);
 
-	~color_actor();
+	~color_actor()
+	override;
 private:
 	void
 	on_use(
-		vf::pointer
-	) const;
+		sge::opengl::vf::pointer
+	) const
+	override;
 
 	GLint const elements_;
 
-	opengl::color_format_type const format_;
+	sge::opengl::color_format_type const format_;
 };
 
 }

@@ -52,12 +52,13 @@ class SGE_CLASS_SYMBOL positional
 	);
 protected:
 	/** \protectedctor */
-	SGE_AUDIO_SYMBOL explicit
+	SGE_AUDIO_SYMBOL
 	positional();
 public:
 	/** \virtualdtor */
 	SGE_AUDIO_SYMBOL
-	virtual ~positional() = 0;
+	~positional()
+	override = 0;
 
 	/// Sets the 3D position
 	virtual void

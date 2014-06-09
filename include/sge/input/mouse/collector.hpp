@@ -60,23 +60,27 @@ public:
 	);
 
 	SGE_INPUT_SYMBOL
-	~collector();
+	~collector()
+	override;
 
 	SGE_INPUT_SYMBOL
 	fcppt::signal::auto_connection
 	axis_callback(
 		sge::input::mouse::axis_callback const &
-	);
+	)
+	override;
 
 	SGE_INPUT_SYMBOL
 	fcppt::signal::auto_connection
 	button_callback(
 		sge::input::mouse::button_callback const &
-	);
+	)
+	override;
 
 	SGE_INPUT_SYMBOL
 	sge::input::mouse::info const &
-	info() const;
+	info() const
+	override;
 private:
 	void
 	axis_callback_internal(

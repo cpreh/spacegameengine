@@ -18,9 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_CONST_BASIC_SCOPED_BUFFER_LOCK_HPP_INCLUDED
-#define SGE_RENDERER_CONST_BASIC_SCOPED_BUFFER_LOCK_HPP_INCLUDED
+#ifndef SGE_RENDERER_LINEAR_BUFFER_SCOPED_LOCK_HPP_INCLUDED
+#define SGE_RENDERER_LINEAR_BUFFER_SCOPED_LOCK_HPP_INCLUDED
 
+#include <sge/renderer/lock_mode_fwd.hpp>
 #include <sge/renderer/npos.hpp>
 #include <sge/renderer/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -32,22 +33,23 @@ namespace renderer
 {
 
 /**
- * \brief A buffer lock that is readonly.
- *
- * Used for locking renderer::vertex_buffer and renderer::index_buffer. It
- * locks the buffer in the constructor and unlocks it in the destructor.
- *
- * \see sge::renderer::const_scoped_vertex_lock
- * \see sge::renderer::const_scoped_index_lock
+\brief A buffer lock that is not readonly.
+
+Used for locking sge::renderer::vertex::buffer and
+sge::renderer::index::buffer. It locks the buffer in the constructor and
+unlocks it in the destructor.
+
+\see sge::renderer::vertex::scoped_lock
+\see sge::renderer::index::scoped_lock
 */
 template<
 	typename Buffer,
 	typename Types
 >
-class const_basic_scoped_buffer_lock
+class linear_buffer_scoped_lock
 {
 	FCPPT_NONCOPYABLE(
-		const_basic_scoped_buffer_lock
+		linear_buffer_scoped_lock
 	);
 public:
 	/**
@@ -67,16 +69,19 @@ public:
 	/**
 	 * \brief The view type of the lock.
 	*/
-	typedef typename Types::const_view_type view_type;
+	typedef typename Types::view_type view_type;
 
 	/**
 	 * \brief Locks a buffer
 	 *
-	 * Locks \a buffer. The buffer will be locked starting from \a first to
-	 * \a first + \a count, or the entire will be locked if \a first is 0
-	 * and \a count is renderer::npos, which is the default.
+	 * Locks \a buffer, using the lock method \a method. The buffer will
+	 * be locked starting from \a first to \a first + \a count, or the
+	 * entire buffer will be locked if \a first is 0 and \a count is
+	 * renderer::npos, which is the default.
 	 *
 	 * \param buffer The buffer to lock
+	 *
+	 * \param method The lock method to use, either writeonly or readwrite
 	 *
 	 * \param first The offset to lock the buffer from
 	 *
@@ -86,17 +91,18 @@ public:
 	 * \warning The behaviour is undefined if the buffer is already locked
 	 * or if the region is out of range
 	 *
-	 * \warning The behaviour is undefined if the buffer hasn't been
-	 * created with resource_flags::readable
+	 * \warning The behaviour is undefined if \a method is readwrite
+	 * and the buffer hasn't been created with resource_flags::readable
 	*/
 	SGE_RENDERER_SYMBOL
-	explicit const_basic_scoped_buffer_lock(
-		Buffer const &buffer,
+	linear_buffer_scoped_lock(
+		Buffer &buffer,
+		sge::renderer::lock_mode method,
 		first_type first =
 			first_type(0u),
 		count_type count =
 			count_type(
-				renderer::npos()
+				sge::renderer::npos()
 			)
 	);
 
@@ -116,9 +122,9 @@ public:
 	 * again or unlocked in between the constructor and destructor
 	*/
 	SGE_RENDERER_SYMBOL
-	~const_basic_scoped_buffer_lock();
+	~linear_buffer_scoped_lock();
 private:
-	Buffer const &buffer_;
+	Buffer &buffer_;
 
 	view_type const view_;
 };

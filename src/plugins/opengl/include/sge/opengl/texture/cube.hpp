@@ -56,25 +56,30 @@ public:
 		sge::renderer::texture::cube_parameters const &
 	);
 
-	~cube();
+	~cube()
+	override;
 private:
 	sge::opengl::texture::cube::size_type
-	border_size() const;
+	border_size() const
+	override;
 
 	sge::renderer::texture::cube::color_buffer &
 	level(
 		sge::renderer::texture::cube_side,
 		sge::renderer::texture::mipmap::level
-	);
+	)
+	override;
 
 	sge::renderer::texture::cube::color_buffer const &
 	level(
 		sge::renderer::texture::cube_side,
 		sge::renderer::texture::mipmap::level
-	) const;
+	) const
+	override;
 
 	sge::renderer::texture::mipmap::level_count const
-	levels() const;
+	levels() const
+	override;
 
 	sge::renderer::texture::cube::size_type const size_;
 

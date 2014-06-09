@@ -42,32 +42,48 @@ class dummy
 FCPPT_NONCOPYABLE(
 	dummy);
 public:
-	SGE_RUCKSACK_SYMBOL explicit
+	SGE_RUCKSACK_SYMBOL
+	explicit
 	dummy(
-		sge::rucksack::axis_policy2 const &);
+		sge::rucksack::axis_policy2 const &
+	);
 
 	SGE_RUCKSACK_SYMBOL void
 	size(
-		sge::rucksack::dim const &);
-
-	SGE_RUCKSACK_SYMBOL void
-	position(
-		sge::rucksack::vector const &);
-
-	SGE_RUCKSACK_SYMBOL sge::rucksack::dim const
-	size() const;
-
-	SGE_RUCKSACK_SYMBOL sge::rucksack::vector const
-	position() const;
-
-	SGE_RUCKSACK_SYMBOL sge::rucksack::axis_policy2 const
-	axis_policy() const;
-
-	SGE_RUCKSACK_SYMBOL void
-	relayout();
+		sge::rucksack::dim const &
+	)
+	override;
 
 	SGE_RUCKSACK_SYMBOL
-	~dummy();
+	void
+	position(
+		sge::rucksack::vector const &
+	)
+	override;
+
+	SGE_RUCKSACK_SYMBOL
+	sge::rucksack::dim const
+	size() const
+	override;
+
+	SGE_RUCKSACK_SYMBOL
+	sge::rucksack::vector const
+	position() const
+	override;
+
+	SGE_RUCKSACK_SYMBOL
+	sge::rucksack::axis_policy2 const
+	axis_policy() const
+	override;
+
+	SGE_RUCKSACK_SYMBOL
+	void
+	relayout()
+	override;
+
+	SGE_RUCKSACK_SYMBOL
+	~dummy()
+	override;
 private:
 	sge::rucksack::axis_policy2 const axis_policy_;
 	sge::rucksack::vector position_;

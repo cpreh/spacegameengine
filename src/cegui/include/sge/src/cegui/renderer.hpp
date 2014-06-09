@@ -68,7 +68,8 @@ public:
 		sge::cegui::texture_parameters const &
 	);
 
-	~renderer();
+	~renderer()
+	override;
 
 	void
 	render_context(
@@ -79,93 +80,115 @@ public:
 	impl() const;
 
 	CEGUI::RenderTarget &
-	getDefaultRenderTarget();
+	getDefaultRenderTarget()
+	override;
 private:
 	CEGUI::GeometryBuffer &
-	createGeometryBuffer();
+	createGeometryBuffer()
+	override;
 
 	void
 	destroyGeometryBuffer(
 		CEGUI::GeometryBuffer const &
-	);
+	)
+	override;
 
 	void
-	destroyAllGeometryBuffers();
+	destroyAllGeometryBuffers()
+	override;
 
 	CEGUI::TextureTarget *
-	createTextureTarget();
+	createTextureTarget()
+	override;
 
 	void
 	destroyTextureTarget(
 		CEGUI::TextureTarget *
-	);
+	)
+	override;
 
 	void
-	destroyAllTextureTargets();
+	destroyAllTextureTargets()
+	override;
 
 	CEGUI::Texture &
 	createTexture(
 		CEGUI::String const &name
-	);
+	)
+	override;
 
 	CEGUI::Texture &
 	createTexture(
 		CEGUI::String const &name,
 		CEGUI::String const &filename,
 		CEGUI::String const &resourceGroup
-	);
+	)
+	override;
 
 	CEGUI::Texture &
 	createTexture(
 		CEGUI::String const &name,
 		CEGUI::Sizef const &
-	);
+	)
+	override;
 
 	void
 	destroyTexture(
 		CEGUI::Texture &
-	);
+	)
+	override;
 
 	void
 	destroyTexture(
 		CEGUI::String const &name
-	);
+	)
+	override;
 
 	void
-	destroyAllTextures();
+	destroyAllTextures()
+	override;
 
 	CEGUI::Texture &
 	getTexture(
 		CEGUI::String const &
-	) const;
+	) const
+	override;
 
 	bool
 	isTextureDefined(
 		CEGUI::String const &
-	) const;
+	) const
+	override;
 
 	void
-	beginRendering();
+	beginRendering()
+	override;
 
 	void
-	endRendering();
+	endRendering()
+	override;
 
 	void
 	setDisplaySize(
 		CEGUI::Sizef const &
-	);
+	)
+	override;
 
 	CEGUI::Sizef const &
-	getDisplaySize() const;
+	getDisplaySize() const
+	override;
 
 	CEGUI::Vector2f const &
-	getDisplayDPI() const;
+	getDisplayDPI() const
+	override;
 
 	CEGUI::uint
-	getMaxTextureSize() const;
+	getMaxTextureSize() const
+	override;
 
 	CEGUI::String const &
-	getIdentifierString() const;
+	getIdentifierString() const
+	override;
 
 	typedef std::unique_ptr<
 		sge::cegui::texture

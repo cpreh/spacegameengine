@@ -53,13 +53,15 @@ public:
 		sge::image2d::system &
 	);
 
-	~image_codec();
+	~image_codec()
+	override;
 private:
 	CEGUI::Texture *
 	load(
 		CEGUI::RawDataContainer const &,
 		CEGUI::Texture *
-	);
+	)
+	override;
 public:
 	sge::image2d::system &
 	image_system() const;

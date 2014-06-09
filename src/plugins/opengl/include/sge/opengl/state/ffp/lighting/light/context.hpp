@@ -52,7 +52,8 @@ public:
 
 	context();
 
-	~context();
+	~context()
+	override;
 
 	sge::renderer::state::index_count
 	indices() const;

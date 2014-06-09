@@ -46,7 +46,8 @@ class context
 public:
 	context();
 
-	~context();
+	~context()
+	override;
 
 	sge::opengl::optional_enum const
 	generate_mipmap_flag() const;

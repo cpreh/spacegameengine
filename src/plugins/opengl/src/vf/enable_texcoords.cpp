@@ -32,7 +32,7 @@ sge::opengl::vf::enable_texcoords(
 	sge::renderer::texture::stage const _index
 )
 {
-	opengl::texture::funcs::set_client_level(
+	sge::opengl::texture::funcs::set_client_level(
 		_system_context,
 		_index
 	);

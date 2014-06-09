@@ -41,23 +41,28 @@ namespace shape
 {
 class SGE_CLASS_SYMBOL circle
 :
-	public base
+	public sge::projectile::shape::base
 {
 FCPPT_NONCOPYABLE(
 	circle);
 public:
-	SGE_PROJECTILE_SYMBOL explicit
+	SGE_PROJECTILE_SYMBOL
+	explicit
 	circle(
-		scalar const radius);
+		sge::projectile::scalar const radius);
 
 	// No symbol needed here
 	btCollisionShape &
-	bullet_shape();
+	bullet_shape()
+	override;
 
 	btCollisionShape const &
-	bullet_shape() const;
+	bullet_shape() const
+	override;
 
-	SGE_PROJECTILE_SYMBOL ~circle();
+	SGE_PROJECTILE_SYMBOL
+	~circle()
+	override;
 private:
 	std::unique_ptr<btCollisionShape> const bullet_shape_;
 };

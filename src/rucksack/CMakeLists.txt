@@ -65,7 +65,7 @@ set(
 
 add_sge_base_library(
 	"rucksack"
-	"sgeviewport"
+	"sgerenderer;sgeviewport"
 	"${fcppt_core_TARGET}"
 	""
 	""

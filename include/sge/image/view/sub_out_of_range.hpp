@@ -57,8 +57,8 @@ public:
 	inner() const;
 
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
-	virtual
-	~sub_out_of_range() throw();
+	~sub_out_of_range() throw()
+	override;
 private:
 	Box
 		outer_,

@@ -21,18 +21,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_RENDERER_COLOR_BUFFER_INSTANTIATE_BASIC_HPP_INCLUDED
 #define SGE_SRC_RENDERER_COLOR_BUFFER_INSTANTIATE_BASIC_HPP_INCLUDED
 
-#include <sge/src/export_class_instantiation.hpp>
-#include <sge/src/renderer/color_buffer/basic_impl.hpp>
+#include <sge/renderer/color_buffer/tag_from_dimension.hpp>
+#include <sge/src/renderer/instantiate_basic_buffer.hpp>
 
 
 #define SGE_RENDERER_COLOR_BUFFER_INSTANTIATE_BASIC(\
 	dim\
 )\
-template \
-class \
-SGE_EXPORT_CLASS_INSTANTIATION \
-sge::renderer::color_buffer::basic<\
-	dim\
->
+SGE_RENDERER_INSTANTIATE_BASIC_BUFFER(\
+	sge::renderer::color_buffer::tag_from_dimension<\
+		dim\
+	>::type\
+)
 
 #endif

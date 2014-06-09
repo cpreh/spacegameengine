@@ -65,33 +65,52 @@ public:
 	SGE_RUCKSACK_SYMBOL
 	viewport_adaptor(
 		sge::viewport::manager &,
-		sge::renderer::device::core &);
+		sge::renderer::device::core &
+	);
 
-	SGE_RUCKSACK_SYMBOL void
+	SGE_RUCKSACK_SYMBOL
+	void
 	size(
-		sge::rucksack::dim const &);
+		sge::rucksack::dim const &
+	)
+	override;
 
-	SGE_RUCKSACK_SYMBOL void
+	SGE_RUCKSACK_SYMBOL
+	void
 	position(
-		sge::rucksack::vector const &);
+		sge::rucksack::vector const &
+	)
+	override;
 
-	SGE_RUCKSACK_SYMBOL sge::rucksack::dim const
-	size() const;
+	SGE_RUCKSACK_SYMBOL
+	sge::rucksack::dim const
+	size() const
+	override;
 
-	SGE_RUCKSACK_SYMBOL sge::rucksack::vector const
-	position() const;
+	SGE_RUCKSACK_SYMBOL
+	sge::rucksack::vector const
+	position() const
+	override;
 
-	SGE_RUCKSACK_SYMBOL sge::rucksack::axis_policy2 const
-	axis_policy() const;
+	SGE_RUCKSACK_SYMBOL
+	sge::rucksack::axis_policy2 const
+	axis_policy() const
+	override;
 
-	SGE_RUCKSACK_SYMBOL void
-	relayout();
+	SGE_RUCKSACK_SYMBOL
+	void
+	relayout()
+	override;
 
-	SGE_RUCKSACK_SYMBOL void
+	SGE_RUCKSACK_SYMBOL
+	void
 	child(
-		sge::rucksack::widget::base &);
+		sge::rucksack::widget::base &
+	);
 
-	SGE_RUCKSACK_SYMBOL ~viewport_adaptor();
+	SGE_RUCKSACK_SYMBOL
+	~viewport_adaptor()
+	override;
 private:
 	sge::renderer::target::base &target_;
 
@@ -107,7 +126,9 @@ private:
 
 	void
 	child_destroyed(
-		sge::rucksack::widget::base &);
+		sge::rucksack::widget::base &
+	)
+	override;
 };
 }
 }

@@ -38,14 +38,18 @@ class SGE_CLASS_SYMBOL build_error
 	public sge::exception
 {
 public:
-	SGE_OPENCL_SYMBOL explicit build_error(
+	SGE_OPENCL_SYMBOL
+	explicit
+	build_error(
 		fcppt::string const &);
 
-	SGE_OPENCL_SYMBOL fcppt::string const &
+	SGE_OPENCL_SYMBOL
+	fcppt::string const &
 	message() const;
 
 	SGE_OPENCL_SYMBOL
-	virtual ~build_error() throw();
+	~build_error() throw()
+	override;
 private:
 	fcppt::string message_;
 };

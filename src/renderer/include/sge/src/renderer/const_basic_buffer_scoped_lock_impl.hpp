@@ -18,25 +18,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_RENDERER_BASIC_SCOPED_BUFFER_LOCK_IMPL_HPP_INCLUDED
-#define SGE_SRC_RENDERER_BASIC_SCOPED_BUFFER_LOCK_IMPL_HPP_INCLUDED
+#ifndef SGE_SRC_RENDERER_CONST_BASIC_BUFFER_SCOPED_LOCK_IMPL_HPP_INCLUDED
+#define SGE_SRC_RENDERER_CONST_BASIC_BUFFER_SCOPED_LOCK_IMPL_HPP_INCLUDED
 
-#include <sge/renderer/basic_scoped_buffer_lock.hpp>
-#include <sge/renderer/lock_mode.hpp>
+#include <sge/image/view/const_object.hpp>
+#include <sge/renderer/const_basic_buffer_scoped_lock.hpp>
 
 
 template<
-	typename Buffer,
-	typename Types
+	typename Buffer
 >
-sge::renderer::basic_scoped_buffer_lock<
-	Buffer,
-	Types
->::basic_scoped_buffer_lock(
-	Buffer &_buffer,
-	sge::renderer::lock_mode const _flags,
-	first_type const _first,
-	count_type const _count
+sge::renderer::const_basic_buffer_scoped_lock<
+	Buffer
+>::const_basic_buffer_scoped_lock(
+	buffer_type const &_buffer
+)
+:
+	buffer_(
+		_buffer
+	),
+	view_(
+		buffer_.lock()
+	)
+{
+}
+
+template<
+	typename Buffer
+>
+sge::renderer::const_basic_buffer_scoped_lock<
+	Buffer
+>::const_basic_buffer_scoped_lock(
+	buffer_type const &_buffer,
+	lock_area const &_area
 )
 :
 	buffer_(
@@ -44,38 +58,31 @@ sge::renderer::basic_scoped_buffer_lock<
 	),
 	view_(
 		buffer_.lock(
-			_flags,
-			_first,
-			_count
+			_area
 		)
 	)
 {
 }
 
 template<
-	typename Buffer,
-	typename Types
+	typename Buffer
 >
-typename sge::renderer::basic_scoped_buffer_lock<
-	Buffer,
-	Types
->::view_type const
-sge::renderer::basic_scoped_buffer_lock<
-	Buffer,
-	Types
+typename sge::renderer::const_basic_buffer_scoped_lock<
+	Buffer
+>::const_view const
+sge::renderer::const_basic_buffer_scoped_lock<
+	Buffer
 >::value() const
 {
 	return view_;
 }
 
 template<
-	typename Buffer,
-	typename Types
+	typename Buffer
 >
-sge::renderer::basic_scoped_buffer_lock<
-	Buffer,
-	Types
->::~basic_scoped_buffer_lock()
+sge::renderer::const_basic_buffer_scoped_lock<
+	Buffer
+>::~const_basic_buffer_scoped_lock()
 {
 	buffer_.unlock();
 }

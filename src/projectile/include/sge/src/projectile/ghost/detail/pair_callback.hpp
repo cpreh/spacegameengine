@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 // The header below isn't self-contained, this is a fix for that
 struct btBroadphaseProxy;
 
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <BulletCollision/BroadphaseCollision/btOverlappingPairCallback.h>
 #include <fcppt/config/external_end.hpp>
@@ -40,22 +41,36 @@ class pair_callback
 :
 	public btOverlappingPairCallback
 {
+	FCPPT_NONCOPYABLE(
+		pair_callback
+	);
 public:
+	pair_callback();
+
+	~pair_callback()
+	override;
+private:
 	btBroadphasePair *
 	addOverlappingPair(
 		btBroadphaseProxy*,
-		btBroadphaseProxy*);
+		btBroadphaseProxy*
+	)
+	override;
 
 	void*
 	removeOverlappingPair(
 		btBroadphaseProxy*,
 		btBroadphaseProxy*,
-		btDispatcher*);
+		btDispatcher*
+	)
+	override;
 
 	void
 	removeOverlappingPairsContainingProxy(
 		btBroadphaseProxy*,
-		btDispatcher*);
+		btDispatcher*
+	)
+	override;
 };
 }
 }

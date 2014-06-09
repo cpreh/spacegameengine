@@ -18,21 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_RENDERER_COLOR_BUFFER_INSTANTIATE_BASIC_SCOPED_LOCK_HPP_INCLUDED
-#define SGE_SRC_RENDERER_COLOR_BUFFER_INSTANTIATE_BASIC_SCOPED_LOCK_HPP_INCLUDED
-
-#include <sge/src/export_class_instantiation.hpp>
-#include <sge/src/renderer/color_buffer/basic_scoped_lock_impl.hpp>
+#include <sge/renderer/depth_stencil_buffer/scoped_surface_lock.hpp>
+#include <sge/renderer/depth_stencil_buffer/surface.hpp>
+#include <sge/src/renderer/instantiate_basic_buffer_scoped_lock.hpp>
 
 
-#define SGE_RENDERER_COLOR_BUFFER_INSTANTIATE_BASIC_SCOPED_LOCK(\
-	buffer\
-)\
-template \
-class \
-SGE_EXPORT_CLASS_INSTANTIATION \
-sge::renderer::color_buffer::basic_scoped_lock<\
-	buffer\
->
-
-#endif
+SGE_RENDERER_INSTANTIATE_BASIC_BUFFER_SCOPED_LOCK(
+	sge::renderer::depth_stencil_buffer::surface
+);

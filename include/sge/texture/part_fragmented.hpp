@@ -40,7 +40,7 @@ namespace texture
 
 class part_fragmented
 :
-	public texture::part
+	public sge::texture::part
 {
 	FCPPT_NONCOPYABLE(
 		part_fragmented
@@ -56,22 +56,27 @@ public:
 	void
 	data(
 		sge::image2d::view::const_object const &
-	);
+	)
+	override;
 
 	SGE_TEXTURE_SYMBOL
 	sge::renderer::lock_rect const
-	area() const;
+	area() const
+	override;
 
 	SGE_TEXTURE_SYMBOL
 	sge::renderer::texture::planar &
-	texture() const;
+	texture() const
+	override;
 
 	SGE_TEXTURE_SYMBOL
 	bool
-	repeatable() const;
+	repeatable() const
+	override;
 
 	SGE_TEXTURE_SYMBOL
-	~part_fragmented();
+	~part_fragmented()
+	override;
 private:
 	sge::texture::fragmented &fragment_;
 

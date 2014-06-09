@@ -46,7 +46,8 @@ class multi_context
 public:
 	multi_context();
 
-	~multi_context();
+	~multi_context()
+	override;
 
 	bool
 	is_supported() const;

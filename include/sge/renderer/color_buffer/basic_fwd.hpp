@@ -21,7 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_COLOR_BUFFER_BASIC_FWD_HPP_INCLUDED
 #define SGE_RENDERER_COLOR_BUFFER_BASIC_FWD_HPP_INCLUDED
 
+#include <sge/renderer/basic_buffer_fwd.hpp>
 #include <sge/renderer/size_type.hpp>
+#include <sge/renderer/color_buffer/tag_from_dimension.hpp>
 
 
 namespace sge
@@ -34,7 +36,16 @@ namespace color_buffer
 template<
 	sge::renderer::size_type Dim
 >
-class basic;
+using
+basic
+=
+sge::renderer::basic_buffer<
+	typename
+	sge::renderer::color_buffer::tag_from_dimension<
+		Dim
+	>::type
+>;
+
 
 }
 }

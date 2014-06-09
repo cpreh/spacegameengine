@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/vf/part.hpp>
 #include <sge/opengl/vf/pointer.hpp>
 #include <sge/opengl/vf/to_actor.hpp>
-#include <sge/renderer/vf/dynamic/ordered_element_list.hpp>
 #include <sge/renderer/vf/dynamic/part.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 
@@ -48,21 +47,15 @@ sge::opengl::vf::part::part(
 	),
 	actors_()
 {
-	sge::renderer::vf::dynamic::ordered_element_list const &elems(
-		part_.elements()
-	);
-
 	for(
-		sge::renderer::vf::dynamic::ordered_element_list::const_iterator elem_it(
-			elems.begin()
-		);
-		elem_it != elems.end();
-		++elem_it
+		auto const &elem
+		:
+		part_.elements()
 	)
 		fcppt::container::ptr::push_back_unique_ptr(
 			actors_,
 			sge::opengl::vf::to_actor(
-				*elem_it,
+				elem,
 				part_.stride(),
 				_system_context
 			)
@@ -90,13 +83,11 @@ sge::opengl::vf::part::use_me(
 	);
 
 	for(
-		sge::opengl::vf::part::actor_array::iterator actor_it(
-			actors_.begin()
-		);
-		actor_it != actors_.end();
-		++actor_it
+		auto const &actor
+		:
+		actors_
 	)
-		(*actor_it)(
+		actor(
 			states,
 			static_cast<
 				unsigned char const *
@@ -104,7 +95,7 @@ sge::opengl::vf::part::use_me(
 				_src
 			)
 			+
-			actor_it->offset().get()
+			actor.offset().get()
 		);
 }
 
@@ -117,13 +108,11 @@ sge::opengl::vf::part::unuse_me() const
 	);
 
 	for(
-		sge::opengl::vf::part::actor_array::iterator actor_it(
-			actors_.begin()
-		);
-		actor_it != actors_.end();
-		++actor_it
+		auto &actor
+		:
+		actors_
 	)
-		actor_it->unuse(
+		actor.unuse(
 			states
 		);
 }

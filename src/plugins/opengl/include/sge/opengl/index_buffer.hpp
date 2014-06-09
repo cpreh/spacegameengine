@@ -53,7 +53,8 @@ public:
 		sge::renderer::index::buffer_parameters const &
 	);
 
-	~index_buffer();
+	~index_buffer()
+	override;
 
 	GLenum
 	gl_format() const;
@@ -71,13 +72,15 @@ private:
 		sge::renderer::lock_mode,
 		sge::renderer::index::buffer::first_type,
 		sge::renderer::index::buffer::count_type
-	);
+	)
+	override;
 
 	sge::renderer::index::buffer::const_view_type const
 	lock(
 		sge::renderer::index::buffer::first_type,
 		sge::renderer::index::buffer::count_type
-	) const;
+	) const
+	override;
 
 	template<
 		typename View
@@ -90,19 +93,24 @@ private:
 	) const;
 
 	void
-	unlock() const;
+	unlock() const
+	override;
 
 	sge::renderer::index::buffer::count_type const
-	size() const;
+	size() const
+	override;
 
 	sge::renderer::resource_flags_field const
-	resource_flags() const;
+	resource_flags() const
+	override;
 
 	sge::renderer::index::dynamic::format
-	format() const;
+	format() const
+	override;
 
 	sge::opengl::buffer::object const &
-	buffer() const;
+	buffer() const
+	override;
 
 	sge::renderer::index::dynamic::format const format_;
 

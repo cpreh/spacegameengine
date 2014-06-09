@@ -50,7 +50,8 @@ public:
 
 	context();
 
-	~context();
+	~context()
+	override;
 
 	sge::renderer::texture::stage const
 	stages() const;

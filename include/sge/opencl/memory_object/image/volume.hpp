@@ -46,14 +46,15 @@ class volume
 FCPPT_NONCOPYABLE(
 	volume);
 public:
-	SGE_OPENCL_SYMBOL explicit
+	SGE_OPENCL_SYMBOL
 	volume(
 		context::object &,
 		memory_object::flags_field const &,
 		renderer::texture::volume &);
 
 	SGE_OPENCL_SYMBOL cl_mem
-	impl();
+	impl()
+	override;
 
 	SGE_OPENCL_SYMBOL cl_image_format const &
 	image_format() const;
@@ -61,7 +62,8 @@ public:
 	SGE_OPENCL_SYMBOL sge::opencl::dim3 const &
 	size() const;
 
-	SGE_OPENCL_SYMBOL ~volume();
+	SGE_OPENCL_SYMBOL ~volume()
+	override;
 private:
 	cl_mem impl_;
 	cl_image_format image_format_;

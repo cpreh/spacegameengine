@@ -44,7 +44,8 @@ class npot_context
 public:
 	npot_context();
 
-	~npot_context();
+	~npot_context()
+	override;
 
 	bool
 	is_supported() const;

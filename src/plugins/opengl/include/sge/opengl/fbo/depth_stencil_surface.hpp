@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/fbo/depth_stencil_surface_fwd.hpp>
 #include <sge/opengl/fbo/render_buffer.hpp>
 #include <sge/renderer/dim2.hpp>
+#include <sge/renderer/lock_mode_fwd.hpp>
 #include <sge/renderer/depth_stencil_buffer/surface.hpp>
 #include <sge/renderer/depth_stencil_buffer/surface_parameters_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -52,16 +53,36 @@ public:
 		sge::renderer::depth_stencil_buffer::surface_parameters const &
 	);
 
-	~depth_stencil_surface();
+	~depth_stencil_surface()
+	override;
 
 	sge::opengl::fbo::render_buffer const &
 	render_buffer() const;
 private:
 	dim const
-	size() const;
+	size() const
+	override;
+
+	const_view const
+	lock(
+		lock_area const &area
+	) const
+	override;
+
+	view const
+	lock(
+		lock_area const &area,
+		sge::renderer::lock_mode mode
+	)
+	override;
+
+	void
+	unlock() const
+	override;
 
 	sge::image::ds::format
-	format() const;
+	format() const
+	override;
 
 	sge::opengl::fbo::render_buffer const render_buffer_;
 

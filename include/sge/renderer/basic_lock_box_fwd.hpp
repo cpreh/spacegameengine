@@ -21,9 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_BASIC_LOCK_BOX_FWD_HPP_INCLUDED
 #define SGE_RENDERER_BASIC_LOCK_BOX_FWD_HPP_INCLUDED
 
-#include <sge/renderer/size_type.hpp>
+#include <sge/image/box_fwd.hpp>
 #include <fcppt/math/size_type.hpp>
-#include <fcppt/math/box/object_fwd.hpp>
 
 
 namespace sge
@@ -43,8 +42,7 @@ template<
 >
 using basic_lock_box
 =
-fcppt::math::box::object<
-	sge::renderer::size_type,
+sge::image::box<
 	Size
 >;
 

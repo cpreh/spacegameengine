@@ -45,7 +45,8 @@ class vertex_context
 public:
 	vertex_context();
 
-	~vertex_context();
+	~vertex_context()
+	override;
 
 	sge::opengl::vertex_buffer const *
 	vertex_buffer(

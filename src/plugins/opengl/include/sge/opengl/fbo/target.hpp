@@ -72,30 +72,37 @@ public:
 		sge::opengl::context::device::object &
 	);
 
-	~target();
+	~target()
+	override;
 private:
 	void
-	on_bind();
+	on_bind()
+	override;
 
 	void
-	on_unbind();
+	on_unbind()
+	override;
 
 	void
-	end_rendering();
+	end_rendering()
+	override;
 
 	void
 	color_surface(
 		sge::renderer::color_buffer::optional_surface_ref const &,
 		sge::renderer::target::surface_index
-	);
+	)
+	override;
 
 	void
 	depth_stencil_surface(
 		sge::renderer::depth_stencil_buffer::optional_surface_ref const &
-	);
+	)
+	override;
 
 	sge::renderer::screen_unit
-	height() const;
+	height() const
+	override;
 
 	sge::opengl::fbo::attachment_unique_ptr
 	create_texture_binding(

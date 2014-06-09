@@ -51,7 +51,8 @@ public:
 		sge::renderer::texture::depth_stencil_parameters const &
 	);
 
-	~depth_stencil();
+	~depth_stencil()
+	override;
 };
 
 }

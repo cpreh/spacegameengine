@@ -62,7 +62,8 @@ public:
 		parameter
 	);
 
-	~context();
+	~context()
+	override;
 
 	void
 	set(

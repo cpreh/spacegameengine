@@ -47,7 +47,8 @@ class loader
 public:
 	loader();
 
-	~loader();
+	~loader()
+	override;
 
 	sge::audio::optional_file_unique_ptr
 	load(

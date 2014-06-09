@@ -60,22 +60,28 @@ public:
 		awl::window::object &
 	);
 
-	~onscreen_target();
+	~onscreen_target()
+	override;
 private:
 	void
-	on_bind();
+	on_bind()
+	override;
 
 	void
-	on_unbind();
+	on_unbind()
+	override;
 
 	void
-	end_rendering();
+	end_rendering()
+	override;
 
 	sge::renderer::color_buffer::surface const &
-	surface() const;
+	surface() const
+	override;
 
 	sge::renderer::screen_unit
-	height() const;
+	height() const
+	override;
 
 	typedef
 	std::unique_ptr<

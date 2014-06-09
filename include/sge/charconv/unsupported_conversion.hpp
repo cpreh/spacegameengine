@@ -45,7 +45,8 @@ public:
 	);
 
 	SGE_CHARCONV_SYMBOL
-	~unsupported_conversion() throw();
+	~unsupported_conversion() throw()
+	override;
 
 	SGE_CHARCONV_SYMBOL
 	sge::charconv::source_encoding const

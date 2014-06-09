@@ -46,7 +46,8 @@ class context
 public:
 	context();
 
-	~context();
+	~context()
+	override;
 
 	bool
 	is_supported() const;

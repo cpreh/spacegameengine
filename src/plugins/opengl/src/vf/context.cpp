@@ -39,15 +39,17 @@ sge::opengl::vf::context::~context()
 sge::opengl::vf::client_state const &
 sge::opengl::vf::context::state()
 {
-	return state_;
+	return
+		state_;
 }
 
 void
 sge::opengl::vf::context::state(
-	opengl::vf::client_state const &_state
+	sge::opengl::vf::client_state const &_state
 )
 {
-	state_ = _state;
+	state_ =
+		_state;
 }
 
 sge::opengl::context::device::id const

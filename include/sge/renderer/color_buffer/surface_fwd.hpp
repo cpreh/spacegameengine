@@ -31,9 +31,11 @@ namespace renderer
 namespace color_buffer
 {
 
-typedef sge::renderer::color_buffer::basic<
+typedef
+sge::renderer::color_buffer::basic<
 	2u
-> surface;
+>
+surface;
 
 }
 }

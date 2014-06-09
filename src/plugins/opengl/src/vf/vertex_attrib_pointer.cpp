@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/check_state.hpp>
+#include <sge/opengl/common.hpp>
 #include <sge/opengl/vf/attribute_context.hpp>
 #include <sge/opengl/vf/vertex_attrib_pointer.hpp>
 #include <sge/renderer/exception.hpp>
@@ -27,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::vf::vertex_attrib_pointer(
-	vf::attribute_context const &_context,
+	sge::opengl::vf::attribute_context const &_context,
 	GLuint const _index,
 	GLint const _size,
 	GLenum const _type,

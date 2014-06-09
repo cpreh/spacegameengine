@@ -42,22 +42,26 @@ class listener
 public:
 	listener();
 
-	~listener();
+	~listener()
+	override;
 private:
 	void
 	position(
 		sge::audio::vector const &
-	);
+	)
+	override;
 
 	void
 	linear_velocity(
 		sge::audio::vector const &
-	);
+	)
+	override;
 
 	void
 	direction(
 		sge::audio::direction::object const &
-	);
+	)
+	override;
 };
 
 }

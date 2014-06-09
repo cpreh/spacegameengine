@@ -87,7 +87,8 @@ public:
 	override;
 
 	SGE_RUCKSACK_SYMBOL
-	~frame();
+	~frame()
+	override;
 
 	SGE_RUCKSACK_SYMBOL
 	sge::rucksack::padding const

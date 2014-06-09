@@ -34,7 +34,7 @@ namespace vf
 
 void
 vertex_attrib_pointer(
-	vf::attribute_context const &,
+	sge::opengl::vf::attribute_context const &,
 	GLuint index,
 	GLint size,
 	GLenum type,

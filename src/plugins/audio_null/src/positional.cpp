@@ -41,12 +41,6 @@ sge::audio_null::positional::play(
 {
 }
 
-sge::audio::sound::repeat
-sge::audio_null::positional::repeat() const
-{
-	return sge::audio::sound::repeat::once;
-}
-
 void
 sge::audio_null::positional::toggle_pause()
 {

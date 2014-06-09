@@ -48,7 +48,8 @@ public:
 		sge::cg::program::object &
 	);
 
-	~loaded_object();
+	~loaded_object()
+	override;
 
 	void
 	activate() const;

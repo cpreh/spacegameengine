@@ -106,8 +106,8 @@ public:
 	) = 0;
 
 	SGE_RENDERER_SYMBOL
-	virtual
-	~offscreen() = 0;
+	~offscreen()
+	override = 0;
 };
 
 }

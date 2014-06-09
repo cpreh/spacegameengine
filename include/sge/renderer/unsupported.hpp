@@ -85,7 +85,8 @@ public:
 	possible_extensions() const;
 
 	SGE_RENDERER_SYMBOL
-	~unsupported() throw();
+	~unsupported() throw()
+	override;
 private:
 	fcppt::string
 		feature_,

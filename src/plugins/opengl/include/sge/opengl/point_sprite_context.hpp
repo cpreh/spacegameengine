@@ -43,7 +43,8 @@ class point_sprite_context
 public:
 	point_sprite_context();
 
-	~point_sprite_context();
+	~point_sprite_context()
+	override;
 
 	bool
 	is_supported() const;

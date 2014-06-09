@@ -52,8 +52,8 @@ protected:
 	depth_stencil();
 public:
 	SGE_RENDERER_SYMBOL
-	virtual
-	~depth_stencil() = 0;
+	~depth_stencil()
+	override = 0;
 
 	typedef sge::renderer::dim2 dim;
 
@@ -77,13 +77,18 @@ public:
 		sge::renderer::texture::mipmap::level
 	) const = 0;
 
+	virtual
+	sge::renderer::texture::mipmap::level_count const
+	levels() const = 0;
+
 	SGE_RENDERER_SYMBOL
 	rect const
 	area() const;
 
 	SGE_RENDERER_SYMBOL
 	sge::renderer::texture::base::size_type
-	content() const;
+	content() const
+	override;
 };
 
 }

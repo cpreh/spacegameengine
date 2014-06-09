@@ -87,7 +87,8 @@ public:
 	);
 
 	SGE_CONSOLE_SYMBOL
-	~muxing_streambuf();
+	~muxing_streambuf()
+	override;
 private:
 	bool in_progress_;
 
@@ -106,7 +107,8 @@ private:
 	int_type
 	overflow(
 		int_type
-	);
+	)
+	override;
 
 	// TODO: This should be in src/
 	static

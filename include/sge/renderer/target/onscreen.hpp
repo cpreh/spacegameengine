@@ -65,8 +65,8 @@ public:
 	surface() const = 0;
 
 	SGE_RENDERER_SYMBOL
-	virtual
-	~onscreen() = 0;
+	~onscreen()
+	override = 0;
 };
 
 }

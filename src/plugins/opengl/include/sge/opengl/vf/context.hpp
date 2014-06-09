@@ -45,7 +45,8 @@ class context
 public:
 	context();
 
-	~context();
+	~context()
+	override;
 
 	sge::opengl::vf::client_state const &
 	state();

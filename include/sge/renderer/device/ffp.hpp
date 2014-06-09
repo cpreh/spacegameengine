@@ -140,8 +140,8 @@ public:
 	) = 0;
 
 	SGE_RENDERER_SYMBOL
-	virtual
-	~ffp() = 0;
+	~ffp()
+	override = 0;
 };
 
 }

@@ -43,7 +43,8 @@ class multi_sample_context
 public:
 	multi_sample_context();
 
-	~multi_sample_context();
+	~multi_sample_context()
+	override;
 
 	sge::opengl::optional_enum const
 	flag() const;

@@ -18,44 +18,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_RENDERER_COLOR_BUFFER_BASIC_IMPL_HPP_INCLUDED
-#define SGE_SRC_RENDERER_COLOR_BUFFER_BASIC_IMPL_HPP_INCLUDED
+#ifndef SGE_SRC_RENDERER_BASIC_BUFFER_IMPL_HPP_INCLUDED
+#define SGE_SRC_RENDERER_BASIC_BUFFER_IMPL_HPP_INCLUDED
 
 #include <sge/image/view/const_object.hpp>
 #include <sge/image/view/object.hpp>
+#include <sge/renderer/basic_buffer.hpp>
 #include <sge/renderer/basic_dim.hpp>
 #include <sge/renderer/basic_lock_box.hpp>
 #include <sge/renderer/lock_mode.hpp>
-#include <sge/renderer/size_type.hpp>
-#include <sge/renderer/color_buffer/basic.hpp>
 
 
 template<
-	sge::renderer::size_type Dim
+	typename Tag
 >
-sge::renderer::color_buffer::basic<
-	Dim
->::basic()
+sge::renderer::basic_buffer<
+	Tag
+>::basic_buffer()
 {
 }
 
 template<
-	sge::renderer::size_type Dim
+	typename Tag
 >
-sge::renderer::color_buffer::basic<
-	Dim
->::~basic()
+sge::renderer::basic_buffer<
+	Tag
+>::~basic_buffer()
 {
 }
 
 template<
-	sge::renderer::size_type Dim
+	typename Tag
 >
-typename sge::renderer::color_buffer::basic<
-	Dim
+typename sge::renderer::basic_buffer<
+	Tag
 >::const_view const
-sge::renderer::color_buffer::basic<
-	Dim
+sge::renderer::basic_buffer<
+	Tag
 >::lock() const
 {
 	return
@@ -65,13 +64,13 @@ sge::renderer::color_buffer::basic<
 }
 
 template<
-	sge::renderer::size_type Dim
+	typename Tag
 >
-typename sge::renderer::color_buffer::basic<
-	Dim
+typename sge::renderer::basic_buffer<
+	Tag
 >::view const
-sge::renderer::color_buffer::basic<
-	Dim
+sge::renderer::basic_buffer<
+	Tag
 >::lock(
 	sge::renderer::lock_mode const _mode
 )
@@ -84,13 +83,13 @@ sge::renderer::color_buffer::basic<
 }
 
 template<
-	sge::renderer::size_type Dim
+	typename Tag
 >
-typename sge::renderer::color_buffer::basic<
-	Dim
+typename sge::renderer::basic_buffer<
+	Tag
 >::lock_area const
-sge::renderer::color_buffer::basic<
-	Dim
+sge::renderer::basic_buffer<
+	Tag
 >::area() const
 {
 	return
@@ -101,13 +100,13 @@ sge::renderer::color_buffer::basic<
 }
 
 template<
-	sge::renderer::size_type Dim
+	typename Tag
 >
-typename sge::renderer::color_buffer::basic<
-	Dim
+typename sge::renderer::basic_buffer<
+	Tag
 >::size_type
-sge::renderer::color_buffer::basic<
-	Dim
+sge::renderer::basic_buffer<
+	Tag
 >::content() const
 {
 	return

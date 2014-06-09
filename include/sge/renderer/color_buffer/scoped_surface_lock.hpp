@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/object.hpp>
-#include <sge/renderer/color_buffer/basic_scoped_lock.hpp>
+#include <sge/renderer/basic_buffer_scoped_lock.hpp>
 #include <sge/renderer/color_buffer/surface.hpp>
 
 
@@ -34,9 +34,11 @@ namespace renderer
 namespace color_buffer
 {
 
-typedef sge::renderer::color_buffer::basic_scoped_lock<
+typedef
+sge::renderer::basic_buffer_scoped_lock<
 	sge::renderer::color_buffer::surface
-> scoped_surface_lock;
+>
+scoped_surface_lock;
 
 }
 }

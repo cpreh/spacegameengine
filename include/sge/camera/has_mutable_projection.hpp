@@ -34,13 +34,12 @@ namespace camera
 {
 class SGE_CLASS_SYMBOL has_mutable_projection
 :
-	public virtual camera::base
+	public virtual sge::camera::base
 {
 FCPPT_NONCOPYABLE(
 	has_mutable_projection);
 protected:
 	SGE_CAMERA_SYMBOL
-	explicit
 	has_mutable_projection();
 public:
 	virtual void
@@ -48,7 +47,8 @@ public:
 		sge::camera::projection_matrix const &) = 0;
 
 	SGE_CAMERA_SYMBOL
-	virtual ~has_mutable_projection() = 0;
+	~has_mutable_projection()
+	override = 0;
 };
 }
 }

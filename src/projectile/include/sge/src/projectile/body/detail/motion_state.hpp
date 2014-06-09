@@ -49,21 +49,27 @@ FCPPT_NONCOPYABLE(
 public:
 	explicit
 	motion_state(
-		object &);
+		sge::projectile::body::object &
+	);
 
-	~motion_state();
+	~motion_state()
+	override;
 private:
-	object &body_;
+	sge::projectile::body::object &body_;
 
 	// @override
 	void
 	getWorldTransform(
-		btTransform &) const;
+		btTransform &
+	) const
+	override;
 
 	// @override
 	void
 	setWorldTransform(
-		btTransform const &);
+		btTransform const &
+	)
+	override;
 };
 }
 }

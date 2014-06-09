@@ -64,7 +64,8 @@ public:
 	);
 
 	SGE_INPUT_SYMBOL
-	~activatable();
+	~activatable()
+	override;
 
 	SGE_INPUT_SYMBOL
 	fcppt::signal::auto_connection

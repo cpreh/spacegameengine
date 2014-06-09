@@ -63,7 +63,8 @@ public:
 		actor_vector const &
 	);
 
-	~unary_object();
+	~unary_object()
+	override;
 
 	void
 	set(

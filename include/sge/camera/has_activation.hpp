@@ -35,7 +35,7 @@ namespace camera
 {
 class SGE_CLASS_SYMBOL has_activation
 :
-	public virtual camera::base
+	public virtual sge::camera::base
 {
 FCPPT_NONCOPYABLE(
 	has_activation);
@@ -55,7 +55,8 @@ public:
 	toggle_is_active();
 
 	SGE_CAMERA_SYMBOL
-	virtual ~has_activation() = 0;
+	~has_activation()
+	override = 0;
 };
 }
 }

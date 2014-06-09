@@ -18,19 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_RENDERER_CONST_BASIC_SCOPED_BUFFER_LOCK_IMPL_HPP_INCLUDED
-#define SGE_SRC_RENDERER_CONST_BASIC_SCOPED_BUFFER_LOCK_IMPL_HPP_INCLUDED
+#ifndef SGE_SRC_RENDERER_CONST_LINEAR_BUFFER_SCOPED_LOCK_IMPL_HPP_INCLUDED
+#define SGE_SRC_RENDERER_CONST_LINEAR_BUFFER_SCOPED_LOCK_IMPL_HPP_INCLUDED
 
-#include <sge/renderer/const_basic_scoped_buffer_lock.hpp>
+#include <sge/renderer/const_linear_buffer_scoped_lock.hpp>
+
 
 template<
 	typename Buffer,
 	typename Types
 >
-sge::renderer::const_basic_scoped_buffer_lock<
+sge::renderer::const_linear_buffer_scoped_lock<
 	Buffer,
 	Types
->::const_basic_scoped_buffer_lock(
+>::const_linear_buffer_scoped_lock(
 	Buffer const &_buffer,
 	first_type const _first,
 	count_type const _count
@@ -52,11 +53,11 @@ template<
 	typename Buffer,
 	typename Types
 >
-typename sge::renderer::const_basic_scoped_buffer_lock<
+typename sge::renderer::const_linear_buffer_scoped_lock<
 	Buffer,
 	Types
 >::view_type const
-sge::renderer::const_basic_scoped_buffer_lock<
+sge::renderer::const_linear_buffer_scoped_lock<
 	Buffer,
 	Types
 >::value() const
@@ -68,10 +69,10 @@ template<
 	typename Buffer,
 	typename Types
 >
-sge::renderer::const_basic_scoped_buffer_lock<
+sge::renderer::const_linear_buffer_scoped_lock<
 	Buffer,
 	Types
->::~const_basic_scoped_buffer_lock()
+>::~const_linear_buffer_scoped_lock()
 {
 	buffer_.unlock();
 }

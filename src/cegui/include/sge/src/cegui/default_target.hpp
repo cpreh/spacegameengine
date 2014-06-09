@@ -56,41 +56,50 @@ public:
 		sge::cegui::optional_render_context_ref const &
 	);
 
-	~default_target();
+	~default_target()
+	override;
 private:
 	void
 	draw(
 		CEGUI::GeometryBuffer const &
-	);
+	)
+	override;
 
 	void
 	draw(
 		CEGUI::RenderQueue const &
-	);
+	)
+	override;
 public:
 	void
 	setArea(
 		CEGUI::Rectf const &
-	);
+	)
+	override;
 private:
 	CEGUI::Rectf const &
-	getArea() const;
+	getArea() const
+	override;
 
 	bool
-	isImageryCache() const;
+	isImageryCache() const
+	override;
 
 	void
-	activate();
+	activate()
+	override;
 
 	void
-	deactivate();
+	deactivate()
+	override;
 
 	void
 	unprojectPoint(
 		CEGUI::GeometryBuffer const &,
 		CEGUI::Vector2f const &p_in,
 		CEGUI::Vector2f &p_out
-	) const;
+	) const
+	override;
 
 	sge::renderer::device::ffp &renderer_;
 

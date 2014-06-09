@@ -44,7 +44,7 @@ namespace shape
 {
 class triangle_mesh
 :
-	public shape::base
+	public sge::projectile::shape::base
 {
 FCPPT_NONCOPYABLE(
 	triangle_mesh);
@@ -55,12 +55,16 @@ public:
 
 	// No symbol needed here
 	btCollisionShape &
-	bullet_shape();
+	bullet_shape()
+	override;
 
 	btCollisionShape const &
-	bullet_shape() const;
+	bullet_shape() const
+	override;
 
-	SGE_PROJECTILE_SYMBOL ~triangle_mesh();
+	SGE_PROJECTILE_SYMBOL
+	~triangle_mesh()
+	override;
 private:
 	typedef
 	fcppt::container::raw_vector<int>

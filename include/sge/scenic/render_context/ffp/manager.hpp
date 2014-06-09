@@ -47,15 +47,19 @@ public:
 	SGE_SCENIC_SYMBOL
 	manager(
 		sge::renderer::device::ffp &,
-		sge::renderer::vertex::declaration &);
+		sge::renderer::vertex::declaration &
+	);
 
 	SGE_SCENIC_SYMBOL
 	sge::scenic::render_context::base_unique_ptr
 	create_context(
-		sge::renderer::context::core &);
+		sge::renderer::context::core &
+	)
+	override;
 
 	SGE_SCENIC_SYMBOL
-	~manager();
+	~manager()
+	override;
 private:
 	friend class sge::scenic::render_context::ffp::object;
 

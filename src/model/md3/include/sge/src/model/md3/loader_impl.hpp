@@ -49,19 +49,22 @@ class loader_impl
 public:
 	loader_impl();
 
-	~loader_impl();
-
+	~loader_impl()
+	override;
+private:
 	sge::model::md3::object_unique_ptr
 	load(
 		boost::filesystem::path const &,
 		sge::model::md3::load_flags
-	);
+	)
+	override;
 
 	sge::model::md3::object_unique_ptr
 	load_stream(
 		std::istream &,
 		sge::model::md3::load_flags
-	);
+	)
+	override;
 };
 
 }

@@ -86,23 +86,27 @@ public:
 		sge::renderer::target::base &
 	);
 
-	~object();
+	~object()
+	override;
 
 	void
 	end_rendering();
 private:
 	sge::renderer::target::base &
-	target();
+	target()
+	override;
 
 	void
 	clear(
 		sge::renderer::clear::parameters const &
-	);
+	)
+	override;
 
 	void
 	offscreen_target(
 		sge::renderer::target::optional_offscreen_ref const &
-	);
+	)
+	override;
 
 	void
 	render_indexed(
@@ -112,122 +116,145 @@ private:
 		sge::renderer::primitive_type,
 		sge::renderer::index::first,
 		sge::renderer::index::count
-	);
+	)
+	override;
 
 	void
 	render_nonindexed(
 		sge::renderer::vertex::first,
 		sge::renderer::vertex::count,
 		sge::renderer::primitive_type
-	);
+	)
+	override;
 
 	void
 	activate_vertex_buffer(
 		sge::renderer::vertex::buffer const &
-	);
+	)
+	override;
 
 	void
 	deactivate_vertex_buffer(
 		sge::renderer::vertex::buffer const &
-	);
+	)
+	override;
 
 	void
 	vertex_declaration(
 		sge::renderer::vertex::const_optional_declaration_ref const &
-	);
+	)
+	override;
 
 	void
 	texture(
 		sge::renderer::texture::const_optional_base_ref const &,
 		sge::renderer::texture::stage
-	);
+	)
+	override;
 
 	void
 	blend_state(
 		sge::renderer::state::core::blend::const_optional_object_ref const &
-	);
+	)
+	override;
 
 	void
 	depth_stencil_state(
 		sge::renderer::state::core::depth_stencil::const_optional_object_ref const &
-	);
+	)
+	override;
 
 	void
 	rasterizer_state(
 		sge::renderer::state::core::rasterizer::const_optional_object_ref const &
-	);
+	)
+	override;
 
 	void
 	sampler_state(
 		sge::renderer::state::core::sampler::const_optional_object_ref_map const &
-	);
+	)
+	override;
 
 	void
 	alpha_test_state(
 		sge::renderer::state::ffp::alpha_test::const_optional_object_ref const &
-	);
+	)
+	override;
 
 	void
 	clip_plane_state(
 		sge::renderer::state::ffp::clip_plane::const_object_ref_vector const &
-	);
+	)
+	override;
 
 	void
 	fog_state(
 		sge::renderer::state::ffp::fog::const_optional_object_ref const &
-	);
+	)
+	override;
 
 	void
 	lighting_state(
 		sge::renderer::state::ffp::lighting::const_optional_object_ref const &
-	);
+	)
+	override;
 
 	void
 	lights_state(
 		sge::renderer::state::ffp::lighting::light::const_object_ref_vector const &
-	);
+	)
+	override;
 
 	void
 	material_state(
 		sge::renderer::state::ffp::lighting::material::const_optional_object_ref const &
-	);
+	)
+	override;
 
 	void
 	misc_state(
 		sge::renderer::state::ffp::misc::const_optional_object_ref const &
-	);
+	)
+	override;
 
 	void
 	sampler_ffp_state(
 		sge::renderer::state::ffp::sampler::const_object_ref_vector const &
-	);
+	)
+	override;
 
 	void
 	transform(
 		sge::renderer::state::ffp::transform::mode,
 		sge::renderer::state::ffp::transform::const_optional_object_ref const &
-	);
+	)
+	override;
 
 #if defined(SGE_RENDERER_HAVE_CG)
 	void
 	set_cg_program(
 		sge::renderer::cg::loaded_program const &
-	);
+	)
+	override;
 
 	void
 	unset_cg_program(
 		sge::renderer::cg::loaded_program const &
-	);
+	)
+	override;
 
 	sge::renderer::texture::stage const
 	set_cg_texture(
 		sge::renderer::cg::loaded_texture const &
-	);
+	)
+	override;
 
 	void
 	unset_cg_texture(
 		sge::renderer::cg::loaded_texture const &
-	);
+	)
+	override;
 #endif
 
 	sge::opengl::context::system::object &system_context_;

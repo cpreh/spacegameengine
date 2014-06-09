@@ -50,19 +50,24 @@ public:
 		awl::backends::x11::window::object &
 	);
 
-	~context();
+	~context()
+	override;
 private:
 	void
-	activate();
+	activate()
+	override;
 
 	void
-	deactivate();
+	deactivate()
+	override;
 
 	void
-	begin_rendering();
+	begin_rendering()
+	override;
 
 	void
-	end_rendering();
+	end_rendering()
+	override;
 
 	awl::backends::x11::window::object &window_;
 

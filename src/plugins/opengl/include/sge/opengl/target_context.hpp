@@ -42,7 +42,8 @@ class target_context
 public:
 	target_context();
 
-	~target_context();
+	~target_context()
+	override;
 
 	sge::opengl::optional_target_base_ref const &
 	last_target();

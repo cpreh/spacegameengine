@@ -51,7 +51,8 @@ public:
 		sge::renderer::pixel_format::object const &
 	);
 
-	~object();
+	~object()
+	override;
 };
 
 }

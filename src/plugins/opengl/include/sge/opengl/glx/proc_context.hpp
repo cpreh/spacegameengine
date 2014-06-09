@@ -47,7 +47,8 @@ class proc_context
 public:
 	proc_context();
 
-	~proc_context();
+	~proc_context()
+	override;
 
 	bool
 	get_proc_address_supported() const;

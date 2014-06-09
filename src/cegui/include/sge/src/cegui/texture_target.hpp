@@ -63,55 +63,68 @@ public:
 		sge::cegui::optional_render_context_ref const &
 	);
 
-	~texture_target();
+	~texture_target()
+	override;
 private:
 	void
 	draw(
 		CEGUI::GeometryBuffer const &
-	);
+	)
+	override;
 
 	void
 	draw(
 		CEGUI::RenderQueue const &
-	);
+	)
+	override;
 
 	void
 	setArea(
 		CEGUI::Rectf const &
-	);
+	)
+	override;
 
 	CEGUI::Rectf const &
-	getArea() const;
+	getArea() const
+	override;
 
 	bool
-	isImageryCache() const;
+	isImageryCache() const
+	override;
 
 	void
-	activate();
+	activate()
+	override;
 
 	void
-	deactivate();
+	deactivate()
+	override;
 
 	void
 	unprojectPoint(
 		CEGUI::GeometryBuffer const & buff,
 		CEGUI::Vector2f const &p_in,
 		CEGUI::Vector2f & p_out
-	) const;
+	) const
+	override;
 
 	void
-	clear();
+	clear()
+	override;
 
 	CEGUI::Texture &
-	getTexture() const;
+	getTexture() const
+	override;
 
 	void
 	declareRenderSize(
 		CEGUI::Sizef const &
-	);
+	)
+	override;
 
 	bool
-	isRenderingInverted() const;
+	isRenderingInverted() const
+	override;
 private:
 	sge::cegui::texture_parameters const texture_parameters_;
 

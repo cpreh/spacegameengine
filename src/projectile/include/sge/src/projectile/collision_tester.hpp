@@ -42,7 +42,8 @@ class collision_tester
 public:
 	collision_tester();
 
-	~collision_tester();
+	~collision_tester()
+	override;
 
 	bool
 	result() const;
@@ -50,7 +51,8 @@ private:
 	bool
 	needsCollision(
 		btBroadphaseProxy *
-	) const;
+	) const
+	override;
 
 	btScalar
 	addSingleResult(
@@ -61,7 +63,8 @@ private:
 		btCollisionObjectWrapper const *colObj1Wrap,
 		int partId1,
 		int index1
-	);
+	)
+	override;
 
 	bool result_;
 };

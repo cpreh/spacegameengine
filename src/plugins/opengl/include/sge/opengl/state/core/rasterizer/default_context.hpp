@@ -53,7 +53,8 @@ public:
 
 	default_context();
 
-	~default_context();
+	~default_context()
+	override;
 
 	sge::opengl::state::core::rasterizer::object const &
 	default_state() const;

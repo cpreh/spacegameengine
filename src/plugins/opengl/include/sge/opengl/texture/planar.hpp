@@ -51,7 +51,8 @@ public:
 		sge::renderer::texture::planar_parameters const &
 	);
 
-	~planar();
+	~planar()
+	override;
 };
 
 }

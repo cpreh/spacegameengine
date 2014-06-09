@@ -43,8 +43,8 @@ class pointer_actor
 		pointer_actor
 	);
 public:
-	virtual
-	~pointer_actor() = 0;
+	~pointer_actor()
+	override = 0;
 protected:
 	explicit
 	pointer_actor(
@@ -52,7 +52,8 @@ protected:
 	);
 
 	sge::renderer::vf::dynamic::offset const
-	offset() const;
+	offset() const
+	override;
 
 	sge::renderer::vf::dynamic::stride const
 	stride() const;

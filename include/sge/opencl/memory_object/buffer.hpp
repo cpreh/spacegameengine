@@ -58,12 +58,14 @@ public:
 		memory_object::renderer_buffer_lock_mode);
 
 	SGE_OPENCL_SYMBOL cl_mem
-	impl();
+	impl()
+	override;
 
 	SGE_OPENCL_SYMBOL memory_object::byte_size const
 	byte_size() const;
 
-	SGE_OPENCL_SYMBOL ~buffer();
+	SGE_OPENCL_SYMBOL ~buffer()
+	override;
 private:
 	cl_mem impl_;
 	memory_object::byte_size const byte_size_;

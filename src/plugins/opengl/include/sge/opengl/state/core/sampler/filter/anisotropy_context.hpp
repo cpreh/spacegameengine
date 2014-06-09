@@ -50,7 +50,8 @@ class anisotropy_context
 public:
 	anisotropy_context();
 
-	~anisotropy_context();
+	~anisotropy_context()
+	override;
 
 	sge::opengl::optional_enum const
 	anisotropy_flag() const;

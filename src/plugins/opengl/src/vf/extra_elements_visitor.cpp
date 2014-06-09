@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/color/element_count.hpp>
+#include <sge/opengl/common.hpp>
 #include <sge/opengl/vf/extra_elements_visitor.hpp>
 #include <sge/renderer/vf/dynamic/color.hpp>
 #include <sge/renderer/vf/dynamic/vector.hpp>
@@ -26,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 GLint
 sge::opengl::vf::extra_elements_visitor::operator()(
-	renderer::vf::dynamic::vector const &_vector
+	sge::renderer::vf::dynamic::vector const &_vector
 ) const
 {
 	return
@@ -39,7 +40,7 @@ sge::opengl::vf::extra_elements_visitor::operator()(
 
 GLint
 sge::opengl::vf::extra_elements_visitor::operator()(
-	renderer::vf::dynamic::color const &_color
+	sge::renderer::vf::dynamic::color const &_color
 ) const
 {
 	return

@@ -48,7 +48,8 @@ class cube_context
 public:
 	cube_context();
 
-	~cube_context();
+	~cube_context()
+	override;
 
 	bool
 	have_cube_texture() const;

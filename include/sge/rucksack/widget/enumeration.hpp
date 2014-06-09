@@ -55,33 +55,52 @@ public:
 	SGE_RUCKSACK_SYMBOL
 	enumeration(
 		sge::rucksack::padding const &,
-		sge::rucksack::aspect const &);
+		sge::rucksack::aspect const &
+	);
 
-	SGE_RUCKSACK_SYMBOL void
+	SGE_RUCKSACK_SYMBOL
+	void
 	size(
-		sge::rucksack::dim const &);
+		sge::rucksack::dim const &
+	)
+	override;
 
-	SGE_RUCKSACK_SYMBOL void
+	SGE_RUCKSACK_SYMBOL
+	void
 	position(
-		sge::rucksack::vector const &);
+		sge::rucksack::vector const &
+	)
+	override;
 
-	SGE_RUCKSACK_SYMBOL sge::rucksack::dim const
-	size() const;
+	SGE_RUCKSACK_SYMBOL
+	sge::rucksack::dim const
+	size() const
+	override;
 
-	SGE_RUCKSACK_SYMBOL sge::rucksack::vector const
-	position() const;
+	SGE_RUCKSACK_SYMBOL
+	sge::rucksack::vector const
+	position() const
+	override;
 
-	SGE_RUCKSACK_SYMBOL sge::rucksack::axis_policy2 const
-	axis_policy() const;
+	SGE_RUCKSACK_SYMBOL
+	sge::rucksack::axis_policy2 const
+	axis_policy() const
+	override;
 
-	SGE_RUCKSACK_SYMBOL void
-	relayout();
+	SGE_RUCKSACK_SYMBOL
+	void
+	relayout()
+	override;
 
-	SGE_RUCKSACK_SYMBOL void
+	SGE_RUCKSACK_SYMBOL
+	void
 	push_back_child(
-		sge::rucksack::widget::base &);
+		sge::rucksack::widget::base &
+	);
 
-	SGE_RUCKSACK_SYMBOL ~enumeration();
+	SGE_RUCKSACK_SYMBOL
+	~enumeration()
+	override;
 private:
 	typedef
 	std::vector<sge::rucksack::widget::base*>
@@ -95,7 +114,9 @@ private:
 
 	void
 	child_destroyed(
-		sge::rucksack::widget::base &);
+		sge::rucksack::widget::base &
+	)
+	override;
 };
 }
 }

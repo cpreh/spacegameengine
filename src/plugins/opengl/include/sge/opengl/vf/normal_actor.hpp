@@ -38,23 +38,25 @@ namespace vf
 
 class normal_actor
 :
-	public vf::fp_actor
+	public sge::opengl::vf::fp_actor
 {
 	FCPPT_NONCOPYABLE(
 		normal_actor
 	);
 public:
-	explicit normal_actor(
-		actor_parameters const &,
-		renderer::vf::dynamic::normal const &
+	normal_actor(
+		sge::opengl::vf::actor_parameters const &,
+		sge::renderer::vf::dynamic::normal const &
 	);
 
-	~normal_actor();
+	~normal_actor()
+	override;
 private:
 	void
 	on_use(
-		vf::pointer
-	) const;
+		sge::opengl::vf::pointer
+	) const
+	override;
 
 	GLenum const format_;
 };

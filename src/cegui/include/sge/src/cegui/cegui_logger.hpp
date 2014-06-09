@@ -47,19 +47,22 @@ class cegui_logger
 public:
 	cegui_logger();
 
-	~cegui_logger();
+	~cegui_logger()
+	override;
 private:
 	void
 	logEvent(
 		CEGUI::String const & message,
 		CEGUI::LoggingLevel level
-	);
+	)
+	override;
 
 	void
 	setLogFilename(
 		CEGUI::String const &filename,
 		bool append
-	);
+	)
+	override;
 };
 
 }

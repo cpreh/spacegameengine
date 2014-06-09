@@ -51,34 +51,44 @@ public:
 		sge::renderer::resource_flags_field const &
 	);
 
-	~readonly_lock();
+	~readonly_lock()
+	override;
 
 	void
-	lock();
+	lock()
+	override;
 
 	void
-	unlock();
+	unlock()
+	override;
 
 	void
-	pre_unlock();
+	pre_unlock()
+	override;
 
 	void
-	post_copy();
+	post_copy()
+	override;
 
 	pointer
-	read_pointer();
+	read_pointer()
+	override;
 
 	pointer
-	write_pointer();
+	write_pointer()
+	override;
 
 	pointer
-	read_view_pointer();
+	read_view_pointer()
+	override;
 
 	pointer
-	write_view_pointer();
+	write_view_pointer()
+	override;
 private:
 	sge::renderer::lock_flags::method
-	method() const;
+	method() const
+	override;
 
 	sge::opengl::buffer::object buffer_;
 };

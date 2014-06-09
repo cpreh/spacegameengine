@@ -45,82 +45,96 @@ class positional
 public:
 	positional();
 
-	~positional();
-
+	~positional()
+	override;
+private:
 	void
 	play(
 		sge::audio::sound::repeat
-	);
-
-	sge::audio::sound::repeat
-	repeat() const;
+	)
+	override;
 
 	void
-	toggle_pause();
+	toggle_pause()
+	override;
 
 	sge::audio::sound::play_status
-	status() const;
+	status() const
+	override;
 
 	void
-	stop();
+	stop()
+	override;
 
 	void
-	update();
+	update()
+	override;
 
 	void
 	position(
-		audio::vector const &
-	);
+		sge::audio::vector const &
+	)
+	override;
 
 	void
 	linear_velocity(
-		audio::vector const &
-	);
+		sge::audio::vector const &
+	)
+	override;
 
 	void
 	gain(
-		audio::scalar
-	);
+		sge::audio::scalar
+	)
+	override;
 
 	void
 	pitch(
-		audio::scalar
-	);
+		sge::audio::scalar
+	)
+	override;
 
 	void
 	rolloff_factor(
-		audio::scalar
-	);
+		sge::audio::scalar
+	)
+	override;
 
 	void
 	reference_distance(
-		audio::scalar
-	);
+		sge::audio::scalar
+	)
+	override;
 
 	void
 	max_distance(
-		audio::scalar
-	);
+		sge::audio::scalar
+	)
+	override;
 
 	void
 	direction(
-		audio::sound::optional_direction const &
-	);
+		sge::audio::sound::optional_direction const &
+	)
+	override;
 
 	void
 	inner_cone_angle(
-		audio::scalar
-	);
+		sge::audio::scalar
+	)
+	override;
 
 	void
 	outer_cone_angle(
-		audio::scalar
-	);
+		sge::audio::scalar
+	)
+	override;
 
 	void
 	outer_cone_gain(
-		audio::scalar
-	);
+		sge::audio::scalar
+	)
+	override;
 };
 
 }

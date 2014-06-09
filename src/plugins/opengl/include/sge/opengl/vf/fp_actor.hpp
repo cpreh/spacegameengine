@@ -38,33 +38,37 @@ namespace vf
 
 class fp_actor
 :
-	public vf::pointer_actor
+	public sge::opengl::vf::pointer_actor
 {
 	FCPPT_NONCOPYABLE(
 		fp_actor
 	);
 public:
-	virtual ~fp_actor();
+	~fp_actor()
+	override = 0;
 protected:
-	explicit fp_actor(
-		vf::actor_parameters const &,
+	fp_actor(
+		sge::opengl::vf::actor_parameters const &,
 		GLenum client_state
 	);
 private:
 	void
 	operator()(
-		client_state_combiner &,
+		sge::opengl::vf::client_state_combiner &,
 		vf::pointer
-	) const;
+	) const
+	override;
 
 	void
 	unuse(
-		client_state_combiner &
-	) const;
+		sge::opengl::vf::client_state_combiner &
+	) const
+	override;
 
-	virtual void
+	virtual
+	void
 	on_use(
-		vf::pointer
+		sge::opengl::vf::pointer
 	) const = 0;
 
 	GLenum const client_state_;

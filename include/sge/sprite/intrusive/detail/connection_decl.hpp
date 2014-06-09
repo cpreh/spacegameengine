@@ -59,7 +59,8 @@ public:
 		sge::sprite::count &
 	);
 
-	~connection();
+	~connection()
+	override;
 
 	typedef sge::sprite::intrusive::connection<
 		Choices
@@ -70,10 +71,12 @@ public:
 	void
 	add(
 		object &
-	);
+	)
+	override;
 
 	void
-	remove();
+	remove()
+	override;
 private:
 	list &list_;
 

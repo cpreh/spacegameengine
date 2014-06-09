@@ -34,7 +34,7 @@ namespace audio_null
 
 class listener
 :
-	public audio::listener
+	public sge::audio::listener
 {
 	FCPPT_NONCOPYABLE(
 		listener
@@ -42,22 +42,26 @@ class listener
 public:
 	listener();
 
-	~listener();
-
+	~listener()
+	override;
+private:
 	void
 	position(
-		audio::vector const &
-	);
+		sge::audio::vector const &
+	)
+	override;
 
 	void
 	linear_velocity(
-		audio::vector const &
-	);
+		sge::audio::vector const &
+	)
+	override;
 
 	void
 	direction(
-		audio::direction::object const &
-	);
+		sge::audio::direction::object const &
+	)
+	override;
 };
 
 }

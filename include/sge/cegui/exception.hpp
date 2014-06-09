@@ -44,8 +44,8 @@ public:
 	);
 
 	SGE_CEGUI_SYMBOL
-	virtual
-	~exception() throw();
+	~exception() throw()
+	override;
 };
 
 }

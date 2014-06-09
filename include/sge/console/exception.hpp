@@ -44,8 +44,8 @@ public:
 	);
 
 	SGE_CONSOLE_SYMBOL
-	virtual
-	~exception() throw();
+	~exception() throw()
+	override;
 
 	SGE_CONSOLE_SYMBOL
 	sge::font::string const &

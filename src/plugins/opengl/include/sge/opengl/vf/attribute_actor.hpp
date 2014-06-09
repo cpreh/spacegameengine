@@ -52,18 +52,21 @@ public:
 		sge::renderer::vf::dynamic::extra const &
 	);
 
-	~attribute_actor();
+	~attribute_actor()
+	override;
 private:
 	void
 	operator()(
 		sge::opengl::vf::client_state_combiner &,
 		sge::opengl::vf::pointer
-	) const;
+	) const
+	override;
 
 	void
 	unuse(
 		sge::opengl::vf::client_state_combiner &
-	) const;
+	) const
+	override;
 
 	sge::opengl::vf::attribute_context &attribute_context_;
 

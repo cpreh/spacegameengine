@@ -50,31 +50,37 @@ public:
 		audio::optional_path const &);
 
 	audio::sample_count
-	bits_per_sample() const;
+	bits_per_sample() const
+	override;
 
 	audio::sample_count
-	sample_rate() const;
+	sample_rate() const
+	override;
 
 	audio::channel_type
-	channels() const;
+	channels() const
+	override;
 
 	audio::sample_count
-	samples() const;
-
-	audio::sample_count
-	expected_package_size() const;
+	expected_package_size() const
+	override;
 
 	void
-	reset();
+	reset()
+	override;
 
 	audio::sample_count
 	read(
 		audio::sample_count,
-		audio::sample_container &);
+		audio::sample_container &
+	)
+	override;
 
 	audio::sample_count
 	read_all(
-		audio::sample_container &);
+		audio::sample_container &
+	)
+	override;
 private:
 	sge::audio::optional_path filename_;
 	boost::logic::tribool swap_;

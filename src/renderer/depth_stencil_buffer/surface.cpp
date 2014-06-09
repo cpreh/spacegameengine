@@ -18,32 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/dim2.hpp>
-#include <sge/renderer/lock_rect.hpp>
+#include <sge/imageds2d/tag.hpp>
+#include <sge/imageds2d/view/const_object.hpp>
+#include <sge/imageds2d/view/object.hpp>
 #include <sge/renderer/depth_stencil_buffer/surface.hpp>
+#include <sge/src/renderer/instantiate_basic_buffer.hpp>
 
 
-sge::renderer::depth_stencil_buffer::surface::surface()
-{
-}
-
-sge::renderer::depth_stencil_buffer::surface::~surface()
-{
-}
-
-sge::renderer::depth_stencil_buffer::surface::lock_area const
-sge::renderer::depth_stencil_buffer::surface::area() const
-{
-	return
-		lock_area(
-			lock_area::vector::null(),
-			this->size()
-		);
-}
-
-sge::renderer::depth_stencil_buffer::surface::size_type
-sge::renderer::depth_stencil_buffer::surface::content() const
-{
-	return
-		this->size().content();
-}
+SGE_RENDERER_INSTANTIATE_BASIC_BUFFER(
+	sge::imageds2d::tag
+);

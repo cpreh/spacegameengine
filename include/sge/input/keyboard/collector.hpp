@@ -63,29 +63,34 @@ public:
 	);
 
 	SGE_INPUT_SYMBOL
-	~collector();
+	~collector()
+	override;
 
 	SGE_INPUT_SYMBOL
 	fcppt::signal::auto_connection
 	char_callback(
 		sge::input::keyboard::char_callback const &
-	);
+	)
+	override;
 
 	SGE_INPUT_SYMBOL
 	fcppt::signal::auto_connection
 	key_callback(
 		sge::input::keyboard::key_callback const &
-	);
+	)
+	override;
 
 	SGE_INPUT_SYMBOL
 	fcppt::signal::auto_connection
 	key_repeat_callback(
 		sge::input::keyboard::key_repeat_callback const &
-	);
+	)
+	override;
 
 	SGE_INPUT_SYMBOL
 	sge::input::keyboard::mod_state const
-	mod_state() const;
+	mod_state() const
+	override;
 private:
 	void
 	char_callback_internal(

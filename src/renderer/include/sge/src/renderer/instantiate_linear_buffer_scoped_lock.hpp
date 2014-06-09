@@ -18,21 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_RENDERER_COLOR_BUFFER_INSTANTIATE_CONST_BASIC_SCOPED_LOCK_HPP_INCLUDED
-#define SGE_SRC_RENDERER_COLOR_BUFFER_INSTANTIATE_CONST_BASIC_SCOPED_LOCK_HPP_INCLUDED
+#ifndef SGE_SRC_RENDERER_INSTANTIATE_LINEAR_BUFFER_SCOPED_LOCK_HPP_INCLUDED
+#define SGE_SRC_RENDERER_INSTANTIATE_LINEAR_BUFFER_SCOPED_LOCK_HPP_INCLUDED
 
 #include <sge/src/export_class_instantiation.hpp>
-#include <sge/src/renderer/color_buffer/const_basic_scoped_lock_impl.hpp>
+#include <sge/src/renderer/linear_buffer_scoped_lock_impl.hpp>
 
 
-#define SGE_RENDERER_COLOR_BUFFER_INSTANTIATE_CONST_BASIC_SCOPED_LOCK(\
-	buffer\
+#define SGE_RENDERER_INSTANTIATE_LINEAR_BUFFER_SCOPED_LOCK(\
+	buffer_type,\
+	types_struct\
 )\
 template \
 class \
 SGE_EXPORT_CLASS_INSTANTIATION \
-sge::renderer::color_buffer::const_basic_scoped_lock<\
-	buffer\
+sge::renderer::linear_buffer_scoped_lock<\
+	buffer_type,\
+	types_struct\
 >
 
 #endif

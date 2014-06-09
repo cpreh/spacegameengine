@@ -51,27 +51,33 @@ public:
 		awl::window::object &
 	);
 
-	~onscreen_surface();
+	~onscreen_surface()
+	override;
 private:
 	sge::renderer::color_buffer::surface::const_view const
 	lock(
 		sge::renderer::color_buffer::surface::lock_area const &
-	) const;
+	) const
+	override;
 
 	sge::renderer::color_buffer::surface::view const
 	lock(
 		sge::renderer::color_buffer::surface::lock_area const &,
 		sge::renderer::lock_mode
-	);
+	)
+	override;
 
 	void
-	unlock() const;
+	unlock() const
+	override;
 
 	dim const
-	size() const;
+	size() const
+	override;
 
 	sge::image::color::format
-	format() const;
+	format() const
+	override;
 
 	sge::opengl::color_format const
 	color_format() const;

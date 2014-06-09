@@ -54,35 +54,42 @@ protected:
 		sge::renderer::target::viewport const &
 	);
 public:
-	virtual
-	~basic_target();
+	~basic_target()
+	override;
 private:
 	void
-	bind();
+	bind()
+	override;
 
 	void
-	unbind();
+	unbind()
+	override;
 
 	void
 	viewport(
 		sge::renderer::target::viewport const &
-	);
+	)
+	override;
 
 	sge::renderer::target::viewport const
-	viewport() const;
+	viewport() const
+	override;
 
 	void
 	scissor_area(
 		sge::renderer::target::scissor_area const &
-	);
+	)
+	override;
 
 	sge::renderer::target::scissor_area const
-	scissor_area() const;
+	scissor_area() const
+	override;
 
 	void
 	clear(
 		sge::renderer::clear::parameters const &
-	);
+	)
+	override;
 
 	void
 	set_viewport();

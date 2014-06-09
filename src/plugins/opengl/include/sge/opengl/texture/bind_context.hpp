@@ -48,7 +48,8 @@ class bind_context
 public:
 	bind_context();
 
-	~bind_context();
+	~bind_context()
+	override;
 
 	sge::opengl::texture::const_optional_base_ref const
 	stage(

@@ -52,8 +52,8 @@ protected:
 	cube();
 public:
 	SGE_RENDERER_SYMBOL
-	virtual
-	~cube() = 0;
+	~cube()
+	override;
 
 	typedef sge::renderer::lock_rect rect;
 
@@ -61,7 +61,8 @@ public:
 
 	SGE_RENDERER_SYMBOL
 	sge::renderer::texture::base::size_type
-	content() const;
+	content() const
+	override;
 
 	SGE_RENDERER_SYMBOL
 	rect const

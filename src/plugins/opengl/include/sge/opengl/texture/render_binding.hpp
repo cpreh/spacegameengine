@@ -49,13 +49,16 @@ public:
 		sge::opengl::texture::type
 	);
 
-	~render_binding();
+	~render_binding()
+	override;
 
 	sge::renderer::texture::stage const
-	stage() const;
+	stage() const
+	override;
 
 	sge::opengl::texture::type const
-	type() const;
+	type() const
+	override;
 private:
 	sge::renderer::texture::stage const stage_;
 

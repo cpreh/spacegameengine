@@ -40,7 +40,7 @@ namespace vf
 
 class texpos_actor
 :
-	public vf::pointer_actor
+	public sge::opengl::vf::pointer_actor
 {
 	FCPPT_NONCOPYABLE(
 		texpos_actor
@@ -51,18 +51,21 @@ public:
 		sge::renderer::vf::dynamic::texpos const &
 	);
 
-	~texpos_actor();
+	~texpos_actor()
+	override;
 private:
 	void
 	operator()(
-		vf::client_state_combiner &,
-		vf::pointer
-	) const;
+		sge::opengl::vf::client_state_combiner &,
+		sge::opengl::vf::pointer
+	) const
+	override;
 
 	void
 	unuse(
-		vf::client_state_combiner &
-	) const;
+		sge::opengl::vf::client_state_combiner &
+	) const
+	override;
 
 	sge::opengl::context::system::object &system_context_;
 
@@ -70,7 +73,7 @@ private:
 
 	GLenum const format_;
 
-	renderer::texture::stage const index_;
+	sge::renderer::texture::stage const index_;
 };
 
 }

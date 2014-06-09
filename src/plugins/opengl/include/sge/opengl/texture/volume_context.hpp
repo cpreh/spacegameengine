@@ -47,7 +47,8 @@ class volume_context
 public:
 	volume_context();
 
-	~volume_context();
+	~volume_context()
+	override;
 
 	bool
 	have_volume_texture() const;

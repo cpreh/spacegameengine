@@ -52,8 +52,8 @@ protected:
 	planar();
 public:
 	SGE_RENDERER_SYMBOL
-	virtual
-	~planar() = 0;
+	~planar()
+	override = 0;
 
 	typedef sge::renderer::dim2 dim;
 
@@ -87,7 +87,8 @@ public:
 
 	SGE_RENDERER_SYMBOL
 	sge::renderer::texture::base::size_type
-	content() const;
+	content() const
+	override;
 };
 
 }

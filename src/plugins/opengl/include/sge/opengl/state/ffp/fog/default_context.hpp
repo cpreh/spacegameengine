@@ -53,7 +53,8 @@ public:
 
 	default_context();
 
-	~default_context();
+	~default_context()
+	override;
 
 	sge::opengl::state::ffp::fog::object const &
 	default_state() const;

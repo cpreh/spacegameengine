@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_COLOR_BUFFER_BASIC_SCOPED_LOCK_HPP_INCLUDED
-#define SGE_RENDERER_COLOR_BUFFER_BASIC_SCOPED_LOCK_HPP_INCLUDED
+#ifndef SGE_RENDERER_CONST_BASIC_BUFFER_SCOPED_LOCK_HPP_INCLUDED
+#define SGE_RENDERER_CONST_BASIC_BUFFER_SCOPED_LOCK_HPP_INCLUDED
 
-#include <sge/image/view/object.hpp>
-#include <sge/renderer/lock_mode_fwd.hpp>
+#include <sge/image/view/const_object.hpp>
+#include <sge/renderer/const_basic_buffer_scoped_lock_fwd.hpp>
 #include <sge/renderer/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -31,67 +31,58 @@ namespace sge
 {
 namespace renderer
 {
-namespace color_buffer
-{
 
 /**
-\brief Locks a color buffer readwrite or writeonly.
+\brief Locks a buffer readonly.
 
-Used for locking of color buffers readwrite or writeonly. It locks the color
-buffer in the constructor and unlocks it in the destructor.
+Used for locking of buffers readonly. It locks the buffer in the constructor
+and unlocks it in the destructor.
 */
 template<
 	typename Buffer
 >
-class basic_scoped_lock
+class const_basic_buffer_scoped_lock
 {
 	FCPPT_NONCOPYABLE(
-		basic_scoped_lock
+		const_basic_buffer_scoped_lock
 	);
 public:
 	typedef Buffer buffer_type;
 
 	typedef typename buffer_type::lock_area lock_area;
 
-	typedef typename buffer_type::view view;
+	typedef typename buffer_type::const_view const_view;
 
 	/**
-	\brief Locks an entire color buffer
+	\brief Locks an entire buffer
 
 	\param buffer The buffer to lock
 
-	\param mode The lock mode to use
-
-	\warning The behavior is undefined if the color buffer is already
-	locked
+	\warning The behavior is undefined if the buffer is already locked
 	*/
 	SGE_RENDERER_SYMBOL
-	basic_scoped_lock(
-		buffer_type &buffer,
-		sge::renderer::lock_mode mode
+	explicit
+	const_basic_buffer_scoped_lock(
+		buffer_type const &buffer
 	);
 
 	/**
-	\brief Locks a portion of a color buffer
+	\brief Locks a portion of a buffer
 
 	Locks the portion of \a buffer described by \a area
 
-	\param buffer The color buffer to lock
+	\param buffer The buffer to lock
 
 	\param area The area to lock
 
-	\param mode The lock mode to use
-
-	\warning The behavior is undefined if the color buffer is already
-	locked
+	\warning The behavior is undefined if the buffer is already locked
 
 	\warning The behavior is undefined if \a area is out of range
 	*/
 	SGE_RENDERER_SYMBOL
-	basic_scoped_lock(
-		buffer_type &buffer,
-		lock_area const &area,
-		sge::renderer::lock_mode mode
+	const_basic_buffer_scoped_lock(
+		buffer_type const &buffer,
+		lock_area const &area
 	);
 
 	/**
@@ -100,24 +91,23 @@ public:
 	\return The view of the locked region
 	*/
 	SGE_RENDERER_SYMBOL
-	view const
+	const_view const
 	value() const;
 
 	/**
-	\brief Unlocks the color buffer
+	\brief Unlocks the buffer
 
-	\warning The behavior is undefined if the color buffer has been
+	\warning The behavior is undefined if the buffer has been
 	locked again or unlocked in between the constructor and destructor
 	*/
 	SGE_RENDERER_SYMBOL
-	~basic_scoped_lock();
+	~const_basic_buffer_scoped_lock();
 private:
-	buffer_type &buffer_;
+	buffer_type const &buffer_;
 
-	view const view_;
+	const_view const view_;
 };
 
-}
 }
 }
 

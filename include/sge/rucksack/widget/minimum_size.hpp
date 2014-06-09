@@ -55,32 +55,39 @@ public:
 	void
 	size(
 		sge::rucksack::dim const &
-	);
+	)
+	override;
 
 	SGE_RUCKSACK_SYMBOL
 	void
 	position(
 		sge::rucksack::vector const &
-	);
+	)
+	override;
 
 	SGE_RUCKSACK_SYMBOL
 	sge::rucksack::dim const
-	size() const;
+	size() const
+	override;
 
 	SGE_RUCKSACK_SYMBOL
 	sge::rucksack::vector const
-	position() const;
+	position() const
+	override;
 
 	SGE_RUCKSACK_SYMBOL
 	sge::rucksack::axis_policy2 const
-	axis_policy() const;
+	axis_policy() const
+	override;
 
 	SGE_RUCKSACK_SYMBOL
 	void
-	relayout();
+	relayout()
+	override;
 
 	SGE_RUCKSACK_SYMBOL
-	~minimum_size();
+	~minimum_size()
+	override;
 private:
 	sge::rucksack::widget::base &child_;
 };

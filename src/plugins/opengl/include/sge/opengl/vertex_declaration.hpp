@@ -55,7 +55,8 @@ public:
 		sge::renderer::vertex::declaration_parameters const &
 	);
 
-	~vertex_declaration();
+	~vertex_declaration()
+	override;
 
 	sge::renderer::vf::dynamic::part const &
 	format_part(

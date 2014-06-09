@@ -22,7 +22,7 @@ set(
 
 add_sge_base_library(
 	"renderer/cg"
-	""
+	"sgeimage"
 	""
 	""
 	""

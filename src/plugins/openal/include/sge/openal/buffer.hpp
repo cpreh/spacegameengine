@@ -52,14 +52,17 @@ public:
 	sge::audio::sound::positional_unique_ptr
 	create_positional(
 		sge::audio::sound::positional_parameters const &
-	);
+	)
+	override;
 
 	sge::audio::sound::base_unique_ptr
 	create_nonpositional(
 		sge::audio::sound::nonpositional_parameters const &
-	);
+	)
+	override;
 
-	~buffer();
+	~buffer()
+	override;
 private:
 	sge::openal::buffer_holder const holder_;
 };

@@ -77,47 +77,56 @@ public:
 		sge::input::system_ptr_vector const &
 	);
 
-	~multi_processor();
+	~multi_processor()
+	override;
 private:
 	fcppt::signal::auto_connection
 	keyboard_discover_callback(
 		sge::input::keyboard::discover_callback const &
-	);
+	)
+	override;
 
 	fcppt::signal::auto_connection
 	keyboard_remove_callback(
 		sge::input::keyboard::remove_callback const &
-	);
+	)
+	override;
 
 	fcppt::signal::auto_connection
 	mouse_discover_callback(
 		sge::input::mouse::discover_callback const &
-	);
+	)
+	override;
 
 	fcppt::signal::auto_connection
 	mouse_remove_callback(
 		sge::input::mouse::remove_callback const &
-	);
+	)
+	override;
 
 	fcppt::signal::auto_connection
 	cursor_discover_callback(
 		sge::input::cursor::discover_callback const &
-	);
+	)
+	override;
 
 	fcppt::signal::auto_connection
 	cursor_remove_callback(
 		sge::input::cursor::remove_callback const &
-	);
+	)
+	override;
 
 	fcppt::signal::auto_connection
 	joypad_discover_callback(
 		sge::input::joypad::discover_callback const &
-	);
+	)
+	override;
 
 	fcppt::signal::auto_connection
 	joypad_remove_callback(
 		sge::input::joypad::remove_callback const &
-	);
+	)
+	override;
 
 	void
 	on_keyboard_discover(

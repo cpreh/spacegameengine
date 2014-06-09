@@ -61,7 +61,7 @@ sge::opengl::vf::fp_actor::operator()(
 
 void
 sge::opengl::vf::fp_actor::unuse(
-	vf::client_state_combiner &_combiner
+	sge::opengl::vf::client_state_combiner &_combiner
 ) const
 {
 	_combiner.disable(

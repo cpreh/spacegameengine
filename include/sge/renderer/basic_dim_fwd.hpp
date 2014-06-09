@@ -21,9 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_BASIC_DIM_FWD_HPP_INCLUDED
 #define SGE_RENDERER_BASIC_DIM_FWD_HPP_INCLUDED
 
-#include <sge/renderer/size_type.hpp>
+#include <sge/image/dim_fwd.hpp>
 #include <fcppt/math/size_type.hpp>
-#include <fcppt/math/dim/static.hpp>
 
 
 namespace sge
@@ -43,9 +42,7 @@ template<
 >
 using basic_dim
 =
-fcppt::math::dim::static_
-<
-	sge::renderer::size_type,
+sge::image::dim<
 	Size
 >;
 

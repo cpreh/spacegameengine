@@ -34,7 +34,7 @@ namespace vf
 
 void
 disable_vertex_attrib_array(
-	vf::attribute_context const &,
+	sge::opengl::vf::attribute_context const &,
 	GLuint index
 );
 

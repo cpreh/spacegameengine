@@ -48,7 +48,8 @@ class vbo_context
 public:
 	vbo_context();
 
-	~vbo_context();
+	~vbo_context()
+	override;
 
 	sge::opengl::buffer::base &
 	impl();

@@ -18,39 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_RENDERER_COLOR_BUFFER_CONST_BASIC_SCOPED_LOCK_IMPL_HPP_INCLUDED
-#define SGE_SRC_RENDERER_COLOR_BUFFER_CONST_BASIC_SCOPED_LOCK_IMPL_HPP_INCLUDED
+#ifndef SGE_SRC_RENDERER_BASIC_BUFFER_SCOPED_LOCK_IMPL_HPP_INCLUDED
+#define SGE_SRC_RENDERER_BASIC_BUFFER_SCOPED_LOCK_IMPL_HPP_INCLUDED
 
-#include <sge/image/view/const_object.hpp>
-#include <sge/renderer/color_buffer/const_basic_scoped_lock.hpp>
+#include <sge/image/view/object.hpp>
+#include <sge/renderer/basic_buffer_scoped_lock.hpp>
+#include <sge/renderer/lock_mode.hpp>
 
-
-template<
-	typename Buffer
->
-sge::renderer::color_buffer::const_basic_scoped_lock<
-	Buffer
->::const_basic_scoped_lock(
-	buffer_type const &_buffer
-)
-:
-	buffer_(
-		_buffer
-	),
-	view_(
-		buffer_.lock()
-	)
-{
-}
 
 template<
 	typename Buffer
 >
-sge::renderer::color_buffer::const_basic_scoped_lock<
+sge::renderer::basic_buffer_scoped_lock<
 	Buffer
->::const_basic_scoped_lock(
-	buffer_type const &_buffer,
-	lock_area const &_area
+>::basic_buffer_scoped_lock(
+	buffer_type &_buffer,
+	sge::renderer::lock_mode const _mode
 )
 :
 	buffer_(
@@ -58,7 +41,7 @@ sge::renderer::color_buffer::const_basic_scoped_lock<
 	),
 	view_(
 		buffer_.lock(
-			_area
+			_mode
 		)
 	)
 {
@@ -67,10 +50,33 @@ sge::renderer::color_buffer::const_basic_scoped_lock<
 template<
 	typename Buffer
 >
-typename sge::renderer::color_buffer::const_basic_scoped_lock<
+sge::renderer::basic_buffer_scoped_lock<
 	Buffer
->::const_view const
-sge::renderer::color_buffer::const_basic_scoped_lock<
+>::basic_buffer_scoped_lock(
+	buffer_type &_buffer,
+	lock_area const &_area,
+	sge::renderer::lock_mode const _mode
+)
+:
+	buffer_(
+		_buffer
+	),
+	view_(
+		buffer_.lock(
+			_area,
+			_mode
+		)
+	)
+{
+}
+
+template<
+	typename Buffer
+>
+typename sge::renderer::basic_buffer_scoped_lock<
+	Buffer
+>::view const
+sge::renderer::basic_buffer_scoped_lock<
 	Buffer
 >::value() const
 {
@@ -80,9 +86,9 @@ sge::renderer::color_buffer::const_basic_scoped_lock<
 template<
 	typename Buffer
 >
-sge::renderer::color_buffer::const_basic_scoped_lock<
+sge::renderer::basic_buffer_scoped_lock<
 	Buffer
->::~const_basic_scoped_lock()
+>::~basic_buffer_scoped_lock()
 {
 	buffer_.unlock();
 }

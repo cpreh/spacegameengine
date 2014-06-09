@@ -18,8 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/common.hpp>
 #include <sge/opengl/logger.hpp>
 #include <sge/opengl/vf/client_state.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/_.hpp>
@@ -84,7 +86,7 @@ sge::opengl::vf::client_state::disable(
 
 void
 sge::opengl::vf::client_state::enable_texture(
-	renderer::texture::stage const _value
+	sge::renderer::texture::stage const _value
 )
 {
 	::insert_checked(
@@ -95,7 +97,7 @@ sge::opengl::vf::client_state::enable_texture(
 
 void
 sge::opengl::vf::client_state::disable_texture(
-	renderer::texture::stage const _value
+	sge::renderer::texture::stage const _value
 )
 {
 	::erase_checked(

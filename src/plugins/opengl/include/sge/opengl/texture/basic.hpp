@@ -60,18 +60,22 @@ protected:
 		parameters_type const &
 	);
 
-	~basic();
+	~basic()
+	override;
 
 	typedef typename Types::base base_type;
 
 	sge::renderer::resource_flags_field const
-	resource_flags() const;
+	resource_flags() const
+	override;
 
 	sge::renderer::texture::capabilities_field const
-	capabilities() const;
+	capabilities() const
+	override;
 
 	sge::renderer::texture::mipmap::object const
-	mipmap() const;
+	mipmap() const
+	override;
 
 	sge::opengl::context::system::object &
 	system_context() const;
@@ -80,7 +84,8 @@ protected:
 	device_context() const;
 private:
 	void
-	generate_mipmaps();
+	generate_mipmaps()
+	override;
 
 	sge::opengl::context::system::object &system_context_;
 

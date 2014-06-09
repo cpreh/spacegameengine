@@ -57,29 +57,36 @@ public:
 	);
 
 	SGE_TEXTURE_SYMBOL
-	~rect_fragmented();
+	~rect_fragmented()
+	override;
 private:
 	sge::texture::part_unique_ptr
 	consume_fragment(
 		sge::renderer::dim2 const &
-	);
+	)
+	override;
 
 	void
 	return_fragment(
 		sge::texture::part const &
-	);
+	)
+	override;
 
 	sge::renderer::texture::planar &
-	texture();
+	texture()
+	override;
 
 	sge::renderer::texture::planar const &
-	texture() const;
+	texture() const
+	override;
 
 	bool
-	repeatable() const;
+	repeatable() const
+	override;
 
 	bool
-	empty() const;
+	empty() const
+	override;
 
 	sge::renderer::size_type
 		cur_x_,

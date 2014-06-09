@@ -18,20 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/common.hpp>
 #include <sge/opengl/vf/extra_format.hpp>
 #include <sge/opengl/vf/extra_format_visitor.hpp>
+#include <sge/renderer/vf/dynamic/extra_any.hpp>
 #include <fcppt/variant/apply_unary.hpp>
-#include <fcppt/variant/object_impl.hpp>
 
 
 GLenum
 sge::opengl::vf::extra_format(
-	renderer::vf::dynamic::extra_any const &_any
+	sge::renderer::vf::dynamic::extra_any const &_any
 )
 {
 	return
 		fcppt::variant::apply_unary(
-			vf::extra_format_visitor(),
+			sge::opengl::vf::extra_format_visitor(),
 			_any
 		);
 }

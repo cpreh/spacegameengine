@@ -71,74 +71,91 @@ public:
 		sge::cegui::optional_render_context_ref const &
 	);
 
-	~geometry_buffer();
+	~geometry_buffer()
+	override;
 private:
 	void
-	draw() const;
+	draw() const
+	override;
 
 	void
 	setTranslation(
 		CEGUI::Vector3f const &
-	);
+	)
+	override;
 
 	void
 	setRotation(
 		CEGUI::Quaternion const &
-	);
+	)
+	override;
 
 	void
 	setPivot(
 		CEGUI::Vector3f const &
-	);
+	)
+	override;
 
 	void
 	setClippingRegion(
 		CEGUI::Rectf const &
-	);
+	)
+	override;
 
 	void
 	appendVertex(
 		CEGUI::Vertex const &
-	);
+	)
+	override;
 
 	void
 	appendGeometry(
-		CEGUI::Vertex const *const, // const for VC++
+		CEGUI::Vertex const *,
 		CEGUI::uint vertex_count
-	);
+	)
+	override;
 
 	void
 	setActiveTexture(
 		CEGUI::Texture *
-	);
+	)
+	override;
 
 	void
-	reset();
+	reset()
+	override;
 
 	CEGUI::Texture *
-	getActiveTexture() const;
+	getActiveTexture() const
+	override;
 
 	CEGUI::uint
-	getVertexCount() const;
+	getVertexCount() const
+	override;
 
 	CEGUI::uint
-	getBatchCount() const;
+	getBatchCount() const
+	override;
 
 	void
 	setRenderEffect(
 		CEGUI::RenderEffect *
-	);
+	)
+	override;
 
 	CEGUI::RenderEffect *
-	getRenderEffect();
+	getRenderEffect()
+	override;
 
 	void
 	setClippingActive(
 		bool
-	);
+	)
+	override;
 
 	bool
-	isClippingActive() const;
+	isClippingActive() const
+	override;
 private:
 	typedef
 	boost::ptr_vector

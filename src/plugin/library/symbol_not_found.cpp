@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::plugin::library::symbol_not_found::symbol_not_found(
 	fcppt::string const &_library_name,
-	library::symbol_string const &_symbol
+	sge::plugin::library::symbol_string const &_symbol
 )
 :
 	sge::plugin::library::exception(
@@ -44,23 +44,29 @@ sge::plugin::library::symbol_not_found::symbol_not_found(
 		+
 		FCPPT_TEXT(" : ")
 		+
-		library::error()
+		sge::plugin::library::error()
 	),
-	library_name_(_library_name),
-	symbol_(_symbol)
+	library_name_(
+		_library_name
+	),
+	symbol_(
+		_symbol
+	)
 {
 }
 
 fcppt::string const &
 sge::plugin::library::symbol_not_found::library_name() const
 {
-	return library_name_;
+	return
+		library_name_;
 }
 
 sge::plugin::library::symbol_string const &
 sge::plugin::library::symbol_not_found::symbol() const
 {
-	return symbol_;
+	return
+		symbol_;
 }
 
 sge::plugin::library::symbol_not_found::~symbol_not_found() throw()
