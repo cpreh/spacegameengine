@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/depth_stencil_buffer/surface.hpp>
 #include <sge/renderer/depth_stencil_buffer/surface_parameters.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/assert/unimplemented_message.hpp>
 
 
@@ -78,7 +79,7 @@ sge::opengl::fbo::depth_stencil_surface::lock(
 ) const
 {
 	FCPPT_ASSERT_UNIMPLEMENTED_MESSAGE(
-		"Non texture opengl depth stencil surface currently can't be locked"
+		FCPPT_TEXT("Non texture opengl depth stencil surface currently can't be locked")
 	);
 }
 
@@ -89,7 +90,7 @@ sge::opengl::fbo::depth_stencil_surface::lock(
 )
 {
 	FCPPT_ASSERT_UNIMPLEMENTED_MESSAGE(
-		"Non texture opengl depth stencil surface currently can't be locked"
+		FCPPT_TEXT("Non texture opengl depth stencil surface currently can't be locked")
 	);
 }
 
@@ -97,7 +98,7 @@ void
 sge::opengl::fbo::depth_stencil_surface::unlock() const
 {
 	FCPPT_ASSERT_UNIMPLEMENTED_MESSAGE(
-		"Non texture opengl depth stencil surface currently can't be unlocked"
+		FCPPT_TEXT("Non texture opengl depth stencil surface currently can't be unlocked")
 	);
 }
 
