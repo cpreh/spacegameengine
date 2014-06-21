@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/library/symbol_not_found.hpp>
 #include <sge/src/plugin/context_base.hpp>
 #include <sge/src/plugin/logger.hpp>
-#include <fcppt/foreach_enumerator.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/make_enum_range.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/filesystem/extension_without_dot.hpp>
@@ -38,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/operations.hpp>
 #include <boost/filesystem/path.hpp>
+#include <boost/range/iterator_range_core.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -61,20 +62,23 @@ sge::plugin::manager::manager(
 	boost::filesystem::directory_iterator const it_end;
 
 	for(
-		boost::filesystem::directory_iterator it(
-			_path
-		);
-		it != it_end;
-		++it
+		boost::filesystem::path const &path
+		:
+		boost::make_iterator_range(
+			boost::filesystem::directory_iterator(
+				_path
+			),
+			boost::filesystem::directory_iterator()
+		)
 	)
 	{
 		if(
 			boost::filesystem::is_directory(
-				*it
+				path
 			)
 			||
 			fcppt::filesystem::extension_without_dot(
-				*it
+				path
 			)
 			!=
 			sge::plugin::file_extension()
@@ -84,7 +88,7 @@ sge::plugin::manager::manager(
 				sge::plugin::logger(),
 				fcppt::log::_
 					<< fcppt::filesystem::path_to_string(
-						it->path()
+						path
 					)
 					<< FCPPT_TEXT(" does not have the extension ")
 					<< sge::plugin::file_extension()
@@ -101,7 +105,7 @@ sge::plugin::manager::manager(
 					sge::plugin::context_base
 				>(
 					_cache,
-					it->path()
+					path
 				)
 			);
 		}
@@ -113,7 +117,7 @@ sge::plugin::manager::manager(
 				sge::plugin::logger(),
 				fcppt::log::_
 					<< fcppt::filesystem::path_to_string(
-						it->path()
+						path
 					)
 					<< FCPPT_TEXT(" doesn't seem to be a valid sge plugin")
 					<< FCPPT_TEXT(" because the symbol \"")
@@ -131,7 +135,7 @@ sge::plugin::manager::manager(
 				sge::plugin::logger(),
 				fcppt::log::_
 					<< fcppt::filesystem::path_to_string(
-						it->path()
+						path
 					)
 					<< FCPPT_TEXT(" failed to load: \"")
 					<< _exception.string()
@@ -145,9 +149,12 @@ sge::plugin::manager::manager(
 		:
 		plugins_
 	)
-		FCPPT_FOREACH_ENUMERATOR(
-			index,
-			sge::plugin::capabilities
+		for(
+			auto index
+			:
+			fcppt::make_enum_range<
+				sge::plugin::capabilities
+			>()
 		)
 			if(
 				context->info().capabilities()

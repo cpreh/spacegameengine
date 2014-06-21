@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/ffp/transform/set_defaults.hpp>
 #include <sge/renderer/state/ffp/transform/const_optional_object_ref.hpp>
 #include <sge/renderer/state/ffp/transform/mode.hpp>
-#include <fcppt/foreach_enumerator.hpp>
+#include <fcppt/make_enum_range.hpp>
 
 
 void
@@ -31,9 +31,12 @@ sge::opengl::state::ffp::transform::set_defaults(
 	sge::opengl::context::system::object &_system_context
 )
 {
-	FCPPT_FOREACH_ENUMERATOR(
-		mode,
-		sge::renderer::state::ffp::transform::mode
+	for(
+		auto mode
+		:
+		fcppt::make_enum_range<
+			sge::renderer::state::ffp::transform::mode
+		>()
 	)
 		sge::opengl::state::ffp::transform::set(
 			_system_context,

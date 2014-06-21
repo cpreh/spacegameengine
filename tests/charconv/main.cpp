@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/unsupported_conversion.hpp>
 #include <sge/tests/charconv/test_data.hpp>
 #include <fcppt/exception.hpp>
-#include <fcppt/foreach_enumerator.hpp>
+#include <fcppt/make_enum_range.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/data.hpp>
 #include <fcppt/container/data_end.hpp>
@@ -152,9 +152,12 @@ FCPPT_PP_POP_WARNING
 		)
 	);
 
-	FCPPT_FOREACH_ENUMERATOR(
-		dest_encoding,
-		sge::charconv::encoding
+	for(
+		auto dest_encoding
+		:
+		fcppt::make_enum_range<
+			sge::charconv::encoding
+		>()
 	)
 	try
 	{
