@@ -37,6 +37,11 @@ sge::rucksack::widget::minimum_size::minimum_size(
 		_child
 	)
 {
+	child_.parent(
+		sge::rucksack::widget::optional_parent(
+			*this
+		)
+	);
 }
 
 void
