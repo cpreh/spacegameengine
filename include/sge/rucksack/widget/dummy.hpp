@@ -62,6 +62,12 @@ public:
 	override;
 
 	SGE_RUCKSACK_SYMBOL
+	void
+	axis_policy(
+		sge::rucksack::axis_policy2 const &
+	);
+
+	SGE_RUCKSACK_SYMBOL
 	sge::rucksack::dim const
 	size() const
 	override;
@@ -85,7 +91,7 @@ public:
 	~dummy()
 	override;
 private:
-	sge::rucksack::axis_policy2 const axis_policy_;
+	sge::rucksack::axis_policy2 axis_policy_;
 	sge::rucksack::vector position_;
 	sge::rucksack::dim size_;
 };

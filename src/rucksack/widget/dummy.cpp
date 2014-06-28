@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/rucksack/widget/base.hpp>
 #include <sge/rucksack/widget/dummy.hpp>
 
-// TODO: Initialize position and size in the ctor?
 
 sge::rucksack::widget::dummy::dummy(
 	sge::rucksack::axis_policy2 const &_axis_policy)
@@ -54,6 +53,15 @@ sge::rucksack::widget::dummy::position(
 {
 	position_ =
 		_position;
+}
+
+void
+sge::rucksack::widget::dummy::axis_policy(
+	sge::rucksack::axis_policy2 const &_axis_policy
+)
+{
+	axis_policy_ =
+		_axis_policy;
 }
 
 sge::rucksack::dim const
