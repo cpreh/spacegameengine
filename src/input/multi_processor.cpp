@@ -42,15 +42,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/input/system_ptr_vector.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
-#include <fcppt/algorithm/fold.hpp>
-#include <fcppt/algorithm/join_move.hpp>
 #include <fcppt/algorithm/map.hpp>
+#include <fcppt/algorithm/map_concat_move.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
-#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -90,89 +88,84 @@ sge::input::multi_processor::multi_processor(
 	joypad_discover_(),
 	joypad_remove_(),
 	connections_(
-		fcppt::algorithm::fold(
+		fcppt::algorithm::map_concat_move<
+			sge::input::multi_processor::connection_vector
+		>(
 			processors_,
-			sge::input::multi_processor::connection_vector(),
 			[
 				this
 			](
-				sge::input::processor_unique_ptr const &_processor,
-				sge::input::multi_processor::connection_vector &&_state
+				sge::input::processor_unique_ptr const &_processor
 			)
 			{
 				return
-					fcppt::algorithm::join_move(
-						std::move(
-							_state
-						),
-						fcppt::assign::make_container<
-							sge::input::multi_processor::connection_vector
-						>(
-							_processor->keyboard_discover_callback(
-								std::bind(
-									&sge::input::multi_processor::on_keyboard_discover,
-									this,
-									std::placeholders::_1
-								)
+					fcppt::assign::make_container<
+						sge::input::multi_processor::connection_vector
+					>(
+						_processor->keyboard_discover_callback(
+							std::bind(
+								&sge::input::multi_processor::on_keyboard_discover,
+								this,
+								std::placeholders::_1
 							)
-						)(
-							_processor->keyboard_remove_callback(
-								std::bind(
-									&sge::input::multi_processor::on_keyboard_remove,
-									this,
-									std::placeholders::_1
-								)
+						)
+					)(
+						_processor->keyboard_remove_callback(
+							std::bind(
+								&sge::input::multi_processor::on_keyboard_remove,
+								this,
+								std::placeholders::_1
 							)
-						)(
-							_processor->mouse_discover_callback(
-								std::bind(
-									&sge::input::multi_processor::on_mouse_discover,
-									this,
-									std::placeholders::_1
-								)
+						)
+					)(
+						_processor->mouse_discover_callback(
+							std::bind(
+								&sge::input::multi_processor::on_mouse_discover,
+								this,
+								std::placeholders::_1
 							)
-						)(
-							_processor->mouse_remove_callback(
-								std::bind(
-									&sge::input::multi_processor::on_mouse_remove,
-									this,
-									std::placeholders::_1
-								)
+						)
+					)(
+						_processor->mouse_remove_callback(
+							std::bind(
+								&sge::input::multi_processor::on_mouse_remove,
+								this,
+								std::placeholders::_1
 							)
-						)(
-							_processor->cursor_discover_callback(
-								std::bind(
-									&sge::input::multi_processor::on_cursor_discover,
-									this,
-									std::placeholders::_1
-								)
+						)
+					)(
+						_processor->cursor_discover_callback(
+							std::bind(
+								&sge::input::multi_processor::on_cursor_discover,
+								this,
+								std::placeholders::_1
 							)
-						)(
-							_processor->cursor_remove_callback(
-								std::bind(
-									&sge::input::multi_processor::on_cursor_remove,
-									this,
-									std::placeholders::_1
-								)
+						)
+					)(
+						_processor->cursor_remove_callback(
+							std::bind(
+								&sge::input::multi_processor::on_cursor_remove,
+								this,
+								std::placeholders::_1
 							)
-						)(
-							_processor->joypad_discover_callback(
-								std::bind(
-									&sge::input::multi_processor::on_joypad_discover,
-									this,
-									std::placeholders::_1
-								)
+						)
+					)(
+						_processor->joypad_discover_callback(
+							std::bind(
+								&sge::input::multi_processor::on_joypad_discover,
+								this,
+								std::placeholders::_1
 							)
-						)(
-							_processor->joypad_remove_callback(
-								std::bind(
-									&sge::input::multi_processor::on_joypad_remove,
-									this,
-									std::placeholders::_1
-								)
+						)
+					)(
+						_processor->joypad_remove_callback(
+							std::bind(
+								&sge::input::multi_processor::on_joypad_remove,
+								this,
+								std::placeholders::_1
 							)
-						).move_container()
-					);
+						)
+					).move_container();
 			}
 		)
 	)
