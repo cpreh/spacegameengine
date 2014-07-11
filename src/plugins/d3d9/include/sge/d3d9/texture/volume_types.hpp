@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/texture/d3d_volume_texture_unique_ptr.hpp>
 #include <sge/d3d9/texture/optional_locked_box_fwd.hpp>
 #include <sge/d3d9/texture/volume_types_fwd.hpp>
-#include <sge/renderer/color_buffer/volume_fwd.hpp>
+#include <sge/renderer/color_buffer/volume.hpp>
 #include <sge/renderer/texture/volume_fwd.hpp>
 #include <sge/renderer/texture/volume_parameters_fwd.hpp>
 

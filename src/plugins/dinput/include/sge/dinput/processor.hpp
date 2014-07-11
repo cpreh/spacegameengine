@@ -57,8 +57,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/window/event/focus_in_fwd.hpp>
 #include <awl/window/event/focus_out_fwd.hpp>
 #include <fcppt/com_deleter.hpp>
+#include <fcppt/signal/auto_connection_container.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
-#include <fcppt/signal/connection_manager.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
@@ -233,7 +233,7 @@ private:
 
 	awl::backends::windows::window::event::scoped_user_message const init_message_;
 
-	fcppt::signal::connection_manager const connections_;
+	fcppt::signal::auto_connection_container const connections_;
 };
 
 }

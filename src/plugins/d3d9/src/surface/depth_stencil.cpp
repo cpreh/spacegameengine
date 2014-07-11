@@ -26,7 +26,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/surfacefuncs/depth_stencil_format.hpp>
 #include <sge/d3d9/surfacefuncs/dim.hpp>
 #include <sge/image/ds/format.hpp>
+#include <sge/imageds2d/view/const_object.hpp>
+#include <sge/imageds2d/view/object.hpp>
 #include <sge/renderer/dim2.hpp>
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/assert/unimplemented_message.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -76,6 +81,37 @@ IDirect3DSurface9 &
 sge::d3d9::surface::depth_stencil::surface() const
 {
 	return *surface_;
+}
+
+sge::d3d9::surface::depth_stencil::const_view const
+sge::d3d9::surface::depth_stencil::lock(
+	lock_area const &
+) const
+{
+	throw
+		sge::renderer::exception(
+			FCPPT_TEXT("depth stencil surfaces can't be locked")
+		);
+}
+
+sge::d3d9::surface::depth_stencil::view const
+sge::d3d9::surface::depth_stencil::lock(
+	lock_area const &,
+	sge::renderer::lock_mode
+)
+{
+	throw
+		sge::renderer::exception(
+			FCPPT_TEXT("depth stencil surfaces can't be locked")
+		);
+}
+
+void
+sge::d3d9::surface::depth_stencil::unlock() const
+{
+	FCPPT_ASSERT_UNIMPLEMENTED_MESSAGE(
+		FCPPT_TEXT("depth stencil surfaces can't be unlocked")
+	);
 }
 
 void

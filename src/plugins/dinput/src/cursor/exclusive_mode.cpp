@@ -28,11 +28,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/window/event/processor.hpp>
 #include <awl/backends/windows/window/event/return_type.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
+#include <fcppt/algorithm/join_move.hpp>
+#include <fcppt/assign/make_container.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/signal/connection_manager.hpp>
+#include <fcppt/signal/auto_connection_container.hpp>
 #include <fcppt/time/sleep_any.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <chrono>
@@ -54,8 +56,17 @@ sge::dinput::cursor::exclusive_mode::exclusive_mode(
 		_window
 	),
 	connections_(
-		this->make_connections(
-			_event_processor
+		fcppt::algorithm::join_move(
+			this->make_connection_pair(
+				_event_processor,
+				WM_ENTERSIZEMOVE,
+				WM_EXITSIZEMOVE
+			),
+			this->make_connection_pair(
+				_event_processor,
+				WM_ENTERMENULOOP,
+				WM_EXITMENULOOP
+			)
 		)
 	)
 {
@@ -120,36 +131,8 @@ sge::dinput::cursor::exclusive_mode::on_temp_acquire(
 		);
 }
 
-fcppt::signal::connection_manager::container
-sge::dinput::cursor::exclusive_mode::make_connections(
-	awl::backends::windows::window::event::processor &_event_processor
-)
-{
-	fcppt::signal::connection_manager::container ret;
-
-	this->make_connection_pair(
-		ret,
-		_event_processor,
-		WM_ENTERSIZEMOVE,
-		WM_EXITSIZEMOVE
-	);
-
-	this->make_connection_pair(
-		ret,
-		_event_processor,
-		WM_ENTERMENULOOP,
-		WM_EXITMENULOOP
-	);
-
-	return
-		std::move(
-			ret
-		);
-}
-
-void
+fcppt::signal::auto_connection_container
 sge::dinput::cursor::exclusive_mode::make_connection_pair(
-	fcppt::signal::connection_manager::container &_container,
 	awl::backends::windows::window::event::processor &_event_processor,
 	awl::backends::windows::event::type::value_type const _enter_event,
 	awl::backends::windows::event::type::value_type const _exit_event
@@ -163,31 +146,32 @@ sge::dinput::cursor::exclusive_mode::make_connection_pair(
 		)
 	);
 
-	_container.push_back(
-		_event_processor.register_callback(
-			fcppt::strong_typedef_construct_cast<
-				awl::backends::windows::event::type
-			>(
-				_enter_event
-			),
-			std::bind(
-				&sge::dinput::cursor::exclusive_mode::on_temp_unacquire,
-				this,
-				exit_event,
-				std::placeholders::_1
+	return
+		fcppt::assign::make_container<
+			fcppt::signal::auto_connection_container
+		>(
+			_event_processor.register_callback(
+				fcppt::strong_typedef_construct_cast<
+					awl::backends::windows::event::type
+				>(
+					_enter_event
+				),
+				std::bind(
+					&sge::dinput::cursor::exclusive_mode::on_temp_unacquire,
+					this,
+					exit_event,
+					std::placeholders::_1
+				)
 			)
-		)
-	);
-
-	_container.push_back(
-		_event_processor.register_callback(
-			exit_event,
-			std::bind(
-				&sge::dinput::cursor::exclusive_mode::on_temp_acquire,
-				this,
+		)(
+			_event_processor.register_callback(
 				exit_event,
-				std::placeholders::_1
+				std::bind(
+					&sge::dinput::cursor::exclusive_mode::on_temp_acquire,
+					this,
+					exit_event,
+					std::placeholders::_1
+				)
 			)
-		)
-	);
+		).move_container();
 }

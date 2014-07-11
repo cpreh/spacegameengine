@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/window/event/return_type_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_impl.hpp>
-#include <fcppt/signal/connection_manager.hpp>
+#include <fcppt/signal/auto_connection_container.hpp>
 
 
 namespace sge
@@ -64,28 +64,24 @@ private:
 		awl::backends::windows::window::event::object const &
 	);
 
-	fcppt::signal::connection_manager::container
-	make_connections(
-		awl::backends::windows::window::event::processor &
-	);
-
-	void
+	fcppt::signal::auto_connection_container
 	make_connection_pair(
-		fcppt::signal::connection_manager::container &,
 		awl::backends::windows::window::event::processor &,
 		awl::backends::windows::event::type::value_type enter_event,
 		awl::backends::windows::event::type::value_type exit_event
 	);
 
-	typedef fcppt::optional<
+	typedef
+	fcppt::optional<
 		awl::backends::windows::event::type
-	> optional_event_type;
+	>
+	optional_event_type;
 
 	optional_event_type grab_event_;
 
 	awl::backends::windows::window::object &window_;
 
-	fcppt::signal::connection_manager const connections_;
+	fcppt::signal::auto_connection_container const connections_;
 };
 
 }

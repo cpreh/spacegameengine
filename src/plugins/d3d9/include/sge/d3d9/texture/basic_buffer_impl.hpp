@@ -155,7 +155,20 @@ sge::d3d9::texture::basic_buffer<
 	Types
 >::size() const
 {
-	return size_;
+	return
+		size_;
+}
+
+template<
+	typename Types
+>
+sge::image::color::format
+sge::d3d9::texture::basic_buffer<
+	Types
+>::format() const
+{
+	return
+		color_format_;
 }
 
 template<

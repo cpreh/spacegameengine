@@ -40,8 +40,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/window/event/processor_fwd.hpp>
 #include <awl/backends/windows/window/event/return_type_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/signal/connection_manager.hpp>
+#include <fcppt/signal/auto_connection_fwd.hpp>
+#include <fcppt/signal/auto_connection_container.hpp>
 #include <fcppt/signal/object_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <memory>
@@ -123,20 +123,15 @@ private:
 		sge::input::cursor::scroll_code
 	);
 
-	fcppt::signal::connection_manager::container
-	make_connections();
-
-	void
+	fcppt::signal::auto_connection_container
 	make_button_connections(
-		fcppt::signal::connection_manager::container &,
 		awl::backends::windows::event::type::value_type up_event,
 		awl::backends::windows::event::type::value_type down_event,
 		sge::input::cursor::button_code
 	);
 
-	void
+	fcppt::signal::auto_connection
 	make_scroll_connection(
-		fcppt::signal::connection_manager::container &,
 		awl::backends::windows::event::type::value_type,
 		sge::input::cursor::scroll_code
 	);
@@ -161,7 +156,7 @@ private:
 
 	exclusive_mode_unique_ptr exclusive_mode_;
 
-	fcppt::signal::connection_manager const connections_;
+	fcppt::signal::auto_connection_container const connections_;
 };
 
 }

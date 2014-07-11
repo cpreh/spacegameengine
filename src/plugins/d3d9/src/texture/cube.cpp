@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/cube_parameters_fwd.hpp>
 #include <sge/renderer/texture/cube_side.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
-#include <fcppt/foreach_enumerator.hpp>
+#include <fcppt/make_enum_range.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -49,9 +49,12 @@ sge::d3d9::texture::cube::cube(
 	),
 	sides_()
 {
-	FCPPT_FOREACH_ENUMERATOR(
-		side,
-		sge::renderer::texture::cube_side
+	for(
+		auto const side
+		:
+		fcppt::make_enum_range<
+			sge::renderer::texture::cube_side
+		>()
 	)
 	{
 		fcppt::container::ptr::push_back_unique_ptr(

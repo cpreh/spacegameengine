@@ -116,18 +116,18 @@ sge::d3d9::surface::color::lock(
 	}
 
 	D3DLOCKED_RECT const locked_rect(
-		d3d9::surfacefuncs::lock_rect(
+		sge::d3d9::surfacefuncs::lock_rect(
 			this->lock_surface(),
 			this->area() == _rect
 			?
-				d3d9::optional_lock_rect()
+				sge::d3d9::optional_lock_rect()
 			:
-				d3d9::optional_lock_rect(
+				sge::d3d9::optional_lock_rect(
 					_rect
 				)
 			,
 			fcppt::strong_typedef_construct_cast<
-				d3d9::lock_flags
+				sge::d3d9::lock_flags
 			>(
 				D3DLOCK_READONLY
 			)
@@ -169,13 +169,22 @@ sge::d3d9::surface::color::unlock() const
 sge::d3d9::surface::color::dim const
 sge::d3d9::surface::color::size() const
 {
-	return color_holder_->size();
+	return
+		color_holder_->size();
+}
+
+sge::d3d9::surface::color::color_format
+sge::d3d9::surface::color::format() const
+{
+	return
+		format_;
 }
 
 IDirect3DSurface9 &
 sge::d3d9::surface::color::surface() const
 {
-	return color_holder_->get();
+	return
+		color_holder_->get();
 }
 
 IDirect3DSurface9 &
@@ -195,7 +204,7 @@ sge::d3d9::surface::color::init()
 {
 	color_holder_ =
 		fcppt::make_unique_ptr<
-			surface::color_holder
+			sge::d3d9::surface::color_holder
 		>(
 			create_->create()
 		);

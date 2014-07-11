@@ -73,7 +73,8 @@ public:
 		sge::renderer::resource_flags_field const &
 	);
 
-	~basic_buffer();
+	~basic_buffer()
+	override;
 private:
 	typedef typename base::image_tag image_tag;
 
@@ -88,19 +89,27 @@ private:
 	const_view const
 	lock(
 		lock_area const &
-	) const;
+	) const
+	override;
 
 	view const
 	lock(
 		lock_area const &,
 		sge::renderer::lock_mode
-	);
+	)
+	override;
 
 	void
-	unlock() const;
+	unlock() const
+	override;
 
 	dim const
-	size() const;
+	size() const
+	override;
+
+	sge::image::color::format
+	format() const
+	override;
 
 	template<
 		typename View,

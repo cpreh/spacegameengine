@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/texture/basic_fwd.hpp>
 #include <sge/d3d9/texture/volume_types.hpp>
 
+
 namespace sge
 {
 namespace d3d9
@@ -31,9 +32,11 @@ namespace d3d9
 namespace texture
 {
 
-typedef texture::basic<
-	texture::volume_types
-> volume_basic;
+typedef
+sge::d3d9::texture::basic<
+	sge::d3d9::texture::volume_types
+>
+volume_basic;
 
 }
 }

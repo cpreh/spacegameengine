@@ -59,24 +59,33 @@ public:
 		sge::d3d9::surface::color_create_unique_ptr &&
 	);
 
-	~color();
+	~color()
+	override;
 
 	sge::renderer::color_buffer::surface::view const
 	lock(
 		sge::renderer::color_buffer::surface::lock_area const &,
 		sge::renderer::lock_mode
-	);
+	)
+	override;
 
 	sge::renderer::color_buffer::surface::const_view const
 	lock(
 		sge::renderer::color_buffer::surface::lock_area const &
-	) const;
+	) const
+	override;
 
 	void
-	unlock() const;
+	unlock() const
+	override;
 
 	dim const
-	size() const;
+	size() const
+	override;
+
+	color_format
+	format() const
+	override;
 
 	IDirect3DSurface9 &
 	surface() const;
@@ -88,10 +97,12 @@ private:
 	init();
 
 	void
-	on_loss();
+	on_loss()
+	override;
 
 	void
-	on_reset();
+	on_reset()
+	override;
 
 	IDirect3DDevice9 &device_;
 

@@ -44,14 +44,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/window/event/return_type.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
+#include <fcppt/algorithm/join_move.hpp>
+#include <fcppt/assign/make_container.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/signal/connection_manager.hpp>
+#include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/signal/auto_connection_container.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
-#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -80,7 +82,54 @@ sge::dinput::cursor::object::object(
 	),
 	exclusive_mode_(),
 	connections_(
-		this->make_connections()
+		fcppt::algorithm::join_move(
+			fcppt::assign::make_container<
+				fcppt::signal::auto_connection_container
+			>(
+				event_processor_.register_callback(
+					fcppt::strong_typedef_construct_cast<
+						awl::backends::windows::event::type
+					>(
+						WM_MOUSEMOVE
+					),
+					std::bind(
+						&sge::dinput::cursor::object::on_move,
+						this,
+						std::placeholders::_1
+					)
+				)
+			).move_container(),
+			this->make_button_connections(
+				WM_LBUTTONDOWN,
+				WM_LBUTTONUP,
+				sge::input::cursor::button_code::left
+			),
+			this->make_button_connections(
+				WM_MBUTTONDOWN,
+				WM_MBUTTONUP,
+				sge::input::cursor::button_code::middle
+			),
+			this->make_button_connections(
+				WM_RBUTTONDOWN,
+				WM_RBUTTONUP,
+				sge::input::cursor::button_code::right
+			),
+			fcppt::assign::make_container<
+				fcppt::signal::auto_connection_container
+			>(
+				this->make_scroll_connection(
+					WM_MOUSEWHEEL,
+					sge::input::cursor::scroll_code::vertical
+				)
+			).move_container()
+			// FIXME: Why is there no WM_MOUSEHWHEEL?
+			/*
+			this->make_scroll_connection(
+				ret,
+				WM_MOUSEHWHEEL,
+				sge::input::cursor::scroll_code::horizontal
+			);*/
+		)
 	)
 {
 }
@@ -285,118 +334,56 @@ sge::dinput::cursor::object::on_scroll(
 	return awl::backends::windows::window::event::return_type();
 }
 
-fcppt::signal::connection_manager::container
-sge::dinput::cursor::object::make_connections()
-{
-	fcppt::signal::connection_manager::container ret;
-
-	ret.push_back(
-		event_processor_.register_callback(
-			fcppt::strong_typedef_construct_cast<
-				awl::backends::windows::event::type
-			>(
-				WM_MOUSEMOVE
-			),
-			std::bind(
-				&sge::dinput::cursor::object::on_move,
-				this,
-				std::placeholders::_1
-			)
-		)
-	);
-
-	this->make_button_connections(
-		ret,
-		WM_LBUTTONDOWN,
-		WM_LBUTTONUP,
-		sge::input::cursor::button_code::left
-	);
-
-	this->make_button_connections(
-		ret,
-		WM_MBUTTONDOWN,
-		WM_MBUTTONUP,
-		sge::input::cursor::button_code::middle
-	);
-
-	this->make_button_connections(
-		ret,
-		WM_RBUTTONDOWN,
-		WM_RBUTTONUP,
-		sge::input::cursor::button_code::right
-	);
-
-	this->make_scroll_connection(
-		ret,
-		WM_MOUSEWHEEL,
-		sge::input::cursor::scroll_code::vertical
-	);
-
-	// FIXME: Why is there no WM_MOUSEHWHEEL?
-	/*
-	this->make_scroll_connection(
-		ret,
-		WM_MOUSEHWHEEL,
-		sge::input::cursor::scroll_code::horizontal
-	);*/
-
-	return
-		std::move(
-			ret
-		);
-}
-
-void
+fcppt::signal::auto_connection_container
 sge::dinput::cursor::object::make_button_connections(
-	fcppt::signal::connection_manager::container &_container,
 	awl::backends::windows::event::type::value_type const _down_event,
 	awl::backends::windows::event::type::value_type const _up_event,
 	sge::input::cursor::button_code const _code
 )
 {
-	_container.push_back(
-		event_processor_.register_callback(
-			fcppt::strong_typedef_construct_cast<
-				awl::backends::windows::event::type
-			>(
-				_down_event
-			),
-			std::bind(
-				&sge::dinput::cursor::object::on_button,
-				this,
-				std::placeholders::_1,
-				_code,
-				true
+	return
+		fcppt::assign::make_container<
+			fcppt::signal::auto_connection_container
+		>(
+			event_processor_.register_callback(
+				fcppt::strong_typedef_construct_cast<
+					awl::backends::windows::event::type
+				>(
+					_down_event
+				),
+				std::bind(
+					&sge::dinput::cursor::object::on_button,
+					this,
+					std::placeholders::_1,
+					_code,
+					true
+				)
 			)
-		)
-	);
-
-	_container.push_back(
-		event_processor_.register_callback(
-			fcppt::strong_typedef_construct_cast<
-				awl::backends::windows::event::type
-			>(
-				_up_event
-			),
-			std::bind(
-				&sge::dinput::cursor::object::on_button,
-				this,
-				std::placeholders::_1,
-				_code,
-				false
+		)(
+			event_processor_.register_callback(
+				fcppt::strong_typedef_construct_cast<
+					awl::backends::windows::event::type
+				>(
+					_up_event
+				),
+				std::bind(
+					&sge::dinput::cursor::object::on_button,
+					this,
+					std::placeholders::_1,
+					_code,
+					false
+				)
 			)
-		)
-	);
+		).move_container();
 }
 
-void
+fcppt::signal::auto_connection
 sge::dinput::cursor::object::make_scroll_connection(
-	fcppt::signal::connection_manager::container &_container,
 	awl::backends::windows::event::type::value_type const _event,
 	sge::input::cursor::scroll_code const _code
 )
 {
-	_container.push_back(
+	return
 		event_processor_.register_callback(
 			fcppt::strong_typedef_construct_cast<
 				awl::backends::windows::event::type
@@ -409,6 +396,5 @@ sge::dinput::cursor::object::make_scroll_connection(
 				std::placeholders::_1,
 				_code
 			)
-		)
-	);
+		);
 }

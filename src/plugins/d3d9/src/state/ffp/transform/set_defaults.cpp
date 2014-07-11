@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/state/ffp/transform/object.hpp>
 #include <sge/d3d9/state/ffp/transform/set_defaults.hpp>
 #include <sge/renderer/state/ffp/transform/mode.hpp>
-#include <fcppt/foreach_enumerator.hpp>
+#include <fcppt/make_enum_range.hpp>
 
 
 void
@@ -29,9 +29,12 @@ sge::d3d9::state::ffp::transform::set_defaults(
 	sge::d3d9::state::ffp::transform::object const &_default
 )
 {
-	FCPPT_FOREACH_ENUMERATOR(
-		mode,
-		sge::renderer::state::ffp::transform::mode
+	for(
+		auto const mode
+		:
+		fcppt::make_enum_range<
+			sge::renderer::state::ffp::transform::mode
+		>()
 	)
 		_default.set(
 			mode

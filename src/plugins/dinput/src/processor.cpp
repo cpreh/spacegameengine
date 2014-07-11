@@ -63,7 +63,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/signal/connection_manager.hpp>
+#include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/signal/auto_connection_container.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
 #include <functional>
@@ -133,7 +134,7 @@ sge::dinput::processor::processor(
 	),
 	connections_(
 		fcppt::assign::make_container<
-			fcppt::signal::connection_manager::container
+			fcppt::signal::auto_connection_container
 		>(
 			event_processor_.focus_in_callback(
 				awl::window::event::focus_in_callback(
