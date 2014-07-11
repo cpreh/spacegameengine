@@ -35,7 +35,8 @@ namespace devicefuncs
 void
 set_stream_source(
 	IDirect3DDevice9 &,
-	sge::renderer::vertex::buffer const &
+	sge::renderer::vertex::buffer const &,
+	bool
 );
 
 }

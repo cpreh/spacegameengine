@@ -245,7 +245,8 @@ sge::d3d9::render_context::object::activate_vertex_buffer(
 {
 	sge::d3d9::devicefuncs::set_stream_source(
 		parameters_.device(),
-		_buffer
+		_buffer,
+		true
 	);
 }
 
@@ -254,6 +255,11 @@ sge::d3d9::render_context::object::deactivate_vertex_buffer(
 	sge::renderer::vertex::buffer const &_buffer
 )
 {
+	sge::d3d9::devicefuncs::set_stream_source(
+		parameters_.device(),
+		_buffer,
+		false
+	);
 }
 
 void
