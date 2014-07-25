@@ -48,6 +48,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/mouse/device.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/intern_atom.hpp>
+#include <awl/backends/x11/cursor/create_invisible.hpp>
+#include <awl/backends/x11/cursor/object.hpp>
 #include <awl/backends/x11/system/event/opcode.hpp>
 #include <awl/backends/x11/system/event/processor.hpp>
 #include <awl/backends/x11/window/object.hpp>
@@ -131,12 +133,10 @@ sge::x11input::processor::processor(
 			true
 		)
 	),
-	invisible_pixmap_(
-		x11_window_
-	),
 	invisible_cursor_(
-		x11_window_.display(),
-		invisible_pixmap_
+		awl::backends::x11::cursor::create_invisible(
+			x11_window_.display()
+		)
 	),
 	input_method_(
 		fcppt::make_unique_ptr<
@@ -488,7 +488,7 @@ sge::x11input::processor::create_cursor(
 			this->device_parameters(
 				_param
 			),
-			invisible_cursor_.get(),
+			*invisible_cursor_,
 			cursor_manager_.entered()
 		);
 }

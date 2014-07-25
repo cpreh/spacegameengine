@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/exception.hpp>
 #include <sge/x11input/logger.hpp>
 #include <sge/x11input/cursor/grab.hpp>
-#include <sge/x11input/cursor/image.hpp>
 #include <sge/x11input/device/id.hpp>
 #include <awl/backends/x11/display.hpp>
+#include <awl/backends/x11/cursor/object.hpp>
 #include <awl/backends/x11/window/object.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/text.hpp>
@@ -41,7 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::x11input::cursor::grab::grab(
 	awl::backends::x11::window::object const &_window,
 	sge::x11input::device::id const _id,
-	sge::x11input::cursor::image const _image
+	awl::backends::x11::cursor::object const &_cursor
 )
 :
 	window_(
@@ -68,7 +68,7 @@ sge::x11input::cursor::grab::grab(
 				_id.get(),
 				_window.get(),
 				CurrentTime,
-				_image.get(),
+				_cursor.get(),
 				GrabModeAsync,
 				GrabModeAsync,
 				True,

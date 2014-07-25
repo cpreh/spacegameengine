@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11INPUT_CURSOR_MANAGER_HPP_INCLUDED
 #define SGE_X11INPUT_CURSOR_MANAGER_HPP_INCLUDED
 
-
 #include <sge/input/cursor/discover_event_fwd.hpp>
 #include <sge/input/cursor/remove_event_fwd.hpp>
+#include <sge/x11input/cursor/entered.hpp>
 #include <sge/x11input/cursor/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -67,7 +67,7 @@ public:
 	void
 	leave();
 
-	bool
+	sge::x11input::cursor::entered const
 	entered() const;
 private:
 	template<
@@ -84,7 +84,7 @@ private:
 
 	object_set objects_;
 
-	bool entered_;
+	sge::x11input::cursor::entered entered_;
 };
 
 }

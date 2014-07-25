@@ -30,8 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/optional_position.hpp>
 #include <sge/input/cursor/scroll_callback.hpp>
 #include <sge/input/cursor/scroll_signal.hpp>
+#include <sge/x11input/cursor/entered.hpp>
 #include <sge/x11input/cursor/grab_fwd.hpp>
-#include <sge/x11input/cursor/image.hpp>
 #include <sge/x11input/cursor/info.hpp>
 #include <sge/x11input/cursor/object_fwd.hpp>
 #include <sge/x11input/device/object.hpp>
@@ -39,6 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/valuator_index.hpp>
 #include <sge/x11input/device/valuator_value.hpp>
 #include <sge/x11input/device/window_event_fwd.hpp>
+#include <awl/backends/x11/cursor/object_fwd.hpp>
 #include <awl/backends/x11/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/auto_connection.hpp>
@@ -67,8 +68,8 @@ class object
 public:
 	object(
 		sge::x11input::device::parameters const &,
-		sge::x11input::cursor::image invisible_pixmap,
-		bool entered
+		awl::backends::x11::cursor::object const &,
+		sge::x11input::cursor::entered
 	);
 
 	~object()
@@ -146,13 +147,13 @@ private:
 
 	awl::backends::x11::window::object const &window_;
 
-	sge::x11input::cursor::image const invisible_image_;
+	awl::backends::x11::cursor::object const &cursor_;
 
 	fcppt::signal::auto_connection_container const connections_;
 
 	sge::input::cursor::mode mode_;
 
-	bool entered_;
+	sge::x11input::cursor::entered entered_;
 
 	sge::input::cursor::optional_position position_;
 

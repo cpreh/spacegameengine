@@ -5,9 +5,9 @@ set(
 	src/plugins/x11input/include/sge/x11input/create_parameters.hpp
 	src/plugins/x11input/include/sge/x11input/create_parameters_fwd.hpp
 	src/plugins/x11input/include/sge/x11input/cursor/button_code.hpp
+	src/plugins/x11input/include/sge/x11input/cursor/entered.hpp
 	src/plugins/x11input/include/sge/x11input/cursor/grab.hpp
 	src/plugins/x11input/include/sge/x11input/cursor/grab_fwd.hpp
-	src/plugins/x11input/include/sge/x11input/cursor/image.hpp
 	src/plugins/x11input/include/sge/x11input/cursor/info.hpp
 	src/plugins/x11input/include/sge/x11input/cursor/info_fwd.hpp
 	src/plugins/x11input/include/sge/x11input/cursor/make_info.hpp
@@ -15,10 +15,6 @@ set(
 	src/plugins/x11input/include/sge/x11input/cursor/object.hpp
 	src/plugins/x11input/include/sge/x11input/cursor/object_fwd.hpp
 	src/plugins/x11input/include/sge/x11input/cursor/object_unique_ptr.hpp
-	src/plugins/x11input/include/sge/x11input/cursor/passive_grab.hpp
-	src/plugins/x11input/include/sge/x11input/cursor/passive_grab_fwd.hpp
-	src/plugins/x11input/include/sge/x11input/cursor/pixmap.hpp
-	src/plugins/x11input/include/sge/x11input/cursor/pixmap_fwd.hpp
 	src/plugins/x11input/include/sge/x11input/cursor/query_pointer.hpp
 	src/plugins/x11input/include/sge/x11input/cursor/scroll_code.hpp
 	src/plugins/x11input/include/sge/x11input/cursor/scroll_valuator.hpp
@@ -109,8 +105,6 @@ set(
 	src/plugins/x11input/include/sge/x11input/mouse/info.hpp
 	src/plugins/x11input/include/sge/x11input/optional_opcode.hpp
 	src/plugins/x11input/include/sge/x11input/optional_opcode_fwd.hpp
-	src/plugins/x11input/include/sge/x11input/pixmap.hpp
-	src/plugins/x11input/include/sge/x11input/pixmap_fwd.hpp
 	src/plugins/x11input/include/sge/x11input/processor.hpp
 	src/plugins/x11input/include/sge/x11input/scoped_locale.hpp
 	src/plugins/x11input/include/sge/x11input/send_init_event.hpp
@@ -128,8 +122,6 @@ set(
 	src/plugins/x11input/src/cursor/make_info.cpp
 	src/plugins/x11input/src/cursor/manager.cpp
 	src/plugins/x11input/src/cursor/object.cpp
-	src/plugins/x11input/src/cursor/passive_grab.cpp
-	src/plugins/x11input/src/cursor/pixmap.cpp
 	src/plugins/x11input/src/cursor/query_pointer.cpp
 	src/plugins/x11input/src/cursor/scroll_code.cpp
 	src/plugins/x11input/src/cursor/scroll_valuator.cpp
@@ -177,7 +169,6 @@ set(
 	src/plugins/x11input/src/mouse/config.cpp
 	src/plugins/x11input/src/mouse/device.cpp
 	src/plugins/x11input/src/mouse/info.cpp
-	src/plugins/x11input/src/pixmap.cpp
 	src/plugins/x11input/src/processor.cpp
 	src/plugins/x11input/src/scoped_locale.cpp
 	src/plugins/x11input/src/send_init_event.cpp

@@ -43,10 +43,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/create_parameters_fwd.hpp>
 #include <sge/x11input/input_context_fwd.hpp>
 #include <sge/x11input/input_method_fwd.hpp>
-#include <sge/x11input/pixmap.hpp>
 #include <sge/x11input/cursor/manager.hpp>
 #include <sge/x11input/cursor/object_unique_ptr.hpp>
-#include <sge/x11input/cursor/pixmap.hpp>
 #include <sge/x11input/device/hierarchy_demuxer.hpp>
 #include <sge/x11input/device/hierarchy_event_fwd.hpp>
 #include <sge/x11input/device/parameters_fwd.hpp>
@@ -56,6 +54,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/keyboard/device_unique_ptr.hpp>
 #include <sge/x11input/mouse/device_unique_ptr.hpp>
 #include <awl/backends/x11/atom.hpp>
+#include <awl/backends/x11/cursor/object_unique_ptr.hpp>
 #include <awl/backends/x11/system/event/object_fwd.hpp>
 #include <awl/backends/x11/system/event/opcode.hpp>
 #include <awl/backends/x11/system/event/processor_fwd.hpp>
@@ -211,9 +210,7 @@ private:
 
 	sge::x11input::device::hierarchy_demuxer hierarchy_demuxer_;
 
-	sge::x11input::pixmap const invisible_pixmap_;
-
-	sge::x11input::cursor::pixmap const invisible_cursor_;
+	awl::backends::x11::cursor::object_unique_ptr const invisible_cursor_;
 
 	typedef std::unique_ptr<
 		sge::x11input::input_method

@@ -18,44 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_PIXMAP_HPP_INCLUDED
-#define SGE_X11INPUT_PIXMAP_HPP_INCLUDED
+#ifndef SGE_X11INPUT_CURSOR_ENTERED_HPP_INCLUDED
+#define SGE_X11INPUT_CURSOR_ENTERED_HPP_INCLUDED
 
-#include <sge/x11input/pixmap_fwd.hpp>
-#include <awl/backends/x11/display_fwd.hpp>
-#include <awl/backends/x11/window/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <X11/X.h>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/strong_typedef.hpp>
 
 
 namespace sge
 {
 namespace x11input
 {
-
-class pixmap
+namespace cursor
 {
-	FCPPT_NONCOPYABLE(
-		pixmap
-	);
-public:
-	explicit
-	pixmap(
-		awl::backends::x11::window::object const &
-	);
 
-	~pixmap();
+FCPPT_MAKE_STRONG_TYPEDEF(
+	bool,
+	entered
+);
 
-	Pixmap
-	get() const;
-private:
-	awl::backends::x11::display &display_;
-
-	Pixmap const pixmap_;
-};
-
+}
 }
 }
 

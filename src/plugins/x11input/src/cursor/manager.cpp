@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/cursor/discover_event.hpp>
 #include <sge/input/cursor/remove_event.hpp>
+#include <sge/x11input/cursor/entered.hpp>
 #include <sge/x11input/cursor/manager.hpp>
 #include <sge/x11input/cursor/object.hpp>
 #include <fcppt/assert/error.hpp>
@@ -68,7 +69,7 @@ sge::x11input::cursor::manager::discover(
 	);
 
 	if(
-		entered_
+		entered_.get()
 	)
 		(*ret.first)->on_focus_in();
 }
@@ -94,7 +95,10 @@ sge::x11input::cursor::manager::remove(
 void
 sge::x11input::cursor::manager::focus_in()
 {
-	entered_ = true;
+	entered_ =
+		sge::x11input::cursor::entered(
+			true
+		);
 
 	this->for_each_cursor(
 		&sge::x11input::cursor::object::on_focus_in
@@ -104,7 +108,10 @@ sge::x11input::cursor::manager::focus_in()
 void
 sge::x11input::cursor::manager::focus_out()
 {
-	entered_ = false;
+	entered_ =
+		sge::x11input::cursor::entered(
+			false
+		);
 
 	this->for_each_cursor(
 		&sge::x11input::cursor::object::on_focus_out
@@ -119,10 +126,11 @@ sge::x11input::cursor::manager::leave()
 	);
 }
 
-bool
+sge::x11input::cursor::entered const
 sge::x11input::cursor::manager::entered() const
 {
-	return entered_;
+	return
+		entered_;
 }
 
 template<

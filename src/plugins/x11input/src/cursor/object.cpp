@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/position_unit.hpp>
 #include <sge/input/cursor/scroll_event.hpp>
 #include <sge/x11input/cursor/button_code.hpp>
+#include <sge/x11input/cursor/entered.hpp>
 #include <sge/x11input/cursor/grab.hpp>
 #include <sge/x11input/cursor/make_info.hpp>
 #include <sge/x11input/cursor/object.hpp>
@@ -38,6 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/valuator_value.hpp>
 #include <sge/x11input/device/window_demuxer.hpp>
 #include <sge/x11input/device/window_event.hpp>
+#include <awl/backends/x11/cursor/object_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/assign/make_container.hpp>
@@ -54,8 +56,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::x11input::cursor::object::object(
 	sge::x11input::device::parameters const &_param,
-	sge::x11input::cursor::image const _invisible_image,
-	bool const _entered
+	awl::backends::x11::cursor::object const &_cursor,
+	sge::x11input::cursor::entered const _entered
 )
 :
 	sge::input::cursor::object(),
@@ -65,8 +67,8 @@ sge::x11input::cursor::object::object(
 	window_(
 		_param.window()
 	),
-	invisible_image_(
-		_invisible_image
+	cursor_(
+		_cursor
 	),
 	connections_(
 		fcppt::assign::make_container<
@@ -143,7 +145,10 @@ sge::x11input::cursor::object::~object()
 void
 sge::x11input::cursor::object::on_focus_in()
 {
-	entered_ = true;
+	entered_ =
+		sge::x11input::cursor::entered(
+			true
+		);
 
 	this->check_grab();
 }
@@ -151,7 +156,10 @@ sge::x11input::cursor::object::on_focus_in()
 void
 sge::x11input::cursor::object::on_focus_out()
 {
-	entered_ = false;
+	entered_ =
+		sge::x11input::cursor::entered(
+			false
+		);
 
 	this->check_grab();
 }
@@ -362,7 +370,8 @@ sge::x11input::cursor::object::check_grab()
 	case sge::input::cursor::mode::exclusive:
 		if(
 			!cursor_grab_
-			&& entered_
+			&&
+			entered_.get()
 		)
 			cursor_grab_ =
 				fcppt::make_unique_ptr<
@@ -370,10 +379,10 @@ sge::x11input::cursor::object::check_grab()
 				>(
 					window_,
 					this->id(),
-					invisible_image_
+					cursor_
 				);
 		else if(
-			!entered_
+			!entered_.get()
 		)
 			cursor_grab_.reset();
 

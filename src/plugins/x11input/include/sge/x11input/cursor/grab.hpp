@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_CURSOR_GRAB_HPP_INCLUDED
 
 #include <sge/x11input/cursor/grab_fwd.hpp>
-#include <sge/x11input/cursor/image.hpp>
 #include <sge/x11input/device/id.hpp>
+#include <awl/backends/x11/cursor/object_fwd.hpp>
 #include <awl/backends/x11/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -43,15 +43,15 @@ class grab
 public:
 	grab(
 		awl::backends::x11::window::object const &,
-		x11input::device::id,
-		cursor::image
+		sge::x11input::device::id,
+		awl::backends::x11::cursor::object const &
 	);
 
 	~grab();
 private:
 	awl::backends::x11::window::object const &window_;
 
-	x11input::device::id const id_;
+	sge::x11input::device::id const id_;
 };
 
 }
