@@ -203,6 +203,13 @@ add_sge_example(
 )
 
 add_sge_example(
+	custom_cursor
+	"sgeconfig;sgeimagecolor;sgerenderer;sgesystems;sgetexture;sgeviewport;sgewindow"
+	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
+	""
+)
+
+add_sge_example(
 	display_mode
 	"sgerenderer;sgesystems;sgeviewport;sgewindow"
 	"${fcppt_core_TARGET}"

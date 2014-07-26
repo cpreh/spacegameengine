@@ -46,15 +46,15 @@ sge::systems::modules::window::make_base(
 		);
 	public:
 		visitor(
-			sge::window::system &_system,
-			sge::systems::modules::renderer::optional_system_ref const &_renderer_system
+			sge::window::system &_nsystem,
+			sge::systems::modules::renderer::optional_system_ref const &_nrenderer_system
 		)
 		:
 			system_(
-				_system
+				_nsystem
 			),
 			renderer_system_(
-				_renderer_system
+				_nrenderer_system
 			)
 		{
 		}
