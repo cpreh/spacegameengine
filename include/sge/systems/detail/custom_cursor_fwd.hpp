@@ -18,11 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TEXTURE_POS_TYPE_HPP_INCLUDED
-#define SGE_TEXTURE_POS_TYPE_HPP_INCLUDED
+#ifndef SGE_SYSTEMS_DETAIL_CUSTOM_CURSOR_FWD_HPP_INCLUDED
+#define SGE_SYSTEMS_DETAIL_CUSTOM_CURSOR_FWD_HPP_INCLUDED
 
-#include <sge/texture/pos_type_fwd.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
 
+namespace sge
+{
+namespace systems
+{
+namespace detail
+{
+
+class custom_cursor;
+
+}
+}
+}
 
 #endif

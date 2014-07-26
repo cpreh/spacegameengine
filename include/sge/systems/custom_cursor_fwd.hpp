@@ -18,22 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TEXTURE_POS_TYPE_FWD_HPP_INCLUDED
-#define SGE_TEXTURE_POS_TYPE_FWD_HPP_INCLUDED
-
-#include <sge/renderer/size_type.hpp>
-#include <fcppt/math/vector/static.hpp>
+#ifndef SGE_SYSTEMS_CUSTOM_CURSOR_FWD_HPP_INCLUDED
+#define SGE_SYSTEMS_CUSTOM_CURSOR_FWD_HPP_INCLUDED
 
 
 namespace sge
 {
-namespace texture
+namespace systems
 {
 
-typedef fcppt::math::vector::static_<
-	sge::renderer::size_type,
-	2u
-> pos_type;
+class custom_cursor;
 
 }
 }

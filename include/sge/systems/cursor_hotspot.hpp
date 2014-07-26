@@ -18,29 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TEXTURE_SUB_DATA_HPP_INCLUDED
-#define SGE_TEXTURE_SUB_DATA_HPP_INCLUDED
+#ifndef SGE_SYSTEMS_CURSOR_HOTSPOT_HPP_INCLUDED
+#define SGE_SYSTEMS_CURSOR_HOTSPOT_HPP_INCLUDED
 
-#include <sge/image2d/view/const_object_fwd.hpp>
-#include <sge/renderer/texture/planar_fwd.hpp>
-#include <sge/texture/pos_fwd.hpp>
-#include <sge/texture/symbol.hpp>
+#include <sge/systems/cursor_hotspot_fwd.hpp>
+#include <sge/texture/pos.hpp>
+#include <fcppt/strong_typedef.hpp>
 
-
-namespace sge
-{
-namespace texture
-{
-
-SGE_TEXTURE_SYMBOL
-void
-sub_data(
-	sge::renderer::texture::planar &,
-	sge::image2d::view::const_object const &,
-	sge::texture::pos
-);
-
-}
-}
 
 #endif

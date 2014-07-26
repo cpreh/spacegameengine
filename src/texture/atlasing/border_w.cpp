@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
-#include <sge/texture/pos_type.hpp>
+#include <sge/texture/pos.hpp>
 #include <sge/texture/sub_data.hpp>
 #include <sge/texture/atlasing/border_w.hpp>
 #include <sge/texture/atlasing/inner_rect.hpp>
@@ -55,7 +55,7 @@ sge::texture::atlasing::border_w(
 				)
 			)
 		),
-		sge::texture::pos_type(
+		sge::texture::pos(
 			_inner_area.get().left() - 1u,
 			_inner_area.get().top()
 		)
@@ -76,7 +76,7 @@ sge::texture::atlasing::border_w(
 				)
 			)
 		),
-		sge::texture::pos_type(
+		sge::texture::pos(
 			_inner_area.get().right() + 1u,
 			_inner_area.get().top()
 		)

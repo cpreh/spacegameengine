@@ -9,10 +9,14 @@ set(
 	include/sge/systems/config_fwd.hpp
 	include/sge/systems/cursor_demuxer.hpp
 	include/sge/systems/cursor_demuxer_fwd.hpp
+	include/sge/systems/cursor_hotspot.hpp
+	include/sge/systems/cursor_hotspot_fwd.hpp
 	include/sge/systems/cursor_option.hpp
 	include/sge/systems/cursor_option_field.hpp
 	include/sge/systems/cursor_option_field_fwd.hpp
 	include/sge/systems/cursor_option_fwd.hpp
+	include/sge/systems/custom_cursor.hpp
+	include/sge/systems/custom_cursor_fwd.hpp
 	include/sge/systems/detail/add_defaults.hpp
 	include/sge/systems/detail/any.hpp
 	include/sge/systems/detail/any_fwd.hpp
@@ -23,6 +27,7 @@ set(
 	include/sge/systems/detail/any_types_fwd.hpp
 	include/sge/systems/detail/assert_dependencies.hpp
 	include/sge/systems/detail/assert_dependencies_one.hpp
+	include/sge/systems/detail/custom_cursor_fwd.hpp
 	include/sge/systems/detail/extract_needs_init.hpp
 	include/sge/systems/detail/extract_parameter_type.hpp
 	include/sge/systems/detail/has_input_option.hpp
@@ -114,6 +119,8 @@ set(
 	src/systems/audio_player.cpp
 	src/systems/audio_player_default.cpp
 	src/systems/config.cpp
+	src/systems/custom_cursor.cpp
+	src/systems/detail/custom_cursor.cpp
 	src/systems/detail/input.cpp
 	src/systems/detail/instance.cpp
 	src/systems/detail/instance_impl.cpp
@@ -126,6 +133,7 @@ set(
 	src/systems/font.cpp
 	src/systems/image2d.cpp
 	src/systems/include/sge/src/systems/any_visitor.hpp
+	src/systems/include/sge/src/systems/detail/custom_cursor.hpp
 	src/systems/include/sge/src/systems/detail/instance_impl.hpp
 	src/systems/include/sge/src/systems/extract_config.hpp
 	src/systems/include/sge/src/systems/extract_plugin_path.hpp
@@ -243,7 +251,7 @@ find_package(
 
 add_sge_base_library(
 	systems
-	"sgeaudio;sgeconfig;sgecore;sgefont;sgeimage2d;sgeinput;sgelog;sgeparse;sgeparseini;sgeplugin;sgerenderer;sgeviewport;sgewindow"
+	"sgeaudio;sgeconfig;sgecore;sgefont;sgeimage2d;sgeinput;sgelog;sgeparse;sgeparseini;sgeplugin;sgerenderer;sgesprite;sgeviewport;sgewindow"
 	"${awl_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 	""

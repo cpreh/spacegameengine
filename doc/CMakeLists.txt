@@ -3356,10 +3356,14 @@ set(
 	include/sge/systems/config_fwd.hpp
 	include/sge/systems/cursor_demuxer.hpp
 	include/sge/systems/cursor_demuxer_fwd.hpp
+	include/sge/systems/cursor_hotspot.hpp
+	include/sge/systems/cursor_hotspot_fwd.hpp
 	include/sge/systems/cursor_option.hpp
 	include/sge/systems/cursor_option_field.hpp
 	include/sge/systems/cursor_option_field_fwd.hpp
 	include/sge/systems/cursor_option_fwd.hpp
+	include/sge/systems/custom_cursor.hpp
+	include/sge/systems/custom_cursor_fwd.hpp
 	include/sge/systems/detail/add_defaults.hpp
 	include/sge/systems/detail/any.hpp
 	include/sge/systems/detail/any_fwd.hpp
@@ -3370,6 +3374,7 @@ set(
 	include/sge/systems/detail/any_types_fwd.hpp
 	include/sge/systems/detail/assert_dependencies.hpp
 	include/sge/systems/detail/assert_dependencies_one.hpp
+	include/sge/systems/detail/custom_cursor_fwd.hpp
 	include/sge/systems/detail/extract_needs_init.hpp
 	include/sge/systems/detail/extract_parameter_type.hpp
 	include/sge/systems/detail/has_input_option.hpp
@@ -3495,8 +3500,8 @@ set(
 	include/sge/texture/part_raw_ref_fwd.hpp
 	include/sge/texture/part_shared_ptr.hpp
 	include/sge/texture/part_unique_ptr.hpp
-	include/sge/texture/pos_type.hpp
-	include/sge/texture/pos_type_fwd.hpp
+	include/sge/texture/pos.hpp
+	include/sge/texture/pos_fwd.hpp
 	include/sge/texture/rect_fragmented.hpp
 	include/sge/texture/sub_data.hpp
 	include/sge/texture/wrap_npot.hpp

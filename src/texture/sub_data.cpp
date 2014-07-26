@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/scoped_planar_lock.hpp>
-#include <sge/texture/pos_type.hpp>
+#include <sge/texture/pos.hpp>
 #include <sge/texture/sub_data.hpp>
 
 
@@ -34,7 +34,7 @@ void
 sge::texture::sub_data(
 	sge::renderer::texture::planar &_texture,
 	sge::image2d::view::const_object const &_view,
-	sge::texture::pos_type const &_pos
+	sge::texture::pos const _pos
 )
 {
 	sge::renderer::texture::scoped_planar_lock const lock(

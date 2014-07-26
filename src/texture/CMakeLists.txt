@@ -39,8 +39,8 @@ set(
 	include/sge/texture/part_raw_ref_fwd.hpp
 	include/sge/texture/part_shared_ptr.hpp
 	include/sge/texture/part_unique_ptr.hpp
-	include/sge/texture/pos_type.hpp
-	include/sge/texture/pos_type_fwd.hpp
+	include/sge/texture/pos.hpp
+	include/sge/texture/pos_fwd.hpp
 	include/sge/texture/rect_fragmented.hpp
 	include/sge/texture/sub_data.hpp
 	include/sge/texture/wrap_npot.hpp
