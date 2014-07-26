@@ -55,19 +55,22 @@ sge::window::system::~system()
 awl::system::object &
 sge::window::system::awl_system() const
 {
-	return awl_system_;
+	return
+		awl_system_;
 }
 
 awl::event::processor &
 sge::window::system::awl_event_processor() const
 {
-	return awl_event_processor_;
+	return
+		awl_event_processor_;
 }
 
 awl::system::event::processor &
 sge::window::system::awl_system_event_processor() const
 {
-	return awl_system_event_processor_;
+	return
+		awl_system_event_processor_;
 }
 
 sge::window::object_unique_ptr
@@ -77,14 +80,12 @@ sge::window::system::create(
 ) const
 {
 	return
-		sge::window::object_unique_ptr(
-			fcppt::make_unique_ptr<
-				sge::window::object
-			>(
-				_awl_window,
-				_awl_window_event_processor,
-				awl_event_processor_
-			)
+		fcppt::make_unique_ptr<
+			sge::window::object
+		>(
+			_awl_window,
+			_awl_window_event_processor,
+			awl_event_processor_
 		);
 }
 
@@ -109,7 +110,8 @@ sge::window::system::next()
 bool
 sge::window::system::running() const
 {
-	return awl_system_event_processor_.running();
+	return
+		awl_system_event_processor_.running();
 }
 
 void

@@ -75,6 +75,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/make_list.hpp>
+#include <sge/systems/original_window.hpp>
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/renderer_caps.hpp>
 #include <sge/systems/window.hpp>
@@ -82,7 +83,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/with_window.hpp>
 #include <sge/viewport/center_on_resize.hpp>
 #include <sge/window/dim.hpp>
-#include <sge/window/parameters.hpp>
 #include <sge/window/title.hpp>
 #include <fcppt/dynamic_pointer_cast.hpp>
 #include <fcppt/exception.hpp>
@@ -329,7 +329,7 @@ try
 	> const sys(
 		sge::systems::make_list
 		(sge::systems::window(
-				sge::window::parameters(
+				sge::systems::original_window(
 					sge::window::title(
 						FCPPT_TEXT("Simple OpenCL example")),
 					window_dim)).dont_show())

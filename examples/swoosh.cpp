@@ -113,7 +113,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/const_part_unique_ptr.hpp>
 #include <sge/texture/part_raw_ptr.hpp>
 #include <sge/viewport/center_on_resize.hpp>
-#include <sge/window/parameters.hpp>
+#include <sge/systems/original_window.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
 #include <awl/main/exit_code.hpp>
@@ -407,7 +407,7 @@ try
 		sge::systems::make_list
 		(
 			sge::systems::window(
-				sge::window::parameters(
+				sge::systems::original_window(
 					sge::window::title(
 						FCPPT_TEXT("sge dopplertest")
 					),

@@ -83,6 +83,8 @@ set(
 	include/sge/systems/optional_name_fwd.hpp
 	include/sge/systems/optional_plugin_path.hpp
 	include/sge/systems/optional_plugin_path_fwd.hpp
+	include/sge/systems/original_window.hpp
+	include/sge/systems/original_window_fwd.hpp
 	include/sge/systems/plugin_path.hpp
 	include/sge/systems/quit_on_escape.hpp
 	include/sge/systems/renderer.hpp
@@ -186,6 +188,7 @@ set(
 	src/systems/include/sge/src/systems/modules/window/system_base_unique_ptr.hpp
 	src/systems/include/sge/src/systems/modules/window/system_fwd.hpp
 	src/systems/include/sge/src/systems/modules/window/system_unique_ptr.hpp
+	src/systems/include/sge/src/systems/modules/window/to_awl_parameters.hpp
 	src/systems/include/sge/src/systems/modules/window/wrapped.hpp
 	src/systems/include/sge/src/systems/modules/window/wrapped_system.hpp
 	src/systems/include/sge/src/systems/plugin_pair_decl.hpp
@@ -224,8 +227,10 @@ set(
 	src/systems/modules/window/quit.cpp
 	src/systems/modules/window/system.cpp
 	src/systems/modules/window/system_base.cpp
+	src/systems/modules/window/to_awl_parameters.cpp
 	src/systems/modules/window/wrapped.cpp
 	src/systems/modules/window/wrapped_system.cpp
+	src/systems/original_window.cpp
 	src/systems/renderer.cpp
 	src/systems/window.cpp
 	src/systems/wrapped_window.cpp

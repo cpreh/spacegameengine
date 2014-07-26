@@ -18,28 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_WINDOW_CREATE_FROM_AWL_HPP_INCLUDED
-#define SGE_WINDOW_CREATE_FROM_AWL_HPP_INCLUDED
-
-#include <sge/window/parameters_fwd.hpp>
-#include <sge/window/symbol.hpp>
-#include <awl/system/object_fwd.hpp>
-#include <awl/visual/object_fwd.hpp>
-#include <awl/window/object_unique_ptr.hpp>
+#ifndef SGE_SYSTEMS_ORIGINAL_WINDOW_FWD_HPP_INCLUDED
+#define SGE_SYSTEMS_ORIGINAL_WINDOW_FWD_HPP_INCLUDED
 
 
 namespace sge
 {
-namespace window
+namespace systems
 {
 
-SGE_WINDOW_SYMBOL
-awl::window::object_unique_ptr
-create_from_awl(
-	awl::system::object &,
-	awl::visual::object const &,
-	sge::window::parameters const &
-);
+class original_window;
 
 }
 }

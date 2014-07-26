@@ -22,22 +22,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/modules/renderer/system.hpp>
 #include <sge/src/systems/modules/window/base.hpp>
 #include <sge/src/systems/modules/window/original.hpp>
-#include <sge/window/create_from_awl.hpp>
+#include <sge/src/systems/modules/window/to_awl_parameters.hpp>
+#include <sge/systems/original_window.hpp>
 #include <sge/window/object.hpp>
-#include <sge/window/parameters.hpp>
 #include <sge/window/system.hpp>
+#include <awl/cursor/const_optional_object_ref.hpp>
+#include <awl/cursor/create_invisible.hpp>
 #include <awl/cursor/create_predefined.hpp>
 #include <awl/cursor/object.hpp>
 #include <awl/cursor/predefined.hpp>
 #include <awl/system/object.hpp>
 #include <awl/visual/object.hpp>
 #include <awl/window/object.hpp>
+#include <awl/window/parameters.hpp>
 #include <awl/window/event/create_processor.hpp>
 #include <awl/window/event/processor.hpp>
 
 
 sge::systems::modules::window::original::original(
-	sge::window::parameters const &_parameters,
+	sge::systems::original_window const &_parameters,
 	sge::window::system &_system,
 	sge::systems::modules::renderer::optional_system_ref const &_renderer_system
 )
@@ -51,9 +54,11 @@ sge::systems::modules::window::original::original(
 			_system.awl_system().default_visual()
 	),
 	awl_cursor_(
-		_parameters.cursor()
+		_parameters.hide_cursor()
 		?
-			awl::cursor::object_unique_ptr()
+			awl::cursor::create_invisible(
+				_system.awl_system()
+			)
 		:
 			awl::cursor::create_predefined(
 				_system.awl_system(),
@@ -61,19 +66,14 @@ sge::systems::modules::window::original::original(
 			)
 	),
 	awl_window_(
-		sge::window::create_from_awl(
-			_system.awl_system(),
-			*awl_visual_,
-			awl_cursor_
-			?
-				sge::window::parameters(
-					_parameters
-				)
-				.cursor(
+		_system.awl_system().create_window(
+			sge::systems::modules::window::to_awl_parameters(
+				*awl_visual_,
+				awl::cursor::const_optional_object_ref(
 					*awl_cursor_
-				)
-			:
+				),
 				_parameters
+			)
 		)
 	),
 	awl_window_event_processor_(

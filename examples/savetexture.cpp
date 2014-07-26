@@ -83,10 +83,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/log_settings.hpp>
+#include <sge/systems/original_window.hpp>
 #include <sge/systems/quit_on_escape.hpp>
 #include <sge/viewport/center_on_resize.hpp>
 #include <sge/window/dim.hpp>
-#include <sge/window/parameters.hpp>
 #include <sge/window/title.hpp>
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
@@ -255,7 +255,7 @@ try
 		sge::systems::list()
 		(
 			sge::systems::window(
-				sge::window::parameters(
+				sge::systems::original_window(
 					sge::window::title(
 						FCPPT_TEXT("sge save texture example")
 					),

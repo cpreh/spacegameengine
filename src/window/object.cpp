@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/event/processor_fwd.hpp>
 #include <awl/window/object.hpp>
 #include <awl/window/event/processor_fwd.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 
 
@@ -70,11 +69,13 @@ sge::window::object::show()
 awl::window::object &
 sge::window::object::awl_object() const
 {
-	return awl_object_;
+	return
+		awl_object_;
 }
 
 awl::window::event::processor &
 sge::window::object::awl_window_event_processor() const
 {
-	return awl_window_processor_;
+	return
+		awl_window_processor_;
 }

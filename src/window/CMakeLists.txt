@@ -1,7 +1,6 @@
 set(
 	SGE_WINDOW_FILES
 	include/sge/window/convert_size_hints.hpp
-	include/sge/window/create_from_awl.hpp
 	include/sge/window/default_class_name.hpp
 	include/sge/window/dim.hpp
 	include/sge/window/dim_fwd.hpp
@@ -10,23 +9,17 @@ set(
 	include/sge/window/object_unique_ptr.hpp
 	include/sge/window/optional_dim.hpp
 	include/sge/window/optional_dim_fwd.hpp
-	include/sge/window/parameters.hpp
-	include/sge/window/parameters_fwd.hpp
 	include/sge/window/size_hints.hpp
 	include/sge/window/size_hints_fwd.hpp
 	include/sge/window/system.hpp
 	include/sge/window/system_fwd.hpp
 	include/sge/window/title.hpp
-	include/sge/window/to_awl_parameters.hpp
 	include/sge/window/unit.hpp
 	src/window/convert_size_hints.cpp
-	src/window/create_from_awl.cpp
 	src/window/default_class_name.cpp
 	src/window/object.cpp
-	src/window/parameters.cpp
 	src/window/size_hints.cpp
 	src/window/system.cpp
-	src/window/to_awl_parameters.cpp
 )
 
 find_package(

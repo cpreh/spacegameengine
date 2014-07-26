@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/window/optional_dim.hpp>
 #include <awl/window/parameters.hpp>
 #include <fcppt/optional_impl.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 
 
@@ -84,5 +83,6 @@ sge::window::convert_size_hints(
 			)
 		);
 
-	return ret;
+	return
+		ret;
 }

@@ -40,33 +40,40 @@ sge::systems::window::window(
 sge::systems::window &
 sge::systems::window::dont_show()
 {
-	show_ = false;
+	show_ =
+		false;
 
-	return *this;
+	return
+		*this;
 }
 
 sge::systems::window &
 sge::systems::window::dont_quit()
 {
-	quit_ = false;
+	quit_ =
+		false;
 
-	return *this;
+	return
+		*this;
 }
 
 sge::systems::window::parameter_variant const &
 sge::systems::window::parameter() const
 {
-	return parameter_;
+	return
+		parameter_;
 }
 
 bool
 sge::systems::window::show() const
 {
-	return show_;
+	return
+		show_;
 }
 
 bool
 sge::systems::window::quit() const
 {
-	return quit_;
+	return
+		quit_;
 }

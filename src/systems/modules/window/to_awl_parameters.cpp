@@ -18,28 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_WINDOW_TO_AWL_PARAMETERS_HPP_INCLUDED
-#define SGE_WINDOW_TO_AWL_PARAMETERS_HPP_INCLUDED
-
-#include <sge/window/parameters_fwd.hpp>
-#include <sge/window/symbol.hpp>
+#include <sge/src/systems/modules/window/to_awl_parameters.hpp>
+#include <sge/systems/original_window.hpp>
+#include <sge/window/convert_size_hints.hpp>
+#include <awl/cursor/const_optional_object_ref_fwd.hpp>
 #include <awl/visual/object_fwd.hpp>
-#include <awl/window/parameters_fwd.hpp>
+#include <awl/window/dim.hpp>
+#include <awl/window/parameters.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
 
 
-namespace sge
-{
-namespace window
-{
-
-SGE_WINDOW_SYMBOL
 awl::window::parameters
-to_awl_parameters(
-	awl::visual::object const &,
-	sge::window::parameters const &
-);
-
+sge::systems::modules::window::to_awl_parameters(
+	awl::visual::object const &_visual,
+	awl::cursor::const_optional_object_ref const &_cursor,
+	sge::systems::original_window const &_parameters
+)
+{
+	return
+		sge::window::convert_size_hints(
+			awl::window::parameters(
+				_visual
+			),
+			_parameters.size_hints()
+		)
+		.title(
+			_parameters.title().get()
+		)
+		.class_name(
+			_parameters.class_name()
+		)
+		.size(
+			fcppt::math::dim::structure_cast<
+				awl::window::dim
+			>(
+				_parameters.dim()
+			)
+		)
+		.cursor(
+			_cursor
+		);
 }
-}
-
-#endif

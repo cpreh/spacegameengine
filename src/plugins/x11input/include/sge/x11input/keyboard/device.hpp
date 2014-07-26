@@ -37,8 +37,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/container/bitfield/object_decl.hpp>
-#include <fcppt/signal/auto_connection_fwd.hpp>
 #include <fcppt/signal/auto_connection_container.hpp>
+#include <fcppt/signal/auto_connection_fwd.hpp>
 #include <fcppt/signal/object.hpp>
 
 

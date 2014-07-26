@@ -113,6 +113,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/list.hpp>
 #include <sge/systems/log_settings.hpp>
 #include <sge/systems/make_list.hpp>
+#include <sge/systems/original_window.hpp>
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/renderer_caps.hpp>
 #include <sge/systems/window.hpp>
@@ -124,7 +125,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/viewport/fill_on_resize.hpp>
 #include <sge/viewport/manager.hpp>
 #include <sge/window/dim.hpp>
-#include <sge/window/parameters.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
 #include <awl/show_error.hpp>
@@ -365,7 +365,7 @@ try
 		sge::systems::make_list
 		(
 			sge::systems::window(
-				sge::window::parameters(
+				sge::systems::original_window(
 					sge::window::title(
 						FCPPT_TEXT("sge input example")
 					),

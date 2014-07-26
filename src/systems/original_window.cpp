@@ -18,94 +18,100 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/systems/original_window.hpp>
 #include <sge/window/default_class_name.hpp>
 #include <sge/window/dim.hpp>
-#include <sge/window/parameters.hpp>
 #include <sge/window/size_hints.hpp>
 #include <sge/window/title.hpp>
-#include <awl/cursor/const_optional_object_ref.hpp>
-#include <awl/cursor/object_fwd.hpp>
 #include <fcppt/string.hpp>
 
 
-sge::window::parameters::parameters(
+sge::systems::original_window::original_window(
 	sge::window::title const &_title,
 	sge::window::dim const &_dim
 )
 :
-	title_(
+	title_{
 		_title
-	),
-	dim_(
+	},
+	dim_{
 		_dim
-	),
-	class_name_(
+	},
+	class_name_{
 		sge::window::default_class_name()
-	),
+	},
 	size_hints_(),
-	cursor_()
+	hide_cursor_{
+		false
+	}
 {
 }
 
-sge::window::parameters &
-sge::window::parameters::class_name(
+sge::systems::original_window &
+sge::systems::original_window::class_name(
 	fcppt::string const &_class_name
 )
 {
-	class_name_ = _class_name;
+	class_name_ =
+		_class_name;
 
-	return *this;
+	return
+		*this;
 }
 
-sge::window::parameters &
-sge::window::parameters::size_hints(
+sge::systems::original_window &
+sge::systems::original_window::size_hints(
 	sge::window::size_hints const &_size_hints
 )
 {
-	size_hints_ = _size_hints;
+	size_hints_ =
+		_size_hints;
 
-	return *this;
+	return
+		*this;
 }
 
-sge::window::parameters &
-sge::window::parameters::cursor(
-	awl::cursor::object const &_cursor
-)
+sge::systems::original_window &
+sge::systems::original_window::hide_cursor()
 {
-	cursor_ =
-		awl::cursor::const_optional_object_ref(
-			_cursor
-		);
+	hide_cursor_ =
+		true;
 
-	return *this;
+	return
+		*this;
 }
 
 sge::window::title const &
-sge::window::parameters::title() const
+sge::systems::original_window::title() const
 {
-	return title_;
+	return
+		title_;
 }
 
 sge::window::dim const &
-sge::window::parameters::dim() const
+sge::systems::original_window::dim() const
 {
-	return dim_;
+	return
+		dim_;
 }
 
 fcppt::string const &
-sge::window::parameters::class_name() const
+sge::systems::original_window::class_name() const
 {
-	return class_name_;
+	return
+		class_name_;
 }
 
 sge::window::size_hints const &
-sge::window::parameters::size_hints() const
+sge::systems::original_window::size_hints() const
 {
-	return size_hints_;
+	return
+		size_hints_;
 }
 
-awl::cursor::const_optional_object_ref const &
-sge::window::parameters::cursor() const
+bool
+sge::systems::original_window::hide_cursor() const
 {
-	return cursor_;
+	return
+		hide_cursor_;
 }

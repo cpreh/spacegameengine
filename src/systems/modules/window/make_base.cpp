@@ -23,47 +23,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/modules/window/make_base.hpp>
 #include <sge/src/systems/modules/window/original.hpp>
 #include <sge/src/systems/modules/window/wrapped.hpp>
+#include <sge/systems/original_window_fwd.hpp>
 #include <sge/systems/window.hpp>
 #include <sge/systems/wrapped_window_fwd.hpp>
-#include <sge/window/parameters_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 
-
-namespace
-{
-
-class visitor
-{
-	FCPPT_NONASSIGNABLE(
-		visitor
-	);
-public:
-	visitor(
-		sge::window::system &,
-		sge::systems::modules::renderer::optional_system_ref const &
-	);
-
-	typedef sge::systems::modules::window::base_unique_ptr result_type;
-
-	result_type
-	operator()(
-		sge::window::parameters const &
-	) const;
-
-	result_type
-	operator()(
-		sge::systems::wrapped_window const &
-	) const;
-private:
-	sge::window::system &system_;
-
-	sge::systems::modules::renderer::optional_system_ref const renderer_system_;
-};
-
-}
 
 sge::systems::modules::window::base_unique_ptr
 sge::systems::modules::window::make_base(
@@ -72,64 +39,70 @@ sge::systems::modules::window::make_base(
 	sge::systems::modules::renderer::optional_system_ref const &_renderer_system
 )
 {
+	class visitor
+	{
+		FCPPT_NONASSIGNABLE(
+			visitor
+		);
+	public:
+		visitor(
+			sge::window::system &_system,
+			sge::systems::modules::renderer::optional_system_ref const &_renderer_system
+		)
+		:
+			system_(
+				_system
+			),
+			renderer_system_(
+				_renderer_system
+			)
+		{
+		}
+
+		typedef
+		sge::systems::modules::window::base_unique_ptr
+		result_type;
+
+		result_type
+		operator()(
+			sge::systems::original_window const &_original
+		) const
+		{
+			return
+				fcppt::make_unique_ptr<
+					sge::systems::modules::window::original
+				>(
+					_original,
+					system_,
+					renderer_system_
+				);
+		}
+
+		result_type
+		operator()(
+			sge::systems::wrapped_window const &_wrapped
+		) const
+		{
+			return
+				fcppt::make_unique_ptr<
+					sge::systems::modules::window::wrapped
+				>(
+					_wrapped,
+					system_
+				);
+		}
+	private:
+		sge::window::system &system_;
+
+		sge::systems::modules::renderer::optional_system_ref const renderer_system_;
+	};
+
 	return
 		fcppt::variant::apply_unary(
-			::visitor(
+			visitor(
 				_system,
 				_renderer_system
 			),
 			_parameters.parameter()
 		);
-}
-
-namespace
-{
-
-visitor::visitor(
-	sge::window::system &_system,
-	sge::systems::modules::renderer::optional_system_ref const &_renderer_system
-)
-:
-	system_(
-		_system
-	),
-	renderer_system_(
-		_renderer_system
-	)
-{
-}
-
-visitor::result_type
-visitor::operator()(
-	sge::window::parameters const &_parameters
-) const
-{
-	return
-		visitor::result_type(
-			fcppt::make_unique_ptr<
-				sge::systems::modules::window::original
-			>(
-				_parameters,
-				system_,
-				renderer_system_
-			)
-		);
-}
-
-visitor::result_type
-visitor::operator()(
-	sge::systems::wrapped_window const &_wrapped
-) const
-{
-	return
-		visitor::result_type(
-			fcppt::make_unique_ptr<
-				sge::systems::modules::window::wrapped
-			>(
-				_wrapped,
-				system_
-			)
-		);
-}
-
 }

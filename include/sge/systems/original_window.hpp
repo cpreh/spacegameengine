@@ -18,70 +18,61 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_WINDOW_PARAMETERS_HPP_INCLUDED
-#define SGE_WINDOW_PARAMETERS_HPP_INCLUDED
+#ifndef SGE_SYSTEMS_ORIGINAL_WINDOW_HPP_INCLUDED
+#define SGE_SYSTEMS_ORIGINAL_WINDOW_HPP_INCLUDED
 
+#include <sge/systems/original_window_fwd.hpp>
+#include <sge/systems/symbol.hpp>
 #include <sge/window/dim.hpp>
-#include <sge/window/parameters_fwd.hpp>
 #include <sge/window/size_hints.hpp>
-#include <sge/window/symbol.hpp>
 #include <sge/window/title.hpp>
-#include <awl/cursor/const_optional_object_ref.hpp>
-#include <awl/cursor/object_fwd.hpp>
 #include <fcppt/string.hpp>
 
 
 namespace sge
 {
-namespace window
+namespace systems
 {
 
-class parameters
+class original_window
 {
 public:
-	SGE_WINDOW_SYMBOL
-	parameters(
+	SGE_SYSTEMS_SYMBOL
+	original_window(
 		sge::window::title const &,
 		sge::window::dim const &
 	);
 
-	SGE_WINDOW_SYMBOL
-	sge::window::parameters &
+	SGE_SYSTEMS_SYMBOL
+	sge::systems::original_window &
 	class_name(
 		fcppt::string const &
 	);
 
-	SGE_WINDOW_SYMBOL
-	sge::window::parameters &
+	SGE_SYSTEMS_SYMBOL
+	sge::systems::original_window &
 	size_hints(
 		sge::window::size_hints const &
 	);
 
-	SGE_WINDOW_SYMBOL
-	sge::window::parameters &
-	cursor(
-		awl::cursor::object const &
-	);
+	SGE_SYSTEMS_SYMBOL
+	sge::systems::original_window &
+	hide_cursor();
 
-	SGE_WINDOW_SYMBOL
 	sge::window::title const &
 	title() const;
 
-	SGE_WINDOW_SYMBOL
 	sge::window::dim const &
 	dim() const;
 
-	SGE_WINDOW_SYMBOL
 	fcppt::string const &
 	class_name() const;
 
-	SGE_WINDOW_SYMBOL
 	sge::window::size_hints const &
 	size_hints() const;
 
-	SGE_WINDOW_SYMBOL
-	awl::cursor::const_optional_object_ref const &
-	cursor() const;
+	bool
+	hide_cursor() const;
 private:
 	sge::window::title title_;
 
@@ -91,7 +82,7 @@ private:
 
 	sge::window::size_hints size_hints_;
 
-	awl::cursor::const_optional_object_ref cursor_;
+	bool hide_cursor_;
 };
 
 }

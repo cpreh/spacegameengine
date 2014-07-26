@@ -3430,6 +3430,8 @@ set(
 	include/sge/systems/optional_name_fwd.hpp
 	include/sge/systems/optional_plugin_path.hpp
 	include/sge/systems/optional_plugin_path_fwd.hpp
+	include/sge/systems/original_window.hpp
+	include/sge/systems/original_window_fwd.hpp
 	include/sge/systems/plugin_path.hpp
 	include/sge/systems/quit_on_escape.hpp
 	include/sge/systems/renderer.hpp
@@ -3548,7 +3550,6 @@ set(
 	include/sge/viewport/resize_callback.hpp
 	include/sge/viewport/resize_function.hpp
 	include/sge/window/convert_size_hints.hpp
-	include/sge/window/create_from_awl.hpp
 	include/sge/window/default_class_name.hpp
 	include/sge/window/dim.hpp
 	include/sge/window/dim_fwd.hpp
@@ -3557,14 +3558,11 @@ set(
 	include/sge/window/object_unique_ptr.hpp
 	include/sge/window/optional_dim.hpp
 	include/sge/window/optional_dim_fwd.hpp
-	include/sge/window/parameters.hpp
-	include/sge/window/parameters_fwd.hpp
 	include/sge/window/size_hints.hpp
 	include/sge/window/size_hints_fwd.hpp
 	include/sge/window/system.hpp
 	include/sge/window/system_fwd.hpp
 	include/sge/window/title.hpp
-	include/sge/window/to_awl_parameters.hpp
 	include/sge/window/unit.hpp
 )
 
