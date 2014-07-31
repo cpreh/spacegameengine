@@ -174,12 +174,12 @@ sge::sprite::intrusive::ordered::collection<
 )
 {
 	for(
-		auto &element
+		auto const &element
 		:
 		collections_
 	)
 		_function(
-			element.second.range()
+			element.second->range()
 		);
 }
 
