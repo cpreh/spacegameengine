@@ -45,6 +45,15 @@ public:
 		sge::font::unit width
 	);
 
+	line(
+		line &&
+	);
+
+	line &
+	operator=(
+		line &&
+	);
+
 	~line();
 
 	sge::font::bitmap::char_metric_ref_vector const &
@@ -53,9 +62,9 @@ public:
 	sge::font::unit
 	width() const;
 private:
-	sge::font::bitmap::char_metric_ref_vector const char_metrics_;
+	sge::font::bitmap::char_metric_ref_vector char_metrics_;
 
-	sge::font::unit const width_;
+	sge::font::unit width_;
 };
 
 }

@@ -32,7 +32,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
+#include <memory>
+#include <vector>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -70,11 +71,20 @@ public:
 private:
 	sge::renderer::vf::dynamic::format const format_;
 
-	typedef boost::ptr_vector<
+	// Parts could be movable but lack a proper default state
+	typedef
+	std::unique_ptr<
 		sge::opengl::vf::part
-	> part_vector;
+	>
+	part_unique_ptr;
 
-	part_vector parts_;
+	typedef
+	std::vector<
+		part_unique_ptr
+	>
+	part_container;
+
+	part_container const parts_;
 };
 
 }

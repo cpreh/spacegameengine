@@ -29,7 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
+#include <memory>
+#include <vector>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -194,8 +195,14 @@ private:
 	element_type;
 
 	typedef
-	boost::ptr_vector<
+	std::unique_ptr<
 		element_type
+	>
+	element_unique_ptr;
+
+	typedef
+	std::vector<
+		element_unique_ptr
 	>
 	element_sequence;
 

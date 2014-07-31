@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_EVDEV_JOYPAD_MAP_HPP_INCLUDED
 #define SGE_EVDEV_JOYPAD_MAP_HPP_INCLUDED
 
-#include <sge/evdev/joypad/object_fwd.hpp>
+#include <sge/evdev/joypad/object_unique_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
-#include <boost/ptr_container/ptr_map.hpp>
+#include <map>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -35,10 +35,12 @@ namespace evdev
 namespace joypad
 {
 
-typedef boost::ptr_map<
+typedef
+std::map<
 	boost::filesystem::path,
-	sge::evdev::joypad::object
-> map;
+	sge::evdev::joypad::object_unique_ptr
+>
+map;
 
 }
 }

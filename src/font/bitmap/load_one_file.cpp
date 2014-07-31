@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/exception.hpp>
+#include <sge/font/exception.hpp>
 #include <sge/font/unit.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/file_unique_ptr.hpp>
@@ -41,10 +42,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/font/bitmap/load_one_file.hpp>
 #include <sge/src/font/bitmap/load_rect.hpp>
 #include <sge/src/font/bitmap/logger.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/char_type.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -124,31 +124,46 @@ sge::font::bitmap::load_one_file(
 			continue;
 		}
 
-		fcppt::container::ptr::insert_unique_ptr_map(
-			_char_map,
-			name[0],
-			fcppt::make_unique_ptr<
-				sge::font::bitmap::char_metric
-			>(
-				sge::image2d::view::checked_sub(
-					return_file->view(),
-					sge::font::bitmap::load_rect(
-						members
-					)
-				),
-				sge::font::bitmap::load_offset(
-					members
-				),
-				sge::parse::json::convert::to_int<
-					sge::font::unit
-				>(
-					sge::parse::json::find_member_value_exn(
-						members,
-						FCPPT_TEXT("x_advance")
-					)
+		fcppt::char_type const element{
+			name[0]
+		};
+
+		if(
+			!_char_map.insert(
+				std::make_pair(
+					element,
+					sge::font::bitmap::char_metric{
+						sge::image2d::view::checked_sub(
+							return_file->view(),
+							sge::font::bitmap::load_rect(
+								members
+							)
+						),
+						sge::font::bitmap::load_offset(
+							members
+						),
+						sge::parse::json::convert::to_int<
+							sge::font::unit
+						>(
+							sge::parse::json::find_member_value_exn(
+								members,
+								FCPPT_TEXT("x_advance")
+							)
+						)
+					}
 				)
-			)
-		);
+			).second
+		)
+			throw
+				sge::font::exception{
+					FCPPT_TEXT("Double insert of '")
+					+
+					fcppt::string{
+						element
+					}
+					+
+					FCPPT_TEXT(" in bitmap font")
+				};
 	}
 	catch(
 		sge::exception const &_exception

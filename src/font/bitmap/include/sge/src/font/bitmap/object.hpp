@@ -28,13 +28,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text_unique_ptr.hpp>
 #include <sge/font/unit.hpp>
 #include <sge/image/color/optional_format.hpp>
-#include <sge/image2d/file_fwd.hpp>
+#include <sge/image2d/file_unique_ptr.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/src/font/bitmap/char_map.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
+#include <vector>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -77,8 +77,8 @@ private:
 	override;
 
 	typedef
-	boost::ptr_vector<
-		sge::image2d::file
+	std::vector<
+		sge::image2d::file_unique_ptr
 	>
 	image_vector;
 

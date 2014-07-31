@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/cegui/batch_fwd.hpp>
 #include <sge/src/cegui/clip.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/reference_wrapper.hpp>
 
 
 namespace sge
@@ -50,6 +51,15 @@ public:
 		sge::cegui::clip
 	);
 
+	batch(
+		batch &&
+	);
+
+	batch &
+	operator=(
+		batch &&
+	);
+
 	~batch();
 
 	sge::renderer::texture::planar &
@@ -61,9 +71,15 @@ public:
 	sge::cegui::clip const
 	clip() const;
 private:
-	sge::renderer::texture::planar &texture_;
+	typedef
+	fcppt::reference_wrapper<
+		sge::renderer::texture::planar
+	>
+	planar_texture_ref;
 
-	sge::renderer::vertex::buffer_unique_ptr const vertex_buffer_;
+	planar_texture_ref texture_;
+
+	sge::renderer::vertex::buffer_unique_ptr vertex_buffer_;
 
 	sge::cegui::clip clip_;
 };

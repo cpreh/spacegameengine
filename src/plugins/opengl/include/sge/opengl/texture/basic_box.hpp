@@ -29,7 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/mipmap/level_count.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
+#include <memory>
+#include <vector>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -90,9 +91,17 @@ private:
 	levels() const
 	override;
 
-	typedef boost::ptr_vector<
+	typedef
+	std::unique_ptr<
 		color_buffer
-	> buffer_vector;
+	>
+	color_buffer_unique_ptr;
+
+	typedef
+	std::vector<
+		color_buffer_unique_ptr
+	>
+	buffer_vector;
 
 	buffer_vector levels_;
 };

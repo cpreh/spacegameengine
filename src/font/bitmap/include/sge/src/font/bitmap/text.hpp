@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/font/bitmap/line_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
+#include <vector>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -92,7 +92,7 @@ private:
 	override;
 
 	typedef
-	boost::ptr_vector<
+	std::vector<
 		sge::font::bitmap::line
 	>
 	line_vector;

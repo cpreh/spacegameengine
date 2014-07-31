@@ -85,13 +85,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/assert/unreachable.hpp>
-#include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/log/location.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/ptr_container/ptr_map.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <array>
 #include <example_main.hpp>
@@ -99,6 +97,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fstream>
 #include <ios>
 #include <iostream>
+#include <map>
 #include <memory>
 #include <numeric>
 #include <string>
@@ -243,13 +242,13 @@ graph_with_label
 	{}
 
 	sge::graph::object &
-	get_graph()
+	get_graph() const
 	{
 		return *graph_;
 	}
 
 	sge::font::draw::static_text &
-	get_label()
+	get_label() const
 	{
 		return *label_;
 	}
@@ -552,7 +551,7 @@ try
 		count_jiffies();
 
 	typedef
-	boost::ptr_map<
+	std::map<
 		std::string,
 		graph_with_label
 	>
@@ -561,10 +560,9 @@ try
 	device_to_graph device_map;
 
 	for(
-		std::vector<
-			std::string
-		>::iterator
-		it = devices.begin();
+		auto it(
+			devices.begin()
+		);
 		it != devices.end();
 		++it
 	)
@@ -583,47 +581,49 @@ try
 			)
 		);
 
-		fcppt::container::ptr::insert_unique_ptr_map(
-			device_map,
-			*it,
-			fcppt::make_unique_ptr<
-				graph_with_label
-			>(
-				fcppt::make_unique_ptr<
-					sge::graph::object
-				>(
-					sge::graph::position(
-						sge::renderer::vector2(
-							0.0f,
-							static_cast<sge::renderer::scalar>(y)
-							)),
-					fcppt::math::dim::structure_cast<sge::image2d::dim>(
-						graph_dim),
-					sys.renderer_device_ffp(),
-					sge::graph::baseline(
-						0.0),
-					sge::graph::optional_axis_constraint(),
-					sge::graph::color_schemes::bright()
-				),
-				fcppt::make_unique_ptr<
-					sge::font::draw::static_text
-				>(
-					sys.renderer_device_ffp(),
-					*font,
-					sge::font::from_fcppt_string(
-						fcppt::from_std_string(
-							*it
-						)
+		device_map.insert(
+			std::make_pair(
+				*it,
+				graph_with_label(
+					fcppt::make_unique_ptr<
+						sge::graph::object
+					>(
+						sge::graph::position(
+							sge::renderer::vector2(
+								0.0f,
+								static_cast<sge::renderer::scalar>(y)
+								)),
+						fcppt::math::dim::structure_cast<sge::image2d::dim>(
+							graph_dim),
+						sys.renderer_device_ffp(),
+						sge::graph::baseline(
+							0.0),
+						sge::graph::optional_axis_constraint(),
+						sge::graph::color_schemes::bright()
 					),
-					sge::font::text_parameters(
-						sge::font::align_h::left()
-					),
-					sge::font::vector(
-						0,
-						y
-					),
-					sge::image::color::predef::white(),
-					sge::renderer::texture::emulate_srgb::yes)));
+					fcppt::make_unique_ptr<
+						sge::font::draw::static_text
+					>(
+						sys.renderer_device_ffp(),
+						*font,
+						sge::font::from_fcppt_string(
+							fcppt::from_std_string(
+								*it
+							)
+						),
+						sge::font::text_parameters(
+							sge::font::align_h::left()
+						),
+						sge::font::vector(
+							0,
+							y
+						),
+						sge::image::color::predef::white(),
+						sge::renderer::texture::emulate_srgb::yes
+					)
+				)
+			)
+		);
 
 		device_totals[*it] =
 			::count_traffic(*it);
@@ -665,26 +665,26 @@ try
 
 		// network
 		for (
-			device_to_graph::iterator it = device_map.begin();
-			it != device_map.end();
-			++it
+			auto const &device
+			:
+			device_map
 		)
 		{
-			unsigned long traffic = ::count_traffic(it->first);
+			unsigned long traffic = ::count_traffic(device.first);
 
-			(it->second)->get_graph().push(
+			(device.second).get_graph().push(
 				static_cast<double>(
 					traffic -
-					device_totals[it->first]
+					device_totals[device.first]
 				)
 			);
 
-			device_totals[it->first] = traffic;
+			device_totals[device.first] = traffic;
 
-			(it->second)->get_graph().render(
+			(device.second).get_graph().render(
 				scoped_block.get());
 
-			(it->second)->get_label().draw(
+			(device.second).get_label().draw(
 				scoped_block.get());
 		}
 

@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/shader/parameter/planar_texture_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
+#include <unordered_set>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -92,10 +92,8 @@ private:
 	friend class sge::shader::scoped_pair;
 
 	typedef
-	boost::ptr_vector
-	<
-		sge::shader::parameter::planar_texture,
-		boost::view_clone_allocator
+	std::unordered_set<
+		sge::shader::parameter::planar_texture *
 	>
 	planar_texture_sequence;
 

@@ -42,7 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_enum_range.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
-#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
+#include <fcppt/container/enum_array_impl.hpp>
 
 
 sge::opengl::texture::cube::cube(
@@ -86,19 +86,13 @@ sge::opengl::texture::cube::cube(
 			sge::renderer::texture::cube_side
 		>()
 	)
-	{
-		fcppt::container::ptr::push_back_unique_ptr(
-			sides_,
-			fcppt::make_unique_ptr<
-				buffer_vector
-			>()
-		);
-
 		sge::opengl::texture::init<
 			sge::opengl::texture::cube_types
 		>(
 			binding,
-			sides_.back(),
+			sides_[
+				index
+			],
 			_basic_parameters,
 			_parameters,
 			*context.cube_texture_type(),
@@ -108,7 +102,6 @@ sge::opengl::texture::cube::cube(
 			),
 			this->id()
 		);
-	}
 }
 
 sge::opengl::texture::cube::~cube()
@@ -118,7 +111,8 @@ sge::opengl::texture::cube::~cube()
 sge::opengl::texture::cube::size_type
 sge::opengl::texture::cube::border_size() const
 {
-	return size_;
+	return
+		size_;
 }
 
 sge::renderer::texture::cube::color_buffer &
@@ -128,12 +122,8 @@ sge::opengl::texture::cube::level(
 )
 {
 	return
-		sides_[
-			static_cast<
-				sge::opengl::texture::cube::side_vector::size_type
-			>(
-				_side
-			)
+		*sides_[
+			_side
 		][
 			_level.get()
 		];
@@ -146,12 +136,8 @@ sge::opengl::texture::cube::level(
 ) const
 {
 	return
-		sides_[
-			static_cast<
-				sge::opengl::texture::cube::side_vector::size_type
-			>(
-				_side
-			)
+		*sides_[
+			_side
 		][
 			_level.get()
 		];
@@ -165,11 +151,7 @@ sge::opengl::texture::cube::levels() const
 			sge::renderer::texture::mipmap::level_count
 		>(
 			sides_[
-				static_cast<
-					sge::opengl::texture::cube::side_vector::size_type
-				>(
-					sge::renderer::texture::cube_side::front
-				)
+				sge::renderer::texture::cube_side::front
 			].size()
 		);
 }

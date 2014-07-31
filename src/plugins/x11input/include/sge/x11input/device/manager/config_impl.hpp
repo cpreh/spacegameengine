@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/id.hpp>
 #include <sge/x11input/device/object.hpp>
 #include <sge/x11input/device/manager/config.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/assert/error.hpp>
-#include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
 #include <fcppt/signal/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
@@ -86,7 +86,7 @@ sge::x11input::device::manager::config<
 	DiscoverEvent,
 	RemoveEvent
 >::initial(
-	x11input::create_parameters const &_param
+	sge::x11input::create_parameters const &_param
 )
 {
 	this->insert_into_map(
@@ -94,7 +94,8 @@ sge::x11input::device::manager::config<
 		_param
 	);
 
-	return true;
+	return
+		true;
 }
 
 template<
@@ -108,10 +109,10 @@ sge::x11input::device::manager::config<
 	DiscoverEvent,
 	RemoveEvent
 >::add(
-	x11input::create_parameters const &_param
+	sge::x11input::create_parameters const &_param
 )
 {
-	X11Object *const result(
+	optional_object_ref const result(
 		this->insert_into_map(
 			objects_,
 			_param
@@ -121,7 +122,8 @@ sge::x11input::device::manager::config<
 	if(
 		!result
 	)
-		return false;
+		return
+			false;
 
 	discover_(
 		DiscoverEvent(
@@ -129,7 +131,8 @@ sge::x11input::device::manager::config<
 		)
 	);
 
-	return true;
+	return
+		true;
 }
 
 template<
@@ -143,7 +146,7 @@ sge::x11input::device::manager::config<
 	DiscoverEvent,
 	RemoveEvent
 >::remove(
-	x11input::device::id const _id
+	sge::x11input::device::id const _id
 )
 {
 	typename object_map::iterator const it(
@@ -182,21 +185,20 @@ sge::x11input::device::manager::config<
 >::dispatch_initial()
 {
 	for(
-		typename object_map::iterator it(
-			initial_objects_.begin()
-		);
-		it != initial_objects_.end();
-		++it
+		auto const &object
+		:
+		initial_objects_
 	)
 		discover_(
 			DiscoverEvent(
-				*it->second
+				*object.second
 			)
 		);
 
-	initial_objects_.transfer(
-		objects_
-	);
+	objects_ =
+		std::move(
+			initial_objects_
+		);
 }
 
 template<
@@ -204,14 +206,19 @@ template<
 	typename DiscoverEvent,
 	typename RemoveEvent
 >
-X11Object *
+typename
+sge::x11input::device::manager::config<
+	X11Object,
+	DiscoverEvent,
+	RemoveEvent
+>::optional_object_ref
 sge::x11input::device::manager::config<
 	X11Object,
 	DiscoverEvent,
 	RemoveEvent
 >::insert_into_map(
 	object_map &_map,
-	x11input::create_parameters const &_param
+	sge::x11input::create_parameters const &_param
 )
 {
 	object_unique_ptr object(
@@ -223,9 +230,10 @@ sge::x11input::device::manager::config<
 	if(
 		!object
 	)
-		return nullptr;
+		return
+			optional_object_ref();
 
-	x11input::device::id const id(
+	sge::x11input::device::id const id(
 		object->id()
 	);
 
@@ -235,11 +243,12 @@ sge::x11input::device::manager::config<
 	> insert_result;
 
 	insert_result const it(
-		fcppt::container::ptr::insert_unique_ptr_map(
-			_map,
-			id,
-			std::move(
-				object
+		_map.insert(
+			std::make_pair(
+				id,
+				std::move(
+					object
+				)
 			)
 		)
 	);
@@ -249,7 +258,9 @@ sge::x11input::device::manager::config<
 	);
 
 	return
-		it.first->second;
+		optional_object_ref(
+			*it.first->second
+		);
 }
 
 #endif

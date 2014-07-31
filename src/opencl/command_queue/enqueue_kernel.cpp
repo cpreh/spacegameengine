@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/opencl/command_queue/enqueue_kernel.hpp>
 #include <sge/opencl/command_queue/object.hpp>
+#include <sge/opencl/event/object.hpp>
 #include <sge/opencl/kernel/object.hpp>
 #include <sge/src/opencl/handle_error.hpp>
 #include <sge/src/opencl/event/flatten_sequence.hpp>

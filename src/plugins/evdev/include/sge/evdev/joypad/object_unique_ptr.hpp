@@ -18,25 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_RENDERER_VF_DYNAMIC_DETAIL_ELEMENT_CONVERTER_FWD_HPP_INCLUDED
-#define SGE_SRC_RENDERER_VF_DYNAMIC_DETAIL_ELEMENT_CONVERTER_FWD_HPP_INCLUDED
+#ifndef SGE_EVDEV_JOYPAD_OBJECT_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_EVDEV_JOYPAD_OBJECT_UNIQUE_PTR_HPP_INCLUDED
+
+#include <sge/evdev/joypad/object_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <memory>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
 {
-namespace renderer
+namespace evdev
 {
-namespace vf
-{
-namespace dynamic
-{
-namespace detail
+namespace joypad
 {
 
-class element_converter;
+typedef
+std::unique_ptr<
+	sge::evdev::joypad::object
+>
+object_unique_ptr;
 
-}
-}
 }
 }
 }

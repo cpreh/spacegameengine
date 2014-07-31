@@ -34,9 +34,11 @@ namespace font
 namespace bitmap
 {
 
-typedef std::vector<
+typedef
+std::vector<
 	sge::font::bitmap::char_metric_ref
-> char_metric_ref_vector;
+>
+char_metric_ref_vector;
 
 }
 }

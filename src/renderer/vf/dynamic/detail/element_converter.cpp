@@ -68,10 +68,6 @@ sge::renderer::vf::dynamic::detail::element_converter::element_converter(
 	);
 }
 
-sge::renderer::vf::dynamic::detail::element_converter::~element_converter()
-{
-}
-
 void
 sge::renderer::vf::dynamic::detail::element_converter::convert(
 	sge::renderer::vf::dynamic::detail::lock_interval const &_interval,
@@ -81,7 +77,9 @@ sge::renderer::vf::dynamic::detail::element_converter::convert(
 )
 {
 	if(
-		original_color_ == backend_color_
+		original_color_
+		==
+		backend_color_
 	)
 		return;
 

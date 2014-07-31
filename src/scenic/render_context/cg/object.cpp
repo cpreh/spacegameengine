@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/render_context/cg/light/directional.hpp>
 #include <sge/scenic/render_context/cg/light/point.hpp>
 #include <sge/scenic/render_context/fog/properties.hpp>
+#include <sge/scenic/render_context/light/object.hpp>
 #include <sge/scenic/render_context/material/object.hpp>
 #include <sge/src/scenic/render_context/cg/any_color_to_vector4.hpp>
 #include <fcppt/assign/make_map.hpp>
@@ -181,27 +182,27 @@ sge::scenic::render_context::cg::object::lights(
 	sge::scenic::render_context::cg::light::count directional_light_count = 0;
 
 	for(
-		sge::scenic::render_context::light::sequence::const_iterator l =
-			_lights.begin();
-		l != _lights.end();
-		++l)
+		sge::scenic::render_context::light::object const &light
+		:
+		_lights
+	)
 	{
-		if(fcppt::variant::holds_type<sge::scenic::render_context::light::point>(l->variant()))
+		if(fcppt::variant::holds_type<sge::scenic::render_context::light::point>(light.variant()))
 		{
 			sge::scenic::render_context::cg::light::point &current_light(
-				manager_.point_lights_[static_cast<std::size_t>(point_light_count++)]);
+				*manager_.point_lights_[static_cast<std::size_t>(point_light_count++)]);
 
 			current_light.diffuse_color(
-				l->diffuse_color());
+				light.diffuse_color());
 
 			current_light.specular_color(
-				l->specular_color());
+				light.specular_color());
 
 			current_light.ambient_color(
-				l->ambient_color());
+				light.ambient_color());
 
 			sge::scenic::render_context::light::point const &point_light(
-				l->variant().get<sge::scenic::render_context::light::point>());
+				light.variant().get<sge::scenic::render_context::light::point>());
 
 			current_light.camera_space_position(
 				fcppt::math::matrix::transform_point(
@@ -211,22 +212,22 @@ sge::scenic::render_context::cg::object::lights(
 			current_light.attenuation(
 				point_light.attenuation());
 		}
-		else if(fcppt::variant::holds_type<sge::scenic::render_context::light::directional>(l->variant()))
+		else if(fcppt::variant::holds_type<sge::scenic::render_context::light::directional>(light.variant()))
 		{
 			sge::scenic::render_context::cg::light::directional &current_light(
-				manager_.directional_lights_[static_cast<std::size_t>(directional_light_count++)]);
+				*manager_.directional_lights_[static_cast<std::size_t>(directional_light_count++)]);
 
 			current_light.diffuse_color(
-				l->diffuse_color());
+				light.diffuse_color());
 
 			current_light.specular_color(
-				l->specular_color());
+				light.specular_color());
 
 			current_light.ambient_color(
-				l->ambient_color());
+				light.ambient_color());
 
 			sge::scenic::render_context::light::directional const &directional_light(
-				l->variant().get<sge::scenic::render_context::light::directional>());
+				light.variant().get<sge::scenic::render_context::light::directional>());
 
 			current_light.camera_space_direction(
 				sge::scenic::render_context::light::direction(

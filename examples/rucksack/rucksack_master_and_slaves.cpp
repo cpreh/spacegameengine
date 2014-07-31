@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
+#include <fcppt/algorithm/array_init_move.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/random/variate.hpp>
 #include <fcppt/random/distribution/basic.hpp>
@@ -38,8 +38,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/random/generator/minstd_rand.hpp>
 #include <fcppt/random/generator/seed_from_chrono.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
+#include <array>
 #include <cstdlib>
+#include <memory>
 #include <example_main.hpp>
 #include <fcppt/config/external_end.hpp>
 
@@ -93,12 +94,6 @@ try
 				scalar_distribution::param_type::max(
 					300)));
 
-	typedef
-	boost::ptr_vector<sge::rucksack::widget::dummy>
-	dummy_sprite_sequence;
-
-	dummy_sprite_sequence sprites;
-
 	testbed.add_widget(
 		viewport_box,
 		sge::image::color::predef::blue());
@@ -130,35 +125,67 @@ try
 		master_dummy,
 		sge::image::color::predef::cyan());
 
-	for(unsigned i = 0; i < 5; ++i)
-	{
-		fcppt::container::ptr::push_back_unique_ptr(
-			sprites,
-			fcppt::make_unique_ptr<sge::rucksack::widget::dummy>(
-				sge::rucksack::axis_policy2(
-					sge::rucksack::axis_policy(
-						sge::rucksack::minimum_size(
-							size_rng_w()),
-						sge::rucksack::preferred_size(
-							sge::rucksack::optional_scalar()),
-						sge::rucksack::is_expanding(
-							false)),
-					sge::rucksack::axis_policy(
-						sge::rucksack::minimum_size(
-							size_rng_h()),
-						sge::rucksack::preferred_size(
-							sge::rucksack::optional_scalar()),
-						sge::rucksack::is_expanding(
-							false)),
-					sge::rucksack::aspect(
-						1,
-						1))));
+	typedef
+	std::unique_ptr<
+		sge::rucksack::widget::dummy
+	>
+	dummy_unique_ptr;
 
+	typedef
+	std::array<
+		dummy_unique_ptr,
+		5
+	>
+	dummy_unique_ptr_array;
+
+	dummy_unique_ptr_array sprites(
+		fcppt::algorithm::array_init_move<
+			dummy_unique_ptr_array
+		>(
+			[
+				&size_rng_w,
+				&size_rng_h
+			]
+			{
+				return
+					fcppt::make_unique_ptr<sge::rucksack::widget::dummy>(
+						sge::rucksack::axis_policy2(
+							sge::rucksack::axis_policy(
+								sge::rucksack::minimum_size(
+									size_rng_w()),
+								sge::rucksack::preferred_size(
+									sge::rucksack::optional_scalar()),
+								sge::rucksack::is_expanding(
+									false)),
+							sge::rucksack::axis_policy(
+								sge::rucksack::minimum_size(
+									size_rng_h()),
+								sge::rucksack::preferred_size(
+									sge::rucksack::optional_scalar()),
+								sge::rucksack::is_expanding(
+									false)),
+							sge::rucksack::aspect(
+								1,
+								1
+							)
+						)
+					);
+			}
+		)
+	);
+
+	for(
+		auto const &dummy
+		:
+		sprites
+	)
+	{
 		mas_box.push_back_child(
-			sprites.back());
+			*dummy
+		);
 
 		testbed.add_widget(
-			sprites.back(),
+			*dummy,
 			sge::image::color::predef::red());
 	}
 

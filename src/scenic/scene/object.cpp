@@ -38,9 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/scene/material/from_obj_material.hpp>
 #include <sge/scenic/scene/mesh/object.hpp>
 #include <sge/scenic/vf/format.hpp>
-#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/assert/pre.hpp>
-#include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/matrix/scaling.hpp>
@@ -130,53 +128,53 @@ void
 sge::scenic::scene::object::load_entities()
 {
 	for(
-		sge::scenic::scene::entity_sequence::const_iterator current_entity =
-			prototype_->entities().begin();
-		current_entity != prototype_->entities().end();
-		++current_entity)
+		sge::scenic::scene::entity const &current_entity
+		:
+		prototype_->entities()
+	)
 	{
-		mesh_map::iterator mesh_name_and_instance(
+		mesh_map::iterator const mesh_name_and_instance(
 			mesh_name_to_instance_.find(
-				current_entity->mesh_path()));
+				current_entity.mesh_path()));
 
 		if(mesh_name_and_instance != mesh_name_to_instance_.end())
 			continue;
 
 		sge::model::obj::prototype const new_prototype(
-			current_entity->mesh_path().get());
+			current_entity.mesh_path().get());
 
 		for(
-			sge::model::obj::material::file_sequence::const_iterator current_material_file =
-				new_prototype.material_files().begin();
-			current_material_file != new_prototype.material_files().end();
-			++current_material_file)
+			boost::filesystem::path const &current_material_file
+			:
+			new_prototype.material_files()
+		)
 		{
 			sge::model::obj::material_map const new_materials(
 				sge::model::obj::parse_mtllib(
-					*current_material_file));
+					current_material_file));
 
 			for(
-				sge::model::obj::material_map::const_iterator current_obj_material =
-					new_materials.begin();
-				current_obj_material != new_materials.end();
-				++current_obj_material)
+				auto const &current_obj_material
+				:
+				new_materials
+			)
 			{
 				materials_.insert(
 					std::make_pair(
 						sge::scenic::scene::identifier(
-							current_obj_material->first.get()),
+							current_obj_material.first.get()),
 						sge::scenic::scene::material::from_obj_material(
-							current_obj_material->second)));
+							current_obj_material.second)));
 			}
 		}
 
-		fcppt::container::ptr::insert_unique_ptr_map(
-			mesh_name_to_instance_,
-			current_entity->mesh_path(),
-			fcppt::make_unique_ptr<sge::scenic::scene::mesh::object>(
-				scene_manager_.renderer(),
-				scene_manager_.vertex_declaration(),
-				new_prototype));
+		mesh_name_to_instance_.insert(
+			std::make_pair(
+				current_entity.mesh_path(),
+				sge::scenic::scene::mesh::object(
+					scene_manager_.renderer(),
+					scene_manager_.vertex_declaration(),
+					new_prototype)));
 	}
 }
 
@@ -199,21 +197,21 @@ sge::scenic::scene::object::render_entity(
 	sge::scenic::render_queue::object &_context)
 {
 	sge::scenic::scene::mesh::object &mesh(
-		*(mesh_name_to_instance_.find(
-			_entity.mesh_path())->second));
+		mesh_name_to_instance_.find(
+			_entity.mesh_path())->second);
 
 	_context.current_vertex_buffer(
 		mesh.vertex_buffer());
 
 	for(
-		sge::scenic::scene::mesh::material_to_index_buffer_range::const_iterator material_name_and_index_buffer_range =
-			mesh.parts().begin();
-		material_name_and_index_buffer_range != mesh.parts().end();
-		++material_name_and_index_buffer_range)
+		auto const &material_name_and_index_buffer_range
+		:
+		mesh.parts()
+	)
 	{
 		material_map::const_iterator const material_name_and_material =
 			materials_.find(
-				material_name_and_index_buffer_range->first);
+				material_name_and_index_buffer_range.first);
 
 		FCPPT_ASSERT_PRE(
 			material_name_and_material != materials_.end());
@@ -233,6 +231,6 @@ sge::scenic::scene::object::render_entity(
 			fcppt::math::matrix::scaling(
 				_entity.scale().get()),
 			mesh.index_buffer(),
-			material_name_and_index_buffer_range->second);
+			material_name_and_index_buffer_range.second);
 	}
 }

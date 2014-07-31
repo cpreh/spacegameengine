@@ -23,12 +23,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
-#include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/texture/planar_fwd.hpp>
+#include <sge/renderer/texture/planar_unique_ptr.hpp>
 #include <sge/scenic/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
-#include <boost/ptr_container/ptr_map.hpp>
+#include <map>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -55,10 +56,10 @@ public:
 	~texture_manager();
 private:
 	typedef
-	boost::ptr_map
+	std::map
 	<
 		boost::filesystem::path,
-		sge::renderer::texture::planar
+		sge::renderer::texture::planar_unique_ptr
 	>
 	path_to_texture_map;
 

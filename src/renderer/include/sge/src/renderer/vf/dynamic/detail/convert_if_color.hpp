@@ -29,8 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/renderer/vf/dynamic/detail/element_converter.hpp>
 #include <sge/src/renderer/vf/dynamic/detail/element_converter_vector.hpp>
 #include <sge/src/renderer/vf/dynamic/detail/matching_color_format.hpp>
-#include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/variant/holds_type.hpp>
 
 
@@ -72,11 +70,8 @@ convert_if_color(
 		>().color_format()
 	);
 
-	fcppt::container::ptr::push_back_unique_ptr(
-		_converters,
-		fcppt::make_unique_ptr<
-			sge::renderer::vf::dynamic::detail::element_converter
-		>(
+	_converters.push_back(
+		sge::renderer::vf::dynamic::detail::element_converter{
 			format,
 			sge::renderer::vf::dynamic::detail::matching_color_format(
 				format,
@@ -84,7 +79,7 @@ convert_if_color(
 			),
 			_stride,
 			_offset
-		)
+		}
 	);
 }
 

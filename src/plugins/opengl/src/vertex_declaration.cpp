@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <sge/renderer/vf/dynamic/part_list.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
+#include <fcppt/algorithm/map.hpp>
 
 
 sge::opengl::vertex_declaration::vertex_declaration(
@@ -41,29 +41,31 @@ sge::opengl::vertex_declaration::vertex_declaration(
 	format_(
 		_parameters.format()
 	),
-	parts_()
-{
-	sge::renderer::vf::dynamic::part_list const &parts(
-		format_.parts()
-	);
-
-	for(
-		sge::renderer::vf::dynamic::part_list::const_iterator it(
-			parts.begin()
-		);
-		it != parts.end();
-		++it
-	)
-		fcppt::container::ptr::push_back_unique_ptr(
-			parts_,
-			fcppt::make_unique_ptr<
-				sge::opengl::vf::part
-			>(
-				_system_context,
-				_device_context,
-				*it
+	parts_(
+		fcppt::algorithm::map<
+			part_container
+		>(
+			format_.parts(),
+			[
+				&_system_context,
+				&_device_context
+			](
+				sge::renderer::vf::dynamic::part const &_part
 			)
-		);
+			{
+				return
+					fcppt::make_unique_ptr<
+						sge::opengl::vf::part
+					>(
+						_system_context,
+						_device_context,
+						_part
+					);
+
+			}
+		)
+	)
+{
 }
 
 sge::opengl::vertex_declaration::~vertex_declaration()
@@ -87,7 +89,7 @@ sge::opengl::vertex_declaration::gl_format_part(
 ) const
 {
 	return
-		parts_.at(
+		*parts_.at(
 			_part.get()
 		);
 }

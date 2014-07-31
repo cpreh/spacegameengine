@@ -59,6 +59,15 @@ sge::cegui::batch::batch(
 {
 }
 
+sge::cegui::batch::batch(
+	batch &&
+) = default;
+
+sge::cegui::batch &
+sge::cegui::batch::operator=(
+	batch &&
+) = default;
+
 sge::cegui::batch::~batch()
 {
 }
@@ -66,17 +75,20 @@ sge::cegui::batch::~batch()
 sge::renderer::texture::planar &
 sge::cegui::batch::texture() const
 {
-	return texture_;
+	return
+		texture_.get();
 }
 
 sge::renderer::vertex::buffer &
 sge::cegui::batch::vertex_buffer() const
 {
-	return *vertex_buffer_;
+	return
+		*vertex_buffer_;
 }
 
 sge::cegui::clip const
 sge::cegui::batch::clip() const
 {
-	return clip_;
+	return
+		clip_;
 }

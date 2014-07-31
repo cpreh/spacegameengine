@@ -37,6 +37,15 @@ sge::font::bitmap::line::line(
 {
 }
 
+sge::font::bitmap::line::line(
+	line &&
+) = default;
+
+sge::font::bitmap::line &
+sge::font::bitmap::line::operator=(
+	line &&
+) = default;
+
 sge::font::bitmap::line::~line()
 {
 }
@@ -44,11 +53,13 @@ sge::font::bitmap::line::~line()
 sge::font::bitmap::char_metric_ref_vector const &
 sge::font::bitmap::line::char_metrics() const
 {
-	return char_metrics_;
+	return
+		char_metrics_;
 }
 
 sge::font::unit
 sge::font::bitmap::line::width() const
 {
-	return width_;
+	return
+		width_;
 }

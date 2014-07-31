@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/make_const.hpp>
 #include <sge/opencl/command_queue/map_flags.hpp>
 #include <sge/opencl/command_queue/scoped_planar_mapping.hpp>
+#include <sge/opencl/event/object.hpp>
 #include <sge/opencl/memory_object/image/opencl_color_format_to_sge.hpp>
 #include <sge/opencl/memory_object/image/planar.hpp>
 #include <sge/opencl/memory_object/image/read_planar.hpp>

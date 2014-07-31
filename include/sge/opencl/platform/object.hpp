@@ -79,11 +79,21 @@ public:
 
 	SGE_OPENCL_SYMBOL
 	~object();
+
+	object(
+		object &&
+	);
+
+	object &
+	operator=(
+		object &&
+	);
 private:
 	friend class opencl::system;
 	friend class opencl::context::object;
 
-	cl_platform_id const platform_id_;
+	cl_platform_id platform_id_;
+
 	opencl::device::object_sequence devices_;
 
 	explicit

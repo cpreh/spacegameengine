@@ -48,7 +48,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/font/bitmap/text.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -99,8 +98,7 @@ sge::font::bitmap::object::object(
 			FCPPT_TEXT("textures")
 		).elements
 	)
-		fcppt::container::ptr::push_back_unique_ptr(
-			images_,
+		images_.push_back(
 			sge::font::bitmap::load_one_file(
 				parent_path,
 				sge::parse::json::get<
@@ -115,7 +113,7 @@ sge::font::bitmap::object::object(
 
 	sge::image::color::format const current_format(
 		sge::image2d::view::format(
-			images_.back().view()
+			images_.back()->view()
 		)
 	);
 
@@ -127,7 +125,9 @@ sge::font::bitmap::object::object(
 				current_format
 			);
 	else if(
-		*color_format_ != current_format
+		*color_format_
+		!=
+		current_format
 	)
 		throw sge::font::exception(
 			FCPPT_TEXT("Bitmapfont images can't differ in color formats! ")
@@ -156,15 +156,13 @@ sge::font::bitmap::object::create_text(
 )
 {
 	return
-		sge::font::text_unique_ptr(
-			fcppt::make_unique_ptr<
-				sge::font::bitmap::text
-			>(
-				char_map_,
-				_string,
-				_text_parameters,
-				line_height_
-			)
+		fcppt::make_unique_ptr<
+			sge::font::bitmap::text
+		>(
+			char_map_,
+			_string,
+			_text_parameters,
+			line_height_
 		);
 }
 

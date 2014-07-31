@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/algorithm/ptr_container_erase.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/fstream.hpp>
@@ -212,21 +211,16 @@ void
 sge::shader::pair::add_planar_texture(
 	sge::shader::parameter::planar_texture &_new_texture)
 {
-	sge::shader::parameter::planar_texture * const _new_texture_ptr =
-		&_new_texture;
-
-	planar_textures_.push_back(
-		_new_texture_ptr);
+	planar_textures_.insert(
+		&_new_texture
+	);
 }
 
 void
 sge::shader::pair::remove_planar_texture(
 	sge::shader::parameter::planar_texture &_new_texture)
 {
-	sge::shader::parameter::planar_texture * const _new_texture_ptr =
-		&_new_texture;
-
-	fcppt::algorithm::ptr_container_erase(
-		planar_textures_,
-		_new_texture_ptr);
+	planar_textures_.erase(
+		&_new_texture
+	);
 }

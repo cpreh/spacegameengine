@@ -466,10 +466,6 @@ sge::opencl::device::object::is_gpu() const
 	return type == CL_DEVICE_TYPE_GPU;
 }
 
-sge::opencl::device::object::~object()
-{
-}
-
 sge::opencl::device::object::object(
 	cl_device_id const &_device_id)
 :

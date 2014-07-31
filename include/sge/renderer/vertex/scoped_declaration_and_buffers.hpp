@@ -29,7 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex/scoped_declaration.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
+#include <memory>
+#include <vector>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -80,11 +81,19 @@ public:
 private:
 	sge::renderer::vertex::scoped_declaration const scoped_declaration_;
 
-	typedef boost::ptr_vector<
+	typedef
+	std::unique_ptr<
 		sge::renderer::vertex::scoped_buffer
-	> scoped_buffer_vector;
+	>
+	scoped_buffer_ptr;
 
-	scoped_buffer_vector scoped_buffers_;
+	typedef
+	std::vector<
+		scoped_buffer_ptr
+	>
+	scoped_buffer_vector;
+
+	scoped_buffer_vector const scoped_buffers_;
 };
 
 }

@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/algorithm/contains.hpp>
 #include <fcppt/assert/pre_message.hpp>
 #include <fcppt/container/raw_vector.hpp>
-#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/split.hpp>
@@ -231,11 +230,19 @@ sge::opencl::platform::object::object(
 	for(
 		auto const &id : device_ids
 	)
-		// No make_unique_ptr here because this class is a friend ob device::object
 		devices_.push_back(
-			new sge::opencl::device::object(
+			sge::opencl::device::object(
 				id));
 }
+
+sge::opencl::platform::object::object(
+	object &&
+) = default;
+
+sge::opencl::platform::object &
+sge::opencl::platform::object::operator=(
+	object &&
+) = default;
 
 /*
 void

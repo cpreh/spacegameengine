@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/command_queue/map_flags.hpp>
 #include <sge/opencl/command_queue/scoped.hpp>
 #include <sge/opencl/command_queue/scoped_planar_mapping.hpp>
+#include <sge/opencl/event/object.hpp>
 #include <sge/opencl/kernel/object.hpp>
 #include <sge/opencl/memory_object/flags_field.hpp>
 #include <sge/opencl/memory_object/image/planar.hpp>
@@ -47,7 +48,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
-#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
@@ -159,8 +159,7 @@ try
 
 	sge::opencl::event::sequence events;
 
-	fcppt::container::ptr::push_back_unique_ptr(
-		events,
+	events.push_back(
 		sge::opencl::command_queue::enqueue_kernel(
 			opencl_system.command_queue(),
 			main_kernel,

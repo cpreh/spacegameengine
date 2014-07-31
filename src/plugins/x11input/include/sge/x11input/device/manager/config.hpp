@@ -25,12 +25,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/id.hpp>
 #include <sge/x11input/device/manager/config_base.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/optional_fwd.hpp>
+#include <fcppt/strong_typedef_std_hash.hpp>
 #include <fcppt/signal/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
-#include <boost/ptr_container/ptr_map.hpp>
 #include <functional>
 #include <memory>
+#include <unordered_map>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -105,12 +107,20 @@ public:
 	dispatch_initial()
 	override;
 private:
-	typedef boost::ptr_map<
+	typedef
+	std::unordered_map<
 		sge::x11input::device::id,
-		X11Object
-	> object_map;
+		object_unique_ptr
+	>
+	object_map;
 
-	X11Object *
+	typedef
+	fcppt::optional<
+		X11Object &
+	>
+	optional_object_ref;
+
+	optional_object_ref
 	insert_into_map(
 		object_map &,
 		sge::x11input::create_parameters const &

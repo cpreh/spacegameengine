@@ -59,11 +59,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/assign/make_map.hpp>
-#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/variant/apply_unary.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace
@@ -269,6 +265,8 @@ void
 sge::scenic::render_context::ffp::object::lights(
 	sge::scenic::render_context::light::sequence const &_lights)
 {
+	// FIXME: How did this work?
+/*
 	FCPPT_ASSERT_PRE(
 		_lights.size() < manager_.renderer_.caps().light_indices().get());
 
@@ -295,7 +293,7 @@ sge::scenic::render_context::ffp::object::lights(
 	}
 
 	context_.lights_state(
-		ffp_light_refs);
+		ffp_light_refs);*/
 }
 
 void

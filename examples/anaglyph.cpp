@@ -156,7 +156,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
-#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/log/location.hpp>
@@ -180,13 +179,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
 #include <cmath>
 #include <example_main.hpp>
 #include <exception>
 #include <iostream>
+#include <memory>
 #include <ostream>
 #include <string>
+#include <vector>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -488,7 +488,15 @@ public:
 	~random_model_collection();
 private:
 	typedef
-	boost::ptr_vector<model_instance>
+	std::unique_ptr<
+		model_instance
+	>
+	model_instance_unique_ptr;
+
+	typedef
+	std::vector<
+		model_instance_unique_ptr
+	>
 	model_sequence;
 
 	sge::renderer::device::ffp &renderer_;
@@ -564,8 +572,7 @@ random_model_collection::random_model_collection(
 		// Again, we refer to the fcppt documentation on what the hell
 		// we're doing here. tl;dr: This is for exception safety and
 		// against memory leaks.
-		fcppt::container::ptr::push_back_unique_ptr(
-			models_,
+		models_.push_back(
 			fcppt::make_unique_ptr<model_instance>(
 				backend_,
 				// Concatenate translation and rotation. Slightly expensive,
@@ -595,10 +602,10 @@ random_model_collection::render(
 		backend_.vb());
 
 	for(
-		model_sequence::iterator current_model =
-			models_.begin();
-		current_model != models_.end();
-		++current_model)
+		auto const &current_model
+		:
+		models_
+	)
 	{
 		sge::renderer::state::ffp::transform::object_unique_ptr const world_state(
 			renderer_.create_transform_state(

@@ -66,6 +66,15 @@ public:
 		offset_object const &
 	);
 
+	slice(
+		slice &&
+	);
+
+	slice &
+	operator=(
+		slice &&
+	);
+
 	~slice();
 
 	sge::renderer::vertex::buffer &

@@ -34,11 +34,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/throw_message.hpp>
-#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/operations.hpp>
 #include <boost/filesystem/path.hpp>
+#include <boost/range/iterator_range_core.hpp>
 #include <algorithm>
 #include <iterator>
 #include <vector>
@@ -148,12 +148,17 @@ sge::resource_tree::object<
 
 	// First, collect ALL the files inside the given directory
 	for(
-		boost::filesystem::directory_iterator it(
-			_sub_path.get());
-		it != boost::filesystem::directory_iterator();
-		++it)
+		boost::filesystem::path const &path
+		:
+		boost::make_iterator_range(
+			boost::filesystem::directory_iterator(
+				_sub_path.get()
+			),
+			boost::filesystem::directory_iterator()
+		)
+	)
 	{
-		if(!boost::filesystem::is_regular_file(*it))
+		if(!boost::filesystem::is_regular_file(path))
 			continue;
 
 		resources.push_back(
@@ -163,14 +168,13 @@ sge::resource_tree::object<
 						sge::resource_tree::detail::base_path(
 							_sub_path.get()),
 						sge::resource_tree::detail::sub_path(
-							*it))),
+							path))),
 				_path_to_resource(
-					*it)));
+					path)));
 	}
 
 	// Second, create the element structure containing the files
-	fcppt::container::ptr::push_back_unique_ptr(
-		elements_,
+	elements_.push_back(
 		fcppt::make_unique_ptr<element_type>(
 			sge::resource_tree::detail::strip_path_prefix(
 				_base_path,
@@ -202,24 +206,26 @@ sge::resource_tree::object<
 	// If it's a _file_, it will be contained inside an element with the
 	// according prefix.
 	for(
-		auto const &elem : elements_
+		auto const &elem
+		:
+		elements_
 	)
 	{
 		if(
-			elem.base_path()
+			elem->base_path()
 			==
 			_path
 		)
 			return
-				elem.get_random();
+				elem->get_random();
 
 		if(
-			elem.contains(
+			elem->contains(
 				_path
 			)
 		)
 			return
-				elem.get(
+				elem->get(
 					_path
 				);
 	}

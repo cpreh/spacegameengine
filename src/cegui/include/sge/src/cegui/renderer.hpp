@@ -36,9 +36,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <CEGUI/Size.h>
 #include <CEGUI/String.h>
 #include <CEGUI/Vector.h>
-#include <boost/ptr_container/ptr_map.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
+#include <map>
 #include <memory>
+#include <vector>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -190,9 +190,11 @@ private:
 	getIdentifierString() const
 	override;
 
-	typedef std::unique_ptr<
+	typedef
+	std::unique_ptr<
 		sge::cegui::texture
-	> texture_unique_ptr;
+	>
+	texture_unique_ptr;
 
 	CEGUI::Texture &
 	insert_texture(
@@ -201,20 +203,35 @@ private:
 	);
 
 	typedef
-	boost::ptr_vector<
+	std::unique_ptr<
 		sge::cegui::geometry_buffer
-	> geometry_buffer_sequence;
+	>
+	geometry_buffer_unique_ptr;
 
 	typedef
-	boost::ptr_vector<
+	std::vector<
+		geometry_buffer_unique_ptr
+	>
+	geometry_buffer_sequence;
+
+	typedef
+	std::unique_ptr<
 		sge::cegui::texture_target
-	> texture_target_sequence;
+	>
+	texture_target_unique_ptr;
 
 	typedef
-	boost::ptr_map<
+	std::vector<
+		texture_target_unique_ptr
+	>
+	texture_target_sequence;
+
+	typedef
+	std::map<
 		CEGUI::String,
-		sge::cegui::texture
-	> texture_map;
+		texture_unique_ptr
+	>
+	texture_map;
 
 	sge::cegui::texture_parameters const texture_parameters_;
 

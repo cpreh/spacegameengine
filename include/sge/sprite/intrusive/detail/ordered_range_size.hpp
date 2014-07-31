@@ -50,20 +50,13 @@ ordered_range_size(
 		0u
 	);
 
-	typedef typename sge::sprite::intrusive::detail::ordered_map<
-		Order,
-		Choices
-	>::type ordered_map;
-
 	for(
-		typename ordered_map::iterator it(
-			_ordered_map.begin()
-		);
-		it != _ordered_map.end();
-		++it
+		auto const &element
+		:
+		_ordered_map
 	)
 		ret +=
-			it->second->range().size();
+			element.second.range().size();
 
 	return ret;
 }

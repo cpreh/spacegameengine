@@ -93,7 +93,7 @@ sge::opengl::texture::basic_box<
 )
 {
 	return
-		levels_[
+		*levels_[
 			_level.get()
 		];
 }
@@ -111,7 +111,7 @@ sge::opengl::texture::basic_box<
 ) const
 {
 	return
-		levels_[
+		*levels_[
 			_level.get()
 		];
 }

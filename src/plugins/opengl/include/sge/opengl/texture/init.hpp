@@ -43,9 +43,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <sge/renderer/texture/mipmap/level_count.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
+#include <memory>
+#include <vector>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -62,8 +62,10 @@ template<
 void
 init(
 	sge::opengl::texture::binding const &_binding,
-	boost::ptr_vector<
-		typename Types::buffer_types::base
+	std::vector<
+		std::unique_ptr<
+			typename Types::buffer_types::base
+		>
 	> &_levels,
 	sge::opengl::texture::basic_parameters const &_basic_parameters,
 	typename Types::parameters const &_parameters,
@@ -183,8 +185,7 @@ init(
 		index.get() < mip_levels.get();
 		++index
 	)
-		fcppt::container::ptr::push_back_unique_ptr(
-			_levels,
+		_levels.push_back(
 			fcppt::make_unique_ptr<
 				gl_buffer
 			>(

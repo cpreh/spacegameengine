@@ -58,6 +58,27 @@ template<
 >
 sge::sprite::buffers::slice<
 	Choices
+>::slice(
+	slice &&
+) = default;
+
+template<
+	typename Choices
+>
+sge::sprite::buffers::slice<
+	Choices
+> &
+sge::sprite::buffers::slice<
+	Choices
+>::operator=(
+	slice &&
+) = default;
+
+template<
+	typename Choices
+>
+sge::sprite::buffers::slice<
+	Choices
 >::~slice()
 {
 }

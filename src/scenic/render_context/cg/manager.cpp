@@ -40,7 +40,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/insert_to_std_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/container/ptr/replace_unique_ptr.hpp>
 
 
 sge::scenic::render_context::cg::manager::manager(
@@ -197,22 +196,22 @@ sge::scenic::render_context::cg::manager::manager(
 				sge::renderer::state::core::sampler::filter::mipmap())))
 {
 	for(point_light_array::size_type i = 0; i < point_lights_.size(); ++i)
-		fcppt::container::ptr::replace_unique_ptr(
-			point_lights_,
-			i,
+		point_lights_[
+			i
+		] =
 			fcppt::make_unique_ptr<sge::scenic::render_context::cg::light::point>(
 				shader_.pixel_program(),
 				sge::scenic::render_context::cg::light::index(
-					i)));
+					i));
 
 	for(directional_light_array::size_type i = 0; i < directional_lights_.size(); ++i)
-		fcppt::container::ptr::replace_unique_ptr(
-			directional_lights_,
-			i,
+		directional_lights_[
+			i
+		] =
 			fcppt::make_unique_ptr<sge::scenic::render_context::cg::light::directional>(
 				shader_.pixel_program(),
 				sge::scenic::render_context::cg::light::index(
-					i)));
+					i));
 }
 
 sge::scenic::render_context::base_unique_ptr

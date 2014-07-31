@@ -69,20 +69,14 @@ sge::opencl::system::system()
 		FCPPT_TEXT("clGetplatformIDs"));
 
 	for(
-		platform_id_sequence::const_iterator platform_it =
-			platform_ids.begin();
-		platform_it != platform_ids.end();
-		++platform_it)
+		auto const &platform
+		:
+		platform_ids
+	)
 	{
 		platforms_.push_back(
-			new opencl::platform::object(
-				*platform_it));
-		/* Doesn't work, platform's constructor is private
-		fcppt::container::ptr::push_back_unique_ptr(
-			platforms_,
-			fcppt::make_unique_ptr<opencl::platform>(
-				*platform_it));
-		*/
+			opencl::platform::object(
+				platform));
 	}
 }
 

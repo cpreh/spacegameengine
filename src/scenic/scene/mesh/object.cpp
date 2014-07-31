@@ -86,6 +86,15 @@ sge::scenic::scene::mesh::object::object(
 		_prototype);
 }
 
+sge::scenic::scene::mesh::object::object(
+	object &&
+) = default;
+
+sge::scenic::scene::mesh::object &
+sge::scenic::scene::mesh::object::operator=(
+	object &&
+) = default;
+
 sge::renderer::vertex::buffer &
 sge::scenic::scene::mesh::object::vertex_buffer()
 {

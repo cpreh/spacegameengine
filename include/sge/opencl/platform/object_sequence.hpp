@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opencl/platform/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
+#include <vector>
 #include <fcppt/config/external_end.hpp>
 
 namespace sge
@@ -33,7 +33,7 @@ namespace opencl
 namespace platform
 {
 typedef
-boost::ptr_vector<platform::object>
+std::vector<platform::object>
 object_sequence;
 }
 }

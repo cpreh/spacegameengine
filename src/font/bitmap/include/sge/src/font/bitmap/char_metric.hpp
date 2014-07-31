@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/vector.hpp>
 #include <sge/src/font/bitmap/char_metric_fwd.hpp>
 #include <sge/src/font/bitmap/const_view.hpp>
-#include <fcppt/noncopyable.hpp>
 
 
 namespace sge
@@ -37,9 +36,6 @@ namespace bitmap
 
 class char_metric
 {
-	FCPPT_NONCOPYABLE(
-		char_metric
-	);
 public:
 	char_metric(
 		sge::font::bitmap::const_view const &,
@@ -58,11 +54,11 @@ public:
 	sge::font::unit
 	x_advance() const;
 private:
-	sge::font::bitmap::const_view const view_;
+	sge::font::bitmap::const_view view_;
 
-	sge::font::vector const offset_;
+	sge::font::vector offset_;
 
-	sge::font::unit const x_advance_;
+	sge::font::unit x_advance_;
 };
 
 }

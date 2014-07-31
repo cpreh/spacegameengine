@@ -30,12 +30,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/system/event/type.hpp>
 #include <awl/backends/x11/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/strong_typedef_std_hash.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_decl.hpp>
 #include <fcppt/signal/unregister/base_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/ptr_container/ptr_map.hpp>
 #include <functional>
+#include <map>
+#include <unordered_map>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -103,25 +105,34 @@ private:
 		awl::backends::x11::system::event::type
 	) const;
 
-	typedef fcppt::signal::object<
+	typedef
+	fcppt::signal::object<
 		signature,
 		fcppt::signal::unregister::base
-	> signal;
+	>
+	signal;
 
-	typedef std::pair<
+	typedef
+	std::pair<
 		awl::backends::x11::system::event::type,
-		x11input::device::id
-	> event_pair;
+		sge::x11input::device::id
+	>
+	event_pair;
 
-	typedef boost::ptr_map<
+	// TODO: Why does the pair hash not work?
+	typedef
+	std::map<
 		event_pair,
 		signal
-	> signal_map;
+	>
+	signal_map;
 
-	typedef boost::ptr_map<
+	typedef
+	std::unordered_map<
 		awl::backends::x11::system::event::type,
-		fcppt::signal::auto_connection::element_type
-	> connection_map;
+		fcppt::signal::auto_connection
+	>
+	connection_map;
 
 	awl::backends::x11::system::event::processor &system_processor_;
 

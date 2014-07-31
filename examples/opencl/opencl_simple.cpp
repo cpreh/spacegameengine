@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/context/object.hpp>
 #include <sge/opencl/context/parameters.hpp>
 #include <sge/opencl/device/object_ref_sequence.hpp>
+#include <sge/opencl/event/object.hpp>
 #include <sge/opencl/kernel/object.hpp>
 #include <sge/opencl/memory_object/base_ref_sequence.hpp>
 #include <sge/opencl/memory_object/buffer.hpp>

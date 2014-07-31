@@ -26,8 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/vf/part.hpp>
 #include <sge/opengl/vf/pointer.hpp>
 #include <sge/opengl/vf/to_actor.hpp>
+#include <sge/renderer/vf/dynamic/ordered_element_fwd.hpp>
 #include <sge/renderer/vf/dynamic/part.hpp>
-#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
+#include <fcppt/algorithm/map.hpp>
 
 
 sge::opengl::vf::part::part(
@@ -45,21 +46,28 @@ sge::opengl::vf::part::part(
 	part_(
 		_part
 	),
-	actors_()
-{
-	for(
-		auto const &elem
-		:
-		part_.elements()
-	)
-		fcppt::container::ptr::push_back_unique_ptr(
-			actors_,
-			sge::opengl::vf::to_actor(
-				elem,
-				part_.stride(),
-				_system_context
+	actors_(
+		fcppt::algorithm::map<
+			actor_container
+		>(
+			_part.elements(),
+			[
+				&_part,
+				&_system_context
+			](
+				sge::renderer::vf::dynamic::ordered_element const &_elem
 			)
-		);
+			{
+				return
+					sge::opengl::vf::to_actor(
+						_elem,
+						_part.stride(),
+						_system_context
+					);
+			}
+		)
+	)
+{
 }
 
 sge::opengl::vf::part::~part()
@@ -69,7 +77,8 @@ sge::opengl::vf::part::~part()
 sge::renderer::vf::dynamic::part const &
 sge::opengl::vf::part::get() const
 {
-	return part_;
+	return
+		part_;
 }
 
 void
@@ -87,7 +96,7 @@ sge::opengl::vf::part::use_me(
 		:
 		actors_
 	)
-		actor(
+		(*actor)(
 			states,
 			static_cast<
 				unsigned char const *
@@ -95,7 +104,7 @@ sge::opengl::vf::part::use_me(
 				_src
 			)
 			+
-			actor.offset().get()
+			actor->offset().get()
 		);
 }
 
@@ -112,7 +121,7 @@ sge::opengl::vf::part::unuse_me() const
 		:
 		actors_
 	)
-		actor.unuse(
+		actor->unuse(
 			states
 		);
 }

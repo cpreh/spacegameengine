@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/src/renderer/vf/dynamic/detail/element_converter_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
+#include <vector>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -38,9 +38,11 @@ namespace dynamic
 namespace detail
 {
 
-typedef boost::ptr_vector<
+typedef
+std::vector<
 	sge::renderer::vf::dynamic::detail::element_converter
-> element_converter_vector;
+>
+element_converter_vector;
 
 }
 }

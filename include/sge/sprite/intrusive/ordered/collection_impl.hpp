@@ -145,14 +145,12 @@ sge::sprite::intrusive::ordered::collection<
 )
 {
 	for(
-		typename order_map::iterator it(
-			collections_.begin()
-		);
-		it != collections_.end();
-		++it
+		auto const &element
+		:
+		collections_
 	)
 		_function(
-			it->second->range()
+			element.second->range()
 		);
 }
 

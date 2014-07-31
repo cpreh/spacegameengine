@@ -54,6 +54,17 @@ public:
 		sge::model::obj::prototype const &);
 
 	SGE_SCENIC_SYMBOL
+	object(
+		object &&
+	);
+
+	SGE_SCENIC_SYMBOL
+	object &
+	operator=(
+		object &&
+	);
+
+	SGE_SCENIC_SYMBOL
 	sge::renderer::vertex::buffer &
 	vertex_buffer();
 
@@ -72,8 +83,8 @@ public:
 	SGE_SCENIC_SYMBOL
 	~object();
 private:
-	sge::renderer::vertex::buffer_unique_ptr const vertex_buffer_;
-	sge::renderer::index::buffer_unique_ptr const index_buffer_;
+	sge::renderer::vertex::buffer_unique_ptr vertex_buffer_;
+	sge::renderer::index::buffer_unique_ptr index_buffer_;
 	sge::scenic::scene::mesh::material_to_index_buffer_range parts_;
 	sge::scenic::box bounding_box_;
 

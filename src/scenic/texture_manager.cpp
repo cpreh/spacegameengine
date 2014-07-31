@@ -18,12 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
+#include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/mipmap/all_levels.hpp>
 #include <sge/scenic/texture_manager.hpp>
-#include <fcppt/container/bitfield/object_impl.hpp>
-#include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::scenic::texture_manager::texture_manager(
@@ -50,17 +53,17 @@ sge::scenic::texture_manager::texture_for_path(
 		return *(it->second);
 
 	return
-		*fcppt::container::ptr::insert_unique_ptr_map(
-			path_to_texture_,
-			_path,
-			sge::renderer::texture::create_planar_from_path(
+		*path_to_texture_.insert(
+			std::make_pair(
 				_path,
-				renderer_,
-				image_loader_,
-				sge::renderer::texture::mipmap::all_levels(
-					sge::renderer::texture::mipmap::auto_generate::yes),
-				sge::renderer::resource_flags_field::null(),
-				sge::renderer::texture::emulate_srgb::no)).first->second;
+				sge::renderer::texture::create_planar_from_path(
+					_path,
+					renderer_,
+					image_loader_,
+					sge::renderer::texture::mipmap::all_levels(
+						sge::renderer::texture::mipmap::auto_generate::yes),
+					sge::renderer::resource_flags_field::null(),
+					sge::renderer::texture::emulate_srgb::no))).first->second;
 }
 
 sge::scenic::texture_manager::~texture_manager()

@@ -42,7 +42,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/shader/parameter/vector.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/ptr_container/ptr_array.hpp>
+#include <array>
+#include <memory>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -97,17 +98,23 @@ private:
 	max_directional_lights;
 
 	typedef
-	boost::ptr_array
+	std::array
 	<
-		sge::scenic::render_context::cg::light::point,
+		std::unique_ptr
+		<
+			sge::scenic::render_context::cg::light::point
+		>,
 		max_point_lights::value
 	>
 	point_light_array;
 
 	typedef
-	boost::ptr_array
+	std::array
 	<
-		sge::scenic::render_context::cg::light::directional,
+		std::unique_ptr
+		<
+			sge::scenic::render_context::cg::light::directional
+		>,
 		max_directional_lights::value
 	>
 	directional_light_array;

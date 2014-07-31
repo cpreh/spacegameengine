@@ -43,13 +43,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/algorithm/ptr_container_erase.hpp>
+#include <fcppt/algorithm/remove_if.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assert/error_message.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/assert/unreachable_message.hpp>
-#include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
-#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/math/dim/output.hpp>
@@ -150,8 +148,7 @@ sge::cegui::renderer::createGeometryBuffer()
 			<< FCPPT_TEXT("createGeometryBuffer()")
 	);
 
-	fcppt::container::ptr::push_back_unique_ptr(
-		geometry_buffers_,
+	geometry_buffers_.push_back(
 		fcppt::make_unique_ptr<
 			sge::cegui::geometry_buffer
 		>(
@@ -162,7 +159,7 @@ sge::cegui::renderer::createGeometryBuffer()
 	);
 
 	return
-		geometry_buffers_.back();
+		*geometry_buffers_.back();
 }
 
 void
@@ -177,13 +174,23 @@ sge::cegui::renderer::destroyGeometryBuffer(
 	);
 
 	FCPPT_ASSERT_ERROR_MESSAGE(
-		fcppt::algorithm::ptr_container_erase(
+		fcppt::algorithm::remove_if(
 			geometry_buffers_,
-			dynamic_cast<
-				sge::cegui::geometry_buffer const *
-			>(
+			[
 				&_buffer
+			](
+				geometry_buffer_unique_ptr const &_element_buffer
 			)
+			{
+				return
+					_element_buffer.get()
+					==
+					dynamic_cast<
+						sge::cegui::geometry_buffer const *
+					>(
+						&_buffer
+					);
+			}
 		),
 		FCPPT_TEXT("Tried to destroy a geometry buffer which was not registered")
 	);
@@ -210,8 +217,7 @@ sge::cegui::renderer::createTextureTarget()
 			<< FCPPT_TEXT("createTextureTarget()")
 	);
 
-	fcppt::container::ptr::push_back_unique_ptr(
-		texture_targets_,
+	texture_targets_.push_back(
 		fcppt::make_unique_ptr<
 			sge::cegui::texture_target
 		>(
@@ -221,7 +227,7 @@ sge::cegui::renderer::createTextureTarget()
 	);
 
 	return
-		&(texture_targets_.back());
+		texture_targets_.back().get();
 }
 
 void
@@ -242,13 +248,23 @@ sge::cegui::renderer::destroyTextureTarget(
 	);
 
 	FCPPT_ASSERT_ERROR_MESSAGE(
-		fcppt::algorithm::ptr_container_erase(
+		fcppt::algorithm::remove_if(
 			texture_targets_,
-			dynamic_cast<
-				sge::cegui::texture_target *
-			>(
+			[
 				_texture
+			](
+				texture_target_unique_ptr const &_target
 			)
+			{
+				return
+					_target.get()
+					==
+					dynamic_cast<
+						sge::cegui::texture_target *
+					>(
+						_texture
+					);
+			}
 		),
 		FCPPT_TEXT("Tried to destroy a texture target which was not registered")
 	);
@@ -384,7 +400,7 @@ sge::cegui::renderer::destroyTexture(
 		++it
 	)
 		if(
-			it->second
+			it->second.get()
 			==
 			tex
 		)
@@ -459,7 +475,7 @@ sge::cegui::renderer::getTexture(
 			static_cast<
 				CEGUI::Texture const *
 			>(
-				it->second
+				it->second.get()
 			)
 		);
 }
@@ -597,11 +613,12 @@ sge::cegui::renderer::insert_texture(
 	result_type;
 
 	result_type const result(
-		fcppt::container::ptr::insert_unique_ptr_map(
-			textures_,
-			_name,
-			std::move(
-				_ptr
+		textures_.insert(
+			std::make_pair(
+				_name,
+				std::move(
+					_ptr
+				)
 			)
 		)
 	);

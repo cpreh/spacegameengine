@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/context/object_fwd.hpp>
 #include <sge/opencl/platform/object_fwd.hpp>
 #include <sge/opencl/program/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
@@ -41,8 +40,6 @@ namespace device
 {
 class object
 {
-FCPPT_NONCOPYABLE(
-	object);
 public:
 	SGE_OPENCL_SYMBOL cl_device_id
 	impl() const;
@@ -53,16 +50,13 @@ public:
 
 	SGE_OPENCL_SYMBOL bool
 	is_gpu() const;
-
-	SGE_OPENCL_SYMBOL
-	~object();
 private:
 	friend class opencl::platform::object;
 	friend class opencl::context::object;
 	friend class opencl::command_queue::object;
 	friend class opencl::program::object;
 
-	cl_device_id const device_id_;
+	cl_device_id device_id_;
 
 	explicit
 	object(

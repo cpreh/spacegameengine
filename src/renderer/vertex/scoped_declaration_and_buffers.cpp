@@ -19,12 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/context/core_fwd.hpp>
+#include <sge/renderer/vertex/const_buffer_ref.hpp>
 #include <sge/renderer/vertex/const_buffer_ref_container.hpp>
 #include <sge/renderer/vertex/declaration_fwd.hpp>
 #include <sge/renderer/vertex/scoped_buffer.hpp>
 #include <sge/renderer/vertex/scoped_declaration_and_buffers.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
+#include <fcppt/algorithm/map.hpp>
 
 
 sge::renderer::vertex::scoped_declaration_and_buffers::scoped_declaration_and_buffers(
@@ -37,20 +38,28 @@ sge::renderer::vertex::scoped_declaration_and_buffers::scoped_declaration_and_bu
 		_context,
 		_vertex_declaration
 	),
-	scoped_buffers_()
-{
-	for(
-		auto const &buffer : _vertex_buffers
-	)
-		fcppt::container::ptr::push_back_unique_ptr(
-			scoped_buffers_,
-			fcppt::make_unique_ptr<
-				sge::renderer::vertex::scoped_buffer
-			>(
-				_context,
-				buffer.get()
+	scoped_buffers_(
+		fcppt::algorithm::map<
+			scoped_buffer_vector
+		>(
+			_vertex_buffers,
+			[
+				&_context
+			](
+				sge::renderer::vertex::const_buffer_ref const _ref
 			)
-		);
+			{
+				return
+					fcppt::make_unique_ptr<
+						sge::renderer::vertex::scoped_buffer
+					>(
+						_context,
+						_ref.get()
+					);
+			}
+		)
+	)
+{
 }
 
 sge::renderer::vertex::scoped_declaration_and_buffers::~scoped_declaration_and_buffers()

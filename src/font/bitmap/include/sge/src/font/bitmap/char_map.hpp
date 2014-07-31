@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_FONT_BITMAP_CHAR_MAP_HPP_INCLUDED
 
 #include <sge/font/char_type.hpp>
-#include <sge/src/font/bitmap/char_metric_fwd.hpp>
+#include <sge/src/font/bitmap/char_metric.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/ptr_container/ptr_map.hpp>
+#include <unordered_map>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -35,10 +35,12 @@ namespace font
 namespace bitmap
 {
 
-typedef boost::ptr_map<
+typedef
+std::unordered_map<
 	sge::font::char_type,
 	sge::font::bitmap::char_metric
-> char_map;
+>
+char_map;
 
 }
 }

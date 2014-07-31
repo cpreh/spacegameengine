@@ -54,7 +54,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -187,14 +186,15 @@ sge::opengl::fbo::target::color_surface(
 				FCPPT_TEXT("which hasn't been created as such!")
 			);
 
-		fcppt::container::ptr::insert_unique_ptr_map(
-			color_attachments_,
-			_index,
-			this->create_texture_binding(
-				texture_surface,
-				sge::opengl::fbo::attachment_type(
-					context_.color_attachment().get()
-					+ _index.get()
+		color_attachments_.insert(
+			std::make_pair(
+				_index,
+				this->create_texture_binding(
+					texture_surface,
+					sge::opengl::fbo::attachment_type(
+						context_.color_attachment().get()
+						+ _index.get()
+					)
 				)
 			)
 		);

@@ -111,6 +111,7 @@ private:
 		sge::resource_tree::path const &
 	) const;
 
+	// boost::filesystem::path is not yet movable, so don't make this class movable
 	sge::resource_tree::path const base_path_;
 
 	resource_container resources_;

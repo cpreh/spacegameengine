@@ -38,20 +38,20 @@ sge::shader::scoped_pair::scoped_pair(
 		parent_.loaded_pixel_program())
 {
 	for(
-		sge::shader::pair::planar_texture_sequence::iterator it =
-			parent_.planar_textures_.begin();
-		it != parent_.planar_textures_.end();
-		++it)
-		it->activate(
+		auto const ptr
+		:
+		parent_.planar_textures_
+	)
+		ptr->activate(
 			_render_context);
 }
 
 sge::shader::scoped_pair::~scoped_pair()
 {
 	for(
-		sge::shader::pair::planar_texture_sequence::iterator it =
-			parent_.planar_textures_.begin();
-		it != parent_.planar_textures_.end();
-		++it)
-		it->deactivate();
+		auto const ptr
+		:
+		parent_.planar_textures_
+	)
+		ptr->deactivate();
 }

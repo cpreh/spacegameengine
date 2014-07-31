@@ -30,10 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/system/event/opcode.hpp>
 #include <awl/backends/x11/system/event/processor.hpp>
 #include <awl/backends/x11/window/object.hpp>
-#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/cast/from_void_ptr.hpp>
-#include <fcppt/container/ptr/insert_unique_ptr_map.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/signal/unregister/base_impl.hpp>
@@ -41,6 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <X11/extensions/XInput2.h>
 #include <functional>
 #include <limits>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -107,16 +106,17 @@ sge::x11input::device::event_demuxer<
 		)
 		== connections_.end()
 	)
-		fcppt::container::ptr::insert_unique_ptr_map(
-			connections_,
-			_type,
-			system_processor_.register_callback(
-				opcode_,
+		connections_.insert(
+			std::make_pair(
 				_type,
-				std::bind(
-					&event_demuxer::on_event,
-					this,
-					std::placeholders::_1
+				system_processor_.register_callback(
+					opcode_,
+					_type,
+					std::bind(
+						&event_demuxer::on_event,
+						this,
+						std::placeholders::_1
+					)
 				)
 			)
 		);
@@ -137,12 +137,11 @@ sge::x11input::device::event_demuxer<
 	)
 	{
 		it =
-			fcppt::container::ptr::insert_unique_ptr_map(
-				signals_,
-				pair,
-				fcppt::make_unique_ptr<
-					signal
-				>()
+			signals_.insert(
+				std::make_pair(
+					pair,
+					signal()
+				)
 			).first;
 
 		sge::x11input::device::select_events(
@@ -154,7 +153,7 @@ sge::x11input::device::event_demuxer<
 	}
 
 	return
-		it->second->connect(
+		it->second.connect(
 			_callback,
 			std::bind(
 				&event_demuxer::unregister,
@@ -175,7 +174,8 @@ sge::x11input::device::event_demuxer<
 	bool const _active
 )
 {
-	active_ = _active;
+	active_ =
+		_active;
 }
 
 template<
@@ -251,7 +251,7 @@ sge::x11input::device::event_demuxer<
 	);
 
 	if(
-		it->second->empty()
+		it->second.empty()
 	)
 	{
 		signals_.erase(

@@ -47,6 +47,17 @@ public:
 		sge::scenic::scene::scale const &);
 
 	SGE_SCENIC_SYMBOL
+	entity(
+		entity &&
+	);
+
+	SGE_SCENIC_SYMBOL
+	entity &
+	operator=(
+		entity &&
+	);
+
+	SGE_SCENIC_SYMBOL
 	sge::scenic::scene::mesh_path const &
 	mesh_path() const;
 

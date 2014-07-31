@@ -40,9 +40,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/surface_index.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_decl.hpp>
+#include <fcppt/strong_typedef_std_hash.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/ptr_container/ptr_map.hpp>
 #include <memory>
+#include <unordered_map>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -131,20 +132,16 @@ private:
 
 	optional_screen_unit height_;
 
-	typedef boost::ptr_map<
+	typedef
+	std::unordered_map<
 		sge::renderer::target::surface_index,
-		sge::opengl::fbo::attachment
-	> attachment_map;
+		sge::opengl::fbo::attachment_unique_ptr
+	>
+	attachment_map;
 
 	attachment_map color_attachments_;
 
-	typedef
-	std::unique_ptr<
-		sge::opengl::fbo::attachment
-	>
-	scoped_attachment;
-
-	scoped_attachment depth_stencil_attachment_;
+	attachment_unique_ptr depth_stencil_attachment_;
 };
 
 }

@@ -54,10 +54,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/font/bitmap/line.hpp>
 #include <sge/src/font/bitmap/logger.hpp>
 #include <sge/src/font/bitmap/text.hpp>
-#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
@@ -149,7 +147,7 @@ sge::font::bitmap::text::text(
 		}
 
 		sge::font::bitmap::char_metric const &metric(
-			*char_it->second
+			char_it->second
 		);
 
 		current_line.push_back(
@@ -231,14 +229,11 @@ sge::font::bitmap::text::text(
 			new_line
 		)
 		{
-			fcppt::container::ptr::push_back_unique_ptr(
-				lines_,
-				fcppt::make_unique_ptr<
-					sge::font::bitmap::line
-				>(
+			lines_.push_back(
+				sge::font::bitmap::line{
 					current_line,
 					current_width
-				)
+				}
 			);
 
 			rect_.w(

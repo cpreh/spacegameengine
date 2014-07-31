@@ -81,7 +81,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/assert/pre_message.hpp>
 #include <fcppt/assert/unimplemented_message.hpp>
-#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/math/box/output.hpp>
@@ -436,11 +435,8 @@ sge::cegui::geometry_buffer::appendGeometry(
 		FCPPT_TEXT("I got geometry without an active texture, how should I handle this? :/")
 	);
 
-	fcppt::container::ptr::push_back_unique_ptr(
-		batches_,
-		fcppt::make_unique_ptr<
-			sge::cegui::batch
-		>(
+	batches_.push_back(
+		sge::cegui::batch{
 			renderer_,
 			vertex_declaration_,
 			active_texture_->impl(),
@@ -448,7 +444,7 @@ sge::cegui::geometry_buffer::appendGeometry(
 				_vertex_count
 			),
 			clip_
-		)
+		}
 	);
 
 	sge::renderer::vertex::scoped_lock const vblock(

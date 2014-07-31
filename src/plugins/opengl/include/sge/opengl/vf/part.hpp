@@ -29,7 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/part.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
+#include <memory>
+#include <vector>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -71,11 +72,19 @@ private:
 
 	sge::renderer::vf::dynamic::part const part_;
 
-	typedef boost::ptr_vector<
+	typedef
+	std::unique_ptr<
 		sge::opengl::vf::actor
-	> actor_array;
+	>
+	actor_unique_ptr;
 
-	mutable actor_array actors_;
+	typedef
+	std::vector<
+		actor_unique_ptr
+	>
+	actor_container;
+
+	actor_container const actors_;
 };
 
 }

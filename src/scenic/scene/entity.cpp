@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/scenic/scene/entity.hpp>
 
+
 sge::scenic::scene::entity::entity(
 	sge::scenic::scene::mesh_path const &_mesh_path,
 	sge::scenic::scene::position const &_position,
@@ -36,6 +37,15 @@ sge::scenic::scene::entity::entity(
 		_scale)
 {
 }
+
+sge::scenic::scene::entity::entity(
+	entity &&
+) = default;
+
+sge::scenic::scene::entity &
+sge::scenic::scene::entity::operator=(
+	entity &&
+) = default;
 
 sge::scenic::scene::mesh_path const &
 sge::scenic::scene::entity::mesh_path() const
