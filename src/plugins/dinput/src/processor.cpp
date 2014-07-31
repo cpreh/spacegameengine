@@ -57,7 +57,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/algorithm/append.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/cast/static_downcast.hpp>
-#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
@@ -65,6 +64,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/auto_connection_container.hpp>
+#include <fcppt/signal/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
 #include <functional>
@@ -476,14 +476,13 @@ sge::dinput::processor::add_device(
 		)
 	);
 
-	fcppt::container::ptr::push_back_unique_ptr(
-		devices_,
+	devices_.push_back(
 		std::move(
 			_ptr
 		)
 	);
 
-	devices_.back().acquire(
+	devices_.back()->acquire(
 		has_focus_,
 		this->cursor_active()
 	);

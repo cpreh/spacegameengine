@@ -30,7 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
+#include <memory>
+#include <vector>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -74,11 +75,15 @@ private:
 		sge::renderer::texture::mipmap::level
 	);
 
-	typedef boost::ptr_vector<
-		sge::renderer::texture::volume::color_buffer
-	> level_map;
+	typedef
+	std::vector<
+		std::unique_ptr<
+			sge::renderer::texture::volume::color_buffer
+		>
+	>
+	level_vector;
 
-	level_map levels_;
+	level_vector const levels_;
 };
 
 }

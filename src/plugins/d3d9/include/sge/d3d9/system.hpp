@@ -33,9 +33,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode/container.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
+#include <fcppt/int_range_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/range/irange.hpp>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -90,7 +90,7 @@ private:
 	override;
 
 	typedef
-	boost::integer_range<
+	fcppt::int_range<
 		UINT
 	>
 	device_index_range;

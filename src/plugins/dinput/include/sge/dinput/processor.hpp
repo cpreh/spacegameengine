@@ -59,10 +59,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/com_deleter.hpp>
 #include <fcppt/signal/auto_connection_container.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
-#include <fcppt/signal/object_impl.hpp>
+#include <fcppt/signal/object_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
 #include <memory>
+#include <vector>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -180,9 +180,17 @@ private:
 		LPVOID
 	);
 
-	typedef boost::ptr_vector<
+	typedef
+	std::unique_ptr<
 		sge::dinput::device::object
-	> device_vector;
+	>
+	device_unique_ptr;
+
+	typedef
+	std::vector<
+		device_unique_ptr
+	>
+	device_vector;
 
 	typedef std::unique_ptr<
 		IDirectInput8,

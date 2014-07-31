@@ -25,11 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/systemfuncs/enum_adapter_modes.hpp>
 #include <sge/renderer/device/index.hpp>
 #include <sge/renderer/display_mode/container.hpp>
+#include <fcppt/make_int_range_count.hpp>
 #include <fcppt/optional_bind_construct.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/range/irange.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::renderer::display_mode::container
@@ -43,8 +41,7 @@ sge::d3d9::get_display_modes_for_format(
 		fcppt::algorithm::map_optional<
 			sge::renderer::display_mode::container
 		>(
-			boost::irange(
-				0u,
+			fcppt::make_int_range_count(
 				_d3d9.GetAdapterModeCount(
 					_index.get(),
 					_format

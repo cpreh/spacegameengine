@@ -38,6 +38,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <awl/visual/object.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
+#include <fcppt/int_range_impl.hpp>
+#include <fcppt/make_int_range_count.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/algorithm/map.hpp>
@@ -45,9 +47,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/log/object.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/range/irange.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::d3d9::system::system()
@@ -222,8 +221,7 @@ sge::d3d9::system::device_index_range const
 sge::d3d9::system::adapter_range() const
 {
 	return
-		boost::irange(
-			0u,
+		fcppt::make_int_range_count(
 			system_->GetAdapterCount()
 		);
 }

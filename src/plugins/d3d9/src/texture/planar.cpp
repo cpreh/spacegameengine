@@ -31,8 +31,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/color_buffer/surface.hpp>
 #include <sge/renderer/texture/planar_parameters_fwd.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
+#include <fcppt/make_int_range_count.hpp>
+#include <fcppt/make_literal_strong_typedef.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
+#include <fcppt/algorithm/map.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
 #include <fcppt/config/external_end.hpp>
@@ -47,31 +49,39 @@ sge::d3d9::texture::planar::planar(
 		_device,
 		_params
 	),
-	levels_()
-{
-	for(
-		sge::renderer::texture::mipmap::level index(
-			0u
-		);
-		index.get() < this->levels().get();
-		++index
-	)
-		fcppt::container::ptr::push_back_unique_ptr(
-			levels_,
-			fcppt::make_unique_ptr<
-				sge::d3d9::texture::planar_buffer
-			>(
-				sge::d3d9::texture::planar_buffer::d3d_buffer_create_function(
-					std::bind(
-						&sge::d3d9::texture::planar::get_level,
-						this,
-						index
-					)
-				),
-				this->color_format(),
-				this->resource_flags()
+	levels_(
+		fcppt::algorithm::map<
+			level_vector
+		>(
+			fcppt::make_int_range_count(
+				sge::renderer::texture::mipmap::level(
+					this->levels().get()
+				)
+			),
+			[
+				this
+			](
+				sge::renderer::texture::mipmap::level const _index
 			)
-		);
+			{
+				return
+					fcppt::make_unique_ptr<
+						sge::d3d9::texture::planar_buffer
+					>(
+						sge::d3d9::texture::planar_buffer::d3d_buffer_create_function(
+							std::bind(
+								&sge::d3d9::texture::planar::get_level,
+								this,
+								_index
+							)
+						),
+						this->color_format(),
+						this->resource_flags()
+					);
+			}
+		)
+	)
+{
 }
 
 sge::d3d9::texture::planar::~planar()
@@ -91,7 +101,7 @@ sge::d3d9::texture::planar::level(
 )
 {
 	return
-		levels_[
+		*levels_[
 			_level.get()
 		];
 }
@@ -102,7 +112,7 @@ sge::d3d9::texture::planar::level(
 ) const
 {
 	return
-		levels_[
+		*levels_[
 			_level.get()
 		];
 }

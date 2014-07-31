@@ -27,11 +27,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/texture/cube_basic.hpp>
 #include <sge/renderer/texture/cube.hpp>
 #include <sge/renderer/texture/cube_parameters.hpp>
-#include <sge/renderer/texture/cube_side_fwd.hpp>
+#include <sge/renderer/texture/cube_side.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/container/enum_array_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
+#include <memory>
+#include <vector>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -78,15 +80,22 @@ private:
 		sge::renderer::texture::mipmap::level
 	);
 
-	typedef boost::ptr_vector<
-		sge::renderer::texture::cube::color_buffer
-	> level_map;
+	typedef
+	std::vector<
+		std::unique_ptr<
+			sge::renderer::texture::cube::color_buffer
+		>
+	>
+	level_vector;
 
-	typedef boost::ptr_vector<
-		level_map
-	> side_map;
+	typedef
+	fcppt::container::enum_array<
+		sge::renderer::texture::cube_side,
+		level_vector
+	>
+	side_array;
 
-	side_map sides_;
+	side_array const sides_;
 };
 
 }

@@ -32,12 +32,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 #include <awl/backends/windows/windows.hpp>
-#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
 #include <exception>
+#include <memory>
+#include <vector>
 #include <fcppt/config/external_end.hpp>
 #elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
 #include <fcppt/to_std_string.hpp>
@@ -68,11 +68,14 @@ struct context
 		context
 	);
 public:
-	explicit context(
+	explicit
+	context(
 		HMODULE const _handle
 	)
 	:
-		handle_(_handle)
+		handle_(
+			_handle
+		)
 	{
 	}
 
@@ -86,9 +89,17 @@ private:
 	HMODULE const handle_;
 };
 
-typedef boost::ptr_vector<
+typedef
+std::unique_ptr<
 	context
-> library_vector;
+>
+context_unique_ptr;
+
+typedef
+std::vector<
+	context_unique_ptr
+>
+library_vector;
 
 library_vector libraries;
 
@@ -167,8 +178,7 @@ sge::plugin::library::object::~object()
 	if(
 		std::uncaught_exception()
 	)
-		fcppt::container::ptr::push_back_unique_ptr(
-			libraries,
+		libraries.push_back(
 			fcppt::make_unique_ptr<
 				context
 			>(

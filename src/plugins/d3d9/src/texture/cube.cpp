@@ -30,9 +30,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/cube_parameters_fwd.hpp>
 #include <sge/renderer/texture/cube_side.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
-#include <fcppt/make_enum_range.hpp>
+#include <fcppt/make_int_range_count.hpp>
+#include <fcppt/make_literal_strong_typedef.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/container/ptr/push_back_unique_ptr.hpp>
+#include <fcppt/algorithm/enum_array_fold.hpp>
+#include <fcppt/algorithm/map.hpp>
+#include <fcppt/container/enum_array_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
 #include <fcppt/config/external_end.hpp>
@@ -47,59 +50,53 @@ sge::d3d9::texture::cube::cube(
 		_device,
 		_params
 	),
-	sides_()
-{
-	for(
-		auto const side
-		:
-		fcppt::make_enum_range<
-			sge::renderer::texture::cube_side
-		>()
-	)
-	{
-		fcppt::container::ptr::push_back_unique_ptr(
-			sides_,
-			fcppt::make_unique_ptr<
-				level_map
-			>()
-		);
-
-		for(
-			sge::renderer::texture::mipmap::level index(
-				0u
-			);
-			index.get() < this->levels().get();
-			++index
-		)
-			fcppt::container::ptr::push_back_unique_ptr(
-				sides_[
-					static_cast<
-						sge::d3d9::texture::cube::side_map::size_type
+	sides_(
+		fcppt::algorithm::enum_array_fold<
+			side_array
+		>(
+			[
+				this
+			](
+				sge::renderer::texture::cube_side const _side
+			)
+			{
+				return
+					fcppt::algorithm::map<
+						level_vector
 					>(
-						side
-					)
-				],
-				fcppt::make_unique_ptr<
-					sge::d3d9::texture::cube_buffer
-				>(
-					sge::d3d9::texture::cube_buffer::d3d_buffer_create_function(
-						std::bind(
-							&sge::d3d9::texture::cube::get_level,
+						fcppt::make_int_range_count(
+							sge::renderer::texture::mipmap::level(
+								this->levels().get()
+							)
+						),
+						[
 							this,
-							// TODO: This is a hack to trigger the implicit conversion. See if we can fix this in a better way
-							static_cast<
-								sge::renderer::texture::cube_side
-							>(
-								side
-							),
-							index
+							_side
+						](
+							sge::renderer::texture::mipmap::level const _index
 						)
-					),
-					this->color_format(),
-					this->resource_flags()
-				)
-			);
-	}
+						{
+							return
+								fcppt::make_unique_ptr<
+									sge::d3d9::texture::cube_buffer
+								>(
+									sge::d3d9::texture::cube_buffer::d3d_buffer_create_function(
+										std::bind(
+											&sge::d3d9::texture::cube::get_level,
+											this,
+											_side,
+											_index
+										)
+									),
+									this->color_format(),
+									this->resource_flags()
+								);
+						}
+					);
+			}
+		)
+	)
+{
 }
 
 sge::d3d9::texture::cube::~cube()
@@ -109,7 +106,8 @@ sge::d3d9::texture::cube::~cube()
 sge::d3d9::texture::cube::size_type
 sge::d3d9::texture::cube::border_size() const
 {
-	return this->parameters().size();
+	return
+		this->parameters().size();
 }
 
 sge::renderer::texture::cube::color_buffer &
@@ -119,12 +117,8 @@ sge::d3d9::texture::cube::level(
 )
 {
 	return
-		sides_[
-			static_cast<
-				sge::d3d9::texture::cube::side_map::size_type
-			>(
-				_side
-			)
+		*sides_[
+			_side
 		][
 			_level.get()
 		];
@@ -138,12 +132,8 @@ sge::d3d9::texture::cube::level(
 ) const
 {
 	return
-		sides_[
-			static_cast<
-				sge::d3d9::texture::cube::side_map::size_type
-			>(
-				_side
-			)
+		*sides_[
+			_side
 		][
 			_level.get()
 		];

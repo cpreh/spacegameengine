@@ -24,11 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/libpng/make_row_vector.hpp>
 #include <sge/libpng/png.hpp>
 #include <sge/libpng/row_vector.hpp>
-#include <fcppt/literal.hpp>
+#include <fcppt/make_int_range_count.hpp>
 #include <fcppt/algorithm/map.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/range/irange.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::libpng::row_vector
@@ -48,12 +45,7 @@ sge::libpng::make_row_vector(
 		fcppt::algorithm::map<
 			sge::libpng::row_vector
 		>(
-			boost::irange(
-				fcppt::literal<
-					sge::image::size_type
-				>(
-					0u
-				),
+			fcppt::make_int_range_count(
 				_size.h()
 			),
 			[
