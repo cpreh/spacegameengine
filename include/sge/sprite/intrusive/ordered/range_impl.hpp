@@ -150,11 +150,11 @@ sge::sprite::intrusive::ordered::range<
 ) const
 {
 	for(
-		auto &element
+		auto const &element
 		:
 		ordered_map_
 	)
-		element.second.range().sort(
+		element.second->range().sort(
 			_func
 		);
 }

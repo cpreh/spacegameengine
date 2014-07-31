@@ -54,7 +54,7 @@ sge::sprite::intrusive::ordered::iterator<
 		?
 			range_iterator()
 		:
-			outer_iterator_.base()->second.range().begin()
+			outer_iterator_.base()->second->range().begin()
 	)
 {
 }
@@ -76,7 +76,7 @@ sge::sprite::intrusive::ordered::iterator<
 
 	if(
 		inner_iterator_
-		== outer_iterator_.base()->second.range().end()
+		== outer_iterator_.base()->second->range().end()
 	)
 	{
 		++outer_iterator_;
@@ -85,7 +85,7 @@ sge::sprite::intrusive::ordered::iterator<
 			!this->is_end()
 		)
 			inner_iterator_ =
-				outer_iterator_.base()->second.range().begin();
+				outer_iterator_.base()->second->range().begin();
 	}
 }
 

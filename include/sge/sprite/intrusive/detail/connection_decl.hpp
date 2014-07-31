@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/intrusive/connection_decl.hpp>
 #include <sge/sprite/intrusive/detail/list.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/reference_wrapper_decl.hpp>
 
 
 namespace sge
@@ -51,22 +50,16 @@ class connection
 		connection
 	);
 public:
-	typedef typename sge::sprite::intrusive::detail::list<
+	typedef
+	typename
+	sge::sprite::intrusive::detail::list<
 		Choices
-	>::type list;
+	>::type
+	list;
 
 	connection(
 		list &,
 		sge::sprite::count &
-	);
-
-	connection(
-		connection &&
-	);
-
-	connection &
-	operator=(
-		connection &&
 	);
 
 	~connection()
@@ -88,13 +81,9 @@ public:
 	remove()
 	override;
 private:
-	fcppt::reference_wrapper<
-		list
-	> list_;
+	list &list_;
 
-	fcppt::reference_wrapper<
-		sge::sprite::count
-	> count_;
+	sge::sprite::count &count_;
 };
 
 }

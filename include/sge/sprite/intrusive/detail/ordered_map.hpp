@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/is_choices.hpp>
 #include <sge/sprite/intrusive/collection_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <map>
+#include <boost/ptr_container/ptr_map.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -50,7 +50,7 @@ struct ordered_map
 		"Choices must be a sprite choices type"
 	);
 
-	typedef std::map<
+	typedef boost::ptr_map<
 		Order,
 		sge::sprite::intrusive::collection<
 			Choices

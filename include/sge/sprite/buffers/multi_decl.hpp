@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/buffers/slice_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <memory>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -83,7 +84,9 @@ private:
 	> buffer_object_vector;
 
 	typedef std::vector<
-		slice_type
+		std::unique_ptr<
+			slice_type
+		>
 	> slice_vector;
 
 	buffer_object_vector buffer_objects_;

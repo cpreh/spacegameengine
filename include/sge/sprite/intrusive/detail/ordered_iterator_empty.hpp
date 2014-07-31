@@ -41,7 +41,7 @@ struct ordered_iterator_empty
 	) const
 	{
 		return
-			!_ref.second.range().empty();
+			!_ref.second->range().empty();
 	}
 };
 

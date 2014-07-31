@@ -93,6 +93,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/signal/auto_connection.hpp>
@@ -350,6 +351,16 @@ try
 		)
 	);
 
+	typedef
+	fcppt::optional<
+		sprite_object
+	>
+	optional_sprite;
+
+	optional_sprite test3(
+		test2
+	);
+
 	fcppt::signal::scoped_connection const escape_connection(
 		sge::systems::quit_on_escape(
 			sys
@@ -379,6 +390,9 @@ try
 			sge::sprite::compare::default_(),
 			sprite_states
 		);
+
+		// Test sprite destruction
+		test3 = optional_sprite();
 	}
 
 	return

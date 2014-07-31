@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/buffers/option_to_resource_flags.hpp>
 #include <sge/sprite/buffers/parameters.hpp>
 #include <sge/sprite/buffers/slice_impl.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/no_init.hpp>
 
 
@@ -95,7 +96,9 @@ sge::sprite::buffers::multi<
 	);
 
 	slices_.push_back(
-		slice_type(
+		fcppt::make_unique_ptr<
+			slice_type
+		>(
 			new_object,
 			sge::sprite::default_initialize_class<
 				typename slice_type::offset_object
@@ -104,7 +107,7 @@ sge::sprite::buffers::multi<
 	);
 
 	return
-		slices_.back();
+		*slices_.back();
 }
 
 template<

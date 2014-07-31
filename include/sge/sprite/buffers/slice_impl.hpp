@@ -58,27 +58,6 @@ template<
 >
 sge::sprite::buffers::slice<
 	Choices
->::slice(
-	slice &&
-) = default;
-
-template<
-	typename Choices
->
-sge::sprite::buffers::slice<
-	Choices
-> &
-sge::sprite::buffers::slice<
-	Choices
->::operator=(
-	slice &&
-) = default;
-
-template<
-	typename Choices
->
-sge::sprite::buffers::slice<
-	Choices
 >::~slice()
 {
 }
@@ -149,7 +128,8 @@ sge::sprite::buffers::slice<
 	Choices
 >::part_vector()
 {
-	return part_vector_;
+	return
+		part_vector_;
 }
 
 template<
@@ -162,7 +142,8 @@ sge::sprite::buffers::slice<
 	Choices
 >::buffer_object() const
 {
-	return object_;
+	return
+		object_;
 }
 
 template<
@@ -176,9 +157,11 @@ sge::sprite::buffers::slice<
 	offset_object const &_offset_object
 )
 {
-	object_ = _object;
+	object_ =
+		_object;
 
-	offset_object_ = _offset_object;
+	offset_object_ =
+		_offset_object;
 
 	part_vector_.clear();
 }

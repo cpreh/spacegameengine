@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/count.hpp>
 #include <sge/sprite/object_decl.hpp>
 #include <sge/sprite/intrusive/detail/connection_decl.hpp>
-#include <fcppt/reference_wrapper_impl.hpp>
 
 
 template<
@@ -52,27 +51,6 @@ template<
 >
 sge::sprite::intrusive::detail::connection<
 	Choices
->::connection(
-	connection &&
-) = default;
-
-template<
-	typename Choices
->
-sge::sprite::intrusive::detail::connection<
-	Choices
-> &
-sge::sprite::intrusive::detail::connection<
-	Choices
->::operator=(
-	connection &&
-) = default;
-
-template<
-	typename Choices
->
-sge::sprite::intrusive::detail::connection<
-	Choices
 >::~connection()
 {
 }
@@ -87,11 +65,11 @@ sge::sprite::intrusive::detail::connection<
 	object &_sprite
 )
 {
-	list_.get().push_back(
+	list_.push_back(
 		_sprite
 	);
 
-	++count_.get();
+	++count_;
 }
 
 template<
@@ -102,7 +80,7 @@ sge::sprite::intrusive::detail::connection<
 	Choices
 >::remove()
 {
-	--count_.get();
+	--count_;
 }
 
 #endif

@@ -100,10 +100,13 @@ public:
 		Function const &
 	);
 private:
-	typedef typename sge::sprite::intrusive::detail::ordered_map<
+	typedef
+	typename
+	sge::sprite::intrusive::detail::ordered_map<
 		order,
 		Choices
-	>::type order_map;
+	>::type
+	order_map;
 
 	order_map collections_;
 };

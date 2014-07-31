@@ -24,6 +24,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/intrusive/collection_impl.hpp>
 #include <sge/sprite/intrusive/ordered/collection_decl.hpp>
 #include <sge/sprite/intrusive/ordered/range_impl.hpp>
+//#include <fcppt/from_optional.hpp>
+//#include <fcppt/make_unique_ptr.hpp>
+//#include <fcppt/container/find_opt.hpp>
+//#include <fcppt/config/external_begin.hpp>
+//#include <utility>
+//#include <fcppt/config/external_end.hpp>
 
 
 template<
@@ -69,6 +75,29 @@ sge::sprite::intrusive::ordered::collection<
 		collections_[
 			_order
 		];
+		/*
+		*fcppt::from_optional(
+			fcppt::container::find_opt(
+				collections_,
+				_order
+			),
+			[
+				this,
+				&_order
+			]()
+			-> typename order_map::mapped_type &
+			{
+				return
+					collections_.insert(
+						std::make_pair(
+							_order,
+							fcppt::make_unique_ptr<
+								collection_base
+							>()
+						)
+					).first->second;
+			}
+		);*/
 }
 
 template<

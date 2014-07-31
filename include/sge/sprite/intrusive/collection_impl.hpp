@@ -64,7 +64,8 @@ sge::sprite::intrusive::collection<
 	Choices
 >::connection()
 {
-	return connection_;
+	return
+		connection_;
 }
 
 template<

@@ -56,7 +56,7 @@ ordered_range_size(
 		_ordered_map
 	)
 		ret +=
-			element.second.range().size();
+			element.second->range().size();
 
 	return ret;
 }
