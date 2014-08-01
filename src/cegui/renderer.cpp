@@ -173,11 +173,19 @@ sge::cegui::renderer::destroyGeometryBuffer(
 			<< FCPPT_TEXT("destroyGeometryBuffer()")
 	);
 
+	sge::cegui::geometry_buffer const *const sge_buffer(
+		dynamic_cast<
+			sge::cegui::geometry_buffer const *
+		>(
+			&_buffer
+		)
+	);
+
 	FCPPT_ASSERT_ERROR_MESSAGE(
 		fcppt::algorithm::remove_if(
 			geometry_buffers_,
 			[
-				&_buffer
+				sge_buffer
 			](
 				geometry_buffer_unique_ptr const &_element_buffer
 			)
@@ -185,11 +193,7 @@ sge::cegui::renderer::destroyGeometryBuffer(
 				return
 					_element_buffer.get()
 					==
-					dynamic_cast<
-						sge::cegui::geometry_buffer const *
-					>(
-						&_buffer
-					);
+					sge_buffer;
 			}
 		),
 		FCPPT_TEXT("Tried to destroy a geometry buffer which was not registered")
@@ -247,11 +251,19 @@ sge::cegui::renderer::destroyTextureTarget(
 		_texture
 	);
 
+	sge::cegui::texture_target *sge_target(
+		dynamic_cast<
+			sge::cegui::texture_target *
+		>(
+			_texture
+		)
+	);
+
 	FCPPT_ASSERT_ERROR_MESSAGE(
 		fcppt::algorithm::remove_if(
 			texture_targets_,
 			[
-				_texture
+				sge_target
 			](
 				texture_target_unique_ptr const &_target
 			)
@@ -259,11 +271,7 @@ sge::cegui::renderer::destroyTextureTarget(
 				return
 					_target.get()
 					==
-					dynamic_cast<
-						sge::cegui::texture_target *
-					>(
-						_texture
-					);
+					sge_target;
 			}
 		),
 		FCPPT_TEXT("Tried to destroy a texture target which was not registered")
@@ -596,7 +604,8 @@ sge::cegui::renderer::getMaxTextureSize() const
 CEGUI::String const &
 sge::cegui::renderer::getIdentifierString() const
 {
-	return identifier_;
+	return
+		identifier_;
 }
 
 CEGUI::Texture &
