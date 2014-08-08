@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/demuxer.hpp>
 #include <sge/input/cursor/discover_event.hpp>
 #include <sge/input/cursor/move_callback.hpp>
-#include <sge/input/cursor/move_event_fwd.hpp>
+#include <sge/input/cursor/move_event.hpp>
 #include <sge/input/cursor/no_object.hpp>
 #include <sge/input/cursor/optional_object_ref.hpp>
 #include <sge/input/cursor/optional_position.hpp>
@@ -261,6 +261,11 @@ sge::input::cursor::demuxer::assign_cursor()
 					std::placeholders::_1
 				)
 			)
+		);
+
+	move_signal_(
+		sge::input::cursor::move_event(
+			this->position()
 		)
-		.move_container();
+	);
 }
