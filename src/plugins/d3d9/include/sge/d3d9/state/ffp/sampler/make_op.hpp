@@ -38,7 +38,7 @@ namespace sampler
 template<
 	typename OpType
 >
-sge::d3d9::state::ffp::sampler::state_vector const
+sge::d3d9::state::ffp::sampler::state_vector
 make_op(
 	OpType const &
 );

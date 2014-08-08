@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<
 	typename OpType
 >
-sge::d3d9::state::ffp::sampler::state_vector const
+sge::d3d9::state::ffp::sampler::state_vector
 sge::d3d9::state::ffp::sampler::make_op(
 	OpType const &_op
 )
@@ -48,7 +48,7 @@ sge::d3d9::state::ffp::sampler::make_op(
 	op_type\
 )\
 template \
-sge::d3d9::state::ffp::sampler::state_vector const \
+sge::d3d9::state::ffp::sampler::state_vector \
 sge::d3d9::state::ffp::sampler::make_op<\
 	op_type\
 >(\

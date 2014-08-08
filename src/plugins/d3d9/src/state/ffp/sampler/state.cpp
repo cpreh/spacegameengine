@@ -27,23 +27,25 @@ sge::d3d9::state::ffp::sampler::state::state(
 	DWORD const _value
 )
 :
-	type_(
+	type_{
 		_type
-	),
-	value_(
+	},
+	value_{
 		_value
-	)
+	}
 {
 }
 
 D3DTEXTURESTAGESTATETYPE
 sge::d3d9::state::ffp::sampler::state::type() const
 {
-	return type_;
+	return
+		type_;
 }
 
 DWORD
 sge::d3d9::state::ffp::sampler::state::value() const
 {
-	return value_;
+	return
+		value_;
 }

@@ -36,7 +36,7 @@ namespace ffp
 namespace sampler
 {
 
-sge::d3d9::state::ffp::sampler::state_vector const
+sge::d3d9::state::ffp::sampler::state_vector
 make_states(
 	sge::renderer::state::ffp::sampler::parameters const &
 );

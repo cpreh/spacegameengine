@@ -33,7 +33,7 @@ template<
 >
 typename sge::d3d9::state::ffp::sampler::op_visitor<
 	OpType
->::result_type const
+>::result_type
 sge::d3d9::state::ffp::sampler::op_visitor<
 	OpType
 >::operator()(
@@ -60,7 +60,7 @@ template<
 >
 typename sge::d3d9::state::ffp::sampler::op_visitor<
 	OpType
->::result_type const
+>::result_type
 sge::d3d9::state::ffp::sampler::op_visitor<
 	OpType
 >::operator()(
@@ -92,7 +92,7 @@ template<
 >
 typename sge::d3d9::state::ffp::sampler::op_visitor<
 	OpType
->::result_type const
+>::result_type
 sge::d3d9::state::ffp::sampler::op_visitor<
 	OpType
 >::operator()(

@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/variant/apply_unary.hpp>
 
 
-sge::d3d9::state::render_vector const
+sge::d3d9::state::render_vector
 sge::d3d9::state::core::blend::make_states(
 	sge::renderer::state::core::blend::parameters const &_parameters
 )

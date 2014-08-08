@@ -34,14 +34,12 @@ sge::d3d9::state::ffp::sampler::create(
 )
 {
 	return
-		sge::renderer::state::ffp::sampler::object_unique_ptr(
-			fcppt::make_unique_ptr<
-				sge::d3d9::state::ffp::sampler::object
-			>(
-				_device,
-				sge::d3d9::state::ffp::sampler::make_states(
-					_parameters
-				)
+		fcppt::make_unique_ptr<
+			sge::d3d9::state::ffp::sampler::object
+		>(
+			_device,
+			sge::d3d9::state::ffp::sampler::make_states(
+				_parameters
 			)
 		);
 }

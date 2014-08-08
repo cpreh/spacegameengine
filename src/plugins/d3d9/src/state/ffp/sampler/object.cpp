@@ -50,16 +50,14 @@ sge::d3d9::state::ffp::sampler::object::set(
 ) const
 {
 	for(
-		sge::d3d9::state::ffp::sampler::state_vector::const_iterator it(
-			states_.begin()
-		);
-		it != states_.end();
-		++it
+		auto const &state
+		:
+		states_
 	)
 		sge::d3d9::devicefuncs::set_texture_stage_state(
 			device_,
 			_stage,
-			it->type(),
-			it->value()
+			state.type(),
+			state.value()
 		);
 }
