@@ -36,7 +36,7 @@ namespace core
 namespace sampler
 {
 
-sge::d3d9::state::core::sampler::state_vector const
+sge::d3d9::state::core::sampler::state_vector
 make_states(
 	sge::renderer::state::core::sampler::parameters const &
 );

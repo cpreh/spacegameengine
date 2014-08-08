@@ -36,7 +36,7 @@ namespace ffp
 namespace lighting
 {
 
-sge::d3d9::state::render_vector const
+sge::d3d9::state::render_vector
 make_states(
 	sge::renderer::state::ffp::lighting::parameters const &
 );

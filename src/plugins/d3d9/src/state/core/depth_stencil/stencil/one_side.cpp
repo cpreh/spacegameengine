@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/depth_stencil/stencil/desc.hpp>
 
 
-sge::d3d9::state::render_vector const
+sge::d3d9::state::render_vector
 sge::d3d9::state::core::depth_stencil::stencil::one_side(
 	sge::renderer::state::core::depth_stencil::stencil::desc const &_desc
 )

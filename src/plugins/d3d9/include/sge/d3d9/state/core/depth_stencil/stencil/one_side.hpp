@@ -38,7 +38,7 @@ namespace depth_stencil
 namespace stencil
 {
 
-sge::d3d9::state::render_vector const
+sge::d3d9::state::render_vector
 one_side(
 	sge::renderer::state::core::depth_stencil::stencil::desc const &
 );

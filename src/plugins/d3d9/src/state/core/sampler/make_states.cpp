@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/algorithm/join.hpp>
 
 
-sge::d3d9::state::core::sampler::state_vector const
+sge::d3d9::state::core::sampler::state_vector
 sge::d3d9::state::core::sampler::make_states(
 	sge::renderer::state::core::sampler::parameters const &_parameters
 )

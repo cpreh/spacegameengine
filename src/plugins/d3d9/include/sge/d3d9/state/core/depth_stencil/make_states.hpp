@@ -36,7 +36,7 @@ namespace core
 namespace depth_stencil
 {
 
-sge::d3d9::state::render_vector const
+sge::d3d9::state::render_vector
 make_states(
 	sge::renderer::state::core::depth_stencil::parameters const &
 );

@@ -44,12 +44,12 @@ class visitor
 public:
 	typedef sge::d3d9::state::render_vector result_type;
 
-	result_type const
+	result_type
 	operator()(
 		sge::renderer::state::core::depth_stencil::depth::off const &
 	) const;
 
-	result_type const
+	result_type
 	operator()(
 		sge::renderer::state::core::depth_stencil::depth::enabled const &
 	) const;

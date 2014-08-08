@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/rasterizer/parameters.hpp>
 
 
-sge::d3d9::state::render_vector const
+sge::d3d9::state::render_vector
 sge::d3d9::state::core::rasterizer::make_states(
 	sge::renderer::state::core::rasterizer::parameters const &_parameters
 )

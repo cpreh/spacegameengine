@@ -36,7 +36,7 @@ namespace ffp
 namespace misc
 {
 
-sge::d3d9::state::render_vector const
+sge::d3d9::state::render_vector
 make_states(
 	sge::renderer::state::ffp::misc::parameters const &
 );
