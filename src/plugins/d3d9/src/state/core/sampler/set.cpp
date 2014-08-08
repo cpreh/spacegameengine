@@ -31,15 +31,13 @@ sge::d3d9::state::core::sampler::set(
 )
 {
 	for(
-		sge::renderer::state::core::sampler::const_optional_object_ref_map::const_iterator it(
-			_states.begin()
-		);
-		it != _states.end();
-		++it
+		auto const &sampler
+		:
+		_states
 	)
 	{
 		sge::renderer::state::core::sampler::const_optional_object_ref const &ref(
-			it->second
+			sampler.second
 		);
 
 		(
@@ -53,7 +51,7 @@ sge::d3d9::state::core::sampler::set(
 			:
 				_default
 		).set(
-			it->first
+			sampler.first
 		);
 	}
 }

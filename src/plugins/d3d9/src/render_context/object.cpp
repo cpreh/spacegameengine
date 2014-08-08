@@ -464,6 +464,7 @@ sge::d3d9::render_context::object::sampler_ffp_state(
 	sge::d3d9::state::ffp::sampler::set(
 		parameters_.device(),
 		_states,
+		parameters_.ffp_defaults().sampler(),
 		parameters_.texture_stages()
 	);
 }

@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_STATE_FFP_SAMPLER_SET_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/state/ffp/sampler/object_fwd.hpp>
 #include <sge/renderer/caps/texture_stages.hpp>
 #include <sge/renderer/state/ffp/sampler/const_object_ref_vector.hpp>
 
@@ -41,6 +42,7 @@ void
 set(
 	IDirect3DDevice9 &,
 	sge::renderer::state::ffp::sampler::const_object_ref_vector const &,
+	sge::d3d9::state::ffp::sampler::object const &,
 	sge::renderer::caps::texture_stages
 );
 
