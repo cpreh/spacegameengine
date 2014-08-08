@@ -118,14 +118,6 @@ sge::x11input::cursor::manager::focus_out()
 	);
 }
 
-void
-sge::x11input::cursor::manager::leave()
-{
-	this->for_each_cursor(
-		&sge::x11input::cursor::object::on_leave
-	);
-}
-
 sge::x11input::cursor::entered const
 sge::x11input::cursor::manager::entered() const
 {

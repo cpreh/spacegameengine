@@ -19,7 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/x11input/create_parameters.hpp>
+#include <sge/x11input/device/enter_demuxer_fwd.hpp>
 #include <sge/x11input/device/id.hpp>
+#include <sge/x11input/device/leave_demuxer_fwd.hpp>
 #include <sge/x11input/device/parameters.hpp>
 #include <sge/x11input/device/raw_demuxer_fwd.hpp>
 #include <sge/x11input/device/window_demuxer_fwd.hpp>
@@ -35,7 +37,9 @@ sge::x11input::device::parameters::parameters(
 	awl::backends::x11::system::event::opcode const _opcode,
 	awl::backends::x11::window::object const &_window,
 	sge::x11input::device::window_demuxer &_window_demuxer,
-	sge::x11input::device::raw_demuxer &_raw_demuxer
+	sge::x11input::device::raw_demuxer &_raw_demuxer,
+	sge::x11input::device::enter_demuxer &_enter_demuxer,
+	sge::x11input::device::leave_demuxer &_leave_demuxer
 )
 :
 	id_(
@@ -55,6 +59,12 @@ sge::x11input::device::parameters::parameters(
 	),
 	raw_demuxer_(
 		_raw_demuxer
+	),
+	enter_demuxer_(
+		_enter_demuxer
+	),
+	leave_demuxer_(
+		_leave_demuxer
 	)
 {
 }
@@ -62,35 +72,55 @@ sge::x11input::device::parameters::parameters(
 sge::x11input::device::id const
 sge::x11input::device::parameters::id() const
 {
-	return id_;
+	return
+		id_;
 }
 
 XIDeviceInfo const &
 sge::x11input::device::parameters::info() const
 {
-	return info_;
+	return
+		info_;
 }
 
 awl::backends::x11::system::event::opcode const
 sge::x11input::device::parameters::opcode() const
 {
-	return opcode_;
+	return
+		opcode_;
 }
 
 awl::backends::x11::window::object const &
 sge::x11input::device::parameters::window() const
 {
-	return window_;
+	return
+		window_;
 }
 
 sge::x11input::device::window_demuxer &
 sge::x11input::device::parameters::window_demuxer() const
 {
-	return window_demuxer_;
+	return
+		window_demuxer_;
 }
 
 sge::x11input::device::raw_demuxer &
 sge::x11input::device::parameters::raw_demuxer() const
 {
-	return raw_demuxer_;
+	return
+		raw_demuxer_;
+}
+
+sge::x11input::device::enter_demuxer &
+sge::x11input::device::parameters::enter_demuxer() const
+{
+	return
+		enter_demuxer_;
+}
+
+sge::x11input::device::leave_demuxer &
+sge::x11input::device::parameters::leave_demuxer() const
+{
+	return
+		leave_demuxer_;
 }

@@ -20,6 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/config/media_path.hpp>
 #include <sge/image/color/predef.hpp>
+#include <sge/input/log_location.hpp>
+#include <sge/log/option.hpp>
+#include <sge/log/option_container.hpp>
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_set.hpp>
@@ -42,6 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_unique_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
+#include <sge/systems/config.hpp>
 #include <sge/systems/custom_cursor.hpp>
 #include <sge/systems/cursor_demuxer.hpp>
 #include <sge/systems/cursor_hotspot.hpp>
@@ -50,6 +54,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/input.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/keyboard_collector.hpp>
+#include <sge/systems/log_settings.hpp>
 #include <sge/systems/make_list.hpp>
 #include <sge/systems/original_window.hpp>
 #include <sge/systems/quit_on_escape.hpp>
@@ -75,6 +80,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/exception.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/log/level.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -148,6 +154,19 @@ try
 		(
 			sge::systems::input(
 				sge::systems::cursor_option_field::null()
+			)
+		)
+		(
+			sge::systems::config()
+			.log_settings(
+				sge::systems::log_settings(
+					sge::log::option_container{
+						sge::log::option{
+							sge::input::log_location(),
+							fcppt::log::level::debug
+						}
+					}
+				)
 			)
 		)
 	);

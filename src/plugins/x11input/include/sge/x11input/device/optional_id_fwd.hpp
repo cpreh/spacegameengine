@@ -32,9 +32,11 @@ namespace x11input
 namespace device
 {
 
-typedef fcppt::optional<
+typedef
+fcppt::optional<
 	sge::x11input::device::id
-> optional_id;
+>
+optional_id;
 
 }
 }

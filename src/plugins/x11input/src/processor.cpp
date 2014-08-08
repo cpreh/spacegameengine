@@ -57,6 +57,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/window/event/object.hpp>
 #include <awl/backends/x11/window/event/processor.hpp>
 #include <awl/backends/x11/window/event/type.hpp>
+#include <fcppt/make_int_range_count.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
@@ -126,6 +127,22 @@ sge::x11input::processor::processor(
 		)
 	),
 	hierarchy_demuxer_(
+		system_event_processor_,
+		opcode_,
+		x11_window_,
+		sge::x11input::device::demuxer_enabled(
+			true
+		)
+	),
+	enter_demuxer_(
+		system_event_processor_,
+		opcode_,
+		x11_window_,
+		sge::x11input::device::demuxer_enabled(
+			true
+		)
+	),
+	leave_demuxer_(
 		system_event_processor_,
 		opcode_,
 		x11_window_,
@@ -275,18 +292,6 @@ sge::x11input::processor::processor(
 		(
 			window_event_processor_.register_callback(
 				awl::backends::x11::window::event::type(
-					LeaveNotify
-				),
-				std::bind(
-					&sge::x11input::processor::on_leave,
-					this,
-					std::placeholders::_1
-				)
-			)
-		)
-		(
-			window_event_processor_.register_callback(
-				awl::backends::x11::window::event::type(
 					ClientMessage
 				),
 				std::bind(
@@ -322,9 +327,11 @@ sge::x11input::processor::processor(
 	);
 
 	for(
-		int index = 0;
-		index < current_devices.size();
-		++index
+		int const index
+		:
+		fcppt::make_int_range_count(
+			current_devices.size()
+		)
 	)
 		device_manager_.initial(
 			current_devices[
@@ -441,7 +448,9 @@ sge::x11input::processor::device_parameters(
 			opcode_,
 			x11_window_,
 			window_demuxer_,
-			raw_demuxer_
+			raw_demuxer_,
+			enter_demuxer_,
+			leave_demuxer_
 		);
 }
 
@@ -499,9 +508,11 @@ sge::x11input::processor::on_hierarchy_changed(
 )
 {
 	for(
-		int index = 0;
-		index < _event.get().num_info;
-		++index
+		int const index
+		:
+		fcppt::make_int_range_count(
+			_event.get().num_info
+		)
 	)
 		device_manager_.change(
 			_event.get().info[
@@ -547,20 +558,6 @@ sge::x11input::processor::on_focus_out(
 }
 
 void
-sge::x11input::processor::on_leave(
-	awl::backends::x11::window::event::object const &
-)
-{
-	FCPPT_LOG_DEBUG(
-		sge::x11input::logger(),
-		fcppt::log::_
-			<< FCPPT_TEXT("x11input: LeaveNotify")
-	);
-
-	cursor_manager_.leave();
-}
-
-void
 sge::x11input::processor::on_client_message(
 	awl::backends::x11::window::event::object const &_object
 )
@@ -573,7 +570,8 @@ sge::x11input::processor::on_client_message(
 
 	if(
 		_object.get().xclient.message_type
-		!= init_atom_.get()
+		!=
+		init_atom_.get()
 	)
 		return;
 

@@ -35,12 +35,14 @@ namespace x11input
 namespace device
 {
 
-typedef std::function<
+typedef
+std::function<
 	void (
 		sge::x11input::device::valuator_index,
 		sge::x11input::device::valuator_value
 	)
-> valuator_callback;
+>
+valuator_callback;
 
 }
 }

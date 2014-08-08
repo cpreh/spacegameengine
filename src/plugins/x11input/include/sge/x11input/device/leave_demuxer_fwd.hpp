@@ -18,13 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_DEVICE_RAW_EVENT_FWD_HPP_INCLUDED
-#define SGE_X11INPUT_DEVICE_RAW_EVENT_FWD_HPP_INCLUDED
+#ifndef SGE_X11INPUT_DEVICE_LEAVE_DEMUXER_FWD_HPP_INCLUDED
+#define SGE_X11INPUT_DEVICE_LEAVE_DEMUXER_FWD_HPP_INCLUDED
 
-#include <sge/x11input/device/event_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <X11/extensions/XInput2.h>
-#include <fcppt/config/external_end.hpp>
+#include <sge/x11input/device/event_demuxer_fwd.hpp>
+#include <sge/x11input/device/leave_event_fwd.hpp>
 
 
 namespace sge
@@ -35,10 +33,10 @@ namespace device
 {
 
 typedef
-sge::x11input::device::event<
-	XIRawEvent
+sge::x11input::device::event_demuxer<
+	sge::x11input::device::leave_event
 >
-raw_event;
+leave_demuxer;
 
 }
 }

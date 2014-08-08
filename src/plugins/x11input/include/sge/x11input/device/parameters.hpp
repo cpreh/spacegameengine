@@ -23,6 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/x11input/create_parameters_fwd.hpp>
 #include <sge/x11input/device/id.hpp>
+#include <sge/x11input/device/enter_demuxer_fwd.hpp>
+#include <sge/x11input/device/leave_demuxer_fwd.hpp>
 #include <sge/x11input/device/parameters_fwd.hpp>
 #include <sge/x11input/device/raw_demuxer_fwd.hpp>
 #include <sge/x11input/device/window_demuxer_fwd.hpp>
@@ -48,14 +50,16 @@ class parameters
 	);
 public:
 	parameters(
-		x11input::create_parameters const &,
+		sge::x11input::create_parameters const &,
 		awl::backends::x11::system::event::opcode,
 		awl::backends::x11::window::object const &,
-		x11input::device::window_demuxer &,
-		x11input::device::raw_demuxer &
+		sge::x11input::device::window_demuxer &,
+		sge::x11input::device::raw_demuxer &,
+		sge::x11input::device::enter_demuxer &,
+		sge::x11input::device::leave_demuxer &
 	);
 
-	x11input::device::id const
+	sge::x11input::device::id const
 	id() const;
 
 	XIDeviceInfo const &
@@ -67,13 +71,19 @@ public:
 	awl::backends::x11::window::object const &
 	window() const;
 
-	x11input::device::window_demuxer &
+	sge::x11input::device::window_demuxer &
 	window_demuxer() const;
 
-	x11input::device::raw_demuxer &
+	sge::x11input::device::raw_demuxer &
 	raw_demuxer() const;
+
+	sge::x11input::device::enter_demuxer &
+	enter_demuxer() const;
+
+	sge::x11input::device::leave_demuxer &
+	leave_demuxer() const;
 private:
-	x11input::device::id const id_;
+	sge::x11input::device::id const id_;
 
 	XIDeviceInfo const &info_;
 
@@ -81,9 +91,13 @@ private:
 
 	awl::backends::x11::window::object const &window_;
 
-	x11input::device::window_demuxer &window_demuxer_;
+	sge::x11input::device::window_demuxer &window_demuxer_;
 
-	x11input::device::raw_demuxer &raw_demuxer_;
+	sge::x11input::device::raw_demuxer &raw_demuxer_;
+
+	sge::x11input::device::enter_demuxer &enter_demuxer_;
+
+	sge::x11input::device::leave_demuxer &leave_demuxer_;
 };
 
 }

@@ -34,9 +34,11 @@ namespace x11input
 namespace device
 {
 
-typedef sge::x11input::device::event<
+typedef
+sge::x11input::device::event<
 	XIHierarchyEvent
-> hierarchy_event;
+>
+hierarchy_event;
 
 }
 }

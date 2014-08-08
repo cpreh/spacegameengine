@@ -204,7 +204,7 @@ add_sge_example(
 
 add_sge_example(
 	custom_cursor
-	"sgeconfig;sgeimagecolor;sgerenderer;sgesystems;sgetexture;sgeviewport;sgewindow"
+	"sgeconfig;sgeimagecolor;sgeinput;sgelog;sgerenderer;sgesystems;sgetexture;sgeviewport;sgewindow"
 	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 )

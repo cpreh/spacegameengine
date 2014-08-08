@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
 
+
 namespace sge
 {
 namespace x11input
@@ -33,9 +34,11 @@ namespace x11input
 namespace device
 {
 
-typedef device::event<
+typedef
+sge::x11input::device::event<
 	XIDeviceEvent
-> window_event;
+>
+window_event;
 
 }
 }

@@ -50,7 +50,8 @@ sge::x11input::device::event<
 	ValueType
 >::get() const
 {
-	return event_;
+	return
+		event_;
 }
 
 template class
@@ -66,4 +67,9 @@ sge::x11input::device::event<
 template class
 sge::x11input::device::event<
 	XIHierarchyEvent
+>;
+
+template class
+sge::x11input::device::event<
+	XIEnterEvent
 >;

@@ -34,6 +34,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/cursor/grab_fwd.hpp>
 #include <sge/x11input/cursor/info.hpp>
 #include <sge/x11input/cursor/object_fwd.hpp>
+#include <sge/x11input/device/enter_event_fwd.hpp>
+#include <sge/x11input/device/leave_event_fwd.hpp>
 #include <sge/x11input/device/object.hpp>
 #include <sge/x11input/device/parameters_fwd.hpp>
 #include <sge/x11input/device/valuator_index.hpp>
@@ -80,9 +82,6 @@ public:
 
 	void
 	on_focus_out();
-
-	void
-	on_leave();
 private:
 	fcppt::signal::auto_connection
 	button_callback(
@@ -115,6 +114,24 @@ private:
 	void
 	on_motion(
 		sge::x11input::device::window_event const &
+	);
+
+	void
+	on_enter(
+		sge::x11input::device::enter_event const &
+	);
+
+	void
+	on_leave(
+		sge::x11input::device::leave_event const &
+	);
+
+	template<
+		typename Event
+	>
+	void
+	update_position(
+		Event const &
 	);
 
 	void

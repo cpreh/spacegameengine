@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/position_unit.hpp>
 #include <sge/input/cursor/scroll_event.hpp>
+#include <sge/x11input/logger.hpp>
 #include <sge/x11input/cursor/button_code.hpp>
 #include <sge/x11input/cursor/entered.hpp>
 #include <sge/x11input/cursor/grab.hpp>
@@ -33,7 +34,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/cursor/query_pointer.hpp>
 #include <sge/x11input/cursor/scroll_valuator_map.hpp>
 #include <sge/x11input/cursor/scroll_value.hpp>
+#include <sge/x11input/device/enter_event.hpp>
 #include <sge/x11input/device/foreach_valuator.hpp>
+#include <sge/x11input/device/leave_event_fwd.hpp>
 #include <sge/x11input/device/parameters.hpp>
 #include <sge/x11input/device/valuator_index.hpp>
 #include <sge/x11input/device/valuator_value.hpp>
@@ -44,9 +47,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/cast/float_to_int.hpp>
-#include <fcppt/math/vector/comparison.hpp>
 #include <fcppt/signal/auto_connection_container.hpp>
 #include <fcppt/signal/object_impl.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/log/_.hpp>
+#include <fcppt/log/debug.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/Xlib.h>
 #include <X11/extensions/XInput2.h>
@@ -100,6 +105,32 @@ sge::x11input::cursor::object::object(
 			)
 		)
 		(
+			_param.enter_demuxer().register_callback(
+				awl::backends::x11::system::event::type(
+					XI_Enter
+				),
+				_param.id(),
+				std::bind(
+					&sge::x11input::cursor::object::on_enter,
+					this,
+					std::placeholders::_1
+				)
+			)
+		)
+		(
+			_param.leave_demuxer().register_callback(
+				awl::backends::x11::system::event::type(
+					XI_Leave
+				),
+				_param.id(),
+				std::bind(
+					&sge::x11input::cursor::object::on_leave,
+					this,
+					std::placeholders::_1
+				)
+			)
+		)
+		(
 			_param.window_demuxer().register_callback(
 				awl::backends::x11::system::event::type(
 					XI_ButtonRelease
@@ -112,7 +143,6 @@ sge::x11input::cursor::object::object(
 				)
 			)
 		)
-		.move_container()
 	),
 	mode_(
 		sge::input::cursor::mode::normal
@@ -164,14 +194,6 @@ sge::x11input::cursor::object::on_focus_out()
 	this->check_grab();
 }
 
-void
-sge::x11input::cursor::object::on_leave()
-{
-	position_.reset();
-
-	this->move_event();
-}
-
 fcppt::signal::auto_connection
 sge::x11input::cursor::object::button_callback(
 	sge::input::cursor::button_callback const &_callback
@@ -208,7 +230,8 @@ sge::x11input::cursor::object::scroll_callback(
 sge::input::cursor::optional_position const
 sge::x11input::cursor::object::position() const
 {
-	return position_;
+	return
+		position_;
 }
 
 void
@@ -216,7 +239,8 @@ sge::x11input::cursor::object::mode(
 	sge::input::cursor::mode const _mode
 )
 {
-	mode_ = _mode;
+	mode_ =
+		_mode;
 
 	this->check_grab();
 }
@@ -236,30 +260,67 @@ sge::x11input::cursor::object::on_motion(
 		)
 	);
 
-	sge::input::cursor::position const new_position(
-		fcppt::cast::float_to_int<
-			sge::input::cursor::position_unit
-		>(
-			_event.get().event_x
-		),
-		fcppt::cast::float_to_int<
-			sge::input::cursor::position_unit
-		>(
-			_event.get().event_y
-		)
+	this->update_position(
+		_event
+	);
+}
+
+void
+sge::x11input::cursor::object::on_enter(
+	sge::x11input::device::enter_event const &_event
+)
+{
+	FCPPT_LOG_DEBUG(
+		sge::x11input::logger(),
+		fcppt::log::_
+			<< FCPPT_TEXT("XIEnter: ")
+			<< _event.get().event_x
+			<< FCPPT_TEXT(",")
+			<< _event.get().event_y
 	);
 
-	if(
-		position_
-		&&
-		new_position
-		==
-		*position_
-	)
-		return;
+	this->update_position(
+		_event
+	);
+}
 
+void
+sge::x11input::cursor::object::on_leave(
+	sge::x11input::device::leave_event const &
+)
+{
+	FCPPT_LOG_DEBUG(
+		sge::x11input::logger(),
+		fcppt::log::_
+			<< FCPPT_TEXT("XILeave")
+	);
+
+	position_.reset();
+
+	this->move_event();
+}
+
+template<
+	typename Event
+>
+void
+sge::x11input::cursor::object::update_position(
+	Event const &_event
+)
+{
 	position_ =
-		new_position;
+		sge::input::cursor::position(
+			fcppt::cast::float_to_int<
+				sge::input::cursor::position_unit
+			>(
+				_event.get().event_x
+			),
+			fcppt::cast::float_to_int<
+				sge::input::cursor::position_unit
+			>(
+				_event.get().event_y
+			)
+		);
 
 	this->move_event();
 }

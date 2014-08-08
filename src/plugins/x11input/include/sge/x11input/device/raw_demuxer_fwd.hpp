@@ -32,9 +32,11 @@ namespace x11input
 namespace device
 {
 
-typedef device::event_demuxer<
-	device::raw_event
-> raw_demuxer;
+typedef
+sge::x11input::device::event_demuxer<
+	sge::x11input::device::raw_event
+>
+raw_demuxer;
 
 }
 }

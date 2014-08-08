@@ -64,9 +64,6 @@ public:
 	void
 	focus_out();
 
-	void
-	leave();
-
 	sge::x11input::cursor::entered const
 	entered() const;
 private:
