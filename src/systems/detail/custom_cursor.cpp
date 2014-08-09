@@ -108,6 +108,13 @@ sge::systems::detail::custom_cursor::draw(
 		);
 }
 
+sge::systems::cursor_hotspot const
+sge::systems::detail::custom_cursor::hotspot() const
+{
+	return
+		hotspot_;
+}
+
 sge::systems::detail::custom_cursor::optional_sprite
 sge::systems::detail::custom_cursor::make_sprite(
 	sge::input::cursor::optional_position const _pos

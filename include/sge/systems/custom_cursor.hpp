@@ -73,6 +73,10 @@ public:
 	draw(
 		sge::renderer::context::ffp &
 	);
+
+	SGE_SYSTEMS_SYMBOL
+	sge::systems::cursor_hotspot const
+	hotspot() const;
 private:
 	std::unique_ptr<
 		sge::systems::detail::custom_cursor

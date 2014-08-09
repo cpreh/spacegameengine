@@ -71,3 +71,10 @@ sge::systems::custom_cursor::draw(
 		_context
 	);
 }
+
+sge::systems::cursor_hotspot const
+sge::systems::custom_cursor::hotspot() const
+{
+	return
+		impl_->hotspot();
+}
