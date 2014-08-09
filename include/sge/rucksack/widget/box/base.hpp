@@ -163,6 +163,10 @@ public:
 	void
 	pop_front_child();
 
+	SGE_RUCKSACK_SYMBOL
+	void
+	clear();
+
 	typedef
 	child_information::iterator
 	iterator;

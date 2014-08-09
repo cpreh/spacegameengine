@@ -356,6 +356,23 @@ sge::rucksack::widget::box::base::pop_front_child()
 	);
 }
 
+void
+sge::rucksack::widget::box::base::clear()
+{
+	// TODO: Algorithm for this?
+	for(
+		auto it(
+			children_.begin()
+		);
+		it != children_.end();
+		it =
+			this->erase_child(
+				it
+			)
+	)
+		;
+}
+
 sge::rucksack::widget::box::base::iterator
 sge::rucksack::widget::box::base::child_position(
 	size_type const _pos
