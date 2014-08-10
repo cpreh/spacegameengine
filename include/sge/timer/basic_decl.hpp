@@ -38,26 +38,33 @@ namespace timer
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
-template<typename Clock>
+template<
+	typename Clock
+>
 class basic
 :
-	timer::clocks::detail::wrapper<
+	sge::timer::clocks::detail::wrapper<
 		Clock
-	>::type
+	>
 {
-FCPPT_NONCOPYABLE(
-	basic);
+	FCPPT_NONCOPYABLE(
+		basic
+	);
 
-	typedef typename timer::clocks::detail::wrapper<
+	typedef
+	sge::timer::clocks::detail::wrapper<
 		Clock
-	>::type base;
+	>
+	base;
 public:
 	typedef
 	Clock
 	clock_type;
 
 	typedef
-	timer::parameters<clock_type>
+	sge::timer::parameters<
+		clock_type
+	>
 	parameters;
 
 	typedef typename
@@ -70,30 +77,38 @@ public:
 
 	explicit
 	basic(
-		parameters const &);
+		parameters const &
+	);
 
 	bool
 	expired() const;
 
 	void
 	expired(
-		bool);
+		bool
+	);
 
 	bool
 	active() const;
 
 	void
 	active(
-		bool);
+		bool
+	);
 
-	template<typename NewDuration>
+	template<
+		typename NewDuration
+	>
 	NewDuration const
 	interval() const;
 
-	template<typename NewDuration>
+	template<
+		typename NewDuration
+	>
 	void
 	interval(
-		NewDuration const &);
+		NewDuration const &
+	);
 
 	time_point const
 	now() const;
@@ -105,8 +120,11 @@ public:
 	reset();
 private:
 	duration interval_;
+
 	bool active_;
+
 	bool expired_;
+
 	time_point last_time_;
 };
 

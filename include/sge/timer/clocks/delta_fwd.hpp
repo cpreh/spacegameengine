@@ -21,13 +21,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TIMER_CLOCKS_DELTA_FWD_HPP_INCLUDED
 #define SGE_TIMER_CLOCKS_DELTA_FWD_HPP_INCLUDED
 
+
 namespace sge
 {
 namespace timer
 {
 namespace clocks
 {
-template<typename Impl>
+
+template<
+	typename Duration
+>
 class delta;
 
 }

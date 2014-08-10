@@ -33,110 +33,201 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
-template<typename Clock>
-sge::timer::basic<Clock>::basic(
-	parameters const &params)
+
+template<
+	typename Clock
+>
+sge::timer::basic<
+	Clock
+>::basic(
+	parameters const &_params
+)
 :
 	base(
-		params.clock()),
-	interval_(
-		params.interval()),
-	active_(
-		params.active()),
-	expired_(
-		params.expired()),
-	last_time_(
-		this->now())
+		_params.clock()
+	),
+	interval_{
+		_params.interval()
+	},
+	active_{
+		_params.active()
+	},
+	expired_{
+		_params.expired()
+	},
+	last_time_{
+		this->now()
+	}
 {
 }
 FCPPT_PP_POP_WARNING
 
-template<typename Clock>
+template<
+	typename Clock
+>
 bool
-sge::timer::basic<Clock>::expired() const
+sge::timer::basic<
+	Clock
+>::expired() const
 {
 	return
-		active_ && (expired_ || (this->now() - last_time_).count() > interval_.count());
+		active_
+		&&
+		(
+			expired_
+			||
+			(
+				this->now()
+				-
+				last_time_
+			).count()
+			>=
+			interval_.count()
+		);
 }
 
-template<typename Clock>
+template<
+	typename Clock
+>
 void
-sge::timer::basic<Clock>::expired(
-	bool const _expired)
+sge::timer::basic<
+	Clock
+>::expired(
+	bool const _expired
+)
 {
 	expired_ =
 		_expired;
 }
 
-template<typename Clock>
+template<
+	typename Clock
+>
 bool
-sge::timer::basic<Clock>::active() const
+sge::timer::basic<
+	Clock
+>::active() const
 {
-	return active_;
+	return
+		active_;
 }
 
-template<typename Clock>
+template<
+	typename Clock
+>
 void
-sge::timer::basic<Clock>::active(
-	bool const _active)
+sge::timer::basic<
+	Clock
+>::active(
+	bool const _active
+)
 {
-	if(active_ == _active)
+	if(
+		active_
+		==
+		_active
+	)
 		return;
 
-	if(active_)
+	if(
+		active_
+	)
 	{
-		active_ = false;
+		active_ =
+			false;
 	}
 	else
 	{
 		this->reset();
-		active_ = true;
+
+		active_ =
+			true;
 	}
 }
 
-template<typename Clock>
-template<typename NewDuration>
+template<
+	typename Clock
+>
+template<
+	typename NewDuration
+>
 NewDuration const
-sge::timer::basic<Clock>::interval() const
+sge::timer::basic<
+	Clock
+>::interval() const
 {
 	return
-		std::chrono::duration_cast<NewDuration>(
-			interval_);
+		std::chrono::duration_cast<
+			NewDuration
+		>(
+			interval_
+		);
 }
 
-template<typename Clock>
-template<typename NewDuration>
+template<
+	typename Clock
+>
+template<
+	typename NewDuration
+>
 void
-sge::timer::basic<Clock>::interval(
-	NewDuration const &_interval)
+sge::timer::basic<
+	Clock
+>::interval(
+	NewDuration const &_interval
+)
 {
 	interval_ =
-		std::chrono::duration_cast<duration>(
-			_interval);
+		std::chrono::duration_cast<
+			duration
+		>(
+			_interval
+		);
+
 	this->reset();
 }
 
-template<typename Clock>
+template<
+	typename Clock
+>
 typename
-sge::timer::basic<Clock>::time_point const
-sge::timer::basic<Clock>::now() const
+sge::timer::basic<
+	Clock
+>::time_point const
+sge::timer::basic<
+	Clock
+>::now() const
 {
-	return this->clock_base().now();
+	return
+		this->clock_base().now();
 }
 
-template<typename Clock>
+template<
+	typename Clock
+>
 typename
-sge::timer::basic<Clock>::time_point const
-sge::timer::basic<Clock>::last_time() const
+sge::timer::basic<
+	Clock
+>::time_point const
+sge::timer::basic<
+	Clock
+>::last_time() const
 {
-	return last_time_;
+	return
+		last_time_;
 }
 
-template<typename Clock>
+template<
+	typename Clock
+>
 void
-sge::timer::basic<Clock>::reset()
+sge::timer::basic<
+	Clock
+>::reset()
 {
-	last_time_ = this->now();
+	last_time_ =
+		this->now();
+
 	expired_ = false;
 }
 

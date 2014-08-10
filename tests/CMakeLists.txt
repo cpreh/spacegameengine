@@ -94,3 +94,10 @@ add_sge_test(
 	"${fcppt_core_TARGET}"
 	""
 )
+
+add_sge_test(
+	timer/main
+	""
+	"${fcppt_core_TARGET}"
+	""
+)

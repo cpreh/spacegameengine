@@ -31,6 +31,7 @@ namespace sge
 {
 namespace timer
 {
+
 /**
 \brief Force a code block to execute at least a given number of milliseconds
 

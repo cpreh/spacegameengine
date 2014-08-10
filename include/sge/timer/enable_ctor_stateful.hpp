@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
 
+
 namespace sge
 {
 namespace timer
@@ -39,11 +40,12 @@ FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
 	typename Clock,
-	typename Duration>
+	typename Duration
+>
 struct enable_ctor_stateful
 :
 boost::enable_if<
-	clocks::is_stateful<
+	sge::timer::clocks::is_stateful<
 		Clock
 	>
 >

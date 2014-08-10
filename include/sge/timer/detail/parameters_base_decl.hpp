@@ -21,31 +21,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TIMER_DETAIL_PARAMETERS_BASE_DECL_HPP_INCLUDED
 #define SGE_TIMER_DETAIL_PARAMETERS_BASE_DECL_HPP_INCLUDED
 
+
 namespace sge
 {
 namespace timer
 {
 namespace detail
 {
-template<typename Clock>
+
+template<
+	typename Clock
+>
 class parameters_base
 {
 protected:
-	typedef typename
+	typedef
+	typename
 	Clock::duration
 	duration;
 
-	template<typename Duration>
-	explicit parameters_base(
+	template<
+		typename Duration
+	>
+	explicit
+	parameters_base(
 		Duration const &
 	);
 
 	duration interval_;
+
 	bool active_;
+
 	bool expired_;
 };
 
 }
+
 }
 }
 

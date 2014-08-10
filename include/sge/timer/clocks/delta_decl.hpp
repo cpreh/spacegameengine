@@ -23,6 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/timer/clocks/delta_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <chrono>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -31,29 +34,38 @@ namespace timer
 {
 namespace clocks
 {
-template<typename Impl>
+
+template<
+	typename Duration
+>
 class delta
 {
-FCPPT_NONCOPYABLE(
-	delta);
+	FCPPT_NONCOPYABLE(
+		delta
+	);
 public:
-	typedef typename
-	Impl::rep
+	typedef
+	typename
+	Duration::rep
 	rep;
 
-	typedef typename
-	Impl::period
+	typedef
+	typename
+	Duration::period
 	period;
 
-	typedef typename
-	Impl::duration
+	typedef
+	Duration
 	duration;
 
-	typedef typename
-	Impl::time_point
+	typedef
+	std::chrono::time_point<
+		delta
+	>
 	time_point;
 
-	static bool const is_steady =
+	static
+	bool const is_steady =
 		true;
 
 	delta();
@@ -62,7 +74,8 @@ public:
 
 	void
 	update(
-		duration const &);
+		duration const &
+	);
 
 	time_point
 	now() const;

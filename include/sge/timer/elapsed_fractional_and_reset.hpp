@@ -28,33 +28,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
+
 namespace sge
 {
 namespace timer
 {
-template<typename Float,typename Clock>
+
+template<
+	typename Float,
+	typename Clock
+>
 typename
-boost::enable_if
-<
-	std::is_floating_point<Float>,
+boost::enable_if<
+	std::is_floating_point<
+		Float
+	>,
 	Float
 >::type
 elapsed_fractional_and_reset(
-	timer::basic<Clock> &_timer)
+	sge::timer::basic<
+		Clock
+	> &_timer
+)
 {
-	Float const ret(
-		timer::elapsed_fractional<
+	Float const ret{
+		sge::timer::elapsed_fractional<
 			Float
 		>(
 			_timer
 		)
-	);
+	};
 
 	_timer.reset();
 
-	return ret;
-
+	return
+		ret;
 }
+
 }
 }
 

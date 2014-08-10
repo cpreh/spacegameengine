@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <fcppt/nonassignable.hpp>
 
+
 namespace sge
 {
 namespace timer
@@ -31,28 +32,37 @@ namespace clocks
 {
 namespace detail
 {
-template<typename Clock>
+
+template<
+	typename Clock
+>
 class stateful_base
 {
 	FCPPT_NONASSIGNABLE(
 		stateful_base
 	);
 public:
-	explicit stateful_base(
-		Clock const &_clock)
+	explicit
+	stateful_base(
+		Clock const &_clock
+	)
 	:
-		clock_(_clock)
+		clock_(
+			_clock
+		)
 	{
 	}
 
 	Clock const &
 	clock_base() const
 	{
-		return clock_;
+		return
+			clock_;
 	}
 private:
 	Clock const &clock_;
 };
+
 }
 }
 }

@@ -27,18 +27,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-template<typename Clock>
-template<typename Duration>
-sge::timer::detail::parameters_base<Clock>::parameters_base(
-	Duration const &_interval)
+template<
+	typename Clock
+>
+template<
+	typename Duration
+>
+sge::timer::detail::parameters_base<
+	Clock
+>::parameters_base(
+	Duration const &_interval
+)
 :
-	interval_(
-		std::chrono::duration_cast<duration>(
-			_interval)),
-	active_(
-		true),
-	expired_(
-		false)
+	interval_{
+		std::chrono::duration_cast<
+			duration
+		>(
+			_interval
+		)
+	},
+	active_{
+		true
+	},
+	expired_{
+		false
+	}
 {
 }
 

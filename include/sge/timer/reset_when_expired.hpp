@@ -23,21 +23,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/timer/basic.hpp>
 
+
 namespace sge
 {
 namespace timer
 {
-template<typename Clock>
+
+template<
+	typename Clock
+>
 bool
 reset_when_expired(
-	timer::basic<Clock> &t)
+	sge::timer::basic<
+		Clock
+	> &_timer
+)
 {
-	if(!t.expired())
-		return false;
+	if(
+		!_timer.expired()
+	)
+		return
+			false;
 
-	t.reset();
-	return true;
+	_timer.reset();
+
+	return
+		true;
 }
+
 }
 }
 

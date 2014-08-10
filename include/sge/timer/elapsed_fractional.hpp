@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/timer/basic.hpp>
 #include <sge/timer/elapsed.hpp>
+#include <sge/timer/interval.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <chrono>
@@ -34,31 +35,45 @@ namespace sge
 {
 namespace timer
 {
-template<typename Float,typename Clock>
+
+template<
+	typename Float,
+	typename Clock
+>
 typename
-boost::enable_if
-<
-	std::is_floating_point<Float>,
+boost::enable_if<
+	std::is_floating_point<
+		Float
+	>,
 	Float
 >::type
 elapsed_fractional(
-	sge::timer::basic<Clock> const &t)
+	sge::timer::basic<
+		Clock
+	> const &_timer
+)
 {
-	typedef std::chrono::duration<
+	typedef
+	std::chrono::duration<
 		Float,
 		typename Clock::duration::period
-	> float_duration;
+	>
+	float_duration;
 
 	return
 		sge::timer::elapsed<
 			float_duration
 		>(
-			t)
+			_timer
+		)
 		/
-		t. template interval<
+		sge::timer::interval<
 			float_duration
-		>();
+		>(
+			_timer
+		);
 }
+
 }
 }
 

@@ -22,30 +22,49 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TIMER_REMAINING_FRACTIONAL_HPP_INCLUDED
 
 #include <sge/timer/elapsed_fractional.hpp>
+#include <fcppt/literal.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
+
 namespace sge
 {
 namespace timer
 {
-template<typename Float,typename Clock>
+
+template<
+	typename Float,
+	typename Clock
+>
 typename
-boost::enable_if
-<
-	std::is_floating_point<Float>,
+boost::enable_if<
+	std::is_floating_point<
+		Float
+	>,
 	Float
 >::type
 remaining_fractional(
-	timer::basic<Clock> const &t)
+	sge::timer::basic<
+		Clock
+	> const &_timer
+)
 {
 	return
-		static_cast<Float>(1) -
-		timer::elapsed_fractional<Float>(
-			t);
+		fcppt::literal<
+			Float
+		>(
+			1
+		)
+		-
+		sge::timer::elapsed_fractional<
+			Float
+		>(
+			_timer
+		);
 }
+
 }
 }
 

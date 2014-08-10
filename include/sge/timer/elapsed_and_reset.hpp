@@ -24,17 +24,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/timer/basic.hpp>
 #include <sge/timer/elapsed.hpp>
 
+
 namespace sge
 {
 namespace timer
 {
-template<typename Duration,typename Clock>
+
+template<
+	typename Duration,
+	typename Clock
+>
 Duration const
 elapsed_and_reset(
-	timer::basic<Clock> &_timer)
+	sge::timer::basic<
+		Clock
+	> &_timer
+)
 {
 	Duration const ret(
-		timer::elapsed<
+		sge::timer::elapsed<
 			Duration
 		>(
 			_timer
@@ -43,8 +51,10 @@ elapsed_and_reset(
 
 	_timer.reset();
 
-	return ret;
+	return
+		ret;
 }
+
 }
 }
 

@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TIMER_ELAPSED_HPP_INCLUDED
 
 #include <sge/timer/basic.hpp>
+#include <sge/timer/interval.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <chrono>
 #include <fcppt/config/external_end.hpp>
@@ -31,24 +32,43 @@ namespace sge
 {
 namespace timer
 {
-template<typename Duration,typename Clock>
+
+template<
+	typename Duration,
+	typename Clock
+>
 Duration const
 elapsed(
-	timer::basic<Clock> const &t)
+	sge::timer::basic<
+		Clock
+	> const &_timer
+)
 {
-	if(!t.active())
+	if(
+		!_timer.active()
+	)
 		return
 			Duration();
 
-	if(t.expired())
+	if(
+		_timer.expired()
+	)
 		return
-			t.template interval<Duration>();
+			sge::timer::interval<
+				Duration
+			>(
+				_timer
+			);
 
 	return
-		std::chrono::duration_cast<Duration>(
-			t.now() -
-			t.last_time());
+		std::chrono::duration_cast<
+			Duration
+		>(
+			_timer.now() -
+			_timer.last_time()
+		);
 }
+
 }
 }
 

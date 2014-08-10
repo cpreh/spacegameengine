@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TIMER_CLOCKS_DETAIL_STATELESS_BASE_HPP_INCLUDED
 #define SGE_TIMER_CLOCKS_DETAIL_STATELESS_BASE_HPP_INCLUDED
 
+
 namespace sge
 {
 namespace timer
@@ -29,16 +30,21 @@ namespace clocks
 {
 namespace detail
 {
-template<typename Clock>
+
+template<
+	typename Clock
+>
 class stateless_base
 {
 public:
 	Clock const
 	clock_base() const
 	{
-		return Clock();
+		return
+			Clock();
 	}
 };
+
 }
 }
 }

@@ -18,59 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TIMER_CLOCKS_DELTA_IMPL_HPP_INCLUDED
-#define SGE_TIMER_CLOCKS_DELTA_IMPL_HPP_INCLUDED
+#ifndef SGE_TIMER_INTERVAL_HPP_INCLUDED
+#define SGE_TIMER_INTERVAL_HPP_INCLUDED
 
-#include <sge/timer/clocks/delta_decl.hpp>
+#include <sge/timer/basic_impl.hpp>
 
 
-template<
-	typename Duration
->
-sge::timer::clocks::delta<
-	Duration
->::delta()
-:
-	now_()
+namespace sge
 {
-}
-
-template<
-	typename Duration
->
-sge::timer::clocks::delta<
-	Duration
->::~delta()
+namespace timer
 {
-}
 
 template<
-	typename Duration
+	typename Duration,
+	typename Clock
 >
-void
-sge::timer::clocks::delta<
-	Duration
->::update(
-	duration const &_delta
+Duration
+interval(
+	sge::timer::basic<
+		Clock
+	> const &_timer
 )
 {
-	now_ +=
-		_delta;
+	return
+		_timer. template interval<
+			Duration
+		>();
 }
 
-template<
-	typename Duration
->
-typename
-sge::timer::clocks::delta<
-	Duration
->::time_point
-sge::timer::clocks::delta<
-	Duration
->::now() const
-{
-	return
-		now_;
+}
 }
 
 #endif

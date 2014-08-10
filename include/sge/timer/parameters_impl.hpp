@@ -27,42 +27,66 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/timer/detail/parameters_base_impl.hpp>
 
 
-template<typename Clock>
-template<typename Duration>
-sge::timer::parameters<Clock>::parameters(
+template<
+	typename Clock
+>
+template<
+	typename Duration
+>
+sge::timer::parameters<
+	Clock
+>::parameters(
 	clock_type const &_clock,
 	Duration const &_interval,
-	typename timer::enable_ctor_stateful<
+	typename sge::timer::enable_ctor_stateful<
 		Clock,
 		Duration
-	>::type const *)
+	>::type const *
+)
 :
 	state_base(
-		_clock),
-	parameters_base(
-		_interval)
+		_clock
+	),
+	parameters_base{
+		_interval
+	}
 {
 }
 
-template<typename Clock>
-template<typename Duration>
-sge::timer::parameters<Clock>::parameters(
+template<
+	typename Clock
+>
+template<
+	typename Duration
+>
+sge::timer::parameters<
+	Clock
+>::parameters(
 	Duration const &_interval,
-	typename timer::enable_ctor_stateless<
+	typename sge::timer::enable_ctor_stateless<
 		Clock,
 		Duration
-	>::type const *)
+	>::type const *
+)
 :
 	state_base(),
-	parameters_base(
-		_interval)
+	parameters_base{
+		_interval
+	}
 {
 }
 
-template<typename Clock>
-sge::timer::parameters<Clock> &
-sge::timer::parameters<Clock>::active(
-	bool const _active)
+template<
+	typename Clock
+>
+sge::timer::parameters<
+	Clock
+> &
+sge::timer::parameters<
+	Clock
+>::active(
+	bool const _active
+)
 {
 	this->active_ =
 		_active;
@@ -70,10 +94,17 @@ sge::timer::parameters<Clock>::active(
 		*this;
 }
 
-template<typename Clock>
-sge::timer::parameters<Clock> &
-sge::timer::parameters<Clock>::expired(
-	bool const _expired)
+template<
+	typename Clock
+>
+sge::timer::parameters<
+	Clock
+> &
+sge::timer::parameters<
+	Clock
+>::expired(
+	bool const _expired
+)
 {
 	this->expired_ =
 		_expired;
@@ -81,33 +112,55 @@ sge::timer::parameters<Clock>::expired(
 		*this;
 }
 
-template<typename Clock>
+template<
+	typename Clock
+>
 typename
-sge::timer::parameters<Clock>::duration const
-sge::timer::parameters<Clock>::interval() const
+sge::timer::parameters<
+	Clock
+>::duration const
+sge::timer::parameters<
+	Clock
+>::interval() const
 {
-	return this->interval_;
+	return
+		this->interval_;
 }
 
-template<typename Clock>
+template<
+	typename Clock
+>
 typename
-sge::timer::parameters<Clock>::state_base const &
-sge::timer::parameters<Clock>::clock() const
+sge::timer::parameters<
+	Clock
+>::state_base const &
+sge::timer::parameters<
+	Clock
+>::clock() const
 {
-	return *this;
+	return
+		*this;
 }
 
-template<typename Clock>
+template<
+	typename Clock
+>
 bool
-sge::timer::parameters<Clock>::active() const
+sge::timer::parameters<
+	Clock
+>::active() const
 {
 	return
 		this->active_;
 }
 
-template<typename Clock>
+template<
+	typename Clock
+>
 bool
-sge::timer::parameters<Clock>::expired() const
+sge::timer::parameters<
+	Clock
+>::expired() const
 {
 	return
 		this->expired_;

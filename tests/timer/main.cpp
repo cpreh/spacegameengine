@@ -18,45 +18,69 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TIMER_REMAINING_HPP_INCLUDED
-#define SGE_TIMER_REMAINING_HPP_INCLUDED
-
 #include <sge/timer/basic.hpp>
-#include <sge/timer/elapsed.hpp>
 #include <sge/timer/interval.hpp>
+#include <sge/timer/clocks/delta.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/test/unit_test.hpp>
+#include <chrono>
+#include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace timer
-{
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
-template<
-	typename Duration,
-	typename Clock
->
-Duration const
-remaining(
-	sge::timer::basic<
-		Clock
-	> const &_timer
+BOOST_AUTO_TEST_CASE(
+	timer
 )
 {
-	return
+FCPPT_PP_POP_WARNING
+	typedef
+	sge::timer::clocks::delta<
+		std::chrono::milliseconds
+	>
+	clock;
+
+	clock clk;
+
+	typedef
+	sge::timer::basic<
+		clock
+	>
+	timer;
+
+	timer t1{
+		timer::parameters{
+			clk,
+			std::chrono::seconds(
+				0
+			)
+		}
+	};
+
+	BOOST_CHECK(
 		sge::timer::interval<
-			Duration
+			std::chrono::seconds
 		>(
-			_timer
+			t1
 		)
-		-
-		sge::timer::elapsed<
-			Duration
-		>(
-			_timer
-		);
-}
+		==
+		std::chrono::seconds(
+			0
+		)
+	);
+
+	BOOST_CHECK(
+		t1.expired()
+	);
+
+	t1.interval(
+		std::chrono::seconds(
+			1
+		)
+	);
 
 }
-}
-
-#endif

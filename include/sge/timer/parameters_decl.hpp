@@ -40,63 +40,77 @@ namespace timer
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
-template<typename Clock>
+template<
+	typename Clock
+>
 class parameters
 :
-	timer::clocks::detail::wrapper<
+	sge::timer::clocks::detail::wrapper<
 		Clock
-	>::type,
-	timer::detail::parameters_base<
+	>,
+	sge::timer::detail::parameters_base<
 		Clock
 	>
 {
-FCPPT_NONASSIGNABLE(
-	parameters);
+	FCPPT_NONASSIGNABLE(
+		parameters
+	);
 
-	typedef typename timer::clocks::detail::wrapper<
+	typedef
+	sge::timer::clocks::detail::wrapper<
 		Clock
-	>::type state_base;
+	>
+	state_base;
 
-	typedef timer::detail::parameters_base<
+	typedef
+	sge::timer::detail::parameters_base<
 		Clock
-	> parameters_base;
+	>
+	parameters_base;
 public:
 	typedef
 	Clock
 	clock_type;
 
 	typedef
-	typename parameters_base::duration
+	typename
+	parameters_base::duration
 	duration;
 
 	template<
-		typename Duration>
+		typename Duration
+	>
 	explicit
 	parameters(
 		clock_type const &,
 		Duration const &,
-		typename timer::enable_ctor_stateful<
+		typename sge::timer::enable_ctor_stateful<
 			Clock,
 			Duration
-		>::type const * = 0);
+		>::type const * = nullptr
+	);
 
 	template<
-		typename Duration>
+		typename Duration
+	>
 	explicit
 	parameters(
 		Duration const &,
-		typename timer::enable_ctor_stateless<
+		typename sge::timer::enable_ctor_stateless<
 			Clock,
 			Duration
-		>::type const * = 0);
+		>::type const * = nullptr
+	);
 
 	parameters &
 	active(
-		bool);
+		bool
+	);
 
 	parameters &
 	expired(
-		bool);
+		bool
+	);
 
 	duration const
 	interval() const;

@@ -27,6 +27,7 @@ set(
 	include/sge/timer/enable_ctor_stateless.hpp
 	include/sge/timer/frames_counter.hpp
 	include/sge/timer/frames_counter_fwd.hpp
+	include/sge/timer/interval.hpp
 	include/sge/timer/parameters.hpp
 	include/sge/timer/parameters_decl.hpp
 	include/sge/timer/parameters_fwd.hpp
