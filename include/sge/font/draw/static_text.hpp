@@ -85,7 +85,7 @@ public:
 	void
 	draw(
 		sge::renderer::context::ffp &
-	);
+	) const;
 
 	SGE_FONT_DRAW_SYMBOL
 	void
@@ -93,7 +93,7 @@ public:
 		sge::renderer::context::ffp &,
 		sge::font::draw::set_matrices const &,
 		sge::font::draw::set_states const &
-	);
+	) const;
 
 	SGE_FONT_DRAW_SYMBOL
 	void

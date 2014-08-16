@@ -77,7 +77,7 @@ sge::font::draw::static_text::~static_text()
 void
 sge::font::draw::static_text::draw(
 	sge::renderer::context::ffp &_context
-)
+) const
 {
 	this->draw_advanced(
 		_context,
@@ -95,7 +95,7 @@ sge::font::draw::static_text::draw_advanced(
 	sge::renderer::context::ffp &_context,
 	sge::font::draw::set_matrices const &_set_matrices,
 	sge::font::draw::set_states const &_set_states
-)
+) const
 {
 	impl_->draw(
 		_context,
