@@ -121,8 +121,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/geometry/update_one.hpp>
 #include <sge/sprite/render/parameters.hpp>
 #include <sge/sprite/render/range_with_options.hpp>
-#include <sge/sprite/state/choices.hpp>
 #include <sge/sprite/state/default_options.hpp>
+#include <sge/sprite/state/no_choices.hpp>
 #include <sge/sprite/state/object.hpp>
 #include <sge/sprite/state/parameters.hpp>
 #include <sge/systems/cursor_option.hpp>
@@ -546,9 +546,9 @@ try
 		sprite_choices
 	> sprite_parameters;
 
-	typedef sge::sprite::state::choices<
-		boost::mpl::vector0<>
-	> sprite_state_choices;
+	typedef
+	sge::sprite::state::no_choices
+	sprite_state_choices;
 
 	typedef sge::sprite::state::object<
 		sprite_state_choices

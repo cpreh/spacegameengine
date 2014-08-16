@@ -3272,6 +3272,7 @@ set(
 	include/sge/sprite/state/detail/set_one.hpp
 	include/sge/sprite/state/detail/unset_one.hpp
 	include/sge/sprite/state/is_with_transform.hpp
+	include/sge/sprite/state/no_choices.hpp
 	include/sge/sprite/state/object.hpp
 	include/sge/sprite/state/object_decl.hpp
 	include/sge/sprite/state/object_fwd.hpp
