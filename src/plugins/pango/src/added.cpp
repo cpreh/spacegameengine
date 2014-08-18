@@ -18,53 +18,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_SYSTEM_HPP_INCLUDED
-#define SGE_FONT_SYSTEM_HPP_INCLUDED
-
-#include <sge/class_symbol.hpp>
-#include <sge/font/added_unique_ptr.hpp>
-#include <sge/font/object_unique_ptr.hpp>
-#include <sge/font/parameters_fwd.hpp>
-#include <sge/font/symbol.hpp>
-#include <sge/font/system_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/font/added.hpp>
+#include <sge/font/exception.hpp>
+#include <sge/pango/added.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/cast/to_char_ptr.hpp>
+#include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
+#include <fontconfig/fontconfig.h>
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
+sge::pango::added::added(
+	boost::filesystem::path const &_path
+)
+:
+	sge::font::added()
 {
-namespace font
-{
-
-class SGE_CLASS_SYMBOL system
-{
-	FCPPT_NONCOPYABLE(
-		system
-	);
-protected:
-	SGE_FONT_SYMBOL
-	system();
-public:
-	SGE_FONT_SYMBOL
-	virtual
-	~system() = 0;
-
-	virtual
-	sge::font::object_unique_ptr
-	create_font(
-		sge::font::parameters const &
-	) = 0;
-
-	virtual
-	sge::font::added_unique_ptr
-	add_font(
-		boost::filesystem::path const &
-	) = 0;
-};
-
-}
+	if(
+		::FcConfigAppFontAddFile(
+			nullptr,
+			fcppt::cast::to_char_ptr<
+				FcChar8 const *
+			>(
+				_path.string().c_str()
+			)
+		)
+		!=
+		FcTrue
+	)
+		throw
+			sge::font::exception{
+				FCPPT_TEXT("Unable to add font ")
+				+
+				fcppt::filesystem::path_to_string(
+					_path
+				)
+			};
 }
 
-#endif
+sge::pango::added::~added()
+{
+	// TODO: Can we free this custom font?
+}

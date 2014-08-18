@@ -1,5 +1,6 @@
 set(
 	SGE_PANGO_FILES
+	src/plugins/pango/include/sge/pango/added.hpp
 	src/plugins/pango/include/sge/pango/convert/alignment.hpp
 	src/plugins/pango/include/sge/pango/convert/from_rect.hpp
 	src/plugins/pango/include/sge/pango/convert/from_rect_scale.hpp
@@ -27,6 +28,7 @@ set(
 	src/plugins/pango/include/sge/pango/pango_layout_unique_ptr.hpp
 	src/plugins/pango/include/sge/pango/system.hpp
 	src/plugins/pango/include/sge/pango/text.hpp
+	src/plugins/pango/src/added.cpp
 	src/plugins/pango/src/convert/alignment.cpp
 	src/plugins/pango/src/convert/from_rect.cpp
 	src/plugins/pango/src/convert/from_rect_scale.cpp
@@ -59,6 +61,6 @@ add_definitions(
 add_sge_plugin(
 	pango
 	"sgecharconv;sgefont;sgeimagecolor;sgeimage2d;sgeplugin"
-	"${PANGO_LIBRARIES}"
+	"${PANGO_LIBRARIES};${fcppt_filesystem_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
 	"${PANGO_INCLUDE_DIRS}"
 )

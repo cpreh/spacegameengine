@@ -1,5 +1,8 @@
 set(
 	SGE_FONT_FILES
+	include/sge/font/added.hpp
+	include/sge/font/added_fwd.hpp
+	include/sge/font/added_unique_ptr.hpp
 	include/sge/font/align_h/center.hpp
 	include/sge/font/align_h/center_fwd.hpp
 	include/sge/font/align_h/extract_max_width.hpp
@@ -84,6 +87,7 @@ set(
 	include/sge/font/weight/ultra_heavy.hpp
 	include/sge/font/weight/ultra_light.hpp
 	include/sge/font/weight/unit.hpp
+	src/font/added.cpp
 	src/font/align_h/center.cpp
 	src/font/align_h/extract_max_width.cpp
 	src/font/align_h/left.cpp

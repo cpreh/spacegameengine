@@ -450,6 +450,9 @@ set(
 	include/sge/console/signal_fwd.hpp
 	include/sge/error/check_state.hpp
 	include/sge/exception.hpp
+	include/sge/font/added.hpp
+	include/sge/font/added_fwd.hpp
+	include/sge/font/added_unique_ptr.hpp
 	include/sge/font/align_h/center.hpp
 	include/sge/font/align_h/center_fwd.hpp
 	include/sge/font/align_h/extract_max_width.hpp

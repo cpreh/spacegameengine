@@ -18,13 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/font/added_unique_ptr.hpp>
 #include <sge/font/object.hpp>
 #include <sge/font/object_unique_ptr.hpp>
 #include <sge/font/parameters_fwd.hpp>
 #include <sge/font/system.hpp>
+#include <sge/pango/added.hpp>
 #include <sge/pango/object.hpp>
 #include <sge/pango/system.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::pango::system::system()
@@ -43,11 +48,22 @@ sge::pango::system::create_font(
 )
 {
 	return
-		sge::font::object_unique_ptr(
-			fcppt::make_unique_ptr<
-				sge::pango::object
-			>(
-				_parameters
-			)
+		fcppt::make_unique_ptr<
+			sge::pango::object
+		>(
+			_parameters
+		);
+}
+
+sge::font::added_unique_ptr
+sge::pango::system::add_font(
+	boost::filesystem::path const &_path
+)
+{
+	return
+		fcppt::make_unique_ptr<
+			sge::pango::added
+		>(
+			_path
 		);
 }

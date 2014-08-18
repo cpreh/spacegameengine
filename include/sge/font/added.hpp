@@ -18,19 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_SYSTEM_HPP_INCLUDED
-#define SGE_FONT_SYSTEM_HPP_INCLUDED
+#ifndef SGE_FONT_ADDED_HPP_INCLUDED
+#define SGE_FONT_ADDED_HPP_INCLUDED
 
 #include <sge/class_symbol.hpp>
-#include <sge/font/added_unique_ptr.hpp>
-#include <sge/font/object_unique_ptr.hpp>
-#include <sge/font/parameters_fwd.hpp>
+#include <sge/font/added_fwd.hpp>
 #include <sge/font/symbol.hpp>
-#include <sge/font/system_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -38,30 +32,18 @@ namespace sge
 namespace font
 {
 
-class SGE_CLASS_SYMBOL system
+class SGE_CLASS_SYMBOL added
 {
 	FCPPT_NONCOPYABLE(
-		system
+		added
 	);
 protected:
 	SGE_FONT_SYMBOL
-	system();
+	added();
 public:
 	SGE_FONT_SYMBOL
 	virtual
-	~system() = 0;
-
-	virtual
-	sge::font::object_unique_ptr
-	create_font(
-		sge::font::parameters const &
-	) = 0;
-
-	virtual
-	sge::font::added_unique_ptr
-	add_font(
-		boost::filesystem::path const &
-	) = 0;
+	~added() = 0;
 };
 
 }

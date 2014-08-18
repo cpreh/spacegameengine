@@ -8,4 +8,5 @@ pkg_check_modules(
 	${PANGO_FIND_QUIETLY}
 	pango
 	pangoft2
+	fontconfig
 )
