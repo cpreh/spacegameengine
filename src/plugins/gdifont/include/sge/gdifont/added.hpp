@@ -18,14 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_GDIFONT_SYSTEM_HPP_INCLUDED
-#define SGE_GDIFONT_SYSTEM_HPP_INCLUDED
+#ifndef SGE_GDIFONT_ADDED_HPP_INCLUDED
+#define SGE_GDIFONT_ADDED_HPP_INCLUDED
 
-#include <sge/font/added_unique_ptr.hpp>
-#include <sge/font/object_unique_ptr.hpp>
-#include <sge/font/parameters_fwd.hpp>
-#include <sge/font/system.hpp>
-#include <sge/gdifont/device_context.hpp>
+#include <sge/font/added.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
@@ -37,32 +33,23 @@ namespace sge
 namespace gdifont
 {
 
-class system
+class added
 :
-	public sge::font::system
+	public sge::font::added
 {
 	FCPPT_NONCOPYABLE(
-		system
+		added
 	);
 public:
-	system();
+	explicit
+	added(
+		boost::filesystem::path const &
+	);
 
-	~system()
+	~added()
 	override;
 private:
-	sge::font::object_unique_ptr
-	create_font(
-		sge::font::parameters const &
-	)
-	override;
-
-	sge::font::added_unique_ptr
-	add_font(
-		boost::filesystem::path const &
-	)
-	override;
-
-	sge::gdifont::device_context const device_context_;
+	boost::filesystem::path const path_;
 };
 
 }

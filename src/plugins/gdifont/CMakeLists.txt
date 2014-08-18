@@ -1,6 +1,7 @@
 set(
 	SGE_GDIFONT_FILES
 	src/plugins/gdifont/include/sge/gdifont/a8_view.hpp
+	src/plugins/gdifont/include/sge/gdifont/added.hpp
 	src/plugins/gdifont/include/sge/gdifont/alpha_to_max.hpp
 	src/plugins/gdifont/include/sge/gdifont/calc_rect.hpp
 	src/plugins/gdifont/include/sge/gdifont/colors_to_max.hpp
@@ -34,6 +35,7 @@ set(
 	src/plugins/gdifont/include/sge/gdifont/set_text_color.hpp
 	src/plugins/gdifont/include/sge/gdifont/system.hpp
 	src/plugins/gdifont/include/sge/gdifont/text.hpp
+	src/plugins/gdifont/src/added.cpp
 	src/plugins/gdifont/src/calc_rect.cpp
 	src/plugins/gdifont/src/colors_to_max.cpp
 	src/plugins/gdifont/src/convert/align_h.cpp
@@ -73,6 +75,6 @@ find_package(
 add_sge_plugin(
 	gdifont
 	"sgefont;sgeimage2d;sgeplugin"
-	"${awl_TARGET}"
+	"${awl_TARGET};${fcppt_filesystem_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 )

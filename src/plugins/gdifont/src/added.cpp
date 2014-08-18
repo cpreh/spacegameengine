@@ -18,54 +18,59 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_GDIFONT_SYSTEM_HPP_INCLUDED
-#define SGE_GDIFONT_SYSTEM_HPP_INCLUDED
-
-#include <sge/font/added_unique_ptr.hpp>
-#include <sge/font/object_unique_ptr.hpp>
-#include <sge/font/parameters_fwd.hpp>
-#include <sge/font/system.hpp>
-#include <sge/gdifont/device_context.hpp>
+#include <sge/font/added.hpp>
+#include <sge/font/exception.hpp>
+#include <sge/gdifont/added.hpp>
+#include <sge/gdifont/include_windows.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/assert/error.hpp>
+#include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace gdifont
-{
-
-class system
+sge::gdifont::added::added(
+	boost::filesystem::path const &_path
+)
 :
-	public sge::font::system
+	path_(
+		_path
+	)
 {
-	FCPPT_NONCOPYABLE(
-		system
+	if(
+		AddFontResourceEx(
+			fcppt::filesystem::path_to_string(
+				_path
+			).c_str(),
+			FR_PRIVATE,
+			nullptr
+		)
+		==
+		0
+	)
+		throw
+			sge::font::exception{
+				FCPPT_TEXT("Unable to add font ")
+				+
+				fcppt::filesystem::path_to_string(
+					_path
+				)
+			};
+}
+
+sge::gdifont::added::~added()
+{
+	FCPPT_ASSERT_ERROR(
+		RemoveFontResourceEx(
+			fcppt::filesystem::path_to_string(
+				path_
+			).c_str(),
+			FR_PRIVATE,
+			nullptr
+		)
+		!=
+		0
 	);
-public:
-	system();
-
-	~system()
-	override;
-private:
-	sge::font::object_unique_ptr
-	create_font(
-		sge::font::parameters const &
-	)
-	override;
-
-	sge::font::added_unique_ptr
-	add_font(
-		boost::filesystem::path const &
-	)
-	override;
-
-	sge::gdifont::device_context const device_context_;
-};
-
 }
-}
-
-#endif
