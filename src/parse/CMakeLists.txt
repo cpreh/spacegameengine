@@ -41,8 +41,23 @@ add_sge_base_library(
 	""
 )
 
-target_compile_definitions(
-	sgeparse
-	PUBLIC
-	"-DBOOST_SPIRIT_USE_PHOENIX_V3"
+#TODO: Put this to add_sge_base_library
+if(
+	ENABLE_SHARED
 )
+	target_compile_definitions(
+		sgeparse
+		PUBLIC
+		"-DBOOST_SPIRIT_USE_PHOENIX_V3"
+	)
+endif()
+
+if(
+	ENABLE_STATIC
+)
+	target_compile_definitions(
+		sgeparse_static
+		PUBLIC
+		"-DBOOST_SPIRIT_USE_PHOENIX_V3"
+	)
+endif()
