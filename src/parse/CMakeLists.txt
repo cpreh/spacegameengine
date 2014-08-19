@@ -40,3 +40,9 @@ add_sge_base_library(
 	"${CMAKE_CURRENT_SOURCE_DIR}/include"
 	""
 )
+
+target_compile_definitions(
+	sgeparse
+	PUBLIC
+	"-DBOOST_SPIRIT_USE_PHOENIX_V3"
+)
