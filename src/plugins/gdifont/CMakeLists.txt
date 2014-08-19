@@ -74,7 +74,7 @@ find_package(
 
 add_sge_plugin(
 	gdifont
-	"sgefont;sgeimage2d;sgeplugin"
+	"sgefont;sgeimage2d;sgelog;sgeplugin"
 	"${awl_TARGET};${fcppt_filesystem_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 )

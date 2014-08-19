@@ -57,7 +57,7 @@ struct choose_fundamental<
 	>::type
 >
 {
-	typedef json::int_type type;
+	typedef sge::parse::json::int_type type;
 };
 
 template<
@@ -72,7 +72,7 @@ struct choose_fundamental<
 	>::type
 >
 {
-	typedef json::float_type type;
+	typedef sge::parse::json::float_type type;
 };
 
 template<
@@ -88,7 +88,7 @@ struct choose_fundamental<
 	>::type
 >
 {
-	typedef json::string type;
+	typedef sge::parse::json::string type;
 };
 
 }

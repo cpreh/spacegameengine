@@ -26,10 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/convert/choose_fundamental.hpp>
 #include <fcppt/algorithm/map.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/spirit/home/phoenix/core/argument.hpp>
-#include <boost/spirit/home/phoenix/object/static_cast.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -55,13 +51,21 @@ from_container(
 				sge::parse::json::element_vector
 			>(
 				_container,
-				boost::phoenix::static_cast_<
-					typename convert::choose_fundamental<
-						typename Container::value_type
-					>::type
-				>(
-					boost::phoenix::arg_names::arg1
+				[](
+					typename Container::const_reference _element
 				)
+				{
+					return
+						static_cast<
+							typename
+							sge::parse::json::convert::choose_fundamental<
+								typename
+								Container::value_type
+							>::type
+						>(
+							_element
+						);
+				}
 			)
 		);
 }

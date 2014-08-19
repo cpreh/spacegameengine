@@ -38,9 +38,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/fusion/container/vector.hpp>
 #include <boost/fusion/sequence/intrinsic/at.hpp>
 #include <boost/range/numeric.hpp>
-#include <boost/spirit/home/phoenix/bind.hpp>
-#include <boost/spirit/home/phoenix/core/argument.hpp>
-#include <boost/spirit/home/phoenix/operator/self.hpp>
+#include <boost/phoenix/bind.hpp>
+#include <boost/phoenix/core/argument.hpp>
+#include <boost/phoenix/operator/self.hpp>
 #include <boost/spirit/home/support/common_terminals.hpp>
 #include <boost/spirit/include/qi.hpp>
 #include <iostream>

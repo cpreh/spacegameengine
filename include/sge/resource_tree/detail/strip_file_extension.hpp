@@ -36,7 +36,7 @@ namespace detail
 \brief Modify a path, stripping the file extension at the end
 */
 SGE_RESOURCE_TREE_SYMBOL
-sge::resource_tree::path const
+sge::resource_tree::path
 strip_file_extension(
 	sge::resource_tree::path const &);
 

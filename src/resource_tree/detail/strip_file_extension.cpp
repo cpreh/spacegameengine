@@ -23,15 +23,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/spirit/home/phoenix/core.hpp>
-#include <boost/spirit/home/phoenix/operator.hpp>
 #include <functional>
 #include <iterator>
 #include <numeric>
 #include <fcppt/config/external_end.hpp>
 
 
-sge::resource_tree::path const
+sge::resource_tree::path
 sge::resource_tree::detail::strip_file_extension(
 	sge::resource_tree::path const &p)
 {
@@ -49,8 +47,23 @@ sge::resource_tree::detail::strip_file_extension(
 		std::accumulate(
 			p.begin(),
 			std::prev(
-				p.end()),
-			resource_tree::path(),
-			boost::phoenix::arg_names::arg1 / boost::phoenix::arg_names::arg2) /
-		filename.substr(0,dot_position);
+				p.end()
+			),
+			sge::resource_tree::path(),
+			[](
+				sge::resource_tree::path const &_path,
+				fcppt::string const &_element
+			)
+			{
+				return
+					_path
+					/
+					_element;
+			}
+		)
+		/
+		filename.substr(
+			0,
+			dot_position
+		);
 }

@@ -36,11 +36,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/spirit_traits/variant_basic.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/fusion/adapted/std_pair.hpp>
-#include <boost/spirit/home/phoenix/bind/bind_function.hpp>
-#include <boost/spirit/home/phoenix/bind/bind_member_function.hpp>
-#include <boost/spirit/home/phoenix/object/construct.hpp>
-#include <boost/spirit/home/phoenix/operator/self.hpp>
-#include <boost/spirit/home/phoenix/stl/container.hpp>
+#include <boost/phoenix/bind/bind_function.hpp>
+#include <boost/phoenix/bind/bind_member_function.hpp>
+#include <boost/phoenix/object/construct.hpp>
+#include <boost/phoenix/operator/self.hpp>
+#include <boost/phoenix/stl/container.hpp>
 #include <boost/spirit/include/qi_action.hpp>
 #include <boost/spirit/include/qi_attr.hpp>
 #include <boost/spirit/include/qi_char.hpp>
