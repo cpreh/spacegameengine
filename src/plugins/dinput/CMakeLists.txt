@@ -157,7 +157,7 @@ find_package(
 
 add_sge_plugin(
 	"dinput"
-	"sgeinput;sgeplugin;sgewindow"
+	"sgeinput;sgelog;sgeplugin;sgewindow"
 	"${awl_TARGET};${DINPUT_LIBRARIES}"
 	"${DINPUT_INCLUDE_DIRS}"
 )
