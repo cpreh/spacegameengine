@@ -16,9 +16,7 @@ set(
 	include/sge/font/align_h/right_fwd.hpp
 	include/sge/font/align_h/variant.hpp
 	include/sge/font/align_h/variant_fwd.hpp
-	include/sge/font/ascent.hpp
 	include/sge/font/char_type.hpp
-	include/sge/font/descent.hpp
 	include/sge/font/dim.hpp
 	include/sge/font/dim_fwd.hpp
 	include/sge/font/dpi.hpp
