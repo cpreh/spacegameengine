@@ -85,6 +85,7 @@ sge::pango::object::create_text(
 				sge::pango::text
 			>(
 				*layout_,
+				metrics_.ascent(),
 				_text,
 				_parameters
 			)

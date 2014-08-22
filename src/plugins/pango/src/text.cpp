@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/font/ascent.hpp>
 #include <sge/font/dim.hpp>
 #include <sge/font/flags.hpp>
 #include <sge/font/index.hpp>
@@ -49,10 +50,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::pango::text::text(
 	PangoLayout &_layout,
+	sge::font::ascent const _ascent,
 	sge::font::string const &_string,
 	sge::font::text_parameters const &_text_parameters
 )
 :
+	ascent_{
+		_ascent
+	},
 	layout_(
 		sge::pango::create_text_layout(
 			_layout,
@@ -127,15 +132,21 @@ sge::pango::text::render(
 		);
 
 		if(
-			line == nullptr
+			line
+			==
+			nullptr
 		)
 			return;
 
+		// Line extents start at the base line while layout extents
+		// start at the top-left
 		::pango_ft2_render_layout_line(
 			&bitmap,
 			line,
 			pos_x,
 			pos_y
+			-
+			ascent_.get()
 		);
 	}
 	else
