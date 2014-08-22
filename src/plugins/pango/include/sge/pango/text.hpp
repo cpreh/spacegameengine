@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PANGO_TEXT_HPP_INCLUDED
 #define SGE_PANGO_TEXT_HPP_INCLUDED
 
-#include <sge/font/ascent.hpp>
 #include <sge/font/dim_fwd.hpp>
 #include <sge/font/index.hpp>
 #include <sge/font/optional_index_fwd.hpp>
@@ -32,7 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/vector_fwd.hpp>
 #include <sge/font/view_fwd.hpp>
 #include <sge/pango/extents.hpp>
-#include <sge/pango/no_multi_line.hpp>
 #include <sge/pango/pango_layout_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -55,7 +53,6 @@ class text
 public:
 	text(
 		PangoLayout &,
-		sge::font::ascent,
 		sge::font::string const &,
 		sge::font::text_parameters const &
 	);
@@ -89,11 +86,7 @@ private:
 	) const
 	override;
 
-	sge::font::ascent const ascent_;
-
 	sge::pango::pango_layout_unique_ptr const layout_;
-
-	sge::pango::no_multi_line const no_multi_line_;
 
 	sge::pango::extents const extents_;
 };

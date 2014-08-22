@@ -31,6 +31,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/pango/pango_layout_unique_ptr.hpp>
 #include <sge/pango/convert/alignment.hpp>
 #include <sge/pango/convert/to_unit.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/cast/to_char_ptr.hpp>
+#include <fcppt/cast/to_signed.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <pango/pango-layout.h>
 #include <utility>
@@ -65,15 +68,17 @@ sge::pango::create_text_layout(
 
 		::pango_layout_set_text(
 			layout.get(),
-			reinterpret_cast<
+			fcppt::cast::to_char_ptr<
 				char const *
 			>(
 				converted_string.data()
 			),
-			static_cast<
+			fcppt::cast::size<
 				int
 			>(
-				converted_string.size()
+				fcppt::cast::to_signed(
+					converted_string.size()
+				)
 			)
 		);
 	}
@@ -109,6 +114,19 @@ sge::pango::create_text_layout(
 			PANGO_WRAP_CHAR
 		:
 			PANGO_WRAP_WORD
+	);
+
+	::pango_layout_set_single_paragraph_mode(
+		layout.get(),
+		(
+			_text_parameters.flags()
+			&
+			sge::font::flags::no_multi_line
+		)
+		?
+			TRUE
+		:
+			FALSE
 	);
 
 	::pango_layout_set_ellipsize(

@@ -18,9 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/font/ascent.hpp>
 #include <sge/font/dim.hpp>
-#include <sge/font/flags.hpp>
 #include <sge/font/index.hpp>
 #include <sge/font/optional_index.hpp>
 #include <sge/font/rect.hpp>
@@ -50,14 +48,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::pango::text::text(
 	PangoLayout &_layout,
-	sge::font::ascent const _ascent,
 	sge::font::string const &_string,
 	sge::font::text_parameters const &_text_parameters
 )
 :
-	ascent_{
-		_ascent
-	},
 	layout_(
 		sge::pango::create_text_layout(
 			_layout,
@@ -65,15 +59,9 @@ sge::pango::text::text(
 			_text_parameters
 		)
 	),
-	no_multi_line_(
-		_text_parameters.flags()
-		&
-		sge::font::flags::no_multi_line
-	),
 	extents_(
 		sge::pango::get_extents(
-			*layout_,
-			no_multi_line_
+			*layout_
 		)
 	)
 {
@@ -104,58 +92,20 @@ sge::pango::text::render(
 		)
 	);
 
-	int const pos_x(
+	::pango_ft2_render_layout(
+		&bitmap,
+		layout_.get(),
 		fcppt::cast::size<
 			int
 		>(
 			- extents_.ink_rect().get().left()
-		)
-	);
-
-	int const pos_y(
+		),
 		fcppt::cast::size<
 			int
 		>(
 			- extents_.ink_rect().get().top()
 		)
 	);
-
-	if(
-		no_multi_line_.get()
-	)
-	{
-		PangoLayoutLine *const line(
-			::pango_layout_get_line(
-				layout_.get(),
-				0
-			)
-		);
-
-		if(
-			line
-			==
-			nullptr
-		)
-			return;
-
-		// Line extents start at the base line while layout extents
-		// start at the top-left
-		::pango_ft2_render_layout_line(
-			&bitmap,
-			line,
-			pos_x,
-			pos_y
-			-
-			ascent_.get()
-		);
-	}
-	else
-		::pango_ft2_render_layout(
-			&bitmap,
-			layout_.get(),
-			pos_x,
-			pos_y
-		);
 }
 
 sge::font::rect const

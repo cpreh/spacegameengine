@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/pango/get_extents.hpp>
 #include <sge/pango/ink_rect.hpp>
 #include <sge/pango/logical_rect.hpp>
-#include <sge/pango/no_multi_line.hpp>
 #include <sge/pango/convert/from_rect.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <pango/pango-layout.h>
@@ -31,52 +30,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::pango::extents const
 sge::pango::get_extents(
-	PangoLayout &_layout,
-	sge::pango::no_multi_line const _no_multi_line
+	PangoLayout &_layout
 )
 {
 	PangoRectangle ink_result;
 
 	PangoRectangle logical_result;
 
-	if(
-		_no_multi_line.get()
-	)
-	{
-		PangoLayoutLine *const line(
-			::pango_layout_get_line(
-				&_layout,
-				0
-			)
-		);
-
-		if(
-			line
-			==
-			nullptr
-		)
-			return
-				sge::pango::extents(
-					sge::pango::ink_rect(
-						sge::font::rect::null()
-					),
-					sge::pango::logical_rect(
-						sge::font::rect::null()
-					)
-				);
-
-		::pango_layout_line_get_pixel_extents(
-			line,
-			&ink_result,
-			&logical_result
-		);
-	}
-	else
-		::pango_layout_get_pixel_extents(
-			&_layout,
-			&ink_result,
-			&logical_result
-		);
+	::pango_layout_get_pixel_extents(
+		&_layout,
+		&ink_result,
+		&logical_result
+	);
 
 	return
 		sge::pango::extents(

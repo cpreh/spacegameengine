@@ -18,14 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/font/exception.hpp>
 #include <sge/font/parameters.hpp>
-#include <sge/font/parameters_to_string.hpp>
 #include <sge/pango/create_layout.hpp>
 #include <sge/pango/font_description.hpp>
 #include <sge/pango/glib_deleter.hpp>
 #include <sge/pango/pango_layout_unique_ptr.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <pango/pango-layout.h>
 #include <pango/pango-types.h>
@@ -78,18 +75,6 @@ sge::pango::create_layout(
 		result.get(),
 		font_description.get()
 	);
-
-	/*
-	if(
-		!result
-	)
-		throw sge::font::exception(
-			FCPPT_TEXT("Nothing matched the following font: ")
-			+
-			sge::font::parameters_to_string(
-				_parameters
-			)
-		);*/
 
 	return
 		std::move(

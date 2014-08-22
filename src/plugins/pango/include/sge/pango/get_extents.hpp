@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PANGO_GET_EXTENTS_HPP_INCLUDED
 
 #include <sge/pango/extents.hpp>
-#include <sge/pango/no_multi_line.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <pango/pango-layout.h>
 #include <fcppt/config/external_end.hpp>
@@ -35,8 +34,7 @@ namespace pango
 
 sge::pango::extents const
 get_extents(
-	PangoLayout &,
-	sge::pango::no_multi_line
+	PangoLayout &
 );
 
 }
