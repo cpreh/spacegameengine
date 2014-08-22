@@ -74,6 +74,7 @@ sge::gdifont::text::text(
 	rect_(
 		sge::gdifont::calc_rect(
 			device_context_,
+			hfont_,
 			string_,
 			_text_parameters.align_h(),
 			render_flags_

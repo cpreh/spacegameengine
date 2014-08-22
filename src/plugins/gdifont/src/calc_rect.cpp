@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gdifont/draw_text.hpp>
 #include <sge/gdifont/format.hpp>
 #include <sge/gdifont/include_windows.hpp>
+#include <sge/gdifont/scoped_select.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -41,11 +42,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::font::rect const
 sge::gdifont::calc_rect(
 	sge::gdifont::device_context const &_device_context,
+	HFONT const _font,
 	sge::font::string const &_string,
 	sge::font::align_h::variant const &_align_h,
 	sge::gdifont::format const _format
 )
 {
+	sge::gdifont::scoped_select const select_font(
+		_device_context,
+		_font
+	);
+
 	LONG const max_unit(
 		std::numeric_limits<
 			LONG

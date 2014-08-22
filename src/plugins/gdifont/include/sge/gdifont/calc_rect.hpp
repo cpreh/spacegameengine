@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/align_h/variant_fwd.hpp>
 #include <sge/gdifont/device_context_fwd.hpp>
 #include <sge/gdifont/format.hpp>
+#include <sge/gdifont/include_windows.hpp>
 
 
 namespace sge
@@ -36,6 +37,7 @@ namespace gdifont
 sge::font::rect const
 calc_rect(
 	sge::gdifont::device_context const &,
+	HFONT,
 	sge::font::string const &,
 	sge::font::align_h::variant const &,
 	sge::gdifont::format
