@@ -18,61 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/font/ascent.hpp>
-#include <sge/font/descent.hpp>
 #include <sge/font/height.hpp>
 #include <sge/font/metrics.hpp>
 #include <sge/pango/make_metrics.hpp>
-#include <sge/pango/convert/from_unit.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <pango/pango-font.h>
-#include <pango/pango-fontmap.h>
 #include <pango/pango-layout.h>
-#include <memory>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::font::metrics const
 sge::pango::make_metrics(
-	PangoContext &_context,
 	PangoLayout &_layout
 )
 {
-	PangoFontDescription const *desc(
-		::pango_layout_get_font_description(
-			&_layout
-		)
-	);
-
-	struct unref_metrics
-	{
-		void
-		operator()(
-			PangoFontMetrics *const _metrics
-		)
-		{
-			::pango_font_metrics_unref(
-				_metrics
-			);
-		}
-	};
-
-	typedef
-	std::unique_ptr<
-		PangoFontMetrics,
-		unref_metrics
-	>
-	metrics_unique_ptr;
-
-	metrics_unique_ptr const metrics(
-		::pango_context_get_metrics(
-			&_context,
-			desc,
-			nullptr
-		)
-	);
-
-	// TODO: Own function!
 	int height;
 
 	::pango_layout_get_pixel_size(
@@ -83,21 +41,6 @@ sge::pango::make_metrics(
 
 	return
 		sge::font::metrics(
-			// TODO: Convert ascent/descent into pixels!
-			sge::font::ascent(
-				sge::pango::convert::from_unit(
-					::pango_font_metrics_get_ascent(
-						metrics.get()
-					)
-				)
-			),
-			sge::font::descent(
-				sge::pango::convert::from_unit(
-					::pango_font_metrics_get_descent(
-						metrics.get()
-					)
-				)
-			),
 			sge::font::height(
 				height
 			)

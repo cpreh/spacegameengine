@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/font/metrics_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <pango/pango-fontmap.h>
 #include <pango/pango-layout.h>
 #include <fcppt/config/external_end.hpp>
 
@@ -35,7 +34,6 @@ namespace pango
 
 sge::font::metrics const
 make_metrics(
-	PangoContext &,
 	PangoLayout &
 );
 

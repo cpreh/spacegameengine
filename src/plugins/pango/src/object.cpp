@@ -62,7 +62,6 @@ sge::pango::object::object(
 	),
 	metrics_(
 		sge::pango::make_metrics(
-			*context_,
 			*layout_
 		)
 	)

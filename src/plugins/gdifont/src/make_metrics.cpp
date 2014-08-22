@@ -18,8 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/font/ascent.hpp>
-#include <sge/font/descent.hpp>
 #include <sge/font/height.hpp>
 #include <sge/font/metrics.hpp>
 #include <sge/font/unit.hpp>
@@ -50,20 +48,6 @@ sge::gdifont::make_metrics(
 
 	return
 		sge::font::metrics(
-			sge::font::ascent(
-				fcppt::cast::size<
-					sge::font::unit
-				>(
-					metric.tmAscent
-				)
-			),
-			sge::font::descent(
-				fcppt::cast::size<
-					sge::font::unit
-				>(
-					metric.tmDescent
-				)
-			),
 			sge::font::height(
 				fcppt::cast::size<
 					sge::font::unit

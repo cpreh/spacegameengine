@@ -36,15 +36,7 @@ sge::font::operator<<(
 	return
 		_stream
 		<<
-		FCPPT_TEXT("(ascent: ")
-		<<
-		_metrics.ascent()
-		<<
-		FCPPT_TEXT(", descent: ")
-		<<
-		_metrics.descent()
-		<<
-		FCPPT_TEXT(", height: ")
+		FCPPT_TEXT("( height: ")
 		<<
 		_metrics.height()
 		<<
