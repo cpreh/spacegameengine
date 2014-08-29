@@ -30,14 +30,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/rucksack/vector.hpp>
 #include <sge/rucksack/widget/base.hpp>
 #include <sge/rucksack/widget/frame.hpp>
-#include <sge/rucksack/widget/optional_parent.hpp>
+#include <sge/rucksack/widget/optional_ref.hpp>
 #include <fcppt/literal.hpp>
-#include <fcppt/optional_bind_construct.hpp>
+#include <fcppt/nonassignable.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/dim/fill.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/dim.hpp>
 #include <fcppt/math/vector/fill.hpp>
+#include <fcppt/variant/apply_unary.hpp>
 
 
 sge::rucksack::widget::frame::frame(
@@ -45,11 +46,7 @@ sge::rucksack::widget::frame::frame(
 	sge::rucksack::padding const _padding
 )
 :
-	sge::rucksack::widget::base{
-		sge::rucksack::widget::optional_parent(
-			*this
-		)
-	},
+	sge::rucksack::widget::base{},
 	child_(
 		_child
 	),
@@ -57,6 +54,11 @@ sge::rucksack::widget::frame::frame(
 		_padding
 	}
 {
+	child_.parent(
+		sge::rucksack::widget::optional_ref{
+			*this
+		}
+	);
 }
 
 void
@@ -111,48 +113,69 @@ sge::rucksack::widget::frame::axis_policy() const
 			sge::rucksack::axis const _axis
 		)
 		{
-			sge::rucksack::dim::size_type const index{
-				sge::rucksack::axis_to_index(
-					_axis
+			class visitor
+			{
+				FCPPT_NONASSIGNABLE(
+					visitor
+				);
+			public:
+				explicit
+				visitor(
+					sge::rucksack::scalar const _extra
 				)
+				:
+					extra_{
+						_extra
+					}
+				{
+				}
+
+				typedef
+				sge::rucksack::axis_policy
+				result_type;
+
+				result_type
+				operator()(
+					sge::rucksack::minimum_size const _sz
+				) const
+				{
+					return
+						sge::rucksack::minimum_size{
+							_sz.get()
+							+
+							extra_
+						};
+				}
+
+				result_type
+				operator()(
+					sge::rucksack::preferred_size const _sz
+				) const
+				{
+					return
+						sge::rucksack::preferred_size{
+							_sz.get()
+							+
+							extra_
+						};
+				}
+			private:
+				sge::rucksack::scalar const extra_;
 			};
 
-			sge::rucksack::axis_policy const policy(
-				child_.axis_policy()[
-					index
-				]
-			);
-
 			return
-				sge::rucksack::axis_policy{
-					sge::rucksack::minimum_size(
+				fcppt::variant::apply_unary(
+					visitor{
 						this->extra_size()[
-							index
-						]
-					)
-					+
-					policy.minimum_size(),
-					sge::rucksack::preferred_size(
-						fcppt::optional_bind_construct(
-							policy.preferred_size().get(),
-							[
-								this,
-								index
-							](
-								sge::rucksack::scalar const _value
+							sge::rucksack::axis_to_index(
+								_axis
 							)
-							{
-								return
-									_value
-									+
-									this->extra_size()[
-										index
-									];
-							}
-						)
-					),
-					policy.is_expanding()
-				};
+						]
+					},
+					child_.axis_policy()[
+						_axis
+					]
+				);
 		}
 	);
 

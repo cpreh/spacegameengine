@@ -18,18 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RUCKSACK_ALIGNMENT2_FWD_HPP_INCLUDED
-#define SGE_RUCKSACK_ALIGNMENT2_FWD_HPP_INCLUDED
+#include <sge/rucksack/alignment.hpp>
+#include <sge/rucksack/widget/reference.hpp>
+#include <sge/rucksack/widget/reference_alignment.hpp>
 
 
-namespace sge
+sge::rucksack::widget::reference_alignment::reference_alignment(
+	sge::rucksack::widget::reference const _reference,
+	sge::rucksack::alignment const _alignment
+)
+:
+	reference_{
+		_reference
+	},
+	alignment_{
+		_alignment
+	}
 {
-namespace rucksack
+}
+
+sge::rucksack::widget::reference const
+sge::rucksack::widget::reference_alignment::reference() const
 {
-
-class alignment2;
-
-}
+	return
+		reference_;
 }
 
-#endif
+sge::rucksack::alignment
+sge::rucksack::widget::reference_alignment::alignment() const
+{
+	return
+		alignment_;
+}

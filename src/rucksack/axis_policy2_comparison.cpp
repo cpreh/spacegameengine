@@ -18,44 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/rucksack/axis_policy.hpp>
-#include <sge/rucksack/is_expanding.hpp>
-#include <sge/rucksack/minimum_size.hpp>
-#include <sge/rucksack/preferred_size.hpp>
+#include <sge/rucksack/axis_policy2.hpp>
+#include <sge/rucksack/axis_policy2_comparison.hpp>
+#include <fcppt/variant/equal.hpp>
 
 
-sge::rucksack::axis_policy::axis_policy(
-	sge::rucksack::minimum_size const &_minimum_size,
-	sge::rucksack::preferred_size const &_preferred_size,
-	sge::rucksack::is_expanding const &_is_expanding
+bool
+sge::rucksack::operator==(
+	sge::rucksack::axis_policy2 const &_left,
+	sge::rucksack::axis_policy2 const &_right
 )
-:
-	minimum_size_(
-		_minimum_size
-	),
-	preferred_size_(
-		_preferred_size
-	),
-	is_expanding_(
-		_is_expanding
-	)
 {
-}
-
-sge::rucksack::minimum_size const
-sge::rucksack::axis_policy::minimum_size() const
-{
-	return minimum_size_;
-}
-
-sge::rucksack::preferred_size const
-sge::rucksack::axis_policy::preferred_size() const
-{
-	return preferred_size_;
-}
-
-sge::rucksack::is_expanding const
-sge::rucksack::axis_policy::is_expanding() const
-{
-	return is_expanding_;
+	return
+		_left.x()
+		==
+		_right.x()
+		&&
+		_left.y()
+		==
+		_right.y();
 }

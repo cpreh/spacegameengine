@@ -18,38 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/rucksack/alignment.hpp>
-#include <sge/rucksack/dim.hpp>
-#include <sge/rucksack/widget/box/child_information.hpp>
+#include <sge/rucksack/axis.hpp>
+#include <sge/rucksack/axis_policy_function.hpp>
+#include <sge/rucksack/axis_policy2.hpp>
+#include <sge/rucksack/make_axis_policy.hpp>
 
 
-sge::rucksack::widget::box::child_information::child_information(
-	sge::rucksack::alignment const _alignment,
-	sge::rucksack::dim const &_size)
-:
-	alignment_(
-		_alignment),
-	size_(
-		_size)
+sge::rucksack::axis_policy2 const
+sge::rucksack::make_axis_policy(
+	sge::rucksack::axis_policy_function const _function
+)
 {
-}
-
-sge::rucksack::alignment
-sge::rucksack::widget::box::child_information::alignment() const
-{
-	return alignment_;
-}
-
-sge::rucksack::dim const &
-sge::rucksack::widget::box::child_information::size() const
-{
-	return size_;
-}
-
-void
-sge::rucksack::widget::box::child_information::size(
-	sge::rucksack::dim const &_size)
-{
-	size_ =
-		_size;
+	return
+		sge::rucksack::axis_policy2{
+			_function(
+				sge::rucksack::axis::x
+			),
+			_function(
+				sge::rucksack::axis::y
+			)
+		};
 }

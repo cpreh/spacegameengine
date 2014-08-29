@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RUCKSACK_PREFERRED_SIZE_HPP_INCLUDED
 #define SGE_RUCKSACK_PREFERRED_SIZE_HPP_INCLUDED
 
-#include <sge/rucksack/optional_scalar.hpp>
 #include <sge/rucksack/preferred_size_fwd.hpp>
 #include <fcppt/strong_typedef.hpp>
 

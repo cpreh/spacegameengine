@@ -23,45 +23,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/rucksack/axis_policy.hpp>
 #include <sge/rucksack/axis_policy2.hpp>
 #include <sge/rucksack/dim.hpp>
-#include <sge/rucksack/is_expanding.hpp>
 #include <sge/rucksack/minimum_size.hpp>
-#include <sge/rucksack/optional_scalar.hpp>
 #include <sge/rucksack/padding_fwd.hpp>
 #include <sge/rucksack/preferred_size.hpp>
 #include <sge/rucksack/vector.hpp>
 #include <sge/rucksack/widget/base.hpp>
 #include <sge/rucksack/widget/master_and_slaves.hpp>
-#include <sge/rucksack/widget/optional_parent.hpp>
+#include <sge/rucksack/widget/optional_ref.hpp>
+#include <fcppt/make_ref.hpp>
 
 
 // TODO: Initialize position and size in the ctor?
 
 sge::rucksack::widget::master_and_slaves::master_and_slaves(
-	sge::rucksack::padding const &_padding)
+	sge::rucksack::padding const &_padding
+)
 :
-	sge::rucksack::widget::base(
-		sge::rucksack::widget::optional_parent()),
-	surrounding_box_(
+	sge::rucksack::widget::base{},
+	surrounding_box_{
 		sge::rucksack::axis::x
-	),
-	master_pane_(
-		0),
-	enumeration_(
+	},
+	master_pane_(),
+	enumeration_{
 		_padding
-	),
-	position_(
-		sge::rucksack::vector::null()),
-	size_(
-		sge::rucksack::dim::null())
+	},
+	position_{
+		sge::rucksack::vector::null()
+	},
+	size_{
+		sge::rucksack::dim::null()
+	}
 {
 	surrounding_box_.push_back_child(
 		enumeration_,
-		sge::rucksack::alignment::center);
+		sge::rucksack::alignment::center
+	);
 }
 
 void
 sge::rucksack::widget::master_and_slaves::size(
-	sge::rucksack::dim const &_size)
+	sge::rucksack::dim const &_size
+)
 {
 	size_ =
 		_size;
@@ -69,7 +71,8 @@ sge::rucksack::widget::master_and_slaves::size(
 
 void
 sge::rucksack::widget::master_and_slaves::position(
-	sge::rucksack::vector const &_position)
+	sge::rucksack::vector const &_position
+)
 {
 	position_ =
 		_position;
@@ -93,69 +96,64 @@ sge::rucksack::axis_policy2 const
 sge::rucksack::widget::master_and_slaves::axis_policy() const
 {
 	return
-		sge::rucksack::axis_policy2(
-			sge::rucksack::axis_policy(
-				!master_pane_
-				?
-					sge::rucksack::minimum_size(
-						0
-					)
-				:
-					master_pane_->axis_policy().x().minimum_size(),
-				sge::rucksack::preferred_size(
-					sge::rucksack::optional_scalar()
-				),
-				sge::rucksack::is_expanding(
-					true
-				)
-			),
-			sge::rucksack::axis_policy(
-				!master_pane_
-				?
-					sge::rucksack::minimum_size(
-						0
-					)
-				:
-					master_pane_->axis_policy().y().minimum_size(),
-				sge::rucksack::preferred_size(
-					sge::rucksack::optional_scalar()
-				),
-				sge::rucksack::is_expanding(
-					true
-				)
-			)
-		);
+		master_pane_
+		?
+			master_pane_->axis_policy()
+		:
+			sge::rucksack::axis_policy2{
+				sge::rucksack::minimum_size{
+					0
+				},
+				sge::rucksack::minimum_size{
+					0
+				}
+			}
+		;
 }
 
 void
 sge::rucksack::widget::master_and_slaves::relayout()
 {
 	surrounding_box_.position(
-		this->position());
+		this->position()
+	);
+
 	surrounding_box_.size(
-		this->size());
+		this->size()
+	);
+
 	surrounding_box_.relayout();
 }
 
 void
 sge::rucksack::widget::master_and_slaves::master_pane(
-	sge::rucksack::widget::base &_master_pane)
+	sge::rucksack::widget::base &_master_pane
+)
 {
-	if(master_pane_)
+	if(
+		master_pane_
+	)
 		surrounding_box_.pop_front_child();
+
 	surrounding_box_.push_front_child(
 		_master_pane,
-		sge::rucksack::alignment::center);
+		sge::rucksack::alignment::center
+	);
+
 	master_pane_ =
-		&_master_pane;
+		sge::rucksack::widget::optional_ref(
+			_master_pane
+		);
 }
 
 void
 sge::rucksack::widget::master_and_slaves::push_back_child(
-	sge::rucksack::widget::base &_child)
+	sge::rucksack::widget::base &_child
+)
 {
 	enumeration_.push_back_child(
-		_child);
+		_child
+	);
 }
 
 sge::rucksack::widget::master_and_slaves::~master_and_slaves()

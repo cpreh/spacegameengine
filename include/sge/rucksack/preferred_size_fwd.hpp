@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RUCKSACK_PREFERRED_SIZE_FWD_HPP_INCLUDED
 #define SGE_RUCKSACK_PREFERRED_SIZE_FWD_HPP_INCLUDED
 
-#include <sge/rucksack/optional_scalar_fwd.hpp>
+#include <sge/rucksack/scalar.hpp>
 #include <fcppt/make_strong_typedef.hpp>
 
 
@@ -31,7 +31,7 @@ namespace rucksack
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
-	sge::rucksack::optional_scalar,
+	sge::rucksack::scalar,
 	preferred_size
 );
 

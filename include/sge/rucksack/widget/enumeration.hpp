@@ -23,10 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/rucksack/axis_policy2_fwd.hpp>
 #include <sge/rucksack/dim.hpp>
-#include <sge/rucksack/padding_fwd.hpp>
-#include <sge/rucksack/scalar.hpp>
+#include <sge/rucksack/padding.hpp>
 #include <sge/rucksack/vector.hpp>
 #include <sge/rucksack/widget/base.hpp>
+#include <sge/rucksack/widget/reference.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <vector>
@@ -39,6 +39,7 @@ namespace rucksack
 {
 namespace widget
 {
+
 /**
  * The enumeration widget starts aligning its child widgets from left to right
  * until there's no more space on the right. Then, it creates a new row and
@@ -48,8 +49,9 @@ class enumeration
 :
 	public sge::rucksack::widget::base
 {
-FCPPT_NONCOPYABLE(
-	enumeration);
+	FCPPT_NONCOPYABLE(
+		enumeration
+	);
 public:
 	SGE_RUCKSACK_SYMBOL
 	explicit
@@ -102,12 +104,17 @@ public:
 	override;
 private:
 	typedef
-	std::vector<sge::rucksack::widget::base*>
+	std::vector<
+		sge::rucksack::widget::reference
+	>
 	child_information;
 
-	sge::rucksack::scalar const padding_;
+	sge::rucksack::padding const padding_;
+
 	child_information children_;
+
 	sge::rucksack::vector position_;
+
 	sge::rucksack::dim size_;
 
 	void
@@ -116,6 +123,7 @@ private:
 	)
 	override;
 };
+
 }
 }
 }

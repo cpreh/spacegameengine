@@ -18,8 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RUCKSACK_WIDGET_BOX_BASE_FWD_HPP_INCLUDED
-#define SGE_RUCKSACK_WIDGET_BOX_BASE_FWD_HPP_INCLUDED
+#ifndef SGE_RUCKSACK_WIDGET_REFERENCE_ALIGNMENT_CONTAINER_HPP_INCLUDED
+#define SGE_RUCKSACK_WIDGET_REFERENCE_ALIGNMENT_CONTAINER_HPP_INCLUDED
+
+#include <sge/rucksack/widget/reference_alignment.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <vector>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {
@@ -27,10 +33,13 @@ namespace rucksack
 {
 namespace widget
 {
-namespace box
-{
-class base;
-}
+
+typedef
+std::vector<
+	sge::rucksack::widget::reference_alignment
+>
+reference_alignment_container;
+
 }
 }
 }

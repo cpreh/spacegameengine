@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RUCKSACK_AXIS_POLICY2_HPP_INCLUDED
 #define SGE_RUCKSACK_AXIS_POLICY2_HPP_INCLUDED
 
+#include <sge/rucksack/axis_fwd.hpp>
 #include <sge/rucksack/axis_policy.hpp>
 #include <sge/rucksack/axis_policy2_fwd.hpp>
-#include <sge/rucksack/dim.hpp>
 #include <sge/rucksack/symbol.hpp>
 
 
@@ -52,7 +52,7 @@ public:
 	SGE_RUCKSACK_SYMBOL
 	sge::rucksack::axis_policy const &
 	operator[](
-		sge::rucksack::dim::size_type
+		sge::rucksack::axis
 	) const;
 private:
 	sge::rucksack::axis_policy

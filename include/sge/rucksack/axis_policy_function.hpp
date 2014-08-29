@@ -18,10 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RUCKSACK_IS_EXPANDING_FWD_HPP_INCLUDED
-#define SGE_RUCKSACK_IS_EXPANDING_FWD_HPP_INCLUDED
+#ifndef SGE_RUCKSACK_AXIS_POLICY_FUNCTION_HPP_INCLUDED
+#define SGE_RUCKSACK_AXIS_POLICY_FUNCTION_HPP_INCLUDED
 
-#include <fcppt/make_strong_typedef.hpp>
+#include <sge/rucksack/axis_fwd.hpp>
+#include <sge/rucksack/axis_policy_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -29,10 +33,13 @@ namespace sge
 namespace rucksack
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
-	bool,
-	is_expanding
-);
+typedef
+std::function<
+	sge::rucksack::axis_policy (
+		sge::rucksack::axis
+	)
+>
+axis_policy_function;
 
 }
 }

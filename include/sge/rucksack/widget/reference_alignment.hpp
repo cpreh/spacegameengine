@@ -18,12 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RUCKSACK_WIDGET_BOX_CHILD_INFORMATION_HPP_INCLUDED
-#define SGE_RUCKSACK_WIDGET_BOX_CHILD_INFORMATION_HPP_INCLUDED
+#ifndef SGE_RUCKSACK_WIDGET_REFERENCE_ALIGNMENT_HPP_INCLUDED
+#define SGE_RUCKSACK_WIDGET_REFERENCE_ALIGNMENT_HPP_INCLUDED
 
 #include <sge/rucksack/alignment.hpp>
-#include <sge/rucksack/dim.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
+#include <sge/rucksack/symbol.hpp>
+#include <sge/rucksack/widget/reference.hpp>
+#include <sge/rucksack/widget/reference_alignment_fwd.hpp>
+
 
 namespace sge
 {
@@ -31,34 +33,27 @@ namespace rucksack
 {
 namespace widget
 {
-namespace box
-{
-/**
- * This is a utility class which holds all the information needed for a child.
- * It's intentionally not supplied with SYMBOLs because it's not part of the
- * interface the user sees.
- */
-class child_information
+
+class reference_alignment
 {
 public:
-	child_information(
-		sge::rucksack::alignment,
-		sge::rucksack::dim const &);
+	SGE_RUCKSACK_SYMBOL
+	reference_alignment(
+		sge::rucksack::widget::reference,
+		sge::rucksack::alignment
+	);
+
+	sge::rucksack::widget::reference const
+	reference() const;
 
 	sge::rucksack::alignment
 	alignment() const;
-
-	sge::rucksack::dim const &
-	size() const;
-
-	void
-	size(
-		sge::rucksack::dim const &);
 private:
+	sge::rucksack::widget::reference reference_;
+
 	sge::rucksack::alignment alignment_;
-	sge::rucksack::dim size_;
 };
-}
+
 }
 }
 }

@@ -2733,24 +2733,23 @@ set(
 	include/sge/resource_tree/path_fwd.hpp
 	include/sge/resource_tree/path_to_resource_function.hpp
 	include/sge/rucksack/alignment.hpp
-	include/sge/rucksack/alignment2.hpp
-	include/sge/rucksack/alignment2_fwd.hpp
 	include/sge/rucksack/alignment_fwd.hpp
 	include/sge/rucksack/axis.hpp
 	include/sge/rucksack/axis_fwd.hpp
 	include/sge/rucksack/axis_policy.hpp
 	include/sge/rucksack/axis_policy2.hpp
+	include/sge/rucksack/axis_policy2_comparison.hpp
 	include/sge/rucksack/axis_policy2_fwd.hpp
+	include/sge/rucksack/axis_policy2_output.hpp
+	include/sge/rucksack/axis_policy_function.hpp
 	include/sge/rucksack/axis_policy_fwd.hpp
+	include/sge/rucksack/axis_policy_output.hpp
 	include/sge/rucksack/axis_to_index.hpp
 	include/sge/rucksack/dim.hpp
 	include/sge/rucksack/dim_fwd.hpp
-	include/sge/rucksack/is_expanding.hpp
-	include/sge/rucksack/is_expanding_fwd.hpp
+	include/sge/rucksack/make_axis_policy.hpp
 	include/sge/rucksack/minimum_size.hpp
 	include/sge/rucksack/minimum_size_fwd.hpp
-	include/sge/rucksack/optional_scalar.hpp
-	include/sge/rucksack/optional_scalar_fwd.hpp
 	include/sge/rucksack/padding.hpp
 	include/sge/rucksack/padding_fwd.hpp
 	include/sge/rucksack/preferred_size.hpp
@@ -2762,9 +2761,8 @@ set(
 	include/sge/rucksack/vector_fwd.hpp
 	include/sge/rucksack/widget/base.hpp
 	include/sge/rucksack/widget/base_fwd.hpp
-	include/sge/rucksack/widget/box/base.hpp
-	include/sge/rucksack/widget/box/base_fwd.hpp
-	include/sge/rucksack/widget/box/child_information.hpp
+	include/sge/rucksack/widget/box.hpp
+	include/sge/rucksack/widget/box_fwd.hpp
 	include/sge/rucksack/widget/dummy.hpp
 	include/sge/rucksack/widget/dummy_fwd.hpp
 	include/sge/rucksack/widget/enumeration.hpp
@@ -2773,8 +2771,13 @@ set(
 	include/sge/rucksack/widget/master_and_slaves.hpp
 	include/sge/rucksack/widget/master_and_slaves_fwd.hpp
 	include/sge/rucksack/widget/minimum_size.hpp
-	include/sge/rucksack/widget/optional_parent.hpp
-	include/sge/rucksack/widget/optional_parent_fwd.hpp
+	include/sge/rucksack/widget/optional_ref.hpp
+	include/sge/rucksack/widget/optional_ref_fwd.hpp
+	include/sge/rucksack/widget/reference.hpp
+	include/sge/rucksack/widget/reference_alignment.hpp
+	include/sge/rucksack/widget/reference_alignment_container.hpp
+	include/sge/rucksack/widget/reference_alignment_fwd.hpp
+	include/sge/rucksack/widget/reference_fwd.hpp
 	include/sge/rucksack/widget/viewport_adaptor.hpp
 	include/sge/rucksack/widget/viewport_adaptor_fwd.hpp
 	include/sge/scenic/box.hpp

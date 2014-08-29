@@ -21,36 +21,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/rucksack/axis_policy.hpp>
 #include <sge/rucksack/axis_policy2.hpp>
 #include <sge/rucksack/dim.hpp>
-#include <sge/rucksack/is_expanding.hpp>
 #include <sge/rucksack/minimum_size.hpp>
-#include <sge/rucksack/optional_scalar.hpp>
 #include <sge/rucksack/padding.hpp>
-#include <sge/rucksack/preferred_size.hpp>
 #include <sge/rucksack/scalar.hpp>
 #include <sge/rucksack/vector.hpp>
 #include <sge/rucksack/widget/enumeration.hpp>
-#include <sge/rucksack/widget/optional_parent.hpp>
+#include <sge/rucksack/widget/optional_ref.hpp>
+#include <sge/rucksack/widget/reference.hpp>
+#include <sge/src/rucksack/extract_size.hpp>
+#include <fcppt/make_ref.hpp>
+#include <fcppt/reference_wrapper_comparison.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
 #include <fcppt/config/external_end.hpp>
 
 
-// TODO: Initialize position and size in the ctor?
-
 sge::rucksack::widget::enumeration::enumeration(
 	sge::rucksack::padding const &_padding
 )
 :
-	sge::rucksack::widget::base(
-		sge::rucksack::widget::optional_parent()),
-	padding_(
-		_padding.get()),
+	sge::rucksack::widget::base(),
+	padding_{
+		_padding
+	},
 	children_(),
-	position_(
-		sge::rucksack::vector::null()),
-	size_(
-		sge::rucksack::dim::null())
+	position_{
+		sge::rucksack::vector::null()
+	},
+	size_{
+		sge::rucksack::dim::null()
+	}
 {
 }
 
@@ -88,24 +89,18 @@ sge::rucksack::axis_policy2 const
 sge::rucksack::widget::enumeration::axis_policy() const
 {
 	return
-		sge::rucksack::axis_policy2(
-			sge::rucksack::axis_policy(
-				sge::rucksack::minimum_size(
-					0),
-				sge::rucksack::preferred_size(
-					sge::rucksack::optional_scalar()),
-				sge::rucksack::is_expanding(
-					true)),
-			sge::rucksack::axis_policy(
-				sge::rucksack::minimum_size(
-					0),
-				sge::rucksack::preferred_size(
-					sge::rucksack::optional_scalar()),
-				sge::rucksack::is_expanding(
-					true
-				)
-			)
-		);
+		sge::rucksack::axis_policy2{
+			sge::rucksack::axis_policy{
+				sge::rucksack::minimum_size{
+					0
+				}
+			},
+			sge::rucksack::axis_policy{
+				sge::rucksack::minimum_size{
+					0
+				}
+			}
+		};
 }
 
 void
@@ -113,31 +108,34 @@ sge::rucksack::widget::enumeration::relayout()
 {
 	sge::rucksack::vector current_pos(
 		this->position().x(),
-		this->position().y() + padding_);
+		this->position().y() + padding_.get()
+	);
 
-	sge::rucksack::scalar current_row_max_height =
-		0;
+	sge::rucksack::scalar current_row_max_height{
+		0
+	};
 
 	for(
-		auto const &child_ptr
+		sge::rucksack::widget::reference const &child_ptr
 		:
 		children_
 	)
 	{
-		sge::rucksack::dim const preferred_or_minimum(
-			child_ptr->axis_policy().x().preferred_size().get()
-			?
-				*child_ptr->axis_policy().x().preferred_size().get()
-			:
-				child_ptr->axis_policy().x().minimum_size().get(),
-			child_ptr->axis_policy().y().preferred_size().get()
-			?
-				*child_ptr->axis_policy().y().preferred_size().get()
-			:
-				child_ptr->axis_policy().y().minimum_size().get());
+		sge::rucksack::dim const preferred_or_minimum{
+			sge::rucksack::extract_size(
+				child_ptr.get().axis_policy().x()
+			),
+			sge::rucksack::extract_size(
+				child_ptr.get().axis_policy().y()
+			)
+		};
 
 		// Next line
-		if(current_pos.x() + padding_ + preferred_or_minimum.w() > this->position().x() + this->size().w())
+		if(
+			current_pos.x() + padding_.get() + preferred_or_minimum.w()
+			>
+			this->position().x() + this->size().w()
+		)
 		{
 			// This assertion makes sure that we have enough space
 			// at the bottom. It's too strict, however, so I
@@ -148,52 +146,66 @@ sge::rucksack::widget::enumeration::relayout()
 				this->position().x();
 
 			current_pos.y() +=
-				current_row_max_height + padding_;
+				current_row_max_height + padding_.get();
 
 			current_row_max_height =
 				0;
 		}
 
-		child_ptr->position(
-			sge::rucksack::vector(
-				current_pos.x() + padding_,
-				current_pos.y()));
+		child_ptr.get().position(
+			sge::rucksack::vector{
+				current_pos.x()
+				+
+				padding_.get()
+				,
+				current_pos.y()
+			}
+		);
 
-		child_ptr->size(
-			preferred_or_minimum);
+		child_ptr.get().size(
+			preferred_or_minimum
+		);
 
-		child_ptr->relayout();
+		child_ptr.get().relayout();
 
 		current_pos.x() +=
-			preferred_or_minimum.w() + padding_;
+			preferred_or_minimum.w() + padding_.get();
 
 		current_row_max_height =
 			std::max(
 				current_row_max_height,
-				preferred_or_minimum.h());
+				preferred_or_minimum.h()
+			);
 	}
 }
 
 void
 sge::rucksack::widget::enumeration::push_back_child(
-	sge::rucksack::widget::base &_child)
+	sge::rucksack::widget::base &_child
+)
 {
 	children_.push_back(
-		&_child);
+		fcppt::make_ref(
+			_child
+		)
+	);
+
 	_child.parent(
-		sge::rucksack::widget::optional_parent(
-			*this));
+		sge::rucksack::widget::optional_ref{
+			*this
+		}
+	);
 }
 
 sge::rucksack::widget::enumeration::~enumeration()
 {
 	for(
-		auto const &child_ptr
+		sge::rucksack::widget::reference const &child_ptr
 		:
 		children_
 	)
-		child_ptr->parent(
-			sge::rucksack::widget::optional_parent()
+		child_ptr.get().parent(
+			sge::rucksack::widget::optional_ref()
 		);
 }
 
@@ -201,17 +213,21 @@ void
 sge::rucksack::widget::enumeration::child_destroyed(
 	sge::rucksack::widget::base &_child)
 {
-	child_information::iterator it(
+	child_information::iterator const it(
 		std::find(
 			children_.begin(),
 			children_.end(),
-			&_child
+			fcppt::make_ref(
+				_child
+			)
 		)
 	);
 
 	FCPPT_ASSERT_PRE(
-		it != children_.end());
+		it != children_.end()
+	);
 
 	children_.erase(
-		it);
+		it
+	);
 }

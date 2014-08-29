@@ -28,20 +28,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::rucksack::widget::dummy::dummy(
 	sge::rucksack::axis_policy2 const &_axis_policy)
 :
-	sge::rucksack::widget::base(
-		sge::rucksack::widget::optional_parent()),
-	axis_policy_(
-		_axis_policy),
-	position_(
-		sge::rucksack::vector::null()),
-	size_(
-		sge::rucksack::dim::null())
+	sge::rucksack::widget::base(),
+	axis_policy_{
+		_axis_policy
+	},
+	position_{
+		sge::rucksack::vector::null()
+	},
+	size_{
+		sge::rucksack::dim::null()
+	}
 {
 }
 
 void
 sge::rucksack::widget::dummy::size(
-	sge::rucksack::dim const &_size)
+	sge::rucksack::dim const &_size
+)
 {
 	size_ =
 		_size;
@@ -49,7 +52,8 @@ sge::rucksack::widget::dummy::size(
 
 void
 sge::rucksack::widget::dummy::position(
-	sge::rucksack::vector const &_position)
+	sge::rucksack::vector const &_position
+)
 {
 	position_ =
 		_position;
@@ -67,19 +71,22 @@ sge::rucksack::widget::dummy::axis_policy(
 sge::rucksack::dim const
 sge::rucksack::widget::dummy::size() const
 {
-	return size_;
+	return
+		size_;
 }
 
 sge::rucksack::vector const
 sge::rucksack::widget::dummy::position() const
 {
-	return position_;
+	return
+		position_;
 }
 
 sge::rucksack::axis_policy2 const
 sge::rucksack::widget::dummy::axis_policy() const
 {
-	return axis_policy_;
+	return
+		axis_policy_;
 }
 
 void

@@ -23,11 +23,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/class_symbol.hpp>
 #include <sge/rucksack/axis_policy2_fwd.hpp>
+#include <sge/rucksack/axis_fwd.hpp>
 #include <sge/rucksack/dim_fwd.hpp>
 #include <sge/rucksack/rect_fwd.hpp>
+#include <sge/rucksack/scalar.hpp>
 #include <sge/rucksack/symbol.hpp>
 #include <sge/rucksack/vector_fwd.hpp>
-#include <sge/rucksack/widget/optional_parent.hpp>
+#include <sge/rucksack/widget/optional_ref.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -50,15 +52,32 @@ public:
 		sge::rucksack::dim const &
 	) = 0;
 
+	void
+	size(
+		sge::rucksack::axis,
+		sge::rucksack::scalar
+	);
+
 	virtual
 	void
 	position(
 		sge::rucksack::vector const &
 	) = 0;
 
+	void
+	position(
+		sge::rucksack::axis,
+		sge::rucksack::scalar
+	);
+
 	virtual
 	sge::rucksack::dim const
 	size() const = 0;
+
+	sge::rucksack::scalar
+	size(
+		sge::rucksack::axis
+	) const;
 
 	SGE_RUCKSACK_SYMBOL
 	sge::rucksack::rect const
@@ -67,6 +86,11 @@ public:
 	virtual
 	sge::rucksack::vector const
 	position() const = 0;
+
+	sge::rucksack::scalar
+	position(
+		sge::rucksack::axis
+	) const;
 
 	virtual
 	sge::rucksack::axis_policy2 const
@@ -79,11 +103,11 @@ public:
 	SGE_RUCKSACK_SYMBOL
 	void
 	parent(
-		sge::rucksack::widget::optional_parent const &
+		sge::rucksack::widget::optional_ref const &
 	);
 
 	SGE_RUCKSACK_SYMBOL
-	sge::rucksack::widget::optional_parent const &
+	sge::rucksack::widget::optional_ref const
 	parent() const;
 
 	SGE_RUCKSACK_SYMBOL
@@ -91,10 +115,7 @@ public:
 	~base() = 0;
 protected:
 	SGE_RUCKSACK_SYMBOL
-	explicit
-	base(
-		sge::rucksack::widget::optional_parent const &
-	);
+	base();
 
 	SGE_RUCKSACK_SYMBOL
 	virtual
@@ -103,7 +124,7 @@ protected:
 		base &
 	);
 private:
-	sge::rucksack::widget::optional_parent parent_;
+	sge::rucksack::widget::optional_ref parent_;
 };
 }
 }

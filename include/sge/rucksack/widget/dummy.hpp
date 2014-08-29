@@ -35,12 +35,14 @@ namespace rucksack
 {
 namespace widget
 {
+
 class dummy
 :
 	public sge::rucksack::widget::base
 {
-FCPPT_NONCOPYABLE(
-	dummy);
+	FCPPT_NONCOPYABLE(
+		dummy
+	);
 public:
 	SGE_RUCKSACK_SYMBOL
 	explicit
@@ -48,7 +50,8 @@ public:
 		sge::rucksack::axis_policy2 const &
 	);
 
-	SGE_RUCKSACK_SYMBOL void
+	SGE_RUCKSACK_SYMBOL
+	void
 	size(
 		sge::rucksack::dim const &
 	)
@@ -92,9 +95,12 @@ public:
 	override;
 private:
 	sge::rucksack::axis_policy2 axis_policy_;
+
 	sge::rucksack::vector position_;
+
 	sge::rucksack::dim size_;
 };
+
 }
 }
 }

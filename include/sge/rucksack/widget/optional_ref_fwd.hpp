@@ -18,11 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RUCKSACK_IS_EXPANDING_HPP_INCLUDED
-#define SGE_RUCKSACK_IS_EXPANDING_HPP_INCLUDED
+#ifndef SGE_RUCKSACK_WIDGET_OPTIONAL_REF_FWD_HPP_INCLUDED
+#define SGE_RUCKSACK_WIDGET_OPTIONAL_REF_FWD_HPP_INCLUDED
 
-#include <sge/rucksack/is_expanding_fwd.hpp>
-#include <fcppt/strong_typedef.hpp>
+#include <sge/rucksack/widget/base_fwd.hpp>
+#include <fcppt/optional_fwd.hpp>
 
+
+namespace sge
+{
+namespace rucksack
+{
+namespace widget
+{
+
+typedef
+fcppt::optional<
+	sge::rucksack::widget::base &
+>
+optional_ref;
+
+}
+}
+}
 
 #endif

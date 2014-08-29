@@ -98,26 +98,20 @@ try
 		viewport_box,
 		sge::image::color::predef::blue());
 
-	sge::rucksack::widget::dummy master_dummy(
+	sge::rucksack::widget::dummy master_dummy{
 		sge::rucksack::axis_policy2(
 			sge::rucksack::axis_policy(
-				sge::rucksack::minimum_size(
-					size_rng_w()),
 				sge::rucksack::preferred_size(
-					sge::rucksack::optional_scalar()),
-				sge::rucksack::is_expanding(
-					false)),
+					size_rng_w()
+				)
+			),
 			sge::rucksack::axis_policy(
-				sge::rucksack::minimum_size(
-					size_rng_h()),
 				sge::rucksack::preferred_size(
-					sge::rucksack::optional_scalar()),
-				sge::rucksack::is_expanding(
-					false
+					size_rng_h()
 				)
 			)
 		)
-	);
+	};
 
 	mas_box.master_pane(
 		master_dummy);
@@ -152,19 +146,13 @@ try
 					fcppt::make_unique_ptr<sge::rucksack::widget::dummy>(
 						sge::rucksack::axis_policy2(
 							sge::rucksack::axis_policy(
-								sge::rucksack::minimum_size(
-									size_rng_w()),
 								sge::rucksack::preferred_size(
-									sge::rucksack::optional_scalar()),
-								sge::rucksack::is_expanding(
-									false)),
+									size_rng_w()
+								)
+							),
 							sge::rucksack::axis_policy(
-								sge::rucksack::minimum_size(
-									size_rng_h()),
 								sge::rucksack::preferred_size(
-									sge::rucksack::optional_scalar()),
-								sge::rucksack::is_expanding(
-									false
+									size_rng_h()
 								)
 							)
 						)

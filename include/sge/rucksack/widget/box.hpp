@@ -18,18 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RUCKSACK_WIDGET_BOX_BASE_HPP_INCLUDED
-#define SGE_RUCKSACK_WIDGET_BOX_BASE_HPP_INCLUDED
+#ifndef SGE_RUCKSACK_WIDGET_BOX_HPP_INCLUDED
+#define SGE_RUCKSACK_WIDGET_BOX_HPP_INCLUDED
 
 #include <sge/class_symbol.hpp>
-#include <sge/rucksack/alignment_fwd.hpp>
-#include <sge/rucksack/axis_fwd.hpp>
+#include <sge/rucksack/alignment.hpp>
+#include <sge/rucksack/axis.hpp>
+#include <sge/rucksack/axis_policy2_fwd.hpp>
+#include <sge/rucksack/dim.hpp>
 #include <sge/rucksack/symbol.hpp>
+#include <sge/rucksack/vector.hpp>
 #include <sge/rucksack/widget/base.hpp>
-#include <sge/rucksack/widget/optional_parent.hpp>
-#include <sge/rucksack/widget/box/child_information.hpp>
+#include <sge/rucksack/widget/reference.hpp>
+#include <sge/rucksack/widget/reference_alignment_container.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <list>
 #include <utility>
@@ -42,8 +44,7 @@ namespace rucksack
 {
 namespace widget
 {
-namespace box
-{
+
 /**
 \brief Align child widgets next to each other in a box.
 \details
@@ -52,28 +53,38 @@ either vertically or horizontally (determined by the "axis" parameter which
 specifies the "major axis" of alignment; hozirontal alignment has axis::x,
 vertical has axis::y).
 */
-class SGE_CLASS_SYMBOL base
+class SGE_CLASS_SYMBOL box
 :
-	public sge::rucksack::widget::base
+	public
+		sge::rucksack::widget::base
 {
-FCPPT_NONCOPYABLE(
-	base);
+	FCPPT_NONCOPYABLE(
+		box
+	);
 
 	typedef
-	std::list
-	<
-		std::pair
-		<
-			sge::rucksack::widget::base *,
-			sge::rucksack::widget::box::child_information
-		>
+	std::pair<
+		sge::rucksack::widget::reference,
+		sge::rucksack::alignment
 	>
-	child_information;
+	child_pair;
+
+	typedef
+	std::list<
+		child_pair
+	>
+	child_list;
 public:
 	SGE_RUCKSACK_SYMBOL
 	explicit
-	base(
+	box(
 		sge::rucksack::axis
+	);
+
+	SGE_RUCKSACK_SYMBOL
+	box(
+		sge::rucksack::axis,
+		sge::rucksack::widget::reference_alignment_container const &
 	);
 
 	// Nothing fancy, just set the stored size (this should NOT cause a relayout
@@ -85,6 +96,8 @@ public:
 	)
 	override;
 
+	using sge::rucksack::widget::base::size;
+
 	// Nothing fancy, just set the stored position (this should NOT cause a
 	// relayout immediately)
 	SGE_RUCKSACK_SYMBOL
@@ -93,6 +106,8 @@ public:
 		sge::rucksack::vector const &
 	)
 	override;
+
+	using sge::rucksack::widget::base::position;
 
 	// Nothing fancy, just return the stored size
 	SGE_RUCKSACK_SYMBOL
@@ -166,11 +181,11 @@ public:
 	clear();
 
 	typedef
-	child_information::iterator
+	child_list::iterator
 	iterator;
 
 	typedef
-	child_information::size_type
+	child_list::size_type
 	size_type;
 
 	SGE_RUCKSACK_SYMBOL
@@ -192,7 +207,7 @@ public:
 	);
 
 	SGE_RUCKSACK_SYMBOL
-	~base()
+	~box()
 	override;
 private:
 	void
@@ -207,43 +222,27 @@ private:
 		iterator
 	);
 
-	child_information children_;
-	// We use the axis_ to access the components of either a dim or a vector:
-	//
-	// v[axis_] = 10;
-	//
-	// So ideally, the data type for the axis is the data type operator[] takes.
-	// This is dim::size_type (or vector::size_type, they're equivalent)
-	sge::rucksack::dim::size_type const axis_;
+	child_list children_;
+
+	sge::rucksack::axis const axis_;
 
 	sge::rucksack::vector position_;
 
 	sge::rucksack::dim size_;
 
-	// Those just return axis and (1-axis), but are better readable in the code
-	sge::rucksack::dim::size_type
+	sge::rucksack::axis
 	major_axis() const;
 
-	sge::rucksack::dim::size_type
+	sge::rucksack::axis
 	minor_axis() const;
-
-	void
-	relayout_major_axis();
-
-	void
-	relayout_minor_axis();
 
 	void
 	child_destroyed(
 		sge::rucksack::widget::base &
 	)
 	override;
-
-	sge::rucksack::widget::box::child_information &
-	information_for_ptr(
-		sge::rucksack::widget::base const *);
 };
-}
+
 }
 }
 }

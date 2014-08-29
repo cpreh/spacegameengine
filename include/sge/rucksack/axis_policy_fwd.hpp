@@ -21,13 +21,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RUCKSACK_AXIS_POLICY_FWD_HPP_INCLUDED
 #define SGE_RUCKSACK_AXIS_POLICY_FWD_HPP_INCLUDED
 
+#include <sge/rucksack/minimum_size_fwd.hpp>
+#include <sge/rucksack/preferred_size_fwd.hpp>
+#include <fcppt/variant/object_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/vector/vector10.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {
 namespace rucksack
 {
 
-class axis_policy;
+typedef
+fcppt::variant::object<
+	boost::mpl::vector2<
+		sge::rucksack::minimum_size,
+		sge::rucksack::preferred_size
+	>
+>
+axis_policy;
 
 }
 }

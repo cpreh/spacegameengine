@@ -18,12 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RUCKSACK_ALIGNMENT2_HPP_INCLUDED
-#define SGE_RUCKSACK_ALIGNMENT2_HPP_INCLUDED
+#ifndef SGE_RUCKSACK_AXIS_POLICY2_OUTPUT_HPP_INCLUDED
+#define SGE_RUCKSACK_AXIS_POLICY2_OUTPUT_HPP_INCLUDED
 
-#include <sge/rucksack/alignment.hpp>
-#include <sge/rucksack/alignment2_fwd.hpp>
-#include <sge/rucksack/symbol.hpp>
+#include <sge/rucksack/axis_policy2.hpp>
+#include <sge/rucksack/axis_policy_output.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <ostream>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -31,27 +33,30 @@ namespace sge
 namespace rucksack
 {
 
-class alignment2
+template<
+	typename Ch,
+	typename Traits
+>
+std::basic_ostream<
+	Ch,
+	Traits
+> &
+operator<<(
+	std::basic_ostream<
+		Ch,
+		Traits
+	> &_stream,
+	sge::rucksack::axis_policy2 const &_policy
+)
 {
-public:
-	SGE_RUCKSACK_SYMBOL
-	alignment2(
-		sge::rucksack::alignment,
-		sge::rucksack::alignment
-	);
-
-	SGE_RUCKSACK_SYMBOL
-	sge::rucksack::alignment
-	x() const;
-
-	SGE_RUCKSACK_SYMBOL
-	sge::rucksack::alignment
-	y() const;
-private:
-	sge::rucksack::alignment
-		x_,
-		y_;
-};
+	return
+		_stream
+			<< _stream.widen('(')
+			<< _policy.x()
+			<< _stream.widen(',')
+			<< _policy.y()
+			<< _stream.widen(')');
+}
 
 }
 }

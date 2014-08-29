@@ -21,11 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/rucksack/axis.hpp>
+#include <sge/rucksack/axis_policy.hpp>
+#include <sge/rucksack/axis_policy2.hpp>
+#include <sge/rucksack/preferred_size.hpp>
 #include <sge/rucksack/testbed/object.hpp>
 #include <sge/rucksack/testbed/systems.hpp>
+#include <sge/rucksack/widget/box.hpp>
 #include <sge/rucksack/widget/dummy.hpp>
 #include <sge/rucksack/widget/viewport_adaptor.hpp>
-#include <sge/rucksack/widget/box/base.hpp>
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>
@@ -39,103 +42,104 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 awl::main::exit_code const
 example_main(
-	awl::main::function_context const &)
+	awl::main::function_context const &
+)
 try
 {
-	sge::rucksack::testbed::object testbed(
-		sge::window::title(
-			FCPPT_TEXT("rucksack box test")));
+	sge::rucksack::testbed::object testbed{
+		sge::window::title{
+			FCPPT_TEXT("rucksack box test")
+		}
+	};
 
-	sge::rucksack::widget::viewport_adaptor viewport_box(
+	sge::rucksack::widget::viewport_adaptor viewport_box{
 		testbed.systems().viewport_manager(),
-		testbed.systems().renderer_device_core());
+		testbed.systems().renderer_device_core()
+	};
 
-	sge::rucksack::widget::box::base outer_box(
+	sge::rucksack::widget::box outer_box{
 		sge::rucksack::axis::x
-	);
+	};
 
 	viewport_box.child(
-		outer_box);
+		outer_box
+	);
 
-	sge::rucksack::widget::box::base left_box(
+	sge::rucksack::widget::box left_box(
 		sge::rucksack::axis::y
 	);
 
 	outer_box.push_back_child(
 		left_box,
-		sge::rucksack::alignment::left_or_top);
+		sge::rucksack::alignment::left_or_top
+	);
 
-	sge::rucksack::widget::box::base right_box(
+	sge::rucksack::widget::box right_box(
 		sge::rucksack::axis::y
 	);
 
 	outer_box.push_back_child(
 		right_box,
-		sge::rucksack::alignment::center);
-
-	sge::rucksack::widget::dummy inner_sprite(
-		sge::rucksack::axis_policy2(
-			sge::rucksack::axis_policy(
-				sge::rucksack::minimum_size(
-					100),
-				sge::rucksack::preferred_size(
-					sge::rucksack::optional_scalar()),
-				sge::rucksack::is_expanding(
-					false)),
-			sge::rucksack::axis_policy(
-				sge::rucksack::minimum_size(
-					50),
-				sge::rucksack::preferred_size(
-					sge::rucksack::optional_scalar()),
-				sge::rucksack::is_expanding(
-					false
-				)
-			)
-		)
+		sge::rucksack::alignment::center
 	);
+
+	sge::rucksack::widget::dummy inner_sprite{
+		sge::rucksack::axis_policy2{
+			sge::rucksack::axis_policy{
+				sge::rucksack::preferred_size{
+					100
+				}
+			},
+			sge::rucksack::axis_policy{
+				sge::rucksack::preferred_size{
+					50
+				}
+			}
+		}
+	};
 
 	left_box.push_back_child(
 		inner_sprite,
-		sge::rucksack::alignment::center);
-
-	sge::rucksack::widget::dummy inner_sprite2(
-		sge::rucksack::axis_policy2(
-			sge::rucksack::axis_policy(
-				sge::rucksack::minimum_size(
-					200),
-				sge::rucksack::preferred_size(
-					sge::rucksack::optional_scalar()),
-				sge::rucksack::is_expanding(
-					false)),
-			sge::rucksack::axis_policy(
-				sge::rucksack::minimum_size(
-					50),
-				sge::rucksack::preferred_size(
-					sge::rucksack::optional_scalar()),
-				sge::rucksack::is_expanding(
-					false
-				)
-			)
-		)
+		sge::rucksack::alignment::center
 	);
+
+	sge::rucksack::widget::dummy inner_sprite2{
+		sge::rucksack::axis_policy2{
+			sge::rucksack::axis_policy{
+				sge::rucksack::preferred_size{
+					200
+				}
+			},
+			sge::rucksack::axis_policy{
+				sge::rucksack::preferred_size{
+					50
+				}
+			}
+		}
+	};
 
 	right_box.push_back_child(
 		inner_sprite2,
-		sge::rucksack::alignment::right_or_bottom);
+		sge::rucksack::alignment::right_or_bottom
+	);
 
 	testbed.add_widget(
 		viewport_box,
-		sge::image::color::predef::blue());
+		sge::image::color::predef::blue()
+	);
 
 	testbed.add_widget(
 		inner_sprite,
-		sge::image::color::predef::red());
+		sge::image::color::predef::red()
+	);
 
 	testbed.add_widget(
 		inner_sprite2,
-		sge::image::color::predef::green());
+		sge::image::color::predef::green()
+	);
 
-	return testbed.run();
+	return
+		testbed.run();
 }
 catch(
 	fcppt::exception const &error)

@@ -18,29 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/rucksack/axis.hpp>
 #include <sge/rucksack/axis_policy.hpp>
 #include <sge/rucksack/axis_policy2.hpp>
 #include <sge/rucksack/dim.hpp>
-#include <sge/rucksack/is_expanding.hpp>
+#include <sge/rucksack/make_axis_policy.hpp>
+#include <sge/rucksack/preferred_size.hpp>
 #include <sge/rucksack/vector.hpp>
 #include <sge/rucksack/widget/base.hpp>
 #include <sge/rucksack/widget/minimum_size.hpp>
-#include <sge/rucksack/widget/optional_parent.hpp>
+#include <sge/src/rucksack/extract_size.hpp>
 
 
 sge::rucksack::widget::minimum_size::minimum_size(
 	sge::rucksack::widget::base &_child
 )
 :
-	sge::rucksack::widget::base(
-		sge::rucksack::widget::optional_parent()
-	),
+	sge::rucksack::widget::base(),
 	child_(
 		_child
 	)
 {
 	child_.parent(
-		sge::rucksack::widget::optional_parent(
+		sge::rucksack::widget::optional_ref(
 			*this
 		)
 	);
@@ -80,23 +80,25 @@ sge::rucksack::widget::minimum_size::position() const
 sge::rucksack::axis_policy2 const
 sge::rucksack::widget::minimum_size::axis_policy() const
 {
-	// TODO: Make this easier
 	return
-		sge::rucksack::axis_policy2(
-			sge::rucksack::axis_policy(
-				child_.axis_policy().x().minimum_size(),
-				child_.axis_policy().x().preferred_size(),
-				sge::rucksack::is_expanding(
-					false
-				)
-			),
-			sge::rucksack::axis_policy(
-				child_.axis_policy().y().minimum_size(),
-				child_.axis_policy().y().preferred_size(),
-				sge::rucksack::is_expanding(
-					false
-				)
+		sge::rucksack::make_axis_policy(
+			[
+				this
+			](
+				sge::rucksack::axis const _axis
 			)
+			{
+				return
+					sge::rucksack::axis_policy{
+						sge::rucksack::preferred_size{
+							sge::rucksack::extract_size(
+								child_.axis_policy()[
+									_axis
+								]
+							)
+						}
+					};
+			}
 		);
 }
 
@@ -109,8 +111,12 @@ sge::rucksack::widget::minimum_size::relayout()
 
 	child_.size(
 		sge::rucksack::dim(
-			policy.x().minimum_size().get(),
-			policy.y().minimum_size().get()
+			sge::rucksack::extract_size(
+				child_.axis_policy().x()
+			),
+			sge::rucksack::extract_size(
+				child_.axis_policy().y()
+			)
 		)
 	);
 

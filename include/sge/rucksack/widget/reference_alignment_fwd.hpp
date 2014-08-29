@@ -18,32 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/rucksack/alignment.hpp>
-#include <sge/rucksack/alignment2.hpp>
+#ifndef SGE_RUCKSACK_WIDGET_REFERENCE_ALIGNMENT_FWD_HPP_INCLUDED
+#define SGE_RUCKSACK_WIDGET_REFERENCE_ALIGNMENT_FWD_HPP_INCLUDED
 
 
-sge::rucksack::alignment2::alignment2(
-	sge::rucksack::alignment const _x,
-	sge::rucksack::alignment const _y
-)
-:
-	x_(
-		_x
-	),
-	y_(
-		_y
-	)
+namespace sge
 {
+namespace rucksack
+{
+namespace widget
+{
+
+class reference_alignment;
+
+}
+}
 }
 
-sge::rucksack::alignment
-sge::rucksack::alignment2::x() const
-{
-	return x_;
-}
-
-sge::rucksack::alignment
-sge::rucksack::alignment2::y() const
-{
-	return y_;
-}
+#endif

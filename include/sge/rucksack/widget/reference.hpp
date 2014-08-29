@@ -18,56 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/rucksack/axis.hpp>
-#include <sge/rucksack/axis_policy.hpp>
-#include <sge/rucksack/axis_policy2.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#ifndef SGE_RUCKSACK_WIDGET_REFERENCE_HPP_INCLUDED
+#define SGE_RUCKSACK_WIDGET_REFERENCE_HPP_INCLUDED
+
+#include <sge/rucksack/widget/reference_fwd.hpp>
+#include <fcppt/reference_wrapper_impl.hpp>
 
 
-sge::rucksack::axis_policy2::axis_policy2(
-	sge::rucksack::axis_policy const &_x,
-	sge::rucksack::axis_policy const &_y
-)
-:
-	x_{
-		_x
-	},
-	y_{
-		_y
-	}
-{
-}
-
-sge::rucksack::axis_policy const &
-sge::rucksack::axis_policy2::x() const
-{
-	return
-		x_;
-}
-
-sge::rucksack::axis_policy const &
-sge::rucksack::axis_policy2::y() const
-{
-	return
-		y_;
-}
-
-sge::rucksack::axis_policy const &
-sge::rucksack::axis_policy2::operator[](
-	sge::rucksack::axis const _axis
-) const
-{
-	switch(
-		_axis
-	)
-	{
-	case sge::rucksack::axis::x:
-		return
-			x_;
-	case sge::rucksack::axis::y:
-		return
-			y_;
-	}
-
-	FCPPT_ASSERT_UNREACHABLE;
-}
+#endif

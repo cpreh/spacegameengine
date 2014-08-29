@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/rucksack/symbol.hpp>
 #include <sge/rucksack/vector_fwd.hpp>
 #include <sge/rucksack/widget/base.hpp>
+#include <sge/rucksack/widget/optional_ref.hpp>
 #include <sge/viewport/manager_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
@@ -114,7 +115,7 @@ public:
 private:
 	sge::renderer::target::base &target_;
 
-	sge::rucksack::widget::base *child_;
+	sge::rucksack::widget::optional_ref child_;
 
 	fcppt::signal::scoped_connection const viewport_connection_;
 

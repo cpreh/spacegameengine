@@ -28,8 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/rucksack/symbol.hpp>
 #include <sge/rucksack/vector.hpp>
 #include <sge/rucksack/widget/base.hpp>
+#include <sge/rucksack/widget/box.hpp>
 #include <sge/rucksack/widget/enumeration.hpp>
-#include <sge/rucksack/widget/box/base.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <vector>
@@ -53,8 +53,9 @@ class SGE_CLASS_SYMBOL master_and_slaves
 :
 	public sge::rucksack::widget::base
 {
-FCPPT_NONCOPYABLE(
-	master_and_slaves);
+	FCPPT_NONCOPYABLE(
+		master_and_slaves
+	);
 public:
 	SGE_RUCKSACK_SYMBOL
 	explicit
@@ -112,12 +113,17 @@ public:
 	~master_and_slaves()
 	override;
 private:
-	sge::rucksack::widget::box::base surrounding_box_;
-	sge::rucksack::widget::base *master_pane_;
+	sge::rucksack::widget::box surrounding_box_;
+
+	sge::rucksack::widget::optional_ref master_pane_;
+
 	sge::rucksack::widget::enumeration enumeration_;
+
 	sge::rucksack::vector position_;
+
 	sge::rucksack::dim size_;
 };
+
 }
 }
 }

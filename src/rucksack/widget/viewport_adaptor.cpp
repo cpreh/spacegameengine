@@ -25,15 +25,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/rucksack/axis_policy.hpp>
 #include <sge/rucksack/axis_policy2.hpp>
 #include <sge/rucksack/dim.hpp>
-#include <sge/rucksack/is_expanding.hpp>
 #include <sge/rucksack/minimum_size.hpp>
-#include <sge/rucksack/optional_scalar.hpp>
-#include <sge/rucksack/preferred_size.hpp>
 #include <sge/rucksack/scalar.hpp>
 #include <sge/rucksack/vector.hpp>
-#include <sge/rucksack/widget/optional_parent.hpp>
+#include <sge/rucksack/widget/optional_ref.hpp>
 #include <sge/rucksack/widget/viewport_adaptor.hpp>
 #include <sge/viewport/manager.hpp>
+#include <fcppt/optional_ref_compare.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
@@ -53,15 +51,11 @@ sge::rucksack::widget::viewport_adaptor::viewport_adaptor(
 	sge::viewport::manager &_viewport,
 	sge::renderer::device::core &_renderer)
 :
-	sge::rucksack::widget::base(
-		sge::rucksack::widget::optional_parent()
-	),
+	sge::rucksack::widget::base(),
 	target_(
 		_renderer.onscreen_target()
 	),
-	child_(
-		nullptr
-	),
+	child_(),
 	viewport_connection_(
 		_viewport.manage_callback(
 			std::bind(
@@ -138,45 +132,55 @@ sge::rucksack::widget::viewport_adaptor::axis_policy() const
 {
 	// A dummy for now, until there's a use case
 	return
-		sge::rucksack::axis_policy2(
-			sge::rucksack::axis_policy(
-				sge::rucksack::minimum_size(
-					sge::rucksack::scalar()),
-				sge::rucksack::preferred_size(
-					sge::rucksack::optional_scalar()),
-				sge::rucksack::is_expanding(
-					false)),
-			sge::rucksack::axis_policy(
-				sge::rucksack::minimum_size(
-					sge::rucksack::scalar()),
-				sge::rucksack::preferred_size(
-					sge::rucksack::optional_scalar()),
-				sge::rucksack::is_expanding(
-					false
-				)
-			)
-		);
+		sge::rucksack::axis_policy2{
+			sge::rucksack::axis_policy{
+				sge::rucksack::minimum_size{
+					sge::rucksack::scalar()
+				}
+			},
+			sge::rucksack::axis_policy{
+				sge::rucksack::minimum_size{
+					sge::rucksack::scalar()
+				}
+			}
+		};
 }
 
 void
 sge::rucksack::widget::viewport_adaptor::relayout()
 {
-	if(child_)
+	if(
+		child_
+	)
+	{
+		this->resize_child();
+
 		child_->relayout();
+	}
 }
 
 void
 sge::rucksack::widget::viewport_adaptor::child(
-	sge::rucksack::widget::base &_child)
+	sge::rucksack::widget::base &_child
+)
 {
-	if(child_)
+	if(
+		child_
+	)
 		child_->parent(
-			sge::rucksack::widget::optional_parent());
+			sge::rucksack::widget::optional_ref()
+		);
 
-	child_ = &_child;
+	child_ =
+		sge::rucksack::widget::optional_ref(
+			_child
+		);
+
 	child_->parent(
-		sge::rucksack::widget::optional_parent(
-			*this));
+		sge::rucksack::widget::optional_ref(
+			*this
+		)
+	);
 
 	this->resize_child();
 }
@@ -184,15 +188,20 @@ sge::rucksack::widget::viewport_adaptor::child(
 
 sge::rucksack::widget::viewport_adaptor::~viewport_adaptor()
 {
-	if(child_)
+	if(
+		child_
+	)
 		child_->parent(
-			sge::rucksack::widget::optional_parent());
+			sge::rucksack::widget::optional_ref()
+		);
 }
 
 void
 sge::rucksack::widget::viewport_adaptor::manage_callback()
 {
-	if(child_)
+	if(
+		child_
+	)
 		this->resize_child();
 }
 
@@ -204,19 +213,30 @@ sge::rucksack::widget::viewport_adaptor::resize_child()
 	);
 
 	child_->position(
-		sge::rucksack::vector::null());
+		sge::rucksack::vector::null()
+	);
+
 	child_->size(
-		this->size());
+		this->size()
+	);
+
 	child_->relayout();
 }
 
 void
 sge::rucksack::widget::viewport_adaptor::child_destroyed(
-	sge::rucksack::widget::base &_child)
+	sge::rucksack::widget::base &_child
+)
 {
 	FCPPT_ASSERT_PRE(
-		&_child == child_);
+		fcppt::optional_ref_compare(
+			sge::rucksack::widget::optional_ref(
+				_child
+			),
+			child_
+		)
+	);
 
 	child_ =
-		nullptr;
+		sge::rucksack::widget::optional_ref();
 }
