@@ -152,10 +152,10 @@ sge::rucksack::widget::viewport_adaptor::axis_policy() const
 				sge::rucksack::preferred_size(
 					sge::rucksack::optional_scalar()),
 				sge::rucksack::is_expanding(
-					false)),
-			sge::rucksack::aspect(
-				1,
-				1));
+					false
+				)
+			)
+		);
 }
 
 void

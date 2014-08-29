@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/rucksack/alignment.hpp>
-#include <sge/rucksack/aspect.hpp>
 #include <sge/rucksack/axis.hpp>
 #include <sge/rucksack/axis_policy.hpp>
 #include <sge/rucksack/axis_policy2.hpp>
@@ -47,8 +46,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::rucksack::widget::box::base::base(
-	sge::rucksack::axis const _axis,
-	sge::rucksack::aspect const &_aspect)
+	sge::rucksack::axis const _axis
+)
 :
 	sge::rucksack::widget::base(
 		sge::rucksack::widget::optional_parent()),
@@ -57,8 +56,6 @@ sge::rucksack::widget::box::base::base(
 		// For an explanation, see the header
 		static_cast<sge::rucksack::dim::size_type>(
 			_axis)),
-	aspect_(
-		_aspect),
 	// We cannot initialize position and size to something meaningful yet, so
 	// keep uninitialized
 	position_(
@@ -223,8 +220,8 @@ sge::rucksack::widget::box::base::axis_policy() const
 			?
 				minor_policy
 			:
-				major_policy,
-			aspect_);
+				major_policy
+		);
 }
 
 void
@@ -492,7 +489,6 @@ sge::rucksack::widget::box::base::relayout_major_axis()
 		children_
 	)
 	{
-		// FIXME: Recognize aspect here!
 		widget_ptr_information_pair.second.size(
 			sge::rucksack::dim(
 				widget_ptr_information_pair.first->axis_policy().x().minimum_size().get(),
@@ -535,8 +531,6 @@ sge::rucksack::widget::box::base::relayout_major_axis()
 		children_
 	)
 	{
-		// FIXME: Check if this widget has a preferered size and _CAN_ be resized
-		// considering its height and aspect
 		if(!widget_ptr_information_pair.first->axis_policy()[this->major_axis()].preferred_size().get())
 			continue;
 
@@ -626,8 +620,6 @@ sge::rucksack::widget::box::base::relayout_major_axis()
 		:
 		children_
 	)
-		// FIXME: Check if this widget has is expandable and _CAN_ be expanded
-		// considering its height and aspect
 		if(widget_ptr_information_pair.first->axis_policy()[this->major_axis()].is_expanding().get())
 			widgets_which_expand.push_back(
 				widget_ptr_information_pair.first);
@@ -662,7 +654,6 @@ sge::rucksack::widget::box::base::relayout_minor_axis()
 	//
 	// As the height
 	//
-	// FIXME: ASPECT!
 	for(
 		auto &widget_ptr_information_pair
 		:

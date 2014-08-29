@@ -60,10 +60,9 @@ try
 
 	sge::rucksack::widget::enumeration enumeration_box(
 		sge::rucksack::padding(
-			5),
-		sge::rucksack::aspect(
-			1,
-			1));
+			5
+		)
+	);
 
 	viewport_box.child(
 		enumeration_box);
@@ -139,10 +138,8 @@ try
 								sge::rucksack::preferred_size(
 									sge::rucksack::optional_scalar()),
 								sge::rucksack::is_expanding(
-									false)),
-							sge::rucksack::aspect(
-								1,
-								1
+									false
+								)
 							)
 						)
 					);

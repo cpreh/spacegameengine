@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/rucksack/alignment.hpp>
-#include <sge/rucksack/aspect.hpp>
 #include <sge/rucksack/axis.hpp>
 #include <sge/rucksack/axis_policy.hpp>
 #include <sge/rucksack/axis_policy2.hpp>
@@ -43,17 +42,13 @@ sge::rucksack::widget::master_and_slaves::master_and_slaves(
 	sge::rucksack::widget::base(
 		sge::rucksack::widget::optional_parent()),
 	surrounding_box_(
-		sge::rucksack::axis::x,
-		sge::rucksack::aspect(
-			1,
-			1)),
+		sge::rucksack::axis::x
+	),
 	master_pane_(
 		0),
 	enumeration_(
-		_padding,
-		sge::rucksack::aspect(
-			1,
-			1)),
+		_padding
+	),
 	position_(
 		sge::rucksack::vector::null()),
 	size_(
@@ -128,10 +123,6 @@ sge::rucksack::widget::master_and_slaves::axis_policy() const
 				sge::rucksack::is_expanding(
 					true
 				)
-			),
-			sge::rucksack::aspect(
-				1,
-				1
 			)
 		);
 }

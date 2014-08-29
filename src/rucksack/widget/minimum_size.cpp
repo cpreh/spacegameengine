@@ -96,8 +96,7 @@ sge::rucksack::widget::minimum_size::axis_policy() const
 				sge::rucksack::is_expanding(
 					false
 				)
-			),
-			child_.axis_policy().aspect()
+			)
 		);
 }
 

@@ -113,10 +113,11 @@ try
 				sge::rucksack::preferred_size(
 					sge::rucksack::optional_scalar()),
 				sge::rucksack::is_expanding(
-					false)),
-			sge::rucksack::aspect(
-				1,
-				1)));
+					false
+				)
+			)
+		)
+	);
 
 	mas_box.master_pane(
 		master_dummy);
@@ -163,10 +164,8 @@ try
 								sge::rucksack::preferred_size(
 									sge::rucksack::optional_scalar()),
 								sge::rucksack::is_expanding(
-									false)),
-							sge::rucksack::aspect(
-								1,
-								1
+									false
+								)
 							)
 						)
 					);

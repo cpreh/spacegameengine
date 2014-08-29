@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/class_symbol.hpp>
 #include <sge/rucksack/alignment_fwd.hpp>
-#include <sge/rucksack/aspect.hpp>
 #include <sge/rucksack/axis_fwd.hpp>
 #include <sge/rucksack/symbol.hpp>
 #include <sge/rucksack/widget/base.hpp>
@@ -72,9 +71,10 @@ FCPPT_NONCOPYABLE(
 	child_information;
 public:
 	SGE_RUCKSACK_SYMBOL
+	explicit
 	base(
-		sge::rucksack::axis,
-		sge::rucksack::aspect const &);
+		sge::rucksack::axis
+	);
 
 	// Nothing fancy, just set the stored size (this should NOT cause a relayout
 	// immediately)
@@ -125,8 +125,6 @@ public:
 	//
 	// Finally, the widget is expandable on each axis if there's at least one
 	// widget that's expandable.
-	//
-	// We just ignore the aspect for now. I have no use case for that, yet.
 	//
 	// Also note that currently, box widgets always have a preferred size (which
 	// might be equal to the minimum size).
@@ -217,8 +215,9 @@ private:
 	// So ideally, the data type for the axis is the data type operator[] takes.
 	// This is dim::size_type (or vector::size_type, they're equivalent)
 	sge::rucksack::dim::size_type const axis_;
-	sge::rucksack::aspect const aspect_;
+
 	sge::rucksack::vector position_;
+
 	sge::rucksack::dim size_;
 
 	// Those just return axis and (1-axis), but are better readable in the code

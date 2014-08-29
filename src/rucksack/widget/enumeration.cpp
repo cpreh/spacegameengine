@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/rucksack/aspect.hpp>
 #include <sge/rucksack/axis_policy.hpp>
 #include <sge/rucksack/axis_policy2.hpp>
 #include <sge/rucksack/dim.hpp>
@@ -40,15 +39,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 // TODO: Initialize position and size in the ctor?
 
 sge::rucksack::widget::enumeration::enumeration(
-	sge::rucksack::padding const &_padding,
-	sge::rucksack::aspect const &_aspect)
+	sge::rucksack::padding const &_padding
+)
 :
 	sge::rucksack::widget::base(
 		sge::rucksack::widget::optional_parent()),
 	padding_(
 		_padding.get()),
-	aspect_(
-		_aspect),
 	children_(),
 	position_(
 		sge::rucksack::vector::null()),
@@ -105,8 +102,10 @@ sge::rucksack::widget::enumeration::axis_policy() const
 				sge::rucksack::preferred_size(
 					sge::rucksack::optional_scalar()),
 				sge::rucksack::is_expanding(
-					true)),
-			aspect_);
+					true
+				)
+			)
+		);
 }
 
 void

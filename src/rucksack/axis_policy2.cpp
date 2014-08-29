@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/rucksack/aspect.hpp>
 #include <sge/rucksack/axis_policy.hpp>
 #include <sge/rucksack/axis_policy2.hpp>
 #include <sge/rucksack/dim.hpp>
@@ -26,19 +25,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::rucksack::axis_policy2::axis_policy2(
 	sge::rucksack::axis_policy const &_x,
-	sge::rucksack::axis_policy const &_y,
-	sge::rucksack::aspect const &_aspect
+	sge::rucksack::axis_policy const &_y
 )
 :
-	x_(
+	x_{
 		_x
-	),
-	y_(
+	},
+	y_{
 		_y
-	),
-	aspect_(
-		_aspect
-	)
+	}
 {
 }
 
@@ -66,10 +61,4 @@ sge::rucksack::axis_policy2::operator[](
 		:
 			y_
 		;
-}
-
-sge::rucksack::aspect const &
-sge::rucksack::axis_policy2::aspect() const
-{
-	return aspect_;
 }

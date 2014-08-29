@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/rucksack/aspect.hpp>
 #include <sge/rucksack/axis.hpp>
 #include <sge/rucksack/axis_policy.hpp>
 #include <sge/rucksack/axis_policy2.hpp>
@@ -164,11 +163,6 @@ sge::rucksack::widget::frame::axis_policy() const
 			),
 			make_policy(
 				sge::rucksack::axis::y
-			),
-			// TODO
-			sge::rucksack::aspect(
-				1,
-				1
 			)
 		);
 }

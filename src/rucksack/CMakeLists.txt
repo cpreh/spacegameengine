@@ -4,8 +4,6 @@ set(
 	include/sge/rucksack/alignment2.hpp
 	include/sge/rucksack/alignment2_fwd.hpp
 	include/sge/rucksack/alignment_fwd.hpp
-	include/sge/rucksack/aspect.hpp
-	include/sge/rucksack/aspect_fwd.hpp
 	include/sge/rucksack/axis.hpp
 	include/sge/rucksack/axis_fwd.hpp
 	include/sge/rucksack/axis_policy.hpp
@@ -48,7 +46,6 @@ set(
 	include/sge/rucksack/widget/viewport_adaptor.hpp
 	include/sge/rucksack/widget/viewport_adaptor_fwd.hpp
 	src/rucksack/alignment2.cpp
-	src/rucksack/aspect.cpp
 	src/rucksack/axis_policy.cpp
 	src/rucksack/axis_policy2.cpp
 	src/rucksack/axis_to_index.cpp

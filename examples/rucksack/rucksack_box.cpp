@@ -51,29 +51,23 @@ try
 		testbed.systems().renderer_device_core());
 
 	sge::rucksack::widget::box::base outer_box(
-		sge::rucksack::axis::x,
-		sge::rucksack::aspect(
-			1,
-			1));
+		sge::rucksack::axis::x
+	);
 
 	viewport_box.child(
 		outer_box);
 
 	sge::rucksack::widget::box::base left_box(
-		sge::rucksack::axis::y,
-		sge::rucksack::aspect(
-			1,
-			1));
+		sge::rucksack::axis::y
+	);
 
 	outer_box.push_back_child(
 		left_box,
 		sge::rucksack::alignment::left_or_top);
 
 	sge::rucksack::widget::box::base right_box(
-		sge::rucksack::axis::y,
-		sge::rucksack::aspect(
-			1,
-			1));
+		sge::rucksack::axis::y
+	);
 
 	outer_box.push_back_child(
 		right_box,
@@ -94,10 +88,11 @@ try
 				sge::rucksack::preferred_size(
 					sge::rucksack::optional_scalar()),
 				sge::rucksack::is_expanding(
-					false)),
-			sge::rucksack::aspect(
-				1,
-				1)));
+					false
+				)
+			)
+		)
+	);
 
 	left_box.push_back_child(
 		inner_sprite,
@@ -118,10 +113,11 @@ try
 				sge::rucksack::preferred_size(
 					sge::rucksack::optional_scalar()),
 				sge::rucksack::is_expanding(
-					false)),
-			sge::rucksack::aspect(
-				1,
-				1)));
+					false
+				)
+			)
+		)
+	);
 
 	right_box.push_back_child(
 		inner_sprite2,
