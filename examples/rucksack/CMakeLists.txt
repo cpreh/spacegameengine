@@ -28,18 +28,18 @@ endmacro()
 
 add_sge_rucksack_example(
 	box
-	"sgeimagecolor;sgerucksack;sgesystems"
+	"sgeimagecolor;sgerucksack;sgerucksackviewport;sgesystems"
 	""
 )
 
 add_sge_rucksack_example(
 	enumeration
-	"sgeimagecolor;sgerucksack;sgesystems"
+	"sgeimagecolor;sgerucksack;sgerucksackviewport;sgesystems"
 	""
 )
 
 add_sge_rucksack_example(
 	master_and_slaves
-	"sgeimagecolor;sgerucksack;sgesystems"
+	"sgeimagecolor;sgerucksack;sgerucksackviewport;sgesystems"
 	""
 )

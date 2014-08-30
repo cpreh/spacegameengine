@@ -426,6 +426,12 @@ add_sge_lib(
 )
 
 add_sge_lib(
+	rucksack/viewport
+	"Build the rucksack viewport library"
+	ON
+)
+
+add_sge_lib(
 	systems
 	"Build the systems library"
 	ON

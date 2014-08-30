@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/any/object.hpp>
 #include <sge/rucksack/testbed/object.hpp>
 #include <sge/rucksack/testbed/systems.hpp>
+#include <sge/rucksack/viewport/adaptor.hpp>
 #include <sge/rucksack/widget/dummy.hpp>
 #include <sge/rucksack/widget/master_and_slaves.hpp>
-#include <sge/rucksack/widget/viewport_adaptor.hpp>
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>
@@ -54,7 +54,7 @@ try
 		sge::window::title(
 			FCPPT_TEXT("rucksack master and slaves test")));
 
-	sge::rucksack::widget::viewport_adaptor viewport_box(
+	sge::rucksack::viewport::adaptor viewport_box(
 		testbed.systems().viewport_manager(),
 		testbed.systems().renderer_device_core());
 

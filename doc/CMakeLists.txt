@@ -2759,6 +2759,8 @@ set(
 	include/sge/rucksack/scalar.hpp
 	include/sge/rucksack/vector.hpp
 	include/sge/rucksack/vector_fwd.hpp
+	include/sge/rucksack/viewport/adaptor.hpp
+	include/sge/rucksack/viewport/adaptor_fwd.hpp
 	include/sge/rucksack/widget/base.hpp
 	include/sge/rucksack/widget/base_fwd.hpp
 	include/sge/rucksack/widget/box.hpp
@@ -2778,8 +2780,6 @@ set(
 	include/sge/rucksack/widget/reference_alignment_container.hpp
 	include/sge/rucksack/widget/reference_alignment_fwd.hpp
 	include/sge/rucksack/widget/reference_fwd.hpp
-	include/sge/rucksack/widget/viewport_adaptor.hpp
-	include/sge/rucksack/widget/viewport_adaptor_fwd.hpp
 	include/sge/scenic/box.hpp
 	include/sge/scenic/exception.hpp
 	include/sge/scenic/grid/depth_test.hpp

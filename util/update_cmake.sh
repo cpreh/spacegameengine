@@ -215,7 +215,18 @@ update_sublibrary renderer/opengl
 
 update_sublibrary resource_tree
 
-update_sublibrary rucksack
+update_cmake \
+	src/rucksack/CMakeLists.txt \
+	SGE_RUCKSACK_FILES \
+	-n \
+	include/sge/rucksack \
+	src/rucksack \
+	-r \
+	src/rucksack/include \
+	include/sge/rucksack/widget \
+	src/rucksack/widget
+
+update_sublibrary rucksack/viewport
 
 update_sublibrary scenic
 

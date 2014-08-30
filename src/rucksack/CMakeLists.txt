@@ -46,8 +46,6 @@ set(
 	include/sge/rucksack/widget/reference_alignment_container.hpp
 	include/sge/rucksack/widget/reference_alignment_fwd.hpp
 	include/sge/rucksack/widget/reference_fwd.hpp
-	include/sge/rucksack/widget/viewport_adaptor.hpp
-	include/sge/rucksack/widget/viewport_adaptor_fwd.hpp
 	src/rucksack/axis_policy2.cpp
 	src/rucksack/axis_policy2_comparison.cpp
 	src/rucksack/axis_to_index.cpp
@@ -65,10 +63,8 @@ set(
 	src/rucksack/widget/master_and_slaves.cpp
 	src/rucksack/widget/minimum_size.cpp
 	src/rucksack/widget/reference_alignment.cpp
-	src/rucksack/widget/viewport_adaptor.cpp
 )
 
-# TODO: Put renderer/viewport into another library
 add_sge_base_library(
 	"rucksack"
 	"sgerenderer;sgeviewport"

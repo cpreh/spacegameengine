@@ -28,8 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/rucksack/minimum_size.hpp>
 #include <sge/rucksack/scalar.hpp>
 #include <sge/rucksack/vector.hpp>
+#include <sge/rucksack/viewport/adaptor.hpp>
 #include <sge/rucksack/widget/optional_ref.hpp>
-#include <sge/rucksack/widget/viewport_adaptor.hpp>
 #include <sge/viewport/manager.hpp>
 #include <fcppt/optional_ref_compare.hpp>
 #include <fcppt/assert/pre.hpp>
@@ -47,9 +47,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 
-sge::rucksack::widget::viewport_adaptor::viewport_adaptor(
+sge::rucksack::viewport::adaptor::adaptor(
 	sge::viewport::manager &_viewport,
-	sge::renderer::device::core &_renderer)
+	sge::renderer::device::core &_renderer
+)
 :
 	sge::rucksack::widget::base(),
 	target_(
@@ -59,7 +60,7 @@ sge::rucksack::widget::viewport_adaptor::viewport_adaptor(
 	viewport_connection_(
 		_viewport.manage_callback(
 			std::bind(
-				&sge::rucksack::widget::viewport_adaptor::manage_callback,
+				&sge::rucksack::viewport::adaptor::manage_callback,
 				this
 			)
 		)
@@ -70,8 +71,9 @@ sge::rucksack::widget::viewport_adaptor::viewport_adaptor(
 FCPPT_PP_POP_WARNING
 
 void
-sge::rucksack::widget::viewport_adaptor::size(
-	sge::rucksack::dim const &_size)
+sge::rucksack::viewport::adaptor::size(
+	sge::rucksack::dim const &_size
+)
 {
 	target_.viewport(
 		sge::renderer::target::viewport(
@@ -88,8 +90,9 @@ sge::rucksack::widget::viewport_adaptor::size(
 }
 
 void
-sge::rucksack::widget::viewport_adaptor::position(
-	sge::rucksack::vector const &_pos)
+sge::rucksack::viewport::adaptor::position(
+	sge::rucksack::vector const &_pos
+)
 {
 	target_.viewport(
 		sge::renderer::target::viewport(
@@ -106,7 +109,7 @@ sge::rucksack::widget::viewport_adaptor::position(
 }
 
 sge::rucksack::dim const
-sge::rucksack::widget::viewport_adaptor::size() const
+sge::rucksack::viewport::adaptor::size() const
 {
 	return
 		fcppt::math::dim::structure_cast<
@@ -117,7 +120,7 @@ sge::rucksack::widget::viewport_adaptor::size() const
 }
 
 sge::rucksack::vector const
-sge::rucksack::widget::viewport_adaptor::position() const
+sge::rucksack::viewport::adaptor::position() const
 {
 	return
 		fcppt::math::vector::structure_cast<
@@ -128,7 +131,7 @@ sge::rucksack::widget::viewport_adaptor::position() const
 }
 
 sge::rucksack::axis_policy2 const
-sge::rucksack::widget::viewport_adaptor::axis_policy() const
+sge::rucksack::viewport::adaptor::axis_policy() const
 {
 	// A dummy for now, until there's a use case
 	return
@@ -147,7 +150,7 @@ sge::rucksack::widget::viewport_adaptor::axis_policy() const
 }
 
 void
-sge::rucksack::widget::viewport_adaptor::relayout()
+sge::rucksack::viewport::adaptor::relayout()
 {
 	if(
 		child_
@@ -160,7 +163,7 @@ sge::rucksack::widget::viewport_adaptor::relayout()
 }
 
 void
-sge::rucksack::widget::viewport_adaptor::child(
+sge::rucksack::viewport::adaptor::child(
 	sge::rucksack::widget::base &_child
 )
 {
@@ -186,7 +189,7 @@ sge::rucksack::widget::viewport_adaptor::child(
 }
 
 
-sge::rucksack::widget::viewport_adaptor::~viewport_adaptor()
+sge::rucksack::viewport::adaptor::~adaptor()
 {
 	if(
 		child_
@@ -197,7 +200,7 @@ sge::rucksack::widget::viewport_adaptor::~viewport_adaptor()
 }
 
 void
-sge::rucksack::widget::viewport_adaptor::manage_callback()
+sge::rucksack::viewport::adaptor::manage_callback()
 {
 	if(
 		child_
@@ -206,7 +209,7 @@ sge::rucksack::widget::viewport_adaptor::manage_callback()
 }
 
 void
-sge::rucksack::widget::viewport_adaptor::resize_child()
+sge::rucksack::viewport::adaptor::resize_child()
 {
 	FCPPT_ASSERT_PRE(
 		child_
@@ -224,7 +227,7 @@ sge::rucksack::widget::viewport_adaptor::resize_child()
 }
 
 void
-sge::rucksack::widget::viewport_adaptor::child_destroyed(
+sge::rucksack::viewport::adaptor::child_destroyed(
 	sge::rucksack::widget::base &_child
 )
 {
