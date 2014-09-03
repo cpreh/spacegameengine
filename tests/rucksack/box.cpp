@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/rucksack/axis_policy2_output.hpp>
 #include <sge/rucksack/dim.hpp>
 #include <sge/rucksack/minimum_size.hpp>
+#include <sge/rucksack/padding.hpp>
 #include <sge/rucksack/preferred_size.hpp>
 #include <sge/rucksack/vector.hpp>
 #include <sge/rucksack/widget/box.hpp>
@@ -70,6 +71,9 @@ FCPPT_PP_POP_WARNING
 
 	sge::rucksack::widget::box box1{
 		sge::rucksack::axis::x,
+		sge::rucksack::padding{
+			0
+		},
 		sge::rucksack::widget::reference_alignment_container{
 			sge::rucksack::widget::reference_alignment{
 				sge::rucksack::widget::reference{
@@ -215,6 +219,9 @@ FCPPT_PP_POP_WARNING
 
 	sge::rucksack::widget::box box1{
 		sge::rucksack::axis::x,
+		sge::rucksack::padding{
+			0
+		},
 		sge::rucksack::widget::reference_alignment_container{
 			sge::rucksack::widget::reference_alignment{
 				sge::rucksack::widget::reference{
@@ -263,6 +270,9 @@ FCPPT_PP_POP_WARNING
 
 	sge::rucksack::widget::box box2{
 		sge::rucksack::axis::y,
+		sge::rucksack::padding{
+			0
+		},
 		sge::rucksack::widget::reference_alignment_container{
 			sge::rucksack::widget::reference_alignment{
 				sge::rucksack::widget::reference{

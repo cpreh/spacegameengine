@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/rucksack/dim.hpp>
 #include <sge/rucksack/make_axis_policy.hpp>
 #include <sge/rucksack/minimum_size.hpp>
+#include <sge/rucksack/padding.hpp>
 #include <sge/rucksack/preferred_size.hpp>
 #include <sge/rucksack/scalar.hpp>
 #include <sge/rucksack/vector.hpp>
@@ -96,8 +97,23 @@ boost::mpl::map<
 >
 policy_map;
 
-struct major_combiner
+class major_combiner
 {
+	FCPPT_NONASSIGNABLE(
+		major_combiner
+	);
+public:
+	explicit
+	major_combiner(
+		sge::rucksack::padding const _padding
+	)
+	:
+		padding_{
+			_padding
+		}
+	{
+	}
+
 	typedef
 	sge::rucksack::axis_policy
 	result_type;
@@ -124,8 +140,12 @@ struct major_combiner
 				_p1.get()
 				+
 				_p2.get()
+				+
+				padding_.get()
 			};
 	}
+private:
+	sge::rucksack::padding const padding_;
 };
 
 struct minor_combiner
@@ -164,13 +184,17 @@ struct minor_combiner
 }
 
 sge::rucksack::widget::box::box(
-	sge::rucksack::axis const _axis
+	sge::rucksack::axis const _axis,
+	sge::rucksack::padding const _padding
 )
 :
 	sge::rucksack::widget::base(),
 	children_(),
 	axis_{
 		_axis
+	},
+	padding_{
+		_padding
 	},
 	position_(
 		sge::rucksack::vector::null()
@@ -183,11 +207,13 @@ sge::rucksack::widget::box::box(
 
 sge::rucksack::widget::box::box(
 	sge::rucksack::axis const _axis,
+	sge::rucksack::padding const _padding,
 	sge::rucksack::widget::reference_alignment_container const &_children
 )
 :
 	sge::rucksack::widget::box(
-		_axis
+		_axis,
+		_padding
 	)
 {
 	for(
@@ -248,14 +274,20 @@ sge::rucksack::widget::box::axis_policy() const
 		fcppt::algorithm::fold(
 			children_,
 			sge::rucksack::make_axis_policy(
-				[](
+				[
+					this
+				](
 					sge::rucksack::axis
 				)
 				{
 					return
 						sge::rucksack::axis_policy{
 							sge::rucksack::preferred_size{
-								0
+								fcppt::literal<
+									sge::rucksack::scalar
+								>(
+									0
+								)
 							}
 						};
 				}
@@ -269,7 +301,9 @@ sge::rucksack::widget::box::axis_policy() const
 			{
 				sge::rucksack::axis_policy const major{
 					fcppt::variant::apply_binary(
-						major_combiner(),
+						major_combiner(
+							padding_
+						),
 						_pair.first.get().axis_policy()[
 							this->major_axis()
 						],
@@ -457,57 +491,83 @@ sge::rucksack::widget::box::relayout()
 		)
 	};
 
+	sge::rucksack::scalar const zero{
+		fcppt::literal<
+			sge::rucksack::scalar
+		>(
+			0
+		)
+	};
+
+	sge::rucksack::scalar const one{
+		fcppt::literal<
+			sge::rucksack::scalar
+		>(
+			1
+		)
+	};
+
+	sge::rucksack::scalar const num_children{
+		fcppt::cast::size<
+			sge::rucksack::scalar
+		>(
+			fcppt::cast::to_signed(
+				children_.size()
+			)
+		)
+	};
+
+	sge::rucksack::scalar const total_padding{
+		std::max(
+			zero,
+			num_children
+			-
+			one
+		)
+		*
+		padding_.get()
+	};
+
+	sge::rucksack::scalar const remaining{
+		infos.remaining()
+		-
+		total_padding
+	};
+
 	// If all children have a preferred size, we have to insert holes
-	// between them.
+	// between them. The hole size is the size which is available in
+	// addition to padding and widget sizes.
 	sge::rucksack::scalar const hole_size{
 		infos.all_preferred()
 		?
 			std::max(
-				fcppt::literal<
-					sge::rucksack::scalar
-				>(
-					0
-				),
-				infos.remaining()
+				zero,
+				remaining
 			)
 			/
-			fcppt::cast::size<
-				sge::rucksack::scalar
-			>(
-				fcppt::cast::to_signed(
-					children_.size()
-					+
-					1u
-				)
+			(
+				num_children
+				+
+				one
 			)
 		:
-			fcppt::literal<
-				sge::rucksack::scalar
-			>(
-				0
-			)
+			zero
 	};
 
 	// If at least one child is expanding, we distribute the remaining size
 	// uniformly among all expanding children.
 	sge::rucksack::scalar const extra_size{
 		std::max(
-			fcppt::literal<
-				sge::rucksack::scalar
-			>(
-				0
-			),
-			infos.minimum_sizes().get() != 0
+			zero,
+			infos.minimum_sizes().get()
+			!=
+			zero
 			?
-				infos.remaining()
+				remaining
 				/
 				infos.minimum_sizes().get()
 			:
-				fcppt::literal<
-					sge::rucksack::scalar
-				>(
-					0
-				)
+				zero
 		)
 	};
 
@@ -716,7 +776,9 @@ sge::rucksack::widget::box::relayout()
 			+
 			widget.size(
 				this->major_axis()
-			);
+			)
+			+
+			padding_.get();
 	}
 }
 

@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/rucksack/axis.hpp>
 #include <sge/rucksack/axis_policy.hpp>
 #include <sge/rucksack/axis_policy2.hpp>
+#include <sge/rucksack/padding.hpp>
 #include <sge/rucksack/preferred_size.hpp>
 #include <sge/rucksack/testbed/object.hpp>
 #include <sge/rucksack/testbed/systems.hpp>
@@ -57,8 +58,13 @@ try
 		testbed.systems().renderer_device_core()
 	};
 
+	sge::rucksack::padding const padding{
+		5
+	};
+
 	sge::rucksack::widget::box outer_box{
-		sge::rucksack::axis::x
+		sge::rucksack::axis::x,
+		padding
 	};
 
 	viewport_box.child(
@@ -66,7 +72,8 @@ try
 	);
 
 	sge::rucksack::widget::box left_box(
-		sge::rucksack::axis::y
+		sge::rucksack::axis::y,
+		padding
 	);
 
 	outer_box.push_back_child(
@@ -75,7 +82,8 @@ try
 	);
 
 	sge::rucksack::widget::box right_box(
-		sge::rucksack::axis::y
+		sge::rucksack::axis::y,
+		padding
 	);
 
 	outer_box.push_back_child(

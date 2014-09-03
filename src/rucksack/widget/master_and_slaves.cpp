@@ -41,7 +41,10 @@ sge::rucksack::widget::master_and_slaves::master_and_slaves(
 :
 	sge::rucksack::widget::base{},
 	surrounding_box_{
-		sge::rucksack::axis::x
+		sge::rucksack::axis::x,
+		sge::rucksack::padding{
+			0
+		}
 	},
 	master_pane_(),
 	enumeration_{

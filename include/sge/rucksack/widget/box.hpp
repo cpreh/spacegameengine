@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/rucksack/axis.hpp>
 #include <sge/rucksack/axis_policy2_fwd.hpp>
 #include <sge/rucksack/dim.hpp>
+#include <sge/rucksack/padding.hpp>
 #include <sge/rucksack/symbol.hpp>
 #include <sge/rucksack/vector.hpp>
 #include <sge/rucksack/widget/base.hpp>
@@ -76,14 +77,15 @@ class SGE_CLASS_SYMBOL box
 	child_list;
 public:
 	SGE_RUCKSACK_SYMBOL
-	explicit
 	box(
-		sge::rucksack::axis
+		sge::rucksack::axis,
+		sge::rucksack::padding
 	);
 
 	SGE_RUCKSACK_SYMBOL
 	box(
 		sge::rucksack::axis,
+		sge::rucksack::padding,
 		sge::rucksack::widget::reference_alignment_container const &
 	);
 
@@ -225,6 +227,8 @@ private:
 	child_list children_;
 
 	sge::rucksack::axis const axis_;
+
+	sge::rucksack::padding const padding_;
 
 	sge::rucksack::vector position_;
 
