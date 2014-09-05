@@ -31,10 +31,17 @@ find_package(
 
 add_sge_base_library(
 	"graph"
-	"sgeimage;sgeimagecolor;sgeimage2d;sgerenderer;sgesprite;sgetexture"
-	"${fcppt_core_TARGET}"
-	""
-	""
-	"${CMAKE_CURRENT_SOURCE_DIR}/include"
-	"${majutsu_INCLUDE_DIRS}"
+	SGE_DEPS
+		sgeimage
+		sgeimagecolor
+		sgeimage2d
+		sgerenderer
+		sgesprite
+		sgetexture
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
+	INCLUDE_DIRS
+		"${CMAKE_CURRENT_SOURCE_DIR}/include"
+	TRANSITIVE_INCLUDE_DIRS
+		${majutsu_INCLUDE_DIRS}
 )

@@ -163,10 +163,12 @@ sge_implement_from_lib(
 
 add_sge_base_library(
 	image3d
-	"sgeimage;sgeimagecolor"
-	""
-	""
-	""
-	"${FCPPT_UTILS_PROJECT_SOURCE_DIR}/src/image/color/include;${FCPPT_UTILS_PROJECT_BINARY_DIR}/src/image/include"
-	"${mizuiro_INCLUDE_DIRS}"
+	SGE_DEPS
+		sgeimage
+		sgeimagecolor
+	INCLUDE_DIRS
+		"${FCPPT_UTILS_PROJECT_SOURCE_DIR}/src/image/color/include"
+		"${FCPPT_UTILS_PROJECT_BINARY_DIR}/src/image/include"
+	TRANSITIVE_INCLUDE_DIRS
+		"${mizuiro_INCLUDE_DIRS}"
 )

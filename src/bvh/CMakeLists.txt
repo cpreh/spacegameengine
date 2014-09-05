@@ -14,9 +14,6 @@ set(
 
 add_sge_dummy_library(
 	bvh
-	""
-	""
-	""
-	""
-	"${fcppt_INCLUDE_DIRS}"
+	TRANSITIVE_INCLUDE_DIRS
+		"${fcppt_INCLUDE_DIRS}"
 )

@@ -187,10 +187,21 @@ configure_file(
 
 add_sge_base_library(
 	opencl
-	"sgecore;sgeimagecolor;sgeimage2d;sgelog;sgerenderer;sgerendereropengl"
-	"${fcppt_core_TARGET};${fcppt_filesystem_TARGET};${OPENCL_LIBRARIES};${OPENGL_gl_LIBRARY}"
-	""
-	""
-	"${OPENCL_INCLUDE_DIRS};${OPENGL_INCLUDE_DIR};${CMAKE_CURRENT_SOURCE_DIR}/include;${CMAKE_CURRENT_BINARY_DIR}/include"
-	""
+	SGE_DEPS
+		sgecore
+		sgeimagecolor
+		sgeimage2d
+		sgelog
+		sgerenderer
+		sgerendereropengl
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
+		${fcppt_filesystem_TARGET}
+		${OPENCL_LIBRARIES}
+		${OPENGL_gl_LIBRARY}
+	INCLUDE_DIRS
+		${OPENCL_INCLUDE_DIRS}
+		${OPENGL_INCLUDE_DIR}
+		"${CMAKE_CURRENT_SOURCE_DIR}/include"
+		"${CMAKE_CURRENT_BINARY_DIR}/include"
 )

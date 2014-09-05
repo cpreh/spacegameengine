@@ -88,10 +88,12 @@ set(
 
 add_sge_base_library(
 	"model/md3"
-	"sgecore;sgelog"
-	"${fcppt_core_TARGET};${fcppt_filesystem_TARGET}"
-	""
-	""
-	"${CMAKE_CURRENT_SOURCE_DIR}/include"
-	""
+	SGE_DEPS
+		sgecore
+		sgelog
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
+		${fcppt_filesystem_TARGET}
+	INCLUDE_DIRS
+		"${CMAKE_CURRENT_SOURCE_DIR}/include"
 )

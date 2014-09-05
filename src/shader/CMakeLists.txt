@@ -43,10 +43,15 @@ set(
 
 add_sge_base_library(
 	"shader"
-	"sgecg;sgerenderer;sgerenderercg"
-	"${fcppt_core_TARGET};${fcppt_filesystem_TARGET}"
-	"sgecg"
-	""
-	""
-	"${Cg_INCLUDE_DIRS}"
+	SGE_DEPS
+		sgecg
+		sgerenderer
+		sgerenderercg
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
+		${fcppt_filesystem_TARGET}
+	TRANSITIVE_SGE_DEPS
+		sgecg
+	TRANSITIVE_INCLUDE_DIRS
+		${Cg_INCLUDE_DIRS}
 )

@@ -220,10 +220,12 @@ sge_implement_from_lib(
 
 add_sge_base_library(
 	"image/color"
-	"sgeimage"
-	"${fcppt_core_TARGET}"
-	""
-	""
-	"${CMAKE_CURRENT_SOURCE_DIR}/include"
-	"${mizuiro_INCLUDE_DIRS}"
+	SGE_DEPS
+		sgeimage
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
+	INCLUDE_DIRS
+		"${CMAKE_CURRENT_SOURCE_DIR}/include"
+	TRANSITIVE_INCLUDE_DIRS
+		"${mizuiro_INCLUDE_DIRS}"
 )

@@ -74,11 +74,14 @@ set(
 
 add_sge_base_library(
 	texture
-	"sgecore;sgeimage2d;sgelog;sgerenderer"
-	"${fcppt_core_TARGET}"
-	""
-	""
-	# TODO!
-	"${FCPPT_UTILS_PROJECT_SOURCE_DIR}/src/renderer/include;${CMAKE_CURRENT_SOURCE_DIR}/include"
-	""
+	SGE_DEPS
+		sgecore
+		sgeimage2d
+		sgelog
+		sgerenderer
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
+	INCLUDE_DIRS
+		"${FCPPT_UTILS_PROJECT_SOURCE_DIR}/src/renderer/include"
+		"${CMAKE_CURRENT_SOURCE_DIR}/include"
 )

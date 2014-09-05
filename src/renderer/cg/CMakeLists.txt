@@ -22,10 +22,10 @@ set(
 
 add_sge_base_library(
 	"renderer/cg"
-	"sgeimage"
-	""
-	""
-	""
-	"${fcppt_INCLUDE_DIRS}"
-	"${fcppt_INCLUDE_DIRS}"
+	SGE_DEPS
+		sgeimage
+	INCLUDE_DIRS
+		${fcppt_INCLUDE_DIRS}
+	TRANSITIVE_INCLUDE_DIRS
+		${fcppt_INCLUDE_DIRS}
 )

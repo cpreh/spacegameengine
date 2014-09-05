@@ -67,10 +67,11 @@ set(
 
 add_sge_base_library(
 	"rucksack"
-	"sgerenderer;sgeviewport"
-	"${fcppt_core_TARGET}"
-	""
-	""
-	"${CMAKE_CURRENT_SOURCE_DIR}/include"
-	""
+	SGE_DEPS
+		sgerenderer
+		sgeviewport
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
+	INCLUDE_DIRS
+		"${CMAKE_CURRENT_SOURCE_DIR}/include"
 )

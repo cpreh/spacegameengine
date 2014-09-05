@@ -31,10 +31,17 @@ find_package(
 
 add_sge_base_library(
 	"console/gfx"
-	"sgeconsole;sgecore;sgefont;sgefontdraw;sgeimagecolor;sgeinput;sgerenderer;sgesprite"
-	"${fcppt_core_TARGET}"
-	""
-	""
-	""
-	"${majutsu_INCLUDE_DIRS}"
+	SGE_DEPS
+		sgeconsole
+		sgecore
+		sgefont
+		sgefontdraw
+		sgeimagecolor
+		sgeinput
+		sgerenderer
+		sgesprite
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
+	TRANSITIVE_INCLUDE_DIRS
+		${majutsu_INCLUDE_DIRS}
 )

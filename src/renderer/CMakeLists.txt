@@ -1142,12 +1142,23 @@ sge_implement_from_lib(
 
 add_sge_base_library(
 	renderer
-	"sgecore;sgeimagecolor;sgeimageds2d;sgeimage2d;sgeimage3d;sgelog;sgeplugin"
-	""
-	"sgecore;sgeimage"
-	""
-	"${CMAKE_CURRENT_SOURCE_DIR}/include;${awl_INCLUDE_DIRS}"
-	"${awl_INCLUDE_DIRS};${mizuiro_INCLUDE_DIRS}"
+	SGE_DEPS
+		sgecore
+		sgeimagecolor
+		sgeimageds2d
+		sgeimage2d
+		sgeimage3d
+		sgelog
+		sgeplugin
+	TRANSITIVE_SGE_DEPS
+		sgecore
+		sgeimage
+	INCLUDE_DIRS
+		"${CMAKE_CURRENT_SOURCE_DIR}/include"
+		"${awl_INCLUDE_DIRS}"
+	TRANSITIVE_INCLUDE_DIRS
+		"${awl_INCLUDE_DIRS}"
+		"${mizuiro_INCLUDE_DIRS}"
 )
 
 set(

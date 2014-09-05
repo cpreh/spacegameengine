@@ -33,31 +33,16 @@ set(
 
 add_sge_base_library(
 	parse
-	"sgecore"
-	"${fcppt_core_TARGET}"
-	"sgecore"
-	"${fcppt_filesystem_TARGET}"
-	"${CMAKE_CURRENT_SOURCE_DIR}/include"
-	""
+	SGE_DEPS
+		sgecore
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
+	TRANSITIVE_SGE_DEPS
+		sgecore
+	TRANSITIVE_ADDITIONAL_DEPS
+		${fcppt_filesystem_TARGET}
+	INCLUDE_DIRS
+		"${CMAKE_CURRENT_SOURCE_DIR}/include"
+	TRANSITIVE_COMPILE_DEFINITIONS
+		"BOOST_SPIRIT_USE_PHOENIX_V3"
 )
-
-#TODO: Put this to add_sge_base_library
-if(
-	ENABLE_SHARED
-)
-	target_compile_definitions(
-		sgeparse
-		PUBLIC
-		"-DBOOST_SPIRIT_USE_PHOENIX_V3"
-	)
-endif()
-
-if(
-	ENABLE_STATIC
-)
-	target_compile_definitions(
-		sgeparse_static
-		PUBLIC
-		"-DBOOST_SPIRIT_USE_PHOENIX_V3"
-	)
-endif()

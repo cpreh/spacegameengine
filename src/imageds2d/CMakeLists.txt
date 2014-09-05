@@ -64,10 +64,10 @@ sge_implement_from_lib(
 
 add_sge_base_library(
 	imageds2d
-	"sgeimage;sgeimageds"
-	""
-	""
-	""
-	"${FCPPT_UTILS_PROJECT_BINARY_DIR}/src/image/include;${CMAKE_CURRENT_SOURCE_DIR}/include"
-	""
+	SGE_DEPS
+		sgeimage
+		sgeimageds
+	INCLUDE_DIRS
+		"${FCPPT_UTILS_PROJECT_BINARY_DIR}/src/image/include"
+		"${CMAKE_CURRENT_SOURCE_DIR}/include"
 )

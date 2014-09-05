@@ -71,10 +71,17 @@ endif()
 
 add_sge_base_library(
 	config
-	"sgecore"
-	"${fcppt_core_TARGET};${fcppt_filesystem_TARGET};${SGE_CONFIG_ADDITIONAL_LIBS}"
-	"sgecore"
-	"${Boost_FILESYSTEM_LIBRARIES};${Boost_SYSTEM_LIBRARIES}"
-	"${CMAKE_CURRENT_SOURCE_DIR}/include"
-	""
+	SGE_DEPS
+		sgecore
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
+		${fcppt_filesystem_TARGET}
+		${SGE_CONFIG_ADDITIONAL_LIBS}
+	TRANSITIVE_SGE_DEPS
+		sgecore
+	TRANSITIVE_ADDITIONAL_DEPS
+		${Boost_FILESYSTEM_LIBRARIES}
+		${Boost_SYSTEM_LIBRARIES}
+	INCLUDE_DIRS
+		"${CMAKE_CURRENT_SOURCE_DIR}/include"
 )

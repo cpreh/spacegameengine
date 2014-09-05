@@ -38,10 +38,16 @@ sge_generate_instantiate_symbol_header(
 
 add_sge_base_library(
 	media
-	"sgecore;sgelog"
-	"${fcppt_core_TARGET};${fcppt_filesystem_TARGET}"
-	"sgelog"
-	"${fcppt_filesystem_TARGET}"
-	"${CMAKE_CURRENT_SOURCE_DIR}/include"
-	""
+	SGE_DEPS
+		sgecore
+		sgelog
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
+		${fcppt_filesystem_TARGET}
+	TRANSITIVE_SGE_DEPS
+		sgelog
+	TRANSITIVE_ADDITIONAL_DEPS
+		${fcppt_filesystem_TARGET}
+	INCLUDE_DIRS
+		"${CMAKE_CURRENT_SOURCE_DIR}/include"
 )

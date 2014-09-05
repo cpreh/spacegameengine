@@ -64,10 +64,11 @@ set(
 
 add_sge_base_library(
 	parse/ini
-	"sgeparse"
-	"${Boost_FILESYSTEM_LIBRARIES}"
-	""
-	""
-	"${CMAKE_CURRENT_SOURCE_DIR}/include;${FCPPT_UTILS_PROJECT_SOURCE_DIR}/src/parse/include"
-	""
+	SGE_DEPS
+		sgeparse
+	ADDITIONAL_DEPS
+		${Boost_FILESYSTEM_LIBRARIES}
+	INCLUDE_DIRS
+		"${CMAKE_CURRENT_SOURCE_DIR}/include"
+		"${FCPPT_UTILS_PROJECT_SOURCE_DIR}/src/parse/include"
 )

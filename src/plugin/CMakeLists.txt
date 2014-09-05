@@ -121,11 +121,18 @@ endif()
 
 add_sge_base_library(
 	plugin
-	"sgecore;sgelog"
-	"${fcppt_core_TARGET};${fcppt_filesystem_TARGET};${SGE_PLUGIN_ADDITIONAL_LIBS}"
-	""
-	"${fcppt_core_TARGET};${Boost_SYSTEM_LIBRARIES}"
-	"${CMAKE_CURRENT_SOURCE_DIR}/include"
-	"${awl_INCLUDE_DIRS}"
-	""
+	SGE_DEPS
+		sgecore
+		sgelog
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
+		${fcppt_filesystem_TARGET}
+		${SGE_PLUGIN_ADDITIONAL_LIBS}
+	TRANSITIVE_ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
+		${Boost_SYSTEM_LIBRARIES}
+	INCLUDE_DIRS
+		"${CMAKE_CURRENT_SOURCE_DIR}/include"
+	TRANSITIVE_INCLUDE_DIRS
+		"${awl_INCLUDE_DIRS}"
 )

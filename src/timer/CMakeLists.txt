@@ -43,10 +43,6 @@ set(
 
 add_sge_base_library(
 	timer
-	""
-	"${fcppt_core_TARGET}"
-	""
-	""
-	""
-	""
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
 )

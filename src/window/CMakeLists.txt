@@ -29,10 +29,6 @@ find_package(
 
 add_sge_base_library(
 	window
-	""
-	"${awl_TARGET}"
-	""
-	""
-	""
-	""
+	ADDITIONAL_DEPS
+		${awl_TARGET}
 )

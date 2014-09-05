@@ -7,10 +7,10 @@ set(
 
 add_sge_base_library(
 	"rucksack/viewport"
-	"sgerenderer;sgerucksack;sgeviewport"
-	"${fcppt_core_TARGET}"
-	""
-	""
-	""
-	""
+	SGE_DEPS
+		sgerenderer
+		sgerucksack
+		sgeviewport
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
 )

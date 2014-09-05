@@ -22,10 +22,14 @@ set(
 
 add_sge_base_library(
 	"font/draw"
-	"sgecore;sgefont;sgeimagecolor;sgeimage2d;sgerenderer;sgesprite;sgetexture"
-	""
-	""
-	""
-	"${CMAKE_CURRENT_SOURCE_DIR}/include"
-	""
+	SGE_DEPS
+		sgecore
+		sgefont
+		sgeimagecolor
+		sgeimage2d
+		sgerenderer
+		sgesprite
+		sgetexture
+	INCLUDE_DIRS
+		"${CMAKE_CURRENT_SOURCE_DIR}/include"
 )

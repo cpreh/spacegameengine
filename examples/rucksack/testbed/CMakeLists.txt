@@ -11,9 +11,18 @@ set(
 
 add_sge_example_library(
 	"rucksack/testbed"
-	"sgeimagecolor;sgelog;sgerenderer;sgerucksack;sgesprite;sgesystems;sgeviewport;sgewindow"
-	"${fcppt_core_TARGET}"
-	""
-	""
-	"${CMAKE_CURRENT_SOURCE_DIR}/include;${CMAKE_CURRENT_SOURCE_DIR}/src/include"
+	SGE_DEPS
+		sgeimagecolor
+		sgelog
+		sgerenderer
+		sgerucksack
+		sgesprite
+		sgesystems
+		sgeviewport
+		sgewindow
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
+	INCLUDE_DIRS
+		"${CMAKE_CURRENT_SOURCE_DIR}/include"
+		"${CMAKE_CURRENT_SOURCE_DIR}/src/include"
 )

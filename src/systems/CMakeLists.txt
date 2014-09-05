@@ -251,10 +251,26 @@ find_package(
 
 add_sge_base_library(
 	systems
-	"sgeaudio;sgeconfig;sgecore;sgefont;sgeimage2d;sgeinput;sgelog;sgeparse;sgeparseini;sgeplugin;sgerenderer;sgesprite;sgeviewport;sgewindow"
-	"${awl_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
-	""
-	""
-	"${CMAKE_CURRENT_SOURCE_DIR}/include"
-	"${awl_INCLUDE_DIRS}"
+	SGE_DEPS
+		sgeaudio
+		sgeconfig
+		sgecore
+		sgefont
+		sgeimage2d
+		sgeinput
+		sgelog
+		sgeparse
+		sgeparseini
+		sgeplugin
+		sgerenderer
+		sgesprite
+		sgeviewport
+		sgewindow
+	ADDITIONAL_DEPS
+		${awl_TARGET}
+		${Boost_FILESYSTEM_LIBRARIES}
+	INCLUDE_DIRS
+		"${CMAKE_CURRENT_SOURCE_DIR}/include"
+	TRANSITIVE_INCLUDE_DIRS
+		${awl_INCLUDE_DIRS}
 )

@@ -152,10 +152,15 @@ set(
 
 add_sge_base_library(
 	camera
-	"sgeinput;sgelog;sgeparsejson;sgerenderer;sgeviewport"
-	"${fcppt_core_TARGET};${fcppt_filesystem_TARGET}"
-	""
-	""
-	"${CMAKE_CURRENT_SOURCE_DIR}/include"
-	""
+	SGE_DEPS
+		sgeinput
+		sgelog
+		sgeparsejson
+		sgerenderer
+		sgeviewport
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
+		${fcppt_filesystem_TARGET}
+	INCLUDE_DIRS
+		"${CMAKE_CURRENT_SOURCE_DIR}/include"
 )

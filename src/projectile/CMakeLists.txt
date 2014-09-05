@@ -125,11 +125,15 @@ set(
 
 add_sge_base_library(
 	projectile
-	"sgeimagecolor;sgeline_drawer;sgelog;sgerenderer"
-	"${fcppt_core_TARGET};${BULLET_LIBRARIES}"
-	""
-	""
-	"${CMAKE_CURRENT_SOURCE_DIR}/include;${BULLET_INCLUDE_DIRS}"
-	""
-	""
+	SGE_DEPS
+		sgeimagecolor
+		sgeline_drawer
+		sgelog
+		sgerenderer
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
+		${BULLET_LIBRARIES}
+	INCLUDE_DIRS
+		"${CMAKE_CURRENT_SOURCE_DIR}/include"
+		${BULLET_INCLUDE_DIRS}
 )

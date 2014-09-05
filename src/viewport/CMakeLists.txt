@@ -38,10 +38,14 @@ find_package(
 
 add_sge_base_library(
 	viewport
-	"sgerenderer;sgewindow"
-	"${awl_TARGET}"
-	""
-	""
-	"${CMAKE_CURRENT_SOURCE_DIR}/include;${awl_INCLUDE_DIRS}"
-	"${awl_INCLUDE_DIRS}"
+	SGE_DEPS
+		sgerenderer
+		sgewindow
+	ADDITIONAL_DEPS
+		${awl_TARGET}
+	INCLUDE_DIRS
+		"${CMAKE_CURRENT_SOURCE_DIR}/include"
+		"${awl_INCLUDE_DIRS}"
+	TRANSITIVE_INCLUDE_DIRS
+		"${awl_INCLUDE_DIRS}"
 )

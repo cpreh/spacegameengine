@@ -22,10 +22,11 @@ set(
 
 add_sge_base_library(
 	line_drawer
-	"sgeimagecolor;sgerenderer"
-	"${fcppt_core_TARGET}"
-	""
-	""
-	"${CMAKE_CURRENT_SOURCE_DIR}/include"
-	""
+	SGE_DEPS
+		sgeimagecolor
+		sgerenderer
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
+	INCLUDE_DIRS
+		"${CMAKE_CURRENT_SOURCE_DIR}/include"
 )

@@ -30,10 +30,16 @@ set(
 
 add_sge_base_library(
 	"font/bitmap"
-	"sgecore;sgefont;sgeimagecolor;sgeimage2d;sgelog;sgeparsejson"
-	"${fcppt_core_TARGET};${fcppt_filesystem_TARGET}"
-	""
-	""
-	"${CMAKE_CURRENT_SOURCE_DIR}/include"
-	""
+	SGE_DEPS
+		sgecore
+		sgefont
+		sgeimagecolor
+		sgeimage2d
+		sgelog
+		sgeparsejson
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
+		${fcppt_filesystem_TARGET}
+	INCLUDE_DIRS
+		"${CMAKE_CURRENT_SOURCE_DIR}/include"
 )

@@ -214,10 +214,16 @@ sge_implement_from_lib(
 
 add_sge_base_library(
 	image2d
-	"sgeimage;sgeimagecolor;sgelog;sgemedia;sgeplugin"
-	""
-	""
-	""
-	"${FCPPT_UTILS_PROJECT_SOURCE_DIR}/src/image/color/include;${FCPPT_UTILS_PROJECT_BINARY_DIR}/src/image/include;${CMAKE_CURRENT_SOURCE_DIR}/include"
-	"${mizuiro_INCLUDE_DIRS}"
+	SGE_DEPS
+		sgeimage
+		sgeimagecolor
+		sgelog
+		sgemedia
+		sgeplugin
+	INCLUDE_DIRS
+		"${FCPPT_UTILS_PROJECT_SOURCE_DIR}/src/image/color/include"
+		"${FCPPT_UTILS_PROJECT_BINARY_DIR}/src/image/include"
+		"${CMAKE_CURRENT_SOURCE_DIR}/include"
+	TRANSITIVE_INCLUDE_DIRS
+		"${mizuiro_INCLUDE_DIRS}"
 )

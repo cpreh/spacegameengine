@@ -14,11 +14,18 @@ set(
 
 add_sge_base_library(
 	"postprocessing"
-	"sgecg;sgeconfig;sgerenderer;sgerenderercg;sgeshader;sgeviewport"
-	"${fcppt_core_TARGET};${fcppt_filesystem_TARGET}"
-	""
-	""
-	"${Cg_INCLUDE_DIRS}"
-	""
-	"sgeshader"
+	SGE_DEPS
+		sgecg
+		sgeconfig
+		sgerenderer
+		sgerenderercg
+		sgeshader
+		sgeviewport
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
+		${fcppt_filesystem_TARGET}
+	TRANSITIVE_SGE_DEPS
+		sgeshader
+	INCLUDE_DIRS
+		"${Cg_INCLUDE_DIRS}"
 )

@@ -23,10 +23,6 @@ set(
 
 add_sge_base_library(
 	log
-	""
-	"${fcppt_core_TARGET}"
-	""
-	""
-	""
-	""
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
 )

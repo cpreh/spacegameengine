@@ -433,10 +433,12 @@ find_package(
 
 add_sge_base_library(
 	sprite
-	"sgerenderer"
-	"${fcppt_core_TARGET}"
-	""
-	""
-	"${majutsu_INCLUDE_DIRS}"
-	"${majutsu_INCLUDE_DIRS}"
+	SGE_DEPS
+		sgerenderer
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
+	INCLUDE_DIRS
+		${majutsu_INCLUDE_DIRS}
+	TRANSITIVE_INCLUDE_DIRS
+		${majutsu_INCLUDE_DIRS}
 )

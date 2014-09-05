@@ -132,10 +132,14 @@ sge_implement_from_lib(
 
 add_sge_base_library(
 	font
-	"sgecore;sgelog;sgeplugin"
-	""
-	"sgecore"
-	""
-	"${mizuiro_INCLUDE_DIRS}"
-	"${mizuiro_INCLUDE_DIRS}"
+	SGE_DEPS
+		sgecore
+		sgelog
+		sgeplugin
+	TRANSITIVE_SGE_DEPS
+		sgecore
+	INCLUDE_DIRS
+		${mizuiro_INCLUDE_DIRS}
+	TRANSITIVE_INCLUDE_DIRS
+		${mizuiro_INCLUDE_DIRS}
 )

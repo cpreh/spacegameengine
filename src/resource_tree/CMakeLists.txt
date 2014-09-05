@@ -26,10 +26,10 @@ set(
 
 add_sge_base_library(
 	resource_tree
-	"sgecore"
-	"${fcppt_filesystem_TARGET}"
-	""
-	"${fcppt_filesystem_TARGET}"
-	""
-	""
+	SGE_DEPS
+		sgecore
+	ADDITIONAL_DEPS
+		${fcppt_filesystem_TARGET}
+	TRANSITIVE_ADDITIONAL_DEPS
+		${fcppt_filesystem_TARGET}
 )

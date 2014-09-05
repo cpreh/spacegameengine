@@ -125,10 +125,23 @@ set(
 
 add_sge_base_library(
 	cegui
-	"sgecharconv;sgeimagecolor;sgeimage2d;sgeinput;sgelog;sgerenderer;sgeviewport"
-	"${fcppt_core_TARGET};${fcppt_filesystem_TARGET};${CEGUI_LIBRARIES}"
-	""
-	"${CEGUI_LIBRARIES}"
-	"${CEGUI_INCLUDE_DIRS};${CMAKE_CURRENT_SOURCE_DIR}/include"
-	"${CEGUI_INCLUDE_DIRS}"
+	SGE_DEPS
+		sgecharconv
+		sgeimagecolor
+		sgeimage2d
+		sgeinput
+		sgelog
+		sgerenderer
+		sgeviewport
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
+		${fcppt_filesystem_TARGET}
+		${CEGUI_LIBRARIES}
+	TRANSITIVE_ADDITIONAL_DEPS
+		${CEGUI_LIBRARIES}
+	INCLUDE_DIRS
+		${CEGUI_INCLUDE_DIRS}
+		"${CMAKE_CURRENT_SOURCE_DIR}/include"
+	TRANSITIVE_INCLUDE_DIRS
+		${CEGUI_INCLUDE_DIRS}
 )

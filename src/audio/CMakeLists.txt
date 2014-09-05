@@ -119,10 +119,15 @@ sge_implement_from_lib(
 
 add_sge_base_library(
 	audio
-	"sgecore;sgelog;sgemedia;sgeplugin"
-	"${Boost_filesystem_LIBRARIES}"
-	"sgecore"
-	""
-	"${CMAKE_CURRENT_SOURCE_DIR}/include"
-	""
+	SGE_DEPS
+		sgecore
+		sgelog
+		sgemedia
+		sgeplugin
+	ADDITIONAL_DEPS
+		${Boost_filesystem_LIBRARIES}
+	TRANSITIVE_SGE_DEPS
+		sgecore
+	INCLUDE_DIRS
+		"${CMAKE_CURRENT_SOURCE_DIR}/include"
 )

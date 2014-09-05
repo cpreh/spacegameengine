@@ -1,3 +1,7 @@
+include(
+	CMakeParseArguments
+)
+
 function(
 	sge_link_target
 	LIBNAME
@@ -119,17 +123,35 @@ function(
 	add_sge_base_library_variant
 	SGE_LIB_NAME
 	SGE_LIB_FILES
-	SGE_DEPS
-	ADDITIONAL_DEPS
-	TRANSITIVE_SGE_DEPS
-	TRANSITIVE_ADDITIONAL_DEPS
-	INCLUDE_DIRS
-	TRANSITIVE_INCLUDE_DIRS
-	VARIANT
-	BASE_VARIANT
 )
+	set(
+		SINGLE_ARGS
+		VARIANT
+		BASE_VARIANT
+	)
+
+	set(
+		MULTI_ARGS
+		SGE_DEPS
+		ADDITIONAL_DEPS
+		TRANSITIVE_SGE_DEPS
+		TRANSITIVE_ADDITIONAL_DEPS
+		INCLUDE_DIRS
+		TRANSITIVE_INCLUDE_DIRS
+		COMPILE_DEFINITIONS
+		TRANSITIVE_COMPILE_DEFINITIONS
+	)
+
+	cmake_parse_arguments(
+		""
+		""
+		"${SINGLE_ARGS}"
+		"${MULTI_ARGS}"
+		${ARGN}
+	)
+
 	if(
-		${VARIANT} STREQUAL "STATIC"
+		${_VARIANT} STREQUAL "STATIC"
 	)
 		set(
 			SGE_LIB_NAME
@@ -139,7 +161,7 @@ function(
 
 	add_library(
 		${SGE_LIB_NAME}
-		${VARIANT}
+		${_VARIANT}
 		${SGE_LIB_FILES}
 	)
 
@@ -154,36 +176,44 @@ function(
 
 	fcppt_utils_interface_static_link(
 		${SGE_LIB_NAME}
-		${VARIANT}
+		${_VARIANT}
 		"SGE_STATIC_LINK"
 	)
 
 	transform_sge_link_targets(
-		"${SGE_DEPS}"
+		"${_SGE_DEPS}"
 		SGE_DEPS_RESULT
 	)
 
 	transform_sge_link_targets(
-		"${TRANSITIVE_SGE_DEPS}"
+		"${_TRANSITIVE_SGE_DEPS}"
 		TRANSITIVE_SGE_DEPS_RESULT
 	)
 
 	target_link_libraries(
 		${SGE_LIB_NAME}
 		PRIVATE
-		${ADDITIONAL_DEPS}
+		${_ADDITIONAL_DEPS}
 		${SGE_DEPS_RESULT}
 		INTERFACE
 		${TRANSITIVE_SGE_DEPS_RESULT}
-		${TRANSITIVE_ADDITIONAL_DEPS}
+		${_TRANSITIVE_ADDITIONAL_DEPS}
 	)
 
 	target_include_directories(
 		${SGE_LIB_NAME}
 		PRIVATE
-		${INCLUDE_DIRS}
+		${_INCLUDE_DIRS}
 		INTERFACE
-		${TRANSITIVE_INCLUDE_DIRS}
+		${_TRANSITIVE_INCLUDE_DIRS}
+	)
+
+	target_compile_definitions(
+		${SGE_LIB_NAME}
+		PRIVATE
+		${_COMPILE_DEFINITIONS}
+		INTERFACE
+		${_TRANSITIVE_COMPILE_DEFINITIONS}
 	)
 
 	fcppt_utils_add_target_include_dir(
@@ -193,9 +223,9 @@ function(
 
 	#Dummy and example libs should not be exported
 	if(
-		NOT "${BASE_VARIANT}" STREQUAL "DUMMY"
+		NOT "${_BASE_VARIANT}" STREQUAL "DUMMY"
 		AND
-		NOT "${BASE_VARIANT}" STREQUAL "EXAMPLE"
+		NOT "${_BASE_VARIANT}" STREQUAL "EXAMPLE"
 	)
 		fcppt_utils_export_install_target(
 			"${SGE_LIB_NAME}"
@@ -219,14 +249,32 @@ endfunction()
 function(
 	add_sge_base_library_base
 	RELATIVE_PATH
-	SGE_DEPS
-	ADDITIONAL_DEPS
-	TRANSITIVE_SGE_DEPS
-	TRANSITIVE_ADDITIONAL_DEPS
-	INCLUDE_DIRS
-	TRANSITIVE_INCLUDE_DIRS
-	BASE_VARIANT
 )
+	set(
+		SINGLE_ARGS
+		BASE_VARIANT
+	)
+
+	set(
+		MULTI_ARGS
+		SGE_DEPS
+		ADDITIONAL_DEPS
+		TRANSITIVE_SGE_DEPS
+		TRANSITIVE_ADDITIONAL_DEPS
+		INCLUDE_DIRS
+		TRANSITIVE_INCLUDE_DIRS
+		COMPILE_DEFINITIONS
+		TRANSITIVE_COMPILE_DEFINITIONS
+	)
+
+	cmake_parse_arguments(
+		""
+		""
+		"${SINGLE_ARGS}"
+		"${MULTI_ARGS}"
+		${ARGN}
+	)
+
 	string(
 		REPLACE
 		"/"
@@ -246,6 +294,16 @@ function(
 		sge${LIB_NAME}
 	)
 
+	check_library_deps(
+		"${LIB_NAME}"
+		"${_SGE_DEPS}"
+	)
+
+	check_library_deps(
+		"${LIB_NAME}"
+		"${_TRANSITIVE_SGE_DEPS}"
+	)
+
 	fcppt_utils_append_source_dir_and_make_groups(
 		"${SGE_${UPPER_LIB_NAME}_FILES}"
 		SGE_${UPPER_LIB_NAME}_FILES_ABS
@@ -257,7 +315,7 @@ function(
 	)
 
 	if(
-		"${BASE_VARIANT}" STREQUAL "DUMMY"
+		"${_BASE_VARIANT}" STREQUAL "DUMMY"
 	)
 		set(
 			SGE_DUMMY_SOURCE_FILE
@@ -309,54 +367,34 @@ function(
 		)
 	endif()
 
-	check_library_deps(
-		"${LIB_NAME}"
-		"${SGE_DEPS}"
-	)
-
-	check_library_deps(
-		"${LIB_NAME}"
-		"${TRANSITIVE_SGE_DEPS}"
-	)
-
 	if(
 		ENABLE_SHARED
 	)
 		add_sge_base_library_variant(
 			${SGE_LIB_NAME}
 			"${SGE_LIB_FILES}"
-			"${SGE_DEPS}"
-			"${ADDITIONAL_DEPS}"
-			"${TRANSITIVE_SGE_DEPS}"
-			"${TRANSITIVE_ADDITIONAL_DEPS}"
-			"${INCLUDE_DIRS}"
-			"${TRANSITIVE_INCLUDE_DIRS}"
-			SHARED
-			"${BASE_VARIANT}"
+			VARIANT
+			"SHARED"
+			${ARGN}
 		)
 	endif()
 
 	if(
 		ENABLE_STATIC
 		AND NOT
-		"${BASE_VARIANT}" STREQUAL "DUMMY"
+		"${_BASE_VARIANT}" STREQUAL "DUMMY"
 	)
 		add_sge_base_library_variant(
 			${SGE_LIB_NAME}
 			"${SGE_LIB_FILES}"
-			"${SGE_DEPS}"
-			"${ADDITIONAL_DEPS}"
-			"${TRANSITIVE_SGE_DEPS}"
-			"${TRANSITIVE_ADDITIONAL_DEPS}"
-			"${INCLUDE_DIRS}"
-			"${TRANSITIVE_INCLUDE_DIRS}"
-			STATIC
-			"${BASE_VARIANT}"
+			VARIANT
+			"STATIC"
+			${ARGN}
 		)
 	endif()
 
 	if(
-		NOT "${BASE_VARIANT}" STREQUAL "EXAMPLE"
+		NOT "${_BASE_VARIANT}" STREQUAL "EXAMPLE"
 	)
 		get_filename_component(
 			DEST_INCLUDE_PATH
@@ -370,7 +408,7 @@ function(
 		)
 
 		if(
-			NOT "${BASE_VARIANT}" STREQUAL "DUMMY"
+			NOT "${_BASE_VARIANT}" STREQUAL "DUMMY"
 		)
 			list(
 				APPEND
@@ -384,10 +422,6 @@ function(
 			${SGE_INSTALL_INCLUDE_DIRS}
 			DESTINATION
 			"${INSTALL_INCLUDE_DIR}/sge/${DEST_INCLUDE_PATH}"
-		)
-
-		unset(
-			SGE_INSTALL_INCLUDE_DIRS
 		)
 	endif()
 endfunction()
@@ -422,15 +456,16 @@ endfunction()
 #	A list of include directories a consumer of the library needs to be
 #	built.
 #
-macro(
+# COMPILE_DEFINITIONS:
+#	A list of compile definitions to add.
+#
+# TRANSITIVE_COMPILE_DEFINITIONS:
+#	A list of compile definitions other libraries have to use that link to
+#	this one.
+#
+function(
 	add_sge_base_library
 	RELATIVE_PATH
-	SGE_DEPS
-	ADDITIONAL_DEPS
-	TRANSITIVE_SGE_DEPS
-	TRANSITIVE_ADDITIONAL_DEPS
-	INCLUDE_DIRS
-	TRANSITIVE_INCLUDE_DIRS
 )
 	string(
 		REPLACE
@@ -460,65 +495,37 @@ macro(
 		"${SGE_LIBS}"
 	)
 
-	unset(
-		LIB_NAME
-	)
-
-	unset(
-		SGE_LIBS
-	)
-
 	add_sge_base_library_base(
 		"${RELATIVE_PATH}"
-		"${SGE_DEPS}"
-		"${ADDITIONAL_DEPS}"
-		"${TRANSITIVE_SGE_DEPS}"
-		"${TRANSITIVE_ADDITIONAL_DEPS}"
-		"${INCLUDE_DIRS}"
-		"${TRANSITIVE_INCLUDE_DIRS}"
+		BASE_VARIANT
 		""
-	)
-endmacro()
-
-function(
-	add_sge_dummy_library
-	RELATIVE_PATH
-	SGE_DEPS
-	ADDITIONAL_DEPS
-	TRANSITIVE_SGE_DEPS
-	TRANSITIVE_ADDITIONAL_DEPS
-	INCLUDE_DIRS
-)
-	add_sge_base_library_base(
-		"${RELATIVE_PATH}"
-		"${SGE_DEPS}"
-		"${ADDITIONAL_DEPS}"
-		"${TRANSITIVE_SGE_DEPS}"
-		"${TRANSITIVE_ADDITIONAL_DEPS}"
-		"${INCLUDE_DIRS}"
-		"${INCLUDE_DIRS}"
-		"DUMMY"
+		${ARGN}
 	)
 endfunction()
 
+# See add_sge_base_library
 function(
-	add_sge_example_library
+	add_sge_dummy_library
 	RELATIVE_PATH
-	SGE_DEPS
-	ADDITIONAL_DEPS
-	TRANSITIVE_SGE_DEPS
-	TRANSITIVE_ADDITIONAL_DEPS
-	INCLUDE_DIRS
 )
 	add_sge_base_library_base(
 		"${RELATIVE_PATH}"
-		"${SGE_DEPS}"
-		"${ADDITIONAL_DEPS}"
-		"${TRANSITIVE_SGE_DEPS}"
-		"${TRANSITIVE_ADDITIONAL_DEPS}"
-		"${INCLUDE_DIRS}"
-		""
+		BASE_VARIANT
+		"DUMMY"
+		${ARGN}
+	)
+endfunction()
+
+# See add_sge_base_library
+function(
+	add_sge_example_library
+	RELATIVE_PATH
+)
+	add_sge_base_library_base(
+		"${RELATIVE_PATH}"
+		BASE_VARIANT
 		"EXAMPLE"
+		${ARGN}
 	)
 endfunction()
 
@@ -554,14 +561,10 @@ function(
 	add_sge_base_library_variant(
 		sgecore
 		"${SGE_CORE_FILES}"
-		""
+		ADDITIONAL_DEPS
 		"${fcppt_core_TARGET}"
-		""
-		""
-		""
-		""
+		VARIANT
 		"${VARIANT}"
-		""
 	)
 endfunction()
 
