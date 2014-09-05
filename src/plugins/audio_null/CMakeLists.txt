@@ -15,7 +15,7 @@ set(
 
 add_sge_plugin(
 	audio_null
-	"sgeaudio;sgeplugin"
-	""
-	""
+	SGE_DEPS
+		sgeaudio
+		sgeplugin
 )

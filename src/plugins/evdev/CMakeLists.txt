@@ -134,7 +134,12 @@ find_package(
 
 add_sge_plugin(
 	evdev
-	"sgeinput;sgelog;sgeplugin;sgewindow"
-	"${awl_TARGET};${fcppt_filesystem_TARGET}"
-	""
+	SGE_DEPS
+		sgeinput
+		sgelog
+		sgeplugin
+		sgewindow
+	ADDITIONAL_DEPS
+		${awl_TARGET}
+		${fcppt_filesystem_TARGET}
 )

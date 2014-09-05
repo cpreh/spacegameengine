@@ -193,7 +193,17 @@ find_package(
 
 add_sge_plugin(
 	x11input
-	"sgeinput;sgelog;sgeplugin;sgewindow"
-	"${fcppt_core_TARGET};${awl_TARGET};${X11_X11_LIB};${X11_Xinput_LIB}"
-	"${X11_X11_INCLUDE_PATH};${X11_Xinput_INCLUDE_PATH}"
+	SGE_DEPS
+		sgeinput
+		sgelog
+		sgeplugin
+		sgewindow
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
+		${awl_TARGET}
+		${X11_X11_LIB}
+		${X11_Xinput_LIB}
+	INCLUDE_DIRS
+		${X11_X11_INCLUDE_PATH}
+		${X11_Xinput_INCLUDE_PATH}
 )

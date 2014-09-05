@@ -1375,7 +1375,11 @@ elseif(
 		"${SGE_OPENGL_FILES};${SGE_OPENGL_COCOA_FILES}"
 	)
 
-	add_definitions(-fobjc-arc)
+	list(
+		APPEND
+		SGE_OPENGL_DEFINITIONS
+		"-fobjc-arc"
+	)
 
 	set(
 		SGE_OPENGL_ADDITIONAL_DEPS
@@ -1469,17 +1473,21 @@ list(
 	"${awl_INCLUDE_DIRS}"
 )
 
-add_definitions(
+list(
+	APPEND
+	SGE_OPENGL_DEFINITIONS
 	${GLEW_DEFINITIONS}
-)
-
-add_definitions(
 	"-D GLEW_NO_GLU"
 )
 
 add_sge_plugin(
 	opengl
-	"${SGE_OPENGL_SGE_DEPS}"
-	"${SGE_OPENGL_ADDITIONAL_DEPS}"
-	"${SGE_OPENGL_INCLUDE_DIRS}"
+	SGE_DEPS
+		${SGE_OPENGL_SGE_DEPS}
+	ADDITIONAL_DEPS
+		${SGE_OPENGL_ADDITIONAL_DEPS}
+	INCLUDE_DIRS
+		${SGE_OPENGL_INCLUDE_DIRS}
+	COMPILE_DEFINITIONS
+		${SGE_OPENGL_DEFINITIONS}
 )

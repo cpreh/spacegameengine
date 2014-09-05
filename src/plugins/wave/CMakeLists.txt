@@ -14,7 +14,10 @@ set(
 
 add_sge_plugin(
 	wave
-	"sgeaudio;sgelog;sgeplugin"
-	"${fcppt_filesystem_TARGET}"
-	""
+	SGE_DEPS
+		sgeaudio
+		sgelog
+		sgeplugin
+	ADDITIONAL_DEPS
+		${fcppt_filesystem_TARGET}
 )

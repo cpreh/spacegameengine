@@ -741,43 +741,21 @@ set(
 
 set(
 	SGE_D3D9_SGE_DEPS
-	"sgeimage2d;sgeimage3d;sgeimagecolor;sgeimageds;sgeimageds2d;sgelog;sgeplugin;sgerenderer;sgewindow"
+	sgeimage2d
+	sgeimage3d
+	sgeimagecolor
+	sgeimageds
+	sgeimageds2d
+	sgelog
+	sgeplugin
+	sgerenderer
+	sgewindow
 )
 
 set(
 	SGE_D3D9_ADDITIONAL_DEPS
-	"${awl_TARGET};${D3D9_LIBRARIES}"
-)
-
-if(
-	ENABLE_CG
-)
-	set(
-		SGE_D3D9_ADDITIONAL_INCLUDE_DIRS
-		"${Cg_INCLUDE_DIRS}"
-	)
-
-	set(
-		SGE_D3D9_FILES
-		"${SGE_D3D9_FILES};${SGE_D3D9_CG_FILES}"
-	)
-
-	set(
-		SGE_D3D9_ADDITIONAL_DEPS
-		"${SGE_D3D9_ADDITIONAL_DEPS};${Cg_LIBRARIES};${Cg_D3D9_LIBRARIES}"
-	)
-
-	set(
-		SGE_D3D9_SGE_DEPS
-		"${SGE_D3D9_SGE_DEPS};sgecg;sgerenderercg"
-	)
-endif()
-
-add_sge_plugin(
-	"d3d9"
-	"${SGE_D3D9_SGE_DEPS}"
-	"${SGE_D3D9_ADDITIONAL_DEPS}"
-	"${D3D9_INCLUDE_DIRS};${SGE_D3D9_ADDITIONAL_INCLUDE_DIRS}"
+	${awl_TARGET}
+	${D3D9_LIBRARIES}
 )
 
 # For some reason, it's not possible to ignore these warnings in gcc via
@@ -788,11 +766,51 @@ if(
 	NOT
 	FCPPT_UTILS_COMPILER_IS_CLANGPP
 )
-	# TODO: Make it possible to add this to the add_sge_plugin macro
-	target_compile_options(
-		sged3d9
-		PRIVATE
+	set(
+		SGE_D3D9_COMPILE_DEFINITIONS
 		"-Wno-comment"
 		"-Wno-unknown-pragmas"
 	)
 endif()
+
+if(
+	ENABLE_CG
+)
+	set(
+		SGE_D3D9_ADDITIONAL_INCLUDE_DIRS
+		${Cg_INCLUDE_DIRS}
+	)
+
+	list(
+		APPEND
+		SGE_D3D9_FILES
+		${SGE_D3D9_CG_FILES}
+	)
+
+	list(
+		APPEND
+		SGE_D3D9_ADDITIONAL_DEPS
+		${Cg_LIBRARIES}
+		${Cg_D3D9_LIBRARIES}
+	)
+
+	list(
+		APPEND
+		SGE_D3D9_SGE_DEPS
+		sgecg
+		sgerenderercg
+	)
+endif()
+
+add_sge_plugin(
+	"d3d9"
+	SGE_DEPS
+		${SGE_D3D9_SGE_DEPS}
+	ADDITIONAL_DEPS
+		${SGE_D3D9_ADDITIONAL_DEPS}
+	INCLUDE_DIRS
+		${D3D9_INCLUDE_DIRS};
+		${SGE_D3D9_ADDITIONAL_INCLUDE_DIRS}
+	COMPILE_DEFINITIONS
+		${SGE_D3D9_COMPILE_DEFINITIONS}
+)

@@ -568,13 +568,45 @@ function(
 	)
 endfunction()
 
+# add_sge_plugin
+#
+# Adds an sge plugin
+#
+# PLUGIN_NAME:
+#	The name of the plugin.
+#
+# SGE_DEPS:
+#	A list of sge libraries that this library depends on.
+#
+# ADDITIONAL_DEPS:
+#	A list of additional (not sge) libraries that this library depends on.
+#
+# INCLUDE_DIRS:
+#	A list of include directories the library needs to be built.
+#
+# COMPILE_DEFINITIONS:
+#	A list of compile definitions to add.
+#
 function(
 	add_sge_plugin
 	PLUGIN_NAME
-	SGE_DEPS
-	ADDITONAL_DEPS
-	INCLUDE_DIRS
 )
+	set(
+		MULTI_ARGS
+		SGE_DEPS
+		ADDITIONAL_DEPS
+		INCLUDE_DIRS
+		COMPILE_DEFINITIONS
+	)
+
+	cmake_parse_arguments(
+		""
+		""
+		""
+		"${MULTI_ARGS}"
+		${ARGN}
+	)
+
 	set(
 		SGE_PLUGIN_NAME
 		sge${PLUGIN_NAME}
@@ -598,13 +630,13 @@ function(
 	)
 
 	transform_sge_link_targets(
-		"${SGE_DEPS}"
+		"${_SGE_DEPS}"
 		SGE_DEPS_RESULT
 	)
 
 	check_library_deps(
 		"${PLUGIN_NAME}"
-		"${SGE_DEPS}"
+		"${_SGE_DEPS}"
 	)
 
 	fcppt_utils_set_target_compiler_flags(
@@ -615,13 +647,19 @@ function(
 		${SGE_PLUGIN_NAME}
 		PRIVATE
 		${CMAKE_CURRENT_SOURCE_DIR}/include
-		${INCLUDE_DIRS}
+		${_INCLUDE_DIRS}
+	)
+
+	target_compile_definitions(
+		${SGE_PLUGIN_NAME}
+		PRIVATE
+		${_COMPILE_DEFINITIONS}
 	)
 
 	target_link_libraries(
 		${SGE_PLUGIN_NAME}
 		PRIVATE
-		${ADDITONAL_DEPS}
+		${_ADDITIONAL_DEPS}
 		${SGE_DEPS_RESULT}
 	)
 

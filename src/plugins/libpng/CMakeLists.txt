@@ -72,13 +72,19 @@ set(
 	src/plugins/libpng/src/write_ptr.cpp
 )
 
-add_definitions(
-	${PNG_DEFINITIONS}
-)
-
 add_sge_plugin(
 	libpng
-	"sgeimage;sgeimagecolor;sgeimage2d;sgelog;sgeplugin"
-	"${Boost_FILESYSTEM_LIBRARIES};${PNG_LIBRARIES}"
-	"${PNG_INCLUDE_DIR}"
+	SGE_DEPS
+		sgeimage
+		sgeimagecolor
+		sgeimage2d
+		sgelog
+		sgeplugin
+	ADDITIONAL_DEPS
+		${Boost_FILESYSTEM_LIBRARIES}
+		${PNG_LIBRARIES}
+	INCLUDE_DIRS
+		${PNG_INCLUDE_DIR}
+	COMPILE_DEFINITIONS
+		${PNG_DEFINITIONS}
 )

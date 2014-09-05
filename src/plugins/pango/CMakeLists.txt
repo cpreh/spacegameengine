@@ -54,13 +54,23 @@ link_directories(
 	${PANGO_LIBRARY_DIRS}
 )
 
+# TODO
 add_definitions(
 	${PANGO_CFLAGS}
 )
 
 add_sge_plugin(
 	pango
-	"sgecharconv;sgefont;sgeimagecolor;sgeimage2d;sgeplugin"
-	"${PANGO_LIBRARIES};${fcppt_filesystem_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
-	"${PANGO_INCLUDE_DIRS}"
+	SGE_DEPS
+		sgecharconv
+		sgefont
+		sgeimagecolor
+		sgeimage2d
+		sgeplugin
+	ADDITIONAL_DEPS
+		${PANGO_LIBRARIES}
+		${fcppt_filesystem_TARGET}
+		${Boost_FILESYSTEM_LIBRARIES}
+	INCLUDE_DIRS
+		${PANGO_INCLUDE_DIRS}
 )

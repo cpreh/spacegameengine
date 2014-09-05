@@ -14,7 +14,16 @@ set(
 
 add_sge_plugin(
 	vorbis
-	"sgeaudio;sgelog;sgeplugin"
-	"${fcppt_filesystem_TARGET};${OGG_LIBRARY};${VORBIS_LIBRARY};${VORBIS_FILE_LIBRARY}"
-	"${VORBIS_INCLUDE_DIR};${OGG_INCLUDE_DIR}"
+	SGE_DEPS
+		sgeaudio
+		sgelog
+		sgeplugin
+	ADDITIONAL_DEPS
+		${fcppt_filesystem_TARGET}
+		${OGG_LIBRARY}
+		${VORBIS_LIBRARY}
+		${VORBIS_FILE_LIBRARY}
+	INCLUDE_DIRS
+		${VORBIS_INCLUDE_DIR}
+		${OGG_INCLUDE_DIR}
 )
