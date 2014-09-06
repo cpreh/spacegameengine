@@ -23,6 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/state/error_handler.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -36,19 +39,23 @@ template<
 	typename Result,
 	typename Actor
 >
-Result const
+Result
 wrap_error_handler(
 	Actor const &_actor,
-	fcppt::string const &_name
+	fcppt::string &&_name
 )
 {
 	return
-		sge::opengl::state::error_handler<
-			Actor
-		>(
-			_actor,
-			_name
-		);
+		Result{
+			sge::opengl::state::error_handler<
+				Actor
+			>(
+				_actor,
+				std::move(
+					_name
+				)
+			)
+		};
 }
 
 }

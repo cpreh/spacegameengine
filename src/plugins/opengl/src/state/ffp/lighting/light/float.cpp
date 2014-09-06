@@ -23,10 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/wrap_error_handler.hpp>
 #include <sge/opengl/state/ffp/lighting/light/float.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/phoenix/bind.hpp>
-#include <boost/phoenix/core/argument.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::opengl::state::index_actor
@@ -39,12 +35,19 @@ sge::opengl::state::ffp::lighting::light::float_(
 		sge::opengl::state::wrap_error_handler<
 			sge::opengl::state::index_actor
 		>(
-			boost::phoenix::bind(
-				::glLightf,
-				boost::phoenix::arg_names::arg1,
+			[
 				_name,
 				_value
-			),
+			](
+				GLenum const _index
+			)
+			{
+				::glLightf(
+					_index,
+					_name,
+					_value
+				);
+			},
 			FCPPT_TEXT("glLightf")
 		);
 }

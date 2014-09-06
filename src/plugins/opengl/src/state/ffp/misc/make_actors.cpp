@@ -30,7 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/join.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/phoenix/bind.hpp>
 #include <functional>
 #include <fcppt/config/external_end.hpp>
 
@@ -52,7 +51,7 @@ sge::opengl::state::ffp::misc::make_actors(
 				sge::opengl::state::wrap_error_handler<
 					sge::opengl::state::actor
 				>(
-					boost::phoenix::bind(
+					std::bind(
 						::glLightModeli,
 						GL_LIGHT_MODEL_LOCAL_VIEWER,
 						_parameters.local_viewer().get()

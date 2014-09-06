@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/rasterizer/cull_mode.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/phoenix/bind.hpp>
 #include <functional>
 #include <fcppt/config/external_end.hpp>
 
@@ -59,7 +58,7 @@ sge::opengl::state::core::rasterizer::cull_mode(
 				sge::opengl::state::wrap_error_handler<
 					sge::opengl::state::actor
 				>(
-					boost::phoenix::bind(
+					std::bind(
 						::glCullFace,
 						sge::opengl::state::convert::cull_mode(
 							_mode

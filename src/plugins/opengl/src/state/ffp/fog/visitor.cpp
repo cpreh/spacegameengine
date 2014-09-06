@@ -31,7 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/fog/off_fwd.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/phoenix/bind.hpp>
 #include <functional>
 #include <fcppt/config/external_end.hpp>
 
@@ -64,7 +63,7 @@ sge::opengl::state::ffp::fog::visitor::operator()(
 			sge::opengl::state::wrap_error_handler<
 				sge::opengl::state::actor
 			>(
-				boost::phoenix::bind(
+				std::bind(
 					::glFogi,
 					GL_FOG_MODE,
 					sge::opengl::state::convert::fog_mode(

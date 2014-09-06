@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/ffp/fog/float.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/phoenix/bind.hpp>
+#include <functional>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -38,7 +38,7 @@ sge::opengl::state::ffp::fog::float_(
 		sge::opengl::state::wrap_error_handler<
 			sge::opengl::state::actor
 		>(
-			boost::phoenix::bind(
+			std::bind(
 				::glFogf,
 				_what,
 				_value

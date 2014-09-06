@@ -24,6 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/check_error.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -44,51 +47,45 @@ class error_handler
 public:
 	error_handler(
 		Actor const &_actor,
-		fcppt::string const &_name
+		fcppt::string &&_name
 	)
 	:
-		actor_(
+		actor_{
 			_actor
-		),
-		name_(
-			_name
-		)
+		},
+		name_{
+			std::move(
+				_name
+			)
+		}
 	{
 	}
 
-	typedef void result_type;
-
-	result_type
-	operator()() const
-	{
-		actor_();
-
-		this->check_error();
-	}
+	typedef
+	void
+	result_type;
 
 	template<
-		typename Arg1
+		typename... Args
 	>
 	result_type
 	operator()(
-		Arg1 const &_arg1
+		Args && ..._args
 	) const
 	{
 		actor_(
-			_arg1
+			std::forward<
+				Args
+			>(
+				_args
+			)...
 		);
 
-		this->check_error();
-	}
-private:
-	void
-	check_error() const
-	{
 		sge::opengl::state::check_error(
 			name_
 		);
 	}
-
+private:
 	Actor const actor_;
 
 	fcppt::string const name_;

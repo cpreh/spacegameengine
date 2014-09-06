@@ -209,7 +209,6 @@ set(
 	src/plugins/opengl/include/sge/opengl/srgb_context_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/state/actor.hpp
 	src/plugins/opengl/include/sge/opengl/state/actor_vector.hpp
-	src/plugins/opengl/include/sge/opengl/state/bind_data_getter.hpp
 	src/plugins/opengl/include/sge/opengl/state/check_error.hpp
 	src/plugins/opengl/include/sge/opengl/state/convert/address_mode.hpp
 	src/plugins/opengl/include/sge/opengl/state/convert/address_mode_type.hpp

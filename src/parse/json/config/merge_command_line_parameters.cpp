@@ -28,36 +28,51 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/config/command_line_parameters.hpp>
 #include <sge/parse/json/config/help_needed_exception.hpp>
 #include <sge/parse/json/config/merge_command_line_parameters.hpp>
-#include <fcppt/optional.hpp>
+#include <fcppt/make_ref.hpp>
+#include <fcppt/optional_impl.hpp>
+#include <fcppt/reference_wrapper_impl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/algorithm/fold.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/algorithm/shortest_levenshtein.hpp>
 #include <fcppt/assert/error.hpp>
+#include <fcppt/io/cout.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/fusion/container/vector.hpp>
 #include <boost/fusion/sequence/intrinsic/at.hpp>
-#include <boost/range/numeric.hpp>
-#include <boost/phoenix/bind.hpp>
-#include <boost/phoenix/core/argument.hpp>
-#include <boost/phoenix/operator/self.hpp>
-#include <boost/spirit/home/support/common_terminals.hpp>
-#include <boost/spirit/include/qi.hpp>
-#include <iostream>
-#include <ostream>
+#include <boost/range/iterator_range_core.hpp>
+#include <boost/spirit/include/qi_char.hpp>
+#include <boost/spirit/include/qi_lit.hpp>
+#include <boost/spirit/include/qi_operator.hpp>
+#include <boost/spirit/include/qi_parse.hpp>
+#include <boost/spirit/include/support_standard.hpp>
+#include <iterator>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
 
 namespace
 {
+
 void
 process_option(
-	sge::parse::json::object &o,
-	fcppt::string const &input)
+	sge::parse::json::object &_object,
+	fcppt::string const &_input
+)
 {
-	typedef std::vector<fcppt::string> string_vector;
-	typedef boost::fusion::vector<string_vector,fcppt::string> result_type;
+	typedef
+	std::vector<
+		fcppt::string
+	>
+	string_vector;
+
+	typedef
+	boost::fusion::vector<
+		string_vector,
+		fcppt::string
+	>
+	result_type;
 
 	namespace encoding = boost::spirit::standard;
 
@@ -65,45 +80,74 @@ process_option(
 
 	if(
 		!boost::spirit::qi::parse(
-			input.begin(),
-			input.end(),
+			_input.begin(),
+			_input.end(),
 			(
 				*~encoding::char_("/=")
 				% boost::spirit::lit('/')
 			)
 			>> boost::spirit::lit('=')
 			>> *encoding::char_,
-			result ) )
-		throw sge::parse::exception(
-			FCPPT_TEXT("The command line parameter \"")+
-			input+
-			FCPPT_TEXT("\" has an invalid format. See --help to see what that means."));
+			result
+		)
+	)
+		throw sge::parse::exception{
+			FCPPT_TEXT("The command line parameter \"")
+			+
+			_input
+			+
+			FCPPT_TEXT("\" has an invalid format. See --help to see what that means.")
+		};
+
+	string_vector &first{
+		boost::fusion::at_c<
+			0
+		>(
+			result
+		)
+	};
 
 	// If this is true, we have no left hand side of the '=' sign, which
 	// cannot be!
 	FCPPT_ASSERT_ERROR(
-		!boost::fusion::at_c<0>(result).empty());
+		!first.empty()
+	);
 
-	fcppt::string const element =
-		boost::fusion::at_c<0>(result).back();
+	fcppt::string const element{
+		first.back()
+	};
 
-	boost::fusion::at_c<0>(result).pop_back();
+	first.pop_back();
 
-	sge::parse::json::object *target =
-		boost::accumulate(
-			boost::fusion::at_c<0>(
-				result),
-			&o,
-			&boost::phoenix::bind(
-				&sge::parse::json::find_member_exn
-				<
-					sge::parse::json::object,
-					sge::parse::json::member_map
-				>,
-				boost::phoenix::bind(
-					&sge::parse::json::object::members,
-					boost::phoenix::arg_names::arg1),
-				boost::phoenix::arg_names::arg2));
+	typedef
+	fcppt::reference_wrapper<
+		sge::parse::json::object
+	>
+	object_ref;
+
+	object_ref target{
+		fcppt::algorithm::fold(
+			first,
+			fcppt::make_ref(
+				_object
+			),
+			[](
+				fcppt::string const &_value,
+				object_ref const _cur
+			)
+			{
+				return
+					fcppt::make_ref(
+						sge::parse::json::find_member_exn<
+							sge::parse::json::object
+						>(
+							_cur.get().members,
+							_value
+						)
+					);
+			}
+		)
+	};
 
 	typedef fcppt::optional<
 		sge::parse::json::value &
@@ -111,7 +155,7 @@ process_option(
 
 	optional_value const pos(
 		sge::parse::json::find_member_value(
-			target->members,
+			target.get().members,
 			element
 		)
 	);
@@ -119,37 +163,56 @@ process_option(
 	if(
 		!pos
 	)
-		throw sge::parse::exception(
-			FCPPT_TEXT("Couldn't find member \"")+
-			element+
-			FCPPT_TEXT("\", did you mean: ")+
+		throw sge::parse::exception{
+			FCPPT_TEXT("Couldn't find member \"")
+			+
+			element
+			+
+			FCPPT_TEXT("\", did you mean: ")
+			+
 			fcppt::algorithm::shortest_levenshtein(
-				fcppt::algorithm::map<std::vector<fcppt::string> >(
-					target->members,
-					boost::phoenix::bind(
-						&sge::parse::json::member_map::value_type::first,
-						boost::phoenix::arg_names::arg1
+				fcppt::algorithm::map<
+					string_vector
+				>(
+					target.get().members,
+					[](
+						sge::parse::json::member_map::value_type const &_element
 					)
+					{
+						return
+							_element.first;
+					}
 				),
 				element
 			)
-		);
+		};
 
 	*pos =
 		sge::parse::json::string_to_value(
-			boost::fusion::at_c<1>(
-				result));
+			boost::fusion::at_c<
+				1
+			>(
+				result
+			)
+		);
 }
+
 }
 
 sge::parse::json::object
 sge::parse::json::config::merge_command_line_parameters(
-	json::object input,
-	config::command_line_parameters const &parameters)
+	sge::parse::json::object input,
+	sge::parse::json::config::command_line_parameters const &_parameters
+)
 {
-	if (parameters.size() >= 2 && parameters[1] == FCPPT_TEXT("--help"))
+	if(
+		_parameters.size() >= 2
+		&&
+		_parameters[1] == FCPPT_TEXT("--help")
+	)
 	{
-		std::cout <<
+		fcppt::io::cout() <<
+			FCPPT_TEXT(
 			"Command line options are of the form:\n\n"
 			"foo/bar/baz=qux\n\n"
 			"where foo/bar/baz is a sequence of objects in the config.json file.\n"
@@ -165,20 +228,28 @@ sge::parse::json::config::merge_command_line_parameters(
 			"2. Be aware of your shell' special characters. For example, in bash\n"
 			"to set a json string, you have to write:\n\n"
 			"player/name='\"foobar\"'\n\n"
-			"It's a good idea to always put the argument in apostrophes.\n";
+			"It's a good idea to always put the argument in apostrophes.\n"
+			);
 		throw
-			config::help_needed_exception(
-				FCPPT_TEXT("Help was needed"));
+			sge::parse::json::config::help_needed_exception{
+				FCPPT_TEXT("Help was needed")
+			};
 	}
 
 	for(
-		config::command_line_parameters::const_iterator i =
-			++parameters.begin();
-		i != parameters.end();
-		++i)
+		auto const &element
+		:
+		boost::make_iterator_range(
+			std::next(
+				_parameters.begin()
+			),
+			_parameters.end()
+		)
+	)
 		::process_option(
 			input,
-			*i);
+			element
+		);
 
 	return
 		input;

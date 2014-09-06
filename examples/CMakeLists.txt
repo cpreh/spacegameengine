@@ -410,22 +410,6 @@ add_sge_example(
 	""
 )
 
-message("Fix the shader cube example!")
-
-#add_sge_example(
-#	shader/cube
-#	"sgecamera;sgeconfig;sgefonttext;sgeimage;sgeimage2d;sgeinput;sgelog;sgerenderer;sgeshader;sgesystems;sgeviewport;sgewindow"
-#	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
-#)
-
-message("Fix the shader raw example!")
-
-#add_sge_example(
-#	shader/raw
-#	"sgeconfig;sgeimage;sgeimage2d;sgeinput;sgelog;sgerenderer;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
-#	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
-#)
-
 add_sge_console_example(
 	sound
 	"sgeaudio;sgeconfig;sgelog;sgesystems"

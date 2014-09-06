@@ -27,15 +27,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/enable_bool.hpp>
 #include <sge/opengl/state/actor.hpp>
 #include <sge/opengl/state/actor_vector.hpp>
-#include <sge/opengl/state/bind_data_getter.hpp>
 #include <sge/opengl/state/wrap_error_handler.hpp>
 #include <sge/opengl/state/ffp/lighting/visitor.hpp>
 #include <sge/renderer/state/ffp/lighting/enabled.hpp>
 #include <sge/renderer/state/ffp/lighting/off_fwd.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/phoenix/bind/bind_function.hpp>
-#include <boost/phoenix/bind/bind_function_object.hpp>
 #include <functional>
 #include <fcppt/config/external_end.hpp>
 
@@ -59,6 +56,14 @@ sge::opengl::state::ffp::lighting::visitor::operator()(
 	sge::renderer::state::ffp::lighting::enabled const &_enabled
 ) const
 {
+	sge::image::color::rgba32f const ambient{
+		sge::image::color::any::convert<
+			sge::image::color::rgba32f_format
+		>(
+			_enabled.ambient_color().get()
+		)
+	};
+
 	return
 		sge::opengl::state::ffp::lighting::visitor::result_type{
 			std::bind(
@@ -68,19 +73,15 @@ sge::opengl::state::ffp::lighting::visitor::operator()(
 			sge::opengl::state::wrap_error_handler<
 				sge::opengl::state::actor
 			>(
-				boost::phoenix::bind(
-					::glLightModelfv,
-					GL_LIGHT_MODEL_AMBIENT,
-					boost::phoenix::bind(
-						sge::opengl::state::bind_data_getter(
-							sge::image::color::any::convert<
-								sge::image::color::rgba32f_format
-							>(
-								_enabled.ambient_color().get()
-							)
-						)
-					)
-				),
+				[
+					ambient
+				]
+				{
+					::glLightModelfv(
+						GL_LIGHT_MODEL_AMBIENT,
+						ambient.data()
+					);
+				},
 				FCPPT_TEXT("glLightModelfv")
 			),
 			std::bind(

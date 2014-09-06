@@ -22,14 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_STATE_FFP_LIGHTING_LIGHT_FLOAT_PTR_HPP_INCLUDED
 
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/state/bind_data_getter.hpp>
 #include <sge/opengl/state/index_actor.hpp>
 #include <sge/opengl/state/wrap_error_handler.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/phoenix/bind.hpp>
-#include <boost/phoenix/core/argument.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -58,16 +53,19 @@ float_ptr(
 		sge::opengl::state::wrap_error_handler<
 			sge::opengl::state::index_actor
 		>(
-			boost::phoenix::bind(
-				::glLightfv,
-				boost::phoenix::arg_names::arg1,
+			[
 				_name,
-				boost::phoenix::bind(
-					sge::opengl::state::bind_data_getter(
-						_vector
-					)
-				)
-			),
+				_vector
+			](
+				GLenum const _index
+			)
+			{
+				::glLightfv(
+					_index,
+					_name,
+					_vector.data()
+				);
+			},
 			FCPPT_TEXT("glLightfv")
 		);
 }
