@@ -99,13 +99,13 @@ process_option(
 			FCPPT_TEXT("\" has an invalid format. See --help to see what that means.")
 		};
 
-	string_vector &first{
+	string_vector &first(
 		boost::fusion::at_c<
 			0
 		>(
 			result
 		)
-	};
+	);
 
 	// If this is true, we have no left hand side of the '=' sign, which
 	// cannot be!
