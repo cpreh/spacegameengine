@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/get.hpp>
 #include <sge/parse/json/int_type.hpp>
 #include <sge/parse/json/value.hpp>
-#include <fcppt/truncation_check_cast.hpp>
+#include <fcppt/cast/truncation_check.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <type_traits>
@@ -54,7 +54,7 @@ to_int(
 )
 {
 	return
-		fcppt::truncation_check_cast<
+		fcppt::cast::truncation_check<
 			IntType
 		>(
 			sge::parse::json::get<
