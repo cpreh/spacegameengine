@@ -140,6 +140,7 @@ function(
 		TRANSITIVE_INCLUDE_DIRS
 		COMPILE_DEFINITIONS
 		TRANSITIVE_COMPILE_DEFINITIONS
+		COMPILE_FLAGS
 	)
 
 	cmake_parse_arguments(
@@ -172,6 +173,8 @@ function(
 
 	fcppt_utils_set_target_compiler_flags(
 		${SGE_LIB_NAME}
+		ADDITIONAL_FLAGS
+		"${_COMPILE_FLAGS}"
 	)
 
 	fcppt_utils_interface_static_link(
@@ -463,6 +466,8 @@ endfunction()
 #	A list of compile definitions other libraries have to use that link to
 #	this one.
 #
+# COMPILE_FLAGS:
+#	A list of compile flags to add.
 function(
 	add_sge_base_library
 	RELATIVE_PATH
@@ -587,6 +592,8 @@ endfunction()
 # COMPILE_DEFINITIONS:
 #	A list of compile definitions to add.
 #
+# COMPILE_FLAGS:
+#	A list of compile flags to add.
 function(
 	add_sge_plugin
 	PLUGIN_NAME
@@ -597,6 +604,7 @@ function(
 		ADDITIONAL_DEPS
 		INCLUDE_DIRS
 		COMPILE_DEFINITIONS
+		COMPILE_FLAGS
 	)
 
 	cmake_parse_arguments(
@@ -641,6 +649,8 @@ function(
 
 	fcppt_utils_set_target_compiler_flags(
 		${SGE_PLUGIN_NAME}
+		ADDITIONAL_FLAGS
+		"${_COMPILE_FLAGS}"
 	)
 
 	target_include_directories(

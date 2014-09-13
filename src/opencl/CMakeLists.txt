@@ -149,11 +149,6 @@ set(
 	src/opencl/system.cpp
 )
 
-# TODO: Why?
-add_definitions(
-	-D CL_USE_DEPRECATED_OPENCL_1_1_APIS
-)
-
 find_package(
 	OpenGL
 )
@@ -204,4 +199,6 @@ add_sge_base_library(
 		${OPENGL_INCLUDE_DIR}
 		"${CMAKE_CURRENT_SOURCE_DIR}/include"
 		"${CMAKE_CURRENT_BINARY_DIR}/include"
+	COMPILE_DEFINITIONS
+		"CL_USE_DEPRECATED_OPENCL_1_1_APIS"
 )

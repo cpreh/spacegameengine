@@ -1,11 +1,3 @@
-link_directories(
-	"${CEGUI_LIBRARY_DIRS}"
-)
-
-add_definitions(
-	"${CEGUI_DEFINITIONS}"
-)
-
 set(
 	SGE_CEGUI_FILES
 	include/sge/cegui/cursor_visibility.hpp
@@ -123,6 +115,11 @@ set(
 	src/cegui/toolbox/scoped_layout.cpp
 )
 
+# TODO: Do we need this?
+link_directories(
+	"${CEGUI_LIBRARY_DIRS}"
+)
+
 add_sge_base_library(
 	cegui
 	SGE_DEPS
@@ -144,4 +141,6 @@ add_sge_base_library(
 		"${CMAKE_CURRENT_SOURCE_DIR}/include"
 	TRANSITIVE_INCLUDE_DIRS
 		${CEGUI_INCLUDE_DIRS}
+	COMPILE_DEFINITIONS
+		"${CEGUI_DEFINITIONS}"
 )

@@ -50,13 +50,9 @@ set(
 	src/plugins/pango/src/text.cpp
 )
 
+# TODO: Do we need this?
 link_directories(
 	${PANGO_LIBRARY_DIRS}
-)
-
-# TODO
-add_definitions(
-	${PANGO_CFLAGS}
 )
 
 add_sge_plugin(
@@ -73,4 +69,6 @@ add_sge_plugin(
 		${Boost_FILESYSTEM_LIBRARIES}
 	INCLUDE_DIRS
 		${PANGO_INCLUDE_DIRS}
+	COMPILE_FLAGS
+		${PANGO_CFLAGS}
 )
