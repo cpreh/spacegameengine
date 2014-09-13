@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/output_range.hpp>
 #include <sge/src/include_windows.hpp>
 #include <sge/src/charconv/backends/windows/utf8_to_wchar.hpp>
-#include <fcppt/truncation_check_cast.hpp>
+#include <fcppt/cast/truncation_check.hpp>
 #include <fcppt/algorithm/copy_n.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assert/unreachable.hpp>
@@ -76,13 +76,13 @@ sge::charconv::backends::windows::utf8_to_wchar::convert(
 			>(
 				&*_input.begin()
 			),
-			fcppt::truncation_check_cast<
+			fcppt::cast::truncation_check<
 				int
 			>(
 				_input.size()
 			),
 			temp_output.data(),
-			fcppt::truncation_check_cast<
+			fcppt::cast::truncation_check<
 				int
 			>(
 				temp_output.size()
