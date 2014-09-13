@@ -134,7 +134,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/visual/object.hpp>
 #include <awl/window/object.hpp>
 #include <awl/window/event/processor_fwd.hpp>
-#include <fcppt/try_dynamic_cast.hpp>
+#include <fcppt/maybe_void.hpp>
+#include <fcppt/cast/try_dynamic.hpp>
 
 #if defined(SGE_RENDERER_HAVE_CG)
 #include <sge/cg/context/object_fwd.hpp>
@@ -204,22 +205,29 @@ sge::opengl::device::device(
 		_display_mode.vsync()
 	);
 
-	FCPPT_TRY_DYNAMIC_CAST(
-		sge::renderer::visual_base const *,
-		visual,
-		&_window.visual()
-	)
-	{
-		sge::opengl::init_multi_sampling(
-			system_context_,
-			visual->pixel_format().multi_samples()
-		);
+	fcppt::maybe_void(
+		fcppt::cast::try_dynamic<
+			sge::renderer::visual_base const &
+		>(
+			_window.visual()
+		),
+		[
+			this
+		](
+			sge::renderer::visual_base const &_visual
+		)
+		{
+			sge::opengl::init_multi_sampling(
+				system_context_,
+				_visual.pixel_format().multi_samples()
+			);
 
-		sge::opengl::init_srgb(
-			system_context_,
-			visual->pixel_format().srgb()
-		);
-	}
+			sge::opengl::init_srgb(
+				system_context_,
+				_visual.pixel_format().srgb()
+			);
+		}
+	);
 }
 
 sge::opengl::device::~device()

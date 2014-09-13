@@ -24,8 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/egl/visual/choose_config.hpp>
 #include <sge/opengl/egl/visual/to_config.hpp>
 #include <awl/visual/object.hpp>
+#include <fcppt/maybe.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/try_dynamic_cast.hpp>
+#include <fcppt/cast/try_dynamic.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/warning.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -39,27 +40,37 @@ sge::opengl::egl::visual::to_config(
 	awl::visual::object const &_visual
 )
 {
-	FCPPT_TRY_DYNAMIC_CAST(
-		sge::opengl::egl::visual::base const *,
-		sge_visual,
-		&_visual
-	)
-	{
-		return
-			sge_visual->config();
-	}
-
-	FCPPT_LOG_WARNING(
-		sge::opengl::logger(),
-		fcppt::log::_
-			<< FCPPT_TEXT("Visual is not an EGL visual.")
-	);
-
 	return
-		sge::opengl::egl::visual::choose_config(
-			_egl_display,
-			sge::opengl::egl::attribute_vector{
-            			EGL_NONE
+		fcppt::maybe(
+			fcppt::cast::try_dynamic<
+				sge::opengl::egl::visual::base const &
+			>(
+				_visual
+			),
+			[
+				_egl_display
+			]
+			{
+				FCPPT_LOG_WARNING(
+					sge::opengl::logger(),
+					fcppt::log::_
+						<< FCPPT_TEXT("Visual is not an EGL visual.")
+				);
+
+				return
+					sge::opengl::egl::visual::choose_config(
+						_egl_display,
+						sge::opengl::egl::attribute_vector{
+							EGL_NONE
+						}
+					);
+			},
+			[](
+				sge::opengl::egl::visual::base const &_sge_visual
+			)
+			{
+				return
+					_sge_visual.config();
 			}
 		);
 }

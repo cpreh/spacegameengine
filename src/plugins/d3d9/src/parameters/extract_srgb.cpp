@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/parameters/extract_srgb.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <awl/visual/object.hpp>
-#include <fcppt/try_dynamic_cast.hpp>
+#include <fcppt/maybe.hpp>
+#include <fcppt/cast/try_dynamic.hpp>
 
 
 sge::renderer::pixel_format::srgb
@@ -30,16 +31,23 @@ sge::d3d9::parameters::extract_srgb(
 	awl::visual::object const &_visual
 )
 {
-	FCPPT_TRY_DYNAMIC_CAST(
-		sge::d3d9::visual const *,
-		d3d_visual,
-		&_visual
-	)
-	{
-		return
-			d3d_visual->pixel_format().srgb();
-	}
-
 	return
-		sge::renderer::pixel_format::srgb::no;
+		fcppt::maybe(
+			fcppt::cast::try_dynamic<
+				sge::d3d9::visual const &
+			>(
+				_visual
+			),
+			[]{
+				return
+					sge::renderer::pixel_format::srgb::no;
+			},
+			[](
+				sge::d3d9::visual const &_d3d_visual
+			)
+			{
+				return
+					_d3d_visual.pixel_format().srgb();
+			}
+		);
 }
