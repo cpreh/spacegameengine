@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_DEVICE_PARAMETERS_HPP_INCLUDED
 
 #include <sge/x11input/create_parameters_fwd.hpp>
-#include <sge/x11input/device/id.hpp>
 #include <sge/x11input/device/enter_demuxer_fwd.hpp>
+#include <sge/x11input/device/id.hpp>
 #include <sge/x11input/device/leave_demuxer_fwd.hpp>
 #include <sge/x11input/device/parameters_fwd.hpp>
 #include <sge/x11input/device/raw_demuxer_fwd.hpp>

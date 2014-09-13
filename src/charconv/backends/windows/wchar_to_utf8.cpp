@@ -24,10 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/raw_value.hpp>
 #include <sge/src/include_windows.hpp>
 #include <sge/src/charconv/backends/windows/wchar_to_utf8.hpp>
-#include <fcppt/cast/truncation_check.hpp>
 #include <fcppt/algorithm/copy_n.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assert/unreachable.hpp>
+#include <fcppt/cast/truncation_check.hpp>
 #include <fcppt/container/raw_vector.hpp>
 
 

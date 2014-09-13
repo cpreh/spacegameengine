@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RUCKSACK_MAKE_AXIS_POLICY_HPP_INCLUDED
 #define SGE_RUCKSACK_MAKE_AXIS_POLICY_HPP_INCLUDED
 
-#include <sge/rucksack/axis_policy_function.hpp>
 #include <sge/rucksack/axis_policy2.hpp>
+#include <sge/rucksack/axis_policy_function.hpp>
 #include <sge/rucksack/symbol.hpp>
 
 

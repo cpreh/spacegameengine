@@ -46,10 +46,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/planar_unique_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/systems/config.hpp>
-#include <sge/systems/custom_cursor.hpp>
 #include <sge/systems/cursor_demuxer.hpp>
 #include <sge/systems/cursor_hotspot.hpp>
 #include <sge/systems/cursor_option_field.hpp>
+#include <sge/systems/custom_cursor.hpp>
 #include <sge/systems/image2d.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/instance.hpp>
