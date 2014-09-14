@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::input::joypad::absolute_axis_info const
+sge::input::joypad::absolute_axis_info
 sge::evdev::joypad::absolute_axis::make_info(
 	sge::evdev::device::fd const &_fd,
 	sge::evdev::device::event_type const _event

@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::input::info::name const
+sge::input::info::name
 sge::evdev::device::name(
 	sge::evdev::device::fd const &_fd
 )
@@ -55,9 +55,9 @@ sge::evdev::device::name(
 		==
 		-1
 	)
-		throw sge::input::exception(
+		throw sge::input::exception{
 			FCPPT_TEXT("ioctl EVIOCGNAME failed")
-		);
+		};
 
 	return
 		sge::input::info::name(

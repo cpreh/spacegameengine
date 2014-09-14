@@ -34,7 +34,7 @@ namespace joypad
 namespace relative_axis
 {
 
-sge::input::joypad::relative_axis_info const
+sge::input::joypad::relative_axis_info
 make_info(
 	sge::evdev::device::event_type
 );

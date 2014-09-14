@@ -32,7 +32,7 @@ namespace evdev
 namespace device
 {
 
-sge::input::info::name const
+sge::input::info::name
 name(
 	sge::evdev::device::fd const &
 );

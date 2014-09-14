@@ -32,7 +32,7 @@ namespace evdev
 namespace joypad
 {
 
-sge::evdev::joypad::optional_info const
+sge::evdev::joypad::optional_info
 make_info(
 	sge::evdev::device::fd const &
 );

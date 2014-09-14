@@ -22,8 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_EVDEV_DEVICE_EVENT_MAP_HPP_INCLUDED
 
 #include <sge/evdev/device/event_type.hpp>
+#include <fcppt/strong_typedef_std_hash.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <map>
+#include <unordered_map>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -37,13 +38,13 @@ namespace device
 template<
 	typename Id
 >
-struct event_map
-{
-	typedef std::map<
-		sge::evdev::device::event_type,
-		Id
-	> type;
-};
+using
+event_map
+=
+std::unordered_map<
+	sge::evdev::device::event_type,
+	Id
+>;
 
 }
 }

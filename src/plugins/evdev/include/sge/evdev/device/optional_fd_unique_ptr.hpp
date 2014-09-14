@@ -18,21 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/evdev/device/event_type.hpp>
-#include <sge/evdev/joypad/button/make_info.hpp>
-#include <sge/evdev/joypad/button/make_string.hpp>
-#include <sge/input/joypad/button_info.hpp>
+#ifndef SGE_EVDEV_DEVICE_OPTIONAL_FD_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_EVDEV_DEVICE_OPTIONAL_FD_UNIQUE_PTR_HPP_INCLUDED
+
+#include <sge/evdev/device/optional_fd_unique_ptr_fwd.hpp>
+#include <fcppt/optional_impl.hpp>
 
 
-sge::input::joypad::button_info
-sge::evdev::joypad::button::make_info(
-	sge::evdev::device::event_type const _event
-)
-{
-	return
-		sge::input::joypad::button_info(
-			sge::evdev::joypad::button::make_string(
-				_event
-			)
-		);
-}
+#endif

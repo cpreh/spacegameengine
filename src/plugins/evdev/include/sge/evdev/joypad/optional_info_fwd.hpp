@@ -32,9 +32,11 @@ namespace evdev
 namespace joypad
 {
 
-typedef fcppt::optional<
+typedef
+fcppt::optional<
 	sge::evdev::joypad::info
-> optional_info;
+>
+optional_info;
 
 }
 }

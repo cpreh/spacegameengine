@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/error.hpp>
 
 
-sge::evdev::joypad::optional_info const
+sge::evdev::joypad::optional_info
 sge::evdev::joypad::make_info(
 	sge::evdev::device::fd const &_fd
 )

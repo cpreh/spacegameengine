@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::evdev::joypad::button::info_container const
+sge::evdev::joypad::button::info_container
 sge::evdev::joypad::button::make_info_container(
 	sge::evdev::device::fd const &_fd
 )

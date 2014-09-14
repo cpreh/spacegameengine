@@ -18,21 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/evdev/device/event_type.hpp>
-#include <sge/evdev/joypad/button/make_info.hpp>
-#include <sge/evdev/joypad/button/make_string.hpp>
-#include <sge/input/joypad/button_info.hpp>
+#ifndef SGE_EVDEV_DEVICE_READ_BITS_RESULT_FWD_HPP_INCLUDED
+#define SGE_EVDEV_DEVICE_READ_BITS_RESULT_FWD_HPP_INCLUDED
+
+#include <sge/evdev/device/event_type_value.hpp>
+#include <fcppt/container/bitfield/object_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <type_traits>
+#include <fcppt/config/external_end.hpp>
 
 
-sge::input::joypad::button_info
-sge::evdev::joypad::button::make_info(
-	sge::evdev::device::event_type const _event
-)
+namespace sge
 {
-	return
-		sge::input::joypad::button_info(
-			sge::evdev::joypad::button::make_string(
-				_event
-			)
-		);
+namespace evdev
+{
+namespace device
+{
+
+template<
+	sge::evdev::device::event_type_value Count
+>
+using read_bits_result
+=
+fcppt::container::bitfield::object<
+	sge::evdev::device::event_type_value,
+	std::integral_constant<
+		sge::evdev::device::event_type_value,
+		Count
+	>
+>;
+
 }
+}
+}
+
+#endif

@@ -111,7 +111,7 @@ sge::evdev::device::object::on_event(
 		!=
 		EAGAIN
 	)
-		throw sge::input::exception(
+		throw sge::input::exception{
 			FCPPT_TEXT("Reading a device failed")
-		);
+		};
 }

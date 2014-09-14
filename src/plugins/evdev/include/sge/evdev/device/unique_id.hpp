@@ -32,7 +32,7 @@ namespace evdev
 namespace device
 {
 
-sge::input::info::unique_id const
+sge::input::info::unique_id
 unique_id(
 	sge::evdev::device::fd const &
 );

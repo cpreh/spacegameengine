@@ -34,9 +34,11 @@ namespace evdev
 namespace device
 {
 
-typedef std::unique_ptr<
+typedef
+std::unique_ptr<
 	sge::evdev::device::fd
-> fd_unique_ptr;
+>
+fd_unique_ptr;
 
 }
 }

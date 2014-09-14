@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::input::info::unique_id const
+sge::input::info::unique_id
 sge::evdev::device::unique_id(
 	sge::evdev::device::fd const &_fd
 )
@@ -55,9 +55,9 @@ sge::evdev::device::unique_id(
 		==
 		-1
 	)
-		throw sge::input::exception(
+		throw sge::input::exception{
 			FCPPT_TEXT("ioctl EVIOCGUNIQ failed")
-		);
+		};
 
 	// For whatever reason, Linux seems to return empty strings as unique
 	// ids.
@@ -84,9 +84,9 @@ sge::evdev::device::unique_id(
 		==
 		-1
 	)
-		throw sge::input::exception(
+		throw sge::input::exception{
 			FCPPT_TEXT("ioctl EVIOCGPHYS failed")
-		);
+		};
 
 	return
 		sge::input::info::unique_id(

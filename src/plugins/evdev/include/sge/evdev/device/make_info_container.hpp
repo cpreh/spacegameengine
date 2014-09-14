@@ -25,8 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/evdev/device/event_type.hpp>
 #include <sge/evdev/device/event_type_value.hpp>
 #include <sge/evdev/device/read_bits_result.hpp>
+#include <fcppt/make_int_range_count.hpp>
+#include <fcppt/make_literal_strong_typedef.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
-#include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -48,43 +49,54 @@ template<
 sge::evdev::device::basic_info<
 	Id,
 	Info
-> const
+>
 make_info_container(
-	typename sge::evdev::device::read_bits_result<
+	sge::evdev::device::read_bits_result<
 		BitCount
-	>::type const &_bits,
+	> const &_bits,
 	Function const &_function
 )
 {
-	typedef sge::evdev::device::basic_info<
+	typedef
+	sge::evdev::device::basic_info<
 		Id,
 		Info
-	> basic_info;
+	>
+	basic_info;
 
-	typedef typename basic_info::info_container info_container;
+	typedef
+	typename
+	basic_info::info_container
+	info_container;
 
-	typedef typename info_container::vector result_vector;
+	typedef
+	typename
+	info_container::vector
+	result_vector;
 
 	result_vector ids;
 
-	typedef typename basic_info::event_map_type result_map;
+	typedef
+	typename
+	basic_info::event_map_type
+	result_map;
 
 	result_map event_map;
 
-	typedef typename sge::evdev::device::read_bits_result<
+	typedef
+	sge::evdev::device::read_bits_result<
 		BitCount
-	>::type bit_container;
+	>
+	bit_container;
 
 	for(
-		sge::evdev::device::event_type index(
-			fcppt::strong_typedef_construct_cast<
-				sge::evdev::device::event_type
-			>(
-				0u
-			)
-		);
-		index.get() < bit_container::static_size::value;
-		++index
+		sge::evdev::device::event_type const index
+		:
+		fcppt::make_int_range_count(
+			sge::evdev::device::event_type{
+				bit_container::static_size::value
+			}
+		)
 	)
 	{
 		if(

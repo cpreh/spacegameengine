@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/evdev/device/create_fd.hpp>
 #include <sge/evdev/device/fd.hpp>
-#include <sge/evdev/device/fd_unique_ptr.hpp>
+#include <sge/evdev/device/optional_fd_unique_ptr.hpp>
 #include <sge/evdev/joypad/add.hpp>
 #include <sge/evdev/joypad/add_parameters.hpp>
 #include <sge/evdev/joypad/info.hpp>
@@ -45,7 +45,7 @@ sge::evdev::joypad::add(
 	boost::filesystem::path const &_path
 )
 {
-	sge::evdev::device::fd_unique_ptr fd(
+	sge::evdev::device::optional_fd_unique_ptr fd(
 		sge::evdev::device::create_fd(
 			_path
 		)
@@ -58,7 +58,7 @@ sge::evdev::joypad::add(
 
 	sge::evdev::joypad::optional_info const opt_info(
 		sge::evdev::joypad::make_info(
-			*fd
+			**fd
 		)
 	);
 
@@ -93,7 +93,7 @@ sge::evdev::joypad::add(
 					_parameters.focus_manager(),
 					_parameters.processor(),
 					std::move(
-						fd
+						*fd
 					),
 					info_value
 				)

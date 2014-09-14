@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/evdev/device/create_fd.hpp>
 #include <sge/evdev/device/fd.hpp>
 #include <sge/evdev/device/fd_unique_ptr.hpp>
+#include <sge/evdev/device/optional_fd_unique_ptr.hpp>
 #include <sge/input/exception.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
@@ -35,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::evdev::device::fd_unique_ptr
+sge::evdev::device::optional_fd_unique_ptr
 sge::evdev::device::create_fd(
 	boost::filesystem::path const &_path
 )
@@ -52,9 +53,11 @@ sge::evdev::device::create_fd(
 		ret->valid()
 	)
 		return
-			std::move(
-				ret
-			);
+			sge::evdev::device::optional_fd_unique_ptr{
+				std::move(
+					ret
+				)
+			};
 
 	// Failure for some evdev files is expected.
 	FCPPT_LOG_DEBUG(
@@ -73,5 +76,5 @@ sge::evdev::device::create_fd(
 	);
 
 	return
-		sge::evdev::device::fd_unique_ptr();
+		sge::evdev::device::optional_fd_unique_ptr();
 }

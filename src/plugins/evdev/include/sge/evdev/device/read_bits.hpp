@@ -44,17 +44,19 @@ namespace device
 template<
 	sge::evdev::device::event_type_value Count
 >
-typename sge::evdev::device::read_bits_result<
+sge::evdev::device::read_bits_result<
 	Count
->::type const
+> const
 read_bits(
 	sge::evdev::device::fd const &_fd,
 	unsigned const _type
 )
 {
-	typedef typename sge::evdev::device::read_bits_result<
+	typedef
+	sge::evdev::device::read_bits_result<
 		Count
-	>::type result_type;
+	>
+	result_type;
 
 	result_type result{
 		fcppt::no_init()
@@ -76,9 +78,9 @@ read_bits(
 		==
 		-1
 	)
-		throw sge::input::exception(
+		throw sge::input::exception{
 			FCPPT_TEXT("ioctl reading device capabilities failed!")
-		);
+		};
 
 	return
 		result;

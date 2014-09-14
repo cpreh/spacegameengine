@@ -17,8 +17,11 @@ set(
 	src/plugins/evdev/include/sge/evdev/device/make_info_container.hpp
 	src/plugins/evdev/include/sge/evdev/device/name.hpp
 	src/plugins/evdev/include/sge/evdev/device/object.hpp
+	src/plugins/evdev/include/sge/evdev/device/optional_fd_unique_ptr.hpp
+	src/plugins/evdev/include/sge/evdev/device/optional_fd_unique_ptr_fwd.hpp
 	src/plugins/evdev/include/sge/evdev/device/read_bits.hpp
 	src/plugins/evdev/include/sge/evdev/device/read_bits_result.hpp
+	src/plugins/evdev/include/sge/evdev/device/read_bits_result_fwd.hpp
 	src/plugins/evdev/include/sge/evdev/device/unique_id.hpp
 	src/plugins/evdev/include/sge/evdev/eventfd/callback.hpp
 	src/plugins/evdev/include/sge/evdev/eventfd/fd.hpp

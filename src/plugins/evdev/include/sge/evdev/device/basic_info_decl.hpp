@@ -40,16 +40,22 @@ template<
 class basic_info
 {
 public:
-	typedef sge::input::info::container<
+	typedef
+	sge::input::info::container<
 		Id,
 		Info
-	> info_container;
+	>
+	info_container;
 
-	typedef Id id;
+	typedef
+	Id
+	id;
 
-	typedef typename sge::evdev::device::event_map<
+	typedef
+	sge::evdev::device::event_map<
 		id
-	>::type event_map_type;
+	>
+	event_map_type;
 
 	basic_info(
 		info_container const &,

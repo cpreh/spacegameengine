@@ -34,7 +34,7 @@ namespace joypad
 namespace button
 {
 
-sge::input::joypad::button_info const
+sge::input::joypad::button_info
 make_info(
 	sge::evdev::device::event_type
 );
