@@ -149,9 +149,19 @@ add_subdirectory(
 	src
 )
 
-add_subdirectory(
-	tools
+option(
+	ENABLE_TOOLS
+	"Build all tools"
+	ON
 )
+
+if(
+	ENABLE_TOOLS
+)
+	add_subdirectory(
+		tools
+	)
+endif()
 
 option(
 	ENABLE_DOC
