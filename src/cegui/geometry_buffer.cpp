@@ -66,6 +66,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/cegui/from_cegui_vector3.hpp>
 #include <sge/src/cegui/geometry_buffer.hpp>
 #include <sge/src/cegui/make_rasterizer_parameters.hpp>
+#include <sge/src/cegui/matrix_from_quaternion.hpp>
 #include <sge/src/cegui/optional_render_context_ref.hpp>
 #include <sge/src/cegui/texture.hpp>
 #include <sge/src/cegui/to_blend_parameters.hpp>
@@ -87,7 +88,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/matrix/translation.hpp>
-#include <fcppt/math/quaternion/to_matrix.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -201,7 +201,7 @@ sge::cegui::geometry_buffer::draw() const
 					pivot_
 				)
 				*
-				fcppt::math::quaternion::to_matrix(
+				sge::cegui::matrix_from_quaternion(
 					rotation_
 				)
 				*
@@ -365,12 +365,7 @@ sge::cegui::geometry_buffer::setRotation(
 )
 {
 	rotation_ =
-		sge::cegui::geometry_buffer::quaternion(
-			_rotation.d_w,
-			_rotation.d_x,
-			_rotation.d_y,
-			_rotation.d_z
-		);
+		_rotation;
 }
 
 void

@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_CEGUI_GEOMETRY_BUFFER_HPP_INCLUDED
 #define SGE_SRC_CEGUI_GEOMETRY_BUFFER_HPP_INCLUDED
 
-#include <sge/renderer/scalar.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
@@ -39,14 +38,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/Base.h>
 #include <CEGUI/GeometryBuffer.h>
-#include <boost/math/quaternion.hpp>
+#include <CEGUI/Quaternion.h>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
 
 namespace CEGUI
 {
-class Quaternion;
 class RenderEffect;
 struct Vertex;
 class Texture;
@@ -163,12 +161,6 @@ private:
 	>
 	batch_sequence;
 
-	typedef
-	boost::math::quaternion<
-		sge::renderer::scalar
-	>
-	quaternion;
-
 	batch_sequence batches_;
 
 	sge::renderer::device::ffp &renderer_;
@@ -181,7 +173,7 @@ private:
 
 	sge::renderer::vector3 pivot_;
 
-	quaternion rotation_;
+	CEGUI::Quaternion rotation_;
 
 	sge::renderer::target::scissor_area scissor_area_;
 

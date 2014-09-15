@@ -61,6 +61,7 @@ set(
 	src/cegui/include/sge/src/cegui/image_codec_fwd.hpp
 	src/cegui/include/sge/src/cegui/logger.hpp
 	src/cegui/include/sge/src/cegui/make_rasterizer_parameters.hpp
+	src/cegui/include/sge/src/cegui/matrix_from_quaternion.hpp
 	src/cegui/include/sge/src/cegui/optional_key_scan.hpp
 	src/cegui/include/sge/src/cegui/optional_key_scan_fwd.hpp
 	src/cegui/include/sge/src/cegui/optional_mouse_button.hpp
@@ -96,6 +97,7 @@ set(
 	src/cegui/log_location.cpp
 	src/cegui/logger.cpp
 	src/cegui/make_rasterizer_parameters.cpp
+	src/cegui/matrix_from_quaternion.cpp
 	src/cegui/renderer.cpp
 	src/cegui/resource_provider.cpp
 	src/cegui/scoped_render_context.cpp
