@@ -34,6 +34,11 @@ namespace renderer
 namespace color_buffer
 {
 
+/**
+\brief A const scoped lock for surfaces
+
+\ingroup sge_renderer
+*/
 typedef
 sge::renderer::const_basic_buffer_scoped_lock<
 	sge::renderer::color_buffer::surface

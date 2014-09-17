@@ -32,9 +32,16 @@ namespace renderer
 namespace color_buffer
 {
 
-typedef fcppt::optional<
+/**
+\brief An optional surface reference
+
+\ingroup sge_renderer
+*/
+typedef
+fcppt::optional<
 	sge::renderer::color_buffer::surface &
-> optional_surface_ref;
+>
+optional_surface_ref;
 
 }
 }

@@ -31,6 +31,11 @@ namespace renderer
 namespace color_buffer
 {
 
+/**
+\brief A three-dimensional color buffer
+
+\ingroup sge_renderer
+*/
 typedef
 sge::renderer::color_buffer::basic<
 	3u

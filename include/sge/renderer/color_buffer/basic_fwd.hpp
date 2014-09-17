@@ -33,6 +33,14 @@ namespace renderer
 namespace color_buffer
 {
 
+/**
+\brief A color buffer for a given dimension
+
+\ingroup sge_renderer
+
+A color buffer for dimension \a Dim. Color buffers are used as render targets
+and texture surfaces.
+*/
 template<
 	sge::renderer::size_type Dim
 >
