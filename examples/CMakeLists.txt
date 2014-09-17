@@ -432,6 +432,13 @@ add_sge_example(
 )
 
 add_sge_example(
+	sprite_move
+	"sgeconfig;sgeimagecolor;sgeimage2d;sgeinput;sgerenderer;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
+	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
+	""
+)
+
+add_sge_example(
 	stencil
 	"sgeconfig;sgeimagecolor;sgeinput;sgerenderer;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
 	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
@@ -469,13 +476,6 @@ add_sge_console_example(
 add_sge_console_example(
 	tutorial/sound_02
 	"sgeaudio;sgeconfig;sgesystems"
-	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
-	""
-)
-
-add_sge_example(
-	tutorial/sprite_02
-	"sgeconfig;sgeimagecolor;sgeimage2d;sgeinput;sgerenderer;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
 	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 )

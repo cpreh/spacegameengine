@@ -17,7 +17,7 @@ There are three different types of textures
 
 How a part of the texture is mapped onto a triangle is determined by the
 <em>texture coordinates</em> of each vertex. A planar texture uses two
-dimensional texture coordinates, which are mapped from <code>(0,0)</code> at
+dimensional texture coordinates which are mapped from <code>(0,0)</code> at
 the top left to <code>(1,1)</code> at the bottom right.
 
 In the following example, we are going to map the whole texture onto our quad.
@@ -29,7 +29,9 @@ coordinates.
 \link sge::renderer::vf::texpos \endlink specifies the element type of a
 texture coordinate (float is again most portable) and how many elements a
 texture coordinate should have. Because we have a planar texture, we use two
-elements per coordinate here.
+elements per coordinate here. \link sge::renderer::vf::index \endlink tells the
+vertex format which <em>texture level</em> we are specifying texture
+coordinates for.
 
 The four vertices defined in the previous example will get the texture
 coordinates <code>(0,0), (1,0), (1,1), (0,1)</code>, so that the whole texture
@@ -46,7 +48,7 @@ texture will be used.
 
 \link sge::renderer::texture::create_planar_from_path \endlink creates a planar
 texture directly from an image file, using an image loader that is available
-through <code>sys.image_loader</code> in this example.
+through <code>sys.image_system</code> in this example.
 
 To use our texture, we have to activate it. There are several texture stages,
 which can be useful to blend different textures together. In this example,
@@ -78,14 +80,9 @@ TODO: image
 For each dimension, there is a separate texture address mode setting, which
 allows to fine tune the behaviour.
 
-\li \link sge::renderer::texture::address_mode_s \endlink for horinzontal coordinates
-\li \link sge::renderer::texture::address_mode_t \endlink for vertical coordinates
-\li \link sge::renderer::texture::address_mode_u \endlink for depth coordinates
-
-The horizontal mode can be set using \link
-sge::renderer::device::texture_address_mode_s \endlink. For the vertical and
-depth modes, corresponding functions exist.
-
+\li \link sge::renderer::state::core::sampler::address::mode_s \endlink for horinzontal coordinates
+\li \link sge::renderer::state::core::sampler::address::mode_t \endlink for vertical coordinates
+\li \link sge::renderer::state::core::sampler::address::mode_u \endlink for depth coordinates
 
 \section texture_filters Texture Filters
 
@@ -94,26 +91,26 @@ part of the texture is used. However, the mapping between texture pixels
 (called <em>texels</em>) and the rasterized pixels on screen usually isn't a
 <code>1:1</code> mapping.
 
-Image a small texture is mapped onto a huge triangle, which means that the
+Imagine a small texture is mapped onto a huge triangle which means that the
 texture lacks sufficient detail. Not much can be done about that. How this case
 is handled is called <em>magnification</em>.
 
-Now, imagine a huge texture mapped onto a small triangle, in which case the
+Now, imagine a huge texture mapped onto a small triangle in which case the
 details of the texture are usually lost, although they are available. This
-might not seem so bad at first, but which texels are taken can change rapidly
-depending on very small changes in the scene, which will lead to a very strange
+might not seem so bad at first but which texels are taken can change rapidly
+depending on very small changes in the scene which will lead to a very strange
 flickering effect. How this case is handled is called <em>minification</em>.
 
 TODO: image
 
 To better solve the minification problem, a technique called
-<em>mipmapping</em> can be used, which doesn't replace minification but merely
+<em>mipmapping</em> can be used which doesn't replace minification but merely
 enhances the process. The idea is to resursively generate smaller versions of
-the texture, until a minimum of a size of <code>(1,1)</code> is reached. For
+the texture until a minimum of a size of <code>(1,1)</code> is reached. For
 example, a texture of the size of <code>(32,32)</code> will have smaller
 versions of the sizes <code>(16,16),(8,8),(4,4),(2,2)</code> and
 <code>(1,1)</code> generated. The graphics card must then choose a texture of
-appropriate size depending on the mapping from texels to pixels, which will
+appropriate size depending on the mapping from texels to pixels which will
 greatly reduce the effect of minification.
 
 TODO: image

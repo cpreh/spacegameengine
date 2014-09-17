@@ -96,9 +96,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/make_shared_ptr.hpp>
-#include <fcppt/nonassignable.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
@@ -110,83 +108,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <ostream>
 #include <fcppt/config/external_end.hpp>
 
-
-namespace
-{
-
-typedef sge::sprite::config::choices<
-	sge::sprite::config::type_choices<
-		sge::sprite::config::unit_type<
-			int
-		>,
-		sge::sprite::config::float_type<
-			float
-		>
-	>,
-	sge::sprite::config::normal_size,
-	boost::mpl::vector1<
-		sge::sprite::config::with_texture<
-			sge::sprite::config::texture_level_count<
-				1u
-			>,
-			sge::sprite::config::texture_coordinates::automatic,
-			sge::sprite::config::texture_ownership::shared
-		>
-	>
-> sprite_choices;
-
-typedef sge::sprite::object<
-	sprite_choices
-> sprite_object;
-
-class sprite_functor
-{
-	FCPPT_NONASSIGNABLE(
-		sprite_functor
-	);
-public:
-	explicit sprite_functor(
-		sprite_object &_sprite
-	)
-	:
-		sprite_(_sprite)
-	{}
-
-	void
-	operator()(
-		sge::input::mouse::axis_event const &_event
-	) const
-	{
-		switch(
-			_event.code()
-		)
-		{
-		case sge::input::mouse::axis_code::x:
-			sprite_.x(
-				static_cast<
-					sprite_object::unit
-				>(
-					sprite_.x() + _event.value()
-				)
-			);
-			break;
-		case sge::input::mouse::axis_code::y:
-			sprite_.y(
-				static_cast<
-					sprite_object::unit
-				>(
-					sprite_.y() + _event.value()
-				)
-			);
-			break;
-		default:
-			break;
-		}
-	}
-private:
-	sprite_object &sprite_;
-};
-}
 
 awl::main::exit_code const
 example_main(
@@ -262,26 +183,61 @@ try
 		)
 	);
 
-	typedef sge::sprite::buffers::with_declaration<
+	typedef sge::sprite::config::choices<
+		sge::sprite::config::type_choices<
+			sge::sprite::config::unit_type<
+				int
+			>,
+			sge::sprite::config::float_type<
+				float
+			>
+		>,
+		sge::sprite::config::normal_size,
+		boost::mpl::vector1<
+			sge::sprite::config::with_texture<
+				sge::sprite::config::texture_level_count<
+					1u
+				>,
+				sge::sprite::config::texture_coordinates::automatic,
+				sge::sprite::config::texture_ownership::shared
+			>
+		>
+	> sprite_choices;
+
+	typedef
+	sge::sprite::object<
+		sprite_choices
+	>
+	sprite_object;
+
+	typedef
+	sge::sprite::buffers::with_declaration<
 		sge::sprite::buffers::single<
 			sprite_choices
 		>
-	> sprite_buffers_type;
+	>
+	sprite_buffers_type;
 
 	sprite_buffers_type sprite_buffers(
 		sys.renderer_device_ffp(),
 		sge::sprite::buffers::option::dynamic
 	);
 
-	typedef sge::sprite::state::all_choices sprite_state_choices;
+	typedef
+	sge::sprite::state::all_choices
+	sprite_state_choices;
 
-	typedef sge::sprite::state::object<
+	typedef
+	sge::sprite::state::object<
 		sprite_state_choices
-	> sprite_state_object;
+	>
+	sprite_state_object;
 
-	typedef sge::sprite::state::parameters<
+	typedef
+	sge::sprite::state::parameters<
 		sprite_state_choices
-	> sprite_state_parameters;
+	>
+	sprite_state_parameters;
 
 	sprite_state_object sprite_state(
 		sys.renderer_device_ffp(),
@@ -309,9 +265,11 @@ try
 		)
 	);
 
-	typedef sge::sprite::parameters<
+	typedef
+	sge::sprite::parameters<
 		sprite_choices
-	> sprite_parameters;
+	>
+	sprite_parameters;
 
 	sprite_object my_object(
 		sprite_parameters()
@@ -328,19 +286,52 @@ try
 		.texture_size()
 	);
 
-	fcppt::signal::scoped_connection const escape_connection(
+	fcppt::signal::scoped_connection const escape_connection{
 		sge::systems::quit_on_escape(
 			sys
 		)
-	);
+	};
 
-	fcppt::signal::scoped_connection const conn_other(
+	fcppt::signal::scoped_connection const conn_other{
 		sys.mouse_collector().axis_callback(
-			sprite_functor(
-				my_object
+			[
+				&my_object
+			](
+				sge::input::mouse::axis_event const &_event
 			)
+			{
+				switch(
+					_event.code()
+				)
+				{
+				case sge::input::mouse::axis_code::x:
+					my_object.x(
+						static_cast<
+							sprite_object::unit
+						>(
+							my_object.x()
+							+
+							_event.value()
+						)
+					);
+					break;
+				case sge::input::mouse::axis_code::y:
+					my_object.y(
+						static_cast<
+							sprite_object::unit
+						>(
+							my_object.y()
+							+
+							_event.value()
+						)
+					);
+					break;
+				default:
+					break;
+				}
+			}
 		)
-	);
+	};
 
 	while(
 		sys.window_system().poll()
@@ -378,7 +369,8 @@ catch(
 		<< _exception.string()
 		<< FCPPT_TEXT('\n');
 
-	return awl::main::exit_failure();
+	return
+		awl::main::exit_failure();
 }
 catch(
 	std::exception const &_exception
@@ -389,5 +381,6 @@ catch(
 		<< _exception.what()
 		<< '\n';
 
-	return awl::main::exit_failure();
+	return
+		awl::main::exit_failure();
 }
