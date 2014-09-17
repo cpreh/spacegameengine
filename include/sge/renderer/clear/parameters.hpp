@@ -47,7 +47,7 @@ Clear parameters include optional clear values for
 <ul>
 <li>The backbuffer,</li>
 <li>the depth buffer and</li>
-</li>the stencil buffer</li>
+<li>the stencil buffer</li>
 </ul>
 */
 class parameters
