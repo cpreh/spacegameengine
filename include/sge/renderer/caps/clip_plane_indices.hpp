@@ -33,7 +33,9 @@ namespace caps
 {
 
 /**
- * \brief A strong typedef for the maximum number of clip planes
+\brief A strong typedef for the maximum number of clip planes
+
+\ingroup sge_renderer
 */
 FCPPT_MAKE_STRONG_TYPEDEF(
 	sge::renderer::state::index_count,

@@ -29,7 +29,14 @@ namespace renderer
 namespace clear
 {
 
-typedef int stencil_buffer_value;
+/**
+\brief The stencil buffer clear type
+
+\ingroup sge_renderer
+*/
+typedef
+int
+stencil_buffer_value;
 
 }
 }

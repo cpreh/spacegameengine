@@ -23,15 +23,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <fcppt/strong_typedef.hpp>
 
+
 namespace sge
 {
 namespace renderer
 {
 namespace caps
 {
+
 FCPPT_MAKE_STRONG_TYPEDEF(
 	bool,
-	normalized_cvv);
+	normalized_cvv
+);
+
 }
 }
 }

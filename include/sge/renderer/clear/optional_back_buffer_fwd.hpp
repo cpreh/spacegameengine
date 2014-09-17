@@ -32,9 +32,16 @@ namespace renderer
 namespace clear
 {
 
-typedef fcppt::optional<
+/**
+\brief Optional back buffer clear value
+
+\ingroup sge_renderer
+*/
+typedef
+fcppt::optional<
 	sge::renderer::clear::back_buffer_value
-> optional_back_buffer;
+>
+optional_back_buffer;
 
 }
 }

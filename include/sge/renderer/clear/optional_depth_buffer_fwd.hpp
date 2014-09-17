@@ -32,9 +32,16 @@ namespace renderer
 namespace clear
 {
 
-typedef fcppt::optional<
+/**
+\brief Optional depth buffer clear value
+
+\ingroup sge_renderer
+*/
+typedef
+fcppt::optional<
 	sge::renderer::clear::depth_buffer_value
-> optional_depth_buffer;
+>
+optional_depth_buffer;
 
 }
 }

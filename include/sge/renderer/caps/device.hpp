@@ -49,6 +49,8 @@ namespace caps
 /**
 \brief Provides information about an sge::renderer::device
 
+\ingroup sge_renderer
+
 This class provides information about an sge::renderer::device such as the
 driver's name, if render targets are supported and certain limitations. It is
 important that all the limitations are honored, otherwise functions may have

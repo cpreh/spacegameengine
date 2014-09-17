@@ -34,6 +34,8 @@ namespace caps
 
 /**
 \brief The number of devices an sge::renderer::system has
+
+\ingroup sge_renderer
 */
 FCPPT_MAKE_STRONG_TYPEDEF(
 	sge::renderer::device::index_value,

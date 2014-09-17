@@ -46,12 +46,15 @@ protected:
 	base();
 public:
 	SGE_RENDERER_OPENGL_SYMBOL
-	virtual ~base() = 0;
+	virtual
+	~base() = 0;
 
-	virtual buffer::id const
+	virtual
+	sge::renderer::opengl::buffer::id const
 	id() const = 0;
 
-	virtual bool
+	virtual
+	bool
 	native() const = 0;
 };
 

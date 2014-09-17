@@ -32,9 +32,16 @@ namespace renderer
 namespace clear
 {
 
-typedef fcppt::optional<
+/**
+\brief Optional stencil buffer clear value
+
+\ingroup sge_renderer
+*/
+typedef
+fcppt::optional<
 	sge::renderer::clear::stencil_buffer_value
-> optional_stencil_buffer;
+>
+optional_stencil_buffer;
 
 }
 }

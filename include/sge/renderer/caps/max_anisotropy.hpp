@@ -33,7 +33,9 @@ namespace caps
 {
 
 /**
- * \brief A strong typedef for the maximum anisotropy level
+\brief A strong typedef for the maximum anisotropy level
+
+\ingroup sge_renderer
 */
 FCPPT_MAKE_STRONG_TYPEDEF(
 	sge::renderer::state::core::sampler::filter::anisotropic::level_value,

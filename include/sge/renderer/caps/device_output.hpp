@@ -34,15 +34,17 @@ namespace caps
 {
 
 /**
- * \brief Prints a caps object to a stream
- *
- * Prints \a caps to \a stream.
- *
- * \param stream The stream to print to
- *
- * \param caps The caps to print
- *
- * \return \a stream
+\brief Prints a caps object to a stream
+
+\ingroup sge_renderer
+
+Prints \a caps to \a stream.
+
+\param stream The stream to print to
+
+\param caps The caps to print
+
+\return \a stream
 */
 SGE_RENDERER_SYMBOL
 fcppt::io::ostream &

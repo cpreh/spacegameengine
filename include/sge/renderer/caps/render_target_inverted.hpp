@@ -33,6 +33,8 @@ namespace caps
 
 /**
 \brief A strong typedef for a bool telling if render targets are inverted
+
+\ingroup sge_renderer
 */
 FCPPT_MAKE_STRONG_TYPEDEF(
 	bool,

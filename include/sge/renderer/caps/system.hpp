@@ -31,9 +31,25 @@ namespace renderer
 namespace caps
 {
 
+/**
+\brief Renderer capability flags
+
+\ingroup sge_renderer
+*/
 enum class system
 {
+	/**
+	\brief The renderer is capable of the fixed function pipeline
+
+	The renderer can create fixed function pipeline devices via
+	sge::renderer::system::create_ffp_renderer.*/
 	ffp,
+	/**
+	\brief The renderer is capable of OpenGL
+
+	Renderer buffers and textures can be cast to interfaces from
+	sge::renderer::opengl.
+	*/
 	opengl,
 	fcppt_maximum = opengl
 };

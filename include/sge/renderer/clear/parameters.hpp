@@ -38,24 +38,50 @@ namespace renderer
 namespace clear
 {
 
+/**
+\brief Clear parameters used to clear a renderer device
+
+\ingroup sge_renderer
+
+Clear parameters include optional clear values for
+<ul>
+<li>The backbuffer,</li>
+<li>the depth buffer and</li>
+</li>the stencil buffer</li>
+</ul>
+*/
 class parameters
 {
 public:
+	/**
+	\brief Default constructs clear parameters
+
+	By default nothing will be cleared.
+	*/
 	SGE_RENDERER_SYMBOL
 	parameters();
 
+	/**
+	\brief Sets the back buffer clear value
+	*/
 	SGE_RENDERER_SYMBOL
 	sge::renderer::clear::parameters &
 	back_buffer(
 		sge::renderer::clear::back_buffer_value const &
 	);
 
+	/**
+	\brief Sets the depth buffer clear value
+	*/
 	SGE_RENDERER_SYMBOL
 	sge::renderer::clear::parameters &
 	depth_buffer(
 		sge::renderer::clear::depth_buffer_value
 	);
 
+	/**
+	\brief Sets the stencil buffer clear value
+	*/
 	SGE_RENDERER_SYMBOL
 	sge::renderer::clear::parameters &
 	stencil_buffer(

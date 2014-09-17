@@ -31,7 +31,16 @@ namespace renderer
 namespace clear
 {
 
-typedef sge::image::color::any::object back_buffer_value;
+/**
+\brief The type used for backbuffer clearing
+
+\ingroup sge_renderer
+
+Backbuffers are cleared using any color.
+*/
+typedef
+sge::image::color::any::object
+back_buffer_value;
 
 }
 }

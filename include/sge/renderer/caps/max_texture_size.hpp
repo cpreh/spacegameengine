@@ -33,7 +33,9 @@ namespace caps
 {
 
 /**
- * \brief A strong typedef for the maximum 2D texture size
+\brief A strong typedef for the maximum 2D texture size
+
+\ingroup sge_renderer
 */
 FCPPT_MAKE_STRONG_TYPEDEF(
 	sge::renderer::dim2,

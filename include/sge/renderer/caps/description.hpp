@@ -33,7 +33,9 @@ namespace caps
 {
 
 /**
- * \brief A strong typedef for a string describing the driver
+\brief A strong typedef for a string describing the driver
+
+\ingroup sge_renderer
 */
 FCPPT_MAKE_STRONG_TYPEDEF(
 	fcppt::string,

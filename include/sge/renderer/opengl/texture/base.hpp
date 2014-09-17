@@ -56,7 +56,8 @@ public:
 	type() const = 0;
 
 	SGE_RENDERER_OPENGL_SYMBOL
-	virtual ~base() = 0;
+	virtual
+	~base() = 0;
 };
 
 }

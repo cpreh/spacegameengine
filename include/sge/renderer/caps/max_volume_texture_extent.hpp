@@ -33,10 +33,12 @@ namespace caps
 {
 
 /**
- * \brief A strong typedef for the maximum size of a volume texture's side
+\brief A strong typedef for the maximum size of a volume texture's side
+
+\ingroup sge_renderer
 */
 FCPPT_MAKE_STRONG_TYPEDEF(
-	renderer::size_type,
+	sge::renderer::size_type,
 	max_volume_texture_extent
 );
 
