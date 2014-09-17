@@ -33,6 +33,8 @@ namespace renderer
 /**
 \brief Typedef helper for renderer::dim2 and renderer::dim3
 
+\ingroup sge_renderer
+
 Creates a dimension with value type renderer::size_type.
 
 \tparam Size The dimension to use

@@ -21,16 +21,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_SCALAR_HPP_INCLUDED
 #define SGE_RENDERER_SCALAR_HPP_INCLUDED
 
+
 namespace sge
 {
 namespace renderer
 {
 
 /**
- * \brief The basic floating point type for renderer
- *
- * Although double can be used in some places like the vertex format, float is
- * used everywhere else.
+\brief The basic floating point type for renderer
+
+\ingroup sge_renderer
+
+Although double can be used in some places like the vertex format, float is
+used everywhere else.
 */
 typedef
 float

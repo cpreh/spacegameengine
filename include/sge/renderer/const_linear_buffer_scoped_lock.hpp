@@ -34,6 +34,9 @@ namespace renderer
 /**
 \brief A linear buffer lock that is readonly.
 
+\ingroup sge_renderer
+
+Creates a box with value type renderer::size_type.
 Used for locking sge::renderer::vertex::buffer and
 sge::renderer::index::buffer. It locks the buffer in the constructor and
 unlocks it in the destructor.

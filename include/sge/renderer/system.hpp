@@ -43,10 +43,11 @@ namespace renderer
 {
 
 /**
-
 \brief Creates sge::renderer::device objects and renderable visuals
 
-The core class returned by a renderer plugin. In order to render anything, you
+\ingroup sge_renderer
+
+The main class created by sge::renderer::core. In order to render anything, you
 have to create an sge::renderer::device through this class. If you don't have a
 renderable window to pass, you can create a renderable visual that can be used
 to create one.
@@ -60,16 +61,30 @@ protected:
 	SGE_RENDERER_SYMBOL
 	system();
 public:
+	/**
+	\brief Creates a core renderer
+
+	Creates a core renderer with properties from \a parameters
+
+	\param parameters The parameters to use
+	*/
 	virtual
 	sge::renderer::device::core_unique_ptr
 	create_core_renderer(
-		sge::renderer::device::parameters const &
+		sge::renderer::device::parameters const &parameters
 	) = 0;
 
+	/**
+	\brief Creates an ffp renderer
+
+	Creates an ffp renderer with properties from \a parameters
+
+	\param parameters The parameters to use
+	*/
 	virtual
 	sge::renderer::device::ffp_unique_ptr
 	create_ffp_renderer(
-		sge::renderer::device::parameters const &
+		sge::renderer::device::parameters const &parameters
 	) = 0;
 
 	/**
@@ -114,6 +129,16 @@ public:
 		sge::renderer::device::index index
 	) const = 0;
 
+	/**
+	\brief Queries the available display modes of a device
+
+	Returns the display modes of the device identified by \a index.
+
+	\param index The device to query the display modes of
+
+	\warning The behavior is undefined if index is equal to or greater
+	than the device count.
+	*/
 	virtual
 	sge::renderer::display_mode::container
 	display_modes(

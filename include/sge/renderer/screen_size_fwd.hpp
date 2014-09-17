@@ -31,12 +31,16 @@ namespace renderer
 {
 
 /**
- * \brief A typedef for a two dimensional renderer::screen_unit
+\brief A typedef for a two dimensional renderer::screen_unit
+
+\ingroup sge_renderer
 */
-typedef fcppt::math::dim::static_<
+typedef
+fcppt::math::dim::static_<
 	sge::renderer::screen_unit,
 	2
-> screen_size;
+>
+screen_size;
 
 }
 }

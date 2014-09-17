@@ -30,11 +30,15 @@ namespace renderer
 {
 
 /**
- * \brief A typedef for a rect used for locking textures
+\brief A typedef for a rect used for locking textures
+
+\ingroup sge_renderer
 */
-typedef sge::renderer::basic_lock_box<
+typedef
+sge::renderer::basic_lock_box<
 	2
-> lock_rect;
+>
+lock_rect;
 
 }
 }

@@ -35,6 +35,8 @@ namespace renderer
 /**
 \brief A buffer lock that is not readonly.
 
+\ingroup sge_renderer
+
 Used for locking sge::renderer::vertex::buffer and
 sge::renderer::index::buffer. It locks the buffer in the constructor and
 unlocks it in the destructor.
@@ -53,46 +55,46 @@ class linear_buffer_scoped_lock
 	);
 public:
 	/**
-	 * \brief The offset type
-	 *
-	 * Used to tell at which element the lock will start.
+	\brief The offset type
+
+	Used to tell at which element the lock will start.
 	*/
 	typedef typename Types::first_type first_type;
 
 	/**
-	 * \brief The count type
-	 *
-	 * Used to tell how many elements will be locked.
+	\brief The count type
+
+	Used to tell how many elements will be locked.
 	*/
 	typedef typename Types::count_type count_type;
 
 	/**
-	 * \brief The view type of the lock.
+	\brief The view type of the lock.
 	*/
 	typedef typename Types::view_type view_type;
 
 	/**
-	 * \brief Locks a buffer
-	 *
-	 * Locks \a buffer, using the lock method \a method. The buffer will
-	 * be locked starting from \a first to \a first + \a count, or the
-	 * entire buffer will be locked if \a first is 0 and \a count is
-	 * renderer::npos, which is the default.
-	 *
-	 * \param buffer The buffer to lock
-	 *
-	 * \param method The lock method to use, either writeonly or readwrite
-	 *
-	 * \param first The offset to lock the buffer from
-	 *
-	 * \param count The number of elements to lock, or npos for all
-	 * elements
-	 *
-	 * \warning The behaviour is undefined if the buffer is already locked
-	 * or if the region is out of range
-	 *
-	 * \warning The behaviour is undefined if \a method is readwrite
-	 * and the buffer hasn't been created with resource_flags::readable
+	\brief Locks a buffer
+
+	Locks \a buffer, using the lock method \a method. The buffer will
+	be locked starting from \a first to \a first + \a count, or the
+	entire buffer will be locked if \a first is 0 and \a count is
+	sge::renderer::npos, which is the default.
+
+	\param buffer The buffer to lock
+
+	\param method The lock method to use, either writeonly or readwrite
+
+	\param first The offset to lock the buffer from
+
+	\param count The number of elements to lock, or npos for all
+	elements
+
+	\warning The behaviour is undefined if the buffer is already locked
+	or if the region is out of range
+
+	\warning The behaviour is undefined if \a method is readwrite
+	and the buffer hasn't been created with resource_flags::readable
 	*/
 	SGE_RENDERER_SYMBOL
 	linear_buffer_scoped_lock(
@@ -107,19 +109,19 @@ public:
 	);
 
 	/**
-	 * \brief Obtain the view of the locked region
-	 *
-	 * \return The view of the locked region
+	\brief Obtain the view of the locked region
+
+	\return The view of the locked region
 	*/
 	SGE_RENDERER_SYMBOL
 	view_type const
 	value() const;
 
 	/**
-	 * \brief Unlocks the buffer
-	 *
-	 * \warning The behaviour is undefined if the buffer has been locked
-	 * again or unlocked in between the constructor and destructor
+	\brief Unlocks the buffer
+
+	\warning The behaviour is undefined if the buffer has been locked
+	again or unlocked in between the constructor and destructor
 	*/
 	SGE_RENDERER_SYMBOL
 	~linear_buffer_scoped_lock();

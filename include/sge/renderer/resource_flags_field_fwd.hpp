@@ -32,10 +32,14 @@ namespace renderer
 
 /**
 \brief A bitfield that can hold flags from sge::renderer::resource_flags
+
+\ingroup sge_renderer
 */
-typedef fcppt::container::bitfield::object_from_enum<
+typedef
+fcppt::container::bitfield::object_from_enum<
 	sge::renderer::resource_flags
-> resource_flags_field;
+>
+resource_flags_field;
 
 }
 }

@@ -31,7 +31,9 @@ namespace renderer
 {
 
 /**
- * \brief A 4x4 matrix using renderer::scalar
+\brief A 4x4 matrix using renderer::scalar
+
+\ingroup sge_renderer
 */
 typedef
 fcppt::math::matrix::static_<

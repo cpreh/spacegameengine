@@ -31,6 +31,8 @@ namespace renderer
 
 /**
 \brief A type used to count bytes
+
+\ingroup sge_renderer
 */
 typedef
 sge::image::size_type

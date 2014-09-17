@@ -23,17 +23,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/raw_value.hpp>
 
+
 namespace sge
 {
 namespace renderer
 {
 
 /**
- * \brief A pointer to const raw data
- *
- * \see renderer::raw_value
+\brief A pointer to const raw data
+
+\ingroup sge_renderer
+
+Creates a box with value type renderer::size_type.
+
+\see sge::renderer::raw_value
 */
-typedef renderer::raw_value const *const_raw_pointer;
+typedef sge::renderer::raw_value const *const_raw_pointer;
 
 }
 }

@@ -31,10 +31,12 @@ namespace renderer
 {
 
 /**
- * \brief A typedef that describes the number of primitives to render
+\brief A typedef that describes the number of primitives to render
+
+\ingroup sge_renderer
 */
 FCPPT_MAKE_STRONG_TYPEDEF(
-	renderer::size_type,
+	sge::renderer::size_type,
 	primitive_count
 );
 

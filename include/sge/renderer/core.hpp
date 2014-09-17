@@ -35,6 +35,14 @@ namespace sge
 namespace renderer
 {
 
+/**
+\brief The staring class of a renderer plugin
+
+\ingroup sge_renderer
+
+Creates renderer systems from awl systems and provides the plugin's
+capabilities.
+*/
 class SGE_CLASS_SYMBOL core
 {
 	FCPPT_NONCOPYABLE(
@@ -48,6 +56,9 @@ public:
 	virtual
 	~core() = 0;
 
+	/**
+	\brief Creates a renderer system from an awl system
+	*/
 	virtual
 	sge::renderer::system_unique_ptr
 	create_system(
@@ -55,7 +66,7 @@ public:
 	) = 0;
 
 	/**
-	\brief Returns the system's capabilities
+	\brief Returns the plugin's capabilities
 	*/
 	virtual
 	sge::renderer::caps::system_field const

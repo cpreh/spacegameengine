@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_IS_EPSILON_EQUAL_HPP_INCLUDED
-#define SGE_RENDERER_IS_EPSILON_EQUAL_HPP_INCLUDED
+#ifndef SGE_SRC_RENDERER_IS_EPSILON_EQUAL_HPP_INCLUDED
+#define SGE_SRC_RENDERER_IS_EPSILON_EQUAL_HPP_INCLUDED
 
-#include <sge/renderer/epsilon.hpp>
 #include <sge/renderer/scalar.hpp>
+#include <sge/src/renderer/epsilon.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cmath>
 #include <fcppt/config/external_end.hpp>

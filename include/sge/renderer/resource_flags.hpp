@@ -29,27 +29,30 @@ namespace sge
 namespace renderer
 {
 
+/**
+\brief Flags used when creating resources
+
+\ingroup sge_renderer
+*/
 enum class resource_flags
 {
 	/**
-	 * \brief Makes the resource dynamic
-	 *
-	 * A driver shall try to make a compromise, so that dynamic resources
-	 * are faster to lock/unlock but also slower to render. A dynamic
-	 * resource must be completely updated for every render block,
-	 * otherwise its contents will be undefined. This is to ensure that sge
-	 * doesn't have to make a copy of the internal data. dynamic resources
-	 * are most useful if the contents change every frame anyway, e.g. in
-	 * a sprite system.
+	\brief Makes the resource dynamic
+
+	A driver shall try to make a compromise so that dynamic resources are
+	faster to lock/unlock but may be also slower to render. A dynamic
+	resource must be completely updated for every render block, otherwise
+	its contents will be undefined. This is to ensure that sge doesn't have
+	to make a copy of the internal data. Dynamic resources are most useful
+	if the contents change every frame anyway, e.g. in a sprite system.
 	*/
 	dynamic,
 	/**
-	 * \brief Makes a resource readable
-	 *
-	 * By default, a resource is not readable which means it cannot be
-	 * locked so that data can be read from it. A readable resource might
-	 * be slower to render, slower to lock or unlock or might require more
-	 * memory.
+	\brief Makes a resource readable
+
+	By default, a resource is not readable which means it cannot be locked
+	so that data can be read from it. A readable resource might be slower
+	to render, slower to lock or unlock or might require more memory.
 	*/
 	readable,
 	fcppt_maximum = readable

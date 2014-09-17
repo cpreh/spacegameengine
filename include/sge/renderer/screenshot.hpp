@@ -35,19 +35,21 @@ namespace renderer
 {
 
 /**
- * \brief Takes a screenshot and saves it to disk
- *
- * Takes a screenshot of the color surface of the onscreen target
- * denoted by \a device. It will be saved to \a path by \a system.
- *
- * \note Make sure that \a system is able to save the file format specified by
- * \a path.
- *
- * \param device The device to take the screenshot from
- *
- * \param system The image system to use for saving
- *
- * \param path The path to save the screenshot to
+\brief Takes a screenshot and saves it to a path
+
+\ingroup sge_renderer
+
+Takes a screenshot of the color surface of the onscreen target denoted by \a
+device. It will be saved to \a path by \a system.
+
+\note Make sure that \a system is able to save the file format specified by \a
+path.
+
+\param device The device to take the screenshot from
+
+\param system The image system to use for saving
+
+\param path The path to save the screenshot to
 */
 SGE_RENDERER_SYMBOL
 void

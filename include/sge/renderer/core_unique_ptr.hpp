@@ -32,6 +32,11 @@ namespace sge
 namespace renderer
 {
 
+/**
+\brief A unique pointer to an sge::renderer::core
+
+\ingroup sge_renderer
+*/
 typedef
 std::unique_ptr<
 	sge::renderer::core

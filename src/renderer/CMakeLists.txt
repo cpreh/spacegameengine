@@ -131,7 +131,6 @@ set(
 	include/sge/renderer/display_mode/to_dpi.hpp
 	include/sge/renderer/display_mode/vsync.hpp
 	include/sge/renderer/display_mode/vsync_fwd.hpp
-	include/sge/renderer/epsilon.hpp
 	include/sge/renderer/exception.hpp
 	include/sge/renderer/index/any/basic_view.hpp
 	include/sge/renderer/index/any/basic_view_fwd.hpp
@@ -197,7 +196,6 @@ set(
 	include/sge/renderer/index/to_nonconst_format.hpp
 	include/sge/renderer/index/view.hpp
 	include/sge/renderer/index/view_fwd.hpp
-	include/sge/renderer/is_epsilon_equal.hpp
 	include/sge/renderer/linear_buffer_scoped_lock.hpp
 	include/sge/renderer/lock_box.hpp
 	include/sge/renderer/lock_box_fwd.hpp
@@ -888,6 +886,7 @@ set(
 	src/renderer/include/sge/src/renderer/color_buffer/instantiate_basic.hpp
 	src/renderer/include/sge/src/renderer/const_basic_buffer_scoped_lock_impl.hpp
 	src/renderer/include/sge/src/renderer/const_linear_buffer_scoped_lock_impl.hpp
+	src/renderer/include/sge/src/renderer/epsilon.hpp
 	src/renderer/include/sge/src/renderer/index/dynamic/basic_view_impl.hpp
 	src/renderer/include/sge/src/renderer/index/dynamic/format_enum_static.hpp
 	src/renderer/include/sge/src/renderer/index/dynamic/instantiate_basic_view.hpp
@@ -898,6 +897,7 @@ set(
 	src/renderer/include/sge/src/renderer/instantiate_const_linear_buffer_scoped_lock.hpp
 	src/renderer/include/sge/src/renderer/instantiate_float.hpp
 	src/renderer/include/sge/src/renderer/instantiate_linear_buffer_scoped_lock.hpp
+	src/renderer/include/sge/src/renderer/is_epsilon_equal.hpp
 	src/renderer/include/sge/src/renderer/linear_buffer_scoped_lock_impl.hpp
 	src/renderer/include/sge/src/renderer/logger.hpp
 	src/renderer/include/sge/src/renderer/projection/check_near.hpp

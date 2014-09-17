@@ -35,6 +35,9 @@ namespace renderer
 /**
 \brief Locks a buffer readonly.
 
+\ingroup sge_renderer
+
+Creates a box with value type renderer::size_type.
 Used for locking of buffers readonly. It locks the buffer in the constructor
 and unlocks it in the destructor.
 */

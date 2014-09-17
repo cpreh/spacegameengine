@@ -30,6 +30,11 @@ namespace sge
 namespace renderer
 {
 
+/**
+\brief An optional matrix4
+
+\ingroup sge_renderer
+*/
 typedef
 fcppt::optional<
 	sge::renderer::matrix4

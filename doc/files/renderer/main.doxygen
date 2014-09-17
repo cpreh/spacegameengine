@@ -1,4 +1,6 @@
 /**
+\defgroup sge_renderer sge.renderer
+
 \page renderer_main renderer
 
 \section abstract Abstract

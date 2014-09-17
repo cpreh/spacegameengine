@@ -32,6 +32,8 @@ namespace renderer
 
 /**
 \brief A two dimensional vector of renderer::scalars
+
+\ingroup sge_renderer
 */
 typedef
 sge::renderer::basic_vector<

@@ -40,6 +40,11 @@ namespace sge
 namespace renderer
 {
 
+/**
+\brief A lockable buffer
+
+\ingroup sge_renderer
+*/
 template<
 	typename ImageTag
 >

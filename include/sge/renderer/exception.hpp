@@ -34,7 +34,9 @@ namespace renderer
 {
 
 /**
- * \brief The base class for every renderer exception
+\brief The base class for every renderer exception
+
+\ingroup sge_renderer
 */
 class SGE_CLASS_SYMBOL exception
 :
@@ -42,9 +44,9 @@ class SGE_CLASS_SYMBOL exception
 {
 public:
 	/**
-	 * \brief Constructs the exception from a string
-	 *
-	 * Constructs the exception from \a what
+	\brief Constructs the exception from a string
+
+	Constructs the exception from \a what
 	*/
 	SGE_RENDERER_SYMBOL
 	explicit
@@ -53,9 +55,9 @@ public:
 	);
 
 	/**
-	 * \brief Constructs the exception from an assert info
-	 *
-	 * Constructs the exception from \a info
+	\brief Constructs the exception from an assert info
+
+	Constructs the exception from \a info
 	*/
 	SGE_RENDERER_SYMBOL
 	explicit

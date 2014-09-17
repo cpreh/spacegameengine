@@ -33,6 +33,11 @@ namespace sge
 namespace renderer
 {
 
+/**
+\brief Base class for all renderable visuals created by sge
+
+\ingroup sge_renderer
+*/
 class SGE_CLASS_SYMBOL visual_base
 {
 	FCPPT_NONCOPYABLE(

@@ -21,13 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_SCREEN_UNIT_HPP_INCLUDED
 #define SGE_RENDERER_SCREEN_UNIT_HPP_INCLUDED
 
+
 namespace sge
 {
 namespace renderer
 {
 
 /**
- * \brief A type used to measure screen resolutions
+\brief A type used to measure screen resolutions
+
+\ingroup sge_renderer
 */
 typedef unsigned screen_unit;
 

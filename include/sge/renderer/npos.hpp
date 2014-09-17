@@ -24,19 +24,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/symbol.hpp>
 
+
 namespace sge
 {
 namespace renderer
 {
 
 /**
- * \brief A constant that describes the end of a buffer
- *
- * \see renderer::index_buffer::npos
- * \see renderer::vertex_buffer::npos
+\brief A constant that describes the end of a buffer
+
+\ingroup sge_renderer
+
+\see sge::renderer::index_buffer::npos
+
+\see sge::renderer::vertex_buffer::npos
 */
 SGE_RENDERER_SYMBOL
-renderer::size_type
+sge::renderer::size_type
 npos();
 
 }

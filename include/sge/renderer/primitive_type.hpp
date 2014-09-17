@@ -29,18 +29,23 @@ namespace sge
 namespace renderer
 {
 
+/**
+\brief Lists all the geometry primitives that can be rendered
+
+\ingroup sge_renderer
+*/
 enum class primitive_type
 {
 	/**
 	\brief Vertices describe points
 
-	Each vertex describes one point.
+	Each vertex defines a point.
 	*/
 	point_list,
 	/**
 	\brief Vertices describe lines
 
-	Every two adjacent vertices describe one line.
+	Every two adjacent vertices define a line.
 	*/
 	line_list,
 	/**
@@ -53,7 +58,7 @@ enum class primitive_type
 	/**
 	\brief Indices describe triangles
 
-	Every three adjacent vertices describe one triangle.
+	Every three adjacent vertices define a triangle.
 	*/
 	triangle_list,
 	/**
@@ -72,7 +77,6 @@ enum class primitive_type
 	triangle.
 	*/
 	triangle_fan
-
 };
 
 }

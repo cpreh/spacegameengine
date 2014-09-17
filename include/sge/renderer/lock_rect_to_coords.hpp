@@ -37,20 +37,21 @@ namespace renderer
 {
 
 /**
- * \brief Transforms a lock rect into texture coordinates
- *
- * Calculates the texture coordinates for \a area using the texture size \a
- * size.
- *
- * \param area The portion of the texture to calculate the coordinates for
- *
- * \param size The size of the texture
- *
- * \tparam Ret The floating point type for the resulting rect to use
- *
- * \return The texture coordinates in [(0,0),(1,1)]
- *
- * \warning The behaviour is undefined if \a area lies outside of \a size
+\brief Transforms a lock rect into texture coordinates
+
+\ingroup sge_renderer
+
+Calculates the texture coordinates for \a area using the texture size \a size.
+
+\param area The portion of the texture to calculate the coordinates for
+
+\param size The size of the texture
+
+\tparam Ret The floating point type for the resulting rect to use
+
+\return The texture coordinates in [(0,0),(1,1)]
+
+\warning The behaviour is undefined if \a area lies outside of \a size
 */
 template<
 	typename Ret

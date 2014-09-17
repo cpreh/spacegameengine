@@ -30,12 +30,15 @@ namespace renderer
 {
 
 /**
- * \brief A typedef for a three dimensional box used for locking volume
- * textures
+\brief A typedef for a three dimensional box used for locking volume textures
+
+\ingroup sge_renderer
 */
-typedef sge::renderer::basic_lock_box<
+typedef
+sge::renderer::basic_lock_box<
 	3
-> lock_box;
+>
+lock_box;
 
 }
 }

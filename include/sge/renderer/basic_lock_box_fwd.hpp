@@ -33,6 +33,8 @@ namespace renderer
 /**
 \brief Typedef helper for renderer::lock_rect and renderer::lock_box
 
+\ingroup sge_renderer
+
 Creates a box with value type renderer::size_type.
 
 \tparam Size The dimension to use

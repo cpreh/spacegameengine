@@ -36,6 +36,8 @@ namespace renderer
 /**
 \brief Locks a buffer readwrite or writeonly.
 
+\ingroup sge_renderer
+
 Used for locking of buffers readwrite or writeonly. It locks the buffer in the
 constructor and unlocks it in the destructor.
 */

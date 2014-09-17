@@ -32,17 +32,19 @@ namespace renderer
 {
 
 /**
- * \brief Calculates the aspect
- *
- * An aspect of a dimension (w,h) is defined as the ratio from the larger to
- * the smaller. The division is done as a floating point division.
- *
- * \param size The size to calculate the aspect from
- *
- * \return <code> size.w > size.h ? size.w / size.h : size.h / size.w </code>
- *
- * \warning The behaviour is undefined if either width or height is zero.
- */
+\brief Calculates the aspect of a screen size
+
+\ingroup sge_renderer
+
+An aspect of a dimension (w,h) is defined as the ratio from the larger to the
+smaller. The division is done as a floating point division.
+
+\param size The size to calculate the aspect from
+
+\return <code> size.w > size.h ? size.w / size.h : size.h / size.w </code>
+
+\warning The behaviour is undefined if either width or height is zero.
+*/
 SGE_RENDERER_SYMBOL
 sge::renderer::scalar
 aspect(

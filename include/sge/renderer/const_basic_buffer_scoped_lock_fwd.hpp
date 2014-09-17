@@ -35,5 +35,4 @@ class const_basic_buffer_scoped_lock;
 }
 }
 
-
 #endif

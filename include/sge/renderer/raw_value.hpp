@@ -21,17 +21,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_RAW_VALUE_HPP_INCLUDED
 #define SGE_RENDERER_RAW_VALUE_HPP_INCLUDED
 
+
 namespace sge
 {
 namespace renderer
 {
 
 /**
- * \brief The type of raw data
- *
- * Buffer data can be accessed raw as it if was an array of bytes. This can be
- * useful if you want to bypass the type system so you can directly copy into
- * or read from a buffer.
+\brief The type of raw data
+
+\ingroup sge_renderer
+
+Buffer data can be accessed raw as if it was an array of bytes. This can be
+useful if you want to bypass the type system so you can directly copy into or
+read from a buffer.
 */
 typedef unsigned char raw_value;
 

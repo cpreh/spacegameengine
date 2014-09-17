@@ -35,6 +35,8 @@ namespace renderer
 \brief Typedef helper for renderer::vector2, renderer::vector3 and
 renderer::vector4
 
+\ingroup sge_renderer
+
 Creates a vector with value type renderer::scalar.
 
 \tparam Size The dimension to use
@@ -44,8 +46,7 @@ template<
 >
 using basic_vector
 =
-fcppt::math::vector::static_
-<
+fcppt::math::vector::static_<
 	sge::renderer::scalar,
 	Size
 >;

@@ -30,6 +30,11 @@ namespace sge
 namespace renderer
 {
 
+/**
+\brief Lock location of sge::renderer
+
+\ingroup sge_renderer
+*/
 SGE_RENDERER_SYMBOL
 fcppt::log::location
 log_location();

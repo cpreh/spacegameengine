@@ -1984,7 +1984,6 @@ set(
 	include/sge/renderer/display_mode/to_dpi.hpp
 	include/sge/renderer/display_mode/vsync.hpp
 	include/sge/renderer/display_mode/vsync_fwd.hpp
-	include/sge/renderer/epsilon.hpp
 	include/sge/renderer/exception.hpp
 	include/sge/renderer/index/any/basic_view.hpp
 	include/sge/renderer/index/any/basic_view_fwd.hpp
@@ -2050,7 +2049,6 @@ set(
 	include/sge/renderer/index/to_nonconst_format.hpp
 	include/sge/renderer/index/view.hpp
 	include/sge/renderer/index/view_fwd.hpp
-	include/sge/renderer/is_epsilon_equal.hpp
 	include/sge/renderer/linear_buffer_scoped_lock.hpp
 	include/sge/renderer/lock_box.hpp
 	include/sge/renderer/lock_box_fwd.hpp

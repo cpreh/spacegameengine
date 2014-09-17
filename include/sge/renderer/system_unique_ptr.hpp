@@ -33,11 +33,15 @@ namespace renderer
 {
 
 /**
- * \brief A unique pointer to an sge::renderer::system
+\brief A unique pointer to an sge::renderer::system
+
+\ingroup sge_renderer
 */
-typedef std::unique_ptr<
+typedef
+std::unique_ptr<
 	sge::renderer::system
-> system_unique_ptr;
+>
+system_unique_ptr;
 
 }
 }

@@ -29,6 +29,11 @@ namespace sge
 namespace renderer
 {
 
+/**
+\brief Mode for accessing resources
+
+\ingroup sge_renderer
+*/
 enum class lock_mode
 {
 	/**

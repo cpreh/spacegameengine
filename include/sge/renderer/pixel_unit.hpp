@@ -29,6 +29,8 @@ namespace renderer
 
 /**
 \brief The unit to describe pixel positions
+
+\ingroup sge_renderer
 */
 typedef int pixel_unit;
 
