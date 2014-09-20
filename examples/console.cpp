@@ -73,7 +73,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/with_input.hpp>
 #include <sge/systems/with_renderer.hpp>
 #include <sge/systems/with_window.hpp>
-#include <sge/texture/const_part_shared_ptr.hpp>
 #include <sge/texture/part_raw_ptr.hpp>
 #include <sge/viewport/center_on_resize.hpp>
 #include <sge/window/system.hpp>
@@ -84,7 +83,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/insert_to_string.hpp>
-#include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
@@ -256,25 +254,20 @@ try
 				.long_description(
 					SGE_FONT_LIT("Increments the float value (extremely useful!)"))));
 
-	sge::texture::const_part_shared_ptr const
-		tex_bg(
-			fcppt::make_shared_ptr<
-				sge::texture::part_raw_ptr
-			>(
-				sge::renderer::texture::create_planar_from_path(
-					sge::config::media_path()
-					/ FCPPT_TEXT("images")
-					/ FCPPT_TEXT("grass.png"),
-					sys.renderer_device_ffp(),
-					sys.image_system(),
-					sge::renderer::texture::mipmap::off(),
-					sge::renderer::resource_flags_field::null(),
-					sge::renderer::texture::emulate_srgb_from_caps(
-						sys.renderer_device_ffp().caps()
-					)
-				)
+	sge::texture::part_raw_ptr const tex_bg(
+		sge::renderer::texture::create_planar_from_path(
+			sge::config::media_path()
+			/ FCPPT_TEXT("images")
+			/ FCPPT_TEXT("grass.png"),
+			sys.renderer_device_ffp(),
+			sys.image_system(),
+			sge::renderer::texture::mipmap::off(),
+			sge::renderer::resource_flags_field::null(),
+			sge::renderer::texture::emulate_srgb_from_caps(
+				sys.renderer_device_ffp().caps()
 			)
-		);
+		)
+	);
 
 	sge::font::object_unique_ptr const font_object(
 		sys.font_system().create_font(
@@ -296,7 +289,9 @@ try
 				sge::console::gfx::sprite_object::vector::null()
 			)
 			.texture(
-				tex_bg
+				sge::console::gfx::sprite_object::texture_type{
+					tex_bg
+				}
 			)
 			.size(
 				sge::console::gfx::sprite_object::dim(
