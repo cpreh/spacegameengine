@@ -236,9 +236,9 @@ function(
 	# Dynamic example libs still need to be installed,
 	# otherwise the examples won't work
 	elseif(
-		"${BASE_VARIANT}" STREQUAL "EXAMPLE"
+		"${_BASE_VARIANT}" STREQUAL "EXAMPLE"
 		AND
-		NOT "${VARIANT}" STREQUAL "STATIC"
+		NOT "${_VARIANT}" STREQUAL "STATIC"
 	)
 		install(
 			TARGETS
