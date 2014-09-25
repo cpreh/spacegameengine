@@ -84,8 +84,7 @@ namespace device
 /**
 \brief Provides core functionality (without ffp support)
 
-The core device provides creation of resources and a core renderering
-context.
+The core device provides creation of resources and a core rendering context.
 */
 class SGE_CLASS_SYMBOL core
 {
@@ -150,20 +149,20 @@ public:
 	create_target() = 0;
 
 	/**
-	 * \brief Creates a planar texture
-	 *
-	 * Creates a planar texture from \a parameters.
-	 * Initially, the contents of the texture are undefined.
-	 *
-	 * \param parameters The parameters class for the planar texture, using
-	 * sge::renderer::dim2 as its dimensions and
-	 * sge::image::color::format as its format
-	 *
-	 * \return A unique pointer to the created planar texture
-	 *
-	 * \see sge::renderer::caps::object::max_texture_size
-	 *
-	 * \throw sge::renderer::exception if anything goes wrong
+	\brief Creates a planar texture
+
+	Creates a planar texture from \a parameters. Initially, the contents
+	of the texture are undefined.
+
+	\param parameters The parameters class for the planar texture, using
+	sge::renderer::dim2 as its dimensions and sge::image::color::format as
+	its format
+
+	\return A unique pointer to the created planar texture
+
+	\see sge::renderer::caps::object::max_texture_size
+
+	\throw sge::renderer::exception if anything goes wrong
 	*/
 	virtual
 	sge::renderer::texture::planar_unique_ptr
@@ -172,21 +171,21 @@ public:
 	) = 0;
 
 	/**
-	 * \brief Creates a depth stencil texture
-	 *
-	 * Creates a depth stencil texture from \a parameters.
-	 * Initially, the contents of the texture are undefined.
-	 *
-	 * \param parameters The parameters class for the depth stencil
-	 * texture, using sge::renderer::dim2 as its dimensions and
-	 * sge::renderer::depth_stencil_format as its format
-	 *
-	 * \return A unique pointer to the created depth stencil texture
-	 *
-	 * \see sge::renderer::caps::object::max_texture_size
-	 *
-	 * \throw sge::renderer::exception if anything goes wrong
-	 */
+	\brief Creates a depth stencil texture
+
+	Creates a depth stencil texture from \a parameters.
+	Initially, the contents of the texture are undefined.
+
+	\param parameters The parameters class for the depth stencil texture,
+	using sge::renderer::dim2 as its dimensions and
+	sge::renderer::depth_stencil_format as its format
+
+	\return A unique pointer to the created depth stencil texture
+
+	\see sge::renderer::caps::object::max_texture_size
+
+	\throw sge::renderer::exception if anything goes wrong
+	*/
 	virtual
 	sge::renderer::texture::depth_stencil_unique_ptr
 	create_depth_stencil_texture(
@@ -194,18 +193,18 @@ public:
 	) = 0;
 
 	/**
-	 * \brief Creates a depth stencil surface
-	 *
-	 * Creates a depth stencil surface with dimension \a size and format \a
-	 * format. Initially, the contents of the surface are undefined.
-	 *
-	 * \param parameters The parameters for the surface, including its
-	 * format and size
-	 *
-	 * \return A unique pointer to the created depth stencil surface
-	 *
-	 * \throw sge::renderer::exception if anything goes wrong
-	 */
+	\brief Creates a depth stencil surface
+
+	Creates a depth stencil surface with dimension \a size and format \a
+	format. Initially, the contents of the surface are undefined.
+
+	\param parameters The parameters for the surface, including its
+	format and size
+
+	\return A unique pointer to the created depth stencil surface
+
+	\throw sge::renderer::exception if anything goes wrong
+	*/
 	virtual
 	sge::renderer::depth_stencil_buffer::surface_unique_ptr
 	create_depth_stencil_surface(
@@ -213,21 +212,21 @@ public:
 	) = 0;
 
 	/**
-	 * \brief Creates a volume texture
-	 *
-	 * Creates a volume texture from \a parameters.
-	 * Initially, the contents of the texture are undefined.
-	 *
-	 * \param parameters The parameters class for the depth stencil
-	 * texture, using sge::renderer::dim3 as its dimensions and
-	 * sge::image::color::format as its format
-	 *
-	 * \return A unique pointer to the created volume texture
-	 *
-	 * \see sge::renderer::caps::object::max_volume_texture_extent
-	 *
-	 * \throw sge::renderer::exception if anything goes wrong
-	 */
+	\brief Creates a volume texture
+
+	Creates a volume texture from \a parameters.  Initially, the contents
+	of the texture are undefined.
+
+	\param parameters The parameters class for the depth stencil texture,
+	using sge::renderer::dim3 as its dimensions and
+	sge::image::color::format as its format
+
+	\return A unique pointer to the created volume texture
+
+	\see sge::renderer::caps::object::max_volume_texture_extent
+
+	\throw sge::renderer::exception if anything goes wrong
+	*/
 	virtual
 	sge::renderer::texture::volume_unique_ptr
 	create_volume_texture(
@@ -235,19 +234,19 @@ public:
 	) = 0;
 
 	/**
-	 * \brief Creates a cube texture
-	 *
-	 * Creates a cube texture from \a parameters.
-	 * Initially, the contents of the texture are undefined.
-	 *
-	 * \param parameters The parameters class for the depth stencil
-	 * texture, using sge::renderer::size_type as its dimensions and
-	 * sge::image::color::format as its format
-	 *
-	 * \return A unique pointer to the created cube texture
-	 *
-	 * \throw sge::renderer::exception if anything goes wrong
-	 */
+	\brief Creates a cube texture
+
+	Creates a cube texture from \a parameters. Initially, the contents of
+	the texture are undefined.
+
+	\param parameters The parameters class for the depth stencil
+	texture, using sge::renderer::size_type as its dimensions and
+	sge::image::color::format as its format
+
+	\return A unique pointer to the created cube texture
+
+	\throw sge::renderer::exception if anything goes wrong
+	*/
 	virtual
 	sge::renderer::texture::cube_unique_ptr
 	create_cube_texture(

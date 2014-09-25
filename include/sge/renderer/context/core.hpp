@@ -57,6 +57,14 @@ namespace renderer
 namespace context
 {
 
+/**
+\brief Renders to a render target using core functionality
+
+\ingroup sge_renderer
+
+A renderer core context must be created by calling
+sge::renderer::device::core::begin_rendering on a render target.
+*/
 class SGE_CLASS_SYMBOL core
 {
 	FCPPT_NONCOPYABLE(
@@ -77,14 +85,24 @@ public:
 	sge::renderer::target::base &
 	target() = 0;
 
+	/**
+	\brief Clear various buffers
+
+	Clears the buffers denoted by \a parameters, e.g. color buffer, depth
+	or stencil buffer.
+	*/
 	virtual
 	void
 	clear(
-		sge::renderer::clear::parameters const &
+		sge::renderer::clear::parameters const &parameters
 	) = 0;
 
 	/**
 	\brief Allows temporary substitution of the current target
+
+	\note Avoid using this function if you can and try to render everything
+	to a target in one go. This function was introduced to support APIs
+	that need to change render targets at any point.
 	*/
 	virtual
 	void
@@ -241,20 +259,20 @@ public:
 	) = 0;
 
 	/**
-	 * \brief Sets a texture for a texture stage
-	 *
-	 * Sets the texture for \a stage to \a texture.
-	 * Initially, the textures for every stage are none.
-	 *
-	 * \param texture The texture to set or
-	 * sge::renderer::texture::const_optional_base_ref() to disable
-	 * texturing. \param stage The stage to set the texture for
-	 *
-	 * \see sge::renderer::caps::object::texture_stages
-	 *
-	 * \warning The behaviour is undefined if \a stage is greater or equal
-	 * to sge::renderer::caps::object::texture_stages
-	 */
+	\brief Sets a texture for a texture stage
+
+	Sets the texture for \a stage to \a texture. Initially, the textures
+	for every stage are none.
+
+	\param texture The texture to set or
+	sge::renderer::texture::const_optional_base_ref() to disable texturing.
+	\param stage The stage to set the texture for
+
+	\see sge::renderer::caps::object::texture_stages
+
+	\warning The behaviour is undefined if \a stage is greater or equal
+	to sge::renderer::caps::object::texture_stages
+	*/
 	virtual
 	void
 	texture(
@@ -262,24 +280,63 @@ public:
 		sge::renderer::texture::stage stage
 	) = 0;
 
+	/**
+	\brief Sets or resets the blend state
+
+	Sets the blend state to \a state. If \a state is nothing, the default
+	blend state, sge::renderer::state::core::blend::default_, is restored.
+
+	The blend state dictates how color and alpha values in the current
+	render target are combined with color and values from rendered
+	geometry.
+	*/
 	virtual
 	void
 	blend_state(
-		sge::renderer::state::core::blend::const_optional_object_ref const &
+		sge::renderer::state::core::blend::const_optional_object_ref const &state
 	) = 0;
 
+	/**
+	\brief Sets or resets the depth stencil state
+
+	Sets the depth stencil state to \a state. If \a state is nothing, the
+	default depth stencil state,
+	sge::renderer::state::core::depth_stencil::default_, is restored.
+
+	The depth stencil state dictates how the depth and stencil buffers are
+	used to omit rendering of geometry and how they are updated.
+	*/
 	virtual
 	void
 	depth_stencil_state(
 		sge::renderer::state::core::depth_stencil::const_optional_object_ref const &
 	) = 0;
 
+	/**
+	\brief Sets or resets the rasterizer state
+
+	Sets the rasterizer state to \a state. If \a state is nothing, the
+	default rasterizer state,
+	sge::renderer::state::core::rasterizer::default_, is restored.
+
+	The rasterizer state dictates how polygons are clipped and filled.
+	*/
 	virtual
 	void
 	rasterizer_state(
 		sge::renderer::state::core::rasterizer::const_optional_object_ref const &
 	) = 0;
 
+	/**
+	\brief Sets or resets the sampler state
+
+	Sets the sampler state to \a state. If \a state is nothing, the default
+	sampler state, sge::renderer::state::core::sampler::default_, is
+	restored.
+
+	The sampler state dictates how texture coordinates are processed and
+	textures are filtered.
+	*/
 	virtual
 	void
 	sampler_state(
