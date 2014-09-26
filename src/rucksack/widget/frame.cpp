@@ -205,7 +205,7 @@ sge::rucksack::widget::frame::shifted_position() const
 {
 	return
 		fcppt::math::vector::fill<
-			sge::rucksack::vector::dim_wrapper::value
+			sge::rucksack::vector
 		>(
 			padding_.get()
 		);
@@ -222,7 +222,7 @@ sge::rucksack::widget::frame::extra_size() const
 		)
 		*
 		fcppt::math::dim::fill<
-			sge::rucksack::dim::dim_wrapper::value
+			sge::rucksack::dim
 		>(
 			padding_.get()
 		);

@@ -26,9 +26,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
+#include <fcppt/math/size_type.hpp>
 #include <fcppt/math/dim/fill.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/dim/output.hpp>
+#include <fcppt/math/dim/static.hpp>
 
 
 namespace sge
@@ -40,20 +42,25 @@ namespace texture
 
 template<
 	typename T,
-	typename N,
-	typename S
+	fcppt::math::size_type N
 >
 void
 warn_min(
-	fcppt::math::dim::object<
+	fcppt::math::dim::static_<
 		T,
-		N,
-		S
+		N
 	> const &_dim,
 	T const &_min,
 	fcppt::string const &_what
 )
 {
+	typedef
+	fcppt::math::dim::static_<
+		T,
+		N
+	>
+	dim_type;
+
 	for(
 		auto const element
 		:
@@ -70,7 +77,7 @@ warn_min(
 					<< _what
 					<< FCPPT_TEXT("s smaller than ")
 					<< fcppt::math::dim::fill<
-						N::value
+						dim_type
 					>(
 						_min
 					)
