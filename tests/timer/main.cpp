@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/timer/basic.hpp>
+#include <sge/timer/elapsed.hpp>
 #include <sge/timer/interval.hpp>
 #include <sge/timer/clocks/delta.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
@@ -83,4 +84,27 @@ FCPPT_PP_POP_WARNING
 		)
 	);
 
+	t1.reset();
+
+	BOOST_CHECK(
+		!t1.expired()
+	);
+
+	clk.update(
+		std::chrono::seconds(
+			2
+		)
+	);
+
+	BOOST_CHECK(
+		sge::timer::elapsed<
+			std::chrono::seconds
+		>(
+			t1
+		)
+		==
+		std::chrono::seconds(
+			1
+		)
+	);
 }
