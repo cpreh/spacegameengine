@@ -65,6 +65,15 @@ FCPPT_PP_POP_WARNING
 template<
 	typename Clock
 >
+sge::timer::basic<
+	Clock
+>::~basic()
+{
+}
+
+template<
+	typename Clock
+>
 bool
 sge::timer::basic<
 	Clock

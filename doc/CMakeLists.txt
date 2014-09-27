@@ -3506,6 +3506,14 @@ set(
 	include/sge/texture/rect_fragmented.hpp
 	include/sge/texture/sub_data.hpp
 	include/sge/texture/wrap_npot.hpp
+	include/sge/timer/absolute.hpp
+	include/sge/timer/absolute_decl.hpp
+	include/sge/timer/absolute_fwd.hpp
+	include/sge/timer/absolute_impl.hpp
+	include/sge/timer/absolute_parameters.hpp
+	include/sge/timer/absolute_parameters_decl.hpp
+	include/sge/timer/absolute_parameters_fwd.hpp
+	include/sge/timer/absolute_parameters_impl.hpp
 	include/sge/timer/basic.hpp
 	include/sge/timer/basic_decl.hpp
 	include/sge/timer/basic_fwd.hpp
@@ -3526,6 +3534,7 @@ set(
 	include/sge/timer/detail/parameters_base_decl.hpp
 	include/sge/timer/detail/parameters_base_impl.hpp
 	include/sge/timer/difference.hpp
+	include/sge/timer/difference_and_reset.hpp
 	include/sge/timer/elapsed.hpp
 	include/sge/timer/elapsed_and_reset.hpp
 	include/sge/timer/elapsed_fractional.hpp

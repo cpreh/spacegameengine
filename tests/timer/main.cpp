@@ -18,7 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/timer/absolute.hpp>
 #include <sge/timer/basic.hpp>
+#include <sge/timer/difference_and_reset.hpp>
 #include <sge/timer/elapsed.hpp>
 #include <sge/timer/interval.hpp>
 #include <sge/timer/clocks/delta.hpp>
@@ -105,6 +107,78 @@ FCPPT_PP_POP_WARNING
 		==
 		std::chrono::seconds(
 			1
+		)
+	);
+}
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
+
+BOOST_AUTO_TEST_CASE(
+	absolute_timer
+)
+{
+FCPPT_PP_POP_WARNING
+
+	typedef
+	sge::timer::clocks::delta<
+		std::chrono::milliseconds
+	>
+	clock;
+
+	clock clk;
+
+	typedef
+	sge::timer::absolute<
+		clock
+	>
+	absolute;
+
+	absolute t1{
+		absolute::parameters{
+			clk
+		}
+	};
+
+	BOOST_CHECK(
+		sge::timer::difference<
+			std::chrono::seconds
+		>(
+			t1
+		)
+		==
+		std::chrono::seconds(
+			0
+		)
+	);
+
+	clk.update(
+		std::chrono::seconds(
+			2
+		)
+	);
+
+	BOOST_CHECK(
+		sge::timer::difference_and_reset<
+			std::chrono::seconds
+		>(
+			t1
+		)
+		==
+		std::chrono::seconds(
+			2
+		)
+	);
+
+	BOOST_CHECK(
+		sge::timer::difference<
+			std::chrono::seconds
+		>(
+			t1
+		)
+		==
+		std::chrono::seconds(
+			0
 		)
 	);
 }

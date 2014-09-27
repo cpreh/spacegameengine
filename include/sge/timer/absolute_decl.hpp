@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TIMER_BASIC_DECL_HPP_INCLUDED
-#define SGE_TIMER_BASIC_DECL_HPP_INCLUDED
+#ifndef SGE_TIMER_ABSOLUTE_DECL_HPP_INCLUDED
+#define SGE_TIMER_ABSOLUTE_DECL_HPP_INCLUDED
 
-#include <sge/timer/basic_fwd.hpp>
-#include <sge/timer/parameters_decl.hpp>
+#include <sge/timer/absolute_fwd.hpp>
+#include <sge/timer/absolute_parameters_decl.hpp>
 #include <sge/timer/clocks/detail/wrapper.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
@@ -41,14 +41,14 @@ FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 template<
 	typename Clock
 >
-class basic
+class absolute
 :
 	sge::timer::clocks::detail::wrapper<
 		Clock
 	>
 {
 	FCPPT_NONCOPYABLE(
-		basic
+		absolute
 	);
 
 	typedef
@@ -62,7 +62,7 @@ public:
 	clock_type;
 
 	typedef
-	sge::timer::parameters<
+	sge::timer::absolute_parameters<
 		clock_type
 	>
 	parameters;
@@ -76,40 +76,8 @@ public:
 	duration;
 
 	explicit
-	basic(
+	absolute(
 		parameters const &
-	);
-
-	~basic();
-
-	bool
-	expired() const;
-
-	void
-	expired(
-		bool
-	);
-
-	bool
-	active() const;
-
-	void
-	active(
-		bool
-	);
-
-	template<
-		typename NewDuration
-	>
-	NewDuration const
-	interval() const;
-
-	template<
-		typename NewDuration
-	>
-	void
-	interval(
-		NewDuration const &
 	);
 
 	time_point const
@@ -121,12 +89,6 @@ public:
 	void
 	reset();
 private:
-	duration interval_;
-
-	bool active_;
-
-	bool expired_;
-
 	time_point last_time_;
 };
 

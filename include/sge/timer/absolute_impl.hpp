@@ -18,40 +18,71 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TIMER_DIFFERENCE_HPP_INCLUDED
-#define SGE_TIMER_DIFFERENCE_HPP_INCLUDED
+#ifndef SGE_TIMER_ABSOLUTE_IMPL_HPP_INCLUDED
+#define SGE_TIMER_ABSOLUTE_IMPL_HPP_INCLUDED
 
-#include <sge/timer/basic.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <chrono>
-#include <fcppt/config/external_end.hpp>
+#include <sge/timer/absolute_decl.hpp>
+#include <sge/timer/absolute_parameters_impl.hpp>
 
-
-namespace sge
-{
-namespace timer
-{
 
 template<
-	typename Duration,
-	typename Timer
+	typename Clock
 >
-Duration const
-difference(
-	Timer const &_timer
+sge::timer::absolute<
+	Clock
+>::absolute(
+	parameters const &_parameters
 )
+:
+	base(
+		_parameters.clock()
+	),
+	last_time_{
+		this->now()
+	}
 {
-	return
-		std::chrono::duration_cast<
-			Duration
-		>(
-			_timer.now()
-			-
-			_timer.last_time()
-		);
 }
 
+template<
+	typename Clock
+>
+typename
+sge::timer::absolute<
+	Clock
+>::time_point const
+sge::timer::absolute<
+	Clock
+>::now() const
+{
+	return
+		this->clock_base().now();
 }
+
+template<
+	typename Clock
+>
+typename
+sge::timer::absolute<
+	Clock
+>::time_point const
+sge::timer::absolute<
+	Clock
+>::last_time() const
+{
+	return
+		last_time_;
+}
+
+template<
+	typename Clock
+>
+void
+sge::timer::absolute<
+	Clock
+>::reset()
+{
+	last_time_ =
+		this->now();
 }
 
 #endif

@@ -18,40 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TIMER_DIFFERENCE_HPP_INCLUDED
-#define SGE_TIMER_DIFFERENCE_HPP_INCLUDED
+#ifndef SGE_TIMER_ABSOLUTE_PARAMETERS_HPP_INCLUDED
+#define SGE_TIMER_ABSOLUTE_PARAMETERS_HPP_INCLUDED
 
-#include <sge/timer/basic.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <chrono>
-#include <fcppt/config/external_end.hpp>
+#include <sge/timer/absolute_parameters_decl.hpp>
+#include <sge/timer/absolute_parameters_fwd.hpp>
+#include <sge/timer/absolute_parameters_impl.hpp>
 
-
-namespace sge
-{
-namespace timer
-{
-
-template<
-	typename Duration,
-	typename Timer
->
-Duration const
-difference(
-	Timer const &_timer
-)
-{
-	return
-		std::chrono::duration_cast<
-			Duration
-		>(
-			_timer.now()
-			-
-			_timer.last_time()
-		);
-}
-
-}
-}
 
 #endif

@@ -18,13 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TIMER_DIFFERENCE_HPP_INCLUDED
-#define SGE_TIMER_DIFFERENCE_HPP_INCLUDED
+#ifndef SGE_TIMER_ABSOLUTE_PARAMETERS_DECL_HPP_INCLUDED
+#define SGE_TIMER_ABSOLUTE_PARAMETERS_DECL_HPP_INCLUDED
 
-#include <sge/timer/basic.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <chrono>
-#include <fcppt/config/external_end.hpp>
+#include <sge/timer/absolute_parameters_fwd.hpp>
+#include <sge/timer/clocks/detail/wrapper.hpp>
+#include <fcppt/nonassignable.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 
 namespace sge
@@ -32,24 +34,44 @@ namespace sge
 namespace timer
 {
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
+
 template<
-	typename Duration,
-	typename Timer
+	typename Clock
 >
-Duration const
-difference(
-	Timer const &_timer
-)
+class absolute_parameters
+:
+	sge::timer::clocks::detail::wrapper<
+		Clock
+	>
 {
-	return
-		std::chrono::duration_cast<
-			Duration
-		>(
-			_timer.now()
-			-
-			_timer.last_time()
-		);
-}
+	FCPPT_NONASSIGNABLE(
+		absolute_parameters
+	);
+
+	typedef
+	sge::timer::clocks::detail::wrapper<
+		Clock
+	>
+	state_base;
+public:
+	typedef
+	Clock
+	clock_type;
+
+	absolute_parameters();
+
+	explicit
+	absolute_parameters(
+		clock_type const &
+	);
+
+	state_base const &
+	clock() const;
+};
+
+FCPPT_PP_POP_WARNING
 
 }
 }
