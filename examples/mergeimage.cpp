@@ -48,6 +48,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/with_image2d.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/make_int_range_count.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -74,9 +75,11 @@ calc_size(
 )
 {
 	for(
-		sge::renderer::size_type index(0);
-		index <= 10;
-		++index
+		sge::renderer::size_type const index
+		:
+		fcppt::make_int_range_count(
+			10u
+		)
 	)
 	{
 		sge::renderer::size_type const size(
@@ -117,22 +120,17 @@ typedef std::vector<
 	boost::filesystem::path
 > path_vector;
 
-path_vector const
+path_vector
 sort_paths(
 	boost::filesystem::path const &_path
 )
 {
-	path_vector ret;
-
-	std::copy(
+	path_vector ret{
 		boost::filesystem::directory_iterator(
 			_path
 		),
-		boost::filesystem::directory_iterator(),
-		std::back_inserter(
-			ret
-		)
-	);
+		boost::filesystem::directory_iterator()
+	};
 
 	std::sort(
 		ret.begin(),
@@ -256,17 +254,15 @@ try
 	);
 
 	for(
-		path_vector::const_iterator cur_path_it(
-			paths.begin()
-		);
-		cur_path_it != paths.end();
-		++cur_path_it
+		auto const &cur_path
+		:
+		paths
 	)
 	{
 		sge::image2d::file_unique_ptr const img(
 			sge::image2d::load_exn(
 				il,
-				*cur_path_it
+				cur_path
 			)
 		);
 
