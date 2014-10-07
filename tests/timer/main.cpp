@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/timer/absolute.hpp>
 #include <sge/timer/basic.hpp>
 #include <sge/timer/difference_and_reset.hpp>
+#include <sge/timer/difference_fractional.hpp>
 #include <sge/timer/elapsed.hpp>
 #include <sge/timer/interval.hpp>
 #include <sge/timer/clocks/delta.hpp>
@@ -108,6 +109,16 @@ FCPPT_PP_POP_WARNING
 		std::chrono::seconds(
 			1
 		)
+	);
+
+	BOOST_CHECK(
+		sge::timer::difference_fractional<
+			float
+		>(
+			t1
+		)
+		>=
+		1.9f
 	);
 }
 

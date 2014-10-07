@@ -3533,8 +3533,10 @@ set(
 	include/sge/timer/clocks/standard.hpp
 	include/sge/timer/detail/parameters_base_decl.hpp
 	include/sge/timer/detail/parameters_base_impl.hpp
+	include/sge/timer/detail/to_float_duration.hpp
 	include/sge/timer/difference.hpp
 	include/sge/timer/difference_and_reset.hpp
+	include/sge/timer/difference_fractional.hpp
 	include/sge/timer/elapsed.hpp
 	include/sge/timer/elapsed_and_reset.hpp
 	include/sge/timer/elapsed_fractional.hpp
