@@ -273,6 +273,13 @@ add_sge_console_example(
 )
 
 add_sge_example(
+	lighting
+	"sgeconfig;sgeimagecolor;sgeimage2d;sgerenderer;sgesprite;sgesystems;sgetexture;sgeviewport;sgewindow"
+	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
+	""
+)
+
+add_sge_example(
 	line_drawer
 	"sgefont;sgefontdraw;sgeimagecolor;sgeinput;sgeline_drawer;sgerenderer;sgesystems;sgetimer;sgeviewport;sgewindow"
 	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
