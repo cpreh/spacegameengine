@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/timer/basic_fwd.hpp>
 #include <sge/timer/difference.hpp>
 #include <sge/timer/interval.hpp>
-#include <sge/timer/detail/to_float_duration.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <type_traits>
@@ -54,9 +53,9 @@ difference_fractional(
 )
 {
 	typedef
-	sge::timer::detail::to_float_duration<
+	std::chrono::duration<
 		Float,
-		Clock
+		typename Clock::period
 	>
 	float_duration;
 

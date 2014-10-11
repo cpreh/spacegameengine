@@ -37,6 +37,13 @@ template<
 class stateless_base
 {
 public:
+	explicit
+	stateless_base(
+		Clock const &
+	)
+	{
+	}
+
 	Clock const
 	clock_base() const
 	{

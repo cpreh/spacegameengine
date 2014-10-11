@@ -21,10 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TIMER_PARAMETERS_IMPL_HPP_INCLUDED
 #define SGE_TIMER_PARAMETERS_IMPL_HPP_INCLUDED
 
-#include <sge/timer/enable_ctor_stateful.hpp>
-#include <sge/timer/enable_ctor_stateless.hpp>
 #include <sge/timer/parameters_decl.hpp>
-#include <sge/timer/detail/parameters_base_impl.hpp>
+#include <sge/timer/clocks/is_stateful.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <chrono>
+#include <fcppt/config/external_end.hpp>
 
 
 template<
@@ -36,21 +37,20 @@ template<
 sge::timer::parameters<
 	Clock
 >::parameters(
-	clock_type const &_clock,
-	Duration const &_interval,
-	typename sge::timer::enable_ctor_stateful<
-		Clock,
-		Duration
-	>::type const *
+	Duration const &_interval
 )
 :
-	state_base(
-		_clock
-	),
-	parameters_base{
+	parameters(
+		clock_type(),
 		_interval
-	}
+	)
 {
+	static_assert(
+		!sge::timer::clocks::is_stateful<
+			Clock
+		>::value,
+		"Stateful clocks need to be passed as parameters"
+	);
 }
 
 template<
@@ -62,16 +62,26 @@ template<
 sge::timer::parameters<
 	Clock
 >::parameters(
-	Duration const &_interval,
-	typename sge::timer::enable_ctor_stateless<
-		Clock,
-		Duration
-	>::type const *
+	clock_type const &_clock,
+	Duration const &_interval
 )
 :
-	state_base(),
-	parameters_base{
-		_interval
+	state_base(
+		_clock
+	),
+	interval_{
+		// TODO: Get rid of this?
+		std::chrono::duration_cast<
+			duration
+		>(
+			_interval
+		)
+	},
+	active_{
+		true
+	},
+	expired_{
+		false
 	}
 {
 }
@@ -88,8 +98,9 @@ sge::timer::parameters<
 	bool const _active
 )
 {
-	this->active_ =
+	active_ =
 		_active;
+
 	return
 		*this;
 }
@@ -106,8 +117,9 @@ sge::timer::parameters<
 	bool const _expired
 )
 {
-	this->expired_ =
+	expired_ =
 		_expired;
+
 	return
 		*this;
 }
@@ -124,7 +136,7 @@ sge::timer::parameters<
 >::interval() const
 {
 	return
-		this->interval_;
+		interval_;
 }
 
 template<
@@ -151,7 +163,7 @@ sge::timer::parameters<
 >::active() const
 {
 	return
-		this->active_;
+		active_;
 }
 
 template<
@@ -163,7 +175,7 @@ sge::timer::parameters<
 >::expired() const
 {
 	return
-		this->expired_;
+		expired_;
 }
 
 #endif

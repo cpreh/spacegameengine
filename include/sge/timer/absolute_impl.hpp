@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TIMER_ABSOLUTE_IMPL_HPP_INCLUDED
 
 #include <sge/timer/absolute_decl.hpp>
-#include <sge/timer/absolute_parameters_impl.hpp>
+#include <sge/timer/clocks/is_stateful.hpp>
 
 
 template<
@@ -30,12 +30,31 @@ template<
 >
 sge::timer::absolute<
 	Clock
+>::absolute()
+:
+	absolute(
+		clock_type()
+	)
+{
+	static_assert(
+		!sge::timer::clocks::is_stateful<
+			Clock
+		>::value,
+		"Stateful clocks need to be passed as parameters"
+	);
+}
+
+template<
+	typename Clock
+>
+sge::timer::absolute<
+	Clock
 >::absolute(
-	parameters const &_parameters
+	Clock const &_clock
 )
 :
 	base(
-		_parameters.clock()
+		_clock
 	),
 	last_time_{
 		this->now()

@@ -56,7 +56,7 @@ elapsed_fractional(
 	typedef
 	std::chrono::duration<
 		Float,
-		typename Clock::duration::period
+		typename Clock::period
 	>
 	float_duration;
 

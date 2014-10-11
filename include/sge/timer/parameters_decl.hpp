@@ -21,11 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TIMER_PARAMETERS_DECL_HPP_INCLUDED
 #define SGE_TIMER_PARAMETERS_DECL_HPP_INCLUDED
 
-#include <sge/timer/enable_ctor_stateful.hpp>
-#include <sge/timer/enable_ctor_stateless.hpp>
 #include <sge/timer/parameters_fwd.hpp>
 #include <sge/timer/clocks/detail/wrapper.hpp>
-#include <sge/timer/detail/parameters_base_decl.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -43,12 +40,9 @@ FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 template<
 	typename Clock
 >
-class parameters
+class parameters final
 :
 	sge::timer::clocks::detail::wrapper<
-		Clock
-	>,
-	sge::timer::detail::parameters_base<
 		Clock
 	>
 {
@@ -61,12 +55,6 @@ class parameters
 		Clock
 	>
 	state_base;
-
-	typedef
-	sge::timer::detail::parameters_base<
-		Clock
-	>
-	parameters_base;
 public:
 	typedef
 	Clock
@@ -74,7 +62,7 @@ public:
 
 	typedef
 	typename
-	parameters_base::duration
+	clock_type::duration
 	duration;
 
 	template<
@@ -82,24 +70,15 @@ public:
 	>
 	explicit
 	parameters(
-		clock_type const &,
-		Duration const &,
-		typename sge::timer::enable_ctor_stateful<
-			Clock,
-			Duration
-		>::type const * = nullptr
+		Duration const &
 	);
 
 	template<
 		typename Duration
 	>
-	explicit
 	parameters(
-		Duration const &,
-		typename sge::timer::enable_ctor_stateless<
-			Clock,
-			Duration
-		>::type const * = nullptr
+		clock_type const &,
+		Duration const &
 	);
 
 	parameters &
@@ -123,6 +102,12 @@ public:
 
 	bool
 	expired() const;
+private:
+	duration const interval_;
+
+	bool active_;
+
+	bool expired_;
 };
 
 FCPPT_PP_POP_WARNING

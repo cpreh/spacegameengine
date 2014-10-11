@@ -146,9 +146,7 @@ FCPPT_PP_POP_WARNING
 	absolute;
 
 	absolute t1{
-		absolute::parameters{
-			clk
-		}
+		clk
 	};
 
 	BOOST_CHECK(

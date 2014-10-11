@@ -3510,10 +3510,6 @@ set(
 	include/sge/timer/absolute_decl.hpp
 	include/sge/timer/absolute_fwd.hpp
 	include/sge/timer/absolute_impl.hpp
-	include/sge/timer/absolute_parameters.hpp
-	include/sge/timer/absolute_parameters_decl.hpp
-	include/sge/timer/absolute_parameters_fwd.hpp
-	include/sge/timer/absolute_parameters_impl.hpp
 	include/sge/timer/basic.hpp
 	include/sge/timer/basic_decl.hpp
 	include/sge/timer/basic_fwd.hpp
@@ -3531,9 +3527,6 @@ set(
 	include/sge/timer/clocks/detail/wrapper.hpp
 	include/sge/timer/clocks/is_stateful.hpp
 	include/sge/timer/clocks/standard.hpp
-	include/sge/timer/detail/parameters_base_decl.hpp
-	include/sge/timer/detail/parameters_base_impl.hpp
-	include/sge/timer/detail/to_float_duration.hpp
 	include/sge/timer/difference.hpp
 	include/sge/timer/difference_and_reset.hpp
 	include/sge/timer/difference_fractional.hpp
@@ -3541,8 +3534,6 @@ set(
 	include/sge/timer/elapsed_and_reset.hpp
 	include/sge/timer/elapsed_fractional.hpp
 	include/sge/timer/elapsed_fractional_and_reset.hpp
-	include/sge/timer/enable_ctor_stateful.hpp
-	include/sge/timer/enable_ctor_stateless.hpp
 	include/sge/timer/frames_counter.hpp
 	include/sge/timer/frames_counter_fwd.hpp
 	include/sge/timer/interval.hpp

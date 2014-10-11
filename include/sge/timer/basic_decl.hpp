@@ -41,7 +41,7 @@ FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 template<
 	typename Clock
 >
-class basic
+class basic final
 :
 	sge::timer::clocks::detail::wrapper<
 		Clock
