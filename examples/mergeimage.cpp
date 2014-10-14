@@ -78,7 +78,7 @@ calc_size(
 		sge::renderer::size_type const index
 		:
 		fcppt::make_int_range_count(
-			10u
+			11u
 		)
 	)
 	{
