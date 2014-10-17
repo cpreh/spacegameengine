@@ -192,6 +192,7 @@ add_sge_base_library(
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
 		${fcppt_filesystem_TARGET}
+		${fcppt_log_TARGET}
 		${OPENCL_LIBRARIES}
 		${OPENGL_gl_LIBRARY}
 	INCLUDE_DIRS

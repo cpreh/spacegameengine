@@ -66,6 +66,7 @@ add_sge_plugin(
 	ADDITIONAL_DEPS
 		${PANGO_LIBRARIES}
 		${fcppt_filesystem_TARGET}
+		${fcppt_log_TARGET}
 		${Boost_FILESYSTEM_LIBRARIES}
 	INCLUDE_DIRS
 		${PANGO_INCLUDE_DIRS}

@@ -226,7 +226,7 @@ add_sge_example(
 add_sge_example(
 	font
 	"sgefont;sgefontdraw;sgeimagecolor;sgerenderer;sgesystems;sgeviewport;sgewindow"
-	""
+	"${fcppt_core_TARGET}"
 	""
 )
 
@@ -361,7 +361,7 @@ add_sge_example(
 add_sge_console_example(
 	plugin
 	"sgeaudio;sgeconfig;sgefont;sgeimage2d;sgeinput;sgelog;sgeplugin;sgerenderer"
-	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
+	"${fcppt_core_TARGET};${fcppt_log_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
 	""
 )
 

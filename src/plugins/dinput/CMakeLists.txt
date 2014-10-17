@@ -164,6 +164,7 @@ add_sge_plugin(
 		sgewindow
 	ADDITIONAL_DEPS
 		${awl_TARGET}
+		${fcppt_log_TARGET}
 		${DINPUT_LIBRARIES}
 	INCLUDE_DIRS
 		${DINPUT_INCLUDE_DIRS}

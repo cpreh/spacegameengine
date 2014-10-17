@@ -138,6 +138,8 @@ add_sge_base_library(
 		sgeplugin
 	TRANSITIVE_SGE_DEPS
 		sgecore
+	ADDITIONAL_DEPS
+		${fcppt_log_TARGET}
 	INCLUDE_DIRS
 		${mizuiro_INCLUDE_DIRS}
 	TRANSITIVE_INCLUDE_DIRS

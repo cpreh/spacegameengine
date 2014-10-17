@@ -349,6 +349,8 @@ add_sge_base_library(
 		sgecore
 		sgelog
 		sgeplugin
+	ADDITIONAL_DEPS
+		${fcppt_log_TARGET}
 	TRANSITIVE_SGE_DEPS
 		sgecore
 	INCLUDE_DIRS

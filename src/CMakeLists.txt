@@ -88,6 +88,27 @@ fcppt_utils_append_source_dir_and_make_groups(
 	SGE_CORE_SRC_FILES_ABS
 )
 
+function(
+	add_sge_core_lib
+	VARIANT
+)
+	set(
+		SGE_CORE_FILES
+		"${SGE_CORE_INCLUDE_FILES_ABS};${SGE_CORE_SRC_FILES_ABS}"
+	)
+
+	add_sge_base_library_variant(
+		sgecore
+		"${SGE_CORE_FILES}"
+		VARIANT
+			"${VARIANT}"
+		INCLUDE_DIRS
+			"${fcppt_INCLUDE_DIRS}"
+		TRANSITIVE_INCLUDE_DIRS
+			"${fcppt_INCLUDE_DIRS}"
+	)
+endfunction()
+
 if(
 	ENABLE_STATIC
 )

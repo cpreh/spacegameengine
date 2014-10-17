@@ -554,25 +554,6 @@ macro(
 	)
 endmacro()
 
-function(
-	add_sge_core_lib
-	VARIANT
-)
-	set(
-		SGE_CORE_FILES
-		"${SGE_CORE_INCLUDE_FILES_ABS};${SGE_CORE_SRC_FILES_ABS}"
-	)
-
-	add_sge_base_library_variant(
-		sgecore
-		"${SGE_CORE_FILES}"
-		ADDITIONAL_DEPS
-		"${fcppt_core_TARGET}"
-		VARIANT
-		"${VARIANT}"
-	)
-endfunction()
-
 # add_sge_plugin
 #
 # Adds an sge plugin

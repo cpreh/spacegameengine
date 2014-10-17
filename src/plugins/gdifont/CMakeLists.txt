@@ -82,5 +82,6 @@ add_sge_plugin(
 	ADDITIONAL_DEPS
 		${awl_TARGET}
 		${fcppt_filesystem_TARGET}
+		${fcppt_log_TARGET}
 		${Boost_FILESYSTEM_LIBRARIES}
 )

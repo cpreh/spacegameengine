@@ -81,6 +81,7 @@ add_sge_plugin(
 		sgelog
 		sgeplugin
 	ADDITIONAL_DEPS
+		${fcppt_log_TARGET}
 		${Boost_FILESYSTEM_LIBRARIES}
 		${PNG_LIBRARIES}
 	INCLUDE_DIRS

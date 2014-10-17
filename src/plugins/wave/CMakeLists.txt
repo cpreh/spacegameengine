@@ -20,4 +20,5 @@ add_sge_plugin(
 		sgeplugin
 	ADDITIONAL_DEPS
 		${fcppt_filesystem_TARGET}
+		${fcppt_log_TARGET}
 )

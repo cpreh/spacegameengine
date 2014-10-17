@@ -18,4 +18,6 @@ add_sge_plugin(
 	SGE_DEPS
 		sgeaudio
 		sgeplugin
+	ADDITIONAL_DEPS
+		${fcppt_log_TARGET}
 )

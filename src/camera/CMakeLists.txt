@@ -161,6 +161,7 @@ add_sge_base_library(
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
 		${fcppt_filesystem_TARGET}
+		${fcppt_log_TARGET}
 	INCLUDE_DIRS
 		"${CMAKE_CURRENT_SOURCE_DIR}/include"
 )

@@ -25,4 +25,5 @@ add_sge_base_library(
 	log
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
+		${fcppt_log_TARGET}
 )

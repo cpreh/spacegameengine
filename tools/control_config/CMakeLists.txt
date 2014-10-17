@@ -7,7 +7,6 @@ set(
 
 add_sge_tool(
 	control_config
-	""
-	"${Awl_LIBRARIES}"
-	""
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
 )

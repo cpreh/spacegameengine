@@ -1297,7 +1297,10 @@ set(
 
 set(
 	SGE_OPENGL_ADDITIONAL_DEPS
-	"${OPENGL_gl_LIBRARY};${GLEW_LIBRARIES};${awl_TARGET}"
+	${OPENGL_gl_LIBRARY}
+	${GLEW_LIBRARIES}
+	${awl_TARGET}
+	${fcppt_log_TARGET}
 )
 
 if(

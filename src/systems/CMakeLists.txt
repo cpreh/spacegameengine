@@ -268,6 +268,7 @@ add_sge_base_library(
 		sgewindow
 	ADDITIONAL_DEPS
 		${awl_TARGET}
+		${fcppt_log_TARGET}
 		${Boost_FILESYSTEM_LIBRARIES}
 	INCLUDE_DIRS
 		"${CMAKE_CURRENT_SOURCE_DIR}/include"

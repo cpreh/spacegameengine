@@ -132,6 +132,7 @@ add_sge_base_library(
 		sgerenderer
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
+		${fcppt_log_TARGET}
 		${BULLET_LIBRARIES}
 	INCLUDE_DIRS
 		"${CMAKE_CURRENT_SOURCE_DIR}/include"

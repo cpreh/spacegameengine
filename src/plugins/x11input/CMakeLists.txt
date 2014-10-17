@@ -200,6 +200,7 @@ add_sge_plugin(
 		sgewindow
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
+		${fcppt_log_TARGET}
 		${awl_TARGET}
 		${X11_X11_LIB}
 		${X11_Xinput_LIB}

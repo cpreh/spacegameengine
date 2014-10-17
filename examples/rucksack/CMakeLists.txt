@@ -29,17 +29,17 @@ endmacro()
 add_sge_rucksack_example(
 	box
 	"sgeimagecolor;sgerucksack;sgerucksackviewport;sgesystems"
-	""
+	"${fcppt_core_TARGET}"
 )
 
 add_sge_rucksack_example(
 	enumeration
 	"sgeimagecolor;sgerucksack;sgerucksackviewport;sgesystems"
-	""
+	"${fcppt_core_TARGET}"
 )
 
 add_sge_rucksack_example(
 	master_and_slaves
 	"sgeimagecolor;sgerucksack;sgerucksackviewport;sgesystems"
-	""
+	"${fcppt_core_TARGET}"
 )

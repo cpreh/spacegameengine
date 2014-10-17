@@ -7,13 +7,29 @@ include(
 	AwlMainGenerator
 )
 
+include(
+	CMakeParseArguments
+)
+
 function(
 	add_sge_tool
 	TOOL_NAME
-	SGE_LIBRARIES
-	ADDITIONAL_LIBRARIES
-	INCLUDE_DIRS
 )
+	set(
+		MULTI_ARGS
+		SGE_DEPS
+		ADDITIONAL_DEPS
+		INCLUDE_DIRS
+	)
+
+	cmake_parse_arguments(
+		""
+		""
+		""
+		"${MULTI_ARGS}"
+		${ARGN}
+	)
+
 	check_library_deps(
 		"${TOOL_NAME}"
 		"${SGE_LIBRARIES}"
@@ -50,31 +66,23 @@ function(
 		${FULL_NAME}
 	)
 
-	target_link_libraries(
-		"${FULL_NAME}"
-		${awl_TARGET}
-	)
-
 	transform_sge_link_targets(
-		"${SGE_LIBRARIES}"
+		"${_SGE_DEPS}"
 		SGE_LIBRARIES_RESULT
-	)
-
-	list(
-		APPEND
-		INCLUDE_DIRS
-		"${CMAKE_CURRENT_SOURCE_DIR}/include"
 	)
 
 	target_include_directories(
 		"${FULL_NAME}"
 		PRIVATE
-		${INCLUDE_DIRS}
+		"${CMAKE_CURRENT_SOURCE_DIR}/include"
+		${_INCLUDE_DIRS}
 	)
 
 	target_link_libraries(
 		"${FULL_NAME}"
-		${ADDITIONAL_LIBRARIES}
+		PRIVATE
+		${awl_TARGET}
+		${_ADDITIONAL_DEPS}
 		${SGE_LIBRARIES_RESULT}
 	)
 

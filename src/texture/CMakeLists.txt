@@ -80,7 +80,7 @@ add_sge_base_library(
 		sgelog
 		sgerenderer
 	ADDITIONAL_DEPS
-		${fcppt_core_TARGET}
+		${fcppt_log_TARGET}
 	INCLUDE_DIRS
 		"${FCPPT_UTILS_PROJECT_SOURCE_DIR}/src/renderer/include"
 		"${CMAKE_CURRENT_SOURCE_DIR}/include"

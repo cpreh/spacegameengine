@@ -115,6 +115,7 @@ add_sge_plugin(
 		sgeplugin
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
+		${fcppt_log_TARGET}
 		${OPENAL_LIBRARY}
 	INCLUDE_DIRS
 		${OPENAL_INCLUDE_DIR}
