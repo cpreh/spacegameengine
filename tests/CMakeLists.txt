@@ -1,24 +1,39 @@
 function(
-	ADD_SGE_TEST
+	add_sge_test
 	PATHNAME
-	SGE_LIBRARIES
-	ADDITIONAL_LIBRARIES
-	INCLUDE_DIRS
 )
+	set(
+		MULTI_ARGS
+		SGE_DEPS
+		ADDITIONAL_DEPS
+		INCLUDE_DIRS
+	)
+
+	cmake_parse_arguments(
+		""
+		""
+		""
+		"${MULTI_ARGS}"
+		${ARGN}
+	)
+
 	sge_check_optional_deps(
 		"${PATHNAME}"
-		"${SGE_LIBRARIES}"
+		"${_SGE_DEPS}"
 	)
 
 	transform_sge_link_targets(
-		"${SGE_LIBRARIES}"
+		"${_SGE_DEPS}"
 		SGE_LIBRARIES_RESULT
 	)
 
 	fcppt_utils_add_test(
 		"${PATHNAME}"
-		"${SGE_LIBRARIES_RESULT};${ADDITIONAL_LIBRARIES}"
-		"${INCLUDE_DIRS}"
+		LINK_LIBS
+			${SGE_LIBRARIES_RESULT}
+			${_ADDITIONAL_DEPS}
+		INCLUDE_DIRS
+			${_INCLUDE_DIRS}
 	)
 endfunction()
 
@@ -34,77 +49,88 @@ configure_file(
 
 add_sge_test(
 	charconv/main
-	"sgecharconv"
-	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
-	"${CMAKE_CURRENT_BINARY_DIR}/include"
+	SGE_DEPS
+		sgecharconv
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
+		${Boost_FILESYSTEM_LIBRARIES}
+	INCLUDE_DIRS
+		"${CMAKE_CURRENT_BINARY_DIR}/include"
 )
 
 add_sge_test(
 	charconv/flake_config
-	"sgecharconv"
-	"${fcppt_core_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
-	"${CMAKE_CURRENT_BINARY_DIR}/include"
+	SGE_DEPS
+		sgecharconv
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
+		${Boost_FILESYSTEM_LIBRARIES}
+	INCLUDE_DIRS
+		"${CMAKE_CURRENT_BINARY_DIR}/include"
 )
 
 add_sge_test(
 	charconv/various
-	"sgecharconv"
-	"${fcppt_core_TARGET}"
-	""
+	SGE_DEPS
+		sgecharconv
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
 )
 
 add_sge_test(
 	console/cursor
-	"sgeconsolegfx"
-	""
-	""
+	SGE_DEPS
+		sgeconsolegfx
 )
 
 add_sge_test(
 	image2d/copy_and_convert
-	"sgeimage2d"
-	""
-	""
+	SGE_DEPS
+		sgeimage2d
 )
 
 add_sge_test(
 	image2d/save_load
-	"sgeconfig;sgeimage2d;sgeplugin"
-	""
-	""
+	SGE_DEPS
+		sgeconfig
+		sgeimage2d
+		sgeplugin
 )
 
 add_sge_test(
 	projectile/triangulate_long
-	""
-	"${fcppt_core_TARGET}"
-	""
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
 )
 
 add_sge_test(
 	parse/json
-	"sgeparse;sgeparsejson"
-	"${fcppt_core_TARGET}"
-	""
+	SGE_DEPS
+		sgeparse
+		sgeparsejson
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
 )
 
 add_sge_test(
 	parse/ini
-	"sgeparse;sgeparseini"
-	"${fcppt_core_TARGET}"
-	""
+	SGE_DEPS
+		sgeparse
+		sgeparseini
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
 )
 
 add_sge_test(
 	rucksack/box
-	"sgerucksack"
-	"${fcppt_core_TARGET}"
-	""
+	SGE_DEPS
+		sgerucksack
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
 )
 
 add_sge_test(
 	timer/main
-	""
-	"${fcppt_core_TARGET}"
-	""
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
 )
