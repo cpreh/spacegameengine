@@ -1,20 +1,37 @@
 add_sge_console_example(
 	opencl_simple
-	"sgelog;sgeopencl;sgerenderer;sgesystems;sgeviewport;sgewindow"
-	"${fcppt_core_TARGET};${fcppt_log_TARGET};${Boost_FILESYSTEM_LIBRARIES}"
-	""
+	SGE_DEPS
+		sgelog
+		sgeopencl
+		sgerenderer
+		sgesystems
+		sgeviewport
+		sgewindow
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
+		${fcppt_log_TARGET}
+		${Boost_FILESYSTEM_LIBRARIES}
 )
 
 add_sge_console_example(
 	opencl_syntax_checker
-	"sgelog;sgeopencl"
-	"${fcppt_core_TARGET};${fcppt_log_TARGET};${fcppt_filesystem_TARGET}"
-	""
+	SGE_DEPS
+		sgelog
+		sgeopencl
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
+		${fcppt_log_TARGET}
+		${fcppt_filesystem_TARGET}
 )
 
 add_sge_console_example(
 	opencl_texture_read
-	"sgeconfig;sgeimage2d;sgemedia;sgeopencl;sgesystems"
-	"${fcppt_core_TARGET}"
-	""
+	SGE_DEPS
+		sgeconfig
+		sgeimage2d
+		sgemedia
+		sgeopencl
+		sgesystems
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
 )

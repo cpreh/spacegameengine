@@ -1,45 +1,72 @@
 option(
-	ENABLE_RUCKSACKTESTBED "Build rucksack testbed library" ON
+	ENABLE_RUCKSACKTESTBED
+	"Build rucksack testbed library"
+	ON
 )
 
 add_subdirectory(
 	testbed
 )
 
-macro(
+function(
 	add_sge_rucksack_example
 	EXAMPLE_NAME
-	SGE_DEPS
-	ADDITIONAL_DEPS
 )
-	list(
-		APPEND
+	set(
+		MULTI_ARGS
 		SGE_DEPS
-		"rucksack_testbed"
+		ADDITIONAL_DEPS
+	)
+
+	cmake_parse_arguments(
+		""
+		""
+		""
+		"${MULTI_ARGS}"
+		${ARGN}
 	)
 
 	add_sge_example(
 		"rucksack_${EXAMPLE_NAME}"
-		"sgerucksacktestbed;${SGE_DEPS}"
-		"${ADDITIONAL_DEPS}"
-		"${CMAKE_CURRENT_SOURCE_DIR}/testbed/include"
+		SGE_DEPS
+			sgerucksacktestbed
+			${_SGE_DEPS}
+		ADDITIONAL_DEPS
+			${_ADDITIONAL_DEPS}
+		INCLUDE_DIRS
+			"${CMAKE_CURRENT_SOURCE_DIR}/testbed/include"
 	)
-endmacro()
+endfunction()
 
 add_sge_rucksack_example(
 	box
-	"sgeimagecolor;sgerucksack;sgerucksackviewport;sgesystems"
-	"${fcppt_core_TARGET}"
+	SGE_DEPS
+		sgeimagecolor
+		sgerucksack
+		sgerucksackviewport
+		sgesystems
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
 )
 
 add_sge_rucksack_example(
 	enumeration
-	"sgeimagecolor;sgerucksack;sgerucksackviewport;sgesystems"
-	"${fcppt_core_TARGET}"
+	SGE_DEPS
+		sgeimagecolor
+		sgerucksack
+		sgerucksackviewport
+		sgesystems
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
 )
 
 add_sge_rucksack_example(
 	master_and_slaves
-	"sgeimagecolor;sgerucksack;sgerucksackviewport;sgesystems"
-	"${fcppt_core_TARGET}"
+	SGE_DEPS
+		sgeimagecolor
+		sgerucksack
+		sgerucksackviewport
+		sgesystems
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
 )
