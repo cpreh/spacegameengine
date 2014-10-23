@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PROJECTILE_SHAPE_BASE_HPP_INCLUDED
 #define SGE_PROJECTILE_SHAPE_BASE_HPP_INCLUDED
 
-#include <sge/projectile/symbol.hpp>
+#include <sge/projectile/detail/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -44,11 +44,11 @@ public:
 	virtual btCollisionShape const &
 	bullet_shape() const = 0;
 
-	SGE_PROJECTILE_SYMBOL
+	SGE_PROJECTILE_DETAIL_SYMBOL
 	virtual
 	~base();
 protected:
-	SGE_PROJECTILE_SYMBOL
+	SGE_PROJECTILE_DETAIL_SYMBOL
 	explicit
 	base();
 };

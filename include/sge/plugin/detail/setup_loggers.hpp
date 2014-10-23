@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PLUGIN_DETAIL_SETUP_LOGGERS_HPP_INCLUDED
 #define SGE_PLUGIN_DETAIL_SETUP_LOGGERS_HPP_INCLUDED
 
-#include <sge/plugin/symbol.hpp>
+#include <sge/plugin/detail/symbol.hpp>
 #include <fcppt/io/ostream.hpp>
 #include <fcppt/log/context_fwd.hpp>
 
@@ -33,7 +33,7 @@ namespace plugin
 namespace detail
 {
 
-SGE_PLUGIN_SYMBOL
+SGE_PLUGIN_DETAIL_SYMBOL
 void
 setup_loggers(
 	fcppt::io::ostream &,

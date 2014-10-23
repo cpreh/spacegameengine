@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_FILE_EXCEPTION_HPP_INCLUDED
 #define SGE_AUDIO_FILE_EXCEPTION_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
 #include <sge/audio/exception.hpp>
 #include <sge/audio/optional_path.hpp>
-#include <sge/audio/symbol.hpp>
+#include <sge/audio/detail/symbol.hpp>
 #include <fcppt/string.hpp>
 
 
@@ -37,7 +37,7 @@ namespace audio
  * This exception might be thrown if a file is corrupted or there's no loader for
  * it available.
  */
-class SGE_CLASS_SYMBOL file_exception
+class SGE_CORE_DETAIL_CLASS_SYMBOL file_exception
 :
 	public sge::audio::exception
 {
@@ -48,7 +48,7 @@ public:
 	 * path to the file is "lost" during the decoding process. It's still a
 	 * file error, though.
 	 */
-	SGE_AUDIO_SYMBOL
+	SGE_AUDIO_DETAIL_SYMBOL
 	file_exception(
 		sge::audio::optional_path const &,
 		fcppt::string const &

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RUCKSACK_AXIS_POLICY2_COMPARISON_HPP_INCLUDED
 
 #include <sge/rucksack/axis_policy2_fwd.hpp>
-#include <sge/rucksack/symbol.hpp>
+#include <sge/rucksack/detail/symbol.hpp>
 
 
 namespace sge
@@ -30,7 +30,7 @@ namespace sge
 namespace rucksack
 {
 
-SGE_RUCKSACK_SYMBOL
+SGE_RUCKSACK_DETAIL_SYMBOL
 bool
 operator==(
 	sge::rucksack::axis_policy2 const &,

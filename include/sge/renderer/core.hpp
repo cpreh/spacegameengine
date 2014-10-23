@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_CORE_HPP_INCLUDED
 #define SGE_RENDERER_CORE_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
 #include <sge/renderer/core_fwd.hpp>
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/system_unique_ptr.hpp>
 #include <sge/renderer/caps/system_field_fwd.hpp>
 #include <awl/system/object_fwd.hpp>
@@ -43,16 +43,16 @@ namespace renderer
 Creates renderer systems from awl systems and provides the plugin's
 capabilities.
 */
-class SGE_CLASS_SYMBOL core
+class SGE_CORE_DETAIL_CLASS_SYMBOL core
 {
 	FCPPT_NONCOPYABLE(
 		core
 	);
 protected:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	core();
 public:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	virtual
 	~core() = 0;
 

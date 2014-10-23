@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENCL_COMMAND_QUEUE_OBJECT_HPP_INCLUDED
 
 #include <sge/opencl/clinclude.hpp>
-#include <sge/opencl/symbol.hpp>
+#include <sge/opencl/detail/symbol.hpp>
 #include <sge/opencl/command_queue/execution_mode_fwd.hpp>
 #include <sge/opencl/command_queue/profiling_mode_fwd.hpp>
 #include <sge/opencl/context/object_fwd.hpp>
@@ -42,26 +42,26 @@ class object
 FCPPT_NONCOPYABLE(
 	object);
 public:
-	SGE_OPENCL_SYMBOL explicit
+	SGE_OPENCL_DETAIL_SYMBOL explicit
 	object(
 		opencl::device::object &,
 		opencl::context::object &,
 		command_queue::execution_mode,
 		command_queue::profiling_mode);
 
-	SGE_OPENCL_SYMBOL opencl::context::object &
+	SGE_OPENCL_DETAIL_SYMBOL opencl::context::object &
 	context() const;
 
-	SGE_OPENCL_SYMBOL opencl::device::object &
+	SGE_OPENCL_DETAIL_SYMBOL opencl::device::object &
 	device() const;
 
-	SGE_OPENCL_SYMBOL cl_command_queue
+	SGE_OPENCL_DETAIL_SYMBOL cl_command_queue
 	impl() const;
 
-	SGE_OPENCL_SYMBOL void
+	SGE_OPENCL_DETAIL_SYMBOL void
 	finish();
 
-	SGE_OPENCL_SYMBOL ~object();
+	SGE_OPENCL_DETAIL_SYMBOL ~object();
 private:
 	opencl::context::object &context_;
 	opencl::device::object &device_;

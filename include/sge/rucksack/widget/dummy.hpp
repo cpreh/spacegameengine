@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/rucksack/axis_policy2.hpp>
 #include <sge/rucksack/dim.hpp>
-#include <sge/rucksack/symbol.hpp>
+#include <sge/rucksack/detail/symbol.hpp>
 #include <sge/rucksack/vector.hpp>
 #include <sge/rucksack/widget/base.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -44,53 +44,53 @@ class dummy
 		dummy
 	);
 public:
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	explicit
 	dummy(
 		sge::rucksack::axis_policy2 const &
 	);
 
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	void
 	size(
 		sge::rucksack::dim const &
 	)
 	override;
 
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	void
 	position(
 		sge::rucksack::vector const &
 	)
 	override;
 
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	void
 	axis_policy(
 		sge::rucksack::axis_policy2 const &
 	);
 
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	sge::rucksack::dim const
 	size() const
 	override;
 
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	sge::rucksack::vector const
 	position() const
 	override;
 
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	sge::rucksack::axis_policy2 const
 	axis_policy() const
 	override;
 
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	void
 	relayout()
 	override;
 
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	~dummy()
 	override;
 private:

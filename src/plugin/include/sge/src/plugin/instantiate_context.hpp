@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/log/option_container.hpp>
 #include <sge/plugin/object.hpp>
-#include <sge/src/export_class_instantiation.hpp>
-#include <sge/src/export_function_instantiation.hpp>
+#include <sge/src/core/export_class_instantiation.hpp>
+#include <sge/src/core/export_function_instantiation.hpp>
 #include <sge/src/plugin/context_impl.hpp>
 #include <sge/src/plugin/load_with_log_options_impl.hpp>
 
@@ -34,13 +34,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 )\
 template \
 class \
-SGE_EXPORT_CLASS_INSTANTIATION \
+SGE_CORE_EXPORT_CLASS_INSTANTIATION \
 sge::plugin::context<\
 	plugin_type\
 >; \
 \
 template \
-SGE_EXPORT_FUNCTION_INSTANTIATION \
+SGE_CORE_EXPORT_FUNCTION_INSTANTIATION \
 sge::plugin::object< \
 	plugin_type \
 > \

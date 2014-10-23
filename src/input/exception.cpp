@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/exception.hpp>
+#include <sge/core/exception.hpp>
 #include <sge/input/exception.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
@@ -29,7 +29,7 @@ sge::input::exception::exception(
 	fcppt::string const &_what
 )
 :
-	sge::exception(
+	sge::core::exception(
 		FCPPT_TEXT("input: ")
 		+ _what
 	)
@@ -40,7 +40,7 @@ sge::input::exception::exception(
 	fcppt::assert_::information const &_info
 )
 :
-	sge::exception(
+	sge::core::exception(
 		_info
 	)
 {

@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/systems/optional_name.hpp>
 #include <sge/systems/renderer_fwd.hpp>
-#include <sge/systems/symbol.hpp>
+#include <sge/systems/detail/symbol.hpp>
 #include <sge/viewport/resize_callback.hpp>
 #include <fcppt/nonassignable.hpp>
 
@@ -45,26 +45,26 @@ class renderer
 		renderer
 	);
 public:
-	SGE_SYSTEMS_SYMBOL
+	SGE_SYSTEMS_DETAIL_SYMBOL
 	renderer(
 		sge::renderer::pixel_format::object const &,
 		sge::renderer::display_mode::parameters const &,
 		sge::viewport::resize_callback const &
 	);
 
-	SGE_SYSTEMS_SYMBOL
+	SGE_SYSTEMS_DETAIL_SYMBOL
 	sge::systems::renderer &
 	caps(
 		sge::renderer::caps::system_field const &
 	);
 
-	SGE_SYSTEMS_SYMBOL
+	SGE_SYSTEMS_DETAIL_SYMBOL
 	sge::systems::renderer &
 	name(
 		sge::plugin::name const &
 	);
 
-	SGE_SYSTEMS_SYMBOL
+	SGE_SYSTEMS_DETAIL_SYMBOL
 	sge::systems::renderer &
 	device_index(
 		sge::renderer::device::index

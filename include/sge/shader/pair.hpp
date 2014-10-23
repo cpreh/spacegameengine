@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/shader/pixel_program_path.hpp>
 #include <sge/shader/pixel_program_stream.hpp>
 #include <sge/shader/scoped_pair_fwd.hpp>
-#include <sge/shader/symbol.hpp>
+#include <sge/shader/detail/symbol.hpp>
 #include <sge/shader/vertex_program_path.hpp>
 #include <sge/shader/vertex_program_stream.hpp>
 #include <sge/shader/parameter/matrix.hpp>
@@ -49,7 +49,7 @@ class pair
 FCPPT_NONCOPYABLE(
 	pair);
 public:
-	SGE_SHADER_SYMBOL
+	SGE_SHADER_DETAIL_SYMBOL
 	pair(
 		sge::shader::context &,
 		sge::renderer::vertex::declaration const &,
@@ -57,7 +57,7 @@ public:
 		sge::shader::pixel_program_path const &,
 		sge::shader::optional_cflags const &);
 
-	SGE_SHADER_SYMBOL
+	SGE_SHADER_DETAIL_SYMBOL
 	pair(
 		sge::shader::context &,
 		sge::renderer::vertex::declaration const &,
@@ -65,27 +65,27 @@ public:
 		sge::shader::pixel_program_stream const &,
 		sge::shader::optional_cflags const &);
 
-	SGE_SHADER_SYMBOL
+	SGE_SHADER_DETAIL_SYMBOL
 	sge::shader::context &
 	context() const;
 
-	SGE_SHADER_SYMBOL
+	SGE_SHADER_DETAIL_SYMBOL
 	sge::cg::program::object &
 	vertex_program();
 
-	SGE_SHADER_SYMBOL
+	SGE_SHADER_DETAIL_SYMBOL
 	sge::cg::program::object &
 	pixel_program();
 
-	SGE_SHADER_SYMBOL
+	SGE_SHADER_DETAIL_SYMBOL
 	sge::renderer::cg::loaded_program &
 	loaded_vertex_program();
 
-	SGE_SHADER_SYMBOL
+	SGE_SHADER_DETAIL_SYMBOL
 	sge::renderer::cg::loaded_program &
 	loaded_pixel_program();
 
-	SGE_SHADER_SYMBOL
+	SGE_SHADER_DETAIL_SYMBOL
 	~pair();
 private:
 	friend class sge::shader::parameter::planar_texture;

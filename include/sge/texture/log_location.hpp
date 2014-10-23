@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXTURE_LOG_LOCATION_HPP_INCLUDED
 #define SGE_TEXTURE_LOG_LOCATION_HPP_INCLUDED
 
-#include <sge/texture/symbol.hpp>
+#include <sge/texture/detail/symbol.hpp>
 #include <fcppt/log/location.hpp>
 
 
@@ -30,7 +30,7 @@ namespace sge
 namespace texture
 {
 
-SGE_TEXTURE_SYMBOL
+SGE_TEXTURE_DETAIL_SYMBOL
 fcppt::log::location
 log_location();
 

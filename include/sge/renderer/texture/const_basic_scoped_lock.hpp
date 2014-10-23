@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/basic_buffer.hpp>
 #include <sge/renderer/const_basic_buffer_scoped_lock.hpp>
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -49,23 +49,23 @@ public:
 
 	typedef typename color_buffer::const_view const_view;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	explicit
 	const_basic_scoped_lock(
 		Texture const &
 	);
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	const_basic_scoped_lock(
 		Texture const &,
 		lock_area const &
 	);
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	const_view const
 	value() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	~const_basic_scoped_lock();
 private:
 	typedef

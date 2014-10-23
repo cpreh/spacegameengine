@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_DISPLAY_MODE_TO_DPI_HPP_INCLUDED
 #define SGE_RENDERER_DISPLAY_MODE_TO_DPI_HPP_INCLUDED
 
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/display_mode/dpi_fwd.hpp>
 #include <sge/renderer/display_mode/optional_object_fwd.hpp>
 
@@ -33,7 +33,7 @@ namespace renderer
 namespace display_mode
 {
 
-SGE_RENDERER_SYMBOL
+SGE_RENDERER_DETAIL_SYMBOL
 sge::renderer::display_mode::dpi const
 to_dpi(
 	sge::renderer::display_mode::optional_object const &

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/vertex/declaration_fwd.hpp>
-#include <sge/sprite/symbol.hpp>
+#include <sge/sprite/detail/symbol.hpp>
 #include <sge/sprite/buffers/parameters_fwd.hpp>
 #include <fcppt/nonassignable.hpp>
 
@@ -41,17 +41,17 @@ class parameters
 		parameters
 	);
 public:
-	SGE_SPRITE_SYMBOL
+	SGE_SPRITE_DETAIL_SYMBOL
 	parameters(
 		sge::renderer::device::core &,
 		sge::renderer::vertex::declaration const &
 	);
 
-	SGE_SPRITE_SYMBOL
+	SGE_SPRITE_DETAIL_SYMBOL
 	sge::renderer::device::core &
 	device() const;
 
-	SGE_SPRITE_SYMBOL
+	SGE_SPRITE_DETAIL_SYMBOL
 	sge::renderer::vertex::declaration const &
 	vertex_declaration() const;
 private:

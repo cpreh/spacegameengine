@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/long_description.hpp>
 #include <sge/console/short_description.hpp>
 #include <sge/console/signal_fwd.hpp>
-#include <sge/console/symbol.hpp>
+#include <sge/console/detail/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/object_decl.hpp>
 #include <fcppt/signal/unregister/base_decl.hpp>
@@ -42,35 +42,35 @@ class function
 		function
 	);
 public:
-	SGE_CONSOLE_SYMBOL
+	SGE_CONSOLE_DETAIL_SYMBOL
 	function(
 		sge::console::short_description const &,
 		sge::console::long_description const &
 	);
 
-	SGE_CONSOLE_SYMBOL
+	SGE_CONSOLE_DETAIL_SYMBOL
 	function(
 		function &&
 	);
 
-	SGE_CONSOLE_SYMBOL
+	SGE_CONSOLE_DETAIL_SYMBOL
 	function &
 	operator=(
 		function &&
 	);
 
-	SGE_CONSOLE_SYMBOL
+	SGE_CONSOLE_DETAIL_SYMBOL
 	~function();
 
-	SGE_CONSOLE_SYMBOL
+	SGE_CONSOLE_DETAIL_SYMBOL
 	sge::console::signal &
 	signal();
 
-	SGE_CONSOLE_SYMBOL
+	SGE_CONSOLE_DETAIL_SYMBOL
 	sge::console::short_description const &
 	short_description() const;
 
-	SGE_CONSOLE_SYMBOL
+	SGE_CONSOLE_DETAIL_SYMBOL
 	sge::console::long_description const &
 	long_description() const;
 private:

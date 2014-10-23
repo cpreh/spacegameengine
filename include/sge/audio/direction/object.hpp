@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_DIRECTION_OBJECT_HPP_INCLUDED
 #define SGE_AUDIO_DIRECTION_OBJECT_HPP_INCLUDED
 
-#include <sge/audio/symbol.hpp>
+#include <sge/audio/detail/symbol.hpp>
 #include <sge/audio/vector.hpp>
 #include <sge/audio/direction/forward.hpp>
 #include <sge/audio/direction/up.hpp>
@@ -37,27 +37,27 @@ namespace direction
 class object
 {
 public:
-	SGE_AUDIO_SYMBOL
+	SGE_AUDIO_DETAIL_SYMBOL
 	object(
 		sge::audio::direction::forward const &,
 		sge::audio::direction::up const &
 	);
 
-	SGE_AUDIO_SYMBOL
+	SGE_AUDIO_DETAIL_SYMBOL
 	sge::audio::vector const &
 	forward() const;
 
-	SGE_AUDIO_SYMBOL
+	SGE_AUDIO_DETAIL_SYMBOL
 	void
 	forward(
 		sge::audio::vector const &
 	);
 
-	SGE_AUDIO_SYMBOL
+	SGE_AUDIO_DETAIL_SYMBOL
 	sge::audio::vector const
 	up() const;
 
-	SGE_AUDIO_SYMBOL
+	SGE_AUDIO_DETAIL_SYMBOL
 	void
 	up(
 		sge::audio::vector const &

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/charconv/encoding_fwd.hpp>
 #include <sge/charconv/string_type.hpp>
-#include <sge/charconv/symbol.hpp>
+#include <sge/charconv/detail/symbol.hpp>
 
 
 namespace sge
@@ -35,7 +35,7 @@ template<
 	sge::charconv::encoding DestEncoding,
 	sge::charconv::encoding SourceEncoding
 >
-SGE_CHARCONV_SYMBOL
+SGE_CHARCONV_DETAIL_SYMBOL
 sge::charconv::string_type<
 	DestEncoding
 >

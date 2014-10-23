@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/line_drawer/object.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
-#include <sge/scenic/symbol.hpp>
+#include <sge/scenic/detail/symbol.hpp>
 #include <sge/scenic/grid/depth_test.hpp>
 #include <sge/scenic/grid/distance_to_origin.hpp>
 #include <sge/scenic/grid/orientation_fwd.hpp>
@@ -46,7 +46,7 @@ class object
 FCPPT_NONCOPYABLE(
 	object);
 public:
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	object(
 		sge::renderer::device::ffp &,
 		sge::camera::base const &,
@@ -56,13 +56,13 @@ public:
 		sge::scenic::grid::distance_to_origin const &,
 		sge::image::color::any::object const &);
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	void
 	render(
 		sge::renderer::context::ffp &,
 		sge::scenic::grid::depth_test const &);
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	~object();
 private:
 	sge::renderer::device::ffp &renderer_;

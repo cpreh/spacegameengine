@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PROJECTILE_GHOST_OBJECT_HPP_INCLUDED
 #define SGE_PROJECTILE_GHOST_OBJECT_HPP_INCLUDED
 
-#include <sge/projectile/symbol.hpp>
+#include <sge/projectile/detail/symbol.hpp>
 #include <sge/projectile/vector2.hpp>
 #include <sge/projectile/world_fwd.hpp>
 #include <sge/projectile/body/object_fwd.hpp>
@@ -54,26 +54,26 @@ class object
 FCPPT_NONCOPYABLE(
 	object);
 public:
-	SGE_PROJECTILE_SYMBOL explicit
+	SGE_PROJECTILE_DETAIL_SYMBOL explicit
 	object(
 		parameters const &);
 
-	SGE_PROJECTILE_SYMBOL sge::projectile::vector2 const
+	SGE_PROJECTILE_DETAIL_SYMBOL sge::projectile::vector2 const
 	position() const;
 
-	SGE_PROJECTILE_SYMBOL void
+	SGE_PROJECTILE_DETAIL_SYMBOL void
 	position(
 		sge::projectile::vector2 const &);
 
-	SGE_PROJECTILE_SYMBOL fcppt::signal::auto_connection
+	SGE_PROJECTILE_DETAIL_SYMBOL fcppt::signal::auto_connection
 	body_enter(
 		sge::projectile::ghost::body_enter const &);
 
-	SGE_PROJECTILE_SYMBOL fcppt::signal::auto_connection
+	SGE_PROJECTILE_DETAIL_SYMBOL fcppt::signal::auto_connection
 	body_exit(
 		sge::projectile::ghost::body_exit const &);
 
-	SGE_PROJECTILE_SYMBOL ~object();
+	SGE_PROJECTILE_DETAIL_SYMBOL ~object();
 private:
 	friend class detail::pair_callback;
 	friend class sge::projectile::world;

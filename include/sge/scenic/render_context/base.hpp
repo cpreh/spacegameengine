@@ -21,13 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SCENIC_RENDER_CONTEXT_BASE_HPP_INCLUDED
 #define SGE_SCENIC_RENDER_CONTEXT_BASE_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/index/buffer_fwd.hpp>
 #include <sge/renderer/target/base_fwd.hpp>
 #include <sge/renderer/vertex/buffer_fwd.hpp>
 #include <sge/scenic/index_buffer_range_fwd.hpp>
-#include <sge/scenic/symbol.hpp>
+#include <sge/scenic/detail/symbol.hpp>
 #include <sge/scenic/render_context/transform_matrix_type_fwd.hpp>
 #include <sge/scenic/render_context/fog/optional_properties.hpp>
 #include <sge/scenic/render_context/light/sequence.hpp>
@@ -41,7 +41,7 @@ namespace scenic
 {
 namespace render_context
 {
-class SGE_CLASS_SYMBOL base
+class SGE_CORE_DETAIL_CLASS_SYMBOL base
 {
 FCPPT_NONCOPYABLE(
 	base);

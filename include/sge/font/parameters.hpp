@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/optional_family.hpp>
 #include <sge/font/optional_ttf_size.hpp>
 #include <sge/font/parameters_fwd.hpp>
-#include <sge/font/symbol.hpp>
+#include <sge/font/detail/symbol.hpp>
 #include <sge/font/ttf_size.hpp>
 #include <sge/font/weight/optional_unit.hpp>
 #include <sge/font/weight/unit.hpp>
@@ -41,54 +41,54 @@ namespace font
 class parameters
 {
 public:
-	SGE_FONT_SYMBOL
+	SGE_FONT_DETAIL_SYMBOL
 	parameters();
 
-	SGE_FONT_SYMBOL
+	SGE_FONT_DETAIL_SYMBOL
 	sge::font::parameters &
 	dpi(
 		sge::font::dpi const &
 	);
 
-	SGE_FONT_SYMBOL
+	SGE_FONT_DETAIL_SYMBOL
 	sge::font::parameters &
 	ttf_size(
 		sge::font::ttf_size
 	);
 
-	SGE_FONT_SYMBOL
+	SGE_FONT_DETAIL_SYMBOL
 	sge::font::parameters &
 	family(
 		fcppt::string const &
 	);
 
-	SGE_FONT_SYMBOL
+	SGE_FONT_DETAIL_SYMBOL
 	sge::font::parameters &
 	weight(
 		sge::font::weight::unit
 	);
 
-	SGE_FONT_SYMBOL
+	SGE_FONT_DETAIL_SYMBOL
 	sge::font::parameters &
 	italic();
 
-	SGE_FONT_SYMBOL
+	SGE_FONT_DETAIL_SYMBOL
 	sge::font::optional_dpi const &
 	dpi() const;
 
-	SGE_FONT_SYMBOL
+	SGE_FONT_DETAIL_SYMBOL
 	sge::font::optional_ttf_size const &
 	ttf_size() const;
 
-	SGE_FONT_SYMBOL
+	SGE_FONT_DETAIL_SYMBOL
 	sge::font::optional_family const &
 	family() const;
 
-	SGE_FONT_SYMBOL
+	SGE_FONT_DETAIL_SYMBOL
 	sge::font::weight::optional_unit const &
 	weight() const;
 
-	SGE_FONT_SYMBOL
+	SGE_FONT_DETAIL_SYMBOL
 	bool
 	italic() const;
 private:

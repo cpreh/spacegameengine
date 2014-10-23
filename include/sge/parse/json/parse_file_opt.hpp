@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PARSE_JSON_PARSE_FILE_OPT_HPP_INCLUDED
 
 #include <sge/parse/json/result_with_value_fwd.hpp>
-#include <sge/parse/json/symbol.hpp>
+#include <sge/parse/json/detail/symbol.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -35,7 +35,7 @@ namespace parse
 namespace json
 {
 
-SGE_PARSE_JSON_SYMBOL
+SGE_PARSE_JSON_DETAIL_SYMBOL
 sge::parse::json::result_with_value
 parse_file_opt(
 	boost::filesystem::path const &

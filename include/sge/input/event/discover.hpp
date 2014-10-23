@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_EVENT_DISCOVER_HPP_INCLUDED
 #define SGE_INPUT_EVENT_DISCOVER_HPP_INCLUDED
 
-#include <sge/input/symbol.hpp>
+#include <sge/input/detail/symbol.hpp>
 #include <sge/input/event/discover_fwd.hpp>
 #include <fcppt/nonassignable.hpp>
 
@@ -42,13 +42,13 @@ class discover
 		discover
 	);
 public:
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	explicit
 	discover(
 		Object &
 	);
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	Object &
 	get() const;
 private:

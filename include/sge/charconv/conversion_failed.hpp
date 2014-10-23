@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CHARCONV_CONVERSION_FAILED_HPP_INCLUDED
 #define SGE_CHARCONV_CONVERSION_FAILED_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
 #include <sge/charconv/exception.hpp>
-#include <sge/charconv/symbol.hpp>
+#include <sge/charconv/detail/symbol.hpp>
 
 
 namespace sge
@@ -31,12 +31,12 @@ namespace sge
 namespace charconv
 {
 
-class SGE_CLASS_SYMBOL conversion_failed
+class SGE_CORE_DETAIL_CLASS_SYMBOL conversion_failed
 :
 	public sge::charconv::exception
 {
 public:
-	SGE_CHARCONV_SYMBOL
+	SGE_CHARCONV_DETAIL_SYMBOL
 	conversion_failed();
 };
 

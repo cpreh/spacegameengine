@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SCENIC_RENDER_CONTEXT_LIGHT_OBJECT_HPP_INCLUDED
 
 #include <sge/image/color/any/object.hpp>
-#include <sge/scenic/symbol.hpp>
+#include <sge/scenic/detail/symbol.hpp>
 #include <sge/scenic/render_context/ambient_color.hpp>
 #include <sge/scenic/render_context/diffuse_color.hpp>
 #include <sge/scenic/render_context/specular_color.hpp>
@@ -42,26 +42,26 @@ namespace light
 class object
 {
 public:
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	object(
 		sge::scenic::render_context::diffuse_color const &,
 		sge::scenic::render_context::specular_color const &,
 		sge::scenic::render_context::ambient_color const &,
 		sge::scenic::render_context::light::variant const &);
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::render_context::diffuse_color const &
 	diffuse_color() const;
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::render_context::specular_color const &
 	specular_color() const;
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::render_context::ambient_color const &
 	ambient_color() const;
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::render_context::light::variant const &
 	variant() const;
 private:

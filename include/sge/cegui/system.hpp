@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/cursor_visibility_fwd.hpp>
 #include <sge/cegui/duration.hpp>
 #include <sge/cegui/load_context_fwd.hpp>
-#include <sge/cegui/symbol.hpp>
+#include <sge/cegui/detail/symbol.hpp>
 #include <sge/cegui/detail/system_impl_fwd.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
@@ -54,7 +54,7 @@ class system
 		system
 	);
 public:
-	SGE_CEGUI_SYMBOL
+	SGE_CEGUI_DETAIL_SYMBOL
 	system(
 		sge::cegui::load_context const &,
 		sge::renderer::device::ffp &,
@@ -64,36 +64,36 @@ public:
 		sge::renderer::texture::emulate_srgb
 	);
 
-	SGE_CEGUI_SYMBOL
+	SGE_CEGUI_DETAIL_SYMBOL
 	~system();
 
 	// Sends cegui a time pulse to calculate double clicks, tooltip
 	// durations and so on
-	SGE_CEGUI_SYMBOL
+	SGE_CEGUI_DETAIL_SYMBOL
 	void
 	update(
 		sge::cegui::duration const &
 	);
 
-	SGE_CEGUI_SYMBOL
+	SGE_CEGUI_DETAIL_SYMBOL
 	void
 	render(
 		sge::renderer::context::ffp &
 	);
 
-	SGE_CEGUI_SYMBOL
+	SGE_CEGUI_DETAIL_SYMBOL
 	CEGUI::WindowManager &
 	window_manager();
 
-	SGE_CEGUI_SYMBOL
+	SGE_CEGUI_DETAIL_SYMBOL
 	CEGUI::WindowManager const &
 	window_manager() const;
 
-	SGE_CEGUI_SYMBOL
+	SGE_CEGUI_DETAIL_SYMBOL
 	CEGUI::GUIContext &
 	gui_context();
 
-	SGE_CEGUI_SYMBOL
+	SGE_CEGUI_DETAIL_SYMBOL
 	CEGUI::GUIContext const &
 	gui_context() const;
 private:

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PROJECTILE_SHAPE_TRIANGLE_MESH_HPP_INCLUDED
 
 #include <sge/projectile/scalar.hpp>
-#include <sge/projectile/symbol.hpp>
+#include <sge/projectile/detail/symbol.hpp>
 #include <sge/projectile/shape/base.hpp>
 #include <sge/projectile/shape/triangle_sequence.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -49,7 +49,7 @@ class triangle_mesh
 FCPPT_NONCOPYABLE(
 	triangle_mesh);
 public:
-	SGE_PROJECTILE_SYMBOL explicit
+	SGE_PROJECTILE_DETAIL_SYMBOL explicit
 	triangle_mesh(
 		shape::triangle_sequence const &);
 
@@ -62,7 +62,7 @@ public:
 	bullet_shape() const
 	override;
 
-	SGE_PROJECTILE_SYMBOL
+	SGE_PROJECTILE_DETAIL_SYMBOL
 	~triangle_mesh()
 	override;
 private:

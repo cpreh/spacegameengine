@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TEXTURE_EMULATE_SRGB_FROM_CAPS_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_EMULATE_SRGB_FROM_CAPS_HPP_INCLUDED
 
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/caps/device_fwd.hpp>
 #include <sge/renderer/texture/emulate_srgb_fwd.hpp>
 
@@ -33,7 +33,7 @@ namespace renderer
 namespace texture
 {
 
-SGE_RENDERER_SYMBOL
+SGE_RENDERER_DETAIL_SYMBOL
 sge::renderer::texture::emulate_srgb
 emulate_srgb_from_caps(
 	sge::renderer::caps::device const &

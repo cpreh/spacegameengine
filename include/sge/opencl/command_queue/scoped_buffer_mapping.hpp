@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENCL_COMMAND_QUEUE_SCOPED_BUFFER_MAPPING_HPP_INCLUDED
 
 #include <sge/opencl/clinclude.hpp>
-#include <sge/opencl/symbol.hpp>
+#include <sge/opencl/detail/symbol.hpp>
 #include <sge/opencl/command_queue/map_flags_fwd.hpp>
 #include <sge/opencl/command_queue/object_fwd.hpp>
 #include <sge/opencl/event/sequence.hpp>
@@ -43,7 +43,7 @@ class scoped_buffer_mapping
 FCPPT_NONCOPYABLE(
 	scoped_buffer_mapping);
 public:
-	SGE_OPENCL_SYMBOL
+	SGE_OPENCL_DETAIL_SYMBOL
 	scoped_buffer_mapping(
 		sge::opencl::command_queue::object &,
 		sge::opencl::memory_object::buffer &,
@@ -52,10 +52,10 @@ public:
 		sge::opencl::memory_object::byte_size const &,
 		sge::opencl::event::sequence const &);
 
-	SGE_OPENCL_SYMBOL void*
+	SGE_OPENCL_DETAIL_SYMBOL void*
 	ptr() const;
 
-	SGE_OPENCL_SYMBOL ~scoped_buffer_mapping();
+	SGE_OPENCL_DETAIL_SYMBOL ~scoped_buffer_mapping();
 private:
 	sge::opencl::command_queue::object &queue_;
 	cl_mem buffer_;

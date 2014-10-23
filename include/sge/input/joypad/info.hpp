@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_JOYPAD_INFO_HPP_INCLUDED
 #define SGE_INPUT_JOYPAD_INFO_HPP_INCLUDED
 
-#include <sge/input/symbol.hpp>
+#include <sge/input/detail/symbol.hpp>
 #include <sge/input/info/name.hpp>
 #include <sge/input/info/unique_id.hpp>
 #include <sge/input/joypad/absolute_axis_info_container.hpp>
@@ -40,7 +40,7 @@ namespace joypad
 class info
 {
 public:
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	info(
 		sge::input::joypad::absolute_axis_info_container const &,
 		sge::input::joypad::button_info_container const &,
@@ -49,23 +49,23 @@ public:
 		sge::input::info::unique_id const &
 	);
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::joypad::absolute_axis_info_container const &
 	absolute_axes() const;
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::joypad::button_info_container const &
 	buttons() const;
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::joypad::relative_axis_info_container const &
 	relative_axes() const;
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::info::name const &
 	name() const;
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::info::unique_id const &
 	unique_id() const;
 private:

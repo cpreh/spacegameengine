@@ -21,14 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CAMERA_TRACKING_OBJECT_HPP_INCLUDED
 #define SGE_CAMERA_TRACKING_OBJECT_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
 #include <sge/camera/base.hpp>
 #include <sge/camera/has_activation.hpp>
 #include <sge/camera/has_mutable_coordinate_system.hpp>
 #include <sge/camera/has_mutable_projection.hpp>
 #include <sge/camera/is_dynamic.hpp>
 #include <sge/camera/optional_projection_matrix.hpp>
-#include <sge/camera/symbol.hpp>
+#include <sge/camera/detail/symbol.hpp>
 #include <sge/camera/tracking/is_looping.hpp>
 #include <sge/camera/tracking/keyframe_sequence.hpp>
 #include <fcppt/cyclic_iterator.hpp>
@@ -41,7 +41,7 @@ namespace camera
 {
 namespace tracking
 {
-class SGE_CLASS_SYMBOL object
+class SGE_CORE_DETAIL_CLASS_SYMBOL object
 :
 	public virtual sge::camera::base,
 	public sge::camera::has_activation,
@@ -51,54 +51,54 @@ class SGE_CLASS_SYMBOL object
 FCPPT_NONCOPYABLE(
 	object);
 public:
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	object(
 		sge::camera::optional_projection_matrix const &,
 		sge::camera::tracking::keyframe_sequence const &,
 		sge::camera::tracking::is_looping const &,
 		sge::camera::is_active const &);
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	sge::camera::coordinate_system::object const
 	coordinate_system() const
 	override;
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	sge::camera::projection_matrix const
 	projection_matrix() const
 	override;
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	void
 	update_projection_matrix(
 		sge::camera::projection_matrix const &
 	)
 	override;
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	sge::camera::is_active const
 	is_active() const
 	override;
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	void
 	is_active(
 		sge::camera::is_active const &
 	)
 	override;
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	void
 	update(
 		sge::camera::update_duration const &
 	)
 	override;
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	bool
 	finished() const;
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	~object()
 	override;
 private:

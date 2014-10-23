@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_KEYBOARD_KEY_EVENT_HPP_INCLUDED
 #define SGE_INPUT_KEYBOARD_KEY_EVENT_HPP_INCLUDED
 
-#include <sge/input/symbol.hpp>
+#include <sge/input/detail/symbol.hpp>
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/input/keyboard/key_event_fwd.hpp>
 
@@ -36,17 +36,17 @@ namespace keyboard
 class key_event
 {
 public:
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	key_event(
 		sge::input::keyboard::key_code,
 		bool pressed
 	);
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::keyboard::key_code
 	key_code() const;
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	bool
 	pressed() const;
 private:

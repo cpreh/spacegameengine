@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CAMERA_SPHERICAL_ACTION_MAPPING_HPP_INCLUDED
 #define SGE_CAMERA_SPHERICAL_ACTION_MAPPING_HPP_INCLUDED
 
-#include <sge/camera/symbol.hpp>
+#include <sge/camera/detail/symbol.hpp>
 #include <sge/camera/spherical/action/decrease_azimuth.hpp>
 #include <sge/camera/spherical/action/decrease_inclination.hpp>
 #include <sge/camera/spherical/action/decrease_radius.hpp>
@@ -45,7 +45,7 @@ namespace action
 class mapping
 {
 public:
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	explicit
 	mapping(
 		action::increase_azimuth const &,
@@ -55,27 +55,27 @@ public:
 		action::increase_radius const &,
 		action::decrease_radius const &);
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	action::increase_azimuth const &
 	increase_azimuth() const;
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	action::decrease_azimuth const &
 	decrease_azimuth() const;
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	action::increase_inclination const &
 	increase_inclination() const;
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	action::decrease_inclination const &
 	decrease_inclination() const;
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	action::increase_radius const &
 	increase_radius() const;
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	action::decrease_radius const &
 	decrease_radius() const;
 private:

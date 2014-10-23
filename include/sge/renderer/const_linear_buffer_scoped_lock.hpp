@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_CONST_LINEAR_BUFFER_SCOPED_LOCK_HPP_INCLUDED
 
 #include <sge/renderer/npos.hpp>
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -93,7 +93,7 @@ public:
 	 * \warning The behaviour is undefined if the buffer hasn't been
 	 * created with resource_flags::readable
 	*/
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	explicit const_linear_buffer_scoped_lock(
 		Buffer const &buffer,
 		first_type first =
@@ -109,7 +109,7 @@ public:
 	 *
 	 * \return The view of the locked region
 	*/
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	view_type const
 	value() const;
 
@@ -119,7 +119,7 @@ public:
 	 * \warning The behaviour is undefined if the buffer has been locked
 	 * again or unlocked in between the constructor and destructor
 	*/
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	~const_linear_buffer_scoped_lock();
 private:
 	Buffer const &buffer_;

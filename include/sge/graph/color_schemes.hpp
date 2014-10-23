@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_GRAPH_COLOR_SCHEMES_HPP_INCLUDED
 
 #include <sge/graph/color_scheme.hpp>
-#include <sge/graph/symbol.hpp>
+#include <sge/graph/detail/symbol.hpp>
 
 namespace sge
 {
@@ -31,19 +31,19 @@ namespace graph
 namespace color_schemes
 {
 
-SGE_GRAPH_SYMBOL
+SGE_GRAPH_DETAIL_SYMBOL
 sge::graph::color_scheme const
 default_();
 
-SGE_GRAPH_SYMBOL
+SGE_GRAPH_DETAIL_SYMBOL
 sge::graph::color_scheme const
 bright();
 
-SGE_GRAPH_SYMBOL
+SGE_GRAPH_DETAIL_SYMBOL
 sge::graph::color_scheme const
 night();
 
-SGE_GRAPH_SYMBOL
+SGE_GRAPH_DETAIL_SYMBOL
 sge::graph::color_scheme const
 minimal();
 

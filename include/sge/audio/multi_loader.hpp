@@ -21,13 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_MULTI_LOADER_HPP_INCLUDED
 #define SGE_AUDIO_MULTI_LOADER_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
 #include <sge/audio/file_fwd.hpp>
 #include <sge/audio/loader.hpp>
 #include <sge/audio/multi_loader_fwd.hpp>
 #include <sge/audio/multi_loader_parameters_fwd.hpp>
 #include <sge/audio/optional_file_unique_ptr_fwd.hpp>
-#include <sge/audio/symbol.hpp>
+#include <sge/audio/detail/symbol.hpp>
 #include <sge/media/const_raw_range.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/muxer.hpp>
@@ -44,7 +44,7 @@ namespace sge
 namespace audio
 {
 
-class SGE_CLASS_SYMBOL multi_loader
+class SGE_CORE_DETAIL_CLASS_SYMBOL multi_loader
 :
 	public sge::audio::loader
 {
@@ -52,20 +52,20 @@ class SGE_CLASS_SYMBOL multi_loader
 		multi_loader
 	);
 public:
-	SGE_AUDIO_SYMBOL
+	SGE_AUDIO_DETAIL_SYMBOL
 	explicit
 	multi_loader(
 		sge::audio::multi_loader_parameters const &
 	);
 
-	SGE_AUDIO_SYMBOL
+	SGE_AUDIO_DETAIL_SYMBOL
 	sge::audio::optional_file_unique_ptr
 	load(
 		boost::filesystem::path const &
 	)
 	override;
 
-	SGE_AUDIO_SYMBOL
+	SGE_AUDIO_DETAIL_SYMBOL
 	sge::audio::optional_file_unique_ptr
 	load_raw(
 		sge::media::const_raw_range const &,
@@ -73,7 +73,7 @@ public:
 	)
 	override;
 
-	SGE_AUDIO_SYMBOL
+	SGE_AUDIO_DETAIL_SYMBOL
 	sge::audio::optional_file_unique_ptr
 	load_stream(
 		std::istream &,
@@ -81,12 +81,12 @@ public:
 	)
 	override;
 
-	SGE_AUDIO_SYMBOL
+	SGE_AUDIO_DETAIL_SYMBOL
 	sge::media::extension_set
 	extensions() const
 	override;
 
-	SGE_AUDIO_SYMBOL
+	SGE_AUDIO_DETAIL_SYMBOL
 	~multi_loader()
 	override;
 private:

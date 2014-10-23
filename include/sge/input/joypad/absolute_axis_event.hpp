@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_JOYPAD_ABSOLUTE_AXIS_EVENT_HPP_INCLUDED
 #define SGE_INPUT_JOYPAD_ABSOLUTE_AXIS_EVENT_HPP_INCLUDED
 
-#include <sge/input/symbol.hpp>
+#include <sge/input/detail/symbol.hpp>
 #include <sge/input/joypad/absolute_axis.hpp>
 #include <sge/input/joypad/absolute_axis_event_fwd.hpp>
 #include <sge/input/joypad/axis_value.hpp>
@@ -37,17 +37,17 @@ namespace joypad
 class absolute_axis_event
 {
 public:
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	absolute_axis_event(
 		sge::input::joypad::absolute_axis const &,
 		sge::input::joypad::axis_value
 	);
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::joypad::absolute_axis const &
 	axis() const;
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::joypad::axis_value
 	value() const;
 private:

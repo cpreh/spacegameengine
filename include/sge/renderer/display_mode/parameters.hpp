@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_DISPLAY_MODE_PARAMETERS_HPP_INCLUDED
 #define SGE_RENDERER_DISPLAY_MODE_PARAMETERS_HPP_INCLUDED
 
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/display_mode/parameters_fwd.hpp>
 #include <sge/renderer/display_mode/vsync.hpp>
@@ -49,7 +49,7 @@ public:
 
 	\param display_mode An optional display mode to switch to
 	*/
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	parameters(
 		sge::renderer::display_mode::vsync vsync,
 		sge::renderer::display_mode::optional_object const &display_mode
@@ -58,14 +58,14 @@ public:
 	/**
 	\brief Returns whether vsync should be used
 	*/
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::display_mode::vsync
 	vsync() const;
 
 	/**
 	\brief Returns the optional display mode
 	*/
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::display_mode::optional_object const
 	display_mode() const;
 private:

@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/parse/json/start_fwd.hpp>
 #include <sge/parse/json/start_variant.hpp>
-#include <sge/parse/json/symbol.hpp>
+#include <sge/parse/json/detail/symbol.hpp>
 
 
 namespace sge
@@ -37,28 +37,28 @@ namespace json
 
 struct start
 {
-	SGE_PARSE_JSON_SYMBOL
+	SGE_PARSE_JSON_DETAIL_SYMBOL
 	start();
 
-	SGE_PARSE_JSON_SYMBOL
+	SGE_PARSE_JSON_DETAIL_SYMBOL
 	explicit
 	start(
 		sge::parse::json::start_variant const &
 	);
 
-	SGE_PARSE_JSON_SYMBOL
+	SGE_PARSE_JSON_DETAIL_SYMBOL
 	sge::parse::json::array &
 	array();
 
-	SGE_PARSE_JSON_SYMBOL
+	SGE_PARSE_JSON_DETAIL_SYMBOL
 	sge::parse::json::array const &
 	array() const;
 
-	SGE_PARSE_JSON_SYMBOL
+	SGE_PARSE_JSON_DETAIL_SYMBOL
 	sge::parse::json::object &
 	object();
 
-	SGE_PARSE_JSON_SYMBOL
+	SGE_PARSE_JSON_DETAIL_SYMBOL
 	sge::parse::json::object const &
 	object() const;
 

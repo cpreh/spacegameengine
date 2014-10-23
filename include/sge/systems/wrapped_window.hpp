@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SYSTEMS_WRAPPED_WINDOW_HPP_INCLUDED
 #define SGE_SYSTEMS_WRAPPED_WINDOW_HPP_INCLUDED
 
-#include <sge/systems/symbol.hpp>
+#include <sge/systems/detail/symbol.hpp>
 #include <sge/systems/wrapped_window_fwd.hpp>
 #include <awl/event/processor_fwd.hpp>
 #include <awl/system/object_fwd.hpp>
@@ -42,7 +42,7 @@ class wrapped_window
 		wrapped_window
 	);
 public:
-	SGE_SYSTEMS_SYMBOL
+	SGE_SYSTEMS_DETAIL_SYMBOL
 	wrapped_window(
 		awl::system::object &,
 		awl::system::event::processor &,

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_DS_TRAITS_FORMAT_TO_STRING_HPP_INCLUDED
 
 #include <sge/image/ds/format_fwd.hpp>
-#include <sge/image/ds/symbol.hpp>
+#include <sge/image/ds/detail/symbol.hpp>
 #include <sge/image/ds/tag.hpp>
 #include <sge/image/traits/format_to_string.hpp>
 #include <fcppt/string.hpp>
@@ -40,7 +40,7 @@ struct format_to_string<
 	sge::image::ds::tag
 >
 {
-	SGE_IMAGE_DS_SYMBOL
+	SGE_IMAGE_DS_DETAIL_SYMBOL
 	static
 	fcppt::string
 	execute(

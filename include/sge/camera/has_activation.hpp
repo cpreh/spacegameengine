@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CAMERA_HAS_ACTIVATION_HPP_INCLUDED
 #define SGE_CAMERA_HAS_ACTIVATION_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
 #include <sge/camera/base.hpp>
 #include <sge/camera/has_activation.hpp>
 #include <sge/camera/is_active.hpp>
-#include <sge/camera/symbol.hpp>
+#include <sge/camera/detail/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -33,14 +33,14 @@ namespace sge
 {
 namespace camera
 {
-class SGE_CLASS_SYMBOL has_activation
+class SGE_CORE_DETAIL_CLASS_SYMBOL has_activation
 :
 	public virtual sge::camera::base
 {
 FCPPT_NONCOPYABLE(
 	has_activation);
 protected:
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	has_activation();
 public:
 	virtual sge::camera::is_active const
@@ -50,11 +50,11 @@ public:
 	is_active(
 		sge::camera::is_active const &) = 0;
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	void
 	toggle_is_active();
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	~has_activation()
 	override = 0;
 };

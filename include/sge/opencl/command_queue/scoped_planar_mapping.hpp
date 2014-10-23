@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/format.hpp>
 #include <sge/image2d/view/object.hpp>
 #include <sge/opencl/clinclude.hpp>
-#include <sge/opencl/symbol.hpp>
+#include <sge/opencl/detail/symbol.hpp>
 #include <sge/opencl/command_queue/map_flags_fwd.hpp>
 #include <sge/opencl/command_queue/object_fwd.hpp>
 #include <sge/opencl/event/sequence.hpp>
@@ -48,7 +48,7 @@ class scoped_planar_mapping
 FCPPT_NONCOPYABLE(
 	scoped_planar_mapping);
 public:
-	SGE_OPENCL_SYMBOL explicit
+	SGE_OPENCL_DETAIL_SYMBOL explicit
 	scoped_planar_mapping(
 		sge::opencl::command_queue::object &,
 		sge::opencl::memory_object::image::planar &,
@@ -56,16 +56,16 @@ public:
 		sge::opencl::memory_object::rect const &,
 		sge::opencl::event::sequence const &);
 
-	SGE_OPENCL_SYMBOL void*
+	SGE_OPENCL_DETAIL_SYMBOL void*
 	ptr() const;
 
-	SGE_OPENCL_SYMBOL std::size_t
+	SGE_OPENCL_DETAIL_SYMBOL std::size_t
 	pitch() const;
 
-	SGE_OPENCL_SYMBOL sge::image2d::view::object const
+	SGE_OPENCL_DETAIL_SYMBOL sge::image2d::view::object const
 	view();
 
-	SGE_OPENCL_SYMBOL ~scoped_planar_mapping();
+	SGE_OPENCL_DETAIL_SYMBOL ~scoped_planar_mapping();
 private:
 	command_queue::object &queue_;
 	opencl::memory_object::rect rect_;

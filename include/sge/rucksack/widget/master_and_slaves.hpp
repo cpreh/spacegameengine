@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RUCKSACK_WIDGET_MASTER_AND_SLAVES_HPP_INCLUDED
 #define SGE_RUCKSACK_WIDGET_MASTER_AND_SLAVES_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
 #include <sge/rucksack/axis_policy2_fwd.hpp>
 #include <sge/rucksack/dim.hpp>
 #include <sge/rucksack/padding_fwd.hpp>
-#include <sge/rucksack/symbol.hpp>
+#include <sge/rucksack/detail/symbol.hpp>
 #include <sge/rucksack/vector.hpp>
 #include <sge/rucksack/widget/base.hpp>
 #include <sge/rucksack/widget/box.hpp>
@@ -49,7 +49,7 @@ namespace widget
  * The widget has a "master widget" and multiple "subwidgets". The master
  * widget is displayed in a column on the left, the subwidgets are displayed on the right
  */
-class SGE_CLASS_SYMBOL master_and_slaves
+class SGE_CORE_DETAIL_CLASS_SYMBOL master_and_slaves
 :
 	public sge::rucksack::widget::base
 {
@@ -57,59 +57,59 @@ class SGE_CLASS_SYMBOL master_and_slaves
 		master_and_slaves
 	);
 public:
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	explicit
 	master_and_slaves(
 		sge::rucksack::padding const &
 	);
 
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	void
 	size(
 		sge::rucksack::dim const &
 	)
 	override;
 
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	void
 	position(
 		sge::rucksack::vector const &
 	)
 	override;
 
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	sge::rucksack::dim const
 	size() const
 	override;
 
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	sge::rucksack::vector const
 	position() const
 	override;
 
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	sge::rucksack::axis_policy2 const
 	axis_policy() const
 	override;
 
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	void
 	relayout()
 	override;
 
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	void
 	master_pane(
 		sge::rucksack::widget::base &
 	);
 
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	void
 	push_back_child(
 		sge::rucksack::widget::base &
 	);
 
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	~master_and_slaves()
 	override;
 private:

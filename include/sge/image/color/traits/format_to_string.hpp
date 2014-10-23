@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_COLOR_TRAITS_FORMAT_TO_STRING_HPP_INCLUDED
 
 #include <sge/image/color/format_fwd.hpp>
-#include <sge/image/color/symbol.hpp>
+#include <sge/image/color/detail/symbol.hpp>
 #include <sge/image/color/tag.hpp>
 #include <sge/image/traits/format_to_string.hpp>
 #include <fcppt/string.hpp>
@@ -40,7 +40,7 @@ struct format_to_string<
 	sge::image::color::tag
 >
 {
-	SGE_IMAGE_COLOR_SYMBOL
+	SGE_IMAGE_COLOR_DETAIL_SYMBOL
 	static
 	fcppt::string
 	execute(

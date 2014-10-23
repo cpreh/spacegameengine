@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PROJECTILE_DEBUG_DRAWER_HPP_INCLUDED
 #define SGE_PROJECTILE_DEBUG_DRAWER_HPP_INCLUDED
 
-#include <sge/projectile/symbol.hpp>
+#include <sge/projectile/detail/symbol.hpp>
 #include <sge/projectile/world_fwd.hpp>
 #include <sge/projectile/detail/debug_drawer_impl_fwd.hpp>
 #include <sge/renderer/context/core_fwd.hpp>
@@ -45,28 +45,28 @@ class debug_drawer
 FCPPT_NONCOPYABLE(
 	debug_drawer);
 public:
-	SGE_PROJECTILE_SYMBOL
+	SGE_PROJECTILE_DETAIL_SYMBOL
 	debug_drawer(
 		sge::projectile::world &,
 		sge::renderer::device::core &);
 
 	// Updates the line cache
-	SGE_PROJECTILE_SYMBOL void
+	SGE_PROJECTILE_DETAIL_SYMBOL void
 	update();
 
 	// Renders the lines
-	SGE_PROJECTILE_SYMBOL void
+	SGE_PROJECTILE_DETAIL_SYMBOL void
 	render(
 		sge::renderer::context::core &);
 
-	SGE_PROJECTILE_SYMBOL void
+	SGE_PROJECTILE_DETAIL_SYMBOL void
 	active(
 		bool);
 
-	SGE_PROJECTILE_SYMBOL bool
+	SGE_PROJECTILE_DETAIL_SYMBOL bool
 	active() const;
 
-	SGE_PROJECTILE_SYMBOL ~debug_drawer();
+	SGE_PROJECTILE_DETAIL_SYMBOL ~debug_drawer();
 private:
 	std::unique_ptr<detail::debug_drawer_impl> const impl_;
 };

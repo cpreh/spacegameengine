@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/context_base_fwd.hpp>
 #include <sge/plugin/info.hpp>
 #include <sge/plugin/optional_cache_ref.hpp>
-#include <sge/plugin/symbol.hpp>
+#include <sge/plugin/detail/symbol.hpp>
 #include <sge/plugin/library/object_fwd.hpp>
 #include <sge/plugin/library/object_shared_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -52,15 +52,15 @@ public:
 
 	~context_base();
 
-	SGE_PLUGIN_SYMBOL
+	SGE_PLUGIN_DETAIL_SYMBOL
 	boost::filesystem::path const &
 	path() const;
 
-	SGE_PLUGIN_SYMBOL
+	SGE_PLUGIN_DETAIL_SYMBOL
 	sge::plugin::info const &
 	info() const;
 
-	SGE_PLUGIN_SYMBOL
+	SGE_PLUGIN_DETAIL_SYMBOL
 	sge::plugin::library::object_shared_ptr
 	load();
 private:

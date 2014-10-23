@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PARSE_JSON_CONFIG_MERGE_TREES_HPP_INCLUDED
 
 #include <sge/parse/json/object.hpp>
-#include <sge/parse/json/symbol.hpp>
+#include <sge/parse/json/detail/symbol.hpp>
 
 
 namespace sge
@@ -34,7 +34,7 @@ namespace json
 namespace config
 {
 
-SGE_PARSE_JSON_SYMBOL
+SGE_PARSE_JSON_DETAIL_SYMBOL
 sge::parse::json::object
 merge_trees(
 	sge::parse::json::object const &original,

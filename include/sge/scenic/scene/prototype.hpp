@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SCENIC_SCENE_PROTOTYPE_HPP_INCLUDED
 #define SGE_SCENIC_SCENE_PROTOTYPE_HPP_INCLUDED
 
-#include <sge/scenic/symbol.hpp>
+#include <sge/scenic/detail/symbol.hpp>
 #include <sge/scenic/render_context/ambient_color.hpp>
 #include <sge/scenic/render_context/fog/optional_properties.hpp>
 #include <sge/scenic/render_context/fog/properties.hpp>
@@ -42,41 +42,41 @@ class prototype
 FCPPT_NONCOPYABLE(
 	prototype);
 public:
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	prototype(
 		sge::scenic::scene::camera_properties const &,
 		sge::scenic::render_context::fog::optional_properties const &,
 		sge::scenic::render_context::ambient_color const &);
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::scene::entity_sequence const &
 	entities() const;
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::scene::entity_sequence &
 	entities();
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::render_context::light::sequence const &
 	lights() const;
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::render_context::light::sequence &
 	lights();
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::scene::camera_properties const &
 	camera() const;
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::render_context::fog::optional_properties const &
 	fog() const;
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::render_context::ambient_color const &
 	ambient_color() const;
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	~prototype();
 private:
 	sge::scenic::scene::camera_properties camera_;

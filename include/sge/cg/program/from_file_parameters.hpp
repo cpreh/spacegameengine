@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CG_PROGRAM_FROM_FILE_PARAMETERS_HPP_INCLUDED
 #define SGE_CG_PROGRAM_FROM_FILE_PARAMETERS_HPP_INCLUDED
 
-#include <sge/cg/symbol.hpp>
+#include <sge/cg/detail/symbol.hpp>
 #include <sge/cg/context/object_fwd.hpp>
 #include <sge/cg/profile/object_fwd.hpp>
 #include <sge/cg/program/compile_options.hpp>
@@ -47,7 +47,7 @@ class from_file_parameters
 		from_file_parameters
 	);
 public:
-	SGE_CG_SYMBOL
+	SGE_CG_DETAIL_SYMBOL
 	from_file_parameters(
 		sge::cg::context::object const &,
 		sge::cg::program::source_type,

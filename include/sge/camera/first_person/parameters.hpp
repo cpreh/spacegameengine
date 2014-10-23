@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/is_active.hpp>
 #include <sge/camera/optional_projection_matrix.hpp>
 #include <sge/camera/projection_matrix.hpp>
-#include <sge/camera/symbol.hpp>
+#include <sge/camera/detail/symbol.hpp>
 #include <sge/camera/coordinate_system/object.hpp>
 #include <sge/camera/first_person/mouse_speed_multiplier.hpp>
 #include <sge/camera/first_person/movement_speed.hpp>
@@ -47,7 +47,7 @@ class parameters
 FCPPT_NONASSIGNABLE(
 	parameters);
 public:
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	parameters(
 		sge::input::keyboard::device &,
 		sge::input::mouse::device &,
@@ -55,52 +55,52 @@ public:
 		sge::camera::first_person::movement_speed const &,
 		camera::coordinate_system::object const &);
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	sge::input::keyboard::device &
 	keyboard() const;
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	sge::input::mouse::device &
 	mouse() const;
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	sge::camera::is_active const &
 	is_active() const;
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	parameters &
 	action_mapping(
 		sge::camera::first_person::action::mapping const &);
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	sge::camera::first_person::action::mapping const &
 	action_mapping() const;
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	sge::camera::first_person::movement_speed const &
 	movement_speed() const;
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	sge::camera::coordinate_system::object const &
 	coordinate_system() const;
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	parameters &
 	mouse_speed_multiplier(
 		sge::camera::first_person::mouse_speed_multiplier const &);
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	sge::camera::first_person::mouse_speed_multiplier const &
 	mouse_speed_multiplier() const;
 
 	// Projection is optional on construction, since we might know it only
 	// after we get a viewport.
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	parameters &
 	projection(
 		sge::camera::projection_matrix const &);
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	sge::camera::optional_projection_matrix const &
 	projection_matrix() const;
 private:

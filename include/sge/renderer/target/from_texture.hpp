@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TARGET_FROM_TEXTURE_HPP_INCLUDED
 #define SGE_RENDERER_TARGET_FROM_TEXTURE_HPP_INCLUDED
 
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/target/offscreen_unique_ptr.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
@@ -34,7 +34,7 @@ namespace renderer
 namespace target
 {
 
-SGE_RENDERER_SYMBOL
+SGE_RENDERER_DETAIL_SYMBOL
 sge::renderer::target::offscreen_unique_ptr
 from_texture(
 	sge::renderer::device::core &,

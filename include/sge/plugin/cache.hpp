@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PLUGIN_CACHE_HPP_INCLUDED
 
 #include <sge/plugin/cache_fwd.hpp>
-#include <sge/plugin/symbol.hpp>
+#include <sge/plugin/detail/symbol.hpp>
 #include <sge/plugin/library/object_shared_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -41,10 +41,10 @@ class cache
 		cache
 	);
 public:
-	SGE_PLUGIN_SYMBOL
+	SGE_PLUGIN_DETAIL_SYMBOL
 	cache();
 
-	SGE_PLUGIN_SYMBOL
+	SGE_PLUGIN_DETAIL_SYMBOL
 	~cache();
 
 	void

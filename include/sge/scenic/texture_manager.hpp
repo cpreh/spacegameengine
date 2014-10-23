@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/renderer/texture/planar_unique_ptr.hpp>
-#include <sge/scenic/symbol.hpp>
+#include <sge/scenic/detail/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
@@ -42,17 +42,17 @@ class texture_manager
 FCPPT_NONCOPYABLE(
 	texture_manager);
 public:
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	texture_manager(
 		sge::renderer::device::core &,
 		sge::image2d::system &);
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	sge::renderer::texture::planar &
 	texture_for_path(
 		boost::filesystem::path const &);
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	~texture_manager();
 private:
 	typedef

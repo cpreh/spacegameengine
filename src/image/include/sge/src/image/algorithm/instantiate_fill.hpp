@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/color/any/object_fwd.hpp>
 #include <sge/image/traits/view_fwd.hpp>
-#include <sge/src/export_function_instantiation.hpp>
+#include <sge/src/core/export_function_instantiation.hpp>
 #include <sge/src/image/algorithm/fill_impl.hpp>
 
 
@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	tag\
 )\
 template \
-SGE_EXPORT_FUNCTION_INSTANTIATION \
+SGE_CORE_EXPORT_FUNCTION_INSTANTIATION \
 void \
 sge::image::algorithm::fill< \
 	tag \

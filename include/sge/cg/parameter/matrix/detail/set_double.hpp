@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CG_PARAMETER_MATRIX_DETAIL_SET_DOUBLE_HPP_INCLUDED
 #define SGE_CG_PARAMETER_MATRIX_DETAIL_SET_DOUBLE_HPP_INCLUDED
 
-#include <sge/cg/symbol.hpp>
+#include <sge/cg/detail/symbol.hpp>
 #include <sge/cg/parameter/object_fwd.hpp>
 
 
@@ -36,7 +36,7 @@ namespace matrix
 namespace detail
 {
 
-SGE_CG_SYMBOL
+SGE_CG_DETAIL_SYMBOL
 void
 set_double(
 	sge::cg::parameter::object const &,

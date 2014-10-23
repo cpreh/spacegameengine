@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CAMERA_ORTHO_FREELOOK_ACTION_MAPPING_HPP_INCLUDED
 #define SGE_CAMERA_ORTHO_FREELOOK_ACTION_MAPPING_HPP_INCLUDED
 
-#include <sge/camera/symbol.hpp>
+#include <sge/camera/detail/symbol.hpp>
 #include <sge/camera/ortho_freelook/action/activate_pan.hpp>
 #include <sge/camera/ortho_freelook/action/zoom_in.hpp>
 #include <sge/camera/ortho_freelook/action/zoom_out.hpp>
@@ -42,22 +42,22 @@ namespace action
 class mapping
 {
 public:
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	explicit
 	mapping(
 		action::zoom_in const &,
 		action::zoom_out const &,
 		action::activate_pan const &);
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	action::zoom_in const &
 	zoom_in() const;
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	action::zoom_out const &
 	zoom_out() const;
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	action::activate_pan const &
 	activate_pan() const;
 private:

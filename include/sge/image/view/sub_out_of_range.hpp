@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_VIEW_SUB_OUT_OF_RANGE_HPP_INCLUDED
 #define SGE_IMAGE_VIEW_SUB_OUT_OF_RANGE_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
 #include <sge/image/box.hpp>
 #include <sge/image/exception.hpp>
 #include <sge/image/detail/instantiate/symbol.hpp>
@@ -37,7 +37,7 @@ namespace view
 template<
 	typename Box
 >
-class SGE_CLASS_SYMBOL sub_out_of_range
+class SGE_CORE_DETAIL_CLASS_SYMBOL sub_out_of_range
 :
 	public sge::image::exception
 {

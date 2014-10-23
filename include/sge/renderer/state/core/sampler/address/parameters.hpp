@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_CORE_SAMPLER_ADDRESS_PARAMETERS_HPP_INCLUDED
 #define SGE_RENDERER_STATE_CORE_SAMPLER_ADDRESS_PARAMETERS_HPP_INCLUDED
 
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/state/core/sampler/address/mode_s.hpp>
 #include <sge/renderer/state/core/sampler/address/mode_t.hpp>
 #include <sge/renderer/state/core/sampler/address/mode_u.hpp>
@@ -50,15 +50,15 @@ public:
 		sge::renderer::state::core::sampler::address::mode_u
 	);
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::sampler::address::mode_s const
 	mode_s() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::sampler::address::mode_t const
 	mode_t() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::sampler::address::mode_u const
 	mode_u() const;
 private:
@@ -69,7 +69,7 @@ private:
 	sge::renderer::state::core::sampler::address::mode_u mode_u_;
 };
 
-SGE_RENDERER_SYMBOL
+SGE_RENDERER_DETAIL_SYMBOL
 bool
 operator==(
 	sge::renderer::state::core::sampler::address::parameters const &,

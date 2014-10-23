@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SCENIC_RENDER_CONTEXT_MANAGER_BASE_HPP_INCLUDED
 #define SGE_SCENIC_RENDER_CONTEXT_MANAGER_BASE_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
 #include <sge/renderer/context/core_fwd.hpp>
-#include <sge/scenic/symbol.hpp>
+#include <sge/scenic/detail/symbol.hpp>
 #include <sge/scenic/render_context/base_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -34,7 +34,7 @@ namespace scenic
 {
 namespace render_context
 {
-class SGE_CLASS_SYMBOL manager_base
+class SGE_CORE_DETAIL_CLASS_SYMBOL manager_base
 {
 FCPPT_NONCOPYABLE(
 	manager_base);

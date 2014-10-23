@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FONT_ALIGN_H_LEFT_HPP_INCLUDED
 #define SGE_FONT_ALIGN_H_LEFT_HPP_INCLUDED
 
-#include <sge/font/symbol.hpp>
+#include <sge/font/detail/symbol.hpp>
 #include <sge/font/align_h/left_fwd.hpp>
 #include <sge/font/align_h/max_width.hpp>
 #include <sge/font/align_h/optional_max_width.hpp>
@@ -37,16 +37,16 @@ namespace align_h
 class left
 {
 public:
-	SGE_FONT_SYMBOL
+	SGE_FONT_DETAIL_SYMBOL
 	left();
 
-	SGE_FONT_SYMBOL
+	SGE_FONT_DETAIL_SYMBOL
 	explicit
 	left(
 		sge::font::align_h::max_width
 	);
 
-	SGE_FONT_SYMBOL
+	SGE_FONT_DETAIL_SYMBOL
 	sge::font::align_h::optional_max_width const
 	max_width() const;
 private:

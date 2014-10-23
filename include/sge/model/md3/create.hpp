@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MODEL_MD3_CREATE_HPP_INCLUDED
 
 #include <sge/model/md3/loader_unique_ptr.hpp>
-#include <sge/model/md3/symbol.hpp>
+#include <sge/model/md3/detail/symbol.hpp>
 
 namespace sge
 {
@@ -31,7 +31,7 @@ namespace model
 namespace md3
 {
 
-SGE_MODEL_MD3_SYMBOL
+SGE_MODEL_MD3_DETAIL_SYMBOL
 md3::loader_unique_ptr
 create();
 

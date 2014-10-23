@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/name.hpp>
 #include <sge/systems/font_fwd.hpp>
 #include <sge/systems/optional_name.hpp>
-#include <sge/systems/symbol.hpp>
+#include <sge/systems/detail/symbol.hpp>
 
 
 namespace sge
@@ -35,10 +35,10 @@ namespace systems
 class font
 {
 public:
-	SGE_SYSTEMS_SYMBOL
+	SGE_SYSTEMS_DETAIL_SYMBOL
 	font();
 
-	SGE_SYSTEMS_SYMBOL
+	SGE_SYSTEMS_DETAIL_SYMBOL
 	sge::systems::font &
 	name(
 		sge::plugin::name const &

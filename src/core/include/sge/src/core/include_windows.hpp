@@ -18,14 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_EXPORT_FUNCTION_INSTANTIATION_HPP_INCLUDED
-#define SGE_SRC_EXPORT_FUNCTION_INSTANTIATION_HPP_INCLUDED
+#ifndef SGE_SRC_CORE_INCLUDE_WINDOWS_HPP_INCLUDED
+#define SGE_SRC_CORE_INCLUDE_WINDOWS_HPP_INCLUDED
 
-#if defined(SGE_STATIC_LINK)
-#	define SGE_EXPORT_FUNCTION_INSTANTIATION
-#else
-#	include <fcppt/export_function_instantiation.hpp>
-#	define SGE_EXPORT_FUNCTION_INSTANTIATION FCPPT_EXPORT_FUNCTION_INSTANTIATION
+#if !defined(NOMINMAX)
+#define NOMINMAX
 #endif
+
+#if !defined(WIN32_LEAN_AND_MEAN)
+#define WIN32_LEAN_AND_MEAN
+#endif
+
+#include <fcppt/config/external_begin.hpp>
+#include <windows.h>
+#include <fcppt/config/external_end.hpp>
 
 #endif

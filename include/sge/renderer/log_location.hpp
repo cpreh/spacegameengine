@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_LOG_LOCATION_HPP_INCLUDED
 #define SGE_RENDERER_LOG_LOCATION_HPP_INCLUDED
 
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <fcppt/log/location.hpp>
 
 
@@ -35,7 +35,7 @@ namespace renderer
 
 \ingroup sge_renderer
 */
-SGE_RENDERER_SYMBOL
+SGE_RENDERER_DETAIL_SYMBOL
 fcppt::log::location
 log_location();
 

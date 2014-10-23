@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_CURSOR_SCOPED_ACTIVATION_HPP_INCLUDED
 #define SGE_INPUT_CURSOR_SCOPED_ACTIVATION_HPP_INCLUDED
 
-#include <sge/input/symbol.hpp>
+#include <sge/input/detail/symbol.hpp>
 #include <sge/input/cursor/activatable_fwd.hpp>
 #include <sge/input/cursor/scoped_activation_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -40,13 +40,13 @@ class scoped_activation
 		scoped_activation
 	);
 public:
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	explicit
 	scoped_activation(
 		sge::input::cursor::activatable &
 	);
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	~scoped_activation();
 private:
 	sge::input::cursor::activatable &cursor_;

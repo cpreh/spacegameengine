@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_IMAGE_ALGORITHM_CONVERT_MAY_OVERLAP_HPP_INCLUDED
 #define SGE_SRC_IMAGE_ALGORITHM_CONVERT_MAY_OVERLAP_HPP_INCLUDED
 
-#include <sge/image/symbol.hpp>
 #include <sge/image/algorithm/may_overlap_fwd.hpp>
+#include <sge/image/detail/symbol.hpp>
 #include <mizuiro/image/algorithm/may_overlap.hpp>
 
 
@@ -33,7 +33,7 @@ namespace image
 namespace algorithm
 {
 
-SGE_IMAGE_SYMBOL
+SGE_IMAGE_DETAIL_SYMBOL
 mizuiro::image::algorithm::may_overlap
 convert_may_overlap(
 	sge::image::algorithm::may_overlap

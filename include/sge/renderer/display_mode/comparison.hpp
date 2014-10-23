@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_DISPLAY_MODE_COMPARISON_HPP_INCLUDED
 #define SGE_RENDERER_DISPLAY_MODE_COMPARISON_HPP_INCLUDED
 
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/display_mode/object_fwd.hpp>
 
 
@@ -39,7 +39,7 @@ Compares \a mode1 to \a mode2 using == on every member.
 
 \return Whether \a mode1 and \a mode2 are equal
 */
-SGE_RENDERER_SYMBOL
+SGE_RENDERER_DETAIL_SYMBOL
 bool
 operator==(
 	sge::renderer::display_mode::object const &mode1,
@@ -53,7 +53,7 @@ Compares \a mode1 to \a mode2 using != on every member.
 
 \return Whether \a mode1 and \a mode2 are equal
 */
-SGE_RENDERER_SYMBOL
+SGE_RENDERER_DETAIL_SYMBOL
 bool
 operator!=(
 	sge::renderer::display_mode::object const &mode1,

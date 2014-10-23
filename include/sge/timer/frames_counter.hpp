@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/timer/basic_decl.hpp>
 #include <sge/timer/frames_counter_fwd.hpp>
-#include <sge/timer/symbol.hpp>
+#include <sge/timer/detail/symbol.hpp>
 #include <sge/timer/clocks/standard.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/string.hpp>
@@ -48,22 +48,22 @@ public:
 	unsigned long
 	counter;
 
-	SGE_TIMER_SYMBOL
+	SGE_TIMER_DETAIL_SYMBOL
 	frames_counter();
 
-	SGE_TIMER_SYMBOL
+	SGE_TIMER_DETAIL_SYMBOL
 	void
 	update();
 
-	SGE_TIMER_SYMBOL
+	SGE_TIMER_DETAIL_SYMBOL
 	counter
 	frames() const;
 
-	SGE_TIMER_SYMBOL
+	SGE_TIMER_DETAIL_SYMBOL
 	fcppt::string
 	frames_str() const;
 
-	SGE_TIMER_SYMBOL
+	SGE_TIMER_DETAIL_SYMBOL
 	~frames_counter();
 private:
 	sge::timer::basic<

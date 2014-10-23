@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CONSOLE_EXCEPTION_HPP_INCLUDED
 #define SGE_CONSOLE_EXCEPTION_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
-#include <sge/exception.hpp>
-#include <sge/console/symbol.hpp>
+#include <sge/core/exception.hpp>
+#include <sge/core/detail/class_symbol.hpp>
+#include <sge/console/detail/symbol.hpp>
 #include <sge/font/string.hpp>
 
 
@@ -32,22 +32,22 @@ namespace sge
 namespace console
 {
 
-class SGE_CLASS_SYMBOL exception
+class SGE_CORE_DETAIL_CLASS_SYMBOL exception
 :
-	public sge::exception
+	public sge::core::exception
 {
 public:
-	SGE_CONSOLE_SYMBOL
+	SGE_CONSOLE_DETAIL_SYMBOL
 	explicit
 	exception(
 		sge::font::string const &
 	);
 
-	SGE_CONSOLE_SYMBOL
+	SGE_CONSOLE_DETAIL_SYMBOL
 	~exception() throw()
 	override;
 
-	SGE_CONSOLE_SYMBOL
+	SGE_CONSOLE_DETAIL_SYMBOL
 	sge::font::string const &
 	console_string() const;
 private:

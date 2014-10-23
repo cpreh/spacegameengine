@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_INPUT_KEYBOARD_ACTION_HPP_INCLUDED
 
 #include <sge/input/nullary_function.hpp>
-#include <sge/input/symbol.hpp>
+#include <sge/input/detail/symbol.hpp>
 #include <sge/input/keyboard/key_callback.hpp>
 #include <sge/input/keyboard/key_code_fwd.hpp>
 
@@ -34,7 +34,7 @@ namespace input
 namespace keyboard
 {
 
-SGE_INPUT_SYMBOL
+SGE_INPUT_DETAIL_SYMBOL
 sge::input::keyboard::key_callback
 action(
 	sge::input::keyboard::key_code,

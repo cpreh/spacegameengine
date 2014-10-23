@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/blend/object.hpp>
 #include <sge/renderer/state/core/blend/object_unique_ptr.hpp>
 #include <sge/renderer/state/core/blend/write_mask.hpp>
-#include <sge/sprite/symbol.hpp>
+#include <sge/sprite/detail/symbol.hpp>
 #include <sge/sprite/state/with_blend_fwd.hpp>
 #include <sge/sprite/state/roles/blend.hpp>
 #include <sge/sprite/state/roles/blend_write_mask.hpp>
@@ -61,7 +61,7 @@ struct with_blend
 		sge::renderer::state::core::blend::write_mask
 	> optional_extra_parameters;
 
-	SGE_SPRITE_SYMBOL
+	SGE_SPRITE_DETAIL_SYMBOL
 	static
 	sge::renderer::state::core::blend::object_unique_ptr
 	make(
@@ -69,7 +69,7 @@ struct with_blend
 		sge::sprite::state::with_blend::optional_extra_parameters const &
 	);
 
-	SGE_SPRITE_SYMBOL
+	SGE_SPRITE_DETAIL_SYMBOL
 	static
 	void
 	set(
@@ -77,7 +77,7 @@ struct with_blend
 		sge::sprite::state::with_blend::state_type const &
 	);
 
-	SGE_SPRITE_SYMBOL
+	SGE_SPRITE_DETAIL_SYMBOL
 	static
 	void
 	unset(

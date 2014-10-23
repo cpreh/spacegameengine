@@ -21,23 +21,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CAMERA_HAS_MUTABLE_COORDINATE_SYSTEM_HPP_INCLUDED
 #define SGE_CAMERA_HAS_MUTABLE_COORDINATE_SYSTEM_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
 #include <sge/camera/base.hpp>
-#include <sge/camera/symbol.hpp>
+#include <sge/camera/detail/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 namespace sge
 {
 namespace camera
 {
-class SGE_CLASS_SYMBOL has_mutable_coordinate_system
+class SGE_CORE_DETAIL_CLASS_SYMBOL has_mutable_coordinate_system
 :
 	public virtual sge::camera::base
 {
 FCPPT_NONCOPYABLE(
 	has_mutable_coordinate_system);
 protected:
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	has_mutable_coordinate_system();
 public:
 	virtual
@@ -46,7 +46,7 @@ public:
 		sge::camera::coordinate_system::object const &
 	) = 0;
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	~has_mutable_coordinate_system()
 	override = 0;
 };

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/font/height.hpp>
 #include <sge/font/metrics_fwd.hpp>
-#include <sge/font/symbol.hpp>
+#include <sge/font/detail/symbol.hpp>
 
 
 namespace sge
@@ -34,13 +34,13 @@ namespace font
 class metrics
 {
 public:
-	SGE_FONT_SYMBOL
+	SGE_FONT_DETAIL_SYMBOL
 	explicit
 	metrics(
 		sge::font::height
 	);
 
-	SGE_FONT_SYMBOL
+	SGE_FONT_DETAIL_SYMBOL
 	sge::font::height const
 	height() const;
 private:

@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TARGET_OFFSCREEN_HPP_INCLUDED
 #define SGE_RENDERER_TARGET_OFFSCREEN_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
-#include <sge/renderer/symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/color_buffer/optional_surface_ref_fwd.hpp>
 #include <sge/renderer/depth_stencil_buffer/optional_surface_ref_fwd.hpp>
 #include <sge/renderer/target/base.hpp>
@@ -59,7 +59,7 @@ depth stencil surface.
 \see sge::renderer::device::create_depth_stencil_texture
 \see sge::renderer::texture::planar::level
 */
-class SGE_CLASS_SYMBOL offscreen
+class SGE_CORE_DETAIL_CLASS_SYMBOL offscreen
 :
 	public sge::renderer::target::base
 {
@@ -67,7 +67,7 @@ class SGE_CLASS_SYMBOL offscreen
 		offscreen
 	);
 protected:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	offscreen();
 public:
 	/**
@@ -105,7 +105,7 @@ public:
 		sge::renderer::depth_stencil_buffer::optional_surface_ref const &surface
 	) = 0;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	~offscreen()
 	override = 0;
 };

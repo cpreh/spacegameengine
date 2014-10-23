@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_CONTEXT_CORE_HPP_INCLUDED
 #define SGE_RENDERER_CONTEXT_CORE_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
 #include <sge/renderer/config.hpp>
 #include <sge/renderer/primitive_type_fwd.hpp>
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/clear/parameters_fwd.hpp>
 #include <sge/renderer/context/core_fwd.hpp>
 #include <sge/renderer/index/buffer_fwd.hpp>
@@ -65,16 +65,16 @@ namespace context
 A renderer core context must be created by calling
 sge::renderer::device::core::begin_rendering on a render target.
 */
-class SGE_CLASS_SYMBOL core
+class SGE_CORE_DETAIL_CLASS_SYMBOL core
 {
 	FCPPT_NONCOPYABLE(
 		core
 	);
 protected:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	core();
 public:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	virtual
 	~core() = 0;
 

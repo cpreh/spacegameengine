@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENCL_PROGRAM_FILE_TO_SOURCE_STRING_SEQUENCE_HPP_INCLUDED
 #define SGE_OPENCL_PROGRAM_FILE_TO_SOURCE_STRING_SEQUENCE_HPP_INCLUDED
 
-#include <sge/opencl/symbol.hpp>
+#include <sge/opencl/detail/symbol.hpp>
 #include <sge/opencl/program/source_string_sequence.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
@@ -34,7 +34,7 @@ namespace opencl
 {
 namespace program
 {
-SGE_OPENCL_SYMBOL program::source_string_sequence
+SGE_OPENCL_DETAIL_SYMBOL program::source_string_sequence
 file_to_source_string_sequence(
 	boost::filesystem::path const &);
 }

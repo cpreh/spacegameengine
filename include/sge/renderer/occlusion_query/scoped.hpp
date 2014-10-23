@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_OCCLUSION_QUERY_SCOPED_HPP_INCLUDED
 #define SGE_RENDERER_OCCLUSION_QUERY_SCOPED_HPP_INCLUDED
 
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/occlusion_query/object_fwd.hpp>
 #include <sge/renderer/occlusion_query/scoped_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -40,16 +40,16 @@ class scoped
 		scoped
 	);
 public:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	explicit
 	scoped(
 		sge::renderer::occlusion_query::object &
 	);
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	~scoped();
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::occlusion_query::object &
 	get() const;
 private:

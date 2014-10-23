@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FONT_BITMAP_LOG_LOCATION_HPP_INCLUDED
 #define SGE_FONT_BITMAP_LOG_LOCATION_HPP_INCLUDED
 
-#include <sge/font/bitmap/symbol.hpp>
+#include <sge/font/bitmap/detail/symbol.hpp>
 #include <fcppt/log/location.hpp>
 
 
@@ -32,7 +32,7 @@ namespace font
 namespace bitmap
 {
 
-SGE_FONT_BITMAP_SYMBOL
+SGE_FONT_BITMAP_DETAIL_SYMBOL
 fcppt::log::location
 log_location();
 

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE3D_ALGORITHM_COMPARE_HPP_INCLUDED
 #define SGE_IMAGE3D_ALGORITHM_COMPARE_HPP_INCLUDED
 
-#include <sge/image3d/symbol.hpp>
+#include <sge/image3d/detail/symbol.hpp>
 #include <sge/image3d/view/const_object_fwd.hpp>
 
 
@@ -32,7 +32,7 @@ namespace image3d
 namespace algorithm
 {
 
-SGE_IMAGE3D_SYMBOL
+SGE_IMAGE3D_DETAIL_SYMBOL
 bool
 compare(
 	sge::image3d::view::const_object const &,

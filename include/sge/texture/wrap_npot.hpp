@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/texture/planar_parameters_fwd.hpp>
 #include <sge/texture/part_unique_ptr.hpp>
-#include <sge/texture/symbol.hpp>
+#include <sge/texture/detail/symbol.hpp>
 
 
 namespace sge
@@ -32,7 +32,7 @@ namespace sge
 namespace texture
 {
 
-SGE_TEXTURE_SYMBOL
+SGE_TEXTURE_DETAIL_SYMBOL
 sge::texture::part_unique_ptr
 wrap_npot(
 	sge::renderer::device::core &,

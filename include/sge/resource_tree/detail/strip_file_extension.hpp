@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RESOURCE_TREE_DETAIL_STRIP_FILE_EXTENSION_HPP_INCLUDED
 
 #include <sge/resource_tree/path_fwd.hpp>
-#include <sge/resource_tree/symbol.hpp>
+#include <sge/resource_tree/detail/symbol.hpp>
 
 
 namespace sge
@@ -35,7 +35,7 @@ namespace detail
 /**
 \brief Modify a path, stripping the file extension at the end
 */
-SGE_RESOURCE_TREE_SYMBOL
+SGE_RESOURCE_TREE_DETAIL_SYMBOL
 sge::resource_tree::path
 strip_file_extension(
 	sge::resource_tree::path const &);

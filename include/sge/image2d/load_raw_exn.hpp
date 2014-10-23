@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE2D_LOAD_RAW_EXN_HPP_INCLUDED
 
 #include <sge/image2d/file_unique_ptr.hpp>
-#include <sge/image2d/symbol.hpp>
+#include <sge/image2d/detail/symbol.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/media/const_raw_range.hpp>
 #include <sge/media/optional_extension_fwd.hpp>
@@ -33,7 +33,7 @@ namespace sge
 namespace image2d
 {
 
-SGE_IMAGE2D_SYMBOL
+SGE_IMAGE2D_DETAIL_SYMBOL
 sge::image2d::file_unique_ptr
 load_raw_exn(
 	sge::image2d::system &,

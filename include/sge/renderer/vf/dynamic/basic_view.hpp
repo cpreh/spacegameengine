@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_DYNAMIC_BASIC_VIEW_HPP_INCLUDED
 #define SGE_RENDERER_VF_DYNAMIC_BASIC_VIEW_HPP_INCLUDED
 
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vf/dynamic/basic_view_fwd.hpp>
 #include <sge/renderer/vf/dynamic/part_fwd.hpp>
@@ -51,7 +51,7 @@ public:
 
 	typedef sge::renderer::vertex::count size_type;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	basic_view(
 		pointer data,
 		size_type elements,
@@ -59,19 +59,19 @@ public:
 		sge::renderer::vf::dynamic::part_index
 	);
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	pointer
 	data() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	size_type
 	size() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::vf::dynamic::part const &
 	part() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::vf::dynamic::part_index const
 	part_index() const;
 private:

@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/multi_system_fwd.hpp>
 #include <sge/image2d/multi_system_parameters_fwd.hpp>
 #include <sge/image2d/optional_file_unique_ptr.hpp>
-#include <sge/image2d/symbol.hpp>
+#include <sge/image2d/detail/symbol.hpp>
 #include <sge/image2d/system.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/media/const_raw_range.hpp>
@@ -52,24 +52,24 @@ class multi_system
 		multi_system
 	);
 public:
-	SGE_IMAGE2D_SYMBOL
+	SGE_IMAGE2D_DETAIL_SYMBOL
 	explicit
 	multi_system(
 		sge::image2d::multi_system_parameters const &
 	);
 
-	SGE_IMAGE2D_SYMBOL
+	SGE_IMAGE2D_DETAIL_SYMBOL
 	~multi_system()
 	override;
 
-	SGE_IMAGE2D_SYMBOL
+	SGE_IMAGE2D_DETAIL_SYMBOL
 	sge::image2d::optional_file_unique_ptr
 	load(
 		boost::filesystem::path const &
 	)
 	override;
 
-	SGE_IMAGE2D_SYMBOL
+	SGE_IMAGE2D_DETAIL_SYMBOL
 	sge::image2d::optional_file_unique_ptr
 	load_raw(
 		sge::media::const_raw_range const &,
@@ -77,7 +77,7 @@ public:
 	)
 	override;
 
-	SGE_IMAGE2D_SYMBOL
+	SGE_IMAGE2D_DETAIL_SYMBOL
 	sge::image2d::optional_file_unique_ptr
 	load_stream(
 		std::istream &,
@@ -85,7 +85,7 @@ public:
 	)
 	override;
 
-	SGE_IMAGE2D_SYMBOL
+	SGE_IMAGE2D_DETAIL_SYMBOL
 	sge::image2d::optional_file_unique_ptr
 	create(
 		sge::image2d::view::const_object const &,
@@ -93,7 +93,7 @@ public:
 	)
 	override;
 
-	SGE_IMAGE2D_SYMBOL
+	SGE_IMAGE2D_DETAIL_SYMBOL
 	sge::media::extension_set
 	extensions() const
 	override;

@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/lock_rect_to_coords.hpp>
 #include <sge/renderer/texture/planar.hpp>
-#include <sge/src/export_function_instantiation.hpp>
+#include <sge/src/core/export_function_instantiation.hpp>
 #include <sge/src/renderer/instantiate_float.hpp>
 #include <sge/src/texture/logger.hpp>
 #include <sge/texture/area_texc.hpp>
@@ -118,7 +118,7 @@ sge::texture::area_texc(
 	ftype\
 )\
 template \
-SGE_EXPORT_FUNCTION_INSTANTIATION \
+SGE_CORE_EXPORT_FUNCTION_INSTANTIATION \
 boost::enable_if< \
 	fcppt::type_traits::is_float_or_double< \
 		ftype \

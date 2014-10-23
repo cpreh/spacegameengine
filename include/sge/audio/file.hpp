@@ -21,12 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_FILE_HPP_INCLUDED
 #define SGE_AUDIO_FILE_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
 #include <sge/audio/channel_type.hpp>
 #include <sge/audio/file_fwd.hpp>
 #include <sge/audio/sample_container_fwd.hpp>
 #include <sge/audio/sample_count.hpp>
-#include <sge/audio/symbol.hpp>
+#include <sge/audio/detail/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -42,14 +42,14 @@ namespace audio
  * file is loaded via sge::audio::loader::load or sge::audio::loader::load_raw.
  * For a short introduction to file loading, see \ref audio_example.
  */
-class SGE_CLASS_SYMBOL file
+class SGE_CORE_DETAIL_CLASS_SYMBOL file
 {
 	FCPPT_NONCOPYABLE(
 		file
 	);
 protected:
 	/** \protectedctor */
-	SGE_AUDIO_SYMBOL
+	SGE_AUDIO_DETAIL_SYMBOL
 	file();
 public:
 	/// Read \a samples samples from the file, storing them in \a destination.
@@ -113,12 +113,12 @@ public:
 	reset() = 0;
 
 	/// Calculate the bytes per sample
-	SGE_AUDIO_SYMBOL
+	SGE_AUDIO_DETAIL_SYMBOL
 	sge::audio::sample_count
 	bytes_per_sample() const;
 
 	/** \virtualdtor */
-	SGE_AUDIO_SYMBOL
+	SGE_AUDIO_DETAIL_SYMBOL
 	virtual
 	~file() = 0;
 };

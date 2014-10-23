@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_TARGET_ASPECT_FROM_VIEWPORT_HPP_INCLUDED
 
 #include <sge/renderer/scalar.hpp>
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/target/viewport_fwd.hpp>
 
 
@@ -48,7 +48,7 @@ namespace target
  * \warning The behaviour is undefined if the viewport's width or height is
  * zero.
 */
-SGE_RENDERER_SYMBOL
+SGE_RENDERER_DETAIL_SYMBOL
 sge::renderer::scalar
 aspect_from_viewport(
 	sge::renderer::target::viewport const &viewport

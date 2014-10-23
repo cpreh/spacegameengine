@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SCENIC_RENDER_CONTEXT_LIGHT_ATTENUATION_HPP_INCLUDED
 #define SGE_SCENIC_RENDER_CONTEXT_LIGHT_ATTENUATION_HPP_INCLUDED
 
-#include <sge/scenic/symbol.hpp>
+#include <sge/scenic/detail/symbol.hpp>
 #include <sge/scenic/render_context/light/attenuation_fwd.hpp>
 #include <sge/scenic/render_context/light/constant_attenuation.hpp>
 #include <sge/scenic/render_context/light/linear_attenuation.hpp>
@@ -39,21 +39,21 @@ namespace light
 class attenuation
 {
 public:
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	attenuation(
 		sge::scenic::render_context::light::constant_attenuation const &,
 		sge::scenic::render_context::light::linear_attenuation const &,
 		sge::scenic::render_context::light::quadratic_attenuation const &);
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::render_context::light::constant_attenuation const
 	constant_attenuation() const;
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::render_context::light::linear_attenuation const
 	linear_attenuation() const;
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::render_context::light::quadratic_attenuation const
 	quadratic_attenuation() const;
 private:

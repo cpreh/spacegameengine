@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FONT_WEIGHT_MEDIUM_HPP_INCLUDED
 #define SGE_FONT_WEIGHT_MEDIUM_HPP_INCLUDED
 
-#include <sge/font/symbol.hpp>
+#include <sge/font/detail/symbol.hpp>
 #include <sge/font/weight/unit.hpp>
 
 
@@ -32,7 +32,7 @@ namespace font
 namespace weight
 {
 
-SGE_FONT_SYMBOL
+SGE_FONT_DETAIL_SYMBOL
 sge::font::weight::unit
 medium();
 

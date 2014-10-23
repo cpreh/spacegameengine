@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PROJECTILE_BODY_SCOPED_HPP_INCLUDED
 #define SGE_PROJECTILE_BODY_SCOPED_HPP_INCLUDED
 
-#include <sge/projectile/symbol.hpp>
+#include <sge/projectile/detail/symbol.hpp>
 #include <sge/projectile/world_fwd.hpp>
 #include <sge/projectile/body/object_fwd.hpp>
 #include <sge/projectile/body/scoped_fwd.hpp>
@@ -40,13 +40,13 @@ class scoped
 FCPPT_NONCOPYABLE(
 	scoped);
 public:
-	SGE_PROJECTILE_SYMBOL explicit
+	SGE_PROJECTILE_DETAIL_SYMBOL explicit
 	scoped(
 		world &,
 		object &,
 		group::sequence const &);
 
-	SGE_PROJECTILE_SYMBOL ~scoped();
+	SGE_PROJECTILE_DETAIL_SYMBOL ~scoped();
 private:
 	world &world_;
 	object &object_;

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_LOG_APPLY_OPTIONS_HPP_INCLUDED
 
 #include <sge/log/option_container.hpp>
-#include <sge/log/symbol.hpp>
+#include <sge/log/detail/symbol.hpp>
 
 
 namespace sge
@@ -30,7 +30,7 @@ namespace sge
 namespace log
 {
 
-SGE_LOG_SYMBOL
+SGE_LOG_DETAIL_SYMBOL
 void
 apply_options(
 	sge::log::option_container const &

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RUCKSACK_AXIS_TO_INDEX_HPP_INCLUDED
 
 #include <sge/rucksack/axis_fwd.hpp>
-#include <sge/rucksack/symbol.hpp>
+#include <sge/rucksack/detail/symbol.hpp>
 #include <fcppt/math/size_type.hpp>
 
 
@@ -31,7 +31,7 @@ namespace sge
 namespace rucksack
 {
 
-SGE_RUCKSACK_SYMBOL
+SGE_RUCKSACK_DETAIL_SYMBOL
 fcppt::math::size_type
 axis_to_index(
 	sge::rucksack::axis

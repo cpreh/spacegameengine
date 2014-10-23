@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_CONTEXT_FFP_HPP_INCLUDED
 #define SGE_RENDERER_CONTEXT_FFP_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
-#include <sge/renderer/symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/context/core.hpp>
 #include <sge/renderer/state/ffp/alpha_test/const_optional_object_ref_fwd.hpp>
 #include <sge/renderer/state/ffp/clip_plane/const_object_ref_vector.hpp>
@@ -44,7 +44,7 @@ namespace renderer
 namespace context
 {
 
-class SGE_CLASS_SYMBOL ffp
+class SGE_CORE_DETAIL_CLASS_SYMBOL ffp
 :
 	public sge::renderer::context::core
 {
@@ -52,10 +52,10 @@ class SGE_CLASS_SYMBOL ffp
 		ffp
 	);
 protected:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	ffp();
 public:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	~ffp()
 	override = 0;
 

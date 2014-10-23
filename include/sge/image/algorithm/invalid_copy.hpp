@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_ALGORITHM_INVALID_COPY_HPP_INCLUDED
 #define SGE_IMAGE_ALGORITHM_INVALID_COPY_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
 #include <sge/image/exception.hpp>
 #include <sge/image/detail/instantiate/symbol.hpp>
 #include <sge/image/traits/format_fwd.hpp>
@@ -37,7 +37,7 @@ namespace algorithm
 template<
 	typename Tag
 >
-class SGE_CLASS_SYMBOL invalid_copy
+class SGE_CORE_DETAIL_CLASS_SYMBOL invalid_copy
 :
 	public sge::image::exception
 {

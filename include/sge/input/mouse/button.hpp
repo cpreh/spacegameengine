@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_MOUSE_BUTTON_HPP_INCLUDED
 #define SGE_INPUT_MOUSE_BUTTON_HPP_INCLUDED
 
-#include <sge/input/symbol.hpp>
+#include <sge/input/detail/symbol.hpp>
 #include <sge/input/mouse/button_code.hpp>
 #include <sge/input/mouse/button_fwd.hpp>
 #include <sge/input/mouse/button_id.hpp>
@@ -37,17 +37,17 @@ namespace mouse
 class button
 {
 public:
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	button(
 		sge::input::mouse::button_code,
 		sge::input::mouse::button_id
 	);
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::mouse::button_code
 	code() const;
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::mouse::button_id const
 	id() const;
 private:

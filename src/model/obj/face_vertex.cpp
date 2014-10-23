@@ -19,7 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/model/obj/face_vertex.hpp>
-#include <sge/model/obj/symbol.hpp>
+#include <sge/model/obj/normal_index.hpp>
+#include <sge/model/obj/texture_coordinate_index.hpp>
+#include <sge/model/obj/vertex_coordinate_index.hpp>
 
 
 sge::model::obj::face_vertex::face_vertex(
@@ -27,14 +29,12 @@ sge::model::obj::face_vertex::face_vertex(
 	sge::model::obj::texture_coordinate_index const &_texture_coordinate_index,
 	sge::model::obj::normal_index const &_normal_index)
 :
-	indices_()
+	indices_{{
+		_vertex_coordinate_index.get(),
+		_texture_coordinate_index.get(),
+		_normal_index.get()
+	}}
 {
-	indices_[0] =
-		_vertex_coordinate_index.get();
-	indices_[1] =
-		_texture_coordinate_index.get();
-	indices_[2] =
-		_normal_index.get();
 }
 
 sge::model::obj::vertex_coordinate_index const

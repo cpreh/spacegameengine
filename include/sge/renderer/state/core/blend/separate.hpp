@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_CORE_BLEND_SEPARATE_HPP_INCLUDED
 #define SGE_RENDERER_STATE_CORE_BLEND_SEPARATE_HPP_INCLUDED
 
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/state/core/blend/alpha_dest.hpp>
 #include <sge/renderer/state/core/blend/alpha_source.hpp>
 #include <sge/renderer/state/core/blend/color_dest.hpp>
@@ -43,7 +43,7 @@ namespace blend
 class separate
 {
 public:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	separate(
 		sge::renderer::state::core::blend::color_source,
 		sge::renderer::state::core::blend::color_dest,
@@ -51,19 +51,19 @@ public:
 		sge::renderer::state::core::blend::alpha_dest
 	);
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::blend::color_source const
 	color_source() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::blend::color_dest const
 	color_dest() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::blend::alpha_source const
 	alpha_source() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::blend::alpha_dest const
 	alpha_dest() const;
 private:

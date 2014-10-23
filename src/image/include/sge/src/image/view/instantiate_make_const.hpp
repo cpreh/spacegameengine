@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/traits/const_view_fwd.hpp>
 #include <sge/image/traits/dim_fwd.hpp>
 #include <sge/image/traits/pitch_fwd.hpp>
-#include <sge/src/export_function_instantiation.hpp>
+#include <sge/src/core/export_function_instantiation.hpp>
 #include <sge/src/image/view/make_const_impl.hpp>
 
 
@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	Tag\
 )\
 template \
-SGE_EXPORT_FUNCTION_INSTANTIATION \
+SGE_CORE_EXPORT_FUNCTION_INSTANTIATION \
 sge::image::traits::const_view<\
 	Tag\
 >::type const \

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CEGUI_TOOLBOX_SCOPED_LAYOUT_HPP_INCLUDED
 #define SGE_CEGUI_TOOLBOX_SCOPED_LAYOUT_HPP_INCLUDED
 
-#include <sge/cegui/symbol.hpp>
+#include <sge/cegui/detail/symbol.hpp>
 #include <sge/cegui/system_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -47,16 +47,16 @@ class scoped_layout
 		scoped_layout
 	);
 public:
-	SGE_CEGUI_SYMBOL
+	SGE_CEGUI_DETAIL_SYMBOL
 	scoped_layout(
 		sge::cegui::system &,
 		boost::filesystem::path const &
 	);
 
-	SGE_CEGUI_SYMBOL
+	SGE_CEGUI_DETAIL_SYMBOL
 	~scoped_layout();
 
-	SGE_CEGUI_SYMBOL
+	SGE_CEGUI_DETAIL_SYMBOL
 	CEGUI::Window &
 	window() const;
 private:

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opencl/binary_error_data.hpp>
 #include <sge/opencl/error_information_string.hpp>
-#include <sge/opencl/symbol.hpp>
+#include <sge/opencl/detail/symbol.hpp>
 #include <sge/opencl/system_fwd.hpp>
 #include <sge/opencl/command_queue/object_fwd.hpp>
 #include <sge/opencl/command_queue/profiling_mode.hpp>
@@ -50,44 +50,44 @@ class object
 FCPPT_NONCOPYABLE(
 	object);
 public:
-	SGE_OPENCL_SYMBOL explicit
+	SGE_OPENCL_DETAIL_SYMBOL explicit
 	object(
 		sge::opencl::single_device_system::parameters const &);
 
-	SGE_OPENCL_SYMBOL sge::opencl::system &
+	SGE_OPENCL_DETAIL_SYMBOL sge::opencl::system &
 	system();
 
-	SGE_OPENCL_SYMBOL sge::opencl::system const &
+	SGE_OPENCL_DETAIL_SYMBOL sge::opencl::system const &
 	system() const;
 
-	SGE_OPENCL_SYMBOL void
+	SGE_OPENCL_DETAIL_SYMBOL void
 	update();
 
-	SGE_OPENCL_SYMBOL sge::opencl::platform::object &
+	SGE_OPENCL_DETAIL_SYMBOL sge::opencl::platform::object &
 	platform();
 
-	SGE_OPENCL_SYMBOL sge::opencl::platform::object const &
+	SGE_OPENCL_DETAIL_SYMBOL sge::opencl::platform::object const &
 	platform() const;
 
-	SGE_OPENCL_SYMBOL sge::opencl::device::object &
+	SGE_OPENCL_DETAIL_SYMBOL sge::opencl::device::object &
 	device();
 
-	SGE_OPENCL_SYMBOL sge::opencl::device::object const &
+	SGE_OPENCL_DETAIL_SYMBOL sge::opencl::device::object const &
 	device() const;
 
-	SGE_OPENCL_SYMBOL sge::opencl::context::object &
+	SGE_OPENCL_DETAIL_SYMBOL sge::opencl::context::object &
 	context();
 
-	SGE_OPENCL_SYMBOL sge::opencl::context::object const &
+	SGE_OPENCL_DETAIL_SYMBOL sge::opencl::context::object const &
 	context() const;
 
-	SGE_OPENCL_SYMBOL sge::opencl::command_queue::object &
+	SGE_OPENCL_DETAIL_SYMBOL sge::opencl::command_queue::object &
 	command_queue();
 
-	SGE_OPENCL_SYMBOL sge::opencl::command_queue::object const &
+	SGE_OPENCL_DETAIL_SYMBOL sge::opencl::command_queue::object const &
 	command_queue() const;
 
-	SGE_OPENCL_SYMBOL
+	SGE_OPENCL_DETAIL_SYMBOL
 	~object();
 private:
 	std::unique_ptr<sge::opencl::system> const system_;

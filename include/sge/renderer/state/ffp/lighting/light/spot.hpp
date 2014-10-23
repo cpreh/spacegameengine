@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_FFP_LIGHTING_LIGHT_SPOT_HPP_INCLUDED
 #define SGE_RENDERER_STATE_FFP_LIGHTING_LIGHT_SPOT_HPP_INCLUDED
 
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/state/ffp/lighting/light/attenuation.hpp>
 #include <sge/renderer/state/ffp/lighting/light/cutoff_angle.hpp>
 #include <sge/renderer/state/ffp/lighting/light/direction.hpp>
@@ -45,7 +45,7 @@ namespace light
 class spot
 {
 public:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	spot(
 		sge::renderer::state::ffp::lighting::light::position const &,
 		sge::renderer::state::ffp::lighting::light::direction const &,
@@ -53,19 +53,19 @@ public:
 		sge::renderer::state::ffp::lighting::light::attenuation const &
 	);
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::lighting::light::position const &
 	position() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::lighting::light::direction const &
 	direction() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::lighting::light::cutoff_angle const
 	cutoff_angle() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::lighting::light::attenuation const &
 	attenuation() const;
 private:

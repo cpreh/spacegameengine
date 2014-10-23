@@ -18,12 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CLASS_SYMBOL_HPP_INCLUDED
-#define SGE_CLASS_SYMBOL_HPP_INCLUDED
+#ifndef SGE_CORE_EXCEPTION_HPP_INCLUDED
+#define SGE_CORE_EXCEPTION_HPP_INCLUDED
 
-#include <fcppt/class_symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
+#include <sge/core/detail/symbol.hpp>
+#include <fcppt/exception.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/assert/information_fwd.hpp>
 
 
-#define SGE_CLASS_SYMBOL FCPPT_CLASS_SYMBOL
+namespace sge
+{
+namespace core
+{
+
+class SGE_CORE_DETAIL_CLASS_SYMBOL exception
+:
+	public fcppt::exception
+{
+public:
+	SGE_CORE_DETAIL_SYMBOL
+	explicit
+	exception(
+		fcppt::string const &
+	);
+
+	SGE_CORE_DETAIL_SYMBOL
+	explicit
+	exception(
+		fcppt::assert_::information const &
+	);
+
+	SGE_CORE_DETAIL_SYMBOL
+	~exception() throw()
+	override;
+};
+
+}
+}
 
 #endif

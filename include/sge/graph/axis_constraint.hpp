@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_GRAPH_AXIS_CONSTRAINT_HPP_INCLUDED
 
 #include <sge/graph/scalar.hpp>
-#include <sge/graph/symbol.hpp>
+#include <sge/graph/detail/symbol.hpp>
 
 
 namespace sge
@@ -32,16 +32,16 @@ namespace graph
 class axis_constraint
 {
 public:
-	SGE_GRAPH_SYMBOL
+	SGE_GRAPH_DETAIL_SYMBOL
 	axis_constraint(
 		sge::graph::scalar min,
 		sge::graph::scalar max);
 
-	SGE_GRAPH_SYMBOL
+	SGE_GRAPH_DETAIL_SYMBOL
 	sge::graph::scalar
 	min() const;
 
-	SGE_GRAPH_SYMBOL
+	SGE_GRAPH_DETAIL_SYMBOL
 	sge::graph::scalar
 	max() const;
 private:

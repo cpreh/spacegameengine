@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CAMERA_TRACKING_KEYFRAME_HPP_INCLUDED
 #define SGE_CAMERA_TRACKING_KEYFRAME_HPP_INCLUDED
 
-#include <sge/camera/symbol.hpp>
+#include <sge/camera/detail/symbol.hpp>
 #include <sge/camera/update_duration.hpp>
 #include <sge/camera/coordinate_system/object.hpp>
 
@@ -35,16 +35,16 @@ namespace tracking
 class keyframe
 {
 public:
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	keyframe(
 		sge::camera::update_duration const &,
 		sge::camera::coordinate_system::object const &);
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	sge::camera::update_duration const &
 	duration() const;
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	sge::camera::coordinate_system::object const &
 	coordinate_system() const;
 private:

@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_PROCESSOR_HPP_INCLUDED
 #define SGE_INPUT_PROCESSOR_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
 #include <sge/input/processor_fwd.hpp>
-#include <sge/input/symbol.hpp>
+#include <sge/input/detail/symbol.hpp>
 #include <sge/input/cursor/discover_callback.hpp>
 #include <sge/input/cursor/remove_callback.hpp>
 #include <sge/input/joypad/discover_callback.hpp>
@@ -41,13 +41,13 @@ namespace sge
 namespace input
 {
 
-class SGE_CLASS_SYMBOL processor
+class SGE_CORE_DETAIL_CLASS_SYMBOL processor
 {
 	FCPPT_NONCOPYABLE(
 		processor
 	);
 protected:
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	processor();
 public:
 	//
@@ -102,7 +102,7 @@ public:
 		sge::input::joypad::remove_callback const &
 	) = 0;
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	virtual ~processor() = 0;
 };
 

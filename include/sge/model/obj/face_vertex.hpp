@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MODEL_OBJ_FACE_VERTEX_HPP_INCLUDED
 
 #include <sge/model/obj/normal_index.hpp>
-#include <sge/model/obj/symbol.hpp>
+#include <sge/model/obj/detail/symbol.hpp>
 #include <sge/model/obj/texture_coordinate_index.hpp>
 #include <sge/model/obj/vertex_coordinate_index.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -41,21 +41,21 @@ namespace obj
 class face_vertex
 {
 public:
-	SGE_MODEL_OBJ_SYMBOL
+	SGE_MODEL_OBJ_DETAIL_SYMBOL
 	face_vertex(
 		sge::model::obj::vertex_coordinate_index const &,
 		sge::model::obj::texture_coordinate_index const &,
 		sge::model::obj::normal_index const &);
 
-	SGE_MODEL_OBJ_SYMBOL
+	SGE_MODEL_OBJ_DETAIL_SYMBOL
 	sge::model::obj::vertex_coordinate_index const
 	vertex_coordinate_index() const;
 
-	SGE_MODEL_OBJ_SYMBOL
+	SGE_MODEL_OBJ_DETAIL_SYMBOL
 	sge::model::obj::texture_coordinate_index const
 	texture_coordinate_index() const;
 
-	SGE_MODEL_OBJ_SYMBOL
+	SGE_MODEL_OBJ_DETAIL_SYMBOL
 	sge::model::obj::normal_index const
 	normal_index() const;
 

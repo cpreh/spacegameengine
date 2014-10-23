@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CG_PROGRAM_OBJECT_HPP_INCLUDED
 
 #include <sge/cg/string.hpp>
-#include <sge/cg/symbol.hpp>
+#include <sge/cg/detail/symbol.hpp>
 #include <sge/cg/parameter/named_fwd.hpp>
 #include <sge/cg/parameter/optional_named_fwd.hpp>
 #include <sge/cg/profile/object_fwd.hpp>
@@ -48,38 +48,38 @@ class object
 		object
 	);
 public:
-	SGE_CG_SYMBOL
+	SGE_CG_DETAIL_SYMBOL
 	explicit
 	object(
 		sge::cg::program::from_string_parameters const &
 	);
 
-	SGE_CG_SYMBOL
+	SGE_CG_DETAIL_SYMBOL
 	explicit
 	object(
 		sge::cg::program::from_file_parameters const &
 	);
 
-	SGE_CG_SYMBOL
+	SGE_CG_DETAIL_SYMBOL
 	~object();
 
-	SGE_CG_SYMBOL
+	SGE_CG_DETAIL_SYMBOL
 	sge::cg::profile::object const &
 	profile() const;
 
-	SGE_CG_SYMBOL
+	SGE_CG_DETAIL_SYMBOL
 	sge::cg::parameter::named const
 	parameter(
 		sge::cg::string const &
 	) const;
 
-	SGE_CG_SYMBOL
+	SGE_CG_DETAIL_SYMBOL
 	sge::cg::parameter::optional_named const
 	parameter_opt(
 		sge::cg::string const &
 	) const;
 
-	SGE_CG_SYMBOL
+	SGE_CG_DETAIL_SYMBOL
 	CGprogram
 	get() const;
 private:

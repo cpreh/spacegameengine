@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_JOYPAD_ABSOLUTE_AXIS_INFO_HPP_INCLUDED
 #define SGE_INPUT_JOYPAD_ABSOLUTE_AXIS_INFO_HPP_INCLUDED
 
-#include <sge/input/symbol.hpp>
+#include <sge/input/detail/symbol.hpp>
 #include <sge/input/joypad/absolute_axis_info_fwd.hpp>
 #include <sge/input/joypad/axis_code.hpp>
 #include <sge/input/joypad/axis_max.hpp>
@@ -39,7 +39,7 @@ namespace joypad
 class absolute_axis_info
 {
 public:
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	absolute_axis_info(
 		sge::input::joypad::axis_code,
 		fcppt::optional_string const &,
@@ -47,19 +47,19 @@ public:
 		sge::input::joypad::axis_max
 	);
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::joypad::axis_code
 	code() const;
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	fcppt::optional_string const &
 	name() const;
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::joypad::axis_min const
 	min() const;
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::joypad::axis_max const
 	max() const;
 private:

@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MODEL_OBJ_EXCEPTION_HPP_INCLUDED
 #define SGE_MODEL_OBJ_EXCEPTION_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
-#include <sge/exception.hpp>
-#include <sge/model/obj/symbol.hpp>
+#include <sge/core/exception.hpp>
+#include <sge/core/detail/class_symbol.hpp>
+#include <sge/model/obj/detail/symbol.hpp>
 #include <fcppt/string.hpp>
 
 
@@ -33,16 +33,19 @@ namespace model
 {
 namespace obj
 {
+
 class exception
 :
-	public sge::exception
+	public sge::core::exception
 {
 public:
-	SGE_MODEL_OBJ_SYMBOL
+	SGE_MODEL_OBJ_DETAIL_SYMBOL
 	explicit
 	exception(
-		fcppt::string const &);
+		fcppt::string const &
+	);
 };
+
 }
 }
 }

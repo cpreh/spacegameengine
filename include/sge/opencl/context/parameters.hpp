@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENCL_CONTEXT_PARAMETERS_HPP_INCLUDED
 #define SGE_OPENCL_CONTEXT_PARAMETERS_HPP_INCLUDED
 
-#include <sge/opencl/symbol.hpp>
+#include <sge/opencl/detail/symbol.hpp>
 #include <sge/opencl/context/error_callback.hpp>
 #include <sge/opencl/context/parameters_fwd.hpp>
 #include <sge/opencl/device/object_ref_sequence.hpp>
@@ -46,36 +46,36 @@ public:
 	fcppt::optional<renderer::device::core &>
 	optional_renderer;
 
-	SGE_OPENCL_SYMBOL
+	SGE_OPENCL_DETAIL_SYMBOL
 	parameters(
 		platform::object &,
 		opencl::device::object_ref_sequence const &);
 
-	SGE_OPENCL_SYMBOL
+	SGE_OPENCL_DETAIL_SYMBOL
 	parameters(
 		parameters const &);
 
-	SGE_OPENCL_SYMBOL
+	SGE_OPENCL_DETAIL_SYMBOL
 	~parameters();
 
-	SGE_OPENCL_SYMBOL opencl::context::parameters &
+	SGE_OPENCL_DETAIL_SYMBOL opencl::context::parameters &
 	error_callback(
 		context::error_callback const &);
 
-	SGE_OPENCL_SYMBOL context::parameters &
+	SGE_OPENCL_DETAIL_SYMBOL context::parameters &
 	share_with(
 		renderer::device::core &);
 
-	SGE_OPENCL_SYMBOL opencl::device::object_ref_sequence const &
+	SGE_OPENCL_DETAIL_SYMBOL opencl::device::object_ref_sequence const &
 	device_refs() const;
 
-	SGE_OPENCL_SYMBOL context::error_callback const &
+	SGE_OPENCL_DETAIL_SYMBOL context::error_callback const &
 	error_callback() const;
 
-	SGE_OPENCL_SYMBOL optional_renderer const &
+	SGE_OPENCL_DETAIL_SYMBOL optional_renderer const &
 	shared_renderer() const;
 
-	SGE_OPENCL_SYMBOL platform::object &
+	SGE_OPENCL_DETAIL_SYMBOL platform::object &
 	platform() const;
 private:
 	platform::object &platform_;

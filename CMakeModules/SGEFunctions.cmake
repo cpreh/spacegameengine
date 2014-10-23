@@ -85,15 +85,11 @@ endfunction()
 
 function(
 	sge_generate_symbol_header
-	EXPORTS_NAME
-	SYMBOL_NAME
-	RELATIVE_PATH
 )
 	fcppt_generate_symbol_header(
-		"SGE_STATIC_LINK"
-		"${EXPORTS_NAME}"
-		"${SYMBOL_NAME}"
-		"${RELATIVE_PATH}"
+		STATIC_LINK_FLAG
+			"SGE_STATIC_LINK"
+		${ARGN}
 	)
 endfunction()
 
@@ -113,9 +109,10 @@ function(
 	)
 
 	sge_generate_symbol_header(
-		"${SYMBOL_NAME}"
-		"${SYMBOL_NAME}"
-		"sge/${LIB_NAME}/detail/instantiate"
+		EXPORTS_NAME
+			"${SYMBOL_NAME}"
+		SYMBOL_NAME
+			"${SYMBOL_NAME}"
 	)
 endfunction()
 
@@ -206,6 +203,7 @@ function(
 	target_include_directories(
 		${SGE_LIB_NAME}
 		PRIVATE
+		${FCPPT_UTILS_PROJECT_SOURCE_DIR}/src/core/include
 		${_INCLUDE_DIRS}
 		INTERFACE
 		${_TRANSITIVE_INCLUDE_DIRS}
@@ -364,9 +362,12 @@ function(
 		)
 
 		sge_generate_symbol_header(
-			"${SGE_LIB_NAME}"
-			"SGE_${SGE_LIB_SYMBOL}"
-			"sge/${RELATIVE_PATH}"
+			EXPORTS_NAME
+				"${SGE_LIB_NAME}"
+			SYMBOL_NAME
+				"SGE_${SGE_LIB_SYMBOL}_DETAIL"
+			RELATIVE_PATH
+				"sge/${RELATIVE_PATH}/detail"
 		)
 	endif()
 

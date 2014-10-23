@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_COLOR_ANY_OBJECT_HPP_INCLUDED
 
 #include <sge/image/mizuiro_color.hpp>
-#include <sge/image/color/symbol.hpp>
+#include <sge/image/color/detail/symbol.hpp>
 #include <sge/image/color/any/elements.hpp>
 #include <sge/image/color/any/object_fwd.hpp>
 #include <fcppt/variant/object_impl.hpp>
@@ -44,27 +44,27 @@ public:
 		sge::image::color::any::elements
 	> variant;
 
-	SGE_IMAGE_COLOR_SYMBOL
+	SGE_IMAGE_COLOR_DETAIL_SYMBOL
 	explicit
 	object(
 		variant const &
 	);
 
-	SGE_IMAGE_COLOR_SYMBOL
+	SGE_IMAGE_COLOR_DETAIL_SYMBOL
 	object(
 		object const &
 	);
 
-	SGE_IMAGE_COLOR_SYMBOL
+	SGE_IMAGE_COLOR_DETAIL_SYMBOL
 	object &
 	operator=(
 		object const &
 	);
 
-	SGE_IMAGE_COLOR_SYMBOL
+	SGE_IMAGE_COLOR_DETAIL_SYMBOL
 	~object();
 
-	SGE_IMAGE_COLOR_SYMBOL
+	SGE_IMAGE_COLOR_DETAIL_SYMBOL
 	variant const &
 	get() const;
 private:

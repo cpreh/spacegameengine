@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SYSTEMS_WINDOW_HPP_INCLUDED
 
 #include <sge/systems/original_window.hpp>
-#include <sge/systems/symbol.hpp>
+#include <sge/systems/detail/symbol.hpp>
 #include <sge/systems/window_fwd.hpp>
 #include <sge/systems/wrapped_window.hpp>
 #include <fcppt/nonassignable.hpp>
@@ -52,21 +52,21 @@ public:
 	>
 	parameter_variant;
 
-	SGE_SYSTEMS_SYMBOL
+	SGE_SYSTEMS_DETAIL_SYMBOL
 	explicit
 	window(
 		parameter_variant const &
 	);
 
-	SGE_SYSTEMS_SYMBOL
+	SGE_SYSTEMS_DETAIL_SYMBOL
 	sge::systems::window &
 	dont_show();
 
-	SGE_SYSTEMS_SYMBOL
+	SGE_SYSTEMS_DETAIL_SYMBOL
 	sge::systems::window &
 	dont_quit();
 
-	SGE_SYSTEMS_SYMBOL
+	SGE_SYSTEMS_DETAIL_SYMBOL
 	sge::systems::window &
 	hide_cursor();
 

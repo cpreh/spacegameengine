@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CG_PARAMETER_CREATED_HPP_INCLUDED
 #define SGE_CG_PARAMETER_CREATED_HPP_INCLUDED
 
-#include <sge/cg/symbol.hpp>
+#include <sge/cg/detail/symbol.hpp>
 #include <sge/cg/context/object_fwd.hpp>
 #include <sge/cg/parameter/created_fwd.hpp>
 #include <sge/cg/parameter/element_type_fwd.hpp>
@@ -46,26 +46,26 @@ class created
 		created
 	);
 public:
-	SGE_CG_SYMBOL
+	SGE_CG_DETAIL_SYMBOL
 	created(
 		sge::cg::context::object const &,
 		sge::cg::parameter::element_type
 	);
 
-	SGE_CG_SYMBOL
+	SGE_CG_DETAIL_SYMBOL
 	~created();
 
-	SGE_CG_SYMBOL
+	SGE_CG_DETAIL_SYMBOL
 	sge::cg::parameter::object const
 	object() const;
 
-	SGE_CG_SYMBOL
+	SGE_CG_DETAIL_SYMBOL
 	void
 	connect(
 		sge::cg::parameter::named const &
 	);
 
-	SGE_CG_SYMBOL
+	SGE_CG_DETAIL_SYMBOL
 	void
 	disconnect(
 		sge::cg::parameter::named const &

@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/exception.hpp>
 #include <sge/audio/exception.hpp>
+#include <sge/core/exception.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/information_fwd.hpp>
@@ -29,7 +29,7 @@ sge::audio::exception::exception(
 	fcppt::string const &_what
 )
 :
-	sge::exception(
+	sge::core::exception(
 		FCPPT_TEXT("audio: ")
 		+ _what
 	)
@@ -40,7 +40,7 @@ sge::audio::exception::exception(
 	fcppt::assert_::information const &_information
 )
 :
-	sge::exception(
+	sge::core::exception(
 		_information
 	)
 {

@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VISUAL_BASE_HPP_INCLUDED
 #define SGE_RENDERER_VISUAL_BASE_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
-#include <sge/renderer/symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/visual_base_fwd.hpp>
 #include <sge/renderer/pixel_format/object.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -38,23 +38,23 @@ namespace renderer
 
 \ingroup sge_renderer
 */
-class SGE_CLASS_SYMBOL visual_base
+class SGE_CORE_DETAIL_CLASS_SYMBOL visual_base
 {
 	FCPPT_NONCOPYABLE(
 		visual_base
 	);
 public:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	explicit
 	visual_base(
 		sge::renderer::pixel_format::object const &
 	);
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	virtual
 	~visual_base() = 0;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::pixel_format::object const &
 	pixel_format() const;
 private:

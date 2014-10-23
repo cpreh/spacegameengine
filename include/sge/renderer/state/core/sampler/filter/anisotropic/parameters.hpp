@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_CORE_SAMPLER_FILTER_ANISOTROPIC_PARAMETERS_HPP_INCLUDED
 #define SGE_RENDERER_STATE_CORE_SAMPLER_FILTER_ANISOTROPIC_PARAMETERS_HPP_INCLUDED
 
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/state/core/sampler/filter/anisotropic/level.hpp>
 #include <sge/renderer/state/core/sampler/filter/anisotropic/mip.hpp>
 #include <sge/renderer/state/core/sampler/filter/anisotropic/parameters_fwd.hpp>
@@ -45,17 +45,17 @@ namespace anisotropic
 class parameters
 {
 public:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	parameters(
 		sge::renderer::state::core::sampler::filter::anisotropic::mip,
 		sge::renderer::state::core::sampler::filter::anisotropic::level
 	);
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::sampler::filter::anisotropic::mip
 	mip() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::sampler::filter::anisotropic::level const
 	level() const;
 private:
@@ -64,7 +64,7 @@ private:
 	sge::renderer::state::core::sampler::filter::anisotropic::level level_;
 };
 
-SGE_RENDERER_SYMBOL
+SGE_RENDERER_DETAIL_SYMBOL
 bool
 operator==(
 	sge::renderer::state::core::sampler::filter::anisotropic::parameters const &,

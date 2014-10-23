@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_CONTEXT_SCOPED_OFFSCREEN_TARGET_HPP_INCLUDED
 #define SGE_RENDERER_CONTEXT_SCOPED_OFFSCREEN_TARGET_HPP_INCLUDED
 
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/context/core_fwd.hpp>
 #include <sge/renderer/context/scoped_offscreen_target_fwd.hpp>
 #include <sge/renderer/target/offscreen_fwd.hpp>
@@ -41,13 +41,13 @@ class scoped_offscreen_target
 		scoped_offscreen_target
 	);
 public:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	scoped_offscreen_target(
 		sge::renderer::context::core &,
 		sge::renderer::target::offscreen &
 	);
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	~scoped_offscreen_target();
 private:
 	sge::renderer::context::core &context_;

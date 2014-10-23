@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TARGET_ONSCREEN_HPP_INCLUDED
 #define SGE_RENDERER_TARGET_ONSCREEN_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
-#include <sge/renderer/symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/color_buffer/surface_fwd.hpp>
 #include <sge/renderer/target/base.hpp>
 #include <sge/renderer/target/onscreen_fwd.hpp>
@@ -46,7 +46,7 @@ namespace target
  * \see renderer::target_base
  * \see renderer::device::onscreen_target
 */
-class SGE_CLASS_SYMBOL onscreen
+class SGE_CORE_DETAIL_CLASS_SYMBOL onscreen
 :
 	public sge::renderer::target::base
 {
@@ -54,7 +54,7 @@ class SGE_CLASS_SYMBOL onscreen
 		onscreen
 	);
 protected:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	onscreen();
 public:
 	/**
@@ -64,7 +64,7 @@ public:
 	sge::renderer::color_buffer::surface const &
 	surface() const = 0;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	~onscreen()
 	override = 0;
 };

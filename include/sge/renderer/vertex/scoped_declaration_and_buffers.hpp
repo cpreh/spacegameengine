@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VERTEX_SCOPED_DECLARATION_AND_BUFFERS_HPP_INCLUDED
 #define SGE_RENDERER_VERTEX_SCOPED_DECLARATION_AND_BUFFERS_HPP_INCLUDED
 
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/context/core_fwd.hpp>
 #include <sge/renderer/vertex/const_buffer_ref_container.hpp>
 #include <sge/renderer/vertex/declaration_fwd.hpp>
@@ -66,7 +66,7 @@ public:
 
 	\param vertex_buffers The vertex buffers to set
 	*/
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	scoped_declaration_and_buffers(
 		sge::renderer::context::core &context,
 		sge::renderer::vertex::declaration const &vertex_declaration,
@@ -76,7 +76,7 @@ public:
 	/**
 	\brief Unsets the vertex buffers following by the vertex declaration
 	*/
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	~scoped_declaration_and_buffers();
 private:
 	sge::renderer::vertex::scoped_declaration const scoped_declaration_;

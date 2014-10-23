@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SCENIC_RENDER_CONTEXT_LIGHT_POINT_HPP_INCLUDED
 #define SGE_SCENIC_RENDER_CONTEXT_LIGHT_POINT_HPP_INCLUDED
 
-#include <sge/scenic/symbol.hpp>
+#include <sge/scenic/detail/symbol.hpp>
 #include <sge/scenic/render_context/light/attenuation.hpp>
 #include <sge/scenic/render_context/light/point_fwd.hpp>
 #include <sge/scenic/render_context/light/position.hpp>
@@ -39,16 +39,16 @@ namespace light
 class point
 {
 public:
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	point(
 		sge::scenic::render_context::light::position const &,
 		sge::scenic::render_context::light::attenuation const &);
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::render_context::light::position const &
 	position() const;
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::render_context::light::attenuation const &
 	attenuation() const;
 private:

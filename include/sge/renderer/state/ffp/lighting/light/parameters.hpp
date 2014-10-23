@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_FFP_LIGHTING_LIGHT_PARAMETERS_HPP_INCLUDED
 #define SGE_RENDERER_STATE_FFP_LIGHTING_LIGHT_PARAMETERS_HPP_INCLUDED
 
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/state/ffp/lighting/ambient_color.hpp>
 #include <sge/renderer/state/ffp/lighting/diffuse_color.hpp>
 #include <sge/renderer/state/ffp/lighting/specular_color.hpp>
@@ -45,7 +45,7 @@ namespace light
 class parameters
 {
 public:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	parameters(
 		sge::renderer::state::ffp::lighting::diffuse_color const &,
 		sge::renderer::state::ffp::lighting::specular_color const &,
@@ -53,19 +53,19 @@ public:
 		sge::renderer::state::ffp::lighting::light::variant const &
 	);
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::lighting::diffuse_color const &
 	diffuse() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::lighting::specular_color const &
 	specular() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::lighting::ambient_color const &
 	ambient() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::lighting::light::variant const &
 	variant() const;
 private:

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE2D_LOG_LOCATION_HPP_INCLUDED
 #define SGE_IMAGE2D_LOG_LOCATION_HPP_INCLUDED
 
-#include <sge/image2d/symbol.hpp>
+#include <sge/image2d/detail/symbol.hpp>
 #include <fcppt/log/location.hpp>
 
 
@@ -30,7 +30,7 @@ namespace sge
 namespace image2d
 {
 
-SGE_IMAGE2D_SYMBOL
+SGE_IMAGE2D_DETAIL_SYMBOL
 fcppt::log::location const
 log_location();
 

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_FONT_TEXT_PARAMETERS_HPP_INCLUDED
 
 #include <sge/font/flags_field.hpp>
-#include <sge/font/symbol.hpp>
+#include <sge/font/detail/symbol.hpp>
 #include <sge/font/text_parameters_fwd.hpp>
 #include <sge/font/unit.hpp>
 #include <sge/font/align_h/variant.hpp>
@@ -38,23 +38,23 @@ class text_parameters
 public:
 	// TODO:
 	// - Add gravity for Japanese text
-	SGE_FONT_SYMBOL
+	SGE_FONT_DETAIL_SYMBOL
 	explicit
 	text_parameters(
 		sge::font::align_h::variant const &
 	);
 
-	SGE_FONT_SYMBOL
+	SGE_FONT_DETAIL_SYMBOL
 	sge::font::text_parameters &
 	flags(
 		sge::font::flags_field const &
 	);
 
-	SGE_FONT_SYMBOL
+	SGE_FONT_DETAIL_SYMBOL
 	sge::font::align_h::variant const &
 	align_h() const;
 
-	SGE_FONT_SYMBOL
+	SGE_FONT_DETAIL_SYMBOL
 	sge::font::flags_field const &
 	flags() const;
 private:

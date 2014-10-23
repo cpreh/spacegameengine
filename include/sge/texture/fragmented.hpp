@@ -21,13 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXTURE_FRAGMENTED_HPP_INCLUDED
 #define SGE_TEXTURE_FRAGMENTED_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
 #include <sge/renderer/dim2_fwd.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/texture/fragmented_fwd.hpp>
 #include <sge/texture/part_fwd.hpp>
 #include <sge/texture/part_unique_ptr.hpp>
-#include <sge/texture/symbol.hpp>
+#include <sge/texture/detail/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -36,16 +36,16 @@ namespace sge
 namespace texture
 {
 
-class SGE_CLASS_SYMBOL fragmented
+class SGE_CORE_DETAIL_CLASS_SYMBOL fragmented
 {
 	FCPPT_NONCOPYABLE(
 		fragmented
 	);
 protected:
-	SGE_TEXTURE_SYMBOL
+	SGE_TEXTURE_DETAIL_SYMBOL
 	fragmented();
 public:
-	SGE_TEXTURE_SYMBOL
+	SGE_TEXTURE_DETAIL_SYMBOL
 	virtual
 	~fragmented() = 0;
 

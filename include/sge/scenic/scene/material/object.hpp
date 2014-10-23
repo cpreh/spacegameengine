@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SCENIC_SCENE_MATERIAL_OBJECT_HPP_INCLUDED
 #define SGE_SCENIC_SCENE_MATERIAL_OBJECT_HPP_INCLUDED
 
-#include <sge/scenic/symbol.hpp>
+#include <sge/scenic/detail/symbol.hpp>
 #include <sge/scenic/scene/identifier.hpp>
 #include <sge/scenic/scene/material/ambient_color.hpp>
 #include <sge/scenic/scene/material/diffuse_color.hpp>
@@ -43,7 +43,7 @@ namespace material
 class object
 {
 public:
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	object(
 		sge::scenic::scene::identifier const &,
 		sge::scenic::scene::material::diffuse_color const &,
@@ -54,35 +54,35 @@ public:
 		sge::scenic::scene::material::diffuse_texture_path const &,
 		sge::scenic::scene::material::specular_texture_path const &);
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::scene::identifier const &
 	identifier() const;
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::scene::material::diffuse_color const &
 	diffuse_color() const;
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::scene::material::ambient_color const &
 	ambient_color() const;
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::scene::material::specular_color const &
 	specular_color() const;
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::scene::material::emissive_color const &
 	emissive_color() const;
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::scene::material::shininess const &
 	shininess() const;
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::scene::material::diffuse_texture_path const &
 	diffuse_texture() const;
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::scene::material::specular_texture_path const &
 	specular_texture() const;
 private:

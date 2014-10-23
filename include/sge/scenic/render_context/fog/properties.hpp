@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SCENIC_RENDER_CONTEXT_FOG_PROPERTIES_HPP_INCLUDED
 #define SGE_SCENIC_RENDER_CONTEXT_FOG_PROPERTIES_HPP_INCLUDED
 
-#include <sge/scenic/symbol.hpp>
+#include <sge/scenic/detail/symbol.hpp>
 #include <sge/scenic/render_context/fog/color.hpp>
 #include <sge/scenic/render_context/fog/end.hpp>
 #include <sge/scenic/render_context/fog/start.hpp>
@@ -38,21 +38,21 @@ namespace fog
 class properties
 {
 public:
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	properties(
 		sge::scenic::render_context::fog::start const &,
 		sge::scenic::render_context::fog::end const &,
 		sge::scenic::render_context::fog::color const &);
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::render_context::fog::start const &
 	start() const;
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::render_context::fog::end const &
 	end() const;
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::render_context::fog::color const &
 	color() const;
 private:

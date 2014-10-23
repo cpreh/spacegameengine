@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
-#include <sge/texture/symbol.hpp>
+#include <sge/texture/detail/symbol.hpp>
 #include <sge/texture/atlasing/inner_rect.hpp>
 
 
@@ -34,7 +34,7 @@ namespace texture
 namespace atlasing
 {
 
-SGE_TEXTURE_SYMBOL
+SGE_TEXTURE_DETAIL_SYMBOL
 void
 border_h(
 	sge::renderer::texture::planar &,

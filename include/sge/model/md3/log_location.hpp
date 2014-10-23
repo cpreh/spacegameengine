@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MODEL_MD3_LOG_LOCATION_HPP_INCLUDED
 #define SGE_MODEL_MD3_LOG_LOCATION_HPP_INCLUDED
 
-#include <sge/model/md3/symbol.hpp>
+#include <sge/model/md3/detail/symbol.hpp>
 #include <fcppt/log/location.hpp>
 
 
@@ -32,7 +32,7 @@ namespace model
 namespace md3
 {
 
-SGE_MODEL_MD3_SYMBOL
+SGE_MODEL_MD3_DETAIL_SYMBOL
 fcppt::log::location
 log_location();
 

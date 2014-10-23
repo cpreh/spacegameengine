@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opencl/clinclude.hpp>
 #include <sge/opencl/dim3.hpp>
-#include <sge/opencl/symbol.hpp>
+#include <sge/opencl/detail/symbol.hpp>
 #include <sge/opencl/context/object_fwd.hpp>
 #include <sge/opencl/memory_object/base.hpp>
 #include <sge/opencl/memory_object/flags_field.hpp>
@@ -46,23 +46,23 @@ class volume
 FCPPT_NONCOPYABLE(
 	volume);
 public:
-	SGE_OPENCL_SYMBOL
+	SGE_OPENCL_DETAIL_SYMBOL
 	volume(
 		context::object &,
 		memory_object::flags_field const &,
 		renderer::texture::volume &);
 
-	SGE_OPENCL_SYMBOL cl_mem
+	SGE_OPENCL_DETAIL_SYMBOL cl_mem
 	impl()
 	override;
 
-	SGE_OPENCL_SYMBOL cl_image_format const &
+	SGE_OPENCL_DETAIL_SYMBOL cl_image_format const &
 	image_format() const;
 
-	SGE_OPENCL_SYMBOL sge::opencl::dim3 const &
+	SGE_OPENCL_DETAIL_SYMBOL sge::opencl::dim3 const &
 	size() const;
 
-	SGE_OPENCL_SYMBOL ~volume()
+	SGE_OPENCL_DETAIL_SYMBOL ~volume()
 	override;
 private:
 	cl_mem impl_;

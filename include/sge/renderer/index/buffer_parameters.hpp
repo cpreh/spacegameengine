@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_INDEX_BUFFER_PARAMETERS_HPP_INCLUDED
 
 #include <sge/renderer/resource_flags_field.hpp>
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/index/buffer_parameters_fwd.hpp>
 #include <sge/renderer/index/count.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
@@ -45,22 +45,22 @@ public:
 	\param count The number of indices the buffer will hold
 	\param flags The capabilitiies of the buffer
 	*/
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	buffer_parameters(
 		sge::renderer::index::dynamic::format format,
 		sge::renderer::index::count count,
 		sge::renderer::resource_flags_field const &flags
 	);
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::index::dynamic::format
 	format() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::index::count const
 	count() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::resource_flags_field const &
 	flags() const;
 private:

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CEGUI_SYRINGE_HPP_INCLUDED
 #define SGE_CEGUI_SYRINGE_HPP_INCLUDED
 
-#include <sge/cegui/symbol.hpp>
+#include <sge/cegui/detail/symbol.hpp>
 #include <sge/cegui/syringe_fwd.hpp>
 #include <sge/cegui/system_fwd.hpp>
 #include <sge/input/cursor/button_event_fwd.hpp>
@@ -51,52 +51,52 @@ class syringe
 		syringe
 	);
 public:
-	SGE_CEGUI_SYMBOL
+	SGE_CEGUI_DETAIL_SYMBOL
 	explicit
 	syringe(
 		sge::cegui::system &
 	);
 
-	SGE_CEGUI_SYMBOL
+	SGE_CEGUI_DETAIL_SYMBOL
 	~syringe();
 
-	SGE_CEGUI_SYMBOL
+	SGE_CEGUI_DETAIL_SYMBOL
 	void
 	inject(
 		sge::input::keyboard::key_event const &
 	);
 
-	SGE_CEGUI_SYMBOL
+	SGE_CEGUI_DETAIL_SYMBOL
 	void
 	inject(
 		sge::input::keyboard::key_repeat_event const &
 	);
 
-	SGE_CEGUI_SYMBOL
+	SGE_CEGUI_DETAIL_SYMBOL
 	void
 	inject(
 		sge::input::keyboard::char_event const &
 	);
 
-	SGE_CEGUI_SYMBOL
+	SGE_CEGUI_DETAIL_SYMBOL
 	void
 	inject(
 		sge::input::cursor::button_event const &
 	);
 
-	SGE_CEGUI_SYMBOL
+	SGE_CEGUI_DETAIL_SYMBOL
 	void
 	inject(
 		sge::input::cursor::move_event const &
 	);
 
-	SGE_CEGUI_SYMBOL
+	SGE_CEGUI_DETAIL_SYMBOL
 	void
 	inject(
 		sge::input::cursor::scroll_event const &
 	);
 
-	SGE_CEGUI_SYMBOL
+	SGE_CEGUI_DETAIL_SYMBOL
 	void
 	inject(
 		sge::input::cursor::position const &

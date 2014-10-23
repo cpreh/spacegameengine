@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/gfx/font_color.hpp>
 #include <sge/console/gfx/output_line_limit_fwd.hpp>
 #include <sge/console/gfx/sprite_object.hpp>
-#include <sge/console/gfx/symbol.hpp>
+#include <sge/console/gfx/detail/symbol.hpp>
 #include <sge/console/gfx/detail/pointed_history.hpp>
 #include <sge/font/object_fwd.hpp>
 #include <sge/font/string.hpp>
@@ -63,7 +63,7 @@ class object
 		object
 	);
 public:
-	SGE_CONSOLE_GFX_SYMBOL
+	SGE_CONSOLE_GFX_DETAIL_SYMBOL
 	object(
 		sge::console::object &,
 		sge::renderer::device::ffp &,
@@ -74,30 +74,30 @@ public:
 		sge::console::gfx::output_line_limit
 	);
 
-	SGE_CONSOLE_GFX_SYMBOL
+	SGE_CONSOLE_GFX_DETAIL_SYMBOL
 	~object();
 
-	SGE_CONSOLE_GFX_SYMBOL
+	SGE_CONSOLE_GFX_DETAIL_SYMBOL
 	void
 	render(
 		sge::renderer::context::ffp &
 	);
 
-	SGE_CONSOLE_GFX_SYMBOL
+	SGE_CONSOLE_GFX_DETAIL_SYMBOL
 	bool
 	active() const;
 
-	SGE_CONSOLE_GFX_SYMBOL
+	SGE_CONSOLE_GFX_DETAIL_SYMBOL
 	void
 	active(
 		bool
 	);
 
-	SGE_CONSOLE_GFX_SYMBOL
+	SGE_CONSOLE_GFX_DETAIL_SYMBOL
 	bool
 	input_active() const;
 
-	SGE_CONSOLE_GFX_SYMBOL
+	SGE_CONSOLE_GFX_DETAIL_SYMBOL
 	void
 	input_active(
 		bool
@@ -108,19 +108,19 @@ public:
 		sge::font::string const &
 	);
 
-	SGE_CONSOLE_GFX_SYMBOL
+	SGE_CONSOLE_GFX_DETAIL_SYMBOL
 	sge::console::object &
 	console_object();
 
-	SGE_CONSOLE_GFX_SYMBOL
+	SGE_CONSOLE_GFX_DETAIL_SYMBOL
 	sge::console::object const &
 	console_object() const;
 
-	SGE_CONSOLE_GFX_SYMBOL
+	SGE_CONSOLE_GFX_DETAIL_SYMBOL
 	sge::console::gfx::sprite_object &
 	background_sprite();
 
-	SGE_CONSOLE_GFX_SYMBOL
+	SGE_CONSOLE_GFX_DETAIL_SYMBOL
 	sge::console::gfx::sprite_object const &
 	background_sprite() const;
 private:

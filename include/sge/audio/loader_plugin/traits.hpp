@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_AUDIO_LOADER_PLUGIN_TRAITS_HPP_INCLUDED
 
 #include <sge/audio/loader_unique_ptr.hpp>
-#include <sge/audio/symbol.hpp>
+#include <sge/audio/detail/symbol.hpp>
 #include <sge/plugin/capabilities_fwd.hpp>
 #include <sge/plugin/detail/address_name.hpp>
 #include <sge/plugin/detail/traits.hpp>
@@ -45,12 +45,12 @@ struct traits<
 >
 {
 public:
-	SGE_AUDIO_SYMBOL
+	SGE_AUDIO_DETAIL_SYMBOL
 	static
 	sge::plugin::detail::address_name
 	plugin_loader_name();
 
-	SGE_AUDIO_SYMBOL
+	SGE_AUDIO_DETAIL_SYMBOL
 	static
 	sge::plugin::capabilities
 	plugin_type();

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_CORE_BLEND_COMBINED_HPP_INCLUDED
 #define SGE_RENDERER_STATE_CORE_BLEND_COMBINED_HPP_INCLUDED
 
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/state/core/blend/combined_fwd.hpp>
 #include <sge/renderer/state/core/blend/dest.hpp>
 #include <sge/renderer/state/core/blend/source.hpp>
@@ -41,17 +41,17 @@ namespace blend
 class combined
 {
 public:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	combined(
 		sge::renderer::state::core::blend::source,
 		sge::renderer::state::core::blend::dest
 	);
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::blend::source
 	source() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::blend::dest
 	dest() const;
 private:

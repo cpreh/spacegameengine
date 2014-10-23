@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_CURSOR_DEMUXER_HPP_INCLUDED
 #define SGE_INPUT_CURSOR_DEMUXER_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
 #include <sge/input/processor_fwd.hpp>
-#include <sge/input/symbol.hpp>
+#include <sge/input/detail/symbol.hpp>
 #include <sge/input/cursor/button_callback.hpp>
 #include <sge/input/cursor/button_event_fwd.hpp>
 #include <sge/input/cursor/button_signal.hpp>
@@ -55,7 +55,7 @@ namespace input
 namespace cursor
 {
 
-class SGE_CLASS_SYMBOL demuxer
+class SGE_CORE_DETAIL_CLASS_SYMBOL demuxer
 :
 	public sge::input::cursor::object
 {
@@ -63,7 +63,7 @@ class SGE_CLASS_SYMBOL demuxer
 		demuxer
 	);
 public:
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	explicit
 	demuxer(
 		sge::input::processor &,
@@ -71,44 +71,44 @@ public:
 			= sge::input::cursor::default_choose()
 	);
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	~demuxer()
 	override;
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	fcppt::signal::auto_connection
 	button_callback(
 		sge::input::cursor::button_callback const &
 	)
 	override;
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	fcppt::signal::auto_connection
 	move_callback(
 		sge::input::cursor::move_callback const &
 	)
 	override;
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	fcppt::signal::auto_connection
 	scroll_callback(
 		sge::input::cursor::scroll_callback const &
 	)
 	override;
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::cursor::optional_position const
 	position() const
 	override;
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	void
 	mode(
 		sge::input::cursor::mode
 	)
 	override;
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::cursor::optional_object_ref const
 	current_cursor() const;
 private:

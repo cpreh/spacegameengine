@@ -18,15 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/exception.hpp>
+#include <sge/core/exception.hpp>
 #include <sge/scenic/exception.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 
+
 sge::scenic::exception::exception(
 	fcppt::string const &_what)
 :
-	sge::exception(
+	sge::core::exception(
 		FCPPT_TEXT("scenic: ")
 		+_what)
 {

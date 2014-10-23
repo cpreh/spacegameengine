@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/cegui/default_font.hpp>
 #include <sge/cegui/load_context_fwd.hpp>
-#include <sge/cegui/symbol.hpp>
+#include <sge/cegui/detail/symbol.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
@@ -38,7 +38,7 @@ namespace cegui
 class load_context
 {
 public:
-	SGE_CEGUI_SYMBOL
+	SGE_CEGUI_DETAIL_SYMBOL
 	explicit
 	load_context(
 		boost::filesystem::path const &scheme_file
@@ -47,25 +47,25 @@ public:
 	boost::filesystem::path const &
 	scheme_file() const;
 
-	SGE_CEGUI_SYMBOL
+	SGE_CEGUI_DETAIL_SYMBOL
 	sge::cegui::load_context &
 	font_directory(
 		boost::filesystem::path const &
 	);
 
-	SGE_CEGUI_SYMBOL
+	SGE_CEGUI_DETAIL_SYMBOL
 	sge::cegui::load_context &
 	looknfeel_directory(
 		boost::filesystem::path const &
 	);
 
-	SGE_CEGUI_SYMBOL
+	SGE_CEGUI_DETAIL_SYMBOL
 	sge::cegui::load_context &
 	imageset_directory(
 		boost::filesystem::path const &
 	);
 
-	SGE_CEGUI_SYMBOL
+	SGE_CEGUI_DETAIL_SYMBOL
 	sge::cegui::load_context &
 	default_font(
 		sge::cegui::default_font const &

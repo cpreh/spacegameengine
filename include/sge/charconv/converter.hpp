@@ -21,12 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CHARCONV_CONVERTER_HPP_INCLUDED
 #define SGE_CHARCONV_CONVERTER_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
 #include <sge/charconv/conversion_status_fwd.hpp>
 #include <sge/charconv/converter_fwd.hpp>
 #include <sge/charconv/input_range.hpp>
 #include <sge/charconv/output_range.hpp>
-#include <sge/charconv/symbol.hpp>
+#include <sge/charconv/detail/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -35,16 +35,16 @@ namespace sge
 namespace charconv
 {
 
-class SGE_CLASS_SYMBOL converter
+class SGE_CORE_DETAIL_CLASS_SYMBOL converter
 {
 	FCPPT_NONCOPYABLE(
 		converter
 	);
 protected:
-	SGE_CHARCONV_SYMBOL
+	SGE_CHARCONV_DETAIL_SYMBOL
 	converter();
 public:
-	SGE_CHARCONV_SYMBOL
+	SGE_CHARCONV_DETAIL_SYMBOL
 	virtual
 	~converter() = 0;
 

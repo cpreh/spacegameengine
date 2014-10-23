@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CONFIG_OWN_APP_NAME_HPP_INCLUDED
 
 #include <sge/config/app_name.hpp>
-#include <sge/config/symbol.hpp>
+#include <sge/config/detail/symbol.hpp>
 
 
 namespace sge
@@ -30,7 +30,7 @@ namespace sge
 namespace config
 {
 
-SGE_CONFIG_SYMBOL
+SGE_CONFIG_DETAIL_SYMBOL
 sge::config::app_name
 own_app_name();
 

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENCL_PLATFORM_VERSION_HPP_INCLUDED
 #define SGE_OPENCL_PLATFORM_VERSION_HPP_INCLUDED
 
-#include <sge/opencl/symbol.hpp>
+#include <sge/opencl/detail/symbol.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <string>
 #include <fcppt/config/external_end.hpp>
@@ -39,17 +39,17 @@ public:
 	unsigned
 	unit;
 
-	SGE_OPENCL_SYMBOL explicit
+	SGE_OPENCL_DETAIL_SYMBOL explicit
 	version(
 		std::string const &);
 
-	SGE_OPENCL_SYMBOL unit
+	SGE_OPENCL_DETAIL_SYMBOL unit
 	major_part() const;
 
-	SGE_OPENCL_SYMBOL unit
+	SGE_OPENCL_DETAIL_SYMBOL unit
 	minor_part() const;
 
-	SGE_OPENCL_SYMBOL std::string const &
+	SGE_OPENCL_DETAIL_SYMBOL std::string const &
 	platform_specific() const;
 private:
 	unit major_;

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_INPUT_CAPABILITIES_TO_STRING_HPP_INCLUDED
 
 #include <sge/input/capabilities_fwd.hpp>
-#include <sge/input/symbol.hpp>
+#include <sge/input/detail/symbol.hpp>
 #include <fcppt/string.hpp>
 
 
@@ -31,7 +31,7 @@ namespace sge
 namespace input
 {
 
-SGE_INPUT_SYMBOL
+SGE_INPUT_DETAIL_SYMBOL
 fcppt::string
 capabilities_to_string(
 	sge::input::capabilities

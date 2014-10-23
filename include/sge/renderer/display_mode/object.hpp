@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_DISPLAY_MODE_OBJECT_HPP_INCLUDED
 #define SGE_RENDERER_DISPLAY_MODE_OBJECT_HPP_INCLUDED
 
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/display_mode/object_fwd.hpp>
 #include <sge/renderer/display_mode/optional_dimensions.hpp>
 #include <sge/renderer/display_mode/optional_refresh_rate.hpp>
@@ -55,7 +55,7 @@ public:
 	\param refresh_rate The optional refresh rate in Hz. If this is empty,
 	it means the default refresh rate.
 	*/
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	object(
 		sge::renderer::display_mode::pixel_size const &pixel_size,
 		sge::renderer::display_mode::optional_dimensions const &dimensions,
@@ -65,21 +65,21 @@ public:
 	/**
 	\brief Returns the pixel size
 	*/
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::display_mode::pixel_size const &
 	pixel_size() const;
 
 	/**
 	\brief Returns the dimensions
 	*/
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::display_mode::optional_dimensions const &
 	dimensions() const;
 
 	/**
 	\brief Returns the refresh rate
 	*/
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::display_mode::optional_refresh_rate const
 	refresh_rate() const;
 private:

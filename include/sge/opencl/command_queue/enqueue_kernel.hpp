@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENCL_COMMAND_QUEUE_ENQUEUE_KERNEL_HPP_INCLUDED
 #define SGE_OPENCL_COMMAND_QUEUE_ENQUEUE_KERNEL_HPP_INCLUDED
 
-#include <sge/opencl/symbol.hpp>
+#include <sge/opencl/detail/symbol.hpp>
 #include <sge/opencl/command_queue/global_dim1.hpp>
 #include <sge/opencl/command_queue/global_dim2.hpp>
 #include <sge/opencl/command_queue/global_dim3.hpp>
@@ -40,7 +40,7 @@ namespace opencl
 {
 namespace command_queue
 {
-SGE_OPENCL_SYMBOL
+SGE_OPENCL_DETAIL_SYMBOL
 sge::opencl::event::object_unique_ptr
 enqueue_kernel(
 	sge::opencl::command_queue::object &,
@@ -49,7 +49,7 @@ enqueue_kernel(
 	sge::opencl::command_queue::local_dim1 const &,
 	sge::opencl::event::sequence const &);
 
-SGE_OPENCL_SYMBOL
+SGE_OPENCL_DETAIL_SYMBOL
 sge::opencl::event::object_unique_ptr
 enqueue_kernel(
 	sge::opencl::command_queue::object &,
@@ -58,7 +58,7 @@ enqueue_kernel(
 	sge::opencl::command_queue::local_dim2 const &,
 	sge::opencl::event::sequence const &);
 
-SGE_OPENCL_SYMBOL
+SGE_OPENCL_DETAIL_SYMBOL
 sge::opencl::event::object_unique_ptr
 enqueue_kernel(
 	sge::opencl::command_queue::object &,
@@ -67,7 +67,7 @@ enqueue_kernel(
 	sge::opencl::command_queue::local_dim3 const &,
 	sge::opencl::event::sequence const &);
 
-SGE_OPENCL_SYMBOL
+SGE_OPENCL_DETAIL_SYMBOL
 sge::opencl::event::object_unique_ptr
 enqueue_kernel(
 	sge::opencl::command_queue::object &,
@@ -75,7 +75,7 @@ enqueue_kernel(
 	sge::opencl::command_queue::global_dim1 const &,
 	sge::opencl::event::sequence const &);
 
-SGE_OPENCL_SYMBOL
+SGE_OPENCL_DETAIL_SYMBOL
 sge::opencl::event::object_unique_ptr
 enqueue_kernel(
 	sge::opencl::command_queue::object &,
@@ -83,7 +83,7 @@ enqueue_kernel(
 	sge::opencl::command_queue::global_dim2 const &,
 	sge::opencl::event::sequence const &);
 
-SGE_OPENCL_SYMBOL
+SGE_OPENCL_DETAIL_SYMBOL
 sge::opencl::event::object_unique_ptr
 enqueue_kernel(
 	sge::opencl::command_queue::object &,

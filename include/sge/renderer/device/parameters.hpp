@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_DEVICE_PARAMETERS_HPP_INCLUDED
 #define SGE_RENDERER_DEVICE_PARAMETERS_HPP_INCLUDED
 
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/device/index.hpp>
 #include <sge/renderer/device/parameters_fwd.hpp>
 #include <sge/renderer/display_mode/parameters.hpp>
@@ -43,7 +43,7 @@ class parameters
 		parameters
 	);
 public:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	parameters(
 		sge::renderer::device::index,
 		sge::renderer::display_mode::parameters const &,
@@ -51,19 +51,19 @@ public:
 		awl::window::event::processor &
 	);
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::device::index const
 	index() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::display_mode::parameters const &
 	display_mode() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	awl::window::object &
 	window() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	awl::window::event::processor &
 	window_processor() const;
 private:

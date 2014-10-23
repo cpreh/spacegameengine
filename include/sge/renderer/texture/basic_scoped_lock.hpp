@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/basic_buffer.hpp>
 #include <sge/renderer/basic_buffer_scoped_lock.hpp>
 #include <sge/renderer/lock_mode_fwd.hpp>
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -50,24 +50,24 @@ public:
 
 	typedef typename buffer::view view;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	basic_scoped_lock(
 		Texture &,
 		sge::renderer::lock_mode
 	);
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	basic_scoped_lock(
 		Texture &,
 		lock_area const &,
 		sge::renderer::lock_mode
 	);
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	view const
 	value() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	~basic_scoped_lock();
 private:
 	typedef

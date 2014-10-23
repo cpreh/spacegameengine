@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_CONTEXT_SCOPED_CORE_HPP_INCLUDED
 #define SGE_RENDERER_CONTEXT_SCOPED_CORE_HPP_INCLUDED
 
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/context/core_fwd.hpp>
 #include <sge/renderer/context/core_unique_ptr.hpp>
 #include <sge/renderer/context/scoped_core_fwd.hpp>
@@ -43,16 +43,16 @@ class scoped_core
 		scoped_core
 	);
 public:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	scoped_core(
 		sge::renderer::device::core &,
 		sge::renderer::target::base &
 	);
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	~scoped_core();
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::context::core &
 	get() const;
 private:

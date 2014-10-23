@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_DISPLAY_MODE_OUTPUT_HPP_INCLUDED
 #define SGE_RENDERER_DISPLAY_MODE_OUTPUT_HPP_INCLUDED
 
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/display_mode/object_fwd.hpp>
 #include <fcppt/io/ostream.hpp>
 
@@ -40,7 +40,7 @@ Outputs \a mode to \a stream
 
 \return \a stream
 */
-SGE_RENDERER_SYMBOL
+SGE_RENDERER_DETAIL_SYMBOL
 fcppt::io::ostream &
 operator<<(
 	fcppt::io::ostream &stream,

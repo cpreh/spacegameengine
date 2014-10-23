@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/projection/far.hpp>
 #include <sge/renderer/projection/fov.hpp>
 #include <sge/renderer/projection/near.hpp>
-#include <sge/scenic/symbol.hpp>
+#include <sge/scenic/detail/symbol.hpp>
 
 
 namespace sge
@@ -37,30 +37,30 @@ namespace scene
 class camera_properties
 {
 public:
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	camera_properties(
 		sge::camera::coordinate_system::object const &,
 		sge::renderer::projection::fov const &,
 		sge::renderer::projection::near const &,
 		sge::renderer::projection::far const &);
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	sge::camera::coordinate_system::object const &
 	coordinate_system() const;
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	sge::renderer::projection::fov const &
 	fov() const;
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	sge::renderer::projection::near const &
 	near() const;
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	sge::renderer::projection::far const &
 	far() const;
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	~camera_properties();
 private:
 	sge::camera::coordinate_system::object coordinate_system_;

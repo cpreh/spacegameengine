@@ -21,13 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RUCKSACK_WIDGET_BOX_HPP_INCLUDED
 #define SGE_RUCKSACK_WIDGET_BOX_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
 #include <sge/rucksack/alignment.hpp>
 #include <sge/rucksack/axis.hpp>
 #include <sge/rucksack/axis_policy2_fwd.hpp>
 #include <sge/rucksack/dim.hpp>
 #include <sge/rucksack/padding.hpp>
-#include <sge/rucksack/symbol.hpp>
+#include <sge/rucksack/detail/symbol.hpp>
 #include <sge/rucksack/vector.hpp>
 #include <sge/rucksack/widget/base.hpp>
 #include <sge/rucksack/widget/reference.hpp>
@@ -54,7 +54,7 @@ either vertically or horizontally (determined by the "axis" parameter which
 specifies the "major axis" of alignment; hozirontal alignment has axis::x,
 vertical has axis::y).
 */
-class SGE_CLASS_SYMBOL box
+class SGE_CORE_DETAIL_CLASS_SYMBOL box
 :
 	public
 		sge::rucksack::widget::base
@@ -76,13 +76,13 @@ class SGE_CLASS_SYMBOL box
 	>
 	child_list;
 public:
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	box(
 		sge::rucksack::axis,
 		sge::rucksack::padding
 	);
 
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	box(
 		sge::rucksack::axis,
 		sge::rucksack::padding,
@@ -91,7 +91,7 @@ public:
 
 	// Nothing fancy, just set the stored size (this should NOT cause a relayout
 	// immediately)
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	void
 	size(
 		sge::rucksack::dim const &
@@ -102,7 +102,7 @@ public:
 
 	// Nothing fancy, just set the stored position (this should NOT cause a
 	// relayout immediately)
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	void
 	position(
 		sge::rucksack::vector const &
@@ -112,13 +112,13 @@ public:
 	using sge::rucksack::widget::base::position;
 
 	// Nothing fancy, just return the stored size
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	sge::rucksack::dim const
 	size() const
 	override;
 
 	// Nothing fancy, just return the stored position
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	sge::rucksack::vector const
 	position() const
 	override;
@@ -145,40 +145,40 @@ public:
 	//
 	// Also note that currently, box widgets always have a preferred size (which
 	// might be equal to the minimum size).
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	sge::rucksack::axis_policy2 const
 	axis_policy() const
 	override;
 
 	// This does a lot of stuff, see the code itself.
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	void
 	relayout()
 	override;
 
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	void
 	push_back_child(
 		sge::rucksack::widget::base &,
 		sge::rucksack::alignment
 	);
 
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	void
 	push_front_child(
 		sge::rucksack::widget::base &,
 		sge::rucksack::alignment
 	);
 
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	void
 	pop_back_child();
 
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	void
 	pop_front_child();
 
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	void
 	clear();
 
@@ -190,17 +190,17 @@ public:
 	child_list::size_type
 	size_type;
 
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	iterator
 	child_position(
 		size_type
 	);
 
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	size_type
 	children_size() const;
 
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	void
 	replace_children(
 		iterator,
@@ -208,7 +208,7 @@ public:
 		sge::rucksack::alignment
 	);
 
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	~box()
 	override;
 private:

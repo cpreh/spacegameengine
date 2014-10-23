@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/log_settings.hpp>
 #include <sge/systems/optional_log_settings.hpp>
 #include <sge/systems/optional_plugin_path.hpp>
-#include <sge/systems/symbol.hpp>
+#include <sge/systems/detail/symbol.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -39,16 +39,16 @@ namespace systems
 class config
 {
 public:
-	SGE_SYSTEMS_SYMBOL
+	SGE_SYSTEMS_DETAIL_SYMBOL
 	config();
 
-	SGE_SYSTEMS_SYMBOL
+	SGE_SYSTEMS_DETAIL_SYMBOL
 	sge::systems::config &
 	plugin_path(
 		boost::filesystem::path const &
 	);
 
-	SGE_SYSTEMS_SYMBOL
+	SGE_SYSTEMS_DETAIL_SYMBOL
 	sge::systems::config &
 	log_settings(
 		sge::systems::log_settings const &

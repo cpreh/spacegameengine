@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/color/any/object_fwd.hpp>
 #include <sge/image3d/dim_fwd.hpp>
-#include <sge/image3d/symbol.hpp>
+#include <sge/image3d/detail/symbol.hpp>
 #include <sge/image3d/view/const_object_fwd.hpp>
 #include <sge/image3d/view/object_fwd.hpp>
 
@@ -35,14 +35,14 @@ namespace image3d
 namespace view
 {
 
-SGE_IMAGE3D_SYMBOL
+SGE_IMAGE3D_DETAIL_SYMBOL
 sge::image::color::any::object const
 get(
 	sge::image3d::view::object const &,
 	sge::image3d::dim const &
 );
 
-SGE_IMAGE3D_SYMBOL
+SGE_IMAGE3D_DETAIL_SYMBOL
 sge::image::color::any::object const
 get(
 	sge::image3d::view::const_object const &,

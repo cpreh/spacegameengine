@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VERTEX_CREATE_BUFFER_FROM_VIEW_HPP_INCLUDED
 
 #include <sge/renderer/resource_flags_field_fwd.hpp>
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/vertex/buffer_unique_ptr.hpp>
 #include <sge/renderer/vertex/declaration_fwd.hpp>
@@ -57,7 +57,7 @@ vertex_declaration and resource flags \a flags.
 \warning The behaviour is undefined if \a view doesn't belong to \a
 vertex_declaration
 */
-SGE_RENDERER_SYMBOL
+SGE_RENDERER_DETAIL_SYMBOL
 sge::renderer::vertex::buffer_unique_ptr
 create_buffer_from_view(
 	sge::renderer::device::core &device,

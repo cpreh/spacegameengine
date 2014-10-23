@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TEXTURE_NEXT_POWER_OF_2_HPP_INCLUDED
 
 #include <sge/renderer/dim2_fwd.hpp>
-#include <sge/texture/symbol.hpp>
+#include <sge/texture/detail/symbol.hpp>
 
 
 namespace sge
@@ -30,7 +30,7 @@ namespace sge
 namespace texture
 {
 
-SGE_TEXTURE_SYMBOL
+SGE_TEXTURE_DETAIL_SYMBOL
 sge::renderer::dim2 const
 next_power_of_2(
 	sge::renderer::dim2 const &

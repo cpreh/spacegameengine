@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CONFIG_OWN_COMPANY_NAME_HPP_INCLUDED
 
 #include <sge/config/company_name.hpp>
-#include <sge/config/symbol.hpp>
+#include <sge/config/detail/symbol.hpp>
 
 
 namespace sge
@@ -30,7 +30,7 @@ namespace sge
 namespace config
 {
 
-SGE_CONFIG_SYMBOL
+SGE_CONFIG_DETAIL_SYMBOL
 sge::config::company_name
 own_company_name();
 

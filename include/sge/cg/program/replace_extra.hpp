@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CG_PROGRAM_REPLACE_EXTRA_HPP_INCLUDED
 #define SGE_CG_PROGRAM_REPLACE_EXTRA_HPP_INCLUDED
 
-#include <sge/cg/symbol.hpp>
+#include <sge/cg/detail/symbol.hpp>
 #include <sge/cg/program/replace_extra_callback.hpp>
 #include <sge/cg/program/source.hpp>
 
@@ -33,7 +33,7 @@ namespace cg
 namespace program
 {
 
-SGE_CG_SYMBOL
+SGE_CG_DETAIL_SYMBOL
 sge::cg::program::source
 replace_extra(
 	sge::cg::program::source const &,

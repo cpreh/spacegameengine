@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/texture/basic_part_raw_fwd.hpp>
 #include <sge/texture/part.hpp>
-#include <sge/texture/symbol.hpp>
+#include <sge/texture/detail/symbol.hpp>
 #include <sge/texture/detail/ref_store_type.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -49,40 +49,40 @@ class basic_part_raw
 public:
 	typedef Ref ref_type;
 
-	SGE_TEXTURE_SYMBOL
+	SGE_TEXTURE_DETAIL_SYMBOL
 	explicit
 	basic_part_raw(
 		ref_type
 	);
 
-	SGE_TEXTURE_SYMBOL
+	SGE_TEXTURE_DETAIL_SYMBOL
 	basic_part_raw(
 		ref_type,
 		sge::renderer::lock_rect const &
 	);
 
-	SGE_TEXTURE_SYMBOL
+	SGE_TEXTURE_DETAIL_SYMBOL
 	~basic_part_raw()
 	override;
 
-	SGE_TEXTURE_SYMBOL
+	SGE_TEXTURE_DETAIL_SYMBOL
 	void
 	data(
 		sge::image2d::view::const_object const &
 	)
 	override;
 
-	SGE_TEXTURE_SYMBOL
+	SGE_TEXTURE_DETAIL_SYMBOL
 	sge::renderer::lock_rect const
 	area() const
 	override;
 
-	SGE_TEXTURE_SYMBOL
+	SGE_TEXTURE_DETAIL_SYMBOL
 	sge::renderer::texture::planar &
 	texture() const
 	override;
 
-	SGE_TEXTURE_SYMBOL
+	SGE_TEXTURE_DETAIL_SYMBOL
 	bool
 	repeatable() const
 	override;

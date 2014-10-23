@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CONFIG_GETENV_HPP_INCLUDED
 #define SGE_CONFIG_GETENV_HPP_INCLUDED
 
-#include <sge/config/symbol.hpp>
+#include <sge/config/detail/symbol.hpp>
 #include <fcppt/optional_string_fwd.hpp>
 #include <fcppt/string.hpp>
 
@@ -31,7 +31,7 @@ namespace sge
 namespace config
 {
 
-SGE_CONFIG_SYMBOL
+SGE_CONFIG_DETAIL_SYMBOL
 fcppt::optional_string
 getenv(
 	fcppt::string const &

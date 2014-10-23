@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_ERROR_CHECK_STATE_HPP_INCLUDED
-#define SGE_ERROR_CHECK_STATE_HPP_INCLUDED
+#ifndef SGE_CORE_CHECK_STATE_HPP_INCLUDED
+#define SGE_CORE_CHECK_STATE_HPP_INCLUDED
 
 #include <fcppt/format.hpp>
 #include <fcppt/string.hpp>
@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/stringize.hpp>
 
 
-#define SGE_ERROR_CHECK_STATE(\
+#define SGE_CORE_CHECK_STATE(\
 	exception,\
 	message,\
 	error_type,\

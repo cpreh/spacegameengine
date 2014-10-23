@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_UNSUPPORTED_FORMAT_HPP_INCLUDED
 #define SGE_AUDIO_UNSUPPORTED_FORMAT_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
 #include <sge/audio/file_exception.hpp>
 #include <sge/audio/optional_path.hpp>
-#include <sge/audio/symbol.hpp>
+#include <sge/audio/detail/symbol.hpp>
 #include <fcppt/string.hpp>
 
 
@@ -33,7 +33,7 @@ namespace sge
 namespace audio
 {
 /// Exception thrown when a loader can't load a file.
-class SGE_CLASS_SYMBOL unsupported_format
+class SGE_CORE_DETAIL_CLASS_SYMBOL unsupported_format
 :
 	public sge::audio::file_exception
 {
@@ -44,7 +44,7 @@ public:
 	 * path to the file is "lost" during the decoding process. It's still a
 	 * file error, though.
 	 */
-	SGE_AUDIO_SYMBOL
+	SGE_AUDIO_DETAIL_SYMBOL
 	unsupported_format(
 		sge::audio::optional_path const &,
 		fcppt::string const &

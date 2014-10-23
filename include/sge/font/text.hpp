@@ -21,12 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FONT_TEXT_HPP_INCLUDED
 #define SGE_FONT_TEXT_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
 #include <sge/font/dim_fwd.hpp>
 #include <sge/font/index.hpp>
 #include <sge/font/optional_index_fwd.hpp>
 #include <sge/font/rect_fwd.hpp>
-#include <sge/font/symbol.hpp>
+#include <sge/font/detail/symbol.hpp>
 #include <sge/font/text_fwd.hpp>
 #include <sge/font/vector_fwd.hpp>
 #include <sge/font/view_fwd.hpp>
@@ -38,16 +38,16 @@ namespace sge
 namespace font
 {
 
-class SGE_CLASS_SYMBOL text
+class SGE_CORE_DETAIL_CLASS_SYMBOL text
 {
 	FCPPT_NONCOPYABLE(
 		text
 	);
 protected:
-	SGE_FONT_SYMBOL
+	SGE_FONT_DETAIL_SYMBOL
 	text();
 public:
-	SGE_FONT_SYMBOL
+	SGE_FONT_DETAIL_SYMBOL
 	virtual
 	~text() = 0;
 

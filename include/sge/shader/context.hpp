@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cg/profile/object.hpp>
 #include <sge/cg/program/compile_options.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
-#include <sge/shader/symbol.hpp>
+#include <sge/shader/detail/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -38,40 +38,40 @@ class context
 FCPPT_NONCOPYABLE(
 	context);
 public:
-	SGE_SHADER_SYMBOL
+	SGE_SHADER_DETAIL_SYMBOL
 	explicit
 	context(
 		sge::renderer::device::core &);
 
-	SGE_SHADER_SYMBOL
+	SGE_SHADER_DETAIL_SYMBOL
 	sge::renderer::device::core &
 	renderer() const;
 
-	SGE_SHADER_SYMBOL
+	SGE_SHADER_DETAIL_SYMBOL
 	sge::cg::context::object &
 	cg_context();
 
-	SGE_SHADER_SYMBOL
+	SGE_SHADER_DETAIL_SYMBOL
 	sge::cg::context::object const &
 	cg_context() const;
 
-	SGE_SHADER_SYMBOL
+	SGE_SHADER_DETAIL_SYMBOL
 	sge::cg::profile::object const &
 	vertex_profile() const;
 
-	SGE_SHADER_SYMBOL
+	SGE_SHADER_DETAIL_SYMBOL
 	sge::cg::profile::object const &
 	pixel_profile() const;
 
-	SGE_SHADER_SYMBOL
+	SGE_SHADER_DETAIL_SYMBOL
 	sge::cg::program::compile_options const
 	vertex_compile_options() const;
 
-	SGE_SHADER_SYMBOL
+	SGE_SHADER_DETAIL_SYMBOL
 	sge::cg::program::compile_options const
 	pixel_compile_options() const;
 
-	SGE_SHADER_SYMBOL
+	SGE_SHADER_DETAIL_SYMBOL
 	~context();
 private:
 	sge::renderer::device::core &renderer_;

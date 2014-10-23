@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/string.hpp>
 #include <sge/font/text_parameters_fwd.hpp>
 #include <sge/font/vector_fwd.hpp>
-#include <sge/font/draw/symbol.hpp>
+#include <sge/font/draw/detail/symbol.hpp>
 #include <sge/image/color/any/object_fwd.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
@@ -39,7 +39,7 @@ namespace font
 namespace draw
 {
 
-SGE_FONT_DRAW_SYMBOL
+SGE_FONT_DRAW_DETAIL_SYMBOL
 void
 simple(
 	sge::renderer::device::ffp &,

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/screen_size_fwd.hpp>
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 
 
 namespace sge
@@ -45,7 +45,7 @@ smaller. The division is done as a floating point division.
 
 \warning The behaviour is undefined if either width or height is zero.
 */
-SGE_RENDERER_SYMBOL
+SGE_RENDERER_DETAIL_SYMBOL
 sge::renderer::scalar
 aspect(
 	sge::renderer::screen_size const &size

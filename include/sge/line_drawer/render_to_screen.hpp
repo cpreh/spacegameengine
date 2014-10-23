@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_LINE_DRAWER_RENDER_TO_SCREEN_HPP_INCLUDED
 
 #include <sge/line_drawer/object_fwd.hpp>
-#include <sge/line_drawer/symbol.hpp>
+#include <sge/line_drawer/detail/symbol.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 
@@ -31,7 +31,7 @@ namespace sge
 {
 namespace line_drawer
 {
-SGE_LINE_DRAWER_SYMBOL void
+SGE_LINE_DRAWER_DETAIL_SYMBOL void
 render_to_screen(
 	sge::renderer::device::ffp &,
 	sge::renderer::context::ffp &,

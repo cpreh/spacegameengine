@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TIMER_SCOPED_FRAME_LIMITER_HPP_INCLUDED
 
 #include <sge/timer/scoped_frame_limiter_fwd.hpp>
-#include <sge/timer/symbol.hpp>
+#include <sge/timer/detail/symbol.hpp>
 #include <sge/timer/clocks/standard.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -60,7 +60,7 @@ public:
 	Any frame that's shorter than 1/f will be stalled (by calling sleep, so
 	no CPU is consumed).
 	*/
-	SGE_TIMER_SYMBOL
+	SGE_TIMER_DETAIL_SYMBOL
 	explicit
 	scoped_frame_limiter(
 		ticks_per_second ticks
@@ -69,7 +69,7 @@ public:
 	/**
 	\brief Compares the stored time with the current time and calls sleep
 	*/
-	SGE_TIMER_SYMBOL
+	SGE_TIMER_DETAIL_SYMBOL
 	~scoped_frame_limiter();
 private:
 	clock_type::time_point const before_frame_;

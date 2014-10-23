@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_FILE_EXCEPTION_HPP_INCLUDED
 #define SGE_IMAGE_FILE_EXCEPTION_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
 #include <sge/image/exception.hpp>
 #include <sge/image/optional_path_fwd.hpp>
-#include <sge/image/symbol.hpp>
+#include <sge/image/detail/symbol.hpp>
 #include <fcppt/string.hpp>
 
 
@@ -33,12 +33,12 @@ namespace sge
 namespace image
 {
 
-class SGE_CLASS_SYMBOL file_exception
+class SGE_CORE_DETAIL_CLASS_SYMBOL file_exception
 :
 	public sge::image::exception
 {
 public:
-	SGE_IMAGE_SYMBOL
+	SGE_IMAGE_DETAIL_SYMBOL
 	file_exception(
 		sge::image::optional_path const &,
 		fcppt::string const &

@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_BUFFER_HPP_INCLUDED
 #define SGE_AUDIO_BUFFER_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
-#include <sge/audio/symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
+#include <sge/audio/detail/symbol.hpp>
 #include <sge/audio/sound/base_unique_ptr.hpp>
 #include <sge/audio/sound/nonpositional_parameters_fwd.hpp>
 #include <sge/audio/sound/positional_parameters_fwd.hpp>
@@ -43,7 +43,7 @@ namespace audio
  * For a short introduction to buffers, see \ref audio_overview and
  * \ref audio_example.
  */
-class SGE_CLASS_SYMBOL buffer
+class SGE_CORE_DETAIL_CLASS_SYMBOL buffer
 {
 	FCPPT_NONCOPYABLE(
 		buffer
@@ -67,11 +67,11 @@ public:
 		sound::nonpositional_parameters const &) = 0;
 
 	/** \virtualdtor */
-	SGE_AUDIO_SYMBOL virtual
+	SGE_AUDIO_DETAIL_SYMBOL virtual
 	~buffer() = 0;
 protected:
 	/** \protectedctor */
-	SGE_AUDIO_SYMBOL explicit
+	SGE_AUDIO_DETAIL_SYMBOL explicit
 	buffer();
 };
 }

@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_BAD_SOUND_ALLOC_HPP_INCLUDED
 #define SGE_AUDIO_BAD_SOUND_ALLOC_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
 #include <sge/audio/exception.hpp>
-#include <sge/audio/symbol.hpp>
+#include <sge/audio/detail/symbol.hpp>
 #include <fcppt/string.hpp>
 
 
@@ -38,13 +38,13 @@ namespace audio
  * enough resources for a sound. This happens, for example, when OpenAL cannot
  * create another sound source (because the internal limit is reached).
  */
-class SGE_CLASS_SYMBOL bad_sound_alloc
+class SGE_CORE_DETAIL_CLASS_SYMBOL bad_sound_alloc
 :
 	public audio::exception
 {
 public:
 	/// Initialize exception with an error string
-	SGE_AUDIO_SYMBOL
+	SGE_AUDIO_DETAIL_SYMBOL
 	explicit bad_sound_alloc(
 		fcppt::string const &
 	);

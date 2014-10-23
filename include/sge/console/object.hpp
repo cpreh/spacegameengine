@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CONSOLE_OBJECT_HPP_INCLUDED
 #define SGE_CONSOLE_OBJECT_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
 #include <sge/console/arg_list.hpp>
 #include <sge/console/error_callback.hpp>
 #include <sge/console/error_function.hpp>
@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/message_callback.hpp>
 #include <sge/console/message_function.hpp>
 #include <sge/console/prefix_fwd.hpp>
-#include <sge/console/symbol.hpp>
+#include <sge/console/detail/symbol.hpp>
 #include <sge/console/callback/parameters_fwd.hpp>
 #include <sge/font/char_type.hpp>
 #include <sge/font/string.hpp>
@@ -46,72 +46,72 @@ namespace sge
 namespace console
 {
 
-class SGE_CLASS_SYMBOL object
+class SGE_CORE_DETAIL_CLASS_SYMBOL object
 {
 	FCPPT_NONCOPYABLE(
 		object
 	);
 public:
-	SGE_CONSOLE_SYMBOL
+	SGE_CONSOLE_DETAIL_SYMBOL
 	explicit
 	object(
 		sge::console::prefix
 	);
 
-	SGE_CONSOLE_SYMBOL
+	SGE_CONSOLE_DETAIL_SYMBOL
 	~object();
 
-	SGE_CONSOLE_SYMBOL
+	SGE_CONSOLE_DETAIL_SYMBOL
 	fcppt::signal::auto_connection
 	insert(
 		sge::console::callback::parameters const &
 	);
 
-	SGE_CONSOLE_SYMBOL
+	SGE_CONSOLE_DETAIL_SYMBOL
 	fcppt::signal::auto_connection
 	register_fallback(
 		sge::console::fallback const &
 	);
 
-	SGE_CONSOLE_SYMBOL
+	SGE_CONSOLE_DETAIL_SYMBOL
 	fcppt::signal::auto_connection
 	register_error_callback(
 		sge::console::error_callback const &
 	);
 
-	SGE_CONSOLE_SYMBOL
+	SGE_CONSOLE_DETAIL_SYMBOL
 	fcppt::signal::auto_connection
 	register_message_callback(
 		sge::console::message_callback const &
 	);
 
-	SGE_CONSOLE_SYMBOL
+	SGE_CONSOLE_DETAIL_SYMBOL
 	void
 	eval(
 		sge::font::string const &
 	);
 
-	SGE_CONSOLE_SYMBOL
+	SGE_CONSOLE_DETAIL_SYMBOL
 	void
 	eval(
 		sge::console::arg_list const &
 	);
 
-	SGE_CONSOLE_SYMBOL
+	SGE_CONSOLE_DETAIL_SYMBOL
 	sge::console::function_map const &
 	functions() const;
 
-	SGE_CONSOLE_SYMBOL
+	SGE_CONSOLE_DETAIL_SYMBOL
 	sge::font::char_type
 	prefix() const;
 
-	SGE_CONSOLE_SYMBOL
+	SGE_CONSOLE_DETAIL_SYMBOL
 	void
 	emit_error(
 		sge::font::string const &
 	);
 
-	SGE_CONSOLE_SYMBOL
+	SGE_CONSOLE_DETAIL_SYMBOL
 	void
 	emit_message(
 		sge::font::string const &

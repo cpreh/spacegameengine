@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_DEVICE_CORE_HPP_INCLUDED
 #define SGE_RENDERER_DEVICE_CORE_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
 #include <sge/renderer/config.hpp>
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/caps/device_fwd.hpp>
 #include <sge/renderer/context/core_fwd.hpp>
 #include <sge/renderer/context/core_unique_ptr.hpp>
@@ -86,13 +86,13 @@ namespace device
 
 The core device provides creation of resources and a core rendering context.
 */
-class SGE_CLASS_SYMBOL core
+class SGE_CORE_DETAIL_CLASS_SYMBOL core
 {
 	FCPPT_NONCOPYABLE(
 		core
 	);
 protected:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	core();
 public:
 	/**
@@ -413,7 +413,7 @@ public:
 		sge::renderer::display_mode::optional_object const &mode
 	) = 0;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	virtual
 	~core() = 0;
 };

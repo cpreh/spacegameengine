@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_INFO_CONTAINER_HPP_INCLUDED
 #define SGE_INPUT_INFO_CONTAINER_HPP_INCLUDED
 
-#include <sge/input/symbol.hpp>
+#include <sge/input/detail/symbol.hpp>
 #include <sge/input/info/container_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <vector>
@@ -50,27 +50,27 @@ public:
 		Obj
 	> vector;
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	explicit
 	container(
 		vector const &
 	);
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	Obj const &
 	operator[](
 		Id const &
 	) const;
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	Id const
 	size() const;
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	bool
 	empty() const;
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	vector const &
 	get() const;
 private:

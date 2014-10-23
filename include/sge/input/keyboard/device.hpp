@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_KEYBOARD_DEVICE_HPP_INCLUDED
 #define SGE_INPUT_KEYBOARD_DEVICE_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
-#include <sge/input/symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
+#include <sge/input/detail/symbol.hpp>
 #include <sge/input/keyboard/char_callback.hpp>
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/input/keyboard/key_callback.hpp>
@@ -39,16 +39,16 @@ namespace input
 namespace keyboard
 {
 
-class SGE_CLASS_SYMBOL device
+class SGE_CORE_DETAIL_CLASS_SYMBOL device
 {
 	FCPPT_NONCOPYABLE(
 		device
 	);
 protected:
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	device();
 public:
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	virtual
 	~device() = 0;
 

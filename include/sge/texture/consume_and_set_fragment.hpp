@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/texture/fragmented_fwd.hpp>
 #include <sge/texture/part_unique_ptr.hpp>
-#include <sge/texture/symbol.hpp>
+#include <sge/texture/detail/symbol.hpp>
 
 
 namespace sge
@@ -32,7 +32,7 @@ namespace sge
 namespace texture
 {
 
-SGE_TEXTURE_SYMBOL
+SGE_TEXTURE_DETAIL_SYMBOL
 sge::texture::part_unique_ptr
 consume_and_set_fragment(
 	sge::texture::fragmented &,

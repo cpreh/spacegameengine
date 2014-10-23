@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/const_raw_pointer.hpp>
 #include <sge/image/raw_pointer.hpp>
-#include <sge/image2d/symbol.hpp>
+#include <sge/image2d/detail/symbol.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/image2d/view/object_fwd.hpp>
 
@@ -35,13 +35,13 @@ namespace image2d
 namespace view
 {
 
-SGE_IMAGE2D_SYMBOL
+SGE_IMAGE2D_DETAIL_SYMBOL
 sge::image::raw_pointer
 data(
 	sge::image2d::view::object const &
 );
 
-SGE_IMAGE2D_SYMBOL
+SGE_IMAGE2D_DETAIL_SYMBOL
 sge::image::const_raw_pointer
 data(
 	sge::image2d::view::const_object const &

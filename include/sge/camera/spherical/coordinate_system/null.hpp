@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CAMERA_SPHERICAL_COORDINATE_SYSTEM_NULL_HPP_INCLUDED
 #define SGE_CAMERA_SPHERICAL_COORDINATE_SYSTEM_NULL_HPP_INCLUDED
 
-#include <sge/camera/symbol.hpp>
+#include <sge/camera/detail/symbol.hpp>
 #include <sge/camera/spherical/coordinate_system/object_fwd.hpp>
 
 namespace sge
@@ -32,7 +32,7 @@ namespace spherical
 {
 namespace coordinate_system
 {
-SGE_CAMERA_SYMBOL
+SGE_CAMERA_DETAIL_SYMBOL
 spherical::coordinate_system::object const
 null();
 }

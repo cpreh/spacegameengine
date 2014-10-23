@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_INFO_TO_STRING_HPP_INCLUDED
 #define SGE_PARSE_INFO_TO_STRING_HPP_INCLUDED
 
-#include <sge/parse/symbol.hpp>
+#include <sge/parse/detail/symbol.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/spirit/home/support/info.hpp>
@@ -33,7 +33,7 @@ namespace sge
 namespace parse
 {
 
-SGE_PARSE_SYMBOL
+SGE_PARSE_DETAIL_SYMBOL
 fcppt::string
 info_to_string(
 	boost::spirit::info const &

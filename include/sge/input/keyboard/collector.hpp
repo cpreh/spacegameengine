@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_INPUT_KEYBOARD_COLLECTOR_HPP_INCLUDED
 
 #include <sge/input/processor_fwd.hpp>
-#include <sge/input/symbol.hpp>
+#include <sge/input/detail/symbol.hpp>
 #include <sge/input/keyboard/char_callback.hpp>
 #include <sge/input/keyboard/char_event_fwd.hpp>
 #include <sge/input/keyboard/char_signal.hpp>
@@ -56,38 +56,38 @@ class collector
 		collector
 	);
 public:
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	explicit
 	collector(
 		sge::input::processor &
 	);
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	~collector()
 	override;
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	fcppt::signal::auto_connection
 	char_callback(
 		sge::input::keyboard::char_callback const &
 	)
 	override;
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	fcppt::signal::auto_connection
 	key_callback(
 		sge::input::keyboard::key_callback const &
 	)
 	override;
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	fcppt::signal::auto_connection
 	key_repeat_callback(
 		sge::input::keyboard::key_repeat_callback const &
 	)
 	override;
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::keyboard::mod_state const
 	mod_state() const
 	override;

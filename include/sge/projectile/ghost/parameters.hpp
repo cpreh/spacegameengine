@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PROJECTILE_GHOST_PARAMETERS_HPP_INCLUDED
 #define SGE_PROJECTILE_GHOST_PARAMETERS_HPP_INCLUDED
 
-#include <sge/projectile/symbol.hpp>
+#include <sge/projectile/detail/symbol.hpp>
 #include <sge/projectile/ghost/position.hpp>
 #include <sge/projectile/ghost/size.hpp>
 #include <fcppt/nonassignable.hpp>
@@ -39,15 +39,15 @@ class parameters
 FCPPT_NONASSIGNABLE(
 	parameters);
 public:
-	SGE_PROJECTILE_SYMBOL explicit
+	SGE_PROJECTILE_DETAIL_SYMBOL explicit
 	parameters(
 		sge::projectile::ghost::position const &,
 		sge::projectile::ghost::size const &);
 
-	SGE_PROJECTILE_SYMBOL sge::projectile::ghost::position const &
+	SGE_PROJECTILE_DETAIL_SYMBOL sge::projectile::ghost::position const &
 	position() const;
 
-	SGE_PROJECTILE_SYMBOL sge::projectile::ghost::size const &
+	SGE_PROJECTILE_DETAIL_SYMBOL sge::projectile::ghost::size const &
 	size() const;
 private:
 	sge::projectile::ghost::position position_;

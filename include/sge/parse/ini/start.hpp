@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/parse/ini/section_vector.hpp>
 #include <sge/parse/ini/start_fwd.hpp>
-#include <sge/parse/ini/symbol.hpp>
+#include <sge/parse/ini/detail/symbol.hpp>
 
 
 namespace sge
@@ -35,10 +35,10 @@ namespace ini
 
 struct start
 {
-	SGE_PARSE_INI_SYMBOL
+	SGE_PARSE_INI_DETAIL_SYMBOL
 	start();
 
-	SGE_PARSE_INI_SYMBOL
+	SGE_PARSE_INI_DETAIL_SYMBOL
 	explicit
 	start(
 		sge::parse::ini::section_vector const &

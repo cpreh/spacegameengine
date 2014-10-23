@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_TEXTURE_BASIC_PARAMETERS_HPP_INCLUDED
 
 #include <sge/renderer/resource_flags_field.hpp>
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/texture/basic_parameters_fwd.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/mipmap/object.hpp>
@@ -42,7 +42,7 @@ template<
 class basic_parameters
 {
 public:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	basic_parameters(
 		Dim const &,
 		Format const &,
@@ -51,23 +51,23 @@ public:
 		sge::renderer::texture::capabilities_field const &
 	);
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	Dim const &
 	size() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	Format
 	format() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::texture::mipmap::object const &
 	mipmap() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::resource_flags_field const &
 	resource_flags() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::texture::capabilities_field const &
 	capabilities() const;
 private:

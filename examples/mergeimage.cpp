@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/exception.hpp>
+#include <sge/core/exception.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/any/object.hpp>
@@ -94,7 +94,7 @@ calc_size(
 			return size;
 	}
 
-	throw sge::exception(
+	throw sge::core::exception(
 		FCPPT_TEXT("size too big!")
 	);
 }

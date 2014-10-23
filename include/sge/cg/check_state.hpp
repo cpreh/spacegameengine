@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CG_CHECK_STATE_HPP_INCLUDED
 #define SGE_CG_CHECK_STATE_HPP_INCLUDED
 
+#include <sge/core/check_state.hpp>
 #include <sge/cg/error_string.hpp>
-#include <sge/error/check_state.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <Cg/cg.h>
 #include <fcppt/config/external_end.hpp>
@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	message,\
 	exception\
 )\
-SGE_ERROR_CHECK_STATE(\
+SGE_CORE_CHECK_STATE(\
 	exception,\
 	message,\
 	CGerror,\

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENCL_MEMORY_OBJECT_CREATE_IMAGE_FORMAT_HPP_INCLUDED
 
 #include <sge/opencl/clinclude.hpp>
-#include <sge/opencl/symbol.hpp>
+#include <sge/opencl/detail/symbol.hpp>
 
 
 namespace sge
@@ -31,7 +31,7 @@ namespace opencl
 {
 namespace memory_object
 {
-SGE_OPENCL_SYMBOL
+SGE_OPENCL_DETAIL_SYMBOL
 cl_image_format
 create_image_format(
 	cl_channel_order,

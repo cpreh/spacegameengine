@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/sbgra8_format.hpp>
 #include <sge/image/color/srgb8_format.hpp>
 #include <sge/image/color/srgba8_format.hpp>
-#include <sge/image/color/symbol.hpp>
+#include <sge/image/color/detail/symbol.hpp>
 #include <sge/src/image/color/dynamic/c32f_1_format.hpp>
 #include <sge/src/image/color/dynamic/c32f_3_format.hpp>
 #include <sge/src/image/color/dynamic/c32f_4_format.hpp>
@@ -58,109 +58,109 @@ namespace color
 namespace dynamic
 {
 
-SGE_IMAGE_COLOR_SYMBOL
+SGE_IMAGE_COLOR_DETAIL_SYMBOL
 sge::image::color::dynamic::c8_1_format const &
 from_static_format(
 	sge::image::color::a8_format const &
 );
 
-SGE_IMAGE_COLOR_SYMBOL
+SGE_IMAGE_COLOR_DETAIL_SYMBOL
 sge::image::color::dynamic::c8_1_format const &
 from_static_format(
 	sge::image::color::l8_format const &
 );
 
-SGE_IMAGE_COLOR_SYMBOL
+SGE_IMAGE_COLOR_DETAIL_SYMBOL
 sge::image::color::dynamic::c32f_1_format const &
 from_static_format(
 	sge::image::color::r32f_format const &
 );
 
-SGE_IMAGE_COLOR_SYMBOL
+SGE_IMAGE_COLOR_DETAIL_SYMBOL
 sge::image::color::dynamic::c8_2_format const &
 from_static_format(
 	sge::image::color::la8_format const &
 );
 
-SGE_IMAGE_COLOR_SYMBOL
+SGE_IMAGE_COLOR_DETAIL_SYMBOL
 sge::image::color::dynamic::c8_3_format const &
 from_static_format(
 	sge::image::color::rgb8_format const &
 );
 
-SGE_IMAGE_COLOR_SYMBOL
+SGE_IMAGE_COLOR_DETAIL_SYMBOL
 sge::image::color::dynamic::c8_3_format const &
 from_static_format(
 	sge::image::color::bgr8_format const &
 );
 
-SGE_IMAGE_COLOR_SYMBOL
+SGE_IMAGE_COLOR_DETAIL_SYMBOL
 sge::image::color::dynamic::c8_4_format const &
 from_static_format(
 	sge::image::color::rgba8_format const &
 );
 
-SGE_IMAGE_COLOR_SYMBOL
+SGE_IMAGE_COLOR_DETAIL_SYMBOL
 sge::image::color::dynamic::c8_4_format const &
 from_static_format(
 	sge::image::color::rgbx8_format const &
 );
 
-SGE_IMAGE_COLOR_SYMBOL
+SGE_IMAGE_COLOR_DETAIL_SYMBOL
 sge::image::color::dynamic::c8_4_format const &
 from_static_format(
 	sge::image::color::bgra8_format const &
 );
 
-SGE_IMAGE_COLOR_SYMBOL
+SGE_IMAGE_COLOR_DETAIL_SYMBOL
 sge::image::color::dynamic::c8_4_format const &
 from_static_format(
 	sge::image::color::bgrx8_format const &
 );
 
-SGE_IMAGE_COLOR_SYMBOL
+SGE_IMAGE_COLOR_DETAIL_SYMBOL
 sge::image::color::dynamic::c32f_3_format const &
 from_static_format(
 	sge::image::color::rgb32f_format const &
 );
 
-SGE_IMAGE_COLOR_SYMBOL
+SGE_IMAGE_COLOR_DETAIL_SYMBOL
 sge::image::color::dynamic::c32f_3_format const &
 from_static_format(
 	sge::image::color::bgr32f_format const &
 );
 
-SGE_IMAGE_COLOR_SYMBOL
+SGE_IMAGE_COLOR_DETAIL_SYMBOL
 sge::image::color::dynamic::c32f_4_format const &
 from_static_format(
 	sge::image::color::rgba32f_format const &
 );
 
-SGE_IMAGE_COLOR_SYMBOL
+SGE_IMAGE_COLOR_DETAIL_SYMBOL
 sge::image::color::dynamic::c32f_4_format const &
 from_static_format(
 	sge::image::color::bgra32f_format const &
 );
 
-SGE_IMAGE_COLOR_SYMBOL
+SGE_IMAGE_COLOR_DETAIL_SYMBOL
 sge::image::color::dynamic::c8_3_format const &
 from_static_format(
 	sge::image::color::sbgr8_format const &
 );
 
-SGE_IMAGE_COLOR_SYMBOL
+SGE_IMAGE_COLOR_DETAIL_SYMBOL
 sge::image::color::dynamic::c8_4_format const &
 from_static_format(
 	sge::image::color::sbgra8_format const &
 );
 
-SGE_IMAGE_COLOR_SYMBOL
+SGE_IMAGE_COLOR_DETAIL_SYMBOL
 sge::image::color::dynamic::c8_3_format const &
 from_static_format(
 	sge::image::color::srgb8_format const &
 );
 
-SGE_IMAGE_COLOR_SYMBOL
+SGE_IMAGE_COLOR_DETAIL_SYMBOL
 sge::image::color::dynamic::c8_4_format const &
 from_static_format(
 	sge::image::color::srgba8_format const &

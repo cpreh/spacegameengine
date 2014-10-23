@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/exception.hpp>
+#include <sge/core/exception.hpp>
 #include <sge/opencl/context/object.hpp>
 #include <sge/opencl/device/object.hpp>
 #include <sge/opencl/program/build_error.hpp>
@@ -183,9 +183,10 @@ sge::opencl::program::object::object(
 		error_code,
 		FCPPT_TEXT("clCreateProgramWithSource"));
 
+	// TODO: opencl exception
 	FCPPT_ASSERT_POST(
 		program_,
-		sge::exception);
+		sge::core::exception);
 
 	if(_params)
 		this->build(
@@ -266,7 +267,8 @@ sge::opencl::program::object::binaries() const
 	// program is a subset of all devices belonging to
 	// the context. We'd have to query all these devices (and the
 	// context). But I'm too lazy for that right now
-	throw sge::exception(FCPPT_TEXT("Not supported right now"));
+	// TODO: opencl exception
+	throw sge::core::exception(FCPPT_TEXT("Not supported right now"));
 
 #if 0
 	sge::opencl::program::device_blob_map result;

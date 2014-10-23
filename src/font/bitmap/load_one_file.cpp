@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/exception.hpp>
+#include <sge/core/exception.hpp>
 #include <sge/font/exception.hpp>
 #include <sge/font/unit.hpp>
 #include <sge/image2d/file.hpp>
@@ -166,7 +166,7 @@ sge::font::bitmap::load_one_file(
 				};
 	}
 	catch(
-		sge::exception const &_exception
+		sge::core::exception const &_exception
 	)
 	{
 		FCPPT_LOG_ERROR(

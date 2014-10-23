@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CAMERA_COORDINATE_SYSTEM_OBJECT_HPP_INCLUDED
 #define SGE_CAMERA_COORDINATE_SYSTEM_OBJECT_HPP_INCLUDED
 
-#include <sge/camera/symbol.hpp>
+#include <sge/camera/detail/symbol.hpp>
 #include <sge/camera/coordinate_system/forward.hpp>
 #include <sge/camera/coordinate_system/position.hpp>
 #include <sge/camera/coordinate_system/right.hpp>
@@ -42,7 +42,7 @@ namespace coordinate_system
 class object
 {
 public:
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	explicit
 	object(
 		coordinate_system::right const &,
@@ -50,38 +50,38 @@ public:
 		coordinate_system::forward const &,
 		coordinate_system::position const &);
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	coordinate_system::right const &
 	right() const;
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	void
 	right(
 		coordinate_system::right const &);
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	coordinate_system::up const &
 	up() const;
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	void
 	up(
 		coordinate_system::up const &);
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	coordinate_system::forward const &
 	forward() const;
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	void
 	forward(
 		coordinate_system::forward const &);
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	coordinate_system::position const &
 	position() const;
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	void
 	position(
 		coordinate_system::position const &);

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TEXTURE_AREA_TEXC_HPP_INCLUDED
 
 #include <sge/texture/part_fwd.hpp>
-#include <sge/texture/symbol.hpp>
+#include <sge/texture/detail/symbol.hpp>
 #include <fcppt/math/box/rect.hpp>
 #include <fcppt/math/vector/static.hpp>
 #include <fcppt/type_traits/is_float_or_double.hpp>
@@ -39,7 +39,7 @@ namespace texture
 template<
 	typename T
 >
-SGE_TEXTURE_SYMBOL
+SGE_TEXTURE_DETAIL_SYMBOL
 typename boost::enable_if<
 	fcppt::type_traits::is_float_or_double<
 		T

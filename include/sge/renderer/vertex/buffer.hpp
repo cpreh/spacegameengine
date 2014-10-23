@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VERTEX_BUFFER_HPP_INCLUDED
 #define SGE_RENDERER_VERTEX_BUFFER_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
 #include <sge/renderer/lock_mode_fwd.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/vertex/buffer_fwd.hpp>
 #include <sge/renderer/vertex/buffer_types.hpp>
 #include <sge/renderer/vf/dynamic/part_fwd.hpp>
@@ -59,13 +59,13 @@ activated.
 \see sge::renderer::device::deactivate_vertex::buffer
 \see sge::renderer::vf::part
 */
-class SGE_CLASS_SYMBOL buffer
+class SGE_CORE_DETAIL_CLASS_SYMBOL buffer
 {
 	FCPPT_NONCOPYABLE(
 		buffer
 	);
 protected:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	buffer();
 public:
 	/**
@@ -96,7 +96,7 @@ public:
 	/**
 	\brief Specifies the end of the buffer
 	*/
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	static
 	count_type const npos;
 
@@ -201,7 +201,7 @@ public:
 	sge::renderer::vf::dynamic::part_index const
 	format_part_index() const = 0;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	virtual
 	~buffer() = 0;
 };

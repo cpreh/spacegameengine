@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_KEYBOARD_CHAR_EVENT_HPP_INCLUDED
 #define SGE_INPUT_KEYBOARD_CHAR_EVENT_HPP_INCLUDED
 
-#include <sge/input/symbol.hpp>
+#include <sge/input/detail/symbol.hpp>
 #include <sge/input/keyboard/char_event_fwd.hpp>
 #include <sge/input/keyboard/char_type.hpp>
 
@@ -36,17 +36,17 @@ namespace keyboard
 class char_event
 {
 public:
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	char_event(
 		sge::input::keyboard::char_type,
 		bool repeated
 	);
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::keyboard::char_type
 	character() const;
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	bool
 	repeated() const;
 private:

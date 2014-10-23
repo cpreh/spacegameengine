@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/converter_unique_ptr.hpp>
 #include <sge/charconv/dest_encoding.hpp>
 #include <sge/charconv/source_encoding.hpp>
-#include <sge/charconv/symbol.hpp>
+#include <sge/charconv/detail/symbol.hpp>
 
 
 namespace sge
@@ -32,7 +32,7 @@ namespace sge
 namespace charconv
 {
 
-SGE_CHARCONV_SYMBOL
+SGE_CHARCONV_DETAIL_SYMBOL
 sge::charconv::converter_unique_ptr
 create_converter(
 	sge::charconv::source_encoding,

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_INPUT_MOUSE_COLLECTOR_HPP_INCLUDED
 
 #include <sge/input/processor_fwd.hpp>
-#include <sge/input/symbol.hpp>
+#include <sge/input/detail/symbol.hpp>
 #include <sge/input/mouse/axis_callback.hpp>
 #include <sge/input/mouse/axis_event_fwd.hpp>
 #include <sge/input/mouse/axis_signal.hpp>
@@ -53,31 +53,31 @@ class collector
 		collector
 	);
 public:
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	explicit
 	collector(
 		sge::input::processor &
 	);
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	~collector()
 	override;
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	fcppt::signal::auto_connection
 	axis_callback(
 		sge::input::mouse::axis_callback const &
 	)
 	override;
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	fcppt::signal::auto_connection
 	button_callback(
 		sge::input::mouse::button_callback const &
 	)
 	override;
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::mouse::info const &
 	info() const
 	override;

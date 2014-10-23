@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_FFP_MISC_PARAMETERS_HPP_INCLUDED
 #define SGE_RENDERER_STATE_FFP_MISC_PARAMETERS_HPP_INCLUDED
 
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/state/ffp/misc/enable_point_sprites.hpp>
 #include <sge/renderer/state/ffp/misc/local_viewer.hpp>
 #include <sge/renderer/state/ffp/misc/normalize_normals.hpp>
@@ -42,22 +42,22 @@ namespace misc
 class parameters
 {
 public:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	parameters(
 		sge::renderer::state::ffp::misc::enable_point_sprites,
 		sge::renderer::state::ffp::misc::local_viewer,
 		sge::renderer::state::ffp::misc::normalize_normals
 	);
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::misc::enable_point_sprites const
 	enable_point_sprites() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::misc::local_viewer const
 	local_viewer() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::misc::normalize_normals const
 	normalize_normals() const;
 private:

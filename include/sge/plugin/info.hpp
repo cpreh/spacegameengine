@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/info_fwd.hpp>
 #include <sge/plugin/min_core_version.hpp>
 #include <sge/plugin/name.hpp>
-#include <sge/plugin/symbol.hpp>
+#include <sge/plugin/detail/symbol.hpp>
 #include <sge/plugin/version.hpp>
 
 
@@ -39,7 +39,7 @@ namespace plugin
 class info
 {
 public:
-	SGE_PLUGIN_SYMBOL
+	SGE_PLUGIN_DETAIL_SYMBOL
 	info(
 		sge::plugin::name const &,
 		sge::plugin::description const &,
@@ -49,27 +49,27 @@ public:
 		sge::plugin::flags_field const &
 	);
 
-	SGE_PLUGIN_SYMBOL
+	SGE_PLUGIN_DETAIL_SYMBOL
 	sge::plugin::name const &
 	name() const;
 
-	SGE_PLUGIN_SYMBOL
+	SGE_PLUGIN_DETAIL_SYMBOL
 	sge::plugin::description const &
 	description() const;
 
-	SGE_PLUGIN_SYMBOL
+	SGE_PLUGIN_DETAIL_SYMBOL
 	sge::plugin::version const
 	version() const;
 
-	SGE_PLUGIN_SYMBOL
+	SGE_PLUGIN_DETAIL_SYMBOL
 	sge::plugin::min_core_version const
 	min_core_version() const;
 
-	SGE_PLUGIN_SYMBOL
+	SGE_PLUGIN_DETAIL_SYMBOL
 	sge::plugin::capabilities_field const &
 	capabilities() const;
 
-	SGE_PLUGIN_SYMBOL
+	SGE_PLUGIN_DETAIL_SYMBOL
 	sge::plugin::flags_field const &
 	flags() const;
 private:

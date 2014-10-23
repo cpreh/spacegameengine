@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/muxing.hpp>
 #include <sge/console/muxing_streambuf_fwd.hpp>
 #include <sge/console/object_fwd.hpp>
-#include <sge/console/symbol.hpp>
+#include <sge/console/detail/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -79,14 +79,14 @@ public:
 	streambuf_base::int_type
 	int_type;
 
-	SGE_CONSOLE_SYMBOL
+	SGE_CONSOLE_DETAIL_SYMBOL
 	muxing_streambuf(
 		std::basic_ostream<Char,Traits> &,
 		sge::console::object &,
 		sge::console::muxing
 	);
 
-	SGE_CONSOLE_SYMBOL
+	SGE_CONSOLE_DETAIL_SYMBOL
 	~muxing_streambuf()
 	override;
 private:

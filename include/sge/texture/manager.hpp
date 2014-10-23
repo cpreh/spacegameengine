@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/manager_fwd.hpp>
 #include <sge/texture/on_alloc_callback.hpp>
 #include <sge/texture/part_unique_ptr.hpp>
-#include <sge/texture/symbol.hpp>
+#include <sge/texture/detail/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <map>
@@ -45,28 +45,28 @@ class manager
 		manager
 	);
 public:
-	SGE_TEXTURE_SYMBOL
+	SGE_TEXTURE_DETAIL_SYMBOL
 	explicit
 	manager(
 		sge::texture::on_alloc_callback const &
 	);
 
-	SGE_TEXTURE_SYMBOL
+	SGE_TEXTURE_DETAIL_SYMBOL
 	~manager();
 
-	SGE_TEXTURE_SYMBOL
+	SGE_TEXTURE_DETAIL_SYMBOL
 	sge::texture::part_unique_ptr
 	add(
 		sge::image2d::view::const_object const &
 	);
 
-	SGE_TEXTURE_SYMBOL
+	SGE_TEXTURE_DETAIL_SYMBOL
 	void
 	on_alloc(
 		sge::texture::on_alloc_callback const &
 	);
 
-	SGE_TEXTURE_SYMBOL
+	SGE_TEXTURE_DETAIL_SYMBOL
 	void
 	free_empty_textures();
 private:

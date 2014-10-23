@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/cg/loaded_program_fwd.hpp>
 #include <sge/renderer/cg/scoped_program_fwd.hpp>
-#include <sge/renderer/cg/symbol.hpp>
+#include <sge/renderer/cg/detail/symbol.hpp>
 #include <sge/renderer/context/core_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -41,13 +41,13 @@ class scoped_program
 		scoped_program
 	);
 public:
-	SGE_RENDERER_CG_SYMBOL
+	SGE_RENDERER_CG_DETAIL_SYMBOL
 	scoped_program(
 		sge::renderer::context::core &,
 		sge::renderer::cg::loaded_program const &
 	);
 
-	SGE_RENDERER_CG_SYMBOL
+	SGE_RENDERER_CG_DETAIL_SYMBOL
 	~scoped_program();
 private:
 	sge::renderer::context::core &context_;

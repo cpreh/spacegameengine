@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/const_format_16.hpp>
 #include <sge/renderer/index/const_format_32.hpp>
 #include <sge/renderer/index/const_proxy_decl.hpp>
-#include <fcppt/export_symbol.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstring>
 #include <fcppt/config/external_end.hpp>
@@ -33,29 +32,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<
 	typename Format
 >
-sge::renderer::index::const_proxy<Format>::const_proxy(
+sge::renderer::index::const_proxy<
+	Format
+>::const_proxy(
 	pointer const _data
 )
 :
-	data_(_data)
+	data_{
+		_data
+	}
 {
 }
 
 template<
 	typename Format
 >
-typename sge::renderer::index::const_proxy<Format>::value_type
-sge::renderer::index::const_proxy<Format>::get() const
+typename
+sge::renderer::index::const_proxy<
+	Format
+>::value_type
+sge::renderer::index::const_proxy<
+	Format
+>::get() const
 {
 	value_type ret;
 
 	std::memcpy(
 		&ret,
 		data_,
-		sizeof(value_type)
+		sizeof(
+			value_type
+		)
 	);
 
-	return ret;
+	return
+		ret;
 }
 
 #endif

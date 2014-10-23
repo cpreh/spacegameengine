@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CEGUI_DEFAULT_FONT_HPP_INCLUDED
 #define SGE_CEGUI_DEFAULT_FONT_HPP_INCLUDED
 
-#include <sge/cegui/symbol.hpp>
+#include <sge/cegui/detail/symbol.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -36,7 +36,7 @@ namespace cegui
 class default_font
 {
 public:
-	SGE_CEGUI_SYMBOL
+	SGE_CEGUI_DETAIL_SYMBOL
 	default_font(
 		boost::filesystem::path const &,
 		float font_size

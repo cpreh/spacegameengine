@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/audio/file_unique_ptr.hpp>
 #include <sge/audio/loader_fwd.hpp>
-#include <sge/audio/symbol.hpp>
+#include <sge/audio/detail/symbol.hpp>
 #include <sge/media/const_raw_range.hpp>
 #include <sge/media/optional_extension_fwd.hpp>
 
@@ -33,7 +33,7 @@ namespace sge
 namespace audio
 {
 
-SGE_AUDIO_SYMBOL
+SGE_AUDIO_DETAIL_SYMBOL
 sge::audio::file_unique_ptr
 load_raw_exn(
 	sge::audio::loader &,

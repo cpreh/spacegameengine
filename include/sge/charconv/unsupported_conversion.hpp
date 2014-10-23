@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CHARCONV_UNSUPPORTED_CONVERSION_HPP_INCLUDED
 #define SGE_CHARCONV_UNSUPPORTED_CONVERSION_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
 #include <sge/charconv/dest_encoding.hpp>
 #include <sge/charconv/exception.hpp>
 #include <sge/charconv/source_encoding.hpp>
-#include <sge/charconv/symbol.hpp>
+#include <sge/charconv/detail/symbol.hpp>
 
 
 namespace sge
@@ -33,26 +33,26 @@ namespace sge
 namespace charconv
 {
 
-class SGE_CLASS_SYMBOL unsupported_conversion
+class SGE_CORE_DETAIL_CLASS_SYMBOL unsupported_conversion
 :
 	public sge::charconv::exception
 {
 public:
-	SGE_CHARCONV_SYMBOL
+	SGE_CHARCONV_DETAIL_SYMBOL
 	unsupported_conversion(
 		sge::charconv::source_encoding,
 		sge::charconv::dest_encoding
 	);
 
-	SGE_CHARCONV_SYMBOL
+	SGE_CHARCONV_DETAIL_SYMBOL
 	~unsupported_conversion() throw()
 	override;
 
-	SGE_CHARCONV_SYMBOL
+	SGE_CHARCONV_DETAIL_SYMBOL
 	sge::charconv::source_encoding const
 	source() const;
 
-	SGE_CHARCONV_SYMBOL
+	SGE_CHARCONV_DETAIL_SYMBOL
 	sge::charconv::dest_encoding const
 	dest() const;
 private:

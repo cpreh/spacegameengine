@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_FFP_ALPHA_TEST_PARAMETERS_HPP_INCLUDED
 #define SGE_RENDERER_STATE_FFP_ALPHA_TEST_PARAMETERS_HPP_INCLUDED
 
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/state/ffp/alpha_test/parameters_fwd.hpp>
 #include <sge/renderer/state/ffp/alpha_test/variant.hpp>
 
@@ -40,13 +40,13 @@ namespace alpha_test
 class parameters
 {
 public:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	explicit
 	parameters(
 		sge::renderer::state::ffp::alpha_test::variant const &
 	);
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::alpha_test::variant const &
 	variant() const;
 private:

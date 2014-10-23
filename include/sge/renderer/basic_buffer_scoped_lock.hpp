@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/view/object.hpp>
 #include <sge/renderer/basic_buffer_scoped_lock_fwd.hpp>
 #include <sge/renderer/lock_mode_fwd.hpp>
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -65,7 +65,7 @@ public:
 
 	\warning The behavior is undefined if the buffer is already locked
 	*/
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	basic_buffer_scoped_lock(
 		buffer_type &buffer,
 		sge::renderer::lock_mode mode
@@ -86,7 +86,7 @@ public:
 
 	\warning The behavior is undefined if \a area is out of range
 	*/
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	basic_buffer_scoped_lock(
 		buffer_type &buffer,
 		lock_area const &area,
@@ -98,7 +98,7 @@ public:
 
 	\return The view of the locked region
 	*/
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	view const
 	value() const;
 
@@ -108,7 +108,7 @@ public:
 	\warning The behavior is undefined if the buffer has been locked again
 	or unlocked in between the constructor and destructor
 	*/
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	~basic_buffer_scoped_lock();
 private:
 	buffer_type &buffer_;

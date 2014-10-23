@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_POSTPROCESSING_CONTEXT_HPP_INCLUDED
 
 #include <sge/postprocessing/fullscreen_quad.hpp>
-#include <sge/postprocessing/symbol.hpp>
+#include <sge/postprocessing/detail/symbol.hpp>
 #include <sge/renderer/context/scoped_core_unique_ptr.hpp>
 #include <sge/renderer/depth_stencil_buffer/surface_unique_ptr.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
@@ -48,25 +48,25 @@ class context
 FCPPT_NONCOPYABLE(
 	context);
 public:
-	SGE_POSTPROCESSING_SYMBOL
+	SGE_POSTPROCESSING_DETAIL_SYMBOL
 	context(
 		sge::renderer::device::core &,
 		sge::viewport::manager &,
 		sge::shader::context &);
 
-	SGE_POSTPROCESSING_SYMBOL
+	SGE_POSTPROCESSING_DETAIL_SYMBOL
 	sge::renderer::context::scoped_core_unique_ptr
 	create_render_context();
 
-	SGE_POSTPROCESSING_SYMBOL
+	SGE_POSTPROCESSING_DETAIL_SYMBOL
 	void
 	render();
 
-	SGE_POSTPROCESSING_SYMBOL
+	SGE_POSTPROCESSING_DETAIL_SYMBOL
 	sge::renderer::context::scoped_core_unique_ptr
 	render_and_return_overlay();
 
-	SGE_POSTPROCESSING_SYMBOL
+	SGE_POSTPROCESSING_DETAIL_SYMBOL
 	~context();
 private:
 	sge::renderer::device::core &renderer_;

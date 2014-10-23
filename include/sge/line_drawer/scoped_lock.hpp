@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/line_drawer/line_sequence.hpp>
 #include <sge/line_drawer/object_fwd.hpp>
 #include <sge/line_drawer/scoped_lock_fwd.hpp>
-#include <sge/line_drawer/symbol.hpp>
+#include <sge/line_drawer/detail/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -39,17 +39,17 @@ class scoped_lock
 		scoped_lock
 	);
 public:
-	SGE_LINE_DRAWER_SYMBOL
+	SGE_LINE_DRAWER_DETAIL_SYMBOL
 	explicit
 	scoped_lock(
 		sge::line_drawer::object &
 	);
 
-	SGE_LINE_DRAWER_SYMBOL
+	SGE_LINE_DRAWER_DETAIL_SYMBOL
 	sge::line_drawer::line_sequence &
 	value() const;
 
-	SGE_LINE_DRAWER_SYMBOL
+	SGE_LINE_DRAWER_DETAIL_SYMBOL
 	~scoped_lock();
 private:
 	sge::line_drawer::object &object_;

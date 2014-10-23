@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGEDS2D_ALGORITHM_COPY_HPP_INCLUDED
 
 #include <sge/image/algorithm/may_overlap_fwd.hpp>
-#include <sge/imageds2d/symbol.hpp>
+#include <sge/imageds2d/detail/symbol.hpp>
 #include <sge/imageds2d/view/const_object_fwd.hpp>
 #include <sge/imageds2d/view/object_fwd.hpp>
 
@@ -34,7 +34,7 @@ namespace imageds2d
 namespace algorithm
 {
 
-SGE_IMAGEDS2D_SYMBOL
+SGE_IMAGEDS2D_DETAIL_SYMBOL
 void
 copy(
 	sge::imageds2d::view::const_object const &src,

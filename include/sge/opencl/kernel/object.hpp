@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENCL_KERNEL_OBJECT_HPP_INCLUDED
 
 #include <sge/opencl/clinclude.hpp>
-#include <sge/opencl/symbol.hpp>
+#include <sge/opencl/detail/symbol.hpp>
 #include <sge/opencl/device/object_fwd.hpp>
 #include <sge/opencl/kernel/argument_index.hpp>
 #include <sge/opencl/kernel/local_buffer_fwd.hpp>
@@ -48,43 +48,43 @@ class object
 FCPPT_NONCOPYABLE(
 	object);
 public:
-	SGE_OPENCL_SYMBOL explicit
+	SGE_OPENCL_DETAIL_SYMBOL explicit
 	object(
 		program::object &,
 		kernel::name const &);
 
-	SGE_OPENCL_SYMBOL void
+	SGE_OPENCL_DETAIL_SYMBOL void
 	argument(
 		kernel::argument_index const &,
 		memory_object::base &);
 
-	SGE_OPENCL_SYMBOL void
+	SGE_OPENCL_DETAIL_SYMBOL void
 	argument(
 		kernel::argument_index const &,
 		kernel::numeric_type const &);
 
-	SGE_OPENCL_SYMBOL void
+	SGE_OPENCL_DETAIL_SYMBOL void
 	argument(
 		kernel::argument_index const &,
 		unsigned char const *,
 		memory_object::byte_size const &);
 
-	SGE_OPENCL_SYMBOL void
+	SGE_OPENCL_DETAIL_SYMBOL void
 	argument(
 		kernel::argument_index const &,
 		kernel::local_buffer const &);
 
-	SGE_OPENCL_SYMBOL std::size_t
+	SGE_OPENCL_DETAIL_SYMBOL std::size_t
 	work_group_size(
 		opencl::device::object &) const;
 
-	SGE_OPENCL_SYMBOL kernel::name::value_type
+	SGE_OPENCL_DETAIL_SYMBOL kernel::name::value_type
 	name() const;
 
-	SGE_OPENCL_SYMBOL cl_kernel
+	SGE_OPENCL_DETAIL_SYMBOL cl_kernel
 	impl();
 
-	SGE_OPENCL_SYMBOL ~object();
+	SGE_OPENCL_DETAIL_SYMBOL ~object();
 private:
 	kernel::name::value_type name_;
 	cl_kernel kernel_;

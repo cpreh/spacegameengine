@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_CORE_BLEND_SCOPED_HPP_INCLUDED
 #define SGE_RENDERER_STATE_CORE_BLEND_SCOPED_HPP_INCLUDED
 
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/context/core_fwd.hpp>
 #include <sge/renderer/state/core/blend/object_fwd.hpp>
 #include <sge/renderer/state/core/blend/scoped_fwd.hpp>
@@ -45,13 +45,13 @@ class scoped
 		scoped
 	);
 public:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	scoped(
 		sge::renderer::context::core &,
 		sge::renderer::state::core::blend::object const &
 	);
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	~scoped();
 private:
 	sge::renderer::context::core &context_;

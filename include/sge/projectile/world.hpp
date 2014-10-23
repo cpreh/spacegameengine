@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/projectile/fixed_timestep.hpp>
 #include <sge/projectile/maximum_substeps.hpp>
 #include <sge/projectile/scalar.hpp>
-#include <sge/projectile/symbol.hpp>
+#include <sge/projectile/detail/symbol.hpp>
 #include <sge/projectile/time_increment.hpp>
 #include <sge/projectile/body/collision.hpp>
 #include <sge/projectile/body/collision_fn.hpp>
@@ -59,54 +59,54 @@ class world
 FCPPT_NONCOPYABLE(
 	world);
 public:
-	SGE_PROJECTILE_SYMBOL
+	SGE_PROJECTILE_DETAIL_SYMBOL
 	world();
 
-	SGE_PROJECTILE_SYMBOL void
+	SGE_PROJECTILE_DETAIL_SYMBOL void
 	update_discrete(
 		time_increment const &,
 		fixed_timestep const &,
 		maximum_substeps const &);
 
-	SGE_PROJECTILE_SYMBOL void
+	SGE_PROJECTILE_DETAIL_SYMBOL void
 	update_continuous(
 		time_increment const &);
 
-	SGE_PROJECTILE_SYMBOL void
+	SGE_PROJECTILE_DETAIL_SYMBOL void
 	make_groups_collide(
 		group::object &,
 		group::object &);
 
-	SGE_PROJECTILE_SYMBOL fcppt::signal::auto_connection
+	SGE_PROJECTILE_DETAIL_SYMBOL fcppt::signal::auto_connection
 	body_collision(
 		body::collision const &);
 
-	SGE_PROJECTILE_SYMBOL void
+	SGE_PROJECTILE_DETAIL_SYMBOL void
 	add_body(
 		body::object &,
 		group::sequence const &);
 
-	SGE_PROJECTILE_SYMBOL void
+	SGE_PROJECTILE_DETAIL_SYMBOL void
 	remove_body(
 		body::object &);
 
-	SGE_PROJECTILE_SYMBOL void
+	SGE_PROJECTILE_DETAIL_SYMBOL void
 	add_ghost(
 		ghost::object &,
 		group::sequence const &);
 
-	SGE_PROJECTILE_SYMBOL void
+	SGE_PROJECTILE_DETAIL_SYMBOL void
 	remove_ghost(
 		ghost::object &);
 
-	SGE_PROJECTILE_SYMBOL
+	SGE_PROJECTILE_DETAIL_SYMBOL
 	bool
 	collides(
 		sge::projectile::body::object const &,
 		sge::projectile::body::object const &
 	) const;
 
-	SGE_PROJECTILE_SYMBOL ~world();
+	SGE_PROJECTILE_DETAIL_SYMBOL ~world();
 private:
 	friend class sge::projectile::group::object;
 	friend class sge::projectile::detail::debug_drawer_impl;

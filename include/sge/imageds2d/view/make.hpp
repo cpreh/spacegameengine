@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/ds/format_fwd.hpp>
 #include <sge/imageds2d/dim_fwd.hpp>
 #include <sge/imageds2d/pitch_fwd.hpp>
-#include <sge/imageds2d/symbol.hpp>
+#include <sge/imageds2d/detail/symbol.hpp>
 #include <sge/imageds2d/view/object_fwd.hpp>
 
 
@@ -36,7 +36,7 @@ namespace imageds2d
 namespace view
 {
 
-SGE_IMAGEDS2D_SYMBOL
+SGE_IMAGEDS2D_DETAIL_SYMBOL
 sge::imageds2d::view::object const
 make(
 	sge::image::raw_pointer,

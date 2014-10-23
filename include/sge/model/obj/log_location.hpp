@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MODEL_OBJ_LOG_LOCATION_HPP_INCLUDED
 #define SGE_MODEL_OBJ_LOG_LOCATION_HPP_INCLUDED
 
-#include <sge/model/obj/symbol.hpp>
+#include <sge/model/obj/detail/symbol.hpp>
 #include <fcppt/log/location.hpp>
 
 
@@ -32,7 +32,7 @@ namespace model
 namespace obj
 {
 
-SGE_MODEL_OBJ_SYMBOL
+SGE_MODEL_OBJ_DETAIL_SYMBOL
 fcppt::log::location
 log_location();
 

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_LOG_OPTION_HPP_INCLUDED
 
 #include <sge/log/option_fwd.hpp>
-#include <sge/log/symbol.hpp>
+#include <sge/log/detail/symbol.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/log/location.hpp>
 
@@ -35,7 +35,7 @@ namespace log
 class option
 {
 public:
-	SGE_LOG_SYMBOL
+	SGE_LOG_DETAIL_SYMBOL
 	option(
 		fcppt::log::location const &,
 		fcppt::log::level

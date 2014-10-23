@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/const_raw_pointer.hpp>
 #include <sge/renderer/raw_pointer.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/index/dynamic/basic_view_fwd.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -55,22 +55,22 @@ public:
 
 	typedef renderer::size_type size_type;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	basic_view(
 		pointer,
 		size_type,
 		sge::renderer::index::dynamic::format
 	);
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	pointer
 	data() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	size_type
 	size() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::index::dynamic::format
 	format() const;
 private:

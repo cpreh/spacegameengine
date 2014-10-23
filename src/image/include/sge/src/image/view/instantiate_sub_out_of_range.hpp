@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/box.hpp>
 #include <sge/image/traits/box_fwd.hpp>
-#include <sge/src/export_class_instantiation.hpp>
+#include <sge/src/core/export_class_instantiation.hpp>
 #include <sge/src/image/view/sub_out_of_range_impl.hpp>
 
 
@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 )\
 template \
 class \
-SGE_EXPORT_CLASS_INSTANTIATION \
+SGE_CORE_EXPORT_CLASS_INSTANTIATION \
 sge::image::view::sub_out_of_range<\
 	sge::image::traits::box<\
 		tag\

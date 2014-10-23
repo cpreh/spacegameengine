@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VERTEX_SCOPED_DECLARATION_HPP_INCLUDED
 #define SGE_RENDERER_VERTEX_SCOPED_DECLARATION_HPP_INCLUDED
 
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/context/core_fwd.hpp>
 #include <sge/renderer/vertex/declaration_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -54,7 +54,7 @@ public:
 
 	\param vertex_declaration The vertex declaration to set
 	*/
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	scoped_declaration(
 		sge::renderer::context::core &context,
 		sge::renderer::vertex::declaration const &vertex_declaration
@@ -63,7 +63,7 @@ public:
 	/**
 	\brief Unsets the vertex declaration
 	*/
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	~scoped_declaration();
 private:
 	sge::renderer::context::core &context_;

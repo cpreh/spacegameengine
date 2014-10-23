@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/const_raw_pointer.hpp>
 #include <sge/image/raw_pointer.hpp>
-#include <sge/image3d/symbol.hpp>
+#include <sge/image3d/detail/symbol.hpp>
 #include <sge/image3d/view/const_object_fwd.hpp>
 #include <sge/image3d/view/object_fwd.hpp>
 
@@ -35,13 +35,13 @@ namespace image3d
 namespace view
 {
 
-SGE_IMAGE3D_SYMBOL
+SGE_IMAGE3D_DETAIL_SYMBOL
 image::raw_pointer
 data(
 	view::object const &
 );
 
-SGE_IMAGE3D_SYMBOL
+SGE_IMAGE3D_DETAIL_SYMBOL
 image::const_raw_pointer
 data(
 	view::const_object const &

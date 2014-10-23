@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VF_DYNAMIC_LOCKED_PART_HPP_INCLUDED
 
 #include <sge/renderer/raw_pointer.hpp>
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/first.hpp>
@@ -41,7 +41,7 @@ namespace dynamic
 class locked_part
 {
 public:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	locked_part(
 		sge::renderer::raw_pointer,
 		sge::renderer::vertex::first,
@@ -49,19 +49,19 @@ public:
 		sge::renderer::lock_flags::method
 	);
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::raw_pointer
 	data() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::vertex::first const
 	pos() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::vertex::count const
 	count() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::lock_flags::method
 	lock_flags() const;
 private:

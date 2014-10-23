@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_JSON_IS_NULL_HPP_INCLUDED
 #define SGE_PARSE_JSON_IS_NULL_HPP_INCLUDED
 
-#include <sge/parse/json/symbol.hpp>
+#include <sge/parse/json/detail/symbol.hpp>
 #include <sge/parse/json/value_fwd.hpp>
 
 
@@ -32,7 +32,7 @@ namespace parse
 namespace json
 {
 
-SGE_PARSE_JSON_SYMBOL bool
+SGE_PARSE_JSON_DETAIL_SYMBOL bool
 is_null(
 	sge::parse::json::value const &
 );

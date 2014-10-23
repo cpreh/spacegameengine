@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image2d/file_fwd.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/texture/emulate_srgb_fwd.hpp>
 #include <sge/renderer/texture/planar_unique_ptr.hpp>
@@ -37,7 +37,7 @@ namespace renderer
 namespace texture
 {
 
-SGE_RENDERER_SYMBOL
+SGE_RENDERER_DETAIL_SYMBOL
 sge::renderer::texture::planar_unique_ptr
 create_planar_from_file(
 	sge::renderer::device::core &,

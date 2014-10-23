@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_CORE_DEPTH_STENCIL_DEPTH_ENABLED_HPP_INCLUDED
 #define SGE_RENDERER_STATE_CORE_DEPTH_STENCIL_DEPTH_ENABLED_HPP_INCLUDED
 
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/state/core/depth_stencil/depth/enabled_fwd.hpp>
 #include <sge/renderer/state/core/depth_stencil/depth/func.hpp>
 #include <sge/renderer/state/core/depth_stencil/depth/write_enable.hpp>
@@ -43,17 +43,17 @@ namespace depth
 class enabled
 {
 public:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	enabled(
 		sge::renderer::state::core::depth_stencil::depth::func,
 		sge::renderer::state::core::depth_stencil::depth::write_enable
 	);
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::depth_stencil::depth::func
 	func() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::depth_stencil::depth::write_enable const
 	write_enable() const;
 private:

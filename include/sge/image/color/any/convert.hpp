@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_COLOR_ANY_CONVERT_HPP_INCLUDED
 
 #include <sge/image/mizuiro_color_fwd.hpp>
-#include <sge/image/color/symbol.hpp>
+#include <sge/image/color/detail/symbol.hpp>
 #include <sge/image/color/any/object_fwd.hpp>
 
 
@@ -38,7 +38,7 @@ namespace any
 template<
 	typename Dest
 >
-SGE_IMAGE_COLOR_SYMBOL
+SGE_IMAGE_COLOR_DETAIL_SYMBOL
 sge::image::mizuiro_color<
 	Dest
 > const

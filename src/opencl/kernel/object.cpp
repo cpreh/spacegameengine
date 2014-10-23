@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/exception.hpp>
+#include <sge/core/exception.hpp>
 #include <sge/opencl/device/object.hpp>
 #include <sge/opencl/kernel/local_buffer.hpp>
 #include <sge/opencl/kernel/object.hpp>
@@ -54,7 +54,8 @@ sge::opencl::kernel::object::object(
 
 	if(error_code == CL_INVALID_KERNEL_NAME)
 		throw
-			sge::exception(
+			// TODO: opencl exception
+			sge::core::exception(
 				FCPPT_TEXT("The kernel name \"")+
 				fcppt::from_std_string(
 					_name.get())+
@@ -159,7 +160,8 @@ public:
 			return;
 
 		if(error_code == CL_INVALID_ARG_SIZE)
-			throw sge::exception(
+			// TODO: opencl exception
+			throw sge::core::exception(
 				FCPPT_TEXT("Kernel \"")+
 				fcppt::from_std_string(
 					name_)+

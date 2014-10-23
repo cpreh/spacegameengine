@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_SOUND_BASE_HPP_INCLUDED
 #define SGE_AUDIO_SOUND_BASE_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
 #include <sge/audio/scalar.hpp>
-#include <sge/audio/symbol.hpp>
+#include <sge/audio/detail/symbol.hpp>
 #include <sge/audio/sound/play_status_fwd.hpp>
 #include <sge/audio/sound/repeat_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -44,7 +44,7 @@ namespace sound
  * For an introduction to the sounds, see \ref audio_overview and \ref
  * audio_example and \ref audio_positional.
  */
-class SGE_CLASS_SYMBOL base
+class SGE_CORE_DETAIL_CLASS_SYMBOL base
 {
 	FCPPT_NONCOPYABLE(
 		base
@@ -129,12 +129,12 @@ public:
 	update() = 0;
 
 	/** \virtualdtor */
-	SGE_AUDIO_SYMBOL
+	SGE_AUDIO_DETAIL_SYMBOL
 	virtual
 	~base() = 0;
 protected:
 	/** \protectedctor */
-	SGE_AUDIO_SYMBOL
+	SGE_AUDIO_DETAIL_SYMBOL
 	base();
 };
 

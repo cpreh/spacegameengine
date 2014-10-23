@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_DYNAMIC_ORDERED_ELEMENT_HPP_INCLUDED
 #define SGE_RENDERER_VF_DYNAMIC_ORDERED_ELEMENT_HPP_INCLUDED
 
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/vf/dynamic/element.hpp>
 #include <sge/renderer/vf/dynamic/offset.hpp>
 #include <sge/renderer/vf/dynamic/ordered_element_fwd.hpp>
@@ -39,17 +39,17 @@ namespace dynamic
 class ordered_element
 {
 public:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	ordered_element(
 		sge::renderer::vf::dynamic::element const &,
 		sge::renderer::vf::dynamic::offset
 	);
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::vf::dynamic::element const &
 	element() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::vf::dynamic::offset const
 	offset() const;
 private:

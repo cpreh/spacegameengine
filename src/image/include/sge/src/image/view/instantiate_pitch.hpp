@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_IMAGE_VIEW_INSTANTIATE_PITCH_HPP_INCLUDED
 
 #include <sge/image/traits/pitch_fwd.hpp>
-#include <sge/src/export_function_instantiation.hpp>
+#include <sge/src/core/export_function_instantiation.hpp>
 #include <sge/src/image/view/instantiate_const_nonconst.hpp>
 #include <sge/src/image/view/pitch_impl.hpp>
 
@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	view_type\
 )\
 template \
-SGE_EXPORT_FUNCTION_INSTANTIATION \
+SGE_CORE_EXPORT_FUNCTION_INSTANTIATION \
 sge::image::traits::pitch<\
 	tag\
 >::type const \

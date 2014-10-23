@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/console/long_description.hpp>
 #include <sge/console/short_description.hpp>
-#include <sge/console/symbol.hpp>
+#include <sge/console/detail/symbol.hpp>
 #include <sge/console/callback/function.hpp>
 #include <sge/console/callback/name.hpp>
 #include <sge/font/string.hpp>
@@ -43,37 +43,37 @@ class parameters
 		parameters
 	);
 public:
-	SGE_CONSOLE_SYMBOL
+	SGE_CONSOLE_DETAIL_SYMBOL
 	parameters(
 		sge::console::callback::function const &,
 		sge::console::callback::name const &
 	);
 
-	SGE_CONSOLE_SYMBOL
+	SGE_CONSOLE_DETAIL_SYMBOL
 	sge::console::callback::parameters &
 	short_description(
 		sge::font::string const &
 	);
 
-	SGE_CONSOLE_SYMBOL
+	SGE_CONSOLE_DETAIL_SYMBOL
 	sge::console::callback::parameters &
 	long_description(
 		sge::font::string const &
 	);
 
-	SGE_CONSOLE_SYMBOL
+	SGE_CONSOLE_DETAIL_SYMBOL
 	sge::console::callback::function const &
 	function() const;
 
-	SGE_CONSOLE_SYMBOL
+	SGE_CONSOLE_DETAIL_SYMBOL
 	sge::font::string const &
 	name() const;
 
-	SGE_CONSOLE_SYMBOL
+	SGE_CONSOLE_DETAIL_SYMBOL
 	sge::console::short_description const &
 	short_description() const;
 
-	SGE_CONSOLE_SYMBOL
+	SGE_CONSOLE_DETAIL_SYMBOL
 	sge::console::long_description const &
 	long_description() const;
 private:

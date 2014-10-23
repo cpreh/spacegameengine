@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CAMERA_PERSPECTIVE_PROJECTION_FROM_VIEWPORT_HPP_INCLUDED
 
 #include <sge/camera/has_mutable_projection_fwd.hpp>
-#include <sge/camera/symbol.hpp>
+#include <sge/camera/detail/symbol.hpp>
 #include <sge/renderer/projection/far.hpp>
 #include <sge/renderer/projection/fov.hpp>
 #include <sge/renderer/projection/near.hpp>
@@ -41,7 +41,7 @@ class perspective_projection_from_viewport
 FCPPT_NONCOPYABLE(
 	perspective_projection_from_viewport);
 public:
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	perspective_projection_from_viewport(
 		sge::camera::has_mutable_projection &,
 		sge::viewport::manager &,
@@ -49,7 +49,7 @@ public:
 		sge::renderer::projection::far const &,
 		sge::renderer::projection::fov const &);
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	~perspective_projection_from_viewport();
 private:
 	sge::camera::has_mutable_projection &camera_;

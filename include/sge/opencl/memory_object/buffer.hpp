@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENCL_MEMORY_OBJECT_BUFFER_HPP_INCLUDED
 
 #include <sge/opencl/clinclude.hpp>
-#include <sge/opencl/symbol.hpp>
+#include <sge/opencl/detail/symbol.hpp>
 #include <sge/opencl/context/object_fwd.hpp>
 #include <sge/opencl/memory_object/base.hpp>
 #include <sge/opencl/memory_object/byte_size.hpp>
@@ -45,26 +45,26 @@ class buffer
 FCPPT_NONCOPYABLE(
 	buffer);
 public:
-	SGE_OPENCL_SYMBOL explicit
+	SGE_OPENCL_DETAIL_SYMBOL explicit
 	buffer(
 		opencl::context::object &,
 		memory_object::flags_field const &,
 		memory_object::byte_size const &);
 
-	SGE_OPENCL_SYMBOL explicit
+	SGE_OPENCL_DETAIL_SYMBOL explicit
 	buffer(
 		opencl::context::object &,
 		sge::renderer::vertex::buffer &,
 		memory_object::renderer_buffer_lock_mode);
 
-	SGE_OPENCL_SYMBOL cl_mem
+	SGE_OPENCL_DETAIL_SYMBOL cl_mem
 	impl()
 	override;
 
-	SGE_OPENCL_SYMBOL memory_object::byte_size const
+	SGE_OPENCL_DETAIL_SYMBOL memory_object::byte_size const
 	byte_size() const;
 
-	SGE_OPENCL_SYMBOL ~buffer()
+	SGE_OPENCL_DETAIL_SYMBOL ~buffer()
 	override;
 private:
 	cl_mem impl_;

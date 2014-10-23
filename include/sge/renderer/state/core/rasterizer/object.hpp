@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_CORE_RASTERIZER_OBJECT_HPP_INCLUDED
 #define SGE_RENDERER_STATE_CORE_RASTERIZER_OBJECT_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
-#include <sge/renderer/symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/state/core/rasterizer/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -38,16 +38,16 @@ namespace core
 namespace rasterizer
 {
 
-class SGE_CLASS_SYMBOL object
+class SGE_CORE_DETAIL_CLASS_SYMBOL object
 {
 	FCPPT_NONCOPYABLE(
 		object
 	);
 protected:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	object();
 public:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	virtual
 	~object() = 0;
 };

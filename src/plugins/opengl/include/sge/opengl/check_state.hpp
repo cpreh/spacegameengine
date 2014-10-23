@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_CHECK_STATE_HPP_INCLUDED
 #define SGE_OPENGL_CHECK_STATE_HPP_INCLUDED
 
-#include <sge/error/check_state.hpp>
+#include <sge/core/check_state.hpp>
 #include <sge/opengl/check_state_always.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/error_string.hpp>
@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	message,\
 	exception\
 )\
-SGE_ERROR_CHECK_STATE(\
+SGE_CORE_CHECK_STATE(\
 	exception,\
 	message,\
 	GLenum,\

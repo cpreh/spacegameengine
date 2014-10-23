@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/renderer/vertex/declaration_fwd.hpp>
-#include <sge/scenic/symbol.hpp>
+#include <sge/scenic/detail/symbol.hpp>
 #include <sge/scenic/render_context/manager_base.hpp>
 #include <sge/scenic/render_context/ffp/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -44,20 +44,20 @@ class manager
 FCPPT_NONCOPYABLE(
 	manager);
 public:
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	manager(
 		sge::renderer::device::ffp &,
 		sge::renderer::vertex::declaration &
 	);
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::render_context::base_unique_ptr
 	create_context(
 		sge::renderer::context::core &
 	)
 	override;
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	~manager()
 	override;
 private:

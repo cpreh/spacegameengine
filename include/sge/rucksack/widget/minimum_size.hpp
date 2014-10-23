@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RUCKSACK_WIDGET_MINIMUM_SIZE_HPP_INCLUDED
 #define SGE_RUCKSACK_WIDGET_MINIMUM_SIZE_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
 #include <sge/rucksack/axis_policy2_fwd.hpp>
 #include <sge/rucksack/dim_fwd.hpp>
-#include <sge/rucksack/symbol.hpp>
+#include <sge/rucksack/detail/symbol.hpp>
 #include <sge/rucksack/vector_fwd.hpp>
 #include <sge/rucksack/widget/base.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -37,7 +37,7 @@ namespace rucksack
 namespace widget
 {
 
-class SGE_CLASS_SYMBOL minimum_size
+class SGE_CORE_DETAIL_CLASS_SYMBOL minimum_size
 :
 	public sge::rucksack::widget::base
 {
@@ -45,47 +45,47 @@ class SGE_CLASS_SYMBOL minimum_size
 		minimum_size
 	);
 public:
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	explicit
 	minimum_size(
 		sge::rucksack::widget::base &
 	);
 
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	void
 	size(
 		sge::rucksack::dim const &
 	)
 	override;
 
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	void
 	position(
 		sge::rucksack::vector const &
 	)
 	override;
 
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	sge::rucksack::dim const
 	size() const
 	override;
 
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	sge::rucksack::vector const
 	position() const
 	override;
 
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	sge::rucksack::axis_policy2 const
 	axis_policy() const
 	override;
 
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	void
 	relayout()
 	override;
 
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	~minimum_size()
 	override;
 private:

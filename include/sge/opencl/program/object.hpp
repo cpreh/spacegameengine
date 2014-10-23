@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENCL_PROGRAM_OBJECT_HPP_INCLUDED
 
 #include <sge/opencl/clinclude.hpp>
-#include <sge/opencl/symbol.hpp>
+#include <sge/opencl/detail/symbol.hpp>
 #include <sge/opencl/context/object_fwd.hpp>
 #include <sge/opencl/kernel/object_fwd.hpp>
 #include <sge/opencl/program/build_parameters_fwd.hpp>
@@ -46,29 +46,29 @@ class object
 FCPPT_NONCOPYABLE(
 	object);
 public:
-	SGE_OPENCL_SYMBOL
+	SGE_OPENCL_DETAIL_SYMBOL
 	object(
 		sge::opencl::context::object &,
 		sge::opencl::program::device_blob_map const &,
 		sge::opencl::program::optional_build_parameters const &);
 
-	SGE_OPENCL_SYMBOL
+	SGE_OPENCL_DETAIL_SYMBOL
 	object(
 		sge::opencl::context::object &,
 		sge::opencl::program::source_string_sequence const &,
 		sge::opencl::program::optional_build_parameters const &);
 
-	SGE_OPENCL_SYMBOL cl_program
+	SGE_OPENCL_DETAIL_SYMBOL cl_program
 	impl() const;
 
-	SGE_OPENCL_SYMBOL void
+	SGE_OPENCL_DETAIL_SYMBOL void
 	build(
 		sge::opencl::program::build_parameters const &);
 
-	SGE_OPENCL_SYMBOL sge::opencl::program::device_blob_map const
+	SGE_OPENCL_DETAIL_SYMBOL sge::opencl::program::device_blob_map const
 	binaries() const;
 
-	SGE_OPENCL_SYMBOL ~object();
+	SGE_OPENCL_DETAIL_SYMBOL ~object();
 private:
 	friend class sge::opencl::kernel::object;
 

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_CURSOR_RELATIVE_MOVEMENT_HPP_INCLUDED
 #define SGE_INPUT_CURSOR_RELATIVE_MOVEMENT_HPP_INCLUDED
 
-#include <sge/input/symbol.hpp>
+#include <sge/input/detail/symbol.hpp>
 #include <sge/input/cursor/move_event_fwd.hpp>
 #include <sge/input/cursor/object_fwd.hpp>
 #include <sge/input/cursor/optional_position.hpp>
@@ -48,16 +48,16 @@ class relative_movement
 		relative_movement
 	);
 public:
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	explicit
 	relative_movement(
 		sge::input::cursor::object &
 	);
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	~relative_movement();
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	fcppt::signal::auto_connection
 	relative_move_callback(
 		sge::input::cursor::relative_move_callback const &

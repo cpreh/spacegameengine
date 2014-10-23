@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_FONT_FROM_FCPPT_STRING_HPP_INCLUDED
 
 #include <sge/font/string.hpp>
-#include <sge/font/symbol.hpp>
+#include <sge/font/detail/symbol.hpp>
 #include <fcppt/string.hpp>
 
 
@@ -31,7 +31,7 @@ namespace sge
 namespace font
 {
 
-SGE_FONT_SYMBOL
+SGE_FONT_DETAIL_SYMBOL
 sge::font::string
 from_fcppt_string(
 	fcppt::string const &

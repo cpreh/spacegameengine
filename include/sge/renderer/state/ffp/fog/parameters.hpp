@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_FFP_FOG_PARAMETERS_HPP_INCLUDED
 #define SGE_RENDERER_STATE_FFP_FOG_PARAMETERS_HPP_INCLUDED
 
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/state/ffp/fog/parameters_fwd.hpp>
 #include <sge/renderer/state/ffp/fog/variant.hpp>
 
@@ -40,13 +40,13 @@ namespace fog
 class parameters
 {
 public:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	explicit
 	parameters(
 		sge::renderer::state::ffp::fog::variant const &
 	);
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::fog::variant const &
 	variant() const;
 private:

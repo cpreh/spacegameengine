@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_CG_LOADED_TEXTURE_HPP_INCLUDED
 
 #include <sge/renderer/cg/loaded_texture_fwd.hpp>
-#include <sge/renderer/cg/symbol.hpp>
+#include <sge/renderer/cg/detail/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -39,10 +39,10 @@ class loaded_texture
 		loaded_texture
 	);
 protected:
-	SGE_RENDERER_CG_SYMBOL
+	SGE_RENDERER_CG_DETAIL_SYMBOL
 	loaded_texture();
 public:
-	SGE_RENDERER_CG_SYMBOL
+	SGE_RENDERER_CG_DETAIL_SYMBOL
 	virtual
 	~loaded_texture() = 0;
 };

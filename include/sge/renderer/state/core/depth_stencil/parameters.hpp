@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_CORE_DEPTH_STENCIL_PARAMETERS_HPP_INCLUDED
 #define SGE_RENDERER_STATE_CORE_DEPTH_STENCIL_PARAMETERS_HPP_INCLUDED
 
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/state/core/depth_stencil/parameters_fwd.hpp>
 #include <sge/renderer/state/core/depth_stencil/depth/variant.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/variant.hpp>
@@ -41,17 +41,17 @@ namespace depth_stencil
 class parameters
 {
 public:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	parameters(
 		sge::renderer::state::core::depth_stencil::depth::variant const &,
 		sge::renderer::state::core::depth_stencil::stencil::variant const &
 	);
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::depth_stencil::depth::variant const &
 	depth_variant() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::depth_stencil::stencil::variant const &
 	stencil_variant() const;
 private:

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/line_drawer/line_sequence.hpp>
 #include <sge/line_drawer/scoped_lock_fwd.hpp>
-#include <sge/line_drawer/symbol.hpp>
+#include <sge/line_drawer/detail/symbol.hpp>
 #include <sge/renderer/context/core_fwd.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/state/core/blend/object_unique_ptr.hpp>
@@ -41,15 +41,15 @@ class object
 FCPPT_NONCOPYABLE(
 	object);
 public:
-	SGE_LINE_DRAWER_SYMBOL explicit
+	SGE_LINE_DRAWER_DETAIL_SYMBOL explicit
 	object(
 		sge::renderer::device::core &);
 
-	SGE_LINE_DRAWER_SYMBOL void
+	SGE_LINE_DRAWER_DETAIL_SYMBOL void
 	render(
 		sge::renderer::context::core &);
 
-	SGE_LINE_DRAWER_SYMBOL ~object();
+	SGE_LINE_DRAWER_DETAIL_SYMBOL ~object();
 private:
 	friend class sge::line_drawer::scoped_lock;
 

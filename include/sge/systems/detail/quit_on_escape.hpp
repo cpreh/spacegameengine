@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SYSTEMS_DETAIL_QUIT_ON_ESCAPE_HPP_INCLUDED
 
 #include <sge/input/keyboard/device_fwd.hpp>
-#include <sge/systems/symbol.hpp>
+#include <sge/systems/detail/symbol.hpp>
 #include <sge/window/system_fwd.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
 
@@ -34,7 +34,7 @@ namespace systems
 namespace detail
 {
 
-SGE_SYSTEMS_SYMBOL
+SGE_SYSTEMS_DETAIL_SYMBOL
 fcppt::signal::auto_connection
 quit_on_escape(
 	sge::input::keyboard::device &,

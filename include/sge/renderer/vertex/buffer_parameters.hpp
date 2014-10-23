@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VERTEX_BUFFER_PARAMETERS_HPP_INCLUDED
 
 #include <sge/renderer/resource_flags_field.hpp>
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/vertex/buffer_parameters_fwd.hpp>
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/declaration_fwd.hpp>
@@ -59,7 +59,7 @@ public:
 
 	\param flags The capabilitiies of the buffer
 	*/
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	buffer_parameters(
 		sge::renderer::vertex::declaration const &declaration,
 		sge::renderer::vf::dynamic::part_index part,
@@ -67,19 +67,19 @@ public:
 		sge::renderer::resource_flags_field const &flags
 	);
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::vertex::declaration const &
 	declaration() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::vf::dynamic::part_index const
 	part() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::vertex::count const
 	count() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::resource_flags_field const &
 	flags() const;
 private:

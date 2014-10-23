@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENCL_SYSTEM_HPP_INCLUDED
 #define SGE_OPENCL_SYSTEM_HPP_INCLUDED
 
-#include <sge/opencl/symbol.hpp>
+#include <sge/opencl/detail/symbol.hpp>
 #include <sge/opencl/platform/object.hpp>
 #include <sge/opencl/platform/object_sequence.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -36,16 +36,16 @@ class system
 FCPPT_NONCOPYABLE(
 	system);
 public:
-	SGE_OPENCL_SYMBOL explicit
+	SGE_OPENCL_DETAIL_SYMBOL explicit
 	system();
 
-	SGE_OPENCL_SYMBOL opencl::platform::object_sequence &
+	SGE_OPENCL_DETAIL_SYMBOL opencl::platform::object_sequence &
 	platforms();
 
-	SGE_OPENCL_SYMBOL opencl::platform::object_sequence const &
+	SGE_OPENCL_DETAIL_SYMBOL opencl::platform::object_sequence const &
 	platforms() const;
 
-	SGE_OPENCL_SYMBOL ~system();
+	SGE_OPENCL_DETAIL_SYMBOL ~system();
 private:
 	opencl::platform::object_sequence platforms_;
 };

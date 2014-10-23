@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CAMERA_ORTHO_FREELOOK_PARAMETERS_HPP_INCLUDED
 
 #include <sge/camera/is_active.hpp>
-#include <sge/camera/symbol.hpp>
+#include <sge/camera/detail/symbol.hpp>
 #include <sge/camera/ortho_freelook/optional_projection_rectangle.hpp>
 #include <sge/camera/ortho_freelook/pan_speed.hpp>
 #include <sge/camera/ortho_freelook/zoom_speed.hpp>
@@ -48,7 +48,7 @@ class parameters
 FCPPT_NONASSIGNABLE(
 	parameters);
 public:
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	explicit
 	parameters(
 		sge::input::mouse::device &,
@@ -57,63 +57,63 @@ public:
 		renderer::projection::far const &,
 		sge::camera::is_active const &);
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	sge::input::mouse::device &
 	mouse() const;
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	sge::input::keyboard::device &
 	keyboard() const;
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	parameters &
 	zoom_speed(
 		ortho_freelook::zoom_speed const &);
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	ortho_freelook::zoom_speed const &
 	zoom_speed() const;
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	parameters &
 	action_mapping(
 		action::mapping const &);
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	action::mapping const &
 	action_mapping() const;
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	parameters &
 	pan_speed(
 		ortho_freelook::pan_speed const &);
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	ortho_freelook::pan_speed const &
 	pan_speed() const;
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	parameters &
 	projection_rectangle(
 		renderer::projection::rect const &);
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	ortho_freelook::optional_projection_rectangle const &
 	projection_rectangle() const;
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	renderer::projection::near const &
 	near() const;
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	renderer::projection::far const &
 	far() const;
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	sge::camera::is_active const &
 	is_active() const;
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	~parameters();
 private:
 	sge::input::mouse::device &mouse_;

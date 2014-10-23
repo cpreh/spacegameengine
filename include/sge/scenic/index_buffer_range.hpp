@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/index/count.hpp>
 #include <sge/renderer/index/first.hpp>
-#include <sge/scenic/symbol.hpp>
+#include <sge/scenic/detail/symbol.hpp>
 
 
 namespace sge
@@ -33,16 +33,16 @@ namespace scenic
 class index_buffer_range
 {
 public:
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	index_buffer_range(
 		sge::renderer::index::first const &,
 		sge::renderer::index::count const &);
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	sge::renderer::index::first const &
 	first_index() const;
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	sge::renderer::index::count const &
 	index_count() const;
 private:

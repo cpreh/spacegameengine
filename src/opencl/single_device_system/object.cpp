@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/exception.hpp>
+#include <sge/core/exception.hpp>
 #include <sge/opencl/system.hpp>
 #include <sge/opencl/command_queue/object.hpp>
 #include <sge/opencl/context/object.hpp>
@@ -138,7 +138,7 @@ sge::opencl::single_device_system::object::object(
 }
 FCPPT_PP_POP_WARNING
 
-SGE_OPENCL_SYMBOL void
+void
 sge::opencl::single_device_system::object::update()
 {
 	std::lock_guard<std::mutex> l(
@@ -149,7 +149,8 @@ sge::opencl::single_device_system::object::update()
 
 	if(!error_callback_)
 		throw
-			sge::exception(
+			// TODO: opencl exception
+			sge::core::exception(
 				FCPPT_TEXT("An asynchronous error occured: ")+
 				fcppt::from_std_string(
 					error_information_));

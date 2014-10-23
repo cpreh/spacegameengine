@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_WINDOW_SYSTEM_HPP_INCLUDED
 
 #include <sge/window/object_unique_ptr.hpp>
-#include <sge/window/symbol.hpp>
+#include <sge/window/detail/symbol.hpp>
 #include <sge/window/system_fwd.hpp>
 #include <awl/event/processor_fwd.hpp>
 #include <awl/main/exit_code.hpp>
@@ -44,54 +44,54 @@ class system
 		system
 	);
 public:
-	SGE_WINDOW_SYMBOL
+	SGE_WINDOW_DETAIL_SYMBOL
 	system(
 		awl::system::object &,
 		awl::system::event::processor &,
 		awl::event::processor &
 	);
 
-	SGE_WINDOW_SYMBOL
+	SGE_WINDOW_DETAIL_SYMBOL
 	~system();
 
-	SGE_WINDOW_SYMBOL
+	SGE_WINDOW_DETAIL_SYMBOL
 	awl::system::object &
 	awl_system() const;
 
-	SGE_WINDOW_SYMBOL
+	SGE_WINDOW_DETAIL_SYMBOL
 	awl::event::processor &
 	awl_event_processor() const;
 
-	SGE_WINDOW_SYMBOL
+	SGE_WINDOW_DETAIL_SYMBOL
 	awl::system::event::processor &
 	awl_system_event_processor() const;
 
-	SGE_WINDOW_SYMBOL
+	SGE_WINDOW_DETAIL_SYMBOL
 	sge::window::object_unique_ptr
 	create(
 		awl::window::object &,
 		awl::window::event::processor &
 	) const;
 
-	SGE_WINDOW_SYMBOL
+	SGE_WINDOW_DETAIL_SYMBOL
 	bool
 	poll();
 
-	SGE_WINDOW_SYMBOL
+	SGE_WINDOW_DETAIL_SYMBOL
 	bool
 	next();
 
-	SGE_WINDOW_SYMBOL
+	SGE_WINDOW_DETAIL_SYMBOL
 	bool
 	running() const;
 
-	SGE_WINDOW_SYMBOL
+	SGE_WINDOW_DETAIL_SYMBOL
 	void
 	quit(
 		awl::main::exit_code
 	);
 
-	SGE_WINDOW_SYMBOL
+	SGE_WINDOW_DETAIL_SYMBOL
 	awl::main::exit_code const
 	exit_code() const;
 private:

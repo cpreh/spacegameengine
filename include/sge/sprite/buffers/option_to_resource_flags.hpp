@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_BUFFERS_OPTION_TO_RESOURCE_FLAGS_HPP_INCLUDED
 
 #include <sge/renderer/resource_flags_field_fwd.hpp>
-#include <sge/sprite/symbol.hpp>
+#include <sge/sprite/detail/symbol.hpp>
 #include <sge/sprite/buffers/option_fwd.hpp>
 
 
@@ -33,7 +33,7 @@ namespace sprite
 namespace buffers
 {
 
-SGE_SPRITE_SYMBOL
+SGE_SPRITE_DETAIL_SYMBOL
 sge::renderer::resource_flags_field const
 option_to_resource_flags(
 	sge::sprite::buffers::option

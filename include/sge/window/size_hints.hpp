@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/dim.hpp>
 #include <sge/window/optional_dim.hpp>
 #include <sge/window/size_hints_fwd.hpp>
-#include <sge/window/symbol.hpp>
+#include <sge/window/detail/symbol.hpp>
 
 
 namespace sge
@@ -35,36 +35,36 @@ namespace window
 class size_hints
 {
 public:
-	SGE_WINDOW_SYMBOL
+	SGE_WINDOW_DETAIL_SYMBOL
 	size_hints();
 
-	SGE_WINDOW_SYMBOL
+	SGE_WINDOW_DETAIL_SYMBOL
 	sge::window::size_hints &
 	exact_size_hint(
 		sge::window::dim const &
 	);
 
-	SGE_WINDOW_SYMBOL
+	SGE_WINDOW_DETAIL_SYMBOL
 	sge::window::size_hints &
 	minimum_size_hint(
 		sge::window::dim const &
 	);
 
-	SGE_WINDOW_SYMBOL
+	SGE_WINDOW_DETAIL_SYMBOL
 	sge::window::size_hints &
 	maximum_size_hint(
 		sge::window::dim const &
 	);
 
-	SGE_WINDOW_SYMBOL
+	SGE_WINDOW_DETAIL_SYMBOL
 	sge::window::optional_dim const &
 	exact_size_hint() const;
 
-	SGE_WINDOW_SYMBOL
+	SGE_WINDOW_DETAIL_SYMBOL
 	sge::window::optional_dim const &
 	minimum_size_hint() const;
 
-	SGE_WINDOW_SYMBOL
+	SGE_WINDOW_DETAIL_SYMBOL
 	sge::window::optional_dim const &
 	maximum_size_hint() const;
 private:

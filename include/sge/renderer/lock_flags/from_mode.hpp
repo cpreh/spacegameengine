@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_LOCK_FLAGS_FROM_MODE_HPP_INCLUDED
 
 #include <sge/renderer/lock_mode_fwd.hpp>
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/lock_flags/method_fwd.hpp>
 
 
@@ -33,7 +33,7 @@ namespace renderer
 namespace lock_flags
 {
 
-SGE_RENDERER_SYMBOL
+SGE_RENDERER_DETAIL_SYMBOL
 sge::renderer::lock_flags::method
 from_mode(
 	sge::renderer::lock_mode

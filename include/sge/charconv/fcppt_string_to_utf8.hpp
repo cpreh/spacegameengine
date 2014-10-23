@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CHARCONV_FCPPT_STRING_TO_UTF8_HPP_INCLUDED
 #define SGE_CHARCONV_FCPPT_STRING_TO_UTF8_HPP_INCLUDED
 
-#include <sge/charconv/symbol.hpp>
+#include <sge/charconv/detail/symbol.hpp>
 #include <sge/charconv/utf8_string.hpp>
 #include <fcppt/string.hpp>
 
@@ -31,7 +31,7 @@ namespace sge
 namespace charconv
 {
 
-SGE_CHARCONV_SYMBOL
+SGE_CHARCONV_DETAIL_SYMBOL
 sge::charconv::utf8_string
 fcppt_string_to_utf8(
 	fcppt::string const &

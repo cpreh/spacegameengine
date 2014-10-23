@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TEXTURE_DEPTH_STENCIL_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_DEPTH_STENCIL_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
 #include <sge/renderer/dim2_fwd.hpp>
 #include <sge/renderer/lock_rect_fwd.hpp>
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/depth_stencil_buffer/surface_fwd.hpp>
 #include <sge/renderer/texture/base.hpp>
 #include <sge/renderer/texture/depth_stencil_fwd.hpp>
@@ -40,7 +40,7 @@ namespace renderer
 namespace texture
 {
 
-class SGE_CLASS_SYMBOL depth_stencil
+class SGE_CORE_DETAIL_CLASS_SYMBOL depth_stencil
 :
 	public renderer::texture::base
 {
@@ -48,10 +48,10 @@ class SGE_CLASS_SYMBOL depth_stencil
 		depth_stencil
 	);
 protected:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	depth_stencil();
 public:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	~depth_stencil()
 	override = 0;
 
@@ -61,7 +61,7 @@ public:
 
 	typedef sge::renderer::depth_stencil_buffer::surface color_buffer;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	dim const
 	size() const;
 
@@ -81,11 +81,11 @@ public:
 	sge::renderer::texture::mipmap::level_count const
 	levels() const = 0;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	rect const
 	area() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::texture::base::size_type
 	content() const
 	override;

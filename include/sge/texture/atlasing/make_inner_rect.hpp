@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXTURE_ATLASING_MAKE_INNER_RECT_HPP_INCLUDED
 #define SGE_TEXTURE_ATLASING_MAKE_INNER_RECT_HPP_INCLUDED
 
-#include <sge/texture/symbol.hpp>
+#include <sge/texture/detail/symbol.hpp>
 #include <sge/texture/atlasing/inner_rect_fwd.hpp>
 #include <sge/texture/atlasing/outer_rect_fwd.hpp>
 
@@ -33,7 +33,7 @@ namespace texture
 namespace atlasing
 {
 
-SGE_TEXTURE_SYMBOL
+SGE_TEXTURE_DETAIL_SYMBOL
 sge::texture::atlasing::inner_rect const
 make_inner_rect(
 	sge::texture::atlasing::outer_rect const &

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_TEXTURE_COLOR_FORMAT_HPP_INCLUDED
 
 #include <sge/image/color/format.hpp>
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/texture/color_format_fwd.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
 
@@ -37,17 +37,17 @@ namespace texture
 class color_format
 {
 public:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	color_format(
 		sge::image::color::format,
 		sge::renderer::texture::emulate_srgb
 	);
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::image::color::format
 	format() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::texture::emulate_srgb
 	emulate_srgb() const;
 private:

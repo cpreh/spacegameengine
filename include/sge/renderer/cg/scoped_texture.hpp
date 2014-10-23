@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/cg/loaded_texture_fwd.hpp>
 #include <sge/renderer/cg/scoped_texture_fwd.hpp>
-#include <sge/renderer/cg/symbol.hpp>
+#include <sge/renderer/cg/detail/symbol.hpp>
 #include <sge/renderer/context/core_fwd.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -42,16 +42,16 @@ class scoped_texture
 		scoped_texture
 	);
 public:
-	SGE_RENDERER_CG_SYMBOL
+	SGE_RENDERER_CG_DETAIL_SYMBOL
 	scoped_texture(
 		sge::renderer::context::core &,
 		sge::renderer::cg::loaded_texture const &
 	);
 
-	SGE_RENDERER_CG_SYMBOL
+	SGE_RENDERER_CG_DETAIL_SYMBOL
 	~scoped_texture();
 
-	SGE_RENDERER_CG_SYMBOL
+	SGE_RENDERER_CG_DETAIL_SYMBOL
 	sge::renderer::texture::stage const
 	stage() const;
 private:

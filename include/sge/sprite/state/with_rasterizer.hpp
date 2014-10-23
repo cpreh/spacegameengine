@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/rasterizer/enable_scissor_test.hpp>
 #include <sge/renderer/state/core/rasterizer/object.hpp>
 #include <sge/renderer/state/core/rasterizer/object_unique_ptr.hpp>
-#include <sge/sprite/symbol.hpp>
+#include <sge/sprite/detail/symbol.hpp>
 #include <sge/sprite/state/with_rasterizer_fwd.hpp>
 #include <sge/sprite/state/roles/enable_scissor_test.hpp>
 #include <sge/sprite/state/roles/rasterizer.hpp>
@@ -61,7 +61,7 @@ struct with_rasterizer
 		sge::renderer::state::core::rasterizer::enable_scissor_test
 	> optional_extra_parameters;
 
-	SGE_SPRITE_SYMBOL
+	SGE_SPRITE_DETAIL_SYMBOL
 	static
 	sge::renderer::state::core::rasterizer::object_unique_ptr
 	make(
@@ -69,7 +69,7 @@ struct with_rasterizer
 		sge::sprite::state::with_rasterizer::optional_extra_parameters const &
 	);
 
-	SGE_SPRITE_SYMBOL
+	SGE_SPRITE_DETAIL_SYMBOL
 	static
 	void
 	set(
@@ -77,7 +77,7 @@ struct with_rasterizer
 		sge::sprite::state::with_rasterizer::state_type const &
 	);
 
-	SGE_SPRITE_SYMBOL
+	SGE_SPRITE_DETAIL_SYMBOL
 	static
 	void
 	unset(

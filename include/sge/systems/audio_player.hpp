@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/name.hpp>
 #include <sge/systems/audio_player_fwd.hpp>
 #include <sge/systems/optional_name.hpp>
-#include <sge/systems/symbol.hpp>
+#include <sge/systems/detail/symbol.hpp>
 #include <fcppt/nonassignable.hpp>
 
 
@@ -39,10 +39,10 @@ class audio_player
 		audio_player
 	);
 public:
-	SGE_SYSTEMS_SYMBOL
+	SGE_SYSTEMS_DETAIL_SYMBOL
 	audio_player();
 
-	SGE_SYSTEMS_SYMBOL
+	SGE_SYSTEMS_DETAIL_SYMBOL
 	sge::systems::audio_player &
 	name(
 		sge::plugin::name const &

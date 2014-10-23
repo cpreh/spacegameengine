@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/parse/json/member_map.hpp>
 #include <sge/parse/json/object_fwd.hpp>
-#include <sge/parse/json/symbol.hpp>
+#include <sge/parse/json/detail/symbol.hpp>
 
 
 namespace sge
@@ -35,10 +35,10 @@ namespace json
 
 struct object
 {
-	SGE_PARSE_JSON_SYMBOL
+	SGE_PARSE_JSON_DETAIL_SYMBOL
 	object();
 
-	SGE_PARSE_JSON_SYMBOL
+	SGE_PARSE_JSON_DETAIL_SYMBOL
 	explicit
 	object(
 		sge::parse::json::member_map const &

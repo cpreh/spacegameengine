@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_SYSTEM_HPP_INCLUDED
 #define SGE_RENDERER_SYSTEM_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
-#include <sge/renderer/symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/system_fwd.hpp>
 #include <sge/renderer/caps/device_count.hpp>
 #include <sge/renderer/caps/device_fwd.hpp>
@@ -52,13 +52,13 @@ have to create an sge::renderer::device through this class. If you don't have a
 renderable window to pass, you can create a renderable visual that can be used
 to create one.
 */
-class SGE_CLASS_SYMBOL system
+class SGE_CORE_DETAIL_CLASS_SYMBOL system
 {
 	FCPPT_NONCOPYABLE(
 		system
 	);
 protected:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	system();
 public:
 	/**
@@ -145,7 +145,7 @@ public:
 		sge::renderer::device::index index
 	) const = 0;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	virtual
 	~system() = 0;
 };

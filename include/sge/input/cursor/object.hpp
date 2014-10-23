@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_CURSOR_OBJECT_HPP_INCLUDED
 #define SGE_INPUT_CURSOR_OBJECT_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
-#include <sge/input/symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
+#include <sge/input/detail/symbol.hpp>
 #include <sge/input/cursor/button_callback.hpp>
 #include <sge/input/cursor/mode_fwd.hpp>
 #include <sge/input/cursor/move_callback.hpp>
@@ -40,16 +40,16 @@ namespace input
 namespace cursor
 {
 
-class SGE_CLASS_SYMBOL object
+class SGE_CORE_DETAIL_CLASS_SYMBOL object
 {
 	FCPPT_NONCOPYABLE(
 		object
 	);
 protected:
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	object();
 public:
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	virtual
 	~object() = 0;
 

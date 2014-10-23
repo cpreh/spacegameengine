@@ -21,13 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_VIEWPORT_MANAGER_HPP_INCLUDED
 #define SGE_VIEWPORT_MANAGER_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/target/viewport_fwd.hpp>
 #include <sge/viewport/manage_callback.hpp>
 #include <sge/viewport/manager_fwd.hpp>
 #include <sge/viewport/resize_callback.hpp>
-#include <sge/viewport/symbol.hpp>
+#include <sge/viewport/detail/symbol.hpp>
 #include <sge/viewport/detail/manager_impl_fwd.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -42,35 +42,35 @@ namespace sge
 namespace viewport
 {
 
-class SGE_CLASS_SYMBOL manager
+class SGE_CORE_DETAIL_CLASS_SYMBOL manager
 {
 	FCPPT_NONCOPYABLE(
 		manager
 	);
 public:
-	SGE_VIEWPORT_SYMBOL
+	SGE_VIEWPORT_DETAIL_SYMBOL
 	manager(
 		sge::renderer::device::core &,
 		sge::window::object &,
 		sge::viewport::resize_callback const &
 	);
 
-	SGE_VIEWPORT_SYMBOL
+	SGE_VIEWPORT_DETAIL_SYMBOL
 	~manager();
 
-	SGE_VIEWPORT_SYMBOL
+	SGE_VIEWPORT_DETAIL_SYMBOL
 	fcppt::signal::auto_connection
 	manage_callback(
 		sge::viewport::manage_callback const &
 	);
 
-	SGE_VIEWPORT_SYMBOL
+	SGE_VIEWPORT_DETAIL_SYMBOL
 	void
 	resize_callback(
 		sge::viewport::resize_callback const &
 	);
 
-	SGE_VIEWPORT_SYMBOL
+	SGE_VIEWPORT_DETAIL_SYMBOL
 	sge::renderer::target::viewport const
 	viewport() const;
 private:

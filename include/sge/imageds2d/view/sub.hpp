@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGEDS2D_VIEW_SUB_HPP_INCLUDED
 
 #include <sge/imageds2d/rect_fwd.hpp>
-#include <sge/imageds2d/symbol.hpp>
+#include <sge/imageds2d/detail/symbol.hpp>
 #include <sge/imageds2d/view/const_object_fwd.hpp>
 #include <sge/imageds2d/view/object_fwd.hpp>
 
@@ -34,14 +34,14 @@ namespace imageds2d
 namespace view
 {
 
-SGE_IMAGEDS2D_SYMBOL
+SGE_IMAGEDS2D_DETAIL_SYMBOL
 sge::imageds2d::view::object const
 sub(
 	sge::imageds2d::view::object const &,
 	sge::imageds2d::rect const &
 );
 
-SGE_IMAGEDS2D_SYMBOL
+SGE_IMAGEDS2D_DETAIL_SYMBOL
 sge::imageds2d::view::const_object const
 sub(
 	sge::imageds2d::view::const_object const &,

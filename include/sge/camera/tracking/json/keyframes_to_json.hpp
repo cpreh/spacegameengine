@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CAMERA_TRACKING_JSON_KEYFRAMES_TO_JSON_HPP_INCLUDED
 #define SGE_CAMERA_TRACKING_JSON_KEYFRAMES_TO_JSON_HPP_INCLUDED
 
-#include <sge/camera/symbol.hpp>
+#include <sge/camera/detail/symbol.hpp>
 #include <sge/camera/tracking/keyframe_sequence.hpp>
 #include <sge/parse/json/array_fwd.hpp>
 
@@ -34,7 +34,7 @@ namespace tracking
 {
 namespace json
 {
-SGE_CAMERA_SYMBOL
+SGE_CAMERA_DETAIL_SYMBOL
 sge::parse::json::array const
 keyframes_to_json(
 	sge::camera::tracking::keyframe_sequence const &);

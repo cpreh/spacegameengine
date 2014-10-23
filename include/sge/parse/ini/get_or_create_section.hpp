@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/ini/section_fwd.hpp>
 #include <sge/parse/ini/section_name.hpp>
 #include <sge/parse/ini/start_fwd.hpp>
-#include <sge/parse/ini/symbol.hpp>
+#include <sge/parse/ini/detail/symbol.hpp>
 
 
 namespace sge
@@ -34,7 +34,7 @@ namespace parse
 namespace ini
 {
 
-SGE_PARSE_INI_SYMBOL
+SGE_PARSE_INI_DETAIL_SYMBOL
 sge::parse::ini::section &
 get_or_create_section(
 	sge::parse::ini::start &,

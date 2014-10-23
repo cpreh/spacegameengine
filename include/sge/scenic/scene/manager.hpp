@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/vertex/declaration_fwd.hpp>
 #include <sge/renderer/vertex/declaration_unique_ptr.hpp>
-#include <sge/scenic/symbol.hpp>
+#include <sge/scenic/detail/symbol.hpp>
 #include <sge/scenic/texture_manager.hpp>
 #include <sge/scenic/render_context/base_unique_ptr.hpp>
 #include <sge/scenic/render_context/manager_base_unique_ptr.hpp>
@@ -45,34 +45,34 @@ class manager
 FCPPT_NONCOPYABLE(
 	manager);
 public:
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	manager(
 		sge::renderer::device::core &,
 		sge::image2d::system &,
 		sge::scenic::scene::prefer_cg_context const &);
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::render_context::base_unique_ptr
 	create_render_context(
 		sge::renderer::context::core &);
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	sge::renderer::device::core &
 	renderer() const;
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	sge::renderer::vertex::declaration &
 	vertex_declaration();
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::texture_manager &
 	texture_manager();
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	sge::shader::context &
 	shader_context();
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	~manager();
 private:
 	sge::renderer::device::core &renderer_;

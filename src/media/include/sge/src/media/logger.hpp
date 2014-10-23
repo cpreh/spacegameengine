@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_MEDIA_LOGGER_HPP_INCLUDED
 #define SGE_SRC_MEDIA_LOGGER_HPP_INCLUDED
 
-#include <sge/media/symbol.hpp>
+#include <sge/media/detail/symbol.hpp>
 #include <fcppt/log/object_fwd.hpp>
 
 
@@ -30,7 +30,7 @@ namespace sge
 namespace media
 {
 
-SGE_MEDIA_SYMBOL
+SGE_MEDIA_DETAIL_SYMBOL
 fcppt::log::object &
 logger();
 

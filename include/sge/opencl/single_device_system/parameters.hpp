@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENCL_SINGLE_DEVICE_SYSTEM_PARAMETERS_HPP_INCLUDED
 #define SGE_OPENCL_SINGLE_DEVICE_SYSTEM_PARAMETERS_HPP_INCLUDED
 
-#include <sge/opencl/symbol.hpp>
+#include <sge/opencl/detail/symbol.hpp>
 #include <sge/opencl/command_queue/execution_mode.hpp>
 #include <sge/opencl/command_queue/profiling_mode.hpp>
 #include <sge/opencl/context/optional_error_callback.hpp>
@@ -38,50 +38,50 @@ namespace single_device_system
 class parameters
 {
 public:
-	SGE_OPENCL_SYMBOL
+	SGE_OPENCL_DETAIL_SYMBOL
 	parameters();
 
-	SGE_OPENCL_SYMBOL
+	SGE_OPENCL_DETAIL_SYMBOL
 	parameters &
 	renderer(
 		sge::renderer::device::core &);
 
-	SGE_OPENCL_SYMBOL
+	SGE_OPENCL_DETAIL_SYMBOL
 	parameters &
 	enable_profiling();
 
-	SGE_OPENCL_SYMBOL
+	SGE_OPENCL_DETAIL_SYMBOL
 	parameters &
 	context_error_callback(
 		sge::opencl::context::error_callback const &);
 
-	SGE_OPENCL_SYMBOL
+	SGE_OPENCL_DETAIL_SYMBOL
 	parameters &
 	prefer_gpu(
 		bool);
 
-	SGE_OPENCL_SYMBOL
+	SGE_OPENCL_DETAIL_SYMBOL
 	parameters &
 	execution_mode(
 		sge::opencl::command_queue::execution_mode);
 
-	SGE_OPENCL_SYMBOL
+	SGE_OPENCL_DETAIL_SYMBOL
 	sge::opencl::single_device_system::optional_renderer const &
 	renderer() const;
 
-	SGE_OPENCL_SYMBOL
+	SGE_OPENCL_DETAIL_SYMBOL
 	sge::opencl::context::optional_error_callback const &
 	error_callback() const;
 
-	SGE_OPENCL_SYMBOL
+	SGE_OPENCL_DETAIL_SYMBOL
 	sge::opencl::command_queue::profiling_mode
 	profiling() const;
 
-	SGE_OPENCL_SYMBOL
+	SGE_OPENCL_DETAIL_SYMBOL
 	sge::opencl::command_queue::execution_mode
 	execution_mode() const;
 
-	SGE_OPENCL_SYMBOL
+	SGE_OPENCL_DETAIL_SYMBOL
 	bool
 	prefers_gpu() const;
 private:

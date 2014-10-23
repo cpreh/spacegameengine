@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_LOG_LOCATION_HPP_INCLUDED
 #define SGE_AUDIO_LOG_LOCATION_HPP_INCLUDED
 
-#include <sge/audio/symbol.hpp>
+#include <sge/audio/detail/symbol.hpp>
 #include <fcppt/log/location.hpp>
 
 
@@ -30,7 +30,7 @@ namespace sge
 namespace audio
 {
 
-SGE_AUDIO_SYMBOL
+SGE_AUDIO_DETAIL_SYMBOL
 fcppt::log::location
 log_location();
 

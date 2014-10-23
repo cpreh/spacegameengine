@@ -373,7 +373,6 @@ set(
 	include/sge/charconv/utf8_file_to_fcppt_string_exn.hpp
 	include/sge/charconv/utf8_string.hpp
 	include/sge/charconv/utf8_string_to_fcppt.hpp
-	include/sge/class_symbol.hpp
 	include/sge/config/app_name.hpp
 	include/sge/config/app_path.hpp
 	include/sge/config/cache_path.hpp
@@ -448,8 +447,9 @@ set(
 	include/sge/console/short_description_fwd.hpp
 	include/sge/console/signal.hpp
 	include/sge/console/signal_fwd.hpp
-	include/sge/error/check_state.hpp
-	include/sge/exception.hpp
+	include/sge/core/check_state.hpp
+	include/sge/core/detail/class_symbol.hpp
+	include/sge/core/exception.hpp
 	include/sge/font/added.hpp
 	include/sge/font/added_fwd.hpp
 	include/sge/font/added_unique_ptr.hpp

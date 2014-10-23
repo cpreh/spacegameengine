@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TEXTURE_ATLASING_SIZE_HPP_INCLUDED
 
 #include <sge/renderer/dim2_fwd.hpp>
-#include <sge/texture/symbol.hpp>
+#include <sge/texture/detail/symbol.hpp>
 
 
 namespace sge
@@ -32,7 +32,7 @@ namespace texture
 namespace atlasing
 {
 
-SGE_TEXTURE_SYMBOL
+SGE_TEXTURE_DETAIL_SYMBOL
 sge::renderer::dim2 const
 size(
 	sge::renderer::dim2 const &

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/renderer_caps.hpp>
-#include <sge/systems/symbol.hpp>
+#include <sge/systems/detail/symbol.hpp>
 #include <sge/systems/detail/renderer_fwd.hpp>
 #include <fcppt/nonassignable.hpp>
 
@@ -41,7 +41,7 @@ class renderer
 		renderer
 	);
 public:
-	SGE_SYSTEMS_SYMBOL
+	SGE_SYSTEMS_DETAIL_SYMBOL
 	renderer(
 		sge::systems::renderer const &,
 		sge::systems::renderer_caps

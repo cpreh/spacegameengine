@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_PLUGIN_LIBRARY_LOAD_FUNCTION_BASE_HPP_INCLUDED
 #define SGE_SRC_PLUGIN_LIBRARY_LOAD_FUNCTION_BASE_HPP_INCLUDED
 
-#include <sge/plugin/symbol.hpp>
+#include <sge/plugin/detail/symbol.hpp>
 #include <sge/plugin/library/function_base.hpp>
 #include <sge/plugin/library/object_fwd.hpp>
 #include <sge/plugin/library/symbol_string.hpp>
@@ -34,11 +34,11 @@ namespace plugin
 namespace library
 {
 
-SGE_PLUGIN_SYMBOL
+SGE_PLUGIN_DETAIL_SYMBOL
 sge::plugin::library::function_base
 load_function_base(
-	library::object &,
-	library::symbol_string const &
+	sge::plugin::library::object &,
+	sge::plugin::library::symbol_string const &
 );
 
 }

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/console/function_map.hpp>
 #include <sge/console/gfx/cursor_fwd.hpp>
-#include <sge/console/gfx/symbol.hpp>
+#include <sge/console/gfx/detail/symbol.hpp>
 #include <sge/font/char_type.hpp>
 #include <sge/font/string.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -46,67 +46,67 @@ public:
 	sge::font::string::size_type
 	size_type;
 
-	SGE_CONSOLE_GFX_SYMBOL
+	SGE_CONSOLE_GFX_DETAIL_SYMBOL
 	cursor();
 
-	SGE_CONSOLE_GFX_SYMBOL
+	SGE_CONSOLE_GFX_DETAIL_SYMBOL
 	~cursor();
 
-	SGE_CONSOLE_GFX_SYMBOL
+	SGE_CONSOLE_GFX_DETAIL_SYMBOL
 	sge::font::string
 	edited(
 		bool
 	) const;
 
-	SGE_CONSOLE_GFX_SYMBOL
+	SGE_CONSOLE_GFX_DETAIL_SYMBOL
 	sge::font::string
 	string() const;
 
-	SGE_CONSOLE_GFX_SYMBOL
+	SGE_CONSOLE_GFX_DETAIL_SYMBOL
 	void
 	string(
 		sge::font::string const &
 	);
 
-	SGE_CONSOLE_GFX_SYMBOL
+	SGE_CONSOLE_GFX_DETAIL_SYMBOL
 	void
 	erase_word();
 
-	SGE_CONSOLE_GFX_SYMBOL
+	SGE_CONSOLE_GFX_DETAIL_SYMBOL
 	void
 	erase_char();
 
-	SGE_CONSOLE_GFX_SYMBOL
+	SGE_CONSOLE_GFX_DETAIL_SYMBOL
 	void
 	left();
 
-	SGE_CONSOLE_GFX_SYMBOL
+	SGE_CONSOLE_GFX_DETAIL_SYMBOL
 	void
 	right();
 
-	SGE_CONSOLE_GFX_SYMBOL
+	SGE_CONSOLE_GFX_DETAIL_SYMBOL
 	void
 	to_start();
 
-	SGE_CONSOLE_GFX_SYMBOL
+	SGE_CONSOLE_GFX_DETAIL_SYMBOL
 	void
 	to_end();
 
-	SGE_CONSOLE_GFX_SYMBOL
+	SGE_CONSOLE_GFX_DETAIL_SYMBOL
 	bool
 	empty() const;
 
-	SGE_CONSOLE_GFX_SYMBOL
+	SGE_CONSOLE_GFX_DETAIL_SYMBOL
 	void
 	insert(
 		sge::font::char_type
 	);
 
-	SGE_CONSOLE_GFX_SYMBOL
+	SGE_CONSOLE_GFX_DETAIL_SYMBOL
 	bool
 	at_start() const;
 
-	SGE_CONSOLE_GFX_SYMBOL
+	SGE_CONSOLE_GFX_DETAIL_SYMBOL
 	void
 	complete_word(
 		sge::console::function_map const &

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_CORE_BLEND_WRITE_MASK_HPP_INCLUDED
 #define SGE_RENDERER_STATE_CORE_BLEND_WRITE_MASK_HPP_INCLUDED
 
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/state/core/blend/write_alpha.hpp>
 #include <sge/renderer/state/core/blend/write_blue.hpp>
 #include <sge/renderer/state/core/blend/write_green.hpp>
@@ -43,7 +43,7 @@ namespace blend
 class write_mask
 {
 public:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	write_mask(
 		sge::renderer::state::core::blend::write_red,
 		sge::renderer::state::core::blend::write_blue,
@@ -51,19 +51,19 @@ public:
 		sge::renderer::state::core::blend::write_alpha
 	);
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::blend::write_red const
 	write_red() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::blend::write_blue const
 	write_blue() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::blend::write_green const
 	write_green() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::blend::write_alpha const
 	write_alpha() const;
 private:

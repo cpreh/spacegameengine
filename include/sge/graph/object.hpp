@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/graph/optional_axis_constraint.hpp>
 #include <sge/graph/position.hpp>
 #include <sge/graph/scalar.hpp>
-#include <sge/graph/symbol.hpp>
+#include <sge/graph/detail/symbol.hpp>
 #include <sge/graph/detail/draw_visitor_fwd.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
@@ -63,7 +63,7 @@ class object
 FCPPT_NONCOPYABLE(
 	object);
 public:
-	SGE_GRAPH_SYMBOL
+	SGE_GRAPH_DETAIL_SYMBOL
 	object(
 		sge::graph::position const &,
 		sge::renderer::dim2 const &,
@@ -72,17 +72,17 @@ public:
 		sge::graph::optional_axis_constraint const &,
 		sge::graph::color_scheme const &);
 
-	SGE_GRAPH_SYMBOL
+	SGE_GRAPH_DETAIL_SYMBOL
 	void
 	push(
 		sge::graph::scalar _datum);
 
-	SGE_GRAPH_SYMBOL
+	SGE_GRAPH_DETAIL_SYMBOL
 	void
 	render(
 		sge::renderer::context::ffp &);
 
-	SGE_GRAPH_SYMBOL
+	SGE_GRAPH_DETAIL_SYMBOL
 	~object();
 
 private:

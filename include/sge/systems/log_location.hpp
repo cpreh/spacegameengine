@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SYSTEMS_LOG_LOCATION_HPP_INCLUDED
 #define SGE_SYSTEMS_LOG_LOCATION_HPP_INCLUDED
 
-#include <sge/systems/symbol.hpp>
+#include <sge/systems/detail/symbol.hpp>
 #include <fcppt/log/location.hpp>
 
 
@@ -30,7 +30,7 @@ namespace sge
 namespace systems
 {
 
-SGE_SYSTEMS_SYMBOL
+SGE_SYSTEMS_DETAIL_SYMBOL
 fcppt::log::location
 log_location();
 

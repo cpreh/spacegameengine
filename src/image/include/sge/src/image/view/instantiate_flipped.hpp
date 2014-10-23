@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_IMAGE_VIEW_INSTANTIATE_FLIPPED_HPP_INCLUDED
 #define SGE_SRC_IMAGE_VIEW_INSTANTIATE_FLIPPED_HPP_INCLUDED
 
-#include <sge/src/export_function_instantiation.hpp>
+#include <sge/src/core/export_function_instantiation.hpp>
 #include <sge/src/image/view/flipped_impl.hpp>
 #include <sge/src/image/view/instantiate_const_nonconst.hpp>
 
@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	view_type\
 ) \
 template \
-SGE_EXPORT_FUNCTION_INSTANTIATION \
+SGE_CORE_EXPORT_FUNCTION_INSTANTIATION \
 sge::image::traits::view_type<\
 	tag\
 >::type const \

@@ -31,7 +31,7 @@ namespace opencl
 {
 namespace command_queue
 {
-// There's no SYMBOL missing here, this header is private. However, I didn't
+// There's no DETAIL_SYMBOL missing here, this header is private. However, I didn't
 // want to add a src/ and include/ directory to the implementation, so I put it
 // here.
 cl_map_flags

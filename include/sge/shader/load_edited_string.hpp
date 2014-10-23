@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cg/program/source.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/vertex/declaration_fwd.hpp>
-#include <sge/shader/symbol.hpp>
+#include <sge/shader/detail/symbol.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
@@ -34,7 +34,7 @@ namespace sge
 {
 namespace shader
 {
-SGE_SHADER_SYMBOL
+SGE_SHADER_DETAIL_SYMBOL
 sge::cg::program::source const
 load_edited_string(
 	sge::renderer::device::core &,

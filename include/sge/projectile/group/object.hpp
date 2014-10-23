@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PROJECTILE_GROUP_OBJECT_HPP_INCLUDED
 #define SGE_PROJECTILE_GROUP_OBJECT_HPP_INCLUDED
 
-#include <sge/projectile/symbol.hpp>
+#include <sge/projectile/detail/symbol.hpp>
 #include <sge/projectile/world_fwd.hpp>
 #include <sge/projectile/group/id.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -38,11 +38,11 @@ class object
 FCPPT_NONCOPYABLE(
 	object);
 public:
-	SGE_PROJECTILE_SYMBOL explicit
+	SGE_PROJECTILE_DETAIL_SYMBOL explicit
 	object(
 		world &);
 
-	SGE_PROJECTILE_SYMBOL
+	SGE_PROJECTILE_DETAIL_SYMBOL
 	~object();
 private:
 	friend class sge::projectile::world;

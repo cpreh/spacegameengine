@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_SOUND_POSITIONAL_HPP_INCLUDED
 #define SGE_AUDIO_SOUND_POSITIONAL_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
 #include <sge/audio/scalar.hpp>
-#include <sge/audio/symbol.hpp>
+#include <sge/audio/detail/symbol.hpp>
 #include <sge/audio/vector_fwd.hpp>
 #include <sge/audio/sound/base.hpp>
 #include <sge/audio/sound/optional_direction_fwd.hpp>
@@ -43,7 +43,7 @@ namespace sound
  *
  * For an introduction to positional sounds, see \ref audio_positional.
  */
-class SGE_CLASS_SYMBOL positional
+class SGE_CORE_DETAIL_CLASS_SYMBOL positional
 :
 	public sge::audio::sound::base
 {
@@ -52,11 +52,11 @@ class SGE_CLASS_SYMBOL positional
 	);
 protected:
 	/** \protectedctor */
-	SGE_AUDIO_SYMBOL
+	SGE_AUDIO_DETAIL_SYMBOL
 	positional();
 public:
 	/** \virtualdtor */
-	SGE_AUDIO_SYMBOL
+	SGE_AUDIO_DETAIL_SYMBOL
 	~positional()
 	override = 0;
 

@@ -21,12 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_PARSE_EXCEPTION_HPP_INCLUDED
 #define SGE_PARSE_PARSE_EXCEPTION_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
 #include <sge/parse/error_string.hpp>
 #include <sge/parse/exception.hpp>
 #include <sge/parse/parse_exception_fwd.hpp>
 #include <sge/parse/result_code.hpp>
-#include <sge/parse/symbol.hpp>
+#include <sge/parse/detail/symbol.hpp>
 
 
 namespace sge
@@ -34,26 +34,26 @@ namespace sge
 namespace parse
 {
 
-class SGE_CLASS_SYMBOL parse_exception
+class SGE_CORE_DETAIL_CLASS_SYMBOL parse_exception
 :
 	public sge::parse::exception
 {
 public:
-	SGE_PARSE_SYMBOL
+	SGE_PARSE_DETAIL_SYMBOL
 	parse_exception(
 		sge::parse::result_code,
 		sge::parse::error_string const &
 	);
 
-	SGE_PARSE_SYMBOL
+	SGE_PARSE_DETAIL_SYMBOL
 	sge::parse::result_code
 	result_code() const;
 
-	SGE_PARSE_SYMBOL
+	SGE_PARSE_DETAIL_SYMBOL
 	sge::parse::error_string const &
 	error_string() const;
 
-	SGE_PARSE_SYMBOL
+	SGE_PARSE_DETAIL_SYMBOL
 	~parse_exception() throw()
 	override;
 private:

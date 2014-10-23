@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CEGUI_TO_CEGUI_COLOR_HPP_INCLUDED
 #define SGE_CEGUI_TO_CEGUI_COLOR_HPP_INCLUDED
 
-#include <sge/cegui/symbol.hpp>
+#include <sge/cegui/detail/symbol.hpp>
 #include <sge/image/color/any/object_fwd.hpp>
 
 
@@ -35,7 +35,7 @@ namespace sge
 namespace cegui
 {
 
-SGE_CEGUI_SYMBOL
+SGE_CEGUI_DETAIL_SYMBOL
 CEGUI::Colour const
 to_cegui_color(
 	sge::image::color::any::object const &

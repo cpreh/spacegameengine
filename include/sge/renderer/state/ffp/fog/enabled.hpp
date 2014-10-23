@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_FFP_FOG_ENABLED_HPP_INCLUDED
 #define SGE_RENDERER_STATE_FFP_FOG_ENABLED_HPP_INCLUDED
 
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/state/ffp/fog/color.hpp>
 #include <sge/renderer/state/ffp/fog/density.hpp>
 #include <sge/renderer/state/ffp/fog/enabled_fwd.hpp>
@@ -44,7 +44,7 @@ namespace fog
 class enabled
 {
 public:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	enabled(
 		sge::renderer::state::ffp::fog::mode,
 		sge::renderer::state::ffp::fog::start,
@@ -53,23 +53,23 @@ public:
 		sge::renderer::state::ffp::fog::color
 	);
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::fog::mode
 	mode() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::fog::start const
 	start() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::fog::end const
 	end() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::fog::density const
 	density() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::fog::color const
 	color() const;
 private:

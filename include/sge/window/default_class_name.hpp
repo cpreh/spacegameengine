@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_WINDOW_DEFAULT_CLASS_NAME_HPP_INCLUDED
 #define SGE_WINDOW_DEFAULT_CLASS_NAME_HPP_INCLUDED
 
-#include <sge/window/symbol.hpp>
+#include <sge/window/detail/symbol.hpp>
 #include <fcppt/string.hpp>
 
 
@@ -30,7 +30,7 @@ namespace sge
 namespace window
 {
 
-SGE_WINDOW_SYMBOL
+SGE_WINDOW_DETAIL_SYMBOL
 fcppt::string
 default_class_name();
 

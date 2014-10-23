@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MODEL_MD3_LOADER_HPP_INCLUDED
 #define SGE_MODEL_MD3_LOADER_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
 #include <sge/model/md3/load_flags_fwd.hpp>
 #include <sge/model/md3/loader_fwd.hpp>
 #include <sge/model/md3/object_unique_ptr.hpp>
-#include <sge/model/md3/symbol.hpp>
+#include <sge/model/md3/detail/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
@@ -41,7 +41,7 @@ namespace model
 namespace md3
 {
 
-class SGE_CLASS_SYMBOL loader
+class SGE_CORE_DETAIL_CLASS_SYMBOL loader
 {
 	FCPPT_NONCOPYABLE(
 		loader
@@ -63,7 +63,7 @@ public:
 		sge::model::md3::load_flags
 	) = 0;
 
-	SGE_MODEL_MD3_SYMBOL
+	SGE_MODEL_MD3_DETAIL_SYMBOL
 	virtual
 	~loader() = 0;
 };

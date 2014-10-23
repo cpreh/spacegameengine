@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CAMERA_TRACKING_JSON_KEY_PRESS_EXPORTER_HPP_INCLUDED
 
 #include <sge/camera/base_fwd.hpp>
-#include <sge/camera/symbol.hpp>
+#include <sge/camera/detail/symbol.hpp>
 #include <sge/camera/update_duration.hpp>
 #include <sge/camera/tracking/keyframe_sequence.hpp>
 #include <sge/input/keyboard/device_fwd.hpp>
@@ -58,7 +58,7 @@ public:
 		sge::input::keyboard::key_code,
 		export_keypress);
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	key_press_exporter(
 		sge::camera::base const &,
 		boost::filesystem::path const &,
@@ -67,7 +67,7 @@ public:
 		keyframe_keypress const &,
 		export_keypress const &);
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	~key_press_exporter();
 private:
 	sge::camera::base const &camera_;

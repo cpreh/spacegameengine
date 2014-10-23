@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PLUGIN_LIBRARY_FUNCTION_MAP_HPP_INCLUDED
 #define SGE_PLUGIN_LIBRARY_FUNCTION_MAP_HPP_INCLUDED
 
-#include <sge/plugin/symbol.hpp>
+#include <sge/plugin/detail/symbol.hpp>
 #include <sge/plugin/library/function_base.hpp>
 #include <sge/plugin/library/symbol_string.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -44,18 +44,18 @@ public:
 		library::function_base
 	> container;
 
-	SGE_PLUGIN_SYMBOL
+	SGE_PLUGIN_DETAIL_SYMBOL
 	explicit function_map(
 		container const &
 	);
 
-	SGE_PLUGIN_SYMBOL
+	SGE_PLUGIN_DETAIL_SYMBOL
 	library::function_base
 	function(
 		library::symbol_string const &
 	) const;
 
-	SGE_PLUGIN_SYMBOL
+	SGE_PLUGIN_DETAIL_SYMBOL
 	container const &
 	get() const;
 private:

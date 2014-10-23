@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/ds/format.hpp>
 #include <sge/renderer/dim2.hpp>
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/depth_stencil_buffer/surface_parameters_fwd.hpp>
 
 
@@ -37,17 +37,17 @@ namespace depth_stencil_buffer
 class surface_parameters
 {
 public:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	surface_parameters(
 		sge::renderer::dim2 const &,
 		sge::image::ds::format
 	);
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::dim2 const &
 	size() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::image::ds::format
 	format() const;
 private:

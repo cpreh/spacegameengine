@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_CORE_DEPTH_STENCIL_STENCIL_DESC_HPP_INCLUDED
 #define SGE_RENDERER_STATE_CORE_DEPTH_STENCIL_STENCIL_DESC_HPP_INCLUDED
 
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/depth_fail_op.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/desc_fwd.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/fail_op.hpp>
@@ -45,7 +45,7 @@ namespace stencil
 class desc
 {
 public:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	desc(
 		sge::renderer::state::core::depth_stencil::stencil::fail_op,
 		sge::renderer::state::core::depth_stencil::stencil::depth_fail_op,
@@ -53,19 +53,19 @@ public:
 		sge::renderer::state::core::depth_stencil::stencil::func
 	);
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::depth_stencil::stencil::fail_op const
 	fail_op() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::depth_stencil::stencil::depth_fail_op const
 	depth_fail_op() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::depth_stencil::stencil::pass_op const
 	pass_op() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::depth_stencil::stencil::func
 	func() const;
 private:

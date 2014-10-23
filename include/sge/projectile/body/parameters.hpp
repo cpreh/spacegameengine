@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PROJECTILE_BODY_PARAMETERS_HPP_INCLUDED
 #define SGE_PROJECTILE_BODY_PARAMETERS_HPP_INCLUDED
 
-#include <sge/projectile/symbol.hpp>
+#include <sge/projectile/detail/symbol.hpp>
 #include <sge/projectile/world_fwd.hpp>
 #include <sge/projectile/body/angular_velocity.hpp>
 #include <sge/projectile/body/linear_velocity.hpp>
@@ -45,7 +45,7 @@ class parameters
 FCPPT_NONASSIGNABLE(
 	parameters);
 public:
-	SGE_PROJECTILE_SYMBOL explicit
+	SGE_PROJECTILE_DETAIL_SYMBOL explicit
 	parameters(
 		sge::projectile::body::position const &,
 		sge::projectile::body::linear_velocity const &,
@@ -55,25 +55,25 @@ public:
 		sge::projectile::body::solidity::variant const &,
 		sge::projectile::body::user_data const &);
 
-	SGE_PROJECTILE_SYMBOL sge::projectile::body::position const &
+	SGE_PROJECTILE_DETAIL_SYMBOL sge::projectile::body::position const &
 	position() const;
 
-	SGE_PROJECTILE_SYMBOL sge::projectile::body::linear_velocity const &
+	SGE_PROJECTILE_DETAIL_SYMBOL sge::projectile::body::linear_velocity const &
 	linear_velocity() const;
 
-	SGE_PROJECTILE_SYMBOL sge::projectile::body::angular_velocity const &
+	SGE_PROJECTILE_DETAIL_SYMBOL sge::projectile::body::angular_velocity const &
 	angular_velocity() const;
 
-	SGE_PROJECTILE_SYMBOL sge::projectile::shape::shared_base_ptr const &
+	SGE_PROJECTILE_DETAIL_SYMBOL sge::projectile::shape::shared_base_ptr const &
 	shape() const;
 
-	SGE_PROJECTILE_SYMBOL sge::projectile::body::rotation const &
+	SGE_PROJECTILE_DETAIL_SYMBOL sge::projectile::body::rotation const &
 	rotation() const;
 
-	SGE_PROJECTILE_SYMBOL sge::projectile::body::solidity::variant const &
+	SGE_PROJECTILE_DETAIL_SYMBOL sge::projectile::body::solidity::variant const &
 	solidity() const;
 
-	SGE_PROJECTILE_SYMBOL sge::projectile::body::user_data const &
+	SGE_PROJECTILE_DETAIL_SYMBOL sge::projectile::body::user_data const &
 	user_data() const;
 private:
 	sge::projectile::body::position position_;

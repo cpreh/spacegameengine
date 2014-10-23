@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/format.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/index/dynamic/make_format.hpp>
-#include <sge/src/export_function_instantiation.hpp>
+#include <sge/src/core/export_function_instantiation.hpp>
 #include <sge/src/renderer/index/instantiate_all.hpp>
 #include <sge/src/renderer/index/dynamic/format_enum_static.hpp>
 
@@ -42,7 +42,7 @@ sge::renderer::index::dynamic::make_format()
 	cur_format\
 )\
 template \
-SGE_EXPORT_FUNCTION_INSTANTIATION \
+SGE_CORE_EXPORT_FUNCTION_INSTANTIATION \
 sge::renderer::index::dynamic::format \
 sge::renderer::index::dynamic::make_format<\
 	cur_format \

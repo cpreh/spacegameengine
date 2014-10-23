@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_CORE_SAMPLER_ADDRESS_MODE_DEFAULT_HPP_INCLUDED
 #define SGE_RENDERER_STATE_CORE_SAMPLER_ADDRESS_MODE_DEFAULT_HPP_INCLUDED
 
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/state/core/sampler/address/mode_fwd.hpp>
 
 
@@ -38,7 +38,7 @@ namespace sampler
 namespace address
 {
 
-SGE_RENDERER_SYMBOL
+SGE_RENDERER_DETAIL_SYMBOL
 sge::renderer::state::core::sampler::address::mode
 mode_default();
 

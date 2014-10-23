@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_MOUSE_BUTTON_INFO_HPP_INCLUDED
 #define SGE_INPUT_MOUSE_BUTTON_INFO_HPP_INCLUDED
 
-#include <sge/input/symbol.hpp>
+#include <sge/input/detail/symbol.hpp>
 #include <sge/input/mouse/button_code.hpp>
 #include <sge/input/mouse/button_info_fwd.hpp>
 #include <fcppt/optional_string.hpp>
@@ -37,17 +37,17 @@ namespace mouse
 class button_info
 {
 public:
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	button_info(
 		sge::input::mouse::button_code,
 		fcppt::optional_string const &
 	);
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::mouse::button_code
 	code() const;
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	fcppt::optional_string const &
 	name() const;
 private:

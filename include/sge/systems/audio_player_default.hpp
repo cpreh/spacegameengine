@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SYSTEMS_AUDIO_PLAYER_DEFAULT_HPP_INCLUDED
 
 #include <sge/systems/audio_player.hpp>
-#include <sge/systems/symbol.hpp>
+#include <sge/systems/detail/symbol.hpp>
 
 
 namespace sge
@@ -30,7 +30,7 @@ namespace sge
 namespace systems
 {
 
-SGE_SYSTEMS_SYMBOL
+SGE_SYSTEMS_DETAIL_SYMBOL
 sge::systems::audio_player
 audio_player_default();
 

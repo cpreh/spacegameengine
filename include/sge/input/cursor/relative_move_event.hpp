@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_CURSOR_RELATIVE_MOVE_EVENT_HPP_INCLUDED
 #define SGE_INPUT_CURSOR_RELATIVE_MOVE_EVENT_HPP_INCLUDED
 
-#include <sge/input/symbol.hpp>
+#include <sge/input/detail/symbol.hpp>
 #include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/relative_move_event_fwd.hpp>
 
@@ -36,13 +36,13 @@ namespace cursor
 class relative_move_event
 {
 public:
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	explicit
 	relative_move_event(
 		sge::input::cursor::position const &
 	);
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::cursor::position const &
 	position() const;
 private:

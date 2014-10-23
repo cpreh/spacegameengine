@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CG_PARAMETER_VECTOR_DETAIL_CHECK_SIZE_HPP_INCLUDED
 #define SGE_CG_PARAMETER_VECTOR_DETAIL_CHECK_SIZE_HPP_INCLUDED
 
-#include <sge/cg/symbol.hpp>
+#include <sge/cg/detail/symbol.hpp>
 #include <sge/cg/parameter/object_fwd.hpp>
 #include <fcppt/math/size_type.hpp>
 
@@ -37,7 +37,7 @@ namespace vector
 namespace detail
 {
 
-SGE_CG_SYMBOL
+SGE_CG_DETAIL_SYMBOL
 void
 check_size(
 	sge::cg::parameter::object const &,

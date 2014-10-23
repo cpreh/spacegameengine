@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_MOUSE_INFO_HPP_INCLUDED
 #define SGE_INPUT_MOUSE_INFO_HPP_INCLUDED
 
-#include <sge/input/symbol.hpp>
+#include <sge/input/detail/symbol.hpp>
 #include <sge/input/info/name.hpp>
 #include <sge/input/mouse/axis_info_container.hpp>
 #include <sge/input/mouse/button_info_container.hpp>
@@ -38,22 +38,22 @@ namespace mouse
 class info
 {
 public:
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	info(
 		sge::input::mouse::axis_info_container const &,
 		sge::input::mouse::button_info_container const &,
 		sge::input::info::name const &
 	);
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::mouse::axis_info_container const &
 	axes() const;
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::mouse::button_info_container const &
 	buttons() const;
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::info::name const &
 	name() const;
 private:

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SCENIC_RENDER_CONTEXT_LIGHT_DIRECTIONAL_HPP_INCLUDED
 #define SGE_SCENIC_RENDER_CONTEXT_LIGHT_DIRECTIONAL_HPP_INCLUDED
 
-#include <sge/scenic/symbol.hpp>
+#include <sge/scenic/detail/symbol.hpp>
 #include <sge/scenic/render_context/light/direction.hpp>
 #include <sge/scenic/render_context/light/directional_fwd.hpp>
 
@@ -37,12 +37,12 @@ namespace light
 class directional
 {
 public:
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	explicit
 	directional(
 		sge::scenic::render_context::light::direction const &);
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::render_context::light::direction const &
 	direction() const;
 private:

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CAMERA_COORDINATE_SYSTEM_SCOPED_HPP_INCLUDED
 
 #include <sge/camera/has_mutable_coordinate_system_fwd.hpp>
-#include <sge/camera/symbol.hpp>
+#include <sge/camera/detail/symbol.hpp>
 #include <sge/camera/coordinate_system/object.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -38,12 +38,12 @@ class scoped
 FCPPT_NONCOPYABLE(
 	scoped);
 public:
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	scoped(
 		sge::camera::has_mutable_coordinate_system &,
 		sge::camera::coordinate_system::object const &);
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	~scoped();
 private:
 	sge::camera::has_mutable_coordinate_system &camera_;

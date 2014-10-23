@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_CORE_BLEND_WRITE_MASK_ALL_HPP_INCLUDED
 #define SGE_RENDERER_STATE_CORE_BLEND_WRITE_MASK_ALL_HPP_INCLUDED
 
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/state/core/blend/write_mask_fwd.hpp>
 
 
@@ -36,7 +36,7 @@ namespace core
 namespace blend
 {
 
-SGE_RENDERER_SYMBOL
+SGE_RENDERER_DETAIL_SYMBOL
 sge::renderer::state::core::blend::write_mask const
 write_mask_all();
 

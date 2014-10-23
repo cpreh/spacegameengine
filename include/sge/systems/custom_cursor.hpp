@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/systems/cursor_hotspot_fwd.hpp>
 #include <sge/systems/custom_cursor_fwd.hpp>
-#include <sge/systems/symbol.hpp>
+#include <sge/systems/detail/symbol.hpp>
 #include <sge/systems/detail/custom_cursor_fwd.hpp>
 #include <sge/texture/part_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -46,7 +46,7 @@ class custom_cursor
 		custom_cursor
 	);
 public:
-	SGE_SYSTEMS_SYMBOL
+	SGE_SYSTEMS_DETAIL_SYMBOL
 	custom_cursor(
 		sge::renderer::device::ffp &,
 		sge::input::cursor::object &,
@@ -54,27 +54,27 @@ public:
 		sge::systems::cursor_hotspot
 	);
 
-	SGE_SYSTEMS_SYMBOL
+	SGE_SYSTEMS_DETAIL_SYMBOL
 	custom_cursor(
 		custom_cursor &&
 	);
 
-	SGE_SYSTEMS_SYMBOL
+	SGE_SYSTEMS_DETAIL_SYMBOL
 	custom_cursor &
 	operator=(
 		custom_cursor &&
 	);
 
-	SGE_SYSTEMS_SYMBOL
+	SGE_SYSTEMS_DETAIL_SYMBOL
 	~custom_cursor();
 
-	SGE_SYSTEMS_SYMBOL
+	SGE_SYSTEMS_DETAIL_SYMBOL
 	void
 	draw(
 		sge::renderer::context::ffp &
 	);
 
-	SGE_SYSTEMS_SYMBOL
+	SGE_SYSTEMS_DETAIL_SYMBOL
 	sge::systems::cursor_hotspot const
 	hotspot() const;
 private:

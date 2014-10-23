@@ -22,14 +22,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_PLUGIN_INSTANTIATE_MANAGER_HPP_INCLUDED
 
 #include <sge/plugin/collection.hpp>
-#include <sge/src/export_function_instantiation.hpp>
+#include <sge/src/core/export_function_instantiation.hpp>
 #include <sge/src/plugin/manager_impl.hpp>
 
 
 #define SGE_PLUGIN_INSTANTIATE_MANAGER(\
 	plugin_type\
 )\
-template SGE_EXPORT_FUNCTION_INSTANTIATION \
+template \
+SGE_CORE_EXPORT_FUNCTION_INSTANTIATION \
 sge::plugin::collection<\
 	plugin_type\
 > const \

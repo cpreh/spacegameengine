@@ -53,53 +53,53 @@ class enumeration
 		enumeration
 	);
 public:
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	explicit
 	enumeration(
 		sge::rucksack::padding const &
 	);
 
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	void
 	size(
 		sge::rucksack::dim const &
 	)
 	override;
 
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	void
 	position(
 		sge::rucksack::vector const &
 	)
 	override;
 
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	sge::rucksack::dim const
 	size() const
 	override;
 
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	sge::rucksack::vector const
 	position() const
 	override;
 
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	sge::rucksack::axis_policy2 const
 	axis_policy() const
 	override;
 
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	void
 	relayout()
 	override;
 
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	void
 	push_back_child(
 		sge::rucksack::widget::base &
 	);
 
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	~enumeration()
 	override;
 private:

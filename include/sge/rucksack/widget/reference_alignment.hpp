@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RUCKSACK_WIDGET_REFERENCE_ALIGNMENT_HPP_INCLUDED
 
 #include <sge/rucksack/alignment.hpp>
-#include <sge/rucksack/symbol.hpp>
+#include <sge/rucksack/detail/symbol.hpp>
 #include <sge/rucksack/widget/reference.hpp>
 #include <sge/rucksack/widget/reference_alignment_fwd.hpp>
 
@@ -37,7 +37,7 @@ namespace widget
 class reference_alignment
 {
 public:
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	reference_alignment(
 		sge::rucksack::widget::reference,
 		sge::rucksack::alignment

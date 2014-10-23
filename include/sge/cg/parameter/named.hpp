@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CG_PARAMETER_NAMED_HPP_INCLUDED
 #define SGE_CG_PARAMETER_NAMED_HPP_INCLUDED
 
-#include <sge/cg/symbol.hpp>
+#include <sge/cg/detail/symbol.hpp>
 #include <sge/cg/parameter/named_fwd.hpp>
 #include <sge/cg/parameter/object.hpp>
 #include <fcppt/nonassignable.hpp>
@@ -45,15 +45,15 @@ public:
 		sge::cg::parameter::object const &
 	);
 
-	SGE_CG_SYMBOL
+	SGE_CG_DETAIL_SYMBOL
 	named(
 		named const &
 	);
 
-	SGE_CG_SYMBOL
+	SGE_CG_DETAIL_SYMBOL
 	~named();
 
-	SGE_CG_SYMBOL
+	SGE_CG_DETAIL_SYMBOL
 	sge::cg::parameter::object const &
 	object() const;
 private:

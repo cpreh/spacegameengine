@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_LISTENER_HPP_INCLUDED
 #define SGE_AUDIO_LISTENER_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
 #include <sge/audio/listener_fwd.hpp>
-#include <sge/audio/symbol.hpp>
+#include <sge/audio/detail/symbol.hpp>
 #include <sge/audio/vector_fwd.hpp>
 #include <sge/audio/direction/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -43,14 +43,14 @@ namespace audio
  *
  * For an introduction to the listener, see \ref audio_positional.
  */
-class SGE_CLASS_SYMBOL listener
+class SGE_CORE_DETAIL_CLASS_SYMBOL listener
 {
 	FCPPT_NONCOPYABLE(
 		listener
 	);
 protected:
 	/** \protectedctor */
-	SGE_AUDIO_SYMBOL explicit
+	SGE_AUDIO_DETAIL_SYMBOL explicit
 	listener();
 public:
 	/// Set the position
@@ -77,7 +77,7 @@ public:
 		direction::object const &) = 0;
 
 	/** \virtualdtor */
-	SGE_AUDIO_SYMBOL virtual
+	SGE_AUDIO_DETAIL_SYMBOL virtual
 	~listener() = 0;
 };
 

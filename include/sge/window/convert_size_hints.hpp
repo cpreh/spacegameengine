@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_WINDOW_CONVERT_SIZE_HINTS_HPP_INCLUDED
 
 #include <sge/window/size_hints_fwd.hpp>
-#include <sge/window/symbol.hpp>
+#include <sge/window/detail/symbol.hpp>
 #include <awl/window/parameters_fwd.hpp>
 
 
@@ -31,7 +31,7 @@ namespace sge
 namespace window
 {
 
-SGE_WINDOW_SYMBOL
+SGE_WINDOW_DETAIL_SYMBOL
 awl::window::parameters
 convert_size_hints(
 	awl::window::parameters const &,

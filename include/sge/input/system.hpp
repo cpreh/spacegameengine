@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_SYSTEM_HPP_INCLUDED
 #define SGE_INPUT_SYSTEM_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
 #include <sge/input/capabilities_field_fwd.hpp>
 #include <sge/input/processor_unique_ptr.hpp>
-#include <sge/input/symbol.hpp>
+#include <sge/input/detail/symbol.hpp>
 #include <sge/input/system_fwd.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
@@ -36,16 +36,16 @@ namespace sge
 namespace input
 {
 
-class SGE_CLASS_SYMBOL system
+class SGE_CORE_DETAIL_CLASS_SYMBOL system
 {
 	FCPPT_NONCOPYABLE(
 		system
 	);
 protected:
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	system();
 public:
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	virtual
 	~system() = 0;
 

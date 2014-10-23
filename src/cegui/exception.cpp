@@ -19,16 +19,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/cegui/exception.hpp>
+#include <sge/core/exception.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/text.hpp>
 
 
 sge::cegui::exception::exception(
 	fcppt::string const &_string
 )
 :
-	sge::exception(
-		_string)
-{}
+	sge::core::exception(
+		FCPPT_TEXT("cegui: ")
+		+
+		_string
+	)
+{
+}
 
 sge::cegui::exception::~exception() throw()
 {

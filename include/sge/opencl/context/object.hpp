@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENCL_CONTEXT_OBJECT_HPP_INCLUDED
 
 #include <sge/opencl/clinclude.hpp>
-#include <sge/opencl/symbol.hpp>
+#include <sge/opencl/detail/symbol.hpp>
 #include <sge/opencl/command_queue/object_fwd.hpp>
 #include <sge/opencl/context/error_callback.hpp>
 #include <sge/opencl/context/parameters_fwd.hpp>
@@ -46,22 +46,22 @@ class object
 FCPPT_NONCOPYABLE(
 	object);
 public:
-	SGE_OPENCL_SYMBOL explicit
+	SGE_OPENCL_DETAIL_SYMBOL explicit
 	object(
 		context::parameters const &);
 
-	SGE_OPENCL_SYMBOL cl_context
+	SGE_OPENCL_DETAIL_SYMBOL cl_context
 	impl() const;
 
-	SGE_OPENCL_SYMBOL opencl::memory_object::image::format_sequence const
+	SGE_OPENCL_DETAIL_SYMBOL opencl::memory_object::image::format_sequence const
 	supported_planar_image_formats(
 		cl_mem_flags) const;
 
-	SGE_OPENCL_SYMBOL opencl::memory_object::image::format_sequence const
+	SGE_OPENCL_DETAIL_SYMBOL opencl::memory_object::image::format_sequence const
 	supported_volume_image_formats(
 		cl_mem_flags) const;
 
-	SGE_OPENCL_SYMBOL
+	SGE_OPENCL_DETAIL_SYMBOL
 	~object();
 private:
 	friend class opencl::platform::object;

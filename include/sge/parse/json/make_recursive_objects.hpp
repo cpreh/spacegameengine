@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/parse/json/path_fwd.hpp>
-#include <sge/parse/json/symbol.hpp>
+#include <sge/parse/json/detail/symbol.hpp>
 
 
 namespace sge
@@ -33,7 +33,7 @@ namespace parse
 namespace json
 {
 
-SGE_PARSE_JSON_SYMBOL
+SGE_PARSE_JSON_DETAIL_SYMBOL
 sge::parse::json::object &
 make_recursive_objects(
 	sge::parse::json::object &,

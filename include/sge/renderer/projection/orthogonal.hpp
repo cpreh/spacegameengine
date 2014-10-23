@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_PROJECTION_ORTHOGONAL_HPP_INCLUDED
 
 #include <sge/renderer/matrix4_fwd.hpp>
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/projection/far.hpp>
 #include <sge/renderer/projection/near.hpp>
 #include <sge/renderer/projection/rect_fwd.hpp>
@@ -35,7 +35,7 @@ namespace renderer
 namespace projection
 {
 
-SGE_RENDERER_SYMBOL
+SGE_RENDERER_DETAIL_SYMBOL
 sge::renderer::matrix4 const
 orthogonal(
 	sge::renderer::projection::rect const &,

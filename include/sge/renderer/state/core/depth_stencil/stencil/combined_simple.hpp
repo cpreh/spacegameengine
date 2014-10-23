@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_CORE_DEPTH_STENCIL_STENCIL_COMBINED_SIMPLE_HPP_INCLUDED
 #define SGE_RENDERER_STATE_CORE_DEPTH_STENCIL_STENCIL_COMBINED_SIMPLE_HPP_INCLUDED
 
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/combined_simple_fwd.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/depth_fail_op.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/enabled_fwd.hpp>
@@ -77,47 +77,47 @@ class combined_simple
 		combined_simple
 	);
 public:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	explicit
 	combined_simple(
 		sge::renderer::state::core::depth_stencil::stencil::func
 	);
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::depth_stencil::stencil::enabled const
 	to_enabled() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::depth_stencil::stencil::combined_simple &
 	ref(
 		sge::renderer::state::core::depth_stencil::stencil::value
 	);
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::depth_stencil::stencil::combined_simple &
 	read_mask(
 		sge::renderer::state::core::depth_stencil::stencil::value
 	);
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::depth_stencil::stencil::combined_simple &
 	write_mask(
 		sge::renderer::state::core::depth_stencil::stencil::value
 	);
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::depth_stencil::stencil::combined_simple &
 	fail_op(
 		sge::renderer::state::core::depth_stencil::stencil::op
 	);
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::depth_stencil::stencil::combined_simple &
 	depth_fail_op(
 		sge::renderer::state::core::depth_stencil::stencil::op
 	);
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::depth_stencil::stencil::combined_simple &
 	pass_op(
 		sge::renderer::state::core::depth_stencil::stencil::op

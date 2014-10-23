@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_CORE_SAMPLER_SCOPED_SINGLE_HPP_INCLUDED
 #define SGE_RENDERER_STATE_CORE_SAMPLER_SCOPED_SINGLE_HPP_INCLUDED
 
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/context/core_fwd.hpp>
 #include <sge/renderer/state/core/sampler/object_fwd.hpp>
 #include <sge/renderer/state/core/sampler/scoped_single_fwd.hpp>
@@ -46,14 +46,14 @@ class scoped_single
 		scoped_single
 	);
 public:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	scoped_single(
 		sge::renderer::context::core &,
 		sge::renderer::texture::stage,
 		sge::renderer::state::core::sampler::object const &
 	);
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	~scoped_single();
 private:
 	sge::renderer::context::core &context_;

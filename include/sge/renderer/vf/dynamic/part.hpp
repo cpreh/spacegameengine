@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_DYNAMIC_PART_HPP_INCLUDED
 #define SGE_RENDERER_VF_DYNAMIC_PART_HPP_INCLUDED
 
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/vf/dynamic/element_list.hpp>
 #include <sge/renderer/vf/dynamic/offset_list.hpp>
 #include <sge/renderer/vf/dynamic/ordered_element_list.hpp>
@@ -41,17 +41,17 @@ namespace dynamic
 class part
 {
 public:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	part(
 		sge::renderer::vf::dynamic::element_list const &,
 		sge::renderer::vf::dynamic::offset_list const &
 	);
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::vf::dynamic::ordered_element_list const &
 	elements() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::vf::dynamic::stride const
 	stride() const;
 private:

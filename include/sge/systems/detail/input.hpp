@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SYSTEMS_DETAIL_INPUT_HPP_INCLUDED
 
 #include <sge/systems/input.hpp>
-#include <sge/systems/symbol.hpp>
+#include <sge/systems/detail/symbol.hpp>
 #include <sge/systems/detail/input_fwd.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/strong_typedef.hpp>
@@ -56,7 +56,7 @@ public:
 		mouse_collector
 	);
 
-	SGE_SYSTEMS_SYMBOL
+	SGE_SYSTEMS_DETAIL_SYMBOL
 	input(
 		sge::systems::input const &,
 		sge::systems::detail::input::cursor_demuxer,

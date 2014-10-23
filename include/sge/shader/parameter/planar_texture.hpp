@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/shader/pair_fwd.hpp>
-#include <sge/shader/symbol.hpp>
+#include <sge/shader/detail/symbol.hpp>
 #include <sge/shader/parameter/name.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_impl.hpp>
@@ -57,7 +57,7 @@ public:
 	fcppt::optional<sge::renderer::cg::loaded_texture &>
 	optional_loaded_texture;
 
-	SGE_SHADER_SYMBOL
+	SGE_SHADER_DETAIL_SYMBOL
 	planar_texture(
 		sge::cg::program::object &,
 		sge::shader::parameter::name const &,
@@ -65,29 +65,29 @@ public:
 		sge::renderer::device::core &,
 		optional_value const &);
 
-	SGE_SHADER_SYMBOL
+	SGE_SHADER_DETAIL_SYMBOL
 	void
 	set(
 		optional_value const &);
 
-	SGE_SHADER_SYMBOL
+	SGE_SHADER_DETAIL_SYMBOL
 	void
 	activate(
 		sge::renderer::context::core &);
 
-	SGE_SHADER_SYMBOL
+	SGE_SHADER_DETAIL_SYMBOL
 	void
 	deactivate();
 
-	SGE_SHADER_SYMBOL
+	SGE_SHADER_DETAIL_SYMBOL
 	optional_loaded_texture
 	loaded_texture();
 
-	SGE_SHADER_SYMBOL
+	SGE_SHADER_DETAIL_SYMBOL
 	sge::renderer::texture::stage const
 	stage() const;
 
-	SGE_SHADER_SYMBOL
+	SGE_SHADER_DETAIL_SYMBOL
 	~planar_texture();
 private:
 	typedef

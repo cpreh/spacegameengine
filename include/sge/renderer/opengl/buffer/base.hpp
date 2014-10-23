@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_OPENGL_BUFFER_BASE_HPP_INCLUDED
 #define SGE_RENDERER_OPENGL_BUFFER_BASE_HPP_INCLUDED
 
-#include <sge/renderer/opengl/symbol.hpp>
+#include <sge/renderer/opengl/detail/symbol.hpp>
 #include <sge/renderer/opengl/buffer/base_fwd.hpp>
 #include <sge/renderer/opengl/buffer/id.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -42,10 +42,10 @@ class base
 		base
 	);
 protected:
-	SGE_RENDERER_OPENGL_SYMBOL
+	SGE_RENDERER_OPENGL_DETAIL_SYMBOL
 	base();
 public:
-	SGE_RENDERER_OPENGL_SYMBOL
+	SGE_RENDERER_OPENGL_DETAIL_SYMBOL
 	virtual
 	~base() = 0;
 

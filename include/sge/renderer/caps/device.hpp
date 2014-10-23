@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_CAPS_DEVICE_HPP_INCLUDED
 #define SGE_RENDERER_CAPS_DEVICE_HPP_INCLUDED
 
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/caps/clip_plane_indices.hpp>
 #include <sge/renderer/caps/description.hpp>
 #include <sge/renderer/caps/device_fwd.hpp>
@@ -64,7 +64,7 @@ public:
 
 	This function is for internal use only
 	*/
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	device(
 		sge::renderer::caps::driver_name const &,
 		sge::renderer::caps::description const &,
@@ -87,7 +87,7 @@ public:
 
 	A string representation of the driver name.
 	*/
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::caps::driver_name const &
 	driver_name() const;
 
@@ -97,7 +97,7 @@ public:
 	This usually contains the vendor or the model name of the graphics
 	card.
 	*/
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::caps::description const &
 	description() const;
 
@@ -115,7 +115,7 @@ public:
 	DirectX has "half a unit cube". The Z value is in [0,1] while the X and
 	Y values are in [-1,1].
 	*/
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::caps::normalized_cvv const &
 	normalized_cvv() const;
 
@@ -128,7 +128,7 @@ public:
 	and your graphics card. Typical values might be (4096,4096) or
 	(8192,8192).
 	*/
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::caps::max_texture_size const &
 	max_texture_size() const;
 
@@ -138,7 +138,7 @@ public:
 	This is the maximum size for each side of a volume texture. Creating
 	anything bigger than that is not supported.
 	*/
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::caps::max_volume_texture_extent const
 	max_volume_texture_extent() const;
 
@@ -149,7 +149,7 @@ public:
 	in a virtual machine, over vnc or rdesktop, etc.) might not support non
 	power of 2 textures.
 	*/
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::caps::non_power_of_2_textures const
 	non_power_of_2_textures() const;
 
@@ -159,7 +159,7 @@ public:
 	This is the maximum anisotropy supported for anisotropic texture
 	filters. If this is 0, no anisotropic filtering is supported.
 	*/
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::caps::max_anisotropy const
 	max_anisotropy() const;
 
@@ -169,7 +169,7 @@ public:
 	If no render targets are supported, then you cannot use
 	sge::renderer::device::create_target.
 	*/
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::caps::render_target_supported const
 	render_target_supported() const;
 
@@ -180,7 +180,7 @@ public:
 	vertically. If render targets are not supported, this value has no
 	meaning.
 	*/
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::caps::render_target_inverted const
 	render_target_inverted() const;
 
@@ -190,7 +190,7 @@ public:
 	Valid clip plane indices range from 0 to the returned value - 1. If
 	this value is 0, no clip planes are supported.
 	*/
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::caps::clip_plane_indices const
 	clip_plane_indices() const;
 
@@ -200,7 +200,7 @@ public:
 	Valid light indices range from 0 to the returned value - 1. If this
 	value is 0, no lights are supported.
 	*/
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::caps::light_indices const
 	light_indices() const;
 
@@ -210,7 +210,7 @@ public:
 	Valid texture stages range from 0 to the returned value - 1. The 0th
 	texture stage is always supported.
 	*/
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::caps::texture_stages const
 	texture_stages() const;
 
@@ -220,7 +220,7 @@ public:
 	Valid target surface indices range from 0 to the returned value - 1.
 	The 0th index is always supported.
 	*/
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::caps::target_surface_indices const
 	target_surfaces() const;
 
@@ -229,7 +229,7 @@ public:
 
 	This is required for creating a pixel format with srgb support.
 	*/
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::caps::srgb_framebuffer const
 	srgb_framebuffer() const;
 private:

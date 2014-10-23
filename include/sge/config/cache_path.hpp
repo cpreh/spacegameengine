@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CONFIG_CACHE_PATH_HPP_INCLUDED
 
 #include <sge/config/app_name.hpp>
-#include <sge/config/symbol.hpp>
+#include <sge/config/detail/symbol.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -33,7 +33,7 @@ namespace sge
 namespace config
 {
 
-SGE_CONFIG_SYMBOL
+SGE_CONFIG_DETAIL_SYMBOL
 boost::filesystem::path
 cache_path(
 	sge::config::app_name const &

@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/graph/baseline_color.hpp>
 #include <sge/graph/foreground_alt_color.hpp>
 #include <sge/graph/foreground_color.hpp>
-#include <sge/graph/symbol.hpp>
+#include <sge/graph/detail/symbol.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -39,7 +39,7 @@ namespace graph
 class color_scheme
 {
 public:
-	SGE_GRAPH_SYMBOL
+	SGE_GRAPH_DETAIL_SYMBOL
 	color_scheme(
 		sge::graph::foreground_color const &,
 		sge::graph::foreground_alt_color const &,
@@ -47,52 +47,52 @@ public:
 		sge::graph::background_alt_color const &,
 		sge::graph::baseline_color const &);
 
-	SGE_GRAPH_SYMBOL
+	SGE_GRAPH_DETAIL_SYMBOL
 	void
 	foreground_color(
 		sge::image::color::any::object const &);
 
-	SGE_GRAPH_SYMBOL
+	SGE_GRAPH_DETAIL_SYMBOL
 	sge::image::color::any::object const &
 	foreground_color() const;
 
-	SGE_GRAPH_SYMBOL
+	SGE_GRAPH_DETAIL_SYMBOL
 	void
 	background_color(
 		sge::image::color::any::object const &);
 
-	SGE_GRAPH_SYMBOL
+	SGE_GRAPH_DETAIL_SYMBOL
 	sge::image::color::any::object const &
 	background_color() const;
 
-	SGE_GRAPH_SYMBOL
+	SGE_GRAPH_DETAIL_SYMBOL
 	void
 	foreground_alt_color(
 		sge::image::color::any::object const &);
 
-	SGE_GRAPH_SYMBOL
+	SGE_GRAPH_DETAIL_SYMBOL
 	sge::image::color::any::object const &
 	foreground_alt_color() const;
 
-	SGE_GRAPH_SYMBOL
+	SGE_GRAPH_DETAIL_SYMBOL
 	void
 	background_alt_color(
 		sge::image::color::any::object const &);
 
-	SGE_GRAPH_SYMBOL
+	SGE_GRAPH_DETAIL_SYMBOL
 	sge::image::color::any::object const &
 	background_alt_color() const;
 
-	SGE_GRAPH_SYMBOL
+	SGE_GRAPH_DETAIL_SYMBOL
 	void
 	baseline_color(
 		sge::image::color::any::object const &);
 
-	SGE_GRAPH_SYMBOL
+	SGE_GRAPH_DETAIL_SYMBOL
 	sge::image::color::any::object const &
 	baseline_color() const;
 
-	SGE_GRAPH_SYMBOL
+	SGE_GRAPH_DETAIL_SYMBOL
 	~color_scheme();
 
 private:

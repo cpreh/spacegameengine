@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_NPOS_HPP_INCLUDED
 
 #include <sge/renderer/size_type.hpp>
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 
 
 namespace sge
@@ -39,7 +39,7 @@ namespace renderer
 
 \see sge::renderer::vertex_buffer::npos
 */
-SGE_RENDERER_SYMBOL
+SGE_RENDERER_DETAIL_SYMBOL
 sge::renderer::size_type
 npos();
 

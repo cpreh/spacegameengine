@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_CURSOR_ACTIVATABLE_HPP_INCLUDED
 #define SGE_INPUT_CURSOR_ACTIVATABLE_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
-#include <sge/input/symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
+#include <sge/input/detail/symbol.hpp>
 #include <sge/input/cursor/activatable_fwd.hpp>
 #include <sge/input/cursor/button_callback.hpp>
 #include <sge/input/cursor/button_event_fwd.hpp>
@@ -49,7 +49,7 @@ namespace input
 namespace cursor
 {
 
-class SGE_CLASS_SYMBOL activatable
+class SGE_CORE_DETAIL_CLASS_SYMBOL activatable
 :
 	public sge::input::cursor::object
 {
@@ -57,56 +57,56 @@ class SGE_CLASS_SYMBOL activatable
 		activatable
 	);
 public:
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	explicit
 	activatable(
 		sge::input::cursor::object &
 	);
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	~activatable()
 	override;
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	fcppt::signal::auto_connection
 	button_callback(
 		sge::input::cursor::button_callback const &
 	)
 	override;
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	fcppt::signal::auto_connection
 	move_callback(
 		sge::input::cursor::move_callback const &
 	)
 	override;
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	fcppt::signal::auto_connection
 	scroll_callback(
 		sge::input::cursor::scroll_callback const &
 	)
 	override;
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::cursor::optional_position const
 	position() const
 	override;
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	void
 	mode(
 		sge::input::cursor::mode
 	)
 	override;
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	void
 	active(
 		bool
 	);
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	bool
 	active() const;
 private:

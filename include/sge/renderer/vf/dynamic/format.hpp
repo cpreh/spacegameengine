@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_DYNAMIC_FORMAT_HPP_INCLUDED
 #define SGE_RENDERER_VF_DYNAMIC_FORMAT_HPP_INCLUDED
 
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/vf/dynamic/format_fwd.hpp>
 #include <sge/renderer/vf/dynamic/part_list.hpp>
 
@@ -38,13 +38,13 @@ namespace dynamic
 class format
 {
 public:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	explicit
 	format(
 		sge::renderer::vf::dynamic::part_list const &
 	);
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::vf::dynamic::part_list const &
 	parts() const;
 private:

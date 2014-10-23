@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VERTEX_SCOPED_BUFFER_HPP_INCLUDED
 #define SGE_RENDERER_VERTEX_SCOPED_BUFFER_HPP_INCLUDED
 
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/context/core_fwd.hpp>
 #include <sge/renderer/vertex/buffer_fwd.hpp>
 #include <sge/renderer/vertex/scoped_buffer_fwd.hpp>
@@ -60,7 +60,7 @@ public:
 	\warning The behaviour is undefined if the corresponding vertex
 	declaration is not set
 	*/
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	scoped_buffer(
 		sge::renderer::context::core &context,
 		sge::renderer::vertex::buffer const &vertex_buffer
@@ -72,7 +72,7 @@ public:
 	\warning The behaviour is undefined if the vertex buffer was already
 	unset
 	*/
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	~scoped_buffer();
 private:
 	sge::renderer::context::core &context_;

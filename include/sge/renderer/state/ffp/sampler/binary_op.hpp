@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_FFP_SAMPLER_BINARY_OP_HPP_INCLUDED
 #define SGE_RENDERER_STATE_FFP_SAMPLER_BINARY_OP_HPP_INCLUDED
 
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/state/ffp/sampler/arg1.hpp>
 #include <sge/renderer/state/ffp/sampler/arg2.hpp>
 #include <sge/renderer/state/ffp/sampler/binary_op_fwd.hpp>
@@ -42,22 +42,22 @@ namespace sampler
 class binary_op
 {
 public:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	binary_op(
 		sge::renderer::state::ffp::sampler::binary_op_type,
 		sge::renderer::state::ffp::sampler::arg1,
 		sge::renderer::state::ffp::sampler::arg2
 	);
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::sampler::binary_op_type
 	type() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::sampler::arg1 const
 	arg1() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::sampler::arg2 const
 	arg2() const;
 private:

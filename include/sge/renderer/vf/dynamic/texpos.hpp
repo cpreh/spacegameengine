@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_DYNAMIC_TEXPOS_HPP_INCLUDED
 #define SGE_RENDERER_VF_DYNAMIC_TEXPOS_HPP_INCLUDED
 
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/vf/dynamic/index.hpp>
 #include <sge/renderer/vf/dynamic/texpos_fwd.hpp>
 #include <sge/renderer/vf/dynamic/vector.hpp>
@@ -39,17 +39,17 @@ namespace dynamic
 class texpos
 {
 public:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	texpos(
 		sge::renderer::vf::dynamic::vector const &,
 		sge::renderer::vf::dynamic::index
 	);
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::vf::dynamic::vector const &
 	type() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::vf::dynamic::index const
 	index() const;
 private:

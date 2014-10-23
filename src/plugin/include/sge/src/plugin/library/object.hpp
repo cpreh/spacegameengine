@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_PLUGIN_LIBRARY_OBJECT_HPP_INCLUDED
 #define SGE_SRC_PLUGIN_LIBRARY_OBJECT_HPP_INCLUDED
 
+#include <sge/plugin/detail/symbol.hpp>
 #include <sge/plugin/library/object_fwd.hpp>
 #include <sge/plugin/library/symbol_string.hpp>
-#include <sge/plugin/symbol.hpp>
 #include <sge/src/plugin/library/loaded_symbol.hpp>
 #include <fcppt/config/platform.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -52,13 +52,13 @@ class object
 		object
 	);
 public:
-	SGE_PLUGIN_SYMBOL
+	SGE_PLUGIN_DETAIL_SYMBOL
 	explicit
 	object(
 		boost::filesystem::path const &
 	);
 
-	SGE_PLUGIN_SYMBOL
+	SGE_PLUGIN_DETAIL_SYMBOL
 	~object();
 
 	sge::plugin::library::loaded_symbol

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MODEL_OBJ_MATERIAL_OBJECT_HPP_INCLUDED
 
 #include <sge/model/obj/identifier.hpp>
-#include <sge/model/obj/symbol.hpp>
+#include <sge/model/obj/detail/symbol.hpp>
 #include <sge/model/obj/material/ambient_color.hpp>
 #include <sge/model/obj/material/diffuse_color.hpp>
 #include <sge/model/obj/material/diffuse_texture_path.hpp>
@@ -43,7 +43,7 @@ namespace material
 class object
 {
 public:
-	SGE_MODEL_OBJ_SYMBOL
+	SGE_MODEL_OBJ_DETAIL_SYMBOL
 	object(
 		sge::model::obj::identifier const &,
 		sge::model::obj::material::diffuse_color const &,
@@ -54,35 +54,35 @@ public:
 		sge::model::obj::material::diffuse_texture_path const &,
 		sge::model::obj::material::specular_texture_path const &);
 
-	SGE_MODEL_OBJ_SYMBOL
+	SGE_MODEL_OBJ_DETAIL_SYMBOL
 	sge::model::obj::identifier const &
 	identifier() const;
 
-	SGE_MODEL_OBJ_SYMBOL
+	SGE_MODEL_OBJ_DETAIL_SYMBOL
 	sge::model::obj::material::diffuse_color const &
 	diffuse_color() const;
 
-	SGE_MODEL_OBJ_SYMBOL
+	SGE_MODEL_OBJ_DETAIL_SYMBOL
 	sge::model::obj::material::ambient_color const &
 	ambient_color() const;
 
-	SGE_MODEL_OBJ_SYMBOL
+	SGE_MODEL_OBJ_DETAIL_SYMBOL
 	sge::model::obj::material::specular_color const &
 	specular_color() const;
 
-	SGE_MODEL_OBJ_SYMBOL
+	SGE_MODEL_OBJ_DETAIL_SYMBOL
 	sge::model::obj::material::emissive_color const &
 	emissive_color() const;
 
-	SGE_MODEL_OBJ_SYMBOL
+	SGE_MODEL_OBJ_DETAIL_SYMBOL
 	sge::model::obj::material::shininess const &
 	shininess() const;
 
-	SGE_MODEL_OBJ_SYMBOL
+	SGE_MODEL_OBJ_DETAIL_SYMBOL
 	sge::model::obj::material::diffuse_texture_path const &
 	diffuse_texture() const;
 
-	SGE_MODEL_OBJ_SYMBOL
+	SGE_MODEL_OBJ_DETAIL_SYMBOL
 	sge::model::obj::material::specular_texture_path const &
 	specular_texture() const;
 private:

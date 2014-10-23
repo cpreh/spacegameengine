@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/input_fwd.hpp>
-#include <sge/systems/symbol.hpp>
+#include <sge/systems/detail/symbol.hpp>
 #include <fcppt/nonassignable.hpp>
 
 
@@ -38,7 +38,7 @@ class input
 		input
 	);
 public:
-	SGE_SYSTEMS_SYMBOL
+	SGE_SYSTEMS_DETAIL_SYMBOL
 	explicit
 	input(
 		sge::systems::cursor_option_field const &

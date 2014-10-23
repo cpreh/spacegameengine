@@ -47,40 +47,40 @@ class object
 FCPPT_NONCOPYABLE(
 	object);
 public:
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	object(
 		sge::renderer::device::core &,
 		sge::renderer::vertex::declaration &,
 		sge::model::obj::prototype const &);
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	object(
 		object &&
 	);
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	object &
 	operator=(
 		object &&
 	);
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	sge::renderer::vertex::buffer &
 	vertex_buffer();
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	sge::renderer::index::buffer &
 	index_buffer();
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::scene::mesh::material_to_index_buffer_range const &
 	parts();
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::box const &
 	bounding_box() const;
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	~object();
 private:
 	sge::renderer::vertex::buffer_unique_ptr vertex_buffer_;

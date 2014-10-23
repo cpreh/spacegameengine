@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXTURE_IMAGE_TOO_BIG_HPP_INCLUDED
 #define SGE_TEXTURE_IMAGE_TOO_BIG_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
 #include <sge/renderer/dim2_fwd.hpp>
 #include <sge/texture/exception.hpp>
-#include <sge/texture/symbol.hpp>
+#include <sge/texture/detail/symbol.hpp>
 
 
 namespace sge
@@ -32,12 +32,12 @@ namespace sge
 namespace texture
 {
 
-class SGE_CLASS_SYMBOL image_too_big
+class SGE_CORE_DETAIL_CLASS_SYMBOL image_too_big
 :
 	public sge::texture::exception
 {
 public:
-	SGE_TEXTURE_SYMBOL
+	SGE_TEXTURE_DETAIL_SYMBOL
 	explicit
 	image_too_big(
 		sge::renderer::dim2 const &

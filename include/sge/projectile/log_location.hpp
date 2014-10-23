@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PROJECTILE_LOG_LOCATION_HPP_INCLUDED
 #define SGE_PROJECTILE_LOG_LOCATION_HPP_INCLUDED
 
-#include <sge/projectile/symbol.hpp>
+#include <sge/projectile/detail/symbol.hpp>
 #include <fcppt/log/location.hpp>
 
 
@@ -30,7 +30,7 @@ namespace sge
 namespace projectile
 {
 
-SGE_PROJECTILE_SYMBOL
+SGE_PROJECTILE_DETAIL_SYMBOL
 fcppt::log::location const
 log_location();
 

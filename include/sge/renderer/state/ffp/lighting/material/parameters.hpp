@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_FFP_LIGHTING_MATERIAL_PARAMETERS_HPP_INCLUDED
 #define SGE_RENDERER_STATE_FFP_LIGHTING_MATERIAL_PARAMETERS_HPP_INCLUDED
 
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/state/ffp/lighting/ambient_color.hpp>
 #include <sge/renderer/state/ffp/lighting/diffuse_color.hpp>
 #include <sge/renderer/state/ffp/lighting/specular_color.hpp>
@@ -67,7 +67,7 @@ public:
 
 	\param shininess Describes how strong specular light is
 	*/
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	parameters(
 		sge::renderer::state::ffp::lighting::diffuse_color const &diffuse,
 		sge::renderer::state::ffp::lighting::ambient_color const &ambient,
@@ -79,35 +79,35 @@ public:
 	/**
 	 * \brief Returns the diffuse part
 	*/
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::lighting::diffuse_color const &
 	diffuse() const;
 
 	/**
 	 * \brief Returns the ambient part
 	*/
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::lighting::ambient_color const &
 	ambient() const;
 
 	/**
 	 * \brief Returns the specular part
 	*/
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::lighting::specular_color const &
 	specular() const;
 
 	/**
 	 * \brief Returns the emissive part
 	*/
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::lighting::material::emissive_color const &
 	emissive() const;
 
 	/**
 	 * \brief Returns the shininess
 	*/
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::lighting::material::shininess const
 	shininess() const;
 private:

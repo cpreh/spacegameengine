@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENCL_PLATFORM_OBJECT_HPP_INCLUDED
 
 #include <sge/opencl/clinclude.hpp>
-#include <sge/opencl/symbol.hpp>
+#include <sge/opencl/detail/symbol.hpp>
 #include <sge/opencl/system_fwd.hpp>
 #include <sge/opencl/context/object_fwd.hpp>
 #include <sge/opencl/context/parameters_fwd.hpp>
@@ -46,38 +46,38 @@ class object
 FCPPT_NONCOPYABLE(
 	object);
 public:
-	SGE_OPENCL_SYMBOL cl_platform_id
+	SGE_OPENCL_DETAIL_SYMBOL cl_platform_id
 	impl() const;
 
-	SGE_OPENCL_SYMBOL opencl::device::object_sequence &
+	SGE_OPENCL_DETAIL_SYMBOL opencl::device::object_sequence &
 	devices();
 
-	SGE_OPENCL_SYMBOL opencl::device::object_sequence const &
+	SGE_OPENCL_DETAIL_SYMBOL opencl::device::object_sequence const &
 	devices() const;
 
-	SGE_OPENCL_SYMBOL sge::opencl::platform::profile_type
+	SGE_OPENCL_DETAIL_SYMBOL sge::opencl::platform::profile_type
 	profile() const;
 
-	SGE_OPENCL_SYMBOL sge::opencl::platform::version
+	SGE_OPENCL_DETAIL_SYMBOL sge::opencl::platform::version
 	version() const;
 
-	SGE_OPENCL_SYMBOL std::string
+	SGE_OPENCL_DETAIL_SYMBOL std::string
 	name() const;
 
-	SGE_OPENCL_SYMBOL std::string
+	SGE_OPENCL_DETAIL_SYMBOL std::string
 	vendor() const;
 
-	SGE_OPENCL_SYMBOL sge::opencl::platform::extension_sequence
+	SGE_OPENCL_DETAIL_SYMBOL sge::opencl::platform::extension_sequence
 	extensions() const;
 
-	SGE_OPENCL_SYMBOL bool
+	SGE_OPENCL_DETAIL_SYMBOL bool
 	supports_memory_sharing_with(
 		renderer::device::core const &) const;
 
-	SGE_OPENCL_SYMBOL bool
+	SGE_OPENCL_DETAIL_SYMBOL bool
 	has_gpu() const;
 
-	SGE_OPENCL_SYMBOL
+	SGE_OPENCL_DETAIL_SYMBOL
 	~object();
 
 	object(

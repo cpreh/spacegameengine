@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_MOUSE_AXIS_EVENT_HPP_INCLUDED
 #define SGE_INPUT_MOUSE_AXIS_EVENT_HPP_INCLUDED
 
-#include <sge/input/symbol.hpp>
+#include <sge/input/detail/symbol.hpp>
 #include <sge/input/mouse/axis.hpp>
 #include <sge/input/mouse/axis_code_fwd.hpp>
 #include <sge/input/mouse/axis_event_fwd.hpp>
@@ -38,21 +38,21 @@ namespace mouse
 class axis_event
 {
 public:
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	axis_event(
 		sge::input::mouse::axis const &,
 		sge::input::mouse::axis_value
 	);
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::mouse::axis const &
 	axis() const;
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::mouse::axis_code
 	code() const;
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::mouse::axis_value
 	value() const;
 private:

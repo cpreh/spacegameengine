@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PROJECTILE_BODY_OBJECT_HPP_INCLUDED
 
 #include <sge/projectile/scalar.hpp>
-#include <sge/projectile/symbol.hpp>
+#include <sge/projectile/detail/symbol.hpp>
 #include <sge/projectile/world_fwd.hpp>
 #include <sge/projectile/body/parameters_fwd.hpp>
 #include <sge/projectile/body/position_change.hpp>
@@ -55,53 +55,53 @@ class object
 FCPPT_NONCOPYABLE(
 	object);
 public:
-	SGE_PROJECTILE_SYMBOL explicit
+	SGE_PROJECTILE_DETAIL_SYMBOL explicit
 	object(
 		parameters const &);
 
-	SGE_PROJECTILE_SYMBOL vector2 const
+	SGE_PROJECTILE_DETAIL_SYMBOL vector2 const
 	position() const;
 
-	SGE_PROJECTILE_SYMBOL void
+	SGE_PROJECTILE_DETAIL_SYMBOL void
 	position(
 		vector2 const &);
 
-	SGE_PROJECTILE_SYMBOL vector2 const
+	SGE_PROJECTILE_DETAIL_SYMBOL vector2 const
 	linear_velocity() const;
 
-	SGE_PROJECTILE_SYMBOL void
+	SGE_PROJECTILE_DETAIL_SYMBOL void
 	linear_velocity(
 		vector2 const &);
 
-	SGE_PROJECTILE_SYMBOL scalar
+	SGE_PROJECTILE_DETAIL_SYMBOL scalar
 	angular_velocity() const;
 
-	SGE_PROJECTILE_SYMBOL void
+	SGE_PROJECTILE_DETAIL_SYMBOL void
 	angular_velocity(
 		scalar);
 
-	SGE_PROJECTILE_SYMBOL sge::projectile::shape::shared_base_ptr const
+	SGE_PROJECTILE_DETAIL_SYMBOL sge::projectile::shape::shared_base_ptr const
 	shape() const;
 
-	SGE_PROJECTILE_SYMBOL scalar
+	SGE_PROJECTILE_DETAIL_SYMBOL scalar
 	rotation() const;
 
-	SGE_PROJECTILE_SYMBOL void
+	SGE_PROJECTILE_DETAIL_SYMBOL void
 	rotation(
 		scalar);
 
-	SGE_PROJECTILE_SYMBOL fcppt::signal::auto_connection
+	SGE_PROJECTILE_DETAIL_SYMBOL fcppt::signal::auto_connection
 	position_change(
 		sge::projectile::body::position_change const &);
 
-	SGE_PROJECTILE_SYMBOL fcppt::signal::auto_connection
+	SGE_PROJECTILE_DETAIL_SYMBOL fcppt::signal::auto_connection
 	rotation_change(
 		sge::projectile::body::rotation_change const &);
 
-	SGE_PROJECTILE_SYMBOL sge::projectile::body::user_data const &
+	SGE_PROJECTILE_DETAIL_SYMBOL sge::projectile::body::user_data const &
 	user_data() const;
 
-	SGE_PROJECTILE_SYMBOL ~object();
+	SGE_PROJECTILE_DETAIL_SYMBOL ~object();
 private:
 	friend class sge::projectile::body::detail::motion_state;
 	friend class sge::projectile::world;

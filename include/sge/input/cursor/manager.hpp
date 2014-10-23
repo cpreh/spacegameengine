@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_INPUT_CURSOR_MANAGER_HPP_INCLUDED
 
 #include <sge/input/processor_fwd.hpp>
-#include <sge/input/symbol.hpp>
+#include <sge/input/detail/symbol.hpp>
 #include <sge/input/cursor/button_event_fwd.hpp>
 #include <sge/input/cursor/discover_callback.hpp>
 #include <sge/input/cursor/discover_event_fwd.hpp>
@@ -73,7 +73,7 @@ public:
 		)
 	> scroll_callback;
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	manager(
 		sge::input::processor &,
 		sge::input::cursor::discover_callback const &,
@@ -83,7 +83,7 @@ public:
 		sge::input::cursor::manager::scroll_callback const &
 	);
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	~manager();
 
 	typedef std::unordered_map<
@@ -91,7 +91,7 @@ public:
 		fcppt::signal::auto_connection_container
 	> object_map;
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::cursor::manager::object_map const &
 	devices() const;
 private:

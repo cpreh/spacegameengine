@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/any/object.hpp>
 #include <sge/line_drawer/color.hpp>
 #include <sge/line_drawer/color_format.hpp>
-#include <sge/line_drawer/symbol.hpp>
+#include <sge/line_drawer/detail/symbol.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/variant/object.hpp>
@@ -38,7 +38,7 @@ namespace line_drawer
 class line
 {
 public:
-	SGE_LINE_DRAWER_SYMBOL explicit
+	SGE_LINE_DRAWER_DETAIL_SYMBOL explicit
 	line(
 		sge::renderer::vector3 const &,
 		sge::renderer::vector3 const &,
@@ -46,16 +46,16 @@ public:
 		sge::image::color::any::object const & = sge::image::color::predef::white(),
 		sge::image::color::any::object const & = sge::image::color::predef::white());
 
-	SGE_LINE_DRAWER_SYMBOL sge::renderer::vector3 const &
+	SGE_LINE_DRAWER_DETAIL_SYMBOL sge::renderer::vector3 const &
 	begin() const;
 
-	SGE_LINE_DRAWER_SYMBOL sge::renderer::vector3 const &
+	SGE_LINE_DRAWER_DETAIL_SYMBOL sge::renderer::vector3 const &
 	end() const;
 
-	SGE_LINE_DRAWER_SYMBOL color const &
+	SGE_LINE_DRAWER_DETAIL_SYMBOL color const &
 	begin_color() const;
 
-	SGE_LINE_DRAWER_SYMBOL color const &
+	SGE_LINE_DRAWER_DETAIL_SYMBOL color const &
 	end_color() const;
 private:
 	sge::renderer::vector3 begin_,end_;

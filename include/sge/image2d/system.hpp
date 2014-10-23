@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE2D_SYSTEM_HPP_INCLUDED
 #define SGE_IMAGE2D_SYSTEM_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
 #include <sge/image2d/optional_file_unique_ptr_fwd.hpp>
-#include <sge/image2d/symbol.hpp>
+#include <sge/image2d/detail/symbol.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/media/const_raw_range.hpp>
@@ -41,13 +41,13 @@ namespace sge
 namespace image2d
 {
 
-class SGE_CLASS_SYMBOL system
+class SGE_CORE_DETAIL_CLASS_SYMBOL system
 {
 	FCPPT_NONCOPYABLE(
 		system
 	);
 protected:
-	SGE_IMAGE2D_SYMBOL
+	SGE_IMAGE2D_DETAIL_SYMBOL
 	system();
 public:
 	virtual
@@ -81,7 +81,7 @@ public:
 	sge::media::extension_set
 	extensions() const = 0;
 
-	SGE_IMAGE2D_SYMBOL
+	SGE_IMAGE2D_DETAIL_SYMBOL
 	virtual
 	~system() = 0;
 };

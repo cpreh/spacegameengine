@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PROJECTILE_SHAPE_CIRCLE_HPP_INCLUDED
 #define SGE_PROJECTILE_SHAPE_CIRCLE_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
 #include <sge/projectile/scalar.hpp>
-#include <sge/projectile/symbol.hpp>
+#include <sge/projectile/detail/symbol.hpp>
 #include <sge/projectile/shape/base.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -39,14 +39,14 @@ namespace projectile
 {
 namespace shape
 {
-class SGE_CLASS_SYMBOL circle
+class SGE_CORE_DETAIL_CLASS_SYMBOL circle
 :
 	public sge::projectile::shape::base
 {
 FCPPT_NONCOPYABLE(
 	circle);
 public:
-	SGE_PROJECTILE_SYMBOL
+	SGE_PROJECTILE_DETAIL_SYMBOL
 	explicit
 	circle(
 		sge::projectile::scalar const radius);
@@ -60,7 +60,7 @@ public:
 	bullet_shape() const
 	override;
 
-	SGE_PROJECTILE_SYMBOL
+	SGE_PROJECTILE_DETAIL_SYMBOL
 	~circle()
 	override;
 private:

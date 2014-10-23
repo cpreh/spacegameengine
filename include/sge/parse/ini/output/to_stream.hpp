@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PARSE_INI_OUTPUT_TO_STREAM_HPP_INCLUDED
 
 #include <sge/parse/ini/start_fwd.hpp>
-#include <sge/parse/ini/symbol.hpp>
+#include <sge/parse/ini/detail/symbol.hpp>
 #include <fcppt/io/ostream.hpp>
 
 
@@ -35,7 +35,7 @@ namespace ini
 namespace output
 {
 
-SGE_PARSE_INI_SYMBOL
+SGE_PARSE_INI_DETAIL_SYMBOL
 bool
 to_stream(
 	fcppt::io::ostream &,

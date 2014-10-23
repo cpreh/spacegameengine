@@ -1,51 +1,3 @@
-set(
-	SGE_CORE_INCLUDE_FILES
-	include/sge/class_symbol.hpp
-	include/sge/error/check_state.hpp
-	include/sge/exception.hpp
-)
-
-set(
-	SGE_CORE_SRC_FILES
-	src/exception.cpp
-	src/include/sge/src/export_class_instantiation.hpp
-	src/include/sge/src/export_function_instantiation.hpp
-	src/include/sge/src/include_windows.hpp
-)
-
-foreach(
-	CUR_FILE
-	${SGE_CORE_INCLUDE_FILES}
-)
-	get_filename_component(
-		REL_PATH
-		${CUR_FILE}
-		PATH
-	)
-
-	string(
-		REPLACE
-		"include/"
-		""
-		TRIMMED_PATH
-		"${REL_PATH}"
-	)
-
-	install(
-		FILES
-		${FCPPT_UTILS_PROJECT_SOURCE_DIR}/${CUR_FILE}
-		DESTINATION
-		${INSTALL_INCLUDE_DIR}/${TRIMMED_PATH}
-	)
-endforeach()
-
-install(
-	FILES
-	${FCPPT_UTILS_PROJECT_BINARY_DIR}/include/sge/symbol.hpp
-	DESTINATION
-	${INSTALL_INCLUDE_DIR}/sge
-)
-
 # configure some resource paths
 set(
 	SGE_PLUGIN_BUILD_PATH
@@ -66,64 +18,6 @@ set(
 	SGE_MEDIA_INSTALL_PATH
 	"${MEDIA_INSTALL_DIR}"
 )
-
-include_directories(
-	"${CMAKE_CURRENT_SOURCE_DIR}/include"
-)
-
-sge_generate_symbol_header(
-	"sgecore"
-	"SGE"
-	"sge"
-)
-
-
-fcppt_utils_append_source_dir_and_make_groups(
-	"${SGE_CORE_INCLUDE_FILES}"
-	SGE_CORE_INCLUDE_FILES_ABS
-)
-
-fcppt_utils_append_source_dir_and_make_groups(
-	"${SGE_CORE_SRC_FILES}"
-	SGE_CORE_SRC_FILES_ABS
-)
-
-function(
-	add_sge_core_lib
-	VARIANT
-)
-	set(
-		SGE_CORE_FILES
-		"${SGE_CORE_INCLUDE_FILES_ABS};${SGE_CORE_SRC_FILES_ABS}"
-	)
-
-	add_sge_base_library_variant(
-		sgecore
-		"${SGE_CORE_FILES}"
-		VARIANT
-			"${VARIANT}"
-		INCLUDE_DIRS
-			"${fcppt_INCLUDE_DIRS}"
-		TRANSITIVE_INCLUDE_DIRS
-			"${fcppt_INCLUDE_DIRS}"
-	)
-endfunction()
-
-if(
-	ENABLE_STATIC
-)
-	add_sge_core_lib(
-		"STATIC"
-	)
-endif()
-
-if(
-	ENABLE_SHARED
-)
-	add_sge_core_lib(
-		"SHARED"
-	)
-endif()
 
 function(
 	path_to_enable_var
@@ -226,6 +120,10 @@ find_package(
 ##################################################
 # Core libraries
 ##################################################
+
+add_subdirectory(
+	core
+)
 
 add_sge_lib(
 	log

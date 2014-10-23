@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/scoped_buffer_fwd.hpp>
 #include <sge/renderer/vertex/scoped_declaration.hpp>
-#include <sge/scenic/symbol.hpp>
+#include <sge/scenic/detail/symbol.hpp>
 #include <sge/scenic/render_context/base.hpp>
 #include <sge/scenic/render_context/ffp/manager_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -62,13 +62,13 @@ class object
 FCPPT_NONCOPYABLE(
 	object);
 public:
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	object(
 		sge::scenic::render_context::ffp::manager &_manager,
 		sge::renderer::context::ffp &
 	);
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	void
 	transform(
 		sge::scenic::render_context::transform_matrix_type,
@@ -76,35 +76,35 @@ public:
 	)
 	override;
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	void
 	material(
 		sge::scenic::render_context::material::object const &
 	)
 	override;
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	void
 	lights(
 		sge::scenic::render_context::light::sequence const &
 	)
 	override;
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	void
 	vertex_buffer(
 		sge::renderer::vertex::buffer const &
 	)
 	override;
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	void
 	fog(
 		sge::scenic::render_context::fog::optional_properties const &
 	)
 	override;
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	void
 	render(
 		sge::renderer::index::buffer const &,
@@ -112,12 +112,12 @@ public:
 	)
 	override;
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	sge::renderer::target::base &
 	target()
 	override;
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	~object()
 	override;
 private:

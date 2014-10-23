@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/base_fwd.hpp>
 #include <sge/camera/perspective_projection_from_viewport.hpp>
 #include <sge/image2d/system_fwd.hpp>
-#include <sge/scenic/symbol.hpp>
+#include <sge/scenic/detail/symbol.hpp>
 #include <sge/scenic/render_context/base_fwd.hpp>
 #include <sge/scenic/render_queue/object_fwd.hpp>
 #include <sge/scenic/scene/entity_sequence.hpp>
@@ -52,19 +52,19 @@ class object
 FCPPT_NONCOPYABLE(
 	object);
 public:
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	object(
 		sge::scenic::scene::manager &,
 		sge::viewport::manager &,
 		sge::camera::base &,
 		sge::scenic::scene::prototype_unique_ptr);
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	void
 	render(
 		sge::scenic::render_context::base &);
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	~object();
 private:
 	typedef

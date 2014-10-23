@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/parse/result_fwd.hpp>
 #include <sge/parse/ini/start_fwd.hpp>
-#include <sge/parse/ini/symbol.hpp>
+#include <sge/parse/ini/detail/symbol.hpp>
 #include <fcppt/io/istream.hpp>
 
 
@@ -34,7 +34,7 @@ namespace parse
 namespace ini
 {
 
-SGE_PARSE_INI_SYMBOL
+SGE_PARSE_INI_DETAIL_SYMBOL
 sge::parse::result
 parse_stream(
 	fcppt::io::istream &,

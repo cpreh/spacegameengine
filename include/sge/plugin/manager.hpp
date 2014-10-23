@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/context_base_unique_ptr.hpp>
 #include <sge/plugin/manager_fwd.hpp>
 #include <sge/plugin/optional_cache_ref_fwd.hpp>
-#include <sge/plugin/symbol.hpp>
+#include <sge/plugin/detail/symbol.hpp>
 #include <sge/plugin/detail/instantiate/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -47,13 +47,13 @@ class manager
 		manager
 	);
 public:
-	SGE_PLUGIN_SYMBOL
+	SGE_PLUGIN_DETAIL_SYMBOL
 	manager(
 		boost::filesystem::path const &,
 		sge::plugin::optional_cache_ref const &
 	);
 
-	SGE_PLUGIN_SYMBOL
+	SGE_PLUGIN_DETAIL_SYMBOL
 	~manager();
 
 	template<

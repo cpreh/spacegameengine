@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_OPENGL_TEXTURE_BASE_HPP_INCLUDED
 #define SGE_RENDERER_OPENGL_TEXTURE_BASE_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
-#include <sge/renderer/opengl/symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
+#include <sge/renderer/opengl/detail/symbol.hpp>
 #include <sge/renderer/opengl/texture/base_fwd.hpp>
 #include <sge/renderer/opengl/texture/id.hpp>
 #include <sge/renderer/opengl/texture/type.hpp>
@@ -38,13 +38,13 @@ namespace opengl
 namespace texture
 {
 
-class SGE_CLASS_SYMBOL base
+class SGE_CORE_DETAIL_CLASS_SYMBOL base
 {
 	FCPPT_NONCOPYABLE(
 		base
 	);
 protected:
-	SGE_RENDERER_OPENGL_SYMBOL
+	SGE_RENDERER_OPENGL_DETAIL_SYMBOL
 	base();
 public:
 	virtual
@@ -55,7 +55,7 @@ public:
 	sge::renderer::opengl::texture::type const
 	type() const = 0;
 
-	SGE_RENDERER_OPENGL_SYMBOL
+	SGE_RENDERER_OPENGL_DETAIL_SYMBOL
 	virtual
 	~base() = 0;
 };

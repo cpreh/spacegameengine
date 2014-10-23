@@ -18,41 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_EXCEPTION_HPP_INCLUDED
-#define SGE_EXCEPTION_HPP_INCLUDED
-
-#include <sge/class_symbol.hpp>
-#include <sge/symbol.hpp>
+#include <sge/core/exception.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/assert/information_fwd.hpp>
+#include <fcppt/assert/make_message.hpp>
 
 
-namespace sge
-{
-
-class SGE_CLASS_SYMBOL exception
+sge::core::exception::exception(
+	fcppt::string const &_string
+)
 :
-	public fcppt::exception
+	fcppt::exception(
+		_string
+	)
 {
-public:
-	SGE_SYMBOL
-	explicit
-	exception(
-		fcppt::string const &
-	);
-
-	SGE_SYMBOL
-	explicit
-	exception(
-		fcppt::assert_::information const &
-	);
-
-	SGE_SYMBOL
-	~exception() throw()
-	override;
-};
-
 }
 
-#endif
+sge::core::exception::exception(
+	fcppt::assert_::information const &_info
+)
+:
+	fcppt::exception(
+		fcppt::assert_::make_message(
+			_info
+		)
+	)
+{
+}
+
+sge::core::exception::~exception() throw()
+{
+}

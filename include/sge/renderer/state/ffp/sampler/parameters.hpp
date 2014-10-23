@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_FFP_SAMPLER_PARAMETERS_HPP_INCLUDED
 #define SGE_RENDERER_STATE_FFP_SAMPLER_PARAMETERS_HPP_INCLUDED
 
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/state/ffp/sampler/alpha_op.hpp>
 #include <sge/renderer/state/ffp/sampler/color_op.hpp>
 #include <sge/renderer/state/ffp/sampler/parameters_fwd.hpp>
@@ -41,17 +41,17 @@ namespace sampler
 class parameters
 {
 public:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	parameters(
 		sge::renderer::state::ffp::sampler::color_op,
 		sge::renderer::state::ffp::sampler::alpha_op
 	);
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::sampler::color_op const
 	color_op() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::sampler::alpha_op const
 	alpha_op() const;
 private:

@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/exception.hpp>
+#include <sge/core/exception.hpp>
 #include <sge/opencl/command_queue/enqueue_kernel.hpp>
 #include <sge/opencl/command_queue/object.hpp>
 #include <sge/opencl/event/object.hpp>
@@ -81,7 +81,8 @@ enqueue_kernel_internal(
 
 	for(std::size_t i = 0; i < global_dim.size(); ++i)
 		if(global_dim[i] == 0 || (work_dim && (*work_dim)[i] == 0))
-			throw sge::exception(
+			// TODO: opencl exception
+			throw sge::core::exception(
 				FCPPT_TEXT("Neither global nor work dimensions can be zero in any component"));
 
 	sge::opencl::event::object_unique_ptr result(
@@ -113,7 +114,8 @@ enqueue_kernel_internal(
 	if(error_code == CL_INVALID_WORK_GROUP_SIZE)
 	{
 		throw
-			sge::exception(
+			// TODO: opencl exception
+			sge::core::exception(
 				FCPPT_TEXT("Error enqueuing kernel \"")+
 				fcppt::from_std_string(
 					_kernel.name())+

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_BASIC_BUFFER_HPP_INCLUDED
 #define SGE_RENDERER_BASIC_BUFFER_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
 #include <sge/image/traits/box_fwd.hpp>
 #include <sge/image/traits/color_tag.hpp>
 #include <sge/image/traits/const_view_fwd.hpp>
@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/basic_buffer_fwd.hpp>
 #include <sge/renderer/lock_mode_fwd.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -48,13 +48,13 @@ namespace renderer
 template<
 	typename ImageTag
 >
-class SGE_CLASS_SYMBOL basic_buffer
+class SGE_CORE_DETAIL_CLASS_SYMBOL basic_buffer
 {
 	FCPPT_NONCOPYABLE(
 		basic_buffer
 	);
 protected:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	basic_buffer();
 public:
 	virtual
@@ -153,7 +153,7 @@ public:
 
 	\warning The behavior is undefined if the buffer is already locked
 	*/
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	const_view const
 	lock() const;
 
@@ -187,7 +187,7 @@ public:
 
 	\warning The behavior is undefined if the buffer is already locked
 	*/
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	view const
 	lock(
 		sge::renderer::lock_mode mode
@@ -249,7 +249,7 @@ public:
 
 	\return <code> lock_area(lock_area::vector::null(), this->dim()) </code>
 	*/
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	lock_area const
 	area() const;
 
@@ -260,7 +260,7 @@ public:
 
 	\return <code> this->size().content() </code>
 	*/
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	size_type
 	content() const;
 };

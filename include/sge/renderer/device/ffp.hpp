@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_DEVICE_FFP_HPP_INCLUDED
 #define SGE_RENDERER_DEVICE_FFP_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
-#include <sge/renderer/symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/context/ffp_unique_ptr.hpp>
 #include <sge/renderer/device/core.hpp>
@@ -62,7 +62,7 @@ namespace device
 In addition to the core device, ffp states such as fog, lighting and
 alpha_testing are provided.
 */
-class SGE_CLASS_SYMBOL ffp
+class SGE_CORE_DETAIL_CLASS_SYMBOL ffp
 :
 	public sge::renderer::device::core
 {
@@ -70,7 +70,7 @@ class SGE_CLASS_SYMBOL ffp
 		ffp
 	);
 protected:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	ffp();
 public:
 	virtual
@@ -139,7 +139,7 @@ public:
 		sge::renderer::state::ffp::transform::parameters const &
 	) = 0;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	~ffp()
 	override = 0;
 };

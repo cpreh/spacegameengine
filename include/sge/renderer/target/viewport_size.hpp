@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_TARGET_VIEWPORT_SIZE_HPP_INCLUDED
 
 #include <sge/renderer/screen_size.hpp>
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/target/base_fwd.hpp>
 
 
@@ -33,7 +33,7 @@ namespace renderer
 namespace target
 {
 
-SGE_RENDERER_SYMBOL
+SGE_RENDERER_DETAIL_SYMBOL
 sge::renderer::screen_size const
 viewport_size(
 	sge::renderer::target::base const &

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_FFP_LIGHTING_MATERIAL_DEFAULT_HPP_INCLUDED
 #define SGE_RENDERER_STATE_FFP_LIGHTING_MATERIAL_DEFAULT_HPP_INCLUDED
 
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/state/ffp/lighting/material/parameters_fwd.hpp>
 
 
@@ -38,7 +38,7 @@ namespace lighting
 namespace material
 {
 
-SGE_RENDERER_SYMBOL
+SGE_RENDERER_DETAIL_SYMBOL
 sge::renderer::state::ffp::lighting::material::parameters const
 default_();
 

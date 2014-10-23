@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TARGET_SCOPED_SCISSOR_AREA_HPP_INCLUDED
 #define SGE_RENDERER_TARGET_SCOPED_SCISSOR_AREA_HPP_INCLUDED
 
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/target/base_fwd.hpp>
 #include <sge/renderer/target/scissor_area.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -57,7 +57,7 @@ public:
 	 *
 	 * \param area The new scissor area
 	*/
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	scoped_scissor_area(
 		sge::renderer::target::base &target,
 		sge::renderer::target::scissor_area const &area
@@ -66,7 +66,7 @@ public:
 	/**
 	 * \brief Resets to the old scissor area
 	*/
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	~scoped_scissor_area();
 private:
 	sge::renderer::target::base &target_;

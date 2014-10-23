@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXTURE_RECT_FRAGMENTED_HPP_INCLUDED
 #define SGE_TEXTURE_RECT_FRAGMENTED_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
 #include <sge/renderer/dim2_fwd.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/fragmented.hpp>
 #include <sge/texture/part_fwd.hpp>
 #include <sge/texture/part_unique_ptr.hpp>
-#include <sge/texture/symbol.hpp>
+#include <sge/texture/detail/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -40,7 +40,7 @@ namespace sge
 namespace texture
 {
 
-class SGE_CLASS_SYMBOL rect_fragmented
+class SGE_CORE_DETAIL_CLASS_SYMBOL rect_fragmented
 :
 	public sge::texture::fragmented
 {
@@ -48,7 +48,7 @@ class SGE_CLASS_SYMBOL rect_fragmented
 		rect_fragmented
 	);
 public:
-	SGE_TEXTURE_SYMBOL
+	SGE_TEXTURE_DETAIL_SYMBOL
 	rect_fragmented(
 		sge::renderer::device::core &,
 		sge::renderer::texture::color_format const &,
@@ -56,7 +56,7 @@ public:
 		sge::renderer::dim2 const &initial_size
 	);
 
-	SGE_TEXTURE_SYMBOL
+	SGE_TEXTURE_DETAIL_SYMBOL
 	~rect_fragmented()
 	override;
 private:

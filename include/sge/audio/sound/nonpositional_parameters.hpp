@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_AUDIO_SOUND_NONPOSITIONAL_PARAMETERS_HPP_INCLUDED
 
 #include <sge/audio/scalar.hpp>
-#include <sge/audio/symbol.hpp>
+#include <sge/audio/detail/symbol.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 
 namespace sge
@@ -35,28 +35,28 @@ namespace sound
 class nonpositional_parameters
 {
 public:
-	SGE_AUDIO_SYMBOL explicit
+	SGE_AUDIO_DETAIL_SYMBOL explicit
 	nonpositional_parameters();
 
 	/// Get the gain
 	/** \see sge::audio::sound::base::gain */
-	SGE_AUDIO_SYMBOL audio::scalar const &
+	SGE_AUDIO_DETAIL_SYMBOL audio::scalar const &
 	gain() const;
 
 	/// Set the gain
 	/** \see sge::audio::sound::base::gain */
-	SGE_AUDIO_SYMBOL nonpositional_parameters &
+	SGE_AUDIO_DETAIL_SYMBOL nonpositional_parameters &
 	gain(
 		audio::scalar const &);
 
 	/// Get the pitch
 	/** \see sge::audio::sound::base::pitch */
-	SGE_AUDIO_SYMBOL audio::scalar const &
+	SGE_AUDIO_DETAIL_SYMBOL audio::scalar const &
 	pitch() const;
 
 	/// Set the pitch
 	/** \see sge::audio::sound::base::pitch */
-	SGE_AUDIO_SYMBOL nonpositional_parameters &
+	SGE_AUDIO_DETAIL_SYMBOL nonpositional_parameters &
 	pitch(
 		audio::scalar const &);
 private:

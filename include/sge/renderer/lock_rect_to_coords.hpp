@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/dim2_fwd.hpp>
 #include <sge/renderer/lock_rect_fwd.hpp>
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <fcppt/math/box/rect.hpp>
 #include <fcppt/type_traits/is_float_or_double.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -56,7 +56,7 @@ Calculates the texture coordinates for \a area using the texture size \a size.
 template<
 	typename Ret
 >
-SGE_RENDERER_SYMBOL
+SGE_RENDERER_DETAIL_SYMBOL
 typename boost::enable_if<
 	fcppt::type_traits::is_float_or_double<
 		Ret

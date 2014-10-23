@@ -18,35 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/exception.hpp>
-#include <fcppt/exception.hpp>
-#include <fcppt/string.hpp>
-#include <fcppt/assert/information_fwd.hpp>
-#include <fcppt/assert/make_message.hpp>
+#ifndef SGE_SRC_CORE_EXPORT_FUNCTION_INSTANTIATION_HPP_INCLUDED
+#define SGE_SRC_CORE_EXPORT_FUNCTION_INSTANTIATION_HPP_INCLUDED
 
+#if defined(SGE_STATIC_LINK)
+#	define SGE_CORE_EXPORT_FUNCTION_INSTANTIATION
+#else
+#	include <fcppt/symbol/export_function_instantiation.hpp>
+#	define SGE_CORE_EXPORT_FUNCTION_INSTANTIATION FCPPT_SYMBOL_EXPORT_FUNCTION_INSTANTIATION
+#endif
 
-sge::exception::exception(
-	fcppt::string const &_string
-)
-:
-	fcppt::exception(
-		_string
-	)
-{
-}
-
-sge::exception::exception(
-	fcppt::assert_::information const &_info
-)
-:
-	fcppt::exception(
-		fcppt::assert_::make_message(
-			_info
-		)
-	)
-{
-}
-
-sge::exception::~exception() throw()
-{
-}
+#endif

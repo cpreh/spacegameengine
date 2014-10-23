@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_DYNAMIC_EXTRA_HPP_INCLUDED
 #define SGE_RENDERER_VF_DYNAMIC_EXTRA_HPP_INCLUDED
 
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/vf/dynamic/extra_any.hpp>
 #include <sge/renderer/vf/dynamic/extra_fwd.hpp>
 #include <sge/renderer/vf/dynamic/index.hpp>
@@ -39,17 +39,17 @@ namespace dynamic
 class extra
 {
 public:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	extra(
 		sge::renderer::vf::dynamic::extra_any const &,
 		sge::renderer::vf::dynamic::index
 	);
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::vf::dynamic::extra_any const &
 	type() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::vf::dynamic::index const
 	index() const;
 private:

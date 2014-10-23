@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SCENIC_SCENE_ENTITY_HPP_INCLUDED
 #define SGE_SCENIC_SCENE_ENTITY_HPP_INCLUDED
 
-#include <sge/scenic/symbol.hpp>
+#include <sge/scenic/detail/symbol.hpp>
 #include <sge/scenic/scene/mesh_path.hpp>
 #include <sge/scenic/scene/position.hpp>
 #include <sge/scenic/scene/rotation.hpp>
@@ -39,41 +39,41 @@ namespace scene
 class entity
 {
 public:
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	entity(
 		sge::scenic::scene::mesh_path const &,
 		sge::scenic::scene::position const &,
 		sge::scenic::scene::rotation const &,
 		sge::scenic::scene::scale const &);
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	entity(
 		entity &&
 	);
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	entity &
 	operator=(
 		entity &&
 	);
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::scene::mesh_path const &
 	mesh_path() const;
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::scene::position const &
 	position() const;
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::scene::rotation const &
 	rotation() const;
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::scene::scale const &
 	scale() const;
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	~entity();
 private:
 	sge::scenic::scene::mesh_path mesh_path_;

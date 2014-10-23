@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/srgba8_format.hpp>
 #include <sge/image/color/any/convert.hpp>
 #include <sge/image/color/any/object.hpp>
-#include <sge/src/export_function_instantiation.hpp>
+#include <sge/src/core/export_function_instantiation.hpp>
 #include <sge/src/image/color/any/convert_visitor.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
@@ -66,7 +66,7 @@ sge::image::color::any::convert(
 	format\
 )\
 template \
-SGE_EXPORT_FUNCTION_INSTANTIATION \
+SGE_CORE_EXPORT_FUNCTION_INSTANTIATION \
 sge::image::mizuiro_color<\
 	sge::image::color::format\
 > const \

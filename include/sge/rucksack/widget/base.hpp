@@ -21,13 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RUCKSACK_WIDGET_BASE_HPP_INCLUDED
 #define SGE_RUCKSACK_WIDGET_BASE_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
 #include <sge/rucksack/axis_fwd.hpp>
 #include <sge/rucksack/axis_policy2_fwd.hpp>
 #include <sge/rucksack/dim_fwd.hpp>
 #include <sge/rucksack/rect_fwd.hpp>
 #include <sge/rucksack/scalar.hpp>
-#include <sge/rucksack/symbol.hpp>
+#include <sge/rucksack/detail/symbol.hpp>
 #include <sge/rucksack/vector_fwd.hpp>
 #include <sge/rucksack/widget/optional_ref.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -40,7 +40,7 @@ namespace rucksack
 namespace widget
 {
 
-class SGE_CLASS_SYMBOL base
+class SGE_CORE_DETAIL_CLASS_SYMBOL base
 {
 	FCPPT_NONCOPYABLE(
 		base
@@ -79,7 +79,7 @@ public:
 		sge::rucksack::axis
 	) const;
 
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	sge::rucksack::rect const
 	area() const;
 
@@ -100,24 +100,24 @@ public:
 	void
 	relayout() = 0;
 
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	void
 	parent(
 		sge::rucksack::widget::optional_ref const &
 	);
 
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	sge::rucksack::widget::optional_ref const
 	parent() const;
 
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	virtual
 	~base() = 0;
 protected:
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	base();
 
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	virtual
 	void
 	child_destroyed(

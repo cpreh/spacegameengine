@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_EXCEPTION_HPP_INCLUDED
 #define SGE_AUDIO_EXCEPTION_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
-#include <sge/exception.hpp>
 #include <sge/audio/exception_fwd.hpp>
-#include <sge/audio/symbol.hpp>
+#include <sge/audio/detail/symbol.hpp>
+#include <sge/core/exception.hpp>
+#include <sge/core/detail/class_symbol.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/assert/information_fwd.hpp>
 
@@ -35,14 +35,15 @@ namespace audio
 {
 
 /// Base class for all audio related errors
-class SGE_CLASS_SYMBOL exception
+class SGE_CORE_DETAIL_CLASS_SYMBOL exception
 :
-	public sge::exception
+	public sge::core::exception
 {
 public:
 	/// Initialize exception with an error string
-	SGE_AUDIO_SYMBOL
-	explicit exception(
+	SGE_AUDIO_DETAIL_SYMBOL
+	explicit
+	exception(
 		fcppt::string const &
 	);
 
@@ -50,8 +51,9 @@ public:
 	/**
 	 * For an introduction to assertions in fcppt, see <a href="...">this overview</a>
 	 */
-	SGE_AUDIO_SYMBOL
-	explicit exception(
+	SGE_AUDIO_DETAIL_SYMBOL
+	explicit
+	exception(
 		fcppt::assert_::information const &
 	);
 };

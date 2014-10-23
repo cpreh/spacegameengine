@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_SOUND_PAUSE_HPP_INCLUDED
 #define SGE_AUDIO_SOUND_PAUSE_HPP_INCLUDED
 
-#include <sge/audio/symbol.hpp>
+#include <sge/audio/detail/symbol.hpp>
 #include <sge/audio/sound/base_fwd.hpp>
 
 
@@ -32,7 +32,7 @@ namespace audio
 namespace sound
 {
 
-SGE_AUDIO_SYMBOL
+SGE_AUDIO_DETAIL_SYMBOL
 void
 pause(
 	sge::audio::sound::base &

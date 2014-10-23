@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/rasterizer/object_unique_ptr.hpp>
 #include <sge/renderer/state/core/sampler/object_unique_ptr.hpp>
 #include <sge/renderer/vertex/declaration_fwd.hpp>
-#include <sge/scenic/symbol.hpp>
+#include <sge/scenic/detail/symbol.hpp>
 #include <sge/scenic/render_context/manager_base.hpp>
 #include <sge/scenic/render_context/cg/object_fwd.hpp>
 #include <sge/scenic/render_context/cg/light/count.hpp>
@@ -63,7 +63,7 @@ class manager
 FCPPT_NONCOPYABLE(
 	manager);
 public:
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	manager(
 		sge::shader::context &,
 		sge::renderer::vertex::declaration &);
@@ -75,7 +75,7 @@ public:
 	)
 	override;
 
-	SGE_SCENIC_SYMBOL
+	SGE_SCENIC_DETAIL_SYMBOL
 	~manager()
 	override;
 private:

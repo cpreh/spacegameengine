@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FONT_ALIGN_H_EXTRACT_MAX_WIDTH_HPP_INCLUDED
 #define SGE_FONT_ALIGN_H_EXTRACT_MAX_WIDTH_HPP_INCLUDED
 
-#include <sge/font/symbol.hpp>
+#include <sge/font/detail/symbol.hpp>
 #include <sge/font/align_h/optional_max_width.hpp>
 #include <sge/font/align_h/variant_fwd.hpp>
 
@@ -33,7 +33,7 @@ namespace font
 namespace align_h
 {
 
-SGE_FONT_SYMBOL
+SGE_FONT_DETAIL_SYMBOL
 sge::font::align_h::optional_max_width const
 extract_max_width(
 	sge::font::align_h::variant const &

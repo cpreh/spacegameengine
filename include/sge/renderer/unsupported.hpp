@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_UNSUPPORTED_HPP_INCLUDED
 #define SGE_RENDERER_UNSUPPORTED_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <fcppt/string.hpp>
 
 
@@ -37,12 +37,12 @@ namespace renderer
 
 \ingroup sge_renderer
 */
-class SGE_CLASS_SYMBOL unsupported
+class SGE_CORE_DETAIL_CLASS_SYMBOL unsupported
 :
 	public sge::renderer::exception
 {
 public:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	unsupported(
 		fcppt::string const &feature,
 		fcppt::string const &minimum_version_required,
@@ -52,25 +52,25 @@ public:
 	/**
 	\brief Returns the name of the missing feature
 	*/
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	fcppt::string const &
 	feature() const;
 
 	/**
 	\brief Returns the minimum version that is required to get the feature
 	*/
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	fcppt::string const &
 	minimum_version_required() const;
 
 	/**
 	\brief Returns possible extensions that could provide the feature
 	*/
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	fcppt::string const &
 	possible_extensions() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	~unsupported() throw()
 	override;
 private:

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/color/format_fwd.hpp>
 #include <sge/opencl/clinclude.hpp>
-#include <sge/opencl/symbol.hpp>
+#include <sge/opencl/detail/symbol.hpp>
 
 
 namespace sge
@@ -34,7 +34,7 @@ namespace memory_object
 {
 namespace image
 {
-SGE_OPENCL_SYMBOL cl_image_format const
+SGE_OPENCL_DETAIL_SYMBOL cl_image_format const
 sge_color_format_to_opencl(
 	sge::image::color::format);
 }

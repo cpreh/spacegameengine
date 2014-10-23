@@ -2,21 +2,6 @@
 
 set -e -u
 
-update_cmake \
-	src/CMakeLists.txt \
-	SGE_CORE_INCLUDE_FILES \
-	-n \
-	include/sge \
-	-r \
-	include/sge/error
-
-update_cmake \
-	src/CMakeLists.txt \
-	SGE_CORE_SRC_FILES \
-	src/include \
-	-n \
-	src
-
 function toupper()
 {
 	echo $(tr 'a-z' 'A-Z' <<< "$1")
@@ -82,6 +67,8 @@ update_sublibrary audio
 update_sublibrary camera
 
 update_sublibrary cegui
+
+update_sublibrary core
 
 # charconv
 update_cmake \

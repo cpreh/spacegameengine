@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/rucksack/axis_fwd.hpp>
 #include <sge/rucksack/axis_policy.hpp>
 #include <sge/rucksack/axis_policy2_fwd.hpp>
-#include <sge/rucksack/symbol.hpp>
+#include <sge/rucksack/detail/symbol.hpp>
 
 
 namespace sge
@@ -35,21 +35,21 @@ namespace rucksack
 class axis_policy2
 {
 public:
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	axis_policy2(
 		sge::rucksack::axis_policy const &,
 		sge::rucksack::axis_policy const &
 	);
 
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	sge::rucksack::axis_policy const &
 	x() const;
 
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	sge::rucksack::axis_policy const &
 	y() const;
 
-	SGE_RUCKSACK_SYMBOL
+	SGE_RUCKSACK_DETAIL_SYMBOL
 	sge::rucksack::axis_policy const &
 	operator[](
 		sge::rucksack::axis

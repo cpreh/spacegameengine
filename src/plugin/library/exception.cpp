@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/exception.hpp>
+#include <sge/core/exception.hpp>
 #include <sge/plugin/library/exception.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
@@ -28,7 +28,7 @@ sge::plugin::library::exception::exception(
 	fcppt::string const &_error
 )
 :
-	sge::exception(
+	sge::core::exception(
 		FCPPT_TEXT("library: ")
 		+ _error
 	)

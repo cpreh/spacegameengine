@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/exception.hpp>
+#include <sge/core/exception.hpp>
 #include <sge/plugin/file_extension.hpp>
 #include <sge/plugin/info.hpp>
 #include <sge/plugin/manager.hpp>
@@ -128,7 +128,7 @@ sge::plugin::manager::manager(
 			);
 		}
 		catch(
-			sge::exception const &_exception
+			sge::core::exception const &_exception
 		)
 		{
 			FCPPT_LOG_WARNING(

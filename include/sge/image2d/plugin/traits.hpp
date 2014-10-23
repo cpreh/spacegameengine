@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE2D_PLUGIN_TRAITS_HPP_INCLUDED
 #define SGE_IMAGE2D_PLUGIN_TRAITS_HPP_INCLUDED
 
-#include <sge/image2d/symbol.hpp>
+#include <sge/image2d/detail/symbol.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/image2d/system_unique_ptr.hpp>
 #include <sge/plugin/capabilities_fwd.hpp>
@@ -41,11 +41,11 @@ struct traits<
 	sge::image2d::system
 >
 {
-	SGE_IMAGE2D_SYMBOL
+	SGE_IMAGE2D_DETAIL_SYMBOL
 	static sge::plugin::detail::address_name
 	plugin_loader_name();
 
-	SGE_IMAGE2D_SYMBOL
+	SGE_IMAGE2D_DETAIL_SYMBOL
 	static sge::plugin::capabilities
 	plugin_type();
 

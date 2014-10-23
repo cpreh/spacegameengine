@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TARGET_BASE_HPP_INCLUDED
 #define SGE_RENDERER_TARGET_BASE_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
-#include <sge/renderer/symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/clear/parameters_fwd.hpp>
 #include <sge/renderer/target/base_fwd.hpp>
 #include <sge/renderer/target/scissor_area_fwd.hpp>
@@ -52,13 +52,13 @@ namespace target
  * tests will only be performed if renderer::state::bool_::enable_scissor_test
  * is true.
 */
-class SGE_CLASS_SYMBOL base
+class SGE_CORE_DETAIL_CLASS_SYMBOL base
 {
 	FCPPT_NONCOPYABLE(
 		base
 	);
 protected:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	base();
 public:
 	/**
@@ -107,7 +107,7 @@ public:
 		sge::renderer::clear::parameters const &
 	) = 0;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	virtual
 	~base() = 0;
 };

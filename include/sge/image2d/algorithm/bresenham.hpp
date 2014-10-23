@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE2D_ALGORITHM_BRESENHAM_HPP_INCLUDED
 
 #include <sge/image/color/any/object_fwd.hpp>
-#include <sge/image2d/symbol.hpp>
+#include <sge/image2d/detail/symbol.hpp>
 #include <sge/image2d/vector_fwd.hpp>
 #include <sge/image2d/view/object_fwd.hpp>
 
@@ -34,7 +34,7 @@ namespace image2d
 namespace algorithm
 {
 
-SGE_IMAGE2D_SYMBOL
+SGE_IMAGE2D_DETAIL_SYMBOL
 void
 bresenham(
 	sge::image2d::view::object const &,

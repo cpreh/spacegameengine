@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CAMERA_LOG_LOCATION_HPP_INCLUDED
 #define SGE_CAMERA_LOG_LOCATION_HPP_INCLUDED
 
-#include <sge/camera/symbol.hpp>
+#include <sge/camera/detail/symbol.hpp>
 #include <fcppt/log/location.hpp>
 
 
@@ -30,7 +30,7 @@ namespace sge
 namespace camera
 {
 
-SGE_CAMERA_SYMBOL
+SGE_CAMERA_DETAIL_SYMBOL
 fcppt::log::location
 log_location();
 

@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PLUGIN_LIBRARY_SYMBOL_NOT_FOUND_HPP_INCLUDED
 #define SGE_PLUGIN_LIBRARY_SYMBOL_NOT_FOUND_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
-#include <sge/plugin/symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
+#include <sge/plugin/detail/symbol.hpp>
 #include <sge/plugin/library/exception.hpp>
 #include <sge/plugin/library/symbol_string.hpp>
 #include <fcppt/string.hpp>
@@ -35,26 +35,26 @@ namespace plugin
 namespace library
 {
 
-class SGE_CLASS_SYMBOL symbol_not_found
+class SGE_CORE_DETAIL_CLASS_SYMBOL symbol_not_found
 :
 	public sge::plugin::library::exception
 {
 public:
-	SGE_PLUGIN_SYMBOL
+	SGE_PLUGIN_DETAIL_SYMBOL
 	symbol_not_found(
 		fcppt::string const &,
-		library::symbol_string const &
+		sge::plugin::library::symbol_string const &
 	);
 
-	SGE_PLUGIN_SYMBOL
+	SGE_PLUGIN_DETAIL_SYMBOL
 	fcppt::string const &
 	library_name() const;
 
-	SGE_PLUGIN_SYMBOL
-	library::symbol_string const &
+	SGE_PLUGIN_DETAIL_SYMBOL
+	sge::plugin::library::symbol_string const &
 	symbol() const;
 
-	SGE_PLUGIN_SYMBOL
+	SGE_PLUGIN_DETAIL_SYMBOL
 	~symbol_not_found() throw()
 	override;
 private:

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_LOG_STREAM_HPP_INCLUDED
 #define SGE_LOG_STREAM_HPP_INCLUDED
 
-#include <sge/log/symbol.hpp>
+#include <sge/log/detail/symbol.hpp>
 #include <fcppt/io/ostream.hpp>
 
 
@@ -30,7 +30,7 @@ namespace sge
 namespace log
 {
 
-SGE_LOG_SYMBOL
+SGE_LOG_DETAIL_SYMBOL
 fcppt::io::ostream &
 stream();
 

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RESOURCE_TREE_PATH_HPP_INCLUDED
 
 #include <sge/resource_tree/path_fwd.hpp>
-#include <sge/resource_tree/symbol.hpp>
+#include <sge/resource_tree/detail/symbol.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <vector>
@@ -59,28 +59,28 @@ public:
 	element_sequence::const_iterator
 	const_iterator;
 
-	SGE_RESOURCE_TREE_SYMBOL
+	SGE_RESOURCE_TREE_DETAIL_SYMBOL
 	path();
 
-	SGE_RESOURCE_TREE_SYMBOL
+	SGE_RESOURCE_TREE_DETAIL_SYMBOL
 	path &
 	operator/=(
 		fcppt::string const &);
 
-	SGE_RESOURCE_TREE_SYMBOL
+	SGE_RESOURCE_TREE_DETAIL_SYMBOL
 	path
 	operator/(
 		fcppt::string const &) const;
 
-	SGE_RESOURCE_TREE_SYMBOL
+	SGE_RESOURCE_TREE_DETAIL_SYMBOL
 	const_iterator const
 	begin() const;
 
-	SGE_RESOURCE_TREE_SYMBOL
+	SGE_RESOURCE_TREE_DETAIL_SYMBOL
 	const_iterator const
 	end() const;
 
-	SGE_RESOURCE_TREE_SYMBOL
+	SGE_RESOURCE_TREE_DETAIL_SYMBOL
 	bool
 	operator==(
 		path const &) const;
@@ -88,14 +88,14 @@ public:
 	/**
 	\brief Return the last element of the path
 	*/
-	SGE_RESOURCE_TREE_SYMBOL
+	SGE_RESOURCE_TREE_DETAIL_SYMBOL
 	fcppt::string
 	back() const;
 
 	/**
 	\brief Output the path as a string for display in error messages
 	*/
-	SGE_RESOURCE_TREE_SYMBOL
+	SGE_RESOURCE_TREE_DETAIL_SYMBOL
 	fcppt::string
 	string() const;
 private:

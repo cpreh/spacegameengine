@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_STATE_FFP_TRANSFORM_PARAMETERS_HPP_INCLUDED
 
 #include <sge/renderer/matrix4.hpp>
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/state/ffp/transform/parameters_fwd.hpp>
 
 
@@ -40,13 +40,13 @@ namespace transform
 class parameters
 {
 public:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	explicit
 	parameters(
 		sge::renderer::matrix4 const &
 	);
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::matrix4 const &
 	matrix() const;
 private:

@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VERTEX_DECLARATION_HPP_INCLUDED
 #define SGE_RENDERER_VERTEX_DECLARATION_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
-#include <sge/renderer/symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/vertex/declaration_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -44,16 +44,16 @@ to be set first.
 
 \see sge::renderer::device::vertex_declaration
 */
-class SGE_CLASS_SYMBOL declaration
+class SGE_CORE_DETAIL_CLASS_SYMBOL declaration
 {
 	FCPPT_NONCOPYABLE(
 		declaration
 	);
 protected:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	declaration();
 public:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	virtual
 	~declaration() = 0;
 };

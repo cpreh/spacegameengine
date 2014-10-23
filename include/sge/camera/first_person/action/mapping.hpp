@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CAMERA_FIRST_PERSON_ACTION_MAPPING_HPP_INCLUDED
 #define SGE_CAMERA_FIRST_PERSON_ACTION_MAPPING_HPP_INCLUDED
 
-#include <sge/class_symbol.hpp>
-#include <sge/camera/symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
+#include <sge/camera/detail/symbol.hpp>
 #include <sge/camera/first_person/action/backward.hpp>
 #include <sge/camera/first_person/action/down.hpp>
 #include <sge/camera/first_person/action/forward.hpp>
@@ -47,7 +47,7 @@ namespace action
 class mapping
 {
 public:
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	explicit
 	mapping(
 		action::left const &,
@@ -57,27 +57,27 @@ public:
 		action::forward const &,
 		action::backward const &);
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	action::left const &
 	left() const;
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	action::right const &
 	right() const;
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	action::up const &
 	up() const;
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	action::down const &
 	down() const;
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	action::forward const &
 	forward() const;
 
-	SGE_CAMERA_SYMBOL
+	SGE_CAMERA_DETAIL_SYMBOL
 	action::backward const &
 	backward() const;
 private:

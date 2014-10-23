@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_PIXEL_FORMAT_OBJECT_HPP_INCLUDED
 #define SGE_RENDERER_PIXEL_FORMAT_OBJECT_HPP_INCLUDED
 
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/pixel_format/color.hpp>
 #include <sge/renderer/pixel_format/depth_stencil.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
@@ -46,7 +46,7 @@ optional multi samples, and if srgb conversion should be done.
 class object
 {
 public:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	object(
 		sge::renderer::pixel_format::color,
 		sge::renderer::pixel_format::depth_stencil,
@@ -54,19 +54,19 @@ public:
 		sge::renderer::pixel_format::srgb
 	);
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::pixel_format::color
 	color() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::pixel_format::depth_stencil
 	depth_stencil() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::pixel_format::optional_multi_samples const
 	multi_samples() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::pixel_format::srgb
 	srgb() const;
 private:

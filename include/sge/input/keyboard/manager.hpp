@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_INPUT_KEYBOARD_MANAGER_HPP_INCLUDED
 
 #include <sge/input/processor_fwd.hpp>
-#include <sge/input/symbol.hpp>
+#include <sge/input/detail/symbol.hpp>
 #include <sge/input/keyboard/char_event_fwd.hpp>
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/input/keyboard/discover_callback.hpp>
@@ -73,7 +73,7 @@ public:
 		)
 	> key_repeat_callback;
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	manager(
 		sge::input::processor &,
 		sge::input::keyboard::discover_callback const &,
@@ -83,7 +83,7 @@ public:
 		key_repeat_callback const &
 	);
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	~manager();
 
 	typedef std::unordered_map<
@@ -91,7 +91,7 @@ public:
 		fcppt::signal::auto_connection_container
 	> keyboard_map;
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	keyboard_map const &
 	devices() const;
 private:

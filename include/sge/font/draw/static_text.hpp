@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/draw/set_matrices_fwd.hpp>
 #include <sge/font/draw/set_states_fwd.hpp>
 #include <sge/font/draw/static_text_fwd.hpp>
-#include <sge/font/draw/symbol.hpp>
+#include <sge/font/draw/detail/symbol.hpp>
 #include <sge/font/draw/detail/static_text_impl_fwd.hpp>
 #include <sge/image/color/any/object_fwd.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
@@ -56,7 +56,7 @@ class static_text
 		static_text
 	);
 public:
-	SGE_FONT_DRAW_SYMBOL
+	SGE_FONT_DRAW_DETAIL_SYMBOL
 	static_text(
 		sge::renderer::device::ffp &,
 		sge::font::object &,
@@ -67,27 +67,27 @@ public:
 		sge::renderer::texture::emulate_srgb
 	);
 
-	SGE_FONT_DRAW_SYMBOL
+	SGE_FONT_DRAW_DETAIL_SYMBOL
 	static_text(
 		static_text &&
 	);
 
-	SGE_FONT_DRAW_SYMBOL
+	SGE_FONT_DRAW_DETAIL_SYMBOL
 	static_text  &
 	operator=(
 		static_text &&
 	);
 
-	SGE_FONT_DRAW_SYMBOL
+	SGE_FONT_DRAW_DETAIL_SYMBOL
 	~static_text();
 
-	SGE_FONT_DRAW_SYMBOL
+	SGE_FONT_DRAW_DETAIL_SYMBOL
 	void
 	draw(
 		sge::renderer::context::ffp &
 	) const;
 
-	SGE_FONT_DRAW_SYMBOL
+	SGE_FONT_DRAW_DETAIL_SYMBOL
 	void
 	draw_advanced(
 		sge::renderer::context::ffp &,
@@ -95,31 +95,31 @@ public:
 		sge::font::draw::set_states const &
 	) const;
 
-	SGE_FONT_DRAW_SYMBOL
+	SGE_FONT_DRAW_DETAIL_SYMBOL
 	void
 	pos(
 		sge::font::vector const &
 	);
 
-	SGE_FONT_DRAW_SYMBOL
+	SGE_FONT_DRAW_DETAIL_SYMBOL
 	void
 	color(
 		sge::image::color::any::object const &
 	);
 
-	SGE_FONT_DRAW_SYMBOL
+	SGE_FONT_DRAW_DETAIL_SYMBOL
 	sge::font::vector const
 	pos() const;
 
-	SGE_FONT_DRAW_SYMBOL
+	SGE_FONT_DRAW_DETAIL_SYMBOL
 	sge::font::rect const
 	rect() const;
 
-	SGE_FONT_DRAW_SYMBOL
+	SGE_FONT_DRAW_DETAIL_SYMBOL
 	sge::font::dim const
 	logical_size() const;
 
-	SGE_FONT_DRAW_SYMBOL
+	SGE_FONT_DRAW_DETAIL_SYMBOL
 	sge::font::text const &
 	text() const;
 private:

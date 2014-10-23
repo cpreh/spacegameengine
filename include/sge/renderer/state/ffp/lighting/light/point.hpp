@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_FFP_LIGHTING_LIGHT_POINT_HPP_INCLUDED
 #define SGE_RENDERER_STATE_FFP_LIGHTING_LIGHT_POINT_HPP_INCLUDED
 
-#include <sge/renderer/symbol.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/state/ffp/lighting/light/attenuation.hpp>
 #include <sge/renderer/state/ffp/lighting/light/point_fwd.hpp>
 #include <sge/renderer/state/ffp/lighting/light/position.hpp>
@@ -43,17 +43,17 @@ namespace light
 class point
 {
 public:
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	point(
 		sge::renderer::state::ffp::lighting::light::position const &,
 		sge::renderer::state::ffp::lighting::light::attenuation const &
 	);
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::lighting::light::position const &
 	position() const;
 
-	SGE_RENDERER_SYMBOL
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::lighting::light::attenuation const &
 	attenuation() const;
 private:

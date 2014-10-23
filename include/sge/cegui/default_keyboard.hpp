@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CEGUI_DEFAULT_KEYBOARD_HPP_INCLUDED
 #define SGE_CEGUI_DEFAULT_KEYBOARD_HPP_INCLUDED
 
-#include <sge/cegui/symbol.hpp>
+#include <sge/cegui/detail/symbol.hpp>
 #include <sge/cegui/syringe_fwd.hpp>
 #include <sge/input/keyboard/char_event_fwd.hpp>
 #include <sge/input/keyboard/device_fwd.hpp>
@@ -42,13 +42,13 @@ class default_keyboard
 		default_keyboard
 	);
 public:
-	SGE_CEGUI_SYMBOL
+	SGE_CEGUI_DETAIL_SYMBOL
 	default_keyboard(
 		sge::cegui::syringe &,
 		sge::input::keyboard::device &
 	);
 
-	SGE_CEGUI_SYMBOL
+	SGE_CEGUI_DETAIL_SYMBOL
 	~default_keyboard();
 private:
 	sge::cegui::syringe &syringe_;

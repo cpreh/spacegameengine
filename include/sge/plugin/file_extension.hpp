@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PLUGIN_FILE_EXTENSION_HPP_INCLUDED
 #define SGE_PLUGIN_FILE_EXTENSION_HPP_INCLUDED
 
-#include <sge/plugin/symbol.hpp>
+#include <sge/plugin/detail/symbol.hpp>
 #include <fcppt/string.hpp>
 
 
@@ -30,7 +30,7 @@ namespace sge
 namespace plugin
 {
 
-SGE_PLUGIN_SYMBOL
+SGE_PLUGIN_DETAIL_SYMBOL
 fcppt::string
 file_extension();
 

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_CURSOR_SCROLL_EVENT_HPP_INCLUDED
 #define SGE_INPUT_CURSOR_SCROLL_EVENT_HPP_INCLUDED
 
-#include <sge/input/symbol.hpp>
+#include <sge/input/detail/symbol.hpp>
 #include <sge/input/cursor/scroll_code.hpp>
 #include <sge/input/cursor/scroll_event_fwd.hpp>
 #include <sge/input/cursor/scroll_value.hpp>
@@ -37,17 +37,17 @@ namespace cursor
 class scroll_event
 {
 public:
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	scroll_event(
 		sge::input::cursor::scroll_code,
 		sge::input::cursor::scroll_value
 	);
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::cursor::scroll_code
 	code() const;
 
-	SGE_INPUT_SYMBOL
+	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::cursor::scroll_value
 	value() const;
 private:

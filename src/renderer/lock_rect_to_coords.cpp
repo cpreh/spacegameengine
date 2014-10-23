@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/lock_rect_to_coords.hpp>
-#include <sge/src/export_function_instantiation.hpp>
+#include <sge/src/core/export_function_instantiation.hpp>
 #include <sge/src/renderer/instantiate_float.hpp>
 #include <fcppt/math/box/rect.hpp>
 #include <fcppt/math/box/structure_cast.hpp>
@@ -89,7 +89,7 @@ sge::renderer::lock_rect_to_coords(
 	floattype\
 ) \
 template \
-SGE_EXPORT_FUNCTION_INSTANTIATION \
+SGE_CORE_EXPORT_FUNCTION_INSTANTIATION \
 boost::enable_if< \
 	fcppt::type_traits::is_float_or_double< \
 		floattype \

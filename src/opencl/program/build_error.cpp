@@ -18,14 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/core/exception.hpp>
 #include <sge/opencl/program/build_error.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 
 
 sge::opencl::program::build_error::build_error(
 	fcppt::string const &_message)
 :
-	sge::exception(
+	sge::core::exception(
 		FCPPT_TEXT("Error building OpenCL program: ")+_message),
 	message_(
 		_message)
