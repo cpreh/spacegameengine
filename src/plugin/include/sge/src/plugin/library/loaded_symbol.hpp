@@ -23,8 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <fcppt/config/platform.hpp>
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
-#include <sge/src/include_windows.hpp>
+#include <sge/src/core/include_windows.hpp>
 #endif
+
 
 namespace sge
 {

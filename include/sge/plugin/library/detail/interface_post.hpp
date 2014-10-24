@@ -32,14 +32,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 
 #include <sge/plugin/library/function_map.hpp>
-#include <fcppt/export_detail/symbol.hpp>
+#include <fcppt/symbol/export.hpp>
 
 #define SGE_PLUGIN_LIBRARY_DETAIL_INTERFACE_POST \
 	);\
 }\
 extern "C" \
 { \
-FCPPT_EXPORT_DETAIL_SYMBOL \
+FCPPT_SYMBOL_EXPORT \
 sge::plugin::library::function_map const * \
 sge_plugin_functions(); \
 \
