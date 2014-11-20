@@ -428,14 +428,18 @@ try
 				sge::systems::original_window(
 					sge::window::title(
 						FCPPT_TEXT("linux stats example")
-					),
-					sge::window::dim(
-						graph_dim.w(),
-						static_cast<
-							sge::window::dim::value_type
-						>(
-							2u + network_device_count
-						) * graph_dim.h()
+					)
+				).size_hints(
+					sge::window::size_hints{}
+					.minimum_size_hint(
+						sge::window::dim{
+							graph_dim.w(),
+							static_cast<
+								sge::window::dim::value_type
+							>(
+								2u + network_device_count
+							) * graph_dim.h()
+						}
 					)
 				)
 			)
@@ -567,6 +571,10 @@ try
 		++it
 	)
 	{
+		auto const &device(
+			*it
+		);
+
 		sge::font::unit y(
 			static_cast<
 				sge::font::unit
@@ -583,7 +591,7 @@ try
 
 		device_map.insert(
 			std::make_pair(
-				*it,
+				device,
 				graph_with_label(
 					fcppt::make_unique_ptr<
 						sge::graph::object
@@ -608,7 +616,7 @@ try
 						*font,
 						sge::font::from_fcppt_string(
 							fcppt::from_std_string(
-								*it
+								device
 							)
 						),
 						sge::font::text_parameters(
@@ -625,8 +633,8 @@ try
 			)
 		);
 
-		device_totals[*it] =
-			::count_traffic(*it);
+		device_totals[device] =
+			::count_traffic(device);
 	}
 
 	while(

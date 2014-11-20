@@ -329,11 +329,14 @@ try
 		>
 	> const sys(
 		sge::systems::make_list
-		(sge::systems::window(
+		(
+			sge::systems::window(
 				sge::systems::original_window(
 					sge::window::title(
-						FCPPT_TEXT("Simple OpenCL example")),
-					window_dim)).dont_show())
+						FCPPT_TEXT("Simple OpenCL example")
+					)
+				)
+			).dont_show())
 		(sge::systems::renderer(
 				sge::renderer::pixel_format::object(
 					sge::renderer::pixel_format::color::depth32,

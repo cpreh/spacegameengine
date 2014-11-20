@@ -58,7 +58,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/window.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
-#include <sge/window/dim.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
 #include <awl/main/exit_code.hpp>
@@ -81,11 +80,7 @@ sge::rucksack::testbed::object_impl::object_impl(
 		(
 			sge::systems::window(
 				sge::systems::original_window(
-					_window_title,
-					sge::window::dim(
-						1024,
-						768
-					)
+					_window_title
 				)
 			)
 		)

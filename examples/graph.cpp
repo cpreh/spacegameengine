@@ -56,7 +56,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/with_renderer.hpp>
 #include <sge/systems/with_window.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
-#include <sge/window/dim.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
 #include <awl/main/exit_code.hpp>
@@ -85,11 +84,6 @@ example_main(
 	awl::main::function_context const &)
 try
 {
-	sge::window::dim const window_dim(
-		1024,
-		768
-	);
-
 	sge::systems::instance<
 		boost::mpl::vector2<
 			sge::systems::with_renderer<
@@ -104,8 +98,7 @@ try
 				sge::systems::original_window(
 					sge::window::title(
 						FCPPT_TEXT("graph example")
-					),
-					window_dim
+					)
 				)
 			)
 		)

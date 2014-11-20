@@ -69,8 +69,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/with_input.hpp>
 #include <sge/systems/with_renderer.hpp>
 #include <sge/systems/with_window.hpp>
-#include <sge/viewport/center_on_resize.hpp>
-#include <sge/window/dim.hpp>
+#include <sge/viewport/fill_on_resize.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
 #include <awl/main/exit_code.hpp>
@@ -81,7 +80,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/log/location.hpp>
-#include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/dim/fill.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -96,11 +95,6 @@ example_main(
 )
 try
 {
-	sge::window::dim const window_dim(
-		1024,
-		768
-	);
-
 	sge::systems::instance<
 		boost::mpl::vector3<
 			sge::systems::with_window,
@@ -120,8 +114,7 @@ try
 				sge::systems::original_window(
 					sge::window::title(
 						FCPPT_TEXT("sge sprite color example")
-					),
-					window_dim
+					)
 				)
 			)
 		)
@@ -137,9 +130,7 @@ try
 					sge::renderer::display_mode::vsync::on,
 					sge::renderer::display_mode::optional_object()
 				),
-				sge::viewport::center_on_resize(
-					window_dim
-				)
+				sge::viewport::fill_on_resize()
 			)
 		)
 		(
@@ -224,12 +215,10 @@ try
 			sprite_object::point::null()
 		)*/
 		.size(
-			sprite_object::dim(
-				fcppt::math::dim::structure_cast<
-					sprite_object::dim
-				>(
-					window_dim
-				)
+			fcppt::math::dim::fill<
+				sprite_object::dim
+			>(
+				128
 			)
 		)
 		.any_color(

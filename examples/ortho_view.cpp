@@ -154,10 +154,6 @@ example_main(
 )
 try
 {
-	sge::window::dim const window_dim(
-		1024,
-		768);
-
 	sge::systems::instance<
 		boost::mpl::vector4<
 			sge::systems::with_window,
@@ -180,8 +176,7 @@ try
 				sge::systems::original_window(
 					sge::window::title(
 						FCPPT_TEXT("sge orthographic camera test")
-					),
-					window_dim
+					)
 				)
 			)
 		)
@@ -336,24 +331,21 @@ try
 				*tex_bg))
 		.pos(
 			sprite_object::vector::null())
-		.size(
-			fcppt::math::dim::structure_cast<sprite_object::dim>(
-				window_dim))
+		.texture_size()
 	);
 
 	sprite_object const tux(
 		sprite_parameters()
 		.pos(
 			sprite_object::vector(
-				static_cast<sprite_object::unit>(
-					window_dim.w() / 2 - 16u),
-				static_cast<sprite_object::unit>(
-					window_dim.h() / 2 -16u)))
+				32,
+				32
+			)
+		)
 		.texture(
 			sprite_object::texture_type(
 				*tex_tux))
-		.size(
-			sprite_object::dim(32,32))
+		.texture_size()
 	);
 
 	fcppt::signal::scoped_connection const escape_connection(

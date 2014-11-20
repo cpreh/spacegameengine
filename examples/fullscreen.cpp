@@ -54,7 +54,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/clocks/standard.hpp>
 #include <sge/viewport/dont_manage.hpp>
-#include <sge/window/dim.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
 #include <awl/main/exit_code.hpp>
@@ -66,7 +65,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/log/location.hpp>
-#include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <chrono>
@@ -82,11 +80,6 @@ example_main(
 )
 try
 {
-	sge::window::dim const window_dim(
-		800,
-		600
-	);
-
 	sge::systems::instance<
 		boost::mpl::vector2<
 			sge::systems::with_renderer<
@@ -101,8 +94,7 @@ try
 				sge::systems::original_window(
 					sge::window::title(
 						FCPPT_TEXT("sge fullscreen test")
-					),
-					window_dim
+					)
 				)
 			)
 		)

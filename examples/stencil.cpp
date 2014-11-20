@@ -104,7 +104,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/with_window.hpp>
 #include <sge/texture/part_raw_ref.hpp>
 #include <sge/viewport/center_on_resize.hpp>
-#include <sge/window/dim.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
 #include <awl/main/exit_code.hpp>
@@ -131,12 +130,6 @@ example_main(
 )
 try
 {
-	// The desired window size.
-	sge::window::dim const window_dim(
-		1024,
-		768
-	);
-
 	// Tell the system which static capabilities we need:
 	// - We need a renderer that is ffp capable (for sprite)
 	// - A window is needed for renderer/input
@@ -164,8 +157,7 @@ try
 				sge::systems::original_window(
 					sge::window::title(
 						FCPPT_TEXT("sge stencil example")
-					),
-					window_dim
+					)
 				)
 			)
 		)
@@ -188,7 +180,10 @@ try
 				// Put the viewport in the center of the window
 				// when the window is bigger than the desired size.
 				sge::viewport::center_on_resize(
-					window_dim
+					sge::window::dim{
+						1024,
+						768
+					}
 				)
 			)
 		)

@@ -40,6 +40,7 @@ sge::systems::modules::window::to_awl_parameters(
 			awl::window::parameters(
 				_visual
 			),
+			_parameters.dim(),
 			_parameters.size_hints()
 		)
 		.title(
@@ -47,13 +48,6 @@ sge::systems::modules::window::to_awl_parameters(
 		)
 		.class_name(
 			_parameters.class_name()
-		)
-		.size(
-			fcppt::math::dim::structure_cast<
-				awl::window::dim
-			>(
-				_parameters.dim()
-			)
 		)
 		.cursor(
 			_cursor

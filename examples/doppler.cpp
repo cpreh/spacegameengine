@@ -45,6 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension.hpp>
 #include <sge/media/optional_extension_set.hpp>
+#include <sge/renderer/pixel_unit.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/context/ffp.hpp>
@@ -58,10 +59,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/target/onscreen.hpp>
+#include <sge/renderer/target/viewport.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/emulate_srgb_from_caps.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
+#include <sge/sprite/center.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/parameters.hpp>
 #include <sge/sprite/buffers/option.hpp>
@@ -104,25 +107,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/with_window.hpp>
 #include <sge/texture/const_part_unique_ptr.hpp>
 #include <sge/texture/part_raw_ptr.hpp>
-#include <sge/viewport/center_on_resize.hpp>
-#include <sge/window/dim.hpp>
+#include <sge/viewport/fill_on_resize.hpp>
+#include <sge/viewport/manager.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
-#include <sge/window/unit.hpp>
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/nonassignable.hpp>
 #include <fcppt/cast/int_to_float.hpp>
 #include <fcppt/container/raw_vector.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/log/location.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
-#include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/fstream.hpp>
@@ -130,7 +130,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/mpl/vector/vector10.hpp>
 #include <example_main.hpp>
 #include <exception>
-#include <functional>
 #include <ios>
 #include <iostream>
 #include <ostream>
@@ -141,6 +140,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace
 {
+// TODO: Is this just for testing of load_raw and should go elsewhere
 sge::audio::file_unique_ptr
 load_raw(
 	boost::filesystem::path const &path,
@@ -171,123 +171,12 @@ load_raw(
 }
 }
 
-namespace
-{
-
-typedef sge::sprite::config::choices<
-	sge::sprite::config::type_choices<
-		sge::sprite::config::unit_type<
-			int
-		>,
-		sge::sprite::config::float_type<
-			float
-		>
-	>,
-	sge::sprite::config::normal_size,
-	boost::mpl::vector1<
-		sge::sprite::config::with_texture<
-			sge::sprite::config::texture_level_count<
-				1u
-			>,
-			sge::sprite::config::texture_coordinates::automatic,
-			sge::sprite::config::texture_ownership::reference
-		>
-	>
-> sprite_choices;
-
-typedef sge::sprite::object<
-	sprite_choices
-> sprite_object;
-
-class sprite_functor
-{
-	FCPPT_NONASSIGNABLE(
-		sprite_functor
-	);
-public:
-	explicit
-	sprite_functor(
-		sge::audio::sound::positional &_sound
-	)
-	:
-		sound_(
-			_sound
-		)
-	{
-	}
-
-	void
-	normal_movement(
-		sge::input::cursor::move_event const &_event
-	) const
-	{
-		if(
-			!_event.position()
-		)
-			return;
-
-		sound_.position(
-			sge::audio::vector(
-				fcppt::cast::int_to_float<
-					sge::audio::scalar
-				>(
-					_event.position()->x()
-				),
-				fcppt::literal<
-					sge::audio::scalar
-				>(
-					0
-				),
-				fcppt::cast::int_to_float<
-					sge::audio::scalar
-				>(
-					_event.position()->y()
-				)
-			)
-		);
-	}
-
-	void
-	relative_movement(
-		sge::input::cursor::relative_move_event const &_event
-	)
-	{
-		sound_.linear_velocity(
-			sge::audio::vector(
-				fcppt::cast::int_to_float<
-					sge::audio::scalar
-				>(
-					_event.position().x()
-				),
-				fcppt::literal<
-					sge::audio::scalar
-				>(
-					0
-				),
-				fcppt::cast::int_to_float<
-					sge::audio::scalar
-				>(
-					_event.position().y()
-				)
-			)
-		);
-	}
-private:
-	sge::audio::sound::positional &sound_;
-};
-}
-
 awl::main::exit_code const
 example_main(
 	awl::main::function_context const &
 )
 try
 {
-	sge::window::dim const window_dim(
-		1024,
-		768
-	);
-
 	sge::systems::instance<
 		boost::mpl::vector6<
 			sge::systems::with_renderer<
@@ -311,8 +200,7 @@ try
 				sge::systems::original_window(
 					sge::window::title(
 						FCPPT_TEXT("sge dopplertest")
-					),
-					window_dim
+					)
 				)
 			)
 		)
@@ -328,9 +216,7 @@ try
 					sge::renderer::display_mode::vsync::on,
 					sge::renderer::display_mode::optional_object()
 				),
-				sge::viewport::center_on_resize(
-					window_dim
-				)
+				sge::viewport::fill_on_resize()
 			)
 		)
 		(
@@ -420,6 +306,31 @@ try
 			)
 		);
 
+	typedef sge::sprite::config::choices<
+		sge::sprite::config::type_choices<
+			sge::sprite::config::unit_type<
+				int
+			>,
+			sge::sprite::config::float_type<
+				float
+			>
+		>,
+		sge::sprite::config::normal_size,
+		boost::mpl::vector1<
+			sge::sprite::config::with_texture<
+				sge::sprite::config::texture_level_count<
+					1u
+				>,
+				sge::sprite::config::texture_coordinates::automatic,
+				sge::sprite::config::texture_ownership::reference
+			>
+		>
+	> sprite_choices;
+
+	typedef sge::sprite::object<
+		sprite_choices
+	> sprite_object;
+
 	typedef sge::sprite::buffers::with_declaration<
 		sge::sprite::buffers::single<
 			sprite_choices
@@ -460,28 +371,14 @@ try
 		.pos(
 			sprite_object::vector::null()
 		)
-		.size(
-			fcppt::math::dim::structure_cast<
-				sprite_object::dim
-			>(
-				window_dim
-			)
-		)
+		.texture_size()
 	);
 
 	sprite_object const tux(
 		sprite_parameters()
 		.center(
-			fcppt::math::dim::structure_cast<
-				sprite_object::vector
-			>(
-				window_dim
-				/
-				fcppt::literal<
-					sge::window::unit
-				>(
-					2
-				)
+			sge::sprite::center(
+				background
 			)
 		)
 		.texture(
@@ -489,12 +386,7 @@ try
 				*tex_tux
 			)
 		)
-		.size(
-			sprite_object::dim(
-				32,
-				32
-			)
-		)
+		.texture_size()
 	);
 
 	sge::audio::file_unique_ptr const af_siren(
@@ -517,46 +409,55 @@ try
 					1
 				)
 				/
-				fcppt::cast::int_to_float<
+				fcppt::literal<
 					sge::audio::scalar
 				>(
-					window_dim.h()
+					500
 				)
 			)
 		)
 	);
 
-	sys.audio_player().listener().position(
-		sge::audio::vector(
-			// TODO: We should probably have a utility function for this!
-			fcppt::cast::int_to_float<
-				sge::audio::scalar
-			>(
-				window_dim.w()
-				/
-				fcppt::literal<
-					sge::window::unit
-				>(
-					2
-				)
-			),
-			fcppt::literal<
-				sge::audio::scalar
-			>(
-				0
-			),
-			fcppt::cast::int_to_float<
-				sge::audio::scalar
-			>(
-				window_dim.h()
-				/
-				fcppt::literal<
-					sge::window::unit
-				>(
-					2
-				)
-			)
+	sys.viewport_manager().manage_callback(
+		[
+			&sys
+		](
+			sge::renderer::target::viewport const &_viewport
 		)
+		{
+			sys.audio_player().listener().position(
+				sge::audio::vector(
+					// TODO: We should probably have a utility function for this!
+					fcppt::cast::int_to_float<
+						sge::audio::scalar
+					>(
+						_viewport.get().w()
+						/
+						fcppt::literal<
+							sge::renderer::pixel_unit
+						>(
+							2
+						)
+					),
+					fcppt::literal<
+						sge::audio::scalar
+					>(
+						0
+					),
+					fcppt::cast::int_to_float<
+						sge::audio::scalar
+					>(
+						_viewport.get().h()
+						/
+						fcppt::literal<
+							sge::renderer::pixel_unit
+						>(
+							2
+						)
+					)
+				)
+			);
+		}
 	);
 
 	sys.audio_player().speed_of_sound(
@@ -577,33 +478,76 @@ try
 		)
 	);
 
-	::sprite_functor functor(
-		*sound_siren
-	);
-
-	fcppt::signal::scoped_connection const normal_connection(
+	fcppt::signal::scoped_connection const normal_connection{
 		cursor.move_callback(
-			std::bind(
-				&::sprite_functor::normal_movement,
-				&functor,
-				std::placeholders::_1
+			[
+				&sound_siren
+			](
+				sge::input::cursor::move_event const &_event
 			)
+			{
+				if(
+					!_event.position()
+				)
+					return;
+
+				sound_siren->position(
+					sge::audio::vector(
+						fcppt::cast::int_to_float<
+							sge::audio::scalar
+						>(
+							_event.position()->x()
+						),
+						fcppt::literal<
+							sge::audio::scalar
+						>(
+							0
+						),
+						fcppt::cast::int_to_float<
+							sge::audio::scalar
+						>(
+							_event.position()->y()
+						)
+					)
+				);
+			}
 		)
-	);
+	};
 
 	sge::input::cursor::relative_movement rel_movement(
 		cursor
 	);
 
-	fcppt::signal::scoped_connection const relative_connection(
+	fcppt::signal::scoped_connection const relative_connection{
 		rel_movement.relative_move_callback(
-			std::bind(
-				&::sprite_functor::relative_movement,
-				&functor,
-				std::placeholders::_1
+			[
+				&sound_siren
+			](
+				sge::input::cursor::relative_move_event const &_event
 			)
+			{
+				sound_siren->linear_velocity(
+					sge::audio::vector(
+						fcppt::cast::int_to_float<
+							sge::audio::scalar
+						>(
+							_event.position().x()
+						),
+						fcppt::literal<
+							sge::audio::scalar
+						>(
+							0
+						),
+						fcppt::cast::int_to_float<
+							sge::audio::scalar
+						>(
+							_event.position().y()
+						)
+					)
+				);
+			}
 		)
-	);
+	};
 
 	while(
 		sys.window_system().poll()
@@ -649,7 +593,8 @@ catch(
 		<< _error.string()
 		<< FCPPT_TEXT('\n');
 
-	return awl::main::exit_failure();
+	return
+		awl::main::exit_failure();
 }
 catch(
 	std::exception const &_error
@@ -659,5 +604,6 @@ catch(
 		<< _error.what()
 		<< '\n';
 
-	return awl::main::exit_failure();
+	return
+		awl::main::exit_failure();
 }

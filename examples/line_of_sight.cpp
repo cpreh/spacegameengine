@@ -74,7 +74,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/with_window.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
 #include <sge/viewport/manager.hpp>
-#include <sge/window/dim.hpp>
 #include <sge/window/object.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
@@ -130,10 +129,6 @@ try
 				sge::systems::original_window(
 					sge::window::title(
 						FCPPT_TEXT("sge line of sight example")
-					),
-					sge::window::dim(
-						1024,
-						768
 					)
 				)
 			)
@@ -264,6 +259,7 @@ try
 		fcppt::math::dim::structure_cast<
 			sprite_grid::dim
 		>(
+			// TODO: Use something else here
 			sys.window().size()
 		)
 		/

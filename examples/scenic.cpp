@@ -197,38 +197,46 @@ try
 			sge::systems::with_image2d
 		>
 	> const sys(
-		sge::systems::make_list
-			(sge::systems::window(
-				sge::systems::original_window(
-					sge::window::title(
-						FCPPT_TEXT("sge scenic example")),
-					window_dim)))
-			(sge::systems::renderer(
-				sge::renderer::pixel_format::object(
+		sge::systems::make_list(
+			sge::systems::window{
+				sge::systems::original_window{
+					sge::window::title{
+						FCPPT_TEXT("sge scenic example")
+					}
+				}
+			}
+		)(
+			sge::systems::renderer{
+				sge::renderer::pixel_format::object{
 					sge::renderer::pixel_format::color::depth32,
 					sge::renderer::pixel_format::depth_stencil::d24s8,
 					sge::renderer::pixel_format::optional_multi_samples(),
 					sge::renderer::pixel_format::srgb::no
-				),
-				sge::renderer::display_mode::parameters(
+				},
+				sge::renderer::display_mode::parameters{
 					sge::renderer::display_mode::vsync::on,
-					sge::renderer::display_mode::optional_object()),
+					sge::renderer::display_mode::optional_object()
+				},
 				sge::viewport::center_on_resize(
-					window_dim)))
-			(sge::systems::input(
+					window_dim
+				)
+			}
+		)(
+			sge::systems::input{
 				sge::systems::cursor_option_field{
 					sge::systems::cursor_option::exclusive
 				}
-			))
-			(sge::systems::image2d(
-				sge::media::optional_extension_set(
+			}
+		)(
+			sge::systems::image2d{
+				sge::media::optional_extension_set{
 					sge::media::extension_set{
-						sge::media::extension(
+						sge::media::extension{
 							FCPPT_TEXT("png")
-						)
+						}
 					}
-				)
-			)
+				}
+			}
 		)
 	);
 

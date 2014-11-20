@@ -85,7 +85,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/with_window.hpp>
 #include <sge/texture/const_part_unique_ptr.hpp>
 #include <sge/texture/part_raw_ptr.hpp>
-#include <sge/viewport/center_on_resize.hpp>
+#include <sge/viewport/fill_on_resize.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
 #include <awl/main/exit_code.hpp>
@@ -112,11 +112,6 @@ example_main(
 )
 try
 {
-	sge::window::dim const window_dim(
-		1024,
-		768
-	);
-
 	sge::systems::instance<
 		boost::mpl::vector4<
 			sge::systems::with_renderer<
@@ -137,8 +132,7 @@ try
 				sge::systems::original_window(
 					sge::window::title(
 						FCPPT_TEXT("sge intrusive sprite test")
-					),
-					window_dim
+					)
 				)
 			)
 		)
@@ -154,9 +148,7 @@ try
 					sge::renderer::display_mode::vsync::on,
 					sge::renderer::display_mode::optional_object()
 				),
-				sge::viewport::center_on_resize(
-					window_dim
-				)
+				sge::viewport::fill_on_resize()
 			)
 		)
 		(

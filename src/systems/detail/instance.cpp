@@ -60,6 +60,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/maybe.hpp>
 #include <fcppt/optional_bind.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/error.hpp>
@@ -101,11 +102,21 @@ sge::systems::detail::instance::instance(
 	);
 
 	sge::log::option_container const &log_options(
-		log_settings
-		?
-			log_settings->options()
-		:
-			sge::log::option_container{}
+		fcppt::maybe(
+			log_settings,
+			[]{
+				return
+					sge::log::option_container{};
+			},
+			[](
+				sge::systems::log_settings const &_settings
+			)
+			-> sge::log::option_container
+			{
+				return
+					_settings.options();
+			}
+		)
 	);
 
 	sge::log::apply_options(
@@ -170,6 +181,7 @@ sge::systems::detail::instance::instance(
 			sge::systems::window const &_window
 		)
 		{
+			// TODO: Take viewport settings into account here
 			impl_->init_window_system(
 				_window
 			);

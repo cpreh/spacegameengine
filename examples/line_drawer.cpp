@@ -102,7 +102,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/timer/frames_counter.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
 #include <sge/viewport/manager.hpp>
-#include <sge/window/dim.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
 #include <awl/main/exit_code.hpp>
@@ -297,10 +296,6 @@ try
 				sge::systems::original_window(
 					sge::window::title(
 						FCPPT_TEXT("sge line drawer example")
-					),
-					sge::window::dim(
-						1024,
-						768
 					)
 				)
 			)

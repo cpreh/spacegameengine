@@ -21,30 +21,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/original_window.hpp>
 #include <sge/window/default_class_name.hpp>
 #include <sge/window/dim.hpp>
+#include <sge/window/optional_dim.hpp>
 #include <sge/window/size_hints.hpp>
 #include <sge/window/title.hpp>
 #include <fcppt/string.hpp>
 
 
 sge::systems::original_window::original_window(
-	sge::window::title const &_title,
-	sge::window::dim const &_dim
+	sge::window::title const &_title
 )
 :
 	title_{
 		_title
 	},
-	dim_{
-		_dim
-	},
 	class_name_{
 		sge::window::default_class_name()
 	},
-	size_hints_(),
+	dim_{},
+	size_hints_{},
 	hide_cursor_{
 		false
 	}
 {
+}
+
+sge::systems::original_window &
+sge::systems::original_window::dim(
+	sge::window::dim const _dim
+)
+{
+	dim_ =
+		sge::window::optional_dim{
+			_dim
+		};
+
+	return
+		*this;
 }
 
 sge::systems::original_window &
@@ -88,7 +100,7 @@ sge::systems::original_window::title() const
 		title_;
 }
 
-sge::window::dim const &
+sge::window::optional_dim const &
 sge::systems::original_window::dim() const
 {
 	return

@@ -18,21 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/graph/background_color.hpp>
-#include <sge/graph/baseline.hpp>
-#include <sge/graph/color_schemes.hpp>
-#include <sge/graph/foreground_color.hpp>
-#include <sge/graph/object.hpp>
-#include <sge/graph/optional_axis_constraint.hpp>
-#include <sge/graph/position.hpp>
-#include <sge/audio/exception.hpp>
+#include <sge/audio/buffer_unique_ptr.hpp>
 #include <sge/audio/file.hpp>
 #include <sge/audio/file_unique_ptr.hpp>
-#include <sge/audio/file_unique_ptr.hpp>
 #include <sge/audio/listener.hpp>
-#include <sge/audio/buffer_unique_ptr.hpp>
-#include <sge/audio/load_raw_exn.hpp>
-#include <sge/audio/loader_fwd.hpp>
+#include <sge/audio/load_exn.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/sound/base.hpp>
 #include <sge/audio/buffer.hpp>
@@ -40,6 +30,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/sound/nonpositional_parameters.hpp>
 #include <sge/audio/sound/repeat.hpp>
 #include <sge/config/media_path.hpp>
+#include <sge/graph/background_color.hpp>
+#include <sge/graph/baseline.hpp>
+#include <sge/graph/color_schemes.hpp>
+#include <sge/graph/foreground_color.hpp>
+#include <sge/graph/object.hpp>
+#include <sge/graph/optional_axis_constraint.hpp>
+#include <sge/graph/position.hpp>
 #include <sge/image/color/predef.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/system.hpp>
@@ -112,7 +109,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/with_window.hpp>
 #include <sge/texture/const_part_unique_ptr.hpp>
 #include <sge/texture/part_raw_ptr.hpp>
-#include <sge/viewport/center_on_resize.hpp>
+#include <sge/viewport/fill_on_resize.hpp>
 #include <sge/systems/original_window.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
@@ -121,99 +118,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/nonassignable.hpp>
-#include <fcppt/container/raw_vector.hpp>
-#include <fcppt/container/bitfield/object_impl.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/log/location.hpp>
 #include <fcppt/math/step.hpp>
-#include <fcppt/math/dim/structure_cast.hpp>
-#include <fcppt/math/vector/structure_cast.hpp>
+#include <fcppt/math/vector/fill.hpp>
 #include <fcppt/math/vector/length.hpp>
+#include <fcppt/math/vector/static.hpp>
+#include <fcppt/math/vector/structure_cast.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/fstream.hpp>
-#include <boost/filesystem/path.hpp>
+#include <boost/circular_buffer.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <example_main.hpp>
+#include <cmath>
 #include <exception>
 #include <functional>
-#include <ios>
 #include <iostream>
+#include <numeric>
 #include <ostream>
-#include <streambuf>
-#include <vector>
 #include <fcppt/config/external_end.hpp>
 
-
-namespace
-{
-sge::audio::file_unique_ptr
-load_raw(
-	boost::filesystem::path const &path,
-	sge::audio::loader &audio_loader)
-{
-	boost::filesystem::ifstream raw_stream(
-		path,
-		std::ios::binary);
-
-	typedef
-	fcppt::container::raw_vector<char>
-	raw_byte_container;
-
-	raw_byte_container raw_bytes(
-		(std::istreambuf_iterator<char>(
-			raw_stream)),
-		std::istreambuf_iterator<char>());
-
-	return
-		sge::audio::load_raw_exn(
-			audio_loader,
-			boost::make_iterator_range(
-				reinterpret_cast<unsigned char const *>(
-					&(*raw_bytes.cbegin())),
-				reinterpret_cast<unsigned char const *>(
-					&(*raw_bytes.cend()))),
-			sge::media::optional_extension());
-}
-}
-
-namespace
-{
-
-typedef sge::sprite::config::choices<
-	sge::sprite::config::type_choices<
-		sge::sprite::config::unit_type<
-			int
-		>,
-		sge::sprite::config::float_type<
-			float
-		>
-	>,
-	sge::sprite::config::normal_size,
-	boost::mpl::vector1<
-		sge::sprite::config::with_texture<
-			sge::sprite::config::texture_level_count<
-				1u
-			>,
-			sge::sprite::config::texture_coordinates::automatic,
-			sge::sprite::config::texture_ownership::reference
-		>
-	>
-> sprite_choices;
-
-typedef sge::sprite::object<
-	sprite_choices
-> sprite_object;
-}
-
-#include <boost/circular_buffer.hpp>
-#include <sge/input/cursor/object_fwd.hpp>
-#include <sge/input/cursor/relative_movement.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
-#include <sge/input/cursor/relative_move_event_fwd.hpp>
 
 namespace
 {
@@ -258,16 +187,6 @@ private:
 };
 
 }
-
-#include <sge/input/cursor/object.hpp>
-#include <fcppt/math/vector/length.hpp>
-#include <fcppt/math/vector/static.hpp>
-#include <fcppt/math/vector/structure_cast.hpp>
-#include <fcppt/preprocessor/disable_vc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
-#include <sge/input/cursor/relative_move_event.hpp>
-#include <numeric>
 
 namespace
 {
@@ -382,11 +301,6 @@ example_main(
 )
 try
 {
-	sge::window::dim const window_dim(
-		1024,
-		768
-	);
-
 	sge::systems::instance<
 		boost::mpl::vector6<
 			sge::systems::with_renderer<
@@ -410,8 +324,7 @@ try
 				sge::systems::original_window(
 					sge::window::title(
 						FCPPT_TEXT("sge dopplertest")
-					),
-					window_dim
+					)
 				)
 			)
 		)
@@ -427,9 +340,7 @@ try
 					sge::renderer::display_mode::vsync::on,
 					sge::renderer::display_mode::optional_object()
 				),
-				sge::viewport::center_on_resize(
-					window_dim
-				)
+				sge::viewport::fill_on_resize()
 			)
 		)
 		(
@@ -535,6 +446,31 @@ try
 			)
 		);
 
+	typedef sge::sprite::config::choices<
+		sge::sprite::config::type_choices<
+			sge::sprite::config::unit_type<
+				int
+			>,
+			sge::sprite::config::float_type<
+				float
+			>
+		>,
+		sge::sprite::config::normal_size,
+		boost::mpl::vector1<
+			sge::sprite::config::with_texture<
+				sge::sprite::config::texture_level_count<
+					1u
+				>,
+				sge::sprite::config::texture_coordinates::automatic,
+				sge::sprite::config::texture_ownership::reference
+			>
+		>
+	> sprite_choices;
+
+	typedef sge::sprite::object<
+		sprite_choices
+	> sprite_object;
+
 	typedef sge::sprite::buffers::with_declaration<
 		sge::sprite::buffers::single<
 			sprite_choices
@@ -575,35 +511,17 @@ try
 		.pos(
 			sprite_object::vector::null()
 		)
-		.size(
-			fcppt::math::dim::structure_cast<
-				sprite_object::dim
-			>(
-				window_dim
-			)
-		)
+		.texture_size()
 	);
 
 	sprite_object const tux(
 		sprite_parameters()
 		.pos(
-			sprite_object::vector(
-				static_cast<
-					sprite_object::unit
-				>(
-					window_dim.w()
-					/
-					2
-					-16u
-				),
-				static_cast<
-					sprite_object::unit
-				>(
-					window_dim.h()
-					/
-					2
-					-16u
-				)
+			// FIXME
+			fcppt::math::vector::fill<
+				sprite_object::vector
+			>(
+				100
 			)
 		)
 		.texture(
@@ -611,17 +529,15 @@ try
 				*tex_tux
 			)
 		)
-		.size(
-			sprite_object::dim(32,32)
-		)
+		.texture_size()
 	);
 
 	sge::audio::file_unique_ptr const af_siren(
-		load_raw(
+		sge::audio::load_exn(
+			sys.audio_loader(),
 			sge::config::media_path()
 			/ FCPPT_TEXT("sounds")
-			/ FCPPT_TEXT("wind.wav"),
-			sys.audio_loader()
+			/ FCPPT_TEXT("wind.wav")
 		)
 	);
 
@@ -643,26 +559,18 @@ try
 		)
 	);
 
-
-	#if 0
-	fcppt::signal::scoped_connection const normal_connection(
-		cursor.move_callback(
-			std::bind(
-				&::sprite_functor::normal_movement,
-				&functor,
-				std::placeholders::_1
-			)
-		)
-	);
-	#endif
-
 	cursor_speed_tracker cursor_speed(
 		cursor,
-		&cursor_speed_modifier);
+		&cursor_speed_modifier
+	);
 
 	sound_siren->pitch(
-		static_cast<float>(
-			0.0));
+		fcppt::literal<
+			sge::audio::scalar
+		>(
+			0
+		)
+	);
 
 	while(
 		sys.window_system().poll()

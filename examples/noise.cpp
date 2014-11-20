@@ -83,7 +83,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/const_part_shared_ptr.hpp>
 #include <sge/texture/part_raw_ref.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
-#include <sge/window/dim.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
 #include <awl/main/exit_code.hpp>
@@ -97,6 +96,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/io/cout.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/log/location.hpp>
+#include <fcppt/math/dim/fill.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/interpolation/perlin_fifth_degree_functor.hpp>
 #include <fcppt/math/interpolation/trigonometric_functor.hpp>
@@ -204,11 +204,6 @@ try
 					42.0))
 		<< FCPPT_TEXT('\n');
 
-	sge::window::dim const window_dim(
-		1024,
-		1024
-	);
-
 	sge::systems::instance<
 		boost::mpl::vector2<
 			sge::systems::with_window,
@@ -223,8 +218,7 @@ try
 				sge::systems::original_window(
 					sge::window::title(
 						FCPPT_TEXT("noisetest")
-					),
-					window_dim
+					)
 				)
 			)
 		)
@@ -308,38 +302,37 @@ try
 		sprite_state_parameters()
 	);
 
-	sge::image2d::store::l8 store(
-		fcppt::math::dim::structure_cast<
+	sge::image2d::store::l8 store{
+		fcppt::math::dim::fill<
 			sge::image2d::dim
 		>(
-			window_dim));
+			1024
+		)
+	};
 
 	fill_texture(
-		store.view());
+		store.view()
+	);
 
 	sge::renderer::texture::planar_unique_ptr const noise_texture(
 		sge::renderer::texture::create_planar_from_view(
 			sys.renderer_device_ffp(),
 			sge::image2d::view::const_object(
 				sge::image2d::view::object(
-					store.wrapped_view())),
+					store.wrapped_view()
+				)
+			),
 			sge::renderer::texture::mipmap::off(),
 			sge::renderer::resource_flags_field::null(),
-			sge::renderer::texture::emulate_srgb::no));
+			sge::renderer::texture::emulate_srgb::no
+		)
+	);
 
 	sprite_object const spr(
 		sge::sprite::default_parameters<
 			sprite_choices
 		>()
-		.size(
-			sprite_object::dim(
-				fcppt::math::dim::structure_cast<
-					sprite_object::dim
-				>(
-					window_dim
-				)
-			)
-		)
+		.texture_size()
 		.texture(
 			fcppt::make_shared_ptr<
 				sge::texture::part_raw_ref

@@ -143,11 +143,6 @@ example_main(
 )
 try
 {
-	sge::window::dim const window_dim(
-		1024,
-		768
-	);
-
 	sge::systems::instance<
 		boost::mpl::vector5<
 			sge::systems::with_renderer<
@@ -169,8 +164,7 @@ try
 				sge::systems::original_window(
 					sge::window::title(
 						FCPPT_TEXT("sge console test")
-					),
-					window_dim
+					)
 				)
 			)
 		)
@@ -187,7 +181,10 @@ try
 					sge::renderer::display_mode::optional_object()
 				),
 				sge::viewport::center_on_resize(
-					window_dim
+					sge::window::dim{
+						1024,
+						768
+					}
 				)
 			)
 		)

@@ -23,7 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/systems/original_window_fwd.hpp>
 #include <sge/systems/detail/symbol.hpp>
-#include <sge/window/dim.hpp>
+#include <sge/window/dim_fwd.hpp>
+#include <sge/window/optional_dim.hpp>
 #include <sge/window/size_hints.hpp>
 #include <sge/window/title.hpp>
 #include <fcppt/string.hpp>
@@ -38,9 +39,15 @@ class original_window
 {
 public:
 	SGE_SYSTEMS_DETAIL_SYMBOL
+	explicit
 	original_window(
-		sge::window::title const &,
-		sge::window::dim const &
+		sge::window::title const &
+	);
+
+	SGE_SYSTEMS_DETAIL_SYMBOL
+	sge::systems::original_window &
+	dim(
+		sge::window::dim
 	);
 
 	SGE_SYSTEMS_DETAIL_SYMBOL
@@ -62,7 +69,7 @@ public:
 	sge::window::title const &
 	title() const;
 
-	sge::window::dim const &
+	sge::window::optional_dim const &
 	dim() const;
 
 	fcppt::string const &
@@ -76,9 +83,9 @@ public:
 private:
 	sge::window::title title_;
 
-	sge::window::dim dim_;
-
 	fcppt::string class_name_;
+
+	sge::window::optional_dim dim_;
 
 	sge::window::size_hints size_hints_;
 
