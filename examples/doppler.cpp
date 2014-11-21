@@ -22,9 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/file.hpp>
 #include <sge/audio/file_unique_ptr.hpp>
 #include <sge/audio/listener.hpp>
-#include <sge/audio/load_raw_exn.hpp>
+#include <sge/audio/load_exn.hpp>
 #include <sge/audio/loader_fwd.hpp>
 #include <sge/audio/player.hpp>
+#include <sge/audio/scalar.hpp>
+#include <sge/audio/vector2.hpp>
+#include <sge/audio/vector2_to_vector.hpp>
 #include <sge/audio/sound/base.hpp>
 #include <sge/audio/sound/positional.hpp>
 #include <sge/audio/sound/positional_parameters.hpp>
@@ -117,16 +120,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/exception.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/cast/int_to_float.hpp>
-#include <fcppt/container/raw_vector.hpp>
+#include <fcppt/maybe_void.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/log/location.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/fstream.hpp>
-#include <boost/filesystem/path.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <example_main.hpp>
 #include <exception>
@@ -137,39 +139,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
-
-namespace
-{
-// TODO: Is this just for testing of load_raw and should go elsewhere
-sge::audio::file_unique_ptr
-load_raw(
-	boost::filesystem::path const &path,
-	sge::audio::loader &audio_loader)
-{
-	boost::filesystem::ifstream raw_stream(
-		path,
-		std::ios::binary);
-
-	typedef
-	fcppt::container::raw_vector<char>
-	raw_byte_container;
-
-	raw_byte_container raw_bytes(
-		(std::istreambuf_iterator<char>(
-			raw_stream)),
-		std::istreambuf_iterator<char>());
-
-	return
-		sge::audio::load_raw_exn(
-			audio_loader,
-			boost::make_iterator_range(
-				reinterpret_cast<unsigned char const *>(
-					&(*raw_bytes.cbegin())),
-				reinterpret_cast<unsigned char const *>(
-					&(*raw_bytes.cend()))),
-			sge::media::optional_extension());
-}
-}
 
 awl::main::exit_code const
 example_main(
@@ -309,7 +278,7 @@ try
 	typedef sge::sprite::config::choices<
 		sge::sprite::config::type_choices<
 			sge::sprite::config::unit_type<
-				int
+				sge::renderer::pixel_unit
 			>,
 			sge::sprite::config::float_type<
 				float
@@ -361,7 +330,7 @@ try
 		sprite_state_parameters()
 	);
 
-	sprite_object const background(
+	sprite_object background(
 		sprite_parameters()
 		.texture(
 			sprite_object::texture_type(
@@ -374,7 +343,7 @@ try
 		.texture_size()
 	);
 
-	sprite_object const tux(
+	sprite_object tux(
 		sprite_parameters()
 		.center(
 			sge::sprite::center(
@@ -390,11 +359,11 @@ try
 	);
 
 	sge::audio::file_unique_ptr const af_siren(
-		load_raw(
+		sge::audio::load_exn(
+			sys.audio_loader(),
 			sge::config::media_path()
 			/ FCPPT_TEXT("sounds")
-			/ FCPPT_TEXT("siren.ogg"),
-			sys.audio_loader()
+			/ FCPPT_TEXT("siren.ogg")
 		)
 	);
 
@@ -418,36 +387,21 @@ try
 		)
 	);
 
-	sys.viewport_manager().manage_callback(
-		[
-			&sys
-		](
-			sge::renderer::target::viewport const &_viewport
-		)
-		{
-			sys.audio_player().listener().position(
-				sge::audio::vector(
-					// TODO: We should probably have a utility function for this!
-					fcppt::cast::int_to_float<
-						sge::audio::scalar
+	fcppt::signal::scoped_connection const viewport_connection{
+		sys.viewport_manager().manage_callback(
+			[
+				&sys,
+				&tux,
+				&background
+			](
+				sge::renderer::target::viewport const &_viewport
+			)
+			{
+				auto const center(
+					fcppt::math::dim::structure_cast<
+						sprite_object::vector
 					>(
-						_viewport.get().w()
-						/
-						fcppt::literal<
-							sge::renderer::pixel_unit
-						>(
-							2
-						)
-					),
-					fcppt::literal<
-						sge::audio::scalar
-					>(
-						0
-					),
-					fcppt::cast::int_to_float<
-						sge::audio::scalar
-					>(
-						_viewport.get().h()
+						_viewport.get().size()
 						/
 						fcppt::literal<
 							sge::renderer::pixel_unit
@@ -455,10 +409,30 @@ try
 							2
 						)
 					)
-				)
-			);
-		}
-	);
+				);
+
+				sys.audio_player().listener().position(
+					sge::audio::vector2_to_vector(
+						fcppt::math::vector::structure_cast<
+							sge::audio::vector2
+						>(
+							center
+						)
+					)
+				);
+
+				sge::sprite::center(
+					tux,
+					center
+				);
+
+				sge::sprite::center(
+					background,
+					center
+				);
+			}
+		)
+	};
 
 	sys.audio_player().speed_of_sound(
 		fcppt::literal<
@@ -486,29 +460,24 @@ try
 				sge::input::cursor::move_event const &_event
 			)
 			{
-				if(
-					!_event.position()
-				)
-					return;
-
-				sound_siren->position(
-					sge::audio::vector(
-						fcppt::cast::int_to_float<
-							sge::audio::scalar
-						>(
-							_event.position()->x()
-						),
-						fcppt::literal<
-							sge::audio::scalar
-						>(
-							0
-						),
-						fcppt::cast::int_to_float<
-							sge::audio::scalar
-						>(
-							_event.position()->y()
-						)
+				fcppt::maybe_void(
+					_event.position(),
+					[
+						&sound_siren
+					](
+						sge::input::cursor::position const _pos
 					)
+					{
+						sound_siren->position(
+							sge::audio::vector2_to_vector(
+								fcppt::math::vector::structure_cast<
+									sge::audio::vector2
+								>(
+									_pos
+								)
+							)
+						);
+					}
 				);
 			}
 		)
@@ -527,21 +496,11 @@ try
 			)
 			{
 				sound_siren->linear_velocity(
-					sge::audio::vector(
-						fcppt::cast::int_to_float<
-							sge::audio::scalar
+					sge::audio::vector2_to_vector(
+						fcppt::math::vector::structure_cast<
+							sge::audio::vector2
 						>(
-							_event.position().x()
-						),
-						fcppt::literal<
-							sge::audio::scalar
-						>(
-							0
-						),
-						fcppt::cast::int_to_float<
-							sge::audio::scalar
-						>(
-							_event.position().y()
+							_event.position()
 						)
 					)
 				);

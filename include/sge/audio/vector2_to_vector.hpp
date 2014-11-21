@@ -18,11 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_AUDIO_VECTOR_FWD_HPP_INCLUDED
-#define SGE_AUDIO_VECTOR_FWD_HPP_INCLUDED
+#ifndef SGE_AUDIO_VECTOR2_TO_VECTOR_HPP_INCLUDED
+#define SGE_AUDIO_VECTOR2_TO_VECTOR_HPP_INCLUDED
 
-#include <sge/audio/scalar.hpp>
-#include <fcppt/math/vector/static.hpp>
+#include <sge/audio/vector.hpp>
+#include <sge/audio/vector2_fwd.hpp>
+#include <sge/audio/detail/symbol.hpp>
 
 
 namespace sge
@@ -30,12 +31,11 @@ namespace sge
 namespace audio
 {
 
-typedef
-fcppt::math::vector::static_<
-	sge::audio::scalar,
-	3
->
-vector;
+SGE_AUDIO_DETAIL_SYMBOL
+sge::audio::vector
+vector2_to_vector(
+	sge::audio::vector2
+);
 
 }
 }

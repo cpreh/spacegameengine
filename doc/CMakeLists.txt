@@ -143,6 +143,9 @@ set(
 	include/sge/audio/sound/resume.hpp
 	include/sge/audio/unsupported_format.hpp
 	include/sge/audio/vector.hpp
+	include/sge/audio/vector2.hpp
+	include/sge/audio/vector2_fwd.hpp
+	include/sge/audio/vector2_to_vector.hpp
 	include/sge/audio/vector_fwd.hpp
 	include/sge/bvh/bounding_box.hpp
 	include/sge/bvh/construct_median_cut.hpp
