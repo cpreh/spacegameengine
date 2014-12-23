@@ -77,8 +77,8 @@ test_conversion(
 
 	source_store source(
 		typename source_store::dim(
-			1,
-			1
+			1u,
+			1u
 		)
 	);
 
@@ -90,8 +90,8 @@ test_conversion(
 
 	source_view[
 		typename source_view_type::dim(
-			0,
-			0
+			0u,
+			0u
 		)
 	] =
 		sge::image::mizuiro_color<
@@ -130,8 +130,8 @@ test_conversion(
 		mizuiro::color::compare(
 			dest_view[
 				typename dest_view_type::dim(
-					0,
-					0
+					0u,
+					0u
 				)
 			],
 			sge::image::mizuiro_color<

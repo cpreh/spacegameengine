@@ -719,8 +719,8 @@ main()
 	raw_vector;
 
 	dim2 const size(
-		10,
-		3);
+		10u,
+		3u);
 
 	raw_vector data(
 		sizeof(value_type)

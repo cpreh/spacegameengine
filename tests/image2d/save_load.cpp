@@ -65,8 +65,8 @@ FCPPT_PP_POP_WARNING
 
 	store_type store(
 		store_type::dim(
-			1,
-			1
+			1u,
+			1u
 		)
 	);
 
@@ -76,8 +76,8 @@ FCPPT_PP_POP_WARNING
 
 	store.wrapped_view()[
 		view_type::dim(
-			0,
-			0
+			0u,
+			0u
 		)
 	] =
 		sge::image::color::rgba8(
