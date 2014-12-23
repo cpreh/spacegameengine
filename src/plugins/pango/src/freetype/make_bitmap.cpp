@@ -26,6 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <mizuiro/nonconst_tag.hpp>
 #include <mizuiro/image/view_impl.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/cast/to_signed.hpp>
 #include <fcppt/variant/holds_type.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <ft2build.h>
@@ -62,17 +64,17 @@ sge::pango::freetype::make_bitmap(
 		>()
 	);
 
-	int const width(
-		static_cast<
-			int
+	unsigned const width(
+		fcppt::cast::size<
+			unsigned
 		>(
 			view.size()[0]
 		)
 	);
 
-	int const height(
-		static_cast<
-			int
+	unsigned const height(
+		fcppt::cast::size<
+			unsigned
 		>(
 			view.size()[1]
 		)
@@ -83,7 +85,7 @@ sge::pango::freetype::make_bitmap(
 	bitmap.width = width;
 
 	int const pitch(
-		static_cast<
+		fcppt::cast::size<
 			int
 		>(
 			view.pitch()[0]
@@ -97,7 +99,10 @@ sge::pango::freetype::make_bitmap(
 	// includes the width (as a negative component), so add it back.
 	bitmap.pitch =
 		pitch
-		+ width;
+		+
+		fcppt::cast::to_signed(
+			width
+		);
 
 	bitmap.buffer = view.data();
 
