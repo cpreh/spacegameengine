@@ -23,10 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/heterogenous_format.hpp>
 #include <sge/image/ds/layout/depth_stencil.hpp>
-#include <mizuiro/size_type.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/vector/vector10_c.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <mizuiro/mpl/size_list.hpp>
 
 
 namespace sge
@@ -38,8 +35,7 @@ namespace ds
 
 typedef
 sge::image::heterogenous_format<
-	boost::mpl::vector2_c<
-		mizuiro::size_type,
+	mizuiro::mpl::size_list<
 		24u,
 		8u
 	>,

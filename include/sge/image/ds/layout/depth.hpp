@@ -23,9 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/ds/channel/depth.hpp>
 #include <sge/image/ds/space/ds.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/vector/vector10.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <mizuiro/mpl/list.hpp>
 
 
 namespace sge
@@ -39,7 +37,7 @@ namespace layout
 
 typedef
 sge::image::ds::space::ds<
-	boost::mpl::vector1<
+	mizuiro::mpl::list<
 		sge::image::ds::channel::depth
 	>
 >
