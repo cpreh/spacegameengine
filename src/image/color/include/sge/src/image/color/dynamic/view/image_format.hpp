@@ -42,7 +42,7 @@ image_format(
 )
 {
 	return
-		*_view.format_store().get();
+		_view.format_store().get().get();
 }
 
 }

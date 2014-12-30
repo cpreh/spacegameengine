@@ -214,5 +214,6 @@ add_sge_base_library(
 		"${CMAKE_CURRENT_BINARY_DIR}/include"
 		"${mizuiro_INCLUDE_DIRS}"
 	TRANSITIVE_INCLUDE_DIRS
+		"${fcppt_INCLUDE_DIRS}"
 		"${mizuiro_INCLUDE_DIRS}"
 )
