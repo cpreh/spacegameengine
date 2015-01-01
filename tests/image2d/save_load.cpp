@@ -63,29 +63,18 @@ FCPPT_PP_POP_WARNING
 	sge::image2d::store::rgba8
 	store_type;
 
-	store_type store(
+	store_type const store{
 		store_type::dim(
 			1u,
 			1u
-		)
-	);
-
-	typedef
-	store_type::wrapped_view_type
-	view_type;
-
-	store.wrapped_view()[
-		view_type::dim(
-			0u,
-			0u
-		)
-	] =
+		),
 		sge::image::color::rgba8(
 			(sge::image::color::init::red() %= 0.5)
 			(sge::image::color::init::blue() %= 0.3)
 			(sge::image::color::init::green() %= 0.2)
 			(sge::image::color::init::alpha() %= 0.1)
-		);
+		)
+	};
 
 	sge::plugin::manager plugins(
 		sge::config::plugin_path(),

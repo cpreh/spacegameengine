@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/any/object.hpp>
+#include <sge/image/view/wrap.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/file_unique_ptr.hpp>
@@ -51,6 +52,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/io/cerr.hpp>
+#include <fcppt/math/dim/fill.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/operations.hpp>
 #include <boost/filesystem/path.hpp>
@@ -227,20 +229,30 @@ try
 
 	typedef sge::image2d::store::rgba8 image_type;
 
-	image_type dest(
-		image_type::dim(
-			border_sz,
+	image_type dest{
+		fcppt::math::dim::fill<
+			image_type::dim
+		>(
 			border_sz
+		),
+		[](
+			image_type::view_type const &_view
 		)
-	);
+		{
+			sge::image2d::algorithm::fill(
+				sge::image2d::view::object(
+					sge::image::view::wrap(
+						_view
+					)
+				),
+				sge::image::color::predef::transparent()
+			);
+		}
+	};
+
 
 	sge::image2d::view::object const dest_view(
 		dest.wrapped_view()
-	);
-
-	sge::image2d::algorithm::fill(
-		dest_view,
-		sge::image::color::predef::transparent()
 	);
 
 	sge::image2d::rect::vector pos(

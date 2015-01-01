@@ -22,46 +22,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_IMAGE_STORE_BASIC_IMPL_HPP_INCLUDED
 
 #include <sge/image/dim.hpp>
+#include <sge/image/mizuiro_color.hpp>
 #include <sge/image/store/basic.hpp>
 #include <sge/image/view/wrap.hpp>
 #include <sge/src/image/from_mizuiro_dim.hpp>
 #include <sge/src/image/to_mizuiro_dim.hpp>
+#include <mizuiro/no_init.hpp>
 #include <mizuiro/image/dimension_impl.hpp>
 #include <mizuiro/image/store_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
-
-template<
-	typename Format
->
-sge::image::store::basic<
-	Format
->::basic()
-:
-	internal_()
-{
-}
-
-template<
-	typename Format
->
-sge::image::store::basic<
-	Format
->::basic(
-	dim const &_size
-)
-:
-	internal_(
-		sge::image::to_mizuiro_dim<
-			typename internal_type::dim
-		>(
-			_size
-		)
-	)
-{
-}
 
 template<
 	typename Format
@@ -78,6 +50,68 @@ sge::image::store::basic<
 		)
 	)
 {
+}
+
+template<
+	typename Format
+>
+sge::image::store::basic<
+	Format
+>::basic(
+	dim const &_size,
+	no_init
+)
+:
+	internal_(
+		sge::image::to_mizuiro_dim<
+			typename internal_type::dim
+		>(
+			_size
+		),
+		mizuiro::no_init{}
+	)
+{
+}
+
+template<
+	typename Format
+>
+sge::image::store::basic<
+	Format
+>::basic(
+	dim const &_size,
+	mizuiro_color const &_init
+)
+:
+	internal_{
+		sge::image::to_mizuiro_dim<
+			typename internal_type::dim
+		>(
+			_size
+		),
+		_init
+	}
+{
+}
+
+template<
+	typename Format
+>
+sge::image::store::basic<
+	Format
+>::basic(
+	dim const &_size,
+	init_function const &_init
+)
+:
+	basic(
+		_size,
+		no_init{}
+	)
+{
+	_init(
+		this->view()
+	);
 }
 
 template<

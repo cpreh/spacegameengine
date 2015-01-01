@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/any/object.hpp>
+#include <sge/image/view/wrap.hpp>
 #include <sge/image3d/box.hpp>
 #include <sge/image3d/dim.hpp>
 #include <sge/image3d/algorithm/copy.hpp>
@@ -146,6 +147,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
+#include <fcppt/math/dim/fill.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -426,61 +428,68 @@ create_noise_texture(
 	dim_type::value_type
 	dim_value_type;
 
-	store_type s(
+	store_type const store{
 		store_type::dim(
 			128,
 			128,
-			128));
-
-	view_type view(
-		s.view());
-
-	for(dim_value_type z = 0; z < view.size()[2]; ++z)
-	{
-		for(dim_value_type y = 0; y < view.size()[1]; ++y)
+			128
+		),
+		[
+			&noise_generator
+		](
+			view_type const &_view
+		)
 		{
-			for(dim_value_type x = 0; x < view.size()[0]; ++x)
+			// TODO: Use a range algorithm for this
+			for(dim_value_type z = 0; z < _view.size()[2]; ++z)
 			{
-				dim_type const current_position(
-					x,
-					y,
-					z);
+				for(dim_value_type y = 0; y < _view.size()[1]; ++y)
+				{
+					for(dim_value_type x = 0; x < _view.size()[0]; ++x)
+					{
+						dim_type const current_position(
+							x,
+							y,
+							z);
 
-				view[current_position].set(
-					mizuiro::color::channel::luminance(),
-					static_cast<sge::image::channel8>(
-						256.0f *
-						(0.5f + 0.5f *
-						sge::noise::sample(
-							noise_generator,
-							param_type(
-								param_type::position_type(
-									noise_type::vector_type(
-										static_cast<noise_type::value_type>(
-											x),
-										static_cast<noise_type::value_type>(
-											y),
-										static_cast<noise_type::value_type>(
-											z))),
-								param_type::amplitude_type(
-									0.8f),
-								param_type::frequency_type(
-									.005f),
-								param_type::octaves_type(
-									6u))))));
+						_view[current_position].set(
+							mizuiro::color::channel::luminance(),
+							static_cast<sge::image::channel8>(
+								256.0f *
+								(0.5f + 0.5f *
+								sge::noise::sample(
+									noise_generator,
+									param_type(
+										param_type::position_type(
+											noise_type::vector_type(
+												static_cast<noise_type::value_type>(
+													x),
+												static_cast<noise_type::value_type>(
+													y),
+												static_cast<noise_type::value_type>(
+													z))),
+										param_type::amplitude_type(
+											0.8f),
+										param_type::frequency_type(
+											.005f),
+										param_type::octaves_type(
+											6u))))));
+					}
+				}
 			}
 		}
-	}
+	};
 
 	return
 		sge::renderer::texture::create_volume_from_view(
 			_device,
-			sge::image3d::view::to_const(
-				sge::image3d::view::object(
-					s.wrapped_view())),
+			sge::image3d::view::const_object(
+				store.const_wrapped_view()
+			),
 			sge::renderer::texture::mipmap::off(),
 			sge::renderer::resource_flags_field::null(),
-			sge::renderer::texture::emulate_srgb::no);
+			sge::renderer::texture::emulate_srgb::no
+		);
 }
 
 sge::renderer::texture::volume_unique_ptr
@@ -495,89 +504,108 @@ create_checkers_texture(
 	);
 
 	sge::image3d::dim const block_size(
-		block_element_size,
-		block_element_size,
-		block_element_size
+		fcppt::math::dim::fill<
+			sge::image3d::dim
+		>(
+			block_element_size
+		)
 	);
 
 	sge::image::size_type const num_blocks(
 		16u
 	);
 
-	store_type whole_store(
-		block_size * num_blocks
-	);
-
-	store_type white_store(
-		block_size
-	);
-
-	sge::image3d::algorithm::fill(
-		sge::image3d::view::object(
-			white_store.wrapped_view()
-		),
-		sge::image::color::predef::white()
-	);
-
-	store_type black_store(
-		block_size
-	);
-
-	sge::image3d::algorithm::fill(
-		sge::image3d::view::object(
-			black_store.wrapped_view()
-		),
-		sge::image::color::predef::black()
-	);
-
-	for(
-		sge::image::size_type z = 0;
-		z < num_blocks;
-		++z
-	)
-		for(
-			sge::image::size_type y = 0;
-			y < num_blocks;
-			++y
+	store_type const whole_store{
+		block_size * num_blocks,
+		[
+			num_blocks,
+			block_size
+		](
+			store_type::view_type const &_view
 		)
-			for(
-				sge::image::size_type x = 0;
-				x < num_blocks;
-				++x
-			)
-				sge::image3d::algorithm::copy(
-					sge::image3d::view::to_const(
+		{
+			store_type const white_store{
+				block_size,
+				[](
+					store_type::view_type const &_inner_view
+				)
+				{
+					sge::image3d::algorithm::fill(
 						sge::image3d::view::object(
-							(((x + y + z) % 2u) == 0u)
-							?
-								white_store.wrapped_view()
-							:
-								black_store.wrapped_view()
-						)
-					),
-					sge::image3d::view::sub(
-						sge::image3d::view::object(
-							whole_store.wrapped_view()
+							sge::image::view::wrap(
+								_inner_view
+							)
 						),
-						sge::image3d::box(
-							sge::image3d::box::vector(
-								x * block_size.w(),
-								y * block_size.h(),
-								z * block_size.d()
+						sge::image::color::predef::white()
+					);
+				}
+			};
+
+			store_type const black_store{
+				block_size,
+				[](
+					store_type::view_type const &_inner_view
+				)
+				{
+					sge::image3d::algorithm::fill(
+						sge::image3d::view::object(
+							sge::image::view::wrap(
+								_inner_view
+							)
+						),
+						sge::image::color::predef::black()
+					);
+				}
+			};
+
+			for(
+				sge::image::size_type z = 0;
+				z < num_blocks;
+				++z
+			)
+				for(
+					sge::image::size_type y = 0;
+					y < num_blocks;
+					++y
+				)
+					for(
+						sge::image::size_type x = 0;
+						x < num_blocks;
+						++x
+					)
+						sge::image3d::algorithm::copy(
+							sge::image3d::view::const_object(
+								(((x + y + z) % 2u) == 0u)
+								?
+									white_store.wrapped_view()
+								:
+									black_store.wrapped_view()
 							),
-							block_size
-						)
-					),
-					sge::image::algorithm::may_overlap::no
-				);
+							sge::image3d::view::sub(
+								sge::image3d::view::object(
+									sge::image::view::wrap(
+										_view
+									)
+								),
+								sge::image3d::box(
+									sge::image3d::box::vector(
+										x * block_size.w(),
+										y * block_size.h(),
+										z * block_size.d()
+									),
+									block_size
+								)
+							),
+							sge::image::algorithm::may_overlap::no
+						);
+		}
+	};
 
 	return
 		sge::renderer::texture::create_volume_from_view(
 			_device,
-			sge::image3d::view::to_const(
-				sge::image3d::view::object(
-					whole_store.wrapped_view()
-				)
+			sge::image3d::view::const_object(
+				whole_store.const_wrapped_view()
 			),
 			sge::renderer::texture::mipmap::off(),
 			sge::renderer::resource_flags_field::null(),

@@ -24,6 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/homogenous_pair_fwd.hpp>
 #include <fcppt/is_strong_typedef.hpp>
 #include <fcppt/math/dim/is_dim.hpp>
+#include <mizuiro/default_init.hpp>
+#include <mizuiro/color/object_fwd.hpp>
 #include <fcppt/math/vector/is_vector.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/or.hpp>
@@ -71,7 +73,10 @@ struct default_initialize_class_element<
 	{
 		return
 			Type(
-				typename Type::value_type()
+				sge::sprite::detail::default_initialize_class_element<
+					typename
+					Type::value_type
+				>::execute()
 			);
 	}
 };
@@ -131,6 +136,33 @@ struct default_initialize_class_element<
 				element,
 				element
 			);
+	}
+};
+
+template<
+	typename Type
+>
+struct default_initialize_class_element<
+	mizuiro::color::object<
+		Type
+	>,
+	void
+>
+{
+	typedef
+	mizuiro::color::object<
+		Type
+	>
+	result_type;
+
+	static
+	result_type
+	execute()
+	{
+		return
+			result_type{
+				mizuiro::default_init{}
+			};
 	}
 };
 

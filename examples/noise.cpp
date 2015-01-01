@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/store/l8.hpp>
 #include <sge/image2d/view/const_object.hpp>
-#include <sge/image2d/view/object.hpp>
 #include <sge/log/location.hpp>
 #include <sge/log/option.hpp>
 #include <sge/log/option_container.hpp>
@@ -302,25 +301,20 @@ try
 		sprite_state_parameters()
 	);
 
-	sge::image2d::store::l8 store{
+	sge::image2d::store::l8 const store{
 		fcppt::math::dim::fill<
 			sge::image2d::dim
 		>(
 			1024
-		)
+		),
+		&fill_texture
 	};
-
-	fill_texture(
-		store.view()
-	);
 
 	sge::renderer::texture::planar_unique_ptr const noise_texture(
 		sge::renderer::texture::create_planar_from_view(
 			sys.renderer_device_ffp(),
 			sge::image2d::view::const_object(
-				sge::image2d::view::object(
-					store.wrapped_view()
-				)
+				store.const_wrapped_view()
 			),
 			sge::renderer::texture::mipmap::off(),
 			sge::renderer::resource_flags_field::null(),

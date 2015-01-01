@@ -22,11 +22,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_STORE_BASIC_HPP_INCLUDED
 
 #include <sge/image/dim_fwd.hpp>
+#include <sge/image/mizuiro_color_fwd.hpp>
 #include <sge/image/detail/instantiate/symbol.hpp>
 #include <sge/image/store/basic_fwd.hpp>
 #include <sge/image/view/mizuiro_access.hpp>
 #include <sge/image/view/wrapped_type.hpp>
 #include <mizuiro/image/store_decl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -89,8 +93,24 @@ public:
 	>::type
 	const_wrapped_view_type;
 
-	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
-	basic();
+	typedef
+	sge::image::mizuiro_color<
+		typename
+		Format::color_format
+	>
+	mizuiro_color;
+
+	struct no_init
+	{
+	};
+
+	typedef
+	std::function<
+		void (
+			view_type const &
+		)
+	>
+	init_function;
 
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	explicit
@@ -99,9 +119,21 @@ public:
 	);
 
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
-	explicit
 	basic(
-		dim const &
+		dim const &,
+		no_init
+	);
+
+	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
+	basic(
+		dim const &,
+		mizuiro_color const &
+	);
+
+	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
+	basic(
+		dim const &,
+		init_function const &
 	);
 
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL

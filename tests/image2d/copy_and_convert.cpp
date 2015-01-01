@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/init/green.hpp>
 #include <sge/image/color/init/red.hpp>
 #include <sge/image/store/basic.hpp>
+#include <sge/image/view/wrap.hpp>
 #include <sge/image2d/bgra8_format.hpp>
 #include <sge/image2d/rgb8_format.hpp>
 #include <sge/image2d/rgba8_format.hpp>
@@ -75,61 +76,49 @@ test_conversion(
 		Source
 	> source_store;
 
-	source_store source(
+	source_store const source{
 		typename source_store::dim(
 			1u,
 			1u
-		)
-	);
-
-	typedef typename source_store::wrapped_view_type source_view_type;
-
-	source_view_type const source_view(
-		source.wrapped_view()
-	);
-
-	source_view[
-		typename source_view_type::dim(
-			0u,
-			0u
-		)
-	] =
+		),
 		sge::image::mizuiro_color<
 			typename Source::color_format
 		>(
 			_source
-		);
+		)
+	};
 
 	typedef sge::image::store::basic<
 		Dest
 	> dest_store;
 
-	dest_store dest(
-		source.size()
-	);
-
-	typedef typename dest_store::wrapped_view_type dest_view_type;
-
-	dest_view_type dest_view(
-		dest.wrapped_view()
-	);
-
-	sge::image2d::algorithm::copy_and_convert(
-		sge::image2d::view::const_object(
-			typename source_store::const_wrapped_view_type(
-				source_view
-			)
-		),
-		sge::image2d::view::object(
-			dest_view
-		),
-		sge::image::algorithm::may_overlap::no
-	);
+	dest_store const dest{
+		source.size(),
+		[
+			&source
+		](
+			typename
+			dest_store::view_type const &_dest_view
+		)
+		{
+			sge::image2d::algorithm::copy_and_convert(
+				sge::image2d::view::const_object(
+					source.const_wrapped_view()
+				),
+				sge::image2d::view::object(
+					sge::image::view::wrap(
+						_dest_view
+					)
+				),
+				sge::image::algorithm::may_overlap::no
+			);
+		}
+	};
 
 	BOOST_REQUIRE(
 		mizuiro::color::compare(
-			dest_view[
-				typename dest_view_type::dim(
+			dest.view()[
+				typename dest_store::view_type::dim(
 					0u,
 					0u
 				)

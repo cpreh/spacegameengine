@@ -41,17 +41,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/color/l8.hpp>
 #include <sge/image/color/predef.hpp>
-#include <sge/image/color/any/object.hpp>
 #include <sge/image/color/init/luminance.hpp>
+#include <sge/image/view/wrap.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/rect.hpp>
 #include <sge/image2d/algorithm/copy.hpp>
-#include <sge/image2d/algorithm/fill.hpp>
 #include <sge/image2d/store/l8.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/object.hpp>
 #include <sge/image2d/view/sub.hpp>
-#include <sge/image2d/view/to_const.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_code_to_digit.hpp>
 #include <sge/input/keyboard/key_event.hpp>
@@ -159,6 +157,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/exception.hpp>
 #include <fcppt/insert_to_string.hpp>
 #include <fcppt/make_cref.hpp>
+#include <fcppt/make_int_range_count.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_map.hpp>
@@ -167,7 +166,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
+#include <fcppt/math/dim/fill.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/vector/dim.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -289,8 +290,11 @@ try
 	);
 
 	sge::image2d::dim const block_size(
-		block_element_size,
-		block_element_size
+		fcppt::math::dim::fill<
+			sge::image2d::dim
+		>(
+			block_element_size
+		)
 	);
 
 	sge::image::size_type const num_blocks(
@@ -299,76 +303,72 @@ try
 
 	typedef sge::image2d::store::l8 store_type;
 
-	store_type whole_store(
-		block_size * num_blocks
-	);
-
-	{
-		store_type white_store(
+	store_type const whole_store{
+		block_size
+		*
+		num_blocks,
+		[
 			block_size
-		);
-
-		sge::image2d::algorithm::fill(
-			sge::image2d::view::object(
-				white_store.wrapped_view()
-			),
-			sge::image::color::any::object(
+		](
+			store_type::view_type const &_view
+		)
+		{
+			store_type const white_store(
+				block_size,
 				sge::image::color::l8(
 					sge::image::color::init::luminance() %= 1.
 				)
-			)
-		);
+			);
 
-		store_type black_store(
-			block_size
-		);
-
-		sge::image2d::algorithm::fill(
-			sge::image2d::view::object(
-				black_store.wrapped_view()
-			),
-			sge::image::color::any::object(
+			store_type const black_store(
+				block_size,
 				sge::image::color::l8(
 					sge::image::color::init::luminance() %= 0.
 				)
-			)
-		);
+			);
 
-		for(
-			sge::image::size_type y = 0;
-			y < num_blocks;
-			++y
-		)
 			for(
-				sge::image::size_type x = 0;
-				x < num_blocks;
-				++x
+				sge::image::size_type const y
+				:
+				fcppt::make_int_range_count(
+					num_blocks
+				)
 			)
-				sge::image2d::algorithm::copy(
-					sge::image2d::view::to_const(
-						sge::image2d::view::object(
+				for(
+					sge::image::size_type const x
+					:
+					fcppt::make_int_range_count(
+						num_blocks
+					)
+				)
+					sge::image2d::algorithm::copy(
+						sge::image2d::view::const_object(
 							(((x + y) % 2u) == 0u)
 							?
 								white_store.wrapped_view()
 							:
 								black_store.wrapped_view()
-						)
-					),
-					sge::image2d::view::sub(
-						sge::image2d::view::object(
-							whole_store.wrapped_view()
 						),
-						sge::image2d::rect(
-							sge::image2d::rect::vector(
-								x * block_size.w(),
-								y * block_size.h()
+						sge::image2d::view::sub(
+							sge::image2d::view::object(
+								sge::image::view::wrap(
+									_view
+								)
 							),
-							block_size
-						)
-					),
-					sge::image::algorithm::may_overlap::no
-				);
-	}
+							sge::image2d::rect(
+								sge::image2d::rect::vector(
+									x,
+									y
+								)
+								*
+								block_size,
+								block_size
+							)
+						),
+						sge::image::algorithm::may_overlap::no
+					);
+		}
+	};
 
 	sge::renderer::state::core::sampler::filter::anisotropic::level const anisotropy(
 		sys.renderer_device_core().caps().max_anisotropy().get()
@@ -602,10 +602,8 @@ try
 				>(
 					sge::renderer::texture::create_planar_from_view(
 						sys.renderer_device_core(),
-						sge::image2d::view::to_const(
-							sge::image2d::view::object(
-								whole_store.wrapped_view()
-							)
+						sge::image2d::view::const_object(
+							whole_store.const_wrapped_view()
 						),
 						sge::renderer::texture::mipmap::all_levels(
 							sge::renderer::texture::mipmap::auto_generate::yes
