@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <mizuiro/apply_const_result.hpp>
+#include <mizuiro/apply_const.hpp>
 #include <mizuiro/nonconst_tag.hpp>
 #include <mizuiro/raw_pointer.hpp>
 #include <mizuiro/raw_value.hpp>
@@ -466,7 +466,7 @@ template
 	typename ValueType,
 	fcppt::math::size_type Size
 >
-mizuiro::apply_const_result<
+mizuiro::apply_const<
 	mizuiro::raw_pointer,
 	mizuiro::nonconst_tag
 >
