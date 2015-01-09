@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_IMAGE_ALGORITHM_COMPARE_VISITOR_HPP_INCLUDED
 
 #include <sge/src/image/algorithm/compare_element.hpp>
+#include <mizuiro/color/make_compare_function.hpp>
 #include <mizuiro/image/algorithm/compare.hpp>
 
 
@@ -65,7 +66,9 @@ struct compare_visitor
 			mizuiro::image::algorithm::compare(
 				_view1,
 				_view2,
-				sge::image::algorithm::compare_element()
+				mizuiro::color::make_compare_function(
+					sge::image::algorithm::compare_element()
+				)
 			);
 	}
 };

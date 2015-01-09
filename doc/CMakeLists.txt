@@ -717,8 +717,10 @@ set(
 	include/sge/image/ds/invalid_copy.hpp
 	include/sge/image/ds/layout/depth.hpp
 	include/sge/image/ds/layout/depth_stencil.hpp
-	include/sge/image/ds/space/ds.hpp
-	include/sge/image/ds/space/ds_fwd.hpp
+	include/sge/image/ds/space/depth.hpp
+	include/sge/image/ds/space/depth_fwd.hpp
+	include/sge/image/ds/space/depth_stencil.hpp
+	include/sge/image/ds/space/depth_stencil_fwd.hpp
 	include/sge/image/ds/tag.hpp
 	include/sge/image/ds/traits/format_fwd.hpp
 	include/sge/image/ds/traits/format_static.hpp

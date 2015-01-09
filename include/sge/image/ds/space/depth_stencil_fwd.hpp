@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_DS_SPACE_DS_FWD_HPP_INCLUDED
-#define SGE_IMAGE_DS_SPACE_DS_FWD_HPP_INCLUDED
+#ifndef SGE_IMAGE_DS_SPACE_DEPTH_STENCIL_FWD_HPP_INCLUDED
+#define SGE_IMAGE_DS_SPACE_DEPTH_STENCIL_FWD_HPP_INCLUDED
 
 
 namespace sge
@@ -34,7 +34,7 @@ namespace space
 template<
 	typename Order
 >
-struct ds;
+struct depth_stencil;
 
 }
 }

@@ -18,12 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_DS_SPACE_DS_HPP_INCLUDED
-#define SGE_IMAGE_DS_SPACE_DS_HPP_INCLUDED
+#ifndef SGE_IMAGE_DS_SPACE_DEPTH_HPP_INCLUDED
+#define SGE_IMAGE_DS_SPACE_DEPTH_HPP_INCLUDED
 
 #include <sge/image/ds/channel/depth_fwd.hpp>
-#include <sge/image/ds/channel/stencil_fwd.hpp>
-#include <sge/image/ds/space/ds_fwd.hpp>
+#include <sge/image/ds/space/depth_fwd.hpp>
 #include <mizuiro/color/space/base.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -45,12 +44,11 @@ FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 template<
 	typename Order
 >
-struct ds
+struct depth
 :
 mizuiro::color::space::base<
 	Order,
-	sge::image::ds::channel::depth,
-	sge::image::ds::channel::stencil
+	sge::image::ds::channel::depth
 >
 {
 };

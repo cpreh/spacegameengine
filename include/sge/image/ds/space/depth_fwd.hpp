@@ -18,13 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_DS_LAYOUT_DEPTH_STENCIL_HPP_INCLUDED
-#define SGE_IMAGE_DS_LAYOUT_DEPTH_STENCIL_HPP_INCLUDED
-
-#include <sge/image/ds/channel/depth.hpp>
-#include <sge/image/ds/channel/stencil.hpp>
-#include <sge/image/ds/space/depth_stencil.hpp>
-#include <mizuiro/mpl/list.hpp>
+#ifndef SGE_IMAGE_DS_SPACE_DEPTH_FWD_HPP_INCLUDED
+#define SGE_IMAGE_DS_SPACE_DEPTH_FWD_HPP_INCLUDED
 
 
 namespace sge
@@ -33,17 +28,13 @@ namespace image
 {
 namespace ds
 {
-namespace layout
+namespace space
 {
 
-typedef
-sge::image::ds::space::depth_stencil<
-	mizuiro::mpl::list<
-		sge::image::ds::channel::depth,
-		sge::image::ds::channel::stencil
-	>
+template<
+	typename Order
 >
-depth_stencil;
+struct depth;
 
 }
 }
