@@ -115,7 +115,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/location.hpp>
 #include <fcppt/math/box/center.hpp>
 #include <fcppt/math/vector/input.hpp>
-#include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -191,9 +190,8 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 		body_(
 			sge::projectile::body::parameters(
 				sge::projectile::body::position(
-					fcppt::math::vector::structure_cast<sge::projectile::vector2>(
-						fcppt::math::box::center(
-							r))),
+					fcppt::math::box::center(
+						r)),
 				sge::projectile::body::linear_velocity(
 					sge::projectile::vector2::null()),
 				sge::projectile::body::angular_velocity(

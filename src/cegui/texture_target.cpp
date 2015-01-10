@@ -51,11 +51,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/assert/unimplemented_message.hpp>
+#include <fcppt/cast/size_fun.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/math/box/output.hpp>
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/dim/to_signed.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/GeometryBuffer.h>
 #include <CEGUI/RenderQueue.h>
@@ -328,9 +330,12 @@ sge::cegui::texture_target::clear()
 	sge::renderer::pixel_rect const rect(
 		sge::renderer::pixel_rect::vector::null(),
 		fcppt::math::dim::structure_cast<
-			sge::renderer::pixel_rect::dim
+			sge::renderer::pixel_rect::dim,
+			fcppt::cast::size_fun
 		>(
-			texture_->impl().size()
+			fcppt::math::dim::to_signed(
+				texture_->impl().size()
+			)
 		)
 	);
 

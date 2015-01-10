@@ -51,6 +51,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/math/dim/output.hpp>
+#include <fcppt/math/dim/to_vector.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/Base.h>
 #include <algorithm>
@@ -91,8 +92,10 @@ sge::cegui::renderer::renderer(
 		sge::cegui::to_cegui_vector2<
 			CEGUI::Vector2f::value_type
 		>(
-			sge::renderer::display_mode::to_dpi(
-				renderer_.display_mode()
+			fcppt::math::dim::to_vector(
+				sge::renderer::display_mode::to_dpi(
+					renderer_.display_mode()
+				)
 			)
 		)
 	),
