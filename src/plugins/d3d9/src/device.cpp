@@ -139,7 +139,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/window/event/processor.hpp>
 #include <awl/window/event/resize.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/dim/to_signed.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/time/sleep_any.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -220,9 +222,12 @@ sge::d3d9::device::device(
 				sge::renderer::pixel_rect(
 					sge::renderer::pixel_rect::vector::null(),
 					fcppt::math::dim::structure_cast<
-						sge::renderer::pixel_rect::dim
+						sge::renderer::pixel_rect::dim,
+						fcppt::cast::size_fun
 					>(
-						_parameters.window().size()
+						fcppt::math::dim::to_signed(
+							_parameters.window().size()
+						)
 					)
 				)
 			),

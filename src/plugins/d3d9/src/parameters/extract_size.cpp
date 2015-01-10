@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <awl/window/object.hpp>
+#include <fcppt/maybe.hpp>
+#include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 
 
@@ -32,14 +34,27 @@ sge::d3d9::parameters::extract_size(
 )
 {
 	return
-		_display_mode
-		?
-			_display_mode->pixel_size().get()
-		:
-			fcppt::math::dim::structure_cast<
-				sge::renderer::screen_size
-			>(
-				_window.size()
+		fcppt::maybe(
+			_display_mode,
+			[
+				&_window
+			]
+			{
+				return
+					fcppt::math::dim::structure_cast<
+						sge::renderer::screen_size,
+						fcppt::cast::size_fun
+					>(
+						_window.size()
+					);
+
+			},
+			[](
+				sge::renderer::display_mode::object const &_mode
 			)
-		;
+			{
+				return
+					_mode.pixel_size().get();
+			}
+		);
 }
