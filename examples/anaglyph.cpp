@@ -155,6 +155,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
+#include <fcppt/cast/size_fun.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/log/location.hpp>
@@ -340,12 +341,27 @@ compiled_model::compiled_model(
 			current_model_vertex != model_vertices.end();
 			++current_model_vertex)
 		{
-			(*current_vertex).set<vf::position>(
-				fcppt::math::vector::structure_cast<vf::position::packed_type>(
-					*current_model_vertex));
-			(*current_vertex++).set<vf::normal>(
-				fcppt::math::vector::structure_cast<vf::normal::packed_type>(
-					*current_model_normal++));
+			(*current_vertex).set<
+				vf::position
+			>(
+				fcppt::math::vector::structure_cast<
+					vf::position::packed_type,
+					fcppt::cast::size_fun
+				>(
+					*current_model_vertex
+				)
+			);
+
+			(*current_vertex++).set<
+				vf::normal
+			>(
+				fcppt::math::vector::structure_cast<
+					vf::normal::packed_type,
+					fcppt::cast::size_fun
+				>(
+					*current_model_normal++
+				)
+			);
 		}
 	}
 

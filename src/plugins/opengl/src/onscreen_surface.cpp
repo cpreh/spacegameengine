@@ -39,6 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/unimplemented_message.hpp>
+#include <fcppt/cast/size_fun.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
@@ -133,7 +134,8 @@ sge::opengl::onscreen_surface::size() const
 {
 	return
 		fcppt::math::dim::structure_cast<
-			dim
+			dim,
+			fcppt::cast::size_fun
 		>(
 			window_.size()
 		);

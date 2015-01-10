@@ -21,6 +21,7 @@ set(
 	include/sge/model/md3/optional_texcoord_sequence_fwd.hpp
 	include/sge/model/md3/part_name_sequence.hpp
 	include/sge/model/md3/position.hpp
+	include/sge/model/md3/position_fwd.hpp
 	include/sge/model/md3/scalar.hpp
 	include/sge/model/md3/string.hpp
 	include/sge/model/md3/texcoord.hpp
@@ -62,6 +63,7 @@ set(
 	src/model/md3/include/sge/src/model/md3/triangle.hpp
 	src/model/md3/include/sge/src/model/md3/triangle_vector.hpp
 	src/model/md3/include/sge/src/model/md3/vec3.hpp
+	src/model/md3/include/sge/src/model/md3/vec3_fwd.hpp
 	src/model/md3/include/sge/src/model/md3/vertex.hpp
 	src/model/md3/include/sge/src/model/md3/vertex_fwd.hpp
 	src/model/md3/include/sge/src/model/md3/xyz_scale.hpp

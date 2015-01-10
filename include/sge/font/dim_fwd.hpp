@@ -30,10 +30,12 @@ namespace sge
 namespace font
 {
 
-typedef fcppt::math::dim::static_<
+typedef
+fcppt::math::dim::static_<
 	sge::font::unit,
 	2
-> dim;
+>
+dim;
 
 }
 }

@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/roles/texture.hpp>
 #include <sge/sprite/types/dim.hpp>
 #include <sge/texture/part.hpp>
+#include <fcppt/cast/static_cast_fun.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
@@ -74,7 +75,8 @@ transform_use_texture_size(
 			fcppt::math::dim::structure_cast<
 				sge::sprite::types::dim<
 					typename Choices::type_choices
-				>
+				>,
+				fcppt::cast::static_cast_fun
 			>(
 				_parameters. template get<
 					sge::sprite::roles::texture<

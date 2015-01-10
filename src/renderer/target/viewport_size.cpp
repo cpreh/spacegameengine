@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/base.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/renderer/target/viewport_size.hpp>
+#include <fcppt/cast/to_unsigned_fun.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 
 
@@ -32,7 +33,8 @@ sge::renderer::target::viewport_size(
 {
 	return
 		fcppt::math::dim::structure_cast<
-			sge::renderer::screen_size
+			sge::renderer::screen_size,
+			fcppt::cast::to_unsigned_fun
 		>(
 			_target.viewport().get().size()
 		);

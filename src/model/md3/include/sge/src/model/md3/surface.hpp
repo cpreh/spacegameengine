@@ -45,34 +45,34 @@ class surface
 public:
 	surface(
 		std::istream &,
-		md3::load_flags,
-		md3::s32 num_frames
+		sge::model::md3::load_flags,
+		sge::model::md3::s32 num_frames
 	);
 
-	md3::string const &
+	sge::model::md3::string const &
 	name() const;
 
-	md3::shader_vector const &
+	sge::model::md3::shader_vector const &
 	shaders() const;
 
-	md3::triangle_vector const &
+	sge::model::md3::triangle_vector const &
 	triangles() const;
 
-	md3::texpos_vector const &
+	sge::model::md3::texpos_vector const &
 	texpos() const;
 
-	md3::transformed_vertex_vector const &
+	sge::model::md3::transformed_vertex_vector const &
 	transformed_vertices() const;
 private:
-	md3::string name_;
+	sge::model::md3::string name_;
 
-	md3::shader_vector shaders_;
+	sge::model::md3::shader_vector shaders_;
 
-	md3::triangle_vector triangles_;
+	sge::model::md3::triangle_vector triangles_;
 
-	md3::texpos_vector texpos_;
+	sge::model::md3::texpos_vector texpos_;
 
-	md3::transformed_vertex_vector transformed_vertices_;
+	sge::model::md3::transformed_vertex_vector transformed_vertices_;
 };
 
 }

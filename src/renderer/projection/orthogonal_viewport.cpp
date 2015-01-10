@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/projection/rect.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/renderer/target/viewport_is_null.hpp>
+#include <fcppt/cast/int_to_float_fun.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 
 
@@ -46,7 +47,8 @@ sge::renderer::projection::orthogonal_viewport(
 					sge::renderer::projection::rect(
 						sge::renderer::projection::rect::vector::null(),
 						fcppt::math::dim::structure_cast<
-							sge::renderer::projection::rect::dim
+							sge::renderer::projection::rect::dim,
+							fcppt::cast::int_to_float_fun
 						>(
 							_viewport.get().size()
 						)

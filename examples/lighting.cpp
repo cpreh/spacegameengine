@@ -113,6 +113,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/exception.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/int_to_float_fun.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/math/vector/construct.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
@@ -334,7 +335,8 @@ try
 					sge::renderer::state::ffp::lighting::light::position{
 						fcppt::math::vector::construct(
 							fcppt::math::vector::structure_cast<
-								sge::renderer::vector2
+								sge::renderer::vector2,
+								fcppt::cast::int_to_float_fun
 							>(
 								sge::sprite::center(
 									my_object

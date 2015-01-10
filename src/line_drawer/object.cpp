@@ -53,7 +53,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/line_drawer/vf/format.hpp>
 #include <sge/src/line_drawer/vf/position.hpp>
 #include <sge/src/line_drawer/vf/vertex_view.hpp>
-#include <fcppt/math/vector/structure_cast.hpp>
 
 
 sge::line_drawer::object::object(
@@ -148,13 +147,11 @@ sge::line_drawer::object::unlock()
 	)
 	{
 		(vb_it)->set<vf::position>(
-			fcppt::math::vector::structure_cast<vf::position::packed_type>(
-				line.begin()));
+			line.begin());
 		(vb_it++)->set<vf::color>(
 			line.begin_color());
 		(vb_it)->set<vf::position>(
-			fcppt::math::vector::structure_cast<vf::position::packed_type>(
-				line.end()));
+			line.end());
 		(vb_it++)->set<vf::color>(
 			line.end_color());
 	}

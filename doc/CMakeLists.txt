@@ -1392,6 +1392,7 @@ set(
 	include/sge/model/md3/optional_texcoord_sequence_fwd.hpp
 	include/sge/model/md3/part_name_sequence.hpp
 	include/sge/model/md3/position.hpp
+	include/sge/model/md3/position_fwd.hpp
 	include/sge/model/md3/scalar.hpp
 	include/sge/model/md3/string.hpp
 	include/sge/model/md3/texcoord.hpp

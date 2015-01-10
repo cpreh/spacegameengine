@@ -21,27 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MODEL_MD3_POSITION_HPP_INCLUDED
 #define SGE_MODEL_MD3_POSITION_HPP_INCLUDED
 
-#include <sge/model/md3/scalar.hpp>
-#include <fcppt/math/vector/static.hpp>
+#include <sge/model/md3/position_fwd.hpp>
+#include <fcppt/math/vector/object_impl.hpp>
 
-
-namespace sge
-{
-namespace model
-{
-namespace md3
-{
-
-typedef
-fcppt::math::vector::static_
-<
-	scalar,
-	3
->
-position;
-
-}
-}
-}
 
 #endif

@@ -19,9 +19,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/pixel_rect.hpp>
+#include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/src/viewport/fill_on_resize_function.hpp>
 #include <awl/window/event/resize.hpp>
+#include <fcppt/cast/size_fun.hpp>
+#include <fcppt/cast/to_signed_fun.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 
 
@@ -35,9 +38,15 @@ sge::viewport::fill_on_resize_function(
 			sge::renderer::pixel_rect(
 				sge::renderer::pixel_rect::vector::null(),
 				fcppt::math::dim::structure_cast<
-					sge::renderer::pixel_rect::dim
+					sge::renderer::pixel_rect::dim,
+					fcppt::cast::to_signed_fun
 				>(
-					_resize.dim()
+					fcppt::math::dim::structure_cast<
+						sge::renderer::screen_size,
+						fcppt::cast::size_fun
+					>(
+						_resize.dim()
+					)
 				)
 			)
 		);

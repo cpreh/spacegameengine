@@ -30,9 +30,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/projection/orthogonal.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/math/box/stretch_relative.hpp>
-#include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
+#include <fcppt/math/vector/dim.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -213,8 +213,8 @@ sge::camera::ortho_freelook::object::mouse_axis_callback(
 		panning_speed(
 			pan_speed_.get() *
 			pan_axis *
-			fcppt::math::dim::structure_cast<renderer::vector2>(
-				current_projection_rectangle_->size()));
+			current_projection_rectangle_->size()
+		);
 
 	current_projection_rectangle_->pos(
 		current_projection_rectangle_->pos() +

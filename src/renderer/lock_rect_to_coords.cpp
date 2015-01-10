@@ -23,6 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/lock_rect_to_coords.hpp>
 #include <sge/src/core/export_function_instantiation.hpp>
 #include <sge/src/renderer/instantiate_float.hpp>
+#include <fcppt/cast/int_to_float_fun.hpp>
+#include <fcppt/cast/to_signed_fun.hpp>
 #include <fcppt/math/box/rect.hpp>
 #include <fcppt/math/box/structure_cast.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
@@ -56,7 +58,8 @@ sge::renderer::lock_rect_to_coords(
 
 	ret_type const srect(
 		fcppt::math::box::structure_cast<
-			ret_type
+			ret_type,
+			fcppt::cast::int_to_float_fun
 		>(
 			_rect
 		)
@@ -69,7 +72,8 @@ sge::renderer::lock_rect_to_coords(
 
 	sdim_type const sdim(
 		fcppt::math::dim::structure_cast<
-			sdim_type
+			sdim_type,
+			fcppt::cast::to_signed_fun
 		>(
 			_dim
 		)

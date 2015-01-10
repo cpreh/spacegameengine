@@ -24,6 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/tracking/alexa/lerp.hpp>
 #include <sge/src/camera/logger.hpp>
 #include <fcppt/assert/pre.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/cast/size_fun.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/math/matrix/output.hpp>
@@ -52,14 +54,30 @@ lerp_double(
 	real_matrix;
 
 	return
-		fcppt::math::matrix::structure_cast<sge::renderer::matrix4>(
+		fcppt::math::matrix::structure_cast<
+			sge::renderer::matrix4,
+			fcppt::cast::size_fun
+		>(
 			sge::camera::tracking::alexa::lerp(
-				static_cast<real>(
-					_t),
-				fcppt::math::matrix::structure_cast<real_matrix>(
-					_a),
-				fcppt::math::matrix::structure_cast<real_matrix>(
-					_b)));
+				fcppt::cast::size<
+					real
+				>(
+					_t
+				),
+				fcppt::math::matrix::structure_cast<
+					real_matrix,
+					fcppt::cast::size_fun
+				>(
+					_a
+				),
+				fcppt::math::matrix::structure_cast<
+					real_matrix,
+					fcppt::cast::size_fun
+				>(
+					_b
+				)
+			)
+		);
 }
 }
 

@@ -27,19 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
+#include <fcppt/cast/to_signed_fun.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 
-
-namespace
-{
-
-sge::renderer::pixel_unit
-center_position(
-	sge::window::dim::value_type,
-	sge::window::dim::value_type
-);
-
-}
 
 sge::renderer::target::viewport const
 sge::viewport::center(
@@ -47,6 +37,34 @@ sge::viewport::center(
 	sge::window::dim const &_window_dim
 )
 {
+	auto const center_position(
+		[](
+			sge::window::dim::value_type const _target_size,
+			sge::window::dim::value_type const _window_size
+		)
+		->
+		sge::renderer::pixel_unit
+		{
+			FCPPT_ASSERT_PRE(
+				_window_size >= _target_size
+			);
+
+			return
+				fcppt::cast::size<
+					sge::renderer::pixel_unit
+				>(
+					fcppt::cast::to_signed(
+						(
+							_window_size
+							-
+							_target_size
+						)
+						/ 2u
+					)
+				);
+		}
+	);
+
 	return
 		_ref_dim.w()
 		> _window_dim.w()
@@ -58,7 +76,8 @@ sge::viewport::center(
 				sge::renderer::pixel_rect(
 					sge::renderer::pixel_rect::vector::null(),
 					fcppt::math::dim::structure_cast<
-						sge::renderer::pixel_rect::dim
+						sge::renderer::pixel_rect::dim,
+						fcppt::cast::to_signed_fun
 					>(
 						_window_dim
 					)
@@ -68,50 +87,21 @@ sge::viewport::center(
 			sge::renderer::target::viewport(
 				sge::renderer::pixel_rect(
 					sge::renderer::pixel_rect::vector(
-						::center_position(
+						center_position(
 							_ref_dim.w(),
 							_window_dim.w()
 						),
-						::center_position(
+						center_position(
 							_ref_dim.h(),
 							_window_dim.h()
 						)
 					),
 					fcppt::math::dim::structure_cast<
-						sge::renderer::pixel_rect::dim
+						sge::renderer::pixel_rect::dim,
+						fcppt::cast::to_signed_fun
 					>(
 						_ref_dim
 					)
 				)
 			);
-}
-
-namespace
-{
-
-sge::renderer::pixel_unit
-center_position(
-	sge::window::dim::value_type const _target_size,
-	sge::window::dim::value_type const _window_size
-)
-{
-	FCPPT_ASSERT_PRE(
-		_window_size >= _target_size
-	);
-
-	return
-		fcppt::cast::size<
-			sge::renderer::pixel_unit
-		>(
-			fcppt::cast::to_signed(
-				(
-					_window_size
-					-
-					_target_size
-				)
-				/ 2u
-			)
-		);
-}
-
 }

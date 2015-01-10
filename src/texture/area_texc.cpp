@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/dim.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/math/vector/output.hpp>
-#include <fcppt/math/vector/structure_cast.hpp>
+#include <fcppt/math/vector/to_dim.hpp>
 #include <fcppt/type_traits/is_float_or_double.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
@@ -104,14 +104,15 @@ sge::texture::area_texc(
 	);
 
 	ret.size(
-		fcppt::math::vector::structure_cast<
-			typename ret_type::dim
-		>(
-			_repeat * ret.size()
+		fcppt::math::vector::to_dim(
+			_repeat
+			*
+			ret.size()
 		)
 	);
 
-	return ret;
+	return
+		ret;
 }
 
 #define SGE_TEXTURE_INSTANTIATE_AREA_TEXC(\

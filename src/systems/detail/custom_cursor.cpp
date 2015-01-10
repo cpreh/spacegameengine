@@ -39,8 +39,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/part_fwd.hpp>
 #include <fcppt/optional_bind_construct.hpp>
 #include <fcppt/optional_impl.hpp>
+#include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
+#include <fcppt/math/vector/to_signed.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 
 
@@ -136,9 +138,12 @@ sge::systems::detail::custom_cursor::make_sprite(
 							_npos
 							-
 							fcppt::math::vector::structure_cast<
-								sge::input::cursor::position
+								sge::input::cursor::position,
+								fcppt::cast::size_fun
 							>(
-								hotspot_.get()
+								fcppt::math::vector::to_signed(
+									hotspot_.get()
+								)
 							)
 						)
 						.texture(

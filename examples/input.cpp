@@ -137,6 +137,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/size_fun.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/io/ostream.hpp>
 #include <fcppt/log/level.hpp>
@@ -1178,7 +1179,8 @@ manage_console_size(
 {
 	_sprite.size(
 		fcppt::math::dim::structure_cast<
-			sge::console::gfx::sprite_object::dim
+			sge::console::gfx::sprite_object::dim,
+			fcppt::cast::size_fun
 		>(
 			_viewport.get().size()
 		)

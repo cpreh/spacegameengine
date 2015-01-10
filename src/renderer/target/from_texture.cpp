@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/pixel_rect.hpp>
+#include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/color_buffer/optional_surface_ref.hpp>
 #include <sge/renderer/device/core.hpp>
 #include <sge/renderer/target/from_texture.hpp>
@@ -31,6 +32,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
+#include <fcppt/cast/size_fun.hpp>
+#include <fcppt/cast/to_signed_fun.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
@@ -77,9 +80,15 @@ sge::renderer::target::from_texture(
 			sge::renderer::pixel_rect(
 				sge::renderer::pixel_rect::vector::null(),
 				fcppt::math::dim::structure_cast<
-					sge::renderer::pixel_rect::dim
+					sge::renderer::pixel_rect::dim,
+					fcppt::cast::to_signed_fun
 				>(
-					_texture.size()
+					fcppt::math::dim::structure_cast<
+						sge::renderer::screen_size,
+						fcppt::cast::size_fun
+					>(
+						_texture.size()
+					)
 				)
 			)
 		)

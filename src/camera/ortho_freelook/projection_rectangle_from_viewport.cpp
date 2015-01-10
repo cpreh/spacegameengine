@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/ortho_freelook/projection_rectangle_from_viewport.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/viewport/manager.hpp>
+#include <fcppt/cast/int_to_float_fun.hpp>
 #include <fcppt/math/box/structure_cast.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -62,6 +63,11 @@ sge::camera::ortho_freelook::projection_rectangle_from_viewport::viewport_callba
 )
 {
 	camera_.projection_rectangle(
-		fcppt::math::box::structure_cast<sge::renderer::projection::rect>(
-			_viewport.get()));
+		fcppt::math::box::structure_cast<
+			sge::renderer::projection::rect,
+			fcppt::cast::int_to_float_fun
+		>(
+			_viewport.get()
+		)
+	);
 }

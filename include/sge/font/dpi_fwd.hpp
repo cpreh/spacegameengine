@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_FONT_DPI_FWD_HPP_INCLUDED
 
 #include <sge/font/dpi_unit.hpp>
-#include <fcppt/math/vector/static.hpp>
+#include <fcppt/math/dim/static.hpp>
 
 
 namespace sge
@@ -30,7 +30,7 @@ namespace sge
 namespace font
 {
 
-typedef fcppt::math::vector::static_<
+typedef fcppt::math::dim::static_<
 	sge::font::dpi_unit,
 	2
 > dpi;

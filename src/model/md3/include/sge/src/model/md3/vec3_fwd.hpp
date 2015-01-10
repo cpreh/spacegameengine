@@ -18,23 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/audio/vector.hpp>
-#include <sge/openal/to_vector3.hpp>
-#include <sge/openal/vector3.hpp>
-#include <fcppt/cast/size_fun.hpp>
-#include <fcppt/math/vector/structure_cast.hpp>
+#ifndef SGE_SRC_MODEL_MD3_VEC3_FWD_HPP_INCLUDED
+#define SGE_SRC_MODEL_MD3_VEC3_FWD_HPP_INCLUDED
+
+#include <sge/model/md3/scalar.hpp>
+#include <fcppt/math/vector/static.hpp>
 
 
-sge::openal::vector3 const
-sge::openal::to_vector3(
-	sge::audio::vector const &_vec
-)
+namespace sge
 {
-	return
-		fcppt::math::vector::structure_cast<
-			sge::openal::vector3,
-			fcppt::cast::size_fun
-		>(
-			_vec
-		);
+namespace model
+{
+namespace md3
+{
+
+typedef
+fcppt::math::vector::static_<
+	sge::model::md3::scalar,
+	3
+>
+vec3;
+
 }
+}
+}
+
+#endif

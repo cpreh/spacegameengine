@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/md3/exception.hpp>
 #include <sge/model/md3/index_sequence.hpp>
 #include <sge/model/md3/load_flags.hpp>
+#include <sge/model/md3/normal_sequence.hpp>
 #include <sge/model/md3/optional_normal_sequence.hpp>
 #include <sge/model/md3/optional_texcoord_sequence.hpp>
 #include <sge/model/md3/part_name_sequence.hpp>
@@ -37,11 +38,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/model/md3/surface.hpp>
 #include <sge/src/model/md3/surface_vector.hpp>
 #include <sge/src/model/md3/tag.hpp>
+#include <sge/src/model/md3/transformed_vertex.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/algorithm/find_if_exn.hpp>
+#include <fcppt/algorithm/map.hpp>
+#include <fcppt/algorithm/repeat.hpp>
 #include <fcppt/io/read.hpp>
+#include <fcppt/make_int_range_count.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/warning.hpp>
-#include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <istream>
 #include <fcppt/config/external_end.hpp>
@@ -52,8 +57,12 @@ sge::model::md3::object_impl::object_impl(
 	sge::model::md3::load_flags const _flags
 )
 :
-	vertices_(0),
-	indices_(0),
+	vertices_{
+		0
+	},
+	indices_{
+		0
+	},
 	name_(),
 	frames_(),
 	tags_(),
@@ -156,16 +165,20 @@ sge::model::md3::object_impl::object_impl(
 		std::ios_base::beg
 	);
 
-	for(
-		sge::model::md3::s32 i = 0;
-		i < num_frames;
-		++i
-	)
-		frames_.push_back(
-			sge::model::md3::frame(
-				_stream
-			)
-		);
+	fcppt::algorithm::repeat(
+		num_frames,
+		[
+			&_stream,
+			this
+		]
+		{
+			frames_.push_back(
+				sge::model::md3::frame(
+					_stream
+				)
+			);
+		}
+	);
 
 	_stream.seekg(
 		start
@@ -175,16 +188,20 @@ sge::model::md3::object_impl::object_impl(
 		std::ios_base::beg
 	);
 
-	for(
-		sge::model::md3::s32 i = 0;
-		i < num_tags;
-		++i
-	)
-		tags_.push_back(
-			sge::model::md3::tag(
-				_stream
-			)
-		);
+	fcppt::algorithm::repeat(
+		num_tags,
+		[
+			&_stream,
+			this
+		]
+		{
+			tags_.push_back(
+				sge::model::md3::tag(
+					_stream
+				)
+			);
+		}
+	);
 
 	_stream.seekg(
 		start
@@ -194,28 +211,34 @@ sge::model::md3::object_impl::object_impl(
 		std::ios_base::beg
 	);
 
-	for(
-		sge::model::md3::s32 i = 0;
-		i < num_surfaces;
-		++i
-	)
-	{
-		surfaces_.push_back(
-			sge::model::md3::surface(
-				_stream,
-				_flags,
-				num_frames
-			)
-		);
+	fcppt::algorithm::repeat(
+		num_surfaces,
+		[
+			&_stream,
+			_flags,
+			num_frames,
+			this
+		]
+		{
+			surfaces_.push_back(
+				sge::model::md3::surface(
+					_stream,
+					_flags,
+					num_frames
+				)
+			);
 
-		sge::model::md3::surface const &last_surface(
-			surfaces_.back()
-		);
+			sge::model::md3::surface const &last_surface(
+				surfaces_.back()
+			);
 
-		indices_ += last_surface.triangles().size();
+			indices_ +=
+				last_surface.triangles().size();
 
-		vertices_ += last_surface.transformed_vertices().size();
-	}
+			vertices_ +=
+				last_surface.transformed_vertices().size();
+		}
+	);
 
 	indices_ *= 3;
 
@@ -276,28 +299,21 @@ sge::model::md3::object_impl::vertices(
 	sge::model::md3::string const &_name
 ) const
 {
-	md3::vertex_sequence result;
-
-	sge::model::md3::surface_vector::const_reference surf(
-		this->surface_by_name(
-			_name
-		)
-	);
-
-	for(
-		auto const &vertex
-		:
-		surf.transformed_vertices()
-	)
-		result.push_back(
-			fcppt::math::vector::structure_cast<
-				sge::model::md3::position
-			>(
-				vertex.pos()
+	return
+		fcppt::algorithm::map<
+			sge::model::md3::vertex_sequence
+		>(
+			this->surface_by_name(
+				_name
+			).transformed_vertices(),
+			[](
+				sge::model::md3::transformed_vertex const &_vertex
 			)
+			{
+				return
+					_vertex.pos();
+			}
 		);
-
-	return result;
 }
 
 sge::model::md3::optional_texcoord_sequence
@@ -305,28 +321,33 @@ sge::model::md3::object_impl::texcoords(
 	sge::model::md3::string const &_name
 ) const
 {
-	sge::model::md3::texcoord_sequence result;
-
 	sge::model::md3::surface_vector::const_reference surf(
 		this->surface_by_name(
 			_name
 		)
 	);
 
-	for(
-		md3::transformed_vertex_vector::size_type sz = 0;
-		sz < surf.transformed_vertices().size();
-		++sz
-	)
-		result.push_back(
-			surf.texpos().at(
-				sz
-			).texcoord()
-		);
-
 	return
 		sge::model::md3::optional_texcoord_sequence(
-			result
+			fcppt::algorithm::map<
+				sge::model::md3::texcoord_sequence
+			>(
+				fcppt::make_int_range_count(
+					surf.transformed_vertices().size()
+				),
+				[
+					&surf
+				](
+					sge::model::md3::transformed_vertex_vector::size_type const _index
+				)
+				{
+
+					return
+						surf.texpos().at(
+							_index
+						).texcoord();
+				}
+			)
 		);
 }
 
@@ -335,44 +356,41 @@ sge::model::md3::object_impl::normals(
 	sge::model::md3::string const &_name
 ) const
 {
-	sge::model::md3::normal_sequence result;
-
-	sge::model::md3::surface_vector::const_reference surf(
-		this->surface_by_name(
-			_name
-		)
-	);
-
-	for(
-		auto const &vertex
-		:
-		surf.transformed_vertices()
-	)
-		result.push_back(
-			vertex.normal()
-		);
-
 	return
 		sge::model::md3::optional_normal_sequence(
-			result
+			fcppt::algorithm::map<
+				sge::model::md3::normal_sequence
+			>(
+				this->surface_by_name(
+					_name
+				).transformed_vertices(),
+				[](
+					sge::model::md3::transformed_vertex const &_vertex
+				)
+				{
+					return
+						_vertex.normal();
+				}
+			)
 		);
 }
 
 sge::model::md3::part_name_sequence
 sge::model::md3::object_impl::part_names() const
 {
-	sge::model::md3::part_name_sequence result;
-
-	for(
-		auto const &surface
-		:
-		surfaces_
-	)
-		result.push_back(
-			surface.name()
+	return
+		fcppt::algorithm::map<
+			sge::model::md3::part_name_sequence
+		>(
+			surfaces_,
+			[](
+				sge::model::md3::surface const &_surface
+			)
+			{
+				return
+					_surface.name();
+			}
 		);
-
-	return result;
 }
 
 
@@ -381,18 +399,25 @@ sge::model::md3::object_impl::surface_by_name(
 	sge::model::md3::string const &_name
 ) const
 {
-	for(
-		auto const &surface
-		:
-		surfaces_
-	)
-		if(
-			surface.name() == _name
-		)
-			return
-				surface;
-
-	throw sge::model::md3::exception(
-		FCPPT_TEXT("Couldn't find md3 surface!")
-	);
+	return
+		*fcppt::algorithm::find_if_exn(
+			surfaces_,
+			[
+				&_name
+			](
+				sge::model::md3::surface const &_surface
+			)
+			{
+				return
+					_surface.name()
+					==
+					_name;
+			},
+			[]{
+				return
+					sge::model::md3::exception{
+						FCPPT_TEXT("Couldn't find md3 surface!")
+					};
+			}
+		);
 }

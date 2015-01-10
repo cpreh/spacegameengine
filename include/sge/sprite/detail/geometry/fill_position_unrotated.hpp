@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/geometry/make_position.hpp>
 #include <sge/sprite/detail/vf/pos.hpp>
 #include <sge/sprite/types/basic/float_vector.hpp>
+#include <fcppt/cast/static_cast_fun.hpp>
 #include <fcppt/math/box/structure_cast.hpp>
 
 
@@ -62,7 +63,8 @@ fill_position_unrotated(
 
 	float_rect const rect(
 		fcppt::math::box::structure_cast<
-			float_rect
+			float_rect,
+			fcppt::cast::static_cast_fun
 		>(
 			sge::sprite::bounding_rect(
 				_sprite

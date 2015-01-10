@@ -82,6 +82,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/size_fun.hpp>
+#include <fcppt/cast/to_signed_fun.hpp>
+#include <fcppt/cast/to_unsigned_fun.hpp>
 #include <fcppt/container/grid/in_range.hpp>
 #include <fcppt/container/grid/make_pos_range.hpp>
 #include <fcppt/container/grid/object.hpp>
@@ -257,14 +260,16 @@ try
 
 	sprite_grid sprites(
 		fcppt::math::dim::structure_cast<
-			sprite_grid::dim
+			sprite_grid::dim,
+			fcppt::cast::size_fun
 		>(
 			// TODO: Use something else here
 			sys.window().size()
 		)
 		/
 		fcppt::math::dim::structure_cast<
-			sprite_grid::dim
+			sprite_grid::dim,
+			fcppt::cast::size_fun
 		>(
 			cell_size
 		),
@@ -289,7 +294,8 @@ try
 			)
 				item.value().pos(
 					fcppt::math::vector::structure_cast<
-						sprite_object::vector
+						sprite_object::vector,
+						fcppt::cast::size_fun
 					>(
 						item.pos()
 					)
@@ -330,13 +336,20 @@ try
 				fcppt::container::grid::resize_preserve_init(
 					sprites,
 					fcppt::math::dim::structure_cast<
-						sprite_grid::dim
+						sprite_grid::dim,
+						fcppt::cast::size_fun
 					>(
-						_viewport.get().size()
+						fcppt::math::dim::structure_cast<
+							sge::renderer::screen_size,
+							fcppt::cast::to_unsigned_fun
+						>(
+							_viewport.get().size()
+						)
 					)
 					/
 					fcppt::math::dim::structure_cast<
-						sprite_grid::dim
+						sprite_grid::dim,
+						fcppt::cast::size_fun
 					>(
 						cell_size
 					),
@@ -391,7 +404,8 @@ try
 
 				sprite_grid::dim const cell_size_dim(
 					fcppt::math::dim::structure_cast<
-						sprite_grid::dim
+						sprite_grid::dim,
+						fcppt::cast::size_fun
 					>(
 						cell_size
 					)
@@ -399,7 +413,8 @@ try
 
 				sprite_grid::pos const cur_grid_position(
 					fcppt::math::vector::structure_cast<
-						sprite_grid::pos
+						sprite_grid::pos,
+						fcppt::cast::size_fun
 					>(
 						*cur_position
 					)
@@ -427,9 +442,15 @@ try
 
 				sprite_grid::pos const last_grid_position(
 					fcppt::math::vector::structure_cast<
-						sprite_grid::pos
+						sprite_grid::pos,
+						fcppt::cast::to_unsigned_fun
 					>(
-						*last_position
+						fcppt::math::vector::structure_cast<
+							signed_pos,
+							fcppt::cast::size_fun
+						>(
+							*last_position
+						)
 					)
 					/
 					cell_size_dim
@@ -437,12 +458,14 @@ try
 
 				fcppt::math::bresenham(
 					fcppt::math::vector::structure_cast<
-						signed_pos
+						signed_pos,
+						fcppt::cast::to_signed_fun
 					>(
 						cur_grid_position
 					),
 					fcppt::math::vector::structure_cast<
-						signed_pos
+						signed_pos,
+						fcppt::cast::to_signed_fun
 					>(
 						last_grid_position
 					),
@@ -454,7 +477,8 @@ try
 					{
 						sprites[
 							fcppt::math::vector::structure_cast<
-								sprite_grid::pos
+								sprite_grid::pos,
+								fcppt::cast::to_unsigned_fun
 							>(
 								_pos
 							)

@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/types/rotation.hpp>
 #include <sge/sprite/types/basic/float.hpp>
 #include <sge/sprite/types/basic/float_vector.hpp>
+#include <fcppt/cast/static_cast_fun.hpp>
 #include <fcppt/math/box/structure_cast.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
 #include <fcppt/math/matrix/static.hpp>
@@ -74,7 +75,8 @@ fill_position_rotated(
 
 	pos2 const centerf(
 		fcppt::math::vector::structure_cast<
-			pos2
+			pos2,
+			fcppt::cast::static_cast_fun
 		>(
 			_sprite.rotation_center()
 		)
@@ -86,7 +88,8 @@ fill_position_rotated(
 
 	float_rect const rbs(
 		fcppt::math::box::structure_cast<
-			float_rect
+			float_rect,
+			fcppt::cast::static_cast_fun
 		>(
 			sge::sprite::bounding_rect(
 				_sprite

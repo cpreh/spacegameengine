@@ -18,10 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/font/dpi.hpp>
 #include <sge/font/parameters.hpp>
 #include <sge/pango/create_font_map.hpp>
 #include <sge/pango/glib_deleter.hpp>
 #include <sge/pango/pango_font_map_unique_ptr.hpp>
+#include <fcppt/maybe_void.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <pango/pangoft2.h>
 #include <utility>
@@ -37,18 +39,25 @@ sge::pango::create_font_map(
 		::pango_ft2_font_map_new()
 	);
 
-	if(
-		_parameters.dpi()
-	)
-		::pango_ft2_font_map_set_resolution(
-			reinterpret_cast<
-				PangoFT2FontMap *
-			>(
-				result.get()
-			),
-			_parameters.dpi()->x(),
-			_parameters.dpi()->y()
-		);
+	fcppt::maybe_void(
+		_parameters.dpi(),
+		[
+			&result
+		](
+			sge::font::dpi const _dpi
+		)
+		{
+			::pango_ft2_font_map_set_resolution(
+				reinterpret_cast<
+					PangoFT2FontMap *
+				>(
+					result.get()
+				),
+				_dpi.w(),
+				_dpi.h()
+			);
+		}
+	);
 
 	return
 		std::move(

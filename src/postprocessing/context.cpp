@@ -61,6 +61,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/assign/make_map.hpp>
 #include <fcppt/assert/pre.hpp>
+#include <fcppt/cast/size_fun.hpp>
+#include <fcppt/cast/to_signed_fun.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
@@ -171,9 +173,15 @@ void
 sge::postprocessing::context::viewport_callback()
 {
 	sge::renderer::dim2 const target_size(
-		fcppt::math::dim::structure_cast<sge::renderer::dim2>(
+		fcppt::math::dim::structure_cast<
+			sge::renderer::dim2,
+			fcppt::cast::size_fun
+		>(
 			sge::renderer::target::viewport_size(
-				renderer_.onscreen_target())));
+				renderer_.onscreen_target()
+			)
+		)
+	);
 
 	/*
 	sge::renderer::size_type const downsample_factor =
@@ -285,8 +293,15 @@ sge::postprocessing::context::switch_target_texture(
 		sge::renderer::target::viewport(
 			sge::renderer::pixel_rect(
 				sge::renderer::pixel_rect::vector::null(),
-				fcppt::math::dim::structure_cast<sge::renderer::pixel_rect::dim>(
-					_new_texture.size()))));
+				fcppt::math::dim::structure_cast<
+					sge::renderer::pixel_rect::dim,
+					fcppt::cast::to_signed_fun
+				>(
+					_new_texture.size()
+				)
+			)
+		)
+	);
 }
 
 	/*

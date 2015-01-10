@@ -56,9 +56,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/font/bitmap/text.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/cast/size_fun.hpp>
+#include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/dim/to_unsigned.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
@@ -356,9 +360,12 @@ sge::font::bitmap::text::render(
 			sge::image2d::rect(
 				sge::image2d::rect::vector::null(),
 				fcppt::math::dim::structure_cast<
-					sge::image2d::rect::dim
+					sge::image2d::rect::dim,
+					fcppt::cast::size_fun
 				>(
-					rect_.size()
+					fcppt::math::dim::to_unsigned(
+						rect_.size()
+					)
 				)
 			)
 		),
@@ -469,15 +476,19 @@ sge::font::bitmap::text::render(
 					_view,
 					sge::image2d::rect(
 						sge::image2d::rect::vector(
-							static_cast<
+							fcppt::cast::size<
 								sge::image::size_type
 							>(
-								left
+								fcppt::cast::to_unsigned(
+									left
+								)
 							),
-							static_cast<
+							fcppt::cast::size<
 								sge::image::size_type
 							>(
-								top
+								fcppt::cast::to_unsigned(
+									top
+								)
 							)
 						),
 						sge::image2d::view::size(

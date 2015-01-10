@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/window/dim.hpp>
 #include <awl/window/parameters.hpp>
 #include <fcppt/maybe_void.hpp>
+#include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 
 
@@ -43,7 +44,8 @@ sge::window::convert_size_hints(
 		{
 			return
 				fcppt::math::dim::structure_cast<
-					awl::window::dim
+					awl::window::dim,
+					fcppt::cast::size_fun
 				>(
 					_sge_dim
 				);

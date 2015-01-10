@@ -121,11 +121,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/literal.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/maybe_void.hpp>
+#include <fcppt/cast/int_to_float_fun.hpp>
+#include <fcppt/cast/size_fun.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/log/location.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/dim/to_vector.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -398,15 +401,18 @@ try
 			)
 			{
 				auto const center(
-					fcppt::math::dim::structure_cast<
-						sprite_object::vector
-					>(
-						_viewport.get().size()
-						/
-						fcppt::literal<
-							sge::renderer::pixel_unit
+					fcppt::math::dim::to_vector(
+						fcppt::math::dim::structure_cast<
+							sprite_object::dim,
+							fcppt::cast::size_fun
 						>(
-							2
+							_viewport.get().size()
+							/
+							fcppt::literal<
+								sge::renderer::pixel_unit
+							>(
+								2
+							)
 						)
 					)
 				);
@@ -414,7 +420,8 @@ try
 				sys.audio_player().listener().position(
 					sge::audio::vector2_to_vector(
 						fcppt::math::vector::structure_cast<
-							sge::audio::vector2
+							sge::audio::vector2,
+							fcppt::cast::int_to_float_fun
 						>(
 							center
 						)
@@ -471,7 +478,8 @@ try
 						sound_siren->position(
 							sge::audio::vector2_to_vector(
 								fcppt::math::vector::structure_cast<
-									sge::audio::vector2
+									sge::audio::vector2,
+									fcppt::cast::int_to_float_fun
 								>(
 									_pos
 								)
@@ -498,7 +506,8 @@ try
 				sound_siren->linear_velocity(
 					sge::audio::vector2_to_vector(
 						fcppt::math::vector::structure_cast<
-							sge::audio::vector2
+							sge::audio::vector2,
+							fcppt::cast::int_to_float_fun
 						>(
 							_event.position()
 						)

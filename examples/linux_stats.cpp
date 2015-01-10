@@ -85,6 +85,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/assert/unreachable.hpp>
+#include <fcppt/cast/int_to_float.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/cast/size_fun.hpp>
+#include <fcppt/cast/to_signed.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/log/location.hpp>
@@ -511,7 +515,13 @@ try
 		),
 		sge::font::vector(
 			0,
-			static_cast<int>(graph_dim.h())
+			fcppt::cast::size<
+				sge::font::unit
+			>(
+				fcppt::cast::to_signed(
+					graph_dim.h()
+				)
+			)
 		),
 		sge::image::color::predef::white(),
 		sge::renderer::texture::emulate_srgb::yes
@@ -522,8 +532,12 @@ try
 			sge::renderer::vector2(
 				0.0f,
 				0.0f)),
-		fcppt::math::dim::structure_cast<sge::image2d::dim>(
-			graph_dim),
+		fcppt::math::dim::structure_cast<
+			sge::image2d::dim,
+			fcppt::cast::size_fun
+		>(
+			graph_dim
+		),
 		sys.renderer_device_ffp(),
 		sge::graph::baseline(
 			50.0),
@@ -538,9 +552,19 @@ try
 		sge::graph::position(
 			sge::renderer::vector2(
 				0.0f,
-				static_cast<sge::renderer::vector2::value_type>(graph_dim.h()))),
-		fcppt::math::dim::structure_cast<sge::image2d::dim>(
-			graph_dim),
+				fcppt::cast::int_to_float<
+					sge::renderer::vector2::value_type
+				>(
+					graph_dim.h()
+				)
+			)
+		),
+		fcppt::math::dim::structure_cast<
+			sge::image2d::dim,
+			fcppt::cast::size_fun
+		>(
+			graph_dim
+		),
 		sys.renderer_device_ffp(),
 		sge::graph::baseline(
 			50.0),
@@ -576,16 +600,18 @@ try
 		);
 
 		sge::font::unit y(
-			static_cast<
+			fcppt::cast::size<
 				sge::font::unit
 			>(
 				2 + it - devices.begin()
 			)
 			*
-			static_cast<
+			fcppt::cast::size<
 				sge::font::unit
 			>(
-				graph_dim.h()
+				fcppt::cast::to_signed(
+					graph_dim.h()
+				)
 			)
 		);
 
@@ -599,10 +625,19 @@ try
 						sge::graph::position(
 							sge::renderer::vector2(
 								0.0f,
-								static_cast<sge::renderer::scalar>(y)
-								)),
-						fcppt::math::dim::structure_cast<sge::image2d::dim>(
-							graph_dim),
+								fcppt::cast::int_to_float<
+									sge::renderer::scalar
+								>(
+									y
+								)
+							)
+						),
+						fcppt::math::dim::structure_cast<
+							sge::image2d::dim,
+							fcppt::cast::size_fun
+						>(
+							graph_dim
+						),
 						sys.renderer_device_ffp(),
 						sge::graph::baseline(
 							0.0),

@@ -55,6 +55,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <mizuiro/image/algorithm/bresenham.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <fcppt/cast/float_to_int_fun.hpp>
 #include <fcppt/math/clamp.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/variant/apply_unary.hpp>
@@ -219,8 +220,12 @@ sge::graph::object::object(
 		sprite_parameters()
 		.pos(
 			fcppt::math::vector::structure_cast<
-				sprite_object::vector>(
-					_position.get()))
+				sprite_object::vector,
+				fcppt::cast::float_to_int_fun
+			>(
+				_position.get()
+			)
+		)
 		.texture(
 			fcppt::make_shared_ptr<
 				sge::texture::part_raw_ref

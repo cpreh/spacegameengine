@@ -21,24 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_MODEL_MD3_VEC3_HPP_INCLUDED
 #define SGE_SRC_MODEL_MD3_VEC3_HPP_INCLUDED
 
-#include <sge/model/md3/scalar.hpp>
-#include <fcppt/math/vector/static.hpp>
+#include <sge/src/model/md3/vec3_fwd.hpp>
+#include <fcppt/math/vector/object_impl.hpp>
 
 
-namespace sge
-{
-namespace model
-{
-namespace md3
-{
-
-typedef fcppt::math::vector::static_<
-	md3::scalar,
-	3
-> vec3;
-
-}
-}
-}
 
 #endif

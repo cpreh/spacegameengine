@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/event/processor_fwd.hpp>
 #include <awl/window/object.hpp>
 #include <awl/window/event/processor_fwd.hpp>
+#include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 
 
@@ -54,7 +55,8 @@ sge::window::object::size() const
 {
 	return
 		fcppt::math::dim::structure_cast<
-			sge::window::dim
+			sge::window::dim,
+			fcppt::cast::size_fun
 		>(
 			awl_object_.size()
 		);

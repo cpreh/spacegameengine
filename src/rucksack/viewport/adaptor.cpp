@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/viewport/manager.hpp>
 #include <fcppt/optional_ref_compare.hpp>
 #include <fcppt/assert/pre.hpp>
+#include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
@@ -80,7 +81,8 @@ sge::rucksack::viewport::adaptor::size(
 			sge::renderer::pixel_rect(
 				target_.viewport().get().pos(),
 				fcppt::math::dim::structure_cast<
-					sge::renderer::pixel_rect::dim
+					sge::renderer::pixel_rect::dim,
+					fcppt::cast::size_fun
 				>(
 					_size
 				)
@@ -98,7 +100,8 @@ sge::rucksack::viewport::adaptor::position(
 		sge::renderer::target::viewport(
 			sge::renderer::pixel_rect(
 				fcppt::math::vector::structure_cast<
-					sge::renderer::pixel_rect::vector
+					sge::renderer::pixel_rect::vector,
+					fcppt::cast::size_fun
 				>(
 					_pos
 				),
@@ -113,7 +116,8 @@ sge::rucksack::viewport::adaptor::size() const
 {
 	return
 		fcppt::math::dim::structure_cast<
-			sge::rucksack::dim
+			sge::rucksack::dim,
+			fcppt::cast::size_fun
 		>(
 			target_.viewport().get().size()
 		);
@@ -124,7 +128,8 @@ sge::rucksack::viewport::adaptor::position() const
 {
 	return
 		fcppt::math::vector::structure_cast<
-			sge::rucksack::vector
+			sge::rucksack::vector,
+			fcppt::cast::size_fun
 		>(
 			target_.viewport().get().pos()
 		);

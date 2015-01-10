@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/viewport/center_on_resize_function.hpp>
 #include <sge/window/dim.hpp>
 #include <awl/window/event/resize.hpp>
+#include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 
 
@@ -36,7 +37,8 @@ sge::viewport::center_on_resize_function(
 		sge::viewport::center(
 			_ref_dim,
 			fcppt::math::dim::structure_cast<
-				sge::window::dim
+				sge::window::dim,
+				fcppt::cast::size_fun
 			>(
 				_resize.dim()
 			)

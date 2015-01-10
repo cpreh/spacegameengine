@@ -110,6 +110,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/exception.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/int_to_float_fun.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/io/cerr.hpp>
@@ -145,8 +146,12 @@ cursor_position_to_vector3(
 {
 	return
 		fcppt::math::vector::construct(
-			fcppt::math::vector::structure_cast<sge::renderer::vector2>(
-				p),
+			fcppt::math::vector::structure_cast<
+				sge::renderer::vector2,
+				fcppt::cast::int_to_float_fun
+			>(
+				p
+			),
 			static_cast<sge::renderer::scalar>(
 				0));
 }

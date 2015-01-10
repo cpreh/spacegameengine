@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/src/model/md3/vec3.hpp>
 #include <sge/src/model/md3/vertex_fwd.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
 
 
 namespace sge
@@ -36,17 +35,18 @@ namespace md3
 class transformed_vertex
 {
 public:
-	explicit transformed_vertex(
-		md3::vertex const &
+	explicit
+	transformed_vertex(
+		sge::model::md3::vertex const &
 	);
 
-	md3::vec3 const &
+	sge::model::md3::vec3 const &
 	pos() const;
 
-	md3::vec3 const &
+	sge::model::md3::vec3 const &
 	normal() const;
 private:
-	md3::vec3
+	sge::model::md3::vec3
 		pos_,
 		normal_;
 };

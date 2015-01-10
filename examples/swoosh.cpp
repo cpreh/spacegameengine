@@ -117,8 +117,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
+#include <fcppt/literal.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/cast/int_to_float_fun.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/log/location.hpp>
@@ -235,7 +237,10 @@ cursor_speed_tracker::move_callback(
 	current_speed_ =
 		static_cast<scalar>(
 			fcppt::math::vector::length(
-				fcppt::math::vector::structure_cast<vector2>(
+				fcppt::math::vector::structure_cast<
+					vector2,
+					fcppt::cast::int_to_float_fun
+				>(
 					_e.position())));
 
 	speed_updated_ =
@@ -251,7 +256,7 @@ cursor_speed_tracker::update()
 			?
 				current_speed_
 			:
-				static_cast<scalar>(
+				fcppt::literal<scalar>(
 					0.0f)));
 
 	speed_updated_ =
@@ -265,7 +270,7 @@ cursor_speed_tracker::current_speed() const
 		std::accumulate(
 			speed_values_.begin(),
 			speed_values_.end(),
-			static_cast<scalar>(
+			fcppt::literal<scalar>(
 				0)) /
 		static_cast<scalar>(
 			speed_values_.size());
