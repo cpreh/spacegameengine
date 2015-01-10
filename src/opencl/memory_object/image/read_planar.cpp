@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/memory_object/image/opencl_color_format_to_sge.hpp>
 #include <sge/opencl/memory_object/image/planar.hpp>
 #include <sge/opencl/memory_object/image/read_planar.hpp>
+#include <fcppt/cast/size_fun.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 
@@ -55,8 +56,12 @@ sge::opencl::memory_object::image::read_planar(
 		sge::image2d::view::make_const(
 			static_cast<sge::image::raw_pointer>(
 				scoped_map.ptr()),
-			fcppt::math::dim::structure_cast<sge::image2d::dim>(
-				_rect.size()),
+			fcppt::math::dim::structure_cast<
+				sge::image2d::dim,
+				fcppt::cast::size_fun
+			>(
+				_rect.size()
+			),
 			image::opencl_color_format_to_sge(
 				_image.image_format()),
 			image2d::pitch(

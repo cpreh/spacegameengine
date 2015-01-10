@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/opencl/memory_object/to_opencl_mem_flags.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre.hpp>
+#include <fcppt/cast/size_fun.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
@@ -131,8 +132,13 @@ sge::opencl::memory_object::image::planar::planar(
 	impl_(),
 	image_format_(),
 	size_(
-		fcppt::math::dim::structure_cast<sge::opencl::dim2>(
-			_renderer_texture.area().size()))
+		fcppt::math::dim::structure_cast<
+			sge::opencl::dim2,
+			fcppt::cast::size_fun
+		>(
+			_renderer_texture.area().size()
+		)
+	)
 {
 	cl_int error_code;
 	impl_ =
