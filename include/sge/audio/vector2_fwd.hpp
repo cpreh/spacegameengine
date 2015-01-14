@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_AUDIO_VECTOR2_FWD_HPP_INCLUDED
 
 #include <sge/audio/scalar.hpp>
-#include <fcppt/math/vector/static.hpp>
+#include <fcppt/math/vector/static_fwd.hpp>
 
 
 namespace sge

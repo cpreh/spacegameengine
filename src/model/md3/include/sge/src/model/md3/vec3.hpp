@@ -22,8 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_MODEL_MD3_VEC3_HPP_INCLUDED
 
 #include <sge/src/model/md3/vec3_fwd.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
-
+#include <fcppt/math/vector/static.hpp>
 
 
 #endif

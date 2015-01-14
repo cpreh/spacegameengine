@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_MATRIX4_HPP_INCLUDED
 
 #include <sge/renderer/matrix4_fwd.hpp>
-#include <fcppt/math/matrix/object_impl.hpp>
+#include <fcppt/math/matrix/static.hpp>
 
 
 #endif

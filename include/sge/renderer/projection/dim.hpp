@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_PROJECTION_DIM_HPP_INCLUDED
 
 #include <sge/renderer/projection/dim_fwd.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
+#include <fcppt/math/dim/static.hpp>
 
 
 #endif

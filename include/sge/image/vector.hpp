@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_VECTOR_HPP_INCLUDED
 
 #include <sge/image/vector_fwd.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
+#include <fcppt/math/vector/static.hpp>
 
 
 #endif

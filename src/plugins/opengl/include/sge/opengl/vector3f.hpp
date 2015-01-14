@@ -21,9 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_VECTOR3F_HPP_INCLUDED
 #define SGE_OPENGL_VECTOR3F_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/vector3f_fwd.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
+#include <fcppt/math/vector/static.hpp>
 
 
 #endif

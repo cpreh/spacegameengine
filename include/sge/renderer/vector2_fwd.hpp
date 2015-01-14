@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VECTOR2_FWD_HPP_INCLUDED
 
 #include <sge/renderer/basic_vector_fwd.hpp>
-#include <fcppt/math/vector/static.hpp>
 
 
 namespace sge

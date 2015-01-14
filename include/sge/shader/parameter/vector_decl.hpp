@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/shader/parameter/vector_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/math/size_type.hpp>
-#include <fcppt/math/vector/static.hpp>
+#include <fcppt/math/vector/static_fwd.hpp>
 
 
 namespace sge

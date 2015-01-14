@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PROJECTILE_DIM2_HPP_INCLUDED
 
 #include <sge/projectile/dim2_fwd.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
+#include <fcppt/math/dim/static.hpp>
 
 
 #endif

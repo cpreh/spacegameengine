@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TEXTURE_POS_HPP_INCLUDED
 
 #include <sge/texture/pos_fwd.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
+#include <fcppt/math/vector/static.hpp>
 
 
 #endif
