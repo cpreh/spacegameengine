@@ -41,10 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/unimplemented_message.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
-#include <fcppt/math/box/object_impl.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
 
 
 sge::opengl::onscreen_surface::onscreen_surface(

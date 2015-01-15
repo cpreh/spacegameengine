@@ -20,7 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/camera/coordinate_system/object.hpp>
 #include <sge/camera/matrix_conversion/rotation.hpp>
-#include <fcppt/math/matrix/object_impl.hpp>
+#include <sge/renderer/matrix4.hpp>
+#include <sge/renderer/vector3.hpp>
 
 
 sge::renderer::matrix4 const

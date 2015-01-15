@@ -91,167 +91,211 @@ sge::audio::sound::positional_parameters::positional_parameters()
 {
 }
 
-sge::audio::vector const &
+sge::audio::vector const
 sge::audio::sound::positional_parameters::position() const
 {
-	return position_;
+	return
+		position_;
 }
 
 sge::audio::sound::positional_parameters &
 sge::audio::sound::positional_parameters::position(
-	sge::audio::vector const &_position)
+	sge::audio::vector const _position
+)
 {
-	position_ = _position;
+	position_ =
+		_position;
 
-	return *this;
+	return
+		*this;
 }
 
-sge::audio::vector const &
+sge::audio::vector const
 sge::audio::sound::positional_parameters::linear_velocity() const
 {
-	return linear_velocity_;
+	return
+		linear_velocity_;
 }
 
 sge::audio::sound::positional_parameters &
 sge::audio::sound::positional_parameters::linear_velocity(
-	sge::audio::vector const &_linear_velocity)
+	sge::audio::vector const _linear_velocity
+)
 {
-	linear_velocity_ = _linear_velocity;
+	linear_velocity_ =
+		_linear_velocity;
 
-	return *this;
+	return
+		*this;
 }
 
-sge::audio::scalar const &
+sge::audio::scalar
 sge::audio::sound::positional_parameters::pitch() const
 {
-	return pitch_;
+	return
+		pitch_;
 }
 
 sge::audio::sound::positional_parameters &
 sge::audio::sound::positional_parameters::pitch(
-	sge::audio::scalar const &_pitch)
+	sge::audio::scalar const _pitch
+)
 {
-	pitch_ = _pitch;
+	pitch_ =
+		_pitch;
 
-	return *this;
+	return
+		*this;
 }
 
-sge::audio::scalar const &
+sge::audio::scalar
 sge::audio::sound::positional_parameters::gain() const
 {
-	return gain_;
+	return
+		gain_;
 }
 
 sge::audio::sound::positional_parameters &
 sge::audio::sound::positional_parameters::gain(
-	sge::audio::scalar const &_gain)
+	sge::audio::scalar const _gain
+)
 {
-	gain_ = _gain;
+	gain_ =
+		_gain;
 
-	return *this;
+	return
+		*this;
 }
 
-sge::audio::scalar const &
+sge::audio::scalar
 sge::audio::sound::positional_parameters::rolloff_factor() const
 {
-	return rolloff_factor_;
+	return
+		rolloff_factor_;
 }
 
 sge::audio::sound::positional_parameters &
 sge::audio::sound::positional_parameters::rolloff_factor(
-	sge::audio::scalar const &_rolloff_factor)
+	sge::audio::scalar const _rolloff_factor
+)
 {
-	rolloff_factor_ = _rolloff_factor;
+	rolloff_factor_ =
+		_rolloff_factor;
 
-	return *this;
+	return
+		*this;
 }
 
-sge::audio::scalar const &
+sge::audio::scalar
 sge::audio::sound::positional_parameters::reference_distance() const
 {
-	return reference_distance_;
+	return
+		reference_distance_;
 }
 
 sge::audio::sound::positional_parameters &
 sge::audio::sound::positional_parameters::reference_distance(
-	sge::audio::scalar const &_reference_distance)
+	sge::audio::scalar const _reference_distance
+)
 {
-	reference_distance_ = _reference_distance;
+	reference_distance_ =
+		_reference_distance;
 
-	return *this;
+	return
+		*this;
 }
 
-sge::audio::scalar const &
+sge::audio::scalar
 sge::audio::sound::positional_parameters::max_distance() const
 {
-	return max_distance_;
+	return
+		max_distance_;
 }
 
 sge::audio::sound::positional_parameters &
 sge::audio::sound::positional_parameters::max_distance(
-	sge::audio::scalar const &_max_distance)
+	sge::audio::scalar const _max_distance
+)
 {
-	max_distance_ = _max_distance;
+	max_distance_ =
+		_max_distance;
 
-	return *this;
+	return
+		*this;
 }
 
 sge::audio::sound::optional_direction const &
 sge::audio::sound::positional_parameters::direction() const
 {
-	return direction_;
+	return
+		direction_;
 }
 
 sge::audio::sound::positional_parameters &
 sge::audio::sound::positional_parameters::direction(
-	sge::audio::vector const &_direction)
+	sge::audio::vector const _direction
+)
 {
-	direction_ = _direction;
+	direction_ =
+		_direction;
 
-	return *this;
+	return
+		*this;
 }
 
-sge::audio::scalar const &
+sge::audio::scalar
 sge::audio::sound::positional_parameters::inner_cone_angle() const
 {
-	return inner_cone_angle_;
+	return
+		inner_cone_angle_;
 }
 
 sge::audio::sound::positional_parameters &
 sge::audio::sound::positional_parameters::inner_cone_angle(
-	sge::audio::scalar const &_inner_cone_angle)
+	sge::audio::scalar const _inner_cone_angle
+)
 {
-	inner_cone_angle_ = _inner_cone_angle;
+	inner_cone_angle_ =
+		_inner_cone_angle;
 
-	return *this;
+	return
+		*this;
 }
 
-sge::audio::scalar const &
+sge::audio::scalar
 sge::audio::sound::positional_parameters::outer_cone_angle() const
 {
-	return outer_cone_angle_;
+	return
+		outer_cone_angle_;
 }
 
 sge::audio::sound::positional_parameters &
 sge::audio::sound::positional_parameters::outer_cone_angle(
-	sge::audio::scalar const &_outer_cone_angle)
+	sge::audio::scalar const _outer_cone_angle
+)
 {
-	outer_cone_angle_ = _outer_cone_angle;
+	outer_cone_angle_ =
+		_outer_cone_angle;
 
-	return *this;
+	return
+		*this;
 }
 
-sge::audio::scalar const &
+sge::audio::scalar
 sge::audio::sound::positional_parameters::outer_cone_gain() const
 {
-	return outer_cone_gain_;
+	return
+		outer_cone_gain_;
 }
 
 sge::audio::sound::positional_parameters &
 sge::audio::sound::positional_parameters::outer_cone_gain(
-	sge::audio::scalar const &_outer_cone_gain)
+	sge::audio::scalar const _outer_cone_gain
+)
 {
-	outer_cone_gain_ = _outer_cone_gain;
+	outer_cone_gain_ =
+		_outer_cone_gain;
 
-	return *this;
+	return
+		*this;
 }

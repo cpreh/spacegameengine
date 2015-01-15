@@ -21,20 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MODEL_OBJ_BOX_HPP_INCLUDED
 #define SGE_MODEL_OBJ_BOX_HPP_INCLUDED
 
-#include <sge/renderer/scalar.hpp>
-#include <fcppt/math/box/object_fwd.hpp>
+#include <sge/model/obj/box_fwd.hpp>
+#include <fcppt/math/box/object_impl.hpp>
 
-namespace sge
-{
-namespace model
-{
-namespace obj
-{
-typedef
-fcppt::math::box::object<sge::renderer::scalar,3>
-box;
-}
-}
-}
 
 #endif

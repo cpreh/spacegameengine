@@ -28,14 +28,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/warning.hpp>
-#include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/box/rect.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/vector/componentwise_equal.hpp>
 #include <fcppt/math/vector/dim.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/math/vector/output.hpp>
+#include <fcppt/math/vector/static.hpp>
 #include <fcppt/math/vector/to_dim.hpp>
 #include <fcppt/type_traits/is_float_or_double.hpp>
 #include <fcppt/config/external_begin.hpp>

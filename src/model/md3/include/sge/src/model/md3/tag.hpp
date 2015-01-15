@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/md3/string.hpp>
 #include <sge/src/model/md3/axis_array.hpp>
 #include <sge/src/model/md3/vec3.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
@@ -40,24 +39,25 @@ namespace md3
 class tag
 {
 public:
-	explicit tag(
+	explicit
+	tag(
 		std::istream &
 	);
 
-	md3::string const &
+	sge::model::md3::string const &
 	name() const;
 
-	md3::vec3 const &
+	sge::model::md3::vec3 const &
 	origin() const;
 
-	md3::axis_array const &
+	sge::model::md3::axis_array const &
 	axis() const;
 private:
-	md3::string name_;
+	sge::model::md3::string name_;
 
-	md3::vec3 origin_;
+	sge::model::md3::vec3 origin_;
 
-	md3::axis_array axis_;
+	sge::model::md3::axis_array axis_;
 };
 
 }

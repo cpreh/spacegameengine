@@ -18,24 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CAMERA_SPHERICAL_ACCELERATION_FACTOR_HPP_INCLUDED
-#define SGE_CAMERA_SPHERICAL_ACCELERATION_FACTOR_HPP_INCLUDED
+#ifndef SGE_MODEL_MD3_TEXCOORD_FWD_HPP_INCLUDED
+#define SGE_MODEL_MD3_TEXCOORD_FWD_HPP_INCLUDED
 
-#include <sge/camera/spherical/coordinate_system/object.hpp>
-#include <fcppt/strong_typedef.hpp>
+#include <sge/model/md3/scalar.hpp>
+#include <fcppt/math/vector/static_fwd.hpp>
 
 
 namespace sge
 {
-namespace camera
+namespace model
 {
-namespace spherical
+namespace md3
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
-	sge::camera::spherical::coordinate_system::object,
-	acceleration_factor
-);
+typedef
+fcppt::math::vector::static_<
+	sge::model::md3::scalar,
+	2
+>
+texcoord;
 
 }
 }

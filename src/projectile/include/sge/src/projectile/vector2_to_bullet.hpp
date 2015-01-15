@@ -26,13 +26,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <LinearMath/btVector3.h>
 #include <fcppt/config/external_end.hpp>
 
+
 namespace sge
 {
 namespace projectile
 {
+
 btVector3 const
 vector2_to_bullet(
-	vector2 const &);
+	sge::projectile::vector2 const &
+);
+
 }
 }
 

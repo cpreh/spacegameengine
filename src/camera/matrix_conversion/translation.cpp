@@ -20,15 +20,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/camera/coordinate_system/object.hpp>
 #include <sge/camera/matrix_conversion/translation.hpp>
-#include <fcppt/math/matrix/object_impl.hpp>
+#include <sge/renderer/matrix4.hpp>
 #include <fcppt/math/matrix/translation.hpp>
 
 
 sge::renderer::matrix4 const
 sge::camera::matrix_conversion::translation(
-	camera::coordinate_system::object const &_coordinate_system)
+	sge::camera::coordinate_system::object const &_coordinate_system
+)
 {
 	return
 		fcppt::math::matrix::translation(
-			_coordinate_system.position().get());
+			_coordinate_system.position().get()
+		);
 }

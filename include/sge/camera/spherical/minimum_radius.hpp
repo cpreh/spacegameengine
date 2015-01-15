@@ -31,12 +31,14 @@ namespace camera
 {
 namespace spherical
 {
+
 FCPPT_MAKE_STRONG_TYPEDEF(
-	renderer::scalar,
-	minimum_radius);
+	sge::renderer::scalar,
+	minimum_radius
+);
+
 }
 }
 }
 
 #endif
-

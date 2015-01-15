@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/tracking/object.hpp>
 #include <sge/camera/tracking/alexa/lerp.hpp>
 #include <sge/src/camera/logger.hpp>
+#include <fcppt/cyclic_iterator_impl.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/size_fun.hpp>
@@ -84,8 +85,8 @@ lerp_double(
 sge::camera::tracking::object::object(
 	sge::camera::optional_projection_matrix const &_projection_matrix,
 	sge::camera::tracking::keyframe_sequence const &_keyframes,
-	sge::camera::tracking::is_looping const &_is_looping,
-	sge::camera::is_active const &_is_active)
+	sge::camera::tracking::is_looping const _is_looping,
+	sge::camera::is_active const _is_active)
 :
 	sge::camera::base(),
 	projection_matrix_(
@@ -143,7 +144,7 @@ sge::camera::tracking::object::is_active() const
 
 void
 sge::camera::tracking::object::is_active(
-	sge::camera::is_active const &_is_active)
+	sge::camera::is_active const _is_active)
 {
 	is_active_ =
 		_is_active;
@@ -151,7 +152,7 @@ sge::camera::tracking::object::is_active(
 
 void
 sge::camera::tracking::object::update(
-	sge::camera::update_duration const &_duration)
+	sge::camera::update_duration const _duration)
 {
 	if(!is_active_.get())
 		return;

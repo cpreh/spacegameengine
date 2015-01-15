@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/tracking/json/keyframe_to_json.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/object.hpp>
+#include <sge/renderer/matrix4.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/math/matrix/object_impl.hpp>
 
 
 sge::parse::json::object const

@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/md3/scalar.hpp>
 #include <sge/model/md3/string.hpp>
 #include <sge/src/model/md3/vec3.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
@@ -40,33 +39,34 @@ namespace md3
 class frame
 {
 public:
-	explicit frame(
+	explicit
+	frame(
 		std::istream &
 	);
 
-	md3::vec3 const &
+	sge::model::md3::vec3 const &
 	min_bounds() const;
 
-	md3::vec3 const &
+	sge::model::md3::vec3 const &
 	max_bounds() const;
 
-	md3::vec3 const &
+	sge::model::md3::vec3 const &
 	local_origin() const;
 
-	md3::scalar
+	sge::model::md3::scalar
 	radius() const;
 
-	md3::string const &
+	sge::model::md3::string const &
 	name() const;
 private:
-	md3::vec3
+	sge::model::md3::vec3
 		min_bounds_,
 		max_bounds_,
 		local_origin_;
 
-	md3::scalar radius_;
+	sge::model::md3::scalar radius_;
 
-	md3::string name_;
+	sge::model::md3::string name_;
 };
 
 }

@@ -134,7 +134,7 @@ sge::camera::first_person::object::is_active() const
 
 void
 sge::camera::first_person::object::is_active(
-	sge::camera::is_active  const &_is_active)
+	sge::camera::is_active const _is_active)
 {
 	is_active_ =
 		_is_active;
@@ -142,7 +142,7 @@ sge::camera::first_person::object::is_active(
 
 void
 sge::camera::first_person::object::update(
-	camera::update_duration const &_time_delta)
+	camera::update_duration const _time_delta)
 {
 	if(!this->is_active().get())
 		return;

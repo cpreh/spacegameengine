@@ -31,7 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/projectile/body/solidity/variant.hpp>
 #include <sge/projectile/shape/shared_base_ptr.hpp>
 #include <fcppt/nonassignable.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
 
 
 namespace sge

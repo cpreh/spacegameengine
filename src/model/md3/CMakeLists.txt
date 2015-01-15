@@ -25,6 +25,7 @@ set(
 	include/sge/model/md3/scalar.hpp
 	include/sge/model/md3/string.hpp
 	include/sge/model/md3/texcoord.hpp
+	include/sge/model/md3/texcoord_fwd.hpp
 	include/sge/model/md3/texcoord_sequence.hpp
 	include/sge/model/md3/u8.hpp
 	include/sge/model/md3/vertex_sequence.hpp

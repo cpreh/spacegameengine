@@ -21,46 +21,56 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_LINE_DRAWER_LINE_HPP_INCLUDED
 #define SGE_LINE_DRAWER_LINE_HPP_INCLUDED
 
-#include <sge/image/color/predef.hpp>
-#include <sge/image/color/any/object.hpp>
+#include <sge/image/color/any/object_fwd.hpp>
 #include <sge/line_drawer/color.hpp>
 #include <sge/line_drawer/color_format.hpp>
 #include <sge/line_drawer/detail/symbol.hpp>
 #include <sge/renderer/vector3.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
-#include <fcppt/variant/object.hpp>
 
 
 namespace sge
 {
 namespace line_drawer
 {
+
 class line
 {
 public:
-	SGE_LINE_DRAWER_DETAIL_SYMBOL explicit
+	SGE_LINE_DRAWER_DETAIL_SYMBOL
+	line(
+		sge::renderer::vector3 const &,
+		sge::renderer::vector3 const &
+	);
+
+	SGE_LINE_DRAWER_DETAIL_SYMBOL
 	line(
 		sge::renderer::vector3 const &,
 		sge::renderer::vector3 const &,
-		// TODO: Move this into another ctor when we have delegating ctors
-		sge::image::color::any::object const & = sge::image::color::predef::white(),
-		sge::image::color::any::object const & = sge::image::color::predef::white());
+		sge::image::color::any::object const &,
+		sge::image::color::any::object const &
+	);
 
-	SGE_LINE_DRAWER_DETAIL_SYMBOL sge::renderer::vector3 const &
+	SGE_LINE_DRAWER_DETAIL_SYMBOL
+	sge::renderer::vector3 const &
 	begin() const;
 
-	SGE_LINE_DRAWER_DETAIL_SYMBOL sge::renderer::vector3 const &
+	SGE_LINE_DRAWER_DETAIL_SYMBOL
+	sge::renderer::vector3 const &
 	end() const;
 
-	SGE_LINE_DRAWER_DETAIL_SYMBOL color const &
+	SGE_LINE_DRAWER_DETAIL_SYMBOL
+	sge::line_drawer::color const &
 	begin_color() const;
 
-	SGE_LINE_DRAWER_DETAIL_SYMBOL color const &
+	SGE_LINE_DRAWER_DETAIL_SYMBOL
+	sge::line_drawer::color const &
 	end_color() const;
 private:
 	sge::renderer::vector3 begin_,end_;
-	color begin_color_,end_color_;
+
+	sge::line_drawer::color begin_color_,end_color_;
 };
+
 }
 }
 

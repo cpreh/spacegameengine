@@ -18,17 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/camera/is_active.hpp>
+#include <sge/camera/optional_projection_matrix.hpp>
+#include <sge/camera/projection_matrix.hpp>
+#include <sge/camera/spherical/acceleration_factor.hpp>
+#include <sge/camera/spherical/damping_factor.hpp>
+#include <sge/camera/spherical/maximum_radius.hpp>
+#include <sge/camera/spherical/minimum_radius.hpp>
+#include <sge/camera/spherical/movement_speed.hpp>
+#include <sge/camera/spherical/origin.hpp>
 #include <sge/camera/spherical/parameters.hpp>
+#include <sge/camera/spherical/action/mapping.hpp>
+#include <sge/camera/spherical/coordinate_system/azimuth.hpp>
+#include <sge/camera/spherical/coordinate_system/inclination.hpp>
+#include <sge/camera/spherical/coordinate_system/object.hpp>
+#include <sge/camera/spherical/coordinate_system/radius.hpp>
+#include <sge/input/keyboard/device_fwd.hpp>
+#include <sge/renderer/scalar.hpp>
+#include <sge/renderer/vector3.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <limits>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::camera::spherical::parameters::parameters(
-	input::keyboard::device &_keyboard,
-	sge::camera::is_active const &_is_active,
-	spherical::coordinate_system::object const &_coordinate_system,
-	spherical::action::mapping const &_action_mapping)
+	sge::input::keyboard::device &_keyboard,
+	sge::camera::is_active const _is_active,
+	sge::camera::spherical::coordinate_system::object const &_coordinate_system,
+	sge::camera::spherical::action::mapping const &_action_mapping
+)
 :
 	keyboard_(
 		_keyboard),
@@ -79,7 +97,7 @@ sge::camera::spherical::parameters::keyboard() const
 		keyboard_;
 }
 
-sge::camera::is_active const &
+sge::camera::is_active const
 sge::camera::spherical::parameters::is_active() const
 {
 	return
@@ -102,7 +120,7 @@ sge::camera::spherical::parameters::action_mapping() const
 
 sge::camera::spherical::parameters &
 sge::camera::spherical::parameters::movement_speed(
-	spherical::movement_speed const &_movement_speed)
+	sge::camera::spherical::movement_speed const &_movement_speed)
 {
 	movement_speed_ =
 		_movement_speed;
@@ -119,7 +137,7 @@ sge::camera::spherical::parameters::movement_speed() const
 
 sge::camera::spherical::parameters &
 sge::camera::spherical::parameters::origin(
-	spherical::origin const &_origin)
+	sge::camera::spherical::origin const &_origin)
 {
 	origin_ =
 		_origin;
@@ -136,7 +154,7 @@ sge::camera::spherical::parameters::origin() const
 
 sge::camera::spherical::parameters &
 sge::camera::spherical::parameters::minimum_radius(
-	spherical::minimum_radius const &_minimum_radius)
+	sge::camera::spherical::minimum_radius const _minimum_radius)
 {
 	minimum_radius_ =
 		_minimum_radius;
@@ -144,7 +162,7 @@ sge::camera::spherical::parameters::minimum_radius(
 		*this;
 }
 
-sge::camera::spherical::minimum_radius const &
+sge::camera::spherical::minimum_radius const
 sge::camera::spherical::parameters::minimum_radius() const
 {
 	return
@@ -153,7 +171,7 @@ sge::camera::spherical::parameters::minimum_radius() const
 
 sge::camera::spherical::parameters &
 sge::camera::spherical::parameters::maximum_radius(
-	spherical::maximum_radius const &_maximum_radius)
+	sge::camera::spherical::maximum_radius const _maximum_radius)
 {
 	maximum_radius_ =
 		_maximum_radius;
@@ -161,7 +179,7 @@ sge::camera::spherical::parameters::maximum_radius(
 		*this;
 }
 
-sge::camera::spherical::maximum_radius const &
+sge::camera::spherical::maximum_radius const
 sge::camera::spherical::parameters::maximum_radius() const
 {
 	return
@@ -170,7 +188,7 @@ sge::camera::spherical::parameters::maximum_radius() const
 
 sge::camera::spherical::parameters &
 sge::camera::spherical::parameters::acceleration_factor(
-	spherical::acceleration_factor const &_acceleration_factor)
+	sge::camera::spherical::acceleration_factor const &_acceleration_factor)
 {
 	acceleration_factor_ =
 		_acceleration_factor;
@@ -187,7 +205,7 @@ sge::camera::spherical::parameters::acceleration_factor() const
 
 sge::camera::spherical::parameters &
 sge::camera::spherical::parameters::damping_factor(
-	spherical::damping_factor const &_damping_factor)
+	sge::camera::spherical::damping_factor const &_damping_factor)
 {
 	damping_factor_ =
 		_damping_factor;
@@ -204,7 +222,7 @@ sge::camera::spherical::parameters::damping_factor() const
 
 sge::camera::spherical::parameters &
 sge::camera::spherical::parameters::projection(
-	camera::projection_matrix const &_projection_matrix)
+	sge::camera::projection_matrix const &_projection_matrix)
 {
 	projection_matrix_ =
 		_projection_matrix;

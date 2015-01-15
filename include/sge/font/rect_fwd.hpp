@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_FONT_RECT_FWD_HPP_INCLUDED
 
 #include <sge/font/unit.hpp>
-#include <fcppt/math/box/object_fwd.hpp>
+#include <fcppt/math/box/rect_fwd.hpp>
 
 
 namespace sge
@@ -30,10 +30,11 @@ namespace sge
 namespace font
 {
 
-typedef fcppt::math::box::object<
-	sge::font::unit,
-	2
-> rect;
+typedef
+fcppt::math::box::rect<
+	sge::font::unit
+>
+rect;
 
 }
 }

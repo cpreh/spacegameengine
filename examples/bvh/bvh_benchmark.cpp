@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/container/tree/depth.hpp>
 #include <fcppt/io/cerr.hpp>
-#include <fcppt/math/box/object_impl.hpp>
+#include <fcppt/math/box/rect.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/random/variate.hpp>
 #include <fcppt/random/distribution/basic.hpp>
@@ -60,7 +60,7 @@ try
 				argv[1]));
 
 	typedef
-	fcppt::math::box::object<float,2>
+	fcppt::math::box::rect<float>
 	bvh_box;
 
 	typedef

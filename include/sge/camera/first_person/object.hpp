@@ -29,6 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/is_active.hpp>
 #include <sge/camera/is_dynamic.hpp>
 #include <sge/camera/optional_projection_matrix.hpp>
+#include <sge/camera/projection_matrix_fwd.hpp>
+#include <sge/camera/update_duration.hpp>
 #include <sge/camera/detail/symbol.hpp>
 #include <sge/camera/coordinate_system/object.hpp>
 #include <sge/camera/first_person/mouse_speed_multiplier.hpp>
@@ -37,10 +39,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/first_person/action/mapping.hpp>
 #include <sge/input/keyboard/key_event_fwd.hpp>
 #include <sge/input/mouse/axis_event_fwd.hpp>
+#include <sge/renderer/scalar.hpp>
+#include <sge/renderer/vector3.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional_impl.hpp>
-#include <fcppt/math/matrix/object_impl.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 
 
@@ -50,6 +51,7 @@ namespace camera
 {
 namespace first_person
 {
+
 class SGE_CORE_DETAIL_CLASS_SYMBOL object
 :
 	public virtual sge::camera::base,
@@ -58,13 +60,15 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL object
 	public sge::camera::has_mutable_projection,
 	public sge::camera::has_mutable_coordinate_system
 {
-FCPPT_NONCOPYABLE(
-	object);
+	FCPPT_NONCOPYABLE(
+		object
+	);
 public:
 	SGE_CAMERA_DETAIL_SYMBOL
 	explicit
 	object(
-		sge::camera::first_person::parameters const &);
+		sge::camera::first_person::parameters const &
+	);
 
 	SGE_CAMERA_DETAIL_SYMBOL
 	sge::camera::coordinate_system::object const
@@ -98,14 +102,14 @@ public:
 	SGE_CAMERA_DETAIL_SYMBOL
 	void
 	is_active(
-		sge::camera::is_active const &
+		sge::camera::is_active
 	)
 	override;
 
 	SGE_CAMERA_DETAIL_SYMBOL
 	void
 	update(
-		sge::camera::update_duration const &
+		sge::camera::update_duration
 	)
 	override;
 
@@ -113,35 +117,51 @@ public:
 	~object()
 	override;
 private:
-	fcppt::signal::scoped_connection keyboard_connection_;
-	fcppt::signal::scoped_connection mouse_axis_connection_;
+	fcppt::signal::scoped_connection const keyboard_connection_;
+
+	fcppt::signal::scoped_connection const mouse_axis_connection_;
+
 	sge::camera::first_person::action::mapping action_mapping_;
+
 	sge::camera::first_person::movement_speed movement_speed_;
+
 	sge::camera::first_person::mouse_speed_multiplier mouse_speed_multiplier_;
+
 	sge::camera::is_active is_active_;
+
 	sge::renderer::vector3 directions_;
+
 	sge::camera::coordinate_system::object coordinate_system_;
+
 	sge::camera::optional_projection_matrix projection_matrix_;
-	bool left_pressed_,right_pressed_;
-	bool up_pressed_,down_pressed_;
-	bool forward_pressed_,backward_pressed_;
+
+	bool left_pressed_, right_pressed_;
+
+	bool up_pressed_, down_pressed_;
+
+	bool forward_pressed_, backward_pressed_;
 
 	void
 	key_callback(
-		sge::input::keyboard::key_event const &);
+		sge::input::keyboard::key_event const &
+	);
 
 	void
 	mouse_axis_callback(
-		sge::input::mouse::axis_event const &);
+		sge::input::mouse::axis_event const &
+	);
 
 	void
 	rotate_on_x(
-		sge::renderer::scalar);
+		sge::renderer::scalar
+	);
 
 	void
 	rotate_on_y(
-		sge::renderer::scalar);
+		sge::renderer::scalar
+	);
 };
+
 }
 }
 }

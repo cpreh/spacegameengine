@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/camera/projection_matrix.hpp>
 #include <sge/camera/coordinate_system/identity.hpp>
 #include <sge/camera/coordinate_system/object.hpp>
 #include <sge/camera/ortho_freelook/object.hpp>
@@ -30,7 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/projection/orthogonal.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/math/box/stretch_relative.hpp>
-#include <fcppt/math/matrix/object_impl.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/dim.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
@@ -135,7 +135,7 @@ sge::camera::ortho_freelook::object::is_active() const
 
 void
 sge::camera::ortho_freelook::object::is_active(
-	sge::camera::is_active const &_is_active)
+	sge::camera::is_active const _is_active)
 {
 	is_active_ =
 		_is_active;
@@ -143,7 +143,7 @@ sge::camera::ortho_freelook::object::is_active(
 
 void
 sge::camera::ortho_freelook::object::update(
-	camera::update_duration const &_delta)
+	camera::update_duration const _delta)
 {
 	if(!is_active_.get() || !current_projection_rectangle_ || zoom_in_pressed_ == zoom_out_pressed_)
 		return;

@@ -42,9 +42,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/key_event_fwd.hpp>
 #include <sge/input/mouse/axis_event_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional_impl.hpp>
-#include <fcppt/math/matrix/object_impl.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 
 
@@ -54,6 +51,7 @@ namespace camera
 {
 namespace spherical
 {
+
 class SGE_CORE_DETAIL_CLASS_SYMBOL object
 :
 	public virtual sge::camera::base,
@@ -61,13 +59,15 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL object
 	public sge::camera::is_dynamic,
 	public sge::camera::has_mutable_projection
 {
-FCPPT_NONCOPYABLE(
-	object);
+	FCPPT_NONCOPYABLE(
+		object
+	);
 public:
 	SGE_CAMERA_DETAIL_SYMBOL
 	explicit
 	object(
-		sge::camera::spherical::parameters const &);
+		sge::camera::spherical::parameters const &
+	);
 
 	SGE_CAMERA_DETAIL_SYMBOL
 	sge::camera::coordinate_system::object const
@@ -94,14 +94,14 @@ public:
 	SGE_CAMERA_DETAIL_SYMBOL
 	void
 	is_active(
-		sge::camera::is_active const &
+		sge::camera::is_active
 	)
 	override;
 
 	SGE_CAMERA_DETAIL_SYMBOL
 	void
 	update(
-		sge::camera::update_duration const &
+		sge::camera::update_duration
 	)
 	override;
 
@@ -109,27 +109,44 @@ public:
 	~object()
 	override;
 private:
-	fcppt::signal::scoped_connection keyboard_connection_;
-	spherical::action::mapping action_mapping_;
-	spherical::movement_speed movement_speed_;
-	spherical::origin origin_;
-	spherical::minimum_radius minimum_radius_;
-	spherical::maximum_radius maximum_radius_;
-	spherical::acceleration_factor acceleration_factor_;
-	spherical::damping_factor damping_factor_;
+	fcppt::signal::scoped_connection const keyboard_connection_;
+
+	sge::camera::spherical::action::mapping action_mapping_;
+
+	sge::camera::spherical::movement_speed movement_speed_;
+
+	sge::camera::spherical::origin origin_;
+
+	sge::camera::spherical::minimum_radius minimum_radius_;
+
+	sge::camera::spherical::maximum_radius maximum_radius_;
+
+	sge::camera::spherical::acceleration_factor acceleration_factor_;
+
+	sge::camera::spherical::damping_factor damping_factor_;
+
 	sge::camera::is_active is_active_;
-	spherical::coordinate_system::object coordinate_system_;
-	camera::optional_projection_matrix projection_matrix_;
-	spherical::coordinate_system::object acceleration_;
-	spherical::coordinate_system::object velocity_;
-	bool increase_azimuth_pressed_,decrease_azimuth_pressed_;
-	bool increase_inclination_pressed_,decrease_inclination_pressed_;
-	bool increase_radius_pressed_,decrease_radius_pressed_;
+
+	sge::camera::spherical::coordinate_system::object coordinate_system_;
+
+	sge::camera::optional_projection_matrix projection_matrix_;
+
+	sge::camera::spherical::coordinate_system::object acceleration_;
+
+	sge::camera::spherical::coordinate_system::object velocity_;
+
+	bool increase_azimuth_pressed_, decrease_azimuth_pressed_;
+
+	bool increase_inclination_pressed_, decrease_inclination_pressed_;
+
+	bool increase_radius_pressed_, decrease_radius_pressed_;
 
 	void
 	key_callback(
-		sge::input::keyboard::key_event const &);
+		sge::input::keyboard::key_event const &
+	);
 };
+
 }
 }
 }

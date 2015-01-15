@@ -23,13 +23,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/color/rgba8.hpp>
 
+
 namespace sge
 {
 namespace line_drawer
 {
+
 typedef
 sge::image::color::rgba8
 color;
+
 }
 }
 

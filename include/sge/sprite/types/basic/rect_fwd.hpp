@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_TYPES_BASIC_RECT_FWD_HPP_INCLUDED
 #define SGE_SPRITE_TYPES_BASIC_RECT_FWD_HPP_INCLUDED
 
-#include <fcppt/math/box/rect.hpp>
+#include <fcppt/math/box/rect_fwd.hpp>
 
 
 namespace sge

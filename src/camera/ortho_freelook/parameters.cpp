@@ -18,63 +18,93 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/camera/is_active.hpp>
+#include <sge/camera/ortho_freelook/pan_speed.hpp>
 #include <sge/camera/ortho_freelook/parameters.hpp>
+#include <sge/camera/ortho_freelook/optional_projection_rectangle.hpp>
+#include <sge/camera/ortho_freelook/zoom_speed.hpp>
+#include <sge/camera/ortho_freelook/action/mapping.hpp>
 #include <sge/camera/ortho_freelook/action/wsg_mapping.hpp>
+#include <sge/renderer/vector2.hpp>
+#include <sge/renderer/projection/far.hpp>
+#include <sge/renderer/projection/near.hpp>
+#include <sge/renderer/projection/rect.hpp>
+#include <sge/input/keyboard/device_fwd.hpp>
+#include <sge/input/mouse/device_fwd.hpp>
+#include <fcppt/math/vector/fill.hpp>
+
 
 sge::camera::ortho_freelook::parameters::parameters(
 	sge::input::mouse::device &_mouse,
 	sge::input::keyboard::device &_keyboard,
-	renderer::projection::near const &_near,
-	renderer::projection::far const &_far,
-	sge::camera::is_active const &_is_active)
+	sge::renderer::projection::near const _near,
+	sge::renderer::projection::far const _far,
+	sge::camera::is_active const _is_active
+)
 :
 	mouse_(
-		_mouse),
+		_mouse
+	),
 	keyboard_(
-		_keyboard),
+		_keyboard
+	),
 	zoom_speed_(
-		renderer::vector2(
-			0.30f,
-			0.30f)),
+		fcppt::math::vector::fill<
+			sge::renderer::vector2
+		>(
+			0.30f
+		)
+	),
 	pan_speed_(
-		renderer::vector2(
-			0.01f,
-			0.01f)),
+		fcppt::math::vector::fill<
+			sge::renderer::vector2
+		>(
+			0.01f
+		)
+	),
 	projection_rectangle_(),
 	near_(
-		_near),
+		_near
+	),
 	far_(
-		_far),
+		_far
+	),
 	is_active_(
-		_is_active),
+		_is_active
+	),
 	action_mapping_(
-		action::wsg_mapping())
+		sge::camera::ortho_freelook::action::wsg_mapping()
+	)
 {
 }
 
 sge::input::mouse::device &
 sge::camera::ortho_freelook::parameters::mouse() const
 {
-	return mouse_;
+	return
+		mouse_;
 }
 
 sge::input::keyboard::device &
 sge::camera::ortho_freelook::parameters::keyboard() const
 {
-	return keyboard_;
+	return
+		keyboard_;
 }
 
 sge::camera::ortho_freelook::parameters &
 sge::camera::ortho_freelook::parameters::zoom_speed(
-	ortho_freelook::zoom_speed const &_zoom_speed)
+	sge::camera::ortho_freelook::zoom_speed const _zoom_speed
+)
 {
 	zoom_speed_ =
 		_zoom_speed;
+
 	return
 		*this;
 }
 
-sge::camera::ortho_freelook::zoom_speed const &
+sge::camera::ortho_freelook::zoom_speed const
 sge::camera::ortho_freelook::parameters::zoom_speed() const
 {
 	return
@@ -83,10 +113,12 @@ sge::camera::ortho_freelook::parameters::zoom_speed() const
 
 sge::camera::ortho_freelook::parameters &
 sge::camera::ortho_freelook::parameters::action_mapping(
-	action::mapping const &_action_mapping)
+	sge::camera::ortho_freelook::action::mapping const &_action_mapping
+)
 {
 	action_mapping_ =
 		_action_mapping;
+
 	return
 		*this;
 }
@@ -100,15 +132,17 @@ sge::camera::ortho_freelook::parameters::action_mapping() const
 
 sge::camera::ortho_freelook::parameters &
 sge::camera::ortho_freelook::parameters::pan_speed(
-	ortho_freelook::pan_speed const &_pan_speed)
+	sge::camera::ortho_freelook::pan_speed const _pan_speed
+)
 {
 	pan_speed_ =
 		_pan_speed;
+
 	return
 		*this;
 }
 
-sge::camera::ortho_freelook::pan_speed const &
+sge::camera::ortho_freelook::pan_speed const
 sge::camera::ortho_freelook::parameters::pan_speed() const
 {
 	return
@@ -117,11 +151,14 @@ sge::camera::ortho_freelook::parameters::pan_speed() const
 
 sge::camera::ortho_freelook::parameters &
 sge::camera::ortho_freelook::parameters::projection_rectangle(
-	renderer::projection::rect const &_projection_rectangle)
+	sge::renderer::projection::rect const &_projection_rectangle
+)
 {
 	projection_rectangle_ =
-		ortho_freelook::optional_projection_rectangle(
-			_projection_rectangle);
+		sge::camera::ortho_freelook::optional_projection_rectangle(
+			_projection_rectangle
+		);
+
 	return
 		*this;
 }
@@ -133,21 +170,21 @@ sge::camera::ortho_freelook::parameters::projection_rectangle() const
 		projection_rectangle_;
 }
 
-sge::renderer::projection::near const &
+sge::renderer::projection::near const
 sge::camera::ortho_freelook::parameters::near() const
 {
 	return
 		near_;
 }
 
-sge::renderer::projection::far const &
+sge::renderer::projection::far const
 sge::camera::ortho_freelook::parameters::far() const
 {
 	return
 		far_;
 }
 
-sge::camera::is_active const &
+sge::camera::is_active const
 sge::camera::ortho_freelook::parameters::is_active() const
 {
 	return

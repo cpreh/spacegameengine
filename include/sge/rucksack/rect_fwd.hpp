@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RUCKSACK_RECT_FWD_HPP_INCLUDED
 
 #include <sge/rucksack/scalar.hpp>
-#include <fcppt/math/box/rect.hpp>
+#include <fcppt/math/box/rect_fwd.hpp>
 
 
 namespace sge

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_PIXEL_RECT_HPP_INCLUDED
 
 #include <sge/renderer/pixel_rect_fwd.hpp>
-#include <fcppt/math/box/object_impl.hpp>
+#include <fcppt/math/box/rect.hpp>
 
 
 #endif

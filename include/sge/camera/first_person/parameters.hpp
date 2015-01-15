@@ -23,17 +23,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/camera/is_active.hpp>
 #include <sge/camera/optional_projection_matrix.hpp>
-#include <sge/camera/projection_matrix.hpp>
-#include <sge/camera/detail/symbol.hpp>
+#include <sge/camera/projection_matrix_fwd.hpp>
 #include <sge/camera/coordinate_system/object.hpp>
+#include <sge/camera/detail/symbol.hpp>
 #include <sge/camera/first_person/mouse_speed_multiplier.hpp>
 #include <sge/camera/first_person/movement_speed.hpp>
 #include <sge/camera/first_person/action/mapping.hpp>
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/input/mouse/device_fwd.hpp>
 #include <fcppt/nonassignable.hpp>
-#include <fcppt/optional_impl.hpp>
-#include <fcppt/math/matrix/object_impl.hpp>
 
 
 namespace sge
@@ -42,10 +40,12 @@ namespace camera
 {
 namespace first_person
 {
+
 class parameters
 {
-FCPPT_NONASSIGNABLE(
-	parameters);
+	FCPPT_NONASSIGNABLE(
+		parameters
+	);
 public:
 	SGE_CAMERA_DETAIL_SYMBOL
 	parameters(
@@ -53,7 +53,8 @@ public:
 		sge::input::mouse::device &,
 		sge::camera::is_active const &,
 		sge::camera::first_person::movement_speed const &,
-		camera::coordinate_system::object const &);
+		sge::camera::coordinate_system::object const &
+	);
 
 	SGE_CAMERA_DETAIL_SYMBOL
 	sge::input::keyboard::device &
@@ -70,7 +71,8 @@ public:
 	SGE_CAMERA_DETAIL_SYMBOL
 	parameters &
 	action_mapping(
-		sge::camera::first_person::action::mapping const &);
+		sge::camera::first_person::action::mapping const &
+	);
 
 	SGE_CAMERA_DETAIL_SYMBOL
 	sge::camera::first_person::action::mapping const &
@@ -87,7 +89,8 @@ public:
 	SGE_CAMERA_DETAIL_SYMBOL
 	parameters &
 	mouse_speed_multiplier(
-		sge::camera::first_person::mouse_speed_multiplier const &);
+		sge::camera::first_person::mouse_speed_multiplier const &
+	);
 
 	SGE_CAMERA_DETAIL_SYMBOL
 	sge::camera::first_person::mouse_speed_multiplier const &
@@ -98,21 +101,30 @@ public:
 	SGE_CAMERA_DETAIL_SYMBOL
 	parameters &
 	projection(
-		sge::camera::projection_matrix const &);
+		sge::camera::projection_matrix const &
+	);
 
 	SGE_CAMERA_DETAIL_SYMBOL
 	sge::camera::optional_projection_matrix const &
 	projection_matrix() const;
 private:
 	sge::input::keyboard::device &keyboard_;
+
 	sge::input::mouse::device &mouse_;
+
 	sge::camera::is_active is_active_;
-	action::mapping action_mapping_;
+
+	sge::camera::first_person::action::mapping action_mapping_;
+
 	sge::camera::first_person::movement_speed movement_speed_;
+
 	sge::camera::coordinate_system::object coordinate_system_;
+
 	sge::camera::first_person::mouse_speed_multiplier mouse_speed_multiplier_;
+
 	sge::camera::optional_projection_matrix projection_matrix_;
 };
+
 }
 }
 }

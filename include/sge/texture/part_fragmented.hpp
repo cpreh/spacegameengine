@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TEXTURE_PART_FRAGMENTED_HPP_INCLUDED
 
 #include <sge/image2d/view/const_object_fwd.hpp>
-#include <sge/renderer/lock_rect.hpp>
+#include <sge/renderer/lock_rect_fwd.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/texture/fragmented_fwd.hpp>
 #include <sge/texture/part.hpp>
@@ -30,7 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/atlasing/inner_rect.hpp>
 #include <sge/texture/atlasing/outer_rect_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/math/box/object_impl.hpp>
 
 
 namespace sge

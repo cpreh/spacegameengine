@@ -31,8 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/detail/symbol.hpp>
 #include <sge/camera/tracking/is_looping.hpp>
 #include <sge/camera/tracking/keyframe_sequence.hpp>
-#include <fcppt/cyclic_iterator.hpp>
-#include <fcppt/optional.hpp>
+#include <fcppt/cyclic_iterator_decl.hpp>
 
 
 namespace sge
@@ -41,6 +40,7 @@ namespace camera
 {
 namespace tracking
 {
+
 class SGE_CORE_DETAIL_CLASS_SYMBOL object
 :
 	public virtual sge::camera::base,
@@ -48,15 +48,17 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL object
 	public sge::camera::is_dynamic,
 	public sge::camera::has_mutable_projection
 {
-FCPPT_NONCOPYABLE(
-	object);
+	FCPPT_NONCOPYABLE(
+		object
+	);
 public:
 	SGE_CAMERA_DETAIL_SYMBOL
 	object(
 		sge::camera::optional_projection_matrix const &,
 		sge::camera::tracking::keyframe_sequence const &,
-		sge::camera::tracking::is_looping const &,
-		sge::camera::is_active const &);
+		sge::camera::tracking::is_looping,
+		sge::camera::is_active
+	);
 
 	SGE_CAMERA_DETAIL_SYMBOL
 	sge::camera::coordinate_system::object const
@@ -83,14 +85,14 @@ public:
 	SGE_CAMERA_DETAIL_SYMBOL
 	void
 	is_active(
-		sge::camera::is_active const &
+		sge::camera::is_active
 	)
 	override;
 
 	SGE_CAMERA_DETAIL_SYMBOL
 	void
 	update(
-		sge::camera::update_duration const &
+		sge::camera::update_duration
 	)
 	override;
 
@@ -103,21 +105,28 @@ public:
 	override;
 private:
 	typedef
-	fcppt::cyclic_iterator
-	<
+	fcppt::cyclic_iterator<
 		sge::camera::tracking::keyframe_sequence::const_iterator
 	>
 	cyclic_iterator;
 
 	sge::camera::optional_projection_matrix projection_matrix_;
+
 	sge::camera::tracking::keyframe_sequence const keyframes_;
+
 	sge::camera::tracking::is_looping const is_looping_;
+
 	cyclic_iterator current_keyframe_;
+
 	sge::camera::update_duration current_time_point_;
+
 	sge::camera::is_active is_active_;
+
 	sge::camera::coordinate_system::object coordinate_system_;
+
 	bool finished_;
 };
+
 }
 }
 }

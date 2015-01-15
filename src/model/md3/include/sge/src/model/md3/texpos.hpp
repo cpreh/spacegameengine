@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_MODEL_MD3_TEXPOS_HPP_INCLUDED
 #define SGE_SRC_MODEL_MD3_TEXPOS_HPP_INCLUDED
 
+#include <sge/model/md3/scalar.hpp>
 #include <sge/model/md3/texcoord.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <istream>
 #include <fcppt/config/external_end.hpp>
@@ -38,14 +38,15 @@ namespace md3
 class texpos
 {
 public:
-	explicit texpos(
+	explicit
+	texpos(
 		std::istream &
 	);
 
-	md3::texcoord const
+	sge::model::md3::texcoord const
 	texcoord() const;
 private:
-	sge::model::md3::scalar x_,y_;
+	sge::model::md3::scalar x_, y_;
 };
 
 }

@@ -1,6 +1,7 @@
 set(
 	SGE_MODELOBJ_FILES
 	include/sge/model/obj/box.hpp
+	include/sge/model/obj/box_fwd.hpp
 	include/sge/model/obj/exception.hpp
 	include/sge/model/obj/face.hpp
 	include/sge/model/obj/face_sequence.hpp

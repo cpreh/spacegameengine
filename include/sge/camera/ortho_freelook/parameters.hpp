@@ -33,8 +33,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/projection/near.hpp>
 #include <sge/renderer/projection/rect.hpp>
 #include <fcppt/nonassignable.hpp>
-#include <fcppt/optional_impl.hpp>
-#include <fcppt/math/box/object_impl.hpp>
 
 
 namespace sge
@@ -43,19 +41,21 @@ namespace camera
 {
 namespace ortho_freelook
 {
+
 class parameters
 {
-FCPPT_NONASSIGNABLE(
-	parameters);
+	FCPPT_NONASSIGNABLE(
+		parameters
+	);
 public:
 	SGE_CAMERA_DETAIL_SYMBOL
-	explicit
 	parameters(
 		sge::input::mouse::device &,
 		sge::input::keyboard::device &,
-		renderer::projection::near const &,
-		renderer::projection::far const &,
-		sge::camera::is_active const &);
+		sge::renderer::projection::near,
+		sge::renderer::projection::far,
+		sge::camera::is_active
+	);
 
 	SGE_CAMERA_DETAIL_SYMBOL
 	sge::input::mouse::device &
@@ -68,67 +68,79 @@ public:
 	SGE_CAMERA_DETAIL_SYMBOL
 	parameters &
 	zoom_speed(
-		ortho_freelook::zoom_speed const &);
+		sge::camera::ortho_freelook::zoom_speed
+	);
 
 	SGE_CAMERA_DETAIL_SYMBOL
-	ortho_freelook::zoom_speed const &
+	sge::camera::ortho_freelook::zoom_speed const
 	zoom_speed() const;
 
 	SGE_CAMERA_DETAIL_SYMBOL
 	parameters &
 	action_mapping(
-		action::mapping const &);
+		sge::camera::ortho_freelook::action::mapping const &
+	);
 
 	SGE_CAMERA_DETAIL_SYMBOL
-	action::mapping const &
+	sge::camera::ortho_freelook::action::mapping const &
 	action_mapping() const;
 
 	SGE_CAMERA_DETAIL_SYMBOL
 	parameters &
 	pan_speed(
-		ortho_freelook::pan_speed const &);
+		sge::camera::ortho_freelook::pan_speed
+	);
 
 	SGE_CAMERA_DETAIL_SYMBOL
-	ortho_freelook::pan_speed const &
+	sge::camera::ortho_freelook::pan_speed const
 	pan_speed() const;
 
 	SGE_CAMERA_DETAIL_SYMBOL
 	parameters &
 	projection_rectangle(
-		renderer::projection::rect const &);
+		sge::renderer::projection::rect const &
+	);
 
 	SGE_CAMERA_DETAIL_SYMBOL
-	ortho_freelook::optional_projection_rectangle const &
+	sge::camera::ortho_freelook::optional_projection_rectangle const &
 	projection_rectangle() const;
 
 	SGE_CAMERA_DETAIL_SYMBOL
-	renderer::projection::near const &
+	sge::renderer::projection::near const
 	near() const;
 
 	SGE_CAMERA_DETAIL_SYMBOL
-	renderer::projection::far const &
+	sge::renderer::projection::far const
 	far() const;
 
 	SGE_CAMERA_DETAIL_SYMBOL
-	sge::camera::is_active const &
+	sge::camera::is_active const
 	is_active() const;
 
 	SGE_CAMERA_DETAIL_SYMBOL
 	~parameters();
 private:
 	sge::input::mouse::device &mouse_;
+
 	sge::input::keyboard::device &keyboard_;
-	ortho_freelook::zoom_speed zoom_speed_;
-	ortho_freelook::pan_speed pan_speed_;
-	ortho_freelook::optional_projection_rectangle projection_rectangle_;
-	renderer::projection::near near_;
-	renderer::projection::far far_;
-	sge::camera::is_active is_active_;
-	ortho_freelook::action::mapping action_mapping_;
+
+	sge::camera::ortho_freelook::zoom_speed zoom_speed_;
+
+	sge::camera::ortho_freelook::pan_speed pan_speed_;
+
+	sge::camera::ortho_freelook::optional_projection_rectangle projection_rectangle_;
+
+	sge::renderer::projection::near const near_;
+
+	sge::renderer::projection::far const far_;
+
+	sge::camera::is_active const is_active_;
+
+	sge::camera::ortho_freelook::action::mapping action_mapping_;
 };
+
 }
 }
 }
 
 #endif
-

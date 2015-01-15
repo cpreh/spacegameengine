@@ -36,34 +36,42 @@ namespace sge
 {
 namespace camera
 {
+
 class perspective_projection_from_viewport
 {
-FCPPT_NONCOPYABLE(
-	perspective_projection_from_viewport);
+	FCPPT_NONCOPYABLE(
+		perspective_projection_from_viewport
+	);
 public:
 	SGE_CAMERA_DETAIL_SYMBOL
 	perspective_projection_from_viewport(
 		sge::camera::has_mutable_projection &,
 		sge::viewport::manager &,
-		sge::renderer::projection::near const &,
-		sge::renderer::projection::far const &,
-		sge::renderer::projection::fov const &);
+		sge::renderer::projection::near,
+		sge::renderer::projection::far,
+		sge::renderer::projection::fov
+	);
 
 	SGE_CAMERA_DETAIL_SYMBOL
 	~perspective_projection_from_viewport();
 private:
 	sge::camera::has_mutable_projection &camera_;
-	sge::renderer::projection::near near_;
-	sge::renderer::projection::far far_;
-	sge::renderer::projection::fov fov_;
-	fcppt::signal::scoped_connection viewport_callback_connection_;
+
+	sge::renderer::projection::near const near_;
+
+	sge::renderer::projection::far const far_;
+
+	sge::renderer::projection::fov const fov_;
+
+	fcppt::signal::scoped_connection const viewport_callback_connection_;
 
 	void
 	viewport_callback(
-		sge::renderer::target::viewport const &);
+		sge::renderer::target::viewport const &
+	);
 };
+
 }
 }
 
 #endif
-

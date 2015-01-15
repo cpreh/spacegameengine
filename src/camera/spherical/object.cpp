@@ -136,7 +136,7 @@ sge::camera::spherical::object::is_active() const
 
 void
 sge::camera::spherical::object::is_active(
-	sge::camera::is_active const &_is_active)
+	sge::camera::is_active const _is_active)
 {
 	is_active_ =
 		_is_active;
@@ -144,7 +144,7 @@ sge::camera::spherical::object::is_active(
 
 void
 sge::camera::spherical::object::update(
-	camera::update_duration const &_time_delta)
+	camera::update_duration const _time_delta)
 {
 	if(!this->is_active().get())
 		return;

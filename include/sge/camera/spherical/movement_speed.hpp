@@ -24,18 +24,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/spherical/coordinate_system/object.hpp>
 #include <fcppt/strong_typedef.hpp>
 
+
 namespace sge
 {
 namespace camera
 {
 namespace spherical
 {
+
 FCPPT_MAKE_STRONG_TYPEDEF(
-	spherical::coordinate_system::object,
-	movement_speed);
+	sge::camera::spherical::coordinate_system::object,
+	movement_speed
+);
+
 }
 }
 }
 
 #endif
-
