@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/image/color/dynamic/algorithm/cac/function.hpp>
 #include <sge/src/image/color/dynamic/view/image_format.hpp>
 #include <mizuiro/image/algorithm/binary_iteration.hpp>
+#include <mizuiro/image/algorithm/make_iterator_identity.hpp>
 
 
 namespace sge
@@ -68,7 +69,8 @@ convert(
 			)
 		),
 		_source,
-		_dest
+		_dest,
+		mizuiro::image::algorithm::make_iterator_identity()
 	);
 }
 
