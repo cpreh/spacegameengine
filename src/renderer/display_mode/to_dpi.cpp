@@ -56,6 +56,7 @@ sge::renderer::display_mode::to_dpi(
 							](
 								sge::renderer::display_mode::dimensions const &_dim
 							)
+							-> sge::renderer::display_mode::dpi
 							{
 								return
 									_mode.pixel_size().get()
