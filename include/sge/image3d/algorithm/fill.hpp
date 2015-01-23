@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE3D_ALGORITHM_FILL_HPP_INCLUDED
 #define SGE_IMAGE3D_ALGORITHM_FILL_HPP_INCLUDED
 
+#include <sge/image/algorithm/uninitialized_fwd.hpp>
 #include <sge/image/color/any/object_fwd.hpp>
 #include <sge/image3d/detail/symbol.hpp>
 #include <sge/image3d/view/object_fwd.hpp>
@@ -36,8 +37,9 @@ namespace algorithm
 SGE_IMAGE3D_DETAIL_SYMBOL
 void
 fill(
-	view::object const &,
-	image::color::any::object const &
+	sge::image3d::view::object const &,
+	sge::image::color::any::object const &,
+	sge::image::algorithm::uninitialized
 );
 
 }

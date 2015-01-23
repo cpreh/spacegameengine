@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/object.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
+#include <sge/image/algorithm/uninitialized.hpp>
 #include <mizuiro/color/compare.hpp>
 #include <mizuiro/image/view.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
@@ -110,7 +111,8 @@ test_conversion(
 						_dest_view
 					)
 				),
-				sge::image::algorithm::may_overlap::no
+				sge::image::algorithm::may_overlap::no,
+				sge::image::algorithm::uninitialized::yes
 			);
 		}
 	};

@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXTURE_PART_FRAGMENTED_HPP_INCLUDED
 #define SGE_TEXTURE_PART_FRAGMENTED_HPP_INCLUDED
 
+#include <sge/image/algorithm/uninitialized_fwd.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/renderer/lock_rect_fwd.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
@@ -54,7 +55,8 @@ public:
 	SGE_TEXTURE_DETAIL_SYMBOL
 	void
 	data(
-		sge::image2d::view::const_object const &
+		sge::image2d::view::const_object const &,
+		sge::image::algorithm::uninitialized
 	)
 	override;
 

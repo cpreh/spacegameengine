@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/algorithm/may_overlap.hpp>
+#include <sge/image/algorithm/uninitialized.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image/color/format_stride.hpp>
 #include <sge/image2d/dim.hpp>
@@ -142,6 +143,7 @@ sge::renderer::vf::dynamic::detail::element_converter::convert(
 			,
 			pitch
 		),
-		sge::image::algorithm::may_overlap::yes
+		sge::image::algorithm::may_overlap::yes,
+		sge::image::algorithm::uninitialized::no
 	);
 }

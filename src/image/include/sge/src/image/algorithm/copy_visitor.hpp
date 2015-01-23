@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <mizuiro/nonconst_tag.hpp>
 #include <mizuiro/image/algorithm/copy.hpp>
 #include <mizuiro/image/algorithm/may_overlap.hpp>
+#include <mizuiro/image/algorithm/uninitialized.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/variant/get.hpp>
 
@@ -54,15 +55,19 @@ public:
 
 	copy_visitor(
 		view const &_dest,
-		mizuiro::image::algorithm::may_overlap const _overlap
+		mizuiro::image::algorithm::may_overlap const _overlap,
+		mizuiro::image::algorithm::uninitialized const _uninitialized
 	)
 	:
 		dest_(
 			_dest
 		),
-		overlap_(
+		overlap_{
 			_overlap
-		)
+		},
+		uninitialized_{
+			_uninitialized
+		}
 	{
 	}
 
@@ -93,13 +98,16 @@ public:
 				>(
 					variant
 				),
-				overlap_
+				overlap_,
+				uninitialized_
 			);
 	}
 private:
 	view const &dest_;
 
 	mizuiro::image::algorithm::may_overlap const overlap_;
+
+	mizuiro::image::algorithm::uninitialized const uninitialized_;
 };
 
 }

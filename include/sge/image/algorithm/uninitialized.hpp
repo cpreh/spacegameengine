@@ -18,31 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TEXTURE_ATLASING_BORDER_W_HPP_INCLUDED
-#define SGE_TEXTURE_ATLASING_BORDER_W_HPP_INCLUDED
+#ifndef SGE_IMAGE_ALGORITHM_UNINITIALIZED_HPP_INCLUDED
+#define SGE_IMAGE_ALGORITHM_UNINITIALIZED_HPP_INCLUDED
 
 #include <sge/image/algorithm/uninitialized_fwd.hpp>
-#include <sge/image2d/view/const_object_fwd.hpp>
-#include <sge/renderer/texture/planar_fwd.hpp>
-#include <sge/texture/detail/symbol.hpp>
-#include <sge/texture/atlasing/inner_rect.hpp>
 
 
 namespace sge
 {
-namespace texture
+namespace image
 {
-namespace atlasing
+namespace algorithm
 {
 
-SGE_TEXTURE_DETAIL_SYMBOL
-void
-border_w(
-	sge::renderer::texture::planar &,
-	sge::image2d::view::const_object const &,
-	sge::texture::atlasing::inner_rect const &,
-	sge::image::algorithm::uninitialized
-);
+enum class uninitialized
+{
+	no,
+	yes
+};
 
 }
 }

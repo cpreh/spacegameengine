@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/image/algorithm/uninitialized.hpp>
 #include <sge/image/color/any/object_fwd.hpp>
 #include <sge/image/color/traits/any_object_fwd.hpp>
 #include <sge/image3d/tag.hpp>
@@ -32,14 +33,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 void
 sge::image3d::algorithm::fill(
 	sge::image3d::view::object const &_dest,
-	sge::image::color::any::object const &_col
+	sge::image::color::any::object const &_col,
+	sge::image::algorithm::uninitialized const _uninitialized
 )
 {
 	sge::image::algorithm::fill<
 		sge::image3d::tag
 	>(
 		_dest,
-		_col
+		_col,
+		_uninitialized
 	);
 }
 

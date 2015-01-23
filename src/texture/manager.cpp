@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/image/algorithm/uninitialized.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/image2d/view/format.hpp>
@@ -35,11 +36,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
-
-namespace
-{
-
-}
 
 sge::texture::manager::manager(
 	sge::texture::on_alloc_callback const &_on_alloc
@@ -87,7 +83,8 @@ sge::texture::manager::add(
 				part
 			)
 				part->data(
-					_src
+					_src,
+					sge::image::algorithm::uninitialized::yes
 				);
 
 			return

@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <mizuiro/color/object_impl.hpp>
 #include <mizuiro/image/view_impl.hpp>
 #include <mizuiro/image/algorithm/fill_c.hpp>
+#include <mizuiro/image/algorithm/uninitialized.hpp>
 #include <fcppt/nonassignable.hpp>
 
 
@@ -47,14 +48,17 @@ class fill_visitor
 public:
 	typedef void result_type;
 
-	explicit
 	fill_visitor(
-		Value const &_value
+		Value const &_value,
+		mizuiro::image::algorithm::uninitialized const _uninitialized
 	)
 	:
 		value_(
 			_value
-		)
+		),
+		uninitialized_{
+			_uninitialized
+		}
 	{
 	}
 
@@ -72,11 +76,14 @@ public:
 				typename View::format::color_format
 			>(
 				value_
-			)
+			),
+			uninitialized_
 		);
 	}
 private:
 	Value const &value_;
+
+	mizuiro::image::algorithm::uninitialized const uninitialized_;
 };
 
 }

@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE3D_ALGORITHM_COPY_AND_CONVERT_HPP_INCLUDED
 
 #include <sge/image/algorithm/may_overlap_fwd.hpp>
+#include <sge/image/algorithm/uninitialized_fwd.hpp>
 #include <sge/image3d/detail/symbol.hpp>
 #include <sge/image3d/view/const_object_fwd.hpp>
 #include <sge/image3d/view/object_fwd.hpp>
@@ -37,9 +38,10 @@ namespace algorithm
 SGE_IMAGE3D_DETAIL_SYMBOL
 void
 copy_and_convert(
-	view::const_object const &src,
-	view::object const &dest,
-	image::algorithm::may_overlap
+	sge::image3d::view::const_object const &src,
+	sge::image3d::view::object const &dest,
+	sge::image::algorithm::may_overlap,
+	sge::image::algorithm::uninitialized
 );
 
 }

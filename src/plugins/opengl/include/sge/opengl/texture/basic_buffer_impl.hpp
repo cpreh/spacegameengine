@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/algorithm/copy.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
+#include <sge/image/algorithm/uninitialized.hpp>
 #include <sge/image/traits/format_stride.hpp>
 #include <sge/image/view/flipped.hpp>
 #include <sge/image/view/make.hpp>
@@ -251,7 +252,8 @@ sge::opengl::texture::basic_buffer<
 					format_,
 					basic_buffer::pitch::null()
 				),
-				sge::image::algorithm::may_overlap::no
+				sge::image::algorithm::may_overlap::no,
+				sge::image::algorithm::uninitialized::yes
 			);
 
 			lock_->post_copy();

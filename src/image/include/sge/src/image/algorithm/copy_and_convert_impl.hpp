@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/algorithm/copy_and_convert.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
+#include <sge/image/algorithm/uninitialized.hpp>
 #include <sge/image/traits/const_view_fwd.hpp>
 #include <sge/image/traits/view_fwd.hpp>
 #include <sge/src/image/config.hpp>
@@ -45,7 +46,8 @@ sge::image::algorithm::copy_and_convert(
 	typename sge::image::traits::view<
 		Tag
 	>::type const &_dest,
-	sge::image::algorithm::may_overlap const _overlap
+	sge::image::algorithm::may_overlap const _overlap,
+	sge::image::algorithm::uninitialized const _uninitialized
 )
 {
 	// TODO: automatically use the static version if the dynamic one is not specialized
@@ -55,7 +57,8 @@ sge::image::algorithm::copy_and_convert(
 	>(
 		_src,
 		_dest,
-		_overlap
+		_overlap,
+		_uninitialized
 	);
 #else
 	sge::image::algorithm::copy_and_convert_dynamic<
@@ -63,7 +66,8 @@ sge::image::algorithm::copy_and_convert(
 	>(
 		_src,
 		_dest,
-		_overlap
+		_overlap,
+		_uninitialized
 	);
 #endif
 }

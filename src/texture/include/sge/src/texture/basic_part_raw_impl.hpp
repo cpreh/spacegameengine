@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_TEXTURE_BASIC_PART_RAW_IMPL_HPP_INCLUDED
 #define SGE_SRC_TEXTURE_BASIC_PART_RAW_IMPL_HPP_INCLUDED
 
+#include <sge/image/algorithm/uninitialized.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/texture/planar.hpp>
@@ -102,13 +103,15 @@ void
 sge::texture::basic_part_raw<
 	Ref
 >::data(
-	sge::image2d::view::const_object const &_src
+	sge::image2d::view::const_object const &_src,
+	sge::image::algorithm::uninitialized const _uninitialized
 )
 {
 	sge::texture::sub_data(
 		this->texture(),
 		_src,
-		this->area().pos()
+		this->area().pos(),
+		_uninitialized
 	);
 }
 

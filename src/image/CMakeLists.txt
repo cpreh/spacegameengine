@@ -9,6 +9,8 @@ set(
 	include/sge/image/algorithm/may_overlap.hpp
 	include/sge/image/algorithm/may_overlap_fwd.hpp
 	include/sge/image/algorithm/print.hpp
+	include/sge/image/algorithm/uninitialized.hpp
+	include/sge/image/algorithm/uninitialized_fwd.hpp
 	include/sge/image/box.hpp
 	include/sge/image/box_fwd.hpp
 	include/sge/image/channel16.hpp
@@ -79,6 +81,7 @@ set(
 	include/sge/image/view/wrap.hpp
 	include/sge/image/view/wrapped_type.hpp
 	src/image/algorithm/convert_may_overlap.cpp
+	src/image/algorithm/convert_uninitialized.cpp
 	src/image/exception.cpp
 	src/image/file_exception.cpp
 	src/image/include/sge/src/image/algorithm/clone_impl.hpp
@@ -87,6 +90,7 @@ set(
 	src/image/include/sge/src/image/algorithm/compare_impl.hpp
 	src/image/include/sge/src/image/algorithm/compare_visitor.hpp
 	src/image/include/sge/src/image/algorithm/convert_may_overlap.hpp
+	src/image/include/sge/src/image/algorithm/convert_uninitialized.hpp
 	src/image/include/sge/src/image/algorithm/copy_and_convert_dynamic.hpp
 	src/image/include/sge/src/image/algorithm/copy_and_convert_impl.hpp
 	src/image/include/sge/src/image/algorithm/copy_and_convert_static.hpp

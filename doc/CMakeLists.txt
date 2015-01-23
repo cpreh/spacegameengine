@@ -577,6 +577,8 @@ set(
 	include/sge/image/algorithm/may_overlap.hpp
 	include/sge/image/algorithm/may_overlap_fwd.hpp
 	include/sge/image/algorithm/print.hpp
+	include/sge/image/algorithm/uninitialized.hpp
+	include/sge/image/algorithm/uninitialized_fwd.hpp
 	include/sge/image/box.hpp
 	include/sge/image/box_fwd.hpp
 	include/sge/image/channel16.hpp

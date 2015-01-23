@@ -37,7 +37,7 @@ SGE_IMAGE3D_DETAIL_SYMBOL
 void
 print(
 	fcppt::io::ostream &,
-	view::const_object const &
+	sge::image3d::view::const_object const &
 );
 
 }

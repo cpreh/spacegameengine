@@ -21,12 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_IMAGE_COLOR_DYNAMIC_ALGORITHM_CAC_CONVERT_HPP_INCLUDED
 #define SGE_SRC_IMAGE_COLOR_DYNAMIC_ALGORITHM_CAC_CONVERT_HPP_INCLUDED
 
+#include <sge/src/image/algorithm/convert_uninitialized.hpp>
 #include <sge/src/image/color/dynamic/algorithm/cac/choose.hpp>
 #include <sge/src/image/color/dynamic/algorithm/cac/convert_visitor.hpp>
 #include <sge/src/image/color/dynamic/algorithm/cac/function.hpp>
 #include <sge/src/image/color/dynamic/view/image_format.hpp>
-#include <mizuiro/image/algorithm/binary_iteration.hpp>
-#include <mizuiro/image/algorithm/make_iterator_identity.hpp>
+#include <mizuiro/image/algorithm/transform.hpp>
 
 
 namespace sge
@@ -46,13 +46,17 @@ template<
 	typename Source,
 	typename Dest
 >
+inline
 void
 convert(
 	Source const &_source,
-	Dest const &_dest
+	Dest const &_dest,
+	sge::image::algorithm::uninitialized const _uninitialized
 )
 {
-	mizuiro::image::algorithm::binary_iteration(
+	mizuiro::image::algorithm::transform(
+		_source,
+		_dest,
 		sge::image::color::dynamic::algorithm::cac::convert_visitor<
 			sge::image::color::dynamic::algorithm::cac::function<
 				typename Source::format,
@@ -68,9 +72,9 @@ convert(
 				)
 			)
 		),
-		_source,
-		_dest,
-		mizuiro::image::algorithm::make_iterator_identity()
+		sge::image::algorithm::convert_uninitialized(
+			_uninitialized
+		)
 	);
 }
 

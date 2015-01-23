@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/algorithm/may_overlap.hpp>
+#include <sge/image/algorithm/uninitialized.hpp>
 #include <sge/image2d/algorithm/copy_and_convert.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/size.hpp>
@@ -34,7 +35,8 @@ void
 sge::texture::sub_data(
 	sge::renderer::texture::planar &_texture,
 	sge::image2d::view::const_object const &_view,
-	sge::texture::pos const _pos
+	sge::texture::pos const _pos,
+	sge::image::algorithm::uninitialized const _uninitialized
 )
 {
 	sge::renderer::texture::scoped_planar_lock const lock(
@@ -51,6 +53,7 @@ sge::texture::sub_data(
 	sge::image2d::algorithm::copy_and_convert(
 		_view,
 		lock.value(),
-		sge::image::algorithm::may_overlap::no
+		sge::image::algorithm::may_overlap::no,
+		_uninitialized
 	);
 }

@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TEXTURE_PART_HPP_INCLUDED
 
 #include <sge/core/detail/class_symbol.hpp>
+#include <sge/image/algorithm/uninitialized.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/renderer/dim2_fwd.hpp>
 #include <sge/renderer/lock_rect_fwd.hpp>
@@ -52,7 +53,8 @@ public:
 	virtual
 	void
 	data(
-		sge::image2d::view::const_object const &
+		sge::image2d::view::const_object const &,
+		sge::image::algorithm::uninitialized
 	) = 0;
 
 	virtual

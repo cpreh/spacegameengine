@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/unit.hpp>
 #include <sge/image/const_raw_pointer.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
+#include <sge/image/algorithm/uninitialized.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image/color/optional_format.hpp>
 #include <sge/image2d/dim.hpp>
@@ -368,7 +369,8 @@ sge::cegui::texture::loadFromMemory(
 			sge::image2d::pitch::null()
 		),
 		lock.value(),
-		sge::image::algorithm::may_overlap::no
+		sge::image::algorithm::may_overlap::no,
+		sge::image::algorithm::uninitialized::yes
 	);
 }
 

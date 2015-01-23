@@ -23,11 +23,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/mizuiro_color_traits.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
+#include <sge/image/algorithm/uninitialized.hpp>
 #include <sge/src/image/algorithm/convert_may_overlap.hpp>
+#include <sge/src/image/algorithm/convert_uninitialized.hpp>
 #include <sge/src/image/color/dynamic/view/color_layout.hpp>
 #include <mizuiro/image/algorithm/copy_different_channel_order.hpp>
 #include <mizuiro/image/algorithm/copy_same_channel_order.hpp>
 #include <mizuiro/image/algorithm/may_overlap.hpp>
+#include <mizuiro/image/algorithm/uninitialized.hpp>
 
 
 namespace sge
@@ -51,7 +54,8 @@ void
 copy(
 	Source const &_source,
 	Dest const &_dest,
-	sge::image::algorithm::may_overlap const _overlap
+	sge::image::algorithm::may_overlap const _overlap,
+	sge::image::algorithm::uninitialized const _uninitialized
 )
 {
 	mizuiro::image::algorithm::may_overlap const mizuiro_overlap(
@@ -59,6 +63,13 @@ copy(
 			_overlap
 		)
 	);
+
+	mizuiro::image::algorithm::uninitialized const mizuiro_uninitialized(
+		sge::image::algorithm::convert_uninitialized(
+			_uninitialized
+		)
+	);
+
 
 	if(
 		sge::image::color::dynamic::view::color_layout(
@@ -72,13 +83,15 @@ copy(
 		mizuiro::image::algorithm::copy_same_channel_order(
 			_source,
 			_dest,
-			mizuiro_overlap
+			mizuiro_overlap,
+			mizuiro_uninitialized
 		);
 	else
 		mizuiro::image::algorithm::copy_different_channel_order(
 			_source,
 			_dest,
-			mizuiro_overlap
+			mizuiro_overlap,
+			mizuiro_uninitialized
 		);
 }
 

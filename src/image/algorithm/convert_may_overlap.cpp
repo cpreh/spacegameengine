@@ -34,9 +34,11 @@ sge::image::algorithm::convert_may_overlap(
 	)
 	{
 	case sge::image::algorithm::may_overlap::no:
-		return mizuiro::image::algorithm::may_overlap::no;
+		return
+			mizuiro::image::algorithm::may_overlap::no;
 	case sge::image::algorithm::may_overlap::yes:
-		return mizuiro::image::algorithm::may_overlap::yes;
+		return
+			mizuiro::image::algorithm::may_overlap::yes;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

@@ -38,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/align_h/right.hpp>
 #include <sge/image/size_type.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
+#include <sge/image/algorithm/uninitialized.hpp>
 #include <sge/image/color/any/clear.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/image2d/rect.hpp>
@@ -373,7 +374,8 @@ sge::font::bitmap::text::render(
 			sge::image2d::view::format(
 				_view
 			)
-		)
+		),
+		sge::image::algorithm::uninitialized::yes
 	);
 
 	sge::font::unit top(
@@ -496,7 +498,8 @@ sge::font::bitmap::text::render(
 						)
 					)
 				),
-				sge::image::algorithm::may_overlap::no
+				sge::image::algorithm::may_overlap::no,
+				sge::image::algorithm::uninitialized::no
 			);
 
 			left += char_metric.x_advance();

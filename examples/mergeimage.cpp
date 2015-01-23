@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/core/exception.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
+#include <sge/image/algorithm/uninitialized.hpp>
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/image/view/wrap.hpp>
@@ -245,7 +246,8 @@ try
 						_view
 					)
 				),
-				sge::image::color::predef::transparent()
+				sge::image::color::predef::transparent(),
+				sge::image::algorithm::uninitialized::yes
 			);
 		}
 	};
@@ -297,7 +299,8 @@ try
 					dim
 				)
 			),
-			sge::image::algorithm::may_overlap::no
+			sge::image::algorithm::may_overlap::no,
+			sge::image::algorithm::uninitialized::no
 		);
 
 		pos.x() += dim.w() + 1;

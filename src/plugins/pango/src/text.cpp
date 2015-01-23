@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text_parameters.hpp>
 #include <sge/font/vector.hpp>
 #include <sge/font/view_fwd.hpp>
+#include <sge/image/algorithm/uninitialized.hpp>
 #include <sge/image/color/a8.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/image/color/init/alpha.hpp>
@@ -89,7 +90,8 @@ sge::pango::text::render(
 			sge::image::color::a8(
 				sge::image::color::init::alpha() %= 0.f
 			)
-		)
+		),
+		sge::image::algorithm::uninitialized::yes
 	);
 
 	::pango_ft2_render_layout(

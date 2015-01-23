@@ -22,9 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_IMAGE_ALGORITHM_FILL_IMPL_HPP_INCLUDED
 
 #include <sge/image/algorithm/fill.hpp>
+#include <sge/image/algorithm/uninitialized.hpp>
 #include <sge/image/traits/any_object_fwd.hpp>
 #include <sge/image/traits/color_tag.hpp>
 #include <sge/image/traits/view_fwd.hpp>
+#include <sge/src/image/algorithm/convert_uninitialized.hpp>
 #include <sge/src/image/algorithm/fill_visitor.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
@@ -42,7 +44,8 @@ sge::image::algorithm::fill(
 		typename sge::image::traits::color_tag<
 			Tag
 		>::type
-	>::type const &_value
+	>::type const &_value,
+	sge::image::algorithm::uninitialized const _uninitialized
 )
 {
 	fcppt::variant::apply_unary(
@@ -53,7 +56,10 @@ sge::image::algorithm::fill(
 				>::type
 			>::type
 		>(
-			_value
+			_value,
+			sge::image::algorithm::convert_uninitialized(
+				_uninitialized
+			)
 		),
 		_view.get()
 	);

@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/image/algorithm/uninitialized.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/image2d/view/size.hpp>
@@ -45,7 +46,8 @@ sge::texture::consume_and_set_fragment(
 	);
 
 	ret->data(
-		_view
+		_view,
+		sge::image::algorithm::uninitialized::yes
 	);
 
 	return

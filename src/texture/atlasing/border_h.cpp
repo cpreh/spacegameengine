@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/image/algorithm/uninitialized.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/size.hpp>
 #include <sge/image2d/view/sub.hpp>
@@ -34,7 +35,8 @@ void
 sge::texture::atlasing::border_h(
 	sge::renderer::texture::planar &_texture,
 	sge::image2d::view::const_object const &_source,
-	sge::texture::atlasing::inner_rect const &_inner_area
+	sge::texture::atlasing::inner_rect const &_inner_area,
+	sge::image::algorithm::uninitialized const _uninitialized
 )
 {
 	sge::renderer::dim2 const dim(
@@ -58,7 +60,8 @@ sge::texture::atlasing::border_h(
 		sge::texture::pos(
 			_inner_area.get().left(),
 			_inner_area.get().top() - 1u
-		)
+		),
+		_uninitialized
 	);
 
 	sge::texture::sub_data(
@@ -79,6 +82,7 @@ sge::texture::atlasing::border_h(
 		sge::texture::pos(
 			_inner_area.get().left(),
 			_inner_area.get().bottom() + 1u
-		)
+		),
+		_uninitialized
 	);
 }

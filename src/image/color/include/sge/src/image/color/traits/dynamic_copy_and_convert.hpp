@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_IMAGE_COLOR_TRAITS_DYNAMIC_COPY_AND_CONVERT_HPP_INCLUDED
 
 #include <sge/image/algorithm/may_overlap.hpp>
+#include <sge/image/algorithm/uninitialized.hpp>
 #include <sge/image/color/tag.hpp>
 #include <sge/image/traits/const_view_fwd.hpp>
 #include <sge/image/traits/view_fwd.hpp>
@@ -53,7 +54,8 @@ struct dynamic_copy_and_convert<
 		typename sge::image::traits::view<
 			Tag
 		>::type const &_dest,
-		sge::image::algorithm::may_overlap const _overlap
+		sge::image::algorithm::may_overlap const _overlap,
+		sge::image::algorithm::uninitialized const _uninitialized
 	)
 	{
 		sge::image::color::dynamic::algorithm::copy_and_convert<
@@ -61,7 +63,8 @@ struct dynamic_copy_and_convert<
 		>(
 			_src,
 			_dest,
-			_overlap
+			_overlap,
+			_uninitialized
 		);
 	}
 };

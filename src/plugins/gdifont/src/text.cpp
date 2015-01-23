@@ -40,6 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gdifont/set_text_color.hpp>
 #include <sge/gdifont/text.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
+#include <sge/image/algorithm/uninitialized.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/algorithm/copy.hpp>
 #include <sge/image2d/view/const_object.hpp>
@@ -148,7 +149,8 @@ sge::gdifont::text::render(
 	sge::image2d::algorithm::copy(
 		dib_section.const_view(),
 		_view,
-		sge::image::algorithm::may_overlap::no
+		sge::image::algorithm::may_overlap::no,
+		sge::image::algorithm::uninitialized::yes
 	);
 }
 

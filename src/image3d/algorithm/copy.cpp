@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/algorithm/may_overlap.hpp>
+#include <sge/image/algorithm/uninitialized.hpp>
 #include <sge/image/color/traits/format_fwd.hpp>
 #include <sge/image3d/tag.hpp>
 #include <sge/image3d/algorithm/copy.hpp>
@@ -35,7 +36,8 @@ void
 sge::image3d::algorithm::copy(
 	sge::image3d::view::const_object const &_src,
 	sge::image3d::view::object const &_dest,
-	sge::image::algorithm::may_overlap const _overlap
+	sge::image::algorithm::may_overlap const _overlap,
+	sge::image::algorithm::uninitialized const _uninitialized
 )
 {
 	sge::image::algorithm::copy<
@@ -43,7 +45,8 @@ sge::image3d::algorithm::copy(
 	>(
 		_src,
 		_dest,
-		_overlap
+		_overlap,
+		_uninitialized
 	);
 }
 

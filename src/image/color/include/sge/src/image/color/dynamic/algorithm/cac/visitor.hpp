@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_IMAGE_COLOR_DYNAMIC_ALGORITHM_CAC_VISITOR_HPP_INCLUDED
 
 #include <sge/image/algorithm/may_overlap.hpp>
+#include <sge/image/algorithm/uninitialized.hpp>
 #include <sge/src/image/color/dynamic/algorithm/cac/convert.hpp>
 #include <sge/src/image/color/dynamic/algorithm/cac/copy.hpp>
 #include <sge/src/image/color/dynamic/algorithm/cac/permutate_compare.hpp>
@@ -52,14 +53,17 @@ class visitor
 		visitor
 	);
 public:
-	explicit
 	visitor(
-		sge::image::algorithm::may_overlap const _overlap
+		sge::image::algorithm::may_overlap const _overlap,
+		sge::image::algorithm::uninitialized const _uninitialized
 	)
 	:
-		overlap_(
+		overlap_{
 			_overlap
-		)
+		},
+		uninitialized_{
+			_uninitialized
+		}
 	{
 	}
 
@@ -94,12 +98,14 @@ public:
 			sge::image::color::dynamic::algorithm::cac::copy(
 				_source,
 				_dest,
-				overlap_
+				overlap_,
+				uninitialized_
 			);
 		else
 			sge::image::color::dynamic::algorithm::cac::convert(
 				_source,
-				_dest
+				_dest,
+				uninitialized_
 			);
 	}
 
@@ -121,11 +127,14 @@ public:
 	{
 		sge::image::color::dynamic::algorithm::cac::convert(
 			_source,
-			_dest
+			_dest,
+			uninitialized_
 		);
 	}
 private:
 	sge::image::algorithm::may_overlap const overlap_;
+
+	sge::image::algorithm::uninitialized const uninitialized_;
 };
 
 }

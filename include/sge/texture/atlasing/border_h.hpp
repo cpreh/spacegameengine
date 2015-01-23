@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXTURE_ATLASING_BORDER_H_HPP_INCLUDED
 #define SGE_TEXTURE_ATLASING_BORDER_H_HPP_INCLUDED
 
+#include <sge/image/algorithm/uninitialized_fwd.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/texture/detail/symbol.hpp>
@@ -39,7 +40,8 @@ void
 border_h(
 	sge::renderer::texture::planar &,
 	sge::image2d::view::const_object const &,
-	sge::texture::atlasing::inner_rect const &
+	sge::texture::atlasing::inner_rect const &,
+	sge::image::algorithm::uninitialized
 );
 
 }

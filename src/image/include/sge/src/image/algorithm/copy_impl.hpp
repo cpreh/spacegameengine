@@ -24,11 +24,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/algorithm/copy.hpp>
 #include <sge/image/algorithm/invalid_copy.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
+#include <sge/image/algorithm/uninitialized.hpp>
 #include <sge/image/traits/color_tag.hpp>
 #include <sge/image/traits/const_view_fwd.hpp>
 #include <sge/image/traits/view_fwd.hpp>
 #include <sge/image/view/format.hpp>
 #include <sge/src/image/algorithm/convert_may_overlap.hpp>
+#include <sge/src/image/algorithm/convert_uninitialized.hpp>
 #include <sge/src/image/algorithm/copy_visitor.hpp>
 #include <fcppt/variant/apply_binary.hpp>
 #include <fcppt/variant/invalid_get.hpp>
@@ -46,7 +48,8 @@ sge::image::algorithm::copy(
 	typename sge::image::traits::view<
 		Tag
 	>::type const &_dest,
-	sge::image::algorithm::may_overlap const _overlap
+	sge::image::algorithm::may_overlap const _overlap,
+	sge::image::algorithm::uninitialized const _uninitialized
 )
 try
 {
@@ -57,6 +60,9 @@ try
 			_dest,
 			sge::image::algorithm::convert_may_overlap(
 				_overlap
+			),
+			sge::image::algorithm::convert_uninitialized(
+				_uninitialized
 			)
 		),
 		_src.get()

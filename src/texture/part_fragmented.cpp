@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/image/algorithm/uninitialized.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
@@ -55,25 +56,29 @@ sge::texture::part_fragmented::~part_fragmented()
 
 void
 sge::texture::part_fragmented::data(
-	sge::image2d::view::const_object const &_src
+	sge::image2d::view::const_object const &_src,
+	sge::image::algorithm::uninitialized const _uninitialized
 )
 {
 	sge::texture::sub_data(
 		this->texture(),
 		_src,
-		inner_area_.get().pos()
+		inner_area_.get().pos(),
+		_uninitialized
 	);
 
 	sge::texture::atlasing::border_h(
 		this->texture(),
 		_src,
-		inner_area_
+		inner_area_,
+		_uninitialized
 	);
 
 	sge::texture::atlasing::border_w(
 		this->texture(),
 		_src,
-		inner_area_
+		inner_area_,
+		_uninitialized
 	);
 }
 

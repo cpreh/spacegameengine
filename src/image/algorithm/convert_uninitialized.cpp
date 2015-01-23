@@ -18,34 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TEXTURE_ATLASING_BORDER_W_HPP_INCLUDED
-#define SGE_TEXTURE_ATLASING_BORDER_W_HPP_INCLUDED
-
-#include <sge/image/algorithm/uninitialized_fwd.hpp>
-#include <sge/image2d/view/const_object_fwd.hpp>
-#include <sge/renderer/texture/planar_fwd.hpp>
-#include <sge/texture/detail/symbol.hpp>
-#include <sge/texture/atlasing/inner_rect.hpp>
+#include <sge/image/algorithm/uninitialized.hpp>
+#include <sge/src/image/algorithm/convert_uninitialized.hpp>
+#include <mizuiro/image/algorithm/uninitialized.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 
-namespace sge
+mizuiro::image::algorithm::uninitialized
+sge::image::algorithm::convert_uninitialized(
+	sge::image::algorithm::uninitialized const _uninitialized
+)
 {
-namespace texture
-{
-namespace atlasing
-{
+	switch(
+		_uninitialized
+	)
+	{
+	case sge::image::algorithm::uninitialized::no:
+		return
+			mizuiro::image::algorithm::uninitialized::no;
+	case sge::image::algorithm::uninitialized::yes:
+		return
+			mizuiro::image::algorithm::uninitialized::yes;
+	}
 
-SGE_TEXTURE_DETAIL_SYMBOL
-void
-border_w(
-	sge::renderer::texture::planar &,
-	sge::image2d::view::const_object const &,
-	sge::texture::atlasing::inner_rect const &,
-	sge::image::algorithm::uninitialized
-);
-
+	FCPPT_ASSERT_UNREACHABLE;
 }
-}
-}
-
-#endif
