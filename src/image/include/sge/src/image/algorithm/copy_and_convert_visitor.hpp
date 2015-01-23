@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/mizuiro_color_traits.hpp>
 #include <mizuiro/image/algorithm/copy_and_convert.hpp>
 #include <mizuiro/image/algorithm/may_overlap.hpp>
+#include <mizuiro/image/algorithm/uninitialized.hpp>
 #include <fcppt/nonassignable.hpp>
 
 
@@ -43,14 +44,17 @@ class copy_and_convert_visitor
 		copy_and_convert_visitor
 	);
 public:
-	explicit
 	copy_and_convert_visitor(
-		mizuiro::image::algorithm::may_overlap const _overlap
+		mizuiro::image::algorithm::may_overlap const _overlap,
+		mizuiro::image::algorithm::uninitialized const _uninitialized
 	)
 	:
-		overlap_(
+		overlap_{
 			_overlap
-		)
+		},
+		uninitialized_{
+			_uninitialized
+		}
 	{
 	}
 
@@ -72,11 +76,14 @@ public:
 			>(
 				_src,
 				_dest,
-				overlap_
+				overlap_,
+				uninitialized_
 			);
 	}
 private:
 	mizuiro::image::algorithm::may_overlap const overlap_;
+
+	mizuiro::image::algorithm::uninitialized const uninitialized_;
 };
 
 }
