@@ -132,6 +132,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>
 #include <mizuiro/image/algorithm/fill_indexed.hpp>
+#include <mizuiro/image/algorithm/uninitialized.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
@@ -481,7 +482,8 @@ create_noise_texture(
 								))
 							)
 						);
-				}
+				},
+				mizuiro::image::algorithm::uninitialized::yes
 			);
 		}
 	};
