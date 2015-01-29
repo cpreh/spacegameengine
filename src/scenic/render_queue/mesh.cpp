@@ -19,7 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/scenic/render_queue/mesh.hpp>
-#include <fcppt/number_multiplexer/object.hpp>
+#include <sge/src/scenic/number_multiplexer/object_impl.hpp>
+
 
 namespace
 {
@@ -29,7 +30,7 @@ create_sort_index(
 	sge::scenic::render_queue::index_type const _vertex_buffer)
 {
 	typedef
-	fcppt::number_multiplexer::object<sge::scenic::render_queue::sort_index>
+	sge::scenic::number_multiplexer::object<sge::scenic::render_queue::sort_index>
 	multiplexer;
 
 	return
