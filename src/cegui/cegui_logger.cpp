@@ -23,8 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/cegui/declare_local_logger.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/io/color/reset.hpp>
-#include <fcppt/io/color/set.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/error.hpp>
@@ -67,13 +65,7 @@ sge::cegui::cegui_logger::logEvent(
 			FCPPT_LOG_ERROR(
 				local_log,
 				fcppt::log::_
-					<< fcppt::io::color::set(
-						fcppt::io::color::foreground::red,
-						fcppt::io::color::background::black,
-						fcppt::io::color::attribute::bold
-					)
 					<< converted
-					<< fcppt::io::color::reset()
 			);
 			break;
 		case CEGUI::Warnings:
