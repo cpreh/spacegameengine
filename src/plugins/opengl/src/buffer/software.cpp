@@ -28,8 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/raw_value.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/algorithm/copy_n.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <algorithm>
 #include <cstddef>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -200,7 +200,7 @@ sge::opengl::buffer::software::buffer_sub_data(
 			FCPPT_TEXT("buffer_sub_data(): data may not be 0!")
 		);
 
-	fcppt::algorithm::copy_n(
+	std::copy_n(
 		static_cast<
 			renderer::const_raw_pointer
 		>(
