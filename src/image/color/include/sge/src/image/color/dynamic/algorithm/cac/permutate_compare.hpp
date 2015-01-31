@@ -21,9 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_IMAGE_COLOR_DYNAMIC_ALGORITHM_CAC_PERMUTATE_COMPARE_HPP_INCLUDED
 #define SGE_SRC_IMAGE_COLOR_DYNAMIC_ALGORITHM_CAC_PERMUTATE_COMPARE_HPP_INCLUDED
 
-#include <fcppt/config/external_begin.hpp>
-#include <algorithm>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/algorithm/contains.hpp>
 
 
 namespace sge
@@ -49,23 +47,21 @@ permutate_compare(
 )
 {
 	for(
-		typename Layout::const_iterator it(
-			_layout1.begin()
-		);
-		it != _layout1.end();
-		++it
+		auto const &elem
+		:
+		_layout1
 	)
 		if(
-			std::find(
-				_layout2.begin(),
-				_layout2.end(),
-				*it
+			!fcppt::algorithm::contains(
+				_layout2,
+				elem
 			)
-			== _layout2.end()
 		)
-			return false;
+			return
+				false;
 
-	return true;
+	return
+		true;
 }
 
 }

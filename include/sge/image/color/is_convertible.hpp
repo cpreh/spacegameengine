@@ -21,10 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_COLOR_IS_CONVERTIBLE_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_IS_CONVERTIBLE_HPP_INCLUDED
 
-#include <mizuiro/color/layout/is_same.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
+#include <mizuiro/color/format/same_spaces.hpp>
 
 
 namespace sge
@@ -34,23 +31,16 @@ namespace image
 namespace color
 {
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
 template<
 	typename SourceFormat,
 	typename DestFormat
 >
-struct is_convertible
-:
-mizuiro::color::layout::is_same<
-	typename SourceFormat::layout,
-	typename DestFormat::layout
->
-{
-};
-
-FCPPT_PP_POP_WARNING
+using is_convertible
+=
+mizuiro::color::format::same_spaces<
+	SourceFormat,
+	DestFormat
+>;
 
 }
 }

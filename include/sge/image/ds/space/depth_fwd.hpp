@@ -31,9 +31,6 @@ namespace ds
 namespace space
 {
 
-template<
-	typename Order
->
 struct depth;
 
 }

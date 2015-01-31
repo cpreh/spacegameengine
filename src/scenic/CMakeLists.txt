@@ -121,6 +121,10 @@ set(
 	include/sge/scenic/vf/texcoord.hpp
 	src/scenic/exception.cpp
 	src/scenic/grid/object.cpp
+	src/scenic/include/sge/src/scenic/number_multiplexer/object_decl.hpp
+	src/scenic/include/sge/src/scenic/number_multiplexer/object_fwd.hpp
+	src/scenic/include/sge/src/scenic/number_multiplexer/object_impl.hpp
+	src/scenic/include/sge/src/scenic/number_multiplexer/set_bits.hpp
 	src/scenic/include/sge/src/scenic/render_context/cg/any_color_to_vector4.hpp
 	src/scenic/index_buffer_range.cpp
 	src/scenic/render_context/base.cpp

@@ -24,10 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/ds/channel/depth_fwd.hpp>
 #include <sge/image/ds/channel/stencil_fwd.hpp>
 #include <sge/image/ds/space/depth_stencil_fwd.hpp>
-#include <mizuiro/color/space/base.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
+#include <mizuiro/mpl/list.hpp>
 
 
 namespace sge
@@ -39,23 +36,15 @@ namespace ds
 namespace space
 {
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-template<
-	typename Order
->
 struct depth_stencil
-:
-mizuiro::color::space::base<
-	Order,
-	sge::image::ds::channel::depth,
-	sge::image::ds::channel::stencil
->
 {
+	typedef
+	mizuiro::mpl::list<
+		sge::image::ds::channel::depth,
+		sge::image::ds::channel::stencil
+	>
+	required_channels;
 };
-
-FCPPT_PP_POP_WARNING
 
 }
 }

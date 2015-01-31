@@ -43,10 +43,12 @@ template<
 >
 struct from_static_visitor
 {
-	typedef typename sge::image::color::dynamic::view::basic_variant<
+	typedef
+	sge::image::color::dynamic::view::basic_variant<
 		Dim,
 		Constness
-	>::type result_type;
+	>
+	result_type;
 
 	template<
 		typename View

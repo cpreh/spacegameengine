@@ -67,7 +67,9 @@ public:
 	{
 	}
 
-	typedef void result_type;
+	typedef
+	void
+	result_type;
 
 	template<
 		typename Source,

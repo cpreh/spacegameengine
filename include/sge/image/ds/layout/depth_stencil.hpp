@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/ds/channel/depth.hpp>
 #include <sge/image/ds/channel/stencil.hpp>
 #include <sge/image/ds/space/depth_stencil.hpp>
+#include <mizuiro/color/layout/make.hpp>
 #include <mizuiro/mpl/list.hpp>
 
 
@@ -37,7 +38,8 @@ namespace layout
 {
 
 typedef
-sge::image::ds::space::depth_stencil<
+mizuiro::color::layout::make<
+	sge::image::ds::space::depth_stencil,
 	mizuiro::mpl::list<
 		sge::image::ds::channel::depth,
 		sge::image::ds::channel::stencil

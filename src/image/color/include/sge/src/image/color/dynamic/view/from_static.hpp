@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_IMAGE_COLOR_DYNAMIC_VIEW_FROM_STATIC_HPP_INCLUDED
 
 #include <sge/image/view/element_base.hpp>
-#include <sge/src/image/color/dynamic/from_static_format.hpp>
-#include <sge/src/image/color/dynamic/from_static_format_type.hpp>
+#include <sge/src/image/color/dynamic/format/from_static.hpp>
+#include <sge/src/image/color/dynamic/format/from_static_type.hpp>
 
 
 namespace sge
@@ -40,10 +40,11 @@ namespace view
 template<
 	typename View
 >
-typename sge::image::view::element_base<
-	typename sge::image::color::dynamic::from_static_format_type<
+typename
+sge::image::view::element_base<
+	sge::image::color::dynamic::format::from_static_type<
 		typename View::format::color_format
-	>::type,
+	>,
 	View::dim::static_size,
 	typename View::constness
 >::type
@@ -52,9 +53,9 @@ from_static(
 )
 {
 	typedef typename sge::image::view::element_base<
-		typename sge::image::color::dynamic::from_static_format_type<
+		sge::image::color::dynamic::format::from_static_type<
 			typename View::format::color_format
-		>::type,
+		>,
 		View::dim::static_size,
 		typename View::constness
 	>::type dest_type;
@@ -69,7 +70,7 @@ from_static(
 			typename dest_type::format_store_type(
 				dest_format(
 					typename dest_format::format_store_type(
-						&sge::image::color::dynamic::from_static_format(
+						&sge::image::color::dynamic::format::from_static(
 							typename View::format::color_format()
 						)
 					)

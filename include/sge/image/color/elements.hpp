@@ -51,7 +51,8 @@ namespace image
 namespace color
 {
 
-typedef boost::mpl::vector18<
+typedef
+boost::mpl::vector18<
 	sge::image::color::a8_format,
 	sge::image::color::l8_format,
 	sge::image::color::r32f_format,
@@ -70,7 +71,8 @@ typedef boost::mpl::vector18<
 	sge::image::color::srgba8_format,
 	sge::image::color::sbgr8_format,
 	sge::image::color::sbgra8_format
-> elements;
+>
+elements;
 
 }
 }

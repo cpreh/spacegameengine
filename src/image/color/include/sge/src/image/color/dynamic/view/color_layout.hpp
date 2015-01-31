@@ -39,7 +39,8 @@ namespace view
 template<
 	typename View
 >
-typename View::format::color_format::layout const
+typename
+View::format::color_format::channel_array const &
 color_layout(
 	View const &_view
 )
@@ -49,7 +50,7 @@ color_layout(
 			sge::image::color::dynamic::view::image_format(
 				_view
 			)
-		).order;
+		).channels;
 }
 
 }

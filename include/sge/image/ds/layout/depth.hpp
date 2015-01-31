@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/ds/channel/depth.hpp>
 #include <sge/image/ds/space/depth.hpp>
+#include <mizuiro/color/layout/make.hpp>
 #include <mizuiro/mpl/list.hpp>
 
 
@@ -36,7 +37,8 @@ namespace layout
 {
 
 typedef
-sge::image::ds::space::depth<
+mizuiro::color::layout::make<
+	sge::image::ds::space::depth,
 	mizuiro::mpl::list<
 		sge::image::ds::channel::depth
 	>

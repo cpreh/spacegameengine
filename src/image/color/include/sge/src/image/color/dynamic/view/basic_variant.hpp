@@ -41,15 +41,14 @@ template<
 	sge::image::size_type Dim,
 	typename Constness
 >
-struct basic_variant
-{
-	typedef fcppt::variant::object<
-		typename sge::image::color::dynamic::view::basic_elements<
-			Dim,
-			Constness
-		>::type
-	> type;
-};
+using basic_variant
+=
+fcppt::variant::object<
+	sge::image::color::dynamic::view::basic_elements<
+		Dim,
+		Constness
+	>
+>;
 
 }
 }

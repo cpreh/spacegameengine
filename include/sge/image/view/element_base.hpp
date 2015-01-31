@@ -24,9 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/integral_size.hpp>
 #include <sge/image/size_type.hpp>
 #include <sge/image/view/make_mizuiro_type.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 
 
 namespace sge
@@ -36,27 +33,20 @@ namespace image
 namespace view
 {
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
 template<
 	typename ColorFormat,
 	sge::image::size_type Dim,
 	typename Constness
 >
-struct element_base
-:
+using element_base
+=
 sge::image::view::make_mizuiro_type<
 	ColorFormat,
 	sge::image::integral_size<
 		Dim
 	>,
 	Constness
->
-{
-};
-
-FCPPT_PP_POP_WARNING
+>;
 
 }
 }

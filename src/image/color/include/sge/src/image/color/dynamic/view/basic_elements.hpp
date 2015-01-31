@@ -24,10 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/integral_size.hpp>
 #include <sge/image/size_type.hpp>
 #include <sge/image/view/make_mizuiro_type.hpp>
-#include <sge/src/image/color/dynamic/formats.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
+#include <sge/src/image/color/dynamic/format/all.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/placeholders.hpp>
 #include <boost/mpl/transform.hpp>
@@ -45,17 +42,15 @@ namespace dynamic
 namespace view
 {
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
 template<
 	sge::image::size_type Dim,
 	typename Constness
 >
-struct basic_elements
-:
+using basic_elements
+=
+typename
 boost::mpl::transform<
-	sge::image::color::dynamic::formats,
+	sge::image::color::dynamic::format::all,
 	sge::image::view::make_mizuiro_type<
 		boost::mpl::_1,
 		sge::image::integral_size<
@@ -63,11 +58,7 @@ boost::mpl::transform<
 		>,
 		Constness
 	>
->
-{
-};
-
-FCPPT_PP_POP_WARNING
+>::type;
 
 }
 }

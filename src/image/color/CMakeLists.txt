@@ -118,25 +118,25 @@ set(
 	src/image/color/any/from_string.cpp
 	src/image/color/any/object.cpp
 	src/image/color/any/print.cpp
-	src/image/color/dynamic/a8_format.cpp
-	src/image/color/dynamic/bgr32f_format.cpp
-	src/image/color/dynamic/bgr8_format.cpp
-	src/image/color/dynamic/bgra32f_format.cpp
-	src/image/color/dynamic/bgra8_format.cpp
-	src/image/color/dynamic/bgrx8_format.cpp
-	src/image/color/dynamic/from_static_format.cpp
-	src/image/color/dynamic/l8_format.cpp
-	src/image/color/dynamic/la8_format.cpp
-	src/image/color/dynamic/r32f_format.cpp
-	src/image/color/dynamic/rgb32f_format.cpp
-	src/image/color/dynamic/rgb8_format.cpp
-	src/image/color/dynamic/rgba32f_format.cpp
-	src/image/color/dynamic/rgba8_format.cpp
-	src/image/color/dynamic/rgbx8_format.cpp
-	src/image/color/dynamic/sbgr8_format.cpp
-	src/image/color/dynamic/sbgra8_format.cpp
-	src/image/color/dynamic/srgb8_format.cpp
-	src/image/color/dynamic/srgba8_format.cpp
+	src/image/color/dynamic/format/a8.cpp
+	src/image/color/dynamic/format/bgr32f.cpp
+	src/image/color/dynamic/format/bgr8.cpp
+	src/image/color/dynamic/format/bgra32f.cpp
+	src/image/color/dynamic/format/bgra8.cpp
+	src/image/color/dynamic/format/bgrx8.cpp
+	src/image/color/dynamic/format/from_static.cpp
+	src/image/color/dynamic/format/l8.cpp
+	src/image/color/dynamic/format/la8.cpp
+	src/image/color/dynamic/format/r32f.cpp
+	src/image/color/dynamic/format/rgb32f.cpp
+	src/image/color/dynamic/format/rgb8.cpp
+	src/image/color/dynamic/format/rgba32f.cpp
+	src/image/color/dynamic/format/rgba8.cpp
+	src/image/color/dynamic/format/rgbx8.cpp
+	src/image/color/dynamic/format/sbgr8.cpp
+	src/image/color/dynamic/format/sbgra8.cpp
+	src/image/color/dynamic/format/srgb8.cpp
+	src/image/color/dynamic/format/srgba8.cpp
 	src/image/color/element_count.cpp
 	src/image/color/format_element_size.cpp
 	src/image/color/format_is_srgb.cpp
@@ -144,7 +144,6 @@ set(
 	src/image/color/format_to_string.cpp
 	src/image/color/include/sge/src/image/color/any/convert_visitor.hpp
 	src/image/color/include/sge/src/image/color/converter.hpp
-	src/image/color/include/sge/src/image/color/dynamic/a8_format.hpp
 	src/image/color/include/sge/src/image/color/dynamic/algorithm/cac/choose.hpp
 	src/image/color/include/sge/src/image/color/dynamic/algorithm/cac/convert.hpp
 	src/image/color/include/sge/src/image/color/dynamic/algorithm/cac/convert_visitor.hpp
@@ -154,44 +153,43 @@ set(
 	src/image/color/include/sge/src/image/color/dynamic/algorithm/cac/source.hpp
 	src/image/color/include/sge/src/image/color/dynamic/algorithm/cac/visitor.hpp
 	src/image/color/include/sge/src/image/color/dynamic/algorithm/copy_and_convert.hpp
-	src/image/color/include/sge/src/image/color/dynamic/available_channels.hpp
-	src/image/color/include/sge/src/image/color/dynamic/available_channels_fwd.hpp
-	src/image/color/include/sge/src/image/color/dynamic/available_layouts.hpp
-	src/image/color/include/sge/src/image/color/dynamic/available_layouts_fwd.hpp
-	src/image/color/include/sge/src/image/color/dynamic/bgr32f_format.hpp
-	src/image/color/include/sge/src/image/color/dynamic/bgr8_format.hpp
-	src/image/color/include/sge/src/image/color/dynamic/bgra32f_format.hpp
-	src/image/color/include/sge/src/image/color/dynamic/bgra8_format.hpp
-	src/image/color/include/sge/src/image/color/dynamic/bgrx8_format.hpp
-	src/image/color/include/sge/src/image/color/dynamic/c32f_1_format.hpp
-	src/image/color/include/sge/src/image/color/dynamic/c32f_3_format.hpp
-	src/image/color/include/sge/src/image/color/dynamic/c32f_4_format.hpp
-	src/image/color/include/sge/src/image/color/dynamic/c8_1_format.hpp
-	src/image/color/include/sge/src/image/color/dynamic/c8_2_format.hpp
-	src/image/color/include/sge/src/image/color/dynamic/c8_3_format.hpp
-	src/image/color/include/sge/src/image/color/dynamic/c8_4_format.hpp
-	src/image/color/include/sge/src/image/color/dynamic/convert_channel.hpp
-	src/image/color/include/sge/src/image/color/dynamic/format_object_base.hpp
-	src/image/color/include/sge/src/image/color/dynamic/format_object_decl.hpp
-	src/image/color/include/sge/src/image/color/dynamic/format_object_fwd.hpp
-	src/image/color/include/sge/src/image/color/dynamic/format_object_impl.hpp
-	src/image/color/include/sge/src/image/color/dynamic/format_object_traits.hpp
-	src/image/color/include/sge/src/image/color/dynamic/formats.hpp
-	src/image/color/include/sge/src/image/color/dynamic/from_static_format.hpp
-	src/image/color/include/sge/src/image/color/dynamic/from_static_format_type.hpp
-	src/image/color/include/sge/src/image/color/dynamic/l8_format.hpp
-	src/image/color/include/sge/src/image/color/dynamic/la8_format.hpp
-	src/image/color/include/sge/src/image/color/dynamic/r32f_format.hpp
-	src/image/color/include/sge/src/image/color/dynamic/rgb32f_format.hpp
-	src/image/color/include/sge/src/image/color/dynamic/rgb8_format.hpp
-	src/image/color/include/sge/src/image/color/dynamic/rgba32f_format.hpp
-	src/image/color/include/sge/src/image/color/dynamic/rgba8_format.hpp
-	src/image/color/include/sge/src/image/color/dynamic/rgbx8_format.hpp
-	src/image/color/include/sge/src/image/color/dynamic/sbgr8_format.hpp
-	src/image/color/include/sge/src/image/color/dynamic/sbgra8_format.hpp
-	src/image/color/include/sge/src/image/color/dynamic/srgb8_format.hpp
-	src/image/color/include/sge/src/image/color/dynamic/srgba8_format.hpp
-	src/image/color/include/sge/src/image/color/dynamic/static_to_dynamic_channel.hpp
+	src/image/color/include/sge/src/image/color/dynamic/format/a8.hpp
+	src/image/color/include/sge/src/image/color/dynamic/format/all.hpp
+	src/image/color/include/sge/src/image/color/dynamic/format/bgr32f.hpp
+	src/image/color/include/sge/src/image/color/dynamic/format/bgr8.hpp
+	src/image/color/include/sge/src/image/color/dynamic/format/bgra32f.hpp
+	src/image/color/include/sge/src/image/color/dynamic/format/bgra8.hpp
+	src/image/color/include/sge/src/image/color/dynamic/format/bgrx8.hpp
+	src/image/color/include/sge/src/image/color/dynamic/format/empty_c8_1.hpp
+	src/image/color/include/sge/src/image/color/dynamic/format/from_static.hpp
+	src/image/color/include/sge/src/image/color/dynamic/format/from_static_type.hpp
+	src/image/color/include/sge/src/image/color/dynamic/format/l8.hpp
+	src/image/color/include/sge/src/image/color/dynamic/format/la8.hpp
+	src/image/color/include/sge/src/image/color/dynamic/format/luminance_c8_1.hpp
+	src/image/color/include/sge/src/image/color/dynamic/format/luminance_c8_2.hpp
+	src/image/color/include/sge/src/image/color/dynamic/format/object_base_decl.hpp
+	src/image/color/include/sge/src/image/color/dynamic/format/object_base_impl.hpp
+	src/image/color/include/sge/src/image/color/dynamic/format/object_decl.hpp
+	src/image/color/include/sge/src/image/color/dynamic/format/object_fwd.hpp
+	src/image/color/include/sge/src/image/color/dynamic/format/object_impl.hpp
+	src/image/color/include/sge/src/image/color/dynamic/format/object_traits.hpp
+	src/image/color/include/sge/src/image/color/dynamic/format/r32f.hpp
+	src/image/color/include/sge/src/image/color/dynamic/format/r_c32f_1.hpp
+	src/image/color/include/sge/src/image/color/dynamic/format/rgb32f.hpp
+	src/image/color/include/sge/src/image/color/dynamic/format/rgb8.hpp
+	src/image/color/include/sge/src/image/color/dynamic/format/rgb_c32f_3.hpp
+	src/image/color/include/sge/src/image/color/dynamic/format/rgb_c32f_4.hpp
+	src/image/color/include/sge/src/image/color/dynamic/format/rgb_c8_3.hpp
+	src/image/color/include/sge/src/image/color/dynamic/format/rgb_c8_4.hpp
+	src/image/color/include/sge/src/image/color/dynamic/format/rgba32f.hpp
+	src/image/color/include/sge/src/image/color/dynamic/format/rgba8.hpp
+	src/image/color/include/sge/src/image/color/dynamic/format/rgbx8.hpp
+	src/image/color/include/sge/src/image/color/dynamic/format/sbgr8.hpp
+	src/image/color/include/sge/src/image/color/dynamic/format/sbgra8.hpp
+	src/image/color/include/sge/src/image/color/dynamic/format/srgb8.hpp
+	src/image/color/include/sge/src/image/color/dynamic/format/srgb_c8_3.hpp
+	src/image/color/include/sge/src/image/color/dynamic/format/srgb_c8_4.hpp
+	src/image/color/include/sge/src/image/color/dynamic/format/srgba8.hpp
 	src/image/color/include/sge/src/image/color/dynamic/view/basic_elements.hpp
 	src/image/color/include/sge/src/image/color/dynamic/view/basic_variant.hpp
 	src/image/color/include/sge/src/image/color/dynamic/view/color_format.hpp

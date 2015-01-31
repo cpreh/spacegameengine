@@ -25,6 +25,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/image/color/dynamic/algorithm/cac/function.hpp>
 #include <sge/src/image/color/dynamic/view/color_format.hpp>
 #include <mizuiro/color/conversion/same_to_same.hpp>
+#include <mizuiro/color/format/same_spaces.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <type_traits>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -44,33 +48,24 @@ template<
 	typename SourceFormat,
 	typename DestFormat
 >
-sge::image::color::dynamic::algorithm::cac::function<
-	SourceFormat,
-	DestFormat
->
+typename
+std::enable_if<
+	mizuiro::color::format::same_spaces<
+		typename
+		SourceFormat::color_format,
+		typename
+		DestFormat::color_format
+	>::value,
+	sge::image::color::dynamic::algorithm::cac::function<
+		SourceFormat,
+		DestFormat
+	>
+>::type
 choose(
-	SourceFormat const &_source,
-	DestFormat const &_dest
+	SourceFormat const &,
+	DestFormat const &
 )
 {
-	if(
-		sge::image::color::dynamic::view::color_format(
-			_source
-		).layout_type
-		!=
-		sge::image::color::dynamic::view::color_format(
-			_dest
-		).layout_type
-	)
-		throw sge::image::color::invalid_convert(
-			sge::image::color::dynamic::view::color_format(
-				_source
-			).color_format,
-			sge::image::color::dynamic::view::color_format(
-				_dest
-			).color_format
-		);
-
 	return
 		&mizuiro::color::conversion::same_to_same<
 			typename DestFormat::color_format,
@@ -78,6 +73,38 @@ choose(
 				SourceFormat
 			>
 		>;
+}
+
+template<
+	typename SourceFormat,
+	typename DestFormat
+>
+typename
+std::enable_if<
+	!mizuiro::color::format::same_spaces<
+		typename
+		SourceFormat::color_format,
+		typename
+		DestFormat::color_format
+	>::value,
+	sge::image::color::dynamic::algorithm::cac::function<
+		SourceFormat,
+		DestFormat
+	>
+>::type
+choose(
+	SourceFormat const &_source,
+	DestFormat const &_dest
+)
+{
+	throw sge::image::color::invalid_convert(
+		sge::image::color::dynamic::view::color_format(
+			_source
+		).color_format,
+		sge::image::color::dynamic::view::color_format(
+			_dest
+		).color_format
+	);
 }
 
 }
