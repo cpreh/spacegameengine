@@ -801,7 +801,6 @@ set(
 	include/sge/image/view/wrap.hpp
 	include/sge/image/view/wrapped_type.hpp
 	include/sge/image2d/a8_format.hpp
-	include/sge/image2d/algorithm/bresenham.hpp
 	include/sge/image2d/algorithm/clone.hpp
 	include/sge/image2d/algorithm/compare.hpp
 	include/sge/image2d/algorithm/copy.hpp

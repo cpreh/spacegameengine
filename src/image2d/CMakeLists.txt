@@ -1,7 +1,6 @@
 set(
 	SGE_IMAGE2D_FILES
 	include/sge/image2d/a8_format.hpp
-	include/sge/image2d/algorithm/bresenham.hpp
 	include/sge/image2d/algorithm/clone.hpp
 	include/sge/image2d/algorithm/compare.hpp
 	include/sge/image2d/algorithm/copy.hpp
@@ -134,7 +133,6 @@ set(
 	include/sge/image2d/view/sub.hpp
 	include/sge/image2d/view/sub_out_of_range.hpp
 	include/sge/image2d/view/to_const.hpp
-	src/image2d/algorithm/bresenham.cpp
 	src/image2d/algorithm/clone.cpp
 	src/image2d/algorithm/compare.cpp
 	src/image2d/algorithm/copy.cpp
@@ -143,7 +141,6 @@ set(
 	src/image2d/algorithm/print.cpp
 	src/image2d/create_exn.cpp
 	src/image2d/file.cpp
-	src/image2d/include/sge/src/image2d/algorithm/bresenham_visitor.hpp
 	src/image2d/include/sge/src/image2d/logger.hpp
 	src/image2d/load_exn.cpp
 	src/image2d/load_raw_exn.cpp
