@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <mizuiro/detail/pop_warning.hpp>
 #include <mizuiro/image/dimension.hpp>
 #include <mizuiro/image/linear_view.hpp>
-#include <mizuiro/image/pitch_type.hpp>
 #include <mizuiro/image/access/dereference_ns/tag.hpp>
 #include <mizuiro/image/access/stride_ns/tag.hpp>
 #include <mizuiro/image/algorithm/print.hpp>
@@ -366,13 +365,6 @@ struct native_format
 	typedef
 	Dim
 	dim;
-
-	typedef typename
-	mizuiro::image::pitch_type
-	<
-		dim
-	>::type
-	pitch;
 
 	// Own typedefs
 	typedef
