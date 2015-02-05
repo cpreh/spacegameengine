@@ -652,14 +652,6 @@ add_sge_example(
 )
 
 add_sge_console_example(
-	raw_view
-	ADDITIONAL_DEPS
-		${fcppt_core_TARGET}
-	INCLUDE_DIRS
-		${mizuiro_INCLUDE_DIRS}
-)
-
-add_sge_console_example(
 	resource_tree
 	SGE_DEPS
 		sgeconfig
