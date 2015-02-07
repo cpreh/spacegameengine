@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/valuator_value.hpp>
 #include <sge/x11input/device/info/class_cast.hpp>
 #include <sge/x11input/device/info/class_type.hpp>
+#include <fcppt/make_int_range_count.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -55,9 +56,11 @@ sge::x11input::cursor::make_info(
 	sge::x11input::cursor::scroll_valuator_map scroll_valuators;
 
 	for(
-		int index = 0;
-		index < _info.num_classes;
-		++index
+		int const index
+		:
+		fcppt::make_int_range_count(
+			_info.num_classes
+		)
 	)
 	{
 		XIAnyClassInfo const &cur(
@@ -119,9 +122,11 @@ last_value(
 )
 {
 	for(
-		int index = 0;
-		index < _info.num_classes;
-		++index
+		int const index
+		:
+		fcppt::make_int_range_count(
+			_info.num_classes
+		)
 	)
 	{
 		XIAnyClassInfo const &cur(

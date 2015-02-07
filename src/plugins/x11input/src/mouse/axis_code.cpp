@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/mouse/axis_code.hpp>
 #include <sge/x11input/mouse/axis_code.hpp>
+#include <fcppt/maybe.hpp>
 #include <fcppt/optional_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
@@ -30,35 +31,44 @@ sge::x11input::mouse::axis_code(
 	fcppt::optional_string const &_info
 )
 {
-	if(
-		!_info
-	)
-		return sge::input::mouse::axis_code::unknown;
+	return
+		fcppt::maybe(
+			_info,
+			[]
+			{
+				return
+					sge::input::mouse::axis_code::unknown;
+			},
+			[](
+				fcppt::string const &_name
+			)
+			{
+				if(
+					_name == FCPPT_TEXT("Rel X")
+					||
+					_name == FCPPT_TEXT("Abs X")
+				)
+					return
+						sge::input::mouse::axis_code::x;
 
-	fcppt::string const name(
-		*_info
-	);
+				if(
+					_name == FCPPT_TEXT("Rel Y")
+					||
+					_name == FCPPT_TEXT("Abs Y")
+				)
+					return
+						sge::input::mouse::axis_code::y;
 
-	if(
-		name == FCPPT_TEXT("Rel X")
-		||
-		name == FCPPT_TEXT("Abs X")
-	)
-		return sge::input::mouse::axis_code::x;
+				if(
+					_name == FCPPT_TEXT("Rel Z")
+					||
+					_name == FCPPT_TEXT("Abs Z")
+				)
+					return
+						sge::input::mouse::axis_code::wheel;
 
-	if(
-		name == FCPPT_TEXT("Rel Y")
-		||
-		name == FCPPT_TEXT("Abs Y")
-	)
-		return sge::input::mouse::axis_code::y;
-
-	if(
-		name == FCPPT_TEXT("Rel Z")
-		||
-		name == FCPPT_TEXT("Abs Z")
-	)
-		return sge::input::mouse::axis_code::wheel;
-
-	return sge::input::mouse::axis_code::unknown;
+				return
+					sge::input::mouse::axis_code::unknown;
+			}
+		);
 }

@@ -24,7 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/mouse/button_code.hpp>
 #include <sge/x11input/mouse/button_infos.hpp>
 #include <awl/backends/x11/display_fwd.hpp>
+#include <fcppt/make_int_range_count.hpp>
 #include <fcppt/optional_string.hpp>
+#include <fcppt/algorithm/map.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
@@ -36,33 +38,36 @@ sge::x11input::mouse::button_infos(
 	awl::backends::x11::display &_display
 )
 {
-	sge::input::mouse::button_info_container::vector ret;
-
-	for(
-		int button_index(0);
-		button_index < _info.num_buttons;
-		++button_index
-	)
-	{
-		fcppt::optional_string const name(
-			sge::x11input::device::info::string_from_atom(
-				_display,
-				_info.labels[
-					button_index
-				]
-			)
-		);
-
-		ret.push_back(
-			sge::input::mouse::button_info(
-				sge::x11input::mouse::button_code(
-					name
-				),
-				name
-			)
-		);
-	}
-
 	return
-		ret;
+		fcppt::algorithm::map<
+			sge::input::mouse::button_info_container::vector
+		>(
+			fcppt::make_int_range_count(
+				_info.num_buttons
+			),
+			[
+				&_info,
+				&_display
+			](
+				int const _button_index
+			)
+			{
+				fcppt::optional_string const name(
+					sge::x11input::device::info::string_from_atom(
+						_display,
+						_info.labels[
+							_button_index
+						]
+					)
+				);
+
+				return
+					sge::input::mouse::button_info(
+						sge::x11input::mouse::button_code(
+							name
+						),
+						name
+					);
+			}
+		);
 }

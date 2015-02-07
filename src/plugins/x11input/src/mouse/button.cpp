@@ -28,8 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::input::mouse::button const
 sge::x11input::mouse::button(
-	x11input::device::window_event const &_event,
-	input::mouse::button_info_container const &_info
+	sge::x11input::device::window_event const &_event,
+	sge::input::mouse::button_info_container const &_info
 )
 {
 	int const detail(

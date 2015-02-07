@@ -40,13 +40,15 @@ sge::x11input::cursor::scroll_valuator::scroll_valuator(
 sge::x11input::device::valuator_value const
 sge::x11input::cursor::scroll_valuator::last_value() const
 {
-	return value_;
+	return
+		value_;
 }
 
 sge::input::cursor::scroll_code
 sge::x11input::cursor::scroll_valuator::code() const
 {
-	return code_;
+	return
+		code_;
 }
 
 void
@@ -54,5 +56,6 @@ sge::x11input::cursor::scroll_valuator::last_value(
 	sge::x11input::device::valuator_value const _value
 )
 {
-	value_ = _value;
+	value_ =
+		_value;
 }

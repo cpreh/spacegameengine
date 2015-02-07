@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/mouse/button_code.hpp>
 #include <sge/x11input/mouse/button_code.hpp>
+#include <fcppt/maybe.hpp>
 #include <fcppt/optional_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
@@ -30,29 +31,37 @@ sge::x11input::mouse::button_code(
 	fcppt::optional_string const &_info
 )
 {
-	if(
-		!_info
-	)
-		return sge::input::mouse::button_code::unknown;
+	return
+		fcppt::maybe(
+			_info,
+			[]{
+				return
+					sge::input::mouse::button_code::unknown;
+			},
+			[](
+				fcppt::string const &_name
+			)
+			{
+				if(
+					_name == FCPPT_TEXT("Button Left")
+				)
+					return
+						sge::input::mouse::button_code::left;
 
-	fcppt::string const name(
-		*_info
-	);
+				if(
+					_name == FCPPT_TEXT("Button Right")
+				)
+					return
+						sge::input::mouse::button_code::right;
 
-	if(
-		name == FCPPT_TEXT("Button Left")
-	)
-		return sge::input::mouse::button_code::left;
+				if(
+					_name == FCPPT_TEXT("Button Middle")
+				)
+					return
+						sge::input::mouse::button_code::middle;
 
-	if(
-		name == FCPPT_TEXT("Button Right")
-	)
-		return sge::input::mouse::button_code::right;
-
-	if(
-		name == FCPPT_TEXT("Button Middle")
-	)
-		return sge::input::mouse::button_code::middle;
-
-	return sge::input::mouse::button_code::unknown;
+				return
+					sge::input::mouse::button_code::unknown;
+			}
+		);
 }

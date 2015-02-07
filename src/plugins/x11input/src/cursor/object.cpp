@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/cursor/make_info.hpp>
 #include <sge/x11input/cursor/object.hpp>
 #include <sge/x11input/cursor/query_pointer.hpp>
-#include <sge/x11input/cursor/scroll_valuator_map.hpp>
+#include <sge/x11input/cursor/scroll_valuator.hpp>
 #include <sge/x11input/cursor/scroll_value.hpp>
 #include <sge/x11input/device/enter_event.hpp>
 #include <sge/x11input/device/foreach_valuator.hpp>
@@ -44,10 +44,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/window_event.hpp>
 #include <awl/backends/x11/cursor/object_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/maybe_void.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/cast/float_to_int.hpp>
+#include <fcppt/container/find_opt.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/signal/auto_connection_container.hpp>
@@ -260,6 +262,7 @@ sge::x11input::cursor::object::on_motion(
 		)
 	);
 
+	// TODO: Update position only when needed
 	this->update_position(
 		_event
 	);
@@ -331,38 +334,37 @@ sge::x11input::cursor::object::process_valuator(
 	sge::x11input::device::valuator_value const _value
 )
 {
-	sge::x11input::cursor::scroll_valuator_map &scroll_valuators(
-		info_.scroll_valuators()
-	);
-
-	sge::x11input::cursor::scroll_valuator_map::iterator const it(
-		scroll_valuators.find(
+	fcppt::maybe_void(
+		fcppt::container::find_opt(
+			info_.scroll_valuators(),
 			_index
+		),
+		[
+			&_value,
+			this
+		](
+			sge::x11input::cursor::scroll_valuator &_valuator
 		)
-	);
+		{
+			sge::x11input::device::valuator_value const delta(
+				_value
+				-
+				_valuator.last_value()
+			);
 
-	if(
-		it == scroll_valuators.end()
-	)
-		return;
+			_valuator.last_value(
+				_value
+			);
 
-	sge::x11input::device::valuator_value const delta(
-		_value
-		-
-		it->second.last_value()
-	);
-
-	it->second.last_value(
-		_value
-	);
-
-	scroll_signal_(
-		sge::input::cursor::scroll_event(
-			it->second.code(),
-			sge::x11input::cursor::scroll_value(
-				delta
-			)
-		)
+			scroll_signal_(
+				sge::input::cursor::scroll_event(
+					_valuator.code(),
+					sge::x11input::cursor::scroll_value(
+						delta
+					)
+				)
+			);
+		}
 	);
 }
 

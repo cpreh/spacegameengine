@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/mouse/button_infos.hpp>
 #include <sge/x11input/mouse/info.hpp>
 #include <awl/backends/x11/display_fwd.hpp>
+#include <fcppt/make_int_range_count.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
@@ -45,9 +46,11 @@ sge::x11input::mouse::info(
 	sge::input::mouse::button_info_container::vector buttons;
 
 	for(
-		int index = 0;
-		index < _info.num_classes;
-		++index
+		int const index
+		:
+		fcppt::make_int_range_count(
+			_info.num_classes
+		)
 	)
 	{
 		XIAnyClassInfo const &cur(
