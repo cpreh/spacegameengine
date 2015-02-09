@@ -18,25 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/mouse/axis_value.hpp>
+#ifndef SGE_X11INPUT_DEVICE_VALUATOR_ACCU_MAP_HPP_INCLUDED
+#define SGE_X11INPUT_DEVICE_VALUATOR_ACCU_MAP_HPP_INCLUDED
+
 #include <sge/x11input/device/valuator/accu.hpp>
-#include <sge/x11input/device/valuator/update_accu.hpp>
-#include <sge/x11input/device/valuator/value.hpp>
-#include <sge/x11input/mouse/axis_value.hpp>
-#include <fcppt/preprocessor/todo.hpp>
+#include <sge/x11input/device/valuator/index.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <unordered_map>
+#include <fcppt/config/external_end.hpp>
 
 
-sge::input::mouse::axis_value
-sge::x11input::mouse::axis_value(
-	sge::x11input::device::valuator::accu &_accu,
-	sge::x11input::device::valuator::value const _value
-)
+namespace sge
 {
-	return
-		sge::x11input::device::valuator::update_accu<
-			sge::input::mouse::axis_value
-		>(
-			_accu,
-			_value
-		);
+namespace x11input
+{
+namespace device
+{
+namespace valuator
+{
+
+typedef
+std::unordered_map<
+	sge::x11input::device::valuator::index,
+	sge::x11input::device::valuator::accu
+>
+accu_map;
+
 }
+}
+}
+}
+
+#endif

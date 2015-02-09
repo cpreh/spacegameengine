@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/parameters.hpp>
 #include <sge/x11input/device/raw_demuxer.hpp>
 #include <sge/x11input/device/raw_event.hpp>
+#include <sge/x11input/device/valuator/accu.hpp>
 #include <sge/x11input/device/valuator/foreach.hpp>
 #include <sge/x11input/device/valuator/index.hpp>
 #include <sge/x11input/device/valuator/value.hpp>
@@ -41,6 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/system/event/processor.hpp>
 #include <awl/backends/x11/window/object.hpp>
 #include <fcppt/assign/make_container.hpp>
+#include <fcppt/container/get_or_insert.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/auto_connection_container.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -58,6 +60,7 @@ sge::x11input::mouse::device::device(
 	sge::x11input::device::object(
 		_param.id()
 	),
+	accus_(),
 	connections_(
 		fcppt::assign::make_container<
 			fcppt::signal::auto_connection_container
@@ -175,6 +178,18 @@ sge::x11input::mouse::device::process_valuator(
 				info_.axes()
 			),
 			sge::x11input::mouse::axis_value(
+				fcppt::container::get_or_insert(
+					accus_,
+					_index,
+					[](
+						sge::x11input::device::valuator::index
+					){
+						return
+							sge::x11input::device::valuator::accu{
+								0.
+							};
+					}
+				),
 				_value
 			)
 		)

@@ -18,25 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/mouse/axis_value.hpp>
-#include <sge/x11input/device/valuator/accu.hpp>
-#include <sge/x11input/device/valuator/update_accu.hpp>
-#include <sge/x11input/device/valuator/value.hpp>
-#include <sge/x11input/mouse/axis_value.hpp>
-#include <fcppt/preprocessor/todo.hpp>
+#ifndef SGE_X11INPUT_DEVICE_VALUATOR_ACCU_HPP_INCLUDED
+#define SGE_X11INPUT_DEVICE_VALUATOR_ACCU_HPP_INCLUDED
+
+#include <fcppt/strong_typedef.hpp>
 
 
-sge::input::mouse::axis_value
-sge::x11input::mouse::axis_value(
-	sge::x11input::device::valuator::accu &_accu,
-	sge::x11input::device::valuator::value const _value
-)
+namespace sge
 {
-	return
-		sge::x11input::device::valuator::update_accu<
-			sge::input::mouse::axis_value
-		>(
-			_accu,
-			_value
-		);
+namespace x11input
+{
+namespace device
+{
+namespace valuator
+{
+
+FCPPT_MAKE_STRONG_TYPEDEF(
+	double,
+	accu
+);
+
 }
+}
+}
+}
+
+#endif

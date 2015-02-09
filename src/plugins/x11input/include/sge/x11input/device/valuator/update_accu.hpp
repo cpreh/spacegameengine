@@ -18,25 +18,62 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/mouse/axis_value.hpp>
+#ifndef SGE_X11INPUT_DEVICE_VALUATOR_UPDATE_ACCU_HPP_INCLUDED
+#define SGE_X11INPUT_DEVICE_VALUATOR_UPDATE_ACCU_HPP_INCLUDED
+
 #include <sge/x11input/device/valuator/accu.hpp>
-#include <sge/x11input/device/valuator/update_accu.hpp>
 #include <sge/x11input/device/valuator/value.hpp>
-#include <sge/x11input/mouse/axis_value.hpp>
-#include <fcppt/preprocessor/todo.hpp>
+#include <fcppt/cast/float_to_int.hpp>
+#include <fcppt/cast/int_to_float.hpp>
 
 
-sge::input::mouse::axis_value
-sge::x11input::mouse::axis_value(
+namespace sge
+{
+namespace x11input
+{
+namespace device
+{
+namespace valuator
+{
+
+template<
+	typename Result
+>
+Result
+update_accu(
 	sge::x11input::device::valuator::accu &_accu,
 	sge::x11input::device::valuator::value const _value
 )
 {
-	return
-		sge::x11input::device::valuator::update_accu<
-			sge::input::mouse::axis_value
+	_accu +=
+		sge::x11input::device::valuator::accu{
+			_value.get()
+		};
+
+	Result const diff{
+		fcppt::cast::float_to_int<
+			Result
 		>(
-			_accu,
-			_value
-		);
+			_accu.get()
+		)
+	};
+
+	_accu -=
+		sge::x11input::device::valuator::accu{
+			fcppt::cast::int_to_float<
+				sge::x11input::device::valuator::accu::value_type
+			>(
+				diff
+			)
+		};
+
+	return
+		diff;
 }
+
+}
+}
+}
+}
+
+#endif

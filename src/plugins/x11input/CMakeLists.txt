@@ -70,9 +70,12 @@ set(
 	src/plugins/x11input/include/sge/x11input/device/raw_event_fwd.hpp
 	src/plugins/x11input/include/sge/x11input/device/select_events.hpp
 	src/plugins/x11input/include/sge/x11input/device/use.hpp
+	src/plugins/x11input/include/sge/x11input/device/valuator/accu.hpp
+	src/plugins/x11input/include/sge/x11input/device/valuator/accu_map.hpp
 	src/plugins/x11input/include/sge/x11input/device/valuator/callback.hpp
 	src/plugins/x11input/include/sge/x11input/device/valuator/foreach.hpp
 	src/plugins/x11input/include/sge/x11input/device/valuator/index.hpp
+	src/plugins/x11input/include/sge/x11input/device/valuator/update_accu.hpp
 	src/plugins/x11input/include/sge/x11input/device/valuator/value.hpp
 	src/plugins/x11input/include/sge/x11input/device/window_demuxer.hpp
 	src/plugins/x11input/include/sge/x11input/device/window_demuxer_fwd.hpp
