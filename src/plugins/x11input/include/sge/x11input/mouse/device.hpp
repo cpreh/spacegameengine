@@ -30,8 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/object.hpp>
 #include <sge/x11input/device/parameters_fwd.hpp>
 #include <sge/x11input/device/raw_event_fwd.hpp>
-#include <sge/x11input/device/valuator_index.hpp>
-#include <sge/x11input/device/valuator_value.hpp>
+#include <sge/x11input/device/valuator/index.hpp>
+#include <sge/x11input/device/valuator/value.hpp>
 #include <sge/x11input/device/window_event_fwd.hpp>
 #include <sge/x11input/mouse/device_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -87,8 +87,8 @@ private:
 
 	void
 	process_valuator(
-		sge::x11input::device::valuator_index,
-		sge::x11input::device::valuator_value
+		sge::x11input::device::valuator::index,
+		sge::x11input::device::valuator::value
 	);
 
 	void

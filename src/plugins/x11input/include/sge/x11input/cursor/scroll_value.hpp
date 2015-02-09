@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_CURSOR_SCROLL_VALUE_HPP_INCLUDED
 
 #include <sge/input/cursor/scroll_value.hpp>
-#include <sge/x11input/device/valuator_value.hpp>
+#include <sge/x11input/device/valuator/value.hpp>
 
 
 namespace sge
@@ -34,7 +34,7 @@ namespace cursor
 
 sge::input::cursor::scroll_value
 scroll_value(
-	sge::x11input::device::valuator_value
+	sge::x11input::device::valuator::value
 );
 
 }

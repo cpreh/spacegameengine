@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <X11/extensions/XI2.h>
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
 
@@ -45,6 +46,7 @@ sge::x11input::mouse::info(
 
 	sge::input::mouse::button_info_container::vector buttons;
 
+	// TODO: Use proper algorithms for this
 	for(
 		int const index
 		:
@@ -81,16 +83,27 @@ sge::x11input::mouse::info(
 				);
 			break;
 		case XIValuatorClass:
-			axis.push_back(
-				sge::x11input::mouse::axis_info(
+			{
+				XIValuatorClassInfo const &info(
 					sge::x11input::device::info::class_cast<
 						XIValuatorClassInfo const &
 					>(
 						cur
-					),
-					_display
+					)
+				);
+
+				if(
+					info.mode
+					==
+					XIModeRelative
 				)
-			);
+					axis.push_back(
+						sge::x11input::mouse::axis_info(
+							info,
+							_display
+						)
+					);
+			}
 			break;
 		}
 	}

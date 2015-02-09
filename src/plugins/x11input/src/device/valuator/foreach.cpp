@@ -19,10 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/x11input/mask_is_set.hpp>
-#include <sge/x11input/device/foreach_valuator.hpp>
-#include <sge/x11input/device/valuator_callback.hpp>
-#include <sge/x11input/device/valuator_index.hpp>
-#include <sge/x11input/device/valuator_value.hpp>
+#include <sge/x11input/device/valuator/callback.hpp>
+#include <sge/x11input/device/valuator/foreach.hpp>
+#include <sge/x11input/device/valuator/index.hpp>
+#include <sge/x11input/device/valuator/value.hpp>
+#include <fcppt/make_int_range_count.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
@@ -31,45 +32,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 void
-sge::x11input::device::foreach_valuator(
+sge::x11input::device::valuator::foreach(
 	XIValuatorState const &_valuators,
-	sge::x11input::device::valuator_callback const &_callback
+	sge::x11input::device::valuator::callback const &_callback
 )
 {
-	if(
-		_valuators.mask_len == 0
-	)
-		return;
-
-	double const *valuator(
-		_valuators.values
-	);
-
 	for(
-		int index = 0;
-		index < _valuators.mask_len * CHAR_BIT;
-		++index
+		int const index
+		:
+		fcppt::make_int_range_count(
+			_valuators.mask_len
+			*
+			CHAR_BIT
+		)
 	)
-	{
 		if(
 			sge::x11input::mask_is_set(
 				_valuators.mask,
 				index
 			)
 		)
-		{
 			_callback(
 				fcppt::strong_typedef_construct_cast<
-					sge::x11input::device::valuator_index
+					sge::x11input::device::valuator::index
 				>(
 					index
 				),
-				sge::x11input::device::valuator_value(
-					*valuator
+				sge::x11input::device::valuator::value(
+					_valuators.values[
+						index
+					]
 				)
 			);
-
-			++valuator;
-		}
-	}
 }

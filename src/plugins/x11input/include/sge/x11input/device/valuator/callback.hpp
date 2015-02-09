@@ -18,10 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_DEVICE_VALUATOR_INDEX_HPP_INCLUDED
-#define SGE_X11INPUT_DEVICE_VALUATOR_INDEX_HPP_INCLUDED
+#ifndef SGE_X11INPUT_DEVICE_VALUATOR_CALLBACK_HPP_INCLUDED
+#define SGE_X11INPUT_DEVICE_VALUATOR_CALLBACK_HPP_INCLUDED
 
-#include <fcppt/strong_typedef.hpp>
+#include <sge/x11input/device/valuator/index.hpp>
+#include <sge/x11input/device/valuator/value.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -30,12 +34,19 @@ namespace x11input
 {
 namespace device
 {
+namespace valuator
+{
 
-FCPPT_MAKE_STRONG_TYPEDEF(
-	unsigned,
-	valuator_index
-);
+typedef
+std::function<
+	void (
+		sge::x11input::device::valuator::index,
+		sge::x11input::device::valuator::value
+	)
+>
+callback;
 
+}
 }
 }
 }

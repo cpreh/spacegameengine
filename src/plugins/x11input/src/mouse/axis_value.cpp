@@ -19,14 +19,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/input/mouse/axis_value.hpp>
-#include <sge/x11input/device/valuator_value.hpp>
+#include <sge/x11input/device/valuator/value.hpp>
 #include <sge/x11input/mouse/axis_value.hpp>
 #include <fcppt/preprocessor/todo.hpp>
 
 
 sge::input::mouse::axis_value
 sge::x11input::mouse::axis_value(
-	sge::x11input::device::valuator_value const _value
+	sge::x11input::device::valuator::value const _value
 )
 {
 	FCPPT_PP_TODO("Should we translate doubles differently?")

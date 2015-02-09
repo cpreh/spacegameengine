@@ -33,7 +33,6 @@ set(
 	src/plugins/x11input/include/sge/x11input/device/event_demuxer_impl.hpp
 	src/plugins/x11input/include/sge/x11input/device/event_deviceid.hpp
 	src/plugins/x11input/include/sge/x11input/device/event_fwd.hpp
-	src/plugins/x11input/include/sge/x11input/device/foreach_valuator.hpp
 	src/plugins/x11input/include/sge/x11input/device/has_deviceid.hpp
 	src/plugins/x11input/include/sge/x11input/device/has_deviceid_function.hpp
 	src/plugins/x11input/include/sge/x11input/device/hierarchy_demuxer.hpp
@@ -71,9 +70,10 @@ set(
 	src/plugins/x11input/include/sge/x11input/device/raw_event_fwd.hpp
 	src/plugins/x11input/include/sge/x11input/device/select_events.hpp
 	src/plugins/x11input/include/sge/x11input/device/use.hpp
-	src/plugins/x11input/include/sge/x11input/device/valuator_callback.hpp
-	src/plugins/x11input/include/sge/x11input/device/valuator_index.hpp
-	src/plugins/x11input/include/sge/x11input/device/valuator_value.hpp
+	src/plugins/x11input/include/sge/x11input/device/valuator/callback.hpp
+	src/plugins/x11input/include/sge/x11input/device/valuator/foreach.hpp
+	src/plugins/x11input/include/sge/x11input/device/valuator/index.hpp
+	src/plugins/x11input/include/sge/x11input/device/valuator/value.hpp
 	src/plugins/x11input/include/sge/x11input/device/window_demuxer.hpp
 	src/plugins/x11input/include/sge/x11input/device/window_demuxer_fwd.hpp
 	src/plugins/x11input/include/sge/x11input/device/window_event.hpp
@@ -136,7 +136,6 @@ set(
 	src/plugins/x11input/src/device/enter_demuxer.cpp
 	src/plugins/x11input/src/device/event.cpp
 	src/plugins/x11input/src/device/event_data.cpp
-	src/plugins/x11input/src/device/foreach_valuator.cpp
 	src/plugins/x11input/src/device/hierarchy_demuxer.cpp
 	src/plugins/x11input/src/device/info/base.cpp
 	src/plugins/x11input/src/device/info/class_type.cpp
@@ -150,6 +149,7 @@ set(
 	src/plugins/x11input/src/device/parameters.cpp
 	src/plugins/x11input/src/device/raw_demuxer.cpp
 	src/plugins/x11input/src/device/select_events.cpp
+	src/plugins/x11input/src/device/valuator/foreach.cpp
 	src/plugins/x11input/src/device/window_demuxer.cpp
 	src/plugins/x11input/src/exports.cpp
 	src/plugins/x11input/src/input_context.cpp

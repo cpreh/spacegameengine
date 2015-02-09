@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/cursor/scroll_code.hpp>
 #include <sge/x11input/cursor/scroll_valuator.hpp>
 #include <sge/x11input/cursor/scroll_valuator_map.hpp>
-#include <sge/x11input/device/valuator_index.hpp>
-#include <sge/x11input/device/valuator_value.hpp>
+#include <sge/x11input/device/valuator/index.hpp>
+#include <sge/x11input/device/valuator/value.hpp>
 #include <sge/x11input/device/info/class_cast.hpp>
 #include <sge/x11input/device/info/class_type.hpp>
 #include <fcppt/make_int_range_count.hpp>
@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-sge::x11input::device::valuator_value const
+sge::x11input::device::valuator::value const
 last_value(
 	XIDeviceInfo const &,
 	int number
@@ -88,7 +88,7 @@ sge::x11input::cursor::make_info(
 			scroll_valuators.insert(
 				std::make_pair(
 					fcppt::strong_typedef_construct_cast<
-						sge::x11input::device::valuator_index
+						sge::x11input::device::valuator::index
 					>(
 						scroll_class.number
 					),
@@ -115,7 +115,7 @@ sge::x11input::cursor::make_info(
 namespace
 {
 
-sge::x11input::device::valuator_value const
+sge::x11input::device::valuator::value const
 last_value(
 	XIDeviceInfo const &_info,
 	int const _number
@@ -157,7 +157,7 @@ last_value(
 				_number
 			)
 				return
-					sge::x11input::device::valuator_value(
+					sge::x11input::device::valuator::value(
 						valuator_class.value
 					);
 		}

@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_CURSOR_SCROLL_VALUATOR_MAP_HPP_INCLUDED
 
 #include <sge/x11input/cursor/scroll_valuator.hpp>
-#include <sge/x11input/device/valuator_index.hpp>
+#include <sge/x11input/device/valuator/index.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <map>
+#include <unordered_map>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -35,10 +35,12 @@ namespace x11input
 namespace cursor
 {
 
-typedef std::map<
-	sge::x11input::device::valuator_index,
+typedef
+std::unordered_map<
+	sge::x11input::device::valuator::index,
 	sge::x11input::cursor::scroll_valuator
-> scroll_valuator_map;
+>
+scroll_valuator_map;
 
 }
 }

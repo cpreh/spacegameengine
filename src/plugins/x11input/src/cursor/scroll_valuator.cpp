@@ -20,11 +20,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/cursor/scroll_code.hpp>
 #include <sge/x11input/cursor/scroll_valuator.hpp>
-#include <sge/x11input/device/valuator_value.hpp>
+#include <sge/x11input/device/valuator/value.hpp>
 
 
 sge::x11input::cursor::scroll_valuator::scroll_valuator(
-	sge::x11input::device::valuator_value const _value,
+	sge::x11input::device::valuator::value const _value,
 	sge::input::cursor::scroll_code const _code
 )
 :
@@ -37,7 +37,7 @@ sge::x11input::cursor::scroll_valuator::scroll_valuator(
 {
 }
 
-sge::x11input::device::valuator_value const
+sge::x11input::device::valuator::value const
 sge::x11input::cursor::scroll_valuator::last_value() const
 {
 	return
@@ -53,7 +53,7 @@ sge::x11input::cursor::scroll_valuator::code() const
 
 void
 sge::x11input::cursor::scroll_valuator::last_value(
-	sge::x11input::device::valuator_value const _value
+	sge::x11input::device::valuator::value const _value
 )
 {
 	value_ =

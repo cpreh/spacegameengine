@@ -23,12 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/button.hpp>
 #include <sge/input/mouse/button_event.hpp>
 #include <sge/input/mouse/info.hpp>
-#include <sge/x11input/device/foreach_valuator.hpp>
 #include <sge/x11input/device/parameters.hpp>
 #include <sge/x11input/device/raw_demuxer.hpp>
 #include <sge/x11input/device/raw_event.hpp>
-#include <sge/x11input/device/valuator_index.hpp>
-#include <sge/x11input/device/valuator_value.hpp>
+#include <sge/x11input/device/valuator/foreach.hpp>
+#include <sge/x11input/device/valuator/index.hpp>
+#include <sge/x11input/device/valuator/value.hpp>
 #include <sge/x11input/device/window_demuxer.hpp>
 #include <sge/x11input/device/window_event.hpp>
 #include <sge/x11input/mouse/axis.hpp>
@@ -142,7 +142,8 @@ sge::x11input::mouse::device::button_callback(
 sge::input::mouse::info const &
 sge::x11input::mouse::device::info() const
 {
-	return info_;
+	return
+		info_;
 }
 
 void
@@ -150,7 +151,7 @@ sge::x11input::mouse::device::on_motion(
 	sge::x11input::device::raw_event const &_event
 )
 {
-	sge::x11input::device::foreach_valuator(
+	sge::x11input::device::valuator::foreach(
 		_event.get().valuators,
 		std::bind(
 			&sge::x11input::mouse::device::process_valuator,
@@ -163,8 +164,8 @@ sge::x11input::mouse::device::on_motion(
 
 void
 sge::x11input::mouse::device::process_valuator(
-	sge::x11input::device::valuator_index const _index,
-	sge::x11input::device::valuator_value const _value
+	sge::x11input::device::valuator::index const _index,
+	sge::x11input::device::valuator::value const _value
 )
 {
 	axis_signal_(

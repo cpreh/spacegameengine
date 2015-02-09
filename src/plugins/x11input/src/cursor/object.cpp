@@ -35,13 +35,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/cursor/scroll_valuator.hpp>
 #include <sge/x11input/cursor/scroll_value.hpp>
 #include <sge/x11input/device/enter_event.hpp>
-#include <sge/x11input/device/foreach_valuator.hpp>
 #include <sge/x11input/device/leave_event_fwd.hpp>
 #include <sge/x11input/device/parameters.hpp>
-#include <sge/x11input/device/valuator_index.hpp>
-#include <sge/x11input/device/valuator_value.hpp>
 #include <sge/x11input/device/window_demuxer.hpp>
 #include <sge/x11input/device/window_event.hpp>
+#include <sge/x11input/device/valuator/foreach.hpp>
+#include <sge/x11input/device/valuator/index.hpp>
+#include <sge/x11input/device/valuator/value.hpp>
 #include <awl/backends/x11/cursor/object_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/maybe_void.hpp>
@@ -252,7 +252,7 @@ sge::x11input::cursor::object::on_motion(
 	sge::x11input::device::window_event const &_event
 )
 {
-	sge::x11input::device::foreach_valuator(
+	sge::x11input::device::valuator::foreach(
 		_event.get().valuators,
 		std::bind(
 			&sge::x11input::cursor::object::process_valuator,
@@ -262,7 +262,6 @@ sge::x11input::cursor::object::on_motion(
 		)
 	);
 
-	// TODO: Update position only when needed
 	this->update_position(
 		_event
 	);
@@ -330,8 +329,8 @@ sge::x11input::cursor::object::update_position(
 
 void
 sge::x11input::cursor::object::process_valuator(
-	sge::x11input::device::valuator_index const _index,
-	sge::x11input::device::valuator_value const _value
+	sge::x11input::device::valuator::index const _index,
+	sge::x11input::device::valuator::value const _value
 )
 {
 	fcppt::maybe_void(
@@ -346,7 +345,7 @@ sge::x11input::cursor::object::process_valuator(
 			sge::x11input::cursor::scroll_valuator &_valuator
 		)
 		{
-			sge::x11input::device::valuator_value const delta(
+			sge::x11input::device::valuator::value const delta(
 				_value
 				-
 				_valuator.last_value()
