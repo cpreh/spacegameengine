@@ -18,34 +18,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_CURSOR_INFO_HPP_INCLUDED
-#define SGE_X11INPUT_CURSOR_INFO_HPP_INCLUDED
+#ifndef SGE_X11INPUT_DEVICE_VALUATOR_RELATIVE_HPP_INCLUDED
+#define SGE_X11INPUT_DEVICE_VALUATOR_RELATIVE_HPP_INCLUDED
 
-#include <sge/x11input/cursor/info_fwd.hpp>
-#include <sge/x11input/cursor/scroll_valuator_map.hpp>
+#include <sge/x11input/device/valuator/accu.hpp>
+#include <sge/x11input/device/valuator/relative_fwd.hpp>
 
 
 namespace sge
 {
 namespace x11input
 {
-namespace cursor
+namespace device
+{
+namespace valuator
 {
 
-class info
+class relative
 {
 public:
+	relative();
+
 	explicit
-	info(
-		sge::x11input::cursor::scroll_valuator_map const &
+	relative(
+		sge::x11input::device::valuator::accu
 	);
 
-	sge::x11input::cursor::scroll_valuator_map &
-	scroll_valuators();
+	sge::x11input::device::valuator::accu const
+	accu() const;
 private:
-	sge::x11input::cursor::scroll_valuator_map scroll_valuators_;
+	sge::x11input::device::valuator::accu accu_;
 };
 
+}
 }
 }
 }

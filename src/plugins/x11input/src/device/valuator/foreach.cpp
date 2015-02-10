@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/valuator/index.hpp>
 #include <sge/x11input/device/valuator/value.hpp>
 #include <fcppt/make_int_range_count.hpp>
-#include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
 #include <climits>
@@ -37,6 +36,10 @@ sge::x11input::device::valuator::foreach(
 	sge::x11input::device::valuator::callback const &_callback
 )
 {
+	double const *valuator{
+		_valuators.values
+	};
+
 	for(
 		int const index
 		:
@@ -52,16 +55,16 @@ sge::x11input::device::valuator::foreach(
 				index
 			)
 		)
+		{
 			_callback(
-				fcppt::strong_typedef_construct_cast<
-					sge::x11input::device::valuator::index
-				>(
+				sge::x11input::device::valuator::index{
 					index
-				),
+				},
 				sge::x11input::device::valuator::value(
-					_valuators.values[
-						index
-					]
+					*valuator
 				)
 			);
+
+			++valuator;
+		}
 }

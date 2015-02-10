@@ -23,12 +23,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/valuator/update_accu.hpp>
 #include <sge/x11input/device/valuator/value.hpp>
 #include <sge/x11input/mouse/axis_value.hpp>
+#include <sge/x11input/mouse/axis_value_accu_pair.hpp>
 #include <fcppt/preprocessor/todo.hpp>
 
 
-sge::input::mouse::axis_value
+sge::x11input::mouse::axis_value_accu_pair const
 sge::x11input::mouse::axis_value(
-	sge::x11input::device::valuator::accu &_accu,
+	sge::x11input::device::valuator::accu const _accu,
 	sge::x11input::device::valuator::value const _value
 )
 {

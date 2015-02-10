@@ -27,6 +27,7 @@ sge::x11input::cursor::button_code(
 	int const _detail
 )
 {
+	// FIXME: This is certainly wrong
 	switch(
 		_detail
 	)

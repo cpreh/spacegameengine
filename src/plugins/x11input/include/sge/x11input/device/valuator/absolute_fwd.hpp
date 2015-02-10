@@ -18,18 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/cursor/scroll_value.hpp>
-#include <sge/x11input/cursor/scroll_value.hpp>
-#include <sge/x11input/device/valuator/value.hpp>
-#include <fcppt/preprocessor/todo.hpp>
+#ifndef SGE_X11INPUT_DEVICE_VALUATOR_ABSOLUTE_FWD_HPP_INCLUDED
+#define SGE_X11INPUT_DEVICE_VALUATOR_ABSOLUTE_FWD_HPP_INCLUDED
 
 
-sge::input::cursor::scroll_value
-sge::x11input::cursor::scroll_value(
-	sge::x11input::device::valuator::value const _value
-)
+namespace sge
 {
-	FCPPT_PP_TODO("Should we translate doubles differently?")
+namespace x11input
+{
+namespace device
+{
+namespace valuator
+{
 
-	return _value.get();
+class absolute;
+
 }
+}
+}
+}
+
+#endif

@@ -18,29 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_DEVICE_VALUATOR_INDEX_HPP_INCLUDED
-#define SGE_X11INPUT_DEVICE_VALUATOR_INDEX_HPP_INCLUDED
+#ifndef SGE_X11INPUT_DEVICE_VALUATOR_ANY_HPP_INCLUDED
+#define SGE_X11INPUT_DEVICE_VALUATOR_ANY_HPP_INCLUDED
 
-#include <fcppt/strong_typedef.hpp>
+#include <sge/x11input/device/valuator/absolute.hpp>
+#include <sge/x11input/device/valuator/any_fwd.hpp>
+#include <sge/x11input/device/valuator/relative.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
-
-namespace sge
-{
-namespace x11input
-{
-namespace device
-{
-namespace valuator
-{
-
-FCPPT_MAKE_STRONG_TYPEDEF(
-	int,
-	index
-);
-
-}
-}
-}
-}
 
 #endif

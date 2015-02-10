@@ -18,27 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_CURSOR_MAKE_INFO_HPP_INCLUDED
-#define SGE_X11INPUT_CURSOR_MAKE_INFO_HPP_INCLUDED
-
-#include <sge/x11input/cursor/info_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <X11/extensions/XInput2.h>
-#include <fcppt/config/external_end.hpp>
+#ifndef SGE_X11INPUT_DEVICE_VALUATOR_RELATIVE_FWD_HPP_INCLUDED
+#define SGE_X11INPUT_DEVICE_VALUATOR_RELATIVE_FWD_HPP_INCLUDED
 
 
 namespace sge
 {
 namespace x11input
 {
-namespace cursor
+namespace device
+{
+namespace valuator
 {
 
-sge::x11input::cursor::info const
-make_info(
-	XIDeviceInfo const &
-);
+class relative;
 
+}
 }
 }
 }

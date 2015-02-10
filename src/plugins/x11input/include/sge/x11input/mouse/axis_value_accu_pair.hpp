@@ -18,24 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_CURSOR_SCROLL_VALUE_HPP_INCLUDED
-#define SGE_X11INPUT_CURSOR_SCROLL_VALUE_HPP_INCLUDED
+#ifndef SGE_X11INPUT_MOUSE_AXIS_VALUE_ACCU_PAIR_HPP_INCLUDED
+#define SGE_X11INPUT_MOUSE_AXIS_VALUE_ACCU_PAIR_HPP_INCLUDED
 
-#include <sge/input/cursor/scroll_value.hpp>
-#include <sge/x11input/device/valuator/value.hpp>
+#include <sge/input/mouse/axis_value.hpp>
+#include <sge/x11input/device/valuator/accu.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
 {
 namespace x11input
 {
-namespace cursor
+namespace mouse
 {
 
-sge::input::cursor::scroll_value
-scroll_value(
-	sge::x11input::device::valuator::value
-);
+typedef
+std::pair<
+	sge::input::mouse::axis_value,
+	sge::x11input::device::valuator::accu
+>
+axis_value_accu_pair;
 
 }
 }

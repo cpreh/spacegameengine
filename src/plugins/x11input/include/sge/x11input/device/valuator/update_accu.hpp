@@ -25,6 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/valuator/value.hpp>
 #include <fcppt/cast/float_to_int.hpp>
 #include <fcppt/cast/int_to_float.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -39,9 +42,12 @@ namespace valuator
 template<
 	typename Result
 >
-Result
+std::pair<
+	Result,
+	sge::x11input::device::valuator::accu
+>
 update_accu(
-	sge::x11input::device::valuator::accu &_accu,
+	sge::x11input::device::valuator::accu _accu,
 	sge::x11input::device::valuator::value const _value
 )
 {
@@ -68,7 +74,10 @@ update_accu(
 		};
 
 	return
-		diff;
+		std::make_pair(
+			diff,
+			_accu
+		);
 }
 
 }

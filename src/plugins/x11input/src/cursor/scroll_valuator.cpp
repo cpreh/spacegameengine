@@ -19,29 +19,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/input/cursor/scroll_code.hpp>
+#include <sge/input/cursor/scroll_value.hpp>
 #include <sge/x11input/cursor/scroll_valuator.hpp>
+#include <sge/x11input/device/valuator/any.hpp>
+#include <sge/x11input/device/valuator/update.hpp>
 #include <sge/x11input/device/valuator/value.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::x11input::cursor::scroll_valuator::scroll_valuator(
-	sge::x11input::device::valuator::value const _value,
+	sge::x11input::device::valuator::any const &_any,
 	sge::input::cursor::scroll_code const _code
 )
 :
-	value_(
-		_value
+	any_(
+		_any
 	),
 	code_(
 		_code
 	)
 {
-}
-
-sge::x11input::device::valuator::value const
-sge::x11input::cursor::scroll_valuator::last_value() const
-{
-	return
-		value_;
 }
 
 sge::input::cursor::scroll_code
@@ -51,11 +50,26 @@ sge::x11input::cursor::scroll_valuator::code() const
 		code_;
 }
 
-void
-sge::x11input::cursor::scroll_valuator::last_value(
+sge::input::cursor::scroll_value
+sge::x11input::cursor::scroll_valuator::update(
 	sge::x11input::device::valuator::value const _value
 )
 {
-	value_ =
-		_value;
+	std::pair<
+		sge::input::cursor::scroll_value,
+		sge::x11input::device::valuator::any
+	> const result(
+		sge::x11input::device::valuator::update<
+			sge::input::cursor::scroll_value
+		>(
+			any_,
+			_value
+		)
+	);
+
+	any_ =
+		result.second;
+
+	return
+		result.first;
 }

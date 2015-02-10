@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_CURSOR_SCROLL_VALUATOR_HPP_INCLUDED
 
 #include <sge/input/cursor/scroll_code.hpp>
+#include <sge/input/cursor/scroll_value.hpp>
 #include <sge/x11input/cursor/scroll_valuator_fwd.hpp>
+#include <sge/x11input/device/valuator/any.hpp>
 #include <sge/x11input/device/valuator/value.hpp>
 
 
@@ -37,22 +39,19 @@ class scroll_valuator
 {
 public:
 	scroll_valuator(
-		sge::x11input::device::valuator::value,
+		sge::x11input::device::valuator::any const &,
 		sge::input::cursor::scroll_code
 	);
-
-	sge::x11input::device::valuator::value const
-	last_value() const;
 
 	sge::input::cursor::scroll_code
 	code() const;
 
-	void
-	last_value(
+	sge::input::cursor::scroll_value
+	update(
 		sge::x11input::device::valuator::value
 	);
 private:
-	sge::x11input::device::valuator::value value_;
+	sge::x11input::device::valuator::any any_;
 
 	sge::input::cursor::scroll_code code_;
 };

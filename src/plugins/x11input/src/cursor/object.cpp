@@ -29,11 +29,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/cursor/button_code.hpp>
 #include <sge/x11input/cursor/entered.hpp>
 #include <sge/x11input/cursor/grab.hpp>
-#include <sge/x11input/cursor/make_info.hpp>
+#include <sge/x11input/cursor/make_scroll_valuators.hpp>
 #include <sge/x11input/cursor/object.hpp>
 #include <sge/x11input/cursor/query_pointer.hpp>
 #include <sge/x11input/cursor/scroll_valuator.hpp>
-#include <sge/x11input/cursor/scroll_value.hpp>
 #include <sge/x11input/device/enter_event.hpp>
 #include <sge/x11input/device/leave_event_fwd.hpp>
 #include <sge/x11input/device/parameters.hpp>
@@ -158,8 +157,8 @@ sge::x11input::cursor::object::object(
 			_param.id()
 		)
 	),
-	info_(
-		sge::x11input::cursor::make_info(
+	scroll_valuators_(
+		sge::x11input::cursor::make_scroll_valuators(
 			_param.info()
 		)
 	),
@@ -254,12 +253,36 @@ sge::x11input::cursor::object::on_motion(
 {
 	sge::x11input::device::valuator::foreach(
 		_event.get().valuators,
-		std::bind(
-			&sge::x11input::cursor::object::process_valuator,
-			this,
-			std::placeholders::_1,
-			std::placeholders::_2
+		[
+			this
+		](
+			sge::x11input::device::valuator::index const _index,
+			sge::x11input::device::valuator::value const _value
 		)
+		{
+			fcppt::maybe_void(
+				fcppt::container::find_opt(
+					scroll_valuators_,
+					_index
+				),
+				[
+					_value,
+					this
+				](
+					sge::x11input::cursor::scroll_valuator &_valuator
+				)
+				{
+					scroll_signal_(
+						sge::input::cursor::scroll_event(
+							_valuator.code(),
+							_valuator.update(
+								_value
+							)
+						)
+					);
+				}
+			);
+		}
 	);
 
 	this->update_position(
@@ -325,46 +348,6 @@ sge::x11input::cursor::object::update_position(
 		);
 
 	this->move_event();
-}
-
-void
-sge::x11input::cursor::object::process_valuator(
-	sge::x11input::device::valuator::index const _index,
-	sge::x11input::device::valuator::value const _value
-)
-{
-	fcppt::maybe_void(
-		fcppt::container::find_opt(
-			info_.scroll_valuators(),
-			_index
-		),
-		[
-			&_value,
-			this
-		](
-			sge::x11input::cursor::scroll_valuator &_valuator
-		)
-		{
-			sge::x11input::device::valuator::value const delta(
-				_value
-				-
-				_valuator.last_value()
-			);
-
-			_valuator.last_value(
-				_value
-			);
-
-			scroll_signal_(
-				sge::input::cursor::scroll_event(
-					_valuator.code(),
-					sge::x11input::cursor::scroll_value(
-						delta
-					)
-				)
-			);
-		}
-	);
 }
 
 void

@@ -18,29 +18,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_DEVICE_VALUATOR_INDEX_HPP_INCLUDED
-#define SGE_X11INPUT_DEVICE_VALUATOR_INDEX_HPP_INCLUDED
+#include <sge/x11input/device/valuator/any.hpp>
+#include <sge/x11input/device/valuator/make_any.hpp>
+#include <sge/x11input/device/valuator/make_absolute.hpp>
+#include <sge/x11input/device/valuator/relative.hpp>
+#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <X11/extensions/XI2.h>
+#include <X11/extensions/XInput2.h>
+#include <fcppt/config/external_end.hpp>
 
-#include <fcppt/strong_typedef.hpp>
 
-
-namespace sge
+sge::x11input::device::valuator::any
+sge::x11input::device::valuator::make_any(
+	XIValuatorClassInfo const &_info
+)
 {
-namespace x11input
-{
-namespace device
-{
-namespace valuator
-{
+	switch(
+		_info.mode
+	)
+	{
+	case XIModeAbsolute:
+		return
+			sge::x11input::device::valuator::any{
+				sge::x11input::device::valuator::make_absolute(
+					_info
+				)
+			};
+	case XIModeRelative:
+		return
+			sge::x11input::device::valuator::any{
+				sge::x11input::device::valuator::relative{}
+			};
+	}
 
-FCPPT_MAKE_STRONG_TYPEDEF(
-	int,
-	index
-);
-
+	FCPPT_ASSERT_UNREACHABLE;
 }
-}
-}
-}
-
-#endif

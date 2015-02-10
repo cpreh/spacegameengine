@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/window_event.hpp>
 #include <sge/x11input/mouse/axis.hpp>
 #include <sge/x11input/mouse/axis_value.hpp>
+#include <sge/x11input/mouse/axis_value_accu_pair.hpp>
 #include <sge/x11input/mouse/button.hpp>
 #include <sge/x11input/mouse/device.hpp>
 #include <sge/x11input/mouse/info.hpp>
@@ -171,27 +172,38 @@ sge::x11input::mouse::device::process_valuator(
 	sge::x11input::device::valuator::value const _value
 )
 {
+	sge::x11input::device::valuator::accu &accu(
+		fcppt::container::get_or_insert(
+			accus_,
+			_index,
+			[](
+				sge::x11input::device::valuator::index
+			){
+				return
+					sge::x11input::device::valuator::accu{
+						0.
+					};
+			}
+		)
+	);
+
+	sge::x11input::mouse::axis_value_accu_pair const result{
+		sge::x11input::mouse::axis_value(
+			accu,
+			_value
+		)
+	};
+
+	accu =
+		result.second;
+
 	axis_signal_(
 		sge::input::mouse::axis_event(
 			sge::x11input::mouse::axis(
 				_index,
 				info_.axes()
 			),
-			sge::x11input::mouse::axis_value(
-				fcppt::container::get_or_insert(
-					accus_,
-					_index,
-					[](
-						sge::x11input::device::valuator::index
-					){
-						return
-							sge::x11input::device::valuator::accu{
-								0.
-							};
-					}
-				),
-				_value
-			)
+			result.first
 		)
 	);
 }

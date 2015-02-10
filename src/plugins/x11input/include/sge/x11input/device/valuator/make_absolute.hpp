@@ -18,22 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/x11input/cursor/info.hpp>
-#include <sge/x11input/cursor/scroll_valuator_map.hpp>
+#ifndef SGE_X11INPUT_DEVICE_VALUATOR_MAKE_ABSOLUTE_HPP_INCLUDED
+#define SGE_X11INPUT_DEVICE_VALUATOR_MAKE_ABSOLUTE_HPP_INCLUDED
+
+#include <sge/x11input/device/valuator/absolute.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <X11/extensions/XInput2.h>
+#include <fcppt/config/external_end.hpp>
 
 
-sge::x11input::cursor::info::info(
-	sge::x11input::cursor::scroll_valuator_map const &_scroll_valuators
-)
-:
-	scroll_valuators_(
-		_scroll_valuators
-	)
+namespace sge
 {
+namespace x11input
+{
+namespace device
+{
+namespace valuator
+{
+
+sge::x11input::device::valuator::absolute
+make_absolute(
+	XIValuatorClassInfo const &
+);
+
+}
+}
+}
 }
 
-sge::x11input::cursor::scroll_valuator_map &
-sge::x11input::cursor::info::scroll_valuators()
-{
-	return scroll_valuators_;
-}
+#endif
