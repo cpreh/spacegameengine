@@ -25,13 +25,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/cursor/scroll_valuator_map.hpp>
 #include <sge/x11input/device/valuator/index.hpp>
 #include <sge/x11input/device/valuator/make_absolute.hpp>
-#include <sge/x11input/device/info/class_cast.hpp>
-#include <sge/x11input/device/info/class_type.hpp>
+#include <sge/x11input/device/info/class_maybe.hpp>
 #include <fcppt/make_int_range_count.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/optional_bind_construct.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <X11/extensions/XI2.h>
 #include <X11/extensions/XInput2.h>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -55,61 +53,46 @@ sge::x11input::cursor::make_scroll_valuators(
 				int const _index
 			)
 			{
-				XIAnyClassInfo const &cur(
-					*_info.classes[
-						_index
-					]
-				);
-
-				typedef
-				fcppt::optional<
-					sge::x11input::cursor::scroll_valuator_map::value_type
-				>
-				result_type;
-
-				if(
-					sge::x11input::device::info::class_type(
-						cur
-					)
-					!=
-					XIScrollClass
-				)
-					return
-						result_type();
-
-				XIScrollClassInfo const &scroll_class(
-					sge::x11input::device::info::class_cast<
-						XIScrollClassInfo const &
-					>(
-						cur
-					)
-				);
-
-				sge::x11input::device::valuator::index const index{
-					scroll_class.number
-				};
-
 				return
-					result_type(
-						std::make_pair(
-							index,
-							sge::x11input::cursor::scroll_valuator(
-								sge::x11input::device::valuator::any{
-									// For some reason the X server reports
-									// relative valuators which are in fact absolute.
-									// Use make_any when this is fixed.
-									sge::x11input::device::valuator::make_absolute(
-										sge::x11input::cursor::find_scroll_valuator(
-											index,
-											_info
+					fcppt::optional_bind_construct(
+						sge::x11input::device::info::class_maybe<
+							XIScrollClassInfo
+						>(
+							*_info.classes[
+								_index
+							]
+						),
+						[
+							&_info
+						](
+							XIScrollClassInfo const &_scroll_class
+						)
+						{
+							sge::x11input::device::valuator::index const index{
+								_scroll_class.number
+							};
+
+							return
+								std::make_pair(
+									index,
+									sge::x11input::cursor::scroll_valuator(
+										sge::x11input::device::valuator::any{
+											// For some reason the X server reports
+											// relative valuators which are in fact absolute.
+											// Use make_any when this is fixed.
+											sge::x11input::device::valuator::make_absolute(
+												sge::x11input::cursor::find_scroll_valuator(
+													index,
+													_info
+												)
+											)
+										},
+										sge::x11input::cursor::scroll_code(
+											_scroll_class.scroll_type
 										)
 									)
-								},
-								sge::x11input::cursor::scroll_code(
-									scroll_class.scroll_type
-								)
-							)
-						)
+								);
+						}
 					);
 			}
 		);

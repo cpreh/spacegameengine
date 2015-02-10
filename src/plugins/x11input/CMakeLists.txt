@@ -41,7 +41,10 @@ set(
 	src/plugins/x11input/include/sge/x11input/device/id.hpp
 	src/plugins/x11input/include/sge/x11input/device/info/base.hpp
 	src/plugins/x11input/include/sge/x11input/device/info/class_cast.hpp
+	src/plugins/x11input/include/sge/x11input/device/info/class_map.hpp
+	src/plugins/x11input/include/sge/x11input/device/info/class_maybe.hpp
 	src/plugins/x11input/include/sge/x11input/device/info/class_type.hpp
+	src/plugins/x11input/include/sge/x11input/device/info/make_class_pair.hpp
 	src/plugins/x11input/include/sge/x11input/device/info/multi.hpp
 	src/plugins/x11input/include/sge/x11input/device/info/name.hpp
 	src/plugins/x11input/include/sge/x11input/device/info/single.hpp

@@ -20,10 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/exception.hpp>
 #include <sge/x11input/cursor/find_scroll_valuator.hpp>
-#include <sge/x11input/device/info/class_cast.hpp>
-#include <sge/x11input/device/info/class_type.hpp>
+#include <sge/x11input/device/info/class_maybe.hpp>
 #include <sge/x11input/device/valuator/index.hpp>
 #include <fcppt/make_int_range_count.hpp>
+#include <fcppt/optional_bind.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/find_by_exn.hpp>
@@ -50,47 +50,40 @@ sge::x11input::cursor::find_scroll_valuator(
 				int const _index
 			)
 			{
-				typedef
-				fcppt::optional<
-					XIValuatorClassInfo const &
-				>
-				result_type;
-
-				XIAnyClassInfo const &cur(
-					*_info.classes[
-						_index
-					]
-				);
-
-				if(
-					sge::x11input::device::info::class_type(
-						cur
-					)
-					==
-					XIValuatorClass
-				)
-				{
-					XIValuatorClassInfo const &valuator_class(
-						sge::x11input::device::info::class_cast<
-							XIValuatorClassInfo const &
-						>(
-							cur
-						)
-					);
-
-					if(
-						valuator_class.number
-						==
-						_number.get()
-					)
-						return
-							result_type(
-								valuator_class
-							);
-				}
-
 				return
-					result_type();
+					fcppt::optional_bind(
+						sge::x11input::device::info::class_maybe<
+							XIValuatorClassInfo
+						>(
+							*_info.classes[
+								_index
+							]
+						),
+						[
+							_number
+						](
+							XIValuatorClassInfo const &_valuator_class
+						)
+						{
+							typedef
+							fcppt::optional<
+								XIValuatorClassInfo const &
+							>
+							result_type;
+
+							return
+								_valuator_class.number
+								==
+								_number.get()
+								?
+									result_type(
+										_valuator_class
+									)
+								:
+									result_type()
+								;
+						}
+					);
 			},
 			[]{
 				return
