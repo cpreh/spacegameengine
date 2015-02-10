@@ -125,6 +125,8 @@ set(
 	src/plugins/x11input/include/sge/x11input/mouse/device_fwd.hpp
 	src/plugins/x11input/include/sge/x11input/mouse/device_unique_ptr.hpp
 	src/plugins/x11input/include/sge/x11input/mouse/info.hpp
+	src/plugins/x11input/include/sge/x11input/mouse/make_axis_infos.hpp
+	src/plugins/x11input/include/sge/x11input/mouse/make_button_infos.hpp
 	src/plugins/x11input/include/sge/x11input/optional_opcode.hpp
 	src/plugins/x11input/include/sge/x11input/optional_opcode_fwd.hpp
 	src/plugins/x11input/include/sge/x11input/processor.hpp
@@ -195,6 +197,8 @@ set(
 	src/plugins/x11input/src/mouse/config.cpp
 	src/plugins/x11input/src/mouse/device.cpp
 	src/plugins/x11input/src/mouse/info.cpp
+	src/plugins/x11input/src/mouse/make_axis_infos.cpp
+	src/plugins/x11input/src/mouse/make_button_infos.cpp
 	src/plugins/x11input/src/processor.cpp
 	src/plugins/x11input/src/scoped_locale.cpp
 	src/plugins/x11input/src/send_init_event.cpp

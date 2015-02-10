@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_MOUSE_INFO_HPP_INCLUDED
-#define SGE_X11INPUT_MOUSE_INFO_HPP_INCLUDED
+#ifndef SGE_X11INPUT_MOUSE_MAKE_AXIS_INFOS_HPP_INCLUDED
+#define SGE_X11INPUT_MOUSE_MAKE_AXIS_INFOS_HPP_INCLUDED
 
-#include <sge/input/mouse/info.hpp>
+#include <sge/input/mouse/axis_info_container.hpp>
 #include <awl/backends/x11/display_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
@@ -35,8 +35,8 @@ namespace x11input
 namespace mouse
 {
 
-sge::input::mouse::info
-info(
+sge::input::mouse::axis_info_container
+make_axis_infos(
 	awl::backends::x11::display &,
 	XIDeviceInfo const &
 );

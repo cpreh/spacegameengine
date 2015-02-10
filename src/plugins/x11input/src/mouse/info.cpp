@@ -18,20 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/mouse/axis_info_container.hpp>
-#include <sge/input/mouse/button_info_container.hpp>
 #include <sge/input/mouse/info.hpp>
-#include <sge/x11input/device/info/class_cast.hpp>
-#include <sge/x11input/device/info/class_type.hpp>
 #include <sge/x11input/device/info/name.hpp>
-#include <sge/x11input/mouse/axis_info.hpp>
-#include <sge/x11input/mouse/button_infos.hpp>
+#include <sge/x11input/mouse/make_axis_infos.hpp>
+#include <sge/x11input/mouse/make_button_infos.hpp>
 #include <sge/x11input/mouse/info.hpp>
 #include <awl/backends/x11/display_fwd.hpp>
-#include <fcppt/make_int_range_count.hpp>
-#include <fcppt/assert/error.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <X11/extensions/XI2.h>
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
 
@@ -42,79 +35,15 @@ sge::x11input::mouse::info(
 	XIDeviceInfo const &_info
 )
 {
-	sge::input::mouse::axis_info_container::vector axis;
-
-	sge::input::mouse::button_info_container::vector buttons;
-
-	// TODO: Use proper algorithms for this
-	for(
-		int const index
-		:
-		fcppt::make_int_range_count(
-			_info.num_classes
-		)
-	)
-	{
-		XIAnyClassInfo const &cur(
-			*_info.classes[
-				index
-			]
-		);
-
-		switch(
-			sge::x11input::device::info::class_type(
-				cur
-			)
-		)
-		{
-		case XIButtonClass:
-			FCPPT_ASSERT_ERROR(
-				buttons.empty()
-			);
-
-			buttons =
-				sge::x11input::mouse::button_infos(
-					sge::x11input::device::info::class_cast<
-						XIButtonClassInfo const &
-					>(
-						cur
-					),
-					_display
-				);
-			break;
-		case XIValuatorClass:
-			{
-				XIValuatorClassInfo const &info(
-					sge::x11input::device::info::class_cast<
-						XIValuatorClassInfo const &
-					>(
-						cur
-					)
-				);
-
-				if(
-					info.mode
-					==
-					XIModeRelative
-				)
-					axis.push_back(
-						sge::x11input::mouse::axis_info(
-							info,
-							_display
-						)
-					);
-			}
-			break;
-		}
-	}
-
 	return
 		sge::input::mouse::info(
-			sge::input::mouse::axis_info_container(
-				axis
+			sge::x11input::mouse::make_axis_infos(
+				_display,
+				_info
 			),
-			sge::input::mouse::button_info_container(
-				buttons
+			sge::x11input::mouse::make_button_infos(
+				_display,
+				_info
 			),
 			sge::x11input::device::info::name(
 				_info
