@@ -24,6 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gdifont/a8_view.hpp>
 #include <sge/gdifont/alpha_to_max.hpp>
 #include <mizuiro/image/algorithm/for_each.hpp>
+#include <mizuiro/image/algorithm/make_iterator_identity.hpp>
+#include <mizuiro/image/algorithm/uninitialized.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 
@@ -55,7 +57,9 @@ struct colors_to_max_visitor
 	{
 		mizuiro::image::algorithm::for_each(
 			_view,
-			sge::gdifont::alpha_to_max()
+			sge::gdifont::alpha_to_max(),
+			mizuiro::image::algorithm::make_iterator_identity(),
+			mizuiro::image::algorithm::uninitialized::yes
 		);
 	}
 };

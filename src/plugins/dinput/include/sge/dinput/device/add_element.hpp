@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/dinput/di.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/assert/error.hpp>
+#include <fcppt/cast/static_cast_fun.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -54,7 +55,8 @@ add_element(
 			std::make_pair(
 				_data.dwOfs,
 				fcppt::strong_typedef_construct_cast<
-					typename Map::mapped_type
+					typename Map::mapped_type,
+					fcppt::cast::static_cast_fun
 				>(
 					_vector.size()
 				)

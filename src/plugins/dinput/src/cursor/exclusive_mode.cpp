@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/window/event/object_fwd.hpp>
 #include <awl/backends/windows/window/event/processor.hpp>
 #include <awl/backends/windows/window/event/return_type.hpp>
-#include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/algorithm/join_move.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
@@ -139,11 +138,7 @@ sge::dinput::cursor::exclusive_mode::make_connection_pair(
 )
 {
 	awl::backends::windows::event::type const exit_event(
-		fcppt::strong_typedef_construct_cast<
-			awl::backends::windows::event::type
-		>(
-			_exit_event
-		)
+		_exit_event
 	);
 
 	return
@@ -151,11 +146,9 @@ sge::dinput::cursor::exclusive_mode::make_connection_pair(
 			fcppt::signal::auto_connection_container
 		>(
 			_event_processor.register_callback(
-				fcppt::strong_typedef_construct_cast<
-					awl::backends::windows::event::type
-				>(
+				awl::backends::windows::event::type{
 					_enter_event
-				),
+				},
 				std::bind(
 					&sge::dinput::cursor::exclusive_mode::on_temp_unacquire,
 					this,

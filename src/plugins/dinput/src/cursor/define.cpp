@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/window/event/return_type.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
+#include <fcppt/cast/to_unsigned_fun.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -48,7 +49,8 @@ sge::dinput::cursor::define::define(
 	connection_(
 		_processor.register_callback(
 			fcppt::strong_typedef_construct_cast<
-				awl::backends::windows::event::type
+				awl::backends::windows::event::type,
+				fcppt::cast::to_unsigned_fun
 			>(
 				WM_SETCURSOR
 			),

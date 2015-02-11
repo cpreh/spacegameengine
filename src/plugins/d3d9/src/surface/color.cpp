@@ -42,6 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/unimplemented_message.hpp>
+#include <fcppt/cast/to_unsigned_fun.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -127,7 +128,8 @@ sge::d3d9::surface::color::lock(
 				)
 			,
 			fcppt::strong_typedef_construct_cast<
-				sge::d3d9::lock_flags
+				sge::d3d9::lock_flags,
+				fcppt::cast::to_unsigned_fun
 			>(
 				D3DLOCK_READONLY
 			)

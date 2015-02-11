@@ -46,6 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/algorithm/join_move.hpp>
 #include <fcppt/assign/make_container.hpp>
+#include <fcppt/cast/to_unsigned_fun.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -88,7 +89,8 @@ sge::dinput::cursor::object::object(
 			>(
 				event_processor_.register_callback(
 					fcppt::strong_typedef_construct_cast<
-						awl::backends::windows::event::type
+						awl::backends::windows::event::type,
+						fcppt::cast::to_unsigned_fun
 					>(
 						WM_MOUSEMOVE
 					),
@@ -346,11 +348,9 @@ sge::dinput::cursor::object::make_button_connections(
 			fcppt::signal::auto_connection_container
 		>(
 			event_processor_.register_callback(
-				fcppt::strong_typedef_construct_cast<
-					awl::backends::windows::event::type
-				>(
+				awl::backends::windows::event::type{
 					_down_event
-				),
+				},
 				std::bind(
 					&sge::dinput::cursor::object::on_button,
 					this,
@@ -361,11 +361,9 @@ sge::dinput::cursor::object::make_button_connections(
 			)
 		)(
 			event_processor_.register_callback(
-				fcppt::strong_typedef_construct_cast<
-					awl::backends::windows::event::type
-				>(
+				awl::backends::windows::event::type{
 					_up_event
-				),
+				},
 				std::bind(
 					&sge::dinput::cursor::object::on_button,
 					this,
@@ -385,11 +383,9 @@ sge::dinput::cursor::object::make_scroll_connection(
 {
 	return
 		event_processor_.register_callback(
-			fcppt::strong_typedef_construct_cast<
-				awl::backends::windows::event::type
-			>(
+			awl::backends::windows::event::type{
 				_event
-			),
+			},
 			std::bind(
 				&sge::dinput::cursor::object::on_scroll,
 				this,

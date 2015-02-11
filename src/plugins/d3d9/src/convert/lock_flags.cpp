@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/lock_flags/method.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/assert/unreachable.hpp>
+#include <fcppt/cast/to_unsigned_fun.hpp>
 
 
 sge::d3d9::lock_flags const
@@ -39,7 +40,8 @@ sge::d3d9::convert::lock_flags(
 	case sge::renderer::lock_flags::method::read:
 		return
 			fcppt::strong_typedef_construct_cast<
-				sge::d3d9::lock_flags
+				sge::d3d9::lock_flags,
+				fcppt::cast::to_unsigned_fun
 			>(
 				D3DLOCK_READONLY
 			);
@@ -49,7 +51,8 @@ sge::d3d9::convert::lock_flags(
 		)
 			return
 				fcppt::strong_typedef_construct_cast<
-					sge::d3d9::lock_flags
+					sge::d3d9::lock_flags,
+					fcppt::cast::to_unsigned_fun
 				>(
 					D3DLOCK_DISCARD
 				);

@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps/target_surface_indices.hpp>
 #include <sge/renderer/target/surface_index.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
+#include <fcppt/cast/size_fun.hpp>
 
 
 sge::d3d9::target::temporary::temporary(
@@ -94,7 +95,8 @@ sge::d3d9::target::temporary::~temporary()
 			sge::d3d9::devicefuncs::set_render_target(
 				device_,
 				fcppt::strong_typedef_construct_cast<
-					sge::renderer::target::surface_index
+					sge::renderer::target::surface_index,
+					fcppt::cast::size_fun
 				>(
 					index
 				),

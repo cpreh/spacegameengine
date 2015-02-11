@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/dynamic_optional_cast.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
+#include <fcppt/cast/size_fun.hpp>
 #include <fcppt/container/index_map_impl.hpp>
 
 
@@ -139,7 +140,8 @@ sge::d3d9::target::offscreen::change_surfaces(
 			sge::d3d9::devicefuncs::set_render_target(
 				this->device(),
 				fcppt::strong_typedef_construct_cast<
-					sge::renderer::target::surface_index
+					sge::renderer::target::surface_index,
+					fcppt::cast::size_fun
 				>(
 					index
 				),
