@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/assert/error.hpp>
+#include <fcppt/cast/static_cast_fun.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <Cg/cgGL.h>
 #include <fcppt/config/external_end.hpp>
@@ -62,7 +63,8 @@ sge::opengl::cg::texture::assigned_stage(
 
 	return
 		fcppt::strong_typedef_construct_cast<
-			sge::renderer::texture::stage
+			sge::renderer::texture::stage,
+			fcppt::cast::static_cast_fun
 		>(
 			ret
 			-

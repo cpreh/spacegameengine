@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/funcs/env_int_value.hpp>
 #include <sge/opengl/texture/funcs/env_target.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
+#include <fcppt/cast/static_cast_fun.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
 #include <fcppt/config/external_end.hpp>
@@ -42,7 +43,8 @@ sge::opengl::state::ffp::sampler::set_one(
 			sge::opengl::texture::funcs::env_int,
 			std::placeholders::_1,
 			fcppt::strong_typedef_construct_cast<
-				sge::opengl::texture::funcs::env_target
+				sge::opengl::texture::funcs::env_target,
+				fcppt::cast::static_cast_fun
 			>(
 				GL_TEXTURE_ENV
 			),

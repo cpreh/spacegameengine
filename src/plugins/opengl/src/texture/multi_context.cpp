@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/multi_context.hpp>
 #include <sge/renderer/caps/texture_stages.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
+#include <fcppt/cast/static_cast_fun.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -75,15 +76,16 @@ sge::opengl::texture::multi_context::multi_context()
 	),
 	max_level_(
 		fcppt::strong_typedef_construct_cast<
-			sge::renderer::caps::texture_stages
+			sge::renderer::caps::texture_stages,
+			fcppt::cast::static_cast_fun
 		>(
 			is_native_
 			?
 				std::min(
-					opengl::get_int(
+					sge::opengl::get_int(
 						GL_MAX_TEXTURE_COORDS
 					),
-					opengl::get_int(
+					sge::opengl::get_int(
 						GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS
 					)
 				)
@@ -91,10 +93,10 @@ sge::opengl::texture::multi_context::multi_context()
 				is_arb_
 				?
 					std::min(
-						opengl::get_int(
+						sge::opengl::get_int(
 							GL_MAX_TEXTURE_COORDS_ARB
 						),
-						opengl::get_int(
+						sge::opengl::get_int(
 							GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS_ARB
 						)
 					)
@@ -116,25 +118,29 @@ sge::opengl::texture::multi_context::is_supported() const
 {
 	return
 		is_native_
-		|| is_arb_;
+		||
+		is_arb_;
 }
 
 sge::opengl::texture::multi_context::gl_active_texture
 sge::opengl::texture::multi_context::active_texture() const
 {
-	return active_texture_;
+	return
+		active_texture_;
 }
 
 sge::opengl::texture::multi_context::gl_client_active_texture
 sge::opengl::texture::multi_context::client_active_texture() const
 {
-	return client_active_texture_;
+	return
+		client_active_texture_;
 }
 
 sge::renderer::caps::texture_stages const
 sge::opengl::texture::multi_context::max_level() const
 {
-	return max_level_;
+	return
+		max_level_;
 }
 
 sge::opengl::context::system::id const

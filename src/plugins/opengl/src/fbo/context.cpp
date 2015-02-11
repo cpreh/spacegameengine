@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/fbo/optional_attachment_type.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
+#include <fcppt/cast/static_cast_fun.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -118,13 +119,15 @@ sge::opengl::fbo::context::context()
 						GL_RENDERBUFFER
 					),
 					fcppt::strong_typedef_construct_cast<
-						sge::opengl::fbo::attachment_type
+						sge::opengl::fbo::attachment_type,
+						fcppt::cast::static_cast_fun
 					>(
 						GL_DEPTH_ATTACHMENT
 					),
 					sge::opengl::fbo::optional_attachment_type(
 						fcppt::strong_typedef_construct_cast<
-							sge::opengl::fbo::attachment_type
+							sge::opengl::fbo::attachment_type,
+							fcppt::cast::static_cast_fun
 						>(
 							GL_DEPTH_STENCIL_ATTACHMENT
 						)
@@ -209,7 +212,8 @@ sge::opengl::fbo::context::context()
 							GL_RENDERBUFFER_EXT
 						),
 						fcppt::strong_typedef_construct_cast<
-							sge::opengl::fbo::attachment_type
+							sge::opengl::fbo::attachment_type,
+							fcppt::cast::static_cast_fun
 						>(
 							GL_DEPTH_ATTACHMENT_EXT
 						),

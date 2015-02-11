@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/color_format.hpp>
 #include <sge/opengl/convert/make_color_format.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
+#include <fcppt/cast/static_cast_fun.hpp>
 
 
 sge::opengl::color_format const
@@ -30,7 +31,8 @@ sge::opengl::convert::make_color_format(
 {
 	return
 		fcppt::strong_typedef_construct_cast<
-			sge::opengl::color_format
+			sge::opengl::color_format,
+			fcppt::cast::static_cast_fun
 		>(
 			_format
 		);

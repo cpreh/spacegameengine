@@ -28,7 +28,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/active_level.hpp>
 #include <sge/renderer/state/ffp/sampler/const_object_ref_vector.hpp>
 #include <sge/renderer/texture/stage.hpp>
+#include <fcppt/make_int_range.hpp>
+#include <fcppt/make_int_range_count.hpp>
+#include <fcppt/make_literal_strong_typedef.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
+#include <fcppt/cast/size_fun.hpp>
 
 
 void
@@ -40,18 +44,19 @@ sge::opengl::state::ffp::sampler::set(
 {
 	sge::renderer::texture::stage const count(
 		fcppt::strong_typedef_construct_cast<
-			sge::renderer::texture::stage
+			sge::renderer::texture::stage,
+			fcppt::cast::size_fun
 		>(
 			_samplers.size()
 		)
 	);
 
 	for(
-		sge::renderer::texture::stage stage(
-			0u
-		);
-		stage < count;
-		++stage
+		sge::renderer::texture::stage const stage
+		:
+		fcppt::make_int_range_count(
+			count
+		)
 	)
 	{
 		sge::opengl::texture::active_level const active_level(
@@ -87,11 +92,12 @@ sge::opengl::state::ffp::sampler::set(
 	);
 
 	for(
-		sge::renderer::texture::stage stage(
-			count
-		);
-		stage < context.stages();
-		++stage
+		sge::renderer::texture::stage const stage
+		:
+		fcppt::make_int_range(
+			count,
+			context.stages()
+		)
 	)
 	{
 		sge::opengl::texture::active_level const active_level(

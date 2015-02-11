@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/funcs/env_arg.hpp>
 #include <sge/opengl/texture/funcs/env_int_value.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
+#include <fcppt/cast/static_cast_fun.hpp>
 
 
 namespace sge
@@ -52,15 +53,14 @@ set_one_op(
 {
 	return
 		sge::opengl::state::ffp::sampler::set_one(
-			fcppt::strong_typedef_construct_cast<
-				sge::opengl::texture::funcs::env_arg
-			>(
+			sge::opengl::texture::funcs::env_arg{
 				sge::opengl::state::convert::sampler_op_type<
 					OpType
 				>::get()
-			),
+			},
 			fcppt::strong_typedef_construct_cast<
-				sge::opengl::texture::funcs::env_int_value
+				sge::opengl::texture::funcs::env_int_value,
+				fcppt::cast::static_cast_fun
 			>(
 				sge::opengl::state::convert::sampler_op(
 					_op

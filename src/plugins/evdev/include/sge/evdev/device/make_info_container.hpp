@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/make_literal_strong_typedef.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
+#include <fcppt/cast/size_fun.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -100,14 +101,17 @@ make_info_container(
 	)
 	{
 		if(
-			_bits & index.get()
+			_bits
+			&
+			index.get()
 		)
 		{
 			event_map.insert(
 				std::make_pair(
 					index,
 					fcppt::strong_typedef_construct_cast<
-						typename basic_info::id
+						typename basic_info::id,
+						fcppt::cast::size_fun
 					>(
 						ids.size()
 					)

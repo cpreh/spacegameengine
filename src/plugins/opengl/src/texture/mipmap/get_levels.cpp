@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/mipmap/variant.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
+#include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/log2.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/variant/apply_unary.hpp>
@@ -168,7 +169,8 @@ visitor<
 {
 	return
 		fcppt::strong_typedef_construct_cast<
-			sge::renderer::texture::mipmap::level_count
+			sge::renderer::texture::mipmap::level_count,
+			fcppt::cast::size_fun
 		>(
 			1u
 			+

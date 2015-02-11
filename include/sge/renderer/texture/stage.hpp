@@ -33,7 +33,7 @@ namespace texture
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
-	texture::stage_value,
+	sge::renderer::texture::stage_value,
 	stage
 );
 

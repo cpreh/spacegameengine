@@ -140,6 +140,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/algorithm/array_map.hpp>
 #include <fcppt/assign/make_map.hpp>
 #include <fcppt/cast/int_to_float.hpp>
+#include <fcppt/cast/static_cast_fun.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
@@ -581,7 +582,8 @@ try
 					vf_part
 				>(),
 				fcppt::strong_typedef_construct_cast<
-					sge::renderer::vertex::count
+					sge::renderer::vertex::count,
+					fcppt::cast::static_cast_fun
 				>(
 					std::tuple_size<
 						pos_array

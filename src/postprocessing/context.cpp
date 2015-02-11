@@ -62,10 +62,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assign/make_map.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/cast/size_fun.hpp>
-#include <fcppt/cast/to_signed_fun.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/dim/to_signed.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -295,9 +295,11 @@ sge::postprocessing::context::switch_target_texture(
 				sge::renderer::pixel_rect::vector::null(),
 				fcppt::math::dim::structure_cast<
 					sge::renderer::pixel_rect::dim,
-					fcppt::cast::to_signed_fun
+					fcppt::cast::size_fun
 				>(
-					_new_texture.size()
+					fcppt::math::dim::to_signed(
+						_new_texture.size()
+					)
 				)
 			)
 		)

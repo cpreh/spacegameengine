@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/window/event/processor.hpp>
 #include <awl/backends/x11/window/event/type.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
+#include <fcppt/cast/size_fun.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/randr.h>
@@ -100,7 +101,8 @@ sge::opengl::xrandr::state::state(
 			)
 		),
 		fcppt::strong_typedef_construct_cast<
-			sge::opengl::xrandr::input_mask
+			sge::opengl::xrandr::input_mask,
+			fcppt::cast::size_fun
 		>(
 			RRScreenChangeNotifyMask
 		)

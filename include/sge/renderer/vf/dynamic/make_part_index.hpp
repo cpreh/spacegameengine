@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
+#include <fcppt/cast/static_cast_fun.hpp>
 #include <fcppt/mpl/index_of.hpp>
 
 
@@ -44,7 +45,8 @@ make_part_index()
 {
 	return
 		fcppt::strong_typedef_construct_cast<
-			sge::renderer::vf::dynamic::part_index
+			sge::renderer::vf::dynamic::part_index,
+			fcppt::cast::static_cast_fun
 		>(
 			fcppt::mpl::index_of<
 				typename Format::parts,

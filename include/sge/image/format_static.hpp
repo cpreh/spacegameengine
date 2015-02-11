@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/size_type.hpp>
 #include <fcppt/enum_size.hpp>
+#include <fcppt/cast/static_cast_fun.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/mpl/index_of.hpp>
 #include <fcppt/mpl/integral_cast.hpp>
@@ -51,6 +52,7 @@ struct format_static
 :
 fcppt::mpl::integral_cast<
 	Format,
+	fcppt::cast::static_cast_fun,
 	fcppt::mpl::index_of<
 		Elements,
 		Type
@@ -60,7 +62,9 @@ fcppt::mpl::integral_cast<
 	static_assert(
 		fcppt::mpl::integral_cast<
 			sge::image::size_type,
-			typename boost::mpl::size<
+			fcppt::cast::static_cast_fun,
+			typename
+			boost::mpl::size<
 				Elements
 			>::type
 		>::value

@@ -50,6 +50,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/system/object_fwd.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/static_cast_fun.hpp>
 
 
 sge::renderer::caps::device
@@ -152,7 +153,8 @@ sge::opengl::get_device_caps(
 				).is_supported()
 			),
 			fcppt::strong_typedef_construct_cast<
-				sge::renderer::caps::max_anisotropy
+				sge::renderer::caps::max_anisotropy,
+				fcppt::cast::static_cast_fun
 			>(
 				anisotropy_context.max_anisotropy_flag()
 				?
@@ -167,14 +169,16 @@ sge::opengl::get_device_caps(
 				true
 			),
 			fcppt::strong_typedef_construct_cast<
-				sge::renderer::caps::clip_plane_indices
+				sge::renderer::caps::clip_plane_indices,
+				fcppt::cast::static_cast_fun
 			>(
 				sge::opengl::get_int(
 					GL_MAX_CLIP_PLANES
 				)
 			),
 			fcppt::strong_typedef_construct_cast<
-				sge::renderer::caps::light_indices
+				sge::renderer::caps::light_indices,
+				fcppt::cast::static_cast_fun
 			>(
 				sge::opengl::get_int(
 					GL_MAX_LIGHTS
@@ -182,7 +186,8 @@ sge::opengl::get_device_caps(
 			),
 			texture_multi_context.max_level(),
 			fcppt::strong_typedef_construct_cast<
-				sge::renderer::caps::target_surface_indices
+				sge::renderer::caps::target_surface_indices,
+				fcppt::cast::static_cast_fun
 			>(
 				render_target_supported.get()
 				?

@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <sge/renderer/texture/mipmap/level_count.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
+#include <fcppt/cast/size_fun.hpp>
 
 
 template<
@@ -126,7 +127,8 @@ sge::opengl::texture::basic_box<
 {
 	return
 		fcppt::strong_typedef_construct_cast<
-			sge::renderer::texture::mipmap::level_count
+			sge::renderer::texture::mipmap::level_count,
+			fcppt::cast::size_fun
 		>(
 			levels_.size()
 		);

@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/mouse/axis.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/assert/pre.hpp>
+#include <fcppt/cast/size_fun.hpp>
 
 
 sge::input::mouse::axis const
@@ -35,7 +36,8 @@ sge::x11input::mouse::axis(
 {
 	sge::input::mouse::axis_id const id(
 		fcppt::strong_typedef_construct_cast<
-			sge::input::mouse::axis_id
+			sge::input::mouse::axis_id,
+			fcppt::cast::size_fun
 		>(
 			_index.get()
 		)

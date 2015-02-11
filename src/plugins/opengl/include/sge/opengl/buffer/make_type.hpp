@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/exception.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/static_cast_fun.hpp>
 
 
 #define SGE_OPENGL_BUFFER_MAKE_TYPE(\
@@ -35,7 +36,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	extension_type\
 )\
 	fcppt::strong_typedef_construct_cast<\
-		sge::opengl::buffer::type\
+		sge::opengl::buffer::type,\
+		fcppt::cast::static_cast_fun\
 	>(\
 		hardware_supported \
 		? \
