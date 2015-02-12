@@ -143,11 +143,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/dim/to_signed.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/time/sleep_any.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <chrono>
 #include <functional>
 #include <memory>
+#include <thread>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -826,7 +826,7 @@ sge::d3d9::device::reset()
 			present_parameters_
 		)
 	)
-		fcppt::time::sleep_any(
+		std::this_thread::sleep_for(
 			std::chrono::milliseconds(
 				1
 			)

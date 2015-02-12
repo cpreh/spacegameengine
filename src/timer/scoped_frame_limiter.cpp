@@ -19,9 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/timer/scoped_frame_limiter.hpp>
-#include <fcppt/time/sleep_any.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <chrono>
+#include <thread>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -61,7 +61,7 @@ sge::timer::scoped_frame_limiter::~scoped_frame_limiter()
 	)
 		return;
 
-	fcppt::time::sleep_any(
+	std::this_thread::sleep_for(
 		minimum_frame_length_ - diff
 	);
 }

@@ -34,10 +34,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/auto_connection_container.hpp>
-#include <fcppt/time/sleep_any.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <chrono>
 #include <functional>
+#include <thread>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -74,7 +74,7 @@ sge::dinput::cursor::exclusive_mode::exclusive_mode(
 			window_
 		)
 	)
-		fcppt::time::sleep_any(
+		std::this_thread::sleep_for(
 			std::chrono::milliseconds(
 				1
 			)

@@ -30,11 +30,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
-#include <fcppt/time/sleep_any.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/X.h>
 #include <X11/extensions/XInput2.h>
 #include <chrono>
+#include <thread>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -93,7 +93,7 @@ sge::x11input::cursor::grab::grab(
 					<< FCPPT_TEXT(". Retrying...")
 			);
 
-			fcppt::time::sleep_any(
+			std::this_thread::sleep_for(
 				std::chrono::milliseconds(
 					10
 				)
