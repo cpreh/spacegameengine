@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/info/class_type.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/at.hpp>
 #include <X11/extensions/XInput2.h>
+#include <boost/mpl/at.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

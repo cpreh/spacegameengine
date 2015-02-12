@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_DINPUT_DEVICE_PARAMETERS_HPP_INCLUDED
 #define SGE_DINPUT_DEVICE_PARAMETERS_HPP_INCLUDED
 
-#include <sge/dinput/device/parameters_fwd.hpp>
 #include <sge/dinput/di.hpp>
+#include <sge/dinput/device/parameters_fwd.hpp>
 #include <awl/backends/windows/system/event/handle_fwd.hpp>
 #include <awl/backends/windows/window/object_fwd.hpp>
 #include <fcppt/nonassignable.hpp>

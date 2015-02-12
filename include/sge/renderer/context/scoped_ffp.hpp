@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_CONTEXT_SCOPED_FFP_HPP_INCLUDED
 #define SGE_RENDERER_CONTEXT_SCOPED_FFP_HPP_INCLUDED
 
-#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/context/ffp_unique_ptr.hpp>
 #include <sge/renderer/context/scoped_ffp_fwd.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/renderer/target/base_fwd.hpp>
 #include <fcppt/noncopyable.hpp>

@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENCL_COMMAND_QUEUE_ENQUEUE_KERNEL_HPP_INCLUDED
 #define SGE_OPENCL_COMMAND_QUEUE_ENQUEUE_KERNEL_HPP_INCLUDED
 
-#include <sge/opencl/detail/symbol.hpp>
 #include <sge/opencl/command_queue/global_dim1.hpp>
 #include <sge/opencl/command_queue/global_dim2.hpp>
 #include <sge/opencl/command_queue/global_dim3.hpp>
@@ -29,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/command_queue/local_dim2.hpp>
 #include <sge/opencl/command_queue/local_dim3.hpp>
 #include <sge/opencl/command_queue/object_fwd.hpp>
+#include <sge/opencl/detail/symbol.hpp>
 #include <sge/opencl/event/object_unique_ptr.hpp>
 #include <sge/opencl/event/sequence.hpp>
 #include <sge/opencl/kernel/object_fwd.hpp>

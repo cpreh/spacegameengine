@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/openal/buffer_id.hpp>
 #include <sge/openal/buffer_holder.hpp>
+#include <sge/openal/buffer_id.hpp>
 #include <sge/openal/logger.hpp>
 #include <sge/openal/funcs/delete_buffer.hpp>
 #include <sge/openal/funcs/gen_buffer.hpp>

@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CAMERA_FIRST_PERSON_OBJECT_HPP_INCLUDED
 #define SGE_CAMERA_FIRST_PERSON_OBJECT_HPP_INCLUDED
 
-#include <sge/core/detail/class_symbol.hpp>
 #include <sge/camera/base.hpp>
 #include <sge/camera/has_activation.hpp>
 #include <sge/camera/has_mutable_coordinate_system.hpp>
@@ -31,12 +30,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/optional_projection_matrix.hpp>
 #include <sge/camera/projection_matrix_fwd.hpp>
 #include <sge/camera/update_duration.hpp>
-#include <sge/camera/detail/symbol.hpp>
 #include <sge/camera/coordinate_system/object.hpp>
+#include <sge/camera/detail/symbol.hpp>
 #include <sge/camera/first_person/mouse_speed_multiplier.hpp>
 #include <sge/camera/first_person/movement_speed.hpp>
 #include <sge/camera/first_person/parameters_fwd.hpp>
 #include <sge/camera/first_person/action/mapping.hpp>
+#include <sge/core/detail/class_symbol.hpp>
 #include <sge/input/keyboard/key_event_fwd.hpp>
 #include <sge/input/mouse/axis_event_fwd.hpp>
 #include <sge/renderer/scalar.hpp>

@@ -26,10 +26,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/index.hpp>
 #include <sge/font/optional_index_fwd.hpp>
 #include <sge/font/rect_fwd.hpp>
-#include <sge/font/detail/symbol.hpp>
 #include <sge/font/text_fwd.hpp>
 #include <sge/font/vector_fwd.hpp>
 #include <sge/font/view_fwd.hpp>
+#include <sge/font/detail/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 

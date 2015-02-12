@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CAMERA_ORTHO_FREELOOK_OBJECT_HPP_INCLUDED
 #define SGE_CAMERA_ORTHO_FREELOOK_OBJECT_HPP_INCLUDED
 
-#include <sge/core/detail/class_symbol.hpp>
 #include <sge/camera/base.hpp>
 #include <sge/camera/has_activation.hpp>
 #include <sge/camera/is_dynamic.hpp>
@@ -31,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/ortho_freelook/parameters_fwd.hpp>
 #include <sge/camera/ortho_freelook/zoom_speed.hpp>
 #include <sge/camera/ortho_freelook/action/mapping.hpp>
+#include <sge/core/detail/class_symbol.hpp>
 #include <sge/input/keyboard/key_event_fwd.hpp>
 #include <sge/input/mouse/axis_event_fwd.hpp>
 #include <sge/renderer/projection/far.hpp>

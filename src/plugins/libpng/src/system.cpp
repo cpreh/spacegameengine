@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/optional_path.hpp>
 #include <sge/image2d/optional_file_unique_ptr.hpp>
 #include <sge/libpng/check_extension.hpp>
-#include <sge/libpng/file.hpp>
 #include <sge/libpng/extension.hpp>
+#include <sge/libpng/file.hpp>
 #include <sge/libpng/is_png.hpp>
 #include <sge/libpng/system.hpp>
 #include <sge/media/const_raw_range.hpp>

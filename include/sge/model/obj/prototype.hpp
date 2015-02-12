@@ -25,9 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/obj/face_vertex_sequence.hpp>
 #include <sge/model/obj/material_to_face_sequence.hpp>
 #include <sge/model/obj/normal_sequence.hpp>
-#include <sge/model/obj/detail/symbol.hpp>
 #include <sge/model/obj/texture_coordinate_sequence.hpp>
 #include <sge/model/obj/vertex_coordinate_sequence.hpp>
+#include <sge/model/obj/detail/symbol.hpp>
 #include <sge/model/obj/material/file_sequence.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>

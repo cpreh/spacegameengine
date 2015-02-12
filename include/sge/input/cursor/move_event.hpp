@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_CURSOR_MOVE_EVENT_HPP_INCLUDED
 #define SGE_INPUT_CURSOR_MOVE_EVENT_HPP_INCLUDED
 
-#include <sge/input/detail/symbol.hpp>
 #include <sge/input/cursor/move_event_fwd.hpp>
 #include <sge/input/cursor/optional_position.hpp>
+#include <sge/input/detail/symbol.hpp>
 
 
 namespace sge

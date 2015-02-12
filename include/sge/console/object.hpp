@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CONSOLE_OBJECT_HPP_INCLUDED
 #define SGE_CONSOLE_OBJECT_HPP_INCLUDED
 
-#include <sge/core/detail/class_symbol.hpp>
 #include <sge/console/arg_list.hpp>
 #include <sge/console/error_callback.hpp>
 #include <sge/console/error_function.hpp>
@@ -31,8 +30,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/message_callback.hpp>
 #include <sge/console/message_function.hpp>
 #include <sge/console/prefix_fwd.hpp>
-#include <sge/console/detail/symbol.hpp>
 #include <sge/console/callback/parameters_fwd.hpp>
+#include <sge/console/detail/symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
 #include <sge/font/char_type.hpp>
 #include <sge/font/string.hpp>
 #include <fcppt/noncopyable.hpp>

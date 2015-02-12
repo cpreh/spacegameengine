@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_CREATE_MULTI_SYSTEM_HPP_INCLUDED
 #define SGE_INPUT_CREATE_MULTI_SYSTEM_HPP_INCLUDED
 
-#include <sge/input/detail/symbol.hpp>
 #include <sge/input/system_unique_ptr.hpp>
+#include <sge/input/detail/symbol.hpp>
 #include <sge/input/plugin/collection_fwd.hpp>
 #include <sge/log/option_container.hpp>
 

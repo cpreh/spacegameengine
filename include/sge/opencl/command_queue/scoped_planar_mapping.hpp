@@ -24,9 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/format.hpp>
 #include <sge/image2d/view/object.hpp>
 #include <sge/opencl/clinclude.hpp>
-#include <sge/opencl/detail/symbol.hpp>
 #include <sge/opencl/command_queue/map_flags_fwd.hpp>
 #include <sge/opencl/command_queue/object_fwd.hpp>
+#include <sge/opencl/detail/symbol.hpp>
 #include <sge/opencl/event/sequence.hpp>
 #include <sge/opencl/memory_object/rect.hpp>
 #include <sge/opencl/memory_object/image/planar_fwd.hpp>

@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TEXTURE_SCOPED_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_SCOPED_HPP_INCLUDED
 
-#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/context/core_fwd.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/texture/base_fwd.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/noncopyable.hpp>

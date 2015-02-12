@@ -26,10 +26,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/dinput/joypad/button_map.hpp>
 #include <sge/dinput/joypad/enumerator.hpp>
 #include <sge/dinput/joypad/is_axis.hpp>
-#include <sge/dinput/joypad/relative_axis_map.hpp>
 #include <sge/dinput/joypad/make_absolute_axis_info.hpp>
 #include <sge/dinput/joypad/make_button_info.hpp>
 #include <sge/dinput/joypad/make_relative_axis_info.hpp>
+#include <sge/dinput/joypad/relative_axis_map.hpp>
 #include <sge/input/joypad/absolute_axis_info.hpp>
 #include <sge/input/joypad/absolute_axis_info_container.hpp>
 #include <sge/input/joypad/button_info.hpp>

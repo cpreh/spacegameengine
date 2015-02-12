@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/multi_system_fwd.hpp>
 #include <sge/image2d/multi_system_parameters_fwd.hpp>
 #include <sge/image2d/optional_file_unique_ptr.hpp>
-#include <sge/image2d/detail/symbol.hpp>
 #include <sge/image2d/system.hpp>
+#include <sge/image2d/detail/symbol.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/media/const_raw_range.hpp>
 #include <sge/media/extension_set.hpp>
@@ -36,7 +36,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
-
 
 
 namespace sge

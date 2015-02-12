@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENCL_SINGLE_DEVICE_SYSTEM_PARAMETERS_HPP_INCLUDED
 #define SGE_OPENCL_SINGLE_DEVICE_SYSTEM_PARAMETERS_HPP_INCLUDED
 
-#include <sge/opencl/detail/symbol.hpp>
 #include <sge/opencl/command_queue/execution_mode.hpp>
 #include <sge/opencl/command_queue/profiling_mode.hpp>
 #include <sge/opencl/context/optional_error_callback.hpp>
+#include <sge/opencl/detail/symbol.hpp>
 #include <sge/opencl/single_device_system/optional_renderer.hpp>
 #include <fcppt/optional_impl.hpp>
 

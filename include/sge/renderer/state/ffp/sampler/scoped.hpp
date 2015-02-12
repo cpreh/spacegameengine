@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_FFP_SAMPLER_SCOPED_HPP_INCLUDED
 #define SGE_RENDERER_STATE_FFP_SAMPLER_SCOPED_HPP_INCLUDED
 
-#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/state/ffp/sampler/const_object_ref_vector.hpp>
 #include <sge/renderer/state/ffp/sampler/scoped_fwd.hpp>
 #include <fcppt/noncopyable.hpp>

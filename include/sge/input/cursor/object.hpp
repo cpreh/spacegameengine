@@ -22,13 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_INPUT_CURSOR_OBJECT_HPP_INCLUDED
 
 #include <sge/core/detail/class_symbol.hpp>
-#include <sge/input/detail/symbol.hpp>
 #include <sge/input/cursor/button_callback.hpp>
 #include <sge/input/cursor/mode_fwd.hpp>
 #include <sge/input/cursor/move_callback.hpp>
 #include <sge/input/cursor/object_fwd.hpp>
 #include <sge/input/cursor/optional_position_fwd.hpp>
 #include <sge/input/cursor/scroll_callback.hpp>
+#include <sge/input/detail/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
 

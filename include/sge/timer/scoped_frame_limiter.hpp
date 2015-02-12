@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TIMER_SCOPED_FRAME_LIMITER_HPP_INCLUDED
 
 #include <sge/timer/scoped_frame_limiter_fwd.hpp>
-#include <sge/timer/detail/symbol.hpp>
 #include <sge/timer/clocks/standard.hpp>
+#include <sge/timer/detail/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 

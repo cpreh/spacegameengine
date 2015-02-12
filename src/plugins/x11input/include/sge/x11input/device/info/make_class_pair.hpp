@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_DEVICE_INFO_MAKE_CLASS_PAIR_HPP_INCLUDED
 
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/pair.hpp>
 #include <boost/mpl/integral_c.hpp>
+#include <boost/mpl/pair.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

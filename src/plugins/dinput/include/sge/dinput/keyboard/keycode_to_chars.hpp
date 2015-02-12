@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_DINPUT_KEYBOARD_KEYCODE_TO_CHARS_HPP_INCLUDED
 #define SGE_DINPUT_KEYBOARD_KEYCODE_TO_CHARS_HPP_INCLUDED
 
-#include <sge/dinput/keyboard/char_vector.hpp>
 #include <sge/dinput/di.hpp>
 #include <sge/dinput/state_array.hpp>
+#include <sge/dinput/keyboard/char_vector.hpp>
+
 
 namespace sge
 {

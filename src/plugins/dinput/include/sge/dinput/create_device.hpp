@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_DINPUT_CREATE_DEVICE_HPP_INCLUDED
 #define SGE_DINPUT_CREATE_DEVICE_HPP_INCLUDED
 
-#include <sge/dinput/dinput_device_unique_ptr.hpp>
 #include <sge/dinput/di.hpp>
+#include <sge/dinput/dinput_device_unique_ptr.hpp>
 
 
 namespace sge

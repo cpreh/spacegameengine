@@ -26,12 +26,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/parameters.hpp>
 #include <sge/x11input/device/raw_demuxer.hpp>
 #include <sge/x11input/device/raw_event.hpp>
+#include <sge/x11input/device/window_demuxer.hpp>
+#include <sge/x11input/device/window_event.hpp>
 #include <sge/x11input/device/valuator/accu.hpp>
 #include <sge/x11input/device/valuator/foreach.hpp>
 #include <sge/x11input/device/valuator/index.hpp>
 #include <sge/x11input/device/valuator/value.hpp>
-#include <sge/x11input/device/window_demuxer.hpp>
-#include <sge/x11input/device/window_event.hpp>
 #include <sge/x11input/mouse/axis.hpp>
 #include <sge/x11input/mouse/axis_value.hpp>
 #include <sge/x11input/mouse/axis_value_accu_pair.hpp>

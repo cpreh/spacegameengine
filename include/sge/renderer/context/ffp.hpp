@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_CONTEXT_FFP_HPP_INCLUDED
 
 #include <sge/core/detail/class_symbol.hpp>
-#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/context/core.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/state/ffp/alpha_test/const_optional_object_ref_fwd.hpp>
 #include <sge/renderer/state/ffp/clip_plane/const_object_ref_vector.hpp>
 #include <sge/renderer/state/ffp/fog/const_optional_object_ref_fwd.hpp>

@@ -21,13 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_CURSOR_RELATIVE_MOVEMENT_HPP_INCLUDED
 #define SGE_INPUT_CURSOR_RELATIVE_MOVEMENT_HPP_INCLUDED
 
-#include <sge/input/detail/symbol.hpp>
 #include <sge/input/cursor/move_event_fwd.hpp>
 #include <sge/input/cursor/object_fwd.hpp>
 #include <sge/input/cursor/optional_position.hpp>
 #include <sge/input/cursor/relative_move_callback.hpp>
 #include <sge/input/cursor/relative_move_function.hpp>
 #include <sge/input/cursor/relative_movement_fwd.hpp>
+#include <sge/input/detail/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/math/vector/object_decl.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>

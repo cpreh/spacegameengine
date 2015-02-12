@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CAMERA_HAS_MUTABLE_PROJECTION_HPP_INCLUDED
 #define SGE_CAMERA_HAS_MUTABLE_PROJECTION_HPP_INCLUDED
 
-#include <sge/core/detail/class_symbol.hpp>
 #include <sge/camera/base.hpp>
 #include <sge/camera/projection_matrix_fwd.hpp>
 #include <sge/camera/detail/symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 

@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CAMERA_FIRST_PERSON_ACTION_MAPPING_HPP_INCLUDED
 #define SGE_CAMERA_FIRST_PERSON_ACTION_MAPPING_HPP_INCLUDED
 
-#include <sge/core/detail/class_symbol.hpp>
 #include <sge/camera/detail/symbol.hpp>
 #include <sge/camera/first_person/action/backward.hpp>
 #include <sge/camera/first_person/action/down.hpp>
@@ -29,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/first_person/action/left.hpp>
 #include <sge/camera/first_person/action/right.hpp>
 #include <sge/camera/first_person/action/up.hpp>
+#include <sge/core/detail/class_symbol.hpp>
 #include <fcppt/optional_impl.hpp>
 
 

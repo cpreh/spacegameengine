@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_CAPS_DEVICE_HPP_INCLUDED
 #define SGE_RENDERER_CAPS_DEVICE_HPP_INCLUDED
 
-#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/caps/clip_plane_indices.hpp>
 #include <sge/renderer/caps/description.hpp>
 #include <sge/renderer/caps/device_fwd.hpp>
@@ -37,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps/srgb_framebuffer.hpp>
 #include <sge/renderer/caps/target_surface_indices.hpp>
 #include <sge/renderer/caps/texture_stages.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 
 
 namespace sge

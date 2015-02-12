@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENCL_PROGRAM_OBJECT_HPP_INCLUDED
 
 #include <sge/opencl/clinclude.hpp>
-#include <sge/opencl/detail/symbol.hpp>
 #include <sge/opencl/context/object_fwd.hpp>
+#include <sge/opencl/detail/symbol.hpp>
 #include <sge/opencl/kernel/object_fwd.hpp>
 #include <sge/opencl/program/build_parameters_fwd.hpp>
 #include <sge/opencl/program/device_blob_map.hpp>

@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CAMERA_COORDINATE_SYSTEM_OBJECT_HPP_INCLUDED
 #define SGE_CAMERA_COORDINATE_SYSTEM_OBJECT_HPP_INCLUDED
 
-#include <sge/camera/detail/symbol.hpp>
 #include <sge/camera/coordinate_system/forward.hpp>
 #include <sge/camera/coordinate_system/position.hpp>
 #include <sge/camera/coordinate_system/right.hpp>
 #include <sge/camera/coordinate_system/up.hpp>
+#include <sge/camera/detail/symbol.hpp>
 
 
 namespace sge

@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MODEL_OBJ_FACE_VERTEX_HPP_INCLUDED
 
 #include <sge/model/obj/normal_index.hpp>
-#include <sge/model/obj/detail/symbol.hpp>
 #include <sge/model/obj/texture_coordinate_index.hpp>
 #include <sge/model/obj/vertex_coordinate_index.hpp>
+#include <sge/model/obj/detail/symbol.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/functional/hash.hpp>
 #include <array>

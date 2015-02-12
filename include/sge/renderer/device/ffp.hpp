@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_DEVICE_FFP_HPP_INCLUDED
 
 #include <sge/core/detail/class_symbol.hpp>
-#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/context/ffp_unique_ptr.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/device/core.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/renderer/state/ffp/alpha_test/object_unique_ptr.hpp>

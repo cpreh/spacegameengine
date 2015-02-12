@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_TARGET_BASE_HPP_INCLUDED
 
 #include <sge/core/detail/class_symbol.hpp>
-#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/clear/parameters_fwd.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/target/base_fwd.hpp>
 #include <sge/renderer/target/scissor_area_fwd.hpp>
 #include <sge/renderer/target/viewport_fwd.hpp>

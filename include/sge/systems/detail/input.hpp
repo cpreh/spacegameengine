@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SYSTEMS_DETAIL_INPUT_HPP_INCLUDED
 
 #include <sge/systems/input.hpp>
-#include <sge/systems/detail/symbol.hpp>
 #include <sge/systems/detail/input_fwd.hpp>
+#include <sge/systems/detail/symbol.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/strong_typedef.hpp>
 

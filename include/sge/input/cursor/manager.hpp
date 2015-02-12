@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_INPUT_CURSOR_MANAGER_HPP_INCLUDED
 
 #include <sge/input/processor_fwd.hpp>
-#include <sge/input/detail/symbol.hpp>
 #include <sge/input/cursor/button_event_fwd.hpp>
 #include <sge/input/cursor/discover_callback.hpp>
 #include <sge/input/cursor/discover_event_fwd.hpp>
@@ -31,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/remove_callback.hpp>
 #include <sge/input/cursor/remove_event_fwd.hpp>
 #include <sge/input/cursor/scroll_event_fwd.hpp>
+#include <sge/input/detail/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/auto_connection_container.hpp>
 #include <fcppt/config/external_begin.hpp>

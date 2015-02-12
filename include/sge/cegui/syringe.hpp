@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CEGUI_SYRINGE_HPP_INCLUDED
 #define SGE_CEGUI_SYRINGE_HPP_INCLUDED
 
-#include <sge/cegui/detail/symbol.hpp>
 #include <sge/cegui/syringe_fwd.hpp>
 #include <sge/cegui/system_fwd.hpp>
+#include <sge/cegui/detail/symbol.hpp>
 #include <sge/input/cursor/button_event_fwd.hpp>
 #include <sge/input/cursor/move_event_fwd.hpp>
 #include <sge/input/cursor/position_fwd.hpp>

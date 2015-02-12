@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SYSTEMS_WINDOW_HPP_INCLUDED
 
 #include <sge/systems/original_window.hpp>
-#include <sge/systems/detail/symbol.hpp>
 #include <sge/systems/window_fwd.hpp>
 #include <sge/systems/wrapped_window.hpp>
+#include <sge/systems/detail/symbol.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>

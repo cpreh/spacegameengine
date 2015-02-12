@@ -23,9 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/core/detail/class_symbol.hpp>
 #include <sge/input/processor_fwd.hpp>
-#include <sge/input/detail/symbol.hpp>
 #include <sge/input/cursor/discover_callback.hpp>
 #include <sge/input/cursor/remove_callback.hpp>
+#include <sge/input/detail/symbol.hpp>
 #include <sge/input/joypad/discover_callback.hpp>
 #include <sge/input/joypad/remove_callback.hpp>
 #include <sge/input/keyboard/discover_callback.hpp>

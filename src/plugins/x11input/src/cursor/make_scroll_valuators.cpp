@@ -23,9 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/cursor/scroll_code.hpp>
 #include <sge/x11input/cursor/scroll_valuator.hpp>
 #include <sge/x11input/cursor/scroll_valuator_map.hpp>
+#include <sge/x11input/device/info/class_maybe.hpp>
 #include <sge/x11input/device/valuator/index.hpp>
 #include <sge/x11input/device/valuator/make_absolute.hpp>
-#include <sge/x11input/device/info/class_maybe.hpp>
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/optional_bind_construct.hpp>
 #include <fcppt/algorithm/map_optional.hpp>

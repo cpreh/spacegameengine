@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PROJECTILE_DEBUG_DRAWER_HPP_INCLUDED
 #define SGE_PROJECTILE_DEBUG_DRAWER_HPP_INCLUDED
 
-#include <sge/projectile/detail/symbol.hpp>
 #include <sge/projectile/world_fwd.hpp>
 #include <sge/projectile/detail/debug_drawer_impl_fwd.hpp>
+#include <sge/projectile/detail/symbol.hpp>
 #include <sge/renderer/context/core_fwd.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <fcppt/noncopyable.hpp>

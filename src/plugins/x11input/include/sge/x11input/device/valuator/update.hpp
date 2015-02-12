@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/valuator/absolute.hpp>
 #include <sge/x11input/device/valuator/accu.hpp>
 #include <sge/x11input/device/valuator/any.hpp>
-#include <sge/x11input/device/valuator/update_accu.hpp>
 #include <sge/x11input/device/valuator/relative.hpp>
+#include <sge/x11input/device/valuator/update_accu.hpp>
 #include <sge/x11input/device/valuator/value.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/variant/apply_unary.hpp>

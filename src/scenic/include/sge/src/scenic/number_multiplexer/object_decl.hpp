@@ -8,8 +8,8 @@
 #ifndef SGE_SRC_SCENIC_NUMBER_MULTIPLEXER_OBJECT_DECL_HPP_INCLUDED
 #define SGE_SRC_SCENIC_NUMBER_MULTIPLEXER_OBJECT_DECL_HPP_INCLUDED
 
-#include <fcppt/strong_typedef.hpp>
 #include <sge/src/scenic/number_multiplexer/object_fwd.hpp>
+#include <fcppt/strong_typedef.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>

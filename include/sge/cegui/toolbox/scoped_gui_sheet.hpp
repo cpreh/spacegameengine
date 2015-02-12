@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CEGUI_TOOLBOX_SCOPED_GUI_SHEET_HPP_INCLUDED
 #define SGE_CEGUI_TOOLBOX_SCOPED_GUI_SHEET_HPP_INCLUDED
 
-#include <sge/cegui/detail/symbol.hpp>
 #include <sge/cegui/system_fwd.hpp>
+#include <sge/cegui/detail/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 

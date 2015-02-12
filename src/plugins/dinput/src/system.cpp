@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/dinput/system.hpp>
 #include <sge/dinput/processor.hpp>
+#include <sge/dinput/system.hpp>
 #include <sge/input/capabilities.hpp>
 #include <sge/input/capabilities_field.hpp>
 #include <sge/input/processor_unique_ptr.hpp>

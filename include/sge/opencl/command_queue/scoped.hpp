@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENCL_COMMAND_QUEUE_SCOPED_HPP_INCLUDED
 #define SGE_OPENCL_COMMAND_QUEUE_SCOPED_HPP_INCLUDED
 
-#include <sge/opencl/detail/symbol.hpp>
 #include <sge/opencl/command_queue/object_fwd.hpp>
+#include <sge/opencl/detail/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 

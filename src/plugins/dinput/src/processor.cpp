@@ -18,17 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/dinput/create_dinput.hpp>
+#include <sge/dinput/di.hpp>
 #include <sge/dinput/has_cursor.hpp>
 #include <sge/dinput/logger.hpp>
 #include <sge/dinput/processor.hpp>
 #include <sge/dinput/cursor/object.hpp>
-#include <sge/dinput/device/parameters.hpp>
 #include <sge/dinput/device/object.hpp>
+#include <sge/dinput/device/parameters.hpp>
 #include <sge/dinput/joypad/device.hpp>
 #include <sge/dinput/keyboard/device.hpp>
 #include <sge/dinput/mouse/device.hpp>
-#include <sge/dinput/create_dinput.hpp>
-#include <sge/dinput/di.hpp>
 #include <sge/input/exception.hpp>
 #include <sge/input/cursor/button_code.hpp>
 #include <sge/input/cursor/button_event.hpp>
@@ -45,10 +45,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/window/event/object.hpp>
 #include <awl/backends/windows/window/event/processor.hpp>
 #include <awl/window/has_focus.hpp>
-#include <awl/window/event/focus_in_fwd.hpp>
 #include <awl/window/event/focus_in_callback.hpp>
-#include <awl/window/event/focus_out_fwd.hpp>
+#include <awl/window/event/focus_in_fwd.hpp>
 #include <awl/window/event/focus_out_callback.hpp>
+#include <awl/window/event/focus_out_fwd.hpp>
 #include <fcppt/dynamic_pointer_cast.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional_impl.hpp>

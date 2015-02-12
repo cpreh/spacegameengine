@@ -19,9 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/libpng/expected_gamma.hpp>
-#include <sge/libpng/info.hpp>
 #include <sge/libpng/gamma.hpp>
 #include <sge/libpng/get_gamma.hpp>
+#include <sge/libpng/info.hpp>
 #include <sge/libpng/read_ptr.hpp>
 
 

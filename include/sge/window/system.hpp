@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_WINDOW_SYSTEM_HPP_INCLUDED
 
 #include <sge/window/object_unique_ptr.hpp>
-#include <sge/window/detail/symbol.hpp>
 #include <sge/window/system_fwd.hpp>
+#include <sge/window/detail/symbol.hpp>
 #include <awl/event/processor_fwd.hpp>
 #include <awl/main/exit_code.hpp>
 #include <awl/system/object_fwd.hpp>

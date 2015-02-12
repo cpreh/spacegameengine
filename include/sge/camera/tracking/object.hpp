@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CAMERA_TRACKING_OBJECT_HPP_INCLUDED
 #define SGE_CAMERA_TRACKING_OBJECT_HPP_INCLUDED
 
-#include <sge/core/detail/class_symbol.hpp>
 #include <sge/camera/base.hpp>
 #include <sge/camera/has_activation.hpp>
 #include <sge/camera/has_mutable_coordinate_system.hpp>
@@ -31,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/detail/symbol.hpp>
 #include <sge/camera/tracking/is_looping.hpp>
 #include <sge/camera/tracking/keyframe_sequence.hpp>
+#include <sge/core/detail/class_symbol.hpp>
 #include <fcppt/cyclic_iterator_decl.hpp>
 
 

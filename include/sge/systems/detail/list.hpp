@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SYSTEMS_DETAIL_LIST_HPP_INCLUDED
 #define SGE_SYSTEMS_DETAIL_LIST_HPP_INCLUDED
 
-#include <sge/systems/detail/symbol.hpp>
 #include <sge/systems/detail/any_fwd.hpp>
 #include <sge/systems/detail/any_map.hpp>
 #include <sge/systems/detail/list_fwd.hpp>
+#include <sge/systems/detail/symbol.hpp>
 
 
 namespace sge

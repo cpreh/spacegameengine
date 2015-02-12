@@ -18,9 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/dinput/keyboard/map_virtual_key.hpp>
 #include <sge/dinput/di.hpp>
+#include <sge/dinput/keyboard/map_virtual_key.hpp>
 #include <fcppt/optional_impl.hpp>
+
 
 sge::dinput::keyboard::optional_uint const
 sge::dinput::keyboard::map_virtual_key(

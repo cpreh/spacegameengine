@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_UNSUPPORTED_FORMAT_HPP_INCLUDED
 #define SGE_AUDIO_UNSUPPORTED_FORMAT_HPP_INCLUDED
 
-#include <sge/core/detail/class_symbol.hpp>
 #include <sge/audio/file_exception.hpp>
 #include <sge/audio/optional_path.hpp>
 #include <sge/audio/detail/symbol.hpp>
+#include <sge/core/detail/class_symbol.hpp>
 #include <fcppt/string.hpp>
 
 

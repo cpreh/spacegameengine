@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/core/detail/class_symbol.hpp>
 #include <sge/input/processor_fwd.hpp>
-#include <sge/input/detail/symbol.hpp>
 #include <sge/input/cursor/button_callback.hpp>
 #include <sge/input/cursor/button_event_fwd.hpp>
 #include <sge/input/cursor/button_signal.hpp>
@@ -43,6 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/scroll_callback.hpp>
 #include <sge/input/cursor/scroll_event_fwd.hpp>
 #include <sge/input/cursor/scroll_signal.hpp>
+#include <sge/input/detail/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/auto_connection_container.hpp>
 #include <fcppt/signal/object_decl.hpp>

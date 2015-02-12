@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_PLAYER_HPP_INCLUDED
 #define SGE_AUDIO_PLAYER_HPP_INCLUDED
 
-#include <sge/core/detail/class_symbol.hpp>
 #include <sge/audio/buffer_unique_ptr.hpp>
 #include <sge/audio/file_fwd.hpp>
 #include <sge/audio/listener_fwd.hpp>
@@ -32,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/sound/nonpositional_parameters_fwd.hpp>
 #include <sge/audio/sound/positional_parameters_fwd.hpp>
 #include <sge/audio/sound/positional_unique_ptr.hpp>
+#include <sge/core/detail/class_symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 

@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/channel8.hpp>
 #include <sge/image/dim.hpp>
 #include <sge/image/mizuiro_color.hpp>
+#include <sge/image/algorithm/may_overlap.hpp>
+#include <sge/image/algorithm/uninitialized.hpp>
 #include <sge/image/color/init/alpha.hpp>
 #include <sge/image/color/init/blue.hpp>
 #include <sge/image/color/init/green.hpp>
@@ -33,8 +35,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/algorithm/copy_and_convert.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/object.hpp>
-#include <sge/image/algorithm/may_overlap.hpp>
-#include <sge/image/algorithm/uninitialized.hpp>
 #include <mizuiro/color/compare.hpp>
 #include <mizuiro/image/view.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>

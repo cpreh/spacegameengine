@@ -23,12 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opencl/binary_error_data.hpp>
 #include <sge/opencl/error_information_string.hpp>
-#include <sge/opencl/detail/symbol.hpp>
 #include <sge/opencl/system_fwd.hpp>
 #include <sge/opencl/command_queue/object_fwd.hpp>
 #include <sge/opencl/command_queue/profiling_mode.hpp>
 #include <sge/opencl/context/object_fwd.hpp>
 #include <sge/opencl/context/optional_error_callback.hpp>
+#include <sge/opencl/detail/symbol.hpp>
 #include <sge/opencl/device/object_fwd.hpp>
 #include <sge/opencl/platform/object_fwd.hpp>
 #include <sge/opencl/single_device_system/parameters_fwd.hpp>

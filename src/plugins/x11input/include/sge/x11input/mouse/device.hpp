@@ -30,10 +30,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/object.hpp>
 #include <sge/x11input/device/parameters_fwd.hpp>
 #include <sge/x11input/device/raw_event_fwd.hpp>
+#include <sge/x11input/device/window_event_fwd.hpp>
 #include <sge/x11input/device/valuator/accu_map.hpp>
 #include <sge/x11input/device/valuator/index.hpp>
 #include <sge/x11input/device/valuator/value.hpp>
-#include <sge/x11input/device/window_event_fwd.hpp>
 #include <sge/x11input/mouse/device_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/auto_connection_container.hpp>

@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_FONT_V_CENTER_HPP_INCLUDED
 
 #include <sge/font/height.hpp>
-#include <sge/font/detail/symbol.hpp>
 #include <sge/font/unit.hpp>
 #include <sge/font/vector_fwd.hpp>
+#include <sge/font/detail/symbol.hpp>
 
 
 namespace sge

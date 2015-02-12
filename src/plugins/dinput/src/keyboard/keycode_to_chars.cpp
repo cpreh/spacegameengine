@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/dinput/keyboard/keycode_to_chars.hpp>
 #include <sge/dinput/di.hpp>
+#include <sge/dinput/keyboard/keycode_to_chars.hpp>
 #include <sge/input/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>

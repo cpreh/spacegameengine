@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_DIRECTION_OBJECT_HPP_INCLUDED
 #define SGE_AUDIO_DIRECTION_OBJECT_HPP_INCLUDED
 
-#include <sge/audio/detail/symbol.hpp>
 #include <sge/audio/vector.hpp>
+#include <sge/audio/detail/symbol.hpp>
 #include <sge/audio/direction/forward.hpp>
 #include <sge/audio/direction/up.hpp>
 

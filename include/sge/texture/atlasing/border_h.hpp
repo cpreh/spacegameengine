@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/algorithm/uninitialized_fwd.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
-#include <sge/texture/detail/symbol.hpp>
 #include <sge/texture/atlasing/inner_rect.hpp>
+#include <sge/texture/detail/symbol.hpp>
 
 
 namespace sge

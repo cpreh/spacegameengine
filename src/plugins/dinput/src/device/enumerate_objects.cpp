@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/dinput/di.hpp>
-#include <sge/dinput/device/enumerator.hpp>
 #include <sge/dinput/device/enumerate_objects.hpp>
+#include <sge/dinput/device/enumerator.hpp>
 #include <sge/input/exception.hpp>
 #include <fcppt/text.hpp>
 

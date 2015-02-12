@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/core/detail/class_symbol.hpp>
 #include <sge/input/capabilities_field_fwd.hpp>
 #include <sge/input/processor_unique_ptr.hpp>
-#include <sge/input/detail/symbol.hpp>
 #include <sge/input/system_fwd.hpp>
+#include <sge/input/detail/symbol.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
 #include <fcppt/noncopyable.hpp>

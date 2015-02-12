@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/x11input/device/valuator/any.hpp>
-#include <sge/x11input/device/valuator/make_any.hpp>
 #include <sge/x11input/device/valuator/make_absolute.hpp>
+#include <sge/x11input/device/valuator/make_any.hpp>
 #include <sge/x11input/device/valuator/relative.hpp>
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/config/external_begin.hpp>

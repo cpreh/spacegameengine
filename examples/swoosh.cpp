@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/audio/buffer.hpp>
 #include <sge/audio/buffer_unique_ptr.hpp>
 #include <sge/audio/file.hpp>
 #include <sge/audio/file_unique_ptr.hpp>
@@ -25,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/load_exn.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/sound/base.hpp>
-#include <sge/audio/buffer.hpp>
 #include <sge/audio/sound/base_unique_ptr.hpp>
 #include <sge/audio/sound/nonpositional_parameters.hpp>
 #include <sge/audio/sound/repeat.hpp>
@@ -97,6 +97,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/list.hpp>
 #include <sge/systems/log_settings.hpp>
 #include <sge/systems/make_list.hpp>
+#include <sge/systems/original_window.hpp>
 #include <sge/systems/quit_on_escape.hpp>
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/renderer_caps.hpp>
@@ -110,7 +111,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/const_part_unique_ptr.hpp>
 #include <sge/texture/part_raw_ptr.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
-#include <sge/systems/original_window.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
 #include <awl/main/exit_code.hpp>
@@ -136,8 +136,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <boost/circular_buffer.hpp>
 #include <boost/mpl/vector/vector10.hpp>
-#include <example_main.hpp>
 #include <cmath>
+#include <example_main.hpp>
 #include <exception>
 #include <functional>
 #include <iostream>

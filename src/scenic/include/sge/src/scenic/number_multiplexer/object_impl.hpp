@@ -8,9 +8,9 @@
 #ifndef SGE_SRC_SCENIC_NUMBER_MULTIPLEXER_OBJECT_IMPL_HPP_INCLUDED
 #define SGE_SRC_SCENIC_NUMBER_MULTIPLEXER_OBJECT_IMPL_HPP_INCLUDED
 
-#include <fcppt/literal.hpp>
 #include <sge/src/scenic/number_multiplexer/object_decl.hpp>
 #include <sge/src/scenic/number_multiplexer/set_bits.hpp>
+#include <fcppt/literal.hpp>
 
 
 template<typename T>

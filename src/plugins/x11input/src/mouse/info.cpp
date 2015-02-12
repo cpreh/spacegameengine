@@ -20,9 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/mouse/info.hpp>
 #include <sge/x11input/device/info/name.hpp>
+#include <sge/x11input/mouse/info.hpp>
 #include <sge/x11input/mouse/make_axis_infos.hpp>
 #include <sge/x11input/mouse/make_button_infos.hpp>
-#include <sge/x11input/mouse/info.hpp>
 #include <awl/backends/x11/display_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>

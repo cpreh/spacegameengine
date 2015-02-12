@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FONT_ALIGN_H_LEFT_HPP_INCLUDED
 #define SGE_FONT_ALIGN_H_LEFT_HPP_INCLUDED
 
-#include <sge/font/detail/symbol.hpp>
 #include <sge/font/align_h/left_fwd.hpp>
 #include <sge/font/align_h/max_width.hpp>
 #include <sge/font/align_h/optional_max_width.hpp>
+#include <sge/font/detail/symbol.hpp>
 
 
 namespace sge

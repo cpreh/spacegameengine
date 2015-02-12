@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE2D_CREATE_EXN_HPP_INCLUDED
 
 #include <sge/image2d/file_unique_ptr.hpp>
-#include <sge/image2d/detail/symbol.hpp>
 #include <sge/image2d/system_fwd.hpp>
+#include <sge/image2d/detail/symbol.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/media/optional_extension_fwd.hpp>
 

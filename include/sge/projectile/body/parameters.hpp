@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PROJECTILE_BODY_PARAMETERS_HPP_INCLUDED
 #define SGE_PROJECTILE_BODY_PARAMETERS_HPP_INCLUDED
 
-#include <sge/projectile/detail/symbol.hpp>
 #include <sge/projectile/world_fwd.hpp>
 #include <sge/projectile/body/angular_velocity.hpp>
 #include <sge/projectile/body/linear_velocity.hpp>
@@ -29,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/projectile/body/rotation.hpp>
 #include <sge/projectile/body/user_data.hpp>
 #include <sge/projectile/body/solidity/variant.hpp>
+#include <sge/projectile/detail/symbol.hpp>
 #include <sge/projectile/shape/shared_base_ptr.hpp>
 #include <fcppt/nonassignable.hpp>
 

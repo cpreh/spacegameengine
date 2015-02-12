@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CG_EXCEPTION_HPP_INCLUDED
 #define SGE_CG_EXCEPTION_HPP_INCLUDED
 
+#include <sge/cg/detail/symbol.hpp>
 #include <sge/core/exception.hpp>
 #include <sge/core/detail/class_symbol.hpp>
-#include <sge/cg/detail/symbol.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/assert/information_fwd.hpp>
 

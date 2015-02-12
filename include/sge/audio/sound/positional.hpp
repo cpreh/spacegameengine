@@ -21,12 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_SOUND_POSITIONAL_HPP_INCLUDED
 #define SGE_AUDIO_SOUND_POSITIONAL_HPP_INCLUDED
 
-#include <sge/core/detail/class_symbol.hpp>
 #include <sge/audio/scalar.hpp>
-#include <sge/audio/detail/symbol.hpp>
 #include <sge/audio/vector_fwd.hpp>
+#include <sge/audio/detail/symbol.hpp>
 #include <sge/audio/sound/base.hpp>
 #include <sge/audio/sound/optional_direction_fwd.hpp>
+#include <sge/core/detail/class_symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 

@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_CURSOR_BUTTON_CODE_TO_STRING_HPP_INCLUDED
 #define SGE_INPUT_CURSOR_BUTTON_CODE_TO_STRING_HPP_INCLUDED
 
-#include <sge/input/detail/symbol.hpp>
 #include <sge/input/cursor/button_code_fwd.hpp>
+#include <sge/input/detail/symbol.hpp>
 #include <fcppt/string.hpp>
 
 
