@@ -18,32 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_VIEW_WRAPPED_TYPE_HPP_INCLUDED
-#define SGE_IMAGE_VIEW_WRAPPED_TYPE_HPP_INCLUDED
+#ifndef SGE_IMAGE_VIEW_MIZUIRO_TRAITS_HPP_INCLUDED
+#define SGE_IMAGE_VIEW_MIZUIRO_TRAITS_HPP_INCLUDED
 
-#include <sge/image/view/element_base.hpp>
+#include <mizuiro/image/format/include/interleaved_heterogenous.hpp>
+#include <mizuiro/image/format/include/interleaved_homogenous.hpp>
 
-
-namespace sge
-{
-namespace image
-{
-namespace view
-{
-
-template<
-	typename View
->
-using wrapped_type
-=
-sge::image::view::element_base<
-	typename View::format::color_format,
-	View::dim::static_size,
-	typename View::constness
->;
-
-}
-}
-}
 
 #endif

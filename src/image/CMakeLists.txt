@@ -70,6 +70,7 @@ set(
 	include/sge/image/view/make_const.hpp
 	include/sge/image/view/make_mizuiro_type.hpp
 	include/sge/image/view/mizuiro_access.hpp
+	include/sge/image/view/mizuiro_traits.hpp
 	include/sge/image/view/mizuiro_type.hpp
 	include/sge/image/view/object.hpp
 	include/sge/image/view/object_fwd.hpp
