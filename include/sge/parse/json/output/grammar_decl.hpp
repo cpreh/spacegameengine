@@ -52,7 +52,7 @@ namespace output
 template<
 	typename Out
 >
-class grammar
+class grammar final
 :
 	public boost::spirit::karma::grammar<
 		Out,

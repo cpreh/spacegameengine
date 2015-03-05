@@ -71,10 +71,9 @@ public:
 	parameters() const;
 private:
 	typedef
-	typename
 	sge::sprite::buffers::object<
 		Choices
-	>::type
+	>
 	buffers_object;
 
 	sge::sprite::buffers::parameters const parameters_;

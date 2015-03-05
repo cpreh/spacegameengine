@@ -37,14 +37,13 @@ namespace render
 template<
 	typename Choices
 >
-struct range_part_vector
-{
-	typedef std::vector<
-		sge::sprite::render::range_part<
-			Choices
-		>
-	> type;
-};
+using range_part_vector
+=
+std::vector<
+	sge::sprite::render::range_part<
+		Choices
+	>
+>;
 
 }
 }

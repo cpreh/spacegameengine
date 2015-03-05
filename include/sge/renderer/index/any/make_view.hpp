@@ -36,9 +36,9 @@ namespace any
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
-any::view const
+sge::renderer::index::any::view const
 make_view(
-	renderer::index::dynamic::view const &
+	sge::renderer::index::dynamic::view const &
 );
 
 }

@@ -3053,6 +3053,8 @@ set(
 	include/sge/sprite/detail/buffers/allocate.hpp
 	include/sge/sprite/detail/buffers/allocate_indices.hpp
 	include/sge/sprite/detail/buffers/allocate_vertices.hpp
+	include/sge/sprite/detail/buffers/object.hpp
+	include/sge/sprite/detail/buffers/offset_object.hpp
 	include/sge/sprite/detail/config/color_format.hpp
 	include/sge/sprite/detail/config/contains_if.hpp
 	include/sge/sprite/detail/config/find_if.hpp
@@ -3278,10 +3280,13 @@ set(
 	include/sge/sprite/state/detail/make_one_object.hpp
 	include/sge/sprite/state/detail/needs_ffp.hpp
 	include/sge/sprite/state/detail/object_class.hpp
+	include/sge/sprite/state/detail/object_class_impl.hpp
 	include/sge/sprite/state/detail/one_option_to_true.hpp
 	include/sge/sprite/state/detail/options_class.hpp
+	include/sge/sprite/state/detail/options_class_element.hpp
 	include/sge/sprite/state/detail/options_to_true.hpp
 	include/sge/sprite/state/detail/parameters_class.hpp
+	include/sge/sprite/state/detail/parameters_class_impl.hpp
 	include/sge/sprite/state/detail/set_one.hpp
 	include/sge/sprite/state/detail/unset_one.hpp
 	include/sge/sprite/state/is_with_transform.hpp

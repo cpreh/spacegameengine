@@ -49,21 +49,29 @@ class set_one
 		set_one
 	);
 public:
-	typedef typename sge::sprite::state::detail::object_class<
+	typedef
+	sge::sprite::state::detail::object_class<
 		StateChoices
-	>::type object_class;
+	>
+	object_class;
 
-	typedef typename sge::sprite::state::detail::options_class<
+	typedef
+	sge::sprite::state::detail::options_class<
 		StateChoices
-	>::type options_class;
+	>
+	options_class;
 
-	typedef typename sge::sprite::state::render_device<
+	typedef
+	sge::sprite::state::render_device<
 		StateChoices
-	>::type render_device;
+	>
+	render_device;
 
-	typedef typename sge::sprite::state::render_context<
+	typedef
+	sge::sprite::state::render_context<
 		StateChoices
-	>::type render_context;
+	>
+	render_context;
 
 	set_one(
 		render_device &_render_device,

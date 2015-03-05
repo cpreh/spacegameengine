@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VF_DETAIL_RAW_DATA_HPP_INCLUDED
 
 #include <sge/renderer/vf/detail/raw_data_type.hpp>
+#include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <type_traits>
@@ -44,21 +45,19 @@ typename boost::disable_if<
 	std::is_fundamental<
 		T
 	>,
-	typename
 	sge::renderer::vf::detail::raw_data_type<
 		T
-	>::type
+	>
 >::type
 raw_data(
 	T &_value
 )
 {
 	return
-		reinterpret_cast<
-			typename
+		fcppt::cast::to_char_ptr<
 			sge::renderer::vf::detail::raw_data_type<
 				T
-			>::type
+			>
 		>(
 			_value.data()
 		);
@@ -71,21 +70,19 @@ typename boost::enable_if<
 	std::is_fundamental<
 		T
 	>,
-	typename
 	sge::renderer::vf::detail::raw_data_type<
 		T
-	>::type
+	>
 >::type
 raw_data(
 	T &_value
 )
 {
 	return
-		reinterpret_cast<
-			typename
+		fcppt::cast::to_char_ptr<
 			sge::renderer::vf::detail::raw_data_type<
 				T
-			>::type
+			>
 		>(
 			&_value
 		);

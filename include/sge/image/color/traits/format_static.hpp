@@ -24,9 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/format_static.hpp>
 #include <sge/image/color/tag.hpp>
 #include <sge/image/traits/format_static.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 
 
 namespace sge
@@ -41,21 +38,14 @@ struct format_static<
 	sge::image::color::tag
 >
 {
-	FCPPT_PP_PUSH_WARNING
-	FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
 	template<
 		typename Element
 	>
-	struct apply
-	:
+	using apply
+	=
 	sge::image::color::format_static<
 		Element
-	>
-	{
-	};
-
-	FCPPT_PP_POP_WARNING
+	>;
 };
 
 }

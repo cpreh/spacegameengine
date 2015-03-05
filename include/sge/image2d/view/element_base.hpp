@@ -22,9 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE2D_VIEW_ELEMENT_BASE_HPP_INCLUDED
 
 #include <sge/image/view/element_base.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 
 
 namespace sge
@@ -34,24 +31,17 @@ namespace image2d
 namespace view
 {
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
 template<
 	typename ColorFormat,
 	typename Constness
 >
-struct element_base
-:
+using element_base
+=
 sge::image::view::element_base<
 	ColorFormat,
 	2,
 	Constness
->
-{
-};
-
-FCPPT_PP_POP_WARNING
+>;
 
 }
 }

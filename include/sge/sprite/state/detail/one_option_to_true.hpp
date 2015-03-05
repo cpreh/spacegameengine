@@ -43,9 +43,11 @@ class one_option_to_true
 		one_option_to_true
 	);
 public:
-	typedef typename sge::sprite::state::detail::options_class<
+	typedef
+	sge::sprite::state::detail::options_class<
 		StateChoices
-	>::type options_class;
+	>
+	options_class;
 
 	explicit
 	one_option_to_true(

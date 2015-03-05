@@ -23,9 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/systems/detail/assert_dependencies_one.hpp>
 #include <fcppt/mpl/all_of.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/placeholders.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -38,25 +35,19 @@ namespace systems
 namespace detail
 {
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
 template<
 	typename Choices
 >
-struct assert_dependencies
-:
+using assert_dependencies
+=
+typename
 fcppt::mpl::all_of<
 	Choices,
 	sge::systems::detail::assert_dependencies_one<
 		Choices,
 		boost::mpl::_1
 	>
->::type
-{
-};
-
-FCPPT_PP_POP_WARNING
+>::type;
 
 }
 }

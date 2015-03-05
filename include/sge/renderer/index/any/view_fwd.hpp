@@ -34,9 +34,11 @@ namespace index
 namespace any
 {
 
-typedef any::basic_view<
-	index::nonconst_tag
->::type view;
+typedef
+sge::renderer::index::any::basic_view<
+	sge::renderer::index::nonconst_tag
+>
+view;
 
 }
 }

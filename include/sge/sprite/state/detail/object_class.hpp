@@ -21,16 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_STATE_DETAIL_OBJECT_CLASS_HPP_INCLUDED
 #define SGE_SPRITE_STATE_DETAIL_OBJECT_CLASS_HPP_INCLUDED
 
-#include <majutsu/class.hpp>
-#include <majutsu/composite.hpp>
-#include <majutsu/role.hpp>
-#include <majutsu/simple.hpp>
-#include <majutsu/memory/fusion.hpp>
-#include <fcppt/shared_ptr_impl.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/placeholders.hpp>
-#include <boost/mpl/transform.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <sge/sprite/state/detail/object_class_impl.hpp>
 
 
 namespace sge
@@ -45,36 +36,12 @@ namespace detail
 template<
 	typename StateChoices
 >
-struct object_class
-{
-private:
-	template<
-		typename Type
-	>
-	struct object_class_element
-	{
-		typedef majutsu::role<
-			majutsu::simple<
-				fcppt::shared_ptr<
-					typename Type::state_type
-				>
-			>,
-			typename Type::role
-		> type;
-	};
-public:
-	typedef majutsu::class_<
-		majutsu::composite<
-			typename boost::mpl::transform<
-				typename StateChoices::optional_elements,
-				object_class_element<
-					boost::mpl::_1
-				>
-			>::type
-		>,
-		majutsu::memory::fusion
-	> type;
-};
+using object_class
+=
+typename
+sge::sprite::state::detail::object_class_impl<
+	StateChoices
+>::type;
 
 }
 }

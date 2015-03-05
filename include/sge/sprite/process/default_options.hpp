@@ -36,15 +36,14 @@ template<
 	typename Choices,
 	typename Compare
 >
-struct default_options
-{
-	typedef sge::sprite::process::options<
-		sge::sprite::process::default_geometry_options<
-			Choices,
-			Compare
-		>::value
-	> type;
-};
+using default_options
+=
+sge::sprite::process::options<
+	sge::sprite::process::default_geometry_options<
+		Choices,
+		Compare
+	>::value
+>;
 
 }
 }

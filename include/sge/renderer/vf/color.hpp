@@ -46,7 +46,8 @@ struct color
 sge::renderer::vf::color_base<
 	Format
 >
-{};
+{
+};
 
 FCPPT_PP_POP_WARNING
 

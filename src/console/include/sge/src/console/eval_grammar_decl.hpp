@@ -45,7 +45,7 @@ FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 template<
 	typename Iterator
 >
-class eval_grammar
+class eval_grammar final
 :
 public
 	boost::spirit::qi::grammar<

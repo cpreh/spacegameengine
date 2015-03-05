@@ -46,17 +46,23 @@ class object
 public:
 	typedef StateChoices state_choices;
 
-	typedef typename sge::sprite::state::detail::object_class<
+	typedef
+	sge::sprite::state::detail::object_class<
 		StateChoices
-	>::type elements_type;
+	>
+	elements_type;
 
-	typedef sge::sprite::state::parameters<
+	typedef
+	sge::sprite::state::parameters<
 		state_choices
-	> parameters_type;
+	>
+	parameters_type;
 
-	typedef typename sge::sprite::state::render_device<
+	typedef
+	sge::sprite::state::render_device<
 		StateChoices
-	>::type render_device;
+	>
+	render_device;
 
 	object(
 		render_device &,

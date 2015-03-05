@@ -22,9 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VF_DYNAMIC_DETAIL_ELEMENT_C_HPP_INCLUDED
 
 #include <sge/renderer/vf/dynamic/element_type.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
@@ -41,22 +38,15 @@ namespace dynamic
 namespace detail
 {
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
 template<
 	sge::renderer::vf::dynamic::element_type Elem
 >
-struct element_c
-:
+using element_c
+=
 std::integral_constant<
 	sge::renderer::vf::dynamic::element_type,
 	Elem
->
-{
-};
-
-FCPPT_PP_POP_WARNING
+>;
 
 }
 }

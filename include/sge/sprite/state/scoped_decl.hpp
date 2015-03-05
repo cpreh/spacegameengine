@@ -45,13 +45,17 @@ class scoped
 		scoped
 	);
 public:
-	typedef typename sge::sprite::state::render_device<
+	typedef
+	sge::sprite::state::render_device<
 		StateChoices
-	>::type render_device;
+	>
+	render_device;
 
-	typedef typename sge::sprite::state::render_context<
+	typedef
+	sge::sprite::state::render_context<
 		StateChoices
-	>::type render_context;
+	>
+	render_context;
 
 	typedef sge::sprite::state::options<
 		StateChoices

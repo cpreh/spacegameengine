@@ -23,9 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/systems/detail/is_with_input.hpp>
 #include <fcppt/mpl/contains_if.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/placeholders.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -38,24 +35,17 @@ namespace systems
 namespace detail
 {
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
 template<
 	typename Choices
 >
-struct has_with_input
-:
+using has_with_input
+=
 fcppt::mpl::contains_if<
 	Choices,
 	sge::systems::detail::is_with_input<
 		boost::mpl::_1
 	>
->
-{
-};
-
-FCPPT_PP_POP_WARNING
+>;
 
 }
 }

@@ -24,9 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/sprite/state/detail/choose_ffp.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 
 
 namespace sge
@@ -36,23 +33,16 @@ namespace sprite
 namespace state
 {
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
 template<
 	typename StateChoices
 >
-struct render_device
-:
+using render_device
+=
 sge::sprite::state::detail::choose_ffp<
 	StateChoices,
 	sge::renderer::device::ffp,
 	sge::renderer::device::core
->
-{
-};
-
-FCPPT_PP_POP_WARNING
+>;
 
 }
 }

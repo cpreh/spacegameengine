@@ -59,7 +59,7 @@ template<
 >
 sge::sprite::render::range<
 	Choices
-> const
+>
 fill_vertices(
 	Range const &_range,
 	Compare const &_compare,
@@ -101,9 +101,9 @@ fill_vertices(
 	);
 
 	typedef sge::renderer::vf::view<
-		typename sge::sprite::detail::vf::format_part_from_object<
+		sge::sprite::detail::vf::format_part_from_object<
 			object_type
-		>::type
+		>
 	> vertex_view;
 
 	vertex_view const vertices(

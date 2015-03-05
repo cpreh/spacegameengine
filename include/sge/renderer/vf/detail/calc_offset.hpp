@@ -21,9 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_DETAIL_CALC_OFFSET_HPP_INCLUDED
 #define SGE_RENDERER_VF_DETAIL_CALC_OFFSET_HPP_INCLUDED
 
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/advance.hpp>
 #include <boost/mpl/begin.hpp>
@@ -40,16 +37,14 @@ namespace vf
 namespace detail
 {
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
 template<
 	typename Elements,
 	typename Offsets,
 	typename Iter
 >
-struct calc_offset
-:
+using calc_offset
+=
+typename
 boost::mpl::advance<
 	typename boost::mpl::begin<
 		Offsets
@@ -60,10 +55,7 @@ boost::mpl::advance<
 		>::type,
 		Iter
 	>
->
-{};
-
-FCPPT_PP_POP_WARNING
+>::type;
 
 }
 }

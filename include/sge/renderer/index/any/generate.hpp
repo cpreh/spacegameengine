@@ -41,12 +41,12 @@ template<
 >
 void
 generate(
-	any::view const &_view,
+	sge::renderer::index::any::view const &_view,
 	Gen const &_gen
 )
 {
 	fcppt::variant::apply_unary(
-		any::detail::generate_visitor<
+		sge::renderer::index::any::detail::generate_visitor<
 			Gen
 		>(
 			_gen

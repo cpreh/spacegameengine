@@ -24,9 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/const_raw_pointer.hpp>
 #include <sge/renderer/raw_pointer.hpp>
 #include <sge/renderer/vf/const_tag.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/if.hpp>
 #include <type_traits>
@@ -40,14 +37,12 @@ namespace renderer
 namespace vf
 {
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
 template<
 	typename Constness
 >
-struct pointer
-:
+using pointer
+=
+typename
 boost::mpl::if_<
 	std::is_same<
 		Constness,
@@ -55,11 +50,7 @@ boost::mpl::if_<
 	>,
 	sge::renderer::const_raw_pointer,
 	sge::renderer::raw_pointer
->
-{
-};
-
-FCPPT_PP_POP_WARNING
+>::type;
 
 }
 }

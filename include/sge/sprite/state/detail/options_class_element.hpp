@@ -18,35 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_DETAIL_HAS_WITH_RENDERER_HPP_INCLUDED
-#define SGE_SYSTEMS_DETAIL_HAS_WITH_RENDERER_HPP_INCLUDED
+#ifndef SGE_SPRITE_STATE_DETAIL_OPTIONS_CLASS_ELEMENT_HPP_INCLUDED
+#define SGE_SPRITE_STATE_DETAIL_OPTIONS_CLASS_ELEMENT_HPP_INCLUDED
 
-#include <sge/systems/detail/is_with_renderer.hpp>
-#include <fcppt/mpl/contains_if.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/placeholders.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <majutsu/role.hpp>
+#include <majutsu/simple.hpp>
 
 
 namespace sge
 {
-namespace systems
+namespace sprite
+{
+namespace state
 {
 namespace detail
 {
 
 template<
-	typename Choices
+	typename Type
 >
-using has_with_renderer
-=
-fcppt::mpl::contains_if<
-	Choices,
-	sge::systems::detail::is_with_renderer<
-		boost::mpl::_1
-	>
->;
+struct options_class_element
+{
+	typedef majutsu::role<
+		majutsu::simple<
+			bool
+		>,
+		typename Type::role
+	> type;
+};
 
+}
 }
 }
 }

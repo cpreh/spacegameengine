@@ -37,14 +37,14 @@ namespace any
 template<
 	typename Constness
 >
-struct basic_view
-{
-	typedef fcppt::variant::object<
-		typename any::detail::variant_types<
-			Constness
-		>::type
-	> type;
-};
+using
+basic_view
+=
+fcppt::variant::object<
+	sge::renderer::index::any::detail::variant_types<
+		Constness
+	>
+>;
 
 }
 }

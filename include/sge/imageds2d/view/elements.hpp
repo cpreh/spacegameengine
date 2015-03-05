@@ -35,7 +35,7 @@ namespace view
 typedef
 sge::imageds2d::transform_elements<
 	sge::imageds2d::view::element
->::type
+>
 elements;
 
 }

@@ -51,9 +51,11 @@ public:
 		Constness
 	> iterator;
 
-	typedef typename sge::renderer::vf::pointer<
+	typedef
+	sge::renderer::vf::pointer<
 		Constness
-	>::type pointer;
+	>
+	pointer;
 
 	typedef sge::renderer::vf::dynamic::basic_view<
 		pointer

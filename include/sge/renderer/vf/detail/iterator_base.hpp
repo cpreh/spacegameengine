@@ -43,25 +43,24 @@ template<
 	typename Part,
 	typename Constness
 >
-struct iterator_base
-{
-	typedef boost::iterator_facade<
-		sge::renderer::vf::iterator<
-			Part,
-			Constness
-		>,
-		sge::renderer::vf::vertex<
-			Part,
-			Constness
-		>,
-		std::random_access_iterator_tag,
-		sge::renderer::vf::vertex<
-			Part,
-			Constness
-		>,
-		sge::renderer::vf::vertex_difference
-	> type;
-};
+using iterator_base
+=
+boost::iterator_facade<
+	sge::renderer::vf::iterator<
+		Part,
+		Constness
+	>,
+	sge::renderer::vf::vertex<
+		Part,
+		Constness
+	>,
+	std::random_access_iterator_tag,
+	sge::renderer::vf::vertex<
+		Part,
+		Constness
+	>,
+	sge::renderer::vf::vertex_difference
+>;
 
 }
 }

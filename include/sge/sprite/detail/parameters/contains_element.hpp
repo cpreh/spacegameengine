@@ -21,9 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_PARAMETERS_CONTAINS_ELEMENT_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_PARAMETERS_CONTAINS_ELEMENT_HPP_INCLUDED
 
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/at.hpp>
 #include <boost/mpl/contains.hpp>
@@ -44,23 +41,19 @@ template<
 >
 struct contains_element
 {
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-        template<
-                typename Elem
-        >
-        struct apply
-        :
-        boost::mpl::contains<
-                Dest,
-                typename boost::mpl::at_c<
+	template<
+		typename Elem
+	>
+	using apply
+	=
+	typename
+	boost::mpl::contains<
+		Dest,
+		typename boost::mpl::at_c<
 			Elem,
 			0
 		>::type
-	>
-	{
-	};
-FCPPT_PP_POP_WARNING
+	>::type;
 };
 
 }

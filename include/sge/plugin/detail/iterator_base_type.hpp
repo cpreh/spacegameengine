@@ -39,21 +39,20 @@ namespace detail
 template<
 	typename Type
 >
-struct iterator_base_type
-{
-	typedef boost::iterator_facade<
- 		sge::plugin::iterator<
-			Type
-		>,
-		sge::plugin::context<
-			Type
-		>,
-		std::random_access_iterator_tag,
-		sge::plugin::context<
-			Type
-		>
-	> type;
-};
+using iterator_base_type
+=
+boost::iterator_facade<
+	sge::plugin::iterator<
+		Type
+	>,
+	sge::plugin::context<
+		Type
+	>,
+	std::random_access_iterator_tag,
+	sge::plugin::context<
+		Type
+	>
+>;
 
 }
 }

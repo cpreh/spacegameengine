@@ -38,11 +38,16 @@ template<
 >
 class options
 {
-	typedef typename sge::sprite::state::detail::options_class<
+	typedef
+	sge::sprite::state::detail::options_class<
 		StateChoices
-	>::type elements_type;
+	>
+	elements_type;
 public:
-	typedef typename elements_type::memory_type::types flattened_types;
+	typedef
+	typename
+	elements_type::memory_type::types
+	flattened_types;
 
 	explicit
 	options(

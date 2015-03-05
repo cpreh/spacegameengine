@@ -23,9 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/const_raw_pointer.hpp>
 #include <sge/renderer/raw_pointer.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/if.hpp>
 #include <type_traits>
@@ -41,25 +38,19 @@ namespace vf
 namespace detail
 {
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
 template<
 	typename T
 >
-struct raw_data_type
-:
+using raw_data_type
+=
+typename
 boost::mpl::if_<
 	std::is_const<
 		T
 	>,
 	sge::renderer::const_raw_pointer,
 	sge::renderer::raw_pointer
->
-{
-};
-
-FCPPT_PP_POP_WARNING
+>::type;
 
 }
 }

@@ -18,21 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DETAIL_MAKE_CLASS_HPP_INCLUDED
-#define SGE_SPRITE_DETAIL_MAKE_CLASS_HPP_INCLUDED
+#ifndef SGE_SPRITE_DETAIL_BUFFERS_OFFSET_OBJECT_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_BUFFERS_OFFSET_OBJECT_HPP_INCLUDED
 
-#include <sge/sprite/detail/application.hpp>
-#include <sge/sprite/roles/pos.hpp>
-#include <sge/sprite/types/vector_fwd.hpp>
+#include <sge/renderer/index/first.hpp>
+#include <sge/renderer/vertex/first.hpp>
+#include <sge/sprite/buffers/roles/first_index.hpp>
+#include <sge/sprite/buffers/roles/first_vertex.hpp>
+#include <sge/sprite/detail/config/needs_index_buffer.hpp>
 #include <majutsu/class.hpp>
+#include <majutsu/composite.hpp>
 #include <majutsu/role.hpp>
 #include <majutsu/simple.hpp>
 #include <majutsu/memory/fusion.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/apply.hpp>
-#include <boost/mpl/joint_view.hpp>
-#include <boost/mpl/placeholders.hpp>
-#include <boost/mpl/transform.hpp>
+#include <boost/mpl/if.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>
 
@@ -43,43 +43,49 @@ namespace sprite
 {
 namespace detail
 {
+namespace buffers
+{
 
 template<
-	typename Choices,
-	typename ExtraElements
+	typename Choices
 >
-using make_class
-=
-majutsu::class_<
-	typename boost::mpl::joint_view<
-		typename boost::mpl::transform<
-			typename Choices::optional_elements,
-			sge::sprite::detail::application<
-				boost::mpl::_1,
-				Choices
-			>
-		>::type,
-		boost::mpl::joint_view<
-			boost::mpl::vector2<
-				majutsu::role<
-					majutsu::simple<
-						sge::sprite::types::vector<
-							typename Choices::type_choices
-						>
-					>,
-					sge::sprite::roles::pos
-				>,
-				typename boost::mpl::apply<
-					typename Choices::size_choice,
-					Choices
-				>::type
-			>,
-			ExtraElements
-		>
-	>::type,
-	majutsu::memory::fusion
->;
+struct offset_object
+{
+private:
+	typedef majutsu::role<
+		majutsu::simple<
+			sge::renderer::vertex::first
+		>,
+		sge::sprite::buffers::roles::first_vertex
+	> first_vertex_role;
 
+	typedef majutsu::role<
+		majutsu::simple<
+			sge::renderer::index::first
+		>,
+		sge::sprite::buffers::roles::first_index
+	> first_index_role;
+public:
+	typedef majutsu::class_<
+		majutsu::composite<
+			typename boost::mpl::if_<
+				sge::sprite::detail::config::needs_index_buffer<
+					Choices
+				>,
+				boost::mpl::vector2<
+					first_vertex_role,
+					first_index_role
+				>,
+				boost::mpl::vector1<
+					first_vertex_role
+				>
+			>::type
+		>,
+		majutsu::memory::fusion
+	> type;
+};
+
+}
 }
 }
 }

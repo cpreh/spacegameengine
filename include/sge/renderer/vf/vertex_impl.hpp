@@ -128,22 +128,33 @@ sge::renderer::vf::vertex<
 	Constness
 >::get() const
 {
-	typedef typename boost::mpl::find<
+	typedef
+	typename
+	boost::mpl::find<
 		elements,
 		Field
-	>::type element_iterator;
+	>::type
+	element_iterator;
 
-	typedef typename sge::renderer::vf::detail::calc_offset<
+	typedef
+	sge::renderer::vf::detail::calc_offset<
 		elements,
 		offsets,
 		element_iterator
-	>::type offset;
+	>
+	offset;
 
-	typedef typename boost::mpl::deref<
+	typedef
+	typename
+	boost::mpl::deref<
 		element_iterator
-	>::type element;
+	>::type
+	element;
 
-	typedef typename element::packed_type packed_type;
+	typedef
+	typename
+	element::packed_type
+	packed_type;
 
 	sge::renderer::vf::detail::read_wrapper<
 		packed_type

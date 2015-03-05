@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/iterator/iterator_facade.hpp>
 #include <fcppt/config/external_end.hpp>
 
+
 namespace sge
 {
 namespace renderer
@@ -44,17 +45,20 @@ template<
 	typename Part,
 	typename Constness
 >
-class iterator
+class iterator final
 :
-	public detail::iterator_base<
-		Part,
-		Constness
-	>::type
+	public
+		sge::renderer::vf::detail::iterator_base<
+			Part,
+			Constness
+		>
 {
-	typedef typename sge::renderer::vf::detail::iterator_base<
+	typedef
+	sge::renderer::vf::detail::iterator_base<
 		Part,
 		Constness
-	>::type base;
+	>
+	base;
 public:
 	typedef typename base::value_type value_type;
 

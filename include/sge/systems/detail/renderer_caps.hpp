@@ -22,9 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SYSTEMS_DETAIL_RENDERER_CAPS_HPP_INCLUDED
 
 #include <sge/systems/detail/is_with_renderer.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/deref.hpp>
 #include <boost/mpl/find_if.hpp>
@@ -39,14 +36,12 @@ namespace systems
 namespace detail
 {
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
 template<
 	typename Choices
 >
-struct renderer_caps
-:
+using renderer_caps
+=
+typename
 boost::mpl::deref<
 	typename boost::mpl::find_if<
 		Choices,
@@ -54,11 +49,7 @@ boost::mpl::deref<
 			boost::mpl::_1
 		>
 	>::type
->::type::caps
-{
-};
-
-FCPPT_PP_POP_WARNING
+>::type::caps;
 
 }
 }

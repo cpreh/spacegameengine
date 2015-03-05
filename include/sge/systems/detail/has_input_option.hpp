@@ -22,9 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SYSTEMS_DETAIL_HAS_INPUT_OPTION_HPP_INCLUDED
 
 #include <sge/systems/detail/is_with_input.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/contains.hpp>
 #include <boost/mpl/deref.hpp>
@@ -40,15 +37,12 @@ namespace systems
 namespace detail
 {
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
 template<
 	typename Choices,
 	typename Option
 >
-struct has_input_option
-:
+using has_input_option
+=
 boost::mpl::contains<
 	typename boost::mpl::deref<
 		typename boost::mpl::find_if<
@@ -59,11 +53,7 @@ boost::mpl::contains<
 		>::type
 	>::type::options,
 	Option
->
-{
-};
-
-FCPPT_PP_POP_WARNING
+>;
 
 }
 }

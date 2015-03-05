@@ -49,9 +49,11 @@ template<
 >
 class parameters
 {
-	typedef typename sge::sprite::detail::parameters::make_class<
+	typedef
+	sge::sprite::detail::parameters::make_class<
 		Choices
-	>::type elements_type;
+	>
+	elements_type;
 public:
 	typedef Choices choices;
 

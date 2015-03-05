@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/format.hpp>
 #include <sge/renderer/index/nonconst_tag.hpp>
 
+
 namespace sge
 {
 namespace renderer
@@ -34,13 +35,12 @@ namespace index
 template<
 	typename Format
 >
-struct to_nonconst_format
-{
-	typedef index::format<
-		typename Format::index_type,
-		index::nonconst_tag
-	> type;
-};
+using to_nonconst_format
+=
+sge::renderer::index::format<
+	typename Format::index_type,
+	sge::renderer::index::nonconst_tag
+>;
 
 }
 }

@@ -18,52 +18,78 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_ANY_DETAIL_VARIANT_TYPES_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_ANY_DETAIL_VARIANT_TYPES_HPP_INCLUDED
+#ifndef SGE_SPRITE_STATE_DETAIL_PARAMETERS_CLASS_IMPL_HPP_INCLUDED
+#define SGE_SPRITE_STATE_DETAIL_PARAMETERS_CLASS_IMPL_HPP_INCLUDED
 
-#include <sge/renderer/index/i16.hpp>
-#include <sge/renderer/index/i32.hpp>
-#include <sge/renderer/index/any/detail/make_view_element.hpp>
+#include <majutsu/class.hpp>
+#include <majutsu/composite.hpp>
+#include <majutsu/role.hpp>
+#include <majutsu/simple.hpp>
+#include <majutsu/memory/fusion.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/copy_if.hpp>
 #include <boost/mpl/placeholders.hpp>
 #include <boost/mpl/transform.hpp>
-#include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
 namespace sge
 {
-namespace renderer
+namespace sprite
 {
-namespace index
-{
-namespace any
+namespace state
 {
 namespace detail
 {
 
 template<
-	typename Constness
+	typename StateChoices
 >
-using variant_types
-=
-typename
-boost::mpl::transform<
-	boost::mpl::vector2<
-		index::i16,
-		index::i32
-	>,
-	sge::renderer::index::any::detail::make_view_element<
-		boost::mpl::_1,
-		Constness
+struct parameters_class_impl
+{
+private:
+	template<
+		typename Type
 	>
->::type;
+	struct has_parameter
+	{
+		typedef typename Type::has_parameter type;
+	};
 
-}
+	template<
+		typename Type
+	>
+	struct parameter_class_element
+	{
+		typedef majutsu::role<
+			majutsu::simple<
+				typename Type::optional_extra_parameters
+			>,
+			typename Type::parameter_role
+		> type;
+	};
+public:
+	typedef majutsu::class_<
+		majutsu::composite<
+			typename boost::mpl::transform<
+				typename boost::mpl::copy_if<
+					typename StateChoices::optional_elements,
+					has_parameter<
+						boost::mpl::_1
+					>
+				>::type,
+				parameter_class_element<
+					boost::mpl::_1
+				>
+			>::type
+		>,
+		majutsu::memory::fusion
+	> type;
+};
+
 }
 }
 }
 }
 
 #endif
-

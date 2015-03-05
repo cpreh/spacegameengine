@@ -35,7 +35,7 @@ namespace view
 typedef
 sge::image3d::transform_elements<
 	sge::image3d::view::const_element
->::type
+>
 const_elements;
 
 }

@@ -42,17 +42,21 @@ template<
 class range
 {
 public:
-	typedef typename sge::sprite::detail::render::range_object<
+	typedef
+	sge::sprite::detail::render::range_object<
 		Choices
-	>::type range_object;
+	>
+	range_object;
 
 	typedef sge::sprite::render::range_part<
 		Choices
 	> range_part_type;
 
-	typedef typename sge::sprite::render::range_part_vector<
+	typedef
+	sge::sprite::render::range_part_vector<
 		Choices
-	>::type range_part_vector;
+	>
+	range_part_vector;
 
 	typedef typename range_part_vector::const_iterator const_iterator;
 

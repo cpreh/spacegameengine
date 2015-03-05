@@ -60,7 +60,7 @@ FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 template<
 	typename In
 >
-class grammar
+class grammar final
 :
 	public boost::spirit::qi::grammar<
 		In,

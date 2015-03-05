@@ -70,12 +70,14 @@ class object
 	public
 		sge::sprite::detail::object_base<
 			Choices
-		>::type
+		>
 {
-	typedef typename sge::sprite::detail::make_class<
+	typedef
+	sge::sprite::detail::make_class<
 		Choices,
 		boost::mpl::vector0<>
-	>::type element_type;
+	>
+	element_type;
 
 	typedef typename element_type::memory_type::types flattened_types;
 public:

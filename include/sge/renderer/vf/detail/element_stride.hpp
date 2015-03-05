@@ -22,9 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VF_DETAIL_ELEMENT_STRIDE_HPP_INCLUDED
 
 #include <sge/renderer/vf/vertex_size.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/integral_c.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -39,23 +36,19 @@ namespace vf
 namespace detail
 {
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
 template<
 	typename T
 >
 struct element_stride
-:
-boost::mpl::integral_c<
-	sge::renderer::vf::vertex_size,
-	sizeof(typename T::subelement_type)
-	* T::num_subelements
->
 {
+	typedef
+	boost::mpl::integral_c<
+		sge::renderer::vf::vertex_size,
+		sizeof(typename T::subelement_type)
+		* T::num_subelements
+	>
+	type;
 };
-
-FCPPT_PP_POP_WARNING
 
 }
 }

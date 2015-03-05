@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/iterator/iterator_facade.hpp>
 #include <fcppt/config/external_end.hpp>
 
+
 namespace sge
 {
 namespace renderer
@@ -44,16 +45,18 @@ FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 template<
 	typename Format
 >
-class iterator
+class iterator final
 :
-	public detail::iterator_base<
+	public sge::renderer::index::detail::iterator_base<
 		Format
-	>::type
+	>
 {
 public:
-	typedef typename detail::iterator_base<
+	typedef
+	sge::renderer::index::detail::iterator_base<
 		Format
-	>::type base;
+	>
+	base;
 
 	typedef typename base::value_type value_type;
 
@@ -71,11 +74,13 @@ public:
 		pointer
 	);
 
-	typedef index::iterator<
-		typename index::to_nonconst_format<
+	typedef
+	sge::renderer::index::iterator<
+		sge::renderer::index::to_nonconst_format<
 			Format
-		>::type
-	> nonconst_iterator;
+		>
+	>
+	nonconst_iterator;
 
 	iterator(
 		nonconst_iterator const &

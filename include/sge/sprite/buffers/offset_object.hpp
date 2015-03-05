@@ -21,20 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_BUFFERS_OFFSET_OBJECT_HPP_INCLUDED
 #define SGE_SPRITE_BUFFERS_OFFSET_OBJECT_HPP_INCLUDED
 
-#include <sge/renderer/index/first.hpp>
-#include <sge/renderer/vertex/first.hpp>
-#include <sge/sprite/buffers/roles/first_index.hpp>
-#include <sge/sprite/buffers/roles/first_vertex.hpp>
-#include <sge/sprite/detail/config/needs_index_buffer.hpp>
-#include <majutsu/class.hpp>
-#include <majutsu/composite.hpp>
-#include <majutsu/role.hpp>
-#include <majutsu/simple.hpp>
-#include <majutsu/memory/fusion.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/if.hpp>
-#include <boost/mpl/vector/vector10.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <sge/sprite/detail/buffers/offset_object.hpp>
 
 
 namespace sge
@@ -47,41 +34,12 @@ namespace buffers
 template<
 	typename Choices
 >
-struct offset_object
-{
-private:
-	typedef majutsu::role<
-		majutsu::simple<
-			sge::renderer::vertex::first
-		>,
-		sge::sprite::buffers::roles::first_vertex
-	> first_vertex_role;
-
-	typedef majutsu::role<
-		majutsu::simple<
-			sge::renderer::index::first
-		>,
-		sge::sprite::buffers::roles::first_index
-	> first_index_role;
-public:
-	typedef majutsu::class_<
-		majutsu::composite<
-			typename boost::mpl::if_<
-				sge::sprite::detail::config::needs_index_buffer<
-					Choices
-				>,
-				boost::mpl::vector2<
-					first_vertex_role,
-					first_index_role
-				>,
-				boost::mpl::vector1<
-					first_vertex_role
-				>
-			>::type
-		>,
-		majutsu::memory::fusion
-	> type;
-};
+using offset_object
+=
+typename
+sge::sprite::detail::buffers::offset_object<
+	Choices
+>::type;
 
 }
 }

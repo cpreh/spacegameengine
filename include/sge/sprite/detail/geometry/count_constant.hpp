@@ -22,9 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_GEOMETRY_COUNT_CONSTANT_HPP_INCLUDED
 
 #include <sge/sprite/detail/geometry/count.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/integral_c.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -39,22 +36,15 @@ namespace detail
 namespace geometry
 {
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
 template<
 	sge::sprite::detail::geometry::count Count
 >
-struct count_constant
-:
+using count_constant
+=
 boost::mpl::integral_c<
 	sge::sprite::detail::geometry::count,
 	Count
->
-{
-};
-
-FCPPT_PP_POP_WARNING
+>;
 
 }
 }

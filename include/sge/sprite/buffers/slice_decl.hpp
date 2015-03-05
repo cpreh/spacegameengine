@@ -49,17 +49,23 @@ class slice
 		slice
 	);
 public:
-	typedef typename sge::sprite::buffers::object<
+	typedef
+	sge::sprite::buffers::object<
 		Choices
-	>::type object;
+	>
+	object;
 
-	typedef typename sge::sprite::buffers::offset_object<
+	typedef
+	sge::sprite::buffers::offset_object<
 		Choices
-	>::type offset_object;
+	>
+	offset_object;
 
-	typedef typename sge::sprite::render::range_part_vector<
+	typedef
+	sge::sprite::render::range_part_vector<
 		Choices
-	>::type range_part_vector;
+	>
+	range_part_vector;
 
 	slice(
 		object const &,

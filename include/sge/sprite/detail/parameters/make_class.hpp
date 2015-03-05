@@ -23,9 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/detail/make_class.hpp>
 #include <sge/sprite/detail/parameters/make_extra_elements.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 
 
 namespace sge
@@ -37,24 +34,17 @@ namespace detail
 namespace parameters
 {
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
 template<
 	typename Choices
 >
-struct make_class
-:
+using make_class
+=
 sge::sprite::detail::make_class<
 	Choices,
-	typename sge::sprite::detail::parameters::make_extra_elements<
+	sge::sprite::detail::parameters::make_extra_elements<
 		Choices
-	>::type
->
-{
-};
-
-FCPPT_PP_POP_WARNING
+	>
+>;
 
 }
 }

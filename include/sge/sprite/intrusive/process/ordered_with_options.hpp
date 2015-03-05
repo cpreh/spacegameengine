@@ -105,9 +105,9 @@ ordered_with_options(
 		std::bind(
 			sge::sprite::intrusive::detail::render_one<
 				Options,
-				typename sge::sprite::state::render_context<
+				sge::sprite::state::render_context<
 					StateChoices
-				>::type,
+				>,
 				Buffers,
 				Compare,
 				typename collection::range_type

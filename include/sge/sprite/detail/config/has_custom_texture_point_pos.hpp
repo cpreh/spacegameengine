@@ -22,9 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_CONFIG_HAS_CUSTOM_TEXTURE_POINT_POS_HPP_INCLUDED
 
 #include <sge/sprite/detail/config/find_with_texture_point_size.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 
 
 namespace sge
@@ -36,21 +33,15 @@ namespace detail
 namespace config
 {
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
 template<
 	typename Choices
 >
-struct has_custom_texture_point_pos
-:
+using has_custom_texture_point_pos
+=
+typename
 sge::sprite::detail::config::find_with_texture_point_size<
 	Choices
->::type::point_pos::type
-{
-};
-
-FCPPT_PP_POP_WARNING
+>::type::point_pos::type;
 
 }
 }

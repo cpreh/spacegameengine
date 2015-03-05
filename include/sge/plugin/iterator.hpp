@@ -41,17 +41,19 @@ FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 template<
 	typename T
 >
-class iterator
+class iterator final
 :
 public
 	sge::plugin::detail::iterator_base_type<
 		T
-	>::type
+	>
 {
 public:
-	typedef typename sge::plugin::detail::iterator_base_type<
+	typedef
+	sge::plugin::detail::iterator_base_type<
 		T
-	>::type base_type;
+	>
+	base_type;
 
 	typedef typename base_type::value_type value_type;
 

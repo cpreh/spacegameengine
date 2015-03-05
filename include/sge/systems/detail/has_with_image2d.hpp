@@ -22,9 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SYSTEMS_DETAIL_HAS_WITH_IMAGE2D_HPP_INCLUDED
 
 #include <sge/systems/with_image2d_fwd.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/contains.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -37,22 +34,15 @@ namespace systems
 namespace detail
 {
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
 template<
 	typename Choices
 >
-struct has_with_image2d
-:
+using has_with_image2d
+=
 boost::mpl::contains<
 	Choices,
 	sge::systems::with_image2d
->
-{
-};
-
-FCPPT_PP_POP_WARNING
+>;
 
 }
 }

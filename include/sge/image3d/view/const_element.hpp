@@ -23,9 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image3d/view/element_base.hpp>
 #include <mizuiro/const_tag.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
+
 
 namespace sge
 {
@@ -34,22 +32,15 @@ namespace image3d
 namespace view
 {
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
 template<
 	typename ColorFormat
 >
-struct const_element
-:
-image3d::view::element_base<
+using const_element
+=
+sge::image3d::view::element_base<
 	ColorFormat,
 	mizuiro::const_tag
->
-{
-};
-
-FCPPT_PP_POP_WARNING
+>;
 
 }
 }

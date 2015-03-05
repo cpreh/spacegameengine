@@ -22,9 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE2D_TRANSFORM_ELEMENTS_HPP_INCLUDED
 
 #include <sge/image/color/transform_elements.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 
 
 namespace sge
@@ -32,23 +29,16 @@ namespace sge
 namespace image2d
 {
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
 template<
 	template<
 		typename
 	> class Element
 >
-struct transform_elements
-:
+using transform_elements
+=
 sge::image::color::transform_elements<
 	Element
->
-{
-};
-
-FCPPT_PP_POP_WARNING
+>;
 
 }
 }

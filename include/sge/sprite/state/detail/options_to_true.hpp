@@ -39,16 +39,14 @@ namespace detail
 template<
 	typename StateChoices
 >
-typename
 sge::sprite::state::detail::options_class<
 	StateChoices
->::type
+>
 options_to_true()
 {
-	typename
 	sge::sprite::state::detail::options_class<
 		StateChoices
-	>::type result{
+	> result{
 		fcppt::no_init()
 	};
 

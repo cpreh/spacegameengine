@@ -43,9 +43,11 @@ class parameters
 		parameters
 	);
 public:
-	typedef typename sge::sprite::state::render_context<
+	typedef
+	sge::sprite::state::render_context<
 		StateOptions
-	>::type render_context_type;
+	>
+	render_context_type;
 
 	parameters(
 		render_context_type &,

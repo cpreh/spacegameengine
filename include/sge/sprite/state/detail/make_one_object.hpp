@@ -49,17 +49,23 @@ class make_one_object
 		make_one_object
 	);
 public:
-	typedef typename sge::sprite::state::detail::object_class<
+	typedef
+	sge::sprite::state::detail::object_class<
 		StateChoices
-	>::type object_class;
+	>
+	object_class;
 
-	typedef typename sge::sprite::state::render_device<
+	typedef
+	sge::sprite::state::render_device<
 		StateChoices
-	>::type render_device;
+	>
+	render_device;
 
-	typedef typename sge::sprite::state::detail::parameters_class<
+	typedef
+	sge::sprite::state::detail::parameters_class<
 		StateChoices
-	>::type parameters_class;
+	>
+	parameters_class;
 
 	make_one_object(
 		object_class &_result,

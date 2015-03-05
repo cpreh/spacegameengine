@@ -52,7 +52,7 @@ template<
 	typename Order,
 	bool IsConst
 >
-class iterator
+class iterator final
 :
 	public sge::sprite::intrusive::detail::ordered_iterator_base<
 		Choices,
@@ -68,10 +68,13 @@ class iterator
 
 	typedef typename base_struct::type base;
 
-	typedef typename sge::sprite::intrusive::detail::ordered_map<
+	typedef
+	typename
+	sge::sprite::intrusive::detail::ordered_map<
 		Order,
 		Choices
-	>::type ordered_map;
+	>::type
+	ordered_map;
 
 	typedef typename boost::mpl::if_c<
 		IsConst,

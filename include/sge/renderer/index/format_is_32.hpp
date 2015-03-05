@@ -22,9 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_INDEX_FORMAT_IS_32_HPP_INCLUDED
 
 #include <sge/renderer/index/i32.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
@@ -37,22 +34,15 @@ namespace renderer
 namespace index
 {
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
 template<
 	typename Format
 >
-struct format_is_32
-:
+using format_is_32
+=
 std::is_same<
 	typename Format::index_type,
 	sge::renderer::index::i32
->
-{
-};
-
-FCPPT_PP_POP_WARNING
+>;
 
 }
 }

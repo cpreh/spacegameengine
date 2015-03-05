@@ -47,9 +47,11 @@ class vertex
 		vertex
 	);
 public:
-	typedef typename sge::renderer::vf::pointer<
+	typedef
+	sge::renderer::vf::pointer<
 		Constness
-	>::type pointer;
+	>
+	pointer;
 
 	typedef typename Part::elements elements;
 

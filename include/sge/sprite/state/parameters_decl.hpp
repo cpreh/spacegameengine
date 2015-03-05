@@ -40,9 +40,11 @@ template<
 >
 class parameters
 {
-	typedef typename sge::sprite::state::detail::parameters_class<
+	typedef
+	sge::sprite::state::detail::parameters_class<
 		StateChoices
-	>::type elements_type;
+	>
+	elements_type;
 public:
 	typedef StateChoices state_choices;
 

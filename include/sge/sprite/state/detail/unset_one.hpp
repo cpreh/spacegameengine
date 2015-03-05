@@ -44,13 +44,17 @@ class unset_one
 		unset_one
 	);
 public:
-	typedef typename sge::sprite::state::detail::options_class<
+	typedef
+	sge::sprite::state::detail::options_class<
 		StateChoices
-	>::type options_class;
+	>
+	options_class;
 
-	typedef typename sge::sprite::state::render_context<
+	typedef
+	sge::sprite::state::render_context<
 		StateChoices
-	>::type render_context;
+	>
+	render_context;
 
 	unset_one(
 		render_context &_render_context,

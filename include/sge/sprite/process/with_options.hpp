@@ -54,9 +54,9 @@ typename boost::enable_if<
 	void
 >::type
 with_options(
-	typename sge::sprite::state::render_context<
+	sge::sprite::state::render_context<
 		StateChoices
-	>::type &_render_context,
+	> &_render_context,
 	Range const &_range,
 	Buffers &_buffers,
 	Compare const &_compare,

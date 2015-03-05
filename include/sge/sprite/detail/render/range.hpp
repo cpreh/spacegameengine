@@ -48,27 +48,21 @@ range(
 	> const &_range
 )
 {
-	typedef sge::sprite::render::range<
-		Choices
-	> range_type;
-
 	for(
-		typename range_type::const_iterator it(
-			_range.begin()
-		);
-		it != _range.end();
-		++it
+		auto const &element
+		:
+		_range
 	)
 	{
 		sge::sprite::detail::render::set_textures(
 			_render_context,
-			*it
+			element
 		);
 
 		sge::sprite::detail::render::inner(
 			_render_context,
 			_range,
-			*it
+			element
 		);
 	}
 

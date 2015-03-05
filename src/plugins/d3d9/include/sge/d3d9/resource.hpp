@@ -41,7 +41,7 @@ namespace d3d9
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
-class resource
+class resource final
 :
 	public boost::intrusive::list_base_hook<
 		boost::intrusive::link_mode<

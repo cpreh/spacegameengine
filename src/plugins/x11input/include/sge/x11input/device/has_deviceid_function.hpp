@@ -22,9 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_DEVICE_HAS_DEVICEID_FUNCTION_HPP_INCLUDED
 
 #include <sge/x11input/device/has_deviceid.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 
 
 namespace sge
@@ -34,22 +31,15 @@ namespace x11input
 namespace device
 {
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
 template<
 	typename T
 >
-struct has_deviceid_function
-:
+using has_deviceid_function
+=
 sge::x11input::device::has_deviceid<
 	T,
 	int T::*
->
-{
-};
-
-FCPPT_PP_POP_WARNING
+>;
 
 }
 }

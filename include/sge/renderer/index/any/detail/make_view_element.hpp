@@ -42,12 +42,14 @@ template<
 >
 struct make_view_element
 {
-	typedef index::view<
-		index::format<
+	typedef
+	sge::renderer::index::view<
+		sge::renderer::index::format<
 			Element,
 			Constness
 		>
-	> type;
+	>
+	type;
 };
 
 }

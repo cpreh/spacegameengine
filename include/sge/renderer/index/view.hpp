@@ -67,11 +67,13 @@ public:
 		Format
 	> iterator;
 
-	typedef sge::renderer::index::view<
-		typename sge::renderer::index::to_nonconst_format<
+	typedef
+	sge::renderer::index::view<
+		sge::renderer::index::to_nonconst_format<
 			Format
-		>::type
-	> nonconst_type;
+		>
+	>
+	nonconst_type;
 
 	typedef sge::renderer::index::dynamic::basic_view<
 		std::is_same<

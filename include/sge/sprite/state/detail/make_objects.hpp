@@ -41,25 +41,21 @@ namespace detail
 template<
 	typename StateChoices
 >
-typename
 sge::sprite::state::detail::object_class<
 	StateChoices
->::type
+>
 make_objects(
-	typename
 	sge::sprite::state::render_device<
 		StateChoices
-	>::type &_device,
-	typename
+	> &_device,
 	sge::sprite::state::detail::parameters_class<
 		StateChoices
-	>::type const &_parameters
+	> const &_parameters
 )
 {
-	typename
 	sge::sprite::state::detail::object_class<
 		StateChoices
-	>::type result{
+	> result{
 		fcppt::no_init()
 	};
 

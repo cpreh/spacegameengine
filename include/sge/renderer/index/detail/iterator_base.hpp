@@ -46,29 +46,28 @@ namespace detail
 template<
 	typename Format
 >
-struct iterator_base
-{
-	typedef boost::iterator_facade<
-		index::iterator<
+using iterator_base
+=
+boost::iterator_facade<
+	sge::renderer::index::iterator<
+		Format
+	>,
+	typename Format::index_type,
+	std::random_access_iterator_tag,
+	typename boost::mpl::if_<
+		std::is_same<
+			typename Format::constness,
+			sge::renderer::index::nonconst_tag
+		>,
+		sge::renderer::index::proxy<
 			Format
 		>,
-		typename Format::index_type,
-		std::random_access_iterator_tag,
-		typename boost::mpl::if_<
-			std::is_same<
-				typename Format::constness,
-				index::nonconst_tag
-			>,
-			index::proxy<
-				Format
-			>,
-			index::const_proxy<
-				Format
-			>
-		>::type,
-		index::difference_type
-	> type;
-};
+		sge::renderer::index::const_proxy<
+			Format
+		>
+	>::type,
+	sge::renderer::index::difference_type
+>;
 
 }
 }

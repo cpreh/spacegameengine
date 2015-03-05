@@ -22,9 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_PROCESS_IS_SAME_GEOMETRY_OPTIONS_HPP_INCLUDED
 
 #include <sge/sprite/process/geometry_options_fwd.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/bool.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -39,24 +36,17 @@ namespace detail
 namespace process
 {
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
 template<
 	sge::sprite::process::geometry_options Options1,
 	sge::sprite::process::geometry_options Options2
 >
-struct is_same_geometry_options
-:
+using is_same_geometry_options
+=
 boost::mpl::bool_<
 	Options1
 	==
 	Options2
->
-{
-};
-
-FCPPT_PP_POP_WARNING
+>;
 
 }
 }

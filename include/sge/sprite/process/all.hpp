@@ -46,9 +46,9 @@ template<
 >
 void
 all(
-	typename sge::sprite::state::render_context<
+	sge::sprite::state::render_context<
 		StateChoices
-	>::type &_render_context,
+	> &_render_context,
 	Range const &_range,
 	Buffers &_buffers,
 	Compare const &_compare,
@@ -58,12 +58,12 @@ all(
 )
 {
 	sge::sprite::process::with_options<
-		typename sge::sprite::process::default_options<
+		sge::sprite::process::default_options<
 			typename std::iterator_traits<
 				typename Range::iterator
 			>::value_type::choices,
 			Compare
-		>::type
+		>
 	>(
 		_render_context,
 		_range,
