@@ -41,7 +41,7 @@ namespace d3d9
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
-class resource final
+class resource
 :
 	public boost::intrusive::list_base_hook<
 		boost::intrusive::link_mode<
@@ -63,7 +63,8 @@ public:
 		sge::d3d9::needs_reset
 	);
 
-	virtual ~resource();
+	virtual
+	~resource() = 0;
 
 	void
 	loss();
@@ -77,10 +78,12 @@ public:
 	bool
 	needs_reset() const ;
 private:
-	virtual void
+	virtual
+	void
 	on_loss() = 0;
 
-	virtual void
+	virtual
+	void
 	on_reset() = 0;
 
 	D3DPOOL const pool_;
