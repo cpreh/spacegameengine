@@ -41,36 +41,7 @@ if(
 	)
 endif()
 
-option(
-	ENABLE_SHARED
-	"Build sge as shared libraries"
-	TRUE
-)
-
-option(
-	ENABLE_STATIC
-	"Build sge as as static libraries"
-	FALSE
-)
-
-if(
-	NOT ENABLE_SHARED AND NOT ENABLE_STATIC
-)
-	message(
-		FATAL_ERROR
-		"You disabled both STATIC and SHARED"
-	)
-endif()
-
-if(
-	ENABLE_STATIC
-	AND NOT ENABLE_SHARED
-)
-	set(
-		SGE_DEFAULT_LINK_STATIC
-		TRUE
-	)
-endif()
+fcppt_utils_static_shared()
 
 include_directories(
 	${FCPPT_UTILS_PROJECT_SOURCE_DIR}/include

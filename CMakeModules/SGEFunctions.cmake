@@ -2,27 +2,6 @@ include(
 	CMakeParseArguments
 )
 
-function(
-	sge_link_target
-	LIBNAME
-)
-	if(
-		SGE_DEFAULT_LINK_STATIC
-	)
-		set(
-			${LIBNAME}_TARGET
-			${LIBNAME}_static
-			PARENT_SCOPE
-		)
-	else()
-		set(
-			${LIBNAME}_TARGET
-			${LIBNAME}
-			PARENT_SCOPE
-		)
-	endif()
-endfunction()
-
 macro(
 	transform_sge_link_targets
 	SGELIBS
@@ -36,7 +15,7 @@ macro(
 		CURLIB
 		${SGELIBS}
 	)
-		sge_link_target(
+		fcppt_utils_link_target(
 			${CURLIB}
 		)
 
@@ -83,12 +62,17 @@ function(
 	endforeach()
 endfunction()
 
+set(
+	SGE_STATIC_LINK_FLAG
+	SGE_STATIC_LINK
+)
+
 function(
 	sge_generate_symbol_header
 )
 	fcppt_generate_symbol_header(
 		STATIC_LINK_FLAG
-			"SGE_STATIC_LINK"
+			"${SGE_STATIC_LINK_FLAG}"
 		${ARGN}
 	)
 endfunction()
@@ -151,9 +135,9 @@ function(
 	if(
 		${_VARIANT} STREQUAL "STATIC"
 	)
-		set(
+		fcppt_utils_static_link_name(
+			"${SGE_LIB_NAME}"
 			SGE_LIB_NAME
-			"${SGE_LIB_NAME}_static"
 		)
 	endif()
 
@@ -177,7 +161,7 @@ function(
 	fcppt_utils_interface_static_link(
 		${SGE_LIB_NAME}
 		${_VARIANT}
-		"SGE_STATIC_LINK"
+		${SGE_STATIC_LINK_FLAG}
 	)
 
 	transform_sge_link_targets(
