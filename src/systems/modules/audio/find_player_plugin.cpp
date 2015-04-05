@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/modules/audio/find_player_plugin.hpp>
 #include <sge/src/systems/modules/audio/player_pair.hpp>
 #include <sge/systems/audio_player.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/from_optional.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/warning.hpp>
@@ -42,10 +42,9 @@ sge::systems::modules::audio::find_player_plugin(
 	sge::systems::audio_player const &_parameters
 )
 {
-	if(
+	return
 		_parameters.name()
-	)
-		return
+		?
 			sge::systems::find_plugin<
 				sge::audio::player
 			>(
@@ -59,58 +58,51 @@ sge::systems::modules::audio::find_player_plugin(
 					return
 						true;
 				}
-			);
-
-	typedef
-	fcppt::optional<
-		sge::systems::modules::audio::player_pair
-	>
-	optional_player_pair;
-
-	optional_player_pair result(
-		sge::systems::find_plugin_opt<
-			sge::audio::player
-		>(
-			_collection,
-			_log_options,
-			[](
-				sge::audio::player const &_player
 			)
-			{
-				return
-					!_player.is_null();
-			}
-		)
-	);
+		:
+			fcppt::from_optional(
+				sge::systems::find_plugin_opt<
+					sge::audio::player
+				>(
+					_collection,
+					_log_options,
+					[](
+						sge::audio::player const &_player
+					)
+					{
+						return
+							!_player.is_null();
+					}
+				),
+				[
+					&_collection,
+					&_log_options,
+					&_parameters
+				]
+				{
+					FCPPT_LOG_WARNING(
+						sge::systems::logger(),
+						fcppt::log::_
+							<< FCPPT_TEXT("Unable to load an audio player that is not null.")
+							<< FCPPT_TEXT(" Trying to load a null audio player instead.")
+					);
 
-	if(
-		result
-	)
-		return
-			std::move(
-				*result
-			);
-
-	FCPPT_LOG_WARNING(
-		sge::systems::logger(),
-		fcppt::log::_
-			<< FCPPT_TEXT("Unable to load an audio player that is not null.")
-			<< FCPPT_TEXT(" Trying to load a null audio player instead.")
-	);
-
-	return
-		sge::systems::find_plugin<
-			sge::audio::player
-		>(
-			_collection,
-			_log_options,
-			_parameters.name(),
-			[](
-				sge::audio::player const &_player
+					return
+						sge::systems::find_plugin<
+							sge::audio::player
+						>(
+							_collection,
+							_log_options,
+							_parameters.name(),
+							[](
+								sge::audio::player const &_player
+							)
+							{
+								return
+									_player.is_null();
+							}
+						);
+				}
 			)
-			{
-				return
-					_player.is_null();
-			}
-		);
+		;
 }

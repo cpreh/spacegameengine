@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/cegui/cursor_visibility.hpp>
+#include <sge/cegui/default_font.hpp>
 #include <sge/cegui/duration.hpp>
 #include <sge/cegui/from_cegui_string.hpp>
 #include <sge/cegui/load_context.hpp>
@@ -37,6 +38,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/cegui/to_cegui_rect.hpp>
 #include <sge/src/cegui/detail/system_impl.hpp>
 #include <sge/viewport/manager.hpp>
+#include <fcppt/from_optional.hpp>
+#include <fcppt/maybe_void.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/log/_.hpp>
@@ -115,11 +118,15 @@ sge::cegui::detail::system_impl::system_impl(
 	CEGUI::WidgetLookManager::setDefaultResourceGroup(
 		sge::cegui::to_cegui_string(
 			fcppt::filesystem::path_to_string(
-				_load_context.looknfeel_directory()
-				?
-					*_load_context.looknfeel_directory()
-				:
-					prefix_.get()
+				fcppt::from_optional(
+					_load_context.looknfeel_directory(),
+					[
+						this
+					]{
+						return
+							prefix_.get();
+					}
+				)
 			)
 		)
 	);
@@ -127,11 +134,15 @@ sge::cegui::detail::system_impl::system_impl(
 	CEGUI::Font::setDefaultResourceGroup(
 		sge::cegui::to_cegui_string(
 			fcppt::filesystem::path_to_string(
-				_load_context.font_directory()
-				?
-					*_load_context.font_directory()
-				:
-					prefix_.get()
+				fcppt::from_optional(
+					_load_context.font_directory(),
+					[
+						this
+					]{
+						return
+							prefix_.get();
+					}
+				)
 			)
 		)
 	);
@@ -139,11 +150,15 @@ sge::cegui::detail::system_impl::system_impl(
 	CEGUI::ImageManager::setImagesetDefaultResourceGroup(
 		sge::cegui::to_cegui_string(
 			fcppt::filesystem::path_to_string(
-				_load_context.imageset_directory()
-				?
-					*_load_context.imageset_directory()
-				:
-					prefix_.get()
+				fcppt::from_optional(
+					_load_context.imageset_directory(),
+					[
+						this
+					]{
+						return
+							prefix_.get();
+					}
+				)
 			)
 		)
 	);
@@ -171,21 +186,28 @@ sge::cegui::detail::system_impl::system_impl(
 	)
 		gui_context_.getMouseCursor().hide();
 
-	if(
-		_load_context.default_font()
-	)
-		gui_context_.setDefaultFont(
-			&CEGUI::FontManager::getSingleton().createFreeTypeFont(
-				"",
-				_load_context.default_font()->font_size(),
-				true,
-				cegui::to_cegui_string(
-					fcppt::filesystem::path_to_string(
-						_load_context.default_font()->path()
+	fcppt::maybe_void(
+		_load_context.default_font(),
+		[
+			this
+		](
+			sge::cegui::default_font const &_default_font
+		)
+		{
+			gui_context_.setDefaultFont(
+				&CEGUI::FontManager::getSingleton().createFreeTypeFont(
+					"",
+					_default_font.font_size(),
+					true,
+					cegui::to_cegui_string(
+						fcppt::filesystem::path_to_string(
+							_default_font.path()
+						)
 					)
 				)
-			)
-		);
+			);
+		}
+	);
 
 	this->viewport_change(
 		_viewport_manager.viewport()

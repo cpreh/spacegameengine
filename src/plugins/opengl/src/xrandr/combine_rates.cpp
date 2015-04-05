@@ -31,6 +31,7 @@ sge::opengl::xrandr::combine_rates(
 	sge::renderer::display_mode::optional_refresh_rate const _rate_b
 )
 {
+	// TODO: Create a function in fcppt for this!
 	if(
 		!_rate_a
 	)

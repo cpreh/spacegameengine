@@ -22,11 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cg/program/object.hpp>
 #include <sge/renderer/cg/loaded_texture.hpp>
 #include <sge/renderer/cg/scoped_texture.hpp>
+#include <sge/renderer/context/core_fwd.hpp>
 #include <sge/renderer/device/core.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/shader/pair.hpp>
 #include <sge/shader/parameter/planar_texture.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/maybe_void.hpp>
 #include <fcppt/assert/pre.hpp>
 
 
@@ -61,25 +63,44 @@ sge::shader::parameter::planar_texture::set(
 	value_ =
 		_value;
 
-	if(optional_render_context_)
-	{
-		scoped_texture_.reset();
-
-		loaded_texture_.reset();
-
-		if(value_)
+	fcppt::maybe_void(
+		optional_render_context_,
+		[
+			this
+		](
+			sge::renderer::context::core &_render_context
+		)
 		{
-			loaded_texture_ =
-				renderer_.load_cg_texture(
-					parameter_.object(),
-					*_value);
+			scoped_texture_.reset();
 
-			scoped_texture_ =
-				fcppt::make_unique_ptr<sge::renderer::cg::scoped_texture>(
-					*optional_render_context_,
-					*loaded_texture_);
+			loaded_texture_.reset();
+
+			fcppt::maybe_void(
+				value_,
+				[
+					&_render_context,
+					this
+				](
+					sge::renderer::texture::planar &_texture
+				)
+				{
+					loaded_texture_ =
+						renderer_.load_cg_texture(
+							parameter_.object(),
+							_texture
+						);
+
+					scoped_texture_ =
+						fcppt::make_unique_ptr<
+							sge::renderer::cg::scoped_texture
+						>(
+							_render_context,
+							*loaded_texture_
+						);
+				}
+			);
 		}
-	}
+	);
 }
 
 void

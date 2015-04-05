@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_CEGUI_TEXTURE_TARGET_HPP_INCLUDED
 
 #include <sge/renderer/caps/render_target_inverted.hpp>
-#include <sge/renderer/state/ffp/transform/object_unique_ptr.hpp>
+#include <sge/renderer/state/ffp/transform/optional_object_unique_ptr.hpp>
 #include <sge/renderer/target/offscreen_unique_ptr.hpp>
 #include <sge/src/cegui/optional_render_context_ref.hpp>
 #include <sge/src/cegui/texture_fwd.hpp>
@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/cegui/fwds/sizef_fwd.hpp>
 #include <sge/src/cegui/fwds/vector2f_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/optional_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/Rect.h>
 #include <CEGUI/TextureTarget.h>
@@ -134,17 +135,23 @@ private:
 	>
 	texture_unique_ptr;
 
+	typedef
+	fcppt::optional<
+		texture_unique_ptr
+	>
+	optional_texture_unique_ptr;
+
 	sge::renderer::target::offscreen_unique_ptr const target_;
 
 	sge::cegui::optional_render_context_ref const &render_context_;
 
-	texture_unique_ptr texture_;
+	optional_texture_unique_ptr texture_;
 
 	CEGUI::Rectf area_;
 
 	sge::renderer::caps::render_target_inverted const is_inverted_;
 
-	sge::renderer::state::ffp::transform::object_unique_ptr transform_state_;
+	sge::renderer::state::ffp::transform::optional_object_unique_ptr transform_state_;
 };
 
 }

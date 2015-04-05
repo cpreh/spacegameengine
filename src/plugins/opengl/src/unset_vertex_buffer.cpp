@@ -26,6 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/device/object_fwd.hpp>
 #include <sge/renderer/vertex/buffer.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
+#include <fcppt/assert/optional_error.hpp>
+#include <fcppt/cast/static_downcast.hpp>
 
 
 void
@@ -46,18 +48,20 @@ sge::opengl::unset_vertex_buffer(
 		_buffer.format_part_index()
 	);
 
-	dynamic_cast<
+	fcppt::cast::static_downcast<
 		sge::opengl::vertex_buffer const &
 	>(
 		_buffer
 	).unuse(
-		context.vertex_declaration()->gl_format_part(
+		FCPPT_ASSERT_OPTIONAL_ERROR(
+			context.vertex_declaration()
+		).gl_format_part(
 			index
 		)
 	);
 
 	context.vertex_buffer(
 		index,
-		nullptr
+		sge::opengl::vertex_context::optional_vertex_buffer()
 	);
 }

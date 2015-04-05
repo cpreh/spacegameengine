@@ -75,10 +75,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/cegui/vf/position.hpp>
 #include <sge/src/cegui/vf/texcoord.hpp>
 #include <sge/src/cegui/vf/vertex_view.hpp>
+#include <fcppt/make_int_range_count.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional_ref_compare.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
+#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/assert/pre_message.hpp>
 #include <fcppt/assert/unimplemented_message.hpp>
@@ -143,6 +145,7 @@ sge::cegui::geometry_buffer::geometry_buffer(
 		true
 	),
 	render_effect_(
+		// TODO: Don't use a pointer here
 		nullptr
 	),
 	rasterizer_scissor_on_(
@@ -180,8 +183,10 @@ sge::cegui::geometry_buffer::~geometry_buffer()
 void
 sge::cegui::geometry_buffer::draw() const
 {
-	FCPPT_ASSERT_PRE(
-		render_context_
+	sge::renderer::context::ffp &render_context(
+		FCPPT_ASSERT_OPTIONAL_ERROR(
+			render_context_
+		)
 	);
 
 	FCPPT_LOG_DEBUG(
@@ -213,7 +218,7 @@ sge::cegui::geometry_buffer::draw() const
 	);
 
 	sge::renderer::state::ffp::transform::scoped const scoped_world(
-		*render_context_,
+		render_context,
 		sge::renderer::state::ffp::transform::mode::world,
 		*transform_state
 	);
@@ -236,12 +241,12 @@ sge::cegui::geometry_buffer::draw() const
 	);
 
 	sge::renderer::state::core::blend::scoped const scoped_blend(
-		*render_context_,
+		render_context,
 		*blend_state
 	);
 
 	sge::renderer::target::base &current_target(
-		render_context_->target()
+		render_context.target()
 	);
 
 	sge::renderer::target::scoped_scissor_area const scoped_scissor_area(
@@ -250,7 +255,7 @@ sge::cegui::geometry_buffer::draw() const
 	);
 
 	sge::renderer::vertex::scoped_declaration const scoped_vdecl(
-		*render_context_,
+		render_context,
 		vertex_declaration_
 	);
 
@@ -265,11 +270,11 @@ sge::cegui::geometry_buffer::draw() const
 	sge::renderer::state::core::rasterizer::const_optional_object_ref prev_rasterizer;
 
 	for(
-		int pass(
-			0
-		);
-		pass < pass_count;
-		++pass
+		int const pass
+		:
+		fcppt::make_int_range_count(
+			pass_count
+		)
 	)
 	{
 		if(
@@ -280,21 +285,19 @@ sge::cegui::geometry_buffer::draw() const
 			);
 
 		for(
-			sge::cegui::geometry_buffer::batch_sequence::const_iterator it(
-				batches_.begin()
-			);
-			it != batches_.end();
-			++it
+			sge::cegui::batch const &batch
+			:
+			batches_
 		)
 		{
 			sge::renderer::vertex::scoped_buffer const scoped_vb(
-				*render_context_,
-				it->vertex_buffer()
+				render_context,
+				batch.vertex_buffer()
 			);
 
 			sge::renderer::texture::scoped const scoped_texture(
-				*render_context_,
-				it->texture(),
+				render_context,
+				batch.texture(),
 				sge::renderer::texture::stage(
 					0u
 				)
@@ -302,7 +305,7 @@ sge::cegui::geometry_buffer::draw() const
 
 			{
 				sge::renderer::state::core::rasterizer::const_optional_object_ref new_state(
-					it->clip().get()
+					batch.clip().get()
 					?
 						*rasterizer_scissor_on_
 					:
@@ -318,25 +321,25 @@ sge::cegui::geometry_buffer::draw() const
 				{
 					prev_rasterizer = new_state;
 
-					render_context_->rasterizer_state(
+					render_context.rasterizer_state(
 						new_state
 					);
 				}
 			}
 
-			render_context_->render_nonindexed(
+			render_context.render_nonindexed(
 				sge::renderer::vertex::first(
 					0u
 				),
 				sge::renderer::vertex::count(
-					it->vertex_buffer().size()
+					batch.vertex_buffer().size()
 				),
 				sge::renderer::primitive_type::triangle_list
 			);
 		}
 	}
 
-	render_context_->rasterizer_state(
+	render_context.rasterizer_state(
 		sge::renderer::state::core::rasterizer::const_optional_object_ref()
 	);
 
@@ -463,23 +466,13 @@ sge::cegui::geometry_buffer::appendGeometry(
 	sge::cegui::vf::texcoord::packed_type
 	texcoord_vector;
 
-	typedef boost::iterator_range<
-		CEGUI::Vertex const *
-	> vertex_iterator_range;
-
-	vertex_iterator_range const range(
+	for(
+		CEGUI::Vertex const &vertex
+		:
 		boost::make_iterator_range(
 			_vertices,
 			_vertices + _vertex_count
 		)
-	);
-
-	for(
-		vertex_iterator_range::const_iterator it(
-			range.begin()
-		);
-		it != range.end();
-		++it
 	)
 	{
 		vb_it->set<
@@ -488,7 +481,7 @@ sge::cegui::geometry_buffer::appendGeometry(
 			sge::cegui::from_cegui_vector3<
 				position_vector
 			>(
-				it->position
+				vertex.position
 			)
 		);
 
@@ -498,7 +491,7 @@ sge::cegui::geometry_buffer::appendGeometry(
 			sge::cegui::from_cegui_vector2<
 				texcoord_vector
 			>(
-				it->tex_coords
+				vertex.tex_coords
 			)
 		);
 
@@ -506,14 +499,14 @@ sge::cegui::geometry_buffer::appendGeometry(
 			sge::cegui::vf::color
 		>(
 			sge::image::color::rgba8(
-				(sge::image::color::init::red() %= it->colour_val.getRed())
-				(sge::image::color::init::green() %= it->colour_val.getGreen())
-				(sge::image::color::init::blue() %= it->colour_val.getBlue())
-				(sge::image::color::init::alpha() %= it->colour_val.getAlpha())
+				(sge::image::color::init::red() %= vertex.colour_val.getRed())
+				(sge::image::color::init::green() %= vertex.colour_val.getGreen())
+				(sge::image::color::init::blue() %= vertex.colour_val.getBlue())
+				(sge::image::color::init::alpha() %= vertex.colour_val.getAlpha())
 			)
 		);
 
-		vb_it++;
+		++vb_it;
 	}
 }
 
@@ -524,6 +517,8 @@ sge::cegui::geometry_buffer::setActiveTexture(
 {
 	FCPPT_ASSERT_PRE(
 		_tex
+		!=
+		nullptr
 	);
 
 	active_texture_ =

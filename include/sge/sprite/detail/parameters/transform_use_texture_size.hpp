@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_PARAMETERS_TRANSFORM_USE_TEXTURE_SIZE_HPP_INCLUDED
 
 #include <sge/renderer/lock_rect.hpp>
+#include <sge/sprite/deref_texture.hpp>
 #include <sge/sprite/texture.hpp>
 #include <sge/sprite/detail/config/needs_use_texture_size.hpp>
-#include <sge/sprite/detail/geometry/deref_texture.hpp>
 #include <sge/sprite/detail/roles/use_texture_size.hpp>
 #include <sge/sprite/roles/size.hpp>
 #include <sge/sprite/roles/texture.hpp>
@@ -90,7 +90,7 @@ transform_use_texture_size(
 						>,
 						fcppt::cast::static_cast_fun
 					>(
-						sge::sprite::detail::geometry::deref_texture(
+						sge::sprite::deref_texture(
 							_texture
 						).area().size()
 					)

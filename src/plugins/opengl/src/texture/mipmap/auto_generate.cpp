@@ -20,13 +20,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/logger.hpp>
-#include <sge/opengl/optional_enum.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/funcs/parameter_int.hpp>
 #include <sge/opengl/texture/mipmap/auto_generate.hpp>
 #include <sge/opengl/texture/mipmap/context.hpp>
+#include <fcppt/maybe.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/error.hpp>
@@ -38,31 +38,31 @@ sge::opengl::texture::mipmap::auto_generate(
 	sge::opengl::context::system::object &_system_context
 )
 {
-	sge::opengl::optional_enum const generate_mipmap_flag(
+	fcppt::maybe(
 		sge::opengl::context::use<
 			sge::opengl::texture::mipmap::context
 		>(
 			_system_context
-		).generate_mipmap_flag()
-	);
-
-	if(
-		!generate_mipmap_flag
-	)
-	{
-		FCPPT_LOG_ERROR(
-			sge::opengl::logger(),
-			fcppt::log::_
-				<< FCPPT_TEXT("Building mipmaps is not supported.")
-				<< FCPPT_TEXT(" The mip_filter will not work correctly.")
-		);
-
-		return;
-	}
-
-	sge::opengl::texture::funcs::parameter_int(
-		_binding,
-		*generate_mipmap_flag,
-		GL_TRUE
+		).generate_mipmap_flag(),
+		[]{
+			FCPPT_LOG_ERROR(
+				sge::opengl::logger(),
+				fcppt::log::_
+					<< FCPPT_TEXT("Building mipmaps is not supported.")
+					<< FCPPT_TEXT(" The mip_filter will not work correctly.")
+			);
+		},
+		[
+			&_binding
+		](
+			GLenum const _generate_mipmap_flag
+		)
+		{
+			sge::opengl::texture::funcs::parameter_int(
+				_binding,
+				_generate_mipmap_flag,
+				GL_TRUE
+			);
+		}
 	);
 }

@@ -29,9 +29,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/sampler/object.hpp>
 #include <sge/renderer/state/core/sampler/parameters.hpp>
 #include <sge/renderer/texture/stage.hpp>
+#include <fcppt/from_optional.hpp>
+#include <fcppt/identity.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/optional_bind.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/static_optional_cast.hpp>
+#include <fcppt/container/find_opt.hpp>
 
 
 sge::opengl::state::core::sampler::context::context(
@@ -84,21 +88,24 @@ sge::opengl::state::core::sampler::context::get(
 	sge::renderer::texture::stage const _stage
 ) const
 {
-	sge::opengl::state::core::sampler::context::optional_object_ref_map::const_iterator const it(
-		objects_.find(
-			_stage
-		)
-	);
-
 	return
-		it == objects_.end()
-		||
-		!it->second
-		?
-			*defaults_
-		:
-			*it->second
-		;
+		fcppt::from_optional(
+			fcppt::optional_bind(
+				fcppt::container::find_opt(
+					objects_,
+					_stage
+				),
+				fcppt::identity{}
+			),
+			[
+				this
+			]()
+			-> sge::opengl::state::core::sampler::object const &
+			{
+				return
+					*defaults_;
+			}
+		);
 }
 
 void

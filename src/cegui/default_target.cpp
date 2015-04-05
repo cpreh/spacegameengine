@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/optional_matrix4.hpp>
+#include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/device/ffp.hpp>
@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/transform/const_optional_object_ref.hpp>
 #include <sge/renderer/state/ffp/transform/mode.hpp>
 #include <sge/renderer/state/ffp/transform/object.hpp>
+#include <sge/renderer/state/ffp/transform/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/src/cegui/declare_local_logger.hpp>
@@ -33,8 +34,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/cegui/from_cegui_rect.hpp>
 #include <sge/src/cegui/optional_render_context_ref.hpp>
 #include <sge/src/cegui/to_cegui_rect.hpp>
+#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional_bind_construct.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/pre.hpp>
+#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/unimplemented_message.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
@@ -120,29 +123,31 @@ sge::cegui::default_target::setArea(
 
 	viewport_ = _area;
 
-	sge::renderer::optional_matrix4 const matrix(
-		sge::renderer::projection::orthogonal_viewport(
-			sge::renderer::target::viewport(
-				sge::cegui::from_cegui_rect<
-					sge::renderer::pixel_rect
-				>(
-					viewport_
+	transform_ =
+		fcppt::optional_bind_construct(
+			sge::renderer::projection::orthogonal_viewport(
+				sge::renderer::target::viewport(
+					sge::cegui::from_cegui_rect<
+						sge::renderer::pixel_rect
+					>(
+						viewport_
+					)
 				)
+			),
+			[
+				this
+			](
+				sge::renderer::matrix4 const &_matrix
 			)
-		)
-	);
-
-	if(
-		matrix
-	)
-		transform_ =
-			renderer_.create_transform_state(
-				sge::renderer::state::ffp::transform::parameters(
-					*matrix
-				)
-			);
-	else
-		transform_.reset();
+			{
+				return
+					renderer_.create_transform_state(
+						sge::renderer::state::ffp::transform::parameters(
+							_matrix
+						)
+					);
+			}
+		);
 
 	this->fireEvent(
 		CEGUI::RenderTarget::EventAreaChanged,
@@ -160,16 +165,13 @@ sge::cegui::default_target::getArea() const
 bool
 sge::cegui::default_target::isImageryCache() const
 {
-	return false;
+	return
+		false;
 }
 
 void
 sge::cegui::default_target::activate()
 {
-	FCPPT_ASSERT_PRE(
-		render_context_
-	);
-
 	FCPPT_LOG_DEBUG(
 		local_log,
 		fcppt::log::_
@@ -178,15 +180,24 @@ sge::cegui::default_target::activate()
 			<< FCPPT_TEXT(")::activate()")
 	);
 
-	if(
-		transform_
-	)
-		render_context_->transform(
-			sge::renderer::state::ffp::transform::mode::projection,
-			sge::renderer::state::ffp::transform::const_optional_object_ref(
-				*transform_
-			)
-		);
+	fcppt::maybe_void(
+		transform_,
+		[
+			this
+		](
+			sge::renderer::state::ffp::transform::object_unique_ptr const &_transform
+		)
+		{
+			FCPPT_ASSERT_OPTIONAL_ERROR(
+				render_context_
+			).transform(
+				sge::renderer::state::ffp::transform::mode::projection,
+				sge::renderer::state::ffp::transform::const_optional_object_ref(
+					*_transform
+				)
+			);
+		}
+	);
 }
 
 void
@@ -200,7 +211,9 @@ sge::cegui::default_target::deactivate()
 			<< FCPPT_TEXT(")::deactivate()")
 	);
 
-	render_context_->transform(
+	FCPPT_ASSERT_OPTIONAL_ERROR(
+		render_context_
+	).transform(
 		sge::renderer::state::ffp::transform::mode::projection,
 		sge::renderer::state::ffp::transform::const_optional_object_ref()
 	);

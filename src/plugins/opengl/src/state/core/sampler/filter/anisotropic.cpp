@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/optional_enum.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/state/convert/anisotropic_mip_filter.hpp>
@@ -29,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/funcs/parameter_int.hpp>
 #include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/state/core/sampler/filter/anisotropic/parameters.hpp>
+#include <fcppt/optional_to_exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
@@ -41,23 +41,6 @@ sge::opengl::state::core::sampler::filter::anisotropic(
 	sge::renderer::state::core::sampler::filter::anisotropic::parameters const &_filter
 )
 {
-	sge::opengl::optional_enum const anisotropy_flag(
-		sge::opengl::context::use<
-			sge::opengl::state::core::sampler::filter::anisotropy_context
-		>(
-			_system_context
-		).anisotropy_flag()
-	);
-
-	if(
-		!anisotropy_flag
-	)
-		throw sge::renderer::unsupported(
-			FCPPT_TEXT("anisotropic filtering"),
-			FCPPT_TEXT(""),
-			FCPPT_TEXT("GL_EXT_texture_filter_anisotropic")
-		);
-
 	return
 		sge::opengl::state::core::sampler::actor_vector{
 			std::bind(
@@ -81,7 +64,21 @@ sge::opengl::state::core::sampler::filter::anisotropic(
 			std::bind(
 				sge::opengl::texture::funcs::parameter_int,
 				std::placeholders::_1,
-				*anisotropy_flag,
+				fcppt::optional_to_exception(
+					sge::opengl::context::use<
+						sge::opengl::state::core::sampler::filter::anisotropy_context
+					>(
+						_system_context
+					).anisotropy_flag(),
+					[]{
+						return
+							sge::renderer::unsupported{
+								FCPPT_TEXT("anisotropic filtering"),
+								FCPPT_TEXT(""),
+								FCPPT_TEXT("GL_EXT_texture_filter_anisotropic")
+							};
+					}
+				),
 				static_cast<
 					GLint
 				>(

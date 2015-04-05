@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/parse/error_string.hpp>
 #include <sge/parse/result_fwd.hpp>
+#include <sge/parse/detail/symbol.hpp>
 
 
 namespace sge
@@ -30,6 +31,7 @@ namespace sge
 namespace parse
 {
 
+SGE_PARSE_DETAIL_SYMBOL
 sge::parse::error_string
 make_error_string(
 	sge::parse::result const &

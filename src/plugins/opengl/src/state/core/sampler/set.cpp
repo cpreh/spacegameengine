@@ -26,11 +26,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/core/sampler/set.hpp>
 #include <sge/opengl/texture/active_level.hpp>
 #include <sge/opengl/texture/get_stage_type.hpp>
-#include <sge/opengl/texture/optional_type.hpp>
 #include <sge/opengl/texture/render_binding.hpp>
 #include <sge/opengl/texture/set_samplers.hpp>
+#include <sge/opengl/texture/type.hpp>
 #include <sge/renderer/state/core/sampler/const_optional_object_ref_map.hpp>
 #include <sge/renderer/texture/stage.hpp>
+#include <fcppt/maybe_void.hpp>
 
 
 void
@@ -57,36 +58,39 @@ sge::opengl::state::core::sampler::set(
 		_objects
 	)
 	{
-		sge::renderer::texture::stage stage(
+		sge::renderer::texture::stage const stage(
 			sampler.first
 		);
 
-		sge::opengl::texture::optional_type const bound_type(
+		fcppt::maybe_void(
 			sge::opengl::texture::get_stage_type(
 				_device_context,
 				stage
+			),
+			[
+				&_system_context,
+				&_device_context,
+				stage
+			](
+				sge::opengl::texture::type const _bound_type
 			)
-		);
+			{
+				sge::opengl::texture::active_level const active_level(
+					_system_context,
+					stage
+				);
 
-		if(
-			!bound_type
-		)
-			continue;
+				sge::opengl::texture::render_binding const render_binding(
+					active_level,
+					_bound_type
+				);
 
-		sge::opengl::texture::active_level const active_level(
-			_system_context,
-			stage
-		);
-
-		sge::opengl::texture::render_binding const render_binding(
-			active_level,
-			*bound_type
-		);
-
-		sge::opengl::texture::set_samplers(
-			render_binding,
-			_system_context,
-			_device_context
+				sge::opengl::texture::set_samplers(
+					render_binding,
+					_system_context,
+					_device_context
+				);
+			}
 		);
 	}
 }

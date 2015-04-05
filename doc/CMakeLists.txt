@@ -3049,6 +3049,7 @@ set(
 	include/sge/sprite/defaults/texture_coordinates.hpp
 	include/sge/sprite/defaults/use_center.hpp
 	include/sge/sprite/defaults/use_texture_size.hpp
+	include/sge/sprite/deref_texture.hpp
 	include/sge/sprite/detail/application.hpp
 	include/sge/sprite/detail/apply_texture_levels.hpp
 	include/sge/sprite/detail/assign_post.hpp
@@ -3090,7 +3091,6 @@ set(
 	include/sge/sprite/detail/geometry/count.hpp
 	include/sge/sprite/detail/geometry/count_constant.hpp
 	include/sge/sprite/detail/geometry/depth.hpp
-	include/sge/sprite/detail/geometry/deref_texture.hpp
 	include/sge/sprite/detail/geometry/fill.hpp
 	include/sge/sprite/detail/geometry/fill_color.hpp
 	include/sge/sprite/detail/geometry/fill_indices.hpp

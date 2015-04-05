@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/window/object_fwd.hpp>
 #include <awl/backends/x11/window/event/processor_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/optional_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <memory>
 #include <fcppt/config/external_end.hpp>
@@ -76,14 +77,26 @@ private:
 	xrandr_state_unique_ptr;
 
 	typedef
+	fcppt::optional<
+		xrandr_state_unique_ptr
+	>
+	optional_xrandr_state_unique_ptr;
+
+	typedef
 	std::unique_ptr<
 		sge::opengl::xrandr::resolution
 	>
 	resolution_unique_ptr;
 
-	xrandr_state_unique_ptr const xrandr_state_;
+	typedef
+	fcppt::optional<
+		resolution_unique_ptr
+	>
+	optional_resolution_unique_ptr;
 
-	resolution_unique_ptr resolution_;
+	optional_xrandr_state_unique_ptr const xrandr_state_;
+
+	optional_resolution_unique_ptr resolution_;
 };
 
 }

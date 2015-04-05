@@ -251,14 +251,13 @@ sge::scenic::render_context::ffp::object::material(
 			*current_material_));
 
 	context_.texture(
-		_material.diffuse_texture()
-		?
-			sge::renderer::texture::const_optional_base_ref(
-				*_material.diffuse_texture())
-		:
-			sge::renderer::texture::const_optional_base_ref(),
+		sge::renderer::texture::const_optional_base_ref(
+			_material.diffuse_texture()
+		),
 		sge::renderer::texture::stage(
-			0u));
+			0u
+		)
+	);
 }
 
 void

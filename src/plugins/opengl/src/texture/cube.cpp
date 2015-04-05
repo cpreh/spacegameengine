@@ -42,6 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_enum_range.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
+#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/container/enum_array_impl.hpp>
 
@@ -53,11 +54,13 @@ sge::opengl::texture::cube::cube(
 :
 	sge::opengl::texture::cube_basic(
 		_basic_parameters,
-		*sge::opengl::context::use<
-			sge::opengl::texture::cube_context
-		>(
-			_basic_parameters.system_context()
-		).cube_texture_type(),
+		FCPPT_ASSERT_OPTIONAL_ERROR(
+			sge::opengl::context::use<
+				sge::opengl::texture::cube_context
+			>(
+				_basic_parameters.system_context()
+			).cube_texture_type()
+		),
 		_parameters
 	),
 	size_(
@@ -96,9 +99,13 @@ sge::opengl::texture::cube::cube(
 			],
 			_basic_parameters,
 			_parameters,
-			*context.cube_texture_type(),
+			FCPPT_ASSERT_OPTIONAL_ERROR(
+				context.cube_texture_type()
+			),
 			sge::opengl::texture::convert::cube_side(
-				*context.cube_sides(),
+				FCPPT_ASSERT_OPTIONAL_ERROR(
+					context.cube_sides()
+				),
 				index
 			),
 			this->id()

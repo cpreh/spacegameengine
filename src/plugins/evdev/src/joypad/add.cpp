@@ -20,16 +20,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/evdev/device/create_fd.hpp>
 #include <sge/evdev/device/fd.hpp>
-#include <sge/evdev/device/optional_fd_unique_ptr.hpp>
+#include <sge/evdev/device/fd_unique_ptr.hpp>
 #include <sge/evdev/joypad/add.hpp>
 #include <sge/evdev/joypad/add_parameters.hpp>
 #include <sge/evdev/joypad/info.hpp>
 #include <sge/evdev/joypad/is_joypad.hpp>
 #include <sge/evdev/joypad/make_info.hpp>
 #include <sge/evdev/joypad/object.hpp>
-#include <sge/evdev/joypad/optional_info.hpp>
 #include <sge/input/joypad/discover_event.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/maybe_void.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -45,69 +45,70 @@ sge::evdev::joypad::add(
 	boost::filesystem::path const &_path
 )
 {
-	sge::evdev::device::optional_fd_unique_ptr fd(
+	fcppt::maybe_void(
 		sge::evdev::device::create_fd(
 			_path
+		),
+		[
+			&_parameters,
+			&_path
+		](
+			sge::evdev::device::fd_unique_ptr &&_fd
 		)
-	);
-
-	if(
-		!fd
-	)
-		return;
-
-	sge::evdev::joypad::optional_info const opt_info(
-		sge::evdev::joypad::make_info(
-			**fd
-		)
-	);
-
-	if(
-		!opt_info
-	)
-		return;
-
-	sge::evdev::joypad::info const info_value(
-		*opt_info
-	);
-
-	if(
-		!sge::evdev::joypad::is_joypad(
-			info_value
-		)
-	)
-		return;
-
-	typedef std::pair<
-		sge::evdev::joypad::map::iterator,
-		bool
-	> insert_return;
-
-	insert_return const ret(
-		_parameters.map().insert(
-			std::make_pair(
-				_path,
-				fcppt::make_unique_ptr<
-					sge::evdev::joypad::object
-				>(
-					_parameters.focus_manager(),
-					_parameters.processor(),
-					std::move(
-						*fd
-					),
-					info_value
+		{
+			fcppt::maybe_void(
+				sge::evdev::joypad::make_info(
+					*_fd
+				),
+				[
+					&_fd,
+					&_parameters,
+					&_path
+				](
+					sge::evdev::joypad::info const &_info
 				)
-			)
-		)
-	);
+				{
+					if(
+						!sge::evdev::joypad::is_joypad(
+							_info
+						)
+					)
+						return;
 
-	FCPPT_ASSERT_ERROR(
-		ret.second
-	);
+					typedef std::pair<
+						sge::evdev::joypad::map::iterator,
+						bool
+					> insert_return;
 
-	_parameters.discover_signal()(
-		sge::input::joypad::discover_event(
-			*ret.first->second
-		)
+					insert_return const ret(
+						_parameters.map().insert(
+							std::make_pair(
+								_path,
+								fcppt::make_unique_ptr<
+									sge::evdev::joypad::object
+								>(
+									_parameters.focus_manager(),
+									_parameters.processor(),
+									std::move(
+										_fd
+									),
+									_info
+								)
+							)
+						)
+					);
+
+					FCPPT_ASSERT_ERROR(
+						ret.second
+					);
+
+					_parameters.discover_signal()(
+						sge::input::joypad::discover_event(
+							*ret.first->second
+						)
+					);
+				}
+			);
+		}
 	);
 }

@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_GEOMETRY_RENDER_PART_TEXTURE_LEVEL_HPP_INCLUDED
 
 #include <sge/renderer/texture/planar_fwd.hpp>
+#include <sge/sprite/deref_texture.hpp>
 #include <sge/sprite/object_impl.hpp>
-#include <sge/sprite/detail/geometry/deref_texture.hpp>
 #include <sge/sprite/detail/roles/texture.hpp>
 #include <sge/sprite/roles/texture.hpp>
 #include <fcppt/nonassignable.hpp>
@@ -102,7 +102,7 @@ public:
 				sge::renderer::texture::planar const &
 				{
 					return
-						sge::sprite::detail::geometry::deref_texture(
+						sge::sprite::deref_texture(
 							_texture
 						).texture();
 				}

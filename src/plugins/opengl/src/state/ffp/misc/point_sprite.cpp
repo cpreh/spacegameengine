@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/point_sprite_context.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/state/actor.hpp>
 #include <sge/opengl/state/actor_vector.hpp>
 #include <sge/opengl/state/ffp/misc/point_sprite.hpp>
 #include <sge/opengl/state/ffp/misc/point_sprite_texture.hpp>
@@ -30,7 +31,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/state/ffp/misc/enable_point_sprites.hpp>
 #include <sge/renderer/texture/stage.hpp>
+#include <fcppt/make_int_range_count.hpp>
+#include <fcppt/make_literal_strong_typedef.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/algorithm/join_move.hpp>
+#include <fcppt/algorithm/map.hpp>
+#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
 #include <fcppt/config/external_end.hpp>
@@ -67,21 +73,6 @@ sge::opengl::state::ffp::misc::point_sprite(
 		);
 	}
 
-	sge::opengl::state::actor_vector result(
-		sge::opengl::state::actor_vector{
-			std::bind(
-				sge::opengl::enable_bool,
-				*point_sprite_context.point_sprite_flag(),
-				_enable.get()
-			),
-			std::bind(
-				sge::opengl::enable_bool,
-				*point_sprite_context.vertex_shader_size_flag(),
-				_enable.get()
-			)
-		}
-	);
-
 	sge::opengl::texture::multi_context const &multi_context(
 		sge::opengl::context::use<
 			sge::opengl::texture::multi_context
@@ -90,26 +81,55 @@ sge::opengl::state::ffp::misc::point_sprite(
 		)
 	);
 
-	for(
-		sge::renderer::texture::stage stage(
-			0u
-		);
-		stage.get() < multi_context.max_level().get();
-		++stage
-	)
-		result.push_back(
-			std::bind(
-				sge::opengl::state::ffp::misc::point_sprite_texture,
-				std::ref(
-					_system_context
+	return
+		fcppt::algorithm::join_move(
+			sge::opengl::state::actor_vector{
+				std::bind(
+					sge::opengl::enable_bool,
+					FCPPT_ASSERT_OPTIONAL_ERROR(
+						point_sprite_context.point_sprite_flag()
+					),
+					_enable.get()
 				),
-				std::cref(
-					point_sprite_context
+				std::bind(
+					sge::opengl::enable_bool,
+					FCPPT_ASSERT_OPTIONAL_ERROR(
+						point_sprite_context.vertex_shader_size_flag()
+					),
+					_enable.get()
+				)
+			},
+			fcppt::algorithm::map<
+				sge::opengl::state::actor_vector
+			>(
+				fcppt::make_int_range_count(
+					sge::renderer::texture::stage(
+						multi_context.max_level().get()
+					)
 				),
-				stage,
-				_enable
+				[
+					_enable,
+					&_system_context,
+					&point_sprite_context
+				](
+					sge::renderer::texture::stage const _stage
+				)
+				{
+					return
+						sge::opengl::state::actor{
+							std::bind(
+								sge::opengl::state::ffp::misc::point_sprite_texture,
+								std::ref(
+									_system_context
+								),
+								std::cref(
+									point_sprite_context
+								),
+								_stage,
+								_enable
+							)
+						};
+				}
 			)
 		);
-
-	return result;
 }

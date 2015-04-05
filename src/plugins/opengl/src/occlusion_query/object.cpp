@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/occlusion_query/object.hpp>
 #include <sge/renderer/occlusion_query/optional_pixel_count.hpp>
 #include <sge/renderer/occlusion_query/pixel_count.hpp>
+#include <fcppt/assert/optional_error.hpp>
 
 
 sge::opengl::occlusion_query::object::object(
@@ -76,7 +77,9 @@ sge::opengl::occlusion_query::object::result(
 			sge::opengl::occlusion_query::get_object_int(
 				context_,
 				holder_.id(),
-				*context_.query_result_available()
+				FCPPT_ASSERT_OPTIONAL_ERROR(
+					context_.query_result_available()
+				)
 			)
 			== GL_FALSE
 			&&
@@ -90,7 +93,9 @@ sge::opengl::occlusion_query::object::result(
 					sge::opengl::occlusion_query::get_object_uint(
 						context_,
 						holder_.id(),
-						*context_.query_result()
+						FCPPT_ASSERT_OPTIONAL_ERROR(
+							context_.query_result()
+						)
 					)
 				)
 			)

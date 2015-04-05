@@ -26,10 +26,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/buffer/id.hpp>
 #include <sge/opengl/buffer/optional_id.hpp>
 #include <sge/opengl/buffer/type.hpp>
+#include <sge/renderer/const_raw_pointer.hpp>
 #include <sge/renderer/raw_pointer.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <map>
+#include <unordered_map>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -125,7 +126,7 @@ private:
 	hardware_supported() const
 	override;
 
-	typedef std::map<
+	typedef std::unordered_map<
 		sge::opengl::buffer::id,
 		sge::renderer::raw_pointer
 	> buffer_map;
@@ -135,17 +136,17 @@ private:
 		sge::opengl::buffer::type
 	) const;
 
-	buffer_map::iterator
+	sge::renderer::raw_pointer &
 	buffer_object(
 		sge::opengl::buffer::id
 	);
 
-	buffer_map::const_iterator
+	sge::renderer::const_raw_pointer
 	buffer_object(
 		sge::opengl::buffer::id
 	) const;
 
-	typedef std::map<
+	typedef std::unordered_map<
 		sge::opengl::buffer::type,
 		sge::opengl::buffer::optional_id
 	> bound_buffer_map;

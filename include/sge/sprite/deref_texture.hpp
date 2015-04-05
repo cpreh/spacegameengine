@@ -18,19 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DETAIL_GEOMETRY_DEREF_TEXTURE_HPP_INCLUDED
-#define SGE_SPRITE_DETAIL_GEOMETRY_DEREF_TEXTURE_HPP_INCLUDED
+#ifndef SGE_SPRITE_DEREF_TEXTURE_HPP_INCLUDED
+#define SGE_SPRITE_DEREF_TEXTURE_HPP_INCLUDED
 
-#include <fcppt/shared_ptr_impl.hpp>
+#include <fcppt/shared_ptr_fwd.hpp>
 
 
 namespace sge
 {
 namespace sprite
-{
-namespace detail
-{
-namespace geometry
 {
 
 template<
@@ -61,8 +57,6 @@ deref_texture(
 		_value;
 }
 
-}
-}
 }
 }
 

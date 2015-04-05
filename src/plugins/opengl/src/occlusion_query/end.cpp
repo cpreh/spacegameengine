@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/occlusion_query/end.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/assert/optional_error.hpp>
 
 
 void
@@ -31,7 +32,9 @@ sge::opengl::occlusion_query::end(
 )
 {
 	_context.end_query()(
-		*_context.samples_target()
+		FCPPT_ASSERT_OPTIONAL_ERROR(
+			_context.samples_target()
+		)
 	);
 
 	SGE_OPENGL_CHECK_STATE(

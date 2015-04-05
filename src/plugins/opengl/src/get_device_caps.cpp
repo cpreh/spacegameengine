@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/multi_context.hpp>
 #include <sge/opengl/texture/npot_context.hpp>
 #include <sge/opengl/texture/volume_context.hpp>
+#include <sge/renderer/dim2.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/caps/clip_plane_indices.hpp>
 #include <sge/renderer/caps/description.hpp>
@@ -48,9 +49,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps/srgb_framebuffer.hpp>
 #include <sge/renderer/caps/target_surface_indices.hpp>
 #include <awl/system/object_fwd.hpp>
+#include <fcppt/const.hpp>
+#include <fcppt/maybe.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/static_cast_fun.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/cast/to_unsigned.hpp>
+#include <fcppt/math/dim/fill.hpp>
 
 
 sge::renderer::caps::device
@@ -63,16 +69,6 @@ sge::opengl::get_device_caps(
 	sge::opengl::backend::dummy dummy_state(
 		_awl_system,
 		_device_system
-	);
-
-	sge::renderer::size_type const max_texture_size(
-		static_cast<
-			sge::renderer::size_type
-		>(
-			sge::opengl::get_int(
-				GL_MAX_TEXTURE_SIZE
-			)
-		)
 	);
 
 	sge::opengl::state::core::sampler::filter::anisotropy_context const &anisotropy_context(
@@ -127,22 +123,37 @@ sge::opengl::get_device_caps(
 				true
 			),
 			sge::renderer::caps::max_texture_size(
-				sge::renderer::dim2(
-					max_texture_size,
-					max_texture_size
+				fcppt::math::dim::fill<
+					sge::renderer::dim2
+				>(
+					fcppt::cast::size<
+						sge::renderer::size_type
+					>(
+						fcppt::cast::to_unsigned(
+							sge::opengl::get_int(
+								GL_MAX_TEXTURE_SIZE
+							)
+						)
+					)
 				)
 			),
 			sge::renderer::caps::max_volume_texture_extent(
-				static_cast<
-					sge::renderer::size_type
-				>(
-					volume_texture_context.have_volume_texture()
-					?
-						sge::opengl::get_int(
-							*volume_texture_context.max_extent_flag()
+				fcppt::cast::to_unsigned(
+					fcppt::maybe(
+						volume_texture_context.max_extent_flag(),
+						fcppt::const_(
+							0
+						),
+						[](
+							GLenum const _flag
 						)
-					:
-						0
+						{
+							return
+								sge::opengl::get_int(
+									_flag
+								);
+						}
+					)
 				)
 			),
 			sge::renderer::caps::non_power_of_2_textures(
@@ -156,13 +167,21 @@ sge::opengl::get_device_caps(
 				sge::renderer::caps::max_anisotropy,
 				fcppt::cast::static_cast_fun
 			>(
-				anisotropy_context.max_anisotropy_flag()
-				?
-					sge::opengl::get_int(
-						*anisotropy_context.max_anisotropy_flag()
+				fcppt::maybe(
+					anisotropy_context.max_anisotropy_flag(),
+					fcppt::const_(
+						0
+					),
+					[](
+						GLenum const _flag
 					)
-				:
-					0
+					{
+						return
+							sge::opengl::get_int(
+								_flag
+							);
+					}
+				)
 			),
 			render_target_supported,
 			sge::renderer::caps::render_target_inverted(

@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/device/object_fwd.hpp>
 #include <sge/renderer/target/scissor_area.hpp>
 #include <sge/renderer/target/viewport.hpp>
+#include <fcppt/maybe_void.hpp>
 
 
 template<
@@ -189,10 +190,15 @@ sge::opengl::basic_target<
 		context_.last_target()
 	);
 
-	if(
-		last_target
-	)
-		last_target->unbind();
+	fcppt::maybe_void(
+		last_target,
+		[](
+			sge::opengl::target_base &_target
+		)
+		{
+			_target.unbind();
+		}
+	);
 
 	{
 		sge::opengl::scoped_target const scoped(
@@ -204,10 +210,15 @@ sge::opengl::basic_target<
 		);
 	}
 
-	if(
-		last_target
-	)
-		last_target->bind();
+	fcppt::maybe_void(
+		last_target,
+		[](
+			sge::opengl::target_base &_target
+		)
+		{
+			_target.bind();
+		}
+	);
 }
 
 template<

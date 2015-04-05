@@ -37,21 +37,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/window/parameters.hpp>
 #include <awl/window/event/create_processor.hpp>
 #include <awl/window/event/processor.hpp>
+#include <fcppt/maybe.hpp>
 
 
 sge::systems::modules::window::original::original(
 	sge::systems::original_window const &_parameters,
 	sge::window::system &_system,
-	sge::systems::modules::renderer::optional_system_ref const &_renderer_system
+	sge::systems::modules::renderer::optional_system_ref const &_opt_renderer_system
 )
 :
 	sge::systems::modules::window::base(),
 	awl_visual_(
-		_renderer_system
-		?
-			_renderer_system->create_visual()
-		:
-			_system.awl_system().default_visual()
+		fcppt::maybe(
+			_opt_renderer_system,
+			[
+				&_system
+			]{
+				return
+					_system.awl_system().default_visual();
+			},
+			[](
+				sge::systems::modules::renderer::system &_renderer_system
+			)
+			{
+				return
+					_renderer_system.create_visual();
+			}
+		)
 	),
 	awl_cursor_(
 		_parameters.hide_cursor()

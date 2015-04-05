@@ -38,9 +38,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/cegui/convert_key.hpp>
 #include <sge/src/cegui/declare_local_logger.hpp>
 #include <sge/src/cegui/optional_key_scan.hpp>
-#include <sge/src/cegui/optional_mouse_button.hpp>
+#include <fcppt/maybe.hpp>
+#include <fcppt/maybe_void.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
+#include <fcppt/cast/int_to_float.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/warning.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -53,8 +55,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-bool
-process_code(
+sge::cegui::optional_key_scan const
+process_key_code(
 	sge::input::keyboard::key_code,
 	sge::cegui::optional_key_scan const &
 );
@@ -84,30 +86,32 @@ sge::cegui::syringe::inject(
 	sge::input::keyboard::key_event const &_event
 )
 {
-	sge::cegui::optional_key_scan const code(
-		sge::cegui::convert_key(
-			_event.key_code()
-		)
-	);
-
-	if(
-		!::process_code(
+	fcppt::maybe_void(
+		::process_key_code(
 			_event.key_code(),
-			code
+			sge::cegui::convert_key(
+				_event.key_code()
+			)
+		),
+		[
+			&_event,
+			this
+		](
+			CEGUI::Key::Scan const _scan
 		)
-	)
-		return;
-
-	if(
-		_event.pressed()
-	)
-		gui_context_.injectKeyDown(
-			*code
-		);
-	else
-		gui_context_.injectKeyUp(
-			*code
-		);
+		{
+			if(
+				_event.pressed()
+			)
+				gui_context_.injectKeyDown(
+					_scan
+				);
+			else
+				gui_context_.injectKeyUp(
+					_scan
+				);
+		}
+	);
 }
 
 void
@@ -115,22 +119,24 @@ sge::cegui::syringe::inject(
 	sge::input::keyboard::key_repeat_event const &_event
 )
 {
-	sge::cegui::optional_key_scan const code(
-		sge::cegui::convert_key(
-			_event.key_code()
-		)
-	);
-
-	if(
-		!::process_code(
+	fcppt::maybe_void(
+		::process_key_code(
 			_event.key_code(),
-			code
+			sge::cegui::convert_key(
+				_event.key_code()
+			)
+		),
+		[
+			&_event,
+			this
+		](
+			CEGUI::Key::Scan const _scan
 		)
-	)
-		return;
-
-	gui_context_.injectKeyDown(
-		*code
+		{
+			gui_context_.injectKeyDown(
+				_scan
+			);
+		}
 	);
 }
 
@@ -174,42 +180,49 @@ sge::cegui::syringe::inject(
 	sge::input::cursor::button_event const &_event
 )
 {
-	sge::cegui::optional_mouse_button const code(
+	fcppt::maybe(
 		sge::cegui::convert_cursor_button(
 			_event.button_code()
+		),
+		[
+			&_event
+		]{
+			FCPPT_LOG_WARNING(
+				local_log,
+				fcppt::log::_
+					<< FCPPT_TEXT("Warning: got a button which I couldn't process. Its code is: ")
+					<< sge::input::cursor::button_code_to_string(
+						_event.button_code()
+					)
+					<< FCPPT_TEXT("; Doing nothing.")
+			);
+		},
+		[
+			&_event,
+			this
+		](
+			CEGUI::MouseButton const _button
 		)
+		{
+			if(
+				_button
+				==
+				CEGUI::NoButton
+			)
+				return;
+
+			if(
+				_event.pressed()
+			)
+				gui_context_.injectMouseButtonDown(
+					_button
+				);
+			else
+				gui_context_.injectMouseButtonUp(
+					_button
+				);
+		}
 	);
-
-	if(
-		!code
-	)
-	{
-		FCPPT_LOG_WARNING(
-			local_log,
-			fcppt::log::_
-				<< FCPPT_TEXT("Warning: got a button which I couldn't process. Its code is: ")
-				<< sge::input::cursor::button_code_to_string(
-					_event.button_code()
-				)
-				<< FCPPT_TEXT("; Doing nothing."));
-		return;
-	}
-
-	if(
-		*code == CEGUI::NoButton
-	)
-		return;
-
-	if(
-		_event.pressed()
-	)
-		gui_context_.injectMouseButtonDown(
-			*code
-		);
-	else
-		gui_context_.injectMouseButtonUp(
-			*code
-		);
 }
 
 void
@@ -217,12 +230,19 @@ sge::cegui::syringe::inject(
 	sge::input::cursor::move_event const &_event
 )
 {
-	if(
-		_event.position()
-	)
-		this->inject(
-			*_event.position()
-		);
+	fcppt::maybe_void(
+		_event.position(),
+		[
+			this
+		](
+			sge::input::cursor::position const _position
+		)
+		{
+			this->inject(
+				_position
+			);
+		}
+	);
 }
 
 void
@@ -230,14 +250,20 @@ sge::cegui::syringe::inject(
 	sge::input::cursor::scroll_event const &_event
 )
 {
-	switch(_event.code())
+	switch(
+		_event.code()
+	)
 	{
 	case sge::input::cursor::scroll_code::horizontal:
 		break;
 	case sge::input::cursor::scroll_code::vertical:
 		gui_context_.injectMouseWheelChange(
-			static_cast<float>(
-				_event.value()));
+			fcppt::cast::int_to_float<
+				float
+			>(
+				_event.value()
+			)
+		);
 		break;
 	}
 }
@@ -248,12 +274,12 @@ sge::cegui::syringe::inject(
 )
 {
 	gui_context_.injectMousePosition(
-		static_cast<
+		fcppt::cast::int_to_float<
 			sge::cegui::unit
 		>(
 			_cursor_position.x()
 		),
-		static_cast<
+		fcppt::cast::int_to_float<
 			sge::cegui::unit
 		>(
 			_cursor_position.y()
@@ -264,30 +290,45 @@ sge::cegui::syringe::inject(
 namespace
 {
 
-bool
-process_code(
+sge::cegui::optional_key_scan const
+process_key_code(
 	sge::input::keyboard::key_code const _orig_code,
 	sge::cegui::optional_key_scan const &_code
 )
 {
-	if(
-		!_code
-	)
-	{
-		FCPPT_LOG_WARNING(
-			local_log,
-			fcppt::log::_
-				<< FCPPT_TEXT("Got a key which I couldn't process. Its code is: ")
-				<< sge::input::keyboard::key_code_to_string(
-					_orig_code
-				)
-				<< FCPPT_TEXT("; Doing nothing."));
-
-		return false;
-	}
-
 	return
-		*_code != CEGUI::Key::Unknown;
+		fcppt::maybe(
+			_code,
+			[
+				_orig_code
+			]{
+				FCPPT_LOG_WARNING(
+					local_log,
+					fcppt::log::_
+						<< FCPPT_TEXT("Got a key which I couldn't process. Its code is: ")
+						<< sge::input::keyboard::key_code_to_string(
+							_orig_code
+						)
+						<< FCPPT_TEXT("; Doing nothing."));
+
+				return
+					sge::cegui::optional_key_scan();
+			},
+			[](
+				CEGUI::Key::Scan const _scan
+			)
+			{
+				return
+					_scan != CEGUI::Key::Unknown
+					?
+						sge::cegui::optional_key_scan(
+							_scan
+						)
+					:
+						sge::cegui::optional_key_scan()
+					;
+			}
+		);
 }
 
 }

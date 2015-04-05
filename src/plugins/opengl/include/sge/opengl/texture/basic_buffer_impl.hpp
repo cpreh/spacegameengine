@@ -48,7 +48,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/lock_flags/method.hpp>
 #include <sge/renderer/lock_flags/read.hpp>
 #include <sge/renderer/lock_flags/write.hpp>
+#include <fcppt/const.hpp>
 #include <fcppt/format.hpp>
+#include <fcppt/from_optional.hpp>
+#include <fcppt/maybe.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/box/object_impl.hpp>
@@ -283,15 +286,18 @@ sge::opengl::texture::basic_buffer<
 			color_format_type_,
 			this->level(),
 			this->size(),
-			lock_area_
-			?
-				*lock_area_
-			:
-				lock_area(
-					lock_area::vector::null(),
-					this->size()
-				)
-			,
+			fcppt::from_optional(
+				lock_area_,
+				[
+					this
+				]{
+					return
+						lock_area(
+							lock_area::vector::null(),
+							this->size()
+						);
+				}
+			),
 			lock_->write_pointer()
 		);
 	}
@@ -409,20 +415,35 @@ sge::opengl::texture::basic_buffer<
 	);
 
 	return
-		reading && lock_area_
+		reading
 		?
-			sge::image::view::flipped<
-				image_tag
-			>(
-				sge::image::view::sub<
-					image_tag
-				>(
-					ret,
-					*lock_area_
+			fcppt::maybe(
+				lock_area_,
+				fcppt::const_(
+					ret
+				),
+				[
+					&ret
+				](
+					lock_area const &_area
 				)
+				{
+					return
+						sge::image::view::flipped<
+							image_tag
+						>(
+							sge::image::view::sub<
+								image_tag
+							>(
+								ret,
+								_area
+							)
+						);
+				}
 			)
 		:
-			ret;
+			ret
+		;
 }
 
 template<
@@ -460,12 +481,22 @@ sge::opengl::texture::basic_buffer<
 >::lock_dim() const
 {
 	return
-		lock_area_
-		?
-			lock_area_->size()
-		:
-			this->size()
-		;
+		fcppt::maybe(
+			lock_area_,
+			[
+				this
+			]{
+				return
+					this->size();
+			},
+			[](
+				lock_area const &_area
+			)
+			{
+				return
+					_area.size();
+			}
+		);
 }
 
 template<

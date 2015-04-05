@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/volume_types.hpp>
 #include <sge/renderer/texture/volume.hpp>
 #include <sge/renderer/texture/volume_parameters_fwd.hpp>
+#include <fcppt/assert/optional_error.hpp>
 
 
 sge::opengl::texture::volume::volume(
@@ -35,11 +36,13 @@ sge::opengl::texture::volume::volume(
 :
 	sge::opengl::texture::volume_basic(
 		_basic_parameters,
-		*sge::opengl::context::use<
-			sge::opengl::texture::volume_context
-		>(
-			_basic_parameters.system_context()
-		).volume_texture_type(),
+		FCPPT_ASSERT_OPTIONAL_ERROR(
+			sge::opengl::context::use<
+				sge::opengl::texture::volume_context
+			>(
+				_basic_parameters.system_context()
+			).volume_texture_type()
+		),
 		_parameters
 	)
 {

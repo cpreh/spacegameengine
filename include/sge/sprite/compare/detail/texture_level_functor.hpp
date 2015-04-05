@@ -22,8 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_COMPARE_DETAIL_TEXTURE_LEVEL_FUNCTOR_HPP_INCLUDED
 
 #include <sge/renderer/texture/planar_fwd.hpp>
+#include <sge/sprite/deref_texture.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/texture/part.hpp>
+#include <fcppt/maybe.hpp>
 
 
 namespace sge
@@ -59,9 +61,16 @@ struct texture_level_functor
 		> const &_right
 	)
 	{
-		typedef typename sge::sprite::object<
+		typedef
+		typename
+		sge::sprite::object<
 			Choices
-		>::texture_type texture_type;
+		>::texture_type
+		texture_type;
+
+		typedef
+		typename
+		texture_type::value_type element_type;
 
 		texture_type const
 			left_tex(
@@ -75,33 +84,58 @@ struct texture_level_functor
 				>()
 			);
 
+		auto const default_compare(
+			[
+				&left_tex,
+				&right_tex
+			]{
+				return
+					Function<
+						bool
+					>()(
+						left_tex.has_value(),
+						right_tex.has_value()
+					);
+			}
+		);
+
 		return
-			left_tex
-			&&
-			right_tex
-			?
-				Function<
-					sge::renderer::texture::planar const *
-				>()(
-					&left_tex->texture(),
-					&right_tex->texture()
+			fcppt::maybe(
+				left_tex,
+				default_compare,
+				[
+					&right_tex,
+					&default_compare
+				](
+					element_type const &_left_tex
 				)
-			:
-				Function<
-					bool
-				>()(
-					static_cast<
-						bool
-					>(
-						left_tex
-					),
-					static_cast<
-						bool
-					>(
-						right_tex
-					)
-				)
-			;
+				{
+					return
+						fcppt::maybe(
+							right_tex,
+							default_compare,
+							[
+								&_left_tex
+							](
+								element_type const &_right_tex
+							)
+							{
+								return
+									Function<
+										// TODO: Why is this a pointer?
+										sge::renderer::texture::planar const *
+									>()(
+										&sge::sprite::deref_texture(
+											_left_tex.texture()
+										),
+										&sge::sprite::deref_texture(
+											_right_tex.texture()
+										)
+									);
+							}
+						);
+				}
+			);
 	}
 };
 

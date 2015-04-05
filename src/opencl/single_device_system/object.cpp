@@ -27,9 +27,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/platform/object.hpp>
 #include <sge/opencl/single_device_system/object.hpp>
 #include <sge/opencl/single_device_system/parameters.hpp>
+#include <sge/renderer/device/core_fwd.hpp>
 #include <sge/src/opencl/declare_local_logger.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional_to_exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/error.hpp>
@@ -55,7 +58,7 @@ construct_context_parameters(
 	sge::opencl::platform::object &_platform,
 	sge::opencl::device::object &_device,
 	sge::opencl::context::error_callback const &_error_callback,
-	sge::opencl::single_device_system::optional_renderer const &_renderer)
+	sge::opencl::single_device_system::optional_renderer const &_opt_renderer)
 {
 	sge::opencl::context::parameters result(
 		_platform,
@@ -67,9 +70,19 @@ construct_context_parameters(
 	result.error_callback(
 		_error_callback);
 
-	if(_renderer)
-		result.share_with(
-			*_renderer);
+	fcppt::maybe_void(
+		_opt_renderer,
+		[
+			&result
+		](
+			sge::renderer::device::core &_renderer
+		)
+		{
+			result.share_with(
+				_renderer
+			);
+		}
+	);
 
 	return result;
 }
@@ -147,17 +160,24 @@ sge::opencl::single_device_system::object::update()
 	if(!error_occured_)
 		return;
 
-	if(!error_callback_)
-		throw
-			// TODO: opencl exception
-			sge::core::exception(
-				FCPPT_TEXT("An asynchronous error occured: ")+
-				fcppt::from_std_string(
-					error_information_));
-
-	(*error_callback_)(
+	fcppt::optional_to_exception(
+		error_callback_,
+		[
+			this
+		]{
+			return
+				// TODO: opencl exception
+				sge::core::exception(
+					FCPPT_TEXT("An asynchronous error occured: ")+
+					fcppt::from_std_string(
+						error_information_
+					)
+				);
+		}
+	)(
 		error_information_,
-		error_data_);
+		error_data_
+	);
 }
 
 sge::opencl::system &

@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/render_context/material/shininess.hpp>
 #include <sge/scenic/render_context/material/specular_texture.hpp>
 #include <fcppt/optional_impl.hpp>
+#include <fcppt/optional_ref_compare.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <cmath>
@@ -102,19 +103,6 @@ compare_colors(
 		);
 }
 
-template<typename T>
-bool
-compare_optional_ref_identity(
-	fcppt::optional<T &> const &_left,
-	fcppt::optional<T &> const &_right)
-{
-	return
-		_left.has_value() == _right.has_value() &&
-		(
-			!_left.has_value() ||
-			&(*_left) == &(*_right)
-		);
-}
 }
 
 sge::scenic::render_context::material::object::object(
@@ -222,12 +210,12 @@ sge::scenic::render_context::material::object::operator==(
 			_right.shininess_.get()
 		)
 		&&
-		compare_optional_ref_identity(
+		fcppt::optional_ref_compare(
 			diffuse_texture_,
 			_right.diffuse_texture_
 		)
 		&&
-		compare_optional_ref_identity(
+		fcppt::optional_ref_compare(
 			specular_texture_,
 			_right.specular_texture_
 		);

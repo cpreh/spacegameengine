@@ -25,6 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/ffp/transform/set.hpp>
 #include <sge/renderer/state/ffp/transform/const_optional_object_ref.hpp>
 #include <sge/renderer/state/ffp/transform/mode.hpp>
+#include <sge/renderer/state/ffp/transform/object.hpp>
+#include <fcppt/maybe.hpp>
+#include <fcppt/cast/static_downcast.hpp>
 
 
 void
@@ -34,22 +37,33 @@ sge::opengl::state::ffp::transform::set(
 	sge::renderer::state::ffp::transform::const_optional_object_ref const &_object
 )
 {
-	(
-		_object
-		?
-			static_cast<
-				sge::opengl::state::ffp::transform::object const &
-			>(
-				*_object
-			)
-
-		:
-			sge::opengl::context::use<
-				sge::opengl::state::ffp::transform::default_context
-			>(
-				_system_context,
-				_system_context
-			).default_state()
+	fcppt::maybe(
+		_object,
+		[
+			&_system_context
+		]()
+		-> sge::opengl::state::ffp::transform::object const &
+		{
+			return
+				sge::opengl::context::use<
+					sge::opengl::state::ffp::transform::default_context
+				>(
+					_system_context,
+					_system_context
+				).default_state();
+		},
+		[](
+			sge::renderer::state::ffp::transform::object const &_transform
+		)
+		-> sge::opengl::state::ffp::transform::object const &
+		{
+			return
+				fcppt::cast::static_downcast<
+					sge::opengl::state::ffp::transform::object const &
+				>(
+					_transform
+				);
+		}
 	).set(
 		_mode
 	);

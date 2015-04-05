@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/enable.hpp>
 #include <sge/opengl/init_multi_sampling.hpp>
 #include <sge/opengl/multi_sample_context.hpp>
-#include <sge/opengl/optional_enum.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
+#include <fcppt/optional_to_exception.hpp>
 #include <fcppt/text.hpp>
 
 
@@ -48,20 +48,17 @@ sge::opengl::init_multi_sampling(
 		)
 	);
 
-	sge::opengl::optional_enum const flag(
-		multi_sample_context.flag()
-	);
-
-	if(
-		!flag
-	)
-		throw sge::renderer::unsupported(
-			FCPPT_TEXT("multi sampling"),
-			FCPPT_TEXT("GL_VERSION_1_3"),
-			FCPPT_TEXT("GL_ARB_multisample")
-		);
-
 	sge::opengl::enable(
-		*flag
+		fcppt::optional_to_exception(
+			multi_sample_context.flag(),
+			[]{
+				return
+					sge::renderer::unsupported{
+						FCPPT_TEXT("multi sampling"),
+						FCPPT_TEXT("GL_VERSION_1_3"),
+						FCPPT_TEXT("GL_ARB_multisample")
+					};
+			}
+		)
 	);
 }

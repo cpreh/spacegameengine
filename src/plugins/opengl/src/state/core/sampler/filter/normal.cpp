@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/optional_enum.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/state/convert/mag_filter.hpp>
@@ -29,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/core/sampler/filter/normal.hpp>
 #include <sge/opengl/texture/funcs/parameter_int.hpp>
 #include <sge/renderer/state/core/sampler/filter/normal/parameters.hpp>
+#include <fcppt/maybe_void.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
 #include <fcppt/config/external_end.hpp>
@@ -70,25 +70,28 @@ sge::opengl::state::core::sampler::filter::normal(
 		}
 	);
 
-	sge::opengl::optional_enum const anisotropy_flag(
+	fcppt::maybe_void(
 		sge::opengl::context::use<
 			sge::opengl::state::core::sampler::filter::anisotropy_context
 		>(
 			_system_context
-		).anisotropy_flag()
+		).anisotropy_flag(),
+		[
+			&result
+		](
+			GLenum const _flag
+		)
+		{
+			result.push_back(
+				std::bind(
+					sge::opengl::texture::funcs::parameter_int,
+					std::placeholders::_1,
+					_flag,
+					1
+				)
+			);
+		}
 	);
-
-	if(
-		anisotropy_flag
-	)
-		result.push_back(
-			std::bind(
-				sge::opengl::texture::funcs::parameter_int,
-				std::placeholders::_1,
-				*anisotropy_flag,
-				1
-			)
-		);
 
 	return
 		result;

@@ -22,10 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/device/object_fwd.hpp>
 #include <sge/opengl/texture/base.hpp>
 #include <sge/opengl/texture/bind_context.hpp>
-#include <sge/opengl/texture/const_optional_base_ref.hpp>
 #include <sge/opengl/texture/get_stage_id.hpp>
 #include <sge/opengl/texture/optional_id.hpp>
 #include <sge/renderer/texture/stage.hpp>
+#include <fcppt/optional_bind_construct.hpp>
 
 
 sge::opengl::texture::optional_id const
@@ -42,19 +42,17 @@ sge::opengl::texture::get_stage_id(
 		)
 	);
 
-	sge::opengl::texture::const_optional_base_ref const texture(
-		bind_context.stage(
-			_stage
-		)
-	);
-
 	return
-		texture
-		?
-			sge::opengl::texture::optional_id(
-				texture->id()
+		fcppt::optional_bind_construct(
+			bind_context.stage(
+				_stage
+			),
+			[](
+				sge::opengl::texture::base const &_texture
 			)
-		:
-			sge::opengl::texture::optional_id()
-		;
+			{
+				return
+					_texture.id();
+			}
+		);
 }

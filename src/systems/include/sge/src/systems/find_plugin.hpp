@@ -28,10 +28,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/info.hpp>
 #include <sge/plugin/iterator.hpp>
 #include <sge/plugin/load_with_log_options.hpp>
+#include <sge/plugin/name.hpp>
 #include <sge/plugin/object.hpp>
 #include <sge/src/systems/plugin_pair_decl.hpp>
 #include <sge/systems/exception.hpp>
 #include <sge/systems/optional_name.hpp>
+#include <fcppt/const.hpp>
+#include <fcppt/maybe.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name_from_info.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -58,7 +62,7 @@ find_plugin(
 		System
 	> const &_collection,
 	sge::log::option_container const &_log_options,
-	sge::systems::optional_name const &_name,
+	sge::systems::optional_name const &_opt_name,
 	TestFunction const &_test_function
 )
 {
@@ -73,15 +77,27 @@ find_plugin(
 	)
 	{
 		bool const name_is_same(
-			_name
-			&&
-			*_name
-			==
-			element.info().name()
+			fcppt::maybe(
+				_opt_name,
+				fcppt::const_(
+					false
+				),
+				[
+					&element
+				](
+					sge::plugin::name const &_name
+				)
+				{
+					return
+						_name
+						==
+						element.info().name();
+				}
+			)
 		);
 
 		if(
-			_name
+			_opt_name
 			&&
 			!name_is_same
 		)
@@ -138,7 +154,8 @@ find_plugin(
 				+
 				FCPPT_TEXT(" and name ")
 				+
-				_name->get()
+				// TODO: Find a better structure for this function
+				_opt_name.get_unsafe().get()
 				+
 				FCPPT_TEXT(" was explicitly requested but doesn't match the requested capabilities.")
 			);
@@ -153,16 +170,25 @@ find_plugin(
 			)
 		)
 		+
-		(
-			_name
-			?
-				FCPPT_TEXT(" and with name ")
-				+
-				_name->get()
-				+
-				FCPPT_TEXT(" found.")
-			:
-				FCPPT_TEXT(" matched the requested capabilities.")
+		fcppt::maybe(
+			_opt_name,
+			[]{
+				return
+					fcppt::string{
+						FCPPT_TEXT(" matched the requested capabilities.")
+					};
+			},
+			[](
+				sge::plugin::name const &_name
+			)
+			{
+				return
+					FCPPT_TEXT(" and with name ")
+					+
+					_name.get()
+					+
+					FCPPT_TEXT(" found.");
+			}
 		)
 	);
 }

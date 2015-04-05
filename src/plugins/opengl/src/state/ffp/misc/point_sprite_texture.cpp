@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/misc/enable_point_sprites.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
+#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/static_cast_fun.hpp>
 
 
@@ -49,10 +50,14 @@ sge::opengl::state::ffp::misc::point_sprite_texture(
 	sge::opengl::texture::funcs::env_int(
 		active_level,
 		sge::opengl::texture::funcs::env_target{
-			*_point_sprite_context.point_sprite_flag()
+			FCPPT_ASSERT_OPTIONAL_ERROR(
+				_point_sprite_context.point_sprite_flag()
+			)
 		},
 		sge::opengl::texture::funcs::env_arg{
-			*_point_sprite_context.coord_replace_flag()
+			FCPPT_ASSERT_OPTIONAL_ERROR(
+				_point_sprite_context.coord_replace_flag()
+			)
 		},
 		fcppt::strong_typedef_construct_cast<
 			sge::opengl::texture::funcs::env_int_value,

@@ -61,13 +61,17 @@ sge::opengl::texture::volume_context::volume_context()
 		glTexSubImage3D
 	),
 	max_extent_flag_(
-		sge::opengl::optional_enum(
-			static_cast<
-				GLenum
-			>(
-				GL_MAX_3D_TEXTURE_SIZE
+		volume_texture_normal_
+		?
+			sge::opengl::optional_enum(
+				static_cast<
+					GLenum
+				>(
+					GL_MAX_3D_TEXTURE_SIZE
+				)
 			)
-		)
+		:
+			sge::opengl::optional_enum()
 	)
 {
 }

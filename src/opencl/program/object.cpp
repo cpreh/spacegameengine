@@ -27,7 +27,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/opencl/declare_local_logger.hpp>
 #include <sge/src/opencl/handle_error.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/maybe.hpp>
+#include <fcppt/maybe_void.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/algorithm/map.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assert/post.hpp>
 #include <fcppt/assert/unreachable.hpp>
@@ -42,7 +45,7 @@ SGE_OPENCL_DECLARE_LOCAL_LOGGER(
 sge::opencl::program::object::object(
 	context::object &_context,
 	program::device_blob_map const &_blobs,
-	program::optional_build_parameters const &_params)
+	program::optional_build_parameters const &_opt_params)
 :
 	program_(0),
 	notification_callback_()
@@ -110,27 +113,37 @@ sge::opencl::program::object::object(
 			&error_code);
 
 	for(
-		return_status_vector::const_iterator current_return_status =
-			return_status.begin();
-		current_return_status != return_status.end();
-		++current_return_status)
+		auto const &current_return_status
+		:
+		return_status
+	)
 		opencl::handle_error(
-			*current_return_status,
+			current_return_status,
 			FCPPT_TEXT("clCreateProgramWithBinary"));
 
 	opencl::handle_error(
 		error_code,
 		FCPPT_TEXT("clCreateProgramWithBinary"));
 
-	if(_params)
-		this->build(
-			*_params);
+	fcppt::maybe_void(
+		_opt_params,
+		[
+			this
+		](
+			sge::opencl::program::build_parameters const &_params
+		)
+		{
+			this->build(
+				_params
+			);
+		}
+	);
 }
 
 sge::opencl::program::object::object(
 	context::object &_context,
 	program::source_string_sequence const &_source_strings,
-	program::optional_build_parameters const &_params)
+	program::optional_build_parameters const &_opt_params)
 :
 	program_(0),
 	notification_callback_()
@@ -188,9 +201,19 @@ sge::opencl::program::object::object(
 		program_,
 		sge::core::exception);
 
-	if(_params)
-		this->build(
-			*_params);
+	fcppt::maybe_void(
+		_opt_params,
+		[
+			this
+		](
+			sge::opencl::program::build_parameters const &_params
+		)
+		{
+			this->build(
+				_params
+			);
+		}
+	);
 }
 
 cl_program
@@ -203,26 +226,36 @@ void
 sge::opencl::program::object::build(
 	program::build_parameters const &params)
 {
-	device_id_vector devices;
-
-	if(params.devices())
-	{
-		devices.reserve(
-			static_cast<device_id_vector::size_type>(
-				params.devices()->size()));
-
-		for(
-			device::object_ref_sequence::const_iterator current_device =
-				params.devices()->begin();
-			current_device != params.devices()->end();
-			++current_device)
-			devices.push_back(
-				(*current_device)->device_id_);
-	}
-	else
-	{
-		devices = this->program_devices();
-	}
+	device_id_vector const devices(
+		fcppt::maybe(
+			params.devices(),
+			[
+				this
+			]{
+				return
+					this->program_devices();
+			},
+			[](
+				sge::opencl::device::object_ref_sequence const &_devices
+			)
+			{
+				return
+					fcppt::algorithm::map<
+						device_id_vector
+					>(
+						_devices,
+						[](
+							// TODO: Don't use pointers
+							sge::opencl::device::object *const _device
+						)
+						{
+							return
+								_device->device_id_;
+						}
+					);
+			}
+		)
+	);
 
 	notification_callback_ =
 		params.notification_callback();

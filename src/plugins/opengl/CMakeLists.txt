@@ -182,6 +182,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/optional_int.hpp
 	src/plugins/opengl/include/sge/opengl/optional_int_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/optional_target_base_ref.hpp
+	src/plugins/opengl/include/sge/opengl/optional_target_base_ref_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/pixel_store_context.hpp
 	src/plugins/opengl/include/sge/opengl/pixel_store_context_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/pixel_store_int.hpp

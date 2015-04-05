@@ -117,6 +117,7 @@ sge::parse::json::config::merge_trees(
 				)
 			);
 
+		// TODO: Create a function in fcppt for this!
 		fcppt::maybe(
 			update_value,
 			[

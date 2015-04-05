@@ -24,12 +24,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/device/object_fwd.hpp>
 #include <sge/renderer/vertex/const_optional_declaration_ref.hpp>
+#include <sge/renderer/vertex/declaration.hpp>
+#include <fcppt/optional_bind_construct.hpp>
+#include <fcppt/cast/static_downcast.hpp>
 
 
 void
 sge::opengl::set_vertex_declaration(
 	sge::opengl::context::device::object &_context,
-	sge::renderer::vertex::const_optional_declaration_ref const &_declaration
+	sge::renderer::vertex::const_optional_declaration_ref const &_opt_declaration
 )
 {
 	sge::opengl::context::use<
@@ -37,14 +40,20 @@ sge::opengl::set_vertex_declaration(
 	>(
 		_context
 	).vertex_declaration(
-		_declaration.has_value()
-		?
-			&dynamic_cast<
-				sge::opengl::vertex_declaration const &
-			>(
-				*_declaration
+		fcppt::optional_bind_construct(
+			_opt_declaration,
+			[](
+				sge::renderer::vertex::declaration const &_declaration
 			)
-		:
-			nullptr
+			-> sge::opengl::vertex_declaration const &
+			{
+				return
+					fcppt::cast::static_downcast<
+						sge::opengl::vertex_declaration const &
+					>(
+						_declaration
+					);
+			}
+		)
 	);
 }

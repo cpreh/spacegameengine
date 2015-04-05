@@ -27,8 +27,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/buffer/type.hpp>
 #include <sge/opengl/convert/from_gl_bool.hpp>
 #include <sge/renderer/exception.hpp>
+#include <fcppt/const.hpp>
+#include <fcppt/from_optional.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
+#include <fcppt/container/get_or_insert_result.hpp>
+#include <fcppt/container/get_or_insert_with_result.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -163,43 +167,46 @@ sge::opengl::buffer::hardware::bind_buffer(
 )
 {
 	sge::opengl::buffer::id const id(
-		_id
-		?
-			*_id
-		:
-			sge::opengl::buffer::id(
-				0u
+		fcppt::from_optional(
+			_id,
+			fcppt::const_(
+				sge::opengl::buffer::id(
+					0u
+				)
 			)
+		)
 	);
 
-	{
-		bound_buffer_map::iterator const it(
-			bound_buffers_.begin()
-		);
-
-		if(
-			it == bound_buffers_.end()
-		)
-		{
-			bound_buffers_.insert(
-				std::make_pair(
-					_type,
-					id
-				)
-			);
-
-			if(
-				!_id
+	fcppt::container::get_or_insert_result<
+		sge::opengl::buffer::id &
+	> const result(
+		fcppt::container::get_or_insert_with_result(
+			bound_buffers_,
+			_type,
+			[
+				id
+			](
+				sge::opengl::buffer::type
 			)
-				return;
-		}
-		else if(
-			it->second == id
+			{
+				return
+					id;
+			}
 		)
-			return;
-		else
-			it->second = id;
-	}
+	);
+
+	if(
+		result.element()
+		==
+		id
+		||
+		(
+			!_id
+			&&
+			result.inserted()
+		)
+	)
+		return;
 
 	gl_bind_buffer_(
 		_type.get(),

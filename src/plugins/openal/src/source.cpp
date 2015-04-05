@@ -38,6 +38,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/openal/funcs/source_pause.hpp>
 #include <sge/openal/funcs/source_play.hpp>
 #include <sge/openal/funcs/source_stop.hpp>
+#include <fcppt/const.hpp>
+#include <fcppt/from_optional.hpp>
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/math/rad_to_deg.hpp>
 
@@ -288,18 +290,19 @@ sge::openal::source::max_distance(
 
 void
 sge::openal::source::direction(
-	sge::audio::sound::optional_direction const &_dir
+	sge::audio::sound::optional_direction const &_opt_dir
 )
 {
 	sge::openal::funcs::source_float_ptr(
 		this->source_id(),
 		AL_DIRECTION,
 		sge::openal::to_vector3(
-			_dir
-			?
-				*_dir
-			:
-				sge::audio::vector::null()
+			fcppt::from_optional(
+				_opt_dir,
+				fcppt::const_(
+					sge::audio::vector::null()
+				)
+			)
 		).data()
 	);
 }

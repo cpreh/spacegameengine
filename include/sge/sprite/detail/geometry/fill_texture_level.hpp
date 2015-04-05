@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_GEOMETRY_FILL_TEXTURE_LEVEL_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_GEOMETRY_FILL_TEXTURE_LEVEL_HPP_INCLUDED
 
+#include <sge/sprite/deref_texture.hpp>
 #include <sge/sprite/object_fwd.hpp>
-#include <sge/sprite/detail/geometry/deref_texture.hpp>
 #include <sge/sprite/detail/geometry/fill_texture_level_impl.hpp>
 #include <fcppt/maybe_void.hpp>
 #include <fcppt/nonassignable.hpp>
@@ -89,7 +89,7 @@ public:
 				>(
 					iterator_,
 					object_,
-					sge::sprite::detail::geometry::deref_texture(
+					sge::sprite::deref_texture(
 						_texture
 					)
 				);

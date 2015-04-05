@@ -26,8 +26,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/buffer/type.hpp>
 #include <sge/renderer/const_raw_pointer.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/raw_pointer.hpp>
 #include <sge/renderer/raw_value.hpp>
+#include <fcppt/optional_to_exception.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/container/find_opt.hpp>
+#include <fcppt/container/find_opt_iterator.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
 #include <cstddef>
@@ -60,7 +64,8 @@ sge::opengl::buffer::software::gen_buffer()
 		)
 	);
 
-	return nextid_++;
+	return
+		nextid_++;
 }
 
 void
@@ -69,8 +74,17 @@ sge::opengl::buffer::software::delete_buffer(
 )
 {
 	buffer_map::iterator const it(
-		this->buffer_object(
-			_id
+		fcppt::optional_to_exception(
+			fcppt::container::find_opt_iterator(
+				buffers_,
+				_id
+			),
+			[]{
+				return
+					sge::renderer::exception{
+						FCPPT_TEXT("delete_buffer(): Buffer not found!")
+					};
+			}
 		)
 	);
 
@@ -87,12 +101,10 @@ sge::opengl::buffer::software::bind_buffer(
 	sge::opengl::buffer::optional_id const &_id
 )
 {
-	bound_buffers_.insert(
-		std::make_pair(
-			_type,
-			_id
-		)
-	).first->second = _id;
+	bound_buffers_[
+		_type
+	] =
+		_id;
 }
 
 GLvoid *
@@ -106,7 +118,7 @@ sge::opengl::buffer::software::map_buffer(
 			this->bound_buffer(
 				_type
 			)
-		)->second;
+		);
 }
 
 GLvoid *
@@ -122,14 +134,15 @@ sge::opengl::buffer::software::map_buffer_range(
 			this->bound_buffer(
 				_type
 			)
-		)->second
+		)
 		+ _first;
 }
 
 bool
 sge::opengl::buffer::software::map_buffer_range_supported() const
 {
-	return true;
+	return
+		true;
 }
 
 void
@@ -151,7 +164,7 @@ sge::opengl::buffer::software::buffer_data(
 	GLenum
 )
 {
-	buffer_map::iterator const it(
+	sge::renderer::raw_pointer &buffer(
 		this->buffer_object(
 			this->bound_buffer(
 				_type
@@ -159,7 +172,7 @@ sge::opengl::buffer::software::buffer_data(
 		)
 	);
 
-	delete[] it->second;
+	delete[] buffer;
 
 	std::size_t const alloc_size(
 		static_cast<
@@ -169,8 +182,8 @@ sge::opengl::buffer::software::buffer_data(
 		)
 	);
 
-	it->second =
-		new renderer::raw_value[
+	buffer =
+		new sge::renderer::raw_value[
 			alloc_size
 		];
 
@@ -206,13 +219,14 @@ sge::opengl::buffer::software::buffer_sub_data(
 		>(
 			_data
 		)
-		+ _first,
+		+
+		_first,
 		_size,
 		this->buffer_object(
 			this->bound_buffer(
 				_type
 			)
-		)->second
+		)
 	);
 }
 
@@ -223,18 +237,25 @@ sge::opengl::buffer::software::buffer_offset(
 ) const
 {
 	return
-		this->buffer_object(
-			this->bound_buffer(
-				_type
+		// TODO: Why is this const?
+		const_cast<
+			sge::renderer::raw_pointer
+		>(
+			this->buffer_object(
+				this->bound_buffer(
+					_type
+				)
 			)
-		)->second
-		+ _offset;
+			+
+			_offset
+		);
 }
 
 bool
 sge::opengl::buffer::software::hardware_supported() const
 {
-	return false;
+	return
+		false;
 }
 
 sge::opengl::buffer::id const
@@ -242,47 +263,51 @@ sge::opengl::buffer::software::bound_buffer(
 	sge::opengl::buffer::type const _type
 ) const
 {
-	sge::opengl::buffer::software::bound_buffer_map::const_iterator const it(
-		bound_buffers_.find(
-			_type
-		)
-	);
-
-	if(
-		it == bound_buffers_.end()
-		||
-		!it->second
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("bound_buffer): No buffer bound!")
-		);
-
 	return
-		*it->second;
+		fcppt::optional_to_exception(
+			fcppt::optional_to_exception(
+				fcppt::container::find_opt(
+					bound_buffers_,
+					_type
+				),
+				[]{
+					return
+						sge::renderer::exception{
+							FCPPT_TEXT("bound_buffer(): Buffer not found!")
+						};
+				}
+
+			),
+			[]{
+				return
+					sge::renderer::exception{
+						FCPPT_TEXT("bound_buffer(): Buffer not bound!")
+					};
+			}
+		);
 }
 
-sge::opengl::buffer::software::buffer_map::iterator
+sge::renderer::raw_pointer &
 sge::opengl::buffer::software::buffer_object(
 	sge::opengl::buffer::id const _id
 )
 {
-	buffer_map::iterator const it(
-		buffers_.find(
-			_id
-		)
-	);
-
-	if(
-		it == buffers_.end()
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("buffer_object(): invalid id!")
+	return
+		fcppt::optional_to_exception(
+			fcppt::container::find_opt(
+				buffers_,
+				_id
+			),
+			[]{
+				return
+					sge::renderer::exception{
+						FCPPT_TEXT("buffer_object(): invalid id!")
+					};
+			}
 		);
-
-	return it;
 }
 
-sge::opengl::buffer::software::buffer_map::const_iterator
+sge::renderer::const_raw_pointer
 sge::opengl::buffer::software::buffer_object(
 	sge::opengl::buffer::id const _id
 ) const

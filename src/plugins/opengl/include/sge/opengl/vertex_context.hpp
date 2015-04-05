@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/device/id.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/container/index_map_decl.hpp>
 
 
@@ -48,34 +49,48 @@ public:
 	~vertex_context()
 	override;
 
-	sge::opengl::vertex_buffer const *
-	vertex_buffer(
-		sge::renderer::vf::dynamic::part_index
-	) const;
+	typedef
+	fcppt::optional<
+		sge::opengl::vertex_buffer const &
+	>
+	optional_vertex_buffer;
 
 	void
 	vertex_buffer(
 		sge::renderer::vf::dynamic::part_index,
-		sge::opengl::vertex_buffer const *
+		optional_vertex_buffer
 	);
+
+	optional_vertex_buffer const
+	vertex_buffer(
+		sge::renderer::vf::dynamic::part_index
+	) const;
+
+	typedef
+	fcppt::optional<
+		sge::opengl::vertex_declaration const &
+	>
+	optional_vertex_declaration;
 
 	void
 	vertex_declaration(
-		sge::opengl::vertex_declaration const *
+		optional_vertex_declaration
 	);
 
-	sge::opengl::vertex_declaration const *
+	optional_vertex_declaration const
 	vertex_declaration() const;
 
 	typedef void parameter;
 
 	static sge::opengl::context::device::id const static_id;
 private:
-	typedef fcppt::container::index_map<
-		sge::opengl::vertex_buffer const *
-	> vertex_buffer_map;
+	typedef
+	fcppt::container::index_map<
+		optional_vertex_buffer
+	>
+	vertex_buffer_map;
 
-	sge::opengl::vertex_declaration const *last_declaration_;
+	optional_vertex_declaration last_declaration_;
 
 	mutable vertex_buffer_map last_buffers_;
 };

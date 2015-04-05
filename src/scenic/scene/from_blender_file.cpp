@@ -27,9 +27,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/init/green.hpp>
 #include <sge/image/color/init/red.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
+#include <sge/parse/json/get_exn.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/parse_string_exn.hpp>
 #include <sge/parse/json/start.hpp>
+#include <sge/parse/json/value.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/vector4.hpp>
@@ -270,15 +272,15 @@ load_entities(
 	sge::parse::json::array const &_json_entities)
 {
 	for(
-		sge::parse::json::element_vector::const_iterator current_entity =
-			_json_entities.elements.begin();
-		current_entity != _json_entities.elements.end();
-		++current_entity)
+		sge::parse::json::value const &current
+		:
+		_json_entities.elements
+	)
 		load_entity(
 			_base_path,
 			_scene,
-			sge::parse::json::get<sge::parse::json::object const>(
-				*current_entity));
+			sge::parse::json::get_exn<sge::parse::json::object const>(
+				current));
 }
 
 sge::scenic::render_context::light::attenuation const
@@ -425,14 +427,18 @@ load_lights(
 	sge::parse::json::array const &_json_lights)
 {
 	for(
-		sge::parse::json::element_vector::const_iterator current_light =
-			_json_lights.elements.begin();
-		current_light != _json_lights.elements.end();
-		++current_light)
+		sge::parse::json::value const &light
+		:
+		_json_lights.elements
+	)
 		load_light(
 			_scene,
-			sge::parse::json::get<sge::parse::json::object const>(
-				*current_light));
+			sge::parse::json::get_exn<
+				sge::parse::json::object const
+			>(
+				light
+			)
+		);
 }
 }
 

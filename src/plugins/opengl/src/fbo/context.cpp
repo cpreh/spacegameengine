@@ -242,103 +242,103 @@ sge::opengl::fbo::context::is_supported() const
 sge::opengl::fbo::context::gl_gen_framebuffers
 sge::opengl::fbo::context::gen_framebuffers() const
 {
-	return config_->gen_framebuffers_;
+	return config_.get_unsafe().gen_framebuffers_;
 }
 
 sge::opengl::fbo::context::gl_delete_framebuffers
 sge::opengl::fbo::context::delete_framebuffers() const
 {
-	return config_->delete_framebuffers_;
+	return config_.get_unsafe().delete_framebuffers_;
 }
 
 sge::opengl::fbo::context::gl_bind_framebuffer
 sge::opengl::fbo::context::bind_framebuffer() const
 {
-	return config_->bind_framebuffer_;
+	return config_.get_unsafe().bind_framebuffer_;
 }
 
 sge::opengl::fbo::context::gl_framebuffer_texture_2d
 sge::opengl::fbo::context::framebuffer_texture_2d() const
 {
-	return config_->framebuffer_texture_2d_;
+	return config_.get_unsafe().framebuffer_texture_2d_;
 }
 
 sge::opengl::fbo::context::gl_check_framebuffer_status
 sge::opengl::fbo::context::check_framebuffer_status() const
 {
-	return config_->check_framebuffer_status_;
+	return config_.get_unsafe().check_framebuffer_status_;
 }
 
 sge::opengl::fbo::context::gl_gen_renderbuffers
 sge::opengl::fbo::context::gen_renderbuffers() const
 {
-	return config_->gen_renderbuffers_;
+	return config_.get_unsafe().gen_renderbuffers_;
 }
 
 sge::opengl::fbo::context::gl_delete_renderbuffers
 sge::opengl::fbo::context::delete_renderbuffers() const
 {
-	return config_->delete_renderbuffers_;
+	return config_.get_unsafe().delete_renderbuffers_;
 }
 
 sge::opengl::fbo::context::gl_bind_renderbuffer
 sge::opengl::fbo::context::bind_renderbuffer() const
 {
-	return config_->bind_renderbuffer_;
+	return config_.get_unsafe().bind_renderbuffer_;
 }
 
 sge::opengl::fbo::context::gl_renderbuffer_storage
 sge::opengl::fbo::context::renderbuffer_storage() const
 {
-	return config_->renderbuffer_storage_;
+	return config_.get_unsafe().renderbuffer_storage_;
 }
 
 sge::opengl::fbo::context::gl_framebuffer_renderbuffer
 sge::opengl::fbo::context::framebuffer_renderbuffer() const
 {
-	return config_->framebuffer_renderbuffer_;
+	return config_.get_unsafe().framebuffer_renderbuffer_;
 }
 
 GLenum
 sge::opengl::fbo::context::framebuffer_target() const
 {
-	return config_->framebuffer_target_;
+	return config_.get_unsafe().framebuffer_target_;
 }
 
 sge::opengl::fbo::attachment_type const
 sge::opengl::fbo::context::color_attachment() const
 {
-	return config_->color_attachment_;
+	return config_.get_unsafe().color_attachment_;
 }
 
 GLenum
 sge::opengl::fbo::context::framebuffer_complete() const
 {
-	return config_->fbo_complete_;
+	return config_.get_unsafe().fbo_complete_;
 }
 
 sge::opengl::fbo::error_string_map const &
 sge::opengl::fbo::context::error_strings() const
 {
-	return config_->error_strings_;
+	return config_.get_unsafe().error_strings_;
 }
 
 GLenum
 sge::opengl::fbo::context::renderbuffer_target() const
 {
-	return config_->renderbuffer_target_;
+	return config_.get_unsafe().renderbuffer_target_;
 }
 
 sge::opengl::fbo::attachment_type const
 sge::opengl::fbo::context::depth_attachment() const
 {
-	return config_->depth_attachment_;
+	return config_.get_unsafe().depth_attachment_;
 }
 
 sge::opengl::fbo::optional_attachment_type const
 sge::opengl::fbo::context::depth_stencil_attachment() const
 {
-	return config_->depth_stencil_attachment_;
+	return config_.get_unsafe().depth_stencil_attachment_;
 }
 
 sge::opengl::context::system::id const

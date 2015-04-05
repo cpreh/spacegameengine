@@ -161,7 +161,13 @@ private:
 
 	sge::cegui::texture::optional_vector2f texel_scaling_;
 
-	sge::renderer::texture::planar_unique_ptr texture_;
+	typedef
+	fcppt::optional<
+		sge::renderer::texture::planar_unique_ptr
+	>
+	optional_planar_unique_ptr;
+
+	optional_planar_unique_ptr texture_;
 
 };
 

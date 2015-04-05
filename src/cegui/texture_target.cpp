@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/transform/const_optional_object_ref.hpp>
 #include <sge/renderer/state/ffp/transform/mode.hpp>
 #include <sge/renderer/state/ffp/transform/object.hpp>
+#include <sge/renderer/state/ffp/transform/optional_object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
 #include <sge/renderer/target/offscreen.hpp>
 #include <sge/renderer/target/optional_offscreen_ref.hpp>
@@ -49,7 +50,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/cegui/texture.hpp>
 #include <sge/src/cegui/texture_target.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/assert/pre.hpp>
+#include <fcppt/optional_impl.hpp>
+#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/unimplemented_message.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/log/_.hpp>
@@ -115,7 +117,9 @@ sge::cegui::texture_target::draw(
 )
 {
 	if(
-		texture_->empty()
+		FCPPT_ASSERT_OPTIONAL_ERROR(
+			texture_
+		)->empty()
 	)
 		return;
 
@@ -136,7 +140,9 @@ sge::cegui::texture_target::draw(
 )
 {
 	if(
-		texture_->empty()
+		FCPPT_ASSERT_OPTIONAL_ERROR(
+			texture_
+		)->empty()
 	)
 		return;
 
@@ -181,25 +187,28 @@ sge::cegui::texture_target::setArea(
 		0.01f
 	)
 	{
-		transform_state_.reset();
+		transform_state_ =
+			sge::renderer::state::ffp::transform::optional_object_unique_ptr();
 
 		return;
 	}
 
 	transform_state_ =
-		texture_parameters_.renderer().create_transform_state(
-			sge::renderer::state::ffp::transform::parameters(
-				sge::renderer::projection::orthogonal(
-					sge::cegui::from_cegui_rect<
-						sge::renderer::projection::rect
-					>(
-						area_
-					),
-					sge::renderer::projection::near(
-						0.f
-					),
-					sge::renderer::projection::far(
-						2.f
+		sge::renderer::state::ffp::transform::optional_object_unique_ptr(
+			texture_parameters_.renderer().create_transform_state(
+				sge::renderer::state::ffp::transform::parameters(
+					sge::renderer::projection::orthogonal(
+						sge::cegui::from_cegui_rect<
+							sge::renderer::projection::rect
+						>(
+							area_
+						),
+						sge::renderer::projection::near(
+							0.f
+						),
+						sge::renderer::projection::far(
+							2.f
+						)
 					)
 				)
 			)
@@ -216,14 +225,17 @@ sge::cegui::texture_target::getArea() const
 bool
 sge::cegui::texture_target::isImageryCache() const
 {
-	return true;
+	return
+		true;
 }
 
 void
 sge::cegui::texture_target::activate()
 {
 	if(
-		texture_->empty()
+		FCPPT_ASSERT_OPTIONAL_ERROR(
+			texture_
+		)->empty()
 	)
 		return;
 
@@ -235,15 +247,13 @@ sge::cegui::texture_target::activate()
 			<< FCPPT_TEXT(")::activate()")
 	);
 
-	FCPPT_ASSERT_PRE(
-		render_context_
+	sge::renderer::context::ffp &render_context(
+		FCPPT_ASSERT_OPTIONAL_ERROR(
+			render_context_
+		)
 	);
 
-	FCPPT_ASSERT_PRE(
-		transform_state_
-	);
-
-	render_context_->offscreen_target(
+	render_context.offscreen_target(
 		sge::renderer::target::optional_offscreen_ref(
 			*target_
 		)
@@ -259,10 +269,12 @@ sge::cegui::texture_target::activate()
 		)
 	);
 
-	render_context_->transform(
+	render_context.transform(
 		sge::renderer::state::ffp::transform::mode::projection,
 		sge::renderer::state::ffp::transform::const_optional_object_ref(
-			*transform_state_
+			*FCPPT_ASSERT_OPTIONAL_ERROR(
+				transform_state_
+			)
 		)
 	);
 }
@@ -279,20 +291,24 @@ sge::cegui::texture_target::deactivate()
 	);
 
 	if(
-		texture_->empty()
+		FCPPT_ASSERT_OPTIONAL_ERROR(
+			texture_
+		)->empty()
 	)
 		return;
 
-	FCPPT_ASSERT_PRE(
-		render_context_
+	sge::renderer::context::ffp &render_context(
+		FCPPT_ASSERT_OPTIONAL_ERROR(
+			render_context_
+		)
 	);
 
-	render_context_->transform(
+	render_context.transform(
 		sge::renderer::state::ffp::transform::mode::projection,
 		sge::renderer::state::ffp::transform::const_optional_object_ref()
 	);
 
-	render_context_->offscreen_target(
+	render_context.offscreen_target(
 		sge::renderer::target::optional_offscreen_ref()
 	);
 }
@@ -320,8 +336,15 @@ sge::cegui::texture_target::clear()
 			<< FCPPT_TEXT(")::clear()")
 	);
 
+	sge::cegui::texture &texture(
+		*FCPPT_ASSERT_OPTIONAL_ERROR(
+			texture_
+		)
+	);
+
+	// TODO: Use optionals here
 	if(
-		texture_->empty()
+		texture.empty()
 	)
 		return;
 
@@ -334,7 +357,7 @@ sge::cegui::texture_target::clear()
 			fcppt::cast::size_fun
 		>(
 			fcppt::math::dim::to_signed(
-				texture_->impl().size()
+				texture.impl().size()
 			)
 		)
 	);
@@ -362,11 +385,10 @@ sge::cegui::texture_target::clear()
 CEGUI::Texture &
 sge::cegui::texture_target::getTexture() const
 {
-	FCPPT_ASSERT_PRE(
-		texture_
-	);
-
-	return *texture_;
+	return
+		*FCPPT_ASSERT_OPTIONAL_ERROR(
+			texture_
+		);
 }
 
 void
@@ -403,40 +425,43 @@ sge::cegui::texture_target::declareRenderSize(
 	// been initialized yet. If that's the case, create an empty texture.
 
 	texture_ =
-		sge::cegui::from_cegui_size<
-			sge::renderer::dim2
-		>(
-			_size
-		)
-		==
-		sge::renderer::dim2::null()
-		?
-			fcppt::make_unique_ptr<
-				sge::cegui::texture
+		optional_texture_unique_ptr(
+			sge::cegui::from_cegui_size<
+				sge::renderer::dim2
 			>(
-				texture_parameters_,
-				texture_name
+				_size
 			)
-		:
-			fcppt::make_unique_ptr<
-				sge::cegui::texture
-			>(
-				texture_parameters_,
-				texture_name,
-				_size,
-				sge::renderer::texture::capabilities_field{
-					sge::renderer::texture::capabilities::render_target
-				}
-			);
+			==
+			sge::renderer::dim2::null()
+			?
+				fcppt::make_unique_ptr<
+					sge::cegui::texture
+				>(
+					texture_parameters_,
+					texture_name
+				)
+			:
+				fcppt::make_unique_ptr<
+					sge::cegui::texture
+				>(
+					texture_parameters_,
+					texture_name,
+					_size,
+					sge::renderer::texture::capabilities_field{
+						sge::renderer::texture::capabilities::render_target
+					}
+				)
+		);
 
+	// TODO: Use optionals here
 	if(
-		texture_->empty()
+		texture_.get_unsafe()->empty()
 	)
 		return;
 
 	target_->color_surface(
 		sge::renderer::color_buffer::optional_surface_ref(
-			texture_->impl().level(
+			texture_.get_unsafe()->impl().level(
 				sge::renderer::texture::mipmap::level(
 					0u
 				)

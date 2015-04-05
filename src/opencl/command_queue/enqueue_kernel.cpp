@@ -26,7 +26,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/opencl/handle_error.hpp>
 #include <sge/src/opencl/event/flatten_sequence.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/make_int_range_count.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/maybe.hpp>
+#include <fcppt/maybe_void.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre.hpp>
@@ -35,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
+#include <cstddef>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -76,14 +80,33 @@ enqueue_kernel_internal(
 	optional_size_vector const &work_dim,
 	sge::opencl::event::sequence const &_events)
 {
-	FCPPT_ASSERT_PRE(
-		!work_dim || global_dim.size() == work_dim->size());
+	fcppt::maybe_void(
+		work_dim,
+		[
+			&global_dim
+		](
+			size_vector const &_work_dim
+		)
+		{
+			FCPPT_ASSERT_PRE(
+				_work_dim.size()
+				==
+				global_dim.size()
+			);
 
-	for(std::size_t i = 0; i < global_dim.size(); ++i)
-		if(global_dim[i] == 0 || (work_dim && (*work_dim)[i] == 0))
-			// TODO: opencl exception
-			throw sge::core::exception(
-				FCPPT_TEXT("Neither global nor work dimensions can be zero in any component"));
+			for(
+				std::size_t const index
+				:
+				fcppt::make_int_range_count(
+					global_dim.size()
+				)
+			)
+				if(global_dim[index] == 0 || _work_dim[index] == 0)
+					// TODO: opencl exception
+					throw sge::core::exception(
+						FCPPT_TEXT("Neither global nor work dimensions can be zero in any component"));
+		}
+	);
 
 	sge::opencl::event::object_unique_ptr result(
 		fcppt::make_unique_ptr<sge::opencl::event::object>());
@@ -96,16 +119,27 @@ enqueue_kernel_internal(
 				global_dim.size()),
 			0, // global work offset (not implemented in 1.1)
 			global_dim.data(),
-			work_dim
-			?
-				work_dim->data()
-			:
-				0,
+			fcppt::maybe(
+				work_dim,
+				[]{
+					return
+						size_vector::const_pointer(
+							nullptr
+						);
+				},
+				[](
+					size_vector const &_work_dim
+				)
+				{
+					return
+						_work_dim.data();
+				}
+			),
 			static_cast<cl_uint>(
 				_events.size()),
 			_events.empty()
 			?
-				0
+				nullptr
 			:
 				sge::opencl::event::flatten_sequence(
 					_events).data(),
@@ -116,19 +150,37 @@ enqueue_kernel_internal(
 		throw
 			// TODO: opencl exception
 			sge::core::exception(
-				FCPPT_TEXT("Error enqueuing kernel \"")+
+				FCPPT_TEXT("Error enqueuing kernel \"")
+				+
 				fcppt::from_std_string(
-					_kernel.name())+
-				FCPPT_TEXT("\": workgroup size invalid. The global dimension is ")+
+					_kernel.name()
+				)
+				+
+				FCPPT_TEXT("\": workgroup size invalid. The global dimension is "
+				)+
 				output_dimension(
-					global_dim)+
-				(work_dim
-				?
-					FCPPT_TEXT(", the workgroup dimension is ")+
-					output_dimension(
-						*work_dim)
-				:
-					fcppt::string()));
+					global_dim
+				)
+				+
+				fcppt::maybe(
+					work_dim,
+					[]{
+						return
+							fcppt::string{};
+					},
+					[](
+						size_vector const &_work_dim
+					)
+					{
+						return
+							FCPPT_TEXT(", the workgroup dimension is ")
+							+
+							output_dimension(
+								_work_dim
+							);
+					}
+				)
+			);
 	}
 
 	sge::opencl::handle_error(

@@ -32,16 +32,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/render_context/cg/light/count.hpp>
 #include <sge/scenic/render_context/cg/light/directional.hpp>
 #include <sge/scenic/render_context/cg/light/point.hpp>
+#include <sge/scenic/render_context/fog/optional_properties.hpp>
 #include <sge/scenic/render_context/fog/properties.hpp>
 #include <sge/scenic/render_context/light/object.hpp>
 #include <sge/scenic/render_context/material/object.hpp>
 #include <sge/src/scenic/render_context/cg/any_color_to_vector4.hpp>
+#include <fcppt/maybe_void.hpp>
+#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assign/make_map.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/matrix/inverse.hpp>
 #include <fcppt/math/matrix/transform_point.hpp>
 #include <fcppt/math/matrix/transpose.hpp>
-#include <fcppt/variant/holds_type.hpp>
+#include <fcppt/variant/to_optional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstddef>
 #include <fcppt/config/external_end.hpp>
@@ -187,57 +190,80 @@ sge::scenic::render_context::cg::object::lights(
 		_lights
 	)
 	{
-		if(fcppt::variant::holds_type<sge::scenic::render_context::light::point>(light.variant()))
-		{
-			sge::scenic::render_context::cg::light::point &current_light(
-				*manager_.point_lights_[static_cast<std::size_t>(point_light_count++)]);
+		// TODO: This should be done using a visitor!
+		fcppt::maybe_void(
+			fcppt::variant::to_optional<
+				sge::scenic::render_context::light::point
+			>(
+				light.variant()
+			),
+			[
+				&light,
+				&point_light_count,
+				this
+			](
+				sge::scenic::render_context::light::point const _point_light
+			)
+			{
+				sge::scenic::render_context::cg::light::point &current_light(
+					*manager_.point_lights_[static_cast<std::size_t>(point_light_count++)]);
 
-			current_light.diffuse_color(
-				light.diffuse_color());
+				current_light.diffuse_color(
+					light.diffuse_color());
 
-			current_light.specular_color(
-				light.specular_color());
+				current_light.specular_color(
+					light.specular_color());
 
-			current_light.ambient_color(
-				light.ambient_color());
+				current_light.ambient_color(
+					light.ambient_color());
 
-			sge::scenic::render_context::light::point const &point_light(
-				light.variant().get<sge::scenic::render_context::light::point>());
+				current_light.camera_space_position(
+					fcppt::math::matrix::transform_point(
+						current_world_,
+						_point_light.position().get()));
 
-			current_light.camera_space_position(
-				fcppt::math::matrix::transform_point(
-					current_world_,
-					point_light.position().get()));
+				current_light.attenuation(
+					_point_light.attenuation());
+			}
+		);
 
-			current_light.attenuation(
-				point_light.attenuation());
-		}
-		else if(fcppt::variant::holds_type<sge::scenic::render_context::light::directional>(light.variant()))
-		{
-			sge::scenic::render_context::cg::light::directional &current_light(
-				*manager_.directional_lights_[static_cast<std::size_t>(directional_light_count++)]);
+		fcppt::maybe_void(
+			fcppt::variant::to_optional<
+				sge::scenic::render_context::light::directional
+			>(
+				light.variant()
+			),
+			[
+				&light,
+				&directional_light_count,
+				this
+			](
+				sge::scenic::render_context::light::directional const &_directional_light
+			)
+			{
+				sge::scenic::render_context::cg::light::directional &current_light(
+					*manager_.directional_lights_[static_cast<std::size_t>(directional_light_count++)]
+				);
 
-			current_light.diffuse_color(
-				light.diffuse_color());
+				current_light.diffuse_color(
+					light.diffuse_color());
 
-			current_light.specular_color(
-				light.specular_color());
+				current_light.specular_color(
+					light.specular_color());
 
-			current_light.ambient_color(
-				light.ambient_color());
+				current_light.ambient_color(
+					light.ambient_color());
 
-			sge::scenic::render_context::light::directional const &directional_light(
-				light.variant().get<sge::scenic::render_context::light::directional>());
-
-			current_light.camera_space_direction(
-				sge::scenic::render_context::light::direction(
-					fcppt::math::vector::narrow_cast<sge::renderer::vector3>(
-						current_world_ *
-						fcppt::math::vector::construct(
-							directional_light.direction().get(),
-							static_cast<sge::renderer::scalar>(
-								0.0f)))));
-		}
+				current_light.camera_space_direction(
+					sge::scenic::render_context::light::direction(
+						fcppt::math::vector::narrow_cast<sge::renderer::vector3>(
+							current_world_ *
+							fcppt::math::vector::construct(
+								_directional_light.direction().get(),
+								static_cast<sge::renderer::scalar>(
+									0.0f)))));
+			}
+		);
 	}
 
 	manager_.point_light_count_.set(
@@ -249,36 +275,57 @@ sge::scenic::render_context::cg::object::lights(
 
 void
 sge::scenic::render_context::cg::object::vertex_buffer(
-	sge::renderer::vertex::buffer const &_vertex_buffer)
+	sge::renderer::vertex::buffer const &_new_vertex_buffer
+)
 {
-	if(current_vertex_buffer_)
-		context_.deactivate_vertex_buffer(
-			*current_vertex_buffer_);
+	fcppt::maybe_void(
+		current_vertex_buffer_,
+		[
+			this
+		](
+			sge::renderer::vertex::buffer const &_vertex_buffer
+		)
+		{
+			context_.deactivate_vertex_buffer(
+				_vertex_buffer
+			);
+		}
+	);
+
 
 	current_vertex_buffer_ =
 		optional_vertex_buffer(
-			_vertex_buffer);
+			_new_vertex_buffer);
 
 	context_.activate_vertex_buffer(
-		*current_vertex_buffer_);
+		_new_vertex_buffer
+	);
 }
 
 void
 sge::scenic::render_context::cg::object::fog(
-	sge::scenic::render_context::fog::optional_properties const &_fog)
+	sge::scenic::render_context::fog::optional_properties const &_opt_fog)
 {
 	manager_.use_fog_.set(
-		_fog.has_value());
-	if(_fog)
-	{
-		manager_.fog_start_.set(
-			_fog->start().get());
-		manager_.fog_end_.set(
-			_fog->end().get());
-		manager_.fog_color_.set(
-			sge::scenic::render_context::cg::any_color_to_vector4(
-				_fog->color().get()));
-	}
+		_opt_fog.has_value());
+
+	fcppt::maybe_void(
+		_opt_fog,
+		[
+			this
+		](
+			sge::scenic::render_context::fog::properties const &_fog
+		)
+		{
+			manager_.fog_start_.set(
+				_fog.start().get());
+			manager_.fog_end_.set(
+				_fog.end().get());
+			manager_.fog_color_.set(
+				sge::scenic::render_context::cg::any_color_to_vector4(
+					_fog.color().get()));
+		}
+	);
 }
 
 void
@@ -291,7 +338,9 @@ sge::scenic::render_context::cg::object::render(
 		sge::renderer::vertex::first(
 			0u),
 		sge::renderer::vertex::count(
-			current_vertex_buffer_->size()),
+			FCPPT_ASSERT_OPTIONAL_ERROR(
+				current_vertex_buffer_
+			).size()),
 		sge::renderer::primitive_type::triangle_list,
 		_index_buffer_range.first_index(),
 		_index_buffer_range.index_count());
@@ -306,7 +355,17 @@ sge::scenic::render_context::cg::object::target()
 
 sge::scenic::render_context::cg::object::~object()
 {
-	if(current_vertex_buffer_)
-		context_.deactivate_vertex_buffer(
-			*current_vertex_buffer_);
+	fcppt::maybe_void(
+		current_vertex_buffer_,
+		[
+			this
+		](
+			sge::renderer::vertex::buffer const &_vertex_buffer
+		)
+		{
+			context_.deactivate_vertex_buffer(
+				_vertex_buffer
+			);
+		}
+	);
 }
