@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/config/help_needed_exception.hpp>
 #include <sge/parse/json/config/merge_command_line_parameters.hpp>
 #include <fcppt/make_ref.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/optional_to_exception.hpp>
 #include <fcppt/reference_wrapper_impl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
@@ -149,45 +149,41 @@ process_option(
 		)
 	};
 
-	typedef fcppt::optional<
-		sge::parse::json::value &
-	> optional_value;
-
-	optional_value const pos(
+	fcppt::optional_to_exception(
 		sge::parse::json::find_member_value(
 			target.get().members,
 			element
-		)
-	);
-
-	if(
-		!pos
-	)
-		throw sge::parse::exception{
-			FCPPT_TEXT("Couldn't find member \"")
-			+
-			element
-			+
-			FCPPT_TEXT("\", did you mean: ")
-			+
-			fcppt::algorithm::shortest_levenshtein(
-				fcppt::algorithm::map<
-					string_vector
-				>(
-					target.get().members,
-					[](
-						sge::parse::json::member_map::value_type const &_element
+		),
+		[
+			&target,
+			&element
+		]{
+			return
+				sge::parse::exception{
+					FCPPT_TEXT("Couldn't find member \"")
+					+
+					element
+					+
+					FCPPT_TEXT("\", did you mean: ")
+					+
+					fcppt::algorithm::shortest_levenshtein(
+						fcppt::algorithm::map<
+							string_vector
+						>(
+							target.get().members,
+							[](
+								sge::parse::json::member_map::value_type const &_element
+							)
+							{
+								return
+									_element.first;
+							}
+						),
+						element
 					)
-					{
-						return
-							_element.first;
-					}
-				),
-				element
-			)
-		};
-
-	*pos =
+				};
+		}
+	) =
 		sge::parse::json::string_to_value(
 			boost::fusion::at_c<
 				1

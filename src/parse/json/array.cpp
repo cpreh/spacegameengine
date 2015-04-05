@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/element_vector.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/optional_element_vector.hpp>
+#include <fcppt/from_optional.hpp>
 
 
 sge::parse::json::array::array()
@@ -45,11 +46,13 @@ sge::parse::json::array::array(
 )
 :
 	elements(
-		_elements
-		?
-			*_elements
-		:
-			sge::parse::json::element_vector()
+		fcppt::from_optional(
+			_elements,
+			[]{
+				return
+					sge::parse::json::element_vector();
+			}
+		)
 	)
 {
 }

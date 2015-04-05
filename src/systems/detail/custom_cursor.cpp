@@ -37,6 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/cursor_hotspot.hpp>
 #include <sge/texture/const_optional_part_ref.hpp>
 #include <sge/texture/part_fwd.hpp>
+#include <fcppt/maybe_void.hpp>
 #include <fcppt/optional_bind_construct.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/cast/size_fun.hpp>
@@ -99,15 +100,23 @@ sge::systems::detail::custom_cursor::draw(
 	sge::renderer::context::ffp &_context
 )
 {
-	if(
-		sprite_
-	)
-		sge::sprite::process::one(
-			_context,
-			*sprite_,
-			sprite_buffers_,
-			sprite_state_
-		);
+	fcppt::maybe_void(
+		sprite_,
+		[
+			&_context,
+			this
+		](
+			sprite_object const &_sprite
+		)
+		{
+			sge::sprite::process::one(
+				_context,
+				_sprite,
+				sprite_buffers_,
+				sprite_state_
+			);
+		}
+	);
 }
 
 sge::systems::cursor_hotspot const

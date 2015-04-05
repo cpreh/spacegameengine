@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/convert_from.hpp>
 #include <sge/parse/json/element_vector.hpp>
 #include <sge/parse/json/float_type.hpp>
-#include <sge/parse/json/get.hpp>
+#include <sge/parse/json/get_exn.hpp>
 #include <sge/parse/json/int_type.hpp>
 #include <sge/parse/json/value.hpp>
 #include <sge/parse/json/detail/init_result.hpp>
@@ -207,7 +207,7 @@ sge::parse::json::convert_from(
 {
 	return
 		static_cast<T>(
-			sge::parse::json::get<sge::parse::json::float_type>(
+			sge::parse::json::get_exn<sge::parse::json::float_type>(
 				v));
 }
 
@@ -223,7 +223,7 @@ sge::parse::json::convert_from(
 	sge::parse::json::value const &v)
 {
 	return
-		sge::parse::json::get<bool>(v);
+		sge::parse::json::get_exn<bool>(v);
 }
 
 // Assume int_type
@@ -246,7 +246,7 @@ sge::parse::json::convert_from(
 {
 	return
 		static_cast<T>(
-			sge::parse::json::get<sge::parse::json::int_type>(
+			sge::parse::json::get_exn<sge::parse::json::int_type>(
 				v));
 }
 
@@ -263,10 +263,10 @@ sge::parse::json::convert_from(
 {
 	sge::parse::json::element_vector const
 		outer_array =
-			sge::parse::json::get<sge::parse::json::array>(
+			sge::parse::json::get_exn<sge::parse::json::array>(
 				v).elements,
 		first_outer_vector =
-			sge::parse::json::get<sge::parse::json::array>(
+			sge::parse::json::get_exn<sge::parse::json::array>(
 				outer_array.front()).elements;
 
 	T result{
@@ -279,7 +279,7 @@ sge::parse::json::convert_from(
 		++i)
 	{
 		sge::parse::json::element_vector const current_inner_array =
-			sge::parse::json::get<sge::parse::json::array>(
+			sge::parse::json::get_exn<sge::parse::json::array>(
 				outer_array[i]).elements;
 
 		if(current_inner_array.size() != first_outer_vector.size())
@@ -333,7 +333,7 @@ sge::parse::json::convert_from(
 	sge::parse::json::value const &v)
 {
 	sge::parse::json::array const &a =
-		sge::parse::json::get<sge::parse::json::array>(
+		sge::parse::json::get_exn<sge::parse::json::array>(
 			v);
 
 	T result;
@@ -386,7 +386,7 @@ sge::parse::json::convert_from(
 	};
 
 	sge::parse::json::array const &array(
-		sge::parse::json::get<
+		sge::parse::json::get_exn<
 			sge::parse::json::array
 		>(
 			_value
@@ -441,7 +441,7 @@ sge::parse::json::convert_from(
 	sge::parse::json::value const &v)
 {
 	return
-		sge::parse::json::get<fcppt::string>(
+		sge::parse::json::get_exn<fcppt::string>(
 			v);
 }
 
@@ -498,7 +498,7 @@ sge::parse::json::convert_from(
 	sge::parse::json::value const &v)
 {
 	return
-		sge::parse::json::get<T>(
+		sge::parse::json::get_exn<T>(
 			v);
 }
 

@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/rucksack/widget/master_and_slaves.hpp>
 #include <sge/rucksack/widget/optional_ref.hpp>
 #include <fcppt/make_ref.hpp>
+#include <fcppt/maybe.hpp>
 
 
 // TODO: Initialize position and size in the ctor?
@@ -99,19 +100,27 @@ sge::rucksack::axis_policy2 const
 sge::rucksack::widget::master_and_slaves::axis_policy() const
 {
 	return
-		master_pane_
-		?
-			master_pane_->axis_policy()
-		:
-			sge::rucksack::axis_policy2{
-				sge::rucksack::minimum_size{
-					0
-				},
-				sge::rucksack::minimum_size{
-					0
-				}
+		fcppt::maybe(
+			master_pane_,
+			[]{
+				return
+					sge::rucksack::axis_policy2{
+						sge::rucksack::minimum_size{
+							0
+						},
+						sge::rucksack::minimum_size{
+							0
+						}
+					};
+			},
+			[](
+				sge::rucksack::widget::base const &_master_pane
+			)
+			{
+				return
+					_master_pane.axis_policy();
 			}
-		;
+		);
 }
 
 void

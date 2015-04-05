@@ -21,8 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_SYSTEMS_UNPACK_IF_PRESENT_HPP_INCLUDED
 #define SGE_SRC_SYSTEMS_UNPACK_IF_PRESENT_HPP_INCLUDED
 
+#include <sge/systems/detail/any.hpp>
 #include <sge/systems/detail/any_key.hpp>
 #include <sge/systems/detail/any_map.hpp>
+#include <fcppt/maybe_void.hpp>
+#include <fcppt/container/find_opt.hpp>
+#include <fcppt/variant/get_exn.hpp>
 
 
 namespace sge
@@ -41,22 +45,26 @@ unpack_if_present(
 	Function const _function
 )
 {
-	sge::systems::detail::any_map::const_iterator const it(
-		_map.find(
+	fcppt::maybe_void(
+		fcppt::container::find_opt(
+			_map,
 			_key
+		),
+		[
+			_function
+		](
+			sge::systems::detail::any const &_element
 		)
+		{
+			_function(
+				fcppt::variant::get_exn<
+					Parameter
+				>(
+					_element
+				)
+			);
+		}
 	);
-
-	if(
-		it
-		!=
-		_map.end()
-	)
-		_function(
-			it->second.get<
-				Parameter
-			>()
-		);
 }
 
 }

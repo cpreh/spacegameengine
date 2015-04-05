@@ -23,7 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/parse/json/find_member_return_type.hpp>
 #include <sge/parse/json/find_member_value.hpp>
-#include <sge/parse/json/get.hpp>
+#include <sge/parse/json/get_exn.hpp>
+#include <fcppt/optional_bind_construct.hpp>
 #include <fcppt/string.hpp>
 
 
@@ -43,45 +44,37 @@ template<
 	typename T,
 	typename Arg
 >
-typename json::find_member_return_type<
+sge::parse::json::find_member_return_type<
 	T,
 	Arg
->::type
+>
 find_member(
 	Arg &_members,
 	fcppt::string const &_name
 )
 {
-	typedef typename json::find_member_return_type<
-		json::value,
-		Arg
-	>::type value_return_type;
-
-	value_return_type const ret(
-		json::find_member_value(
-			_members,
-			_name
-		)
-	);
-
-	typedef typename json::find_member_return_type<
-		T,
-		Arg
-	>::type return_type;
-
 	return
-		ret
-		?
-			return_type(
-				json::get<
-					T
-				>(
-					*ret
-				)
+		fcppt::optional_bind_construct(
+			sge::parse::json::find_member_value(
+				_members,
+				_name
+			),
+			[](
+				typename
+				sge::parse::json::find_member_return_type<
+					T,
+					Arg
+				>::element_type _arg
 			)
-		:
-			return_type()
-		;
+			{
+				return
+					sge::parse::json::get_exn<
+						T
+					>(
+						_arg
+					);
+			}
+		);
 }
 
 }

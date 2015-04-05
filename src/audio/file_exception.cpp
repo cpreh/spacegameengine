@@ -18,28 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/audio/exception.hpp>
 #include <sge/audio/file_exception.hpp>
-#include <fcppt/optional_impl.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/filesystem/path_to_string.hpp>
+#include <sge/media/optional_path.hpp>
+#include <sge/src/media/file_exception_string.hpp>
+#include <fcppt/string.hpp>
 
 
 sge::audio::file_exception::file_exception(
-	optional_path const &_path,
+	sge::media::optional_path const &_path,
 	fcppt::string const &_message
 )
 :
-	audio::exception(
-		_path
-		?
-			FCPPT_TEXT("\"")
-			+ fcppt::filesystem::path_to_string(
-				*_path
-			)
-			+ FCPPT_TEXT("\": ")
-			+ _message
-		:
-			FCPPT_TEXT("stream: ")
-			+_message
+	sge::audio::exception(
+		sge::media::file_exception_string(
+			_path,
+			_message
+		)
 	)
-{}
+{
+}

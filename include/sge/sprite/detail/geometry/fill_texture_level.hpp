@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_GEOMETRY_FILL_TEXTURE_LEVEL_HPP_INCLUDED
 
 #include <sge/sprite/object_fwd.hpp>
+#include <sge/sprite/detail/geometry/deref_texture.hpp>
 #include <sge/sprite/detail/geometry/fill_texture_level_impl.hpp>
+#include <fcppt/maybe_void.hpp>
 #include <fcppt/nonassignable.hpp>
 
 
@@ -71,17 +73,28 @@ public:
 		Level const &
 	) const
 	{
-		if(
+		fcppt::maybe_void(
 			object_. template texture_level<
 				Level::value
-			>()
-		)
-			sge::sprite::detail::geometry::fill_texture_level_impl<
-				Level
-			>(
-				iterator_,
-				object_
-			);
+			>(),
+			[
+				this
+			](
+				typename
+				object::texture_type::value_type const &_texture
+			)
+			{
+				sge::sprite::detail::geometry::fill_texture_level_impl<
+					Level
+				>(
+					iterator_,
+					object_,
+					sge::sprite::detail::geometry::deref_texture(
+						_texture
+					)
+				);
+			}
+		);
 	}
 private:
 	Iterator const iterator_;

@@ -20,28 +20,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/src/systems/extract_config.hpp>
 #include <sge/systems/config.hpp>
+#include <sge/systems/detail/any.hpp>
 #include <sge/systems/detail/any_key.hpp>
 #include <sge/systems/detail/any_map.hpp>
+#include <fcppt/maybe.hpp>
+#include <fcppt/container/find_opt.hpp>
+#include <fcppt/variant/get_exn.hpp>
 
 
 sge::systems::config
 sge::systems::extract_config(
-	sge::systems::detail::any_map const &_param
+	sge::systems::detail::any_map const &_map
 )
 {
-	sge::systems::detail::any_map::const_iterator const it(
-		_param.find(
-			sge::systems::detail::any_key::config
-		)
-	);
-
 	return
-		it != _param.end()
-		?
-			it->second.get<
-				sge::systems::config
-			>()
-		:
-			sge::systems::config()
-		;
+		fcppt::maybe(
+			fcppt::container::find_opt(
+				_map,
+				sge::systems::detail::any_key::config
+			),
+			[]{
+				return
+					sge::systems::config();
+			},
+			[](
+				sge::systems::detail::any const &_config
+			)
+			{
+				return
+					fcppt::variant::get_exn<
+						sge::systems::config
+					>(
+						_config
+					);
+			}
+
+		);
 }

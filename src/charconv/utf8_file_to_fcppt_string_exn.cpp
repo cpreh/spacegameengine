@@ -21,13 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/exception.hpp>
 #include <sge/charconv/utf8_file_to_fcppt_string.hpp>
 #include <sge/charconv/utf8_file_to_fcppt_string_exn.hpp>
-#include <fcppt/optional_string.hpp>
+#include <fcppt/optional_to_exception.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
-#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -36,26 +35,22 @@ sge::charconv::utf8_file_to_fcppt_string_exn(
 	boost::filesystem::path const &_path
 )
 {
-	fcppt::optional_string optional_content(
-		sge::charconv::utf8_file_to_fcppt_string(
-			_path
-		)
-	);
-
-	if(
-		!optional_content
-	)
-		throw
-			sge::charconv::exception(
-				FCPPT_TEXT("Couldn't open file ")
-				+
-				fcppt::filesystem::path_to_string(
-					_path
-				)
-			);
-
 	return
-		std::move(
-			*optional_content
+		fcppt::optional_to_exception(
+			sge::charconv::utf8_file_to_fcppt_string(
+				_path
+			),
+			[
+				&_path
+			]{
+				return
+					sge::charconv::exception(
+						FCPPT_TEXT("Couldn't open file ")
+						+
+						fcppt::filesystem::path_to_string(
+							_path
+						)
+					);
+			}
 		);
 }

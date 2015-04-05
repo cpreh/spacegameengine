@@ -53,7 +53,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/graph/detail/draw_visitor.hpp>
 #include <sge/texture/part_raw_ref.hpp>
 #include <mizuiro/color/operators.hpp>
+#include <fcppt/const.hpp>
 #include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/maybe.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/cast/float_to_int_fun.hpp>
 #include <fcppt/math/clamp.hpp>
@@ -305,11 +307,13 @@ sge::graph::object::object(
 			)
 		)
 		.texture(
-			fcppt::make_shared_ptr<
-				sge::texture::part_raw_ref
-			>(
-				*texture_
-			)
+			sprite_object::texture_type{
+				fcppt::make_shared_ptr<
+					sge::texture::part_raw_ref
+				>(
+					*texture_
+				)
+			}
 		)
 		.texture_size()
 	),
@@ -446,16 +450,33 @@ sge::graph::object::draw_data(
 		_view);
 
 	sge::graph::axis_constraint const current_axis_constraint(
-		axis_constraint_
-		?
-			axis_constraint_->min()
-		:
-			current_min_,
-		axis_constraint_
-		?
-			axis_constraint_->max()
-		:
-			current_max_);
+		fcppt::maybe(
+			axis_constraint_,
+			fcppt::const_(
+				current_min_
+			),
+			[](
+				sge::graph::axis_constraint const _cur
+			)
+			{
+				return
+					_cur.min();
+			}
+		),
+		fcppt::maybe(
+			axis_constraint_,
+			fcppt::const_(
+				current_max_
+			),
+			[](
+				sge::graph::axis_constraint const _cur
+			)
+			{
+				return
+					_cur.max();
+			}
+		)
+	);
 
 	typedef
 	sge::image2d::vector::value_type

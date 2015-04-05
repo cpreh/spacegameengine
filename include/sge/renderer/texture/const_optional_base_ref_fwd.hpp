@@ -32,9 +32,11 @@ namespace renderer
 namespace texture
 {
 
-typedef fcppt::optional<
-	texture::base const &
-> const_optional_base_ref;
+typedef
+fcppt::optional<
+	sge::renderer::texture::base const &
+>
+const_optional_base_ref;
 
 }
 }

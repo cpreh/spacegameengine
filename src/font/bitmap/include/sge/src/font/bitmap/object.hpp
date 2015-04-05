@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/optional_format.hpp>
 #include <sge/image2d/file_unique_ptr.hpp>
 #include <sge/image2d/system_fwd.hpp>
+#include <sge/parse/json/start_fwd.hpp>
 #include <sge/src/font/bitmap/char_map.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -61,6 +62,12 @@ public:
 	~object()
 	override;
 private:
+	object(
+		boost::filesystem::path const &,
+		sge::image2d::system &,
+		sge::parse::json::start const &
+	);
+
 	sge::font::text_unique_ptr
 	create_text(
 		sge::font::string const &,
@@ -76,19 +83,19 @@ private:
 	metrics() const
 	override;
 
+	sge::font::unit const line_height_;
+
 	typedef
 	std::vector<
 		sge::image2d::file_unique_ptr
 	>
 	image_vector;
 
-	image_vector images_;
-
-	sge::font::unit line_height_;
-
 	sge::font::bitmap::char_map char_map_;
 
-	sge::image::color::optional_format color_format_;
+	image_vector const images_;
+
+	sge::image::color::optional_format const color_format_;
 };
 
 }

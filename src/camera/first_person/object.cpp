@@ -21,11 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/first_person/object.hpp>
 #include <sge/camera/first_person/parameters.hpp>
 #include <sge/input/keyboard/device.hpp>
-#include <sge/input/keyboard/key_event.hpp>
+#include <sge/input/keyboard/key_event_fwd.hpp>
 #include <sge/input/mouse/axis_event.hpp>
 #include <sge/input/mouse/device.hpp>
 #include <sge/renderer/vector4.hpp>
-#include <fcppt/assert/pre.hpp>
+#include <sge/src/camera/set_pressed_if_appropriate.hpp>
+#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/math/matrix/rotation_axis.hpp>
 #include <fcppt/math/matrix/vector.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
@@ -110,11 +111,10 @@ sge::camera::first_person::object::update_coordinate_system(
 sge::camera::projection_matrix const
 sge::camera::first_person::object::projection_matrix() const
 {
-	FCPPT_ASSERT_PRE(
-		projection_matrix_);
-
 	return
-		*projection_matrix_;
+		FCPPT_ASSERT_OPTIONAL_ERROR(
+			projection_matrix_
+		);
 }
 
 void
@@ -164,6 +164,7 @@ sge::camera::first_person::object::~object()
 
 namespace
 {
+
 sge::renderer::scalar
 direction_from_booleans(
 	bool const left,
@@ -171,60 +172,51 @@ direction_from_booleans(
 {
 	return
 		left && !right
-				?
-					-1.0f
-				:
-					right && !left
-					?
-						1.0f
-					:
-						0.0f;
+		?
+			-1.0f
+		:
+			right && !left
+			?
+				1.0f
+			:
+				0.0f;
 }
 
-void
-set_pressed_if_appropriate(
-	sge::input::keyboard::optional_key_code const &_optional_key,
-	bool &b,
-	sge::input::keyboard::key_event const &_key_event)
-{
-	if(_optional_key && (*_optional_key) == _key_event.key_code())
-		b = _key_event.pressed();
-}
 }
 
 void
 sge::camera::first_person::object::key_callback(
 	sge::input::keyboard::key_event const &_key_event)
 {
-	set_pressed_if_appropriate(
-		action_mapping_.left().get(),
-		left_pressed_,
-		_key_event);
+	left_pressed_ =
+		sge::camera::set_pressed_if_appropriate(
+			action_mapping_.left().get(),
+			_key_event);
 
-	set_pressed_if_appropriate(
-		action_mapping_.right().get(),
-		right_pressed_,
-		_key_event);
+	right_pressed_ =
+		sge::camera::set_pressed_if_appropriate(
+			action_mapping_.right().get(),
+			_key_event);
 
-	set_pressed_if_appropriate(
-		action_mapping_.up().get(),
-		up_pressed_,
-		_key_event);
+	up_pressed_ =
+		sge::camera::set_pressed_if_appropriate(
+			action_mapping_.up().get(),
+			_key_event);
 
-	set_pressed_if_appropriate(
-		action_mapping_.down().get(),
-		down_pressed_,
-		_key_event);
+	down_pressed_ =
+		sge::camera::set_pressed_if_appropriate(
+			action_mapping_.down().get(),
+			_key_event);
 
-	set_pressed_if_appropriate(
-		action_mapping_.forward().get(),
-		forward_pressed_,
-		_key_event);
+	forward_pressed_ =
+		sge::camera::set_pressed_if_appropriate(
+			action_mapping_.forward().get(),
+			_key_event);
 
-	set_pressed_if_appropriate(
-		action_mapping_.backward().get(),
-		backward_pressed_,
-		_key_event);
+	backward_pressed_ =
+		sge::camera::set_pressed_if_appropriate(
+			action_mapping_.backward().get(),
+			_key_event);
 
 	directions_ =
 		sge::renderer::vector3(

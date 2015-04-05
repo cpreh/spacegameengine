@@ -18,14 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_JSON_GET_HPP_INCLUDED
-#define SGE_PARSE_JSON_GET_HPP_INCLUDED
+#ifndef SGE_PARSE_JSON_GET_EXN_MESSAGE_HPP_INCLUDED
+#define SGE_PARSE_JSON_GET_EXN_MESSAGE_HPP_INCLUDED
 
 #include <sge/parse/json/invalid_get.hpp>
 #include <sge/parse/json/detail/get_return_type.hpp>
+#include <fcppt/optional_to_exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name_from_info.hpp>
-#include <fcppt/variant/holds_type.hpp>
+#include <fcppt/variant/to_optional.hpp>
 #include <fcppt/variant/type_info.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
@@ -42,46 +43,55 @@ namespace json
 
 template<
 	typename T,
-	typename Arg
+	typename Arg,
+	typename MakeMessage
 >
 typename
 sge::parse::json::detail::get_return_type<
 	T,
 	Arg
 >::type
-get(
-	Arg &_val
+get_exn_message(
+	Arg &_val,
+	MakeMessage const &_make_message
 )
 {
-	typedef typename std::remove_const<
-		T
-	>::type real_type;
-
-	if(
-		!fcppt::variant::holds_type<
-			real_type
-		>(
-			_val
-		)
-	)
-		throw json::invalid_get(
-			FCPPT_TEXT("json::get<")
-			+ fcppt::type_name_from_info(
-				typeid(T)
-			)
-			+ FCPPT_TEXT("> failed! Type is \"")
-			+ fcppt::type_name_from_info(
-				fcppt::variant::type_info(
-					_val
-				)
-			)
-			+ FCPPT_TEXT("\" instead!")
-		);
-
 	return
-		_val. template get<
-			real_type
-		>();
+		fcppt::optional_to_exception(
+			fcppt::variant::to_optional<
+				typename
+				std::remove_const<
+					T
+				>::type
+			>(
+				_val
+			),
+			[
+				&_val,
+				&_make_message
+			]{
+				return
+					sge::parse::json::invalid_get(
+						FCPPT_TEXT("json::get_exn<")
+						+
+						fcppt::type_name_from_info(
+							typeid(T)
+						)
+						+
+						FCPPT_TEXT("> failed! Type is \"")
+						+
+						fcppt::type_name_from_info(
+							fcppt::variant::type_info(
+								_val
+							)
+						)
+						+
+						FCPPT_TEXT("\" instead! Additional information: ")
+						+
+						_make_message()
+					);
+			}
+		);
 }
 
 }

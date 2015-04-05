@@ -19,6 +19,7 @@ set(
 	include/sge/parse/result_with_value_fwd.hpp
 	src/parse/exception.cpp
 	src/parse/include/sge/src/parse/instantiate_result_with_value.hpp
+	src/parse/include/sge/src/parse/make_error_string.hpp
 	src/parse/include/sge/src/parse/output/to_file.hpp
 	src/parse/include/sge/src/parse/output/to_stream.hpp
 	src/parse/include/sge/src/parse/parse_file.hpp
@@ -27,6 +28,7 @@ set(
 	src/parse/include/sge/src/parse/parse_stream.hpp
 	src/parse/include/sge/src/parse/result_with_value_impl.hpp
 	src/parse/info_to_string.cpp
+	src/parse/make_error_string.cpp
 	src/parse/parse_exception.cpp
 	src/parse/result.cpp
 )

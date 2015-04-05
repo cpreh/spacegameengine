@@ -21,26 +21,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/tracking/json/keyframe_from_json.hpp>
 #include <sge/camera/tracking/json/keyframes_from_json.hpp>
 #include <sge/parse/json/array.hpp>
-#include <sge/parse/json/get.hpp>
+#include <sge/parse/json/get_exn.hpp>
 #include <sge/parse/json/object.hpp>
+#include <sge/parse/json/value.hpp>
+#include <fcppt/algorithm/map.hpp>
 
 
-sge::camera::tracking::keyframe_sequence const
+sge::camera::tracking::keyframe_sequence
 sge::camera::tracking::json::keyframes_from_json(
 	sge::parse::json::array const &_array)
 {
-	sge::camera::tracking::keyframe_sequence result;
-
-	for(
-		sge::parse::json::element_vector::const_iterator it =
-			_array.elements.begin();
-		it != _array.elements.end();
-		++it)
-		result.push_back(
-			sge::camera::tracking::json::keyframe_from_json(
-				sge::parse::json::get<sge::parse::json::object const>(
-					*it)));
-
 	return
-		result;
+		fcppt::algorithm::map<
+			sge::camera::tracking::keyframe_sequence
+		>(
+			_array.elements,
+			[](
+				sge::parse::json::value const &_value
+			)
+			{
+				return
+					sge::camera::tracking::json::keyframe_from_json(
+						sge::parse::json::get_exn<
+							sge::parse::json::object const
+						>(
+							_value
+						)
+					);
+			}
+		);
 }

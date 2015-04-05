@@ -78,9 +78,11 @@ private:
 
 	sge::renderer::vf::dynamic::detail::lock_interval_set written_intervals_;
 
-	typedef fcppt::optional<
+	typedef
+	fcppt::optional<
 		sge::renderer::vf::dynamic::locked_part
-	> optional_locked_part;
+	>
+	optional_locked_part;
 
 	optional_locked_part locked_part_;
 
@@ -88,9 +90,15 @@ private:
 	std::unique_ptr<
 		sge::renderer::vf::dynamic::detail::converter_impl
 	>
-	converter_ptr;
+	converter_unique_ptr;
 
-	converter_ptr converter_;
+	typedef
+	fcppt::optional<
+		converter_unique_ptr
+	>
+	optional_converter_unique_ptr;
+
+	optional_converter_unique_ptr converter_;
 };
 
 }

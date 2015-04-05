@@ -22,12 +22,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_PARAMETERS_TRANSFORM_USE_TEXTURE_SIZE_HPP_INCLUDED
 
 #include <sge/renderer/lock_rect.hpp>
+#include <sge/sprite/texture.hpp>
 #include <sge/sprite/detail/config/needs_use_texture_size.hpp>
+#include <sge/sprite/detail/geometry/deref_texture.hpp>
 #include <sge/sprite/detail/roles/use_texture_size.hpp>
 #include <sge/sprite/roles/size.hpp>
 #include <sge/sprite/roles/texture.hpp>
 #include <sge/sprite/types/dim.hpp>
 #include <sge/texture/part.hpp>
+#include <fcppt/maybe_void.hpp>
 #include <fcppt/cast/static_cast_fun.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -58,35 +61,45 @@ transform_use_texture_size(
 	Parameters _parameters
 )
 {
-	if(
-		_parameters. template get<
-			sge::sprite::detail::roles::use_texture_size
-		>()
-		&&
+	fcppt::maybe_void(
 		_parameters. template get<
 			sge::sprite::roles::texture<
 				0
 			>
-		>()
-	)
-		_parameters. template set<
-			sge::sprite::roles::size
-		>(
-			fcppt::math::dim::structure_cast<
-				sge::sprite::types::dim<
-					typename Choices::type_choices
-				>,
-				fcppt::cast::static_cast_fun
-			>(
+		>(),
+		[
+			&_parameters
+		](
+			typename
+			sge::sprite::texture<
+				Choices
+			>::value_type const &_texture
+		)
+		{
+			if(
 				_parameters. template get<
-					sge::sprite::roles::texture<
-						0
-					>
-				>()->area().size()
+					sge::sprite::detail::roles::use_texture_size
+				>()
 			)
-		);
+				_parameters. template set<
+					sge::sprite::roles::size
+				>(
+					fcppt::math::dim::structure_cast<
+						sge::sprite::types::dim<
+							typename Choices::type_choices
+						>,
+						fcppt::cast::static_cast_fun
+					>(
+						sge::sprite::detail::geometry::deref_texture(
+							_texture
+						).area().size()
+					)
+				);
+		}
+	);
 
-	return _parameters;
+	return
+		_parameters;
 }
 
 template<
@@ -103,7 +116,8 @@ transform_use_texture_size(
 	Parameters const &_parameters
 )
 {
-	return _parameters;
+	return
+		_parameters;
 }
 
 }

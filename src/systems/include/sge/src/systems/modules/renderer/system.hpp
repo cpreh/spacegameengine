@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_SYSTEMS_MODULES_RENDERER_SYSTEM_HPP_INCLUDED
 
 #include <sge/log/option_container.hpp>
-#include <sge/parse/ini/start_fwd.hpp>
+#include <sge/parse/ini/optional_start_fwd.hpp>
 #include <sge/renderer/core_fwd.hpp>
 #include <sge/renderer/system_fwd.hpp>
 #include <sge/renderer/system_unique_ptr.hpp>
@@ -56,7 +56,7 @@ public:
 		sge::renderer::plugin::collection const &,
 		sge::log::option_container const &,
 		sge::systems::detail::renderer const &,
-		sge::parse::ini::start const &,
+		sge::parse::ini::optional_start const &,
 		sge::systems::modules::window::system const &
 	);
 

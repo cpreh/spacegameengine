@@ -22,9 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PARSE_JSON_FIND_MEMBER_VALUE_EXN_HPP_INCLUDED
 
 #include <sge/parse/json/find_member.hpp>
-#include <sge/parse/json/find_member_return_type.hpp>
 #include <sge/parse/json/member_not_found.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/optional_to_exception.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -47,36 +46,33 @@ typename boost::mpl::if_<
 	std::is_const<
 		Arg
 	>,
-	json::value const &,
-	json::value &
+	sge::parse::json::value const &,
+	sge::parse::json::value &
 >::type
 find_member_value_exn(
 	Arg &_members,
 	fcppt::string const &_name
 )
 {
-	typedef typename json::find_member_return_type<
-		json::value,
-		Arg
-	>::type return_type;
-
-	return_type const ret(
-		sge::parse::json::find_member_value(
-			_members,
-			_name
-		)
-	);
-
-	if(
-		!ret
-	)
-		throw sge::parse::json::member_not_found(
-			FCPPT_TEXT("Cannot find member \"")
-			+ _name
-			+ FCPPT_TEXT("\" in a json object's member list!")
+	return
+		fcppt::optional_to_exception(
+			sge::parse::json::find_member_value(
+				_members,
+				_name
+			),
+			[
+				&_name
+			]{
+				return
+					sge::parse::json::member_not_found(
+						FCPPT_TEXT("Cannot find member \"")
+						+
+						_name
+						+
+						FCPPT_TEXT("\" in a json object's member list!")
+					);
+			}
 		);
-
-	return *ret;
 }
 
 }

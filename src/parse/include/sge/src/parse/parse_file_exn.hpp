@@ -24,10 +24,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/parse_exception.hpp>
 #include <sge/parse/result.hpp>
 #include <sge/parse/result_code.hpp>
+#include <sge/src/parse/make_error_string.hpp>
 #include <sge/src/parse/parse_file.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -39,7 +40,7 @@ namespace parse
 template<
 	typename Result
 >
-Result const
+Result
 parse_file_exn(
 	boost::filesystem::path const &_path
 )
@@ -58,12 +59,18 @@ parse_file_exn(
 		!=
 		sge::parse::result_code::ok
 	)
-		throw sge::parse::parse_exception(
-			result.result_code(),
-			*result.error_string()
-		);
+		throw
+			sge::parse::parse_exception(
+				result.result_code(),
+				sge::parse::make_error_string(
+					result
+				)
+			);
 
-	return parse_result;
+	return
+		std::move(
+			parse_result
+		);
 }
 
 }

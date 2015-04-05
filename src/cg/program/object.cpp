@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cg/program/from_string_parameters.hpp>
 #include <sge/cg/program/object.hpp>
 #include <sge/src/cg/program/convert_source_type.hpp>
+#include <fcppt/optional_to_exception.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
@@ -125,27 +126,26 @@ sge::cg::program::object::parameter(
 	sge::cg::string const &_name
 ) const
 {
-	sge::cg::parameter::optional_named const ret(
-		this->parameter_opt(
-			_name
-		)
-	);
-
-	if(
-		!ret
-	)
-		throw sge::cg::exception(
-			FCPPT_TEXT("Parameter with name '")
-			+
-			sge::cg::to_fcppt_string(
-				_name
-			)
-			+
-			FCPPT_TEXT("' not found")
-		);
-
 	return
-		*ret;
+		fcppt::optional_to_exception(
+			this->parameter_opt(
+				_name
+			),
+			[
+				&_name
+			]{
+				return
+					sge::cg::exception(
+						FCPPT_TEXT("Parameter with name '")
+						+
+						sge::cg::to_fcppt_string(
+							_name
+						)
+						+
+						FCPPT_TEXT("' not found")
+					);
+			}
+		);
 }
 
 sge::cg::parameter::optional_named const

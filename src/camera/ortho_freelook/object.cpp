@@ -24,12 +24,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/ortho_freelook/object.hpp>
 #include <sge/camera/ortho_freelook/parameters.hpp>
 #include <sge/input/keyboard/device.hpp>
-#include <sge/input/keyboard/key_event.hpp>
+#include <sge/input/keyboard/key_event_fwd.hpp>
 #include <sge/input/mouse/axis_event.hpp>
 #include <sge/input/mouse/device.hpp>
 #include <sge/renderer/vector2.hpp>
+#include <sge/renderer/projection/rect.hpp>
 #include <sge/renderer/projection/orthogonal.hpp>
-#include <fcppt/assert/pre.hpp>
+#include <sge/src/camera/set_pressed_if_appropriate.hpp>
+#include <fcppt/maybe_void.hpp>
+#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/math/box/stretch_relative.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/dim.hpp>
@@ -41,19 +44,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <functional>
 #include <fcppt/config/external_end.hpp>
 
-
-namespace
-{
-void
-set_pressed_if_appropriate(
-	sge::input::keyboard::optional_key_code const &_optional_key,
-	bool &b,
-	sge::input::keyboard::key_event const &_key_event)
-{
-	if(_optional_key && (*_optional_key) == _key_event.key_code())
-		b = _key_event.pressed();
-}
-}
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
@@ -115,15 +105,16 @@ sge::camera::ortho_freelook::object::coordinate_system() const
 sge::camera::projection_matrix const
 sge::camera::ortho_freelook::object::projection_matrix() const
 {
-	FCPPT_ASSERT_PRE(
-		current_projection_rectangle_);
-
 	return
 		sge::camera::projection_matrix(
-			renderer::projection::orthogonal(
-				*current_projection_rectangle_,
+			sge::renderer::projection::orthogonal(
+				FCPPT_ASSERT_OPTIONAL_ERROR(
+					current_projection_rectangle_
+				),
 				near_,
-				far_));
+				far_
+			)
+		);
 }
 
 sge::camera::is_active const
@@ -145,32 +136,45 @@ void
 sge::camera::ortho_freelook::object::update(
 	camera::update_duration const _delta)
 {
-	if(!is_active_.get() || !current_projection_rectangle_ || zoom_in_pressed_ == zoom_out_pressed_)
+	if(!is_active_.get() ||  zoom_in_pressed_ == zoom_out_pressed_)
 		return;
 
-	renderer::vector2 const
-		ones(
-			1.0f,
-			1.0f),
-		scaled_zoom_speed(
-			_delta.count() * zoom_speed_.get());
+	fcppt::maybe_void(
+		current_projection_rectangle_,
+		[
+			this,
+			_delta
+		](
+			sge::renderer::projection::rect const &_current_projection_rectangle
+		)
+		{
+			sge::renderer::vector2 const
+				ones(
+					1.0f,
+					1.0f),
+				scaled_zoom_speed(
+					_delta.count() * zoom_speed_.get());
 
-	renderer::scalar const zoom_sign(
-		static_cast<renderer::scalar>(
-			zoom_out_pressed_) -
-		static_cast<renderer::scalar>(
-			zoom_in_pressed_));
+			renderer::scalar const zoom_sign(
+				static_cast<renderer::scalar>(
+					zoom_out_pressed_) -
+				static_cast<renderer::scalar>(
+					zoom_in_pressed_));
 
-	renderer::vector2 const
-		zoom_factor(
-			ones +
-			zoom_sign * scaled_zoom_speed);
+			renderer::vector2 const
+				zoom_factor(
+					ones +
+					zoom_sign * scaled_zoom_speed);
 
-	current_projection_rectangle_ =
-		ortho_freelook::optional_projection_rectangle(
-			fcppt::math::box::stretch_relative(
-				*current_projection_rectangle_,
-				zoom_factor));
+			current_projection_rectangle_ =
+				ortho_freelook::optional_projection_rectangle(
+					fcppt::math::box::stretch_relative(
+						_current_projection_rectangle,
+						zoom_factor
+					)
+				);
+		}
+	);
 }
 
 void
@@ -190,53 +194,63 @@ void
 sge::camera::ortho_freelook::object::mouse_axis_callback(
 	sge::input::mouse::axis_event const &_axis)
 {
-	if(!is_active_.get() || !current_projection_rectangle_ || !pan_pressed_)
+	if(!is_active_.get() || !pan_pressed_)
 		return;
 
 	if(_axis.code() != input::mouse::axis_code::x && _axis.code() != input::mouse::axis_code::y)
 		return;
 
-	renderer::vector2 const
-		pan_axis(
-			_axis.code() == input::mouse::axis_code::x
-			?
-				-static_cast<float>(
-					_axis.value())
-			:
-				0.0f,
-			_axis.code() == input::mouse::axis_code::y
-			?
-				-static_cast<float>(
-					_axis.value())
-			:
-				0.0f),
-		panning_speed(
-			pan_speed_.get() *
-			pan_axis *
-			current_projection_rectangle_->size()
-		);
+	fcppt::maybe_void(
+		current_projection_rectangle_,
+		[
+			&_axis,
+			this
+		](
+			sge::renderer::projection::rect &_current_projection_rectangle
+		){
+			renderer::vector2 const
+				pan_axis(
+					_axis.code() == input::mouse::axis_code::x
+					?
+						-static_cast<float>(
+							_axis.value())
+					:
+						0.0f,
+					_axis.code() == input::mouse::axis_code::y
+					?
+						-static_cast<float>(
+							_axis.value())
+					:
+						0.0f),
+				panning_speed(
+					pan_speed_.get() *
+					pan_axis *
+					_current_projection_rectangle.size()
+				);
 
-	current_projection_rectangle_->pos(
-		current_projection_rectangle_->pos() +
-		panning_speed);
+			_current_projection_rectangle.pos(
+				_current_projection_rectangle.pos() +
+				panning_speed);
+		}
+	);
 }
 
 void
 sge::camera::ortho_freelook::object::key_callback(
 	sge::input::keyboard::key_event const &_key_event)
 {
-	set_pressed_if_appropriate(
-		action_mapping_.zoom_in().get(),
-		zoom_in_pressed_,
-		_key_event);
+	zoom_in_pressed_ =
+		sge::camera::set_pressed_if_appropriate(
+			action_mapping_.zoom_in().get(),
+			_key_event);
 
-	set_pressed_if_appropriate(
-		action_mapping_.zoom_out().get(),
-		zoom_out_pressed_,
-		_key_event);
+	zoom_out_pressed_ =
+		sge::camera::set_pressed_if_appropriate(
+			action_mapping_.zoom_out().get(),
+			_key_event);
 
-	set_pressed_if_appropriate(
-		action_mapping_.activate_pan().get(),
-		pan_pressed_,
-		_key_event);
+	pan_pressed_ =
+		sge::camera::set_pressed_if_appropriate(
+			action_mapping_.activate_pan().get(),
+			_key_event);
 }

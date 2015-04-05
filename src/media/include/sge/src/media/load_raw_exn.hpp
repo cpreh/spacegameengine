@@ -23,11 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/media/const_raw_range.hpp>
 #include <sge/media/optional_extension_fwd.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/optional_to_exception.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <utility>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -47,30 +44,18 @@ load_raw_exn(
 	sge::media::optional_extension const &_extension
 )
 {
-	typedef
-	fcppt::optional<
-		Result
-	>
-	optional_result;
-
-	optional_result result(
-		_system.load_raw(
-			_range,
-			_extension
-		)
-	);
-
-	if(
-		!result
-	)
-		throw
-			Exception(
-				FCPPT_TEXT("load_raw_exn failed")
-			);
-
 	return
-		std::move(
-			*result
+		fcppt::optional_to_exception(
+			_system.load_raw(
+				_range,
+				_extension
+			),
+			[]{
+				return
+					Exception(
+						FCPPT_TEXT("load_raw_exn failed")
+					);
+			}
 		);
 }
 

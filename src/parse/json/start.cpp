@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/start.hpp>
 #include <sge/parse/json/start_variant.hpp>
+#include <fcppt/variant/get_exn.hpp>
 
 
 sge::parse::json::start::start()
@@ -48,34 +49,42 @@ sge::parse::json::array &
 sge::parse::json::start::array()
 {
 	return
-		variant.get<
+		fcppt::variant::get_exn<
 			sge::parse::json::array
-		>();
+		>(
+			variant
+		);
 }
 
 sge::parse::json::array const &
 sge::parse::json::start::array() const
 {
 	return
-		variant.get<
+		fcppt::variant::get_exn<
 			sge::parse::json::array
-		>();
+		>(
+			variant
+		);
 }
 
 sge::parse::json::object &
 sge::parse::json::start::object()
 {
 	return
-		variant.get<
+		fcppt::variant::get_exn<
 			sge::parse::json::object
-		>();
+		>(
+			variant
+		);
 }
 
 sge::parse::json::object const &
 sge::parse::json::start::object() const
 {
 	return
-		variant.get<
+		fcppt::variant::get_exn<
 			sge::parse::json::object
-		>();
+		>(
+			variant
+		);
 }

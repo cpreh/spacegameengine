@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/texture_ownership.hpp>
 #include <sge/texture/const_optional_part_ref.hpp>
 #include <sge/texture/const_part_shared_ptr.hpp>
+#include <fcppt/optional_impl.hpp>
 
 
 namespace sge
@@ -45,7 +46,9 @@ struct texture_ref_type<
 	sge::sprite::config::texture_ownership::reference
 >
 {
-	typedef sge::texture::const_optional_part_ref type;
+	typedef
+	sge::texture::const_optional_part_ref
+	type;
 };
 
 template<>
@@ -53,7 +56,11 @@ struct texture_ref_type<
 	sge::sprite::config::texture_ownership::shared
 >
 {
-	typedef sge::texture::const_part_shared_ptr type;
+	typedef
+	fcppt::optional<
+		sge::texture::const_part_shared_ptr
+	>
+	type;
 };
 
 }

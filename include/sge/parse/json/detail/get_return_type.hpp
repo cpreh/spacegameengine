@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/parse/json/value.hpp>
 
+
 namespace sge
 {
 namespace parse
@@ -43,7 +44,7 @@ template<
 >
 struct get_return_type<
 	T,
-	json::value
+	sge::parse::json::value
 >
 {
 	typedef T &type;
@@ -54,7 +55,7 @@ template<
 >
 struct get_return_type<
 	T,
-	json::value const
+	sge::parse::json::value const
 >
 {
 	typedef T const &type;

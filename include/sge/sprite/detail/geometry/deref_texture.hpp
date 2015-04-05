@@ -18,11 +18,52 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_AUDIO_OPTIONAL_PATH_HPP_INCLUDED
-#define SGE_AUDIO_OPTIONAL_PATH_HPP_INCLUDED
+#ifndef SGE_SPRITE_DETAIL_GEOMETRY_DEREF_TEXTURE_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_GEOMETRY_DEREF_TEXTURE_HPP_INCLUDED
 
-#include <sge/audio/optional_path_fwd.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/shared_ptr_impl.hpp>
 
+
+namespace sge
+{
+namespace sprite
+{
+namespace detail
+{
+namespace geometry
+{
+
+template<
+	typename Type
+>
+inline
+Type const &
+deref_texture(
+	fcppt::shared_ptr<
+		Type
+	> const &_value
+)
+{
+	return
+		*_value;
+
+}
+template<
+	typename Type
+>
+inline
+Type const &
+deref_texture(
+	Type const &_value
+)
+{
+	return
+		_value;
+}
+
+}
+}
+}
+}
 
 #endif

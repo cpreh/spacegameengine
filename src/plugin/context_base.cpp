@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/plugin/library/load_function.hpp>
 #include <sge/src/plugin/library/object.hpp>
 #include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/maybe_void.hpp>
 #include <fcppt/io/ostream.hpp>
 #include <fcppt/log/context_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -100,16 +101,22 @@ sge::plugin::context_base::load()
 	library_ptr_ = ret;
 
 	if(
-		cache_
-		&&
-		(
-			this->info().flags()
-			&
-			sge::plugin::flags::delayed_unload
-		)
+		this->info().flags()
+		&
+		sge::plugin::flags::delayed_unload
 	)
-		cache_->add(
-			ret
+		fcppt::maybe_void(
+			cache_,
+			[
+				ret
+			](
+				sge::plugin::cache &_cache
+			)
+			{
+				_cache.add(
+					ret
+				);
+			}
 		);
 
 	sge::plugin::library::load_function<

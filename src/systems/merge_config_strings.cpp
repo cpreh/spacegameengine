@@ -20,12 +20,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/parse/ini/entry_name.hpp>
 #include <sge/parse/ini/find_value.hpp>
-#include <sge/parse/ini/optional_value.hpp>
 #include <sge/parse/ini/start_fwd.hpp>
+#include <sge/parse/ini/value.hpp>
 #include <sge/plugin/name.hpp>
 #include <sge/src/systems/ini_section_name.hpp>
 #include <sge/src/systems/merge_config_strings.hpp>
 #include <sge/systems/optional_name.hpp>
+#include <fcppt/optional_bind_construct.hpp>
 
 
 sge::systems::optional_name
@@ -35,29 +36,26 @@ sge::systems::merge_config_strings(
 	sge::parse::ini::entry_name const &_entry_name
 )
 {
-	if(
-		_parameter_name
-	)
-		return
-			_parameter_name;
-
-	sge::parse::ini::optional_value const ini_value(
-		sge::parse::ini::find_value(
-			_ini_config,
-			sge::systems::ini_section_name(),
-			_entry_name
-		)
-	);
-
 	return
-		ini_value
+		_parameter_name
 		?
-			sge::systems::optional_name(
-				sge::plugin::name(
-					ini_value->get()
-				)
-			)
+			_parameter_name
 		:
-			sge::systems::optional_name()
+			fcppt::optional_bind_construct(
+				sge::parse::ini::find_value(
+					_ini_config,
+					sge::systems::ini_section_name(),
+					_entry_name
+				),
+				[](
+					sge::parse::ini::value const &_ini_value
+				)
+				{
+					return
+						sge::plugin::name(
+							_ini_value.get()
+						);
+				}
+			)
 		;
 }

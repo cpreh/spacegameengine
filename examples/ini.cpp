@@ -18,11 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/parse/error_string.hpp>
 #include <sge/parse/result.hpp>
 #include <sge/parse/result_code.hpp>
 #include <sge/parse/ini/parse_range.hpp>
 #include <sge/parse/ini/start.hpp>
 #include <sge/parse/ini/output/to_stream.hpp>
+#include <fcppt/maybe_void.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/io/cerr.hpp>
@@ -32,7 +34,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-int main()
+int
+main()
 {
 	fcppt::string const test(
 		FCPPT_TEXT("[blabla]\nfoo = 42\nconfuse=5\nbar=3.4\nimagepath=/tmp/test\n")
@@ -59,11 +62,20 @@ int main()
 		sge::parse::result_code::ok
 	)
 	{
-		fcppt::io::cerr()
-			<< ret.error_string()->get()
-			<< FCPPT_TEXT('\n');
+		fcppt::maybe_void(
+			ret.error_string(),
+			[](
+				sge::parse::error_string const &_error
+			)
+			{
+				fcppt::io::cerr()
+					<< _error
+					<< FCPPT_TEXT('\n');
+			}
+		);
 
-		return EXIT_FAILURE;
+		return
+			EXIT_FAILURE;
 	}
 
 	if(
@@ -76,6 +88,10 @@ int main()
 		fcppt::io::cerr()
 			<< FCPPT_TEXT("Output failed\n");
 
-		return EXIT_FAILURE;
+		return
+			EXIT_FAILURE;
 	}
+
+	return
+		EXIT_SUCCESS;
 }

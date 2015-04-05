@@ -31,11 +31,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/device_fwd.hpp>
 #include <sge/log/apply_options.hpp>
 #include <sge/log/option_container.hpp>
+#include <sge/parse/error_string.hpp>
 #include <sge/parse/result.hpp>
 #include <sge/parse/result_code.hpp>
 #include <sge/parse/ini/parse_file_opt.hpp>
 #include <sge/parse/ini/result_with_value.hpp>
-#include <sge/parse/ini/start.hpp>
 #include <sge/plugin/manager_fwd.hpp>
 #include <sge/renderer/core_fwd.hpp>
 #include <sge/renderer/system_fwd.hpp>
@@ -61,6 +61,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/system_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/maybe.hpp>
+#include <fcppt/maybe_void.hpp>
 #include <fcppt/optional_bind.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/error.hpp>
@@ -143,26 +144,24 @@ sge::systems::detail::instance::instance(
 	{
 	case sge::parse::result_code::failure:
 	case sge::parse::result_code::partial:
-		FCPPT_LOG_ERROR(
-			sge::systems::logger(),
-			fcppt::log::_
-				<< ini_result.error_string()->get()
+		fcppt::maybe_void(
+			ini_result.error_string(),
+			[](
+				sge::parse::error_string const &_error
+			)
+			{
+				FCPPT_LOG_ERROR(
+					sge::systems::logger(),
+					fcppt::log::_
+						<< _error
+				);
+			}
 		);
 		break;
 	case sge::parse::result_code::ok:
 	case sge::parse::result_code::not_open:
 		break;
 	}
-
-	sge::parse::ini::start const &ini_config(
-		ini_result.result_code()
-		==
-		sge::parse::result_code::ok
-		?
-			*ini_result_value.start()
-		:
-			sge::parse::ini::start()
-	);
 
 	sge::systems::detail::any_map const &map(
 		_list.get()
@@ -197,7 +196,7 @@ sge::systems::detail::instance::instance(
 		sge::systems::detail::any_key::renderer,
 		[
 			this,
-			&ini_config,
+			&ini_result_value,
 			&log_options
 		](
 			sge::systems::detail::renderer const &_param
@@ -205,7 +204,7 @@ sge::systems::detail::instance::instance(
 		{
 			impl_->init_renderer_system(
 				_param,
-				ini_config,
+				ini_result_value.start(),
 				log_options
 			);
 		}

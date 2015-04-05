@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/index/count.hpp>
 #include <sge/renderer/index/first.hpp>
-#include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/first.hpp>
 #include <sge/sprite/buffers/roles/first_index.hpp>
@@ -35,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/roles/index_count.hpp>
 #include <sge/sprite/detail/roles/texture.hpp>
 #include <sge/sprite/detail/roles/vertex_count.hpp>
+#include <sge/sprite/render/optional_texture_ref.hpp>
 #include <majutsu/class.hpp>
 #include <majutsu/composite.hpp>
 #include <majutsu/role.hpp>
@@ -123,7 +123,7 @@ private:
 	{
 		typedef majutsu::role<
 			majutsu::simple<
-				sge::renderer::texture::planar const *
+				sge::sprite::render::optional_texture_ref
 			>,
 			sge::sprite::detail::roles::texture<
 				Level::value

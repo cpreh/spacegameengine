@@ -32,9 +32,11 @@ namespace parse
 namespace ini
 {
 
-typedef fcppt::optional<
+typedef
+fcppt::optional<
 	sge::parse::ini::value
-> optional_value;
+>
+optional_value;
 
 }
 }

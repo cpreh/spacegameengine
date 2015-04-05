@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/config/app_name.hpp>
 #include <sge/config/cache_path.hpp>
 #include <sge/src/config/try_create_path.hpp>
-#include <fcppt/optional_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/platform.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -31,7 +30,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #if defined(FCPPT_CONFIG_POSIX_PLATFORM)
 #include <sge/config/homedir.hpp>
 #include <sge/config/getenv.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/maybe.hpp>
+#include <fcppt/optional_string.hpp>
+#include <fcppt/string.hpp>
 #elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 #include <sge/config/getenv_exn.hpp>
 #endif
@@ -61,13 +62,24 @@ sge::config::cache_path(
 	);
 
 	boost::filesystem::path const path(
-		xdg_cache_path
-		?
-			*xdg_cache_path
-		:
-			sge::config::homedir()
-			/
-			FCPPT_TEXT(".cache")
+		fcppt::maybe(
+			xdg_cache_path,
+			[]{
+				return
+					sge::config::homedir()
+					/
+					FCPPT_TEXT(".cache");
+			},
+			[](
+				fcppt::string const &_path
+			)
+			{
+				return
+					boost::filesystem::path(
+						_path
+					);
+			}
+		)
 	);
 
 	return

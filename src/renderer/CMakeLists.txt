@@ -601,6 +601,8 @@ set(
 	include/sge/renderer/state/ffp/transform/object.hpp
 	include/sge/renderer/state/ffp/transform/object_fwd.hpp
 	include/sge/renderer/state/ffp/transform/object_unique_ptr.hpp
+	include/sge/renderer/state/ffp/transform/optional_object_unique_ptr.hpp
+	include/sge/renderer/state/ffp/transform/optional_object_unique_ptr_fwd.hpp
 	include/sge/renderer/state/ffp/transform/parameters.hpp
 	include/sge/renderer/state/ffp/transform/parameters_fwd.hpp
 	include/sge/renderer/state/ffp/transform/scoped.hpp

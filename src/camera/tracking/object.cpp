@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/tracking/alexa/lerp.hpp>
 #include <sge/src/camera/logger.hpp>
 #include <fcppt/cyclic_iterator_impl.hpp>
+#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/size_fun.hpp>
@@ -123,7 +124,9 @@ sge::camera::projection_matrix const
 sge::camera::tracking::object::projection_matrix() const
 {
 	return
-		*projection_matrix_;
+		FCPPT_ASSERT_OPTIONAL_ERROR(
+			projection_matrix_
+		);
 }
 
 void

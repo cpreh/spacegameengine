@@ -23,7 +23,6 @@ set(
 	include/sge/image/dim_fwd.hpp
 	include/sge/image/exception.hpp
 	include/sge/image/exception_fwd.hpp
-	include/sge/image/file_exception.hpp
 	include/sge/image/format_static.hpp
 	include/sge/image/heterogenous_format.hpp
 	include/sge/image/homogenous_format.hpp
@@ -32,8 +31,6 @@ set(
 	include/sge/image/mizuiro_color.hpp
 	include/sge/image/mizuiro_color_fwd.hpp
 	include/sge/image/mizuiro_color_traits.hpp
-	include/sge/image/optional_path.hpp
-	include/sge/image/optional_path_fwd.hpp
 	include/sge/image/pitch.hpp
 	include/sge/image/pitch_fwd.hpp
 	include/sge/image/raw_pointer.hpp
@@ -54,7 +51,6 @@ set(
 	include/sge/image/traits/view_elements.hpp
 	include/sge/image/traits/view_fwd.hpp
 	include/sge/image/transform_elements.hpp
-	include/sge/image/unsupported_format.hpp
 	include/sge/image/vector.hpp
 	include/sge/image/vector_fwd.hpp
 	include/sge/image/view/basic_format.hpp
@@ -84,7 +80,6 @@ set(
 	src/image/algorithm/convert_may_overlap.cpp
 	src/image/algorithm/convert_uninitialized.cpp
 	src/image/exception.cpp
-	src/image/file_exception.cpp
 	src/image/include/sge/src/image/algorithm/clone_impl.hpp
 	src/image/include/sge/src/image/algorithm/clone_visitor.hpp
 	src/image/include/sge/src/image/algorithm/compare_element.hpp
@@ -171,7 +166,6 @@ set(
 	src/image/include/sge/src/image/view/sub_visitor.hpp
 	src/image/include/sge/src/image/view/to_const_impl.hpp
 	src/image/include/sge/src/image/view/to_const_visitor.hpp
-	src/image/unsupported_format.cpp
 )
 
 find_package(

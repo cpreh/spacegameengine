@@ -18,11 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_OPTIONAL_PATH_HPP_INCLUDED
-#define SGE_IMAGE_OPTIONAL_PATH_HPP_INCLUDED
+#ifndef SGE_RENDERER_STATE_FFP_TRANSFORM_OPTIONAL_OBJECT_UNIQUE_PTR_FWD_HPP_INCLUDED
+#define SGE_RENDERER_STATE_FFP_TRANSFORM_OPTIONAL_OBJECT_UNIQUE_PTR_FWD_HPP_INCLUDED
 
-#include <sge/image/optional_path_fwd.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <sge/renderer/state/ffp/transform/object_unique_ptr.hpp>
+#include <fcppt/optional_fwd.hpp>
 
+
+namespace sge
+{
+namespace renderer
+{
+namespace state
+{
+namespace ffp
+{
+namespace transform
+{
+
+typedef
+fcppt::optional<
+	sge::renderer::state::ffp::transform::object_unique_ptr
+>
+optional_object_unique_ptr;
+
+}
+}
+}
+}
+}
 
 #endif

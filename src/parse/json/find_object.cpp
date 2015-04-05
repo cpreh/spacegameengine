@@ -18,86 +18,120 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/exception.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/const_optional_object_ref.hpp>
 #include <sge/parse/json/find_member_return_type.hpp>
 #include <sge/parse/json/find_member_value.hpp>
 #include <sge/parse/json/find_object.hpp>
-#include <sge/parse/json/get.hpp>
+#include <sge/parse/json/get_exn_message.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/optional_object_ref.hpp>
 #include <sge/parse/json/path.hpp>
 #include <sge/parse/json/path_to_string.hpp>
+#include <fcppt/const.hpp>
+#include <fcppt/maybe.hpp>
+#include <fcppt/optional_impl.hpp>
+#include <fcppt/reference_wrapper_impl.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/type_name_from_info.hpp>
-#include <fcppt/variant/type_info.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <typeinfo>
-#include <fcppt/config/external_end.hpp>
+
 
 namespace
 {
 
 template<
-	typename Ret,
 	typename Object
 >
-Ret const
+fcppt::optional<
+	Object &
+>
 find_object_impl(
 	Object &_input_object,
 	sge::parse::json::path const &_path)
 {
-	Ret current_object(
-		_input_object);
+	typedef
+	fcppt::reference_wrapper<
+		Object
+	>
+	object_ref;
+
+	typedef
+	fcppt::optional<
+		Object &
+	>
+	result_type;
+
+	object_ref current_object(
+		_input_object
+	);
 
 	for(
-		sge::parse::json::path::const_iterator current_member(
-			_path.begin());
-		current_member != _path.end();
-		++current_member)
+		auto const &current_member
+		:
+		_path
+	)
 	{
-		typedef typename sge::parse::json::find_member_return_type<
+		typedef
+		typename
+		sge::parse::json::find_member_return_type<
 			sge::parse::json::value,
 			Object
-		>::type optional_value;
-
-		optional_value const val(
-			sge::parse::json::find_member_value(
-				current_object->members,
-				*current_member
-			)
-		);
-
-		if(!val)
-			return Ret();
+		>::element_type
+		value_reference;
 
 		if(
-			fcppt::variant::type_info(
-				*val
-			)
-			!= typeid(sge::parse::json::object))
-			throw
-				sge::parse::exception(
-					FCPPT_TEXT("Couldn't navigate to \"")+
-					sge::parse::json::path_to_string(
-						_path)+
-					FCPPT_TEXT("\", stopped at \"")+
-					(*current_member)+
-					FCPPT_TEXT("\" because this member has type \"")+
-					fcppt::type_name_from_info(
-						fcppt::variant::type_info(
-							*val))+
-					FCPPT_TEXT("\" instead of type sge::parse::json::object!"));
+			fcppt::maybe(
+				sge::parse::json::find_member_value(
+					current_object.get().members,
+					current_member
+				),
+				fcppt::const_(
+					true
+				),
+				[
+					&current_object,
+					&current_member,
+					&_path
+				](
+					value_reference _val
+				)
+				{
+					current_object =
+						object_ref(
+							sge::parse::json::get_exn_message<
+								sge::parse::json::object
+							>(
+								_val,
+								[
+									&_path,
+									&current_member
+								]{
+									return
+										FCPPT_TEXT("Couldn't navigate to \"")
+										+
+										sge::parse::json::path_to_string(
+											_path
+										)
+										+
+										FCPPT_TEXT("\", stopped at \"")
+										+
+										current_member;
+								}
+							)
+						);
 
-		current_object =
-			Ret(
-				sge::parse::json::get<sge::parse::json::object>(
-					*val));
+					return
+						false;
+				}
+			)
+		)
+			return
+				result_type();
 	}
 
 	return
-		current_object;
+		result_type(
+			current_object.get()
+		);
 }
 
 }
@@ -105,12 +139,11 @@ find_object_impl(
 sge::parse::json::optional_object_ref const
 sge::parse::json::find_object(
 	sge::parse::json::object &_input_object,
-	json::path const &_path)
+	sge::parse::json::path const &_path
+)
 {
 	return
-		find_object_impl<
-			sge::parse::json::optional_object_ref
-		>(
+		find_object_impl(
 			_input_object,
 			_path
 		);
@@ -119,15 +152,12 @@ sge::parse::json::find_object(
 sge::parse::json::const_optional_object_ref const
 sge::parse::json::find_object(
 	sge::parse::json::object const &_input_object,
-	json::path const &_path)
+	sge::parse::json::path const &_path
+)
 {
 	return
-		sge::parse::json::const_optional_object_ref(
-			find_object_impl<
-				sge::parse::json::const_optional_object_ref
-			>(
-				_input_object,
-				_path
-			)
+		find_object_impl(
+			_input_object,
+			_path
 		);
 }

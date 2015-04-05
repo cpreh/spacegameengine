@@ -18,32 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_UNSUPPORTED_FORMAT_HPP_INCLUDED
-#define SGE_IMAGE_UNSUPPORTED_FORMAT_HPP_INCLUDED
+#ifndef SGE_SRC_PARSE_MAKE_ERROR_STRING_HPP_INCLUDED
+#define SGE_SRC_PARSE_MAKE_ERROR_STRING_HPP_INCLUDED
 
-#include <sge/core/detail/class_symbol.hpp>
-#include <sge/image/file_exception.hpp>
-#include <sge/image/optional_path_fwd.hpp>
-#include <sge/image/detail/symbol.hpp>
-#include <fcppt/string.hpp>
+#include <sge/parse/error_string.hpp>
+#include <sge/parse/result_fwd.hpp>
 
 
 namespace sge
 {
-namespace image
+namespace parse
 {
 
-class SGE_CORE_DETAIL_CLASS_SYMBOL unsupported_format
-:
-	public sge::image::file_exception
-{
-public:
-	SGE_IMAGE_DETAIL_SYMBOL
-	unsupported_format(
-		sge::image::optional_path const &,
-		fcppt::string const &
-	);
-};
+sge::parse::error_string
+make_error_string(
+	sge::parse::result const &
+);
 
 }
 }

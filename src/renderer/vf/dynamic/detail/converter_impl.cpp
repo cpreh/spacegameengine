@@ -26,9 +26,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/detail/lock_interval_set.hpp>
 #include <sge/src/renderer/vf/dynamic/detail/convert_if_color.hpp>
 #include <sge/src/renderer/vf/dynamic/detail/converter_impl.hpp>
-#include <sge/src/renderer/vf/dynamic/detail/element_converter_vector.hpp>
+#include <sge/src/renderer/vf/dynamic/detail/element_converter.hpp>
 #include <sge/src/renderer/vf/dynamic/detail/lock_interval.hpp>
-#include <fcppt/variant/holds_type.hpp>
+#include <fcppt/maybe_void.hpp>
+#include <fcppt/variant/to_optional.hpp>
 
 
 sge::renderer::vf::dynamic::detail::converter_impl::converter_impl(
@@ -39,20 +40,14 @@ sge::renderer::vf::dynamic::detail::converter_impl::converter_impl(
 	element_converters_()
 {
 
-	renderer::vf::dynamic::ordered_element_list const &elements(
-		_part.elements()
-	);
-
 	for(
-		renderer::vf::dynamic::ordered_element_list::const_iterator elem_it(
-			elements.begin()
-		);
-		elem_it != elements.end();
-		++elem_it
+		sge::renderer::vf::dynamic::ordered_element const &elem
+		:
+		_part.elements()
 	)
 	{
-		renderer::vf::dynamic::element const element(
-			elem_it->element()
+		sge::renderer::vf::dynamic::element const element(
+			elem.element()
 		);
 
 		sge::renderer::vf::dynamic::detail::convert_if_color(
@@ -60,25 +55,33 @@ sge::renderer::vf::dynamic::detail::converter_impl::converter_impl(
 			element.info(),
 			_accepted_formats,
 			_part.stride(),
-			elem_it->offset()
+			elem.offset()
 		);
 
-		if(
-			fcppt::variant::holds_type<
+		fcppt::maybe_void(
+			fcppt::variant::to_optional<
 				sge::renderer::vf::dynamic::extra
 			>(
 				element.info()
+			),
+			[
+				&_accepted_formats,
+				&_part,
+				&elem,
+				this
+			](
+				sge::renderer::vf::dynamic::extra const &_extra
 			)
-		)
-			sge::renderer::vf::dynamic::detail::convert_if_color(
-				element_converters_,
-				element.info().get<
-					sge::renderer::vf::dynamic::extra
-				>().type(),
-				_accepted_formats,
-				_part.stride(),
-				elem_it->offset()
-			);
+			{
+				sge::renderer::vf::dynamic::detail::convert_if_color(
+					element_converters_,
+					_extra.type(),
+					_accepted_formats,
+					_part.stride(),
+					elem.offset()
+				);
+			}
+		);
 	}
 }
 
@@ -94,21 +97,15 @@ sge::renderer::vf::dynamic::detail::converter_impl::convert_lock(
 	sge::renderer::vf::dynamic::detail::lock_interval const &_current_lock
 )
 {
-	sge::renderer::vf::dynamic::detail::lock_interval_set const new_lock(
-		_intervals & _current_lock
-	);
-
 	for(
-		sge::renderer::vf::dynamic::detail::lock_interval_set::const_iterator interval_it(
-			new_lock.begin()
-		);
-		interval_it != new_lock.end();
-		++interval_it
+		sge::renderer::vf::dynamic::detail::lock_interval const &interval
+		:
+		(_intervals & _current_lock)
 	)
 		this->do_convert(
 			_data,
 			_pos,
-			*interval_it,
+			interval,
 			false
 		);
 }
@@ -137,13 +134,11 @@ sge::renderer::vf::dynamic::detail::converter_impl::do_convert(
 )
 {
 	for(
-		sge::renderer::vf::dynamic::detail::element_converter_vector::iterator it(
-			element_converters_.begin()
-		);
-		it != element_converters_.end();
-		++it
+		sge::renderer::vf::dynamic::detail::element_converter &conv
+		:
+		element_converters_
 	)
-		it->convert(
+		conv.convert(
 			_interval,
 			_data,
 			_pos,

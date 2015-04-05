@@ -16,11 +16,15 @@ set(
 	include/sge/media/optional_extension_fwd.hpp
 	include/sge/media/optional_extension_set.hpp
 	include/sge/media/optional_extension_set_fwd.hpp
+	include/sge/media/optional_path.hpp
+	include/sge/media/optional_path_fwd.hpp
 	include/sge/media/path_to_extension.hpp
 	include/sge/media/raw_value.hpp
 	src/media/all_extensions.cpp
+	src/media/file_exception_string.cpp
 	src/media/include/sge/src/media/detail/muxer.hpp
 	src/media/include/sge/src/media/detail/muxer_impl.hpp
+	src/media/include/sge/src/media/file_exception_string.hpp
 	src/media/include/sge/src/media/instantiate_muxer_parameters.hpp
 	src/media/include/sge/src/media/load_exn.hpp
 	src/media/include/sge/src/media/load_raw_exn.hpp

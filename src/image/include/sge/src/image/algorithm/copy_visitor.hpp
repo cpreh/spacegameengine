@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <mizuiro/image/algorithm/may_overlap.hpp>
 #include <mizuiro/image/algorithm/uninitialized.hpp>
 #include <fcppt/nonassignable.hpp>
-#include <fcppt/variant/get.hpp>
+#include <fcppt/variant/get_exn.hpp>
 
 
 namespace sge
@@ -90,7 +90,7 @@ public:
 		return
 			mizuiro::image::algorithm::copy(
 				_src,
-				fcppt::variant::get<
+				fcppt::variant::get_exn<
 					typename sge::image::view::mizuiro_type<
 						typename Src::format,
 						mizuiro::nonconst_tag

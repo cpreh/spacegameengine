@@ -144,6 +144,7 @@ set(
 	include/sge/sprite/detail/geometry/count.hpp
 	include/sge/sprite/detail/geometry/count_constant.hpp
 	include/sge/sprite/detail/geometry/depth.hpp
+	include/sge/sprite/detail/geometry/deref_texture.hpp
 	include/sge/sprite/detail/geometry/fill.hpp
 	include/sge/sprite/detail/geometry/fill_color.hpp
 	include/sge/sprite/detail/geometry/fill_indices.hpp
@@ -301,6 +302,8 @@ set(
 	include/sge/sprite/process/options_fwd.hpp
 	include/sge/sprite/process/with_options.hpp
 	include/sge/sprite/projection_matrix.hpp
+	include/sge/sprite/render/optional_texture_ref.hpp
+	include/sge/sprite/render/optional_texture_ref_fwd.hpp
 	include/sge/sprite/render/parameters.hpp
 	include/sge/sprite/render/parameters_decl.hpp
 	include/sge/sprite/render/parameters_fwd.hpp

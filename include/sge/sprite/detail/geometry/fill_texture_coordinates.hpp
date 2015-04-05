@@ -53,6 +53,7 @@ template<
 	typename Iterator,
 	typename Choices
 >
+inline
 typename boost::enable_if<
 	boost::mpl::and_<
 		sge::sprite::detail::config::has_texture_coordinates<
@@ -68,7 +69,8 @@ fill_texture_coordinates(
 	Iterator const &_iterator,
 	sge::sprite::object<
 		Choices
-	> const &_sprite
+	> const &_sprite,
+	sge::texture::part const &
 )
 {
 	sge::sprite::detail::geometry::fill_texture_coordinates_rect<
@@ -87,6 +89,7 @@ template<
 	typename Iterator,
 	typename Choices
 >
+inline
 typename boost::enable_if<
 	boost::mpl::and_<
 		sge::sprite::detail::config::has_repetition<
@@ -102,7 +105,8 @@ fill_texture_coordinates(
 	Iterator const &_iterator,
 	sge::sprite::object<
 		Choices
-	> const &_sprite
+	> const &_sprite,
+	sge::texture::part const &_texture
 )
 {
 	sge::sprite::detail::geometry::fill_texture_coordinates_rect<
@@ -116,9 +120,7 @@ fill_texture_coordinates(
 			sge::texture::area_texc<
 				typename Choices::type_choices::float_type
 			>(
-				*_sprite. template texture_level<
-					Level::value
-				>(),
+				_texture,
 				_sprite.repetition()
 			)
 		)
@@ -152,19 +154,10 @@ fill_texture_coordinates(
 	Iterator const &_iterator,
 	sge::sprite::object<
 		Choices
-	> const &_sprite
+	> const &,
+	sge::texture::part const &_texture
 )
 {
-	typedef typename sge::sprite::object<
-		Choices
-	>::texture_type texture_type;
-
-	texture_type texture(
-		_sprite. template texture_level<
-			Level::value
-		>()
-	);
-
 	sge::sprite::detail::geometry::fill_texture_coordinates_rect<
 		Level,
 		Choices
@@ -176,8 +169,8 @@ fill_texture_coordinates(
 			sge::renderer::lock_rect_to_coords<
 				typename Choices::type_choices::float_type
 			>(
-				texture->area(),
-				texture->texture().size()
+				_texture.area(),
+				_texture.texture().size()
 			)
 		)
 	);

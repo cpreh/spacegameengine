@@ -20,7 +20,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/font/parameters.hpp>
 #include <sge/font/parameters_to_string.hpp>
+#include <sge/font/ttf_size.hpp>
+#include <sge/font/weight/unit.hpp>
+#include <fcppt/from_optional.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
+#include <fcppt/maybe.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 
@@ -30,42 +34,56 @@ sge::font::parameters_to_string(
 	sge::font::parameters const &_parameters
 )
 {
+	auto const default_function(
+		[]{
+			return
+				fcppt::string{
+					FCPPT_TEXT("default")
+				};
+		}
+	);
+
 	return
 		FCPPT_TEXT("( ")
 		FCPPT_TEXT("ttf_size: ")
 		+
-		(
-			_parameters.ttf_size()
-			?
-				fcppt::insert_to_fcppt_string(
-					*_parameters.ttf_size()
-				)
-			:
-				FCPPT_TEXT("default")
+		fcppt::maybe(
+			_parameters.ttf_size(),
+			default_function,
+			[](
+				sge::font::ttf_size const _ttf_size
+			)
+			{
+				return
+					fcppt::insert_to_fcppt_string(
+						_ttf_size
+					);
+			}
 		)
 		+
 		FCPPT_TEXT(", ")
 		FCPPT_TEXT("family: ")
 		+
-		(
-			_parameters.family()
-			?
-				*_parameters.family()
-			:
-				FCPPT_TEXT("default")
+		fcppt::from_optional(
+			_parameters.family(),
+			default_function
 		)
 		+
 		FCPPT_TEXT(", ")
 		FCPPT_TEXT("weight: ")
 		+
-		(
-			_parameters.weight()
-			?
-				fcppt::insert_to_fcppt_string(
-					*_parameters.weight()
-				)
-			:
-				FCPPT_TEXT("default")
+		fcppt::maybe(
+			_parameters.weight(),
+			default_function,
+			[](
+				sge::font::weight::unit const _weight
+			)
+			{
+				return
+					fcppt::insert_to_fcppt_string(
+						_weight
+					);
+			}
 		)
 		+
 		FCPPT_TEXT(", ")

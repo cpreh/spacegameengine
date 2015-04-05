@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/element_vector.hpp>
 #include <sge/parse/json/find_member_exn.hpp>
-#include <sge/parse/json/get.hpp>
+#include <sge/parse/json/get_exn.hpp>
 #include <sge/parse/json/int_type.hpp>
 #include <sge/parse/json/member_map.hpp>
 #include <sge/parse/json/object.hpp>
@@ -54,14 +54,14 @@ sge::font::bitmap::load_rect(
 
 	sge::parse::json::element_vector const
 		&first_elements(
-			sge::parse::json::get<
+			sge::parse::json::get_exn<
 				sge::parse::json::array
 			>(
 				elements[0]
 			).elements
 		),
 		&second_elements(
-			sge::parse::json::get<
+			sge::parse::json::get_exn<
 				sge::parse::json::array
 			>(
 				elements[1]
@@ -82,7 +82,7 @@ sge::font::bitmap::load_rect(
 				static_cast<
 					sge::image2d::rect::value_type
 				>(
-					sge::parse::json::get<
+					sge::parse::json::get_exn<
 						sge::parse::json::int_type
 					>(
 						first_elements[0]
@@ -91,7 +91,7 @@ sge::font::bitmap::load_rect(
 				static_cast<
 					sge::image2d::rect::value_type
 				>(
-					sge::parse::json::get<
+					sge::parse::json::get_exn<
 						sge::parse::json::int_type
 					>(
 						first_elements[1]
@@ -102,7 +102,7 @@ sge::font::bitmap::load_rect(
 				static_cast<
 					sge::image2d::rect::value_type
 				>(
-					sge::parse::json::get<
+					sge::parse::json::get_exn<
 						sge::parse::json::int_type
 					>(
 						second_elements[0]
@@ -111,7 +111,7 @@ sge::font::bitmap::load_rect(
 				static_cast<
 					sge::image2d::rect::value_type
 				>(
-					sge::parse::json::get<
+					sge::parse::json::get_exn<
 						sge::parse::json::int_type
 					>(
 						second_elements[1]

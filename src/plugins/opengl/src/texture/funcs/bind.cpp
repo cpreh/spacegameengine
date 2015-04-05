@@ -20,12 +20,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/texture/id.hpp>
 #include <sge/opengl/texture/no_id.hpp>
 #include <sge/opengl/texture/optional_id.hpp>
 #include <sge/opengl/texture/type.hpp>
 #include <sge/opengl/texture/funcs/bind.hpp>
 #include <sge/renderer/exception.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/const.hpp>
+#include <fcppt/maybe.hpp>
 #include <fcppt/text.hpp>
 
 
@@ -37,11 +39,19 @@ sge::opengl::texture::funcs::bind(
 {
 	::glBindTexture(
 		_type.get(),
-		_value
-		?
-			_value->get()
-		:
-			sge::opengl::texture::no_id
+		fcppt::maybe(
+			_value,
+			fcppt::const_(
+				sge::opengl::texture::no_id
+			),
+			[](
+				sge::opengl::texture::id const _id
+			)
+			{
+				return
+					_id.get();
+			}
+		)
 	);
 
 	SGE_OPENGL_CHECK_STATE(

@@ -39,23 +39,21 @@ template<
 	typename T,
 	typename Arg
 >
-struct find_member_return_type
-{
-	typedef
-	fcppt::optional<
-		typename std::add_lvalue_reference<
-			typename boost::mpl::if_<
-				std::is_const<
-					Arg
-				>,
-				typename std::add_const<
-					T
-				>::type,
+using find_member_return_type
+=
+fcppt::optional<
+	typename std::add_lvalue_reference<
+		typename boost::mpl::if_<
+			std::is_const<
+				Arg
+			>,
+			typename std::add_const<
 				T
-			>::type
+			>::type,
+			T
 		>::type
-	> type;
-};
+	>::type
+>;
 
 }
 }

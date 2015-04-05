@@ -24,6 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/value.hpp>
 #include <sge/parse/json/config/merge_trees.hpp>
+#include <fcppt/maybe.hpp>
+#include <fcppt/maybe_void.hpp>
 #include <fcppt/optional.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/algorithm/key_set.hpp>
@@ -92,10 +94,10 @@ sge::parse::json::config::merge_trees(
 	);
 
 	for(
-		string_set::const_iterator key =
-			union_set.begin();
-		key != union_set.end();
-		++key)
+		fcppt::string const &key
+		:
+		union_set
+	)
 	{
 		typedef fcppt::optional<
 			sge::parse::json::value const &
@@ -105,54 +107,89 @@ sge::parse::json::config::merge_trees(
 			original_value(
 				sge::parse::json::find_member_value(
 					original.members,
-					*key
+					key
 				)
 			),
 			update_value(
 				sge::parse::json::find_member_value(
 					update.members,
-					*key
+					key
 				)
 			);
 
-		// Object exists only in the update? Then copy
-		if (!original_value)
-		{
-			result.members.insert(
-				json::member(
-					*key,
-					*update_value
-				)
-			);
-
-			continue;
-		}
-
-		// Object exists only in the original? Then copy
-		if (!update_value)
-		{
-			result.members.insert(
-				json::member(
-					*key,
-					*original_value
-				)
-			);
-
-			continue;
-		}
-
-		// Both objects have the key, then merge!
-		result.members.insert(
-			json::member(
-				*key,
-				fcppt::variant::apply_binary(
-					visitor(),
-					*original_value,
-					*update_value
-				)
+		fcppt::maybe(
+			update_value,
+			[
+				&original_value,
+				&key,
+				&result
+			]
+			{
+				fcppt::maybe_void(
+					original_value,
+					[
+						&key,
+						&result
+					](
+						sge::parse::json::value const &_original_value
+					)
+					{
+						result.members.insert(
+							sge::parse::json::member(
+								key,
+								_original_value
+							)
+						);
+					}
+				);
+			},
+			[
+				&original_value,
+				&key,
+				&result
+			](
+				sge::parse::json::value const &_update_value
 			)
+			{
+				fcppt::maybe(
+					original_value,
+					[
+						&_update_value,
+						&key,
+						&result
+					]
+					{
+						result.members.insert(
+							sge::parse::json::member(
+								key,
+								_update_value
+							)
+						);
+					},
+					[
+						&_update_value,
+						&key,
+						&result
+					](
+						sge::parse::json::value const &_original_value
+					)
+					{
+						result.members.insert(
+							sge::parse::json::member(
+								key,
+								fcppt::variant::apply_binary(
+									visitor(),
+									_original_value,
+									_update_value
+								)
+							)
+						);
+					}
+				);
+			}
 		);
 	}
 
-	return result;
+	return
+		result;
 }

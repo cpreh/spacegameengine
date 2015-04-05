@@ -17,6 +17,7 @@ set(
 	include/sge/image2d/dim.hpp
 	include/sge/image2d/dim_fwd.hpp
 	include/sge/image2d/file.hpp
+	include/sge/image2d/file_exception.hpp
 	include/sge/image2d/file_fwd.hpp
 	include/sge/image2d/file_unique_ptr.hpp
 	include/sge/image2d/l8_format.hpp
@@ -106,6 +107,7 @@ set(
 	include/sge/image2d/traits/view_elements.hpp
 	include/sge/image2d/traits/view_fwd.hpp
 	include/sge/image2d/transform_elements.hpp
+	include/sge/image2d/unsupported_format.hpp
 	include/sge/image2d/vector.hpp
 	include/sge/image2d/vector_fwd.hpp
 	include/sge/image2d/view/checked_sub.hpp
@@ -141,6 +143,7 @@ set(
 	src/image2d/algorithm/print.cpp
 	src/image2d/create_exn.cpp
 	src/image2d/file.cpp
+	src/image2d/file_exception.cpp
 	src/image2d/include/sge/src/image2d/logger.hpp
 	src/image2d/load_exn.cpp
 	src/image2d/load_raw_exn.cpp
@@ -176,6 +179,7 @@ set(
 	src/image2d/store/srgba8.cpp
 	src/image2d/store/view.cpp
 	src/image2d/system.cpp
+	src/image2d/unsupported_format.cpp
 	src/image2d/view/checked_sub.cpp
 	src/image2d/view/const_object.cpp
 	src/image2d/view/data.cpp

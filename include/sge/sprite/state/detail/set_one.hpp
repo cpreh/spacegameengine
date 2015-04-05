@@ -25,9 +25,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/render_device.hpp>
 #include <sge/sprite/state/detail/object_class.hpp>
 #include <sge/sprite/state/detail/options_class.hpp>
+#include <fcppt/maybe_void.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
+#include <memory>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -137,33 +140,49 @@ public:
 		)
 			return;
 
-		typedef fcppt::shared_ptr<
+		typedef
+		std::unique_ptr<
 			typename Type::state_type
-		> state_shared_ptr;
+		>
+		state_unique_ptr;
 
 		// This should be more generic, but it will do for transform
 		// for now
-		state_shared_ptr const object(
+		fcppt::maybe_void(
 			Type::make(
 				render_device_,
 				render_context_
+			),
+			[
+				this
+			](
+				state_unique_ptr &&_state
 			)
-		);
+			{
+				// TODO: Make this movable
+				typedef
+				fcppt::shared_ptr<
+					typename Type::state_type
+				>
+				state_shared_ptr;
 
-		if(
-			!object
-		)
-			return;
+				state_shared_ptr const shared_state(
+					std::move(
+						_state
+					)
+				);
 
-		objects_. template set<
-			typename Type::role
-		>(
-			object
-		);
+				objects_. template set<
+					typename Type::role
+				>(
+					shared_state
+				);
 
-		Type::set(
-			render_context_,
-			*object
+				Type::set(
+					render_context_,
+					*shared_state
+				);
+			}
 		);
 	}
 private:

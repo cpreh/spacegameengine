@@ -55,7 +55,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/font/bitmap/line.hpp>
 #include <sge/src/font/bitmap/logger.hpp>
 #include <sge/src/font/bitmap/text.hpp>
+#include <fcppt/const.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <fcppt/maybe.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/size_fun.hpp>
@@ -129,7 +131,9 @@ sge::font::bitmap::text::text(
 		);
 
 		if(
-			char_it == _char_map.end()
+			char_it
+			==
+			_char_map.end()
 		)
 		{
 			FCPPT_LOG_ERROR(
@@ -164,11 +168,23 @@ sge::font::bitmap::text::text(
 		current_x += metric.x_advance();
 
 		bool const space_exceeded(
-			max_width
-			&&
-			current_x
-			>
-			max_width->get()
+			fcppt::maybe(
+				max_width,
+				fcppt::const_(
+					false
+				),
+				[
+					current_x
+				](
+					sge::font::align_h::max_width const _max_width
+				)
+				{
+					return
+						current_x
+						>
+						_max_width.get();
+				}
+			)
 		);
 
 		bool const new_line(

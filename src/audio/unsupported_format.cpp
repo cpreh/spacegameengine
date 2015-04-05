@@ -18,18 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/audio/file_exception.hpp>
 #include <sge/audio/unsupported_format.hpp>
+#include <sge/media/optional_path.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 
 
 sge::audio::unsupported_format::unsupported_format(
-	optional_path const &_path,
+	sge::media::optional_path const &_path,
 	fcppt::string const &_string
 )
 :
-	audio::file_exception(
+	sge::audio::file_exception(
 		_path,
 		FCPPT_TEXT("file has unsupported format: ")
-		+ _string
+		+
+		_string
 	)
-{}
+{
+}

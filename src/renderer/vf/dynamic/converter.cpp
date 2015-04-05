@@ -28,7 +28,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/renderer/vf/dynamic/detail/lock_interval.hpp>
 #include <sge/src/renderer/vf/dynamic/detail/locked_part_interval.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/maybe_void.hpp>
 #include <fcppt/optional_impl.hpp>
+#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/pre.hpp>
 
 
@@ -66,53 +68,73 @@ sge::renderer::vf::dynamic::converter::lock(
 		sge::renderer::lock_flags::read(
 			_locked_part.lock_flags()
 		)
-		&& converter_
 	)
-		converter_->convert_lock(
-			_locked_part.data(),
-			_locked_part.pos(),
-			written_intervals_,
-			sge::renderer::vf::dynamic::detail::locked_part_interval(
-				_locked_part
-			)
+		fcppt::maybe_void(
+			converter_,
+			[
+				&_locked_part,
+				this
+			](
+				converter_unique_ptr const &_converter
+			){
+				_converter->convert_lock(
+					_locked_part.data(),
+					_locked_part.pos(),
+					written_intervals_,
+					sge::renderer::vf::dynamic::detail::locked_part_interval(
+						_locked_part
+					)
+				);
+			}
 		);
 
-	locked_part_ = _locked_part;
+	locked_part_ =
+		_locked_part;
 }
 
 void
 sge::renderer::vf::dynamic::converter::unlock()
 {
-	FCPPT_ASSERT_PRE(
-		locked_part_
+	sge::renderer::vf::dynamic::locked_part const &cur_locked_part(
+		FCPPT_ASSERT_OPTIONAL_ERROR(
+			locked_part_
+		)
 	);
 
 	if(
 		!converter_
 	)
 		converter_ =
-			fcppt::make_unique_ptr<
-				sge::renderer::vf::dynamic::detail::converter_impl
-			>(
-				part_,
-				accepted_formats_
+			optional_converter_unique_ptr(
+				fcppt::make_unique_ptr<
+					sge::renderer::vf::dynamic::detail::converter_impl
+				>(
+					part_,
+					accepted_formats_
+				)
 			);
 
 	if(
 		sge::renderer::lock_flags::write(
-			locked_part_->lock_flags()
+			cur_locked_part.lock_flags()
 		)
 	)
 	{
-		sge::renderer::vf::dynamic::detail::lock_interval const current_unlock(
-			sge::renderer::vf::dynamic::detail::locked_part_interval(
-				*locked_part_
+		converter_unique_ptr const &cur_converter(
+			FCPPT_ASSERT_OPTIONAL_ERROR(
+				converter_
 			)
 		);
 
-		converter_->convert_unlock(
-			locked_part_->data(),
-			locked_part_->pos(),
+		sge::renderer::vf::dynamic::detail::lock_interval const current_unlock(
+			sge::renderer::vf::dynamic::detail::locked_part_interval(
+				cur_locked_part
+			)
+		);
+
+		cur_converter->convert_unlock(
+			cur_locked_part.data(),
+			cur_locked_part.pos(),
 			current_unlock
 		);
 

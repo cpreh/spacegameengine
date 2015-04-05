@@ -105,8 +105,6 @@ set(
 	include/sge/audio/multi_loader_parameters_fwd.hpp
 	include/sge/audio/optional_file_unique_ptr.hpp
 	include/sge/audio/optional_file_unique_ptr_fwd.hpp
-	include/sge/audio/optional_path.hpp
-	include/sge/audio/optional_path_fwd.hpp
 	include/sge/audio/player.hpp
 	include/sge/audio/player_fwd.hpp
 	include/sge/audio/player_plugin/collection_fwd.hpp
@@ -737,7 +735,6 @@ set(
 	include/sge/image/ds/view/d32_format.hpp
 	include/sge/image/exception.hpp
 	include/sge/image/exception_fwd.hpp
-	include/sge/image/file_exception.hpp
 	include/sge/image/format_static.hpp
 	include/sge/image/heterogenous_format.hpp
 	include/sge/image/homogenous_format.hpp
@@ -746,8 +743,6 @@ set(
 	include/sge/image/mizuiro_color.hpp
 	include/sge/image/mizuiro_color_fwd.hpp
 	include/sge/image/mizuiro_color_traits.hpp
-	include/sge/image/optional_path.hpp
-	include/sge/image/optional_path_fwd.hpp
 	include/sge/image/pitch.hpp
 	include/sge/image/pitch_fwd.hpp
 	include/sge/image/raw_pointer.hpp
@@ -774,7 +769,6 @@ set(
 	include/sge/image/traits/view_elements.hpp
 	include/sge/image/traits/view_fwd.hpp
 	include/sge/image/transform_elements.hpp
-	include/sge/image/unsupported_format.hpp
 	include/sge/image/vector.hpp
 	include/sge/image/vector_fwd.hpp
 	include/sge/image/view/basic_format.hpp
@@ -818,6 +812,7 @@ set(
 	include/sge/image2d/dim.hpp
 	include/sge/image2d/dim_fwd.hpp
 	include/sge/image2d/file.hpp
+	include/sge/image2d/file_exception.hpp
 	include/sge/image2d/file_fwd.hpp
 	include/sge/image2d/file_unique_ptr.hpp
 	include/sge/image2d/l8_format.hpp
@@ -907,6 +902,7 @@ set(
 	include/sge/image2d/traits/view_elements.hpp
 	include/sge/image2d/traits/view_fwd.hpp
 	include/sge/image2d/transform_elements.hpp
+	include/sge/image2d/unsupported_format.hpp
 	include/sge/image2d/vector.hpp
 	include/sge/image2d/vector_fwd.hpp
 	include/sge/image2d/view/checked_sub.hpp
@@ -1374,6 +1370,8 @@ set(
 	include/sge/media/optional_extension_fwd.hpp
 	include/sge/media/optional_extension_set.hpp
 	include/sge/media/optional_extension_set_fwd.hpp
+	include/sge/media/optional_path.hpp
+	include/sge/media/optional_path_fwd.hpp
 	include/sge/media/path_to_extension.hpp
 	include/sge/media/raw_value.hpp
 	include/sge/model/md3/create.hpp
@@ -1579,6 +1577,8 @@ set(
 	include/sge/parse/ini/grammar_decl.hpp
 	include/sge/parse/ini/grammar_fwd.hpp
 	include/sge/parse/ini/grammar_impl.hpp
+	include/sge/parse/ini/optional_start.hpp
+	include/sge/parse/ini/optional_start_fwd.hpp
 	include/sge/parse/ini/optional_value.hpp
 	include/sge/parse/ini/optional_value_fwd.hpp
 	include/sge/parse/ini/output/grammar.hpp
@@ -1649,7 +1649,8 @@ set(
 	include/sge/parse/json/find_object.hpp
 	include/sge/parse/json/find_object_exn.hpp
 	include/sge/parse/json/float_type.hpp
-	include/sge/parse/json/get.hpp
+	include/sge/parse/json/get_exn.hpp
+	include/sge/parse/json/get_exn_message.hpp
 	include/sge/parse/json/grammar.hpp
 	include/sge/parse/json/grammar_decl.hpp
 	include/sge/parse/json/grammar_fwd.hpp
@@ -2475,6 +2476,8 @@ set(
 	include/sge/renderer/state/ffp/transform/object.hpp
 	include/sge/renderer/state/ffp/transform/object_fwd.hpp
 	include/sge/renderer/state/ffp/transform/object_unique_ptr.hpp
+	include/sge/renderer/state/ffp/transform/optional_object_unique_ptr.hpp
+	include/sge/renderer/state/ffp/transform/optional_object_unique_ptr_fwd.hpp
 	include/sge/renderer/state/ffp/transform/parameters.hpp
 	include/sge/renderer/state/ffp/transform/parameters_fwd.hpp
 	include/sge/renderer/state/ffp/transform/scoped.hpp
@@ -3087,6 +3090,7 @@ set(
 	include/sge/sprite/detail/geometry/count.hpp
 	include/sge/sprite/detail/geometry/count_constant.hpp
 	include/sge/sprite/detail/geometry/depth.hpp
+	include/sge/sprite/detail/geometry/deref_texture.hpp
 	include/sge/sprite/detail/geometry/fill.hpp
 	include/sge/sprite/detail/geometry/fill_color.hpp
 	include/sge/sprite/detail/geometry/fill_indices.hpp
@@ -3244,6 +3248,8 @@ set(
 	include/sge/sprite/process/options_fwd.hpp
 	include/sge/sprite/process/with_options.hpp
 	include/sge/sprite/projection_matrix.hpp
+	include/sge/sprite/render/optional_texture_ref.hpp
+	include/sge/sprite/render/optional_texture_ref_fwd.hpp
 	include/sge/sprite/render/parameters.hpp
 	include/sge/sprite/render/parameters_decl.hpp
 	include/sge/sprite/render/parameters_fwd.hpp

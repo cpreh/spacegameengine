@@ -29,7 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/renderer/vf/dynamic/detail/element_converter.hpp>
 #include <sge/src/renderer/vf/dynamic/detail/element_converter_vector.hpp>
 #include <sge/src/renderer/vf/dynamic/detail/matching_color_format.hpp>
-#include <fcppt/variant/holds_type.hpp>
+#include <fcppt/maybe_void.hpp>
+#include <fcppt/variant/to_optional.hpp>
 
 
 namespace sge
@@ -55,30 +56,36 @@ convert_if_color(
 	sge::renderer::vf::dynamic::offset const _offset
 )
 {
-	if(
-		!fcppt::variant::holds_type<
+	fcppt::maybe_void(
+		fcppt::variant::to_optional<
 			sge::renderer::vf::dynamic::color
 		>(
 			_variant
-		)
-	)
-		return;
-
-	sge::image::color::format const format(
-		_variant. template get<
-			sge::renderer::vf::dynamic::color
-		>().color_format()
-	);
-
-	_converters.push_back(
-		sge::renderer::vf::dynamic::detail::element_converter{
-			format,
-			sge::renderer::vf::dynamic::detail::matching_color_format(
-				format,
-				_formats
-			),
+		),
+		[
+			&_converters,
+			&_formats,
 			_stride,
 			_offset
+		](
+			sge::renderer::vf::dynamic::color const &_color
+		)
+		{
+			sge::image::color::format const format(
+				_color.color_format()
+			);
+
+			_converters.push_back(
+				sge::renderer::vf::dynamic::detail::element_converter{
+					format,
+					sge::renderer::vf::dynamic::detail::matching_color_format(
+						format,
+						_formats
+					),
+					_stride,
+					_offset
+				}
+			);
 		}
 	);
 }

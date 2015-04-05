@@ -29,9 +29,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/rucksack/scalar.hpp>
 #include <sge/rucksack/vector.hpp>
 #include <sge/rucksack/viewport/adaptor.hpp>
+#include <sge/rucksack/widget/base.hpp>
 #include <sge/rucksack/widget/optional_ref.hpp>
 #include <sge/viewport/manager.hpp>
+#include <fcppt/maybe_void.hpp>
 #include <fcppt/optional_ref_compare.hpp>
+#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
@@ -157,34 +160,44 @@ sge::rucksack::viewport::adaptor::axis_policy() const
 void
 sge::rucksack::viewport::adaptor::relayout()
 {
-	if(
-		child_
-	)
-	{
-		this->resize_child();
+	fcppt::maybe_void(
+		child_,
+		[
+			this
+		](
+			sge::rucksack::widget::base &_child
+		)
+		{
+			this->resize_child();
 
-		child_->relayout();
-	}
+			_child.relayout();
+		}
+	);
 }
 
 void
 sge::rucksack::viewport::adaptor::child(
-	sge::rucksack::widget::base &_child
+	sge::rucksack::widget::base &_new_child
 )
 {
-	if(
-		child_
-	)
-		child_->parent(
-			sge::rucksack::widget::optional_ref()
-		);
+	fcppt::maybe_void(
+		child_,
+		[](
+			sge::rucksack::widget::base &_child
+		)
+		{
+			_child.parent(
+				sge::rucksack::widget::optional_ref()
+			);
+		}
+	);
 
 	child_ =
 		sge::rucksack::widget::optional_ref(
-			_child
+			_new_child
 		);
 
-	child_->parent(
+	_new_child.parent(
 		sge::rucksack::widget::optional_ref(
 			*this
 		)
@@ -196,12 +209,17 @@ sge::rucksack::viewport::adaptor::child(
 
 sge::rucksack::viewport::adaptor::~adaptor()
 {
-	if(
-		child_
-	)
-		child_->parent(
-			sge::rucksack::widget::optional_ref()
-		);
+	fcppt::maybe_void(
+		child_,
+		[](
+			sge::rucksack::widget::base &_child
+		)
+		{
+			_child.parent(
+				sge::rucksack::widget::optional_ref()
+			);
+		}
+	);
 }
 
 void
@@ -216,19 +234,21 @@ sge::rucksack::viewport::adaptor::manage_callback()
 void
 sge::rucksack::viewport::adaptor::resize_child()
 {
-	FCPPT_ASSERT_PRE(
-		child_
+	sge::rucksack::widget::base &child(
+		FCPPT_ASSERT_OPTIONAL_ERROR(
+			child_
+		)
 	);
 
-	child_->position(
+	child.position(
 		sge::rucksack::vector::null()
 	);
 
-	child_->size(
+	child.size(
 		this->size()
 	);
 
-	child_->relayout();
+	child.relayout();
 }
 
 void

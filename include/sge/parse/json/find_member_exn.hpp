@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PARSE_JSON_FIND_MEMBER_EXN_HPP_INCLUDED
 
 #include <sge/parse/json/find_member_value_exn.hpp>
-#include <sge/parse/json/get.hpp>
+#include <sge/parse/json/get_exn.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/if.hpp>
@@ -59,7 +59,7 @@ find_member_exn(
 )
 {
 	return
-		sge::parse::json::get<
+		sge::parse::json::get_exn<
 			T
 		>(
 			sge::parse::json::find_member_value_exn(

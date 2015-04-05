@@ -16,6 +16,8 @@ set(
 	include/sge/parse/ini/grammar_decl.hpp
 	include/sge/parse/ini/grammar_fwd.hpp
 	include/sge/parse/ini/grammar_impl.hpp
+	include/sge/parse/ini/optional_start.hpp
+	include/sge/parse/ini/optional_start_fwd.hpp
 	include/sge/parse/ini/optional_value.hpp
 	include/sge/parse/ini/optional_value_fwd.hpp
 	include/sge/parse/ini/output/grammar.hpp

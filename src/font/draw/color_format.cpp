@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/format.hpp>
 #include <sge/image/color/optional_format.hpp>
 #include <sge/src/font/draw/color_format.hpp>
+#include <fcppt/const.hpp>
+#include <fcppt/from_optional.hpp>
 
 
 sge::image::color::format
@@ -29,10 +31,10 @@ sge::font::draw::color_format(
 )
 {
 	return
-		_color_format
-		?
-			*_color_format
-		:
-			sge::image::color::format::a8
-		;
+		fcppt::from_optional(
+			_color_format,
+			fcppt::const_(
+				sge::image::color::format::a8
+			)
+		);
 }

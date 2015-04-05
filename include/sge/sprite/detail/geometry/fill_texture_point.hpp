@@ -44,6 +44,7 @@ template<
 	typename Iterator,
 	typename Choices
 >
+inline
 typename boost::enable_if<
 	sge::sprite::detail::config::has_texture_point_size<
 		Choices
@@ -77,6 +78,7 @@ template<
 	typename Iterator,
 	typename Choices
 >
+inline
 typename boost::disable_if<
 	sge::sprite::detail::config::has_texture_point_size<
 		Choices

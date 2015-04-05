@@ -27,10 +27,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/start.hpp>
 #include <sge/parse/json/string_to_value.hpp>
 #include <sge/parse/json/value.hpp>
+#include <sge/src/parse/make_error_string.hpp>
 #include <fcppt/format.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/io/istringstream.hpp>
+#include <fcppt/variant/get_exn.hpp>
 
 
 sge::parse::json::value
@@ -68,13 +70,17 @@ sge::parse::json::string_to_value(
 	)
 		throw sge::parse::parse_exception(
 			ret.result_code(),
-			*ret.error_string()
+			sge::parse::make_error_string(
+				ret
+			)
 		);
 
 	return
-		result.variant.get<
+		fcppt::variant::get_exn<
 			sge::parse::json::object
-		>().members.find(
+		>(
+			result.variant
+		).members.find(
 			FCPPT_TEXT("value")
 		)->second;
 }

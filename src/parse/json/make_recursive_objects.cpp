@@ -21,7 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/exception.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/find_member_value.hpp>
-#include <sge/parse/json/get.hpp>
+#include <sge/parse/json/get_exn.hpp>
+#include <sge/parse/json/get_exn_message.hpp>
 #include <sge/parse/json/make_recursive_objects.hpp>
 #include <sge/parse/json/member.hpp>
 #include <sge/parse/json/member_map.hpp>
@@ -29,12 +30,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/path.hpp>
 #include <sge/parse/json/path_to_string.hpp>
 #include <sge/parse/json/value.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/maybe.hpp>
+#include <fcppt/make_ref.hpp>
+#include <fcppt/reference_wrapper_impl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/type_name_from_info.hpp>
 #include <fcppt/assert/error.hpp>
-#include <fcppt/variant/holds_type.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/variant/type_info.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -47,85 +48,109 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-sge::parse::json::object *
+typedef
+fcppt::reference_wrapper<
+	sge::parse::json::object
+>
+object_reference;
+
+object_reference const
 create_or_navigate_path(
 	sge::parse::json::path const &_input_path,
-	sge::parse::json::object *const _old,
-	fcppt::string const &_new_member)
+	object_reference const _old,
+	fcppt::string const &_new_member
+)
 {
-	typedef fcppt::optional<
-		sge::parse::json::value &
-	> optional_value;
-
-	optional_value const ref(
-		sge::parse::json::find_member_value(
-			_old->members,
-			_new_member));
-
-	if(!ref)
-	{
-		typedef std::pair<
-			sge::parse::json::member_map::iterator,
-			bool
-		> insert_pair;
-
-		insert_pair const insert_ret(
-			_old->members.insert(
-				sge::parse::json::member(
-					_new_member,
-					sge::parse::json::object())));
-
-		FCPPT_ASSERT_ERROR(
-			insert_ret.second
-		);
-
-		return
-			&sge::parse::json::get<
-				sge::parse::json::object
-			>(
-				insert_ret.first->second
-			);
-	}
-
-	if(
-		!fcppt::variant::holds_type<
-			sge::parse::json::object
-		>(
-			*ref
-		)
-	)
-		throw
-			sge::parse::exception(
-				FCPPT_TEXT("Couldn't navigate to (make_recursive) \"")+
-				sge::parse::json::path_to_string(
-					_input_path)+
-				FCPPT_TEXT("\", stopped at \"")+
-				_new_member+
-				FCPPT_TEXT("\" because this member has type \"")+
-				fcppt::type_name_from_info(
-					fcppt::variant::type_info(
-						*ref))+
-				FCPPT_TEXT("\" instead of type sge::parse::json::object!"));
-
 	return
-		&sge::parse::json::get<sge::parse::json::object>(
-			*ref);
+		fcppt::maybe(
+			sge::parse::json::find_member_value(
+				_old.get().members,
+				_new_member
+			),
+			[
+				&_old,
+				&_new_member
+			]{
+				typedef std::pair<
+					sge::parse::json::member_map::iterator,
+					bool
+				> insert_pair;
+
+				insert_pair const insert_ret(
+					_old.get().members.insert(
+						sge::parse::json::member(
+							_new_member,
+							sge::parse::json::object()
+						)
+					)
+				);
+
+				FCPPT_ASSERT_ERROR(
+					insert_ret.second
+				);
+
+				return
+					fcppt::make_ref(
+						sge::parse::json::get_exn<
+							sge::parse::json::object
+						>(
+							insert_ret.first->second
+						)
+					);
+			},
+			[
+				&_input_path,
+				&_new_member
+			](
+				sge::parse::json::value &_value
+			)
+			{
+				return
+					fcppt::make_ref(
+						sge::parse::json::get_exn_message<
+							sge::parse::json::object
+						>(
+							_value,
+							[
+								&_input_path,
+								&_new_member
+							]{
+								return
+									FCPPT_TEXT("Couldn't navigate to (make_recursive) \"")
+									+
+									sge::parse::json::path_to_string(
+										_input_path
+									)
+									+
+									FCPPT_TEXT("\", stopped at \"")
+									+
+									_new_member;
+							}
+						)
+					);
+			}
+		);
 }
 }
 
 sge::parse::json::object &
 sge::parse::json::make_recursive_objects(
 	sge::parse::json::object &_input_object,
-	json::path const &_input_path)
+	sge::parse::json::path const &_input_path
+)
 {
 	return
-		*std::accumulate(
+		std::accumulate(
 			_input_path.begin(),
 			_input_path.end(),
-			&_input_object,
+			fcppt::make_ref(
+				_input_object
+			),
 			std::bind(
 				&create_or_navigate_path,
 				_input_path,
 				std::placeholders::_1,
-				std::placeholders::_2));
+				std::placeholders::_2
+			)
+		).get();
 }

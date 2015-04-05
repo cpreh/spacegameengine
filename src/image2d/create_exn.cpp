@@ -22,14 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/create_exn.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/file_unique_ptr.hpp>
-#include <sge/image2d/optional_file_unique_ptr.hpp>
 #include <sge/image2d/system.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/media/optional_extension_fwd.hpp>
+#include <fcppt/optional_to_exception.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <utility>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::image2d::file_unique_ptr
@@ -39,23 +36,17 @@ sge::image2d::create_exn(
 	sge::media::optional_extension const &_extension
 )
 {
-	sge::image2d::optional_file_unique_ptr result(
-		_system.create(
-			_view,
-			_extension
-		)
-	);
-
-	if(
-		!result
-	)
-		throw
-			sge::image::exception(
-				FCPPT_TEXT("create_exn failed")
-			);
-
 	return
-		std::move(
-			*result
+		fcppt::optional_to_exception(
+			_system.create(
+				_view,
+				_extension
+			),
+			[]{
+				return
+					sge::image::exception(
+						FCPPT_TEXT("create_exn failed")
+					);
+			}
 		);
 }

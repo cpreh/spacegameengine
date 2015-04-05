@@ -34,10 +34,13 @@ namespace tracking
 {
 namespace json
 {
+
 SGE_CAMERA_DETAIL_SYMBOL
-sge::camera::tracking::keyframe_sequence const
+sge::camera::tracking::keyframe_sequence
 keyframes_from_json(
-	sge::parse::json::array const &);
+	sge::parse::json::array const &
+);
+
 }
 }
 }

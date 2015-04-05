@@ -33,8 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/transform/scoped.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/target/viewport.hpp>
-#include <sge/renderer/target/viewport_is_null.hpp>
-#include <fcppt/assert/pre.hpp>
+#include <fcppt/assert/optional_error.hpp>
 
 
 void
@@ -43,25 +42,30 @@ sge::line_drawer::render_to_screen(
 	sge::renderer::context::ffp &_render_context,
 	sge::line_drawer::object &_drawer)
 {
-	FCPPT_ASSERT_PRE(
-		!sge::renderer::target::viewport_is_null(
-			_render_context.target().viewport()));
-
 	sge::renderer::state::ffp::transform::object_unique_ptr const projection(
 		_render_device.create_transform_state(
 			sge::renderer::state::ffp::transform::parameters(
-				*sge::renderer::projection::orthogonal_viewport(
-					_render_context.target().viewport()))));
+				FCPPT_ASSERT_OPTIONAL_ERROR(
+					sge::renderer::projection::orthogonal_viewport(
+						_render_context.target().viewport()
+					)
+				)
+			)
+		)
+	);
 
 	sge::renderer::state::ffp::transform::scoped const projection_scope(
 		_render_context,
 		sge::renderer::state::ffp::transform::mode::projection,
-		*projection);
+		*projection
+	);
 
 	_render_context.transform(
 		sge::renderer::state::ffp::transform::mode::world,
-		sge::renderer::state::ffp::transform::const_optional_object_ref());
+		sge::renderer::state::ffp::transform::const_optional_object_ref()
+	);
 
 	_drawer.render(
-		_render_context);
+		_render_context
+	);
 }

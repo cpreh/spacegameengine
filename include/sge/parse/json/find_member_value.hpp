@@ -22,12 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PARSE_JSON_FIND_MEMBER_VALUE_HPP_INCLUDED
 
 #include <sge/parse/json/find_member_return_type.hpp>
-#include <sge/parse/json/member_map.hpp>
+#include <sge/parse/json/value.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/if.hpp>
-#include <type_traits>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/container/find_opt.hpp>
 
 
 namespace sge
@@ -44,44 +41,20 @@ namespace json
 template<
 	typename Arg
 >
-typename
 sge::parse::json::find_member_return_type<
 	sge::parse::json::value,
 	Arg
->::type
+>
 find_member_value(
 	Arg &_members,
 	fcppt::string const &_name
 )
 {
-	typedef typename boost::mpl::if_<
-		std::is_const<
-			Arg
-		>,
-		sge::parse::json::member_map::const_iterator,
-		sge::parse::json::member_map::iterator
-	>::type iterator;
-
-	iterator const it(
-		_members.find(
-			_name
-		)
-	);
-
-	typedef typename
-	sge::parse::json::find_member_return_type<
-		sge::parse::json::value,
-		Arg
-	>::type result_type;
-
 	return
-		it == _members.end()
-		?
-			result_type()
-		:
-			result_type(
-				it->second
-			);
+		fcppt::container::find_opt(
+			_members,
+			_name
+		);
 }
 
 }

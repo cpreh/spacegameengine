@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/blend/source.hpp>
 #include <sge/renderer/state/core/blend/write_mask_all.hpp>
 #include <sge/sprite/state/with_blend.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/from_optional.hpp>
 
 
 sge::renderer::state::core::blend::object_unique_ptr
@@ -48,11 +48,13 @@ sge::sprite::state::with_blend::make(
 						sge::renderer::state::core::blend::dest::inv_src_alpha
 					)
 				),
-				_write_mask
-				?
-					*_write_mask
-				:
-					sge::renderer::state::core::blend::write_mask_all()
+				fcppt::from_optional(
+					_write_mask,
+					[]{
+						return
+							sge::renderer::state::core::blend::write_mask_all();
+					}
+				)
 			)
 		);
 }

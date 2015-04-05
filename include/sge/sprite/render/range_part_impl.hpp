@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/index/count.hpp>
 #include <sge/renderer/index/first.hpp>
-#include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/first.hpp>
 #include <sge/sprite/texture_level.hpp>
@@ -32,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/roles/index_count.hpp>
 #include <sge/sprite/detail/roles/texture.hpp>
 #include <sge/sprite/detail/roles/vertex_count.hpp>
+#include <sge/sprite/render/optional_texture_ref.hpp>
 #include <sge/sprite/render/range_part_decl.hpp>
 
 
@@ -112,7 +112,7 @@ template<
 template<
 	sge::sprite::texture_level Level
 >
-sge::renderer::texture::planar const *
+sge::sprite::render::optional_texture_ref const
 sge::sprite::render::range_part<
 	Choices
 >::texture_level() const

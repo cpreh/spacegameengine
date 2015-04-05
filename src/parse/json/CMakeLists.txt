@@ -43,7 +43,8 @@ set(
 	include/sge/parse/json/find_object.hpp
 	include/sge/parse/json/find_object_exn.hpp
 	include/sge/parse/json/float_type.hpp
-	include/sge/parse/json/get.hpp
+	include/sge/parse/json/get_exn.hpp
+	include/sge/parse/json/get_exn_message.hpp
 	include/sge/parse/json/grammar.hpp
 	include/sge/parse/json/grammar_decl.hpp
 	include/sge/parse/json/grammar_fwd.hpp

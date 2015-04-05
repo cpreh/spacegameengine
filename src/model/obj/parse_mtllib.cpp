@@ -28,10 +28,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/obj/parse_mtllib.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <sge/src/model/obj/logger.hpp>
+#include <fcppt/from_optional.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/no_init.hpp>
 #include <fcppt/nonassignable.hpp>
-#include <fcppt/optional.hpp>
+#include <fcppt/optional_impl.hpp>
+#include <fcppt/optional_to_exception.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre.hpp>
@@ -306,17 +308,7 @@ public:
 		{
 			// First material we see? Do nothing.
 			if(!current_material_.get().empty())
-			{
-				if(!ambient_ || !specular_ || !emissive_ || !diffuse_ || !shininess_)
-					throw
-						sge::model::obj::exception(
-							FCPPT_TEXT("Error on line ")+
-							fcppt::insert_to_fcppt_string(
-								current_line_)+
-							FCPPT_TEXT(": Material without ambient/specular/emissive/diffuse/shininess."));
-
 				this->push_material();
-			}
 
 			current_material_ =
 				sge::model::obj::identifier(
@@ -336,49 +328,103 @@ public:
 	void
 	push_material()
 	{
+		auto const make_exception(
+			[
+				this
+			]{
+				return
+					sge::model::obj::exception{
+						FCPPT_TEXT("Error on line ")
+						+
+						fcppt::insert_to_fcppt_string(
+							current_line_
+						)
+						+
+						FCPPT_TEXT(": Material without ambient/specular/emissive/diffuse/shininess.")
+					};
+			}
+		);
+
+		auto const make_color(
+			[](
+				sge::renderer::vector3 const _vec
+			)
+			{
+				return
+					sge::image::color::any::object{
+						sge::image::color::rgb32f{
+							(sge::image::color::init::red() %= (_vec)[0])
+							(sge::image::color::init::green() %= (_vec)[1])
+							(sge::image::color::init::blue() %= (_vec)[2])
+						}
+					};
+			}
+		);
+
 		result_.insert(
 			std::make_pair(
 				current_material_,
 				sge::model::obj::material::object(
 					current_material_,
 					sge::model::obj::material::diffuse_color(
-						sge::image::color::any::object(
-							sge::image::color::rgb32f(
-								(sge::image::color::init::red() %= (*diffuse_)[0])
-								(sge::image::color::init::green() %= (*diffuse_)[1])
-								(sge::image::color::init::blue() %= (*diffuse_)[2])))),
+						make_color(
+							fcppt::optional_to_exception(
+								diffuse_,
+								make_exception
+							)
+						)
+					),
 					sge::model::obj::material::ambient_color(
-						sge::image::color::any::object(
-							sge::image::color::rgb32f(
-								(sge::image::color::init::red() %= (*ambient_)[0])
-								(sge::image::color::init::green() %= (*ambient_)[1])
-								(sge::image::color::init::blue() %= (*ambient_)[2])))),
+						make_color(
+							fcppt::optional_to_exception(
+								ambient_,
+								make_exception
+							)
+						)
+					),
 					sge::model::obj::material::specular_color(
-						sge::image::color::any::object(
-							sge::image::color::rgb32f(
-								(sge::image::color::init::red() %= (*specular_)[0])
-								(sge::image::color::init::green() %= (*specular_)[1])
-								(sge::image::color::init::blue() %= (*specular_)[2])))),
+						make_color(
+							fcppt::optional_to_exception(
+								specular_,
+								make_exception
+							)
+						)
+					),
 					sge::model::obj::material::emissive_color(
-						sge::image::color::any::object(
-							sge::image::color::rgb32f(
-								(sge::image::color::init::red() %= (*emissive_)[0])
-								(sge::image::color::init::green() %= (*emissive_)[1])
-								(sge::image::color::init::blue() %= (*emissive_)[2])))),
+						make_color(
+							fcppt::optional_to_exception(
+								emissive_,
+								make_exception
+							)
+						)
+					),
 					sge::model::obj::material::shininess(
-						*shininess_),
+						fcppt::optional_to_exception(
+							shininess_,
+							make_exception
+						)
+					),
 					sge::model::obj::material::diffuse_texture_path(
-						diffuse_texture_
-						?
-							*diffuse_texture_
-						:
-						boost::filesystem::path()),
+						fcppt::from_optional(
+							diffuse_texture_,
+							[]{
+								return
+									boost::filesystem::path();
+							}
+						)
+					),
 					sge::model::obj::material::specular_texture_path(
-						specular_texture_
-						?
-							*specular_texture_
-						:
-							boost::filesystem::path()))));
+						fcppt::from_optional(
+							specular_texture_,
+							[]{
+								return
+									boost::filesystem::path();
+							}
+						)
+					)
+				)
+			)
+		);
 	}
 private:
 	boost::filesystem::path const parent_path_;

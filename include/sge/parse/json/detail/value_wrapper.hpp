@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/value.hpp>
 #include <sge/parse/json/detail/value_wrapper_fwd.hpp>
 #include <fcppt/optional_impl.hpp>
-#include <fcppt/assert/error.hpp>
+#include <fcppt/assert/optional_error.hpp>
 
 
 namespace sge
@@ -53,26 +53,27 @@ public:
 	)
 	:
 		value_(
-			json::value(
+			sge::parse::json::value(
 				_arg
 			)
 		)
 	{
 	}
 
-	json::value const &
+	sge::parse::json::value const &
 	get() const
 	{
-		FCPPT_ASSERT_ERROR(
-			value_.has_value()
-		);
-
-		return *value_;
+		return
+			FCPPT_ASSERT_OPTIONAL_ERROR(
+				value_
+			);
 	}
 private:
-	typedef fcppt::optional<
+	typedef
+	fcppt::optional<
 		json::value
-	> optional_value;
+	>
+	optional_value;
 
 	optional_value value_;
 };

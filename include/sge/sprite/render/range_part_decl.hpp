@@ -23,11 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/index/count.hpp>
 #include <sge/renderer/index/first.hpp>
-#include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/first.hpp>
 #include <sge/sprite/texture_level.hpp>
 #include <sge/sprite/detail/render/range_part_object.hpp>
+#include <sge/sprite/render/optional_texture_ref_fwd.hpp>
 #include <sge/sprite/render/range_part_fwd.hpp>
 
 
@@ -44,9 +44,12 @@ template<
 class range_part
 {
 public:
-	typedef typename sge::sprite::detail::render::range_part_object<
+	typedef
+	typename
+	sge::sprite::detail::render::range_part_object<
 		Choices
-	>::type range_part_object;
+	>::type
+	range_part_object;
 
 	explicit
 	range_part(
@@ -68,7 +71,7 @@ public:
 	template<
 		sge::sprite::texture_level Level
 	>
-	sge::renderer::texture::planar const *
+	sge::sprite::render::optional_texture_ref const
 	texture_level() const;
 private:
 	range_part_object object_;

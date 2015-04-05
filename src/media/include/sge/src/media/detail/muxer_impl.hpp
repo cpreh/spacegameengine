@@ -32,6 +32,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/object.hpp>
 #include <sge/src/media/logger.hpp>
 #include <sge/src/media/detail/muxer.hpp>
+#include <fcppt/const.hpp>
+#include <fcppt/maybe.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name_from_info.hpp>
@@ -93,13 +95,23 @@ sge::media::detail::muxer<
 				optional_plugin_system_pair;
 
 				optional_plugin_system_pair result(
-					(
-						!_parameters.extensions().has_value()
-						||
-						!fcppt::algorithm::set_intersection(
-							*_parameters.extensions(),
-							system_instance->extensions()
-						).empty()
+					fcppt::maybe(
+						_parameters.extensions(),
+						fcppt::const_(
+							true
+						),
+						[
+							&system_instance
+						](
+							sge::media::extension_set const &_extensions
+						)
+						{
+							return
+								!fcppt::algorithm::set_intersection(
+									_extensions,
+									system_instance->extensions()
+								).empty();
+						}
 					)
 					?
 						optional_plugin_system_pair(
@@ -213,7 +225,7 @@ sge::media::detail::muxer<
 	System,
 	File
 >::mux_extension(
-	sge::media::optional_extension const &_extension,
+	sge::media::optional_extension const &_opt_extension,
 	load_function const &_function
 ) const
 {
@@ -228,11 +240,23 @@ sge::media::detail::muxer<
 		);
 
 		if(
-			_extension
-			&&
-			!fcppt::algorithm::contains(
-				cur_system->extensions(),
-				*_extension
+			fcppt::maybe(
+				_opt_extension,
+				fcppt::const_(
+					false
+				),
+				[
+					&cur_system
+				](
+					sge::media::extension const &_extension
+				)
+				{
+					return
+						!fcppt::algorithm::contains(
+							cur_system->extensions(),
+							_extension
+						);
+				}
 			)
 		)
 			continue;

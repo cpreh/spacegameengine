@@ -20,9 +20,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/cursor/move_event.hpp>
 #include <sge/input/cursor/object.hpp>
+#include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/relative_move_callback.hpp>
 #include <sge/input/cursor/relative_move_event.hpp>
 #include <sge/input/cursor/relative_movement.hpp>
+#include <fcppt/maybe.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -80,22 +82,49 @@ sge::input::cursor::relative_movement::move_callback_internal(
 	sge::input::cursor::move_event const &_event
 )
 {
-	if(
-		!last_position_
-		|| !_event.position()
-	)
-	{
-		last_position_ = _event.position();
-
-		return;
-	}
-
-	relative_move_signal_(
-		sge::input::cursor::relative_move_event(
-			*_event.position()
-			- *last_position_
-		)
+	auto const assign_position(
+		[
+			this,
+			&_event
+		]{
+			last_position_ =
+				_event.position();
+		}
 	);
 
-	last_position_ = _event.position();
+	fcppt::maybe(
+		last_position_,
+		assign_position,
+		[
+			this,
+			&assign_position,
+			&_event
+		](
+			sge::input::cursor::position const _last_position
+		)
+		{
+			fcppt::maybe(
+				_event.position(),
+				assign_position,
+				[
+					this,
+					&assign_position,
+					_last_position
+				](
+					sge::input::cursor::position const _new_position
+				)
+				{
+					relative_move_signal_(
+						sge::input::cursor::relative_move_event(
+							_new_position
+							-
+							_last_position
+						)
+					);
+
+					assign_position();
+				}
+			);
+		}
+	);
 }

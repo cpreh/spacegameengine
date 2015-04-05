@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/config/has_texture_point_size.hpp>
 #include <sge/sprite/detail/geometry/fill_texture_coordinates.hpp>
 #include <sge/sprite/detail/geometry/fill_texture_point.hpp>
+#include <sge/texture/part_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -45,6 +46,7 @@ template<
 	typename Iterator,
 	typename Choices
 >
+inline
 typename boost::enable_if<
 	sge::sprite::detail::config::has_texture<
 		Choices
@@ -55,14 +57,16 @@ fill_texture_level_impl(
 	Iterator const _iterator,
 	sge::sprite::object<
 		Choices
-	> const &_sprite
+	> const &_sprite,
+	sge::texture::part const &_texture
 )
 {
 	sge::sprite::detail::geometry::fill_texture_coordinates<
 		Level
 	>(
 		_iterator,
-		_sprite
+		_sprite,
+		_texture
 	);
 }
 
@@ -71,6 +75,7 @@ template<
 	typename Iterator,
 	typename Choices
 >
+inline
 typename boost::enable_if<
 	sge::sprite::detail::config::has_texture_point_size<
 		Choices
@@ -81,7 +86,8 @@ fill_texture_level_impl(
 	Iterator const _iterator,
 	sge::sprite::object<
 		Choices
-	> const &_sprite
+	> const &_sprite,
+	sge::texture::part const &
 )
 {
 	sge::sprite::detail::geometry::fill_texture_point<

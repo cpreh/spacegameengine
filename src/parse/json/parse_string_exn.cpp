@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/parse_range.hpp>
 #include <sge/parse/json/parse_string_exn.hpp>
 #include <sge/parse/json/start.hpp>
+#include <sge/src/parse/make_error_string.hpp>
 #include <fcppt/string.hpp>
 
 
@@ -54,8 +55,11 @@ sge::parse::json::parse_string_exn(
 		throw
 			sge::parse::parse_exception(
 				ret.result_code(),
-				*ret.error_string()
+				sge::parse::make_error_string(
+					ret
+				)
 			);
 
-	return result;
+	return
+		result;
 }

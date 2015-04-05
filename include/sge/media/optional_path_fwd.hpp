@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_AUDIO_OPTIONAL_PATH_FWD_HPP_INCLUDED
-#define SGE_AUDIO_OPTIONAL_PATH_FWD_HPP_INCLUDED
+#ifndef SGE_MEDIA_OPTIONAL_PATH_FWD_HPP_INCLUDED
+#define SGE_MEDIA_OPTIONAL_PATH_FWD_HPP_INCLUDED
 
 #include <fcppt/optional_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
-namespace audio
+namespace media
 {
 
 typedef

@@ -21,29 +21,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/config/plugin_path.hpp>
 #include <sge/src/systems/extract_config.hpp>
 #include <sge/src/systems/extract_plugin_path.hpp>
-#include <sge/systems/config.hpp>
 #include <sge/systems/plugin_path.hpp>
 #include <sge/systems/detail/any_map.hpp>
+#include <fcppt/from_optional.hpp>
 
 
 sge::systems::plugin_path
 sge::systems::extract_plugin_path(
-	sge::systems::detail::any_map const &_param
+	sge::systems::detail::any_map const &_map
 )
 {
-	sge::systems::config const config(
-		sge::systems::extract_config(
-			_param
-		)
-	);
-
 	return
-		config.plugin_path()
-		?
-			*config.plugin_path()
-		:
-			sge::systems::plugin_path(
-				sge::config::plugin_path()
-			)
-		;
+		fcppt::from_optional(
+			sge::systems::extract_config(
+				_map
+			).plugin_path(),
+			[]{
+				return
+					sge::systems::plugin_path(
+						sge::config::plugin_path()
+					);
+			}
+		);
 }

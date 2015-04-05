@@ -120,6 +120,7 @@ set(
 	src/camera/has_mutable_coordinate_system.cpp
 	src/camera/has_mutable_projection.cpp
 	src/camera/include/sge/src/camera/logger.hpp
+	src/camera/include/sge/src/camera/set_pressed_if_appropriate.hpp
 	src/camera/is_dynamic.cpp
 	src/camera/log_location.cpp
 	src/camera/logger.cpp
@@ -134,6 +135,7 @@ set(
 	src/camera/ortho_freelook/parameters.cpp
 	src/camera/ortho_freelook/projection_rectangle_from_viewport.cpp
 	src/camera/perspective_projection_from_viewport.cpp
+	src/camera/set_pressed_if_appropriate.cpp
 	src/camera/spherical/action/mapping.cpp
 	src/camera/spherical/action/wasd_mapping.cpp
 	src/camera/spherical/coordinate_system/homogenous.cpp

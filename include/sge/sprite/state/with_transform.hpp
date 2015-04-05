@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/renderer/state/ffp/transform/object.hpp>
-#include <sge/renderer/state/ffp/transform/object_unique_ptr.hpp>
+#include <sge/renderer/state/ffp/transform/optional_object_unique_ptr_fwd.hpp>
 #include <sge/sprite/detail/symbol.hpp>
 #include <sge/sprite/state/with_transform_fwd.hpp>
 #include <sge/sprite/state/roles/transform.hpp>
@@ -54,7 +54,7 @@ struct with_transform
 
 	SGE_SPRITE_DETAIL_SYMBOL
 	static
-	sge::renderer::state::ffp::transform::object_unique_ptr
+	sge::renderer::state::ffp::transform::optional_object_unique_ptr
 	make(
 		sge::renderer::device::ffp &,
 		sge::renderer::context::ffp &

@@ -21,10 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_GEOMETRY_RENDER_PART_TEXTURE_LEVEL_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_GEOMETRY_RENDER_PART_TEXTURE_LEVEL_HPP_INCLUDED
 
+#include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/sprite/object_impl.hpp>
+#include <sge/sprite/detail/geometry/deref_texture.hpp>
 #include <sge/sprite/detail/roles/texture.hpp>
 #include <sge/sprite/roles/texture.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <fcppt/optional_bind_construct.hpp>
 
 
 namespace sge
@@ -89,11 +92,21 @@ public:
 				Level::value
 			>
 		>(
-			part
-			?
-				&part->texture()
-			:
-				nullptr
+			fcppt::optional_bind_construct(
+				part,
+				[](
+					typename
+					object::texture_type::value_type const &_texture
+				)
+				->
+				sge::renderer::texture::planar const &
+				{
+					return
+						sge::sprite::detail::geometry::deref_texture(
+							_texture
+						).texture();
+				}
+			)
 		);
 	}
 private:

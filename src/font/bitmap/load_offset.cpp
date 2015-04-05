@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/element_vector.hpp>
 #include <sge/parse/json/find_member_exn.hpp>
-#include <sge/parse/json/get.hpp>
+#include <sge/parse/json/get_exn.hpp>
 #include <sge/parse/json/int_type.hpp>
 #include <sge/parse/json/member_map.hpp>
 #include <sge/parse/json/object.hpp>
@@ -59,7 +59,7 @@ sge::font::bitmap::load_offset(
 			sge::parse::json::convert::to_int<
 				sge::font::unit
 			>(
-				sge::parse::json::get<
+				sge::parse::json::get_exn<
 					sge::parse::json::int_type
 				>(
 					elements[0]
@@ -68,7 +68,7 @@ sge::font::bitmap::load_offset(
 			sge::parse::json::convert::to_int<
 				sge::font::unit
 			>(
-				sge::parse::json::get<
+				sge::parse::json::get_exn<
 					sge::parse::json::int_type
 				>(
 					elements[1]

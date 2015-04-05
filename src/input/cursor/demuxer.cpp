@@ -27,11 +27,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/move_callback.hpp>
 #include <sge/input/cursor/move_event.hpp>
 #include <sge/input/cursor/no_object.hpp>
+#include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/optional_object_ref.hpp>
 #include <sge/input/cursor/optional_position.hpp>
 #include <sge/input/cursor/remove_event.hpp>
 #include <sge/input/cursor/scroll_callback.hpp>
 #include <sge/input/cursor/scroll_event_fwd.hpp>
+#include <fcppt/maybe.hpp>
+#include <fcppt/optional_bind.hpp>
+#include <fcppt/optional_to_exception.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
@@ -130,11 +134,16 @@ sge::input::cursor::optional_position const
 sge::input::cursor::demuxer::position() const
 {
 	return
-		this->current_cursor()
-		?
-			this->current_cursor()->position()
-		:
-			sge::input::cursor::optional_position();
+		fcppt::optional_bind(
+			this->current_cursor(),
+			[](
+				sge::input::cursor::object const &_cursor
+			)
+			{
+				return
+					_cursor.position();
+			}
+		);
 }
 
 void
@@ -142,20 +151,22 @@ sge::input::cursor::demuxer::mode(
 	sge::input::cursor::mode const _mode
 )
 {
-	if(
-		this->current_cursor()
-	)
-		this->current_cursor()->mode(
-			_mode
-		);
-	else
-		throw sge::input::cursor::no_object();
+	fcppt::optional_to_exception(
+		this->current_cursor(),
+		[]{
+			return
+				sge::input::cursor::no_object();
+		}
+	).mode(
+		_mode
+	);
 }
 
 sge::input::cursor::optional_object_ref const
 sge::input::cursor::demuxer::current_cursor() const
 {
-	return current_cursor_;
+	return
+		current_cursor_;
 }
 
 void
@@ -222,49 +233,55 @@ sge::input::cursor::demuxer::assign_cursor()
 			cursors_
 		);
 
-	if(
-		!current_cursor_
-	)
-	{
-		cursor_connections_.clear();
-
-		return;
-	}
-
-	cursor_connections_ =
-		fcppt::assign::make_container<
-			fcppt::signal::auto_connection_container
-		>(
-			current_cursor_->button_callback(
-				std::bind(
-					&sge::input::cursor::demuxer::button_callback_internal,
-					this,
-					std::placeholders::_1
-				)
-			)
+	fcppt::maybe(
+		current_cursor_,
+		[
+			this
+		]{
+			cursor_connections_.clear();
+		},
+		[
+			this
+		](
+			sge::input::cursor::object &_cursor
 		)
-		(
-			current_cursor_->move_callback(
-				std::bind(
-					&sge::input::cursor::demuxer::move_callback_internal,
-					this,
-					std::placeholders::_1
+		{
+			cursor_connections_ =
+				fcppt::assign::make_container<
+					fcppt::signal::auto_connection_container
+				>(
+					_cursor.button_callback(
+						std::bind(
+							&sge::input::cursor::demuxer::button_callback_internal,
+							this,
+							std::placeholders::_1
+						)
+					)
 				)
-			)
-		)
-		(
-			current_cursor_->scroll_callback(
-				std::bind(
-					&sge::input::cursor::demuxer::scroll_callback_internal,
-					this,
-					std::placeholders::_1
+				(
+					_cursor.move_callback(
+						std::bind(
+							&sge::input::cursor::demuxer::move_callback_internal,
+							this,
+							std::placeholders::_1
+						)
+					)
 				)
-			)
-		);
+				(
+					_cursor.scroll_callback(
+						std::bind(
+							&sge::input::cursor::demuxer::scroll_callback_internal,
+							this,
+							std::placeholders::_1
+						)
+					)
+				);
 
-	move_signal_(
-		sge::input::cursor::move_event(
-			this->position()
-		)
+				move_signal_(
+					sge::input::cursor::move_event(
+						this->position()
+					)
+				);
+		}
 	);
 }

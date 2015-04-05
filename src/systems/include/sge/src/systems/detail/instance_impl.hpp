@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/input/mouse/device_fwd.hpp>
 #include <sge/log/option_container.hpp>
-#include <sge/parse/ini/start_fwd.hpp>
+#include <sge/parse/ini/optional_start_fwd.hpp>
 #include <sge/plugin/cache.hpp>
 #include <sge/plugin/manager.hpp>
 #include <sge/renderer/core_fwd.hpp>
@@ -61,8 +61,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/viewport/manager_fwd.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
-#include <awl/main/scoped_output_unique_ptr.hpp>
+#include <awl/main/optional_scoped_output_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/optional_decl.hpp>
 
 
 namespace sge
@@ -93,7 +94,7 @@ public:
 	void
 	init_renderer_system(
 		sge::systems::detail::renderer const &,
-		sge::parse::ini::start const &,
+		sge::parse::ini::optional_start const &,
 		sge::log::option_container const &
 	);
 
@@ -194,7 +195,7 @@ public:
 	sge::viewport::manager &
 	viewport_manager() const;
 private:
-	awl::main::scoped_output_unique_ptr const scoped_output_;
+	awl::main::optional_scoped_output_unique_ptr const scoped_output_;
 	// Almost all plugins need to be unloaded last. If, for example,
 	// libGL.so is unloaded before the X window will be destroyed, then the
 	// unloading will crash.
@@ -202,23 +203,77 @@ private:
 
 	sge::plugin::manager plugin_manager_;
 
-	sge::systems::modules::window::system_unique_ptr window_system_;
+	typedef
+	fcppt::optional<
+		sge::systems::modules::window::system_unique_ptr
+	>
+	optional_window_system;
 
-	sge::systems::modules::renderer::system_unique_ptr renderer_system_;
+	optional_window_system window_system_;
 
-	sge::systems::modules::window::object_unique_ptr window_object_;
+	typedef
+	fcppt::optional<
+		sge::systems::modules::renderer::system_unique_ptr
+	>
+	optional_renderer_system;
 
-	sge::systems::modules::renderer::device_unique_ptr renderer_device_;
+	optional_renderer_system renderer_system_;
 
-	sge::systems::modules::input::object_unique_ptr input_;
+	typedef
+	fcppt::optional<
+		sge::systems::modules::window::object_unique_ptr
+	>
+	optional_window_object;
 
-	sge::systems::modules::audio::loader_unique_ptr audio_loader_;
+	optional_window_object window_object_;
 
-	sge::systems::modules::audio::player_unique_ptr audio_player_;
+	typedef
+	fcppt::optional<
+		sge::systems::modules::renderer::device_unique_ptr
+	>
+	optional_renderer_device;
 
-	sge::systems::modules::image2d::object_unique_ptr image2d_;
+	optional_renderer_device renderer_device_;
 
-	sge::systems::modules::font::object_unique_ptr font_;
+	typedef
+	fcppt::optional<
+		sge::systems::modules::input::object_unique_ptr
+	>
+	optional_input;
+
+	optional_input input_;
+
+	typedef
+	fcppt::optional<
+		sge::systems::modules::audio::loader_unique_ptr
+	>
+	optional_audio_loader;
+
+	optional_audio_loader audio_loader_;
+
+	typedef
+	fcppt::optional<
+		sge::systems::modules::audio::player_unique_ptr
+	>
+	optional_audio_player;
+
+	optional_audio_player audio_player_;
+
+	typedef
+	fcppt::optional<
+		sge::systems::modules::image2d::object_unique_ptr
+	>
+	optional_image2d;
+
+	optional_image2d image2d_;
+
+	typedef
+	fcppt::optional<
+		sge::systems::modules::font::object_unique_ptr
+	>
+	optional_font;
+
+	optional_font font_;
 };
 
 }

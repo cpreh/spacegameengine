@@ -23,11 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/spherical/coordinate_system/null.hpp>
 #include <sge/camera/spherical/coordinate_system/to_camera_coordinate_system.hpp>
 #include <sge/input/keyboard/device.hpp>
-#include <sge/input/keyboard/key_event.hpp>
+#include <sge/input/keyboard/key_event_fwd.hpp>
 #include <sge/input/mouse/axis_event.hpp>
 #include <sge/input/mouse/device.hpp>
 #include <sge/renderer/vector4.hpp>
-#include <fcppt/assert/pre.hpp>
+#include <sge/src/camera/set_pressed_if_appropriate.hpp>
+#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/math/clamp.hpp>
 #include <fcppt/math/pi.hpp>
 #include <fcppt/math/matrix/rotation_axis.hpp>
@@ -112,11 +113,10 @@ sge::camera::spherical::object::coordinate_system() const
 sge::camera::projection_matrix const
 sge::camera::spherical::object::projection_matrix() const
 {
-	FCPPT_ASSERT_PRE(
-		projection_matrix_);
-
 	return
-		*projection_matrix_;
+		FCPPT_ASSERT_OPTIONAL_ERROR(
+			projection_matrix_
+		);
 }
 
 void
@@ -229,50 +229,41 @@ direction_from_booleans(
 						0.0f;
 }
 
-void
-set_pressed_if_appropriate(
-	sge::input::keyboard::optional_key_code const &_optional_key,
-	bool &b,
-	sge::input::keyboard::key_event const &_key_event)
-{
-	if(_optional_key && (*_optional_key) == _key_event.key_code())
-		b = _key_event.pressed();
-}
 }
 
 void
 sge::camera::spherical::object::key_callback(
 	sge::input::keyboard::key_event const &_key_event)
 {
-	set_pressed_if_appropriate(
-		action_mapping_.increase_azimuth().get(),
-		increase_azimuth_pressed_,
-		_key_event);
+	increase_azimuth_pressed_ =
+		sge::camera::set_pressed_if_appropriate(
+			action_mapping_.increase_azimuth().get(),
+			_key_event);
 
-	set_pressed_if_appropriate(
-		action_mapping_.decrease_azimuth().get(),
-		decrease_azimuth_pressed_,
-		_key_event);
+	decrease_azimuth_pressed_ =
+		sge::camera::set_pressed_if_appropriate(
+			action_mapping_.decrease_azimuth().get(),
+			_key_event);
 
-	set_pressed_if_appropriate(
-		action_mapping_.increase_inclination().get(),
-		increase_inclination_pressed_,
-		_key_event);
+	increase_inclination_pressed_ =
+		sge::camera::set_pressed_if_appropriate(
+			action_mapping_.increase_inclination().get(),
+			_key_event);
 
-	set_pressed_if_appropriate(
-		action_mapping_.decrease_inclination().get(),
-		decrease_inclination_pressed_,
-		_key_event);
+	decrease_inclination_pressed_ =
+		sge::camera::set_pressed_if_appropriate(
+			action_mapping_.decrease_inclination().get(),
+			_key_event);
 
-	set_pressed_if_appropriate(
-		action_mapping_.increase_radius().get(),
-		increase_radius_pressed_,
-		_key_event);
+	increase_radius_pressed_ =
+		sge::camera::set_pressed_if_appropriate(
+			action_mapping_.increase_radius().get(),
+			_key_event);
 
-	set_pressed_if_appropriate(
-		action_mapping_.decrease_radius().get(),
-		decrease_radius_pressed_,
-		_key_event);
+	decrease_radius_pressed_ =
+		sge::camera::set_pressed_if_appropriate(
+			action_mapping_.decrease_radius().get(),
+			_key_event);
 
 	acceleration_.azimuth(
 		spherical::coordinate_system::azimuth(
