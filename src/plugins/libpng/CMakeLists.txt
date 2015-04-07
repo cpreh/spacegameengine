@@ -79,6 +79,7 @@ add_sge_plugin(
 		sgeimagecolor
 		sgeimage2d
 		sgelog
+		sgemedia
 		sgeplugin
 	ADDITIONAL_DEPS
 		${fcppt_log_TARGET}

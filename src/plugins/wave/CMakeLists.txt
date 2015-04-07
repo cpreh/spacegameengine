@@ -17,6 +17,7 @@ add_sge_plugin(
 	SGE_DEPS
 		sgeaudio
 		sgelog
+		sgemedia
 		sgeplugin
 	ADDITIONAL_DEPS
 		${fcppt_filesystem_TARGET}
