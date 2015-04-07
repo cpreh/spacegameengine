@@ -166,6 +166,7 @@ sge::opengl::buffer::hardware::bind_buffer(
 	sge::opengl::buffer::optional_id const &_id
 )
 {
+	// FIXME: Change this to actually remove bound buffers from the map
 	sge::opengl::buffer::id const id(
 		fcppt::from_optional(
 			_id,
@@ -178,7 +179,7 @@ sge::opengl::buffer::hardware::bind_buffer(
 	);
 
 	fcppt::container::get_or_insert_result<
-		sge::opengl::buffer::id &
+		sge::opengl::buffer::id const &
 	> const result(
 		fcppt::container::get_or_insert_with_result(
 			bound_buffers_,
@@ -196,14 +197,19 @@ sge::opengl::buffer::hardware::bind_buffer(
 	);
 
 	if(
-		result.element()
-		==
-		id
-		||
+		/*
 		(
-			!_id
+			!result.inserted()
 			&&
+			result.element()
+			==
+			id
+		)
+		||*/
+		(
 			result.inserted()
+			&&
+			!_id
 		)
 	)
 		return;
