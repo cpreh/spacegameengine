@@ -49,7 +49,19 @@ struct array
 	SGE_PARSE_JSON_DETAIL_SYMBOL
 	explicit
 	array(
+		sge::parse::json::element_vector &&
+	);
+
+	SGE_PARSE_JSON_DETAIL_SYMBOL
+	explicit
+	array(
 		sge::parse::json::optional_element_vector const &
+	);
+
+	SGE_PARSE_JSON_DETAIL_SYMBOL
+	explicit
+	array(
+		sge::parse::json::optional_element_vector &&
 	);
 
 	sge::parse::json::element_vector elements;

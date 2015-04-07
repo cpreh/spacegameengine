@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/platform/device_state_unique_ptr.hpp>
 #include <sge/opengl/platform/system.hpp>
-#include <sge/opengl/xrandr/system_fwd.hpp>
+#include <sge/opengl/xrandr/optional_system_unique_ptr.hpp>
 #include <sge/renderer/caps/device_count.hpp>
 #include <sge/renderer/device/index.hpp>
 #include <sge/renderer/display_mode/container.hpp>
@@ -32,9 +32,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/window/object_fwd.hpp>
 #include <awl/window/event/processor_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <memory>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -78,13 +75,7 @@ private:
 	)
 	override;
 
-	typedef
-	std::unique_ptr<
-		sge::opengl::xrandr::system
-	>
-	xrandr_unique_ptr;
-
-	xrandr_unique_ptr const xrandr_system_;
+	sge::opengl::xrandr::optional_system_unique_ptr const xrandr_system_;
 };
 
 }

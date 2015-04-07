@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_NO_ID_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_NO_ID_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
+#include <sge/opengl/texture/id.hpp>
 
 
 namespace sge
@@ -32,7 +32,7 @@ namespace texture
 {
 
 extern
-GLuint
+sge::opengl::texture::id
 const
 no_id;
 

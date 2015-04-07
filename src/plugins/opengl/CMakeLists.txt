@@ -1110,6 +1110,8 @@ set(
 	src/plugins/opengl/include/sge/opengl/xrandr/optional_extension_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/optional_system_ref.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/optional_system_ref_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/xrandr/optional_system_unique_ptr.hpp
+	src/plugins/opengl/include/sge/opengl/xrandr/optional_system_unique_ptr_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/output_info.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/outputs_view.hpp
 	src/plugins/opengl/include/sge/opengl/xrandr/refresh_rate_from_mode.hpp

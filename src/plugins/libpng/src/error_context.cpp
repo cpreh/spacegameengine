@@ -18,22 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/file_exception.hpp>
-#include <sge/image/optional_path.hpp>
+#include <sge/image2d/file_exception.hpp>
 #include <sge/libpng/error_context.hpp>
 #include <sge/libpng/logger.hpp>
 #include <sge/libpng/png.hpp>
+#include <sge/media/file_exception_string.hpp>
+#include <sge/media/optional_path.hpp>
 #include <fcppt/from_std_string.hpp>
-#include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/from_void_ptr.hpp>
-#include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/warning.hpp>
 
 
 sge::libpng::error_context::error_context(
-	sge::image::optional_path const &_path
+	sge::media::optional_path const &_path
 )
 :
 	path_(
@@ -77,24 +76,11 @@ sge::libpng::error_context::handle_warning_impl(
 	png_const_charp const _message
 )
 {
-	fcppt::string const prelude{
-		path_
-		?
-			FCPPT_TEXT("file: ")
-			+
-			fcppt::filesystem::path_to_string(
-				*path_
-			)
-		:
-			FCPPT_TEXT("stream")
-	};
-
 	FCPPT_LOG_WARNING(
 		sge::libpng::logger(),
-		fcppt::log::_
-			<< prelude
-			<< FCPPT_TEXT(": ")
-			<< fcppt::from_std_string(
+		fcppt::log::_ <<
+			sge::media::file_exception_string(
+				path_,
 				_message
 			)
 	);
@@ -106,7 +92,7 @@ sge::libpng::error_context::handle_error_impl(
 )
 {
 	throw
-		sge::image::file_exception(
+		sge::image2d::file_exception(
 			path_,
 			fcppt::from_std_string(
 				_message

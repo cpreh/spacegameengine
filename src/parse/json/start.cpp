@@ -23,6 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/start.hpp>
 #include <sge/parse/json/start_variant.hpp>
 #include <fcppt/variant/get_exn.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::parse::json::start::start()
@@ -41,6 +44,18 @@ sge::parse::json::start::start(
 :
 	variant(
 		_variant
+	)
+{
+}
+
+sge::parse::json::start::start(
+	sge::parse::json::start_variant &&_variant
+)
+:
+	variant(
+		std::move(
+			_variant
+		)
 	)
 {
 }

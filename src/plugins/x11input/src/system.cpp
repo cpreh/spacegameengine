@@ -26,15 +26,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/system_fwd.hpp>
 #include <sge/x11input/lc_ctype.hpp>
 #include <sge/x11input/logger.hpp>
-#include <sge/x11input/optional_opcode.hpp>
 #include <sge/x11input/processor.hpp>
 #include <sge/x11input/scoped_locale.hpp>
 #include <sge/x11input/system.hpp>
 #include <sge/x11input/xi_opcode.hpp>
 #include <sge/x11input/xi_version.hpp>
+#include <awl/backends/x11/system/event/opcode.hpp>
 #include <awl/backends/x11/window/object.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/optional_to_exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/static_downcast.hpp>
 #include <fcppt/log/_.hpp>
@@ -66,18 +67,19 @@ sge::x11input::system::create_processor(
 		)
 	);
 
-	sge::x11input::optional_opcode const opcode(
-		sge::x11input::xi_opcode(
-			x11_window.display()
+	awl::backends::x11::system::event::opcode const opcode(
+		fcppt::optional_to_exception(
+			sge::x11input::xi_opcode(
+				x11_window.display()
+			),
+			[]{
+				return
+					sge::input::exception{
+						FCPPT_TEXT("X Input extension not available! Please install libXi!")
+					};
+			}
 		)
 	);
-
-	if(
-		!opcode
-	)
-		throw sge::input::exception(
-			FCPPT_TEXT("X Input extension not available! Please install libXi!")
-		);
 
 	// The first supported version we ask for and that is supported will be used
 	if(
@@ -141,7 +143,7 @@ sge::x11input::system::create_processor(
 			>(
 				_window,
 				_window_system,
-				*opcode
+				opcode
 			)
 		);
 }

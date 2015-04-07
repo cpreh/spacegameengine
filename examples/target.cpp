@@ -287,11 +287,13 @@ try
 			sprite_object::vector::null()
 		)
 		.texture(
-			fcppt::make_shared_ptr<
-				sge::texture::part_raw_ref
-			>(
-				*target_texture
-			)
+			sprite_object::texture_type{
+				fcppt::make_shared_ptr<
+					sge::texture::part_raw_ref
+				>(
+					*target_texture
+				)
+			}
 		)
 		.texture_size()
 	);
@@ -306,11 +308,13 @@ try
 				)
 			)
 			.texture(
-				fcppt::make_shared_ptr<
-					sge::texture::part_raw_ref
-				>(
-					*image_texture
-				)
+				sprite_object::texture_type{
+					fcppt::make_shared_ptr<
+						sge::texture::part_raw_ref
+					>(
+						*image_texture
+					)
+				}
 			)
 			.texture_size()
 		);
@@ -324,11 +328,13 @@ try
 				)
 			)
 			.texture(
-				fcppt::make_shared_ptr<
-					sge::texture::part_raw_ref
-				>(
-					*image_texture
-				)
+				sprite_object::texture_type{
+					fcppt::make_shared_ptr<
+						sge::texture::part_raw_ref
+					>(
+						*image_texture
+					)
+				}
 			)
 			.texture_size()
 		);

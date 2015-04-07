@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_LIBPNG_WRITE_CONTEXT_HPP_INCLUDED
 #define SGE_LIBPNG_WRITE_CONTEXT_HPP_INCLUDED
 
-#include <sge/image/optional_path.hpp>
 #include <sge/libpng/png.hpp>
 #include <sge/libpng/write_ptr_fwd.hpp>
+#include <sge/media/optional_path.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iosfwd>
@@ -42,14 +42,14 @@ class write_context
 	);
 public:
 	write_context(
-		sge::image::optional_path const &,
+		sge::media::optional_path const &,
 		std::ostream &,
 		sge::libpng::write_ptr const &
 	);
 
 	~write_context();
 private:
-	sge::image::optional_path const path_;
+	sge::media::optional_path const path_;
 
 	std::ostream &stream_;
 

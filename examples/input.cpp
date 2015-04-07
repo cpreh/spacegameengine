@@ -42,6 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/move_event.hpp>
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/optional_position.hpp>
+#include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/remove_callback.hpp>
 #include <sge/input/cursor/remove_event.hpp>
 #include <sge/input/cursor/scroll_code_to_string.hpp>
@@ -132,8 +133,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context.hpp>
 #include <fcppt/exception.hpp>
+#include <fcppt/from_optional.hpp>
 #include <fcppt/from_std_wstring.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
+#include <fcppt/maybe.hpp>
 #include <fcppt/optional_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
@@ -647,32 +650,41 @@ output_optional_string(
 )
 {
 	return
-		_name
-		?
-			*_name
-		:
-			fcppt::string(
-				FCPPT_TEXT("unnamed")
-			)
-		;
+		fcppt::from_optional(
+			_name,
+			[]{
+				return
+					fcppt::string(
+						FCPPT_TEXT("unnamed")
+					);
+			}
+		);
 }
 
 fcppt::string
 output_optional_position(
-	sge::input::cursor::optional_position const &_position
+	sge::input::cursor::optional_position const &_opt_position
 )
 {
 	return
-		_position
-		?
-			fcppt::insert_to_fcppt_string(
-				*_position
+		fcppt::maybe(
+			_opt_position,
+			[]{
+				return
+					fcppt::string(
+						FCPPT_TEXT("none")
+					);
+			},
+			[](
+				sge::input::cursor::position const _position
 			)
-		:
-			fcppt::string(
-				FCPPT_TEXT("none")
-			)
-		;
+			{
+				return
+					fcppt::insert_to_fcppt_string(
+						_position
+					);
+			}
+		);
 }
 
 void

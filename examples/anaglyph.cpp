@@ -154,6 +154,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/io/cerr.hpp>
@@ -328,18 +329,22 @@ compiled_model::compiled_model(
 				_model.part_names().front());
 
 		// Here, we assume that the model has normals (notice the operator*)
-		sge::model::md3::normal_sequence const model_normals =
-			*_model.normals(
-				_model.part_names().front());
+		sge::model::md3::normal_sequence const model_normals(
+			FCPPT_ASSERT_OPTIONAL_ERROR(
+				_model.normals(
+					_model.part_names().front()
+				)
+			)
+		);
 
 		sge::model::md3::normal_sequence::const_iterator current_model_normal =
 			model_normals.begin();
 
 		for(
-			sge::model::md3::vertex_sequence::const_iterator current_model_vertex =
-				model_vertices.begin();
-			current_model_vertex != model_vertices.end();
-			++current_model_vertex)
+			auto const &model_vertex
+			:
+			model_vertices
+		)
 		{
 			(*current_vertex).set<
 				vf::position
@@ -348,7 +353,7 @@ compiled_model::compiled_model(
 					vf::position::packed_type,
 					fcppt::cast::size_fun
 				>(
-					*current_model_vertex
+					model_vertex
 				)
 			);
 
@@ -782,7 +787,8 @@ try
 				return awl::main::exit_failure();
 			}
 
-			eye_distance = *opt_eye_distance;
+			// TODO: Improve this!
+			eye_distance = opt_eye_distance.get_unsafe();
 		}
 
 		if(_main_function_context.argc() == 3)
@@ -804,7 +810,8 @@ try
 				return awl::main::exit_failure();
 			}
 
-			focal_length = *opt_focal_length;
+			// TODO: Improve this!
+			focal_length = opt_focal_length.get_unsafe();
 		}
 	}
 

@@ -81,11 +81,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context.hpp>
 #include <awl/main/function_context_fwd.hpp>
+#include <fcppt/const.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/extract_from_string_exn.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/maybe.hpp>
+#include <fcppt/maybe_void.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/int_to_float.hpp>
 #include <fcppt/container/tree/depth.hpp>
 #include <fcppt/io/cerr.hpp>
@@ -100,7 +104,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/random/generator/seed_from_chrono.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
-#include <fcppt/variant/holds_type.hpp>
+#include <fcppt/variant/get_exn.hpp>
+#include <fcppt/variant/to_optional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <chrono>
 #include <example_main.hpp>
@@ -183,13 +188,13 @@ create_sprite(
 {
 	return
 		sprite_object(
-				sprite_parameters()
-					.pos(
-						_rect.pos())
-					.color(
-							_color)
-					.size(
-						_rect.size()));
+			sprite_parameters()
+				.pos(
+					_rect.pos())
+				.color(
+						_color)
+				.size(
+					_rect.size()));
 }
 
 class bvh_traverser
@@ -222,42 +227,83 @@ public:
 	sprite_sequence const
 	sprites() const
 	{
-		FCPPT_ASSERT_PRE(
-			current_tree_);
+		bvh_tree_traits::tree_representation const &tree(
+			FCPPT_ASSERT_OPTIONAL_ERROR(
+				current_tree_
+			)
+		);
 
 		sprite_sequence result;
 
 		// First, render the background
 		result.push_back(
 			create_sprite(
-				current_tree_->value().get<bvh_tree_traits::node_wrapper>().bounding_box(),
+				fcppt::variant::get_exn<
+					bvh_tree_traits::node_wrapper
+				>(
+					tree.value()
+				).bounding_box(),
 				sge::image::color::rgba8_from_hex_string(
 					std::string(
 						"2e2621"),
 					255)));
 
-		if(fcppt::variant::holds_type<bvh_tree_traits::node_wrapper>(current_tree_->front().value()))
-			result.push_back(
-				create_sprite(
-					current_tree_->front().value().get<bvh_tree_traits::node_wrapper>().bounding_box(),
-					sge::image::color::rgba8_from_hex_string(
-						std::string(
-							"bee8e0"),
-						255)));
+		fcppt::maybe_void(
+			fcppt::variant::to_optional<
+				bvh_tree_traits::node_wrapper
+			>(
+				tree.front().value()
+			),
+			[
+				&result
+			](
+				bvh_tree_traits::node_wrapper const &_wrapper
+			)
+			{
+				result.push_back(
+					create_sprite(
+						_wrapper.bounding_box(),
+						sge::image::color::rgba8_from_hex_string(
+							std::string(
+								"bee8e0"
+							),
+							255
+						)
+					)
+				);
+			}
+		);
 
-		if(fcppt::variant::holds_type<bvh_tree_traits::node_wrapper>(current_tree_->back().value()))
-			result.push_back(
-				create_sprite(
-					current_tree_->back().value().get<bvh_tree_traits::node_wrapper>().bounding_box(),
-					sge::image::color::rgba8_from_hex_string(
-						std::string(
-							"ff5e00"),
-						255)));
+		fcppt::maybe_void(
+			fcppt::variant::to_optional<
+				bvh_tree_traits::node_wrapper
+			>(
+				tree.back().value()
+			),
+			[
+				&result
+			](
+				bvh_tree_traits::node_wrapper const &_wrapper
+			)
+			{
+				result.push_back(
+					create_sprite(
+						_wrapper.bounding_box(),
+						sge::image::color::rgba8_from_hex_string(
+							std::string(
+								"ff5e00"
+							),
+							255
+						)
+					)
+				);
+			}
+		);
 
 		// Then add the children
 		this->add_children(
 			result,
-			current_tree_->front(),
+			tree.front(),
 			sge::image::color::rgba8_from_hex_string(
 				std::string(
 					"373c40"),
@@ -266,7 +312,7 @@ public:
 		// Then add the children
 		this->add_children(
 			result,
-			current_tree_->back(),
+			tree.back(),
 			sge::image::color::rgba8_from_hex_string(
 				std::string(
 					"73320b"),
@@ -284,8 +330,11 @@ private:
 	keyboard_callback(
 		sge::input::keyboard::key_event const &_event)
 	{
-		FCPPT_ASSERT_PRE(
-			current_tree_);
+		bvh_tree_traits::tree_representation const &tree(
+			FCPPT_ASSERT_OPTIONAL_ERROR(
+				current_tree_
+			)
+		);
 
 		if(!_event.pressed())
 			return;
@@ -297,34 +346,58 @@ private:
 			case sge::input::keyboard::key_code::left:
 				new_tree =
 					bvh_tree_traits::tree_representation::const_optional_ref(
-						current_tree_->front());
+						tree.front());
 				break;
 			case sge::input::keyboard::key_code::right:
 				new_tree =
 					bvh_tree_traits::tree_representation::const_optional_ref(
-						 current_tree_->back());
+						 tree.back());
 				break;
 			case sge::input::keyboard::key_code::up:
 				new_tree =
 					bvh_tree_traits::tree_representation::const_optional_ref(
-						current_tree_->front());
+						tree.front());
 				break;
 			case sge::input::keyboard::key_code::down:
 				new_tree =
 					bvh_tree_traits::tree_representation::const_optional_ref(
-						current_tree_->back());
+						tree.back());
 				break;
 			case sge::input::keyboard::key_code::p:
-				if(current_tree_->has_parent())
-					new_tree =
-						bvh_tree_traits::tree_representation::const_optional_ref(
-							current_tree_->parent());
+				fcppt::maybe_void(
+					tree.parent(),
+					[
+						&new_tree
+					](
+						bvh_tree_traits::tree_representation const &_parent
+					)
+					{
+						new_tree =
+							bvh_tree_traits::tree_representation::const_optional_ref(
+								_parent
+							);
+					}
+				);
 				break;
 			default:
 				break;
 		}
 
-		if(!new_tree || new_tree->empty())
+		if(
+			fcppt::maybe(
+				new_tree,
+				fcppt::const_(
+					true
+				),
+				[](
+					bvh_tree_traits::tree_representation const &_new_tree
+				)
+				{
+					return
+						_new_tree.empty();
+				}
+			)
+		)
 			return;
 
 		current_tree_ =
@@ -350,14 +423,20 @@ private:
 		else
 		{
 			for(
-				bvh_tree_traits::leaf_wrapper_sequence::const_iterator it =
-					_tree.value().get<bvh_tree_traits::leaf_wrapper_sequence>().begin();
-				it != _tree.value().get<bvh_tree_traits::leaf_wrapper_sequence>().end();
-				++it)
+				auto const &elem
+				:
+				fcppt::variant::get_exn<
+					bvh_tree_traits::leaf_wrapper_sequence
+				>(
+					_tree.value()
+				)
+			)
 				_sprites.push_back(
 					create_sprite(
-						it->value(),
-						_color));
+						elem.value(),
+						_color
+					)
+				);
 		}
 	}
 };

@@ -265,18 +265,22 @@ try
 			sprite_object::vector::null()
 		)
 		.texture_level<0>(
-			fcppt::make_shared_ptr<
-				sge::texture::part_raw_ref
-			>(
-				*texture1
-			)
+			sprite_object::texture_type{
+				fcppt::make_shared_ptr<
+					sge::texture::part_raw_ref
+				>(
+					*texture1
+				)
+			}
 		)
 		.texture_level<1>(
-			fcppt::make_shared_ptr<
-				sge::texture::part_raw_ref
-			>(
-				*texture2
-			)
+			sprite_object::texture_type{
+				fcppt::make_shared_ptr<
+					sge::texture::part_raw_ref
+				>(
+					*texture2
+				)
+			}
 		)
 		.texture_size()
 	);

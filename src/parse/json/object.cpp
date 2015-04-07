@@ -21,6 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/member_map.hpp>
 #include <sge/parse/json/object.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::parse::json::object::object()
@@ -30,11 +33,23 @@ sge::parse::json::object::object()
 }
 
 sge::parse::json::object::object(
-	json::member_map const &_members
+	sge::parse::json::member_map const &_members
 )
 :
 	members(
 		_members
+	)
+{
+}
+
+sge::parse::json::object::object(
+	sge::parse::json::member_map &&_members
+)
+:
+	members(
+		std::move(
+			_members
+		)
 	)
 {
 }

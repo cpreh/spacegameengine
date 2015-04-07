@@ -25,10 +25,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/pango/freetype/make_bitmap.hpp>
 #include <mizuiro/nonconst_tag.hpp>
 #include <mizuiro/image/view_impl.hpp>
+#include <fcppt/optional_to_exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
-#include <fcppt/variant/holds_type.hpp>
+#include <fcppt/variant/to_optional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <ft2build.h>
 #include FT_IMAGE_H
@@ -47,21 +48,20 @@ sge::pango::freetype::make_bitmap(
 		mizuiro::nonconst_tag
 	>::type a8_view;
 
-	if(
-		!fcppt::variant::holds_type<
-			a8_view
-		>(
-			_view.get()
-		)
-	)
-		throw sge::font::exception(
-			FCPPT_TEXT("Only a8 views are currently supported by sge::pango!")
-		);
-
 	a8_view const &view(
-		_view.get().get<
-			a8_view
-		>()
+		fcppt::optional_to_exception(
+			fcppt::variant::to_optional<
+				a8_view
+			>(
+				_view.get()
+			),
+			[]{
+				return
+					sge::font::exception{
+						FCPPT_TEXT("Only a8 views are currently supported by sge::pango!")
+					};
+			}
+		)
 	);
 
 	unsigned const width(

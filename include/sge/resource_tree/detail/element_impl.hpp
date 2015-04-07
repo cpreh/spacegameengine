@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/resource_tree/detail/element_decl.hpp>
 #include <sge/resource_tree/detail/path_with_resource_impl.hpp>
 #include <fcppt/optional_impl.hpp>
+#include <fcppt/optional_to_exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/throw.hpp>
 #include <fcppt/random/variate_impl.hpp>
@@ -110,25 +111,24 @@ sge::resource_tree::detail::element<
 	sge::resource_tree::path const &_path
 ) const
 {
-	optional_type const result(
-		this->get_opt(
-			_path
-		)
-	);
-
-	if(
-		!result
-	)
-		throw sge::resource_tree::exception(
-			FCPPT_TEXT("Path ")
-			+
-			_path.string()
-			+
-			FCPPT_TEXT(" not found!")
-		);
-
 	return
-		*result;
+		fcppt::optional_to_exception(
+			this->get_opt(
+				_path
+			),
+			[
+				&_path
+			]{
+				return
+					sge::resource_tree::exception{
+						FCPPT_TEXT("Path ")
+						+
+						_path.string()
+						+
+						FCPPT_TEXT(" not found!")
+					};
+			}
+		);
 }
 
 template<
@@ -180,7 +180,9 @@ sge::resource_tree::detail::element<
 ) const
 {
 	for(
-		auto const &cur : resources_
+		auto const &cur
+		:
+		resources_
 	)
 		if(
 			(

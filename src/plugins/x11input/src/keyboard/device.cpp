@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/input/keyboard/key_repeat_event.hpp>
 #include <sge/input/keyboard/mod_state.hpp>
-#include <sge/input/keyboard/optional_modifier.hpp>
+#include <sge/input/keyboard/modifier.hpp>
 #include <sge/input/keyboard/to_modifier.hpp>
 #include <sge/x11input/device/parameters.hpp>
 #include <sge/x11input/device/window_demuxer.hpp>
@@ -38,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/system/event/processor.hpp>
 #include <awl/backends/x11/window/object.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/maybe_void.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/auto_connection_container.hpp>
@@ -240,16 +241,20 @@ sge::x11input::keyboard::device::update_modifiers(
 	bool const _pressed
 )
 {
-	sge::input::keyboard::optional_modifier const mod(
+	fcppt::maybe_void(
 		sge::input::keyboard::to_modifier(
 			_key_code
+		),
+		[
+			this,
+			_pressed
+		](
+			sge::input::keyboard::modifier const &_mod
 		)
+		{
+			modifiers_[
+				_mod
+			] = _pressed;
+		}
 	);
-
-	if(
-		mod
-	)
-		modifiers_[
-			*mod
-		] = _pressed;
 }

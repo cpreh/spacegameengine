@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_PARSE_PARSE_FILE_EXN_HPP_INCLUDED
 #define SGE_SRC_PARSE_PARSE_FILE_EXN_HPP_INCLUDED
 
+#include <sge/parse/make_error_string.hpp>
 #include <sge/parse/parse_exception.hpp>
 #include <sge/parse/result.hpp>
 #include <sge/parse/result_code.hpp>
-#include <sge/src/parse/make_error_string.hpp>
 #include <sge/src/parse/parse_file.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>

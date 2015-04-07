@@ -18,48 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/make_error_string.hpp>
-#include <sge/parse/parse_exception.hpp>
-#include <sge/parse/result.hpp>
-#include <sge/parse/result_code.hpp>
-#include <sge/parse/json/parse_range.hpp>
-#include <sge/parse/json/parse_string_exn.hpp>
-#include <sge/parse/json/start.hpp>
-#include <fcppt/string.hpp>
+#ifndef SGE_MEDIA_CHECK_EXTENSION_HPP_INCLUDED
+#define SGE_MEDIA_CHECK_EXTENSION_HPP_INCLUDED
+
+#include <sge/media/extension_fwd.hpp>
+#include <sge/media/optional_extension_fwd.hpp>
+#include <sge/media/detail/symbol.hpp>
 
 
-sge::parse::json::start
-sge::parse::json::parse_string_exn(
-	fcppt::string const &_string
-)
+namespace sge
 {
-	sge::parse::json::start result;
+namespace media
+{
 
-	fcppt::string::const_iterator current(
-		_string.begin()
-	);
+SGE_MEDIA_DETAIL_SYMBOL
+bool
+check_extension(
+	sge::media::extension const &,
+	sge::media::optional_extension const &
+);
 
-	sge::parse::result const ret(
-		sge::parse::json::parse_range(
-			current,
-			_string.end(),
-			result
-		)
-	);
-
-	if(
-		ret.result_code()
-		!=
-		sge::parse::result_code::ok
-	)
-		throw
-			sge::parse::parse_exception(
-				ret.result_code(),
-				sge::parse::make_error_string(
-					ret
-				)
-			);
-
-	return
-		result;
 }
+}
+
+#endif

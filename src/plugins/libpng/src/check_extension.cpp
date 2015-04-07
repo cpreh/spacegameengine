@@ -20,8 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/libpng/check_extension.hpp>
 #include <sge/libpng/extension.hpp>
-#include <sge/media/optional_extension.hpp>
-#include <fcppt/optional_comparison.hpp>
+#include <sge/media/check_extension.hpp>
+#include <sge/media/optional_extension_fwd.hpp>
 
 
 bool
@@ -30,11 +30,8 @@ sge::libpng::check_extension(
 )
 {
 	return
-		!_extension
-		||
-		_extension
-		==
-		sge::media::optional_extension(
-			sge::libpng::extension()
+		sge::media::check_extension(
+			sge::libpng::extension(),
+			_extension
 		);
 }

@@ -18,25 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_PARSE_MAKE_ERROR_STRING_HPP_INCLUDED
-#define SGE_SRC_PARSE_MAKE_ERROR_STRING_HPP_INCLUDED
+#ifndef SGE_OPENGL_XRANDR_OPTIONAL_SYSTEM_UNIQUE_PTR_FWD_HPP_INCLUDED
+#define SGE_OPENGL_XRANDR_OPTIONAL_SYSTEM_UNIQUE_PTR_FWD_HPP_INCLUDED
 
-#include <sge/parse/error_string.hpp>
-#include <sge/parse/result_fwd.hpp>
-#include <sge/parse/detail/symbol.hpp>
+#include <sge/opengl/xrandr/system_unique_ptr.hpp>
+#include <fcppt/optional_fwd.hpp>
 
 
 namespace sge
 {
-namespace parse
+namespace opengl
+{
+namespace xrandr
 {
 
-SGE_PARSE_DETAIL_SYMBOL
-sge::parse::error_string
-make_error_string(
-	sge::parse::result const &
-);
+typedef
+fcppt::optional<
+	sge::opengl::xrandr::system_unique_ptr
+>
+optional_system_unique_ptr;
 
+}
 }
 }
 

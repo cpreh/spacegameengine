@@ -21,14 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/exception.hpp>
 #include <sge/audio/file_exception.hpp>
 #include <sge/audio/unsupported_format.hpp>
+#include <sge/media/file_exception_string.hpp>
+#include <sge/media/optional_path.hpp>
 #include <sge/vorbis/file.hpp>
 #include <sge/vorbis/logger.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/cast/safe_numeric.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/endianness/is_little_endian.hpp>
-#include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/warning.hpp>
@@ -68,7 +70,7 @@ ogg_error(
 
 sge::vorbis::file::file(
 	stream_ptr _stdstream,
-	sge::audio::optional_path const &_file_name)
+	sge::media::optional_path const &_file_name)
 :
 	file_name_(
 		_file_name),
@@ -180,14 +182,12 @@ sge::vorbis::file::read(
 				hit_a_hole = true;
 				FCPPT_LOG_WARNING(
 					sge::vorbis::logger(),
-					fcppt::log::_
-						<< FCPPT_TEXT("Encountered corrupt vorbis data")
-						<<
-							(file_name_
-							?
-								(FCPPT_TEXT(" in file ")+(fcppt::filesystem::path_to_string(*file_name_)))
-							:
-								fcppt::string()));
+					fcppt::log::_ <<
+						sge::media::file_exception_string(
+							file_name_,
+							FCPPT_TEXT("Encountered corrupt vorbis data.")
+						)
+				);
 				break;
 			case OV_EBADLINK:
 				throw audio::file_exception(

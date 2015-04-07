@@ -52,9 +52,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/object.hpp>
 #include <sge/image2d/view/sub.hpp>
 #include <sge/input/keyboard/device.hpp>
+#include <sge/input/keyboard/digit.hpp>
 #include <sge/input/keyboard/key_code_to_digit.hpp>
 #include <sge/input/keyboard/key_event.hpp>
-#include <sge/input/keyboard/optional_digit.hpp>
 #include <sge/renderer/aspect.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/scalar.hpp>
@@ -160,6 +160,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/maybe_void.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_map.hpp>
 #include <fcppt/cast/size.hpp>
@@ -598,23 +599,25 @@ try
 			)
 		)
 		.texture(
-			sge::texture::const_part_shared_ptr(
-				fcppt::make_shared_ptr<
-					sge::texture::part_raw_ptr
-				>(
-					sge::renderer::texture::create_planar_from_view(
-						sys.renderer_device_core(),
-						sge::image2d::view::const_object(
-							whole_store.const_wrapped_view()
-						),
-						sge::renderer::texture::mipmap::all_levels(
-							sge::renderer::texture::mipmap::auto_generate::yes
-						),
-						sge::renderer::resource_flags_field::null(),
-						sge::renderer::texture::emulate_srgb::no
+			sprite_object::texture_type{
+				sge::texture::const_part_shared_ptr(
+					fcppt::make_shared_ptr<
+						sge::texture::part_raw_ptr
+					>(
+						sge::renderer::texture::create_planar_from_view(
+							sys.renderer_device_core(),
+							sge::image2d::view::const_object(
+								whole_store.const_wrapped_view()
+							),
+							sge::renderer::texture::mipmap::all_levels(
+								sge::renderer::texture::mipmap::auto_generate::yes
+							),
+							sge::renderer::resource_flags_field::null(),
+							sge::renderer::texture::emulate_srgb::no
+						)
 					)
 				)
-			)
+			}
 		)
 	);
 
@@ -653,32 +656,34 @@ try
 				)
 					return;
 
-				sge::input::keyboard::optional_digit const digit(
+				fcppt::maybe_void(
 					sge::input::keyboard::key_code_to_digit(
 						_event.key_code()
+					),
+					[
+						&filters,
+						&current_filter
+					](
+						sge::input::keyboard::digit const _digit
 					)
+					{
+						filter_array::size_type const index(
+							_digit.get() - 1u
+						);
+
+						if(
+							index
+							>=
+							filters.size()
+						)
+							return;
+
+						current_filter =
+							&filters[
+								index
+							];
+					}
 				);
-
-				if(
-					!digit
-				)
-					return;
-
-				filter_array::size_type const index(
-					digit->get() - 1u
-				);
-
-				if(
-					index
-					>=
-					filters.size()
-				)
-					return;
-
-				current_filter =
-					&filters[
-						index
-					];
 			}
 		)
 	);

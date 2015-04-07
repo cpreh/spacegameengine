@@ -47,6 +47,12 @@ struct start
 	);
 
 	SGE_PARSE_JSON_DETAIL_SYMBOL
+	explicit
+	start(
+		sge::parse::json::start_variant &&
+	);
+
+	SGE_PARSE_JSON_DETAIL_SYMBOL
 	sge::parse::json::array &
 	array();
 

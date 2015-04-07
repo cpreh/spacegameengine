@@ -24,7 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/exception.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/window/object.hpp>
+#include <fcppt/maybe.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/cast/to_signed.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/Xlib.h>
 #include <X11/extensions/Xrandr.h>
@@ -38,45 +41,60 @@ sge::opengl::xrandr::set_resolution(
 	sge::opengl::xrandr::mode const &_mode
 )
 {
-	if(
-		_mode.rate()
-	)
-	{
-		if(
-			::XRRSetScreenConfigAndRate(
-				_window.display().get(),
-				_config.get(),
-				_window.get(),
-				_mode.index(),
-				_mode.rotation(),
-				static_cast<
-					short
-				>(
-					_mode.rate()->get()
-				),
-				CurrentTime
+	fcppt::maybe(
+		_mode.rate(),
+		[
+			&_window,
+			&_config,
+			&_mode
+		]{
+			if(
+				::XRRSetScreenConfig(
+					_window.display().get(),
+					_config.get(),
+					_window.get(),
+					_mode.index(),
+					_mode.rotation(),
+					CurrentTime
+				)
+				!=
+				Success
 			)
-			!= Success
+				throw
+					sge::renderer::exception{
+						FCPPT_TEXT("Cannot change screen mode!")
+					};
+		},
+		[
+			&_window,
+			&_config,
+			&_mode
+		](
+			sge::renderer::display_mode::refresh_rate const _rate
 		)
-			throw sge::renderer::exception(
-				FCPPT_TEXT("Cannot change screen mode with rate!")
-			);
-	}
-	else
-	{
-		if(
-			::XRRSetScreenConfig(
-				_window.display().get(),
-				_config.get(),
-				_window.get(),
-				_mode.index(),
-				_mode.rotation(),
-				CurrentTime
+		{
+			if(
+				::XRRSetScreenConfigAndRate(
+					_window.display().get(),
+					_config.get(),
+					_window.get(),
+					_mode.index(),
+					_mode.rotation(),
+					fcppt::cast::size<
+						short
+					>(
+						fcppt::cast::to_signed(
+							_rate.get()
+						)
+					),
+					CurrentTime
+				)
+				!= Success
 			)
-			!= Success
-		)
-			throw sge::renderer::exception(
-				FCPPT_TEXT("Cannot change screen mode!")
-			);
-	}
+				throw
+					sge::renderer::exception{
+						FCPPT_TEXT("Cannot change screen mode with rate!")
+					};
+		}
+	);
 }

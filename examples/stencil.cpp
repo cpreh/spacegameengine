@@ -321,11 +321,13 @@ try
 			// a part of a physical texture.
 			// We don't want that here, so we use part_raw which
 			// covers the whole texture.
-			fcppt::make_shared_ptr<
-				sge::texture::part_raw_ref
-			>(
-				*texture_grass
-			)
+			sprite_object::texture_type{
+				fcppt::make_shared_ptr<
+					sge::texture::part_raw_ref
+				>(
+					*texture_grass
+				)
+			}
 		)
 		// The sprite will get the texture's size.
 		.texture_size()
@@ -341,11 +343,13 @@ try
 			sprite_object::vector::null()
 		)
 		.texture(
-			fcppt::make_shared_ptr<
-				sge::texture::part_raw_ref
-			>(
-				*texture_cloudsquare
-			)
+			sprite_object::texture_type{
+				fcppt::make_shared_ptr<
+					sge::texture::part_raw_ref
+				>(
+					*texture_cloudsquare
+				)
+			}
 		)
 		.texture_size()
 	);

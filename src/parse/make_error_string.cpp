@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/parse/error_string.hpp>
+#include <sge/parse/make_error_string.hpp>
 #include <sge/parse/result.hpp>
-#include <sge/src/parse/make_error_string.hpp>
 #include <fcppt/from_optional.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>

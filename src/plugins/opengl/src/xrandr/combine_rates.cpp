@@ -20,6 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/xrandr/combine_rates.hpp>
 #include <sge/renderer/display_mode/optional_refresh_rate.hpp>
+#include <sge/renderer/display_mode/refresh_rate.hpp>
+#include <fcppt/optional_combine.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
 #include <fcppt/config/external_end.hpp>
@@ -27,28 +29,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer::display_mode::optional_refresh_rate const
 sge::opengl::xrandr::combine_rates(
-	sge::renderer::display_mode::optional_refresh_rate const _rate_a,
-	sge::renderer::display_mode::optional_refresh_rate const _rate_b
+	sge::renderer::display_mode::optional_refresh_rate const _opt_rate_a,
+	sge::renderer::display_mode::optional_refresh_rate const _opt_rate_b
 )
 {
-	// TODO: Create a function in fcppt for this!
-	if(
-		!_rate_a
-	)
-		return
-			_rate_b;
-
-	if(
-		!_rate_b
-	)
-		return
-			_rate_a;
-
 	return
-		sge::renderer::display_mode::optional_refresh_rate(
-			std::max(
-				*_rate_a,
-				*_rate_b
+		fcppt::optional_combine(
+			_opt_rate_a,
+			_opt_rate_b,
+			[](
+				sge::renderer::display_mode::refresh_rate const _rate_a,
+				sge::renderer::display_mode::refresh_rate const _rate_b
 			)
+			{
+				return
+					std::max(
+						_rate_a,
+						_rate_b
+					);
+			}
 		);
 }

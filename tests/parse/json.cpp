@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/parse/make_error_string.hpp>
 #include <sge/parse/result.hpp>
 #include <sge/parse/result_code.hpp>
 #include <sge/parse/json/array.hpp>
@@ -144,6 +145,8 @@ FCPPT_PP_POP_WARNING
 	);
 
 	fcppt::io::cout()
-		<< *ret.error_string()
+		<< sge::parse::make_error_string(
+			ret
+		)
 		<< FCPPT_TEXT('\n');
 }

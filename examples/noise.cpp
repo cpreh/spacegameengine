@@ -328,11 +328,13 @@ try
 		>()
 		.texture_size()
 		.texture(
-			fcppt::make_shared_ptr<
-				sge::texture::part_raw_ref
-			>(
-				*noise_texture
-			)
+			sprite_object::texture_type{
+				fcppt::make_shared_ptr<
+					sge::texture::part_raw_ref
+				>(
+					*noise_texture
+				)
+			}
 		)
 	);
 

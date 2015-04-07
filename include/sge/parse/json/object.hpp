@@ -44,6 +44,12 @@ struct object
 		sge::parse::json::member_map const &
 	);
 
+	SGE_PARSE_JSON_DETAIL_SYMBOL
+	explicit
+	object(
+		sge::parse::json::member_map &&
+	);
+
 	sge::parse::json::member_map members;
 };
 

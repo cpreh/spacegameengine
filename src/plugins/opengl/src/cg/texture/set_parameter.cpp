@@ -24,7 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/no_id.hpp>
 #include <sge/opengl/texture/optional_id.hpp>
 #include <sge/renderer/exception.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/const.hpp>
+#include <fcppt/from_optional.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <Cg/cgGL.h>
@@ -39,11 +40,12 @@ sge::opengl::cg::texture::set_parameter(
 {
 	::cgGLSetTextureParameter(
 		_parameter.get(),
-		_id
-		?
-			_id->get()
-		:
-			sge::opengl::texture::no_id
+		fcppt::from_optional(
+			_id,
+			fcppt::const_(
+				sge::opengl::texture::no_id
+			)
+		).get()
 	);
 
 	SGE_CG_CHECK_STATE(

@@ -18,10 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/file_exception.hpp>
-#include <sge/image/optional_path_fwd.hpp>
-#include <sge/image/unsupported_format.hpp>
 #include <sge/image2d/dim.hpp>
+#include <sge/image2d/file_exception.hpp>
+#include <sge/image2d/unsupported_format.hpp>
 #include <sge/libpng/byte_vector.hpp>
 #include <sge/libpng/bytes_per_pixel.hpp>
 #include <sge/libpng/error_context.hpp>
@@ -34,10 +33,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/libpng/logger.hpp>
 #include <sge/libpng/make_format.hpp>
 #include <sge/libpng/make_row_vector.hpp>
-#include <sge/libpng/optional_format.hpp>
 #include <sge/libpng/read_ptr.hpp>
 #include <sge/libpng/row_vector.hpp>
+#include <sge/media/optional_path_fwd.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
+#include <fcppt/optional_to_exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/promote.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
@@ -54,7 +54,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::libpng::file_rep
 sge::libpng::file_rep_from_stream(
 	std::istream &_stream,
-	sge::image::optional_path const &_path
+	sge::media::optional_path const &_path
 )
 {
 	sge::libpng::error_context error_context(
@@ -121,7 +121,7 @@ sge::libpng::file_rep_from_stream(
 		(bpp % CHAR_BIT) != 0
 	)
 		throw
-			sge::image::file_exception(
+			sge::image2d::file_exception(
 				_path,
 				FCPPT_TEXT("A png file has a bit depth that's not a multiple of a byte's size!")
 			);
@@ -147,7 +147,7 @@ sge::libpng::file_rep_from_stream(
 	{
 		case PNG_COLOR_TYPE_PALETTE:
 			throw
-				sge::image::unsupported_format(
+				sge::image2d::unsupported_format(
 					_path,
 					FCPPT_TEXT("Palette images are not supported.")
 				);
@@ -207,36 +207,35 @@ sge::libpng::file_rep_from_stream(
 		row_ptrs.data()
 	);
 
-	sge::libpng::optional_format const format(
-		sge::libpng::make_format(
-			color_type,
-			bpp,
-			sge::libpng::get_gamma(
-				read_ptr,
-				info
-			)
-		)
-	);
-
-	if(
-		!format
-	)
-		throw
-			sge::image::unsupported_format(
-				_path,
-				fcppt::insert_to_fcppt_string(
-					fcppt::cast::promote(
-						bpp
-					)
-				)
-				+
-				FCPPT_TEXT(" bits per pixel")
-			);
-
 	return
 		sge::libpng::file_rep(
 			size,
-			*format,
+			fcppt::optional_to_exception(
+				sge::libpng::make_format(
+					color_type,
+					bpp,
+					sge::libpng::get_gamma(
+						read_ptr,
+						info
+					)
+				),
+				[
+					&_path,
+					bpp
+				]{
+					return
+						sge::image2d::unsupported_format(
+							_path,
+							fcppt::insert_to_fcppt_string(
+								fcppt::cast::promote(
+									bpp
+								)
+							)
+							+
+							FCPPT_TEXT(" bits per pixel")
+						);
+				}
+			),
 			std::move(
 				bytes
 			)

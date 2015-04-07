@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_XRANDR_CREATE_SYSTEM_HPP_INCLUDED
 #define SGE_OPENGL_XRANDR_CREATE_SYSTEM_HPP_INCLUDED
 
-#include <sge/opengl/xrandr/system_unique_ptr.hpp>
+#include <sge/opengl/xrandr/optional_system_unique_ptr.hpp>
 #include <awl/backends/x11/display_fwd.hpp>
 
 
@@ -32,7 +32,7 @@ namespace opengl
 namespace xrandr
 {
 
-sge::opengl::xrandr::system_unique_ptr
+sge::opengl::xrandr::optional_system_unique_ptr
 create_system(
 	awl::backends::x11::display &
 );

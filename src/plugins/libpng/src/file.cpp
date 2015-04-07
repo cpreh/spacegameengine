@@ -19,9 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/const_raw_pointer.hpp>
-#include <sge/image/file_exception.hpp>
-#include <sge/image/optional_path.hpp>
 #include <sge/image2d/dim.hpp>
+#include <sge/image2d/file_exception.hpp>
 #include <sge/image2d/pitch.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/make_const.hpp>
@@ -30,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/libpng/file_rep_from_view.hpp>
 #include <sge/libpng/to_sge_format.hpp>
 #include <sge/libpng/write.hpp>
+#include <sge/media/optional_path.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -42,7 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::libpng::file::file(
 	std::istream &_stream,
-	sge::image::optional_path const &_path
+	sge::media::optional_path const &_path
 )
 :
 	rep_(
@@ -109,8 +109,8 @@ sge::libpng::file::save(
 		!output.is_open()
 	)
 		throw
-			sge::image::file_exception(
-				sge::image::optional_path(
+			sge::image2d::file_exception(
+				sge::media::optional_path(
 					_path
 				),
 				FCPPT_TEXT("couldn't open file")
@@ -118,7 +118,7 @@ sge::libpng::file::save(
 
 	sge::libpng::write(
 		output,
-		sge::image::optional_path(
+		sge::media::optional_path(
 			_path
 		),
 		rep_
@@ -132,7 +132,7 @@ sge::libpng::file::save_stream(
 {
 	sge::libpng::write(
 		_stream,
-		sge::image::optional_path(),
+		sge::media::optional_path(),
 		rep_
 	);
 }

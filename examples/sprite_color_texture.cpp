@@ -268,11 +268,13 @@ try
 			sge::image::color::predef::red()
 		)
 		.texture(
-			fcppt::make_shared_ptr<
-				sge::texture::part_raw_ref
-			>(
-				*texture
-			)
+			sprite_object::texture_type{
+				fcppt::make_shared_ptr<
+					sge::texture::part_raw_ref
+				>(
+					*texture
+				)
+			}
 		)
 	);
 

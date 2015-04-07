@@ -19,10 +19,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/font/parameters.hpp>
+#include <sge/font/ttf_size.hpp>
+#include <sge/font/weight/unit.hpp>
 #include <sge/pango/create_layout.hpp>
 #include <sge/pango/font_description.hpp>
 #include <sge/pango/glib_deleter.hpp>
 #include <sge/pango/pango_layout_unique_ptr.hpp>
+#include <fcppt/maybe_void.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <pango/pango-layout.h>
 #include <pango/pango-types.h>
@@ -38,27 +42,49 @@ sge::pango::create_layout(
 {
 	sge::pango::font_description font_description;
 
-	if(
-		_parameters.ttf_size()
-	)
-		font_description.ttf_size(
-			*_parameters.ttf_size()
-			* PANGO_SCALE
-		);
+	fcppt::maybe_void(
+		_parameters.ttf_size(),
+		[
+			&font_description
+		](
+			sge::font::ttf_size const _ttf_size
+		)
+		{
+			font_description.ttf_size(
+				_ttf_size
+				*
+				PANGO_SCALE
+			);
+		}
+	);
 
-	if(
-		_parameters.family()
-	)
-		font_description.family(
-			*_parameters.family()
-		);
+	fcppt::maybe_void(
+		_parameters.family(),
+		[
+			&font_description
+		](
+			fcppt::string const &_family
+		)
+		{
+			font_description.family(
+				_family
+			);
+		}
+	);
 
-	if(
-		_parameters.weight()
-	)
-		font_description.weight(
-			*_parameters.weight()
-		);
+	fcppt::maybe_void(
+		_parameters.weight(),
+		[
+			&font_description
+		](
+			sge::font::weight::unit const _weight
+		)
+		{
+			font_description.weight(
+				_weight
+			);
+		}
+	);
 
 	if(
 		_parameters.italic()

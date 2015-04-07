@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_WAVE_FILE_HPP_INCLUDED
 
 #include <sge/audio/file.hpp>
-#include <sge/audio/optional_path.hpp>
+#include <sge/media/optional_path.hpp>
 #include <sge/wave/stream_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/string.hpp>
@@ -47,7 +47,7 @@ FCPPT_NONCOPYABLE(
 public:
 	file(
 		stream_ptr,
-		audio::optional_path const &);
+		media::optional_path const &);
 
 	audio::sample_count
 	bits_per_sample() const
@@ -82,7 +82,7 @@ public:
 	)
 	override;
 private:
-	sge::audio::optional_path filename_;
+	sge::media::optional_path filename_;
 	boost::logic::tribool swap_;
 	stream_ptr file_;
 	std::streampos data_segment_;

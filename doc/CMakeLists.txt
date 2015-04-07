@@ -1355,12 +1355,14 @@ set(
 	include/sge/log/option_fwd.hpp
 	include/sge/log/stream.hpp
 	include/sge/media/all_extensions.hpp
+	include/sge/media/check_extension.hpp
 	include/sge/media/const_raw_pointer.hpp
 	include/sge/media/const_raw_range.hpp
 	include/sge/media/detail/muxer_fwd.hpp
 	include/sge/media/extension.hpp
 	include/sge/media/extension_fwd.hpp
 	include/sge/media/extension_set.hpp
+	include/sge/media/file_exception_string.hpp
 	include/sge/media/log_location.hpp
 	include/sge/media/muxer.hpp
 	include/sge/media/muxer_fwd.hpp
@@ -1701,6 +1703,7 @@ set(
 	include/sge/parse/json/string_to_value.hpp
 	include/sge/parse/json/value.hpp
 	include/sge/parse/json/value_fwd.hpp
+	include/sge/parse/make_error_string.hpp
 	include/sge/parse/make_result.hpp
 	include/sge/parse/optional_error_string.hpp
 	include/sge/parse/optional_error_string_fwd.hpp

@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/funcs/bind.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/const.hpp>
-#include <fcppt/maybe.hpp>
+#include <fcppt/from_optional.hpp>
 #include <fcppt/text.hpp>
 
 
@@ -39,19 +39,12 @@ sge::opengl::texture::funcs::bind(
 {
 	::glBindTexture(
 		_type.get(),
-		fcppt::maybe(
+		fcppt::from_optional(
 			_value,
 			fcppt::const_(
 				sge::opengl::texture::no_id
-			),
-			[](
-				sge::opengl::texture::id const _id
 			)
-			{
-				return
-					_id.get();
-			}
-		)
+		).get()
 	);
 
 	SGE_OPENGL_CHECK_STATE(

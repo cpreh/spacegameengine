@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/button_event.hpp>
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/optional_position.hpp>
+#include <sge/input/cursor/position.hpp>
 #include <sge/input/keyboard/action.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_code.hpp>
@@ -81,6 +82,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
+#include <fcppt/maybe.hpp>
+#include <fcppt/maybe_void.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/cast/to_signed_fun.hpp>
@@ -393,109 +396,122 @@ try
 				)
 					return;
 
-				sge::input::cursor::optional_position const cur_position(
-					sys.cursor_demuxer().position()
-				);
-
-				if(
-					!cur_position
-				)
-					return;
-
-				sprite_grid::dim const cell_size_dim(
-					fcppt::math::dim::structure_cast<
-						sprite_grid::dim,
-						fcppt::cast::size_fun
-					>(
-						cell_size
-					)
-				);
-
-				sprite_grid::pos const cur_grid_position(
-					fcppt::math::vector::structure_cast<
-						sprite_grid::pos,
-						fcppt::cast::size_fun
-					>(
-						*cur_position
-					)
-					/
-					cell_size_dim
-				);
-
-				if(
-					!fcppt::container::grid::in_range(
-						sprites,
-						cur_grid_position
-					)
-				)
-					return;
-
-				if(
-					!last_position
-				)
-				{
-					last_position
-						= cur_position;
-
-					return;
-				}
-
-				sprite_grid::pos const last_grid_position(
-					fcppt::math::vector::structure_cast<
-						sprite_grid::pos,
-						fcppt::cast::to_unsigned_fun
-					>(
-						fcppt::math::vector::structure_cast<
-							signed_pos,
-							fcppt::cast::size_fun
-						>(
-							*last_position
-						)
-					)
-					/
-					cell_size_dim
-				);
-
-				fcppt::math::bresenham(
-					fcppt::math::vector::structure_cast<
-						signed_pos,
-						fcppt::cast::to_signed_fun
-					>(
-						cur_grid_position
-					),
-					fcppt::math::vector::structure_cast<
-						signed_pos,
-						fcppt::cast::to_signed_fun
-					>(
-						last_grid_position
-					),
+				fcppt::maybe_void(
+					sys.cursor_demuxer().position(),
 					[
-						&sprites
+						&sprites,
+						&last_position,
+						cell_size
 					](
-						signed_pos const _pos
+						sge::input::cursor::position const _cur_position
 					)
 					{
-						sprites[
-							fcppt::math::vector::structure_cast<
-								sprite_grid::pos,
-								fcppt::cast::to_unsigned_fun
+						sprite_grid::dim const cell_size_dim(
+							fcppt::math::dim::structure_cast<
+								sprite_grid::dim,
+								fcppt::cast::size_fun
 							>(
-								_pos
-							)
-						].color(
-							sge::image::color::any::convert<
-								color_format
-							>(
-								sge::image::color::predef::red()
+								cell_size
 							)
 						);
 
-						return
-							true;
+						sprite_grid::pos const cur_grid_position(
+							fcppt::math::vector::structure_cast<
+								sprite_grid::pos,
+								fcppt::cast::size_fun
+							>(
+								_cur_position
+							)
+							/
+							cell_size_dim
+						);
+
+						if(
+							!fcppt::container::grid::in_range(
+								sprites,
+								cur_grid_position
+							)
+						)
+							return;
+
+						fcppt::maybe(
+							last_position,
+							[
+								&last_position,
+								_cur_position
+							]{
+								last_position =
+									_cur_position;
+							},
+							[
+								&last_position,
+								&sprites,
+								cell_size_dim,
+								cur_grid_position
+							](
+								sge::input::cursor::position const _last_position
+							)
+							{
+								sprite_grid::pos const last_grid_position(
+									fcppt::math::vector::structure_cast<
+										sprite_grid::pos,
+										fcppt::cast::to_unsigned_fun
+									>(
+										fcppt::math::vector::structure_cast<
+											signed_pos,
+											fcppt::cast::size_fun
+										>(
+											_last_position
+										)
+									)
+									/
+									cell_size_dim
+								);
+
+								fcppt::math::bresenham(
+									fcppt::math::vector::structure_cast<
+										signed_pos,
+										fcppt::cast::to_signed_fun
+									>(
+										cur_grid_position
+									),
+									fcppt::math::vector::structure_cast<
+										signed_pos,
+										fcppt::cast::to_signed_fun
+									>(
+										last_grid_position
+									),
+									[
+										&sprites
+									](
+										signed_pos const _pos
+									)
+									{
+										sprites[
+											fcppt::math::vector::structure_cast<
+												sprite_grid::pos,
+												fcppt::cast::to_unsigned_fun
+											>(
+												_pos
+											)
+										].color(
+											sge::image::color::any::convert<
+												color_format
+											>(
+												sge::image::color::predef::red()
+											)
+										);
+
+										return
+											true;
+									}
+								);
+
+								last_position.reset();
+							}
+						);
 					}
 				);
-
-				last_position.reset();
 			}
 		)
 	);

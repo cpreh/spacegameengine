@@ -19,8 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/exception.hpp>
-#include <sge/image/file_exception.hpp>
-#include <sge/image/optional_path.hpp>
 #include <sge/image2d/optional_file_unique_ptr.hpp>
 #include <sge/libpng/check_extension.hpp>
 #include <sge/libpng/extension.hpp>
@@ -31,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension.hpp>
+#include <sge/media/optional_path.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/to_char_ptr.hpp>
@@ -77,7 +76,7 @@ sge::libpng::system::load(
 	return
 		this->load_impl(
 			file_stream,
-			sge::image::optional_path(
+			sge::media::optional_path(
 				_path
 			)
 		);
@@ -119,7 +118,7 @@ sge::libpng::system::load_raw(
 	return
 		this->load_impl(
 			raw_stream,
-			sge::image::optional_path()
+			sge::media::optional_path()
 		);
 }
 
@@ -136,7 +135,7 @@ sge::libpng::system::load_stream(
 		?
 			this->load_impl(
 				_stream,
-				sge::image::optional_path()
+				sge::media::optional_path()
 			)
 		:
 			sge::image2d::optional_file_unique_ptr()
@@ -178,7 +177,7 @@ sge::libpng::system::extensions() const
 sge::image2d::optional_file_unique_ptr
 sge::libpng::system::load_impl(
 	std::istream &_stream,
-	sge::image::optional_path const &_path
+	sge::media::optional_path const &_path
 )
 {
 	// Handle the most common "error" without exceptions

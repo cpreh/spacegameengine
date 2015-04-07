@@ -22,10 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_PARSE_PARSE_FILE_HPP_INCLUDED
 
 #include <sge/parse/error_string.hpp>
+#include <sge/parse/make_error_string.hpp>
 #include <sge/parse/optional_error_string.hpp>
 #include <sge/parse/result.hpp>
 #include <sge/parse/result_code.hpp>
-#include <sge/src/parse/make_error_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/io/ifstream.hpp>

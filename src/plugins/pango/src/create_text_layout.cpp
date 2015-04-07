@@ -25,12 +25,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/string.hpp>
 #include <sge/font/text_parameters.hpp>
 #include <sge/font/align_h/extract_max_width.hpp>
-#include <sge/font/align_h/optional_max_width.hpp>
+#include <sge/font/align_h/max_width.hpp>
 #include <sge/pango/create_text_layout.hpp>
 #include <sge/pango/glib_deleter.hpp>
 #include <sge/pango/pango_layout_unique_ptr.hpp>
 #include <sge/pango/convert/alignment.hpp>
 #include <sge/pango/convert/to_unit.hpp>
+#include <fcppt/maybe_void.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/cast/to_signed.hpp>
@@ -90,18 +91,24 @@ sge::pango::create_text_layout(
 		)
 	);
 
-	if(
-		sge::font::align_h::optional_max_width const max_width =
-			sge::font::align_h::extract_max_width(
-				_text_parameters.align_h()
-			)
-	)
-		::pango_layout_set_width(
-			layout.get(),
-			sge::pango::convert::to_unit(
-				max_width->get()
-			)
-		);
+	fcppt::maybe_void(
+		sge::font::align_h::extract_max_width(
+			_text_parameters.align_h()
+		),
+		[
+			&layout
+		](
+			sge::font::align_h::max_width const _max_width
+		)
+		{
+			::pango_layout_set_width(
+				layout.get(),
+				sge::pango::convert::to_unit(
+					_max_width.get()
+				)
+			);
+		}
+	);
 
 	::pango_layout_set_wrap(
 		layout.get(),

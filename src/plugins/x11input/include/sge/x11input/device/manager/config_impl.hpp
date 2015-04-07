@@ -25,6 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/id.hpp>
 #include <sge/x11input/device/object.hpp>
 #include <sge/x11input/device/manager/config.hpp>
+#include <fcppt/const.hpp>
+#include <fcppt/maybe.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/signal/object.hpp>
@@ -112,27 +114,31 @@ sge::x11input::device::manager::config<
 	sge::x11input::create_parameters const &_param
 )
 {
-	optional_object_ref const result(
-		this->insert_into_map(
-			objects_,
-			_param
-		)
-	);
-
-	if(
-		!result
-	)
-		return
-			false;
-
-	discover_(
-		DiscoverEvent(
-			*result
-		)
-	);
-
 	return
-		true;
+		fcppt::maybe(
+			this->insert_into_map(
+				objects_,
+				_param
+			),
+			fcppt::const_(
+				false
+			),
+			[
+				this
+			](
+				X11Object &_object
+			)
+			{
+				discover_(
+					DiscoverEvent(
+						_object
+					)
+				);
+
+				return
+					true;
+			}
+		);
 }
 
 template<

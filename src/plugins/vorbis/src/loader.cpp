@@ -20,17 +20,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/audio/file_exception.hpp>
 #include <sge/audio/optional_file_unique_ptr.hpp>
-#include <sge/audio/optional_path.hpp>
 #include <sge/audio/unsupported_format.hpp>
+#include <sge/media/check_extension.hpp>
 #include <sge/media/const_raw_range.hpp>
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension.hpp>
+#include <sge/media/optional_path.hpp>
 #include <sge/vorbis/file.hpp>
 #include <sge/vorbis/loader.hpp>
 #include <sge/vorbis/stream_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/raw_vector.hpp>
 #include <fcppt/io/raw_container_source.hpp>
@@ -45,11 +45,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-sge::media::extension_set const extensions_{
-	sge::media::extension(
-		FCPPT_TEXT("ogg")
-	)
-};
+sge::media::extension const extension(
+	FCPPT_TEXT("ogg")
+);
+
+bool
+check_extension(
+	sge::media::optional_extension const &_extension
+)
+{
+	return
+		sge::media::check_extension(
+			extension,
+			_extension
+		);
+}
 
 }
 
@@ -72,7 +82,7 @@ sge::vorbis::loader::load(
 			std::ios::binary));
 	if(!static_cast<boost::filesystem::ifstream &>(*file_stream).is_open())
 		throw audio::file_exception(
-			sge::audio::optional_path(
+			sge::media::optional_path(
 				filename),
 			FCPPT_TEXT("couldn't open file"));
 	try
@@ -84,7 +94,7 @@ sge::vorbis::loader::load(
 				>(
 					std::move(
 						file_stream),
-					sge::audio::optional_path(
+					sge::media::optional_path(
 						filename)));
 	}
 	catch (audio::unsupported_format const &)
@@ -99,8 +109,13 @@ sge::vorbis::loader::load_raw(
 	sge::media::optional_extension const &_extension
 )
 {
-	if(_extension && extensions_.find(*_extension) == extensions_.end())
-		return sge::audio::optional_file_unique_ptr();
+	if(
+		!check_extension(
+			_extension
+		)
+	)
+		return
+			sge::audio::optional_file_unique_ptr();
 
 	typedef
 	boost::iostreams::stream
@@ -128,7 +143,7 @@ sge::vorbis::loader::load_raw(
 				>(
 					std::move(
 						raw_stream),
-					sge::audio::optional_path()));
+					sge::media::optional_path()));
 	}
 	catch (audio::unsupported_format const &)
 	{
@@ -142,8 +157,13 @@ sge::vorbis::loader::load_stream(
 	sge::media::optional_extension const &_extension
 )
 {
-	if(_extension && extensions_.find(*_extension) == extensions_.end())
-		return sge::audio::optional_file_unique_ptr();
+	if(
+		!check_extension(
+			_extension
+		)
+	)
+		return
+			sge::audio::optional_file_unique_ptr();
 
 	try
 	{
@@ -159,7 +179,7 @@ sge::vorbis::loader::load_stream(
 					fcppt::make_unique_ptr<std::istream>(
 						_stream.rdbuf(
 							0)),
-					sge::audio::optional_path()));
+					sge::media::optional_path()));
 	}
 	catch (audio::unsupported_format const &)
 	{
@@ -170,5 +190,8 @@ sge::vorbis::loader::load_stream(
 sge::media::extension_set
 sge::vorbis::loader::extensions() const
 {
-	return extensions_;
+	return
+		sge::media::extension_set{
+			extension
+		};
 }

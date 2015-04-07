@@ -6,6 +6,7 @@ set(
 	include/sge/parse/exception_fwd.hpp
 	include/sge/parse/info_to_string.hpp
 	include/sge/parse/install_error_handler.hpp
+	include/sge/parse/make_error_string.hpp
 	include/sge/parse/make_result.hpp
 	include/sge/parse/optional_error_string.hpp
 	include/sge/parse/optional_error_string_fwd.hpp
@@ -19,7 +20,6 @@ set(
 	include/sge/parse/result_with_value_fwd.hpp
 	src/parse/exception.cpp
 	src/parse/include/sge/src/parse/instantiate_result_with_value.hpp
-	src/parse/include/sge/src/parse/make_error_string.hpp
 	src/parse/include/sge/src/parse/output/to_file.hpp
 	src/parse/include/sge/src/parse/output/to_stream.hpp
 	src/parse/include/sge/src/parse/parse_file.hpp

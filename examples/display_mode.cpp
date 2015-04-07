@@ -51,6 +51,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/window/event/processor.hpp>
 #include <awl/window/event/show_fwd.hpp>
 #include <fcppt/exception.hpp>
+#include <fcppt/maybe.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
@@ -134,30 +135,33 @@ try
 				awl::window::event::show const &
 			)
 			{
-				sge::renderer::display_mode::optional_object const mode(
-					sys.renderer_device_core().display_mode()
+				fcppt::maybe(
+					sys.renderer_device_core().display_mode(),
+					[]{
+						fcppt::io::cout()
+							<<
+							FCPPT_TEXT("No display mode set.\n");
+					},
+					[](
+						sge::renderer::display_mode::object const &_mode
+					){
+						fcppt::io::cout()
+							<<
+							FCPPT_TEXT("Current display mode:\n\t")
+							<<
+							_mode
+							<<
+							FCPPT_TEXT("\nDPI:\n\t")
+							<<
+							sge::renderer::display_mode::to_dpi(
+								sge::renderer::display_mode::optional_object(
+									_mode
+								)
+							)
+							<<
+							FCPPT_TEXT('\n');
+					}
 				);
-
-				if(
-					mode
-				)
-					fcppt::io::cout()
-						<<
-						FCPPT_TEXT("Current display mode:\n\t")
-						<<
-						*mode
-						<<
-						FCPPT_TEXT("\nDPI:\n\t")
-						<<
-						sge::renderer::display_mode::to_dpi(
-							mode
-						)
-						<<
-						FCPPT_TEXT('\n');
-				else
-					fcppt::io::cout()
-						<<
-						FCPPT_TEXT("No display mode set.\n");
 
 				sys.window_system().quit(
 					awl::main::exit_success()

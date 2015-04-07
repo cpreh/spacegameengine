@@ -27,8 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/lit.hpp>
 #include <fcppt/extract_from_string.hpp>
 #include <fcppt/insert_to_string.hpp>
+#include <fcppt/maybe.hpp>
 #include <fcppt/nonassignable.hpp>
-#include <fcppt/optional_impl.hpp>
 #include <fcppt/type_name_from_info.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/fusion/sequence/intrinsic/at.hpp>
@@ -46,6 +46,7 @@ namespace callback
 {
 namespace detail
 {
+
 template<
 	typename ParameterTypes
 >
@@ -58,16 +59,19 @@ public:
 	conversion_visitor(
 		sge::console::object &_console,
 		ParameterTypes &_parameters,
-		sge::console::arg_list const &_args)
+		sge::console::arg_list const &_args
+	)
 	:
 		console_(
-			_console),
+			_console
+		),
 		parameters_(
-			_parameters),
+			_parameters
+		),
 		args_(
-			_args)
+			_args
+		)
 	{
-
 	}
 
 	template<
@@ -76,38 +80,64 @@ public:
 	void
 	operator()() const
 	{
-		typedef typename
-		std::remove_reference
-		<
-			typename boost::fusion::result_of::at_c
-			<
+		typedef
+		typename
+		std::remove_reference<
+			typename
+			boost::fusion::result_of::at_c<
 				ParameterTypes,
 				Index::value
 			>::type
 		>::type
 		result_type;
 
-		typedef fcppt::optional<result_type> opt_result;
-
-		opt_result const converted(
-			fcppt::extract_from_string<result_type>(
-				args_[Index::value+1]));
-
-		if(
-			converted
-		)
-			boost::fusion::at_c<Index::value>(parameters_) =
-				*converted;
-		else
-			console_.emit_error(
-				SGE_FONT_LIT("Couldn't convert argument ")+
-				fcppt::insert_to_string<sge::font::string>(
-					Index::value)+
-				SGE_FONT_LIT(" to type ")+
-				sge::font::from_fcppt_string(
-					fcppt::type_name_from_info(
-						typeid(
-							result_type))));
+		fcppt::maybe(
+			fcppt::extract_from_string<
+				result_type
+			>(
+				args_[
+					Index::value
+					+
+					1
+				]
+			),
+			[
+				this
+			]{
+				console_.emit_error(
+					SGE_FONT_LIT("Couldn't convert argument ")
+					+
+					fcppt::insert_to_string<
+						sge::font::string
+					>(
+						Index::value
+					)
+					+
+					SGE_FONT_LIT(" to type ")
+					+
+					sge::font::from_fcppt_string(
+						fcppt::type_name_from_info(
+							typeid(
+								result_type
+							)
+						)
+					)
+				);
+			},
+			[
+				this
+			](
+				result_type const &_converted
+			)
+			{
+				boost::fusion::at_c<
+					Index::value
+				>(
+					parameters_
+				) =
+					_converted;
+			}
+		);
 	}
 private:
 	sge::console::object &console_;

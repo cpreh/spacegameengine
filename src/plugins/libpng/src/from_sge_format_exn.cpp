@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/optional_path.hpp>
-#include <sge/image/unsupported_format.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image/color/format_to_string.hpp>
+#include <sge/image2d/unsupported_format.hpp>
 #include <sge/libpng/format.hpp>
 #include <sge/libpng/from_sge_format_exn.hpp>
+#include <sge/media/optional_path.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
@@ -87,8 +87,8 @@ sge::libpng::from_sge_format_exn(
 		case sge::image::color::format::rgba32f:
 		case sge::image::color::format::bgra32f:
 			throw
-				sge::image::unsupported_format(
-					sge::image::optional_path(),
+				sge::image2d::unsupported_format(
+					sge::media::optional_path(),
 					FCPPT_TEXT("libpng doesn't support ")
 					+
 					sge::image::color::format_to_string(

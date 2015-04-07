@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/parse/make_error_string.hpp>
 #include <sge/parse/parse_exception.hpp>
 #include <sge/parse/result.hpp>
 #include <sge/parse/result_code.hpp>
@@ -27,7 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/start.hpp>
 #include <sge/parse/json/string_to_value.hpp>
 #include <sge/parse/json/value.hpp>
-#include <sge/src/parse/make_error_string.hpp>
 #include <fcppt/format.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>

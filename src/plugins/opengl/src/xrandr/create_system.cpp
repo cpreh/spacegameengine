@@ -20,77 +20,83 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/logger.hpp>
 #include <sge/opengl/xrandr/create_system.hpp>
+#include <sge/opengl/xrandr/extension.hpp>
 #include <sge/opengl/xrandr/get_extension.hpp>
 #include <sge/opengl/xrandr/get_version.hpp>
-#include <sge/opengl/xrandr/optional_extension.hpp>
+#include <sge/opengl/xrandr/optional_system_unique_ptr.hpp>
 #include <sge/opengl/xrandr/system.hpp>
-#include <sge/opengl/xrandr/system_unique_ptr.hpp>
 #include <sge/opengl/xrandr/version.hpp>
 #include <awl/backends/x11/window/object.hpp>
 #include <awl/backends/x11/window/event/processor_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/maybe.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/warning.hpp>
 
 
-sge::opengl::xrandr::system_unique_ptr
+sge::opengl::xrandr::optional_system_unique_ptr
 sge::opengl::xrandr::create_system(
 	awl::backends::x11::display &_display
 )
 {
-	sge::opengl::xrandr::optional_extension const extension(
-		sge::opengl::xrandr::get_extension(
-			_display
-		)
-	);
-
-	if(
-		!extension
-	)
-	{
-		FCPPT_LOG_WARNING(
-			sge::opengl::logger(),
-			fcppt::log::_
-				<< FCPPT_TEXT("xrandr extension not found")
-		);
-
-		return
-			sge::opengl::xrandr::system_unique_ptr();
-	}
-
-	sge::opengl::xrandr::version const version(
-		sge::opengl::xrandr::get_version(
-			*extension,
-			_display
-		)
-	);
-
-	if(
-		version
-		<
-		sge::opengl::xrandr::version(
-			1,
-			3
-		)
-	)
-	{
-		FCPPT_LOG_WARNING(
-			sge::opengl::logger(),
-			fcppt::log::_
-				<< FCPPT_TEXT("xrandr version ")
-				<< version
-				<< FCPPT_TEXT(" too old")
-		);
-
-		return
-			sge::opengl::xrandr::system_unique_ptr();
-	}
-
 	return
-		fcppt::make_unique_ptr<
-			sge::opengl::xrandr::system
-		>(
-			*extension
+		fcppt::maybe(
+			sge::opengl::xrandr::get_extension(
+				_display
+			),
+			[]{
+				FCPPT_LOG_WARNING(
+					sge::opengl::logger(),
+					fcppt::log::_
+						<< FCPPT_TEXT("xrandr extension not found")
+				);
+
+				return
+					sge::opengl::xrandr::optional_system_unique_ptr();
+			},
+			[
+				&_display
+			](
+				sge::opengl::xrandr::extension const _extension
+			)
+			{
+				sge::opengl::xrandr::version const version(
+					sge::opengl::xrandr::get_version(
+						_extension,
+						_display
+					)
+				);
+
+				if(
+					version
+					<
+					sge::opengl::xrandr::version(
+						1,
+						3
+					)
+				)
+				{
+					FCPPT_LOG_WARNING(
+						sge::opengl::logger(),
+						fcppt::log::_
+							<< FCPPT_TEXT("xrandr version ")
+							<< version
+							<< FCPPT_TEXT(" too old")
+					);
+
+					return
+						sge::opengl::xrandr::optional_system_unique_ptr();
+				}
+
+				return
+					sge::opengl::xrandr::optional_system_unique_ptr(
+						fcppt::make_unique_ptr<
+							sge::opengl::xrandr::system
+						>(
+							_extension
+						)
+					);
+			}
 		);
 }

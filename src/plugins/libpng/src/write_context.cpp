@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/file_exception.hpp>
-#include <sge/image/optional_path.hpp>
+#include <sge/image2d/file_exception.hpp>
 #include <sge/libpng/png.hpp>
 #include <sge/libpng/write_context.hpp>
 #include <sge/libpng/write_ptr.hpp>
+#include <sge/media/optional_path.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/from_void_ptr.hpp>
 #include <fcppt/cast/to_char_ptr.hpp>
@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::libpng::write_context::write_context(
-	sge::image::optional_path const &_path,
+	sge::media::optional_path const &_path,
 	std::ostream &_stream,
 	sge::libpng::write_ptr const &_write_ptr
 )
@@ -93,7 +93,7 @@ sge::libpng::write_context::handle_write_impl(
 		!stream_
 	)
 		throw
-			sge::image::file_exception(
+			sge::image2d::file_exception(
 				path_,
 				FCPPT_TEXT("error writing")
 			);

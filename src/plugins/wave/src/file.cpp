@@ -46,7 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::wave::file::file(
 	stream_ptr _file,
-	audio::optional_path const &_filename)
+	media::optional_path const &_filename)
 :
 	filename_(
 		_filename),

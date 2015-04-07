@@ -38,6 +38,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/display_fwd.hpp>
 #include <awl/backends/x11/window/object.hpp>
 #include <awl/window/rect.hpp>
+#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional_bind_construct.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/math/box/intersects.hpp>
 #include <fcppt/math/dim/comparison.hpp>
@@ -157,25 +159,36 @@ sge::opengl::xrandr::display_mode(
 		}
 	}
 
-	FCPPT_ASSERT_ERROR(
-		!dimensions
-		||
-		dimensions->get().content()
-		!=
-		0u
+	fcppt::maybe_void(
+		dimensions,
+		[](
+			sge::renderer::display_mode::dimensions const _dim
+		)
+		{
+			FCPPT_ASSERT_ERROR(
+				_dim.get().content()
+				!=
+				0u
+			);
+		}
 	);
 
 	return
-		pixel_size
-		?
-			sge::renderer::display_mode::optional_object(
-				sge::renderer::display_mode::object(
-					*pixel_size,
-					dimensions,
-					refresh_rate
-				)
+		fcppt::optional_bind_construct(
+			pixel_size,
+			[
+				dimensions,
+				refresh_rate
+			](
+				sge::renderer::display_mode::pixel_size const _pixel_size
 			)
-		:
-			sge::renderer::display_mode::optional_object()
-		;
+			{
+				return
+					sge::renderer::display_mode::object(
+						_pixel_size,
+						dimensions,
+						refresh_rate
+					);
+			}
+		);
 }

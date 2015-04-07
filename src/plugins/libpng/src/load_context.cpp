@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/file_exception.hpp>
-#include <sge/image/optional_path.hpp>
+#include <sge/image2d/file_exception.hpp>
+#include <sge/media/optional_path.hpp>
 #include <sge/libpng/load_context.hpp>
 #include <sge/libpng/png.hpp>
 #include <sge/libpng/read_ptr.hpp>
@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::libpng::load_context::load_context(
 	std::istream &_stream,
-	sge::image::optional_path const &_path,
+	sge::media::optional_path const &_path,
 	sge::libpng::read_ptr const &_read_ptr
 )
 :
@@ -98,7 +98,7 @@ sge::libpng::load_context::handle_read_impl(
 		)
 	)
 		throw
-			sge::image::file_exception(
+			sge::image2d::file_exception(
 				path_,
 				FCPPT_TEXT("reading failed")
 			);
@@ -109,7 +109,7 @@ sge::libpng::load_context::handle_read_impl(
 		signed_length
 	)
 		throw
-			sge::image::file_exception(
+			sge::image2d::file_exception(
 				path_,
 				FCPPT_TEXT("didn't read as many bytes as supposed to")
 			);

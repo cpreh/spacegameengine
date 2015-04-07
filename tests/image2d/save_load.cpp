@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/init/red.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/file.hpp>
-#include <sge/image2d/optional_file_unique_ptr.hpp>
+#include <sge/image2d/file_unique_ptr.hpp>
 #include <sge/image2d/system.hpp>
 #include <sge/image2d/system_unique_ptr.hpp>
 #include <sge/image2d/algorithm/compare.hpp>
@@ -41,6 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/iterator.hpp>
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/optional_cache_ref.hpp>
+#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/math/dim/comparison.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -105,25 +106,25 @@ FCPPT_PP_POP_WARNING
 			)
 		);
 
-		sge::image2d::optional_file_unique_ptr const created(
-			system->create(
-				source_view,
-				sge::media::optional_extension()
+		sge::image2d::file_unique_ptr const created(
+			FCPPT_ASSERT_OPTIONAL_ERROR(
+				system->create(
+					source_view,
+					sge::media::optional_extension()
+				)
 			)
 		);
 
-		BOOST_REQUIRE(
-			created
-		);
-
-		(*created)->save_stream(
+		created->save_stream(
 			stream
 		);
 
-		sge::image2d::optional_file_unique_ptr const file(
-			system->load_stream(
-				stream,
-				sge::media::optional_extension()
+		sge::image2d::file_unique_ptr const file(
+			FCPPT_ASSERT_OPTIONAL_ERROR(
+				system->load_stream(
+					stream,
+					sge::media::optional_extension()
+				)
 			)
 		);
 
@@ -132,7 +133,7 @@ FCPPT_PP_POP_WARNING
 		);
 
 		sge::image2d::view::const_object const dest_view(
-			(*file)->view()
+			file->view()
 		);
 
 		BOOST_REQUIRE(

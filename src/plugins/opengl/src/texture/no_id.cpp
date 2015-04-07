@@ -18,11 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/common.hpp>
+#include <sge/opengl/texture/id.hpp>
 #include <sge/opengl/texture/no_id.hpp>
 
 
-GLuint
+sge::opengl::texture::id
 const
-sge::opengl::texture::no_id
-	= 0u;
+sge::opengl::texture::no_id{
+	0u
+};

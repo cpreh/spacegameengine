@@ -1,12 +1,14 @@
 set(
 	SGE_MEDIA_FILES
 	include/sge/media/all_extensions.hpp
+	include/sge/media/check_extension.hpp
 	include/sge/media/const_raw_pointer.hpp
 	include/sge/media/const_raw_range.hpp
 	include/sge/media/detail/muxer_fwd.hpp
 	include/sge/media/extension.hpp
 	include/sge/media/extension_fwd.hpp
 	include/sge/media/extension_set.hpp
+	include/sge/media/file_exception_string.hpp
 	include/sge/media/log_location.hpp
 	include/sge/media/muxer.hpp
 	include/sge/media/muxer_fwd.hpp
@@ -21,10 +23,10 @@ set(
 	include/sge/media/path_to_extension.hpp
 	include/sge/media/raw_value.hpp
 	src/media/all_extensions.cpp
+	src/media/check_extension.cpp
 	src/media/file_exception_string.cpp
 	src/media/include/sge/src/media/detail/muxer.hpp
 	src/media/include/sge/src/media/detail/muxer_impl.hpp
-	src/media/include/sge/src/media/file_exception_string.hpp
 	src/media/include/sge/src/media/instantiate_muxer_parameters.hpp
 	src/media/include/sge/src/media/load_exn.hpp
 	src/media/include/sge/src/media/load_raw_exn.hpp

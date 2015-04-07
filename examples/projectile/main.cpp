@@ -77,7 +77,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/transform/scoped.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/target/viewport.hpp>
-#include <sge/renderer/target/viewport_is_null.hpp>
 #include <sge/systems/config.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/input.hpp>
@@ -107,6 +106,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/exception.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/maybe_void.hpp>
 #include <fcppt/no_init.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/text.hpp>
@@ -588,29 +588,44 @@ try
 			sys.renderer_device_ffp().onscreen_target()
 		);
 
-		if(
-			sge::renderer::target::viewport_is_null(
-				scoped_block.get().target().viewport()))
-			continue;
+		fcppt::maybe_void(
+			sge::renderer::projection::orthogonal_viewport(
+				scoped_block.get().target().viewport()
+			),
+			[
+				&scoped_block,
+				&debug_drawer,
+				&sys
+			](
+				sge::renderer::matrix4 const &_projection
+			)
+			{
+				scoped_block.get().clear(
+					sge::renderer::clear::parameters()
+					.back_buffer(
+						sge::image::color::predef::black()
+					)
+				);
 
-		scoped_block.get().clear(
-			sge::renderer::clear::parameters()
-			.back_buffer(
-				sge::image::color::predef::black()));
+				sge::renderer::state::ffp::transform::object_unique_ptr const transform_state(
+					sys.renderer_device_ffp().create_transform_state(
+						sge::renderer::state::ffp::transform::parameters(
+							_projection
+						)
+					)
+				);
 
-		sge::renderer::state::ffp::transform::object_unique_ptr const transform_state(
-			sys.renderer_device_ffp().create_transform_state(
-				sge::renderer::state::ffp::transform::parameters(
-					*sge::renderer::projection::orthogonal_viewport(
-						scoped_block.get().target().viewport()))));
+				sge::renderer::state::ffp::transform::scoped const scoped_transform(
+					scoped_block.get(),
+					sge::renderer::state::ffp::transform::mode::projection,
+					*transform_state
+				);
 
-		sge::renderer::state::ffp::transform::scoped const scoped_transform(
-			scoped_block.get(),
-			sge::renderer::state::ffp::transform::mode::projection,
-			*transform_state);
-
-		debug_drawer.render(
-			scoped_block.get());
+				debug_drawer.render(
+					scoped_block.get()
+				);
+			}
+		);
 	}
 
 	return

@@ -62,7 +62,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/button_event.hpp>
 #include <sge/input/cursor/move_event.hpp>
 #include <sge/input/cursor/object.hpp>
-#include <sge/input/cursor/optional_position.hpp>
+#include <sge/input/cursor/position.hpp>
 #include <sge/line_drawer/line.hpp>
 #include <sge/line_drawer/object.hpp>
 #include <sge/line_drawer/render_to_screen.hpp>
@@ -108,6 +108,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context.hpp>
 #include <fcppt/exception.hpp>
+#include <fcppt/maybe_void.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/int_to_float_fun.hpp>
@@ -204,30 +205,43 @@ private:
 
 	void
 	move_callback(
-		sge::input::cursor::move_event const &e)
+		sge::input::cursor::move_event const &_event
+	)
 	{
-		if(!e.position())
-			return;
-		// To change the line drawer's geometry, we have to create a lock,
-		// there's no other way
-		sge::line_drawer::scoped_lock lock(
-			line_drawer_);
+		fcppt::maybe_void(
+			_event.position(),
+			[
+				this
+			](
+				sge::input::cursor::position const _pos
+			)
+			{
+				// To change the line drawer's geometry, we have to create a lock,
+				// there's no other way
+				sge::line_drawer::scoped_lock lock(
+					line_drawer_);
 
-		if(lock.value().empty())
-			return;
+				if(lock.value().empty())
+					return;
 
-		// Then we can freely (!) change everything. When unlock is called
-		// (in the lock's destructor), all the geometry will be updated at
-		// once.
-		lock.value().back() =
-			sge::line_drawer::line(
-				lock.value().back().begin(),
-				cursor_position_to_vector3(
-					*e.position()),
-				sge::image::color::any::object(
-					lock.value().back().begin_color()),
-				sge::image::color::any::object(
-					lock.value().back().end_color()));
+				// Then we can freely (!) change everything. When unlock is called
+				// (in the lock's destructor), all the geometry will be updated at
+				// once.
+				lock.value().back() =
+					sge::line_drawer::line(
+						lock.value().back().begin(),
+						cursor_position_to_vector3(
+							_pos
+						),
+						sge::image::color::any::object(
+							lock.value().back().begin_color()
+						),
+						sge::image::color::any::object(
+							lock.value().back().end_color()
+						)
+					);
+			}
+		);
 	}
 
 	void
@@ -243,22 +257,30 @@ private:
 
 		if(lock.value().empty())
 		{
-			sge::input::cursor::optional_position const pos(
-				cursor_.position());
+			fcppt::maybe_void(
+				cursor_.position(),
+				[
+					&lock
+				](
+					sge::input::cursor::position const _pos
+				)
+				{
+					sge::renderer::vector3 const pos3(
+						cursor_position_to_vector3(
+							_pos
+						)
+					);
 
-			if(!pos)
-				return;
-
-			sge::renderer::vector3 const pos3(
-				cursor_position_to_vector3(
-					*pos));
-
-			lock.value().push_back(
-				sge::line_drawer::line(
-					pos3,
-					pos3,
-					sge::image::color::predef::red(),
-					sge::image::color::predef::blue()));
+					lock.value().push_back(
+						sge::line_drawer::line(
+							pos3,
+							pos3,
+							sge::image::color::predef::red(),
+							sge::image::color::predef::blue()
+						)
+					);
+				}
+			);
 		}
 		else
 			lock.value().push_back(
