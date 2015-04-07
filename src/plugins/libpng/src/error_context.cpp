@@ -81,7 +81,9 @@ sge::libpng::error_context::handle_warning_impl(
 		fcppt::log::_ <<
 			sge::media::file_exception_string(
 				path_,
-				_message
+				fcppt::from_std_string(
+					_message
+				)
 			)
 	);
 }
