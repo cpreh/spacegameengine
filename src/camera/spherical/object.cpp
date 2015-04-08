@@ -235,35 +235,35 @@ void
 sge::camera::spherical::object::key_callback(
 	sge::input::keyboard::key_event const &_key_event)
 {
-	increase_azimuth_pressed_ =
-		sge::camera::set_pressed_if_appropriate(
-			action_mapping_.increase_azimuth().get(),
-			_key_event);
+	sge::camera::set_pressed_if_appropriate(
+		increase_azimuth_pressed_,
+		action_mapping_.increase_azimuth().get(),
+		_key_event);
 
-	decrease_azimuth_pressed_ =
-		sge::camera::set_pressed_if_appropriate(
-			action_mapping_.decrease_azimuth().get(),
-			_key_event);
+	sge::camera::set_pressed_if_appropriate(
+		decrease_azimuth_pressed_,
+		action_mapping_.decrease_azimuth().get(),
+		_key_event);
 
-	increase_inclination_pressed_ =
-		sge::camera::set_pressed_if_appropriate(
-			action_mapping_.increase_inclination().get(),
-			_key_event);
+	sge::camera::set_pressed_if_appropriate(
+		increase_inclination_pressed_,
+		action_mapping_.increase_inclination().get(),
+		_key_event);
 
-	decrease_inclination_pressed_ =
-		sge::camera::set_pressed_if_appropriate(
-			action_mapping_.decrease_inclination().get(),
-			_key_event);
+	sge::camera::set_pressed_if_appropriate(
+		decrease_inclination_pressed_,
+		action_mapping_.decrease_inclination().get(),
+		_key_event);
 
-	increase_radius_pressed_ =
-		sge::camera::set_pressed_if_appropriate(
-			action_mapping_.increase_radius().get(),
-			_key_event);
+	sge::camera::set_pressed_if_appropriate(
+		increase_radius_pressed_,
+		action_mapping_.increase_radius().get(),
+		_key_event);
 
-	decrease_radius_pressed_ =
-		sge::camera::set_pressed_if_appropriate(
-			action_mapping_.decrease_radius().get(),
-			_key_event);
+	sge::camera::set_pressed_if_appropriate(
+		decrease_radius_pressed_,
+		action_mapping_.decrease_radius().get(),
+		_key_event);
 
 	acceleration_.azimuth(
 		spherical::coordinate_system::azimuth(

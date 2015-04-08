@@ -30,8 +30,9 @@ namespace sge
 namespace camera
 {
 
-bool
+void
 set_pressed_if_appropriate(
+	bool &,
 	sge::input::keyboard::optional_key_code const &,
 	sge::input::keyboard::key_event const &
 );

@@ -239,18 +239,18 @@ void
 sge::camera::ortho_freelook::object::key_callback(
 	sge::input::keyboard::key_event const &_key_event)
 {
-	zoom_in_pressed_ =
-		sge::camera::set_pressed_if_appropriate(
-			action_mapping_.zoom_in().get(),
-			_key_event);
+	sge::camera::set_pressed_if_appropriate(
+		zoom_in_pressed_,
+		action_mapping_.zoom_in().get(),
+		_key_event);
 
-	zoom_out_pressed_ =
-		sge::camera::set_pressed_if_appropriate(
-			action_mapping_.zoom_out().get(),
-			_key_event);
+	sge::camera::set_pressed_if_appropriate(
+		zoom_out_pressed_,
+		action_mapping_.zoom_out().get(),
+		_key_event);
 
-	pan_pressed_ =
-		sge::camera::set_pressed_if_appropriate(
-			action_mapping_.activate_pan().get(),
-			_key_event);
+	sge::camera::set_pressed_if_appropriate(
+		pan_pressed_,
+		action_mapping_.activate_pan().get(),
+		_key_event);
 }

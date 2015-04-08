@@ -188,35 +188,35 @@ void
 sge::camera::first_person::object::key_callback(
 	sge::input::keyboard::key_event const &_key_event)
 {
-	left_pressed_ =
-		sge::camera::set_pressed_if_appropriate(
-			action_mapping_.left().get(),
-			_key_event);
+	sge::camera::set_pressed_if_appropriate(
+		left_pressed_,
+		action_mapping_.left().get(),
+		_key_event);
 
-	right_pressed_ =
-		sge::camera::set_pressed_if_appropriate(
-			action_mapping_.right().get(),
-			_key_event);
+	sge::camera::set_pressed_if_appropriate(
+		right_pressed_,
+		action_mapping_.right().get(),
+		_key_event);
 
-	up_pressed_ =
-		sge::camera::set_pressed_if_appropriate(
-			action_mapping_.up().get(),
-			_key_event);
+	sge::camera::set_pressed_if_appropriate(
+		up_pressed_,
+		action_mapping_.up().get(),
+		_key_event);
 
-	down_pressed_ =
-		sge::camera::set_pressed_if_appropriate(
-			action_mapping_.down().get(),
-			_key_event);
+	sge::camera::set_pressed_if_appropriate(
+		down_pressed_,
+		action_mapping_.down().get(),
+		_key_event);
 
-	forward_pressed_ =
-		sge::camera::set_pressed_if_appropriate(
-			action_mapping_.forward().get(),
-			_key_event);
+	sge::camera::set_pressed_if_appropriate(
+		forward_pressed_,
+		action_mapping_.forward().get(),
+		_key_event);
 
-	backward_pressed_ =
-		sge::camera::set_pressed_if_appropriate(
-			action_mapping_.backward().get(),
-			_key_event);
+	sge::camera::set_pressed_if_appropriate(
+		backward_pressed_,
+		action_mapping_.backward().get(),
+		_key_event);
 
 	directions_ =
 		sge::renderer::vector3(

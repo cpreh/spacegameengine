@@ -20,11 +20,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/egl/attribute_vector.hpp>
 #include <sge/opengl/egl/visual/make_attributes.hpp>
+#include <sge/renderer/pixel_format/bit_count.hpp>
 #include <sge/renderer/pixel_format/color_bits.hpp>
 #include <sge/renderer/pixel_format/depth_bits.hpp>
 #include <sge/renderer/pixel_format/object.hpp>
-#include <sge/renderer/pixel_format/optional_bit_count.hpp>
 #include <sge/renderer/pixel_format/stencil_bits.hpp>
+#include <fcppt/maybe_void.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
@@ -69,41 +70,43 @@ sge::opengl::egl::visual::make_attributes(
 		}
 	);
 
-	{
-		sge::renderer::pixel_format::optional_bit_count const depth_size(
-			sge::renderer::pixel_format::depth_bits(
-				_format.depth_stencil()
-			)
-		);
-
-		if(
-			depth_size
+	fcppt::maybe_void(
+		sge::renderer::pixel_format::depth_bits(
+			_format.depth_stencil()
+		),
+		[
+			&push_attribute
+		](
+			sge::renderer::pixel_format::bit_count const _depth_size
 		)
+		{
 			push_attribute(
 				EGL_DEPTH_SIZE,
 				fcppt::cast::to_signed(
-					depth_size->get()
+					_depth_size.get()
 				)
 			);
-	}
+		}
+	);
 
-	{
-		sge::renderer::pixel_format::optional_bit_count const stencil_size(
-			sge::renderer::pixel_format::stencil_bits(
-				_format.depth_stencil()
-			)
-		);
-
-		if(
-			stencil_size
+	fcppt::maybe_void(
+		sge::renderer::pixel_format::stencil_bits(
+			_format.depth_stencil()
+		),
+		[
+			&push_attribute
+		](
+			sge::renderer::pixel_format::bit_count const _stencil_size
 		)
+		{
 			push_attribute(
 				EGL_STENCIL_SIZE,
 				fcppt::cast::to_signed(
-					stencil_size->get()
+					_stencil_size.get()
 				)
 			);
-	}
+		}
+	);
 
 	// TODO! Check extensions for srgb support
 
