@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/find_member_return_type.hpp>
 #include <sge/parse/json/find_member_value.hpp>
 #include <sge/parse/json/get_exn.hpp>
+#include <sge/parse/json/value.hpp>
 #include <fcppt/optional_bind_construct.hpp>
 #include <fcppt/string.hpp>
 
@@ -62,10 +63,16 @@ find_member(
 			[](
 				typename
 				sge::parse::json::find_member_return_type<
-					T,
+					sge::parse::json::value,
 					Arg
 				>::element_type _arg
 			)
+			->
+			typename
+			sge::parse::json::find_member_return_type<
+				T,
+				Arg
+			>::element_type
 			{
 				return
 					sge::parse::json::get_exn<

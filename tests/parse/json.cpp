@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/result.hpp>
 #include <sge/parse/result_code.hpp>
 #include <sge/parse/json/array.hpp>
+#include <sge/parse/json/find_member.hpp>
+#include <sge/parse/json/int_type.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/parse_stream.hpp>
 #include <sge/parse/json/start.hpp>
@@ -70,6 +72,15 @@ FCPPT_PP_POP_WARNING
 		).result_code()
 		==
 		sge::parse::result_code::ok
+	);
+
+	BOOST_CHECK(
+		sge::parse::json::find_member<
+			sge::parse::json::int_type
+		>(
+			result.object().members,
+			FCPPT_TEXT("foo")
+		)
 	);
 }
 
