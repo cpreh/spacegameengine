@@ -108,7 +108,7 @@ sge::shader::parameter::planar_texture::activate(
 	sge::renderer::context::core &_render_context)
 {
 	FCPPT_ASSERT_PRE(
-		!optional_render_context_);
+		!optional_render_context_.has_value());
 
 	FCPPT_ASSERT_PRE(
 		!scoped_texture_);
@@ -125,7 +125,7 @@ void
 sge::shader::parameter::planar_texture::deactivate()
 {
 	FCPPT_ASSERT_PRE(
-		optional_render_context_);
+		optional_render_context_.has_value());
 
 	scoped_texture_.reset();
 	loaded_texture_.reset();

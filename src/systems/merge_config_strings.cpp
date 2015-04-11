@@ -39,7 +39,7 @@ sge::systems::merge_config_strings(
 )
 {
 	return
-		_parameter_name
+		_parameter_name.has_value()
 		?
 			_parameter_name
 		:

@@ -143,7 +143,7 @@ sge::rucksack::widget::master_and_slaves::master_pane(
 )
 {
 	if(
-		master_pane_
+		master_pane_.has_value()
 	)
 		surrounding_box_.pop_front_child();
 

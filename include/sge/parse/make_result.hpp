@@ -38,7 +38,7 @@ template<
 	typename In,
 	typename Grammar
 >
-sge::parse::result const
+sge::parse::result
 make_result(
 	bool const _retval,
 	In &_begin,
@@ -70,7 +70,7 @@ make_result(
 			?
 				sge::parse::optional_error_string()
 			:
-				_grammar.error_string()
+				_grammar.error_string().has_value()
 				?
 					_grammar.error_string()
 				:

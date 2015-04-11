@@ -35,9 +35,12 @@ sge::systems::audio_player::name(
 )
 {
 	name_ =
-		_name;
+		sge::systems::optional_name(
+			_name
+		);
 
-	return *this;
+	return
+		*this;
 }
 
 sge::systems::optional_name const &

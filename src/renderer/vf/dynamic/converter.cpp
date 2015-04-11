@@ -61,7 +61,7 @@ sge::renderer::vf::dynamic::converter::lock(
 )
 {
 	FCPPT_ASSERT_PRE(
-		!locked_part_
+		!locked_part_.has_value()
 	);
 
 	if(
@@ -89,7 +89,9 @@ sge::renderer::vf::dynamic::converter::lock(
 		);
 
 	locked_part_ =
-		_locked_part;
+		optional_locked_part(
+			_locked_part
+		);
 }
 
 void
@@ -102,7 +104,7 @@ sge::renderer::vf::dynamic::converter::unlock()
 	);
 
 	if(
-		!converter_
+		!converter_.has_value()
 	)
 		converter_ =
 			optional_converter_unique_ptr(
@@ -143,13 +145,15 @@ sge::renderer::vf::dynamic::converter::unlock()
 		);
 	}
 
-	locked_part_.reset();
+	locked_part_ =
+		optional_locked_part();
 }
 
 void
 sge::renderer::vf::dynamic::converter::reset()
 {
-	locked_part_.reset();
+	locked_part_ =
+		optional_locked_part();
 
 	written_intervals_.clear();
 }

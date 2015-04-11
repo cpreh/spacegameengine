@@ -18,7 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opencl/device/object_ref_sequence.hpp>
+#include <sge/opencl/program/build_options.hpp>
 #include <sge/opencl/program/build_parameters.hpp>
+#include <sge/opencl/program/notification_callback.hpp>
+
 
 sge::opencl::program::build_parameters::build_parameters()
 :
@@ -30,45 +34,59 @@ sge::opencl::program::build_parameters::build_parameters()
 
 sge::opencl::program::build_parameters &
 sge::opencl::program::build_parameters::devices(
-	device::object_ref_sequence const &_devices)
+	sge::opencl::device::object_ref_sequence const &_devices
+)
 {
 	devices_ =
-		_devices;
-	return *this;
+		optional_object_ref_sequence(
+			_devices
+		);
+
+	return
+		*this;
 }
 
 sge::opencl::program::build_parameters &
 sge::opencl::program::build_parameters::options(
-	program::build_options const &_build_options)
+	sge::opencl::program::build_options const &_build_options
+)
 {
 	build_options_ =
 		_build_options;
-	return *this;
+
+	return
+		*this;
 }
 
 sge::opencl::program::build_parameters &
 sge::opencl::program::build_parameters::notification_callback(
-	program::notification_callback const &_notification_callback)
+	sge::opencl::program::notification_callback const &_notification_callback
+)
 {
 	notification_callback_ =
 		_notification_callback;
-	return *this;
+
+	return
+		*this;
 }
 
-fcppt::optional<sge::opencl::device::object_ref_sequence> const &
+sge::opencl::program::build_parameters::optional_object_ref_sequence const &
 sge::opencl::program::build_parameters::devices() const
 {
-	return devices_;
+	return
+		devices_;
 }
 
 sge::opencl::program::build_options const &
 sge::opencl::program::build_parameters::build_options() const
 {
-	return build_options_;
+	return
+		build_options_;
 }
 
 sge::opencl::program::notification_callback const &
 sge::opencl::program::build_parameters::notification_callback() const
 {
-	return notification_callback_;
+	return
+		notification_callback_;
 }

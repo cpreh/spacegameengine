@@ -46,9 +46,13 @@ sge::font::parameters::dpi(
 	sge::font::dpi const &_dpi
 )
 {
-	dpi_ = _dpi;
+	dpi_ =
+		sge::font::optional_dpi(
+			_dpi
+		);
 
-	return *this;
+	return
+		*this;
 }
 
 sge::font::parameters &
@@ -56,9 +60,13 @@ sge::font::parameters::ttf_size(
 	sge::font::ttf_size const _ttf_size
 )
 {
-	ttf_size_ = _ttf_size;
+	ttf_size_ =
+		sge::font::optional_ttf_size(
+			_ttf_size
+		);
 
-	return *this;
+	return
+		*this;
 }
 
 sge::font::parameters &
@@ -66,9 +74,13 @@ sge::font::parameters::family(
 	fcppt::string const &_family
 )
 {
-	family_ = _family;
+	family_ =
+		sge::font::optional_family(
+			_family
+		);
 
-	return *this;
+	return
+		*this;
 }
 
 sge::font::parameters &
@@ -76,45 +88,56 @@ sge::font::parameters::weight(
 	sge::font::weight::unit const _weight
 )
 {
-	weight_ = _weight;
+	weight_ =
+		sge::font::weight::optional_unit(
+			_weight
+		);
 
-	return *this;
+	return
+		*this;
 }
 
 sge::font::parameters &
 sge::font::parameters::italic()
 {
-	italic_ = true;
+	italic_ =
+		true;
 
-	return *this;
+	return
+		*this;
 }
 
 sge::font::optional_dpi const &
 sge::font::parameters::dpi() const
 {
-	return dpi_;
+	return
+		dpi_;
 }
 
 sge::font::optional_ttf_size const &
 sge::font::parameters::ttf_size() const
 {
-	return ttf_size_;
+	return
+		ttf_size_;
 }
 
 sge::font::optional_family const &
 sge::font::parameters::family() const
 {
-	return family_;
+	return
+		family_;
 }
 
 sge::font::weight::optional_unit const &
 sge::font::parameters::weight() const
 {
-	return weight_;
+	return
+		weight_;
 }
 
 bool
 sge::font::parameters::italic() const
 {
-	return italic_;
+	return
+		italic_;
 }

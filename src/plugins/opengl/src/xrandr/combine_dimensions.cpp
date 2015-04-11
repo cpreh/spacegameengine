@@ -30,7 +30,7 @@ sge::opengl::xrandr::combine_dimensions(
 )
 {
 	return
-		_previous
+		_previous.has_value()
 		?
 			_previous
 		:

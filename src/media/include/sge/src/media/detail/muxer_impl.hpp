@@ -129,7 +129,7 @@ sge::media::detail::muxer<
 				);
 
 				if(
-					!result
+					!result.has_value()
 				)
 					FCPPT_LOG_DEBUG(
 						sge::media::logger(),
@@ -268,7 +268,7 @@ sge::media::detail::muxer<
 		);
 
 		if(
-			result
+			result.has_value()
 		)
 			return
 				std::move(

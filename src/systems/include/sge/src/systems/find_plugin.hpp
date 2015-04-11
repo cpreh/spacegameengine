@@ -97,7 +97,7 @@ find_plugin(
 		);
 
 		if(
-			_opt_name
+			_opt_name.has_value()
 			&&
 			!name_is_same
 		)

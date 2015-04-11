@@ -80,7 +80,7 @@ sge::opengl::texture::activate(
 			);
 
 			if(
-				!_opt_texture
+				!_opt_texture.has_value()
 			)
 			{
 				sge::opengl::texture::bind_level(

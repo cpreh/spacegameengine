@@ -320,7 +320,8 @@ sge::x11input::cursor::object::on_leave(
 			<< FCPPT_TEXT("XILeave")
 	);
 
-	position_.reset();
+	position_ =
+		sge::input::cursor::optional_position{};
 
 	this->move_event();
 }
@@ -334,18 +335,20 @@ sge::x11input::cursor::object::update_position(
 )
 {
 	position_ =
-		sge::input::cursor::position(
-			fcppt::cast::float_to_int<
-				sge::input::cursor::position_unit
-			>(
-				_event.get().event_x
-			),
-			fcppt::cast::float_to_int<
-				sge::input::cursor::position_unit
-			>(
-				_event.get().event_y
+		sge::input::cursor::optional_position{
+			sge::input::cursor::position(
+				fcppt::cast::float_to_int<
+					sge::input::cursor::position_unit
+				>(
+					_event.get().event_x
+				),
+				fcppt::cast::float_to_int<
+					sge::input::cursor::position_unit
+				>(
+					_event.get().event_y
+				)
 			)
-		);
+		};
 
 	this->move_event();
 }

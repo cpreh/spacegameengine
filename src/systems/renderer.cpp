@@ -72,7 +72,9 @@ sge::systems::renderer::name(
 )
 {
 	name_ =
-		_name;
+		sge::systems::optional_name(
+			_name
+		);
 
 	return
 		*this;

@@ -396,7 +396,7 @@ int
 sge::vorbis::file::ogg_close()
 {
 	// Kind of a hack here, sorry.
-	if (file_name_)
+	if (file_name_.has_value())
 		static_cast<boost::filesystem::ifstream &>(
 			*stdstream_).close();
 	// the return code is not checked, but zero indicates success in the orr library

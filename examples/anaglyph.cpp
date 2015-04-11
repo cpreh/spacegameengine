@@ -778,7 +778,7 @@ try
 						_main_function_context.argv()[1])));
 
 			if(
-				!opt_eye_distance
+				!opt_eye_distance.has_value()
 			)
 			{
 				std::cerr << "The eye distance argument has to be floating point! Exiting...\n";
@@ -801,7 +801,7 @@ try
 						_main_function_context.argv()[2])));
 
 			if(
-				!opt_focal_length
+				!opt_focal_length.has_value()
 			)
 			{
 				std::cerr << "The focal length argument has to be floating point! Exiting...\n";

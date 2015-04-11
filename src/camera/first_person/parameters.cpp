@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/first_person/parameters.hpp>
 #include <sge/camera/first_person/action/wasd_mapping.hpp>
 
+
 sge::camera::first_person::parameters::parameters(
 	sge::input::keyboard::device &_keyboard,
 	sge::input::mouse::device &_mouse,
@@ -120,7 +121,9 @@ sge::camera::first_person::parameters::projection(
 	sge::camera::projection_matrix const &_projection_matrix)
 {
 	projection_matrix_ =
-		_projection_matrix;
+		sge::camera::optional_projection_matrix(
+			_projection_matrix
+		);
 
 	return
 		*this;

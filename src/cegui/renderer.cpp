@@ -527,7 +527,7 @@ sge::cegui::renderer::beginRendering()
 	);
 
 	FCPPT_ASSERT_PRE(
-		render_context_
+		render_context_.has_value()
 	);
 }
 
@@ -541,7 +541,7 @@ sge::cegui::renderer::endRendering()
 	);
 
 	FCPPT_ASSERT_PRE(
-		render_context_
+		render_context_.has_value()
 	);
 }
 

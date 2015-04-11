@@ -225,7 +225,10 @@ sge::camera::spherical::parameters::projection(
 	sge::camera::projection_matrix const &_projection_matrix)
 {
 	projection_matrix_ =
-		_projection_matrix;
+		sge::camera::optional_projection_matrix(
+			_projection_matrix
+		);
+
 	return
 		*this;
 }

@@ -158,7 +158,7 @@ sge::scenic::render_context::cg::object::material(
 		_material.diffuse_texture().has_value());
 
 	manager_.diffuse_texture_.set(
-		_material.diffuse_texture()
+		_material.diffuse_texture().has_value()
 		?
 			sge::shader::parameter::planar_texture::optional_value(
 				_material.diffuse_texture())
@@ -169,7 +169,7 @@ sge::scenic::render_context::cg::object::material(
 		_material.specular_texture().has_value());
 
 	manager_.specular_texture_.set(
-		_material.specular_texture()
+		_material.specular_texture().has_value()
 		?
 			sge::shader::parameter::planar_texture::optional_value(
 				_material.specular_texture())

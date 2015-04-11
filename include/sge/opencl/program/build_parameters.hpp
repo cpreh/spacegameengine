@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/device/object_ref_sequence.hpp>
 #include <sge/opencl/program/build_options.hpp>
 #include <sge/opencl/program/notification_callback.hpp>
-#include <fcppt/optional.hpp>
+#include <fcppt/optional_impl.hpp>
 
 
 namespace sge
@@ -34,37 +34,56 @@ namespace opencl
 {
 namespace program
 {
+
 class build_parameters
 {
 public:
-	SGE_OPENCL_DETAIL_SYMBOL explicit
+	SGE_OPENCL_DETAIL_SYMBOL
 	build_parameters();
 
-	SGE_OPENCL_DETAIL_SYMBOL program::build_parameters &
+	SGE_OPENCL_DETAIL_SYMBOL
+	build_parameters &
 	devices(
-		device::object_ref_sequence const &);
+		sge::opencl::device::object_ref_sequence const &
+	);
 
-	SGE_OPENCL_DETAIL_SYMBOL program::build_parameters &
+	SGE_OPENCL_DETAIL_SYMBOL
+	build_parameters &
 	options(
-		program::build_options const &);
+		sge::opencl::program::build_options const &
+	);
 
-	SGE_OPENCL_DETAIL_SYMBOL program::build_parameters &
+	SGE_OPENCL_DETAIL_SYMBOL
+	build_parameters &
 	notification_callback(
-		program::notification_callback const &);
+		sge::opencl::program::notification_callback const &
+	);
 
-	SGE_OPENCL_DETAIL_SYMBOL fcppt::optional<device::object_ref_sequence> const &
+	typedef
+	fcppt::optional<
+		sge::opencl::device::object_ref_sequence
+	>
+	optional_object_ref_sequence;
+
+	SGE_OPENCL_DETAIL_SYMBOL
+	optional_object_ref_sequence const &
 	devices() const;
 
-	SGE_OPENCL_DETAIL_SYMBOL program::build_options const &
+	SGE_OPENCL_DETAIL_SYMBOL
+	sge::opencl::program::build_options const &
 	build_options() const;
 
-	SGE_OPENCL_DETAIL_SYMBOL program::notification_callback const &
+	SGE_OPENCL_DETAIL_SYMBOL
+	sge::opencl::program::notification_callback const &
 	notification_callback() const;
 private:
-	fcppt::optional<device::object_ref_sequence> devices_;
-	program::build_options build_options_;
-	program::notification_callback notification_callback_;
+	optional_object_ref_sequence devices_;
+
+	sge::opencl::program::build_options build_options_;
+
+	sge::opencl::program::notification_callback notification_callback_;
 };
+
 }
 }
 }

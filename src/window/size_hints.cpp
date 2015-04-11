@@ -18,7 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/window/dim.hpp>
+#include <sge/window/optional_dim.hpp>
 #include <sge/window/size_hints.hpp>
+
 
 sge::window::size_hints::size_hints()
 :
@@ -30,48 +33,63 @@ sge::window::size_hints::size_hints()
 
 sge::window::size_hints &
 sge::window::size_hints::exact_size_hint(
-	window::dim const &_exact_size_hint
+	sge::window::dim const &_exact_size_hint
 )
 {
-	exact_size_hint_ = _exact_size_hint;
+	exact_size_hint_ =
+		sge::window::optional_dim(
+			_exact_size_hint
+		);
 
-	return *this;
+	return
+		*this;
 }
 
 sge::window::size_hints &
 sge::window::size_hints::minimum_size_hint(
-	window::dim const &_minimum_size_hint
+	sge::window::dim const &_minimum_size_hint
 )
 {
-	minimum_size_hint_ = _minimum_size_hint;
+	minimum_size_hint_ =
+		sge::window::optional_dim(
+			_minimum_size_hint
+		);
 
-	return *this;
+	return
+		*this;
 }
 
 sge::window::size_hints &
 sge::window::size_hints::maximum_size_hint(
-	window::dim const &_maximum_size_hint
+	sge::window::dim const &_maximum_size_hint
 )
 {
-	maximum_size_hint_ = _maximum_size_hint;
+	maximum_size_hint_ =
+		sge::window::optional_dim(
+			_maximum_size_hint
+		);
 
-	return *this;
+	return
+		*this;
 }
 
 sge::window::optional_dim const &
 sge::window::size_hints::exact_size_hint() const
 {
-	return exact_size_hint_;
+	return
+		exact_size_hint_;
 }
 
 sge::window::optional_dim const &
 sge::window::size_hints::minimum_size_hint() const
 {
-	return minimum_size_hint_;
+	return
+		minimum_size_hint_;
 }
 
 sge::window::optional_dim const &
 sge::window::size_hints::maximum_size_hint() const
 {
-	return maximum_size_hint_;
+	return
+		maximum_size_hint_;
 }

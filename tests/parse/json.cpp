@@ -80,7 +80,7 @@ FCPPT_PP_POP_WARNING
 		>(
 			result.object().members,
 			FCPPT_TEXT("foo")
-		)
+		).has_value()
 	);
 }
 

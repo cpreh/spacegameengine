@@ -67,7 +67,7 @@ sge::opengl::x11::device_state::device_state(
 	resolution_()
 {
 	if(
-		_display_mode
+		_display_mode.has_value()
 	)
 		this->display_mode(
 			_display_mode

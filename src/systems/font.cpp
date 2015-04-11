@@ -34,13 +34,18 @@ sge::systems::font::name(
 	sge::plugin::name const &_name
 )
 {
-	name_ = _name;
+	name_ =
+		sge::systems::optional_name(
+			_name
+		);
 
-	return *this;
+	return
+		*this;
 }
 
 sge::systems::optional_name const &
 sge::systems::font::name() const
 {
-	return name_;
+	return
+		name_;
 }

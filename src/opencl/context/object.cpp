@@ -54,15 +54,16 @@ sge::opencl::context::object::object(
 		CL_CONTEXT_PLATFORM,
 		reinterpret_cast<cl_context_properties>(
 			_params.platform().platform_id_),
-		_params.shared_renderer()
+		_params.shared_renderer().has_value()
 		?
 			CL_GL_CONTEXT_KHR
 		:
 			static_cast<cl_context_properties>(0),
-		_params.shared_renderer()
+		_params.shared_renderer().has_value()
 		?
 			reinterpret_cast<cl_context_properties>(
 #if defined(SGE_OPENCL_HAVE_GLX)
+				// FIXME: This should not be here and must be returned from sge::opengl instead
 				glXGetCurrentContext()
 #elif defined(SGE_OPENCL_HAVE_WINDOWS)
 				wglGetCurrentContext()
@@ -74,7 +75,7 @@ sge::opencl::context::object::object(
 			static_cast<cl_context_properties>(0),
 #if defined(SGE_OPENCL_HAVE_GLX)
 		CL_GLX_DISPLAY_KHR,
-		_params.shared_renderer()
+		_params.shared_renderer().has_value()
 		?
 			reinterpret_cast<cl_context_properties>(
 				glXGetCurrentDisplay())
@@ -82,7 +83,7 @@ sge::opencl::context::object::object(
 			static_cast<cl_context_properties>(0),
 #elif defined(SGE_OPENCL_HAVE_WINDOWS)
 		CL_WGL_HDC_KHR,
-		_params.shared_renderer()
+		_params.shared_renderer().has_value()
 		?
 			reinterpret_cast<cl_context_properties>(
 				wglGetCurrentDC())

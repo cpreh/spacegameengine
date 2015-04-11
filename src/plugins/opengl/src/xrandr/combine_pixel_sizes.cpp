@@ -31,7 +31,7 @@ sge::opengl::xrandr::combine_pixel_sizes(
 )
 {
 	return
-		_previous
+		_previous.has_value()
 		?
 			sge::renderer::display_mode::optional_pixel_size()
 		:

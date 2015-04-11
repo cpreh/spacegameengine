@@ -367,12 +367,17 @@ sge::opengl::texture::basic_buffer<
 
 	lock_->lock();
 
-	if(
-		_lock_area == this->area()
-	)
-		lock_area_.reset();
-	else
-		lock_area_ = _lock_area;
+	lock_area_ =
+		_lock_area
+		==
+		this->area()
+		?
+			optional_lock_area()
+		:
+			optional_lock_area(
+				_lock_area
+			)
+		;
 }
 
 template<

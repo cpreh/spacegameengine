@@ -43,7 +43,7 @@ sge::systems::modules::audio::find_player_plugin(
 )
 {
 	return
-		_parameters.name()
+		_parameters.name().has_value()
 		?
 			sge::systems::find_plugin<
 				sge::audio::player

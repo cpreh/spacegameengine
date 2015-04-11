@@ -226,7 +226,7 @@ void
 sge::rucksack::viewport::adaptor::manage_callback()
 {
 	if(
-		child_
+		child_.has_value()
 	)
 		this->resize_child();
 }

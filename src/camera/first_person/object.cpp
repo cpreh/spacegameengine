@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/camera/optional_projection_matrix.hpp>
 #include <sge/camera/first_person/object.hpp>
 #include <sge/camera/first_person/parameters.hpp>
 #include <sge/input/keyboard/device.hpp>
@@ -119,10 +120,12 @@ sge::camera::first_person::object::projection_matrix() const
 
 void
 sge::camera::first_person::object::update_projection_matrix(
-	camera::projection_matrix const &_projection_matrix)
+	sge::camera::projection_matrix const &_projection_matrix)
 {
 	projection_matrix_ =
-		_projection_matrix;
+		sge::camera::optional_projection_matrix(
+			_projection_matrix
+		);
 }
 
 sge::camera::is_active const

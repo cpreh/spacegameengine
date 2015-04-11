@@ -441,7 +441,9 @@ try
 								_cur_position
 							]{
 								last_position =
-									_cur_position;
+									sge::input::cursor::optional_position{
+										_cur_position
+									};
 							},
 							[
 								&last_position,
@@ -507,7 +509,8 @@ try
 									}
 								);
 
-								last_position.reset();
+								last_position =
+									sge::input::cursor::optional_position{};
 							}
 						);
 					}

@@ -44,8 +44,10 @@ sge::systems::log_settings::redirect(
 )
 {
 	redirect_ =
-		sge::systems::log_redirect_path(
-			_path
+		sge::systems::optional_log_redirect_path(
+			sge::systems::log_redirect_path(
+				_path
+			)
 		);
 
 	return

@@ -182,11 +182,11 @@ sge::cegui::texture::create_from_view(
 )
 {
 	FCPPT_ASSERT_PRE(
-		!texture_
+		!texture_.has_value()
 		&&
-		!size_
+		!size_.has_value()
 		&&
-		!texel_scaling_
+		!texel_scaling_.has_value()
 	);
 
 	CEGUI::Sizef const new_size(
@@ -227,7 +227,7 @@ bool
 sge::cegui::texture::empty() const
 {
 	return
-		!texture_;
+		!texture_.has_value();
 }
 
 CEGUI::String const  &

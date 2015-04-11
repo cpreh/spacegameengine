@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/audio/scalar.hpp>
 #include <sge/audio/vector.hpp>
+#include <sge/audio/sound/optional_direction.hpp>
 #include <sge/audio/sound/positional_parameters.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/math/twopi.hpp>
@@ -237,7 +238,9 @@ sge::audio::sound::positional_parameters::direction(
 )
 {
 	direction_ =
-		_direction;
+		sge::audio::sound::optional_direction{
+			_direction
+		};
 
 	return
 		*this;

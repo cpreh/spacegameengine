@@ -41,8 +41,10 @@ sge::systems::config::plugin_path(
 )
 {
 	plugin_path_ =
-		sge::systems::plugin_path(
-			_plugin_path
+		sge::systems::optional_plugin_path(
+			sge::systems::plugin_path(
+				_plugin_path
+			)
 		);
 
 	return
@@ -55,7 +57,9 @@ sge::systems::config::log_settings(
 )
 {
 	log_settings_ =
-		_log_settings;
+		sge::systems::optional_log_settings(
+			_log_settings
+		);
 
 	return
 		*this;

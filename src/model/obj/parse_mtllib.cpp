@@ -161,7 +161,9 @@ public:
 				FCPPT_TEXT("Invalid shininess."));
 
 			shininess_ =
-				new_shininess;
+				optional_shininess(
+					new_shininess
+				);
 		}
 		else if(_prefix == "Ka")
 		{
@@ -177,7 +179,9 @@ public:
 				FCPPT_TEXT("Invalid ambient"));
 
 			ambient_ =
-				new_ambient;
+				optional_color(
+					new_ambient
+				);
 		}
 		else if(_prefix == "Ke")
 		{
@@ -191,10 +195,13 @@ public:
 				FCPPT_TEXT("Invalid emissive"));
 
 			emissive_ =
-				sge::renderer::vector3(
-					new_emissive,
-					new_emissive,
-					new_emissive);
+				optional_color(
+					sge::renderer::vector3(
+						new_emissive,
+						new_emissive,
+						new_emissive
+					)
+				);
 		}
 		else if(_prefix == "Kd")
 		{
@@ -210,7 +217,9 @@ public:
 				FCPPT_TEXT("Invalid diffuse"));
 
 			diffuse_ =
-				new_diffuse;
+				optional_color(
+					new_diffuse
+				);
 		}
 		else if(_prefix == "Ks")
 		{
@@ -226,7 +235,9 @@ public:
 				FCPPT_TEXT("Invalid specular"));
 
 			specular_ =
-				new_specular;
+				optional_color(
+					new_specular
+				);
 		}
 		else if(_prefix == "Ni")
 		{
@@ -244,7 +255,7 @@ public:
 				FCPPT_TEXT("Invalid dissolve"));
 
 			FCPPT_ASSERT_PRE(
-				diffuse_);
+				diffuse_.has_value());
 
 			FCPPT_LOG_WARNING(
 				sge::model::obj::logger(),
@@ -275,11 +286,15 @@ public:
 			{
 			case 0u:
 				ambient_ =
-					sge::renderer::vector3::null();
+					optional_color(
+						sge::renderer::vector3::null()
+					);
 				break;
 			case 1u:
 				specular_ =
-					sge::renderer::vector3::null();
+					optional_color(
+						sge::renderer::vector3::null()
+					);
 				break;
 			case 2u:
 				break;
@@ -293,16 +308,24 @@ public:
 		else if(_prefix == "map_Kd")
 		{
 			diffuse_texture_ =
-				parent_path_ /
-				boost::filesystem::path(
-					_rest_of_line);
+				optional_path(
+					parent_path_
+					/
+					boost::filesystem::path(
+						_rest_of_line
+					)
+				);
 		}
 		else if(_prefix == "map_Ks")
 		{
 			specular_texture_ =
-				parent_path_ /
-				boost::filesystem::path(
-					_rest_of_line);
+				optional_path(
+					parent_path_
+					/
+					boost::filesystem::path(
+						_rest_of_line
+					)
+				);
 		}
 		else if (_prefix == "newmtl")
 		{
@@ -428,14 +451,46 @@ public:
 	}
 private:
 	boost::filesystem::path const parent_path_;
+
 	sge::model::obj::material_map result_;
+
 	unsigned current_line_;
+
 	sge::model::obj::identifier current_material_;
-	fcppt::optional<sge::renderer::scalar> shininess_;
-	fcppt::optional<sge::renderer::vector3> ambient_, diffuse_, specular_, emissive_;
-	fcppt::optional<boost::filesystem::path> diffuse_texture_;
-	fcppt::optional<boost::filesystem::path> specular_texture_;
+
+	typedef
+	fcppt::optional<
+		sge::renderer::scalar
+	>
+	optional_shininess;
+
+	optional_shininess shininess_;
+
+	typedef
+	fcppt::optional<
+		sge::renderer::vector3
+	>
+	optional_color;
+
+	optional_color ambient_;
+
+	optional_color diffuse_;
+
+	optional_color specular_;
+
+	optional_color emissive_;
+
+	typedef
+	fcppt::optional<
+		boost::filesystem::path
+	>
+	optional_path;
+
+	optional_path diffuse_texture_;
+
+	optional_path specular_texture_;
 };
+
 }
 
 sge::model::obj::material_map const

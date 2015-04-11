@@ -60,27 +60,31 @@ install_error_handler(
 			_error_string
 		) =
 			boost::phoenix::construct<
-				sge::parse::error_string
+				sge::parse::optional_error_string
 			>(
-				boost::phoenix::val(
-					FCPPT_TEXT("Parsing failed: \"")
-				)
-				+
 				boost::phoenix::construct<
-					fcppt::string
+					sge::parse::error_string
 				>(
-					boost::spirit::qi::labels::_1,
-					boost::spirit::qi::labels::_3
+					boost::phoenix::val(
+						FCPPT_TEXT("Parsing failed: \"")
+					)
+					+
+					boost::phoenix::construct<
+						fcppt::string
+					>(
+						boost::spirit::qi::labels::_1,
+						boost::spirit::qi::labels::_3
+					)
+					+
+					FCPPT_TEXT("\" - expected ")
+					+
+					boost::phoenix::bind(
+						&sge::parse::info_to_string,
+						boost::spirit::qi::labels::_4
+					)
+					+
+					FCPPT_TEXT(" here.")
 				)
-				+
-				FCPPT_TEXT("\" - expected ")
-				+
-				boost::phoenix::bind(
-					&sge::parse::info_to_string,
-					boost::spirit::qi::labels::_4
-				)
-				+
-				FCPPT_TEXT(" here.")
 			)
 	);
 }

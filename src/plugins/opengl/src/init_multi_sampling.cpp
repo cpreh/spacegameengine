@@ -36,7 +36,7 @@ sge::opengl::init_multi_sampling(
 )
 {
 	if(
-		!_samples
+		!_samples.has_value()
 	)
 		return;
 

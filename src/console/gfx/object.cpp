@@ -175,7 +175,7 @@ sge::console::gfx::object::render(
 )
 {
 	if(
-		background_.texture()
+		background_.texture().has_value()
 	)
 		sge::sprite::process::one(
 			_render_context,

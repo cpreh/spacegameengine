@@ -209,7 +209,7 @@ sge::opengl::buffer::hardware::bind_buffer(
 		(
 			result.inserted()
 			&&
-			!_id
+			!_id.has_value()
 		)
 	)
 		return;
