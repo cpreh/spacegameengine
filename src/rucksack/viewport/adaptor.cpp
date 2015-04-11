@@ -234,21 +234,21 @@ sge::rucksack::viewport::adaptor::manage_callback()
 void
 sge::rucksack::viewport::adaptor::resize_child()
 {
-	sge::rucksack::widget::base &child(
+	sge::rucksack::widget::base &cur_child(
 		FCPPT_ASSERT_OPTIONAL_ERROR(
 			child_
 		)
 	);
 
-	child.position(
+	cur_child.position(
 		sge::rucksack::vector::null()
 	);
 
-	child.size(
+	cur_child.size(
 		this->size()
 	);
 
-	child.relayout();
+	cur_child.relayout();
 }
 
 void
