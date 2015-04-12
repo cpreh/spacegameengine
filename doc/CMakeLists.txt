@@ -1626,7 +1626,6 @@ set(
 	include/sge/parse/json/convert/from_container.hpp
 	include/sge/parse/json/convert/from_enum.hpp
 	include/sge/parse/json/convert/from_int.hpp
-	include/sge/parse/json/convert/to_enum.hpp
 	include/sge/parse/json/convert/to_int.hpp
 	include/sge/parse/json/convert/to_static_container.hpp
 	include/sge/parse/json/convert_from.hpp
