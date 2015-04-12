@@ -126,11 +126,11 @@ struct texture_level_functor
 										sge::renderer::texture::planar const *
 									>()(
 										&sge::sprite::deref_texture(
-											_left_tex.texture()
-										),
+											_left_tex
+										).texture(),
 										&sge::sprite::deref_texture(
-											_right_tex.texture()
-										)
+											_right_tex
+										).texture()
 									);
 							}
 						);
