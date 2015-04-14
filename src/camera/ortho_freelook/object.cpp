@@ -28,8 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/axis_event.hpp>
 #include <sge/input/mouse/device.hpp>
 #include <sge/renderer/vector2.hpp>
-#include <sge/renderer/projection/rect.hpp>
 #include <sge/renderer/projection/orthogonal.hpp>
+#include <sge/renderer/projection/rect.hpp>
 #include <sge/src/camera/set_pressed_if_appropriate.hpp>
 #include <fcppt/maybe_void.hpp>
 #include <fcppt/assert/optional_error.hpp>

@@ -19,10 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image2d/file_exception.hpp>
-#include <sge/media/optional_path.hpp>
 #include <sge/libpng/load_context.hpp>
 #include <sge/libpng/png.hpp>
 #include <sge/libpng/read_ptr.hpp>
+#include <sge/media/optional_path.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/from_void_ptr.hpp>
 #include <fcppt/cast/to_char_ptr.hpp>
