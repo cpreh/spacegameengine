@@ -74,10 +74,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex/buffer_fwd.hpp>
 #include <sge/renderer/vertex/const_optional_declaration_ref.hpp>
 #include <sge/renderer/vertex/count.hpp>
+#include <sge/renderer/vertex/declaration_fwd.hpp>
 #include <sge/renderer/vertex/first.hpp>
-#include <fcppt/dynamic_optional_cast.hpp>
+#include <fcppt/maybe.hpp>
+#include <fcppt/maybe_void.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_impl.hpp>
+#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/pre.hpp>
 
 #if defined(SGE_RENDERER_HAVE_CG)
@@ -156,46 +159,62 @@ sge::d3d9::render_context::object::offscreen_target(
 	sge::renderer::target::optional_offscreen_ref const &_new_target
 )
 {
-	if(
-		_new_target
-	)
-	{
-		FCPPT_ASSERT_PRE(
-			!offscreen_target_
-		);
+	fcppt::maybe(
+		_new_target,
+		[
+			this
+		]{
+			{
+				sge::d3d9::target::base &cur_target(
+					FCPPT_ASSERT_OPTIONAL_ERROR(
+						offscreen_target_
+					)
+				);
 
-		scoped_target_.target().active(
-			false
-		);
+				cur_target.active(
+					false
+				);
+			}
 
-		offscreen_target_ =
-			fcppt::dynamic_optional_cast<
-				sge::d3d9::target::base
-			>(
-				_new_target
+			offscreen_target_ =
+				sge::d3d9::render_context::object::optional_target_base_ref();
+
+			scoped_target_.target().active(
+				true
+			);
+		},
+		[
+			this
+		](
+			sge::renderer::target::offscreen &_target
+		)
+		{
+			FCPPT_ASSERT_PRE(
+				!offscreen_target_.has_value()
 			);
 
-		offscreen_target_->active(
-			true
-		);
-	}
-	else
-	{
-		FCPPT_ASSERT_PRE(
-			offscreen_target_
-		);
+			scoped_target_.target().active(
+				false
+			);
 
-		offscreen_target_->active(
-			false
-		);
+			sge::d3d9::target::base &new_target(
+				dynamic_cast<
+					sge::d3d9::target::base &
+				>(
+					_target
+				)
+			);
 
-		offscreen_target_ =
-			sge::d3d9::render_context::object::optional_target_base_ref();
+			new_target.active(
+				true
+			);
 
-		scoped_target_.target().active(
-			true
-		);
-	}
+			offscreen_target_ =
+				sge::d3d9::render_context::object::optional_target_base_ref(
+					new_target
+				);
+		}
+	);
 }
 
 void
@@ -264,17 +283,23 @@ sge::d3d9::render_context::object::deactivate_vertex_buffer(
 
 void
 sge::d3d9::render_context::object::vertex_declaration(
-	sge::renderer::vertex::const_optional_declaration_ref const &_declaration
+	sge::renderer::vertex::const_optional_declaration_ref const &_opt_declaration
 )
 {
-	if(
-		!_declaration
-	)
-		return;
-
-	sge::d3d9::devicefuncs::set_vertex_declaration(
-		parameters_.device(),
-		*_declaration
+	// TODO: How do we disable a vertex declaration?
+	fcppt::maybe_void(
+		_opt_declaration,
+		[
+			this
+		](
+			sge::renderer::vertex::declaration const &_declaration
+		)
+		{
+			sge::d3d9::devicefuncs::set_vertex_declaration(
+				parameters_.device(),
+				_declaration
+			);
+		}
 	);
 }
 

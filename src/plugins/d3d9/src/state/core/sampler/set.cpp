@@ -20,8 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/state/core/sampler/object.hpp>
 #include <sge/d3d9/state/core/sampler/set.hpp>
-#include <sge/renderer/state/core/sampler/const_optional_object_ref.hpp>
 #include <sge/renderer/state/core/sampler/const_optional_object_ref_map.hpp>
+#include <sge/renderer/state/core/sampler/object.hpp>
+#include <fcppt/maybe.hpp>
+#include <fcppt/cast/static_downcast.hpp>
 
 
 void
@@ -35,23 +37,29 @@ sge::d3d9::state::core::sampler::set(
 		:
 		_states
 	)
-	{
-		sge::renderer::state::core::sampler::const_optional_object_ref const &ref(
-			sampler.second
-		);
-
-		(
-			ref
-			?
-				static_cast<
-					sge::d3d9::state::core::sampler::object const &
-				>(
-					*ref
-				)
-			:
-				_default
+		fcppt::maybe(
+			sampler.second,
+			[
+				&_default
+			]()
+			-> sge::d3d9::state::core::sampler::object const &
+			{
+				return
+					_default;
+			},
+			[](
+				sge::renderer::state::core::sampler::object const &_ref
+			)
+			-> sge::d3d9::state::core::sampler::object const &
+			{
+				return
+					fcppt::cast::static_downcast<
+						sge::d3d9::state::core::sampler::object const &
+					>(
+						_ref
+					);
+			}
 		).set(
 			sampler.first
 		);
-	}
 }

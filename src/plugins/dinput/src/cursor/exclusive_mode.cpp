@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/window/event/object_fwd.hpp>
 #include <awl/backends/windows/window/event/processor.hpp>
 #include <awl/backends/windows/window/event/return_type.hpp>
+#include <fcppt/optional_comparison.hpp>
 #include <fcppt/algorithm/join_move.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
@@ -95,7 +96,9 @@ sge::dinput::cursor::exclusive_mode::on_temp_unacquire(
 )
 {
 	grab_event_ =
-		_event_type;
+		optional_event_type(
+			_event_type
+		);
 
 	sge::dinput::cursor::ungrab();
 
@@ -113,16 +116,17 @@ sge::dinput::cursor::exclusive_mode::on_temp_acquire(
 {
 	if(
 		grab_event_
-		&&
-		*grab_event_
 		==
-		_event_type
+		optional_event_type(
+			_event_type
+		)
 	)
 		sge::dinput::cursor::grab(
 			window_
 		);
 
-	grab_event_.reset();
+	grab_event_ =
+		optional_event_type();
 
 	return
 		awl::backends::windows::window::event::return_type(

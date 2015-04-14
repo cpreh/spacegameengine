@@ -21,11 +21,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/exception.hpp>
 #include <sge/font/parameters.hpp>
 #include <sge/font/parameters_to_string.hpp>
+#include <sge/font/ttf_size.hpp>
+#include <sge/font/weight/unit.hpp>
 #include <sge/gdifont/create_font.hpp>
 #include <sge/gdifont/delete_object_deleter.hpp>
 #include <sge/gdifont/hfont_unique_ptr.hpp>
 #include <sge/gdifont/include_windows.hpp>
+#include <fcppt/const.hpp>
+#include <fcppt/from_optional.hpp>
+#include <fcppt/maybe.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/to_signed.hpp>
 
 
 sge::gdifont::hfont_unique_ptr
@@ -35,26 +41,39 @@ sge::gdifont::create_font(
 {
 	HFONT const result(
 		CreateFont(
-			_parameters.ttf_size()
-			?
-				// TODO: convert this properly!
-				*_parameters.ttf_size()
-			:
-				0u
-			,
+			fcppt::maybe(
+				_parameters.ttf_size(),
+				fcppt::const_(
+					0
+				),
+				[](
+					sge::font::ttf_size const _size
+				)
+				-> int
+				{
+					// TODO: convert this properly!
+					return
+						_size;
+				}
+			),
 			0, // width
 			0, // escapement
 			0, // orientation
-			static_cast<
-				int
-			>(
-				_parameters.weight()
-				?
-					*_parameters.weight()
-				:
-					0u
-			)
-			,
+			fcppt::maybe(
+				_parameters.weight(),
+				fcppt::const_(
+					0
+				),
+				[](
+					sge::font::weight::unit const _weight
+				)
+				{
+					return
+						fcppt::cast::to_signed(
+							_weight
+						);
+				}
+			),
 			_parameters.italic()
 			?
 				TRUE
@@ -68,12 +87,12 @@ sge::gdifont::create_font(
 			CLIP_DEFAULT_PRECIS,
 			DEFAULT_QUALITY,
 			DEFAULT_PITCH | FF_DONTCARE,
-			(
-				_parameters.family()
-				?
-					*_parameters.family()
-				:
-					fcppt::string()
+			fcppt::from_optional(
+				_parameters.family(),
+				[]{
+					return
+						fcppt::string();
+				}
 			).c_str()
 		)
 	);
@@ -83,13 +102,14 @@ sge::gdifont::create_font(
 		==
 		nullptr
 	)
-		throw sge::font::exception(
-			FCPPT_TEXT("Unable to load GDI font: ")
-			+
-			sge::font::parameters_to_string(
-				_parameters
-			)
-		);
+		throw
+			sge::font::exception{
+				FCPPT_TEXT("Unable to load GDI font: ")
+				+
+				sge::font::parameters_to_string(
+					_parameters
+				)
+			};
 
 	return
 		sge::gdifont::hfont_unique_ptr(

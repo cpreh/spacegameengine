@@ -24,32 +24,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/convert/lock_rect.hpp>
 #include <sge/d3d9/surfacefuncs/lock_rect.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/lock_rect_fwd.hpp>
+#include <fcppt/maybe_void.hpp>
 #include <fcppt/text.hpp>
 
 
 D3DLOCKED_RECT const
 sge::d3d9::surfacefuncs::lock_rect(
 	IDirect3DSurface9 &_surface,
-	sge::d3d9::optional_lock_rect const &_rect,
+	sge::d3d9::optional_lock_rect const &_opt_rect,
 	sge::d3d9::lock_flags const _flags
 )
 {
-	D3DLOCKED_RECT ret = {};
+	D3DLOCKED_RECT ret;
 
-	RECT in_rect = {};
+	RECT in_rect;
 
-	if(
-		_rect
-	)
-		in_rect =
-			sge::d3d9::convert::lock_rect(
-				*_rect
-			);
+	fcppt::maybe_void(
+		_opt_rect,
+		[
+			&in_rect
+		](
+			sge::renderer::lock_rect const _rect
+		)
+		{
+			in_rect =
+				sge::d3d9::convert::lock_rect(
+					_rect
+				);
+		}
+	);
 
 	if(
 		_surface.LockRect(
 			&ret,
-			_rect
+			_opt_rect.has_value()
 			?
 				&in_rect
 			:
@@ -58,9 +67,11 @@ sge::d3d9::surfacefuncs::lock_rect(
 		)
 		!= D3D_OK
 	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("Surface::LockRect() failed!")
-		);
+		throw
+			sge::renderer::exception{
+				FCPPT_TEXT("Surface::LockRect() failed!")
+			};
 
-	return ret;
+	return
+		ret;
 }

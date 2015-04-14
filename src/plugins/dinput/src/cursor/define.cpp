@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/window/event/object_fwd.hpp>
 #include <awl/backends/windows/window/event/processor.hpp>
 #include <awl/backends/windows/window/event/return_type.hpp>
+#include <fcppt/maybe_void.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/cast/to_unsigned_fun.hpp>
@@ -68,12 +69,17 @@ FCPPT_PP_POP_WARNING
 
 sge::dinput::cursor::define::~define()
 {
-	if(
-		previous_cursor_
-	)
-		::SetCursor(
-			*previous_cursor_
-		);
+	fcppt::maybe_void(
+		previous_cursor_,
+		[](
+			HCURSOR const _cursor
+		)
+		{
+			::SetCursor(
+				_cursor
+			);
+		}
+	);
 }
 
 awl::backends::windows::window::event::return_type
@@ -88,9 +94,12 @@ sge::dinput::cursor::define::on_cursor(
 	);
 
 	if(
-		!previous_cursor_
+		!previous_cursor_.has_value()
 	)
-		previous_cursor_ = old;
+		previous_cursor_ =
+			optional_hcursor(
+				old
+			);
 
 	return
 		awl::backends::windows::window::event::return_type(

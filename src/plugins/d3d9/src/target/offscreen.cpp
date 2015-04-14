@@ -32,6 +32,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/surface_index.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <fcppt/dynamic_optional_cast.hpp>
+#include <fcppt/make_int_range.hpp>
+#include <fcppt/maybe_void.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/cast/size_fun.hpp>
@@ -91,7 +93,8 @@ sge::d3d9::target::offscreen::depth_stencil_surface(
 bool
 sge::d3d9::target::offscreen::needs_present() const
 {
-	return false;
+	return
+		false;
 }
 
 void
@@ -117,53 +120,66 @@ sge::d3d9::target::offscreen::change_surfaces(
 {
 	for(
 		// Don't deactivate the 0th color surface because D3D9 doesn't allow it
-		sge::d3d9::target::offscreen::color_surface_map::size_type index(
+		sge::d3d9::target::offscreen::color_surface_map::size_type const index
+		:
+		fcppt::make_int_range(
 			_activate
 			?
 				0u
 			:
 				1u
-		);
-		index != color_surfaces_.size();
-		++index
+			,
+			color_surfaces_.size()
+		)
 	)
-	{
-		sge::d3d9::target::offscreen::optional_color_surface_ref const surface(
+		fcppt::maybe_void(
 			color_surfaces_[
 				index
-			]
+			],
+			[
+				_activate,
+				index,
+				this
+			](
+				sge::d3d9::surface::color &_surface
+			)
+			{
+				sge::d3d9::devicefuncs::set_render_target(
+					this->device(),
+					fcppt::strong_typedef_construct_cast<
+						sge::renderer::target::surface_index,
+						fcppt::cast::size_fun
+					>(
+						index
+					),
+					_activate
+					?
+						&_surface.surface()
+					:
+						nullptr
+				);
+			}
 		);
 
-		if(
-			surface
+	fcppt::maybe_void(
+		depth_stencil_surface_,
+		[
+			_activate,
+			this
+		](
+			sge::d3d9::surface::depth_stencil &_surface
 		)
-			sge::d3d9::devicefuncs::set_render_target(
+		{
+			sge::d3d9::devicefuncs::set_depth_stencil_surface(
 				this->device(),
-				fcppt::strong_typedef_construct_cast<
-					sge::renderer::target::surface_index,
-					fcppt::cast::size_fun
-				>(
-					index
-				),
 				_activate
 				?
-					&surface->surface()
+					&_surface.surface()
 				:
 					nullptr
 			);
-	}
-
-	if(
-		depth_stencil_surface_
-	)
-		sge::d3d9::devicefuncs::set_depth_stencil_surface(
-			this->device(),
-			_activate
-			?
-				&depth_stencil_surface_->surface()
-			:
-				nullptr
-		);
+		}
+	);
 }
 
 template

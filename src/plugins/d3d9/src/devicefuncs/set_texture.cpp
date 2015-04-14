@@ -25,6 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/base.hpp>
 #include <sge/renderer/texture/const_optional_base_ref.hpp>
 #include <sge/renderer/texture/stage.hpp>
+#include <fcppt/const.hpp>
+#include <fcppt/maybe.hpp>
 #include <fcppt/text.hpp>
 
 
@@ -32,7 +34,7 @@ void
 sge::d3d9::devicefuncs::set_texture(
 	IDirect3DDevice9 &_device,
 	sge::renderer::texture::stage const _stage,
-	sge::renderer::texture::const_optional_base_ref const &_texture
+	sge::renderer::texture::const_optional_base_ref const &_opt_texture
 )
 {
 	if(
@@ -42,19 +44,31 @@ sge::d3d9::devicefuncs::set_texture(
 			>(
 				_stage.get()
 			),
-			_texture.has_value()
-			?
-				&dynamic_cast<
-					sge::d3d9::texture::base const &
+			fcppt::maybe(
+				_opt_texture,
+				fcppt::const_<
+					IDirect3DBaseTexture9 *
 				>(
-					*_texture
-				).get()
-			:
-				nullptr
+					nullptr
+				),
+				[](
+					sge::renderer::texture::base const &_texture
+				)
+				{
+					return
+						&dynamic_cast<
+							sge::d3d9::texture::base const &
+						>(
+							_texture
+						).get();
+				}
+			)
 		)
-		!= D3D_OK
+		!=
+		D3D_OK
 	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("SetTexture() failed!")
-		);
+		throw
+			sge::renderer::exception{
+				FCPPT_TEXT("SetTexture() failed!")
+			};
 }

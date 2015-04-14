@@ -23,11 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/occlusion_query/object.hpp>
 #include <sge/d3d9/queryfuncs/get_dword.hpp>
 #include <sge/d3d9/queryfuncs/issue.hpp>
-#include <sge/d3d9/queryfuncs/optional_dword.hpp>
 #include <sge/renderer/occlusion_query/blocking_wait.hpp>
 #include <sge/renderer/occlusion_query/object.hpp>
 #include <sge/renderer/occlusion_query/optional_pixel_count.hpp>
 #include <sge/renderer/occlusion_query/pixel_count.hpp>
+#include <fcppt/optional_bind_construct.hpp>
 
 
 sge::d3d9::occlusion_query::object::object(
@@ -71,26 +71,24 @@ sge::d3d9::occlusion_query::object::result(
 	sge::renderer::occlusion_query::blocking_wait const _block
 ) const
 {
-	sge::d3d9::queryfuncs::optional_dword const ret(
-		sge::d3d9::queryfuncs::get_dword(
-			*query_,
-			_block.get()
-			?
-				D3DGETDATA_FLUSH
-			:
-				0u
-		)
-	);
-
 	return
-		ret
-		?
-			sge::renderer::occlusion_query::optional_pixel_count(
-				sge::renderer::occlusion_query::pixel_count(
-					*ret
-				)
+		fcppt::optional_bind_construct(
+			sge::d3d9::queryfuncs::get_dword(
+				*query_,
+				_block.get()
+				?
+					D3DGETDATA_FLUSH
+				:
+					0u
+			),
+			[](
+				DWORD const _value
 			)
-		:
-			sge::renderer::occlusion_query::optional_pixel_count()
-		;
+			{
+				return
+					sge::renderer::occlusion_query::pixel_count(
+						_value
+					);
+			}
+		);
 }

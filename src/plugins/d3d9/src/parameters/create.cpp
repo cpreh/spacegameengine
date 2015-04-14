@@ -25,25 +25,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/parameters/convert/depth_stencil_buffer.hpp>
 #include <sge/d3d9/parameters/convert/multi_sample.hpp>
 #include <sge/d3d9/parameters/convert/multi_sample_quality.hpp>
+#include <sge/renderer/display_mode/object.hpp>
 #include <sge/renderer/display_mode/parameters.hpp>
+#include <sge/renderer/display_mode/refresh_rate.hpp>
 #include <sge/renderer/display_mode/vsync.hpp>
 #include <sge/renderer/pixel_format/depth_stencil.hpp>
 #include <sge/renderer/pixel_format/object.hpp>
 #include <awl/backends/windows/window/object.hpp>
 #include <awl/window/object.hpp>
+#include <fcppt/const.hpp>
+#include <fcppt/maybe.hpp>
+#include <fcppt/optional_bind.hpp>
 #include <fcppt/cast/static_downcast.hpp>
 
 
 D3DPRESENT_PARAMETERS const
 sge::d3d9::parameters::create(
 	sge::renderer::pixel_format::object const &_pixel_format,
-	sge::renderer::display_mode::parameters const &_display_mode,
+	sge::renderer::display_mode::parameters const &_parameters,
 	awl::window::object &_window
 )
 {
 	sge::renderer::screen_size const back_buffer_size(
 		sge::d3d9::parameters::extract_size(
-			_display_mode.display_mode(),
+			_parameters.display_mode(),
 			_window
 		)
 	);
@@ -52,10 +57,6 @@ sge::d3d9::parameters::create(
 		_pixel_format.depth_stencil()
 		!=
 		sge::renderer::pixel_format::depth_stencil::off
-	);
-
-	bool const is_windowed(
-		!_display_mode.display_mode()
 	);
 
 	D3DPRESENT_PARAMETERS const ret =
@@ -78,7 +79,7 @@ sge::d3d9::parameters::create(
 		>(
 			_window
 		).hwnd(), // hDeviceWindow
-		is_windowed, // Windowed
+		!_parameters.display_mode().has_value(), // Windowed
 		has_depth_stencil, // EnableAutoDepthStencil
 		sge::d3d9::parameters::convert::depth_stencil_buffer(
 			_pixel_format.depth_stencil()
@@ -89,20 +90,38 @@ sge::d3d9::parameters::create(
 		:
 			0u, // Flags
 		// FullScreen_RefreshRateInHz
-		(
-			!is_windowed && _display_mode.display_mode()->refresh_rate()
+		fcppt::maybe(
+			fcppt::optional_bind(
+				_parameters.display_mode(),
+				[](
+					sge::renderer::display_mode::object const &_display_mode
+				)
+				{
+					return
+						_display_mode.refresh_rate();
+				}
+			),
+			fcppt::const_(
+				0u
+			),
+			[](
+				sge::renderer::display_mode::refresh_rate const _refresh_rate
+			)
+			{
+				return
+					_refresh_rate.get();
+			}
 		)
-		?
-			_display_mode.display_mode()->refresh_rate()->get()
-		:
-			0u
 		,
-		_display_mode.vsync() == sge::renderer::display_mode::vsync::on
+		_parameters.vsync()
+		==
+		sge::renderer::display_mode::vsync::on
 		?
 			D3DPRESENT_INTERVAL_ONE
 		:
 			D3DPRESENT_INTERVAL_IMMEDIATE // PresentationInterval
 	};
 
-	return ret;
+	return
+		ret;
 }

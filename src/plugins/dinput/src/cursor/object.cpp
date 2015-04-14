@@ -34,7 +34,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/scroll_callback.hpp>
 #include <sge/input/cursor/scroll_code.hpp>
 #include <sge/input/cursor/scroll_event.hpp>
-#include <awl/backends/windows/optional_point.hpp>
 #include <awl/backends/windows/windows.hpp>
 #include <awl/backends/windows/event/type.hpp>
 #include <awl/backends/windows/window/object_fwd.hpp>
@@ -43,9 +42,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/window/event/processor.hpp>
 #include <awl/backends/windows/window/event/return_type.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/optional_bind.hpp>
+#include <fcppt/optional_bind_construct.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/algorithm/join_move.hpp>
 #include <fcppt/assign/make_container.hpp>
+#include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_unsigned_fun.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -178,42 +180,42 @@ sge::dinput::cursor::object::scroll_callback(
 sge::input::cursor::optional_position const
 sge::dinput::cursor::object::position() const
 {
-	awl::backends::windows::optional_point const cursor_pos(
-		sge::dinput::cursor::get_pos()
-	);
-
-	if(
-		!cursor_pos
-	)
-		return sge::input::cursor::optional_position();
-
-	awl::backends::windows::optional_point const transformed_pos(
-		awl::backends::windows::window::screen_to_client(
-			window_,
-			*cursor_pos
-		)
-	);
-
 	return
-		transformed_pos
-		?
-			sge::input::cursor::optional_position(
-				sge::input::cursor::position(
-					static_cast<
-						sge::input::cursor::position_unit
-					>(
-						transformed_pos->x
-					),
-					static_cast<
-						sge::input::cursor::position_unit
-					>(
-						transformed_pos->y
-					)
+		fcppt::optional_bind_construct(
+			fcppt::optional_bind(
+				sge::dinput::cursor::get_pos(),
+				[
+					this
+				](
+					POINT const _cursor_pos
 				)
+				{
+					return
+						awl::backends::windows::window::screen_to_client(
+							window_,
+							_cursor_pos
+						);
+				}
+			),
+			[](
+				POINT const _transformed_pos
 			)
-		:
-			sge::input::cursor::optional_position()
-		;
+			{
+				return
+					sge::input::cursor::position(
+						fcppt::cast::size<
+							sge::input::cursor::position_unit
+						>(
+							_transformed_pos.x
+						),
+						fcppt::cast::size<
+							sge::input::cursor::position_unit
+						>(
+							_transformed_pos.y
+						)
+					);
+			}
+		);
 }
 
 void
@@ -221,10 +223,13 @@ sge::dinput::cursor::object::mode(
 	sge::input::cursor::mode const _mode
 )
 {
-	mode_ = _mode;
+	mode_ =
+		_mode;
 
 	if(
-		mode_ == sge::input::cursor::mode::normal
+		mode_
+		==
+		sge::input::cursor::mode::normal
 	)
 		exclusive_mode_.reset();
 	else if(
@@ -236,7 +241,8 @@ sge::dinput::cursor::object::mode(
 void
 sge::dinput::cursor::object::acquire()
 {
-	has_focus_ = true;
+	has_focus_ =
+		true;
 
 	if(
 		mode_ == sge::input::cursor::mode::exclusive

@@ -22,25 +22,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/state/ffp/transform/set.hpp>
 #include <sge/renderer/state/ffp/transform/const_optional_object_ref.hpp>
 #include <sge/renderer/state/ffp/transform/mode.hpp>
+#include <sge/renderer/state/ffp/transform/object.hpp>
+#include <fcppt/maybe.hpp>
+#include <fcppt/cast/static_downcast.hpp>
 
 
 void
 sge::d3d9::state::ffp::transform::set(
 	sge::renderer::state::ffp::transform::mode const _mode,
-	sge::renderer::state::ffp::transform::const_optional_object_ref const &_state,
+	sge::renderer::state::ffp::transform::const_optional_object_ref const &_opt_state,
 	sge::d3d9::state::ffp::transform::object const &_default
 )
 {
-	(
-		_state
-		?
-			static_cast<
-				sge::d3d9::state::ffp::transform::object const &
-			>(
-				*_state
-			)
-		:
-			_default
+	fcppt::maybe(
+		_opt_state,
+		[
+			&_default
+		]()
+		-> sge::d3d9::state::ffp::transform::object const &
+		{
+			return
+				_default;
+		},
+		[](
+			sge::renderer::state::ffp::transform::object const &_state
+		)
+		-> sge::d3d9::state::ffp::transform::object const &
+		{
+			return
+				fcppt::cast::static_downcast<
+					sge::d3d9::state::ffp::transform::object const &
+				>(
+					_state
+				);
+		}
 	).set(
 		_mode
 	);

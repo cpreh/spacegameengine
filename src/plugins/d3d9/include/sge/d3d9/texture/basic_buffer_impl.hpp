@@ -36,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/lock_flags/from_mode.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
 #include <fcppt/optional_impl.hpp>
+#include <fcppt/cast/from_void_ptr.hpp>
 
 
 template<
@@ -142,7 +143,8 @@ sge::d3d9::texture::basic_buffer<
 
 	buffer_.reset();
 
-	locked_dest_.reset();
+	locked_dest_ =
+		locked_dest();
 }
 
 template<
@@ -210,25 +212,32 @@ sge::d3d9::texture::basic_buffer<
 		)
 	);
 
-	locked_dest_ =
+	typename
+	locked_dest::value_type const dest(
 		Types::lock(
 			*buffer_,
 			dest_rect,
 			lock_method
+		)
+	);
+
+	locked_dest_ =
+		locked_dest(
+			dest
 		);
 
 	return
 		View(
 			_make_view(
-				static_cast<
+				fcppt::cast::from_void_ptr<
 					sge::image::raw_pointer
 				>(
-					locked_dest_->pBits
+					dest.pBits
 				),
 				_area.size(),
 				color_format_,
 				sge::d3d9::make_pitch(
-					*locked_dest_,
+					dest,
 					_area.size(),
 					color_format_
 				)

@@ -45,16 +45,18 @@ sge::dinput::cursor::grab(
 		);
 
 		if(
-			!window_rect
+			!window_rect.has_value()
 		)
-			return false;
+			return
+				false;
 
 		if(
 			!sge::dinput::cursor::clip(
 				window_rect
 			)
 		)
-			return false;
+			return
+				false;
 	}
 
 	sge::dinput::cursor::set_capture(

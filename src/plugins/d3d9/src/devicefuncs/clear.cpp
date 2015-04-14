@@ -22,8 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/convert/to_color.hpp>
 #include <sge/d3d9/devicefuncs/clear.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/clear/back_buffer_value.hpp>
+#include <sge/renderer/clear/depth_buffer_value.hpp>
 #include <sge/renderer/clear/parameters.hpp>
-#include <fcppt/literal.hpp>
+#include <sge/renderer/clear/stencil_buffer_value.hpp>
+#include <fcppt/const.hpp>
+#include <fcppt/from_optional.hpp>
+#include <fcppt/maybe.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 
@@ -68,36 +73,53 @@ sge::d3d9::devicefuncs::clear(
 				_parameters.stencil_buffer(),
 				D3DCLEAR_STENCIL
 			),
-			_parameters.back_buffer()
-			?
-				sge::d3d9::convert::to_color(
-					*_parameters.back_buffer()
-				)
-			:
-				fcppt::literal<
+			fcppt::maybe(
+				_parameters.back_buffer(),
+				fcppt::const_<
 					D3DCOLOR
 				>(
 					0
+				),
+				[](
+					sge::renderer::clear::back_buffer_value const _back_buffer
 				)
-			,
-			_parameters.depth_buffer()
-			?
-				*_parameters.depth_buffer()
-			:
-				0.f
-			,
+				{
+					return
+						sge::d3d9::convert::to_color(
+							_back_buffer
+						);
+				}
+			),
+			fcppt::from_optional(
+				_parameters.depth_buffer(),
+				fcppt::const_(
+					0.f
+				)
+			),
 			// TODO: why is the stencil clear value a DWORD?
-			_parameters.stencil_buffer()
-			?
-				*_parameters.stencil_buffer()
-			:
-				0u
+			fcppt::maybe(
+				_parameters.stencil_buffer(),
+				fcppt::const_<
+					DWORD
+				>(
+					0
+				),
+				[](
+					sge::renderer::clear::stencil_buffer_value const _stencil_buffer
+				)
+				-> DWORD
+				{
+					return
+						_stencil_buffer;
+				}
+			)
 		)
 		!= D3D_OK
 	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("Clear() failed!")
-		);
+		throw
+			sge::renderer::exception{
+				FCPPT_TEXT("Clear() failed!")
+			};
 }
 
 namespace

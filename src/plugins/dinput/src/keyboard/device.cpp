@@ -33,12 +33,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/input/keyboard/key_repeat_event.hpp>
 #include <sge/input/keyboard/modifier.hpp>
+#include <sge/input/keyboard/optional_key_code.hpp>
 #include <sge/timer/basic_impl.hpp>
 #include <sge/timer/reset_when_expired.hpp>
+#include <fcppt/const.hpp>
+#include <fcppt/from_optional.hpp>
+#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional_comparison.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/container/find_opt.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
-#include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -189,20 +194,16 @@ sge::dinput::keyboard::device::on_dispatch(
 		)
 	);
 
-	sge::dinput::keyboard::key_map::const_iterator const it(
-		info_.key_map().find(
-			offset
-		)
-	);
-
 	sge::input::keyboard::key_code const key_code(
-		it
-		==
-		info_.key_map().end()
-		?
-			sge::input::keyboard::key_code::unknown
-		:
-			it->second
+		fcppt::from_optional(
+			fcppt::container::find_opt(
+				info_.key_map(),
+				offset
+			),
+			fcppt::const_(
+				sge::input::keyboard::key_code::unknown
+			)
+		)
 	);
 
 	key_signal_(
@@ -212,83 +213,105 @@ sge::dinput::keyboard::device::on_dispatch(
 		)
 	);
 
-	sge::dinput::keyboard::optional_uint const virtual_code(
+	fcppt::maybe_void(
 		sge::dinput::keyboard::map_virtual_key(
 			offset,
 			kblayout_
+		),
+		[
+			&_data,
+			offset,
+			key_value,
+			this
+		](
+			UINT const _virtual_code
 		)
-	);
-
-	if(
-		virtual_code
-		&&
-		*virtual_code
-		<
-		states_.size()
-	)
-		states_[
-			*virtual_code
-		] =
-			static_cast<
-				BYTE
-			>(
-				_data.dwOfs
-			);
-
-	if(
-		key_value
-		&&
-		virtual_code
-	)
-	{
-		sge::dinput::keyboard::char_vector const &chars(
-			sge::dinput::keyboard::keycode_to_chars(
-				*virtual_code,
-				offset,
-				states_,
-				kblayout_
+		{
+			if(
+				_virtual_code
+				<
+				states_.size()
 			)
-		);
+				states_[
+					_virtual_code
+				] =
+					static_cast<
+						BYTE
+					>(
+						_data.dwOfs
+					);
 
-		for(
-			auto const elem : chars
-		)
-			char_signal_(
-				sge::input::keyboard::char_event(
-					elem,
-					false
+			if(
+				!key_value
+			)
+				return;
+
+			sge::dinput::keyboard::char_vector const &chars(
+				sge::dinput::keyboard::keycode_to_chars(
+					_virtual_code,
+					offset,
+					states_,
+					kblayout_
 				)
 			);
-	}
+
+			for(
+				auto const elem
+				:
+				chars
+			)
+				char_signal_(
+					sge::input::keyboard::char_event(
+						elem,
+						false
+					)
+				);
+		}
+	);
 
 	if(
 		!key_value
 	)
 	{
-		old_key_code_.reset();
+		old_key_code_ =
+			sge::input::keyboard::optional_key_code();
 
 		repeat_time_.reset();
 	}
 	else if(
-		!old_key_code_
-		|| *old_key_code_ != key_code
+		old_key_code_
+		!=
+		sge::input::keyboard::optional_key_code(
+			key_code
+		)
 	)
 	{
 		repeat_time_.reset();
 
-		old_key_code_ = key_code;
+		old_key_code_ =
+			sge::input::keyboard::optional_key_code(
+				key_code
+			);
 	}
 
-	if(
-		old_key_code_
-		&&
-		sge::timer::reset_when_expired(
-			repeat_time_
+	fcppt::maybe_void(
+		old_key_code_,
+		[
+			this
+		](
+			sge::input::keyboard::key_code const _old_key_code
 		)
-	)
-		key_repeat_signal_(
-			sge::input::keyboard::key_repeat_event(
-				*old_key_code_
+		{
+			if(
+				sge::timer::reset_when_expired(
+					repeat_time_
+				)
 			)
-		);
+				key_repeat_signal_(
+					sge::input::keyboard::key_repeat_event(
+						_old_key_code
+					)
+				);
+		}
+	);
 }

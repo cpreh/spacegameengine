@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/align_h/center.hpp>
 #include <sge/font/align_h/extract_max_width.hpp>
 #include <sge/font/align_h/left_fwd.hpp>
-#include <sge/font/align_h/optional_max_width.hpp>
 #include <sge/font/align_h/right.hpp>
 #include <sge/font/align_h/variant.hpp>
 #include <sge/gdifont/calc_rect.hpp>
@@ -32,7 +31,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gdifont/format.hpp>
 #include <sge/gdifont/include_windows.hpp>
 #include <sge/gdifont/scoped_select.hpp>
+#include <fcppt/const.hpp>
+#include <fcppt/maybe.hpp>
 #include <fcppt/assert/error.hpp>
+#include <fcppt/cast/size.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <limits>
@@ -59,26 +61,29 @@ sge::gdifont::calc_rect(
 		>::max()
 	);
 
-	sge::font::align_h::optional_max_width const max_width(
-		sge::font::align_h::extract_max_width(
-			_align_h
-		)
-	);
-
 	RECT result =
 	{
 		0,
 		0,
-		max_width
-		?
-			static_cast<
-				LONG
-			>(
-				max_width->get()
+		fcppt::maybe(
+			sge::font::align_h::extract_max_width(
+				_align_h
+			),
+			fcppt::const_(
+				max_unit
+			),
+			[](
+				sge::font::align_h::max_width const _max_width
 			)
-		:
-			max_unit
-		,
+			{
+				return
+					fcppt::cast::size<
+						LONG
+					>(
+						_max_width.get()
+					);
+			}
+		),
 		max_unit
 	};
 
