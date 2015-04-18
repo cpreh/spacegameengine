@@ -74,9 +74,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/buffers/with_declaration.hpp>
 #include <sge/sprite/config/choices.hpp>
 #include <sge/sprite/config/float_type.hpp>
+#include <sge/sprite/config/normal_size.hpp>
 #include <sge/sprite/config/pos.hpp>
 #include <sge/sprite/config/pos_option.hpp>
-#include <sge/sprite/config/normal_size.hpp>
 #include <sge/sprite/config/texture_coordinates.hpp>
 #include <sge/sprite/config/texture_level_count.hpp>
 #include <sge/sprite/config/texture_ownership.hpp>
