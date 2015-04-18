@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_CENTER_FROM_POS_HPP_INCLUDED
 
 #include <sge/sprite/detail/get_size.hpp>
-#include <sge/sprite/types/center.hpp>
+#include <sge/sprite/types/pos.hpp>
 #include <sge/sprite/types/vector.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
